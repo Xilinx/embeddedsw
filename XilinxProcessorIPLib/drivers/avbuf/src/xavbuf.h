@@ -49,6 +49,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   aad  06/24/17 Initial release.
+ * 2.0   aad  10/07/17 Added Enums for Video and Audio sources.
  * </pre>
  *
 *******************************************************************************/
@@ -134,6 +135,44 @@ typedef enum {
 } XAVBuf_VideoModes;
 
 /**
+ * This typedef describes the video source list
+ */
+typedef enum {
+	XAVBUF_VIDSTREAM1_LIVE,
+	XAVBUF_VIDSTREAM1_NONLIVE,
+	XAVBUF_VIDSTREAM1_TPG,
+	XAVBUF_VIDSTREAM1_NONE,
+} XAVBuf_VideoStream;
+
+/**
+ * This typedef describes the graphics source list
+ */
+typedef enum {
+	XAVBUF_VIDSTREAM2_DISABLEGFX = 0x0,
+	XAVBUF_VIDSTREAM2_NONLIVE_GFX = 0x4,
+	XAVBUF_VIDSTREAM2_LIVE_GFX = 0x8,
+	XAVBUF_VIDSTREAM2_NONE = 0xC0,
+} XAVBuf_GfxStream;
+
+/**
+ * This typedef describes the audio stream 1 source list
+ */
+typedef enum {
+	XAVBUF_AUDSTREAM1_LIVE = 0x00,
+	XAVBUF_AUDSTREAM1_NONLIVE = 0x10,
+	XAVBUF_AUDSTREAM1_TPG = 0x20,
+	XAVBUF_AUDSTREAM1_NO_AUDIO = 0x30,
+} XAVBuf_AudioStream1;
+
+/**
+ * This typedef describes the audio stream 2 source list
+ */
+typedef enum {
+	XAVBUF_AUDSTREAM2_NO_AUDIO = 0X00,
+	XAVBUF_AUDSTREAM2_AUDIOGFX = 0X40,
+} XAVBuf_AudioStream2;
+
+/**
  * This typedef describes the attributes associated with the video formats.
  */
 typedef struct {
@@ -162,8 +201,10 @@ typedef struct {
 	XAVBuf_VideoAttribute *NonLiveVideo, *NonLiveGraphics;
 	XAVBuf_VideoAttribute *LiveVideo, *LiveGraphics;
 	XAVBuf_AudioAttribute *Audio, *GraphicsAudio;
-	u8 VideoSrc, GraphicsSrc;
-	u8 AudioSrc1, AudioSrc2;
+	XAVBuf_VideoStream VideoSrc;
+        XAVBuf_GfxStream GraphicsSrc;
+	XAVBuf_AudioStream1 AudioSrc1;
+	XAVBuf_AudioStream2 AudioSrc2;
 	u8 AudioClk, VideoClk;
 } XAVBuf_AVModes;
 
@@ -177,7 +218,7 @@ typedef struct {
 } XAVBuf_BlenderBgClr;
 
 /**
- *
+ * This typedef stores the AVBuf Configuration information.
  */
 typedef struct {
 	u16 DeviceId;
@@ -212,10 +253,10 @@ typedef struct {
 void XAVBuf_CfgInitialize(XAVBuf *InstancePtr, u32 BaseAddr, u16 DeviceId);
 
 /* xavbuf.c: Functions to setup the Input Video and Audio sources */
-void XAVBuf_InputVideoSelect(XAVBuf *InstancePtr, u8 VideoStream1,
-			      u8 VideoStream2);
-void XAVBuf_InputAudioSelect(XAVBuf *InstancePtr, u32 AudioStream1,
-			      u32 AudioStream2);
+void XAVBuf_InputVideoSelect(XAVBuf *InstancePtr, XAVBuf_VideoStream VidStream,
+			      XAVBuf_GfxStream GfxStream);
+void XAVBuf_InputAudioSelect(XAVBuf *InstancePtr, XAVBuf_AudioStream1 AudStream,
+				XAVBuf_AudioStream2 AudioStream2);
 
 /* xavbuf.c: Functions to setup the Video Format attributes */
 int XAVBuf_SetInputNonLiveVideoFormat(XAVBuf *InstancePtr,

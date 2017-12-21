@@ -197,6 +197,15 @@ static const PmAccessRegion pmAccessTable[] = {
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
+
+	/* FPD Lock status register */
+	{
+		.startAddr = PMU_LOCAL_DOMAIN_ISO_CNTRL,
+		.endAddr = PMU_LOCAL_DOMAIN_ISO_CNTRL,
+		.access = MMIO_ACCESS_RO(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
+	},
 };
 
 /**

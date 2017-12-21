@@ -227,6 +227,12 @@ void XV_SdiTxSs_LogDisplay(XV_SdiTxSs *InstancePtr)
 		case (XV_SDITXSS_LOG_EVT_UNDERFLOW):
 			xil_printf("TX Stream is Underflowed\r\n");
 			break;
+		case (XV_SDITXSS_LOG_EVT_CEALIGN):
+			xil_printf("TX Stream has CE align errors\r\n");
+			break;
+		case (XV_SDITXSS_LOG_EVT_AXI4SVIDLOCK):
+			xil_printf("TX Stream axi4s bridge locked\r\n");
+			break;
 		case (XV_SDITXSS_LOG_EVT_STREAMSTART):
 			xil_printf("TX Stream Start\r\n");
 			break;

@@ -117,10 +117,10 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>The following diagram shows the state transition for the DMA engine:</p>
 <pre>
   _____ <a class="el" href="group__axidma__v9__4.html#ga7b38bc9220c391823219937580bd816f" title="Start a DMA channel and Allow DMA transactions to commence on a given channel if descriptors are read...">XAxiDma_StartBdRingHw()</a>, or <a class="el" href="group__axidma__v9__4.html#gaafd18a1df185c30b4745c147e3295ac3" title="Start a DMA channel, updates current descriptors and Allow DMA transactions to commence on a given ch...">XAxiDma_BdRingStart()</a>,   ______
-  |   |               or <a class="el" href="group__axidma__v9__4.html#ga847cd9a0255fcb444bce58b945de8574" title="Resume DMA transactions on both channels. ">XAxiDma_Resume()</a>                    |    |
+  |   |               or <a class="el" href="group__axidma__v9__5.html#ga847cd9a0255fcb444bce58b945de8574" title="Resume DMA transactions on both channels. ">XAxiDma_Resume()</a>                    |    |
   | H |-----------------------------------------------------&gt;| NH |
   |   |&lt;-----------------------------------------------------|    |
-  -----   <a class="el" href="group__axidma__v9__4.html#gadb572b623215a7df62b1e0468e3bd68c" title="Pause DMA transactions on both channels. ">XAxiDma_Pause()</a> or <a class="el" href="group__axidma__v9__4.html#ga5b7d1248ef065915fd8c9e8d5e00640f" title="Reset both TX and RX channels of a DMA engine. ">XAxiDma_Reset()</a>                 ------
+  -----   <a class="el" href="group__axidma__v9__5.html#gadb572b623215a7df62b1e0468e3bd68c" title="Pause DMA transactions on both channels. ">XAxiDma_Pause()</a> or <a class="el" href="group__axidma__v9__5.html#ga5b7d1248ef065915fd8c9e8d5e00640f" title="Reset both TX and RX channels of a DMA engine. ">XAxiDma_Reset()</a>                 ------
 </pre><p><b>Interrupt Coalescing</b></p>
 <p>SGDMA provides control over the frequency of interrupts through interrupt coalescing. The DMA engine provides two ways to tune the interrupt coalescing:</p>
 <ul>
@@ -132,20 +132,20 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p><b> Software Initialization </b></p>
 <p>To use the Simple mode DMA engine for transfers, the following setup is required:</p>
 <ul>
-<li>DMA Initialization using <a class="el" href="group__axidma__v9__4.html#ga8026e76c90d891d21c9c355ff776cb77" title="This function initializes a DMA engine. ">XAxiDma_CfgInitialize()</a> function. This step initializes a driver instance for the given DMA engine and resets the engine.</li>
+<li>DMA Initialization using <a class="el" href="group__axidma__v9__5.html#ga8026e76c90d891d21c9c355ff776cb77" title="This function initializes a DMA engine. ">XAxiDma_CfgInitialize()</a> function. This step initializes a driver instance for the given DMA engine and resets the engine.</li>
 <li>Enable interrupts if chosen to use interrupt mode. The application is responsible for setting up the interrupt system, which includes providing and connecting interrupt handlers and call back functions, before enabling the interrupts.</li>
 <li>Set the buffer address and length field in respective channels to start the DMA transfer</li>
 </ul>
 <p>To use the SG mode DMA engine for transfers, the following setup are required:</p>
 <ul>
-<li>DMA Initialization using <a class="el" href="group__axidma__v9__4.html#ga8026e76c90d891d21c9c355ff776cb77" title="This function initializes a DMA engine. ">XAxiDma_CfgInitialize()</a> function. This step initializes a driver instance for the given DMA engine and resets the engine.</li>
+<li>DMA Initialization using <a class="el" href="group__axidma__v9__5.html#ga8026e76c90d891d21c9c355ff776cb77" title="This function initializes a DMA engine. ">XAxiDma_CfgInitialize()</a> function. This step initializes a driver instance for the given DMA engine and resets the engine.</li>
 <li>BD Ring creation. A BD ring is needed per DMA channel and can be built by calling <a class="el" href="group__axidma__v9__4.html#ga5c6d6f492642dd355478c3a853556d6b" title="Using a memory segment allocated by the caller, This fundtion creates and setup the BD ring...">XAxiDma_BdRingCreate()</a>.</li>
 <li>Enable interrupts if chose to use interrupt mode. The application is responsible for setting up the interrupt system, which includes providing and connecting interrupt handlers and call back functions, before enabling the interrupts.</li>
 <li>Start a DMA transfer: Call <a class="el" href="group__axidma__v9__4.html#gaafd18a1df185c30b4745c147e3295ac3" title="Start a DMA channel, updates current descriptors and Allow DMA transactions to commence on a given ch...">XAxiDma_BdRingStart()</a> to start a transfer for the first time or after a reset, and <a class="el" href="group__axidma__v9__4.html#gaac81111b373e373be7dd3989fffffe7b" title="Enqueue a set of BDs to hardware that were previously allocated by XAxiDma_BdRingAlloc(). ">XAxiDma_BdRingToHw()</a> if the channel is already started. Calling <a class="el" href="group__axidma__v9__4.html#gaac81111b373e373be7dd3989fffffe7b" title="Enqueue a set of BDs to hardware that were previously allocated by XAxiDma_BdRingAlloc(). ">XAxiDma_BdRingToHw()</a> when a DMA channel is not running will not put the BDs to the hardware, and the BDs will be processed later when the DMA channel is started through <a class="el" href="group__axidma__v9__4.html#gaafd18a1df185c30b4745c147e3295ac3" title="Start a DMA channel, updates current descriptors and Allow DMA transactions to commence on a given ch...">XAxiDma_BdRingStart()</a>.</li>
 </ul>
 <p><b> How to start DMA transactions </b></p>
 <p>The user application uses <a class="el" href="group__axidma__v9__4.html#gaac81111b373e373be7dd3989fffffe7b" title="Enqueue a set of BDs to hardware that were previously allocated by XAxiDma_BdRingAlloc(). ">XAxiDma_BdRingToHw()</a> to submit BDs to the hardware to start DMA transfers.</p>
-<p>For both channels, if the DMA engine is currently stopped (using <a class="el" href="group__axidma__v9__4.html#gadb572b623215a7df62b1e0468e3bd68c" title="Pause DMA transactions on both channels. ">XAxiDma_Pause()</a>), the newly added BDs will be accepted but not processed until the DMA engine is started, using <a class="el" href="group__axidma__v9__4.html#gaafd18a1df185c30b4745c147e3295ac3" title="Start a DMA channel, updates current descriptors and Allow DMA transactions to commence on a given ch...">XAxiDma_BdRingStart()</a>, or resumed, using <a class="el" href="group__axidma__v9__4.html#ga847cd9a0255fcb444bce58b945de8574" title="Resume DMA transactions on both channels. ">XAxiDma_Resume()</a>.</p>
+<p>For both channels, if the DMA engine is currently stopped (using <a class="el" href="group__axidma__v9__5.html#gadb572b623215a7df62b1e0468e3bd68c" title="Pause DMA transactions on both channels. ">XAxiDma_Pause()</a>), the newly added BDs will be accepted but not processed until the DMA engine is started, using <a class="el" href="group__axidma__v9__4.html#gaafd18a1df185c30b4745c147e3295ac3" title="Start a DMA channel, updates current descriptors and Allow DMA transactions to commence on a given ch...">XAxiDma_BdRingStart()</a>, or resumed, using <a class="el" href="group__axidma__v9__5.html#ga847cd9a0255fcb444bce58b945de8574" title="Resume DMA transactions on both channels. ">XAxiDma_Resume()</a>.</p>
 <p><b> Software Post-Processing on completed DMA transactions </b></p>
 <p>If the interrupt system has been set up and the interrupts are enabled, a DMA channels notifies the software about the completion of a transfer through interrupts. Otherwise, the user application can poll for completions of the BDs, using <a class="el" href="group__axidma__v9__4.html#ga1e5d328b4d4a247d1530fac3efe4c59c" title="Returns a set of BD(s) that have been processed by hardware. ">XAxiDma_BdRingFromHw()</a> or <a class="el" href="group__axidma__v9__4.html#ga844fc6b60315598387d17c8148a891e4" title="Check whether a BD has completed in hardware. ">XAxiDma_BdHwCompleted()</a>.</p>
 <ul>
@@ -191,7 +191,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p><b> Debug Print </b></p>
 <p>To see the debug print for the driver, please put "-DDEBUG" as the extra compiler flags in software platform settings. Also comment out the line in xdebug.h: "#undef DEBUG".</p>
 <p><b>Changes From v1.00a</b></p>
-<p>. We have changes return type for <a class="el" href="group__axidma__v9__4.html#gac1a9cb01ba6cd686ee08245f5e08cb22" title="Set the BD&#39;s buffer address. ">XAxiDma_BdSetBufAddr()</a> from void to int . We added <a class="el" href="group__axidma__v9__4.html#ga0cbcf5259635ea3c336fe5413c98f75c" title="Look up the hardware configuration for a device instance. ">XAxiDma_LookupConfig()</a> so that user does not need to look for the hardware settings anymore.</p>
+<p>. We have changes return type for <a class="el" href="group__axidma__v9__4.html#gac1a9cb01ba6cd686ee08245f5e08cb22" title="Set the BD&#39;s buffer address. ">XAxiDma_BdSetBufAddr()</a> from void to int . We added <a class="el" href="group__axidma__v9__5.html#gacd79fe1f2642f5cf8423e483b6f54e6e" title="Look up the hardware configuration for a device instance. ">XAxiDma_LookupConfig()</a> so that user does not need to look for the hardware settings anymore.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <hr/>
@@ -219,7 +219,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </li>
 </ul>
 </pre><pre>Changed APIs:
-                * <a class="el" href="group__axidma__v9__4.html#ga6373ac3baa5365607f6727f4e2ece7a5" title="Get Receive (Rx) Ring ptr. ">XAxiDma_GetRxRing(InstancePtr, RingIndex)</a>
+                * <a class="el" href="group__axidma__v9__5.html#ga6373ac3baa5365607f6727f4e2ece7a5" title="Get Receive (Rx) Ring ptr. ">XAxiDma_GetRxRing(InstancePtr, RingIndex)</a>
                 * XAxiDma_Start(XAxiDma * InstancePtr, int RingIndex)
                 * XAxiDma_Started(XAxiDma * InstancePtr, int RingIndex)
                 * XAxiDma_Pause(XAxiDma * InstancePtr, int RingIndex)
@@ -249,7 +249,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 7.00a srt  06/18/12  All the APIs changed in v6_00_a are reverted back for
                backward compatibility.<ul>
 <li>New API:
-                  <a class="el" href="group__axidma__v9__4.html#gaf03e87b58cf2f9800e6260fda3745631" title="Get Receive (Rx) Ring ptr of a Index. ">XAxiDma_GetRxIndexRing(InstancePtr, RingIndex)</a>
+                  <a class="el" href="group__axidma__v9__5.html#gaf03e87b58cf2f9800e6260fda3745631" title="Get Receive (Rx) Ring ptr of a Index. ">XAxiDma_GetRxIndexRing(InstancePtr, RingIndex)</a>
 7.01a srt  10/26/12  - Fixed issue with driver as it fails with IP version
                  &lt; 6.00a as the parameter C_NUM__CHANNELS is not
                  applicable.</li>
@@ -290,6 +290,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 9.4  adk   25/07/17 Added example for cyclic dma mode CR#974218.
      adk   08/08/17 Fixed CR#980607 Can't select individual AXI DMA code examples.
               Fixed compilation warning in the driver
+9.5  adk   17/10/17 Fixed CR#987026 mulit packet example fails on A53.
+             26/10/17 Fixed CR#987214 Fix race condition in the <a class="el" href="group__axidma__v9__5.html#ga5b7d1248ef065915fd8c9e8d5e00640f" title="Reset both TX and RX channels of a DMA engine. ">XAxiDma_Reset()</a>.
+     rsp   11/01/17 Fixed CR#988210 Add interface to do config lookup based
+                    on base address.
 
 </em></pre></div></div><!-- contents -->
 </div><!-- doc-content -->

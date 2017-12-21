@@ -35,8 +35,8 @@ OPTION psf_version = 2.1;
 BEGIN driver dppsu
         OPTION supported_peripherals = (psu_dp);
         OPTION driver_state = ACTIVE;
-	OPTION depends = (video_common avbuf_v1_0);
+	OPTION depends = (video_common avbuf);
         OPTION copyfiles = all;
-        OPTION VERSION = 1.0;
+        OPTION VERSION = 1.1;
         OPTION NAME = dppsu;
 END driver

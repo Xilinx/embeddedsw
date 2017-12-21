@@ -55,6 +55,9 @@
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XSDIRXSS_LINE_RATE_3G	0
+#define XSDIRXSS_LINE_RATE_6G	1
+#define XSDIRXSS_LINE_RATE_12G8DS	2
 
 
 /**************************** Type Definitions *******************************/
@@ -519,6 +522,19 @@ XSdiVid_Transport *XV_SdiRxSs_GetTransport(XV_SdiRxSs *InstancePtr)
 
 XSdiVid_TransMode XV_SdiRxSs_GetTransportMode(XV_SdiRxSs *InstancePtr)
 {
+	XSdiVid_TransMode TMode;
+	TMode =  InstancePtr->SdiRxPtr->Transport.TMode;
+
+	/* Following assertions make sure the IPSS is configured with in the
+	 * subsystem GUI paramter limit
+	 */
+	Xil_AssertVoid((InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_3G) &&
+			(TMode <= XSDIVID_MODE_3GB) ||
+			(InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_6G) &&
+			(TMode <= XSDIVID_MODE_6G) ||
+			(InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_12G8DS) &&
+			(TMode <= XSDIVID_MODE_12G));
+
 	return InstancePtr->SdiRxPtr->Transport.TMode;
 }
 
@@ -734,4 +750,30 @@ void XV_SdiRxSs_IntrDisable(XV_SdiRxSs *InstancePtr, u32 IntrMask)
 	IntrMask &= XV_SDIRXSS_IER_ALLINTR_MASK;
 	Xil_AssertVoid(IntrMask != 0);
 	XV_SdiRx_IntrDisable(SdiRxPtr, IntrMask);
+}
+
+
+/*****************************************************************************/
+/**
+* This function is used to wait for the payload valid bit to be set.
+* This has to be called from application based on the callback indication of
+* the video lock interrupt handler.
+
+* @param	InstancePtr pointer to XV_SdiRxSs instance
+*
+* @return
+*		- XST_FAILURE if the payload valid bits are not set.
+*		- XST_SUCCESS if ST352 registers are read and loaded to
+*		  Rx structures
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XV_SdiRxSs_WaitforPayLoad(XV_SdiRxSs *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->SdiRxPtr != NULL);
+
+	return XV_SdiRx_WaitforPayLoad(InstancePtr->SdiRxPtr);
 }

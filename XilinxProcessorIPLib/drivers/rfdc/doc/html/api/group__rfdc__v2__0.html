@@ -281,6 +281,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gac25ed078d45d84a71eb368dcf4f82b46"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rfdc__v2__0.html#gac25ed078d45d84a71eb368dcf4f82b46">XRFdc_SetupFIFO</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, int Tile_Id, u8 Enable)</td></tr>
 <tr class="memdesc:gac25ed078d45d84a71eb368dcf4f82b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable and Disable the ADC/DAC FIFO.  <a href="#gac25ed078d45d84a71eb368dcf4f82b46">More...</a><br /></td></tr>
 <tr class="separator:gac25ed078d45d84a71eb368dcf4f82b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae2a8ac4c4184eb047788d4fc7579a02c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rfdc__v2__0.html#gae2a8ac4c4184eb047788d4fc7579a02c">XRFdc_GetFIFOStatus</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, int Tile_Id, u8 *Enable)</td></tr>
+<tr class="memdesc:gae2a8ac4c4184eb047788d4fc7579a02c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current status of ADC/DAC FIFO.  <a href="#gae2a8ac4c4184eb047788d4fc7579a02c">More...</a><br /></td></tr>
+<tr class="separator:gae2a8ac4c4184eb047788d4fc7579a02c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaef68641092a0d79cdf1b344f2bef02c1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rfdc__v2__0.html#gaef68641092a0d79cdf1b344f2bef02c1">XRFdc_SetNyquistZone</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, int Tile_Id, u32 Block_Id, u32 NyquistZone)</td></tr>
 <tr class="memdesc:gaef68641092a0d79cdf1b344f2bef02c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Nyquist zone.  <a href="#gaef68641092a0d79cdf1b344f2bef02c1">More...</a><br /></td></tr>
 <tr class="separator:gaef68641092a0d79cdf1b344f2bef02c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -616,12 +619,21 @@ Register Map</h2></td></tr>
 <tr class="memitem:ga4e226a0a8cb536930a8755160afef0b3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rfdc__v2__0.html#ga4e226a0a8cb536930a8755160afef0b3">XRFDC_DAC_DECODER_CTRL_OFFSET</a>&#160;&#160;&#160;0x180U</td></tr>
 <tr class="memdesc:ga4e226a0a8cb536930a8755160afef0b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">DAC Unary Decoder/ Randomizer settings.  <a href="#ga4e226a0a8cb536930a8755160afef0b3">More...</a><br /></td></tr>
 <tr class="separator:ga4e226a0a8cb536930a8755160afef0b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0cc20a9ffe3f8b77fbc5ccf52fcdece0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rfdc__v2__0.html#ga0cc20a9ffe3f8b77fbc5ccf52fcdece0">XRFDC_DAC_DECODER_CLK_OFFSET</a>&#160;&#160;&#160;0x184U</td></tr>
+<tr class="memdesc:ga0cc20a9ffe3f8b77fbc5ccf52fcdece0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decoder Clock enable.  <a href="#ga0cc20a9ffe3f8b77fbc5ccf52fcdece0">More...</a><br /></td></tr>
+<tr class="separator:ga0cc20a9ffe3f8b77fbc5ccf52fcdece0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8228c0e5440a1835d0ec58b4c9544615"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rfdc__v2__0.html#ga8228c0e5440a1835d0ec58b4c9544615">XRFDC_HSCOM_PWR_OFFSET</a>&#160;&#160;&#160;0x094</td></tr>
 <tr class="memdesc:ga8228c0e5440a1835d0ec58b4c9544615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control register during power-up sequence.  <a href="#ga8228c0e5440a1835d0ec58b4c9544615">More...</a><br /></td></tr>
 <tr class="separator:ga8228c0e5440a1835d0ec58b4c9544615"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga89f025f88acd17f1226901735df769d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rfdc__v2__0.html#ga89f025f88acd17f1226901735df769d9">XRFDC_HSCOM_UPDT_DYN_OFFSET</a>&#160;&#160;&#160;0x0B8</td></tr>
 <tr class="memdesc:ga89f025f88acd17f1226901735df769d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger the update dynamic event.  <a href="#ga89f025f88acd17f1226901735df769d9">More...</a><br /></td></tr>
 <tr class="separator:ga89f025f88acd17f1226901735df769d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafe01e9fab71fc942e2e76c8384186000"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rfdc__v2__0.html#gafe01e9fab71fc942e2e76c8384186000">XRFDC_DAC_INVSINC_OFFSET</a>&#160;&#160;&#160;0x0C0U</td></tr>
+<tr class="memdesc:gafe01e9fab71fc942e2e76c8384186000"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invsinc control.  <a href="#gafe01e9fab71fc942e2e76c8384186000">More...</a><br /></td></tr>
+<tr class="separator:gafe01e9fab71fc942e2e76c8384186000"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga738d73a6d313704be82dc2908c289056"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rfdc__v2__0.html#ga738d73a6d313704be82dc2908c289056">XRFDC_DAC_MB_CFG_OFFSET</a>&#160;&#160;&#160;0x0C4U</td></tr>
+<tr class="memdesc:ga738d73a6d313704be82dc2908c289056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiband config.  <a href="#ga738d73a6d313704be82dc2908c289056">More...</a><br /></td></tr>
+<tr class="separator:ga738d73a6d313704be82dc2908c289056"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga11e0f8900ba277a93fd6d4738d0b68ba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rfdc__v2__0.html#ga11e0f8900ba277a93fd6d4738d0b68ba">XRFDC_RESET_OFFSET</a>&#160;&#160;&#160;0x00U</td></tr>
 <tr class="memdesc:ga11e0f8900ba277a93fd6d4738d0b68ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tile reset register.  <a href="#ga11e0f8900ba277a93fd6d4738d0b68ba">More...</a><br /></td></tr>
 <tr class="separator:ga11e0f8900ba277a93fd6d4738d0b68ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2039,6 +2051,28 @@ Converter(X) interrupt register</h2></td></tr>
 <tr class="memitem:gad0ba9594288ba5b34dad38ad5b99ed9e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rfdc__v2__0.html#gad0ba9594288ba5b34dad38ad5b99ed9e">XRFDC_INTR_OVR_VOLTAGE_MASK</a>&#160;&#160;&#160;0x00000004U</td></tr>
 <tr class="memdesc:gad0ba9594288ba5b34dad38ad5b99ed9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Over Voltage interrupt mask.  <a href="#gad0ba9594288ba5b34dad38ad5b99ed9e">More...</a><br /></td></tr>
 <tr class="separator:gad0ba9594288ba5b34dad38ad5b99ed9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga11fc5e3d37ec8e5afe801381e5c8dc31"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rfdc__v2__0.html#ga11fc5e3d37ec8e5afe801381e5c8dc31">XRFDC_INTR_FIFO_OVR_MASK</a>&#160;&#160;&#160;0x00008000U</td></tr>
+<tr class="memdesc:ga11fc5e3d37ec8e5afe801381e5c8dc31"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIFO OF mask.  <a href="#ga11fc5e3d37ec8e5afe801381e5c8dc31">More...</a><br /></td></tr>
+<tr class="separator:ga11fc5e3d37ec8e5afe801381e5c8dc31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafc3ee848501150f1e57d69433a8539fe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rfdc__v2__0.html#gafc3ee848501150f1e57d69433a8539fe">XRFDC_INTR_DAT_OVR_MASK</a>&#160;&#160;&#160;0x00004000U</td></tr>
+<tr class="memdesc:gafc3ee848501150f1e57d69433a8539fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data OF mask.  <a href="#gafc3ee848501150f1e57d69433a8539fe">More...</a><br /></td></tr>
+<tr class="separator:gafc3ee848501150f1e57d69433a8539fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Multiband config register</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpae435b8f2b32a6dd152b543c386d544b"></a>This register contains bits to configure multiband. </p>
+</td></tr>
+<tr class="memitem:gad882c86da84fb558d95d22eb1ce70a2e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rfdc__v2__0.html#gad882c86da84fb558d95d22eb1ce70a2e">XRFDC_EN_MB_MASK</a>&#160;&#160;&#160;0x00000008U</td></tr>
+<tr class="memdesc:gad882c86da84fb558d95d22eb1ce70a2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">multi-band adder mask  <a href="#gad882c86da84fb558d95d22eb1ce70a2e">More...</a><br /></td></tr>
+<tr class="separator:gad882c86da84fb558d95d22eb1ce70a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Invsinc control register</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp139b7b8cd35a28fb194b9d4101e74dae"></a>This register contains bits to configure Invsinc. </p>
+</td></tr>
+<tr class="memitem:gaad0e92bc8e42dfaca20bddc7dd1d53b8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rfdc__v2__0.html#gaad0e92bc8e42dfaca20bddc7dd1d53b8">XRFDC_EN_INVSINC_MASK</a>&#160;&#160;&#160;0x00000001U</td></tr>
+<tr class="memdesc:gaad0e92bc8e42dfaca20bddc7dd1d53b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">invsinc enable mask  <a href="#gaad0e92bc8e42dfaca20bddc7dd1d53b8">More...</a><br /></td></tr>
+<tr class="separator:gaad0e92bc8e42dfaca20bddc7dd1d53b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="gaf58758e5a7e4d0cdcbef777c033202b1"></a>
@@ -3969,6 +4003,24 @@ Converter(X) interrupt register</h2></td></tr>
 
 </div>
 </div>
+<a id="ga0cc20a9ffe3f8b77fbc5ccf52fcdece0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0cc20a9ffe3f8b77fbc5ccf52fcdece0">&#9670;&nbsp;</a></span>XRFDC_DAC_DECODER_CLK_OFFSET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XRFDC_DAC_DECODER_CLK_OFFSET&#160;&#160;&#160;0x184U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xrfdc__hw_8h.html">xrfdc_hw.h</a>&gt;</code></p>
+
+<p>Decoder Clock enable. </p>
+
+</div>
+</div>
 <a id="ga4e226a0a8cb536930a8755160afef0b3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga4e226a0a8cb536930a8755160afef0b3">&#9670;&nbsp;</a></span>XRFDC_DAC_DECODER_CTRL_OFFSET</h2>
 
@@ -4056,6 +4108,42 @@ Converter(X) interrupt register</h2></td></tr>
 <p><code>#include &lt;<a class="el" href="xrfdc__hw_8h.html">xrfdc_hw.h</a>&gt;</code></p>
 
 <p>DAC Interpolation Control Register. </p>
+
+</div>
+</div>
+<a id="gafe01e9fab71fc942e2e76c8384186000"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafe01e9fab71fc942e2e76c8384186000">&#9670;&nbsp;</a></span>XRFDC_DAC_INVSINC_OFFSET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XRFDC_DAC_INVSINC_OFFSET&#160;&#160;&#160;0x0C0U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xrfdc__hw_8h.html">xrfdc_hw.h</a>&gt;</code></p>
+
+<p>Invsinc control. </p>
+
+</div>
+</div>
+<a id="ga738d73a6d313704be82dc2908c289056"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga738d73a6d313704be82dc2908c289056">&#9670;&nbsp;</a></span>XRFDC_DAC_MB_CFG_OFFSET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XRFDC_DAC_MB_CFG_OFFSET&#160;&#160;&#160;0x0C4U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xrfdc__hw_8h.html">xrfdc_hw.h</a>&gt;</code></p>
+
+<p>Multiband config. </p>
 
 </div>
 </div>
@@ -5263,6 +5351,42 @@ Converter(X) interrupt register</h2></td></tr>
 
 </div>
 </div>
+<a id="gaad0e92bc8e42dfaca20bddc7dd1d53b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaad0e92bc8e42dfaca20bddc7dd1d53b8">&#9670;&nbsp;</a></span>XRFDC_EN_INVSINC_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XRFDC_EN_INVSINC_MASK&#160;&#160;&#160;0x00000001U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xrfdc__hw_8h.html">xrfdc_hw.h</a>&gt;</code></p>
+
+<p>invsinc enable mask </p>
+
+</div>
+</div>
+<a id="gad882c86da84fb558d95d22eb1ce70a2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad882c86da84fb558d95d22eb1ce70a2e">&#9670;&nbsp;</a></span>XRFDC_EN_MB_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XRFDC_EN_MB_MASK&#160;&#160;&#160;0x00000008U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xrfdc__hw_8h.html">xrfdc_hw.h</a>&gt;</code></p>
+
+<p>multi-band adder mask </p>
+
+</div>
+</div>
 <a id="ga51daa90a995744e8c846c0287f6689a3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga51daa90a995744e8c846c0287f6689a3">&#9670;&nbsp;</a></span>XRFDC_EN_Q_IQ_MASK</h2>
 
@@ -5767,6 +5891,24 @@ Converter(X) interrupt register</h2></td></tr>
 
 </div>
 </div>
+<a id="gafc3ee848501150f1e57d69433a8539fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafc3ee848501150f1e57d69433a8539fe">&#9670;&nbsp;</a></span>XRFDC_INTR_DAT_OVR_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XRFDC_INTR_DAT_OVR_MASK&#160;&#160;&#160;0x00004000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xrfdc__hw_8h.html">xrfdc_hw.h</a>&gt;</code></p>
+
+<p>Data OF mask. </p>
+
+</div>
+</div>
 <a id="ga1b75af0597b8e14a9d731bbbe4b33377"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga1b75af0597b8e14a9d731bbbe4b33377">&#9670;&nbsp;</a></span>XRFDC_INTR_ENABLE</h2>
 
@@ -5782,6 +5924,24 @@ Converter(X) interrupt register</h2></td></tr>
 <p><code>#include &lt;<a class="el" href="xrfdc__hw_8h.html">xrfdc_hw.h</a>&gt;</code></p>
 
 <p>Intr enable register. </p>
+
+</div>
+</div>
+<a id="ga11fc5e3d37ec8e5afe801381e5c8dc31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga11fc5e3d37ec8e5afe801381e5c8dc31">&#9670;&nbsp;</a></span>XRFDC_INTR_FIFO_OVR_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XRFDC_INTR_FIFO_OVR_MASK&#160;&#160;&#160;0x00008000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xrfdc__hw_8h.html">xrfdc_hw.h</a>&gt;</code></p>
+
+<p>FIFO OF mask. </p>
 
 </div>
 </div>
@@ -9687,6 +9847,65 @@ Converter(X) interrupt register</h2></td></tr>
 
 </div>
 </div>
+<a id="gae2a8ac4c4184eb047788d4fc7579a02c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae2a8ac4c4184eb047788d4fc7579a02c">&#9670;&nbsp;</a></span>XRFdc_GetFIFOStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XRFdc_GetFIFOStatus </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_r_fdc.html">XRFdc</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>Tile_Id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&#160;</td>
+          <td class="paramname"><em>Enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xrfdc_8h.html">xrfdc.h</a>&gt;</code></p>
+
+<p>Current status of ADC/DAC FIFO. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XRfdc instance. </td></tr>
+    <tr><td class="paramname">Type</td><td>is ADC or DAC. 0 for ADC and 1 for DAC </td></tr>
+    <tr><td class="paramname">Tile_Id</td><td>Valid values are 0-3. </td></tr>
+    <tr><td class="paramname">Enable</td><td>valid values are 1 (FIFO enable) and 0 (FIFO Disable)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XRFDC_SUCCESS if successful.</li>
+<li>XRFDC_FAILURE if Tile not enabled.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Common API for ADC/DAC blocks </dd></dl>
+
+</div>
+</div>
 <a id="gae567631f87c3f222aca40c47a29cb96a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gae567631f87c3f222aca40c47a29cb96a">&#9670;&nbsp;</a></span>XRFdc_GetInterpolationFactor()</h2>
 
@@ -9914,7 +10133,7 @@ Converter(X) interrupt register</h2></td></tr>
 <ul>
 <li>XRFDC_FAILURE if Block not enabled.</li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>FineMixerScale in Mixer_Settings structure can have 3 values. XRFDC_MXR_SCALE_* represents the valid return values. XRFDC_MXR_SCALE_NO_CHANGE - Default driver implementation. XRFDC_MXR_SCALE_ONE - If fine Mixer Scale is set to 1 by user. XRFDC_MXR_SCALE_ZERO_DOT_SEVEN - If fine mixer scale is set to 0.7 by user. </dd></dl>
 
 </div>
 </div>
@@ -10944,7 +11163,7 @@ Converter(X) interrupt register</h2></td></tr>
 <ul>
 <li>XRFDC_FAILURE if Block not enabled.</li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>FineMixerScale in Mixer_Settings structure can have 3 values. XRFDC_MXR_SCALE_* represents the valid values. XRFDC_MXR_SCALE_NO_CHANGE - If mixer mode R2C, Mixer Scale is set to 1 and for other modes mixer scale is set to 0.7 XRFDC_MXR_SCALE_ONE - To set fine mixer scale to 1. XRFDC_MXR_SCALE_ZERO_DOT_SEVEN - To set fine mixer scale to 0.7. </dd></dl>
 
 </div>
 </div>

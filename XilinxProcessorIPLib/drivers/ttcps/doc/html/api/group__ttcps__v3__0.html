@@ -129,7 +129,7 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:ga53dc7ab3b92f330e5a47807febfcd26d"><td class="memItemLeft" align="right" valign="top">typedef u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ttcps__v3__0.html#ga53dc7ab3b92f330e5a47807febfcd26d">XInterval</a></td></tr>
-<tr class="memdesc:ga53dc7ab3b92f330e5a47807febfcd26d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains interval count.  <a href="#ga53dc7ab3b92f330e5a47807febfcd26d">More...</a><br /></td></tr>
+<tr class="memdesc:ga53dc7ab3b92f330e5a47807febfcd26d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains interval count and Match register value.  <a href="#ga53dc7ab3b92f330e5a47807febfcd26d">More...</a><br /></td></tr>
 <tr class="separator:ga53dc7ab3b92f330e5a47807febfcd26d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -137,12 +137,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gae49e15051a6bc16bc2a5369832f1a584"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ttcps__v3__0.html#gae49e15051a6bc16bc2a5369832f1a584">XTtcPs_CfgInitialize</a> (<a class="el" href="struct_x_ttc_ps.html">XTtcPs</a> *InstancePtr, <a class="el" href="struct_x_ttc_ps___config.html">XTtcPs_Config</a> *ConfigPtr, u32 EffectiveAddr)</td></tr>
 <tr class="memdesc:gae49e15051a6bc16bc2a5369832f1a584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific <a class="el" href="struct_x_ttc_ps.html" title="The XTtcPs driver instance data. ">XTtcPs</a> instance such that the driver is ready to use.  <a href="#gae49e15051a6bc16bc2a5369832f1a584">More...</a><br /></td></tr>
 <tr class="separator:gae49e15051a6bc16bc2a5369832f1a584"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2b45b9a6c4ce17cf5b50953528de9c65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ttcps__v3__0.html#ga2b45b9a6c4ce17cf5b50953528de9c65">XTtcPs_SetMatchValue</a> (<a class="el" href="struct_x_ttc_ps.html">XTtcPs</a> *InstancePtr, u8 MatchIndex, u16 Value)</td></tr>
-<tr class="memdesc:ga2b45b9a6c4ce17cf5b50953528de9c65"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to set the match registers.  <a href="#ga2b45b9a6c4ce17cf5b50953528de9c65">More...</a><br /></td></tr>
-<tr class="separator:ga2b45b9a6c4ce17cf5b50953528de9c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3a1b17e7784d4251cbeeb6339ffe8a83"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ttcps__v3__0.html#ga3a1b17e7784d4251cbeeb6339ffe8a83">XTtcPs_GetMatchValue</a> (<a class="el" href="struct_x_ttc_ps.html">XTtcPs</a> *InstancePtr, u8 MatchIndex)</td></tr>
-<tr class="memdesc:ga3a1b17e7784d4251cbeeb6339ffe8a83"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to get the value of the match registers.  <a href="#ga3a1b17e7784d4251cbeeb6339ffe8a83">More...</a><br /></td></tr>
-<tr class="separator:ga3a1b17e7784d4251cbeeb6339ffe8a83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf400713723ba81109ac83fc1800681b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ttcps__v3__0.html#gaf400713723ba81109ac83fc1800681b2">XTtcPs_SetMatchValue</a> (<a class="el" href="struct_x_ttc_ps.html">XTtcPs</a> *InstancePtr, u8 MatchIndex, XMatchRegValue Value)</td></tr>
+<tr class="memdesc:gaf400713723ba81109ac83fc1800681b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to set the match registers.  <a href="#gaf400713723ba81109ac83fc1800681b2">More...</a><br /></td></tr>
+<tr class="separator:gaf400713723ba81109ac83fc1800681b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1e494683b5f905fdd8184192680b8a3c"><td class="memItemLeft" align="right" valign="top">XMatchRegValue&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ttcps__v3__0.html#ga1e494683b5f905fdd8184192680b8a3c">XTtcPs_GetMatchValue</a> (<a class="el" href="struct_x_ttc_ps.html">XTtcPs</a> *InstancePtr, u8 MatchIndex)</td></tr>
+<tr class="memdesc:ga1e494683b5f905fdd8184192680b8a3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to get the value of the match registers.  <a href="#ga1e494683b5f905fdd8184192680b8a3c">More...</a><br /></td></tr>
+<tr class="separator:ga1e494683b5f905fdd8184192680b8a3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac08478cc050c41cc435a3f2b49b4c874"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ttcps__v3__0.html#gac08478cc050c41cc435a3f2b49b4c874">XTtcPs_SetPrescaler</a> (<a class="el" href="struct_x_ttc_ps.html">XTtcPs</a> *InstancePtr, u8 PrescalerValue)</td></tr>
 <tr class="memdesc:gac08478cc050c41cc435a3f2b49b4c874"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the prescaler enable bit and if needed sets the prescaler bits in the control register.  <a href="#gac08478cc050c41cc435a3f2b49b4c874">More...</a><br /></td></tr>
 <tr class="separator:gac08478cc050c41cc435a3f2b49b4c874"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -363,7 +363,7 @@ Interrupt Registers</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xttcps_8h.html">xttcps.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line">InstWriteReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#gadeae55c98cafd198b2afa7d0175f1d15">XTTCPS_ISR_OFFSET</a>, \</div><div class="line">                 (InterruptMask))</div><div class="ttc" id="group__ttcps__v3__0_html_gadeae55c98cafd198b2afa7d0175f1d15"><div class="ttname"><a href="group__ttcps__v3__0.html#gadeae55c98cafd198b2afa7d0175f1d15">XTTCPS_ISR_OFFSET</a></div><div class="ttdeci">#define XTTCPS_ISR_OFFSET</div><div class="ttdoc">Interrupt Status Register. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:83</div></div>
+<b>Value:</b><div class="fragment"><div class="line">InstWriteReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#gadeae55c98cafd198b2afa7d0175f1d15">XTTCPS_ISR_OFFSET</a>, \</div><div class="line">                 (InterruptMask))</div><div class="ttc" id="group__ttcps__v3__0_html_gadeae55c98cafd198b2afa7d0175f1d15"><div class="ttname"><a href="group__ttcps__v3__0.html#gadeae55c98cafd198b2afa7d0175f1d15">XTTCPS_ISR_OFFSET</a></div><div class="ttdeci">#define XTTCPS_ISR_OFFSET</div><div class="ttdoc">Interrupt Status Register. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:92</div></div>
 </div><!-- fragment -->
 <p>This function clears the interrupt status. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -743,7 +743,7 @@ Interrupt Registers</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xttcps_8h.html">xttcps.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line">InstWriteReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga9f30e22f168427395bfe9e6cfeacdce4">XTTCPS_IER_OFFSET</a>,  \</div><div class="line">                (InstReadReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga9f30e22f168427395bfe9e6cfeacdce4">XTTCPS_IER_OFFSET</a>) &amp;        \</div><div class="line">                 ~(InterruptMask)))</div><div class="ttc" id="group__ttcps__v3__0_html_ga9f30e22f168427395bfe9e6cfeacdce4"><div class="ttname"><a href="group__ttcps__v3__0.html#ga9f30e22f168427395bfe9e6cfeacdce4">XTTCPS_IER_OFFSET</a></div><div class="ttdeci">#define XTTCPS_IER_OFFSET</div><div class="ttdoc">Interrupt Enable Register. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:84</div></div>
+<b>Value:</b><div class="fragment"><div class="line">InstWriteReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga9f30e22f168427395bfe9e6cfeacdce4">XTTCPS_IER_OFFSET</a>,  \</div><div class="line">                (InstReadReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga9f30e22f168427395bfe9e6cfeacdce4">XTTCPS_IER_OFFSET</a>) &amp;        \</div><div class="line">                 ~(InterruptMask)))</div><div class="ttc" id="group__ttcps__v3__0_html_ga9f30e22f168427395bfe9e6cfeacdce4"><div class="ttname"><a href="group__ttcps__v3__0.html#ga9f30e22f168427395bfe9e6cfeacdce4">XTTCPS_IER_OFFSET</a></div><div class="ttdeci">#define XTTCPS_IER_OFFSET</div><div class="ttdoc">Interrupt Enable Register. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:93</div></div>
 </div><!-- fragment -->
 <p>This function disables the interrupts. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -785,7 +785,7 @@ Interrupt Registers</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xttcps_8h.html">xttcps.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line">InstWriteReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga9f30e22f168427395bfe9e6cfeacdce4">XTTCPS_IER_OFFSET</a>,          \</div><div class="line">                (InstReadReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga9f30e22f168427395bfe9e6cfeacdce4">XTTCPS_IER_OFFSET</a>) |        \</div><div class="line">                 (InterruptMask)))</div><div class="ttc" id="group__ttcps__v3__0_html_ga9f30e22f168427395bfe9e6cfeacdce4"><div class="ttname"><a href="group__ttcps__v3__0.html#ga9f30e22f168427395bfe9e6cfeacdce4">XTTCPS_IER_OFFSET</a></div><div class="ttdeci">#define XTTCPS_IER_OFFSET</div><div class="ttdoc">Interrupt Enable Register. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:84</div></div>
+<b>Value:</b><div class="fragment"><div class="line">InstWriteReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga9f30e22f168427395bfe9e6cfeacdce4">XTTCPS_IER_OFFSET</a>,          \</div><div class="line">                (InstReadReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga9f30e22f168427395bfe9e6cfeacdce4">XTTCPS_IER_OFFSET</a>) |        \</div><div class="line">                 (InterruptMask)))</div><div class="ttc" id="group__ttcps__v3__0_html_ga9f30e22f168427395bfe9e6cfeacdce4"><div class="ttname"><a href="group__ttcps__v3__0.html#ga9f30e22f168427395bfe9e6cfeacdce4">XTTCPS_IER_OFFSET</a></div><div class="ttdeci">#define XTTCPS_IER_OFFSET</div><div class="ttdoc">Interrupt Enable Register. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:93</div></div>
 </div><!-- fragment -->
 <p>This function enables the interrupts. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -986,7 +986,7 @@ Interrupt Registers</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xttcps_8h.html">xttcps.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line">((InstReadReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a>) &amp; \</div><div class="line">       XTTCPS_CNT_CNTRL_DIS_MASK) == 0U)</div><div class="ttc" id="group__ttcps__v3__0_html_ga5ffa2c9626e069f82893b9411e022744"><div class="ttname"><a href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a></div><div class="ttdeci">#define XTTCPS_CNT_CNTRL_OFFSET</div><div class="ttdoc">Counter Control Register. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:77</div></div>
+<b>Value:</b><div class="fragment"><div class="line">((InstReadReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a>) &amp; \</div><div class="line">       XTTCPS_CNT_CNTRL_DIS_MASK) == 0U)</div><div class="ttc" id="group__ttcps__v3__0_html_ga5ffa2c9626e069f82893b9411e022744"><div class="ttname"><a href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a></div><div class="ttdeci">#define XTTCPS_CNT_CNTRL_OFFSET</div><div class="ttdoc">Counter Control Register. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:86</div></div>
 </div><!-- fragment -->
 <p>This function checks whether the timer counter has already started. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1216,7 +1216,7 @@ Interrupt Registers</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>MATCH_N_OFFSET.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="group__ttcps__v3__0.html#ga85163a69a7f9df09f56528bee3a7a861" title="Calculate a match register offset using the Match Register index. ">XTtcPs_Match_N_Offset(u8 MatchIndex)</a> </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="group__ttcps__v3__0.html#ga3a1b17e7784d4251cbeeb6339ffe8a83">XTtcPs_GetMatchValue()</a>, and <a class="el" href="group__ttcps__v3__0.html#ga2b45b9a6c4ce17cf5b50953528de9c65">XTtcPs_SetMatchValue()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__ttcps__v3__0.html#ga1e494683b5f905fdd8184192680b8a3c">XTtcPs_GetMatchValue()</a>, and <a class="el" href="group__ttcps__v3__0.html#gaf400713723ba81109ac83fc1800681b2">XTtcPs_SetMatchValue()</a>.</p>
 
 </div>
 </div>
@@ -1236,7 +1236,7 @@ Interrupt Registers</h2></td></tr>
 
 <p>Num of Match reg. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__ttcps__v3__0.html#ga3a1b17e7784d4251cbeeb6339ffe8a83">XTtcPs_GetMatchValue()</a>, and <a class="el" href="group__ttcps__v3__0.html#ga2b45b9a6c4ce17cf5b50953528de9c65">XTtcPs_SetMatchValue()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__ttcps__v3__0.html#ga1e494683b5f905fdd8184192680b8a3c">XTtcPs_GetMatchValue()</a>, and <a class="el" href="group__ttcps__v3__0.html#gaf400713723ba81109ac83fc1800681b2">XTtcPs_SetMatchValue()</a>.</p>
 
 </div>
 </div>
@@ -1405,7 +1405,7 @@ Interrupt Registers</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the register</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="group__ttcps__v3__0.html#ga43586f12a9aab60acf515b80f25bc0a6" title="Read the given Timer Counter register. ">XTtcPs_ReadReg(u32 BaseAddress, u32 RegOffset)</a> </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="group__ttcps__v3__0.html#ga3a1b17e7784d4251cbeeb6339ffe8a83">XTtcPs_GetMatchValue()</a>, <a class="el" href="group__ttcps__v3__0.html#ga9d528bcd850e49f08fc585cb867ca11c">XTtcPs_GetPrescaler()</a>, <a class="el" href="group__ttcps__v3__0.html#ga38ff3b491801add8d2b5faa22e2e0a08">XTtcPs_SelfTest()</a>, <a class="el" href="group__ttcps__v3__0.html#ga7053f4ac8c20f1d1fd335a755960aea9">XTtcPs_SetOptions()</a>, and <a class="el" href="group__ttcps__v3__0.html#gac08478cc050c41cc435a3f2b49b4c874">XTtcPs_SetPrescaler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__ttcps__v3__0.html#ga1e494683b5f905fdd8184192680b8a3c">XTtcPs_GetMatchValue()</a>, <a class="el" href="group__ttcps__v3__0.html#ga9d528bcd850e49f08fc585cb867ca11c">XTtcPs_GetPrescaler()</a>, <a class="el" href="group__ttcps__v3__0.html#ga38ff3b491801add8d2b5faa22e2e0a08">XTtcPs_SelfTest()</a>, <a class="el" href="group__ttcps__v3__0.html#ga7053f4ac8c20f1d1fd335a755960aea9">XTtcPs_SetOptions()</a>, and <a class="el" href="group__ttcps__v3__0.html#gac08478cc050c41cc435a3f2b49b4c874">XTtcPs_SetPrescaler()</a>.</p>
 
 </div>
 </div>
@@ -1426,8 +1426,8 @@ Interrupt Registers</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xttcps_8h.html">xttcps.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line">InstWriteReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a>,    \</div><div class="line">                (InstReadReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a>) | \</div><div class="line">                 (u32)<a class="code" href="group__ttcps__v3__0.html#ga8a626958a0fe9e03e87b11dcc6fbd270">XTTCPS_CNT_CNTRL_RST_MASK</a>))</div><div class="ttc" id="group__ttcps__v3__0_html_ga5ffa2c9626e069f82893b9411e022744"><div class="ttname"><a href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a></div><div class="ttdeci">#define XTTCPS_CNT_CNTRL_OFFSET</div><div class="ttdoc">Counter Control Register. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:77</div></div>
-<div class="ttc" id="group__ttcps__v3__0_html_ga8a626958a0fe9e03e87b11dcc6fbd270"><div class="ttname"><a href="group__ttcps__v3__0.html#ga8a626958a0fe9e03e87b11dcc6fbd270">XTTCPS_CNT_CNTRL_RST_MASK</a></div><div class="ttdeci">#define XTTCPS_CNT_CNTRL_RST_MASK</div><div class="ttdoc">Reset counter. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:107</div></div>
+<b>Value:</b><div class="fragment"><div class="line">InstWriteReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a>,    \</div><div class="line">                (InstReadReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a>) | \</div><div class="line">                 (u32)<a class="code" href="group__ttcps__v3__0.html#ga8a626958a0fe9e03e87b11dcc6fbd270">XTTCPS_CNT_CNTRL_RST_MASK</a>))</div><div class="ttc" id="group__ttcps__v3__0_html_ga5ffa2c9626e069f82893b9411e022744"><div class="ttname"><a href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a></div><div class="ttdeci">#define XTTCPS_CNT_CNTRL_OFFSET</div><div class="ttdoc">Counter Control Register. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:86</div></div>
+<div class="ttc" id="group__ttcps__v3__0_html_ga8a626958a0fe9e03e87b11dcc6fbd270"><div class="ttname"><a href="group__ttcps__v3__0.html#ga8a626958a0fe9e03e87b11dcc6fbd270">XTTCPS_CNT_CNTRL_RST_MASK</a></div><div class="ttdeci">#define XTTCPS_CNT_CNTRL_RST_MASK</div><div class="ttdoc">Reset counter. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:116</div></div>
 </div><!-- fragment -->
 <p>This macro resets the count register. </p>
 <p>It may be called at any time. The counter is reset to either 0 or 0xFFFF, or the interval value, depending on the increment/decrement mode. The state of the counter, as started or stopped, is not affected by calling reset.</p>
@@ -1481,7 +1481,7 @@ Interrupt Registers</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__ttcps__v3__0.html#ga5fae7226b73f9d3c0b2acd3dd0d70561" title="This function sets the interval value to be used in interval mode. ">XTtcPs_SetInterval(XTtcPs *InstancePtr, u16 Value)</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__ttcps__v3__0.html#ga5fae7226b73f9d3c0b2acd3dd0d70561" title="This function sets the interval value to be used in interval mode. ">XTtcPs_SetInterval(XTtcPs *InstancePtr, XInterval Value)</a> </dd></dl>
 
 </div>
 </div>
@@ -1502,8 +1502,8 @@ Interrupt Registers</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xttcps_8h.html">xttcps.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line">InstWriteReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a>,    \</div><div class="line">                (InstReadReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a>) &amp;  \</div><div class="line">                 ~<a class="code" href="group__ttcps__v3__0.html#gaa6a24e2b904e40bf5e4f6cf184f94b1a">XTTCPS_CNT_CNTRL_DIS_MASK</a>))</div><div class="ttc" id="group__ttcps__v3__0_html_gaa6a24e2b904e40bf5e4f6cf184f94b1a"><div class="ttname"><a href="group__ttcps__v3__0.html#gaa6a24e2b904e40bf5e4f6cf184f94b1a">XTTCPS_CNT_CNTRL_DIS_MASK</a></div><div class="ttdeci">#define XTTCPS_CNT_CNTRL_DIS_MASK</div><div class="ttdoc">Disable the counter. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:103</div></div>
-<div class="ttc" id="group__ttcps__v3__0_html_ga5ffa2c9626e069f82893b9411e022744"><div class="ttname"><a href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a></div><div class="ttdeci">#define XTTCPS_CNT_CNTRL_OFFSET</div><div class="ttdoc">Counter Control Register. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:77</div></div>
+<b>Value:</b><div class="fragment"><div class="line">InstWriteReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a>,    \</div><div class="line">                (InstReadReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a>) &amp;  \</div><div class="line">                 ~<a class="code" href="group__ttcps__v3__0.html#gaa6a24e2b904e40bf5e4f6cf184f94b1a">XTTCPS_CNT_CNTRL_DIS_MASK</a>))</div><div class="ttc" id="group__ttcps__v3__0_html_gaa6a24e2b904e40bf5e4f6cf184f94b1a"><div class="ttname"><a href="group__ttcps__v3__0.html#gaa6a24e2b904e40bf5e4f6cf184f94b1a">XTTCPS_CNT_CNTRL_DIS_MASK</a></div><div class="ttdeci">#define XTTCPS_CNT_CNTRL_DIS_MASK</div><div class="ttdoc">Disable the counter. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:112</div></div>
+<div class="ttc" id="group__ttcps__v3__0_html_ga5ffa2c9626e069f82893b9411e022744"><div class="ttname"><a href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a></div><div class="ttdeci">#define XTTCPS_CNT_CNTRL_OFFSET</div><div class="ttdoc">Counter Control Register. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:86</div></div>
 </div><!-- fragment -->
 <p>This function starts the counter/timer without resetting the counter value. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1534,8 +1534,8 @@ Interrupt Registers</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xttcps_8h.html">xttcps.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line">InstWriteReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a>,    \</div><div class="line">                (InstReadReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a>) |  \</div><div class="line">                 <a class="code" href="group__ttcps__v3__0.html#gaa6a24e2b904e40bf5e4f6cf184f94b1a">XTTCPS_CNT_CNTRL_DIS_MASK</a>))</div><div class="ttc" id="group__ttcps__v3__0_html_gaa6a24e2b904e40bf5e4f6cf184f94b1a"><div class="ttname"><a href="group__ttcps__v3__0.html#gaa6a24e2b904e40bf5e4f6cf184f94b1a">XTTCPS_CNT_CNTRL_DIS_MASK</a></div><div class="ttdeci">#define XTTCPS_CNT_CNTRL_DIS_MASK</div><div class="ttdoc">Disable the counter. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:103</div></div>
-<div class="ttc" id="group__ttcps__v3__0_html_ga5ffa2c9626e069f82893b9411e022744"><div class="ttname"><a href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a></div><div class="ttdeci">#define XTTCPS_CNT_CNTRL_OFFSET</div><div class="ttdoc">Counter Control Register. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:77</div></div>
+<b>Value:</b><div class="fragment"><div class="line">InstWriteReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a>,    \</div><div class="line">                (InstReadReg((InstancePtr), <a class="code" href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a>) |  \</div><div class="line">                 <a class="code" href="group__ttcps__v3__0.html#gaa6a24e2b904e40bf5e4f6cf184f94b1a">XTTCPS_CNT_CNTRL_DIS_MASK</a>))</div><div class="ttc" id="group__ttcps__v3__0_html_gaa6a24e2b904e40bf5e4f6cf184f94b1a"><div class="ttname"><a href="group__ttcps__v3__0.html#gaa6a24e2b904e40bf5e4f6cf184f94b1a">XTTCPS_CNT_CNTRL_DIS_MASK</a></div><div class="ttdeci">#define XTTCPS_CNT_CNTRL_DIS_MASK</div><div class="ttdoc">Disable the counter. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:112</div></div>
+<div class="ttc" id="group__ttcps__v3__0_html_ga5ffa2c9626e069f82893b9411e022744"><div class="ttname"><a href="group__ttcps__v3__0.html#ga5ffa2c9626e069f82893b9411e022744">XTTCPS_CNT_CNTRL_OFFSET</a></div><div class="ttdeci">#define XTTCPS_CNT_CNTRL_OFFSET</div><div class="ttdoc">Counter Control Register. </div><div class="ttdef"><b>Definition:</b> xttcps_hw.h:86</div></div>
 </div><!-- fragment -->
 <p>This function stops the counter/timer. </p>
 <p>This macro may be called at any time to stop the counter. The counter holds the last value until it is reset, restarted or enabled.</p>
@@ -1598,7 +1598,7 @@ Interrupt Registers</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void XTtcPs_WriteReg(<a class="el" href="struct_x_ttc_ps.html" title="The XTtcPs driver instance data. ">XTtcPs</a> BaseAddress, u32 RegOffset, u32 Data) </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="group__ttcps__v3__0.html#gae49e15051a6bc16bc2a5369832f1a584">XTtcPs_CfgInitialize()</a>, <a class="el" href="group__ttcps__v3__0.html#ga2b45b9a6c4ce17cf5b50953528de9c65">XTtcPs_SetMatchValue()</a>, and <a class="el" href="group__ttcps__v3__0.html#gac08478cc050c41cc435a3f2b49b4c874">XTtcPs_SetPrescaler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__ttcps__v3__0.html#gae49e15051a6bc16bc2a5369832f1a584">XTtcPs_CfgInitialize()</a>, <a class="el" href="group__ttcps__v3__0.html#gaf400713723ba81109ac83fc1800681b2">XTtcPs_SetMatchValue()</a>, and <a class="el" href="group__ttcps__v3__0.html#gac08478cc050c41cc435a3f2b49b4c874">XTtcPs_SetPrescaler()</a>.</p>
 
 </div>
 </div>
@@ -1617,7 +1617,7 @@ Interrupt Registers</h2></td></tr>
 
 <p><code>#include &lt;<a class="el" href="xttcps_8h.html">xttcps.h</a>&gt;</code></p>
 
-<p>This typedef contains interval count. </p>
+<p>This typedef contains interval count and Match register value. </p>
 
 </div>
 </div>
@@ -1740,14 +1740,14 @@ Interrupt Registers</h2></td></tr>
 
 </div>
 </div>
-<a id="ga3a1b17e7784d4251cbeeb6339ffe8a83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3a1b17e7784d4251cbeeb6339ffe8a83">&#9670;&nbsp;</a></span>XTtcPs_GetMatchValue()</h2>
+<a id="ga1e494683b5f905fdd8184192680b8a3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1e494683b5f905fdd8184192680b8a3c">&#9670;&nbsp;</a></span>XTtcPs_GetMatchValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u16 XTtcPs_GetMatchValue </td>
+          <td class="memname">XMatchRegValue XTtcPs_GetMatchValue </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_x_ttc_ps.html">XTtcPs</a> *&#160;</td>
           <td class="paramname"><em>InstancePtr</em>, </td>
@@ -1777,7 +1777,7 @@ Interrupt Registers</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The match register value</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_ttc_ps___config.html#ae6953c208634412c4282d3f4841287ef">XTtcPs_Config::BaseAddress</a>, <a class="el" href="struct_x_ttc_ps.html#abb9f7fb33b935a868d692e0d90542ac9">XTtcPs::Config</a>, <a class="el" href="struct_x_ttc_ps.html#aac0267992556670f31d2fa1cb7d1a889">XTtcPs::IsReady</a>, <a class="el" href="group__ttcps__v3__0.html#ga85163a69a7f9df09f56528bee3a7a861">XTtcPs_Match_N_Offset</a>, <a class="el" href="group__ttcps__v3__0.html#ga3bdd5da79d4f22d353877b2bd26cd812">XTTCPS_NUM_MATCH_REG</a>, and <a class="el" href="group__ttcps__v3__0.html#ga43586f12a9aab60acf515b80f25bc0a6">XTtcPs_ReadReg</a>.</p>
@@ -1923,8 +1923,8 @@ Interrupt Registers</h2></td></tr>
 
 </div>
 </div>
-<a id="ga2b45b9a6c4ce17cf5b50953528de9c65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2b45b9a6c4ce17cf5b50953528de9c65">&#9670;&nbsp;</a></span>XTtcPs_SetMatchValue()</h2>
+<a id="gaf400713723ba81109ac83fc1800681b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf400713723ba81109ac83fc1800681b2">&#9670;&nbsp;</a></span>XTtcPs_SetMatchValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1944,7 +1944,7 @@ Interrupt Registers</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">u16&#160;</td>
+          <td class="paramtype">XMatchRegValue&#160;</td>
           <td class="paramname"><em>Value</em>&#160;</td>
         </tr>
         <tr>

@@ -21,12 +21,12 @@ var xttcps_8h =
     [ "XInterval", "group__ttcps__v3__0.html#ga53dc7ab3b92f330e5a47807febfcd26d", null ],
     [ "XTtcPs_CalcIntervalFromFreq", "group__ttcps__v3__0.html#ga40d86f052a231f2cd35d7e5136163039", null ],
     [ "XTtcPs_CfgInitialize", "group__ttcps__v3__0.html#gae49e15051a6bc16bc2a5369832f1a584", null ],
-    [ "XTtcPs_GetMatchValue", "group__ttcps__v3__0.html#ga3a1b17e7784d4251cbeeb6339ffe8a83", null ],
+    [ "XTtcPs_GetMatchValue", "group__ttcps__v3__0.html#ga1e494683b5f905fdd8184192680b8a3c", null ],
     [ "XTtcPs_GetOptions", "group__ttcps__v3__0.html#gac33ce44553e83555369c400b964234e7", null ],
     [ "XTtcPs_GetPrescaler", "group__ttcps__v3__0.html#ga9d528bcd850e49f08fc585cb867ca11c", null ],
     [ "XTtcPs_LookupConfig", "group__ttcps__v3__0.html#ga88827c48fd065f14c8c0a1383c5da74e", null ],
     [ "XTtcPs_SelfTest", "group__ttcps__v3__0.html#ga38ff3b491801add8d2b5faa22e2e0a08", null ],
-    [ "XTtcPs_SetMatchValue", "group__ttcps__v3__0.html#ga2b45b9a6c4ce17cf5b50953528de9c65", null ],
+    [ "XTtcPs_SetMatchValue", "group__ttcps__v3__0.html#gaf400713723ba81109ac83fc1800681b2", null ],
     [ "XTtcPs_SetOptions", "group__ttcps__v3__0.html#ga7053f4ac8c20f1d1fd335a755960aea9", null ],
     [ "XTtcPs_SetPrescaler", "group__ttcps__v3__0.html#gac08478cc050c41cc435a3f2b49b4c874", null ]
 ];

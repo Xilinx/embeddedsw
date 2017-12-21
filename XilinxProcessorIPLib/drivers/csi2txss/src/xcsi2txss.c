@@ -584,6 +584,56 @@ u32 XCsi2TxSs_GetMaxLaneCount(XCsi2TxSs *InstancePtr) {
 	return XCsi2Tx_GetMaxLaneCount(InstancePtr->CsiPtr);
 }
 
+/****************************************************************************/
+/**
+*
+* This function is used to check if lanes are in ulps mode
+*
+* @param	InstancePtr is a pointer to the CSI2TX SS Instance to be
+*		worked on.
+*
+* @return
+*		- 1 - ulps mode enter
+*		- 0 - ulps mode exit
+*
+* @note		None
+*
+****************************************************************************/
+u32 XCsi2TxSs_IsUlps(XCsi2TxSs *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr);
+	Xil_AssertNonvoid(InstancePtr->CsiPtr);
+
+	return XCsi2Tx_IsUlps(InstancePtr->CsiPtr);
+}
+
+/****************************************************************************/
+/**
+*
+* This function is used to set lanes in ulps mode
+*
+* @param	InstancePtr is a pointer to the CSI2TX SS Instance to be
+*		worked on.
+*
+* @param	Value
+*		- 1 - ulps mode enter
+*		- 0 - ulps mode exit
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+void XCsi2TxSs_SetUlps(XCsi2TxSs *InstancePtr, u32 Value)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr);
+	Xil_AssertVoid(InstancePtr->CsiPtr);
+
+	XCsi2Tx_SetUlps(InstancePtr->CsiPtr, Value);
+}
+
 /*****************************************************************************/
 /**
 * This function is used to set the CSI2 Tx Subsystem Clock Mode as either
@@ -605,7 +655,7 @@ void XCsi2TxSs_SetClkMode(XCsi2TxSs *InstancePtr, u8 Mode)
 	Xil_AssertVoid(InstancePtr);
 	Xil_AssertVoid(InstancePtr->CsiPtr);
 
-	return (XCsi2Tx_SetClkMode(InstancePtr->CsiPtr, Mode));
+	XCsi2Tx_SetClkMode(InstancePtr->CsiPtr, Mode);
 }
 
 /*****************************************************************************/

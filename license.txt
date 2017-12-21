@@ -7196,4 +7196,12 @@ XilinxProcessorIPLib/drivers/vprocss/examples/src/periph.c
 XilinxProcessorIPLib/drivers/vprocss/examples/src/periph.h
 XilinxProcessorIPLib/drivers/vprocss/examples/src/system.c
 XilinxProcessorIPLib/drivers/vprocss/examples/src/system.h
+XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_selftest_example.c
+XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_poll_example.c
+XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c
+XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c
+XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h
+XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.c
+XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h
+XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.c
 --------------------------------------------------------------------------------

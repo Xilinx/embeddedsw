@@ -185,6 +185,8 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 	u32 GetNyquistZone;
 	XRFdc_BlockStatus BlockStatus;
 	int OutputCurr;
+	u8 SetFIFOEnable;
+	u8 GetFIFOEnable;
 #ifndef __BAREMETAL__
 	struct metal_device *device;
 	struct metal_io_region *io;
@@ -252,8 +254,10 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				/* Set new mixer configurations */
 				SetMixerSettings.CoarseMixFreq = 0x0;	// Coarse mix OFF
 				SetMixerSettings.Freq = -2000;	//MHz
-				SetMixerSettings.FineMixerMode = 0x2;	//Complex to Real
-				SetMixerSettings.PhaseOffset = 22.5;
+				SetMixerSettings.FineMixerMode =
+						XRFDC_FINE_MIXER_MOD_COMPLX_TO_REAL;	// C2R
+				SetMixerSettings.PhaseOffset = 22.56789;
+				SetMixerSettings.FineMixerScale = 0x2;
 				SetMixerSettings.EventSource = XRFDC_EVNT_SRC_IMMEDIATE;
 				/* Set Mixer settings */
 				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &SetMixerSettings);
@@ -275,8 +279,10 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				/* Set new mixer configurations */
 				SetMixerSettings.CoarseMixFreq = 0x10;	// Coarse mix BYPASS
 				SetMixerSettings.Freq = 2000;	//MHz
-				SetMixerSettings.FineMixerMode = 0x2;	//Complex to Real
-				SetMixerSettings.PhaseOffset = -30.0;
+				SetMixerSettings.FineMixerMode =
+						XRFDC_FINE_MIXER_MOD_COMPLX_TO_REAL;	// C2R
+				SetMixerSettings.PhaseOffset = -30.925;
+				SetMixerSettings.FineMixerScale = 0x1;
 				SetMixerSettings.EventSource = XRFDC_EVNT_SRC_IMMEDIATE;
 				/* Set Mixer settings */
 				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &SetMixerSettings);
@@ -390,6 +396,19 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 					return XRFDC_FAILURE;
 				}
 				printf("\n DAC%d%d Output Current is %dmA \n", Tile, Block, OutputCurr);
+
+				SetFIFOEnable = 0x1;
+				Status = XRFdc_SetupFIFO(RFdcInstPtr,
+					XRFDC_DAC_TILE, Tile, SetFIFOEnable);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetFIFOStatus(RFdcInstPtr,
+					XRFDC_DAC_TILE, Tile, &GetFIFOEnable);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetFIFOEnable != GetFIFOEnable)
+					return XRFDC_FAILURE;
+
 			}
 
 			/* Check if the ADC block is enabled */
@@ -421,8 +440,10 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				}
 				SetMixerSettings.CoarseMixFreq = 0x0; 	//CoarseMix OFF
 				SetMixerSettings.Freq = -250; 	//MHz
-				SetMixerSettings.FineMixerMode = 0x2;	// Complex to real
-				SetMixerSettings.PhaseOffset = 14.06;
+				SetMixerSettings.FineMixerMode =
+						XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;	// R2C
+				SetMixerSettings.PhaseOffset = 14.0612;
+				SetMixerSettings.FineMixerScale = 0x1;
 				SetMixerSettings.EventSource = XRFDC_EVNT_SRC_SYSREF;
 				/* Set Mixer settings */
 				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &SetMixerSettings);
@@ -443,8 +464,10 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 
 				SetMixerSettings.CoarseMixFreq = 0x10; 	//CoarseMix BYPASS
 				SetMixerSettings.Freq = 350; 	//MHz
-				SetMixerSettings.FineMixerMode = 0x2;	// Complex to real
-				SetMixerSettings.PhaseOffset = -9.0;
+				SetMixerSettings.FineMixerMode =
+						XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;	// R2C
+				SetMixerSettings.PhaseOffset = -9.0565;
+				SetMixerSettings.FineMixerScale = 0x0;
 				SetMixerSettings.EventSource = XRFDC_EVNT_SRC_SYSREF;
 				/* Set Mixer settings */
 				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &SetMixerSettings);
@@ -540,6 +563,28 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				printf("\n ADC%d%d Status \n"
 				"DataPathClockStatus - %d \t IsFIFOFlagsEnabled - %d \t IsFIFOFlagsAsserted - %d \r\n", Tile, Block, BlockStatus.DataPathClocksStatus,
 				BlockStatus.IsFIFOFlagsEnabled, BlockStatus.IsFIFOFlagsAsserted);
+				SetFIFOEnable = 0x0;
+				Status = XRFdc_SetupFIFO(RFdcInstPtr,
+					XRFDC_ADC_TILE, Tile, SetFIFOEnable);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetFIFOStatus(RFdcInstPtr,
+					XRFDC_ADC_TILE, Tile, &GetFIFOEnable);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetFIFOEnable != GetFIFOEnable)
+					return XRFDC_FAILURE;
+				SetFIFOEnable = 0x1;
+				Status = XRFdc_SetupFIFO(RFdcInstPtr,
+					XRFDC_ADC_TILE, Tile, SetFIFOEnable);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetFIFOStatus(RFdcInstPtr,
+					XRFDC_ADC_TILE, Tile, &GetFIFOEnable);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetFIFOEnable != GetFIFOEnable)
+					return XRFDC_FAILURE;
 			}
 		}
 	}
@@ -569,7 +614,12 @@ static int CompareMixerSettings(XRFdc_Mixer_Settings *SetMixerSettings,
 {
 	/* Removed Coarse mix freq check */
 	if ((SetMixerSettings->EventSource == GetMixerSettings->EventSource) &&
-			((SetMixerSettings->Freq - GetMixerSettings->Freq) < 0.000000001) &&
+			((SetMixerSettings->Freq -
+					GetMixerSettings->Freq) < 0.1) &&
+			((SetMixerSettings->PhaseOffset -
+					GetMixerSettings->PhaseOffset) < 0.1) &&
+			(SetMixerSettings->FineMixerScale ==
+					GetMixerSettings->FineMixerScale) &&
 			(SetMixerSettings->FineMixerMode == GetMixerSettings->FineMixerMode) &&
 			(SetMixerSettings->CoarseMixFreq == GetMixerSettings->CoarseMixFreq))
 		return 0;

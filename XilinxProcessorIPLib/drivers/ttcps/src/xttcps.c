@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,7 +52,10 @@
 *						to stop the timer before configuring
 * 3.2   mus    10/28/16 Modified XTtcPs_CalcIntervalFromFreq to calculate
 *                       32 bit interval count for zynq ultrascale+mpsoc
-*
+* 3.5   srm    10/06/17 Updated XTtcPs_GetMatchValue and XTtcPs_SetMatchValue
+*                       APIs to use correct match register width for zynq
+*                       (i.e. 16 bit) and zynq ultrascale+mpsoc (i.e. 32 bit).
+*                       It fixes CR# 986617
 * </pre>
 *
 ******************************************************************************/
@@ -196,7 +199,7 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 * @note		None
 *
 ****************************************************************************/
-void XTtcPs_SetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex, u16 Value)
+void XTtcPs_SetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex, XMatchRegValue Value)
 {
 	/*
 	 * Assert to validate input arguments.
@@ -222,12 +225,12 @@ void XTtcPs_SetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex, u16 Value)
 * @param	MatchIndex is the index to the match register to be set.
 *		Valid values are 0, 1, or 2.
 *
-* @return	None
+* @return	The match register value
 *
 * @note		None
 *
 ****************************************************************************/
-u16 XTtcPs_GetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex)
+XMatchRegValue XTtcPs_GetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex)
 {
 	u32 MatchReg;
 
@@ -241,7 +244,7 @@ u16 XTtcPs_GetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex)
 	MatchReg = XTtcPs_ReadReg(InstancePtr->Config.BaseAddress,
 			    XTtcPs_Match_N_Offset(MatchIndex));
 
-	return (u16) MatchReg;
+	return (XMatchRegValue) MatchReg;
 }
 
 /*****************************************************************************/

@@ -77,6 +77,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <hr/>
 
 1.0   aad  06/24/17 Initial release.
+2.0   aad  10/08/17 Some APIs to use enums instead of Macros.
+               Some bug fixes.
 </pre><p>These Functions calculates and configures the PLL depending on desired frequency.</p>
 <dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
 <pre>
@@ -93,9 +95,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a1a6ad12fa14a39a0ef60cfc6332ae885"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xavbuf_8c.html#a1a6ad12fa14a39a0ef60cfc6332ae885">XAVBuf_Initialize</a> (<a class="el" href="struct_x_a_v_buf.html">XAVBuf</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a1a6ad12fa14a39a0ef60cfc6332ae885"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes all the data structures of the <a class="el" href="struct_x_a_v_buf.html" title="The XAVBuf driver instance data. ">XAVBuf</a> Instance.  <a href="#a1a6ad12fa14a39a0ef60cfc6332ae885">More...</a><br /></td></tr>
 <tr class="separator:a1a6ad12fa14a39a0ef60cfc6332ae885"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6f5b22a9c2511fcfc949d123144aece"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xavbuf_8c.html#ad6f5b22a9c2511fcfc949d123144aece">XAVBuf_InputVideoSelect</a> (<a class="el" href="struct_x_a_v_buf.html">XAVBuf</a> *InstancePtr, u8 VideoStream1, u8 VideoStream2)</td></tr>
-<tr class="memdesc:ad6f5b22a9c2511fcfc949d123144aece"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function selects the source for the Video and Graphics streams that are passed on to the blender block.  <a href="#ad6f5b22a9c2511fcfc949d123144aece">More...</a><br /></td></tr>
-<tr class="separator:ad6f5b22a9c2511fcfc949d123144aece"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a851d07f684e377a0401cc5e3d877e239"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xavbuf_8c.html#a851d07f684e377a0401cc5e3d877e239">XAVBuf_InputVideoSelect</a> (<a class="el" href="struct_x_a_v_buf.html">XAVBuf</a> *InstancePtr, <a class="el" href="xavbuf_8h.html#a00178d9299a9bc55688188074b9f8451">XAVBuf_VideoStream</a> VidStream, <a class="el" href="xavbuf_8h.html#ab2e5d15b72ebd1736f0bc533d9e555de">XAVBuf_GfxStream</a> GfxStream)</td></tr>
+<tr class="memdesc:a851d07f684e377a0401cc5e3d877e239"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function selects the source for the Video and Graphics streams that are passed on to the blender block.  <a href="#a851d07f684e377a0401cc5e3d877e239">More...</a><br /></td></tr>
+<tr class="separator:a851d07f684e377a0401cc5e3d877e239"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13bd54c5d3414d4c77383f081232b4d6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xavbuf_8c.html#a13bd54c5d3414d4c77383f081232b4d6">XAVBuf_SetInputNonLiveVideoFormat</a> (<a class="el" href="struct_x_a_v_buf.html">XAVBuf</a> *InstancePtr, <a class="el" href="xavbuf_8h.html#a441214e71757582f909cb3ef2e895df1">XAVBuf_VideoFormat</a> Format)</td></tr>
 <tr class="memdesc:a13bd54c5d3414d4c77383f081232b4d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the video format for the non-live video.  <a href="#a13bd54c5d3414d4c77383f081232b4d6">More...</a><br /></td></tr>
 <tr class="separator:a13bd54c5d3414d4c77383f081232b4d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,9 +143,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aeb5fef36526fe911b5c640d70e9bb598"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xavbuf_8c.html#aeb5fef36526fe911b5c640d70e9bb598">XAVBuf_ConfigureOutputVideo</a> (<a class="el" href="struct_x_a_v_buf.html">XAVBuf</a> *InstancePtr)</td></tr>
 <tr class="memdesc:aeb5fef36526fe911b5c640d70e9bb598"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures the Output of the Video Pipeline.  <a href="#aeb5fef36526fe911b5c640d70e9bb598">More...</a><br /></td></tr>
 <tr class="separator:aeb5fef36526fe911b5c640d70e9bb598"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a0777dabb8011b2b7225438646dbffc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xavbuf_8c.html#a2a0777dabb8011b2b7225438646dbffc">XAVBuf_InputAudioSelect</a> (<a class="el" href="struct_x_a_v_buf.html">XAVBuf</a> *InstancePtr, u32 AudioStream1, u32 AudioStream2)</td></tr>
-<tr class="memdesc:a2a0777dabb8011b2b7225438646dbffc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function selects the source for audio streams corresponding to the Video and Graphics streams that are passed on to the blender.  <a href="#a2a0777dabb8011b2b7225438646dbffc">More...</a><br /></td></tr>
-<tr class="separator:a2a0777dabb8011b2b7225438646dbffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabb02afb0a290df630dcee4b5b170c36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xavbuf_8c.html#aabb02afb0a290df630dcee4b5b170c36">XAVBuf_InputAudioSelect</a> (<a class="el" href="struct_x_a_v_buf.html">XAVBuf</a> *InstancePtr, <a class="el" href="xavbuf_8h.html#a4f8416931907a94349455e4c334683d1">XAVBuf_AudioStream1</a> AudStream1, <a class="el" href="xavbuf_8h.html#a19f79530d9cf1e82cf7fc14bd1cf2aaf">XAVBuf_AudioStream2</a> AudStream2)</td></tr>
+<tr class="memdesc:aabb02afb0a290df630dcee4b5b170c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function selects the source for audio streams corresponding to the Video and Graphics streams that are passed on to the blender.  <a href="#aabb02afb0a290df630dcee4b5b170c36">More...</a><br /></td></tr>
+<tr class="separator:aabb02afb0a290df630dcee4b5b170c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abff93765afd4cd6e693f116335e123d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xavbuf_8c.html#abff93765afd4cd6e693f116335e123d9">XAVBuf_AudioMixerVolumeControl</a> (<a class="el" href="struct_x_a_v_buf.html">XAVBuf</a> *InstancePtr, u8 Channel0Volume, u8 Channel1Volume)</td></tr>
 <tr class="memdesc:abff93765afd4cd6e693f116335e123d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets up the scaling factor for Audio Mixer Volume Control.  <a href="#abff93765afd4cd6e693f116335e123d9">More...</a><br /></td></tr>
 <tr class="separator:abff93765afd4cd6e693f116335e123d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -724,8 +726,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a2a0777dabb8011b2b7225438646dbffc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a0777dabb8011b2b7225438646dbffc">&#9670;&nbsp;</a></span>XAVBuf_InputAudioSelect()</h2>
+<a id="aabb02afb0a290df630dcee4b5b170c36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabb02afb0a290df630dcee4b5b170c36">&#9670;&nbsp;</a></span>XAVBuf_InputAudioSelect()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -739,14 +741,14 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>AudioStream1</em>, </td>
+          <td class="paramtype"><a class="el" href="xavbuf_8h.html#a4f8416931907a94349455e4c334683d1">XAVBuf_AudioStream1</a>&#160;</td>
+          <td class="paramname"><em>AudStream1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>AudioStream2</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="xavbuf_8h.html#a19f79530d9cf1e82cf7fc14bd1cf2aaf">XAVBuf_AudioStream2</a>&#160;</td>
+          <td class="paramname"><em>AudStream2</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -760,8 +762,8 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_a_v_buf.html" title="The XAVBuf driver instance data. ">XAVBuf</a> instance. </td></tr>
-    <tr><td class="paramname">AudioStream1</td><td>selects the audio stream source corresponding to the video source selected </td></tr>
-    <tr><td class="paramname">AudioStream2</td><td>selects the audio stream source corresponding to the graphics source selected.</td></tr>
+    <tr><td class="paramname">AudStream1</td><td>selects the audio stream source corresponding to the video source selected </td></tr>
+    <tr><td class="paramname">AudStream2</td><td>selects the audio stream source corresponding to the graphics source selected.</td></tr>
   </table>
   </dd>
 </dl>
@@ -770,8 +772,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad6f5b22a9c2511fcfc949d123144aece"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6f5b22a9c2511fcfc949d123144aece">&#9670;&nbsp;</a></span>XAVBuf_InputVideoSelect()</h2>
+<a id="a851d07f684e377a0401cc5e3d877e239"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a851d07f684e377a0401cc5e3d877e239">&#9670;&nbsp;</a></span>XAVBuf_InputVideoSelect()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -785,14 +787,14 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>VideoStream1</em>, </td>
+          <td class="paramtype"><a class="el" href="xavbuf_8h.html#a00178d9299a9bc55688188074b9f8451">XAVBuf_VideoStream</a>&#160;</td>
+          <td class="paramname"><em>VidStream</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>VideoStream2</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="xavbuf_8h.html#ab2e5d15b72ebd1736f0bc533d9e555de">XAVBuf_GfxStream</a>&#160;</td>
+          <td class="paramname"><em>GfxStream</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -806,8 +808,8 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_a_v_buf.html" title="The XAVBuf driver instance data. ">XAVBuf</a> instance. </td></tr>
-    <tr><td class="paramname">VideoStream1</td><td>selects the stream coming from the video sources </td></tr>
-    <tr><td class="paramname">VideoStream2</td><td>selects the stream coming from the graphics sources</td></tr>
+    <tr><td class="paramname">VidStream</td><td>selects the stream coming from the video sources </td></tr>
+    <tr><td class="paramname">GfxStream</td><td>selects the stream coming from the graphics sources</td></tr>
   </table>
   </dd>
 </dl>

@@ -55,6 +55,9 @@
 /************************** Constant Definitions *****************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XSDIRX_LINE_RATE_3G	0
+#define XSDIRX_LINE_RATE_6G	1
+#define XSDIRX_LINE_RATE_12G8DS	2
 
 
 /**************************** Type Definitions *******************************/
@@ -155,16 +158,12 @@ int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr, XV_SdiRx_Config *CfgPtr,
 	 * callback pointers will be assigned by the SetCallback function.
 	 */
 	InstancePtr->StreamDownCallback = (XV_SdiRx_Callback)((void *)StubCallback);
-	InstancePtr->IsStreamDownCallbackSet = (FALSE);
 
 	InstancePtr->StreamUpCallback = (XV_SdiRx_Callback)((void *)StubCallback);
-	InstancePtr->IsStreamUpCallbackSet = (FALSE);
 
 	InstancePtr->OverFlowCallback = (XV_SdiRx_Callback)((void *)StubCallback);
-	InstancePtr->IsOverFlowCallbackSet = (FALSE);
 
 	InstancePtr->UnderFlowCallback = (XV_SdiRx_Callback)((void *)StubCallback);
-	InstancePtr->IsUnderFlowCallbackSet = (FALSE);
 
 	/* Clear SDI variables */
 	XV_SdiRx_ResetStream(InstancePtr);
@@ -713,6 +712,88 @@ u32 XV_SdiRx_GetPayloadId(XV_SdiRx *InstancePtr, u8 DataStream)
 
 /*****************************************************************************/
 /**
+* This function is used to wait for the payload valid bit to be set.
+* This has to be called from application based on the callback indication of
+* the video lock interrupt handler. Without this function being called, it may
+* be guaranteed that payload bits are valid after video lock interrupt occured.
+*
+* @param	InstancePtr is a pointer to the XV_SdiRx core instance.
+*
+* @return
+*		- XST_FAILURE if the payload valid bits are not set.
+*		- XST_SUCCESS if ST352 registers are read and loaded to
+*		  Rx structures
+*
+* @note         None.
+*
+******************************************************************************/
+u32 XV_SdiRx_WaitforPayLoad(XV_SdiRx *InstancePtr)
+{
+	u32 RegValue, Data0, Data1, Data3;
+	int StreamId;
+	XSdiVid_TransMode TMode;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	Data0 = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_SDIRX_MODE_DET_STS_OFFSET));
+	Data1 = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_SDIRX_TS_DET_STS_OFFSET));
+
+	/* Check if mode and transport are locked */
+	if (!(((Data0 & XV_SDIRX_MODE_DET_STS_MODE_LOCKED_MASK)
+		== XV_SDIRX_MODE_DET_STS_MODE_LOCKED_MASK)
+		&& ((Data1 & XV_SDIRX_TS_DET_STS_T_LOCKED_MASK)
+		== XV_SDIRX_TS_DET_STS_T_LOCKED_MASK)))
+		return XST_FAILURE;
+
+	TMode = Data0 & XV_SDIRX_MODE_DET_STS_MODE_MASK;
+
+	/* Based on TMode, calculate the expected values to be present in
+	 * the st352 valid register
+	 */
+	switch (TMode) {
+		case XSDIVID_MODE_HD:
+		case XSDIVID_MODE_SD:
+			Data3 = 0x1;
+			break;
+		case XSDIVID_MODE_3GA:
+			Data3 = 0x3;
+			break;
+		case XSDIVID_MODE_6G:
+		case XSDIVID_MODE_12G:
+		case XSDIVID_MODE_12GF:
+			Data3 = 0xF;
+			break;
+		default:
+			return XST_FAILURE;
+	}
+
+	/*
+	 * Wait for 50 ms, the maximum frame time for any SDI supported
+	 * resolution. The highest frametime is 1/23.98 ~ 41 ms. With some
+	 * buffer we consider 50 ms wait time affter which we can ensure that
+	 * a frame has been passed.
+	 */
+	usleep(50000);
+
+	/* Payload are expected for 3GA and above modes */
+	if ((XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+				(XV_SDIRX_RX_ST352_VLD_OFFSET)) != Data3) &&
+		(TMode >= XSDIVID_MODE_3GA)) {
+		return XST_FAILURE;
+	}
+
+	for (StreamId = 0; StreamId < XV_SDIRX_MAX_DATASTREAM; StreamId++) {
+		InstancePtr->Stream[StreamId].PayloadId
+			= XV_SdiRx_GetPayloadId(InstancePtr, StreamId);
+	}
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
 *
 * This function returns the current SDI transport mode detected.
 *
@@ -823,6 +904,14 @@ void XV_SdiRx_EnableMode(XV_SdiRx *InstancePtr,
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(SupportModes <= XV_SDIRX_SUPPORT_ALL);
+	/* Following assertions make sure the IP is configured with in the
+	 * subcore GUI parameter limit
+	 */
+	Xil_AssertVoid(!((InstancePtr->Config.MaxRateSupported == XSDIRX_LINE_RATE_3G) &&
+			(SupportModes & (XV_SDIRX_SUPPORT_6G |
+			XV_SDIRX_SUPPORT_12GI | XV_SDIRX_SUPPORT_12GF))));
+	Xil_AssertVoid(!((InstancePtr->Config.MaxRateSupported == XSDIRX_LINE_RATE_6G) &&
+			(SupportModes & (XV_SDIRX_SUPPORT_12GI | XV_SDIRX_SUPPORT_12GF))));
 
 	InstancePtr->SupportedModes |= SupportModes;
 }

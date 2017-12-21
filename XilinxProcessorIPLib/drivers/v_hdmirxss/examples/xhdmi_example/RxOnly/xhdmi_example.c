@@ -77,6 +77,10 @@
 *       GM     28/08/17 Replace XVphy_HdmiInitialize API Call during
 *                            Initialization with XVphy_Hdmi_CfgInitialize API
 *                            Call
+*       mmo    04/10/17 Updated function TxStreamUpCallback to include
+*                            XhdmiACRCtrl_TMDSClkRatio API Call
+*       EB     06/11/17 Updated function RxAudCallback to allow pass-through
+*                            of audio format setting
 * </pre>
 *
 ******************************************************************************/
@@ -112,9 +116,6 @@
 #include "xv_hdmirxss.h"
 #endif
 #include "xvphy.h"
-#ifdef XPAR_XV_TPG_NUM_INSTANCES
-#include "xv_tpg.h"
-#endif
 #ifdef XPAR_XGPIO_NUM_INSTANCES
 #include "xgpio.h"
 #endif
@@ -366,10 +367,6 @@ int OnBoardSi5324Init(void);
 #endif
 
 
-#ifdef XPAR_XV_TPG_NUM_INSTANCES
-void XV_ConfigTpg(XV_tpg *InstancePtr);
-void ResetTpg(void);
-#endif
 
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 void RxConnectCallback(void *CallbackRef);
@@ -399,11 +396,6 @@ static XIntc Intc;        	/* INTC structure */
 #ifdef XPAR_XGPIO_NUM_INSTANCES
 XGpio Gpio_Tpg_resetn;
 XGpio_Config *Gpio_Tpg_resetn_ConfigPtr;
-#endif
-#ifdef XPAR_XV_TPG_NUM_INSTANCES
-XV_tpg Tpg;
-XV_tpg_Config *Tpg_ConfigPtr;
-XTpg_PatternId      Pattern;      /**< Video pattern */
 #endif
 XhdmiAudioGen_t AudioGen; /* Audio Generator structure */
 #ifdef VIDEO_FRAME_CRC_EN
@@ -1238,13 +1230,11 @@ int main()
 	                  Hdcp14KeyB, sizeof(Hdcp14KeyB)) == XST_SUCCESS) {
 
     /* Set pointers to HDCP 2.2 Keys */
-#if XPAR_XHDCP22_TX_NUM_INSTANCES
-    XV_HdmiTxSs_HdcpSetKey(&HdmiTxSs, XV_HDMITXSS_KEY_HDCP22_LC128, Hdcp22Lc128);
-    XV_HdmiTxSs_HdcpSetKey(&HdmiTxSs, XV_HDMITXSS_KEY_HDCP22_SRM, Hdcp22Srm);
-#endif
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 #if XPAR_XHDCP22_RX_NUM_INSTANCES
     XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs, XV_HDMIRXSS_KEY_HDCP22_LC128, Hdcp22Lc128);
     XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs, XV_HDMIRXSS_KEY_HDCP22_PRIVATE, Hdcp22RxPrivateKey);
+#endif
 #endif
 
     /* Set pointers to HDCP 1.4 keys */
@@ -1554,44 +1544,6 @@ int main()
 						(void *)&Vphy);
 #endif
 
-#ifdef XPAR_XV_TPG_NUM_INSTANCES
-    /* Initialize GPIO for Tpg Reset */
-    Gpio_Tpg_resetn_ConfigPtr =
-		XGpio_LookupConfig(XPAR_V_TPG_SS_0_AXI_GPIO_DEVICE_ID);
-
-    if(Gpio_Tpg_resetn_ConfigPtr == NULL)
-    {
-	Gpio_Tpg_resetn.IsReady = 0;
-        return (XST_DEVICE_NOT_FOUND);
-    }
-
-    Status = XGpio_CfgInitialize(&Gpio_Tpg_resetn,
-					Gpio_Tpg_resetn_ConfigPtr,
-					Gpio_Tpg_resetn_ConfigPtr->BaseAddress);
-    if(Status != XST_SUCCESS)
-    {
-        xil_printf("ERR:: GPIO for TPG Reset ");
-        xil_printf("Initialization failed %d\r\n", Status);
-        return(XST_FAILURE);
-    }
-
-    ResetTpg();
-
-    Tpg_ConfigPtr = XV_tpg_LookupConfig(XPAR_V_TPG_SS_0_V_TPG_DEVICE_ID);
-    if(Tpg_ConfigPtr == NULL)
-    {
-	Tpg.IsReady = 0;
-        return (XST_DEVICE_NOT_FOUND);
-    }
-
-    Status = XV_tpg_CfgInitialize(&Tpg,
-				Tpg_ConfigPtr, Tpg_ConfigPtr->BaseAddress);
-    if(Status != XST_SUCCESS)
-    {
-        xil_printf("ERR:: TPG Initialization failed %d\r\n", Status);
-        return(XST_FAILURE);
-    }
-#endif
 
   xil_printf("---------------------------------\r\n");
 

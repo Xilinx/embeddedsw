@@ -85,6 +85,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
                       squash unused variable compiler warning
 1.06  MG     07/03/17 Updated XV_HdmiTx_Auxsend with packet ready check
 1.07  YH     19/07/17 Added Video Masking Check API
+1.08  YH     06/10/17 Added function XV_HdmiTx_SetAudioFormat and function
+                          XV_HdmiTx_GetAudioFormat
+      EB     10/10/17 Updated XV_HdmiTx_Scrambler to always enable scrambler
+                          for HDMI 2.0 resolutions
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -169,6 +173,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a32872739c2a5ea02cf92aadc79aa385f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8c.html#a32872739c2a5ea02cf92aadc79aa385f">XV_HdmiTx_SetAudioChannels</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, u8 Value)</td></tr>
 <tr class="memdesc:a32872739c2a5ea02cf92aadc79aa385f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the active audio channels.  <a href="#a32872739c2a5ea02cf92aadc79aa385f">More...</a><br /></td></tr>
 <tr class="separator:a32872739c2a5ea02cf92aadc79aa385f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2d696a57ba6d62205853f83b4fdc589"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8c.html#ad2d696a57ba6d62205853f83b4fdc589">XV_HdmiTx_SetAudioFormat</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, XV_HdmiTx_AudioFormatType Value)</td></tr>
+<tr class="memdesc:ad2d696a57ba6d62205853f83b4fdc589"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the active audio format.  <a href="#ad2d696a57ba6d62205853f83b4fdc589">More...</a><br /></td></tr>
+<tr class="separator:ad2d696a57ba6d62205853f83b4fdc589"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1969dd5561dba784fdb82a4b8e634256"><td class="memItemLeft" align="right" valign="top">XV_HdmiTx_AudioFormatType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8c.html#a1969dd5561dba784fdb82a4b8e634256">XV_HdmiTx_GetAudioFormat</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a1969dd5561dba784fdb82a4b8e634256"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the active audio format.  <a href="#a1969dd5561dba784fdb82a4b8e634256">More...</a><br /></td></tr>
+<tr class="separator:a1969dd5561dba784fdb82a4b8e634256"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ae75f2ab194a44b9f67b7fa9d4545cb57"></a>
@@ -697,6 +707,36 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a1969dd5561dba784fdb82a4b8e634256"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1969dd5561dba784fdb82a4b8e634256">&#9670;&nbsp;</a></span>XV_HdmiTx_GetAudioFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XV_HdmiTx_AudioFormatType XV_HdmiTx_GetAudioFormat </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function gets the active audio format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Active audio format of HDMI Tx</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a78026a4105a831d8d1e2788c1d6ba913">XV_HDMITX_AUD_CTRL_AUDFMT_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0507ddc2e25096e01a650cf41849e35f">XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a1f37ae939243ded094b88763c8fbcc76">XV_HDMITX_AUD_CTRL_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>.</p>
+
+</div>
+</div>
 <a id="a7380f59f3609455c91e7090b7fde1504"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7380f59f3609455c91e7090b7fde1504">&#9670;&nbsp;</a></span>XV_HdmiTx_IsStreamConnected()</h2>
 
@@ -825,7 +865,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___stream.html#aff6cb4519db331ab7336ae75c2cc56b8">XV_HdmiTx_Stream::IsHdmi20</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#ae9ca6e199b3a6729a3a0db9cb6e43bbd">XV_HdmiTx_Stream::IsScrambled</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a0f92bb0204c62c0fc3402f018c062e40">XV_HdmiTx::Stream</a>, <a class="el" href="xv__hdmitx_8c.html#a09f62badd2afc029e5e4967644a37e5f">XV_HdmiTx_DdcRead()</a>, <a class="el" href="xv__hdmitx_8c.html#a852ea29dc77f7bff5509cbf7fe935ede">XV_HdmiTx_DdcWrite()</a>, and <a class="el" href="xv__hdmitx_8h.html#a6da173e33b955815176fd5640f7a1fbf">XV_HdmiTx_SetScrambler</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___stream.html#aff6cb4519db331ab7336ae75c2cc56b8">XV_HdmiTx_Stream::IsHdmi20</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#ae9ca6e199b3a6729a3a0db9cb6e43bbd">XV_HdmiTx_Stream::IsScrambled</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a0f92bb0204c62c0fc3402f018c062e40">XV_HdmiTx::Stream</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#a498466feabb81f3368b723a8104159d0">XV_HdmiTx_Stream::TMDSClock</a>, <a class="el" href="xv__hdmitx_8c.html#a09f62badd2afc029e5e4967644a37e5f">XV_HdmiTx_DdcRead()</a>, <a class="el" href="xv__hdmitx_8c.html#a852ea29dc77f7bff5509cbf7fe935ede">XV_HdmiTx_DdcWrite()</a>, and <a class="el" href="xv__hdmitx_8h.html#a6da173e33b955815176fd5640f7a1fbf">XV_HdmiTx_SetScrambler</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#ae42733f7ec1fcf5df4f6d537b588bab6">XV_HdmiTx_SetStream()</a>.</p>
 
@@ -872,6 +912,50 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a224d3ce0b2fa5396ac35464ab51e18c0">XV_HDMITX_AUD_CTRL_CH_SHIFT</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a1f37ae939243ded094b88763c8fbcc76">XV_HDMITX_AUD_CTRL_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+
+</div>
+</div>
+<a id="ad2d696a57ba6d62205853f83b4fdc589"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2d696a57ba6d62205853f83b4fdc589">&#9670;&nbsp;</a></span>XV_HdmiTx_SetAudioFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XV_HdmiTx_SetAudioFormat </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XV_HdmiTx_AudioFormatType&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets the active audio format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if active channels were set.</li>
+<li>XST_FAILURE if no active channles were set.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a78026a4105a831d8d1e2788c1d6ba913">XV_HDMITX_AUD_CTRL_AUDFMT_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
 
 </div>
 </div>

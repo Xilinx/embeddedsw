@@ -2,7 +2,7 @@ var struct_x_v___hdmi_rx =
 [
     [ "AudCallback", "struct_x_v___hdmi_rx.html#a2ad34b308129ea9d13355e0bac8f829d", null ],
     [ "AudCts", "struct_x_v___hdmi_rx.html#a5599189446aa34a986126f1dc5e309ef", null ],
-    [ "AudFormat", "struct_x_v___hdmi_rx.html#a6888233d6f5b66f05d05232bc49ba029", null ],
+    [ "AudFormat", "struct_x_v___hdmi_rx.html#abe8993accdaaf76dec4df33235d0b184", null ],
     [ "AudN", "struct_x_v___hdmi_rx.html#a4b3259927c96554e2e278d3f9aeb6014", null ],
     [ "AudRef", "struct_x_v___hdmi_rx.html#ad90a011cd393e8ef5c3eb37b9cbf7257", null ],
     [ "Aux", "struct_x_v___hdmi_rx.html#a9d8420dc7f4417e6107eeaf9f8e28306", null ],

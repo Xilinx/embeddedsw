@@ -84,6 +84,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
                            XV_HdmiTx_WriteReg
 1.1   MG     03/05/17 Introduced video mask peripheral
 1.2   YH     22/08/17 Added XV_HDMITX_AUD_CTRL_AUDFMT_MASK (Audio Format)
+1.3   YH     06/10/17 Added XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT (Audio Format)
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -372,6 +373,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a78026a4105a831d8d1e2788c1d6ba913"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a78026a4105a831d8d1e2788c1d6ba913">XV_HDMITX_AUD_CTRL_AUDFMT_MASK</a>&#160;&#160;&#160;(1&lt;&lt;4)</td></tr>
 <tr class="memdesc:a78026a4105a831d8d1e2788c1d6ba913"><td class="mdescLeft">&#160;</td><td class="mdescRight">AUD Control AUD Format mask.  <a href="#a78026a4105a831d8d1e2788c1d6ba913">More...</a><br /></td></tr>
 <tr class="separator:a78026a4105a831d8d1e2788c1d6ba913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0507ddc2e25096e01a650cf41849e35f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a0507ddc2e25096e01a650cf41849e35f">XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:a0507ddc2e25096e01a650cf41849e35f"><td class="mdescLeft">&#160;</td><td class="mdescRight">AUD Control AUD Format shift.  <a href="#a0507ddc2e25096e01a650cf41849e35f">More...</a><br /></td></tr>
+<tr class="separator:a0507ddc2e25096e01a650cf41849e35f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26011fe634f2296a975829bae26517fe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a26011fe634f2296a975829bae26517fe">XV_HDMITX_AUD_STA_IRQ_MASK</a>&#160;&#160;&#160;(1&lt;&lt;0)</td></tr>
 <tr class="memdesc:a26011fe634f2296a975829bae26517fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">AUD Status Interrupt mask.  <a href="#a26011fe634f2296a975829bae26517fe">More...</a><br /></td></tr>
 <tr class="separator:a26011fe634f2296a975829bae26517fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -474,6 +478,26 @@ Macros</h2></td></tr>
 
 <p>AUD Control AUD Format mask. </p>
 
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#a1969dd5561dba784fdb82a4b8e634256">XV_HdmiTx_GetAudioFormat()</a>, and <a class="el" href="xv__hdmitx_8h.html#ad2d696a57ba6d62205853f83b4fdc589">XV_HdmiTx_SetAudioFormat()</a>.</p>
+
+</div>
+</div>
+<a id="a0507ddc2e25096e01a650cf41849e35f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0507ddc2e25096e01a650cf41849e35f">&#9670;&nbsp;</a></span>XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>AUD Control AUD Format shift. </p>
+
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#a1969dd5561dba784fdb82a4b8e634256">XV_HdmiTx_GetAudioFormat()</a>.</p>
+
 </div>
 </div>
 <a id="a28f589dcdb02f0836911bc48271fca9b"></a>
@@ -524,7 +548,7 @@ Macros</h2></td></tr>
 
 <p>AUD Control Register Clear * offset. </p>
 
-<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#a32872739c2a5ea02cf92aadc79aa385f">XV_HdmiTx_SetAudioChannels()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#a32872739c2a5ea02cf92aadc79aa385f">XV_HdmiTx_SetAudioChannels()</a>, and <a class="el" href="xv__hdmitx_8h.html#ad2d696a57ba6d62205853f83b4fdc589">XV_HdmiTx_SetAudioFormat()</a>.</p>
 
 </div>
 </div>
@@ -558,7 +582,7 @@ Macros</h2></td></tr>
 
 <p>AUD Control Register * offset. </p>
 
-<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#a32872739c2a5ea02cf92aadc79aa385f">XV_HdmiTx_SetAudioChannels()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#a1969dd5561dba784fdb82a4b8e634256">XV_HdmiTx_GetAudioFormat()</a>, and <a class="el" href="xv__hdmitx_8h.html#a32872739c2a5ea02cf92aadc79aa385f">XV_HdmiTx_SetAudioChannels()</a>.</p>
 
 </div>
 </div>
@@ -576,7 +600,7 @@ Macros</h2></td></tr>
 
 <p>AUD Control Run mask. </p>
 
-<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#a32872739c2a5ea02cf92aadc79aa385f">XV_HdmiTx_SetAudioChannels()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#a32872739c2a5ea02cf92aadc79aa385f">XV_HdmiTx_SetAudioChannels()</a>, and <a class="el" href="xv__hdmitx_8h.html#ad2d696a57ba6d62205853f83b4fdc589">XV_HdmiTx_SetAudioFormat()</a>.</p>
 
 </div>
 </div>
@@ -594,7 +618,7 @@ Macros</h2></td></tr>
 
 <p>AUD Control Register Set * offset. </p>
 
-<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#a32872739c2a5ea02cf92aadc79aa385f">XV_HdmiTx_SetAudioChannels()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#a32872739c2a5ea02cf92aadc79aa385f">XV_HdmiTx_SetAudioChannels()</a>, and <a class="el" href="xv__hdmitx_8h.html#ad2d696a57ba6d62205853f83b4fdc589">XV_HdmiTx_SetAudioFormat()</a>.</p>
 
 </div>
 </div>
@@ -2255,7 +2279,7 @@ Macros</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the register.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851" title="This macro reads a value from a HDMI TX register. ">XV_HdmiTx_ReadReg(UINTPTR BaseAddress, u32 RegOffset)</a> </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#ae75f2ab194a44b9f67b7fa9d4545cb57">XV_HdmiTx_AuxSend()</a>, <a class="el" href="xv__hdmitx_8c.html#abdb511167dc499eacf28789225e83a24">XV_HdmiTx_DdcGetAck()</a>, <a class="el" href="xv__hdmitx_8c.html#a8c78e41a57fd48c1a392bc7448b93488">XV_HdmiTx_DdcReadData()</a>, <a class="el" href="xv__hdmitx_8c.html#ace17bdbb13a83051c81e70162707c1bb">XV_HdmiTx_DdcWaitForDone()</a>, <a class="el" href="xv__hdmitx_8c.html#a4e0fa58d0c4b103aaa0493f875b7a8fb">XV_HdmiTx_DdcWriteCommand()</a>, <a class="el" href="xv__hdmitx__intr_8c.html#a25e91176ce93f223449dcb56c375ac51">XV_HdmiTx_IntrHandler()</a>, and <a class="el" href="xv__hdmitx__selftest_8c.html#a0934e75073446925a9698485b52e2c00">XV_HdmiTx_SelfTest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#ae75f2ab194a44b9f67b7fa9d4545cb57">XV_HdmiTx_AuxSend()</a>, <a class="el" href="xv__hdmitx_8c.html#abdb511167dc499eacf28789225e83a24">XV_HdmiTx_DdcGetAck()</a>, <a class="el" href="xv__hdmitx_8c.html#a8c78e41a57fd48c1a392bc7448b93488">XV_HdmiTx_DdcReadData()</a>, <a class="el" href="xv__hdmitx_8c.html#ace17bdbb13a83051c81e70162707c1bb">XV_HdmiTx_DdcWaitForDone()</a>, <a class="el" href="xv__hdmitx_8c.html#a4e0fa58d0c4b103aaa0493f875b7a8fb">XV_HdmiTx_DdcWriteCommand()</a>, <a class="el" href="xv__hdmitx_8h.html#a1969dd5561dba784fdb82a4b8e634256">XV_HdmiTx_GetAudioFormat()</a>, <a class="el" href="xv__hdmitx__intr_8c.html#a25e91176ce93f223449dcb56c375ac51">XV_HdmiTx_IntrHandler()</a>, and <a class="el" href="xv__hdmitx__selftest_8c.html#a0934e75073446925a9698485b52e2c00">XV_HdmiTx_SelfTest()</a>.</p>
 
 </div>
 </div>
@@ -2372,7 +2396,7 @@ Macros</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1" title="This macro writes a value to a HDMI TX register. ">XV_HdmiTx_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Data)</a> </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#ae75f2ab194a44b9f67b7fa9d4545cb57">XV_HdmiTx_AuxSend()</a>, <a class="el" href="xv__hdmitx_8c.html#ace17bdbb13a83051c81e70162707c1bb">XV_HdmiTx_DdcWaitForDone()</a>, <a class="el" href="xv__hdmitx_8c.html#a4e0fa58d0c4b103aaa0493f875b7a8fb">XV_HdmiTx_DdcWriteCommand()</a>, <a class="el" href="xv__hdmitx_8h.html#a32872739c2a5ea02cf92aadc79aa385f">XV_HdmiTx_SetAudioChannels()</a>, <a class="el" href="xv__hdmitx_8h.html#a9271b92c3193e1ce46a2b610080c6f06">XV_HdmiTx_SetColorDepth()</a>, <a class="el" href="xv__hdmitx_8h.html#aa8eb6378fdb4a48a22fdedb89cc3702a">XV_HdmiTx_SetColorFormat()</a>, <a class="el" href="xv__hdmitx_8h.html#abe6e4feed643a46f8c5a09494d2e2874">XV_HdmiTx_SetPixelRate()</a>, and <a class="el" href="xv__hdmitx_8h.html#abb0cde0fed5637779f430ca6eb2a9199">XV_HdmiTx_SetSampleRate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#ae75f2ab194a44b9f67b7fa9d4545cb57">XV_HdmiTx_AuxSend()</a>, <a class="el" href="xv__hdmitx_8c.html#ace17bdbb13a83051c81e70162707c1bb">XV_HdmiTx_DdcWaitForDone()</a>, <a class="el" href="xv__hdmitx_8c.html#a4e0fa58d0c4b103aaa0493f875b7a8fb">XV_HdmiTx_DdcWriteCommand()</a>, <a class="el" href="xv__hdmitx_8h.html#a32872739c2a5ea02cf92aadc79aa385f">XV_HdmiTx_SetAudioChannels()</a>, <a class="el" href="xv__hdmitx_8h.html#ad2d696a57ba6d62205853f83b4fdc589">XV_HdmiTx_SetAudioFormat()</a>, <a class="el" href="xv__hdmitx_8h.html#a9271b92c3193e1ce46a2b610080c6f06">XV_HdmiTx_SetColorDepth()</a>, <a class="el" href="xv__hdmitx_8h.html#aa8eb6378fdb4a48a22fdedb89cc3702a">XV_HdmiTx_SetColorFormat()</a>, <a class="el" href="xv__hdmitx_8h.html#abe6e4feed643a46f8c5a09494d2e2874">XV_HdmiTx_SetPixelRate()</a>, and <a class="el" href="xv__hdmitx_8h.html#abb0cde0fed5637779f430ca6eb2a9199">XV_HdmiTx_SetSampleRate()</a>.</p>
 
 </div>
 </div>

@@ -46,6 +46,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   aad  23/01/17 Initial release.
+ * 1.1   aad  10/04/17 Removed un-applicable registers
  * </pre>
  *
 *******************************************************************************/
@@ -219,10 +220,6 @@
   */
 #define XDPPSU_PHY_CONFIG		0x0200	/**< Transceiver PHY reset and
 							configuration. */
-#define XDPPSU_PHY_VOLTAGE_DIFF_LANE_0	0x0220	/**< Controls the differential
-							voltage swing. */
-#define XDPPSU_PHY_VOLTAGE_DIFF_LANE_1	0x0224	/**< Controls the differential
-							voltage swing. */
 #define XDPPSU_PHY_TRANSMIT_PRBS7	0x0230	/**< Enable pseudo random bit
 							sequence 7 pattern
 							transmission for link
@@ -232,13 +229,9 @@
 							clock frequency for the
 							required link rate. */
 #define XDPPSU_TX_PHY_POWER_DOWN		0x0238	/**< Controls PHY power down. */
-#define XDPPSU_PHY_PRECURSOR_LANE_0	0x023C	/**< Controls the pre-cursor
+#define XDPPSU_PHY_PRECURSOR_LANE_0	0x024C	/**< Controls the pre-cursor
 							level. */
-#define XDPPSU_PHY_PRECURSOR_LANE_1	0x0240	/**< Controls the pre-cursor
-							level. */
-#define XDPPSU_PHY_POSTCURSOR_LANE_0	0x024C	/**< Controls the post-cursor
-							level. */
-#define XDPPSU_PHY_POSTCURSOR_LANE_1	0x0250	/**< Controls the post-cursor
+#define XDPPSU_PHY_PRECURSOR_LANE_1	0x0250	/**< Controls the pre-cursor
 							level. */
 #define XDPPSU_PHY_STATUS		0x0280	/**< Current PHY status. */
 /* @} */

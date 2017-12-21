@@ -129,6 +129,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
                          mode macros
 1.09  MMO    02/03/17 Added Sync Loss and IsMode Handler for HDCP
                          compliance test.
+1.10  EB     24/10/17 Added enum XV_HdmiRx_AudioFormatType for AudFormat
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -185,9 +186,22 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:a93574b274899e5038d38e6524eab66fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">These constants specify different types of handler and used to differentiate interrupt requests from peripheral.  <a href="xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fc">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:a93574b274899e5038d38e6524eab66fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">HDMI RX stream status</div></td></tr>
+<tr class="memitem:a1a0a96c3c2d056c688b7444355656695"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695">XV_HdmiRx_State</a> { <br />
+&#160;&#160;<a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695a4998c41076823a110a2794ed12e48485">XV_HDMIRX_STATE_STREAM_DOWN</a>, 
+<a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695ab351c8c3d59197075e31d8732362338a">XV_HDMIRX_STATE_STREAM_IDLE</a>, 
+<a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695ad69b33595cad0792f2b274c5668b94a5">XV_HDMIRX_STATE_STREAM_INIT</a>, 
+<a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695a9dbb145fc41380eb7e17f475f32a2a0a">XV_HDMIRX_STATE_STREAM_ARM</a>, 
+<br />
+&#160;&#160;<a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695a6ea4117e5ce6dc6fad5e24d27d5035bb">XV_HDMIRX_STATE_STREAM_LOCK</a>, 
+<a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695aa531cb545fc71dfc1c284a795a5564da">XV_HDMIRX_STATE_STREAM_RDY</a>, 
+<a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695a3b9a5021e46340fc32df2d4b5c7cf941">XV_HDMIRX_STATE_STREAM_UP</a>
+<br />
+ }</td></tr>
+<tr class="separator:a1a0a96c3c2d056c688b7444355656695"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-HDMI RX stream status</h2></td></tr>
+HDMI RX audio format</h2></td></tr>
 <tr class="memitem:a08c3eeefe53e3f62401dfa8f99c2b7b5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx_8h.html#a08c3eeefe53e3f62401dfa8f99c2b7b5">XV_HdmiRx_GetVersion</a>(InstancePtr)&#160;&#160;&#160;<a class="el" href="xv__hdmirx__hw_8h.html#ab1245a8a62b2b5611cc4cbb2aa4af75b">XV_HdmiRx_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, (<a class="el" href="xv__hdmirx__hw_8h.html#a09dd02e2eec9abeece66f495f3f1624d">XV_HDMIRX_VER_VERSION_OFFSET</a>))</td></tr>
 <tr class="memdesc:a08c3eeefe53e3f62401dfa8f99c2b7b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro reads the RX version.  <a href="#a08c3eeefe53e3f62401dfa8f99c2b7b5">More...</a><br /></td></tr>
 <tr class="separator:a08c3eeefe53e3f62401dfa8f99c2b7b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -332,18 +346,8 @@ HDMI RX stream status</h2></td></tr>
 <tr class="memitem:a2069271b5836a2b56e9d7bb43b073772"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx_8h.html#a2069271b5836a2b56e9d7bb43b073772">XV_HdmiRx_DdcHdcpClearReadMessageBuffer</a>(InstancePtr)&#160;&#160;&#160;<a class="el" href="xv__hdmirx__hw_8h.html#a407dbf36f2752c30d265e3a8a25d29fe">XV_HdmiRx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, (<a class="el" href="xv__hdmirx__hw_8h.html#a8272d8237c5560511743f6645351c889">XV_HDMIRX_DDC_CTRL_SET_OFFSET</a>), (<a class="el" href="xv__hdmirx__hw_8h.html#af8e7afbf29117f39c72339d26872246a">XV_HDMIRX_DDC_CTRL_RMSG_CLR_MASK</a>))</td></tr>
 <tr class="memdesc:a2069271b5836a2b56e9d7bb43b073772"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro clears the HDCP read message buffer in the DDC peripheral.  <a href="#a2069271b5836a2b56e9d7bb43b073772">More...</a><br /></td></tr>
 <tr class="separator:a2069271b5836a2b56e9d7bb43b073772"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a0a96c3c2d056c688b7444355656695"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695">XV_HdmiRx_State</a> { <br />
-&#160;&#160;<a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695a4998c41076823a110a2794ed12e48485">XV_HDMIRX_STATE_STREAM_DOWN</a>, 
-<a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695ab351c8c3d59197075e31d8732362338a">XV_HDMIRX_STATE_STREAM_IDLE</a>, 
-<a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695ad69b33595cad0792f2b274c5668b94a5">XV_HDMIRX_STATE_STREAM_INIT</a>, 
-<a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695a9dbb145fc41380eb7e17f475f32a2a0a">XV_HDMIRX_STATE_STREAM_ARM</a>, 
-<br />
-&#160;&#160;<a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695a6ea4117e5ce6dc6fad5e24d27d5035bb">XV_HDMIRX_STATE_STREAM_LOCK</a>, 
-<a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695aa531cb545fc71dfc1c284a795a5564da">XV_HDMIRX_STATE_STREAM_RDY</a>, 
-<a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695a3b9a5021e46340fc32df2d4b5c7cf941">XV_HDMIRX_STATE_STREAM_UP</a>
-<br />
- }</td></tr>
-<tr class="separator:a1a0a96c3c2d056c688b7444355656695"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7def873fbec656064546ee153f8437be"><td class="memItemLeft" align="right" valign="top"><a id="a7def873fbec656064546ee153f8437be"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiRx_AudioFormatType</b> </td></tr>
+<tr class="separator:a7def873fbec656064546ee153f8437be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb56791ee325fc10d61f812296d71226"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx_8h.html#aeb56791ee325fc10d61f812296d71226">XV_HdmiRx_Callback</a>) (void *CallbackRef)</td></tr>
 <tr class="memdesc:aeb56791ee325fc10d61f812296d71226"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback type for interrupt.  <a href="#aeb56791ee325fc10d61f812296d71226">More...</a><br /></td></tr>
 <tr class="separator:aeb56791ee325fc10d61f812296d71226"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2100,7 +2104,7 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiRx_H
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is required after a reset or init. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_rx___audio_stream.html#a62436417a204c891460a4a70603eb523">XV_HdmiRx_AudioStream::Active</a>, <a class="el" href="struct_x_v___hdmi_rx.html#a5599189446aa34a986126f1dc5e309ef">XV_HdmiRx::AudCts</a>, <a class="el" href="struct_x_v___hdmi_rx.html#a6888233d6f5b66f05d05232bc49ba029">XV_HdmiRx::AudFormat</a>, <a class="el" href="struct_x_v___hdmi_rx___stream.html#a99397f2c97c560a3a7e78e14fb315cfe">XV_HdmiRx_Stream::Audio</a>, <a class="el" href="struct_x_v___hdmi_rx.html#a4b3259927c96554e2e278d3f9aeb6014">XV_HdmiRx::AudN</a>, <a class="el" href="struct_x_v___hdmi_rx.html#a9d8420dc7f4417e6107eeaf9f8e28306">XV_HdmiRx::Aux</a>, <a class="el" href="struct_x_v___hdmi_rx___audio_stream.html#ac2fce5e2b2f4d39c4ca275bbbee2e000">XV_HdmiRx_AudioStream::Channels</a>, <a class="el" href="union_x_v___hdmi_rx___aux_header.html#af3e0f7a1e86930ae5427a98fb783f9ac">XV_HdmiRx_AuxHeader::Data</a>, <a class="el" href="union_x_v___hdmi_rx___aux_data.html#a66dadb86713a34b4bec97957a511fe3e">XV_HdmiRx_AuxData::Data</a>, <a class="el" href="struct_x_v___hdmi_rx___aux.html#ab3dc0a540cac6ef317fd3135a459cc3c">XV_HdmiRx_Aux::Data</a>, <a class="el" href="struct_x_v___hdmi_rx___aux.html#acdbf28da615dedad4be9bf8e9ff58216">XV_HdmiRx_Aux::Header</a>, <a class="el" href="struct_x_v___hdmi_rx___stream.html#ac923f4d27cb6fe74d202de5d6c201464">XV_HdmiRx_Stream::IsHdmi</a>, <a class="el" href="struct_x_v___hdmi_rx.html#abec1436490b52a721664e6f532a0810f">XV_HdmiRx::IsStreamDownCallbackSet</a>, <a class="el" href="struct_x_v___hdmi_rx___stream.html#a0dd7bc8d80e7b48cfa2e719ee8c00ad1">XV_HdmiRx_Stream::State</a>, <a class="el" href="struct_x_v___hdmi_rx.html#af05084fa8d75129bcba271b86a8d3e62">XV_HdmiRx::Stream</a>, <a class="el" href="struct_x_v___hdmi_rx.html#a4487a94b3952681506cc3b2700ff68d2">XV_HdmiRx::StreamDownCallback</a>, <a class="el" href="struct_x_v___hdmi_rx.html#af057991b7be7e1ac4ea309df7e38587c">XV_HdmiRx::StreamDownRef</a>, <a class="el" href="struct_x_v___hdmi_rx___stream.html#a6e300e58c18687d3d6227cc410593373">XV_HdmiRx_Stream::Vic</a>, <a class="el" href="struct_x_v___hdmi_rx___stream.html#a637935d82811b204c720970e7f7e582a">XV_HdmiRx_Stream::Video</a>, and <a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695a4998c41076823a110a2794ed12e48485">XV_HDMIRX_STATE_STREAM_DOWN</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_rx___audio_stream.html#a62436417a204c891460a4a70603eb523">XV_HdmiRx_AudioStream::Active</a>, <a class="el" href="struct_x_v___hdmi_rx.html#a5599189446aa34a986126f1dc5e309ef">XV_HdmiRx::AudCts</a>, <a class="el" href="struct_x_v___hdmi_rx.html#abe8993accdaaf76dec4df33235d0b184">XV_HdmiRx::AudFormat</a>, <a class="el" href="struct_x_v___hdmi_rx___stream.html#a99397f2c97c560a3a7e78e14fb315cfe">XV_HdmiRx_Stream::Audio</a>, <a class="el" href="struct_x_v___hdmi_rx.html#a4b3259927c96554e2e278d3f9aeb6014">XV_HdmiRx::AudN</a>, <a class="el" href="struct_x_v___hdmi_rx.html#a9d8420dc7f4417e6107eeaf9f8e28306">XV_HdmiRx::Aux</a>, <a class="el" href="struct_x_v___hdmi_rx___audio_stream.html#ac2fce5e2b2f4d39c4ca275bbbee2e000">XV_HdmiRx_AudioStream::Channels</a>, <a class="el" href="union_x_v___hdmi_rx___aux_header.html#af3e0f7a1e86930ae5427a98fb783f9ac">XV_HdmiRx_AuxHeader::Data</a>, <a class="el" href="union_x_v___hdmi_rx___aux_data.html#a66dadb86713a34b4bec97957a511fe3e">XV_HdmiRx_AuxData::Data</a>, <a class="el" href="struct_x_v___hdmi_rx___aux.html#ab3dc0a540cac6ef317fd3135a459cc3c">XV_HdmiRx_Aux::Data</a>, <a class="el" href="struct_x_v___hdmi_rx___aux.html#acdbf28da615dedad4be9bf8e9ff58216">XV_HdmiRx_Aux::Header</a>, <a class="el" href="struct_x_v___hdmi_rx___stream.html#ac923f4d27cb6fe74d202de5d6c201464">XV_HdmiRx_Stream::IsHdmi</a>, <a class="el" href="struct_x_v___hdmi_rx.html#abec1436490b52a721664e6f532a0810f">XV_HdmiRx::IsStreamDownCallbackSet</a>, <a class="el" href="struct_x_v___hdmi_rx___stream.html#a0dd7bc8d80e7b48cfa2e719ee8c00ad1">XV_HdmiRx_Stream::State</a>, <a class="el" href="struct_x_v___hdmi_rx.html#af05084fa8d75129bcba271b86a8d3e62">XV_HdmiRx::Stream</a>, <a class="el" href="struct_x_v___hdmi_rx.html#a4487a94b3952681506cc3b2700ff68d2">XV_HdmiRx::StreamDownCallback</a>, <a class="el" href="struct_x_v___hdmi_rx.html#af057991b7be7e1ac4ea309df7e38587c">XV_HdmiRx::StreamDownRef</a>, <a class="el" href="struct_x_v___hdmi_rx___stream.html#a6e300e58c18687d3d6227cc410593373">XV_HdmiRx_Stream::Vic</a>, <a class="el" href="struct_x_v___hdmi_rx___stream.html#a637935d82811b204c720970e7f7e582a">XV_HdmiRx_Stream::Video</a>, and <a class="el" href="xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695a4998c41076823a110a2794ed12e48485">XV_HDMIRX_STATE_STREAM_DOWN</a>.</p>
 
 </div>
 </div>

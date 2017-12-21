@@ -3,6 +3,7 @@ var xqspipsu__hw_8h =
     [ "XQSPIPS_BASEADDR", "group__qspipsu__v3__4.html#ga49734e127e6359b15c1ce7f117748c36", null ],
     [ "XQSPIPS_EN_REG", "group__qspipsu__v3__4.html#gab5bb698f82719c1ffdf5055dd5ebf939", null ],
     [ "XQSPIPS_LQSPI_CFG_RST_STATE", "group__qspipsu__v3__4.html#ga3c05a7421b8aea31df3d026189282cce", null ],
+    [ "XQSPIPS_LQSPI_CR_4_BYTE_STATE", "group__qspipsu__v3__4.html#ga2b4818a62cb0d5671e7dee6130165b09", null ],
     [ "XQSPIPS_LQSPI_CR_INST_MASK", "group__qspipsu__v3__4.html#gad327ae631cb6e447615bc9534738af72", null ],
     [ "XQSPIPS_LQSPI_CR_RST_STATE", "group__qspipsu__v3__4.html#ga6f187c067994aa193d43051cb5fef0db", null ],
     [ "XQSPIPSU_BASEADDR", "group__qspipsu__v3__4.html#ga137198cf9ed99131ff88af7201399ebe", null ],

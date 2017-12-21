@@ -113,6 +113,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
                        doxygen.
 1.4   YH     07/07/17 Add new log type XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR
       MH     09/08/17 Add function XV_HdmiRxSs_HdcpSetCapability
+      YH     06/10/17 Add function XV_HdmiRxSs_GetAudioFormat
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -182,6 +183,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a9800e58c46167ce458da016451f88c8d"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#a9800e58c46167ce458da016451f88c8d">XV_HdmiRxSs_GetAudioChannels</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a9800e58c46167ce458da016451f88c8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the HDMI RX SS number of active audio channels.  <a href="#a9800e58c46167ce458da016451f88c8d">More...</a><br /></td></tr>
 <tr class="separator:a9800e58c46167ce458da016451f88c8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64e45e8b7892c815eab9b50c39790f10"><td class="memItemLeft" align="right" valign="top">XV_HdmiRx_AudioFormatType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#a64e45e8b7892c815eab9b50c39790f10">XV_HdmiRxSs_GetAudioFormat</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a64e45e8b7892c815eab9b50c39790f10"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the HDMI RX SS audio format.  <a href="#a64e45e8b7892c815eab9b50c39790f10">More...</a><br /></td></tr>
+<tr class="separator:a64e45e8b7892c815eab9b50c39790f10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdc056437ab2bb79bc929f7791db5f95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#abdc056437ab2bb79bc929f7791db5f95">XV_HdmiRxSs_RefClockChangeInit</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:abdc056437ab2bb79bc929f7791db5f95"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called when HDMI RX SS TMDS clock changes.  <a href="#abdc056437ab2bb79bc929f7791db5f95">More...</a><br /></td></tr>
 <tr class="separator:abdc056437ab2bb79bc929f7791db5f95"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -494,6 +498,36 @@ Handler Types</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_v___hdmi_rx_ss.html#a51cc4ea97fa0b2aa6987cd0ef7e8d58a">XV_HdmiRxSs::AudioChannels</a>.</p>
+
+</div>
+</div>
+<a id="a64e45e8b7892c815eab9b50c39790f10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64e45e8b7892c815eab9b50c39790f10">&#9670;&nbsp;</a></span>XV_HdmiRxSs_GetAudioFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XV_HdmiRx_AudioFormatType XV_HdmiRxSs_GetAudioFormat </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns the HDMI RX SS audio format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>pointer to <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> instance</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Channels</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_rx_ss.html#a3d76e27b48746aa888d284583ce9399a">XV_HdmiRxSs::HdmiRxPtr</a>.</p>
 
 </div>
 </div>

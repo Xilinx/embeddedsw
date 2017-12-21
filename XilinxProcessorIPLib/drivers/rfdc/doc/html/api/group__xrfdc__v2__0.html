@@ -157,6 +157,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gac25ed078d45d84a71eb368dcf4f82b46"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xrfdc__v2__0.html#gac25ed078d45d84a71eb368dcf4f82b46">XRFdc_SetupFIFO</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, int Tile_Id, u8 Enable)</td></tr>
 <tr class="memdesc:gac25ed078d45d84a71eb368dcf4f82b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable and Disable the ADC/DAC FIFO.  <a href="#gac25ed078d45d84a71eb368dcf4f82b46">More...</a><br /></td></tr>
 <tr class="separator:gac25ed078d45d84a71eb368dcf4f82b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae2a8ac4c4184eb047788d4fc7579a02c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xrfdc__v2__0.html#gae2a8ac4c4184eb047788d4fc7579a02c">XRFdc_GetFIFOStatus</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, int Tile_Id, u8 *Enable)</td></tr>
+<tr class="memdesc:gae2a8ac4c4184eb047788d4fc7579a02c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current status of ADC/DAC FIFO.  <a href="#gae2a8ac4c4184eb047788d4fc7579a02c">More...</a><br /></td></tr>
+<tr class="separator:gae2a8ac4c4184eb047788d4fc7579a02c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaca1e37bf1dc8acb393458f3964937762"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xrfdc__v2__0.html#gaca1e37bf1dc8acb393458f3964937762">XRFdc_GetOutputCurr</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, int Tile_Id, u32 Block_Id, int *OutputCurr)</td></tr>
 <tr class="memdesc:gaca1e37bf1dc8acb393458f3964937762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Output Current for DAC block.  <a href="#gaca1e37bf1dc8acb393458f3964937762">More...</a><br /></td></tr>
 <tr class="separator:gaca1e37bf1dc8acb393458f3964937762"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -658,6 +661,65 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="gae2a8ac4c4184eb047788d4fc7579a02c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae2a8ac4c4184eb047788d4fc7579a02c">&#9670;&nbsp;</a></span>XRFdc_GetFIFOStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XRFdc_GetFIFOStatus </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_r_fdc.html">XRFdc</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>Tile_Id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&#160;</td>
+          <td class="paramname"><em>Enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xrfdc_8c.html">xrfdc.c</a>&gt;</code></p>
+
+<p>Current status of ADC/DAC FIFO. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XRfdc instance. </td></tr>
+    <tr><td class="paramname">Type</td><td>is ADC or DAC. 0 for ADC and 1 for DAC </td></tr>
+    <tr><td class="paramname">Tile_Id</td><td>Valid values are 0-3. </td></tr>
+    <tr><td class="paramname">Enable</td><td>valid values are 1 (FIFO enable) and 0 (FIFO Disable)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XRFDC_SUCCESS if successful.</li>
+<li>XRFDC_FAILURE if Tile not enabled.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Common API for ADC/DAC blocks </dd></dl>
+
+</div>
+</div>
 <a id="gae567631f87c3f222aca40c47a29cb96a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gae567631f87c3f222aca40c47a29cb96a">&#9670;&nbsp;</a></span>XRFdc_GetInterpolationFactor()</h2>
 
@@ -830,7 +892,7 @@ Functions</h2></td></tr>
 <ul>
 <li>XRFDC_FAILURE if Block not enabled.</li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>FineMixerScale in Mixer_Settings structure can have 3 values. XRFDC_MXR_SCALE_* represents the valid return values. XRFDC_MXR_SCALE_NO_CHANGE - Default driver implementation. XRFDC_MXR_SCALE_ONE - If fine Mixer Scale is set to 1 by user. XRFDC_MXR_SCALE_ZERO_DOT_SEVEN - If fine mixer scale is set to 0.7 by user. </dd></dl>
 
 </div>
 </div>
@@ -1598,7 +1660,7 @@ Functions</h2></td></tr>
 <ul>
 <li>XRFDC_FAILURE if Block not enabled.</li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>FineMixerScale in Mixer_Settings structure can have 3 values. XRFDC_MXR_SCALE_* represents the valid values. XRFDC_MXR_SCALE_NO_CHANGE - If mixer mode R2C, Mixer Scale is set to 1 and for other modes mixer scale is set to 0.7 XRFDC_MXR_SCALE_ONE - To set fine mixer scale to 1. XRFDC_MXR_SCALE_ZERO_DOT_SEVEN - To set fine mixer scale to 0.7. </dd></dl>
 
 </div>
 </div>

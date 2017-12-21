@@ -77,7 +77,9 @@ extern "C" {
 typedef enum {
 	XV_SDITX_HANDLER_GTRESET_DONE = 1,
 	XV_SDITX_HANDLER_OVERFLOW,
-	XV_SDITX_HANDLER_UNDERFLOW
+	XV_SDITX_HANDLER_UNDERFLOW,
+	XV_SDITX_HANDLER_CEALIGN,
+	XV_SDITX_HANDLER_AXI4SVIDLOCK
 
 /*	XV_SDITX_HANDLER_STREAM_UP */
 } XV_SdiTx_HandlerType;
@@ -180,6 +182,7 @@ typedef struct {
 	XVidC_VideoFormat	IsStreamInterlaced;
 	XSdiVid_ChannelAssignment	CAssignment;	/**< Channel assignment */
 	u32 PayloadId;
+	u8 IsPsF;
 } XV_SdiTx_Stream;
 
 /**
@@ -205,18 +208,18 @@ typedef struct {
   u32			IsReady;	/**< Core and the driver instance are initialized */
   XV_SdiTx_Callback	GtRstDoneCallback;	/**< Callback for stream down callback */
   void			*GtRstDoneRef;		/**< To be passed to the stream down callback */
-  u32			IsGtRstDoneCallbackSet;	/**< Set flag. This flag is set to true when the
-						 * callback has been registered */
 
   XV_SdiTx_Callback	OverFlowCallback;	/**< Callback for over flow callback */
   void			*OverFlowRef;		/**< To be passed to the over flow callback */
-  u32			IsOverFlowCallbackSet;	/**< Set flag. This flag is set to true when the
-						 * callback has been registered */
 
   XV_SdiTx_Callback	UnderFlowCallback;	/**< Callback for under flow callback */
   void			*UnderFlowRef;		/**< To be passed to the under flow callback */
-  u32			IsUnderFlowCallbackSet;	/**< Set flag. This flag is set to true when the
-						 * callback has been registered */
+
+  XV_SdiTx_Callback	CeAlignErrCallback;	/**< Callback for CE align error callback */
+  void			*CeAlignErrRef;		/**< To be passed to the CE align error callback */
+
+  XV_SdiTx_Callback	Axi4sVidLockCallback;	/**< Callback for Axi4s video lock callback */
+  void			*Axi4sVidLockRef;	/**< To be passed to the Axi4s Video lock callback */
 
   XV_SdiTx_Stream	Stream[XV_SDITX_MAX_DATASTREAM];/**< SDI TX stream information */
   XSdiVid_Transport	Transport;	/**< SDI TX Transport information */

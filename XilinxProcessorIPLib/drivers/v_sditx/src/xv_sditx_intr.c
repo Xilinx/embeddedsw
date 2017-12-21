@@ -65,6 +65,8 @@
 static void SdiTx_GtTxRstDoneIntrHandler(XV_SdiTx *InstancePtr);
 static void SdiTx_OverFlowIntrHandler(XV_SdiTx *InstancePtr);
 static void SdiTx_UnderFlowIntrHandler(XV_SdiTx *InstancePtr);
+static void SdiTx_CeAlignErrIntrHandler(XV_SdiTx *InstancePtr);
+static void SdiTx_Axi4sVidLockIntrHandler(XV_SdiTx *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -215,7 +217,7 @@ void XV_SdiTx_IntrHandler(void *InstancePtr)
 		XV_SdiTx_InterruptClear(SdiTxPtr, Mask);
 	}
 
-	/* Read ISR register  for OVERRFLOW*/
+	/* Read ISR register  for UNDERFLOW*/
 	Mask = ActiveIntr & XV_SDITX_ISR_UNDERFLOW_MASK;
 
 	/* Check for UNDERFLOW IRQ flag set */
@@ -228,6 +230,31 @@ void XV_SdiTx_IntrHandler(void *InstancePtr)
 		XV_SdiTx_InterruptClear(SdiTxPtr, Mask);
 	}
 
+	/* Read ISR register  for CE_ALIGN_ERROR*/
+	Mask = ActiveIntr & XV_SDITX_ISR_TX_CE_ALIGN_ERR_MASK;
+
+	/* Check for CE_ALIGN_ERROR IRQ flag set */
+	if (Mask) {
+
+		/* Jump to CE_ALIGN_ERROR interrupt handler */
+		SdiTx_CeAlignErrIntrHandler(SdiTxPtr);
+
+		/* Clear handled interrupt(s) */
+		XV_SdiTx_InterruptClear(SdiTxPtr, Mask);
+	}
+
+	/* Read ISR register  for Axi4S Video lock*/
+	Mask = ActiveIntr & XV_SDITX_ISR_AXI4S_VID_LOCK_MASK;
+
+	/* Check for Axi4s Video lock IRQ flag set */
+	if (Mask) {
+
+		/* Jump to Axi4s video lock interrupt handler */
+		SdiTx_Axi4sVidLockIntrHandler(SdiTxPtr);
+
+		/* Clear handled interrupt(s) */
+		XV_SdiTx_InterruptClear(SdiTxPtr, Mask);
+	}
 }
 
 /*****************************************************************************/
@@ -275,7 +302,6 @@ void *CallbackFunc, void *CallbackRef)
 	case (XV_SDITX_HANDLER_GTRESET_DONE):
 		InstancePtr->GtRstDoneCallback = (XV_SdiTx_Callback)CallbackFunc;
 		InstancePtr->GtRstDoneRef = CallbackRef;
-		InstancePtr->IsGtRstDoneCallbackSet = (TRUE);
 		Status = (XST_SUCCESS);
 		break;
 
@@ -283,7 +309,6 @@ void *CallbackFunc, void *CallbackRef)
 	case (XV_SDITX_HANDLER_OVERFLOW):
 		InstancePtr->OverFlowCallback = (XV_SdiTx_Callback)CallbackFunc;
 		InstancePtr->OverFlowRef = CallbackRef;
-		InstancePtr->IsOverFlowCallbackSet = (TRUE);
 		Status = (XST_SUCCESS);
 		break;
 
@@ -291,10 +316,22 @@ void *CallbackFunc, void *CallbackRef)
 	case (XV_SDITX_HANDLER_UNDERFLOW):
 		InstancePtr->UnderFlowCallback = (XV_SdiTx_Callback)CallbackFunc;
 		InstancePtr->UnderFlowRef = CallbackRef;
-		InstancePtr->IsUnderFlowCallbackSet = (TRUE);
 		Status = (XST_SUCCESS);
 		break;
 
+	/* CE align errors */
+	case (XV_SDITX_HANDLER_CEALIGN):
+		InstancePtr->CeAlignErrCallback = (XV_SdiTx_Callback)CallbackFunc;
+		InstancePtr->CeAlignErrRef = CallbackRef;
+		Status = (XST_SUCCESS);
+		break;
+
+	/* Axi4s video lock  */
+	case (XV_SDITX_HANDLER_AXI4SVIDLOCK):
+		InstancePtr->Axi4sVidLockCallback = (XV_SdiTx_Callback)CallbackFunc;
+		InstancePtr->Axi4sVidLockRef = CallbackRef;
+		Status = (XST_SUCCESS);
+		break;
 	default:
 		Status = (XST_INVALID_PARAM);
 		break;
@@ -370,7 +407,7 @@ void XV_SdiTx_IntrDisable(XV_SdiTx *InstancePtr, u32 Mask)
 static void SdiTx_GtTxRstDoneIntrHandler(XV_SdiTx *InstancePtr)
 {
 	/* Call stream up callback */
-	if (InstancePtr->IsGtRstDoneCallbackSet) {
+	if (InstancePtr->GtRstDoneCallback) {
 		InstancePtr->GtRstDoneCallback(InstancePtr->GtRstDoneRef);
 	}
 }
@@ -389,8 +426,8 @@ static void SdiTx_GtTxRstDoneIntrHandler(XV_SdiTx *InstancePtr)
 ******************************************************************************/
 static void SdiTx_OverFlowIntrHandler(XV_SdiTx *InstancePtr)
 {
-	/* Call stream up callback */
-	if (InstancePtr->IsOverFlowCallbackSet) {
+	/* Call OverFlow callback */
+	if (InstancePtr->OverFlowCallback) {
 		InstancePtr->OverFlowCallback(InstancePtr->OverFlowRef);
 	}
 }
@@ -409,8 +446,49 @@ static void SdiTx_OverFlowIntrHandler(XV_SdiTx *InstancePtr)
 ******************************************************************************/
 static void SdiTx_UnderFlowIntrHandler(XV_SdiTx *InstancePtr)
 {
-	/* Call stream up callback */
-	if (InstancePtr->IsUnderFlowCallbackSet) {
+	/* Call UnderFlow callback */
+	if (InstancePtr->UnderFlowCallback) {
 		InstancePtr->UnderFlowCallback(InstancePtr->UnderFlowRef);
+	}
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This function is the interrupt handler for the SDI Tx CE Align Error Event.
+*
+* @param    InstancePtr is a pointer to the XV_SdiTx core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+static void SdiTx_CeAlignErrIntrHandler(XV_SdiTx *InstancePtr)
+{
+	/* Call CE Align Error callback */
+	if (InstancePtr->CeAlignErrCallback) {
+		InstancePtr->CeAlignErrCallback(InstancePtr->CeAlignErrRef);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the interrupt handler for the SDI Axi4s bridge lock Event.
+*
+* @param    InstancePtr is a pointer to the XV_SdiTx core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+static void SdiTx_Axi4sVidLockIntrHandler(XV_SdiTx *InstancePtr)
+{
+	/* Call Axi4s Video lock callback */
+	if (InstancePtr->Axi4sVidLockCallback) {
+		InstancePtr->Axi4sVidLockCallback(InstancePtr->Axi4sVidLockRef);
 	}
 }

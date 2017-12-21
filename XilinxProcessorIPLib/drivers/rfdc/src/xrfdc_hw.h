@@ -49,6 +49,7 @@
 * 2.1   sk     09/15/17 Remove Libmetal library dependency for MB.
 *       sk     09/21/17 Add support for Over voltage and Over
 *                       Range interrupts.
+* 2.3   sk     11/10/17 Corrected FIFO and DATA Interrupt masks.
 * </pre>
 *
 ******************************************************************************/
@@ -284,10 +285,13 @@ extern "C" {
 							measurement MSB Register */
 #define XRFDC_DAC_DECODER_CTRL_OFFSET	0x180U	/**< DAC Unary Decoder/
 							Randomizer settings */
+#define XRFDC_DAC_DECODER_CLK_OFFSET	0x184U	/**< Decoder Clock enable */
 #define XRFDC_HSCOM_PWR_OFFSET		0x094	/**< Control register during
 							power-up sequence */
 #define XRFDC_HSCOM_UPDT_DYN_OFFSET		0x0B8	/**< Trigger the update
 							dynamic event */
+#define XRFDC_DAC_INVSINC_OFFSET		0x0C0U	/**< Invsinc control */
+#define XRFDC_DAC_MB_CFG_OFFSET		0x0C4U	/**< Multiband config */
 
 #define XRFDC_RESET_OFFSET		0x00U	/**< Tile reset register */
 #define XRFDC_RESTART_OFFSET	0x04U	/**< Tile restart register */
@@ -1780,6 +1784,28 @@ extern "C" {
 								interrupt mask */
 #define XRFDC_INTR_OVR_VOLTAGE_MASK		0x00000004U	/**< Over Voltage
 								interrupt mask */
+#define XRFDC_INTR_FIFO_OVR_MASK	0x00008000U	/**< FIFO OF mask */
+#define XRFDC_INTR_DAT_OVR_MASK		0x00004000U	/**< Data OF mask */
+/* @} */
+
+/** @name Multiband config register
+ *
+ * This register contains bits to configure multiband.
+ * @{
+ */
+
+#define XRFDC_EN_MB_MASK	0x00000008U	/**< multi-band adder mask */
+
+/* @} */
+
+/** @name Invsinc control register
+ *
+ * This register contains bits to configure Invsinc.
+ * @{
+ */
+
+#define XRFDC_EN_INVSINC_MASK	0x00000001U	/**< invsinc enable mask */
+
 /* @} */
 
 #define XRFDC_IXR_FIFOUSRDAT_MASK			0x0000000FU
@@ -1817,6 +1843,8 @@ extern "C" {
 #define XRFDC_SUBADC3_IXR_DCDR_UF_MASK 		0x00800000U
 #define XRFDC_ADC_OVR_VOLTAGE_MASK			0x04000000U
 #define XRFDC_ADC_OVR_RANGE_MASK			0x08000000U
+#define XRFDC_ADC_DAT_OVR_MASK				0x40000000U
+#define XRFDC_ADC_FIFO_OVR_MASK				0x80000000U
 #define XRFDC_DAC_MC_CFG2_OPCSCAS_MASK		0x0000F8F8U
 #define XRFDC_DAC_MC_CFG3_CSGAIN_MASK		0x0000FFC0U
 #define XRFDC_DAC_MC_CFG2_OPCSCAS_20MA		0x00004858U

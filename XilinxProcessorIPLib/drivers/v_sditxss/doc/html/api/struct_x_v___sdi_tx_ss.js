@@ -1,5 +1,9 @@
 var struct_x_v___sdi_tx_ss =
 [
+    [ "Axi4sVidLockCallback", "struct_x_v___sdi_tx_ss.html#afd8c806b7fd57bb351482b360d713b54", null ],
+    [ "Axi4sVidLockRef", "struct_x_v___sdi_tx_ss.html#ae12ceae79ba53231d284dfcb4ced5aa7", null ],
+    [ "CeAlignErrCallback", "struct_x_v___sdi_tx_ss.html#a02c3d66fe5b5df8770277aa1244e8ec5", null ],
+    [ "CeAlignErrRef", "struct_x_v___sdi_tx_ss.html#a223e2f4f531726f3defd0a0b09fd66fe", null ],
     [ "Config", "struct_x_v___sdi_tx_ss.html#af7d89922bc62fa37fbd2bb092e4d313a", null ],
     [ "GtReadyCallback", "struct_x_v___sdi_tx_ss.html#adadf4d2f39af6521c8a4e984180a3c9d", null ],
     [ "GtReadyRef", "struct_x_v___sdi_tx_ss.html#ab9db11eab4e545f63807da036b89a13e", null ],

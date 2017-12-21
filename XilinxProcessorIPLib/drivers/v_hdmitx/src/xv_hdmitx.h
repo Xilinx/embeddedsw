@@ -135,6 +135,10 @@
 * 1.7   YH     19/07/17 Added XV_HdmiTx_IsMasked macro
 *              22/08/17 Added XV_HdmiTx_Audio_LPCM macro
 *                       Added XV_HdmiTx_Audio_HBR macro
+* 1.8   YH     06/10/17 Replaced XV_HdmiTx_Audio_LPCM and XV_HdmiTx_Audio_HBR
+*                           macro with API XV_HdmiTx_SetAudioFormat
+*                       Added XV_HdmiTx_GetAudioFormat
+* 1.9   EB     24/10/17 Added enum XV_HdmiTx_AudioFormatType
 * </pre>
 *
 ******************************************************************************/
@@ -177,13 +181,21 @@ typedef enum {
 } XV_HdmiTx_HandlerType;
 /*@}*/
 
-/** @name HDMI RX stream status
+/** @name HDMI TX stream status
 * @{
 */
 typedef enum {
     XV_HDMITX_STATE_STREAM_DOWN,    // Stream down
     XV_HDMITX_STATE_STREAM_UP       // Stream up
 } XV_HdmiTx_State;
+
+/** @name HDMI TX audio format
+* @{
+*/
+typedef enum {
+    XV_HDMITX_AUDFMT_LPCM = 0,    // L-PCM
+    XV_HDMITX_AUDFMT_HBR          // HBR
+} XV_HdmiTx_AudioFormatType;
 
 /**
 * This typedef contains configuration information for the HDMI TX core.
@@ -776,40 +788,6 @@ typedef struct {
 /*****************************************************************************/
 /**
 *
-* This macro selects L-PCM audio for the HDMI TX.
-*
-* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
-*
-* @return   None.
-*
-* @note     C-style signature:
-*       void XV_HdmiTx_Audio_LPCM(XV_HdmiTx *InstancePtr)
-*
-******************************************************************************/
-#define XV_HdmiTx_Audio_LPCM(InstancePtr) \
-    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-    (XV_HDMITX_AUD_CTRL_CLR_OFFSET), (XV_HDMITX_AUD_CTRL_AUDFMT_MASK))
-
-/*****************************************************************************/
-/**
-*
-* This macro selects HBR audio for the HDMI TX.
-*
-* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
-*
-* @return   None.
-*
-* @note     C-style signature:
-*       void XV_HdmiTx_Audio_HBR(XV_HdmiTx *InstancePtr)
-*
-******************************************************************************/
-#define XV_HdmiTx_Audio_HBR(InstancePtr) \
-    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-    (XV_HDMITX_AUD_CTRL_SET_OFFSET), (XV_HDMITX_AUD_CTRL_AUDFMT_MASK))
-
-/*****************************************************************************/
-/**
-*
 * This macro sets the mode bit.
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
@@ -1095,7 +1073,8 @@ int XV_HdmiTx_DetectHdmi20(XV_HdmiTx *InstancePtr);
 void XV_HdmiTx_ShowSCDC(XV_HdmiTx *InstancePtr);
 void XV_HdmiTx_DebugInfo(XV_HdmiTx *InstancePtr);
 int XV_HdmiTx_SetAudioChannels(XV_HdmiTx *InstancePtr, u8 Value);
-
+int XV_HdmiTx_SetAudioFormat(XV_HdmiTx *InstancePtr, XV_HdmiTx_AudioFormatType Value);
+XV_HdmiTx_AudioFormatType XV_HdmiTx_GetAudioFormat(XV_HdmiTx *InstancePtr);
 /* Self test function in xv_hdmitx_selftest.c */
 int XV_HdmiTx_SelfTest(XV_HdmiTx *InstancePtr);
 

@@ -42,6 +42,9 @@
 #                     by appending "-mfpu=vfpv3 -mfloat-abi=hard". This change
 #                     has been done to support hard floating point operations
 #                     for a53 32 bit BSP.
+# 1.5   mus  09/18/17 Updated to check each extra compiler flag individually
+#                     for Cortexa53 32 mode BSP.This change allows users to
+#                     modify default flag value.It fixes CR#984945.
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -64,9 +67,46 @@ proc xdefine_cortexa53_params {drvhandle} {
     set compiler [common::get_property CONFIG.compiler $procdrv]
     if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
 	set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
-	set new_flags "-DARMA53_32  -mfpu=vfpv3 -mfloat-abi=hard $extra_flags"
-	common::set_property -name {EXTRA_COMPILER_FLAGS} -value $new_flags -objects [hsi::get_sw_processor]
+	set temp_flag $extra_flags
+	if {[string compare -nocase $temp_flag "-DARMA53_32  -mfpu=vfpv3 -mfloat-abi=hard -g -Wall -Wextra -march=armv7-a "] != 0} {
+	      set flagindex [string first {-DARMA53_32} $temp_flag 0]
+	      if { $flagindex == -1 } {
+		   set temp_flag "$temp_flag -DARMA53_32"
+	      }
 
+	      set flagindex [string first {-mfpu=} $temp_flag 0]
+              if { $flagindex == -1 } {
+	           set temp_flag "$temp_flag -mfpu=vfpv3"
+	      }
+
+	      set flagindex [string first {-mfloat-abi=} $temp_flag 0]
+	      if { $flagindex == -1 } {
+		    set temp_flag "$temp_flag -mfloat-abi=hard"
+	      }
+
+	      set flagindex [string first {-g} $temp_flag 0]
+	      if { $flagindex == -1 } {
+		    set temp_flag "$temp_flag -g"
+	      }
+
+	      set flagindex [string first {-Wall} $temp_flag 0]
+	      if { $flagindex == -1 } {
+		   set temp_flag "$temp_flag -Wall"
+	      }
+
+	      set flagindex [string first {-Wextra} $temp_flag 0]
+	      if { $flagindex == -1 } {
+		   set temp_flag "$temp_flag -Wextra"
+	      }
+
+	      set flagindex [string first {-march=} $temp_flag 0]
+	      if { $flagindex == -1 } {
+		   set temp_flag "$temp_flag -march=armv7-a"
+	      }
+
+	      set extra_flags $temp_flag
+              common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
+         }
     }
 
     #Append LTO flag in EXTRA_COMPILER_FLAGS for zynqmp_fsbl_bsp

@@ -35,6 +35,8 @@
 * 1.10  MG  2016/07/05   Updated LOCKT register
 * 1.11  YH  2016/09/14   Add option to enable fast switching
 * 1.12  YH  2017/07/19   Added SI5324 control using PS IIC
+* 1.13  GM  2017/11/15   Issued powerdown on CLKIN1 & CLKIN2 depending on
+*                           Free Run Mode to force correct clock selection
 * </pre>
 *
 ****************************************************************************/
@@ -299,14 +301,14 @@ s32 Si5324_SetClock_Ps(XIicPs *InstancePtr, u16 IICAddress, u8 ClkSrc,
     buf[i+1] = (BwSel << 4) | 0x02;
     i += 2;
 
-    // Enable reference clock 2 in free running mode
+    // Enable/Disable CLKIN1/2 based on Free Run Mode
     buf[i] = 11;
     if (ClkSrc == SI5324_CLKSRC_CLK1) {
-        // Disable input clock 2
+        // Enable CKIN1 & Disable CKIN2
         buf[i+1] = 0x42;
     } else {
-        //Enable input clock 2
-        buf[i+1] = 0x40;
+        // Disable CKIN1 & Enable CKIN2
+        buf[i+1] = 0x41;
     }
     i += 2;
 
@@ -947,14 +949,14 @@ int Si5324_SetClock(u32 IICBaseAddress, u8 IICAddress, u8 ClkSrc,
     buf[i+1] = (BwSel << 4) | 0x02;
     i += 2;
 
-    // Enable reference clock 2 in free running mode
+    // Enable/Disable CLKIN1/2 based on Free Run Mode
     buf[i] = 11;
     if (ClkSrc == SI5324_CLKSRC_CLK1) {
-        // Disable input clock 2
+        // Enable CKIN1 & Disable CKIN2
         buf[i+1] = 0x42;
     } else {
-        //Enable input clock 2
-        buf[i+1] = 0x40;
+        // Disable CKIN1 & Enable CKIN2
+        buf[i+1] = 0x41;
     }
     i += 2;
 

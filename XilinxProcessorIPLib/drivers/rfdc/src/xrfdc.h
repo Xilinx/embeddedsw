@@ -103,6 +103,24 @@
 *                       description for Vector Param in intr handler
 *                       Add API to get Output current and removed
 *                       GetTermVoltage and GetOutputCurr inline functions.
+* 2.2   sk     10/05/17 Fixed XRFdc_GetNoOfADCBlocks API for 4GSPS.
+*                       Enable the decoder clock based on decoder mode.
+*                       Add API to get the current FIFO status.
+*                       Updated XRFdc_DumpRegs API for better readability
+*                       of output register dump.
+*                       Add support for 4GSPS CoarseMixer frequency.
+*              10/11/17 Modify float types to double to increase precision.
+*              10/12/17 Update BlockStatus API to give current status.
+*                       In BYPASS mode, input datatype can be Real or IQ
+*                       hence checked both while reading the mixer mode.
+*              10/17/17 Fixed Set Threshold API Issue.
+* 2.2   sk     10/18/17 Add support for FIFO and DATA overflow interrupt
+* 2.3   sk     11/06/17 Fixed PhaseOffset truncation issue.
+*                       Provide user configurability for FineMixerScale.
+*              11/08/17 Return error for DAC R2C mode and ADC C2R mode.
+*              11/10/17 Corrected FIFO and DATA Interrupt masks.
+*              11/20/17 Fixed StartUp, Shutdown and Reset API for Tile_Id -1.
+*              11/20/17 Remove unwanted ADC block checks in 4GSPS mode.
 *
 * </pre>
 *
@@ -168,8 +186,8 @@ typedef void (*XRFdc_StatusHandler) (void *CallBackRef, u32 Type, int Tile_Id,
  */
 typedef struct {
 	u32 Enabled;	/* PLL Enable */
-	float RefClkFreq;
-	float SampleRate;
+	double RefClkFreq;
+	double SampleRate;
 	u32 RefClkDivider;
 	u32 FeedbackDivider;
 	u32 OutputDivider;
@@ -184,8 +202,8 @@ typedef struct {
 typedef struct {
 	u32 EnablePhase;
 	u32 EnableGain;
-	float GainCorrectionFactor;
-	float PhaseCorrectionFactor;
+	double GainCorrectionFactor;
+	double PhaseCorrectionFactor;
 	s32 OffsetCorrectionFactor;
 	u32 EventSource;
 } XRFdc_QMC_Settings;
@@ -203,10 +221,11 @@ typedef struct {
  */
 typedef struct {
 	double Freq;
-	float PhaseOffset;
+	double PhaseOffset;
 	u32 EventSource;
 	u32 FineMixerMode;
 	u32 CoarseMixFreq;
+	u8 FineMixerScale;	/* NCO output scale, valid values 0,1 and 2 */
 } XRFdc_Mixer_Settings;
 
 /**
@@ -244,7 +263,7 @@ typedef struct {
  * status of DAC or ADC blocks in the RFSoC Data converter.
  */
 typedef struct {
-	float SamplingFreq;
+	double SamplingFreq;
 	u32 AnalogDataPathStatus;
 	u32 DigitalDataPathStatus;
 	u8 DataPathClocksStatus;	/* Indicates all required datapath
@@ -300,9 +319,9 @@ typedef struct {
 typedef struct {
 	u32 Enable;
 	u32 PLLEnable;
-	float SamplingRate;
-	float RefClkFreq;
-	float FabClkFreq;
+	double SamplingRate;
+	double RefClkFreq;
+	double FabClkFreq;
 	XRFdc_DACBlock_AnalogDataPath_Config DACBlock_Analog_Config[4];
 	XRFdc_DACBlock_DigitalDataPath_Config DACBlock_Digital_Config[4];
 } XRFdc_DACTile_Config;
@@ -313,9 +332,9 @@ typedef struct {
 typedef struct {
 	u32 Enable;	/* Tile Enable status */
 	u32 PLLEnable;	/* PLL enable Status */
-	float SamplingRate;
-	float RefClkFreq;
-	float FabClkFreq;
+	double SamplingRate;
+	double RefClkFreq;
+	double FabClkFreq;
 	XRFdc_ADCBlock_AnalogDataPath_Config ADCBlock_Analog_Config[4];
 	XRFdc_ADCBlock_DigitalDataPath_Config ADCBlock_Digital_Config[4];
 } XRFdc_ADCTile_Config;
@@ -345,8 +364,8 @@ typedef struct {
 typedef struct {
 	u32 Enabled;	/* DAC Analog Data Path Enable */
 	u32 MixedMode;
-	float TerminationVoltage;
-	float OutputCurrent;
+	double TerminationVoltage;
+	double OutputCurrent;
 	u32 InverseSincFilterEnable;
 	u32 DecoderMode;
 	void * FuncHandler;
@@ -430,6 +449,7 @@ typedef struct {
 	XRFdc_ADC_Tile ADC_Tile[4];
 	XRFdc_StatusHandler StatusHandler;	/* Event handler function */
 	void *CallBackRef;			/* Callback reference for event handler */
+	u8 UpdateMixerScale;	/* Set to 1, if user overwrite mixer scale */
 } XRFdc;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -482,6 +502,9 @@ typedef struct {
 
 #define XRFDC_CRSE_MIX_OFF					0x924U
 #define XRFDC_CRSE_MIX_BYPASS				0x0U
+#define XRFDC_CRSE_4GSPS_ODD_FSBYTWO		0x492U
+#define XRFDC_CRSE_MIX_I_ODD_FSBYFOUR		0x2CBU
+#define XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR		0x659U
 #define XRFDC_CRSE_MIX_I_Q_FSBYTWO			0x410U
 #define XRFDC_CRSE_MIX_I_FSBYFOUR			0x298U
 #define XRFDC_CRSE_MIX_Q_FSBYFOUR			0x688U
@@ -491,6 +514,10 @@ typedef struct {
 #define XRFDC_CRSE_MIX_R_Q_FSBYFOUR			0x70CU
 #define XRFDC_CRSE_MIX_R_I_MINFSBYFOUR		0x8A0U
 #define XRFDC_CRSE_MIX_R_Q_MINFSBYFOUR		0x31CU
+
+#define XRFDC_MIXER_SCALE_AUTO				0x0U
+#define XRFDC_MIXER_SCALE_1P0				0x1U
+#define XRFDC_MIXER_SCALE_0P7				0x2U
 
 #define XRFDC_MIXER_PHASE_OFFSET_UP_LIMIT	180
 #define XRFDC_MIXER_PHASE_OFFSET_LOW_LIMIT	(-180)
@@ -503,6 +530,9 @@ typedef struct {
 #define XRFDC_DECODER_MAX_LINEARITY_MODE	0x2
 #define XRFDC_OUTPUT_CURRENT_32MA			32
 #define XRFDC_OUTPUT_CURRENT_20MA			20
+
+#define XRFDC_ADC_MIXER_MODE_IQ		0x1U
+#define XRFDC_DAC_MIXER_MODE_REAL	0x2U
 
 #define XRFDC_ODD_NYQUIST_ZONE		0x1
 #define XRFDC_EVEN_NYQUIST_ZONE		0x2
@@ -539,7 +569,7 @@ static inline u32 XRFdc_IsDACBlockEnabled(XRFdc* InstancePtr, int Tile_Id,
 * @param	InstancePtr is a pointer to the XRfdc instance.
 * @param	Tile_Id Valid values are 0-3.
 * @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+*			are 0-3 in DAC/ADC-2GSPS and 0-1 in ADC-4GSPS.
 *
 * @return
 *		- Return 1 if ADC block is available, otherwise 0.
@@ -548,6 +578,12 @@ static inline u32 XRFdc_IsDACBlockEnabled(XRFdc* InstancePtr, int Tile_Id,
 static inline u32 XRFdc_IsADCBlockEnabled(XRFdc* InstancePtr, int Tile_Id,
 												u32 Block_Id)
 {
+	if (InstancePtr->RFdc_Config.ADCType == XRFDC_ADC_4GSPS) {
+		if ((Block_Id == 2U) || (Block_Id == 3U))
+			return 0;
+		if (Block_Id == 1U)
+			Block_Id = 2U;
+	}
 	if (InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
 			ADCBlock_Analog_Config[Block_Id].BlockAvailable == 0U)
 		return 0;
@@ -602,7 +638,7 @@ static inline u32 XRFdc_Get_TileBaseAddr(XRFdc* InstancePtr, u32 Type,
 * @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param	Tile_Id Valid values are 0-3.
 * @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+*			are 0-3 in DAC/ADC-2GSPS and 0-1 in ADC-4GSPS.
 *
 * @return
 *		- Return Block BaseAddress.
@@ -612,6 +648,9 @@ static inline u32 XRFdc_Get_BlockBaseAddr(XRFdc* InstancePtr, u32 Type,
 								int Tile_Id, u32 Block_Id)
 {
 	if(Type == XRFDC_ADC_TILE) {
+		if (InstancePtr->RFdc_Config.ADCType == XRFDC_ADC_4GSPS)
+			if (Block_Id == 1U)
+				Block_Id = 2U;
 		return InstancePtr->BaseAddr + XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	} else {
@@ -822,7 +861,7 @@ static inline u32 XRFdc_GetSysRefSource(XRFdc* InstancePtr, u32 Type)
 *		- Return Fabric Clock frequency for ADC/DAC tile
 *
 ******************************************************************************/
-static inline float XRFdc_GetFabClkFreq(XRFdc* InstancePtr, u32 Type,
+static inline double XRFdc_GetFabClkFreq(XRFdc *InstancePtr, u32 Type,
 								int Tile_Id)
 {
 	if (Type == XRFDC_ADC_TILE)
@@ -926,6 +965,8 @@ int XRFdc_StickyClear(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id);
 void XRFdc_SetStatusHandler(XRFdc *InstancePtr, void *CallBackRef,
 				XRFdc_StatusHandler FunctionPtr);
 int XRFdc_SetupFIFO(XRFdc* InstancePtr, u32 Type, int Tile_Id, u8 Enable);
+int XRFdc_GetFIFOStatus(XRFdc *InstancePtr, u32 Type,
+				int Tile_Id, u8 *Enable);
 int XRFdc_SetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								u32 Block_Id, u32 NyquistZone);
 int XRFdc_GetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,

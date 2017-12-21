@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxidma.h
-* @addtogroup axidma_v9_4
+* @addtogroup axidma_v9_5
 * @{
 * @details
 *
@@ -469,6 +469,10 @@
 * 9.4  adk   25/07/17 Added example for cyclic dma mode CR#974218.
 *      adk   08/08/17 Fixed CR#980607 Can't select individual AXI DMA code examples.
 *		      Fixed compilation warning in the driver
+* 9.5  adk   17/10/17 Fixed CR#987026 mulit packet example fails on A53.
+* 	     26/10/17 Fixed CR#987214 Fix race condition in the XAxiDma_Reset().
+*      rsp   11/01/17 Fixed CR#988210 Add interface to do config lookup based
+*                     on base address.
 * </pre>
 *
 ******************************************************************************/
@@ -736,6 +740,7 @@ typedef struct {
  * Initialization and control functions in xaxidma.c
  */
 XAxiDma_Config *XAxiDma_LookupConfig(u32 DeviceId);
+XAxiDma_Config *XAxiDma_LookupConfigBaseAddr(u32 Baseaddr);
 int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config);
 void XAxiDma_Reset(XAxiDma * InstancePtr);
 int XAxiDma_ResetIsDone(XAxiDma * InstancePtr);

@@ -46,6 +46,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   aad  06/24/17 Initial release.
+ * 2.0   aad  10/08/17 Some APIs to use enums instead of Macros.
+ *		       Some bug fixes.
  * </pre>
  *
 *******************************************************************************/
@@ -138,8 +140,7 @@ static void XAVBuf_SetLiveVideoAttributes(XAVBuf *InstancePtr, u32 RegConfig,
  * This function applies Attributes for Non - Live source(Video/Graphics).
  *
  * @param	InstancePtr is an pointer to the XAVBuf Instance.
- * @param	RegConfig is a register offset for Video or Graphics config
- *		register
+ * @param	VideoSrc is the source of the Non-Live Video
  * @param	Video is a pointer to the attributes of the video to be applied
  *
  * @return	None.
@@ -430,37 +431,37 @@ void XAVBuf_Initialize(XAVBuf *InstancePtr)
  * passed on to the blender block.
  *
  * @param	InstancePtr is a pointer to the XAVBuf instance.
- * @param	VideoStream1 selects the stream coming from the video sources
- * @param	VideoStream2 selects the stream coming from the graphics sources
+ * @param	VidStream selects the stream coming from the video sources
+ * @param	GfxStream selects the stream coming from the graphics sources
  *
  * @return	None.
  *
  * @note	None.
  *
 *******************************************************************************/
-void XAVBuf_InputVideoSelect(XAVBuf *InstancePtr, u8 VideoStream1,
-			      u8 VideoStream2)
+void XAVBuf_InputVideoSelect(XAVBuf *InstancePtr, XAVBuf_VideoStream VidStream,
+			      XAVBuf_GfxStream GfxStream)
 {
 
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((VideoStream1 != XAVBUF_VIDSTREAM1_LIVE) |
-		       (VideoStream1 != XAVBUF_VIDSTREAM1_NONLIVE) |
-		       (VideoStream1 != XAVBUF_VIDSTREAM1_TPG) |
-		       (VideoStream1 != XAVBUF_VIDSTREAM1_NONE));
-	Xil_AssertVoid((VideoStream2 != XAVBUF_VIDSTREAM2_DISABLEGFX) |
-		       (VideoStream2 != XAVBUF_VIDSTREAM2_NONLIVE_GFX) |
-		       (VideoStream2 != XAVBUF_VIDSTREAM2_LIVE_GFX) |
-		       (VideoStream2 != XAVBUF_VIDSTREAM2_NONE));
+	Xil_AssertVoid((VidStream != XAVBUF_VIDSTREAM1_LIVE) |
+		       (VidStream != XAVBUF_VIDSTREAM1_NONLIVE) |
+		       (VidStream != XAVBUF_VIDSTREAM1_TPG) |
+		       (VidStream != XAVBUF_VIDSTREAM1_NONE));
+	Xil_AssertVoid((GfxStream != XAVBUF_VIDSTREAM2_DISABLEGFX) |
+		       (GfxStream != XAVBUF_VIDSTREAM2_NONLIVE_GFX) |
+		       (GfxStream != XAVBUF_VIDSTREAM2_LIVE_GFX) |
+		       (GfxStream != XAVBUF_VIDSTREAM2_NONE));
 
-	InstancePtr->AVMode.VideoSrc = VideoStream1;
-	InstancePtr->AVMode.GraphicsSrc = VideoStream2;
+	InstancePtr->AVMode.VideoSrc = VidStream;
+	InstancePtr->AVMode.GraphicsSrc = GfxStream;
 	u32 RegVal;
 	RegVal = XAVBuf_ReadReg(InstancePtr->Config.BaseAddr,
 			XAVBUF_BUF_OUTPUT_AUD_VID_SELECT);
 	RegVal &= ~(XAVBUF_BUF_OUTPUT_AUD_VID_SELECT_VID_STREAM2_SEL_MASK |
 			XAVBUF_BUF_OUTPUT_AUD_VID_SELECT_VID_STREAM1_SEL_MASK);
-	RegVal = VideoStream1 | VideoStream2;
+	RegVal |= VidStream | GfxStream;
 	XAVBuf_WriteReg(InstancePtr->Config.BaseAddr,
 			XAVBUF_BUF_OUTPUT_AUD_VID_SELECT, RegVal);
 }
@@ -587,7 +588,7 @@ int XAVBuf_SetOutputVideoFormat(XAVBuf *InstancePtr, XAVBuf_VideoFormat Format)
 
 	InstancePtr->Blender.OutputVideo =
 		XAVBuf_GetLiveVideoAttribute(Format);
-	if(InstancePtr->AVMode.LiveGraphics == NULL)
+	if(InstancePtr->Blender.OutputVideo == NULL)
 		return XST_FAILURE;
 	else
 		return XST_SUCCESS;
@@ -864,9 +865,9 @@ void XAVBuf_ConfigureOutputVideo(XAVBuf *InstancePtr)
  * Video and Graphics streams that are passed on to the blender
  *
  * @param	InstancePtr is a pointer to the XAVBuf instance.
- * @param	AudioStream1 selects the audio stream source corresponding to
+ * @param	AudStream1 selects the audio stream source corresponding to
  *		the video source selected
- * @param	AudioStream2 selects the audio stream source corresponding to
+ * @param	AudStream2 selects the audio stream source corresponding to
  *		the graphics source selected.
  *
  * @return	None.
@@ -874,22 +875,22 @@ void XAVBuf_ConfigureOutputVideo(XAVBuf *InstancePtr)
  * @note	None.
  *
 *******************************************************************************/
-void XAVBuf_InputAudioSelect(XAVBuf *InstancePtr, u32 AudioStream1,
-			      u32 AudioStream2)
+void XAVBuf_InputAudioSelect(XAVBuf *InstancePtr, XAVBuf_AudioStream1 AudStream1,
+			      XAVBuf_AudioStream2 AudStream2)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((AudioStream1 != XAVBUF_AUDSTREAM1_NONLIVE) |
-		       (AudioStream2 != XAVBUF_AUDSTREAM1_LIVE) |
-		       (AudioStream2 != XAVBUF_AUDSTREAM1_TPG));
-	Xil_AssertVoid((AudioStream2 != XAVBUF_AUDSTREAM2_NO_AUDIO) |
-		       (AudioStream2 != XAVBUF_AUDSTREAM2_AUDIOGFX));
+	Xil_AssertVoid((AudStream1 != XAVBUF_AUDSTREAM1_NONLIVE) |
+		       (AudStream1 != XAVBUF_AUDSTREAM1_LIVE) |
+		       (AudStream1 != XAVBUF_AUDSTREAM1_TPG));
+	Xil_AssertVoid((AudStream2 != XAVBUF_AUDSTREAM2_NO_AUDIO) |
+		       (AudStream2 != XAVBUF_AUDSTREAM2_AUDIOGFX));
 
 	u32 RegVal;
 	RegVal = XAVBuf_ReadReg(InstancePtr->Config.BaseAddr,
 			XAVBUF_BUF_OUTPUT_AUD_VID_SELECT);
 	RegVal &= ~(XAVBUF_BUF_OUTPUT_AUD_VID_SELECT_AUD_STREAM2_SEL_MASK |
 			XAVBUF_BUF_OUTPUT_AUD_VID_SELECT_AUD_STREAM1_SEL_MASK);
-	RegVal |= AudioStream1 | AudioStream2;
+	RegVal |= AudStream1 | AudStream2;
 
 	XAVBuf_WriteReg(InstancePtr->Config.BaseAddr,
 			XAVBUF_BUF_OUTPUT_AUD_VID_SELECT, RegVal);

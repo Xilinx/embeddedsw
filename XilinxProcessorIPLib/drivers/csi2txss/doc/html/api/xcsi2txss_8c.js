@@ -7,9 +7,11 @@ var xcsi2txss_8c =
     [ "XCsi2TxSs_GetMaxLaneCount", "group__csi2txss__v1__0.html#ga9f75eac00e365efaa38c8c3b9f98ec0e", null ],
     [ "XCsi2TxSs_GetPixelMode", "group__csi2txss__v1__0.html#ga5f102cce59805525a6129df5c4d7feb8", null ],
     [ "XCsi2TxSs_GetShortPacket", "group__csi2txss__v1__0.html#ga066c927aebc1b2c199e33350662e4fd9", null ],
+    [ "XCsi2TxSs_IsUlps", "group__csi2txss__v1__0.html#ga886d9a156806e822b1912fdfbdf66529", null ],
     [ "XCsi2TxSs_LineGen", "group__csi2txss__v1__0.html#ga7e993c82c56bef5ed7a768a71705630b", null ],
     [ "XCsi2TxSs_ReportCoreInfo", "group__csi2txss__v1__0.html#gad5067597d1a3f39b5be158ce026e3f8c", null ],
     [ "XCsi2TxSs_Reset", "group__csi2txss__v1__0.html#ga9933630512ea21627aae263ff1833372", null ],
     [ "XCsi2TxSs_SetClkMode", "group__csi2txss__v1__0.html#ga2da520a569957fe9fde9177404ee574f", null ],
-    [ "XCsi2TxSs_SetGSPEntry", "group__csi2txss__v1__0.html#ga533565da7643edb6132a77e5443a2f2d", null ]
+    [ "XCsi2TxSs_SetGSPEntry", "group__csi2txss__v1__0.html#ga533565da7643edb6132a77e5443a2f2d", null ],
+    [ "XCsi2TxSs_SetUlps", "group__csi2txss__v1__0.html#ga292c264c19f272a7b985ca641535be5b", null ]
 ];

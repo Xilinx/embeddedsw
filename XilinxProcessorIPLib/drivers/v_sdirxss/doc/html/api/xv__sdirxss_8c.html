@@ -121,6 +121,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a1c43a11c0334d76865b099c1c9e126f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sdirxss_8c.html#a1c43a11c0334d76865b099c1c9e126f8">XV_SdiRxSs_IntrDisable</a> (<a class="el" href="struct_x_v___sdi_rx_ss.html">XV_SdiRxSs</a> *InstancePtr, u32 IntrMask)</td></tr>
 <tr class="memdesc:a1c43a11c0334d76865b099c1c9e126f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to configure the SDI RX interrupts that are to be handled by the application.  <a href="#a1c43a11c0334d76865b099c1c9e126f8">More...</a><br /></td></tr>
 <tr class="separator:a1c43a11c0334d76865b099c1c9e126f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeef26d7216e3d1be32c040ad486d64aa"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sdirxss_8c.html#aeef26d7216e3d1be32c040ad486d64aa">XV_SdiRxSs_WaitforPayLoad</a> (<a class="el" href="struct_x_v___sdi_rx_ss.html">XV_SdiRxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:aeef26d7216e3d1be32c040ad486d64aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to wait for the payload valid bit to be set.  <a href="#aeef26d7216e3d1be32c040ad486d64aa">More...</a><br /></td></tr>
+<tr class="separator:aeef26d7216e3d1be32c040ad486d64aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -656,6 +659,41 @@ HandlerType                     Callback Function Type
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___sdi_rx_ss.html#ae3d8d6ae92334dc0e542d1af1f8d9a3e">XV_SdiRxSs::SdiRxPtr</a>.</p>
+
+</div>
+</div>
+<a id="aeef26d7216e3d1be32c040ad486d64aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeef26d7216e3d1be32c040ad486d64aa">&#9670;&nbsp;</a></span>XV_SdiRxSs_WaitforPayLoad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XV_SdiRxSs_WaitforPayLoad </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___sdi_rx_ss.html">XV_SdiRxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function is used to wait for the payload valid bit to be set. </p>
+<p>This has to be called from application based on the callback indication of the video lock interrupt handler.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>pointer to <a class="el" href="struct_x_v___sdi_rx_ss.html" title="The XV_SdiRxSs driver instance data. ">XV_SdiRxSs</a> instance</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_FAILURE if the payload valid bits are not set.</li>
+<li>XST_SUCCESS if ST352 registers are read and loaded to Rx structures</li>
+</ul>
+</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_v___sdi_rx_ss.html#ae3d8d6ae92334dc0e542d1af1f8d9a3e">XV_SdiRxSs::SdiRxPtr</a>.</p>

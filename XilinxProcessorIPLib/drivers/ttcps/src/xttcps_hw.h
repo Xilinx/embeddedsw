@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,10 @@
 * ----- ------ -------- -------------------------------------------------
 * 1.00a drg/jz 01/21/10 First release
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
-*
+* 3.5   srm    10/06/17 Updated XTTCPS_COUNT_VALUE_MASK,
+*                       XTTCPS_INTERVAL_VAL_MASK, XTTCPS_MATCH_MASK macros to
+*                       mask 16 bit values for zynq and 32 bit values for
+*                       zynq ultrascale+mpsoc "
 * </pre>
 *
 ******************************************************************************/
@@ -66,6 +69,12 @@ extern "C" {
 #include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
+/*
+ * Flag for a9 processor
+ */
+ #if !defined (ARMR5) && !defined (__aarch64__) && !defined (ARMA53_32)
+ #define ARMA9
+ #endif
 
 /** @name Register Map
  *
@@ -114,7 +123,11 @@ extern "C" {
  * Current Counter Value Register definitions
  * @{
  */
+#if defined(ARMA9)
 #define XTTCPS_COUNT_VALUE_MASK		0x0000FFFFU /**< 16-bit counter value */
+#else
+#define XTTCPS_COUNT_VALUE_MASK		0xFFFFFFFFU /**< 32-bit counter value */
+#endif
 /* @} */
 
 /** @name Interval Value Register
@@ -122,7 +135,11 @@ extern "C" {
  * down to.
  * @{
  */
+#if defined(ARMA9)
 #define XTTCPS_INTERVAL_VAL_MASK	0x0000FFFFU /**< 16-bit Interval value*/
+#else
+#define XTTCPS_INTERVAL_VAL_MASK	0xFFFFFFFFU /**< 32-bit Interval value*/
+#endif
 /* @} */
 
 /** @name Match Registers
@@ -130,7 +147,11 @@ extern "C" {
  * registers.
  * @{
  */
+#if defined(ARMA9)
 #define XTTCPS_MATCH_MASK		0x0000FFFFU /**< 16-bit Match value */
+#else
+#define XTTCPS_MATCH_MASK		0xFFFFFFFFU /**< 32-bit Match value */
+#endif
 #define XTTCPS_NUM_MATCH_REG			 3U /**< Num of Match reg */
 /* @} */
 

@@ -487,7 +487,7 @@ Functions</h2></td></tr>
 <p>This function calculates the 2nd byte of the Payload packet for all SDI modes. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">VideoMode</td><td>is a variable of type XVidC_VideoMode. </td></tr>
+    <tr><td class="paramname">VActiveValid</td><td>is a variable for number of active vertical lines. </td></tr>
     <tr><td class="paramname">SdiMode</td><td>is a variable to the XSdiVid_TransMode. </td></tr>
     <tr><td class="paramname">Data</td><td>is a pointer to populate the Byte1 of ST352 payload.</td></tr>
   </table>
@@ -532,7 +532,7 @@ Functions</h2></td></tr>
 <p>This function calculates the equivalent payload nibble for Framerate. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">FrameRate</td><td>is a variable of type XVidC_FrameRate. </td></tr>
+    <tr><td class="paramname">FrameRateValid</td><td>is a calculated framerate based on interlaced or progressive video. </td></tr>
     <tr><td class="paramname">BitRate</td><td>is a variable of type XSdiVid_BitRate.</td></tr>
   </table>
   </dd>
@@ -956,7 +956,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___sdi_tx___config.html#a55bc404bba9a241e65bc618992c289a3">XV_SdiTx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_tx.html#a3fe081b6dd8372f1128ccda2c2a1d825">XV_SdiTx::Config</a>, and <a class="el" href="xv__sditx__hw_8h.html#a473ff53a4f74d89a57e04a65c72416af">XV_SdiTx_ReadReg</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___sdi_tx.html#a3fe081b6dd8372f1128ccda2c2a1d825">XV_SdiTx::Config</a>.</p>
 
 </div>
 </div>

@@ -59,7 +59,9 @@
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
+#define XSDITXSS_LINE_RATE_3G	0
+#define XSDITXSS_LINE_RATE_6G	1
+#define XSDITXSS_LINE_RATE_12G8DS	2
 
 /**************************** Type Definitions *******************************/
 /**
@@ -83,6 +85,8 @@ static void XV_SdiTxSs_ReportTiming(XV_SdiTxSs *InstancePtr);
 static void XV_SdiTxSs_GtReadyCallback(void *CallbackRef);
 static void XV_SdiTxSs_OverFlowCallback(void *CallbackRef);
 static void XV_SdiTxSs_UnderFlowCallback(void *CallbackRef);
+static void XV_SdiTxSs_CeAlignErrCallback(void *CallbackRef);
+static void XV_SdiTxSs_Axi4sVidLockCallback(void *CallbackRef);
 static int XV_SdiTxSs_RegisterSubsysCallbacks(XV_SdiTxSs *InstancePtr);
 
 /************************** Variable Definitions *****************************/
@@ -158,6 +162,16 @@ static int XV_SdiTxSs_RegisterSubsysCallbacks(XV_SdiTxSs *InstancePtr)
 		XV_SdiTx_SetCallback(SdiTxSsPtr->SdiTxPtr,
 		XV_SDITX_HANDLER_UNDERFLOW,
 		XV_SdiTxSs_UnderFlowCallback,
+		InstancePtr);
+
+		XV_SdiTx_SetCallback(SdiTxSsPtr->SdiTxPtr,
+		XV_SDITX_HANDLER_CEALIGN,
+		XV_SdiTxSs_CeAlignErrCallback,
+		InstancePtr);
+
+		XV_SdiTx_SetCallback(SdiTxSsPtr->SdiTxPtr,
+		XV_SDITX_HANDLER_AXI4SVIDLOCK,
+		XV_SdiTxSs_Axi4sVidLockCallback,
 		InstancePtr);
 	}
 
@@ -248,7 +262,8 @@ UINTPTR EffectiveAddr)
 *
 * This function is called when the GT is ready for TX configuration.
 *
-* @param  None.
+* @param    CallbackRef is a user data item that will be passed to the
+*			callback function when it is invoked.
 *
 * @return None.
 *
@@ -274,7 +289,8 @@ static void XV_SdiTxSs_GtReadyCallback(void *CallbackRef)
 *
 * This function is called when the Tx over flow happens.
 *
-* @param  None.
+* @param    CallbackRef is a user data item that will be passed to the
+*			callback function when it is invoked.
 *
 * @return None.
 *
@@ -298,8 +314,8 @@ static void XV_SdiTxSs_OverFlowCallback(void *CallbackRef)
 *
 * This function is called when the Tx under flow happens.
 *
-* @param  None.
-*
+* @param    CallbackRef is a user data item that will be passed to the
+*			callback function when it is invoked.
 * @return None.
 *
 * @note   None.
@@ -320,6 +336,56 @@ static void XV_SdiTxSs_UnderFlowCallback(void *CallbackRef)
 /*****************************************************************************/
 /**
 *
+* This function is called when the Tx CE align errors happens.
+*
+* @param    CallbackRef is a user data item that will be passed to the
+*			callback function when it is invoked.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_SdiTxSs_CeAlignErrCallback(void *CallbackRef)
+{
+	XV_SdiTxSs *SdiTxSsPtr = (XV_SdiTxSs *)CallbackRef;
+
+	XV_SdiTxSs_LogWrite(SdiTxSsPtr, XV_SDITXSS_LOG_EVT_CEALIGN, 0);
+
+	/* Check if user callback has been registered */
+	if (SdiTxSsPtr->CeAlignErrCallback)
+		SdiTxSsPtr->CeAlignErrCallback(SdiTxSsPtr->CeAlignErrRef);
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is called when the Tx Axi4s video lock bridge happens.
+*
+* @param    CallbackRef is a user data item that will be passed to the
+*			callback function when it is invoked.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_SdiTxSs_Axi4sVidLockCallback(void *CallbackRef)
+{
+	XV_SdiTxSs *SdiTxSsPtr = (XV_SdiTxSs *)CallbackRef;
+
+	XV_SdiTxSs_LogWrite(SdiTxSsPtr, XV_SDITXSS_LOG_EVT_AXI4SVIDLOCK, 0);
+
+	/* Check if user callback has been registered */
+	if (SdiTxSsPtr->Axi4sVidLockCallback)
+		SdiTxSsPtr->Axi4sVidLockCallback(SdiTxSsPtr->Axi4sVidLockRef);
+
+}
+
+/*****************************************************************************/
+/**
+*
 * This function installs an asynchronous callback function for the given
 * HandlerType:
 *
@@ -329,6 +395,8 @@ static void XV_SdiTxSs_UnderFlowCallback(void *CallbackRef)
 * (XV_SDITXSS_HANDLER_GTREADY)			GtReadyCallback
 * (XV_SDITXSS_HANDLER_OVERFLOW)			OverFlowCallback
 * (XV_SDITXSS_HANDLER_UNDERFLOW)		UnderFlowCallback
+* (XV_SDITXSS_HANDLER_CEALIGN)			CeAlignErrCallback
+* (XV_SDITXSS_HANDLER_AXI4SVIDLOCK)		Axi4sVidLockCallback
 * </pre>
 *
 * @param    InstancePtr is a pointer to the SDI TX Subsystem instance.
@@ -356,27 +424,38 @@ void *CallbackFunc, void *CallbackRef)
 	Xil_AssertNonvoid(CallbackFunc != NULL);
 	Xil_AssertNonvoid(CallbackRef != NULL);
 
+	Status = (XST_SUCCESS);
+
 	/* Check for handler type */
 	switch (HandlerType) {
 		/* Stream down */
 	case (XV_SDITXSS_HANDLER_GTREADY):
 		InstancePtr->GtReadyCallback = (XV_SdiTxSs_Callback)CallbackFunc;
 		InstancePtr->GtReadyRef = CallbackRef;
-		Status = (XST_SUCCESS);
 		break;
 
 		/* Overflow */
 	case (XV_SDITXSS_HANDLER_OVERFLOW):
 		InstancePtr->OverFlowCallback = (XV_SdiTxSs_Callback)CallbackFunc;
 		InstancePtr->OverFlowRef = CallbackRef;
-		Status = (XST_SUCCESS);
 		break;
 
 		/* Underflow */
 	case (XV_SDITXSS_HANDLER_UNDERFLOW):
 		InstancePtr->UnderFlowCallback = (XV_SdiTxSs_Callback)CallbackFunc;
 		InstancePtr->UnderFlowRef = CallbackRef;
-		Status = (XST_SUCCESS);
+		break;
+
+		/* CE align error */
+	case (XV_SDITXSS_HANDLER_CEALIGN):
+		InstancePtr->CeAlignErrCallback = (XV_SdiTxSs_Callback)CallbackFunc;
+		InstancePtr->CeAlignErrRef = CallbackRef;
+		break;
+
+		/* Axi4s video lock */
+	case (XV_SDITXSS_HANDLER_AXI4SVIDLOCK):
+		InstancePtr->Axi4sVidLockCallback = (XV_SdiTxSs_Callback)CallbackFunc;
+		InstancePtr->Axi4sVidLockRef = CallbackRef;
 		break;
 
 	default:
@@ -426,7 +505,8 @@ void XV_SdiTxSs_Stop(XV_SdiTxSs *InstancePtr)
 *
 * This function configures Video Timing Controller (VTC).
 *
-* @param  None.
+* @param	XVtcPtr is a pointer to the XVtc core instance.
+* @param	SdiTxPtr is a pointer to the XV_SdiTx core instance.
 *
 * @return None.
 *
@@ -642,6 +722,19 @@ static int XV_SdiTxSs_VtcSetup(XVtc *XVtcPtr, XV_SdiTx *SdiTxPtr)
 ******************************************************************************/
 void XV_SdiTxSs_StreamStart(XV_SdiTxSs *InstancePtr)
 {
+	XSdiVid_TransMode SdiMode;
+	SdiMode = InstancePtr->SdiTxPtr->Transport.TMode;
+
+	/* Following assertions make sure the subssytem is configured with in the
+	 * subcore GUI paramter limit
+	 */
+	Xil_AssertVoid((InstancePtr->Config.MaxRateSupported == XSDITXSS_LINE_RATE_3G) &&
+			(SdiMode <= XSDIVID_MODE_3GB) ||
+			(InstancePtr->Config.MaxRateSupported == XSDITXSS_LINE_RATE_6G) &&
+			(SdiMode <= XSDIVID_MODE_6G) ||
+			(InstancePtr->Config.MaxRateSupported == XSDITXSS_LINE_RATE_12G8DS) &&
+			(SdiMode <= XSDIVID_MODE_12G));
+
 	XV_SdiTx_SetVidBridgeMode(InstancePtr->SdiTxPtr,
 	InstancePtr->SdiTxPtr->Transport.TMode);
 
@@ -810,7 +903,7 @@ void XV_SdiTxSs_ReportDetectedError(XV_SdiTxSs *InstancePtr)
 *
 * This function prints the SDI TX SS subcore versions
 *
-* @param  None.
+* @param  InstancePtr pointer to XV_SdiTxSs instance
 *
 * @return None.
 *
@@ -943,7 +1036,7 @@ void XV_SdiTxSs_ReportStreamInfo(XV_SdiTxSs *InstancePtr)
 *
 * This function prints the SDI TX SS timing information
 *
-* @param  None.
+* @param	InstancePtr pointer to XV_SdiTxSs instance
 *
 * @return None.
 *

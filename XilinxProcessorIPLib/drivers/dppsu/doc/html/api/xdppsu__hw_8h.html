@@ -76,6 +76,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <hr/>
 
 1.0   aad  23/01/17 Initial release.
+1.1   aad  10/04/17 Removed un-applicable registers
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -238,12 +239,6 @@ Macros</h2></td></tr>
 <tr class="memitem:ad564b6d94b00f66d20f2469f924a0a19"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__hw_8h.html#ad564b6d94b00f66d20f2469f924a0a19">XDPPSU_PHY_CONFIG</a>&#160;&#160;&#160;0x0200</td></tr>
 <tr class="memdesc:ad564b6d94b00f66d20f2469f924a0a19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transceiver PHY reset and configuration.  <a href="#ad564b6d94b00f66d20f2469f924a0a19">More...</a><br /></td></tr>
 <tr class="separator:ad564b6d94b00f66d20f2469f924a0a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46176b816bfa36687d662a305cc06be1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__hw_8h.html#a46176b816bfa36687d662a305cc06be1">XDPPSU_PHY_VOLTAGE_DIFF_LANE_0</a>&#160;&#160;&#160;0x0220</td></tr>
-<tr class="memdesc:a46176b816bfa36687d662a305cc06be1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls the differential voltage swing.  <a href="#a46176b816bfa36687d662a305cc06be1">More...</a><br /></td></tr>
-<tr class="separator:a46176b816bfa36687d662a305cc06be1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6db4dad594726a3f59c16ef18c0133fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__hw_8h.html#a6db4dad594726a3f59c16ef18c0133fc">XDPPSU_PHY_VOLTAGE_DIFF_LANE_1</a>&#160;&#160;&#160;0x0224</td></tr>
-<tr class="memdesc:a6db4dad594726a3f59c16ef18c0133fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls the differential voltage swing.  <a href="#a6db4dad594726a3f59c16ef18c0133fc">More...</a><br /></td></tr>
-<tr class="separator:a6db4dad594726a3f59c16ef18c0133fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4d20e2d6ab1c2d9d4cd8ef7e1f6e04a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__hw_8h.html#ad4d20e2d6ab1c2d9d4cd8ef7e1f6e04a">XDPPSU_PHY_TRANSMIT_PRBS7</a>&#160;&#160;&#160;0x0230</td></tr>
 <tr class="memdesc:ad4d20e2d6ab1c2d9d4cd8ef7e1f6e04a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable pseudo random bit sequence 7 pattern transmission for link quality assessment.  <a href="#ad4d20e2d6ab1c2d9d4cd8ef7e1f6e04a">More...</a><br /></td></tr>
 <tr class="separator:ad4d20e2d6ab1c2d9d4cd8ef7e1f6e04a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -253,18 +248,12 @@ Macros</h2></td></tr>
 <tr class="memitem:a14ddf17f3094011de0f16a11d86bbc63"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__hw_8h.html#a14ddf17f3094011de0f16a11d86bbc63">XDPPSU_TX_PHY_POWER_DOWN</a>&#160;&#160;&#160;0x0238</td></tr>
 <tr class="memdesc:a14ddf17f3094011de0f16a11d86bbc63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls PHY power down.  <a href="#a14ddf17f3094011de0f16a11d86bbc63">More...</a><br /></td></tr>
 <tr class="separator:a14ddf17f3094011de0f16a11d86bbc63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd27646d6bf849e2605ec977e0906bb0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__hw_8h.html#afd27646d6bf849e2605ec977e0906bb0">XDPPSU_PHY_PRECURSOR_LANE_0</a>&#160;&#160;&#160;0x023C</td></tr>
+<tr class="memitem:afd27646d6bf849e2605ec977e0906bb0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__hw_8h.html#afd27646d6bf849e2605ec977e0906bb0">XDPPSU_PHY_PRECURSOR_LANE_0</a>&#160;&#160;&#160;0x024C</td></tr>
 <tr class="memdesc:afd27646d6bf849e2605ec977e0906bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls the pre-cursor level.  <a href="#afd27646d6bf849e2605ec977e0906bb0">More...</a><br /></td></tr>
 <tr class="separator:afd27646d6bf849e2605ec977e0906bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b8dfc6e98b73a331306b25535d484bb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__hw_8h.html#a6b8dfc6e98b73a331306b25535d484bb">XDPPSU_PHY_PRECURSOR_LANE_1</a>&#160;&#160;&#160;0x0240</td></tr>
+<tr class="memitem:a6b8dfc6e98b73a331306b25535d484bb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__hw_8h.html#a6b8dfc6e98b73a331306b25535d484bb">XDPPSU_PHY_PRECURSOR_LANE_1</a>&#160;&#160;&#160;0x0250</td></tr>
 <tr class="memdesc:a6b8dfc6e98b73a331306b25535d484bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls the pre-cursor level.  <a href="#a6b8dfc6e98b73a331306b25535d484bb">More...</a><br /></td></tr>
 <tr class="separator:a6b8dfc6e98b73a331306b25535d484bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0de1a275854d526185fd25d4a41a550"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__hw_8h.html#aa0de1a275854d526185fd25d4a41a550">XDPPSU_PHY_POSTCURSOR_LANE_0</a>&#160;&#160;&#160;0x024C</td></tr>
-<tr class="memdesc:aa0de1a275854d526185fd25d4a41a550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls the post-cursor level.  <a href="#aa0de1a275854d526185fd25d4a41a550">More...</a><br /></td></tr>
-<tr class="separator:aa0de1a275854d526185fd25d4a41a550"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0b97944b72f60b4cb76a0d848b1b81f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__hw_8h.html#ad0b97944b72f60b4cb76a0d848b1b81f">XDPPSU_PHY_POSTCURSOR_LANE_1</a>&#160;&#160;&#160;0x0250</td></tr>
-<tr class="memdesc:ad0b97944b72f60b4cb76a0d848b1b81f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls the post-cursor level.  <a href="#ad0b97944b72f60b4cb76a0d848b1b81f">More...</a><br /></td></tr>
-<tr class="separator:ad0b97944b72f60b4cb76a0d848b1b81f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d13e1e98899a0d08dff3fe38f252f3a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__hw_8h.html#a8d13e1e98899a0d08dff3fe38f252f3a">XDPPSU_PHY_STATUS</a>&#160;&#160;&#160;0x0280</td></tr>
 <tr class="memdesc:a8d13e1e98899a0d08dff3fe38f252f3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current PHY status.  <a href="#a8d13e1e98899a0d08dff3fe38f252f3a">More...</a><br /></td></tr>
 <tr class="separator:a8d13e1e98899a0d08dff3fe38f252f3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -4362,38 +4351,6 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="aa0de1a275854d526185fd25d4a41a550"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0de1a275854d526185fd25d4a41a550">&#9670;&nbsp;</a></span>XDPPSU_PHY_POSTCURSOR_LANE_0</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XDPPSU_PHY_POSTCURSOR_LANE_0&#160;&#160;&#160;0x024C</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Controls the post-cursor level. </p>
-
-</div>
-</div>
-<a id="ad0b97944b72f60b4cb76a0d848b1b81f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0b97944b72f60b4cb76a0d848b1b81f">&#9670;&nbsp;</a></span>XDPPSU_PHY_POSTCURSOR_LANE_1</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XDPPSU_PHY_POSTCURSOR_LANE_1&#160;&#160;&#160;0x0250</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Controls the post-cursor level. </p>
-
-</div>
-</div>
 <a id="afd27646d6bf849e2605ec977e0906bb0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afd27646d6bf849e2605ec977e0906bb0">&#9670;&nbsp;</a></span>XDPPSU_PHY_PRECURSOR_LANE_0</h2>
 
@@ -4401,7 +4358,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDPPSU_PHY_PRECURSOR_LANE_0&#160;&#160;&#160;0x023C</td>
+          <td class="memname">#define XDPPSU_PHY_PRECURSOR_LANE_0&#160;&#160;&#160;0x024C</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -4417,7 +4374,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDPPSU_PHY_PRECURSOR_LANE_1&#160;&#160;&#160;0x0240</td>
+          <td class="memname">#define XDPPSU_PHY_PRECURSOR_LANE_1&#160;&#160;&#160;0x0250</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -4551,38 +4508,6 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Enable pseudo random bit sequence 7 pattern transmission for link quality assessment. </p>
-
-</div>
-</div>
-<a id="a46176b816bfa36687d662a305cc06be1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46176b816bfa36687d662a305cc06be1">&#9670;&nbsp;</a></span>XDPPSU_PHY_VOLTAGE_DIFF_LANE_0</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XDPPSU_PHY_VOLTAGE_DIFF_LANE_0&#160;&#160;&#160;0x0220</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Controls the differential voltage swing. </p>
-
-</div>
-</div>
-<a id="a6db4dad594726a3f59c16ef18c0133fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6db4dad594726a3f59c16ef18c0133fc">&#9670;&nbsp;</a></span>XDPPSU_PHY_VOLTAGE_DIFF_LANE_1</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XDPPSU_PHY_VOLTAGE_DIFF_LANE_1&#160;&#160;&#160;0x0224</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Controls the differential voltage swing. </p>
 
 </div>
 </div>

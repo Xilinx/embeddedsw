@@ -80,6 +80,8 @@
 *                    recognize it as documentation block and modified filename
 *                    tag to include the file in doxygen examples.
 * 1.4	tjs	06/16/17 Added support for IS25LP256D flash part (PR-4650)
+*
+* 1.5	tjs 09/15/17 Replaced #ifdef COMMENTS to #if USE_FOUR_BYTE (CR-984966)
 *</pre>
 *
 ******************************************************************************/
@@ -113,6 +115,9 @@
 #define READ_ID				0x9F
 #define READ_CONFIG_CMD		0x35
 #define WRITE_CONFIG_CMD	0x01
+#define ENTER_4B_ADDR_MODE	0xB7
+#define EXIT_4B_ADDR_MODE	0xE9
+#define EXIT_4B_ADDR_MODE_ISSI	0x29
 
 #define WRITE_CMD_4B		0x12
 #define READ_CMD_4B		0x13
@@ -294,6 +299,9 @@
 
 #define UNIQUE_VALUE		0x07
 
+#define ENTER_4B	1
+#define EXIT_4B		0
+
 /**************************** Type Definitions *******************************/
 
 typedef struct{
@@ -336,6 +344,7 @@ static int QspiPsuSetupIntrSystem(XScuGic *IntcInstancePtr,
 			       XQspiPsu *QspiPsuInstancePtr, u16 QspiPsuIntrId);
 static void QspiPsuDisableIntrSystem(XScuGic *IntcInstancePtr, u16 QspiPsuIntrId);
 void QspiPsuHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount);
+int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr,unsigned int Enable);
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
 u8 ReadBfrPtr[3];
@@ -444,7 +453,13 @@ int Test = 1;
  * for each bank separate read will be performed leading to that many
  * (overhead+dummy) bytes
  */
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + (DATA_OFFSET + DUMMY_SIZE)*8];
+#pragma data_alignment = 4
+#else
 u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + (DATA_OFFSET + DUMMY_SIZE)*8] __attribute__ ((aligned(64)));
+#endif
 u8 WriteBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + DATA_OFFSET];
 u8 CmdBfr[8];
 
@@ -638,22 +653,9 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr, XQspiPsu *QspiPsuInst
 	 * Address size and read command selection
 	 * Micron flash on REMUS doesn't support these 4B write/erase commands
 	 */
-	if(Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
-		/* Use 4 byte address and 4 byte read commands */
-		ReadCmd = QUAD_READ_CMD_4B;
-		WriteCmd = WRITE_CMD;
-		SectorEraseCmd = SEC_ERASE_CMD;
-
-		/* If supported by flash, use 4B address write and erase */
-#ifdef COMMENT
-		WriteCmd = WRITE_CMD_4B;
-		SectorEraseCmd = SEC_ERASE_CMD_4B;
-#endif
-	} else {
-		ReadCmd = QUAD_READ_CMD;
-		WriteCmd = WRITE_CMD;
-		SectorEraseCmd = SEC_ERASE_CMD;
-	}
+	ReadCmd = QUAD_READ_CMD;
+	WriteCmd = WRITE_CMD;
+	SectorEraseCmd = SEC_ERASE_CMD;
 
 	if((Flash_Config_Table[FCTIndex].NumDie > 1) &&
 			(FlashMake == MICRON_ID_BYTE0)) {
@@ -666,6 +668,13 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr, XQspiPsu *QspiPsuInst
 
 	xil_printf("ReadCmd: 0x%x, WriteCmd: 0x%x, StatusCmd: 0x%x, FSRFlag: %d \n\r",
 				ReadCmd, WriteCmd, StatusCmd, FSRFlag);
+
+	if(Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
+		Status = FlashEnterExit4BAddMode(QspiPsuInstancePtr, ENTER_4B);
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
 
 	for (UniqueValue = UNIQUE_VALUE, Count = 0;
 			Count < Flash_Config_Table[FCTIndex].PageSize;
@@ -690,6 +699,14 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr, XQspiPsu *QspiPsuInst
 			return XST_FAILURE;
 		}
 	}
+
+	if(Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
+		Status = FlashEnterExit4BAddMode(QspiPsuInstancePtr, EXIT_4B);
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+
 	memset(ReadBuffer, 0x00, sizeof(ReadBuffer));
 	XQspiPsu_SetOptions(QspiPsuInstancePtr, XQSPIPSU_LQSPI_MODE_OPTION |
 					XQSPIPSU_CFG_WP_HOLD_MASK);
@@ -1000,7 +1017,6 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	WriteCmd[COMMAND_OFFSET]   = Command;
 
 	/* To be used only if 4B address program cmd is supported by flash */
-#ifdef COMMENT
 	if(Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
 		WriteCmd[ADDRESS_1_OFFSET] = (u8)((RealAddr & 0xFF000000) >> 24);
 		WriteCmd[ADDRESS_2_OFFSET] = (u8)((RealAddr & 0xFF0000) >> 16);
@@ -1008,14 +1024,11 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		WriteCmd[ADDRESS_4_OFFSET] = (u8)(RealAddr & 0xFF);
 		CmdByteCount = 5;
 	} else {
-#endif
 		WriteCmd[ADDRESS_1_OFFSET] = (u8)((RealAddr & 0xFF0000) >> 16);
 		WriteCmd[ADDRESS_2_OFFSET] = (u8)((RealAddr & 0xFF00) >> 8);
 		WriteCmd[ADDRESS_3_OFFSET] = (u8)(RealAddr & 0xFF);
 		CmdByteCount = 4;
-#ifdef COMMENT
 	}
-#endif
 
 	FlashMsg[0].TxBfrPtr = WriteCmd;
 	FlashMsg[0].RxBfrPtr = NULL;
@@ -1224,7 +1237,6 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr
 		 * To be used only if 4B address sector erase cmd is
 		 * supported by flash
 		 */
-#ifdef COMMENT
 		if(Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
 			WriteBfrPtr[ADDRESS_1_OFFSET] = (u8)((RealAddr & 0xFF000000) >> 24);
 			WriteBfrPtr[ADDRESS_2_OFFSET] = (u8)((RealAddr & 0xFF0000) >> 16);
@@ -1232,14 +1244,11 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr
 			WriteBfrPtr[ADDRESS_4_OFFSET] = (u8)(RealAddr & 0xFF);
 			FlashMsg[0].ByteCount = 5;
 		} else {
-#endif
 			WriteBfrPtr[ADDRESS_1_OFFSET] = (u8)((RealAddr & 0xFF0000) >> 16);
 			WriteBfrPtr[ADDRESS_2_OFFSET] = (u8)((RealAddr & 0xFF00) >> 8);
 			WriteBfrPtr[ADDRESS_3_OFFSET] = (u8)(RealAddr & 0xFF);
 			FlashMsg[0].ByteCount = 4;
-#ifdef COMMENT
 		}
-#endif
 		FlashMsg[0].TxBfrPtr = WriteBfrPtr;
 		FlashMsg[0].RxBfrPtr = NULL;
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
@@ -1302,9 +1311,6 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr
 
 	return 0;
 }
-
-
-
 
 
 /*****************************************************************************/
@@ -1806,4 +1812,191 @@ static void QspiPsuDisableIntrSystem(XScuGic *IntcInstancePtr, u16 QspiPsuIntrId
 	 * Disconnect and disable the interrupt for the QspiPsu device.
 	 */
 	XScuGic_Disconnect(IntcInstancePtr, QspiPsuIntrId);
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This API enters the flash device into 4 bytes addressing mode.
+* As per the Micron and ISSI spec, before issuing the command to enter into 4 byte addr
+* mode, a write enable command is issued. For Macronix and Winbond flash parts write
+* enable is not required.
+*
+* @param	QspiPtr is a pointer to the QSPIPSU driver component to use.
+* @param	Enable is a either 1 or 0 if 1 then enters 4 byte if 0 exits.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if it fails.
+*
+*
+******************************************************************************/
+int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr,unsigned int Enable)
+{
+	int Status;
+	u8 WriteEnableCmd;
+	u8 Cmd;
+	u8 WriteDisableCmd;
+	u8 ReadStatusCmd;
+	u8 WriteBuffer[2] = {0};
+	u8 FlashStatus[2] = {0};
+
+	if(Enable) {
+		Cmd = ENTER_4B_ADDR_MODE;
+	} else {
+		if(FlashMake == ISSI_ID_BYTE0)
+			Cmd = EXIT_4B_ADDR_MODE_ISSI;
+		else
+			Cmd = EXIT_4B_ADDR_MODE;
+	}
+
+	switch (FlashMake) {
+		case ISSI_ID_BYTE0:
+		case MICRON_ID_BYTE0:
+			WriteEnableCmd = WRITE_ENABLE_CMD;
+			/*
+			 * Send the write enable command to the Flash so that it can be
+			 * written to, this needs to be sent as a separate transfer before
+			 * the write
+			 */
+			FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+			TransferInProgress = TRUE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			while(TransferInProgress);
+
+			break;
+
+		case SPANSION_ID_BYTE0:
+
+			if(Enable) {
+				WriteBuffer[0] = BANK_REG_WR;
+				WriteBuffer[1] = 1 << 7;
+			} else {
+				WriteBuffer[0] = BANK_REG_WR;
+				WriteBuffer[1] = 0 << 7;
+			}
+
+			FlashMsg[0].TxBfrPtr = WriteBuffer;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			FlashMsg[0].ByteCount = 2;
+
+			TransferInProgress = TRUE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			while(TransferInProgress);
+
+			return Status;
+
+		default:
+			/*
+			 * For Macronix and Winbond flash parts
+			 * Write enable command is not required.
+			 */
+			break;
+	}
+
+	GetRealAddr(QspiPsuPtr,TEST_ADDRESS);
+
+	FlashMsg[0].TxBfrPtr = &Cmd;
+	FlashMsg[0].RxBfrPtr = NULL;
+	FlashMsg[0].ByteCount = 1;
+	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+	TransferInProgress = TRUE;
+	Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	while(TransferInProgress);
+
+	while (1) {
+		ReadStatusCmd = StatusCmd;
+
+		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = 1;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+		FlashMsg[1].TxBfrPtr = NULL;
+		FlashMsg[1].RxBfrPtr = FlashStatus;
+		FlashMsg[1].ByteCount = 2;
+		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+		if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL){
+			FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+		}
+
+		TransferInProgress = TRUE;
+		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		while(TransferInProgress);
+
+		if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL){
+			if(FSRFlag) {
+				FlashStatus[1] &= FlashStatus[0];
+			} else {
+				FlashStatus[1] |= FlashStatus[0];
+			}
+		}
+
+		if(FSRFlag) {
+			if ((FlashStatus[1] & 0x80) != 0) {
+				break;
+			}
+		} else {
+			if ((FlashStatus[1] & 0x01) == 0) {
+				break;
+			}
+		}
+	}
+
+	switch (FlashMake) {
+		case ISSI_ID_BYTE0:
+		case MICRON_ID_BYTE0:
+			WriteDisableCmd = WRITE_DISABLE_CMD;
+			/*
+			 * Send the write enable command to the Flash so that it can be
+			 * written to, this needs to be sent as a separate transfer before
+			 * the write
+			 */
+			FlashMsg[0].TxBfrPtr = &WriteDisableCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+			TransferInProgress = TRUE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			while(TransferInProgress);
+
+			break;
+
+		default:
+			/*
+			 * For Macronix and Winbond flash parts
+			 * Write disable command is not required.
+			 */
+			break;
+	}
+	return Status;
 }

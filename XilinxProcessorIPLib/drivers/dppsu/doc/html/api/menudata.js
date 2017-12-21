@@ -41,9 +41,13 @@ var menudata={children:[
 {text:"y",url:"functions_vars.html#index_y"}]}]}]},
 {text:"APIs",url:"globals.html",children:[
 {text:"All",url:"globals.html",children:[
-{text:"r",url:"globals.html#index_r"},
+{text:"d",url:"globals.html#index_d"},
+{text:"m",url:"globals_m.html#index_m"},
+{text:"r",url:"globals_r.html#index_r"},
 {text:"x",url:"globals_x.html#index_x"}]},
 {text:"Functions",url:"globals_func.html",children:[
+{text:"d",url:"globals_func.html#index_d"},
+{text:"m",url:"globals_func.html#index_m"},
 {text:"x",url:"globals_func.html#index_x"}]},
 {text:"Variables",url:"globals_vars.html"},
 {text:"Typedefs",url:"globals_type.html"},

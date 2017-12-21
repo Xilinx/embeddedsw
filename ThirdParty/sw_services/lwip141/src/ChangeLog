@@ -1,5 +1,10 @@
 Change Log for lwip
 =================================
+2017-11-01
+	* Perform AXI DMA lookup based on base address.
+2017-10-27
+	* Correct assigments of TX BD ring in init_dma() and
+	  emacps_error_handler().
 2017-09-20
 	* Disable L1 prefetch for ARMv8 in init_axi_dma function in xaxiemacif_dma.c.
 2017-09-12

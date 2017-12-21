@@ -77,6 +77,10 @@
 *       GM     28/08/17 Replace XVphy_HdmiInitialize API Call during
 *                            Initialization with XVphy_Hdmi_CfgInitialize API
 *                            Call
+*       mmo    04/10/17 Updated function TxStreamUpCallback to include
+*                            XhdmiACRCtrl_TMDSClkRatio API Call
+*       EB     06/11/17 Updated function RxAudCallback to allow pass-through
+*                            of audio format setting
 * </pre>
 *
 ******************************************************************************/
@@ -115,8 +119,10 @@
 #include "xv_hdmitxss.h"
 #endif
 #include "xvphy.h"
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
 #include "xv_tpg.h"
+#endif
 #endif
 #ifdef XPAR_XGPIO_NUM_INSTANCES
 #include "xgpio.h"
@@ -383,9 +389,11 @@ void UpdateColorDepth(XVphy *VphyPtr, XV_HdmiTxSs *HdmiTxSsPtr,
 void CloneTxEdid(void);
 #endif
 
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
 void XV_ConfigTpg(XV_tpg *InstancePtr);
 void ResetTpg(void);
+#endif
 #endif
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -429,10 +437,12 @@ static XIntc Intc;        	/* INTC structure */
 XGpio Gpio_Tpg_resetn;
 XGpio_Config *Gpio_Tpg_resetn_ConfigPtr;
 #endif
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
 XV_tpg Tpg;
 XV_tpg_Config *Tpg_ConfigPtr;
 XTpg_PatternId      Pattern;      /**< Video pattern */
+#endif
 #endif
 XhdmiAudioGen_t AudioGen; /* Audio Generator structure */
 #ifdef VIDEO_FRAME_CRC_EN
@@ -1200,8 +1210,19 @@ void RxAudCallback(void *CallbackRef)
 
   if (IsPassThrough) {
     // Set TX Audio params
-	  XV_HdmiTxSs_SetAudioChannels(&HdmiTxSs,
-			  XV_HdmiRxSs_GetAudioChannels(HdmiRxSsPtr));
+	// Audio Channels
+    XV_HdmiTxSs_SetAudioChannels(&HdmiTxSs,
+                  XV_HdmiRxSs_GetAudioChannels(HdmiRxSsPtr));
+
+    // HBR audio
+    if (XV_HdmiRxSs_GetAudioFormat(HdmiRxSsPtr) == XV_HDMIRX_AUDFMT_HBR) {
+        XV_HdmiTxSs_SetAudioFormat(&HdmiTxSs, XV_HDMITX_AUDFMT_HBR);
+    }
+    // L-PCM
+    else {
+        XV_HdmiTxSs_SetAudioFormat(&HdmiTxSs, XV_HDMITX_AUDFMT_LPCM);
+    }
+
   }
 #endif
 }
@@ -1506,6 +1527,8 @@ void TxStreamUpCallback(void *CallbackRef)
   XV_ConfigTpg(&Tpg);
 
 #if defined(USE_HDMI_AUDGEN)
+  XhdmiACRCtrl_TMDSClkRatio(&AudioGen,
+                            HdmiTxSsPtr->HdmiTxPtr->Stream.TMDSClockRatio);
   /* Select the Audio source */
   if (IsPassThrough) {
 
@@ -2084,13 +2107,17 @@ int main()
 	                  Hdcp14KeyB, sizeof(Hdcp14KeyB)) == XST_SUCCESS) {
 
     /* Set pointers to HDCP 2.2 Keys */
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #if XPAR_XHDCP22_TX_NUM_INSTANCES
     XV_HdmiTxSs_HdcpSetKey(&HdmiTxSs, XV_HDMITXSS_KEY_HDCP22_LC128, Hdcp22Lc128);
     XV_HdmiTxSs_HdcpSetKey(&HdmiTxSs, XV_HDMITXSS_KEY_HDCP22_SRM, Hdcp22Srm);
 #endif
+#endif
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 #if XPAR_XHDCP22_RX_NUM_INSTANCES
     XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs, XV_HDMIRXSS_KEY_HDCP22_LC128, Hdcp22Lc128);
     XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs, XV_HDMIRXSS_KEY_HDCP22_PRIVATE, Hdcp22RxPrivateKey);
+#endif
 #endif
 
     /* Set pointers to HDCP 1.4 keys */
@@ -2609,6 +2636,7 @@ int main()
 						(void *)&Vphy);
 #endif
 
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
     /* Initialize GPIO for Tpg Reset */
     Gpio_Tpg_resetn_ConfigPtr =
@@ -2646,6 +2674,7 @@ int main()
         xil_printf("ERR:: TPG Initialization failed %d\r\n", Status);
         return(XST_FAILURE);
     }
+#endif
 #endif
 
   xil_printf("---------------------------------\r\n");

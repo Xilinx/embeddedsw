@@ -33,10 +33,10 @@
 OPTION psf_version = 2.1;
 
 BEGIN driver v_sditx
-  OPTION supported_peripherals = (v_smpte_uhdsdi_tx_v1_0);
+  OPTION supported_peripherals = (v_smpte_uhdsdi_tx_v[1-9]_[0-9]);
   OPTION driver_state = ACTIVE;
   OPTION DEPENDS = (video_common sdi_common);
   OPTION copyfiles = all;
-  OPTION VERSION = 1.0;
+  OPTION VERSION = 1.1;
   OPTION NAME = v_sditx;
 END driver

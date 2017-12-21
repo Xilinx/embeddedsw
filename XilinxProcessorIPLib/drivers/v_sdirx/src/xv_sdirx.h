@@ -213,23 +213,15 @@ typedef struct {
 
 	XV_SdiRx_Callback StreamDownCallback;	/**< Callback for stream down callback */
 	void	*StreamDownRef;			/**< To be passed to the stream down callback */
-	u32		IsStreamDownCallbackSet;	/**< Set flag. This flag is set to true when the
-									*    callback has been registered */
 
 	XV_SdiRx_Callback	StreamUpCallback;		/**< Callback for stream up callback */
 	void	*StreamUpRef;				/**< To be passed to the stream up callback */
-	u32		IsStreamUpCallbackSet;		/**< Set flag. This flag is set to true when
-										*    the callback has been registered */
 
 	XV_SdiRx_Callback	OverFlowCallback;		/**< Callback for Overflow callback */
 	void	*OverFlowRef;				/**< To be passed to the Overflow callback */
-	u32		IsOverFlowCallbackSet;		/**< Set flag. This flag is set to true when
-										*    the callback has been registered */
 
 	XV_SdiRx_Callback	UnderFlowCallback;		/**< Callback for Underflow callback */
 	void	*UnderFlowRef;				/**< To be passed to the Underflow callback */
-	u32		IsUnderFlowCallbackSet;		/**< Set flag. This flag is set to true when
-										*    the callback has been registered */
 
 	/* SDI RX stream */
 	XV_SdiRx_Stream		Stream[XV_SDIRX_MAX_DATASTREAM];	/**< SDI RX stream information */
@@ -277,6 +269,7 @@ int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr,
 	UINTPTR EffectiveAddr);
 void XV_SdiRx_ResetStream(XV_SdiRx *InstancePtr);
 u32 XV_SdiRx_GetPayloadId(XV_SdiRx *InstancePtr, u8 DataStream);
+u32 XV_SdiRx_WaitforPayLoad(XV_SdiRx *InstancePtr);
 u32 XV_SdiRx_GetSdiMode(XV_SdiRx *InstancePtr);
 void XV_SdiRx_FramerEnable(XV_SdiRx *InstancePtr);
 void XV_SdiRx_FramerDisable(XV_SdiRx *InstancePtr);

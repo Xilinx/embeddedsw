@@ -59,7 +59,12 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XSDI_CH_SHIFT 29
-
+#define XST352_BYTE3_ACT_LUMA_COUNT_SHIFT 22
+#define XST352_BYTE2_TS_TYPE_SHIFT 15
+#define XST352_BYTE2_PIC_TYPE_SHIFT 14
+#define XSDITX_LINE_RATE_3G	0
+#define XSDITX_LINE_RATE_6G	1
+#define XSDITX_LINE_RATE_12G8DS	2
 
 /**************************** Type Definitions *******************************/
 
@@ -158,13 +163,11 @@ int XV_SdiTx_CfgInitialize(XV_SdiTx *InstancePtr, XV_SdiTx_Config *CfgPtr,
 	 * function
 	 */
 	InstancePtr->GtRstDoneCallback = (XV_SdiTx_Callback)((void *)StubCallback);
-	InstancePtr->IsGtRstDoneCallbackSet = (FALSE);
-
 	InstancePtr->OverFlowCallback = (XV_SdiTx_Callback)((void *)StubCallback);
-	InstancePtr->IsOverFlowCallbackSet = (FALSE);
-
 	InstancePtr->UnderFlowCallback = (XV_SdiTx_Callback)((void *)StubCallback);
-	InstancePtr->IsUnderFlowCallbackSet = (FALSE);
+	InstancePtr->CeAlignErrCallback = (XV_SdiTx_Callback)((void *)StubCallback);
+	InstancePtr->Axi4sVidLockCallback = (XV_SdiTx_Callback)((void *)StubCallback);
+
 	/* Stop SDI TX Core */
 	XV_SdiTx_StopSdi(InstancePtr);
 
@@ -417,7 +420,8 @@ void XV_SdiTx_SetCoreSettings(XV_SdiTx *InstancePtr, XV_SdiTx_CoreSelId SelId,
  *
  * This function calculates the equivalent payload nibble for Framerate
  *
- * @param	FrameRate is a variable of type XVidC_FrameRate.
+ * @param	FrameRateValid is a calculated framerate based on interlaced
+ * 		or progressive video.
  * @param	BitRate is a variable of type XSdiVid_BitRate.
  *
  * @return
@@ -557,7 +561,7 @@ u8 XV_SdiTx_GetPayloadAspectRatio(XVidC_AspectRatio AspectRatio)
  *
  * This function calculates the 2nd byte of the Payload packet for all SDI modes
  *
- * @param	VideoMode is a variable of type XVidC_VideoMode.
+ * @param	VActiveValid is a variable for number of active vertical lines.
  * @param	SdiMode is a variable to the XSdiVid_TransMode.
  * @param	Data is a pointer to populate the Byte1 of ST352 payload.
  *
@@ -656,12 +660,30 @@ u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVi
 	Data |=	XV_SDITX_COLORFORMAT;
 	Data |=	XV_SDITX_COLORDEPTH;
 	Data |=	(XV_SdiTx_GetPayloadFrameRate(FrameRateValid, InstancePtr->Transport.IsFractional) << 8);
-	Data |=	(XV_SdiTx_GetPayloadIsInterlaced(InstancePtr->Stream[DataStream].Video.IsInterlaced) << 14);
 
-	if ((InstancePtr->Stream[DataStream].Video.Timing.F0PVTotal >= 1125) && (SdiMode != XSDIVID_MODE_3GB))
-		Data |=	(XV_SdiTx_GetPayloadIsInterlaced(InstancePtr->Stream[DataStream].Video.IsInterlaced) << 15);
+	/* Bit 6 and Bit 7 of st352 byte 2 tells about progressive or interlaced
+	 * transport and picture structures. Read Chapter 5.3 of
+	 * SMPTE ST 352:2013 document.
+	 */
+	if (InstancePtr->Stream[DataStream].IsPsF) {
+		Data |= (0x1 << XST352_BYTE2_PIC_TYPE_SHIFT);
+		Data &= ~(0x1 << XST352_BYTE2_TS_TYPE_SHIFT);
+	} else {
+		Data |=	(XV_SdiTx_GetPayloadIsInterlaced(InstancePtr->Stream[DataStream].Video.IsInterlaced) << XST352_BYTE2_PIC_TYPE_SHIFT);
+		if ((InstancePtr->Stream[DataStream].Video.Timing.F0PVTotal >= 1125) &&
+			(SdiMode != XSDIVID_MODE_3GB))
+			Data |=	(XV_SdiTx_GetPayloadIsInterlaced(InstancePtr->Stream[DataStream].Video.IsInterlaced) << XST352_BYTE2_TS_TYPE_SHIFT);
+	}
 
 	Data |=	 (XV_SdiTx_GetPayloadAspectRatio(InstancePtr->Stream[DataStream].Video.AspectRatio) << 23);
+
+	/*for 4096 or 2048 horizontal pixels, set BIT(6) of byte 3 to 1.
+	 * Refer Table 3 SMPTE ST 2081-10.
+	 */
+	if (InstancePtr->Stream[DataStream].Video.Timing.HActive == 2048 ||
+		InstancePtr->Stream[DataStream].Video.Timing.HActive == 4096)
+		Data |= 0x1 << XST352_BYTE3_ACT_LUMA_COUNT_SHIFT;
+
 	Data |=	 ((InstancePtr->Stream[DataStream].CAssignment & 0x7) << 29);
 
 	if (SdiMode == XSDIVID_MODE_3GB)
@@ -841,6 +863,16 @@ void XV_SdiTx_StartSdi(XV_SdiTx *InstancePtr, XSdiVid_TransMode SdiMode,
 			XV_SdiTx_MuxPattern MuxPattern)
 {
 	u32 Data;
+
+	/* Following assertions make sure the IP is configured with in the
+	 * subcore GUI paramter limit
+	 */
+	Xil_AssertVoid((InstancePtr->Config.MaxRateSupported == XSDITX_LINE_RATE_3G) &&
+			(SdiMode <= XSDIVID_MODE_3GB) ||
+			(InstancePtr->Config.MaxRateSupported == XSDITX_LINE_RATE_6G) &&
+			(SdiMode <= XSDIVID_MODE_6G) ||
+			(InstancePtr->Config.MaxRateSupported == XSDITX_LINE_RATE_12G8DS) &&
+			(SdiMode <= XSDIVID_MODE_12G));
 
 	InstancePtr->IsStreamUp = TRUE;
 

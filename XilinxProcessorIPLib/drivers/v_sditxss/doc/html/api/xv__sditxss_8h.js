@@ -10,7 +10,9 @@ var xv__sditxss_8h =
     [ "XV_SdiTxSs_HandlerType", "xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7", [
       [ "XV_SDITXSS_HANDLER_GTREADY", "xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a3cacfc6799829a378ca48c19316db727", null ],
       [ "XV_SDITXSS_HANDLER_OVERFLOW", "xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7aa20193d62a6c7141931edbf932b4ef2f", null ],
-      [ "XV_SDITXSS_HANDLER_UNDERFLOW", "xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a36f4db8f423d8d8d833ad7ecd386356a", null ]
+      [ "XV_SDITXSS_HANDLER_UNDERFLOW", "xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a36f4db8f423d8d8d833ad7ecd386356a", null ],
+      [ "XV_SDITXSS_HANDLER_CEALIGN", "xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7afac5a72cfeecb7d035f8f9781fa61fe9", null ],
+      [ "XV_SDITXSS_HANDLER_AXI4SVIDLOCK", "xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a3e7b6fac9eb57a41171353ee31b25c51", null ]
     ] ],
     [ "XV_SdiTxSs_LogEvent", "xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553", [
       [ "XV_SDITXSS_LOG_EVT_NONE", "xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a70c37767e46297173c60928158b84041", null ],
@@ -23,6 +25,8 @@ var xv__sditxss_8h =
       [ "XV_SDITXSS_LOG_EVT_STREAMDOWN", "xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a33768bda2ad7a120398f40e165d1d61d", null ],
       [ "XV_SDITXSS_LOG_EVT_OVERFLOW", "xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a9bca7aaeaaba359457841df66108f549", null ],
       [ "XV_SDITXSS_LOG_EVT_UNDERFLOW", "xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553aaefd873e00cbcf42d8df28b0ca3def64", null ],
+      [ "XV_SDITXSS_LOG_EVT_CEALIGN", "xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a1bbcbe23ea627a2ab2a96ed9f403666c", null ],
+      [ "XV_SDITXSS_LOG_EVT_AXI4SVIDLOCK", "xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a63589926dcc66160bc9d119c338ebc46", null ],
       [ "XV_SDITXSS_LOG_EVT_STREAMSTART", "xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a9e58b21831ecfa79fd021ddb6eb92e94", null ],
       [ "XV_SDITXSS_LOG_EVT_DUMMY", "xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553abde742780ffd0391fac7379cc7052224", null ]
     ] ],

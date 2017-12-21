@@ -37,7 +37,6 @@ proc generate {drv_handle} {
     "C_BASEADDR" \
     "C_HIGHADDR" \
 	"C_INCLUDE_ADV_FEATURES" \
-	"C_INCLUDE_EDH" \
 	"C_LINE_RATE"
 
     hier_ip_define_config_file $drv_handle "xv_sditxss_g.c" \
@@ -45,7 +44,6 @@ proc generate {drv_handle} {
     "DEVICE_ID" \
     "C_BASEADDR" \
 	"C_INCLUDE_ADV_FEATURES" \
-	"C_INCLUDE_EDH" \
 	"C_LINE_RATE"
 
     hier_ip_define_canonical_xpars $drv_handle "xparameters.h" "XV_SdiTxSs" \
@@ -54,7 +52,6 @@ proc generate {drv_handle} {
     "C_BASEADDR" \
     "C_HIGHADDR" \
 	"C_INCLUDE_ADV_FEATURES" \
-	"C_INCLUDE_EDH" \
 	"C_LINE_RATE"
 }
 
@@ -93,8 +90,6 @@ proc hier_ip_define_include_file {drv_handle file_name drv_string args} {
                 set value $device_id
                 incr device_id
 			} elseif {[string compare -nocase "C_INCLUDE_ADV_FEATURES" $arg] == 0} {
-                set value [string toupper [common::get_property CONFIG.$arg $periph]]
-			} elseif {[string compare -nocase "C_INCLUDE_EDH" $arg] == 0} {
                 set value [string toupper [common::get_property CONFIG.$arg $periph]]
 			} elseif {[string compare -nocase "C_LINE_RATE" $arg] == 0} {
                 set value [string toupper [common::get_property CONFIG.$arg $periph]]
@@ -172,8 +167,6 @@ proc hier_ip_define_canonical_xpars {drv_handle file_name drv_string args} {
 
 				if {[string compare -nocase "C_INCLUDE_ADV_FEATURES" $arg] == 0} {
 					 set value [string toupper [common::get_property CONFIG.$arg $periph]]
-				} elseif {[string compare -nocase "C_INCLUDE_EDH" $arg] == 0} {
-						set rvalue [string toupper [common::get_property CONFIG.$arg $periph]]
 				} elseif {[string compare -nocase "C_LINE_RATE" $arg] == 0} {
 					set value [string toupper [common::get_property CONFIG.$arg $periph]]
 					puts $value

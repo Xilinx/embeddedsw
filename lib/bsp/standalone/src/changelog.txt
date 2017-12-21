@@ -485,5 +485,7 @@
  * 6.4 mus   08/17/17 Updated XGet_Zynq_UltraMp_Platform_info and XGetPSVersion_Info APIs to read
  *                    version register through SMC call, over EL1 NS mode. This change has been done to
  *                    support these APIs over EL1 NS mode.
+ * 6.5 mus   10/20/17 Updated standalone.tcl to fix bug in mb_can_handle_exceptions_in_delay_slots proc,
+ *                    it fixes CR#987464.
  *
  *****************************************************************************************/

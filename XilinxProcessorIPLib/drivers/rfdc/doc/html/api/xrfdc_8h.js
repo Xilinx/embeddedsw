@@ -9,6 +9,7 @@ var xrfdc_8h =
     [ "XRFdc_GetDecoderMode", "group__rfdc__v2__0.html#ga121c390b11e3f3b00071be0df4fefb7f", null ],
     [ "XRFdc_GetFabRdVldWords", "group__rfdc__v2__0.html#gafbfe415751cb3c87aa1ec086026d18d4", null ],
     [ "XRFdc_GetFabWrVldWords", "group__rfdc__v2__0.html#gaaef7fcdcc43f40584eb0f03253afb166", null ],
+    [ "XRFdc_GetFIFOStatus", "group__rfdc__v2__0.html#gae2a8ac4c4184eb047788d4fc7579a02c", null ],
     [ "XRFdc_GetInterpolationFactor", "group__rfdc__v2__0.html#gae567631f87c3f222aca40c47a29cb96a", null ],
     [ "XRFdc_GetIntrStatus", "group__rfdc__v2__0.html#ga6f7503891f40bcd0ade5e90e0869bf1a", null ],
     [ "XRFdc_GetIPStatus", "group__rfdc__v2__0.html#ga19f6d7bf003e333fb4c946a9aba9439b", null ],

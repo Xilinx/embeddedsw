@@ -152,6 +152,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
                              initialize
       MH     09/08/17 Added function XV_HdmiTxSs_HdcpSetCapability
              22/08/17 Added function XV_HdmiTxSs_SetAudioFormat
+1.42  YH     06/10/17 Updated function XV_HdmiTxSs_SetAudioFormat
+                      Added function XV_HdmiTxSs_GetAudioFormat
+      EB     17/10/17 Added function XV_HdmiTxSs_ReportAudio
+                      Updated function XV_HdmiTxSs_ReportInfo
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -212,9 +216,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a7236081f867771f94ce80eb933e013be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8c.html#a7236081f867771f94ce80eb933e013be">XV_HdmiTxSs_AudioMute</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, u8 Enable)</td></tr>
 <tr class="memdesc:a7236081f867771f94ce80eb933e013be"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function set HDMI TX audio parameters.  <a href="#a7236081f867771f94ce80eb933e013be">More...</a><br /></td></tr>
 <tr class="separator:a7236081f867771f94ce80eb933e013be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb9960e6b16abb754f7046c44cb45fa7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8c.html#acb9960e6b16abb754f7046c44cb45fa7">XV_HdmiTxSs_SetAudioFormat</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, u8 format)</td></tr>
-<tr class="memdesc:acb9960e6b16abb754f7046c44cb45fa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function Sets the HDMI TX SS Audio Format.  <a href="#acb9960e6b16abb754f7046c44cb45fa7">More...</a><br /></td></tr>
-<tr class="separator:acb9960e6b16abb754f7046c44cb45fa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66df1a5d1aff12d133912779276457e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8c.html#a66df1a5d1aff12d133912779276457e0">XV_HdmiTxSs_SetAudioFormat</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, XV_HdmiTx_AudioFormatType format)</td></tr>
+<tr class="memdesc:a66df1a5d1aff12d133912779276457e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function Sets the HDMI TX SS Audio Format.  <a href="#a66df1a5d1aff12d133912779276457e0">More...</a><br /></td></tr>
+<tr class="separator:a66df1a5d1aff12d133912779276457e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a7d6276758aa3f6a299ef7338ae25d2"><td class="memItemLeft" align="right" valign="top">XV_HdmiTx_AudioFormatType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8c.html#a6a7d6276758aa3f6a299ef7338ae25d2">XV_HdmiTxSs_GetAudioFormat</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a6a7d6276758aa3f6a299ef7338ae25d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the active audio format.  <a href="#a6a7d6276758aa3f6a299ef7338ae25d2">More...</a><br /></td></tr>
+<tr class="separator:a6a7d6276758aa3f6a299ef7338ae25d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a893af41ef8123dbcc6c697e211656d6e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8c.html#a893af41ef8123dbcc6c697e211656d6e">XV_HdmiTxSs_SetStream</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, XVidC_VideoMode VideoMode, XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc, XVidC_3DInfo *Info3D)</td></tr>
 <tr class="memdesc:a893af41ef8123dbcc6c697e211656d6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function set HDMI TX susbsystem stream parameters.  <a href="#a893af41ef8123dbcc6c697e211656d6e">More...</a><br /></td></tr>
 <tr class="separator:a893af41ef8123dbcc6c697e211656d6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -487,6 +494,36 @@ Variables</h2></td></tr>
 <li>XST_FAILURE if HDMI 1.4</li>
 </ul>
 </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
+
+</div>
+</div>
+<a id="a6a7d6276758aa3f6a299ef7338ae25d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a7d6276758aa3f6a299ef7338ae25d2">&#9670;&nbsp;</a></span>XV_HdmiTxSs_GetAudioFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XV_HdmiTx_AudioFormatType XV_HdmiTxSs_GetAudioFormat </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function gets the active audio format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiTxSs</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Active audio format of HDMI Tx Subsystem</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
@@ -1226,8 +1263,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="acb9960e6b16abb754f7046c44cb45fa7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb9960e6b16abb754f7046c44cb45fa7">&#9670;&nbsp;</a></span>XV_HdmiTxSs_SetAudioFormat()</h2>
+<a id="a66df1a5d1aff12d133912779276457e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66df1a5d1aff12d133912779276457e0">&#9670;&nbsp;</a></span>XV_HdmiTxSs_SetAudioFormat()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1241,7 +1278,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">u8&#160;</td>
+          <td class="paramtype">XV_HdmiTx_AudioFormatType&#160;</td>
           <td class="paramname"><em>format</em>&#160;</td>
         </tr>
         <tr>

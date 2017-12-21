@@ -1,3 +1,60 @@
+Changes for 2017.4
+===============================
+
+qspipsu_v1_6:
+Flow for accessing flash parts with size more then 16MB
+made similar to u-boot and linux.(CR#984966)
+ICCARM compiler does not support __attribute__ syntax,
+instead #pragma is used for the similar functionality.(CR#988625)
+
+ttcps_v3_5:
+Updates XTtcPs_GetMatchValue and XTtcPs_SetMatchValue APIs
+to use correct match register width for zynq  (i.e. 16 bit)
+and zynq ultrascale+mpsoc (i.e. 32 bit). It fixes CR#986617
+
+v_csi2txss_v1_1:
+Exporting ulps API to subsystem
+
+sdps_v3_3:
+Use different commands for single and multi block transfers
+
+emacps_v3_6:
+Export PL PCS PMA information for ETH1/2/3- CR-984847.
+
+qspipsu_v1_6:
+Flow for accessing flash parts with size more then 16MB made similar to 
+u-boot and linux.(CR#984966) ICCARM compiler does not support 
+__attribute__ syntax, instead #pragma is used for the similar 
+functionality.(CR#988625)
+
+axidma_v9_5:
+CR#987026 Fixed issue poll_multi_pkt example fails on a53
+Fixed race condition in the XAxiDma_Reset() API.
+CR#988210 Add interface to query config based on base addr.
+
+lwip141_2_0:
+Correct assigment of TX BD ring in init_dma() and
+emacps_error_handler().
+CR#988210 Perform AXI DMA lookup based on base address.
+
+zdma_v1_4:
+Fixed compilation errors for IAR compiler.
+
+zynqmp_pmufw:
+- Exported efuse IP disable as part of version string in PmGetChipid to 
+recognize eg/cg/ev devices
+- Enabled Optimize for size compiler flag in HSI flow
+- Clearing master wakeup sources after master state is changed from 
+suspended to active
+- Fix pmufw warnings related to unused variable, uninitialized variable 
+and signed compare
+- Provided MMIO Read-only access to PMU LOCAL FPD lock status register
+- Changed PMU Firmware version to 2017.4
+- Added wrapper API for IPI poll for Ack in PMU Firmware
+
+zynqmp_fsbl:
+Updated cross compiler flags with hard floating point values
+Added functionality in FSBL to distinguish EV devices from EG devices
 
 Changes for 2017.3
 ===============================
@@ -261,6 +318,7 @@ Added support for readind ID till 5th byte as MT25Q series flash supports FSRFla
 but 128Mb and 256Mb parts are single die only. If the 6th bit of 5th ID byte
 is 1 then we can set the FSRFlag.
 Added CCI support.
+Modified the checks for 4 byte addressing and commands in examples.
 
 qspips_v3_4
 Added QSPI Buswidth parameter in canonical defines.

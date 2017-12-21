@@ -107,6 +107,8 @@ typedef enum {
 	XV_SDITXSS_LOG_EVT_STREAMDOWN,	/**< Log event Stream Down. */
 	XV_SDITXSS_LOG_EVT_OVERFLOW,	/**< Log event Over flow. */
 	XV_SDITXSS_LOG_EVT_UNDERFLOW,	/**< Log event Under Flow. */
+	XV_SDITXSS_LOG_EVT_CEALIGN,	/**< Log event CE align. */
+	XV_SDITXSS_LOG_EVT_AXI4SVIDLOCK,/**< Log event Axi4s video lock. */
 	XV_SDITXSS_LOG_EVT_STREAMSTART, /**< Log event Stream Start. */
 	XV_SDITXSS_LOG_EVT_STREAMCFG,
 	XV_SDITXSS_LOG_EVT_DUMMY,		/**< Dummy Event should be last */
@@ -131,7 +133,9 @@ typedef struct {
 typedef enum {
     XV_SDITXSS_HANDLER_GTREADY = 1,		/**< Handler for connect event */
     XV_SDITXSS_HANDLER_OVERFLOW,		/**< Handler for overflow event */
-    XV_SDITXSS_HANDLER_UNDERFLOW		/**< Handler for underflow event */
+    XV_SDITXSS_HANDLER_UNDERFLOW,		/**< Handler for underflow event */
+    XV_SDITXSS_HANDLER_CEALIGN,			/**< Handler for CE align event */
+    XV_SDITXSS_HANDLER_AXI4SVIDLOCK		/**< Handler for axi4s vid lock event */
 } XV_SdiTxSs_HandlerType;
 /*@}*/
 
@@ -152,7 +156,6 @@ typedef struct {
     u16 DeviceId;		/**< DeviceId is the unique ID of the SDI TX core */
     UINTPTR BaseAddress;	/**< BaseAddress is the physical base address of the					subsystem address range */
     XVidC_PixelsPerClock Ppc;	/**< Supported Pixel per Clock */
-    u8 IsEdhIncluded;
     u8 MaxRateSupported;
     XV_SdiTxSs_SubCore SdiTx;	/**< Sub-core instance configuration */
 	XV_SdiTxSs_SubCore Vtc;	/**< Sub-core instance configuration */
@@ -191,6 +194,12 @@ typedef struct {
 
 	XV_SdiTxSs_Callback UnderFlowCallback; /**< Callback for Under flow event */
 	void *UnderFlowRef;  /**< To be passed to the Under flow callback */
+
+	XV_SdiTxSs_Callback CeAlignErrCallback; /**< Callback for CE align errors event */
+	void *CeAlignErrRef;  /**< To be passed to the CE align errors callback */
+
+	XV_SdiTxSs_Callback Axi4sVidLockCallback; /**< Callback for Axi4s video lock event */
+	void *Axi4sVidLockRef;  /**< To be passed to the Axi4s video lock callback */
 
 	u8 IsStreamUp;                /**< SDI TX Stream Up */
 } XV_SdiTxSs;

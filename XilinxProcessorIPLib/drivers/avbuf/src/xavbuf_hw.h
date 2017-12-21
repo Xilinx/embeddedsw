@@ -45,6 +45,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0	 aad 02/24/17	Initial Release
  * 1.0   mh  06/24/17	Added Clock related register information
+ * 2.0   aad 10/07/17   Removed Macros related to Video and Audio Src
  * </pre>
  *
 *******************************************************************************/
@@ -1391,24 +1392,6 @@ extern "C" {
 #define XAVBUF_PATGEN_CRC_B_CRC_B_SHIFT   0
 #define XAVBUF_PATGEN_CRC_B_CRC_B_WIDTH   16
 #define XAVBUF_PATGEN_CRC_B_CRC_B_MASK    0X0000FFFF
-
-#define XAVBUF_VIDSTREAM1_LIVE			0x0
-#define XAVBUF_VIDSTREAM1_NONLIVE		0x1
-#define XAVBUF_VIDSTREAM1_TPG			0x2
-#define XAVBUF_VIDSTREAM1_NONE			0x3
-
-#define XAVBUF_VIDSTREAM2_DISABLEGFX		0x0
-#define XAVBUF_VIDSTREAM2_NONLIVE_GFX		0x4
-#define XAVBUF_VIDSTREAM2_LIVE_GFX		0x8
-#define XAVBUF_VIDSTREAM2_NONE			0x10
-
-#define XAVBUF_AUDSTREAM1_LIVE			0x00
-#define XAVBUF_AUDSTREAM1_NONLIVE		0x10
-#define XAVBUF_AUDSTREAM1_TPG			0x20
-#define XAVBUF_AUDSTREAM1_NO_AUDIO		0x30
-
-#define XAVBUF_AUDSTREAM2_NO_AUDIO		0x00
-#define XAVBUF_AUDSTREAM2_AUDIOGFX		0x40
 
 #define XAVBUF_NUM_SUPPORTED			52
 

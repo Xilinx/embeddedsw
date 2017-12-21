@@ -77,6 +77,9 @@
 * 9.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *
 * 9.1	vak  11/18/15 Removed warnings in the driver and examples (CR# 911664)
+* 9.5   adk  26/10/17 Fix race condition in the XAxiDma_Reset() API. This API
+*		      assumes a tx channel is always present it may be configured
+*		      for rx only.
 *
 * </pre>
 ******************************************************************************/
@@ -307,19 +310,21 @@ void XAxiDma_Reset(XAxiDma * InstancePtr)
 	XAxiDma_BdRing *RxRingPtr;
 	int RingIndex;
 
-	TxRingPtr = XAxiDma_GetTxRing(InstancePtr);
+	if (InstancePtr->HasMm2S) {
+		TxRingPtr = XAxiDma_GetTxRing(InstancePtr);
 
-	/* Save the locations of current BDs both rings are working on
-	 * before the reset so later we can resume the rings smoothly.
-	 */
-	if(XAxiDma_HasSg(InstancePtr)){
-		XAxiDma_BdRingSnapShotCurrBd(TxRingPtr);
+		/* Save the locations of current BDs both rings are working on
+		 * before the reset so later we can resume the rings smoothly.
+		 */
+		if(XAxiDma_HasSg(InstancePtr)){
+			XAxiDma_BdRingSnapShotCurrBd(TxRingPtr);
 
-		for (RingIndex = 0; RingIndex < InstancePtr->RxNumChannels;
-						RingIndex++) {
-			RxRingPtr = XAxiDma_GetRxIndexRing(InstancePtr,
-						RingIndex);
-			XAxiDma_BdRingSnapShotCurrBd(RxRingPtr);
+			for (RingIndex = 0; RingIndex < InstancePtr->RxNumChannels;
+							RingIndex++) {
+				RxRingPtr = XAxiDma_GetRxIndexRing(InstancePtr,
+							RingIndex);
+				XAxiDma_BdRingSnapShotCurrBd(RxRingPtr);
+			}
 		}
 	}
 
@@ -336,14 +341,18 @@ void XAxiDma_Reset(XAxiDma * InstancePtr)
 
 	/* Set TX/RX Channel state */
 	if (InstancePtr->HasMm2S) {
+		TxRingPtr = XAxiDma_GetTxRing(InstancePtr);
+
 		TxRingPtr->RunState = AXIDMA_CHANNEL_HALTED;
 	}
 
-	for (RingIndex = 0; RingIndex < InstancePtr->RxNumChannels;
-					RingIndex++) {
-		RxRingPtr = XAxiDma_GetRxIndexRing(InstancePtr, RingIndex);
-		if (InstancePtr->HasS2Mm) {
-			RxRingPtr->RunState = AXIDMA_CHANNEL_HALTED;
+	if (InstancePtr->HasS2Mm) {
+		for (RingIndex = 0; RingIndex < InstancePtr->RxNumChannels;
+						RingIndex++) {
+			RxRingPtr = XAxiDma_GetRxIndexRing(InstancePtr, RingIndex);
+			if (InstancePtr->HasS2Mm) {
+				RxRingPtr->RunState = AXIDMA_CHANNEL_HALTED;
+			}
 		}
 	}
 }

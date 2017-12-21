@@ -32,12 +32,62 @@
  * 1.00  RHe 2014/12/00   First release
  * 1.1   RHe 2015/07/30   Updated ACR GetNVal to be dependent of the
  *                        TMDS character rate instead of the video mode.
- * 1.2   MMO 2017/09/05   Replace U32 with UINTPTR for 64 Bit Addressing Support
+ * 1.2   NA  2017/04/28   Made Audio PLL settings into a table for easy editing.
+ *                        Updated SetSampleRate to actually return an error when
+ *                        something fails along the way.
+ *                        Updated XhdmiAudGen_SetAudClkParam() to use the PLL
+ *                        settings table.
+ *                        Updated XhdmiAudGen_AudClkConfig() to not hang the
+ *                        system when PLL fails to get in lock and return an
+ *                        error in that case. Also added the fractional parts of
+ *                        the PLL settings.
+ * 1.3   RHe 2017/07/31   Updated ACR CTS generation for HDMI 2.0 formats.
+ * 1.4   MMO 2017/09/05   Replace U32 with UINTPTR for 64 Bit Addressing Support
  * </pre>
  *
  ******************************************************************************/
 
 #include "audiogen_drv.h"
+
+typedef struct {
+	AudioRate_t         SampleRate;
+	XhdmiAudioGen_PLL_t	PLLSettings;
+} XHDMI_SamplingFreq_PLLSettings;
+
+// MMCM PLL settings for sampling frequencies
+const XHDMI_SamplingFreq_PLLSettings SampleRatePllSettingsTbl[] = {
+    { XAUD_SRATE_32K,           { 2, 19,  0, 58,  0 }},
+    { XAUD_SRATE_44K1,          { 2, 14,  0, 31,  0 }},
+    { XAUD_SRATE_48K,           { 1, 14,  0, 57,  0 }},
+    { XAUD_SRATE_88K2,          { 1, 14,  0, 31,  0 }},
+    { XAUD_SRATE_96K,           { 3, 19,  0, 13,  0 }},
+    { XAUD_SRATE_176K4,         { 3, 19,  0,  7,  0 }},
+    { XAUD_SRATE_192K,          { 1, 10,  0, 10,  0 }},
+	{ XAUD_NUM_SUPPORTED_SRATE, { 0,  0,  0,  0,  0 }},
+};
+/* Original:
+    { XAUD_SRATE_44K1,          { 2, 19,  0, 42,  0 }},
+ */
+/* Alternate PLL settings:
+ *
+ * KCU105:
+    { XAUD_SRATE_32K,           { 1,  9,  5, 58,  6 }},
+    { XAUD_SRATE_44K1,          { 2, 16,  3, 36,  2 }},
+    { XAUD_SRATE_48K,           { 1, 11,  0, 44,  6 }},
+    { XAUD_SRATE_88K2,          { 1, 14,  0, 31,  0 }},
+    { XAUD_SRATE_96K,           { 1, 11,  0, 22,  3 }},
+    { XAUD_SRATE_176K4,         { 1,  7,  0,  7,  6 }},
+    { XAUD_SRATE_192K,          { 1,  7,  2,  7,  3 }},
+
+ * KC705:
+    { XAUD_SRATE_32K,           { 5, 43,  5, 53,  2 }},
+    { XAUD_SRATE_44K1,          { 5, 62,  3, 55,  2 }},
+    { XAUD_SRATE_48K,           { 5, 34,  2, 27,  7 }},
+    { XAUD_SRATE_88K2,          { 5, 62,  3, 27,  5 }},
+    { XAUD_SRATE_96K,           { 5, 43,  5, 17,  6 }},
+    { XAUD_SRATE_176K4,         { 5, 53,  5, 11,  7 }},
+    { XAUD_SRATE_192K,          { 1,  7,  2,  7,  3 }},
+ */
 
 // Recommend N values for Audio Clock Regeneration
 const ACR_N_Table_t ACR_N_Table[] =
@@ -184,6 +234,7 @@ int XhdmiAudGen_UpdateConfig(XhdmiAudioGen_t *AudioGen)
 
 int XhdmiAudGen_SetSampleRate (XhdmiAudioGen_t *AudioGen, u32 TMDSCharRate, AudioRate_t SampleRate)
 {
+  int Result;
   u32 data;
   u8  NumEnabCh = XhdmiAudGen_GetEnabChannels(AudioGen);
 
@@ -194,14 +245,16 @@ int XhdmiAudGen_SetSampleRate (XhdmiAudioGen_t *AudioGen, u32 TMDSCharRate, Audi
   XhdmiACRCtrl_Enab(AudioGen, 0);
 
   // Re-program audio clock
-  XhdmiAudGen_SetAudClk(AudioGen, SampleRate);
+  Result = XhdmiAudGen_SetAudClk(AudioGen, SampleRate);
 
-  // Write the recommended N value
-  data = XHdmi_ACR_GetNVal(TMDSCharRate, SampleRate);
-  XhdmiACRCtrl_SetNVal(AudioGen, data);
-
-  // Set Channel Status bits
-  XhdmiAudGen_SetChSts(AudioGen, SampleRate);
+  if (Result == XST_SUCCESS) {
+    // Write the recommended N value
+    data = XHdmi_ACR_GetNVal(TMDSCharRate, SampleRate);
+    Result = XhdmiACRCtrl_SetNVal(AudioGen, data);
+  }
+  if (Result == XST_SUCCESS)
+    // Set Channel Status bits
+    Result = XhdmiAudGen_SetChSts(AudioGen, SampleRate);
 
   // Set the sample rate for the audio generator
   data = XAudGen_ReadReg(AudioGen->AudGenBase, AUD_CFG); // Read audio config reg
@@ -209,121 +262,92 @@ int XhdmiAudGen_SetSampleRate (XhdmiAudioGen_t *AudioGen, u32 TMDSCharRate, Audi
   data |= ((SampleRate & AUD_CFG_REG_SAMPRATE_MASK) << AUD_CFG_REG_SAMPRATE_SHIFT); // Write SAMPRATE field
   XAudGen_WriteReg(AudioGen->AudGenBase, AUD_CFG, data); // Write audio config reg
 
-  // Reset the audio generator
-  XhdmiAudGen_Reset(AudioGen);
+  if (Result == XST_SUCCESS)
+    // Reset the audio generator
+    Result = XhdmiAudGen_Reset(AudioGen);
 
+  if (Result == XST_SUCCESS)
   // Re-enable ACR generation
-  XhdmiACRCtrl_Enab(AudioGen, 1);
+    Result = XhdmiACRCtrl_Enab(AudioGen, 1);
 
+  if (Result == XST_SUCCESS)
   // Re-enable the channels
-  XhdmiAudGen_SetEnabChannels(AudioGen, NumEnabCh);
+    Result = XhdmiAudGen_SetEnabChannels(AudioGen, NumEnabCh);
 
   //MB_Sleep(10);
 
-  XhdmiAudGen_UpdateConfig(AudioGen);
+  if (Result == XST_SUCCESS)
+    Result = XhdmiAudGen_UpdateConfig(AudioGen);
 
-  return XST_SUCCESS;
+  return Result;
 }
 
 int XhdmiAudGen_SetAudClk (XhdmiAudioGen_t *AudioGen, AudioRate_t SampleRate)
 {
+  int Result;
   // Assert the audio reset
   XhdmiACRCtrl_AudioReset(AudioGen, TRUE);
 
-  XhdmiAudGen_SetAudClkParam(AudioGen, SampleRate);
+  Result = XhdmiAudGen_SetAudClkParam(AudioGen, SampleRate);
 
-  XhdmiAudGen_AudClkConfig(AudioGen);
+  if (Result == XST_SUCCESS)
+    Result = XhdmiAudGen_AudClkConfig(AudioGen);
 
   // De-assert the audio reset
   XhdmiACRCtrl_AudioReset(AudioGen, FALSE);
 
-  return XST_SUCCESS;
+  return Result;
 }
 
 int XhdmiAudGen_SetAudClkParam(XhdmiAudioGen_t *AudioGen, AudioRate_t SampleRate)
 {
-  // The settings below are for an input clock frequency of 100 MHz.
-  switch(SampleRate){
-    case (XAUD_SRATE_32K) :
-      AudioGen->AudClkPLL.Div = 2;
-      AudioGen->AudClkPLL.Mult = 19;
-      AudioGen->AudClkPLL.Clk0Div = 58;
-      break;
+  const XHDMI_SamplingFreq_PLLSettings* TblPtr = SampleRatePllSettingsTbl;
 
-    case (XAUD_SRATE_44K1) :
-      AudioGen->AudClkPLL.Div = 2;
-      AudioGen->AudClkPLL.Mult = 19;
-      AudioGen->AudClkPLL.Clk0Div = 42;
-      break;
-
-    case (XAUD_SRATE_48K) :
-      AudioGen->AudClkPLL.Div = 1;
-      AudioGen->AudClkPLL.Mult = 14;
-      AudioGen->AudClkPLL.Clk0Div = 57;
-      break;
-
-    case (XAUD_SRATE_88K2) :
-      AudioGen->AudClkPLL.Div = 1;
-      AudioGen->AudClkPLL.Mult = 14;
-      AudioGen->AudClkPLL.Clk0Div = 31;
-      break;
-
-    case (XAUD_SRATE_96K) :
-      AudioGen->AudClkPLL.Div = 3;
-      AudioGen->AudClkPLL.Mult = 19;
-      AudioGen->AudClkPLL.Clk0Div = 13;
-      break;
-
-    case (XAUD_SRATE_176K4) :
-      AudioGen->AudClkPLL.Div = 3;
-      AudioGen->AudClkPLL.Mult = 19;
-      AudioGen->AudClkPLL.Clk0Div = 7;
-      break;
-
-    case (XAUD_SRATE_192K) :
-      AudioGen->AudClkPLL.Div = 1;
-      AudioGen->AudClkPLL.Mult = 10;
-      AudioGen->AudClkPLL.Clk0Div = 10;
-      break;
-
-    default :
-      return XST_FAILURE;
+  while (TblPtr->SampleRate != XAUD_NUM_SUPPORTED_SRATE) {
+    if (TblPtr->SampleRate == SampleRate) {
+      memcpy(&AudioGen->AudClkPLL, &TblPtr->PLLSettings, sizeof(AudioGen->AudClkPLL));
+      return XST_SUCCESS;
+    }
+    TblPtr++;
   }
-
-  return XST_SUCCESS;
+  return XST_FAILURE;
 }
 
 int XhdmiAudGen_AudClkConfig(XhdmiAudioGen_t *AudioGen)
 {
   u32 dat = 0;
+  u32 fraction;
+  u32 waitcount;
 
   // Set the DIVCLK_DIVIDE and CLKFBOUT_MULT parameters
+  fraction = AudioGen->AudClkPLL.Mult_Eights * 125;
   dat = ((AudioGen->AudClkPLL.Div) & 0xFF);
   dat |= ((u32)(AudioGen->AudClkPLL.Mult & 0xFF) << 8);
-
+  dat |= (fraction &0xFFFF) << 16;
   *(u32*)(AudioGen->AudClkGenBase + 0x200) = dat; // CLKCONFIG Reg 0
 
   dat = 0;
 
   // Set the CLKOUT0_DIVIDE parameter
+  fraction = AudioGen->AudClkPLL.Clk0Div_Eights * 125;
   dat = ((AudioGen->AudClkPLL.Clk0Div) & 0xFF);
-
+  dat |= (fraction &0xFFFF) << 8;
   *(u32*)(AudioGen->AudClkGenBase + 0x208) = dat; // CLKCONFIG Reg 2
 
   *(u32*)(AudioGen->AudClkGenBase + 0x25C) = 0x7; // Load the regs and start reconfiguration
   *(u32*)(AudioGen->AudClkGenBase + 0x25C) = 0x2; // De-assert LOAD and SEN
 
   // Wait for lock
-  while(1)
-  {
-	usleep(1000);
-
-    dat = *(u32*)(AudioGen->AudClkGenBase + 0x004);
-
-    if(dat & 0x1)
-      break;
+  waitcount = 0;
+  while(waitcount < (AUDGEN_WAIT_CNT)) {
+	usleep(100);
+    dat = *(volatile u32*)(AudioGen->AudClkGenBase + 0x004);
+    if(dat & 0x1) {
+      return XST_SUCCESS;
+    }
+    waitcount++;
   }
-  return XST_SUCCESS;
+  return XST_FAILURE;
 }
 
 int XhdmiAudGen_GetAudClk (AudioRate_t SampleRate)
@@ -479,6 +503,21 @@ int XhdmiACRCtrl_Sel (XhdmiAudioGen_t *AudioGen, u8 sel)
     data |= (1 << ACR_CTRL_SEL_ACR_SHIFT);
   else // Select the input ACR values
     data &= ~(ACR_CTRL_SEL_ACR_MASK << ACR_CTRL_SEL_ACR_SHIFT);
+
+  XAudGen_WriteReg(AudioGen->ACRCtrlBase, ACR_CTRL, data);
+
+  return XST_SUCCESS;
+}
+
+int XhdmiACRCtrl_TMDSClkRatio (XhdmiAudioGen_t *AudioGen, u8 setclr)
+{
+  u32 data;
+
+  data = XAudGen_ReadReg(AudioGen->ACRCtrlBase, ACR_CTRL);
+  if (setclr)
+    data |= (1 << ACR_CTRL_TMDSCLKRATIO_SHIFT);
+  else
+    data &= ~(ACR_CTRL_TMDSCLKRATIO_MASK << ACR_CTRL_TMDSCLKRATIO_SHIFT);
 
   XAudGen_WriteReg(AudioGen->ACRCtrlBase, ACR_CTRL, data);
 

@@ -1,11 +1,7 @@
 var struct_x_v___sdi_rx =
 [
     [ "Config", "struct_x_v___sdi_rx.html#a8eed60af4a10d195439f698b77e8af33", null ],
-    [ "IsOverFlowCallbackSet", "struct_x_v___sdi_rx.html#a08e52063b1f7bcba2b51ad47e9629f2e", null ],
     [ "IsReady", "struct_x_v___sdi_rx.html#a011779d1e2f7850b4d45b590e4f3b38a", null ],
-    [ "IsStreamDownCallbackSet", "struct_x_v___sdi_rx.html#ab7c14ffd4fb802ff16bdc0f5372c1654", null ],
-    [ "IsStreamUpCallbackSet", "struct_x_v___sdi_rx.html#ad227a8f0b84a70c9b0c94213a4511ccc", null ],
-    [ "IsUnderFlowCallbackSet", "struct_x_v___sdi_rx.html#a79f5e9122cbe86edd5621147316b5d6f", null ],
     [ "OverFlowCallback", "struct_x_v___sdi_rx.html#a095630631d7ca3fd051ad41c208960fc", null ],
     [ "OverFlowRef", "struct_x_v___sdi_rx.html#a7d49c1f27854e35c8a0eefa2db64c5aa", null ],
     [ "Stream", "struct_x_v___sdi_rx.html#a6482998da94de8b5de305b15e8abf229", null ],
