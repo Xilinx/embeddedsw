@@ -9,3 +9,4 @@ qspipsu
 gpiops
 usbpsu
 wdtps
+sysmonpsu
