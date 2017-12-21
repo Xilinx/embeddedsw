@@ -5,11 +5,7 @@
 * Version:
 * DO NOT EDIT.
 *
-<<<<<<< HEAD
 * Copyright (C) 2010-2017 Xilinx, Inc. All rights reserved.*
-=======
-* Copyright (C) 2010-2017 Xilinx, Inc. All Rights Reserved.*
->>>>>>> PMUFW: Add misc folder to PMU Firmware
 *Permission is hereby granted, free of charge, to any person obtaining a copy
 *of this software and associated documentation files (the Software), to deal
 *in the Software without restriction, including without limitation the rights
@@ -37,22 +33,8 @@
 *
 
 *
-* Description: Driver configuration
+* Description: Configurations for Standalone BSP
 *
 *******************************************************************/
 
-#include "xparameters.h"
-#include "xemacps.h"
-
-/*
-* The configuration table for devices
-*/
-
-XEmacPs_Config XEmacPs_ConfigTable[XPAR_XEMACPS_NUM_INSTANCES] =
-{
-	{
-		XPAR_PSU_ETHERNET_3_DEVICE_ID,
-		XPAR_PSU_ETHERNET_3_BASEADDR,
-		XPAR_PSU_ETHERNET_3_IS_CACHE_COHERENT
-	}
-};
+#define MICROBLAZE_PVR_NONE

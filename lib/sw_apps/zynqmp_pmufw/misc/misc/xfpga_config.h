@@ -5,11 +5,7 @@
 * Version:
 * DO NOT EDIT.
 *
-<<<<<<< HEAD
 * Copyright (C) 2010-2017 Xilinx, Inc. All rights reserved.*
-=======
-* Copyright (C) 2010-2017 Xilinx, Inc. All Rights Reserved.*
->>>>>>> PMUFW: Add misc folder to PMU Firmware
 *Permission is hereby granted, free of charge, to any person obtaining a copy
 *of this software and associated documentation files (the Software), to deal
 *in the Software without restriction, including without limitation the rights
@@ -37,22 +33,13 @@
 *
 
 *
-* Description: Driver configuration
+* Description: MFS Parameters
 *
 *******************************************************************/
 
-#include "xparameters.h"
-#include "xemacps.h"
-
-/*
-* The configuration table for devices
-*/
-
-XEmacPs_Config XEmacPs_ConfigTable[XPAR_XEMACPS_NUM_INSTANCES] =
-{
-	{
-		XPAR_PSU_ETHERNET_3_DEVICE_ID,
-		XPAR_PSU_ETHERNET_3_BASEADDR,
-		XPAR_PSU_ETHERNET_3_IS_CACHE_COHERENT
-	}
-};
+#ifndef _XFPGA_CONFIG_H
+#define _XFPGA_CONFIG_H
+#define XFPGA_OCM_ADDRESS 0xfffc0000
+#define XFPGA_NUMBYTES  100000
+#define XFPGA_BASE_ADDRESS 0x80000
+#endif

@@ -8,7 +8,4 @@ sdps
 qspipsu
 gpiops
 usbpsu
-<<<<<<< HEAD
 wdtps
-=======
->>>>>>> PMUFW: Add misc folder to PMU Firmware
