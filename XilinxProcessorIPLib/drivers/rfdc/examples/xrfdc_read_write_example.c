@@ -429,7 +429,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				if (Status != XRFDC_SUCCESS)
 					return XRFDC_FAILURE;
 				if (SetInterpolationFactor != GetInterpolationFactor)
-					return XST_FAILURE;
+					return XRFDC_FAILURE;
 				SetInterpolationFactor = XRFDC_INTERP_DECIM_2X;
 				Status = XRFdc_SetInterpolationFactor(RFdcInstPtr, Tile, Block,
 									SetInterpolationFactor);
@@ -440,7 +440,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				if (Status != XRFDC_SUCCESS)
 					return XRFDC_FAILURE;
 				if (SetInterpolationFactor != GetInterpolationFactor)
-					return XST_FAILURE;
+					return XRFDC_FAILURE;
 				SetInterpolationFactor = XRFDC_INTERP_DECIM_4X;
 				Status = XRFdc_SetInterpolationFactor(RFdcInstPtr, Tile, Block,
 									SetInterpolationFactor);
@@ -451,7 +451,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				if (Status != XRFDC_SUCCESS)
 					return XRFDC_FAILURE;
 				if (SetInterpolationFactor != GetInterpolationFactor)
-					return XST_FAILURE;
+					return XRFDC_FAILURE;
 				SetInterpolationFactor = XRFDC_INTERP_DECIM_8X;
 				Status = XRFdc_SetInterpolationFactor(RFdcInstPtr, Tile, Block,
 									SetInterpolationFactor);
@@ -462,7 +462,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				if (Status != XRFDC_SUCCESS)
 					return XRFDC_FAILURE;
 				if (SetInterpolationFactor != GetInterpolationFactor)
-					return XST_FAILURE;
+					return XRFDC_FAILURE;
 			}
 
 			/* Check if the ADC block is enabled */
@@ -653,7 +653,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				if (Status != XRFDC_SUCCESS)
 					return XRFDC_FAILURE;
 				if (SetDecimationFactor != GetDecimationFactor)
-					return XST_FAILURE;
+					return XRFDC_FAILURE;
 				SetDecimationFactor = XRFDC_INTERP_DECIM_1X;
 				Status = XRFdc_SetDecimationFactor(RFdcInstPtr, Tile, Block,
 									SetDecimationFactor);
@@ -664,7 +664,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				if (Status != XRFDC_SUCCESS)
 					return XRFDC_FAILURE;
 				if (SetDecimationFactor != GetDecimationFactor)
-					return XST_FAILURE;
+					return XRFDC_FAILURE;
 				SetDecimationFactor = XRFDC_INTERP_DECIM_2X;
 				Status = XRFdc_SetDecimationFactor(RFdcInstPtr, Tile, Block,
 									SetDecimationFactor);
@@ -675,7 +675,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				if (Status != XRFDC_SUCCESS)
 					return XRFDC_FAILURE;
 				if (SetDecimationFactor != GetDecimationFactor)
-					return XST_FAILURE;
+					return XRFDC_FAILURE;
 				SetDecimationFactor = XRFDC_INTERP_DECIM_4X;
 				Status = XRFdc_SetDecimationFactor(RFdcInstPtr, Tile, Block,
 									SetDecimationFactor);
@@ -686,7 +686,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				if (Status != XRFDC_SUCCESS)
 					return XRFDC_FAILURE;
 				if (SetDecimationFactor != GetDecimationFactor)
-					return XST_FAILURE;
+					return XRFDC_FAILURE;
 				SetDecimationFactor = XRFDC_INTERP_DECIM_8X;
 				Status = XRFdc_SetDecimationFactor(RFdcInstPtr, Tile, Block,
 									SetDecimationFactor);
@@ -697,7 +697,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				if (Status != XRFDC_SUCCESS)
 					return XRFDC_FAILURE;
 				if (SetDecimationFactor != GetDecimationFactor)
-					return XST_FAILURE;
+					return XRFDC_FAILURE;
 
 				/* Set Calibration Mode 1 */
 				SetCalibrationMode = XRFDC_CALIB_MODE1;
