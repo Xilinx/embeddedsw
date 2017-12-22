@@ -2,6 +2,9 @@ Changes for 2018.1
 ===============================
 
 Standalone_v6_6:
+Added a macro to replace conditional loops
+
+Standalone_v6_6:
 Updated sleep routines to support user configurable sleep
 implementation. Now sleep routines will use TTC instance specified by
 user
