@@ -1137,6 +1137,9 @@ and XDp_RxSetIntrHdcpRoReadHandler functions and replace them
 with the new XDp_TxSetCallback function.
 
 Standalone_v6_6:
+Added a macro to replace conditional loops
+
+Standalone_v6_6:
 Updated sleep routines to support user configurable sleep
 implementation. Now sleep routines will use TTC instance specified by
 user
