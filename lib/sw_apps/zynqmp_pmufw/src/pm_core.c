@@ -61,17 +61,17 @@
 /**
  * PmKillBoardPower() - Power-off board by sending KILL signal to power chip
  */
+#if defined(BOARD_SHUTDOWN_PIN) && defined(BOARD_SHUTDOWN_PIN_STATE)
 static void PmKillBoardPower(void)
 {
-#if defined(BOARD_SHUTDOWN_PIN) && defined(BOARD_SHUTDOWN_PIN_STATE)
 	u32 reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
 	u32 mask = PMU_IOMODULE_GPO1_MIO_0_MASK << BOARD_SHUTDOWN_PIN;
 	u32 value = BOARD_SHUTDOWN_PIN_STATE << BOARD_SHUTDOWN_PIN;
 
 	reg = (reg & (~mask)) | (mask & value);
 	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
-#endif
 }
+#endif
 
 /**
  * PmProcessAckRequest() -Returns appropriate acknowledge if required
