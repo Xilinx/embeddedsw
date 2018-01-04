@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -54,6 +54,9 @@
 *                    inputs will be accepted in little endian format(KEY, IV
 *                    and Data).
 * 2.2   vns 07/06/16 Added doxygen tags
+* 3.0   vns 01/03/18 Modified XSecure_AesDecrypt() API to use key and IV placed
+*                    in secure header by bootgen to decrypt the actual
+*                    partition.
 *
 * </pre>
 *
@@ -1315,32 +1318,24 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 			}
 		}
 
-		if(BlockCnt > 0U)
+		/*
+		 * Update DestAddr and SrcAddr for next Block decryption.
+		 */
+		if (Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)
 		{
-			/*
-			 * Update DestAddr and SrcAddr for next Block decryption.
-			 */
-			if (Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)
-			{
-				DestAddr += PrevBlkLen;
-			}
-			SrcAddr = (GcmTagAddr + XSECURE_SECURE_GCM_TAG_SIZE);
-			/*
-			 * This means we are done with Secure header and Block 0
-			 * And now we can change the AES key source to KUP.
-			 */
-			InstancePtr->KeySel = XSECURE_CSU_AES_KEY_SRC_KUP;
-			XSecure_AesKeySelNLoad(InstancePtr);
+			DestAddr += PrevBlkLen;
 		}
-		else
-		{
-			/* Update SrcAddr for Block-0 */
-			SrcAddr = (SrcAddr + XSECURE_SECURE_HDR_SIZE +
-					XSECURE_SECURE_GCM_TAG_SIZE);
-			/* Point IV to the CSU IV register. */
-			InstancePtr->Iv = (u32 *)(InstancePtr->BaseAddress +
+		SrcAddr = (GcmTagAddr + XSECURE_SECURE_GCM_TAG_SIZE);
+		/*
+		 * We are done with Secure header to decrypt the Block 0
+		 * we can change the AES key source to KUP.
+		 */
+		InstancePtr->KeySel = XSECURE_CSU_AES_KEY_SRC_KUP;
+		XSecure_AesKeySelNLoad(InstancePtr);
+		/* Point IV to the CSU IV register. */
+		InstancePtr->Iv = (u32 *)(InstancePtr->BaseAddress +
 					(UINTPTR)XSECURE_CSU_AES_IV_0_OFFSET);
-		}
+
 
 		/* Update the GcmTagAddr to get GCM-TAG for next block. */
 		GcmTagAddr = SrcAddr + NextBlkLen + XSECURE_SECURE_HDR_SIZE;
