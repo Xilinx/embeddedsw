@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,6 +52,9 @@
 *                     AC, and SPKID and PPK select masks.
 *       bv   03/17/17 Modified XFsbl_ValidatePartitionHeader API to have
 *                     parameter for ResetType
+* 3.0   vns  01/03/18 In structure XFsblPs_PartitionHeader 8 bits from
+*                     reserved bits are used for storing last 8 bits of IV
+*                     IV from boot header should be added with thes 8 bits.
 *
 * </pre>
 *
@@ -267,7 +270,7 @@ typedef struct {
 	u32 ImageHeaderOffset; /**< address to image header */
 	u32 AuthCertificateOffset;
 		/**< address to the authentication certificate when enabled */
-	u32 Reserved[1]; /**< Reserved */
+	u32 Iv; /**< 8 bits are to be added to IV and remaining are reserved */
 	u32 Checksum; /**< checksum of the partition header */
 } XFsblPs_PartitionHeader;
 
