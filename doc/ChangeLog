@@ -41,6 +41,8 @@ Added Conversion Support for voltages having Range of 1 Volt
 Correct the AMS block channel numbers
 Added example for testing AMS block voltage measurement
 Added peripheral test support for sysmonpsu. CR-980362
+Provided conditional checks for interrupt example in
+sysmonpsu_header.h
 
 sdps_v3_4:
 Use different commands for single and multi block transfers
