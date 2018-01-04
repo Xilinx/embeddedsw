@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,8 @@
 *                        by copying partial secure header to a buffer and then
 *                        processing it along with next chunk of data where it
 *                        holds remaining secure header.
+* 3.0   vns     01/03/18 Modified XFsbl_DecrptPlChunks() API, to use key IV
+*                        from secure header to decrypt the secure bitstream.
 *
 * </pre>
 *
@@ -992,7 +994,13 @@ static u32 XFsbl_DecrptPlChunks(XFsblPs_PlPartition *PartitionParams,
 			Status = XFSBL_ERROR_BITSTREAM_GCM_TAG_MISMATCH;
 			goto END;
 		}
-
+		PartitionParams->PlEncrypt.SecureAes->KeySel =
+				XSECURE_CSU_AES_KEY_SRC_KUP;
+		XSecure_AesKeySelNLoad(PartitionParams->PlEncrypt.SecureAes);
+		/* Point IV to the CSU IV register. */
+		PartitionParams->PlEncrypt.SecureAes->Iv =
+		(u32 *)(PartitionParams->PlEncrypt.SecureAes->BaseAddress +
+					(UINTPTR)XSECURE_CSU_AES_IV_0_OFFSET);
 		/*
 		 * Remaining size and source address
 		 * of the data to be processed
