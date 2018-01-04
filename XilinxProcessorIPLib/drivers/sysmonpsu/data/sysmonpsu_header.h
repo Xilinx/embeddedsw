@@ -37,8 +37,11 @@
 #include "xstatus.h"
 
 int SysMonPsuPolledPrintfExample(u16 DeviceId);
+
+#ifdef XPAR_SCUGIC_0_DEVICE_ID
 int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr,
  			XSysMonPsu* SysMonInstPtr, 
 			u16 SysMonDeviceId,
  			u16 SysMonIntrId);
+#endif
 #endif

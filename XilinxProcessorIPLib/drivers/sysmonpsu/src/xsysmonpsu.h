@@ -175,7 +175,8 @@
 *                       1 Volt
 *       mn     12/13/17 Correct the AMS block channel numbers
 *       ms     12/15/17 Added peripheral test support.
-
+*       ms     01/04/18 Provided conditional checks for interrupt example
+*                       in sysmonpsu_header.h
 *
 * </pre>
 *
