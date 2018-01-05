@@ -54,6 +54,13 @@
 #                     BSP creation CR#1055177
 # 7.2   sd   03/20/20 Added clocking support
 # 7.2   sd   03/27/20 Fix the hierarchcal design case
+# 7.3   kal  07/06/20 Export XPAR_PSU_PSS_REF_CLK_FREQ_HZ macro in
+#                     xparameters.h file for psv_pmc and psu_pmc processors.
+# 7.3   mus  07/02/20 Fix xsleep_timer_config proc for CortexR5 BSP.
+#                     is_ttc_accessible_from_processor returns 1 if TTC is
+#                     accessible to the processor. Updated conditions in
+#                     xsleep_timer_config proc accordingly. It fixes
+#                     CR#1069210
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -287,6 +294,11 @@ proc generate {os_handle} {
             foreach entry [glob -nocomplain [file join $commonccdir *]] {
                  file copy -force $entry "./src/"
             }
+        } elseif {[string compare -nocase $compiler "armclang"] == 0} {
+            set commonccdir "./src/arm/common/armclang"
+            foreach entry [glob -nocomplain [file join $commonccdir *]] {
+                 file copy -force $entry "./src/"
+            }
         }
 
     }
@@ -315,6 +327,16 @@ proc generate {os_handle} {
             }
             set need_config_file "true"
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
+            set pss_ref_clk_mhz [common::get_property CONFIG.C_PSS_REF_CLK_FREQ $hw_proc_handle]
+            if { $pss_ref_clk_mhz == "" } {
+                puts "WARNING: CONFIG.C_PSS_REF_CLK_FREQ not found. Using default value for XPAR_PSU_PSS_REF_CLK_FREQ_HZ."
+                set pss_ref_clk_mhz 33333000
+             }
+            set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+            puts $file_handle " /* Definition for PSS REF CLK FREQUENCY */"
+            puts $file_handle [format %s%.0f%s "#define XPAR_PSU_PSS_REF_CLK_FREQ_HZ " [expr $pss_ref_clk_mhz]  "U"]
+            puts $file_handle ""
+            close $file_handle
         }
 	"psu_psm" -
 	"psv_psm"
@@ -480,7 +502,9 @@ proc generate {os_handle} {
 	    }
 	    if {[string compare -nocase $compiler "iccarm"] == 0} {
 	           set ccdir "./src/arm/cortexr5/iccarm"
-            } else {
+	    } elseif {[string compare -nocase $compiler "armclang"] == 0} {
+	           set ccdir "./src/arm/cortexr5/armclang"
+           } else {
 	           set ccdir "./src/arm/cortexr5/gcc"
 	   }
 	    foreach entry [glob -nocomplain -types f [file join $cortexr5srcdir *]] {
@@ -901,25 +925,25 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 			set is_ttc_present 0
 			set periphs [hsi::get_cells -hier]
 			foreach periph $periphs {
-				if {[string compare -nocase "psu_ttc_3" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 0} {
+				if {[string compare -nocase "psu_ttc_3" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 1} {
 					set is_ttc_present 1
 					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
 					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ"
 					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
 					break
-				} elseif {[string compare -nocase "psu_ttc_2" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 0} {
+				} elseif {[string compare -nocase "psu_ttc_2" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 1} {
 					set is_ttc_present 1
 					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_6_BASEADDR"
 					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_6_TTC_CLK_FREQ_HZ"
 					puts $file_handle "#define XSLEEP_TTC_INSTANCE 2"
 					break
-				} elseif {[string compare -nocase "psv_ttc_3" $periph] == 0 && [is_ttc_accessible_from_processor $periph]} {
+				} elseif {[string compare -nocase "psv_ttc_3" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 1} {
 					set is_ttc_present 1
 					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSV_TTC_9_BASEADDR"
 					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSV_TTC_9_TTC_CLK_FREQ_HZ"
 					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
 					break
-				} elseif {[string compare -nocase "psv_ttc_2" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 0} {
+				} elseif {[string compare -nocase "psv_ttc_2" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 1} {
 					set is_ttc_present 1
 					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSV_TTC_6_BASEADDR"
 					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSV_TTC_6_TTC_CLK_FREQ_HZ"
@@ -1530,14 +1554,12 @@ proc handle_stdout_parameter {drv_handle} {
        puts $config_file "\#ifdef __cplusplus"
        puts $config_file "}"
        puts $config_file "\#endif \n"
-       puts $config_file "\#ifdef VERSAL_PLM"
-       puts $config_file "void __attribute__((weak)) outbyte(char c)"
-       puts $config_file "\#else"
+       puts $config_file "\#ifndef VERSAL_PLM"
        puts $config_file "void outbyte(char c)"
-       puts $config_file "\#endif"
        puts $config_file "{"
        puts $config_file [format "\t %s(STDOUT_BASEADDRESS, c);" $outbyte_name]
        puts $config_file "}"
+       puts $config_file "\#endif"
        close $config_file
        set config_file [::hsi::utils::open_include_file "xparameters.h"]
        set stdout_mem_range [::hsi::get_mem_ranges -of_objects $hw_proc_handle -filter "INSTANCE==$stdout && IS_DATA==1" ]
@@ -1562,14 +1584,12 @@ proc handle_stdout_parameter {drv_handle} {
 		    puts $config_file "\#ifdef __cplusplus"
 		    puts $config_file "}"
 		    puts $config_file "\#endif \n"
-		    puts $config_file "\#ifdef VERSAL_PLM"
-		    puts $config_file "void __attribute__((weak)) outbyte(char c)"
-		    puts $config_file "\#else"
+		    puts $config_file "\#ifndef VERSAL_PLM"
 		    puts $config_file "void outbyte(char c)"
-		    puts $config_file "\#endif"
 		    puts $config_file "{"
 		    puts $config_file "    (void) c;"
 		    puts $config_file "}"
+		    puts $config_file "\#endif"
                     close $config_file
             }
      }
