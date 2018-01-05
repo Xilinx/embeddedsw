@@ -251,6 +251,11 @@ proc generate {os_handle} {
 	file delete $bspcfg_fn
 	set bspcfg_fh [open $bspcfg_fn w]
 	xprint_generated_header $bspcfg_fh "Configurations for Standalone BSP"
+
+	puts $bspcfg_fh "\#ifndef __BSPCONFIG_H_"
+	puts $bspcfg_fh "\#define __BSPCONFIG_H_"
+	puts $bspcfg_fh ""
+
 	if { $proctype == "microblaze" } {
 		file copy -force [file join src Source portable GCC MicroBlazeV9 port.c] ./src
 		file copy -force [file join src Source portable GCC MicroBlazeV9 port_exceptions.c] ./src
@@ -303,6 +308,19 @@ proc generate {os_handle} {
 			puts $bspcfg_fh "#define HYP_GUEST 0"
 		}
 	}
+
+	if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5"} {
+		puts $bspcfg_fh "#define PLATFORM_ZYNQMP"
+	}
+	if { $proctype == "ps7_cortexa9"} {
+		puts $bspcfg_fh "#define PLATFORM_ZYNQ"
+	}
+	if { $proctype == "microblaze"} {
+		puts $bspcfg_fh "#define PLATFORM_MB"
+	}
+
+	puts $bspcfg_fh ""
+	puts $bspcfg_fh "\#endif /*end of __BSPCONFIG_H_*/"
 	close $bspcfg_fh
 
 	set headers [glob -join ./src/Source/include *.\[h\]]
