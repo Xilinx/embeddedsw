@@ -1076,7 +1076,7 @@ proc handle_profile_opbtimer { config_file timer_inst } {
     set timer_connection 0
     foreach intr_port $intr_port_list {
 	set intc_handle [hsi::get_cells -of_object $intr_port]
-	
+
 	# Check if the Sink is a Concat IP
 	if {[common::get_property IP_NAME [hsi::get_cells $intc_handle]] == "xlconcat"} {
 		set dout [hsi::get_pins -of_object [hsi::get_cells $intc_handle] -filter DIRECTION=="O"]
@@ -1088,7 +1088,7 @@ proc handle_profile_opbtimer { config_file timer_inst } {
 					set intc_handle [hsi::get_cells [lindex $intr_ip $intr_ip_index]]
 					break;
 				}
-			}	
+			}
 		}
 	}
 	# Check if the Sink is a Global Port. If so, Skip the Port Connection

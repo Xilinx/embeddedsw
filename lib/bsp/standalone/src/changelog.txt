@@ -536,4 +536,14 @@
 *		       use UART console, PV console can be enabled by appending
 		       "-DXEN_USE_PV_CONSOLE" to the BSP extra compiler flags.
  *
+* 6.7 mus    04/27/18  Removed __ARM_NEON__ flag definition. Now, saving/restoring of of HW
+*		       floating point register would be done through newly introduced flag
+*		       FPU_HARD_FLOAT_ABI_ENABLED. This new flag will be configured based on
+*		       the -mfpu-abi option in extra compiler flags.. This change has
+*		       been done to avoid saving/restoring of HW floating point registers,
+*		       when BSP is not compiled with HW floating point configuration.
+* 6.7 asa    04/26/18  Added API Xil_GetExceptionRegisterHandler for obtaining information
+*                      on an already registered exception vector.
+* 6.7 asa    05/18/18  Fixed bugss in the API Xil_GetExceptionRegisterHandler.
+*
  *****************************************************************************************/
