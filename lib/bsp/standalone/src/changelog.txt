@@ -497,5 +497,6 @@
  *		      microblaze and TTC in ARM. Added two new files, xil_sleeptimer.c and
  *		      xil_sleeptimer.h in ARM for the common sleep routines and 1 new file,
  *		      xil_sleepcommon.c in Standalone-common for sleep/usleep API's.
+ * 6.6 hk    12/15/17 Export platform macros to bspconfig.h based on the processor.
  *
  *****************************************************************************************/
