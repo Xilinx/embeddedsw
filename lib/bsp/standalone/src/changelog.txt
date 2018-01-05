@@ -504,10 +504,18 @@
  *                    after writing to cpacr_el1/cptr_el3 registers. It would ensure
  *                    disabling/enabling of floating-point unit, before any subsequent
  *                    instruction.
+ * 6.6 hk    12/15/17 Export platform macros to xparameters.h based on the processor.
+ * 6.6 asa   1/16/18  Ensure C stack information for A9 are flushed out from L1 D cache
+ *                    or L2 cache only when the respective caches are enabled.This fixes CR-922023.
+ *
+ * 6.6 mus   01/19/18 Updated asm_vectors.S and boot.S in Cortexa53 64 bit BSP, to add isb
+ *                    after writing to cpacr_el1/cptr_el3 registers. It would ensure
+ *                    disabling/enabling of floating-point unit, before any subsequent
+ *                    instruction.
  * 6.6 mus   01/30/18 Updated hypervisor enabled Cortexa53 64 bit BSP, to add xen PV console
  *                    support. Now, xil_printf would use PV console instead of UART in case of
  *                    hypervisor enabled BSP.
- * 6.6 mus   02/02/18 Updated get_connected_if proc in standalone tcl to detect the HPC port 
+ * 6.6 mus   02/02/18 Updated get_connected_if proc in standalone tcl to detect the HPC port
  *                    configured with smart interconnect.It fixes CR#990318.
  * 6.6 srm   02/10/18 Updated csu_wdt interrupt to the correct value. Fixes CR#992229
  * 6.6 asa   02/12/18 Fix for heap handling for ARM platforms. CR#993932.
@@ -571,4 +579,15 @@
  *                      present in the previous releases but got introduced as part of
  *                      optimization patches that got applied for 6.8 BSP version. These
  *                      changes fix the CR#1016012.
+ * 7.0 rp     10/25/18  Added XST_NO_ACCESS status macros for generic access error.
+ * 7.0 mus    02/01/19  Added support for Versal. Cortea53 BSP will be re-used by Cortexa72,
+ *                      re-named cortexa53 directory as ARMv8, since files are generic for
+ *                      ARMv8 based processors. Created "platform" directory to place
+ *                      SoC based files.
+ * 7.0 mus    02/05/19  Updated Xil_MemCpy API to copy two bytes at a time from source to
+ *                      destination if byte count is <= 2.
+ * 7.0 mus    02/28/19  Added armclang complier support to the Cortexa53 64 bit BSP.
+ * 7.0 mus    04/08/19  Fix microblaze_disable_dcache for 64 bit microblaze
+ * 7.0 mus    04/26/19  Added frequently used functions in common area in xil_utils.c,
+ *                      so that other modules can make use of it.
  *****************************************************************************************/
