@@ -3,7 +3,7 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- ---------------------------------------------------
-  * 3.02a sdm  05/30/11 Added Xuint64 typedef and XUINT64_MSW/XUINT64_LSW macros
+ * 3.02a sdm  05/30/11 Added Xuint64 typedef and XUINT64_MSW/XUINT64_LSW macros
  * 3.02a sdm  06/27/11 Added INST_SYNC and DATA_SYNC macros for all the CPUs
  * 3.02a sdm  07/07/11 Updated ppc440 boot.S to set guarded bit for all but
  *                     cacheable regions
@@ -514,36 +514,61 @@
  * 6.6 mus   02/19/18 Updated standalone.tcl to fix bug in handle_profile_opbtimer proc,
  *                    CR#995014.
  * 6.6 mus   02/23/18 Presently Cortex R5 BSP boot code is disabling the debug logic in
-*		      non-JTAG boot mode, when processor is in lockstep configuration.
-*		      This behavior is restricting application debugging in non-JTAG boot
-*		      mode.  To get rid of this restriction, added new mld parameter 
-*		      "lockstep_mode_debug", to enable/disable debug logic from BSP 
-*		      settings. Now, debug logic can be enabled through BSP settings, 
-*		      by modifying value of parameter "lockstep_mode_debug" as "true".
-*		      It fixes CR#993896.
+ *		      non-JTAG boot mode, when processor is in lockstep configuration.
+ *		      This behavior is restricting application debugging in non-JTAG boot
+ *		      mode.  To get rid of this restriction, added new mld parameter
+ *		      "lockstep_mode_debug", to enable/disable debug logic from BSP
+ *		      settings. Now, debug logic can be enabled through BSP settings,
+ *		      by modifying value of parameter "lockstep_mode_debug" as "true".
+ *		      It fixes CR#993896.
  * 6.6.mus   02/27/18  Updated Xil_DCacheInvalidateRange and
-*		       Xil_ICacheInvalidateRange APIs in Cortexa53 64 bit BSP, to fix  bug
-*		       in handling upper DDR addresses.It fixes CR#995581.
-* 6.6 mus    03/12/18  Updated makefile of Cortexa53 32bit BSP to add includes_ps directory
-*		       in the list of include paths. This change allows applications/BSP
-*		       files to include .h files in include_ps directory.
-* 6.6 mus    03/16/18  By default CPUACTLR_EL1 is accessible only from EL3, it
-*		       results into abort if accessed from EL1 non secure privilege
-*		       level. Updated Xil_ConfigureL1Prefetch function in Cortexa53 64 bit BSP
-*		       to avoid CPUACTLR_EL1 access from privile levels other than EL3.
-* 6.6 mus    03/16/18  Updated hypervisor enabled BSP to use PV console, based on the
-*		       XEN_USE_PV_CONSOLE flag. By deafault hypervisor enabled BSP would
-*		       use UART console, PV console can be enabled by appending
-		       "-DXEN_USE_PV_CONSOLE" to the BSP extra compiler flags.
+ *		       Xil_ICacheInvalidateRange APIs in Cortexa53 64 bit BSP, to fix  bug
+ *		       in handling upper DDR addresses.It fixes CR#995581.
+ * 6.6 mus    03/12/18  Updated makefile of Cortexa53 32bit BSP to add includes_ps directory
+ *		       in the list of include paths. This change allows applications/BSP
+ *		       files to include .h files in include_ps directory.
+ * 6.6 mus    03/16/18  By default CPUACTLR_EL1 is accessible only from EL3, it
+ *		       results into abort if accessed from EL1 non secure privilege
+ *		       level. Updated Xil_ConfigureL1Prefetch function in Cortexa53 64 bit BSP
+ *		       to avoid CPUACTLR_EL1 access from privile levels other than EL3.
+ * 6.6 mus    03/16/18  Updated hypervisor enabled BSP to use PV console, based on the
+ *		       XEN_USE_PV_CONSOLE flag. By deafault hypervisor enabled BSP would
+ *		       use UART console, PV console can be enabled by appending
+ *		       "-DXEN_USE_PV_CONSOLE" to the BSP extra compiler flags.
+ *  6.7 asa    04/26/18  Added API Xil_GetExceptionRegisterHandler for obtaining information
+ *                       on an already registered exception vector.
+ * 6.7 asa    05/18/18  Fixed bugss in the API Xil_GetExceptionRegisterHandler.
+ * 6.8 mus    04/27/18  Removed __ARM_NEON__ flag definition. Now, saving/restoring of of HW
+ *                      floating point register would be done through newly introduced flag
+ *                      FPU_HARD_FLOAT_ABI_ENABLED. This new flag will be configured based on
+ *                      the -mfpu-abi option in extra compiler flags.. This change has
+ *                      been done to avoid saving/restoring of HW floating point registers,
+ *                      when BSP is not compiled with HW floating point configuration.
+ * 6.8 aru    06/15/18  Removed unused variable in xil_cache.c for A53-32. It
+ *                      fixes CR1005118.
+ * 6.8 aru    07/02/18  Returned the pointer instead of address of that pointer in xil_mpu.c
+ *                      for R5 processor.It Fixes CR#1005119.
+ * 6.8 mus    07/12/18  Updated Cortexa9 translation table to mark DDR memory as inner cacheable,
+ *                      if BSP is built with the USE_AMP flag. It fixes CR#1006745.
  *
-* 6.7 mus    04/27/18  Removed __ARM_NEON__ flag definition. Now, saving/restoring of of HW
-*		       floating point register would be done through newly introduced flag
-*		       FPU_HARD_FLOAT_ABI_ENABLED. This new flag will be configured based on
-*		       the -mfpu-abi option in extra compiler flags.. This change has
-*		       been done to avoid saving/restoring of HW floating point registers,
-*		       when BSP is not compiled with HW floating point configuration.
-* 6.7 asa    04/26/18  Added API Xil_GetExceptionRegisterHandler for obtaining information
-*                      on an already registered exception vector.
-* 6.7 asa    05/18/18  Fixed bugss in the API Xil_GetExceptionRegisterHandler.
-*
+ * 6.8 aru    07/04/18	Optimized the code to use a loop and to remove redundant code
+ *			in Xil_DCacheFlush() and Xil_DCacheInvalidate()
+ *			of xil_cache.c for A53-32.
+ * 6.8 aru    07/26/18  added support in xil_printf.c to print u64 variabbles
+ *                      correctly in 32 bit processor.It fixes CR#1007207.
+ * 6.8 aru    09/03/18  Optimized the code to use a single function and removed
+ *                      code redundancy in xil_printf.c . It Fixes CR#1009654.
+ * 6.8 aru    09/06/18  Removed the compiler warnings for ARMCC toolchain.
+ *                      It fixes CR#1008309.
+ * 6.8 mus    09/20/18  Updated CortexR5 boot code to initialize CortexR5 core with LOVEC
+ *                      on reset. It fixes CR#1010656.
+ * 6.8 mus    10/04/18  Updated microblaze sleep functinality to execute default method of
+ *                      sleep implementation, incase of FreeRTOS BSP.
+ * 6.8 mus    10/25/18  Updated assembly code for cache APIs and inline assemby macros to
+ *                      to support 64 bit addresses.
+ * 6.8 asa    10/11/18  Updated the A53 32 bit cache APIs for Xil_DCacheFlush and
+ *                      Xil_DCacheInvalidate to fix various issues. These issues were not
+ *                      present in the previous releases but got introduced as part of
+ *                      optimization patches that got applied for 6.8 BSP version. These
+ *                      changes fix the CR#1016012.
  *****************************************************************************************/
