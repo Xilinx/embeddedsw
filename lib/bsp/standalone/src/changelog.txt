@@ -590,29 +590,25 @@
  * 7.0 mus    04/08/19  Fix microblaze_disable_dcache for 64 bit microblaze
  * 7.0 mus    04/26/19  Added frequently used functions in common area in xil_utils.c,
  *                      so that other modules can make use of it.
- * 7.1 mus    03/29/19  Updated standalone tcl to export trustzone information of
- *                      Cortexr5 processor and different SLCR register space being
- *                      accessed in Cortexr5 BSP. Files src/arm/cortexr5/gcc/xil-crt0.S,
- *                      arm/cortexr5/gcc/boot.S and arm/common/xil_sleeptimer.c have been 
- *                      updated to skip access to the secure address space if processor is
- *                      marked as non secure in trustzone setting. It fixes CR#1015725.
- * 7.1 aru    04/16/19  Updated arm/cortexr5/xpm_counter.c and arm/cortexr5/xpm_counter.h
- *                      to fix Cortexr5 events.
- * 7.1 sk     07/26/19  Updated src/arm/cortexr5/xil_mpu.c to fix infinite loop in
- *                      Xil_MemMap API. It fixes CR#1032910
- * 7.1 mus    07/30/19  Updated arm/ARMv8/32bit/xil_mmu.h to add #defines related to memory
- *                      attributes.
- * 7.1 mus    06/08/19  Updated arm/ARMv8/64bit/xil_smc.h with SMC ID's of Versal.
- * 7.1 mus    29/08/19  Updated arm/ARMv8/64bit/platform/versal/translation_table.S to mark
- *                      DDR_CH_1, DDR_CH_2 and DDR_CH_3 region as memory based on their 
- *                      respective sizes in HW design.
- * 7.1 scs    09/09/19  Updated inline assembly macros in microblaze/mb_interface.h to fix
- *                      MISRA-C mandatory violations.
- * 7.1 mus    09/09/19  In case, if DDR size is not in power of 2, Cortexr5 BSP maps range
- *                      of memory as "normal memory", where "real" memory is not present in that
- *                      memory region. This behavior is due to Cortexr5 MPU restriction,
- *                      which allows MPU size only in power of 2. Updated Init_MPU funcion 
- *                      in Cortexr5 BSP, to print warning, if DDR size is not in 
- *                      power of 2. This has been done to warn users about incorrect mapping
- *                      for specific memory region. It fixes CR#1038577.
+ * 7.2 mus    11/14/19  Remove logic for deletion of source directories, to avoid race
+ *                      condition in standalone tcl.It fixes CR#1038151.
+ *            01/09/20  Updated boot code and standalone tcl to support armclang compiler
+ *                      for Cortex-A72. Also, versal translation table is ported for
+ *                      armclang compiler.
+ *            01/29/20  Updated standalone tcl for CortexR5 BSP, Now TTC2 would be used
+ *                      for sleep routines, if TTC3 is not present in HW design. If TTC2
+ *                      also not present, then CortexR5 PMU cycle counter would be used.
+ *                      If user dont want to use PMU cycle counter,
+ *                      -DDONT_USE_PMU_FOR_SLEEP_ROUTINES flag needs to be added in BSP
+ *                      compiler flags.
+ * 7.2 sd     03/08/20  Addéd clocking support for baremetal drivers, related files have
+ *                      been added in "lib/bsp/standalone/src/common/clocking" path
+ * 7.2 asa    03/18/20  Added a new examples folder for standalone BSP.
+ *                      Added a new example inside it to show usage of R5 PMU event
+ *                      counters and APIs provided to configure and read PMU events.
+ *                      Added new APIs for better R5 PMU events handling.
+ * 7.2 asa    04/03/20  Renamed the str macro to strw.
+ * 7.2 dp     04/30/20  Added clobber to mtcpsr macro.
+ * 7.2 mus    05/02/20  Added unaligned exception support for 64 bit version of
+ *                      microblaze processor.
  *****************************************************************************************/

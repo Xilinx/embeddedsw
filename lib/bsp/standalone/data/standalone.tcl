@@ -1,29 +1,6 @@
 ##############################################################################
-#
-# Copyright (C) 2014 - 2019 Xilinx, Inc. All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
-#
-#
-#
-###############################################################################
-###############################################################################
+# Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
 #
@@ -54,7 +31,29 @@
 #                     accessible to the cortexr5 processor CR#1015725
 # 7.1   mus  05/20/19 Updated outbyte/inbyte in case stdout/stdin is set as
 #                     "none". This is done to fix warnings CR#1031423
+# 7.2   mus  10/11/19 Updated logic to export LOCKSTEP_MODE_DEBUG for Versal
+#                     as well. Fix for CR#1046243.
+# 7.2   mus  11/14/19 Remove logic for deletion of source directories, to
+#                     avoid race condition in tcl. Deletion of source
+#                     directories would happen through makefiles. It fixes
+#                      CR#1038151.
+# 7.2   mus  09/01/20 Updated to add armclang compiler support for Cortexa72.
+#                     It fixes CR#1051552
+# 7.2   mus  01/29/20 Updated xsleep_timer_config proc to use TTC2 for sleep
+#                     routines, if TTC3 is not present in HW design. If TTC2
+#                     also not present, then CortexR5 PMU cycle counter would
+#                     be used in sleep routines. If user dont want to use PMU
+#                     cycle counter, -DDONT_USE_PMU_FOR_SLEEP_ROUTINES flag
+#                     needs to be added in BSP compiler flags.
 #
+# 7.2   ma   02/10/20 Add VERSAL_PLM macro in xparameters.h file for psv_pmc
+#                     processor. Also make outbyte function weak for PLM so
+#                     that PLM specific outbyte function can be called
+#                     instead of this.
+# 7.2   mus  02/23/20 Added workaround to handle_stdout_parameter to fix PLM
+#                     BSP creation CR#1055177
+# 7.2   sd   03/20/20 Added clocking support
+# 7.2   sd   03/27/20 Fix the hierarchcal design case
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -263,16 +262,19 @@ proc generate {os_handle} {
     set commonsrcdir "./src/common"
     set armcommonsrcdir "./src/arm/common"
     set armsrcdir "./src/arm"
+    set clksrcdir "./src/common/clocking"
 
     foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
         file copy -force $entry "./src"
     }
+    foreach entry [glob -nocomplain [file join $clksrcdir *]] {
+        file copy -force $entry "./src"
+    }
+
     if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexa72" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psv_cortexa72"} {
         set compiler [common::get_property CONFIG.compiler $procdrv]
-        foreach entry [glob -nocomplain [file join $armcommonsrcdir *]] {
+        foreach entry [glob -nocomplain -types f [file join $armcommonsrcdir *]] {
             file copy -force $entry "./src"
-            file delete -force "./src/gcc"
-            file delete -force "./src/iccarm"
         }
         if {[string compare -nocase $compiler "armcc"] != 0 && [string compare -nocase $compiler "iccarm"] != 0
 	    &&  [string compare -nocase $compiler "armclang"] != 0} {
@@ -288,7 +290,7 @@ proc generate {os_handle} {
         }
 
     }
-
+   
     set cortexa72proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
 
 
@@ -401,7 +403,12 @@ proc generate {os_handle} {
 			set platformsrcdir "./src/arm/ARMv8/64bit/platform/ZynqMP/gcc"
 		    }
 		 } else {
-		    set platformsrcdir "./src/arm/ARMv8/64bit/platform/versal"
+             file copy -force [file join $cortexa53srcdir1 platform versal xparameters_ps.h] ./src
+             if {[string compare -nocase $compiler "armclang"] == 0} {
+                 set platformsrcdir "./src/arm/ARMv8/64bit/platform/versal/armclang"
+             } else {
+                 set platformsrcdir "./src/arm/ARMv8/64bit/platform/versal/gcc"
+             }
 		 }
 	        set pvconsoledir "./src/arm/ARMv8/64bit/xpvxenconsole"
 	        set hypervisor_guest [common::get_property CONFIG.hypervisor_guest $os_handle ]
@@ -420,24 +427,18 @@ proc generate {os_handle} {
 	        set platformincludedir "./src/arm/ARMv8/includes_ps/platform/ZynqMP"
 	    }
 
-            foreach entry [glob -nocomplain [file join $cortexa53srcdir1 *]] {
+            foreach entry [glob -nocomplain -types f [file join $cortexa53srcdir1 *]] {
                 file copy -force $entry "./src/"
             }
             foreach entry [glob -nocomplain [file join $ccdir *]] {
                 file copy -force $entry "./src/"
             }
-	    foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
-		file copy -force $entry "./src/"
+	    foreach entry [glob -nocomplain -types f [file join $platformsrcdir *]] {
+	    	file copy -force $entry "./src/"
 	    }
-	    file delete -force $platformsrcdir
-	    foreach entry [glob -nocomplain [file join $platformincludedir *]] {
+	    foreach entry [glob -nocomplain -types f [file join $platformincludedir *]] {
 	        file copy -force $entry "./src/includes_ps/"
 	    }
-            file delete -force "./src/gcc"
-	    file delete -force "./src/armclang"
-            file delete -force "./src/profile"
-	    file delete -force "./src/xpvxenconsole"
-	    file delete -force "./src/includes_ps/platform"
             if { $enable_sw_profile == "true" } {
                 error "ERROR: Profiling is not supported for A53/A72"
             }
@@ -465,7 +466,7 @@ proc generate {os_handle} {
             }
             xdefine_fabric_reset $file_handle
             close $file_handle
-        }
+        }  
         "psu_cortexr5" -
 	"psv_cortexr5"
 	{
@@ -482,21 +483,17 @@ proc generate {os_handle} {
             } else {
 	           set ccdir "./src/arm/cortexr5/gcc"
 	   }
-	    foreach entry [glob -nocomplain [file join $cortexr5srcdir *]] {
+	    foreach entry [glob -nocomplain -types f [file join $cortexr5srcdir *]] {
 		file copy -force $entry "./src/"
 	    }
 	    foreach entry [glob -nocomplain [file join $ccdir *]] {
 		file copy -force $entry "./src/"
 	    }
-
+	    
 	    foreach entry [glob -nocomplain [file join $platformincludedir *]] {
 	        file copy -force $entry "./src/includes_ps/"
 	    }
 
-	    file delete -force "./src/gcc"
-	    file delete -force "./src/iccarm"
-	    file delete -force "./src/profile"
-	    file delete -force "./src/includes_ps/platform"
             if { $enable_sw_profile == "true" } {
                 error "ERROR: Profiling is not supported for R5"
             }
@@ -511,7 +508,7 @@ proc generate {os_handle} {
 	    puts $file_handle ""
 	    puts $file_handle "#include \"xparameters_ps.h\""
 	    puts $file_handle ""
-	    if {[llength $cortexa72proc] > 0} {
+	    if {[llength $cortexa72proc] > 0} { 
 		set platformsrcdir "./src/arm/cortexr5/platform/versal"
 	    } else {
 	        set platformsrcdir "./src/arm/cortexr5/platform/ZynqMP"
@@ -520,8 +517,7 @@ proc generate {os_handle} {
 	    foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
 		file copy -force $entry "./src/"
 	    }
-            file delete -force $platformsrcdir
-
+	    
             # If board name is valid, define corresponding symbol in xparameters
             if { [string length $boardname] != 0 } {
                 set fields [split $boardname ":"]
@@ -557,21 +553,16 @@ proc generate {os_handle} {
                    } else {
                        set ccdir "./src/arm/cortexa9/gcc"
                    }
-                   foreach entry [glob -nocomplain [file join $cortexa9srcdir *]] {
+                   foreach entry [glob -nocomplain -types f [file join $cortexa9srcdir *]] {
                        file copy -force $entry "./src/"
                    }
                    foreach entry [glob -nocomplain [file join $ccdir *]] {
                        file copy -force $entry "./src/"
                    }
-                       file delete -force "./src/armcc"
-                       file delete -force "./src/gcc"
-			file delete -force "./src/iccarm"
                    if {[string compare -nocase $compiler "armcc"] == 0} {
-                       file delete -force "./src/profile"
                        set enable_sw_profile "false"
 	    }
 		if {[string compare -nocase $compiler "iccarm"] == 0} {
-                           file delete -force "./src/profile"
                            set enable_sw_profile "false"
                    }
                    set file_handle [::hsi::utils::open_include_file "xparameters.h"]
@@ -611,10 +602,6 @@ proc generate {os_handle} {
     }
     close $makeconfig
 
-    # Remove microblaze,  cortexr5, cortexa53 and common directories...
-    file delete -force $mbsrcdir
-    file delete -force $commonsrcdir
-    file delete -force $armsrcdir
 
     # Handle stdin
     set stdin [common::get_property CONFIG.stdin $os_handle]
@@ -629,8 +616,10 @@ proc generate {os_handle} {
 
     # Handle stdout
     set stdout [common::get_property CONFIG.stdout $os_handle]
-    if { $proctype == "psv_pmc" && $stdout != "psv_sbsauart_0" && $stdout != "psv_sbsauart_1"} {
-                common::set_property CONFIG.stdout "none" $os_handle
+    if { $proctype == "psv_pmc" } {
+		if { $stdout != "psv_sbsauart_0" && $stdout != "psv_sbsauart_1"} {
+			common::set_property CONFIG.stdout "none" $os_handle
+		}
                 handle_stdout_parameter $os_handle
     } elseif { $stdout == "" || $stdout == "none" } {
                 handle_stdout_parameter $os_handle
@@ -666,6 +655,20 @@ proc generate {os_handle} {
     puts $bspcfg_fh "#ifndef BSPCONFIG_H  /* prevent circular inclusions */"
     puts $bspcfg_fh "#define BSPCONFIG_H  /* by using protection macros */"
     puts $bspcfg_fh ""
+
+    set slaves [common::get_property   SLAVES [  hsi::get_cells -hier $sw_proc_handle]]
+
+    set clocking_supported [common::get_property CONFIG.clocking $os_handle ]
+    set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]
+    set cortexa53proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa53"}]
+    #Currently clocking is supported for zynqmp only
+    if {$is_zynqmp_fsbl_bsp != true &&  $clocking_supported == true  &&  [llength $cortexa53proc] > 0} {
+        foreach slave $slaves {
+            if {[string compare -nocase "psu_crf_apb" $slave] == 0 } {
+               puts $bspcfg_fh "#define XCLOCKING"
+            }
+        }
+    }
 
     if { $proctype == "microblaze" && [mb_has_pvr $hw_proc_handle] } {
 
@@ -745,12 +748,17 @@ proc generate {os_handle} {
 	puts $file_handle "#define PLATFORM_MB"
     }
 
+    if { $proctype == "psv_pmc"} {
+	puts $file_handle "#define VERSAL_PLM"
+    }
+
     if {[llength $cortexa72proc] > 0} {
 	puts $file_handle "#ifndef versal"
         puts $file_handle "#define versal"
         puts $file_handle "#endif"
         puts $file_handle ""
-    } elseif { $proctype == "psu_cortexr5"} {
+    }
+    if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5"} {
 	 set lockstep_debug [common::get_property CONFIG.lockstep_mode_debug $os_handle]
 	 puts $file_handle " "
 	 puts $file_handle "/* Definitions for debug logic configuration in lockstep mode */"
@@ -890,29 +898,44 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 		}
     } elseif { $sleep_timer == "none" } {
 		if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" } {
+			set is_ttc_present 0
 			set periphs [hsi::get_cells -hier]
 			foreach periph $periphs {
-				if {[string compare -nocase "psu_ttc_3" $periph] == 0} {
-					if {[is_ttc_accessible_from_processor $periph]} {
-						puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
-						puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ"
-						puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
-					} else {
-						puts "WARNING: $periph is secure and it is not accessible to the processor, \
-						processor cycles will be used for sleep routines."
-					}
-				} elseif {[string compare -nocase "psv_ttc_3" $periph] == 0} {
-					if {[is_ttc_accessible_from_processor $periph]} {
-						puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSV_TTC_9_BASEADDR"
-						puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSV_TTC_9_TTC_CLK_FREQ_HZ"
-						puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
-					} else {
-						puts "WARNING: $periph is secure and it is not accessible to the processor, \
-						processor cycles will be used for sleep routines."
-					}
+				if {[string compare -nocase "psu_ttc_3" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 0} {
+					set is_ttc_present 1
+					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
+					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ"
+					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
+					break
+				} elseif {[string compare -nocase "psu_ttc_2" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 0} {
+					set is_ttc_present 1
+					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_6_BASEADDR"
+					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_6_TTC_CLK_FREQ_HZ"
+					puts $file_handle "#define XSLEEP_TTC_INSTANCE 2"
+					break
+				} elseif {[string compare -nocase "psv_ttc_3" $periph] == 0 && [is_ttc_accessible_from_processor $periph]} {
+					set is_ttc_present 1
+					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSV_TTC_9_BASEADDR"
+					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSV_TTC_9_TTC_CLK_FREQ_HZ"
+					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
+					break
+				} elseif {[string compare -nocase "psv_ttc_2" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 0} {
+					set is_ttc_present 1
+					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSV_TTC_6_BASEADDR"
+					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSV_TTC_6_TTC_CLK_FREQ_HZ"
+					puts $file_handle "#define XSLEEP_TTC_INSTANCE 2"
+					break
 				}
 			}
+			if { $is_ttc_present == 0 } {
+				puts "WARNING: Either TTC2/TTC3 is not present in the HW design or not accessible to processor, \
+				CortexR5 PMU cycle counter would be used for sleep routines until and unless DONT_USE_PMU_FOR_SLEEP_ROUTINES \
+				flag is used in BSP compiler flags"
+			} else {
+				puts "$periph will be used in sleep routines for delay generation"
+			}
 		}
+
 		puts $file_handle "#define XSLEEP_TIMER_IS_DEFAULT_TIMER"
     } elseif {[string match "axi_timer_*" $sleep_timer]} {
 		if { $proctype == "microblaze" } {
@@ -1507,7 +1530,12 @@ proc handle_stdout_parameter {drv_handle} {
        puts $config_file "\#ifdef __cplusplus"
        puts $config_file "}"
        puts $config_file "\#endif \n"
-       puts $config_file "void outbyte(char c) {"
+       puts $config_file "\#ifdef VERSAL_PLM"
+       puts $config_file "void __attribute__((weak)) outbyte(char c)"
+       puts $config_file "\#else"
+       puts $config_file "void outbyte(char c)"
+       puts $config_file "\#endif"
+       puts $config_file "{"
        puts $config_file [format "\t %s(STDOUT_BASEADDRESS, c);" $outbyte_name]
        puts $config_file "}"
        close $config_file
@@ -1517,7 +1545,7 @@ proc handle_stdout_parameter {drv_handle} {
            set stdout_mem_range [::hsi::get_mem_ranges -of_objects $hw_proc_handle -filter "INSTANCE==$stdout&& (BASE_NAME==C_BASEADDR||BASE_NAME==C_S_AXI_BASEADDR)"]
        }
        set base_name [common::get_property BASE_NAME $stdout_mem_range]
-       set base_value [common::get_property BASE_VALUE $stdout_mem_range]
+       set base_value [lindex [common::get_property BASE_VALUE $stdout_mem_range] 0]
        puts $config_file "\#define STDOUT_BASEADDRESS [::hsi::utils::format_addr_string $base_value $base_name]"
        close $config_file
    } else {
@@ -1534,7 +1562,12 @@ proc handle_stdout_parameter {drv_handle} {
 		    puts $config_file "\#ifdef __cplusplus"
 		    puts $config_file "}"
 		    puts $config_file "\#endif \n"
-		    puts $config_file "void outbyte(char c) {"
+		    puts $config_file "\#ifdef VERSAL_PLM"
+		    puts $config_file "void __attribute__((weak)) outbyte(char c)"
+		    puts $config_file "\#else"
+		    puts $config_file "void outbyte(char c)"
+		    puts $config_file "\#endif"
+		    puts $config_file "{"
 		    puts $config_file "    (void) c;"
 		    puts $config_file "}"
                     close $config_file
