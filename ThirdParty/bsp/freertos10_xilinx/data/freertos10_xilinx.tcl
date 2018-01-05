@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 - 2019 Xilinx, Inc.
+# Copyright (C) 2015 - 2020 Xilinx, Inc.
 #
 # This file is part of the FreeRTOS port.
 #
@@ -74,9 +74,9 @@ proc Check_ttc_ip {instance_name} {
 
 proc generate_license {fd} {
 	puts $fd " /*"
-	puts $fd " * FreeRTOS Kernel V10.0.0"
-	puts $fd " * Copyright (C) 2010-2018 Xilinx, Inc. All Rights Reserved."
-	puts $fd " * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved."
+	puts $fd " * FreeRTOS Kernel V10.3.0"
+	puts $fd " * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved."
+	puts $fd " * Copyright (C) 2010-2020 Xilinx, Inc. All Rights Reserved."
 	puts $fd " *"
 	puts $fd " * Permission is hereby granted, free of charge, to any person obtaining a copy of"
 	puts $fd " * this software and associated documentation files (the \"Software\"), to deal in"
@@ -129,20 +129,22 @@ proc generate {os_handle} {
 	set arma9iarccdir "../${standalone_version}/src/arm/cortexa9/iarcc"
 	set armcommonsrcdir "../${standalone_version}/src/arm/common"
 	set armsrcdir "../${standalone_version}/src/arm"
+	set clksrcdir "../${standalone_version}/src/common/clocking"
 
 	foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
 		file copy -force $entry [file join ".." "${standalone_version}" "src"]
 	}
 
+	foreach entry [glob -nocomplain [file join $clksrcdir *]] {
+		file copy -force $entry [file join ".." "${standalone_version}" "src"]
+	}
+
 	if { $proctype == "psu_cortexa53" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psv_cortexa72" } {
-	        foreach entry [glob -nocomplain [file join $armcommonsrcdir *]] {
+	        foreach entry [glob -nocomplain -types f [file join $armcommonsrcdir *]] {
 	       file copy -force $entry [file join ".." "${standalone_version}" "src"]
-	       file delete -force "../${standalone_version}/src/gcc"
-	       file delete -force "../${standalone_version}/src/iccarm"
-	       file delete -force "../${standalone_version}/src/armclang"
 	     }
 	     set commonccdir "../${standalone_version}/src/arm/common/gcc"
-	     foreach entry [glob -nocomplain [file join $commonccdir *]] {
+	     foreach entry [glob -nocomplain -types f [file join $commonccdir *]] {
                  file copy -force $entry [file join ".." "${standalone_version}" "src"]
 	     }
 	 }
@@ -169,13 +171,9 @@ proc generate {os_handle} {
 				} else {
 				    set platformincludedir "../${standalone_version}/src/arm/ARMv8/includes_ps/platform/ZynqMP"
 				}
-				foreach entry [glob -nocomplain [file join $platformincludedir *]] {
+				foreach entry [glob -nocomplain -types f [file join $platformincludedir *]] {
 				    file copy -force $entry "../${standalone_version}/src/includes_ps/"
 				}
-				file delete -force "../${standalone_version}/src/gcc"
-				file delete -force "../${standalone_version}/src/iccarm"
-				file delete -force "../${standalone_version}/src/profile"
-				file delete -force "../${standalone_version}/src/includes_ps/platform"
 				if { $enable_sw_profile == "true" } {
 					error "ERROR: Profiling is not supported for R5"
 				}
@@ -199,12 +197,11 @@ proc generate {os_handle} {
 				} else {
 				        set platformsrcdir "../${standalone_version}/src/arm/cortexr5/platform/ZynqMP"
 				}
-
-                                foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
+				
+                                foreach entry [glob -nocomplain -types f [file join $platformsrcdir *]] {
 		                     file copy -force $entry [file join ".." "${standalone_version}" "src"]
 	                        }
-
-				file delete -force $platformsrcdir
+				
 				close $file_handle
 			}
 		"psv_cortexa72" -
@@ -229,7 +226,8 @@ proc generate {os_handle} {
 				file copy -force [file join $arma5364srcdir platform ZynqMP xparameters_ps.h] ./src
                                 set platformsrcdir "../${standalone_version}/src/arm/ARMv8/64bit/platform/ZynqMP/gcc"
 				} else {
-				set platformsrcdir "../${standalone_version}/src/arm/ARMv8/64bit/platform/versal"
+				file copy -force [file join $arma5364srcdir platform versal xparameters_ps.h] ./src
+				set platformsrcdir "../${standalone_version}/src/arm/ARMv8/64bit/platform/versal/gcc"
 				}
 		                foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
                                     file copy -force $entry [file join ".." "${standalone_version}" "src"]
@@ -240,14 +238,9 @@ proc generate {os_handle} {
 				} else {
 				    set platformincludedir "../${standalone_version}/src/arm/ARMv8/includes_ps/platform/ZynqMP"
 				}
-				foreach entry [glob -nocomplain [file join $platformincludedir *]] {
+				foreach entry [glob -nocomplain -types f [file join $platformincludedir *]] {
 				    file copy -force $entry "../${standalone_version}/src/includes_ps/"
 				}
-				file delete -force "../${standalone_version}/src/gcc"
-				file delete -force "../${standalone_version}/src/armclang"
-				file delete -force "../${standalone_version}/src/platform"
-				file delete -force "../${standalone_version}/src/profile"
-				file delete -force "../${standalone_version}/src/includes_ps/platform"
 				if { $enable_sw_profile == "true" } {
 					error "ERROR: Profiling is not supported for A53/A72"
 				}
@@ -275,13 +268,10 @@ proc generate {os_handle} {
 					file copy -force $entry [file join ".." "${standalone_version}" "src"]
 				}
 
-				foreach entry [glob -nocomplain [file join $arma9gccdir *]] {
+				foreach entry [glob -nocomplain -types f [file join $arma9gccdir *]] {
 					file copy -force $entry [file join ".." "${standalone_version}" "src"]
 				}
 
-				file delete -force "../${standalone_version}/src/gcc"
-				file delete -force "../${standalone_version}/src/iccarm"
-				file delete -force "../${standalone_version}/src/armcc"
 				set need_config_file "true"
 
 				set file_handle [::hsi::utils::open_include_file "xparameters.h"]
@@ -320,11 +310,6 @@ proc generate {os_handle} {
 
 	close $makeconfig
 
-	# Remove arm directory...
-	file delete -force $armr5srcdir
-	file delete -force $arma9srcdir
-	file delete -force $arma5364srcdir
-	file delete -force $mbsrcdir
 
 	# Copy core kernel files to the main src directory
 	file copy -force [file join src Source tasks.c] ./src
@@ -423,6 +408,17 @@ proc generate {os_handle} {
 			puts $bspcfg_fh "#define HYP_GUEST 0"
 		}
 	}
+	set clocking_supported [common::get_property CONFIG.clocking $os_handle]
+	set slaves [common::get_property   SLAVES [  hsi::get_cells -hier $sw_proc_handle]]
+	if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5"} {
+		if {$clocking_supported == "true" } {
+			foreach slave $slaves {
+				if {[string compare -nocase "psu_crf_apb" $slave] == 0 } {
+					puts $bspcfg_fh "#define XCLOCKING"
+				}
+			}
+		}
+	}
 	puts $bspcfg_fh ""
 	puts $bspcfg_fh "\#endif /*end of __BSPCONFIG_H_*/"
 	close $bspcfg_fh
@@ -455,12 +451,7 @@ proc generate {os_handle} {
 		file copy -force $header src
 	}
 
-	file delete -force [file join src Source]
 
-	# Remove microblaze, cortexa9 and common directories...
-	file delete -force $mbsrcdir
-	file delete -force $commonsrcdir
-	file delete -force $armsrcdir
 
 	# Handle stdin
 	set stdin [common::get_property CONFIG.stdin $os_handle]
@@ -1597,7 +1588,7 @@ proc mb_drc_checks { sw_proc_handle hw_proc_handle os_handle } {
 		 }
 
 	if { $timer_count == 0 } {
-		error "FreeRTOS for Microblaze requires an axi_timer or xps_timer. The HW platform doesn't have a valid timer." "" "mdt_error"
+		error "FreeRTOS for Microblaze requires an axi_timer. The HW platform doesn't have a valid timer." "" "mdt_error"
 	}
 
 	if { $timer_has_intr == 0 } {
