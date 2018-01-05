@@ -40,6 +40,7 @@
 # 6.6   srm  10/18/17 Added xsleep_timer_config function to support the
 #                     sleep configuration using timers as specifed by the
 #					  user.
+# 6.6   hk   12/15/17 Define platform macros based on the processor in use.
 #
 ##############################################################################
 
@@ -481,6 +482,7 @@ proc generate {os_handle} {
     ::hsi::utils::write_c_header $bspcfg_fh "Configurations for Standalone BSP"
 	puts $bspcfg_fh "#ifndef BSPCONFIG_H /* prevent circular inclusions */"
 	puts $bspcfg_fh "#define BSPCONFIG_H /* by using protection macros */"
+    puts $bspcfg_fh ""
 
     if { $proctype == "microblaze" && [mb_has_pvr $hw_proc_handle] } {
 
@@ -519,8 +521,20 @@ proc generate {os_handle} {
 	}
     }
 	xsleep_timer_config $proctype $os_handle $bspcfg_fh
-	puts $bspcfg_fh "#endif /* BSPCONFIG_H */ "
-	close $bspcfg_fh
+
+    if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5"} {
+	puts $bspcfg_fh "#define PLATFORM_ZYNQMP"
+    }
+    if { $proctype == "ps7_cortexa9"} {
+	puts $bspcfg_fh "#define PLATFORM_ZYNQ"
+    }
+    if { $proctype == "microblaze"} {
+	puts $bspcfg_fh "#define PLATFORM_MB"
+    }
+
+    puts $bspcfg_fh ""
+    puts $bspcfg_fh "\#endif /*end of __BSPCONFIG_H_*/"
+    close $bspcfg_fh
 }
 
 # --------------------------------------------------------
