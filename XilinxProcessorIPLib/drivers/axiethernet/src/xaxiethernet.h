@@ -504,6 +504,7 @@
 *		    app generation.
 *      adk 09/21/17 Fixed CR#985686 bsp generation error with specific design.
 *		    Changes are made in the driver tcl.
+* 5.7  rsp 01/09/18 Add NumTableEntries member in XAxiEthernet_Config.
 * </pre>
 *
 ******************************************************************************/
@@ -779,6 +780,7 @@ typedef struct XAxiEthernet_Config {
 	u8 EnableSgmiiOverLvds;	/**< Enable LVDS option */
 	u8 Enable_1588;	/**< Enable 1588 option */
 	u32 Speed;	/**< Tells whether MAC is 1G or 2p5G */
+	u8 NumTableEntries;	/**< Number of table entries */
 
 	u8 TemacIntr;	/**< Axi Ethernet interrupt ID */
 
