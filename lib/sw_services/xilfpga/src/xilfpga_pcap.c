@@ -119,7 +119,8 @@ static u32 XFpga_CsuDmaInit();
 static u32 XFpga_PLWaitForDone(void);
 static u32 XFpga_PowerUpPl(void);
 static u32 XFpga_IsolationRestore(void);
-static u32 XFpga_PsPlGpioReset(u32 TotalResets);
+static u32 XFpga_PsPlGpioResetsLow(u32 TotalResets);
+static u32 XFpga_PsPlGpioResetsHigh(u32 TotalResets);
 static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u8 Size);
 #ifdef XFPGA_SECURE_MODE
 static u32 XFpga_WriteEncryptToPcap(u32 WrSize, u32 WrAddrHigh, u32 WrAddrLow);
@@ -225,6 +226,9 @@ u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
 		goto END;
 	}
 
+	/* PS-PL resets low */
+	XFpga_PsPlGpioResetsLow(FPGA_NUM_FABRIC_RESETS);
+
 	/* Power-Up PL */
 	Status = XFpga_PowerUpPl();
 	if (Status != XFPGA_SUCCESS) {
@@ -233,8 +237,8 @@ u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
 		goto END;
 	}
 
-	/* PS-PL reset */
-	XFpga_PsPlGpioReset(FPGA_NUM_FABRIC_RESETS);
+	/* PS-PL resets high */
+	XFpga_PsPlGpioResetsHigh(FPGA_NUM_FABRIC_RESETS);
 
 	END:
 
@@ -558,9 +562,10 @@ static u32 XFpga_IsolationRestore()
 #endif
 	return Status;
 }
+
 /**
 *
-* This function is used to reset the PL from PS EMIO pins
+* This function is used to start reset of the PL from PS EMIO pins
 *
 * @param	TotalResets
 *
@@ -569,7 +574,35 @@ static u32 XFpga_IsolationRestore()
 * @note		None.
 *
 ****************************************************************************/
-static u32 XFpga_PsPlGpioReset(u32 TotalResets) {
+static u32 XFpga_PsPlGpioResetsLow(u32 TotalResets) {
+	u32 Status = XFPGA_SUCCESS;
+	u32 RegVal = 0;
+
+	/* Set EMIO Direction */
+	RegVal = Xil_In32(GPIO_DIRM_5_EMIO) |
+		~(~0U << TotalResets) << (MAX_REG_BITS + 1 - TotalResets);
+	Xil_Out32(GPIO_DIRM_5_EMIO, RegVal);
+
+	/*De-assert the EMIO with the required Mask */
+	RegVal = ~(~(~0U << TotalResets) << (MAX_REG_BITS + 1 - TotalResets)) & 0xFFFF0000;
+	Xil_Out32(GPIO_MASK_DATA_5_MSW, RegVal);
+	usleep(1000);
+
+	return Status;
+}
+
+/**
+*
+* This function is used to release reset of the PL from PS EMIO pins
+*
+* @param	TotalResets
+*
+* @return	XFSBL_SUCCESS (for now always returns this)
+*
+* @note		None.
+*
+****************************************************************************/
+static u32 XFpga_PsPlGpioResetsHigh(u32 TotalResets) {
 	u32 Status = XFPGA_SUCCESS;
 	u32 RegVal = 0;
 	u32 MaskVal;
@@ -578,17 +611,6 @@ static u32 XFpga_PsPlGpioReset(u32 TotalResets) {
 	RegVal = Xil_In32(GPIO_DIRM_5_EMIO) |
 		~(~0U << TotalResets) << (MAX_REG_BITS + 1 - TotalResets);
 	Xil_Out32(GPIO_DIRM_5_EMIO, RegVal);
-
-	/*Assert the EMIO with the required Mask */
-	MaskVal = ~(~0U << TotalResets) << (MAX_REG_BITS/2 + 1 - TotalResets) | 0xFFFF0000;
-	RegVal = MaskVal & ~(~(~0U << TotalResets) << (MAX_REG_BITS + 1 - TotalResets));
-	Xil_Out32(GPIO_MASK_DATA_5_MSW,RegVal);
-	usleep(1000);
-
-	/*De-assert the EMIO with the required Mask */
-	RegVal = ~(~(~0U << TotalResets) << (MAX_REG_BITS + 1 - TotalResets)) & 0xFFFF0000;
-	Xil_Out32(GPIO_MASK_DATA_5_MSW, RegVal);
-	usleep(1000);
 
 	/*Assert the EMIO with the required Mask */
 	MaskVal = ~(~0U << TotalResets) << (MAX_REG_BITS/2 + 1 - TotalResets) | 0xFFFF0000;
