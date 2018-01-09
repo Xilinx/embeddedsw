@@ -505,6 +505,8 @@
 *      adk 09/21/17 Fixed CR#985686 bsp generation error with specific design.
 *		    Changes are made in the driver tcl.
 * 5.7  rsp 01/09/18 Add NumTableEntries member in XAxiEthernet_Config.
+*                   Instead of #define XAE_MULTI_MAT_ENTRIES derive multicast table
+*                   entries max count from ethernet config structure.
 * </pre>
 *
 ******************************************************************************/
@@ -668,11 +670,6 @@ extern "C" {
  *   XAxiEthernet_CfgInitialize()
  */
 /*@}*/
-
-
-#define XAE_MULTI_MAT_ENTRIES	4	/**< Number of storable addresses in
-					  *  the Multicast Address Table
-					  */
 
 #define XAE_MDIO_DIV_DFT	29	/**< Default MDIO clock divisor */
 
