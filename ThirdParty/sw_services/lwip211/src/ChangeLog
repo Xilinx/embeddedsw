@@ -1,5 +1,26 @@
 Change Log for lwip
 =================================
+2020-10-09
+	* Fix the optimization out of delay code with level O2 by
+	  replacing the for loop with sleep for 1 second.
+2020-10-04
+	* Modify the sys_now function to return milliseconds instead
+	  of ticks to fix lwip timers issue.
+2020-09-24
+	* Use Xil_In32 and Xil_Out32 functions to read/write
+	  registers.
+2020-09-22
+	* Fix lwip application failure on VCU118 board.
+2020-08-18
+	* Add axiethernet support on versal.
+2020-08-14
+	* Fix RX pbuf freeing in GEM error handling path.
+2020-06-22
+	* Fix the Zynq base address check to use internal definition
+	  instead of canonical definition.
+2020-05-08
+	* Fix the RX BD setup order to avoid clearing used bit without
+	  buffer address.
 2019-08-24
 	* Add support for clock config in EL1 Non secure for Versal.
 2019-08-12
