@@ -1,5 +1,9 @@
 Change Log for lwip
 =================================
+2018-03-05
+	* Add Hot plug detect support for EmacPS and AXI Ethernet
+2018-03-14
+	* Avoid axi ethernet config intialize in two places.
 2018-01-19
 	* Add support for Realtek RTL8211 phy.
 2018-01-11
