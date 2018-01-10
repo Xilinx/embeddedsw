@@ -45,6 +45,10 @@ extern XEmacPs_Config XEmacPs_ConfigTable[];
 extern u32_t phymapemac0[32];
 extern u32_t phymapemac1[32];
 
+#ifdef OS_IS_FREERTOS
+extern long xInsideISR;
+#endif
+
 XEmacPs_Config *xemacps_lookup_config(unsigned mac_base)
 {
 	XEmacPs_Config *cfgptr = NULL;
@@ -209,6 +213,9 @@ void emacps_error_handler(void *arg,u8 Direction, u32 ErrorWord)
 	xemacpsif_s   *xemacpsif;
 	XEmacPs_BdRing *rxring;
 	XEmacPs_BdRing *txring;
+#ifdef OS_IS_FREERTOS
+	xInsideISR++;
+#endif
 
 	xemac = (struct xemac_s *)(arg);
 	xemacpsif = (xemacpsif_s *)(xemac->state);
@@ -257,4 +264,7 @@ void emacps_error_handler(void *arg,u8 Direction, u32 ErrorWord)
 			break;
 		}
 	}
+#ifdef OS_IS_FREERTOS
+	xInsideISR--;
+#endif
 }

@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2018-01-10
+	* Update xInsideISR flag in emacps_error_handler.
 2017-12-06
 	* Fix jumbo frame checks to work on R5
 2017-11-01
