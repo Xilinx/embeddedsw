@@ -1,6 +1,13 @@
 Changes for 2018.1
 ===============================
 
+axivdma_6_5:
+Align default TX/RX framebuffer count with IP configuration.
+Fix compilation error in selftest example.
+
+axiethernet_5_7:
+Fix compilation issues in multicast/extvlan example.
+
 Standalone_v6_6:
 Added a macro to replace conditional loops
 
