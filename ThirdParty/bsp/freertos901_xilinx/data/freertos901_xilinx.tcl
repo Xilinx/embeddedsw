@@ -442,9 +442,9 @@ proc generate {os_handle} {
 	set max_priorities [common::get_property CONFIG.max_priorities $os_handle]
 	xput_define $config_file "configMAX_PRIORITIES"   "($max_priorities)"
 	xput_define $config_file "configMAX_CO_ROUTINE_PRIORITIES" "2"
-	xput_define $config_file "HIGH_PRIORITY" "(configMAX_PRIORITIES - 1)"
-	xput_define $config_file "NORMAL_PRIORITY" "(configMAX_PRIORITIES - 2)"
-	xput_define $config_file "LOW_PRIORITY" "(configMAX_PRIORITIES - 3)"
+	xput_define $config_file "HIGH_PRIORITY" "(configMAX_PRIORITIES - 2)"
+	xput_define $config_file "NORMAL_PRIORITY" "(configMAX_PRIORITIES - 3)"
+	xput_define $config_file "LOW_PRIORITY" "(configMAX_PRIORITIES - 4)"
 
 	set min_stack [common::get_property CONFIG.minimal_stack_size $os_handle]
 	set min_stack [expr [expr $min_stack + 3] & 0xFFFFFFFC]
