@@ -1,5 +1,19 @@
 Change Log for lwip
 =================================
+2018-10-01
+	* Fix warning for redefining BYTE_ORDER
+2018-09-19
+	* In lwip tcl to support hierarchical designs pass -hier option to
+	  get_cells command.
+2018-08-24
+	* Modify update_axi_ethernet_topology func(lwip202.tcl) to derive
+	  interrupt source order programmatically. It fixes build error
+	  due to change in HSI get_connected_intr_cntrl API output.
+2018-03-30
+	* Add AXI 2.5G Ethernet support
+2018-03-29
+	* Add mcdma support and handle IEEE_1588 for SGMII Phy in ethernet
+	* header
 2018-03-05
 	* Add Hot plug detect support for EmacPS and AXI Ethernet
 2018-03-14
