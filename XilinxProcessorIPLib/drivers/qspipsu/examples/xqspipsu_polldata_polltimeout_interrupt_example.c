@@ -85,6 +85,7 @@
 *                    commands.
 * 1.7	tjs	12/01/17 Added support for MT25QL02G Flash from Micron. CR-990642
 * 1.7	tjs 12/19/17 Added support for S25FL064L from Spansion. CR-990724
+* 1.7	tjs 01/11/18 Added support for MX66L1G45G flash from Macronix CR-992367
 *</pre>
 *
 ******************************************************************************/
@@ -233,6 +234,7 @@
 
 #define MACRONIX_ID_BYTE0		0xC2
 #define MACRONIX_ID_BYTE2_1G	0x1B
+#define MACRONIX_ID_BYTE2_1GU	0x3B
 
 #define ISSI_ID_BYTE0			0x9D
 #define ISSI_ID_BYTE2_256		0x19
@@ -284,9 +286,12 @@
 #define FLASH_CFG_TBL_SINGLE_1G_MX		MACRONIX_INDEX_START
 #define FLASH_CFG_TBL_STACKED_1G_MX		(MACRONIX_INDEX_START + 1)
 #define FLASH_CFG_TBL_PARALLEL_1G_MX	(MACRONIX_INDEX_START + 2)
+#define FLASH_CFG_TBL_SINGLE_1GU_MX		(MACRONIX_INDEX_START + 3)
+#define FLASH_CFG_TBL_STACKED_1GU_MX	(MACRONIX_INDEX_START + 4)
+#define FLASH_CFG_TBL_PARALLEL_1GU_MX	(MACRONIX_INDEX_START + 5)
 
 /* ISSI */
-#define ISSI_INDEX_START				(FLASH_CFG_TBL_PARALLEL_1G_MX + 1)
+#define ISSI_INDEX_START				(FLASH_CFG_TBL_PARALLEL_1GU_MX + 1)
 #define FLASH_CFG_TBL_SINGLE_256_ISSI	ISSI_INDEX_START
 #define FLASH_CFG_TBL_STACKED_256_ISSI	(ISSI_INDEX_START + 1)
 #define FLASH_CFG_TBL_PARALLEL_256_ISSI	(ISSI_INDEX_START + 2)
@@ -369,7 +374,7 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr);
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
 u8 ReadBfrPtr[3];
-FlashInfo Flash_Config_Table[36] = {
+FlashInfo Flash_Config_Table[] = {
 		/* Spansion */
 		{0x10000, 0x80, 256, 0x8000, 0x800000,
 				SPANSION_ID_BYTE0, SPANSION_ID_BYTE2_64, 0xFFFF0000, 1},
@@ -441,6 +446,12 @@ FlashInfo Flash_Config_Table[36] = {
 				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1G, 0xFFFF0000, 4},
 		{0x20000, 0x800, 512, 0x80000, 0x8000000,
 				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1G, 0xFFFE0000, 4},
+		{0x10000, 0x800, 256, 0x80000, 0x8000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1GU, 0xFFFF0000, 4},
+		{0x10000, 0x1000, 256, 0x100000, 0x8000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1GU, 0xFFFF0000, 4},
+		{0x20000, 0x800, 512, 0x80000, 0x8000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1GU, 0xFFFE0000, 4},
 		/* ISSI */
 		{0x10000, 0x200, 256, 0x20000, 0x2000000,
 				ISSI_ID_BYTE0, ISSI_ID_BYTE2_256, 0xFFFF0000, 1},
@@ -1051,17 +1062,27 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 
 	/* 1Gbit single, parallel and stacked supported for Macronix */
 	if(((FlashMake == MACRONIX_ID_BYTE0) &&
-			(ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1G))) {
+			((ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1G) ||
+					(ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1GU)))) {
 
 		switch(QspiPsuPtr->Config.ConnectionMode) {
 			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-				FCTIndex = FLASH_CFG_TBL_SINGLE_1G_MX;
+				if (ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1GU)
+					FCTIndex = FLASH_CFG_TBL_SINGLE_1GU_MX;
+				else
+					FCTIndex = FLASH_CFG_TBL_SINGLE_1G_MX;
 				break;
 			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_1G_MX;
+				if (ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1GU)
+					FCTIndex = FLASH_CFG_TBL_PARALLEL_1GU_MX;
+				else
+					FCTIndex = FLASH_CFG_TBL_PARALLEL_1G_MX;
 				break;
 			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FCTIndex = FLASH_CFG_TBL_STACKED_1G_MX;
+				if (ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1GU)
+					FCTIndex = FLASH_CFG_TBL_STACKED_1GU_MX;
+				else
+					FCTIndex = FLASH_CFG_TBL_STACKED_1G_MX;
 				break;
 			default:
 				FCTIndex = 0;
