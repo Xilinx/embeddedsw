@@ -27,6 +27,16 @@ Update xInsideISR flag in emacps_error_handler.
 rfdc_v2_4:
 Add support DDC and DUC configuration
 
+qspipsu_v1_7:
+Removed unsupported 4 byte write and sector erase
+commands.(CR#984966)
+Added a support for MT25QL02G flash from Micron
+(CR#990642)
+Added a support for S25FL064L flash from Spansion
+(CR#990724)
+Added a support for MX66U1G45G flash from Macronix
+(CR#992367)
+
 spips_v4_4:
 When receive fifo exists, we need to check for status
 register rx fifo empty flag. If clear we can proceed for
