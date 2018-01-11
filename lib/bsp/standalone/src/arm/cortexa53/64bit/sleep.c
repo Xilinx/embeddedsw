@@ -53,6 +53,7 @@
 * 6.6	srm      10/18/17 Updated sleep routines to support user configurable
 *                         implementation. Now sleep routines will use Timer
 *                         specified by the user (i.e. Global timer/TTC timer)
+*       srm      01/11/18 Fixed the compilation warning.
 * </pre>
 *
 ******************************************************************************/
@@ -75,7 +76,7 @@
 #endif
 
 /************************************************************************/
-
+#if !defined (SLEEP_TIMER_BASEADDR)
 static void sleep_common(u32 n, u32 count)
 {
 	XTime tEnd, tCur;
@@ -88,7 +89,7 @@ static void sleep_common(u32 n, u32 count)
 		tCur = mfcp(CNTPCT_EL0);
 	} while (tCur < tEnd);
 }
-
+#endif
 /*****************************************************************************/
 /**
 *
