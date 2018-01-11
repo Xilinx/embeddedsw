@@ -8,14 +8,6 @@ Fix compilation error in selftest example.
 axiethernet_5_7:
 Fix compilation issues in multicast/extvlan example.
 
-Standalone_v6_6:
-Added a macro to replace conditional loops
-
-Standalone_v6_6:
-Updated sleep routines to support user configurable sleep
-implementation. Now sleep routines will use TTC instance specified by
-user
-
 freertos901_xilinx_v1_3:
 Updated FreeRTOS tcl to fix bug in detecting latest standalone
 version.It fixes CR#990995.
@@ -44,6 +36,11 @@ standalone_v6_6:
 Updated cortexa9/xil_errata.h and cortexa9/xil_cache.c
 to remove errata 753970, It fixes CR#989132.
 Export platform macros to bspconfig.h based on processor.
+Updated sleep routines to support user configurable sleep
+implementation. Now sleep routines will use TTC instance
+specified by user
+Added a macro to replace conditional loops
+Fixed the compilation warning in A53
 
 sysmonpsu_v2_3:
 Added missing closing bracket error when C++ is used
