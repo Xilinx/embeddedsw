@@ -50,6 +50,8 @@
 * ----- ------  -------- -----------------------------------------------------
 * 1.0   vnsld  22/10/14 First release
 * 1.2   adk    11/22/17 Added peripheral test app support.
+* 1.2	adk    11/01/18 Declared static array rather than hard code memory for
+*			buffers.
 * </pre>
 *
 ******************************************************************************/
@@ -87,10 +89,19 @@
 #define CSU_SSS_CONFIG_OFFSET	0x008		/**< CSU SSS_CFG Offset */
 #define CSUDMA_LOOPBACK_CFG	0x00000050	/**< LOOP BACK configuration
 						  *  macro */
-#define SRC_ADDR	0x04200000	/**< Source Address */
-#define DST_ADDR	0x04300000	/**< Destination Address */
 #define SIZE		0x100		/**< Size of the data to be
 					  *  transfered */
+
+#if defined(__ICCARM__)
+    #pragma data_alignment = 64
+	u32 DstBuf[SIZE]; /**< Destination buffer */
+	u32 SrcBuf[SIZE]; /**< Source buffer */
+	#pragma data_alignment = 4
+#else
+u32 DstBuf[SIZE] __attribute__ ((aligned (64)));	/**< Destination buffer */
+u32 SrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
+#endif
+
 
 /**************************** Type Definitions *******************************/
 
@@ -170,10 +181,10 @@ int XCsuDma_IntrExample(INTC *IntcInstancePtr, XCsuDma *CsuDmaInstance,
 	int Status;
 	XCsuDma_Config *Config;
 	u32 Index = 0;
-	u32 *SrcPtr = (u32 *)SRC_ADDR;
-	u32 *DstPtr = (u32 *)DST_ADDR;
+	u32 *SrcPtr = SrcBuf;
+	u32 *DstPtr = DstBuf;
 	u32 Test_Data = 0xABCD1234;
-	u32 *Ptr = (u32 *)SRC_ADDR;
+	u32 *Ptr = SrcBuf;
 	u32 EnLast = 0;
 	/*
 	 * Initialize the CsuDma driver so that it's ready to use
@@ -227,8 +238,8 @@ int XCsuDma_IntrExample(INTC *IntcInstancePtr, XCsuDma *CsuDmaInstance,
 	}
 
 	/* Data transfer in loop back mode */
-	XCsuDma_Transfer(CsuDmaInstance, XCSUDMA_DST_CHANNEL, DST_ADDR, SIZE, EnLast);
-	XCsuDma_Transfer(CsuDmaInstance, XCSUDMA_SRC_CHANNEL, SRC_ADDR, SIZE, EnLast);
+	XCsuDma_Transfer(CsuDmaInstance, XCSUDMA_DST_CHANNEL, (UINTPTR)DstBuf, SIZE, EnLast);
+	XCsuDma_Transfer(CsuDmaInstance, XCSUDMA_SRC_CHANNEL, (UINTPTR)SrcBuf, SIZE, EnLast);
 
 	/* Wait for generation of destination work is done */
 	while(DstDone == 0);
