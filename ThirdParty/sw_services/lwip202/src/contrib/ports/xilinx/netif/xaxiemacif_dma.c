@@ -626,7 +626,9 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 	XAxiDma_Bd *rxbd;
 	struct pbuf *p;
 	XStatus status;
-	u32_t i, baseaddr;
+	u32_t i;
+	UINTPTR baseaddr;
+
 	xaxiemacif_s *xaxiemacif = (xaxiemacif_s *)(xemac->state);
 	/*
 	 * Disable L1 prefetch if the processor type is Cortex A53. It is
