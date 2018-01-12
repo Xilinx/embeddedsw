@@ -53,6 +53,7 @@
 * None.
 *
 ******************************************************************************/
+#include "xparameters.h"
 #include "bspconfig.h"
 	.file	"xil-crt0.S"
 	.section ".got2","aw"

@@ -520,27 +520,36 @@ proc generate {os_handle} {
 		}
 	}
     }
-	xsleep_timer_config $proctype $os_handle $bspcfg_fh
 
-    if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5"} {
-	puts $bspcfg_fh "#define PLATFORM_ZYNQMP"
-    }
-    if { $proctype == "ps7_cortexa9"} {
-	puts $bspcfg_fh "#define PLATFORM_ZYNQ"
-    }
-    if { $proctype == "microblaze"} {
-	puts $bspcfg_fh "#define PLATFORM_MB"
-    }
-
-    puts $bspcfg_fh ""
+	puts $bspcfg_fh ""
     puts $bspcfg_fh "\#endif /*end of __BSPCONFIG_H_*/"
     close $bspcfg_fh
+
+	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+
+	puts $file_handle "/* Platform specific definitions */"
+    if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5"} {
+	puts $file_handle "#define PLATFORM_ZYNQMP"
+    }
+    if { $proctype == "ps7_cortexa9"} {
+	puts $file_handle "#define PLATFORM_ZYNQ"
+    }
+    if { $proctype == "microblaze"} {
+	puts $file_handle "#define PLATFORM_MB"
+    }
+	 puts $file_handle " "
+	 puts $file_handle "/* Definitions for sleep timer configuration */"
+	 xsleep_timer_config $proctype $os_handle $file_handle
+	 puts $file_handle " "
+	 puts $file_handle " "
+	 puts $file_handle "/******************************************************************/"
+	close $file_handle
 }
 
 # --------------------------------------------------------
 #  Tcl procedure xsleep_timer_config
 # --------------------------------------------------------
-proc xsleep_timer_config {proctype os_handle bspcfg_fh} {
+proc xsleep_timer_config {proctype os_handle file_handle} {
 
     set sleep_timer [common::get_property CONFIG.sleep_timer $os_handle ]
 	if { $sleep_timer == "ps7_globaltimer_0" || $sleep_timer == "psu_iou_scntr" || $sleep_timer == "psu_iou_scntrs" } {
@@ -552,32 +561,32 @@ proc xsleep_timer_config {proctype os_handle bspcfg_fh} {
 			set periphs [hsi::get_cells]
 			foreach periph $periphs {
 				if {[string compare -nocase "psu_ttc_3" $periph] == 0} {
-					puts $bspcfg_fh "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
-					puts $bspcfg_fh "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ"
-					puts $bspcfg_fh "#define XSLEEP_TTC_INSTANCE 3"
+					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
+					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ"
+					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
 			    }
 			}
 		}
-		puts $bspcfg_fh "#define XSLEEP_TIMER_IS_DEFAULT_TIMER"
+		puts $file_handle "#define XSLEEP_TIMER_IS_DEFAULT_TIMER"
     } elseif {[string match "axi_timer_*" $sleep_timer]} {
 		if { $proctype == "microblaze" } {
 			set instance [string index $sleep_timer end]
-			puts $bspcfg_fh "#define SLEEP_TIMER_BASEADDR [format "XPAR_AXI_TIMER_%d_BASEADDR" $instance ] "
-			puts $bspcfg_fh "#define SLEEP_TIMER_FREQUENCY [format "XPAR_AXI_TIMER_%d_CLOCK_FREQ_HZ" $instance ] "
-			puts $bspcfg_fh "#define XSLEEP_TIMER_IS_AXI_TIMER"
+			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_AXI_TIMER_%d_BASEADDR" $instance ] "
+			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_AXI_TIMER_%d_CLOCK_FREQ_HZ" $instance ] "
+			puts $file_handle "#define XSLEEP_TIMER_IS_AXI_TIMER"
 		} else {
 			error "ERROR: $proctype does not support $sleep_timer "
 		}
 	} else {
         set module [string index $sleep_timer end]
-		puts $bspcfg_fh "#define XSLEEP_TTC_INSTANCE $module"
+		puts $file_handle "#define XSLEEP_TTC_INSTANCE $module"
 	    set timer [common::get_property CONFIG.TTC_Select_Cntr $os_handle ]
 		if { $proctype == "ps7_cortexa9" } {
-			puts $bspcfg_fh "#define SLEEP_TIMER_BASEADDR [format "XPAR_PS7_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
-			puts $bspcfg_fh "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PS7_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
+			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_PS7_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
+			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PS7_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
 		} elseif { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5" } {
-			puts $bspcfg_fh "#define SLEEP_TIMER_BASEADDR [format "XPAR_PSU_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
-			puts $bspcfg_fh "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PSU_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
+			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_PSU_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
+			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PSU_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
 		}
 	}
 	return

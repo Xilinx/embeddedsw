@@ -55,6 +55,7 @@
 
 #include "xil_io.h"
 #include "xparameters.h"
+#include "bspconfig.h"
 
 /************************** Constant Definitions *****************************/
 

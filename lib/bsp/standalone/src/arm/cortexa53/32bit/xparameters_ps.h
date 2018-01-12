@@ -43,7 +43,6 @@
 * ----- ------- -------- ---------------------------------------------------
 * 5.2	pkp  	28/05/15 First release
 * 6.0   mus     18/08/16 Defined ARMA53_32 flag
-* 6.6   srm		10/23/17 Included bspconfig.h
 * </pre>
 *
 * @note
@@ -63,7 +62,7 @@
 extern "C" {
 #endif
 /***************************** Include Files *********************************/
-#include "bspconfig.h"
+
 
 /************************** Constant Definitions *****************************/
 
