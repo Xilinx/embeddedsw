@@ -42,7 +42,6 @@
 * Ver   Who     Date     Changes
 * ----- ------- -------- ---------------------------------------------------
 * 5.00 	pkp  05/29/14 First release
-* 6.6   srm  10/23/17 Included bspconfig.h
 * </pre>
 *
 * @note
@@ -59,7 +58,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "bspconfig.h"
+
 
 /************************** Constant Definitions *****************************/
 

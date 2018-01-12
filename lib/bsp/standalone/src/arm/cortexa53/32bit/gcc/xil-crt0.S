@@ -50,8 +50,7 @@
 * None.
 *
 ******************************************************************************/
-#include "bspconfig.h"
-
+#include "xparameters.h"
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
 	.align	2

@@ -69,7 +69,6 @@ extern "C" {
 #include "mb_interface.h"
 #include "xparameters.h"
 #include "sleep.h"
-#include "bspconfig.h"
 
 /************************** Constant Definitions *****************************/
 
