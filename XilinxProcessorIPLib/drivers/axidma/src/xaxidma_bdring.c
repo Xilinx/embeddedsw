@@ -66,6 +66,7 @@
 *						 int RingIndex)
 * 7.00a srt  06/18/12  All the APIs changed in v6_00_a are reverted back for
 *		       backward compatibility.
+* 9.6   rsp  01/11/18  Use UINTPTR for all RegBase instances CR#976392
 *
 *
 * </pre>
@@ -185,7 +186,7 @@
  *****************************************************************************/
 int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing* RingPtr)
 {
-	u32 RegBase;
+	UINTPTR RegBase;
 	UINTPTR BdPtr;
 	int RingIndex = RingPtr->RingIndex;
 
@@ -574,7 +575,7 @@ int XAxiDma_BdRingClone(XAxiDma_BdRing * RingPtr, XAxiDma_Bd * SrcBdPtr)
  *****************************************************************************/
 int XAxiDma_StartBdRingHw(XAxiDma_BdRing * RingPtr)
 {
-	u32 RegBase;
+	UINTPTR RegBase;
 	int RingIndex = RingPtr->RingIndex;
 
 	if (!XAxiDma_BdRingHwIsStarted(RingPtr)) {
@@ -1577,10 +1578,10 @@ int XAxiDma_BdRingCheck(XAxiDma_BdRing * RingPtr)
  *
  *****************************************************************************/
 void XAxiDma_BdRingDumpRegs(XAxiDma_BdRing *RingPtr) {
-	u32 RegBase = RingPtr->ChanBase;
+	UINTPTR RegBase = RingPtr->ChanBase;
 	int RingIndex = RingPtr->RingIndex;
 
-	xil_printf("Dump registers %x:\r\n", (unsigned int)RegBase);
+	xil_printf("Dump registers %p:\r\n", (void *)RegBase);
 	xil_printf("Control REG: %08x\r\n",
 		(unsigned int)XAxiDma_ReadReg(RegBase, XAXIDMA_CR_OFFSET));
 	xil_printf("Status REG: %08x\r\n",
