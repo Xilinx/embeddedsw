@@ -507,6 +507,7 @@
 * 5.7  rsp 01/09/18 Add NumTableEntries member in XAxiEthernet_Config.
 *                   Instead of #define XAE_MULTI_MAT_ENTRIES derive multicast table
 *                   entries max count from ethernet config structure.
+*          01/11/18 Fixed CR#976392 Use UINTPTR for DMA base address.
 * </pre>
 *
 ******************************************************************************/
@@ -784,7 +785,7 @@ typedef struct XAxiEthernet_Config {
 	int AxiDevType;  /**< AxiDevType is the type of device attached to the
 			  *   Axi Ethernet's AXI4-Stream interface.
 			  */
-	u32 AxiDevBaseAddress; /**< AxiDevBaseAddress is the base address of
+	UINTPTR AxiDevBaseAddress; /**< AxiDevBaseAddress is the base address of
 				 *  the device attached to the Axi Ethernet's
 				 *  AXI4-Stream interface.
 				 */
