@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@ BEGIN driver axidma
   OPTION supported_peripherals = (axi_dma_v[3-9]_[0-9][0-9]_[a-z] axi_dma_v[3-9]_[0-9]);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 9.6;
+  OPTION VERSION = 9.7;
   OPTION NAME = axidma;
 
 END driver
