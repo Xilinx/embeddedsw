@@ -111,6 +111,7 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+		Xil_DCacheFlushRange((UINTPTR)&InstancePtr->SetupData, sizeof(SetupPacket));
 	}
 
 	Params->Param0 = 0U;
