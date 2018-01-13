@@ -47,12 +47,16 @@
 * 1.4	bk  12/01/18 Modify USBPSU driver code to fit USB common example code
 *		       for all USB IPs
 <<<<<<< HEAD
+<<<<<<< HEAD
 *	myk 12/01/18 Added hibernation support
 *	vak 22/01/18 Added changes for supporting microblaze platform
 *	vak 13/03/18 Moved the setup interrupt system calls from driver to
 *		     example.
 =======
 >>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
+=======
+*	myk 12/01/18 Added hibernation support
+>>>>>>> drivers: usbpsu: Add hibernation support for usb
 *
 * </pre>
 *
@@ -160,6 +164,19 @@ void XUsbPsu_DisconnectIntr(struct XUsbPsu *InstancePtr)
 =======
 >>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
 
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+	/* In USB 2.0, to avoid hibernation interrupt at the time of connection
+	 * clear KEEP_CONNECT bit.
+	 */
+	if (InstancePtr->HasHibernation) {
+		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
+		if (RegVal & XUSBPSU_DCTL_KEEP_CONNECT) {
+			RegVal &= ~XUSBPSU_DCTL_KEEP_CONNECT;
+			XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
+		}
+	}
+#endif
+
 	/* Call the handler if necessary */
 	if (InstancePtr->DisconnectIntrHandler != NULL) {
 		InstancePtr->DisconnectIntrHandler(InstancePtr->AppData);
@@ -228,6 +245,68 @@ static void XUsbPsu_clear_stall_all_ep(struct XUsbPsu *InstancePtr)
 		XUsbPsu_EpClearStall(InstancePtr, Ept->UsbEpNum, Ept->Direction);
 =======
 >>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
+	}
+}
+
+/****************************************************************************/
+/**
+* Stops any active transfer.
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+static void XUsbPsu_stop_active_transfers(struct XUsbPsu *InstancePtr)
+{
+	u32 Epnum;
+
+	for (Epnum = 2; Epnum < XUSBPSU_ENDPOINTS_NUM; Epnum++) {
+		struct XUsbPsu_Ep *Ept;
+
+		Ept = &InstancePtr->eps[Epnum];
+		if (!Ept)
+			continue;
+
+		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+			continue;
+
+		XUsbPsu_StopTransfer(InstancePtr, Ept->UsbEpNum,
+				Ept->Direction, TRUE);
+	}
+}
+
+/****************************************************************************/
+/**
+* Clears stall on all stalled Eps.
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+static void XUsbPsu_clear_stall_all_ep(struct XUsbPsu *InstancePtr)
+{
+	u32 Epnum;
+
+	for (Epnum = 1; Epnum < XUSBPSU_ENDPOINTS_NUM; Epnum++) {
+		struct XUsbPsu_Ep *Ept;
+
+		Ept = &InstancePtr->eps[Epnum];
+		if (!Ept)
+			continue;
+
+		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+			continue;
+
+		if (!(Ept->EpStatus & XUSBPSU_EP_STALL))
+			continue;
+
+		XUsbPsu_EpClearStall(InstancePtr, Ept->UsbEpNum, Ept->Direction);
 	}
 }
 
@@ -515,6 +594,10 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 =======
 >>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
 
+		/* don't process anymore events if core is hibernated */
+		if (InstancePtr->IsHibernated)
+			return;
+
 		Evt->Offset = (Evt->Offset + 4U) % XUSBPSU_EVENT_BUFFERS_SIZE;
 		Evt->Count -= 4;
 		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0), 4U);
@@ -637,11 +720,22 @@ s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+	Status = XScuGic_Connect(IntcInstancePtr, USB_WAKEUP_INTR_ID,
+							(Xil_ExceptionHandler)XUsbPsu_WakeUpIntrHandler,
+							(void *)InstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+#endif
 
 	/*
 	 * Enable the interrupt for the USB
 	 */
 	XScuGic_Enable(IntcInstancePtr, USB_INTR_ID);
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+	XScuGic_Enable(IntcInstancePtr, USB_WAKEUP_INTR_ID);
+#endif
 
 	/*
 	 * Enable interrupts for Reset, Disconnect, ConnectionDone, Link State
@@ -653,6 +747,13 @@ s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
                         XUSBPSU_DEVTEN_CONNECTDONEEN |
                         XUSBPSU_DEVTEN_USBRSTEN |
                         XUSBPSU_DEVTEN_DISCONNEVTEN);
+
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+	if (InstancePtr->HasHibernation)
+		XUsbPsu_EnableIntr(InstancePtr,
+				XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);
+#endif
+
 	/*
 	 * Connect the interrupt controller interrupt handler to the hardware
 	 * interrupt handling logic in the ARM processor.

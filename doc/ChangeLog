@@ -538,7 +538,11 @@ Added support for flushing Dcache for setupdata packet for control ep's
 >>>>>>> drivers: usbpsu: Add common mass storage example changes
 =======
 Changed the dfu examples to be in sync with common example code
+<<<<<<< HEAD
 >>>>>>> drivers: usbpsu: Change dfu example code to be in sync with common example code
+=======
+Added hibernation support for usb
+>>>>>>> drivers: usbpsu: Add hibernation support for usb
 
 Changes for 2017.4
 ===============================

@@ -43,12 +43,16 @@
  * ----- ---- 	-------- -------------------------------------------------------
  *  1.0  BK	12/01/18 First release
 <<<<<<< HEAD
+<<<<<<< HEAD
  *	 MYK	12/01/18 Added hibernation support for device mode
  *	 vak	22/01/18 Added Microblaze support for usbpsu driver
  *	 vak	13/03/18 Moved the setup interrupt system calls from driver to
  *			 example.
 =======
 >>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
+=======
+ *	 MYK	12/01/18 Added hibernation support for device mode
+>>>>>>> drivers: usbpsu: Add hibernation support for usb
  *
  * </pre>
  *
@@ -70,7 +74,11 @@ extern "C" {
 =======
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define	USB_INTR_ID			XPAR_XUSBPS_0_INTR
+<<<<<<< HEAD
 >>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
+=======
+#define	USB_WAKEUP_INTR_ID	XPAR_XUSBPS_0_WAKE_INTR
+>>>>>>> drivers: usbpsu: Add hibernation support for usb
 
 #define USB_EP_DIR_IN		XUSBPSU_EP_DIR_IN
 #define USB_EP_DIR_OUT		XUSBPSU_EP_DIR_OUT

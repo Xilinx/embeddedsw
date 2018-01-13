@@ -47,9 +47,13 @@
 * 1.4	bk  12/01/18 Modify USBPSU driver code to fit USB common example code
 *		       for all USB IPs
 <<<<<<< HEAD
+<<<<<<< HEAD
 *	myk 12/01/18 Added hibernation support for device mode
 =======
 >>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
+=======
+*	myk 12/01/18 Added hibernation support for device mode
+>>>>>>> drivers: usbpsu: Add hibernation support for usb
 * </pre>
 *
 *****************************************************************************/
@@ -371,6 +375,7 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Ept->MaxSize	= Maxsize;
 	Ept->PhyEpNum	= (u8)PhyEpNum;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	Ept->CurUf	= 0;
 	if (!InstancePtr->IsHibernated) {
 		Ept->TrbEnqueue	= 0;
@@ -381,6 +386,13 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Ept->TrbDequeue	= 0;
 	Ept->CurUf	= 0;
 >>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
+=======
+	Ept->CurUf	= 0;
+	if (!InstancePtr->IsHibernated) {
+		Ept->TrbEnqueue	= 0;
+		Ept->TrbDequeue	= 0;
+	}
+>>>>>>> drivers: usbpsu: Add hibernation support for usb
 
 	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
 			|| (InstancePtr->IsHibernated)) {
@@ -1110,6 +1122,7 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 		Xil_DCacheInvalidateRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if (Event->Endpoint_Event == XUSBPSU_DEPEVT_XFERCOMPLETE) {
 		Ept->EpStatus &= ~(XUSBPSU_EP_BUSY);
 		Ept->ResourceIndex = 0;
@@ -1118,6 +1131,12 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 	if (Event->Endpoint_Event == XUSBPSU_DEPEVT_XFERCOMPLETE)
 		Ept->EpStatus &= ~(XUSBPSU_EP_BUSY);
 >>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
+=======
+	if (Event->Endpoint_Event == XUSBPSU_DEPEVT_XFERCOMPLETE) {
+		Ept->EpStatus &= ~(XUSBPSU_EP_BUSY);
+		Ept->ResourceIndex = 0;
+	}
+>>>>>>> drivers: usbpsu: Add hibernation support for usb
 
 	Length = TrbPtr->Size & XUSBPSU_TRB_SIZE_MASK;
 
