@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_intr.c
-* @addtogroup usbpsu_v1_7
+* @addtogroup usbpsu_v1_8
 * @{
 *
 *
@@ -27,6 +27,7 @@
 * 1.4	vak 30/05/18 Removed xusb_wrapper files
 * 1.7	pm  23/03/20 Restructured the code for more readability and modularity
 * 	pm  25/03/20 Add clocking support
+* 1.8	pm  01/07/20 Add versal hibernation support
 *
 * </pre>
 *
@@ -75,7 +76,7 @@ void XUsbPsu_DisconnectIntr(struct XUsbPsu *InstancePtr)
 	/* In USB 2.0, to avoid hibernation interrupt at the time of connection
 	 * clear KEEP_CONNECT bit.
 	 */
-	if (InstancePtr->HasHibernation == TRUE) {
+	if (InstancePtr->HasHibernation == (u8)TRUE) {
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
 		if ((RegVal & XUSBPSU_DCTL_KEEP_CONNECT) != (u32)0U) {
 			RegVal &= ~XUSBPSU_DCTL_KEEP_CONNECT;
@@ -117,7 +118,7 @@ void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
 	XUsbPsu_ClearStallAllEp(InstancePtr);
 
 	for (Index = 0U; Index <
-			(InstancePtr->NumInEps + InstancePtr->NumOutEps);
+		((u32)InstancePtr->NumInEps + (u32)InstancePtr->NumOutEps);
 			Index++)
 	{
 		InstancePtr->eps[Index].EpStatus = 0U;
@@ -127,7 +128,7 @@ void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
 
 	/* Reset device address to zero */
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCFG);
-	RegVal &= ~(XUSBPSU_DCFG_DEVADDR_MASK);
+	RegVal &= ~((u32)XUSBPSU_DCFG_DEVADDR_MASK);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCFG, RegVal);
 
 	/* Call the handler if necessary */
@@ -247,7 +248,7 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 	/* In USB 2.0, to avoid hibernation interrupt at the time of connection
 	 * clear KEEP_CONNECT bit.
 	 */
-	if (InstancePtr->HasHibernation == TRUE) {
+	if (InstancePtr->HasHibernation == (u8)TRUE) {
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
 		if ((RegVal & XUSBPSU_DCTL_KEEP_CONNECT) == (u32)0U) {
 			RegVal |= XUSBPSU_DCTL_KEEP_CONNECT;
@@ -447,7 +448,7 @@ void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
 void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 {
 	u32 RegVal;
-	u32 retries;
+	u32 Retries;
 
 	struct XUsbPsu  *InstancePtr = (struct XUsbPsu *)XUsbPsuInstancePtr;
 
@@ -461,33 +462,44 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
 	if (InstancePtr->ConfigPtr->DeviceId == (u16)XPAR_XUSBPSU_0_DEVICE_ID) {
 		XUsbPsu_WriteLpdReg(RST_LPD_TOP,
-				(u32)(RegVal & ~(u32)USB0_CORE_RST));
+				(u32)(RegVal & ~USB0_CORE_RST));
 	}
 
+#if defined (PLATFORM_ZYNQMP)
 	/* change power state to D0 */
 	XUsbPsu_WriteVendorReg(XIL_REQ_PWR_STATE, XIL_REQ_PWR_STATE_D0);
+#else
+	/* change power state to D0 */
+	XUsbPsu_WriteVslPwrStateReg(XIL_REQ_PWR_STATE, XIL_REQ_PWR_STATE_D0);
+#endif
 
 	/* wait till current state is changed to D0 */
-	retries = (u32)XUSBPSU_PWR_STATE_RETRIES;
+	Retries = (u32)XUSBPSU_PWR_STATE_RETRIES;
 
-	while (retries > 0U) {
+	while (Retries > 0U) {
+#if defined (PLATFORM_ZYNQMP)
 		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
+#else
+		RegVal = XUsbPsu_ReadVslPwrStateReg(XIL_CUR_PWR_STATE);
+#endif
+
 		if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) ==
 					XIL_CUR_PWR_STATE_D0) {
 			break;
 		}
 
 		XUsbPsu_Sleep(XUSBPSU_TIMEOUT);
-		retries = retries - 1U;
+		Retries = Retries - 1U;
 	}
 
-	if (retries == 0U) {
+	if (Retries == 0U) {
 		xil_printf("Failed to change power state to D0\r\n");
 		return;
 	}
 
 	/* ask core to restore non-sticky registers */
 	if (XUsbPsu_CoreRegRestore(InstancePtr) == XST_FAILURE) {
+		xil_printf("Failed to Core Restore\r\n");
 		return;
 	}
 
@@ -511,9 +523,12 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 	XUsbPsu_Sleep(XUSBPSU_TIMEOUT * 10U);
 
 	/* Processes link state events for hibernation */
-	XUsbPsu_HibernationStateIntr(InstancePtr);
+	if (XUsbPsu_HibernationStateIntr(InstancePtr) == XST_FAILURE) {
+#ifdef XUSBPSU_DEBUG
+		xil_printf("link state event failure\r\n");
+#endif
 
-	xil_printf("We are back from hibernation!\r\n");
+	}
 
 }
 

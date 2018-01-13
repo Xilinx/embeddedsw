@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu.h
-* @addtogroup usbpsu_v1_7
+* @addtogroup usbpsu_v1_8
 * @{
 * @details
 *
@@ -44,6 +44,7 @@
 * 1.7	pm    14/11/19 Updated number of TRB to improve performance
 * 	pm    03/23/20 Restructured the code for more readability and modularity
 *	pm    03/14/20 Added clocking support
+* 1.8	pm    24/07/20 Fixed MISRA-C and Coverity warnings
 *
 * </pre>
 *
@@ -60,7 +61,6 @@ extern "C" {
 /* Enable XUSBPSU_HIBERNATION_ENABLE to enable hibernation */
 //#define XUSBPSU_HIBERNATION_ENABLE		1
 
-#include "xparameters.h"
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
@@ -182,8 +182,8 @@ extern "C" {
 
 #define XUSBPSU_EVENT_SIZE			4U       /* bytes */
 #define XUSBPSU_EVENT_MAX_NUM			64U      /* 2 events/endpoint */
-#define XUSBPSU_EVENT_BUFFERS_SIZE		(XUSBPSU_EVENT_SIZE * \
-							XUSBPSU_EVENT_MAX_NUM)
+/* (event size * maximum number of event) */
+#define XUSBPSU_EVENT_BUFFERS_SIZE		256U
 
 #define XUSBPSU_EVENT_TYPE_MASK                 0x000000feU
 
@@ -627,8 +627,8 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 			XUsbPsu_Config *ConfigPtr, u32 BaseAddress);
 s32 XUsbPsu_Start(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_Stop(struct XUsbPsu *InstancePtr);
-s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep);
-s32 XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep);
+s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Timeout);
+s32 XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Timeout);
 s32 XUsbPsu_AcceptU1U2Sleep(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_U1SleepEnable(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_U2SleepEnable(struct XUsbPsu *InstancePtr);
@@ -665,7 +665,13 @@ void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr);
 void XUsbPsu_EnableIntr(struct XUsbPsu *InstancePtr, u32 Mask);
 void XUsbPsu_DisableIntr(struct XUsbPsu *InstancePtr, u32 Mask);
+
+/*
+ * Hibernation Functions
+ */
+#ifdef XUSBPSU_HIBERNATION_ENABLE
 void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr);
+#endif
 
 /*
  * Functions in xusbpsu_device.c

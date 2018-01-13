@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_controltransfers.c
-* @addtogroup usbpsu_v1_7
+* @addtogroup usbpsu_v1_8
 * @{
 *
 * <pre>
@@ -22,6 +22,7 @@
 * 1.4	vak 30/05/18 Removed xusb_wrapper files
 * 1.6	pm  28/08/19 Removed 80-character warnings
 * 1.7 	pm  23/03/20 Restructured the code for more readability and modularity
+* 1.8	pm  24/07/20 Fixed MISRA-C and Coverity warnings
 *
 * </pre>
 *
@@ -118,8 +119,7 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 		if (Dir == XUSBPSU_EP_DIR_IN) {
 			Ept->BytesTxed = Ept->RequestedBytes - Length;
 		} else {
-			if ((Dir == XUSBPSU_EP_DIR_OUT) &&
-				 (Ept->UnalignedTx == 1U)) {
+			if (Ept->UnalignedTx == 1U) {
 				Ept->BytesTxed = Ept->RequestedBytes;
 				Ept->UnalignedTx = 0U;
 			}
@@ -134,7 +134,7 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 		}
 	}
 
-	if (Ept->Handler) {
+	if (Ept->Handler != NULL) {
 		Ept->Handler(InstancePtr->AppData, Ept->RequestedBytes,
 							 Ept->BytesTxed);
 	}
@@ -249,7 +249,7 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 								Ept->UsbEpNum,
 								Ept->Direction);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -304,13 +304,13 @@ s32 XUsbPsu_EnableControlEp(struct XUsbPsu *InstancePtr, u16 Size)
 	Xil_AssertNonvoid((Size >= 64U) && (Size <= 512U));
 
 	RetVal = XUsbPsu_EpEnable(InstancePtr, 0U, XUSBPSU_EP_DIR_OUT, Size,
-				XUSBPSU_ENDPOINT_XFER_CONTROL, FALSE);
+				XUSBPSU_ENDPOINT_XFER_CONTROL, (u8)FALSE);
 	if (RetVal == XST_FAILURE) {
 		return (s32)XST_FAILURE;
 	}
 
 	RetVal = XUsbPsu_EpEnable(InstancePtr, 0U, XUSBPSU_EP_DIR_IN, Size,
-				XUSBPSU_ENDPOINT_XFER_CONTROL, FALSE);
+				XUSBPSU_ENDPOINT_XFER_CONTROL, (u8)FALSE);
 	if (RetVal == XST_FAILURE) {
 		return (s32)XST_FAILURE;
 	}

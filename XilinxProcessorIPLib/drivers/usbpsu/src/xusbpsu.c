@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu.c
-* @addtogroup usbpsu_v1_7
+* @addtogroup usbpsu_v1_8
 * @{
 *
 * <pre>
@@ -28,8 +28,9 @@
 *	pm    08/08/19 Added support to set AXI-Cache bits when CCI is enable
 *	pm    28/08/19 Removed 80-character warnings
 * 1.7	pm    02/20/20 Add support to set CCI bit in Coherency Mode Register
-*			when CCI is eanble
+*			when CCI is enable
 * 	pm    03/23/20 Restructured the code for more readability and modularity
+* 1.8	pm    24/07/20 Fixed MISRA-C and Coverity warnings
 *
 * </pre>
 *
@@ -147,7 +148,7 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr   != NULL);
-	Xil_AssertNonvoid(BaseAddress != 0U)
+	Xil_AssertNonvoid(BaseAddress != 0U);
 
 	InstancePtr->ConfigPtr = ConfigPtr;
 
@@ -174,7 +175,7 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 	/*
 	 * Set connection speed based on EnableSuperSpeed parameter
 	 */
-	Speed = (ConfigPtr->EnableSuperSpeed == TRUE) ?
+	Speed = (ConfigPtr->EnableSuperSpeed == (u8)TRUE) ?
 			XUSBPSU_DCFG_SUPERSPEED : XUSBPSU_DCFG_HIGHSPEED;
 
 	/*
@@ -184,7 +185,7 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 
 	(void)XUsbPsu_SetDeviceAddress(InstancePtr, 0U);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -271,7 +272,7 @@ u8 XUsbPsu_GetLinkState(struct XUsbPsu *InstancePtr)
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DSTS);
 
-	return XUSBPSU_DSTS_USBLNKST(RegVal);
+	return (u8)XUSBPSU_DSTS_USBLNKST(RegVal);
 }
 
 /****************************************************************************/
@@ -312,14 +313,14 @@ s32 XUsbPsu_SetLinkState(struct XUsbPsu *InstancePtr,
 * Set U1 sleep timeout
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Sleep is time in microseconds
+* @param	Timeout is time in microseconds
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
 * @note	None.
 *
 *****************************************************************************/
-s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep)
+s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Timeout)
 {
 	u32 RegVal;
 
@@ -327,7 +328,7 @@ s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep)
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_PORTMSC_30);
 	RegVal &= ~XUSBPSU_PORTMSC_30_U1_TIMEOUT_MASK;
-	RegVal |= (u32)(Sleep << XUSBPSU_PORTMSC_30_U1_TIMEOUT_SHIFT);
+	RegVal |= ((u32)Timeout << XUSBPSU_PORTMSC_30_U1_TIMEOUT_SHIFT);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_PORTMSC_30, RegVal);
 
 	return (s32)XST_SUCCESS;
@@ -339,14 +340,14 @@ s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep)
 * Set U2 sleep timeout
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Sleep is time in microseconds
+* @param	Timeout is time in microseconds
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
 * @note	None.
 *
 *****************************************************************************/
-s32 XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep)
+s32 XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Timeout)
 {
 	u32 RegVal;
 
@@ -354,7 +355,7 @@ s32 XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep)
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_PORTMSC_30);
 	RegVal &= ~XUSBPSU_PORTMSC_30_U2_TIMEOUT_MASK;
-	RegVal |= (u32)(Sleep << XUSBPSU_PORTMSC_30_U2_TIMEOUT_SHIFT);
+	RegVal |= ((u32)Timeout << XUSBPSU_PORTMSC_30_U2_TIMEOUT_SHIFT);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_PORTMSC_30, RegVal);
 
 	return (s32)XST_SUCCESS;

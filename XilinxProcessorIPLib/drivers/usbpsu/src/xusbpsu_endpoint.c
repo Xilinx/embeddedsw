@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_endpoint.c
-* @addtogroup usbpsu_v1_7
+* @addtogroup usbpsu_v1_8
 * @{
 *
 *
@@ -25,6 +25,7 @@
 * 1.6	pm  22/07/19 Removed coverity warnings
 *	pm  28/08/19 Removed 80-character warnings
 * 1.7 	pm  23/03/20 Restructured the code for more readability and modularity
+* 1.8	pm  24/07/20 Fixed MISRA-C and Coverity warnings
 *
 * </pre>
 *
@@ -112,7 +113,7 @@ s32 XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum, u8 Dir)
 		/* XferRscIdx == 0 for EP0 and 2 for the remaining */
 		if (PhyEpNum > 1U) {
 			if (InstancePtr->IsConfigDone != 0U) {
-				return XST_SUCCESS;
+				return (s32)XST_SUCCESS;
 			}
 			InstancePtr->IsConfigDone = 1U;
 			Cmd |= XUSBPSU_DEPCMD_PARAM(2U);
@@ -169,7 +170,7 @@ s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Params->Param1 = XUSBPSU_DEPCFG_XFER_COMPLETE_EN
 		| XUSBPSU_DEPCFG_XFER_NOT_READY_EN;
 
-	if (Restore == TRUE) {
+	if (Restore == (u8)TRUE) {
 		Params->Param0 |= XUSBPSU_DEPCFG_ACTION_RESTORE;
 		Params->Param2 = Ept->EpSavedState;
 	}
@@ -251,7 +252,7 @@ void XUsbPsu_StopActiveTransfers(struct XUsbPsu *InstancePtr)
 		}
 
 		XUsbPsu_StopTransfer(InstancePtr, Ept->UsbEpNum,
-				Ept->Direction, TRUE);
+				Ept->Direction, (u8)TRUE);
 	}
 }
 
@@ -316,7 +317,8 @@ s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr)
 		}
 
 		Ret = XUsbPsu_EpEnable(InstancePtr, Ept->UsbEpNum,
-				Ept->Direction, Ept->MaxSize, Ept->Type, TRUE);
+					Ept->Direction, Ept->MaxSize,
+					Ept->Type, (u8)TRUE);
 		if (Ret == XST_FAILURE) {
 			xil_printf("Failed to enable EP %d on wakeup: %d\r\n",
 					EpNum, Ret);
