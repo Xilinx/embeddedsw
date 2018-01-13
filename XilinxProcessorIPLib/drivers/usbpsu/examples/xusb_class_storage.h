@@ -12,10 +12,6 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * Use of the Software is limited solely to applications:
- * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -103,14 +99,16 @@ extern "C" {
 #define USB_EP_STATE_STATUS			3
 
 /**************************** Type Definitions ******************************/
+
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
+
 /*
  * The following structures define USB storage class requests. The details of
  * the contents of those structures are not important in the context of this
  * example.
  */
-#ifdef __ICCARM__
-#pragma pack(push, 1)
-#endif
 typedef struct {
 	u32 dCBWSignature;
 	u32 dCBWTag;
@@ -119,23 +117,15 @@ typedef struct {
 	u8  cCBWLUN;
 	u8  bCBWCBLength;
 	u8  CBWCB[16];
-#ifdef __ICCARM__
-} USB_CBW;
-#pragma pack(pop)
-#else
-} __attribute__((__packed__))USB_CBW;
-#endif
+} attribute(USB_CBW);
 
 typedef struct {
 	u32 dCSWSignature;
 	u32 dCSWTag;
 	u32 dCSWDataResidue;
 	u8  bCSWStatus;
-} __attribute__((__packed__))USB_CSW;
+} attribute(USB_CSW);
 
-#ifdef __ICCARM__
-#pragma pack(push, 1)
-#endif
 typedef	struct {
 	u8 deviceType;
 	u8 rmb;
@@ -148,16 +138,8 @@ typedef	struct {
 	u8 vendorID[8];
 	u8 productID[16];
 	u8 revision[4];
-#ifdef __ICCARM__
-} SCSI_INQUIRY;
-#pragma pack(pop)
-#else
-} __attribute__((__packed__))SCSI_INQUIRY;
-#endif
+} attribute(SCSI_INQUIRY);
 
-#ifdef __ICCARM__
-#pragma pack(push, 1)
-#endif
 typedef struct {
 	u8  reserved[3];
 	u8  listLength;
@@ -165,29 +147,13 @@ typedef struct {
 	u8  descCode;
 	u8  blockLengthMSB;
 	u16 blockLength;
-#ifdef __ICCARM__
-} SCSI_CAP_LIST;
-#pragma pack(pop)
-#else
-} __attribute__((__packed__))SCSI_CAP_LIST;
-#endif
+} attribute(SCSI_CAP_LIST);
 
-#ifdef __ICCARM__
-#pragma pack(push, 1)
-#endif
 typedef struct {
 	u32 numBlocks;
 	u32 blockSize;
-#ifdef __ICCARM__
-} SCSI_READ_CAPACITY;
-#pragma pack(pop)
-#else
-} __attribute__((__packed__))SCSI_READ_CAPACITY;
-#endif
+} attribute(SCSI_READ_CAPACITY);
 
-#ifdef __ICCARM__
-#pragma pack(push, 1)
-#endif
 typedef struct {
 	u8  opCode;
 	u8  reserved1;
@@ -195,16 +161,8 @@ typedef struct {
 	u8  reserved2;
 	u16 length;
 	u8  control;
-#ifdef __ICCARM__
-} SCSI_READ_WRITE;
-#pragma pack(pop)
-#else
-} __attribute__((__packed__))SCSI_READ_WRITE;
-#endif
+} attribute(SCSI_READ_WRITE);
 
-#ifdef __ICCARM__
-#pragma pack(push, 1)
-#endif
 typedef struct {
 	u8  opCode;
 	u8  immed;
@@ -212,11 +170,10 @@ typedef struct {
 	u8  reserved2;
 	u8  start;
 	u8  control;
+} attribute(SCSI_START_STOP);
+
 #ifdef __ICCARM__
-} SCSI_START_STOP;
 #pragma pack(pop)
-#else
-} __attribute__((__packed__))SCSI_START_STOP;
 #endif
 
 /************************** Function Prototypes ******************************/
