@@ -12,10 +12,6 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -62,6 +58,8 @@
 *	vak   22/01/18 Added changes for supporting microblaze platform
 *	vak   13/03/18 Moved the setup interrupt system calls from driver to
 *		       example.
+*	vak   24/09/18 Added EnableSuperSpeed in XUsbPsu_Config for speed
+*	               negotation at the time of connection to Host
 *
 * </pre>
 *
@@ -112,6 +110,9 @@ extern "C" {
 
 #define XUSBPSU_EP_DIR_IN				1U
 #define XUSBPSU_EP_DIR_OUT				0U
+
+#define XUSBPSU_USB_DIR_OUT				0U		/* to device */
+#define XUSBPSU_USB_DIR_IN				0x80U	/* to host */
 
 #define XUSBPSU_ENDPOINT_XFERTYPE_MASK      0x03    /* in bmAttributes */
 #define XUSBPSU_ENDPOINT_XFER_CONTROL       0U
@@ -273,7 +274,10 @@ typedef enum {
 #define		XUSBPSU_SPEED_HIGH				3U
 #define		XUSBPSU_SPEED_SUPER				4U
 
-
+/*
+ * return Physical EP number as dwc3 mapping
+ */
+#define XUSBPSU_PhysicalEp(epnum, direction)	(((epnum) << 1 ) | (direction))
 
 /**************************** Type Definitions ******************************/
 
@@ -379,6 +383,7 @@ typedef struct {
         u16 DeviceId;		/**< Unique ID of controller */
         u32 BaseAddress;	/**< Core register base address */
 		u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
+	u8 EnableSuperSpeed;	/**< Set to enable super speed support */
 } XUsbPsu_Config;
 
 typedef XUsbPsu_Config Usb_Config;
@@ -653,6 +658,7 @@ s32 XUsbPsu_U1SleepEnable(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_U2SleepEnable(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_U1SleepDisable(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_U2SleepDisable(struct XUsbPsu *InstancePtr);
+s32 XUsbPsu_IsSuperSpeed(struct XUsbPsu *InstancePtr);
 
 /*
  * Functions in xusbpsu_endpoint.c

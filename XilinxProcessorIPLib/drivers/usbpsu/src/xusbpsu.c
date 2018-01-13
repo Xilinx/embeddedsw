@@ -12,10 +12,6 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -47,13 +43,15 @@
 * 1.4	bk    12/01/18 Modify USBPSU driver code to fit USB common example code
 *		       for all USB IPs.
 *	myk   12/01/18 Added hibernation support for device mode
+* 1.4	vak   30/05/18 Removed xusb_wrapper files
+*	vak   24/09/18 Add support for connecting to host in high-speed
 * </pre>
 *
 *****************************************************************************/
 
 /***************************** Include Files ********************************/
 
-#include "xusb_wrapper.h"
+#include "xusbpsu.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -455,6 +453,7 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 {
 	s32 Status;
 	u32 RegVal;
+	u32 Speed;
 
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -484,9 +483,15 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 	XUsbPsu_SetMode(InstancePtr, XUSBPSU_GCTL_PRTCAP_DEVICE);
 
 	/*
+	 * Set connection speed based on EnableSuperSpeed parameter
+	 */
+	Speed = (ConfigPtr->EnableSuperSpeed) ?
+			XUSBPSU_DCFG_SUPERSPEED : XUSBPSU_DCFG_HIGHSPEED;
+
+	/*
 	 * Setting to max speed to support SS and HS
 	 */
-	XUsbPsu_SetSpeed(InstancePtr, XUSBPSU_DCFG_SUPERSPEED);
+	XUsbPsu_SetSpeed(InstancePtr, Speed);
 
 	(void)XUsbPsu_SetDeviceAddress(InstancePtr, 0U);
 
@@ -892,6 +897,26 @@ s32 XUsbPsu_U2SleepDisable(struct XUsbPsu *InstancePtr)
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
 	RegVal &= ~XUSBPSU_DCTL_INITU2ENA;
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* Checks if the current speed is Super Speed or not
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+*
+* @return	XST_SUCCESS else XST_FAILURE
+*
+* @note		None.
+*
+*****************************************************************************/
+s32 XUsbPsu_IsSuperSpeed(struct XUsbPsu *InstancePtr)
+{
+	if (InstancePtr->AppData->Speed != XUSBPSU_SPEED_SUPER) {
+		return XST_FAILURE;
+	}
 
 	return XST_SUCCESS;
 }

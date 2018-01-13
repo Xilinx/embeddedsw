@@ -42,9 +42,12 @@
  * Ver   Who  	Date     Changes
  * ----- ---- 	-------- -------------------------------------------------------
  * 1.0   BK 	12/01/18 First release
+<<<<<<< HEAD
  *	 MYK	12/01/18 Added hibernation support for device mode
  *	 vak	13/03/18 Moved the setup interrupt system calls from driver to
  *			 example.
+=======
+>>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
  *
  * </pre>
  *
@@ -115,6 +118,16 @@ void SetEpHandler(void *InstancePtr, u8 Epnum,
 	XUsbPsu_SetEpHandler((struct XUsbPsu *)InstancePtr, Epnum, Dir, Handler);
 }
 
+<<<<<<< HEAD
+=======
+s32 SetupInterruptSystem(void *InstancePtr, u16 IntcDeviceID,
+			XScuGic *IntcInstancePtr)
+{
+	return XUsbPsu_SetupInterruptSystem((struct XUsbPsu *)InstancePtr,
+					IntcDeviceID, IntcInstancePtr);
+}
+
+>>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
 s32 Usb_Start(void *InstancePtr)
 {
 	return XUsbPsu_Start((struct XUsbPsu *)InstancePtr);
@@ -213,7 +226,11 @@ s32 U2SleepDisable(void *InstancePtr)
 s32 EpEnable(void *InstancePtr, u8 UsbEpNum, u8 Dir, u16 Maxsize, u8 Type)
 {
 	return XUsbPsu_EpEnable((struct XUsbPsu *)InstancePtr, UsbEpNum, Dir,
+<<<<<<< HEAD
 			Maxsize, Type, FALSE);
+=======
+			Maxsize, Type);
+>>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
 }
 
 s32 EpDisable(void *InstancePtr, u8 UsbEpNum, u8 Dir)
@@ -310,7 +327,11 @@ void SetEpInterval(void *InstancePtr, u8 UsbEpNum, u8 Dir, u32 Interval)
 
 void StopTransfer(void *InstancePtr, u8 EpNum, u8 Dir)
 {
+<<<<<<< HEAD
 	XUsbPsu_StopTransfer((struct XUsbPsu *)InstancePtr, EpNum, Dir, TRUE);
+=======
+	XUsbPsu_StopTransfer((struct XUsbPsu *)InstancePtr, EpNum, Dir);
+>>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
 }
 
 s32 StreamOn(void *InstancePtr, u8 EpNum, u8 Dir, u8 *BufferPtr)
