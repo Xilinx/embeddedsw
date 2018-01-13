@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
 * @file xusbpsu_hw.h
-* @addtogroup usbpsu_v1_6
+* @addtogroup usbpsu_v1_7
 * @{
 *
 * <pre>
@@ -39,6 +19,7 @@
 * 1.0   sg    06/06/16 First release
 * 1.4   myk   12/01/18 Added support of hibernation
 * 1.6	pm    08/08/19 Added AXI-Cache bits masking for CCI feature is enable
+* 1.7	pm    02/20/20 Added Coherency Mode Register for CCI feature is enable
 *
 * </pre>
 *
@@ -63,8 +44,8 @@ extern "C" {
  */
 
 /**/
-#define XUSBPSU_PORTSC_30						0x430U
-#define XUSBPSU_PORTMSC_30						0x434U
+#define XUSBPSU_PORTSC_30			0x430U
+#define XUSBPSU_PORTMSC_30			0x434U
 
 /* XUSBPSU registers memory space boundaries */
 #define XUSBPSU_GLOBALS_REGS_START              0xC100U
@@ -147,7 +128,7 @@ extern "C" {
 /* Global Configuration Register */
 #define XUSBPSU_GCTL_PWRDNSCALE(n)              ((n) << 19U)
 #define XUSBPSU_GCTL_U2RSTECN                   (1U << 16U)
-#define XUSBPSU_GCTL_RAMCLKSEL(x)       (((x) & XUSBPSU_GCTL_CLK_MASK) << 6U)
+#define XUSBPSU_GCTL_RAMCLKSEL(x)       	(((x) & XUSBPSU_GCTL_CLK_MASK) << 6U)
 #define XUSBPSU_GCTL_CLK_BUS                    (0U)
 #define XUSBPSU_GCTL_CLK_PIPE                   (1U)
 #define XUSBPSU_GCTL_CLK_PIPEHALF               (2U)
@@ -301,15 +282,19 @@ extern "C" {
 /* AXI-cache bits offset DATRDREQINFO */
 #define XUSBPSU_GSBUSCFG0_BITMASK		0xFFFF0000U
 
+/* Coherency Mode Register Offset */
+#define XUSBPSU_COHERENCY			0x005CU
+#define XUSBPSU_COHERENCY_MODE_ENABLE		0x01U
+
 /*Portpmsc 3.0 bit field*/
-#define XUSBPSU_PORTMSC_30_FLA_MASK				(1U << 16U)
-#define XUSBPSU_PORTMSC_30_U2_TIMEOUT_MASK		(0xFFU << 8U)
-#define XUSBPSU_PORTMSC_30_U2_TIMEOUT_SHIFT		(8U)
-#define XUSBPSU_PORTMSC_30_U1_TIMEOUT_MASK		(0xFFU << 0U)
-#define XUSBPSU_PORTMSC_30_U1_TIMEOUT_SHIFT		(0U)
+#define XUSBPSU_PORTMSC_30_FLA_MASK		(1U << 16U)
+#define XUSBPSU_PORTMSC_30_U2_TIMEOUT_MASK	(0xFFU << 8U)
+#define XUSBPSU_PORTMSC_30_U2_TIMEOUT_SHIFT	(8U)
+#define XUSBPSU_PORTMSC_30_U1_TIMEOUT_MASK	(0xFFU << 0U)
+#define XUSBPSU_PORTMSC_30_U1_TIMEOUT_SHIFT	(0U)
 
 /* Register for LPD block */
-#define RST_LPD_TOP					0x23CU
+#define RST_LPD_TOP				0x23CU
 #define USB0_CORE_RST				(1U << 6U)
 #define USB1_CORE_RST				(1U << 7U)
 
@@ -360,7 +345,7 @@ extern "C" {
 * register access to all registers using the register offsets defined above.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	RegOffset is the offset of the register to write.
+* @param	Offset is the offset of the register to write.
 * @param	Data is the value to write to the register.
 *
 * @return	None.
@@ -394,14 +379,14 @@ extern "C" {
 *
 * Write a Vendor register of the USBPS8 device.
 *
-* @param       RegOffset is the offset of the register to write.
+* @param       Offset is the offset of the register to write.
 * @param       Data is the value to write to the register.
 *
 * @return      None.
 *
 * @note        C-style Signature:
 *              void XUsbPsu_WriteVendorReg(struct XUsbPsu *InstancePtr,
-*                                                              u32 Offset,u32 Data)
+*                                                         u32 Offset,u32 Data);
 *
 ******************************************************************************/
 #define XUsbPsu_WriteVendorReg(Offset, Data) \
@@ -412,7 +397,7 @@ extern "C" {
 *
 * Read a LPD register of the USBPS8 device.
 *
-* @param       InstancePtr is a pointer to the XUsbPsu instance.
+*
 * @param       Offset is the offset of the register to read.
 *
 * @return      The contents of the register.
@@ -429,15 +414,14 @@ extern "C" {
 *
 * Write a LPD register of the USBPS8 device.
 *
-* @param       InstancePtr is a pointer to the XUsbPsu instance.
-* @param       RegOffset is the offset of the register to write.
+* @param       Offset is the offset of the register to write.
 * @param       Data is the value to write to the register.
 *
 * @return      None.
 *
 * @note        C-style Signature:
 *              void XUsbPsu_WriteLpdReg(struct XUsbPsu *InstancePtr,
-*                                                              u32 Offset,u32 Data)
+*                                                         u32 Offset,u32 Data);
 *
 ******************************************************************************/
 #define XUsbPsu_WriteLpdReg(Offset, Data) \
