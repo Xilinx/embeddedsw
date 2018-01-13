@@ -88,6 +88,10 @@ openamp_matrix_multiply_demo:
 openamp_echo_test:
 - Update to work with updated openamp and libmetal libs
 
+usbpsu_v1_4:
+Modify USBPSU driver code to fit USB common example code for all USB IPs
+Added support for flushing Dcache for setupdata packet for control ep's
+
 Changes for 2017.4
 ===============================
 
