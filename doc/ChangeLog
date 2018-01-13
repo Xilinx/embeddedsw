@@ -442,6 +442,7 @@ usbpsu_v1_4:
 Modify USBPSU driver code to fit USB common example code for all USB IPs
 Added support for flushing Dcache for setupdata packet for control ep's
 Changed the mass storage examples to be in sync with common mode example code
+<<<<<<< HEAD
 Changed the dfu examples to be in sync with common example code
 Added hibernation support for usb
 Added changes to usbpsu driver for supporting microblaze platform
@@ -532,6 +533,8 @@ usbpsu_v1_4:
 Modify USBPSU driver code to fit USB common example code for all USB IPs
 Added support for flushing Dcache for setupdata packet for control ep's
 >>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
+=======
+>>>>>>> drivers: usbpsu: Add common mass storage example changes
 
 Changes for 2017.4
 ===============================

@@ -46,9 +46,13 @@
  *                    examples.
  * 1.4   BK  12/01/18 Renamed the file and added changes to have a common
  *		      example for all USB IPs.
+<<<<<<< HEAD
  *	 vak 22/01/18 Added changes for supporting microblaze platform
  *	 vak 13/03/18 Moved the setup interrupt system calls from driver to
  *		      example.
+=======
+ *
+>>>>>>> drivers: usbpsu: Add common mass storage example changes
  * </pre>
  *
  *****************************************************************************/
@@ -60,6 +64,7 @@
 #include <stdio.h>
 #include "xusb_ch9_storage.h"
 #include "xusb_class_storage.h"
+<<<<<<< HEAD
 #include "xusb_wrapper.h"
 #include "xil_exception.h"
 
@@ -70,6 +75,8 @@
 #elif defined PLATFORM_ZYNQMP
 #include "xscugic.h"
 #endif
+=======
+>>>>>>> drivers: usbpsu: Add common mass storage example changes
 
 /************************** Constant Definitions ****************************/
 #define MEMORY_SIZE (64 * 1024)
@@ -90,14 +97,18 @@ void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
 							u32 BytesTxed);
 void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
 							u32 BytesTxed);
+<<<<<<< HEAD
 static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 		u16 USB_INTR_ID, void *IntcPtr);
+=======
+>>>>>>> drivers: usbpsu: Add common mass storage example changes
 
 /************************** Variable Definitions *****************************/
 struct Usb_DevData UsbInstance;
 
 Usb_Config *UsbConfigPtr;
 
+<<<<<<< HEAD
 #ifdef __MICROBLAZE__
 #ifdef XPAR_INTC_0_DEVICE_ID
 XIntc	InterruptController;	/*XIntc interrupt controller instance */
@@ -119,6 +130,9 @@ XScuGic	InterruptController;	/* Interrupt controller instance */
 #define	INTC_DEVICE_ID		0
 #define	USB_INT_ID		0
 #endif
+=======
+XScuGic InterruptController;  /* Interrupt controller instance */
+>>>>>>> drivers: usbpsu: Add common mass storage example changes
 
 /* Buffer for virtual flash disk space. */
 u8 VirtFlash[VFLASH_SIZE] ALIGNMENT_CACHELINE;
@@ -213,7 +227,11 @@ int main(void)
 	}
 
 	/*
+<<<<<<< HEAD
 	 * set endpoint handlers
+=======
+     * set endpoint handlers
+>>>>>>> drivers: usbpsu: Add common mass storage example changes
 	 * BulkOutHandler - to be called when data is received
 	 * BulkInHandler -  to be called when data is sent
 	 */
@@ -224,7 +242,11 @@ int main(void)
 
 	/* setup interrupts */
 	Status = SetupInterruptSystem(UsbInstance.PrivateData, INTC_DEVICE_ID,
+<<<<<<< HEAD
 					USB_INT_ID, (void *)&InterruptController);
+=======
+					&InterruptController);
+>>>>>>> drivers: usbpsu: Add common mass storage example changes
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -302,6 +324,7 @@ void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
 		EpBufferRecv(InstancePtr->PrivateData, 1, (u8*)&CBW, sizeof(CBW));
 	}
 }
+<<<<<<< HEAD
 
 /****************************************************************************/
 /**
@@ -478,3 +501,5 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 
 	return XST_SUCCESS;
 }
+=======
+>>>>>>> drivers: usbpsu: Add common mass storage example changes
