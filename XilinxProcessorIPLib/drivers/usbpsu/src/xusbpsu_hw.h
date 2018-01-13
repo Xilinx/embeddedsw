@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
 /**
 *
 * @file xusbpsu_hw.h
-* @addtogroup usbpsu_v1_3
+* @addtogroup usbpsu_v1_6
 * @{
 *
 * <pre>
@@ -40,6 +38,7 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   sg    06/06/16 First release
 * 1.4   myk   12/01/18 Added support of hibernation
+* 1.6	pm    08/08/19 Added AXI-Cache bits masking for CCI feature is enable
 *
 * </pre>
 *
@@ -67,7 +66,7 @@ extern "C" {
 #define XUSBPSU_PORTSC_30						0x430U
 #define XUSBPSU_PORTMSC_30						0x434U
 
-/* XUSBPSU registers memory space boundries */
+/* XUSBPSU registers memory space boundaries */
 #define XUSBPSU_GLOBALS_REGS_START              0xC100U
 #define XUSBPSU_GLOBALS_REGS_END                0xC6FFU
 #define XUSBPSU_DEVICE_REGS_START               0xC700U
@@ -298,6 +297,9 @@ extern "C" {
 #define XUSBPSU_DSTS_FULLSPEED2                 (1U << 0U)
 #define XUSBPSU_DSTS_LOWSPEED                   (2U << 0U)
 #define XUSBPSU_DSTS_FULLSPEED1                 (3U << 0U)
+
+/* AXI-cache bits offset DATRDREQINFO */
+#define XUSBPSU_GSBUSCFG0_BITMASK		0xFFFF0000U
 
 /*Portpmsc 3.0 bit field*/
 #define XUSBPSU_PORTMSC_30_FLA_MASK				(1U << 16U)
