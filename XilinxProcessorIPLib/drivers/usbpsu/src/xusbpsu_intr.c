@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
 /**
 *
 * @file xusbpsu_intr.c
-* @addtogroup usbpsu_v1_3
+* @addtogroup usbpsu_v1_6
 * @{
 *
 *
@@ -71,7 +69,7 @@
 * Endpoint interrupt handler.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is endpoint Event occured in the core.
+* @param	Event is endpoint Event occurred in the core.
 *
 * @return	None.
 *
@@ -374,7 +372,7 @@ void XUsbPsu_LinkStsChangeIntr(struct XUsbPsu *InstancePtr, u32 EvtInfo)
 * Interrupt handler for device specific events.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is the Device Event occured in core.
+* @param	Event is the Device Event occurred in core.
 *
 * @return	None.
 *

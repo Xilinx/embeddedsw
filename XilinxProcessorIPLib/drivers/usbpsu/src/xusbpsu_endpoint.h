@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
  *
  * @file xusbps_endpoint.h
-* @addtogroup usbpsu_v1_3
+* @addtogroup usbpsu_v1_6
 * @{
  *
  * This is an internal file containing the definitions for endpoints. It is
@@ -44,7 +42,7 @@
  * 1.0   sg  06/06/16  First release
  * 1.4 	 bk  12/01/18  Modify USBPSU driver code to fit USB common example code
  *		       for all USB IPs.
- *
+ * 1.6   pm  22/07/18  Removed coverity warning- INCLUDE_RECURSION
  * </pre>
  *
  ******************************************************************************/
@@ -59,7 +57,6 @@ extern "C" {
 
 #include "xil_cache.h"
 #include "xil_types.h"
-#include "xusbpsu.h"
 
 /**************************** Type Definitions *******************************/
 

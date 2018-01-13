@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
 /**
 *
 * @file xusbpsu_controltransfers.c
-* @addtogroup usbpsu_v1_0
+* @addtogroup usbpsu_v1_6
 * @{
 *
 * <pre>
@@ -42,6 +40,7 @@
 * 1.4	bk  12/01/18 Modify USBPSU driver code to fit USB common example code
 *		     for all USB IPs.
 * 1.4	vak 30/05/18 Removed xusb_wrapper files
+* 1.6	pm  28/08/19 Removed 80-character warnings
 * </pre>
 *
 *****************************************************************************/
@@ -93,7 +92,8 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 	TrbPtr = &InstancePtr->Ep0_Trb;
 
 	TrbPtr->BufferPtrLow = (UINTPTR)&InstancePtr->SetupData;
-	TrbPtr->BufferPtrHigh = ((UINTPTR)&InstancePtr->SetupData >> 16U) >> 16U;
+	TrbPtr->BufferPtrHigh = ((UINTPTR)&InstancePtr->SetupData >> 16U)
+									 >> 16U;
 	TrbPtr->Size = 8U;
 	TrbPtr->Ctrl = XUSBPSU_TRBCTL_CONTROL_SETUP;
 
@@ -103,8 +103,10 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 			| XUSBPSU_TRB_CTRL_ISP_IMI);
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
-		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
-		Xil_DCacheFlushRange((UINTPTR)&InstancePtr->SetupData, sizeof(SetupPacket));
+		Xil_DCacheFlushRange((INTPTR)TrbPtr,
+						 sizeof(struct XUsbPsu_Trb));
+		Xil_DCacheFlushRange((UINTPTR)&InstancePtr->SetupData,
+						 sizeof(SetupPacket));
 	}
 
 	Params->Param0 = 0U;
@@ -120,7 +122,8 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 
 	Ept->EpStatus |= XUSBPSU_EP_BUSY;
 	Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
-						Ept->UsbEpNum, Ept->Direction);
+								Ept->UsbEpNum,
+								Ept->Direction);
 
 	return XST_SUCCESS;
 }
@@ -160,7 +163,7 @@ void XUsbPsu_Ep0StallRestart(struct XUsbPsu *InstancePtr)
 * Checks the Data Phase and calls user Endpoint handler.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is a pointer to the Endpoint event occured in core.
+* @param	Event is a pointer to the Endpoint event occurred in core.
 *
 * @return	None.
 *
@@ -168,7 +171,7 @@ void XUsbPsu_Ep0StallRestart(struct XUsbPsu *InstancePtr)
 *
 *****************************************************************************/
 void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
-						 const struct XUsbPsu_Event_Epevt *Event)
+				 const struct XUsbPsu_Event_Epevt *Event)
 {
 	struct XUsbPsu_Ep	*Ept;
 	struct XUsbPsu_Trb	*TrbPtr;
@@ -186,7 +189,8 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 	TrbPtr = &InstancePtr->Ep0_Trb;
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
-		Xil_DCacheInvalidateRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+		Xil_DCacheInvalidateRange((INTPTR)TrbPtr,
+					 sizeof(struct XUsbPsu_Trb));
 	}
 
 	Status = XUSBPSU_TRB_SIZE_TRBSTS(TrbPtr->Size);
@@ -202,9 +206,10 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 		if (Dir == XUSBPSU_EP_DIR_IN) {
 			Ept->BytesTxed = Ept->RequestedBytes - Length;
 		} else {
-			if ((Dir == XUSBPSU_EP_DIR_OUT) && (Ept->UnalignedTx == 1U)) {
-					Ept->BytesTxed = Ept->RequestedBytes;
-					Ept->UnalignedTx = 0U;
+			if ((Dir == XUSBPSU_EP_DIR_OUT) &&
+				 (Ept->UnalignedTx == 1U)) {
+				Ept->BytesTxed = Ept->RequestedBytes;
+				Ept->UnalignedTx = 0U;
 			}
 		}
 	}
@@ -212,12 +217,14 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 	if (Dir == XUSBPSU_EP_DIR_OUT) {
 		/* Invalidate Cache */
 		if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
-			Xil_DCacheInvalidateRange((INTPTR)Ept->BufferPtr, Ept->BytesTxed);
+			Xil_DCacheInvalidateRange((INTPTR)Ept->BufferPtr,
+							 Ept->BytesTxed);
 		}
 	}
 
 	if (Ept->Handler) {
-		Ept->Handler(InstancePtr->AppData, Ept->RequestedBytes, Ept->BytesTxed);
+		Ept->Handler(InstancePtr->AppData, Ept->RequestedBytes,
+							 Ept->BytesTxed);
 	}
 }
 
@@ -226,7 +233,7 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 * Checks the Status Phase and starts next Control transfer.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is a pointer to the Endpoint event occured in core.
+* @param	Event is a pointer to the Endpoint event occurred in core.
 *
 * @return	None.
 *
@@ -234,7 +241,7 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 *
 *****************************************************************************/
 void XUsbPsu_Ep0StatusDone(struct XUsbPsu *InstancePtr,
-		const struct XUsbPsu_Event_Epevt *Event)
+				const struct XUsbPsu_Event_Epevt *Event)
 {
 	struct XUsbPsu_Trb	*TrbPtr;
 
@@ -254,7 +261,8 @@ void XUsbPsu_Ep0StatusDone(struct XUsbPsu *InstancePtr,
 		}
 	}
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
-		Xil_DCacheInvalidateRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+		Xil_DCacheInvalidateRange((INTPTR)TrbPtr,
+					 sizeof(struct XUsbPsu_Trb));
 	}
 
 	(void)XUsbPsu_RecvSetup(InstancePtr);
@@ -265,7 +273,7 @@ void XUsbPsu_Ep0StatusDone(struct XUsbPsu *InstancePtr,
 * Handles Transfer complete event of Control Endpoints EP0 OUT and EP0 IN.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is a pointer to the Endpoint event occured in core.
+* @param	Event is a pointer to the Endpoint event occurred in core.
 *
 * @return	None.
 *
@@ -273,7 +281,7 @@ void XUsbPsu_Ep0StatusDone(struct XUsbPsu *InstancePtr,
 *
 *****************************************************************************/
 void XUsbPsu_Ep0XferComplete(struct XUsbPsu *InstancePtr,
-							 const struct XUsbPsu_Event_Epevt *Event)
+				 const struct XUsbPsu_Event_Epevt *Event)
 {
 	struct XUsbPsu_Ep *Ept;
 	SetupPacket *Ctrl;
@@ -291,7 +299,8 @@ void XUsbPsu_Ep0XferComplete(struct XUsbPsu *InstancePtr,
 	switch (InstancePtr->Ep0State) {
 	case XUSBPSU_EP0_SETUP_PHASE:
 		if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
-			Xil_DCacheInvalidateRange((INTPTR)&InstancePtr->SetupData,
+			Xil_DCacheInvalidateRange(
+					(INTPTR)&InstancePtr->SetupData,
 					sizeof(InstancePtr->SetupData));
 		}
 		Length = Ctrl->wLength;
@@ -307,7 +316,7 @@ void XUsbPsu_Ep0XferComplete(struct XUsbPsu *InstancePtr,
 		Xil_AssertVoid(InstancePtr->Chapter9 != NULL);
 
 		InstancePtr->Chapter9(InstancePtr->AppData,
-									&InstancePtr->SetupData);
+						&InstancePtr->SetupData);
 		break;
 
 	case XUSBPSU_EP0_DATA_PHASE:
@@ -329,7 +338,7 @@ void XUsbPsu_Ep0XferComplete(struct XUsbPsu *InstancePtr,
 * Starts Status Phase of Control Transfer
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is a pointer to the Endpoint event occured in core.
+* @param	Event is a pointer to the Endpoint event occurred in core.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
@@ -356,12 +365,14 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 		return (s32)XST_FAILURE;
 	}
 
-	Type = (InstancePtr->IsThreeStage != 0U) ? XUSBPSU_TRBCTL_CONTROL_STATUS3
+	Type = (InstancePtr->IsThreeStage != 0U) ?
+					 XUSBPSU_TRBCTL_CONTROL_STATUS3
 					: XUSBPSU_TRBCTL_CONTROL_STATUS2;
 	TrbPtr = &InstancePtr->Ep0_Trb;
 	/* we use same TrbPtr for setup packet */
 	TrbPtr->BufferPtrLow = (UINTPTR)&InstancePtr->SetupData;
-	TrbPtr->BufferPtrHigh = ((UINTPTR)&InstancePtr->SetupData >> 16U) >> 16U;
+	TrbPtr->BufferPtrHigh = ((UINTPTR)&InstancePtr->SetupData >> 16U)
+								 >> 16U;
 	TrbPtr->Size = 0U;
 	TrbPtr->Ctrl = Type;
 
@@ -371,7 +382,8 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 			| XUSBPSU_TRB_CTRL_ISP_IMI);
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
-		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+		Xil_DCacheFlushRange((INTPTR)TrbPtr,
+						 sizeof(struct XUsbPsu_Trb));
 	}
 
 	Params->Param0 = 0U;
@@ -386,21 +398,23 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 	Dir = !InstancePtr->ControlDir;
 
 	Ret = XUsbPsu_SendEpCmd(InstancePtr, 0U, Dir,
-							XUSBPSU_DEPCMD_STARTTRANSFER, Params);
+						XUSBPSU_DEPCMD_STARTTRANSFER,
+						Params);
 	if (Ret != XST_SUCCESS) {
 		return (s32)XST_FAILURE;
 	}
 
 	Ept->EpStatus |= XUSBPSU_EP_BUSY;
 	Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
-							Ept->UsbEpNum, Ept->Direction);
+								Ept->UsbEpNum,
+								Ept->Direction);
 
 	return XST_SUCCESS;
 }
 
 /****************************************************************************/
 /**
-* Ends Data Phase - used incase of error.
+* Ends Data Phase - used in case of error.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
 * @param	Dep is a pointer to the Endpoint structure.
@@ -411,7 +425,7 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 *
 *****************************************************************************/
 void XUsbPsu_Ep0_EndControlData(struct XUsbPsu *InstancePtr,
-								struct XUsbPsu_Ep *Ept)
+							struct XUsbPsu_Ep *Ept)
 {
 	struct XUsbPsu_EpParams *Params;
 	u32	Cmd;
@@ -439,7 +453,7 @@ void XUsbPsu_Ep0_EndControlData(struct XUsbPsu *InstancePtr,
 * Handles Transfer Not Ready event of Control Endpoints EP0 OUT and EP0 IN.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is a pointer to the Endpoint event occured in core.
+* @param	Event is a pointer to the Endpoint event occurred in core.
 *
 * @return	None.
 *
@@ -447,7 +461,7 @@ void XUsbPsu_Ep0_EndControlData(struct XUsbPsu *InstancePtr,
 *
 *****************************************************************************/
 void XUsbPsu_Ep0XferNotReady(struct XUsbPsu *InstancePtr,
-							 const struct XUsbPsu_Event_Epevt *Event)
+				 const struct XUsbPsu_Event_Epevt *Event)
 {
 	struct XUsbPsu_Ep *Ept;
 
@@ -488,7 +502,7 @@ void XUsbPsu_Ep0XferNotReady(struct XUsbPsu *InstancePtr,
 * Handles Interrupts of Control Endpoints EP0 OUT and EP0 IN.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is a pointer to the Endpoint event occured in core.
+* @param	Event is a pointer to the Endpoint event occurred in core.
 *
 * @return	None.
 *
@@ -539,7 +553,7 @@ s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 {
 	/* Control IN - EP1 */
 	struct XUsbPsu_EpParams *Params;
-	struct XUsbPsu_Ep 	*Ept;
+	struct XUsbPsu_Ep	*Ept;
 	struct XUsbPsu_Trb	*TrbPtr;
 	s32 Ret;
 
@@ -574,21 +588,23 @@ s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 	Params->Param1 = (UINTPTR)TrbPtr;
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
-		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+		Xil_DCacheFlushRange((INTPTR)TrbPtr,
+					 sizeof(struct XUsbPsu_Trb));
 		Xil_DCacheFlushRange((INTPTR)BufferPtr, BufferLen);
 	}
 
 	InstancePtr->Ep0State = XUSBPSU_EP0_DATA_PHASE;
 
 	Ret = XUsbPsu_SendEpCmd(InstancePtr, 0U, XUSBPSU_EP_DIR_IN,
-							XUSBPSU_DEPCMD_STARTTRANSFER, Params);
+					XUSBPSU_DEPCMD_STARTTRANSFER, Params);
 	if (Ret != XST_SUCCESS) {
 		return (s32)XST_FAILURE;
 	}
 
 	Ept->EpStatus |= XUSBPSU_EP_BUSY;
 	Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
-						Ept->UsbEpNum, Ept->Direction);
+								Ept->UsbEpNum,
+								Ept->Direction);
 
 	return XST_SUCCESS;
 }
@@ -609,7 +625,7 @@ s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 {
 	struct XUsbPsu_EpParams *Params;
-	struct XUsbPsu_Ep 	*Ept;
+	struct XUsbPsu_Ep	*Ept;
 	struct XUsbPsu_Trb	*TrbPtr;
 	u32 Size;
 	s32 Ret;
@@ -654,7 +670,8 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 			| XUSBPSU_TRB_CTRL_ISP_IMI);
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
-		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+		Xil_DCacheFlushRange((INTPTR)TrbPtr,
+					 sizeof(struct XUsbPsu_Trb));
 		Xil_DCacheInvalidateRange((INTPTR)BufferPtr, Length);
 	}
 
@@ -671,7 +688,7 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 
 	Ept->EpStatus |= XUSBPSU_EP_BUSY;
 	Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
-							Ept->UsbEpNum, Ept->Direction);
+						Ept->UsbEpNum, Ept->Direction);
 
 	return XST_SUCCESS;
 }
@@ -688,7 +705,8 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 * @note		None.
 *
 ******************************************************************************/
-void XUsbSleep(u32 USeconds) {
+void XUsbSleep(u32 USeconds)
+{
 	(void)usleep(USeconds);
 }
 /** @} */

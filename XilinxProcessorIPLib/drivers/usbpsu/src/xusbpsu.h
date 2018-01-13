@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
 /**
 *
 * @file xusbpsu.h
-* @addtogroup usbpsu_v1_3
+* @addtogroup usbpsu_v1_6
 * @{
 * @details
 *
@@ -40,7 +38,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   sg    06/06/16 First release
-* 1.1   sg    10/24/16 Update for backward compatability
+* 1.1   sg    10/24/16 Update for backward compatibility
 *                      Added XUsbPsu_IsSuperSpeed function in xusbpsu.c
 * 1.2   mn    01/20/17 removed unnecessary declaration of
 *                      XUsbPsu_SetConfiguration in xusbpsu.h
@@ -59,9 +57,10 @@
 *	vak   13/03/18 Moved the setup interrupt system calls from driver to
 *		       example.
 *	vak   24/09/18 Added EnableSuperSpeed in XUsbPsu_Config for speed
-*	               negotation at the time of connection to Host
+*	               negotiation at the time of connection to Host
 * 1.5	vak   02/06/19 Added "xusbpsu_endpoint.h" header
 * 1.5	vak   03/25/19 Fixed incorrect data_alignment pragma directive for IAR
+* 1.6	pm    22/07/19 Removed coverity warnings
 *
 * </pre>
 *
@@ -645,7 +644,7 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 s32 XUsbPsu_Start(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_Stop(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_SetTestMode(struct XUsbPsu *InstancePtr, u32 Mode);
-XusbPsuLinkState XUsbPsu_GetLinkState(struct XUsbPsu *InstancePtr);
+u8 XUsbPsu_GetLinkState(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_SetLinkState(struct XUsbPsu *InstancePtr,
 		XusbPsuLinkStateChange State);
 s32 XUsbPsu_SendGenericCmd(struct XUsbPsu *InstancePtr,
