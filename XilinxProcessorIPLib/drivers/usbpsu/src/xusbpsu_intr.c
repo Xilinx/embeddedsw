@@ -44,6 +44,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sg  06/06/16 First release
 * 1.3   vak 04/03/17 Added CCI support for USB
+* 1.4	bk  12/01/18 Modify USBPSU driver code to fit USB common example code
+*		       for all USB IPs
 *
 * </pre>
 *
@@ -51,7 +53,7 @@
 
 /***************************** Include Files ********************************/
 
-#include "xusbpsu.h"
+#include "xusb_wrapper.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -96,10 +98,12 @@ void XUsbPsu_EpInterrupt(struct XUsbPsu *InstancePtr,
 	/* Handle other end point events */
 	switch (Event->Endpoint_Event) {
 		case XUSBPSU_DEPEVT_XFERCOMPLETE:
+		case XUSBPSU_DEPEVT_XFERINPROGRESS:
 			XUsbPsu_EpXferComplete(InstancePtr, Event);
 			break;
 
 		case XUSBPSU_DEPEVT_XFERNOTREADY:
+			XUsbPsu_EpXferNotReady(InstancePtr, Event);
 			break;
 
 		default:
@@ -131,11 +135,11 @@ void XUsbPsu_DisconnectIntr(struct XUsbPsu *InstancePtr)
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
 
 	InstancePtr->IsConfigDone = 0U;
-	InstancePtr->Speed = XUSBPSU_SPEED_UNKNOWN;
+	InstancePtr->AppData->Speed = XUSBPSU_SPEED_UNKNOWN;
 
 	/* Call the handler if necessary */
 	if (InstancePtr->DisconnectIntrHandler != NULL) {
-		InstancePtr->DisconnectIntrHandler(InstancePtr);
+		InstancePtr->DisconnectIntrHandler(InstancePtr->AppData);
 	}
 }
 
@@ -155,7 +159,7 @@ void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
 	u32	RegVal;
 	u32	Index;
 
-	InstancePtr->State = XUSBPSU_STATE_DEFAULT;
+	InstancePtr->AppData->State = XUSBPSU_STATE_DEFAULT;
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
 	RegVal &= ~XUSBPSU_DCTL_TSTCTRL_MASK;
@@ -177,7 +181,7 @@ void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
 
 	/* Call the handler if necessary */
 	if (InstancePtr->ResetIntrHandler != NULL) {
-		InstancePtr->ResetIntrHandler(InstancePtr);
+		InstancePtr->ResetIntrHandler(InstancePtr->AppData);
 	}
 }
 
@@ -200,7 +204,7 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DSTS);
 	Speed = (u8)(RegVal & XUSBPSU_DSTS_CONNECTSPD);
-	InstancePtr->Speed = Speed;
+	InstancePtr->AppData->Speed = Speed;
 
 	switch (Speed) {
 	case XUSBPSU_DCFG_SUPERSPEED:
@@ -208,7 +212,7 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 		xil_printf("Super Speed\r\n");
 #endif
 		Size = 512U;
-		InstancePtr->Speed = XUSBPSU_SPEED_SUPER;
+		InstancePtr->AppData->Speed = XUSBPSU_SPEED_SUPER;
 		break;
 
 	case XUSBPSU_DCFG_HIGHSPEED:
@@ -216,7 +220,7 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 		xil_printf("High Speed\r\n");
 #endif
 		Size = 64U;
-		InstancePtr->Speed = XUSBPSU_SPEED_HIGH;
+		InstancePtr->AppData->Speed = XUSBPSU_SPEED_HIGH;
 		break;
 
 	case XUSBPSU_DCFG_FULLSPEED2:
@@ -225,7 +229,7 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 		xil_printf("Full Speed\r\n");
 #endif
 		Size = 64U;
-		InstancePtr->Speed = XUSBPSU_SPEED_FULL;
+		InstancePtr->AppData->Speed = XUSBPSU_SPEED_FULL;
 		break;
 
 	case XUSBPSU_DCFG_LOWSPEED:
@@ -233,7 +237,7 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 		xil_printf("Low Speed\r\n");
 #endif
 		Size = 64U;
-		InstancePtr->Speed = XUSBPSU_SPEED_LOW;
+		InstancePtr->AppData->Speed = XUSBPSU_SPEED_LOW;
 		break;
 	default :
 		Size = 64U;
@@ -385,9 +389,9 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 		Event.Raw = *(UINTPTR *)((UINTPTR)Evt->BuffAddr + Evt->Offset);
 
 		/*
-         * Process the event received
-         */
-        XUsbPsu_EventHandler(InstancePtr, &Event);
+		 * Process the event received
+		 */
+		XUsbPsu_EventHandler(InstancePtr, &Event);
 
 		Evt->Offset = (Evt->Offset + 4U) % XUSBPSU_EVENT_BUFFERS_SIZE;
 		Evt->Count -= 4;
@@ -442,6 +446,86 @@ void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTSIZ(0));
 	RegVal &= ~XUSBPSU_GEVNTSIZ_INTMASK;
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0), RegVal);
+}
+
+/****************************************************************************/
+/**
+* This function setups the interrupt system such that interrupts can occur.
+* This function is application specific since the actual system may or may not
+* have an interrupt controller.  The USB controller could be
+* directly connected to a processor without an interrupt controller.
+* The user should modify this function to fit the application.
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	IntcDeviceID is the unique ID of the interrupt controller
+* @param	IntcInstacePtr is a pointer to the interrupt controller
+*			instance.
+*
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+*
+* @note		None.
+*
+*****************************************************************************/
+s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
+		XScuGic *IntcInstancePtr)
+{
+	s32 Status;
+	XScuGic_Config *IntcConfig; /* The configuration parameters of the
+									interrupt controller */
+
+	/*
+	 * Initialize the interrupt controller driver
+	 */
+	IntcConfig = XScuGic_LookupConfig(IntcDeviceID);
+	if (NULL == IntcConfig) {
+		return XST_FAILURE;
+	}
+
+	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
+								   IntcConfig->CpuBaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Connect to the interrupt controller
+	 */
+	Status = XScuGic_Connect(IntcInstancePtr, USB_INTR_ID,
+							(Xil_ExceptionHandler)XUsbPsu_IntrHandler,
+							(void *)InstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Enable the interrupt for the USB
+	 */
+	XScuGic_Enable(IntcInstancePtr, USB_INTR_ID);
+
+	/*
+	 * Enable interrupts for Reset, Disconnect, ConnectionDone, Link State
+	 * Wakeup and Overflow events.
+	 */
+	XUsbPsu_EnableIntr(InstancePtr, XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
+                        XUSBPSU_DEVTEN_WKUPEVTEN |
+                        XUSBPSU_DEVTEN_ULSTCNGEN |
+                        XUSBPSU_DEVTEN_CONNECTDONEEN |
+                        XUSBPSU_DEVTEN_USBRSTEN |
+                        XUSBPSU_DEVTEN_DISCONNEVTEN);
+	/*
+	 * Connect the interrupt controller interrupt handler to the hardware
+	 * interrupt handling logic in the ARM processor.
+	 */
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+								(Xil_ExceptionHandler)XScuGic_InterruptHandler,
+								IntcInstancePtr);
+
+	/*
+	 * Enable interrupts in the ARM
+	 */
+	Xil_ExceptionEnable();
+
+	return XST_SUCCESS;
 }
 
 /** @} */
