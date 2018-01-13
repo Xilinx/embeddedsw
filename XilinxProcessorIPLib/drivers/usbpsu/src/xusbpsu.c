@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
 * @file xusbpsu.c
-* @addtogroup usbpsu_v1_6
+* @addtogroup usbpsu_v1_7
 * @{
 *
 * <pre>
@@ -47,6 +27,9 @@
 * 1.6	pm    22/07/19 Removed coverity warnings
 *	pm    08/08/19 Added support to set AXI-Cache bits when CCI is enable
 *	pm    28/08/19 Removed 80-character warnings
+* 1.7	pm    02/20/20 Add support to set CCI bit in Coherency Mode Register
+*			when CCI is eanble
+* 	pm    03/23/20 Restructured the code for more readability and modularity
 *
 * </pre>
 *
@@ -54,7 +37,7 @@
 
 /***************************** Include Files ********************************/
 
-#include "xusbpsu.h"
+#include "xusbpsu_local.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -63,88 +46,13 @@
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
+static INLINE void XUsbPsu_SetMode(struct XUsbPsu *InstancePtr, u32 Mode);
+static void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr);
 
 /************************** Function Prototypes ******************************/
 
 
 /************************** Variable Definitions *****************************/
-
-/*****************************************************************************/
-/**
-* Waits until a bit in a register is cleared or timeout occurs
-*
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on.
-* @param	Offset is register offset.
-* @param	BitMask is bit mask of required bit to be checked.
-* @param	Timeout is the time to wait specified in micro seconds.
-*
-* @return
-*			- XST_SUCCESS when bit is cleared.
-*			- XST_FAILURE when timed out.
-*
-******************************************************************************/
-s32 XUsbPsu_Wait_Clear_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
-						u32 BitMask, u32 Timeout)
-{
-	u32 RegVal;
-	u32 LocalTimeout = Timeout;
-
-	while (LocalTimeout > 0U) {
-		RegVal = XUsbPsu_ReadReg(InstancePtr, Offset);
-		if ((RegVal & BitMask) == 0U) {
-			break;
-		}
-
-		LocalTimeout = LocalTimeout - 1U;
-
-		XUsbSleep(1U);
-	}
-
-	if (LocalTimeout == 0U) {
-		return (s32)XST_FAILURE;
-	}
-
-	return (s32)XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
-* Waits until a bit in a register is set or timeout occurs
-*
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on.
-* @param	Offset is register offset.
-* @param	BitMask is bit mask of required bit to be checked.
-* @param	Timeout is the time to wait specified in micro seconds.
-*
-* @return
-*			- XST_SUCCESS when bit is set.
-*			- XST_FAILURE when timed out.
-*
-******************************************************************************/
-s32 XUsbPsu_Wait_Set_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
-						u32 BitMask, u32 Timeout)
-{
-	u32 RegVal;
-	u32 LocalTimeout = Timeout;
-
-	while (LocalTimeout > 0U) {
-		RegVal = XUsbPsu_ReadReg(InstancePtr, Offset);
-		if ((RegVal & BitMask) != 0U) {
-			break;
-		}
-
-		LocalTimeout = LocalTimeout - 1U;
-
-		XUsbSleep(1U);
-	}
-
-	if (LocalTimeout == 0U) {
-		return (s32)XST_FAILURE;
-	}
-
-	return (s32)XST_SUCCESS;
-}
 
 /*****************************************************************************/
 /**
@@ -159,14 +67,12 @@ s32 XUsbPsu_Wait_Set_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
 *
 * @return	None
 *
+* @note		None.
+*
 ******************************************************************************/
-void XUsbPsu_SetMode(struct XUsbPsu *InstancePtr, u32 Mode)
+static INLINE void XUsbPsu_SetMode(struct XUsbPsu *InstancePtr, u32 Mode)
 {
 	u32 RegVal;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Mode <= XUSBPSU_GCTL_PRTCAP_OTG) &&
-					(Mode >= XUSBPSU_GCTL_PRTCAP_HOST));
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GCTL);
 	RegVal &= ~(XUSBPSU_GCTL_PRTCAPDIR(XUSBPSU_GCTL_PRTCAP_OTG));
@@ -174,441 +80,41 @@ void XUsbPsu_SetMode(struct XUsbPsu *InstancePtr, u32 Mode)
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GCTL, RegVal);
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
-* This function puts the controller into idle state by stopping the transfers
-* for all endpoints, stopping the usb core and clearing the event buffers.
-* buffers.
+* Initializes Endpoints. All OUT endpoints are even numbered and all IN
+* endpoints are odd numbered. EP0 is for Control OUT and EP1 is for
+* Control IN.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on.
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
 *
-* @return	None
+* @return	None.
 *
-******************************************************************************/
-void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
+* @note		None.
+*
+****************************************************************************/
+static void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr)
 {
-	Xil_AssertVoid(InstancePtr != NULL);
+	u8  i;
+	u8 Epnum;
 
-	/* Stop the transfers when in peripheral mode */
-	if ((XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GSTS) &
-					XUSBPSU_GSTS_CUR_MODE) == 0U) {
-		u32 RegVal, ResIdx, Cmd;
-		u32 EpNums, CurEpNum, InEpNums, OutEpNums, PhyEpNum;
-		struct XUsbPsu_EpParams	*Params;
-		struct XUsbPsu_Ep	*Ept;
-
-		/* Read HwParams 3 for fetching the max number of eps */
-		RegVal = XUsbPsu_ReadHwParams(InstancePtr, 3U);
-
-		EpNums = XUSBPSU_NUM_EPS(RegVal);
-		InEpNums = XUSBPSU_NUM_IN_EPS(RegVal);
-		OutEpNums = EpNums - InEpNums;
-
-		/* Stop transfers for Out Endpoints */
-		for (CurEpNum = 0U; CurEpNum < OutEpNums; CurEpNum++) {
-
-			PhyEpNum = XUSBPSU_PhysicalEp(CurEpNum,
-					XUSBPSU_EP_DIR_OUT);
-
-			ResIdx = XUsbPsu_EpGetTransferIndex(InstancePtr,
-					(u8)CurEpNum, (u8)XUSBPSU_EP_DIR_OUT);
-
-			Params = XUsbPsu_GetEpParams(InstancePtr);
-			Xil_AssertVoid(Params != NULL);
-
-			/* Issue EndTransfer WITH CMDIOC bit set */
-			Cmd = XUSBPSU_DEPCMD_ENDTRANSFER;
-			Cmd |= XUSBPSU_DEPCMD_HIPRI_FORCERM;
-			Cmd |= XUSBPSU_DEPCMD_CMDIOC;
-			Cmd |= XUSBPSU_DEPCMD_PARAM(ResIdx);
-			(void)XUsbPsu_SendEpCmd(InstancePtr, (u8)CurEpNum,
-					(u8)XUSBPSU_EP_DIR_OUT, Cmd, Params);
-
-			Ept = &InstancePtr->eps[PhyEpNum];
-			if (Ept != NULL) {
-				Ept->ResourceIndex = 0U;
-				Ept->EpStatus &= ~XUSBPSU_EP_BUSY;
-			}
-
-			/* Wait until CMD ACT bit is cleared */
-			if (XUsbPsu_Wait_Clear_Timeout(InstancePtr,
-						XUSBPSU_DEPCMD(PhyEpNum),
-						XUSBPSU_DEPCMD_CMDACT,
-						500U)	== XST_FAILURE) {
-#ifdef XUSBPSU_DEBUG
-				xil_printf(
-				"End Transfer on Endpoint %dOUT failed\n\r",
-								CurEpNum);
-#endif
-			}
-		}
-
-		/* Stop transfers for In Endpoints */
-		for (CurEpNum = 0U; CurEpNum < InEpNums; CurEpNum++) {
-
-			PhyEpNum = XUSBPSU_PhysicalEp(CurEpNum,
-					XUSBPSU_EP_DIR_IN);
-
-			ResIdx = XUsbPsu_EpGetTransferIndex(InstancePtr,
-					(u8)CurEpNum, (u8)XUSBPSU_EP_DIR_IN);
-
-			Params = XUsbPsu_GetEpParams(InstancePtr);
-			Xil_AssertVoid(Params != NULL);
-
-			/* Issue EndTransfer WITH CMDIOC bit set */
-			Cmd = XUSBPSU_DEPCMD_ENDTRANSFER;
-			Cmd |= XUSBPSU_DEPCMD_HIPRI_FORCERM;
-			Cmd |= XUSBPSU_DEPCMD_CMDIOC;
-			Cmd |= XUSBPSU_DEPCMD_PARAM(ResIdx);
-			(void)XUsbPsu_SendEpCmd(InstancePtr, (u8)CurEpNum,
-					(u8)XUSBPSU_EP_DIR_IN, Cmd, Params);
-
-			Ept = &InstancePtr->eps[PhyEpNum];
-			if (Ept != NULL) {
-				Ept->ResourceIndex = 0U;
-				Ept->EpStatus &= ~XUSBPSU_EP_BUSY;
-			}
-
-			/* Wait until CMD ACT bit is cleared */
-			if (XUsbPsu_Wait_Clear_Timeout(InstancePtr,
-						XUSBPSU_DEPCMD(PhyEpNum),
-						XUSBPSU_DEPCMD_CMDACT,
-						500U)	== XST_FAILURE) {
-#ifdef XUSBPSU_DEBUG
-				xil_printf(
-				"End Transfer on Endpoint %dIN failed\n\r",
-								CurEpNum);
-#endif
-			}
-		}
-
-		/* Stop transfers for Out Endpoints */
-		for (CurEpNum = 0U; CurEpNum < OutEpNums; CurEpNum++) {
-
-			PhyEpNum = XUSBPSU_PhysicalEp(CurEpNum,
-							XUSBPSU_EP_DIR_OUT);
-
-			RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
-			RegVal &= ~XUSBPSU_DALEPENA_EP(PhyEpNum);
-			XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DALEPENA, RegVal);
-
-			Ept = &InstancePtr->eps[PhyEpNum];
-
-			if (Ept != NULL) {
-				Ept->Type = 0U;
-				Ept->EpStatus = 0U;
-				Ept->MaxSize = 0U;
-				Ept->TrbEnqueue	= 0U;
-				Ept->TrbDequeue	= 0U;
-			}
-
-		}
-
-		/* Stop transfers for In Endpoints */
-		for (CurEpNum = 0U; CurEpNum < InEpNums; CurEpNum++) {
-
-			PhyEpNum = XUSBPSU_PhysicalEp(CurEpNum,
-							XUSBPSU_EP_DIR_IN);
-
-			RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
-			RegVal &= ~XUSBPSU_DALEPENA_EP(PhyEpNum);
-			XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DALEPENA, RegVal);
-
-			Ept = &InstancePtr->eps[PhyEpNum];
-
-			if (Ept != NULL) {
-				Ept->Type = 0U;
-				Ept->EpStatus = 0U;
-				Ept->MaxSize = 0U;
-				Ept->TrbEnqueue	= 0U;
-				Ept->TrbDequeue	= 0U;
-			}
-
-		}
-
-		/* Stop the USB core */
-		if (XUsbPsu_Stop(InstancePtr) == XST_FAILURE) {
-#ifdef XUSBPSU_DEBUG
-			xil_printf("Failed to stop USB core\r\n");
-#endif
-		}
-
-		/* Reset the Event buffers to 0 */
-		XUsbPsu_EventBuffersReset(InstancePtr);
+	for (i = 0U; i < InstancePtr->NumOutEps; i++) {
+		Epnum = (i << 1U) | XUSBPSU_EP_DIR_OUT;
+		InstancePtr->eps[Epnum].PhyEpNum = Epnum;
+		InstancePtr->eps[Epnum].Direction = XUSBPSU_EP_DIR_OUT;
+		InstancePtr->eps[Epnum].ResourceIndex = 0U;
 	}
-}
-
-/*****************************************************************************/
-/**
-* Issues core PHY reset.
-*
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on.
-*
-* @return	None
-*
-******************************************************************************/
-void XUsbPsu_PhyReset(struct XUsbPsu *InstancePtr)
-{
-	u32		RegVal;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-
-	/* Before Resetting PHY, put Core in Reset */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GCTL);
-	RegVal |= XUSBPSU_GCTL_CORESOFTRESET;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GCTL, RegVal);
-
-	/* Assert USB3 PHY reset */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U));
-	RegVal |= XUSBPSU_GUSB3PIPECTL_PHYSOFTRST;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U), RegVal);
-
-	/* Assert USB2 PHY reset */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U));
-	RegVal |= XUSBPSU_GUSB2PHYCFG_PHYSOFTRST;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U), RegVal);
-
-	XUsbSleep(XUSBPSU_PHY_TIMEOUT);
-
-	/* Clear USB3 PHY reset */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U));
-	RegVal &= ~XUSBPSU_GUSB3PIPECTL_PHYSOFTRST;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U), RegVal);
-
-	/* Clear USB2 PHY reset */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U));
-	RegVal &= ~XUSBPSU_GUSB2PHYCFG_PHYSOFTRST;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U), RegVal);
-
-	XUsbSleep(XUSBPSU_PHY_TIMEOUT);
-
-	/* Take Core out of reset state after PHYS are stable*/
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GCTL);
-	RegVal &= ~XUSBPSU_GCTL_CORESOFTRESET;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GCTL, RegVal);
-}
-
-/*****************************************************************************/
-/**
-* Sets up Event buffers so that events are written by Core.
-*
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on.
-*
-* @return	None
-*
-******************************************************************************/
-void XUsbPsu_EventBuffersSetup(struct XUsbPsu *InstancePtr)
-{
-	struct XUsbPsu_EvtBuffer *Evt;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->EventBuffer != NULL);
-
-	Evt = &InstancePtr->Evt;
-	Evt->BuffAddr = (void *)InstancePtr->EventBuffer;
-	Evt->Offset = 0U;
-
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTADRLO(0U),
-			(UINTPTR)InstancePtr->EventBuffer);
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTADRHI(0U),
-			((UINTPTR)(InstancePtr->EventBuffer) >> 16U) >> 16U);
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0U),
-				XUSBPSU_GEVNTSIZ_SIZE(
-					sizeof(InstancePtr->EventBuffer)));
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0U), 0U);
-}
-
-/*****************************************************************************/
-/**
-* Resets Event buffer Registers to zero so that events are not written by Core.
-*
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on.
-*
-* @return	None
-*
-******************************************************************************/
-void XUsbPsu_EventBuffersReset(struct XUsbPsu *InstancePtr)
-{
-
-	Xil_AssertVoid(InstancePtr != NULL);
-
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTADRLO(0U), 0U);
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTADRHI(0U), 0U);
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0U),
-			(u32)XUSBPSU_GEVNTSIZ_INTMASK |
-					 XUSBPSU_GEVNTSIZ_SIZE(0U));
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0U), 0U);
-}
-
-/*****************************************************************************/
-/**
-* Reads data from Hardware Params Registers of Core.
-*
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on.
-* @param	RegIndex is Register number to read
-*			- XUSBPSU_GHWPARAMS0
-*			- XUSBPSU_GHWPARAMS1
-*			- XUSBPSU_GHWPARAMS2
-*			- XUSBPSU_GHWPARAMS3
-*			- XUSBPSU_GHWPARAMS4
-*			- XUSBPSU_GHWPARAMS5
-*			- XUSBPSU_GHWPARAMS6
-*			- XUSBPSU_GHWPARAMS7
-*
-* @return	One of the GHWPARAMS RegValister contents.
-*
-******************************************************************************/
-u32 XUsbPsu_ReadHwParams(struct XUsbPsu *InstancePtr, u8 RegIndex)
-{
-	u32 RegVal;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(RegIndex <= (u8)XUSBPSU_GHWPARAMS7);
-
-	RegVal = XUsbPsu_ReadReg(InstancePtr, ((u32)XUSBPSU_GHWPARAMS0_OFFSET +
-						((u32)RegIndex * (u32)4U)));
-	return RegVal;
-}
-
-/*****************************************************************************/
-/**
-* Initializes Core.
-*
-* @param  InstancePtr is a pointer to the XUsbPsu instance to be worked on.
-*
-* @return
-*		-XST_SUCCESS if initialization was successful
-*		-XST_FAILURE if initialization was not successful
-*
-******************************************************************************/
-s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
-{
-	u32		RegVal;
-	u32		Hwparams1;
-
-	/* issue device SoftReset too */
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, XUSBPSU_DCTL_CSFTRST);
-
-	if (XUsbPsu_Wait_Clear_Timeout(InstancePtr, XUSBPSU_DCTL,
-			XUSBPSU_DCTL_CSFTRST, 500U) == XST_FAILURE) {
-		/* timed out return failure */
-		return (s32)XST_FAILURE;
+	for (i = 0U; i < InstancePtr->NumInEps; i++) {
+		Epnum = (i << 1U) | XUSBPSU_EP_DIR_IN;
+		InstancePtr->eps[Epnum].PhyEpNum = Epnum;
+		InstancePtr->eps[Epnum].Direction = XUSBPSU_EP_DIR_IN;
+		InstancePtr->eps[Epnum].ResourceIndex = 0U;
 	}
-
-	XUsbPsu_PhyReset(InstancePtr);
-
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GCTL);
-	RegVal &= ~XUSBPSU_GCTL_SCALEDOWN_MASK;
-	RegVal &= ~XUSBPSU_GCTL_DISSCRAMBLE;
-	RegVal |= XUSBPSU_GCTL_U2EXIT_LFPS;
-
-	Hwparams1 = XUsbPsu_ReadHwParams(InstancePtr, 1U);
-
-	switch (XUSBPSU_GHWPARAMS1_EN_PWROPT(Hwparams1)) {
-		case XUSBPSU_GHWPARAMS1_EN_PWROPT_CLK:
-			RegVal &= ~XUSBPSU_GCTL_DSBLCLKGTNG;
-			break;
-
-		case XUSBPSU_GHWPARAMS1_EN_PWROPT_HIB:
-			/* enable hibernation here */
-#ifdef XUSBPSU_HIBERNATION_ENABLE
-			RegVal |= XUSBPSU_GCTL_GBLHIBERNATIONEN;
-			InstancePtr->HasHibernation = 1U;
-#endif
-			break;
-
-		default:
-			/* Made for Misra-C Compliance. */
-			break;
-	}
-
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GCTL, RegVal);
-
-#ifdef XUSBPSU_HIBERNATION_ENABLE
-	if (InstancePtr->HasHibernation == TRUE) {
-		XUsbPsu_InitHibernation(InstancePtr);
-	}
-#endif
-	/* Set AXI-cache bits when CCI is Enable */
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 1U) {
-		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GSBUSCFG0);
-		RegVal |= XUSBPSU_GSBUSCFG0_BITMASK;
-		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GSBUSCFG0, RegVal);
-	}
-
-	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
-* Enables an interrupt in Event Enable RegValister.
-*
-* @param  InstancePtr is a pointer to the XUsbPsu instance to be worked on
-* @param  Mask is the OR of any Interrupt Enable Masks:
-*		- XUSBPSU_DEVTEN_VNDRDEVTSTRCVEDEN
-*		- XUSBPSU_DEVTEN_EVNTOVERFLOWEN
-*		- XUSBPSU_DEVTEN_CMDCMPLTEN
-*		- XUSBPSU_DEVTEN_ERRTICERREN
-*		- XUSBPSU_DEVTEN_SOFEN
-*		- XUSBPSU_DEVTEN_EOPFEN
-*		- XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN
-*		- XUSBPSU_DEVTEN_WKUPEVTEN
-*		- XUSBPSU_DEVTEN_ULSTCNGEN
-*		- XUSBPSU_DEVTEN_CONNECTDONEEN
-*		- XUSBPSU_DEVTEN_USBRSTEN
-*		- XUSBPSU_DEVTEN_DISCONNEVTEN
-*
-* @return  None
-*
-******************************************************************************/
-void XUsbPsu_EnableIntr(struct XUsbPsu *InstancePtr, u32 Mask)
-{
-	u32	RegVal;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DEVTEN);
-	RegVal |= Mask;
-
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DEVTEN, RegVal);
-}
-
-/*****************************************************************************/
-/**
-* Disables an interrupt in Event Enable RegValister.
-*
-* @param  InstancePtr is a pointer to the XUsbPsu instance to be worked on.
-* @param  Mask is the OR of Interrupt Enable Masks
-*		- XUSBPSU_DEVTEN_VNDRDEVTSTRCVEDEN
-*		- XUSBPSU_DEVTEN_EVNTOVERFLOWEN
-*		- XUSBPSU_DEVTEN_CMDCMPLTEN
-*		- XUSBPSU_DEVTEN_ERRTICERREN
-*		- XUSBPSU_DEVTEN_SOFEN
-*		- XUSBPSU_DEVTEN_EOPFEN
-*		- XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN
-*		- XUSBPSU_DEVTEN_WKUPEVTEN
-*		- XUSBPSU_DEVTEN_ULSTCNGEN
-*		- XUSBPSU_DEVTEN_CONNECTDONEEN
-*		- XUSBPSU_DEVTEN_USBRSTEN
-*		- XUSBPSU_DEVTEN_DISCONNEVTEN
-*
-* @return  None
-*
-******************************************************************************/
-void XUsbPsu_DisableIntr(struct XUsbPsu *InstancePtr, u32 Mask)
-{
-	u32 RegVal;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DEVTEN);
-	RegVal &= ~Mask;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DEVTEN, RegVal);
 }
 
 /****************************************************************************/
 /**
-*
+* @brief
 * This function does the following:
 *	- initializes a specific XUsbPsu instance.
 *	- sets up Event Buffer for Core to write events.
@@ -684,6 +190,7 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 /****************************************************************************/
 /**
 *
+* @brief
 * Starts the controller so that Host can detect this device.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
@@ -705,7 +212,7 @@ s32 XUsbPsu_Start(struct XUsbPsu *InstancePtr)
 
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
 
-	if (XUsbPsu_Wait_Clear_Timeout(InstancePtr, XUSBPSU_DSTS,
+	if (XUsbPsu_WaitClearTimeout(InstancePtr, XUSBPSU_DSTS,
 			XUSBPSU_DSTS_DEVCTRLHLT, 500U) == XST_FAILURE) {
 		return (s32)XST_FAILURE;
 	}
@@ -716,6 +223,7 @@ s32 XUsbPsu_Start(struct XUsbPsu *InstancePtr)
 /****************************************************************************/
 /**
 *
+* @brief
 * Stops the controller so that Device disconnects from Host.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
@@ -736,56 +244,12 @@ s32 XUsbPsu_Stop(struct XUsbPsu *InstancePtr)
 
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
 
-	if (XUsbPsu_Wait_Set_Timeout(InstancePtr, XUSBPSU_DSTS,
+	if (XUsbPsu_WaitSetTimeout(InstancePtr, XUSBPSU_DSTS,
 			XUSBPSU_DSTS_DEVCTRLHLT, 500U) == XST_FAILURE) {
 		return (s32)XST_FAILURE;
 	}
 
 	return (s32)XST_SUCCESS;
-}
-
-/****************************************************************************/
-/**
- * Enables USB2 Test Modes
- *
- * @param	InstancePtr is a pointer to the XUsbPsu instance.
- * @param	Mode is Test mode to set.
- *
- * @return	XST_SUCCESS else XST_FAILURE
- *
- * @note	None.
- *
- ****************************************************************************/
-s32 XUsbPsu_SetTestMode(struct XUsbPsu *InstancePtr, u32 Mode)
-{
-	u32	RegVal;
-	s32 Status = XST_SUCCESS;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
-	RegVal &= ~XUSBPSU_DCTL_TSTCTRL_MASK;
-
-	switch (Mode) {
-		case XUSBPSU_TEST_J:
-		case XUSBPSU_TEST_K:
-		case XUSBPSU_TEST_SE0_NAK:
-		case XUSBPSU_TEST_PACKET:
-		case XUSBPSU_TEST_FORCE_ENABLE:
-			RegVal |= (u32)Mode << 1;
-			break;
-
-		default:
-			Status = (s32)XST_FAILURE;
-			break;
-	}
-
-	if (Status != (s32)XST_FAILURE) {
-		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
-		Status = XST_SUCCESS;
-	}
-
-	return Status;
 }
 
 /****************************************************************************/
@@ -827,10 +291,8 @@ s32 XUsbPsu_SetLinkState(struct XUsbPsu *InstancePtr,
 {
 	u32		RegVal;
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
 	 /* Wait until device controller is ready. */
-	if (XUsbPsu_Wait_Clear_Timeout(InstancePtr, XUSBPSU_DSTS,
+	if (XUsbPsu_WaitClearTimeout(InstancePtr, XUSBPSU_DSTS,
 			XUSBPSU_DSTS_DCNRD, 500U) == XST_FAILURE) {
 		return (s32)XST_FAILURE;
 	}
@@ -846,72 +308,7 @@ s32 XUsbPsu_SetLinkState(struct XUsbPsu *InstancePtr,
 
 /****************************************************************************/
 /**
-* Sets speed of the Core for connecting to Host
-*
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Speed is required speed
-*				- XUSBPSU_DCFG_HIGHSPEED
-*				- XUSBPSU_DCFG_FULLSPEED2
-*				- XUSBPSU_DCFG_LOWSPEED
-*				- XUSBPSU_DCFG_FULLSPEED1
-*
-* @return	None
-*
-* @note		None.
-*
-*****************************************************************************/
-void XUsbPsu_SetSpeed(struct XUsbPsu *InstancePtr, u32 Speed)
-{
-	u32	RegVal;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Speed <= (u32)XUSBPSU_DCFG_SUPERSPEED);
-
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCFG);
-	RegVal &= ~(XUSBPSU_DCFG_SPEED_MASK);
-	RegVal |= Speed;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCFG, RegVal);
-}
-
-/****************************************************************************/
-/**
-* Sets Device Address of the Core
-*
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Addr is address to set.
-*
-* @return	XST_SUCCESS else XST_FAILURE
-*
-* @note	None.
-*
-*****************************************************************************/
-s32 XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr)
-{
-	u32 RegVal;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Addr <= 127U);
-
-	if (InstancePtr->AppData->State == XUSBPSU_STATE_CONFIGURED) {
-		return (s32)XST_FAILURE;
-	}
-
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCFG);
-	RegVal &= ~(XUSBPSU_DCFG_DEVADDR_MASK);
-	RegVal |= XUSBPSU_DCFG_DEVADDR(Addr);
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCFG, RegVal);
-
-	if (Addr > 0U) {
-		InstancePtr->AppData->State = XUSBPSU_STATE_ADDRESS;
-	} else {
-		InstancePtr->AppData->State = XUSBPSU_STATE_DEFAULT;
-	}
-
-	return (s32)XST_SUCCESS;
-}
-
-/****************************************************************************/
-/**
+* @brief
 * Set U1 sleep timeout
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
@@ -938,6 +335,7 @@ s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep)
 
 /****************************************************************************/
 /**
+* @brief
 * Set U2 sleep timeout
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
@@ -961,8 +359,10 @@ s32 XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep)
 
 	return (s32)XST_SUCCESS;
 }
+
 /****************************************************************************/
 /**
+* @brief
 * Enable Accept U1 and U2 sleep enable
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
@@ -987,6 +387,7 @@ s32 XUsbPsu_AcceptU1U2Sleep(struct XUsbPsu *InstancePtr)
 
 /****************************************************************************/
 /**
+* @brief
 * Enable U1 enable sleep
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
@@ -1011,6 +412,7 @@ s32 XUsbPsu_U1SleepEnable(struct XUsbPsu *InstancePtr)
 
 /****************************************************************************/
 /**
+* @brief
 * Enable U2 enable sleep
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
@@ -1035,6 +437,7 @@ s32 XUsbPsu_U2SleepEnable(struct XUsbPsu *InstancePtr)
 
 /****************************************************************************/
 /**
+* @brief
 * Enable U1 disable sleep
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
@@ -1059,6 +462,7 @@ s32 XUsbPsu_U1SleepDisable(struct XUsbPsu *InstancePtr)
 
 /****************************************************************************/
 /**
+* @brief
 * Enable U2 disable sleep
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
@@ -1083,6 +487,7 @@ s32 XUsbPsu_U2SleepDisable(struct XUsbPsu *InstancePtr)
 
 /****************************************************************************/
 /**
+* @brief
 * Checks if the current speed is Super Speed or not
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
@@ -1094,6 +499,8 @@ s32 XUsbPsu_U2SleepDisable(struct XUsbPsu *InstancePtr)
 *****************************************************************************/
 s32 XUsbPsu_IsSuperSpeed(struct XUsbPsu *InstancePtr)
 {
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
 	if (InstancePtr->AppData->Speed != XUSBPSU_SPEED_SUPER) {
 		return (s32)XST_FAILURE;
 	}
