@@ -46,10 +46,7 @@
 * 1.3   vak 04/03/17 Added CCI support for USB
 * 1.4	bk  12/01/18 Modify USBPSU driver code to fit USB common example code
 *		       for all USB IPs
-<<<<<<< HEAD
 *	myk 12/01/18 Added hibernation support for device mode
-=======
->>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
 * </pre>
 *
 *****************************************************************************/
@@ -370,17 +367,11 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Ept->Type	= Type;
 	Ept->MaxSize	= Maxsize;
 	Ept->PhyEpNum	= (u8)PhyEpNum;
-<<<<<<< HEAD
 	Ept->CurUf	= 0;
 	if (!InstancePtr->IsHibernated) {
 		Ept->TrbEnqueue	= 0;
 		Ept->TrbDequeue	= 0;
 	}
-=======
-	Ept->TrbEnqueue	= 0;
-	Ept->TrbDequeue	= 0;
-	Ept->CurUf	= 0;
->>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
 
 	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
 			|| (InstancePtr->IsHibernated)) {
@@ -420,6 +411,10 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 		TrbLink->BufferPtrHigh = ((UINTPTR)TrbStHw >> 16) >> 16;
 		TrbLink->Ctrl |= XUSBPSU_TRBCTL_LINK_TRB;
 		TrbLink->Ctrl |= XUSBPSU_TRB_CTRL_HWO;
+
+		/* flush the link trb */
+		if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
+			Xil_DCacheFlushRange((INTPTR)TrbLink, sizeof(struct XUsbPsu_Trb));
 	}
 
 	return XST_SUCCESS;
@@ -1109,15 +1104,10 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
 		Xil_DCacheInvalidateRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
 
-<<<<<<< HEAD
 	if (Event->Endpoint_Event == XUSBPSU_DEPEVT_XFERCOMPLETE) {
 		Ept->EpStatus &= ~(XUSBPSU_EP_BUSY);
 		Ept->ResourceIndex = 0;
 	}
-=======
-	if (Event->Endpoint_Event == XUSBPSU_DEPEVT_XFERCOMPLETE)
-		Ept->EpStatus &= ~(XUSBPSU_EP_BUSY);
->>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
 
 	Length = TrbPtr->Size & XUSBPSU_TRB_SIZE_MASK;
 

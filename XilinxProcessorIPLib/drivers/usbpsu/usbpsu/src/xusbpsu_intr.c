@@ -46,13 +46,10 @@
 * 1.3   vak 04/03/17 Added CCI support for USB
 * 1.4	bk  12/01/18 Modify USBPSU driver code to fit USB common example code
 *		       for all USB IPs
-<<<<<<< HEAD
 *	myk 12/01/18 Added hibernation support
 *	vak 22/01/18 Added changes for supporting microblaze platform
 *	vak 13/03/18 Moved the setup interrupt system calls from driver to
 *		     example.
-=======
->>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
 *
 * </pre>
 *
@@ -143,7 +140,6 @@ void XUsbPsu_DisconnectIntr(struct XUsbPsu *InstancePtr)
 
 	InstancePtr->IsConfigDone = 0U;
 	InstancePtr->AppData->Speed = XUSBPSU_SPEED_UNKNOWN;
-<<<<<<< HEAD
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 	/* In USB 2.0, to avoid hibernation interrupt at the time of connection
@@ -157,13 +153,10 @@ void XUsbPsu_DisconnectIntr(struct XUsbPsu *InstancePtr)
 		}
 	}
 #endif
-=======
->>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
 
 	/* Call the handler if necessary */
 	if (InstancePtr->DisconnectIntrHandler != NULL) {
 		InstancePtr->DisconnectIntrHandler(InstancePtr->AppData);
-<<<<<<< HEAD
 	}
 }
 
@@ -226,8 +219,6 @@ static void XUsbPsu_clear_stall_all_ep(struct XUsbPsu *InstancePtr)
 			continue;
 
 		XUsbPsu_EpClearStall(InstancePtr, Ept->UsbEpNum, Ept->Direction);
-=======
->>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
 	}
 }
 
@@ -507,13 +498,10 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 		 * Process the event received
 		 */
 		XUsbPsu_EventHandler(InstancePtr, &Event);
-<<<<<<< HEAD
 
 		/* don't process anymore events if core is hibernated */
 		if (InstancePtr->IsHibernated)
 			return;
-=======
->>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
 
 		Evt->Offset = (Evt->Offset + 4U) % XUSBPSU_EVENT_BUFFERS_SIZE;
 		Evt->Count -= 4;
@@ -588,85 +576,5 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 	XUsbPsu_WakeupIntr(InstancePtr);
 }
 #endif
-
-/****************************************************************************/
-/**
-* This function setups the interrupt system such that interrupts can occur.
-* This function is application specific since the actual system may or may not
-* have an interrupt controller.  The USB controller could be
-* directly connected to a processor without an interrupt controller.
-* The user should modify this function to fit the application.
-*
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	IntcDeviceID is the unique ID of the interrupt controller
-* @param	IntcInstacePtr is a pointer to the interrupt controller
-*			instance.
-*
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
-*
-*****************************************************************************/
-s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
-		XScuGic *IntcInstancePtr)
-{
-	s32 Status;
-	XScuGic_Config *IntcConfig; /* The configuration parameters of the
-									interrupt controller */
-
-	/*
-	 * Initialize the interrupt controller driver
-	 */
-	IntcConfig = XScuGic_LookupConfig(IntcDeviceID);
-	if (NULL == IntcConfig) {
-		return XST_FAILURE;
-	}
-
-	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-								   IntcConfig->CpuBaseAddress);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Connect to the interrupt controller
-	 */
-	Status = XScuGic_Connect(IntcInstancePtr, USB_INTR_ID,
-							(Xil_ExceptionHandler)XUsbPsu_IntrHandler,
-							(void *)InstancePtr);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Enable the interrupt for the USB
-	 */
-	XScuGic_Enable(IntcInstancePtr, USB_INTR_ID);
-
-	/*
-	 * Enable interrupts for Reset, Disconnect, ConnectionDone, Link State
-	 * Wakeup and Overflow events.
-	 */
-	XUsbPsu_EnableIntr(InstancePtr, XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
-                        XUSBPSU_DEVTEN_WKUPEVTEN |
-                        XUSBPSU_DEVTEN_ULSTCNGEN |
-                        XUSBPSU_DEVTEN_CONNECTDONEEN |
-                        XUSBPSU_DEVTEN_USBRSTEN |
-                        XUSBPSU_DEVTEN_DISCONNEVTEN);
-	/*
-	 * Connect the interrupt controller interrupt handler to the hardware
-	 * interrupt handling logic in the ARM processor.
-	 */
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-								(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-								IntcInstancePtr);
-
-	/*
-	 * Enable interrupts in the ARM
-	 */
-	Xil_ExceptionEnable();
-
-	return XST_SUCCESS;
-}
 
 /** @} */
