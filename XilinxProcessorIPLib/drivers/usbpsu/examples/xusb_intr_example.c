@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,8 @@
  *	 vak 22/01/18 Added changes for supporting microblaze platform
  *	 vak 13/03/18 Moved the setup interrupt system calls from driver to
  *		      example.
+ * 1.5	 vak 13/02/19 Added support for versal
+ *
  * </pre>
  *
  *****************************************************************************/
@@ -63,20 +65,19 @@
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #endif /* XPAR_INTC_0_DEVICE_ID */
-#elif defined PLATFORM_ZYNQMP
+#elif defined (PLATFORM_ZYNQMP) || defined (versal)
 #include "xscugic.h"
 #endif
 
 /************************** Constant Definitions ****************************/
 #define MEMORY_SIZE (64 * 1024)
 #ifdef __ICCARM__
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
 #else
 #pragma data_alignment = 32
 #endif
 u8 Buffer[MEMORY_SIZE];
-#pragma data_alignment = 4
 #else
 u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
 #endif
@@ -111,7 +112,7 @@ XScuGic	InterruptController;	/* Interrupt controller instance */
 #define	INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
 #define	USB_INT_ID		XPAR_AXI_INTC_0_ZYNQ_ULTRA_PS_E_0_PS_PL_IRQ_USB3_0_ENDPOINT_0_INTR
 #endif /* MICROBLAZE */
-#elif	defined	PLATFORM_ZYNQMP	/* ZYNQMP */
+#elif	defined	(PLATFORM_ZYNQMP) || defined (versal)
 #define	INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define	USB_INT_ID		XPAR_XUSBPS_0_INTR
 #define	USB_WAKEUP_INTR_ID	XPAR_XUSBPS_0_WAKE_INTR
@@ -122,15 +123,21 @@ XScuGic	InterruptController;	/* Interrupt controller instance */
 
 /* Buffer for virtual flash disk space. */
 #ifdef __ICCARM__
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
+u8 VirtFlash[VFLASH_SIZE];
+#pragma data_alignment = 64
+USB_CBW CBW;
+#pragma data_alignment = 64
+USB_CSW CSW;
 #else
 #pragma data_alignment = 32
-#endif
 u8 VirtFlash[VFLASH_SIZE];
+#pragma data_alignment = 32
 USB_CBW CBW;
+#pragma data_alignment = 32
 USB_CSW CSW;
-#pragma data_alignment = 4
+#endif
 #else
 u8 VirtFlash[VFLASH_SIZE] ALIGNMENT_CACHELINE;
 USB_CBW CBW ALIGNMENT_CACHELINE;
@@ -408,7 +415,7 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 				(Xil_ExceptionHandler)XIntc_InterruptHandler,
 				IntcInstancePtr);
 #endif /* XPAR_INTC_0_DEVICE_ID */
-#elif defined PLATFORM_ZYNQMP
+#elif defined (PLATFORM_ZYNQMP) || defined (versal)
 	s32 Status;
 
 	XScuGic_Config *IntcConfig; /* The configuration parameters of the
@@ -480,7 +487,7 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 								(Xil_ExceptionHandler)XScuGic_InterruptHandler,
 								IntcInstancePtr);
-#endif /* PLATFORM_ZYNQMP */
+#endif /* PLATFORM_ZYNQMP or versal */
 
 	/*
 	 * Enable interrupts in the ARM
