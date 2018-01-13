@@ -58,6 +58,7 @@
 *                      examples.
 * 1.4	bk    12/01/18 Modify USBPSU driver code to fit USB common example code
 *		       for all USB IPs.
+*	myk   12/01/18 Added hibernation support for device mode
 *
 * </pre>
 *
@@ -70,6 +71,10 @@ extern "C" {
 #endif
 
 /***************************** Include Files ********************************/
+
+/* Enable XUSBPSU_HIBERNATION_ENABLE to enable hibernation */
+//#define XUSBPSU_HIBERNATION_ENABLE		1
+
 #include "xparameters.h"
 #include "xil_types.h"
 #include "xil_assert.h"
@@ -338,6 +343,7 @@ struct XUsbPsu_Ep {
 	struct XUsbPsu_Trb	EpTrb[NO_OF_TRB_PER_EP + 1] ALIGNMENT_CACHELINE;/**< TRB used by endpoint */
 #endif
 	u32	EpStatus;		/**< Flags to represent Endpoint status */
+	u32	EpSavedState;	/**< Endpoint status saved at the time of hibernation */
 	u32	RequestedBytes;	/**< RequestedBytes for transfer */
 	u32	BytesTxed;		/**< Actual Bytes transferred */
 	u32	Interval;		/**< Data transfer service interval */
@@ -423,6 +429,8 @@ struct XUsbPsu {
 	u8 UnalignedTx;
 	u8 IsConfigDone;
 	u8 IsThreeStage;
+	u8 IsHibernated;                /**< Hibernated state */
+	u8 HasHibernation;              /**< Has hibernation support */
 	void *data_ptr;		/* pointer for storing applications data */
 };
 
@@ -650,14 +658,17 @@ s32 XUsbPsu_SendEpCmd(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 s32 XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum,
 				u8 Dir);
 s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
-				u16 Size, u8 Type);
+				u16 Size, u8 Type, u8 Restore);
 s32 XUsbPsu_SetXferResource(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir);
 s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
-				u16 Maxsize, u8 Type);
+				u16 Maxsize, u8 Type, u8 Restore);
 s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir);
 s32 XUsbPsu_EnableControlEp(struct XUsbPsu *InstancePtr, u16 Size);
 void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr);
-void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir);
+void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
+				u8 Dir, u8 Force);
+void XUsbPsu_SaveEndpointState(struct XUsbPsu *InstancePtr,
+				struct XUsbPsu_Ep *Ept);
 void XUsbPsu_ClearStalls(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 				u8 *BufferPtr, u32 BufferLen);
@@ -713,6 +724,15 @@ void XUsbPsu_EventHandler(struct XUsbPsu *InstancePtr,
                 const union XUsbPsu_Event *Event);
 void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr);
 void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr);
+
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr);
+void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr);
+void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr);
+void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr);
+s32 XUsbPsu_SetupScratchpad(struct XUsbPsu *InstancePtr);
+#endif
+
 s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 			XScuGic *IntcInstancePtr);
 

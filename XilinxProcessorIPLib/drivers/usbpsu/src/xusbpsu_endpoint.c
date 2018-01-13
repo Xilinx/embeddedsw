@@ -46,6 +46,7 @@
 * 1.3   vak 04/03/17 Added CCI support for USB
 * 1.4	bk  12/01/18 Modify USBPSU driver code to fit USB common example code
 *		       for all USB IPs
+*	myk 12/01/18 Added hibernation support for device mode
 * </pre>
 *
 *****************************************************************************/
@@ -227,6 +228,8 @@ s32 XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum, u8 Dir)
 * @param	Dir is direction of endpoint - XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
 * @param	Size is size of Endpoint size.
 * @param	Type is Endpoint type Control/Bulk/Interrupt/Isoc.
+* @param	Restore should be true if saved state should be restored;
+*			typically this would be false
 *
 * @return	XST_SUCCESS else XST_FAILURE.
 *
@@ -234,7 +237,7 @@ s32 XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum, u8 Dir)
 *
 *****************************************************************************/
 s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
-						u16 Size, u8 Type)
+						u16 Size, u8 Type, u8 Restore)
 {
 	struct XUsbPsu_Ep *Ept;
 	struct XUsbPsu_EpParams *Params;
@@ -264,6 +267,11 @@ s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 
 	Params->Param1 = XUSBPSU_DEPCFG_XFER_COMPLETE_EN
 		| XUSBPSU_DEPCFG_XFER_NOT_READY_EN;
+
+	if (Restore) {
+		Params->Param0 |= XUSBPSU_DEPCFG_ACTION_RESTORE;
+		Params->Param2 = Ept->EpSavedState;
+	}
 
 	/*
 	 * We are doing 1:1 mapping for endpoints, meaning
@@ -328,6 +336,8 @@ s32 XUsbPsu_SetXferResource(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 * @param	Dir is direction of endpoint - XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
 * @param	Maxsize is size of Endpoint size.
 * @param	Type is Endpoint type Control/Bulk/Interrupt/Isoc.
+* @param	Restore should be true if saved state should be restored;
+*			typically this would be false
 *
 * @return	XST_SUCCESS else XST_FAILURE.
 *
@@ -335,7 +345,7 @@ s32 XUsbPsu_SetXferResource(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 *
 ****************************************************************************/
 s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
-			u16 Maxsize, u8 Type)
+			u16 Maxsize, u8 Type, u8 Restore)
 {
 	struct XUsbPsu_Ep *Ept;
 	struct XUsbPsu_Trb *TrbStHw, *TrbLink;
@@ -357,23 +367,28 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Ept->Type	= Type;
 	Ept->MaxSize	= Maxsize;
 	Ept->PhyEpNum	= (u8)PhyEpNum;
-	Ept->TrbEnqueue	= 0;
-	Ept->TrbDequeue	= 0;
 	Ept->CurUf	= 0;
+	if (!InstancePtr->IsHibernated) {
+		Ept->TrbEnqueue	= 0;
+		Ept->TrbDequeue	= 0;
+	}
 
-	if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U) {
+	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
+			|| (InstancePtr->IsHibernated)) {
 		Ret = XUsbPsu_StartEpConfig(InstancePtr, UsbEpNum, Dir);
 		if (Ret != 0) {
 			return Ret;
 		}
 	}
 
-	Ret = XUsbPsu_SetEpConfig(InstancePtr, UsbEpNum, Dir, Maxsize, Type);
+	Ret = XUsbPsu_SetEpConfig(InstancePtr, UsbEpNum, Dir, Maxsize,
+					Type, Restore);
 	if (Ret != 0) {
 		return Ret;
 	}
 
-	if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U) {
+	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
+			|| (InstancePtr->IsHibernated)) {
 		Ret = XUsbPsu_SetXferResource(InstancePtr, UsbEpNum, Dir);
 		if (Ret != 0) {
 			return Ret;
@@ -429,6 +444,10 @@ s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	PhyEpNum = PhysicalEp(UsbEpNum , Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
 
+	/* make sure HW endpoint isn't stalled */
+	if (Ept->EpStatus & XUSBPSU_EP_STALL)
+		XUsbPsu_EpClearStall(InstancePtr, Ept->UsbEpNum, Ept->Direction);
+
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
 	RegVal &= ~XUSBPSU_DALEPENA_EP(PhyEpNum);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DALEPENA, RegVal);
@@ -462,13 +481,13 @@ s32 XUsbPsu_EnableControlEp(struct XUsbPsu *InstancePtr, u16 Size)
 	Xil_AssertNonvoid((Size >= 64U) && (Size <= 512U));
 
 	RetVal = XUsbPsu_EpEnable(InstancePtr, 0U, XUSBPSU_EP_DIR_OUT, Size,
-				XUSBPSU_ENDPOINT_XFER_CONTROL);
+				XUSBPSU_ENDPOINT_XFER_CONTROL, FALSE);
 	if (RetVal != 0) {
 		return XST_FAILURE;
 	}
 
 	RetVal = XUsbPsu_EpEnable(InstancePtr, 0U, XUSBPSU_EP_DIR_IN, Size,
-				XUSBPSU_ENDPOINT_XFER_CONTROL);
+				XUSBPSU_ENDPOINT_XFER_CONTROL, FALSE);
 	if (RetVal != 0) {
 		return XST_FAILURE;
 	}
@@ -500,11 +519,13 @@ void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr)
 		Epnum = (i << 1U) | XUSBPSU_EP_DIR_OUT;
 		InstancePtr->eps[Epnum].PhyEpNum = Epnum;
 		InstancePtr->eps[Epnum].Direction = XUSBPSU_EP_DIR_OUT;
+		InstancePtr->eps[Epnum].ResourceIndex = 0;
 	}
 	for (i = 0U; i < InstancePtr->NumInEps; i++) {
 		Epnum = (i << 1U) | XUSBPSU_EP_DIR_IN;
 		InstancePtr->eps[Epnum].PhyEpNum = Epnum;
 		InstancePtr->eps[Epnum].Direction = XUSBPSU_EP_DIR_IN;
+		InstancePtr->eps[Epnum].ResourceIndex = 0;
 	}
 }
 
@@ -515,13 +536,15 @@ void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr)
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
 * @param	UsbEpNum is USB endpoint number.
 * @param	Dir is direction of endpoint - XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
+* @Force	Force flag to stop/pause transfer.
 *
 * @return	None.
 *
 * @note		None.
 *
 ****************************************************************************/
-void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
+void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
+			u8 Dir, u8 Force)
 {
 	struct XUsbPsu_Ep *Ept;
 	struct XUsbPsu_EpParams *Params;
@@ -547,13 +570,35 @@ void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	 * - Wait 100us
 	 */
 	Cmd = XUSBPSU_DEPCMD_ENDTRANSFER;
+	Cmd |= Force ? XUSBPSU_DEPCMD_HIPRI_FORCERM : 0;
 	Cmd |= XUSBPSU_DEPCMD_CMDIOC;
 	Cmd |= XUSBPSU_DEPCMD_PARAM(Ept->ResourceIndex);
 	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
 							Cmd, Params);
-	Ept->ResourceIndex = 0U;
+	if (Force)
+		Ept->ResourceIndex = 0U;
 	Ept->EpStatus &= ~XUSBPSU_EP_BUSY;
 	XUsbSleep(100U);
+}
+
+/****************************************************************************/
+/**
+* Query endpoint state and save it in EpSavedState
+*
+* @param 	InstancePtr is a pointer to the XUsbPsu instance.
+* @param 	Ept is a pointer to the XUsbPsu pointer structure.
+*
+* @return	None.
+*
+* @note		None.
+*
+****************************************************************************/
+void XUsbPsu_SaveEndpointState(struct XUsbPsu *InstancePtr, struct XUsbPsu_Ep *Ept)
+{
+       struct XUsbPsu_EpParams *Params = XUsbPsu_GetEpParams(InstancePtr);
+       XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
+                       XUSBPSU_DEPCMD_GETEPSTATE, Params);
+       Ept->EpSavedState = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DEPCMDPAR2(Ept->PhyEpNum));
 }
 
 /****************************************************************************/
@@ -1055,8 +1100,10 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
 		Xil_DCacheInvalidateRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
 
-	if (Event->Endpoint_Event == XUSBPSU_DEPEVT_XFERCOMPLETE)
+	if (Event->Endpoint_Event == XUSBPSU_DEPEVT_XFERCOMPLETE) {
 		Ept->EpStatus &= ~(XUSBPSU_EP_BUSY);
+		Ept->ResourceIndex = 0;
+	}
 
 	Length = TrbPtr->Size & XUSBPSU_TRB_SIZE_MASK;
 
