@@ -91,6 +91,7 @@ openamp_echo_test:
 usbpsu_v1_4:
 Modify USBPSU driver code to fit USB common example code for all USB IPs
 Added support for flushing Dcache for setupdata packet for control ep's
+Changed the mass storage examples to be in sync with common mode example code
 
 Changes for 2017.4
 ===============================
