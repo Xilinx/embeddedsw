@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -91,7 +91,7 @@ void XUsbPsu_EpInterrupt(struct XUsbPsu *InstancePtr,
 		return;
 	}
 
-	if ((Epnum == (u32)0) || (Epnum == (u32)1)) {
+	if ((Epnum == (u32)0U) || (Epnum == (u32)1U)) {
 		XUsbPsu_Ep0Intr(InstancePtr, Event);
 		return;
 	}
@@ -142,9 +142,9 @@ void XUsbPsu_DisconnectIntr(struct XUsbPsu *InstancePtr)
 	/* In USB 2.0, to avoid hibernation interrupt at the time of connection
 	 * clear KEEP_CONNECT bit.
 	 */
-	if (InstancePtr->HasHibernation) {
+	if (InstancePtr->HasHibernation == TRUE) {
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
-		if (RegVal & XUSBPSU_DCTL_KEEP_CONNECT) {
+		if ((RegVal & XUSBPSU_DCTL_KEEP_CONNECT) != (u32)0U) {
 			RegVal &= ~XUSBPSU_DCTL_KEEP_CONNECT;
 			XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
 		}
@@ -172,15 +172,17 @@ static void XUsbPsu_stop_active_transfers(struct XUsbPsu *InstancePtr)
 {
 	u32 Epnum;
 
-	for (Epnum = 2; Epnum < XUSBPSU_ENDPOINTS_NUM; Epnum++) {
+	for (Epnum = 2U; Epnum < XUSBPSU_ENDPOINTS_NUM; Epnum++) {
 		struct XUsbPsu_Ep *Ept;
 
 		Ept = &InstancePtr->eps[Epnum];
-		if (!Ept)
+		if (Ept == NULL) {
 			continue;
+		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+		if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == (u32)0U) {
 			continue;
+		}
 
 		XUsbPsu_StopTransfer(InstancePtr, Ept->UsbEpNum,
 				Ept->Direction, TRUE);
@@ -202,18 +204,21 @@ static void XUsbPsu_clear_stall_all_ep(struct XUsbPsu *InstancePtr)
 {
 	u32 Epnum;
 
-	for (Epnum = 1; Epnum < XUSBPSU_ENDPOINTS_NUM; Epnum++) {
+	for (Epnum = 1U; Epnum < XUSBPSU_ENDPOINTS_NUM; Epnum++) {
 		struct XUsbPsu_Ep *Ept;
 
 		Ept = &InstancePtr->eps[Epnum];
-		if (!Ept)
+		if (Ept == NULL) {
 			continue;
+		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+		if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == (u32)0U) {
 			continue;
+		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_STALL))
+		if ((Ept->EpStatus & XUSBPSU_EP_STALL) == (u32)0U) {
 			continue;
+		}
 
 		XUsbPsu_EpClearStall(InstancePtr, Ept->UsbEpNum, Ept->Direction);
 	}
@@ -336,9 +341,9 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 	/* In USB 2.0, to avoid hibernation interrupt at the time of connection
 	 * clear KEEP_CONNECT bit.
 	 */
-	if (InstancePtr->HasHibernation) {
+	if (InstancePtr->HasHibernation == TRUE) {
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
-		if (!(RegVal & XUSBPSU_DCTL_KEEP_CONNECT)) {
+		if ((RegVal & XUSBPSU_DCTL_KEEP_CONNECT) == (u32)0U) {
 			RegVal |= XUSBPSU_DCTL_KEEP_CONNECT;
 			XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
 		}
@@ -398,8 +403,9 @@ void XUsbPsu_DevInterrupt(struct XUsbPsu *InstancePtr,
 
 		case XUSBPSU_DEVICE_EVENT_HIBER_REQ:
 #ifdef XUSBPSU_HIBERNATION_ENABLE
-			if (InstancePtr->HasHibernation)
+			if (InstancePtr->HasHibernation == TRUE) {
 				Xusbpsu_HibernationIntr(InstancePtr);
+			}
 #endif
 			break;
 
@@ -478,17 +484,17 @@ void XUsbPsu_EventHandler(struct XUsbPsu *InstancePtr,
 void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 {
 	struct XUsbPsu_EvtBuffer *Evt;
-	union XUsbPsu_Event Event = {0};
+	union XUsbPsu_Event Event = {0U};
 	u32 RegVal;
 
 	Evt = &InstancePtr->Evt;
 
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheInvalidateRange((INTPTR)Evt->BuffAddr,
                               (u32)XUSBPSU_EVENT_BUFFERS_SIZE);
 	}
 
-	while (Evt->Count > 0) {
+	while (Evt->Count > 0U) {
 		Event.Raw = *(UINTPTR *)((UINTPTR)Evt->BuffAddr + Evt->Offset);
 
 		/*
@@ -497,21 +503,22 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 		XUsbPsu_EventHandler(InstancePtr, &Event);
 
 		/* don't process anymore events if core is hibernated */
-		if (InstancePtr->IsHibernated)
+		if (InstancePtr->IsHibernated == TRUE) {
 			return;
+		}
 
 		Evt->Offset = (Evt->Offset + 4U) % XUSBPSU_EVENT_BUFFERS_SIZE;
-		Evt->Count -= 4;
+		Evt->Count -= 4U;
 		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0), 4U);
 	}
 
-	Evt->Count = 0;
+	Evt->Count = 0U;
 	Evt->Flags &= ~XUSBPSU_EVENT_PENDING;
 
 	/* Unmask event interrupt */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTSIZ(0));
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTSIZ(0U));
 	RegVal &= ~XUSBPSU_GEVNTSIZ_INTMASK;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0), RegVal);
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0U), RegVal);
 }
 
 /****************************************************************************/
@@ -530,11 +537,13 @@ void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
 	u32 Count;
 	u32 RegVal;
 
-	InstancePtr = XUsbPsuInstancePtr;
+	InstancePtr = (struct XUsbPsu  *)XUsbPsuInstancePtr;
+	Xil_AssertVoid(InstancePtr != NULL);
 
 	Evt = &InstancePtr->Evt;
+	Xil_AssertVoid(Evt != NULL);
 
-	Count = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0));
+	Count = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0U));
 	Count &= XUSBPSU_GEVNTCOUNT_MASK;
 	/*
 	 * As per data book software should only process Events if Event count
@@ -548,9 +557,9 @@ void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
 	Evt->Flags |= XUSBPSU_EVENT_PENDING;
 
 	/* Mask event interrupt */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTSIZ(0));
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTSIZ(0U));
 	RegVal |= XUSBPSU_GEVNTSIZ_INTMASK;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0), RegVal);
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0U), RegVal);
 
 	/* Processes events in an Event Buffer */
 	XUsbPsu_EventBufferHandler(InstancePtr);

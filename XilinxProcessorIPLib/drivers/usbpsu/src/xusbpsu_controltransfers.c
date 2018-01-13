@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -85,7 +85,7 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 	Xil_AssertNonvoid(Params != NULL);
 
 	/* Setup packet always on EP0 */
-	Ept = &InstancePtr->eps[0];
+	Ept = &InstancePtr->eps[0U];
 	if ((Ept->EpStatus & XUSBPSU_EP_BUSY) != 0U) {
 		return (s32)XST_FAILURE;
 	}
@@ -93,7 +93,7 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 	TrbPtr = &InstancePtr->Ep0_Trb;
 
 	TrbPtr->BufferPtrLow = (UINTPTR)&InstancePtr->SetupData;
-	TrbPtr->BufferPtrHigh = ((UINTPTR)&InstancePtr->SetupData >> 16) >> 16;
+	TrbPtr->BufferPtrHigh = ((UINTPTR)&InstancePtr->SetupData >> 16U) >> 16U;
 	TrbPtr->Size = 8U;
 	TrbPtr->Ctrl = XUSBPSU_TRBCTL_CONTROL_SETUP;
 
@@ -102,7 +102,7 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 			| XUSBPSU_TRB_CTRL_IOC
 			| XUSBPSU_TRB_CTRL_ISP_IMI);
 
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
 		Xil_DCacheFlushRange((UINTPTR)&InstancePtr->SetupData, sizeof(SetupPacket));
 	}
@@ -143,13 +143,13 @@ void XUsbPsu_Ep0StallRestart(struct XUsbPsu *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* reinitialize physical ep1 */
-	Ept = &InstancePtr->eps[1];
+	Ept = &InstancePtr->eps[1U];
 	Ept->EpStatus = XUSBPSU_EP_ENABLED;
 
 	/* stall is always issued on EP0 */
 	XUsbPsu_EpSetStall(InstancePtr, 0U, XUSBPSU_EP_DIR_OUT);
 
-	Ept = &InstancePtr->eps[0];
+	Ept = &InstancePtr->eps[0U];
 	Ept->EpStatus = XUSBPSU_EP_ENABLED;
 	InstancePtr->Ep0State = XUSBPSU_EP0_SETUP_PHASE;
 	(void)XUsbPsu_RecvSetup(InstancePtr);
@@ -185,8 +185,9 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 	Ept = &InstancePtr->eps[Epnum];
 	TrbPtr = &InstancePtr->Ep0_Trb;
 
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheInvalidateRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+	}
 
 	Status = XUSBPSU_TRB_SIZE_TRBSTS(TrbPtr->Size);
 	if (Status == XUSBPSU_TRBSTS_SETUP_PENDING) {
@@ -210,11 +211,12 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 
 	if (Dir == XUSBPSU_EP_DIR_OUT) {
 		/* Invalidate Cache */
-		if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
+		if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 			Xil_DCacheInvalidateRange((INTPTR)Ept->BufferPtr, Ept->BytesTxed);
+		}
 	}
 
-	if (Ept->Handler != NULL) {
+	if (Ept->Handler) {
 		Ept->Handler(InstancePtr->AppData, Ept->RequestedBytes, Ept->BytesTxed);
 	}
 }
@@ -251,8 +253,9 @@ void XUsbPsu_Ep0StatusDone(struct XUsbPsu *InstancePtr,
 			return;
 		}
 	}
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheInvalidateRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+	}
 
 	(void)XUsbPsu_RecvSetup(InstancePtr);
 }
@@ -287,7 +290,7 @@ void XUsbPsu_Ep0XferComplete(struct XUsbPsu *InstancePtr,
 
 	switch (InstancePtr->Ep0State) {
 	case XUSBPSU_EP0_SETUP_PHASE:
-		if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
+		if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 			Xil_DCacheInvalidateRange((INTPTR)&InstancePtr->SetupData,
 					sizeof(InstancePtr->SetupData));
 		}
@@ -358,7 +361,7 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 	TrbPtr = &InstancePtr->Ep0_Trb;
 	/* we use same TrbPtr for setup packet */
 	TrbPtr->BufferPtrLow = (UINTPTR)&InstancePtr->SetupData;
-	TrbPtr->BufferPtrHigh = ((UINTPTR)&InstancePtr->SetupData >> 16) >> 16;
+	TrbPtr->BufferPtrHigh = ((UINTPTR)&InstancePtr->SetupData >> 16U) >> 16U;
 	TrbPtr->Size = 0U;
 	TrbPtr->Ctrl = Type;
 
@@ -367,7 +370,7 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 			| XUSBPSU_TRB_CTRL_IOC
 			| XUSBPSU_TRB_CTRL_ISP_IMI);
 
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
 	}
 
@@ -543,7 +546,7 @@ s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(BufferPtr != NULL);
 
-	Ept = &InstancePtr->eps[1];
+	Ept = &InstancePtr->eps[1U];
 	Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertNonvoid(Params != NULL);
 
@@ -558,7 +561,7 @@ s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 	TrbPtr = &InstancePtr->Ep0_Trb;
 
 	TrbPtr->BufferPtrLow  = (UINTPTR)BufferPtr;
-	TrbPtr->BufferPtrHigh  = ((UINTPTR)BufferPtr >> 16) >> 16;
+	TrbPtr->BufferPtrHigh  = ((UINTPTR)BufferPtr >> 16U) >> 16U;
 	TrbPtr->Size = BufferLen;
 	TrbPtr->Ctrl = XUSBPSU_TRBCTL_CONTROL_DATA;
 
@@ -570,7 +573,7 @@ s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 	Params->Param0 = 0U;
 	Params->Param1 = (UINTPTR)TrbPtr;
 
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
 		Xil_DCacheFlushRange((INTPTR)BufferPtr, BufferLen);
 	}
@@ -614,7 +617,7 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(BufferPtr != NULL);
 
-	Ept = &InstancePtr->eps[0];
+	Ept = &InstancePtr->eps[0U];
 	Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertNonvoid(Params != NULL);
 
@@ -633,14 +636,15 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 	 * fixed non-multiple of MaxPacketSize transfer from the Host.
 	 */
 	if (!IS_ALIGNED(Length, Ept->MaxSize)) {
-		Size = (u32)roundup(Length, Ept->MaxSize);
+		u16 TmpSize = Ept->MaxSize;
+		Size = (u32)roundup(Length, TmpSize);
 		Ept->UnalignedTx = 1U;
 	}
 
 	TrbPtr = &InstancePtr->Ep0_Trb;
 
 	TrbPtr->BufferPtrLow = (UINTPTR)BufferPtr;
-	TrbPtr->BufferPtrHigh = ((UINTPTR)BufferPtr >> 16) >> 16;
+	TrbPtr->BufferPtrHigh = ((UINTPTR)BufferPtr >> 16U) >> 16U;
 	TrbPtr->Size = Size;
 	TrbPtr->Ctrl = XUSBPSU_TRBCTL_CONTROL_DATA;
 
@@ -649,7 +653,7 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 			| XUSBPSU_TRB_CTRL_IOC
 			| XUSBPSU_TRB_CTRL_ISP_IMI);
 
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
 		Xil_DCacheInvalidateRange((INTPTR)BufferPtr, Length);
 	}
