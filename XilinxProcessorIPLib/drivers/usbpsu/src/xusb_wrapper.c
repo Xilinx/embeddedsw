@@ -42,6 +42,7 @@
  * Ver   Who  	Date     Changes
  * ----- ---- 	-------- -------------------------------------------------------
  * 1.0   BK 	12/01/18 First release
+ *	 MYK	12/01/18 Added hibernation support for device mode
  *
  * </pre>
  *
@@ -217,7 +218,7 @@ s32 U2SleepDisable(void *InstancePtr)
 s32 EpEnable(void *InstancePtr, u8 UsbEpNum, u8 Dir, u16 Maxsize, u8 Type)
 {
 	return XUsbPsu_EpEnable((struct XUsbPsu *)InstancePtr, UsbEpNum, Dir,
-			Maxsize, Type);
+			Maxsize, Type, FALSE);
 }
 
 s32 EpDisable(void *InstancePtr, u8 UsbEpNum, u8 Dir)
@@ -314,7 +315,7 @@ void SetEpInterval(void *InstancePtr, u8 UsbEpNum, u8 Dir, u32 Interval)
 
 void StopTransfer(void *InstancePtr, u8 EpNum, u8 Dir)
 {
-	XUsbPsu_StopTransfer((struct XUsbPsu *)InstancePtr, EpNum, Dir);
+	XUsbPsu_StopTransfer((struct XUsbPsu *)InstancePtr, EpNum, Dir, TRUE);
 }
 
 s32 StreamOn(void *InstancePtr, u8 EpNum, u8 Dir, u8 *BufferPtr)

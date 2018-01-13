@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -40,6 +40,8 @@
 * Ver    Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   Mayank 12/01/18 First release
+* 1.5   VAK    14/03/19 Enable hibernation related functions only when
+*                       XUSBPSU_HIBERNATION_ENABLE is defined
 *
 * </pre>
 *
@@ -51,9 +53,11 @@
 #include "xusbpsu_hw.h"
 #include "xusbpsu_endpoint.h"
 
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+
 /************************** Constant Definitions *****************************/
 
-#define NUM_OF_NONSTICKY_REGS    		27
+#define NUM_OF_NONSTICKY_REGS    		27U
 
 #define XUSBPSU_HIBER_SCRATCHBUF_SIZE           4096U
 
@@ -85,25 +89,25 @@ static u32 save_reg_addr[] = {
         XUSBPSU_GCTL,
         XUSBPSU_GTXTHRCFG,
         XUSBPSU_GRXTHRCFG,
-        XUSBPSU_GTXFIFOSIZ(0),
-        XUSBPSU_GTXFIFOSIZ(1),
-        XUSBPSU_GTXFIFOSIZ(2),
-        XUSBPSU_GTXFIFOSIZ(3),
-        XUSBPSU_GTXFIFOSIZ(4),
-        XUSBPSU_GTXFIFOSIZ(5),
-        XUSBPSU_GTXFIFOSIZ(6),
-        XUSBPSU_GTXFIFOSIZ(7),
-        XUSBPSU_GTXFIFOSIZ(8),
-        XUSBPSU_GTXFIFOSIZ(9),
-        XUSBPSU_GTXFIFOSIZ(10),
-        XUSBPSU_GTXFIFOSIZ(11),
-        XUSBPSU_GTXFIFOSIZ(12),
-        XUSBPSU_GTXFIFOSIZ(13),
-        XUSBPSU_GTXFIFOSIZ(14),
-        XUSBPSU_GTXFIFOSIZ(15),
-        XUSBPSU_GRXFIFOSIZ(0),
-        XUSBPSU_GUSB3PIPECTL(0),
-        XUSBPSU_GUSB2PHYCFG(0),
+        XUSBPSU_GTXFIFOSIZ(0U),
+        XUSBPSU_GTXFIFOSIZ(1U),
+        XUSBPSU_GTXFIFOSIZ(2U),
+        XUSBPSU_GTXFIFOSIZ(3U),
+        XUSBPSU_GTXFIFOSIZ(4U),
+        XUSBPSU_GTXFIFOSIZ(5U),
+        XUSBPSU_GTXFIFOSIZ(6U),
+        XUSBPSU_GTXFIFOSIZ(7U),
+        XUSBPSU_GTXFIFOSIZ(8U),
+        XUSBPSU_GTXFIFOSIZ(9U),
+        XUSBPSU_GTXFIFOSIZ(10U),
+        XUSBPSU_GTXFIFOSIZ(11U),
+        XUSBPSU_GTXFIFOSIZ(12U),
+        XUSBPSU_GTXFIFOSIZ(13U),
+        XUSBPSU_GTXFIFOSIZ(14U),
+        XUSBPSU_GTXFIFOSIZ(15U),
+        XUSBPSU_GRXFIFOSIZ(0U),
+        XUSBPSU_GUSB3PIPECTL(0U),
+        XUSBPSU_GUSB2PHYCFG(0U),
 };
 static u32 saved_regs[NUM_OF_NONSTICKY_REGS];
 
@@ -123,8 +127,9 @@ static void save_regs(struct XUsbPsu *InstancePtr)
 {
 	u32 i;
 
-	for (i = 0; i < NUM_OF_NONSTICKY_REGS; i++)
+	for (i = 0U; i < NUM_OF_NONSTICKY_REGS; i++) {
 		saved_regs[i] = XUsbPsu_ReadReg(InstancePtr, save_reg_addr[i]);
+	}
 }
 
 /*****************************************************************************/
@@ -143,8 +148,9 @@ static void restore_regs(struct XUsbPsu *InstancePtr)
 {
 	u32 i;
 
-	for (i = 0; i < NUM_OF_NONSTICKY_REGS; i++)
+	for (i = 0U; i < NUM_OF_NONSTICKY_REGS; i++) {
 		XUsbPsu_WriteReg(InstancePtr, save_reg_addr[i], saved_regs[i]);
+	}
 }
 
 /*****************************************************************************/
@@ -168,20 +174,23 @@ static void restore_regs(struct XUsbPsu *InstancePtr)
 s32 XUsbPsu_SendGadgetGenericCmd(struct XUsbPsu *InstancePtr, u32 cmd,
 			u32 param)
 {
-	u32		RegVal, retry = 500;
+	u32		RegVal, retry = 500U;
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DGCMDPAR, param);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DGCMD, cmd | XUSBPSU_DGCMD_CMDACT);
 
-	do {
+	while (retry > 0U) {
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DGCMD);
-		if (!(RegVal & XUSBPSU_DGCMD_CMDACT)) {
-			if (XUSBPSU_DGCMD_STATUS(RegVal))
-				return XST_REGISTER_ERROR;
-			return 0;
+		if ((RegVal & XUSBPSU_DGCMD_CMDACT) == (u32)0U) {
+			if (XUSBPSU_DGCMD_STATUS(RegVal) != (u32)0U) {
+				return (s32)XST_REGISTER_ERROR;
+			}
+			return (s32)XST_SUCCESS;
 		}
-	} while (--retry);
 
-	return XST_FAILURE;
+		retry = retry - 1U;
+	}
+
+	return (s32)XST_FAILURE;
 }
 
 /*****************************************************************************/
@@ -200,15 +209,15 @@ s32 XUsbPsu_SetupScratchpad(struct XUsbPsu *InstancePtr)
 {
 	s32 Ret;
 	Ret = XUsbPsu_SendGadgetGenericCmd(InstancePtr,
-		XUSBPSU_DGCMD_SET_SCRATCHPAD_ADDR_LO, (UINTPTR)ScratchBuf & 0xffffffff);
-	if (Ret) {
+		XUSBPSU_DGCMD_SET_SCRATCHPAD_ADDR_LO, (UINTPTR)ScratchBuf & 0xFFFFFFFFU);
+	if (Ret == XST_FAILURE) {
 		xil_printf("Failed to set scratchpad low addr: %d\n", Ret);
 		return Ret;
 	}
 
 	Ret = XUsbPsu_SendGadgetGenericCmd(InstancePtr,
-		XUSBPSU_DGCMD_SET_SCRATCHPAD_ADDR_HI, ((UINTPTR)ScratchBuf >> 16) >> 16);
-	if (Ret) {
+		XUSBPSU_DGCMD_SET_SCRATCHPAD_ADDR_HI, ((UINTPTR)ScratchBuf >> 16U) >> 16U);
+	if (Ret == XST_FAILURE) {
 		xil_printf("Failed to set scratchpad high addr: %d\n", Ret);
 		return Ret;
 	}
@@ -232,22 +241,23 @@ void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr)
 {
 	u32		RegVal;
 
-	InstancePtr->IsHibernated = 0;
+	InstancePtr->IsHibernated = 0U;
 
-	memset(ScratchBuf, 0, sizeof(ScratchBuf));
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
+	memset(ScratchBuf, 0U, sizeof(ScratchBuf));
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)ScratchBuf, XUSBPSU_HIBER_SCRATCHBUF_SIZE);
+	}
 
 	XUsbPsu_SetupScratchpad(InstancePtr);
 
 	/* enable PHY suspend */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0));
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U));
 	RegVal |= XUSBPSU_GUSB2PHYCFG_SUSPHY;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0), RegVal);
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U), RegVal);
 
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0));
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U));
 	RegVal |= XUSBPSU_GUSB3PIPECTL_SUSPHY;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0), RegVal);
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U), RegVal);
 }
 
 /*****************************************************************************/
@@ -266,7 +276,7 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 {
 	u8 EpNum;
 	u32 RegVal;
-	s32 retries;
+	u32 retries;
 	XusbPsuLinkState LinkState;
 
 	/* sanity check */
@@ -281,21 +291,23 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 	};
 
 	if (InstancePtr->Ep0State == XUSBPSU_EP0_SETUP_PHASE) {
-		XUsbPsu_StopTransfer(InstancePtr, 0, XUSBPSU_EP_DIR_OUT, TRUE);
+		XUsbPsu_StopTransfer(InstancePtr, 0U, XUSBPSU_EP_DIR_OUT, TRUE);
 		XUsbPsu_RecvSetup(InstancePtr);
 	}
 
 	/* stop active transfers for all endpoints including control
 	 * endpoints force rm bit should be 0 when we do this */
-	for (EpNum = 0; EpNum < XUSBPSU_ENDPOINTS_NUM; EpNum++) {
+	for (EpNum = 0U; EpNum < XUSBPSU_ENDPOINTS_NUM; EpNum++) {
 		struct XUsbPsu_Ep *Ept;
 
 		Ept = &InstancePtr->eps[EpNum];
-		if (!Ept)
+		if (Ept == NULL) {
 			continue;
+		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+		if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == (u32)0U) {
 			continue;
+		}
 
 		/* save srsource index for later use */
 		XUsbPsu_StopTransfer(InstancePtr, Ept->UsbEpNum,
@@ -308,12 +320,12 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 	 * ack events, don't process them; h/w decrements the count by the value
 	 * written
 	 */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0));
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0), RegVal);
-	InstancePtr->Evt.Count = 0;
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0U));
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0U), RegVal);
+	InstancePtr->Evt.Count = 0U;
 	InstancePtr->Evt.Flags &= ~XUSBPSU_EVENT_PENDING;
 
-	if (XUsbPsu_Stop(InstancePtr)) {
+	if (XUsbPsu_Stop(InstancePtr) == XST_FAILURE) {
 		xil_printf("Failed to stop USB core\r\n");
 		return;
 	}
@@ -352,26 +364,30 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 	XUsbPsu_WriteVendorReg(XIL_REQ_PWR_STATE, XIL_REQ_PWR_STATE_D3);
 
 	/* wait till current state is changed to D3 */
-        retries = XUSBPSU_PWR_STATE_RETRIES;
-        do {
+        retries = (u32)XUSBPSU_PWR_STATE_RETRIES;
+
+        while (retries > 0U) {
 		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
-                if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) == XIL_CUR_PWR_STATE_D3)
+                if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) == XIL_CUR_PWR_STATE_D3) {
                         break;
+                }
 
                 XUsbSleep(XUSBPSU_TIMEOUT);
-        } while (--retries);
+                retries = retries - 1U;
+        }
 
-	if (retries < 0) {
+	if (retries == 0U) {
 		xil_printf("Failed to change power state to D3\r\n");
 		return;
 	}
 	XUsbSleep(XUSBPSU_TIMEOUT);
 
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
-	if (InstancePtr->ConfigPtr->DeviceId == XPAR_XUSBPSU_0_DEVICE_ID)
-		XUsbPsu_WriteLpdReg(RST_LPD_TOP, RegVal | USB0_CORE_RST);
+	if (InstancePtr->ConfigPtr->DeviceId == (u16)XPAR_XUSBPSU_0_DEVICE_ID) {
+		XUsbPsu_WriteLpdReg(RST_LPD_TOP, RegVal | (u32)USB0_CORE_RST);
+	}
 
-	InstancePtr->IsHibernated = 1;
+	InstancePtr->IsHibernated = 1U;
 	xil_printf("Hibernated!\r\n");
 }
 
@@ -404,10 +420,11 @@ static s32 XUsbPsu_RestartEp(struct XUsbPsu *InstancePtr, u8 EpNum)
 	Ept = &InstancePtr->eps[EpNum];
 
 	/* check if we need to restart transfer */
-	if (!Ept->ResourceIndex && Ept->PhyEpNum)
+	if ((Ept->ResourceIndex == (u32)0U) && (Ept->PhyEpNum != (u32)0U)) {
 		return XST_SUCCESS;
+	}
 
-	if (Ept->UsbEpNum) {
+	if (Ept->UsbEpNum != (u32)0U) {
 		TrbPtr = &Ept->EpTrb[Ept->TrbDequeue];
 	} else {
 		TrbPtr = &InstancePtr->Ep0_Trb;
@@ -417,7 +434,7 @@ static s32 XUsbPsu_RestartEp(struct XUsbPsu *InstancePtr, u8 EpNum)
 
 	TrbPtr->Ctrl |= XUSBPSU_TRB_CTRL_HWO;
 
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
 		Xil_DCacheInvalidateRange((INTPTR)Ept->BufferPtr, Ept->RequestedBytes);
 	}
@@ -429,14 +446,15 @@ static s32 XUsbPsu_RestartEp(struct XUsbPsu *InstancePtr, u8 EpNum)
 
 	Ret = XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
 			Cmd, Params);
-	if (Ret)
-		return XST_FAILURE;
+	if (Ret == XST_FAILURE) {
+		return (s32)XST_FAILURE;
+	}
 
 	Ept->EpStatus |= XUSBPSU_EP_BUSY;
 	Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
 			Ept->UsbEpNum, Ept->Direction);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -457,36 +475,38 @@ static s32 XUsbPsu_RestoreEp0(struct XUsbPsu *InstancePtr)
         s32 Ret;
         u8 EpNum;
 
-        for (EpNum = 0; EpNum < 2; EpNum++) {
+        for (EpNum = 0U; EpNum < 2U; EpNum++) {
 		Ept = &InstancePtr->eps[EpNum];
 
-		if (!Ept)
+		if (Ept == NULL) {
 			continue;
+		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+		if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == (u32)0U) {
 			continue;
+		}
 
 		Ret = XUsbPsu_EpEnable(InstancePtr, Ept->UsbEpNum,
 				Ept->Direction, Ept->MaxSize, Ept->Type, TRUE);
-		if (Ret) {
+		if (Ret == XST_FAILURE) {
 			xil_printf("Failed to enable EP %d on wakeup: %d\r\n",
 					EpNum, Ret);
-			return XST_FAILURE;
+			return (s32)XST_FAILURE;
 		}
 
-		if (Ept->EpStatus & XUSBPSU_EP_STALL) {
+		if ((Ept->EpStatus & XUSBPSU_EP_STALL) != (u32)0U) {
 			XUsbPsu_Ep0StallRestart(InstancePtr);
 		} else {
 			Ret = XUsbPsu_RestartEp(InstancePtr, Ept->PhyEpNum);
-			if (Ret) {
+			if (Ret == XST_FAILURE) {
 				xil_printf("Failed to restart EP %d on wakeup: %d\r\n",
 						EpNum, Ret);
-				return XST_FAILURE;
+				return (s32)XST_FAILURE;
 			}
 		}
         }
 
-        return XST_SUCCESS;
+        return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -507,46 +527,50 @@ static s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr)
 	s32 Ret;
 	u8 EpNum;
 
-	for (EpNum = 2; EpNum < XUSBPSU_ENDPOINTS_NUM; EpNum++) {
+	for (EpNum = 2U; EpNum < XUSBPSU_ENDPOINTS_NUM; EpNum++) {
 		Ept = &InstancePtr->eps[EpNum];
 
-		if (!Ept)
+		if (Ept == NULL) {
 			continue;
+		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+		if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == (u32)0U) {
 			continue;
+		}
 
 		Ret = XUsbPsu_EpEnable(InstancePtr, Ept->UsbEpNum,
 				Ept->Direction, Ept->MaxSize, Ept->Type, TRUE);
-		if (Ret) {
+		if (Ret == XST_FAILURE) {
 			xil_printf("Failed to enable EP %d on wakeup: %d\r\n",
 					EpNum, Ret);
-			return XST_FAILURE;
+			return (s32)XST_FAILURE;
 		}
 	}
 
-	for (EpNum = 2; EpNum < XUSBPSU_ENDPOINTS_NUM; EpNum++) {
+	for (EpNum = 2U; EpNum < XUSBPSU_ENDPOINTS_NUM; EpNum++) {
 		Ept = &InstancePtr->eps[EpNum];
 
-		if (!Ept)
+		if (Ept == NULL) {
 			continue;
+		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+		if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == (u32)0U) {
 			continue;
+		}
 
-		if (Ept->EpStatus & XUSBPSU_EP_STALL) {
+		if ((Ept->EpStatus & XUSBPSU_EP_STALL) != (u32)0U) {
 			XUsbPsu_EpSetStall(InstancePtr, Ept->UsbEpNum, Ept->Direction);
 		} else {
 			Ret = XUsbPsu_RestartEp(InstancePtr, Ept->PhyEpNum);
-			if (Ret) {
+			if (Ret == XST_FAILURE) {
 				xil_printf("Failed to restart EP %d on wakeup: %d\r\n",
 						EpNum, Ret);
-				return XST_FAILURE;
+				return (s32)XST_FAILURE;
 			}
 		}
         }
 
-        return XST_SUCCESS;
+        return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -564,27 +588,31 @@ static s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr)
 void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 {
 	u32 RegVal, link_state;
-	s32 retries;
-	char enter_hiber;
+	u32 retries;
+	u8 enter_hiber = (u8)0U;
 
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
-	if (InstancePtr->ConfigPtr->DeviceId == XPAR_XUSBPSU_0_DEVICE_ID)
-		XUsbPsu_WriteLpdReg(RST_LPD_TOP, RegVal & ~USB0_CORE_RST);
+	if (InstancePtr->ConfigPtr->DeviceId == (u16)XPAR_XUSBPSU_0_DEVICE_ID) {
+		XUsbPsu_WriteLpdReg(RST_LPD_TOP, (u32)(RegVal & ~(u32)USB0_CORE_RST));
+	}
 
 	/* change power state to D0 */
 	XUsbPsu_WriteVendorReg(XIL_REQ_PWR_STATE, XIL_REQ_PWR_STATE_D0);
 
 	/* wait till current state is changed to D0 */
-        retries = XUSBPSU_PWR_STATE_RETRIES;
-        do {
+        retries = (u32)XUSBPSU_PWR_STATE_RETRIES;
+
+	while (retries > 0U) {
 		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
-                if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) == XIL_CUR_PWR_STATE_D0)
+                if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) == XIL_CUR_PWR_STATE_D0) {
                         break;
+                }
 
                 XUsbSleep(XUSBPSU_TIMEOUT);
-        } while (--retries);
+                retries = retries - 1U;
+        }
 
-	if (retries < 0) {
+	if (retries == 0U) {
 		xil_printf("Failed to change power state to D0\r\n");
 		return;
 	}
@@ -609,16 +637,17 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 	XUsbPsu_EventBuffersSetup(InstancePtr);
 
 	/* nothing to do when in OTG host mode */
-	if (XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GSTS) & XUSBPSU_GSTS_CUR_MODE)
+	if ((XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GSTS) & XUSBPSU_GSTS_CUR_MODE) != (u32)0U) {
 		return;
+	}
 
-	if (XUsbPsu_RestoreEp0(InstancePtr)) {
+	if (XUsbPsu_RestoreEp0(InstancePtr) == XST_FAILURE) {
 		xil_printf("Failed to restore EP0\r\n");
 		return;
 	}
 
 	/* start controller */
-	if (XUsbPsu_Start(InstancePtr)) {
+	if (XUsbPsu_Start(InstancePtr) == XST_FAILURE) {
 		xil_printf("Failed to start core on wakeup\r\n");
 		return;
 	}
@@ -634,7 +663,7 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 	 * there can be suprious wakeup events , so wait for some time and check
 	 * the link state
 	 */
-	XUsbSleep(XUSBPSU_TIMEOUT * 10);
+	XUsbSleep(XUSBPSU_TIMEOUT * 10U);
 
 	link_state = XUsbPsu_GetLinkState(InstancePtr);
 
@@ -644,7 +673,7 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 		RegVal &= ~XUSBPSU_DCFG_DEVADDR_MASK;
 		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DSTS, RegVal);
 
-		if (XUsbPsu_SetLinkState(InstancePtr, XUSBPSU_LINK_STATE_RECOV)) {
+		if (XUsbPsu_SetLinkState(InstancePtr, XUSBPSU_LINK_STATE_RECOV) == XST_FAILURE) {
 			xil_printf("Failed to put link in Recovery\r\n");
 			return;
 		}
@@ -653,32 +682,34 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
 		RegVal &= ~XUSBPSU_DCTL_KEEP_CONNECT;
 		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
-		enter_hiber = 1;
+		enter_hiber = (u8)1U;
 		break;
 	case XUSBPSU_LINK_STATE_U3:
 		/* enter hibernation again */
-		enter_hiber = 1;
+		enter_hiber = (u8)1U;
 		break;
 	default:
-		if (XUsbPsu_SetLinkState(InstancePtr, XUSBPSU_LINK_STATE_RECOV)) {
+		if (XUsbPsu_SetLinkState(InstancePtr, XUSBPSU_LINK_STATE_RECOV) == XST_FAILURE) {
 			xil_printf("Failed to put link in Recovery\r\n");
 			return;
 		}
 		break;
 	};
 
-	if (XUsbPsu_RestoreEps(InstancePtr)) {
+	if (XUsbPsu_RestoreEps(InstancePtr) == XST_FAILURE) {
 		xil_printf("Failed to restore EPs\r\n");
 		return;
 	}
 
-	InstancePtr->IsHibernated = 0;
+	InstancePtr->IsHibernated = 0U;
 
-	if (enter_hiber)  {
+	if (enter_hiber == (u8)1U)  {
 		Xusbpsu_HibernationIntr(InstancePtr);
 		return;
 	}
 
 	xil_printf("We are back from hibernation!\r\n");
 }
+
+#endif /* XUSBPSU_HIBERNATION_ENABLE */
 /** @} */
