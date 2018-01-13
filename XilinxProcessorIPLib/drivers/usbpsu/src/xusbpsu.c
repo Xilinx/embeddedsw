@@ -46,6 +46,7 @@
 * 1.1   sg    10/24/16 Added new function XUsbPsu_IsSuperSpeed
 * 1.4	bk    12/01/18 Modify USBPSU driver code to fit USB common example code
 *		       for all USB IPs.
+*	myk   12/01/18 Added hibernation support for device mode
 * </pre>
 *
 *****************************************************************************/
@@ -233,6 +234,7 @@ void XUsbPsu_EventBuffersSetup(struct XUsbPsu *InstancePtr)
 
 	Evt = &InstancePtr->Evt;
 	Evt->BuffAddr = (void *)InstancePtr->EventBuffer;
+	Evt->Offset = 0;
 
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTADRLO(0),
 			(UINTPTR)InstancePtr->EventBuffer);
@@ -334,7 +336,11 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 			break;
 
 		case XUSBPSU_GHWPARAMS1_EN_PWROPT_HIB:
-		/* enable hibernation here */
+			/* enable hibernation here */
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+			RegVal |= XUSBPSU_GCTL_GBLHIBERNATIONEN;
+			InstancePtr->HasHibernation = 1;
+#endif
 			break;
 
 		default:
@@ -343,6 +349,11 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 	}
 
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GCTL, RegVal);
+
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+	if (InstancePtr->HasHibernation)
+		XUsbPsu_InitHibernation(InstancePtr);
+#endif
 
 	return XST_SUCCESS;
 }

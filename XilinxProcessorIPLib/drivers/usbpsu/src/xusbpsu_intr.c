@@ -46,6 +46,7 @@
 * 1.3   vak 04/03/17 Added CCI support for USB
 * 1.4	bk  12/01/18 Modify USBPSU driver code to fit USB common example code
 *		       for all USB IPs
+*	myk 12/01/18 Added hibernation support
 *
 * </pre>
 *
@@ -137,9 +138,84 @@ void XUsbPsu_DisconnectIntr(struct XUsbPsu *InstancePtr)
 	InstancePtr->IsConfigDone = 0U;
 	InstancePtr->AppData->Speed = XUSBPSU_SPEED_UNKNOWN;
 
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+	/* In USB 2.0, to avoid hibernation interrupt at the time of connection
+	 * clear KEEP_CONNECT bit.
+	 */
+	if (InstancePtr->HasHibernation) {
+		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
+		if (RegVal & XUSBPSU_DCTL_KEEP_CONNECT) {
+			RegVal &= ~XUSBPSU_DCTL_KEEP_CONNECT;
+			XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
+		}
+	}
+#endif
+
 	/* Call the handler if necessary */
 	if (InstancePtr->DisconnectIntrHandler != NULL) {
 		InstancePtr->DisconnectIntrHandler(InstancePtr->AppData);
+	}
+}
+
+/****************************************************************************/
+/**
+* Stops any active transfer.
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+static void XUsbPsu_stop_active_transfers(struct XUsbPsu *InstancePtr)
+{
+	u32 Epnum;
+
+	for (Epnum = 2; Epnum < XUSBPSU_ENDPOINTS_NUM; Epnum++) {
+		struct XUsbPsu_Ep *Ept;
+
+		Ept = &InstancePtr->eps[Epnum];
+		if (!Ept)
+			continue;
+
+		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+			continue;
+
+		XUsbPsu_StopTransfer(InstancePtr, Ept->UsbEpNum,
+				Ept->Direction, TRUE);
+	}
+}
+
+/****************************************************************************/
+/**
+* Clears stall on all stalled Eps.
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+static void XUsbPsu_clear_stall_all_ep(struct XUsbPsu *InstancePtr)
+{
+	u32 Epnum;
+
+	for (Epnum = 1; Epnum < XUSBPSU_ENDPOINTS_NUM; Epnum++) {
+		struct XUsbPsu_Ep *Ept;
+
+		Ept = &InstancePtr->eps[Epnum];
+		if (!Ept)
+			continue;
+
+		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+			continue;
+
+		if (!(Ept->EpStatus & XUSBPSU_EP_STALL))
+			continue;
+
+		XUsbPsu_EpClearStall(InstancePtr, Ept->UsbEpNum, Ept->Direction);
 	}
 }
 
@@ -165,6 +241,9 @@ void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
 	RegVal &= ~XUSBPSU_DCTL_TSTCTRL_MASK;
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
 	InstancePtr->TestMode = 0U;
+
+	XUsbPsu_stop_active_transfers(InstancePtr);
+	XUsbPsu_clear_stall_all_ep(InstancePtr);
 
 	for (Index = 0U; Index < (InstancePtr->NumInEps + InstancePtr->NumOutEps);
 			Index++)
@@ -244,8 +323,27 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 		break;
 	}
 
+	if (InstancePtr->AppData->Speed == XUSBPSU_SPEED_SUPER) {
+		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
+		RegVal &= ~XUSBPSU_DCTL_HIRD_THRES_MASK;
+		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
+	}
+
 	(void)XUsbPsu_EnableControlEp(InstancePtr, Size);
 	(void)XUsbPsu_RecvSetup(InstancePtr);
+
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+	/* In USB 2.0, to avoid hibernation interrupt at the time of connection
+	 * clear KEEP_CONNECT bit.
+	 */
+	if (InstancePtr->HasHibernation) {
+		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
+		if (!(RegVal & XUSBPSU_DCTL_KEEP_CONNECT)) {
+			RegVal |= XUSBPSU_DCTL_KEEP_CONNECT;
+			XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
+		}
+	}
+#endif
 }
 
 /****************************************************************************/
@@ -299,6 +397,10 @@ void XUsbPsu_DevInterrupt(struct XUsbPsu *InstancePtr,
 			break;
 
 		case XUSBPSU_DEVICE_EVENT_HIBER_REQ:
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+			if (InstancePtr->HasHibernation)
+				Xusbpsu_HibernationIntr(InstancePtr);
+#endif
 			break;
 
 		case XUSBPSU_DEVICE_EVENT_LINK_STATUS_CHANGE:
@@ -377,6 +479,7 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 {
 	struct XUsbPsu_EvtBuffer *Evt;
 	union XUsbPsu_Event Event = {0};
+	u32 RegVal;
 
 	Evt = &InstancePtr->Evt;
 
@@ -393,12 +496,22 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 		 */
 		XUsbPsu_EventHandler(InstancePtr, &Event);
 
+		/* don't process anymore events if core is hibernated */
+		if (InstancePtr->IsHibernated)
+			return;
+
 		Evt->Offset = (Evt->Offset + 4U) % XUSBPSU_EVENT_BUFFERS_SIZE;
 		Evt->Count -= 4;
 		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0), 4U);
 	}
 
+	Evt->Count = 0;
 	Evt->Flags &= ~XUSBPSU_EVENT_PENDING;
+
+	/* Unmask event interrupt */
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTSIZ(0));
+	RegVal &= ~XUSBPSU_GEVNTSIZ_INTMASK;
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0), RegVal);
 }
 
 /****************************************************************************/
@@ -441,12 +554,25 @@ void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
 
 	/* Processes events in an Event Buffer */
 	XUsbPsu_EventBufferHandler(InstancePtr);
-
-	/* Unmask event interrupt */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTSIZ(0));
-	RegVal &= ~XUSBPSU_GEVNTSIZ_INTMASK;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0), RegVal);
 }
+
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+/****************************************************************************/
+/**
+* Wakeup Interrupt Handler.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
+{
+	struct XUsbPsu  *InstancePtr = (struct XUsbPsu *)XUsbPsuInstancePtr;
+
+	XUsbPsu_WakeupIntr(InstancePtr);
+}
+#endif
 
 /****************************************************************************/
 /**
@@ -496,11 +622,22 @@ s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+	Status = XScuGic_Connect(IntcInstancePtr, USB_WAKEUP_INTR_ID,
+							(Xil_ExceptionHandler)XUsbPsu_WakeUpIntrHandler,
+							(void *)InstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+#endif
 
 	/*
 	 * Enable the interrupt for the USB
 	 */
 	XScuGic_Enable(IntcInstancePtr, USB_INTR_ID);
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+	XScuGic_Enable(IntcInstancePtr, USB_WAKEUP_INTR_ID);
+#endif
 
 	/*
 	 * Enable interrupts for Reset, Disconnect, ConnectionDone, Link State
@@ -512,6 +649,13 @@ s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
                         XUSBPSU_DEVTEN_CONNECTDONEEN |
                         XUSBPSU_DEVTEN_USBRSTEN |
                         XUSBPSU_DEVTEN_DISCONNEVTEN);
+
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+	if (InstancePtr->HasHibernation)
+		XUsbPsu_EnableIntr(InstancePtr,
+				XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);
+#endif
+
 	/*
 	 * Connect the interrupt controller interrupt handler to the hardware
 	 * interrupt handling logic in the ARM processor.

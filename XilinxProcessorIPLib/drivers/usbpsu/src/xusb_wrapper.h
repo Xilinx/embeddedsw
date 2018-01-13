@@ -42,6 +42,7 @@
  * Ver   Who  	Date     Changes
  * ----- ---- 	-------- -------------------------------------------------------
  *  1.0  BK	12/01/18 First release
+ *	 MYK	12/01/18 Added hibernation support for device mode
  *
  * </pre>
  *
@@ -61,6 +62,7 @@ extern "C" {
 #define USB_DEVICE_ID		XPAR_XUSBPSU_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define	USB_INTR_ID			XPAR_XUSBPS_0_INTR
+#define	USB_WAKEUP_INTR_ID	XPAR_XUSBPS_0_WAKE_INTR
 
 #define USB_EP_DIR_IN		XUSBPSU_EP_DIR_IN
 #define USB_EP_DIR_OUT		XUSBPSU_EP_DIR_OUT
