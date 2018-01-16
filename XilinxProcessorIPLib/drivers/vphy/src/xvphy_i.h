@@ -33,7 +33,7 @@
  *                           Moved XVphy_SetRxLpm to xvphy.c/.h
  * </pre>
  *
- * @addtogroup xvphy_v1_10
+ * @addtogroup xvphy_v1_11
  * @{
 *******************************************************************************/
 

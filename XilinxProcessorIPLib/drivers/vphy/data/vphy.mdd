@@ -12,6 +12,6 @@ BEGIN driver vphy
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (video_common);
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.10;
+	OPTION VERSION = 1.11;
 	OPTION NAME = vphy;
 END driver
