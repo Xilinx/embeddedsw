@@ -37,6 +37,8 @@ Added a support for S25FL064L flash from Spansion
 (CR#990724)
 Added a support for MX66U1G45G flash from Macronix
 (CR#992367)
+Removed the check for writing the data to DMA MSB.
+(CR#992560)
 
 spips_v4_4:
 When receive fifo exists, we need to check for status
