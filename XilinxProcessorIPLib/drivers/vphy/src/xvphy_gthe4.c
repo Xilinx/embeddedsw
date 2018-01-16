@@ -65,6 +65,8 @@
  * 1.6   gm   12/06/17 Changed XVphy_DrpRead with XVphy_DrpRd
  *                     Changed XVphy_DrpWrite with XVphy_DrpWr
  *                     Improved status return of APIs with DRP Rd and Wr
+ * 1.7   gm   13/09/17 Disabled intelligent clock sel in QPLL0/1 configuration
+ *                     Updated DP CDR config for 8.1 Gbps
  * </pre>
  *
 *******************************************************************************/
@@ -197,9 +199,9 @@ const XVphy_GtConfig Gthe4Config = {
 ******************************************************************************/
 u32 XVphy_Gthe4CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 {
-	u32 PllClkInFreqHz;
 	XVphy_Channel *ChPtr;
 	u32 Status = XST_SUCCESS;
+	u64 LineRateHz;
 
 	/* Set CDR values only for CPLLs. */
 	if ((ChId < XVPHY_CHANNEL_ID_CH1) || (ChId > XVPHY_CHANNEL_ID_CH4)) {
@@ -214,15 +216,16 @@ u32 XVphy_Gthe4CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	ChPtr->PllParams.Cdr[3] = 0x0000;
 	ChPtr->PllParams.Cdr[4] = 0x0000;
 	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP) {
-		PllClkInFreqHz = XVphy_GetQuadRefClkFreq(InstancePtr, QuadId,
-				ChPtr->CpllRefClkSel);
-		if (PllClkInFreqHz == 270000000) {
+
+		LineRateHz = XVphy_GetLineRateHz(InstancePtr, QuadId, ChId);
+
+		if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_810GBPS) {
+		  ChPtr->PllParams.Cdr[2] = 0x01C4;
+		} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_540GBPS) {
 			ChPtr->PllParams.Cdr[2] = 0x01C4;
-		}
-		else if (PllClkInFreqHz == 135000000) {
+		} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_270GBPS) {
 			ChPtr->PllParams.Cdr[2] = 0x01B4;
-		}
-		else {
+		} else {
 			ChPtr->PllParams.Cdr[2] = 0x01A3;
 		}
 	}
@@ -473,6 +476,8 @@ u32 XVphy_Gthe4ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 			(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x18 : 0x98, &DrpVal);
 	/* Mask out QPLLx_REFCLK_DIV. */
 	DrpVal &= ~(0xF80);
+	/* Disable Intelligent Reference Clock Selection */
+	DrpVal |= (1 << 6);
 	/* Set QPLLx_REFCLK_DIV. */
 	WriteVal = (XVphy_MToDrpEncoding(InstancePtr, QuadId, CmnId) & 0x1F);
 	DrpVal |= (WriteVal << 7);

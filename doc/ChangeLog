@@ -2529,6 +2529,15 @@ Fixed XVphy_HdmiDebugInfo printout for RX only configuration
 Added doxygen tags
 Added XVphy_Hdmi_CfgInitialize to replace the deprecated XVphy_HdmiInitialize API
 
+vphy_v1_7:
+Added new files: xvphy_gtye4.c, xvphy_mmcme2.c, xvphy_mmcme3.c & xvphy_mmcme4.c
+Added GTYE4 Support for HDMI
+Migrated MMCM reconfig from RTL to SW driver
+Added new APIs: XVphy_SetPolarity, XVphy_SetPrbsSel, XVphy_TxPrbsForceError
+Added 8.1 Gbps support in DP
+Corrected FVCO range for MMCME4 in xvphy_hdmi.h
+
+
 vprocss_v2_1:
 Added new version 2.1
 Added optional color format conversion handling in scaler only topology

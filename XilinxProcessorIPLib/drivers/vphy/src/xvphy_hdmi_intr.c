@@ -63,6 +63,7 @@
  *                     Added TX and RX MMCM Lock handling
  *                     Improved TX initialization flow in bonded mode to
  *                       reset GT TX only when PLL and MMCM are locked
+ * 1.7   gm   13/09/17 Added GTYE4 support
  * </pre>
  *
 *******************************************************************************/
@@ -544,7 +545,8 @@ void XVphy_HdmiGtTxResetDoneLockHandler(XVphy *InstancePtr)
 	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_TX_RST_DONE, 0);
 
 	if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE3) ||
-            (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE4)) {
+            (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE4) ||
+            (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTYE4)) {
 		XVphy_TxAlignReset(InstancePtr, XVPHY_CHANNEL_ID_CHA, TRUE);
 		XVphy_TxAlignReset(InstancePtr, XVPHY_CHANNEL_ID_CHA, FALSE);
 	}
@@ -914,7 +916,8 @@ void XVphy_HdmiTxTimerTimeoutHandler(XVphy *InstancePtr)
 	XVphy_OutDivReconfig(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 			XVPHY_DIR_TX);
 	if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE3) ||
-	    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE4)) {
+	    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE4) ||
+        (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTYE4)) {
 		XVphy_SetBufgGtDiv(InstancePtr, XVPHY_DIR_TX,
 			(PllType == XVPHY_PLL_TYPE_CPLL) ?
 			InstancePtr->Quads[0].Plls[0].TxOutDiv :
@@ -938,7 +941,8 @@ void XVphy_HdmiTxTimerTimeoutHandler(XVphy *InstancePtr)
 			XVPHY_DIR_TX, FALSE);
 
 	if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE3) ||
-	    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE4)) {
+	    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE4) ||
+        (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTYE4)) {
 		/* Clear GT alignment. */
 		XVphy_TxAlignStart(InstancePtr, ChId, FALSE);
 	}
