@@ -60,6 +60,9 @@ implementation. Now sleep routines will use TTC instance
 specified by user
 Added a macro to replace conditional loops
 Fixed the compilation warning in A53
+Made changes to ensure that for A9/Zynq, C stack information
+is flushed out from L1 D cache or L2 cache only when the
+respective caches are enabled.
 
 sysmonpsu_v2_3:
 Added missing closing bracket error when C++ is used
