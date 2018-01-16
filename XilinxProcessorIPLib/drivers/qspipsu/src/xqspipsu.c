@@ -61,6 +61,7 @@
 *	             parallel configurations, modified XQspiPsu_PollData()
 *	             and XQspiPsu_Create_PollConfigData()
 * 1,5	nsk 08/14/17 Added CCI support
+* 1.7	tjs	01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
 *
 * </pre>
 *
@@ -1140,12 +1141,10 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 
 #ifdef __aarch64__
 	AddrTemp = (u64)((INTPTR)(Msg->RxBfrPtr) >> 32);
-	if ((AddrTemp & 0xFFFU) != FALSE) {
-		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
-				XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,
-				(u32)AddrTemp &
-				XQSPIPSU_QSPIDMA_DST_ADDR_MSB_MASK);
-	}
+	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,
+			(u32)AddrTemp &
+			XQSPIPSU_QSPIDMA_DST_ADDR_MSB_MASK);
 #endif
 
 	Remainder = InstancePtr->RxBytes % 4;
