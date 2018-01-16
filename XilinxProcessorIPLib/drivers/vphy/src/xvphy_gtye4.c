@@ -12,14 +12,10 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * Use of the Software is limited solely to applications:
- * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -45,7 +41,10 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
- * 1.7   gm   09/13/17 Initial release.
+ * 1.7   gm   13/09/17 Initial release.
+ * 1.8   gm   14/05/18 Updated CDR values for DP
+ *            05/09/18 Enable IPS only when XVphy_GetRefClkSourcesCount
+ *                       returns more than 1.
  * </pre>
  *
 *******************************************************************************/
@@ -195,13 +194,13 @@ u32 XVphy_Gtye4CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		LineRateHz = XVphy_GetLineRateHz(InstancePtr, QuadId, ChId);
 
 		if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_810GBPS) {
-		  ChPtr->PllParams.Cdr[2] = 0x01C4;
+		  ChPtr->PllParams.Cdr[2] = 0x0269;
 		} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_540GBPS) {
-			ChPtr->PllParams.Cdr[2] = 0x01C4;
+			ChPtr->PllParams.Cdr[2] = 0x0263;
 		} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_270GBPS) {
-			ChPtr->PllParams.Cdr[2] = 0x01B4;
+			ChPtr->PllParams.Cdr[2] = 0x0253;
 		} else {
-			ChPtr->PllParams.Cdr[2] = 0x01A3;
+			ChPtr->PllParams.Cdr[2] = 0x0242;
 		}
 	}
 	else if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
@@ -414,7 +413,9 @@ u32 XVphy_Gtye4ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 	/* Mask out QPLLx_REFCLK_DIV. */
 	DrpVal &= ~(0xF80);
 	/* Disable Intelligent Reference Clock Selection */
-	DrpVal |= (1 << 6);
+	if (XVphy_GetRefClkSourcesCount(InstancePtr) > 1) {
+		DrpVal |= (1 << 6);
+	}
 	/* Set QPLLx_REFCLK_DIV. */
 	WriteVal = (XVphy_MToDrpEncoding(InstancePtr, QuadId, CmnId) & 0x1F);
 	DrpVal |= (WriteVal << 7);

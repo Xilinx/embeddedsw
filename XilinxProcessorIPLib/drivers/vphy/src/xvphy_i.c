@@ -12,14 +12,10 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * Use of the Software is limited solely to applications:
- * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -50,6 +46,9 @@
  * 1.6   gm   06/08/17 Added XVphy_MmcmLocked, XVphy_ErrorHandler and
  *                              XVphy_PllLayoutErrorHandler APIs
  * 1.7   gm   13/09/17 Added GTYE4 support
+ * 1.8   gm   23/07/18 Moved APIs XVphy_SetTxVoltageSwing and
+ *                       XVphy_SetTxPreEmphasis to xvphy.c/h
+ *            05/09/18 Added XVphy_GetRefClkSourcesCount API
  * </pre>
  *
 *******************************************************************************/
@@ -111,82 +110,6 @@ void XVphy_SetRxLpm(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	}
 	XVphy_WriteReg(InstancePtr->Config.BaseAddr, XVPHY_RX_EQ_CDR_REG,
 									RegVal);
-}
-
-/*****************************************************************************/
-/**
-* This function will set the TX voltage swing value for a given channel.
-*
-* @param	InstancePtr is a pointer to the XVphy core instance.
-* @param	QuadId is the GT quad ID to operate on.
-* @param	ChId is the channel ID to operate on.
-* @param	Vs is the voltage swing value to write.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void XVphy_SetTxVoltageSwing(XVphy *InstancePtr, u8 QuadId,
-		XVphy_ChannelId ChId, u8 Vs)
-{
-	u32 RegVal;
-	u32 MaskVal;
-	u32 RegOffset;
-
-	/* Suppress Warning Messages */
-	QuadId = QuadId;
-
-	if ((ChId == XVPHY_CHANNEL_ID_CH1) || (ChId == XVPHY_CHANNEL_ID_CH2)) {
-		RegOffset = XVPHY_TX_DRIVER_CH12_REG;
-	}
-	else {
-		RegOffset = XVPHY_TX_DRIVER_CH34_REG;
-	}
-	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
-
-	MaskVal = XVPHY_TX_DRIVER_TXDIFFCTRL_MASK(ChId);
-	RegVal &= ~MaskVal;
-	RegVal |= (Vs << XVPHY_TX_DRIVER_TXDIFFCTRL_SHIFT(ChId));
-	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
-}
-
-/*****************************************************************************/
-/**
-* This function will set the TX pre-emphasis value for a given channel.
-*
-* @param	InstancePtr is a pointer to the XVphy core instance.
-* @param	QuadId is the GT quad ID to operate on.
-* @param	ChId is the channel ID to operate on.
-* @param	Pe is the pre-emphasis value to write.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void XVphy_SetTxPreEmphasis(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		u8 Pe)
-{
-	u32 RegVal;
-	u32 MaskVal;
-	u32 RegOffset;
-
-	/* Suppress Warning Messages */
-	QuadId = QuadId;
-
-	if ((ChId == XVPHY_CHANNEL_ID_CH1) || (ChId == XVPHY_CHANNEL_ID_CH2)) {
-		RegOffset = XVPHY_TX_DRIVER_CH12_REG;
-	}
-	else {
-		RegOffset = XVPHY_TX_DRIVER_CH34_REG;
-	}
-	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
-
-	MaskVal = XVPHY_TX_DRIVER_TXPRECURSOR_MASK(ChId);
-	RegVal &= ~MaskVal;
-	RegVal |= (Pe << XVPHY_TX_DRIVER_TXPRECURSOR_SHIFT(ChId));
-	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
 }
 
 /*****************************************************************************/
@@ -1356,6 +1279,67 @@ u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
 								PllParams.MRefClkDiv;
 
 	return PllxVcoRateHz;
+}
+
+/*****************************************************************************/
+/**
+* This function returns the number of active reference clock sources
+* based in the CFG
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+*
+* @return	No of active REFCLK sources
+*
+* @note		None.
+*
+******************************************************************************/
+u8 XVphy_GetRefClkSourcesCount(XVphy *InstancePtr)
+{
+	u8 RefClkNum = 0;
+	u8 RefClkNumMax = 3;
+	XVphy_PllRefClkSelType RefClkSel[RefClkNumMax];
+	XVphy_PllRefClkSelType RefClkSelTemp[RefClkNumMax];
+	u8 i, j, Match;
+
+	/* TxRefClkSel */
+	RefClkSel[0] = (InstancePtr->Config.TxProtocol != XVPHY_PROTOCOL_NONE) ?
+						InstancePtr->Config.TxRefClkSel : 99;
+	/* RxRefClkSel */
+	RefClkSel[1] = (InstancePtr->Config.RxProtocol != XVPHY_PROTOCOL_NONE) ?
+						InstancePtr->Config.RxRefClkSel : 99;
+	/* DruRefClkSel */
+	RefClkSel[2] = (InstancePtr->Config.DruIsPresent) ?
+						InstancePtr->Config.DruRefClkSel : 99;
+
+	/* Initialize Unique RefClk holder */
+	for (i=0; i<RefClkNumMax; i++) {
+		RefClkSelTemp[i] = 99;
+	}
+
+	i = 0;
+	do {
+		if (RefClkSel[i] != 99) {
+			Match = 0;
+			j = 0;
+			/* Check if RefClkSel is already in Unique Holder array */
+			do {
+				if (RefClkSelTemp[j] == RefClkSel[i]) {
+					Match |= 1;
+				}
+				j++;
+			} while (j<RefClkNum);
+
+			/* Register in Unique Holder if new RefClk is detected */
+			if (Match == 0) {
+				RefClkSelTemp[RefClkNum] = RefClkSel[i];
+				/* Increment RefClk counter */
+				RefClkNum++;
+			}
+		}
+		i++;
+	} while (i<RefClkNumMax);
+
+	return RefClkNum;
 }
 
 #ifdef __cplusplus

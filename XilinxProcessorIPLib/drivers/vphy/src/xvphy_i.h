@@ -12,14 +12,10 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * Use of the Software is limited solely to applications:
- * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -52,6 +48,9 @@
  * 1.6   gm   06/08/17 Added XVphy_MmcmLocked, XVphy_ErrorHandler and
  *                       XVphy_PllLayoutErrorHandler APIs
  * 1.7   gm   13/09/17 Removed XVphy_MmcmWriteParameters API
+ * 1.8   gm   23/07/18 Moved APIs XVphy_SetTxVoltageSwing and
+ *                       XVphy_SetTxPreEmphasis to xvphy.c/h
+ *            05/09/18 Added XVphy_GetRefClkSourcesCount API
  * </pre>
  *
  * @addtogroup xvphy_v1_7
@@ -87,10 +86,6 @@ u32 XVphy_PllCalculator(XVphy *InstancePtr, u8 QuadId,
 /* xvphy.c: Voltage swing and preemphasis. */
 void XVphy_SetRxLpm(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir, u8 Enable);
-void XVphy_SetTxVoltageSwing(XVphy *InstancePtr, u8 QuadId,
-		XVphy_ChannelId ChId, u8 Vs);
-void XVphy_SetTxPreEmphasis(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		u8 Pe);
 
 /* xvphy.c: Channel configuration functions - setters. */
 u32 XVphy_WriteCfgRefClkSelReg(XVphy *InstancePtr, u8 QuadId);
@@ -147,6 +142,7 @@ void XVphy_CfgErrIntr(XVphy *InstancePtr, XVphy_ErrType ErrIrq, u8 Set);
 
 u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId, XVphy_DirectionType Dir);
+u8 XVphy_GetRefClkSourcesCount(XVphy *InstancePtr);
 
 void XVphy_ErrorHandler(XVphy *InstancePtr);
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)

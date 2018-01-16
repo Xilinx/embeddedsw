@@ -12,14 +12,10 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * Use of the Software is limited solely to applications:
- * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -77,6 +73,10 @@
  *                     Moved XVphy_MmcmWriteParameters to xvphy_mmcme2/3/4.c
  *                     Added XVphy_SetPolarity, XVphy_SetPrbsSel and
  *                        XVphy_TxPrbsForceError APIs
+ * 1.8   gm   05/14/18 Removed XVphy_DrpWrite and XVphy_DrpRead APIs
+ *            23/07/18 Added APIs XVphy_SetTxVoltageSwing and
+ *                       XVphy_SetTxPreEmphasis from xvphy_i.c/h
+ *                     Added XVphy_SetTxPostCursor API
  * </pre>
  *
 *******************************************************************************/
@@ -960,71 +960,116 @@ u32 XVphy_TxPrbsForceError(XVphy *InstancePtr, u8 QuadId,
 
 /*****************************************************************************/
 /**
-* This function will initiate a write DRP transaction. It is a wrapper around
-* XVphy_DrpAccess.
+* This function will set the TX voltage swing value for a given channel.
 *
 * @param	InstancePtr is a pointer to the XVphy core instance.
 * @param	QuadId is the GT quad ID to operate on.
-* @param	ChId is the channel ID on which to direct the DRP access.
-* @param	Dir is an indicator for write (TX) or read (RX).
-* @param	Addr is the DRP address to issue the DRP access to.
-* @param	Val is the value to write to the DRP address.
+* @param	ChId is the channel ID to operate on.
+* @param	Vs is the voltage swing value to write.
 *
-* @return
-*		- XST_SUCCESS if the DRP access was successful.
-*		- XST_FAILURE otherwise, if the busy bit did not go low, or if
-*		  the ready bit did not go high.
+* @return	None.
 *
 * @note		None.
 *
-* @deprecated   XVphy_DrpWrite will be deprecated in 2018.3 and replaced by
-*                XVphy_DrpWr to align with new naming of XVphy_DrpRd API.
-*                No functional change between XVphy_DrpWrite & XVphy_DrpWr.
-*
 ******************************************************************************/
-u32 XVphy_DrpWrite(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		u16 Addr, u16 Val)
+void XVphy_SetTxVoltageSwing(XVphy *InstancePtr, u8 QuadId,
+		XVphy_ChannelId ChId, u8 Vs)
 {
-	return XVphy_DrpAccess(InstancePtr, QuadId, ChId,
-			XVPHY_DIR_TX, /* Write. */
-			Addr, &Val);
+	u32 RegVal;
+	u32 MaskVal;
+	u32 RegOffset;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
+	if ((ChId == XVPHY_CHANNEL_ID_CH1) || (ChId == XVPHY_CHANNEL_ID_CH2)) {
+		RegOffset = XVPHY_TX_DRIVER_CH12_REG;
+	}
+	else {
+		RegOffset = XVPHY_TX_DRIVER_CH34_REG;
+	}
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
+
+	MaskVal = XVPHY_TX_DRIVER_TXDIFFCTRL_MASK(ChId);
+	RegVal &= ~MaskVal;
+	RegVal |= (Vs << XVPHY_TX_DRIVER_TXDIFFCTRL_SHIFT(ChId));
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
 }
 
 /*****************************************************************************/
 /**
-* This function will initiate a read DRP transaction. It is a wrapper around
-* XVphy_DrpAccess.
+* This function will set the TX pre-emphasis value for a given channel.
 *
 * @param	InstancePtr is a pointer to the XVphy core instance.
 * @param	QuadId is the GT quad ID to operate on.
-* @param	ChId is the channel ID on which to direct the DRP access.
-* @param	Dir is an indicator for write (TX) or read (RX).
-* @param	Addr is the DRP address to issue the DRP access to.
+* @param	ChId is the channel ID to operate on.
+* @param	Pe is the pre-emphasis value to write.
 *
-* @return
-*		- XST_SUCCESS if the DRP access was successful.
-*		- XST_FAILURE otherwise, if the busy bit did not go low, or if
-*		  the ready bit did not go high.
+* @return	None.
 *
 * @note		None.
 *
-* @deprecated   XVphy_DrpRead will be deprecated in 2018.3 and replaced by
-*                XVphy_DrpRd to separate the return value of DRP register
-*                content and XST_SUCCESS/XST_FAILURE.
-*               A new argument (*RetVal) was added in XVphy_DrpRd to hold the
-*                DRP register content
+******************************************************************************/
+void XVphy_SetTxPreEmphasis(XVphy *InstancePtr, u8 QuadId,
+        XVphy_ChannelId ChId, u8 Pe)
+{
+	u32 RegVal;
+	u32 MaskVal;
+	u32 RegOffset;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
+	if ((ChId == XVPHY_CHANNEL_ID_CH1) || (ChId == XVPHY_CHANNEL_ID_CH2)) {
+		RegOffset = XVPHY_TX_DRIVER_CH12_REG;
+	}
+	else {
+		RegOffset = XVPHY_TX_DRIVER_CH34_REG;
+	}
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
+
+	MaskVal = XVPHY_TX_DRIVER_TXPRECURSOR_MASK(ChId);
+	RegVal &= ~MaskVal;
+	RegVal |= (Pe << XVPHY_TX_DRIVER_TXPRECURSOR_SHIFT(ChId));
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
+}
+
+/*****************************************************************************/
+/**
+* This function will set the TX post-curosr value for a given channel.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Pe is the pre-emphasis value to write.
+*
+* @return	None.
+*
+* @note		None.
 *
 ******************************************************************************/
-u16 XVphy_DrpRead(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId, u16 Addr)
+void XVphy_SetTxPostCursor(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		u8 Pc)
 {
-	u32 Status;
-	u16 Val;
+	u32 RegVal;
+	u32 MaskVal;
+	u32 RegOffset;
 
-	Status = XVphy_DrpAccess(InstancePtr, QuadId, ChId,
-			XVPHY_DIR_RX, /* Read. */
-			Addr, &Val);
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
 
-	return (Status == XST_SUCCESS) ? Val : 0xDEAD;
+	if ((ChId == XVPHY_CHANNEL_ID_CH1) || (ChId == XVPHY_CHANNEL_ID_CH2)) {
+		RegOffset = XVPHY_TX_DRIVER_CH12_REG;
+	}
+	else {
+		RegOffset = XVPHY_TX_DRIVER_CH34_REG;
+	}
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
+
+	MaskVal = XVPHY_TX_DRIVER_TXPOSTCURSOR_MASK(ChId);
+	RegVal &= ~MaskVal;
+	RegVal |= (Pc << XVPHY_TX_DRIVER_TXPOSTCURSOR_SHIFT(ChId));
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
 }
 
 /*****************************************************************************/

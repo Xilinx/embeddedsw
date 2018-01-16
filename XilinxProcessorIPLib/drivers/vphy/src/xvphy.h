@@ -12,14 +12,10 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * Use of the Software is limited solely to applications:
- * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -96,6 +92,11 @@
  * 1.7   gm   13/09/17 Added GTYE4 support
  *                     Added XVphy_SetPolarity, XVphy_SetPrbsSel and
  *                        XVphy_TxPrbsForceError APIs
+ * 1.8   gm   05/14/18 Updated CDR values for DP in xvphy_gtye4.c
+ *                     Removed XVphy_DrpWrite and XVphy_DrpRead APIs
+ *            23/07/18 Added APIs XVphy_SetTxVoltageSwing and
+ *                       XVphy_SetTxPreEmphasis from xvphy_i.c/h
+ *                     Added XVphy_SetTxPostCursor API
  * </pre>
  *
 *******************************************************************************/
@@ -134,8 +135,8 @@ typedef enum {
  */
 typedef enum {
 	XVPHY_PROTOCOL_DP = 0,
-	XVPHY_PROTOCOL_HDMI,
-	XVPHY_PROTOCOL_NONE
+	XVPHY_PROTOCOL_HDMI = 1,
+	XVPHY_PROTOCOL_NONE = 3
 } XVphy_ProtocolType;
 
 /* This typedef enumerates is used to specify RX/TX direction information. */
@@ -875,12 +876,14 @@ u32 XVphy_SetPrbsSel(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir, XVphy_PrbsPattern Pattern);
 u32 XVphy_TxPrbsForceError(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId, u8 ForceErr);
+void XVphy_SetTxVoltageSwing(XVphy *InstancePtr, u8 QuadId,
+		XVphy_ChannelId ChId, u8 Vs);
+void XVphy_SetTxPreEmphasis(XVphy *InstancePtr, u8 QuadId,
+        XVphy_ChannelId ChId, u8 Pe);
+void XVphy_SetTxPostCursor(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		u8 Pc);
 
 /* xvphy.c: GT/MMCM DRP access. */
-u32 XVphy_DrpWrite(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		u16 Addr, u16 Val) __attribute__ ((deprecated));
-u16 XVphy_DrpRead(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		u16 Addr) __attribute__ ((deprecated));
 u32 XVphy_DrpWr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		u16 Addr, u16 Val);
 u16 XVphy_DrpRd(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,

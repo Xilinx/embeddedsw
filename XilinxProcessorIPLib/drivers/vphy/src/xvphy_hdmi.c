@@ -12,14 +12,10 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * Use of the Software is limited solely to applications:
- * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -86,6 +82,8 @@
  *                     Added userclk freq checking in XVphy_HdmiCpllParam &
  *                        XVphy_HdmiQpllParam API
  *                     Removed XVphy_DruSetGain API
+ * 1.8   gm   05/14/18 Fixed a bug in XVphy_HdmiQpllParam where linerate is
+ *                        obtained from CH1 instead of QPLL0/1
  *
  * </pre>
  *
@@ -1935,7 +1933,7 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
             /* (297 MHz + 0.5%) + 10 KHz (Clkdet accuracy) */
 			if (298495000 <
 					(XVphy_GetLineRateHz(InstancePtr, QuadId,
-							XVPHY_CHANNEL_ID_CH1) /
+							ActiveCmnId) /
 					(InstancePtr->Config.TransceiverWidth * 10))) {
 				XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_USRCLK_ERR, 1);
 				XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_USRCLK, 1);

@@ -12,14 +12,10 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * Use of the Software is limited solely to applications:
- * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -45,11 +41,11 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
- * 1.0   als  10/19/15 Initial release.
- * 1.1   gm   03/18/16 Added XVphy_Gthe4RxPllRefClkDiv1Reconfig function
+ * 1.0   als  19/10/15 Initial release.
+ * 1.1   gm   18/03/16 Added XVphy_Gthe4RxPllRefClkDiv1Reconfig function
  *                     Added XVphy_Gthe4TxChReconfig function
  *                     Corrected RXCDRCFG2 values
- * 1.2   gm   08/26/16 Suppressed warning messages due to unused arguments
+ * 1.2   gm   26/08/16 Suppressed warning messages due to unused arguments
  * 1.4   gm   29/11/16 Added preprocessor directives for sw footprint reduction
  *                     Changed TX reconfig hook from TxPllRefClkDiv1Reconfig to
  *                       TxChReconfig
@@ -69,6 +65,8 @@
  * 1.7   gm   13/09/17 Disabled intelligent clock sel in QPLL0/1 configuration
  *                     Updated DP CDR config for 8.1 Gbps
  *                     Updated XVPHY_QPLL0_MAX to 16375000000LL
+ * 1.8   gm   05/09/18 Enable IPS only when XVphy_GetRefClkSourcesCount
+ *                       returns more than 1.
  * </pre>
  *
 *******************************************************************************/
@@ -475,7 +473,9 @@ u32 XVphy_Gthe4ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 	/* Mask out QPLLx_REFCLK_DIV. */
 	DrpVal &= ~(0xF80);
 	/* Disable Intelligent Reference Clock Selection */
-	DrpVal |= (1 << 6);
+	if (XVphy_GetRefClkSourcesCount(InstancePtr) > 1) {
+		DrpVal |= (1 << 6);
+	}
 	/* Set QPLLx_REFCLK_DIV. */
 	WriteVal = (XVphy_MToDrpEncoding(InstancePtr, QuadId, CmnId) & 0x1F);
 	DrpVal |= (WriteVal << 7);
