@@ -131,6 +131,7 @@
 * 1.7	tjs	12/01/17 Added support for MT25QL02G Flash from Micron. CR-990642
 * 1.7	tjs 12/19/17 Added support for S25FL064L from Spansion. CR-990724
 * 1.7	tjs 01/11/18 Added support for MX66L1G45G flash from Macronix CR-992367
+* 1.7	tjs	01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
 * </pre>
 *
 ******************************************************************************/
