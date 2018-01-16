@@ -18,7 +18,11 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+<<<<<<< HEAD
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+=======
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+>>>>>>> vphy: Initial check-in for 2018.1
  * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
@@ -485,10 +489,17 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 	}
 
 
+<<<<<<< HEAD
 	/* Write Power Register Value */
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x27, 0xFFFF);
 
 	/* Write CLKFBOUT Reg1 & Reg2 Values */
+=======
+	//Write Power Register Value
+	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x27, 0xFFFF);
+
+	//Write CLKFBOUT Reg1 & Reg2 Values
+>>>>>>> vphy: Initial check-in for 2018.1
 	DrpVal32 = XVphy_Mmcme4DividerEncoding(MMCM_CLKFBOUT_MULT_F,
 						MmcmParams->ClkFbOutMult);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x14,
@@ -496,13 +507,21 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x15,
 						(u16)((DrpVal32 >> 16) & 0xFFFF));
 
+<<<<<<< HEAD
 	/* Write DIVCLK_DIVIDE Value */
+=======
+	//Write DIVCLK_DIVIDE Value
+>>>>>>> vphy: Initial check-in for 2018.1
 	DrpVal32 = XVphy_Mmcme4DividerEncoding(MMCM_DIVCLK_DIVIDE,
 						MmcmParams->DivClkDivide) ;
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x16,
 						(u16)(DrpVal32 & 0xFFFF));
 
+<<<<<<< HEAD
 	/* Write CLKOUT0 Reg1 & Reg2 Values */
+=======
+	//Write CLKOUT0 Reg1 & Reg2 Values
+>>>>>>> vphy: Initial check-in for 2018.1
 	DrpVal32 = XVphy_Mmcme4DividerEncoding(MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut0Div);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x08,
@@ -510,7 +529,11 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x09,
 						(u16)((DrpVal32 >> 16) & 0xFFFF));
 
+<<<<<<< HEAD
 	/* Write CLKOUT1 Reg1 & Reg2 Values */
+=======
+	//Write CLKOUT1 Reg1 & Reg2 Values
+>>>>>>> vphy: Initial check-in for 2018.1
 	DrpVal32 = XVphy_Mmcme4DividerEncoding(MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut1Div);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0A,
@@ -518,7 +541,11 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0B,
 						(u16)((DrpVal32 >> 16) & 0xFFFF));
 
+<<<<<<< HEAD
 	/* Write CLKOUT2 Reg1 & Reg2 Values */
+=======
+	//Write CLKOUT2 Reg1 & Reg2 Values
+>>>>>>> vphy: Initial check-in for 2018.1
 	DrpVal32 = XVphy_Mmcme4DividerEncoding(MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut2Div);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0C,
@@ -526,6 +553,7 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0D,
 						(u16)((DrpVal32 >> 16) & 0xFFFF));
 
+<<<<<<< HEAD
 	/* Write Lock Reg1 Value */
 	DrpVal = XVphy_Mmcme4LockReg1Encoding(MmcmParams->ClkFbOutMult);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x18, DrpVal);
@@ -543,6 +571,25 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4E, DrpVal);
 
 	/* Write Filter Reg2 Value */
+=======
+	//Write Lock Reg1 Value
+	DrpVal = XVphy_Mmcme4LockReg1Encoding(MmcmParams->ClkFbOutMult);
+	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x18, DrpVal);
+
+	//Write Lock Reg2 Value
+	DrpVal = XVphy_Mmcme4LockReg2Encoding(MmcmParams->ClkFbOutMult);
+	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x19, DrpVal);
+
+	//Write Lock Reg3 Value
+	DrpVal = XVphy_Mmcme4LockReg3Encoding(MmcmParams->ClkFbOutMult);
+	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x1A, DrpVal);
+
+	//Write Filter Reg1 Value
+	DrpVal = XVphy_Mmcme4FilterReg1Encoding(MmcmParams->ClkFbOutMult);
+	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4E, DrpVal);
+
+	//Write Filter Reg2 Value
+>>>>>>> vphy: Initial check-in for 2018.1
 	DrpVal = XVphy_Mmcme4FilterReg2Encoding(MmcmParams->ClkFbOutMult);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4F, DrpVal);
 

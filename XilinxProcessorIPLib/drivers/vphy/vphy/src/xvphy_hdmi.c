@@ -85,10 +85,7 @@
  * 1.7   gm   13/09/17 Added GTYE4 support.
  *                     Added userclk freq checking in XVphy_HdmiCpllParam &
  *                        XVphy_HdmiQpllParam API
-<<<<<<< HEAD
  *                     Removed XVphy_DruSetGain API
-=======
->>>>>>> vphy: Initial check-in for 2018.1
  *
  * </pre>
  *
@@ -1935,12 +1932,8 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 			}
 
 			/* Check Userclock Frequency */
-<<<<<<< HEAD
             /* (297 MHz + 0.5%) + 10 KHz (Clkdet accuracy) */
 			if (298495000 <
-=======
-			if (297000000 <
->>>>>>> vphy: Initial check-in for 2018.1
 					(XVphy_GetLineRateHz(InstancePtr, QuadId,
 							XVPHY_CHANNEL_ID_CH1) /
 					(InstancePtr->Config.TransceiverWidth * 10))) {
@@ -2203,7 +2196,6 @@ u32 XVphy_HdmiCpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 			if (Dir == XVPHY_DIR_RX) {
                 XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_NO_DRU, 0);
                 XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_DRU_CLK, 0);
-<<<<<<< HEAD
 			}
 
 			/* Check Userclock Frequency */
@@ -2218,21 +2210,6 @@ u32 XVphy_HdmiCpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 				return (XST_FAILURE);
 			}
 
-=======
-			}
-
-			/* Check Userclock Frequency */
-			if (297000000 <
-					(XVphy_GetLineRateHz(InstancePtr, QuadId,
-							XVPHY_CHANNEL_ID_CH1) /
-					(InstancePtr->Config.TransceiverWidth * 10))) {
-				XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_USRCLK_ERR, 1);
-				XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_USRCLK, 1);
-				XVphy_ErrorHandler(InstancePtr);
-				return (XST_FAILURE);
-			}
-
->>>>>>> vphy: Initial check-in for 2018.1
 			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_USRCLK, 0);
 			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_CPLL_CFG, 0);
 			return (XST_SUCCESS);

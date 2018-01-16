@@ -18,11 +18,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-<<<<<<< HEAD
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-=======
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
->>>>>>> vphy: Initial check-in for 2018.1
  * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
@@ -126,15 +122,7 @@ u32 XVphy_Gtye4RxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 
 const u8 Gtye4CpllDivsM[]	= {1, 2, 0};
 const u8 Gtye4CpllDivsN1[]	= {4, 5, 0};
-<<<<<<< HEAD
 const u8 Gtye4CpllDivsN2[]	= {1, 2, 3, 4, 5, 8, 0};
-=======
-#if (XPAR_VPHY_0_TX_PROTOCOL == 0 || XPAR_VPHY_0_RX_PROTOCOL == 0)
-const u8 Gtye4CpllDivsN2[]	= {1, 2, 3, 4, 5, 8, 0};
-#else
-const u8 Gtye4CpllDivsN2[]	= {1, 2, 3, 4, 5, 0};
-#endif
->>>>>>> vphy: Initial check-in for 2018.1
 const u8 Gtye4CpllDivsD[]	= {1, 2, 4, 8, 0};
 
 const u8 Gtye4QpllDivsM[]	= {4, 3, 2, 1, 0};
@@ -186,15 +174,9 @@ const XVphy_GtConfig Gtye4Config = {
 ******************************************************************************/
 u32 XVphy_Gtye4CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 {
-<<<<<<< HEAD
 	XVphy_Channel *ChPtr;
 	u32 Status = XST_SUCCESS;
 	u64 LineRateHz;
-=======
-	u32 PllClkInFreqHz;
-	XVphy_Channel *ChPtr;
-	u32 Status = XST_SUCCESS;
->>>>>>> vphy: Initial check-in for 2018.1
 
 	/* Set CDR values only for CPLLs. */
 	if ((ChId < XVPHY_CHANNEL_ID_CH1) || (ChId > XVPHY_CHANNEL_ID_CH4)) {
@@ -209,7 +191,6 @@ u32 XVphy_Gtye4CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	ChPtr->PllParams.Cdr[3] = 0x0000;
 	ChPtr->PllParams.Cdr[4] = 0x0000;
 	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP) {
-<<<<<<< HEAD
 
 		LineRateHz = XVphy_GetLineRateHz(InstancePtr, QuadId, ChId);
 
@@ -220,17 +201,6 @@ u32 XVphy_Gtye4CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_270GBPS) {
 			ChPtr->PllParams.Cdr[2] = 0x01B4;
 		} else {
-=======
-		PllClkInFreqHz = XVphy_GetQuadRefClkFreq(InstancePtr, QuadId,
-				ChPtr->CpllRefClkSel);
-		if (PllClkInFreqHz == 270000000) {
-			ChPtr->PllParams.Cdr[2] = 0x01C4;
-		}
-		else if (PllClkInFreqHz == 135000000) {
-			ChPtr->PllParams.Cdr[2] = 0x01B4;
-		}
-		else {
->>>>>>> vphy: Initial check-in for 2018.1
 			ChPtr->PllParams.Cdr[2] = 0x01A3;
 		}
 	}
