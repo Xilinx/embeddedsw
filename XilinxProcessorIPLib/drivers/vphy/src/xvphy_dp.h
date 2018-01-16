@@ -45,6 +45,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   vkd  10/19/15 Initial release.
+ * 1.7   gm   09/01/18 Added 8.1 Gbps support
  * </pre>
  *
  * @addtogroup xvphy
@@ -83,10 +84,12 @@
 #define XVPHY_DP_LINK_BW_SET_162GBPS		0x06
 #define XVPHY_DP_LINK_BW_SET_270GBPS		0x0A
 #define XVPHY_DP_LINK_BW_SET_540GBPS		0x14
+#define XVPHY_DP_LINK_BW_SET_810GBPS		0x1E
 
 #define XVPHY_DP_LINK_RATE_HZ_162GBPS	1620000000LL
 #define XVPHY_DP_LINK_RATE_HZ_270GBPS	2700000000LL
 #define XVPHY_DP_LINK_RATE_HZ_540GBPS	5400000000LL
+#define XVPHY_DP_LINK_RATE_HZ_810GBPS	8100000000LL
 
 #define XVPHY_DP_REF_CLK_FREQ_HZ_162	 162000000LL
 #define XVPHY_DP_REF_CLK_FREQ_HZ_135	 135000000LL

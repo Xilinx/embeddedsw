@@ -51,6 +51,7 @@
  *                       TxChReconfig
  *                     Fixed c++ compiler warnings
  *                     Added xcvr adaptor functions for C++ compilations
+ * 1.7   gm   13/09/17 Added GTYE4 support
  * </pre>
  *
  * @addtogroup xvphy
@@ -130,6 +131,8 @@ extern const XVphy_GtConfig Gtpe2Config;
 extern const XVphy_GtConfig Gthe3Config;
 #elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4)
 extern const XVphy_GtConfig Gthe4Config;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
+extern const XVphy_GtConfig Gtye4Config;
 #endif
 
 #endif /* XVPHY_GT_H_ */
