@@ -234,9 +234,12 @@ Fix compilation error in selftest example.
 axiethernet_v5_7:
 Fix compilation issues in multicast/extvlan example.
 Implementing poll timeout API which replaces the loops
+<<<<<<< HEAD
 Set num of multicast table entries parameter based on hw design.
 Use table entries count from config structure.
 Used UINTPTR type for DMA BaseAddress.
+=======
+>>>>>>> Changelog: Updated for axiethernet
 
 cpu_cortexa9_v2_6:
 Added -g flag in default extra compiler flags, for linaro
