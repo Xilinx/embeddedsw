@@ -67,7 +67,8 @@
 * 7.00a srt  06/18/12  All the APIs changed in v6_00_a are reverted back for
 *		       backward compatibility.
 * 9.6   rsp  01/11/18  Use UINTPTR for all RegBase instances CR#976392
-*
+*       rsp  01/17/18  Use virtual address for register read/write.
+*                      In _BdRingCreate() assign VA to BdaRestart CR#976392
 *
 * </pre>
 ******************************************************************************/
@@ -222,31 +223,31 @@ int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing* RingPtr)
 				if (!RingIndex) {
 					XAxiDma_WriteReg(RegBase,
 							 XAXIDMA_CDESC_OFFSET,
-							 (u32)(BdPtr & XAXIDMA_DESC_LSB_MASK));
+							 (XAXIDMA_VIRT_TO_PHYS(BdPtr) & XAXIDMA_DESC_LSB_MASK));
 					if (RingPtr->Addr_ext)
 						XAxiDma_WriteReg(RegBase,
 								 XAXIDMA_CDESC_MSB_OFFSET,
-								 UPPER_32_BITS(BdPtr));
+								 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(BdPtr)));
 				}
 				else {
 					XAxiDma_WriteReg(RegBase,
 					(XAXIDMA_RX_CDESC0_OFFSET +
 					(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
-					(u32)(BdPtr & XAXIDMA_DESC_LSB_MASK));
+					(XAXIDMA_VIRT_TO_PHYS(BdPtr) & XAXIDMA_DESC_LSB_MASK));
 					if (RingPtr->Addr_ext)
 						XAxiDma_WriteReg(RegBase,
 								 (XAXIDMA_RX_CDESC0_MSB_OFFSET +
 								 (RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
-								 UPPER_32_BITS(BdPtr));
+								 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(BdPtr)));
 				}
 			}
 			else {
 				XAxiDma_WriteReg(RegBase,
 						 XAXIDMA_CDESC_OFFSET,
-						 (u32)(BdPtr & XAXIDMA_DESC_LSB_MASK));
+						 (XAXIDMA_VIRT_TO_PHYS(BdPtr) & XAXIDMA_DESC_LSB_MASK));
 				if (RingPtr->Addr_ext)
 					XAxiDma_WriteReg(RegBase, XAXIDMA_CDESC_MSB_OFFSET,
-							 UPPER_32_BITS(BdPtr));
+							 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(BdPtr)));
 			}
 		}
 		else {
@@ -266,29 +267,31 @@ int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing* RingPtr)
 					if (RingPtr->IsRxChannel) {
 						if (!RingIndex) {
 							XAxiDma_WriteReg(RegBase,
-								XAXIDMA_CDESC_OFFSET,(u32) (BdPtr & XAXIDMA_DESC_LSB_MASK));
+								XAXIDMA_CDESC_OFFSET,
+								(XAXIDMA_VIRT_TO_PHYS(BdPtr) & XAXIDMA_DESC_LSB_MASK));
 							if (RingPtr->Addr_ext)
 								XAxiDma_WriteReg(RegBase, XAXIDMA_CDESC_MSB_OFFSET,
-									UPPER_32_BITS(BdPtr));
+									UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(BdPtr)));
 						}
 						else {
 							XAxiDma_WriteReg(RegBase,
 								(XAXIDMA_RX_CDESC0_OFFSET +
 								(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
-								(u32)(BdPtr & XAXIDMA_DESC_LSB_MASK));
+								(XAXIDMA_VIRT_TO_PHYS(BdPtr) & XAXIDMA_DESC_LSB_MASK));
 							if (RingPtr->Addr_ext)
 								XAxiDma_WriteReg(RegBase,
 									(XAXIDMA_RX_CDESC0_MSB_OFFSET +
 									(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
-									UPPER_32_BITS(BdPtr));
+									UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(BdPtr)));
 						}
 					}
 					else {
 						XAxiDma_WriteReg(RegBase,
-								XAXIDMA_CDESC_OFFSET, (u32)(BdPtr & XAXIDMA_DESC_LSB_MASK));
+								XAXIDMA_CDESC_OFFSET,
+								(XAXIDMA_VIRT_TO_PHYS(BdPtr) & XAXIDMA_DESC_LSB_MASK));
 						if (RingPtr->Addr_ext)
 							XAxiDma_WriteReg(RegBase, XAXIDMA_CDESC_MSB_OFFSET,
-									 UPPER_32_BITS(BdPtr));
+									 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(BdPtr)));
 					}
 					break;
 				}
@@ -469,7 +472,7 @@ u32 XAxiDma_BdRingCreate(XAxiDma_BdRing *RingPtr, UINTPTR PhysAddr,
 	RingPtr->HwHead = (XAxiDma_Bd *) VirtAddr;
 	RingPtr->HwTail = (XAxiDma_Bd *) VirtAddr;
 	RingPtr->PostHead = (XAxiDma_Bd *) VirtAddr;
-	RingPtr->BdaRestart = (XAxiDma_Bd *) PhysAddr;
+	RingPtr->BdaRestart = (XAxiDma_Bd *) VirtAddr;
 	RingPtr->CyclicBd = (XAxiDma_Bd *) malloc(sizeof(XAxiDma_Bd));
 
 	return XST_SUCCESS;
