@@ -53,6 +53,7 @@
 * 1.5   adk    11/22/17  Added peripheral test app support.
 *		12/11/17 Fixed peripheral test app generation issues when dma
 *			 buffers are configured on OCM memory(CR#990806).
+*		18/01/18 Remove unnecessary column in XIntc_Connect() API.
 * </pre>
 *
 ******************************************************************************/
@@ -323,7 +324,7 @@ int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * Connect the driver interrupt handler
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, IntrId,
-				(XInterruptHandler)XZDma_IntrHandler, InstancePtr,);
+				(XInterruptHandler)XZDma_IntrHandler, InstancePtr);
 	if (Status != XST_SUCCESS)
 	{
 
