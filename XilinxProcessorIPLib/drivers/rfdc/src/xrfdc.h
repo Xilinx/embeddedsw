@@ -125,6 +125,9 @@
 *              12/13/17 Add CoarseMixMode field in Mixer_Settings structure.
 *              12/15/17 Add support to switch calibration modes.
 *              12/15/17 Add support for mixer frequencies > Fs/2 and < -Fs/2.
+* 	sg     13/01/18 Added PLL and external clock switch support
+*                       Added API to get PLL lock status.
+*                       Added API to get clock source. 
 *
 * </pre>
 *
@@ -563,6 +566,19 @@ typedef struct {
 #define XRFDC_TI_DCB_MODE1_4GSPS		0x00007800U
 #define XRFDC_TI_DCB_MODE1_2GSPS		0x00005000U
 
+/* PLL Configuration */
+#define XRFDC_PLL_UNLOCKED		0x1U
+#define XRFDC_PLL_LOCKED		0x2U
+
+#define XRFDC_INTERNAL_PLL_CLK		0x1U
+#define XRFDC_EXTERNAL_CLK		0x2U
+
+#define PLL_FPDIV_MIN			10U
+#define PLL_FPDIV_MAX			255U
+#define PLL_DIVIDER_MIN			2U
+#define PLL_DIVIDER_MAX			130U
+#define VCO_RANGE_MIN			8500U
+#define VCO_RANGE_MAX			12800U
 
 /*****************************************************************************/
 /**
@@ -1013,6 +1029,13 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
 						u8 CalibrationMode);
 u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
 						u8 *CalibrationMode);
+u32 XRFdc_GetClockSource(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
+								u32 *ClockSource);
+u32 XRFdc_GetPLLLockStatus(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
+							u32 *LockStatus);
+
+u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
+		u8 Source, double RefClkFreq, double SamplingRate);
 
 #ifdef __cplusplus
 }

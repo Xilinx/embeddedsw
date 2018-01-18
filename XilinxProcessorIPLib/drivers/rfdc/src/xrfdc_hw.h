@@ -51,6 +51,7 @@
 *                       Range interrupts.
 * 2.3   sk     11/10/17 Corrected FIFO and DATA Interrupt masks.
 * 2.4   sk     12/11/17 Added DDC and DUC support.
+* 2.4   sg     13/01/18 Added PLL and external clock switch support
 * </pre>
 *
 ******************************************************************************/
@@ -308,6 +309,26 @@ extern "C" {
 #define XRFDC_CONV_INTR_STS(X)		(0x208U + (X * 0x08))
 #define XRFDC_CONV_INTR_EN(X)		(0x20CU + (X * 0x08))
 #define XRFDC_FIFO_ENABLE			0x230U	/**< FIFO Enable and Disable */
+#define XRFDC_PLL_SDM_CFG0			0x00U	/**< PLL Configuration bits for sdm */
+#define XRFDC_PLL_SDM_SEED0			0x18U	/**< PLL Bits for sdm LSB */
+#define XRFDC_PLL_SDM_SEED1			0x1CU 	/**< PLL Bits for sdm MSB */
+#define XRFDC_PLL_VREG				0x44U	/**< PLL bits for voltage regulator */
+#define XRFDC_PLL_VCO0				0x54U 	/**< PLL bits for coltage controlled oscillator LSB */
+#define XRFDC_PLL_VCO1				0x58U	/**< PLL bits for coltage controlled oscillator MSB */
+#define XRFDC_PLL_CRS1				0x28U 	/**< PLL bits for coarse frequency control LSB */
+#define XRFDC_PLL_CRS2				0x2CU	/**< PLL bits for coarse frequency control MSB */
+#define XRFDC_PLL_DIVIDER0        	0x30U   /**< PLL Output Divider LSB register */
+#define XRFDC_PLL_DIVIDER1         	0x34U   /**< PLL Output Divider MSB register */
+#define XRFDC_PLL_SPARE0			0x38U	/**< PLL spare inputs LSB */
+#define XRFDC_PLL_SPARE1			0x3CU	/**< PLL spare inputs MSB */
+#define XRFDC_PLL_REFDIV           	0x40U   /**< PLL Reference Divider register */
+#define XRFDC_PLL_VREG             	0x44U   /**< PLL voltage regulator */
+#define XRFDC_PLL_CHARGEPUMP		0x48U	/**< PLL bits for charge pumps */
+#define XRFDC_PLL_LPF0				0x4CU	/**< PLL bits for loop filters LSB */
+#define XRFDC_PLL_LPF1				0x50U	/**< PLL bits for loop filters MSB */
+#define XRFDC_PLL_FPDIV           	0x5CU   /**< PLL Feedback Divider register */
+#define XRFDC_CLK_NETWORK_CTRL0		0x8CU	/**< Clock network control and trim register */
+#define XRFDC_CLK_NETWORK_CTRL1		0x90U	/**< Multi-tile sync and clock source control register */
 
 /* @} */
 
@@ -1822,6 +1843,28 @@ extern "C" {
 #define XRFDC_FAB_CLK_DIV_MASK		0x0000000FU	/**< clk div mask */
 
 /* @} */
+
+
+/** @name Output divider LSB register
+ *
+ * This register contains bits to configure output divisor
+ * @{
+ */
+
+#define XRFDC_PLL_DIVIDER0_MASK 	0x00FFU
+#define XRFDC_PLL_DIVIDER0_SHIFT	6U
+
+/* @} */
+
+/** @name Multi-tile sync and clock source control register
+ *
+ * This register contains bits to Multi-tile sync and clock source control
+ * @{
+ */
+#define XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK	0x1U /**< PLL clock mask */
+
+/* @} */
+
 
 #define XRFDC_IXR_FIFOUSRDAT_MASK			0x0000000FU
 #define XRFDC_IXR_FIFOUSRDAT_OF_MASK		0x00000001U
