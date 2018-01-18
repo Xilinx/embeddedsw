@@ -382,7 +382,7 @@ typedef struct {
 *****************************************************************************/
 #define XCanFd_CreateIdValue(StandardId, SubRemoteTransReq, IdExtension, \
 		ExtendedId, RemoteTransReq) \
-	((((StandardId) << XCANFD_IDR_ID1_SHIFT) & XCANFD_IDR_ID1_MASK) | \
+	(((((u64)StandardId) << XCANFD_IDR_ID1_SHIFT) & XCANFD_IDR_ID1_MASK) | \
 	(((SubRemoteTransReq) << XCANFD_IDR_SRR_SHIFT) & XCANFD_IDR_SRR_MASK) | \
 	(((IdExtension) << XCANFD_IDR_IDE_SHIFT) & XCANFD_IDR_IDE_MASK) | \
 	(((ExtendedId) << XCANFD_IDR_ID2_SHIFT) & XCANFD_IDR_ID2_MASK) | \
