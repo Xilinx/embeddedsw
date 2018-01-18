@@ -27,6 +27,12 @@ Update xInsideISR flag in emacps_error_handler.
 
 rfdc_v2_4:
 Add support DDC and DUC configuration
+Add CoarseMixMode field in mixer settings
+Add support for calibration modes switch
+Add PLL and external clock switch support
+Add API to get clock source
+Add API to get PLL lock status
+Add API to get the driver version
 
 qspipsu_v1_7:
 Removed unsupported 4 byte write and sector erase
