@@ -127,7 +127,8 @@
 *              12/15/17 Add support for mixer frequencies > Fs/2 and < -Fs/2.
 * 	sg     13/01/18 Added PLL and external clock switch support
 *                       Added API to get PLL lock status.
-*                       Added API to get clock source. 
+*                       Added API to get clock source.
+*       sk     01/18/18 Add API to get driver version.
 *
 * </pre>
 *
@@ -938,6 +939,24 @@ static inline u32 XRFdc_IsFifoEnabled(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 		return InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
 				DACBlock_Digital_Config[Block_Id].FifoEnable;
 	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to get the driver version.
+*
+* @param	None
+*
+* @return
+*		Driver version number
+*
+* @note		None
+*
+******************************************************************************/
+static inline double XRFdc_GetDriverVersion()
+{
+	return 2.4;
 }
 
 /************************** Function Prototypes ******************************/
