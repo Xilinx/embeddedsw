@@ -52,6 +52,7 @@
 * 1.2   adk    11/22/17 Added peripheral test app support.
 * 1.2	adk    11/01/18 Declared static array rather than hard code memory for
 *			buffers.
+*	adk    18/01/18 Remove unnecessary column in XIntc_Connect() API.
 * </pre>
 *
 ******************************************************************************/
@@ -310,7 +311,7 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * Connect the driver interrupt handler
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, IntrId,
-				(XInterruptHandler)IntrHandler, InstancePtr,);
+				(XInterruptHandler)IntrHandler, InstancePtr);
 	if (Status != XST_SUCCESS)
 	{
 
