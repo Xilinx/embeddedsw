@@ -411,7 +411,6 @@ openamp_matrix_multiply_demo:
 openamp_echo_test:
 - Update to work with updated openamp and libmetal libs
 
-<<<<<<< HEAD
 v_hdmirxss_v5_0:
 Updated version from 4.0 to 5.0
 Added Info frame supported
@@ -442,8 +441,6 @@ usbpsu_v1_4:
 Modify USBPSU driver code to fit USB common example code for all USB IPs
 Added support for flushing Dcache for setupdata packet for control ep's
 Changed the mass storage examples to be in sync with common mode example code
-<<<<<<< HEAD
-<<<<<<< HEAD
 Changed the dfu examples to be in sync with common example code
 Added hibernation support for usb
 Added changes to usbpsu driver for supporting microblaze platform
@@ -529,20 +526,6 @@ zynqmp_pmufw:
   in EEMI
 - Updated xilfpga API calls in PMU Firmware with the latest version of
   xilfpga library
-=======
-usbpsu_v1_4:
-Modify USBPSU driver code to fit USB common example code for all USB IPs
-Added support for flushing Dcache for setupdata packet for control ep's
->>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
-=======
->>>>>>> drivers: usbpsu: Add common mass storage example changes
-=======
-Changed the dfu examples to be in sync with common example code
-<<<<<<< HEAD
->>>>>>> drivers: usbpsu: Change dfu example code to be in sync with common example code
-=======
-Added hibernation support for usb
->>>>>>> drivers: usbpsu: Add hibernation support for usb
 
 Changes for 2017.4
 ===============================
