@@ -80,6 +80,8 @@
  * 	- ENABLE_STL : Enables STL Module
  * 	- ENABLE_RTC_TEST : Enables RTC Event Handler Test Module
  * 	- ENABLE_SAFETY : Enables CRC calculation for IPI messages
+ * 	- ENABLE_FPGA_LOAD : Enables FPGA bit stream loading feature
+ * 	- ENABLE_SECURE : Enables security features
  * 	- XPU_INTR_DEBUG_PRINT_ENABLE : Enables debug for XMPU/XPPU functionality
  *
  * 	- DEBUG_CLK : Enables dumping clock and PLL state functions
@@ -105,16 +107,18 @@
 #define	ENABLE_RECOVERY_VAL				(0U)
 #define	ENABLE_ESCALATION_VAL			(0U)
 #define	ENABLE_WDT_VAL					(0U)
-#define	ENABLE_STL_VAl					(0U)
+#define	ENABLE_STL_VAL					(0U)
 #define	ENABLE_RTC_TEST_VAL				(0U)
 #define	ENABLE_SAFETY_VAL				(0U)
+#define	ENABLE_FPGA_LOAD_VAL			(1U)
+#define	ENABLE_SECURE_VAL				(1U)
 #define	XPU_INTR_DEBUG_PRINT_ENABLE_VAL	(0U)
 
 #define	DEBUG_CLK_VAL					(0U)
-#define	DEBUG_PM_VAl					(0U)
-#define	IDLE_PERIPHERALS_VAl			(0U)
+#define	DEBUG_PM_VAL					(0U)
+#define	IDLE_PERIPHERALS_VAL			(0U)
 #define	ENABLE_NODE_IDLING_VAL			(0U)
-#define DEBUG_MODE_VAL					(0U)
+#define	DEBUG_MODE_VAL					(0U)
 
 #define	PMU_MIO_INPUT_PIN_VAL			(0U)
 #define	BOARD_SHUTDOWN_PIN_VAL			(0U)
@@ -144,7 +148,7 @@
 #define ENABLE_WDT
 #endif
 
-#if ENABLE_STL_VAl
+#if ENABLE_STL_VAL
 #define ENABLE_STL
 #endif
 
@@ -152,6 +156,12 @@
 #define ENABLE_RTC_TEST
 #endif
 
+#if ENABLE_FPGA_LOAD_VAL
+#define ENABLE_FPGA_LOAD
+#endif
+#if ENABLE_SECURE_VAL
+#define ENABLE_SECURE
+#endif
 #if ENABLE_SAFETY_VAL
 #define ENABLE_SAFETY
 #endif
@@ -164,11 +174,11 @@
 #define DEBUG_CLK
 #endif
 
-#if DEBUG_PM_VAl
+#if DEBUG_PM_VAL
 #define DEBUG_PM
 #endif
 
-#if IDLE_PERIPHERALS_VAl
+#if IDLE_PERIPHERALS_VAL
 #define IDLE_PERIPHERALS
 #endif
 

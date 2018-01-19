@@ -47,14 +47,18 @@
 #include "pm_notifier.h"
 #include "pm_mmio_access.h"
 #include "pm_system.h"
+#ifdef ENABLE_FPGA_LOAD
 #include "xilfpga_pcap.h"
+#endif
 #include "pm_clock.h"
 #include "pm_requirement.h"
 #include "pm_config.h"
 #include "xpfw_platform.h"
 #include "xpfw_resets.h"
 #include "rpu.h"
+#ifdef ENABLE_SECURE
 #include "xsecure.h"
+#endif
 
 #define AMS_REF_CTRL_REG_OFFSET	0x108
 
@@ -644,6 +648,7 @@ done:
 	IPI_RESPONSE2(master->ipiMask, status, value);
 }
 
+#ifdef ENABLE_FPGA_LOAD
 /**
  * Pmfpgaload() - Load the bitstream into the PL.
  * This function does the calls the necessary PCAP interfaces based on flags.
@@ -670,6 +675,21 @@ static void PmFpgaLoad(const PmMaster *const master,
        IPI_RESPONSE1(master->ipiMask, Status);
 }
 
+/**
+ * PmFpgaGetStatus() - Get status of the PL-block
+ * @master  Initiator of the request
+ */
+static void PmFpgaGetStatus(const PmMaster *const master)
+{
+	u32 value;
+
+       value = XFpga_PcapStatus();
+
+       IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, value);
+}
+#endif
+
+#ifdef ENABLE_SECURE
 /**
  * PmSecureRsaAes() - Load secure image.
  * This function loads the secure images back to memory, it supports
@@ -751,19 +771,7 @@ static void PmSecureRsa(const PmMaster *const master,
 
 	IPI_RESPONSE1(master->ipiMask, Status);
 }
-
-/**
- * PmFpgaGetStatus() - Get status of the PL-block
- * @master  Initiator of the request
- */
-static void PmFpgaGetStatus(const PmMaster *const master)
-{
-	u32 value;
-
-       value = XFpga_PcapStatus();
-
-       IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, value);
-}
+#endif
 
 /**
  * PmGetChipid() - Get silicon version register
@@ -1309,15 +1317,18 @@ static void PmProcessApiCall(PmMaster *const master, const u32 *pload)
 	case PM_INIT_FINALIZE:
 		PmInitFinalize(master);
 		break;
+#ifdef ENABLE_FPGA_LOAD
 	case PM_FPGA_LOAD:
 		PmFpgaLoad(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
 	case PM_FPGA_GET_STATUS:
 		PmFpgaGetStatus(master);
 		break;
+#endif
 	case PM_GET_CHIPID:
 		PmGetChipid(master);
 		break;
+#ifdef ENABLE_SECURE
 	case PM_SECURE_RSA_AES:
 		PmSecureRsaAes(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
@@ -1327,6 +1338,7 @@ static void PmProcessApiCall(PmMaster *const master, const u32 *pload)
 	case PM_SECURE_RSA:
 		PmSecureRsa(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
+#endif
 	default:
 		PmDbg(DEBUG_DETAILED,"ERROR unsupported PM API #%lu\r\n", pload[0]);
 		PmProcessAckRequest(PmRequestAcknowledge(pload), master,
