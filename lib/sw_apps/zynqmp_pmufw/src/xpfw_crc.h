@@ -31,9 +31,9 @@
 
 #ifndef XPFW_CRC_H_
 #define XPFW_CRC_H_
+#include "xpfw_default.h"
 
 #ifdef ENABLE_SAFETY
-#include "xpfw_default.h"
 
 u32 XPfw_CalculateCRC(u32 BufAddr, u32 BufSize);
 
