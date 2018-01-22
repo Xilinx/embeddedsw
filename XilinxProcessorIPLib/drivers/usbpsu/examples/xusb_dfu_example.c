@@ -44,6 +44,7 @@
  * 1.0   vak  30/11/16 First release
  * 1.4	 BK   12/01/18 Renamed the file to be in sync with usb common code
  *		       changes for all USB IPs
+ *	 vak  22/01/18 Added changes for supporting microblaze platform
  * </pre>
  *
  *****************************************************************************/
@@ -63,7 +64,11 @@ struct Usb_DevData UsbInstance;
 
 Usb_Config *UsbConfigPtr;
 
-XScuGic InterruptController;  /* Interrupt controller instance */
+#ifdef XPAR_INTC_0_DEVICE_ID
+XIntc	InterruptController;	/*XIntc interrupt controller instance */
+#else
+XScuGic	InterruptController;	/* Interrupt controller instance */
+#endif
 
 u8 VirtFlash[0x10000000];
 
@@ -147,7 +152,7 @@ int main(void)
 
 	/* setup interrupts */
 	Status = SetupInterruptSystem(UsbInstance.PrivateData, INTC_DEVICE_ID,
-					&InterruptController);
+					(void *)&InterruptController);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
