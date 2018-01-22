@@ -46,6 +46,7 @@
  *                    examples.
  * 1.4   BK  12/01/18 Renamed the file and added changes to have a common
  *		      example for all USB IPs.
+ *	 vak 22/01/18 Added changes for supporting microblaze platform
  *
  * </pre>
  *
@@ -84,7 +85,11 @@ struct Usb_DevData UsbInstance;
 
 Usb_Config *UsbConfigPtr;
 
-XScuGic InterruptController;  /* Interrupt controller instance */
+#ifdef XPAR_INTC_0_DEVICE_ID
+XIntc	InterruptController;	/*XIntc interrupt controller instance */
+#else
+XScuGic	InterruptController;	/* Interrupt controller instance */
+#endif
 
 /* Buffer for virtual flash disk space. */
 u8 VirtFlash[VFLASH_SIZE] ALIGNMENT_CACHELINE;
@@ -190,7 +195,7 @@ int main(void)
 
 	/* setup interrupts */
 	Status = SetupInterruptSystem(UsbInstance.PrivateData, INTC_DEVICE_ID,
-					&InterruptController);
+					(void *)&InterruptController);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

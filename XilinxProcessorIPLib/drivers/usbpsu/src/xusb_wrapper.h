@@ -43,6 +43,7 @@
  * ----- ---- 	-------- -------------------------------------------------------
  *  1.0  BK	12/01/18 First release
  *	 MYK	12/01/18 Added hibernation support for device mode
+ *	 vak	22/01/18 Added Microblaze support for usbpsu driver
  *
  * </pre>
  *
@@ -60,9 +61,18 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 #define USB_DEVICE_ID		XPAR_XUSBPSU_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define	USB_INTR_ID			XPAR_XUSBPS_0_INTR
+
+#ifdef	XPAR_INTC_0_DEVICE_ID	/* MICROBLAZE */
+#define	INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define	USB_INTR_ID		XPAR_AXI_INTC_0_ZYNQ_ULTRA_PS_E_0_PS_PL_IRQ_USB3_0_ENDPOINT_0_INTR
+#elif	defined	PLATFORM_ZYNQMP	/* ZYNQMP */
+#define	INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define	USB_INTR_ID		XPAR_XUSBPS_0_INTR
 #define	USB_WAKEUP_INTR_ID	XPAR_XUSBPS_0_WAKE_INTR
+#else	/* OTHERS */
+#define	INTC_DEVICE_ID		0
+#define	USB_INTR_ID		0
+#endif
 
 #define USB_EP_DIR_IN		XUSBPSU_EP_DIR_IN
 #define USB_EP_DIR_OUT		XUSBPSU_EP_DIR_OUT
@@ -156,7 +166,7 @@ s32 ConfigureDevice(void *UsbInstance, u8 *MemPtr, u32 memSize);
 void SetEpHandler(void *InstancePtr, u8 Epnum,
 			u8 Dir, void (*Handler)(void *, u32, u32));
 s32 SetupInterruptSystem(void *InstancePtr, u16 IntcDeviceID,
-				XScuGic *IntcInstancePtr);
+				void *IntcInstancePtr);
 s32 Usb_Start(void *InstancePtr);
 void *Get_DrvData(void *InstancePtr);
 void Set_DrvData(void *InstancePtr, void *data);

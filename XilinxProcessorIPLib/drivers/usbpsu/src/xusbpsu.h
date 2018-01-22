@@ -59,6 +59,7 @@
 * 1.4	bk    12/01/18 Modify USBPSU driver code to fit USB common example code
 *		       for all USB IPs.
 *	myk   12/01/18 Added hibernation support for device mode
+*	vak   22/01/18 Added changes for supporting microblaze platform
 *
 * </pre>
 *
@@ -81,7 +82,13 @@ extern "C" {
 #include "xstatus.h"
 #include "xusbpsu_hw.h"
 #include "xil_io.h"
+
+#ifdef XPAR_INTC_0_DEVICE_ID
+#include "xintc.h"
+#elif defined PLATFORM_ZYNQMP
 #include "xscugic.h"
+#endif
+
 /*
  * The header sleep.h and API usleep() can only be used with an arm design.
  * MB_Sleep() is used for microblaze design.
@@ -734,7 +741,7 @@ s32 XUsbPsu_SetupScratchpad(struct XUsbPsu *InstancePtr);
 #endif
 
 s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
-			XScuGic *IntcInstancePtr);
+			void *IntcInstancePtr);
 
 /*
  * Functions in xusbpsu_sinit.c
