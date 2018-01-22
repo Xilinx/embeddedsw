@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,9 @@
 *			 baremetal guest
 * 6.4   mus     06/14/17 Fixed bug in IRQInterruptHandler code snippet,
 *                        which checks for the FPEN bit of CPACR_EL1
+* 6.6   mus     01/19/18 Added isb after writing to the cpacr_el1/cptr_el3,
+*                        to ensure enabling/disabling of floating-point unit
+*                        is completed, before any subsequent instruction.
 *
 * </pre>
 *
@@ -248,6 +251,7 @@ SynchronousInterruptHandler:
 	orr	x1, x1, #(0x1<<20)
 	msr	CPACR_EL1, x1
 .endif
+	isb
 
 /* If the floating point access was previously enabled, store FPU context
  * registers(storefloat).
@@ -301,6 +305,7 @@ IRQInterruptHandler:
 	bic	x1, x1, #(0x1<<20)
 	msr	CPACR_EL1, x1
 .endif
+	isb
 
 	bl	IRQInterrupt
 /*
