@@ -74,6 +74,7 @@
 *       mn     08/17/17 Added CCI support for A53 and disabled data cache
 *                       operations when it is enabled.
 *       mn     08/22/17 Updated for Word Access System support
+* 3.4   mn     01/22/18 Separated out SDR104 and HS200 clock defines
 *
 * </pre>
 *
@@ -997,7 +998,7 @@ void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	if (((ReadBuff[13] & UHS_SDR104_SUPPORT) != 0U) &&
-		(InstancePtr->Config.InputClockHz >= XSDPS_MMC_HS200_MAX_CLK)) {
+		(InstancePtr->Config.InputClockHz >= XSDPS_SD_INPUT_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR104;
 		InstancePtr->Config_TapDelay = XSdPs_sdr104_hs200_tapdelay;
 	}
