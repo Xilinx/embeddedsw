@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -84,6 +84,9 @@
 *                    CPU cache protection bit.
 * 6.4   mus      08/11/17 Implemented ARM erratum 855873.It fixes
 *                         CR#982209.
+* 6.6   mus      01/19/18 Added isb after writing to the cpacr_el1/cptr_el3,
+*                         to ensure floating-point unit is disabled, before
+*                         any subsequent instruction.
 *
 *
 ******************************************************************************/
@@ -209,6 +212,7 @@ InitEL3:
 	orr      x0, x0, #(0x1 << 10)
 #endif
 	msr      CPTR_EL3, x0
+	isb
 
 	/*
 	 * Clear FPUStatus variable to make sure that it contains current
@@ -311,6 +315,7 @@ InitEL1:
 	mrs	x0, CPACR_EL1
 	bic	x0, x0, #(0x3 << 0x20)
 	msr	CPACR_EL1, x0
+	isb
 
 	/*
 	 * Clear FPUStatus variable to make sure that it contains current
