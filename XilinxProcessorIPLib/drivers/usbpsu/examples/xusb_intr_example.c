@@ -47,10 +47,14 @@
  * 1.4   BK  12/01/18 Renamed the file and added changes to have a common
  *		      example for all USB IPs.
 <<<<<<< HEAD
+<<<<<<< HEAD
  *	 vak 22/01/18 Added changes for supporting microblaze platform
  *	 vak 13/03/18 Moved the setup interrupt system calls from driver to
  *		      example.
 =======
+=======
+ *	 vak 22/01/18 Added changes for supporting microblaze platform
+>>>>>>> drivers: usbpsu: add microblaze support to usbpsu driver
  *
 >>>>>>> drivers: usbpsu: Add common mass storage example changes
  * </pre>
@@ -109,6 +113,7 @@ struct Usb_DevData UsbInstance;
 Usb_Config *UsbConfigPtr;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #ifdef __MICROBLAZE__
 #ifdef XPAR_INTC_0_DEVICE_ID
 XIntc	InterruptController;	/*XIntc interrupt controller instance */
@@ -133,6 +138,13 @@ XScuGic	InterruptController;	/* Interrupt controller instance */
 =======
 XScuGic InterruptController;  /* Interrupt controller instance */
 >>>>>>> drivers: usbpsu: Add common mass storage example changes
+=======
+#ifdef XPAR_INTC_0_DEVICE_ID
+XIntc	InterruptController;	/*XIntc interrupt controller instance */
+#else
+XScuGic	InterruptController;	/* Interrupt controller instance */
+#endif
+>>>>>>> drivers: usbpsu: add microblaze support to usbpsu driver
 
 /* Buffer for virtual flash disk space. */
 u8 VirtFlash[VFLASH_SIZE] ALIGNMENT_CACHELINE;
@@ -243,10 +255,14 @@ int main(void)
 	/* setup interrupts */
 	Status = SetupInterruptSystem(UsbInstance.PrivateData, INTC_DEVICE_ID,
 <<<<<<< HEAD
+<<<<<<< HEAD
 					USB_INT_ID, (void *)&InterruptController);
 =======
 					&InterruptController);
 >>>>>>> drivers: usbpsu: Add common mass storage example changes
+=======
+					(void *)&InterruptController);
+>>>>>>> drivers: usbpsu: add microblaze support to usbpsu driver
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

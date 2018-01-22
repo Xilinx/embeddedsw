@@ -50,6 +50,7 @@
 <<<<<<< HEAD
 *	myk 12/01/18 Added hibernation support
 *	vak 22/01/18 Added changes for supporting microblaze platform
+<<<<<<< HEAD
 *	vak 13/03/18 Moved the setup interrupt system calls from driver to
 *		     example.
 =======
@@ -57,6 +58,8 @@
 =======
 *	myk 12/01/18 Added hibernation support
 >>>>>>> drivers: usbpsu: Add hibernation support for usb
+=======
+>>>>>>> drivers: usbpsu: add microblaze support to usbpsu driver
 *
 * </pre>
 *
@@ -691,11 +694,65 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 *
 *****************************************************************************/
 s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
-		XScuGic *IntcInstancePtr)
+		void *IntcPtr)
 {
 	s32 Status;
+
+#ifdef XPAR_INTC_0_DEVICE_ID
+
+	XIntc *IntcInstancePtr = (XIntc *)IntcPtr;
+
+	/*
+	 * Initialize the interrupt controller driver.
+	 */
+	Status = XIntc_Initialize(IntcInstancePtr, IntcDeviceID);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+
+	/*
+	 * Connect a device driver handler that will be called when an interrupt
+	 * for the USB device occurs.
+	 */
+	Status = XIntc_Connect(IntcInstancePtr, USB_INTR_ID,
+			       (Xil_ExceptionHandler)XUsbPsu_IntrHandler,
+			       (void *) InstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Start the interrupt controller such that interrupts are enabled for
+	 * all devices that cause interrupts, specific real mode so that
+	 * the USB can cause interrupts through the interrupt controller.
+	 */
+	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Enable the interrupt for the USB.
+	 */
+	XIntc_Enable(IntcInstancePtr, USB_INTR_ID);
+
+	/*
+	 * Initialize the exception table
+	 */
+	Xil_ExceptionInit();
+
+	/*
+	 * Register the interrupt controller handler with the exception table
+	 */
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+				(Xil_ExceptionHandler)XIntc_InterruptHandler,
+				IntcInstancePtr);
+#elif defined PLATFORM_ZYNQMP
 	XScuGic_Config *IntcConfig; /* The configuration parameters of the
-									interrupt controller */
+					interrupt controller */
+
+	XScuGic *IntcInstancePtr = (XScuGic *)IntcPtr;
 
 	/*
 	 * Initialize the interrupt controller driver
@@ -761,6 +818,8 @@ s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 								(Xil_ExceptionHandler)XScuGic_InterruptHandler,
 								IntcInstancePtr);
+
+#endif /* XPAR_INTC_0_DEVICE_ID */
 
 	/*
 	 * Enable interrupts in the ARM

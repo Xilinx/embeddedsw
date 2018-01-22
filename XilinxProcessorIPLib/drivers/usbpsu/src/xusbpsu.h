@@ -62,6 +62,7 @@
 <<<<<<< HEAD
 *	myk   12/01/18 Added hibernation support for device mode
 *	vak   22/01/18 Added changes for supporting microblaze platform
+<<<<<<< HEAD
 *	vak   13/03/18 Moved the setup interrupt system calls from driver to
 *		       example.
 =======
@@ -69,6 +70,8 @@
 =======
 *	myk   12/01/18 Added hibernation support for device mode
 >>>>>>> drivers: usbpsu: Add hibernation support for usb
+=======
+>>>>>>> drivers: usbpsu: add microblaze support to usbpsu driver
 *
 * </pre>
 *
@@ -92,10 +95,20 @@ extern "C" {
 #include "xusbpsu_hw.h"
 #include "xil_io.h"
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 #include "xscugic.h"
 >>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
+=======
+
+#ifdef XPAR_INTC_0_DEVICE_ID
+#include "xintc.h"
+#elif defined PLATFORM_ZYNQMP
+#include "xscugic.h"
+#endif
+
+>>>>>>> drivers: usbpsu: add microblaze support to usbpsu driver
 /*
  * The header sleep.h and API usleep() can only be used with an arm design.
  * MB_Sleep() is used for microblaze design.
@@ -771,7 +784,7 @@ s32 XUsbPsu_SetupScratchpad(struct XUsbPsu *InstancePtr);
 #endif
 
 s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
-			XScuGic *IntcInstancePtr);
+			void *IntcInstancePtr);
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr);

@@ -125,7 +125,7 @@ void SetEpHandler(void *InstancePtr, u8 Epnum,
 <<<<<<< HEAD
 =======
 s32 SetupInterruptSystem(void *InstancePtr, u16 IntcDeviceID,
-			XScuGic *IntcInstancePtr)
+			void *IntcInstancePtr)
 {
 	return XUsbPsu_SetupInterruptSystem((struct XUsbPsu *)InstancePtr,
 					IntcDeviceID, IntcInstancePtr);
