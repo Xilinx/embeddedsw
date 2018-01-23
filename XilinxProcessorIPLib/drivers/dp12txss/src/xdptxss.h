@@ -27,7 +27,7 @@
 /**
 *
 * @file xdptxss.h
-* @addtogroup dptxss_v5_0
+* @addtogroup dptxss_v5_1
 * @{
 * @details
 *
