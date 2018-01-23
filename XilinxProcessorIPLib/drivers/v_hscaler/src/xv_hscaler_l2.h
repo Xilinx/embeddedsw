@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_hscaler_l2.h
-* @addtogroup v_hscaler_v1_0
+* @addtogroup v_hscaler_v3_1
 * @{
 * @details
 *
