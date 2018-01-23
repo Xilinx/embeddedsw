@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_letterbox_l2.c
-* @addtogroup v_letterbox_v1_0
+* @addtogroup v_letterbox_v2_1
 * @{
 * @details
 *
