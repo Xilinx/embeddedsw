@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xprc_sinit.c
-* @addtogroup prc_v1_1
+* @addtogroup prc_v1_2
 * @{
 *
 * This file contains the implementation of the XPrc driver's static
@@ -42,7 +42,8 @@
 * Ver   Who     Date        Changes
 * ---- ---- ------------ --------------------------------------------------
 * 1.0   ms   07/18/2016    First release
-*
+* 1.2   Nava 29/03/19      Updated the tcl logic to generated the
+*                          XPrc_ConfigTable properly.
 * </pre>
 *
 ******************************************************************************/
