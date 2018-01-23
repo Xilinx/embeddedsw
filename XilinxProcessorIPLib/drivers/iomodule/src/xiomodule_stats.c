@@ -33,7 +33,7 @@
 /**
 *
 * @file xiomodule_stats.c
-* @addtogroup iomodule_v2_2
+* @addtogroup iomodule_v2_5
 * @{
 *
 * This file contains the statistics functions for the UART module
