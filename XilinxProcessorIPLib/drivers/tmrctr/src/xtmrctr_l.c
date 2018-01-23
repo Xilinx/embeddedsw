@@ -33,7 +33,7 @@
 /**
 *
 * @file xtmrctr_l.c
-* @addtogroup tmrctr_v4_0
+* @addtogroup tmrctr_v4_4
 * @{
 *
 * This file contains low-level driver functions that can be used to access the
