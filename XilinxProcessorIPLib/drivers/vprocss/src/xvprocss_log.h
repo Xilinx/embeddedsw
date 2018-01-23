@@ -33,7 +33,7 @@
 /**
 *
 * @file xvprocss_log.h
-* @addtogroup vprocss
+* @addtogroup vprocss_v2_4
 * @{
 * @details
 *

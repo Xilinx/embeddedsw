@@ -33,7 +33,7 @@
 /**
 *
 * @file xvprocss_vdma.c
-* @addtogroup vprocss
+* @addtogroup vprocss_v2_4
 * @{
 * @details
 
