@@ -34,10 +34,14 @@
 *
 * @file xdprxss.h
 <<<<<<< HEAD
+<<<<<<< HEAD
 * @addtogroup dprxss_v4_2
 =======
 * @addtogroup dprxss_v4_1
 >>>>>>> Updated addtogroup to appropriate files
+=======
+* @addtogroup dprxss_v4_2
+>>>>>>> Addtogroup version updated for dprxss
 * @{
 * @details
 *
