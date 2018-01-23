@@ -33,7 +33,7 @@
 /**
 *
 * @file xdsitxss.h
-* @addtogroup dsitxss_v1_0
+* @addtogroup dsitxss_v1_1
 * @{
 * @details
 *
