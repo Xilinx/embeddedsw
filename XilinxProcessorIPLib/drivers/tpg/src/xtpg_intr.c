@@ -33,7 +33,7 @@
 /**
 *
 * @file xtpg_intr.c
-* @addtogroup tpg_v3_0
+* @addtogroup tpg_v3_1
 * @{
 *
 * This file contains interrupt related functions of the TPG core.
