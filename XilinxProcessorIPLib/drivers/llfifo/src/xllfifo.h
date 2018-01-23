@@ -33,7 +33,7 @@
 /**
  *
  * @file xllfifo.h
-* @addtogroup llfifo_v5_0
+* @addtogroup llfifo_v5_2
 * @{
 * @details
  *
