@@ -33,7 +33,7 @@
 /**
 *
 * @file xio.h
-* @addtogroup cpu_v2_3
+* @addtogroup cpu_v2_6
 * @{
 * @details
 *
