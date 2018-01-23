@@ -33,7 +33,7 @@
 /**
 *
 * @file xmutex.h
-* @addtogroup mutex_v4_0
+* @addtogroup mutex_v4_3
 * @{
 * @details
 *
