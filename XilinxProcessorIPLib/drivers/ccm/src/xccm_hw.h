@@ -33,7 +33,7 @@
 /**
 *
 * @file xccm_hw.h
-* @addtogroup ccm_v6_0
+* @addtogroup ccm_v6_1
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or

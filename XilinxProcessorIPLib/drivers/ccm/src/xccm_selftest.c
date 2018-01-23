@@ -33,7 +33,7 @@
 /**
 *
 * @file xccm_selftest.c
-* @addtogroup ccm_v6_0
+* @addtogroup ccm_v6_1
 * @{
 *
 * This file contains the self-test functions for the CCM core.
