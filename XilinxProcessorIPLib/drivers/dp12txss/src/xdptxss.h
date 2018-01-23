@@ -29,7 +29,7 @@
 /**
 *
 * @file xdptxss.h
-* @addtogroup dptxss_v5_1
+* @addtogroup dptxss_v5_0
 * @{
 * @details
 *

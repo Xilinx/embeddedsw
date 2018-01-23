@@ -29,7 +29,7 @@
 /**
 *
 * @file xdprxss.h
-* @addtogroup dprxss_v4_2
+* @addtogroup dprxss_v4_1
 * @{
 * @details
 *
@@ -364,6 +364,9 @@ typedef struct {
 
 	/* User options */
 	XDpRxSs_UsrOpt UsrOpt;		/**< User Options structure */
+
+	u8 *EdidDataPtr;		/**< Pointer to EDID Data */
+	u16 EdidSize;			/**< Size of EDID Data */
 } XDpRxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/

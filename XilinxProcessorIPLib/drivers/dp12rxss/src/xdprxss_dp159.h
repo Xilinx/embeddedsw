@@ -29,7 +29,7 @@
 /**
 *
 * @file xdprxss_dp159.h
-* @addtogroup dprxss_v4_2
+* @addtogroup dprxss_v4_0
 * @{
 *
 * This is the header file contains macros, enum, structure and function

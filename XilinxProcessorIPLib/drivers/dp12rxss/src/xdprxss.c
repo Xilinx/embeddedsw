@@ -29,7 +29,7 @@
 /**
 *
 * @file xdprxss.c
-* @addtogroup dprxss_v4_2
+* @addtogroup dprxss_v4_1
 * @{
 *
 * This is the main file for Xilinx DisplayPort Receiver Subsystem driver.
@@ -1438,8 +1438,14 @@ static void DpRxSs_PopulateDpRxPorts(XDpRxSs *InstancePtr)
 			StreamIndex < InstancePtr->Config.NumMstStreams;
 							StreamIndex++) {
 			/* Set I2C maps. */
-			XDp_RxSetIicMapEntry(InstancePtr->DpPtr,
-				StreamIndex + 1, 0x50, 128, GenEdid);
+			if (InstancePtr->EdidSize == 0)
+				XDp_RxSetIicMapEntry(InstancePtr->DpPtr,
+                                        StreamIndex + 1, 0x50, 128, GenEdid);
+                        else
+				XDp_RxSetIicMapEntry(InstancePtr->DpPtr,
+                                        StreamIndex + 1, 0x50,
+                                        InstancePtr->EdidSize,
+                                        InstancePtr->EdidDataPtr);
 
 			/* Set DPCD maps. */
 			XDp_RxSetDpcdMap(InstancePtr->DpPtr, StreamIndex + 1,
