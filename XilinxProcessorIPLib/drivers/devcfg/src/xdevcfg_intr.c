@@ -33,7 +33,7 @@
 /**
 *
 * @file xdevcfg_intr.c
-* @addtogroup devcfg_v3_3
+* @addtogroup devcfg_v3_5
 * @{
 *
 * Contains the implementation of interrupt related functions of the XDcfg
