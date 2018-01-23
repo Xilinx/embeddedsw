@@ -33,7 +33,7 @@
 /**
 *
 * @file xiomodule.c
-* @addtogroup iomodule_v2_2
+* @addtogroup iomodule_v2_5
 * @{
 *
 * Contains required functions for the XIomodule driver for the Xilinx
