@@ -33,7 +33,7 @@
 /**
 *
 * @file xtmrctr_i.h
-* @addtogroup tmrctr_v3_0
+* @addtogroup tmrctr_v4_4
 * @{
 *
 * This file contains data which is shared between files internal to the

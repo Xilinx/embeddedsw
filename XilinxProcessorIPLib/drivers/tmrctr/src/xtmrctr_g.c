@@ -33,7 +33,7 @@
 /**
 *
 * @file xtmrctr_g.c
-* @addtogroup tmrctr_v4_0
+* @addtogroup tmrctr_v4_4
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
