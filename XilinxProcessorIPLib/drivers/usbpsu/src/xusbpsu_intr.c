@@ -596,9 +596,16 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 		void *IntcPtr)
 {
-	s32 Status;
+	/*
+	 * This below is done to remove warnings which occur when usbpsu
+	 * driver is compiled for platforms other than MICROBLAZE or ZYNQMP
+	 */
+	(void)InstancePtr;
+	(void)IntcDeviceID;
+	(void)IntcPtr;
 
 #ifdef XPAR_INTC_0_DEVICE_ID
+	s32 Status;
 
 	XIntc *IntcInstancePtr = (XIntc *)IntcPtr;
 
@@ -660,6 +667,8 @@ s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 				(Xil_ExceptionHandler)XIntc_InterruptHandler,
 				IntcInstancePtr);
 #elif defined PLATFORM_ZYNQMP
+	s32 Status;
+
 	XScuGic_Config *IntcConfig; /* The configuration parameters of the
 					interrupt controller */
 
