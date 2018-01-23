@@ -45,7 +45,6 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   mh  06/24/17 Initial release.
- * 2.1   tu  12/29/17 LPD and FPD offsets adjusted
  * </pre>
  *
 *******************************************************************************/
@@ -78,17 +77,16 @@ typedef struct {
 	u64 Fractional;
 	u64 RefClkFreqhz;
 	u32 Divider;
-	u8 Offset;
-	u8 ClkDividBy2;
-	u8 ExtDivider0;
-	u8 ExtDivider1;
-	u8 ExtDividerCnt;
-	u8 DomainSwitchDiv;
-	u8 FracIntegerFBDIV;
-	u8 IntegerFBDIV;
-	u8 InputRefClk;
-	u8 Fpd;
-	u8 Pll;
+	 u8 ClkDividBy2;
+	 u8 ExtDivider0;
+	 u8 ExtDivider1;
+	 u8 ExtDividerCnt;
+	 u8 DomainSwitchDiv;
+	 u8 FracIntegerFBDIV;
+	 u8 IntegerFBDIV;
+	 u8 InputRefClk;
+	 u8 Fpd;
+	 u8 Pll;
 }XAVBuf_Pll;
 
 /**************************** Function Prototypes *****************************/
