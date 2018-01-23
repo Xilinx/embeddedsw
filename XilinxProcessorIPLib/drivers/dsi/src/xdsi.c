@@ -33,7 +33,7 @@
 /**
 *
 * @file xdsi.c
-* @addtogroup dsi_v1_0
+* @addtogroup dsi_v1_1
 * @{
 *
 * This file implements the functions to control and get info from the DSI TX

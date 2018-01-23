@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
  * @file xdsi_hw.h
- * @addtogroup dsi_v1_0
+ * @addtogroup dsi_v1_1
  * @{
  *
  * Hardware definition file. It defines the register interface.

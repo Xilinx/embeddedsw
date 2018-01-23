@@ -33,7 +33,7 @@
 /**
 *
 * @file xdsi_sinit.c
-* @addtogroup dsi_v1_0
+* @addtogroup dsi_v1_1
 * @{
 *
 * Look up the hardware settings using device ID. The hardware setting is inside
