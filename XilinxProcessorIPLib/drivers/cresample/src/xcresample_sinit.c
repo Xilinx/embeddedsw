@@ -33,7 +33,7 @@
 /**
 *
 * @file xcresample_sinit.c
-* @addtogroup cresample_v4_0
+* @addtogroup cresample_v4_1
 * @{
 *
 * This file contains initialization methods for Xilinx Chroma Resampler core.

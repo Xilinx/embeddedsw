@@ -33,7 +33,7 @@
 /**
 *
 * @file xcresample.c
-* @addtogroup cresample_v4_0
+* @addtogroup cresample_v4_1
 * @{
 *
 * This file contains the implementation of the interface functions for the
