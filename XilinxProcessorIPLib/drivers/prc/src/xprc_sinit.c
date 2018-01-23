@@ -33,7 +33,7 @@
 /**
 *
 * @file xprc_sinit.c
-* @addtogroup prc_v1_0
+* @addtogroup prc_v1_1
 * @{
 *
 * This file contains the implementation of the XPrc driver's static
