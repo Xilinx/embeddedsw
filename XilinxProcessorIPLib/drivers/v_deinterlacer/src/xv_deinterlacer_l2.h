@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_deinterlacer_l2.h
-* @addtogroup v_deinterlacer_v5_0
+* @addtogroup v_deinterlacer_v6_2
 * @{
 * @details
 *
