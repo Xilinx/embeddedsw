@@ -43,7 +43,7 @@
 /**
 *
 * @file xusb_l.h
-* @addtogroup usb_v5_0
+* @addtogroup usb_v5_2
 * @{
 *
 * This header file contains identifiers and low-level driver function prototypes

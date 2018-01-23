@@ -42,7 +42,7 @@
 /******************************************************************************/
 /**
  * @file xusb_intr.c
-* @addtogroup usb_v5_0
+* @addtogroup usb_v5_2
 * @{
  *
  * This file contains the functions that are related to interrupt processing

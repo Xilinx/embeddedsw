@@ -43,7 +43,7 @@
 /**
 *
 * @file xusb_sinit.c
-* @addtogroup usb_v5_0
+* @addtogroup usb_v5_2
 * @{
 *
 * This file contains the implementation of the XUsb driver's static
