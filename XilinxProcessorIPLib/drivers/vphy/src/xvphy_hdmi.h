@@ -54,7 +54,7 @@
  * 1.7   gm   03/07/17 Corrected FVCO range for MMCME4
  * </pre>
  *
- * @addtogroup xvphy
+ * @addtogroup xvphy_v1_6
  * @{
 *******************************************************************************/
 #include "xparameters.h"

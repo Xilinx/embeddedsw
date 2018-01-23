@@ -33,7 +33,7 @@
 /**
  *
  * @file xvphy.h
- * @addtogroup xvphy
+ * @addtogroup xvphy_v1_6
  * @{
  * @details
  * This is main header file of the Xilinx Video PHY Controller driver
