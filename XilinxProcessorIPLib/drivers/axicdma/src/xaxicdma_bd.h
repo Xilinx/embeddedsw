@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
  *  @file xaxicdma_bd.h
-* @addtogroup axicdma_v4_0
+* @addtogroup axicdma_v4_3
 * @{
  *
  * The API definition for the Buffer Descriptor (BD).
