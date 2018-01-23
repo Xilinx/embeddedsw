@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio_intr.c
-* @addtogroup gpio_v4_2
+* @addtogroup gpio_v4_3
 * @{
 *
 * Implements GPIO interrupt processing functions for the XGpio driver.
