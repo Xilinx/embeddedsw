@@ -33,7 +33,7 @@
 /**
 *
 * @file xiicps_selftest.c
-* @addtogroup iicps_v3_0
+* @addtogroup iicps_v3_5
 * @{
 *
 * This component contains the implementation of selftest functions for the
