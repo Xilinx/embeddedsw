@@ -33,7 +33,7 @@
 /**
 *
 * @file xcsi2txss_hw.h
-* @addtogroup csi2txss_v1_0
+* @addtogroup csi2txss_v1_1
 * @{
 *
 * This header file contains identifiers and register-level core functions (or

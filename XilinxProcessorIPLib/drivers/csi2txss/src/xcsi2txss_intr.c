@@ -33,7 +33,7 @@
 /**
 *
 * @file xcsi2txss_intr.c
-* @addtogroup csi2txss_v1_0
+* @addtogroup csi2txss_v1_1
 * @{
 *
 * This is the interrupt handling part of the Xilinx MIPI CSI2 Tx Subsystem
