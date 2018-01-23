@@ -1,33 +1,13 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
  * @file xdp.c
- * @addtogroup dp_v6_0
+ * @addtogroup dp_v7_1
  * @{
  *
  * Contains a minimal set of functions for the XDp driver that allow access to
@@ -1884,6 +1864,51 @@ static u32 XDp_TxInitialize(XDp *InstancePtr)
 #if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
+ * This function sets the filter value for AUX_CLOCK_DIVIDER.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static void XDp_RxSetAuxClkFilterValue(XDp *InstancePtr)
+{
+	u32 filter_value = 0;
+	u32 Regval;
+	/*
+	 * As per the DP spec the minimum AUX pulse width is 0.4us
+	 * so the half clk is 2.5MHz
+	 */
+	filter_value = InstancePtr->Config.SAxiClkHz / 2500000;
+
+	/*
+	 * This is to set the allowable filter values as per the DpRx PG
+	 * These are the allowable values
+	 * 0(default), 8, 16, 24, 32, 40 and 48
+	 */
+	filter_value &= ~0x7;
+
+	/*
+	 * If filter value is more than the maximum allowable value(48),
+	 * set it to max value (48)
+	 */
+	if (filter_value > 48)
+		filter_value = 48;
+
+	/* Set the AUX clock filter value */
+	Regval = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+			XDP_RX_AUX_CLK_DIVIDER);
+	Regval &= ~XDP_RX_AUX_CLK_DIVIDER_AUX_SIG_WIDTH_FILT_MASK;
+	Regval |= (filter_value <<
+			XDP_RX_AUX_CLK_DIVIDER_AUX_SIG_WIDTH_FILT_SHIFT);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_AUX_CLK_DIVIDER,
+			Regval);
+}
+
+/******************************************************************************/
+/**
  * This function prepares the DisplayPort RX core for use.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
@@ -1905,6 +1930,8 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 	/* Set the AUX clock divider. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_AUX_CLK_DIVIDER,
 				(InstancePtr->Config.SAxiClkHz / 1000000));
+
+	XDp_RxSetAuxClkFilterValue(InstancePtr);
 
 	/* Put both GT RX/TX and CPLL into reset. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_PHY_CONFIG,
