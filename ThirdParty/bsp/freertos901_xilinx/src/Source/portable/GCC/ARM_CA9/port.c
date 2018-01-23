@@ -74,6 +74,9 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+/* Xilinx includes. */
+#include "xscugic.h"
+
 #ifndef configINTERRUPT_CONTROLLER_BASE_ADDRESS
 	#error configINTERRUPT_CONTROLLER_BASE_ADDRESS must be defined.  See http://www.freertos.org/Using-FreeRTOS-on-Cortex-A-Embedded-Processors.html
 #endif
@@ -196,6 +199,16 @@ registers, plus a 32-bit status register. */
 /*-----------------------------------------------------------*/
 
 /*
+ * Initialise the interrupt controller instance.
+ */
+static int32_t prvInitialiseInterruptController( void );
+
+/* Ensure the interrupt controller instance variable is initialised before it is
+ * used, and that the initialisation only happens once.
+ */
+static int32_t prvEnsureInterruptControllerIsInitialised( void );
+
+/*
  * Starts the first task executing.  This function is necessarily written in
  * assembly code so is implemented in portASM.s.
  */
@@ -205,6 +218,12 @@ extern void vPortRestoreTaskContext( void );
  * Used to catch tasks that attempt to return from their implementing function.
  */
 static void prvTaskExitError( void );
+
+/* 
+ * The instance of the interrupt controller used by this port.  This is required
+ * by the Xilinx library API functions.
+ */
+extern XScuGic xInterruptController;
 
 /*
  * If the application provides an implementation of vApplicationIRQHandler(),
@@ -360,6 +379,103 @@ static void prvTaskExitError( void )
 	configASSERT( ulPortInterruptNesting == ~0UL );
 	portDISABLE_INTERRUPTS();
 	for( ;; );
+}
+/*-----------------------------------------------------------*/
+
+BaseType_t xPortInstallInterruptHandler( uint8_t ucInterruptID, XInterruptHandler pxHandler, void *pvCallBackRef )
+{
+int32_t lReturn;
+
+	/* An API function is provided to install an interrupt handler */
+	lReturn = prvEnsureInterruptControllerIsInitialised();
+	if( lReturn == pdPASS )
+	{
+		lReturn = XScuGic_Connect( &xInterruptController, ucInterruptID, pxHandler, pvCallBackRef );
+	}
+	if( lReturn == XST_SUCCESS )
+	{
+		lReturn = pdPASS;
+	}
+	configASSERT( lReturn == pdPASS );
+	
+	return lReturn;
+}
+/*-----------------------------------------------------------*/
+
+static int32_t prvEnsureInterruptControllerIsInitialised( void )
+{
+static int32_t lInterruptControllerInitialised = pdFALSE;
+int32_t lReturn;
+
+	/* Ensure the interrupt controller instance variable is initialised before
+	it is used, and that the initialisation only happens once. */
+	if( lInterruptControllerInitialised != pdTRUE )
+	{
+		lReturn = prvInitialiseInterruptController();
+
+		if( lReturn == pdPASS )
+		{
+			lInterruptControllerInitialised = pdTRUE;
+		}
+	}
+	else
+	{
+		lReturn = pdPASS;
+	}
+
+	return lReturn;
+}
+/*-----------------------------------------------------------*/
+
+static int32_t prvInitialiseInterruptController( void )
+{
+BaseType_t xStatus;
+XScuGic_Config *pxGICConfig;
+
+	/* Initialize the interrupt controller driver. */
+	pxGICConfig = XScuGic_LookupConfig( XPAR_SCUGIC_SINGLE_DEVICE_ID );
+	xStatus = XScuGic_CfgInitialize( &xInterruptController, pxGICConfig, pxGICConfig->CpuBaseAddress );	
+		if( xStatus == XST_SUCCESS )
+		{
+			xStatus = pdPASS;
+		}
+		else
+		{
+			xStatus = pdFAIL;
+		}	
+	configASSERT( xStatus == pdPASS );
+
+	return xStatus;
+}
+/*-----------------------------------------------------------*/
+
+void vPortEnableInterrupt( uint8_t ucInterruptID )
+{
+int32_t lReturn;
+
+	/* An API function is provided to enable an interrupt in the interrupt
+	controller. */
+	lReturn = prvEnsureInterruptControllerIsInitialised();
+	if( lReturn == pdPASS )
+	{
+		XScuGic_Enable( &xInterruptController, ucInterruptID );
+	}	
+	configASSERT( lReturn );
+}
+/*-----------------------------------------------------------*/
+
+void vPortDisableInterrupt( uint8_t ucInterruptID )
+{
+int32_t lReturn;
+
+	/* An API function is provided to disable an interrupt in the interrupt
+	controller. */
+	lReturn = prvEnsureInterruptControllerIsInitialised();
+	if( lReturn == pdPASS )
+	{
+		XScuGic_Disable( &xInterruptController, ucInterruptID );
+	}
+	configASSERT( lReturn );
 }
 /*-----------------------------------------------------------*/
 

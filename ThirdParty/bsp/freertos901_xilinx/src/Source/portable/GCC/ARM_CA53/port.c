@@ -74,6 +74,9 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+/* Xilinx includes. */
+#include "xscugic.h"
+
 #ifndef configINTERRUPT_CONTROLLER_BASE_ADDRESS
 	#error configINTERRUPT_CONTROLLER_BASE_ADDRESS must be defined.  See http://www.freertos.org/Using-FreeRTOS-on-Cortex-A-Embedded-Processors.html
 #endif
@@ -191,6 +194,12 @@ the scheduler starts.  As it is stored as part of the task context it will
 automatically be set to 0 when the first task is started. */
 volatile uint64_t ullCriticalNesting = 9999ULL;
 
+/* 
+ * The instance of the interrupt controller used by this port.  This is required
+ * by the Xilinx library API functions.
+ */
+extern XScuGic xInterruptController;
+
 /* Saved as part of the task context.  If ullPortTaskHasFPUContext is non-zero
 then floating point context must be saved and restored for the task. */
 uint64_t ullPortTaskHasFPUContext = pdFALSE;
@@ -209,6 +218,15 @@ __attribute__(( used )) const uint64_t ullICCPMR = portICCPMR_PRIORITY_MASK_REGI
 __attribute__(( used )) const uint64_t ullMaxAPIPriorityMask = ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT );
 
 /*-----------------------------------------------------------*/
+/*
+ * Initialise the interrupt controller instance.
+ */
+static int32_t prvInitialiseInterruptController( void );
+
+/* Ensure the interrupt controller instance variable is initialised before it is
+ * used, and that the initialisation only happens once.
+ */
+static int32_t prvEnsureInterruptControllerIsInitialised( void );
 
 /*
  * See header file for description.
@@ -302,6 +320,111 @@ StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t px
 	*pxTopOfStack = portNO_FLOATING_POINT_CONTEXT;
 
 	return pxTopOfStack;
+}
+/*-----------------------------------------------------------*/
+
+BaseType_t xPortInstallInterruptHandler( uint8_t ucInterruptID, XInterruptHandler pxHandler, void *pvCallBackRef )
+{
+int32_t lReturn;
+
+	/* An API function is provided to install an interrupt handler */
+	lReturn = prvEnsureInterruptControllerIsInitialised();
+	if( lReturn == pdPASS )
+	{
+		lReturn = XScuGic_Connect( &xInterruptController, ucInterruptID, pxHandler, pvCallBackRef );
+	}
+	if( lReturn == XST_SUCCESS )
+	{
+		lReturn = pdPASS;
+	}
+	configASSERT( lReturn == pdPASS );
+
+	return lReturn;
+}
+/*-----------------------------------------------------------*/
+
+static int32_t prvEnsureInterruptControllerIsInitialised( void )
+{
+static int32_t lInterruptControllerInitialised = pdFALSE;
+int32_t lReturn;
+
+	/* Ensure the interrupt controller instance variable is initialised before
+	it is used, and that the initialisation only happens once. */
+	if( lInterruptControllerInitialised != pdTRUE )
+	{
+		lReturn = prvInitialiseInterruptController();
+
+		if( lReturn == pdPASS )
+		{
+			lInterruptControllerInitialised = pdTRUE;
+		}
+	}
+	else
+	{
+		lReturn = pdPASS;
+	}
+
+	return lReturn;
+}
+/*-----------------------------------------------------------*/
+
+static int32_t prvInitialiseInterruptController( void )
+{
+BaseType_t xStatus;
+XScuGic_Config *pxGICConfig;
+
+	/* Initialize the interrupt controller driver. */
+	pxGICConfig = XScuGic_LookupConfig( configINTERRUPT_CONTROLLER_DEVICE_ID );
+	xStatus = XScuGic_CfgInitialize( &xInterruptController, pxGICConfig, pxGICConfig->CpuBaseAddress );
+	/* Connect the interrupt controller interrupt handler to the hardware
+	interrupt handling logic in the ARM processor. */
+	Xil_ExceptionRegisterHandler( XIL_EXCEPTION_ID_IRQ_INT,
+								( Xil_ExceptionHandler ) XScuGic_InterruptHandler,
+								&xInterruptController);
+	/* Enable interrupts in the ARM. */
+	Xil_ExceptionEnable();
+	
+		if( xStatus == XST_SUCCESS )
+		{
+			xStatus = pdPASS;
+		}
+		else
+		{
+			xStatus = pdFAIL;
+		}
+	configASSERT( xStatus == pdPASS );
+
+	return xStatus;
+}
+/*-----------------------------------------------------------*/
+
+void vPortEnableInterrupt( uint8_t ucInterruptID )
+{
+int32_t lReturn;
+
+	/* An API function is provided to enable an interrupt in the interrupt
+	controller. */
+	lReturn = prvEnsureInterruptControllerIsInitialised();
+	if( lReturn == pdPASS )
+	{
+		XScuGic_Enable( &xInterruptController, ucInterruptID );
+	}	
+	configASSERT( lReturn );
+}
+/*-----------------------------------------------------------*/
+
+void vPortDisableInterrupt( uint8_t ucInterruptID )
+{
+int32_t lReturn;
+
+	/* An API function is provided to disable an interrupt in the interrupt
+	controller. */
+	lReturn = prvEnsureInterruptControllerIsInitialised();
+	if( lReturn == pdPASS )
+	{
+		XScuGic_Disable( &xInterruptController, ucInterruptID );
+	}
+	configASSERT( lReturn );
 }
 /*-----------------------------------------------------------*/
 
