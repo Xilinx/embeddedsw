@@ -33,7 +33,7 @@
 /**
 *
 * @file xrgb2ycrcb.h
-* @addtogroup rgb2ycrcb_v7_0
+* @addtogroup rgb2ycrcb_v7_1
 * @{
 * @details
 *
