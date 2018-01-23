@@ -33,7 +33,7 @@
 /**
 *
 * @file xcresample_hw.h
-* @addtogroup cresample_v4_0
+* @addtogroup cresample_v4_1
 * @{
 *
 * This header file contains identifiers and register-level driver functions
