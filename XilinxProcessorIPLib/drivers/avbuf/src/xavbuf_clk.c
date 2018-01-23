@@ -45,7 +45,6 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   mh  06/24/17 Initial release.
- * 2.1   tu  12/29/17 LPD and FPD offsets adjusted
  * </pre>
  *
 *******************************************************************************/
@@ -75,8 +74,7 @@
 
 /* Register offsets for address manipulation */
 #define XAVBUF_REG_OFFSET		4
-#define XAVBUF_FPD_CTRL_OFFSET          12
-#define XAVBUF_LPD_CTRL_OFFSET          16
+#define XAVBUF_CTRL_OFFSET		12
 #define MOD_3(a)			((a) % (3))
 
 /*************************** Constant Variable Definitions ********************/
@@ -233,12 +231,10 @@ static void XAVBuf_PllInitialize(XAVBuf_Pll *PllInstancePtr,
 	if (Pll>2){
 		PllInstancePtr->Fpd = 0;
 		PllInstancePtr->BaseAddress = XAVBUF_CLK_LPD_BASEADDR;
-		PllInstancePtr->Offset = XAVBUF_LPD_CTRL_OFFSET;
 	}
 	else{
 		PllInstancePtr->Fpd = 1;
 		PllInstancePtr->BaseAddress = XAVBUF_CLK_FPD_BASEADDR;
-		PllInstancePtr->Offset = XAVBUF_FPD_CTRL_OFFSET;
 	}
 
 }
@@ -348,7 +344,8 @@ static int  XAVBuf_ConfigurePll(XAVBuf_Pll *PllInstancePtr)
 	RegPll |= PllInstancePtr->Divider << XAVBUF_PLL_CTRL_DIV2_SHIFT;
 	RegPll |= PllInstancePtr->InputRefClk << XAVBUF_PLL_CTRL_PRE_SRC_SHIFT;
 	XAVBuf_WriteReg(BaseAddress, XAVBUF_PLL_CTRL + (MOD_3(Pll) *
-		PllInstancePtr->Offset), RegPll);
+		XAVBUF_CTRL_OFFSET), RegPll);
+
 	RegPll = 0;
 	/* Set the values for lock dly, lock counter, capacitor and resistor. */
 	RegPll |=
@@ -367,21 +364,23 @@ static int  XAVBuf_ConfigurePll(XAVBuf_Pll *PllInstancePtr)
 		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV -25].lock_cnt
 		<< XAVBUF_PLL_CFG_LOCK_CNT_SHIFT;
 	XAVBuf_WriteReg(BaseAddress, XAVBUF_PLL_CFG + (MOD_3(Pll) *
-		PllInstancePtr->Offset), RegPll);
+		XAVBUF_CTRL_OFFSET), RegPll);
+
 	/* Enable and set Fractional Data. */
 	XAVBuf_WriteReg(BaseAddress, XAVBUF_PLL_FRAC_CFG + (MOD_3(Pll) *
-		PllInstancePtr->Offset), (1 << XAVBUF_PLL_FRAC_CFG_ENABLED_SHIFT) |
+		XAVBUF_CTRL_OFFSET), (1 << XAVBUF_PLL_FRAC_CFG_ENABLED_SHIFT) |
 		(PllInstancePtr->Fractional <<
 		XAVBUF_PLL_FRAC_CFG_DATA_SHIFT));
+
 	/* Assert reset to the PLL. */
 	XAVBuf_ReadModifyWriteReg(BaseAddress, XAVBUF_PLL_CTRL + (MOD_3(Pll) *
-		PllInstancePtr->Offset),
+		XAVBUF_CTRL_OFFSET),
 		XAVBUF_PLL_CTRL_RESET_MASK, XAVBUF_PLL_CTRL_RESET_SHIFT,
 		XAVBUF_ENABLE_BIT);
 
 	/* Deassert reset to the PLL. */
 	XAVBuf_ReadModifyWriteReg(BaseAddress, XAVBUF_PLL_CTRL + (MOD_3(Pll) *
-		PllInstancePtr->Offset),
+		XAVBUF_CTRL_OFFSET),
 		XAVBUF_PLL_CTRL_RESET_MASK, XAVBUF_PLL_CTRL_RESET_SHIFT,
 		XAVBUF_DISABLE_BIT);
 
@@ -393,7 +392,7 @@ static int  XAVBuf_ConfigurePll(XAVBuf_Pll *PllInstancePtr)
 
 	/* Deassert Bypass. */
 	XAVBuf_ReadModifyWriteReg(BaseAddress, XAVBUF_PLL_CTRL + (MOD_3(Pll) *
-		PllInstancePtr->Offset),
+		XAVBUF_CTRL_OFFSET),
 		XAVBUF_PLL_CTRL_BYPASS_MASK, XAVBUF_PLL_CTRL_BYPASS_SHIFT,
 		XAVBUF_DISABLE_BIT);
 
@@ -438,7 +437,6 @@ static void  XAVBuf_ConfigureExtDivider(XAVBuf_Pll *PllInstancePtr,
 	XAVBuf_ReadModifyWriteReg(BaseAddress, Offset,
 		XAVBUF_VIDEO_REF_CTRL_CLKACT_MASK,
 		XAVBUF_VIDEO_REF_CTRL_CLKACT_SHIFT, XAVBUF_ENABLE_BIT);
-	XAVBuf_WriteReg(BaseAddress, Offset, 0x1011003);
 }
 
 /******************************************************************************/
