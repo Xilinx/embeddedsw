@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxipcie_porting_guide.h
-* @addtogroup axipcie_v3_0
+* @addtogroup axipcie_v3_1
 * @{
 *
 * This is a guide on how to move from using the plbv46pcie driver to use
