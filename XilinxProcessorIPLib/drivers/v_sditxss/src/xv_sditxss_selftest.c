@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_sditxss_selftest.c
-* @addtogroup xv_sditxss_v1_0
+* @addtogroup xv_sditxss_v1_1
 * @{
 * This file contains self test function for the SDI Tx Subsystem
 *
