@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_hcresampler_l2.c
-* @addtogroup v_hcresampler_v1_0
+* @addtogroup v_hcresampler_v3_0
 * @{
 * @details
 *
