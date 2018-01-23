@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 * @file xrtcpsu.h
-* @addtogroup rtcpsu_v1_0
+* @addtogroup rtcpsu_v1_5
 * @{
 * @details
 *

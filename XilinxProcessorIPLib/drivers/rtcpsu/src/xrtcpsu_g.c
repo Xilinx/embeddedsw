@@ -33,7 +33,7 @@
 /**
 *
 * @file xrtcpsu_g.c
-* @addtogroup rtcpsu_v1_0
+* @addtogroup rtcpsu_v1_5
 * @{
 *
 * This file contains a configuration table that specifies the configuration

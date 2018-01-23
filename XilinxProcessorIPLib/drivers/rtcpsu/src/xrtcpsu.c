@@ -33,7 +33,7 @@
 /**
 *
 * @file xrtcpsu.c
-* @addtogroup rtcpsu_v1_0
+* @addtogroup rtcpsu_v1_5
 * @{
 *
 * Functions in this file are the minimum required functions for the XRtcPsu
