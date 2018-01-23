@@ -33,7 +33,7 @@
 /**
 *
 * @file xdualsplitter_intr.c
-* @addtogroup dual_splitter_v1_0
+* @addtogroup dual_splitter_v1_1
 * @{
 *
 * This file contains interrupt related functions for Xilinx Dual Splitter
