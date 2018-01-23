@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp22_tx_crypt.c
-* @addtogroup hdcp22_tx_v2_0
+* @addtogroup hdcp22_tx_v2_3
 * @{
 * @details
 *
