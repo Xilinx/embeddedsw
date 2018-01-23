@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_sdirxss_selftest.c
-* @addtogroup xv_sdirxss_v1_0
+* @addtogroup xv_sdirxss_v1_1
 * @{
 * This file contains self test function for the SDI Rx Subsystem
 *
