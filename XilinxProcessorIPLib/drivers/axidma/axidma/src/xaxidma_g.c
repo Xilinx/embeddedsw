@@ -32,17 +32,13 @@
 /*****************************************************************************/
 /**
 *
-* @file xaxidma_sinit.c
-<<<<<<< HEAD
+* @file xaxidma_g.c
 * @addtogroup axidma_v9_7
-=======
-* @addtogroup axidma_v9_5
->>>>>>> Addtogroup version updated for axidma
 * @{
 *
-* Look up the hardware settings using device ID. The hardware setting is inside
-* the configuration table in xaxidma_g.c, generated automatically by XPS or
-* manually by the user.
+* Provide a template for user to define their own hardware settings.
+*
+* If using XPS, then XPS will automatically generate this file.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -53,9 +49,11 @@
 * 2.00a jz   08/10/10 Second release, added in xaxidma_g.c, xaxidma_sinit.c,
 *                     updated tcl file, added xaxidma_porting_guide.h
 * 3.00a jz   11/22/10 Support IP core parameters change
-* 5.00a srt  08/29/11 Removed a compiler warning
-* 9.5   rsp  11/01/17 Add interface to do config lookup based on base address.
-* 9.6   rsp  01/11/18 In LookupConfig use UINTPTR for Baseaddr CR#976392
+* 4.00a rkv  02/22/11 Added support for simple DMA mode
+* 6.00a srt  01/24/12 Added support for Multi-Channel DMA mode
+* 7.02a srt  01/23/13 Replaced *_TDATA_WIDTH parameters to *_DATA_WIDTH
+*		      (CR 691867)
+* 9.7   rsp  04/25/18 In XAxiDma_Config add SG length width.
 *
 * </pre>
 *
@@ -66,69 +64,25 @@
 #include "xparameters.h"
 #include "xaxidma.h"
 
+/************************** Constant Definitions *****************************/
+#define XPAR_AXIDMA_0_INCLUDE_SG	0
 
-/*****************************************************************************/
-/**
- * Look up the hardware configuration for a device instance
- *
- * @param	DeviceId is the unique device ID of the device to lookup for
- *
- * @return
- *		The configuration structure for the device. If the device ID is
- *		not found,a NULL pointer is returned.
- *
- * @note	None
- *
- ******************************************************************************/
-XAxiDma_Config *XAxiDma_LookupConfig(u32 DeviceId)
+XAxiDma_Config XAxiDma_ConfigTable[] =
 {
-	extern XAxiDma_Config XAxiDma_ConfigTable[];
-	XAxiDma_Config *CfgPtr;
-	u32 Index;
-
-	CfgPtr = NULL;
-
-	for (Index = 0; Index < XPAR_XAXIDMA_NUM_INSTANCES; Index++) {
-		if (XAxiDma_ConfigTable[Index].DeviceId == DeviceId) {
-
-			CfgPtr = &XAxiDma_ConfigTable[Index];
-			break;
-		}
+	{
+		XPAR_AXIDMA_0_DEVICE_ID,
+		XPAR_AXIDMA_0_BASEADDR,
+		XPAR_AXIDMA_0_SG_INCLUDE_STSCNTRL_STRM,
+		XPAR_AXIDMA_0_INCLUDE_MM2S,
+		XPAR_AXIDMA_0_INCLUDE_MM2S_DRE,
+		XPAR_AXIDMA_0_M_AXI_MM2S_DATA_WIDTH,
+		XPAR_AXIDMA_0_INCLUDE_S2MM,
+		XPAR_AXIDMA_0_INCLUDE_S2MM_DRE,
+		XPAR_AXIDMA_0_M_AXI_S2MM_DATA_WIDTH,
+		XPAR_AXIDMA_0_INCLUDE_SG,
+		XPAR_AXIDMA_0_NUM_MM2S_CHANNELS,
+		XPAR_AXIDMA_0_NUM_S2MM_CHANNELS,
+		XPAR_AXIDMA_0_SG_LENGTH_WIDTH
 	}
-
-	return CfgPtr;
-}
-
-/*****************************************************************************/
-/**
- * Look up the hardware configuration for a device instance based on base address
- *
- * @param	Baseaddr is the base address of the device to lookup for
- *
- * @return
- *		The configuration structure for the device. If the device base
- *		address is not found,a NULL pointer is returned.
- *
- * @note	None
- *
- ******************************************************************************/
-XAxiDma_Config *XAxiDma_LookupConfigBaseAddr(UINTPTR Baseaddr)
-{
-	extern XAxiDma_Config XAxiDma_ConfigTable[];
-	XAxiDma_Config *CfgPtr;
-	u32 Index;
-
-	CfgPtr = NULL;
-
-	for (Index = 0; Index < XPAR_XAXIDMA_NUM_INSTANCES; Index++) {
-		if (XAxiDma_ConfigTable[Index].BaseAddr == Baseaddr) {
-
-			CfgPtr = &XAxiDma_ConfigTable[Index];
-			break;
-		}
-	}
-
-	return CfgPtr;
-}
-
+};
 /** @} */
