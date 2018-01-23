@@ -33,7 +33,7 @@
 /**
 *
 * @file xrtcpsu_hw.h
-* @addtogroup rtcpsu_v1_0
+* @addtogroup rtcpsu_v1_5
 * @{
 *
 * This header file contains the identifiers and basic driver functions (or
