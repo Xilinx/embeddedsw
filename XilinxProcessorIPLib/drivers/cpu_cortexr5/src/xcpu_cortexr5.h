@@ -33,7 +33,7 @@
 /**
 *
 * @file xcpu_cortexr5.h
-* @addtogroup cpu_cortexr5_v1_1
+* @addtogroup cpu_cortexr5_v1_4
 * @{
 * @details
 *
