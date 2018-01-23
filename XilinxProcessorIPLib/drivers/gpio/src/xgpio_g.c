@@ -33,7 +33,7 @@
 /**
 *
 * @file xgpio_g.c
-* @addtogroup gpio_v4_2
+* @addtogroup gpio_v4_3
 * @{
 *
 * This file contains a configuration table that specifies the configuration
