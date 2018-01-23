@@ -33,7 +33,7 @@
 /**
 *
 * @file xhwicap_i.h
-* @addtogroup hwicap_v10_1
+* @addtogroup hwicap_v11_1
 * @{
 *
 * This head file contains internal identifiers, which are those shared
