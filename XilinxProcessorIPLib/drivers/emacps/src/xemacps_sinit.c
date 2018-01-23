@@ -33,7 +33,7 @@
 /**
 *
 * @file xemacps_sinit.c
-* @addtogroup emacps_v3_4
+* @addtogroup emacps_v3_7
 * @{
 *
 * This file contains lookup method by device ID when success, it returns

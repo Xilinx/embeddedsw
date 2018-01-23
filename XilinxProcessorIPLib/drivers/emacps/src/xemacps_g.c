@@ -33,7 +33,7 @@
 /**
 *
 * @file xemacps_g.c
-* @addtogroup emacps_v3_4
+* @addtogroup emacps_v3_7
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
