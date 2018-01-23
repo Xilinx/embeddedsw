@@ -34,10 +34,14 @@
  *
  * @file xdp_hw.h
 <<<<<<< HEAD
+<<<<<<< HEAD
  * @addtogroup dp_v7_0
 =======
  * @addtogroup dp_v6_0
 >>>>>>> DP: Resolve multiple verion issue
+=======
+ * @addtogroup dp_v7_0
+>>>>>>> Addtogroup version updated for dp
  * @{
  *
  * This header file contains the identifiers and low-level driver functions (or

@@ -34,10 +34,14 @@
  *
  * @file xdp_spm.c
 <<<<<<< HEAD
+<<<<<<< HEAD
  * @addtogroup dp_v7_0
 =======
  * @addtogroup dp_v6_0
 >>>>>>> DP: Resolve multiple verion issue
+=======
+ * @addtogroup dp_v7_0
+>>>>>>> Addtogroup version updated for dp
  * @{
  *
  * This file contains the stream policy maker functions for the XDp driver.
