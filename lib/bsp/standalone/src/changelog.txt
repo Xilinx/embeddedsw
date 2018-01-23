@@ -500,5 +500,9 @@
  * 6.6 hk    12/15/17 Export platform macros to bspconfig.h based on the processor.
  * 6.6 asa   1/16/18  Ensure C stack information for A9 are flushed out from L1 D cache
  *                    or L2 cache only when the respective caches are enabled. This fixes CR-922023.
+ * 6.6 mus   01/19/18 Updated asm_vectors.S and boot.S in Cortexa53 64 bit BSP, to add isb
+ *                    after writing to cpacr_el1/cptr_el3 registers. It would ensure
+ *                    disabling/enabling of floating-point unit, before any subsequent
+ *                    instruction.
  *
  *****************************************************************************************/
