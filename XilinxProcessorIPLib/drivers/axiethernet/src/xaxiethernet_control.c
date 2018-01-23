@@ -32,7 +32,7 @@
 /**
 *
 * @file xaxiethernet_control.c
-* @addtogroup axiethernet_v5_6
+* @addtogroup axiethernet_v5_7
 * @{
 *
 * This file has driver APIs related to the controlling of the extended
