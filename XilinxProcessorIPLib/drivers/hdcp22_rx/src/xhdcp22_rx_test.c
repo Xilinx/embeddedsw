@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx_test.c
-* @addtogroup hdcp22_rx_v2_0
+* @addtogroup hdcp22_rx_v2_2
 * @{
 * @details
 *
