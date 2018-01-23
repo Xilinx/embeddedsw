@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_rx.c
-* @addtogroup hdcp1x_v4_0
+* @addtogroup hdcp1x_v4_2
 * @{
 *
 * This contains the main implementation file for the Xilinx HDCP receive state
