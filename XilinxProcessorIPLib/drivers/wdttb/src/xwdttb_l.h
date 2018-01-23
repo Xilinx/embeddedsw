@@ -33,7 +33,7 @@
 /**
 *
 * @file xwdttb_l.h
-* @addtogroup wdttb_v4_0
+* @addtogroup wdttb_v4_2
 * @{
 *
 * This header file contains identifiers and basic driver functions (or

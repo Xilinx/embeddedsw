@@ -33,7 +33,7 @@
 /**
 *
 * @file xwdttb.h
-* @addtogroup wdttb_v4_0
+* @addtogroup wdttb_v4_2
 * @{
 * @details
 *
