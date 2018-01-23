@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_mix_l2_intr.c
-* @addtogroup v_mix
+* @addtogroup v_mix_v3_0
 * @{
 *
 * The functions in this file provides interrupt handler and associated

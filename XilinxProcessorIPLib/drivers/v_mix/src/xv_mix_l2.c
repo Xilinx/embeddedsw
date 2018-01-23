@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_mix_l2.c
-* @addtogroup v_mix
+* @addtogroup v_mix_v3_0
 * @{
 *
 * Mixer Layer-2 Driver. The functions in this file provides an abstraction
