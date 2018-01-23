@@ -34,10 +34,14 @@
 *
 * @file xdptxss_intr.c
 <<<<<<< HEAD
+<<<<<<< HEAD
 * @addtogroup dptxss_v5_1
 =======
 * @addtogroup dptxss_v4_4
 >>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
+=======
+* @addtogroup dptxss_v5_1
+>>>>>>> Addtogroup version updated for dptxss
 * @{
 *
 * This file contains interrupt related functions of Xilinx DisplayPort TX
