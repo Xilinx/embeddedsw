@@ -34,7 +34,7 @@
 /**
  *
  * @file xddcrpsu.h
- * @addtogroup ddrcpsu_v1_0
+ * @addtogroup ddrcpsu_v1_1
  * @{
  * @details
  *
