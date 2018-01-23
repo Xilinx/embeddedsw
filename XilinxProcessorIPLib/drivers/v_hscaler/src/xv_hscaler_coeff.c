@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_hscaler_coeff.c
-* @addtogroup v_hscaler_v1_0
+* @addtogroup v_hscaler_v3_1
 * @{
 * @details
 *
