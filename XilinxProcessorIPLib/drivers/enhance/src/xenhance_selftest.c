@@ -33,7 +33,7 @@
 /**
 *
 * @file xenhance_selftest.c
-* @addtogroup enhance_v7_0
+* @addtogroup enhance_v7_1
 * @{
 *
 * This file contains the self-test functions for the Enhance driver.
