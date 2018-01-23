@@ -33,7 +33,7 @@
 /**
 *
 * @file xsysmon_hw.h
-* @addtogroup sysmon_v7_1
+* @addtogroup sysmon_v7_4
 * @{
 *
 * This header file contains identifiers and basic driver functions (or
