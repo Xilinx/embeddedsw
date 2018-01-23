@@ -33,7 +33,7 @@
 /**
 *
 * @file xiic_master.c
-* @addtogroup iic_v3_1
+* @addtogroup iic_v3_4
 * @{
 *
 * Contains master functions for the XIic component. This file is necessary to

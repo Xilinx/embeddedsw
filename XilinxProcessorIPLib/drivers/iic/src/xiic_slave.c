@@ -33,7 +33,7 @@
 /**
 *
 * @file xiic_slave.c
-* @addtogroup iic_v3_1
+* @addtogroup iic_v3_4
 * @{
 *
 * Contains slave functions for the XIic component. This file is necessary when

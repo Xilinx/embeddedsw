@@ -33,7 +33,7 @@
 /**
 *
 * @file xiic_l.c
-* @addtogroup iic_v3_1
+* @addtogroup iic_v3_4
 * @{
 *
 * This file contains low-level driver functions that can be used to access the
