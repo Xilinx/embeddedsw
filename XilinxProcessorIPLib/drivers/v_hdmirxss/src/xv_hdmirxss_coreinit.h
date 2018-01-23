@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_hdmirxss_coreinit.h
-* @addtogroup v_hdmirxss
+* @addtogroup v_hdmirxss_v4_0
 * @{
 * @details
 *
