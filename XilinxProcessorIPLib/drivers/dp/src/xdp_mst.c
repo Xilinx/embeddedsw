@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp_mst.c
- * @addtogroup dp_v6_0
+ * @addtogroup dp_v7_0
  * @{
  *
  * <pre>
