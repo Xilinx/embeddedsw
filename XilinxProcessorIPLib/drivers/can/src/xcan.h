@@ -33,7 +33,7 @@
 /**
 *
 * @file xcan.h
-* @addtogroup can_v3_0
+* @addtogroup can_v3_2
 * @{
 * @details
 *
