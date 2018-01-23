@@ -33,7 +33,7 @@
 /**
 *
 * @file xwdttb.c
-* @addtogroup wdttb_v4_0
+* @addtogroup wdttb_v4_2
 * @{
 *
 * Contains the required functions of the XWdtTb driver. See xwdttb.h for a

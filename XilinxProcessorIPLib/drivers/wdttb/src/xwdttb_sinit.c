@@ -33,7 +33,7 @@
 /**
 *
 * @file xwdttb_sinit.c
-* @addtogroup xwdttb_v4_0
+* @addtogroup xwdttb_v4_2
 * @{
 *
 * This file contains static initialization method for Xilinx AXI Timebase
