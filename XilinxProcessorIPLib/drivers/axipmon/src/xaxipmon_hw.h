@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxipmon_hw.h
-* @addtogroup axipmon_v6_3
+* @addtogroup axipmon_v6_6
 * @{
 *
 * This header file contains identifiers and basic driver functions (or
