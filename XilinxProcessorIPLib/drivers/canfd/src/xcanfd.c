@@ -33,7 +33,7 @@
 /**
 *
 * @file xcanfd.c
-* @addtogroup canfd_v1_0
+* @addtogroup canfd_v1_2
 * @{
 *
 * The XCanFd driver. Functions in this file are the minimum required functions
