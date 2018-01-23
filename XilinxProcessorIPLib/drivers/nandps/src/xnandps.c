@@ -33,7 +33,7 @@
 /**
 *
 * @file xnandps.c
-* @addtogroup nandps_v2_2
+* @addtogroup nandps_v2_3
 * @{
 *
 * This file contains the implementation of the interface functions for

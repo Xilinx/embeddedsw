@@ -33,7 +33,7 @@
 /**
 *
 * @file xnandps.h
-* @addtogroup nandps_v2_2
+* @addtogroup nandps_v2_3
 * @{
 * @details
 *

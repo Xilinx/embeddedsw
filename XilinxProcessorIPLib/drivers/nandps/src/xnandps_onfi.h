@@ -33,7 +33,7 @@
 /**
 *
 * @file xnandps_onfi.h
-* @addtogroup nandps_v2_2
+* @addtogroup nandps_v2_3
 * @{
 *
 * This file implements ONFI specific commands which are used to get the
