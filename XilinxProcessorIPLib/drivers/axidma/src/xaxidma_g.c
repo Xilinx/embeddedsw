@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxidma_g.c
-* @addtogroup axidma_v9_4
+* @addtogroup axidma_v9_5
 * @{
 *
 * Provide a template for user to define their own hardware settings.
