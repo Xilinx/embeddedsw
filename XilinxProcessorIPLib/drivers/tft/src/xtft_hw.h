@@ -33,7 +33,7 @@
 /**
 *
 * @file xtft_hw.h
-* @addtogroup tft_v5_0
+* @addtogroup tft_v6_1
 * @{
 * @details
 *
