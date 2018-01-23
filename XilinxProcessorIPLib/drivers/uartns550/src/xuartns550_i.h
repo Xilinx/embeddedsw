@@ -33,7 +33,7 @@
 /**
 *
 * @file xuartns550_i.h
-* @addtogroup uartns550_v3_3
+* @addtogroup uartns550_v3_5
 * @{
 *
 * This header file contains internal identifiers, which are those shared
