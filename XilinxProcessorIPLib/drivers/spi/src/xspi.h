@@ -33,7 +33,7 @@
 /**
 *
 * @file xspi.h
-* @addtogroup spi_v4_1
+* @addtogroup spi_v4_4
 * @{
 * @details
 *
