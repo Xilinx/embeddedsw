@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxis_switch_sinit.c
-* @addtogroup axis_switch_v1_1
+* @addtogroup axis_switch_v1_2
 * @{
 *
 * This file contains static initialization method for Xilinx AXI4-Stream
