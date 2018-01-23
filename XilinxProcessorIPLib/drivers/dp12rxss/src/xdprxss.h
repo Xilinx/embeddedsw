@@ -29,7 +29,7 @@
 /**
 *
 * @file xdprxss.h
-* @addtogroup dprxss_v4_1
+* @addtogroup dprxss_v4_2
 * @{
 * @details
 *

@@ -29,7 +29,7 @@
 /**
 *
 * @file xdprxss.c
-* @addtogroup dprxss_v4_1
+* @addtogroup dprxss_v4_2
 * @{
 *
 * This is the main file for Xilinx DisplayPort Receiver Subsystem driver.
