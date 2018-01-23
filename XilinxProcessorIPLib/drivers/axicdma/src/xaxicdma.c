@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
  *  @file xaxicdma.c
-* @addtogroup axicdma_v4_0
+* @addtogroup axicdma_v4_3
 * @{
  *
  * The implementation of the API of Xilinx CDMA engine.
