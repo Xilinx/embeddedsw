@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxidma.c
-* @addtogroup axidma_v9_4
+* @addtogroup axidma_v9_5
 * @{
 *
 * This file implements DMA engine-wise initialization and control functions.

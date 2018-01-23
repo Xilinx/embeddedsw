@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxidma_sinit.c
-* @addtogroup axidma_v9_4
+* @addtogroup axidma_v9_5
 * @{
 *
 * Look up the hardware settings using device ID. The hardware setting is inside
