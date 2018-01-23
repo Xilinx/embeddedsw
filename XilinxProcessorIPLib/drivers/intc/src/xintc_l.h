@@ -33,7 +33,7 @@
 /**
 *
 * @file xintc_l.h
-* @addtogroup intc_v3_4
+* @addtogroup intc_v3_7
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or

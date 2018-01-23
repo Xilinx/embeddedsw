@@ -33,7 +33,7 @@
 /**
 *
 * @file xintc.c
-* @addtogroup intc_v3_4
+* @addtogroup intc_v3_7
 * @{
 *
 * Contains required functions for the XIntc driver for the Xilinx Interrupt
