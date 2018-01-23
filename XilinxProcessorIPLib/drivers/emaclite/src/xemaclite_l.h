@@ -33,7 +33,7 @@
 /**
 *
 * @file xemaclite_l.h
-* @addtogroup emaclite_v4_1
+* @addtogroup emaclite_v4_3
 * @{
 *
 * This header file contains identifiers and basic driver functions and macros

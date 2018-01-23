@@ -33,7 +33,7 @@
 /**
 *
 * @file xemaclite.h
-* @addtogroup emaclite_v4_1
+* @addtogroup emaclite_v4_3
 * @{
 * @details
 *

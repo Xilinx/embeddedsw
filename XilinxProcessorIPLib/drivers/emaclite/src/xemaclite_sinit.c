@@ -33,7 +33,7 @@
 /**
 *
 * @file xemaclite_sinit.c
-* @addtogroup emaclite_v4_1
+* @addtogroup emaclite_v4_3
 * @{
 *
 * This file contains the implementation of the XEmacLite driver's static
