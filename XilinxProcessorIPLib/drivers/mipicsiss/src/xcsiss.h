@@ -33,7 +33,7 @@
 /**
 *
 * @file xcsiss.h
-* @addtogroup csiss_v1_0
+* @addtogroup csiss_v1_1
 * @{
 * @details
 *

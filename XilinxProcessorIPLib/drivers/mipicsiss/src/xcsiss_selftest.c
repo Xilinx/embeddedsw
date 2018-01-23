@@ -33,7 +33,7 @@
 /**
 *
 * @file xcsiss_selftest.c
-* @addtogroup csiss_v1_0
+* @addtogroup csiss_v1_1
 * @{
 * This file contains self test function for the MIPI CSI Rx Subsystem
 *
