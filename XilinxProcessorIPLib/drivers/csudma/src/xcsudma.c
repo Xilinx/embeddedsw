@@ -34,7 +34,7 @@
 /**
 *
 * @file xcsudma.c
-* @addtogroup csudma_v1_0
+* @addtogroup csudma_v1_2
 * @{
 *
 * This file contains the implementation of the interface functions for CSU_DMA
