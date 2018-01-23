@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_hdmitxss_coreinit.c
-* @addtogroup v_hdmitxss
+* @addtogroup v_hdmitxss_v4_0
 * @{
 * @details
 
