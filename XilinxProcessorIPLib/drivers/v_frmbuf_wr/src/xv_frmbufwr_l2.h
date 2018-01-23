@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_frmbufwr_l2.h
-* @addtogroup v_frmbuf_wr
+* @addtogroup v_frmbuf_wr_v2_0
 * @{
 * @details
 *
