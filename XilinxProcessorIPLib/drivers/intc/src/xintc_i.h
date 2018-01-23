@@ -33,7 +33,7 @@
 /**
 *
 * @file xintc_i.h
-* @addtogroup intc_v3_4
+* @addtogroup intc_v3_7
 * @{
 *
 * This file contains data which is shared between files and internal to the

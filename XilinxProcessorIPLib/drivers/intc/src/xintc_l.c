@@ -33,7 +33,7 @@
 /**
 *
 * @file xintc_l.c
-* @addtogroup intc_v3_4
+* @addtogroup intc_v3_7
 * @{
 *
 * This file contains low-level driver functions that can be used to access the
