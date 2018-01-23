@@ -643,6 +643,17 @@ s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	Xil_ExceptionInit();
 
 	/*
+	 * Enable interrupts for Reset, Disconnect, ConnectionDone, Link State
+	 * Wakeup and Overflow events.
+	 */
+	XUsbPsu_EnableIntr(InstancePtr, XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
+                        XUSBPSU_DEVTEN_WKUPEVTEN |
+                        XUSBPSU_DEVTEN_ULSTCNGEN |
+                        XUSBPSU_DEVTEN_CONNECTDONEEN |
+                        XUSBPSU_DEVTEN_USBRSTEN |
+                        XUSBPSU_DEVTEN_DISCONNEVTEN);
+
+	/*
 	 * Register the interrupt controller handler with the exception table
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,

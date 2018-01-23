@@ -106,7 +106,11 @@ extern "C" {
 
 #define NO_OF_TRB_PER_EP		2
 
+#ifdef PLATFORM_ZYNQMP
 #define ALIGNMENT_CACHELINE		__attribute__ ((aligned(64)))
+#else
+#define ALIGNMENT_CACHELINE		__attribute__ ((aligned(32)))
+#endif
 
 #define	XUSBPSU_PHY_TIMEOUT		5000U /* in micro seconds */
 
