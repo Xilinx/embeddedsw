@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -11,10 +11,6 @@
 *
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-*
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -33,7 +29,7 @@
 /**
  *
  * @file xaxidma_bd.c
-* @addtogroup axidma_v9_7
+* @addtogroup axidma_v9_8
 * @{
  *
  * Buffer descriptor (BD) management API implementation.
@@ -56,6 +52,7 @@
  * 8.0   srt  01/29/14 Added support for Micro DMA Mode:
  *		       - New API
  *			 XAxiDma_BdSetBufAddrMicroMode(XAxiDma_Bd*, u32)
+ * 9.8   mus  11/05/18 Support 64 bit DMA addresses for Microblaze-X
  *
  * </pre>
  *
@@ -142,7 +139,7 @@ u32 XAxiDma_BdSetBufAddr(XAxiDma_Bd* BdPtr, UINTPTR Addr)
 		}
 	}
 
-#if defined(__aarch64__)
+#if defined(__aarch64__) || defined(__arch64__)
 	XAxiDma_BdWrite64(BdPtr, XAXIDMA_BD_BUFA_OFFSET, Addr);
 #else
 	XAxiDma_BdWrite(BdPtr, XAXIDMA_BD_BUFA_OFFSET, Addr);
@@ -177,7 +174,7 @@ u32 XAxiDma_BdSetBufAddrMicroMode(XAxiDma_Bd* BdPtr, UINTPTR Addr)
 			return XST_INVALID_PARAM;
 	}
 
-#if defined(__aarch64__)
+#if defined(__aarch64__) || defined(__arch64__)
 	XAxiDma_BdWrite64(BdPtr, XAXIDMA_BD_BUFA_OFFSET, Addr);
 #else
 	XAxiDma_BdWrite(BdPtr, XAXIDMA_BD_BUFA_OFFSET, Addr);

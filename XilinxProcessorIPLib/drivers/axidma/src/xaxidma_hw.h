@@ -12,10 +12,6 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -32,7 +28,7 @@
 /*****************************************************************************/
 /**
  *  @file xaxidma_hw.h
-* @addtogroup axidma_v9_7
+* @addtogroup axidma_v9_8
 * @{
  *
  * Hardware definition file. It defines the register interface and Buffer
@@ -282,6 +278,7 @@ extern "C" {
 #define XAXIDMA_BD_TUSER_FIELD_SHIFT	16
 #define XAXIDMA_BD_ARCACHE_FIELD_SHIFT	24
 #define XAXIDMA_BD_ARUSER_FIELD_SHIFT	28
+/*@}*/
 
 /** @name Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register
  *  @{
@@ -291,6 +288,7 @@ extern "C" {
 
 #define XAXIDMA_BD_STRIDE_FIELD_SHIFT	0
 #define XAXIDMA_BD_VSIZE_FIELD_SHIFT   	19
+/*@}*/
 
 /**************************** Type Definitions *******************************/
 
