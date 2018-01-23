@@ -33,7 +33,7 @@
 /**
 *
 * @file xcpu_cortexa53.h
-* @addtogroup cpu_cortexa53_v1_0
+* @addtogroup cpu_cortexa53_v1_5
 * @{
 * @details
 *
