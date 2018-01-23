@@ -33,7 +33,7 @@
 /**
 *
 * @file xprd.c
-* @addtogroup prd_v1_0
+* @addtogroup prd_v1_1
 * @{
 *
 * This file contains the implementation of the interface functions for the
