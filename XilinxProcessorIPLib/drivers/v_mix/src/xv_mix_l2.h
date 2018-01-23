@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_mix_l2.h
-* @addtogroup v_mix
+* @addtogroup v_mix_v3_0
 * @{
 * @details
 *
