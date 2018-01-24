@@ -48,5 +48,7 @@ typedef struct PmPosRequirement {
 extern PmPosRequirement pmPosDdrReqs_g[POS_DDR_REQS_SIZE];
 
 int PmHookPosSaveDdrContext(void);
+void PmHookFinalizePowerOffSuspend(void);
+void PmHookPowerDownLpd(void);
 
 #endif

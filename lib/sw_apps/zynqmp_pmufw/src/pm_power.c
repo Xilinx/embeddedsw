@@ -55,6 +55,7 @@
 #include "xpfw_util.h"
 #include "pm_gpp.h"
 #include "xpfw_aib.h"
+#include "pm_hooks.h"
 
 #define DEFINE_PM_POWER_CHILDREN(c)	.children = (c), \
 					.childCnt = ARRAY_SIZE(c)
@@ -370,11 +371,19 @@ err:
 /**
  * PmPowerDownLpd() - Power down LPD domain
  *
- * @return      XST_SUCCESS always (not implemented)
+ * @return      Function doesn't return because LPD is powered down
  */
-static int PmPowerDownLpd(void)
+static int __attribute__((noreturn)) PmPowerDownLpd(void)
 {
-	return XST_SUCCESS;
+#ifdef ENABLE_POS
+	/* Call user hook for finishing Power Off Suspend */
+	PmHookFinalizePowerOffSuspend();
+#endif
+
+	/* Call user hook for powering down LPD */
+	PmHookPowerDownLpd();
+
+	while (1);
 }
 
 /**

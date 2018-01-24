@@ -74,10 +74,12 @@
  * PmSystem - System level information
  * @psRestartPerms	ORed IPI masks of masters allowed to restart PS
  * @systemRestartPerms	ORed IPI masks of masters allowed to restart system
+ * @suspendType		Type of system suspend: Regular/Power Off Suspend
  */
 typedef struct {
 	u32 psRestartPerms;
 	u32 systemRestartPerms;
+	u32 suspendType;
 } PmSystem;
 
 /**
@@ -109,7 +111,11 @@ typedef struct PmTcmMemorySection {
  * Data initialization
  ********************************************************************/
 
-PmSystem pmSystem;
+PmSystem pmSystem = {
+	.psRestartPerms = 0U,
+	.systemRestartPerms = 0U,
+	.suspendType = PM_SUSPEND_TYPE_REGULAR,
+};
 
 /*
  * These requirements are needed for the system to operate:
@@ -808,6 +814,8 @@ int PmSystemPreparePowerOffSuspend(void)
 	int status = XST_SUCCESS;
 	u32 i;
 
+	pmSystem.suspendType = PM_SUSPEND_TYPE_POWER_OFF;
+
 	/* Mark used TCM memory regions */
 	PmSystemCheckTcm();
 
@@ -933,5 +941,12 @@ int PmSystemResumePowerOffSuspend(void)
 {
 	return XST_SUCCESS;
 }
+
 #endif
+
+u32 PmSystemSuspendType(void)
+{
+	return pmSystem.suspendType;
+}
+
 #endif
