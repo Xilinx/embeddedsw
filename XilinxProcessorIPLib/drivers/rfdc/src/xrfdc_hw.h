@@ -51,7 +51,7 @@
 *                       Range interrupts.
 * 2.3   sk     11/10/17 Corrected FIFO and DATA Interrupt masks.
 * 2.4   sk     12/11/17 Added DDC and DUC support.
-* 2.4   sg     13/01/18 Added PLL and external clock switch support
+* 3.0   sg     13/01/18 Added PLL and external clock switch support
 * </pre>
 *
 ******************************************************************************/
