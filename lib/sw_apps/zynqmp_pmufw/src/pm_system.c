@@ -1023,6 +1023,14 @@ int PmSystemResumePowerOffSuspend(void)
 	u32 i;
 	PmRequirement* req;
 
+	/* Wait for FSBL to start and get boot type */
+	do {
+		i = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE2);
+	} while (0U == i);
+
+	/* Clear Gen Storage register so it can be used later in system */
+	XPfw_Write32(PMU_GLOBAL_GLOBAL_GEN_STORAGE2, 0U);
+
 	/* DDR context restore */
 	status = PmHookRestoreDdrContext();
 	if (status != XST_SUCCESS) {
@@ -1106,6 +1114,11 @@ done:
 u32 PmSystemSuspendType(void)
 {
 	return pmSystem.suspendType;
+}
+
+void PmSystemSetSuspendType(u32 type)
+{
+	pmSystem.suspendType = type;
 }
 
 #endif
