@@ -835,6 +835,12 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 		break;
 	case PM_MASTER_EVENT_SLEEP:
 		if (PM_MASTER_STATE_SUSPENDING == master->state) {
+#ifdef ENABLE_POS
+			bool isPoS = PmSystemDetectPowerOffSuspend(master);
+			if (true == isPoS) {
+				status = PmSystemPreparePowerOffSuspend();
+			}
+#endif
 			XPfw_RecoveryStop(master);
 			status = PmRequirementUpdateScheduled(master, true);
 			master->state = PM_MASTER_STATE_SUSPENDED;
@@ -843,6 +849,11 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 				status = PmMasterSuspendAck(master, XST_SUCCESS);
 			}
 			PmMasterConfigWakeEvents(master, 1U);
+#ifdef ENABLE_POS
+			if (true == isPoS) {
+				status = PmSystemFinalizePowerOffSuspend();
+			}
+#endif
 		}
 		break;
 	case PM_MASTER_EVENT_ABORT_SUSPEND:
