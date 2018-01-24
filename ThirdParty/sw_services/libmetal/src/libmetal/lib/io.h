@@ -43,6 +43,7 @@
 #include <metal/compiler.h>
 #include <metal/atomic.h>
 #include <metal/sys.h>
+#include <metal/cpu.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -50,6 +51,10 @@ extern "C" {
 
 /** \defgroup io IO Interfaces
  *  @{ */
+
+#ifdef __MICROBLAZE__
+#define NO_ATOMIC_64_SUPPORT
+#endif
 
 struct metal_io_region;
 
@@ -260,8 +265,12 @@ metal_io_read(struct metal_io_region *io, unsigned long offset,
 	else if (ptr && sizeof(atomic_ulong) == width)
 		return atomic_load_explicit((atomic_ulong *)ptr, order);
 	else if (ptr && sizeof(atomic_ullong) == width)
+#ifndef NO_ATOMIC_64_SUPPORT
 		return atomic_load_explicit((atomic_ullong *)ptr, order);
 
+#else
+		return metal_processor_io_read64((atomic_ullong *)ptr, order);
+#endif
 	assert(0);
 	return 0; /* quiet compiler */
 }
@@ -292,7 +301,11 @@ metal_io_write(struct metal_io_region *io, unsigned long offset,
 	else if (ptr && sizeof(atomic_ulong) == width)
 		atomic_store_explicit((atomic_ulong *)ptr, value, order);
 	else if (ptr && sizeof(atomic_ullong) == width)
+#ifndef NO_ATOMIC_64_SUPPORT
 		atomic_store_explicit((atomic_ullong *)ptr, value, order);
+#else
+		metal_processor_io_write64((atomic_ullong *)ptr, value, order);
+#endif
 	else
 		assert (0);
 }
