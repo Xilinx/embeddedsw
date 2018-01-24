@@ -47,6 +47,7 @@
 #include "pm_requirement.h"
 #include "pm_extern.h"
 #include "pm_usb.h"
+#include "pm_hooks.h"
 
 /* All GIC wakes in GPI1 */
 #define PMU_IOMODULE_GPI1_GIC_WAKES_ALL_MASK \
@@ -66,6 +67,11 @@
  */
 void XPfw_PmInit(void)
 {
+#ifdef ENABLE_POS
+	/* Call user hook for Power Off Suspend initialization */
+	PmHookInitPowerOffSuspend();
+#endif
+
 	PmDbg(DEBUG_DETAILED,"Power Management Init\r\n");
 
 	PmMasterDefaultConfig();
