@@ -32,6 +32,24 @@
 #ifdef ENABLE_POS_QSPI
 
 #include "pm_qspi.h"
+#include "pm_common.h"
+
+#define IOU_SLCR_BASE		0XFF180000U
+#define IOU_SCLR_MIO_PIN_0	( ( IOU_SLCR_BASE )  + 0X00000000U )
+#define IOU_SCLR_MIO_PIN_1	( ( IOU_SLCR_BASE )  + 0X00000004U )
+#define IOU_SCLR_MIO_PIN_2	( ( IOU_SLCR_BASE )  + 0X00000008U )
+#define IOU_SCLR_MIO_PIN_3	( ( IOU_SLCR_BASE )  + 0X0000000CU )
+#define IOU_SCLR_MIO_PIN_4	( ( IOU_SLCR_BASE )  + 0X00000010U )
+#define IOU_SCLR_MIO_PIN_5	( ( IOU_SLCR_BASE )  + 0X00000014U )
+#define IOU_SCLR_MIO_PIN_6	( ( IOU_SLCR_BASE )  + 0X00000018U )
+#define IOU_SCLR_MIO_PIN_7	( ( IOU_SLCR_BASE )  + 0X0000001CU )
+#define IOU_SCLR_MIO_PIN_8	( ( IOU_SLCR_BASE )  + 0X00000020U )
+#define IOU_SCLR_MIO_PIN_9	( ( IOU_SLCR_BASE )  + 0X00000024U )
+#define IOU_SCLR_MIO_PIN_10	( ( IOU_SLCR_BASE )  + 0X00000028U )
+#define IOU_SCLR_MIO_PIN_11	( ( IOU_SLCR_BASE )  + 0X0000002CU )
+#define IOU_SCLR_MIO_PIN_12	( ( IOU_SLCR_BASE )  + 0X00000030U )
+#define IOU_SCLR_MIO_MST_TRI0	( ( IOU_SLCR_BASE )  + 0X00000204U )
+#define IOU_SCLR_TAPDLY_BYPASS	( ( IOU_SLCR_BASE )  + 0X00000390U )
 
 /*
  * The following constants define the commands which may be sent to the Flash
@@ -606,6 +624,75 @@ u32 GetRealAddr(XQspiPsu *QspiPsuPtr, u32 Address)
 	}
 
 	return(RealAddr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function initialize hardware required for normal QSPI operation.
+*
+* @return	XST_SUCCESS if successful, else XST_FAILURE.
+*
+* @note		By default this initialization is performed by FSBL, in case of
+*		resume from Power Off Suspend because FSBL initialization is
+*		skipped PMUFW must initialize hardware required for QSPI before
+*		using it.
+*
+******************************************************************************/
+int PmQspiHWInit(void)
+{
+	int Status;
+
+	/* Initialize MIOs used by QSPI */
+	XPfw_RMW32(IOU_SCLR_MIO_PIN_0, 0x000000FEU ,0x00000002U);
+	XPfw_RMW32(IOU_SCLR_MIO_PIN_1, 0x000000FEU ,0x00000002U);
+	XPfw_RMW32(IOU_SCLR_MIO_PIN_2, 0x000000FEU ,0x00000002U);
+	XPfw_RMW32(IOU_SCLR_MIO_PIN_3, 0x000000FEU ,0x00000002U);
+	XPfw_RMW32(IOU_SCLR_MIO_PIN_4, 0x000000FEU ,0x00000002U);
+	XPfw_RMW32(IOU_SCLR_MIO_PIN_5, 0x000000FEU ,0x00000002U);
+	XPfw_RMW32(IOU_SCLR_MIO_PIN_6, 0x000000FEU ,0x00000002U);
+	XPfw_RMW32(IOU_SCLR_MIO_PIN_7, 0x000000FEU ,0x00000002U);
+	XPfw_RMW32(IOU_SCLR_MIO_PIN_8, 0x000000FEU ,0x00000002U);
+	XPfw_RMW32(IOU_SCLR_MIO_PIN_9, 0x000000FEU ,0x00000002U);
+	XPfw_RMW32(IOU_SCLR_MIO_PIN_10, 0x000000FEU ,0x00000002U);
+	XPfw_RMW32(IOU_SCLR_MIO_PIN_11, 0x000000FEU ,0x00000002U);
+	XPfw_RMW32(IOU_SCLR_MIO_PIN_12, 0x000000FEU ,0x00000002U);
+
+	/* Initialize MIO tri-state enables */
+	XPfw_RMW32(IOU_SCLR_MIO_MST_TRI0, 0x00001FFFU ,0x00000000U);
+
+	/* Initialize IOPLL used by QSPI clock */
+	/* Configure IOPLL */
+	XPfw_RMW32(CRL_APB_IOPLL_CFG, 0xFE7FEDEFU, 0x7E672C6CU);
+	XPfw_RMW32(CRL_APB_IOPLL_CTRL, 0x00717F00U, 0x00002D00U);
+	/* Bypass PLL */
+	XPfw_RMW32(CRL_APB_IOPLL_CTRL, 0x00000008U, 0x00000008U);
+	/* Assert PLL reset */
+	XPfw_RMW32(CRL_APB_IOPLL_CTRL, 0x00000001U, 0x00000001U);
+	/* Release PLL reset */
+	XPfw_RMW32(CRL_APB_IOPLL_CTRL, 0x00000001U, 0x00000000U);
+	/* Wait for PLL lock */
+	Status = XPfw_UtilPollForMask(CRL_APB_PLL_STATUS, 0x00000001U, 32000U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	/* Remove PLL bypass */
+	XPfw_RMW32(CRL_APB_IOPLL_CTRL, 0x00000008U, 0x00000000U);
+	/* Configure IOPLL */
+	XPfw_RMW32(CRL_APB_IOPLL_TO_FPD_CTRL, 0x00003F00U, 0x00000300U);
+	XPfw_RMW32(CRL_APB_IOPLL_FRAC_CFG, 0x8000FFFFU, 0x00000000U);
+
+	/* Configure QSPI clock */
+	XPfw_RMW32(CRL_APB_QSPI_REF_CTRL, 0x013F3F07U ,0x01010C00U);
+
+	/* Release QSPI reset */
+	XPfw_RMW32(CRL_APB_RST_LPD_IOU2, 0x00000001U ,0x00000000U);
+
+	/* Configure QSPI tap delay */
+	XPfw_RMW32(IOU_SCLR_TAPDLY_BYPASS, 0x00000004U ,0x00000004U);
+
+done:
+	return Status;
 }
 
 #endif
