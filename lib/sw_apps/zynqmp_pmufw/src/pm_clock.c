@@ -1036,6 +1036,14 @@ static PmClockHandle pmClockHandles[] = {
 	},
 };
 
+#ifdef ENABLE_POS
+static PmClock* pmDdrClocks [] = {
+	&pmClockDdr,
+	&pmClockTopSwMain,
+	&pmClockTopSwLsBus,
+};
+#endif
+
 #ifdef DEBUG_CLK
 /**
  * PmClockGetUseCount() - Get the use count for the clock
@@ -1500,5 +1508,26 @@ void PmClockSnoop(const u32 addr, const u32 mask, const u32 val)
 done:
 	return;
 }
+
+#ifdef ENABLE_POS
+/**
+ * PmClockRestoreDdr() - Restore state of clocks related to DDR node
+ */
+void PmClockRestoreDdr()
+{
+	u32 i;
+
+	for (i = 0U; i < ARRAY_SIZE(pmDdrClocks); i++) {
+		u32 sel = pmDdrClocks[i]->ctrlVal & PM_CLOCK_MUX_SELECT_MASK;
+		PmPll* pll = PmClockGetParent(pmDdrClocks[i], sel);
+
+		if (&pmDpll_g == pll) {
+			PmPllRequest(pll);
+		}
+
+		XPfw_Write32(pmDdrClocks[i]->ctrlAddr, pmDdrClocks[i]->ctrlVal);
+	}
+}
+#endif
 
 #endif
