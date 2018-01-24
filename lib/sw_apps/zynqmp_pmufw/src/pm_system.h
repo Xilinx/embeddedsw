@@ -46,5 +46,9 @@ int PmSystemRequirementAdd(void);
 
 void PmSystemPrepareForRestart(const PmMaster* const master);
 void PmSystemRestartDone(const PmMaster* const master);
+bool PmSystemDetectPowerOffSuspend(const PmMaster* const master);
+int PmSystemPreparePowerOffSuspend(void);
+int PmSystemFinalizePowerOffSuspend(void);
+int PmSystemResumePowerOffSuspend(void);
 
 #endif

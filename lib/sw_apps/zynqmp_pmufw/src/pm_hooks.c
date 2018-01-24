@@ -33,6 +33,7 @@
 #include "pm_hooks.h"
 #include "pm_periph.h"
 #include "pm_requirement.h"
+#include "pm_qspi.h"
 
 #ifdef ENABLE_POS
 /**
@@ -46,6 +47,44 @@ PmPosRequirement pmPosDdrReqs_g[POS_DDR_REQS_SIZE] = {
 		.caps = PM_CAP_ACCESS,
 	},
 };
+
+extern u8 __srdata_start;
+extern u8 __srdata_end;
+
+/**
+ * PmHookPosSaveDdrContext() - User hook for saving context required for taking
+ * 			       DDR out of self refresh after resume from Power
+ * 			       Off Suspend
+ *
+ * @return	XST_SUCCESS if context is saved, failure code otherwise
+ */
+int PmHookPosSaveDdrContext(void)
+{
+	int status;
+	u32 srDataStart = (u32)&__srdata_start;
+	u32 srDataEnd = (u32)&__srdata_end;
+
+	/* Initialize hardware required for QSPI operation */
+	status = PmQspiHWInit();
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+	/* Initialize QSPI driver */
+	status = PmQspiInit();
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+	/* Save data to QSPI */
+	status = PmQspiWrite((u8*)srDataStart, srDataEnd - srDataStart);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+done:
+	return status;
+}
 #endif
 
 #endif

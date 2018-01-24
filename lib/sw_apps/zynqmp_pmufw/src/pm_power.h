@@ -139,5 +139,7 @@ void PmPowerReleaseRpu(PmSlaveTcm* const tcm);
 int PmPowerRequestRpu(PmSlaveTcm* const tcm);
 int PmPowerRequestParent(PmNode* const node);
 int PmPowerUpdateLatencyReq(const PmNode* const node);
+void PmFpdSaveContext(void);
+void PmFpdRestoreContext(void);
 
 #endif
