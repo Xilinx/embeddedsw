@@ -308,7 +308,7 @@ static PmClock pmClockDpStc = {
 	.ctrlVal = 0U,
 };
 
-static PmClock pmClockDdr = {
+static PmClock pmClockDdr __attribute__((__section__(".srdata"))) = {
 	.mux = &dvMux,
 	.ctrlAddr = CRF_APB_DDR_CTRL,
 	.pll = NULL,
@@ -356,7 +356,7 @@ static PmClock pmClockDpDma = {
 	.ctrlVal = 0U,
 };
 
-static PmClock pmClockTopSwMain = {
+static PmClock pmClockTopSwMain __attribute__((__section__(".srdata"))) = {
 	.mux = &avdMux,
 	.ctrlAddr = CRF_APB_TOPSW_MAIN_CTRL,
 	.pll = NULL,
@@ -364,7 +364,7 @@ static PmClock pmClockTopSwMain = {
 	.ctrlVal = 0U,
 };
 
-static PmClock pmClockTopSwLsBus = {
+static PmClock pmClockTopSwLsBus __attribute__((__section__(".srdata"))) = {
 	.mux = &aiodMux,
 	.ctrlAddr = CRF_APB_TOPSW_LSBUS_CTRL,
 	.pll = NULL,

@@ -313,7 +313,7 @@
 /* Memory for backup of locations used during ddr data training */
 #define NUM_TRAIN_BYTES 0x400U
 #define NUM_TRAIN_WORDS NUM_TRAIN_BYTES >> 2
-static u32 training_data[NUM_TRAIN_WORDS];
+static u32 training_data[NUM_TRAIN_WORDS] __attribute__((__section__(".srdata")));
 
 /* Number of memory locations used for ddr data training */
 #define DDR3_SIZE	0X100U >> 2
@@ -327,7 +327,7 @@ static u32 training_data[NUM_TRAIN_WORDS];
 #define LPDDR4_OLD_MAP_OFFSET	0x4000U
 
 /* If it is required to enable drift */
-static u8 drift_enable_req;
+static u8 drift_enable_req __attribute__((__section__(".srdata")));
 
 /* DDR states */
 static const u32 pmDdrStates[PM_DDR_STATE_MAX] = {
@@ -358,7 +358,7 @@ static const PmStateTran pmDdrTransitions[] = {
 	},
 };
 
-static PmRegisterContext ctx_ddrc[] = {
+static PmRegisterContext ctx_ddrc[] __attribute__((__section__(".srdata"))) = {
 	{ .addr = DDRC_MSTR, },
 	{ .addr = DDRC_MRCTRL0, },
 	{ .addr = DDRC_DERATEEN, },
@@ -472,7 +472,7 @@ static PmRegisterContext ctx_ddrc[] = {
 	{ },
 };
 
-static PmRegisterContext ctx_ddrphy[] = {
+static PmRegisterContext ctx_ddrphy[] __attribute__((__section__(".srdata"))) = {
 	{ .addr = DDRPHY_PGCR(0U), },
 	{ .addr = DDRPHY_PGCR(2U), },
 	{ .addr = DDRPHY_PGCR(3U), },
@@ -620,7 +620,7 @@ static PmRegisterContext ctx_ddrphy[] = {
 	{ },
 };
 
-static PmRegisterContext ctx_ddrphy_zqdata[] = {
+static PmRegisterContext ctx_ddrphy_zqdata[] __attribute__((__section__(".srdata"))) = {
 	{ .addr = DDRPHY_ZQDR0(0U), },
 	{ .addr = DDRPHY_ZQDR1(0U), },
 	{ .addr = DDRPHY_ZQDR0(1U), },
@@ -1752,7 +1752,7 @@ static u32 PmDdrPowerConsumptions[] = {
 	DEFAULT_DDR_POWER_ON,
 };
 
-PmSlave pmSlaveDdr_g = {
+PmSlave pmSlaveDdr_g __attribute__((__section__(".srdata"))) = {
 	.node = {
 		.derived = &pmSlaveDdr_g,
 		.nodeId = NODE_DDR,

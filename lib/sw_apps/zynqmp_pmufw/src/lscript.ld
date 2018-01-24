@@ -156,6 +156,12 @@ _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 
 _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
 
+.srdata : {
+   __srdata_start = .;
+   KEEP (*(.srdata))
+   __srdata_end = .;
+} > PMU_RAM
+
 /* Generate Stack definitions */
 .stack (NOLOAD) : {
    _stack_end = .;

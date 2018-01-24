@@ -352,7 +352,7 @@ PmPll pmVpll_g = {
 	.useCount = 0U,
 };
 
-PmPll pmDpll_g = {
+PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
 	.node = {
 		.derived = &pmDpll_g,
 		.nodeId = NODE_DPLL,
