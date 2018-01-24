@@ -68,15 +68,20 @@
 void XPfw_PmInit(void)
 {
 #ifdef ENABLE_POS
+	u32 bootType = PmHookGetBootType();
+
 	/* Call user hook for Power Off Suspend initialization */
 	PmHookInitPowerOffSuspend();
+#else
+	u32 bootType = PM_COLD_BOOT;
 #endif
 
 	PmDbg(DEBUG_DETAILED,"Power Management Init\r\n");
 
-	PmMasterDefaultConfig();
-
-	PmNodeConstruct();
+	if (bootType == PM_COLD_BOOT) {
+		PmMasterDefaultConfig();
+		PmNodeConstruct();
+	}
 }
 
 /**
