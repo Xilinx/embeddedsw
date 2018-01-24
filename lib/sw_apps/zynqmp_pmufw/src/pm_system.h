@@ -54,6 +54,6 @@ int PmSystemPreparePowerOffSuspend(void);
 int PmSystemFinalizePowerOffSuspend(void);
 int PmSystemResumePowerOffSuspend(void);
 u32 PmSystemSuspendType(void);
-void PmSystemPowerOffSuspendDdrReady(void);
+void PmSystemSetSuspendType(u32 type);
 
 #endif

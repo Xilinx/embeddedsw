@@ -177,6 +177,9 @@ u32 PmHookGetBootType(void)
 	/* Signal boot type to FSBL */
 	XPfw_Write32(PMU_GLOBAL_GLOBAL_GEN_STORAGE1, bootType);
 
+	/* Update last suspend type based on detected boot type */
+	PmSystemSetSuspendType(bootType - 1U);
+
 	return bootType;
 }
 
