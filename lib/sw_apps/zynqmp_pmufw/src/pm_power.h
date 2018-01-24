@@ -141,5 +141,6 @@ int PmPowerRequestParent(PmNode* const node);
 int PmPowerUpdateLatencyReq(const PmNode* const node);
 void PmFpdSaveContext(void);
 void PmFpdRestoreContext(void);
+int PmPowerDown(PmPower* const power);
 
 #endif

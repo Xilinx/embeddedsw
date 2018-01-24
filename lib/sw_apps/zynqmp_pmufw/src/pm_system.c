@@ -660,6 +660,81 @@ static void PmSystemSaveContext(void)
 }
 
 /**
+ * PmSystemPosHaltRpu() - Halt RPU0 and RPU1 cores in order to access TCMs
+ */
+static void PmSystemPosHaltRpu()
+{
+	/* Halt RPU0 */
+	XPfw_RMW32(CRL_APB_RST_LPD_TOP,CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
+		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
+	XPfw_RMW32(RPU_RPU_0_CFG, RPU_RPU_0_CFG_NCPUHALT_MASK,
+		  ~RPU_RPU_0_CFG_NCPUHALT_MASK);
+	XPfw_RMW32(CRL_APB_RST_LPD_TOP, CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
+		  ~CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
+
+	/* Halt RPU1 */
+	XPfw_RMW32(CRL_APB_RST_LPD_TOP, CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
+		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
+	XPfw_RMW32(RPU_RPU_1_CFG, RPU_RPU_1_CFG_NCPUHALT_MASK,
+		  ~RPU_RPU_1_CFG_NCPUHALT_MASK);
+	XPfw_RMW32(CRL_APB_RST_LPD_TOP, CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
+		  ~CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
+}
+
+/**
+ * PmSystemRestoreContext() - Restore system context after resume from Power Off
+ * 			      Suspend
+ */
+static void PmSystemRestoreContext(void)
+{
+	u32 i, start, size;
+	u32 address = DDR_STORE_BASE;
+	bool haltRpu = false;
+
+	/* Restore system data regions */
+	for (i = 0U; i < ARRAY_SIZE(pmSystemMemory); i++) {
+		start = pmSystemMemory[i].startAddr;
+		size = pmSystemMemory[i].endAddr - start + 1U;
+		memcpy((void*)start, (void*)address, size);
+		address += size;
+		if (address % 4) {
+			address += 4 - (address % 4);
+		}
+	}
+
+	/* Restore system registers */
+	for (i = 0U; i < ARRAY_SIZE(pmSystemRegs); i++) {
+		XPfw_Write32(pmSystemRegs[i].addr, pmSystemRegs[i].value);
+	}
+
+	/* Restore FPD context */
+	PmFpdRestoreContext();
+
+	/* Restore TCM data regions */
+	for (i = 0U; i < ARRAY_SIZE(pmSystemTcmMemory); i++) {
+		if (TCM_SAVE_MEMORY == pmSystemTcmMemory[i].save) {
+			u32 reg;
+
+			/* Halt RPU cores if TCM restoring is required */
+			if (!haltRpu) {
+				PmSystemPosHaltRpu();
+				haltRpu = true;
+			}
+			start = pmSystemTcmMemory[i].section.startAddr;
+			size = pmSystemTcmMemory[i].section.endAddr - start + 1U;
+			/* Check TCM configuration */
+			reg = XPfw_Read32(RPU_RPU_GLBL_CNTL);
+			reg &= RPU_RPU_GLBL_CNTL_TCM_COMB_MASK;
+			if (reg != 0U && start >= TCM_1A_START_ADDR) {
+				start -= TCM_BANK_OFFSET;
+			}
+			memcpy((void*)start, (void*)address, size);
+			address += size;
+		}
+	}
+}
+
+/**
  * PmSystemSetPosRequirement() - Set Power Off Susped slave requirement
  * @slave	Slave for which requirement is set
  * @caps	Capability to be set
@@ -937,9 +1012,93 @@ done:
 	return status;
 }
 
+/**
+ * PmSystemResumePowerOffSuspend() - Resume from Power Off Suspend state
+ *
+ * @return	XST_SUCCESS if system is resumed properly, error code otherwise
+ */
 int PmSystemResumePowerOffSuspend(void)
 {
-	return XST_SUCCESS;
+	int status;
+	u32 i;
+	PmRequirement* req;
+
+	/* DDR context restore */
+	status = PmHookRestoreDdrContext();
+	if (status != XST_SUCCESS) {
+		goto done;
+	}
+
+	/* Resume DDR operation */
+	status = PmDdrPowerOffSuspendResume();
+	if (status != XST_SUCCESS) {
+		goto done;
+	}
+
+	/* System context restore */
+	PmSystemRestoreContext();
+
+	pmSystem.suspendType = PM_SUSPEND_TYPE_REGULAR;
+
+	/* Update state of slave nodes */
+	for (i = 0U; i < pmNodeClassSlave_g.bucketSize; i++) {
+		PmSlave* slave = pmNodeClassSlave_g.bucket[i]->derived;
+		slave->node.currState = slave->slvFsm->statesCnt - 1U;
+		status = PmUpdateSlave(slave);
+		if (status != XST_SUCCESS) {
+			goto done;
+		}
+	}
+
+	/* Update state of proc nodes */
+	for (i = 0U; i < pmNodeClassProc_g.bucketSize; i++) {
+		PmProc* proc = pmNodeClassProc_g.bucket[i]->derived;
+		status = PmProcSleep(proc);
+		if (status != XST_SUCCESS) {
+			goto done;
+		}
+	}
+
+	/* Update state of power nodes */
+	for (i = 0U; i < pmNodeClassPower_g.bucketSize; i++) {
+		PmPower* power = pmNodeClassPower_g.bucket[i]->derived;
+		power->node.currState = PM_PWR_STATE_ON;
+		if (power->useCount == 0U) {
+			status = PmPowerDown(power);
+			if (status != XST_SUCCESS) {
+				goto done;
+			}
+		}
+	}
+
+	/* Wake masters that have external node as wake source */
+	status = PmExternWakeMasters();
+	if (status != XST_SUCCESS) {
+		goto done;
+	}
+
+	/* Set default value for system requirements */
+	for (i = 0U; i < ARRAY_SIZE(pmSystemReqs); i++) {
+		u32 caps = pmSystemReqs[i].caps;
+		req = PmRequirementGetNoMaster(pmSystemReqs[i].slave);
+		if (NULL != req) {
+			if (req->currReq != caps) {
+				status = PmRequirementUpdate(req, caps);
+				if (XST_SUCCESS != status) {
+					goto done;
+				}
+			}
+		} else {
+			status = XST_FAILURE;
+			goto done;
+		}
+	}
+
+	/* Release DDR context saving slave capabilities */
+	status = PmSystemPosFinalizeDdrCaps();
+
+done:
+	return status;
 }
 
 #endif

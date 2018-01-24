@@ -49,5 +49,6 @@ extern PmSlave pmSlaveDdr_g;
  * Function declarations
  ********************************************************************/
 void ddr_io_prepare(void);
+int PmDdrPowerOffSuspendResume();
 
 #endif

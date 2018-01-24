@@ -44,6 +44,10 @@
 #include "pm_master.h"
 #include "xpfw_util.h"
 #include "xpfw_aib.h"
+#include "pm_system.h"
+#include "pm_node.h"
+#include "pm_clock.h"
+#include "pm_hooks.h"
 
 #define DDRC_BASE		0xFD070000U
 #define DDRC_MSTR		(DDRC_BASE + 0U)
@@ -1238,6 +1242,9 @@ static void DDR_reinit(bool ddrss_is_reset)
 		REPORT_IF_ERROR(status);
 
 		ddr_io_retention_set(false);
+#ifdef ENABLE_POS
+		PmHookPowerOffSuspendDdrReady();
+#endif
 
 		/* remove ZQ override */
 		for (i = 0U; i < 2U; i++) {
@@ -1776,5 +1783,30 @@ void ddr_io_prepare(void)
 	ddr_power_down_io();
 	ddr_io_retention_set(true);
 }
+
+#ifdef ENABLE_POS
+/**
+ * PmDdrPowerOffSuspendResume() - Take DDR out of self refresh after resume from
+ * 				  Power Off Suspend
+ *
+ * @return      XST_SUCCESS if DDR is resumed, failure code otherwise
+ */
+int PmDdrPowerOffSuspendResume()
+{
+	int status;
+
+	PmClockRestoreDdr();
+
+	status = PmDdrFsmHandler(&pmSlaveDdr_g, PM_DDR_STATE_ON);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+	pmSlaveDdr_g.node.flags = NODE_LOCKED_CLOCK_FLAG |
+					NODE_LOCKED_POWER_FLAG;
+
+done:
+	return status;
+}
+#endif
 
 #endif
