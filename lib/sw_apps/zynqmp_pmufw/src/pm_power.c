@@ -536,7 +536,7 @@ static void PmPowerUpSysOsc(void)
  * @return      Status of powering down (what powerDown handler returns or
  *              XST_SUCCESS)
  */
-static int PmPowerDown(PmPower* const power)
+int PmPowerDown(PmPower* const power)
 {
 	int status = XST_SUCCESS;
 

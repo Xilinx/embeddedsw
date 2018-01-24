@@ -398,7 +398,7 @@ done:
  *
  * @return      Return status of processor specific sleep handler
  */
-static int PmProcSleep(PmProc* const proc)
+int PmProcSleep(PmProc* const proc)
 {
 	int status;
 

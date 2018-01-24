@@ -39,8 +39,10 @@
 
 #ifdef ENABLE_POS
 #define IOU_SLCR_BASE		0XFF180000U
+#define IOU_SCLR_MIO_PIN_26	( ( IOU_SLCR_BASE )  + 0X00000068U )
 #define IOU_SCLR_MIO_PIN_34	( ( IOU_SLCR_BASE )  + 0X00000088U )
 #define IOU_SCLR_MIO_PIN_37	( ( IOU_SLCR_BASE )  + 0X00000094U )
+#define IOU_SCLR_MIO_MST_TRI0	( ( IOU_SLCR_BASE )  + 0X00000204U )
 #define IOU_SCLR_MIO_MST_TRI1	( ( IOU_SLCR_BASE )  + 0X00000208U )
 #define GPIO_BASE		0XFF0A0000U
 #define GPIO_DATA_1_RO		( ( GPIO_BASE ) + 0X00000064U)
@@ -176,6 +178,80 @@ u32 PmHookGetBootType(void)
 	XPfw_Write32(PMU_GLOBAL_GLOBAL_GEN_STORAGE1, bootType);
 
 	return bootType;
+}
+
+/**
+ * PmHookRestoreDdrContext() - User hook for restoring context required for
+ * 			       taking DDR out of self refresh after resume from
+ * 			       Power Off Suspend
+ *
+ * @return	XST_SUCCESS if context is restored, failure code otherwise
+ */
+int PmHookRestoreDdrContext(void)
+{
+	int status;
+	u32 srDataStart = (u32)&__srdata_start;
+	u32 srDataEnd = (u32)&__srdata_end;
+
+	/* Initialize hardware required for QSPI operation */
+	status = PmQspiHWInit();
+	if (status != XST_SUCCESS) {
+		goto done;
+	}
+
+	/* Initialize QSPI driver */
+	status = PmQspiInit();
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+	/* Restore data from QSPI */
+	status = PmQspiRead(srDataEnd - srDataStart, (u8*)srDataStart);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+done:
+	return status;
+}
+
+
+/**
+ * PmHookPowerOffSuspendDdrReady() - User hook for signaling that PMUFW is ready
+ * 				     to take DDR out of self refresh
+ */
+void PmHookPowerOffSuspendDdrReady(void)
+{
+	u32 reg;
+
+	/* Configure MIO 26 to be controlled by the PMU */
+	XPfw_RMW32(IOU_SCLR_MIO_PIN_26, 0x000000FEU ,0x00000008U);
+
+	/* Configure MIO26 tri-state enables */
+	XPfw_RMW32(IOU_SCLR_MIO_MST_TRI0, 0x04000000U ,0x00000000U);
+
+	/* Get MIO26 state */
+	reg = XPfw_Read32(PMU_IOMODULE_GPI1);
+	reg &= PMU_IOMODULE_GPI1_MIO_WAKE_0_MASK;
+
+	if (reg > 0U) {
+		/* Drive MIO37 low to signal that PMU is ready to restore DDR */
+		reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
+		reg &= ~PMU_IOMODULE_GPO1_MIO_5_MASK;
+		XPfw_Write32(PMU_IOMODULE_GPO1, reg);
+
+		/* Configure MIO 37 to be controlled by the PMU */
+		XPfw_RMW32(IOU_SCLR_MIO_PIN_37, 0x000000FEU ,0x00000008U);
+
+		/* Configure MIO37 tri-state enables */
+		XPfw_RMW32(IOU_SCLR_MIO_MST_TRI1, 0x00000020U ,0x00000000U);
+
+		/* Wait for MIO26 to go down before continuing with resume */
+		do {
+			reg = XPfw_Read32(PMU_IOMODULE_GPI1);
+			reg &= PMU_IOMODULE_GPI1_MIO_WAKE_0_MASK;
+		} while (reg != 0U);
+	}
 }
 #endif
 

@@ -52,5 +52,7 @@ void PmHookFinalizePowerOffSuspend(void);
 void PmHookPowerDownLpd(void);
 void PmHookInitPowerOffSuspend(void);
 u32 PmHookGetBootType(void);
+int PmHookRestoreDdrContext(void);
+void PmHookPowerOffSuspendDdrReady(void);
 
 #endif

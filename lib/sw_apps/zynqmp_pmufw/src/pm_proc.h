@@ -183,4 +183,6 @@ static inline bool PmProcIsSuspending(const PmProc* const procPtr)
 	return PM_PROC_STATE_SUSPENDING == procPtr->node.currState;
 }
 
+int PmProcSleep(PmProc* const proc);
+
 #endif
