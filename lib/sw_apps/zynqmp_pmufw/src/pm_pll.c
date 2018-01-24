@@ -458,14 +458,15 @@ int PmPllRequest(PmPll* const pll)
  */
 void PmPllRelease(PmPll* const pll)
 {
-	pll->useCount--;
-
+	if (pll->useCount > 0U) {
+		pll->useCount--;
 #ifdef DEBUG_CLK
-	PmDbg(DEBUG_DETAILED,"%s #%lu\r\n", PmStrNode(pll->node.nodeId),
-			pll->useCount);
+		PmDbg(DEBUG_DETAILED,"%s #%lu\r\n", PmStrNode(pll->node.nodeId),
+				pll->useCount);
 #endif
-	if (0U == pll->useCount) {
-		PmPllSuspend(pll);
+		if (0U == pll->useCount) {
+			PmPllSuspend(pll);
+		}
 	}
 }
 
