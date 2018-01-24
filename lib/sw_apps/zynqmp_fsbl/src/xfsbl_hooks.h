@@ -80,6 +80,8 @@ u32 XFsbl_HookBeforeFallback(void);
 
 u32 XFsbl_HookPsuInit(void);
 
+u32 XFsbl_HookGetPosBootType(void);
+
 #ifdef __cplusplus
 }
 #endif
