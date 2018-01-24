@@ -46,8 +46,8 @@ proc libmetal_drc {libhandle} {
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
-    if { ( $proc_type != "psu_cortexr5" ) && ( $proc_type != "ps7_cortexa9" ) && ( $proc_type != "psu_cortexa53" )} {
-                error "ERROR: This library is supported only for CortexR5 and CortexA9 processors.";
+    if { ( $proc_type != "psu_cortexr5" ) && ( $proc_type != "ps7_cortexa9" ) && ( $proc_type != "psu_cortexa53" ) && ( $proc_type != "microblaze" )} {
+                error "ERROR: This library is supported only for CortexR5, CortexA9 and Microblaze processors.";
                 return;
     }
 }
@@ -86,6 +86,10 @@ proc generate {libhandle} {
 	} elseif { "${proc_type}" == "ps7_cortexa9" } {
 		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"arm\" CACHE STRING \"\")"
 		puts $fd "set (MACHINE \"zynq7\")"
+	} elseif { "${proc_type}" == "microblaze" && [string match "standalone" "${os}"] > 0} {
+		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"microblaze\" CACHE STRING \"\")"
+		puts $fd "set (MACHINE \"microblaze_generic\")"
+		set c_flags "${c_flags}  -mlittle-endian"
 	}
 	puts $fd "set (CROSS_PREFIX \"${crosscompile}\" CACHE STRING \"\")"
 	puts $fd "set (CMAKE_C_FLAGS \"${c_flags} ${extra_flags}\" CACHE STRING \"\")"
