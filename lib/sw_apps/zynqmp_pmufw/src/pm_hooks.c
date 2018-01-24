@@ -34,8 +34,13 @@
 #include "pm_periph.h"
 #include "pm_requirement.h"
 #include "pm_qspi.h"
+#include "pm_system.h"
 
 #ifdef ENABLE_POS
+#define IOU_SLCR_BASE		0XFF180000U
+#define IOU_SCLR_MIO_PIN_37	( ( IOU_SLCR_BASE )  + 0X00000094U )
+#define IOU_SCLR_MIO_MST_TRI1	( ( IOU_SLCR_BASE )  + 0X00000208U )
+
 /**
  * These requirements are needed for the system in order to save DDR context
  * during Power Off Suspend. On ZCU102 board QSPI Flash memory device is used
@@ -85,6 +90,44 @@ int PmHookPosSaveDdrContext(void)
 done:
 	return status;
 }
+
+/**
+ * PmHookFinalizePowerOffSuspend() - User hook for finishing entry to Power Off
+ * 				     Suspend state
+ */
+void PmHookFinalizePowerOffSuspend(void)
+{
+	u32 reg, suspendType;
+
+	/* Drive MIO37 high if entering Power Off Suspend state */
+	suspendType = PmSystemSuspendType();
+	reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
+	if (PM_SUSPEND_TYPE_POWER_OFF == suspendType) {
+		reg |= PMU_IOMODULE_GPO1_MIO_5_MASK;
+	} else {
+		reg &= ~PMU_IOMODULE_GPO1_MIO_5_MASK;
+	}
+	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
+
+	/* Configure MIO37 to be controlled by the PMU */
+	XPfw_RMW32(IOU_SCLR_MIO_PIN_37, 0x000000FEU ,0x00000008U);
+
+	/* Configure MIO37 tri-state enables */
+	XPfw_RMW32(IOU_SCLR_MIO_MST_TRI1, 0x00000020U ,0x00000000U);
+}
 #endif
+
+/**
+ * PmHookPowerDownLpd() - User hook for powering down LPD
+ */
+void PmHookPowerDownLpd(void)
+{
+	u32 reg;
+
+	/* Drive MIO34 (LPD power down request pin) low */
+	reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
+	reg &= ~PMU_IOMODULE_GPO1_MIO_2_MASK;
+	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
+}
 
 #endif
