@@ -294,7 +294,7 @@ static PmPowerClass pmPowerClassDomain_g = {
 /**
  * PmFpdSaveContext() - Save context of CRF_APB module due to powering down FPD
  */
-static void PmFpdSaveContext(void)
+void PmFpdSaveContext(void)
 {
 	u32 i;
 
@@ -307,7 +307,7 @@ static void PmFpdSaveContext(void)
  * PmFpdRestoreContext() - Restore context of CRF_APB module (FPD has been
  *                         powered up)
  */
-static void PmFpdRestoreContext(void)
+void PmFpdRestoreContext(void)
 {
 	u32 i;
 

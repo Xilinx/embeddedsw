@@ -155,6 +155,16 @@ typedef struct PmRegisterContext {
 	u32 value;
 } PmRegisterContext;
 
+/**
+ * PmMemorySection - Memory region that will be processed by PMUFW
+ * @startAddr        Start address of memory region
+ * @endAddr          End address of memory region
+ */
+typedef struct PmMemorySection {
+	const u32 startAddr;
+	const u32 endAddr;
+} PmMemorySection;
+
 /*********************************************************************
  * Function declarations
  ********************************************************************/
