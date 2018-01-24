@@ -80,7 +80,7 @@
 *              11/08/17 Return error for DAC R2C mode and ADC C2R mode.
 *              11/20/17 Fixed StartUp, Shutdown and Reset API for Tile_Id -1.
 *              11/20/17 Remove unwanted ADC block checks in 4GSPS mode.
-* 2.4   sk     12/11/17 Added DDC and DUC support.
+* 3.0   sk     12/11/17 Added DDC and DUC support.
 *              12/13/17 Add CoarseMixMode field in Mixer_Settings structure.
 *              12/15/17 Add support to switch calibration modes.
 *              12/15/17 Add support for mixer frequencies > Fs/2 and < -Fs/2.

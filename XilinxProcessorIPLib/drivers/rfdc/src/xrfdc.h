@@ -121,7 +121,7 @@
 *              11/10/17 Corrected FIFO and DATA Interrupt masks.
 *              11/20/17 Fixed StartUp, Shutdown and Reset API for Tile_Id -1.
 *              11/20/17 Remove unwanted ADC block checks in 4GSPS mode.
-* 2.4   sk     12/11/17 Added DDC and DUC support.
+* 3.0   sk     12/11/17 Added DDC and DUC support.
 *              12/13/17 Add CoarseMixMode field in Mixer_Settings structure.
 *              12/15/17 Add support to switch calibration modes.
 *              12/15/17 Add support for mixer frequencies > Fs/2 and < -Fs/2.
@@ -956,7 +956,7 @@ static inline u32 XRFdc_IsFifoEnabled(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 ******************************************************************************/
 static inline double XRFdc_GetDriverVersion()
 {
-	return 2.4;
+	return 3.0;
 }
 
 /************************** Function Prototypes ******************************/
