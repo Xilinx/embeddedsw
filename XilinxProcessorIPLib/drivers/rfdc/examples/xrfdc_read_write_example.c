@@ -716,6 +716,87 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
 				SetMixerSettings.CoarseMixMode =
 						XRFDC_COARSE_MIX_MODE_C2C_C2R;
+				SetMixerSettings.Freq = 700;
+				SetMixerSettings.FineMixerMode =
+					XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;
+				SetMixerSettings.PhaseOffset = -9.0565;
+				SetMixerSettings.FineMixerScale = 0x0;
+				SetMixerSettings.EventSource =
+						XRFDC_EVNT_SRC_SYSREF;
+				/* Set Mixer settings */
+				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &SetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				Status = XRFdc_GetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				Status = CompareMixerSettings(&SetMixerSettings,
+							&GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				SetMixerSettings.CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				SetMixerSettings.CoarseMixMode =
+						XRFDC_COARSE_MIX_MODE_C2C_C2R;
+				SetMixerSettings.Freq = 1200;
+				SetMixerSettings.FineMixerMode =
+					XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;
+				SetMixerSettings.PhaseOffset = -9.0565;
+				SetMixerSettings.FineMixerScale = 0x0;
+				SetMixerSettings.EventSource =
+						XRFDC_EVNT_SRC_SYSREF;
+				/* Set Mixer settings */
+				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &SetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				Status = XRFdc_GetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				Status = CompareMixerSettings(&SetMixerSettings,
+							&GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				SetMixerSettings.CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				SetMixerSettings.CoarseMixMode =
+						XRFDC_COARSE_MIX_MODE_C2C_C2R;
+				SetMixerSettings.Freq = 2300;
+				SetMixerSettings.FineMixerMode =
+					XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;
+				SetMixerSettings.PhaseOffset = -9.0565;
+				SetMixerSettings.FineMixerScale = 0x0;
+				SetMixerSettings.EventSource =
+						XRFDC_EVNT_SRC_SYSREF;
+				/* Set Mixer settings */
+				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &SetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				Status = XRFdc_GetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				Status = CompareMixerSettings(&SetMixerSettings,
+							&GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				SetMixerSettings.CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				SetMixerSettings.CoarseMixMode =
+						XRFDC_COARSE_MIX_MODE_C2C_C2R;
 				SetMixerSettings.Freq = -2500;
 				SetMixerSettings.FineMixerMode =
 					XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;
@@ -774,6 +855,86 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				if (Status != XRFDC_SUCCESS)
 					return XRFDC_FAILURE;
 
+				Status = XRFdc_GetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				Status = CompareMixerSettings(&SetMixerSettings,
+						&GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				SetMixerSettings.CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+				SetMixerSettings.CoarseMixMode =
+						XRFDC_COARSE_MIX_MODE_C2C_C2R;
+				SetMixerSettings.Freq = 700;
+				SetMixerSettings.FineMixerMode =
+					XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;
+				SetMixerSettings.PhaseOffset = -9.0565;
+				SetMixerSettings.FineMixerScale = 0x0;
+				SetMixerSettings.EventSource =
+						XRFDC_EVNT_SRC_SYSREF;
+				/* Set Mixer settings */
+				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &SetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				Status = XRFdc_GetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				Status = CompareMixerSettings(&SetMixerSettings,
+						&GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				SetMixerSettings.CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+				SetMixerSettings.CoarseMixMode =
+						XRFDC_COARSE_MIX_MODE_C2C_C2R;
+				SetMixerSettings.Freq = 1200;
+				SetMixerSettings.FineMixerMode =
+					XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;
+				SetMixerSettings.PhaseOffset = -9.0565;
+				SetMixerSettings.FineMixerScale = 0x0;
+				SetMixerSettings.EventSource =
+						XRFDC_EVNT_SRC_SYSREF;
+				/* Set Mixer settings */
+				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &SetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				Status = XRFdc_GetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				Status = CompareMixerSettings(&SetMixerSettings,
+						&GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				SetMixerSettings.CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+				SetMixerSettings.CoarseMixMode =
+						XRFDC_COARSE_MIX_MODE_C2C_C2R;
+				SetMixerSettings.Freq = 2300;
+				SetMixerSettings.FineMixerMode =
+					XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;
+				SetMixerSettings.PhaseOffset = -9.0565;
+				SetMixerSettings.FineMixerScale = 0x0;
+				SetMixerSettings.EventSource =
+						XRFDC_EVNT_SRC_SYSREF;
+				/* Set Mixer settings */
+				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &SetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
 
 				Status = XRFdc_GetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
 					Tile, Block, &GetMixerSettings);
