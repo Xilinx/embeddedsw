@@ -51,5 +51,6 @@ int PmHookPosSaveDdrContext(void);
 void PmHookFinalizePowerOffSuspend(void);
 void PmHookPowerDownLpd(void);
 void PmHookInitPowerOffSuspend(void);
+u32 PmHookGetBootType(void);
 
 #endif

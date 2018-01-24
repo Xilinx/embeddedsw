@@ -35,12 +35,15 @@
 #include "pm_requirement.h"
 #include "pm_qspi.h"
 #include "pm_system.h"
+#include "pmu_global.h"
 
 #ifdef ENABLE_POS
 #define IOU_SLCR_BASE		0XFF180000U
 #define IOU_SCLR_MIO_PIN_34	( ( IOU_SLCR_BASE )  + 0X00000088U )
 #define IOU_SCLR_MIO_PIN_37	( ( IOU_SLCR_BASE )  + 0X00000094U )
 #define IOU_SCLR_MIO_MST_TRI1	( ( IOU_SLCR_BASE )  + 0X00000208U )
+#define GPIO_BASE		0XFF0A0000U
+#define GPIO_DATA_1_RO		( ( GPIO_BASE ) + 0X00000064U)
 
 /**
  * These requirements are needed for the system in order to save DDR context
@@ -148,6 +151,31 @@ void PmHookInitPowerOffSuspend(void)
 	XPfw_RMW32(IOU_SCLR_MIO_PIN_34, 0x000000FEU ,0x00000008U);
 	/* Configure MIO34 tri-state enable */
 	XPfw_RMW32(IOU_SCLR_MIO_MST_TRI1, 0x00000004U ,0x00000000U);
+}
+
+/**
+ * PmHookGetBootType() - User hook for detecting boot type
+ */
+u32 PmHookGetBootType(void)
+{
+	u32 bootType;
+
+	/* Release GPIO reset */
+	XPfw_RMW32(CRL_APB_RST_LPD_IOU2, CRL_APB_RST_LPD_IOU2_GPIO_RESET_MASK,
+			~CRL_APB_RST_LPD_IOU2_GPIO_RESET_MASK);
+
+	/* Read state of MIO26 pin which is used to detect boot type */
+	bootType = XPfw_Read32(GPIO_DATA_1_RO) & 1U;
+	bootType += 1;
+
+	/* Assert GPIO reset */
+	XPfw_RMW32(CRL_APB_RST_LPD_IOU2, CRL_APB_RST_LPD_IOU2_GPIO_RESET_MASK,
+			~CRL_APB_RST_LPD_IOU2_GPIO_RESET_MASK);
+
+	/* Signal boot type to FSBL */
+	XPfw_Write32(PMU_GLOBAL_GLOBAL_GEN_STORAGE1, bootType);
+
+	return bootType;
 }
 #endif
 

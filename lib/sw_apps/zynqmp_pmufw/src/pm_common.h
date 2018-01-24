@@ -141,6 +141,10 @@ typedef u32 (*const PmTranHandler)(void);
 #define DEFAULT_POWER_RETENTION		50U
 #define DEFAULT_POWER_OFF		0U
 
+/* Type of boot cold vs warm boot */
+#define PM_COLD_BOOT	1U
+#define PM_WARM_BOOT	2U
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
