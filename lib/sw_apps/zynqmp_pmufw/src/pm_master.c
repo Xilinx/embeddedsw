@@ -1026,4 +1026,101 @@ int PmMasterInitFinalize(PmMaster* const master)
 	return status;
 }
 
+#ifdef ENABLE_POS
+/**
+ * PmMasterIsLastSuspending() - Check if master is in suspending state and all
+ *                              other masters in system are suspended or killed
+ * @master     Master to be checked
+ *
+ * @return     True if master is in suspending state and all othe masters are
+ *             killed or suspended, false otherwise
+ */
+bool PmMasterIsLastSuspending(const PmMaster* const master)
+{
+	PmMaster* mst = pmMasterHead;
+	bool isLastWake = true;
+
+	while (NULL != mst) {
+		if (master == mst) {
+			if (mst->state == PM_MASTER_STATE_SUSPENDING) {
+				mst = mst->nextMaster;
+				continue;
+			} else {
+				isLastWake = false;
+				break;
+			}
+		}
+
+		if ((mst->state != PM_MASTER_STATE_SUSPENDED) &&
+			(mst->state != PM_MASTER_STATE_KILLED)) {
+			isLastWake = false;
+			break;
+		}
+
+		mst = mst->nextMaster;
+	}
+
+	return isLastWake;
+}
+
+/**
+ * @PmMasterIsUniqueWakeup() - Check if any device except slave is used as
+ * 			       wakeup source in system
+ *
+ * @slave      Slave node to be checked
+ *
+ * @return     True if slave is the unique wakeup source used in system, false
+ *             otherwise
+ */
+bool PmMasterIsUniqueWakeup(const PmSlave* const slave)
+{
+	PmMaster* mst = pmMasterHead;
+	bool isUnique = false;
+
+	while (NULL != mst) {
+		PmRequirement* req = mst->reqs;
+
+		while (NULL != req) {
+			if ((PM_MASTER_WAKEUP_REQ_MASK & req->info) != 0U) {
+				if (req->slave != slave) {
+					isUnique = false;
+					goto done;
+				} else {
+					isUnique = true;
+				}
+			}
+			req = req->nextSlave;
+		}
+
+		mst = mst->nextMaster;
+	}
+
+done:
+	return isUnique;
+}
+
+/**
+ * @PmMasterReleaseAll() - Release all requirements for every master in system
+ *
+ * @return     Status of releasing all requirements for every master in system
+ */
+int PmMasterReleaseAll(void)
+{
+	int status;
+	PmMaster* mst = pmMasterHead;
+
+	while (NULL != mst) {
+		status = PmRequirementRelease(mst->reqs, RELEASE_ALL);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+
+		mst = mst->nextMaster;
+	}
+
+done:
+	return status;
+}
+#endif
+
 #endif
