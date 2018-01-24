@@ -254,5 +254,8 @@ static inline bool PmMasterCanRequestWake(const PmMaster* const requestor,
 
 bool PmMasterCanForceDown(const PmMaster* const master,
 			  const PmPower* const power);
+bool PmMasterIsLastSuspending(const PmMaster* const master);
+bool PmMasterIsUniqueWakeup(const PmSlave* const slave);
+int PmMasterReleaseAll(void);
 
 #endif
