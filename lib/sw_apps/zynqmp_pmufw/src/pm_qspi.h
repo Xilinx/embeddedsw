@@ -38,5 +38,6 @@
 int PmQspiInit(void);
 int PmQspiWrite(u8 *WriteBufrPtr, u32 ByteCount);
 int PmQspiRead(u32 ByteCount, u8 *ReadBfrPtr);
+int PmQspiHWInit(void);
 
 #endif
