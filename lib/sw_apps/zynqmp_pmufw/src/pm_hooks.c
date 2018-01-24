@@ -38,6 +38,7 @@
 
 #ifdef ENABLE_POS
 #define IOU_SLCR_BASE		0XFF180000U
+#define IOU_SCLR_MIO_PIN_34	( ( IOU_SLCR_BASE )  + 0X00000088U )
 #define IOU_SCLR_MIO_PIN_37	( ( IOU_SLCR_BASE )  + 0X00000094U )
 #define IOU_SCLR_MIO_MST_TRI1	( ( IOU_SLCR_BASE )  + 0X00000208U )
 
@@ -129,5 +130,25 @@ void PmHookPowerDownLpd(void)
 	reg &= ~PMU_IOMODULE_GPO1_MIO_2_MASK;
 	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
 }
+
+#ifdef ENABLE_POS
+/**
+ * PmHookInitPowerOffSuspend() - User hook for Power Off Suspend state
+ * 				 initialization
+ */
+void PmHookInitPowerOffSuspend(void)
+{
+	u32 reg;
+
+	/* Drive MIO34 (LPD power down request pin) high */
+	reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
+	reg |= PMU_IOMODULE_GPO1_MIO_2_MASK;
+	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
+	/* Configure MIO34 to be controlled by the PMU */
+	XPfw_RMW32(IOU_SCLR_MIO_PIN_34, 0x000000FEU ,0x00000008U);
+	/* Configure MIO34 tri-state enable */
+	XPfw_RMW32(IOU_SCLR_MIO_MST_TRI1, 0x00000004U ,0x00000000U);
+}
+#endif
 
 #endif
