@@ -43,6 +43,7 @@
 #include "pm_sram.h"
 #include "pm_ddr.h"
 #include "pm_periph.h"
+#include "pm_hooks.h"
 
 /*********************************************************************
  * Structure definitions
@@ -61,10 +62,13 @@ typedef struct {
  * PmSystemRequirement - System level requirements (not assigned to any master)
  * @slave	Slave for which the requirements are set
  * @caps	Capabilities of the slave that are required by the system
+ * @posCaps	Capabilities of the slave that are required for entering Power
+ * 		Off Suspend state
  */
 typedef struct PmSystemRequirement {
 	PmSlave* const slave;
 	u32 caps;
+	u32 posCaps;
 } PmSystemRequirement;
 
 /*********************************************************************
@@ -82,30 +86,37 @@ PmSystemRequirement pmSystemReqs[] = {
 	{
 		.slave = &pmSlaveOcm0_g.slv,
 		.caps = PM_CAP_CONTEXT,
+		.posCaps = PM_CAP_ACCESS,
 	}, {
 		.slave = &pmSlaveOcm1_g.slv,
 		.caps = PM_CAP_CONTEXT,
+		.posCaps = PM_CAP_ACCESS,
 	}, {
 		.slave = &pmSlaveOcm2_g.slv,
 		.caps = PM_CAP_CONTEXT,
+		.posCaps = PM_CAP_ACCESS,
 	},{
 		.slave = &pmSlaveOcm3_g.slv,
 		.caps = PM_CAP_CONTEXT,
+		.posCaps = PM_CAP_ACCESS,
 	},{
 		.slave = &pmSlaveDdr_g,
 		.caps = PM_CAP_CONTEXT,
+		.posCaps = PM_CAP_ACCESS,
 	},
 #ifdef DEBUG_MODE
 #if (STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR)
 	{
 		.slave = &pmSlaveUart0_g,
 		.caps = PM_CAP_ACCESS,
+		.posCaps = PM_CAP_ACCESS,
 	},
 #endif
 #if (STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR)
 	{
 		.slave = &pmSlaveUart1_g,
 		.caps = PM_CAP_ACCESS,
+		.posCaps = PM_CAP_ACCESS,
 	},
 #endif
 #endif
@@ -114,6 +125,47 @@ PmSystemRequirement pmSystemReqs[] = {
 /*********************************************************************
  * Function definitions
  ********************************************************************/
+
+#ifdef ENABLE_POS
+/**
+ * PmSystemPosDdrRequirementAdd() - Add DDR context saving requirements
+ * @return	XST_SUCCESS if requirements are added, XST_FAILURE otherwise
+ */
+static int PmSystemPosDdrRequirementAdd(void)
+{
+	int status = XST_SUCCESS;
+	u32 i;
+
+	for (i = 0U; i < ARRAY_SIZE(pmPosDdrReqs_g); i++) {
+		PmRequirement* req;
+
+		req = PmRequirementGetNoMaster(pmPosDdrReqs_g[i].slave);
+		if (req == NULL) {
+			req = PmRequirementAdd(NULL, pmPosDdrReqs_g[i].slave);
+			if (NULL == req) {
+				status = XST_FAILURE;
+				goto done;
+			}
+
+			status = PmCheckCapabilities(req->slave,
+						pmPosDdrReqs_g[i].caps);
+			if (XST_SUCCESS != status) {
+				status = XST_FAILURE;
+				goto done;
+			}
+			req->info |= PM_SYSTEM_USING_SLAVE_MASK;
+			req->preReq = 0U;
+			req->currReq = 0U;
+			req->nextReq = 0U;
+			req->defaultReq = 0U;
+			req->latencyReq = 0U;
+		}
+	}
+
+done:
+	return status;
+}
+#endif
 
 /**
  * PmSystemRequirementAdd() - Add requirements of the system
@@ -145,6 +197,11 @@ int PmSystemRequirementAdd(void)
 		req->defaultReq = pmSystemReqs[i].caps;
 		req->latencyReq = MAX_LATENCY;
 	}
+
+#ifdef ENABLE_POS
+	/* Add DDR context saving requirements */
+	status = PmSystemPosDdrRequirementAdd();
+#endif
 
 done:
 	return status;
