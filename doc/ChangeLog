@@ -25,6 +25,7 @@ Fix jumbo frame checks to work on R5
 Add examples for raw and socker mode IGMP, webserver and
 tftp client and server apps.
 Update xInsideISR flag in emacps_error_handler.
+Add support for Realtek RTL8211 phy.
 
 rfdc_v2_4:
 Add support DDC and DUC configuration
