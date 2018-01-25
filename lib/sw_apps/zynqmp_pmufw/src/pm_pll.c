@@ -49,7 +49,7 @@ typedef struct PmPllParam {
 	u8 bits;
 } PmPllParam;
 
-static PmPllParam pllParams[] = {
+static PmPllParam pllParams[PM_PLL_MAX_PARAM] = {
 	[PM_PLL_PARAM_DIV2] = {
 		.regOffset = PM_PLL_CTRL_OFFSET,
 		.shift = 16U,
@@ -161,7 +161,7 @@ static s32 PmPllLock(const PmPll* const pll)
 	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
 		   ~PM_PLL_CTRL_RESET_MASK);
 	/* Poll status register for the lock */
-	status = XPfw_UtilPollForMask(pll->statusAddr, 1U << pll->lockShift,
+	status = XPfw_UtilPollForMask(pll->statusAddr, (u32)1 << pll->lockShift,
 				      PM_PLL_LOCK_TIMEOUT);
 
 #ifdef ENABLE_EM
@@ -210,7 +210,7 @@ static void PmPllRestoreContext(PmPll* const pll)
 			PM_PLL_CTRL_RESET_MASK | PM_PLL_CTRL_BYPASS_MASK);
 	XPfw_Write32(pll->addr + PM_PLL_CFG_OFFSET, pll->context.cfg);
 	XPfw_Write32(pll->addr + PM_PLL_FRAC_OFFSET, pll->context.frac);
-	pll->flags &= ~PM_PLL_CONTEXT_SAVED;
+	pll->flags &= ~(u8)PM_PLL_CONTEXT_SAVED;
 }
 
 /**
@@ -584,7 +584,7 @@ void PmPllRequest(PmPll* const pll)
  */
 void PmPllRelease(PmPll* const pll)
 {
-	pll->flags &= ~PM_PLL_REQUESTED;
+	pll->flags &= ~(u8)PM_PLL_REQUESTED;
 	PmPllSuspend(pll);
 }
 
@@ -618,8 +618,8 @@ s32 PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val)
 	 * This helps to remove the warn in cases where the expected clock
 	 * is not using vpll and vpll is used for other stuff.
 	 */
-	if (NODE_VPLL == pll->node.nodeId && PM_PLL_PARAM_FBDIV == paramId) {
-		if (pll->childCount > 1) {
+	if ((NODE_VPLL == pll->node.nodeId) && (PM_PLL_PARAM_FBDIV == paramId)) {
+		if (pll->childCount > 1U) {
 			PmErr("More than 1 devices are using VPLL which is forbidden\r\n");
 			status = XST_PM_MULT_USER;
 			goto done;
@@ -709,10 +709,8 @@ s32 PmPllSetModeInt(PmPll* const pll, const u32 mode)
 	}
 
 	/* Deassert bypass if the PLL has locked */
-	if (XST_SUCCESS == status) {
-		XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET,
-			   PM_PLL_CTRL_BYPASS_MASK, ~PM_PLL_CTRL_BYPASS_MASK);
-	}
+	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET,
+		   PM_PLL_CTRL_BYPASS_MASK, ~PM_PLL_CTRL_BYPASS_MASK);
 
 done:
 	return status;

@@ -38,7 +38,7 @@ static void DapEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 {
 	if (XPFW_EV_DAP_RPU_WAKE == EventId) {
 		/* Call ROM Handler for RPU Wake */
-		XpbrServHndlrTbl[XPBR_SERV_EXT_DAPRPUWAKE]();
+		(void)XpbrServHndlrTbl[XPBR_SERV_EXT_DAPRPUWAKE]();
 		XPfw_Printf(DEBUG_DETAILED,"XPFW: DAP RPU WAKE.. Done\r\n");
 #ifdef ENABLE_PM
 		XPfw_DapRpuWakeEvent();
@@ -46,7 +46,7 @@ static void DapEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 	}
 	if (XPFW_EV_DAP_FPD_WAKE == EventId) {
 		/* Call ROM Handler for FPD Wake */
-		XpbrServHndlrTbl[XPBR_SERV_EXT_DAPFPDWAKE]();
+		(void)XpbrServHndlrTbl[XPBR_SERV_EXT_DAPFPDWAKE]();
 		XPfw_Printf(DEBUG_DETAILED,"XPFW: DAP FPD WAKE.. Done\r\n");
 #ifdef ENABLE_PM
 		XPfw_DapFpdWakeEvent();
@@ -67,5 +67,7 @@ void ModDapInit(void)
 	} else if (XST_SUCCESS !=
 			XPfw_CoreSetEventHandler(DapModPtr, DapEventHandler)) {
 		XPfw_Printf(DEBUG_DETAILED,"DAP: Set Event handler failed\r\n");
+	} else {
+		/* For MISRA-C compliance */
 	}
 }

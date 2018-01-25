@@ -41,21 +41,21 @@ static void LegacyEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 	if (XPFW_EV_REQ_PWRUP == EventId) {
 		/* Call ROM Handler for PwrUp */
 		XPfw_Printf(DEBUG_DETAILED,"XPFW: Calling ROM PWRUP Handler..");
-		XpbrServHndlrTbl[XPBR_SERV_EXT_PWRUP_REQS]();
+		(void)XpbrServHndlrTbl[XPBR_SERV_EXT_PWRUP_REQS]();
 		XPfw_Printf(DEBUG_DETAILED,"Done\r\n");
 	}
 
 	if (XPFW_EV_REQ_PWRDN == EventId) {
 		/* Call ROM Handler for PwrDn */
 		XPfw_Printf(DEBUG_DETAILED,"XPFW: Calling ROM PWRDN Handler..");
-		XpbrServHndlrTbl[XPBR_SERV_EXT_PWRDN_REQS]();
+		(void)XpbrServHndlrTbl[XPBR_SERV_EXT_PWRDN_REQS]();
 		XPfw_Printf(DEBUG_DETAILED,"Done\r\n");
 	}
 
 	if (XPFW_EV_REQ_ISOLATION == EventId) {
 		/* Call ROM Handler for Isolation */
 		XPfw_Printf(DEBUG_DETAILED,"XPFW: Calling ROM Isolation Handler..");
-		XpbrServHndlrTbl[XPBR_SERV_EXT_ISO_REQS]();
+		(void)XpbrServHndlrTbl[XPBR_SERV_EXT_ISO_REQS]();
 		XPfw_Printf(DEBUG_DETAILED,"Done\r\n");
 	}
 
@@ -74,5 +74,7 @@ void ModLegacyInit(void)
 	} else if (XST_SUCCESS !=
 			XPfw_CoreSetEventHandler(LegacyModPtr, LegacyEventHandler)) {
 		XPfw_Printf(DEBUG_DETAILED,"Legacy: Set Event handler failed\r\n");
+	} else {
+		/* For MISRA-C compliance */
 	}
 }
