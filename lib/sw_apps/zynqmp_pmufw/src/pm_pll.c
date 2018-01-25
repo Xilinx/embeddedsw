@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -60,8 +60,8 @@
 #define PM_PLL_LOCKING_TIME	1U
 
 /* PLL flags */
-#define PM_PLL_REQUESTED	(1 << 0U)
-#define PM_PLL_CONTEXT_SAVED	(1 << 1U)
+#define PM_PLL_REQUESTED	(1U << 0U)
+#define PM_PLL_CONTEXT_SAVED	(1U << 1U)
 
 typedef struct PmPllParam {
 	u8 regOffset;
@@ -128,6 +128,25 @@ static PmPllParam pllParams[] = {
  */
 static void PmPllBypassAndReset(PmPll* const pll)
 {
+#ifdef ENABLE_EM
+	u32 pllErrMask = 1 << pll->errShift;
+	pll->errValue = 0;
+	/* Store PLL lock error interrupt masks before disabling it */
+	pll->errValue |= (~XPfw_Read32(PMU_GLOBAL_ERROR_INT_MASK_2) &
+			   pllErrMask) >> pll->errShift;
+	pll->errValue |= ((~XPfw_Read32(PMU_GLOBAL_ERROR_POR_MASK_2) &
+			   pllErrMask) >> pll->errShift) << 1;
+	pll->errValue |= ((~XPfw_Read32(PMU_GLOBAL_ERROR_SRST_MASK_2) &
+			   pllErrMask) >> pll->errShift) << 2;
+	pll->errValue |= ((~XPfw_Read32(PMU_GLOBAL_ERROR_SIG_MASK_2) &
+			   pllErrMask) >> pll->errShift) << 3;
+	/* Disable PLL lock error interrupts before powering down PLL */
+	XPfw_Write32(PMU_GLOBAL_ERROR_INT_DIS_2, pllErrMask);
+	XPfw_Write32(PMU_GLOBAL_ERROR_POR_DIS_2, pllErrMask);
+	XPfw_Write32(PMU_GLOBAL_ERROR_SRST_DIS_2, pllErrMask);
+	XPfw_Write32(PMU_GLOBAL_ERROR_SIG_DIS_2, pllErrMask);
+#endif
+
 	/* Bypass PLL before putting it into the reset */
 	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_BYPASS_MASK,
 		   PM_PLL_CTRL_BYPASS_MASK);
@@ -144,16 +163,28 @@ static void PmPllBypassAndReset(PmPll* const pll)
  * @status	Status of polling for the lock status as returned by
  *		XPfw_UtilPollForMask
  */
-static int PmPllLock(const PmPll* const pll)
+static s32 PmPllLock(const PmPll* const pll)
 {
-	int status;
+	s32 status;
 
 	/* Deassert reset to trigger the PLL locking */
 	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
 		   ~PM_PLL_CTRL_RESET_MASK);
 	/* Poll status register for the lock */
-	status = XPfw_UtilPollForMask(pll->statusAddr, 1 << pll->lockShift,
+	status = XPfw_UtilPollForMask(pll->statusAddr, 1U << pll->lockShift,
 				      PM_PLL_LOCK_TIMEOUT);
+
+#ifdef ENABLE_EM
+	/* Restore PLL lock error interrupts once PLL is locked */
+	XPfw_Write32(PMU_GLOBAL_ERROR_INT_EN_2,
+		     ((pll->errValue & 1U) << pll->errShift));
+	XPfw_Write32(PMU_GLOBAL_ERROR_POR_EN_2,
+		     (((pll->errValue >> 1) & 1U) << pll->errShift));
+	XPfw_Write32(PMU_GLOBAL_ERROR_SRST_EN_2,
+		     (((pll->errValue >> 2) & 1U) << pll->errShift));
+	XPfw_Write32(PMU_GLOBAL_ERROR_SIG_EN_2,
+		     (((pll->errValue >> 3) & 1U) << pll->errShift));
+#endif
 
 	return status;
 }
@@ -216,9 +247,9 @@ static void PmPllSuspend(PmPll* const pll)
  *              - XST_SUCCESS if resumed correctly
  *              - XST_FAILURE if resume failed (if PLL failed to lock)
  */
-static int PmPllResume(PmPll* const pll)
+static s32 PmPllResume(PmPll* const pll)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	PmInfo("%s 0->1\r\n", pll->node.name);
 
@@ -277,12 +308,12 @@ static void PmPllClearConfig(PmNode* const node)
  *		if the latency depends on power parent which has no method
  *		(getWakeUpLatency) to provide latency information.
  */
-static int PmPllGetWakeUpLatency(const PmNode* const node, u32* const lat)
+static s32 PmPllGetWakeUpLatency(const PmNode* const node, u32* const lat)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmPll* pll = (PmPll*)node->derived;
 	PmNode* const powerNode = &node->parent->node;
-	u32 latency;
+	u32 latency = 0U;
 
 	*lat = 0U;
 	if (PM_PLL_STATE_LOCKED == pll->node.currState) {
@@ -310,7 +341,7 @@ done:
  *
  * @return	XST_SUCCESS always (operation cannot fail)
  */
-static int PmPllForceDown(PmNode* const node)
+static s32 PmPllForceDown(PmNode* const node)
 {
 	PmPll* pll = (PmPll*)node->derived;
 
@@ -328,11 +359,11 @@ static int PmPllForceDown(PmNode* const node)
  *
  * @note	This function does not affect the PLL configuration in hardware.
  */
-static int PmPllInit(PmNode* const node)
+static s32 PmPllInit(PmNode* const node)
 {
 	PmPll* pll = (PmPll*)node->derived;
 	u32 ctrl = XPfw_Read32(pll->addr + PM_PLL_CTRL_OFFSET);
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	if (0U == (ctrl & PM_PLL_CTRL_RESET_MASK)) {
 		node->currState = PM_PLL_STATE_LOCKED;
@@ -421,6 +452,11 @@ PmPll pmApll_g = {
 	.perms = 0U,
 	.lockShift = CRF_APB_PLL_STATUS_APLL_LOCK_SHIFT,
 	.flags = 0U,
+	.childCount = 0U,
+#ifdef ENABLE_EM
+	.errShift = PMU_GLOBAL_ERROR_SIG_2_APLL_SHIFT,
+	.errValue = 0,
+#endif
 };
 
 PmPll pmVpll_g = {
@@ -442,6 +478,11 @@ PmPll pmVpll_g = {
 	.perms = 0U,
 	.lockShift = CRF_APB_PLL_STATUS_VPLL_LOCK_SHIFT,
 	.flags = 0U,
+	.childCount = 0U,
+#ifdef ENABLE_EM
+	.errShift = PMU_GLOBAL_ERROR_SIG_2_VPLL_SHIFT,
+	.errValue = 0,
+#endif
 };
 
 PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
@@ -463,6 +504,11 @@ PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
 	.perms = 0U,
 	.lockShift = CRF_APB_PLL_STATUS_DPLL_LOCK_SHIFT,
 	.flags = 0U,
+	.childCount = 0U,
+#ifdef ENABLE_EM
+	.errShift = PMU_GLOBAL_ERROR_SIG_2_DPLL_SHIFT,
+	.errValue = 0,
+#endif
 };
 
 PmPll pmRpll_g = {
@@ -484,6 +530,11 @@ PmPll pmRpll_g = {
 	.perms = 0U,
 	.lockShift = CRL_APB_PLL_STATUS_RPLL_LOCK_SHIFT,
 	.flags = 0U,
+	.childCount = 0U,
+#ifdef ENABLE_EM
+	.errShift = PMU_GLOBAL_ERROR_SIG_2_RPLL_SHIFT,
+	.errValue = 0,
+#endif
 };
 
 PmPll pmIOpll_g = {
@@ -505,6 +556,11 @@ PmPll pmIOpll_g = {
 	.perms = 0U,
 	.lockShift = CRL_APB_PLL_STATUS_IOPLL_LOCK_SHIFT,
 	.flags = 0U,
+	.childCount = 0U,
+#ifdef ENABLE_EM
+	.errShift = PMU_GLOBAL_ERROR_SIG_2_IOPLL_SHIFT,
+	.errValue = 0,
+#endif
 };
 
 /**
@@ -519,7 +575,7 @@ void PmPllRequest(PmPll* const pll)
 {
 	/* If the PLL is suspended it needs to be resumed first */
 	if (0U != (PM_PLL_CONTEXT_SAVED & pll->flags)) {
-		int status = PmPllResume(pll);
+		s32 status = PmPllResume(pll);
 		if (XST_SUCCESS != status) {
 			PmErr("Failed to lock %s", pll->node.name);
 		}
@@ -547,9 +603,9 @@ void PmPllRelease(PmPll* const pll)
  *		XST_INVALID_PARAM if one of the given arguments is invalid
  *		XST_SUCCESS if parameter is set
  */
-int PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val)
+s32 PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val)
 {
-	int status = XST_INVALID_PARAM;
+	s32 status = XST_INVALID_PARAM;
 	PmPllParam* p;
 
 	if (paramId >= ARRAY_SIZE(pllParams)) {
@@ -559,6 +615,20 @@ int PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val)
 	p = &pllParams[paramId];
 	if (val > MASK_OF_BITS(p->bits)) {
 		goto done;
+	}
+
+	/*
+	 * We're running on a ZynqMP compatible machine, make sure the
+	 * VPLL only has one child. Check only while changing PLL rate.
+	 * This helps to remove the warn in cases where the expected clock
+	 * is not using vpll and vpll is used for other stuff.
+	 */
+	if (NODE_VPLL == pll->node.nodeId && PM_PLL_PARAM_FBDIV == paramId) {
+		if (pll->childCount > 1) {
+			PmErr("More than 1 devices are using VPLL which is forbidden\r\n");
+			status = XST_PM_MULT_USER;
+			goto done;
+		}
 	}
 
 	XPfw_RMW32(pll->addr + p->regOffset, MASK_OF_BITS(p->bits) << p->shift,
@@ -579,9 +649,9 @@ done:
  *		XST_INVALID_PARAM if one of the given arguments is invalid
  *		XST_SUCCESS if parameter is set
  */
-int PmPllGetParameterInt(PmPll* const pll, const u32 paramId, u32* const val)
+s32 PmPllGetParameterInt(PmPll* const pll, const u32 paramId, u32* const val)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmPllParam* p;
 
 	if (paramId >= ARRAY_SIZE(pllParams)) {
@@ -606,9 +676,9 @@ done:
  *		XST_NO_DATA if the fractional mode is requested and configured
  *		fractional divider is zero
  */
-int PmPllSetModeInt(PmPll* const pll, const u32 mode)
+s32 PmPllSetModeInt(PmPll* const pll, const u32 mode)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 val;
 
 	/* Check whether all config parameters are known for frac/int mode */
@@ -638,7 +708,7 @@ int PmPllSetModeInt(PmPll* const pll, const u32 mode)
 	XPfw_RMW32(pll->addr + PM_PLL_FRAC_OFFSET, PLL_FRAC_CFG_ENABLED_MASK,
 		   val);
 
-	PmPllLock(pll);
+	(void)PmPllLock(pll);
 
 	/* Deassert bypass if the PLL has locked */
 	if (XST_SUCCESS == status) {
