@@ -64,6 +64,12 @@
 
 #define AMS_PSSYSMON_CONFIG_REG2	0XFFA50908
 
+#define A53_DBG_0_EDPRCR_REG			(0xFEC10310)	/* APU_0 external debug control */
+#define A53_DBG_1_EDPRCR_REG			(0xFED10310)	/* APU_1 external debug control */
+#define A53_DBG_2_EDPRCR_REG			(0xFEE10310)	/* APU_2 external debug control */
+#define A53_DBG_3_EDPRCR_REG			(0xFEF10310)	/* APU_3 external debug control */
+#define A53_DBG_EDPRCR_REG_MASK			(0x00000009)	/* COREPURQ and CORENPDRQ bit mask */
+
 /**
  * PmPowerStack() - Used to construct stack for implementing non-recursive
  *		depth-first search in power graph
@@ -319,6 +325,15 @@ static int PmPowerDownFpd(void)
 {
 	int status;
 
+	if (A53_DBG_EDPRCR_REG_MASK & (XPfw_Read32(A53_DBG_0_EDPRCR_REG) |
+				XPfw_Read32(A53_DBG_1_EDPRCR_REG) |
+				XPfw_Read32(A53_DBG_2_EDPRCR_REG) |
+				XPfw_Read32(A53_DBG_3_EDPRCR_REG))) {
+		PmDbg(DEBUG_DETAILED,"Skiping FPD power down since debugger "
+				"is connected\r\n");
+		return XST_SUCCESS;
+	}
+
 /* Block FPD power down if any of the LPD peripherals uses CCI path which is in FPD */
 #ifdef XPAR_LPD_IS_CACHE_COHERENT
 	PmDbg(DEBUG_DETAILED,"Blocking FPD power down since CCI is "
@@ -393,6 +408,12 @@ done:
  */
 static int PmPowerUpFpd(void)
 {
+	if (0 != (XPfw_Read32(PMU_GLOBAL_PWR_STATE) &
+				PMU_GLOBAL_PWR_STATE_FP_MASK)) {
+		PmDbg(DEBUG_DETAILED,"Skiping FPD power up as FPD is on\r\n");
+		return XST_SUCCESS;
+	}
+
 	int status = XpbrPwrUpFpdHandler();
 	if (XST_SUCCESS != status) {
 		goto err;
