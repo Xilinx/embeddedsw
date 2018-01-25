@@ -11,10 +11,6 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * Use of the Software is limited solely to applications:
- * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -51,6 +47,8 @@
 #define PM_PLL_CTRL_RESET_MASK	0x1U
 #define PM_PLL_CTRL_BYPASS_MASK	0x8U
 
+#define PLL_FRAC_CFG_ENABLED_MASK	CRF_APB_VPLL_FRAC_CFG_ENABLED_MASK
+
 /* Configurable: timeout period when waiting for PLL to lock */
 #define PM_PLL_LOCK_TIMEOUT	0x10000U
 
@@ -60,6 +58,69 @@
 
 /* Period of time needed to lock the PLL (to measure) */
 #define PM_PLL_LOCKING_TIME	1U
+
+/* PLL flags */
+#define PM_PLL_REQUESTED	(1 << 0U)
+#define PM_PLL_CONTEXT_SAVED	(1 << 1U)
+
+typedef struct PmPllParam {
+	u8 regOffset;
+	u8 shift;
+	u8 bits;
+} PmPllParam;
+
+static PmPllParam pllParams[] = {
+	[PM_PLL_PARAM_DIV2] = {
+		.regOffset = PM_PLL_CTRL_OFFSET,
+		.shift = 16U,
+		.bits = 1U,
+	},
+	[PM_PLL_PARAM_FBDIV] = {
+		.regOffset = PM_PLL_CTRL_OFFSET,
+		.shift = 8U,
+		.bits = 7U,
+	},
+	[PM_PLL_PARAM_DATA] = {
+		.regOffset = PM_PLL_FRAC_OFFSET,
+		.shift = 0U,
+		.bits = 16U,
+	},
+	[PM_PLL_PARAM_PRE_SRC] = {
+		.regOffset = PM_PLL_CTRL_OFFSET,
+		.shift = 20U,
+		.bits = 3U,
+	},
+	[PM_PLL_PARAM_POST_SRC] = {
+		.regOffset = PM_PLL_CTRL_OFFSET,
+		.shift = 24U,
+		.bits = 3U,
+	},
+	[PM_PLL_PARAM_LOCK_DLY] = {
+		.regOffset = PM_PLL_CFG_OFFSET,
+		.shift = 25U,
+		.bits = 7U,
+	},
+	[PM_PLL_PARAM_LOCK_CNT] = {
+		.regOffset = PM_PLL_CFG_OFFSET,
+		.shift = 13U,
+		.bits = 10U,
+	},
+	[PM_PLL_PARAM_LFHF] = {
+		.regOffset = PM_PLL_CFG_OFFSET,
+		.shift = 10U,
+		.bits = 3U,
+	},
+	[PM_PLL_PARAM_CP] = {
+		.regOffset = PM_PLL_CFG_OFFSET,
+		.shift = 5U,
+		.bits = 4U,
+	},
+	[PM_PLL_PARAM_RES] = {
+		.regOffset = PM_PLL_CFG_OFFSET,
+		.shift = 0U,
+		.bits = 4U,
+	},
+};
 
 /**
  * PmPllBypassAndReset() - Bypass and reset/power down a PLL
@@ -77,6 +138,27 @@ static void PmPllBypassAndReset(PmPll* const pll)
 }
 
 /**
+ * PmPllLock() - Trigger locking of the PLL and wait for it to lock
+ * @pll		Target PLL
+ *
+ * @status	Status of polling for the lock status as returned by
+ *		XPfw_UtilPollForMask
+ */
+static int PmPllLock(const PmPll* const pll)
+{
+	int status;
+
+	/* Deassert reset to trigger the PLL locking */
+	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
+		   ~PM_PLL_CTRL_RESET_MASK);
+	/* Poll status register for the lock */
+	status = XPfw_UtilPollForMask(pll->statusAddr, 1 << pll->lockShift,
+				      PM_PLL_LOCK_TIMEOUT);
+
+	return status;
+}
+
+/**
  * PmPllSaveContext() - Save the context of the PLL
  * @pll		PLL whose context should be saved
  */
@@ -86,8 +168,7 @@ static void PmPllSaveContext(PmPll* const pll)
 	pll->context.ctrl = XPfw_Read32(pll->addr + PM_PLL_CTRL_OFFSET);
 	pll->context.cfg = XPfw_Read32(pll->addr + PM_PLL_CFG_OFFSET);
 	pll->context.frac = XPfw_Read32(pll->addr + PM_PLL_FRAC_OFFSET);
-	pll->context.toCtrl = XPfw_Read32(pll->toCtrlAddr);
-	pll->context.saved = true;
+	pll->flags |= PM_PLL_CONTEXT_SAVED;
 }
 
 /**
@@ -96,19 +177,14 @@ static void PmPllSaveContext(PmPll* const pll)
  */
 static void PmPllRestoreContext(PmPll* const pll)
 {
-	/* Bypass PLL */
-	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_BYPASS_MASK,
-			PM_PLL_CTRL_BYPASS_MASK);
-	/* Assert PLL reset */
-	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
-			PM_PLL_CTRL_RESET_MASK);
+	/* Bypass and reset PLL */
+	PmPllBypassAndReset(pll);
 	/* Restore register values with reset and bypass asserted */
 	XPfw_Write32(pll->addr + PM_PLL_CTRL_OFFSET, pll->context.ctrl |
 			PM_PLL_CTRL_RESET_MASK | PM_PLL_CTRL_BYPASS_MASK);
 	XPfw_Write32(pll->addr + PM_PLL_CFG_OFFSET, pll->context.cfg);
 	XPfw_Write32(pll->addr + PM_PLL_FRAC_OFFSET, pll->context.frac);
-	XPfw_Write32(pll->toCtrlAddr, pll->context.toCtrl);
-	pll->context.saved = false;
+	pll->flags &= ~PM_PLL_CONTEXT_SAVED;
 }
 
 /**
@@ -117,7 +193,7 @@ static void PmPllRestoreContext(PmPll* const pll)
  */
 static void PmPllSuspend(PmPll* const pll)
 {
-	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(pll->node.nodeId));
+	PmInfo("%s 1->0\r\n", pll->node.name);
 
 	PmPllSaveContext(pll);
 
@@ -144,9 +220,9 @@ static int PmPllResume(PmPll* const pll)
 {
 	int status = XST_SUCCESS;
 
-	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(pll->node.nodeId));
+	PmInfo("%s 0->1\r\n", pll->node.name);
 
-	if (true == pll->context.saved) {
+	if (0U != (pll->flags & PM_PLL_CONTEXT_SAVED)) {
 		PmPllRestoreContext(pll);
 	}
 
@@ -160,12 +236,7 @@ static int PmPllResume(PmPll* const pll)
 			goto done;
 		}
 	}
-	/* Release reset */
-	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
-		   ~PM_PLL_CTRL_RESET_MASK);
-	/* Poll status register for the lock */
-	status = XPfw_UtilPollForMask(pll->statusAddr, pll->lockMask,
-				      PM_PLL_LOCK_TIMEOUT);
+	status = PmPllLock(pll);
 	if (XST_SUCCESS != status) {
 		/* Failed to lock PLL - assert reset and return */
 		XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET,
@@ -194,7 +265,7 @@ static void PmPllClearConfig(PmNode* const node)
 {
 	PmPll* pll = (PmPll*)node->derived;
 
-	pll->useCount = 0U;
+	pll->flags = 0U;
 }
 
 /**
@@ -244,7 +315,7 @@ static int PmPllForceDown(PmNode* const node)
 	PmPll* pll = (PmPll*)node->derived;
 
 	if (PM_PLL_STATE_LOCKED == node->currState) {
-		pll->useCount = 0U;
+		pll->flags = 0U;
 		PmPllSuspend(pll);
 	}
 
@@ -276,6 +347,22 @@ static int PmPllInit(PmNode* const node)
 }
 
 /**
+ * PmPllGetPerms() - Get permissions of masters to control clocks of PLLs
+ * @node	Target PLL node
+ *
+ * @return	ORed IPI masks of masters allowed to directly control the PLL
+ *
+ * @note	Permissions to control clocks of PLLs is equivalent to
+ *		permissions to directly configure the PLL.
+ */
+static u32 PmPllGetPerms(const PmNode* const node)
+{
+	const PmPll* pll = (PmPll*)node->derived;
+
+	return pll->perms;
+}
+
+/**
  * PmPllIsUsable() - Check if the PLL is used according to the set configuration
  * @node	PLL node
  *
@@ -285,7 +372,7 @@ static bool PmPllIsUsable(PmNode* const node)
 {
 	PmPll* pll = (PmPll*)node->derived;
 
-	return 0U != pll->useCount;
+	return 0U != (PM_PLL_REQUESTED & pll->flags);
 }
 
 /* Collection of PLL nodes */
@@ -307,6 +394,7 @@ PmNodeClass pmNodeClassPll_g = {
 	.forceDown = PmPllForceDown,
 	.init = PmPllInit,
 	.isUsable = PmPllIsUsable,
+	.getPerms = PmPllGetPerms,
 };
 
 static u32 PmStdPllPowers[] = {
@@ -325,15 +413,14 @@ PmPll pmApll_g = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmStdPllPowers),
+		DEFINE_NODE_NAME("apll"),
 	},
-	.context = {
-		.saved = false,
-	},
+	.context = { 0U },
 	.addr = CRF_APB_APLL_CTRL,
-	.toCtrlAddr = CRF_APB_APLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
-	.lockMask = CRF_APB_PLL_STATUS_APLL_LOCK_MASK,
-	.useCount = 0U,
+	.perms = 0U,
+	.lockShift = CRF_APB_PLL_STATUS_APLL_LOCK_SHIFT,
+	.flags = 0U,
 };
 
 PmPll pmVpll_g = {
@@ -347,15 +434,14 @@ PmPll pmVpll_g = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmStdPllPowers),
+		DEFINE_NODE_NAME("vpll"),
 	},
-	.context = {
-		.saved = false,
-	},
+	.context = { 0U },
 	.addr = CRF_APB_VPLL_CTRL,
-	.toCtrlAddr = CRF_APB_VPLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
-	.lockMask = CRF_APB_PLL_STATUS_VPLL_LOCK_MASK,
-	.useCount = 0U,
+	.perms = 0U,
+	.lockShift = CRF_APB_PLL_STATUS_VPLL_LOCK_SHIFT,
+	.flags = 0U,
 };
 
 PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
@@ -369,15 +455,14 @@ PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmStdPllPowers),
+		DEFINE_NODE_NAME("dpll"),
 	},
-	.context = {
-		.saved = false,
-	},
+	.context = { 0U },
 	.addr = CRF_APB_DPLL_CTRL,
-	.toCtrlAddr = CRF_APB_DPLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
-	.lockMask = CRF_APB_PLL_STATUS_DPLL_LOCK_MASK,
-	.useCount = 0U,
+	.perms = 0U,
+	.lockShift = CRF_APB_PLL_STATUS_DPLL_LOCK_SHIFT,
+	.flags = 0U,
 };
 
 PmPll pmRpll_g = {
@@ -391,15 +476,14 @@ PmPll pmRpll_g = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmStdPllPowers),
+		DEFINE_NODE_NAME("rpll"),
 	},
-	.context = {
-		.saved = false,
-	},
+	.context = { 0U },
 	.addr = CRL_APB_RPLL_CTRL,
-	.toCtrlAddr = CRL_APB_RPLL_TO_FPD_CTRL,
 	.statusAddr = CRL_APB_PLL_STATUS,
-	.lockMask = CRL_APB_PLL_STATUS_RPLL_LOCK_MASK,
-	.useCount = 0U,
+	.perms = 0U,
+	.lockShift = CRL_APB_PLL_STATUS_RPLL_LOCK_SHIFT,
+	.flags = 0U,
 };
 
 PmPll pmIOpll_g = {
@@ -413,61 +497,195 @@ PmPll pmIOpll_g = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmStdPllPowers),
+		DEFINE_NODE_NAME("iopll"),
 	},
-	.context = {
-		.saved = false,
-	},
+	.context = { 0U },
 	.addr = CRL_APB_IOPLL_CTRL,
-	.toCtrlAddr = CRL_APB_IOPLL_TO_FPD_CTRL,
 	.statusAddr = CRL_APB_PLL_STATUS,
-	.lockMask = CRL_APB_PLL_STATUS_IOPLL_LOCK_MASK,
-	.useCount = 0U,
+	.perms = 0U,
+	.lockShift = CRL_APB_PLL_STATUS_IOPLL_LOCK_SHIFT,
+	.flags = 0U,
 };
 
 /**
  * PmPllRequest() - Request the PLL
  * @pll		The requested PLL
- * @return	XST_SUCCESS if the request is processed ok, else XST_FAILURE
- *
  * @note	If the requested PLL is not locked and if it was never locked
  *		before, the PM framework will not lock it because the frequency
  *		related aspects are not handled by the PM framework. The PM
  *		framework only saves/restores the context of PLLs.
  */
-int PmPllRequest(PmPll* const pll)
+void PmPllRequest(PmPll* const pll)
 {
-	int status = XST_SUCCESS;
-
-#ifdef DEBUG_CLK
-	PmDbg(DEBUG_DETAILED,"%s #%lu\r\n", PmStrNode(pll->node.nodeId),
-			1 + pll->useCount);
-#endif
 	/* If the PLL is suspended it needs to be resumed first */
-	if (true == pll->context.saved) {
-		status = PmPllResume(pll);
+	if (0U != (PM_PLL_CONTEXT_SAVED & pll->flags)) {
+		int status = PmPllResume(pll);
+		if (XST_SUCCESS != status) {
+			PmErr("Failed to lock %s", pll->node.name);
+		}
 	}
-
-	pll->useCount++;
-
-	return status;
+	pll->flags |= PM_PLL_REQUESTED;
 }
 
 /**
- * PmPllRequest() - Release the PLL (if PLL becomes unused, it will be reset)
+ * PmPllRelease() - Release the PLL (PLL will be suspended)
  * @pll		The released PLL
  */
 void PmPllRelease(PmPll* const pll)
 {
-	if (pll->useCount > 0U) {
-		pll->useCount--;
-#ifdef DEBUG_CLK
-		PmDbg(DEBUG_DETAILED,"%s #%lu\r\n", PmStrNode(pll->node.nodeId),
-				pll->useCount);
-#endif
-		if (0U == pll->useCount) {
-			PmPllSuspend(pll);
+	pll->flags &= ~PM_PLL_REQUESTED;
+	PmPllSuspend(pll);
+}
+
+/**
+ * PmPllSetParameterInt() - Set PLL parameter
+ * @pll		PLL whose parameter should be set
+ * @paramId	Parameter ID
+ * @val		Parameter value to be set
+ *
+ * @return	Status of setting the parameter:
+ *		XST_INVALID_PARAM if one of the given arguments is invalid
+ *		XST_SUCCESS if parameter is set
+ */
+int PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val)
+{
+	int status = XST_INVALID_PARAM;
+	PmPllParam* p;
+
+	if (paramId >= ARRAY_SIZE(pllParams)) {
+		goto done;
+	}
+
+	p = &pllParams[paramId];
+	if (val > MASK_OF_BITS(p->bits)) {
+		goto done;
+	}
+
+	XPfw_RMW32(pll->addr + p->regOffset, MASK_OF_BITS(p->bits) << p->shift,
+		   val << p->shift);
+	status = XST_SUCCESS;
+
+done:
+	return status;
+}
+
+/**
+ * PmPllGetParameterInt() - Get the PLL parameter value
+ * @pll		PLL whose parameter should be get
+ * @paramId	Parameter ID
+ * @val		Location to store parameter value
+ *
+ * @return	Status of setting the parameter:
+ *		XST_INVALID_PARAM if one of the given arguments is invalid
+ *		XST_SUCCESS if parameter is set
+ */
+int PmPllGetParameterInt(PmPll* const pll, const u32 paramId, u32* const val)
+{
+	int status = XST_SUCCESS;
+	PmPllParam* p;
+
+	if (paramId >= ARRAY_SIZE(pllParams)) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	p = &pllParams[paramId];
+	*val = XPfw_Read32(pll->addr + p->regOffset) >> p->shift;
+	*val &= MASK_OF_BITS(p->bits);
+
+done:
+	return status;
+}
+
+/**
+ * PmPllSetModeInt() - Set the mode for PLL
+ * @pll		Target PLL
+ * @mode	Identifier of the mode to be set
+ *
+ * @return	XST_SUCCESS if the mode is set
+ *		XST_NO_DATA if the fractional mode is requested and configured
+ *		fractional divider is zero
+ */
+int PmPllSetModeInt(PmPll* const pll, const u32 mode)
+{
+	int status = XST_SUCCESS;
+	u32 val;
+
+	/* Check whether all config parameters are known for frac/int mode */
+	if (PM_PLL_MODE_FRACTIONAL == mode) {
+		PmPllParam* p = &pllParams[PM_PLL_PARAM_DATA];
+
+		val = XPfw_Read32(pll->addr + p->regOffset);
+		val = (val >> p->shift) & MASK_OF_BITS(p->bits);
+		/* Check if fractional divider has been set (data parameter) */
+		if (0U == val) {
+			status = XST_NO_DATA;
+			goto done;
 		}
 	}
+
+	PmPllBypassAndReset(pll);
+	if (PM_PLL_MODE_RESET == mode) {
+		goto done;
+	}
+
+	if (PM_PLL_MODE_FRACTIONAL == mode) {
+		val = PLL_FRAC_CFG_ENABLED_MASK;
+	} else {
+		val = ~PLL_FRAC_CFG_ENABLED_MASK;
+	}
+	/* Enable/disable fractional mode */
+	XPfw_RMW32(pll->addr + PM_PLL_FRAC_OFFSET, PLL_FRAC_CFG_ENABLED_MASK,
+		   val);
+
+	PmPllLock(pll);
+
+	/* Deassert bypass if the PLL has locked */
+	if (XST_SUCCESS == status) {
+		XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET,
+			   PM_PLL_CTRL_BYPASS_MASK, ~PM_PLL_CTRL_BYPASS_MASK);
+	}
+
+done:
+	return status;
 }
+
+/**
+ * PmPllGetModeInt() - Get current PLL mode
+ * @pll		Target PLL
+ *
+ * @return	Current mode of the PLL, i.e. one of the following:
+ *		PM_PLL_MODE_FRACTIONAL
+ *		PM_PLL_MODE_INTEGER
+ *		PM_PLL_MODE_RESET
+ */
+u32 PmPllGetModeInt(PmPll* const pll)
+{
+	u32 val, mode;
+
+	val = XPfw_Read32(pll->addr + PM_PLL_CTRL_OFFSET);
+	if (0U != (val & PM_PLL_CTRL_RESET_MASK)) {
+		mode = PM_PLL_MODE_RESET;
+	} else {
+		val = XPfw_Read32(pll->addr + PM_PLL_FRAC_OFFSET);
+		if (0U != (val & PLL_FRAC_CFG_ENABLED_MASK)) {
+			mode = PM_PLL_MODE_FRACTIONAL;
+		} else {
+			mode = PM_PLL_MODE_INTEGER;
+		}
+	}
+
+	return mode;
+}
+
+/**
+ * PmPllOpenAccess() - Allow direct access to the master with given IPI mask
+ * @pll		Target PLL
+ * @ipiMask	IPI mask of the master that will be allowed to directly control
+ *		the target PLL
+ */
+void PmPllOpenAccess(PmPll* const pll, u32 ipiMask) {
+	pll->perms = ipiMask;
+};
 
 #endif

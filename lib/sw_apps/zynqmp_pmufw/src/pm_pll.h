@@ -11,10 +11,6 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * Use of the Software is limited solely to applications:
- * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -57,9 +53,6 @@
  * @ctrl        Control register
  * @cfg         Configuration register
  * @frac        Fractional control register
- * @toCtrl      Control for a cross domain (a divisor)
- * @saved       Flag stating are variables of this structure containing values
- *              to be restored or not
  *
  * Note: context of the PLL is saved when PM framework suspends a PLL (when
  * no node requires PLL to be locked). It is assumed that all used PLLs get
@@ -70,8 +63,6 @@ typedef struct PmPllContext {
 	u32 ctrl;
 	u32 cfg;
 	u32 frac;
-	u32 toCtrl;
-	bool saved;
 } PmPllContext;
 
 /**
@@ -83,19 +74,19 @@ typedef struct PmPllContext {
  *              field should be initialized with the PM_PLL_CTRL_RESET_MASK
  *              set, statically or through PCW.
  * @addr        Base address of the PLL's control registers
- * @toCtrlAddr  Absolute address of cross-domain control register
  * @statusAddr  Address of the PLL's status register
- * @lockMask    Mask of the lock in status register
- * @useCount    The number of clocks currently driven by this PLL
+ * @perms	Permissions to directly control the PLL
+ * @lockShift	Shift of the lock status bit in status register
+ * @flags	PLL flags
  */
 typedef struct PmPll {
 	PmNode node;
 	PmPllContext context;
 	const u32 addr;
-	const u32 toCtrlAddr;
 	const u32 statusAddr;
-	const u32 lockMask;
-	u32 useCount;
+	u32 perms;
+	const u8 lockShift;
+	u8 flags;
 } PmPll;
 
 /*********************************************************************
@@ -112,7 +103,18 @@ extern PmNodeClass pmNodeClassPll_g;
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-int PmPllRequest(PmPll* const pll);
+void PmPllRequest(PmPll* const pll);
 void PmPllRelease(PmPll* const pll);
+void PmPllOpenAccess(PmPll* const pll, u32 ipiMask);
+
+int PmPllSetModeInt(PmPll* const pll, const u32 mode);
+int PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val);
+int PmPllGetParameterInt(PmPll* const pll, const u32 paramId, u32* const val);
+
+u32 PmPllGetModeInt(PmPll* const pll);
+static inline u32 PmPllGetPermissions(const PmPll* const pll)
+{
+	return pll->perms;
+};
 
 #endif
