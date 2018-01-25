@@ -1,4 +1,3 @@
-/* $Id: xusb_g.c,v 1.1.2.1 2011/08/23 11:35:45 vidhum Exp $ */
 /******************************************************************************
 *
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
