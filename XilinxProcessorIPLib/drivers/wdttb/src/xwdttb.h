@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2001 - 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2001 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -158,6 +158,7 @@
 *                     generation.
 * 4.2   ms   04/18/17 Modified tcl file to add suffix U for all macros
 *                     definitions of wdttb in xparameters.h
+* 4.3   srm  01/27/18 Added XWdtTb_ProgramWDTWidth to pragram the WDT width
 * </pre>
 *
 ******************************************************************************/
@@ -481,6 +482,7 @@ void XWdtTb_DisableExtraProtection(XWdtTb *InstancePtr);
 
 void XWdtTb_SetWindowCount(XWdtTb *InstancePtr, u32 FirstWinCount,
 				u32 SecondWinCount);
+u32 XWdtTb_ProgramWDTWidth(XWdtTb *InstancePtr, u32 width);
 
 /*
  * Self-test functions in xwdttb_selftest.c

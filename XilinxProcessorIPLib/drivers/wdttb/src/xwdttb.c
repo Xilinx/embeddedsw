@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2001 - 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2001 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -75,6 +75,8 @@
 *                     Modified lines with exceeding maximum 80 chars.
 *                     Changed multi line comments to single line comments
 *                     wherever required.
+* 4.3   srm  01/27/18 Added XWdtTb_ProgramWDTWidth which can program the
+*					  width of WDT
 * </pre>
 *
 ******************************************************************************/
@@ -1199,5 +1201,42 @@ static s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr)
 	}
 
 	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* This function programs the width of Window Watchdog Timer.
+*
+* @param	InstancePtr - InstancePtr is a pointer to the XWdtTb instance to be
+*		    worked on.
+*			width - width of the Window Watchdog Timer.
+*
+* @return
+*		- XST_SUCESS, if window mode is disabled and the width is
+*		  programmed correctly.
+*		- XST_FAILURE, if Window mode is enabled or if the width is
+*         not in the range of 8-31
+*
+* @note
+*		- This function is applicable only when the window mode is
+*		  disabled.
+*		- This function should be called before starting the timer.
+*		  Valid values for the width are 8-31. Programming any other
+*		  value returns failure.
+*
+******************************************************************************/
+u32 XWdtTb_ProgramWDTWidth(XWdtTb *InstancePtr, u32 width)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	if((InstancePtr->Config.EnableWinWdt == (u32)0) && (width>=8 && width<=31))
+	{
+		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_MWR_OFFSET, width);
+
+		return XST_SUCCESS;
+	}
+	else
+		return XST_FAILURE;
 }
 /** @} */
