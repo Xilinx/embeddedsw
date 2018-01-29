@@ -60,8 +60,10 @@
  * 1.6   gm   12/06/17 Changed XVphy_DrpRead with XVphy_DrpRd
  *                     Changed XVphy_DrpWrite with XVphy_DrpWr
  *                     Improved status return of APIs with DRP Rd and Wr
+ *                     Added N2=8 divider for CPLL for HDMI
  * 1.7   gm   13/09/17 Disabled intelligent clock sel in QPLL0/1 configuration
  *                     Updated DP CDR config for 8.1 Gbps
+ *                     Updated XVPHY_QPLL0_MAX to 16375000000LL
  * </pre>
  *
 *******************************************************************************/
@@ -128,7 +130,7 @@ u32 XVphy_Gthe3RxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 
 /* PLL operating ranges. */
 #define XVPHY_QPLL0_MIN			 9800000000LL
-#define XVPHY_QPLL0_MAX			16300000000LL
+#define XVPHY_QPLL0_MAX			16375000000LL
 #define XVPHY_QPLL1_MIN			 8000000000LL
 #define XVPHY_QPLL1_MAX			13000000000LL
 #define XVPHY_CPLL_MIN			 2000000000LL
@@ -136,11 +138,7 @@ u32 XVphy_Gthe3RxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 
 const u8 Gthe3CpllDivsM[]	= {1, 2, 0};
 const u8 Gthe3CpllDivsN1[]	= {4, 5, 0};
-#if (XPAR_VPHY_0_TX_PROTOCOL == 0 || XPAR_VPHY_0_RX_PROTOCOL == 0)
 const u8 Gthe3CpllDivsN2[]	= {1, 2, 3, 4, 5, 8, 0};
-#else
-const u8 Gthe3CpllDivsN2[]	= {1, 2, 3, 4, 5, 0};
-#endif
 const u8 Gthe3CpllDivsD[]	= {1, 2, 4, 8, 0};
 
 const u8 Gthe3QpllDivsM[]	= {4, 3, 2, 1, 0};

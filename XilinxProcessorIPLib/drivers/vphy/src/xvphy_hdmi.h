@@ -51,10 +51,11 @@
  *                     Removed XVphy_HdmiMmcmStart API
  *                     Corrected GTPE2 DRU REFCLK range
  * 1.6   gm   03/07/17 Added XVPHY_HDMI_GTXE2_DRU_LRATE_Q/CPLL definitions
- * 1.7   gm   03/07/17 Corrected FVCO range for MMCME4
+ *                     Corrected FVCO range for MMCME4
+ * 1.7   gm   13/09/17 Removed XVphy_DruSetGain API
  * </pre>
  *
- * @addtogroup xvphy_v1_6
+ * @addtogroup xvphy_v1_7
  * @{
 *******************************************************************************/
 #include "xparameters.h"
@@ -73,7 +74,7 @@
 #define XVPHY_HDMI_GTYE4_PLL_SCALE		1000
 #define XVPHY_HDMI_GTYE4_QPLL0_REFCLK_MIN	61250000LL
 #define XVPHY_HDMI_GTYE4_QPLL1_REFCLK_MIN	50000000LL
-#define XVPHY_HDMI_GTYE4_CPLL_REFCLK_MIN	100000000LL
+#define XVPHY_HDMI_GTYE4_CPLL_REFCLK_MIN	50000000LL
 #define XVPHY_HDMI_GTYE4_TX_MMCM_SCALE		1
 #define XVPHY_HDMI_GTYE4_TX_MMCM_FVCO_MIN	800000000U
 #define XVPHY_HDMI_GTYE4_TX_MMCM_FVCO_MAX	1600000000U
@@ -88,7 +89,7 @@
 #define XVPHY_HDMI_GTHE4_PLL_SCALE		1000
 #define XVPHY_HDMI_GTHE4_QPLL0_REFCLK_MIN	61250000LL
 #define XVPHY_HDMI_GTHE4_QPLL1_REFCLK_MIN	50000000LL
-#define XVPHY_HDMI_GTHE4_CPLL_REFCLK_MIN	100000000LL
+#define XVPHY_HDMI_GTHE4_CPLL_REFCLK_MIN	50000000LL
 #define XVPHY_HDMI_GTHE4_TX_MMCM_SCALE		1
 #define XVPHY_HDMI_GTHE4_TX_MMCM_FVCO_MIN	800000000U
 #define XVPHY_HDMI_GTHE4_TX_MMCM_FVCO_MAX	1600000000U
@@ -103,7 +104,7 @@
 #define XVPHY_HDMI_GTHE3_PLL_SCALE		1000
 #define XVPHY_HDMI_GTHE3_QPLL0_REFCLK_MIN	61250000LL
 #define XVPHY_HDMI_GTHE3_QPLL1_REFCLK_MIN	50000000LL
-#define XVPHY_HDMI_GTHE3_CPLL_REFCLK_MIN	100000000LL
+#define XVPHY_HDMI_GTHE3_CPLL_REFCLK_MIN	50000000LL
 #define XVPHY_HDMI_GTHE3_TX_MMCM_SCALE		1
 #define XVPHY_HDMI_GTHE3_TX_MMCM_FVCO_MIN	600000000U
 #define XVPHY_HDMI_GTHE3_TX_MMCM_FVCO_MAX	1200000000U
@@ -176,8 +177,6 @@ void XVphy_DruEnable(XVphy *InstancePtr, XVphy_ChannelId ChId, u8 Enable);
 u16 XVphy_DruGetVersion(XVphy *InstancePtr);
 void XVphy_DruSetCenterFreqHz(XVphy *InstancePtr, XVphy_ChannelId ChId,
 		u64 CenterFreqHz);
-void XVphy_DruSetGain(XVphy *InstancePtr, XVphy_ChannelId ChId, u8 G1, u8 G1_P,
-		u8 G2);
 u64 XVphy_DruCalcCenterFreqHz(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId);
 void XVphy_HdmiGtDruModeEnable(XVphy *InstancePtr, u8 Enable);

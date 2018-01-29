@@ -54,7 +54,7 @@
  * 1.7   gm   13/09/17 Removed XVphy_MmcmWriteParameters API
  * </pre>
  *
- * @addtogroup xvphy_v1_6
+ * @addtogroup xvphy_v1_7
  * @{
 *******************************************************************************/
 

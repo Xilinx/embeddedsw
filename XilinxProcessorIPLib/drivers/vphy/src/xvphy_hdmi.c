@@ -85,6 +85,7 @@
  * 1.7   gm   13/09/17 Added GTYE4 support.
  *                     Added userclk freq checking in XVphy_HdmiCpllParam &
  *                        XVphy_HdmiQpllParam API
+ *                     Removed XVphy_DruSetGain API
  *
  * </pre>
  *
@@ -274,15 +275,6 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
 		XVphy_IBufDsEnable(InstancePtr, QuadId, XVPHY_DIR_RX, TRUE);
 		XVphy_DruReset(InstancePtr, XVPHY_CHANNEL_ID_CHA, TRUE);
 		XVphy_DruEnable(InstancePtr, XVPHY_CHANNEL_ID_CHA, FALSE);
-		if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) ||
-		    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2)) {
-			XVphy_DruSetGain(InstancePtr, XVPHY_CHANNEL_ID_CHA,
-					9, 16, 5);
-		}
-		else {
-			XVphy_DruSetGain(InstancePtr, XVPHY_CHANNEL_ID_CHA,
-					9, 16, 4);
-		}
 	}
 
 	XVphy_SetRxLpm(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX,
@@ -290,7 +282,13 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
 
 	XVphy_Ch2Ids(InstancePtr, XVPHY_CHANNEL_ID_CHA, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3 || \
+	 XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4 || \
+     XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
+		XVphy_SetTxVoltageSwing(InstancePtr, QuadId, (XVphy_ChannelId)Id, 0xC);
+#else
 		XVphy_SetTxVoltageSwing(InstancePtr, QuadId, (XVphy_ChannelId)Id, 0x1);
+#endif
 		XVphy_SetTxPreEmphasis(InstancePtr, QuadId, (XVphy_ChannelId)Id, 0x1);
 	}
 
@@ -480,15 +478,6 @@ u32 XVphy_Hdmi_CfgInitialize(XVphy *InstancePtr, u8 QuadId,
 		XVphy_IBufDsEnable(InstancePtr, QuadId, XVPHY_DIR_RX, TRUE);
 		XVphy_DruReset(InstancePtr, XVPHY_CHANNEL_ID_CHA, TRUE);
 		XVphy_DruEnable(InstancePtr, XVPHY_CHANNEL_ID_CHA, FALSE);
-		if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) ||
-		    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2)) {
-			XVphy_DruSetGain(InstancePtr, XVPHY_CHANNEL_ID_CHA,
-					9, 16, 5);
-		}
-		else {
-			XVphy_DruSetGain(InstancePtr, XVPHY_CHANNEL_ID_CHA,
-					9, 16, 4);
-		}
 	}
 
 	XVphy_SetRxLpm(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX,
@@ -496,7 +485,13 @@ u32 XVphy_Hdmi_CfgInitialize(XVphy *InstancePtr, u8 QuadId,
 
 	XVphy_Ch2Ids(InstancePtr, XVPHY_CHANNEL_ID_CHA, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3 || \
+	 XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4 || \
+     XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
+		XVphy_SetTxVoltageSwing(InstancePtr, QuadId, (XVphy_ChannelId)Id, 0xC);
+#else
 		XVphy_SetTxVoltageSwing(InstancePtr, QuadId, (XVphy_ChannelId)Id, 0x1);
+#endif
 		XVphy_SetTxPreEmphasis(InstancePtr, QuadId, (XVphy_ChannelId)Id, 0x1);
 	}
 
@@ -1195,38 +1190,6 @@ void XVphy_DruSetCenterFreqHz(XVphy *InstancePtr, XVphy_ChannelId ChId,
 
 /*****************************************************************************/
 /**
-* This function sets the DRU gain.
-*
-* @param	InstancePtr is a pointer to the XVphy core instance.
-* @param	ChId is the channel ID to operate on.
-* @param	G1 gain value.
-* @param	G1_P gain value.
-* @param	G2 gain value.
-*
-* @return	None.
-*
-******************************************************************************/
-void XVphy_DruSetGain(XVphy *InstancePtr, XVphy_ChannelId ChId, u8 G1, u8 G1_P,
-		u8 G2)
-{
-	u32 RegVal;
-	u32 RegOffset;
-	u8 Id, Id0, Id1;
-
-	RegVal = G1 & XVPHY_DRU_GAIN_G1_MASK;
-	RegVal |= (G1_P << XVPHY_DRU_GAIN_G1_P_SHIFT) &
-		XVPHY_DRU_GAIN_G1_P_MASK;
-	RegVal |= (G2 << XVPHY_DRU_GAIN_G2_SHIFT) & XVPHY_DRU_GAIN_G2_MASK;
-
-	XVphy_Ch2Ids(InstancePtr, ChId, &Id0, &Id1);
-	for (Id = Id0; Id <= Id1; Id++) {
-		RegOffset = XVPHY_DRU_GAIN_REG(Id);
-		XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
-	}
-}
-
-/*****************************************************************************/
-/**
 * This function calculates the center frequency value for the DRU.
 *
 * @param	InstancePtr is a pointer to the XVphy GT core instance.
@@ -1719,11 +1682,9 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3)
 	/* Determine which QPLL to use. */
-	if (((101875000 <= QpllRefClk) && (QpllRefClk <= 122500000)) ||
-		((203750000 <= QpllRefClk) &&
-			(QpllRefClk <= 245000000)) ||
-		((407000000 <= QpllRefClk) &&
-			(QpllRefClk <= 490000000))) {
+	if (((102343750 <= QpllRefClk) && (QpllRefClk <= 122500000)) ||
+		((204687500 <= QpllRefClk) && (QpllRefClk <= 245000000)) ||
+		((409375000 <= QpllRefClk) && (QpllRefClk <= 490000000))) {
 		SysClkDataSel = XVPHY_SYSCLKSELDATA_TYPE_QPLL1_OUTCLK;
 		SysClkOutSel = XVPHY_SYSCLKSELOUT_TYPE_QPLL1_REFCLK;
 		ActiveCmnId = XVPHY_CHANNEL_ID_CMN1;
@@ -1737,9 +1698,9 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	}
 #elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4)
 	/* Determine which QPLL to use. */
-	if (((101875000 <= QpllRefClk) && (QpllRefClk <= 122500000)) ||
-		((203750000 <= QpllRefClk) && (QpllRefClk <= 245000000)) ||
-		((407000000 <= QpllRefClk) && (QpllRefClk <= 490000000))) {
+	if (((102343750 <= QpllRefClk) && (QpllRefClk <= 122500000)) ||
+		((204687500 <= QpllRefClk) && (QpllRefClk <= 245000000)) ||
+		((409375000 <= QpllRefClk) && (QpllRefClk <= 490000000))) {
 		SysClkDataSel = XVPHY_SYSCLKSELDATA_TYPE_QPLL1_OUTCLK;
 		SysClkOutSel = XVPHY_SYSCLKSELOUT_TYPE_QPLL1_REFCLK;
 		ActiveCmnId = XVPHY_CHANNEL_ID_CMN1;
