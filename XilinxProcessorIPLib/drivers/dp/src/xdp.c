@@ -319,9 +319,15 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 			u8 Data;
 			/* Check extended capability register */
 			XDp_TxAuxRead(InstancePtr, XDP_EDID_DPCD_MAX_LINK_RATE, 1, &Data);
+<<<<<<< HEAD
 			if(Data == XDP_TX_LINK_BW_SET_810GBPS) {
 				RxMaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
 				LinkConfig->MaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
+=======
+			if(Data == XDP_RX_OVER_LINK_BW_SET_810GBPS){
+				RxMaxLinkRate = XDP_RX_OVER_LINK_BW_SET_810GBPS;
+				LinkConfig->MaxLinkRate = XDP_RX_OVER_LINK_BW_SET_810GBPS;
+>>>>>>> xdp : Adding functional changes for DP1.4.
 			}
 		}
 	}
@@ -1912,6 +1918,7 @@ u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate)
 
 	if ((LinkRate != XDP_LINK_BW_SET_162GBPS) &&
 <<<<<<< HEAD
+<<<<<<< HEAD
 		(LinkRate != XDP_LINK_BW_SET_270GBPS) &&
 		(LinkRate != XDP_LINK_BW_SET_540GBPS) &&
 		(LinkRate != XDP_LINK_BW_SET_810GBPS)) {
@@ -1919,6 +1926,11 @@ u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate)
 			(LinkRate != XDP_LINK_BW_SET_270GBPS) &&
 			(LinkRate != XDP_LINK_BW_SET_540GBPS)) {
 >>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
+=======
+		(LinkRate != XDP_LINK_BW_SET_270GBPS) &&
+		(LinkRate != XDP_LINK_BW_SET_540GBPS) &&
+		(LinkRate != XDP_LINK_BW_SET_810GBPS)) {
+>>>>>>> xdp : Adding functional changes for DP1.4.
 		Valid = 0;
 	}
 	else if (LinkRate > InstancePtr->Config.MaxLinkRate) {
@@ -2533,7 +2545,10 @@ static XDp_TxTrainingState XDp_TxTrainingStateAdjustLinkRate(XDp *InstancePtr)
 			Status = XDP_TX_TS_CLOCK_RECOVERY;
 			break;
 		}
+<<<<<<< HEAD
 		/* FALLTHRU */
+=======
+>>>>>>> xdp : Adding functional changes for DP1.4.
 	case XDP_TX_LINK_BW_SET_540GBPS:
 		Status = XDp_TxSetLinkRate(InstancePtr,
 						XDP_TX_LINK_BW_SET_270GBPS);
