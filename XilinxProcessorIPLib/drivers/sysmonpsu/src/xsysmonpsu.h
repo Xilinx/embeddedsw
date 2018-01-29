@@ -650,5 +650,8 @@ s32 XSysMonPsu_SelfTest(XSysMonPsu *InstancePtr);
 /* Functions in xsysmonpsu_sinit.c */
 XSysMonPsu_Config *XSysMonPsu_LookupConfig(u16 DeviceId);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XSYSMONPSU_H_ */
