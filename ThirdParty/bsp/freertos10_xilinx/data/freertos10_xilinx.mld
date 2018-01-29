@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 - 2019 Xilinx, Inc.
+# Copyright (C) 2015 - 2020 Xilinx, Inc.
 #
 # This file is part of the FreeRTOS port.
 #
@@ -33,14 +33,16 @@ OPTION DRC = FreeRTOS_drc ;
 OPTION supported_peripherals =  (microblaze ps7_cortexa9 psu_cortexr5 psv_cortexr5 psu_cortexa53 psv_cortexa72);
 OPTION COPYFILES = all;
 OPTION NAME = freertos10_xilinx;
-OPTION VERSION = 1.4;
-OPTION DEPENDS = (standalone_v7_1);
+OPTION VERSION = 1.6;
+OPTION DEPENDS = (standalone_v7_2);
 OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lfreertos,-lgcc,-lc,--end-group";
-OPTION DESC = "This Xilinx FreeRTOS port is based on FreeRTOS kernel version 10.1.1";
+OPTION DESC = "This Xilinx FreeRTOS port is based on FreeRTOS kernel version 10.3.0";
 
 # STDIN/STDOUT
-PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (ps7_uart, psu_uart, psv_sbsauart, ps7_coresight_comp, psu_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm);
-PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, requires_interface = stdout, default=none, range = (ps7_uart, psu_uart, psv_sbsauart, ps7_coresight_comp, psu_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm);
+PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (ps7_uart, psu_uart, psv_sbsauart, ps7_coresight_comp, psu_coresight_0, psv_coresight_0, psv_pmc_ppu1_mdm, axi_uartlite, axi_uart16550, mdm, iomodule);
+PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, requires_interface = stdout, default=none, range = (ps7_uart, psu_uart, psv_sbsauart, ps7_coresight_comp, psu_coresight_0, psv_coresight_0, psv_pmc_ppu1_mdm, axi_uartlite, axi_uart16550, mdm, iomodule);
+PARAM name = clocking, type = bool, default = false, desc = "Enable clocking support", permit = user;
+
 
 BEGIN CATEGORY kernel_behavior
 	PARAM name = kernel_behavior, type = bool, default = true, desc = "Parameters relating to the kernel behavior", permit = none;
