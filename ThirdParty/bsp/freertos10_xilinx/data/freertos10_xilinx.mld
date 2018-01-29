@@ -33,8 +33,8 @@ OPTION DRC = FreeRTOS_drc ;
 OPTION supported_peripherals =  (microblaze ps7_cortexa9 psu_cortexr5 psv_cortexr5 psu_cortexa53 psv_cortexa72);
 OPTION COPYFILES = all;
 OPTION NAME = freertos10_xilinx;
-OPTION VERSION = 1.6;
-OPTION DEPENDS = (standalone_v7_2);
+OPTION VERSION = 1.7;
+OPTION DEPENDS = (standalone_v7_3);
 OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lfreertos,-lgcc,-lc,--end-group";
 OPTION DESC = "This Xilinx FreeRTOS port is based on FreeRTOS kernel version 10.3.0";
 
@@ -42,6 +42,7 @@ OPTION DESC = "This Xilinx FreeRTOS port is based on FreeRTOS kernel version 10.
 PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (ps7_uart, psu_uart, psv_sbsauart, ps7_coresight_comp, psu_coresight_0, psv_coresight_0, psv_pmc_ppu1_mdm, axi_uartlite, axi_uart16550, mdm, iomodule);
 PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, requires_interface = stdout, default=none, range = (ps7_uart, psu_uart, psv_sbsauart, ps7_coresight_comp, psu_coresight_0, psv_coresight_0, psv_pmc_ppu1_mdm, axi_uartlite, axi_uart16550, mdm, iomodule);
 PARAM name = clocking, type = bool, default = false, desc = "Enable clocking support", permit = user;
+PARAM name = hypervisor_guest, type = bool, default = false, desc = "Enable hypervisor guest support for A53 64bit EL1 Non-Secure. If hypervisor_guest is not selected, BSP will be built for EL3.", permit = user;
 
 
 BEGIN CATEGORY kernel_behavior
