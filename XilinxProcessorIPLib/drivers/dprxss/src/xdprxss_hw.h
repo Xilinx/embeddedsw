@@ -82,6 +82,11 @@ extern "C" {
 								      * link
 								      * rate.
 								      */
+#define XDPRXSS_LINK_BW_SET_810GBPS XDP_RX_OVER_LINK_BW_SET_810GBPS /**< 8.10
+								      *  Gbps
+								      * link
+								      * rate.
+								      */
 
 /* 0x0A0: OVER_LANE_COUNT_SET */
 #define XDPRXSS_LANE_COUNT_SET_1 XDP_RX_OVER_LANE_COUNT_SET_1	/**< Lane count
