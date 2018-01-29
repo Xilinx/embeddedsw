@@ -227,6 +227,9 @@ typedef enum {
 						  *  interrupt type for
 						  *  DisplayPort core */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> xdprxss : Adding interrupt support for DP1.4.
 	XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT,     /**< Drv No video event
 						  *  interrupt type for
 						  *  DisplayPort core */
@@ -237,9 +240,12 @@ typedef enum {
 						  *  interrupt type for
 						  *  DisplayPort core */
 	XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT   /**< Drv Access error counter
+<<<<<<< HEAD
 =======
 	XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT     /**< Drv No video event
 >>>>>>> DPRXSS Added interrupt handler for video and power
+=======
+>>>>>>> xdprxss : Adding interrupt support for DP1.4.
 						  *  interrupt type for
 						  *  DisplayPort core */
 } XDpRxSs_HandlerType;
