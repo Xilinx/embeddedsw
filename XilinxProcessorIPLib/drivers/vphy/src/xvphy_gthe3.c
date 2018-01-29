@@ -60,15 +60,10 @@
  * 1.6   gm   12/06/17 Changed XVphy_DrpRead with XVphy_DrpRd
  *                     Changed XVphy_DrpWrite with XVphy_DrpWr
  *                     Improved status return of APIs with DRP Rd and Wr
-<<<<<<< HEAD
  *                     Added N2=8 divider for CPLL for HDMI
  * 1.7   gm   13/09/17 Disabled intelligent clock sel in QPLL0/1 configuration
  *                     Updated DP CDR config for 8.1 Gbps
  *                     Updated XVPHY_QPLL0_MAX to 16375000000LL
-=======
- * 1.7   gm   13/09/17 Disabled intelligent clock sel in QPLL0/1 configuration
- *                     Updated DP CDR config for 8.1 Gbps
->>>>>>> vphy: Initial check-in for 2018.1
  * </pre>
  *
 *******************************************************************************/

@@ -51,12 +51,8 @@
  *                     Removed XVphy_HdmiMmcmStart API
  *                     Corrected GTPE2 DRU REFCLK range
  * 1.6   gm   03/07/17 Added XVPHY_HDMI_GTXE2_DRU_LRATE_Q/CPLL definitions
-<<<<<<< HEAD
  *                     Corrected FVCO range for MMCME4
  * 1.7   gm   13/09/17 Removed XVphy_DruSetGain API
-=======
- * 1.7   gm   03/07/17 Corrected FVCO range for MMCME4
->>>>>>> vphy: Initial check-in for 2018.1
  * </pre>
  *
  * @addtogroup xvphy_v1_7
@@ -78,11 +74,7 @@
 #define XVPHY_HDMI_GTYE4_PLL_SCALE		1000
 #define XVPHY_HDMI_GTYE4_QPLL0_REFCLK_MIN	61250000LL
 #define XVPHY_HDMI_GTYE4_QPLL1_REFCLK_MIN	50000000LL
-<<<<<<< HEAD
 #define XVPHY_HDMI_GTYE4_CPLL_REFCLK_MIN	50000000LL
-=======
-#define XVPHY_HDMI_GTYE4_CPLL_REFCLK_MIN	100000000LL
->>>>>>> vphy: Initial check-in for 2018.1
 #define XVPHY_HDMI_GTYE4_TX_MMCM_SCALE		1
 #define XVPHY_HDMI_GTYE4_TX_MMCM_FVCO_MIN	800000000U
 #define XVPHY_HDMI_GTYE4_TX_MMCM_FVCO_MAX	1600000000U
