@@ -1216,6 +1216,8 @@ void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
 							UINTPTR EffectiveAddr);
 u32 XDp_Initialize(XDp *InstancePtr);
 u32 XDp_TxGetRxCapabilities(XDp *InstancePtr);
+/* Defined for DP 1.4 */
+u32 XDp_TxTp4Capable(XDp *InstancePtr);
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
 /* xdp.c: TX link policy maker functions. */

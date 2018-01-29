@@ -296,6 +296,24 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 						XDP_DPCD_MAX_LANE_COUNT_MASK;
 	LinkConfig->MaxLinkRate = (RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
 				ConfigPtr->MaxLinkRate : RxMaxLinkRate;
+
+	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		/* Check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit */
+		if(Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL] &
+		   XDP_DPCD_TRAIN_AUX_RD_EXT_RX_CAP_FIELD_PRESENT_MASK) {
+			/* This is the check if the monitor is not
+			 * setting 0x001 to 0x1E, but only setting it
+			 * in 0x2201 as maxLinkRate. */
+			u8 Data;
+			/* Check extended capability register */
+			XDp_TxAuxRead(InstancePtr, XDP_EDID_DPCD_MAX_LINK_RATE, 1, &Data);
+			if(Data == XDP_RX_OVER_LINK_BW_SET_810GBPS){
+				RxMaxLinkRate = XDP_RX_OVER_LINK_BW_SET_810GBPS;
+				LinkConfig->MaxLinkRate = XDP_RX_OVER_LINK_BW_SET_810GBPS;
+			}
+		}
+	}
+
 	if (!XDp_IsLinkRateValid(InstancePtr, LinkConfig->MaxLinkRate)) {
 		return XST_FAILURE;
 	}
@@ -311,6 +329,59 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 	LinkConfig->SupportDownspreadControl =
 					Dpcd[XDP_DPCD_MAX_DOWNSPREAD] &
 					XDP_DPCD_MAX_DOWNSPREAD_MASK;
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function will check if the immediate downstream RX device supports
+ * TPS4 pattern mode. A DisplayPort Configuration Data (DPCD)
+ * version of 1.4 is required TPS4_CAPABLE capability bit in the DPCD
+ * must be set for this function to return XST_SUCCESS.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the RX device is TPS4 capable.
+ *		- XST_NO_FEATURE if the RX device does not support TPS4.
+*       - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_FAILURE otherwise - if an AUX read transaction failed.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XDp_TxTp4Capable(XDp *InstancePtr)
+{
+	u32 Status;
+	u8 AuxData;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+
+	/* Check that the RX device has a DisplayPort Configuration Data (DPCD)
+	 * version greater than or equal to 1.4. */
+	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_REV, 1, &AuxData);
+	if (Status != XST_SUCCESS) {
+		/* The AUX read transaction failed. */
+		return Status;
+	}
+	else if (AuxData < 0x14) {
+		return XST_NO_FEATURE;
+	}
+
+	/* Check if the RX device has TPS4 capabilities.. */
+	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_MAX_DOWNSPREAD,
+				1, &AuxData);
+	if (Status != XST_SUCCESS) {
+		/* The AUX read transaction failed. */
+		return Status;
+	} else if ((AuxData & XDP_DPCD_TPS4_SUPPORT_MASK) !=
+			XDP_DPCD_TPS4_SUPPORT_MASK) {
+		return XST_NO_FEATURE;
+	}
 
 	return XST_SUCCESS;
 }
@@ -812,7 +883,8 @@ u32 XDp_TxIicRead(XDp *InstancePtr, u8 IicAddress, u16 Offset,
 	NumBytesLeftInSeg = 256 - Offset8;
 
 	/* Set the segment pointer. */
-	XDp_TxIicWrite(InstancePtr, XDP_SEGPTR_ADDR, 1, &SegPtr);
+	XDp_TxAuxCommon(InstancePtr,XDP_TX_AUX_CMD_I2C_WRITE_MOT, 
+			XDP_SEGPTR_ADDR, 1, &SegPtr);
 
 	/* Send I2C read message. Multiple transactions are required if the
 	 * requested data spans multiple segments. */
@@ -855,8 +927,9 @@ u32 XDp_TxIicRead(XDp *InstancePtr, u8 IicAddress, u16 Offset,
 				Offset %= 256;
 				SegPtr++;
 
-				XDp_TxIicWrite(InstancePtr, XDP_SEGPTR_ADDR,
-								1, &SegPtr);
+				XDp_TxAuxCommon(InstancePtr,
+				XDP_TX_AUX_CMD_I2C_WRITE_MOT, XDP_SEGPTR_ADDR, 1,
+				&SegPtr);
 			}
 			Offset8 = Offset;
 		}
@@ -865,10 +938,6 @@ u32 XDp_TxIicRead(XDp *InstancePtr, u8 IicAddress, u16 Offset,
 			BytesLeft = 0;
 		}
 	}
-
-	/* Reset the segment pointer to 0. */
-	SegPtr = 0;
-	XDp_TxIicWrite(InstancePtr, XDP_SEGPTR_ADDR, 1, &SegPtr);
 
 	return Status;
 }
@@ -1148,6 +1217,14 @@ u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 	case XDP_TX_LINK_BW_SET_540GBPS:
 		Status = XDp_TxSetClkSpeed(InstancePtr,
 					XDP_TX_PHY_CLOCK_SELECT_540GBPS);
+		break;
+	case XDP_TX_LINK_BW_SET_810GBPS:
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			Status = XDp_TxSetClkSpeed(InstancePtr,
+					XDP_TX_PHY_CLOCK_SELECT_810GBPS);
+		} else {
+			Status = XST_FAILURE;
+		}
 		break;
 	default:
 		Status = XST_FAILURE;
@@ -1758,8 +1835,9 @@ u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate)
 	u8 Valid;
 
 	if ((LinkRate != XDP_LINK_BW_SET_162GBPS) &&
-			(LinkRate != XDP_LINK_BW_SET_270GBPS) &&
-			(LinkRate != XDP_LINK_BW_SET_540GBPS)) {
+		(LinkRate != XDP_LINK_BW_SET_270GBPS) &&
+		(LinkRate != XDP_LINK_BW_SET_540GBPS) &&
+		(LinkRate != XDP_LINK_BW_SET_810GBPS)) {
 		Valid = 0;
 	}
 	else if (LinkRate > InstancePtr->Config.MaxLinkRate) {
@@ -1850,6 +1928,14 @@ static u32 XDp_TxInitialize(XDp *InstancePtr)
 
 	/* Set the DisplayPort TX core's clock speed. */
 	switch (ConfigPtr->MaxLinkRate) {
+	case XDP_TX_LINK_BW_SET_810GBPS:
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_PHY_CLOCK_SELECT,
+						XDP_TX_PHY_CLOCK_SELECT_810GBPS);
+		} else {
+			return XST_FAILURE;
+		}
+		break;
 	case XDP_TX_LINK_BW_SET_540GBPS:
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_PHY_CLOCK_SELECT,
 					XDP_TX_PHY_CLOCK_SELECT_540GBPS);
@@ -1978,21 +2064,36 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 	/* Set the AUX training interval. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x1);
 	/* programming AUX defer to 6 */
-	Regval = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_AUX_CLK_DIVIDER);
+	Regval = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+			     XDP_RX_AUX_CLK_DIVIDER);
 	Regval |= Regval | (6 << XDP_RX_AUX_DEFER_SHIFT);
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_AUX_CLK_DIVIDER, Regval);
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_TP_SET,
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+		     XDP_RX_AUX_CLK_DIVIDER, Regval);
+	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		/* Set 16 ms as AUX read interval and
+		 * set extended receiver capability*/
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_TP_SET,
+			(XDP_DPCD_TRAIN_AUX_RD_INT_16MS <<
+			 XDP_RX_OVER_TP_SET_TRAINING_AUX_RD_INTERVAL_SHIFT) | 
+			0x8000);
+	} else {
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_TP_SET,
 			(XDP_DPCD_TRAIN_AUX_RD_INT_8MS <<
-			XDP_RX_OVER_TP_SET_TRAINING_AUX_RD_INTERVAL_SHIFT));
+			 XDP_RX_OVER_TP_SET_TRAINING_AUX_RD_INTERVAL_SHIFT));
+	}
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x0);
 	/* Set the link configuration.*/
 	XDp_RxSetLinkRate(InstancePtr,
-				InstancePtr->RxInstance.LinkConfig.LinkRate);
+			InstancePtr->RxInstance.LinkConfig.LinkRate);
 	XDp_RxSetLaneCount(InstancePtr,
-				InstancePtr->RxInstance.LinkConfig.LaneCount);
+			InstancePtr->RxInstance.LinkConfig.LaneCount);
 
 	/* Set the interrupt masks. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK, 0x0);
+	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			     XDP_RX_INTERRUPT_MASK_1, 0x0);
+	}
 
 	/* Enable the RX core. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_LINK_ENABLE, 0x1);
@@ -2070,6 +2171,17 @@ static u32 XDp_TxRunTraining(XDp *InstancePtr)
 				return XST_FAILURE;
 			}
 		}
+	}
+
+	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		/* Post Link Training ; Write 0x101 bit5 to
+		 * set POST_LT_ADJ_REQ_GRANTED bit */
+		int Data;
+		Status = XDp_TxAuxRead(InstancePtr,
+				       XDP_DPCD_LANE_COUNT_SET, 1, &Data);
+		Data = Data | 0x20;
+		Status = XDp_TxAuxWrite(InstancePtr,
+					XDP_DPCD_LANE_COUNT_SET, 1, &Data);
 	}
 
 	/* Final status check. */
@@ -2231,7 +2343,7 @@ static XDp_TxTrainingState XDp_TxTrainingStateClockRecovery(XDp *InstancePtr)
 static XDp_TxTrainingState XDp_TxTrainingStateChannelEqualization(
 							XDp *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XST_SUCCESS;
 	u32 DelayUs;
 	u32 IterationCount = 0;
 
@@ -2245,15 +2357,22 @@ static XDp_TxTrainingState XDp_TxTrainingStateChannelEqualization(
 	/* Write the current drive settings. */
 	/* Transmit training pattern 2/3. */
 	if (InstancePtr->TxInstance.RxConfig.
+				DpcdRxCapsField[XDP_DPCD_MAX_DOWNSPREAD] &
+				XDP_DPCD_TPS4_SUPPORT_MASK) {
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			Status = XDp_TxSetTrainingPattern(InstancePtr,
+					XDP_TX_TRAINING_PATTERN_SET_TP4);
+		}
+	} else if (InstancePtr->TxInstance.RxConfig.
 				DpcdRxCapsField[XDP_DPCD_MAX_LANE_COUNT] &
 				XDP_DPCD_TPS3_SUPPORT_MASK) {
 		Status = XDp_TxSetTrainingPattern(InstancePtr,
 					XDP_TX_TRAINING_PATTERN_SET_TP3);
-	}
-	else {
+	} else {
 		Status = XDp_TxSetTrainingPattern(InstancePtr,
 					XDP_TX_TRAINING_PATTERN_SET_TP2);
 	}
+	
 	if (Status != XST_SUCCESS) {
 		return XDP_TX_TS_FAILURE;
 	}
@@ -2322,6 +2441,17 @@ static XDp_TxTrainingState XDp_TxTrainingStateAdjustLinkRate(XDp *InstancePtr)
 	u32 Status;
 
 	switch (InstancePtr->TxInstance.LinkConfig.LinkRate) {
+	case XDP_TX_LINK_BW_SET_810GBPS:
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			Status = XDp_TxSetLinkRate(InstancePtr,
+						XDP_TX_LINK_BW_SET_540GBPS);
+			if (Status != XST_SUCCESS) {
+				Status = XDP_TX_TS_FAILURE;
+				break;
+			}
+			Status = XDP_TX_TS_CLOCK_RECOVERY;
+			break;
+		}
 	case XDP_TX_LINK_BW_SET_540GBPS:
 		Status = XDp_TxSetLinkRate(InstancePtr,
 						XDP_TX_LINK_BW_SET_270GBPS);
@@ -2784,6 +2914,7 @@ static u32 XDp_TxAdjVswingPreemp(XDp *InstancePtr)
  *		- XDP_TX_TRAINING_PATTERN_SET_TP1
  *		- XDP_TX_TRAINING_PATTERN_SET_TP2
  *		- XDP_TX_TRAINING_PATTERN_SET_TP3
+ *		- XDP_TX_TRAINING_PATTERN_SET_TP4 (in case of DP 1.4)
  *
  * @return
  *		- XST_SUCCESS if setting the pattern was successful.
@@ -2818,6 +2949,13 @@ static u32 XDp_TxSetTrainingPattern(XDp *InstancePtr, u32 Pattern)
 						XDP_TX_SCRAMBLING_DISABLE, 1);
 		InstancePtr->TxInstance.LinkConfig.ScramblerEn = 0;
 		break;
+	case XDP_TX_TRAINING_PATTERN_SET_TP4:
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			XDp_WriteReg(InstancePtr->Config.BaseAddr,
+							XDP_TX_SCRAMBLING_DISABLE, 0);
+			InstancePtr->TxInstance.LinkConfig.ScramblerEn = 1;
+			break;
+		}
 	default:
 		break;
 	}
@@ -2864,7 +3002,8 @@ static u32 XDp_TxGetTrainingDelay(XDp *InstancePtr,
 	u8 *Dpcd = InstancePtr->TxInstance.RxConfig.DpcdRxCapsField;
 	u16 Delay;
 
-	switch (Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL]) {
+	switch ((Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL] &
+			 XDP_DPCD_TRAIN_AUX_RD_INT_MASK)) {
 	case XDP_DPCD_TRAIN_AUX_RD_INT_100_400US:
 		if (TrainingState == XDP_TX_TS_CLOCK_RECOVERY) {
 			/* Delay for the clock recovery phase. */
