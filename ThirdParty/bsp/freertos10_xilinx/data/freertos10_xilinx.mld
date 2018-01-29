@@ -33,9 +33,15 @@ BEGIN OS freertos10_xilinx
 OPTION DRC = FreeRTOS_drc ;
 OPTION supported_peripherals =  (microblaze ps7_cortexa9 psu_cortexr5 psu_cortexa53);
 OPTION COPYFILES = all;
+<<<<<<< HEAD:ThirdParty/bsp/freertos10_xilinx/data/freertos10_xilinx.mld
 OPTION NAME = freertos10_xilinx;
 OPTION VERSION = 1.2;
 OPTION DEPENDS = (standalone_v6_8);
+=======
+OPTION NAME = freertos901_xilinx;
+OPTION VERSION = 1.2;
+OPTION DEPENDS = (standalone_v6_6);
+>>>>>>> ThirdParty:bsp: Fix FreeRTOS BSP version number:ThirdParty/bsp/freertos901_xilinx/data/freertos901_xilinx.mld
 OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lfreertos,-lgcc,-lc,--end-group";
 OPTION DESC = "FreeRTOS is a market leading open source RTOS";
 
