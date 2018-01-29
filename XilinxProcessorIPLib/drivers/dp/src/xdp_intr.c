@@ -162,10 +162,10 @@ void XDp_RxInterruptEnable(XDp *InstancePtr, u32 Mask)
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 
 	MaskVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
-							XDP_RX_INTERRUPT_MASK);
+				XDP_RX_INTERRUPT_MASK);
 	MaskVal &= ~Mask;
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK,
-								MaskVal);
+						MaskVal);
 }
 
 /******************************************************************************/
@@ -191,10 +191,68 @@ void XDp_RxInterruptDisable(XDp *InstancePtr, u32 Mask)
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 
 	MaskVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
-							XDP_RX_INTERRUPT_MASK);
+				XDP_RX_INTERRUPT_MASK);
 	MaskVal |= Mask;
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK,
-								MaskVal);
+						MaskVal);
+}
+
+/******************************************************************************/
+/**
+ * This function enables interrupts associated with the specified mask1.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Mask specifies which interrupts should be enabled. Bits set to
+ *		1 will enable the corresponding interrupts.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxInterruptEnable1(XDp *InstancePtr, u32 Mask)
+{
+	u32 MaskVal;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+
+	MaskVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+			      XDP_RX_INTERRUPT_MASK_1);
+	MaskVal &= ~Mask;
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK_1,
+						MaskVal);
+}
+
+/******************************************************************************/
+/**
+ * This function disables interrupts associated with the specified mask1.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Mask specifies which interrupts should be disabled. Bits set to
+ *		1 will disable the corresponding interrupts.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxInterruptDisable1(XDp *InstancePtr, u32 Mask)
+{
+	u32 MaskVal;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+
+	MaskVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+			      XDP_RX_INTERRUPT_MASK_1);
+	MaskVal |= Mask;
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK_1,
+						MaskVal);
 }
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
@@ -402,6 +460,18 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 		Status = XST_SUCCESS;
 		break;
 
+		/* Interrupts for DP 1.4 : set callback start. */
+	case XDP_RX_HANDLER_TP4:
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			InstancePtr->RxInstance.IntrTp4Handler = CallbackFunc;
+			InstancePtr->RxInstance.IntrTp4CallbackRef = CallbackRef;
+			Status = XST_SUCCESS;
+		} else {
+			Status = XST_FAILURE;
+		}
+		break;
+		/* Interrupts for DP 1.4 : set callback end. */
+
 	case XDP_RX_HANDLER_DOWNREQ:
 		InstancePtr->RxInstance.IntrDownReqHandler = CallbackFunc;
 		InstancePtr->RxInstance.IntrDownReqCallbackRef = CallbackRef;
@@ -479,6 +549,44 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 		InstancePtr->RxInstance.IntrUnplugCallbackRef = CallbackRef;
 		Status = XST_SUCCESS;
 		break;
+
+		/* Interrupts for DP 1.4 : set callback start. */
+	case XDP_RX_HANDLER_ACCESS_LANE_SET:
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			InstancePtr->RxInstance.IntrAccessLaneSetHandler =
+					CallbackFunc;
+			InstancePtr->RxInstance.IntrAccessLaneSetCallbackRef =
+					CallbackRef;
+			Status = XST_SUCCESS;
+		} else {
+			Status = XST_FAILURE;
+		}
+		break;
+
+	case XDP_RX_HANDLER_ACCESS_LINK_QUAL:
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			InstancePtr->RxInstance.IntrAccessLinkQualHandler =
+					CallbackFunc;
+			InstancePtr->RxInstance.IntrAccessLinkQualCallbackRef =
+					CallbackRef;
+			Status = XST_SUCCESS;
+		} else {
+			Status = XST_FAILURE;
+		}
+		break;
+
+	case XDP_RX_HANDLER_ACCESS_ERR_COUNTER:
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			InstancePtr->RxInstance.IntrAccessErrorCounterHandler =
+					CallbackFunc;
+			InstancePtr->RxInstance.IntrAccessErrorCounterCallbackRef =
+					CallbackRef;
+			Status = XST_SUCCESS;
+		} else {
+			Status = XST_FAILURE;
+		}
+		break;
+		/* Interrupts for DP 1.4 : set callback end. */
 
 	case XDP_RX_HANDLER_DRV_PWRSTATE:
 		InstancePtr->RxInstance.IntrDrvPowerStateHandler = CallbackFunc;
@@ -785,6 +893,45 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 		InstancePtr->RxInstance.IntrUnplugHandler(
 			InstancePtr->RxInstance.IntrUnplugCallbackRef);
 	}
+
+	/* DP 1.4 related interrupt handling */
+	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		u32 IntrStatus1;
+
+		/* Determine what kind of interrupts have occurred.
+		 * Note: XDP_RX_INTERRUPT_CAUSE is a RC (read-clear) register. */
+		IntrStatus1 = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+					  XDP_RX_INTERRUPT_CAUSE_1);
+		/* Mask out required interrupts. */
+		IntrStatus1 &= ~XDp_ReadReg(InstancePtr->Config.BaseAddr,
+					    XDP_RX_INTERRUPT_MASK_1);
+
+		/* Training pattern 4 has started. */
+		if ((IntrStatus1 & XDP_RX_INTERRUPT_MASK_TP4_MASK) &&
+				InstancePtr->RxInstance.IntrTp4Handler) {
+			InstancePtr->RxInstance.IntrTp4Handler(
+				InstancePtr->RxInstance.IntrTp4CallbackRef);
+		}
+		/* Access lane set event. */
+		if ((IntrStatus1 & XDP_RX_INTERRUPT_MASK_ACCESS_LANE_SET_MASK) &&
+				InstancePtr->RxInstance.IntrAccessLaneSetHandler) {
+			InstancePtr->RxInstance.IntrAccessLaneSetHandler(
+				InstancePtr->RxInstance.IntrAccessLaneSetCallbackRef);
+		}
+		/* Access link qual set event. */
+		if ((IntrStatus1 & XDP_RX_INTERRUPT_MASK_ACCESS_LINK_QUAL_MASK) &&
+				InstancePtr->RxInstance.IntrAccessLinkQualHandler) {
+			InstancePtr->RxInstance.IntrAccessLinkQualHandler(
+				InstancePtr->RxInstance.IntrAccessLinkQualCallbackRef);
+		}
+		/* Access error counter read event. */
+		if ((IntrStatus1 & XDP_RX_INTERRUPT_MASK_ACCESS_ERROR_COUNTER_MASK) &&
+				InstancePtr->RxInstance.IntrAccessErrorCounterHandler) {
+			InstancePtr->RxInstance.IntrAccessErrorCounterHandler(
+				InstancePtr->RxInstance.IntrAccessErrorCounterCallbackRef);
+		}
+	}
+
 }
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 /** @} */
