@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xdprxss.h
-* @addtogroup dprxss_v4_2
+* @addtogroup dprxss_v4_1
 * @{
 * @details
 *
@@ -213,16 +211,7 @@ typedef enum {
 	XDPRXSS_DRV_HANDLER_DP_VID_EVENT,       /**< Drv Valid video event
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT,     /**< Drv No video event
-						  *  interrupt type for
-						  *  DisplayPort core */
-	XDPRXSS_HANDLER_ACCESS_LANE_SET_EVENT,    /**< Drv Access lane set
-						  *  interrupt type for
-						  *  DisplayPort core */
-	XDPRXSS_HANDLER_ACCESS_LINK_QUAL_EVENT,    /**< Drv Access link qual
-						  *  interrupt type for
-						  *  DisplayPort core */
-	XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT   /**< Drv Access error counter
+	XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT     /**< Drv No video event
 						  *  interrupt type for
 						  *  DisplayPort core */
 } XDpRxSs_HandlerType;
@@ -367,11 +356,6 @@ typedef struct {
 					  *  to the unplug event callback
 					  *  function */
 
-	XDpRxSs_Callback AccessLaneSetCallback;	/**< Callback function for
-						  *  AccessLaneSet */
-	void *AccessLaneSetRef;		/**< A pointer to the user data passed
-					  *  to the AccessLaneSet callback
-					  *  function */
 	/* Vertical blank */
 	u8 VBlankEnable;		/**< Vertical Blank Enable */
 	u8 VBlankCount;			/**< Vertical Blank Count */

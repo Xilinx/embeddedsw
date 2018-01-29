@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xdprxss.c
-* @addtogroup dprxss_v4_2
+* @addtogroup dprxss_v5_0
 * @{
 *
 * This is the main file for Xilinx DisplayPort Receiver Subsystem driver.
@@ -62,6 +62,7 @@
 *		    to solve compiler warnings
 * 4.1  tu  09/08/17 Set Driver side three interrupt handler callback in
 *                   XDpRxSs_CfgInitialize function
+* 5.0  yas 01/28/18 Added support for DP 1.4.
 * </pre>
 *
 ******************************************************************************/
@@ -69,6 +70,7 @@
 /***************************** Include Files *********************************/
 
 #include "xdprxss.h"
+#include "xdprxss_mcdp6000.h"
 #include "xdprxss_dp159.h"
 #include "string.h"
 #include "xdebug.h"
@@ -98,6 +100,7 @@ static void DpRxSs_PopulateDpRxPorts(XDpRxSs *InstancePtr);
 static void StubTp1Callback(void *InstancePtr);
 static void StubTp2Callback(void *InstancePtr);
 static void StubUnplugCallback(void *InstancePtr);
+static void StubAccessLaneSetCallback(void *InstancePtr);
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 static int DpRxSs_HdcpStartTimer(void *InstancePtr, u16 TimeoutInMs);
@@ -288,6 +291,12 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 				StubTp2Callback, (void *)InstancePtr);
 		XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_UNPLUG,
 				StubUnplugCallback, (void *)InstancePtr);
+		if (InstancePtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_TP4,
+					StubTp2Callback, (void *)InstancePtr);
+			XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_ACCESS_LANE_SET,
+					StubAccessLaneSetCallback, (void *)InstancePtr);
+		}
 
 		/* Initialize configurable parameters */
 		InstancePtr->UsrOpt.Bpc = InstancePtr->Config.MaxBpc;
@@ -1492,6 +1501,11 @@ static void StubTp1Callback(void *InstancePtr)
 	/* Verify argument.*/
 	Xil_AssertVoid(DpRxSsPtr != NULL);
 
+	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		DpRxSsPtr->ltState = 1;
+		DpRxSsPtr->ceItrCounter = 0;
+	}
+ 
 	/* Read link rate */
 	DpRxSsPtr->UsrOpt.LinkRate =
 		XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
@@ -1547,11 +1561,16 @@ static void StubTp1Callback(void *InstancePtr)
 ******************************************************************************/
 static void StubTp2Callback(void *InstancePtr)
 {
+	/* Verify argument.*/
+	Xil_AssertVoid(InstancePtr != NULL);
+
 	u8 Index;
 	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
 
-	/* Verify argument.*/
-	Xil_AssertVoid(DpRxSsPtr != NULL);
+	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		DpRxSsPtr->ltState = 2;
+		return;
+	}
 
 	/* DP159 config for TP2 */
 	XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_TP2,
@@ -1587,6 +1606,13 @@ static void StubUnplugCallback(void *InstancePtr)
 	/* Verify argument.*/
 	Xil_AssertVoid(DpRxSsPtr != NULL);
 
+	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		DpRxSsPtr->ltState = 0;
+		DpRxSsPtr->ceItrCounter = 0;
+		DpRxSsPtr->prevLinkRate = 0;
+		DpRxSsPtr->prevLaneCounts = 0;
+	}
+ 
 	/* DP159 config for TP2 */
 	XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
 		DpRxSsPtr->UsrOpt.LinkRate, DpRxSsPtr->UsrOpt.LaneCount);
@@ -1604,5 +1630,75 @@ static void StubUnplugCallback(void *InstancePtr)
 	if (DpRxSsPtr->UnplugCallback) {
 		DpRxSsPtr->UnplugCallback(DpRxSsPtr->UnplugRef);
 	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This routine is a stub for the asynchronous access lane set
+* interrupt callback. On initialization, access lane set interrupt handler
+* is set to this callback.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void StubAccessLaneSetCallback(void *InstancePtr)
+{
+	/* Verify argument.*/
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
+	u32 read_val;
+
+	u8 training = XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
+				      XDP_RX_DPCD_TRAINING_PATTERN_SET);
+
+	if (DpRxSsPtr->ltState == 2 && training != 1) {
+
+		read_val = XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
+					   XDP_RX_DPCD_LANE01_STATUS);
+		read_val &= 0x0000FF00;
+
+		if (DpRxSsPtr->ceRequestValue != read_val) {
+		XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr->IicPtr->BaseAddress,
+					       XDPRXSS_MCDP6000_IIC_SLAVE);
+		}
+
+		/* Update the value to be used in next round */
+		DpRxSsPtr->ceRequestValue =
+			(XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
+					 XDP_RX_DPCD_LANE01_STATUS) &
+			 0x0000FF00);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This routine initializes the MCDP6000 part on the VFMC card used
+* for DP 1.4.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpRxSs_McDp6000_init(void *InstancePtr, u32 I2CAddress)
+{
+	/* Verify argument.*/
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
+	DpRxSsPtr->IicPtr->BaseAddress = I2CAddress;
+
+	XDpRxSs_MCDP6000_DpInit(DpRxSsPtr->IicPtr->BaseAddress,
+				XDPRXSS_MCDP6000_IIC_SLAVE);
+
 }
 /** @} */
