@@ -781,9 +781,71 @@ void XDp_RxInterruptDisable(XDp *InstancePtr, u32 Mask)
 	MaskVal |= Mask;
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK,
 <<<<<<< HEAD
+<<<<<<< HEAD
 						MaskVal);
 =======
 								MaskVal);
+=======
+						MaskVal);
+}
+
+/******************************************************************************/
+/**
+ * This function enables interrupts associated with the specified mask1.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Mask specifies which interrupts should be enabled. Bits set to
+ *		1 will enable the corresponding interrupts.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxInterruptEnable1(XDp *InstancePtr, u32 Mask)
+{
+	u32 MaskVal;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+
+	MaskVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+			      XDP_RX_INTERRUPT_MASK_1);
+	MaskVal &= ~Mask;
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK_1,
+						MaskVal);
+}
+
+/******************************************************************************/
+/**
+ * This function disables interrupts associated with the specified mask1.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Mask specifies which interrupts should be disabled. Bits set to
+ *		1 will disable the corresponding interrupts.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxInterruptDisable1(XDp *InstancePtr, u32 Mask)
+{
+	u32 MaskVal;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+
+	MaskVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+			      XDP_RX_INTERRUPT_MASK_1);
+	MaskVal |= Mask;
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK_1,
+						MaskVal);
+>>>>>>> xdp : Added intrrupts for DP1.4 support.
 }
 
 

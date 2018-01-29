@@ -463,9 +463,13 @@ typedef enum {
 	XDP_RX_HANDLER_TP2,
 	XDP_RX_HANDLER_TP3,
 <<<<<<< HEAD
+<<<<<<< HEAD
 	XDP_RX_HANDLER_TP4,
 =======
 >>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
+=======
+	XDP_RX_HANDLER_TP4,
+>>>>>>> xdp : Added intrrupts for DP1.4 support.
 	XDP_RX_HANDLER_DOWNREQ,
 	XDP_RX_HANDLER_DOWNREPLY,
 	XDP_RX_HANDLER_AUD_PKTOVERFLOW,
@@ -480,11 +484,17 @@ typedef enum {
 	XDP_RX_HANDLER_HDCP_BINFO,
 	XDP_RX_HANDLER_UNPLUG,
 <<<<<<< HEAD
+<<<<<<< HEAD
 	XDP_RX_HANDLER_ACCESS_LANE_SET,
 	XDP_RX_HANDLER_ACCESS_LINK_QUAL,
 	XDP_RX_HANDLER_ACCESS_ERR_COUNTER,
 =======
 >>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
+=======
+	XDP_RX_HANDLER_ACCESS_LANE_SET,
+	XDP_RX_HANDLER_ACCESS_LINK_QUAL,
+	XDP_RX_HANDLER_ACCESS_ERR_COUNTER,
+>>>>>>> xdp : Added intrrupts for DP1.4 support.
 	XDP_RX_HANDLER_DRV_PWRSTATE,
 	XDP_RX_HANDLER_DRV_NOVIDEO,
 	XDP_RX_HANDLER_DRV_VIDEO,
@@ -1205,6 +1215,9 @@ typedef struct {
 						  passed to the video
 						  drv function */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> xdp : Added intrrupts for DP1.4 support.
 	/* Interrupt callback(s) defined for DP 1.4 */
 	XDp_IntrHandler IntrAccessLaneSetHandler; /**< Callback function for
 						  access lane set
@@ -1227,8 +1240,11 @@ typedef struct {
 						    lane set callback
 						    function. */
 	/* End of definitions for DP 1.4 interrupt callback(s) */
+<<<<<<< HEAD
 =======
 >>>>>>> DPRXSS Added interrupt handler for video and power
+=======
+>>>>>>> xdp : Added intrrupts for DP1.4 support.
 } XDp_Rx;
 
 /**
