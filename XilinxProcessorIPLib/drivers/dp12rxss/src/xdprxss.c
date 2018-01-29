@@ -218,7 +218,9 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 		}
 
 		/* Reset DP159 */
-		XDpRxSs_Dp159Reset(InstancePtr->IicPtr, TRUE);
+		if (InstancePtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
+			XDpRxSs_Dp159Reset(InstancePtr->IicPtr, TRUE);
+		}
 
 		/* IIC initialization for dynamic functionality */
 		Status = XIic_DynamicInitialize(InstancePtr->IicPtr);
@@ -269,13 +271,17 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 				InstancePtr->Config.MaxLaneCount);
 
 		/* Bring DP159 out of reset */
-		XDpRxSs_Dp159Reset(InstancePtr->IicPtr, FALSE);
+		if (InstancePtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
+			XDpRxSs_Dp159Reset(InstancePtr->IicPtr, FALSE);
+		}
 
 		/* Wait for us */
 		XDp_WaitUs(InstancePtr->DpPtr, 1000);
 
 		/* Initialize DP159 */
-		XDpRxSs_Dp159Initialize(InstancePtr->IicPtr);
+		if (InstancePtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
+			XDpRxSs_Dp159Initialize(InstancePtr->IicPtr);
+		}
 
 		/* Wait for us */
 		XDp_WaitUs(InstancePtr->DpPtr, 1000);
@@ -497,7 +503,8 @@ u32 XDpRxSs_SetLinkRate(XDpRxSs *InstancePtr, u8 LinkRate)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((LinkRate == (XDPRXSS_LINK_BW_SET_162GBPS)) ||
 			(LinkRate == (XDPRXSS_LINK_BW_SET_270GBPS)) ||
-			(LinkRate == (XDPRXSS_LINK_BW_SET_540GBPS)));
+			(LinkRate == (XDPRXSS_LINK_BW_SET_540GBPS)) ||
+			(LinkRate == (XDPRXSS_LINK_BW_SET_810GBPS)));
 
 	/* Check for maximum supported link rate */
 	if (LinkRate > InstancePtr->DpPtr->Config.MaxLinkRate) {
@@ -1516,10 +1523,12 @@ static void StubTp1Callback(void *InstancePtr)
 		XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
 			XDPRXSS_DPCD_LANE_COUNT_SET);
 
-	/* DP159 config for TP1 */
-	XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_TP1,
-			DpRxSsPtr->UsrOpt.LinkRate,
-				DpRxSsPtr->UsrOpt.LaneCount);
+	if (DpRxSsPtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
+		/* DP159 config for TP1 */
+		XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_TP1,
+					DpRxSsPtr->UsrOpt.LinkRate,
+					DpRxSsPtr->UsrOpt.LaneCount);
+	}
 
 	/* Link bandwidth callback */
 	if (DpRxSsPtr->LinkBwCallback) {
@@ -1542,6 +1551,14 @@ static void StubTp1Callback(void *InstancePtr)
 
 	/* Set vertical blank count */
 	DpRxSsPtr->VBlankCount = 0;
+	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		DpRxSsPtr->prevLinkRate =
+			XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
+						XDPRXSS_DPCD_LINK_BW_SET);
+		DpRxSsPtr->prevLaneCounts =
+			XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
+						XDPRXSS_DPCD_LANE_COUNT_SET);
+	}
 }
 
 /*****************************************************************************/
@@ -1613,9 +1630,12 @@ static void StubUnplugCallback(void *InstancePtr)
 		DpRxSsPtr->prevLaneCounts = 0;
 	}
  
-	/* DP159 config for TP2 */
-	XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
-		DpRxSsPtr->UsrOpt.LinkRate, DpRxSsPtr->UsrOpt.LaneCount);
+	if (DpRxSsPtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
+		/* DP159 config for TP2 */
+		XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
+					DpRxSsPtr->UsrOpt.LinkRate,
+					DpRxSsPtr->UsrOpt.LaneCount);
+	}
 
 	/* Disable unplug interrupt so that no unplug event when RX is
 	 * disconnected
