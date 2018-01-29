@@ -35,6 +35,7 @@
 * @file xdprxss.c
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 * @addtogroup dprxss_v5_0
 =======
 * @addtogroup dprxss_v4_1
@@ -42,6 +43,9 @@
 =======
 * @addtogroup dprxss_v4_2
 >>>>>>> Addtogroup version updated for dprxss
+=======
+* @addtogroup dprxss_v5_0
+>>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
 * @{
 *
 * This is the main file for Xilinx DisplayPort Receiver Subsystem driver.
@@ -75,9 +79,13 @@
 * 4.1  tu  09/08/17 Set Driver side three interrupt handler callback in
 *                   XDpRxSs_CfgInitialize function
 <<<<<<< HEAD
+<<<<<<< HEAD
 * 5.0  yas 01/28/18 Added support for DP 1.4.
 =======
 >>>>>>> DPRXSS Added interrupt handler for video and power
+=======
+* 5.0  yas 01/28/18 Added support for DP 1.4.
+>>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
 * </pre>
 *
 ******************************************************************************/
@@ -313,14 +321,20 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 		XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_UNPLUG,
 				StubUnplugCallback, (void *)InstancePtr);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
 		if (InstancePtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 			XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_TP4,
 					StubTp2Callback, (void *)InstancePtr);
 			XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_ACCESS_LANE_SET,
 					StubAccessLaneSetCallback, (void *)InstancePtr);
 		}
+<<<<<<< HEAD
 =======
 >>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
+=======
+>>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
 
 		/* Initialize configurable parameters */
 		InstancePtr->UsrOpt.Bpc = InstancePtr->Config.MaxBpc;
@@ -1642,12 +1656,18 @@ static void StubUnplugCallback(void *InstancePtr)
 		DpRxSsPtr->prevLaneCounts = 0;
 	}
  
+<<<<<<< HEAD
 	if (DpRxSsPtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
 		/* DP159 config for TP2 */
 		XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
 					DpRxSsPtr->UsrOpt.LinkRate,
 					DpRxSsPtr->UsrOpt.LaneCount);
 	}
+=======
+	/* DP159 config for TP2 */
+	XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
+		DpRxSsPtr->UsrOpt.LinkRate, DpRxSsPtr->UsrOpt.LaneCount);
+>>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
 
 	/* Disable unplug interrupt so that no unplug event when RX is
 	 * disconnected

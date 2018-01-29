@@ -409,8 +409,11 @@ typedef struct {
 	u8 ltState; 		/**< To check if current LT is in CR or CE */
 	u8 prevLinkRate;
 	u8 prevLaneCounts;
+<<<<<<< HEAD
 	u8 link_up_trigger;
 	u8 no_video_trigger;
+=======
+>>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
 } XDpRxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -582,9 +585,13 @@ void XDpRxSs_DrvVideoHandler(void *InstancePtr);
 void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 void XDpRxSs_McDp6000_init(void *InstancePtr, u32 I2CAddress);
 =======
 >>>>>>> DPRXSS Added interrupt handler for video and power
+=======
+void XDpRxSs_McDp6000_init(void *InstancePtr, u32 I2CAddress);
+>>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
 /************************** Variable Declarations ****************************/
 
 
