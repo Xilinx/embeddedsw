@@ -800,9 +800,15 @@ u32 XDpTxSs_DpTxStartLink(XDp *InstancePtr, u8 TrainMaxCap)
 static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 {
 	u32 MstCapable;
-	u32 LinkBw = (InstancePtr->TxInstance.LinkConfig.LaneCount *
-			InstancePtr->TxInstance.LinkConfig.LinkRate * 27);
-	u8 BitsPerPixel = 3 * Bpc;
+	u32 LinkBw;
+	u8 BitsPerPixel;
+
+	LinkBw = (InstancePtr->TxInstance.LinkConfig.LaneCount *
+		  InstancePtr->TxInstance.LinkConfig.LinkRate * 27);
+	BitsPerPixel = (InstancePtr->TxInstance.MsaConfig[0].ComponentFormat ==
+			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) ?
+				(2 * Bpc) :
+				(3 * Bpc);
 
 	/* Check for maximum link rate supported */
 	if (InstancePtr->TxInstance.LinkConfig.MaxLinkRate <
