@@ -808,7 +808,8 @@ u32 XDpTxSs_SetLinkRate(XDpTxSs *InstancePtr, u8 LinkRate)
 	/* Verify arguments. */
 	Xil_AssertNonvoid((LinkRate == XDPTXSS_LINK_BW_SET_162GBPS) ||
 			(LinkRate == XDPTXSS_LINK_BW_SET_270GBPS) ||
-			(LinkRate == XDPTXSS_LINK_BW_SET_540GBPS));
+			(LinkRate == XDPTXSS_LINK_BW_SET_540GBPS) ||
+			(LinkRate == XDPTXSS_LINK_BW_SET_810GBPS));
 
 
 	/* Set link rate */
