@@ -213,16 +213,7 @@ typedef enum {
 	XDPRXSS_DRV_HANDLER_DP_VID_EVENT,       /**< Drv Valid video event
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT,     /**< Drv No video event
-						  *  interrupt type for
-						  *  DisplayPort core */
-	XDPRXSS_HANDLER_ACCESS_LANE_SET_EVENT,    /**< Drv Access lane set
-						  *  interrupt type for
-						  *  DisplayPort core */
-	XDPRXSS_HANDLER_ACCESS_LINK_QUAL_EVENT,    /**< Drv Access link qual
-						  *  interrupt type for
-						  *  DisplayPort core */
-	XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT   /**< Drv Access error counter
+	XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT     /**< Drv No video event
 						  *  interrupt type for
 						  *  DisplayPort core */
 } XDpRxSs_HandlerType;
@@ -367,11 +358,6 @@ typedef struct {
 					  *  to the unplug event callback
 					  *  function */
 
-	XDpRxSs_Callback AccessLaneSetCallback;	/**< Callback function for
-						  *  AccessLaneSet */
-	void *AccessLaneSetRef;		/**< A pointer to the user data passed
-					  *  to the AccessLaneSet callback
-					  *  function */
 	/* Vertical blank */
 	u8 VBlankEnable;		/**< Vertical Blank Enable */
 	u8 VBlankCount;			/**< Vertical Blank Count */
