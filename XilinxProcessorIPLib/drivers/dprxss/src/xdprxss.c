@@ -1657,17 +1657,23 @@ static void StubUnplugCallback(void *InstancePtr)
 	}
  
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> xdprxss : Adding functional updates for DP1.4.
 	if (DpRxSsPtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
 		/* DP159 config for TP2 */
 		XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
 					DpRxSsPtr->UsrOpt.LinkRate,
 					DpRxSsPtr->UsrOpt.LaneCount);
 	}
+<<<<<<< HEAD
 =======
 	/* DP159 config for TP2 */
 	XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
 		DpRxSsPtr->UsrOpt.LinkRate, DpRxSsPtr->UsrOpt.LaneCount);
 >>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
+=======
+>>>>>>> xdprxss : Adding functional updates for DP1.4.
 
 	/* Disable unplug interrupt so that no unplug event when RX is
 	 * disconnected

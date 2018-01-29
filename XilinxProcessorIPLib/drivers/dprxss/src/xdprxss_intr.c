@@ -260,6 +260,9 @@ void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr)
                XDp_RxInterruptDisable(XDpRxSsPtr->DpPtr,
                                XDP_RX_INTERRUPT_MASK_UNPLUG_MASK);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> xdprxss : Adding functional updates for DP1.4.
                if (XDpRxSsPtr->DpPtr->Config.DpProtocol != 
 						XDP_PROTOCOL_DP_1_4) {
                        XDpRxSs_Dp159Config(XDpRxSsPtr->IicPtr,
@@ -267,11 +270,14 @@ void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr)
 					   XDpRxSsPtr->UsrOpt.LinkRate,
 					   XDpRxSsPtr->UsrOpt.LaneCount);
                }
+<<<<<<< HEAD
 =======
                XDpRxSs_Dp159Config(XDpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
                                XDpRxSsPtr->UsrOpt.LinkRate,
                                XDpRxSsPtr->UsrOpt.LaneCount);
 >>>>>>> DPRXSS Added interrupt handler for video and power
+=======
+>>>>>>> xdprxss : Adding functional updates for DP1.4.
        }
 }
 
