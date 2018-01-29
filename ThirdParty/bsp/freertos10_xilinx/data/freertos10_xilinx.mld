@@ -30,17 +30,17 @@ OPTION psf_version = 2.1.0 ;
 BEGIN OS freertos10_xilinx
 
 OPTION DRC = FreeRTOS_drc ;
-OPTION supported_peripherals =  (microblaze ps7_cortexa9 psu_cortexr5 psv_cortexr5 psu_cortexa53);
+OPTION supported_peripherals =  (microblaze ps7_cortexa9 psu_cortexr5 psv_cortexr5 psu_cortexa53 psv_cortexa72);
 OPTION COPYFILES = all;
 OPTION NAME = freertos10_xilinx;
-OPTION VERSION = 1.3;
-OPTION DEPENDS = (standalone_v7_0);
+OPTION VERSION = 1.4;
+OPTION DEPENDS = (standalone_v7_1);
 OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lfreertos,-lgcc,-lc,--end-group";
 OPTION DESC = "This Xilinx FreeRTOS port is based on FreeRTOS kernel version 10.1.1";
 
 # STDIN/STDOUT
-PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (ps7_uart, psu_uart, ps7_coresight_comp, psu_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm);
-PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, requires_interface = stdout, default=none, range = (ps7_uart, psu_uart, ps7_coresight_comp, psu_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm);
+PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (ps7_uart, psu_uart, psv_sbsauart, ps7_coresight_comp, psu_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm);
+PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, requires_interface = stdout, default=none, range = (ps7_uart, psu_uart, psv_sbsauart, ps7_coresight_comp, psu_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm);
 
 BEGIN CATEGORY kernel_behavior
 	PARAM name = kernel_behavior, type = bool, default = true, desc = "Parameters relating to the kernel behavior", permit = none;
@@ -107,7 +107,7 @@ BEGIN CATEGORY tick_setup
 END CATEGORY
 
 BEGIN CATEGORY enable_stm_event_trace
-	PARAM name = enable_stm_event_trace, type = bool, default = false, desc = "Enable event tracing through System Trace Macrocell avaialable on Zynq MPSoC. This is supported only for Cortex A53 and R5 processors", permit = user;
+	PARAM name = enable_stm_event_trace, type = bool, default = false, desc = "Enable event tracing through System Trace Macrocell available on Zynq MPSoC. This is supported only for Cortex A53 and R5 processors", permit = user;
 	PARAM name = enable_timer_tick_trace, type = bool, default = false, desc = "Enable tracing of timer tick events", permit = user;
 	PARAM name = stm_channel, type = int, default = 0, desc = "STM channel to use for trace. Valid channels are 0-65535";
 END CATEGORY
