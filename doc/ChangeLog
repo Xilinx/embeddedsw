@@ -1,5 +1,8 @@
 Changes for 2018.1
 ===============================
+i2srx_v1_0:
+Added initial version of Xilinx I2S Rx soft IP driver.
+
 wdttb_4_3
 Added a function to program the width of Watchdog timer
 Updated doxygen tags
@@ -79,9 +82,9 @@ Fixed the compilation warning in A53
 Made changes to ensure that for A9/Zynq, C stack information
 is flushed out from L1 D cache or L2 cache only when the
 respective caches are enabled.
-Updated asm_vectors.S and boot.S in Cortexa53 64 bit BSP, to add isb 
+Updated asm_vectors.S and boot.S in Cortexa53 64 bit BSP, to add isb
 after writing to cpacr_el1/cptr_el3 registers.
-It would ensure disabling/enabling of floating-point unit, before any 
+It would ensure disabling/enabling of floating-point unit, before any
 subsequent instruction.
 Updated get_connected_if proc in standalone tcl to detect the HPC 
 port configured with smart interconnect. It fixes CR#990318.
@@ -161,9 +164,9 @@ emacps_v3_6:
 Export PL PCS PMA information for ETH1/2/3- CR-984847.
 
 qspipsu_v1_6:
-Flow for accessing flash parts with size more then 16MB made similar to 
-u-boot and linux.(CR#984966) ICCARM compiler does not support 
-__attribute__ syntax, instead #pragma is used for the similar 
+Flow for accessing flash parts with size more then 16MB made similar to
+u-boot and linux.(CR#984966) ICCARM compiler does not support
+__attribute__ syntax, instead #pragma is used for the similar
 functionality.(CR#988625)
 
 axidma_v9_5:
@@ -180,12 +183,12 @@ zdma_v1_4:
 Fixed compilation errors for IAR compiler.
 
 zynqmp_pmufw:
-- Exported efuse IP disable as part of version string in PmGetChipid to 
+- Exported efuse IP disable as part of version string in PmGetChipid to
 recognize eg/cg/ev devices
 - Enabled Optimize for size compiler flag in HSI flow
-- Clearing master wakeup sources after master state is changed from 
+- Clearing master wakeup sources after master state is changed from
 suspended to active
-- Fix pmufw warnings related to unused variable, uninitialized variable 
+- Fix pmufw warnings related to unused variable, uninitialized variable
 and signed compare
 - Provided MMIO Read-only access to PMU LOCAL FPD lock status register
 - Changed PMU Firmware version to 2017.4
