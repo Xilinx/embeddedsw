@@ -133,6 +133,7 @@ extern "C" {
 #include "xdprxss_dprx.h"
 #include "xdprxss_iic.h"
 #include "xdprxss_hdcp1x.h"
+#include "xdprxss_mcdp6000.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -382,6 +383,14 @@ typedef struct {
 
 	/* User options */
 	XDpRxSs_UsrOpt UsrOpt;		/**< User Options structure */
+
+	u8 ceItrCounter; 		/**< Equalization counter to
+					  *  keep track of iterations */
+	u32 ceRequestValue; 	/**< To keep track of previous value and
+				  *  used to compare with current value*/
+	u8 ltState; 		/**< To check if current LT is in CR or CE */
+	u8 prevLinkRate;
+	u8 prevLaneCounts;
 } XDpRxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -552,6 +561,7 @@ void XDpRxSs_DrvNoVideoHandler(void *InstancePtr);
 void XDpRxSs_DrvVideoHandler(void *InstancePtr);
 void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr);
 
+void XDpRxSs_McDp6000_init(void *InstancePtr, u32 I2CAddress);
 /************************** Variable Declarations ****************************/
 
 
