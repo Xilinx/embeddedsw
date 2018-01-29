@@ -492,7 +492,7 @@ typedef struct {
 					by this core instance. */
 	u8 DpProtocol;		/**< The DisplayPort protocol version that this
 					core instance is configured for.
-					0 = v1.1a, 1 = v1.2. */
+					0 = v1.1a, 1 = v1.2, 2 = v1.4. */
 	u8 IsRx;		/**< The type of DisplayPort core.
 					0 = TX, 1 = RX. */
 } XDp_Config;
@@ -853,6 +853,8 @@ typedef struct {
 	u8 TrainAdaptive;			/**< Downshift lane count and
 							link rate if necessary
 							during training. */
+	u8 IsTps4Supported;		/**< Is TPS4 supported by the
+							downstream sink */
 	XDp_TxSinkConfig RxConfig;		/**< Configuration structure for
 							the RX device. */
 	XDp_TxLinkConfig LinkConfig;		/**< Configuration structure for
