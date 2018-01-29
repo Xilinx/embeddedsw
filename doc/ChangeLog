@@ -12,7 +12,7 @@ axiethernet_5_7:
 Fix compilation issues in multicast/extvlan example.
 Implementing poll timeout API which replaces the loops
 
-freertos901_xilinx_v1_3:
+freertos901_xilinx_v1_2:
 Updated FreeRTOS tcl to fix bug in detecting latest standalone
 version.It fixes CR#990995.
 Export platform macros to bspconfig.h based on processor.
