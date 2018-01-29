@@ -39,6 +39,7 @@ BEGIN driver dptxss
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	OPTION VERSION = 6.0;
 =======
 	OPTION VERSION = 4.3;
@@ -49,5 +50,8 @@ BEGIN driver dptxss
 =======
 	OPTION VERSION = 5.1;
 >>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
+=======
+	OPTION VERSION = 5.2;
+>>>>>>> xdptxss : Updating minor version and adding DP1.4 support.
 	OPTION NAME = dptxss;
 END driver
