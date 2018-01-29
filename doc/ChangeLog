@@ -2988,18 +2988,11 @@ Migrated MMCM reconfig from RTL to SW driver
 Added new APIs: XVphy_SetPolarity, XVphy_SetPrbsSel, XVphy_TxPrbsForceError
 Added 8.1 Gbps support in DP
 Corrected FVCO range for MMCME4 in xvphy_hdmi.h
-<<<<<<< HEAD
 Updated US/US+ QPLL0 VCO MAX to 16.375 GHz (GTHE3/GTHE4)
 Removed XVphy_DruSetGain API in xvphy_hdmi.c
 Changed line comments from // to /* */
 Added N2=8 divider for CPLL for US & US+ devices
 Added maximum userclk checking in PLL parameter computation
-=======
-Updated US/US+ QPLL0 VCO MAX to 16.375 GHz
-Removed XVphy_DruSetGain API in xvphy_hdmi.c
-
-
->>>>>>> vphy: Update to add N2=8 in US/US+ CPLL dividers and to correct MMCME4 VCO range
 
 vprocss_v2_1:
 Added new version 2.1
