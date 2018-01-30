@@ -1,7 +1,8 @@
 Changes for 2018.1
 ===============================
 wdttb_4_3
-Added a function to program the width of window Watchdog timer
+Added a function to program the width of Watchdog timer
+Updated doxygen tags
 
 axivdma_6_5:
 Align default TX/RX framebuffer count with IP configuration.
