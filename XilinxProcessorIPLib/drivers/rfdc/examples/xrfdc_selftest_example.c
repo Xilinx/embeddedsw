@@ -151,8 +151,10 @@ int SelfTestExample(u16 RFdcDeviceId)
 	u16 Block;
 	XRFdc_Config *ConfigPtr;
 	XRFdc *RFdcInstPtr = &RFdcInst;
-	u32 SetFabricRate;
+	u32 ADCSetFabricRate[4];
+	u32 DACSetFabricRate[4];
 	u32 GetFabricRate;
+
 #ifndef __BAREMETAL__
 	struct metal_device *device;
 	struct metal_io_region *io;
@@ -195,11 +197,16 @@ int SelfTestExample(u16 RFdcDeviceId)
 	RFdcInstPtr->io = io;
 #endif
 
-	SetFabricRate = 0x8;
 	Tile = 0x0;
 	for (Block = 0; Block <4; Block++) {
 		if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
-			Status = XRFdc_SetFabWrVldWords(RFdcInstPtr, Tile, Block, SetFabricRate);
+			Status = XRFdc_GetFabWrVldWords(RFdcInstPtr, XRFDC_DAC_TILE,
+							Tile, Block, &GetFabricRate);
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+			DACSetFabricRate[Block] = GetFabricRate - 1;
+			Status = XRFdc_SetFabWrVldWords(RFdcInstPtr, Tile, Block, DACSetFabricRate[Block]);
 			if (Status != XRFDC_SUCCESS) {
 				return XRFDC_FAILURE;
 			}
@@ -208,12 +215,11 @@ int SelfTestExample(u16 RFdcDeviceId)
 			if (Status != XRFDC_SUCCESS) {
 				return XRFDC_FAILURE;
 			}
-			Status = CompareFabricRate(SetFabricRate, GetFabricRate);
+			Status = CompareFabricRate(DACSetFabricRate[Block], GetFabricRate);
 			if (Status != XRFDC_SUCCESS) {
 				return XRFDC_FAILURE;
 			}
 		}
-		SetFabricRate = 0x4;
 		if (XRFdc_IsADCBlockEnabled(RFdcInstPtr, Tile, Block)) {
 			if (RFdcInstPtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
 				if ((Block == 2) || (Block == 3))
@@ -223,7 +229,13 @@ int SelfTestExample(u16 RFdcDeviceId)
 						continue;
 				}
 			}
-			Status = XRFdc_SetFabRdVldWords(RFdcInstPtr, Tile, Block, SetFabricRate);
+			Status = XRFdc_GetFabRdVldWords(RFdcInstPtr, XRFDC_ADC_TILE,
+									Tile, Block, &GetFabricRate);
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+			ADCSetFabricRate[Block] = GetFabricRate - 1;
+			Status = XRFdc_SetFabRdVldWords(RFdcInstPtr, Tile, Block, ADCSetFabricRate[Block]);
 			if (Status != XRFDC_SUCCESS) {
 				return XRFDC_FAILURE;
 			}
@@ -232,7 +244,7 @@ int SelfTestExample(u16 RFdcDeviceId)
 			if (Status != XRFDC_SUCCESS) {
 				return XRFDC_FAILURE;
 			}
-			Status = CompareFabricRate(SetFabricRate, GetFabricRate);
+			Status = CompareFabricRate(ADCSetFabricRate[Block], GetFabricRate);
 			if (Status != XRFDC_SUCCESS) {
 				return XRFDC_FAILURE;
 			}
@@ -255,7 +267,7 @@ int SelfTestExample(u16 RFdcDeviceId)
 			if (Status != XRFDC_SUCCESS) {
 				return XRFDC_FAILURE;
 			}
-			if (GetFabricRate == 0x8) {
+			if (GetFabricRate == DACSetFabricRate[Block]) {
 				return XRFDC_FAILURE;
 			}
 		}
@@ -273,7 +285,7 @@ int SelfTestExample(u16 RFdcDeviceId)
 			if (Status != XRFDC_SUCCESS) {
 				return XRFDC_FAILURE;
 			}
-			if (GetFabricRate == 0x4) {
+			if (GetFabricRate == ADCSetFabricRate[Block]) {
 				return XRFDC_FAILURE;
 			}
 		}
