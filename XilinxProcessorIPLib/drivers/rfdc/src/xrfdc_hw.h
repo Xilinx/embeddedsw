@@ -52,6 +52,7 @@
 * 2.3   sk     11/10/17 Corrected FIFO and DATA Interrupt masks.
 * 2.4   sk     12/11/17 Added DDC and DUC support.
 * 3.0   sg     13/01/18 Added PLL and external clock switch support
+* 3.1   jm     01/24/18 Add Multi-tile sync support.
 * </pre>
 *
 ******************************************************************************/
@@ -296,6 +297,24 @@ extern "C" {
 							dynamic event */
 #define XRFDC_DAC_INVSINC_OFFSET		0x0C0U	/**< Invsinc control */
 #define XRFDC_DAC_MB_CFG_OFFSET		0x0C4U	/**< Multiband config */
+#define XRFDC_MTS_SRDIST			0x1CA0U
+#define XRFDC_MTS_SRCAP_T1			(0x24U << 2U)
+#define XRFDC_MTS_SRCAP_PLL			(0x0CU << 2U)
+#define XRFDC_MTS_SRCAP_DIG			(0x2CU << 2U)
+#define XRFDC_MTS_SRDTC_T1			(0x27U << 2U)
+#define XRFDC_MTS_SRDTC_PLL			(0x26U << 2U)
+#define XRFDC_MTS_SRFLAG			(0x49U << 2U)
+#define XRFDC_MTS_CLKSTAT			(0x24U << 2U)
+#define XRFDC_MTS_SRCOUNT_CTRL		0x004CU
+#define XRFDC_MTS_SRCOUNT_VAL		0x0050U
+#define XRFDC_MTS_FIFO_CTRL_ADC		0x0010U
+#define XRFDC_MTS_FIFO_CTRL_DAC		0x0014U
+#define XRFDC_MTS_DELAY_CTRL		0x0028U
+#define XRFDC_MTS_ADC_MARKER		0x0018U
+#define XRFDC_MTS_ADC_MARKER_CNT	0x0010U
+#define XRFDC_MTS_DAC_MARKER_CTRL	0x0048U
+#define XRFDC_MTS_DAC_MARKER_CNT	(0x92U << 2U)
+#define XRFDC_MTS_DAC_MARKER_LOC	(0x93U << 2U)
 
 #define XRFDC_RESET_OFFSET		0x00U	/**< Tile reset register */
 #define XRFDC_RESTART_OFFSET	0x04U	/**< Tile restart register */
@@ -1844,6 +1863,26 @@ extern "C" {
 
 /* @} */
 
+/** @name Multi Tile Sync
+ *
+ * Multi-Tile Sync bit masks.
+ * @{
+ */
+
+#define XRFDC_MTS_SRCAP_PLL_M		0x0100U
+#define XRFDC_MTS_SRCAP_DIG_M		0x0100U
+#define XRFDC_MTS_SRCAP_EN_TRX_M	0x0400U
+#define XRFDC_MTS_SRCAP_INIT_M		0x8200U
+#define XRFDC_MTS_SRCLR_T1_M		0x2000U
+#define XRFDC_MTS_SRCLR_PLL_M		0x0200U
+#define XRFDC_MTS_PLLEN_M			0x0001U
+#define XRFDC_MTS_SRCOUNT_M			0x00FFU
+#define XRFDC_MTS_DELAY_VAL_M		0x041FU
+#define XRFDC_MTS_AMARK_CNT_M		0x00FFU
+#define XRFDC_MTS_AMARK_LOC_M		0x0F0000U
+#define XRFDC_MTS_AMARK_DONE_M		0x100000U
+
+/* @} */
 
 /** @name Output divider LSB register
  *
