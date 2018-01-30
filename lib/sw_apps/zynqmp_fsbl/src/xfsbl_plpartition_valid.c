@@ -61,6 +61,9 @@
 *                        holds remaining secure header.
 * 3.0   vns     01/03/18 Modified XFsbl_DecrptPlChunks() API, to use key IV
 *                        from secure header to decrypt the secure bitstream.
+*       vns     01/23/18 Removed SSS switch configuring for every SHA3 update
+*                        as now library is configuring switch before every DMA
+*                        transfer.
 *
 * </pre>
 *
@@ -383,8 +386,6 @@ static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
 				return Status;
 			}
 			/* Calculating hash for each chunk */
-			XSecure_SssSetup(XSecure_SssInputSha3
-					(XSECURE_CSU_SSS_SRC_SRC_DMA));
 			XSecure_Sha3Update(&SecureSha3,
 				PartitionParams->ChunkBuffer, Len);
 			XSecure_Sha3_ReadHash(&SecureSha3, (u8 *)ChunksHash);
@@ -516,8 +517,6 @@ static u32 XFsbl_PlSignVer(XFsblPs_PlPartition *PartitionParams,
 		if (Status != XFSBL_SUCCESS) {
 			return Status;
 		}
-		XSecure_SssSetup(XSecure_SssInputSha3
-				(XSECURE_CSU_SSS_SRC_SRC_DMA));
 
 		XSecure_Sha3Update(&SecureSha3,
 			PartitionParams->ChunkBuffer, Len);
