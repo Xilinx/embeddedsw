@@ -33,7 +33,7 @@
 /**
 *
 * @file xrfdc_hw.h
-* @addtogroup rfdc_v2_4
+* @addtogroup rfdc_v3_1
 * @{
 *
 * This header file contains the identifiers and basic HW access driver

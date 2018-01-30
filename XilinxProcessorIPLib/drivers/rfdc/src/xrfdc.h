@@ -33,7 +33,7 @@
 /**
 *
 * @file xrfdc.h
-* @addtogroup rfdc_v2_4
+* @addtogroup rfdc_v3_1
 * @{
 * @details
 *
@@ -962,7 +962,7 @@ static inline u32 XRFdc_IsFifoEnabled(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 ******************************************************************************/
 static inline double XRFdc_GetDriverVersion()
 {
-	return 3.0;
+	return 3.1;
 }
 
 /************************** Function Prototypes ******************************/
