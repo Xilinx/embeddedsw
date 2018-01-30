@@ -129,6 +129,7 @@
 *                       Added API to get PLL lock status.
 *                       Added API to get clock source.
 *       sk     01/18/18 Add API to get driver version.
+* 3.1   jm     01/24/18 Add Multi-tile sync support.
 *
 * </pre>
 *
@@ -467,6 +468,9 @@ typedef struct {
 #define XRFDC_SUCCESS                     0L
 #define XRFDC_FAILURE                     1L
 #define XRFDC_COMPONENT_IS_READY     	0x11111111U
+
+#define XRFDC_DRP_BASE(type,tile) (type == XRFDC_ADC_TILE ?		\
+			XRFDC_ADC_TILE_DRP_ADDR(tile) : XRFDC_DAC_TILE_DRP_ADDR(tile))
 
 #define XRFDC_ADC_TILE				0U
 #define XRFDC_DAC_TILE				1U

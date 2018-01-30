@@ -87,6 +87,7 @@
 *	sg     13/01/18 Added PLL and external clock switch support.
 *			Added API to get PLL lock status.
 *			Added API to get clock source. 
+* 3.1   jm     01/24/18 Add Multi-tile sync support.
 * </pre>
 *
 ******************************************************************************/
