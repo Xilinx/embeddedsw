@@ -15,7 +15,7 @@ Implementing poll timeout API which replaces the loops
 freertos901_xilinx_v1_2:
 Updated FreeRTOS tcl to fix bug in detecting latest standalone
 version.It fixes CR#990995.
-Export platform macros to bspconfig.h based on processor.
+Export platform macros to xparameters.h based on processor.
 Added interrupt handler API's for A9, A53, R5.
 
 freertos_lwip_udp_perf_client and freertos_lwip_udp_perf_server:
