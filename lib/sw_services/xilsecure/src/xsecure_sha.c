@@ -45,6 +45,7 @@
 * 2.0   vns  01/28/17 Added API to read SHA3 hash.
 * 2.2   vns  07/06/17 Added doxygen tags
 * 3.0   vns  01/23/18 Added NIST SHA3 support.
+*                     Added SSS configuration before every CSU DMA transfer
 *
 * </pre>
 *
@@ -200,9 +201,6 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 					XSECURE_CSU_SHA3_RESET_OFFSET, 0U);
 
-	/* Configure the SSS for SHA3 hashing. */
-	XSecure_SssSetup(XSecure_SssInputSha3(XSECURE_CSU_SSS_SRC_SRC_DMA));
-
 	/* Start SHA3 engine. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_CSU_SHA3_START_OFFSET,
@@ -230,6 +228,9 @@ void XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	Xil_AssertVoid(Size != (u32)0x00U);
 
 	InstancePtr->Sha3Len += Size;
+
+	/* Configure the SSS for SHA3 hashing. */
+	XSecure_SssSetup(XSecure_SssInputSha3(XSECURE_CSU_SSS_SRC_SRC_DMA));
 
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 					(UINTPTR)Data, (u32)Size/4, 0);
@@ -305,6 +306,9 @@ void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 		XSecure_Sha3Padd(InstancePtr, XSecure_RsaSha3Array,
 						PartialLen);
 	}
+
+	/* Configure the SSS for SHA3 hashing. */
+	XSecure_SssSetup(XSecure_SssInputSha3(XSECURE_CSU_SSS_SRC_SRC_DMA));
 
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				(UINTPTR)XSecure_RsaSha3Array, PartialLen/4, 1);
