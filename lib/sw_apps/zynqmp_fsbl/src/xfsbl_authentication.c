@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,9 @@
 *       vns  02/17/17 Added PPK hash and SPK ID verification when eFUSE
 *                     RSA authentication is enabled
 * 3.0   vns  09/08/17 Added PPK revoke check.
+* 4.0   vns  01/23/18 Added KECCAK SHA3 padding selection for SPK signature
+*                     verification and PPK hash caclulation, however partition
+*                     will be authenticated with NIST SHA3 padding
 *
 * </pre>
 *
@@ -111,6 +114,12 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 	}
 
 	(void)XFsbl_ShaStart(ShaCtx, HashLen);
+	Status = XFsbl_Sha3PadSelect(XSECURE_CSU_KECCAK_SHA3);
+	if (Status != XST_SUCCESS) {
+		XFsbl_Printf(DEBUG_GENERAL,
+					"XFsbl_SpkVer: Error in SHA3 padding selection\r\n");
+		goto END;
+	}
 
 	/* Hash the PPK + SPK choice */
 	XFsbl_ShaUpdate(ShaCtx, AcPtr, 8, HashLen);
@@ -579,7 +588,12 @@ u32 XFsbl_PpkSpkIdVer(u64 AcOffset, u32 HashLen)
 
 	/* Hash calculation on PPK */
 	(void)XFsbl_ShaStart(ShaCtx, HashLen);
-
+	Status = XFsbl_Sha3PadSelect(XSECURE_CSU_KECCAK_SHA3);
+	if (Status != XST_SUCCESS) {
+		XFsbl_Printf(DEBUG_GENERAL,
+		"XFsbl_PartVer: Error in SHA3 padding selection\r\n");
+		goto END;
+	}
 	/* Hash the PPK  choice */
 	XFsbl_ShaUpdate(ShaCtx, AcPtr + XFSBL_RSA_AC_ALIGN,
 					XFSBL_PPK_SIZE, HashLen);
