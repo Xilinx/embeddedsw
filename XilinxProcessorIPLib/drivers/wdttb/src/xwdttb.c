@@ -33,7 +33,7 @@
 /**
 *
 * @file xwdttb.c
-* @addtogroup wdttb_v4_2
+* @addtogroup wdttb_v4_3
 * @{
 *
 * Contains the required functions of the XWdtTb driver. See xwdttb.h for a
@@ -77,6 +77,7 @@
 *                     wherever required.
 * 4.3   srm  01/27/18 Added XWdtTb_ProgramWDTWidth which can program the
 *					  width of WDT
+*            01/30/18 Added doxygen tags
 * </pre>
 *
 ******************************************************************************/
@@ -1205,11 +1206,11 @@ static s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function programs the width of Window Watchdog Timer.
+* This function programs the width of Watchdog Timer.
 *
 * @param	InstancePtr - InstancePtr is a pointer to the XWdtTb instance to be
 *		    worked on.
-*			width - width of the Window Watchdog Timer.
+*			width - width of the Watchdog Timer.
 *
 * @return
 *		- XST_SUCESS, if window mode is disabled and the width is

@@ -5,7 +5,7 @@
 * Version:
 * DO NOT EDIT.
 *
-* Copyright (C) 2010-2016 Xilinx, Inc. All Rights Reserved.*
+* Copyright (C) 2010-2018 Xilinx, Inc. All Rights Reserved.*
 *Permission is hereby granted, free of charge, to any person obtaining a copy
 *of this software and associated documentation files (the Software), to deal
 *in the Software without restriction, including without limitation the rights
@@ -36,10 +36,37 @@
 * Description: Driver configuration
 *
 *******************************************************************/
+/*****************************************************************************/
+/**
+*
+* @file xwdttb_g.c
+* @addtogroup wdttb_v4_3
+* @{
+*
+* Contains the required functions of the XWdtTb driver. See xwdttb.h for a
+* description of the driver.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who  Date     Changes
+* ----- ---- -------- ---------------------------------------------------------
+* 1.00a ecm  08/16/01 First release
+* 4.3   srm  01/30/18 Added doxygen tags
+*
+* </pre>
+*
+******************************************************************************/
 
+/***************************** Include Files *********************************/
 #include "xparameters.h"
 #include "xwdttb.h"
 
+/************************** Constant Definitions *****************************/
+
+/**************************** Type Definitions *******************************/
+
+/************************** Variable Definitions *****************************/
 /*
 * The configuration table for devices
 */
@@ -54,3 +81,4 @@ XWdtTb_Config XWdtTb_ConfigTable[] =
 		XPAR_WDTTB_0_SST_COUNT_WIDTH
 	}
 };
+/** @} */
