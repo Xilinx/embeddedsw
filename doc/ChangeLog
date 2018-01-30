@@ -124,6 +124,12 @@ Added hibernation support for usb
 Added changes to usbpsu driver for supporting microblaze platform
 Enabled event generation for usb controller when run on microblaze plaforms
 
+xilsecure_v3_0:
+Added support for NIST-SHA3 padding
+
+zynqmp_fsbl:
+Added support for NIST-SHA3 padding
+
 Changes for 2017.4
 ===============================
 
