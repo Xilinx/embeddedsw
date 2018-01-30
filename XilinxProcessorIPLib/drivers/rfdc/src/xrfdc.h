@@ -130,6 +130,8 @@
 *                       Added API to get clock source.
 *       sk     01/18/18 Add API to get driver version.
 * 3.1   jm     01/24/18 Add Multi-tile sync support.
+*       sk     01/25/18 Updated Set and Get Interpolation/Decimation factor
+*                       API's to consider the actual factor value.
 *
 * </pre>
 *
@@ -557,8 +559,8 @@ typedef struct {
 #define XRFDC_INTERP_DECIM_OFF		0x0U
 #define XRFDC_INTERP_DECIM_1X		0x1U
 #define XRFDC_INTERP_DECIM_2X		0x2U
-#define XRFDC_INTERP_DECIM_4X		0x3U
-#define XRFDC_INTERP_DECIM_8X		0x4U
+#define XRFDC_INTERP_DECIM_4X		0x4U
+#define XRFDC_INTERP_DECIM_8X		0x8U
 
 #define XRFDC_FAB_CLK_DIV1		0x1
 #define XRFDC_FAB_CLK_DIV2		0x2

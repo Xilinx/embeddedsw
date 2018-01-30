@@ -88,6 +88,8 @@
 *			Added API to get PLL lock status.
 *			Added API to get clock source. 
 * 3.1   jm     01/24/18 Add Multi-tile sync support.
+*       sk     01/25/18 Updated Set and Get Interpolation/Decimation factor
+*                       API's to consider the actual factor value.
 * </pre>
 *
 ******************************************************************************/
@@ -2527,6 +2529,7 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
 	u16 FabricRate;
 	u8 DataType;
 	u8 FIFOEnable;
+	u32 Factor;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2583,7 +2586,12 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 						XRFDC_ADC_DECI_MODE_OFFSET) &
 						~XRFDC_DEC_MOD_MASK;
-			ReadReg |= DecimationFactor;
+			Factor = DecimationFactor;
+			if (DecimationFactor == XRFDC_INTERP_DECIM_4X)
+				Factor = 0x3;
+			if (DecimationFactor == XRFDC_INTERP_DECIM_8X)
+				Factor = 0x4;
+			ReadReg |= Factor;
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
 					XRFDC_ADC_DECI_MODE_OFFSET, ReadReg);
 			FabricRate = XRFdc_ReadReg16(InstancePtr, BaseAddr,
@@ -2740,6 +2748,7 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
 	u16 FabricRate;
 	u8 DataType;
 	u8 FIFOEnable;
+	u32 Factor;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2795,9 +2804,14 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 				XRFDC_DAC_INTERP_CTRL_OFFSET) &
 				~XRFDC_INTERP_MODE_MASK;
-		ReadReg |= InterpolationFactor;
+		Factor = InterpolationFactor;
+		if (InterpolationFactor == XRFDC_INTERP_DECIM_4X)
+			Factor = 0x3;
+		if (InterpolationFactor == XRFDC_INTERP_DECIM_8X)
+			Factor = 0x4;
+		ReadReg |= Factor;
 		if (DataType == XRFDC_ADC_MIXER_MODE_IQ)
-			ReadReg |= InterpolationFactor << 4;
+			ReadReg |= Factor << 4;
 		XRFdc_WriteReg16(InstancePtr, BaseAddr,
 				XRFDC_DAC_INTERP_CTRL_OFFSET, ReadReg);
 		FabricRate = XRFdc_ReadReg16(InstancePtr, BaseAddr,
@@ -2882,6 +2896,10 @@ int XRFdc_GetInterpolationFactor(XRFdc* InstancePtr, int Tile_Id,
 	} else {
 		*InterpolationFactor = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 				XRFDC_DAC_INTERP_CTRL_OFFSET) & XRFDC_INTERP_MODE_I_MASK;
+		if (*InterpolationFactor == 0x3)
+			*InterpolationFactor = XRFDC_INTERP_DECIM_4X;
+		else if (*InterpolationFactor == 0x4)
+			*InterpolationFactor = XRFDC_INTERP_DECIM_8X;
 	}
 	(void)BaseAddr;
 
@@ -2945,6 +2963,10 @@ int XRFdc_GetDecimationFactor(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 	} else {
 		*DecimationFactor = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 				XRFDC_ADC_DECI_MODE_OFFSET) & XRFDC_DEC_MOD_MASK;
+		if (*DecimationFactor == 0x3)
+			*DecimationFactor = XRFDC_INTERP_DECIM_4X;
+		else if (*DecimationFactor == 0x4)
+			*DecimationFactor = XRFDC_INTERP_DECIM_8X;
 	}
 	(void)BaseAddr;
 
