@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,8 @@
 * ----- ------ -------- -------------------------------------------------
 * 1.00a bameta 11/04/14 First Release
 * 2.2   vns    07/06/16 Added doxygen tags
+* 3.0   vns    01/23/18 Added SHA3 keccak padding selection as this
+*                       example illustrates FSBL partition authentication
 *
 * </pre>
 ******************************************************************************/
@@ -231,6 +233,11 @@ u32 SecureRsaExample(void)
 	 */
 
 	XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
+	/* As we are authenticating FSBL here SHA3 KECCAK should be used */
+	Status = XSecure_Sha3PadSelection(&Secure_Sha3, XSECURE_CSU_KECCAK_SHA3);
+	if (Status != XST_SUCCESS) {
+		goto ENDF;
+	}
 	XSecure_Sha3Start(&Secure_Sha3);
 
 	/**
