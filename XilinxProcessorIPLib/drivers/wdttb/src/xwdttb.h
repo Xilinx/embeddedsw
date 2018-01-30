@@ -33,7 +33,7 @@
 /**
 *
 * @file xwdttb.h
-* @addtogroup wdttb_v4_2
+* @addtogroup wdttb_v4_3
 * @{
 * @details
 *
@@ -159,6 +159,7 @@
 * 4.2   ms   04/18/17 Modified tcl file to add suffix U for all macros
 *                     definitions of wdttb in xparameters.h
 * 4.3   srm  01/27/18 Added XWdtTb_ProgramWDTWidth to pragram the WDT width
+*            01/30/18 Added doxygen tags
 * </pre>
 *
 ******************************************************************************/
