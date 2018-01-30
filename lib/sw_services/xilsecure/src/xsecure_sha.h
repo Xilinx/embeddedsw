@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -63,7 +63,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  ba   11/05/14 Initial release
 * 2.0   vns  01/28/17 Added API to read SHA3 hash.
-* 2.2   vns  07/06/16 Added doxygen tags
+* 2.2   vns  07/06/17 Added doxygen tags
+* 3.0   vns  01/23/18 Added NIST SHA3 support.
 *
 * </pre>
 *
@@ -103,6 +104,12 @@ extern "C" {
 
 /***************************** Type Definitions******************************/
 
+/* SHA3 type selection */
+typedef enum {
+	XSECURE_CSU_NIST_SHA3, /**< NIST sha3 */
+	XSECURE_CSU_KECCAK_SHA3 /**< Keccak sha3 */
+}XSecure_Sha3PadType;
+
 /**
  * The SHA-3 driver instance data structure. A pointer to an instance data
  * structure is passed around by functions to refer to a specific driver
@@ -112,6 +119,7 @@ typedef struct {
 	u32 BaseAddress;  /**< Device Base Address */
 	XCsuDma *CsuDmaPtr; /**< Pointer to CSU DMA Instance */
 	u32 Sha3Len; /**< SHA3 Input Length */
+	XSecure_Sha3PadType Sha3PadType; /** Selection for Sha3 */
 } XSecure_Sha3;
 /**
 @}
@@ -131,6 +139,8 @@ void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash);
 void XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In,
 						const u32 Size, u8 *Out);
 void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash);
+s32 XSecure_Sha3PadSelection(XSecure_Sha3 *InstancePtr,
+		XSecure_Sha3PadType Sha3Type);
 
 #ifdef __cplusplus
 extern "C" }
