@@ -75,14 +75,6 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /*
- * @NOTE:
- * Since resetps is a dummy instance NUM_INSTANCE and DEVICE_ID are hardcoded
- */
-#define XPAR_XRESETPS_NUM_INSTANCES    1
-#define XPAR_XRESETPS_0_DEVICE_ID      0
-#define XPAR_XRESETPS_0_BASEADDR       (0x00000000)
-
-/*
  * Constants for supported/Not supported reset actions
  */
 #define XRESETPS_SUP                   1

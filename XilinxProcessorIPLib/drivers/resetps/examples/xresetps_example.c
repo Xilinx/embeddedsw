@@ -59,7 +59,7 @@
 #include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
-#define RESET_DEVICE_ID    (XPAR_XRESETPS_0_DEVICE_ID)
+#define RESET_DEVICE_ID    (XPAR_XRESETPS_DEVICE_ID)
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -235,6 +235,9 @@ static XStatus ResetPsExample(XResetPs *ResetInstancePtr, u16 ResetDeviceId)
 						    PeriList[CurrPeri].ResetID);
 			continue;
 		}
+
+		xil_printf("Reset passed for Reset ID %d\n",
+						    PeriList[CurrPeri].ResetID);
 	}
 
 	if (FailCnt != 0) {
