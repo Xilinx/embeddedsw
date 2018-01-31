@@ -504,5 +504,8 @@
  *                    after writing to cpacr_el1/cptr_el3 registers. It would ensure
  *                    disabling/enabling of floating-point unit, before any subsequent
  *                    instruction.
+ * 6.6 mus   01/30/18 Updated hypervisor enabled Cortexa53 64 bit BSP, to add xen PV console
+ *                    support. Now, xil_printf would use PV console instead of UART in case of
+ *                    hypervisor enabled BSP.
  *
  *****************************************************************************************/
