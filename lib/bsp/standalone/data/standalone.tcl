@@ -41,6 +41,8 @@
 #                     sleep configuration using timers as specifed by the
 #					  user.
 # 6.6   hk   12/15/17 Define platform macros based on the processor in use.
+# 6.6   mus  01/29/18 Updated to add xen PV console support in Cortexa53 64
+#                     bit BSP.
 #
 ##############################################################################
 
@@ -273,6 +275,13 @@ proc generate {os_handle} {
 	    } else {
 	        set ccdir "./src/arm/cortexa53/64bit/gcc"
 	        set cortexa53srcdir1 "./src/arm/cortexa53/64bit"
+	        set pvconsoledir "./src/arm/cortexa53/64bit/xpvxenconsole"
+	        set hypervisor_guest [common::get_property CONFIG.hypervisor_guest $os_handle ]
+	        if { $hypervisor_guest == "true" } {
+	             foreach entry [glob -nocomplain [file join $pvconsoledir *]] {
+			file copy -force $entry "./src/"
+		     }
+		}
 	    }
 
 	    set includedir "./src/arm/cortexa53/includes_ps"
@@ -286,6 +295,7 @@ proc generate {os_handle} {
 	    file copy -force $includedir "./src/"
             file delete -force "./src/gcc"
             file delete -force "./src/profile"
+	    file delete -force "./src/xpvxenconsole"
             if { $enable_sw_profile == "true" } {
                 error "ERROR: Profiling is not supported for A53"
             }
