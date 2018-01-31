@@ -95,7 +95,6 @@ typedef struct _matrix {
 static matrix matrix_array[NUM_MATRIX];
 static matrix matrix_result;
 
-static struct rpmsg_endpoint *rp_ept;
 static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
 
@@ -151,16 +150,12 @@ static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
 {
-	rp_ept = rpmsg_create_ept(rp_chnl, rpmsg_read_cb, RPMSG_NULL,
-				  RPMSG_ADDR_ANY);
+	(void)rp_chnl;
 }
 
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
 {
 	(void)rp_chnl;
-
-	rpmsg_destroy_ept(rp_ept);
-	rp_ept = NULL;
 }
 
 int app(struct hil_proc *hproc)
