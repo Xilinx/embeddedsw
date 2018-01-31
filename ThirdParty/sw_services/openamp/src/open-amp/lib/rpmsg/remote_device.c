@@ -249,9 +249,8 @@ struct rpmsg_channel *rpmsg_rdev_get_chnl_from_id(struct remote_device *rdev,
 
 	metal_list_for_each(&rdev->rp_channels, node) {
 		rp_chnl = metal_container_of(node, struct rpmsg_channel, node);
-		if (strncmp
-		    (rp_chnl->name, rp_chnl_id, sizeof(rp_chnl->name))
-		    == 0) {
+		if (!rpmsg_memb_match(rp_chnl->name, rp_chnl_id,
+				     sizeof(rp_chnl->name))) {
 			return rp_chnl;
 		}
 	}
