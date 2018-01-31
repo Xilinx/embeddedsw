@@ -97,7 +97,6 @@ extern void buffer_pull(void **data, int *len);
 
 /* Local variables */
 static struct rpmsg_channel *app_rp_chnl;
-static struct rpmsg_endpoint *rp_ept;
 static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
 static int evt_chnl_deleted = 0;
@@ -136,17 +135,13 @@ static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
 {
-	app_rp_chnl = rp_chnl;
-	rp_ept = rpmsg_create_ept(rp_chnl, rpmsg_read_cb, RPMSG_NULL,
-				  RPMSG_ADDR_ANY);
+	(void)rp_chnl;
 }
 
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
 {
 	(void)rp_chnl;
 
-	rpmsg_destroy_ept(rp_ept);
-	rp_ept = NULL;
 	evt_chnl_deleted = 1;
 }
 
