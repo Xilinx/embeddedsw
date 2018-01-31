@@ -33,26 +33,32 @@ set_property (SOURCE ${_sources}
   APPEND_STRING PROPERTY COMPILE_FLAGS " ${_ecflags}")
 
 # Build a shared library if so configured.
-if (WITH_SHARED_LIB)
-  set (_lib ${OPENAMP_LIB}-shared)
-  add_library (${_lib} SHARED ${_sources})
-  target_link_libraries (${_lib} ${_deps})
-  install (TARGETS ${_lib} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-  set_target_properties (${_lib} PROPERTIES
-    OUTPUT_NAME       "${OPENAMP_LIB}"
-    VERSION           "${PROJECT_VER}"
-    SOVERSION         "${PROJECT_VER_MAJOR}"
-  )
-endif (WITH_SHARED_LIB)
+if (WITH_ZEPHYR)
+  zephyr_library_named(${OPENAMP_LIB})
+  add_dependencies(${OPENAMP_LIB} offsets_h)
+  target_sources (${OPENAMP_LIB} PRIVATE ${_sources})
+else (WITH_ZEPHYR)
+  if (WITH_SHARED_LIB)
+    set (_lib ${OPENAMP_LIB}-shared)
+    add_library (${_lib} SHARED ${_sources})
+    target_link_libraries (${_lib} ${_deps})
+    install (TARGETS ${_lib} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    set_target_properties (${_lib} PROPERTIES
+      OUTPUT_NAME       "${OPENAMP_LIB}"
+      VERSION           "${PROJECT_VER}"
+      SOVERSION         "${PROJECT_VER_MAJOR}"
+    )
+  endif (WITH_SHARED_LIB)
 
-if (WITH_STATIC_LIB)
-  set (_lib ${OPENAMP_LIB}-static)
-  add_library (${_lib} STATIC ${_sources})
-  install (TARGETS ${_lib} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
-  set_target_properties (${_lib} PROPERTIES
-    OUTPUT_NAME       "${OPENAMP_LIB}"
-  )
-endif (WITH_STATIC_LIB)
+  if (WITH_STATIC_LIB)
+    set (_lib ${OPENAMP_LIB}-static)
+    add_library (${_lib} STATIC ${_sources})
+    install (TARGETS ${_lib} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    set_target_properties (${_lib} PROPERTIES
+      OUTPUT_NAME       "${OPENAMP_LIB}"
+    )
+  endif (WITH_STATIC_LIB)
+endif (WITH_ZEPHYR)
 
 install (DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/openamp" DESTINATION include)
 
