@@ -661,7 +661,7 @@ void rpmsg_ns_callback(struct rpmsg_channel *server_chnl, void *data, int len,
 		}
 	} else {
 		struct metal_io_region *io = rdev->proc->sh_buff.io;
-		char *name = malloc(len);
+		char *name = metal_allocate_memory(len);
 
 		openamp_assert(name);
 		metal_io_block_read(io,
@@ -669,7 +669,7 @@ void rpmsg_ns_callback(struct rpmsg_channel *server_chnl, void *data, int len,
 				name, len);
 		rp_chnl =
 		    _rpmsg_create_channel(rdev, name, 0x00, ns_msg->addr);
-		free(name);
+		metal_free_memory(name);
 		if (rp_chnl) {
 			rp_chnl->state = RPMSG_CHNL_STATE_ACTIVE;
 			/* Create default endpoint for channel */

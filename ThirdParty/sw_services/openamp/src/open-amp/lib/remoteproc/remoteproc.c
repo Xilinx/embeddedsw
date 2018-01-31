@@ -177,6 +177,7 @@ int remoteproc_init(char *fw_name, struct hil_proc *proc,
 	if (rproc) {
 		memset((void *)rproc, 0x00, sizeof(struct remote_proc));
 		/* Create proc instance */
+		rproc->proc = proc;
 		status = hil_init_proc(proc);
 		if (!status) {
 			/* Retrieve firmware attributes */

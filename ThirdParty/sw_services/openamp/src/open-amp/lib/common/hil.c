@@ -127,7 +127,7 @@ struct metal_device *hil_create_generic_mem_dev(
 	ret = metal_bus_find("generic", NULL);
 	if (ret)
 		return NULL;
-	dev = malloc(sizeof(*dev));
+	dev = metal_allocate_memory(sizeof(*dev));
 	openamp_assert(dev);
 	memset(dev, 0, sizeof(*dev));
 	sprintf(dev->name, "%s%lx.%lx", HIL_DEV_NAME_PREFIX, pa,
@@ -157,7 +157,7 @@ void hil_close_generic_mem_dev(struct metal_device *dev)
 	} else {
 		metal_list_del(&dev->node);
 		mdev = metal_container_of(dev, struct hil_mem_device, device);
-		free(mdev);
+		metal_free_memory(mdev);
 	}
 }
 
