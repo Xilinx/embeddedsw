@@ -5,12 +5,16 @@
 /* For Embedded Systems Programming, 1991            */
 /*                                                   */
 /*---------------------------------------------------*/
+#include "bspconfig.h"
 #include "xil_printf.h"
 #include "xil_types.h"
 #include "xil_assert.h"
 #include <ctype.h>
 #include <string.h>
 #include <stdarg.h>
+#if HYP_GUEST && EL1_NONSECURE
+#include "xen_console.h"
+#endif
 
 static void padding( const s32 l_flag,const struct params_s *par);
 static void outs(const charptr lp, struct params_s *par);
@@ -239,6 +243,11 @@ static s32 getnum( charptr* linep)
 
 /* void esp_printf( const func_ptr f_ptr,
    const charptr ctrl1, ...) */
+#if HYP_GUEST && EL1_NONSECURE
+void xil_printf( const char8 *ctrl1, ...){
+	XPVXenConsole_Printf(ctrl1);
+}
+#else
 void xil_printf( const char8 *ctrl1, ...)
 {
 	s32 Check;
@@ -434,5 +443,5 @@ void xil_printf( const char8 *ctrl1, ...)
     }
     va_end( argp);
 }
-
+#endif
 /*---------------------------------------------------*/
