@@ -318,7 +318,6 @@ Removed the check for writing the data to DMA MSB.
 (CR#992560)
 Added an API in driver to toggle the WP pin of the flash.
 Added write protect example.(PR#2448)
-<<<<<<< HEAD
 Added support in EL1 non-secure mode. (CR#974882)
 In dual parallel mode enable both CS when issuing write enable command.
 (CR#998478)
@@ -326,8 +325,6 @@ In dual parallel mode enable both CS when issuing write enable command.
 scugic_v3_9:
 Added new API's to unmap specific/all SPI interrupts
 from the target CPU. It fixes CR#992490.
-=======
->>>>>>> ChangeLog: Updated the ChangeLog for qspipsu.
 
 spi_v4_4:
 When receive fifo exists, we need to check for status
