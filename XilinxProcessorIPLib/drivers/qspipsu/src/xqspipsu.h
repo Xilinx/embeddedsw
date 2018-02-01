@@ -132,6 +132,10 @@
 * 1.7	tjs 12/19/17 Added support for S25FL064L from Spansion. CR-990724
 * 1.7	tjs 01/11/18 Added support for MX66L1G45G flash from Macronix CR-992367
 * 1.7	tjs	01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
+* 1.7	tjs	01/17/18 Added support to toggle the WP pin of flash. (PR#2448)
+*                    Added XQspiPsu_SetWP() in xqspipsu_options.c
+*                    Added XQspiPsu_WriteProtectToggle() in xqspipsu.c and
+*                    also added write protect example.
 * </pre>
 *
 ******************************************************************************/
@@ -279,6 +283,9 @@ typedef struct {
 #define XQSPIPSU_MSG_FLAG_TX		0x4U
 #define XQSPIPSU_MSG_FLAG_POLL		0x8U
 
+/* GQSPI configuration to toggle WP of flash*/
+#define XQSPIPSU_SET_WP					1
+
 #define XQspiPsu_Select(InstancePtr, Mask)	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + XQSPIPSU_SEL_OFFSET, Mask)
 
 #define XQspiPsu_Enable(InstancePtr)	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + XQSPIPSU_EN_OFFSET, XQSPIPSU_EN_MASK)
@@ -286,6 +293,7 @@ typedef struct {
 #define XQspiPsu_Disable(InstancePtr)	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + XQSPIPSU_EN_OFFSET, 0x0U)
 
 #define XQspiPsu_GetLqspiConfigReg(InstancePtr)   XQspiPsu_In32((XQSPIPS_BASEADDR) + XQSPIPSU_LQSPI_CR_OFFSET)
+
 
 /************************** Function Prototypes ******************************/
 
@@ -312,6 +320,8 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options);
 s32 XQspiPsu_ClearOptions(XQspiPsu *InstancePtr, u32 Options);
 u32 XQspiPsu_GetOptions(XQspiPsu *InstancePtr);
 s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode);
+void XQspiPsu_SetWP(XQspiPsu *InstancePtr, u8 Value);
+void XQspiPsu_WriteProtectToggle(XQspiPsu *InstancePtr, u32 Toggle);
 
 #ifdef __cplusplus
 }
