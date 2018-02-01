@@ -486,6 +486,19 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0D,
 						(u16)((DrpVal32 >> 16) & 0xFFFF));
 
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTPE2)
+	/* Configure CLKOUT3 if TX is HDMI and is GTPE2 */
+	if (TxIsPlle2 == TRUE) {
+		//Write CLKOUT3 Reg1 & Reg2 Values
+		DrpVal32 = XVphy_Mmcme2DividerEncoding(MMCM_CLKOUT_DIVIDE,
+							MmcmParams->ClkOut0Div / 2);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0E,
+							(u16)(DrpVal32 & 0xFFFF));
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0F,
+							(u16)((DrpVal32 >> 16) & 0xFFFF));
+	}
+#endif
+
 	//Write Lock Reg1 Value
 	DrpVal = XVphy_Mmcme2LockReg1Encoding(MmcmParams->ClkFbOutMult);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x18, DrpVal);
