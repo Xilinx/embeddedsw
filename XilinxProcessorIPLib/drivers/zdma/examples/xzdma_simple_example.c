@@ -54,6 +54,7 @@
 *		12/11/17 Fixed peripheral test app generation issues when dma
 *			 buffers are configured on OCM memory(CR#990806).
 *		18/01/18 Remove unnecessary column in XIntc_Connect() API.
+*		01/02/18 Added support for error handling.
 * </pre>
 *
 ******************************************************************************/
@@ -106,6 +107,7 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 static int SetupInterruptSystem(INTC *IntcInstancePtr,
 				XZDma *InstancePtr, u16 IntrId);
 static void DoneHandler(void *CallBackRef);
+static void ErrorHandler(void *CallBackRef, u32 Mask);
 
 
 /************************** Variable Definitions *****************************/
@@ -126,6 +128,7 @@ u8 SrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
 #endif
 
 volatile static int Done = 0;				/**< Done flag */
+volatile static int ErrorStatus = 0;			/**< Error Status flag*/
 
 #ifndef TESTAPP_GEN
 /*****************************************************************************/
@@ -228,6 +231,8 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 	/* Interrupt call back has been set */
 	XZDma_SetCallBack(ZdmaInstPtr, XZDMA_HANDLER_DONE,
 				(void *)DoneHandler, ZdmaInstPtr);
+	XZDma_SetCallBack(ZdmaInstPtr, XZDMA_HANDLER_ERROR,
+				(void *)ErrorHandler, ZdmaInstPtr);
 	/*
 	 * Connect to the interrupt controller.
 	 */
@@ -237,7 +242,7 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 		return XST_FAILURE;
 	}
 	/* Enable required interrupts */
-	XZDma_EnableIntr(ZdmaInstPtr, (XZDMA_IXR_DMA_DONE_MASK));
+	XZDma_EnableIntr(ZdmaInstPtr, (XZDMA_IXR_ALL_INTR_MASK));
 
 	/* Configuration settings */
 	Configure.OverFetch = 1;
@@ -268,7 +273,16 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 
 	XZDma_Start(ZdmaInstPtr, &Data, 1); /* Initiates the data transfer */
 
-	while (Done == 0); /* Wait till DMA done interrupt generated */
+	/* Wait till DMA error or done interrupt generated */
+	while (!ErrorStatus && (Done == 0));
+
+	if (ErrorStatus) {
+		if (ErrorStatus & XZDMA_IXR_AXI_WR_DATA_MASK)
+			xil_printf("Error occured on write data channel\n\r");
+		if (ErrorStatus & XZDMA_IXR_AXI_RD_DATA_MASK)
+			xil_printf("Error occured on read data channel\n\r");
+		return XST_FAILURE;
+	}
 
 	/* Checking the data transferred */
 	for (Index = 0; Index < SIZE/4; Index++) {
@@ -426,4 +440,21 @@ static void DoneHandler(void *CallBackRef)
 {
 	Done = 1;
 
+}
+/*****************************************************************************/
+/**
+* This static function handles ZDMA error interrupts.
+*
+* @param	CallBackRef is the callback reference passed from the interrupt
+*		handler, which in our case is a pointer to the driver instance.
+* @param	Mask specifies which interrupts were occurred.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void ErrorHandler(void *CallBackRef, u32 Mask)
+{
+	ErrorStatus = Mask;
 }
