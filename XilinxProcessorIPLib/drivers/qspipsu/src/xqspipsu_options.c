@@ -51,6 +51,7 @@
 * 1.2	nsk 07/01/16 Modified XQspiPsu_SetOptions() to support
 *		     LQSPI options and updated OptionsTable
 *       rk  07/15/16 Added support for TapDelays at different frequencies.
+* 1.7	tjs 01/17/18 Added support to toggle the WP pin of flash. (PR#2448)
 *
 * </pre>
 *
@@ -617,5 +618,34 @@ s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode)
 	xil_printf("\nRead Mode is %08x\r\n", InstancePtr->ReadMode);
 #endif
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the Write Protect and Hold options for the QSPIPSU device
+* driver.The device must be idle rather than busy transferring data before
+* setting Write Protect and Hold options.
+*
+* @param	InstancePtr is a pointer to the XQspiPsu instance.
+* @param	Value of the WP_HOLD bit in configuration register
+*
+* @return	None
+*
+* @note
+* This function is not thread-safe. This function can only be used with single
+* flash configuration and x1/x2 data mode. This function cannot be used with
+* x4 data mode and dual parallel and stacked flash configuration.
+*
+******************************************************************************/
+void XQspiPsu_SetWP(XQspiPsu *InstancePtr, u8 Value)
+{
+	u32 ConfigReg;
+
+	ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_CFG_OFFSET);
+	ConfigReg |= Value << XQSPIPSU_CFG_WP_HOLD_SHIFT;
+	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
+					 ConfigReg);
 }
 /** @} */
