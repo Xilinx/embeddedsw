@@ -43,6 +43,8 @@
 # 6.6   hk   12/15/17 Define platform macros based on the processor in use.
 # 6.6   mus  01/29/18 Updated to add xen PV console support in Cortexa53 64
 #                     bit BSP.
+# 6.6   mus  02/02/18 Updated get_connected_if proc to detect the HPC port
+#                     configured with smart interconnect.
 #
 ##############################################################################
 
@@ -139,7 +141,7 @@ proc get_connected_if {drv_handle hpc_pin} {
 		return 0
 	} else {
 		set ipname [get_property IP_NAME $iphandle]
-		if {$ipname == "axi_interconnect"} {
+		if {$ipname == "axi_interconnect" || $ipname == "smartconnect"} {
 		     set iphandle [::hsi::utils::get_connected_stream_ip $iphandle S00_AXI]
 		     if { $iphandle == ""} {
 			 return 0
