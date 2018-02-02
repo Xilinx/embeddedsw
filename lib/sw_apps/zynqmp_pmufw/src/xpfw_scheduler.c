@@ -142,7 +142,7 @@ XStatus XPfw_SchedulerStop(XPfw_Scheduler_t *SchedPtr)
 void XPfw_SchedulerTickHandler(XPfw_Scheduler_t *SchedPtr)
 {
 	u32 Idx;
-	/* TODO: Add check to detect task misses */
+
 	SchedPtr->Tick++;
 	for (Idx = 0U; Idx < XPFW_SCHED_MAX_TASK; Idx++) {
 		/* Check if it this task can be triggered */

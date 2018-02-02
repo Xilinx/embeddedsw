@@ -61,9 +61,7 @@
 /**
  * XPfw_PmInit() - initializes PM firmware
  *
- * @note	Call on startup to initialize PM firmware. It is assumed that
- * PFW enables GPI1, GPI2, and IPI0 interrupts, PM firmware only masks/unmasks
- * specific events.
+ * @note	Call on startup to initialize PM firmware.
  */
 void XPfw_PmInit(void)
 {

@@ -36,7 +36,6 @@
 
 
 #include "xpfw_config.h"
-#include "xpfw_codes.h"
 #include "xpfw_util.h"
 #include "xpfw_debug.h"
 
@@ -79,7 +78,6 @@
 #define ENABLE_ALL	0XffffffffU
 #define ALL_HIGH	0XffffffffU
 #define FLAG_ALL	0XffffffffU
-
 
 #define MASK32_ALL_HIGH	((u32)0xFFFFFFFFU)
 #define MASK32_ALL_LOW	((u32)0x0U)

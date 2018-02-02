@@ -45,11 +45,14 @@
 XStatus XPfw_Main(void)
 {
 	XStatus Status;
+	u32 xpbr_version;
 
 	/* Start the Init Routine */
 	XPfw_Printf(DEBUG_PRINT_ALWAYS,"PMU Firmware %s\t%s   %s\r\n",
 			ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
-	/* TODO: Print ROM version */
+	/* Print ROM version */
+	xpbr_version = XPfw_Read32(PBR_VERSION_REG);
+	XPfw_PrintPBRVersion(xpbr_version);
 
 	/* Initialize the FW Core Object */
 	Status = XPfw_CoreInit(0U);

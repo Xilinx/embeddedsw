@@ -224,11 +224,6 @@ static void PmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 						" %d\r\n", XPFW_EV_R5_1_SLEEP)
 	}
 
-/*
- * FIXME: PM Init Disables the wakes/sleep interrupts
- * and enables them when required. For NOW, it works, but in future
- * all modules should use Register/DeRegister Event
- */
 	XPfw_PmInit();
 }
 void ModPmInit(void)

@@ -1695,7 +1695,7 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	/* Handle transition to OFF state here */
 	if ((PM_DDR_STATE_OFF != slave->node.currState) &&
 	    (PM_DDR_STATE_OFF == nextState)) {
-		/* TODO : power down DDR here */
+		/* Here, user can put the DDR controller in reset */
 		status = XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR);
 		goto done;
 	}
@@ -1727,7 +1727,10 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		break;
 	case PM_DDR_STATE_OFF:
 		if (PM_DDR_STATE_ON == nextState) {
-			/* TODO : power up DDR here */
+			/*
+			 * Bring DDR controller out of reset if it was in reset
+			 * during DDR OFF state
+			 * */
 			status = XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
 		} else {
 			status = XST_NO_FEATURE;

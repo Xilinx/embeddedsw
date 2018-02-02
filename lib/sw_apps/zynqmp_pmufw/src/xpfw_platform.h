@@ -36,8 +36,10 @@
 #include "xil_types.h"
 
 #define XPFW_PLATFORM_PS_V1    0x0U
+#define	PBR_VERSION_REG			0xFFD07FCC
 
 void XPfw_PlatformInit(void);
 u8 XPfw_PlatformGetPsVersion(void);
+void XPfw_PrintPBRVersion(u32 xpbr_version);
 
 #endif /* XPFW_PLATFORM_H_ */

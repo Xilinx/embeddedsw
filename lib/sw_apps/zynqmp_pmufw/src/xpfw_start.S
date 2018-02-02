@@ -33,7 +33,6 @@
 		.align 2
 _vector_reset:
 		brai    XPfw_Init
-/* TBD: Implement SW Exception Handler and update the vector */
 		.section .vectors.sw_exception, "ax"
 		.align 2
 
@@ -45,7 +44,6 @@ _vector_sw_exception:
 _vector_interrupt:
 	brai	XPfw_InterruptHandler
 
-/* TBD: Implement HW Exception Handler and update the vector */
 		.section .vectors.hw_exception, "ax"
 		.align 2
 _vector_hw_exception:
