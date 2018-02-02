@@ -527,8 +527,7 @@ static PmWakeEventGicProxy pmEth0Wake = {
 		.derived = &pmEth0Wake,
 		.class = &pmWakeEventClassGicProxy_g,
 	},
-	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC25_MASK |
-		LPD_SLCR_GICP1_IRQ_MASK_SRC24_MASK,
+	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC26_MASK,
 	.group = 1U,
 };
 
@@ -556,8 +555,7 @@ static PmWakeEventGicProxy pmEth1Wake = {
 		.derived = &pmEth1Wake,
 		.class = &pmWakeEventClassGicProxy_g,
 	},
-	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC27_MASK |
-		LPD_SLCR_GICP1_IRQ_MASK_SRC26_MASK,
+	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC28_MASK,
 	.group = 1U,
 };
 
@@ -585,8 +583,7 @@ static PmWakeEventGicProxy pmEth2Wake = {
 		.derived = &pmEth2Wake,
 		.class = &pmWakeEventClassGicProxy_g,
 	},
-	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC29_MASK |
-		LPD_SLCR_GICP1_IRQ_MASK_SRC28_MASK,
+	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC30_MASK,
 	.group = 1U,
 };
 
@@ -614,9 +611,8 @@ static PmWakeEventGicProxy pmEth3Wake = {
 		.derived = &pmEth3Wake,
 		.class = &pmWakeEventClassGicProxy_g,
 	},
-	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC31_MASK |
-		LPD_SLCR_GICP1_IRQ_MASK_SRC30_MASK,
-	.group = 1U,
+	.mask = LPD_SLCR_GICP2_IRQ_MASK_SRC0_MASK,
+	.group = 2U,
 };
 
 PmSlave pmSlaveEth3_g = {
