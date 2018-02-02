@@ -49,9 +49,8 @@
 *
 * This example neither set the required MIO to control the Write Protect
 * pin nor the driver is setting the MIO. The MIO must be configured to be
-* used by QSPI using Vivado and fsbl should initialize it.
-* This example has been tested with the Micron Serial Flash (N25Q512)
-* in single mode using A53 and R5 processors.
+* used by QSPI.This example has been tested with the Micron Serial
+* Flash (N25Q512) in single mode using A53 and R5 processors.
 *
 * @note
 *
