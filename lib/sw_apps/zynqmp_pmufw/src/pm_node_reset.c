@@ -89,8 +89,7 @@ static const PmNodeResetInfo NodeRstData[] = {
 				.ResetAction = PM_RESET_ACTION_ASSERT,
 				.ResetPulseWait = 10,
 			},
-			{	/* todo: verify if this is needed */
-				.ResetId = PM_RESET_USB0_HIBERRESET,
+			{	.ResetId = PM_RESET_USB0_HIBERRESET,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
 				.ResetPulseWait = 10,
 			},
@@ -119,8 +118,7 @@ static const PmNodeResetInfo NodeRstData[] = {
 				.ResetAction = PM_RESET_ACTION_ASSERT,
 				.ResetPulseWait = 10,
 			},
-			{	/* todo: verify if this is needed */
-				.ResetId = PM_RESET_USB1_HIBERRESET,
+			{	.ResetId = PM_RESET_USB1_HIBERRESET,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
 				.ResetPulseWait = 10,
 			},

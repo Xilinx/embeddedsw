@@ -290,7 +290,6 @@ static void XPfw_RestartSystemLevel(void)
 		XPfw_ResetPsOnly();
 	}
 	else {
-		/* TODO: Req and wait for Ack from PL */
 		RestartDebug(DEBUG_DETAILED,"SRST\r\n");
 		/* Bypass RPLL before SRST : Workaround for a bug in 1.0 Silicon */
 		if (XPfw_PlatformGetPsVersion() == XPFW_PLATFORM_PS_V1) {

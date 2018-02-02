@@ -133,7 +133,6 @@ static void XPfw_NullHandler(void)
 {
 	/**
 	 *  This should never be called.
-	 *  TODO: Set PMUFW Error register
 	 */
 	XPfw_Printf(DEBUG_ERROR,"Error: NullHandler Triggered!\r\n");
 }
@@ -248,8 +247,6 @@ static void XPfw_InterruptGpi3Handler(void)
 		}
 	}
 }
-
-/* TODO: For all the Interrupt Handlers-> Report Error */
 
 static void XPfw_InterruptRtcAlaramHandler(void)
 {

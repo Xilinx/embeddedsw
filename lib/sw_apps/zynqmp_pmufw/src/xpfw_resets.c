@@ -70,11 +70,6 @@ void XPfw_ResetPsOnly(void)
 {
 	XStatus l_Status;
 
-	/**
-	 *TODO: Set PMU Error to indicate to PL
-	 *
-	 */
-
 	XPfw_Printf(DEBUG_DETAILED,"Isolating Interfaces.....");
 	/*
 	 * Block FPD=>PL and LPD=>PL interfaces with the help of AIB (in PS)
@@ -313,9 +308,6 @@ XStatus XPfw_ResetRpu(void)
 	XPfw_UtilRMW(PMU_GLOBAL_GLOBAL_RESET,
 			PMU_GLOBAL_GLOBAL_RESET_RPU_LS_RST_MASK,
 			PMU_GLOBAL_GLOBAL_RESET_RPU_LS_RST_MASK);
-	/**
-	 * FIXME: Update with correct delay here
-	 */
 	XPfw_UtilWait(XPFW_RST_PROP_DELAY);
 
 	XPfw_Printf(DEBUG_DETAILED,"Releasing RPU out of Reset\r\n");

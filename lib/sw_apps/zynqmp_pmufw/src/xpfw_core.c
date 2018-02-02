@@ -92,7 +92,6 @@ XStatus XPfw_CoreConfigure(void)
 		for (Idx = 0U; Idx < CorePtr->ModCount; Idx++) {
 
 			if (CorePtr->ModList[Idx].CfgInitHandler != NULL) {
-				/* TODO: Pass on configure data based on module type */
 				CorePtr->ModList[Idx].CfgInitHandler(&CorePtr->ModList[Idx],
 						NULL, 0U);
 			}
@@ -100,7 +99,7 @@ XStatus XPfw_CoreConfigure(void)
 
 		/* We are ready to take interrupts now */
 		CorePtr->IsReady = CORE_IS_READY;
-		/* FIXME: Clear IPI0 status and Enable IPI0 for PM-> Do it elsewhere */
+		/* Clear IPI0 status and Enable IPI0 */
 		XPfw_Write32(IPI_PMU_0_ISR, MASK32_ALL_HIGH);
 		XPfw_InterruptEnable(PMU_IOMODULE_IRQ_ENABLE_IPI0_MASK);
 		/* Clear PMU LMB BRAM ECC status and Enable this interrupt */
@@ -148,11 +147,6 @@ XStatus XPfw_CoreDispatchEvent(u32 EventId)
 	return Status;
 }
 
-/*
- * FIXME: After Integrating IPI Driver, redesign to
- * dispatch events based on IPI_ID (first word in msg buffer) Mask
- *
- */
 XStatus XPfw_CoreDispatchIpi(u32 IpiNum, u32 SrcMask)
 {
 	XStatus Status;
