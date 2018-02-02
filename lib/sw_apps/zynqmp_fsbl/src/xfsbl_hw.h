@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,8 @@
 * 1.00  kc   10/21/13 Initial release
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines
 * 3.0   vns  09/08/17 Added eFUSE secure control register masks for PPK revoke
+* 4.0   vns  02/02/18 Added warning message to notify SHA2 support
+*                     deprecation in future releases.
 *
 * </pre>
 *
@@ -859,6 +861,7 @@ extern "C" {
  * Definition for SHA2 to be included
  */
 #if !defined(FSBL_SHA2_EXCLUDE)
+#warning "SHA2 support will be deprecated soon please use SHA3"
 #define XFSBL_SHA2
 #endif
 
