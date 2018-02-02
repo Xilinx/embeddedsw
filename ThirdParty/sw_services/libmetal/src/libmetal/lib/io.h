@@ -40,6 +40,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
+#include <limits.h>
 #include <metal/compiler.h>
 #include <metal/atomic.h>
 #include <metal/sys.h>
@@ -123,7 +124,11 @@ metal_io_init(struct metal_io_region *io, void *virt,
 	io->physmap = physmap;
 	io->size = size;
 	io->page_shift = page_shift;
-	io->page_mask = (1UL << page_shift) - 1UL;
+	if (page_shift >= sizeof(io->page_mask) * CHAR_BIT)
+		/* avoid overflow */
+		io->page_mask = -1UL;
+	else
+		io->page_mask = (1UL << page_shift) - 1UL;
 	io->mem_flags = mem_flags;
 	io->ops = ops ? *ops : nops;
 }
