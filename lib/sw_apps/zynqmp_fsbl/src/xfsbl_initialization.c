@@ -620,7 +620,7 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 {
 	u32 Status;
 #if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
-	u32 BlockNum;
+	u64 BlockNum;
 #endif
 
 	if (FsblInstancePtr->ResetReason != XFSBL_PS_ONLY_RESET) {
