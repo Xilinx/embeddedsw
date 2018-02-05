@@ -246,6 +246,14 @@ int XDpRxSs_MCDP6000_DpInit(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 	 * plug orientation. The data lanes need to be swapped so use the
 	 * inverted plug orientation instead.
 	 */
+	/*AUX Setting to add latency for data forwarding*/
+	Result = MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+				      0x0350, 0x0000001F);
+	if (Result != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+
 	Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 				      0x0504, 0x0000705E);
 	if (Result != XST_SUCCESS) {
