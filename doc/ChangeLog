@@ -36,14 +36,17 @@ Add support for Realtek RTL8211 phy.
 lwip_udp_perf_client and lwip_udp_perf_server:
 Added new SW apps for raw mode UDP performance tests.
 
-rfdc_v2_4:
-Add support DDC and DUC configuration
-Add CoarseMixMode field in mixer settings
-Add support for calibration modes switch
-Add PLL and external clock switch support
-Add API to get clock source
-Add API to get PLL lock status
-Add API to get the driver version
+rfdc_v3_2:
+Add XRFdc_SetInterpolationFactor() and XRFdc_SetDecimationFactor() APIs.
+Add CoarseMixMode field in mixer settings.
+Add XRFdc_SetCalibrationMode() and XRFdc_GetCalibrationMode() APIs for calibration modes switch.
+Add XRFdc_DynamicPLLConfig() API for PLL and external clock switch support.
+Add XRFdc_GetClockSource() API to get clock source.
+Add XRFdc_GetPLLLockStatus() API to get PLL lock status.
+Add XRFdc_GetDriverVersion() API to get the driver version.
+Add XRFdc_MultiConverter_Sync() and XRFdc_MultiConverter_Init() APIs to support Multi-Tile Sync.
+Updated Set/Get Interpolation/Decimation factor APIs to consider the actual factor.
+Add XRFdc_SetInvSincFIR() and XRFdc_GetInvSincFIR() APIs to support inverse-sinc.
 
 qspipsu_v1_7:
 Removed unsupported 4 byte write and sector erase
