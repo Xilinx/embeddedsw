@@ -132,6 +132,7 @@
 * 3.1   jm     01/24/18 Add Multi-tile sync support.
 *       sk     01/25/18 Updated Set and Get Interpolation/Decimation factor
 *                       API's to consider the actual factor value.
+* 3.2   sk     02/02/18 Add API's to configure inverse-sinc.
 *
 * </pre>
 *
@@ -1061,6 +1062,10 @@ u32 XRFdc_GetPLLLockStatus(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 
 u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		u8 Source, double RefClkFreq, double SamplingRate);
+u32 XRFdc_SetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+								u16 Enable);
+u32 XRFdc_GetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+								u16 *Enable);
 
 #ifdef __cplusplus
 }

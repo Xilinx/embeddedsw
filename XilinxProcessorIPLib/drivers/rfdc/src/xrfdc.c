@@ -90,6 +90,7 @@
 * 3.1   jm     01/24/18 Add Multi-tile sync support.
 *       sk     01/25/18 Updated Set and Get Interpolation/Decimation factor
 *                       API's to consider the actual factor value.
+* 3.2   sk     02/02/18 Add API's to configure inverse-sinc.
 * </pre>
 *
 ******************************************************************************/
@@ -4706,6 +4707,122 @@ u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
 			*CalibrationMode = XRFDC_CALIB_MODE2;
 	}
 
+	(void)BaseAddr;
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to set enable/disable the Inverse-Sinc filter.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id Valid values are 0-3.
+* @param	Block_Id is DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param	Enable valid values are 0(disable) and 1(enable).
+*
+* @return
+*		- XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Block not enabled.
+*
+* @note		Only DAC blocks
+*
+******************************************************************************/
+u32 XRFdc_SetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+								u16 Enable)
+{
+	s32 Status;
+	u32 IsBlockAvail;
+	u16 ReadReg;
+	u32 BaseAddr;
+
+#ifdef __BAREMETAL__
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+
+	IsBlockAvail = XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+	BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) +
+								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
+	if (IsBlockAvail == 0U) {
+		Status = XRFDC_FAILURE;
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block not "
+							"available in %s\r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+						"available in %s\r\n", __func__);
+#endif
+		goto RETURN_PATH;
+	} else {
+		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_DAC_INVSINC_OFFSET);
+		ReadReg &= ~XRFDC_EN_INVSINC_MASK;
+		ReadReg |= Enable;
+		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_DAC_INVSINC_OFFSET,
+								ReadReg);
+	}
+	(void)BaseAddr;
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to get the Inverse-Sinc filter status(enable/disable).
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id Valid values are 0-3.
+* @param	Block_Id is DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param	Enable is a pointer to get the inv-sinc status. valid values
+*               are 0(disable) and 1(enable).
+*
+* @return
+*		- XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Block not enabled.
+*
+* @note		Only DAC blocks
+*
+******************************************************************************/
+u32 XRFdc_GetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+								u16 *Enable)
+{
+	s32 Status;
+	u32 IsBlockAvail;
+	u16 ReadReg;
+	u32 BaseAddr;
+
+#ifdef __BAREMETAL__
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+
+	IsBlockAvail = XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+	BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) +
+								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
+	if (IsBlockAvail == 0U) {
+		Status = XRFDC_FAILURE;
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block not "
+							"available in %s\r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+						"available in %s\r\n", __func__);
+#endif
+		goto RETURN_PATH;
+	} else {
+		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_DAC_INVSINC_OFFSET);
+		*Enable = ReadReg & XRFDC_EN_INVSINC_MASK;
+	}
 	(void)BaseAddr;
 
 	Status = XRFDC_SUCCESS;
