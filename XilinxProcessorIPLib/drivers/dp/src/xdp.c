@@ -311,9 +311,9 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 			u8 Data;
 			/* Check extended capability register */
 			XDp_TxAuxRead(InstancePtr, XDP_EDID_DPCD_MAX_LINK_RATE, 1, &Data);
-			if(Data == XDP_RX_OVER_LINK_BW_SET_810GBPS){
-				RxMaxLinkRate = XDP_RX_OVER_LINK_BW_SET_810GBPS;
-				LinkConfig->MaxLinkRate = XDP_RX_OVER_LINK_BW_SET_810GBPS;
+			if(Data == XDP_TX_LINK_BW_SET_810GBPS) {
+				RxMaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
+				LinkConfig->MaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
 			}
 		}
 	}
