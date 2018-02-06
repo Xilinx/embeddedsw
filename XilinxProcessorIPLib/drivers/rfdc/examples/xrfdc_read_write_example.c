@@ -194,6 +194,8 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 	u32 GetDecimationFactor;
 	u8 SetCalibrationMode;
 	u8 GetCalibrationMode;
+	u16 SetInvSinc;
+	u16 GetInvSinc;
 #ifndef __BAREMETAL__
 	struct metal_device *device;
 	struct metal_io_region *io;
@@ -462,6 +464,28 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				if (Status != XRFDC_SUCCESS)
 					return XRFDC_FAILURE;
 				if (SetInterpolationFactor != GetInterpolationFactor)
+					return XRFDC_FAILURE;
+				SetInvSinc = 0x1;
+				Status = XRFdc_SetInvSincFIR(RFdcInstPtr, Tile, Block,
+												SetInvSinc);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetInvSincFIR(RFdcInstPtr, Tile, Block,
+												&GetInvSinc);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetInvSinc != GetInvSinc)
+					return XRFDC_FAILURE;
+				SetInvSinc = 0x0;
+				Status = XRFdc_SetInvSincFIR(RFdcInstPtr, Tile, Block,
+												SetInvSinc);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetInvSincFIR(RFdcInstPtr, Tile, Block,
+												&GetInvSinc);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetInvSinc != GetInvSinc)
 					return XRFDC_FAILURE;
 			}
 
