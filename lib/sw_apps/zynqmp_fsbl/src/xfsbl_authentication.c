@@ -138,6 +138,9 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 	XFsbl_Printf(DEBUG_DETAILED,
 		"XFsbl_SpkVer: Ppk Mod %0x, Ppk Mod Ex %0x, Ppk Exp %0x\r\n",
 		PpkModular, PpkModularEx, PpkExp);
+		XFsbl_PrintArray(DEBUG_DETAILED, PpkModular, XFSBL_PPK_MOD_SIZE, "Ppk Modular");
+		XFsbl_PrintArray(DEBUG_DETAILED, PpkModularEx, XFSBL_PPK_MOD_EXT_SIZE, "Ppk ModularEx");
+		XFsbl_PrintArray(DEBUG_DETAILED, PpkExp, XFSBL_RSA_AC_ALIGN, "PpkExp");
 	}
 
 	/* Calculate SPK + Auth header Hash */
@@ -304,6 +307,9 @@ static u32 XFsbl_PartitionSignVer(const XFsblPs *FsblInstancePtr, u64 PartitionO
 	XFsbl_Printf(DEBUG_DETAILED,
 		"XFsbl_PartVer: Spk Mod %0x, Spk Mod Ex %0x, Spk Exp %0x\r\n",
 		SpkModular, SpkModularEx, SpkExp);
+		XFsbl_PrintArray(DEBUG_DETAILED, SpkModular, XFSBL_SPK_MOD_SIZE, "Spk Modular");
+		XFsbl_PrintArray(DEBUG_DETAILED, SpkModularEx, XFSBL_SPK_MOD_EXT_SIZE, "Spk ModularEx");
+		XFsbl_PrintArray(DEBUG_DETAILED, SpkExp, XFSBL_RSA_AC_ALIGN, "Spk Exp");
 	}
 	XFsbl_Printf(DEBUG_INFO,
 			"Partition Verification done \r\n");
