@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xrfdc.h
-* @addtogroup rfdc_v3_1
+* @addtogroup rfdc_v3_2
 * @{
 * @details
 *
@@ -963,7 +963,7 @@ static inline u32 XRFdc_IsFifoEnabled(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 ******************************************************************************/
 static inline double XRFdc_GetDriverVersion()
 {
-	return 3.1;
+	return 3.2;
 }
 
 /************************** Function Prototypes ******************************/
