@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -31,21 +31,22 @@
 ******************************************************************************/
 /*****************************************************************************/
 /**
-*
-* @file xv_sditxss.c
-*
-* This is the main file for Xilinx SDI TX core. Please see xv_sditxss.h for
-* more details of the driver.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who    Date     Changes
-* ----- ------ -------- -------------------------------------------------------
-* 1.00  jsr    07/17/17 Initial release.
-* </pre>
-*
-******************************************************************************/
+ *
+ * @file xv_sditxss.c
+ *
+ * This is the main file for Xilinx SDI TX core. Please see xv_sditxss.h for
+ * more details of the driver.
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who    Date     Changes
+ * ----- ------ -------- -------------------------------------------------------
+ * 1.00  jsr    07/17/17 Initial release.
+ * 2.00  kar    01/25/18 Second  release.
+ * </pre>
+ *
+ ******************************************************************************/
 
 /***************************** Include Files *********************************/
 

@@ -1,6 +1,6 @@
 ################################################################################
 #
-# Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,16 @@
 # in advertising or otherwise to promote the sale, use or other dealings in
 # this Software without prior written authorization from Xilinx.
 #
-################################################################################
+###############################################################################
+###############################################################################
+#
+# Modification History
+# ver   who  Date     Changes
+# ----- ---- -------- ---------------------------------------------
+# 1.1   jsr  07/17/17 Created
+# 2.0   kar  01/25/18 Second release
+#
+###############################################################################
 
 proc generate {drv_handle} {
     hier_ip_define_include_file $drv_handle "xparameters.h" "XV_SdiTxSs" \
