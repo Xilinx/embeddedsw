@@ -46,8 +46,8 @@
  * Version number is a 32bit value, like:
  * (PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR
  */
-#define PM_VERSION_MAJOR    0U
-#define PM_VERSION_MINOR    3U
+#define PM_VERSION_MAJOR    1U
+#define PM_VERSION_MINOR    0U
 
 #define PM_VERSION	((PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR)
 
