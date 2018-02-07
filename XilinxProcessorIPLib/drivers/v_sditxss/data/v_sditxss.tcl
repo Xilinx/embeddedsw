@@ -37,7 +37,10 @@ proc generate {drv_handle} {
     "C_BASEADDR" \
     "C_HIGHADDR" \
 	"C_INCLUDE_ADV_FEATURES" \
-	"C_LINE_RATE"
+	"C_LINE_RATE" \
+	"C_INCLUDE_EDH" \
+	"C_VIDEO_INTF" \
+	"C_INCLUDE_AXILITE"
 
     hier_ip_define_config_file $drv_handle "xv_sditxss_g.c" \
     "XV_SdiTxSs" \
@@ -46,13 +49,15 @@ proc generate {drv_handle} {
 	"C_INCLUDE_ADV_FEATURES" \
 	"C_LINE_RATE"
 
-    hier_ip_define_canonical_xpars $drv_handle "xparameters.h" "XV_SdiTxSs" \
-    "NUM_INSTANCES" \
-    "DEVICE_ID" \
-    "C_BASEADDR" \
-    "C_HIGHADDR" \
+	hier_ip_define_canonical_xpars $drv_handle "xparameters.h" "XV_SdiTxSs" \
+	"DEVICE_ID" \
+	"C_BASEADDR" \
+	"C_HIGHADDR" \
 	"C_INCLUDE_ADV_FEATURES" \
-	"C_LINE_RATE"
+	"C_LINE_RATE" \
+	"C_INCLUDE_EDH" \
+	"C_VIDEO_INTF" \
+	"C_INCLUDE_AXILITE"
 }
 
 #
@@ -91,30 +96,46 @@ proc hier_ip_define_include_file {drv_handle file_name drv_string args} {
                 incr device_id
 			} elseif {[string compare -nocase "C_INCLUDE_ADV_FEATURES" $arg] == 0} {
                 set value [string toupper [common::get_property CONFIG.$arg $periph]]
-			} elseif {[string compare -nocase "C_LINE_RATE" $arg] == 0} {
-                set value [string toupper [common::get_property CONFIG.$arg $periph]]
-				puts $value
-				if {[string compare -nocase "3G_SDI" $value] == 0} {
-					set value 0
-				} elseif {[string compare -nocase "6G_SDI" $value] == 0} {
-					set value 1
-				} elseif {[string compare -nocase "12G_SDI_8DS" $value] == 0} {
-					set value 2
-				} elseif {[string compare -nocase "12G_SDI_16DS" $value] == 0} {
-					set value 3
-				} else {
-				    set value 4
-				}
-            } else {
-                set value [common::get_property CONFIG.$arg $periph]
-            }
-            if {[llength $value] == 0} {
-                set value 0
-            }
-            set value [::hsi::utils::format_addr_string $value $arg]
-            puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
-        }
-        puts $file_handle ""
+	} elseif {[string compare -nocase "C_INCLUDE_EDH" $arg] ==0} {
+		set value [string toupper [common::get_property CONFIG.$arg $periph]]
+	}  elseif {[string compare -nocase "C_VIDEO_INTF" $arg] ==0} {
+		set value [string toupper [common::get_property CONFIG.$arg $periph]]
+		puts $value
+		if {[string compare -nocase "AXI4_STREAM" $value] == 0} {
+			set value 0
+		} elseif {[string compare -nocase "NATIVE_VIDEO" $value] == 0} {
+			set value 1
+		} elseif {[string compare -nocase "NATIVE_SDI" $value] == 0} {
+			set value 2
+		} else {
+			set value 3
+		}
+       } elseif {[string compare -nocase "C_INCLUDE_AXILITE" $arg] ==0} {
+	       set value [string toupper [common::get_property CONFIG.$arg $periph]]
+       } elseif {[string compare -nocase "C_LINE_RATE" $arg] == 0} {
+	       set value [string toupper [common::get_property CONFIG.$arg $periph]]
+	       puts $value
+	       if {[string compare -nocase "3G_SDI" $value] == 0} {
+		       set value 0
+		} elseif {[string compare -nocase "6G_SDI" $value] == 0} {
+			set value 1
+		} elseif {[string compare -nocase "12G_SDI_8DS" $value] == 0} {
+			set value 2
+		} elseif {[string compare -nocase "12G_SDI_16DS" $value] == 0} {
+			set value 3
+		} else {
+			set value 4
+		}
+    } else {
+	    set value [common::get_property CONFIG.$arg $periph]
+    }
+    if {[llength $value] == 0} {
+	    set value 0
+    }
+    set value [::hsi::utils::format_addr_string $value $arg]
+    puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
+}
+puts $file_handle ""
     }
     puts $file_handle "\n/******************************************************************/\n"
     close $file_handle
@@ -167,6 +188,40 @@ proc hier_ip_define_canonical_xpars {drv_handle file_name drv_string args} {
 
 				if {[string compare -nocase "C_INCLUDE_ADV_FEATURES" $arg] == 0} {
 					 set value [string toupper [common::get_property CONFIG.$arg $periph]]
+				    puts $value
+				    if {[string compare -nocase "TRUE" $value] == 0} {
+					    set rvalue 1
+			 } elseif {[string compare -nocase "FALSE" $value] == 0} {
+				 set rvalue 0
+			 }
+		} elseif {[string compare -nocase "C_INCLUDE_EDH" $arg] ==0} {
+			set value [string toupper [common::get_property CONFIG.$arg $periph]]
+			puts $value
+			if {[string compare -nocase "TRUE" $value] == 0} {
+				set rvalue 1
+			 } elseif {[string compare -nocase "FALSE" $value] == 0} {
+				 set rvalue 0
+			 }
+		} elseif {[string compare -nocase "C_VIDEO_INTF" $arg] ==0} {
+			set value [string toupper [common::get_property CONFIG.$arg $periph]]
+			puts $value
+			if {[string compare -nocase "AXI4_STREAM" $value] == 0} {
+				set rvalue 0
+		} elseif {[string compare -nocase "NATIVE_VIDEO" $value] == 0} {
+			set rvalue 1
+		} elseif {[string compare -nocase "NATIVE_SDI" $value] == 0} {
+			set rvalue 2
+		} else {
+			set rvalue 3
+		}
+		} elseif {[string compare -nocase "C_INCLUDE_AXILITE" $arg] ==0} {
+			set value [string toupper [common::get_property CONFIG.$arg $periph]]
+			puts $value
+			if {[string compare -nocase "TRUE" $value] == 0} {
+				set rvalue 1
+			 } elseif {[string compare -nocase "FALSE" $value] == 0} {
+				 set rvalue 0
+			 }
 				} elseif {[string compare -nocase "C_LINE_RATE" $arg] == 0} {
 					set value [string toupper [common::get_property CONFIG.$arg $periph]]
 					puts $value
