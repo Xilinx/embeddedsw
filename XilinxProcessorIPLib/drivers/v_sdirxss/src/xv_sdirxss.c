@@ -57,9 +57,10 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XSDIRXSS_LINE_RATE_3G	0
 #define XSDIRXSS_LINE_RATE_6G	1
-#define XSDIRXSS_LINE_RATE_12G8DS	2
-
-
+#define XSDIRXSS_LINE_RATE_12G8DS 2
+#define XSDIRXSS_AXI4_STREAM 0
+#define XSDIRXSS_NATIVE_VIDEO 1
+#define XSDIRXSS_NATIVE_SDI 2
 /**************************** Type Definitions *******************************/
 /**
 * This typedef declares the driver instances of all the cores in the subsystem
@@ -528,12 +529,12 @@ XSdiVid_TransMode XV_SdiRxSs_GetTransportMode(XV_SdiRxSs *InstancePtr)
 	/* Following assertions make sure the IPSS is configured with in the
 	 * subsystem GUI paramter limit
 	 */
-	Xil_AssertVoid((InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_3G) &&
-			(TMode <= XSDIVID_MODE_3GB) ||
-			(InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_6G) &&
-			(TMode <= XSDIVID_MODE_6G) ||
-			(InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_12G8DS) &&
-			(TMode <= XSDIVID_MODE_12G));
+	Xil_AssertVoid(((InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_3G) &&
+			(TMode <= XSDIVID_MODE_3GB)) ||
+			((InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_6G) &&
+			(TMode <= XSDIVID_MODE_6G)) ||
+			((InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_12G8DS) &&
+			(TMode <= XSDIVID_MODE_12G)));
 
 	return InstancePtr->SdiRxPtr->Transport.TMode;
 }
