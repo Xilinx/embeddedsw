@@ -30,7 +30,7 @@
 
 #ifndef PM_QSPI_H_
 #define PM_QSPI_H_
-#ifdef ENABLE_POS_QSPI
+
 #include "xpfw_config.h"
 #include "xparameters.h"
 #include "xqspipsu.h"
@@ -39,6 +39,5 @@ int PmQspiInit(void);
 int PmQspiWrite(u8 *WriteBufrPtr, u32 ByteCount);
 int PmQspiRead(u32 ByteCount, u8 *ReadBfrPtr);
 int PmQspiHWInit(void);
-#endif
 
 #endif
