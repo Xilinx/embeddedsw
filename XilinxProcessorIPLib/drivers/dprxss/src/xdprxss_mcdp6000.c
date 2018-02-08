@@ -247,7 +247,7 @@ int XDpRxSs_MCDP6000_DpInit(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 	 * inverted plug orientation instead.
 	 */
 	/*AUX Setting to add latency for data forwarding*/
-	Result = MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 				      0x0350, 0x0000001F);
 	if (Result != XST_SUCCESS) {
 		return XST_FAILURE;
