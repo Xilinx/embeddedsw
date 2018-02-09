@@ -81,7 +81,14 @@
 		/* The timer is used to generate the RTOS tick interrupt. */
 		static XTmrCtr xTickTimerInstance;
 	#endif
+#elif defined (XPAR_XTTCPS_NUM_INSTANCES)
+	#if(XPAR_XTTCPS_NUM_INSTANCES  > 0)
+		#include "xttcps.h"
+		/* The timer is used to generate the RTOS tick interrupt. */
+        static XTtcPs xTickTimerInstance;
+	#endif
 #endif
+
 
 /*
  * Some FreeRTOSConfig.h settings require the application writer to provide the
@@ -249,6 +256,60 @@ volatile char *pcOverflowingTaskName = pcTaskName;
 			configASSERT( ( xStatus == pdPASS ) );
 		}
 	#endif /* XPAR_XTMRCTR_NUM_INSTANCES > 0 */
+#elif defined (XPAR_XTTCPS_NUM_INSTANCES)
+	#if(XPAR_XTTCPS_NUM_INSTANCES  > 0)
+		void vApplicationSetupTimerInterrupt( void )
+		{
+		portBASE_TYPE xStatus;
+		XInterval usInterval;
+		uint8_t ucPrescaler;
+		extern void vPortTickISR( void *pvUnused );
+		XTtcPs_Config *pxTimerConfiguration;
+
+			/* Initialise the timer/counter. */
+			pxTimerConfiguration = XTtcPs_LookupConfig( configTIMER_ID );
+			xStatus = XTtcPs_CfgInitialize( &xTickTimerInstance, pxTimerConfiguration, pxTimerConfiguration->BaseAddress );
+
+			if( xStatus != XST_SUCCESS )
+	        {
+				XTtcPs_Stop(&xTickTimerInstance);
+		        xStatus = XTtcPs_CfgInitialize( &xTickTimerInstance, pxTimerConfiguration, pxTimerConfiguration->BaseAddress );
+				if( xStatus != XST_SUCCESS )
+				{
+					xil_printf( "In %s: Timer Cfg initialization failed...\r\n", __func__ );
+					return;
+				}
+			}
+
+			if( xStatus == XST_SUCCESS )
+			{
+				/* Install the tick interrupt handler as the timer ISR.
+				*NOTE* The xPortInstallInterruptHandler() API function must be used for
+				this purpose. */
+				xStatus = xPortInstallInterruptHandler( configTIMER_INTERRUPT_ID, vPortTickISR, NULL );
+			}
+
+			if( xStatus == pdPASS )
+			{
+				XTtcPs_SetOptions( &xTickTimerInstance, XTTCPS_OPTION_INTERVAL_MODE | XTTCPS_OPTION_WAVE_DISABLE );
+				XTtcPs_CalcIntervalFromFreq( &xTickTimerInstance, configTICK_RATE_HZ, &usInterval, &ucPrescaler );
+				XTtcPs_SetInterval( &xTickTimerInstance, usInterval );
+				XTtcPs_SetPrescaler( &xTickTimerInstance, ucPrescaler );
+				/* Enable the timer interrupt in the interrupt controller.
+				*NOTE* The vPortEnableInterrupt() API function must be used for this
+				purpose. */
+				vPortEnableInterrupt( configTIMER_INTERRUPT_ID );
+				/* Enable the interrupt for timer. */
+				XTtcPs_EnableInterrupts( &xTickTimerInstance, XTTCPS_IXR_INTERVAL_MASK );
+
+				/* Start the timer */
+				XTtcPs_Start( &xTickTimerInstance );
+			}
+
+			/* Sanity check that the function executed as expected. */
+			configASSERT( ( xStatus == pdPASS ) );
+		}
+	#endif	/* XPAR_XTTCPS_NUM_INSTANCES */
 #endif /* XPAR_XTMRCTR_NUM_INSTANCES */
 /*-----------------------------------------------------------*/
 
@@ -271,4 +332,15 @@ volatile char *pcOverflowingTaskName = pcTaskName;
 			XTmrCtr_SetControlStatusReg( XPAR_TMRCTR_0_BASEADDR, 0, ulCSR );
 		}
 	#endif /* XPAR_XTMRCTR_NUM_INSTANCES > 0 */
+#elif defined (XPAR_XTTCPS_NUM_INSTANCES)
+	#if(XPAR_XTTCPS_NUM_INSTANCES  > 0)
+
+		void vApplicationClearTimerInterrupt( void )
+		{
+			uint32_t ulStatusEvent;
+
+			ulStatusEvent = XTtcPs_GetInterruptStatus( &xTickTimerInstance );
+			XTtcPs_ClearInterruptStatus( &xTickTimerInstance, ulStatusEvent );
+		}
+	#endif
 #endif /* XPAR_XTMRCTR_NUM_INSTANCES */

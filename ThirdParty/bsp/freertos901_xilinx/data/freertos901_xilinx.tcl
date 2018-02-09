@@ -906,6 +906,92 @@ proc generate {os_handle} {
 	}
 	# end of if $proctype == "psu_cortexa53"
 
+	############################################################################
+	## Add constants specific to the microblaze
+	############################################################################
+
+	if { $proctype == "microblaze" } {
+		set ttc_ips [get_cell -hier -filter {IP_NAME== "psu_ttc"}]
+		if { [llength $ttc_ips] != 0 } {
+			foreach ttc_ip $ttc_ips {
+			if { $ttc_ip == "psu_ttc_0"} {
+				set val [common::get_property CONFIG.PSU_TTC0_Select $os_handle]
+				if {$val == "true"} {
+					set have_tick_timer 1
+					set val1 [common::get_property CONFIG.PSU_TTC0_Select_Cntr $os_handle]
+					set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ttc_ip] [format "ps_pl_irq_ttc0_%d" $val1] ]
+					set intcname [::hsi::utils::get_connected_intr_cntrl $ttc_ip  $intr_pin_name]
+					puts $config_file "#define configTIMER_ID [format "XPAR_XTTCPS_%d_DEVICE_ID" $val1 ]"
+					puts $config_file "#define configTIMER_BASEADDR [format "XPAR_XTTCPS_%d_BASEADDR" $val1 ]"
+					puts $config_file "#define configTIMER_INTERRUPT_ID [string toupper [format XPAR_${intcname}_${ttc_ip}_${intr_pin_name}_INTR ] ]"
+					if { $val1 >=3 } {
+						error "ERROR: invalid timer selected" "mdt_error"
+					}
+				}
+			}
+			if { $ttc_ip == "psu_ttc_1"} {
+				set val [common::get_property CONFIG.PSU_TTC1_Select $os_handle]
+				if {$val == "true"} {
+					if {$have_tick_timer == 1} {
+						error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
+					} else {
+						set have_tick_timer 1
+						set val1 [common::get_property CONFIG.PSU_TTC1_Select_Cntr $os_handle]
+						set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ttc_ip] [format "ps_pl_irq_ttc1_%d" $val1] ]
+						set intcname [::hsi::utils::get_connected_intr_cntrl $ttc_ip  $intr_pin_name]
+						puts $config_file "#define configTIMER_ID [format "XPAR_XTTCPS_%d_DEVICE_ID" [ expr $val1+3 ] ]"
+						puts $config_file "#define configTIMER_BASEADDR [format "XPAR_XTTCPS_%d_BASEADDR" [ expr $val1+3 ] ]"
+						puts $config_file "#define configTIMER_INTERRUPT_ID [string toupper [format XPAR_${intcname}_${ttc_ip}_${intr_pin_name}_INTR ] ]"
+						if { $val1 >=3 } {
+							error "ERROR: invalid timer selected " "mdt_error"
+						}
+					}
+				}
+			}
+			if { $ttc_ip == "psu_ttc_2"} {
+				set val [common::get_property CONFIG.PSU_TTC2_Select $os_handle]
+				if {$val == "true"} {
+					if {$have_tick_timer == 1} {
+						error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
+					} else {
+						set have_tick_timer 1
+						set val1 [common::get_property CONFIG.PSU_TTC2_Select_Cntr $os_handle]
+						set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ttc_ip] [format "ps_pl_irq_ttc2_%d" $val1] ]
+						set intcname [::hsi::utils::get_connected_intr_cntrl $ttc_ip  $intr_pin_name]
+						puts $config_file "#define configTIMER_ID [format "XPAR_XTTCPS_%d_DEVICE_ID" [ expr $val1+6 ] ]"
+						puts $config_file "#define configTIMER_BASEADDR [format "XPAR_XTTCPS_%d_BASEADDR" [ expr $val1+6 ] ]"
+						puts $config_file "#define configTIMER_INTERRUPT_ID [string toupper [format XPAR_${intcname}_${ttc_ip}_${intr_pin_name}_INTR ] ]"
+						if { $val1 >=3 } {
+							error "ERROR: invalid timer selected " "mdt_error"
+						}
+					}
+				}
+			}
+			if { $ttc_ip == "psu_ttc_3"} {
+				set val [common::get_property CONFIG.PSU_TTC3_Select $os_handle]
+				if {$val == "true"} {
+					if {$have_tick_timer == 1} {
+						error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
+					} else {
+						set have_tick_timer 1
+						set val1 [common::get_property CONFIG.PSU_TTC3_Select_Cntr $os_handle]
+						set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ttc_ip] [format "ps_pl_irq_ttc2_%d" $val1] ]
+						set intcname [::hsi::utils::get_connected_intr_cntrl $ttc_ip  $intr_pin_name]
+						puts $config_file "#define configTIMER_ID [format "XPAR_XTTCPS_%d_DEVICE_ID" [ expr $val1+9 ] ]"
+						puts $config_file "#define configTIMER_BASEADDR [format "XPAR_XTTCPS_%d_BASEADDR" [ expr $val1+9 ] ]"
+						puts $config_file "#define configTIMER_INTERRUPT_ID [string toupper [format XPAR_${intcname}_${ttc_ip}_${intr_pin_name}_INTR ] ]"
+						if { $val1 >=3 } {
+							error "ERROR: invalid timer selected " "mdt_error"
+						}
+					}
+				}
+			}
+			}
+		}
+		if {$have_tick_timer == 0} {
+			error "ERROR: No tick timer selected " "mdt_error"
+		}
+	}
 
 	############################################################################
 	## Add constants specific to the ps7_cortexa9
@@ -1230,7 +1316,19 @@ proc mb_drc_checks { sw_proc_handle hw_proc_handle os_handle } {
                      set timer_has_intr 1
                  }
               }
-         }
+         } else {
+		    set ttc_ips [get_cell -hier -filter {IP_NAME== "psu_ttc"}]
+			if { [llength $ttc_ips] != 0 } {
+			     foreach ttc_ip $ttc_ips {
+				     incr timer_count
+			  # check if the axi_timer IP is interrupting current processor
+			         set isintr [::hsm::utils::is_ip_interrupting_current_proc $ttc_ip]
+			         if {$isintr == 1} {
+                         set timer_has_intr 1
+                     }
+			     }
+			 }
+		 }
 
 	if { $timer_count == 0 } {
 		error "FreeRTOS for Microblaze requires an axi_timer or xps_timer. The HW platform doesn't have a valid timer." "" "mdt_error"
