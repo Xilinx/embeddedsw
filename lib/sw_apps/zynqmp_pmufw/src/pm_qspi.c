@@ -33,6 +33,13 @@
 
 #include "pm_qspi.h"
 #include "pm_common.h"
+#include "xpfw_config.h"
+#include "xparameters.h"
+#ifdef XPAR_PSU_QSPI_0_DEVICE_ID
+	#include <xqspipsu.h>
+#else
+	#error "ENABLE_POS_QSPI is defined but qspi device is not available"
+#endif
 
 #define IOU_SLCR_BASE		0XFF180000U
 #define IOU_SCLR_MIO_PIN_0	( ( IOU_SLCR_BASE )  + 0X00000000U )

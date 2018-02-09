@@ -31,9 +31,7 @@
 #ifndef PM_QSPI_H_
 #define PM_QSPI_H_
 
-#include "xpfw_config.h"
-#include "xparameters.h"
-#include "xqspipsu.h"
+#include "pm_common.h"
 
 int PmQspiInit(void);
 int PmQspiWrite(u8 *WriteBufrPtr, u32 ByteCount);
