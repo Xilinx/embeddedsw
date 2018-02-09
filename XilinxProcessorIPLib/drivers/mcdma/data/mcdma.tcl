@@ -36,6 +36,11 @@
 # Ver   Who   Date     Changes
 # ----- ----  -------- -----------------------------------------------
 # 1.0   adk   18/07/17  First release
+# 1.1   adk   09/02/18  Updated tcl logic to export proper values for
+#			CACHE_COHERENT properties when h/w is configured for
+#			single axi4 data interface.
+#			Added failure checks in the tcl to avoid bsp compilation
+#			errors incase stream interface is unconnected.
 #
 ##############################################################################
 
@@ -65,9 +70,13 @@ proc generate_cci_params {drv_handle file_name} {
 		set iptype [common::get_property IP_NAME [get_cells $ip]]
 		if {$processor_type == "psu_cortexa53"} {
 			set is_hpcdesign 0
+			set has_signleintf [common::get_property CONFIG.c_single_interface [get_cells $ip]]
 			set has_mm2s [common::get_property CONFIG.c_include_mm2s [get_cells $ip]]
 			if {$has_mm2s == 1} {
 				set is_hpcdesign [get_connected_if $ip "M_AXI_MM2S"]
+			}
+			if {$has_signleintf == 1} {
+				set is_hpcdesign [get_connected_if $ip "M_AXI"]
 			}
 			if { $is_hpcdesign } {
 				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_MM2S_CACHE_COHERENT"] 1"
@@ -78,6 +87,9 @@ proc generate_cci_params {drv_handle file_name} {
 			set has_s2mm [common::get_property CONFIG.c_include_s2mm [get_cells $ip]]
 			if {$has_s2mm == 1} {
 				set is_hpcdesign [get_connected_if $ip "M_AXI_S2MM"]
+			}
+			if {$has_signleintf == 1} {
+				set is_hpcdesign [get_connected_if $ip "M_AXI"]
 			}
 			if { $is_hpcdesign } {
 				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_S2MM_CACHE_COHERENT"] 1"
@@ -94,8 +106,11 @@ proc generate_cci_params {drv_handle file_name} {
 
 proc get_connected_if {drv_handle dma_pin} {
 	set iphandle [::hsi::utils::get_connected_stream_ip $drv_handle $dma_pin]
+        if {[llength $iphandle] == 0} {
+		return 0
+	}
 	set ipname [get_property IP_NAME $iphandle]
-	if {$ipname == "axi_interconnect"} {
+	if {$ipname == "axi_interconnect" || $ipname == "smartconnect"} {
 		set get_intf [::hsi::utils::get_connected_intf $iphandle M00_AXI]
 		set name "HPC"
 		set intf_names [split $get_intf "_"]

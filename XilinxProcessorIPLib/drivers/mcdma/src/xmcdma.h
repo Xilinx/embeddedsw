@@ -137,6 +137,8 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   adk 	18/07/17 Initial version.
+* 1.0   adk     09/02/18 Fixed CR#994435 Changes are made in the
+*			 driver tcl file.
 ******************************************************************************/
 #ifndef XMCDMA_H_
 #define XMCDMA_H_
