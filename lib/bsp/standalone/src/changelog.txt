@@ -509,5 +509,6 @@
  *                    hypervisor enabled BSP.
  * 6.6 mus   02/02/18 Updated get_connected_if proc in standalone tcl to detect the HPC port 
  *                    configured with smart interconnect.It fixes CR#990318.
+ * 6.6 srm   02/10/18 Updated csu_wdt interrupt to the correct value. Fixes CR#992229
  *
  *****************************************************************************************/
