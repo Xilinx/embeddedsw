@@ -91,6 +91,7 @@
  * 	                       of a sub-system
  * 	- DEBUG_MODE : This macro enables PM debug prints if XPFW_DEBUG_DETAILED
  * 	               macro is also defined
+ *	- ENABLE_POS : Enables Power Off Suspend feature
  *
  * 	These macros are specific to ZCU100 design where it uses GPO1[2] as a
  * 	board power line and
@@ -119,6 +120,7 @@
 #define	IDLE_PERIPHERALS_VAL			(0U)
 #define	ENABLE_NODE_IDLING_VAL			(0U)
 #define	DEBUG_MODE_VAL					(0U)
+#define	ENABLE_POS_VAL					(0U)
 
 #define	PMU_MIO_INPUT_PIN_VAL			(0U)
 #define	BOARD_SHUTDOWN_PIN_VAL			(0U)
@@ -190,6 +192,10 @@
 #define DEBUG_MODE
 #endif
 
+#if ENABLE_POS_VAL
+#define ENABLE_POS
+#endif
+
 #if PMU_MIO_INPUT_PIN_VAL
 #define PMU_MIO_INPUT_PIN			0U
 #endif
@@ -207,6 +213,10 @@
 #define FPD_WDT_EM_ACTION EM_ACTION_CUSTOM
 #else
 #define FPD_WDT_EM_ACTION EM_ACTION_SRST
+#endif
+
+#ifdef ENABLE_POS
+#define ENABLE_POS_QSPI
 #endif
 
 #endif /* XPFW_CONFIG_H_ */
