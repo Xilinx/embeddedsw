@@ -72,6 +72,7 @@
  *       aad  07/10/17 Add XVIDC_VM_3840x2160_60_P_RB video format
  *       vyc  10/04/17 Added new streaming alpha formats and new memory formats
  *       aad  09/05/17 Add XVIDC_VM_1366x768_60_P_RB resolution
+ * 4.3   eb   26/01/18 Added API XVidC_GetVideoModeIdExtensive
  * </pre>
  *
 *******************************************************************************/
@@ -580,6 +581,8 @@ u32 XVidC_Set3DVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
 			               XVidC_PixelsPerClock Ppc, XVidC_3DInfo *Info3DPtr);
 XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
 		                             u8 IsInterlaced);
+XVidC_VideoMode XVidC_GetVideoModeIdExtensive(XVidC_VideoTiming *Timing,
+											  u32 FrameRate, u8 IsInterlaced);
 XVidC_VideoMode XVidC_GetVideoModeIdRb(u32 Width, u32 Height, u32 FrameRate,
 		                               u8 IsInterlaced, u8 RbN);
 XVidC_VideoMode XVidC_GetVideoModeIdWBlanking(const XVidC_VideoTiming *Timing,
