@@ -43,6 +43,8 @@
 * ----- --- ----------   -----------------------------------------------
 * X.XX  XX  YYYY/MM/DD   ...
 * 1.00  RHe 2015/10/06   Initial release.
+* 2.00  EB  2018/01/23   This file is deprecated. All the APIs are now moved
+*						    to HDMI Common library
 * </pre>
 *
 ******************************************************************************/

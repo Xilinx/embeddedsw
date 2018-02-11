@@ -35,16 +35,88 @@ proc generate {drv_handle} {
     "NUM_INSTANCES" \
     "DEVICE_ID" \
     "C_BASEADDR" \
-    "C_HIGHADDR"
+    "C_HIGHADDR" \
+    "AXI_LITE_FREQ_HZ"
 
     xdefine_config_file $drv_handle "xv_hdmirx_g.c" \
     "XV_HdmiRx" \
     "DEVICE_ID" \
-    "C_BASEADDR"
+    "C_BASEADDR" \
+    "AXI_LITE_FREQ_HZ"
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_HdmiRx" \
     "NUM_INSTANCES" \
     "DEVICE_ID" \
     "C_BASEADDR" \
-    "C_HIGHADDR"
+    "C_HIGHADDR" \
+    "AXI_LITE_FREQ_HZ"
+}
+
+#
+# Given a list of arguments, define them all in an include file.
+# Handles IP model/user parameters, as well as the special parameters NUM_INSTANCES,
+# DEVICE_ID
+# Will not work for a processor.
+#
+proc xdefine_include_file {drv_handle file_name drv_string args} {
+    set args [::hsi::utils::get_exact_arg_list $args]
+    # Open include file
+    set file_handle [::hsi::utils::open_include_file $file_name]
+
+    # Get all peripherals connected to this driver
+    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
+
+    # Handle special cases
+    set arg "NUM_INSTANCES"
+    set posn [lsearch -exact $args $arg]
+    if {$posn > -1} {
+        puts $file_handle "/* Definitions for driver [string toupper [common::get_property name $drv_handle]] */"
+        # Define NUM_INSTANCES
+        puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
+        set args [lreplace $args $posn $posn]
+    }
+
+    # Check if it is a driver parameter
+    lappend newargs
+    foreach arg $args {
+        set value [common::get_property CONFIG.$arg $drv_handle]
+        if {[llength $value] == 0} {
+            lappend newargs $arg
+        } else {
+            puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [common::get_property $arg $drv_handle]"
+        }
+    }
+    set args $newargs
+
+    # Print all parameters for all peripherals
+    set device_id 0
+    foreach periph $periphs {
+        puts $file_handle ""
+        puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
+        foreach arg $args {
+            if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
+                set value $device_id
+                incr device_id
+            } elseif {[string compare -nocase "AXI_LITE_FREQ_HZ" $arg] == 0} {
+                set freq [::hsi::utils::get_clk_pin_freq  $periph "s_axi_aclk"]
+                if {[llength $freq] == 0} {
+                    set freq "100000000"
+                    puts "WARNING: AXIlite clock frequency information is not available in the design, \
+                          for peripheral $periph_name. Assuming a default frequency of 100MHz. \
+                          If this is incorrect, the peripheral $periph_name will be non-functional"
+                }
+                set value $freq
+            } else {
+                set value [common::get_property CONFIG.$arg $periph]
+            }
+            if {[llength $value] == 0} {
+                set value 0
+            }
+            set value [::hsi::utils::format_addr_string $value $arg]
+            puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
+        }
+        puts $file_handle ""
+    }
+    puts $file_handle "\n/******************************************************************/\n"
+    close $file_handle
 }
