@@ -56,6 +56,12 @@
 *                           GetVideoPropertiesTries
 * 1.12  YH     22/08/17 Update AudFormat when servicing Aud Interrupt
 * 1.13  MH     31/08/17 Update Reset sequence for Video_Bridge
+* 2.00  EB     16/01/18 Added clearing of XV_HDMIRX_AUX_STA_GCP_CD_EVT flag
+*                           after servicing it
+*       YH     16/11/17 Added bridge overflow interrupt
+*              16/11/17 Update Reset sequence with dedicated reset for
+*                           each clock domain
+*       MMO    08/02/18 Adding proper handling for Sync Loss/Sync Recover
 * </pre>
 *
 ******************************************************************************/
@@ -302,6 +308,14 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr, u32 HandlerType, void *Callbac
 			Status = (XST_SUCCESS);
 			break;
 
+        // Bridge FIFO Overflow
+        case (XV_HDMIRX_HANDLER_BRDG_OVERFLOW):
+            InstancePtr->BrdgOverflowCallback = (XV_HdmiRx_Callback)CallbackFunc;
+            InstancePtr->BrdgOverflowRef = CallbackRef;
+            InstancePtr->IsBrdgOverflowCallbackSet = (TRUE);
+            Status = (XST_SUCCESS);
+            break;
+
         // Sync Loss
         case (XV_HDMIRX_HANDLER_SYNC_LOSS):
             InstancePtr->SyncLossCallback = (XV_HdmiRx_Callback)CallbackFunc;
@@ -366,6 +380,9 @@ static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
                 // Set stream status to up
                 InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_UP;          // The stream is up
 
+                // Set stream sync status to est
+                InstancePtr->Stream.SyncStatus = XV_HDMIRX_SYNCSTAT_SYNC_EST;
+
                 // Enable sync loss
                 XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress,
                   (XV_HDMIRX_VTD_CTRL_SET_OFFSET), (XV_HDMIRX_VTD_CTRL_SYNC_LOSS_MASK));
@@ -384,13 +401,21 @@ static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
             Status = XV_HdmiRx_GetVideoTiming(InstancePtr);
 
             if (Status != XST_SUCCESS) {
-
                 // Disable sync loss
                 XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress,
                   (XV_HDMIRX_VTD_CTRL_CLR_OFFSET), (XV_HDMIRX_VTD_CTRL_SYNC_LOSS_MASK));
 
                 // Set stream status to up
                 InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_LOCK;
+
+            } else if (InstancePtr->Stream.SyncStatus == XV_HDMIRX_SYNCSTAT_SYNC_LOSS) {
+		// Sync Est/Recover Flag
+		InstancePtr->Stream.SyncStatus = XV_HDMIRX_SYNCSTAT_SYNC_EST;
+
+				// Call sync lost callback
+				if (InstancePtr->IsSyncLossCallbackSet) {
+					InstancePtr->SyncLossCallback(InstancePtr->SyncLossRef);
+				}
             }
         }
 
@@ -402,9 +427,14 @@ static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
         // Clear event flag
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_STA_OFFSET), (XV_HDMIRX_VTD_STA_SYNC_LOSS_EVT_MASK));
 
-        // Call sync lost callback
-        if (InstancePtr->IsSyncLossCallbackSet) {
-            InstancePtr->SyncLossCallback(InstancePtr->SyncLossRef);
+        if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_UP) {
+		// Enable the Stream Up + Sync Loss Flag
+		InstancePtr->Stream.SyncStatus = XV_HDMIRX_SYNCSTAT_SYNC_LOSS;
+
+			// Call sync lost callback
+			if (InstancePtr->IsSyncLossCallbackSet) {
+				InstancePtr->SyncLossCallback(InstancePtr->SyncLossRef);
+			}
         }
     }
 }
@@ -573,10 +603,15 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
             // Else there was a glitch on the video ready input
             if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_INIT) {
 
-                // Enable video
-                // MH AI: Toggle bridge reset only after clock is stable
-                XV_HdmiRx_VideoEnable(InstancePtr, (FALSE));
-                XV_HdmiRx_VideoEnable(InstancePtr, (TRUE));
+				/* Toggle video reset for HDMI RX core */
+				XV_HdmiRx_INT_VRST(InstancePtr, TRUE);
+				XV_HdmiRx_INT_VRST(InstancePtr, FALSE);
+
+				/* Toggle bridge reset */
+				XV_HdmiRx_EXT_VRST(InstancePtr, TRUE);
+				XV_HdmiRx_EXT_SYSRST(InstancePtr, TRUE);
+				XV_HdmiRx_EXT_VRST(InstancePtr, FALSE);
+				XV_HdmiRx_EXT_SYSRST(InstancePtr, FALSE);
 
             // Set stream status to arm
                 InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_ARM;         // The stream is armed
@@ -588,8 +623,9 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
 
         // Stream down
         else {
-            /* Assert reset */
-            XV_HdmiRx_Reset(InstancePtr, (TRUE));
+			/* Assert HDMI RX core resets */
+			XV_HdmiRx_INT_VRST(InstancePtr, TRUE);
+			XV_HdmiRx_INT_LRST(InstancePtr, TRUE);
 
             /* Clear variables */
             XV_HdmiRx_Clear(InstancePtr);
@@ -695,8 +731,9 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
             XV_HdmiRx_AuxEnable(InstancePtr);
             XV_HdmiRx_AudioEnable(InstancePtr);
 
-            // Release HDMI RX reset
-            XV_HdmiRx_Reset(InstancePtr, FALSE);
+			/* Release HDMI RX core resets */
+			XV_HdmiRx_INT_VRST(InstancePtr, FALSE);
+			XV_HdmiRx_INT_LRST(InstancePtr, FALSE);
 
             // Enable link
             XV_HdmiRx_LinkEnable(InstancePtr, (TRUE));
@@ -792,6 +829,16 @@ static void HdmiRx_AuxIntrHandler(XV_HdmiRx *InstancePtr)
 
     /* Read Status register */
     Status = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_AUX_STA_OFFSET));
+
+    /* Check for GCP colordepth event */
+    if ((Status) & (XV_HDMIRX_AUX_STA_GCP_CD_EVT_MASK)) {
+	/* Clear event flag */
+	XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_AUX_STA_OFFSET), (XV_HDMIRX_AUX_STA_GCP_CD_EVT_MASK));
+
+	if ((Status) & (XV_HDMIRX_AUX_STA_GCP_MASK)) {
+		InstancePtr->Stream.Video.ColorDepth = XV_HdmiRx_GetGcpColorDepth(InstancePtr);
+	}
+    }
 
     /* Check for new packet */
     if ((Status) & (XV_HDMIRX_AUX_STA_NEW_MASK)) {
