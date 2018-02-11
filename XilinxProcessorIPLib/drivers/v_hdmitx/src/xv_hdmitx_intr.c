@@ -44,6 +44,7 @@
 * ----- ------ -------- --------------------------------------------------
 * 1.00         10/07/15 Initial release.
 * 1.1   YH     18/08/16 squash unused variable compiler warning
+* 1.2   YH     16/01/18 Added bridge unlock interrupt
 * </pre>
 *
 ******************************************************************************/
@@ -182,6 +183,13 @@ int XV_HdmiTx_SetCallback(XV_HdmiTx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
+        case (XV_HDMITX_HANDLER_BRDGUNLOCK):
+            InstancePtr->BrdgUnlockedCallback = (XV_HdmiTx_Callback)CallbackFunc;
+            InstancePtr->BrdgUnlockedRef = CallbackRef;
+            InstancePtr->IsBrdgUnlockedCallbackSet = (TRUE);
+            Status = (XST_SUCCESS);
+            break;
+
         case (XV_HDMITX_HANDLER_VS):
             InstancePtr->VsCallback = (XV_HdmiTx_Callback)CallbackFunc;
             InstancePtr->VsRef = CallbackRef;
@@ -268,6 +276,15 @@ static void HdmiTx_PioIntrHandler(XV_HdmiTx *InstancePtr)
         // Check if user callback has been registered
         if (InstancePtr->IsConnectCallbackSet) {
             InstancePtr->ConnectCallback(InstancePtr->ConnectRef);
+        }
+    }
+
+    /* Bridge Unlocked event has occurred */
+    if ((Event) & (XV_HDMITX_PIO_IN_BRDG_LOCKED_MASK)) {
+
+        // Check if user callback has been registered
+        if (InstancePtr->IsBrdgUnlockedCallbackSet) {
+            InstancePtr->BrdgUnlockedCallback(InstancePtr->BrdgUnlockedRef);
         }
     }
 
