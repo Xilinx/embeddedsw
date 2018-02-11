@@ -84,6 +84,13 @@
 * 1.4   YH     07/07/17 Add new log type XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR
 *       MH     09/08/17 Add function XV_HdmiRxSs_HdcpSetCapability
 *       YH     06/10/17 Add function XV_HdmiRxSs_GetAudioFormat
+* 5.0   YH     16/11/17 Added dedicated reset for each clock domain
+*              16/11/17 Added bridge overflow interrupt
+*       EB     16/01/18 Added InfoFrame data structure to XV_HdmiRxSs
+*                       Added XV_HDMIRXSS_LOG_EVT_PIX_REPEAT_ERR log event
+*                       Added functions XV_HdmiRxSs_GetAviInfoframe,
+*                           XV_HdmiRxSs_GetGCP, XV_HdmiRxSs_GetAudioInfoframe,
+*                           XV_HdmiRxSs_GetVSIF
 * </pre>
 *
 ******************************************************************************/
@@ -99,6 +106,7 @@ extern "C" {
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xv_hdmirx.h"
+#include "xv_hdmic_vsif.h"
 #if !defined(XV_CONFIG_LOG_VHDMIRXSS_DISABLE) && \
                                              !defined(XV_CONFIG_LOG_DISABLE_ALL)
 #define XV_HDMIRXSS_LOG_ENABLE
@@ -152,6 +160,8 @@ typedef enum {
 	XV_HDMIRXSS_LOG_EVT_HDMIMODE,           /**< Log event HDMI Mode change. */
 	XV_HDMIRXSS_LOG_EVT_DVIMODE,            /**< Log event HDMI Mode change. */
 	XV_HDMIRXSS_LOG_EVT_SYNCLOSS,           /**< Log event Sync Loss detected. */
+	XV_HDMIRXSS_LOG_EVT_PIX_REPEAT_ERR,		/**< Log event Unsupported Pixel Repetition. */
+	XV_HDMIRXSS_LOG_EVT_SYNCEST,            /**< Log event Sync Loss detected. */
 	XV_HDMIRXSS_LOG_EVT_DUMMY               /**< Dummy Event should be last */
 } XV_HdmiRxSs_LogEvent;
 
@@ -196,6 +206,7 @@ typedef enum
   XV_HDMIRXSS_HDCP_DVI_MODE_EVT,
   XV_HDMIRXSS_HDCP_HDMI_MODE_EVT,
   XV_HDMIRXSS_HDCP_SYNC_LOSS_EVT,
+  XV_HDMIRXSS_HDCP_SYNC_EST_EVT,
   XV_HDMIRXSS_HDCP_INVALID_EVT
 } XV_HdmiRxSs_HdcpEvent;
 
@@ -244,6 +255,9 @@ typedef enum
 typedef enum {
   XV_HDMIRXSS_HANDLER_CONNECT = 1,                  /**< Handler for connect
                                                          event */
+  XV_HDMIRXSS_HANDLER_BRDGOVERFLOW,                 /**< Handler for
+                                                         bridge fifo overflow
+														 event */
   XV_HDMIRXSS_HANDLER_AUX,                          /**< Handler for AUX
                                                          peripheral event */
   XV_HDMIRXSS_HANDLER_AUD,                          /**< Handler for AUD
@@ -351,6 +365,11 @@ typedef struct
   XV_HdmiRxSs_Callback ConnectCallback; /**< Callback for connect event */
   void *ConnectRef;     /**< To be passed to the connect callback */
 
+  XV_HdmiRxSs_Callback BrdgOverflowCallback;  /**< Callback for Bridge overflow
+                                           event */
+  void *BrdgOverflowRef;         /**< To be passed to the Bridge overflow
+                                    callback */
+
   XV_HdmiRxSs_Callback AuxCallback;     /**< Callback for AUX event */
   void *AuxRef;         /**< To be passed to the AUX callback */
 
@@ -383,6 +402,11 @@ typedef struct
   u8 *EdidPtr;                     /**< Default Edid Pointer */
   u16 EdidLength;               /**< Default Edid Length */
   u8 TMDSClockRatio;            /**< HDMI RX TMDS clock ratio */
+
+  XHdmiC_AVI_InfoFrame AVIInfoframe;	/**< AVI InfoFrame */
+  XHdmiC_GeneralControlPacket GCP;		/**< General Control Packet */
+  XHdmiC_AudioInfoFrame AudioInfoframe;	/**< Audio InfoFrame */
+  XHdmiC_VSIF VSIF;						/**< Vendor Specific InfoFrame */
 
   XVidC_DelayHandler UserTimerWaitUs; /**< Custom user function for
                                            delay/sleep. */
@@ -423,6 +447,10 @@ int XV_HdmiRxSs_CfgInitialize(XV_HdmiRxSs *InstancePtr,
 void XV_HdmiRxSs_Start(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_Stop(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_Reset(XV_HdmiRxSs *InstancePtr);
+void XV_HdmiRxSs_RXCore_VRST(XV_HdmiRxSs *InstancePtr, u8 Reset);
+void XV_HdmiRxSs_RXCore_LRST(XV_HdmiRxSs *InstancePtr, u8 Reset);
+void XV_HdmiRxSs_VRST(XV_HdmiRxSs *InstancePtr, u8 Reset);
+void XV_HdmiRxSs_SYSRST(XV_HdmiRxSs *InstancePtr, u8 Reset);
 int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr,
     u32 HandlerType,
     void *CallbackFunc,
@@ -434,7 +462,11 @@ void XV_HdmiRxSs_LoadEdid(XV_HdmiRxSs *InstancePtr, u8 *EdidDataPtr,
                                                                 u16 Length);
 void XV_HdmiRxSs_SetHpd(XV_HdmiRxSs *InstancePtr, u8 Value);
 void XV_HdmiRxSs_ToggleHpd(XV_HdmiRxSs *InstancePtr);
-XV_HdmiRx_Aux *XV_HdmiRxSs_GetAuxiliary(XV_HdmiRxSs *InstancePtr);
+XHdmiC_Aux *XV_HdmiRxSs_GetAuxiliary(XV_HdmiRxSs *InstancePtr);
+XHdmiC_AVI_InfoFrame *XV_HdmiRxSs_GetAviInfoframe(XV_HdmiRxSs *InstancePtr);
+XHdmiC_AudioInfoFrame *XV_HdmiRxSs_GetAudioInfoframe(XV_HdmiRxSs *InstancePtr);
+XHdmiC_VSIF *XV_HdmiRxSs_GetVSIF(XV_HdmiRxSs *InstancePtr);
+XHdmiC_GeneralControlPacket *XV_HdmiRxSs_GetGCP(XV_HdmiRxSs *InstancePtr);
 u32 XV_HdmiRxSs_SetStream(XV_HdmiRxSs *InstancePtr,
     u32 Clock,
     u32 LineRate);
