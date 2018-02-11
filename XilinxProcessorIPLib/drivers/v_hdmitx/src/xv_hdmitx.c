@@ -57,6 +57,18 @@
 *                           XV_HdmiTx_GetAudioFormat
 *       EB     10/10/17 Updated XV_HdmiTx_Scrambler to always enable scrambler
 *                           for HDMI 2.0 resolutions
+* 1.09  MMO    19/12/17 Added XV_HdmiTx_SetTmdsClk API
+* 2.00  YH     16/01/18 Added dedicated reset for each clock domain
+*                       Added bridge unlock interrupt
+*                       Added PIO_OUT to set GCP_AVMUTE
+*       EB     18/01/18 Moved VicTable to Hdmi Common library
+*                       Updated function XV_HdmiTx_SetTmdsClk and renamed to
+*                           XV_HdmiTx_GetTmdsClk
+*                       Updated function XV_HdmiTx_SetStream
+*                       Moved VicTable, XV_HdmiTx_Aux to Hdmi Common library
+*       EB     23/01/18 Updated XV_HdmiTx_SetAudioChannels to fix an issue
+*                           where setting audio channel value will unmute the
+*                           audio regardless of the current status
 * </pre>
 *
 ******************************************************************************/
@@ -74,59 +86,6 @@
 
 
 /**************************** Type Definitions *******************************/
-
-/**
-* This table contains the attributes for various standard resolutions.
-* Each entry is of the format:
-* 1) Resolution ID
-* 2) Video Identification Code.
-*/
-static const XV_HdmiTx_VicTable VicTable[34] = {
-    {XVIDC_VM_640x480_60_P, 1},     /**< Vic 1   */
-    {XVIDC_VM_720x480_60_P, 2},     /**< Vic 2   */
-    {XVIDC_VM_1280x720_60_P, 4},    /**< Vic 4   */
-    {XVIDC_VM_1920x1080_60_I, 5},   /**< Vic 5   */
-    {XVIDC_VM_1440x480_60_I, 6},    /**< Vic 6   */
-    {XVIDC_VM_720x576_50_P, 17},    /**< Vic 17  */
-    {XVIDC_VM_1280x720_50_P, 19},   /**< Vic 19  */
-    {XVIDC_VM_1920x1080_50_I, 20},  /**< Vic 20  */
-    {XVIDC_VM_1440x576_50_I, 21},   /**< Vic 21  */
-
-    /**< 1680 x 720 */
-    {XVIDC_VM_1680x720_50_P, 82},   /**< Vic 82  */
-    {XVIDC_VM_1680x720_60_P, 83},   /**< Vic 83  */
-    {XVIDC_VM_1680x720_100_P, 84},  /**< Vic 84  */
-    {XVIDC_VM_1680x720_120_P, 85},  /**< Vic 85  */
-
-    /**< 1920 x 1080 */
-    {XVIDC_VM_1920x1080_24_P, 32},  /**< Vic 32  */
-    {XVIDC_VM_1920x1080_25_P, 33},  /**< Vic 33  */
-    {XVIDC_VM_1920x1080_30_P, 34},  /**< Vic 34  */
-    {XVIDC_VM_1920x1080_50_P, 31},  /**< Vic 31  */
-    {XVIDC_VM_1920x1080_60_P, 16},  /**< Vic 16  */
-    {XVIDC_VM_1920x1080_100_P, 64}, /**< Vic 64  */
-    {XVIDC_VM_1920x1080_120_P, 63}, /**< Vic 63  */
-
-    /**< 2560 x 1080 */
-    {XVIDC_VM_2560x1080_50_P, 89},  /**< Vic 89  */
-    {XVIDC_VM_2560x1080_60_P, 90},  /**< Vic 89  */
-    {XVIDC_VM_2560x1080_100_P, 91}, /**< Vic 91  */
-    {XVIDC_VM_2560x1080_120_P, 92}, /**< Vic 92  */
-
-    /**< 3840 x 2160 */
-    {XVIDC_VM_3840x2160_24_P, 93},  /**< Vic 93  */
-    {XVIDC_VM_3840x2160_25_P, 94},  /**< Vic 94  */
-    {XVIDC_VM_3840x2160_30_P, 95},  /**< Vic 95  */
-    {XVIDC_VM_3840x2160_50_P, 96},  /**< Vic 96  */
-    {XVIDC_VM_3840x2160_60_P, 97},  /**< Vic 97  */
-
-    /**< 4096 x 2160 */
-    {XVIDC_VM_4096x2160_24_P, 98},  /**< Vic 98  */
-    {XVIDC_VM_4096x2160_25_P, 99},  /**< Vic 99  */
-    {XVIDC_VM_4096x2160_30_P, 100}, /**< Vic 100 */
-    {XVIDC_VM_4096x2160_50_P, 101}, /**< Vic 101 */
-    {XVIDC_VM_4096x2160_60_P, 102}  /**< Vic 102 */
-};
 
 /************************** Function Prototypes ******************************/
 
@@ -195,6 +154,9 @@ int XV_HdmiTx_CfgInitialize(XV_HdmiTx *InstancePtr, XV_HdmiTx_Config *CfgPtr,
     /* Clear HDMI variables */
     XV_HdmiTx_Clear(InstancePtr);
 
+    /* Disable scrambler override function */
+    InstancePtr->Stream.OverrideScrambler = (FALSE);
+
     // Set stream status
     InstancePtr->Stream.State = XV_HDMITX_STATE_STREAM_DOWN;
     // The stream is down
@@ -233,6 +195,7 @@ int XV_HdmiTx_CfgInitialize(XV_HdmiTx *InstancePtr, XV_HdmiTx_Config *CfgPtr,
     /* PIO: Set event falling edge masks */
     XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
     (XV_HDMITX_PIO_IN_EVT_FE_OFFSET),
+            (XV_HDMITX_PIO_IN_BRDG_LOCKED_MASK) |
             (XV_HDMITX_PIO_IN_HPD_MASK) |
             (XV_HDMITX_PIO_IN_LNK_RDY_MASK)
         );
@@ -374,10 +337,10 @@ void XV_HdmiTx_Clear(XV_HdmiTx *InstancePtr)
 ******************************************************************************/
 u8 XV_HdmiTx_LookupVic(XVidC_VideoMode VideoMode)
 {
-    XV_HdmiTx_VicTable const *Entry;
+    XHdmiC_VicTable const *Entry;
     u8 Index;
 
-    for (Index = 0; Index < sizeof(VicTable)/sizeof(XV_HdmiTx_VicTable);
+    for (Index = 0; Index < sizeof(VicTable)/sizeof(XHdmiC_VicTable);
         Index++) {
       Entry = &VicTable[Index];
       if (Entry->VmId == VideoMode)
@@ -389,8 +352,83 @@ u8 XV_HdmiTx_LookupVic(XVidC_VideoMode VideoMode)
 /*****************************************************************************/
 /**
 *
-* This function controls the scrambler
+* This function sets and return the TMDS Clock based on Video Parameter
 *
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    VideoMode specifies resolution identifier.
+* @param    ColorFormat specifies the type of color format.
+*       - 0 = XVIDC_CSF_RGB
+*       - 1 = XVIDC_CSF_YCRCB_444
+*       - 2 = XVIDC_CSF_YCRCB_422
+*       - 3 = XVIDC_CSF_YCRCB_420
+* @param    Bpc specifies the color depth/bits per color component.
+*       - 6 = XVIDC_BPC_6
+*       - 8 = XVIDC_BPC_8
+*       - 10 = XVIDC_BPC_10
+*       - 12 = XVIDC_BPC_12
+*       - 16 = XVIDC_BPC_16
+*
+* @return
+*       - TMDS Clock
+*
+* @note     None.
+*
+******************************************************************************/
+u32 XV_HdmiTx_GetTmdsClk (XV_HdmiTx *InstancePtr,
+    XVidC_VideoMode VideoMode,
+    XVidC_ColorFormat ColorFormat,
+    XVidC_ColorDepth Bpc) {
+
+    u32 TmdsClock;
+
+    /* Calculate reference clock. First calculate the pixel clock */
+    TmdsClock = XVidC_GetPixelClockHzByVmId(VideoMode);
+
+    /* Store the pixel clock in the structure */
+    InstancePtr->Stream.PixelClk = TmdsClock;
+
+    /* YUV420 */
+    if (ColorFormat == (XVIDC_CSF_YCRCB_420)) {
+        /* In YUV420 the tmds clock is divided by two*/
+        TmdsClock = TmdsClock / 2;
+    }
+
+    /* RGB, YUV444 and YUV420 */
+    if ( ColorFormat != XVIDC_CSF_YCRCB_422 ) {
+
+        switch (Bpc) {
+
+            // 10-bits
+            case XVIDC_BPC_10 :
+                TmdsClock = TmdsClock * 5 / 4;
+                break;
+
+            // 12-bits
+            case XVIDC_BPC_12 :
+                TmdsClock = TmdsClock * 3 / 2;
+                break;
+
+            // 16-bits
+            case XVIDC_BPC_16 :
+                TmdsClock = TmdsClock * 2;
+                break;
+
+            // 8-bits
+            default:
+                TmdsClock = TmdsClock;
+                break;
+        }
+    }
+
+    return TmdsClock;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function controls the scrambler. Requires TMDSClock to be up to date in
+* order to force enable scrambler when TMDSClock > 340MHz.
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
@@ -412,7 +450,8 @@ int XV_HdmiTx_Scrambler(XV_HdmiTx *InstancePtr) {
     // Check if the TMDS Clock is higher than 340MHz
     // Check scrambler flag
 	if (InstancePtr->Stream.IsHdmi20 &&
-			(InstancePtr->Stream.TMDSClock > 340000000
+			((InstancePtr->Stream.TMDSClock > 340000000 &&
+					InstancePtr->Stream.OverrideScrambler != (TRUE))
 					|| InstancePtr->Stream.IsScrambled)) {
 		XV_HdmiTx_SetScrambler(InstancePtr, (TRUE));
 	}
@@ -705,62 +744,22 @@ XVidC_3DInfo *Info3D)
     XV_HdmiTx_SetColorDepth(InstancePtr);
 
     /* Calculate reference clock. First calculate the pixel clock */
-    TmdsClock = XVidC_GetPixelClockHzByVmId(InstancePtr->Stream.Video.VmId);
-
-    /* Store the pixel clock in the structure */
-    InstancePtr->Stream.PixelClk = TmdsClock;
-
-    /* YUV420 */
-    if (ColorFormat == (XVIDC_CSF_YCRCB_420)) {
-        /* In YUV420 the tmds clock is divided by two*/
-        TmdsClock = TmdsClock / 2;
-    }
-
-    /* RGB, YUV444 and YUV420 */
-    if ( ColorFormat != XVIDC_CSF_YCRCB_422 ) {
-
-        switch (Bpc) {
-
-            // 10-bits
-            case XVIDC_BPC_10 :
-                TmdsClock = TmdsClock * 5 / 4;
-                break;
-
-            // 12-bits
-            case XVIDC_BPC_12 :
-                TmdsClock = TmdsClock * 3 / 2;
-                break;
-
-            // 16-bits
-            case XVIDC_BPC_16 :
-                TmdsClock = TmdsClock * 2;
-                break;
-
-            // 8-bits
-            default:
-                TmdsClock = TmdsClock;
-                break;
-        }
-    }
+    TmdsClock = XV_HdmiTx_GetTmdsClk(InstancePtr,
+                                     InstancePtr->Stream.Video.VmId,
+                                     ColorFormat,
+                                     Bpc);
 
     /* Store TMDS clock for future reference */
-    InstancePtr->Stream.TMDSClock = TmdsClock;
+	InstancePtr->Stream.TMDSClock = TmdsClock;
 
     /* HDMI 2.0 */
-    if (InstancePtr->Stream.IsHdmi20) {
-        if (TmdsClock > 340000000) {
+    if (InstancePtr->Stream.IsHdmi20 && TmdsClock > 340000000) {
             InstancePtr->Stream.IsScrambled = (TRUE);
             InstancePtr->Stream.TMDSClockRatio  = 1;
-        }
-        else {
-            InstancePtr->Stream.IsScrambled = (FALSE);
-            InstancePtr->Stream.TMDSClockRatio  = 0;
-        }
     }
-
     /* HDMI 1.4 */
     else {
-        InstancePtr->Stream.IsScrambled = (FALSE);
+		InstancePtr->Stream.IsScrambled = (FALSE);
         InstancePtr->Stream.TMDSClockRatio  = 0;
     }
 
@@ -772,6 +771,186 @@ XVidC_3DInfo *Info3D)
     }
 
     return TmdsClock;
+}
+
+/*****************************************************************************/
+/**
+*
+*  This function asserts or releases the HDMI TX Internal VRST.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    Reset specifies TRUE/FALSE value to either assert or
+*       release HDMI TX Internal VRST.
+*
+* @return   None.
+*
+* @note     The reset output of the PIO is inverted. When the system is
+*       in reset, the PIO output is cleared and this will reset the
+*       HDMI TX. Therefore, clearing the PIO reset output will assert
+*       the HDMI Internal video reset.
+*       C-style signature:
+*       void XV_HdmiTx_INT_VRST(XV_HdmiTx *InstancePtr, u8 Reset)
+*
+******************************************************************************/
+void XV_HdmiTx_INT_VRST(XV_HdmiTx *InstancePtr, u8 Reset)
+{
+
+    /* Verify argument. */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    if (Reset) {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_INT_VRST_MASK));
+    }
+    else {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_INT_VRST_MASK));
+    }
+}
+
+/*****************************************************************************/
+/**
+*
+*  This function asserts or releases the HDMI TX Internal LRST.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    Reset specifies TRUE/FALSE value to either assert or
+*       release HDMI TX Internal LRST.
+*
+* @return   None.
+*
+* @note     The reset output of the PIO is inverted. When the system is
+*       in reset, the PIO output is cleared and this will reset the
+*       HDMI TX. Therefore, clearing the PIO reset output will assert
+*       the HDMI Internal link reset.
+*       C-style signature:
+*       void XV_HdmiTx_INT_VRST(XV_HdmiTx *InstancePtr, u8 Reset)
+*
+******************************************************************************/
+void XV_HdmiTx_INT_LRST(XV_HdmiTx *InstancePtr, u8 Reset)
+{
+	/* Verify argument. */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    if (Reset) {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_INT_LRST_MASK));
+    }
+    else {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_INT_LRST_MASK));
+    }
+}
+
+/*****************************************************************************/
+/**
+*
+*  This function asserts or releases the HDMI TX External VRST.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    Reset specifies TRUE/FALSE value to either assert or
+*       release HDMI TX External VRST.
+*
+* @return   None.
+*
+* @note     The reset output of the PIO is inverted. When the system is
+*       in reset, the PIO output is cleared and this will reset the
+*       HDMI TX. Therefore, clearing the PIO reset output will assert
+*       the HDMI external video reset.
+*       C-style signature:
+*       void XV_HdmiTx_EXT_VRST(XV_HdmiTx *InstancePtr, u8 Reset)
+*
+******************************************************************************/
+void XV_HdmiTx_EXT_VRST(XV_HdmiTx *InstancePtr, u8 Reset)
+{
+	/* Verify argument. */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    if (Reset) {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_EXT_VRST_MASK));
+    }
+    else {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_EXT_VRST_MASK));
+    }
+}
+
+/*****************************************************************************/
+/**
+*
+*  This function asserts or releases the HDMI TX External SYSRST.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    Reset specifies TRUE/FALSE value to either assert or
+*       release HDMI TX External SYSRST.
+*
+* @return   None.
+*
+* @note     The reset output of the PIO is inverted. When the system is
+*       in reset, the PIO output is cleared and this will reset the
+*       HDMI TX. Therefore, clearing the PIO reset output will assert
+*       the HDMI External system reset.
+*       C-style signature:
+*       void XV_HdmiTx_EXT_SYSRST(XV_HdmiTx *InstancePtr, u8 Reset)
+*
+******************************************************************************/
+void XV_HdmiTx_EXT_SYSRST(XV_HdmiTx *InstancePtr, u8 Reset)
+{
+	/* Verify argument. */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    if (Reset) {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_EXT_SYSRST_MASK));
+    }
+    else {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_EXT_SYSRST_MASK));
+    }
+}
+
+/*****************************************************************************/
+/**
+*
+*  This function sets the HDMI TX AUX GCP register AVMUTE bit.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTx_SetGcpAvmute(XV_HdmiTx *InstancePtr)
+{
+	/* Verify argument. */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_GCP_AVMUTE_MASK));
+}
+
+/*****************************************************************************/
+/**
+*
+*  This function clears the HDMI TX AUX GCP register AVMUTE bit.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTx_ClearGcpAvmute(XV_HdmiTx *InstancePtr)
+{
+	/* Verify argument. */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_GCP_AVMUTE_MASK));
+
 }
 
 /*****************************************************************************/
@@ -1561,6 +1740,10 @@ int XV_HdmiTx_SetAudioChannels(XV_HdmiTx *InstancePtr, u8 Value)
 {
     u32 Data;
     u32 Status;
+    u8 AudioStatus;
+
+    AudioStatus = XV_HdmiTx_ReadReg((InstancePtr)->Config.BaseAddress,
+			XV_HDMITX_AUD_CTRL_OFFSET) & XV_HDMITX_AUD_CTRL_RUN_MASK;
 
     // Stop peripheral
     XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
@@ -1606,8 +1789,11 @@ int XV_HdmiTx_SetAudioChannels(XV_HdmiTx *InstancePtr, u8 Value)
         (InstancePtr)->Stream.Audio.Channels = Value;
 
         // Start peripheral
-        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
-            (XV_HDMITX_AUD_CTRL_SET_OFFSET), (XV_HDMITX_AUD_CTRL_RUN_MASK));
+        if (AudioStatus) {
+			XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+					(XV_HDMITX_AUD_CTRL_SET_OFFSET),
+					(XV_HDMITX_AUD_CTRL_RUN_MASK));
+        }
     }
 
     return Status;

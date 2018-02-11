@@ -42,6 +42,8 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  yh     15/01/15 Initial release for 3D video support
+* 2.00  EB     23/01/18 This file is deprecated. All the APIs are now moved
+*						    to HDMI Common library
 * </pre>
 *
 ******************************************************************************/
