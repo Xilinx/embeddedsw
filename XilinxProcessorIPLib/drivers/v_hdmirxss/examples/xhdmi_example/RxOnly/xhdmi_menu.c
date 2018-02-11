@@ -71,6 +71,10 @@
 *                               menu
 *       GM   05-09-2017 Changed PLL Layout routine to toggle HPD to improve
 *                               stability
+* 1.11  mmo  29-12-2017 Added EDID Parsing Capability
+*       EB   16-01-2018 Added Audio Channel Menu
+*       EB   23-01-2018 Reset the counter tagged to the events logged whenever
+*                               log is displayed
 * </pre>
 *
 ******************************************************************************/
@@ -103,6 +107,9 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input);
 #endif
+#ifdef HDMI_DEBUG_TOOLS
+static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input);
+#endif
 
 static void XHdmi_DisplayMainMenu(void);
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
@@ -112,7 +119,12 @@ static void XHdmi_DisplayGtPllLayoutMenu(void);
 static void XHdmi_DisplayHdcpMainMenu(void);
 static void XHdmi_DisplayHdcpDebugMenu(void);
 #endif
-
+#ifdef HDMI_DEBUG_TOOLS
+static void XHdmi_DisplayDebugMainMenu(void);
+#endif
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+extern u8 PLLBondedCheck (void);
+#endif
 extern void Info(void);
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 extern void XV_HdmiRxSs_LoadEdid(XV_HdmiRxSs *InstancePtr, u8 *EdidData, u16 Length);
@@ -128,15 +140,17 @@ extern u8 Edid[];
 * This table contains the function pointers for all possible states.
 * The order of elements must match the XHdmi_MenuType enumerator definitions.
 */
-static XHdmi_MenuFuncType* const XHdmi_MenuTable[XHDMI_NUM_MENUS] =
-{
+static XHdmi_MenuFuncType* const XHdmi_MenuTable[XHDMI_NUM_MENUS] = {
 	XHdmi_MainMenu,
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 	XHdmi_GtPllLayoutMenu,
 #endif
 #ifdef USE_HDCP
 	XHdmi_HdcpMainMenu,
-	XHdmi_HdcpDebugMenu
+	XHdmi_HdcpDebugMenu,
+#endif
+#ifdef HDMI_DEBUG_TOOLS
+	XHdmi_DebugMainMenu,
 #endif
 };
 
@@ -168,12 +182,12 @@ void XHdmi_MenuInitialize(XHdmi_Menu *InstancePtr, u32 UartBaseAddress)
 
 	InstancePtr->CurrentMenu = XHDMI_MAIN_MENU;
 	InstancePtr->UartBaseAddress = UartBaseAddress;
-    InstancePtr->Value = 0;
-    InstancePtr->WaitForColorbar = (FALSE);
+	InstancePtr->Value = 0;
+	InstancePtr->WaitForColorbar = (FALSE);
 
 
-    // Show main menu
-    XHdmi_DisplayMainMenu();
+	// Show main menu
+	XHdmi_DisplayMainMenu();
 }
 
 
@@ -227,6 +241,10 @@ void XHdmi_DisplayMainMenu(void)
 	if (XV_HdmiRxSs_HdcpIsReady(&HdmiRxSs)) {
 		xil_printf("h - HDCP\r\n");
 		xil_printf("       => Goto HDCP menu.\r\n");
+#ifdef HDMI_DEBUG_TOOLS
+		xil_printf("x - Debug Tools\r\n");
+		xil_printf("       => Goto Debug menu.\r\n");
+#endif
 	}
 #endif
 
@@ -243,68 +261,68 @@ void XHdmi_DisplayMainMenu(void)
 * @return The next menu state.
 *
 ******************************************************************************/
-static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input)
-{
+static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
 	// Default
 	Menu = XHDMI_MAIN_MENU;
 
 	switch (Input) {
-		// Info
+			// Info
 		case ('i') :
 		case ('I') :
 			Info();
-	        Menu = XHDMI_MAIN_MENU;
-		break;
+			Menu = XHDMI_MAIN_MENU;
+			break;
 
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-		// Pass-through
+			// Pass-through
 		case ('p') :
 		case ('P') :
-			// Check if a sink is connected
-		    if (HdmiRxSs.IsStreamConnected == (TRUE)) {
-			    xil_printf("\r\nToggle HDMI RX HPD\r\n");
-                XVphy_MmcmPowerDown(&Vphy, 0, XVPHY_DIR_RX, FALSE);
-                XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_RX, (FALSE));
-                XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (FALSE));
-                XV_HdmiRxSs_ToggleHpd(&HdmiRxSs);
-                XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (TRUE));
-		    }
+			// Check if a source is connected
+			if (HdmiRxSs.IsStreamConnected == (TRUE)) {
+				xil_printf("\r\nToggle HDMI RX HPD\r\n");
+				XVphy_MmcmPowerDown(&Vphy, 0, XVPHY_DIR_RX, FALSE);
+				XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_RX, (FALSE));
+				XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (FALSE));
+				XV_HdmiRxSs_ToggleHpd(&HdmiRxSs);
+				XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (TRUE));
+			}
 
-		    // No sink
-		    else {
-			xil_printf("No sink device detected.\r\n");
-			xil_printf("Connect a sink device to activate pass-through.\r\n");
-		    }
-		    Menu = XHDMI_MAIN_MENU;
-		break;
+			// No source
+			else {
+				xil_printf(ANSI_COLOR_YELLOW "No source device detected.\r\n"
+						   ANSI_COLOR_YELLOW);
+			}
+			Menu = XHDMI_MAIN_MENU;
+			break;
 #endif
 
 
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-		// GT PLL layout
+			// GT PLL layout
 		case ('l') :
 		case ('L') :
 			XHdmi_DisplayGtPllLayoutMenu();
 			Menu = XHDMI_GTPLLLAYOUT_MENU;
-		break;
+			break;
 #endif
 
-		// GT & HDMI TX/RX log
+			// GT & HDMI TX/RX log
 		case ('z') :
 		case ('Z') :
+			Counter = 0;
 			XVphy_LogDisplay(&Vphy);
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 			XV_HdmiRxSs_LogDisplay(&HdmiRxSs);
 #endif
 			Menu = XHDMI_MAIN_MENU;
-		break;
+			break;
 
 
 
 #if defined(USE_HDCP)
-		// HDCP
+			// HDCP
 		case ('h') :
 		case ('H') :
 			/* Enable HDCP menu option when HDCP is ready */
@@ -312,13 +330,20 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 				XHdmi_DisplayHdcpMainMenu();
 				Menu = XHDMI_HDCP_MAIN_MENU;
 			}
-		break;
+			break;
+#endif
+#ifdef HDMI_DEBUG_TOOLS
+		case ('x') :
+		case ('X') :
+			XHdmi_DisplayDebugMainMenu();
+			Menu = XHDMI_DEBUG_MAIN_MENU;
+			break;
 #endif
 
 		default :
 			XHdmi_DisplayMainMenu();
 			Menu = XHDMI_MAIN_MENU;
-		break;
+			break;
 	}
 
 	return Menu;
@@ -338,8 +363,7 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 *
 *
 ******************************************************************************/
-void XHdmi_DisplayGtPllLayoutMenu(void)
-{
+void XHdmi_DisplayGtPllLayoutMenu(void) {
 	xil_printf("\r\n");
 	xil_printf("------------------------------\r\n");
 	xil_printf("---   GT PLL LAYOUT MENU   ---\r\n");
@@ -386,8 +410,7 @@ void XHdmi_DisplayGtPllLayoutMenu(void)
 * @return The next menu state.
 *
 ******************************************************************************/
-static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
-{
+static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
 	XVphy_SysClkDataSelType TxSysPllSelect;
@@ -399,7 +422,7 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 
 	switch (Input) {
 
-		// RX => QPLL / TX => CPLL
+			// RX => QPLL / TX => CPLL
 		case 1 :
 			xil_printf("Setting RX => QPLL\r\n\r\n");
 			TxSysPllSelect = XVPHY_SYSCLKSELDATA_TYPE_CPLL_OUTCLK;
@@ -407,7 +430,7 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 			IsValid = TRUE;
 			break;
 
-		// RX => CPLL / TX => QPLL
+			// RX => CPLL / TX => QPLL
 		case 2 :
 			xil_printf("Setting RX => CPLL\r\n\r\n");
 			TxSysPllSelect = XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK;
@@ -416,7 +439,7 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 			break;
 
 
-		// Exit
+			// Exit
 		case 99 :
 			xil_printf("Returning to main menu.\r\n");
 			Menu = XHDMI_MAIN_MENU;
@@ -438,11 +461,11 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 		// Is the reference design RX Only
 		if ((Input == 1) || (Input == 2)) {
 			xil_printf("Issue RX HPD\r\n");
-            XVphy_MmcmPowerDown(&Vphy, 0, XVPHY_DIR_RX, FALSE);
-            XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_RX, (FALSE));
-            XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (FALSE));
-            XV_HdmiRxSs_ToggleHpd(&HdmiRxSs);
-            XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (TRUE));
+			XVphy_MmcmPowerDown(&Vphy, 0, XVPHY_DIR_RX, FALSE);
+			XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_RX, (FALSE));
+			XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (FALSE));
+			XV_HdmiRxSs_ToggleHpd(&HdmiRxSs);
+			XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (TRUE));
 		}
 
 		// Return to main menu
@@ -468,8 +491,7 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 * @return None
 *
 ******************************************************************************/
-void XHdmi_DisplayHdcpMainMenu(void)
-{
+void XHdmi_DisplayHdcpMainMenu(void) {
 	xil_printf("\r\n");
 	xil_printf("--------------------------\r\n");
 	xil_printf("---   HDCP Main Menu   ---\r\n");
@@ -495,8 +517,7 @@ void XHdmi_DisplayHdcpMainMenu(void)
 * @return The next menu state.
 *
 ******************************************************************************/
-static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input)
-{
+static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
 
@@ -509,7 +530,7 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 	switch (Input) {
 
 
-		/* 1 - Enable detailed logging */
+			/* 1 - Enable detailed logging */
 		case 1 :
 			xil_printf("Enable detailed logging.\r\n");
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
@@ -517,7 +538,7 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 #endif
 			break;
 
-		/* 2 - Disable detailed logging */
+			/* 2 - Disable detailed logging */
 		case 2 :
 			xil_printf("Disable detailed logging.\r\n");
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
@@ -525,7 +546,7 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 #endif
 			break;
 
-		/* 3 - Display log */
+			/* 3 - Display log */
 		case 3 :
 			xil_printf("Display log.\r\n");
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
@@ -533,20 +554,20 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 #endif
 			break;
 
-		/* 4 - Display repeater info */
+			/* 4 - Display repeater info */
 		case 4 :
 			xil_printf("Display info.\r\n");
 			XHdcp_DisplayInfo(&HdcpRepeater, TRUE);
 			break;
 
-		/* 5 - HDCP Debug Menu */
+			/* 5 - HDCP Debug Menu */
 		case 5 :
 			xil_printf("Display HDCP Debug menu.\r\n");
 			XHdmi_DisplayHdcpDebugMenu();
 			Menu = XHDMI_HDCP_DEBUG_MENU;
 			break;
 
-		// Exit
+			// Exit
 		case 99 :
 			xil_printf("Returning to main menu.\r\n");
 			Menu = XHDMI_MAIN_MENU;
@@ -572,8 +593,7 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 * @return None
 *
 ******************************************************************************/
-void XHdmi_DisplayHdcpDebugMenu(void)
-{
+void XHdmi_DisplayHdcpDebugMenu(void) {
 	xil_printf("\r\n");
 	xil_printf("--------------------------\r\n");
 	xil_printf("---   HDCP Debug Menu   ---\r\n");
@@ -596,8 +616,7 @@ void XHdmi_DisplayHdcpDebugMenu(void)
 * @return The next menu state.
 *
 ******************************************************************************/
-static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input)
-{
+static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
 
@@ -609,13 +628,13 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input)
 
 	switch (Input) {
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-		/* 1 - Set upstream capability to none */
+			/* 1 - Set upstream capability to none */
 		case 1:
 			xil_printf("Set upstream capability to none.\r\n");
 			XHdcp_SetUpstreamCapability(&HdcpRepeater, XV_HDMIRXSS_HDCP_NONE);
 			break;
 
-		/* 2 - Set upstream capability to both */
+			/* 2 - Set upstream capability to both */
 		case 2:
 			xil_printf("Set upstream capability to both.\r\n");
 			XHdcp_SetUpstreamCapability(&HdcpRepeater, XV_HDMIRXSS_HDCP_BOTH);
@@ -623,7 +642,7 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input)
 #endif
 
 
-		// Exit
+			// Exit
 		case 99 :
 			xil_printf("Returning to main menu.\r\n");
 			Menu = XHDMI_HDCP_MAIN_MENU;
@@ -634,6 +653,77 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input)
 			XHdmi_DisplayHdcpDebugMenu();
 			break;
 	}
+	return Menu;
+}
+#endif
+
+#ifdef HDMI_DEBUG_TOOLS
+/*****************************************************************************/
+/**
+*
+* This function displays the debug menu.
+*
+* @param None
+*
+* @return None
+*
+*
+******************************************************************************/
+static void XHdmi_DisplayDebugMainMenu(void) {
+	xil_printf("\r\n");
+	xil_printf("----------------------\r\n");
+	xil_printf("---   DEBUG MENU   ---\r\n");
+	xil_printf("----------------------\r\n");
+	xil_printf("  1 - Enable Scrambler.\r\n");
+	xil_printf("  2 - Disable Scrambler.\r\n");
+	xil_printf(" 99 - Exit\r\n");
+	xil_printf("Enter Selection -> ");
+}
+
+/*****************************************************************************/
+/**
+*
+* This function implements the HDMI debug menu state.
+*
+* @param input is the value used for the next menu state decoder.
+*
+* @return The next menu state.
+*
+******************************************************************************/
+static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
+	// Variables
+	XHdmi_MenuType 	Menu;
+
+	// Default
+	Menu = XHDMI_DEBUG_MAIN_MENU;
+
+	switch (Input) {
+		case 1 :
+//			xil_printf("\r\n???\r\n");
+			XV_HdmiTxSs_SetScrambler(&HdmiTxSs, TRUE);
+			// Display the prompt for the next input
+			xil_printf("Enter Selection -> ");
+			break;
+
+		case 2 :
+//			xil_printf("\r\n???\r\n");
+			XV_HdmiTxSs_SetScrambler(&HdmiTxSs, FALSE);
+			// Display the prompt for the next input
+			xil_printf("Enter Selection -> ");
+			break;
+
+			// Exit
+		case 99 :
+			xil_printf("\r\nReturning to main menu.\r\n");
+			Menu = XHDMI_MAIN_MENU;
+			break;
+
+		default :
+			xil_printf("\r\nUnknown option\r\n");
+			XHdmi_DisplayDebugMainMenu();
+			break;
+	}
+
 	return Menu;
 }
 #endif
@@ -650,8 +740,7 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input)
 * @return None
 *
 ******************************************************************************/
-void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr)
-{
+void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 	u8 Data;
 
 	/* Verify argument. */
@@ -659,57 +748,57 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr)
 
 	if ((InstancePtr->WaitForColorbar) && (!TxBusy)) {
 		InstancePtr->WaitForColorbar = (FALSE);
-	xil_printf("Enter Selection -> ");
-    }
+		xil_printf("Enter Selection -> ");
+	}
 
 	// Check if the uart has any data
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
 	else if (!XUartLite_IsReceiveEmpty(InstancePtr->UartBaseAddress)) {
 
 		// Read data from uart
-	Data = XUartLite_RecvByte(InstancePtr->UartBaseAddress);
+		Data = XUartLite_RecvByte(InstancePtr->UartBaseAddress);
 #else
-        else if (XUartPs_IsReceiveData(InstancePtr->UartBaseAddress)) {
+	else if (XUartPs_IsReceiveData(InstancePtr->UartBaseAddress)) {
 
 		// Read data from uart
 		Data = XUartPs_RecvByte(InstancePtr->UartBaseAddress);
 #endif
-	// Main menu
+		// Main menu
 		if (InstancePtr->CurrentMenu == XHDMI_MAIN_MENU) {
 			InstancePtr->CurrentMenu = XHdmi_MenuTable[InstancePtr->CurrentMenu](InstancePtr, Data);
-		    InstancePtr->Value = 0;
+			InstancePtr->Value = 0;
 		}
 
 		// Sub menu
 		else {
 
-		// Send response to user
+			// Send response to user
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
-		XUartLite_SendByte(InstancePtr->UartBaseAddress, Data);
+			XUartLite_SendByte(InstancePtr->UartBaseAddress, Data);
 #else
-		XUartPs_SendByte(InstancePtr->UartBaseAddress, Data);
+			XUartPs_SendByte(InstancePtr->UartBaseAddress, Data);
 #endif
 			// Alpha numeric data
-		    if (isalpha(Data)) {
-		      xil_printf("\r\nInvalid input. Valid entry is only digits 0-9. Try again\r\n\r\n");
-		      xil_printf("Enter Selection -> ");
-		      InstancePtr->Value = 0;
-		    }
+			if (isalpha(Data)) {
+				xil_printf("\r\nInvalid input. Valid entry is only digits 0-9. Try again\r\n\r\n");
+				xil_printf("Enter Selection -> ");
+				InstancePtr->Value = 0;
+			}
 
-		    // Numeric data
-		    else if ((Data >= '0') && (Data <= '9')) {
-		      InstancePtr->Value = InstancePtr->Value * 10 + (Data-'0');
-		    }
+			// Numeric data
+			else if ((Data >= '0') && (Data <= '9')) {
+				InstancePtr->Value = InstancePtr->Value * 10 + (Data-'0');
+			}
 
-		    // Backspace
-		    else if (Data == '\b') {
-		      InstancePtr->Value = InstancePtr->Value / 10; //discard previous input
-		    }
+			// Backspace
+			else if (Data == '\b') {
+				InstancePtr->Value = InstancePtr->Value / 10; //discard previous input
+			}
 
-		    // Execute
+			// Execute
 			else if ((Data == '\n') || (Data == '\r')) {
 				InstancePtr->CurrentMenu = XHdmi_MenuTable[InstancePtr->CurrentMenu](InstancePtr, InstancePtr->Value);
-			    InstancePtr->Value = 0;
+				InstancePtr->Value = 0;
 			}
 		}
 	}
