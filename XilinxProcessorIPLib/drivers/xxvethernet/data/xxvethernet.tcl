@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+#
 #
 # MODIFICATION HISTORY:
 # 06/16/17 hk  First Release
@@ -31,6 +29,7 @@
 #              calling get_cells/get_property API's with NULL handle.
 # 09/26/18 rsp Fix interrupt ID generation for ZynqMP designs.
 # 10/31/18 rsp Use identifiable suffix for global variables to avoid conflicts.
+# 06/21/19 rsp Fix bsp generation error for axis_rx_0 external port design.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -643,6 +642,7 @@ proc get_connected_ip {periph} {
 }
 
 proc get_connected_intf {intf} {
+   set connected_ip {}
    if { [llength $intf]} {
       set intf_net [get_intf_nets -of_objects $intf ]
       if { [llength $intf_net]  } {
