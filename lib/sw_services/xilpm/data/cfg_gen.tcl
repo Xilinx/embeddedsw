@@ -533,6 +533,10 @@ dict set reset_line_map XILPM_RESET_GPO3_PL_31 { label XILPM_RESET_GPO3_PL_31 ty
 dict set reset_line_map XILPM_RESET_RPU_LS { label XILPM_RESET_RPU_LS type normal }
 dict set reset_line_map XILPM_RESET_PS_ONLY { label XILPM_RESET_PS_ONLY type normal }
 dict set reset_line_map XILPM_RESET_PL { label XILPM_RESET_PL type normal }
+dict set reset_line_map XILPM_RESET_GPIO5_EMIO_92 { label XILPM_RESET_GPIO5_EMIO_92 type normal }
+dict set reset_line_map XILPM_RESET_GPIO5_EMIO_93 { label XILPM_RESET_GPIO5_EMIO_93 type normal }
+dict set reset_line_map XILPM_RESET_GPIO5_EMIO_94 { label XILPM_RESET_GPIO5_EMIO_94 type normal }
+dict set reset_line_map XILPM_RESET_GPIO5_EMIO_95 { label XILPM_RESET_GPIO5_EMIO_95 type normal }
 
 proc get_slave_section { } {
 	#global node_map
