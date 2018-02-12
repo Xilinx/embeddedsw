@@ -1,32 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /**
 *
 * @file xxxvethernet.h
-* @addtogroup xxvethernet_v1_3
+* @addtogroup xxvethernet_v1_4
 * @{
 * @details
 *
@@ -131,6 +111,7 @@
 *       hk   2/15/18  Add support for USXGMII
 * 1.1   mj   3/30/18  Add Macro XXxvEthernet_IsMcDma(InstancePtr) to check
 *                     McDma is connected or not.
+* 1.4   rsp  05/08/20 Include sleep.h header
 * </pre>
 *
 ******************************************************************************/
@@ -144,6 +125,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 
+#include "sleep.h"
 #include "xenv.h"
 #include "xstatus.h"
 #include "xil_assert.h"

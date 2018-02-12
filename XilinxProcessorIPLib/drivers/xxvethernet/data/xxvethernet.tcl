@@ -1,26 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-#
+# Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
 # 06/16/17 hk  First Release
@@ -30,6 +10,10 @@
 # 09/26/18 rsp Fix interrupt ID generation for ZynqMP designs.
 # 10/31/18 rsp Use identifiable suffix for global variables to avoid conflicts.
 # 06/21/19 rsp Fix bsp generation error for axis_rx_0 external port design.
+# 05/07/20 rsp Fix bsp generation error for multiple xxv instances design in
+#              which dma is not connected to one of the xxv instance.
+#              Fix pmufw bsp compilation error by generating dummy mcdma tx
+#              and rx interrupts nodes.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -141,10 +125,10 @@ proc xdefine_axi_target_params {periphs file_handle} {
     puts $file_handle ""
 
     set device_id 0
-    set validentry 0
 
     # Get unique list of p2p peripherals
     foreach periph $periphs {
+        set validentry 0
         set periph_name [string toupper [get_property NAME $periph]]
 
         puts $file_handle ""
@@ -263,6 +247,16 @@ proc xdefine_mcdma_rx_interrupts {file_handle target_periph deviceid canonical_t
 
     set target_periph_name [string toupper [get_property NAME $target_periph]]
 
+    set proc  [hsi::get_sw_processor];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
+
+    # Generate dummy mcdma interrupt nodes for PMU processor
+    if {$proc_type == "psu_pmu"} {
+        puts $file_handle [format "#define XPAR_%s_CONNECTED_MCDMARX%s_INTR 0xFF" $canonical_tag $chan_id]
+        add_field_to_periph_config_struct $deviceid 0xFF
+        return
+    }
+
     # First get the interrupt ports on this AXI peripheral
     set interrupt_port [get_pins -of_objects $target_periph -filter {TYPE==INTERRUPT&&DIRECTION==O}]
     if {$interrupt_port == ""} {
@@ -362,6 +356,15 @@ proc xdefine_mcdma_tx_interrupts {file_handle target_periph deviceid canonical_t
 
     set target_periph_name [string toupper [get_property NAME $target_periph]]
 
+    set proc  [hsi::get_sw_processor];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
+
+    # Generate dummy mcdma interrupt nodes for PMU processor
+    if {$proc_type == "psu_pmu"} {
+        puts $file_handle [format "#define XPAR_%s_CONNECTED_MCDMATX%s_INTR 0xFF" $canonical_tag $chan_id]
+        add_field_to_periph_config_struct $deviceid 0xFF
+        return
+    }
     # First get the interrupt ports on this AXI peripheral
     set interrupt_port [get_pins -of_objects $target_periph -filter {TYPE==INTERRUPT&&DIRECTION==O}]
     if {$interrupt_port == ""} {

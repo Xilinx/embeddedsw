@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /**
 *
 * @file xxxvethernet_example_intr_mcdma.c
@@ -43,6 +23,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   hk   06/16/17 First release
+* 1.4   rsp  05/12/20 Fix Wint-conversion gcc warning in XxvEthernetSgDmaIntrExample().
 *
 * </pre>
 *
@@ -323,10 +304,10 @@ int XxvEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 	 * call the API for two continuous 2MB blocks.
 	 */
 #if defined(__aarch64__)
-	Xil_SetTlbAttributes(TxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
-	Xil_SetTlbAttributes(TxBdSpace + BLOCK_SIZE_2MB, NORM_NONCACHE | INNER_SHAREABLE);
-	Xil_SetTlbAttributes(RxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
-	Xil_SetTlbAttributes(RxBdSpace + BLOCK_SIZE_2MB, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes((UINTPTR)TxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes((UINTPTR)TxBdSpace + BLOCK_SIZE_2MB, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes((UINTPTR)RxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes((UINTPTR)RxBdSpace + BLOCK_SIZE_2MB, NORM_NONCACHE | INNER_SHAREABLE);
 #endif
 
 	RxBdSetup(DmaInstancePtr, XxvEthernetInstancePtr, MacCfgPtr);
