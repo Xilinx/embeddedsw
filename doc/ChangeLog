@@ -141,6 +141,9 @@ Enabled event generation for usb controller when run on microblaze plaforms
 xilsecure_v3_0:
 Added support for NIST-SHA3 padding
 
+xxvethernet_v1_0:
+Add new driver for XXV Ethernet IP
+
 zynqmp_fsbl:
 Added support for NIST-SHA3 padding
 
