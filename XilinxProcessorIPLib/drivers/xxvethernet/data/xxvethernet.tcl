@@ -30,25 +30,26 @@
 #              In get_targetip and is_ethsupported_target functions avoid
 #              calling get_cells/get_property API's with NULL handle.
 # 09/26/18 rsp Fix interrupt ID generation for ZynqMP designs.
+# 10/31/18 rsp Use identifiable suffix for global variables to avoid conflicts.
 #
 ###############################################################################
 #uses "xillib.tcl"
 
-set periph_config_params 	0
-set periph_ninstances    	0
+set periph_config_params_xxv 	0
+set periph_ninstances_xxv    	0
 
 proc init_periph_config_struct { deviceid } {
-    global periph_config_params
-    set periph_config_params($deviceid) [list]
+    global periph_config_params_xxv
+    set periph_config_params_xxv($deviceid) [list]
 }
 
 proc get_periph_config_struct_fields { deviceid } {
-    global periph_config_params
-    return $periph_config_params($deviceid)
+    global periph_config_params_xxv
+    return $periph_config_params_xxv($deviceid)
 }
 proc add_field_to_periph_config_struct { deviceid fieldval } {
-    global periph_config_params
-    lappend periph_config_params($deviceid) $fieldval
+    global periph_config_params_xxv
+    lappend periph_config_params_xxv($deviceid) $fieldval
 }
 
 # ------------------------------------------------------------------
@@ -63,7 +64,7 @@ proc add_field_to_periph_config_struct { deviceid fieldval } {
 #
 # ------------------------------------------------------------------
 proc xdefine_xxvethernet_include_file {drv_handle file_name drv_string} {
-    global periph_ninstances
+    global periph_ninstances_xxv
 
     # Open include file
     set file_handle [::hsi::utils::open_include_file $file_name]
@@ -76,13 +77,13 @@ proc xdefine_xxvethernet_include_file {drv_handle file_name drv_string} {
     # ----------------------------------------------
 
     # Handle NUM_INSTANCES
-    set periph_ninstances 0
+    set periph_ninstances_xxv 0
     puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
     foreach periph $periphs {
-	init_periph_config_struct $periph_ninstances
-	incr periph_ninstances 1
+	init_periph_config_struct $periph_ninstances_xxv
+	incr periph_ninstances_xxv 1
     }
-    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances_xxv"
 
     close $file_handle
     # Now print all useful parameters for all peripherals
@@ -131,7 +132,7 @@ proc generate {drv_handle} {
 # ---------------------------------------------------------------------------
 proc xdefine_axi_target_params {periphs file_handle} {
 
-    global periph_ninstances
+    global periph_ninstances_xxv
 
      #
     # First dump some enumerations on AXI_TYPE
@@ -458,7 +459,7 @@ proc xdefine_mcdma_tx_interrupts {file_handle target_periph deviceid canonical_t
 # Use the config field list technique
 # ------------------------------------------------------------------
 proc xdefine_xxvethernet_config_file {file_name drv_string} {
-    global periph_ninstances
+    global periph_ninstances_xxv
 
     set filename [file join "src" $file_name]
     set config_file [open $filename w]
@@ -472,7 +473,7 @@ proc xdefine_xxvethernet_config_file {file_name drv_string} {
     puts $config_file "\{"
 
     set start_comma ""
-    for {set i 0} {$i < $periph_ninstances} {incr i} {
+    for {set i 0} {$i < $periph_ninstances_xxv} {incr i} {
 
         set k 1
         puts $config_file [format "%s\t\{" $start_comma]
