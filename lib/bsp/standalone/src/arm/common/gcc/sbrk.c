@@ -51,12 +51,8 @@ __attribute__((weak)) char8 *sbrk (s32 nbytes)
   static char8 *heap_ptr = HeapBase;
 
   base = heap_ptr;
-  if(heap_ptr != NULL) {
+	if((heap_ptr != NULL) && (heap_ptr + nbytes <= (char8 *)&HeapLimit + 1)) {
 	heap_ptr += nbytes;
-  }
-
-/*  if (heap_ptr <= ((char8 *)&_heap_end + 1)) */
-  if (heap_ptr <= ((char8 *)&HeapLimit + 1)) {
     return base;
   }	else {
     errno = ENOMEM;
