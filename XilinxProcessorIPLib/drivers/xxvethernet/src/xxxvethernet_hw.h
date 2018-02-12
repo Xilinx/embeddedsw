@@ -6,7 +6,7 @@
 /**
 *
 * @file xxxvethernet_hw.h
-* @addtogroup xxvethernet_v1_4
+* @addtogroup xxvethernet_v1_5
 * @{
 *
 * This file contains definitions for register offset, masks and low level
@@ -21,6 +21,8 @@
 * ----- ---- -------- ---------------------------------------------------------
 * 1.0   hk   6/16/17  First release
 *       hk   2/15/18  Add support for USXGMII
+* 1.5	sk   10/18/20 Correct the Auto-Negotiation ability macro
+*		      name (XXE_ANA_OFFSET) with XXE_ANASR_OFFSET.
 *
 * </pre>
 
@@ -209,7 +211,7 @@ xdbg_stmnt(extern int indent_on);
 
 #define XXxvEthernet_indent(RegOffset) \
  ((indent_on && ((RegOffset) >= XXE_GRR_OFFSET) && ((RegOffset) <= 	\
- XXE_ANA_OFFSET)) ? "\t" : "")
+ XXE_ANASR_OFFSET)) ? "\t" : "")
 
 
 #define XXxvEthernet_reg_name(RegOffset) \
@@ -226,7 +228,7 @@ xdbg_stmnt(extern int indent_on);
 	((RegOffset) == XXE_SR_OFFSET) ? "XXE_SR_OFFSET": \
 	((RegOffset) == XXE_RXBLSR_OFFSET) ? "XXE_RXBLSR_OFFSET": \
 	((RegOffset) == XXE_ANSR_OFFSET) ? "XXE_ANSR_OFFSET": \
-	((RegOffset) == XXE_ANA_OFFSET) ? "XXE_ANA_OFFSET": \
+	((RegOffset) == XXE_ANASR_OFFSET) ? "XXE_ANASR_OFFSET": \
 	"unknown")
 
 #define XXxvEthernet_print_reg_o(BaseAddress, RegOffset, Value) 	\

@@ -6,7 +6,7 @@
 /**
 *
 * @file xxxvethernet_sinit.c
-* @addtogroup xxvethernet_v1_4
+* @addtogroup xxvethernet_v1_5
 * @{
 *
 * This file contains static initialization functionality for XXV Ethernet driver.
