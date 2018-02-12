@@ -93,6 +93,7 @@ subsequent instruction.
 Updated get_connected_if proc in standalone tcl to detect the HPC 
 port configured with smart interconnect. It fixes CR#990318.
 Updated the csu_wdt interupt to the correct value. Fixes CR#992229.
+Fix for heap handling in ARM platforms. Fixes CR#993932.
 
 sysmonpsu_v2_3:
 Added missing closing bracket error when C++ is used
