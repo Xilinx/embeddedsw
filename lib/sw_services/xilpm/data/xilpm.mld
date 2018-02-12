@@ -37,6 +37,6 @@ BEGIN LIBRARY xilpm
   OPTION REQUIRES_OS = (standalone freertos901_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpm,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Power Management API Library for ZynqMP";
-  OPTION VERSION = 2.2;
+  OPTION VERSION = 2.3;
   OPTION NAME = xilpm;
 END LIBRARY
