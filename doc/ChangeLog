@@ -377,6 +377,9 @@ xxvethernet_v1_0:
 Add new driver for XXV Ethernet IP
 Add support for USXGMII IP
 
+xxvethernet_v1_0:
+Add new driver for XXV Ethernet IP
+
 zynqmp_fsbl:
 Added support for NIST-SHA3 padding
 Added Boot header authentication
