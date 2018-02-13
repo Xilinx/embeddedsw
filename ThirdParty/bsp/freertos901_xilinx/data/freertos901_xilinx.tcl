@@ -987,10 +987,10 @@ proc generate {os_handle} {
 				}
 			}
 			}
-		}
-		if {$have_tick_timer == 0} {
-			error "ERROR: No tick timer selected " "mdt_error"
-		}
+			if {$have_tick_timer == 0} {
+				error "ERROR: No tick timer selected " "mdt_error"
+			}
+		}		
 	}
 
 	############################################################################
