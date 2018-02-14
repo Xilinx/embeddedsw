@@ -391,6 +391,8 @@ typedef struct {
 	u8 ltState; 		/**< To check if current LT is in CR or CE */
 	u8 prevLinkRate;
 	u8 prevLaneCounts;
+	u8 link_up_trigger;
+	u8 no_video_trigger;
 } XDpRxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
