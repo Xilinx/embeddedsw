@@ -1551,10 +1551,12 @@ u32 XDp_RxCheckLinkStatus(XDp *InstancePtr)
 		if (LaneStatus[1] != 0x77) {
 			return XST_FAILURE;
 		}
+		// fall through
 	case 2:
 		if ((LaneStatus[0] & 0x70) != 0x70) {
 			return XST_FAILURE;
 		}
+		// fall through
 	case 1:
 		if ((LaneStatus[0] & 0x07) != 0x07) {
 			return XST_FAILURE;
@@ -2514,6 +2516,7 @@ static XDp_TxTrainingState XDp_TxTrainingStateAdjustLinkRate(XDp *InstancePtr)
 			Status = XDP_TX_TS_CLOCK_RECOVERY;
 			break;
 		}
+		// fall through
 	case XDP_TX_LINK_BW_SET_540GBPS:
 		Status = XDp_TxSetLinkRate(InstancePtr,
 						XDP_TX_LINK_BW_SET_270GBPS);
@@ -2676,17 +2679,20 @@ static u32 XDp_TxCheckClockRecovery(XDp *InstancePtr, u8 LaneCount)
 			return XST_FAILURE;
 		}
 		/* Drop through and check lane 1. */
+		// fall through
 	case XDP_TX_LANE_COUNT_SET_2:
 		if (!(LaneStatus[0] &
 				XDP_DPCD_STATUS_LANE_1_CR_DONE_MASK)) {
 			return XST_FAILURE;
 		}
 		/* Drop through and check lane 0. */
+		// fall through
 	case XDP_TX_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] &
 				XDP_DPCD_STATUS_LANE_0_CR_DONE_MASK)) {
 			return XST_FAILURE;
 		}
+		// fall through
 	default:
 		/* All (LaneCount) lanes have achieved clock recovery. */
 		break;
@@ -2730,17 +2736,20 @@ static u32 XDp_TxCheckChannelEqualization(XDp *InstancePtr, u8 LaneCount)
 			return XST_FAILURE;
 		}
 		/* Drop through and check lane 1. */
+		// fall through
 	case XDP_TX_LANE_COUNT_SET_2:
 		if (!(LaneStatus[0] &
 				XDP_DPCD_STATUS_LANE_1_CE_DONE_MASK)) {
 			return XST_FAILURE;
 		}
 		/* Drop through and check lane 0. */
+		// fall through
 	case XDP_TX_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] &
 				XDP_DPCD_STATUS_LANE_0_CE_DONE_MASK)) {
 			return XST_FAILURE;
 		}
+		// fall through
 	default:
 		/* All (LaneCount) lanes have achieved channel equalization. */
 		break;
@@ -2758,17 +2767,20 @@ static u32 XDp_TxCheckChannelEqualization(XDp *InstancePtr, u8 LaneCount)
 			return XST_FAILURE;
 		}
 		/* Drop through and check lane 1. */
+		// fall through
 	case XDP_TX_LANE_COUNT_SET_2:
 		if (!(LaneStatus[0] &
 				XDP_DPCD_STATUS_LANE_1_SL_DONE_MASK)) {
 			return XST_FAILURE;
 		}
 		/* Drop through and check lane 0. */
+		// fall through
 	case XDP_TX_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] &
 				XDP_DPCD_STATUS_LANE_0_SL_DONE_MASK)) {
 			return XST_FAILURE;
 		}
+		// fall through
 	default:
 		/* All (LaneCount) lanes have achieved symbol lock. */
 		break;
