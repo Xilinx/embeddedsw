@@ -44,24 +44,41 @@ static XScuGic xInterruptController;
 /* Interrupt Controller setup */
 static int app_gic_initialize(void)
 {
-	u32 Status;
-	XScuGic_Config *IntcConfig;	/* The configuration parameters of the interrupt controller */
+	uint32_t status;
+	XScuGic_Config *int_ctrl_config; /* interrupt controller configuration params */
+	uint32_t int_id;
+	uint32_t mask_cpu_id = ((u32)0x1 << XPAR_CPU_ID);
+	uint32_t target_cpu;
+
+	mask_cpu_id |= mask_cpu_id << 8U;
+	mask_cpu_id |= mask_cpu_id << 16U;
 
 	Xil_ExceptionDisable();
 
 	/*
 	 * Initialize the interrupt controller driver
 	 */
-	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
-	if (NULL == IntcConfig) {
+	int_ctrl_config = XScuGic_LookupConfig(INTC_DEVICE_ID);
+	if (NULL == int_ctrl_config) {
+	        return XST_FAILURE;
+	}
+
+	status = XScuGic_CfgInitialize(&xInterruptController, int_ctrl_config,
+					int_ctrl_config->CpuBaseAddress);
+	if (status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	Status = XScuGic_CfgInitialize(&xInterruptController, IntcConfig,
-				       IntcConfig->CpuBaseAddress);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	/* Only associate interrupt needed to this CPU */
+	for (int_id = 32U; int_id<XSCUGIC_MAX_NUM_INTR_INPUTS;int_id=int_id+4U) {
+		target_cpu = XScuGic_DistReadReg(&xInterruptController,
+						XSCUGIC_SPI_TARGET_OFFSET_CALC(int_id));
+	/* Remove current CPU from interrupt target register */
+	target_cpu &= ~mask_cpu_id;
+	XScuGic_DistWriteReg(&xInterruptController,
+				XSCUGIC_SPI_TARGET_OFFSET_CALC(int_id), target_cpu);
 	}
+	XScuGic_InterruptMaptoCpu(&xInterruptController, XPAR_CPU_ID, IPI_IRQ_VECT_ID);
 
 	/*
 	 * Register the interrupt handler to the hardware interrupt handling
