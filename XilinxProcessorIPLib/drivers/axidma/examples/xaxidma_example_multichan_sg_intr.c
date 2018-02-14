@@ -76,6 +76,8 @@
  *                     available in all examples. This is a fix for CR-965028.
  *       ms   04/05/17 Added tabspace for return statements in functions
  *                     for proper documentation while generating doxygen.
+ * 9.6   rsp  02/14/18 Support data buffers above 4GB. Use UINTPTR for storing
+ *                     and typecasting buffer address(CR-992638).
  * </pre>
  *
  * ***************************************************************************
@@ -949,8 +951,8 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 	XAxiDma_Bd *BdCurPtr;
 	int BdCount;
 	int FreeBdCount;
-	u32 RxBufferPtr;
-	u32 RxBdSpacePtr;
+	UINTPTR RxBufferPtr;
+	UINTPTR RxBdSpacePtr;
 	int Index;
 	int RingIndex;
 
@@ -1109,14 +1111,14 @@ static int TxSetup(XAxiDma * AxiDmaInstPtr)
 	int Status;
 	u32 BdCount;
 
-	u32 TxBdSpacePtr = TX_BD_SPACE_BASE;
+	UINTPTR TxBdSpacePtr = TX_BD_SPACE_BASE;
 
 	/* Disable all TX interrupts before TxBD space setup */
 	XAxiDma_BdRingIntDisable(TxRingPtr, XAXIDMA_IRQ_ALL_MASK);
 
 	/* Setup TxBD space  */
 	BdCount = XAxiDma_BdRingCntCalc(XAXIDMA_BD_MINIMUM_ALIGNMENT,
-			(u32)TX_BD_SPACE_HIGH - (u32)TX_BD_SPACE_BASE + 1);
+			(UINTPTR)TX_BD_SPACE_HIGH - (UINTPTR)TX_BD_SPACE_BASE + 1);
 
 	Status = XAxiDma_BdRingCreate(TxRingPtr, TxBdSpacePtr,
 				TxBdSpacePtr,
@@ -1197,7 +1199,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr, u8 TDest, u8 TId, u8 Value)
 	XAxiDma_Bd *BdPtr, *BdCurPtr;
 	int Status;
 	int Index, Pkts;
-	u32 BufferAddr;
+	UINTPTR BufferAddr;
 
 	/*
 	 * Each packet is limited to TxRingPtr->MaxTransferLen
