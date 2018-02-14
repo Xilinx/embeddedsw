@@ -74,6 +74,8 @@
  * 9.3   ms   01/23/17 Modified xil_printf statement in main function to
  *                     ensure that "Successfully ran" and "Failed" strings are
  *                     available in all examples. This is a fix for CR-965028.
+ * 9.6   rsp  02/14/18 Support data buffers above 4GB.Use UINTPTR for typecasting
+ *                     buffer address (CR-992638).
  * </pre>
  *
  * ***************************************************************************
@@ -438,7 +440,7 @@ static int CheckData(int Length, u8 StartValue)
 	 * Data Cache is enabled
 	 */
 #ifndef __aarch64__
-	Xil_DCacheInvalidateRange((u32)RxPacket, Length);
+	Xil_DCacheInvalidateRange((UINTPTR)RxPacket, Length);
 #endif
 
 	for(Index = 0; Index < Length; Index++) {
