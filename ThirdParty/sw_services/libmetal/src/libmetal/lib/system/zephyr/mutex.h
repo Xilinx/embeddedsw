@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2017, Linaro Limited. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,50 +29,63 @@
  */
 
 /*
- * @file	freertos/sys.h
- * @brief	FreeRTOS system primitives for libmetal.
+ * @file	zephyr/mutex.h
+ * @brief	Zephyr mutex primitives for libmetal.
  */
 
-#ifndef __METAL_SYS__H__
-#error "Include metal/sys.h instead of metal/freertos/sys.h"
+#ifndef __METAL_MUTEX__H__
+#error "Include metal/mutex.h instead of metal/zephyr/mutex.h"
 #endif
 
-#ifndef __METAL_FREERTOS_SYS__H__
-#define __METAL_FREERTOS_SYS__H__
+#ifndef __METAL_ZEPHYR_MUTEX__H__
+#define __METAL_ZEPHYR_MUTEX__H__
 
-#include "./@PROJECT_MACHINE@/sys.h"
+#include <metal/atomic.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#ifndef METAL_MAX_DEVICE_REGIONS
-#define METAL_MAX_DEVICE_REGIONS 1
-#endif
+typedef struct {
+	atomic_int v;
+} metal_mutex_t;
 
-/** Structure for FreeRTOS libmetal runtime state. */
-struct metal_state {
+#define METAL_MUTEX_INIT		{ ATOMIC_VAR_INIT(0) }
 
-	/** Common (system independent) data. */
-	struct metal_common_state common;
-};
+static inline void metal_mutex_init(metal_mutex_t *mutex)
+{
+	atomic_store(&mutex->v, 0);
+}
 
-#ifdef METAL_INTERNAL
+static inline void metal_mutex_deinit(metal_mutex_t *mutex)
+{
+	(void)mutex;
+}
 
-/**
- * @brief restore interrupts to state before disable_global_interrupt()
- */
-void sys_irq_restore_enable(void);
+static inline int metal_mutex_try_acquire(metal_mutex_t *mutex)
+{
+	return 1 - atomic_flag_test_and_set(&mutex->v);
+}
 
-/**
- * @brief disable all interrupts
- */
-void sys_irq_save_disable(void);
+static inline void metal_mutex_acquire(metal_mutex_t *mutex)
+{
+	while (atomic_flag_test_and_set(&mutex->v)) {
+		;
+	}
+}
 
-#endif /* METAL_INTERNAL */
+static inline void metal_mutex_release(metal_mutex_t *mutex)
+{
+	atomic_flag_clear(&mutex->v);
+}
+
+static inline int metal_mutex_is_acquired(metal_mutex_t *mutex)
+{
+	return atomic_load(&mutex->v);
+}
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __METAL_FREERTOS_SYS__H__ */
+#endif /* __METAL_ZEPHYR_MUTEX__H__ */

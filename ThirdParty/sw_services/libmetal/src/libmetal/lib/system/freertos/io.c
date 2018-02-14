@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2017, Xilinx Inc. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,50 +29,27 @@
  */
 
 /*
- * @file	freertos/sys.h
- * @brief	FreeRTOS system primitives for libmetal.
+ * @file	freertos/io.c
+ * @brief	FreeRTOS libmetal io operations
  */
 
-#ifndef __METAL_SYS__H__
-#error "Include metal/sys.h instead of metal/freertos/sys.h"
-#endif
+#include <metal/io.h>
 
-#ifndef __METAL_FREERTOS_SYS__H__
-#define __METAL_FREERTOS_SYS__H__
+void metal_sys_io_mem_map(struct metal_io_region *io)
+{
+	unsigned long p;
+	size_t psize;
+	void *va;
 
-#include "./@PROJECT_MACHINE@/sys.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifndef METAL_MAX_DEVICE_REGIONS
-#define METAL_MAX_DEVICE_REGIONS 1
-#endif
-
-/** Structure for FreeRTOS libmetal runtime state. */
-struct metal_state {
-
-	/** Common (system independent) data. */
-	struct metal_common_state common;
-};
-
-#ifdef METAL_INTERNAL
-
-/**
- * @brief restore interrupts to state before disable_global_interrupt()
- */
-void sys_irq_restore_enable(void);
-
-/**
- * @brief disable all interrupts
- */
-void sys_irq_save_disable(void);
-
-#endif /* METAL_INTERNAL */
-
-#ifdef __cplusplus
+	va = io->virt;
+	psize = io->size;
+	if (psize) {
+		if (psize >> io->page_shift)
+			psize = (size_t)1 << io->page_shift;
+		for (p = 0; p <= (io->size >> io->page_shift); p++) {
+			metal_machine_io_mem_map(va, io->physmap[p],
+						 psize, io->mem_flags);
+			va += psize;
+		}
+	}
 }
-#endif
-
-#endif /* __METAL_FREERTOS_SYS__H__ */

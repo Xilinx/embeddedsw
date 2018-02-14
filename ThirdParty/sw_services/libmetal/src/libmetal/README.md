@@ -52,6 +52,22 @@ example toolchain file:
     $ make VERBOSE=1 DESTDIR=<libmetal_install> install
 ```
 
+### Building for Zephyr
+As Zephyr uses CMake, we build libmetal library and test application as
+targets of Zephyr CMake project. Here is how to build libmetal for Zephyr:
+```
+    $ export ZEPHRY_GCC_VARIANT=zephyr
+    $ export ZEPHRY_SDK_INSTALL_DIR=<where Zephyr SDK is installed>
+    $ source <git_clone_zephyr_project_source_root>/zephyr-env.sh
+
+    $ cmake <libmetal_source_root> -DWITH_ZEPHYR=on -DBOARD=qemu_cortex_m3 \
+      [-DWITH_TESTS=on]
+    $ make VERBOSE=1 all
+    # If we have turned on tests with "-DWITH_TESTS=on" when we run cmake,
+    # we launch libmetal test on Zephyr QEMU platform as follows:
+    $ make VERBOSE=1 run
+```
+
 ## Interfaces
 
 The following subsections give an overview of interfaces provided by libmetal.

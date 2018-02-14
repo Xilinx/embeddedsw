@@ -59,35 +59,41 @@ if (WITH_DEFAULT_LOGGER)
   add_definitions (-DDEFAULT_LOGGER_ON)
 endif (WITH_DEFAULT_LOGGER)
 
-# Build a shared library if so configured.
-if (WITH_SHARED_LIB)
-  set (_lib ${PROJECT_NAME}-shared)
-  add_library (${_lib} SHARED ${_sources})
-  target_link_libraries (${_lib} ${_deps})
-  install (TARGETS ${_lib} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-  if (PROJECT_EC_FLAGS)
-    string(REPLACE " " ";" _ec_flgs ${PROJECT_EC_FLAGS})
-    target_compile_options (${_lib} PUBLIC ${_ec_flgs})
-  endif (PROJECT_EC_FLAGS)
-  set_target_properties (${_lib} PROPERTIES
-    OUTPUT_NAME       "${PROJECT_NAME}"
-    VERSION           "${PROJECT_VER}"
-    SOVERSION         "${PROJECT_VER_MAJOR}"
-  )
-endif (WITH_SHARED_LIB)
+if (WITH_ZEPHYR)
+  zephyr_library_named(metal)
+  add_dependencies(metal offsets_h)
+  target_sources (metal PRIVATE ${_sources})
+else (WITH_ZEPHYR)
+  # Build a shared library if so configured.
+  if (WITH_SHARED_LIB)
+    set (_lib ${PROJECT_NAME}-shared)
+    add_library (${_lib} SHARED ${_sources})
+    target_link_libraries (${_lib} ${_deps})
+    install (TARGETS ${_lib} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    if (PROJECT_EC_FLAGS)
+      string(REPLACE " " ";" _ec_flgs ${PROJECT_EC_FLAGS})
+      target_compile_options (${_lib} PUBLIC ${_ec_flgs})
+    endif (PROJECT_EC_FLAGS)
+    set_target_properties (${_lib} PROPERTIES
+      OUTPUT_NAME       "${PROJECT_NAME}"
+      VERSION           "${PROJECT_VER}"
+      SOVERSION         "${PROJECT_VER_MAJOR}"
+    )
+  endif (WITH_SHARED_LIB)
 
-# Build a static library if so configured.
-if (WITH_STATIC_LIB)
-  set (_lib ${PROJECT_NAME}-static)
-  add_library (${_lib} STATIC ${_sources})
-  install (TARGETS ${_lib} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
-  if (PROJECT_EC_FLAGS)
-    string(REPLACE " " ";" _ec_flgs ${PROJECT_EC_FLAGS})
-    target_compile_options (${_lib} PUBLIC ${_ec_flgs})
-  endif (PROJECT_EC_FLAGS)
-  set_target_properties (${_lib} PROPERTIES
-    OUTPUT_NAME       "${PROJECT_NAME}"
-  )
-endif (WITH_STATIC_LIB)
+  # Build a static library if so configured.
+  if (WITH_STATIC_LIB)
+    set (_lib ${PROJECT_NAME}-static)
+    add_library (${_lib} STATIC ${_sources})
+    install (TARGETS ${_lib} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    if (PROJECT_EC_FLAGS)
+      string(REPLACE " " ";" _ec_flgs ${PROJECT_EC_FLAGS})
+      target_compile_options (${_lib} PUBLIC ${_ec_flgs})
+    endif (PROJECT_EC_FLAGS)
+    set_target_properties (${_lib} PROPERTIES
+      OUTPUT_NAME       "${PROJECT_NAME}"
+    )
+  endif (WITH_STATIC_LIB)
+endif (WITH_ZEPHYR)
 
 # vim: expandtab:ts=2:sw=2:smartindent

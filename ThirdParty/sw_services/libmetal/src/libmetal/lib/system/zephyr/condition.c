@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2017, Linaro Limited. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,50 +29,45 @@
  */
 
 /*
- * @file	freertos/sys.h
- * @brief	FreeRTOS system primitives for libmetal.
+ * @file	zephyr/condition.c
+ * @brief	Zephyr libmetal condition variable handling.
  */
 
-#ifndef __METAL_SYS__H__
-#error "Include metal/sys.h instead of metal/freertos/sys.h"
-#endif
+#include <metal/condition.h>
+#include <metal/irq.h>
 
-#ifndef __METAL_FREERTOS_SYS__H__
-#define __METAL_FREERTOS_SYS__H__
+extern void metal_generic_default_poll(void);
 
-#include "./@PROJECT_MACHINE@/sys.h"
+int metal_condition_wait(struct metal_condition *cv,
+			 metal_mutex_t *m)
+{
+	metal_mutex_t *tmpm = 0;
+	int v;
+	unsigned int flags;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+	/* Check if the mutex has been acquired */
+	if (!cv || !m || !metal_mutex_is_acquired(m))
+		return -EINVAL;
 
-#ifndef METAL_MAX_DEVICE_REGIONS
-#define METAL_MAX_DEVICE_REGIONS 1
-#endif
+	if (!atomic_compare_exchange_strong(&cv->m, &tmpm, m)) {
+		if (m != tmpm)
+			return -EINVAL;
+	}
 
-/** Structure for FreeRTOS libmetal runtime state. */
-struct metal_state {
+	v = atomic_load(&cv->v);
 
-	/** Common (system independent) data. */
-	struct metal_common_state common;
-};
-
-#ifdef METAL_INTERNAL
-
-/**
- * @brief restore interrupts to state before disable_global_interrupt()
- */
-void sys_irq_restore_enable(void);
-
-/**
- * @brief disable all interrupts
- */
-void sys_irq_save_disable(void);
-
-#endif /* METAL_INTERNAL */
-
-#ifdef __cplusplus
+	/* Release the mutex first. */
+	metal_mutex_release(m);
+	do {
+		flags = metal_irq_save_disable();
+		if (atomic_load(&cv->v) != v) {
+			metal_irq_restore_enable(flags);
+			break;
+		}
+		metal_generic_default_poll();
+		metal_irq_restore_enable(flags);
+	} while(1);
+	/* Acquire the mutex again. */
+	metal_mutex_acquire(m);
+	return 0;
 }
-#endif
-
-#endif /* __METAL_FREERTOS_SYS__H__ */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2017, Linaro Limited. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,50 +29,27 @@
  */
 
 /*
- * @file	freertos/sys.h
- * @brief	FreeRTOS system primitives for libmetal.
+ * @file	zephyr/device.c
+ * @brief	Zephyr libmetal device definitions.
  */
 
-#ifndef __METAL_SYS__H__
-#error "Include metal/sys.h instead of metal/freertos/sys.h"
-#endif
+#include <metal/device.h>
+#include <metal/sys.h>
+#include <metal/utilities.h>
 
-#ifndef __METAL_FREERTOS_SYS__H__
-#define __METAL_FREERTOS_SYS__H__
+int metal_generic_dev_sys_open(struct metal_device *dev)
+{
+	struct metal_io_region *io;
+	unsigned i;
 
-#include "./@PROJECT_MACHINE@/sys.h"
+	/* map I/O memory regions */
+	for (i = 0; i < dev->num_regions; i++) {
+		io = &dev->regions[i];
+		if (!io->size)
+			break;
+		metal_sys_io_mem_map(io);
+	}
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifndef METAL_MAX_DEVICE_REGIONS
-#define METAL_MAX_DEVICE_REGIONS 1
-#endif
-
-/** Structure for FreeRTOS libmetal runtime state. */
-struct metal_state {
-
-	/** Common (system independent) data. */
-	struct metal_common_state common;
-};
-
-#ifdef METAL_INTERNAL
-
-/**
- * @brief restore interrupts to state before disable_global_interrupt()
- */
-void sys_irq_restore_enable(void);
-
-/**
- * @brief disable all interrupts
- */
-void sys_irq_save_disable(void);
-
-#endif /* METAL_INTERNAL */
-
-#ifdef __cplusplus
+	return 0;
 }
-#endif
 
-#endif /* __METAL_FREERTOS_SYS__H__ */

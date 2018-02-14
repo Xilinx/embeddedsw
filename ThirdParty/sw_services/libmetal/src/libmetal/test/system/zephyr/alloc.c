@@ -28,51 +28,26 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * @file	freertos/sys.h
- * @brief	FreeRTOS system primitives for libmetal.
- */
+#include <stdlib.h>
 
-#ifndef __METAL_SYS__H__
-#error "Include metal/sys.h instead of metal/freertos/sys.h"
-#endif
+#include <metal/alloc.h>
+#include <metal/log.h>
+#include <metal/sys.h>
+#include <misc/printk.h>
+#include "metal-test-internal.h"
 
-#ifndef __METAL_FREERTOS_SYS__H__
-#define __METAL_FREERTOS_SYS__H__
+static int alloc(void)
+{
+	void *ptr;
 
-#include "./@PROJECT_MACHINE@/sys.h"
+	ptr = metal_allocate_memory(1000);
+	if (!ptr) {
+		metal_log(METAL_LOG_DEBUG, "failed to allocate memmory\n");
+		return errno;
+	}
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+	metal_free_memory(ptr);
 
-#ifndef METAL_MAX_DEVICE_REGIONS
-#define METAL_MAX_DEVICE_REGIONS 1
-#endif
-
-/** Structure for FreeRTOS libmetal runtime state. */
-struct metal_state {
-
-	/** Common (system independent) data. */
-	struct metal_common_state common;
-};
-
-#ifdef METAL_INTERNAL
-
-/**
- * @brief restore interrupts to state before disable_global_interrupt()
- */
-void sys_irq_restore_enable(void);
-
-/**
- * @brief disable all interrupts
- */
-void sys_irq_save_disable(void);
-
-#endif /* METAL_INTERNAL */
-
-#ifdef __cplusplus
+	return 0;
 }
-#endif
-
-#endif /* __METAL_FREERTOS_SYS__H__ */
+METAL_ADD_TEST(alloc);
