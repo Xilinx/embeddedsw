@@ -1745,6 +1745,56 @@ void XDp_RxAudioReset(XDp *InstancePtr)
 	XDp_WaitUs(InstancePtr, 1000);
 	XDp_RxAudioEn(InstancePtr);
 }
+
+/******************************************************************************/
+/**
+ * This function enables the Video Stream Configuration.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxVSCEn(XDp *InstancePtr)
+{
+	u32 ReadVal;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+
+	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+		     XDP_RX_DTG_ENABLE, ReadVal | 0x4);
+}
+
+/******************************************************************************/
+/**
+ * This function disables the Video Stream Configuration.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxVSCDis(XDp *InstancePtr)
+{
+	u32 ReadVal;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+
+	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+		     XDP_RX_DTG_ENABLE, ReadVal & 0xFFFFFFFB);
+}
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 /******************************************************************************/

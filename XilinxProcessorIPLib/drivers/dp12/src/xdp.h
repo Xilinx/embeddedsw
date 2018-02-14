@@ -1278,6 +1278,8 @@ u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate);
 void XDp_RxAudioEn(XDp *InstancePtr);
 void XDp_RxAudioDis(XDp *InstancePtr);
 void XDp_RxAudioReset(XDp *InstancePtr);
+void XDp_RxVSCEn(XDp *InstancePtr);
+void XDp_RxVSCDis(XDp *InstancePtr);
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
