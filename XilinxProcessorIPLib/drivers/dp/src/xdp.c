@@ -1577,12 +1577,17 @@ u32 XDp_RxCheckLinkStatus(XDp *InstancePtr)
 *******************************************************************************/
 void XDp_RxDtgEn(XDp *InstancePtr)
 {
+	u32 ReadVal;
+
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE, 0x1);
+	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE);
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE,
+						(ReadVal | 0x1));
 }
 
 /******************************************************************************/
@@ -1598,12 +1603,17 @@ void XDp_RxDtgEn(XDp *InstancePtr)
 *******************************************************************************/
 void XDp_RxDtgDis(XDp *InstancePtr)
 {
+	u32 ReadVal;
+
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE, 0x0);
+	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE);
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE,
+						(ReadVal & 0xFFFFFFFE));
 
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_SOFT_RESET,
 						XDP_RX_SOFT_RESET_VIDEO_MASK);
