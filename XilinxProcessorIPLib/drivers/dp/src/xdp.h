@@ -1342,10 +1342,15 @@ void XDp_RxAudioEn(XDp *InstancePtr);
 void XDp_RxAudioDis(XDp *InstancePtr);
 void XDp_RxAudioReset(XDp *InstancePtr);
 <<<<<<< HEAD
+<<<<<<< HEAD
 void XDp_RxVSCEn(XDp *InstancePtr);
 void XDp_RxVSCDis(XDp *InstancePtr);
 =======
 >>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
+=======
+void XDp_RxVSCEn(XDp *InstancePtr);
+void XDp_RxVSCDis(XDp *InstancePtr);
+>>>>>>> xdp: Adding VSC enable/disable functions.
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
