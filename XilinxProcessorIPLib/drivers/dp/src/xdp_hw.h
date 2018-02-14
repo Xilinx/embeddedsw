@@ -725,6 +725,8 @@
 				0x00000800	/**< Unmasks lower 2-bits of
 						     Maud value. Masked by
 						     default */
+#define XDP_TX_MAIN_STREAMX_MISC0_EXT_TX_ALIGN_WITH_VSYNC_MASK \
+				0x00001000	/**< Mask for EXT_PKT_TXD */
 /* 0x1A8, 0x528, 0x578, 0x5C8: MAIN_STREAM[1-4]_MISC1 */
 #define XDP_TX_MAIN_STREAMX_MISC1_INTERLACED_VTOTAL_GIVEN_MASK \
 				0x00000001	/**< Interlaced vertical total
