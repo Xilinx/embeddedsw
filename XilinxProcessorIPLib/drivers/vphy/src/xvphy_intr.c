@@ -59,7 +59,7 @@
 
 /******************************************************************************/
 /**
- * This function enables interrupts associated with the specified interrupt type.
+ * This function enables interrupts associated with the specified interrupt type
  *
  * @param	InstancePtr is a pointer to the XVphy instance.
  * @param	Intr is the interrupt type/mask to enable.

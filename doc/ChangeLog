@@ -2612,6 +2612,7 @@ Added 8.1 Gbps support in DP
 Corrected FVCO range for MMCME4 in xvphy_hdmi.h
 Updated US/US+ QPLL0 VCO MAX to 16.375 GHz (GTHE3/GTHE4)
 Removed XVphy_DruSetGain API in xvphy_hdmi.c
+Changed line comments from // to /* */
 
 vprocss_v2_1:
 Added new version 2.1
