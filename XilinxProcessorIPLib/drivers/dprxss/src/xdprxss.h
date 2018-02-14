@@ -410,10 +410,15 @@ typedef struct {
 	u8 prevLinkRate;
 	u8 prevLaneCounts;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	u8 link_up_trigger;
 	u8 no_video_trigger;
 =======
 >>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
+=======
+	u8 link_up_trigger;
+	u8 no_video_trigger;
+>>>>>>> xdprxss : Adding flag to track DP1.4 linkUp and VideoTrigger status.
 } XDpRxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
