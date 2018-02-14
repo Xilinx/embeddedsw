@@ -715,7 +715,7 @@ void XVphy_HdmiTxClkDetFreqChangeHandler(XVphy *InstancePtr)
 	XVphy_MmcmLockedMaskEnable(InstancePtr, 0, XVPHY_DIR_TX, TRUE);
 
 	/* Disable TX MMCM. */
-	//XVphy_MmcmPowerDown(InstancePtr, 0, XVPHY_DIR_TX, TRUE);
+	/* XVphy_MmcmPowerDown(InstancePtr, 0, XVPHY_DIR_TX, TRUE); */
 
 	/* Clear TX timer. */
 	XVphy_ClkDetTimerClear(InstancePtr, 0, XVPHY_DIR_TX);

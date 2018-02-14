@@ -485,10 +485,10 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 	}
 
 
-	//Write Power Register Value
+	/* Write Power Register Value */
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x27, 0xFFFF);
 
-	//Write CLKFBOUT Reg1 & Reg2 Values
+	/* Write CLKFBOUT Reg1 & Reg2 Values */
 	DrpVal32 = XVphy_Mmcme4DividerEncoding(MMCM_CLKFBOUT_MULT_F,
 						MmcmParams->ClkFbOutMult);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x14,
@@ -496,13 +496,13 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x15,
 						(u16)((DrpVal32 >> 16) & 0xFFFF));
 
-	//Write DIVCLK_DIVIDE Value
+	/* Write DIVCLK_DIVIDE Value */
 	DrpVal32 = XVphy_Mmcme4DividerEncoding(MMCM_DIVCLK_DIVIDE,
 						MmcmParams->DivClkDivide) ;
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x16,
 						(u16)(DrpVal32 & 0xFFFF));
 
-	//Write CLKOUT0 Reg1 & Reg2 Values
+	/* Write CLKOUT0 Reg1 & Reg2 Values */
 	DrpVal32 = XVphy_Mmcme4DividerEncoding(MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut0Div);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x08,
@@ -510,7 +510,7 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x09,
 						(u16)((DrpVal32 >> 16) & 0xFFFF));
 
-	//Write CLKOUT1 Reg1 & Reg2 Values
+	/* Write CLKOUT1 Reg1 & Reg2 Values */
 	DrpVal32 = XVphy_Mmcme4DividerEncoding(MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut1Div);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0A,
@@ -518,7 +518,7 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0B,
 						(u16)((DrpVal32 >> 16) & 0xFFFF));
 
-	//Write CLKOUT2 Reg1 & Reg2 Values
+	/* Write CLKOUT2 Reg1 & Reg2 Values */
 	DrpVal32 = XVphy_Mmcme4DividerEncoding(MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut2Div);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0C,
@@ -526,23 +526,23 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0D,
 						(u16)((DrpVal32 >> 16) & 0xFFFF));
 
-	//Write Lock Reg1 Value
+	/* Write Lock Reg1 Value */
 	DrpVal = XVphy_Mmcme4LockReg1Encoding(MmcmParams->ClkFbOutMult);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x18, DrpVal);
 
-	//Write Lock Reg2 Value
+	/* Write Lock Reg2 Value */
 	DrpVal = XVphy_Mmcme4LockReg2Encoding(MmcmParams->ClkFbOutMult);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x19, DrpVal);
 
-	//Write Lock Reg3 Value
+	/* Write Lock Reg3 Value */
 	DrpVal = XVphy_Mmcme4LockReg3Encoding(MmcmParams->ClkFbOutMult);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x1A, DrpVal);
 
-	//Write Filter Reg1 Value
+	/* Write Filter Reg1 Value */
 	DrpVal = XVphy_Mmcme4FilterReg1Encoding(MmcmParams->ClkFbOutMult);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4E, DrpVal);
 
-	//Write Filter Reg2 Value
+	/* Write Filter Reg2 Value */
 	DrpVal = XVphy_Mmcme4FilterReg2Encoding(MmcmParams->ClkFbOutMult);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4F, DrpVal);
 

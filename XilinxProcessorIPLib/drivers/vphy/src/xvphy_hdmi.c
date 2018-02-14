@@ -165,7 +165,7 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
 			XVPHY_GT_STATE_IDLE;
 		InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].RxState =
 			XVPHY_GT_STATE_IDLE;
-		//Initialize Transceiver Width values
+		/* Initialize Transceiver Width values */
 		if (InstancePtr->Config.TransceiverWidth == 2) {
 			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
 				TxDataWidth = 20;
@@ -367,7 +367,7 @@ u32 XVphy_Hdmi_CfgInitialize(XVphy *InstancePtr, u8 QuadId,
 			XVPHY_GT_STATE_IDLE;
 		InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].RxState =
 			XVPHY_GT_STATE_IDLE;
-		//Initialize Transceiver Width values
+		/* Initialize Transceiver Width values */
 		if (InstancePtr->Config.TransceiverWidth == 2) {
 			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
 				TxDataWidth = 20;
@@ -1421,7 +1421,7 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 					MmcmPtr->ClkOut0Div = MultDiv * 4;
 				}
 			}
-			else {//2 Byte Mode
+			else { /* 2 Byte Mode */
 				/* Link clock: TMDS clock ratio 1/40. */
 				if ((LineRate / 1000000) >= 3400) {
 					if ((Dir == XVPHY_DIR_TX) &&
