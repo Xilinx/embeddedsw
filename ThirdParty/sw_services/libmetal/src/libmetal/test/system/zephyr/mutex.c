@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2015, Xilinx Inc. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -28,51 +28,21 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * @file	freertos/sys.h
- * @brief	FreeRTOS system primitives for libmetal.
- */
+#include "metal-test-internal.h"
+#include <metal/mutex.h>
 
-#ifndef __METAL_SYS__H__
-#error "Include metal/sys.h instead of metal/freertos/sys.h"
-#endif
+static const int mutex_test_count = 1000;
 
-#ifndef __METAL_FREERTOS_SYS__H__
-#define __METAL_FREERTOS_SYS__H__
+static int mutex(void)
+{
+	metal_mutex_t lock = METAL_MUTEX_INIT;
+	int i;
 
-#include "./@PROJECT_MACHINE@/sys.h"
+	for (i = 0; i < mutex_test_count; i++) {
+		metal_mutex_acquire(&lock);
+		metal_mutex_release(&lock);
+	}
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifndef METAL_MAX_DEVICE_REGIONS
-#define METAL_MAX_DEVICE_REGIONS 1
-#endif
-
-/** Structure for FreeRTOS libmetal runtime state. */
-struct metal_state {
-
-	/** Common (system independent) data. */
-	struct metal_common_state common;
-};
-
-#ifdef METAL_INTERNAL
-
-/**
- * @brief restore interrupts to state before disable_global_interrupt()
- */
-void sys_irq_restore_enable(void);
-
-/**
- * @brief disable all interrupts
- */
-void sys_irq_save_disable(void);
-
-#endif /* METAL_INTERNAL */
-
-#ifdef __cplusplus
+	return 0;
 }
-#endif
-
-#endif /* __METAL_FREERTOS_SYS__H__ */
+METAL_ADD_TEST(mutex);

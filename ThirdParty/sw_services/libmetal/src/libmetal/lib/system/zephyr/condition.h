@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2017, Linaro Limited. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,50 +29,63 @@
  */
 
 /*
- * @file	freertos/sys.h
- * @brief	FreeRTOS system primitives for libmetal.
+ * @file	zephyr/condition.h
+ * @brief	Zephyr condition variable primitives for libmetal.
  */
 
-#ifndef __METAL_SYS__H__
-#error "Include metal/sys.h instead of metal/freertos/sys.h"
+#ifndef __METAL_CONDITION__H__
+#error "Include metal/condition.h instead of metal/generic/condition.h"
 #endif
 
-#ifndef __METAL_FREERTOS_SYS__H__
-#define __METAL_FREERTOS_SYS__H__
+#ifndef __METAL_ZEPHYR_CONDITION__H__
+#define __METAL_ZEPHYR_CONDITION__H__
 
-#include "./@PROJECT_MACHINE@/sys.h"
+#include <errno.h>
+#include <metal/atomic.h>
+#include <stddef.h>
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#ifndef METAL_MAX_DEVICE_REGIONS
-#define METAL_MAX_DEVICE_REGIONS 1
-#endif
+struct metal_condition {
+	metal_mutex_t *m; /**< mutex.
+	                       The condition variable is attached to
+	                       this mutex when it is waiting.
+	                       It is also used to check correctness
+	                       in case there are multiple waiters. */
 
-/** Structure for FreeRTOS libmetal runtime state. */
-struct metal_state {
-
-	/** Common (system independent) data. */
-	struct metal_common_state common;
+	atomic_int v; /**< condition variable value. */
 };
 
-#ifdef METAL_INTERNAL
+/** Static metal condition variable initialization. */
+#define METAL_CONDITION_INIT		{ NULL, ATOMIC_VAR_INIT(0) }
 
-/**
- * @brief restore interrupts to state before disable_global_interrupt()
- */
-void sys_irq_restore_enable(void);
+static inline void metal_condition_init(struct metal_condition *cv)
+{
+	cv->m = NULL;
+	atomic_init(&cv->v, 0);
+}
 
-/**
- * @brief disable all interrupts
- */
-void sys_irq_save_disable(void);
+static inline int metal_condition_signal(struct metal_condition *cv)
+{
+	if (!cv)
+		return -EINVAL;
 
-#endif /* METAL_INTERNAL */
+	/** wake up waiters if there are any. */
+	atomic_fetch_add(&cv->v, 1);
+	return 0;
+}
+
+static inline int metal_condition_broadcast(struct metal_condition *cv)
+{
+	return metal_condition_signal(cv);
+}
+
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __METAL_FREERTOS_SYS__H__ */
+#endif /* __METAL_ZEPHYR_CONDITION__H__ */

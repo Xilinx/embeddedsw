@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2017, Linaro Limited. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,50 +29,53 @@
  */
 
 /*
- * @file	freertos/sys.h
- * @brief	FreeRTOS system primitives for libmetal.
+ * @file	zephyr/alloc.h
+ * @brief	zephyr libmetal memory allocattion definitions.
  */
 
-#ifndef __METAL_SYS__H__
-#error "Include metal/sys.h instead of metal/freertos/sys.h"
+#ifndef __METAL_ALLOC__H__
+#error "Include metal/alloc.h instead of metal/zephyr/alloc.h"
 #endif
 
-#ifndef __METAL_FREERTOS_SYS__H__
-#define __METAL_FREERTOS_SYS__H__
+#ifndef __METAL_ZEPHYR_ALLOC__H__
+#define __METAL_ZEPHYR_ALLOC__H__
 
-#include "./@PROJECT_MACHINE@/sys.h"
+#include <kernel.h>
+#include <stdlib.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#ifndef METAL_MAX_DEVICE_REGIONS
-#define METAL_MAX_DEVICE_REGIONS 1
-#endif
+#if (CONFIG_HEAP_MEM_POOL_SIZE > 0)
+static inline void *metal_allocate_memory(unsigned int size)
+{
+	return k_malloc(size);
+}
 
-/** Structure for FreeRTOS libmetal runtime state. */
-struct metal_state {
+static inline void metal_free_memory(void *ptr)
+{
+	k_free(ptr);
+}
+#else
 
-	/** Common (system independent) data. */
-	struct metal_common_state common;
-};
+void *metal_zephyr_allocate_memory(unsigned int size);
+void metal_zephyr_free_memory(void *ptr);
 
-#ifdef METAL_INTERNAL
+static inline void *metal_allocate_memory(unsigned int size)
+{
+	return metal_zephyr_allocate_memory(size);
+}
 
-/**
- * @brief restore interrupts to state before disable_global_interrupt()
- */
-void sys_irq_restore_enable(void);
+static inline void metal_free_memory(void *ptr)
+{
+	metal_zephyr_free_memory(ptr);
+}
+#endif /* CONFIG_HEAP_MEM_POOL_SIZE */
 
-/**
- * @brief disable all interrupts
- */
-void sys_irq_save_disable(void);
-
-#endif /* METAL_INTERNAL */
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __METAL_FREERTOS_SYS__H__ */
+#endif /* __METAL_ZEPHYR_ALLOC__H__ */

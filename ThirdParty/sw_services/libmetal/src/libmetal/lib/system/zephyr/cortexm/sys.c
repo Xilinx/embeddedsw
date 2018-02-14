@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2017, Linaro Limited. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,50 +29,44 @@
  */
 
 /*
- * @file	freertos/sys.h
- * @brief	FreeRTOS system primitives for libmetal.
+ * @file	zephyr/qemu_cortex_m3/sys.c
+ * @brief	machine specific system primitives implementation.
  */
 
-#ifndef __METAL_SYS__H__
-#error "Include metal/sys.h instead of metal/freertos/sys.h"
-#endif
+#include <metal/io.h>
+#include <metal/sys.h>
+#include <stdint.h>
 
-#ifndef __METAL_FREERTOS_SYS__H__
-#define __METAL_FREERTOS_SYS__H__
-
-#include "./@PROJECT_MACHINE@/sys.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifndef METAL_MAX_DEVICE_REGIONS
-#define METAL_MAX_DEVICE_REGIONS 1
-#endif
-
-/** Structure for FreeRTOS libmetal runtime state. */
-struct metal_state {
-
-	/** Common (system independent) data. */
-	struct metal_common_state common;
-};
-
-#ifdef METAL_INTERNAL
-
-/**
- * @brief restore interrupts to state before disable_global_interrupt()
- */
-void sys_irq_restore_enable(void);
-
-/**
- * @brief disable all interrupts
- */
-void sys_irq_save_disable(void);
-
-#endif /* METAL_INTERNAL */
-
-#ifdef __cplusplus
+void metal_machine_cache_flush(void *addr, unsigned int len)
+{
+	/* Fix me */
+	(void)addr;
+	(void)len;
 }
-#endif
 
-#endif /* __METAL_FREERTOS_SYS__H__ */
+void metal_machine_cache_invalidate(void *addr, unsigned int len)
+{
+	/* Fix me */
+	(void)addr;
+	(void)len;
+}
+
+/**
+ * @brief poll function until some event happens
+ */
+void __attribute__((weak)) metal_generic_default_poll(void)
+{
+	__asm__ __volatile__("wfi");
+}
+
+void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
+			       size_t size, unsigned int flags)
+{
+	/* Fix me */
+	(void)pa;
+	(void)size;
+	(void)flags;
+
+	return va;
+}
+

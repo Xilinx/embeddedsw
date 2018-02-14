@@ -28,51 +28,31 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * @file	freertos/sys.h
- * @brief	FreeRTOS system primitives for libmetal.
- */
+#include <stdlib.h>
 
-#ifndef __METAL_SYS__H__
-#error "Include metal/sys.h instead of metal/freertos/sys.h"
-#endif
+#include <metal/atomic.h>
+#include <metal/log.h>
+#include <metal/sys.h>
+#include "metal-test-internal.h"
 
-#ifndef __METAL_FREERTOS_SYS__H__
-#define __METAL_FREERTOS_SYS__H__
+static const int atomic_test_count = 1000;
 
-#include "./@PROJECT_MACHINE@/sys.h"
+static int atomic(void)
+{
+	atomic_int counter = ATOMIC_VAR_INIT(0);
+	int value, error=0, i;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+	for (i = 0; i < atomic_test_count; i++) {
+		atomic_fetch_add(&counter, 1);
+	}
 
-#ifndef METAL_MAX_DEVICE_REGIONS
-#define METAL_MAX_DEVICE_REGIONS 1
-#endif
+	value = atomic_load(&counter);
+	value -= atomic_test_count;
+	if (value) {
+		metal_log(METAL_LOG_DEBUG, "counter mismatch, delta = %d\n", value);
+		error = -1;
+	}
 
-/** Structure for FreeRTOS libmetal runtime state. */
-struct metal_state {
-
-	/** Common (system independent) data. */
-	struct metal_common_state common;
-};
-
-#ifdef METAL_INTERNAL
-
-/**
- * @brief restore interrupts to state before disable_global_interrupt()
- */
-void sys_irq_restore_enable(void);
-
-/**
- * @brief disable all interrupts
- */
-void sys_irq_save_disable(void);
-
-#endif /* METAL_INTERNAL */
-
-#ifdef __cplusplus
+	return error;
 }
-#endif
-
-#endif /* __METAL_FREERTOS_SYS__H__ */
+METAL_ADD_TEST(atomic);

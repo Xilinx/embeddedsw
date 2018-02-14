@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 - 2017, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2017, Linaro Limited. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,8 +29,8 @@
  */
 
 /*
- * @file	generic/irq.c
- * @brief	generic libmetal irq definitions.
+ * @file	zephyr/irq.c
+ * @brief	Zephyr libmetal irq definitions.
  */
 
 #include <errno.h>
@@ -41,6 +41,7 @@
 #include <metal/list.h>
 #include <metal/utilities.h>
 #include <metal/alloc.h>
+#include <irq.h>
 
 /** IRQ handlers descriptor structure */
 struct metal_irq_hddesc {
@@ -255,25 +256,22 @@ int metal_irq_unregister(int irq,
 
 unsigned int metal_irq_save_disable(void)
 {
-	sys_irq_save_disable();
-	return 0;
+	return irq_lock();
 }
 
 void metal_irq_restore_enable(unsigned int flags)
 {
-	(void)flags;
-
-	sys_irq_restore_enable();
+	irq_unlock(flags);
 }
 
 void metal_irq_enable(unsigned int vector)
 {
-	sys_irq_enable(vector);
+	irq_enable(vector);
 }
 
 void metal_irq_disable(unsigned int vector)
 {
-	sys_irq_disable(vector);
+	irq_disable(vector);
 }
 
 /**

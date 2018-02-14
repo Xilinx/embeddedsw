@@ -34,7 +34,7 @@ int main(void)
 {
 	int status;
 
-	status = metal_tests_run();
+	status = metal_tests_run(NULL);
 
 	return status;
 }

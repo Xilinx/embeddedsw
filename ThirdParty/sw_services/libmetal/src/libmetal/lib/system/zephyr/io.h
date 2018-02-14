@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2017, Linaro Limited. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,50 +29,40 @@
  */
 
 /*
- * @file	freertos/sys.h
- * @brief	FreeRTOS system primitives for libmetal.
+ * @file	zephyr/io.h
+ * @brief	Zephyr specific io definitions.
  */
 
-#ifndef __METAL_SYS__H__
-#error "Include metal/sys.h instead of metal/freertos/sys.h"
+#ifndef __METAL_IO__H__
+#error "Include metal/io.h instead of metal/zephyr/io.h"
 #endif
 
-#ifndef __METAL_FREERTOS_SYS__H__
-#define __METAL_FREERTOS_SYS__H__
+#ifndef __METAL_ZEPHYR_IO__H__
+#define __METAL_ZEPHYR_IO__H__
 
-#include "./@PROJECT_MACHINE@/sys.h"
+#include <stdlib.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#ifndef METAL_MAX_DEVICE_REGIONS
-#define METAL_MAX_DEVICE_REGIONS 1
-#endif
-
-/** Structure for FreeRTOS libmetal runtime state. */
-struct metal_state {
-
-	/** Common (system independent) data. */
-	struct metal_common_state common;
-};
-
 #ifdef METAL_INTERNAL
 
 /**
- * @brief restore interrupts to state before disable_global_interrupt()
+ * @brief memory mapping for an I/O region
  */
-void sys_irq_restore_enable(void);
+void metal_sys_io_mem_map(struct metal_io_region *io);
 
 /**
- * @brief disable all interrupts
+ * @brief memory mapping
  */
-void sys_irq_save_disable(void);
+void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
+			       size_t size, unsigned int flags);
 
-#endif /* METAL_INTERNAL */
+#endif
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __METAL_FREERTOS_SYS__H__ */
+#endif /* __METAL_ZEPHYR_IO__H__ */

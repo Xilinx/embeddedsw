@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2017, Linaro Limited. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,50 +29,31 @@
  */
 
 /*
- * @file	freertos/sys.h
- * @brief	FreeRTOS system primitives for libmetal.
+ * @file	system/zephyr/metal-test-internal.h
+ * @brief	Zephyr include internal to libmetal tests.
  */
 
-#ifndef __METAL_SYS__H__
-#error "Include metal/sys.h instead of metal/freertos/sys.h"
-#endif
-
-#ifndef __METAL_FREERTOS_SYS__H__
-#define __METAL_FREERTOS_SYS__H__
-
-#include "./@PROJECT_MACHINE@/sys.h"
+#ifndef __METAL_TEST_ZEPHYR_INTERNAL__H__
+#define __METAL_TEST_ZEPHYR_INTERNAL__H__
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#ifndef METAL_MAX_DEVICE_REGIONS
-#define METAL_MAX_DEVICE_REGIONS 1
-#endif
+#include "metal-test.h"
 
-/** Structure for FreeRTOS libmetal runtime state. */
-struct metal_state {
-
-	/** Common (system independent) data. */
-	struct metal_common_state common;
-};
-
-#ifdef METAL_INTERNAL
-
-/**
- * @brief restore interrupts to state before disable_global_interrupt()
- */
-void sys_irq_restore_enable(void);
-
-/**
- * @brief disable all interrupts
- */
-void sys_irq_save_disable(void);
-
-#endif /* METAL_INTERNAL */
+#undef METAL_ADD_TEST
+#define METAL_ADD_TEST(func)						\
+void metal_test_add_##func() {		\
+	static struct metal_test_case metal_test_##func = {		\
+		.name	= #func,					\
+		.test	= func,						\
+	};								\
+	metal_add_test_case(&metal_test_##func);			\
+}
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __METAL_FREERTOS_SYS__H__ */
+#endif /* __METAL_TEST_ZEPHYR_INTERNAL__H__ */

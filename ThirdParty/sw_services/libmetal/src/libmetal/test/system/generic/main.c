@@ -36,7 +36,7 @@ extern void metal_generic_default_poll(void);
 int main(void)
 {
 	(void)init_system();
-	(void)metal_tests_run();
+	(void)metal_tests_run(NULL);
 
 	while (1)
                metal_generic_default_poll();
