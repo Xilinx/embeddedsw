@@ -44,6 +44,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   hk   6/16/17  First release
+*       hk   2/15/18  Add support for USXGMII
 *
 * </pre>
 ******************************************************************************/
@@ -115,6 +116,47 @@ int XXxvEthernet_CfgInitialize(XXxvEthernet *InstancePtr,
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+*
+* XXxvEthernet_Initialize initializes an XXV Ethernet device along with the
+* <i>InstancePtr</i> that references it.
+*
+* The PHY is setup independently from the Ethernet core. Use the MII or
+* whatever other interface may be present for setup.
+*
+* @param	InstancePtr references the memory instance to be associated
+*		with the AXI Ethernet core instance upon initialization.
+* @param	CfgPtr references the structure holding the hardware
+*		configuration for the Axi Ethernet core to initialize.
+*
+* @return	XST_SUCCESS.
+*
+* @note		When user calls this function he should ensure the hardware
+*		is in a quiescent state by reseting all the hardware
+*		Configurations.
+*
+******************************************************************************/
+int XXxvEthernet_Initialize(XXxvEthernet *InstancePtr,
+			    XXxvEthernet_Config *CfgPtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Clear instance memory and make copy of configuration */
+	memset(InstancePtr, 0, sizeof(XXxvEthernet));
+	memcpy(&InstancePtr->Config, CfgPtr, sizeof(XXxvEthernet_Config));
+
+	xdbg_printf(XDBG_DEBUG_GENERAL, "XXxvEthernet_Initialize\n");
+
+	/* Set device base address */
+	InstancePtr->Config.BaseAddress = CfgPtr->BaseAddress;
+
+	/* Set default options */
+	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+
+	return XST_SUCCESS;
+}
 
 /*****************************************************************************/
 /**
@@ -564,6 +606,157 @@ u32 XXxvEthernet_GetOptions(XXxvEthernet *InstancePtr)
 
 /*****************************************************************************/
 /**
+ * XXxvEthernet_SetUsxgmiiRateAndDuplex sets the speed and duplex ability in
+ * USXGMII Autonegotiation register.
+ *
+ * @param	InstancePtr references the Xxv Ethernet on which to
+ *		operate.
+ * @param	Rate to be set - currently only 1G and 2.5G are tested.
+ *		Pass RATE_1G or RATE_2G5 to the function.
+ * @param	Set FD or HD - if 0 Half duplex is set, else Full duplex.
+ *
+ * @return	- XST_SUCCESS on successful setting of speed.
+ *		- XST_FAILURE, if the speed cannot be set for the present
+ *		  harwdare configuration.
+ *
+ * @note	None.
+ *
+ *
+ ******************************************************************************/
+int XXxvEthernet_SetUsxgmiiRateAndDuplex(XXxvEthernet *InstancePtr, u32 Rate, u32 SetFD)
+{
+	u32 RateMask, UsxgmiiAnReg;
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+
+	xdbg_printf(XDBG_DEBUG_GENERAL, "XXxvEthernet_SetUsxgmiiRateAndDuplex\n");
+
+	/* Set speed in axi lite register field and the signal field to
+	 * keep them in sync
+	 */
+	switch(Rate) {
+		case RATE_1G:
+			RateMask = (XXE_USXGMII_RATE_1G_MASK << XXE_USXGMII_RATE_SHIFT) |
+						(XXE_USXGMII_RATE_1G_MASK << XXE_USXGMII_SPEED_SHIFT);
+			break;
+		case RATE_2G5:
+			RateMask = (XXE_USXGMII_RATE_2G5_MASK << XXE_USXGMII_RATE_SHIFT) |
+						(XXE_USXGMII_RATE_2G5_MASK << XXE_USXGMII_SPEED_SHIFT);
+			break;
+		case RATE_10G:
+			RateMask = (XXE_USXGMII_RATE_10G_MASK << XXE_USXGMII_RATE_SHIFT) |
+						(XXE_USXGMII_RATE_10G_MASK << XXE_USXGMII_SPEED_SHIFT);
+			break;
+		case RATE_10M:
+			RateMask = (XXE_USXGMII_RATE_10M_MASK << XXE_USXGMII_RATE_SHIFT) |
+						(XXE_USXGMII_RATE_10M_MASK << XXE_USXGMII_SPEED_SHIFT);
+			break;
+		case RATE_100M:
+			RateMask = (XXE_USXGMII_RATE_100M_MASK << XXE_USXGMII_RATE_SHIFT) |
+						(XXE_USXGMII_RATE_100M_MASK << XXE_USXGMII_SPEED_SHIFT);
+			break;
+		default:
+			return XST_FAILURE;
+	}
+	/* Set the speed and make sure to enable USXGMII */
+	UsxgmiiAnReg = XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
+				XXE_USXGMII_AN_OFFSET);
+	UsxgmiiAnReg &= ~(XXE_USXGMII_RATE_MASK | XXE_USXGMII_ANA_SPEED_MASK );
+	UsxgmiiAnReg |= (XXE_USXGMII_ANA_MASK | XXE_USXGMII_LINK_STS_MASK | RateMask);
+
+
+	/* Duplex setting */
+	if(!SetFD) {
+		UsxgmiiAnReg &= ~XXE_USXGMII_ANA_FD_MASK;
+	} else {
+		UsxgmiiAnReg |= XXE_USXGMII_ANA_FD_MASK;
+	}
+	XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
+			XXE_USXGMII_AN_OFFSET, UsxgmiiAnReg);
+	xdbg_printf(XDBG_DEBUG_GENERAL,
+			"XXxvEthernet_SetUsxgmiiRateAndDuplex: done\n");
+
+	return (XST_SUCCESS);
+}
+/** @} */
+
+/*****************************************************************************/
+/**
+*
+* XXxvEthernet_UsxgmiiAnMainReset sets the USXGMII AN Main reset.
+* A delay is provided in between setting and clearing the main reset bit.
+*
+* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+*		worked on.
+* @return	None
+* @note 	This function is only supported for USXGMII Ethernet MAC
+*
+******************************************************************************/
+void XXxvEthernet_UsxgmiiAnMainReset(XXxvEthernet *InstancePtr)
+{
+	u32 UsxgmiiAnReg;
+	int i;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	UsxgmiiAnReg = XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
+					XXE_USXGMII_AN_OFFSET);
+	XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
+				XXE_USXGMII_AN_OFFSET,
+				UsxgmiiAnReg | XXE_USXGMII_ANMAINRESET_MASK);
+
+	usleep(100);
+
+	XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
+				XXE_USXGMII_AN_OFFSET,
+				UsxgmiiAnReg & ~XXE_USXGMII_ANMAINRESET_MASK);
+}
+
+/*****************************************************************************/
+/**
+*
+* XXxvEthernet_UsxgmiiAnMainRestart sets the USXGMII AN Main restart.
+* A delay is provided in between setting and clearing this bit as it is
+* not self clearing.
+*
+* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+*		worked on.
+* @return	None
+* @note 	This function is only supported for USXGMII Ethernet MAC
+*
+******************************************************************************/
+void XXxvEthernet_UsxgmiiAnMainRestart(XXxvEthernet *InstancePtr)
+{
+	u32 UsxgmiiAnReg;
+	int i;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	UsxgmiiAnReg = XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
+					XXE_USXGMII_AN_OFFSET);
+	XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
+				XXE_USXGMII_AN_OFFSET,
+				UsxgmiiAnReg & ~XXE_USXGMII_ANRESTART_MASK);
+
+	usleep(100);
+
+	XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
+				XXE_USXGMII_AN_OFFSET,
+				UsxgmiiAnReg | XXE_USXGMII_ANRESTART_MASK);
+
+	usleep(100);
+
+	XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
+				XXE_USXGMII_AN_OFFSET,
+				UsxgmiiAnReg & ~XXE_USXGMII_ANRESTART_MASK);
+}
+/** @} */
+
+/*****************************************************************************/
+/**
  * XXxvEthernet_GetAutoNegSpeed reports the speed (only 10G supported) from
  * the Autonegotiation status register.
  *
@@ -573,7 +766,7 @@ u32 XXxvEthernet_GetOptions(XXxvEthernet *InstancePtr)
  * @return	Returns the link speed in units of gigabits per second (10)
  *		Can return a value of 0, in case 10Gbps is not set.
  *
- * @note	None.
+ * @note	This function is only supported for XXV Ethernet MAC
  *
  ******************************************************************************/
 u16 XXxvEthernet_GetAutoNegSpeed(XXxvEthernet *InstancePtr)
@@ -605,7 +798,7 @@ u16 XXxvEthernet_GetAutoNegSpeed(XXxvEthernet *InstancePtr)
  *		- XST_FAILURE, if the speed cannot be set for the present
  *		  harwdare configuration.
  *
- * @note	None.
+ * @note	This function is only supported for XXV Ethernet MAC
  *
  *
  ******************************************************************************/
