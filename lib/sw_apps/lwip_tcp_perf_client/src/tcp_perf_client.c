@@ -40,20 +40,35 @@ static struct perf_stats client;
 
 void print_app_header()
 {
+#if LWIP_IPV6==1
+	xil_printf("TCP client connecting to %s on port %d\r\n",
+			TCP_SERVER_IPV6_ADDRESS, TCP_CONN_PORT);
+	xil_printf("On Host: Run $iperf -V -s -i %d -w 2M\r\n",
+			INTERIM_REPORT_INTERVAL);
+#else
 	xil_printf("TCP client connecting to %s on port %d\r\n",
 			TCP_SERVER_IP_ADDRESS, TCP_CONN_PORT);
 	xil_printf("On Host: Run $iperf -s -i %d -w 2M\r\n",
 			INTERIM_REPORT_INTERVAL);
-
+#endif /* LWIP_IPV6 */
 }
 
 static void print_tcp_conn_stats()
 {
+#if LWIP_IPv6==1
+	xil_printf("[%3d] local %s port %d connected with ",
+			client.client_id, inet6_ntoa(c_pcb->local_ip),
+			c_pcb->local_port);
+	xil_printf("%s port %d\r\n",inet6_ntoa(c_pcb->remote_ip),
+			c_pcb->remote_port);
+#else
 	xil_printf("[%3d] local %s port %d connected with ",
 			client.client_id, inet_ntoa(c_pcb->local_ip),
 			c_pcb->local_port);
 	xil_printf("%s port %d\r\n",inet_ntoa(c_pcb->remote_ip),
 			c_pcb->remote_port);
+#endif /* LWIP_IPV6 */
+
 	xil_printf("[ ID] Interval\t\tTransfer   Bandwidth\n\r");
 }
 
@@ -270,14 +285,20 @@ void start_application(void)
 	ip_addr_t remote_addr;
 	u32_t i;
 
+#if LWIP_IPV6==1
+	remote_addr.type= IPADDR_TYPE_V6;
+	err = inet6_aton(TCP_SERVER_IPV6_ADDRESS, &remote_addr);
+#else
 	err = inet_aton(TCP_SERVER_IP_ADDRESS, &remote_addr);
+#endif /* LWIP_IPV6 */
+
 	if (!err) {
 		xil_printf("Invalid Server IP address: %d\r\n", err);
 		return;
 	}
 
 	/* Create Client PCB */
-	pcb = tcp_new();
+	pcb = tcp_new_ip_type(IPADDR_TYPE_ANY);
 	if (!pcb) {
 		xil_printf("Error in PCB creation. out of memory\r\n");
 		return;

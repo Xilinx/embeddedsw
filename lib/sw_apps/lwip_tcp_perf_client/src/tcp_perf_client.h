@@ -98,8 +98,13 @@ struct perf_stats {
 /* time in seconds to transmit packets */
 #define TCP_TIME_INTERVAL 300
 
+#if LWIP_IPV6==1
+/* Server to connect with */
+#define TCP_SERVER_IPV6_ADDRESS "fe80::6600:6aff:fe71:fde6"
+#else
 /* Server to connect with */
 #define TCP_SERVER_IP_ADDRESS "192.168.1.100"
+#endif
 
 #define TCP_SEND_BUFSIZE (5*TCP_MSS)
 
