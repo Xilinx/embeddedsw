@@ -46,6 +46,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 1.0   hk   6/16/17  First release
+*       hk   2/15/18  Add support for USXGMII
 *
 * </pre>
 
@@ -82,6 +83,7 @@ extern "C" {
 #define XXE_RXMTU_OFFSET	0x00000018
 #define XXE_TICK_OFFSET		0x00000020
 #define XXE_REV_OFFSET		0x00000024
+#define XXE_USXGMII_AN_OFFSET	0x000000C8
 #define XXE_RSFEC_OFFSET	0x000000D0
 #define XXE_FEC_OFFSET		0x000000D4
 #define XXE_ANCR1_OFFSET	0x000000E0
@@ -99,6 +101,7 @@ extern "C" {
 /** @name Xxv Ethernet status registers offset
  *  @{
  */
+#define XXE_CORESPEEDSR_OFFSET	0x00000180
 #define XXE_TXSR_OFFSET		0x00000400
 #define XXE_RXSR_OFFSET		0x00000404
 #define XXE_SR_OFFSET		0x00000408
@@ -131,6 +134,28 @@ extern "C" {
 #define XXE_RXCFG_DEL_FCS_MASK	0x00000002
 #define XXE_RXCFG_IGN_FCS_MASK	0x00000004
 
+/** @name USXGMII Auto negotiation register masks
+ * @{
+ */
+#define XXE_USXGMII_ANBYPASS_MASK	0x00000001
+#define XXE_USXGMII_ANENABLE_MASK	0x00000020
+#define XXE_USXGMII_ANMAINRESET_MASK	0x00000040
+#define XXE_USXGMII_ANRESTART_MASK	0x00000080
+#define XXE_USXGMII_RATE_MASK		0x00000700
+#define XXE_USXGMII_ANA_MASK		0x00010000
+#define XXE_USXGMII_ANA_SPEED_MASK	0x0E000000
+#define XXE_USXGMII_ANA_FD_MASK		0x10000000
+#define XXE_USXGMII_ANACK_MASK		0x40000000
+#define XXE_USXGMII_LINK_STS_MASK	0x80000000
+
+#define XXE_USXGMII_RATE_10M_MASK	0x0
+#define XXE_USXGMII_RATE_100M_MASK	0x1
+#define XXE_USXGMII_RATE_1G_MASK	0x2
+#define XXE_USXGMII_RATE_10G_MASK	0x3
+#define XXE_USXGMII_RATE_2G5_MASK	0x4
+#define XXE_USXGMII_RATE_SHIFT		8
+#define XXE_USXGMII_SPEED_SHIFT		25
+
 /** @name RXMTU register masks
  * @{
  */
@@ -151,6 +176,7 @@ extern "C" {
  * @{
  */
 #define XXE_AN_COMP_MASK	0x00000004
+#define XXE_USXGMII_AN_COMP_MASK	0x00010000
 
 /** @name AN ability register masks
  * @{

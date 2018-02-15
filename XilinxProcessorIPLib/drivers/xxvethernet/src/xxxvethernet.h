@@ -36,9 +36,11 @@
 * @{
 * @details
 *
-* The Xilinx XXV Ethernet MAC driver component. This driver supports
-* XXV Ethernet core for use on Zynq Ultrascale+ MPSoC. Speed supported
-* is 10Gbps.
+* The Xilinx XXV Ethernet MAC driver component. This driver supports both
+* XXV Ethernet core and USXGMII core on Zynq Ultrascale+ MPSoC.
+* The MAC portion of USXMGII and XXV ethernet is similar.
+* Speed supported for XXV Ethernet core is 10Gbps.
+* Speed supported for USXGMII core is 1Gbps or 2.5Gbps.
 *
 * For a full description of XXV Ethernet features, please see the hardware
 * spec.
@@ -48,6 +50,10 @@
 *   - Full duplex operation
 *   - Automatic PAD & FCS insertion and stripping (programmable)
 *   - Jumbo frame support
+*
+* For full description of USXGMII features, please refer to hardware spec.
+* In addition to the above MAC features, USXGMII core supports
+* USXGMII PHY functionality. This driver supports the same.
 *
 * <h2>Driver Description</h2>
 *
@@ -97,6 +103,11 @@
 * autonegotiation enabled by default - the  autonegotiation speed is limited
 * to 10G.
 *
+* USXGMII core:
+* This driver supports USXMGII autonegotiation at 1G and and 2.5G. The core
+* also supports 10G and 5G speeds but it is not validated with this driver.
+* There is also an option to bypass autonegotiation.
+*
 * <h2>Asserts</h2>
 *
 * Asserts are used within all Xilinx drivers to enforce constraints on argument
@@ -123,6 +134,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 1.0   hk   6/16/17  First release
+*       hk   2/15/18  Add support for USXGMII
 * </pre>
 *
 ******************************************************************************/
@@ -211,6 +223,12 @@ extern "C" {
 
 #define XXE_RX				1 /* Receive direction  */
 #define XXE_TX				2 /* Transmit direction */
+
+#define RATE_10M	10
+#define RATE_100M	100
+#define RATE_1G		1000
+#define RATE_2G5	2500
+#define RATE_10G	10000
 
 /**************************** Type Definitions *******************************/
 
@@ -381,6 +399,79 @@ typedef struct XXxvEthernet {
 #define XXxvEthernet_IsStatsConfigured(InstancePtr)	\
 	(((InstancePtr)->Config.Stats) ? TRUE : FALSE)
 
+/*****************************************************************************/
+/**
+*
+* XXxvEthernet_UsxgmiiLinkSts returns the USXGMII link status
+*
+* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+*		worked on.
+*
+* @return
+*		- TRUE if link is up
+*		- FALSE if link is down
+*
+* @note 	C-style signature:
+* 		u32 XXxvEthernet_UsxgmiiLinkSts(XXxvEthernet *InstancePtr)
+*
+******************************************************************************/
+#define XXxvEthernet_UsxgmiiLinkSts(InstancePtr)			 \
+	((XXxvEthernet_ReadReg((InstancePtr)->Config.BaseAddress,  \
+	XXE_USXGMII_AN_OFFSET) & XXE_USXGMII_LINK_STS_MASK) ? TRUE : FALSE)
+
+/*****************************************************************************/
+/**
+*
+* XXxvEthernet_SetUsxgmiiAnEnable enables USXGMII autonegotiation.
+*
+* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+*		worked on.
+*
+* @note 	C-style signature:
+* 		u32 XXxvEthernet_SetUsxgmiiAnEnable(XXxvEthernet *InstancePtr)
+*
+******************************************************************************/
+#define XXxvEthernet_SetUsxgmiiAnEnable(InstancePtr)			\
+	(XXxvEthernet_WriteReg((InstancePtr)->Config.BaseAddress,	\
+		XXE_USXGMII_AN_OFFSET,					\
+		XXxvEthernet_ReadReg((InstancePtr)->Config.BaseAddress,	\
+		XXE_USXGMII_AN_OFFSET) | XXE_USXGMII_ANENABLE_MASK));
+
+/*****************************************************************************/
+/**
+*
+* XXxvEthernet_SetUsxgmiiAnBypass bypasses USXGMII autonegotiation.
+*
+* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+*		worked on.
+*
+* @note 	C-style signature:
+* 		u32 XXxvEthernet_SetUsxgmiiAnBypass(XXxvEthernet *InstancePtr)
+*
+******************************************************************************/
+#define XXxvEthernet_SetUsxgmiiAnBypass(InstancePtr)			\
+	(XXxvEthernet_WriteReg((InstancePtr)->Config.BaseAddress,	\
+		XXE_USXGMII_AN_OFFSET,					\
+		XXxvEthernet_ReadReg((InstancePtr)->Config.BaseAddress,	\
+		XXE_USXGMII_AN_OFFSET) | XXE_USXGMII_ANBYPASS_MASK));
+
+/*****************************************************************************/
+/**
+*
+* XXxvEthernet_GetUsxgmiiAnSts returns the contents of USXGMII
+* autonegotiation status register
+*
+* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+*		worked on.
+*
+* @note 	C-style signature:
+* 		u32 XXxvEthernet_GetUsxgmiiAnSts(XXxvEthernet *InstancePtr)
+*
+******************************************************************************/
+#define XXxvEthernet_GetUsxgmiiAnSts(InstancePtr)			\
+	XXxvEthernet_ReadReg((InstancePtr)->Config.BaseAddress,		\
+				XXE_ANSR_OFFSET);
+
 /************************** Function Prototypes ******************************/
 
 /*
@@ -406,6 +497,11 @@ u32 XXxvEthernet_GetOptions(XXxvEthernet *InstancePtr);
 
 u16 XXxvEthernet_GetAutoNegSpeed(XXxvEthernet *InstancePtr);
 int XXxvEthernet_SetAutoNegSpeed(XXxvEthernet *InstancePtr);
+int XXxvEthernet_SetUsxgmiiRateAndDuplex(XXxvEthernet *InstancePtr, u32 Rate, u32 SetFD);
+void XXxvEthernet_UsxgmiiAnMainReset(XXxvEthernet *InstancePtr);
+void XXxvEthernet_UsxgmiiAnMainRestart(XXxvEthernet *InstancePtr);
+int XXxvEthernet_Initialize(XXxvEthernet *InstancePtr,
+			    XXxvEthernet_Config *CfgPtr);
 
 #ifdef __cplusplus
 }
