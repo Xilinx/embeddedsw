@@ -37,11 +37,20 @@
 #include "lwip/init.h"
 #include "lwip/inet.h"
 
+#if LWIP_IPV6==1
+#include "lwip/ip6_addr.h"
+#include "lwip/ip6.h"
+#else
+
 #if LWIP_DHCP==1
 #include "lwip/dhcp.h"
 extern volatile int dhcp_timoutcntr;
 err_t dhcp_start(struct netif *netif);
 #endif
+#define DEFAULT_IP_ADDRESS	"192.168.1.10"
+#define DEFAULT_IP_MASK		"255.255.255.0"
+#define DEFAULT_GW_ADDRESS	"192.168.1.1"
+#endif /* LWIP_IPV6 */
 
 #ifdef XPS_BOARD_ZCU102
 #ifdef XPAR_XIICPS_0_DEVICE_ID
@@ -58,12 +67,15 @@ void start_application();
 
 #define THREAD_STACKSIZE 1024
 
-#define DEFAULT_IP_ADDRESS	"192.168.1.10"
-#define DEFAULT_IP_MASK		"255.255.255.0"
-#define DEFAULT_GW_ADDRESS	"192.168.1.1"
-
 struct netif server_netif;
 
+#if LWIP_IPV6==1
+static void print_ipv6(char *msg, ip_addr_t *ip)
+{
+	print(msg);
+	xil_printf(" %s\n\r", inet6_ntoa(*ip));
+}
+#else
 static void print_ip(char *msg, ip_addr_t *ip)
 {
 	xil_printf(msg);
@@ -96,10 +108,11 @@ static void assign_default_ip(ip_addr_t *ip, ip_addr_t *mask, ip_addr_t *gw)
 	if(!err)
 		xil_printf("Invalid default gateway address: %d\r\n", err);
 }
+#endif /* LWIP_IPV6 */
 
 void network_thread(void *p)
 {
-#if LWIP_DHCP==1
+#if ((LWIP_IPV6==0) && (LWIP_DHCP==1))
 	int mscnt = 0;
 #endif
 	/* the mac address of the board. this should be unique per board */
@@ -115,6 +128,13 @@ void network_thread(void *p)
 		xil_printf("Error adding N/W interface\r\n");
 		return;
 	}
+
+#if LWIP_IPV6==1
+	server_netif.ip6_autoconfig_enabled = 1;
+	netif_create_ip6_linklocal_address(&server_netif, 1);
+	netif_ip6_addr_set_state(&server_netif, 0, IP6_ADDR_VALID);
+	print_ipv6("\n\rlink local IPv6 address is:",&server_netif.ip6_addr[0]);
+#endif /* LWIP_IPV6 */
 
 	netif_set_default(&server_netif);
 
@@ -132,7 +152,7 @@ void network_thread(void *p)
 	/* Resume the main thread; auto-negotiation is completed */
 	vTaskResume(main_thread_handle);
 
-#if LWIP_DHCP==1
+#if ((LWIP_IPV6==0) && (LWIP_DHCP==1))
 	dhcp_start(&server_netif);
 	while (1) {
 		vTaskDelay(DHCP_FINE_TIMER_MSECS / portTICK_RATE_MS);
@@ -152,7 +172,7 @@ void network_thread(void *p)
 void main_thread(void *p)
 {
 
-#if LWIP_DHCP==1
+#if ((LWIP_IPV6==0) && (LWIP_DHCP==1))
 	int mscnt = 0;
 #endif
 
@@ -171,6 +191,7 @@ void main_thread(void *p)
 	if (!complete_nw_thread)
 		vTaskSuspend(NULL);
 
+#if LWIP_IPV6==0
 #if LWIP_DHCP==1
 	while (1) {
 		vTaskDelay(DHCP_FINE_TIMER_MSECS / portTICK_RATE_MS);
@@ -193,6 +214,8 @@ void main_thread(void *p)
 #endif
 
 	print_ip_settings(&(server_netif.ip_addr), &(server_netif.netmask), &(server_netif.gw));
+#endif /* LWIP_IPV6 */
+
 	xil_printf("\r\n");
 	/* print all application headers */
 	print_app_header();

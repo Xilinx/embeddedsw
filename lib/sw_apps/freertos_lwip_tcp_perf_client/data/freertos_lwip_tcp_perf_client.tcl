@@ -4,7 +4,7 @@ proc swapp_get_name {} {
 }
 
 proc swapp_get_description {} {
-    return "The FreeRTOS LwIP TCP Perf Client application is used for creating TCP client and measure TCP uplink performance using light-weight IP stack (lwIP). This application sets up the board to use default IP address 192.168.1.10, with MAC address 00:0a:35:00:01:02. This application creates TCP client on board and make connection with TCP server running on host machine. It will display connection information along with interim and average TCP statistics for data transfer."
+    return "The FreeRTOS LwIP TCP Perf Client application is used for creating TCP client and measure TCP uplink performance using light-weight IP stack (lwIP). This application sets up the board to use default IP address 192.168.1.10 and IPv6 link local address whenipv6_enable is true, with MAC address 00:0a:35:00:01:02. This application creates TCP client on board and make connection with TCP server running on host machine. It will display connection information along with interim and average TCP statistics for data transfer."
 }
 
 proc check_stdout_hw {} {
