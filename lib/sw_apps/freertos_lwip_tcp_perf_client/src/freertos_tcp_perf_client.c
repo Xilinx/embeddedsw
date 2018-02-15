@@ -43,26 +43,43 @@ static struct perf_stats client;
 
 void print_app_header()
 {
+#if LWIP_IPV6==1
+	xil_printf("TCP client connecting to %s on port %d\r\n",
+			TCP_SERVER_IPV6_ADDRESS, TCP_CONN_PORT);
+	xil_printf("On Host: Run $iperf -V -s -i %d -w 2M\r\n",
+			INTERIM_REPORT_INTERVAL);
+#else
 	xil_printf("TCP client connecting to %s on port %d\r\n",
 			TCP_SERVER_IP_ADDRESS, TCP_CONN_PORT);
 	xil_printf("On Host: Run $iperf -s -i %d -w 2M\r\n",
 			INTERIM_REPORT_INTERVAL);
+#endif /* LWIP_IPV6 */
 }
 
 void print_tcp_txperf_header(int sock)
 {
 	int size;
+#if LWIP_IPV6==1
+	struct sockaddr_in6 local, remote;
+#else
 	struct sockaddr_in local, remote;
+#endif /* LWIP_IPV6 */
 	size = sizeof(local);
 	getsockname(sock, (struct sockaddr *) &local, (socklen_t *)&size);
+	getpeername(sock, (struct sockaddr *) &remote, (socklen_t *) &size);
+#if LWIP_IPV6==1
+	xil_printf("[%3d] local %s port %d connected with ",
+			client.client_id, inet6_ntoa(local.sin6_addr),
+			ntohs(local.sin6_port));
+	xil_printf("%s port %d\r\n", inet6_ntoa(remote.sin6_addr),
+			ntohs(local.sin6_port));
+#else
 	xil_printf("[%3d] local %s port %d connected with ",
 			client.client_id, inet_ntoa(local.sin_addr),
 			ntohs(local.sin_port));
-
-	getpeername(sock, (struct sockaddr *) &remote, (socklen_t *) &size);
 	xil_printf("%s port %d\r\n", inet_ntoa(remote.sin_addr),
 			ntohs(local.sin_port));
-
+#endif /* LWIP_IPV6 */
 	xil_printf("[ ID] Interval    Transfer     Bandwidth\n\r");
 
 }
@@ -203,18 +220,32 @@ int tcp_send_perf_traffic(int sock)
 void start_application(void)
 {
 	int sock, i;
+#if LWIP_IPV6==1
+	struct sockaddr_in6 address;
+#else
 	struct sockaddr_in address;
+#endif /* LWIP_IPV6 */
 
+	/* set up address to connect to */
+        memset(&address, 0, sizeof(address));
+
+#if LWIP_IPV6==1
+	if ((sock = socket(AF_INET6, SOCK_STREAM, 0)) < 0) {
+	        xil_printf("TCP Client: Error in creating Socket\r\n");
+	        return;
+	}
+	address.sin6_family = AF_INET6;
+	address.sin6_port = htons(TCP_CONN_PORT);
+	inet6_aton(TCP_SERVER_IPV6_ADDRESS, &address.sin6_addr.s6_addr);
+#else
 	if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
 		xil_printf("TCP Client: Error in creating Socket\r\n");
 		return;
 	}
-
-	memset(&address, 0, sizeof(struct sockaddr_in));
 	address.sin_family = AF_INET;
 	address.sin_port = htons(TCP_CONN_PORT);
 	address.sin_addr.s_addr = inet_addr(TCP_SERVER_IP_ADDRESS);
-
+#endif /* LWIP_IPV6 */
 	if (connect(sock, (struct sockaddr*)&address, sizeof(address)) < 0) {
 		xil_printf("TCP Client: Error on tcp_connect\r\n");
 		close(sock);
