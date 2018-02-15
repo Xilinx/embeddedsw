@@ -42,19 +42,33 @@ void print_app_header(void)
 {
 	xil_printf("TCP server listening on port %d\r\n",
 			TCP_CONN_PORT);
+#if LWIP_IPV6==1
+	xil_printf("On Host: Run $iperf -V -c %s%%<interface> -i %d -t 300 -w 2M\r\n",
+			inet6_ntoa(server_netif.ip6_addr[0]),
+			INTERIM_REPORT_INTERVAL);
+#else
 	xil_printf("On Host: Run $iperf -c %s -i %d -t 300 -w 2M\r\n",
 			inet_ntoa(server_netif.ip_addr),
 			INTERIM_REPORT_INTERVAL);
-
+#endif /* LWIP_IPV6 */
 }
 
 static void print_tcp_conn_stats(void)
 {
+#if LWIP_IPV6==1
+	xil_printf("[%3d] local %s port %d connected with ",
+			server.client_id, inet6_ntoa(c_pcb->local_ip),
+			c_pcb->local_port);
+	xil_printf("%s port %d\r\n",inet6_ntoa(c_pcb->remote_ip),
+			c_pcb->remote_port);
+#else
 	xil_printf("[%3d] local %s port %d connected with ",
 			server.client_id, inet_ntoa(c_pcb->local_ip),
 			c_pcb->local_port);
 	xil_printf("%s port %d\r\n",inet_ntoa(c_pcb->remote_ip),
 			c_pcb->remote_port);
+#endif /* LWIP_IPV6 */
+
 	xil_printf("[ ID] Interval\t\tTransfer   Bandwidth\n\r");
 }
 
@@ -231,7 +245,7 @@ void start_application(void)
 	struct tcp_pcb *pcb, *lpcb;
 
 	/* Create Server PCB */
-	pcb = tcp_new();
+	pcb = tcp_new_ip_type(IPADDR_TYPE_ANY);
 	if (!pcb) {
 		xil_printf("TCP server: Error creating PCB. Out of Memory\r\n");
 		return;
