@@ -19,4 +19,5 @@ BEGIN LIBRARY
  PARAMETER pbuf_pool_size = 8192
  PARAMETER tcp_snd_buf = 65535
  PARAMETER tcp_wnd = 65535
+ PARAMETER ipv6_enable = false
 END

@@ -42,17 +42,23 @@
 #include "lwip/init.h"
 #include "lwip/inet.h"
 
+#if LWIP_IPV6==1
+#include "lwip/ip6_addr.h"
+#include "lwip/ip6.h"
+#else
+
 #if LWIP_DHCP==1
 #include "lwip/dhcp.h"
 extern volatile int dhcp_timoutcntr;
 #endif
+#define DEFAULT_IP_ADDRESS	"192.168.1.10"
+#define DEFAULT_IP_MASK		"255.255.255.0"
+#define DEFAULT_GW_ADDRESS	"192.168.1.1"
+#endif /* LWIP_IPV6 */
 
 extern volatile int TcpFastTmrFlag;
 extern volatile int TcpSlowTmrFlag;
 
-#define DEFAULT_IP_ADDRESS	"192.168.1.10"
-#define DEFAULT_IP_MASK		"255.255.255.0"
-#define DEFAULT_GW_ADDRESS	"192.168.1.1"
 
 void platform_enable_interrupts(void);
 void start_application(void);
@@ -74,6 +80,13 @@ int IicPhyReset(void);
 
 struct netif server_netif;
 
+#if LWIP_IPV6==1
+static void print_ipv6(char *msg, ip_addr_t *ip)
+{
+	print(msg);
+	xil_printf(" %s\n\r", inet6_ntoa(*ip));
+}
+#else
 static void print_ip(char *msg, ip_addr_t *ip)
 {
 	print(msg);
@@ -106,6 +119,7 @@ static void assign_default_ip(ip_addr_t *ip, ip_addr_t *mask, ip_addr_t *gw)
 	if (!err)
 		xil_printf("Invalid default gateway address: %d\r\n", err);
 }
+#endif /* LWIP_IPV6 */
 
 int main(void)
 {
@@ -145,6 +159,14 @@ int main(void)
 		xil_printf("Error adding N/W interface\r\n");
 		return -1;
 	}
+
+#if LWIP_IPV6==1
+	netif->ip6_autoconfig_enabled = 1;
+	netif_create_ip6_linklocal_address(netif, 1);
+	netif_ip6_addr_set_state(netif, 0, IP6_ADDR_VALID);
+	print_ipv6("\n\rlink local IPv6 address is:", &netif->ip6_addr[0]);
+#endif /* LWIP_IPV6 */
+
 	netif_set_default(netif);
 
 	/* now enable interrupts */
@@ -153,6 +175,7 @@ int main(void)
 	/* specify that the network if is up */
 	netif_set_up(netif);
 
+#if (LWIP_IPV6==0)
 #if (LWIP_DHCP==1)
 	/* Create a new DHCP client for this interface.
 	 * Note: you must call dhcp_fine_tmr() and dhcp_coarse_tmr() at
@@ -176,6 +199,7 @@ int main(void)
 	assign_default_ip(&(netif->ip_addr), &(netif->netmask), &(netif->gw));
 #endif
 	print_ip_settings(&(netif->ip_addr), &(netif->netmask), &(netif->gw));
+#endif /* LWIP_IPV6 */
 
 	xil_printf("\r\n");
 
