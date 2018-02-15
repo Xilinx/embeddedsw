@@ -383,7 +383,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 	u32 Data1 = 0;
 	u32 Data2 = 0;
 	u32 payload = 0, valid, tscan;
-	u8 byte1 = 0, active_luma = 0;
+	u8 byte1 = 0, active_luma = 0, color_format = 0;
 
 	Data0 = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
 					(XV_SDIRX_MODE_DET_STS_OFFSET));
@@ -462,8 +462,26 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 					XST352_PAYLOAD_BYTE_MASK;
 		active_luma = (payload & XST352_BYTE3_ACT_LUMA_COUNT_MASK) >>
 					XST352_BYTE3_ACT_LUMA_COUNT_OFFSET;
+
+		color_format = (payload >> XST352_PAYLOAD_BYTE3_SHIFT) &
+				XST352_BYTE3_COLOR_FORMAT_MASK;
 		tscan = (payload & XST352_BYTE2_TS_TYPE_MASK) >>
 					XST352_BYTE2_TS_TYPE_OFFSET;
+
+		/*YUV420 color format is supported only for >=3GB modes */
+		if (InstancePtr->Transport.TMode >= XSDIVID_MODE_3GB) {
+			switch(color_format) {
+				case XST352_BYTE3_COLOR_FORMAT_420:
+					SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_420;
+					break;
+				case XST352_BYTE3_COLOR_FORMAT_422:
+					SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_422;
+					break;
+				default:
+					xil_printf("Error::: Unsupported Color format detected \r\n");
+					return;
+			}
+		}
 
 		if (InstancePtr->Transport.IsFractional) {
 			switch (InstancePtr->Transport.TRate) {
