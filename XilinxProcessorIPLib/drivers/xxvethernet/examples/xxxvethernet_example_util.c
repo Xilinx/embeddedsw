@@ -33,7 +33,9 @@
 *
 * @file xxxvethernet_example_util.c
 *
-* This file implements the utility functions for the Xxv Ethernet example code.
+* This file implements the utility functions for the Xxv Ethernet and USXGMII
+* example code. It contains functions to setup USXGMII autonegotiation at
+* desired settings and to bypass autonegotiation.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -41,6 +43,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   hk   06/16/17 First release
+*       hk   02/15/18 Add support for USXGMII
 *
 * </pre>
 *
@@ -328,6 +331,137 @@ int XxvEthernetUtilEnterLocalLoopback(XXxvEthernet *XxvEthernetInstancePtr)
 	XXxvEthernet_WriteReg(BaseAddress, XXE_GRR_OFFSET, 0x1);
 	usleep(100);
 	XXxvEthernet_WriteReg(BaseAddress, XXE_GRR_OFFSET, 0x0);
+
+	return 0;
+}
+
+/******************************************************************************/
+/**
+*
+* This function sets up USXGMII at specified speed.
+* Autonegotiation is enabled with the selected settings.
+* If autonegotiation fails, it is restarted after a timeout.
+* The function returns success after autonegotiation is completed.
+* This function enables RX and performs a GT reset first because
+* USXGMII requires the same.
+*
+* @param	XxvEthernetInstancePtr is a pointer to the instance of the
+*		XxvEthernet component.
+* @param	Speed - can be 1G or 2.5G - use RATE_1G or RATE_2G5
+* @param	Duplex - 1 for full duplex, 0 for half duplex
+*
+* @return	- XST_SUCCESS if successful.
+*		- XST_FAILURE, in case of failure..
+*
+* @note		None.
+*
+******************************************************************************/
+int XxvEthernetUtilUsxgmiiSetup(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, u32 Duplex)
+{
+	u32 BaseAddress = XxvEthernetInstancePtr->Config.BaseAddress;
+	u32 Status;
+	u32 ANSR;
+	int to = 0, to_cnt = 0;
+
+	/* Enable receiver because USXGMII setup needs it */
+	XXxvEthernet_SetOptions(XxvEthernetInstancePtr, XXE_RECEIVER_ENABLE_OPTION);
+
+	XXxvEthernet_WriteReg(BaseAddress, XXE_GRR_OFFSET, 0x1);
+
+	usleep(100);
+	XXxvEthernet_WriteReg(BaseAddress, XXE_GRR_OFFSET, 0x0);
+
+	Status = XXxvEthernet_SetUsxgmiiRateAndDuplex(XxvEthernetInstancePtr, Rate, Duplex);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/* AN enable */
+	XXxvEthernet_SetUsxgmiiAnEnable(XxvEthernetInstancePtr);
+	XXxvEthernet_UsxgmiiAnMainRestart(XxvEthernetInstancePtr);
+
+	do {
+		to = Xil_poll_timeout(XXxvEthernet_GetUsxgmiiAnSts, XxvEthernetInstancePtr,
+							ANSR, (ANSR & XXE_USXGMII_AN_COMP_MASK) != 0, 10000);
+		if(to == -1) {
+			XXxvEthernet_UsxgmiiAnMainRestart(XxvEthernetInstancePtr);
+			xil_printf("restarting AN \n\r");
+			to_cnt++;
+		} else {
+			break;
+		}
+	}while(to_cnt < 3);
+
+	if(to_cnt >= 3) {
+		return XST_FAILURE;
+	}
+
+	xil_printf("USXGMII setup at %dMbps \n\r", Rate);
+
+	return 0;
+}
+
+/******************************************************************************/
+/**
+*
+* This function sets up USXGMII at specified speed.
+* Autonegotiation is bypassed and the status is checked for completion before
+* returning successfully.
+* This function enables RX and performs a GT reset first because
+* USXGMII requires the same.
+*
+* @param	XxvEthernetInstancePtr is a pointer to the instance of the
+*		XxvEthernet component.
+* @param	Speed - can be 1G or 2.5G - use RATE_1G or RATE_2G5
+* @param	Duplex - 1 for full duplex, 0 for half duplex
+*
+* @return	- XST_SUCCESS if successful.
+*		- XST_FAILURE, in case of failure..
+*
+* @note		None.
+*
+******************************************************************************/
+int XxvEthernetUtilUsxgmiiSetupBypassAN(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, u32 Duplex)
+{
+	u32 BaseAddress = XxvEthernetInstancePtr->Config.BaseAddress;
+	u32 Status;
+	u32 ANSR;
+	int to = 0, to_cnt = 0;
+
+	/* Enable receiver because USXGMII setup needs it */
+	XXxvEthernet_SetOptions(XxvEthernetInstancePtr, XXE_RECEIVER_ENABLE_OPTION);
+
+	XXxvEthernet_WriteReg(BaseAddress, XXE_GRR_OFFSET, 0x1);
+
+	usleep(100);
+	XXxvEthernet_WriteReg(BaseAddress, XXE_GRR_OFFSET, 0x0);
+
+	Status = XXxvEthernet_SetUsxgmiiRateAndDuplex(XxvEthernetInstancePtr, Rate, Duplex);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/* AN bypass */
+	XXxvEthernet_SetUsxgmiiAnBypass(XxvEthernetInstancePtr);
+	XXxvEthernet_UsxgmiiAnMainRestart(XxvEthernetInstancePtr);
+
+	do {
+		to = Xil_poll_timeout(XXxvEthernet_GetUsxgmiiAnSts, XxvEthernetInstancePtr,
+							ANSR, (ANSR & XXE_USXGMII_AN_COMP_MASK) != 0, 10000);
+		if(to == -1) {
+			XXxvEthernet_UsxgmiiAnMainRestart(XxvEthernetInstancePtr);
+			xil_printf("restarting AN \n\r");
+			to_cnt++;
+		} else {
+			break;
+		}
+	}while(to_cnt < 3);
+
+	if(to_cnt >= 3) {
+		return XST_FAILURE;
+	}
+
+	xil_printf("USXGMII setup at %dMbps \n\r", Rate);
 
 	return 0;
 }

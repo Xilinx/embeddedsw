@@ -34,7 +34,8 @@
 * @file xxxvethernet_example.h
 *
 * Defines common data types, prototypes, and includes the proper headers
-* for use with the Xxv Ethernet example code residing in this directory.
+* for use with the Xxv Ethernet and USXGMII example code residing in this
+* directory.
 *
 * This file along with xxxvethernet_example_util.c are utilized with the
 * specific example code in the other source code files provided.
@@ -49,6 +50,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   hk   06/16/17 First release
+*       hk   02/15/18 Add support for USXGMII
 *
 * </pre>
 *
@@ -92,7 +94,8 @@ int XxvEthernetUtilFrameVerify(EthernetFrame * CheckFrame,
 void XxvEthernetUtilFrameMemClear(EthernetFrame * FramePtr);
 int XxvEthernetUtilEnterLocalLoopback(XXxvEthernet * XxvEthernetInstancePtr);
 void XxvEthernetUtilErrorTrap(char *Message);
-
+int XxvEthernetUtilUsxgmiiSetup(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, u32 Duplex);
+int XxvEthernetUtilUsxgmiiSetupBypassAN(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, u32 Duplex);
 
 /************************** Variable Definitions ****************************/
 
