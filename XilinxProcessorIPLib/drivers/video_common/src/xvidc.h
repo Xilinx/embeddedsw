@@ -391,6 +391,8 @@ typedef enum {
 
 	/* Streaming formats with components re-ordered */
 	XVIDC_CSF_YCBCR_422 = 64,
+	XVIDC_CSF_YCBCR_420,
+
 
 	XVIDC_CSF_NUM_SUPPORTED,    // includes the reserved slots
 	XVIDC_CSF_UNKNOWN,
