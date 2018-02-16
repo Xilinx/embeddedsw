@@ -140,7 +140,6 @@ XV_SdiRxSs_Config *XV_SdiRxSs_ConfigPtr;
 u8 StartTxAfterRxFlag;
 XSdi_Menu SdiMenu;			/**< Menu structure */
 u32 Index, MaxIndex;
-u8 RxVidlockFlag;
 u8 PayloadStatus;
 
 /************************** Function Definitions *****************************/
@@ -408,7 +407,6 @@ void RxStreamUpCallback(void *CallbackRef)
 
 	StartTxAfterRxFlag = (TRUE);
 	XV_SdiRxSs_StreamFlowEnable(&SdiRxSs);
-	RxVidlockFlag = 1;
 }
 
 /*****************************************************************************/
@@ -517,7 +515,6 @@ void StartTxAfterRx(void)
 {
 	/* clear flag */
 	StartTxAfterRxFlag = (FALSE);
-	RxVidlockFlag = 0;
 	XVidC_VideoStream *SdiRxSsVidStreamPtr;
 	XVidC_VideoStream *SdiTxSsVidStreamPtr;
 	XSdiVid_Transport *SdiRxSsTransportPtr;
@@ -579,7 +576,7 @@ int main(void)
 
 	xil_printf("----------------------------------------\r\n");
 	xil_printf("---     SDI Pass Through Example     ---\r\n");
-	xil_printf("---     (c) 2017 by Xilinx, Inc.     ---\r\n");
+	xil_printf("---     (c) 2018 by Xilinx, Inc.     ---\r\n");
 	xil_printf("----------------------------------------\r\n");
 	xil_printf("      Build %s - %s      \r\n", __DATE__, __TIME__);
 	xil_printf("----------------------------------------\r\n");
@@ -738,14 +735,6 @@ int main(void)
 
 	while (1) {
 		if (StartTxAfterRxFlag) {
-			if (RxVidlockFlag) {
-				PayloadStatus = XV_SdiRxSs_WaitforPayLoad(&SdiRxSs);
-				xil_printf("\n\n\r----------------------------\r\n");
-				xil_printf("--- GENERATED RESOLTUION ---\r\n");
-				xil_printf("----------------------------\r\n");
-
-			}
-			if (PayloadStatus == XST_SUCCESS)
 				StartTxAfterRx();
 		}
 
