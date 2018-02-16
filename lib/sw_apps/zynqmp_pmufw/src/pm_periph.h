@@ -73,4 +73,24 @@ extern PmSlave pmSlavePcap_g;
 extern PmSlave pmSlaveRtc_g;
 extern PmSlave pmSlavePl_g;
 
+/**
+ * PmWakeEventEth - Ethernet wake event, derived from PmWakeEvent
+ * @wake		Basic PmWakeEvent structure
+ * @baseAddr		Base Address of Ethernet
+ * @receiveQptr		Receive queue pointer of ethernet
+ * @receiveQ1ptr	Receive queue-1 pointer of ethernet
+ * @wakeEnabled		Flag to check whether ethernet wakeup is enabled or not
+ * @subClass		Pointer to the class specific to the derived structure
+ * @subWake		Pointer to wake structure of derived class
+ */
+typedef struct PmWakeEventEth {
+	PmWakeEvent wake;
+	const u32 baseAddr;
+	u32 receiveQptr;
+	u32 receiveQ1ptr;
+	bool wakeEnabled;
+	PmWakeEventClass* const subClass;
+	PmWakeEvent* const subWake;
+} PmWakeEventEth;
+
 #endif
