@@ -151,8 +151,8 @@ int XSpdif_Initialize(XSpdif *InstancePtr, u16 DeviceId);
 int XSpdif_CfgInitialize(XSpdif *InstancePtr,
 XSpdif_Config *CfgPtr, UINTPTR EffectiveAddr);
 void XSpdif_Enable(XSpdif *InstancePtr, u8 Enable);
-u32 XSpdif_SetClkConfig(XSpdif *InstancePtr, u8 Bits_DivNum);
-
+void XSpdif_SetClkConfig(XSpdif *InstancePtr, u8 Clk_DivNum);
+u32 XSpdif_GetFs(XSpdif *InstancePtr, u32 AudClk);
 /* Function to soft reset the Spdif */
 void XSpdif_SoftReset(XSpdif *InstancePtr);
 
