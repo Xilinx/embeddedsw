@@ -37,6 +37,8 @@
 #include "xpfw_rom_interface.h"
 #include "lpd_slcr.h"
 #include "pm_gic_proxy.h"
+#include "pm_requirement.h"
+#include "pm_sram.h"
 
 /* Always-on slave has only one state */
 #define PM_AON_SLAVE_STATE	0U
@@ -522,13 +524,165 @@ PmSlave pmSlaveCan1_g = {
 	.flags = 0U,
 };
 
-static PmWakeEventGicProxy pmEth0Wake = {
+/* Size required by Ethernet in word of OCM */
+#define ETH_OCM_REQ_SIZE		6
+/* OCM address used for receive queue pointer */
+#define RECV_Q_OCM_ADDR			0xFFFFFF80
+
+#define ETH_RECV_ENABLE_MASK		0x4
+#define ETH_RECV_Q_PTR_OFFSET		0x018
+#define ETH_RECV_Q1_PTR_OFFSET		0x480
+
+static u32 ocmData[ETH_OCM_REQ_SIZE];
+static bool ocmStored;
+
+/**
+ * PmWakeEventEthConfig() - Configure propagation of ethernet wake event
+ * @wake	Wake event
+ * @ipiMask	IPI mask of the master which configures the wake
+ * @enable	Flag: for enable non-zero value, for disable value zero
+ */
+static void PmWakeEventEthConfig(PmWakeEvent* const wake, const u32 ipiMask,
+				 const u32 enable)
+{
+	int i;
+	PmRequirement* req = PmRequirementGetNoMaster(&pmSlaveOcm3_g.slv);
+	PmWakeEventEth* ethWake = (PmWakeEventEth*)wake->derived;
+
+	/* Return if ethernet base address is not available */
+	if (!ethWake->baseAddr) {
+		return;
+	}
+
+	if (!enable && ethWake->wakeEnabled) {
+		/* Disable GEM Rx in network contorl register */
+		XPfw_RMW32(ethWake->baseAddr, ETH_RECV_ENABLE_MASK,
+			   ~ETH_RECV_ENABLE_MASK);
+
+		/* Restore receive queue pointer */
+		XPfw_Write32(ethWake->baseAddr + ETH_RECV_Q_PTR_OFFSET,
+			     ethWake->receiveQptr);
+		XPfw_Write32(ethWake->baseAddr + ETH_RECV_Q1_PTR_OFFSET,
+			     ethWake->receiveQ1ptr);
+
+		if (ocmStored) {
+			/*
+			 * Restore OCM Bank3's memory which is used as receive
+			 * queue pointer
+			 */
+			for (i = 0; i < ETH_OCM_REQ_SIZE; i++) {
+				XPfw_Write32(RECV_Q_OCM_ADDR + (i * 4),
+					     ocmData[i]);
+			}
+			ocmStored = false;
+		}
+
+		/* Enable GEM Rx in network control register */
+		XPfw_RMW32(ethWake->baseAddr, ETH_RECV_ENABLE_MASK,
+			   ETH_RECV_ENABLE_MASK);
+
+		/* Change OCM Bank3 requirement to default */
+		PmRequirementUpdate(req, req->defaultReq);
+		ethWake->wakeEnabled = false;
+	}
+}
+
+/**
+ * PmWakeEventEthSet() - Set Ethernet wake event as the wake source
+ * @wake	Wake event
+ * @ipiMask	IPI mask of the master which sets the wake source
+ * @enable	Flag: for enable non-zero value, for disable value zero
+ */
+static void PmWakeEventEthSet(PmWakeEvent* const wake, const u32 ipiMask,
+			      const u32 enable)
+{
+	int i;
+	PmRequirement* req = PmRequirementGetNoMaster(&pmSlaveOcm3_g.slv);
+	PmWakeEventEth* ethWake = (PmWakeEventEth*)wake->derived;
+
+	/* Return if ethernet base address is not available */
+	if (!ethWake->baseAddr) {
+		return;
+	}
+
+	if (enable) {
+		/* Keep OCM Bank3 ON while suspend */
+		PmRequirementUpdate(req, PM_CAP_ACCESS);
+
+		if (!ocmStored) {
+			/*
+			 * Store OCM Bank-3's memory which is going to be used
+			 * as receive pointer
+			 */
+			for (i = 0; i < ETH_OCM_REQ_SIZE; i++) {
+				ocmData[i] = XPfw_Read32(RECV_Q_OCM_ADDR +
+							 (i * 4));
+			}
+			ocmStored = true;
+		}
+
+		/* Store receive queue pointer */
+		ethWake->receiveQptr = XPfw_Read32(ethWake->baseAddr +
+						   ETH_RECV_Q_PTR_OFFSET);
+		ethWake->receiveQ1ptr = XPfw_Read32(ethWake->baseAddr +
+						    ETH_RECV_Q1_PTR_OFFSET);
+
+		/* Disable GEM Rx in network contorl register */
+		XPfw_RMW32(ethWake->baseAddr, ETH_RECV_ENABLE_MASK,
+			   ~ETH_RECV_ENABLE_MASK);
+
+		/* Prepare OCM memory to use as receive queue */
+		XPfw_Write32(RECV_Q_OCM_ADDR, 0x3);
+		XPfw_Write32(RECV_Q_OCM_ADDR + 0x4, 0x0);
+		XPfw_Write32(RECV_Q_OCM_ADDR + 0x8, 0x0);
+		XPfw_Write32(RECV_Q_OCM_ADDR + 0xC, 0x0);
+		XPfw_Write32(RECV_Q_OCM_ADDR + 0x10, 0x0);
+		XPfw_Write32(RECV_Q_OCM_ADDR + 0x14, 0x0);
+
+		/* Change receive queue pointer to OCM address */
+		XPfw_Write32(ethWake->baseAddr + ETH_RECV_Q_PTR_OFFSET,
+			     RECV_Q_OCM_ADDR);
+		XPfw_Write32(ethWake->baseAddr + ETH_RECV_Q1_PTR_OFFSET,
+			     RECV_Q_OCM_ADDR);
+
+		/* Enable GEM Rx in network control register */
+		XPfw_RMW32(ethWake->baseAddr, ETH_RECV_ENABLE_MASK,
+			   ETH_RECV_ENABLE_MASK);
+
+		ethWake->subClass->set(ethWake->subWake, ipiMask, enable);
+		ethWake->wakeEnabled = true;
+	}
+}
+
+PmWakeEventClass pmWakeEventClassEth_g = {
+	.set = PmWakeEventEthSet,
+	.config = PmWakeEventEthConfig,
+};
+
+static PmWakeEventGicProxy pmEth0GicWake = {
 	.wake = {
-		.derived = &pmEth0Wake,
+		.derived = &pmEth0GicWake,
 		.class = &pmWakeEventClassGicProxy_g,
 	},
 	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC26_MASK,
 	.group = 1U,
+};
+
+static PmWakeEventEth pmEth0Wake = {
+	.wake = {
+		.derived = &pmEth0Wake,
+		.class = &pmWakeEventClassEth_g,
+	},
+	.subClass = &pmWakeEventClassGicProxy_g,
+	.subWake = &pmEth0GicWake.wake,
+	.wakeEnabled = false,
+	.receiveQptr = 0U,
+	.receiveQ1ptr = 0U,
+#ifdef XPAR_PSU_ETHERNET_0_DEVICE_ID
+	.baseAddr = XPAR_PSU_ETHERNET_0_BASEADDR,
+#else
+	.baseAddr = 0U,
+#endif
 };
 
 PmSlave pmSlaveEth0_g = {
@@ -550,13 +704,30 @@ PmSlave pmSlaveEth0_g = {
 	.flags = 0U,
 };
 
-static PmWakeEventGicProxy pmEth1Wake = {
+static PmWakeEventGicProxy pmEth1GicWake = {
 	.wake = {
-		.derived = &pmEth1Wake,
+		.derived = &pmEth1GicWake,
 		.class = &pmWakeEventClassGicProxy_g,
 	},
 	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC28_MASK,
 	.group = 1U,
+};
+
+static PmWakeEventEth pmEth1Wake = {
+	.wake = {
+		.derived = &pmEth1Wake,
+		.class = &pmWakeEventClassEth_g,
+	},
+	.subClass = &pmWakeEventClassGicProxy_g,
+	.subWake = &pmEth1GicWake.wake,
+	.wakeEnabled = false,
+	.receiveQptr = 0U,
+	.receiveQ1ptr = 0U,
+#ifdef XPAR_PSU_ETHERNET_1_DEVICE_ID
+	.baseAddr = XPAR_PSU_ETHERNET_1_BASEADDR,
+#else
+	.baseAddr = 0U,
+#endif
 };
 
 PmSlave pmSlaveEth1_g = {
@@ -578,13 +749,30 @@ PmSlave pmSlaveEth1_g = {
 	.flags = 0U,
 };
 
-static PmWakeEventGicProxy pmEth2Wake = {
+static PmWakeEventGicProxy pmEth2GicWake = {
 	.wake = {
-		.derived = &pmEth2Wake,
+		.derived = &pmEth2GicWake,
 		.class = &pmWakeEventClassGicProxy_g,
 	},
 	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC30_MASK,
 	.group = 1U,
+};
+
+static PmWakeEventEth pmEth2Wake = {
+	.wake = {
+		.derived = &pmEth2Wake,
+		.class = &pmWakeEventClassEth_g,
+	},
+	.subClass = &pmWakeEventClassGicProxy_g,
+	.subWake = &pmEth2GicWake.wake,
+	.wakeEnabled = false,
+	.receiveQptr = 0U,
+	.receiveQ1ptr = 0U,
+#ifdef XPAR_PSU_ETHERNET_2_DEVICE_ID
+	.baseAddr = XPAR_PSU_ETHERNET_2_BASEADDR,
+#else
+	.baseAddr = 0U,
+#endif
 };
 
 PmSlave pmSlaveEth2_g = {
@@ -606,13 +794,30 @@ PmSlave pmSlaveEth2_g = {
 	.flags = 0U,
 };
 
-static PmWakeEventGicProxy pmEth3Wake = {
+static PmWakeEventGicProxy pmEth3GicWake = {
 	.wake = {
-		.derived = &pmEth3Wake,
+		.derived = &pmEth3GicWake,
 		.class = &pmWakeEventClassGicProxy_g,
 	},
 	.mask = LPD_SLCR_GICP2_IRQ_MASK_SRC0_MASK,
 	.group = 2U,
+};
+
+static PmWakeEventEth pmEth3Wake = {
+	.wake = {
+		.derived = &pmEth3Wake,
+		.class = &pmWakeEventClassEth_g,
+	},
+	.subClass = &pmWakeEventClassGicProxy_g,
+	.subWake = &pmEth3GicWake.wake,
+	.wakeEnabled = false,
+	.receiveQptr = 0U,
+	.receiveQ1ptr = 0U,
+#ifdef XPAR_PSU_ETHERNET_3_DEVICE_ID
+	.baseAddr = XPAR_PSU_ETHERNET_3_BASEADDR,
+#else
+	.baseAddr = 0U,
+#endif
 };
 
 PmSlave pmSlaveEth3_g = {
