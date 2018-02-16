@@ -69,8 +69,7 @@ extern "C" {
  *  @{
  */
 #define XDPHY_CTRL_REG_OFFSET 		0x00000000  /**< Control Register */
-#define XDPHY_HSEXIT_IDELAY_REG_OFFSET 	0x00000004  /**< HS_EXIT for Tx and
-						      *  Delay for
+#define XDPHY_HSEXIT_IDELAY_REG_OFFSET 	0x00000004  /**< IDelay Tap per lane for
 						      *  Rx Register*/
 #define XDPHY_INIT_REG_OFFSET 		0x00000008  /**< Initialization Timer
 						      *  Register */
@@ -109,17 +108,12 @@ extern "C" {
 
 /** @name Bitmasks and offsets of XDPHY_HSEXIT_IDELAY_REG_OFFSET register
  *
- * This register in TX mode acts like HS_EXIT and RX mode acts like IDELAY.
- * In IDELAY mode, it is used to calibrate input delay
+ * This register in RX mode acts like IDELAY.
+ * In IDELAY mode, it is used to calibrate input delay per lane
  * @{
  */
-#define XDPHY_HSEXIT_IDELAY_REG_READY_MASK 0x00000200 /**< DLY_RDY of
-						        *   BITSLICE_CONTROL */
-#define XDPHY_HSEXIT_IDELAY_REG_TAP_MASK 0x000001FF /**< used in RX data lanes
-						      *  to compensate clock routing
-						      *  delay */
-#define XDPHY_HSEXIT_IDELAY_REG_READY_OFFSET 8 /**< Bit offset for READY bit */
-#define XDPHY_HSEXIT_IDELAY_REG_TAP_OFFSET 0 /**< Bit offset for TAP */
+#define XDPHY_HSEXIT_IDELAY_REG_TAP_MASK 0x1F1F1F1F  /**< used to set the IDELAY
+						      *  TAP value for all lanes*/
 /*@}*/
 
 /** @name Bitmasks and offsets of XDPHY_INIT_REG_OFFSET register
