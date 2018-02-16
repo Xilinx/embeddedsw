@@ -468,8 +468,8 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 		tscan = (payload & XST352_BYTE2_TS_TYPE_MASK) >>
 					XST352_BYTE2_TS_TYPE_OFFSET;
 
-		/*YUV420 color format is supported only for >=3GB modes */
-		if (InstancePtr->Transport.TMode >= XSDIVID_MODE_3GB) {
+		/*YUV420 color format is supported only for >= 6G modes */
+		if (InstancePtr->Transport.TMode >= XSDIVID_MODE_6G) {
 			switch(color_format) {
 				case XST352_BYTE3_COLOR_FORMAT_420:
 					SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_420;
