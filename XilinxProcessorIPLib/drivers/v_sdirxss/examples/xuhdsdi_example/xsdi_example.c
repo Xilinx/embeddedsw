@@ -86,6 +86,7 @@ typedef u8 AddressType;
 #define FREQ_297_MHz	(297000000)
 #define FREQ_74_25_MHz	(74250000)
 #define FREQ_27_MHz	(27000000)
+#define FREQ_148_35_MHz	(148350000)
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -104,7 +105,7 @@ void Xil_AssertCallbackRoutine(u8 *File, s32 Line);
 void StartTxAfterRx(void);
 static int I2cMux(void);
 static int I2cClk(u32 InFreq, u32 OutFreq);
-int Si570_SetClock(u32 IICBaseAddress, u8 IICAddress1);
+int Si570_SetClock(u32 IICBaseAddress, u8 IICAddress1, u32 RxRefClk);
 void Info(void);
 void DebugInfo(void);
 
@@ -337,23 +338,27 @@ void RxStreamUpCallback(void *CallbackRef)
 {
 	u32 Si5324_ClkIn;
 	XSdiVid_TransMode RxTransMode;
+	u8 IsFractional;
+
+	IsFractional = XV_SdiRxSs_GetTransportBitRate(&SdiRxSs);
 
 	RxTransMode =  XV_SdiRxSs_GetTransportMode(&SdiRxSs);
 
+
 	switch (RxTransMode) {
 		case XSDIVID_MODE_SD:
-			if (XSDIVID_BR_INTEGER == 0) {
+			if (IsFractional == 0) {
 				Si5324_ClkIn = FREQ_27_MHz;
 
-			} else if (XSDIVID_BR_FRACTIONAL == 1) {
+			} else if (IsFractional == 1) {
 				Si5324_ClkIn = FREQ_27_MHz;
 			}
 			break;
 
 		case XSDIVID_MODE_HD:
-			if (XSDIVID_BR_INTEGER == 0) {
+			if (IsFractional == 0) {
 				Si5324_ClkIn = FREQ_74_25_MHz;
-			} else if (XSDIVID_BR_FRACTIONAL == 1) {
+			} else if (IsFractional == 1) {
 				Si5324_ClkIn = FREQ_74_25_MHz/1.001;
 			}
 			break;
@@ -361,17 +366,17 @@ void RxStreamUpCallback(void *CallbackRef)
 		case XSDIVID_MODE_3GA:
 		case XSDIVID_MODE_3GB:
 		case XSDIVID_MODE_6G:
-			if (XSDIVID_BR_INTEGER == 0) {
+			if (IsFractional == 0) {
 				Si5324_ClkIn = FREQ_148_5_MHz;
-			} else if (XSDIVID_BR_FRACTIONAL == 1) {
+			} else if (IsFractional == 1) {
 				Si5324_ClkIn = FREQ_148_5_MHz/1.001;
 			}
 			break;
 
 		case XSDIVID_MODE_12G:
-			if (XSDIVID_BR_INTEGER == 0) {
+			if (IsFractional == 0) {
 				Si5324_ClkIn = FREQ_297_MHz;
-			} else if (XSDIVID_BR_FRACTIONAL == 1) {
+			} else if (IsFractional == 1) {
 				Si5324_ClkIn = FREQ_297_MHz/1.001;
 			}
 			break;
@@ -386,7 +391,11 @@ void RxStreamUpCallback(void *CallbackRef)
 	/* The output clock frequency is set to 148.5MHz because the QPLL1's
 	 * reference clock is set as 148.5MHz.
 	 */
+	if (IsFractional == 0) {
 	I2cClk(Si5324_ClkIn, FREQ_148_5_MHz);
+	} else if (IsFractional == 1) {
+		I2cClk(Si5324_ClkIn, FREQ_148_5_MHz/1.001);
+	}
 
 	/* Waiting for SI5328 Lock */
 	usleep(1000000);
@@ -550,11 +559,13 @@ int main(void)
 	I2cMux();
 
 	/* si570 configuration of 148.5MHz */
-	Si570_SetClock(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR_570);
+	Si570_SetClock(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR_570, FREQ_SI570_148_5_MHz);
+
 
 	/* Rx Reset Sequence */
 	Xil_Out32((UINTPTR)(GPIO_1_RX_RST), (u32)(0x00000000));
 	Xil_Out32((UINTPTR)(GPIO_1_RX_RST), (u32)(0x00000001));
+
 
 	StartTxAfterRxFlag = (FALSE);
 

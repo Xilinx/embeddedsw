@@ -125,6 +125,8 @@
 #define SI5324_N3_MIN     1        /**< Minimum N3n setting */
 #define SI5324_N3_MAX    0x080000  /**< Maximum N3n setting */
 
+#define FREQ_SI570_148_5_MHz	(148500000)
+#define FREQ_SI570_148_35_MHz	(148350000)
 
 typedef struct {
 	/* Current Si5342 parameters  */

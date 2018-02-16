@@ -848,7 +848,11 @@ int Si570_DoSettings(u32 IICBaseAddress, u8 IICAddress1,
  *		SI5324_ERR_PARM when the ClkSrc or ClkDest parameters are invalid
  *		or the ClkInFreq or ClkOutFreq are out of range.
  *****************************************************************************/
-int Si570_SetClock(u32 IICBaseAddress, u8 IICAddress1) {
+
+/*
+ * Set the Si570 clock to 148.5MHz
+ */
+int Si570_SetClock(u32 IICBaseAddress, u8 IICAddress1, u32 RxRefClk) {
 
 	int result;
 	u8  buf[9*2]; /* Need to set 8 registers */
@@ -889,7 +893,17 @@ int Si570_SetClock(u32 IICBaseAddress, u8 IICAddress1) {
 	i += 2;
 
 	buf[i] = 11;
-	buf[i+1] = 0x26;
+	switch(RxRefClk) {
+	case FREQ_SI570_148_5_MHz:
+		buf[i+1] = 0x26;
+		break;
+	case FREQ_SI570_148_35_MHz:
+		buf[i+1] = 0x10;
+		break;
+	default:
+		buf[i+1] = 0x26;
+		break;
+	}
 
 	i += 2;
 
