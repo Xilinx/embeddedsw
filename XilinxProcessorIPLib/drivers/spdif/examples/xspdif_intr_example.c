@@ -239,7 +239,7 @@ int SpdifIntrExample(INTC *IntcInstancePtr, XSpdif *SpdifInstancePtr,
 
 	XSpdif_ResetFifo(SpdifInstancePtr);
 
-	XSpdif_SetClkConfig(SpdifInstancePtr, 0x1);
+	XSpdif_SetClkConfig(SpdifInstancePtr, XSPDIF_CLK_8);
 
 	XSpdif_Enable(SpdifInstancePtr, TRUE);
 

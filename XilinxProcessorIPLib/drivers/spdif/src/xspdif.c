@@ -194,26 +194,78 @@ void XSpdif_ResetFifo(XSpdif *InstancePtr)
  * This function sets the clock configuration bits.
  *
  * @param  InstancePtr is a pointer to the Spdif instance.
- * @param  Bits_DivNum is the divider value.
+ * @param  Clk_DivNum is the clock division number.
+ *         Clk_DivNum value can be only 4,8,16,24,32,48,or 64.
  *
- * @return - XST_FAILURE if divider value is not a
- *           positive integer.
- *         - XST_SUCCESS, otherwise.
+ * @return -none
  *
  ******************************************************************************/
-u32 XSpdif_SetClkConfig(XSpdif *InstancePtr, u8 Bits_DivNum)
+void XSpdif_SetClkConfig(XSpdif *InstancePtr, u8 Clk_DivNum)
 {
+	u8 NumToBits;
 	Xil_AssertVoid(InstancePtr != NULL);
+	/* Check for Clock Division Value */
+	switch (Clk_DivNum) {
+	          case XSPDIF_CLK_4 :
+			  NumToBits = 0;
+	          break;
 
+	          case XSPDIF_CLK_8 :
+			  NumToBits = 1;
+	          break;
+
+	          case XSPDIF_CLK_16 :
+			  NumToBits = 2;
+	          break;
+
+	          case XSPDIF_CLK_24 :
+			  NumToBits = 3;
+	          break;
+
+	          case XSPDIF_CLK_32 :
+			  NumToBits = 4;
+	          break;
+
+	          case XSPDIF_CLK_48 :
+			  NumToBits = 5;
+	          break;
+
+	          case XSPDIF_CLK_64 :
+			  NumToBits = 6;
+	          break;
+
+	          default :
+			  NumToBits = 0;
+			  xil_printf("Clk_DivNum value can be only 4,8,16,24,32,48,or 64.\r\n");
+	          break;
+	}
 	u32 RegValue = XSpdif_ReadReg(InstancePtr->Config.BaseAddress,
 			XSPDIF_CONTROL_REGISTER_OFFSET);
 
 	RegValue &= ~XSPDIF_CLOCK_CONFIG_BITS_MASK;
 
-	RegValue |= (Bits_DivNum << XSPDIF_CLOCK_CONFIG_BITS_SHIFT);
+	RegValue |= (NumToBits << XSPDIF_CLOCK_CONFIG_BITS_SHIFT);
 	XSpdif_WriteReg(InstancePtr->Config.BaseAddress,
 			XSPDIF_CONTROL_REGISTER_OFFSET, RegValue);
-	return XST_SUCCESS;
+	}
+/*****************************************************************************/
+/**
+* This function calculates the Sampling Frequency (Fs) and returns it's value.
+*
+* @param  InstancePtr is a pointer to the XSpdif instance.
+* @param  AudClk is the audio clock frequency value in Hz.
+*
+* @return - Returns the sampling frequency value in Hz.
+*
+******************************************************************************/
+u32 XSpdif_GetFs(XSpdif *InstancePtr, u32 AudClk)
+{
+	u32 Fs;
+	u32 RegValue = XSpdif_ReadReg(InstancePtr->Config.BaseAddress,
+			XSPDIF_STATUS_REGISTER_OFFSET);
+	RegValue &= XSPDIF_SAMPLE_CLOCK_COUNT_MASK;
+	Fs = AudClk/(RegValue*64);
+	return Fs;
 }
 /*****************************************************************************/
 /**

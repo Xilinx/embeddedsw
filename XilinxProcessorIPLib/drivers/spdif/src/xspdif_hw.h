@@ -110,9 +110,13 @@ extern "C" {
 #define XSPDIF_CLOCK_CONFIG_BITS_SHIFT (2)
 	//!< Is XSPDIF clock configuration bits shift
 
-#define XSPDIF_CLOCK_CONFIG_BITS_MASK ((0xF) < XSPDIF_CLOCK_CONFIG_BITS_SHIFT)
-//!< Is XSPDIF clock configuration bits mask
+#define XSPDIF_CLOCK_CONFIG_BITS_MASK ((0xF) << XSPDIF_CLOCK_CONFIG_BITS_SHIFT)
+    //!< Is XSPDIF clock configuration bits mask
 
+#define XSPDIF_SAMPLE_CLOCK_COUNT_SHIFT (0)
+    //!< XSPDIF sample clock count shift.
+#define XSPDIF_SAMPLE_CLOCK_COUNT_MASK ((0X3FF) << XSPDIF_SAMPLE_CLOCK_COUNT_SHIFT)
+    //!< XSPDIF sample clock count mask.
 /**
 * @name Interrupt masks and shifts
 * @{
@@ -153,7 +157,20 @@ extern "C" {
 #define XSPDIF_GINTR_ENABLE_MASK (1 << XSPDIF_GINTR_ENABLE_SHIFT)
 //!< Global interrupt enable bit mask
 /* @} */
-
+#define XSPDIF_CLK_4 4
+       //!< Clock divide by 4
+#define XSPDIF_CLK_8 8
+       //!< Clock divide by 8
+#define XSPDIF_CLK_16 16
+       //!< Clock divide by 16
+#define XSPDIF_CLK_24 24
+       //!< Clock divide by 24
+#define XSPDIF_CLK_32 32
+       //!< Clock divide by 32
+#define XSPDIF_CLK_48 48
+       //!< Clock divide by 48
+#define XSPDIF_CLK_64 64
+       //!< Clock divide by 64
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
