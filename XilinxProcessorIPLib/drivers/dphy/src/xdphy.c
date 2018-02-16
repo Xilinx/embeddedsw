@@ -132,8 +132,7 @@ u32 XDphy_Configure(XDphy *InstancePtr, u8 Handle, u32 Value)
 	/* Based on the Handle, write Value to the specific register */
 	switch (Handle) {
 		case XDPHY_HANDLE_IDELAY:
-			Value &= (XDPHY_HSEXIT_IDELAY_REG_READY_MASK |
-					XDPHY_HSEXIT_IDELAY_REG_TAP_MASK);
+			Value &= XDPHY_HSEXIT_IDELAY_REG_TAP_MASK;
 			XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
 					XDPHY_HSEXIT_IDELAY_REG_OFFSET, Value);
 			break;
