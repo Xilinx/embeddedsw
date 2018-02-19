@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -60,6 +60,10 @@
 * 6.2   vns   02/18/17 Added margin reads for verifying, added CRC check,
 *                      Removed temperature checks for each bit. Added
 *                      temperature checks in all read APIs.
+* 6.4   vns   02/19/18 Added efuse cache reload call in function
+*                      XilSKey_ZynqMp_EfusePs_Write(), so on successful
+*                      efuse programming, programmed fuses can directly read
+*                      from cache of the efuse.
 *
 * </pre>
 *
@@ -136,7 +140,8 @@ u32 XilSKey_ZynqMp_EfusePs_Init();
 * 		- XST_SUCCESS if programs successfully.
 * 		- Errorcode on failure
 *
-* @note		Cache reload is required for obtaining updated values.
+* @note		On successful efuse programming cache is been reloaded,
+* 		so programmed efuse bits can directly read from efuse cache.
 *
 ****************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
@@ -393,13 +398,18 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 		goto END;
 	}
 
-END:
-	XilSKey_ZynqMp_EfusePS_PrgrmDisable();
+	/* Reload the cache */
+	Status = XilSKey_ZynqMp_EfusePs_CacheLoad();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	/* Check the temperature and voltage(VCC_AUX and VCC_PINT_LP) */
 	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
 	if (Status != XST_SUCCESS) {
 		return (Status | XSK_EFUSEPS_ERROR_CMPLTD_EFUSE_PRGRM_WITH_ERR);
 	}
+END:
+	XilSKey_ZynqMp_EfusePS_PrgrmDisable();
 
 UNLOCK:
 	/* Lock the controller back */
