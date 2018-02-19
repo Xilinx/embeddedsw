@@ -118,5 +118,9 @@
 *                      enable bits and some of the reserved bits.
 * 6.3    vns  07/12/17 Added support for programming eFUSE and BBRAM of kintex
 *                      Ultrascale plus.
+* 6.4    vns  02/19/18 Added XilSKey_ZynqMp_EfusePs_CacheLoad() call in
+*                      XilSKey_ZynqMp_EfusePs_Write(), on successul programming
+*                      of all requested efuse bits updated efuse can directly
+*                      read from eufse cache.
 *
  ********************************************************************************/
