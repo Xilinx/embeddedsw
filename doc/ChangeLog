@@ -1265,9 +1265,6 @@ for 64-bit dma address transfers through pmu processor CR-996201.
 uartps_v3_6:
 This patch updates the flow control mode offset value. CR-995026
 
-uartps_v3_6:
-This patch updates the flow control mode offset value. CR-995026
-
 zdma_v1_5:
 Added support for peripheral test app support.
 Fixed peripheral app generation issues when running on OCM(CR-990806).
