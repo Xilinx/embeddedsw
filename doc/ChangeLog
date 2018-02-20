@@ -34,6 +34,10 @@ Set num of multicast table entries parameter based on hw design.
 Use table entries count from config structure.
 Used UINTPTR type for DMA BaseAddress.
 
+cpu_cortexa9_v2_6:
+Added -g flag in default extra compiler flags, for linaro
+toolchain. It fixes CR#995214.
+
 freertos901_xilinx_v1_2:
 Updated FreeRTOS tcl to fix bug in detecting latest standalone
 version.It fixes CR#990995.
