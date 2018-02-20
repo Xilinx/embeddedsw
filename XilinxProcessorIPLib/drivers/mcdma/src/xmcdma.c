@@ -44,6 +44,8 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0    adk    18/07/17 Initial version.
+* 1.1    rsp    20/02/18 Fix unused variable warning.
+*                        Remove TimeOut variable.CR-979061
 *
 ******************************************************************************/
 
@@ -139,7 +141,6 @@ s32 XMcDma_CfgInitialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr)
 s32 XMcDma_Initialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr)
 {
 	int i;
-	u32 TimeOut;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
