@@ -1,5 +1,18 @@
 Changes for 2018.1
 ===============================
+
+axi_mcdma_1_1:
+Added failure checks in the tcl to avoid bsp compilation errors incase
+stream interface is unconnected.
+Updated tcl logic to export proper values for CACHE_COHERENT properties
+when h/w is configured for single axi4 data interface.
+Fix unused variable warning.
+
+axi_dma_9_6:
+Use UINTPTR type for storing address.
+Use virtual addr for BD access in _UpdateBdRingCDesc().
+Extend AXI DMA examples to support data buffers above 4GB.
+
 i2stx_v1_0:
 Added initial version of Xilinx I2S Tx soft IP driver.
 
@@ -17,6 +30,9 @@ Fix compilation error in selftest example.
 axiethernet_5_7:
 Fix compilation issues in multicast/extvlan example.
 Implementing poll timeout API which replaces the loops
+Set num of multicast table entries parameter based on hw design.
+Use table entries count from config structure.
+Used UINTPTR type for DMA BaseAddress.
 
 freertos901_xilinx_v1_2:
 Updated FreeRTOS tcl to fix bug in detecting latest standalone
@@ -38,6 +54,7 @@ Fix jumbo frame checks to work on R5
 Add examples for raw and socker mode IGMP, webserver and
 tftp client and server apps.
 Update xInsideISR flag in emacps_error_handler.
+In init_axi_dma() use UINTPTR for axidma base address.
 Add support for Realtek RTL8211 phy.
 
 lwip_udp_perf_client and lwip_udp_perf_server:
