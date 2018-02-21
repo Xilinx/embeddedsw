@@ -156,6 +156,10 @@ static const PmApiEntry pmApiTable[] = {
 			.apiId = PM_SECURE_RSA,
 			.argTypes = { ARG_UINT32, ARG_UINT32, ARG_UINT32, ARG_UINT32,
 					      ARG_UNDEF }
+	},{
+			.apiId = PM_SECURE_IMAGE,
+			.argTypes = { ARG_UINT32, ARG_UINT32,  ARG_UINT32, ARG_UINT32,
+						  ARG_UNDEF }
 	},
 };
 

@@ -773,6 +773,35 @@ static void PmSecureRsa(const PmMaster *const master,
 
 	IPI_RESPONSE1(master->ipiMask, Status);
 }
+
+/**
+ * PmSecureImage() - To process secure image
+ *
+ * @SrcAddrHigh: Higher 32-bit Linear memory space from where data
+ *         will be read.
+ *
+ * @SrcAddrLow: Lower 32-bit Linear memory space from where data
+ *         will be read.
+ *
+ * @KupAddrHigh: Higher 32-bit Linear memory space from where data
+ *         will be read.
+ *
+ * @KupAddrLow: Lower 32-bit Linear memory space from where data
+ *         will be read.
+ *
+ *
+ * @return  error status based on implemented functionality(SUCCESS by default)
+ */
+static void PmSecureImage(const PmMaster *const master,
+			const u32 SrcAddrHigh, const u32 SrcAddrLow, const u32 KupAddrHigh, const u32 KupAddrLow)
+{
+	u32 Status;
+	XSecure_DataAddr Addr = {0};
+
+	Status = XSecure_SecureImage(SrcAddrHigh, SrcAddrLow, KupAddrHigh, KupAddrLow, &Addr);
+
+	IPI_RESPONSE3(master->ipiMask, Status, Addr.AddrHigh, Addr.AddrLow);
+}
 #endif
 
 /**
@@ -1339,6 +1368,9 @@ static void PmProcessApiCall(PmMaster *const master, const u32 *pload)
 		break;
 	case PM_SECURE_RSA:
 		PmSecureRsa(master, pload[1], pload[2], pload[3], pload[4]);
+		break;
+	case PM_SECURE_IMAGE:
+		PmSecureImage(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
 #endif
 	default:
