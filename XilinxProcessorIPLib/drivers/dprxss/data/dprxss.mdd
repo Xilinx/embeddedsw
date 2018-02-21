@@ -39,6 +39,7 @@ BEGIN driver dprxss
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	OPTION VERSION = 5.0;
 =======
 	OPTION VERSION = 4.1;
@@ -49,5 +50,8 @@ BEGIN driver dprxss
 =======
 	OPTION VERSION = 5.0;
 >>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
+=======
+	OPTION VERSION = 5.1;
+>>>>>>> DP example designs updates
 	OPTION NAME = dprxss;
 END driver
