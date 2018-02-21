@@ -112,8 +112,10 @@
 
 #define PM_SECURE_RSA               27U
 
+#define PM_SECURE_IMAGE				45U
+
 #define PM_API_MIN	PM_GET_API_VERSION
-#define PM_API_MAX	PM_SECURE_RSA
+#define PM_API_MAX	PM_SECURE_IMAGE
 
 /* PM API callback ids */
 #define PM_INIT_SUSPEND_CB      30U
