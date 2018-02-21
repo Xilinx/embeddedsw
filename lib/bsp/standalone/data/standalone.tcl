@@ -45,6 +45,9 @@
 #                     bit BSP.
 # 6.6   mus  02/02/18 Updated get_connected_if proc to detect the HPC port
 #                     configured with smart interconnect.
+# 6.6   mus  02/19/18 Updated handle_profile_opbtimer proc to cover the
+#                     scenario, where AXI timer is connected to the INTC
+#                     through concat IP.
 #
 ##############################################################################
 
@@ -1059,6 +1062,21 @@ proc handle_profile_opbtimer { config_file timer_inst } {
     set timer_connection 0
     foreach intr_port $intr_port_list {
 	set intc_handle [hsi::get_cells -of_object $intr_port]
+	
+	# Check if the Sink is a Concat IP
+	if {[common::get_property IP_NAME [hsi::get_cells $intc_handle]] == "xlconcat"} {
+		set dout [hsi::get_pins -of_object [hsi::get_cells $intc_handle] -filter DIRECTION=="O"]
+		set intr_pins [::hsi::utils::get_sink_pins [hsi::get_pins $dout]]
+		for {set intr_pins_index 0} {$intr_pins_index < [llength $intr_pins]} {incr intr_pins_index} {
+			set intr_ip [hsi::get_cells -of_object [lindex $intr_pins $intr_pins_index]]
+			for {set intr_ip_index 0} {$intr_ip_index < [llength $intr_ip]} {incr intr_ip_index} {
+				if {[common::get_property IP_TYPE [hsi::get_cells [lindex $intr_ip $intr_ip_index]]] == "INTERRUPT_CNTLR"} {
+					set intc_handle [hsi::get_cells [lindex $intr_ip $intr_ip_index]]
+					break;
+				}
+			}	
+		}
+	}
 	# Check if the Sink is a Global Port. If so, Skip the Port Connection
 
 	if {  [::hsi::utils::is_external_pin $intr_port] } {
