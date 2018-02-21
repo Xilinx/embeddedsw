@@ -308,20 +308,25 @@ proc generate {os_handle} {
 			puts $bspcfg_fh "#define HYP_GUEST 0"
 		}
 	}
-
-	if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5"} {
-		puts $bspcfg_fh "#define PLATFORM_ZYNQMP"
-	}
-	if { $proctype == "ps7_cortexa9"} {
-		puts $bspcfg_fh "#define PLATFORM_ZYNQ"
-	}
-	if { $proctype == "microblaze"} {
-		puts $bspcfg_fh "#define PLATFORM_MB"
-	}
-
 	puts $bspcfg_fh ""
 	puts $bspcfg_fh "\#endif /*end of __BSPCONFIG_H_*/"
 	close $bspcfg_fh
+	
+	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+	
+	puts $file_handle "/* Platform specific definitions */" 
+	if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5"} {
+		puts $file_handle "#define PLATFORM_ZYNQMP"
+	}
+	if { $proctype == "ps7_cortexa9"} {
+		puts $file_handle "#define PLATFORM_ZYNQ"
+	}
+	if { $proctype == "microblaze"} {
+		puts $file_handle "#define PLATFORM_MB"
+	}
+	puts $file_handle " " 
+	puts $file_handle "/******************************************************************/" 
+	close $file_handle
 
 	set headers [glob -join ./src/Source/include *.\[h\]]
 	foreach header $headers {
