@@ -60,6 +60,7 @@
 #include "xtmrctr.h"
 #include "xintc.h"
 #include "xvphy.h"
+#include "xvphy_i.h"
 #include "xvidc_edid.h"
 #include "xvidc.h"
 #include "xdptxss.h"
@@ -70,6 +71,7 @@
 #include "xspi.h"
 #include "LMK04906.h"
 #include "PLL_Conf.h"
+
 
 #include "xdebug.h"
 
