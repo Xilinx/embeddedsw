@@ -44,13 +44,14 @@
 #include "keymgmt_debug.h"
 #include "keymgmt_device.h"
 #include "keymgmt_loader.h"
-#include <stdlib.h>
-#include <string.h>
+//#include <stdlib.h>
+//#include <string.h>
 
 #include "eeprom.h"
 
 /* Local Globals */
 static int  gIsInitialized = FALSE;
+XStatus Init_IIC();
 
 /*****************************************************************************/
 /**
