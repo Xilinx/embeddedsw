@@ -72,6 +72,10 @@
 * 3.0   kvn  02/13/14 Modified code for MISRA-C:2012 compliance.
 * 3.2	pkp  11/09/15 Corrected the interrupt processsor target mask value
 *					  for CPU interface 2 i.e. XSCUGIC_SPI_CPU2_MASK
+* 3.9   mus  02/21/18 Added new API's XScuGic_InterruptUnmapFromCpuByDistAddr
+*					  and XScuGic_UnmapAllInterruptsFromCpuByDistAddr, These
+*					  API's can be used by applications to unmap specific/all
+*					  interrupts from target CPU. It fixes CR#992490.
 * </pre>
 *
 ******************************************************************************/
@@ -633,6 +637,10 @@ void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
                                         u8 Priority, u8 Trigger);
 void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 					u8 *Priority, u8 *Trigger);
+void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
+											u8 Cpu_Id, u32 Int_Id);
+void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
+												u8 Cpu_Id);
 /************************** Variable Definitions *****************************/
 #ifdef __cplusplus
 }
