@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   Nava    08/06/16  First release
+* 4.0   Nava	21/02/18  Updated the example relevant to src code changes.
 *
 * </pre>
 *
@@ -54,16 +55,14 @@
 
 int main()
 {
-	u32 count = XFPGA_NUMBYTES/4;
 	u64 addr = XFPGA_BASE_ADDRESS;
 	s32 Status;
 
-	xil_printf("Loading Bit-stream for DDR location :0x%x and Length :%d\n\r",
-				XFPGA_BASE_ADDRESS, XFPGA_NUMBYTES);
+	xil_printf("Loading Bit-stream for DDR location :0x%x\n\r",
+				XFPGA_BASE_ADDRESS);
 	xil_printf("Trying to configure the PL ......\n\r");
 
-	Status = XFpga_PL_BitSream_Load((u32)(addr >> 32),
-					(u32)addr, count, 0);
+	Status = XFpga_PL_BitSream_Load(addr, 0, 0);
 
 	if(Status == XFPGA_SUCCESS)
 		xil_printf("PL Configuration done successfully");
