@@ -65,6 +65,10 @@
 * 3.6   kvn  02/17/17 Add support for changing GIC CPU master at run time.
 *       kvn  02/28/17 Make the CpuId as static variable and Added new
 *                     XScugiC_GetCpuId to access CpuId.
+* 3.9   mus  02/21/18 Added new API's XScuGic_InterruptUnmapFromCpuByDistAddr
+*					  and XScuGic_UnmapAllInterruptsFromCpuByDistAddr, These
+*					  API's can be used by applications to unmap specific/all
+*					  interrupts from target CPU. It fixes CR#992490.
 *
 * </pre>
 *
@@ -570,5 +574,76 @@ void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 	RegValue = RegValue >> ((Int_Id%16U)*2U);
 
 	*Trigger = (u8)(RegValue & XSCUGIC_INT_CFG_MASK);
+}
+
+/****************************************************************************/
+/**
+* Unmaps specific SPI interrupt from the target CPU
+*
+* @param	DistBaseAddress is the device base address
+* @param	Cpu_Id is a CPU number from which the interrupt has to be
+*			unmapped
+* @param	Int_Id is the IRQ source number to modify
+*
+* @return	None.
+*
+* @note		None
+*
+*****************************************************************************/
+void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
+											 u8 Cpu_Id, u32 Int_Id)
+{
+	u32 RegValue;
+	u8 BitPos;
+
+	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
+
+	RegValue = XScuGic_ReadReg(DistBaseAddress,
+				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
+
+	/*
+	 * Identify bit position corresponding to  Int_Id and Cpu_Id,
+	 * in interrupt target register and clear it
+	 */
+	BitPos = ((Int_Id % 4U) * 8U) + Cpu_Id;
+	RegValue &= (~ ( 1U << BitPos ));
+	XScuGic_WriteReg(DistBaseAddress,
+			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), RegValue);
+}
+
+/****************************************************************************/
+/**
+* Unmaps all SPI interrupts from the target CPU
+*
+* @param	DistBaseAddress is the device base address
+* @param	Cpu_Id is a CPU number from which the interrupts has to be
+*			unmapped
+*
+* @return	None.
+*
+* @note		None
+*
+*****************************************************************************/
+void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
+												 u8 Cpu_Id)
+{
+	u32 Int_Id;
+	u32 Target_Cpu;
+	u32 LocalCpuID = (1U << Cpu_Id);
+
+	LocalCpuID |= LocalCpuID << 8U;
+	LocalCpuID |= LocalCpuID << 16U;
+
+	for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+4U)
+	{
+
+		Target_Cpu = XScuGic_ReadReg(DistBaseAddress,
+				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
+		/* Remove LocalCpuID from interrupt target register */
+		Target_Cpu &= (~LocalCpuID);
+		XScuGic_WriteReg(DistBaseAddress,
+			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), Target_Cpu);
+
+	}
 }
 /** @} */
