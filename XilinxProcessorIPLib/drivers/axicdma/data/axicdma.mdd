@@ -36,7 +36,7 @@ BEGIN driver axicdma
   OPTION supported_peripherals =  (axi_cdma_v[3-9]_[0-9][0-9]_[a-z] axi_cdma_v[3-9]_[0-9]);	
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.3;
+  OPTION VERSION = 4.4;
   OPTION NAME = axicdma;
 
 END driver

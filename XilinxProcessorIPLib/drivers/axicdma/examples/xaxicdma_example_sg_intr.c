@@ -70,6 +70,8 @@
  *       ms   04/05/17 Modified Comment lines in functions to
  *                     recognize it as documentation block for doxygen
  *                     generation of examples.
+ * 4.4   rsp  02/22/18 Support data buffers above 4GB.Use UINTPTR for storing
+ *                     and typecasting buffer address(CR-995116).
  * </pre>
  *
  ****************************************************************************/
@@ -578,7 +580,7 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 	/* Setup BD ring */
 	BdCount = XAxiCdma_BdRingCntCalc(XAXICDMA_BD_MINIMUM_ALIGNMENT,
 				    BD_SPACE_HIGH - BD_SPACE_BASE + 1,
-				    (u32)BD_SPACE_BASE);
+				    (UINTPTR)BD_SPACE_BASE);
 
 	if (BdCount < 1) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Invalid buffer %x\r\n",
@@ -621,7 +623,7 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache
 	 * is enabled
 	 */
-	Xil_DCacheFlushRange((u32)TransmitBufferPtr,
+	Xil_DCacheFlushRange((UINTPTR)TransmitBufferPtr,
 		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
 #ifdef __aarch64__
 	Xil_DCacheFlushRange((UINTPTR)ReceiveBufferPtr,
@@ -663,8 +665,8 @@ static int DoTransfer(XAxiCdma * InstancePtr)
 	XAxiCdma_Bd *BdCurPtr;
 	int Status;
 	int Index;
-	u32 SrcBufferAddr;
-	u32 DstBufferAddr;
+	UINTPTR SrcBufferAddr;
+	UINTPTR DstBufferAddr;
 	static int Counter = 0;
 
 	Status = XAxiCdma_BdRingAlloc(InstancePtr,
@@ -675,8 +677,8 @@ static int DoTransfer(XAxiCdma * InstancePtr)
 		return XST_FAILURE;
 	}
 
-	SrcBufferAddr = (u32)TransmitBufferPtr;
-	DstBufferAddr = (u32)ReceiveBufferPtr;
+	SrcBufferAddr = (UINTPTR)TransmitBufferPtr;
+	DstBufferAddr = (UINTPTR)ReceiveBufferPtr;
 	BdCurPtr = BdPtr;
 
 	/* Set up the BDs
