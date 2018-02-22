@@ -164,6 +164,22 @@ Added hibernation support for usb
 Added changes to usbpsu driver for supporting microblaze platform
 Enabled event generation for usb controller when run on microblaze plaforms
 
+xilfpga_v4_0:
+Added the following Secure features to the xilfpga library.
+1) Authenticated Bitstream loading using DDR.
+2) Authenticated Bitstream loading Using OCM.
+3) Authenticated + Encrypted Bitstream loading Using DDR with User-key.
+4) Authenticated + Encrypted Bitstream Loading Using OCM with Device-key.
+5) Authenticated + Encrypted + Key rolling Bitstream loading Using DDR with User-key.
+6) Authenticated + Encrypted + Key rolling Bitstream loading Using DDR with Device-key.
+7) Authenticated + Encrypted + Key rolling Bitstream Loading Using OCM with User-key.
+8) Authenticated + Encrypted + Key rolling Bitstream Loading Using OCM with Device-ke
+
+For this version onwards we are not stripping the Header for Both
+Secure and Non-Secure Bitstream Images.So the entry point interface
+will be changed as follows.
+u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags);
+
 xilsecure_v3_0:
 Added support for NIST-SHA3 padding
 
