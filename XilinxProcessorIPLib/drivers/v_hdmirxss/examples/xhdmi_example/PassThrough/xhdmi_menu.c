@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -84,8 +84,8 @@
 #include "xhdcp.h"
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #include "xv_hdmitxss.h"
-#include "xv_edid.h"
 #endif
+#include "xvidc_edid_ext.h"
 
 /************************** Constant Definitions *****************************/
 #if defined (XPAR_XHDCP_NUM_INSTANCES) || defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
@@ -95,7 +95,8 @@
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 /* Create entry for each mode in the custom table */
-const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1))] = {
+const XVidC_VideoTimingMode XVidC_MyVideoTimingMode
+	[(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1))] = {
 	/* Custom Modes . */
 	{
 		XVIDC_VM_3840x2160_30_P_SB, "3840x2160@30Hz (SB)", XVIDC_FR_30HZ,
@@ -174,7 +175,7 @@ extern void UpdateFrameRate(XVphy *VphyPtr, XV_HdmiTxSs *pHdmiTxSs, XVidC_FrameR
 extern void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr);
 extern void CloneTxEdid(void);
 extern void XV_ConfigTpg(XV_tpg *InstancePtr);
-XV_HdmiC_EdidCntrlParam EdidCtrlParam;
+XV_VidC_EdidCntrlParam EdidCtrlParam;
 #endif
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 extern void XV_HdmiRxSs_LoadEdid(XV_HdmiRxSs *InstancePtr, u8 *EdidData, u16 Length);
@@ -183,8 +184,6 @@ extern void HDCPXILCMD_ProcessKey(char theCmdKey);
 #endif
 
 /************************* Variable Definitions *****************************/
-extern u8 Edid[];
-
 
 /**
 * This table contains the function pointers for all possible states.
@@ -229,6 +228,12 @@ extern XV_tpg Tpg;				/* TPG structure */
 extern XTpg_PatternId Pattern;
 #endif
 extern XHdcp_Repeater HdcpRepeater;
+
+/*HDMI EDID*/
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+extern EdidHdmi20 EdidHdmi20_t;
+#endif
+extern u8 Buffer[];
 
 /************************** Function Definitions *****************************/
 
@@ -561,7 +566,6 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			// GT & HDMI TX/RX log
 		case ('z') :
 		case ('Z') :
-			Counter = 0;
 			XVphy_LogDisplay(&Vphy);
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 			XV_HdmiTxSs_LogDisplay(&HdmiTxSs);
@@ -1454,6 +1458,8 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 ******************************************************************************/
 void XHdmi_DisplayEdidMenu(void) {
 	xil_printf("\r\n");
+	SinkCapabilityCheck(&EdidHdmi20_t);
+	SinkCapWarningMsg(&EdidHdmi20_t);
 	xil_printf("---------------------\r\n");
 	xil_printf("---   EDID MENU   ---\r\n");
 	xil_printf("---------------------\r\n");
@@ -1483,7 +1489,6 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 	// Default
 	Menu = XHDMI_EDID_MENU;
-
 	switch (Input) {
 
 			// Show source edid
@@ -1492,7 +1497,7 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			// Read TX edid
 			xil_printf("\r\n");
 			XV_HdmiTxSs_ReadEdid(&HdmiTxSs, (u8*)&Buffer);
-			XV_HdmiC_parse_edid((u8*)&Buffer, &EdidCtrlParam, XHDMIC_VERBOSE_ENABLE);
+			XV_VidC_parse_edid((u8*)&Buffer, &EdidCtrlParam, XVIDC_VERBOSE_ENABLE);
 			// Display the prompt for the next input
 			xil_printf("Enter Selection -> ");
 			break;
@@ -2286,14 +2291,22 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
 	if ((InstancePtr->WaitForColorbar) && (!TxBusy)) {
 		InstancePtr->WaitForColorbar = (FALSE);
 		xil_printf("Enter Selection -> ");
 	}
+#else
+	xil_printf("Enter Selection -> ");
+#endif	
 
 	// Check if the uart has any data
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
 	else if (!XUartLite_IsReceiveEmpty(InstancePtr->UartBaseAddress)) {
+#else
+	if (!XUartLite_IsReceiveEmpty(InstancePtr->UartBaseAddress)) {
+#endif	
 
 		// Read data from uart
 		Data = XUartLite_RecvByte(InstancePtr->UartBaseAddress);
