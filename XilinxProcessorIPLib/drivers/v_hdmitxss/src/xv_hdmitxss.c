@@ -123,6 +123,29 @@
 *                       Added function XV_HdmiTxSs_GetAudioFormat
 *       EB     17/10/17 Added function XV_HdmiTxSs_ReportAudio
 *                       Updated function XV_HdmiTxSs_ReportInfo
+* 1.43  MMO    19/12/17 Added XV_HdmiTxSS_SetTMDS API
+* 5.00  EB     16/01/18 Updated XV_HdmiTxSS_SetTMDS API
+*                       Updated XV_HdmiTxSs_SetVideoStream API
+*                       Moved XV_HdmiTxSs_SendVSInfoframe function to HDMI
+*							    Common Library
+*                       Updated function XV_HdmiTxSs_StreamStart,
+*                               XV_HdmiTxSs_SendGenericAuxInfoframe
+*                       Added function XV_HdmiTxSs_GetAviInfoframe, 
+*                           XV_HdmiTxSs_GetAudioInfoframe, XV_HdmiTxSs_GetVSIF
+*                           XV_HdmiTxSs_GetAuxiliary
+*                       Updated XV_HdmiTxSs_ConfigBridgeMode so Pixel 
+*                           Pepetition AVI InfoFrame is sent out
+*                       Deprecating XV_HdmiTxSs_SendAviInfoframe and
+*                           XV_HdmiTxSs_SendGeneralControlPacket APIs
+*       YH     16/01/18 Added dedicated reset for each clock domain
+*                       Added bridge unlock interrupt
+*                       Added PIO_OUT to set GCP_AVMUTE 
+*       EB     23/01/18 Added function 
+*                           XV_HdmiTxSs_SetVideoStreamHdmi14ScramblingOverrideFlag
+*              25/01/18 Added function XV_HdmiTxSs_SetScrambler
+*              01/02/18	Updated function XV_HdmiTxSs_VtcSetup and changed the
+*              				input parameters to it to enable logging of
+*              				unsupported video timing by VTC
 * </pre>
 *
 ******************************************************************************/
@@ -181,12 +204,20 @@ XV_HdmiTxSs_SubCores XV_HdmiTxSs_SubCoreRepo[XPAR_XV_HDMITXSS_NUM_INSTANCES];
 static void XV_HdmiTxSs_GetIncludedSubcores(XV_HdmiTxSs *HdmiTxSsPtr,
                                             u16 DevId);
 static int XV_HdmiTxSs_RegisterSubsysCallbacks(XV_HdmiTxSs *InstancePtr);
-static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr);
-static void XV_HdmiTxSs_SendAviInfoframe(XV_HdmiTx *HdmiTxPtr);
-static void XV_HdmiTxSs_SendGeneralControlPacket(XV_HdmiTx *HdmiTxPtr);
-static void XV_HdmiTxSs_SendVSInfoframe(XV_HdmiTx *HdmiTxPtr);
+static int XV_HdmiTxSs_VtcSetup(XV_HdmiTxSs *HdmiTxSsPtr);
+static u32 XV_HdmiTxSS_SetTMDS(XV_HdmiTxSs *InstancePtr,
+                        XVidC_VideoMode VideoMode,
+                        XVidC_ColorFormat ColorFormat,
+                        XVidC_ColorDepth Bpc);
+static void XV_HdmiTxSs_SendAviInfoframe(XV_HdmiTx *HdmiTxPtr)
+	__attribute__ ((deprecated));
+static void XV_HdmiTxSs_SendGeneralControlPacket(XV_HdmiTx *HdmiTxPtr)
+	__attribute__ ((deprecated));
+static void XV_HdmiTxSs_SendVSInfoframe(XV_HdmiTx *HdmiTxPtr)
+	__attribute__ ((deprecated));
 static void XV_HdmiTxSs_ConnectCallback(void *CallbackRef);
 static void XV_HdmiTxSs_ToggleCallback(void *CallbackRef);
+static void XV_HdmiTxSs_BrdgUnlockedCallback(void *CallbackRef);
 static void XV_HdmiTxSs_VsCallback(void *CallbackRef);
 static void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef);
 static void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef);
@@ -341,6 +372,11 @@ static int XV_HdmiTxSs_RegisterSubsysCallbacks(XV_HdmiTxSs *InstancePtr)
 						  (void *)InstancePtr);
 
     XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
+                          XV_HDMITX_HANDLER_BRDGUNLOCK,
+						  (void *)XV_HdmiTxSs_BrdgUnlockedCallback,
+						  (void *)InstancePtr);
+						  
+    XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
                           XV_HDMITX_HANDLER_VS,
 						  (void *)XV_HdmiTxSs_VsCallback,
 						  (void *)InstancePtr);
@@ -424,6 +460,11 @@ int XV_HdmiTxSs_CfgInitialize(XV_HdmiTxSs *InstancePtr,
   memcpy((void *)&(HdmiTxSsPtr->Config), (const void *)CfgPtr,
     sizeof(XV_HdmiTxSs_Config));
   HdmiTxSsPtr->Config.BaseAddress = EffectiveAddr;
+
+  /* Initialize InfoFrame */
+  (void)memset((void *)&(HdmiTxSsPtr->AVIInfoframe), 0, sizeof(XHdmiC_AVI_InfoFrame));
+  (void)memset((void *)&(HdmiTxSsPtr->VSIF), 0, sizeof(XHdmiC_VSIF));
+  (void)memset((void *)&(HdmiTxSsPtr->AudioInfoframe), 0, sizeof(XHdmiC_AudioInfoFrame));
 
   /* Determine sub-cores included in the provided instance of subsystem */
   XV_HdmiTxSs_GetIncludedSubcores(HdmiTxSsPtr, CfgPtr->DeviceId);
@@ -579,11 +620,121 @@ void XV_HdmiTxSs_Reset(XV_HdmiTxSs *InstancePtr)
 #ifdef XV_HDMITXSS_LOG_ENABLE
   XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_RESET, 0);
 #endif
-  /* Assert TX reset */
-  XV_HdmiTx_Reset(InstancePtr->HdmiTxPtr, TRUE);
+  /* Assert HDMI TXCore resets */
+  XV_HdmiTxSs_TXCore_LRST(InstancePtr, TRUE);
+  XV_HdmiTxSs_TXCore_VRST(InstancePtr, TRUE);
+    
+  /* Assert VID_OUT bridge resets */
+  XV_HdmiTxSs_SYSRST(InstancePtr, TRUE);
+  XV_HdmiTxSs_VRST(InstancePtr, TRUE);
+    
+  /* Release VID_IN bridge resets */
+  XV_HdmiTxSs_SYSRST(InstancePtr, FALSE);
+  XV_HdmiTxSs_VRST(InstancePtr, FALSE);
+  
+  /* Release HDMI TXCore resets */
+  XV_HdmiTxSs_TXCore_LRST(InstancePtr, FALSE);  
+  XV_HdmiTxSs_TXCore_VRST(InstancePtr, FALSE);    
+}
 
-  /* Release TX reset */
-  XV_HdmiTx_Reset(InstancePtr->HdmiTxPtr, FALSE);
+/*****************************************************************************/
+/**
+* This function asserts or releases the Internal Video reset 
+* of the HDMI subcore within the subsystem
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return None
+*
+******************************************************************************/
+void XV_HdmiTxSs_TXCore_VRST(XV_HdmiTxSs *InstancePtr, u8 Reset)
+{
+  Xil_AssertVoid(InstancePtr != NULL);
+
+  XV_HdmiTx_INT_VRST(InstancePtr->HdmiTxPtr, Reset);
+}
+
+/*****************************************************************************/
+/**
+* This function asserts or releases the Internal Link reset 
+* of the HDMI subcore within the subsystem
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return None
+*
+******************************************************************************/
+void XV_HdmiTxSs_TXCore_LRST(XV_HdmiTxSs *InstancePtr, u8 Reset)
+{
+  Xil_AssertVoid(InstancePtr != NULL);
+
+  XV_HdmiTx_INT_LRST(InstancePtr->HdmiTxPtr, Reset);
+}
+
+/*****************************************************************************/
+/**
+* This function asserts or releases the video reset of other 
+* blocks within the subsystem
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return None
+*
+******************************************************************************/
+void XV_HdmiTxSs_VRST(XV_HdmiTxSs *InstancePtr, u8 Reset)
+{
+  Xil_AssertVoid(InstancePtr != NULL);
+
+  XV_HdmiTx_EXT_VRST(InstancePtr->HdmiTxPtr, Reset);
+}
+
+/*****************************************************************************/
+/**
+* This function asserts or releases the system reset of other 
+* blocks within the subsystem
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return None
+*
+******************************************************************************/
+void XV_HdmiTxSs_SYSRST(XV_HdmiTxSs *InstancePtr, u8 Reset)
+{
+  Xil_AssertVoid(InstancePtr != NULL);
+
+  XV_HdmiTx_EXT_SYSRST(InstancePtr->HdmiTxPtr, Reset);
+}
+
+/*****************************************************************************/
+/**
+* This function sets the HDMI TX AUX GCP register AVMUTE bit.
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return None
+*
+******************************************************************************/
+void XV_HdmiTxSs_SetGcpAvmute(XV_HdmiTxSs *InstancePtr)
+{
+  Xil_AssertVoid(InstancePtr != NULL);
+
+  XV_HdmiTx_SetGcpAvmute(InstancePtr->HdmiTxPtr);
+}
+
+/*****************************************************************************/
+/**
+* This function clears the HDMI TX AUX GCP register AVMUTE bit.
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return None
+*
+******************************************************************************/
+void XV_HdmiTxSs_ClearGcpAvmute(XV_HdmiTxSs *InstancePtr)
+{
+  Xil_AssertVoid(InstancePtr != NULL);
+
+  XV_HdmiTx_ClearGcpAvmute(InstancePtr->HdmiTxPtr);
 }
 
 /*****************************************************************************/
@@ -598,7 +749,7 @@ void XV_HdmiTxSs_Reset(XV_HdmiTxSs *InstancePtr)
 * @note   None.
 *
 ******************************************************************************/
-static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr)
+static int XV_HdmiTxSs_VtcSetup(XV_HdmiTxSs *HdmiTxSsPtr)
 {
   /* Polarity configuration */
   XVtc_Polarity Polarity;
@@ -608,9 +759,9 @@ static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr)
   u32 Vtc_Hblank;
 
   /* Disable Generator */
-  XVtc_Reset(XVtcPtr);
-  XVtc_DisableGenerator(XVtcPtr);
-  XVtc_Disable(XVtcPtr);
+  XVtc_Reset(HdmiTxSsPtr->VtcPtr);
+  XVtc_DisableGenerator(HdmiTxSsPtr->VtcPtr);
+  XVtc_Disable(HdmiTxSsPtr->VtcPtr);
 
   /* Set up source select */
   memset((void *)&SourceSelect, 0, sizeof(SourceSelect));
@@ -628,59 +779,89 @@ static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr)
   SourceSelect.HFrontPorchSrc = 1;
   SourceSelect.HTotalSrc = 1;
 
-  XVtc_SetSource(XVtcPtr, &SourceSelect);
+  XVtc_SetSource(HdmiTxSsPtr->VtcPtr, &SourceSelect);
 
-  VideoTiming.HActiveVideo = HdmiTxPtr->Stream.Video.Timing.HActive;
-  VideoTiming.HFrontPorch = HdmiTxPtr->Stream.Video.Timing.HFrontPorch;
-  VideoTiming.HSyncWidth = HdmiTxPtr->Stream.Video.Timing.HSyncWidth;
-  VideoTiming.HBackPorch = HdmiTxPtr->Stream.Video.Timing.HBackPorch;
-  VideoTiming.HSyncPolarity = HdmiTxPtr->Stream.Video.Timing.HSyncPolarity;
+  VideoTiming.HActiveVideo = HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.HActive;
+  VideoTiming.HFrontPorch = HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.HFrontPorch;
+  VideoTiming.HSyncWidth = HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.HSyncWidth;
+  VideoTiming.HBackPorch = HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.HBackPorch;
+  VideoTiming.HSyncPolarity = HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.HSyncPolarity;
 
   /* Vertical Timing */
-  VideoTiming.VActiveVideo = HdmiTxPtr->Stream.Video.Timing.VActive;
+  VideoTiming.VActiveVideo = HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.VActive;
 
-  VideoTiming.V0FrontPorch = HdmiTxPtr->Stream.Video.Timing.F0PVFrontPorch;
-  VideoTiming.V0BackPorch = HdmiTxPtr->Stream.Video.Timing.F0PVBackPorch;
-  VideoTiming.V0SyncWidth = HdmiTxPtr->Stream.Video.Timing.F0PVSyncWidth;
+  VideoTiming.V0FrontPorch = HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.F0PVFrontPorch;
+  VideoTiming.V0BackPorch = HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.F0PVBackPorch;
+  VideoTiming.V0SyncWidth = HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.F0PVSyncWidth;
 
-  VideoTiming.V1FrontPorch = HdmiTxPtr->Stream.Video.Timing.F1VFrontPorch;
-  VideoTiming.V1SyncWidth = HdmiTxPtr->Stream.Video.Timing.F1VSyncWidth;
-  VideoTiming.V1BackPorch = HdmiTxPtr->Stream.Video.Timing.F1VBackPorch;
+  VideoTiming.V1FrontPorch = HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.F1VFrontPorch;
+  VideoTiming.V1SyncWidth = HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.F1VSyncWidth;
+  VideoTiming.V1BackPorch = HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.F1VBackPorch;
 
-  VideoTiming.VSyncPolarity = HdmiTxPtr->Stream.Video.Timing.VSyncPolarity;
+  VideoTiming.VSyncPolarity = HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.VSyncPolarity;
 
-  VideoTiming.Interlaced = HdmiTxPtr->Stream.Video.IsInterlaced;
+  VideoTiming.Interlaced = HdmiTxSsPtr->HdmiTxPtr->Stream.Video.IsInterlaced;
 
     /* 4 pixels per clock */
-    if (HdmiTxPtr->Stream.Video.PixPerClk == XVIDC_PPC_4) {
-      VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/4;
-      VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/4;
-      VideoTiming.HBackPorch = VideoTiming.HBackPorch/4;
-      VideoTiming.HSyncWidth = VideoTiming.HSyncWidth/4;
+    if (HdmiTxSsPtr->HdmiTxPtr->Stream.Video.PixPerClk == XVIDC_PPC_4) {
+    	/* If the parameters below are not divisible by the current PPC setting,
+    	 * log an error as VTC does not support such video timing
+    	 */
+		if (VideoTiming.HActiveVideo & 0x3 || VideoTiming.HFrontPorch & 0x3 ||
+				VideoTiming.HBackPorch & 0x3 || VideoTiming.HSyncWidth & 0x3) {
+#ifdef XV_HDMITXSS_LOG_ENABLE
+				XV_HdmiTxSs_LogWrite(HdmiTxSsPtr,
+						XV_HDMITXSS_LOG_EVT_VTC_RES_ERR, 0);
+#endif
+		}
+		VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/4;
+		VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/4;
+		VideoTiming.HBackPorch = VideoTiming.HBackPorch/4;
+		VideoTiming.HSyncWidth = VideoTiming.HSyncWidth/4;
     }
 
     /* 2 pixels per clock */
-    else if (HdmiTxPtr->Stream.Video.PixPerClk == XVIDC_PPC_2) {
-      VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/2;
-      VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/2;
-      VideoTiming.HBackPorch = VideoTiming.HBackPorch/2;
-      VideoTiming.HSyncWidth = VideoTiming.HSyncWidth/2;
+    else if (HdmiTxSsPtr->HdmiTxPtr->Stream.Video.PixPerClk == XVIDC_PPC_2) {
+    	/* If the parameters below are not divisible by the current PPC setting,
+    	 * log an error as VTC does not support such video timing
+    	 */
+		if (VideoTiming.HActiveVideo & 0x1 || VideoTiming.HFrontPorch & 0x1 ||
+				VideoTiming.HBackPorch & 0x1 || VideoTiming.HSyncWidth & 0x1) {
+#ifdef XV_HDMITXSS_LOG_ENABLE
+			XV_HdmiTxSs_LogWrite(HdmiTxSsPtr,
+					XV_HDMITXSS_LOG_EVT_VTC_RES_ERR, 0);
+#endif
+		}
+		VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/2;
+		VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/2;
+		VideoTiming.HBackPorch = VideoTiming.HBackPorch/2;
+		VideoTiming.HSyncWidth = VideoTiming.HSyncWidth/2;
     }
 
     /* 1 pixels per clock */
     else {
-      VideoTiming.HActiveVideo = VideoTiming.HActiveVideo;
-      VideoTiming.HFrontPorch = VideoTiming.HFrontPorch;
-      VideoTiming.HBackPorch = VideoTiming.HBackPorch;
-      VideoTiming.HSyncWidth = VideoTiming.HSyncWidth;
+		VideoTiming.HActiveVideo = VideoTiming.HActiveVideo;
+		VideoTiming.HFrontPorch = VideoTiming.HFrontPorch;
+		VideoTiming.HBackPorch = VideoTiming.HBackPorch;
+		VideoTiming.HSyncWidth = VideoTiming.HSyncWidth;
     }
 
     /* For YUV420 the line width is double there for double the blanking */
-    if (HdmiTxPtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
-      VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/2;
-      VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/2;
-      VideoTiming.HBackPorch = VideoTiming.HBackPorch/2;
-      VideoTiming.HSyncWidth = VideoTiming.HSyncWidth/2;
+    if (HdmiTxSsPtr->HdmiTxPtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
+    	/* If the parameters below are not divisible by the current PPC setting,
+    	 * log an error as VTC does not support such video timing
+    	 */
+		if (VideoTiming.HActiveVideo & 0x1 || VideoTiming.HFrontPorch & 0x1 ||
+				VideoTiming.HBackPorch & 0x1 || VideoTiming.HSyncWidth & 0x1) {
+#ifdef XV_HDMITXSS_LOG_ENABLE
+			XV_HdmiTxSs_LogWrite(HdmiTxSsPtr,
+					XV_HDMITXSS_LOG_EVT_VTC_RES_ERR, 0);
+#endif
+		}
+		VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/2;
+		VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/2;
+		VideoTiming.HBackPorch = VideoTiming.HBackPorch/2;
+		VideoTiming.HSyncWidth = VideoTiming.HSyncWidth/2;
     }
 
 /** When compensating the vtc horizontal timing parameters for the pixel mode
@@ -693,9 +874,9 @@ static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr)
 * for this condition.
 * Calculate hdmi tx horizontal blanking */
 
-  HdmiTx_Hblank = HdmiTxPtr->Stream.Video.Timing.HFrontPorch +
-    HdmiTxPtr->Stream.Video.Timing.HSyncWidth +
-    HdmiTxPtr->Stream.Video.Timing.HBackPorch;
+  HdmiTx_Hblank = HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.HFrontPorch +
+    HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.HSyncWidth +
+    HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.HBackPorch;
 
   do {
     // Calculate vtc horizontal blanking
@@ -704,12 +885,12 @@ static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr)
         VideoTiming.HSyncWidth;
 
     // Quad pixel mode
-    if (HdmiTxPtr->Stream.Video.PixPerClk == XVIDC_PPC_4) {
+    if (HdmiTxSsPtr->HdmiTxPtr->Stream.Video.PixPerClk == XVIDC_PPC_4) {
       Vtc_Hblank *= 4;
     }
 
     // Dual pixel mode
-    else if (HdmiTxPtr->Stream.Video.PixPerClk == XVIDC_PPC_2) {
+    else if (HdmiTxSsPtr->HdmiTxPtr->Stream.Video.PixPerClk == XVIDC_PPC_2) {
       Vtc_Hblank *= 2;
     }
 
@@ -719,7 +900,7 @@ static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr)
     }
 
     /* For YUV420 the line width is double there for double the blanking */
-    if (HdmiTxPtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
+    if (HdmiTxSsPtr->HdmiTxPtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
         Vtc_Hblank *= 2;
     }
 
@@ -737,11 +918,11 @@ static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr)
                   HdmiTx_Hblank);
       xdbg_printf(XDBG_DEBUG_GENERAL,
                   "       be transmitted with pixels per clock = %d\r\n",
-                  HdmiTxPtr->Stream.Video.PixPerClk);
+                  HdmiTxSsPtr->HdmiTxPtr->Stream.Video.PixPerClk);
       return (XST_FAILURE);
   }
 
-  XVtc_SetGeneratorTiming(XVtcPtr, &VideoTiming);
+  XVtc_SetGeneratorTiming(HdmiTxSsPtr->VtcPtr, &VideoTiming);
 
   /* Set up Polarity of all outputs */
   memset((void *)&Polarity, 0, sizeof(XVtc_Polarity));
@@ -761,26 +942,55 @@ static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr)
   Polarity.HBlankPol = VideoTiming.HSyncPolarity;
   Polarity.HSyncPol = VideoTiming.HSyncPolarity;
 
-  XVtc_SetPolarity(XVtcPtr, &Polarity);
+  XVtc_SetPolarity(HdmiTxSsPtr->VtcPtr, &Polarity);
 
   /* VTC driver does not take care of the setting of the VTC in
    * interlaced operation. As a work around the register
    * is set manually */
   if (VideoTiming.Interlaced) {
     /* Interlaced mode */
-    XVtc_WriteReg(XVtcPtr->Config.BaseAddress, 0x68, 0x42);
+    XVtc_WriteReg(HdmiTxSsPtr->VtcPtr->Config.BaseAddress, 0x68, 0x42);
   }
   else {
     /* Progressive mode */
-    XVtc_WriteReg(XVtcPtr->Config.BaseAddress, 0x68, 0x2);
+    XVtc_WriteReg(HdmiTxSsPtr->VtcPtr->Config.BaseAddress, 0x68, 0x2);
   }
 
   /* Enable generator module */
-  XVtc_Enable(XVtcPtr);
-  XVtc_EnableGenerator(XVtcPtr);
-  XVtc_RegUpdateEnable(XVtcPtr);
+  XVtc_Enable(HdmiTxSsPtr->VtcPtr);
+  XVtc_EnableGenerator(HdmiTxSsPtr->VtcPtr);
+  XVtc_RegUpdateEnable(HdmiTxSsPtr->VtcPtr);
 
   return (XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+* This function set the TMDSClock and return it.
+*
+* @param  None.
+*
+* @return Calculated TMDS Clock
+*
+* @note   None.
+*
+*****************************************************************************/
+static u32 XV_HdmiTxSS_SetTMDS(XV_HdmiTxSs *InstancePtr,
+                        XVidC_VideoMode VideoMode,
+                        XVidC_ColorFormat ColorFormat,
+                        XVidC_ColorDepth Bpc) {
+
+    u32 TmdsClk;
+
+    TmdsClk = XV_HdmiTx_GetTmdsClk(InstancePtr->HdmiTxPtr,
+                                     VideoMode,
+                                     ColorFormat,
+                                     Bpc);
+
+    /* Store TMDS clock for future reference */
+	InstancePtr->HdmiTxPtr->Stream.TMDSClock = TmdsClk;
+
+    return TmdsClk;
 }
 
 /*****************************************************************************/
@@ -877,6 +1087,28 @@ static void XV_HdmiTxSs_ToggleCallback(void *CallbackRef)
 /*****************************************************************************/
 /**
 *
+* This function is called when a bridge unlocked has occurred.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_HdmiTxSs_BrdgUnlockedCallback(void *CallbackRef)
+{
+  XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
+
+  /* Check if user callback has been registered */
+  if (HdmiTxSsPtr->BrdgUnlockedCallback) {
+      HdmiTxSsPtr->BrdgUnlockedCallback(HdmiTxSsPtr->BrdgUnlockedRef);
+  }
+}
+
+/*****************************************************************************/
+/**
+*
 * This function is called when a TX vsync has occurred.
 *
 * @param  None.
@@ -889,16 +1121,19 @@ static void XV_HdmiTxSs_ToggleCallback(void *CallbackRef)
 static void XV_HdmiTxSs_VsCallback(void *CallbackRef)
 {
   XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
+  
+	/* Support of backward compatibility by checking if AVIInfoframe.Version
+	 * is used by application or not. If not, then TX SS driver will send
+	 * the InfoFrame. Note: The APIs used here are deprecated.
+	 */
+    if (HdmiTxSsPtr->AVIInfoframe.Version == 0) {
+  	// AVI infoframe
+  	XV_HdmiTxSs_SendAviInfoframe(HdmiTxSsPtr->HdmiTxPtr);
 
-  // AVI infoframe
-  XV_HdmiTxSs_SendAviInfoframe(HdmiTxSsPtr->HdmiTxPtr);
-
-  // General control packet
-  XV_HdmiTxSs_SendGeneralControlPacket(HdmiTxSsPtr->HdmiTxPtr);
-
-  // Vendor-Specific InfoFrame
-  XV_HdmiTxSs_SendVSInfoframe(HdmiTxSsPtr->HdmiTxPtr);
-
+  	// Vendor-Specific InfoFrame
+	XV_HdmiTxSs_SendVSInfoframe(HdmiTxSsPtr->HdmiTxPtr);
+  }
+  
   // Check if user callback has been registered
   if (HdmiTxSsPtr->VsCallback) {
       HdmiTxSsPtr->VsCallback(HdmiTxSsPtr->VsRef);
@@ -1116,6 +1351,7 @@ static void XV_HdmiTxSs_SendGeneralControlPacket(XV_HdmiTx *HdmiTx)
   XV_HdmiTx_AuxSend(HdmiTx);
 }
 
+
 /*****************************************************************************/
 /**
 *
@@ -1168,7 +1404,7 @@ static void XV_HdmiTxSs_SendVSInfoframe(XV_HdmiTx *HdmiTx)
         VSIF.Format = XV_HDMITX_VSIF_VF_NOINFO;
     }
 
-    XV_HdmiTx_VSIF_GeneratePacket(&VSIF,(XV_HdmiTx_Aux *)&HdmiTx->Aux);
+    XV_HdmiTx_VSIF_GeneratePacket(&VSIF,(XHdmiC_Aux *)&HdmiTx->Aux);
 
     XV_HdmiTx_AuxSend(HdmiTx);
 }
@@ -1206,13 +1442,18 @@ static void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef)
 
   /* Set TX sample rate */
   XV_HdmiTx_SetSampleRate(HdmiTxSsPtr->HdmiTxPtr, HdmiTxSsPtr->SamplingRate);
-
-  /* Release HDMI TX reset */
-  XV_HdmiTx_Reset(HdmiTxSsPtr->HdmiTxPtr, FALSE);
+    
+  /* Release VID_IN bridge resets */
+  XV_HdmiTxSs_SYSRST(HdmiTxSsPtr, FALSE);
+  XV_HdmiTxSs_VRST(HdmiTxSsPtr, FALSE);
+  
+  /* Release HDMI TXCore resets */
+  XV_HdmiTxSs_TXCore_LRST(HdmiTxSsPtr, FALSE);  
+  XV_HdmiTxSs_TXCore_VRST(HdmiTxSsPtr, FALSE);      
 
   if (HdmiTxSsPtr->VtcPtr) {
     /* Setup VTC */
-    XV_HdmiTxSs_VtcSetup(HdmiTxSsPtr->VtcPtr, HdmiTxSsPtr->HdmiTxPtr);
+    XV_HdmiTxSs_VtcSetup(HdmiTxSsPtr);
   }
 
   if (HdmiTxSsPtr->AudioEnabled) {
@@ -1243,9 +1484,13 @@ static void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef)
 static void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef)
 {
   XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
-
-  /* Assert HDMI TX reset */
-  XV_HdmiTx_Reset(HdmiTxSsPtr->HdmiTxPtr, TRUE);
+  /* Assert HDMI TXCore link reset */
+  XV_HdmiTxSs_TXCore_LRST(HdmiTxSsPtr, TRUE);
+  XV_HdmiTxSs_TXCore_VRST(HdmiTxSsPtr, TRUE);
+    
+  /* Assert SYSCLK VID_OUT bridge reset */
+  XV_HdmiTxSs_SYSRST(HdmiTxSsPtr, TRUE);
+  XV_HdmiTxSs_VRST(HdmiTxSsPtr, TRUE);
 
   /* Reset DDC */
   XV_HdmiTx_DdcDisable(HdmiTxSsPtr->HdmiTxPtr);
@@ -1324,6 +1569,14 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
         case (XV_HDMITXSS_HANDLER_TOGGLE):
             InstancePtr->ToggleCallback = (XV_HdmiTxSs_Callback)CallbackFunc;
             InstancePtr->ToggleRef = CallbackRef;
+            Status = (XST_SUCCESS);
+            break;
+			
+        // Bridge Unlocked
+        case (XV_HDMITXSS_HANDLER_BRDGUNLOCK):
+            InstancePtr->BrdgUnlockedCallback = 
+			    (XV_HdmiTxSs_Callback)CallbackFunc;
+            InstancePtr->BrdgUnlockedRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
 
@@ -1608,7 +1861,6 @@ void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr)
     }
 }
 
-
 /*****************************************************************************/
 /**
 *
@@ -1621,6 +1873,8 @@ void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr)
 ******************************************************************************/
 void XV_HdmiTxSs_StreamStart(XV_HdmiTxSs *InstancePtr)
 {
+  u32 TmdsClk;
+
   // Set TX pixel rate
   XV_HdmiTx_SetPixelRate(InstancePtr->HdmiTxPtr);
 
@@ -1630,6 +1884,12 @@ void XV_HdmiTxSs_StreamStart(XV_HdmiTxSs *InstancePtr)
   // Set TX color format
   XV_HdmiTx_SetColorFormat(InstancePtr->HdmiTxPtr);
 
+  // Set the TMDS Clock
+  TmdsClk = XV_HdmiTxSS_SetTMDS(InstancePtr,
+				 InstancePtr->HdmiTxPtr->Stream.Video.VmId,
+				 InstancePtr->HdmiTxPtr->Stream.Video.ColorFormatId,
+				 InstancePtr->HdmiTxPtr->Stream.Video.ColorDepth);
+
   // Set TX scrambler
   XV_HdmiTx_Scrambler(InstancePtr->HdmiTxPtr);
 
@@ -1638,6 +1898,54 @@ void XV_HdmiTxSs_StreamStart(XV_HdmiTxSs *InstancePtr)
 #ifdef XV_HDMITXSS_LOG_ENABLE
   XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_STREAMSTART, 0);
 #endif
+  if ((InstancePtr->HdmiTxPtr->Stream.IsHdmi20 == (FALSE))
+  		&& (TmdsClk > 340000000)) {
+      xdbg_printf(XDBG_DEBUG_GENERAL,
+                  "\r\nWarning: Sink does not support HDMI 2.0\r\n");
+      xdbg_printf(XDBG_DEBUG_GENERAL,
+                  "         Connect to HDMI 2.0 Sink or \r\n");
+      xdbg_printf(XDBG_DEBUG_GENERAL,
+                  "         Change to HDMI 1.4 video format\r\n\r\n");
+  }
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables / disables the TX scrambler
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  Enable TRUE:Enable scrambler FALSE:Disable scrambler
+*
+* @return None.
+*
+* @note   The scrambler setting will revert to the default behavior during the
+*         next stream configuration (scrambler is enabled for HDMI 2.0 video
+*         and disabled when the video is of HDMI 1.4 or lower)
+*
+******************************************************************************/
+void XV_HdmiTxSs_SetScrambler(XV_HdmiTxSs *InstancePtr, u8 Enable)
+{
+	if (InstancePtr->HdmiTxPtr->Stream.IsHdmi20 == (TRUE)) {
+		/* Override the default behavior of the scrambler so that scrambling
+		 * can be disabled even when TMDS Clock > 340 MHz
+		 */
+		InstancePtr->HdmiTxPtr->Stream.OverrideScrambler = (TRUE);
+		/* Set the IsScrambled flag in order to enable or disable scrambler
+		 * when XV_HdmiTx_Scrambler is called
+		 */
+		XV_HdmiTxSs_SetVideoStreamScramblingFlag(InstancePtr, Enable);
+		/* Enable / disable scrambler depending on the value set to
+		 * IsScrambled
+		 */
+		XV_HdmiTx_Scrambler(InstancePtr->HdmiTxPtr);
+		// Disable the override of the scrambler
+		InstancePtr->HdmiTxPtr->Stream.OverrideScrambler = (FALSE);
+	} else {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			  "\r\nWarning: Scrambler is always disabled when sink does"
+			  "not support SCDC control interface\r\n");
+	}
 }
 
 /*****************************************************************************/
@@ -1656,7 +1964,7 @@ void XV_HdmiTxSs_SendAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *Aux)
 {
   u8 Index;
   u8 Crc;
-  XV_HdmiTx_Aux *tx_aux = (XV_HdmiTx_Aux *)Aux;
+  XHdmiC_Aux *tx_aux = (XHdmiC_Aux *)Aux;
 
   if (Aux == (NULL)) {
       /* Header, Packet type */
@@ -1723,15 +2031,17 @@ void XV_HdmiTxSs_SendAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *Aux)
 *
 * @param  None.
 *
-* @return None.
+* @return
+*       - XST_SUCCESS if infoframes transmitted successfully.
+*       - XST_FAILURE if AUX FIFO is full.
 *
 * @note   None.
 *
 ******************************************************************************/
-void XV_HdmiTxSs_SendGenericAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *Aux)
+u32 XV_HdmiTxSs_SendGenericAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *Aux)
 {
   u8 Index;
-  XV_HdmiTx_Aux *tx_aux = (XV_HdmiTx_Aux *)Aux;
+  XHdmiC_Aux *tx_aux = (XHdmiC_Aux *)Aux;
 
   // Header
   InstancePtr->HdmiTxPtr->Aux.Header.Data = tx_aux->Header.Data;
@@ -1743,7 +2053,7 @@ void XV_HdmiTxSs_SendGenericAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *Aux)
   }
 
   /* Send packet */
-  XV_HdmiTx_AuxSend(InstancePtr->HdmiTxPtr);
+  return XV_HdmiTx_AuxSend(InstancePtr->HdmiTxPtr);
 }
 
 /*****************************************************************************/
@@ -1761,6 +2071,8 @@ void XV_HdmiTxSs_SendGenericAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *Aux)
 ******************************************************************************/
 void XV_HdmiTxSs_SetAudioChannels(XV_HdmiTxSs *InstancePtr, u8 AudioChannels)
 {
+	// Audio InfoFrame's channel count starts from 2ch = 1
+	InstancePtr->AudioInfoframe.ChannelCount = AudioChannels - 1;
     InstancePtr->AudioChannels = AudioChannels;
     XV_HdmiTx_SetAudioChannels(InstancePtr->HdmiTxPtr, AudioChannels);
 #ifdef XV_HDMITXSS_LOG_ENABLE
@@ -1842,6 +2154,75 @@ XV_HdmiTx_AudioFormatType XV_HdmiTxSs_GetAudioFormat(XV_HdmiTxSs *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* This function returns the pointer to HDMI TX SS Aux structure
+*
+* @param  InstancePtr pointer to XV_HdmiTxSs instance
+*
+* @return XVidC_VideoStream pointer
+*
+* @note   None.
+*
+******************************************************************************/
+XHdmiC_Aux *XV_HdmiTxSs_GetAuxiliary(XV_HdmiTxSs *InstancePtr)
+{
+    return (&(InstancePtr->HdmiTxPtr->Aux));
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the pointer to HDMI TX SS AVI InfoFrame structure
+*
+* @param  InstancePtr pointer to XV_HdmiTxSs instance
+*
+* @return XHdmiC_AVI_InfoFrame pointer
+*
+* @note   None.
+*
+******************************************************************************/
+XHdmiC_AVI_InfoFrame *XV_HdmiTxSs_GetAviInfoframe(XV_HdmiTxSs *InstancePtr)
+{
+    return (&(InstancePtr->AVIInfoframe));
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the pointer to HDMI TX SS Audio InfoFrame structure
+*
+* @param  InstancePtr pointer to XV_HdmiTxSs instance
+*
+* @return XHdmiC_AudioInfoFrame pointer
+*
+* @note   None.
+*
+******************************************************************************/
+XHdmiC_AudioInfoFrame *XV_HdmiTxSs_GetAudioInfoframe(XV_HdmiTxSs *InstancePtr)
+{
+    return (&(InstancePtr->AudioInfoframe));
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the pointer to HDMI TX SS Vendor Specific InfoFrame
+* structure
+*
+* @param  InstancePtr pointer to XV_HdmiTxSs instance
+*
+* @return XHdmiC_VSIF pointer
+*
+* @note   None.
+*
+******************************************************************************/
+XHdmiC_VSIF *XV_HdmiTxSs_GetVSIF(XV_HdmiTxSs *InstancePtr)
+{
+    return (&(InstancePtr->VSIF));
+}
+
+/*****************************************************************************/
+/**
+*
 * This function set HDMI TX susbsystem stream parameters
 *
 * @param  None.
@@ -1859,12 +2240,13 @@ u32 XV_HdmiTxSs_SetStream(XV_HdmiTxSs *InstancePtr,
 
   TmdsClock = XV_HdmiTx_SetStream(InstancePtr->HdmiTxPtr, VideoMode,
     ColorFormat, Bpc, InstancePtr->Config.Ppc, Info3D);
+
 #ifdef XV_HDMITXSS_LOG_ENABLE
-  XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_SETSTREAM, TmdsClock);
+  XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_SETSTREAM, 0);
 #endif
   if(TmdsClock == 0) {
     xdbg_printf(XDBG_DEBUG_GENERAL,
-                "\nWarning: Sink does not support HDMI 2.0\r\n");
+                "\r\nWarning: Sink does not support HDMI 2.0\r\n");
     xdbg_printf(XDBG_DEBUG_GENERAL,
                 "         Connect to HDMI 2.0 Sink or \r\n");
     xdbg_printf(XDBG_DEBUG_GENERAL,
@@ -1907,6 +2289,7 @@ XVidC_VideoStream *XV_HdmiTxSs_GetVideoStream(XV_HdmiTxSs *InstancePtr)
 void XV_HdmiTxSs_SetVideoStream(XV_HdmiTxSs *InstancePtr,
                                     XVidC_VideoStream VidStream)
 {
+    // Set Stream Properties
     InstancePtr->HdmiTxPtr->Stream.Video = VidStream;
 }
 
@@ -1986,6 +2369,32 @@ void XV_HdmiTxSs_SetVideoStreamScramblingFlag(XV_HdmiTxSs *InstancePtr,
 /*****************************************************************************/
 /**
 *
+* This function Sets the HDMI TX SS video stream scrambling behaviour. Setting
+* OverrideScramble to true will force enabling/disabling scrambling function
+* based on the value of IsScrambled flag.
+*
+* @param  InstancePtr pointer to XV_HdmiTxSs instance
+* @param  OverrideScramble
+*         0: Scrambling is always enabled for HDMI 2.0 resolutions and is
+*            enabled /or disabled for HDMI 1.4 resolutions based on IsScrambled
+*            value
+*         1: Enable scrambling if IsScrambled is TRUE and disable scrambling
+*            if IsScrambled is FALSE
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiTxSs_SetVideoStreamScramblingOverrideFlag(XV_HdmiTxSs *InstancePtr,
+                                                           u8 OverrideScramble)
+{
+    InstancePtr->HdmiTxPtr->Stream.OverrideScrambler = OverrideScramble;
+}
+
+/*****************************************************************************/
+/**
+*
 * This function Sets the HDMI TX SS TMDS Cock Ratio
 *
 * @param  InstancePtr pointer to XV_HdmiTxSs instance
@@ -2052,9 +2461,15 @@ int XV_HdmiTxSs_DetectHdmi20(XV_HdmiTxSs *InstancePtr)
 ******************************************************************************/
 void XV_HdmiTxSs_RefClockChangeInit(XV_HdmiTxSs *InstancePtr)
 {
-      /* Assert HDMI TX reset */
-      XV_HdmiTx_Reset(InstancePtr->HdmiTxPtr, TRUE);
-
+  
+      /* Assert VID_IN bridge resets */
+      XV_HdmiTxSs_SYSRST(InstancePtr, TRUE);
+      XV_HdmiTxSs_VRST(InstancePtr, TRUE);
+  
+      /* Assert HDMI TXCore resets */
+      XV_HdmiTxSs_TXCore_LRST(InstancePtr, TRUE);  
+      XV_HdmiTxSs_TXCore_VRST(InstancePtr, TRUE);     
+  
       /* Clear variables */
       XV_HdmiTx_Clear(InstancePtr->HdmiTxPtr);
 }
@@ -2283,36 +2698,48 @@ int XV_HdmiTxSs_IsStreamToggled(XV_HdmiTxSs *InstancePtr)
 *
 ******************************************************************************/
 static void XV_HdmiTxSs_ConfigBridgeMode(XV_HdmiTxSs *InstancePtr) {
-
-    XVidC_ColorFormat ColorFormat;
-    XVidC_VideoMode VideoMode;
-
-    XVidC_VideoStream *HdmiTxSsVidStreamPtr;
+	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
     HdmiTxSsVidStreamPtr = XV_HdmiTxSs_GetVideoStream(InstancePtr);
 
-    ColorFormat = HdmiTxSsVidStreamPtr->ColorFormatId;
-    VideoMode = HdmiTxSsVidStreamPtr->VmId;
+    XHdmiC_AVI_InfoFrame *AviInfoFramePtr;
+    AviInfoFramePtr = XV_HdmiTxSs_GetAviInfoframe(InstancePtr);
 
-    if (ColorFormat == XVIDC_CSF_YCRCB_420) {
+    // Pixel Repetition factor of 3 and above are not supported by the bridge
+    if (AviInfoFramePtr->PixelRepetition > XHDMIC_PIXEL_REPETITION_FACTOR_2) {
+#ifdef XV_HDMITXSS_LOG_ENABLE
+    	XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_PIX_REPEAT_ERR,
+    			AviInfoFramePtr->PixelRepetition);
+#endif
+    	return;
+    }
+
+    if (HdmiTxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_420) {
         /*********************************************************
          * 420 Support
          *********************************************************/
-         XV_HdmiTxSs_BridgePixelRepeat(InstancePtr,FALSE);
-         XV_HdmiTxSs_BridgeYuv420(InstancePtr,TRUE);
+         XV_HdmiTxSs_BridgePixelRepeat(InstancePtr, FALSE);
+         AviInfoFramePtr->PixelRepetition = XHDMIC_PIXEL_REPETITION_FACTOR_1;
+         XV_HdmiTxSs_BridgeYuv420(InstancePtr, TRUE);
     }
     else {
-        if ((VideoMode == XVIDC_VM_1440x480_60_I) ||
-            (VideoMode == XVIDC_VM_1440x576_50_I) )
+        if ((HdmiTxSsVidStreamPtr->VmId == XVIDC_VM_1440x480_60_I) ||
+            (HdmiTxSsVidStreamPtr->VmId == XVIDC_VM_1440x576_50_I) ||
+			(AviInfoFramePtr->PixelRepetition ==
+					XHDMIC_PIXEL_REPETITION_FACTOR_2) )
         {
             /*********************************************************
              * NTSC/PAL Support
              *********************************************************/
-             XV_HdmiTxSs_BridgeYuv420(InstancePtr,FALSE);
-             XV_HdmiTxSs_BridgePixelRepeat(InstancePtr,TRUE);
+             XV_HdmiTxSs_BridgeYuv420(InstancePtr, FALSE);
+             XV_HdmiTxSs_BridgePixelRepeat(InstancePtr, TRUE);
+             AviInfoFramePtr->PixelRepetition = 
+			 		XHDMIC_PIXEL_REPETITION_FACTOR_2;
         }
         else {
-            XV_HdmiTxSs_BridgeYuv420(InstancePtr,FALSE);
-            XV_HdmiTxSs_BridgePixelRepeat(InstancePtr,FALSE);
+            XV_HdmiTxSs_BridgeYuv420(InstancePtr, FALSE);
+            XV_HdmiTxSs_BridgePixelRepeat(InstancePtr, FALSE);
+            AviInfoFramePtr->PixelRepetition = 
+					XHDMIC_PIXEL_REPETITION_FACTOR_1;
         }
     }
 }

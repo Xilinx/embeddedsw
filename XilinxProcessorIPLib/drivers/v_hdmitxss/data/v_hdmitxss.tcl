@@ -5,7 +5,7 @@
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# to use, copy, modify, merge, publish, distribute, sublicense, and#or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
 #
@@ -41,6 +41,8 @@
 ##  1.5     MMO      3/01/17 Fix the TCL to support multiple instance and sync
 ##                           with XV_HdmiTxSs_Config Data Structure
 ##  1.6     MM0     13/02/17 Fix by adding typecasting for C++ Fix
+##  1.7     MMO     08/02/18 Adding YUV420 Support and Low Resolution 
+##                           (NTSC/PAL) Support capability 
 #
 ################################################################################
 
@@ -52,6 +54,8 @@ proc generate {drv_handle} {
                     "DEVICE_ID" \
                     "C_INPUT_PIXELS_PER_CLOCK" \
                     "C_MAX_BITS_PER_COMPONENT" \
+		    "C_INCLUDE_LOW_RESO_VID" \
+		    "C_INCLUDE_YUV420_SUP" \
                     "AXI_LITE_FREQ_HZ"
 
   hier_ip_define_config_file $drv_handle "xv_hdmitxss_g.c" "XV_HdmiTxSs" \
@@ -60,6 +64,8 @@ proc generate {drv_handle} {
                     "C_HIGHADDR" \
                     "C_INPUT_PIXELS_PER_CLOCK" \
                     "C_MAX_BITS_PER_COMPONENT" \
+		    "C_INCLUDE_LOW_RESO_VID" \
+		    "C_INCLUDE_YUV420_SUP" \
                     "AXI_LITE_FREQ_HZ"
 
   hier_ip_define_canonical_xpars $drv_handle "xparameters.h" \
@@ -69,6 +75,8 @@ proc generate {drv_handle} {
                     "DEVICE_ID" \
                     "C_INPUT_PIXELS_PER_CLOCK" \
                     "C_MAX_BITS_PER_COMPONENT" \
+		    "C_INCLUDE_LOW_RESO_VID" \
+		    "C_INCLUDE_YUV420_SUP" \
                     "AXI_LITE_FREQ_HZ"
 }
 
@@ -97,6 +105,8 @@ proc hier_ip_define_include_file {drv_handle file_name drv_string args} {
 
     # Print all parameters for all peripherals
     set device_id 0
+	set low_res_supp 0
+	set yuv420_supp 0
     foreach periph $periphs {
         set periph_name [string toupper [common::get_property NAME $periph]]
 	    set freq [::hsi::utils::get_clk_pin_freq  $periph "s_axi_cpu_aclk"]
@@ -123,6 +133,35 @@ proc hier_ip_define_include_file {drv_handle file_name drv_string args} {
                 set value 0
             }
             set value [::hsi::utils::format_addr_string $value $arg]
+			if {[string compare -nocase "C_INCLUDE_LOW_RESO_VID" $arg] == 0} {
+				if {$value=="TRUE"} {
+					set value 1
+				}
+				if {$value=="true"} {
+					set value 1
+				}
+				if {$value=="FALSE"} {
+					set value 0
+				}
+				if {$value=="false"} {
+					set value 0
+				}
+			}
+			
+			if {[string compare -nocase "C_INCLUDE_YUV420_SUP" $arg] == 0} {
+				if {$value=="TRUE"} {
+					set value 1
+				}
+				if {$value=="true"} {
+					set value 1
+				}
+				if {$value=="FALSE"} {
+					set value 0
+				}
+				if {$value=="false"} {
+					set value 0
+				}
+			}
             puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
         }
         puts $file_handle ""
@@ -195,6 +234,36 @@ proc hier_ip_define_canonical_xpars {drv_handle file_name drv_string args} {
                     }
                     set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
                 }
+				
+				if {[string compare -nocase "C_INCLUDE_LOW_RESO_VID" $arg] == 0} {
+					if {$rvalue=="TRUE"} {
+						set rvalue 1
+					}
+					if {$rvalue=="true"} {
+						set rvalue 1
+					}
+					if {$rvalue=="FALSE"} {
+						set rvalue 0
+					}
+					if {$rvalue=="false"} {
+						set rvalue 0
+					}
+				}
+				
+				if {[string compare -nocase "C_INCLUDE_YUV420_SUP" $arg] == 0} {
+					if {$rvalue=="TRUE"} {
+						set rvalue 1
+					}
+					if {$rvalue=="true"} {
+						set rvalue 1
+					}
+					if {$rvalue=="FALSE"} {
+						set rvalue 0
+					}
+					if {$rvalue=="false"} {
+						set rvalue 0
+					}
+				}
 
                 puts $file_handle "#define $lvalue $rvalue"
             }

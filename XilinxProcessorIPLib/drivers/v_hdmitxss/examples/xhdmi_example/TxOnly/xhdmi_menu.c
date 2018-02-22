@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -69,6 +69,12 @@
 *                               Passthrough)
 *       mmo  18-08-2017 Added Support to Custom Resolution in the Resolution
 *                               menu
+*       GM   05-09-2017 Changed PLL Layout routine to toggle HPD to improve
+*                               stability
+* 1.11  mmo  29-12-2017 Added EDID Parsing Capability
+*       EB   16-01-2018 Added Audio Channel Menu
+*       EB   23-01-2018 Reset the counter tagged to the events logged whenever
+*                               log is displayed
 * </pre>
 *
 ******************************************************************************/
@@ -79,6 +85,7 @@
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #include "xv_hdmitxss.h"
 #endif
+#include "xvidc_edid_ext.h"
 
 /************************** Constant Definitions *****************************/
 #if defined (XPAR_XHDCP_NUM_INSTANCES) || defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
@@ -88,12 +95,16 @@
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 /* Create entry for each mode in the custom table */
-const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1))] =
-{
+const XVidC_VideoTimingMode XVidC_MyVideoTimingMode
+	[(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1))] = {
 	/* Custom Modes . */
-	{ XVIDC_VM_3840x2160_30_P_SB, "3840x2160@30Hz (SB)", XVIDC_FR_30HZ,
-		{3840, 48, 32, 80, 4000, 1,
-		2160, 3, 5, 23, 2191, 0, 0, 0, 0, 1} }
+	{
+		XVIDC_VM_3840x2160_30_P_SB, "3840x2160@30Hz (SB)", XVIDC_FR_30HZ,
+		{
+			3840, 48, 32, 80, 4000, 1,
+			2160, 3, 5, 23, 2191, 0, 0, 0, 0, 1
+		}
+	}
 };
 #endif
 
@@ -117,11 +128,15 @@ static XHdmi_MenuType XHdmi_FrameRateMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType XHdmi_ColorDepthMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType XHdmi_ColorSpaceMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType XHdmi_AudioMenu(XHdmi_Menu *InstancePtr, u8 Input);
+static XHdmi_MenuType XHdmi_AudioChannelMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input);
 #endif
 #ifdef USE_HDCP
 static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input);
+#endif
+#ifdef HDMI_DEBUG_TOOLS
+static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input);
 #endif
 
 static void XHdmi_DisplayMainMenu(void);
@@ -135,37 +150,41 @@ static void XHdmi_DisplayFrameRateMenu(void);
 static void XHdmi_DisplayColorDepthMenu(void);
 static void XHdmi_DisplayColorSpaceMenu(void);
 static void XHdmi_DisplayAudioMenu(void);
+static void XHdmi_DisplayAudioChannelMenu(void);
 static void XHdmi_DisplayVideoMenu(void);
 #endif
 #ifdef USE_HDCP
 static void XHdmi_DisplayHdcpMainMenu(void);
 static void XHdmi_DisplayHdcpDebugMenu(void);
 #endif
-
+#ifdef HDMI_DEBUG_TOOLS
+static void XHdmi_DisplayDebugMainMenu(void);
+#endif
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+extern u8 PLLBondedCheck (void);
+#endif
 extern void Info(void);
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 extern void EnableColorBar(XVphy *VphyPtr, XV_HdmiTxSs *HdmiTxSsPtr,
-		XVidC_VideoMode VideoMode,
-		XVidC_ColorFormat ColorFormat,
-		XVidC_ColorDepth Bpc);;
+						   XVidC_VideoMode VideoMode,
+						   XVidC_ColorFormat ColorFormat,
+						   XVidC_ColorDepth Bpc);;
 extern void UpdateColorFormat(XVphy *VphyPtr, XV_HdmiTxSs *pHdmiTxSs, XVidC_ColorFormat ColorFormat);
 extern void UpdateColorDepth(XVphy *VphyPtr, XV_HdmiTxSs *pHdmiTxSs, XVidC_ColorDepth ColorDepth);
 extern void UpdateFrameRate(XVphy *VphyPtr, XV_HdmiTxSs *pHdmiTxSs, XVidC_FrameRate FrameRate);
 extern void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr);
 extern void CloneTxEdid(void);
 extern void XV_ConfigTpg(XV_tpg *InstancePtr);
+XV_VidC_EdidCntrlParam EdidCtrlParam;
 #endif
 
 /************************* Variable Definitions *****************************/
-extern u8 Edid[];
-
 
 /**
 * This table contains the function pointers for all possible states.
 * The order of elements must match the XHdmi_MenuType enumerator definitions.
 */
-static XHdmi_MenuFuncType* const XHdmi_MenuTable[XHDMI_NUM_MENUS] =
-{
+static XHdmi_MenuFuncType* const XHdmi_MenuTable[XHDMI_NUM_MENUS] = {
 	XHdmi_MainMenu,
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 	XHdmi_GtPllLayoutMenu,
@@ -177,17 +196,22 @@ static XHdmi_MenuFuncType* const XHdmi_MenuTable[XHDMI_NUM_MENUS] =
 	XHdmi_ColorDepthMenu,
 	XHdmi_ColorSpaceMenu,
 	XHdmi_AudioMenu,
+	XHdmi_AudioChannelMenu,
 	XHdmi_VideoMenu,
 #endif
 #ifdef USE_HDCP
 	XHdmi_HdcpMainMenu,
-	XHdmi_HdcpDebugMenu
+	XHdmi_HdcpDebugMenu,
+#endif
+#ifdef HDMI_DEBUG_TOOLS
+	XHdmi_DebugMainMenu,
 #endif
 };
 
 extern XVphy Vphy;               /* VPhy structure */
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 extern XV_HdmiTxSs HdmiTxSs;       /* HDMI TX SS structure */
+extern XhdmiAudioGen_t AudioGen;
 #endif
 extern u8 IsPassThrough;         /**< Demo mode 0-colorbar 1-pass through */
 extern u8 TxBusy;                // TX busy flag. This flag is set while the TX is initialized
@@ -196,6 +220,12 @@ extern XV_tpg Tpg;				/* TPG structure */
 extern XTpg_PatternId Pattern;
 #endif
 extern XHdcp_Repeater HdcpRepeater;
+
+/*HDMI EDID*/
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+extern EdidHdmi20 EdidHdmi20_t;
+#endif
+extern u8 Buffer[];
 
 /************************** Function Definitions *****************************/
 
@@ -220,22 +250,22 @@ void XHdmi_MenuInitialize(XHdmi_Menu *InstancePtr, u32 UartBaseAddress)
 
 	InstancePtr->CurrentMenu = XHDMI_MAIN_MENU;
 	InstancePtr->UartBaseAddress = UartBaseAddress;
-    InstancePtr->Value = 0;
-    InstancePtr->WaitForColorbar = (FALSE);
+	InstancePtr->Value = 0;
+	InstancePtr->WaitForColorbar = (FALSE);
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-    //Initialize and Add Custom Resolution in to the Video Table
-    //Added for the resolution menu
-    /* Example : User registers custom timing table */
-    Status = XVidC_RegisterCustomTimingModes(XVidC_MyVideoTimingMode,
-		(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
-    if (Status != XST_SUCCESS) {
-	xil_printf("ERR: Unable to register custom timing table\r\n\r\n");
-    }
+	//Initialize and Add Custom Resolution in to the Video Table
+	//Added for the resolution menu
+	/* Example : User registers custom timing table */
+	Status = XVidC_RegisterCustomTimingModes(XVidC_MyVideoTimingMode,
+			 (XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: Unable to register custom timing table\r\n\r\n");
+	}
 #endif
 
-    // Show main menu
-    XHdmi_DisplayMainMenu();
+	// Show main menu
+	XHdmi_DisplayMainMenu();
 }
 
 
@@ -309,6 +339,10 @@ void XHdmi_DisplayMainMenu(void)
 	if (XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
 		xil_printf("h - HDCP\r\n");
 		xil_printf("       => Goto HDCP menu.\r\n");
+#ifdef HDMI_DEBUG_TOOLS
+		xil_printf("x - Debug Tools\r\n");
+		xil_printf("       => Goto Debug menu.\r\n");
+#endif
 	}
 #endif
 
@@ -325,50 +359,46 @@ void XHdmi_DisplayMainMenu(void)
 * @return The next menu state.
 *
 ******************************************************************************/
-static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input)
-{
+static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-	  XVidC_VideoStream *HdmiTxSsVidStreamPtr;
-	  HdmiTxSsVidStreamPtr = XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
+	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
+	HdmiTxSsVidStreamPtr = XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
 #endif
 	// Default
 	Menu = XHDMI_MAIN_MENU;
 
 	switch (Input) {
-		// Info
+			// Info
 		case ('i') :
 		case ('I') :
 			Info();
-	        Menu = XHDMI_MAIN_MENU;
-		break;
+			Menu = XHDMI_MAIN_MENU;
+			break;
 
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-		// Colorbar
+			// Colorbar
 		case ('c') :
 		case ('C') :
-
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 			// The colorbar can only be displayed when the GT is not bonded.
-			if (!XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)){
+			if (!PLLBondedCheck()) {
+#endif
 				TxBusy = (FALSE);
 				EnableColorBar(&Vphy,
-					 &HdmiTxSs,
-					 HdmiTxSsVidStreamPtr->VmId,
-					 HdmiTxSsVidStreamPtr->ColorFormatId,
-					 HdmiTxSsVidStreamPtr->ColorDepth);
+							   &HdmiTxSs,
+							   HdmiTxSsVidStreamPtr->VmId,
+							   HdmiTxSsVidStreamPtr->ColorFormatId,
+							   HdmiTxSsVidStreamPtr->ColorDepth);
 				Menu = XHDMI_MAIN_MENU;
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 			}
+#endif
+			break;
 
-			else {
-				xil_printf("\r\nThe GT TX and RX are bonded and clocked by the RX clock.\r\n");
-				xil_printf("Please select independent PLL layout to enable TX only mode.\r\n");
-				Menu = XHDMI_MAIN_MENU;
-			}
-		break;
-
-		// Resolution
+			// Resolution
 		case ('r') :
 		case ('R') :
 
@@ -378,26 +408,25 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 			// Check if the TX only is active
 			if (!IsPassThrough) {
 
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 				// The colorbar resolution can only selected when the GT is not bonded.
-				if (!XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)){
+				if (!PLLBondedCheck()) {
+#endif
 					Menu = XHDMI_RESOLUTION_MENU;
 					XHdmi_DisplayResolutionMenu();
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 				}
-
-				else {
-					xil_printf("\r\nThe GT TX and RX are bonded and clocked by the RX clock.\r\n");
-					xil_printf("Please select independent PLL layout to enable TX only mode.\r\n");
-				}
+#endif
 			}
 
 			// Pass-through
 			else {
-					xil_printf("\r\nThe example design is in pass-through mode.\r\n");
-					xil_printf("In this mode the video parameters can't be changed.\r\n");
+				xil_printf("\r\nThe example design is in pass-through mode.\r\n");
+				xil_printf("In this mode the video parameters can't be changed.\r\n");
 			}
-		break;
+			break;
 
-		// Frame rate
+			// Frame rate
 		case ('f') :
 		case ('F') :
 
@@ -406,27 +435,25 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 
 			// Check if the TX only is active
 			if (!IsPassThrough) {
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 				// The frame rate can only be changed when the GT is not bonded.
-				if (!XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)){
+				if (!PLLBondedCheck()) {
+#endif
 					XHdmi_DisplayFrameRateMenu();
 					Menu = XHDMI_FRAMERATE_MENU;
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 				}
-
-				else {
-					xil_printf("\r\nThe GT TX and RX are bonded and clocked by the RX clock.\r\n");
-					xil_printf("The frame rate can only be changed when the colorbar is selected.\r\n");
-					xil_printf("Please select independent PLL layout to enable TX only mode.\r\n");
-				}
+#endif
 			}
 
 			// Pass-through
 			else {
-					xil_printf("\r\nThe example design is in pass-through mode.\r\n");
-					xil_printf("In this mode the video parameters can't be changed.\r\n");
+				xil_printf("\r\nThe example design is in pass-through mode.\r\n");
+				xil_printf("In this mode the video parameters can't be changed.\r\n");
 			}
-		break;
+			break;
 
-		// Color depth
+			// Color depth
 		case ('d') :
 		case ('D') :
 
@@ -435,27 +462,25 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 
 			// Check if the TX only is active
 			if (!IsPassThrough) {
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 				// The color depth can only be changed when the GT is not bonded.
-				if (!XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)){
+				if (!PLLBondedCheck()) {
+#endif
 					XHdmi_DisplayColorDepthMenu();
 					Menu = XHDMI_COLORDEPTH_MENU;
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 				}
-
-				else {
-					xil_printf("\r\nThe GT TX and RX are bonded and clocked by the RX clock.\r\n");
-					xil_printf("The color depth can only be changed when the colorbar is selected.\r\n");
-					xil_printf("Please select independent PLL layout to enable TX only mode.\r\n");
-				}
+#endif
 			}
 
 			// Pass-through
 			else {
-					xil_printf("\r\nThe example design is in pass-through mode.\r\n");
-					xil_printf("In this mode the video parameters can't be changed.\r\n");
+				xil_printf("\r\nThe example design is in pass-through mode.\r\n");
+				xil_printf("In this mode the video parameters can't be changed.\r\n");
 			}
-		break;
+			break;
 
-		// Color space
+			// Color space
 		case ('s') :
 		case ('S') :
 			// Default
@@ -463,38 +488,35 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 
 			// Check if the TX only is active
 			if (!IsPassThrough) {
-
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 				// The color depth can only be changed when the GT is not bonded.
-				if (!XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)){
+				if (!PLLBondedCheck()) {
+#endif
 					XHdmi_DisplayColorSpaceMenu();
 					Menu = XHDMI_COLORSPACE_MENU;
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 				}
-
-				else {
-					xil_printf("\r\nThe GT TX and RX are bonded and clocked by the RX clock.\r\n");
-					xil_printf("The color space can only be changed when the colorbar is selected.\r\n");
-					xil_printf("Please select independent PLL layout to enable TX only mode.\r\n");
-				}
+#endif
 			}
 
 			// Pass-through
 			else {
-					xil_printf("\r\nThe example design is in pass-through mode.\r\n");
-					xil_printf("In this mode the video parameters can't be changed.\r\n");
+				xil_printf("\r\nThe example design is in pass-through mode.\r\n");
+				xil_printf("In this mode the video parameters can't be changed.\r\n");
 			}
-		break;
+			break;
 #endif
 
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-		// GT PLL layout
+			// GT PLL layout
 		case ('l') :
 		case ('L') :
 			XHdmi_DisplayGtPllLayoutMenu();
 			Menu = XHDMI_GTPLLLAYOUT_MENU;
-		break;
+			break;
 #endif
 
-		// GT & HDMI TX/RX log
+			// GT & HDMI TX/RX log
 		case ('z') :
 		case ('Z') :
 			XVphy_LogDisplay(&Vphy);
@@ -502,53 +524,53 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 			XV_HdmiTxSs_LogDisplay(&HdmiTxSs);
 #endif
 			Menu = XHDMI_MAIN_MENU;
-		break;
+			break;
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-		// HDMI Mode
+			// HDMI Mode
 		case ('m') :
 		case ('M') :
-		    xil_printf("\r\nSet TX Mode To HDMI.\r\n");
-		    XV_HdmiTxSS_SetHdmiMode(&HdmiTxSs);
-		    XV_HdmiTxSs_AudioMute(&HdmiTxSs, FALSE);
+			xil_printf("\r\nSet TX Mode To HDMI.\r\n");
+			XV_HdmiTxSS_SetHdmiMode(&HdmiTxSs);
+			XV_HdmiTxSs_AudioMute(&HdmiTxSs, FALSE);
 			Menu = XHDMI_MAIN_MENU;
-		break;
+			break;
 
-		// DVI Mode
+			// DVI Mode
 		case ('n') :
 		case ('N') :
 			xil_printf("\r\nSet TX Mode To DVI .\r\n");
 			XV_HdmiTxSs_AudioMute(&HdmiTxSs, TRUE);
 			XV_HdmiTxSS_SetDviMode(&HdmiTxSs);
 			Menu = XHDMI_MAIN_MENU;
-		break;
+			break;
 #endif
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-		// Edid
+			// Edid
 		case ('e') :
 		case ('E') :
 			XHdmi_DisplayEdidMenu();
 			Menu = XHDMI_EDID_MENU;
-		break;
+			break;
 
-		// Audio
+			// Audio
 		case ('a') :
 		case ('A') :
 			XHdmi_DisplayAudioMenu();
 			Menu = XHDMI_AUDIO_MENU;
-		break;
+			break;
 
-		// Video
+			// Video
 		case ('v') :
 		case ('V') :
 			XHdmi_DisplayVideoMenu();
 			Menu = XHDMI_VIDEO_MENU;
-		break;
+			break;
 #endif
 
 #if defined(USE_HDCP)
-		// HDCP
+			// HDCP
 		case ('h') :
 		case ('H') :
 			/* Enable HDCP menu option when HDCP is ready */
@@ -556,13 +578,20 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 				XHdmi_DisplayHdcpMainMenu();
 				Menu = XHDMI_HDCP_MAIN_MENU;
 			}
-		break;
+			break;
+#endif
+#ifdef HDMI_DEBUG_TOOLS
+		case ('x') :
+		case ('X') :
+			XHdmi_DisplayDebugMainMenu();
+			Menu = XHDMI_DEBUG_MAIN_MENU;
+			break;
 #endif
 
 		default :
 			XHdmi_DisplayMainMenu();
 			Menu = XHDMI_MAIN_MENU;
-		break;
+			break;
 	}
 
 	return Menu;
@@ -581,8 +610,7 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 *
 *
 ******************************************************************************/
-void XHdmi_DisplayResolutionMenu(void)
-{
+void XHdmi_DisplayResolutionMenu(void) {
 	xil_printf("\r\n");
 	xil_printf("---------------------------\r\n");
 	xil_printf("---   RESOLUTION MENU   ---\r\n");
@@ -605,9 +633,13 @@ void XHdmi_DisplayResolutionMenu(void)
 	xil_printf("16 - 1680 x 1050p (WSXGA+ / CVT1660D)\r\n");
 	xil_printf("17 - 1600 x 1200p (UXGA / DMT1660)\r\n");
 	xil_printf("18 - 1920 x 1200p (WUXGA / CVT1960D)\r\n");
-    xil_printf("19 -  720 x 480i (NTSC)\r\n");
-    xil_printf("20 -  720 x 576i (PAL)\r\n");
-    xil_printf("21 - 3840 x 2160p (SB) (Custom)\r\n");
+#if (XPAR_XV_HDMITXSS_0_INCLUDE_LOW_RESO_VID == 1)
+	xil_printf("19 -  720 x 480i (NTSC)\r\n");
+	xil_printf("20 -  720 x 576i (PAL)\r\n");
+	xil_printf("21 - 3840 x 2160p (SB) (Custom)\r\n");
+#else
+	xil_printf("19 - 3840 x 2160p (SB) (Custom)\r\n");
+#endif
 	xil_printf("99 - Exit\r\n");
 	xil_printf("Enter Selection -> ");
 }
@@ -622,8 +654,7 @@ void XHdmi_DisplayResolutionMenu(void)
 * @return The next menu state.
 *
 ******************************************************************************/
-static XHdmi_MenuType XHdmi_ResolutionMenu(XHdmi_Menu *InstancePtr, u8 Input)
-{
+static XHdmi_MenuType XHdmi_ResolutionMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
 	XVidC_VideoMode	VideoMode;
@@ -633,121 +664,124 @@ static XHdmi_MenuType XHdmi_ResolutionMenu(XHdmi_Menu *InstancePtr, u8 Input)
 	VideoMode = XVIDC_VM_NO_INPUT;
 
 	switch (Input) {
-
-		// 720 x 480p
+			// 720 x 480p
 		case 1 :
 			VideoMode = XVIDC_VM_720x480_60_P;
 			break;
 
-		// 720  x 576p
+			// 720  x 576p
 		case 2 :
 			VideoMode = XVIDC_VM_720x576_50_P;
 			break;
 
-		// 1280 x 720p
+			// 1280 x 720p
 		case 3 :
 			VideoMode = XVIDC_VM_1280x720_60_P;
 			break;
 
-		// 1680 x 720p
+			// 1680 x 720p
 		case 4 :
 			VideoMode = XVIDC_VM_1680x720_60_P;
 			break;
 
-		// 1920 x 1080p
+			// 1920 x 1080p
 		case 5 :
 			VideoMode = XVIDC_VM_1920x1080_60_P;
 			break;
 
-		// 2560 x 1080p
+			// 2560 x 1080p
 		case 6 :
 			VideoMode = XVIDC_VM_2560x1080_60_P;
 			break;
 
-		// 3840 x 2160p
+			// 3840 x 2160p
 		case 7 :
 #if (XPAR_VID_PHY_CONTROLLER_TRANSCEIVER != XVPHY_GTPE2)
-            VideoMode = XVIDC_VM_3840x2160_60_P;
+			VideoMode = XVIDC_VM_3840x2160_60_P;
 #else
-            VideoMode = XVIDC_VM_3840x2160_30_P;
-#endif
-            break;
-
-        // 4096 x 2160p
-        case 8 :
-#if (XPAR_VID_PHY_CONTROLLER_TRANSCEIVER != XVPHY_GTPE2)
-            VideoMode = XVIDC_VM_4096x2160_60_P;
-#else
-            VideoMode = XVIDC_VM_4096x2160_30_P;
+			VideoMode = XVIDC_VM_3840x2160_30_P;
 #endif
 			break;
 
-		// 1920 x 1080i
+			// 4096 x 2160p
+		case 8 :
+#if (XPAR_VID_PHY_CONTROLLER_TRANSCEIVER != XVPHY_GTPE2)
+			VideoMode = XVIDC_VM_4096x2160_60_P;
+#else
+			VideoMode = XVIDC_VM_4096x2160_30_P;
+#endif
+			break;
+
+			// 1920 x 1080i
 		case 9 :
 			VideoMode = XVIDC_VM_1920x1080_60_I;
 			break;
 
-		// 640 x 480p (VGA)
+			// 640 x 480p (VGA)
 		case 10 :
 			VideoMode = XVIDC_VM_640x480_60_P;
 			break;
 
-		// 800 x 600p (SVGA)
+			// 800 x 600p (SVGA)
 		case 11 :
 			VideoMode = XVIDC_VM_800x600_60_P;
 			break;
 
-		//  1024 x 768p (XGA)
+			//  1024 x 768p (XGA)
 		case 12 :
 			VideoMode = XVIDC_VM_1024x768_60_P;
 			break;
 
-		// 1280 x 768p (WXGA)
+			// 1280 x 768p (WXGA)
 		case 13 :
 			VideoMode = XVIDC_VM_1280x768_60_P;
 			break;
 
-		// 1366 x 768p (WXGA+)
+			// 1366 x 768p (WXGA+)
 		case 14 :
 			VideoMode = XVIDC_VM_1366x768_60_P;
 			break;
 
-		// 1280 x 1024p (SXGA)
+			// 1280 x 1024p (SXGA)
 		case 15 :
 			VideoMode = XVIDC_VM_1280x1024_60_P;
 			break;
 
-		// 1680 x 1050p (WSXGA+)
+			// 1680 x 1050p (WSXGA+)
 		case 16 :
 			VideoMode = XVIDC_VM_1680x1050_60_P;
 			break;
 
-		// 1600 x 1200p (UXGA)
+			// 1600 x 1200p (UXGA)
 		case 17 :
 			VideoMode = XVIDC_VM_1600x1200_60_P;
 			break;
 
-		// 1920 x 1200p (WUXGA)
+			// 1920 x 1200p (WUXGA)
 		case 18 :
 			VideoMode = XVIDC_VM_1920x1200_60_P;
 			break;
+#if (XPAR_XV_HDMITXSS_0_INCLUDE_LOW_RESO_VID == 1)
+			// 720 x 480i (NTSC)
+		case 19 :
+			VideoMode = XVIDC_VM_1440x480_60_I;
+			break;
 
-        // 720 x 480i (NTSC)
-        case 19 :
-            VideoMode = XVIDC_VM_1440x480_60_I;
-            break;
+			// 720 x 576i (PAL)
+		case 20 :
+			VideoMode = XVIDC_VM_1440x576_50_I;
+			break;
 
-        // 720 x 576i (PAL)
-        case 20 :
-            VideoMode = XVIDC_VM_1440x576_50_I;
-            break;
-
-		//3840 x 2160p (SB) (Custom)
+			//3840 x 2160p (SB) (Custom)
 		case 21 :
 			VideoMode = XVIDC_VM_3840x2160_30_P_SB;
 			break;
-
-		// Exit
+#else
+		case 19 :
+			VideoMode = XVIDC_VM_3840x2160_30_P_SB;
+			break;
+#endif
+			// Exit
 		case 99 :
 			xil_printf("Returning to main menu.\r\n");
 			Menu = XHDMI_MAIN_MENU;
@@ -780,8 +814,7 @@ static XHdmi_MenuType XHdmi_ResolutionMenu(XHdmi_Menu *InstancePtr, u8 Input)
 *
 *
 ******************************************************************************/
-void XHdmi_DisplayFrameRateMenu(void)
-{
+void XHdmi_DisplayFrameRateMenu(void) {
 	xil_printf("\r\n");
 	xil_printf("---------------------------\r\n");
 	xil_printf("---   FRAME RATE MENU   ---\r\n");
@@ -807,8 +840,7 @@ void XHdmi_DisplayFrameRateMenu(void)
 * @return The next menu state.
 *
 ******************************************************************************/
-static XHdmi_MenuType XHdmi_FrameRateMenu(XHdmi_Menu *InstancePtr, u8 Input)
-{
+static XHdmi_MenuType XHdmi_FrameRateMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
 	XVidC_FrameRate FrameRate;
@@ -819,42 +851,42 @@ static XHdmi_MenuType XHdmi_FrameRateMenu(XHdmi_Menu *InstancePtr, u8 Input)
 
 	switch (Input) {
 
-		// 24 Hz
+			// 24 Hz
 		case 1 :
 			FrameRate = XVIDC_FR_24HZ;
 			break;
 
-		// 25 Hz
+			// 25 Hz
 		case 2 :
 			FrameRate = XVIDC_FR_25HZ;
 			break;
 
-		// 30 Hz
+			// 30 Hz
 		case 3 :
 			FrameRate = XVIDC_FR_30HZ;
 			break;
 
-		// 50 Hz
+			// 50 Hz
 		case 4 :
 			FrameRate = XVIDC_FR_50HZ;
 			break;
 
-		// 60 Hz
+			// 60 Hz
 		case 5 :
 			FrameRate = XVIDC_FR_60HZ;
 			break;
 
-		// 100 Hz
+			// 100 Hz
 		case 6 :
 			FrameRate = XVIDC_FR_100HZ;
 			break;
 
-		// 120 Hz
+			// 120 Hz
 		case 7 :
 			FrameRate = XVIDC_FR_120HZ;
 			break;
 
-		// Exit
+			// Exit
 		case 99 :
 			xil_printf("Returning to main menu.\r\n");
 			Menu = XHDMI_MAIN_MENU;
@@ -885,20 +917,19 @@ static XHdmi_MenuType XHdmi_FrameRateMenu(XHdmi_Menu *InstancePtr, u8 Input)
 *
 *
 ******************************************************************************/
-void XHdmi_DisplayColorDepthMenu(void)
-{
+void XHdmi_DisplayColorDepthMenu(void) {
 	XVidC_VideoStream *VidStrPtr;
 
 	/* Check if TX is running at max resolution */
 	VidStrPtr = XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
 #if (XPAR_VID_PHY_CONTROLLER_TRANSCEIVER != XVPHY_GTPE2)
-		if (((VidStrPtr->VmId == XVIDC_VM_3840x2160_60_P) ||
-		    (VidStrPtr->VmId == XVIDC_VM_4096x2160_60_P)) &&
+	if (((VidStrPtr->VmId == XVIDC_VM_3840x2160_60_P) ||
+			(VidStrPtr->VmId == XVIDC_VM_4096x2160_60_P)) &&
 #else
-		if (((VidStrPtr->VmId == XVIDC_VM_3840x2160_30_P) ||
-		    (VidStrPtr->VmId == XVIDC_VM_4096x2160_30_P)) &&
+	if (((VidStrPtr->VmId == XVIDC_VM_3840x2160_30_P) ||
+			(VidStrPtr->VmId == XVIDC_VM_4096x2160_30_P)) &&
 #endif
-		    ((VidStrPtr->ColorFormatId == XVIDC_CSF_RGB) ||
+			((VidStrPtr->ColorFormatId == XVIDC_CSF_RGB) ||
 			 (VidStrPtr->ColorFormatId == XVIDC_CSF_YCRCB_444))) {
 		xil_printf("Only 8 BPC is supported for the current resolution ");
 		xil_printf("and colorspace.\r\n");
@@ -927,8 +958,7 @@ void XHdmi_DisplayColorDepthMenu(void)
 * @return The next menu state.
 *
 ******************************************************************************/
-static XHdmi_MenuType XHdmi_ColorDepthMenu(XHdmi_Menu *InstancePtr, u8 Input)
-{
+static XHdmi_MenuType XHdmi_ColorDepthMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
 	XVidC_ColorDepth ColorDepth;
@@ -937,14 +967,14 @@ static XHdmi_MenuType XHdmi_ColorDepthMenu(XHdmi_Menu *InstancePtr, u8 Input)
 	/* Check if TX is running at max resolution */
 	VidStrPtr = XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
 #if (XPAR_VID_PHY_CONTROLLER_TRANSCEIVER != XVPHY_GTPE2)
-		if(((VidStrPtr->VmId == XVIDC_VM_3840x2160_60_P) ||
-		    (VidStrPtr->VmId == XVIDC_VM_4096x2160_60_P)) &&
+	if(((VidStrPtr->VmId == XVIDC_VM_3840x2160_60_P) ||
+			(VidStrPtr->VmId == XVIDC_VM_4096x2160_60_P)) &&
 #else
-		if(((VidStrPtr->VmId == XVIDC_VM_3840x2160_30_P) ||
-		    (VidStrPtr->VmId == XVIDC_VM_4096x2160_30_P)) &&
+	if(((VidStrPtr->VmId == XVIDC_VM_3840x2160_30_P) ||
+			(VidStrPtr->VmId == XVIDC_VM_4096x2160_30_P)) &&
 #endif
-		   ((VidStrPtr->ColorFormatId == XVIDC_CSF_RGB) ||
-			(VidStrPtr->ColorFormatId == XVIDC_CSF_YCRCB_444))) {
+			((VidStrPtr->ColorFormatId == XVIDC_CSF_RGB) ||
+			 (VidStrPtr->ColorFormatId == XVIDC_CSF_YCRCB_444))) {
 		xil_printf("Returning to main menu.\r\n");
 		return XHDMI_MAIN_MENU;
 	}
@@ -955,28 +985,27 @@ static XHdmi_MenuType XHdmi_ColorDepthMenu(XHdmi_Menu *InstancePtr, u8 Input)
 	Menu = XHDMI_COLORDEPTH_MENU;
 
 	switch (Input) {
-
-		// 24 bpp
+			// 24 bpp
 		case 1 :
 			ColorDepth = XVIDC_BPC_8;
 			break;
 
-		// 30 bpp
+			// 30 bpp
 		case 2 :
 			ColorDepth = XVIDC_BPC_10;
 			break;
 
-		// 36 bpp
+			// 36 bpp
 		case 3 :
 			ColorDepth = XVIDC_BPC_12;
 			break;
 
-		// 48 bpp
+			// 48 bpp
 		case 4 :
 			ColorDepth = XVIDC_BPC_16;
 			break;
 
-		// Exit
+			// Exit
 		case 99 :
 			xil_printf("Returning to main menu.\r\n");
 			Menu = XHDMI_MAIN_MENU;
@@ -1007,8 +1036,7 @@ static XHdmi_MenuType XHdmi_ColorDepthMenu(XHdmi_Menu *InstancePtr, u8 Input)
 *
 *
 ******************************************************************************/
-void XHdmi_DisplayColorSpaceMenu(void)
-{
+void XHdmi_DisplayColorSpaceMenu(void) {
 	xil_printf("\r\n");
 	xil_printf("----------------------------\r\n");
 	xil_printf("---   COLOR SPACE MENU   ---\r\n");
@@ -1016,7 +1044,9 @@ void XHdmi_DisplayColorSpaceMenu(void)
 	xil_printf("  1 - RGB\r\n");
 	xil_printf("  2 - YUV444\r\n");
 	xil_printf("  3 - YUV422\r\n");
+#if (XPAR_XV_HDMITXSS_0_INCLUDE_YUV420_SUP == 1)
 	xil_printf("  4 - YUV420\r\n");
+#endif
 	xil_printf(" 99 - Exit\r\n");
 	xil_printf("Enter Selection -> ");
 }
@@ -1031,8 +1061,7 @@ void XHdmi_DisplayColorSpaceMenu(void)
 * @return The next menu state.
 *
 ******************************************************************************/
-static XHdmi_MenuType XHdmi_ColorSpaceMenu(XHdmi_Menu *InstancePtr, u8 Input)
-{
+static XHdmi_MenuType XHdmi_ColorSpaceMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
 	XVidC_ColorFormat ColorFormat;
@@ -1042,28 +1071,27 @@ static XHdmi_MenuType XHdmi_ColorSpaceMenu(XHdmi_Menu *InstancePtr, u8 Input)
 	Menu = XHDMI_COLORSPACE_MENU;
 
 	switch (Input) {
-
-		// RGB
+			// RGB
 		case 1 :
 			ColorFormat = XVIDC_CSF_RGB;
 			break;
 
-		// YUV444
+			// YUV444
 		case 2 :
 			ColorFormat = XVIDC_CSF_YCRCB_444;
 			break;
 
-		// YUV422
+			// YUV422
 		case 3 :
 			ColorFormat = XVIDC_CSF_YCRCB_422;
 			break;
-
-		// YUV420
+#if (XPAR_XV_HDMITXSS_0_INCLUDE_YUV420_SUP == 1)
+			// YUV420
 		case 4 :
 			ColorFormat = XVIDC_CSF_YCRCB_420;
 			break;
-
-		// Exit
+#endif
+			// Exit
 		case 99 :
 			xil_printf("Returning to main menu.\r\n");
 			Menu = XHDMI_MAIN_MENU;
@@ -1076,7 +1104,7 @@ static XHdmi_MenuType XHdmi_ColorSpaceMenu(XHdmi_Menu *InstancePtr, u8 Input)
 	}
 
 	if (ColorFormat != XVIDC_CSF_UNKNOWN) {
-	UpdateColorFormat(&Vphy, &HdmiTxSs, ColorFormat);
+		UpdateColorFormat(&Vphy, &HdmiTxSs, ColorFormat);
 		InstancePtr->WaitForColorbar = (TRUE);
 	}
 
@@ -1096,8 +1124,7 @@ static XHdmi_MenuType XHdmi_ColorSpaceMenu(XHdmi_Menu *InstancePtr, u8 Input)
 *
 *
 ******************************************************************************/
-void XHdmi_DisplayGtPllLayoutMenu(void)
-{
+void XHdmi_DisplayGtPllLayoutMenu(void) {
 	xil_printf("\r\n");
 	xil_printf("------------------------------\r\n");
 	xil_printf("---   GT PLL LAYOUT MENU   ---\r\n");
@@ -1144,8 +1171,7 @@ void XHdmi_DisplayGtPllLayoutMenu(void)
 * @return The next menu state.
 *
 ******************************************************************************/
-static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
-{
+static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
 	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
@@ -1158,7 +1184,7 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 
 	switch (Input) {
 
-		// RX => QPLL / TX => CPLL
+			// RX => QPLL / TX => CPLL
 		case 1 :
 			xil_printf("Setting TX => CPLL\r\n\r\n");
 			TxSysPllSelect = XVPHY_SYSCLKSELDATA_TYPE_CPLL_OUTCLK;
@@ -1166,7 +1192,7 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 			IsValid = TRUE;
 			break;
 
-		// RX => CPLL / TX => QPLL
+			// RX => CPLL / TX => QPLL
 		case 2 :
 			xil_printf("Setting TX => QPLL\r\n\r\n");
 			TxSysPllSelect = XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK;
@@ -1175,7 +1201,7 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 			break;
 
 
-		// Exit
+			// Exit
 		case 99 :
 			xil_printf("Returning to main menu.\r\n");
 			Menu = XHDMI_MAIN_MENU;
@@ -1199,23 +1225,22 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 			// Get current video stream
 			HdmiTxSsVidStreamPtr = XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
 			EnableColorBar(&Vphy,
-				 &HdmiTxSs,
-				 HdmiTxSsVidStreamPtr->VmId,
-				 HdmiTxSsVidStreamPtr->ColorFormatId,
-				 HdmiTxSsVidStreamPtr->ColorDepth);
+						   &HdmiTxSs,
+						   HdmiTxSsVidStreamPtr->VmId,
+						   HdmiTxSsVidStreamPtr->ColorFormatId,
+						   HdmiTxSsVidStreamPtr->ColorDepth);
 			// Reset TX frequency detector
 			XVphy_ClkDetFreqReset(&Vphy, 0,	XVPHY_DIR_TX);
 		}
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 
 		// Re-start colorbar
-		else
-		{
-		  EnableColorBar(&Vphy,
-						 &HdmiTxSs,
-						 XVIDC_VM_1920x1080_60_P,
-						 XVIDC_CSF_RGB,
-						 XVIDC_BPC_8);
+		else {
+			EnableColorBar(&Vphy,
+						   &HdmiTxSs,
+						   XVIDC_VM_1920x1080_60_P,
+						   XVIDC_CSF_RGB,
+						   XVIDC_BPC_8);
 			InstancePtr->WaitForColorbar = (TRUE);
 		}
 #endif
@@ -1242,9 +1267,10 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 *
 *
 ******************************************************************************/
-void XHdmi_DisplayEdidMenu(void)
-{
+void XHdmi_DisplayEdidMenu(void) {
 	xil_printf("\r\n");
+	SinkCapabilityCheck(&EdidHdmi20_t);
+	SinkCapWarningMsg(&EdidHdmi20_t);
 	xil_printf("---------------------\r\n");
 	xil_printf("---   EDID MENU   ---\r\n");
 	xil_printf("---------------------\r\n");
@@ -1263,25 +1289,28 @@ void XHdmi_DisplayEdidMenu(void)
 * @return The next menu state.
 *
 ******************************************************************************/
-static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input)
-{
+static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
+	u8 Buffer[256];
 
 	// Default
 	Menu = XHDMI_EDID_MENU;
-
 	switch (Input) {
 
-		// Show source edid
+			// Show source edid
 		case 1 :
 			XV_HdmiTxSs_ShowEdid(&HdmiTxSs);
+			// Read TX edid
+			xil_printf("\r\n");
+			XV_HdmiTxSs_ReadEdid(&HdmiTxSs, (u8*)&Buffer);
+			XV_VidC_parse_edid((u8*)&Buffer, &EdidCtrlParam, XVIDC_VERBOSE_ENABLE);
 			// Display the prompt for the next input
 			xil_printf("Enter Selection -> ");
 			break;
 
 
-		// Exit
+			// Exit
 		case 99 :
 			xil_printf("Returning to main menu.\r\n");
 			Menu = XHDMI_MAIN_MENU;
@@ -1308,8 +1337,7 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input)
 *
 *
 ******************************************************************************/
-void XHdmi_DisplayVideoMenu(void)
-{
+void XHdmi_DisplayVideoMenu(void) {
 	xil_printf("\r\n");
 	xil_printf("----------------------\r\n");
 	xil_printf("---   VIDEO MENU   ---\r\n");
@@ -1354,8 +1382,7 @@ void XHdmi_DisplayVideoMenu(void)
 * @return The next menu state.
 *
 ******************************************************************************/
-static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input)
-{
+static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
 	XTpg_PatternId NewPattern;
@@ -1369,64 +1396,64 @@ static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input)
 
 	switch (Input) {
 		case 1 :
-		  NewPattern = XTPG_BKGND_COLOR_BARS;
-		  xil_printf("Colorbars\r\n");
-		  break;
+			NewPattern = XTPG_BKGND_COLOR_BARS;
+			xil_printf("Colorbars\r\n");
+			break;
 
 		case 2 :
-		  NewPattern = XTPG_BKGND_SOLID_RED;
-		  xil_printf("Solid red\r\n");
-		  break;
+			NewPattern = XTPG_BKGND_SOLID_RED;
+			xil_printf("Solid red\r\n");
+			break;
 
 		case 3 :
-		  NewPattern = XTPG_BKGND_SOLID_GREEN;
-		  xil_printf("Solid green\r\n");
-		  break;
+			NewPattern = XTPG_BKGND_SOLID_GREEN;
+			xil_printf("Solid green\r\n");
+			break;
 
 		case 4 :
-		  NewPattern = XTPG_BKGND_SOLID_BLUE;
-		  xil_printf("Solid blue\r\n");
-		  break;
+			NewPattern = XTPG_BKGND_SOLID_BLUE;
+			xil_printf("Solid blue\r\n");
+			break;
 
 		case 5 :
-		  NewPattern = XTPG_BKGND_SOLID_BLACK;
-		  xil_printf("Solid black\r\n");
-		  break;
+			NewPattern = XTPG_BKGND_SOLID_BLACK;
+			xil_printf("Solid black\r\n");
+			break;
 
 		case 6 :
-		  NewPattern = XTPG_BKGND_SOLID_WHITE;
-		  xil_printf("Solid white\r\n");
-		  break;
+			NewPattern = XTPG_BKGND_SOLID_WHITE;
+			xil_printf("Solid white\r\n");
+			break;
 
 		case 7 :
-		  NewPattern = XTPG_BKGND_H_RAMP;
-		  xil_printf("Horizontal ramp\r\n");
-		  break;
+			NewPattern = XTPG_BKGND_H_RAMP;
+			xil_printf("Horizontal ramp\r\n");
+			break;
 
 		case 8 :
-		  NewPattern = XTPG_BKGND_V_RAMP;
-		  xil_printf("Vertical ramp\r\n");
-		  break;
+			NewPattern = XTPG_BKGND_V_RAMP;
+			xil_printf("Vertical ramp\r\n");
+			break;
 
 		case 9 :
-		  NewPattern = XTPG_BKGND_RAINBOW_COLOR;
-		  xil_printf("Rainbow colors\r\n");
-		  break;
+			NewPattern = XTPG_BKGND_RAINBOW_COLOR;
+			xil_printf("Rainbow colors\r\n");
+			break;
 
 		case 10 :
-		  NewPattern = XTPG_BKGND_CHECKER_BOARD;
-		  xil_printf("Checker board\r\n");
-		  break;
+			NewPattern = XTPG_BKGND_CHECKER_BOARD;
+			xil_printf("Checker board\r\n");
+			break;
 
 		case 11 :
-		  NewPattern = XTPG_BKGND_CROSS_HATCH;
-		  xil_printf("Cross hatch\r\n");
-		  break;
+			NewPattern = XTPG_BKGND_CROSS_HATCH;
+			xil_printf("Cross hatch\r\n");
+			break;
 
 		case 12 :
-		  NewPattern = XTPG_BKGND_PBRS;
-		  xil_printf("Noise\r\n");
-		  break;
+			NewPattern = XTPG_BKGND_PBRS;
+			xil_printf("Noise\r\n");
+			break;
 
 		case 13:
 			xil_printf("Set Video to Static Black (Video Mask).\r\n");
@@ -1458,7 +1485,7 @@ static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input)
 			XV_HdmiTxSS_SetBackgroundColor(&HdmiTxSs, XV_BKGND_NOISE);
 			break;
 
-		// Exit
+			// Exit
 		case 99 :
 			xil_printf("Returning to main menu.\r\n");
 			Menu = XHDMI_MAIN_MENU;
@@ -1472,14 +1499,14 @@ static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input)
 
 
 	if (NewPattern != XTPG_BKGND_LAST) {
-		 /* Set video pattern */
-		 Pattern = NewPattern;
-		  /* Start TPG */
-		 xil_printf("new pattern\r\n");
-		  XV_ConfigTpg(&Tpg);
-		  XV_HdmiTxSS_MaskDisable(&HdmiTxSs);
-		  xil_printf("Enter Selection -> ");
-	 }
+		/* Set video pattern */
+		Pattern = NewPattern;
+		/* Start TPG */
+		xil_printf("new pattern\r\n");
+		XV_ConfigTpg(&Tpg);
+		XV_HdmiTxSS_MaskDisable(&HdmiTxSs);
+		xil_printf("Enter Selection -> ");
+	}
 
 	return Menu;
 }
@@ -1495,14 +1522,14 @@ static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input)
 *
 *
 ******************************************************************************/
-void XHdmi_DisplayAudioMenu(void)
-{
+void XHdmi_DisplayAudioMenu(void) {
 	xil_printf("\r\n");
 	xil_printf("----------------------\r\n");
 	xil_printf("---   AUDIO MENU   ---\r\n");
 	xil_printf("----------------------\r\n");
 	xil_printf("  1 - Mute audio.\r\n");
 	xil_printf("  2 - Unmute audio.\r\n");
+	xil_printf("  3 - Configure audio channels.\r\n");
 	xil_printf(" 99 - Exit\r\n");
 	xil_printf("Enter Selection -> ");
 }
@@ -1510,15 +1537,14 @@ void XHdmi_DisplayAudioMenu(void)
 /*****************************************************************************/
 /**
 *
-* This function implements the HDMI audio enu state.
+* This function implements the HDMI audio menu state.
 *
 * @param input is the value used for the next menu state decoder.
 *
 * @return The next menu state.
 *
 ******************************************************************************/
-static XHdmi_MenuType XHdmi_AudioMenu(XHdmi_Menu *InstancePtr, u8 Input)
-{
+static XHdmi_MenuType XHdmi_AudioMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
 
@@ -1526,32 +1552,130 @@ static XHdmi_MenuType XHdmi_AudioMenu(XHdmi_Menu *InstancePtr, u8 Input)
 	Menu = XHDMI_AUDIO_MENU;
 
 	switch (Input) {
-
-		// Mute
+			// Mute
 		case 1 :
-			xil_printf("Mute audio.\r\n");
+			xil_printf("\r\nMute audio.\r\n");
 			XV_HdmiTxSs_AudioMute(&HdmiTxSs, TRUE);
 			// Display the prompt for the next input
 			xil_printf("Enter Selection -> ");
 			break;
 
-		// Unmute
+			// Unmute
 		case 2 :
-			xil_printf("Unmute audio.\r\n");
+			xil_printf("\r\nUnmute audio.\r\n");
 			XV_HdmiTxSs_AudioMute(&HdmiTxSs, FALSE);
 			// Display the prompt for the next input
 			xil_printf("Enter Selection -> ");
 			break;
 
-		// Exit
+			// Audio channels
+		case 3 :
+			xil_printf("\r\nDisplay Audio Channels menu.\r\n");
+			XHdmi_DisplayAudioChannelMenu();
+			Menu = XHDMI_AUDIO_CHANNEL_MENU;
+			break;
+
+			// Exit
 		case 99 :
-			xil_printf("Returning to main menu.\r\n");
+			xil_printf("\r\nReturning to main menu.\r\n");
 			Menu = XHDMI_MAIN_MENU;
 			break;
 
 		default :
-			xil_printf("Unknown option\r\n");
+			xil_printf("\r\nUnknown option\r\n");
 			XHdmi_DisplayAudioMenu();
+			break;
+	}
+
+	return Menu;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function displays the audio channel menu.
+*
+* @param None
+*
+* @return None
+*
+*
+******************************************************************************/
+void XHdmi_DisplayAudioChannelMenu(void) {
+	xil_printf("\r\n");
+	xil_printf("----------------------\r\n");
+	xil_printf("- AUDIO CHANNEL MENU -\r\n");
+	xil_printf("----------------------\r\n");
+	xil_printf("  1 - 2 Audio Channels.\r\n");
+	xil_printf("  2 - 8 Audio Channels.\r\n");
+	xil_printf(" 99 - Exit\r\n");
+	xil_printf("Enter Selection -> ");
+}
+
+/*****************************************************************************/
+/**
+*
+* This function implements the HDMI audio channel menu state.
+*
+* @param input is the value used for the next menu state decoder.
+*
+* @return The next menu state.
+*
+******************************************************************************/
+static XHdmi_MenuType XHdmi_AudioChannelMenu(XHdmi_Menu *InstancePtr, u8 Input) {
+	// Variables
+	XHdmi_MenuType 	Menu;
+	XHdmiC_AudioInfoFrame *AudioInfoframePtr;
+
+	AudioInfoframePtr = XV_HdmiTxSs_GetAudioInfoframe(&HdmiTxSs);
+
+	// Default
+	Menu = XHDMI_AUDIO_CHANNEL_MENU;
+
+	switch (Input) {
+			// 2 Audio Channels
+		case 1 :
+			print("\r\n2 Audio Channels.\r\n");
+			XhdmiAudGen_SetEnabChannels(&AudioGen, 2);
+			XhdmiAudGen_SetPattern(&AudioGen, 1, XAUD_PAT_SINE);
+			XhdmiAudGen_SetPattern(&AudioGen, 2, XAUD_PAT_PING);
+			XV_HdmiTxSs_SetAudioChannels(&HdmiTxSs, 2);
+			// Refer to CEA-861-D for Audio InfoFrame Channel Allocation
+			// - - - - - - FR FL
+			AudioInfoframePtr->ChannelAllocation = 0x0;
+			// Display the prompt for the next input
+			xil_printf("Enter Selection -> ");
+			break;
+
+			// 8 Audio Channels
+		case 2 :
+			print("\r\n8 Audio Channels.\r\n");
+			XhdmiAudGen_SetEnabChannels(&AudioGen, 8);
+			XhdmiAudGen_SetPattern(&AudioGen, 1, XAUD_PAT_SINE);
+			XhdmiAudGen_SetPattern(&AudioGen, 2, XAUD_PAT_PING);
+			XhdmiAudGen_SetPattern(&AudioGen, 3, XAUD_PAT_RAMP);
+			XhdmiAudGen_SetPattern(&AudioGen, 4, XAUD_PAT_SINE);
+			XhdmiAudGen_SetPattern(&AudioGen, 5, XAUD_PAT_PING);
+			XhdmiAudGen_SetPattern(&AudioGen, 6, XAUD_PAT_RAMP);
+			XhdmiAudGen_SetPattern(&AudioGen, 7, XAUD_PAT_SINE);
+			XhdmiAudGen_SetPattern(&AudioGen, 8, XAUD_PAT_PING);
+			XV_HdmiTxSs_SetAudioChannels(&HdmiTxSs, 8);
+			// Refer to CEA-861-D for Audio InfoFrame Channel Allocation
+			// RRC RLC RR RL FC LFE FR FL
+			AudioInfoframePtr->ChannelAllocation = 0x13;
+			// Display the prompt for the next input
+			xil_printf("Enter Selection -> ");
+			break;
+
+			// Exit
+		case 99 :
+			xil_printf("\r\nReturning to audio menu.\r\n");
+			Menu = XHDMI_AUDIO_MENU;
+			break;
+
+		default :
+			xil_printf("\r\nUnknown option\r\n");
+			XHdmi_DisplayAudioChannelMenu();
 			break;
 	}
 
@@ -1571,8 +1695,7 @@ static XHdmi_MenuType XHdmi_AudioMenu(XHdmi_Menu *InstancePtr, u8 Input)
 * @return None
 *
 ******************************************************************************/
-void XHdmi_DisplayHdcpMainMenu(void)
-{
+void XHdmi_DisplayHdcpMainMenu(void) {
 	xil_printf("\r\n");
 	xil_printf("--------------------------\r\n");
 	xil_printf("---   HDCP Main Menu   ---\r\n");
@@ -1598,8 +1721,7 @@ void XHdmi_DisplayHdcpMainMenu(void)
 * @return The next menu state.
 *
 ******************************************************************************/
-static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input)
-{
+static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
 
@@ -1612,7 +1734,7 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 	switch (Input) {
 
 
-		/* 1 - Enable detailed logging */
+			/* 1 - Enable detailed logging */
 		case 1 :
 			xil_printf("Enable detailed logging.\r\n");
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -1620,7 +1742,7 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 #endif
 			break;
 
-		/* 2 - Disable detailed logging */
+			/* 2 - Disable detailed logging */
 		case 2 :
 			xil_printf("Disable detailed logging.\r\n");
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -1628,7 +1750,7 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 #endif
 			break;
 
-		/* 3 - Display log */
+			/* 3 - Display log */
 		case 3 :
 			xil_printf("Display log.\r\n");
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -1636,20 +1758,20 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 #endif
 			break;
 
-		/* 4 - Display repeater info */
+			/* 4 - Display repeater info */
 		case 4 :
 			xil_printf("Display info.\r\n");
 			XHdcp_DisplayInfo(&HdcpRepeater, TRUE);
 			break;
 
-		/* 5 - HDCP Debug Menu */
+			/* 5 - HDCP Debug Menu */
 		case 5 :
 			xil_printf("Display HDCP Debug menu.\r\n");
 			XHdmi_DisplayHdcpDebugMenu();
 			Menu = XHDMI_HDCP_DEBUG_MENU;
 			break;
 
-		// Exit
+			// Exit
 		case 99 :
 			xil_printf("Returning to main menu.\r\n");
 			Menu = XHDMI_MAIN_MENU;
@@ -1675,8 +1797,7 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 * @return None
 *
 ******************************************************************************/
-void XHdmi_DisplayHdcpDebugMenu(void)
-{
+void XHdmi_DisplayHdcpDebugMenu(void) {
 	xil_printf("\r\n");
 	xil_printf("--------------------------\r\n");
 	xil_printf("---   HDCP Debug Menu   ---\r\n");
@@ -1701,8 +1822,7 @@ void XHdmi_DisplayHdcpDebugMenu(void)
 * @return The next menu state.
 *
 ******************************************************************************/
-static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input)
-{
+static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
 
@@ -1715,42 +1835,42 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input)
 	switch (Input) {
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-		/* 1 - Set downstream capability to none */
+			/* 1 - Set downstream capability to none */
 		case 1:
 			xil_printf("Set downstream capability to none.\r\n");
 			XHdcp_SetDownstreamCapability(&HdcpRepeater, XV_HDMITXSS_HDCP_NONE);
 			break;
 
-		/* 2 - Set downstream capability to 1.4 */
+			/* 2 - Set downstream capability to 1.4 */
 		case 2:
 			xil_printf("Set downstream capability to 1.4\r\n");
 			XHdcp_SetDownstreamCapability(&HdcpRepeater, XV_HDMITXSS_HDCP_14);
 			break;
 
-		/* 3 - Set downstream capability to 2.2 */
+			/* 3 - Set downstream capability to 2.2 */
 		case 3:
 			xil_printf("Set downstream capability to 2.2\r\n");
 			XHdcp_SetDownstreamCapability(&HdcpRepeater, XV_HDMITXSS_HDCP_22);
 			break;
 
-		/* 4 - Set downstream capability to both */
+			/* 4 - Set downstream capability to both */
 		case 4:
 			xil_printf("Set downstream capability to both\r\n");
 			XHdcp_SetDownstreamCapability(&HdcpRepeater, XV_HDMITXSS_HDCP_BOTH);
 			break;
 
-		/* 5 - Toggle downstream content blocking */
+			/* 5 - Toggle downstream content blocking */
 		case 5:
 			HdcpRepeater.EnforceBlocking = !(HdcpRepeater.EnforceBlocking);
-               if (HdcpRepeater.EnforceBlocking) {
-			  xil_printf("Enable downstream content blocking\r\n");
-               } else {
-			  xil_printf("Disable downstream content blocking\r\n");
-               }
+			if (HdcpRepeater.EnforceBlocking) {
+				xil_printf("Enable downstream content blocking\r\n");
+			} else {
+				xil_printf("Disable downstream content blocking\r\n");
+			}
 			break;
 #endif
 
-		// Exit
+			// Exit
 		case 99 :
 			xil_printf("Returning to main menu.\r\n");
 			Menu = XHDMI_HDCP_MAIN_MENU;
@@ -1761,6 +1881,77 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input)
 			XHdmi_DisplayHdcpDebugMenu();
 			break;
 	}
+	return Menu;
+}
+#endif
+
+#ifdef HDMI_DEBUG_TOOLS
+/*****************************************************************************/
+/**
+*
+* This function displays the debug menu.
+*
+* @param None
+*
+* @return None
+*
+*
+******************************************************************************/
+static void XHdmi_DisplayDebugMainMenu(void) {
+	xil_printf("\r\n");
+	xil_printf("----------------------\r\n");
+	xil_printf("---   DEBUG MENU   ---\r\n");
+	xil_printf("----------------------\r\n");
+	xil_printf("  1 - Enable Scrambler.\r\n");
+	xil_printf("  2 - Disable Scrambler.\r\n");
+	xil_printf(" 99 - Exit\r\n");
+	xil_printf("Enter Selection -> ");
+}
+
+/*****************************************************************************/
+/**
+*
+* This function implements the HDMI debug menu state.
+*
+* @param input is the value used for the next menu state decoder.
+*
+* @return The next menu state.
+*
+******************************************************************************/
+static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
+	// Variables
+	XHdmi_MenuType 	Menu;
+
+	// Default
+	Menu = XHDMI_DEBUG_MAIN_MENU;
+
+	switch (Input) {
+		case 1 :
+//			xil_printf("\r\n???\r\n");
+			XV_HdmiTxSs_SetScrambler(&HdmiTxSs, TRUE);
+			// Display the prompt for the next input
+			xil_printf("Enter Selection -> ");
+			break;
+
+		case 2 :
+//			xil_printf("\r\n???\r\n");
+			XV_HdmiTxSs_SetScrambler(&HdmiTxSs, FALSE);
+			// Display the prompt for the next input
+			xil_printf("Enter Selection -> ");
+			break;
+
+			// Exit
+		case 99 :
+			xil_printf("\r\nReturning to main menu.\r\n");
+			Menu = XHDMI_MAIN_MENU;
+			break;
+
+		default :
+			xil_printf("\r\nUnknown option\r\n");
+			XHdmi_DisplayDebugMainMenu();
+			break;
+	}
+
 	return Menu;
 }
 #endif
@@ -1777,66 +1968,73 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input)
 * @return None
 *
 ******************************************************************************/
-void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr)
-{
+void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 	u8 Data;
 
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
 	if ((InstancePtr->WaitForColorbar) && (!TxBusy)) {
 		InstancePtr->WaitForColorbar = (FALSE);
+		xil_printf("Enter Selection -> ");
+	}
+#else
 	xil_printf("Enter Selection -> ");
-    }
+#endif	
 
 	// Check if the uart has any data
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
 	else if (!XUartLite_IsReceiveEmpty(InstancePtr->UartBaseAddress)) {
+#else
+	if (!XUartLite_IsReceiveEmpty(InstancePtr->UartBaseAddress)) {
+#endif	
 
 		// Read data from uart
-	Data = XUartLite_RecvByte(InstancePtr->UartBaseAddress);
+		Data = XUartLite_RecvByte(InstancePtr->UartBaseAddress);
 #else
-        else if (XUartPs_IsReceiveData(InstancePtr->UartBaseAddress)) {
+	else if (XUartPs_IsReceiveData(InstancePtr->UartBaseAddress)) {
 
 		// Read data from uart
 		Data = XUartPs_RecvByte(InstancePtr->UartBaseAddress);
 #endif
-	// Main menu
+		// Main menu
 		if (InstancePtr->CurrentMenu == XHDMI_MAIN_MENU) {
 			InstancePtr->CurrentMenu = XHdmi_MenuTable[InstancePtr->CurrentMenu](InstancePtr, Data);
-		    InstancePtr->Value = 0;
+			InstancePtr->Value = 0;
 		}
 
 		// Sub menu
 		else {
 
-		// Send response to user
+			// Send response to user
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
-		XUartLite_SendByte(InstancePtr->UartBaseAddress, Data);
+			XUartLite_SendByte(InstancePtr->UartBaseAddress, Data);
 #else
-		XUartPs_SendByte(InstancePtr->UartBaseAddress, Data);
+			XUartPs_SendByte(InstancePtr->UartBaseAddress, Data);
 #endif
 			// Alpha numeric data
-		    if (isalpha(Data)) {
-		      xil_printf("\r\nInvalid input. Valid entry is only digits 0-9. Try again\r\n\r\n");
-		      xil_printf("Enter Selection -> ");
-		      InstancePtr->Value = 0;
-		    }
+			if (isalpha(Data)) {
+				xil_printf("\r\nInvalid input. Valid entry is only digits 0-9. Try again\r\n\r\n");
+				xil_printf("Enter Selection -> ");
+				InstancePtr->Value = 0;
+			}
 
-		    // Numeric data
-		    else if ((Data >= '0') && (Data <= '9')) {
-		      InstancePtr->Value = InstancePtr->Value * 10 + (Data-'0');
-		    }
+			// Numeric data
+			else if ((Data >= '0') && (Data <= '9')) {
+				InstancePtr->Value = InstancePtr->Value * 10 + (Data-'0');
+			}
 
-		    // Backspace
-		    else if (Data == '\b') {
-		      InstancePtr->Value = InstancePtr->Value / 10; //discard previous input
-		    }
+			// Backspace
+			else if (Data == '\b') {
+				InstancePtr->Value = InstancePtr->Value / 10; //discard previous input
+			}
 
-		    // Execute
+			// Execute
 			else if ((Data == '\n') || (Data == '\r')) {
 				InstancePtr->CurrentMenu = XHdmi_MenuTable[InstancePtr->CurrentMenu](InstancePtr, InstancePtr->Value);
-			    InstancePtr->Value = 0;
+				InstancePtr->Value = 0;
 			}
 		}
 	}
