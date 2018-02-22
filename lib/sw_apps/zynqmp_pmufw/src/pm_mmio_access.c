@@ -206,6 +206,17 @@ static const PmAccessRegion pmAccessTable[] = {
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
+
+#ifdef XPAR_VCU_0_BASEADDR
+	/* VCU SLCR register */
+	{
+		.startAddr = XPAR_VCU_0_BASEADDR + 0x40024,
+		.endAddr = XPAR_VCU_0_BASEADDR + 0x40060,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
+	},
+#endif
 };
 
 /**
