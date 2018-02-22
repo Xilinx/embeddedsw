@@ -42,7 +42,7 @@
 # 		       XFpga_PL_BitStream_Load()
 # 		       to avoid the unwanted blocking conditions.
 # 3.0   Nava  12/05/17 Added PL configuration registers readback support.
-#
+# 4.0   Nava  08/02/18 Added Authenticated and Encypted Bitstream loading support.
 #
 ##############################################################################
 
@@ -54,10 +54,10 @@ BEGIN LIBRARY xilfpga
   OPTION REQUIRES_OS = (standalone freertos901_xilinx);
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilfpga,-lxil,-lgcc,-lc,--end-group";
-  OPTION desc = "Xilinx fpga Library ";
-  OPTION VERSION = 3.0;
+  OPTION desc = "XilFPGA library provides an interface to the Linux or bare-metal users for configuring the PL over PCAP from PS";
+  OPTION VERSION = 4.0;
   OPTION NAME = xilfpga;
 PARAM name = secure_mode, desc = "Enable secure Bitstream loading support", type = bool, default = false;
-PARAM name = size, desc = "Number of Bytes", type = int, default = 100000, drc = drc_numbytes ;
+PARAM name = ocm_address, desc = "OCM Address", type = int, default = 0xfffc0000, drc = drc_ocm_address ;
 PARAM name = base_address, desc = "Base Address", type = int, default = 0x80000, drc = drc_base_address ;
 END LIBRARY

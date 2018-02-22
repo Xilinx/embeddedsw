@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,9 +43,12 @@
 * Features
 *	Supported:
 *		Full Bit-stream loading.
+*		Encrypted Bit-stream loading.
+*		Authenticated Bit-stream loading.
+*		Authenticated and Encrypted Bit-stream loading.
 *	To be supported features:
 * 		Partial Bit-stream loading.
-*		Encrypted Bit-stream loading.
+*
 *
 * Xilfpga_PL library Interface modules:
 *	Xilfpga_PL library uses the below major components to configure the PL through PS.
@@ -96,7 +99,7 @@
 *                      XFpga_PL_BitStream_Load()
 *                      to avoid the unwanted blocking conditions.
 * 3.0   Nava  12/05/17 Added PL configuration registers readback support.
-*
+* 4.0   Nava  08/02/18 Added Authenticated and Encypted Bitstream loading suppor.
 * </pre>
 *
 * @note
@@ -118,8 +121,15 @@
 
 /* Dummy address to indicate that destination is PCAP */
 #define XFPGA_DESTINATION_PCAP_ADDR    (0XFFFFFFFFU)
-#define XFPGA_CSU_SSS_SRC_SRC_DMA    0x5U
-#define XFPGA_CSU_SSS_SRC_DST_DMA	0x30U
+#define XFPGA_CSU_SSS_SRC_SRC_DMA	(0x5U)
+#define XFPGA_CSU_SSS_SRC_DST_DMA	(0x30U)
+#define XFPGA_CSU_SSS_DMA_TO_DMA	(0x50U)
+
+/* Boot Header Image Offsets */
+#define PARTATION_HEADER_OFFSET 	(0x9cU)
+#define PARTATION_ATTRIBUTES_OFFSET	(0x24U)
+#define BITSTREAM_PARTATION_OFFSET	(0x20U)
+#define BITSTREAM_IV_OFFSET		(0xA0U)
 
 /**
  * CSU Base Address
@@ -186,14 +196,14 @@
 #define XFPGA_ERROR_PL_ISOLATION		(0x4U)
 #define XFPGA_PARAMETER_NULL_ERROR		(0x5U)
 #define XFPGA_STRING_INVALID_ERROR		(0x6U)
-#define XFPGA_FAILURE					(0x9U)
+#define XFPGA_PARTITION_AUTH_FAILURE		(0x7U)
+#define XFPGA_FAILURE				(0x9U)
 
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
-				u32 WrSize, u32 flags);
+u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags);
 u32 XFpga_PcapStatus(void);
 u32 Xfpga_GetConfigReg(u32 ConfigReg, u32 *RegData);
 /************************** Variable Definitions *****************************/
