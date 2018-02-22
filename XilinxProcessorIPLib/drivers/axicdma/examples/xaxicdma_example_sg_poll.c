@@ -70,6 +70,8 @@
  *       ms   04/05/17 Modified Comment lines in functions to
  *                     recognize it as documentation block for doxygen
  *                     generation of examples.
+ * 4.4   rsp  02/22/18 Support data buffers above 4GB.Use UINTPTR for
+ *                     typecasting buffer address(CR-995116).
  * </pre>
  *
  ****************************************************************************/
@@ -330,7 +332,7 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 	/* Setup BD ring */
 	BdCount = XAxiCdma_BdRingCntCalc(XAXICDMA_BD_MINIMUM_ALIGNMENT,
 				    BD_SPACE_HIGH - BD_SPACE_BASE + 1,
-				    (u32)BD_SPACE_BASE);
+				    (UINTPTR)BD_SPACE_BASE);
 
 	Status = XAxiCdma_BdRingCreate(InstancePtr, BD_SPACE_BASE,
 		BD_SPACE_BASE, XAXICDMA_BD_MINIMUM_ALIGNMENT, BdCount);
