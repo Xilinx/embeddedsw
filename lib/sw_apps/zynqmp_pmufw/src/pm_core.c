@@ -667,11 +667,12 @@ done:
  */
 static void PmFpgaLoad(const PmMaster *const master,
 			const u32 AddrHigh, const u32 AddrLow,
-			const u32 size, const u32 flags)
+			const u32 KeyAddr, const u32 flags)
 {
 	u32 Status;
+	UINTPTR WrAddr = ((u64)AddrHigh << 32)|AddrLow;
 
-       Status = XFpga_PL_BitSream_Load(AddrHigh, AddrLow, size, flags);
+       Status = XFpga_PL_BitSream_Load(WrAddr, KeyAddr, flags);
 
        IPI_RESPONSE1(master->ipiMask, Status);
 }
