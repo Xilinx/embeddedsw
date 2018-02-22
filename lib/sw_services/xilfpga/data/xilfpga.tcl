@@ -35,6 +35,14 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.0   Nava 08/06/16 First release
+# 1.1   Nava  16/11/16 Added PL power-up sequence.
+# 2.0   Nava  10/1/17  Added Encrypted bitstream loading support.
+# 2.0   Nava  16/02/17 Added Authenticated bitstream loading support.
+# 2.1   Nava  06/05/17 Correct the check logic issues in
+#                      XFpga_PL_BitStream_Load()
+#                      to avoid the unwanted blocking conditions.
+# 3.0   Nava  12/05/17 Added PL configuration registers readback support.
+# 4.0   Nava  08/02/18 Added Authenticated and Encypted Bitstream loading support.
 #
 ##############################################################################
 
@@ -70,8 +78,8 @@ proc generate {lib_handle} {
 
     puts $conffile "#ifndef _XFPGA_CONFIG_H"
     puts $conffile "#define _XFPGA_CONFIG_H"
-    set value  [common::get_property CONFIG.size $lib_handle]
-    puts  $conffile "#define XFPGA_NUMBYTES  $value"
+    set value  [common::get_property CONFIG.ocm_address $lib_handle]
+    puts  $conffile "#define XFPGA_OCM_ADDRESS $value"
     set value  [common::get_property CONFIG.base_address $lib_handle]
     puts  $conffile "#define XFPGA_BASE_ADDRESS $value"
     set value  [common::get_property CONFIG.secure_mode $lib_handle]
