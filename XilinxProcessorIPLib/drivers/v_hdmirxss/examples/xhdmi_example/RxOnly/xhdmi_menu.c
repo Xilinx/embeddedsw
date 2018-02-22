@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -82,6 +82,7 @@
 /***************************** Include Files *********************************/
 #include "xhdmi_menu.h"
 #include "xhdcp.h"
+#include "xvidc_edid_ext.h"
 
 /************************** Constant Definitions *****************************/
 #if defined (XPAR_XHDCP_NUM_INSTANCES) || defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
@@ -133,8 +134,6 @@ extern void HDCPXILCMD_ProcessKey(char theCmdKey);
 #endif
 
 /************************* Variable Definitions *****************************/
-extern u8 Edid[];
-
 
 /**
 * This table contains the function pointers for all possible states.
@@ -161,6 +160,9 @@ extern XV_HdmiRxSs HdmiRxSs;       /* HDMI RX SS structure */
 extern u8 IsPassThrough;         /**< Demo mode 0-colorbar 1-pass through */
 extern u8 TxBusy;                // TX busy flag. This flag is set while the TX is initialized
 extern XHdcp_Repeater HdcpRepeater;
+
+/*HDMI EDID*/
+extern u8 Buffer[];
 
 /************************** Function Definitions *****************************/
 
@@ -311,7 +313,6 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			// GT & HDMI TX/RX log
 		case ('z') :
 		case ('Z') :
-			Counter = 0;
 			XVphy_LogDisplay(&Vphy);
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 			XV_HdmiRxSs_LogDisplay(&HdmiRxSs);
@@ -746,14 +747,11 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	if ((InstancePtr->WaitForColorbar) && (!TxBusy)) {
-		InstancePtr->WaitForColorbar = (FALSE);
-		xil_printf("Enter Selection -> ");
-	}
+	xil_printf("Enter Selection -> ");
 
 	// Check if the uart has any data
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
-	else if (!XUartLite_IsReceiveEmpty(InstancePtr->UartBaseAddress)) {
+	if (!XUartLite_IsReceiveEmpty(InstancePtr->UartBaseAddress)) {
 
 		// Read data from uart
 		Data = XUartLite_RecvByte(InstancePtr->UartBaseAddress);
