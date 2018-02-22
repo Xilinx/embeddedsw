@@ -65,6 +65,7 @@
  *                     that are not needed for SDI which were added earlier.
  *       vyc  10/04/17 Added new streaming alpha formats and new memory formats
  * 4.3   eb   26/01/18 Added API XVidC_GetVideoModeIdExtensive
+ *       jsr  02/22/18 Added XVIDC_CSF_YCBCR_420 color space format
  * </pre>
  *
 *******************************************************************************/
