@@ -48,6 +48,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0	aad 10/19/17	Initial Release
+* 1.1   aad 02/22/18    Fixed the header
 *</pre>
 *
 ******************************************************************************/
@@ -57,7 +58,7 @@
 #include "xil_exception.h"
 #include "xil_printf.h"
 #include "xil_cache.h"
-#include "dpdma_video_example.h"
+#include "xdpdma_video_example.h"
 
 /************************** Constant Definitions *****************************/
 #define DPPSU_DEVICE_ID		XPAR_PSU_DP_DEVICE_ID
