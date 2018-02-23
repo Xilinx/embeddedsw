@@ -36,7 +36,13 @@
 #include "xpfw_mod_wdt.h"
 
 #ifdef ENABLE_WDT
-#include "xwdtps.h"
+
+/* Check if PMU has access to CSU WDT (psu_csu_wdt) */
+#ifdef XPAR_PSU_CSU_WDT_DEVICE_ID
+	#include "xwdtps.h"
+#else /* XPAR_PSU_CSU_WDT_DEVICE_ID */
+	#error "ENABLE_WDT is defined but psu_csu_wdt is not defined in the design"
+#endif
 
 /* Instance of WDT Driver */
 static XWdtPs WdtInst;
@@ -60,7 +66,7 @@ static XWdtPs *WdtInstPtr = &WdtInst;
 #define XPFW_WDT_CRV_SHIFT 12U
 #define XPFW_WDT_PRESCALER 8U
 
-#define XPFW_WDT_CLK_PER_MSEC ((XPAR_XWDTPS_0_WDT_CLK_FREQ_HZ) / (XPFW_WDT_PRESCALER * 1000))
+#define XPFW_WDT_CLK_PER_MSEC ((XPAR_PSU_CSU_WDT_WDT_CLK_FREQ_HZ) / (XPFW_WDT_PRESCALER * 1000))
 #define XPFW_WDT_COUNTER_VAL ((XPFW_WDT_EXPIRE_TIME) * (XPFW_WDT_CLK_PER_MSEC))
 
 const XPfw_Module_t *WdtModPtr;
@@ -103,7 +109,7 @@ static void InitCsuPmuWdt(void)
 	XPfw_Printf(DEBUG_DETAILED, "In InitCsuPmuWdt\r\n");
 
 	/* Load Config for WDT */
-	WdtConfigPtr = XWdtPs_LookupConfig(XPAR_XWDTPS_0_DEVICE_ID);
+	WdtConfigPtr = XWdtPs_LookupConfig(XPAR_PSU_CSU_WDT_DEVICE_ID);
 
 	if (NULL == WdtConfigPtr) {
 		Status = XST_FAILURE;
