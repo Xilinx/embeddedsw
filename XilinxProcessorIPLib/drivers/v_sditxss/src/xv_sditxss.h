@@ -268,6 +268,7 @@ void XV_SdiTxSs_LogWrite(XV_SdiTxSs *InstancePtr,
 		u8 Data);
 u16 XV_SdiTxSs_LogRead(XV_SdiTxSs *InstancePtr);
 void XV_SdiTxSs_LogDisplay(XV_SdiTxSs *InstancePtr);
+int XV_SdiTxSs_SetColorFormat(XV_SdiTxSs *InstancePtr, XVidC_ColorFormat ColorFormat);
 
 
 /************************** Variable Declarations ****************************/
