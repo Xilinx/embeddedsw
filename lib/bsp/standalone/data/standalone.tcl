@@ -48,6 +48,9 @@
 # 6.6   mus  02/19/18 Updated handle_profile_opbtimer proc to cover the
 #                     scenario, where AXI timer is connected to the INTC
 #                     through concat IP.
+# 6.6   mus  02/23/18 Export macro for the debug logic configuration in
+# 		      Cortex R5 BSP, macro value is based on the
+#		      mld parameter "lockstep_mode_debug".
 #
 ##############################################################################
 
@@ -552,6 +555,17 @@ proc generate {os_handle} {
     if { $proctype == "microblaze"} {
 	puts $file_handle "#define PLATFORM_MB"
     }
+
+    if { $proctype == "psu_cortexr5"} {
+	 set lockstep_debug [common::get_property CONFIG.lockstep_mode_debug $os_handle]
+	 puts $file_handle " "
+	 puts $file_handle "/* Definitions for debug logic configuration in lockstep mode */"
+	 if { $lockstep_debug == "true" } {
+		puts $file_handle "#define LOCKSTEP_MODE_DEBUG 1U"
+	 } else {
+		puts $file_handle "#define LOCKSTEP_MODE_DEBUG 0U"
+	 }
+     }
 	 puts $file_handle " "
 	 puts $file_handle "/* Definitions for sleep timer configuration */"
 	 xsleep_timer_config $proctype $os_handle $file_handle
