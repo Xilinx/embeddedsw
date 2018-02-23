@@ -122,6 +122,12 @@ Updated get_connected_if proc in standalone tcl to detect the HPC
 port configured with smart interconnect. It fixes CR#990318.
 Updated the csu_wdt interupt to the correct value. Fixes CR#992229.
 Fix for heap handling in ARM platforms. Fixes CR#993932.
+Updated Cortex R5 BSP to add new mld parameter "lockstep_mode_debug",
+to enable/disable debug logic in non-JTAG boot mode, when processor
+is in lockstep configuration. By default, value of this parameter
+is "false" and debug logic would be disabled. It can be enabled through
+BSP setting by changing value of "lockstep_mode_debug" as "true".
+It fixes CR#993896.
 
 sysmonpsu_v2_3:
 Added missing closing bracket error when C++ is used
