@@ -130,6 +130,46 @@ void XSdFecSetTurboParams(XSdFec *InstancePtr, const XSdFecTurboParameters* Para
   XSdFecSet_TURBO_SCALE_FACTOR(InstancePtr->BaseAddress,ParamsPtr->Scale);
 }
 
+XSdFecInterruptClass XSdFecInterruptClassifier(XSdFec *InstancePtr) {
+  XSdFecInterruptClass IntClass;
+
+  IntClass.Intf       = 0;
+  IntClass.ECCSBit    = 0;
+  IntClass.ECCMBit    = 0;
+  IntClass.RstReq     = 0;
+  IntClass.ReprogReq  = 0;
+  IntClass.ReCfgReq   = 0;
+
+  u32 isr     = XSdFecGet_CORE_ISR(InstancePtr->BaseAddress);
+  u32 isr_ecc = XSdFecGet_CORE_ECC_ISR(InstancePtr->BaseAddress);
+
+  if (isr) {
+    IntClass.Intf   = 1;
+    IntClass.RstReq = 1;
+  }
+  // Hard block ECC error (single or multi-bit)
+  u32 ecc_errbits  = isr_ecc & 0x0007FF;
+  // Hard block multi-bit
+  u32 ecc_errmbits = (isr_ecc & 0x3FF800) >> 11;
+  // PL logic ECC error (single or multi-bit)
+  u32 soft_ecc_errbits  = (isr_ecc & 0x03C00000) >> 22;
+  // PL logic multi-bit
+  u32 soft_ecc_errmbits = (isr_ecc & 0x3C000000) >> 26;
+  // XOR ecc error bits with multi-bit errors to determine any single bit
+  if (ecc_errbits ^ ecc_errmbits || soft_ecc_errbits ^ soft_ecc_errmbits) {
+    IntClass.ECCSBit = 1;
+  }
+  if (ecc_errmbits) {
+    IntClass.ECCMBit    = 1;
+    IntClass.RstReq     = 1;
+    IntClass.ReprogReq  = 1;
+  }
+  if (soft_ecc_errmbits) {
+    IntClass.ReCfgReq   = 1;
+  }
+  return IntClass;
+}
+
 /************************** Base API Function Implementation *************************/
 void XSdFecSet_CORE_AXI_WR_PROTECT(UINTPTR BaseAddress, u32 Data) {
   XSdFecWriteReg(BaseAddress, XSDFEC_CORE_AXI_WR_PROTECT_ADDR, Data);
