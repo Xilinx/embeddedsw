@@ -44,6 +44,9 @@
 ; 6.6   srm  10/18/17 Updated the timer configuration with XTime_StartTTCTimer.
 ;                     Now the timer instance as specified by the user will be
 ;		      started.
+; 6.6  mus   02/23/17 Disable the debug logic in non-JTAG boot mode(when
+;		      processor is in lockstep configuration), based
+;		      on the mld parameter "lockstep_mode_debug".
 ;
 ;  </pre>
 ;
@@ -225,6 +228,7 @@ OKToRun
 	mcr 	p15, 0, r0, c15, c5, 0      	 ; Invalidate entire data cache
 	isb
 
+#if LOCKSTEP_MODE_DEBUG == 0
  ; enable fault log for lock step
 	ldr	r0,=RPU_GLBL_CNTL
 	ldr	r1, [r0]
@@ -251,6 +255,7 @@ OKToRun
 	str	r2, [r0]
 	nop
 	nop
+ #endif
 
 init
 	bl 	Init_MPU		 ; Initialize MPU
