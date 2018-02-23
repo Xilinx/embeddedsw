@@ -56,12 +56,12 @@
 #define XPFW_BOOT_HEALTH_GOOD		(0x1U << 29U)
 
 #endif
-/* Macros used to track the pahses in restart */
+/* Macros used to track the phases in restart */
 #define XPFW_RESTART_STATE_BOOT 0U
 #define	XPFW_RESTART_STATE_INPROGRESS 1U
 #define	XPFW_RESTART_STATE_DONE 2U
 
-/* Enable APU restart only if PMU has access to FPD WDT(psu_wdt_1) */
+/* Check if PMU has access to FPD WDT (psu_wdt_1) */
 #ifdef XPAR_PSU_WDT_1_DEVICE_ID
 	#include "xwdtps.h"
 	#define WDT_INSTANCE_COUNT	XPAR_XWDTPS_NUM_INSTANCES
@@ -69,13 +69,14 @@
 	#error "ENABLE_RECOVERY is defined but psu_wdt_1 is not assigned to PMU"
 #endif
 
-/* Enable APU restart only if PMU has access to FPD WDT(psu_wdt_1) */
+/* Check if PMU has access to TTC_9 */
 #ifdef XPAR_PSU_TTC_9_DEVICE_ID
 	#include "xttcps.h"
 #else /* XPAR_PSU_TTC_9_DEVICE_ID */
 	#error "ENABLE_RECOVERY is defined but psu_tcc_9 is not assigned to PMU"
 #endif
 
+/* Enable APU restart only if PMU has access to FPD WDT(psu_wdt_1) and TTC9 */
 #if defined(XPAR_PSU_WDT_1_DEVICE_ID) && defined(XPAR_PSU_TTC_9_DEVICE_ID)
 	#define ENABLE_APU_RESTART
 #endif
