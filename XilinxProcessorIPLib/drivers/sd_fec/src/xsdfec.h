@@ -172,6 +172,7 @@ typedef struct {
   u8 ECCMBit;      /**< Triggered due to multi-bit ECC error (ECC_ISR)    */
   u8 RstReq;       /**< Device requires reset                             */
   u8 ReprogReq;    /**< Device requires reprogrammed                      */
+  u8 ReCfgReq;     /**< FPGA requires reprogrammed                        */
 } XSdFecInterruptClass;
 
 // API Function Prototypes
