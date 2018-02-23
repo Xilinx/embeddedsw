@@ -62,4 +62,6 @@ PARAM name = sleep_timer, type = peripheral_instance, range = (ps7_ttc,psu_ttc,p
 
 PARAM name = ttc_select_cntr, type = enum, default = 2, values = ("0" = 0, "1" = 1, "2" = 2), desc = "Selects the counter to be used in the repective module. Allowed range is 0-2", permit = user;
 
+PARAM name = lockstep_mode_debug, type = bool, default = false, desc = "Enable debug logic in non-JTAG boot mode, when Cortex R5 is configured in lockstep mode", permit = user;
+
 END OS
