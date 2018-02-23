@@ -43,9 +43,9 @@ extern "C" {
 #define GPIO_BASEADDR      (0XFF0A0000U)
 
 /**
- * Register: GPIO_MASK_DATA_5_MSW
+ * Register: GPIO_MASK_DATA_5_MSW_REG
  */
-#define GPIO_MASK_DATA_5_MSW    ( GPIO_BASEADDR  + 0X0000002CU )
+#define GPIO_MASK_DATA_5_MSW_REG    ( GPIO_BASEADDR  + 0X0000002CU )
 
 /**
  * Register: GPIO_DIRM_5
