@@ -272,6 +272,7 @@ void XV_SdiTx_StartSdi(XV_SdiTx *InstancePtr,
 	XSdiVid_BitRate IsFractional,
 	XV_SdiTx_MuxPattern MuxPattern);
 int XV_SdiTx_StopSdi(XV_SdiTx *InstancePtr);
+int XV_SdiTx_SetVidFormat(XV_SdiTx *InstancePtr, XVidC_ColorFormat ColorFormat);
 void XV_SdiTx_ReportDetectedError(XV_SdiTx *InstancePtr);
 void XV_SdiTx_ClearDetectedError(XV_SdiTx *InstancePtr);
 u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVid_TransMode SdiMode, u8 DataStream);
