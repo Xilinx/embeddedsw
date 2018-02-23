@@ -43,6 +43,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------------
 * 1.00  jsr    07/17/17 Initial release.
+*       jsr    02/23/2018 YUV420 color format support
 * </pre>
 *
 ******************************************************************************/
@@ -59,9 +60,13 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XSDI_CH_SHIFT 29
+#define XST352_BYTE3_BIT5_SHIFT 21
 #define XST352_BYTE3_ACT_LUMA_COUNT_SHIFT 22
+#define XST352_BYTE3_BIT7_SHIFT 23
 #define XST352_BYTE2_TS_TYPE_SHIFT 15
 #define XST352_BYTE2_PIC_TYPE_SHIFT 14
+#define XST352_BYTE3_ASPECT_RATIO_SHIFT 23
+#define XST352_BYTE3_COLOR_FORMAT_SHIFT 16
 #define XSDITX_LINE_RATE_3G	0
 #define XSDITX_LINE_RATE_6G	1
 #define XSDITX_LINE_RATE_12G8DS	2
@@ -293,7 +298,7 @@ u32 XV_SdiTx_SetStream(XV_SdiTx *InstancePtr, XV_SdiTx_StreamSelId SelId,
 		break;
 
 	case XV_SDITX_STREAMSELID_COLORFORMAT:
-		Xil_AssertNonvoid((u32)Data == XVIDC_CSF_YCBCR_422);
+		Xil_AssertNonvoid( ((u32)Data == XVIDC_CSF_YCBCR_422) || ((u32)Data == XVIDC_CSF_YCBCR_420) );
 
 		InstancePtr->Stream[StreamId].Video.ColorFormatId = (u32)Data;
 		break;
@@ -867,12 +872,12 @@ void XV_SdiTx_StartSdi(XV_SdiTx *InstancePtr, XSdiVid_TransMode SdiMode,
 	/* Following assertions make sure the IP is configured with in the
 	 * subcore GUI paramter limit
 	 */
-	Xil_AssertVoid((InstancePtr->Config.MaxRateSupported == XSDITX_LINE_RATE_3G) &&
-			(SdiMode <= XSDIVID_MODE_3GB) ||
-			(InstancePtr->Config.MaxRateSupported == XSDITX_LINE_RATE_6G) &&
-			(SdiMode <= XSDIVID_MODE_6G) ||
-			(InstancePtr->Config.MaxRateSupported == XSDITX_LINE_RATE_12G8DS) &&
-			(SdiMode <= XSDIVID_MODE_12G));
+	Xil_AssertVoid(((InstancePtr->Config.MaxRateSupported == XSDITX_LINE_RATE_3G) &&
+			(SdiMode <= XSDIVID_MODE_3GB)) ||
+			((InstancePtr->Config.MaxRateSupported == XSDITX_LINE_RATE_6G) &&
+			(SdiMode <= XSDIVID_MODE_6G)) ||
+			((InstancePtr->Config.MaxRateSupported == XSDITX_LINE_RATE_12G8DS) &&
+			(SdiMode <= XSDIVID_MODE_12G)));
 
 	InstancePtr->IsStreamUp = TRUE;
 
@@ -927,6 +932,54 @@ int XV_SdiTx_StopSdi(XV_SdiTx *InstancePtr)
 
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
 				(XV_SDITX_RST_CTRL_OFFSET),
+				(Data));
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function Set the video format of the SDI TX core.
+*
+* @param	InstancePtr is a pointer to the XV_SdiTx core instance.
+*
+* @return
+*		- XST_SUCCESS if register write is successfule for SDI stop
+*		- XST_FAILURE if SDI stop write is failed
+*
+* @note		None.
+*
+******************************************************************************/
+int XV_SdiTx_SetColorFormat(XV_SdiTx *InstancePtr, XVidC_ColorFormat ColorFormat)
+{
+	Xil_AssertNonvoid( (ColorFormat == XVIDC_CSF_YCBCR_422) ||
+			((ColorFormat == XVIDC_CSF_YCBCR_420) && (InstancePtr->Transport.TMode >= XSDIVID_MODE_6G)) );
+
+	u32 Data;
+
+	InstancePtr->IsStreamUp = FALSE;
+
+	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
+				(XV_SDITX_MDL_CTRL_OFFSET));
+	Data &= ~XV_SDITX_MDL_CTRL_VID_FRMT_MASK;
+
+	switch(ColorFormat)	 {
+	case XVIDC_CSF_YCBCR_422:
+		Data |= 0x0 << XV_SDITX_MDL_CTRL_VID_FRMT_SHIFT;
+		break;
+
+	case XVIDC_CSF_YCBCR_420:
+		Data |= 0x1 << XV_SDITX_MDL_CTRL_VID_FRMT_SHIFT;
+		break;
+
+	default:
+		Data |= 0x0 << XV_SDITX_MDL_CTRL_VID_FRMT_SHIFT;
+		break;
+	}
+
+	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+				(XV_SDITX_MDL_CTRL_OFFSET),
 				(Data));
 
 	return XST_SUCCESS;
@@ -1154,7 +1207,6 @@ void XV_SdiTx_DebugInfo(XV_SdiTx *InstancePtr, XV_SdiTx_DebugSelId SelId)
 	case 2:
 		/* Print SDI specific information */
 		xil_printf("\tSDI Mode:         ");
-
 		switch (InstancePtr->Transport.TMode) {
 		case 0:
 			xil_printf("HD");
@@ -1165,6 +1217,8 @@ void XV_SdiTx_DebugInfo(XV_SdiTx *InstancePtr, XV_SdiTx_DebugSelId SelId)
 			break;
 
 		case 2:
+			/* for Rx to Tx pass through design Rx detects 3GB mode as
+			 * 3GA with IsLevel3GB flag set*/
 			if (InstancePtr->Transport.IsLevelB3G == 1) {
 				xil_printf("3GB");
 			} else {
@@ -1173,7 +1227,7 @@ void XV_SdiTx_DebugInfo(XV_SdiTx *InstancePtr, XV_SdiTx_DebugSelId SelId)
 			break;
 
 		case 3:
-			xil_printf("Error: 3G Level B");
+			xil_printf("3G Level B");
 			break;
 
 		case 4:

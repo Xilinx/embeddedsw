@@ -44,6 +44,7 @@
  * ----- ------ -------- -------------------------------------------------------
  * 1.00  jsr    07/17/17 Initial release.
  * 2.00  kar    01/25/18 Second  release.
+ *       jsr    02/23/2018 Added YUV420 color format support
  * </pre>
  *
  ******************************************************************************/
@@ -504,6 +505,24 @@ void XV_SdiTxSs_Stop(XV_SdiTxSs *InstancePtr)
 	/* } */
 }
 
+/*****************************************************************************/
+/**
+*
+* This function Set the video format of the SDI TX Ss core..
+*
+* @param	InstancePtr is a pointer to the XV_SdiTxSs core instance.
+* @param	ColorFormat is a variable of type XVidC_ColorFormat.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+int XV_SdiTxSs_SetColorFormat(XV_SdiTxSs *InstancePtr, XVidC_ColorFormat ColorFormat)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	return XV_SdiTx_SetColorFormat(InstancePtr->SdiTxPtr, ColorFormat);
+}
 /*****************************************************************************/
 /**
 *
