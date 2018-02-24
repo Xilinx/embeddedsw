@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2018-03-29
+	* Add mcdma support and handle IEEE_1588 for SGMII Phy in ethernet
+	* header
 2018-03-05
 	* Add Hot plug detect support for EmacPS and AXI Ethernet
 2018-03-14
