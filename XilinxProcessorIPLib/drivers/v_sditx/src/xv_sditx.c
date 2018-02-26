@@ -620,6 +620,55 @@ u32 XV_SdiTx_GetPayloadByte1(u16 VActiveValid, XSdiVid_TransMode SdiMode, u8 *Da
 /*****************************************************************************/
 /**
  *
+ * This function calculates the Color Format for 3rd byte of the Payload packet
+ * for all SDI modes
+ *
+ * @param	SdiMode is a variable to the XSdiVid_TransMode.
+ * @param	ColorFormatId is a variable of type XVidC_ColorFormat.
+ *
+ * @return
+ *		- returns 8-bit value
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
+u8 XV_SdiTx_GetPayloadColorFormat(XSdiVid_TransMode SdiMode, XVidC_ColorFormat ColorFormatId)
+{
+	u32 Data;
+
+	switch (SdiMode) {
+	case XSDIVID_MODE_3GB:
+	case XSDIVID_MODE_6G:
+	case XSDIVID_MODE_12G:
+	case XSDIVID_MODE_12GF:
+		if (ColorFormatId == XVIDC_CSF_YCBCR_422)
+				Data = 0x0;
+		else if(ColorFormatId == XVIDC_CSF_YCBCR_420)
+				Data = 0x3;
+		else {
+			xil_printf("Error: Invalid ColorFomat input. Defaulting to YCBCR_422\n\r");
+			Data = 0x0;
+		}
+		break;
+	case XSDIVID_MODE_SD:
+	case XSDIVID_MODE_HD:
+	case XSDIVID_MODE_3GA:
+		if (ColorFormatId == XVIDC_CSF_YCBCR_422)
+				Data = 0x0;
+		else {
+				xil_printf("Error: Invalid ColorFomat input. Defaulting to YCBCR_422\n\r");
+				Data = 0x0;
+		}
+		break;
+	default:
+			return XST_FAILURE;
+	}
+	return Data & 0xF;
+}
+
+/*****************************************************************************/
+/**
+ *
  * This function calculates the final st352 payload value for all SDI modes
  * with given video mode and SDI data stream number
  *
@@ -680,7 +729,11 @@ u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVi
 			Data |=	(XV_SdiTx_GetPayloadIsInterlaced(InstancePtr->Stream[DataStream].Video.IsInterlaced) << XST352_BYTE2_TS_TYPE_SHIFT);
 	}
 
-	Data |=	 (XV_SdiTx_GetPayloadAspectRatio(InstancePtr->Stream[DataStream].Video.AspectRatio) << 23);
+	Data |=	 (XV_SdiTx_GetPayloadColorFormat(SdiMode, InstancePtr->Stream[DataStream].Video.ColorFormatId) <<
+												XST352_BYTE3_COLOR_FORMAT_SHIFT);
+
+	Data |=	 (XV_SdiTx_GetPayloadAspectRatio(InstancePtr->Stream[DataStream].Video.AspectRatio) <<
+												XST352_BYTE3_ASPECT_RATIO_SHIFT);
 
 	/*for 4096 or 2048 horizontal pixels, set BIT(6) of byte 3 to 1.
 	 * Refer Table 3 SMPTE ST 2081-10.
