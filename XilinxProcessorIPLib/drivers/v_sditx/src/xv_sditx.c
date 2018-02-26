@@ -729,6 +729,11 @@ u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVi
 			Data |=	(XV_SdiTx_GetPayloadIsInterlaced(InstancePtr->Stream[DataStream].Video.IsInterlaced) << XST352_BYTE2_TS_TYPE_SHIFT);
 	}
 
+	if( (SdiMode == XSDIVID_MODE_3GA)  && (InstancePtr->Transport.IsLevelB3G == 1) ) {
+		Data |= 1 << XST352_BYTE2_PIC_TYPE_SHIFT;
+		Data |= 0 << XST352_BYTE2_TS_TYPE_SHIFT;
+	}
+
 	Data |=	 (XV_SdiTx_GetPayloadColorFormat(SdiMode, InstancePtr->Stream[DataStream].Video.ColorFormatId) <<
 												XST352_BYTE3_COLOR_FORMAT_SHIFT);
 
