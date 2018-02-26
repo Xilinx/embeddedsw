@@ -1,5 +1,8 @@
 Changes for 2018.1
 ===============================
+video_common_v4_3:
+Added new color space format XVIDC_CSF_YCBCR_420 to support UHDSDI
+Tx/Rx soft IPs
 
 axi_mcdma_1_1:
 Added failure checks in the tcl to avoid bsp compilation errors incase
@@ -115,7 +118,7 @@ Updated asm_vectors.S and boot.S in Cortexa53 64 bit BSP, to add isb
 after writing to cpacr_el1/cptr_el3 registers.
 It would ensure disabling/enabling of floating-point unit, before any
 subsequent instruction.
-Updated get_connected_if proc in standalone tcl to detect the HPC 
+Updated get_connected_if proc in standalone tcl to detect the HPC
 port configured with smart interconnect. It fixes CR#990318.
 Updated the csu_wdt interupt to the correct value. Fixes CR#992229.
 Fix for heap handling in ARM platforms. Fixes CR#993932.
