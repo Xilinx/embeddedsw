@@ -746,6 +746,12 @@ u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVi
 	if (InstancePtr->Stream[DataStream].Video.Timing.HActive == 2048 ||
 		InstancePtr->Stream[DataStream].Video.Timing.HActive == 4096)
 		Data |= 0x1 << XST352_BYTE3_ACT_LUMA_COUNT_SHIFT;
+	else if (InstancePtr->Stream[DataStream].Video.Timing.HActive == 1920)
+		Data |= 0x1 << XST352_BYTE3_BIT5_SHIFT;
+	else if (InstancePtr->Stream[DataStream].Video.Timing.HActive == 3840)
+		Data |= 0x1 << XST352_BYTE3_BIT7_SHIFT;
+	else
+		Data |= 0x0 << XST352_BYTE3_BIT5_SHIFT;
 
 	Data |=	 ((InstancePtr->Stream[DataStream].CAssignment & 0x7) << 29);
 
