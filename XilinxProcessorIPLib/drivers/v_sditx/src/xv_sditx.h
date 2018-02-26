@@ -288,6 +288,7 @@ u8 XV_SdiTx_GetPayloadFrameRate(XVidC_FrameRate FrameRateValid, XSdiVid_BitRate 
 u8 XV_SdiTx_GetPayloadIsInterlaced(XVidC_VideoFormat VideoFormat);
 u8 XV_SdiTx_GetPayloadAspectRatio(XVidC_AspectRatio AspectRatio);
 u32 XV_SdiTx_GetPayloadByte1(u16 VActiveValid, XSdiVid_TransMode SdiMode, u8 *Data);
+u8 XV_SdiTx_GetPayloadColorFormat(XSdiVid_TransMode SdiMode, XVidC_ColorFormat ColorFormatId);
 
 /* Bridge and reset specific functions */
 void XV_SdiTx_VidBridgeEnable(XV_SdiTx *InstancePtr);
