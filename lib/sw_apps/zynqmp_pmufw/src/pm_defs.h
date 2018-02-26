@@ -75,44 +75,42 @@
 #define PMF_SHUTDOWN_SUBTYPE_SYSTEM	2U
 
 /* PM API ids */
-#define PM_GET_API_VERSION          1U
-#define PM_SET_CONFIGURATION        2U
-#define PM_GET_NODE_STATUS          3U
-#define PM_GET_OP_CHARACTERISTIC    4U
-#define PM_REGISTER_NOTIFIER        5U
+#define PM_GET_API_VERSION		1U
+#define PM_SET_CONFIGURATION		2U
+#define PM_GET_NODE_STATUS		3U
+#define PM_GET_OP_CHARACTERISTIC	4U
+#define PM_REGISTER_NOTIFIER		5U
 
-#define PM_REQUEST_SUSPEND          6U
-#define PM_SELF_SUSPEND             7U
-#define PM_FORCE_POWERDOWN          8U
-#define PM_ABORT_SUSPEND            9U
-#define PM_REQUEST_WAKEUP           10U
-#define PM_SET_WAKEUP_SOURCE        11U
-#define PM_SYSTEM_SHUTDOWN          12U
+#define PM_REQUEST_SUSPEND		6U
+#define PM_SELF_SUSPEND			7U
+#define PM_FORCE_POWERDOWN		8U
+#define PM_ABORT_SUSPEND		9U
+#define PM_REQUEST_WAKEUP		10U
+#define PM_SET_WAKEUP_SOURCE		11U
+#define PM_SYSTEM_SHUTDOWN		12U
 
-#define PM_REQUEST_NODE             13U
-#define PM_RELEASE_NODE             14U
-#define PM_SET_REQUIREMENT          15U
-#define PM_SET_MAX_LATENCY          16U
+#define PM_REQUEST_NODE			13U
+#define PM_RELEASE_NODE			14U
+#define PM_SET_REQUIREMENT		15U
+#define PM_SET_MAX_LATENCY		16U
 
-#define PM_RESET_ASSERT             17U
-#define PM_RESET_GET_STATUS         18U
-#define PM_MMIO_WRITE               19U
-#define PM_MMIO_READ                20U
+#define PM_RESET_ASSERT			17U
+#define PM_RESET_GET_STATUS		18U
+#define PM_MMIO_WRITE			19U
+#define PM_MMIO_READ			20U
 
-#define PM_INIT_FINALIZE            21U
+#define PM_INIT_FINALIZE		21U
 
-#define PM_FPGA_LOAD                22U
-#define PM_FPGA_GET_STATUS          23U
+#define PM_FPGA_LOAD			22U
+#define PM_FPGA_GET_STATUS		23U
 
-#define PM_GET_CHIPID               24U
+#define PM_GET_CHIPID			24U
 
-#define PM_SECURE_RSA_AES           25U
+#define PM_SECURE_RSA_AES		25U
+#define PM_SECURE_SHA			26U
+#define PM_SECURE_RSA			27U
 
-#define PM_SECURE_SHA               26U
-
-#define PM_SECURE_RSA               27U
-
-#define PM_SECURE_IMAGE				45U
+#define PM_SECURE_IMAGE			45U
 
 #define PM_API_MIN	PM_GET_API_VERSION
 #define PM_API_MAX	PM_SECURE_IMAGE
