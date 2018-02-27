@@ -180,6 +180,7 @@ void rx_help_menu()
 //	  print(" 6 = Re-initialize VDMA\n\r");
 	  print(" 5 = Switch TX data to internal pattern generator\n\r");
 	  print(" 6 = Switch TX back to RX video data\n\r");
+	  print(" c = Display CRC value\n\r");
 //	  print(" 9 = Report RX, TX Frame stats\n\r");
 	  print(" w = Sink register write\n\r");
 	  print(" r = Sink register read\n\r");

@@ -2053,6 +2053,47 @@ int main(void)
 			"Monitor change was detected.. please unplug-plug DP RX cable\r\n");
 								}
                                 break;
+							case 'c':
+							xil_printf ("==========Frame CRC rx===========\r\n");
+							xil_printf ("CRC Cfg     =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
+										0x0));
+							xil_printf ("CRC - R/Y   =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
+										0x4)&0xFFFF);
+							xil_printf ("CRC - G/Cr  =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
+										0x4)>>16);
+							xil_printf ("CRC - B/Cb  =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
+										0x8)&0xFFFF);
+							xil_printf ("Rxd Hactive =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
+										0xC)&0xFFFF);
+							xil_printf ("Rxd Vactive =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
+										0xC)>>16);
+
+							xil_printf ("==========Frame CRC tx===========\r\n");
+							xil_printf ("CRC Cfg     =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+										0x0));
+							xil_printf ("CRC - R/Y   =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+										0x4)&0xFFFF);
+							xil_printf ("CRC - G/Cr  =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+										0x4)>>16);
+							xil_printf ("CRC - B/Cb  =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+										0x8)&0xFFFF);
+							xil_printf ("Rxd Hactive =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+										0xC)&0xFFFF);
+							xil_printf ("Rxd Vactive =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+										0xC)>>16);
+							break;
 
 					case 'w':
 								dbg_printf(
@@ -2789,6 +2830,16 @@ void Dprx_SetupTx(void *InstancePtr, u8 tx_with_msa, XVidC_VideoMode VmId)
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x144, 0x0);
 	rxMsaMVid_track = rxMsaMVid;
 	rxMsaNVid_track = rxMsaNVid;
+
+	// Update CRC block
+	XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR, 0,
+			XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+					XDP_TX_USER_PIXEL_WIDTH));
+	XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR, 0,
+			XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+					XDP_TX_USER_PIXEL_WIDTH));
+
+
 	if ((Status == XST_SUCCESS)) {
 		vdma_start();
 		Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
