@@ -265,7 +265,7 @@ void main_loop(){
 		if(hpd_pulse_con_event == 1){
 			hpd_pulse_con_event = 0;
 			hpd_pulse_con(&DpTxSsInst);
-			if(!XDpTxSs_CheckLinkStatus(&DpTxSsInst)){
+			if(XDpTxSs_CheckLinkStatus(&DpTxSsInst)){
 				sink_power_cycle();
 			}
 		}
