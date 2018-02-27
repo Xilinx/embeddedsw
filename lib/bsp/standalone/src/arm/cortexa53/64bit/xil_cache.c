@@ -63,6 +63,11 @@
 * 6.2  mus  02/13/17  The new api Xil_ConfigureL1Prefetch is added to disable pre-fetching/configure
 *                     the maximum number of outstanding data prefetches allowed in
 *                     L1 cache system.It fixes CR#967864.
+* 6.6  mus  02/27/18  Updated Xil_DCacheInvalidateRange and 
+*					  Xil_ICacheInvalidateRange APIs to change the data type of 
+*					  "cacheline" variable as "INTPTR", This change has been done  
+*					  to avoid the truncation of upper DDR addreses to 32 bit.It
+*					  fixes CR#995581.
 *
 * </pre>
 *
@@ -414,7 +419,7 @@ void Xil_DCacheInvalidateLine(INTPTR adr)
 ****************************************************************************/
 void Xil_DCacheInvalidateRange(INTPTR  adr, INTPTR len)
 {
-	const u32 cacheline = 64U;
+	const INTPTR cacheline = 64U;
 	INTPTR end;
 	INTPTR tempadr = adr;
 	INTPTR tempend;
@@ -786,7 +791,7 @@ void Xil_ICacheInvalidateLine(INTPTR  adr)
 ****************************************************************************/
 void Xil_ICacheInvalidateRange(INTPTR  adr, INTPTR len)
 {
-	const u32 cacheline = 64U;
+	const INTPTR cacheline = 64U;
 	INTPTR end;
 	INTPTR tempadr = adr;
 	INTPTR tempend;
