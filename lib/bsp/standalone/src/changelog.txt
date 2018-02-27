@@ -513,5 +513,8 @@
  * 6.6 asa   02/12/18 Fix for heap handling for ARM platforms. CR#993932.
  * 6.6 mus   02/19/18 Updated standalone.tcl to fix bug in handle_profile_opbtimer proc,
  *                    CR#995014.
+ * 6.6.mus   02/27/18  Updated Xil_DCacheInvalidateRange and
+*		       Xil_ICacheInvalidateRange APIs in Cortexa53 64 bit BSP, to fix  bug
+*		       in handling upper DDR addresses.It fixes CR#995581.
  *
  *****************************************************************************************/
