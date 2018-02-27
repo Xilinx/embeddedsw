@@ -158,15 +158,6 @@ typedef u32 (*XpbrServHndlr_t) (void);
 #endif
 
 #ifdef XFPGA_SECURE_MODE
-
-typedef struct {
-	u32 Key[8];		/* Aes Key */
-	u32 Iv[3];		/* Aes Iv */
-	u32 PartationAddress;	/* Bit-stream Base Address */
-	u32 PartationLen;	/* Bit-stream Length */
-	u32 PartationAcAddress;	/* Bit-stream Authentication Certificate Address */
-} XFpga_EncInfo;
-
 typedef struct {
 	XSecure_Aes *SecureAes;	/* AES initialized structure */
 	u32 NextBlkLen;		/* Not required for user, used
@@ -197,16 +188,17 @@ static u32 XFpga_GetBitstreamInfo(UINTPTR WrAddr,
 				u32 *BitstreamAddress, u32 *BitstreamSize);
 static u32 XFpga_ValidateCryptoFlags(UINTPTR WrAddr, u32 flags);
 #ifdef XFPGA_SECURE_MODE
-static u32 XFpga_SecureLoadToPl(UINTPTR WrAddr,	UINTPTR KeyAddr, u32 flags );
-static u32 XFpga_WriteEncryptToPcap(UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags);
-static u32 XFpga_SecureBitstreamDdrLoad (UINTPTR WrAddr,
-					UINTPTR KeyAddr, u32 flags);
+static u32 XFpga_SecureLoadToPl(UINTPTR WrAddr,	UINTPTR KeyAddr,
+				XSecure_ImageInfo *ImageInfo, u32 flags );
+static u32 XFpga_WriteEncryptToPcap(UINTPTR WrAddr, UINTPTR KeyAddr,
+				XSecure_ImageInfo *ImageInfo, u32 flags);
+static u32 XFpga_SecureBitstreamDdrLoad (UINTPTR WrAddr, UINTPTR KeyAddr,
+				XSecure_ImageInfo *ImageInfo, u32 flags);
 static u32 XFpga_AesInit(UINTPTR KeyAddr, u32 *AesIv, u32 flags);
-static u32 XFpga_AuthBitstreamOcmLoad (UINTPTR WrAddr,
-				UINTPTR KeyAddr, u32 flags);
+static u32 XFpga_AuthBitstreamOcmLoad (UINTPTR WrAddr, UINTPTR KeyAddr,
+				XSecure_ImageInfo *ImageInfo, u32 flags);
 static u32 Xilfpga_ConvertCharToNibble(char InChar, u8 *Num);
 static u32 Xilfpga_ConvertStringToHex(const char * Str, u32 * buf, u8 Len);
-static u32 XFpga_GetEncInfo(UINTPTR WrAddr);
 static u32 XFpga_CopyToOcm(UINTPTR Src, UINTPTR Dst, u32 WrSize);
 static u32 XFpga_AuthPlChunks(UINTPTR WrAddr, u32 WrSize, UINTPTR AcAddr);
 static u32 XFpga_ReAuthPlChunksWriteToPl(UINTPTR WrAddr, u32 WrSize, u32 flags);
@@ -227,7 +219,6 @@ XCsuDma CsuDma;
 #ifdef XFPGA_SECURE_MODE
 XSecure_Aes Secure_Aes;
 u32 key[8];
-XFpga_EncInfo PlEncInfo;
 XFpgaPs_PlPartition PlAesInfo;
 XSecure_Sha3 Secure_Sha3;
 XSecure_Rsa Secure_Rsa;
@@ -275,6 +266,17 @@ u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags)
 	u32 BitstreamAddress;
 	u32 BitstreamSize;
 	u32 RegVal;
+#ifdef XFPGA_SECURE_MODE
+	u32 EncOnly;
+	u8 IsEncrypted = 0;
+	u8 NoAuth = 0;
+	u8 *IvPtr = (u8 *)(UINTPTR)Iv;
+	XSecure_ImageInfo ImageHdrInfo = {0};
+#endif
+
+	/* Address provided is null */
+	if ((u8 *)(UINTPTR)WrAddr == NULL)
+		return XST_FAILURE;
 
 	/* validate the User Flags for the Image Crypto operation */
 	Status = XFpga_ValidateCryptoFlags(WrAddr, flags);
@@ -283,6 +285,75 @@ u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags)
 		Status = XFPGA_FAILURE;
 		goto END;
 	}
+
+	/* Initialize CSU DMA driver */
+	Status = XFpga_CsuDmaInit();
+	if (Status != XFPGA_SUCCESS)
+		goto END;
+
+#ifdef XFPGA_SECURE_MODE
+	Status = XSecure_AuthenticationHeaders((u8 *)WrAddr, &ImageHdrInfo);
+	if (Status != XST_SUCCESS) {
+	/* Error other than XSECURE_AUTH_NOT_ENABLED error will be an error */
+		if (Status != XSECURE_AUTH_NOT_ENABLED) {
+			goto END;
+		} else {
+		/* Here Buffer still contains Boot header */
+			NoAuth = 1;
+		}
+	}
+
+	if (NoAuth != 0x00 ) {
+		XSecure_PartitionHeader *Ph =
+				(XSecure_PartitionHeader *)(UINTPTR)
+				(WrAddr + Xil_In32((UINTPTR)Buffer +
+						XSECURE_PH_TABLE_OFFSET));
+		ImageHdrInfo.PartitionHdr = Ph;
+		if ((ImageHdrInfo.PartitionHdr->PartitionAttributes &
+				XSECURE_PH_ATTR_AUTH_ENABLE) != 0x00U) {
+			Status = XSECURE_HDR_NOAUTH_PART_AUTH;
+			goto END;
+		}
+	}
+
+	if (ImageHdrInfo.PartitionHdr->PartitionAttributes &
+				XSECURE_PH_ATTR_ENC_ENABLE)
+		IsEncrypted = 1;
+
+	EncOnly = XSecure_IsEncOnlyEnabled();
+	if (EncOnly != 0x00) {
+
+		if (!IsEncrypted) {
+			Status = XSECURE_ENC_ISCOMPULSORY;
+			goto END;
+		}
+	}
+
+	if ((IsEncrypted) && (NoAuth)) {
+		ImageHdrInfo.KeySrc = Xil_In32((UINTPTR)Buffer +
+					XSECURE_KEY_SOURCE_OFFSET);
+		XSecure_MemCopy(ImageHdrInfo.Iv,
+				(Buffer + XSECURE_IV_OFFSET), XSECURE_IV_SIZE);
+		/* Add partition header IV to boot header IV */
+		*(IvPtr + XSECURE_IV_LEN) = (*(IvPtr + XSECURE_IV_LEN)) +
+			(ImageHdrInfo.PartitionHdr->Iv & XSECURE_PH_IV_MASK);
+	}
+
+	/*
+	 * When authentication exists and requesting
+	 * for device key other than eFUSE and KUP key
+	 * when ENC_ONLY bit is blown
+	 */
+	if (EncOnly != 0x00) {
+		if ((ImageHdrInfo.KeySrc == XSECURE_KEY_SRC_BBRAM) ||
+			(ImageHdrInfo.KeySrc == XSECURE_KEY_SRC_GREY_BH) ||
+			(ImageHdrInfo.KeySrc == XSECURE_KEY_SRC_BLACK_BH)) {
+			Status = XSECURE_DEC_WRONG_KEY_SOURCE;
+			goto END;
+		}
+	}
+
+#endif
 
 	/* Enable the PCAP clk */
 	RegVal = Xil_In32(PCAP_CLK_CTRL);
@@ -313,7 +384,8 @@ u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags)
 	if (flags & XFPGA_SECURE_FLAGS)
 #ifdef XFPGA_SECURE_MODE
 	{
-		Status = XFpga_SecureLoadToPl(WrAddr, KeyAddr, flags );
+		Status = XFpga_SecureLoadToPl(WrAddr, KeyAddr,
+					&ImageHdrInfo, flags );
 		if (Status != XFPGA_SUCCESS) {
 			/* Clear the PL house */
 			Xil_Out32(CSU_PCAP_PROG, 0x0U);
@@ -362,7 +434,8 @@ END:
 	RegVal = Xil_In32(PCAP_CLK_CTRL);
 	Xil_Out32(PCAP_CLK_CTRL, RegVal & ~(PCAP_CLK_EN_MASK) );
 #ifdef XFPGA_SECURE_MODE
-	memset((u8 *)(UINTPTR)KeyAddr, 0, KEY_LEN);
+	if ((u8 *)(UINTPTR)KeyAddr != NULL)
+		memset((u8 *)(UINTPTR)KeyAddr, 0, KEY_LEN);
 #endif
 	return Status;
 }
@@ -413,8 +486,6 @@ static u32 XFpga_PcapInit(u32 flags) {
 	}
 	if (!PollCount)
 			return XFPGA_FAILURE;
-
-	Status = XFpga_CsuDmaInit();
 
 	return Status;
 }
@@ -565,7 +636,8 @@ static u32 XFpga_ValidateCryptoFlags(UINTPTR WrAddr, u32 flags) {
  * @return error status based on implemented functionality (SUCCESS by default)
  *
  *****************************************************************************/
-static u32 XFpga_SecureLoadToPl(UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags ){
+static u32 XFpga_SecureLoadToPl(UINTPTR WrAddr, UINTPTR KeyAddr,
+			XSecure_ImageInfo *ImageInfo, u32 flags ){
 	u32 Status;
 
 	switch (flags) {
@@ -574,18 +646,19 @@ static u32 XFpga_SecureLoadToPl(UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags ){
 	case XFPGA_AUTH_ENC_USERKEY_DDR:
 	case XFPGA_AUTH_ENC_DEVKEY_DDR:
 		Status = XFpga_SecureBitstreamDdrLoad(WrAddr,
-						KeyAddr, flags);
+					KeyAddr, ImageInfo, flags);
 		break;
 
 	case XFPGA_AUTHENTICATION_OCM_EN:
 	case XFPGA_AUTH_ENC_USERKEY_OCM:
 	case XFPGA_AUTH_ENC_DEVKEY_OCM:
 		Status = XFpga_AuthBitstreamOcmLoad(WrAddr,
-						KeyAddr, flags);
+					KeyAddr, ImageInfo, flags);
 		break;
 
 	case XFPGA_ENCRYPTION_USERKEY_EN:
-		Status = XFpga_WriteEncryptToPcap(WrAddr, KeyAddr, flags);
+		Status = XFpga_WriteEncryptToPcap(WrAddr,
+					KeyAddr, ImageInfo, flags);
 		break;
 
 	default:
@@ -609,8 +682,8 @@ return Status;
  * @return error status based on implemented functionality (SUCCESS by default)
 
  *****************************************************************************/
-static u32 XFpga_SecureBitstreamDdrLoad (UINTPTR WrAddr,
-					UINTPTR KeyAddr, u32 flags) {
+static u32 XFpga_SecureBitstreamDdrLoad (UINTPTR WrAddr, UINTPTR KeyAddr,
+				XSecure_ImageInfo *ImageInfo, u32 flags) {
 	u32 Status = XFPGA_SUCCESS;
 	u32 PartationLen;
 	u32 PartationOffset;
@@ -619,20 +692,11 @@ static u32 XFpga_SecureBitstreamDdrLoad (UINTPTR WrAddr,
 	u32	RemaningBytes;
 	UINTPTR AcPtr;
 	UINTPTR BitAddr;
-	XSecure_ImageInfo ImageInfo = {0};
-
-	/* Headers authentication */
-	Status = XSecure_AuthenticationHeaders((u8 *)(UINTPTR)WrAddr,
-							&ImageInfo);
-	if (Status != XST_SUCCESS) {
-		Status = XFPGA_PARTITION_AUTH_FAILURE;
-		goto END;
-	}
 
 	/* Authenticate the PL Partation's */
-	PartationOffset = ImageInfo.PartitionHdr->DataWordOffset
+	PartationOffset = ImageInfo->PartitionHdr->DataWordOffset
 						* XSECURE_WORD_LEN;
-	PartationAcOffset = ImageInfo.PartitionHdr->AuthCertificateOffset
+	PartationAcOffset = ImageInfo->PartitionHdr->AuthCertificateOffset
 						* XSECURE_WORD_LEN;
 	PartationLen = PartationAcOffset - PartationOffset;
 	TotalBitPartCount = PartationLen/PL_PARTATION_SIZE;
@@ -642,7 +706,7 @@ static u32 XFpga_SecureBitstreamDdrLoad (UINTPTR WrAddr,
 
 	if ((flags & XFPGA_ENCRYPTION_USERKEY_EN)
 			|| (flags & XFPGA_ENCRYPTION_DEVKEY_EN))
-		XFpga_AesInit(KeyAddr, &ImageInfo.Iv[0], flags);
+		XFpga_AesInit(KeyAddr, ImageInfo->Iv, flags);
 
 	for(int i = 0; i < TotalBitPartCount; i++)
 	{
@@ -650,7 +714,7 @@ static u32 XFpga_SecureBitstreamDdrLoad (UINTPTR WrAddr,
 		XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
 				XSECURE_AUTH_CERT_MIN_SIZE/XSECURE_WORD_LEN);
 		/*Verify Spk */
-		Status = XSecure_VerifySpk(AcBuf, ImageInfo.EfuseRsaenable);
+		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
 		if (Status != XST_SUCCESS) {
 			Status = XFPGA_PARTITION_AUTH_FAILURE;
 			goto END;
@@ -687,7 +751,7 @@ static u32 XFpga_SecureBitstreamDdrLoad (UINTPTR WrAddr,
 		XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
 				XSECURE_AUTH_CERT_MIN_SIZE/XSECURE_WORD_LEN);
 		/*Verify Spk */
-		Status = XSecure_VerifySpk(AcBuf, ImageInfo.EfuseRsaenable);
+		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
 		if (Status != XST_SUCCESS) {
 			Status = XFPGA_PARTITION_AUTH_FAILURE;
 			goto END;
@@ -732,8 +796,8 @@ END:
  * @return error status based on implemented functionality (SUCCESS by default)
  *
  *****************************************************************************/
-static u32 XFpga_AuthBitstreamOcmLoad (UINTPTR WrAddr,
-				UINTPTR KeyAddr, u32 flags) {
+static u32 XFpga_AuthBitstreamOcmLoad (UINTPTR WrAddr, UINTPTR KeyAddr,
+				XSecure_ImageInfo *ImageInfo, u32 flags) {
 	u32 Status = XFPGA_SUCCESS;
 	u32 PartationLen;
 	u32 PartationOffset;
@@ -742,19 +806,11 @@ static u32 XFpga_AuthBitstreamOcmLoad (UINTPTR WrAddr,
 	u32	RemaningBytes;
 	UINTPTR AcPtr;
 	UINTPTR BitAddr = WrAddr;
-	XSecure_ImageInfo ImageInfo = {0};
 
-	/* Headers authentication */
-	Status = XSecure_AuthenticationHeaders((u8 *)(UINTPTR)BitAddr,
-							&ImageInfo);
-	if (Status != XST_SUCCESS) {
-		Status = XFPGA_PARTITION_AUTH_FAILURE;
-		goto END;;
-	}
 	/* Authenticate the PL Partation's */
-	PartationOffset = ImageInfo.PartitionHdr->DataWordOffset
+	PartationOffset = ImageInfo->PartitionHdr->DataWordOffset
 						* XSECURE_WORD_LEN;
-	PartationAcOffset = ImageInfo.PartitionHdr->AuthCertificateOffset
+	PartationAcOffset = ImageInfo->PartitionHdr->AuthCertificateOffset
 							* XSECURE_WORD_LEN;
 	PartationLen = PartationAcOffset - PartationOffset;
 	TotalBitPartCount = PartationLen/PL_PARTATION_SIZE;
@@ -764,7 +820,7 @@ static u32 XFpga_AuthBitstreamOcmLoad (UINTPTR WrAddr,
 
 	if ((flags & XFPGA_ENCRYPTION_USERKEY_EN)
 			|| (flags & XFPGA_ENCRYPTION_DEVKEY_EN))
-		XFpga_AesInit(KeyAddr, &ImageInfo.Iv[0], flags);
+		XFpga_AesInit(KeyAddr, ImageInfo->Iv, flags);
 
 	for(int i = 0; i < TotalBitPartCount; i++)
 	{
@@ -773,7 +829,7 @@ static u32 XFpga_AuthBitstreamOcmLoad (UINTPTR WrAddr,
 		XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
 				XSECURE_AUTH_CERT_MIN_SIZE/XSECURE_WORD_LEN);
 		/*Verify Spk */
-		Status = XSecure_VerifySpk(AcBuf, ImageInfo.EfuseRsaenable);
+		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
 		if (Status != XST_SUCCESS) {
 			Status = XFPGA_PARTITION_AUTH_FAILURE;
 			goto END;
@@ -802,7 +858,7 @@ static u32 XFpga_AuthBitstreamOcmLoad (UINTPTR WrAddr,
 		XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
 				XSECURE_AUTH_CERT_MIN_SIZE/XSECURE_WORD_LEN);
 		/*Verify Spk */
-		Status = XSecure_VerifySpk(AcBuf, ImageInfo.EfuseRsaenable);
+		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
 		if (Status != XST_SUCCESS) {
 			Status = XFPGA_PARTITION_AUTH_FAILURE;
 			goto END;
@@ -1004,28 +1060,6 @@ END:
 }
 
 /*****************************************************************************/
-/** This function is used to Get the Encrypted Bit-stream info from the Image.
- *
- * @param WrAddr Linear memory secure image base address
- *
- * @return error status based on implemented functionality (SUCCESS by default)
- *
- *****************************************************************************/
-static u32 XFpga_GetEncInfo(UINTPTR WrAddr) {
-	u32 Status = XFPGA_SUCCESS;
-	u32 PartHeaderOffset;
-
-	memcpy((u8 *)PlEncInfo.Iv, (u8 *)(WrAddr + BITSTREAM_IV_OFFSET), XSECURE_IV_STR_LEN);
-	PartHeaderOffset = *((UINTPTR *)(WrAddr + PARTATION_HEADER_OFFSET));
-	PlEncInfo.PartationAddress = *((UINTPTR *)(WrAddr
-					+ PartHeaderOffset + BITSTREAM_PARTATION_OFFSET));
-	PlEncInfo.PartationAddress = (PlEncInfo.PartationAddress * WORD_LEN) + WrAddr;
-	PlEncInfo.PartationLen = *((UINTPTR *)(WrAddr + PartHeaderOffset)) * WORD_LEN;
-
-	return Status;
-}
-
-/*****************************************************************************/
 /** This is the function to write Encrypted data into PCAP interface
  *
  * @param WrSize Number of bytes that the DMA should write to the
@@ -1036,12 +1070,11 @@ static u32 XFpga_GetEncInfo(UINTPTR WrAddr) {
  * @return error status based on implemented functionality (SUCCESS by default)
  *
  *****************************************************************************/
-static u32 XFpga_WriteEncryptToPcap (UINTPTR WrAddr,
-				UINTPTR KeyAddr, u32 flags) {
+static u32 XFpga_WriteEncryptToPcap (UINTPTR WrAddr, UINTPTR KeyAddr,
+				XSecure_ImageInfo *ImageHdrInfo, u32 flags) {
 	u32 Status = XFPGA_SUCCESS;
+	u8 *EncSrc;
 
-
-	XFpga_GetEncInfo(WrAddr);
 	if (flags & XFPGA_ENCRYPTION_USERKEY_EN) {
 		Xilfpga_ConvertStringToHex((char *)(UINTPTR)(KeyAddr),
 							key, KEY_LEN);
@@ -1051,19 +1084,22 @@ static u32 XFpga_WriteEncryptToPcap (UINTPTR WrAddr,
 		/* Initialize the Aes driver so that it's ready to use */
 		XSecure_AesInitialize(&Secure_Aes, &CsuDma,
 					XSECURE_CSU_AES_KEY_SRC_KUP,
-					PlEncInfo.Iv, (u32 *)key);
+					(u32 *)ImageHdrInfo->Iv, (u32 *)key);
 	} else {
 
 		/* Initialize the Aes driver so that it's ready to use */
 		XSecure_AesInitialize(&Secure_Aes, &CsuDma,
 					XSECURE_CSU_AES_KEY_SRC_DEV,
-					PlEncInfo.Iv, NULL);
+					(u32 *)ImageHdrInfo->Iv, NULL);
 	}
 
+	EncSrc = (u8 *)(UINTPTR)(WrAddr +
+			(ImageHdrInfo->PartitionHdr->DataWordOffset) *
+						XSECURE_WORD_LEN);
 	Status = XSecure_AesDecrypt(&Secure_Aes,
-				(u8 *) XFPGA_DESTINATION_PCAP_ADDR,
-				(u8 *)(UINTPTR)PlEncInfo.PartationAddress,
-				PlEncInfo.PartationLen - GCM_TAG_LEN);
+			(u8 *) XFPGA_DESTINATION_PCAP_ADDR, EncSrc,
+			ImageHdrInfo->PartitionHdr->UnEncryptedDataWordLength *
+							XSECURE_WORD_LEN);
 
 	Status = XFpga_PcapWaitForDone();
 
