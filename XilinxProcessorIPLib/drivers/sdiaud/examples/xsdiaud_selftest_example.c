@@ -58,9 +58,12 @@
  * change all the needed parameters in one place.
  */
 #ifndef TESTAPP_GEN
-#define SDIAUD_0_DEVICE_ID	XPAR_SDI_RX_PATH_V_UHDSDI_AUDIO_DEMUX_DEVICE_ID
-#define SDIAUD_1_DEVICE_ID	XPAR_SDI_TX_PATH_V_UHDSDI_AUDIO_MUX_DEVICE_ID
+#define SDIAUD_0_DEVICE_ID	XPAR_V_UHDSDI_AUDIO_EMBED_1_DEVICE_ID
+#define SDIAUD_1_DEVICE_ID	XPAR_V_UHDSDI_AUDIO_EXTRACT_0_DEVICE_ID
 #endif
+
+#define XSDIAUD_IPVERSION_NUMBER 0x01 /* IP version number */
+#define XSDIAUD_NUM_REG 9 /* Number of registers to be read after reset */
 
 /**************************** Type Definitions ********************************/
 
@@ -70,7 +73,7 @@ int SdiAud_SelfTestExample(u16 DeviceId);
 
 /************************** Variable Definitions ******************************/
 
-XSdiAud SdiAud;		/* Instance of the SdiAud device */
+XSdiAud SdiAud0;		/* Instance0 of the SdiAud device */
 
 /******************************************************************************/
 /**
@@ -97,15 +100,14 @@ int main(void)
 	 */
 	Status = SdiAud_SelfTestExample(SDIAUD_0_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Sdi Audio Self Test Failed\r\n");
+		xil_printf("SDI Audio Self Test Failed \r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("Successfully ran Sdi Audio Self Test Example Test\r\n");
+	xil_printf("Successfully ran SDI Audio Self Test Example \r\n");
 	return XST_SUCCESS;
 }
 #endif
-
 /*****************************************************************************/
 /**
  *
@@ -123,20 +125,28 @@ int main(void)
  *****************************************************************************/
 int SdiAud_SelfTestExample(u16 DeviceId)
 {
-	int Status;
-	XSdiAud_Config *Config;
+	int Status, XSdiAud_TstLoop;
 	/*
 	 * Initialize the SdiAud driver so that it's ready to use
 	 * Look up the configuration in the config table, then initialize it.
 	 */
-	Config = XSdiAud_LookupConfig(DeviceId);
-
-	if (Config == NULL)
-		return XST_FAILURE;
-
-	Status = XSdiAud_CfgInitialize(&SdiAud, Config, Config->BaseAddress);
+	Status = XSdiAud_Initialize(&SdiAud0, DeviceId);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
+
+	XSdiAud_SoftReset(&SdiAud0);
+	for (XSdiAud_TstLoop = 0; XSdiAud_TstLoop < XSDIAUD_NUM_REG; XSdiAud_TstLoop++) {
+
+	Status = XSdiAud_ReadReg(SdiAud0.Config.BaseAddress, (XSDIAUD_INT_EN_REG_OFFSET + (4 * XSdiAud_TstLoop)));
+
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+	}
+
+	Status = XSdiAud_GetVersion(&SdiAud0);
+	if (Status != XSDIAUD_IPVERSION_NUMBER)
+	return XST_FAILURE;
+	Status = XST_SUCCESS;
 
 	return Status;
 }
