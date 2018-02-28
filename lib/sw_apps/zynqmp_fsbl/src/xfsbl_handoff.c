@@ -748,6 +748,12 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 		/**Remove PS-PL isolation to allow u-boot and linux to access PL*/
 			(void)psu_ps_pl_isolation_removal_data();
 			(void)psu_ps_pl_reset_config_data();
+
+#ifdef XPAR_VCU_0_BASEADDR
+			/*Remove isolation for VCU gasket*/
+			XFsbl_Out32(VCU_GASKET_INIT_REG, VCU_GASKET_POWER_UP |
+				VCU_GASKET_ISOLATION_REMOVAL_MASK);
+#endif
 		}
 	if(FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET){
 
