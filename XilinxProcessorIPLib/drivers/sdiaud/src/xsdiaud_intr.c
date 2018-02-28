@@ -53,7 +53,7 @@
 
 /************************** Constant Definitions *****************************/
 
-/***************** Macros (Inline Functions) Definitions *********************/
+/***************** Macros (In-line Functions) Definitions *********************/
 
 /**************************** Type Definitions *******************************/
 
@@ -102,9 +102,9 @@ void XSdiaud_IntrHandler(void *InstancePtr)
 
 	Data = Data & EnableMask;
 	/* Group change detected */
-	if (Data & XSDIAUD_EXT_INT_EN_GRP_CHG_MASK) {
+	if (Data & XSDIAUD_INT_ST_GRP_CHG_MASK) {
 		/* Clear the group change detect */
-		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_EXT_INT_EN_GRP_CHG_MASK);
+		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_INT_ST_GRP_CHG_MASK);
 
 		/* Call the group change detected handler */
 		if (SdiAudPtr->GrpChangeDetHandler)
@@ -112,9 +112,9 @@ void XSdiaud_IntrHandler(void *InstancePtr)
 	}
 
 	/* Control packet detected */
-	if (Data & XSDIAUD_EXT_INT_EN_PKT_CHG_MASK) {
+	if (Data & XSDIAUD_EXT_INT_ST_PKT_CHG_MASK) {
 		/* Clear control packet detected event */
-		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_EXT_INT_EN_PKT_CHG_MASK);
+		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_EXT_INT_ST_PKT_CHG_MASK);
 
 		/* Call the control packet detected Handler */
 		if (SdiAudPtr->CntrlPktDetHandler)
@@ -122,19 +122,19 @@ void XSdiaud_IntrHandler(void *InstancePtr)
 	}
 
 	/* Status Change Detected */
-	if (Data & XSDIAUD_EXT_INT_EN_STS_CHG_MASK) {
+	if (Data & XSDIAUD_EXT_INT_ST_STS_CHG_MASK) {
 		/* Clear the status change event */
-		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_EXT_INT_EN_STS_CHG_MASK);
+		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_EXT_INT_ST_STS_CHG_MASK);
 
 		/* Call the status change Detected Handler */
-		if (SdiAudPtr->FifoOvrflwDetHandler)
-			SdiAudPtr->FifoOvrflwDetHandler(SdiAudPtr->FifoOvrflwDetHandlerRef);
+		if (SdiAudPtr->StatChangeDetHandlerRef)
+			SdiAudPtr->StatChangeDetHandler(SdiAudPtr->StatChangeDetHandlerRef);
 	}
 
 	/* FIFO overflow detected */
-	if (Data & XSDIAUD_EXT_INT_EN_FIFO_OF_MASK) {
+	if (Data & XSDIAUD_EXT_INT_ST_FIFO_OF_MASK) {
 		/* Clear the FIFO overflow detect event */
-		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_EXT_INT_EN_FIFO_OF_MASK);
+		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_EXT_INT_ST_FIFO_OF_MASK);
 
 		/* Call the FIFO overflow detected Handler */
 		if (SdiAudPtr->FifoOvrflwDetHandler)
@@ -142,9 +142,9 @@ void XSdiaud_IntrHandler(void *InstancePtr)
 	}
 
 	/* Parity error detected */
-	if (Data & XSDIAUD_EXT_INT_EN_PERR_MASK) {
+	if (Data & XSDIAUD_EXT_INT_ST_PERR_MASK) {
 		/* Clear the parity error detected event */
-		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_EXT_INT_EN_PERR_MASK);
+		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_EXT_INT_ST_PERR_MASK);
 
 		/* Call the parity error detected Handler */
 		if (SdiAudPtr->ParityErrDetHandler)
@@ -153,16 +153,16 @@ void XSdiaud_IntrHandler(void *InstancePtr)
 	}
 
 	/* Checksum error detected */
-	if (Data & XSDIAUD_EXT_INT_EN_CERR_MASK) {
+	if (Data & XSDIAUD_EXT_INT_ST_CERR_MASK) {
 		/* Clear the checksum error detected event */
-		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_EXT_INT_EN_CERR_MASK);
+		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_EXT_INT_ST_CERR_MASK);
 
 			/* Call the checksum error detected Handler */
-			if (SdiAudPtr->ParityErrDetHandler)
-				SdiAudPtr->ParityErrDetHandler(SdiAudPtr->ParityErrDetHandlerRef);
+			if (SdiAudPtr->ChecksumErrDetHandler)
+				SdiAudPtr->ChecksumErrDetHandler(SdiAudPtr->ChecksumErrDetHandlerRef);
 		}
-
 }
+
 /*****************************************************************************/
 /**
  *
@@ -207,37 +207,38 @@ int XSdiAud_SetHandler(XSdiAud *InstancePtr, XSdiAud_HandlerType HandlerType,
 	/* Check for handler type */
 	switch (HandlerType) {
 	case (XSDIAUD_HANDLER_AUD_GRP_CHNG_DET):
-			InstancePtr->GrpChangeDetHandler = FuncPtr;
-			InstancePtr->GrpChangeDetHandlerRef = CallbackRef;
-			break;
+		InstancePtr->GrpChangeDetHandler = FuncPtr;
+		InstancePtr->GrpChangeDetHandlerRef = CallbackRef;
+		break;
 
 	case (XSDIAUD_HANDLER_CNTRL_PKT_CHNG_DET):
-			InstancePtr->CntrlPktDetHandler = FuncPtr;
-			InstancePtr->CntrlPktDetHandlerRef = CallbackRef;
-			break;
+		InstancePtr->CntrlPktDetHandler = FuncPtr;
+		InstancePtr->CntrlPktDetHandlerRef = CallbackRef;
+		break;
 
 	case (XSDIAUD_HANDLER_CHSTAT_CHNG_DET):
-			InstancePtr->StatChangeDetHandler = FuncPtr;
-			InstancePtr->StatChangeDetHandlerRef = CallbackRef;
-			break;
+		InstancePtr->StatChangeDetHandler = FuncPtr;
+		InstancePtr->StatChangeDetHandlerRef = CallbackRef;
+		break;
 
 	case (XSDIAUD_HANDLER_FIFO_OVRFLW_DET):
-			InstancePtr->FifoOvrflwDetHandler = FuncPtr;
-			InstancePtr->FifoOvrflwDetHandlerRef = CallbackRef;
-			break;
+		InstancePtr->FifoOvrflwDetHandler = FuncPtr;
+		InstancePtr->FifoOvrflwDetHandlerRef = CallbackRef;
+		break;
 
 	case (XSDIAUD_HANDLER_PARITY_ERR_DET):
-			InstancePtr->ParityErrDetHandler = FuncPtr;
-			InstancePtr->ParityErrDetHandlerRef = CallbackRef;
-			break;
+		InstancePtr->ParityErrDetHandler = FuncPtr;
+		InstancePtr->ParityErrDetHandlerRef = CallbackRef;
+		break;
 
 	case (XSDIAUD_HANDLER_CHECKSUM_ERR_DET):
-			InstancePtr->ChecksumErrDetHandler = FuncPtr;
-			InstancePtr->ChecksumErrDetHandlerRef = CallbackRef;
-			break;
+		InstancePtr->ChecksumErrDetHandler = FuncPtr;
+		InstancePtr->ChecksumErrDetHandlerRef = CallbackRef;
+		break;
+
 	default:
-			Status = XST_INVALID_PARAM;
-			break;
+		Status = XST_INVALID_PARAM;
+		break;
 	}
 	return Status;
 }

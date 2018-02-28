@@ -42,12 +42,10 @@
  *
  * Ver   Who    Date      Changes
  * ----- ------ -------- --------------------------------------------------
- * 1.0   kar    02/06/18  Initial release.
+ * 1.0   kar    02/14/18  Initial release.
  * </pre>
  *
  ******************************************************************************/
-
-
 /***************************** Include Files *********************************/
 #include "xsdiaud.h"
 #include "xparameters.h"
@@ -137,5 +135,4 @@ int XSdiAud_Initialize(XSdiAud *InstancePtr, u16 DeviceId)
 	return XSdiAud_CfgInitialize(InstancePtr, ConfigPtr,
 			ConfigPtr->BaseAddress);
 }
-
 /** @} */

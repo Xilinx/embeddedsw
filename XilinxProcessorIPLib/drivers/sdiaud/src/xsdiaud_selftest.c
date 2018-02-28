@@ -43,7 +43,7 @@
  *
  * Ver   Who   Date        Changes
  * ----- ----- ---------- -----------------------------------------------
- * 1.0    kar  02/06/18    Initial release.
+ * 1.0    kar  02/14/18    Initial release.
  * </pre>
  *
  ******************************************************************************/
@@ -81,9 +81,8 @@
 /*****************************************************************************/
 /**
  *
- * Runs a self-test on the driver/device.
- * The self-test  reads the configuration information register
- * and verifies the value.
+ * Runs a self-test on the driver/device. The self-test  reads the XSdi_Aud
+ * registers and verifies the value.
  *
  * @param	InstancePtr is a pointer to the XSdiAud instance.
  *
@@ -100,21 +99,17 @@ int XSdiAud_SelfTest(XSdiAud *InstancePtr)
 	u32 SdiAud_IsEmbed;
 	/* verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	/* Read the core configuration information register to know the
+	/* Read the SDI Audio Module control register to know the
 	 * operating mode i.e. to know whether the core is configured
 	 * as a Audio Embed or Audio Extract.
 	 */
 	SdiAud_IsEmbed = XSdiAud_IsEmbed(InstancePtr);
 	if (SdiAud_IsEmbed != InstancePtr->Config.IsEmbed) {
 
-	xil_printf("Core configuration (%d) doesn't match GUI value(%d).\r\n",
+	xil_printf("Core configuration (%d) doesn't match GUI value (%d).\r\n",
 				SdiAud_IsEmbed, InstancePtr->Config.IsEmbed);
 		return XST_FAILURE;
 	}
-	XSdiAud_Enable(InstancePtr, TRUE);
-	if (InstancePtr->IsStarted != XIL_COMPONENT_IS_STARTED)
-		return XST_FAILURE;
-	XSdiAud_Enable(InstancePtr, FALSE);
 	return Status;
 }
 /** @} */
