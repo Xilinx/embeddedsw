@@ -84,10 +84,13 @@ extern "C" {
 	//!< SDI Audio Audio control register offset
 
 #define XSDIAUD_AXIS_CHCOUNT_REG_OFFSET 0x1C
-       //!< SDI Audio AXI stream channel count register offset
+	//!< SDI Audio AXI stream channel count register offset
 
-#define XSDIAUD_MUX1_CNTRL_REG_OFFSET 0x20
-	//!< SDI Audio Mux1 control register offset
+#define XSDIAUD_MUX1_OR_DMUX1_CNTRL_REG_OFFSET 0x20
+	//!< SDI Audio Mux1 or Dmux1 control register offset
+
+#define XSDIAUD_DMUX1_CNTRL_REG_OFFSET 0x20
+	//!< SDI Audio DMux1 control register offset
 
 #define XSDIAUD_GRP_PRES_REG_OFFSET 0X40
 	//!< SDI Audio group presence register offset
@@ -101,39 +104,30 @@ extern "C" {
 #define XSDIAUD_GUI_PARAM_REG_OFFSET 0XFC
 	//!< SDI Audio GUI parameters register offset
 /* @} */
+
 /**
- * @name Core Configuration register masks and shifts of XSdiAud Embed device
+ * @name Core Configuration register masks and shifts of XSdiAud device
  * @{
  */
-#define XSDIAUD_EMB_CNTRL_EMBEN_SHIFT (0)
-	//!< SDI Audio Embed enable shift
-#define XSDIAUD_EMB_CNTRL_EMBEN_MASK  (1 << XSDIAUD_EMB_CNTRL_EMBEN_SHIFT)
-	//!< SDI Audio Embed enable mask
+#define XSDIAUD_CNTRL_EN_SHIFT (0)
+	//!< SDI Audio Embed enable or Extract enable shift
+#define XSDIAUD_CNTRL_EN_MASK  (1 << XSDIAUD_CNTRL_EN_SHIFT)
+	//!< SDI Audio Embed enable or Extract enable mask
 
-#define XSDIAUD_EMB_SOFT_RST_SCLK_SHIFT (1)
-	//!< SDI Audio Embed soft reset sclk shift
-#define XSDIAUD_EMB_SOFT_RST_SCLK_MASK (1 << XSDIAUD_EMB_SOFT_RST_SCLK_SHIFT)
-	//!< SDI Audio Embed soft reset sclk mask
-
-#define XSDIAUD_EMB_SOFT_RST_ACLK_SHIFT (0)
+#define XSDIAUD_SOFT_RST_ACLK_SHIFT (0)
 	//!< SDI Audio Embed soft reset aclk shift
-#define XSDIAUD_EMB_SOFT_RST_ACLK_MASK (1 << XSDIAUD_EMB_SOFT_RST_ACLK_SHIFT)
+#define XSDIAUD_SOFT_RST_ACLK_MASK (1 << XSDIAUD_SOFT_RST_ACLK_SHIFT)
 	//!< SDI Audio Embed soft reset aclk mask
 
-#define XSDIAUD_EMB_VER_SHIFT (0)
-	//!< SDI Audio Embed version shift
-#define XSDIAUD_EMB_VER_MASK (0xFF << XSDIAUD_EMB_VER_SHIFT)
-	//!< SDI Audio Embed version mask
+#define XSDIAUD_SOFT_RST_SCLK_SHIFT (1)
+	//!< SDI Audio soft reset sclk shift
+#define XSDIAUD_SOFT_RST_SCLK_MASK (1 << XSDIAUD_SOFT_RST_SCLK_SHIFT)
+	//!< SDI Audio soft reset sclk mask
 
-#define XSDIAUD_EMB_INT_EN_GRP_CHG_SHIFT (0)
-	//!< SDI Audio Embed group change detect shift
-#define XSDIAUD_EMB_INT_EN_GRP_CHG_MASK (1 << XSDIAUD_EMB_INT_EN_GRP_CHG_SHIFT)
-	//!< SDI Audio Embed group change detect mask
-
-#define XSDIAUD_EMB_INT_ST_GRP_CHG_SHIFT (0)
-	//!< SDI Audio Embed group change detect shift
-#define XSDIAUD_EMB_INT_ST_GRP_CHG_MASK (1 << XSDIAUD_EMB_INT_ST_GRP_CHG_SHIFT)
-	//!< SDI Audio Embed group change detect mask
+#define XSDIAUD_VER_SHIFT (0)
+	//!< SDI Audio version shift
+#define XSDIAUD_VER_MASK (0xFF << XSDIAUD_VER_SHIFT)
+	//!< SDI Audio version mask
 
 #define XSDIAUD_EMB_VID_CNT_STD_SHIFT (0)
 	//!< SDI Audio Embed video control line standard shift
@@ -147,17 +141,17 @@ extern "C" {
 
 #define XSDIAUD_EMB_AUD_CNT_SR_SHIFT (0)
 	//!< SDI Audio Embed audio control SD sample rate shift
-#define XSDIAUD_EMB_AUD_CNT_SR_MASK (0x7 < XSDIAUD_EMB_AUD_CNT_SR_SHIFT)
+#define XSDIAUD_EMB_AUD_CNT_SR_MASK (0x7 << XSDIAUD_EMB_AUD_CNT_SR_SHIFT)
 	//!< SDI Audio Embed audio control SD sample rate mask
 
 #define XSDIAUD_EMB_AUD_CNT_SS_SHIFT (3)
 	//!< SDI Audio Embed audio control SD sample size shift
-#define XSDIAUD_EMB_AUD_CNT_SS_MASK (1 < XSDIAUD_EMB_AUD_CNT_SS_SHIFT)
+#define XSDIAUD_EMB_AUD_CNT_SS_MASK (1 << XSDIAUD_EMB_AUD_CNT_SS_SHIFT)
 	//!< SDI Audio Embed audio control SD sample size mask
 
 #define XSDIAUD_EMB_AXIS_CHCOUNT_SHIFT (0)
 	//!< SDI Audio Embed AXIS channel count shift
-#define XSDIAUD_EMB_AXIS_CHCOUNT_MASK (0x1F < XSDIAUD_EMB_AXIS_CHCOUNT_SHIFT)
+#define XSDIAUD_EMB_AXIS_CHCOUNT_MASK (0x1F << XSDIAUD_EMB_AXIS_CHCOUNT_SHIFT)
 	//!< SDI Audio Embed AXIS channel count mask
 
 #define XSDIAUD_EMD_MUX_CNT_GS_SHIFT (0)
@@ -165,108 +159,84 @@ extern "C" {
 #define XSDIAUD_EMD_MUX_CNT_GS_MASK (0x3 << XSDIAUD_EMD_MUX_CNT_GS_SHIFT)
 	//!< SDI Audio Embed Mux group select mask
 
-#define XSDIAUD_EMB_GRP_PRESNT_SHIFT (0)
-	//!< SDI Audio Embed group present shift
-#define XSDIAUD_EMB_GRP_PRESNT_MASK (0xF << XSDIAUD_EMB_GRP_PRESNT_SHIFT)
-	//!< SDI Audio Embed group present mask
+#define XSDIAUD_GRP_PRESNT_SHIFT (0)
+	//!< SDI Audio group present value shift
+#define XSDIAUD_GRP_PRESNT_MASK (0xF << XSDIAUD_GRP_PRESNT_SHIFT)
+	//!< SDI Audio group present value mask
 
-#define XSDIAUD_EMB_GRP_PRESNTV_SHIFT (4)
-	//!< SDI Audio Embed group present shift
-#define XSDIAUD_EMB_GRP_PRESNTV_MASK (1 << XSDIAUD_EMB_GRP_PRESNTV_SHIFT)
-	//!< SDI Audio Embed group present mask
-/* @} */
-/**
- * @name Core Configuration register masks and shifts of XSdiAud Extract device
- * @{
- */
-#define XSDIAUD_EXT_CNTRL_SHIFT (0)
-	//!< SDI Audio Extract enable shift
-#define XSDIAUD_EXT_CNTRL_MASK  (1 << XSDIAUD_EXT_CNTRL_SHIFT)
-	//!< SDI Audio Extract enable mask
+#define XSDIAUD_GRP_PRESNTV_SHIFT (4)
+	//!< SDI Audio group present valid shift
+#define XSDIAUD_GRP_PRESNTV_MASK (1 << XSDIAUD_GRP_PRESNTV_SHIFT)
+	//!< SDI Audio group present valid mask
 
-#define XSDIAUD_EXT_SOFT_RST_SCLK_SHIFT (1)
-	//!< SDI Audio Extract soft reset sclk shift
-#define XSDIAUD_EXT_SOFT_RST_SCLK_MASK (1 << XSDIAUD_EXT_SOFT_RST_SCLK_SHIFT)
-	//!< SDI Audio Extract soft reset sclk mask
-
-#define XSDIAUD_EXT_SOFT_RST_ACLK_SHIFT (0)
-	//!< SDI Audio Extract soft reset aclk shift
-#define XSDIAUD_EXT_SOFT_RST_ACLK_MASK (1 << XSDIAUD_EXT_SOFT_RST_ACLK_SHIFT)
-	//!< SDI Audio Extract soft reset aclk mask
-
-#define XSDIAUD_EXT_VER_SHIFT (0)
-	//!< SDI Audio Extract version shift
-#define XSDIAUD_EXT_VER_MASK (0xFF << XSDIAUD_EXT_VER_SHIFT)
-	//!< SDI Audio Extract version mask
-
-#define XSDIAUD_EXT_INT_EN_GRP_CHG_SHIFT (0)
-	//!< SDI Audio Extract group change detect shift
-#define XSDIAUD_EXT_INT_EN_GRP_CHG_MASK (1 << XSDIAUD_EXT_INT_EN_GRP_CHG_SHIFT)
-	//!< SDI Audio Extract group change detect mask
+#define XSDIAUD_INT_EN_GRP_CHG_SHIFT (0)
+	//!< SDI Audio interrupt group change detect shift
+#define XSDIAUD_INT_EN_GRP_CHG_MASK (1 << XSDIAUD_INT_EN_GRP_CHG_SHIFT)
+	//!< SDI Audio interrupt group change detect mask
 
 #define XSDIAUD_EXT_INT_EN_PKT_CHG_SHIFT (1)
-	//!< SDI Audio Extract control packet change detect shift
+	//!< SDI Audio Extract interrupt control packet change detect shift
 #define XSDIAUD_EXT_INT_EN_PKT_CHG_MASK (1 << XSDIAUD_EXT_INT_EN_PKT_CHG_SHIFT)
-	//!< SDI Audio Extract control packet change detect mask
+	//!< SDI Audio Extract interrupt control packet change detect mask
 
 #define XSDIAUD_EXT_INT_EN_STS_CHG_SHIFT (2)
-	//!< SDI Audio Extract status change detect shift
-#define XSDIAUD_EXT_INT_EN_STS_CHG_MASK (1 << XSDIAUD_EXT_INT_EN_GRP_CHG_SHIFT)
-	//!< SDI Audio Extract status change detect mask
+	//!< SDI Audio Extract interrupt status change detect shift
+#define XSDIAUD_EXT_INT_EN_STS_CHG_MASK (1 << XSDIAUD_EXT_INT_EN_STS_CHG_SHIFT)
+	//!< SDI Audio Extract interrupt status change detect mask
 
 #define XSDIAUD_EXT_INT_EN_FIFO_OF_SHIFT (3)
-	//!< SDI Audio Extract FIFO overflow detect shift
+	//!< SDI Audio Extract interrupt FIFO overflow detect shift
 #define XSDIAUD_EXT_INT_EN_FIFO_OF_MASK (1 << XSDIAUD_EXT_INT_EN_FIFO_OF_SHIFT)
-	//!< SDI Audio Extract FIFO overflow detect mask
+	//!< SDI Audio Extract interrupt FIFO overflow detect mask
 
 #define XSDIAUD_EXT_INT_EN_PERR_SHIFT (4)
-	//!< SDI Audio Extract parity error detect shift
+	//!< SDI Audio Extract interrupt parity error detect shift
 #define XSDIAUD_EXT_INT_EN_PERR_MASK (1 << XSDIAUD_EXT_INT_EN_PERR_SHIFT)
-	//!< SDI Audio Extract parity error detect mask
+	//!< SDI Audio Extract interrupt parity error detect mask
 
 #define XSDIAUD_EXT_INT_EN_CERR_SHIFT (5)
-	//!< SDI Audio Extract checksum error detect shift
+	//!< SDI Audio Extract interrupt checksum error detect shift
 #define XSDIAUD_EXT_INT_EN_CERR_MASK (1 << XSDIAUD_EXT_INT_EN_CERR_SHIFT)
-	//!< SDI Audio Extract checksum error detect mask
+	//!< SDI Audio Extract interrupt checksum error detect mask
 
-#define XSDIAUD_EXT_INT_ST_GRP_CHG_SHIFT (0)
-	//!< SDI Audio Extract group change detect shift
-#define XSDIAUD_EXT_INT_ST_GRP_CHG_MASK (1 << XSDIAUD_EXT_INT_ST_GRP_CHG_SHIFT)
-	//!< SDI Audio Extract group change detect mask
+#define XSDIAUD_INT_ST_GRP_CHG_SHIFT (0)
+	//!< SDI Audio interrupt status group change detect shift
+#define XSDIAUD_INT_ST_GRP_CHG_MASK (1 << XSDIAUD_INT_ST_GRP_CHG_SHIFT)
+	//!< SDI Audio interrupt status group change detect mask
 
 #define XSDIAUD_EXT_INT_ST_PKT_CHG_SHIFT (1)
-	//!< SDI Audio Extract control packet change detect shift
+	//!< SDI Audio Extract interrupt status control pkt change detect shift
 #define XSDIAUD_EXT_INT_ST_PKT_CHG_MASK (1 << XSDIAUD_EXT_INT_ST_PKT_CHG_SHIFT)
-	//!< SDI Audio Extract control packet change detect mask
+	//!< SDI Audio Extract interrupt status control pkt change detect mask
 
 #define XSDIAUD_EXT_INT_ST_STS_CHG_SHIFT (2)
-	//!< SDI Audio Extract status change detect shift
-#define XSDIAUD_EXT_INT_ST_STS_CHG_MASK (1 << XSDIAUD_EXT_INT_ST_GRP_CHG_SHIFT)
+	//!< SDI Audio Extract interrupt status status change detect shift
+#define XSDIAUD_EXT_INT_ST_STS_CHG_MASK (1 << XSDIAUD_EXT_INT_ST_STS_CHG_SHIFT)
 	//!< SDI Audio Extract status change detect mask
 
 #define XSDIAUD_EXT_INT_ST_FIFO_OF_SHIFT (3)
-	//!< SDI Audio Extract FIFO overflow detect shift
+	//!< SDI Audio Extract interrupt status FIFO overflow detect shift
 #define XSDIAUD_EXT_INT_ST_FIFO_OF_MASK (1 << XSDIAUD_EXT_INT_ST_FIFO_OF_SHIFT)
-	//!< SDI Audio Extract FIFO overflow detect mask
+	//!< SDI Audio Extract interrupt status FIFO overflow detect mask
 
 #define XSDIAUD_EXT_INT_ST_PERR_SHIFT (4)
-	//!< SDI Audio Extract parity error detect shift
+	//!< SDI Audio Extract interrupt status parity error detect shift
 #define XSDIAUD_EXT_INT_ST_PERR_MASK (1 << XSDIAUD_EXT_INT_ST_PERR_SHIFT)
-	//!< SDI Audio Extract parity error detect mask
+	//!< SDI Audio Extract interrupt status parity error detect mask
 
 #define XSDIAUD_EXT_INT_ST_CERR_SHIFT (5)
-	//!< SDI Audio Extract checksum error detect shift
+	//!< SDI Audio Extract interrupt status checksum error detect shift
 #define XSDIAUD_EXT_INT_ST_CERR_MASK (1 << XSDIAUD_EXT_INT_ST_CERR_SHIFT)
-	//!< SDI Audio Extract checksum error detect mask
+	//!< SDI Audio Extract interrupt status checksum error detect mask
 
 #define XSDIAUD_EXT_AUD_CNT_CP_EN_SHIFT (0)
 	//!< SDI Audio Extract audio clock phase enable shift
-#define XSDIAUD_EXT_AUD_CNT_CP_EN_MASK (1 < XSDIAUD_EXT_AUD_CNT_CP_EN_SHIFT)
+#define XSDIAUD_EXT_AUD_CNT_CP_EN_MASK (1 << XSDIAUD_EXT_AUD_CNT_CP_EN_SHIFT)
 	//!< SDI Audio Extract audio clock phase enable mask
 
 #define XSDIAUD_EXT_AXIS_CHCOUNT_SHIFT (0)
 	//!< SDI Audio Extract AXIS channel count shift
-#define XSDIAUD_EXT_AXIS_CHCOUNT_MASK (0x1F < XSDIAUD_EXT_AXIS_CHCOUNT_SHIFT)
+#define XSDIAUD_EXT_AXIS_CHCOUNT_MASK (0x1F << XSDIAUD_EXT_AXIS_CHCOUNT_SHIFT)
 	//!< SDI Audio Extract AXIS channel count mask
 
 #define XSDIAUD_EXT_DMUX_GRPS_SHIFT (0)
@@ -276,18 +246,16 @@ extern "C" {
 
 #define XSDIAUD_EXT_DMUX_MUTE_SHIFT (2)
 	//!< SDI Audio Extract DMux mute channel shift
-#define XSDIAUD_EXT_DMUX_MUTE_MASK (0xF << XSDIAUD_EXT_DMUX_MUTE_SHIFT)
-	//!< SDI Audio Extract DMux mute channel mask
-
-#define XSDIAUD_EXT_GRP_PRSV_SHIFT (0)
-	//!< SDI Audio Extract group present value shift
-#define XSDIAUD_EXT_GRP_PRSV_MASK (0xF << XSDIAUD_EXT_GRP_PRSV_SHIFT)
-	//!< SDI Audio Extract group present value mask
-
-#define XSDIAUD_EXT_GRP_PRSVLD_SHIFT (4)
-	//!< SDI Audio Extract group present valid shift
-#define XSDIAUD_EXT_GRP_PRSVLD_MASK (1 << XSDIAUD_EXT_GRP_PRSVLD_SHIFT)
-	//!< SDI Audio Extract group present valid mask
+#define XSDIAUD_EXT_DMUX_MUTEALL_MASK (0xF << XSDIAUD_EXT_DMUX_MUTE_SHIFT)
+	//!< SDI Audio Extract DMux mute all channels mask
+#define XSDIAUD_EXT_DMUX_MUTE1_MASK (0x1 << XSDIAUD_EXT_DMUX_MUTE_SHIFT)
+    //!< SDI Audio Extract Dmux mute channel 1 mask
+#define XSDIAUD_EXT_DMUX_MUTE2_MASK (0x2 << XSDIAUD_EXT_DMUX_MUTE_SHIFT)
+    //!< SDI Audio Extract Dmux mute channel 2 mask
+#define XSDIAUD_EXT_DMUX_MUTE3_MASK (0x4 << XSDIAUD_EXT_DMUX_MUTE_SHIFT)
+    //!< SDI Audio Extract Dmux mute channel 3 mask
+#define XSDIAUD_EXT_DMUX_MUTE4_MASK (0x8 << XSDIAUD_EXT_DMUX_MUTE_SHIFT)
+    //!< SDI Audio Extract Dmux mute channel 4 mask
 
 #define XSDIAUD_EXT_PKTST_SR_SHIFT (0)
 	//!< SDI Audio Extract control packet status sampling rate shift
@@ -319,11 +287,15 @@ extern "C" {
 	//!< SDI Audio GUI AXI-lite enable parameter shift
 #define XSDIAUD_GUI_AXIE_MASK (1 << XSDIAUD_GUI_AXIE_SHIFT)
 	//!< SDI Audio GUI AXI-lite enable parameter mask
-/* @} */
+
+#define XSDIAUD_GUI_CHSTAT_EXTR_SHIFT (8)
+	//!< SDI Audio GUI Channel status extract parameter shift
+#define XSDIAUD_GUI_CHSTAT_EXTR_MASK (1 << XSDIAUD_GUI_CHSTAT_EXTR_SHIFT)
+	//!< SDI Audio GUI channel status extract parameter mask
 
 /**************************** Type Definitions *******************************/
 
-/***************** Macros (Inline Functions) Definitions *********************/
+/***************** Macros (In-line Functions) Definitions *********************/
 
 /** @name Register access macro definition
  * @{
@@ -351,6 +323,7 @@ extern "C" {
  *****************************************************************************/
 #define XSdiAud_ReadReg(BaseAddress, RegOffset) \
 	XSdiAud_In32((BaseAddress) + ((u32)RegOffset))
+
 /*****************************************************************************
  *****************************************************************************
  *
@@ -374,6 +347,7 @@ extern "C" {
 #define XSdiAud_WriteReg(BaseAddress, RegOffset, Data) \
 	XSdiAud_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
 /*@}*/
+
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Declarations ****************************/

@@ -109,9 +109,9 @@ proc hier_ip_define_include_file {drv_handle file_name drv_string args} {
             }  elseif {[string compare -nocase "C_AUDIO_FUNCTION" $arg] == 0} {
                 set value [string toupper [common::get_property CONFIG.$arg $periph]]
 				puts $value
-				if {[string compare -nocase "EXTRACT" $value] == 0} {
+				if {[string compare -nocase "EMBED" $value] == 0} {
 					set value 0
-				} elseif {[string compare -nocase "EMBED" $value] == 0} {
+				} elseif {[string compare -nocase "EXTRACT" $value] == 0} {
 					set value 1
 				} else {
 				    set value 2
@@ -196,9 +196,9 @@ proc hier_ip_define_canonical_xpars {drv_handle file_name drv_string args} {
                 } elseif {[string compare -nocase "C_AUDIO_FUNCTION" $arg] == 0} {
 					set value [string toupper [common::get_property CONFIG.$arg $periph]]
 					puts $value
-					if {[string compare -nocase "EXTRACT" $value] == 0} {
+					if {[string compare -nocase "EMBED" $value] == 0} {
 						set rvalue 0
-					} elseif {[string compare -nocase "EMBED" $value] == 0} {
+					} elseif {[string compare -nocase "EXTRACT" $value] == 0} {
 						set rvalue 1
 					} else {
 						set rvalue 2
