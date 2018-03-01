@@ -1007,6 +1007,7 @@ int XV_SdiTx_StopSdi(XV_SdiTx *InstancePtr)
 * This function Set the video format of the SDI TX core.
 *
 * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
+* @param	ColorFormat is a variable of type XVidC_ColorFormat.
 *
 * @return
 *		- XST_SUCCESS if register write is successfule for SDI stop

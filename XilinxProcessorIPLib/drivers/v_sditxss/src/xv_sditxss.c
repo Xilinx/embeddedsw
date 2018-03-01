@@ -508,7 +508,7 @@ void XV_SdiTxSs_Stop(XV_SdiTxSs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function Set the video format of the SDI TX Ss core..
+* This function Set the video format of the SDI TX Ss core.
 *
 * @param	InstancePtr is a pointer to the XV_SdiTxSs core instance.
 * @param	ColorFormat is a variable of type XVidC_ColorFormat.
