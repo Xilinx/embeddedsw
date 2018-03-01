@@ -47,6 +47,7 @@
 * Ver Who Date     Changes
 * --- --- -------- ------------------------------------------------------------
 * 1.0 sss 07/28/16 Initial release
+* 1.1 vsa 02/28/18 Added Frame End Generation feature
 * </pre>
 ******************************************************************************/
 
@@ -81,16 +82,25 @@
 ****************************************************************************/
 void XCsi2Tx_IntrEnable(XCsi2Tx *InstancePtr, u32 Mask)
 {
+	u32 AllMask = XCSI2TX_IER_ALLINTR_MASK;
+
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
+
+	if (InstancePtr->Config.FEGenEnabled) {
+		AllMask |= XCSITX_LCSTAT_VC0_IER_MASK;
+		AllMask |= XCSITX_LCSTAT_VC1_IER_MASK;
+		AllMask |= XCSITX_LCSTAT_VC2_IER_MASK;
+		AllMask |= XCSITX_LCSTAT_VC3_IER_MASK;
+	}
 	/* Checking for invalid mask bits being set */
-	Xil_AssertVoid((Mask & (~(XCSI2TX_IER_ALLINTR_MASK))) == 0);
+	Xil_AssertVoid((Mask & ~AllMask) == 0);
 
 	Mask |= XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr,
 						XCSI2TX_IER_OFFSET);
 
 	XCsi2Tx_WriteReg(InstancePtr->Config.BaseAddr, XCSI2TX_IER_OFFSET,
-			Mask & XCSI2TX_IER_ALLINTR_MASK);
+			Mask & AllMask);
 }
 
 /*****************************************************************************/
@@ -108,13 +118,21 @@ void XCsi2Tx_IntrEnable(XCsi2Tx *InstancePtr, u32 Mask)
 ****************************************************************************/
 void XCsi2Tx_IntrDisable(XCsi2Tx *InstancePtr, u32 Mask)
 {
+	u32 AllMask = XCSI2TX_IER_ALLINTR_MASK;
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
+
+	if (InstancePtr->Config.FEGenEnabled) {
+		AllMask |= XCSITX_LCSTAT_VC0_IER_MASK;
+		AllMask |= XCSITX_LCSTAT_VC1_IER_MASK;
+		AllMask |= XCSITX_LCSTAT_VC2_IER_MASK;
+		AllMask |= XCSITX_LCSTAT_VC3_IER_MASK;
+	}
 	/* Checking for invalid mask bits being set */
-	Xil_AssertVoid((Mask & (~(XCSI2TX_IER_ALLINTR_MASK))) == 0);
+	Xil_AssertVoid((Mask & ~AllMask) == 0);
 
 	XCsi2Tx_WriteReg(InstancePtr->Config.BaseAddr, XCSI2TX_IER_OFFSET,
-			~ Mask & XCSI2TX_IER_ALLINTR_MASK);
+			~Mask & AllMask);
 }
 
 /*****************************************************************************/
@@ -184,16 +202,24 @@ u32 XCsi2Tx_GetIntrStatus(XCsi2Tx *InstancePtr)
 ****************************************************************************/
 void XCsi2Tx_InterruptClear(XCsi2Tx *InstancePtr, u32 Mask)
 {
+	u32 AllMask = XCSI2TX_ISR_ALLINTR_MASK;
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
+
+	if (InstancePtr->Config.FEGenEnabled) {
+		AllMask |= XCSITX_LCSTAT_VC0_ISR_MASK;
+		AllMask |= XCSITX_LCSTAT_VC1_ISR_MASK;
+		AllMask |= XCSITX_LCSTAT_VC2_ISR_MASK;
+		AllMask |= XCSITX_LCSTAT_VC3_ISR_MASK;
+	}
 	/* Checking for invalid mask bits being set */
-	Xil_AssertVoid((Mask & (~(XCSI2TX_IER_ALLINTR_MASK))) == 0);
+	Xil_AssertVoid((Mask & ~AllMask) == 0);
 
 	Mask &= XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr,
 						XCSI2TX_ISR_OFFSET);
 
 	XCsi2Tx_WriteReg(InstancePtr->Config.BaseAddr, XCSI2TX_ISR_OFFSET,
-				Mask & XCSI2TX_ISR_ALLINTR_MASK);
+				Mask & AllMask);
 }
 
 /*****************************************************************************/
@@ -211,6 +237,10 @@ void XCsi2Tx_InterruptClear(XCsi2Tx *InstancePtr, u32 Mask)
 * (XCSI2TX_HANDLER_LINEBUF_FULL)	LineBufferCallBack
 * (XCSI2TX_HANDLER_WRG_DATATYPE)	WrgDataTypeCallBack
 * (XCSI2TX_HANDLER_UNDERRUN_PIXEL)	UnderrunPixelCallBack
+* (XCSI2TX_HANDLER_LCERRVC0)		LineCountErrVC0
+* (XCSI2TX_HANDLER_LCERRVC1)		LineCountErrVC1
+* (XCSI2TX_HANDLER_LCERRVC2)		LineCountErrVC2
+* (XCSI2TX_HANDLER_LCERRVC3)		LineCountErrVC3
 * </pre>
 *
 * @param	InstancePtr is the XCsi2Tx instance to operate on
@@ -267,6 +297,26 @@ int XCsi2Tx_SetCallBack(XCsi2Tx *InstancePtr, u32 HandleType,
 			InstancePtr->UnderrunPixelRef = Callbackref;
 			break;
 
+		case XCSI2TX_HANDLER_LCERRVC0:
+			InstancePtr->LineCountErrVC0 = Callbackfunc;
+			InstancePtr->LCErrVC0Ref = Callbackref;
+			break;
+
+		case XCSI2TX_HANDLER_LCERRVC1:
+			InstancePtr->LineCountErrVC1 = Callbackfunc;
+			InstancePtr->LCErrVC1Ref = Callbackref;
+			break;
+
+		case XCSI2TX_HANDLER_LCERRVC2:
+			InstancePtr->LineCountErrVC2 = Callbackfunc;
+			InstancePtr->LCErrVC2Ref = Callbackref;
+			break;
+
+		case XCSI2TX_HANDLER_LCERRVC3:
+			InstancePtr->LineCountErrVC3 = Callbackfunc;
+			InstancePtr->LCErrVC3Ref = Callbackref;
+			break;
+
 		default:
 			/* Invalid value of HandleType */
 			return XST_INVALID_PARAM;
@@ -310,6 +360,48 @@ void XCsi2Tx_IntrHandler(void *InstancePtr)
 
 	/* Get Active interrupts */
 	ActiveIntr = XCsi2Tx_GetIntrStatus(XCsiPtr);
+
+	/* If Frame End Generation is Enabled then check for
+	 * Line Count Status per Virtual Channel.
+	 */
+	if (XCsiPtr->Config.FEGenEnabled) {
+		/* Check if the no. of lines recieved is different from
+		 * the value configured in corresponding VC register.
+		 * To clear the interrupt, we need to write 0x3 in the
+		 * corresponding bitfield of ISR.
+		 */
+		Mask = ActiveIntr & XCSITX_LCSTAT_VC0_ISR_MASK;
+		Mask >>= XCSITX_LCSTAT_VC0_ISR_OFFSET;
+		if (Mask == XCSI2TX_LC_LESS_LINES ||
+		    Mask == XCSI2TX_LC_MORE_LINES) {
+			XCsiPtr->LineCountErrVC0(XCsiPtr->LCErrVC0Ref, Mask);
+			ActiveIntr |= XCSITX_LCSTAT_VC0_ISR_MASK;
+		}
+
+		Mask = ActiveIntr & XCSITX_LCSTAT_VC1_ISR_MASK;
+		Mask >>= XCSITX_LCSTAT_VC1_ISR_OFFSET;
+		if (Mask == XCSI2TX_LC_LESS_LINES ||
+		    Mask == XCSI2TX_LC_MORE_LINES) {
+			XCsiPtr->LineCountErrVC1(XCsiPtr->LCErrVC1Ref, Mask);
+			ActiveIntr |= XCSITX_LCSTAT_VC1_ISR_MASK;
+		}
+
+		Mask = ActiveIntr & XCSITX_LCSTAT_VC2_ISR_MASK;
+		Mask >>= XCSITX_LCSTAT_VC2_ISR_OFFSET;
+		if (Mask == XCSI2TX_LC_LESS_LINES ||
+		    Mask == XCSI2TX_LC_MORE_LINES) {
+			XCsiPtr->LineCountErrVC2(XCsiPtr->LCErrVC2Ref, Mask);
+			ActiveIntr |= XCSITX_LCSTAT_VC2_ISR_MASK;
+		}
+
+		Mask = ActiveIntr & XCSITX_LCSTAT_VC3_ISR_MASK;
+		Mask >>= XCSITX_LCSTAT_VC3_ISR_OFFSET;
+		if (Mask == XCSI2TX_LC_LESS_LINES ||
+		    Mask == XCSI2TX_LC_MORE_LINES) {
+			XCsiPtr->LineCountErrVC3(XCsiPtr->LCErrVC3Ref, Mask);
+			ActiveIntr |= XCSITX_LCSTAT_VC3_ISR_MASK;
+		}
+	}
 
 	Mask = ActiveIntr & XCSI2TX_UNDERRUN_PIXEL_MASK;
 	if (Mask) {

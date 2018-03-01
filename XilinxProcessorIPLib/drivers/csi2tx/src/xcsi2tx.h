@@ -118,6 +118,7 @@
 *                  examples to recognize it as documentation block
 *                  for doxygen generation of examples.
 *     vsa 15/12/17 Add support for Clock Mode
+* 1.1 vsa 02/28/18 Added Frame End Generation feature
 * </pre>
 *
 ******************************************************************************/
@@ -147,6 +148,10 @@ extern "C" {
 #define XCSI2TX_HANDLER_LINEBUF_FULL		4
 #define XCSI2TX_HANDLER_WRG_DATATYPE		5
 #define XCSI2TX_HANDLER_UNDERRUN_PIXEL		6
+#define XCSI2TX_HANDLER_LCERRVC0		7
+#define XCSI2TX_HANDLER_LCERRVC1		8
+#define XCSI2TX_HANDLER_LCERRVC2		9
+#define XCSI2TX_HANDLER_LCERRVC3		10
 
 /*@}*/
 
@@ -157,6 +162,7 @@ extern "C" {
 #define XCSI2TX_INACTIVE	1
 #define XCSI2TX_READY		0
 
+#define XCSI2TX_MAX_VC		4 /**< Max number of Virtual Channels */
 /**************************** Type Definitions *******************************/
 
 /**
@@ -182,7 +188,17 @@ typedef struct {
 	UINTPTR BaseAddr;	/**< Base address of CSI2 Rx Controller */
 	u32 MaxLanesPresent;	/**< Max value of Lanes. Range 0 - 3 */
 	u32 ActiveLanes;	/**< Number of Lanes configured. Range 0 - 3 */
+	u32 FEGenEnabled;	/**< Frame End generation enabled */
 } XCsi2Tx_Config;
+
+/**
+ * This typedef defines the different errors codes for Line Count
+ * status for a Virtual Channel when Frame End Generation is enabled
+ */
+typedef enum {
+	XCSI2TX_LC_LESS_LINES = 1,	/**< Less no of lines recvd */
+	XCSI2TX_LC_MORE_LINES	/**< More no of lines recvd */
+} XCsi2Tx_LCStatus;
 
 /**
 *
@@ -233,6 +249,23 @@ typedef struct {
 	XCsi2Tx_CallBack UnderrunPixelCallBack;	/*Callback for Pixel data
 						  underrun interrupts */
 	void *UnderrunPixelRef;	/**< Pixel data underrun interrupt callback */
+	XCsi2Tx_CallBack LineCountErrVC0; /* Callback for Line Count Status
+					     error for VC0 */
+	void *LCErrVC0Ref;	/**< Passed to Line Count Error for
+				  *  VC0 callback */
+	XCsi2Tx_CallBack LineCountErrVC1; /* Callback for Line Count Status
+					     error for VC1 */
+	void *LCErrVC1Ref;	/**< Passed to Line Count Error for
+				  *  VC1 callback */
+	XCsi2Tx_CallBack LineCountErrVC2; /* Callback for Line Count Status
+					     error for VC2 */
+	void *LCErrVC2Ref;	/**< Passed to Line Count Error for
+				  *  VC2 callback */
+	XCsi2Tx_CallBack LineCountErrVC3; /* Callback for Line Count Status
+					     error for VC3 */
+	void *LCErrVC3Ref;	/**< Passed to Line Count Error for
+				  *  VC3 callback */
+
 	u32 IsReady; /**< Driver is ready */
 } XCsi2Tx;
 
@@ -779,6 +812,8 @@ u32 XCsi2Tx_Reset(XCsi2Tx *InstancePtr);
 void XCsi2Tx_GetShortPacket(XCsi2Tx *InstancePtr,
 		XCsi2Tx_SPktData *ShortPacketStruct);
 u8 XCsi2Tx_IsActiveLaneCountValid(XCsi2Tx *InstancePtr, u8 ActiveLanesCount);
+u32 XCsi2Tx_SetLineCountForVC(XCsi2Tx *InstancePtr, u8 VC, u16 LineCount);
+u32 XCsi2Tx_GetLineCountForVC(XCsi2Tx *InstancePtr, u8 VC, u16 *LineCount);
 
 /* Self test function in xcsi2tx_selftest.c */
 u32 XCsi2Tx_SelfTest(XCsi2Tx *InstancePtr);
