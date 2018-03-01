@@ -322,7 +322,7 @@ static inline void XSdiAud_IntrClr(XSdiAud *InstancePtr, u32 Mask)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
-			XSDIAUD_INT_EN_REG_OFFSET, Mask);
+			XSDIAUD_INT_STS_REG_OFFSET, Mask);
 }
 
 /*****************************************************************************
