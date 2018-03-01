@@ -44,6 +44,7 @@
 * --- --- -------- ------------------------------------------------------------
 * 1.0 sss 07/15/16 Initial release
 *     vsa 05/12/17 Add support for Clock Mode
+* 1.1 vsa 02/28/18 Added Frame End Generation feature
 * </pre>
 *
 *****************************************************************************/
@@ -83,6 +84,10 @@ extern "C" {
 						  *  Register */
 #define XCSI2TX_SPKTR_OFFSET	0x00000030	/**< Generic Short Packet
 						  *  Entry */
+#define XCSI2TX_LINE_COUNT_VC0	0x00000040	/**< Line Count for VC0 */
+#define XCSI2TX_LINE_COUNT_VC1	0x00000044	/**< Line Count for VC1 */
+#define XCSI2TX_LINE_COUNT_VC2	0x00000048	/**< Line Count for VC2 */
+#define XCSI2TX_LINE_COUNT_VC3	0x0000004C	/**< Line Count for VC3 */
 #define XCSI2TX_GSP_OFFSET	0x00000078	/* < GSP Status*/
 
 /** @name Bitmasks and offsets of XCSI_GIER_OFFSET register
@@ -158,6 +163,40 @@ extern "C" {
 #define XCSI_GPSFIFO_MASK		(1<<4)	/* GPS fifo full */
 #define XCSI_INCORT_LANE_MASK		(1<<5)	/* Wrong lane configuration */
 
+#define XCSITX_LCSTAT_VC0_IER_MASK	(1<<8) /**< Line Count Status for
+						 *  VC0 IER */
+#define XCSITX_LCSTAT_VC1_IER_MASK	(1<<10) /**< Line Count Status for
+						 *  VC1 IER */
+#define XCSITX_LCSTAT_VC2_IER_MASK	(1<<12) /**< Line Count Status for
+						 *  VC2 IER */
+#define XCSITX_LCSTAT_VC3_IER_MASK	(1<<14) /**< Line Count Status for
+						 *  VC3 IER */
+
+#define XCSITX_LCSTAT_VC0_IER_OFFSET	(8) /**< Line Count Status for
+					      *  VC0 IER Offset */
+#define XCSITX_LCSTAT_VC1_IER_OFFSET	(10) /**< Line Count Status for
+					       *  VC1 IER Offset */
+#define XCSITX_LCSTAT_VC2_IER_OFFSET	(12) /**< Line Count Status for
+					       *  VC2 IER Offset */
+#define XCSITX_LCSTAT_VC3_IER_OFFSET	(14) /**< Line Count Status for
+					       *  VC3 IER Offset */
+
+#define XCSITX_LCSTAT_VC0_ISR_MASK	(0x3<<8) /**< Line Count Status for
+						   *  VC0 ISR */
+#define XCSITX_LCSTAT_VC1_ISR_MASK	(0x3<<10) /**< Line Count Status for
+						   *  VC1 ISR */
+#define XCSITX_LCSTAT_VC2_ISR_MASK	(0x3<<12) /**< Line Count Status for
+						   *  VC2 ISR */
+#define XCSITX_LCSTAT_VC3_ISR_MASK	(0x3<<14) /**< Line Count Status for
+						   *  VC3 ISR */
+#define XCSITX_LCSTAT_VC0_ISR_OFFSET	(8) /**< Line Count Status for
+					      *  VC0 ISR Offset */
+#define XCSITX_LCSTAT_VC1_ISR_OFFSET	(10) /**< Line Count Status for
+					      *  VC1 ISR Offset */
+#define XCSITX_LCSTAT_VC2_ISR_OFFSET	(12) /**< Line Count Status for
+					      *  VC2 ISR Offset */
+#define XCSITX_LCSTAT_VC3_ISR_OFFSET	(14) /**< Line Count Status for
+					      *  VC3 ISR Offset */
 /*@}*/
 
 /** @name BitMasks Short Packets
