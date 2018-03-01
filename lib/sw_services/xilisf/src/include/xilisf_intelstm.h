@@ -62,6 +62,7 @@
 * 5.7   rk   27/07/16 Added Subsector erase command.
 * 5.10  tjs  11/30/17 Added JEDEC ID info for S25FL-L series flashes
 * 					  CR# 987566
+* 5.10	tjs	 03/01/18 Added MT25Q512 3V and 1.8V flash part support. CR# 995477
 * </pre>
 *
 ******************************************************************************/
@@ -125,6 +126,8 @@ extern "C" {
 #define XISF_MIC_DEV_N25Q128		0xBB18	/**< Device ID for N25Q128 */
 #define XISF_MIC_DEV_N25Q256_3V0	0xBA19
 #define XISF_MIC_DEV_N25Q256_1V8	0xBB19
+#define XISF_MIC_DEV_MT25Q512_3V0	0xBA20	/**< Device ID for MT25QL512 */
+#define XISF_MIC_DEV_MT25Q512_1V8	0xBB20	/**< Device ID for MT25QU512 */
 #define XISF_MIC_DEV_MT25Q01_1V8	0xBB21
 #define XISF_MIC_DEV_MT25Q02_1V8	0xBB22
 
