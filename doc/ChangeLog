@@ -2661,6 +2661,7 @@ Corrected FVCO range for MMCME4 in xvphy_hdmi.h
 Updated US/US+ QPLL0 VCO MAX to 16.375 GHz (GTHE3/GTHE4)
 Removed XVphy_DruSetGain API in xvphy_hdmi.c
 Changed line comments from // to /* */
+Added N2=8 divider for CPLL for US & US+ devices
 
 vprocss_v2_1:
 Added new version 2.1

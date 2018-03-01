@@ -122,11 +122,7 @@ u32 XVphy_Gtye4RxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 
 const u8 Gtye4CpllDivsM[]	= {1, 2, 0};
 const u8 Gtye4CpllDivsN1[]	= {4, 5, 0};
-#if (XPAR_VPHY_0_TX_PROTOCOL == 0 || XPAR_VPHY_0_RX_PROTOCOL == 0)
 const u8 Gtye4CpllDivsN2[]	= {1, 2, 3, 4, 5, 8, 0};
-#else
-const u8 Gtye4CpllDivsN2[]	= {1, 2, 3, 4, 5, 0};
-#endif
 const u8 Gtye4CpllDivsD[]	= {1, 2, 4, 8, 0};
 
 const u8 Gtye4QpllDivsM[]	= {4, 3, 2, 1, 0};
@@ -178,9 +174,9 @@ const XVphy_GtConfig Gtye4Config = {
 ******************************************************************************/
 u32 XVphy_Gtye4CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 {
-	u32 PllClkInFreqHz;
 	XVphy_Channel *ChPtr;
 	u32 Status = XST_SUCCESS;
+	u64 LineRateHz;
 
 	/* Set CDR values only for CPLLs. */
 	if ((ChId < XVPHY_CHANNEL_ID_CH1) || (ChId > XVPHY_CHANNEL_ID_CH4)) {
@@ -195,15 +191,16 @@ u32 XVphy_Gtye4CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	ChPtr->PllParams.Cdr[3] = 0x0000;
 	ChPtr->PllParams.Cdr[4] = 0x0000;
 	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP) {
-		PllClkInFreqHz = XVphy_GetQuadRefClkFreq(InstancePtr, QuadId,
-				ChPtr->CpllRefClkSel);
-		if (PllClkInFreqHz == 270000000) {
+
+		LineRateHz = XVphy_GetLineRateHz(InstancePtr, QuadId, ChId);
+
+		if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_810GBPS) {
+		  ChPtr->PllParams.Cdr[2] = 0x01C4;
+		} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_540GBPS) {
 			ChPtr->PllParams.Cdr[2] = 0x01C4;
-		}
-		else if (PllClkInFreqHz == 135000000) {
+		} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_270GBPS) {
 			ChPtr->PllParams.Cdr[2] = 0x01B4;
-		}
-		else {
+		} else {
 			ChPtr->PllParams.Cdr[2] = 0x01A3;
 		}
 	}
