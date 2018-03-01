@@ -729,7 +729,7 @@ u32 XV_SdiRx_GetPayloadId(XV_SdiRx *InstancePtr, u8 DataStream)
 ******************************************************************************/
 u32 XV_SdiRx_WaitforPayLoad(XV_SdiRx *InstancePtr)
 {
-	u32 RegValue, Data0, Data1, Data3;
+	u32 Data0, Data1, Data3;
 	int StreamId;
 	XSdiVid_TransMode TMode;
 
