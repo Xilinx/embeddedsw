@@ -512,7 +512,7 @@ u8 XV_SdiTx_GetPayloadFrameRate(XVidC_FrameRate FrameRateValid, XSdiVid_BitRate 
  ******************************************************************************/
 u8 XV_SdiTx_GetPayloadIsInterlaced(XVidC_VideoFormat VideoFormat)
 {
-	u32 Data;
+	u32 Data = 0;
 	Xil_AssertNonvoid(VideoFormat != XVIDC_VF_UNKNOWN);
 
 	/* Verify argument. */
@@ -523,6 +523,10 @@ u8 XV_SdiTx_GetPayloadIsInterlaced(XVidC_VideoFormat VideoFormat)
 
 	case (XVIDC_VF_INTERLACED):
 		Data = 0x0;
+		break;
+
+	case (XVIDC_VF_UNKNOWN):
+		xil_printf("Error: Invalid VideoFormat\n\r");
 		break;
 	}
 
@@ -545,7 +549,7 @@ u8 XV_SdiTx_GetPayloadIsInterlaced(XVidC_VideoFormat VideoFormat)
  ******************************************************************************/
 u8 XV_SdiTx_GetPayloadAspectRatio(XVidC_AspectRatio AspectRatio)
 {
-	u32 Data;
+	u32 Data = 0;
 
 	/* Verify argument. */
 	switch (AspectRatio) {
@@ -688,7 +692,7 @@ u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVi
 	u32 Data = 0, Status;
 	u8 Byte1;
 	u16 VActiveValid;
-	XVidC_VideoTiming *TimingPtr;
+	const XVidC_VideoTiming *TimingPtr;
 	XVidC_FrameRate FrameRateValid;
 
 	if (SdiMode == XSDIVID_MODE_3GB)

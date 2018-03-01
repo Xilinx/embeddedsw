@@ -1176,8 +1176,8 @@ u32 XV_SdiTxSs_GetPayload(XV_SdiTxSs *InstancePtr, XVidC_VideoMode VideoMode, XS
 	u32 Status;
 	XV_SdiTx *SdiTxPtr;
 
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->SdiTxPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->SdiTxPtr != NULL);
 
 	SdiTxPtr = InstancePtr->SdiTxPtr;
 
