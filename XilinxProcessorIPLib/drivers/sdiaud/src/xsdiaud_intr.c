@@ -80,7 +80,7 @@
  * @note None.
  *
  ******************************************************************************/
-void XSdiaud_IntrHandler(void *InstancePtr)
+void XSdiAud_IntrHandler(void *InstancePtr)
 {
 	u32 Data;
 	u32 EnableMask;
