@@ -1,5 +1,7 @@
 Changes for 2018.1
 ===============================
+csi2tx_v1_1
+Add Frame End Generation feature
 
 video_common_v4_3:
 Added new color space format XVIDC_CSF_YCBCR_420 to support UHDSDI
