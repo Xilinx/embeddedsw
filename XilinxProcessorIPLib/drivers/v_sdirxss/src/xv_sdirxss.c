@@ -530,7 +530,7 @@ XSdiVid_TransMode XV_SdiRxSs_GetTransportMode(XV_SdiRxSs *InstancePtr)
 	/* Following assertions make sure the IPSS is configured with in the
 	 * subsystem GUI paramter limit
 	 */
-	Xil_AssertVoid(((InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_3G) &&
+	Xil_AssertNonvoid(((InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_3G) &&
 			(TMode <= XSDIVID_MODE_3GB)) ||
 			((InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_6G) &&
 			(TMode <= XSDIVID_MODE_6G)) ||
