@@ -58,6 +58,14 @@
 		PMU_IOMODULE_GPI1_R5_0_WAKE_MASK | \
 		PMU_IOMODULE_GPI1_R5_1_WAKE_MASK)
 
+#define PMU_IOMODULE_GPI1_MIO_WAKE_ALL_MASK \
+		(PMU_IOMODULE_GPI1_MIO_WAKE_0_MASK | \
+		PMU_IOMODULE_GPI1_MIO_WAKE_1_MASK | \
+		PMU_IOMODULE_GPI1_MIO_WAKE_2_MASK | \
+		PMU_IOMODULE_GPI1_MIO_WAKE_3_MASK | \
+		PMU_IOMODULE_GPI1_MIO_WAKE_4_MASK | \
+		PMU_IOMODULE_GPI1_MIO_WAKE_5_MASK)
+
 /**
  * XPfw_PmInit() - initializes PM firmware
  *
@@ -180,9 +188,9 @@ int XPfw_PmWakeHandler(const u32 srcMask)
 		} else {
 			status = XST_INVALID_PARAM;
 		}
-	} else if (0U != (PMU_LOCAL_GPI1_ENABLE_FPD_WAKE_GIC_PROX_MASK & srcMask)) {
+	} else if (0U != (PMU_IOMODULE_GPI1_FPD_WAKE_GIC_PROXY_MASK & srcMask)) {
 		status = PmMasterWake(&pmMasterApu_g);
-	} else if (0U != (PMU_LOCAL_GPI1_ENABLE_MIO_WAKE_MASK & srcMask)) {
+	} else if (0U != (PMU_IOMODULE_GPI1_MIO_WAKE_ALL_MASK & srcMask)) {
 		status = PmExternWakeMasters();
 	} else if (0U != (PMU_IOMODULE_GPI1_USB_0_WAKE_MASK & srcMask)) {
 		status = PmWakeMasterBySlave(&pmSlaveUsb0_g.slv);
