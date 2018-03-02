@@ -45,6 +45,7 @@
  * 1.00  jsr    07/17/17 Initial release.
  * 2.00  kar    01/25/18 Second  release.
  *       jsr    02/23/2018 Added YUV420 color format support
+ *       jsr	03/02/2018 Added core settings API
  * </pre>
  *
  ******************************************************************************/
@@ -56,6 +57,7 @@
 #include "xparameters.h"
 #include "xv_sditxss_coreinit.h"
 #include <string.h>
+#include "xv_sditx.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -1225,4 +1227,66 @@ u32 XV_SdiTxSs_SetStream(XV_SdiTxSs *InstancePtr, XV_SdiTx_StreamSelId SelId,
 	Status = XV_SdiTx_SetStream(SdiTxPtr, SelId, Data, StreamId);
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the SDI TXSS core settings.
+*
+* @param    InstancePtr is a pointer to the XV_SdiTxSs core instance.
+* @param    SelId specifies which parameter of the stream to be set.
+*       - 0 = XV_SDITXSS_CORESELID_INSERTCRC
+*       - 1 = XV_SDITXSS_CORESELID_INSERTST352
+*       - 2 = XV_SDITXSS_CORESELID_ST352OVERWRITE
+*       - 3 = XV_SDITXSS_CORESELID_INSERTSYNCBIT
+*       - 4 = XV_SDITXSS_CORESELID_SDBITREPBYPASS
+*       - 5 = XV_SDITXSS_CORESELID_USEANCIN
+*       - 6 = XV_SDITXSS_CORESELID_INSERTLN
+*       - 7 = XV_SDITXSS_CORESELID_INSERTEDH
+* @param    Data specifies what data to be set for the selected parameter.
+*
+* @return
+*
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_SdiTxSs_SetCoreSettings(XV_SdiTxSs *InstancePtr, XV_SdiTxSs_CoreSelId SelId,
+				u8 Data)
+{
+	XV_SdiTx *SdiTxPtr;
+
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->SdiTxPtr != NULL);
+
+	SdiTxPtr = InstancePtr->SdiTxPtr;
+
+	switch (SelId) {
+	case XV_SDITXSS_CORESELID_INSERTCRC:
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITX_CORESELID_INSERTCRC, Data);
+		break;
+	case XV_SDITXSS_CORESELID_INSERTST352:
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITX_CORESELID_INSERTST352, Data);
+		break;
+	case XV_SDITXSS_CORESELID_ST352OVERWRITE:
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITX_CORESELID_ST352OVERWRITE, Data);
+		break;
+	case XV_SDITXSS_CORESELID_INSERTSYNCBIT:
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITX_CORESELID_INSERTSYNCBIT, Data);
+		break;
+	case XV_SDITXSS_CORESELID_SDBITREPBYPASS:
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITX_CORESELID_SDBITREPBYPASS, Data);
+		break;
+	case XV_SDITXSS_CORESELID_USEANCIN:
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITX_CORESELID_USEANCIN, Data);
+		break;
+	case XV_SDITXSS_CORESELID_INSERTLN:
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITXSS_CORESELID_INSERTLN, Data);
+		break;
+	case XV_SDITXSS_CORESELID_INSERTEDH:
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITXSS_CORESELID_INSERTEDH, Data);
+		break;
+	};
 }
