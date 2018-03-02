@@ -88,12 +88,8 @@
 #include "xvidc_edid_ext.h"
 
 /************************** Constant Definitions *****************************/
-#if defined (XPAR_XHDCP_NUM_INSTANCES) || defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
-/* If HDCP 1.4 or HDCP 2.2 is in the system then use the HDCP abstraction layer */
-#define USE_HDCP
-#endif
-
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+#if(CUSTOM_RESOLUTION_ENABLE == 1)
 /* Create entry for each mode in the custom table */
 const XVidC_VideoTimingMode XVidC_MyVideoTimingMode
 	[(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1))] = {
@@ -106,6 +102,7 @@ const XVidC_VideoTimingMode XVidC_MyVideoTimingMode
 		}
 	}
 };
+#endif
 #endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -133,9 +130,11 @@ static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input);
 #endif
 #ifdef USE_HDCP
 static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input);
+#if (HDCP_DEBUG_MENU_EN == 1)
 static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input);
 #endif
-#ifdef HDMI_DEBUG_TOOLS
+#endif
+#if(HDMI_DEBUG_TOOLS == 1)
 static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input);
 #endif
 
@@ -155,9 +154,11 @@ static void XHdmi_DisplayVideoMenu(void);
 #endif
 #ifdef USE_HDCP
 static void XHdmi_DisplayHdcpMainMenu(void);
+#if (HDCP_DEBUG_MENU_EN == 1)
 static void XHdmi_DisplayHdcpDebugMenu(void);
 #endif
-#ifdef HDMI_DEBUG_TOOLS
+#endif
+#if(HDMI_DEBUG_TOOLS == 1)
 static void XHdmi_DisplayDebugMainMenu(void);
 #endif
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
@@ -201,9 +202,11 @@ static XHdmi_MenuFuncType* const XHdmi_MenuTable[XHDMI_NUM_MENUS] = {
 #endif
 #ifdef USE_HDCP
 	XHdmi_HdcpMainMenu,
+#if (HDCP_DEBUG_MENU_EN == 1)
 	XHdmi_HdcpDebugMenu,
 #endif
-#ifdef HDMI_DEBUG_TOOLS
+#endif
+#if(HDMI_DEBUG_TOOLS == 1)
 	XHdmi_DebugMainMenu,
 #endif
 };
@@ -212,6 +215,8 @@ extern XVphy Vphy;               /* VPhy structure */
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 extern XV_HdmiTxSs HdmiTxSs;       /* HDMI TX SS structure */
 extern XhdmiAudioGen_t AudioGen;
+
+extern u8 TxCableConnect;
 #endif
 extern u8 IsPassThrough;         /**< Demo mode 0-colorbar 1-pass through */
 extern u8 TxBusy;                // TX busy flag. This flag is set while the TX is initialized
@@ -243,7 +248,9 @@ extern u8 Buffer[];
 void XHdmi_MenuInitialize(XHdmi_Menu *InstancePtr, u32 UartBaseAddress)
 {
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+#if(CUSTOM_RESOLUTION_ENABLE == 1)
 	u32 Status;
+#endif
 #endif
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -254,6 +261,7 @@ void XHdmi_MenuInitialize(XHdmi_Menu *InstancePtr, u32 UartBaseAddress)
 	InstancePtr->WaitForColorbar = (FALSE);
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+#if(CUSTOM_RESOLUTION_ENABLE == 1)
 	//Initialize and Add Custom Resolution in to the Video Table
 	//Added for the resolution menu
 	/* Example : User registers custom timing table */
@@ -262,6 +270,7 @@ void XHdmi_MenuInitialize(XHdmi_Menu *InstancePtr, u32 UartBaseAddress)
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: Unable to register custom timing table\r\n\r\n");
 	}
+#endif
 #endif
 
 	// Show main menu
@@ -339,7 +348,7 @@ void XHdmi_DisplayMainMenu(void)
 	if (XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
 		xil_printf("h - HDCP\r\n");
 		xil_printf("       => Goto HDCP menu.\r\n");
-#ifdef HDMI_DEBUG_TOOLS
+#if(HDMI_DEBUG_TOOLS == 1)
 		xil_printf("x - Debug Tools\r\n");
 		xil_printf("       => Goto Debug menu.\r\n");
 #endif
@@ -386,7 +395,9 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			// The colorbar can only be displayed when the GT is not bonded.
 			if (!PLLBondedCheck()) {
 #endif
-				TxBusy = (FALSE);
+				if  (TxCableConnect) {
+					TxBusy = (FALSE);
+				}
 				EnableColorBar(&Vphy,
 							   &HdmiTxSs,
 							   HdmiTxSsVidStreamPtr->VmId,
@@ -580,7 +591,7 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			}
 			break;
 #endif
-#ifdef HDMI_DEBUG_TOOLS
+#if(HDMI_DEBUG_TOOLS == 1)
 		case ('x') :
 		case ('X') :
 			XHdmi_DisplayDebugMainMenu();
@@ -636,9 +647,13 @@ void XHdmi_DisplayResolutionMenu(void) {
 #if (XPAR_XV_HDMITXSS_0_INCLUDE_LOW_RESO_VID == 1)
 	xil_printf("19 -  720 x 480i (NTSC)\r\n");
 	xil_printf("20 -  720 x 576i (PAL)\r\n");
+#if(CUSTOM_RESOLUTION_ENABLE == 1)
 	xil_printf("21 - 3840 x 2160p (SB) (Custom)\r\n");
+#endif
 #else
+#if(CUSTOM_RESOLUTION_ENABLE == 1)
 	xil_printf("19 - 3840 x 2160p (SB) (Custom)\r\n");
+#endif
 #endif
 	xil_printf("99 - Exit\r\n");
 	xil_printf("Enter Selection -> ");
@@ -772,14 +787,18 @@ static XHdmi_MenuType XHdmi_ResolutionMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			VideoMode = XVIDC_VM_1440x576_50_I;
 			break;
 
+#if(CUSTOM_RESOLUTION_ENABLE == 1)
 			//3840 x 2160p (SB) (Custom)
 		case 21 :
 			VideoMode = XVIDC_VM_3840x2160_30_P_SB;
 			break;
+#endif
 #else
+#if(CUSTOM_RESOLUTION_ENABLE == 1)
 		case 19 :
 			VideoMode = XVIDC_VM_3840x2160_30_P_SB;
 			break;
+#endif
 #endif
 			// Exit
 		case 99 :
@@ -1362,12 +1381,14 @@ void XHdmi_DisplayVideoMenu(void) {
 	xil_printf(" 10 - Checker board\r\n");
 	xil_printf(" 11 - Cross hatch\r\n");
 	xil_printf(" 12 - Noise\r\n");
+#if (VIDEO_MASKING_MENU_EN == 1)
 	xil_printf(" 13 - Black (Video Mask)\r\n");
 	xil_printf(" 14 - White (Video Mask)\r\n");
 	xil_printf(" 15 - Red (Video Mask)\r\n");
 	xil_printf(" 16 - Green (Video Mask)\r\n");
 	xil_printf(" 17 - Blue (Video Mask)\r\n");
 	xil_printf(" 18 - Noise (Video Mask)\r\n");
+#endif
 	xil_printf(" 99 - Exit\r\n");
 	xil_printf("Enter Selection -> ");
 }
@@ -1455,6 +1476,7 @@ static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			xil_printf("Noise\r\n");
 			break;
 
+#if (VIDEO_MASKING_MENU_EN == 1)
 		case 13:
 			xil_printf("Set Video to Static Black (Video Mask).\r\n");
 			XV_HdmiTxSS_SetBackgroundColor(&HdmiTxSs, XV_BKGND_BLACK);
@@ -1484,6 +1506,7 @@ static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			xil_printf("Set Video to Noise (Video Mask).\r\n");
 			XV_HdmiTxSS_SetBackgroundColor(&HdmiTxSs, XV_BKGND_NOISE);
 			break;
+#endif
 
 			// Exit
 		case 99 :
@@ -1704,7 +1727,9 @@ void XHdmi_DisplayHdcpMainMenu(void) {
 	xil_printf(" 2 - Disable detailed logging\r\n");
 	xil_printf(" 3 - Display log\r\n");
 	xil_printf(" 4 - Display info\r\n");
+#if (HDCP_DEBUG_MENU_EN == 1)
 	xil_printf(" 5 - Display HDCP Debug menu\r\n");
+#endif
 	xil_printf("99 - Exit\r\n");
 	xil_printf("Enter Selection -> ");
 }
@@ -1764,12 +1789,14 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			XHdcp_DisplayInfo(&HdcpRepeater, TRUE);
 			break;
 
+#if (HDCP_DEBUG_MENU_EN == 1)
 			/* 5 - HDCP Debug Menu */
 		case 5 :
 			xil_printf("Display HDCP Debug menu.\r\n");
 			XHdmi_DisplayHdcpDebugMenu();
 			Menu = XHDMI_HDCP_DEBUG_MENU;
 			break;
+#endif
 
 			// Exit
 		case 99 :
@@ -1786,6 +1813,7 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 }
 #endif
 
+#if (HDCP_DEBUG_MENU_EN == 1)
 #if defined(USE_HDCP)
 /*****************************************************************************/
 /**
@@ -1810,7 +1838,9 @@ void XHdmi_DisplayHdcpDebugMenu(void) {
 	xil_printf("Enter Selection -> ");
 }
 #endif
+#endif
 
+#if (HDCP_DEBUG_MENU_EN == 1)
 #if defined(USE_HDCP)
 /*****************************************************************************/
 /**
@@ -1884,8 +1914,9 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	return Menu;
 }
 #endif
+#endif
 
-#ifdef HDMI_DEBUG_TOOLS
+#if(HDMI_DEBUG_TOOLS == 1)
 /*****************************************************************************/
 /**
 *
@@ -1979,8 +2010,6 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 		InstancePtr->WaitForColorbar = (FALSE);
 		xil_printf("Enter Selection -> ");
 	}
-#else
-	xil_printf("Enter Selection -> ");
 #endif	
 
 	// Check if the uart has any data
@@ -1994,8 +2023,11 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 		// Read data from uart
 		Data = XUartLite_RecvByte(InstancePtr->UartBaseAddress);
 #else
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
 	else if (XUartPs_IsReceiveData(InstancePtr->UartBaseAddress)) {
-
+#else
+	if (XUartPs_IsReceiveData(InstancePtr->UartBaseAddress)) {
+#endif
 		// Read data from uart
 		Data = XUartPs_RecvByte(InstancePtr->UartBaseAddress);
 #endif

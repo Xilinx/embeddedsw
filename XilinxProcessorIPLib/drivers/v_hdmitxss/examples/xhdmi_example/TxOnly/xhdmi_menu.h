@@ -107,21 +107,12 @@ extern "C" {
 #include "xv_tpg.h"
 #include "audiogen_drv.h"
 #endif
+#include "xhdmi_example.h"
+/************************** Variable Definitions *****************************/
 
-	/************************** Variable Definitions *****************************/
-
-	/************************** Constant Definitions *****************************/
-#if defined (XPAR_XHDCP_NUM_INSTANCES) || defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
-	/* If HDCP 1.4 or HDCP 2.2 is in the system then use the HDCP abstraction layer */
-#define USE_HDCP
-#endif
-
-/* Enabling this will enable a debug UART menu and report stack size utilization
- * under the info menu.
- */
-// #define HDMI_DEBUG_TOOLS
-
+/************************** Constant Definitions *****************************/
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+#if(CUSTOM_RESOLUTION_ENABLE == 1)
 	/* Assign Mode ID Enumeration. First entry Must be > XVIDC_VM_CUSTOM */
 	typedef enum {
 		XVIDC_VM_3840x2160_30_P_SB = (XVIDC_VM_CUSTOM + 1),
@@ -129,11 +120,12 @@ extern "C" {
 	}
 	XVIDC_CUSTOM_MODES;
 #endif
-	/**************************** Type Definitions *******************************/
-	/**
-	* The HDMI menu types.
-	*/
-	typedef enum {
+#endif
+/**************************** Type Definitions *******************************/
+/**
+* The HDMI menu types.
+*/
+typedef enum {
 		XHDMI_MAIN_MENU,
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 		XHDMI_GTPLLLAYOUT_MENU,
@@ -150,9 +142,11 @@ extern "C" {
 #endif
 #ifdef USE_HDCP
 		XHDMI_HDCP_MAIN_MENU,
+#if (HDCP_DEBUG_MENU_EN == 1)
 		XHDMI_HDCP_DEBUG_MENU,
 #endif
-#ifdef HDMI_DEBUG_TOOLS
+#endif
+#if(CUSTOM_RESOLUTION_ENABLE == 1)
 		XHDMI_DEBUG_MAIN_MENU,
 #endif
 		XHDMI_NUM_MENUS

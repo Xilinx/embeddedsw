@@ -354,6 +354,10 @@ typedef struct {
 } XV_HdmiRx;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define TIME_10MS	(XPAR_XV_HDMIRX_0_AXI_LITE_FREQ_HZ/100)
+#define TIME_200MS	(XPAR_XV_HDMIRX_0_AXI_LITE_FREQ_HZ/5)
+#define TIME_16MS	((XPAR_XV_HDMIRX_0_AXI_LITE_FREQ_HZ*10)/625)
+
 
 /*****************************************************************************/
 /**
@@ -1243,16 +1247,11 @@ void XV_HdmiRx_IntrHandler(void *InstancePtr);
 int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr, u32 HandlerType, void *CallbackFunc, void *CallbackRef);
 
 /* Vendor Specific Infomation related functions in xv_hdmirx_vsif.c */
-int XV_HdmiRx_VSIF_ParsePacket(XHdmiC_Aux *AuxPtr, XV_HdmiRx_VSIF  *VSIFPtr)
-		__attribute__ ((deprecated));
-void XV_HdmiRx_VSIF_DisplayInfo(XV_HdmiRx_VSIF  *VSIFPtr)
-		__attribute__ ((deprecated));
-char* XV_HdmiRx_VSIF_3DStructToString(XV_HdmiRx_3D_Struct_Field Item)
-		__attribute__ ((deprecated));
-char* XV_HdmiRx_VSIF_3DSampMethodToString(XV_HdmiRx_3D_Sampling_Method Item)
-		__attribute__ ((deprecated));
-char* XV_HdmiRx_VSIF_3DSampPosToString(XV_HdmiRx_3D_Sampling_Position Item)
-		__attribute__ ((deprecated));
+int XV_HdmiRx_VSIF_ParsePacket(XHdmiC_Aux *AuxPtr, XV_HdmiRx_VSIF  *VSIFPtr);
+void XV_HdmiRx_VSIF_DisplayInfo(XV_HdmiRx_VSIF  *VSIFPtr);
+char* XV_HdmiRx_VSIF_3DStructToString(XV_HdmiRx_3D_Struct_Field Item);
+char* XV_HdmiRx_VSIF_3DSampMethodToString(XV_HdmiRx_3D_Sampling_Method Item);
+char* XV_HdmiRx_VSIF_3DSampPosToString(XV_HdmiRx_3D_Sampling_Position Item);
 /************************** Variable Declarations ****************************/
 /************************** Variable Declarations ****************************/
 
