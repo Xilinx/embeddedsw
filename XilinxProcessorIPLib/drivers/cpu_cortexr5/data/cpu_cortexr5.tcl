@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,7 @@
 # 1.2   mus  02/20/17 Updated tcl to guard xparameters.h by protection macros
 # 1.4   ms   04/18/17 Modified tcl file to add suffix U for XPAR_CPU_ID
 #                     parameter of cpu_cortexr5 in xparameters.h
+# 1.4   srm  02/21/18 Updated freertos to 10.0
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -103,7 +104,7 @@ proc xdefine_cortexr5_params {drvhandle} {
     }
     set os [lindex $oslist 0];
 
-    if { $os == "freertos901_xilinx" } {
+    if { $os == "freertos10_xilinx" } {
         set extra_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ] ]
         regsub -- {-mfloat-abi=hard} $extra_flags "" extra_flags
         common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
