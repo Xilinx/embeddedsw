@@ -1,6 +1,6 @@
 #/******************************************************************************
 #*
-#* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+#* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 #*
 #* Permission is hereby granted, free of charge, to any person obtaining a copy
 #* of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,7 @@ PARAMETER VERSION = 2.2.0
 
 
 BEGIN OS
- PARAMETER OS_NAME = (standalone freertos901_xilinx)
+ PARAMETER OS_NAME = (standalone freertos10_xilinx)
  PARAMETER STDIN =  *
  PARAMETER STDOUT = *
 END
