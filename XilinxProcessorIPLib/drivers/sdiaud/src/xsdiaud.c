@@ -571,4 +571,28 @@ void XSdiAud_Ext_Mute(XSdiAud *InstancePtr, XSdiAud_GrpNum XSdiAGrpNum,
 	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress, MuxOrDmux_Offset,
 		    MuxOrDmux_RegVal);
 }
+
+/*****************************************************************************/
+/**
+* This function reads the control packet status register and returns the 16 bit
+* active channel field related to the 4 groups.
+*
+* @param  InstancePtr is a pointer to the XSdiAud instance.
+*
+* @return Active channel field (type u32) is returned.
+*
+******************************************************************************/
+u32 XSdiAud_Ext_GetActCh(XSdiAud *InstancePtr)
+{
+    u32 XSdiAud_ActReg;
+
+    /* Verify arguments */
+    Xil_AssertNonvoid(InstancePtr != NULL);
+
+    XSdiAud_ActReg = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
+                                           XSDIAUD_EXT_CNTRL_PKTSTAT_REG_OFFSET);
+    XSdiAud_ActReg = (XSdiAud_ActReg & XSDIAUD_EXT_PKTST_AC_MASK) >> XSDIAUD_EXT_PKTST_AC_SHIFT;
+
+    return XSdiAud_ActReg;
+}
 /** @} */
