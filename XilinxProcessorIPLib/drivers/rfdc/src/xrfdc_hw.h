@@ -53,6 +53,7 @@
 * 2.4   sk     12/11/17 Added DDC and DUC support.
 * 3.0   sg     13/01/18 Added PLL and external clock switch support
 * 3.1   jm     01/24/18 Add Multi-tile sync support.
+*       sk     02/27/18 Add API's to configure Multiband.
 * </pre>
 *
 ******************************************************************************/
@@ -959,6 +960,7 @@ extern "C" {
  * @{
  */
 
+#define XRFDC_SWITCH_MTRX_MASK		0x0000003FU /**< Switch matrix mask */
 #define XRFDC_SEL_CB_TO_MIX1_MASK		0x00000003U	/**< Control crossbar
 							switch that select the data to mixer block mux1 */
 #define XRFDC_SEL_CB_TO_MIX0_MASK		0x0000000CU	/**< Control crossbar
@@ -1860,6 +1862,17 @@ extern "C" {
  */
 
 #define XRFDC_FAB_CLK_DIV_MASK		0x0000000FU	/**< clk div mask */
+
+/* @} */
+
+/** @name Multiband Config
+ *
+ * This register contains bits to configure multiband for DAC.
+ * @{
+ */
+
+#define XRFDC_MB_CFG_MASK		0x000001FFU /**< MB config mask */
+#define XRFDC_MB_EN_4X_MASK		0x00000100U /**< Enable 4X MB mask */
 
 /* @} */
 

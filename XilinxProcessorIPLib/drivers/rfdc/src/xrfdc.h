@@ -133,6 +133,7 @@
 *       sk     01/25/18 Updated Set and Get Interpolation/Decimation factor
 *                       API's to consider the actual factor value.
 * 3.2   sk     02/02/18 Add API's to configure inverse-sinc.
+*       sk     02/27/18 Add API's to configure Multiband.
 *
 * </pre>
 *
@@ -588,6 +589,22 @@ typedef struct {
 #define VCO_RANGE_MIN			8500U
 #define VCO_RANGE_MAX			12800U
 
+#define XRFDC_SINGLEBAND_MODE		0x1
+#define XRFDC_MULTIBAND_MODE_2X		0x2
+#define XRFDC_MULTIBAND_MODE_4X		0x4
+
+#define XRFDC_MB_DATATYPE_C2C		0x1
+#define XRFDC_MB_DATATYPE_R2C		0x2
+#define XRFDC_MB_DATATYPE_C2R		0x4
+
+#define XRFDC_SB_C2C_BLK0	0x82
+#define XRFDC_SB_C2C_BLK1	0x64
+#define XRFDC_SB_C2R		0x40
+#define XRFDC_MB_C2C_BLK0	0x5E
+#define XRFDC_MB_C2C_BLK1	0x5D
+#define XRFDC_MB_C2R_BLK0	0x5C
+#define XRFDC_MB_C2R_BLK1	0x0
+
 /*****************************************************************************/
 /**
 *
@@ -951,6 +968,58 @@ static inline u32 XRFdc_IsFifoEnabled(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 /*****************************************************************************/
 /**
 *
+* Get Data Converter connected for digital data path I
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param	Tile_Id Valid values are 0-3.
+* @param	Block_Id is Digital Data Path number.
+*
+* @return
+*		- Return Data converter Id.
+*
+******************************************************************************/
+static inline int XRFdc_GetConnectedIData(XRFdc* InstancePtr, u32 Type,
+				 int Tile_Id, u32 Block_Id)
+{
+	if (Type == XRFDC_ADC_TILE) {
+		return InstancePtr->ADC_Tile[Tile_Id].
+				ADCBlock_Digital_Datapath[Block_Id].ConnectedIData;
+	} else {
+		return InstancePtr->DAC_Tile[Tile_Id].
+				DACBlock_Digital_Datapath[Block_Id].ConnectedIData;
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* Get Data Converter connected for digital data path Q
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param	Tile_Id Valid values are 0-3.
+* @param	Block_Id is Digital Data Path number.
+*
+* @return
+*		- Return Data converter Id.
+*
+******************************************************************************/
+static inline int XRFdc_GetConnectedQData(XRFdc* InstancePtr, u32 Type,
+				 int Tile_Id, u32 Block_Id)
+{
+	if (Type == XRFDC_ADC_TILE) {
+		return InstancePtr->ADC_Tile[Tile_Id].
+				ADCBlock_Digital_Datapath[Block_Id].ConnectedQData;
+	} else {
+		return InstancePtr->DAC_Tile[Tile_Id].
+				DACBlock_Digital_Datapath[Block_Id].ConnectedQData;
+	}
+}
+
+/*****************************************************************************/
+/**
+*
 * This API is used to get the driver version.
 *
 * @param	None
@@ -1016,11 +1085,8 @@ int XRFdc_GetDecoderMode(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 int XRFdc_ResetNCOPhase(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				u32 Block_Id);
 void XRFdc_DumpRegs(XRFdc* InstancePtr, u32 Type, int Tile_Id);
-void XRFdc_SetSignalFlow(XRFdc* InstancePtr, u32 Type, int Tile_Id,
-				u32 AnalogDataPath, u32 ConnectIData, u32 ConnectQData);
-void XRFdc_GetSignalFlow(XRFdc* InstancePtr, u32 Type, int Tile_Id,
-				u32 AnalogDataPath, u32 * ConnectedIData,
-				u32 * ConnectedQData);
+u32 XRFdc_MultiBand(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
+		u8 DigitalDataPathMask, u32 DataType, u32 DataConverterMask);
 int XRFdc_IntrHandler(int Vector, void * XRFdcPtr);
 void XRFdc_IntrClr(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								u32 Block_Id, u32 IntrMask);
