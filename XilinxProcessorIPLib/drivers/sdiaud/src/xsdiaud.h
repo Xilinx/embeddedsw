@@ -421,6 +421,9 @@ void XSdiAud_SetCh(XSdiAud *InstancePtr, XSdiAud_GrpNum XSdiStrtGrpNum,
 void XSdiAud_Ext_Mute(XSdiAud *InstancePtr, XSdiAud_GrpNum XSdiAGrpNum,
 		XSdiAud_GrpXChNum XSdiAChNum);
 
+/* Function reads the control packet status register's active channel field */
+u32 XSdiAud_Ext_GetActCh(XSdiAud *InstancePtr);
+
 /************************** Variable Declarations ****************************/
 #ifdef __cplusplus
 }
