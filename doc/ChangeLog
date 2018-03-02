@@ -142,6 +142,7 @@ sysmonpsu_header.h
 sdps_v3_4:
 Use different commands for single and multi block transfers
 Separated out SDR104 and HS200 clock defines
+Move UHS macro check to SD card init routine
 
 csudma_v1_2:
 Added support for peripheral test app support.
