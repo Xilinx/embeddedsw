@@ -1,33 +1,13 @@
 /*******************************************************************************
- *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
  * @file xvidc.h
- * @addtogroup video_common_v4_3
+ * @addtogroup video_common_v4_9
  * @{
  * @details
  *
@@ -121,6 +101,8 @@ typedef enum {
 	XVIDC_VM_2048x1080_96_I,
 	XVIDC_VM_2048x1080_100_I,
 	XVIDC_VM_2048x1080_120_I,
+	XVIDC_VM_2880x480_60_I,
+	XVIDC_VM_2880x576_50_I,
 
 
 	/* Progressive modes. */
@@ -183,6 +165,9 @@ typedef enum {
 	XVIDC_VM_1400x1050_85_P,
 	XVIDC_VM_1400x1050_120_P_RB,
 	XVIDC_VM_1440x240_60_P,
+	XVIDC_VM_1440x288_50_P,
+	XVIDC_VM_1440x480_60_P,
+	XVIDC_VM_1440x576_50_P,
 	XVIDC_VM_1440x900_60_P,
 	XVIDC_VM_1440x900_60_P_RB,
 	XVIDC_VM_1440x900_75_P,
@@ -194,6 +179,9 @@ typedef enum {
 	XVIDC_VM_1600x1200_75_P,
 	XVIDC_VM_1600x1200_85_P,
 	XVIDC_VM_1600x1200_120_P_RB,
+	XVIDC_VM_1680x720_24_P,
+	XVIDC_VM_1680x720_25_P,
+	XVIDC_VM_1680x720_30_P,
 	XVIDC_VM_1680x720_50_P,
 	XVIDC_VM_1680x720_60_P,
 	XVIDC_VM_1680x720_100_P,
@@ -248,6 +236,10 @@ typedef enum {
 	XVIDC_VM_2560x1600_75_P,
 	XVIDC_VM_2560x1600_85_P,
 	XVIDC_VM_2560x1600_120_P_RB,
+	XVIDC_VM_2880x240_60_P,
+	XVIDC_VM_2880x288_50_P,
+	XVIDC_VM_2880x480_60_P,
+	XVIDC_VM_2880x576_50_P,
 	XVIDC_VM_3840x2160_24_P,
 	XVIDC_VM_3840x2160_25_P,
 	XVIDC_VM_3840x2160_30_P,

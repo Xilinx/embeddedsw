@@ -1,33 +1,13 @@
 /*******************************************************************************
- *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
  * @file xvidc.c
- * @addtogroup video_common_v4_3
+ * @addtogroup video_common_v4_9
  * @{
  *
  * Contains common utility functions that are typically used by video-related
@@ -280,38 +260,41 @@ u8 XVidC_IsInterlaced(XVidC_VideoMode VmId)
  *
 *******************************************************************************/
 XVidC_VideoMode XVidC_GetVideoModeIdWBlanking(const XVidC_VideoTiming *Timing,
-		                                      u32 FrameRate, u8 IsInterlaced)
+		u32 FrameRate, u8 IsInterlaced)
 {
-  XVidC_VideoMode VmId;
-  XVidC_VideoTiming const *StdTiming = NULL;
+	XVidC_VideoMode VmId;
+	XVidC_VideoTiming const *StdTiming = NULL;
 
-  /* First search for ID with matching Width & Height */
-  VmId = XVidC_GetVideoModeId(Timing->HActive, Timing->VActive, FrameRate,
-		                      IsInterlaced);
+	/* First search for ID with matching Width & Height */
+	VmId = XVidC_GetVideoModeId(Timing->HActive, Timing->VActive, FrameRate,
+			IsInterlaced);
 
-  if(VmId == XVIDC_VM_NOT_SUPPORTED) {
-	return(VmId);
-  } else {
+	if (VmId == XVIDC_VM_NOT_SUPPORTED) {
+		return(VmId);
+	} else {
 
-	/* Get standard timing info from default timing table */
-	StdTiming = XVidC_GetTimingInfo(VmId);
+		/* Get standard timing info from default timing table */
+		StdTiming = XVidC_GetTimingInfo(VmId);
+		if (!StdTiming) {
+			return(XVIDC_VM_NOT_SUPPORTED);
+		}
 
-	/* Match against detected timing parameters */
-	if((Timing->HActive        == StdTiming->HActive) &&
-	   (Timing->VActive        == StdTiming->VActive) &&
-	   (Timing->HTotal         == StdTiming->HTotal) &&
-	   (Timing->F0PVTotal      == StdTiming->F0PVTotal) &&
-	   (Timing->HFrontPorch    == StdTiming->HFrontPorch) &&
-	   (Timing->HSyncWidth     == StdTiming->HSyncWidth) &&
-	   (Timing->HBackPorch     == StdTiming->HBackPorch) &&
-	   (Timing->F0PVFrontPorch == StdTiming->F0PVFrontPorch) &&
-	   (Timing->F0PVSyncWidth  == StdTiming->F0PVSyncWidth) &&
-	   (Timing->F0PVBackPorch  == StdTiming->F0PVBackPorch)) {
-       return(VmId);
-	 } else {
-	   return(XVIDC_VM_NOT_SUPPORTED);
-	 }
-  }
+		/* Match against detected timing parameters */
+		if ((Timing->HActive        == StdTiming->HActive) &&
+				(Timing->VActive        == StdTiming->VActive) &&
+				(Timing->HTotal         == StdTiming->HTotal) &&
+				(Timing->F0PVTotal      == StdTiming->F0PVTotal) &&
+				(Timing->HFrontPorch    == StdTiming->HFrontPorch) &&
+				(Timing->HSyncWidth     == StdTiming->HSyncWidth) &&
+				(Timing->HBackPorch     == StdTiming->HBackPorch) &&
+				(Timing->F0PVFrontPorch == StdTiming->F0PVFrontPorch) &&
+				(Timing->F0PVSyncWidth  == StdTiming->F0PVSyncWidth) &&
+				(Timing->F0PVBackPorch  == StdTiming->F0PVBackPorch)) {
+			return(VmId);
+		} else {
+			return(XVIDC_VM_NOT_SUPPORTED);
+		}
+	}
 }
 
 /******************************************************************************/
