@@ -83,7 +83,7 @@
 #define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID
 #ifndef __BAREMETAL__
 #define BUS_NAME        "platform"
-#define RFDC_DEV_NAME    "a0000000.usp_rf_data_converter"
+#define RFDC_DEV_NAME    XPAR_XRFDC_0_DEV_NAME
 #endif
 
 /**************************** Type Definitions ******************************/

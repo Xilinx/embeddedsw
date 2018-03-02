@@ -84,7 +84,7 @@
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 #else
 #define BUS_NAME        "platform"
-#define RFDC_DEV_NAME    "a0000000.usp_rf_data_converter"
+#define RFDC_DEV_NAME    XPAR_XRFDC_0_DEV_NAME
 #define STIM_DEV_NAME    "a8000000.stimulus_gen_axi_s"
 #define CAP_DEV_NAME    "a4000000.data_capture_axi_s"
 #endif
