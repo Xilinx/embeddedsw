@@ -169,6 +169,35 @@ openamp_matrix_multiply_demo:
 openamp_echo_test:
 - Update to work with updated openamp and libmetal libs
 
+v_hdmirxss_v5_0:
+Updated version from 4.0 to 5.0
+Added Info frame supported
+Added new reset sequence
+Added support for ZCU104, ZCU106 and VCU118
+Improve system flow in the example design
+Added EDID parsing capability
+
+v_hdmitxss_v5_0:
+Updated version from 4.0 to 5.0
+Added Info frame supported
+Added new reset sequence
+Added support for ZCU104, ZCU106 and VCU118
+Improve system flow in the example design
+Added EDID parsing capability
+
+v_hdmirx_v2_0:
+Updated version from 1.3 to 2.0
+Added Info frame supported
+Added new reset sequence
+
+v_hdmitx_v2_0:
+Updated version from 1.3 to 2.0
+Added Info frame supported
+Added new reset sequence
+
+video_common_v4_3:
+Added EDID parsing capability with extende feature
+
 usbpsu_v1_4:
 Modify USBPSU driver code to fit USB common example code for all USB IPs
 Added support for flushing Dcache for setupdata packet for control ep's

@@ -74,7 +74,7 @@
 #include "xstatus.h"
 #include "xil_exception.h"
 #include "xvidc_edid_ext.h"
-#if XVIDC_EDID_VERBOSITY > 1
+
 static XV_VidC_PicAspectRatio xv_vidc_getPicAspectRatio(u16 hres, u16 vres);
 
 static XV_VidC_PicAspectRatio xv_vidc_getPicAspectRatio(u16 hres, u16 vres) {
@@ -106,10 +106,17 @@ static XV_VidC_PicAspectRatio xv_vidc_getPicAspectRatio(u16 hres, u16 vres) {
         return ar;
     }
 }
-#endif
+
 
 void XV_VidC_EdidCtrlParamInit (XV_VidC_EdidCntrlParam *EdidCtrlParam) {
+	
+	/* Verify arguments. */
+	Xil_AssertVoid(EdidCtrlParam != NULL);
 
+	(void)memset((void *)EdidCtrlParam,  0,
+			sizeof(XV_VidC_EdidCntrlParam));
+			
+	EdidCtrlParam->IsHdmi                = XVIDC_ISDVI;
     EdidCtrlParam->IsYCbCr444Supp        = XVIDC_NOT_SUPPORTED;
     EdidCtrlParam->IsYCbCr420Supp        = XVIDC_NOT_SUPPORTED;
     EdidCtrlParam->IsYCbCr422Supp        = XVIDC_NOT_SUPPORTED;
@@ -124,14 +131,8 @@ void XV_VidC_EdidCtrlParamInit (XV_VidC_EdidCntrlParam *EdidCtrlParam) {
     EdidCtrlParam->IsSCDCPresent         = XVIDC_NOT_SUPPORTED;
     EdidCtrlParam->MaxFrameRateSupp      = 0;
     EdidCtrlParam->MaxTmdsMhz            = 0;
-#if XVIDC_EDID_VERBOSITY > 1
-    for (u8 i = 0; i < 128; i++) {
-        EdidCtrlParam->SuppCeaVIC[i] = 0;
-    }
-#endif
 }
 
-#if XVIDC_EDID_VERBOSITY > 1
 XV_VidC_TimingParam
 XV_VidC_timing
             (const struct xvidc_edid_detailed_timing_descriptor * const dtb)
@@ -161,6 +162,7 @@ XV_VidC_timing
     return timing;
 }
 
+#if XVIDC_EDID_VERBOSITY > 1
 XV_VidC_DoubleRep Double2Int (double in_val) {
 	XV_VidC_DoubleRep DR;
 
