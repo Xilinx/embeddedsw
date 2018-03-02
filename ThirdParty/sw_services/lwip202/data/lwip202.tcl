@@ -239,7 +239,7 @@ proc lwip_sw_drc {libhandle emacs_list} {
 		set os_handle [hsi::get_os]
 		set os_name [common::get_property NAME $os_handle]
 		if { [string compare -nocase "xilkernel" $os_name] != 0} {
-			if { [string compare -nocase "freertos901_xilinx" $os_name] != 0} {
+			if { [string compare -nocase "freertos10_xilinx" $os_name] != 0} {
 				error "ERROR: lwIP with Sockets requires \"xilkernel or freertos\" OS" "" "mdt_error"
 			}
 		}
@@ -492,7 +492,7 @@ proc generate_lwip_opts {libhandle} {
 			puts $lwipopts_fd "\#define LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT 0"
 			puts $lwipopts_fd ""
 		}
-		if { [string compare -nocase "freertos901_xilinx" $os_name] == 0} {
+		if { [string compare -nocase "freertos10_xilinx" $os_name] == 0} {
 			# mbox options
 			set lwip_tcpip_core_locking_input	[common::get_property CONFIG.lwip_tcpip_core_locking_input $libhandle]
 			set tcpip_mbox_size	[common::get_property CONFIG.tcpip_mbox_size $libhandle]
