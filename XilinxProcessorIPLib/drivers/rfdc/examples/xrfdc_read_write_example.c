@@ -62,6 +62,7 @@
 *       sk     08/23/17 Add Nyquist Zone test case.
 *       sk     09/25/17 Add GetOutput Current test case.
 * 2.4   sk     12/11/17 Add test case for DDC and DUC.
+* 3.2   sk     03/01/18 Add test case for Multiband.
 *
 * </pre>
 *
@@ -973,6 +974,174 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 		}
 	}
 
+	Tile = 0U;
+	printf("=======Default DigitalDataPath Configuration for Tile%d======\r\n", Tile);
+	for (Block = 0; Block <4; Block++) {
+		/* Check for DAC block Enable */
+		if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
+			printf("\n DAC DigitalDataPath%d-> Connected I data = %d",
+					Block, XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block));
+			printf("\n DAC DigitalDataPath%d-> Connected Q data = %d",
+					Block, XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block));
+		}
+
+		/* Check if the ADC block is enabled */
+		if (XRFdc_IsADCBlockEnabled(RFdcInstPtr, Tile, Block)) {
+			printf("\n ADC DigitalDataPath%d-> Connected I data = %d",
+					Block, XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block));
+			printf("\n ADC DigitalDataPath%d-> Connected Q data = %d",
+					Block, XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block));
+		}
+	}
+	printf("\n ============================================\r\n");
+
+	/* ADC-4G Singleband R2C */
+	Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_ADC_TILE, Tile, 0x1, XRFDC_MB_DATATYPE_R2C, 0x1);
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
+	}
+
+	printf("=============ADC0-4G SB Configuration R2C==========\r\n");
+	for (Block = 0; Block <4; Block++) {
+		/* Check if the ADC block is enabled */
+		if (XRFdc_IsADCBlockEnabled(RFdcInstPtr, Tile, Block)) {
+			printf("\n ADC DigitalDataPath%d-> Connected I data = %d",
+					Block, XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block));
+			printf("\n ADC DigitalDataPath%d-> Connected Q data = %d",
+					Block, XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block));
+		}
+		if (Block == 0) {
+			if (XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block) != 0)
+				return XRFDC_FAILURE;
+			if (XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block) != -1)
+				return XRFDC_FAILURE;
+		}
+	}
+	printf("\n ================================================\r\n");
+
+	if (RFdcInstPtr->ADC_Tile[Tile].NumOfADCBlocks >= 2U) {
+		/* ADC-4G Multiband 2x R2C */
+		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_ADC_TILE, Tile, 0x3, XRFDC_MB_DATATYPE_R2C, 0x1);
+		if (Status != XRFDC_SUCCESS) {
+			return XRFDC_FAILURE;
+		}
+
+		printf("=============ADC0,1-4G MB Configuration R2C==========\r\n");
+		for (Block = 0; Block <4; Block++) {
+			/* Check if the ADC block is enabled */
+			if (XRFdc_IsADCBlockEnabled(RFdcInstPtr, Tile, Block)) {
+				printf("\n ADC DigitalDataPath%d-> Connected I data = %d",
+						Block, XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block));
+				printf("\n ADC DigitalDataPath%d-> Connected Q data = %d",
+						Block, XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block));
+			}
+			if ((Block == 0) || (Block == 1)) {
+				if (XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block) != 0)
+					return XRFDC_FAILURE;
+				if (XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block) != -1)
+					return XRFDC_FAILURE;
+			}
+		}
+		printf("\n ================================================\r\n");
+
+		/* ADC-4G Multiband 2x C2C */
+		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_ADC_TILE, Tile, 0x3, XRFDC_MB_DATATYPE_C2C, 0x3);
+		if (Status != XRFDC_SUCCESS) {
+			return XRFDC_FAILURE;
+		}
+
+		printf("=============ADC0,1-4G MB Configuration C2C==========\r\n");
+		for (Block = 0; Block <4; Block++) {
+			/* Check if the ADC block is enabled */
+			if (XRFdc_IsADCBlockEnabled(RFdcInstPtr, Tile, Block)) {
+				printf("\n ADC DigitalDataPath%d-> Connected I data = %d",
+						Block, XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block));
+				printf("\n ADC DigitalDataPath%d-> Connected Q data = %d",
+						Block, XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block));
+			}
+			if ((Block == 0) || (Block == 1)) {
+				if (XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block) != 0)
+					return XRFDC_FAILURE;
+				if (XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block) != 1)
+					return XRFDC_FAILURE;
+			}
+		}
+		printf("\n ================================================\r\n");
+	}
+
+	/* DAC Singleband C2R */
+	Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x1, XRFDC_MB_DATATYPE_C2R, 0x1);
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
+	}
+
+	printf("=============DAC0 SB Configuration C2R==========\r\n");
+	for (Block = 0; Block <4; Block++) {
+		/* Check for DAC block Enable */
+		if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
+			printf("\n DAC DigitalDataPath%d-> Connected I data = %d",
+					Block, XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block));
+			printf("\n DAC DigitalDataPath%d-> Connected Q data = %d",
+					Block, XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block));
+		}
+		if (Block == 0) {
+			if (XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 0)
+				return XRFDC_FAILURE;
+			if (XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != -1)
+				return XRFDC_FAILURE;
+		}
+	}
+	printf("\n ============================================\r\n");
+
+	if (RFdcInstPtr->DAC_Tile[Tile].NumOfDACBlocks >= 2U) {
+		/* DAC Singleband C2C */
+		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x1, XRFDC_MB_DATATYPE_C2C, 0x3);
+		if (Status != XRFDC_SUCCESS) {
+			return XRFDC_FAILURE;
+		}
+
+		printf("=============DAC0 SB Configuration C2C==========\r\n");
+		for (Block = 0; Block <4; Block++) {
+			/* Check for DAC block Enable */
+			if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
+				printf("\n DAC DigitalDataPath%d-> Connected I data = %d",
+						Block, XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block));
+				printf("\n DAC DigitalDataPath%d-> Connected Q data = %d",
+						Block, XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block));
+			}
+			if (Block == 0) {
+				if (XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 0)
+					return XRFDC_FAILURE;
+				if (XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 1)
+					return XRFDC_FAILURE;
+			}
+		}
+		printf("\n ============================================\r\n");
+
+		/* DAC Multiband 2x C2C */
+		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x3, XRFDC_MB_DATATYPE_C2C, 0x3);
+		if (Status != XRFDC_SUCCESS) {
+			return XRFDC_FAILURE;
+		}
+
+		printf("=======DAC0,1 MB 2X Configuration C2C=======\r\n");
+		for (Block = 0; Block <4; Block++) {
+			/* Check for DAC block Enable */
+			if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
+				printf("\n DAC DigitalDataPath%d-> Connected I data = %d",
+						Block, XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block));
+				printf("\n DAC DigitalDataPath%d-> Connected Q data = %d",
+						Block, XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block));
+			}
+			if ((Block == 0) || (Block == 1)) {
+				if (XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 0)
+					return XRFDC_FAILURE;
+				if (XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 1)
+					return XRFDC_FAILURE;
+			}
+		}
+		printf("\n ============================================\r\n");
+	}
 
 	return XRFDC_SUCCESS;
 }
