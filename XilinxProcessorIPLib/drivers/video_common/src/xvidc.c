@@ -12,14 +12,10 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * Use of the Software is limited solely to applications:
- * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -1113,7 +1109,7 @@ void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream)
 void XVidC_ReportTiming(const XVidC_VideoTiming *Timing, u8 IsInterlaced)
 {
 	xil_printf("\r\n\tHSYNC Timing: hav=%04d, hfp=%02d, hsw=%02d(hsp=%d), "
-			"hbp=%03d, htot=%04d \n\r", Timing->HActive,
+			"hbp=%03d, htot=%04d \r\n", Timing->HActive,
 			Timing->HFrontPorch, Timing->HSyncWidth,
 			Timing->HSyncPolarity,
 			Timing->HBackPorch, Timing->HTotal);
@@ -1121,12 +1117,12 @@ void XVidC_ReportTiming(const XVidC_VideoTiming *Timing, u8 IsInterlaced)
 	/* Interlaced */
 	if (IsInterlaced) {
 		xil_printf("\tVSYNC Timing (Field 0): vav=%04d, vfp=%02d, "
-			"vsw=%02d(vsp=%d), vbp=%03d, vtot=%04d\n\r",
+			"vsw=%02d(vsp=%d), vbp=%03d, vtot=%04d\r\n",
 			Timing->VActive, Timing->F0PVFrontPorch,
 			Timing->F0PVSyncWidth, Timing->VSyncPolarity,
 			Timing->F0PVBackPorch, Timing->F0PVTotal);
 	xil_printf("\tVSYNC Timing (Field 1): vav=%04d, vfp=%02d, "
-			"vsw=%02d(vsp=%d), vbp=%03d, vtot=%04d\n\r",
+			"vsw=%02d(vsp=%d), vbp=%03d, vtot=%04d\r\n",
 			Timing->VActive, Timing->F1VFrontPorch,
 			Timing->F1VSyncWidth, Timing->VSyncPolarity,
 			Timing->F1VBackPorch, Timing->F1VTotal);
@@ -1134,7 +1130,7 @@ void XVidC_ReportTiming(const XVidC_VideoTiming *Timing, u8 IsInterlaced)
 	/* Progressive */
 	else {
 		xil_printf("\tVSYNC Timing: vav=%04d, vfp=%02d, "
-			"vsw=%02d(vsp=%d), vbp=%03d, vtot=%04d\n\r",
+			"vsw=%02d(vsp=%d), vbp=%03d, vtot=%04d\r\n",
 			Timing->VActive, Timing->F0PVFrontPorch,
 			Timing->F0PVSyncWidth, Timing->VSyncPolarity,
 			Timing->F0PVBackPorch, Timing->F0PVTotal);
