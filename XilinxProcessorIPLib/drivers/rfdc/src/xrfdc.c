@@ -91,6 +91,7 @@
 *       sk     01/25/18 Updated Set and Get Interpolation/Decimation factor
 *                       API's to consider the actual factor value.
 * 3.2   sk     02/02/18 Add API's to configure inverse-sinc.
+*       sk     02/27/18 Add API's to configure Multiband.
 * </pre>
 *
 ******************************************************************************/
@@ -120,6 +121,9 @@ static void StubHandler(void *CallBackRef, u32 Type, int Tile_Id,
 								u32 Block_Id, u32 StatusEvent);
 static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		double RefClkFreq, double SamplingRate);
+static void XRFdc_SetSignalFlow(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
+		u32 Mode, u32 DigitalDataPathId, u32 DataType,
+		int ConnectIData, int ConnectQData);
 /************************** Function Prototypes ******************************/
 
 /*****************************************************************************/
@@ -176,6 +180,56 @@ int XRFdc_CfgInitialize(XRFdc* InstancePtr, XRFdc_Config *Config)
 		}
 	}
 
+	for (Tile_Id = 0; Tile_Id < 4U; Tile_Id++) {
+		for (Block_Id = 0; Block_Id < 4U; Block_Id++) {
+			if (XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id) != 0U) {
+				if (InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
+						ADCBlock_Analog_Config[Block_Id].MixMode == 1U) {
+					InstancePtr->ADC_Tile[Tile_Id].
+						ADCBlock_Digital_Datapath[Block_Id].ConnectedIData = Block_Id;
+					Block_Id++;
+					InstancePtr->ADC_Tile[Tile_Id].
+						ADCBlock_Digital_Datapath[Block_Id].ConnectedQData = Block_Id;
+				} else {
+					InstancePtr->ADC_Tile[Tile_Id].
+						ADCBlock_Digital_Datapath[Block_Id].ConnectedIData = Block_Id;
+					InstancePtr->ADC_Tile[Tile_Id].
+						ADCBlock_Digital_Datapath[Block_Id].ConnectedQData = -1;
+
+				}
+			} else {
+				InstancePtr->ADC_Tile[Tile_Id].
+					ADCBlock_Digital_Datapath[Block_Id].ConnectedIData = -1;
+				InstancePtr->ADC_Tile[Tile_Id].
+					ADCBlock_Digital_Datapath[Block_Id].ConnectedQData = -1;
+			}
+		}
+	}
+	for (Tile_Id = 0; Tile_Id < 4U; Tile_Id++) {
+		for (Block_Id = 0; Block_Id < 4U; Block_Id++) {
+			if (XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id, Block_Id) != 0U) {
+				if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
+						DACBlock_Analog_Config[Block_Id].MixMode == 1U) {
+					InstancePtr->DAC_Tile[Tile_Id].
+						DACBlock_Digital_Datapath[Block_Id].ConnectedIData = Block_Id;
+					Block_Id++;
+					InstancePtr->DAC_Tile[Tile_Id].
+						DACBlock_Digital_Datapath[Block_Id].ConnectedQData = Block_Id;
+				} else {
+					InstancePtr->DAC_Tile[Tile_Id].
+						DACBlock_Digital_Datapath[Block_Id].ConnectedIData = Block_Id;
+					InstancePtr->DAC_Tile[Tile_Id].
+						DACBlock_Digital_Datapath[Block_Id].ConnectedQData = -1;
+
+				}
+			} else {
+				InstancePtr->DAC_Tile[Tile_Id].
+					DACBlock_Digital_Datapath[Block_Id].ConnectedIData = -1;
+				InstancePtr->DAC_Tile[Tile_Id].
+					DACBlock_Digital_Datapath[Block_Id].ConnectedQData = -1;
+			}
+		}
+	}
 	/*
 	 * Indicate the instance is now ready to use and
 	 * initialized without error.
@@ -4047,16 +4101,16 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Sets up multiband configuration.
+* User-level API to setup multiband configuration.
 *
 * @param	InstancePtr is a pointer to the XRfdc instance.
 * @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param	Tile_Id Valid values are 0-3.
-* @param    AnalogDataPath to be connected to the requested I or Q data
-* @param    ConnectIData is I data path to be connected to a requested
-*           analog data path
-* @param    ConnectQData is Q data path to be connected to a requested
-*           analog data path
+* @param    DigitalDataPathMask is the DataPath mask. First 4 bits represent
+*           4 data paths, 1 means enabled and 0 means disabled.
+* @param    DataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
+* @param    DataConverterMask is block enabled mask (input/output driving
+*           blocks). 1 means enabled and 0 means disabled.
 *
 * @return
 *		- XRFDC_SUCCESS if successful.
@@ -4065,47 +4119,432 @@ RETURN_PATH:
 * @note		Common API for ADC/DAC blocks
 *
 ******************************************************************************/
-void XRFdc_SetSignalFlow(XRFdc* InstancePtr, u32 Type, int Tile_Id,
-		u32 AnalogDataPath, u32 ConnectIData, u32 ConnectQData)
+u32 XRFdc_MultiBand(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
+		u8 DigitalDataPathMask, u32 DataType, u32 DataConverterMask)
 {
-	/*TODO*/
-	(void)InstancePtr;
-	(void)Type;
-	(void)Tile_Id;
-	(void)AnalogDataPath;
-	(void)ConnectIData;
-	(void)ConnectQData;
-}
+	u32 Status;
+	u32 Block_Id;
+	u32 IsBlockAvail;
+	u8 NoOfDataPaths = 0U;
+	u32 BlockIndex[4];
+	u32 DataPathIndex[4];
+	u32 NoOfDataConverters = 0U;
+	u32 Mode = 0x0;
+	u32 NoOfBlocks = 4;
 
+#ifdef __BAREMETAL__
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+				(Type == XRFDC_ADC_TILE))
+		NoOfBlocks = 2;
+	for (Block_Id = 0; Block_Id < NoOfBlocks; Block_Id++) {
+		if (DigitalDataPathMask & (1 << Block_Id)) {
+			DataPathIndex[NoOfDataPaths++] = Block_Id;
+			IsBlockAvail = (Type == XRFDC_ADC_TILE ?
+					XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id) :
+					XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id, Block_Id));
+			if (IsBlockAvail == 0U) {
+				Status = XRFDC_FAILURE;
+#ifdef __MICROBLAZE__
+				xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block not "
+									"available in %s\r\n", __func__);
+#else
+				metal_log(METAL_LOG_ERROR, "\n Requested block not "
+								"available in %s\r\n", __func__);
+#endif
+				goto RETURN_PATH;
+			}
+		}
+		if (DataConverterMask & (1 << Block_Id)) {
+			BlockIndex[NoOfDataConverters++] = Block_Id;
+		}
+	}
+
+	if (NoOfDataPaths == 1U)
+		Mode = XRFDC_SINGLEBAND_MODE;
+	else if (NoOfDataPaths == 2U)
+		Mode = XRFDC_MULTIBAND_MODE_2X;
+	else if (NoOfDataPaths == 4U)
+		Mode = XRFDC_MULTIBAND_MODE_4X;
+
+	if ((DataType == XRFDC_MB_DATATYPE_C2C) && (Mode == XRFDC_SINGLEBAND_MODE)) {
+		if ((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
+			/* Update the structure values */
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+							ConnectedIData = BlockIndex[0U];
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+							ConnectedQData = BlockIndex[1U];
+			Block_Id = (DataPathIndex[0] == 0U ? 1U : 0U);
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].
+							ConnectedIData = -1;
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].
+							ConnectedQData = -1;
+
+			if (DataPathIndex[0] == 1U)
+				DataPathIndex[0] = 2U;
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
+					DataType, BlockIndex[0U], BlockIndex[0U]+2);
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+1,
+					DataType, BlockIndex[1U], BlockIndex[1U]+2);
+			Block_Id = (DataPathIndex[0] == 2U ? 0U : 2U);
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, Block_Id,
+					DataType, -1, -1);
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, Block_Id+1,
+					DataType, -1, -1);
+		} else {
+			DataPathIndex[1] = BlockIndex[0] + BlockIndex[1] - DataPathIndex[0];
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
+					DataType, BlockIndex[0], BlockIndex[1]);
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
+					DataType, -1, -1);
+			if (Type == XRFDC_ADC_TILE) {
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedIData = BlockIndex[0];
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedQData = BlockIndex[1];
+
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedIData = -1;
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedQData = -1;
+			} else {
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedIData = BlockIndex[0];
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedQData = BlockIndex[1];
+
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedIData = -1;
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedQData = -1;
+			}
+
+		}
+	} else if (((DataType == XRFDC_MB_DATATYPE_R2C) ||
+			(DataType == XRFDC_MB_DATATYPE_C2R)) && (Mode == XRFDC_SINGLEBAND_MODE)) {
+		if ((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
+			if (DataPathIndex[0] == 1U)
+				DataPathIndex[0] = 2U;
+			if (BlockIndex[0] == 1U)
+				BlockIndex[0] = 2U;
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+1,
+					DataType, BlockIndex[0U]+1, -1);
+		}
+		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
+				DataType, BlockIndex[0U], -1);
+		if (Type == XRFDC_ADC_TILE) {
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+							ConnectedIData = BlockIndex[0U];
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+							ConnectedQData = -1;
+		} else {
+			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
+							ConnectedIData = BlockIndex[0U];
+			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
+							ConnectedQData = -1;
+		}
+	}
+
+	if ((DataType == XRFDC_MB_DATATYPE_C2C) &&
+			((Mode == XRFDC_MULTIBAND_MODE_2X) || (Mode == XRFDC_MULTIBAND_MODE_4X))) {
+		if ((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
+					DataType, BlockIndex[0U], BlockIndex[0U]+2);
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+1,
+					DataType, BlockIndex[0U]+1, BlockIndex[0U]+3);
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+2,
+					DataType, BlockIndex[0U], BlockIndex[0U]+2);
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+3,
+					DataType, BlockIndex[0U]+1, BlockIndex[0U]+3);
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+							ConnectedIData = BlockIndex[0U];
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+							ConnectedQData = BlockIndex[1U];
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
+							ConnectedIData = BlockIndex[0U];
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
+							ConnectedQData = BlockIndex[1U];
+		} else if (NoOfDataPaths == 2U) {
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
+					DataType, BlockIndex[0U], BlockIndex[1U]);
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
+					DataType, BlockIndex[0U], BlockIndex[1U]);
+			if (Type == XRFDC_ADC_TILE) {
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedQData = BlockIndex[1U];
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedQData = BlockIndex[1U];
+			} else {
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedQData = BlockIndex[1U];
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedQData = BlockIndex[1U];
+			}
+		}
+		if (NoOfDataPaths == 4U) {
+			if (Type == XRFDC_ADC_TILE) {
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
+						DataType, BlockIndex[0U], BlockIndex[1U]);
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
+						DataType,  BlockIndex[0U], BlockIndex[1U]);
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[2],
+						DataType, BlockIndex[0U], BlockIndex[1U]);
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[3],
+						DataType, BlockIndex[0U], BlockIndex[1U]);
+
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedQData = BlockIndex[1U];
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedQData = BlockIndex[1U];
+
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[2]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[2]].
+								ConnectedQData = BlockIndex[1U];
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[3]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[3]].
+								ConnectedQData = BlockIndex[1U];
+			} else {
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
+						DataType, DataPathIndex[0], DataPathIndex[1U]);
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
+						DataType, DataPathIndex[0U], DataPathIndex[1U]);
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[2],
+						DataType, DataPathIndex[2U], DataPathIndex[3U]);
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[3],
+						DataType, DataPathIndex[2U], DataPathIndex[3U]);
+
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedQData = BlockIndex[1U];
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedQData = BlockIndex[1U];
+
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[2]].
+								ConnectedIData = DataPathIndex[2U];
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[2]].
+								ConnectedQData = DataPathIndex[3U];
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[3]].
+								ConnectedIData = DataPathIndex[2U];
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[3]].
+								ConnectedQData = DataPathIndex[3U];
+			}
+		}
+	}
+
+	if (((DataType == XRFDC_MB_DATATYPE_R2C) || (DataType == XRFDC_MB_DATATYPE_C2R)) &&
+				((Mode == XRFDC_MULTIBAND_MODE_2X) || (Mode == XRFDC_MULTIBAND_MODE_4X))) {
+		if ((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+							ConnectedIData = BlockIndex[0U];
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+							ConnectedQData = -1;
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
+							ConnectedIData = BlockIndex[0U];
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
+							ConnectedQData = -1;
+			if (BlockIndex[0] == 1U)
+				BlockIndex[0] = 2U;
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
+					DataType, BlockIndex[0U], -1);
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
+					DataType, BlockIndex[0U]+1, -1);
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+2,
+					DataType, BlockIndex[0U], -1);
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1]+2,
+					DataType, BlockIndex[0U]+1, -1);
+		} else if (NoOfDataPaths == 2U) {
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
+					DataType, BlockIndex[0], -1);
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
+					DataType, BlockIndex[0], -1);
+			if (Type == XRFDC_ADC_TILE) {
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedQData = -1;
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedQData = -1;
+			} else {
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedQData = -1;
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedQData = -1;
+			}
+
+		}
+		if (NoOfDataPaths == 4U) {
+			if (Type == XRFDC_ADC_TILE) {
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
+						DataType, BlockIndex[0], -1);
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
+						DataType, BlockIndex[0], -1);
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[2],
+						DataType, BlockIndex[0], -1);
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[3],
+						DataType, BlockIndex[0], -1);
+
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedQData = -1;
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedQData = -1;
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[2]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[2]].
+								ConnectedQData = -1;
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[3]].
+								ConnectedIData = BlockIndex[0U];
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[3]].
+								ConnectedQData = -1;
+
+			} else {
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
+						DataType, DataPathIndex[0], -1);
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
+						DataType, DataPathIndex[0], -1);
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[2],
+						DataType, DataPathIndex[2], -1);
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[3],
+						DataType, DataPathIndex[2], -1);
+
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedIData = DataPathIndex[0];
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
+								ConnectedQData = -1;
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedIData = DataPathIndex[0];
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
+								ConnectedQData = -1;
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[2]].
+								ConnectedIData = DataPathIndex[2];
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[2]].
+								ConnectedQData = -1;
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[3]].
+								ConnectedIData = DataPathIndex[2];
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[3]].
+								ConnectedQData = -1;
+			}
+		}
+	}
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
 /*****************************************************************************/
 /**
 *
-* Reads back the multiband configuration.
+* Sets up signal flow configuration.
 *
 * @param	InstancePtr is a pointer to the XRfdc instance.
 * @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param	Tile_Id Valid values are 0-3.
-* @param    AnalogDataPath for which the multi band configuration is targeted
-* @param    ConnectedIData is Connected I data path to be readback
-* @param    ConnectedQData is Connected Q data path to be readback
+* @param    Mode is connection mode SB/MB_2X/MB_4X.
+* @param    DigitalDataPathId for the requested I or Q data.
+* @param    DataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
+* @param    ConnectIData is analog blocks that are connected to
+*           DigitalDataPath I.
+* @param    ConnectQData is analog blocks that are connected to
+*           DigitalDataPath Q.
 *
-* @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+* @return   None
 *
-* @note		Common API for ADC/DAC blocks
+* @note		static API used internally.
 *
 ******************************************************************************/
-void XRFdc_GetSignalFlow (XRFdc* InstancePtr, u32 Type, int Tile_Id,
-		u32 AnalogDataPath, u32 * ConnectedIData, u32 * ConnectedQData)
+static void XRFdc_SetSignalFlow(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
+		u32 Mode, u32 DigitalDataPathId, u32 DataType,
+		int ConnectIData, int ConnectQData)
 {
-	/*TODO*/
-	(void)InstancePtr;
-	(void)Type;
-	(void)Tile_Id;
-	(void)AnalogDataPath;
-	(void)ConnectedIData;
-	(void)ConnectedQData;
+	u16 ReadReg;
+	u32 BaseAddr;
+
+#ifdef __BAREMETAL__
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+
+	if (Type == XRFDC_ADC_TILE) {
+		/* ADC */
+		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
+							XRFDC_BLOCK_ADDR_OFFSET(DigitalDataPathId);
+		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_SWITCH_MATRX_OFFSET);
+		ReadReg &= ~XRFDC_SWITCH_MTRX_MASK;
+		if (ConnectIData != -1)
+			ReadReg |= ConnectIData << 2;
+		if (ConnectQData != -1)
+			ReadReg |= ConnectQData;
+		if ((DataType == XRFDC_MB_DATATYPE_C2C) &&
+				(InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS))
+			ReadReg |= XRFDC_SEL_CB_TO_QMC_MASK;
+		if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)
+			ReadReg |= XRFDC_SEL_CB_TO_DECI_MASK;
+
+		XRFdc_WriteReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_SWITCH_MATRX_OFFSET, ReadReg);
+	} else {
+		/* DAC */
+		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) +
+							XRFDC_BLOCK_ADDR_OFFSET(DigitalDataPathId);
+		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+					XRFDC_DAC_MB_CFG_OFFSET);
+		ReadReg &= ~XRFDC_MB_CFG_MASK;
+		if (Mode == XRFDC_SINGLEBAND_MODE) {
+			if ((u32)ConnectIData == DigitalDataPathId) {
+				if (ConnectQData != -1)
+					ReadReg |= XRFDC_SB_C2C_BLK0;
+				else
+					ReadReg |= XRFDC_SB_C2R;
+			}
+			if ((ConnectIData == -1) && (ConnectQData == -1))
+				ReadReg |= XRFDC_SB_C2C_BLK1;
+		} else {
+			if (Mode == XRFDC_MULTIBAND_MODE_4X)
+				ReadReg |= XRFDC_MB_EN_4X_MASK;
+			if ((u32)ConnectIData == DigitalDataPathId) {
+				if (ConnectQData != -1)
+					ReadReg |= XRFDC_MB_C2C_BLK0;
+				else
+					ReadReg |= XRFDC_MB_C2R_BLK0;
+			} else {
+				if (ConnectQData != -1)
+					ReadReg |= XRFDC_MB_C2C_BLK1;
+				else
+					ReadReg |= XRFDC_MB_C2R_BLK1;
+			}
+		}
+		XRFdc_WriteReg16(InstancePtr, BaseAddr,
+					XRFDC_DAC_MB_CFG_OFFSET, ReadReg);
+	}
 }
 
 /*****************************************************************************/
