@@ -88,9 +88,11 @@
 *              16/11/17 Added bridge overflow interrupt
 *       EB     16/01/18 Added InfoFrame data structure to XV_HdmiRxSs
 *                       Added XV_HDMIRXSS_LOG_EVT_PIX_REPEAT_ERR log event
-*                       Added functions XV_HdmiRxSs_GetAviInfoframe,
+*                       Added functions XV_HdmiRxSs_GetAviInfoframe, 
 *                           XV_HdmiRxSs_GetGCP, XV_HdmiRxSs_GetAudioInfoframe,
 *                           XV_HdmiRxSs_GetVSIF
+*       SM     28/02/18 Added XV_HdmiRxSS_SetAppVersion API and AppMajVer and
+*                           AppMinVer version number in XV_HdmiRxSs structure
 * </pre>
 *
 ******************************************************************************/
@@ -256,8 +258,8 @@ typedef enum {
   XV_HDMIRXSS_HANDLER_CONNECT = 1,                  /**< Handler for connect
                                                          event */
   XV_HDMIRXSS_HANDLER_BRDGOVERFLOW,                 /**< Handler for
-                                                         bridge fifo overflow
-														 event */
+                                                         bridge fifo overflow 
+														 event */														 
   XV_HDMIRXSS_HANDLER_AUX,                          /**< Handler for AUX
                                                          peripheral event */
   XV_HDMIRXSS_HANDLER_AUD,                          /**< Handler for AUD
@@ -346,6 +348,8 @@ typedef struct
   XV_HdmiRxSs_Config Config;    /**< Hardware configuration */
   u32 IsReady;                  /**< Device and the driver instance are
                                      initialized */
+  u8 AppMajVer;       /**< Major Version of application used by the driver */
+  u8 AppMinVer;       /**< Minor Version of application used by the driver */
 
 #ifdef XV_HDMIRXSS_LOG_ENABLE
   XV_HdmiRxSs_Log Log;				/**< A log of events. */
@@ -367,9 +371,9 @@ typedef struct
 
   XV_HdmiRxSs_Callback BrdgOverflowCallback;  /**< Callback for Bridge overflow
                                            event */
-  void *BrdgOverflowRef;         /**< To be passed to the Bridge overflow
+  void *BrdgOverflowRef;         /**< To be passed to the Bridge overflow 
                                     callback */
-
+  
   XV_HdmiRxSs_Callback AuxCallback;     /**< Callback for AUX event */
   void *AuxRef;         /**< To be passed to the AUX callback */
 
@@ -444,6 +448,7 @@ void XV_HdmiRxSS_HdmiRxIntrHandler(XV_HdmiRxSs *InstancePtr);
 int XV_HdmiRxSs_CfgInitialize(XV_HdmiRxSs *InstancePtr,
     XV_HdmiRxSs_Config *CfgPtr,
     UINTPTR EffectiveAddr);
+void XV_HdmiRxSS_SetAppVersion(XV_HdmiRxSs *InstancePtr, u8 maj, u8 min);
 void XV_HdmiRxSs_Start(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_Stop(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_Reset(XV_HdmiRxSs *InstancePtr);

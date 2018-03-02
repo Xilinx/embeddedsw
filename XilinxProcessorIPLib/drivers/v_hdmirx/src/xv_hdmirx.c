@@ -238,7 +238,7 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
     */
 
     // Set timebase
-    XV_HdmiRx_VtdSetTimebase(InstancePtr, 1600000);  // 16 ms @ 100 Mhz
+    XV_HdmiRx_VtdSetTimebase(InstancePtr, TIME_16MS);  // 16 ms
 
     // The VTD run flag is set in the armed state
 
@@ -1742,7 +1742,7 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
             // Lookup the video mode id
             InstancePtr->Stream.Video.VmId =
             XVidC_GetVideoModeIdExtensive(&InstancePtr->Stream.Video.Timing,
-			InstancePtr->Stream.Video.FrameRate,
+            		InstancePtr->Stream.Video.FrameRate,
 					InstancePtr->Stream.Video.IsInterlaced);
 
             //If video mode not found in the table tag it as custom

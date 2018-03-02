@@ -299,13 +299,17 @@ void EDIDConnectInit(EdidHdmi20           *CheckHdmi20Param){
 *
 ******************************************************************************/
 void SinkCapabilityCheck(EdidHdmi20 *CheckHdmi20Param){
-	if (CheckHdmi20Param->EdidCtrlParam.Is36bppSupp) {
+	if (!CheckHdmi20Param->EdidCtrlParam.Is48bppSupp) {
+		CheckHdmi20Param->HdmiSinkWarningFlag |=
+				XV_HDMI_SINK_DEEP_COLOR_16_NOT_SUPP;
+	}
+	if (!CheckHdmi20Param->EdidCtrlParam.Is36bppSupp) {
 		CheckHdmi20Param->HdmiSinkWarningFlag |=
 				XV_HDMI_SINK_DEEP_COLOR_12_NOT_SUPP;
 	}
-	if (CheckHdmi20Param->EdidCtrlParam.Is48bppSupp) {
+	if (!CheckHdmi20Param->EdidCtrlParam.Is30bppSupp) {
 		CheckHdmi20Param->HdmiSinkWarningFlag |=
-				XV_HDMI_SINK_DEEP_COLOR_16_NOT_SUPP;
+				XV_HDMI_SINK_DEEP_COLOR_10_NOT_SUPP;
 	}
 }
 
