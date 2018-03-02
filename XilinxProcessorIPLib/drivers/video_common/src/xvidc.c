@@ -7,7 +7,7 @@
 /**
  *
  * @file xvidc.c
- * @addtogroup video_common_v4_9
+ * @addtogroup video_common_v4_10
  * @{
  *
  * Contains common utility functions that are typically used by video-related
@@ -927,7 +927,8 @@ u32 XVidC_SetVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
 			  (Bpc == XVIDC_BPC_UNKNOWN));
 	Xil_AssertNonvoid((Ppc == XVIDC_PPC_1) ||
 			  (Ppc == XVIDC_PPC_2) ||
-			  (Ppc == XVIDC_PPC_4));
+			  (Ppc == XVIDC_PPC_4) ||
+			  (Ppc == XVIDC_PPC_8));
 
 	/* Get the timing from the video timing table. */
 	TimingPtr = XVidC_GetTimingInfo(VmId);
