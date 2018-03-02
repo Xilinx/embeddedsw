@@ -81,7 +81,7 @@
 *                            XhdmiACRCtrl_TMDSClkRatio API Call
 *       EB     06/11/17 Updated function RxAudCallback to allow pass-through
 *                            of audio format setting
-* 2.20  mmo    29/12/17 Added EDID Parsing Capability
+* 3.00  mmo    29/12/17 Added EDID Parsing Capability
 *       EB     16/01/18 Added InfoFrame capability
 *       YH     16/01/18 Added video_bridge overflow interrupt
 *                       Added video_bridge unlock interrupt
@@ -98,6 +98,8 @@
 *                            UpdateColorDepth, UpdateColorFormat API for
 *                            clean flow.
 *       GM              Added support for ZCU104
+*       SM     28/02/18 Added code to call API for setting App version to
+*                            support backward compatibility related issues.
 * </pre>
 *
 ******************************************************************************/
@@ -105,8 +107,14 @@
 /***************************** Include Files *********************************/
 #include <stdio.h>
 #include <stdlib.h>
+#include "xhdmi_menu.h"
+#include "xhdmi_hdcp_keys_table.h"
 #include "xhdmi_example.h"
+
 /***************** Macros (Inline Functions) Definitions *********************/
+/* These macro values need to changed whenever there is a change in version */
+#define APP_MAJ_VERSION 3
+#define APP_MIN_VERSION 0
 
 /**************************** Type Definitions *******************************/
 
@@ -117,6 +125,8 @@ int I2cClk(u32 InFreq, u32 OutFreq);
 #if defined (__arm__) && (!defined(ARMR5))
 int OnBoardSi5324Init(void);
 #endif
+
+void Info(void);
 
 
 
@@ -176,8 +186,6 @@ static XIntc       Intc;
 /*HDMI Application Menu: Data Structure*/
 XHdmi_Menu         HdmiMenu;
 
-/* Variable for pass-through operation */
-u8                 AuxFifoStartFlag = (FALSE);
 /**< Demo mode IsPassThrough
  * (TRUE)  = Pass-through mode
  * (FALSE) = Color Bar mode
@@ -315,7 +323,7 @@ int I2cClk(u32 InFreq, u32 OutFreq)
 	return 1;
 }
 
-#if defined (ARMR5) || ((__aarch64__) && (!defined XPS_BOARD_ZCU104))
+#if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_ZCU104)
 
 int I2cMux_Ps(void)
 {
@@ -429,7 +437,7 @@ int OnBoardSi5324Init(void)
 ******************************************************************************/
 void Info(void)
 {
-#if defined (HDMI_DEBUG_TOOLS)
+#if(HDMI_DEBUG_TOOLS == 1)
 	u32 freeCnt = 0;
 #endif
 	u32 Data;
@@ -463,10 +471,11 @@ void Info(void)
 	}
 #endif
 	XVphy_HdmiDebugInfo(&Vphy, 0, XVPHY_CHANNEL_ID_CH1);
-#if defined (HDMI_DEBUG_TOOLS)
+
 	xil_printf("------------\r\n");
 	xil_printf("Debugging\r\n");
 	xil_printf("------------\r\n");
+#if(HDMI_DEBUG_TOOLS == 1)
 #if defined (__MICROBLAZE__) || (ARMR5)
 	for (int i = 0; i < (int)(&_STACK_SIZE)>>2; i++) {
 		Data = Xil_In32(((int)&_stack_end) + (i*4));
@@ -795,7 +804,6 @@ void RxHdcpCallback(void *CallbackRef) {
 *
 ******************************************************************************/
 void RxStreamDownCallback(void *CallbackRef) {
-	AuxFifoStartFlag = (FALSE);
 
 #if(LOOPBACK_MODE_EN != 1)
 		/*Check for Pass-through*/
@@ -803,7 +811,8 @@ void RxStreamDownCallback(void *CallbackRef) {
 		 * if the system is in colorbar mode
 		 */
 		if (IsPassThrough) {
-			IsPassThrough = (FALSE);   /* Clear pass-through flag*/
+		    /* Clear pass-through flag*/
+			IsPassThrough = (FALSE);
 		}
 #endif
 
@@ -830,7 +839,7 @@ void RxStreamInitCallback(void *CallbackRef) {
 	XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
 	XVidC_VideoStream *HdmiRxSsVidStreamPtr;
 	u32 Status;
-//xil_printf("RxStreamInitCallback\r\n");
+    // xil_printf("RxStreamInitCallback\r\n");
 	// Calculate RX MMCM parameters
 	// In the application the YUV422 colordepth is 12 bits
 	// However the HDMI transports YUV422 in 8 bits.
@@ -994,7 +1003,7 @@ void Xil_AssertCallbackRoutine(u8 *File, s32 Line) {
 *
 ******************************************************************************/
 int main() {
-#if defined (HDMI_DEBUG_TOOLS)
+#if(HDMI_DEBUG_TOOLS == 1)
 #if defined (__MICROBLAZE__) || (ARMR5)
 	int *ptr = (int *) (int)&_stack_end; // Update start address
 	/* Fill the stack with known values so stack utilization can be computed
@@ -1015,14 +1024,15 @@ int main() {
 #endif
 	u32 Status = XST_FAILURE;
 	XVphy_Config *XVphyCfgPtr;
-#if defined (ARMR5) || ((__aarch64__) && (!defined XPS_BOARD_ZCU104))
+#if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_ZCU104)
 	XIicPs_Config *XIic0Ps_ConfigPtr;
 	XIicPs_Config *XIic1Ps_ConfigPtr;
 #endif
 
 	xil_printf("\r\n\r\n");
 	xil_printf("--------------------------------------\r\n");
-	xil_printf("---  HDMI SS + VPhy Example v3.0   ---\r\n");
+	xil_printf("---  HDMI SS + VPhy Example v%d.%d   ---\r\n",
+			APP_MAJ_VERSION, APP_MIN_VERSION);
 	xil_printf("---  (c) 2018 by Xilinx, Inc.      ---\r\n");
 	xil_printf("--------------------------------------\r\n");
 	xil_printf("Build %s - %s\r\n", __DATE__, __TIME__);
@@ -1037,7 +1047,7 @@ int main() {
 	init_platform();
 
 	/* Initialize IIC */
-#if defined (ARMR5) || ((__aarch64__) && (!defined XPS_BOARD_ZCU104))
+#if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_ZCU104)
 	/* Initialize PS IIC0 */
 	XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
 	if (NULL == XIic0Ps_ConfigPtr) {
@@ -1189,6 +1199,9 @@ int main() {
 		xil_printf("ERR:: HDMI RX Subsystem Initialization failed %d\r\n", Status);
 		return(XST_FAILURE);
 	}
+
+	/* Set the Application version in RXSs driver structure */
+	XV_HdmiRxSS_SetAppVersion(&HdmiRxSs, APP_MAJ_VERSION, APP_MIN_VERSION);
 
 	//Register HDMI RX SS Interrupt Handler with Interrupt Controller
 #if defined(__arm__) || (__aarch64__)

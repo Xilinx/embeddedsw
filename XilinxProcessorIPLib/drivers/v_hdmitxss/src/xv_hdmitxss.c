@@ -146,6 +146,7 @@
 *              01/02/18	Updated function XV_HdmiTxSs_VtcSetup and changed the
 *              				input parameters to it to enable logging of
 *              				unsupported video timing by VTC
+*       SM     28/02/18 Added definition of XV_HdmiTxSS_SetAppVersion() API
 * </pre>
 *
 ******************************************************************************/
@@ -209,12 +210,8 @@ static u32 XV_HdmiTxSS_SetTMDS(XV_HdmiTxSs *InstancePtr,
                         XVidC_VideoMode VideoMode,
                         XVidC_ColorFormat ColorFormat,
                         XVidC_ColorDepth Bpc);
-static void XV_HdmiTxSs_SendAviInfoframe(XV_HdmiTx *HdmiTxPtr)
-	__attribute__ ((deprecated));
-static void XV_HdmiTxSs_SendGeneralControlPacket(XV_HdmiTx *HdmiTxPtr)
-	__attribute__ ((deprecated));
-static void XV_HdmiTxSs_SendVSInfoframe(XV_HdmiTx *HdmiTxPtr)
-	__attribute__ ((deprecated));
+static void XV_HdmiTxSs_SendAviInfoframe(XV_HdmiTx *HdmiTxPtr);
+static void XV_HdmiTxSs_SendVSInfoframe(XV_HdmiTx *HdmiTxPtr);
 static void XV_HdmiTxSs_ConnectCallback(void *CallbackRef);
 static void XV_HdmiTxSs_ToggleCallback(void *CallbackRef);
 static void XV_HdmiTxSs_BrdgUnlockedCallback(void *CallbackRef);
@@ -555,6 +552,13 @@ int XV_HdmiTxSs_CfgInitialize(XV_HdmiTxSs *InstancePtr,
   /* Set the flag to indicate the subsystem is ready */
   XV_HdmiTxSs_Reset(HdmiTxSsPtr);
   HdmiTxSsPtr->IsReady = XIL_COMPONENT_IS_READY;
+
+  /* Initialize the application version with 0 <default value>.
+   * Application need to set the this variable properly to let driver know
+   * what version of application is being used.
+   */
+  HdmiTxSsPtr->AppMajVer = 0;
+  HdmiTxSsPtr->AppMinVer = 0;
 
   return(XST_SUCCESS);
 }
@@ -1032,6 +1036,13 @@ static void XV_HdmiTxSs_ConnectCallback(void *CallbackRef)
 #ifdef XV_HDMITXSS_LOG_ENABLE
     XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_DISCONNECT, 0);
 #endif
+    /* Assert HDMI TXCore link reset */
+    XV_HdmiTxSs_TXCore_LRST(HdmiTxSsPtr, TRUE);
+    XV_HdmiTxSs_TXCore_VRST(HdmiTxSsPtr, TRUE);
+
+    /* Assert SYSCLK VID_OUT bridge reset */
+    XV_HdmiTxSs_SYSRST(HdmiTxSsPtr, TRUE);
+    XV_HdmiTxSs_VRST(HdmiTxSsPtr, TRUE);
 
     /* Reset DDC */
     XV_HdmiTx_DdcDisable(HdmiTxSsPtr->HdmiTxPtr);
@@ -1122,11 +1133,11 @@ static void XV_HdmiTxSs_VsCallback(void *CallbackRef)
 {
   XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
   
-	/* Support of backward compatibility by checking if AVIInfoframe.Version
-	 * is used by application or not. If not, then TX SS driver will send
-	 * the InfoFrame. Note: The APIs used here are deprecated.
-	 */
-    if (HdmiTxSsPtr->AVIInfoframe.Version == 0) {
+  /* Support of backward compatibility by checking HDMI-TXSs Major AppVersion
+   * parameter. If value is 0, then TX SS driver will send
+   * the InfoFrame. Note: The APIs used here are deprecated.
+   */
+  if (HdmiTxSsPtr->AppMajVer == 0) {
   	// AVI infoframe
   	XV_HdmiTxSs_SendAviInfoframe(HdmiTxSsPtr->HdmiTxPtr);
 
@@ -1228,129 +1239,6 @@ static void XV_HdmiTxSs_SendAviInfoframe(XV_HdmiTx *HdmiTx)
 
   XV_HdmiTx_AuxSend(HdmiTx);
 }
-
-/*****************************************************************************/
-/**
-*
-* This function sends the general control packet.
-*
-* @param  None.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-static void XV_HdmiTxSs_SendGeneralControlPacket(XV_HdmiTx *HdmiTx)
-{
-  u8 Index;
-  u8 Data;
-
-  // Pre-Process SB1 data
-  // Pixel Packing Phase
-  switch (XV_HdmiTx_GetPixelPackingPhase(HdmiTx)) {
-
-    case 1 :
-      Data = 1;
-      break;
-
-    case 2 :
-      Data = 2;
-      break;
-
-    case 3 :
-      Data = 3;
-      break;
-
-    default :
-      Data = 0;
-      break;
-  }
-
-  /**< Shift pixel packing phase to the upper nibble */
-  Data <<= 4;
-
-  /** In HDMI the colordepth in YUV422 is always 12 bits,  although on the
-  * link itself it is being transmitted as 8-bits. Therefore if the colorspace
-  * is YUV422, then force the colordepth to 8 bits. */
-  if (HdmiTx->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_422) {
-    Data |= 0;
-  }
-
-  else {
-
-    // Colordepth
-    switch (HdmiTx->Stream.Video.ColorDepth) {
-
-      // 10 bpc
-      case XVIDC_BPC_10:
-        // Color depth
-        Data |= 5;
-        break;
-
-      // 12 bpc
-      case XVIDC_BPC_12:
-        // Color depth
-        Data |= 6;
-        break;
-
-      // 16 bpc
-      case XVIDC_BPC_16:
-        // Color depth
-        Data |= 7;
-        break;
-
-      // Not indicated
-      default:
-        Data = 0;
-        break;
-    }
-  }
-
-  // Packet type
-  HdmiTx->Aux.Header.Byte[0] = 0x3;
-
-  // Reserved
-  HdmiTx->Aux.Header.Byte[1] = 0;
-
-  // Reserved
-  HdmiTx->Aux.Header.Byte[2] = 0;
-
-  // Checksum (this will be calculated by the HDMI TX IP)
-  HdmiTx->Aux.Header.Byte[3] = 0;
-
-  // Data
-  // The packet contains four identical subpackets
-  for (Index = 0; Index < 4; Index++) {
-    // SB0
-    HdmiTx->Aux.Data.Byte[(Index*8)] = 0;
-
-    // SB1
-    HdmiTx->Aux.Data.Byte[(Index*8)+1] = Data;
-
-    // SB2
-    HdmiTx->Aux.Data.Byte[(Index*8)+2] = 0;
-
-    // SB3
-    HdmiTx->Aux.Data.Byte[(Index*8)+3] = 0;
-
-    // SB4
-    HdmiTx->Aux.Data.Byte[(Index*8)+4] = 0;
-
-    // SB5
-    HdmiTx->Aux.Data.Byte[(Index*8)+5] = 0;
-
-    // SB6
-    HdmiTx->Aux.Data.Byte[(Index*8)+6] = 0;
-
-    // SB ECC
-    HdmiTx->Aux.Data.Byte[(Index*8)+7] = 0;
-
-  }
-
-  XV_HdmiTx_AuxSend(HdmiTx);
-}
-
 
 /*****************************************************************************/
 /**
@@ -2722,18 +2610,14 @@ static void XV_HdmiTxSs_ConfigBridgeMode(XV_HdmiTxSs *InstancePtr) {
          XV_HdmiTxSs_BridgeYuv420(InstancePtr, TRUE);
     }
     else {
-        if ((HdmiTxSsVidStreamPtr->VmId == XVIDC_VM_1440x480_60_I) ||
-            (HdmiTxSsVidStreamPtr->VmId == XVIDC_VM_1440x576_50_I) ||
-			(AviInfoFramePtr->PixelRepetition ==
-					XHDMIC_PIXEL_REPETITION_FACTOR_2) )
+        if ((AviInfoFramePtr->PixelRepetition ==
+					XHDMIC_PIXEL_REPETITION_FACTOR_2))
         {
             /*********************************************************
              * NTSC/PAL Support
              *********************************************************/
              XV_HdmiTxSs_BridgeYuv420(InstancePtr, FALSE);
              XV_HdmiTxSs_BridgePixelRepeat(InstancePtr, TRUE);
-             AviInfoFramePtr->PixelRepetition = 
-			 		XHDMIC_PIXEL_REPETITION_FACTOR_2;
         }
         else {
             XV_HdmiTxSs_BridgeYuv420(InstancePtr, FALSE);
@@ -3039,4 +2923,23 @@ void XV_HdmiTxSS_SetBackgroundColor(XV_HdmiTxSs *InstancePtr,
 u8 XV_HdmiTxSS_IsMasked(XV_HdmiTxSs *InstancePtr)
 {
     return ((u8)XV_HdmiTx_IsMasked(InstancePtr->HdmiTxPtr));
+}
+
+/*****************************************************************************/
+/**
+* This function will set the major and minor application version in TXSs struct
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs core instance.
+* @param    maj is the major version of the application.
+* @param    min is the minor version of the application.
+* @return   void.
+*
+* @note     None.
+*
+*
+******************************************************************************/
+void XV_HdmiTxSS_SetAppVersion(XV_HdmiTxSs *InstancePtr, u8 maj, u8 min)
+{
+	InstancePtr->AppMajVer = maj;
+	InstancePtr->AppMinVer = min;
 }

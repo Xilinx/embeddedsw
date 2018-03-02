@@ -85,11 +85,6 @@
 #include "xvidc_edid_ext.h"
 
 /************************** Constant Definitions *****************************/
-#if defined (XPAR_XHDCP_NUM_INSTANCES) || defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
-/* If HDCP 1.4 or HDCP 2.2 is in the system then use the HDCP abstraction layer */
-#define USE_HDCP
-#endif
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -106,9 +101,11 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input);
 #endif
 #ifdef USE_HDCP
 static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input);
+#if (HDCP_DEBUG_MENU_EN == 1)
 static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input);
 #endif
-#ifdef HDMI_DEBUG_TOOLS
+#endif
+#if(HDMI_DEBUG_TOOLS == 1)
 static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input);
 #endif
 
@@ -118,9 +115,11 @@ static void XHdmi_DisplayGtPllLayoutMenu(void);
 #endif
 #ifdef USE_HDCP
 static void XHdmi_DisplayHdcpMainMenu(void);
+#if (HDCP_DEBUG_MENU_EN == 1)
 static void XHdmi_DisplayHdcpDebugMenu(void);
 #endif
-#ifdef HDMI_DEBUG_TOOLS
+#endif
+#if(HDMI_DEBUG_TOOLS == 1)
 static void XHdmi_DisplayDebugMainMenu(void);
 #endif
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
@@ -146,9 +145,11 @@ static XHdmi_MenuFuncType* const XHdmi_MenuTable[XHDMI_NUM_MENUS] = {
 #endif
 #ifdef USE_HDCP
 	XHdmi_HdcpMainMenu,
+#if (HDCP_DEBUG_MENU_EN == 1)
 	XHdmi_HdcpDebugMenu,
 #endif
-#ifdef HDMI_DEBUG_TOOLS
+#endif
+#if(HDMI_DEBUG_TOOLS == 1)
 	XHdmi_DebugMainMenu,
 #endif
 };
@@ -243,7 +244,7 @@ void XHdmi_DisplayMainMenu(void)
 	if (XV_HdmiRxSs_HdcpIsReady(&HdmiRxSs)) {
 		xil_printf("h - HDCP\r\n");
 		xil_printf("       => Goto HDCP menu.\r\n");
-#ifdef HDMI_DEBUG_TOOLS
+#if(HDMI_DEBUG_TOOLS == 1)
 		xil_printf("x - Debug Tools\r\n");
 		xil_printf("       => Goto Debug menu.\r\n");
 #endif
@@ -294,7 +295,7 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			// No source
 			else {
 				xil_printf(ANSI_COLOR_YELLOW "No source device detected.\r\n"
-						   ANSI_COLOR_YELLOW);
+							ANSI_COLOR_RESET);
 			}
 			Menu = XHDMI_MAIN_MENU;
 			break;
@@ -333,7 +334,7 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			}
 			break;
 #endif
-#ifdef HDMI_DEBUG_TOOLS
+#if(HDMI_DEBUG_TOOLS == 1)
 		case ('x') :
 		case ('X') :
 			XHdmi_DisplayDebugMainMenu();
@@ -501,7 +502,9 @@ void XHdmi_DisplayHdcpMainMenu(void) {
 	xil_printf(" 2 - Disable detailed logging\r\n");
 	xil_printf(" 3 - Display log\r\n");
 	xil_printf(" 4 - Display info\r\n");
+#if (HDCP_DEBUG_MENU_EN == 1)
 	xil_printf(" 5 - Display HDCP Debug menu\r\n");
+#endif
 	xil_printf("99 - Exit\r\n");
 	xil_printf("Enter Selection -> ");
 }
@@ -561,12 +564,14 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			XHdcp_DisplayInfo(&HdcpRepeater, TRUE);
 			break;
 
+#if (HDCP_DEBUG_MENU_EN == 1)
 			/* 5 - HDCP Debug Menu */
 		case 5 :
 			xil_printf("Display HDCP Debug menu.\r\n");
 			XHdmi_DisplayHdcpDebugMenu();
 			Menu = XHDMI_HDCP_DEBUG_MENU;
 			break;
+#endif
 
 			// Exit
 		case 99 :
@@ -583,6 +588,7 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 }
 #endif
 
+#if (HDCP_DEBUG_MENU_EN == 1)
 #if defined(USE_HDCP)
 /*****************************************************************************/
 /**
@@ -605,7 +611,9 @@ void XHdmi_DisplayHdcpDebugMenu(void) {
 	xil_printf("Enter Selection -> ");
 }
 #endif
+#endif
 
+#if (HDCP_DEBUG_MENU_EN == 1)
 #if defined(USE_HDCP)
 /*****************************************************************************/
 /**
@@ -657,8 +665,9 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	return Menu;
 }
 #endif
+#endif
 
-#ifdef HDMI_DEBUG_TOOLS
+#if(HDMI_DEBUG_TOOLS == 1)
 /*****************************************************************************/
 /**
 *
@@ -747,7 +756,6 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	xil_printf("Enter Selection -> ");
 
 	// Check if the uart has any data
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
@@ -756,8 +764,7 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 		// Read data from uart
 		Data = XUartLite_RecvByte(InstancePtr->UartBaseAddress);
 #else
-	else if (XUartPs_IsReceiveData(InstancePtr->UartBaseAddress)) {
-
+	if (XUartPs_IsReceiveData(InstancePtr->UartBaseAddress)) {
 		// Read data from uart
 		Data = XUartPs_RecvByte(InstancePtr->UartBaseAddress);
 #endif

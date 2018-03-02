@@ -119,3 +119,85 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     puts $file_handle "\n/******************************************************************/\n"
     close $file_handle
 }
+
+#
+# define_canonical_xpars - Used to print out canonical defines for a driver.
+# Given a list of arguments, define each as a canonical constant name, using
+# the driver name, in an include file.
+#
+proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
+    set args [::hsi::utils::get_exact_arg_list $args]
+   # Open include file
+   set file_handle [::hsi::utils::open_include_file $file_name]
+
+   # Get all the peripherals connected to this driver
+   set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
+
+   # Get the names of all the peripherals connected to this driver
+   foreach periph $periphs {
+       set peripheral_name [string toupper [common::get_property NAME $periph]]
+       lappend peripherals $peripheral_name
+   }
+   
+   # Get possible canonical names for all the peripherals connected to this
+   # driver
+   set device_id 0
+   foreach periph $periphs {
+       set canonical_name [string toupper [format "%s_%s" $drv_string $device_id]]
+       lappend canonicals $canonical_name
+
+       # Create a list of IDs of the peripherals whose hardware instance name
+       # doesn't match the canonical name. These IDs can be used later to
+       # generate canonical definitions
+       if { [lsearch $peripherals $canonical_name] < 0 } {
+           lappend indices $device_id
+       }
+       incr device_id
+   }
+
+   set i 0
+   foreach periph $periphs {
+       set periph_name [string toupper [common::get_property NAME $periph]]
+
+       # Generate canonical definitions only for the peripherals whose
+       # canonical name is not the same as hardware instance name
+       if { [lsearch $canonicals $periph_name] < 0 } {
+           puts $file_handle "/* Canonical definitions for peripheral $periph_name */"
+           set canonical_name [format "%s_%s" $drv_string [lindex $indices $i]]
+
+           foreach arg $args {
+               set lvalue [::hsi::utils::get_driver_param_name $canonical_name $arg]
+
+               # The commented out rvalue is the name of the instance-specific constant
+               # set rvalue [::hsi::utils::get_ip_param_name $periph $arg]
+               # The rvalue set below is the actual value of the parameter
+               set rvalue [::hsi::utils::get_param_value $periph $arg]
+               if {[llength $rvalue] == 0} {
+                   set rvalue 0
+               }
+               set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
+
+            if {[string compare -nocase "AXI_LITE_FREQ_HZ" $arg] == 0} {
+                set rfreq [::hsi::utils::get_clk_pin_freq  $periph "s_axi_aclk"]
+                if {[llength $rfreq] == 0} {
+                    set rfreq "100000000"
+                    puts "WARNING: Clock frequency information is not available in the design, \
+                          for peripheral $periph_name. Assuming a default frequency of 100MHz. \
+                          If this is incorrect, the peripheral $periph_name will be non-functional"
+                }
+                set rvalue $rfreq
+                puts $file_handle "#define [string toupper $lvalue] $rvalue"
+            
+            } else {
+               puts $file_handle "#define [string toupper $lvalue] $rvalue"
+            }
+
+           }
+           puts $file_handle ""
+           incr i
+       }
+   }
+
+   puts $file_handle "\n/******************************************************************/\n"
+   close $file_handle
+}   

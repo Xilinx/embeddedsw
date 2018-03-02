@@ -108,11 +108,12 @@
 *       EB     16/01/18 Added parsing of InfoFrames during AuxCallback
 *                       Changed XV_HdmiRxSs_RetrieveVSInfoframe's input
 *                           parameter type
-*                       Added function XV_HdmiRxSs_GetAviInfoframe,
+*                       Added function XV_HdmiRxSs_GetAviInfoframe, 
 *                           XV_HdmiRxSs_GetGCP, XV_HdmiRxSs_GetAudioInfoframe,
 *                           XV_HdmiRxSs_GetVSIF
-*                       Updated XV_HdmiRxSs_ConfigBridgeMode so Pixel
+*                       Updated XV_HdmiRxSs_ConfigBridgeMode so Pixel 
 *                           Pepetition is based on received AVI InfoFrame
+*       SM     28/02/18 Added definition of XV_HdmiRxSS_SetAppVersion() API
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -580,6 +581,13 @@ int XV_HdmiRxSs_CfgInitialize(XV_HdmiRxSs *InstancePtr,
   XV_HdmiRxSs_Reset(HdmiRxSsPtr);
   HdmiRxSsPtr->IsReady = XIL_COMPONENT_IS_READY;
 
+  /* Initialize the application version with 0 <default value>.
+   * Application need to set the this variable properly to let driver know
+   * what version of application is being used.
+   */
+  HdmiRxSsPtr->AppMajVer = 0;
+  HdmiRxSsPtr->AppMinVer = 0;
+
   return(XST_SUCCESS);
 }
 
@@ -651,7 +659,7 @@ void XV_HdmiRxSs_Reset(XV_HdmiRxSs *InstancePtr)
   /* Assert HDMI RX core resets */
   XV_HdmiRxSs_RXCore_VRST(InstancePtr, TRUE);
   XV_HdmiRxSs_RXCore_LRST(InstancePtr, TRUE);
-
+			
   /* Assert SYSCLK VID_IN bridge reset */
   XV_HdmiRxSs_SYSRST(InstancePtr, TRUE);
 
@@ -665,7 +673,7 @@ void XV_HdmiRxSs_Reset(XV_HdmiRxSs *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function asserts or releases the Internal Video reset
+* This function asserts or releases the Internal Video reset 
 * of the HDMI subcore within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
@@ -682,7 +690,7 @@ void XV_HdmiRxSs_RXCore_VRST(XV_HdmiRxSs *InstancePtr, u8 Reset)
 
 /*****************************************************************************/
 /**
-* This function asserts or releases the Internal Link reset
+* This function asserts or releases the Internal Link reset 
 * of the HDMI subcore within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
@@ -699,7 +707,7 @@ void XV_HdmiRxSs_RXCore_LRST(XV_HdmiRxSs *InstancePtr, u8 Reset)
 
 /*****************************************************************************/
 /**
-* This function asserts or releases the video reset of other
+* This function asserts or releases the video reset of other 
 * blocks within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
@@ -716,7 +724,7 @@ void XV_HdmiRxSs_VRST(XV_HdmiRxSs *InstancePtr, u8 Reset)
 
 /*****************************************************************************/
 /**
-* This function asserts or releases the system reset of other
+* This function asserts or releases the system reset of other 
 * blocks within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
@@ -843,19 +851,25 @@ static void XV_HdmiRxSs_AuxCallback(void *CallbackRef)
 	  // Retrieve Vendor Specific Info Frame
 	  XV_HdmiRxSs_RetrieveVSInfoframe(HdmiRxSsPtr);
   } else if(AuxPtr->Header.Byte[0] == AUX_AVI_INFOFRAME_TYPE){
+	  // Reset Avi InfoFrame
+	  (void)memset((void *)AviInfoFramePtr, 0, sizeof(XHdmiC_AVI_InfoFrame));
 	  // Parse Aux to retrieve Avi InfoFrame
 	  XV_HdmiC_ParseAVIInfoFrame(AuxPtr, AviInfoFramePtr);
-	  HdmiRxSsPtr->HdmiRxPtr->Stream.Video.ColorFormatId =
-				XV_HdmiRx_GetAviColorSpace(HdmiRxSsPtr->HdmiRxPtr);
-	  HdmiRxSsPtr->HdmiRxPtr->Stream.Vic =
+	  HdmiRxSsPtr->HdmiRxPtr->Stream.Video.ColorFormatId = 
+	  			XV_HdmiRx_GetAviColorSpace(HdmiRxSsPtr->HdmiRxPtr);
+	  HdmiRxSsPtr->HdmiRxPtr->Stream.Vic = 
 				XV_HdmiRx_GetAviVic(HdmiRxSsPtr->HdmiRxPtr);
 	  HdmiRxSsPtr->HdmiRxPtr->Stream.Video.AspectRatio =
 				XV_HdmiC_IFAspectRatio_To_XVidC(HdmiRxSsPtr->AVIInfoframe.PicAspectRatio);
   } else if(AuxPtr->Header.Byte[0] == AUX_GENERAL_CONTROL_PACKET_TYPE) {
+	  // Reset General Control Packet
+	  (void)memset((void *)GeneralControlPacketPtr, 0, sizeof(XHdmiC_GeneralControlPacket));
 	  // Parse Aux to retrieve General Control Packet
 	  XV_HdmiC_ParseGCP(AuxPtr, GeneralControlPacketPtr);
 	  // Stream.Video.ColorDepth is updated from the core during AUX INTR
   } else if(AuxPtr->Header.Byte[0] == AUX_AUDIO_INFOFRAME_TYPE) {
+	  // Reset Audio InfoFrame
+	  (void)memset((void *)AudioInfoFramePtr, 0, sizeof(XHdmiC_AudioInfoFrame));
 	  // Parse Aux to retrieve Audio InfoFrame
 	  XV_HdmiC_ParseAudioInfoFrame(AuxPtr, AudioInfoFramePtr);
   }
@@ -883,7 +897,7 @@ static void XV_HdmiRxSs_SyncLossCallback(void *CallbackRef)
   XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
 
   if (HdmiRxSsPtr->HdmiRxPtr->Stream.SyncStatus ==
-												XV_HDMIRX_SYNCSTAT_SYNC_LOSS) {
+		  	  	  	  	  	  	  	  	  	  	XV_HDMIRX_SYNCSTAT_SYNC_LOSS) {
   // Push sync loss event to HDCP event queue
 #ifdef XV_HDMIRXSS_LOG_ENABLE
   XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_SYNCLOSS, 0);
@@ -895,7 +909,7 @@ static void XV_HdmiRxSs_SyncLossCallback(void *CallbackRef)
   }
   // Sync is recovered/establish
   else if (HdmiRxSsPtr->HdmiRxPtr->Stream.SyncStatus ==
-												 XV_HDMIRX_SYNCSTAT_SYNC_EST) {
+		  	  	  	  	  	  	  	  	  	  	 XV_HDMIRX_SYNCSTAT_SYNC_EST) {
 	  // Push sync loss event to HDCP event queue
 #ifdef XV_HDMIRXSS_LOG_ENABLE
 	  XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_SYNCEST, 0);
@@ -964,6 +978,9 @@ static void XV_HdmiRxSs_RetrieveVSInfoframe(XV_HdmiRxSs *HdmiRxSs)
   VSIFPtr = XV_HdmiRxSs_GetVSIF(HdmiRxSs);
 
   if (HdmiRxSs->HdmiRxPtr->Aux.Header.Byte[0] == AUX_VSIF_TYPE) {
+	  // Reset Vendor Specific InfoFrame
+	  (void)memset((void *)VSIFPtr, 0, sizeof(XHdmiC_VSIF));
+
 	  XV_HdmiC_VSIF_ParsePacket(&HdmiRxSs->HdmiRxPtr->Aux, VSIFPtr);
 
       // Defaults
@@ -1097,10 +1114,10 @@ static void XV_HdmiRxSs_StreamDownCallback(void *CallbackRef)
   /* Assert HDMI RX core resets */
   XV_HdmiRxSs_RXCore_VRST(HdmiRxSsPtr, TRUE);
   XV_HdmiRxSs_RXCore_LRST(HdmiRxSsPtr, TRUE);
-
+			
   /* Assert SYSCLK VID_IN bridge reset */
   XV_HdmiRxSs_SYSRST(HdmiRxSsPtr, TRUE);
-
+  
   /* Set stream up flag */
   HdmiRxSsPtr->IsStreamUp = (FALSE);
 #ifdef XV_HDMIRXSS_LOG_ENABLE
@@ -1235,12 +1252,12 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
             InstancePtr->ConnectRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
-
+			
         case (XV_HDMIRXSS_HANDLER_BRDGOVERFLOW):
             InstancePtr->BrdgOverflowCallback = (XV_HdmiRxSs_Callback)CallbackFunc;
             InstancePtr->BrdgOverflowRef = CallbackRef;
             Status = (XST_SUCCESS);
-            break;
+            break;	
 
         case (XV_HDMIRXSS_HANDLER_AUX):
             InstancePtr->AuxCallback = (XV_HdmiRxSs_Callback)CallbackFunc;
@@ -2019,11 +2036,11 @@ static void XV_HdmiRxSs_ConfigBridgeMode(XV_HdmiRxSs *InstancePtr) {
     // Pixel Repetition factor of 3 and above are not supported by the bridge
     if (AviInfoFramePtr->PixelRepetition > XHDMIC_PIXEL_REPETITION_FACTOR_2) {
 #ifdef XV_HDMIRXSS_LOG_ENABLE
-	XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_PIX_REPEAT_ERR,
-			AviInfoFramePtr->PixelRepetition);
+    	XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_PIX_REPEAT_ERR,
+    			AviInfoFramePtr->PixelRepetition);
 #endif
 
-	return;
+    	return;
     }
 
     if (HdmiRxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_420) {
@@ -2034,7 +2051,7 @@ static void XV_HdmiRxSs_ConfigBridgeMode(XV_HdmiRxSs *InstancePtr) {
          XV_HdmiRxSs_BridgeYuv420(InstancePtr, TRUE);
     }
     else {
-        if (AviInfoFramePtr->PixelRepetition ==
+        if (AviInfoFramePtr->PixelRepetition == 
 				XHDMIC_PIXEL_REPETITION_FACTOR_2)
         {
             /*********************************************************
@@ -2083,4 +2100,23 @@ void XV_HdmiRxSs_SetDefaultPpc(XV_HdmiRxSs *InstancePtr, u8 Id) {
 void XV_HdmiRxSs_SetPpc(XV_HdmiRxSs *InstancePtr, u8 Id, u8 Ppc) {
     InstancePtr->Config.Ppc = (XVidC_PixelsPerClock) Ppc;
     Id = Id; //squash unused variable compiler warning
+}
+
+/*****************************************************************************/
+/**
+* This function will set the major and minor application version in RXSs struct
+*
+* @param    InstancePtr is a pointer to the XV_HdmiRxSs core instance.
+* @param    maj is the major version of the application.
+* @param    min is the minor version of the application.
+* @return   void.
+*
+* @note     None.
+*
+*
+******************************************************************************/
+void XV_HdmiRxSS_SetAppVersion(XV_HdmiRxSs *InstancePtr, u8 maj, u8 min)
+{
+	InstancePtr->AppMajVer = maj;
+	InstancePtr->AppMinVer = min;
 }

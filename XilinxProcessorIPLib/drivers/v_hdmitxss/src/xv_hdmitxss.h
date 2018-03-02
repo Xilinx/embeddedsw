@@ -102,6 +102,8 @@
 *              25/01/18 Added function XV_HdmiTxSs_SetScrambler
 *       mmo    08/02/18 Added LowResolutionSupp & YUV420Supp in the
 *                             XV_HdmiTxSs_Config
+*       SM     28/02/18 Added XV_HdmiTxSS_SetAppVersion API and AppMajVer and
+*                           AppMinVer version number in XV_HdmiTxSs structure
 * </pre>
 *
 ******************************************************************************/
@@ -366,6 +368,8 @@ typedef struct
 {
     XV_HdmiTxSs_Config Config;  /**< Hardware configuration */
     u32 IsReady;         /**< Device and the driver instance are initialized */
+    u8 AppMajVer;       /**< Major Version of application used by the driver */
+    u8 AppMinVer;       /**< Minor Version of application used by the driver */
 
 #ifdef XV_HDMITXSS_LOG_ENABLE
     XV_HdmiTxSs_Log Log;                /**< A log of events. */
@@ -447,6 +451,7 @@ void XV_HdmiTxSS_HdmiTxIntrHandler(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_CfgInitialize(XV_HdmiTxSs *InstancePtr,
     XV_HdmiTxSs_Config *CfgPtr,
     UINTPTR EffectiveAddr);
+void XV_HdmiTxSS_SetAppVersion(XV_HdmiTxSs *InstancePtr, u8 maj, u8 min);
 void XV_HdmiTxSs_Start(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_Stop(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_Reset(XV_HdmiTxSs *InstancePtr);

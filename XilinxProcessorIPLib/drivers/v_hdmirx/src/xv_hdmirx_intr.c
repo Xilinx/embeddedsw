@@ -589,7 +589,7 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
         InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_IDLE;            // The stream idle
 
         // Load timer
-        XV_HdmiRx_TmrStart(InstancePtr, 1000000);           // 10 ms @ 100 MHz
+        XV_HdmiRx_TmrStart(InstancePtr, TIME_10MS);           // 10 ms
     }
 
     // Video ready event has occurred
@@ -617,7 +617,7 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
                 InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_ARM;         // The stream is armed
 
                 // Load timer
-                XV_HdmiRx_TmrStart(InstancePtr, 20000000);          // 200 ms @ 100 MHz (one UHD frame is 40 ms, 5 frames)
+                XV_HdmiRx_TmrStart(InstancePtr, TIME_200MS);          // 200 ms (one UHD frame is 40 ms, 5 frames)
             }
         }
 
@@ -745,7 +745,7 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
             InstancePtr->Stream.GetVideoPropertiesTries = 0;
 
             // Load timer
-            XV_HdmiRx_TmrStart(InstancePtr, 20000000);          // 200 ms @ 100 MHz (one UHD frame is 40 ms, 5 frames)
+            XV_HdmiRx_TmrStart(InstancePtr, TIME_200MS);          // 200 ms (one UHD frame is 40 ms, 5 frames)
         }
 
         // Init state
@@ -791,7 +791,7 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
 
             else {
 		// Load timer
-                XV_HdmiRx_TmrStart(InstancePtr, 20000000);          // 200 ms @ 100 MHz (one UHD frame is 40 ms, 5 frames)
+                XV_HdmiRx_TmrStart(InstancePtr, TIME_200MS);          // 200 ms (one UHD frame is 40 ms, 5 frames)
             }
         }
 

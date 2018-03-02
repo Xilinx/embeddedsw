@@ -319,11 +319,11 @@ typedef struct {
     true when the callback has been registered */
 
     /* Aux peripheral specific */
-    volatile XHdmiC_Aux Aux;     /**< AUX peripheral information */
+    XHdmiC_Aux Aux;                         /**< AUX peripheral information */
 
     /* HDMI TX stream */
-    XV_HdmiTx_Stream Stream;        /**< HDMI TX stream information */
-    u32 CpuClkFreq;                 /* CPU Clock frequency */
+    XV_HdmiTx_Stream Stream;                /**< HDMI TX stream information */
+    u32 CpuClkFreq;                         /* CPU Clock frequency */
 
 } XV_HdmiTx;
 
@@ -1088,15 +1088,11 @@ int XV_HdmiTx_SetCallback(XV_HdmiTx *InstancePtr, u32 HandlerType,
 
 /* Vendor Specific Infomation related functions in xv_hdmitx_vsif.c */
 int XV_HdmiTx_VSIF_GeneratePacket(XV_HdmiTx_VSIF  *VSIFPtr,
-		XHdmiC_Aux *AuxPtr) __attribute__ ((deprecated));
-void XV_HdmiTx_VSIF_DisplayInfo(XV_HdmiTx_VSIF  *VSIFPtr)
-		__attribute__ ((deprecated));
-char* XV_HdmiTx_VSIF_3DStructToString(XV_HdmiTx_3D_Struct_Field Item)
-		__attribute__ ((deprecated));
-char* XV_HdmiTx_VSIF_3DSampMethodToString(XV_HdmiTx_3D_Sampling_Method Item)
-		__attribute__ ((deprecated));
-char* XV_HdmiTx_VSIF_3DSampPosToString(XV_HdmiTx_3D_Sampling_Position Item)
-		__attribute__ ((deprecated));
+		XHdmiC_Aux *AuxPtr);
+void XV_HdmiTx_VSIF_DisplayInfo(XV_HdmiTx_VSIF  *VSIFPtr);
+char* XV_HdmiTx_VSIF_3DStructToString(XV_HdmiTx_3D_Struct_Field Item);
+char* XV_HdmiTx_VSIF_3DSampMethodToString(XV_HdmiTx_3D_Sampling_Method Item);
+char* XV_HdmiTx_VSIF_3DSampPosToString(XV_HdmiTx_3D_Sampling_Position Item);
 
 /************************** Variable Declarations ****************************/
 
