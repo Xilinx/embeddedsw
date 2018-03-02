@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2016 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +35,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.00  srt  07/16/16  Initial Release
+# 1.00  srm  02/21/18  Updated freertos to 10.0 version
 #
 ##############################################################################
 
@@ -43,7 +44,7 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY libmetal
   OPTION DRC = libmetal_drc;
   OPTION COPYFILES = all;
-  OPTION REQUIRES_OS = (standalone freertos901_xilinx);
+  OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION supported_peripherals = (ps7_cortexa9 psu_cortexr5 psu_cortexa53 microblaze);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lmetal,-lgcc,-lc,--end-group";
   OPTION DESC = "Libmetal Library";
