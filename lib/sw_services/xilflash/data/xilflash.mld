@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2007 - 2017 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2007 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@
 # 3.00a sdm  03/03/11 Removed static flash parameters in the library
 # 3.00a sdm  03/23/11 Added new parameters to enable support for flash families
 # 4.4   ms   08/03/17 Added tags and modified comment lines style for doxygen.
+# 4.4   srm  02/16/18 Updated to pick up latest freertos port 10.0
 #
 ##############################################################################
 
@@ -50,7 +51,7 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilflash
   OPTION drc = flash_drc;
   OPTION copyfiles = all;
-  OPTION REQUIRES_OS = (standalone xilkernel freertos901_xilinx);
+  OPTION REQUIRES_OS = (standalone xilkernel freertos10_xilinx);
   OPTION REQUIRES_INTERFACE = (xilflash);
   OPTION supported_peripherals = (opb_emc_v2_00_a plb_emc mch_opb_emc xps_mch_emc axi_emc);
   OPTION APP_LINKER_FLAGS = "-lxilflash";

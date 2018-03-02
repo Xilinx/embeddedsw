@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2016 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@
 # 		       to avoid the unwanted blocking conditions.
 # 3.0   Nava  12/05/17 Added PL configuration registers readback support.
 # 4.0   Nava  08/02/18 Added Authenticated and Encypted Bitstream loading support.
+#       srm   02/26/18 Updated to pick up latest freertos port 10.0
 #
 ##############################################################################
 
@@ -51,7 +52,7 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilfpga
   OPTION drc = fpga_drc;
   OPTION copyfiles = all;
-  OPTION REQUIRES_OS = (standalone freertos901_xilinx);
+  OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilfpga,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "XilFPGA library provides an interface to the Linux or bare-metal users for configuring the PL over PCAP from PS";

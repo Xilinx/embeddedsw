@@ -3,7 +3,7 @@
 
 
 BEGIN OS
- PARAMETER OS_NAME = freertos901_xilinx
+ PARAMETER OS_NAME = freertos10_xilinx
  PARAMETER STDIN =  *
  PARAMETER STDOUT = *
 END
