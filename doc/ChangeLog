@@ -78,6 +78,7 @@ Add XRFdc_GetDriverVersion() API to get the driver version.
 Add XRFdc_MultiConverter_Sync() and XRFdc_MultiConverter_Init() APIs to support Multi-Tile Sync.
 Updated Set/Get Interpolation/Decimation factor APIs to consider the actual factor.
 Add XRFdc_SetInvSincFIR() and XRFdc_GetInvSincFIR() APIs to support inverse-sinc.
+Add XRFdc_MultiBand() and XRFdc_SetSignalFlow() APIs to configure Multiband and Singleband.
 
 qspipsu_v1_7:
 Removed unsupported 4 byte write and sector erase
