@@ -42,10 +42,10 @@
 
 #define CM_2_MM(cm)                             ((cm) * 10)
 #define CM_2_IN(cm)                             ((cm) * 0.3937)
-
+#endif
+#if XVIDC_EDID_VERBOSITY > 0
 #define HZ_2_MHZ(hz)                            ((hz) / 1000000)
 #endif
-
 #if XVIDC_EDID_VERBOSITY > 1
 static void
 xvidc_disp_cea861_audio_data(
@@ -112,13 +112,13 @@ xvidc_disp_edid1(const struct edid * const edid,
     xvidc_edid_monitor_descriptor_string monitor_model_name = {0};
     bool has_ascii_string = false;
     char manufacturer[4] = {0};
-#if XVIDC_EDID_VERBOSITY > 1
+#if XVIDC_EDID_VERBOSITY > 1	
     XV_VidC_DoubleRep min_doubleval;
     XV_VidC_DoubleRep max_doubleval;
-#endif
+#endif	
 
     u8 i;
-#if XVIDC_EDID_VERBOSITY > 1
+#if XVIDC_EDID_VERBOSITY > 0
     //add by mmo
     XV_VidC_TimingParam timing_params;
 #endif
@@ -179,10 +179,10 @@ xvidc_disp_edid1(const struct edid * const edid,
 
         xil_printf("  Model name............... %s\r\n",
                *monitor_model_name ? monitor_model_name : "n/a");
-
+#if XVIDC_EDID_VERBOSITY > 1
         xil_printf("  Manufacturer............. %s\r\n",
                manufacturer);
-#if XVIDC_EDID_VERBOSITY > 1
+
         xil_printf("  Product code............. %u\r\n",
                (u16) edid->product_u16);
 
@@ -205,6 +205,7 @@ xvidc_disp_edid1(const struct edid * const edid,
 #endif
         xil_printf("  EDID revision............ %u.%u\r\n",
                edid->version, edid->revision);
+#if XVIDC_EDID_VERBOSITY > 1			   
         xil_printf("  Input signal type........ %s\r\n",
           edid->video_input_definition.digital.digital ? "Digital" : "Analog");
 
@@ -214,6 +215,7 @@ xvidc_disp_edid1(const struct edid * const edid,
         } else {
             /* Missing Piece: To print analog flags */
         }
+#endif		
 #if defined(DISPLAY_UNKNOWN)
         xil_printf("  Color bit depth.......... %s\r\n", NULL);
 #endif
@@ -242,17 +244,28 @@ xvidc_disp_edid1(const struct edid * const edid,
 #endif
 
         xil_printf("\r\n");
-
+	}
+#endif
         if (has_ascii_string) {
-            xil_printf("General purpose ASCII string\r\n");
-
+			if (VerboseEn) {
+#if XVIDC_EDID_VERBOSITY > 1			
+				xil_printf("General purpose ASCII string\r\n");
+#endif
+			}
+			
             for (i = 0; i < ARRAY_SIZE(edid->detailed_timings); i++) {
                 if (!xvidc_edid_detailed_timing_is_monitor_descriptor(edid, i))
                     continue;
             }
-            xil_printf("\r\n");
+			
+			if (VerboseEn) {			
+#if XVIDC_EDID_VERBOSITY > 1			
+				xil_printf("\r\n");
+#endif
+			}
         }
-
+#if XVIDC_EDID_VERBOSITY > 0	
+    if (VerboseEn) {
         xil_printf("Color characteristics\r\n");
 
         xil_printf("  Default color space...... %ssRGB\r\n",
@@ -261,7 +274,7 @@ xvidc_disp_edid1(const struct edid * const edid,
         min_doubleval =
                 Double2Int(xvidc_edid_gamma(edid));
         xil_printf("  Display gamma............ %d.%03d\r\n",
-			min_doubleval.Integer, min_doubleval.Decimal);
+        		min_doubleval.Integer, min_doubleval.Decimal);
 
         characteristics = xvidc_edid_color_characteristics(edid);
 
@@ -271,34 +284,34 @@ xvidc_disp_edid1(const struct edid * const edid,
 			Double2Int(xvidc_edid_decode_fixed_point(characteristics.red.y));
 
         xil_printf("  Red chromaticity......... Rx %d.%03d - Ry %d.%03d\r\n",
-		min_doubleval.Integer, min_doubleval.Decimal,
+        	min_doubleval.Integer, min_doubleval.Decimal,
 			max_doubleval.Integer, max_doubleval.Decimal);
 
         min_doubleval =
-		Double2Int(xvidc_edid_decode_fixed_point(characteristics.green.x));
+        	Double2Int(xvidc_edid_decode_fixed_point(characteristics.green.x));
         max_doubleval =
-		Double2Int(xvidc_edid_decode_fixed_point(characteristics.green.y));
+        	Double2Int(xvidc_edid_decode_fixed_point(characteristics.green.y));
 
         xil_printf("  Green chromaticity....... Gx %d.%03d - Gy %d.%03d\r\n",
-		min_doubleval.Integer, min_doubleval.Decimal,
+        	min_doubleval.Integer, min_doubleval.Decimal,
 			max_doubleval.Integer, max_doubleval.Decimal);
 
         min_doubleval =
-		Double2Int(xvidc_edid_decode_fixed_point(characteristics.blue.x));
+        	Double2Int(xvidc_edid_decode_fixed_point(characteristics.blue.x));
         max_doubleval =
-		Double2Int(xvidc_edid_decode_fixed_point(characteristics.blue.y));
+        	Double2Int(xvidc_edid_decode_fixed_point(characteristics.blue.y));
 
         xil_printf("  Blue chromaticity........ Bx %d.%03d - By %d.%03d\r\n",
-		min_doubleval.Integer, min_doubleval.Decimal,
+        	min_doubleval.Integer, min_doubleval.Decimal,
 			max_doubleval.Integer, max_doubleval.Decimal);
 
         min_doubleval =
-		Double2Int(xvidc_edid_decode_fixed_point(characteristics.white.x));
+        	Double2Int(xvidc_edid_decode_fixed_point(characteristics.white.x));
         max_doubleval =
-		Double2Int(xvidc_edid_decode_fixed_point(characteristics.white.y));
+        	Double2Int(xvidc_edid_decode_fixed_point(characteristics.white.y));
 
         xil_printf("  White point (default).... Wx %d.%03d - Wy %d.%03d\r\n",
-		min_doubleval.Integer, min_doubleval.Decimal,
+        	min_doubleval.Integer, min_doubleval.Decimal,
 			max_doubleval.Integer, max_doubleval.Decimal);
 #endif
 #if defined(DISPLAY_UNKNOWN)
@@ -342,16 +355,18 @@ xvidc_disp_edid1(const struct edid * const edid,
 #if defined(DISPLAY_UNKNOWN)
         xil_printf("  Additional descriptors... %s\r\n", NULL);
 #endif
-#if XVIDC_EDID_VERBOSITY > 1
+#if XVIDC_EDID_VERBOSITY > 0
         xil_printf("  Preferred timing......... %s\r\n",
                edid->feature_support.preferred_timing_mode ? "Yes" : "No");
+#endif			   
         for (i = 0; i < ARRAY_SIZE(edid->detailed_timings); i++) {
             if (xvidc_edid_detailed_timing_is_monitor_descriptor(edid, i))
                 continue;
 
             timing_params = XV_VidC_timing(&edid->detailed_timings[i].timing);
             EdidCtrlParam->PreferedTiming[i] =
-			XV_VidC_timing(&edid->detailed_timings[i].timing);
+            		XV_VidC_timing(&edid->detailed_timings[i].timing);
+#if XVIDC_EDID_VERBOSITY > 0					
 			if (edid->feature_support.preferred_timing_mode) {
 				xil_printf("  Native/preferred timing.. %ux%u%c at %uHz"
 											" (%u:%u)\r\n",
@@ -361,8 +376,6 @@ xvidc_disp_edid1(const struct edid * const edid,
 											timing_params.vfreq,
 											timing_params.aspect_ratio.width,
 											timing_params.aspect_ratio.height);
-
-#if XVIDC_EDID_VERBOSITY > 1
 				xil_printf("    Modeline............... \"%ux%u\" %u %u %u %u"
 								" %u %u %u %u %u %chsync %cvsync\r\n",
 							   timing_params.hres,
@@ -380,11 +393,12 @@ xvidc_disp_edid1(const struct edid * const edid,
 							   (timing_params.vtotal),
 							   timing_params.hsync_polarity ? '+' : '-',
 							   timing_params.vsync_polarity ? '+' : '-');
-#endif
-			} else {
+			} else {			
 				xil_printf("  Native/preferred timing.. n/a\r\n");
 			}
+#endif			
         }
+#if XVIDC_EDID_VERBOSITY > 0		
         xil_printf("\r\n");
 #endif
 #if XVIDC_EDID_VERBOSITY > 1
@@ -428,7 +442,7 @@ xvidc_disp_edid1(const struct edid * const edid,
 
 #if XVIDC_EDID_VERBOSITY > 1
     if (VerboseEn) {
-	xil_printf("Standard Timings supported\r\n");
+    	xil_printf("Standard Timings supported\r\n");
 		for (i = 0; i < ARRAY_SIZE(edid->standard_timing_id); i++) {
 			const struct xvidc_edid_standard_timing_descriptor * const desc =
 				&edid->standard_timing_id[i];
@@ -587,6 +601,10 @@ xvidc_disp_cea861_extended_data(
                   const struct xvidc_cea861_extended_data_block * const edb,
                   XV_VidC_EdidCntrlParam *EdidCtrlParam,
                   XV_VidC_Verbose VerboseEn) {
+					  
+	/* During Verbosity 0, VerboseEn won't be used */
+	/* To avoid compilation warnings */
+	VerboseEn = VerboseEn;	
 
 #if XVIDC_EDID_VERBOSITY > 0
     if (VerboseEn) {
@@ -686,7 +704,7 @@ xvidc_disp_cea861_extended_data(
         break;
 #endif
         case XVIDC_CEA861_EXT_TAG_TYPE_YCBCR420_VIDEO:
-#if XVIDC_EDID_VERBOSITY > 0
+#if XVIDC_EDID_VERBOSITY > 1
             if (VerboseEn) {
                 xil_printf("  YCbCr 4:2:0 video data block\r\n");
                 xil_printf("    YCbCr 4:2:0.............. Supported\r\n");
@@ -736,7 +754,7 @@ xvidc_disp_cea861_extended_data(
         break;
 
         case XVIDC_CEA861_EXT_TAG_TYPE_YCBCR420_CAPABILITY_MAP:
-#if XVIDC_EDID_VERBOSITY > 0
+#if XVIDC_EDID_VERBOSITY > 1
             if (VerboseEn) {
                 xil_printf("  YCbCr 4:2:0 capability map data block\r\n");
                 xil_printf("    YCbCr 4:2:0.............. Supported\r\n");
@@ -773,8 +791,10 @@ xvidc_disp_cea861_extended_data(
         default :
 #if XVIDC_EDID_VERBOSITY > 0
             if (VerboseEn) {
+#if XVIDC_EDID_VERBOSITY > 1				
                 xil_printf("  Not Supported: Ext Tag: %03x\r\n",
                                          edb->xvidc_cea861_extended_tag_codes);
+#endif										 
                 xil_printf("\r\n");
             }
 #endif
@@ -835,6 +855,11 @@ xvidc_disp_cea861_vendor_data(
                   const struct xvidc_cea861_vendor_specific_data_block * vsdb,
                   XV_VidC_EdidCntrlParam *EdidCtrlParam,
                   XV_VidC_Verbose VerboseEn) {
+					  
+	/* During Verbosity 0, VerboseEn won't be used */
+	/* To avoid compilation warnings */
+	VerboseEn = VerboseEn;						  
+					  
     const u8 oui[] = { vsdb->ieee_registration[2],
                             vsdb->ieee_registration[1],
                             vsdb->ieee_registration[0] };
@@ -863,8 +888,10 @@ xvidc_disp_cea861_vendor_data(
         if (hdmi->header.length >= HDMI_VSDB_EXTENSION_FLAGS_OFFSET) {
 #if XVIDC_EDID_VERBOSITY > 0
             if (VerboseEn) {
+#if XVIDC_EDID_VERBOSITY > 1			
                 xil_printf("  Supports AI (ACP, ISRC).. %s\r\n",
                        hdmi->audio_info_frame ? "Yes" : "No");
+#endif					   
                 xil_printf("  Supports 48bpp........... %s\r\n",
                        hdmi->colour_depth_48_bit ? "Yes" : "No");
                 xil_printf("  Supports 36bpp........... %s\r\n",
@@ -873,8 +900,10 @@ xvidc_disp_cea861_vendor_data(
                        hdmi->colour_depth_30_bit ? "Yes" : "No");
                 xil_printf("  Supp. YUV444 Deep Color.. %s\r\n",
                        hdmi->yuv_444_supported ? "Yes" : "No");
+#if XVIDC_EDID_VERBOSITY > 1					   
                 xil_printf("  Supports dual-link DVI... %s\r\n",
                        hdmi->dvi_dual_link ? "Yes" : "No");
+#endif					   
             }
 #endif
             EdidCtrlParam->Is30bppSupp = hdmi->colour_depth_30_bit;
@@ -955,13 +984,15 @@ xvidc_disp_cea861_vendor_data(
             if (hdmi->header.length >= HDMI_VSDB_EXTENSION_FLAGS_OFFSET) {
 #if XVIDC_EDID_VERBOSITY > 0
                 if (VerboseEn) {
+#if XVIDC_EDID_VERBOSITY > 1					
                     xil_printf("  RRC Capable Support...... %s\r\n",
                             hdmi->rr_capable ? "Yes" : "No");
                     xil_printf("  SCDC Present............. %s\r\n",
                             hdmi->scdc_present ? "Yes" : "No");
                     xil_printf("  HDMI1.4 Scramble Support. %s\r\n",
                             hdmi->lte_340mcsc_scramble ? "Yes" : "No");
-                    xil_printf("  YCbCr 4:2:0 DC. Support..\r\n");
+#endif							
+                    xil_printf("  YUV 420 Deep.C. Support..\r\n");
                     xil_printf("    Supports 48bpp......... %s\r\n",
                            hdmi->dc_48bit_yuv420 ? "Yes" : "No");
                     xil_printf("    Supports 36bpp......... %s\r\n",
@@ -1216,7 +1247,7 @@ xvidc_disp_cea861(const struct xvidc_edid_extension * const ext,
                 break;
 
             default:
-#if XVIDC_EDID_VERBOSITY > 0
+#if XVIDC_EDID_VERBOSITY > 1
                 if (VerboseEn) {
                     xil_printf("Unknown CEA-861 data block type 0x%02x\r\n",
                             header->tag);
