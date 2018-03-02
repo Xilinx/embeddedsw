@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2013 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.00a hk/sg 10/17/13 First release
-#
+# 1.00  srm   02/16/18 Updated to pick up latest freertos port 10.0
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -43,7 +43,7 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilffs
   OPTION drc = ffs_drc;
   OPTION copyfiles = all;
-  OPTION REQUIRES_OS = (standalone freertos901_xilinx);
+  OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilffs,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Generic Fat File System Library";
   OPTION VERSION = 3.8;

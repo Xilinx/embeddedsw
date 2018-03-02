@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2004 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +36,7 @@ BEGIN LIBRARY xilmfs
  OPTION DESC = "Xilinx Memory File System" ;
  OPTION drc = mfs_drc ; 
  option copyfiles = all;
- OPTION REQUIRES_OS = (standalone xilkernel freertos901_xilinx);
+ OPTION REQUIRES_OS = (standalone xilkernel freertos10_xilinx);
  OPTION VERSION = 2.3;
   OPTION NAME = xilmfs;
 

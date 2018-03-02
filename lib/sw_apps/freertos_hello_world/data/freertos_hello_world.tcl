@@ -1,6 +1,6 @@
 #/******************************************************************************
 #*
-#* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+#* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 #*
 #* Permission is hereby granted, free of charge, to any person obtaining a copy
 #* of this software and associated documentation files (the "Software"), to deal
@@ -46,8 +46,8 @@ proc check_freertos_os {} {
     }
     set os [lindex $oslist 0];
 
-    if { $os != "freertos901_xilinx" } {
-        error "This application is supported only on the freertos901_xilinx.";
+    if { $os != "freertos10_xilinx" } {
+        error "This application is supported only on the freertos10_xilinx.";
     }
 }
 
@@ -101,5 +101,5 @@ proc swapp_get_supported_processors {} {
 }
 
 proc swapp_get_supported_os {} {
-    return "freertos901_xilinx";
+    return "freertos10_xilinx";
 }
