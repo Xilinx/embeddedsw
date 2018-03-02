@@ -89,6 +89,7 @@
 *       mn     09/26/17 Added UHS_MODE_ENABLE macro to enable UHS mode
 * 3.4   mn     10/17/17 Use different commands for single and multi block
 *                       transfers
+*       mn     03/02/18 Move UHS macro check to SD card initialization routine
 * </pre>
 *
 ******************************************************************************/
@@ -185,11 +186,7 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	InstancePtr->Config.CardDetect =  ConfigPtr->CardDetect;
 	InstancePtr->Config.WriteProtect =  ConfigPtr->WriteProtect;
-#ifdef UHS_MODE_ENABLE
 	InstancePtr->Config.BusWidth = ConfigPtr->BusWidth;
-#else
-	InstancePtr->Config.BusWidth = XSDPS_WIDTH_4;
-#endif
 	InstancePtr->Config.BankNumber = ConfigPtr->BankNumber;
 	InstancePtr->Config.HasEMIO = ConfigPtr->HasEMIO;
 	InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
@@ -354,6 +351,10 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+#ifndef UHS_MODE_ENABLE
+	InstancePtr->Config.BusWidth = XSDPS_WIDTH_4;
+#endif
 
 	if ((InstancePtr->HC_Version != XSDPS_HC_SPEC_V3) ||
 				((InstancePtr->Host_Caps & XSDPS_CAPS_SLOT_TYPE_MASK)
