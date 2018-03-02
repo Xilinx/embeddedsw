@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -73,7 +71,7 @@
  *       vyc  04/04/18 Added BGR8 memory format
  * 4.5   jsr  07/03/18 Added XVIDC_VM_720x486_60_I video format
  * 4.5   yas  03/08/19 Added support for frame rates 144HZ and 240HZ
- * 4.5   mmo  02/14/19 Added 5k, 8k, 10k and Low Resolution with 200Hz, 240Hz
+ * 4.6   mmo  02/14/19 Added 5k, 8k, 10k and Low Resolution with 200Hz, 240Hz
  * </pre>
  *
 *******************************************************************************/
@@ -256,9 +254,9 @@ typedef enum {
 	XVIDC_VM_3840x2160_48_P,
 	XVIDC_VM_3840x2160_50_P,
 	XVIDC_VM_3840x2160_60_P,
+	XVIDC_VM_3840x2160_60_P_RB,
 	XVIDC_VM_3840x2160_100_P,
 	XVIDC_VM_3840x2160_120_P,
-	XVIDC_VM_3840x2160_60_P_RB,
 	XVIDC_VM_4096x2160_24_P,
 	XVIDC_VM_4096x2160_25_P,
 	XVIDC_VM_4096x2160_30_P,
@@ -451,7 +449,7 @@ typedef enum {
 	/* Streaming formats with components re-ordered */
 	XVIDC_CSF_YCBCR_422 = 64,
 	XVIDC_CSF_YCBCR_420,
-
+	XVIDC_CSF_YCBCR_444,
 
 	XVIDC_CSF_NUM_SUPPORTED,    // includes the reserved slots
 	XVIDC_CSF_UNKNOWN,
@@ -621,8 +619,8 @@ typedef void (*XVidC_DelayHandler)(void *TimerPtr, u32 Delay);
 u32 XVidC_RegisterCustomTimingModes(const XVidC_VideoTimingMode *CustomTable,
 		                            u16 NumElems);
 void XVidC_UnregisterCustomTimingModes(void);
-u32 XVidC_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 FrameRate);
-u32 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId);
+u64 XVidC_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 FrameRate);
+u64 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId);
 XVidC_VideoFormat XVidC_GetVideoFormat(XVidC_VideoMode VmId);
 u8 XVidC_IsInterlaced(XVidC_VideoMode VmId);
 const XVidC_VideoTimingMode* XVidC_GetVideoModeData(XVidC_VideoMode VmId);

@@ -100,7 +100,21 @@ enum xvidc_cea861_audio_format {
     XVIDC_CEA861_AUDIO_FORMAT_EXTENDED,
 };
 
+typedef enum {
+	XVIDC_MAXFRLRATE_NOT_SUPPORTED,
+	XVIDC_MAXFRLRATE_3X3GBITSPS,
+	XVIDC_MAXFRLRATE_3X6GBITSPS,
+	XVIDC_MAXFRLRATE_4X6GBITSPS,
+	XVIDC_MAXFRLRATE_4X8GBITSPS,
+	XVIDC_MAXFRLRATE_4X10GBITSPS,
+	XVIDC_MAXFRLRATE_4X12GBITSPS
+} XV_VidC_MaxFrlRate;
+
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_timing_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_timing_block {
+#endif
     /* CEA Extension Header */
     u8  tag;
     u8  revision;
@@ -118,22 +132,37 @@ struct __attribute__ (( packed )) xvidc_cea861_timing_block {
     u8  checksum;
 };
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_data_block_header {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_data_block_header {
+#endif
     unsigned length : 5;
     unsigned tag    : 3;
 };
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_short_video_descriptor {
-    unsigned video_identification_code : 7;
-    unsigned native                    : 1;
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_short_video_descriptor {
+#endif
+    unsigned video_identification_code : 8;
 };
 #if XVIDC_EDID_VERBOSITY > 1
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_video_data_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_video_data_block {
+#endif
     struct xvidc_cea861_data_block_header      header;
     struct xvidc_cea861_short_video_descriptor svd[];
 };
 #endif
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_short_audio_descriptor {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_short_audio_descriptor {
+#endif
     unsigned channels              : 3; /* = value + 1 */
     unsigned audio_format          : 4;
     unsigned                       : 1;
@@ -148,7 +177,11 @@ struct __attribute__ (( packed )) xvidc_cea861_short_audio_descriptor {
     unsigned                       : 1;
 
     union {
+#if defined(__GNUC__)
         struct __attribute__ (( packed )) {
+#elif defined(__ICCARM__)
+	struct _Pragma ("pack()") {
+#endif
             unsigned bitrate_16_bit : 1;
             unsigned bitrate_20_bit : 1;
             unsigned bitrate_24_bit : 1;
@@ -159,25 +192,41 @@ struct __attribute__ (( packed )) xvidc_cea861_short_audio_descriptor {
 
         u8 format_dependent;       /* formats 9-13; */
 
+#if defined(__GNUC__)
         struct __attribute__ (( packed )) {
+#elif defined(__ICCARM__)
+	struct _Pragma ("pack()") {
+#endif
             unsigned profile : 3;
             unsigned         : 5;
         } wma_pro;
 
+#if defined(__GNUC__)
         struct __attribute__ (( packed )) {
+#elif defined(__ICCARM__)
+	struct _Pragma ("pack()") {
+#endif
             unsigned      : 3;
             unsigned code : 5;
         } extension;
     } flags;
 };
 #if XVIDC_EDID_VERBOSITY > 1
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_audio_data_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_audio_data_block {
+#endif
     struct xvidc_cea861_data_block_header      header;
     struct xvidc_cea861_short_audio_descriptor sad[];
 };
 #endif
 #if XVIDC_EDID_VERBOSITY > 1
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_speaker_allocation {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_speaker_allocation {
+#endif
     unsigned front_left_right        : 1;
     unsigned front_lfe               : 1;   /* low frequency effects */
     unsigned front_center            : 1;
@@ -196,18 +245,30 @@ struct __attribute__ (( packed )) xvidc_cea861_speaker_allocation {
 };
 #endif
 #if XVIDC_EDID_VERBOSITY > 1
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_speaker_allocation_data_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_speaker_allocation_data_block {
+#endif
     struct xvidc_cea861_data_block_header  header;
     struct xvidc_cea861_speaker_allocation payload;
 };
 #endif
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_vendor_specific_data_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_vendor_specific_data_block {
+#endif
     struct xvidc_cea861_data_block_header  header;
     u8                               ieee_registration[3];
     u8                               data[30];
 };
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_extended_data_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_extended_data_block {
+#endif
     struct xvidc_cea861_data_block_header  header;
     u8                               xvidc_cea861_extended_tag_codes;
     u8                               data[30];
@@ -336,10 +397,61 @@ static const struct xvidc_cea861_timing {
     [105] = {3840,  2160, PROGRESSIVE, 4400, 560 , 2250, 90  , 67.5   , 30.0003, 297     },
     [106] = {3840,  2160, PROGRESSIVE, 5280, 1440, 2250, 90  , 112.5  , 50     , 594     },
     [107] = {3840,  2160, PROGRESSIVE, 4400, 560 , 2250, 90  , 135    , 60.0003, 594     },
+    [108] = {1280 , 720 , PROGRESSIVE, 2500 , 1220, 750 , 30 , 36   ,   48.0003, 90      },
+    [109] = {1280 , 720 , PROGRESSIVE, 2500 , 1220, 750 , 30 , 36   ,   48.0003, 90      },
+    [110] = {1680 , 720 , PROGRESSIVE, 2750 , 1070, 750 , 30 , 36   ,   48.0003, 99      },
+    [111] = {1920 , 1080, PROGRESSIVE, 2750 , 830 , 1125, 45 , 54   ,   48.0003, 148.5   },
+    [112] = {1920 , 1080, PROGRESSIVE, 2750 , 830 , 1125, 45 , 54   ,   48.0003, 148.5   },
+    [113] = {2560 , 1080, PROGRESSIVE, 3750 , 1190, 1100, 20 , 52.8 ,   48.0003, 198     },
+    [114] = {3840 , 2160, PROGRESSIVE, 5500 , 1660, 2250, 90 , 108  ,   48.0003, 594     },
+    [115] = {4096 , 2160, PROGRESSIVE, 5500 , 1404, 2250, 90 , 108  ,   48.0003, 594     },
+    [116] = {3840 , 2160, PROGRESSIVE, 5500 , 1660, 2250, 90 , 108  ,   48.0003, 594     },
+    [117] = {3840 , 2160, PROGRESSIVE, 5280 , 1440, 2250, 90 , 225  ,   100    , 1188    },
+    [118] = {3840 , 2160, PROGRESSIVE, 4400 , 560 , 2250, 90 , 270  ,   120.003, 1188    },
+    [119] = {3840 , 2160, PROGRESSIVE, 5280 , 1440, 2250, 90 , 225  ,   100    , 1188    },
+    [120] = {3840 , 2160, PROGRESSIVE, 4400 , 560 , 2250, 90 , 270  ,   120.003, 1188    },
+    [121] = {5120 , 2160, PROGRESSIVE, 7500 , 2380, 2200, 40 , 52.8 ,   24.0003, 396     },
+    [122] = {5120 , 2160, PROGRESSIVE, 7200 , 2080, 2200, 40 , 55   ,   25     , 396     },
+    [123] = {5120 , 2160, PROGRESSIVE, 6000 , 880 , 2200, 40 , 66   ,   30.0003, 396     },
+    [124] = {5120 , 2160, PROGRESSIVE, 6250 , 1130, 2475, 315, 118.8,   48.0003, 742.5   },
+    [125] = {5120 , 2160, PROGRESSIVE, 6600 , 1480, 2250, 90 , 112.5,   50     , 742.5   },
+    [126] = {5120 , 2160, PROGRESSIVE, 5500 , 380 , 2250, 90 , 135  ,   60.0003, 742.5   },
+    [127] = {5120 , 2160, PROGRESSIVE, 6600 , 1480, 2250, 90 , 225  ,   100    , 1485    },
+    [193] = {5120 , 2160, PROGRESSIVE, 5500 , 380 , 2250, 90 , 270  ,   120.003, 1485    },
+    [194] = {7680 , 4320, PROGRESSIVE, 11000, 3320, 4500, 180, 108  ,   24.0003, 1188    },
+    [195] = {7680 , 4320, PROGRESSIVE, 10800, 3120, 4400, 80 , 110  ,   25     , 1188    },
+    [196] = {7680 , 4320, PROGRESSIVE, 9000 , 1320, 4400, 80 , 132  ,   30.0003, 1188    },
+    [197] = {7680 , 4320, PROGRESSIVE, 11000, 3320, 4500, 180, 216  ,   48.0003, 2376    },
+    [198] = {7680 , 4320, PROGRESSIVE, 10800, 3120, 4400, 80 , 220  ,   50     , 2376    },
+    [199] = {7680 , 4320, PROGRESSIVE, 9000 , 1320, 4400, 80 , 264  ,   60.0003, 2376    },
+    [200] = {7680 , 4320, PROGRESSIVE, 10560, 2880, 4500, 180, 450  ,   100    , 4752    },
+    [201] = {7680 , 4320, PROGRESSIVE, 8800 , 1120, 4500, 180, 540  ,   120.003, 4752    },
+    [202] = {7680 , 4320, PROGRESSIVE, 11000, 3320, 4500, 180, 108  ,   24.0003, 1188    },
+    [203] = {7680 , 4320, PROGRESSIVE, 10800, 3120, 4400, 80 , 110  ,   25     , 1188    },
+    [204] = {7680 , 4320, PROGRESSIVE, 9000 , 1320, 4400, 80 , 132  ,   30.0003, 1188    },
+    [205] = {7680 , 4320, PROGRESSIVE, 11000, 3320, 4500, 180, 216  ,   48.0003, 2376    },
+    [206] = {7680 , 4320, PROGRESSIVE, 10800, 3120, 4400, 80 , 220  ,   50     , 2376    },
+    [207] = {7680 , 4320, PROGRESSIVE, 9000 , 1320, 4400, 80 , 264  ,   60.0003, 2376    },
+    [208] = {7680 , 4320, PROGRESSIVE, 10560, 2880, 4500, 180, 450  ,   100    , 4752    },
+    [209] = {7680 , 4320, PROGRESSIVE, 8800 , 1120, 4500, 180, 540  ,   120.003, 4752    },
+    [210] = {10240, 4320, PROGRESSIVE, 12500, 2260, 4950, 630, 118.8,   24.0003, 1485    },
+    [211] = {10240, 4320, PROGRESSIVE, 13500, 3260, 4400, 80 , 110  ,   25     , 1485    },
+    [212] = {10240, 4320, PROGRESSIVE, 11000, 760 , 4500, 180, 135  ,   30.0003, 1485    },
+    [213] = {10240, 4320, PROGRESSIVE, 12500, 2260, 4950, 630, 237.6,   48.0003, 2970    },
+    [214] = {10240, 4320, PROGRESSIVE, 13500, 3260, 4400, 80 , 220  ,   50     , 2970    },
+    [215] = {10240, 4320, PROGRESSIVE, 11000, 760 , 4500, 180, 270  ,   60.0003, 2970    },
+    [216] = {10240, 4320, PROGRESSIVE, 13200, 2960, 4500, 180, 450  ,   100    , 5940    },
+    [217] = {10240, 4320, PROGRESSIVE, 11000, 760 , 4500, 180, 540  ,   120.003, 5940    },
+    [218] = {4096 , 2160, PROGRESSIVE, 5280 , 1184, 2250, 90 , 225  ,   100    , 1188    },
+    [219] = {4096 , 2160, PROGRESSIVE, 4400 , 304 , 2250, 90 , 270  ,   120.003, 1188    },
 };
 #endif
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_hdmi_vendor_specific_data_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_hdmi_vendor_specific_data_block {
+#endif
     struct xvidc_cea861_data_block_header header;
 
     u8  ieee_registration_id[3];           /* LSB */
@@ -372,7 +484,11 @@ struct __attribute__ (( packed )) xvidc_cea861_hdmi_vendor_specific_data_block {
     u8  reserved[];
 };
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_hdmi_hf_vendor_specific_data_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_hdmi_hf_vendor_specific_data_block {
+#endif
     struct xvidc_cea861_data_block_header header;
 
     u8  ieee_registration_id[3];           /* LSB */
@@ -392,6 +508,10 @@ struct __attribute__ (( packed )) xvidc_cea861_hdmi_hf_vendor_specific_data_bloc
     unsigned dc_30bit_yuv420           : 1;
     unsigned dc_36bit_yuv420           : 1;
     unsigned dc_48bit_yuv420           : 1;
+
+    unsigned                           : 1;
+
+    unsigned max_frl_rate              : 4;
 
     u8  reserved[];
 };
