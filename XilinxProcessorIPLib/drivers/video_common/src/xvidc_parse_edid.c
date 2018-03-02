@@ -27,6 +27,23 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+/*****************************************************************************/
+/**
+ *
+ * @file xvidc_parse_edid.c
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who  Date        Changes
+ * ----- --- ----------   -----------------------------------------------
+ * 1.00  mmo 24-01-2017   Included into video_common
+ * 1.01  eb  13-04-2018   Fixed XV_VidC_parse_edid API and
+ *                            xvidc_edid_extension_handler struct to enhance
+ *                            system stability
+ * </pre>
+ *
+ ******************************************************************************/
 #include "string.h"
 #include "stdlib.h"
 #include "stddef.h"
@@ -38,8 +55,6 @@
 #include "xvidc_edid_ext.h"
 
 #if XVIDC_EDID_VERBOSITY > 1
-#include "math.h"
-
 #define CM_2_MM(cm)                             ((cm) * 10)
 #define CM_2_IN(cm)                             ((cm) * 0.3937)
 #endif
@@ -112,10 +127,10 @@ xvidc_disp_edid1(const struct edid * const edid,
     xvidc_edid_monitor_descriptor_string monitor_model_name = {0};
     bool has_ascii_string = false;
     char manufacturer[4] = {0};
-#if XVIDC_EDID_VERBOSITY > 1	
+#if XVIDC_EDID_VERBOSITY > 1
     XV_VidC_DoubleRep min_doubleval;
     XV_VidC_DoubleRep max_doubleval;
-#endif	
+#endif
 
     u8 i;
 #if XVIDC_EDID_VERBOSITY > 0
@@ -205,7 +220,7 @@ xvidc_disp_edid1(const struct edid * const edid,
 #endif
         xil_printf("  EDID revision............ %u.%u\r\n",
                edid->version, edid->revision);
-#if XVIDC_EDID_VERBOSITY > 1			   
+#if XVIDC_EDID_VERBOSITY > 1
         xil_printf("  Input signal type........ %s\r\n",
           edid->video_input_definition.digital.digital ? "Digital" : "Analog");
 
@@ -215,7 +230,7 @@ xvidc_disp_edid1(const struct edid * const edid,
         } else {
             /* Missing Piece: To print analog flags */
         }
-#endif		
+#endif
 #if defined(DISPLAY_UNKNOWN)
         xil_printf("  Color bit depth.......... %s\r\n", NULL);
 #endif
@@ -223,9 +238,8 @@ xvidc_disp_edid1(const struct edid * const edid,
         xil_printf("  Display type............. %s\r\n",
                display_type[edid->feature_support.display_type]);
 
-        xil_printf("  Screen size.............. %u mm x %u mm (%.1f in)\r\n",
-               CM_2_MM(hlen), CM_2_MM(vlen),
-               CM_2_IN(sqrt(hlen * hlen + vlen * vlen)));
+        xil_printf("  Screen size.............. %u mm x %u mm\r\n",
+               CM_2_MM(hlen), CM_2_MM(vlen));
 
         xil_printf("  Power management......... %s%s%s%s\r\n",
                edid->feature_support.active_off ? "Active off, " : "",
@@ -248,23 +262,23 @@ xvidc_disp_edid1(const struct edid * const edid,
 #endif
         if (has_ascii_string) {
 			if (VerboseEn) {
-#if XVIDC_EDID_VERBOSITY > 1			
+#if XVIDC_EDID_VERBOSITY > 1
 				xil_printf("General purpose ASCII string\r\n");
 #endif
 			}
-			
+
             for (i = 0; i < ARRAY_SIZE(edid->detailed_timings); i++) {
                 if (!xvidc_edid_detailed_timing_is_monitor_descriptor(edid, i))
                     continue;
             }
-			
-			if (VerboseEn) {			
-#if XVIDC_EDID_VERBOSITY > 1			
+
+			if (VerboseEn) {
+#if XVIDC_EDID_VERBOSITY > 1
 				xil_printf("\r\n");
 #endif
 			}
         }
-#if XVIDC_EDID_VERBOSITY > 0	
+#if XVIDC_EDID_VERBOSITY > 0
     if (VerboseEn) {
         xil_printf("Color characteristics\r\n");
 
@@ -358,7 +372,7 @@ xvidc_disp_edid1(const struct edid * const edid,
 #if XVIDC_EDID_VERBOSITY > 0
         xil_printf("  Preferred timing......... %s\r\n",
                edid->feature_support.preferred_timing_mode ? "Yes" : "No");
-#endif			   
+#endif
         for (i = 0; i < ARRAY_SIZE(edid->detailed_timings); i++) {
             if (xvidc_edid_detailed_timing_is_monitor_descriptor(edid, i))
                 continue;
@@ -366,7 +380,7 @@ xvidc_disp_edid1(const struct edid * const edid,
             timing_params = XV_VidC_timing(&edid->detailed_timings[i].timing);
             EdidCtrlParam->PreferedTiming[i] =
             		XV_VidC_timing(&edid->detailed_timings[i].timing);
-#if XVIDC_EDID_VERBOSITY > 0					
+#if XVIDC_EDID_VERBOSITY > 0
 			if (edid->feature_support.preferred_timing_mode) {
 				xil_printf("  Native/preferred timing.. %ux%u%c at %uHz"
 											" (%u:%u)\r\n",
@@ -393,12 +407,12 @@ xvidc_disp_edid1(const struct edid * const edid,
 							   (timing_params.vtotal),
 							   timing_params.hsync_polarity ? '+' : '-',
 							   timing_params.vsync_polarity ? '+' : '-');
-			} else {			
+			} else {
 				xil_printf("  Native/preferred timing.. n/a\r\n");
 			}
-#endif			
+#endif
         }
-#if XVIDC_EDID_VERBOSITY > 0		
+#if XVIDC_EDID_VERBOSITY > 0
         xil_printf("\r\n");
 #endif
 #if XVIDC_EDID_VERBOSITY > 1
@@ -601,10 +615,10 @@ xvidc_disp_cea861_extended_data(
                   const struct xvidc_cea861_extended_data_block * const edb,
                   XV_VidC_EdidCntrlParam *EdidCtrlParam,
                   XV_VidC_Verbose VerboseEn) {
-					  
+
 	/* During Verbosity 0, VerboseEn won't be used */
 	/* To avoid compilation warnings */
-	VerboseEn = VerboseEn;	
+	VerboseEn = VerboseEn;
 
 #if XVIDC_EDID_VERBOSITY > 0
     if (VerboseEn) {
@@ -791,10 +805,10 @@ xvidc_disp_cea861_extended_data(
         default :
 #if XVIDC_EDID_VERBOSITY > 0
             if (VerboseEn) {
-#if XVIDC_EDID_VERBOSITY > 1				
+#if XVIDC_EDID_VERBOSITY > 1
                 xil_printf("  Not Supported: Ext Tag: %03x\r\n",
                                          edb->xvidc_cea861_extended_tag_codes);
-#endif										 
+#endif
                 xil_printf("\r\n");
             }
 #endif
@@ -855,11 +869,11 @@ xvidc_disp_cea861_vendor_data(
                   const struct xvidc_cea861_vendor_specific_data_block * vsdb,
                   XV_VidC_EdidCntrlParam *EdidCtrlParam,
                   XV_VidC_Verbose VerboseEn) {
-					  
+
 	/* During Verbosity 0, VerboseEn won't be used */
 	/* To avoid compilation warnings */
-	VerboseEn = VerboseEn;						  
-					  
+	VerboseEn = VerboseEn;
+
     const u8 oui[] = { vsdb->ieee_registration[2],
                             vsdb->ieee_registration[1],
                             vsdb->ieee_registration[0] };
@@ -888,10 +902,10 @@ xvidc_disp_cea861_vendor_data(
         if (hdmi->header.length >= HDMI_VSDB_EXTENSION_FLAGS_OFFSET) {
 #if XVIDC_EDID_VERBOSITY > 0
             if (VerboseEn) {
-#if XVIDC_EDID_VERBOSITY > 1			
+#if XVIDC_EDID_VERBOSITY > 1
                 xil_printf("  Supports AI (ACP, ISRC).. %s\r\n",
                        hdmi->audio_info_frame ? "Yes" : "No");
-#endif					   
+#endif
                 xil_printf("  Supports 48bpp........... %s\r\n",
                        hdmi->colour_depth_48_bit ? "Yes" : "No");
                 xil_printf("  Supports 36bpp........... %s\r\n",
@@ -900,10 +914,10 @@ xvidc_disp_cea861_vendor_data(
                        hdmi->colour_depth_30_bit ? "Yes" : "No");
                 xil_printf("  Supp. YUV444 Deep Color.. %s\r\n",
                        hdmi->yuv_444_supported ? "Yes" : "No");
-#if XVIDC_EDID_VERBOSITY > 1					   
+#if XVIDC_EDID_VERBOSITY > 1
                 xil_printf("  Supports dual-link DVI... %s\r\n",
                        hdmi->dvi_dual_link ? "Yes" : "No");
-#endif					   
+#endif
             }
 #endif
             EdidCtrlParam->Is30bppSupp = hdmi->colour_depth_30_bit;
@@ -984,14 +998,14 @@ xvidc_disp_cea861_vendor_data(
             if (hdmi->header.length >= HDMI_VSDB_EXTENSION_FLAGS_OFFSET) {
 #if XVIDC_EDID_VERBOSITY > 0
                 if (VerboseEn) {
-#if XVIDC_EDID_VERBOSITY > 1					
+#if XVIDC_EDID_VERBOSITY > 1
                     xil_printf("  RRC Capable Support...... %s\r\n",
                             hdmi->rr_capable ? "Yes" : "No");
                     xil_printf("  SCDC Present............. %s\r\n",
                             hdmi->scdc_present ? "Yes" : "No");
                     xil_printf("  HDMI1.4 Scramble Support. %s\r\n",
                             hdmi->lte_340mcsc_scramble ? "Yes" : "No");
-#endif							
+#endif
                     xil_printf("  YUV 420 Deep.C. Support..\r\n");
                     xil_printf("    Supports 48bpp......... %s\r\n",
                            hdmi->dc_48bit_yuv420 ? "Yes" : "No");
@@ -1272,15 +1286,26 @@ xvidc_disp_cea861(const struct xvidc_edid_extension * const ext,
 *
 * This structure parse parse EDID routines
 *
-*
-* @note   None.
+* @note   API XV_VidC_parse_edid's checking needs to be updated to allow
+*         extra parsers.
 *
 ******************************************************************************/
 static const struct xvidc_edid_extension_handler {
     void (* const inf_disp)(const struct xvidc_edid_extension * const,
            XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
 } xvidc_edid_extension_handlers[] = {
-    [XVIDC_EDID_EXTENSION_CEA] = { xvidc_disp_cea861 },
+	[XVIDC_EDID_EXTENSION_TIMING]         = { NULL },
+	[XVIDC_EDID_EXTENSION_CEA]            = { xvidc_disp_cea861 },
+	[XVIDC_EDID_EXTENSION_VTB]            = { NULL },
+	[XVIDC_EDID_EXTENSION_XVIDC_EDID_2_0] = { NULL },
+	[XVIDC_EDID_EXTENSION_DI]             = { NULL },
+	[XVIDC_EDID_EXTENSION_LS]             = { NULL },
+	[XVIDC_EDID_EXTENSION_MI]             = { NULL },
+	[XVIDC_EDID_EXTENSION_DTCDB_1]        = { NULL },
+	[XVIDC_EDID_EXTENSION_DTCDB_2]        = { NULL },
+	[XVIDC_EDID_EXTENSION_DTCDB_3]        = { NULL },
+	[XVIDC_EDID_EXTENSION_BLOCK_MAP]      = { NULL },
+	[XVIDC_EDID_EXTENSION_DDDB]           = { NULL },
 };
 
 
@@ -1325,7 +1350,10 @@ XV_VidC_parse_edid(const u8 * const data,
             continue;
         }
 
-        if (handler->inf_disp) {
+        /* Workaround: Check if the function to be executed is defined
+         * Note: This currently handles cea861 parsing only.
+         */
+        if (handler->inf_disp == &xvidc_disp_cea861) {
             (*handler->inf_disp)(extension,EdidCtrlParam,VerboseEn);
         }
     }

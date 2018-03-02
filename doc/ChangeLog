@@ -437,6 +437,12 @@ Updated version from 1.3 to 2.0
 Added Info frame supported
 Added new reset sequence
 
+<<<<<<< HEAD
+=======
+video_common_v4_3:
+Added EDID parsing capability with extende feature
+
+>>>>>>> video_common: Fix verbosity on EDID parser and updated the Changelog for the changes on 2018.1
 usbpsu_v1_4:
 Modify USBPSU driver code to fit USB common example code for all USB IPs
 Added support for flushing Dcache for setupdata packet for control ep's
