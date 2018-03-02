@@ -33,6 +33,7 @@
 
 #include "stdbool.h"
 #include "xvidc.h"
+#include "xil_assert.h"
 #include "xvidc_cea861.h"
 
 #define XVIDC_EDID_BLOCK_SIZE                         (0x80)
@@ -540,10 +541,21 @@ typedef enum {
 } XV_VidC_Verbose;
 
 typedef enum {
+    XVIDC_ISDVI,
+    XVIDC_ISHDMI
+} XV_VidC_IsHdmi;
+
+typedef enum {
     XVIDC_NOT_SUPPORTED,
     XVIDC_SUPPORTED
 } XV_VidC_Supp;
 #if XVIDC_EDID_VERBOSITY > 1
+typedef struct {
+	u32 Integer;
+	u32 Decimal;
+} XV_VidC_DoubleRep;
+#endif
+
 typedef struct {
     u8 width;
     u8 height;
@@ -567,35 +579,38 @@ typedef struct {
 } XV_VidC_TimingParam;
 
 typedef struct {
-	u32 Integer;
-	u32 Decimal;
-} XV_VidC_DoubleRep;
-#endif
-typedef struct {
-    XV_VidC_Supp IsYCbCr444Supp;
-    XV_VidC_Supp IsYCbCr420Supp;
-    XV_VidC_Supp IsYCbCr422Supp;
-    XV_VidC_Supp IsYCbCr444DeepColSupp;
-    XV_VidC_Supp Is30bppSupp;
-    XV_VidC_Supp Is36bppSupp;
-    XV_VidC_Supp Is48bppSupp;
-    XV_VidC_Supp IsYCbCr420dc30bppSupp;
-    XV_VidC_Supp IsYCbCr420dc36bppSupp;
-    XV_VidC_Supp IsYCbCr420dc48bppSupp;
-    XV_VidC_Supp IsSCDCReadRequestReady;
-    XV_VidC_Supp IsSCDCPresent;
-    u8 MaxFrameRateSupp;
-    u16 MaxTmdsMhz;
-#if XVIDC_EDID_VERBOSITY > 1
-    u8 SuppCeaVIC[128];
+	/*Checks whether Sink able to support HDMI*/
+	XV_VidC_IsHdmi IsHdmi;
+	/*Color Space Support*/
+    XV_VidC_Supp   IsYCbCr444Supp;
+    XV_VidC_Supp   IsYCbCr420Supp;
+    XV_VidC_Supp   IsYCbCr422Supp;
+	/*YCbCr444/YCbCr422/RGB444 Deep Color Support*/
+    XV_VidC_Supp   IsYCbCr444DeepColSupp;
+    XV_VidC_Supp   Is30bppSupp;
+    XV_VidC_Supp   Is36bppSupp;
+    XV_VidC_Supp   Is48bppSupp;
+	/*YCbCr420 Deep Color Support*/
+    XV_VidC_Supp   IsYCbCr420dc30bppSupp;
+    XV_VidC_Supp   IsYCbCr420dc36bppSupp;
+    XV_VidC_Supp   IsYCbCr420dc48bppSupp;
+	/*SCDC and SCDC ReadRequest Support*/
+    XV_VidC_Supp   IsSCDCReadRequestReady;
+    XV_VidC_Supp   IsSCDCPresent;
+	/*Sink Capability Support*/
+    u8             MaxFrameRateSupp;
+    u16            MaxTmdsMhz;
+	/*CEA 861 Supported VIC Support*/
+    u8             SuppCeaVIC[32];
+	/*VESA Sink Preffered Timing Support*/
     XV_VidC_TimingParam PreferedTiming[4];
-#endif
 } XV_VidC_EdidCntrlParam;
-#if XVIDC_EDID_VERBOSITY > 1
+
+
 XV_VidC_TimingParam
 XV_VidC_timing
            (const struct xvidc_edid_detailed_timing_descriptor * const dtb);
-
+#if XVIDC_EDID_VERBOSITY > 1
 XV_VidC_DoubleRep Double2Int (double in_val);
 #endif
 void XV_VidC_EdidCtrlParamInit (XV_VidC_EdidCntrlParam *EdidCtrlParam);

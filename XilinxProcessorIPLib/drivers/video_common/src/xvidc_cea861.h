@@ -127,7 +127,7 @@ struct __attribute__ (( packed )) xvidc_cea861_short_video_descriptor {
     unsigned video_identification_code : 7;
     unsigned native                    : 1;
 };
-#if XV_EDID_VERBOSITY > 1
+#if XVIDC_EDID_VERBOSITY > 1
 struct __attribute__ (( packed )) xvidc_cea861_video_data_block {
     struct xvidc_cea861_data_block_header      header;
     struct xvidc_cea861_short_video_descriptor svd[];
@@ -170,13 +170,13 @@ struct __attribute__ (( packed )) xvidc_cea861_short_audio_descriptor {
         } extension;
     } flags;
 };
-#if XV_EDID_VERBOSITY > 1
+#if XVIDC_EDID_VERBOSITY > 1
 struct __attribute__ (( packed )) xvidc_cea861_audio_data_block {
     struct xvidc_cea861_data_block_header      header;
     struct xvidc_cea861_short_audio_descriptor sad[];
 };
 #endif
-#if XV_EDID_VERBOSITY > 1
+#if XVIDC_EDID_VERBOSITY > 1
 struct __attribute__ (( packed )) xvidc_cea861_speaker_allocation {
     unsigned front_left_right        : 1;
     unsigned front_lfe               : 1;   /* low frequency effects */
@@ -195,7 +195,7 @@ struct __attribute__ (( packed )) xvidc_cea861_speaker_allocation {
     unsigned                         : 8;
 };
 #endif
-#if XV_EDID_VERBOSITY > 1
+#if XVIDC_EDID_VERBOSITY > 1
 struct __attribute__ (( packed )) xvidc_cea861_speaker_allocation_data_block {
     struct xvidc_cea861_data_block_header  header;
     struct xvidc_cea861_speaker_allocation payload;
@@ -213,7 +213,7 @@ struct __attribute__ (( packed )) xvidc_cea861_extended_data_block {
     u8                               data[30];
 };
 
-#if XV_EDID_VERBOSITY > 1
+#if XVIDC_EDID_VERBOSITY > 1
 static const struct xvidc_cea861_timing {
     const u16 hactive;
     const u16 vactive;
