@@ -223,6 +223,10 @@ Secure and Non-Secure Bitstream Images.So the entry point interface
 will be changed as follows.
 u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags);
 
+Added the legacy bit file loading feature support from U-boot.
+and improve the error handling support by returning the
+proper ERROR value upon error conditions.
+
 xilsecure_v3_0:
 Added support for NIST-SHA3 padding
 
