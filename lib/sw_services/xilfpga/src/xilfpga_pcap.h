@@ -100,6 +100,10 @@
 *                      to avoid the unwanted blocking conditions.
 * 3.0   Nava  12/05/17 Added PL configuration registers readback support.
 * 4.0   Nava  08/02/18 Added Authenticated and Encypted Bitstream loading suppor.
+* 4.0   Nava  02/03/18 Added the legacy bit file loading feature support from U-boot.
+*                      and improve the error handling support by returning the
+*                      proper ERROR value upon error conditions.
+*
 * </pre>
 *
 * @note
@@ -190,14 +194,17 @@
 #define PCAP_CLK_EN_MASK	0x01000000
 
 #define XFPGA_SUCCESS				(0x0U)
-#define XFPGA_ERROR_CSUDMA_INIT_FAIL		(0x1U)
-#define XFPGA_ERROR_BITSTREAM_LOAD_FAIL		(0x2U)
-#define XFPGA_ERROR_PL_POWER_UP			(0x3U)
+#define XFPGA_FAILURE				(0x1U)
+#define XFPGA_ERROR_CSUDMA_INIT_FAIL		(0x2U)
+#define XFPGA_ERROR_PL_POWER_UP 		(0x3U)
 #define XFPGA_ERROR_PL_ISOLATION		(0x4U)
-#define XFPGA_PARAMETER_NULL_ERROR		(0x5U)
-#define XFPGA_STRING_INVALID_ERROR		(0x6U)
-#define XFPGA_PARTITION_AUTH_FAILURE		(0x7U)
-#define XFPGA_FAILURE				(0x9U)
+#define XPFGA_ERROR_PCAP_INIT			(0x5U)
+#define XFPGA_ERROR_BITSTREAM_LOAD_FAIL 	(0x6U)
+#define XFPGA_ERROR_CRYPTO_FLAGS		(0x7U)
+#define XFPGA_ERROR_HDR_AUTH			(0X8U)
+#define XFPGA_ENC_ISCOMPULSORY			(0x9U)
+#define XFPGA_PARTITION_AUTH_FAILURE		(0xAU)
+#define XFPGA_STRING_INVALID_ERROR		(0xBU)
 
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/

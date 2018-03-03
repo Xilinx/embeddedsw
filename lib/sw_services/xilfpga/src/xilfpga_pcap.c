@@ -50,6 +50,9 @@
  * 			to avoid the unwanted blocking conditions.
  * 3.0   Nava  12/05/17 Added PL configuration registers readback support.
  * 4.0   Nava  08/02/18 Added Authenticated and Encypted Bitstream loading support.
+ * 4.0  Nava  02/03/18 Added the legacy bit file loading feature support from U-boot.
+ *                     and improve the error handling support by returning the
+ *                     proper ERROR value upon error conditions.
  *
  * </pre>
  *
@@ -120,6 +123,7 @@
 #define XFPGA_AUTHENTICATION_OCM_EN	(0x00000004U)
 #define XFPGA_ENCRYPTION_USERKEY_EN	(0x00000008U)
 #define XFPGA_ENCRYPTION_DEVKEY_EN 	(0x00000010U)
+#define XFPGA_ONLY_BIN_EN		(0x00000020U)
 
 #define XFPGA_AES_TAG_SIZE	(XSECURE_SECURE_HDR_SIZE + \
 		XSECURE_SECURE_GCM_TAG_SIZE) /* AES block decryption tag size */
@@ -231,7 +235,7 @@ XSecure_Rsa Secure_Rsa;
  *
  *@param WrAddr Linear memory image base address
  *
- *@param KeyAddr Aes key address which is used for Decryption.
+ *@param AddrPtr Aes key address which is used for Decryption.
  *
  *@param flags:
  *		BIT(0) - Bit-stream type.
@@ -260,7 +264,7 @@ XSecure_Rsa Secure_Rsa;
  *@return error status based on implemented functionality (SUCCESS by default)
  *
  *****************************************************************************/
-u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags)
+u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR AddrPtr, u32 flags)
 {
 	u32 Status = XFPGA_SUCCESS;
 	u32 BitstreamAddress;
@@ -278,11 +282,14 @@ u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags)
 	if ((u8 *)(UINTPTR)WrAddr == NULL)
 		return XST_FAILURE;
 
+#ifndef XFPGA_SECURE_MODE
+	if (!(flags & XFPGA_ONLY_BIN_EN))
+#endif
 	/* validate the User Flags for the Image Crypto operation */
 	Status = XFpga_ValidateCryptoFlags(WrAddr, flags);
 	if (Status != XFPGA_SUCCESS) {
 		xil_printf("Crypto flags not matched with Image crypto operation\r\n");
-		Status = XFPGA_FAILURE;
+		Status = XFPGA_ERROR_CRYPTO_FLAGS;
 		goto END;
 	}
 
@@ -296,6 +303,7 @@ u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags)
 	if (Status != XST_SUCCESS) {
 	/* Error other than XSECURE_AUTH_NOT_ENABLED error will be an error */
 		if (Status != XSECURE_AUTH_NOT_ENABLED) {
+			Status = XFPGA_ERROR_HDR_AUTH;
 			goto END;
 		} else {
 		/* Here Buffer still contains Boot header */
@@ -311,7 +319,7 @@ u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags)
 		ImageHdrInfo.PartitionHdr = Ph;
 		if ((ImageHdrInfo.PartitionHdr->PartitionAttributes &
 				XSECURE_PH_ATTR_AUTH_ENABLE) != 0x00U) {
-			Status = XSECURE_HDR_NOAUTH_PART_AUTH;
+			Status = XFPGA_ERROR_CRYPTO_FLAGS;
 			goto END;
 		}
 	}
@@ -324,7 +332,7 @@ u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags)
 	if (EncOnly != 0x00) {
 
 		if (!IsEncrypted) {
-			Status = XSECURE_ENC_ISCOMPULSORY;
+			Status = XFPGA_ENC_ISCOMPULSORY;
 			goto END;
 		}
 	}
@@ -377,14 +385,14 @@ u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags)
 
 	Status = XFpga_PcapInit(flags);
 	if(Status != XFPGA_SUCCESS) {
-		xil_printf("FPGA Init fail\n");
+		Status = XPFGA_ERROR_PCAP_INIT;
 		goto END;
 	}
 
 	if (flags & XFPGA_SECURE_FLAGS)
 #ifdef XFPGA_SECURE_MODE
 	{
-		Status = XFpga_SecureLoadToPl(WrAddr, KeyAddr,
+		Status = XFpga_SecureLoadToPl(WrAddr, AddrPtr,
 					&ImageHdrInfo, flags );
 		if (Status != XFPGA_SUCCESS) {
 			/* Clear the PL house */
@@ -402,14 +410,24 @@ u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags)
 	}
 #endif
 	else {
-		XFpga_GetBitstreamInfo(WrAddr,
+		if (!(flags & XFPGA_ONLY_BIN_EN))
+			XFpga_GetBitstreamInfo(WrAddr,
 				&BitstreamAddress, &BitstreamSize);
+		else {
+			/* It provides the legacy full Bit-stream
+			 * loading support (Bit file without Headers).
+			 */
+			BitstreamAddress = WrAddr;
+			BitstreamSize	= *((UINTPTR *)(AddrPtr));
+		}
+
 		Status = XFpga_WriteToPcap(BitstreamSize/WORD_LEN,
 						BitstreamAddress);
 	}
 
 	if (Status != XFPGA_SUCCESS) {
 		xil_printf("FPGA fail to write Bit-stream into PL\n");
+		Status = XFPGA_ERROR_BITSTREAM_LOAD_FAIL;
 		goto END;
 	}
 
@@ -434,8 +452,8 @@ END:
 	RegVal = Xil_In32(PCAP_CLK_CTRL);
 	Xil_Out32(PCAP_CLK_CTRL, RegVal & ~(PCAP_CLK_EN_MASK) );
 #ifdef XFPGA_SECURE_MODE
-	if ((u8 *)(UINTPTR)KeyAddr != NULL)
-		memset((u8 *)(UINTPTR)KeyAddr, 0, KEY_LEN);
+	if ((u8 *)AddrPtr != NULL)
+		memset((u8 *)AddrPtr, 0, KEY_LEN);
 #endif
 	return Status;
 }
