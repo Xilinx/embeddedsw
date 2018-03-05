@@ -842,6 +842,8 @@ int Si570_DoSettings(u32 IICBaseAddress, u8 IICAddress1,
  * @param	IICBaseAddress contains the base address of the IIC master
  *		device.
  * @param	IICAddress1 contains the 7 bit IIC address of the Si5324 device.
+ * @param	RxRefClk is the input reference clock that can be either of
+ * 		FREQ_SI570_148_5_MHz, FREQ_SI570_148_35_MHz
  *
  * @return	SI5324_SUCCESS for success, SI5324_ERR_IIC for IIC access failure,
  *		SI5324_ERR_FREQ when the requested frequency cannot be generated,
