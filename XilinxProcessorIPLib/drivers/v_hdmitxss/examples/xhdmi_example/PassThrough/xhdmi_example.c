@@ -340,7 +340,9 @@ void XV_ConfigTpg(XV_tpg *InstancePtr)
 {
 	XV_tpg                *pTpg = InstancePtr;
 	XVidC_VideoStream     *HdmiTxSsVidStreamPtr;
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 	XHdmiC_AVI_InfoFrame  *AVIInfoFramePtr;
+#endif
 	
 	HdmiTxSsVidStreamPtr = XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
 
@@ -1500,8 +1502,6 @@ void RxStreamDownCallback(void *CallbackRef) {
 		 * if the system is in colorbar mode
 		 */
 		if (IsPassThrough) {
-		    /* Clear pass-through flag*/
-			IsPassThrough = (FALSE);
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 			ResetAuxFifo();
 			/* RX Stream Down happen due to 2 possible scenarios
@@ -1655,13 +1655,6 @@ void RxStreamUpCallback(void *CallbackRef) {
 
 	if (Status == XST_FAILURE) {
 		return;
-	}
-
-	// When the GT TX and RX are coupled, then start the TXPLL
-	if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
-		// Start TX MMCM
-		XVphy_MmcmStart(&Vphy, 0, XVPHY_DIR_TX);
-		usleep(10000);
 	}
 
 	//Disable the Colorbar
@@ -1905,6 +1898,13 @@ void StartTxAfterRx(void) {
 	/* Video Pattern Generator */
 	ResetTpg();
 	XV_ConfigTpg(&Tpg);
+
+	// When the GT TX and RX are coupled, then start the TXPLL
+	if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
+		// Start TX MMCM
+		XVphy_MmcmStart(&Vphy, 0, XVPHY_DIR_TX);
+		usleep(10000);
+	}
 
 	/* Enable TX TMDS Clock in bonded mode */
 	if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {

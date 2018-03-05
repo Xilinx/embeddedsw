@@ -811,8 +811,6 @@ void RxStreamDownCallback(void *CallbackRef) {
 		 * if the system is in colorbar mode
 		 */
 		if (IsPassThrough) {
-		    /* Clear pass-through flag*/
-			IsPassThrough = (FALSE);
 		}
 #endif
 
