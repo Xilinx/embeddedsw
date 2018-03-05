@@ -1,4 +1,4 @@
-/*****************************************************************************
+/*
 * Copyright (c) 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,9 +27,7 @@
 * in advertising or otherwise to promote the sale, use or other dealings in
 * this Software without prior written authorization from Xilinx.
 *
-
 *******************************************************************************/
-
 /*****************************************************************************/
 /**
  *
