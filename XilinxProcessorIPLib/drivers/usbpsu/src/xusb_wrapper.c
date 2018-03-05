@@ -113,11 +113,11 @@ void SetEpHandler(void *InstancePtr, u8 Epnum,
 	XUsbPsu_SetEpHandler((struct XUsbPsu *)InstancePtr, Epnum, Dir, Handler);
 }
 
-s32 SetupInterruptSystem(void *InstancePtr, u16 IntcDeviceID,
+s32 SetupInterruptSystem(void *InstancePtr, u16 IntcDeviceID,  u16 USBIntrID,
 			void *IntcInstancePtr)
 {
 	return XUsbPsu_SetupInterruptSystem((struct XUsbPsu *)InstancePtr,
-					IntcDeviceID, IntcInstancePtr);
+					IntcDeviceID, USBIntrID, IntcInstancePtr);
 }
 
 s32 Usb_Start(void *InstancePtr)

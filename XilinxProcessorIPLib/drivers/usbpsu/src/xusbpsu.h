@@ -745,7 +745,7 @@ s32 XUsbPsu_SetupScratchpad(struct XUsbPsu *InstancePtr);
 #endif
 
 s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
-			void *IntcInstancePtr);
+			u16 USBIntrID, void *IntcInstancePtr);
 
 /*
  * Functions in xusbpsu_sinit.c
