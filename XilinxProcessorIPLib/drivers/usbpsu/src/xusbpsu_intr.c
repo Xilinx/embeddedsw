@@ -594,7 +594,7 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 *
 *****************************************************************************/
 s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
-		void *IntcPtr)
+		u16 USB_INTR_ID, void *IntcPtr)
 {
 	/*
 	 * This below is done to remove warnings which occur when usbpsu

@@ -91,6 +91,18 @@ XIntc	InterruptController;	/*XIntc interrupt controller instance */
 XScuGic	InterruptController;	/* Interrupt controller instance */
 #endif
 
+#ifdef	XPAR_INTC_0_DEVICE_ID	/* MICROBLAZE */
+#define	INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define	USB_INTR_ID		XPAR_AXI_INTC_0_ZYNQ_ULTRA_PS_E_0_PS_PL_IRQ_USB3_0_ENDPOINT_0_INTR
+#elif	defined	PLATFORM_ZYNQMP	/* ZYNQMP */
+#define	INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define	USB_INTR_ID		XPAR_XUSBPS_0_INTR
+#define	USB_WAKEUP_INTR_ID	XPAR_XUSBPS_0_WAKE_INTR
+#else	/* OTHERS */
+#define	INTC_DEVICE_ID		0
+#define	USB_INTR_ID		0
+#endif
+
 /* Buffer for virtual flash disk space. */
 u8 VirtFlash[VFLASH_SIZE] ALIGNMENT_CACHELINE;
 
@@ -195,7 +207,7 @@ int main(void)
 
 	/* setup interrupts */
 	Status = SetupInterruptSystem(UsbInstance.PrivateData, INTC_DEVICE_ID,
-					(void *)&InterruptController);
+					USB_INTR_ID, (void *)&InterruptController);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
