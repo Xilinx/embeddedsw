@@ -310,7 +310,6 @@ void XV_ConfigTpg(XV_tpg *InstancePtr)
 {
 	XV_tpg                *pTpg = InstancePtr;
 	XVidC_VideoStream     *HdmiTxSsVidStreamPtr;
-	XHdmiC_AVI_InfoFrame  *AVIInfoFramePtr;
 	
 	HdmiTxSsVidStreamPtr = XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
 
@@ -1350,6 +1349,13 @@ void StartTxAfterRx(void) {
 	/* Video Pattern Generator */
 	ResetTpg();
 	XV_ConfigTpg(&Tpg);
+
+	// When the GT TX and RX are coupled, then start the TXPLL
+	if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
+		// Start TX MMCM
+		XVphy_MmcmStart(&Vphy, 0, XVPHY_DIR_TX);
+		usleep(10000);
+	}
 
 	/* Enable TX TMDS Clock in bonded mode */
 	if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
