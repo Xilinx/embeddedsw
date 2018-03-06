@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -76,6 +76,7 @@
 *                        for returning FAILURE on timeout.
 *       vns     07/28/16 Modified Bbram_ProgramKey_Ultra API to program control
 *                        word based on user inputs.
+* 6.4   vns     02/27/18 Added support for virtex and virtex ultrascale plus
 * </pre>
 *
 *
@@ -119,8 +120,12 @@ void dummy_printf(const char *ctrl1, ...);
 #define DEFAULT_FREQUENCY 10000000
 #define MAX_FREQUENCY 30000000
 #define ZYNQ_DAP_ID 0x4ba00477
-#define ULTRA_MB_DAP_ID 0x13822093 /**< Ultrascale microblaze TAP ID */
-#define ULTRAPLUS_DAP_ID 0x4A62093 /**< Ultrascale plus microblaze TAP ID */
+#define KINTEX_ULTRA_MB_DAP_ID 0x13822093 /**< Kintex Ultrascale microblaze TAP ID */
+#define KINTEX_ULTRAPLUS_DAP_ID 0x4A62093 /**< Kintex Ultrascale plus microblaze TAP ID */
+
+#define VIRTEX110_ULTRA_MB_DAP_ID 0x03931093	/**< VIRTEX 110 Ultrascale microblaze TAP id */
+#define VIRTEX108_ULTRA_MB_DAP_ID 0x23842093	/**< VIRTEX 108 Ultrascale microblaze TAP id */
+#define VIRTEX_ULTRAPLUS_DAP_ID	0x4b31093		/**< VIRTEX Ultrascale plus microblaze TAP id */
 
 #define set_last_error(JS, ...) js_set_last_error(&(JS)->js.base, __VA_ARGS__)
 
@@ -1361,11 +1366,14 @@ int JtagServerInit(XilSKey_EPl *InstancePtr)
 			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ZYNQ;
 			break;
 		}
-		if (tap_codes[i] == ULTRA_MB_DAP_ID) {
+		if ((tap_codes[i] == KINTEX_ULTRA_MB_DAP_ID) ||
+			(tap_codes[i] == VIRTEX108_ULTRA_MB_DAP_ID) ||
+			(tap_codes[i] == VIRTEX110_ULTRA_MB_DAP_ID)) {
 			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ULTRA;
 			break;
 		}
-		if (tap_codes[i] == ULTRAPLUS_DAP_ID) {
+		if ((tap_codes[i] == KINTEX_ULTRAPLUS_DAP_ID) ||
+			(tap_codes[i] == VIRTEX_ULTRAPLUS_DAP_ID)) {
 			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ULTRA_PLUS;
 			break;
 		}
@@ -1482,11 +1490,14 @@ int JtagServerInitBbram(XilSKey_Bbram *InstancePtr)
 			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ZYNQ;
 			break;
 		}
-		if (tap_codes[i] == ULTRA_MB_DAP_ID) {
+		if ((tap_codes[i] == KINTEX_ULTRA_MB_DAP_ID) ||
+			(tap_codes[i] == VIRTEX108_ULTRA_MB_DAP_ID) ||
+			(tap_codes[i] == VIRTEX110_ULTRA_MB_DAP_ID)) {
 			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ULTRA;
 			break;
 		}
-		if (tap_codes[i] == ULTRAPLUS_DAP_ID) {
+		if ((tap_codes[i] == KINTEX_ULTRAPLUS_DAP_ID) ||
+			(tap_codes[i] == VIRTEX_ULTRAPLUS_DAP_ID)) {
 			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ULTRA_PLUS;
 			break;
 		}
