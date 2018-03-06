@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2013 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,7 @@
 # 1.00a rpo  04/25/13 Initial Release
 # 3.00  vns  30/07/15 Added macro in xparameters.h based on the
 #                     processor
+# 6.4   vns  02/27/18 Added support for virtex and virtex ultrascale plus
 ##############################################################################
 
 #---------------------------------------------
@@ -82,11 +83,11 @@ proc xgen_opts_file {libhandle} {
 	if {$proc_type == "microblaze"} {
 		puts $file_handle "\n#define XPAR_XSK_MICROBLAZE_PLATFORM 1"
 		set mb_type [common::get_property CONFIG.C_FAMILY $hw_proc_handle]
-		if {$mb_type == "kintexuplus"} {
-			puts $file_handle "\n#define XPAR_XSK_MICROBLAZE_KINTEX_ULTRA_PLUS 1"
+		if {$mb_type == "kintexuplus" || $mb_type == "virtexuplus"} {
+			puts $file_handle "\n#define XPAR_XSK_MICROBLAZE_ULTRA_PLUS 1"
 		}
-		if {$mb_type == "kintexu"} {
-			puts $file_handle "\n#define XPAR_XSK_MICROBLAZE_KINTEX_ULTRA 1"
+		if {$mb_type == "kintexu" || $mb_type == "virtexu"} {
+			puts $file_handle "\n#define XPAR_XSK_MICROBLAZE_ULTRA 1"
 		}
 	}
 
