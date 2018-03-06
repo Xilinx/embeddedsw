@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -170,6 +170,8 @@
 * 4.00  vns     09/10/15 Added DFT JTAG disable and DFT MODE disable
 *                        programming and reading options for Zynq eFuse PS.
 * 6.0   vns     07/07/16 Added Gpio pin numbers connected to hardware module.
+* 6.4   vns     02/27/18 Added support for programming secure bit 6 -
+*                        enable obfuscation feature for eFUSE AES key
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -565,6 +567,15 @@ int main()
 		}else {
 			xil_printf("EfusePL status bits : Decryptor enabled\n\r");
 		}
+		if(PlStatus & (1 <<
+			XSK_EFUSEPL_STATUS_ENABLE_OBFUSCATED_EFUSE_KEY)) {
+			xil_printf("EfusePL status bits :"
+			" Enabled obfucation feature for eFUSE AES key\n\r");
+		}
+		else {
+			xil_printf("EfusePL status bits :"
+				" Obfuscation disabled\n\r");
+		}
 
 	}
 
@@ -875,7 +886,7 @@ u32 XilSKey_EfusePl_InitData(XilSKey_EPl *PlInstancePtr)
 	PlInstancePtr->JtagDisable = XSK_EFUSEPL_DISABLE_JTAG_CHAIN;
 	PlInstancePtr->IntTestAccessDisable = XSK_EFUSEPL_DISABLE_TEST_ACCESS;
 	PlInstancePtr->DecoderDisable = XSK_EFUSEPL_DISABLE_AES_DECRYPTOR;
-
+	PlInstancePtr->FuseObfusEn = XSK_EFUSEPL_ENABLE_OBFUSCATION_EFUSEAES;
 
 	PlInstancePtr->ProgAESKeyUltra = XSK_EFUSEPL_PROGRAM_AES_KEY;
 	PlInstancePtr->ProgUserKeyUltra = XSK_EFUSEPL_PROGRAM_USER_KEY;

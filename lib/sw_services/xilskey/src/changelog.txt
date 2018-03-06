@@ -122,5 +122,8 @@
 *                      XilSKey_ZynqMp_EfusePs_Write(), on successul programming
 *                      of all requested efuse bits updated efuse can directly
 *                      read from eufse cache.
+*        vns  02/27/18 Added support for virtex ultrascale and untrascale plus
+*                      Provided efuse secure bit(obfuscation enable feature)
+*                      programming support for ultrascale and untrascale plus.
 *
  ********************************************************************************/
