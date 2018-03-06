@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -282,6 +282,12 @@
 *	TRUE will disables decoder completely.
 *	FALSE will not modify this secure bit of eFuse.
 *
+*	#define XSK_EFUSEPL_ENABLE_OBFUSCATION_EFUSEAES	FALSE
+*	TRUE will enable obfuscation feature for eFUSE AES key,
+*	this instructs the device to decode the eFUSE AES key
+*	to actual AES key before decrypting the bitstream.
+*	FALSE will not modify this secure bit of eFUSE.
+*
 *	In Ultrascale GPIO pins used for connecting MASTER_JTAG pins and
 *	hardware module to access eFUSE.
 *	Following are the GPIO pins and user can change these pins
@@ -432,6 +438,8 @@
 *                        eFUSE PL and they already exist at eFUSE PL
 *                        configurations (XSK_EFUSEPL_FORCE_PCYCLE_RECONFIG and
 *                        XSK_EFUSEPL_DISABLE_JTAG_CHAIN)
+* 6.4   vns     02/27/18 Added support for programming secure bit -
+*                        enable obfuscation feature for eFUSE AES key
 *
 * </pre>
 *
@@ -632,6 +640,11 @@ extern "C" {
 #define	XSK_EFUSEPL_DISABLE_AES_DECRYPTOR	FALSE	/**< If TRUE will
 							  *  Disable AES decryptor
 							  */
+#define XSK_EFUSEPL_ENABLE_OBFUSCATION_EFUSEAES	FALSE	/**< If TRUE will
+							 * enable obfuscation
+							 * feature for eFUSE's
+							 * AES key
+							 */
 
 /**
  * Following defines should be given in decimal/hexa-decimal values.
