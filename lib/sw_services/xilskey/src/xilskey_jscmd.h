@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -204,6 +204,10 @@ typedef struct {
 	 * Enable RSA authentication in ultrascale
 	 */
 	u32 RSAEnable;		/* only for Ultrascale */
+	/*
+	 * Enable Obfuscated feature for decryption of eFUSE AES
+	 */
+	u32 FuseObfusEn;	/* only for Ultrascale */
 	/**
 	 * Following is the define to select if the user wants to select AES key
 	 * and User Low Key for Zynq
