@@ -126,10 +126,15 @@ static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 	(void)priv;
 	(void)src;
 
-	if (!buffer_push(data, len)) {
-		LPERROR("cannot save data\n");
-	} else {
-		evt_have_data =1;
+	/* On reception of a shutdown we signal the application to terminate */
+	if ((*(unsigned int *)data) == SHUTDOWN_MSG) {
+		evt_chnl_deleted = 1;
+		return;
+	}
+
+	/* Send data back to master */
+	if (rpmsg_send(rp_chnl, data, len) < 0) {
+		LPERROR("rpmsg_send failed\n");
 	}
 }
 
@@ -173,24 +178,9 @@ int app(struct hil_proc *hproc)
 	while (1) {
 		hil_poll(proc->proc, 0);
 
-		if (evt_have_data) {
-			void *data;
-			int len;
-
-			evt_have_data = 0;
-
-			buffer_pull(&data, &len);
-
-			/* If we get a shutdown request we will stop and end this task */
-			if ((*(unsigned int *)data == SHUTDOWN_MSG) ||
-			    (evt_chnl_deleted)) {
-				break;
-			}
-
-			/* Send data back to master*/
-			if (rpmsg_send(app_rp_chnl, data, len) < 0) {
-				LPERROR("rpmsg_send failed\n");
-			}
+		/* we got a shutdown request, exit */
+		if (evt_chnl_deleted) {
+			break;
 		}
 
 		if (evt_virtio_rst) {
