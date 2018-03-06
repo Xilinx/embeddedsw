@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -35,11 +35,22 @@
 * @file		 xilsecure_aes_example.c
 * @addtogroup xsecure_apis XilSecure AES APIs
 * @{
-* This example illustrates AES usage for decryption of a boot image.
+* This example illustrates AES usage for decryption of a encrypted
+* partition created by bootgen.
 *
 * @note
-* This example requires downloading an encrypted boot image without PMU
-* firmware to a location in DDR memory.
+* This example requires downloading an encrypted single partition image
+* to 0x04000000 in DDR memory.
+*
+* Example bif is:
+* //arch = zynqmp; split = false; format = BIN
+* the_ROM_image:
+* {
+*	[aeskeyfile]aes.nky
+*	[keysrc_encryption]kup_key
+*	[encryption = aes]data.bin
+* }
+*
 * Following key and IV should be provided in .nky file while creating
 * the boot image:
 * Key 0  f878b838d8589818e868a828c8488808f070b030d0509010e060a020c0408000;
@@ -53,6 +64,8 @@
 * 2.0   vns    01/17/17 For CR-964195 added required .nky fields
 *                       in the comments, also print for decryption failure.
 * 2.2   vns    07/06/16 Added doxygen tags
+* 3.0   vns    02/27/18 Modified example to decrypt the single partition
+*                       image instead of FSBL partition in boot image.
 *
 * </pre>
 ******************************************************************************/
@@ -77,18 +90,26 @@ static const u8 csu_key[] = {
 /*
  * the hard coded iv used for decryption secure header and block 0
  */
-static const u8 csu_iv[] = {
+u8 csu_iv[] = {
  0xD2, 0x45, 0x0E, 0x07, 0xEA, 0x5D, 0xE0, 0x42, 0x6C, 0x0F, 0xA1, 0x33,
  0x00, 0x00, 0x00, 0x00
 };
 
 static u32 ImageOffset = 0x04000000;
-static u32 HeaderSrcOffset = 0x030;
-static u32 HeaderFsblLenOffset = 0x03C;
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
+#define XSECURE_BHDR_PH_OFFSET			0x9C
+#define XSECURE_PH_PARTITION_OFFSET		0x20
+#define XSECURE_PH_PARTITION_LEN_OFFSET		0x04
+#define XSECURE_PH_PARTITION_IV_OFFSET		0x38
+#define XSECURE_PH_PARTITION_IV_MASK		0xFF
+
+#define XSECURE_WORD_MUL			0x4
+#define XSECURE_IV_INDEX			0x3
+
 
 /************************** Function Prototypes ******************************/
 
@@ -131,11 +152,10 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* This function decrypts the FSBL from an encrypted boot image located in DDR.
-* The resulting FSBL will be stored in FSBL at a higher offset
-* The purpose of this function is to illustrate how to use the XSecure_Aes
-* driver.
-*
+* This function decrypts the partition of single partition image located at
+* DDR location. The purpose of this function is to illustrate how to use
+* the XSecure_Aes driver to decrypt the encrypted partition created using
+* bootgen.
 *
 * @return
 *		- XST_FAILURE if the Aes decryption failed.
@@ -151,6 +171,9 @@ int SecureAesExample(void)
 	XCsuDma_Config *Config;
 
 	int Status;
+	u32 PhOffset;
+	u32 PartitionOffset;
+	u32 PartitionLen;
 
 	Config = XCsuDma_LookupConfig(0);
 	if (NULL == Config) {
@@ -163,26 +186,27 @@ int SecureAesExample(void)
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Download the boot image elf in DDR, Read the boot header
-	 * assign Src pointer to the location of FSBL image in it. Ensure
-	 * that linker script does not map the example elf to the same
-	 * location as this standalone example
-	 */
-	u32 FsblOffset = XSecure_In32((UINTPTR)(ImageOffset + HeaderSrcOffset));
+	/* Read partition offset and length from partition header */
+	PhOffset = XSecure_In32((UINTPTR)(ImageOffset +
+				XSECURE_BHDR_PH_OFFSET));
+	PartitionOffset = (XSecure_In32((UINTPTR)(ImageOffset + PhOffset +
+			XSECURE_PH_PARTITION_OFFSET)) * XSECURE_WORD_MUL);
+	PartitionLen = (XSecure_In32((UINTPTR)(ImageOffset + PhOffset +
+			XSECURE_PH_PARTITION_LEN_OFFSET)) * XSECURE_WORD_MUL);
 
-	u32 FsblLocation = ImageOffset + FsblOffset;
-
-	u32 FsblLength = XSecure_In32((UINTPTR)(ImageOffset + HeaderFsblLenOffset));
-
+	*(csu_iv + XSECURE_IV_INDEX) =	(*(csu_iv + XSECURE_IV_INDEX)) +
+			(XSecure_In32((UINTPTR)(ImageOffset + PhOffset +
+				XSECURE_PH_PARTITION_IV_OFFSET)) &
+				XSECURE_PH_PARTITION_IV_MASK);
 	/*
 	 * Initialize the Aes driver so that it's ready to use
 	 */
 	XSecure_AesInitialize(&Secure_Aes, &CsuDma, XSECURE_CSU_AES_KEY_SRC_KUP,
 			                           (u32 *)csu_iv, (u32 *)csu_key);
 
-	Status = XSecure_AesDecrypt(&Secure_Aes, Dst, (u8 *)(UINTPTR)FsblLocation,
-						FsblLength);
+	Status = XSecure_AesDecrypt(&Secure_Aes, Dst,
+			(u8 *)(UINTPTR)(ImageOffset + PartitionOffset),
+						PartitionLen);
 
 
 	if(Status != XST_SUCCESS)
