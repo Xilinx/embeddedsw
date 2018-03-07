@@ -157,7 +157,7 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 		PpkModular, PpkModularEx, PpkExp);
 		XFsbl_PrintArray(DEBUG_DETAILED, PpkModular, XFSBL_PPK_MOD_SIZE, "Ppk Modular");
 		XFsbl_PrintArray(DEBUG_DETAILED, PpkModularEx, XFSBL_PPK_MOD_EXT_SIZE, "Ppk ModularEx");
-		XFsbl_PrintArray(DEBUG_DETAILED, PpkExp, XFSBL_RSA_AC_ALIGN, "PpkExp");
+		XFsbl_Printf(DEBUG_DETAILED, "Ppk Exp = %x\n\r", PpkExp);
 	}
 
 	/* Set SPK Signature pointer */
@@ -336,7 +336,7 @@ static u32 XFsbl_PartitionSignVer(const XFsblPs *FsblInstancePtr, u64 PartitionO
 		SpkModular, SpkModularEx, SpkExp);
 		XFsbl_PrintArray(DEBUG_DETAILED, SpkModular, XFSBL_SPK_MOD_SIZE, "Spk Modular");
 		XFsbl_PrintArray(DEBUG_DETAILED, SpkModularEx, XFSBL_SPK_MOD_EXT_SIZE, "Spk ModularEx");
-		XFsbl_PrintArray(DEBUG_DETAILED, SpkExp, XFSBL_RSA_AC_ALIGN, "Spk Exp");
+		XFsbl_Printf(DEBUG_DETAILED, "Spk Exp %x\n\r", SpkExp);
 	}
 	XFsbl_Printf(DEBUG_INFO,
 			"Partition Verification done \r\n");
