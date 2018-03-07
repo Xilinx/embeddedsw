@@ -48,6 +48,7 @@
 * 3.0   vns  09/08/17 Added eFUSE secure control register masks for PPK revoke
 * 4.0   vns  02/02/18 Added warning message to notify SHA2 support
 *                     deprecation in future releases.
+*       vns  03/07/18 Added ENC_ONLY mask
 *
 * </pre>
 *
@@ -174,6 +175,7 @@ extern "C" {
  * Register: EFUSE_SEC_CTRL
  */
 #define EFUSE_SEC_CTRL    ( ( EFUSE_BASEADDR ) + 0X00001058U )
+#define EFUSE_SEC_CTRL_ENC_ONLY_MASK  0x00000004U
 #define EFUSE_SEC_CTRL_RSA_EN_MASK    0X03000000U
 #define EFUSE_SEC_CTRL_PPK0_RVK_MASK  0x18000000U
 #define EFUSE_SEC_CTRL_PPK1_RVK_MASK  0xC0000000U
@@ -885,6 +887,14 @@ extern "C" {
 /* Definition for PL clear include irrespective of boot image has bitstream or not */
 #if !defined(FSBL_PL_CLEAR_EXCLUDE)
 #define XFSBL_PL_CLEAR
+#endif
+
+/*
+ * Definition for forcing encryption for each partition
+ * when ENC_ONLY FUSE bit is blown
+ */
+#if !defined(FSBL_FORCE_ENC_EXCLUDE)
+#define XFSBL_FORCE_ENC
 #endif
 
 #define XFSBL_QSPI_LINEAR_BASE_ADDRESS_START		(0xC0000000U)
