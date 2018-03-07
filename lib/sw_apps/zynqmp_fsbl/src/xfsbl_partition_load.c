@@ -56,6 +56,11 @@
 * 3.0   vns  01/03/18 Modified XFsbl_PartitionValidation() API, for each
 *                     partition by adding IV of LSB 8 bits with 8 bits of
 *                     IV from XFsblPs_PartitionHeader structure.
+*       vns  03/07/18 Iv copying is limited to only once from boot header,
+*                     and is used for every partition, In authentication case
+*                     we are using IV from authenticated header(copied to
+*                     internal memory), using same way for non authenticated
+*                     case as well.
 *
 * </pre>
 *
@@ -119,6 +124,7 @@ static void XFsbl_SetR5ExcepVectorLoVec(void);
 #endif
 
 #ifdef XFSBL_SECURE
+u32 Iv[XIH_BH_IV_LENGTH / 4U] = { 0 };
 u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE]__attribute__ ((aligned (4))) = {0};
 #ifdef XFSBL_BS
 u8 HashsOfChunks[HASH_BUFFER_SIZE] __attribute__((section (".bitstream_buffer")));
@@ -1110,7 +1116,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	u32 FsblIv[XIH_BH_IV_LENGTH / 4U] = { 0 };
 	u8 *IvPtr = (u8 *)&FsblIv[2];
 	u32 UnencryptedLength = 0U;
-	u32 IvLocation;
 	u32 Length;
 	static XSecure_Aes SecureAes;
 #ifdef XFSBL_BS
@@ -1149,19 +1154,8 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		IsEncryptionEnabled = TRUE;
 
 #ifdef XFSBL_SECURE
-		/* Copy the Iv from Flash into local memory */
-		IvLocation = FsblInstancePtr->ImageOffsetAddress +
-						XIH_BH_IV_OFFSET;
-
-		Status = FsblInstancePtr->DeviceOps.DeviceCopy(IvLocation,
-				(PTRSIZE) FsblIv, XIH_BH_IV_LENGTH);
-
-		if (Status != XFSBL_SUCCESS) {
-			XFsbl_Printf(DEBUG_GENERAL,
-					"XFSBL_ERROR_DECRYPTION_IV_COPY_FAIL \r\n");
-			Status = XFSBL_ERROR_DECRYPTION_IV_COPY_FAIL;
-			goto END;
-		}
+		/* Copy IV to local variable */
+		XFsbl_MemCpy(FsblIv, Iv, XIH_BH_IV_LENGTH);
 		/* Updating IV of the partition by taking from partition header */
 		*(IvPtr + 3) = (*(IvPtr + 3)) +
 				(PartitionHeader->Iv & XFSBL_PARTITION_IV_MASK);
