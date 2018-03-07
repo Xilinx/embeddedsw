@@ -438,7 +438,6 @@ static void  XAVBuf_ConfigureExtDivider(XAVBuf_Pll *PllInstancePtr,
 	XAVBuf_ReadModifyWriteReg(BaseAddress, Offset,
 		XAVBUF_VIDEO_REF_CTRL_CLKACT_MASK,
 		XAVBUF_VIDEO_REF_CTRL_CLKACT_SHIFT, XAVBUF_ENABLE_BIT);
-	XAVBuf_WriteReg(BaseAddress, Offset, 0x1011003);
 }
 
 /******************************************************************************/
