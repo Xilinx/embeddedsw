@@ -48,6 +48,7 @@ version.It fixes CR#990995.
 Export platform macros to xparameters.h based on processor.
 Added interrupt handler API's for A9, A53, R5.
 Added support for ttc in microblaze systems
+Fixed compilation warnings related to interrupt handling API's
 
 freertos_lwip_udp_perf_client and freertos_lwip_udp_perf_server:
 Added new SW apps for freertos UDP performance tests.
