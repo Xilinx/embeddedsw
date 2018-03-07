@@ -49,6 +49,13 @@
 * 4.0   vns  01/23/18 Added KECCAK SHA3 padding selection for SPK signature
 *                     verification and PPK hash caclulation, however partition
 *                     will be authenticated with NIST SHA3 padding
+*       vns  03/07/18 Added API to do boot header authentication, removed
+*                     PPK verification for every partition instead saving
+*                     PPK key at the time of boot header authentication,
+*                     Modified XFsbl_PpkSpkIdVer to XFsbl_PpkVer which
+*                     takes care of PPK revocation checks as well and
+*                     Modified XFsbl_ReadPpkHashSpkID to XFsbl_ReadPpkHash
+*                     as SPK ID reading and verification moved to XFsbl_SpkVer.
 *
 * </pre>
 *
@@ -64,8 +71,8 @@
 #include "xfsbl_csu_dma.h"
 
 u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen);
-u32 XFsbl_PpkSpkIdVer(u64 AcOffset, u32 HashLen);
-void XFsbl_ReadPpkHashSpkID(u32 *PpkHash, u8 PpkSelect, u32 *SpkId);
+u32 XFsbl_PpkVer(u64 AcOffset, u32 HashLen);
+void XFsbl_ReadPpkHash(u32 *PpkHash, u8 PpkSelect);
 /*****************************************************************************/
 
 static XSecure_Rsa SecureRsa;
@@ -74,8 +81,7 @@ static XSecure_Rsa SecureRsa;
 extern u8 ReadBuffer[READ_BUFFER_SIZE];
 #endif
 
-u8 EfusePpkHash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4)))={0U};
-u8 EfuseSpkID[XFSBL_SPKID_AC_ALIGN]={0U};
+u8 EfusePpkKey[XFSBL_PPK_SIZE]__attribute__ ((aligned (32))) = {0U};
 
 /*****************************************************************************/
 /**
@@ -89,6 +95,9 @@ u8 EfuseSpkID[XFSBL_SPKID_AC_ALIGN]={0U};
  *
  * @return
  *
+ * @note	This function uses verified PPK key but not from current
+ * 		authentication certificate. Also checks SPK revocation if it
+ *		is not boot header authentication.
  ******************************************************************************/
 u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 {
@@ -101,6 +110,10 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 	u32 Status;
 	void * ShaCtx = (void * )NULL;
 	u8 XFsbl_RsaSha3Array[512] = {0};
+	u8 *PpkKey = EfusePpkKey;
+	u32 EfuseRsa = XFsbl_In32(EFUSE_SEC_CTRL);
+	u32 EfuseSpkId;
+	u32 *SpkId = (u32 *)(AcPtr + XFSBL_SPKID_AC_ALIGN);
 
 #ifdef XFSBL_SHA2
 	sha2_context ShaCtxObj;
@@ -124,15 +137,19 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 	/* Hash the PPK + SPK choice */
 	XFsbl_ShaUpdate(ShaCtx, AcPtr, 8, HashLen);
 
+	/* Calculate SPK + Auth header Hash */
+	XFsbl_ShaUpdate(ShaCtx, (u8 *)(AcPtr + XFSBL_AUTH_CERT_SPK_OFFSET),
+					XFSBL_SPK_SIZE, HashLen);
+
+	XFsbl_ShaFinish(ShaCtx, (u8 *)SpkHash, HashLen);
+
 	/* Set PPK pointer */
-	AcPtr += XFSBL_RSA_AC_ALIGN;
-	PpkModular = (u8 *)AcPtr;
-	AcPtr += XFSBL_PPK_MOD_SIZE;
-	PpkModularEx = AcPtr;
-	AcPtr += XFSBL_PPK_MOD_EXT_SIZE;
-	PpkExp = *((u32 *)AcPtr);
-	PpkExpPtr = AcPtr;
-	AcPtr += XFSBL_RSA_AC_ALIGN;
+	PpkModular = (u8 *)PpkKey;
+	PpkKey += XFSBL_PPK_MOD_SIZE;
+	PpkModularEx = PpkKey;
+	PpkKey += XFSBL_PPK_MOD_EXT_SIZE;
+	PpkExp = *((u32 *)PpkKey);
+	PpkExpPtr = PpkKey;
 
 	if((PpkModular != NULL) && (PpkModularEx != NULL)) {
 	XFsbl_Printf(DEBUG_DETAILED,
@@ -143,14 +160,7 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 		XFsbl_PrintArray(DEBUG_DETAILED, PpkExp, XFSBL_RSA_AC_ALIGN, "PpkExp");
 	}
 
-	/* Calculate SPK + Auth header Hash */
-	XFsbl_ShaUpdate(ShaCtx, (u8 *)AcPtr, XFSBL_SPK_SIZE, HashLen);
-
-	XFsbl_ShaFinish(ShaCtx, (u8 *)SpkHash, HashLen);
-
 	/* Set SPK Signature pointer */
-	AcPtr += XFSBL_SPK_SIZE;
-
 	if(PpkExpPtr!=NULL) {
 		Status = (u32)XSecure_RsaInitialize(&SecureRsa, PpkModular,
 			PpkModularEx, PpkExpPtr);
@@ -166,8 +176,8 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 		goto END;
 	}
 	/* Decrypt SPK Signature */
-	if(XFSBL_SUCCESS !=
-		XSecure_RsaDecrypt(&SecureRsa, AcPtr, XFsbl_RsaSha3Array))
+	if(XFSBL_SUCCESS != XSecure_RsaDecrypt(&SecureRsa,
+		AcPtr + XFSBL_AUTH_CERT_SPK_SIG_OFFSET, XFsbl_RsaSha3Array))
 	{
 		XFsbl_Printf(DEBUG_GENERAL,
 			"XFsbl_SpkVer: XFSBL_ERROR_SPK_RSA_DECRYPT\r\n");
@@ -187,6 +197,23 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 			"XFsbl_SpkVer: XFSBL_ERROR_SPK_SIGNATURE\r\n");
 		Status = XFSBL_ERROR_SPK_SIGNATURE;
 	}
+
+	/* SPK revocation check */
+	if ((EfuseRsa & EFUSE_SEC_CTRL_RSA_EN_MASK) != 0x00) {
+		EfuseSpkId = Xil_In32(EFUSE_SPKID);
+		if (EfuseSpkId != *SpkId) {
+			Status = XFSBL_ERROR_SPKID_VERIFICATION;
+			XFsbl_Printf(DEBUG_INFO,
+				"Image's SPK ID : %x\n\r", SpkId);
+			XFsbl_Printf(DEBUG_INFO,
+				"eFUSE SPK ID: %x\n\r", EfuseSpkId);
+			XFsbl_Printf(DEBUG_GENERAL,
+				"XFsbl_PartVer: "
+				"XFSBL_ERROR_SPKID_VERIFICATION\r\n");
+			goto END;
+		}
+	}
+
 
 END:
 	return Status;
@@ -363,9 +390,6 @@ u32 XFsbl_Authentication(const XFsblPs * FsblInstancePtr, u64 PartitionOffset,
 {
         u32 Status;
         u32 HashLen;
-        u8 *AcPtr = (u8*)(PTRSIZE)AcOffset;
-        u32 EfuseRsaEn = XFsbl_In32(EFUSE_SEC_CTRL) &
-				EFUSE_SEC_CTRL_RSA_EN_MASK;
 
 	/* Get the Sha type to be used from boot header attributes */
 	if ((FsblInstancePtr->BootHdrAttributes &
@@ -383,46 +407,6 @@ u32 XFsbl_Authentication(const XFsblPs * FsblInstancePtr, u64 PartitionOffset,
 		" AcOffset %0x, HashLen %0x\r\n",
 		(PTRSIZE )PartitionOffset, PartitionLen,
 		(PTRSIZE )AcOffset, HashLen);
-
-	/*
-	 * Partition zero represents the secure header
-	 * when authentication is enabled, PPK hash
-	 * and SPK ID programmed on eFUSE will be read
-	 * and stored in buffer when RSA bit is burn
-	 */
-	if ((PartitionNum == 0x00U) && (EfuseRsaEn != 0x00U)) {
-		if ((*(u32 *)(AcPtr)
-			& XIH_AC_ATTRB_PPK_SELECT_MASK) == 0x00U) {
-			/* PPK revoke check */
-			if ((Xil_In32(EFUSE_SEC_CTRL) &
-					EFUSE_SEC_CTRL_PPK0_RVK_MASK) != 0x00) {
-				Status = XSFBL_ERROR_PPK_SELECT_ISREVOKED;
-				goto END;
-			}
-			/* PPK 0 */
-			XFsbl_ReadPpkHashSpkID((u32 *)EfusePpkHash,
-					0U, (u32 *)EfuseSpkID);
-		}
-		else {
-			/* PPK revoke check */
-			if ((Xil_In32(EFUSE_SEC_CTRL) &
-					EFUSE_SEC_CTRL_PPK1_RVK_MASK) != 0x00) {
-				Status = XSFBL_ERROR_PPK_SELECT_ISREVOKED;
-				goto END;
-			}
-			/* PPK 1 */
-			XFsbl_ReadPpkHashSpkID((u32 *)EfusePpkHash,
-					1U, (u32 *)EfuseSpkID);
-		}
-	}
-	/* PPK hash and SPK ID verification when eFUSE RSA bit is programmed */
-	if (EfuseRsaEn != 0x00U) {
-		Status = XFsbl_PpkSpkIdVer(AcOffset, HashLen);
-		if (Status != XFSBL_SUCCESS) {
-			goto END;
-		}
-	}
-
         /* Do SPK Signature verification using PPK */
         Status = XFsbl_SpkVer(AcOffset, HashLen);
 
@@ -535,15 +519,13 @@ END:
 *		PPK hash in.
 * @param	PpkSelect is a u8 variable which has to be provided by user
 *		based on this input reading is happens from efuse PPK0 or PPK1
-* @param	SpKId is a pointer to an array in which SPKID from eFUSE will
-*			stored.
 *
 * @return	None.
 *
 * @note		None.
 *
 ******************************************************************************/
-void XFsbl_ReadPpkHashSpkID(u32 *PpkHash, u8 PpkSelect, u32 *SpkId)
+void XFsbl_ReadPpkHash(u32 *PpkHash, u8 PpkSelect)
 {
 	s32 RegNum;
 	u32 *DataRead = PpkHash;
@@ -561,14 +543,11 @@ void XFsbl_ReadPpkHashSpkID(u32 *PpkHash, u8 PpkSelect, u32 *SpkId)
 		}
 	}
 
-	/* Reading SPK ID */
-	*SpkId = Xil_In32(EFUSE_SPKID);
-
 }
 
 /*****************************************************************************/
 /*
-* This function is used to verify PPK hash and SPK ID of the partition with
+* This function is used to verify PPK hash with
 * the values stored on eFUSE.
 *
 * @param	AcOffset is the Authentication certificate offset which has
@@ -580,17 +559,39 @@ void XFsbl_ReadPpkHashSpkID(u32 *PpkHash, u8 PpkSelect, u32 *SpkId)
 * @note		None.
 *
 ******************************************************************************/
-u32 XFsbl_PpkSpkIdVer(u64 AcOffset, u32 HashLen)
+u32 XFsbl_PpkVer(u64 AcOffset, u32 HashLen)
 {
 	u8 PpkHash[XFSBL_HASH_TYPE_SHA3]
 			   __attribute__ ((aligned (4)));
 	void * ShaCtx = (void * )NULL;
 	u8 * AcPtr = (u8*) (PTRSIZE) AcOffset;
 	u32 Status = XFSBL_SUCCESS;
-	u8 *SpkId = (u8 *)(AcPtr + XFSBL_SPKID_AC_ALIGN);
-	u32 *SpkIdEfuse = (u32 *)EfuseSpkID;
+	u8 EfusePpkHash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4)))={0U};
 
 	(void)memset(PpkHash,0U,sizeof(PpkHash));
+
+	if ((*(u32 *)(AcPtr)
+			& XIH_AC_ATTRB_PPK_SELECT_MASK) == 0x00U) {
+		/* PPK revoke check */
+		if ((Xil_In32(EFUSE_SEC_CTRL) &
+			EFUSE_SEC_CTRL_PPK0_RVK_MASK) != 0x00) {
+			Status = XSFBL_ERROR_PPK_SELECT_ISREVOKED;
+			goto END;
+		}
+		/* PPK 0 */
+		XFsbl_ReadPpkHash((u32 *)EfusePpkHash, 0U);
+	}
+	else {
+		/* PPK revoke check */
+		if ((Xil_In32(EFUSE_SEC_CTRL) &
+			EFUSE_SEC_CTRL_PPK1_RVK_MASK) != 0x00) {
+			Status = XSFBL_ERROR_PPK_SELECT_ISREVOKED;
+			goto END;
+		}
+		/* PPK 1 */
+			XFsbl_ReadPpkHash((u32 *)EfusePpkHash, 1U);
+	}
+
 
 	/* Hash calculation on PPK */
 	(void)XFsbl_ShaStart(ShaCtx, HashLen);
@@ -606,7 +607,7 @@ u32 XFsbl_PpkSpkIdVer(u64 AcOffset, u32 HashLen)
 	XFsbl_ShaFinish(ShaCtx, (u8 *)PpkHash, HashLen);
 
 	/* Compare hashs */
-	Status = XFsbl_CompareHashs(PpkHash, EfusePpkHash);
+	Status = XFsbl_CompareHashs(PpkHash, EfusePpkHash, HashLen);
 	if (Status != XFSBL_SUCCESS) {
 		Status = XFSBL_ERROR_PPK_VERIFICATION;
 		XFsbl_PrintArray(DEBUG_INFO, PpkHash,
@@ -617,17 +618,6 @@ u32 XFsbl_PpkSpkIdVer(u64 AcOffset, u32 HashLen)
 			"XFsbl_PartVer: XFSBL_ERROR_PPK_VERIFICATION\r\n");
 		goto END;
 
-	}
-	/* Compare SPK ID */
-	if (*SpkIdEfuse !=  *(u32 *)SpkId) {
-		Status = XFSBL_ERROR_SPKID_VERIFICATION;
-		XFsbl_PrintArray(DEBUG_INFO, SpkId,
-			XFSBL_SPKID_AC_ALIGN, "Image's SPK ID");
-		XFsbl_PrintArray(DEBUG_INFO, EfuseSpkID,
-			XFSBL_SPKID_AC_ALIGN, "eFUSE SPK ID");
-		XFsbl_Printf(DEBUG_GENERAL,
-			"XFsbl_PartVer: XFSBL_ERROR_SPKID_VERIFICATION\r\n");
-		goto END;
 	}
 
 END:
@@ -650,19 +640,175 @@ END:
 * @note		None.
 *
 ******************************************************************************/
-u32 XFsbl_CompareHashs(u8 *Hash1, u8 *Hash2)
+u32 XFsbl_CompareHashs(u8 *Hash1, u8 *Hash2, u32 HashLen)
 {
 	u8 Index;
 	u32 *HashOne = (u32 *)Hash1;
 	u32 *HashTwo = (u32 *)Hash2;
 
-	for (Index = 0; Index < XFSBL_HASH_TYPE_SHA3/4; Index++) {
+	for (Index = 0; Index < HashLen/4; Index++) {
 		if (HashOne[Index] != HashTwo[Index]) {
 			return XFSBL_FAILURE;
 		}
 	}
 
 	return XFSBL_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * This function performs authentication of boot header.
+ *
+ * @param	FsblInstancePtr is an pointer to FSBL instance
+ * @param	Data is pointer to boot header buffer.
+ * @param	AcOffset is the address of authentication certificate
+ * @param	IsEfuseRsa variable tells whether RSA bit of eFUSE is enabled
+ * 		or not
+ *
+ * @return	XFSBL_SCUCCESS on success
+ *
+ * @note	This API also copies PPK key to internal buffer for other
+ *		partitions.
+ *
+ ******************************************************************************/
+u32 XFsbl_BhAuthentication(const XFsblPs * FsblInstancePtr, u8 *Data,
+					u64 AcOffset, u8 IsEfuseRsa)
+{
+	u32 Status = XST_SUCCESS;
+	u32 HashLen;
+	void * ShaCtx = (void * )NULL;
+	u32 SizeofBH;
+	u8 BhHash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4)))={0};
+	u8 * SpkModular;
+	u8* SpkModularEx;
+	u32 SpkExp;
+	u8 XFsbl_RsaSha3Array[512] = {0};
+	u8 * AcPtr = (u8*) (PTRSIZE) AcOffset;
+
+#ifdef XFSBL_SHA2
+	sha2_context ShaCtxObj;
+	ShaCtx = &ShaCtxObj;
+#endif
+	/* Get the Sha type to be used from boot header attributes */
+	if ((FsblInstancePtr->BootHdrAttributes &
+				XIH_BH_IMAGE_ATTRB_SHA2_MASK) ==
+				XIH_BH_IMAGE_ATTRB_SHA2_MASK) {
+			HashLen = XFSBL_HASH_TYPE_SHA2;
+	}
+	else{
+		HashLen = XFSBL_HASH_TYPE_SHA3;
+	}
+
+	/* Size of Boot header */
+	if ((FsblInstancePtr->BootHdrAttributes &
+		XIH_BH_IMAGE_ATTRB_PUF_BH_MASK) != 0x00) {
+		SizeofBH = XIH_BH_MAX_SIZE;
+	}
+	else {
+		SizeofBH = XIH_BH_MIN_SIZE;
+	}
+
+	/* Initialize CSU DMA driver */
+	Status = XFsbl_CsuDmaInit();
+	if (XFSBL_SUCCESS != Status) {
+		goto END;
+	}
+
+	/* If EFUSE RSA enabled verify PPK */
+	if (IsEfuseRsa != 0x00U) {
+		Status = XFsbl_PpkVer(AcOffset, HashLen);
+		if (Status != XFSBL_SUCCESS) {
+			XFsbl_Printf(DEBUG_GENERAL,
+				"XFsbl_BhAuthentication:"
+				" Error in PPK verification\r\n");
+			goto END;
+		}
+	}
+
+	/* Copy PPK to global variable for future use */
+	XFsbl_MemCpy(EfusePpkKey, AcPtr + XFSBL_AUTH_CERT_PPK_OFFSET,
+						XFSBL_PPK_SIZE);
+
+	/* SPK verify */
+	Status = XFsbl_SpkVer(AcOffset, HashLen);
+	if (Status != XFSBL_SUCCESS) {
+		goto END;
+	}
+
+	/* Authentication of boot header */
+
+	/* Initialize Sha and RSA instances */
+	(void)XFsbl_ShaStart(ShaCtx, HashLen);
+	Status = XFsbl_Sha3PadSelect(XSECURE_CSU_KECCAK_SHA3);
+	if (Status != XST_SUCCESS) {
+		XFsbl_Printf(DEBUG_GENERAL,
+			"XFsbl_BhAuthentication:"
+			" Error in SHA3 padding selection\r\n");
+		goto END;
+	}
+
+	/* Calculate Hash on Data to be authenticated */
+	XFsbl_ShaUpdate(ShaCtx, Data, SizeofBH, HashLen);
+	XFsbl_ShaFinish(ShaCtx, BhHash, HashLen);
+
+	/* Set SPK pointer */
+	AcPtr += (XFSBL_RSA_AC_ALIGN + XFSBL_PPK_SIZE);
+	SpkModular = AcPtr;
+	AcPtr += XFSBL_SPK_MOD_SIZE;
+	SpkModularEx = AcPtr;
+	AcPtr += XFSBL_SPK_MOD_EXT_SIZE;
+	SpkExp = *((u32 *)AcPtr);
+	AcPtr += XFSBL_RSA_AC_ALIGN;
+
+	/* Increment by  SPK Signature pointer */
+	AcPtr += XFSBL_SPK_SIG_SIZE;
+
+	if((SpkModular != NULL) && (SpkModularEx != NULL)) {
+		XFsbl_Printf(DEBUG_DETAILED,
+			"XFsbl_BhAuthentication: "
+			"Spk Mod %0x, Spk Mod Ex %0x, Spk Exp %0x\r\n",
+		SpkModular, SpkModularEx, SpkExp);
+		XFsbl_PrintArray(DEBUG_DETAILED, SpkModular,
+			XFSBL_SPK_MOD_SIZE, "Spk Modular");
+		XFsbl_PrintArray(DEBUG_DETAILED, SpkModularEx,
+			XFSBL_SPK_MOD_EXT_SIZE, "Spk ModularEx");
+		XFsbl_Printf(DEBUG_DETAILED, "Spk Exp = %x\n\r", SpkExp);
+	}
+
+	/* Set SPK Signature pointer */
+	Status = XSecure_RsaInitialize(&SecureRsa, SpkModular,
+					SpkModularEx, (u8 *)&SpkExp);
+
+	if (Status != XFSBL_SUCCESS) {
+		Status = XFSBL_ERROR_RSA_INITIALIZE;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_RSA_INITIALIZE\r\n");
+		goto END;
+	}
+	/* Decrypt SPK Signature */
+	if(XFSBL_SUCCESS !=
+		XSecure_RsaDecrypt(&SecureRsa, AcPtr, XFsbl_RsaSha3Array))
+	{
+		XFsbl_Printf(DEBUG_GENERAL,"XFsbl_BhAuthentication:"
+				" XFSBL_ERROR_BH_RSA_DECRYPT\r\n");
+			Status = XFSBL_ERROR_BH_RSA_DECRYPT;
+		goto END;
+	}
+
+	/* Authenticate SPK Signature */
+	if(XFSBL_SUCCESS != XSecure_RsaSignVerification(XFsbl_RsaSha3Array,
+			BhHash, HashLen))
+	{
+		XFsbl_PrintArray(DEBUG_INFO, BhHash,
+				HashLen, "Calculated Boot header Hash");
+		XFsbl_PrintArray(DEBUG_INFO, XFsbl_RsaSha3Array,
+				512, "RSA decrypted Hash");
+		XFsbl_Printf(DEBUG_GENERAL,
+			"XFsbl_BhAuthentication: XFSBL_ERROR_BH_SIGNATURE\r\n");
+		Status = XFSBL_ERROR_BH_SIGNATURE;
+	}
+
+END:
+	return Status;
 }
 
 #endif /* end of XFSBL_SECURE */
