@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -120,15 +120,17 @@ extern  u8 __data_start;
 extern  u8 __data_end;
 extern  u8 __dup_data_start;
 
-#ifdef XFSBL_SECURE
 #ifndef XFSBL_BS
 u8 ReadBuffer[XFSBL_SIZE_IMAGE_HDR]
 		__attribute__((section (".bitstream_buffer")));
 #else
 extern u8 ReadBuffer[READ_BUFFER_SIZE];
 #endif
+
+#ifdef XFSBL_SECURE
 u8 *ImageHdr = ReadBuffer;
 extern u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE];
+extern u32 Iv[XIH_BH_IV_LENGTH / 4U];
 #endif
 
 /****************************************************************************/
@@ -1069,6 +1071,17 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 
 	FlashImageOffsetAddress = FsblInstancePtr->ImageOffsetAddress;
 
+	/* Copy boot header to internal memory */
+	Status = FsblInstancePtr->DeviceOps.DeviceCopy(FlashImageOffsetAddress,
+	                   (PTRSIZE )ReadBuffer, XIH_BH_MAX_SIZE);
+	if (XFSBL_SUCCESS != Status) {
+			XFsbl_Printf(DEBUG_GENERAL,"Device Copy Failed \n\r");
+			goto END;
+	}
+#ifdef XFSBL_SECURE
+	/* copy IV to local variable */
+	XFsbl_MemCpy(Iv, ReadBuffer + XIH_BH_IV_OFFSET, XIH_BH_IV_LENGTH);
+#endif
 	/**
 	 * Read Boot Image attributes
 	 */
