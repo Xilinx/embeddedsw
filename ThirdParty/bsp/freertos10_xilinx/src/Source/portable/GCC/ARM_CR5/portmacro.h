@@ -33,6 +33,9 @@
 	extern "C" {
 #endif
 
+/* BSP includes. */
+#include "xil_types.h"
+
 /*-----------------------------------------------------------
  * Port specific definitions.
  *
@@ -115,6 +118,57 @@ macros is used. */
 /* Prototype of the FreeRTOS tick handler.  This must be installed as the
 handler for whichever peripheral is used to generate the RTOS tick. */
 void FreeRTOS_Tick_Handler( void );
+
+/*
+ * Installs pxHandler as the interrupt handler for the peripheral specified by
+ * the ucInterruptID parameter.
+ *
+ * ucInterruptID:
+ *
+ * The ID of the peripheral that will have pxHandler assigned as its interrupt
+ * handler.  Peripheral IDs are defined in the xparameters.h header file, which
+ * is itself part of the BSP project.
+ *
+ * pxHandler:
+ *
+ * A pointer to the interrupt handler function itself.  This must be a void
+ * function that takes a (void *) parameter.
+ *
+ * pvCallBackRef:
+ *
+ * The parameter passed into the handler function.  In many cases this will not
+ * be used and can be NULL.  Some times it is used to pass in a reference to
+ * the peripheral instance variable, so it can be accessed from inside the
+ * handler function.
+ *
+ * pdPASS is returned if the function executes successfully.  Any other value
+ * being returned indicates that the function did not execute correctly.
+ */
+BaseType_t xPortInstallInterruptHandler( uint8_t ucInterruptID, XInterruptHandler pxHandler, void *pvCallBackRef );
+
+/*
+ * Enables the interrupt, within the interrupt controller, for the peripheral
+ * specified by the ucInterruptID parameter.
+ *
+ * ucInterruptID:
+ *
+ * The ID of the peripheral that will have its interrupt enabled in the
+ * interrupt controller.  Peripheral IDs are defined in the xparameters.h header
+ * file, which is itself part of the BSP project.
+ */
+void vPortEnableInterrupt( uint8_t ucInterruptID );
+
+/*
+ * Disables the interrupt, within the interrupt controller, for the peripheral
+ * specified by the ucInterruptID parameter.
+ *
+ * ucInterruptID:
+ *
+ * The ID of the peripheral that will have its interrupt disabled in the
+ * interrupt controller.  Peripheral IDs are defined in the xparameters.h header
+ * file, which is itself part of the BSP project.
+ */
+void vPortDisableInterrupt( uint8_t ucInterruptID );
 
 /* Any task that uses the floating point unit MUST call vPortTaskUsesFPU()
 before any floating point instructions are executed. */
