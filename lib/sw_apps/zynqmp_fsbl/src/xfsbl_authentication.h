@@ -1,3 +1,4 @@
+
 /******************************************************************************
 *
 * Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
@@ -47,6 +48,8 @@
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines.
 *       vns  02/17/17 Added API prototype to compare hashs
 * 3.0   vns  01/23/18 Added prototype for XFsbl_Sha3PadSelect()
+*       vns  03/07/18 Added PPK/SPK offsets w.r.t to AC, modified
+*                     prototype of XFsbl_CompareHashs()
 *
 * </pre>
 *
@@ -103,6 +106,9 @@ extern "C" {
 
 #define XFSBL_AUTH_BUFFER_SIZE	(XFSBL_AUTH_CERT_MIN_SIZE)
 
+#define XFSBL_AUTH_CERT_PPK_OFFSET 		0x40U
+#define XFSBL_AUTH_CERT_SPK_OFFSET		0x480U
+#define XFSBL_AUTH_CERT_SPK_SIG_OFFSET  	0x8C0U
 /**
 * CSU RSA Register Map
 */
@@ -116,8 +122,10 @@ void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen);
 void XFsbl_ShaStart(void * Ctx, u32 HashLen);
 void XFsbl_ShaUpdate(void * Ctx, u8 * Data, u32 Size, u32 HashLen);
 void XFsbl_ShaFinish(void * Ctx, u8 * Hash, u32 HashLen);
-u32 XFsbl_CompareHashs(u8 *Hash1, u8 *Hash2);
+u32 XFsbl_CompareHashs(u8 *Hash1, u8 *Hash2, u32 HashLen);
 u32 XFsbl_Sha3PadSelect(u8 PadType);
+u32 XFsbl_BhAuthentication(const XFsblPs * FsblInstancePtr, u8 *Data,
+					u64 AcOffset, u8 IsEfuseRsa);
 #endif
 
 
