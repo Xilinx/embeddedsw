@@ -58,6 +58,9 @@
 *                     is done.
 *       vns  04/04/17 Corrected image header size.
 *       ma   05/10/17 Enable PROG to PL when reset reason is ps-only reset
+* 4.0   vns  03/07/18 Added boot header authentication, attributes reading
+*                     from boot header local buffer, copying IV to global
+*                     variable for using during decryption of partition.
 * </pre>
 *
 * @note
@@ -1085,26 +1088,17 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	/**
 	 * Read Boot Image attributes
 	 */
-	Status = FsblInstancePtr->DeviceOps.DeviceCopy(FlashImageOffsetAddress
-                    + XIH_BH_IMAGE_ATTRB_OFFSET,
-                   (PTRSIZE ) &BootHdrAttrb, XIH_FIELD_LEN);
-        if (XFSBL_SUCCESS != Status) {
-                XFsbl_Printf(DEBUG_GENERAL,"Device Copy Failed \n\r");
-                goto END;
-        }
+	BootHdrAttrb = Xil_In32((UINTPTR)ReadBuffer +
+					XIH_BH_IMAGE_ATTRB_OFFSET);
 	FsblInstancePtr->BootHdrAttributes = BootHdrAttrb;
 
 	/**
 	 * Read the Image Header Table offset from
 	 * Boot Header
 	 */
-	Status = FsblInstancePtr->DeviceOps.DeviceCopy(FlashImageOffsetAddress
-				+ XIH_BH_IH_TABLE_OFFSET,
-		   (PTRSIZE ) &ImageHeaderTableAddressOffset, XIH_FIELD_LEN);
-	if (XFSBL_SUCCESS != Status) {
-		XFsbl_Printf(DEBUG_GENERAL,"Device Copy Failed \n\r");
-		goto END;
-	}
+	ImageHeaderTableAddressOffset = Xil_In32((UINTPTR)ReadBuffer +
+					XIH_BH_IH_TABLE_OFFSET);
+
 	XFsbl_Printf(DEBUG_INFO,"Image Header Table Offset 0x%0lx \n\r",
 			ImageHeaderTableAddressOffset);
 
@@ -1112,15 +1106,23 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	 * Read Efuse bit and check Boot Header for Authentication
 	 */
 	EfuseCtrl = XFsbl_In32(EFUSE_SEC_CTRL);
+
+	if (((EfuseCtrl & EFUSE_SEC_CTRL_RSA_EN_MASK) != 0x00)
+		&& ((BootHdrAttrb & XIH_BH_IMAGE_ATTRB_RSA_MASK) ==
+					XIH_BH_IMAGE_ATTRB_RSA_MASK)) {
+		Status = XFSBL_ERROR_BH_AUTH_IS_NOTALLOWED;
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_BH_AUTH_IS_NOTALLOWED"
+					" when eFSUE RSA bit is set \n\r");
+		goto END;
+	}
+
+	/* If authentication is enabled */
 	if (((EfuseCtrl & EFUSE_SEC_CTRL_RSA_EN_MASK) != 0U) ||
 	    ((BootHdrAttrb & XIH_BH_IMAGE_ATTRB_RSA_MASK)
 		== XIH_BH_IMAGE_ATTRB_RSA_MASK)) {
 
 		XFsbl_Printf(DEBUG_INFO,"Authentication Enabled\r\n");
 #ifdef XFSBL_SECURE
-		/**
-		 * Authenticate the image header
-		 */
 		 /* Read AC offset from Image header table */
 		Status = FsblInstancePtr->DeviceOps.DeviceCopy(FlashImageOffsetAddress
 		            + ImageHeaderTableAddressOffset + XIH_IHT_AC_OFFSET,
@@ -1138,6 +1140,26 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 			if (XFSBL_SUCCESS != Status) {
 				goto END;
 			}
+
+			/* Authenticate boot header */
+			/* When eFUSE RSA enable bit is blown */
+			if ((EfuseCtrl & EFUSE_SEC_CTRL_RSA_EN_MASK) != 0U) {
+				Status = XFsbl_BhAuthentication(FsblInstancePtr,
+						ReadBuffer, (PTRSIZE)AuthBuffer, TRUE);
+			}
+			/* When eFUSE RSA bit is not blown */
+			else {
+				Status = XFsbl_BhAuthentication(FsblInstancePtr,
+						ReadBuffer, (PTRSIZE)AuthBuffer, FALSE);
+			}
+			if (Status != XST_SUCCESS) {
+			    XFsbl_Printf(DEBUG_GENERAL,
+					"Failure at boot header authentication\r\n");
+				goto END;
+			}
+
+
+			/* Authenticate Image header table */
 			/*
 			 * Total size of Image header may vary
 			 * depending on padding so
@@ -1161,8 +1183,23 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 					Size + XFSBL_AUTH_CERT_MIN_SIZE,
 					(PTRSIZE)(AuthBuffer), 0x00U);
 			if (Status != XFSBL_SUCCESS) {
+				XFsbl_Printf(DEBUG_GENERAL,
+					"Failure at image header"
+					" table authentication\r\n");
 				goto END;
 
+			}
+			/*
+			 * As authentication is success
+			 * verify ACoffset used for authentication
+			 */
+			if (AcOffset !=
+			 Xil_In32((UINTPTR)ImageHdr + XIH_IHT_AC_OFFSET)) {
+				Status = XFSBL_ERROR_IMAGE_HEADER_ACOFFSET;
+				XFsbl_Printf(DEBUG_GENERAL,
+					"Wrong Authentication "
+					"certificate offset\r\n");
+				goto END;
 			}
 		}
 		else {
@@ -1177,7 +1214,7 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 		 * from OCM which we already copied.
 		 */
 		Status = XFsbl_ReadImageHeader(&FsblInstancePtr->ImageHeader,
-				NULL, FlashImageOffsetAddress,
+				NULL, (UINTPTR)ImageHdr,
 				FsblInstancePtr->ProcessorID,
 				ImageHeaderTableAddressOffset);
 		if (XFSBL_SUCCESS != Status) {
