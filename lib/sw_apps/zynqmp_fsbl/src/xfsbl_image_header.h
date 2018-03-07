@@ -55,6 +55,8 @@
 * 3.0   vns  01/03/18 In structure XFsblPs_PartitionHeader 8 bits from
 *                     reserved bits are used for storing last 8 bits of IV
 *                     IV from boot header should be added with thes 8 bits.
+*       vns  03/07/18 Added BHDR attribute mask for PUF and macros for
+*                     boot header size.
 *
 * </pre>
 *
@@ -89,10 +91,14 @@ extern "C" {
 #define XIH_BH_PH_TABLE_OFFSET		(0x9CU)
 
 #define XIH_BH_IMAGE_ATTRB_RSA_MASK	(0xC000U)
+#define XIH_BH_IMAGE_ATTRB_PUF_BH_MASK	(0x00C0U)
 #define XIH_BH_IMAGE_ATTRB_SHA2_MASK	(0x3000U)
 #define XIH_BH_IV_OFFSET       		(0xA0U)
 #define XIH_BH_IV_LENGTH   			(0x10U)
 
+#define XIH_BH_MIN_SIZE	(0x000008B8U)
+#define XIH_BH_MAX_SIZE	(XIH_BH_MIN_SIZE + \
+					(0x00000182U * 4))
 /**
  * Defines for length of the headers
  */
