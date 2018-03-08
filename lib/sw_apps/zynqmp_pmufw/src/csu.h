@@ -35,13 +35,16 @@
 extern "C" {
 #endif
 
-#define CSU_BASE          ((u32)0XFFCA0000U)
-#define CSU_IDCODE        ( ( CSU_BASE ) + ((u32)0X00000040U) )
-#define CSU_VERSION       ( ( CSU_BASE ) + ((u32)0X00000044U) )
-#define CSU_PCAP_PROG_REG ( ( CSU_BASE ) + ((u32)0x00003000U) )
+#define	CSU_BASE							((u32)0XFFCA0000U)
+#define	CSU_IDCODE							( ( CSU_BASE ) + ((u32)0X00000040U) )
+#define	CSU_VERSION							( ( CSU_BASE ) + ((u32)0X00000044U) )
 
-#define CSU_VERSION_EMPTY_SHIFT		20
-#define CSU_VERSION_PL_STATE_SHIFT	29
+#define	CSU_PCAP_STATUS_REG					( ( CSU_BASE ) + ((u32)0x00003010U) )
+#define	CSU_PCAP_STATUS_PL_INIT_SHIFT_VAL	2
+#define	CSU_PCAP_STATUS_PL_INIT_MASK_VAL	0x4U
+
+#define	CSU_VERSION_EMPTY_SHIFT				20
+#define	CSU_VERSION_PL_STATE_SHIFT			29
 
 #ifdef __cplusplus
 }

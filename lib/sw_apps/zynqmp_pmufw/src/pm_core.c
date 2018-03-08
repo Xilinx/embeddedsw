@@ -811,12 +811,16 @@ static void PmGetChipid(const PmMaster *const master)
 {
 	u32 idcode = XPfw_Read32(CSU_IDCODE);
 	u32 version = XPfw_Read32(CSU_VERSION);
-	u32 pl_prog_b = XPfw_Read32(CSU_PCAP_PROG_REG);
+	u32 pl_init = XPfw_Read32(CSU_PCAP_STATUS_REG);
 	u32 efuse_ipdisable = XPfw_Read32(EFUSE_IPDISABLE);
 
 	efuse_ipdisable &= EFUSE_IPDISABLE_VERSION;
+	pl_init &= CSU_PCAP_STATUS_PL_INIT_MASK_VAL;
+
 	version |= efuse_ipdisable << CSU_VERSION_EMPTY_SHIFT;
-	version |= pl_prog_b << CSU_VERSION_PL_STATE_SHIFT;
+	version |= pl_init <<
+			(CSU_VERSION_PL_STATE_SHIFT - CSU_PCAP_STATUS_PL_INIT_SHIFT_VAL);
+
 	IPI_RESPONSE3(master->ipiMask, XST_SUCCESS, idcode, version);
 }
 
