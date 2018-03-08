@@ -84,12 +84,12 @@ int TI_LMK03318_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 int TI_LMK03318_EnableBypass(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 				u8 InPort, u8 OutPort);
 void TI_LMK03318_RegisterDump(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-static int TI_LMK03318_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
-				u8 RegisterAddress, u8 Value);
-static u8 TI_LMK03318_GetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
-				u8 RegisterAddress);
-static int TI_LMK03318_ModifyRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
-				u16 RegisterAddress, u8 Value, u8 Mask);
+//static int TI_LMK03318_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+//				u8 RegisterAddress, u8 Value);
+//static u8 TI_LMK03318_GetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+//				u8 RegisterAddress);
+//static int TI_LMK03318_ModifyRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+//				u16 RegisterAddress, u8 Value, u8 Mask);
 
 /************************** Variable Declarations ****************************/
 

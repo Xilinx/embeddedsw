@@ -83,12 +83,12 @@ XStatus Init_IIC()
 {
 
 	XStatus Status;
-	XIic_Config *ConfigPtr_IIC;	/* Pointer to configuration data */
 
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
 #if 0
+	XIic_Config *ConfigPtr_IIC;	/* Pointer to configuration data */
 	ConfigPtr_IIC = XIic_LookupConfig(EEPROM_IIC_1_DEVICE_ID);
 	if (ConfigPtr_IIC == NULL) {
 		return XST_FAILURE;

@@ -2641,7 +2641,7 @@ static void Dprx_CheckSetupTx(void *InstancePtr)
 {
 	XVidC_VideoMode VmId;
 	u8 tx_with_msa = 0;
-    u32 Status;
+    u32 Status=0;
 
 	DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.Timing.HActive = dp_msa_hres;
 	DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.Timing.VActive = dp_msa_vres;

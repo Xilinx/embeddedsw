@@ -322,6 +322,8 @@ void DpRxSs_AccessLaneSetHandler(void *InstancePtr);
 void DpRxSs_AccessLinkQualHandler(void *InstancePtr);
 void DpRxSs_AccessErrorCounterHandler(void *InstancePtr);
 void DpRxSs_CRCTestEventHandler(void *InstancePtr);
+void XDp_RxInterruptDisable1(XDp *InstancePtr, u32 Mask);
+void XDp_RxInterruptEnable1(XDp *InstancePtr, u32 Mask);
 
 int i2c_write_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress,
 		u8 Value);
@@ -2209,10 +2211,10 @@ void Print_ExtPkt()
 	for(i=0;i<8;i++)
 	{
 		xil_printf(" Payload Bytes : 0x%x, 0x%x, 0x%x, 0x%x \r\n",
-				SdpExtFrame.Header[(i*4)],
-				SdpExtFrame.Header[(i*4)+1],
-				SdpExtFrame.Header[(i*4)+2],
-				SdpExtFrame.Header[(i*4)+3]);
+				SdpExtFrame.Payload[(i*4)],
+				SdpExtFrame.Payload[(i*4)+1],
+				SdpExtFrame.Payload[(i*4)+2],
+				SdpExtFrame.Payload[(i*4)+3]);
 	}
 	xil_printf(" Frame Count : %d \r\n",SdpExtFrame.frame_count);
 }

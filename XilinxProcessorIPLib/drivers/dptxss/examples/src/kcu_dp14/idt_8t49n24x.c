@@ -76,10 +76,10 @@ static int IDT_8T49N24x_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 static int IDT_8T49N24x_ModifyRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 				u16 RegisterAddress, u8 Value, u8 Mask);
 static int IDT_8T49N24x_CheckDeviceID(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-static int IDT_8T49N24x_GPIO(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-static int IDT_8T49N24x_OutputDriver(u32 I2CBaseAddress, u8 I2CSlaveAddress,
-				u8 Output, u8 Enable);
-static int IDT_8T49N24x_LockMode(u32 I2CBaseAddress, u8 I2CSlaveAddress);
+//static int IDT_8T49N24x_GPIO(u32 I2CBaseAddress, u8 I2CSlaveAddress);
+//static int IDT_8T49N24x_OutputDriver(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+//				u8 Output, u8 Enable);
+//static int IDT_8T49N24x_LockMode(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 static int IDT_8T49N24x_InputMonitorControl(u32 I2CBaseAddress,
 				u8 I2CSlaveAddress, u32 Value, u8 Input);
 static int IDT_8T49N24x_PreDivider(u32 I2CBaseAddress, u8 I2CSlaveAddress,
@@ -96,8 +96,8 @@ static int IDT_8T49N24x_OutputDividerFractional(u32 I2CBaseAddress,
 				u8 I2CSlaveAddress, u32 Value, u8 Output);
 static int IDT_8T49N24x_Mode(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 				u8 Synthesizer);
-static int IDT_8T49N24x_SelectInputReference(u32 I2CBaseAddress,
-				u8 I2CSlaveAddress, u8 Input);
+//static int IDT_8T49N24x_SelectInputReference(u32 I2CBaseAddress,
+//				u8 I2CSlaveAddress, u8 Input);
 static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable, u8 Bypass);
 static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
 				IDT_8T49N24x_Settings* RegSettings);
@@ -105,7 +105,7 @@ static int IDT_8T49N24x_Enable(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 				u8 Enable);
 static int IDT_8T49N24x_ReferenceInput(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 				u8 Input, u8 Enable);
-static int IDT_8T49N24x_Configure(u32 I2CBaseAddress, u8 I2CSlaveAddress);
+//static int IDT_8T49N24x_Configure(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 static int IDT_8T49N24x_Configure_JA(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 /************************** Variable Definitions *****************************/
 
@@ -537,8 +537,8 @@ static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
 	int PMin = (int)FIn/IDT_8T49N24X_FPD_MAX;
 //	int M1Min = (int)(FVCO/IDT_8T49N24X_FPD_MAX); /* This M1 divider sets the input PFD frequency at 128KHz, the set max */
 	
-	int M1_default;
-	int P_default;
+	int M1_default = 0;
+	int P_default = 0;
 	int error_tmp = 999999;
 	int error = 99999999;
 
@@ -1182,46 +1182,46 @@ static int IDT_8T49N24x_Enable(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 * @note None.
 *
 ******************************************************************************/
-static int IDT_8T49N24x_GPIO(u32 I2CBaseAddress, u8 I2CSlaveAddress)
-{
-	int Result;
-
-	/* GPIO_DIR
-	 * GPIO3 is output
-	 * Rest of the pins are input
-	 * */
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
-					  0x0030, 0x08);
-
-	/* GPIxSEL[2] */
-	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
-					  0x0031, 0x00);
-
-	/* GPIxSEL[1] */
-	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
-					  0x0032, 0x00);
-
-	/* GPIxSEL[0] */
-	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
-					  0x0033, 0x00);
-
-	/* GPOxSEL[2] */
-	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
-					  0x0034, 0x00);
-
-	/* GPOxSEL[1] */
-	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
-					  0x0035, 0x00);
-
-	/* GPOxSEL[0] */
-	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
-					  0x0036, 0x08);
-
-	if (Result != XST_SUCCESS)
-		return XST_FAILURE;
-	else
-		return XST_SUCCESS;
-}
+//static int IDT_8T49N24x_GPIO(u32 I2CBaseAddress, u8 I2CSlaveAddress)
+//{
+//	int Result;
+//
+//	/* GPIO_DIR
+//	 * GPIO3 is output
+//	 * Rest of the pins are input
+//	 * */
+//	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+//					  0x0030, 0x08);
+//
+//	/* GPIxSEL[2] */
+//	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+//					  0x0031, 0x00);
+//
+//	/* GPIxSEL[1] */
+//	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+//					  0x0032, 0x00);
+//
+//	/* GPIxSEL[0] */
+//	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+//					  0x0033, 0x00);
+//
+//	/* GPOxSEL[2] */
+//	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+//					  0x0034, 0x00);
+//
+//	/* GPOxSEL[1] */
+//	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+//					  0x0035, 0x00);
+//
+//	/* GPOxSEL[0] */
+//	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+//					  0x0036, 0x08);
+//
+//	if (Result != XST_SUCCESS)
+//		return XST_FAILURE;
+//	else
+//		return XST_SUCCESS;
+//}
 
 /*****************************************************************************/
 /**
@@ -1238,31 +1238,31 @@ static int IDT_8T49N24x_GPIO(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 * @note None.
 *
 ******************************************************************************/
-static int IDT_8T49N24x_SelectInputReference(u32 I2CBaseAddress,
-					u8 I2CSlaveAddress, u8 Input)
-{
-	int Result;
-	u8 Value;
-	u8 Mask;
-	u8 Shift;
-
-	Shift = 5;
-
-	if (Input == 1) {
-		/* Clock 1 */
-		Value = (0x05 << Shift); 
-	} else {
-		/* Clock 0 */
-		Value = (0x04 << Shift); 	
-	}
-
-	Mask = 0x07 << Shift;
-
-	Result = IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
-					     0x0008, Value, Mask);
-
-	return Result;
-}
+//static int IDT_8T49N24x_SelectInputReference(u32 I2CBaseAddress,
+//					u8 I2CSlaveAddress, u8 Input)
+//{
+//	int Result;
+//	u8 Value;
+//	u8 Mask;
+//	u8 Shift;
+//
+//	Shift = 5;
+//
+//	if (Input == 1) {
+//		/* Clock 1 */
+//		Value = (0x05 << Shift);
+//	} else {
+//		/* Clock 0 */
+//		Value = (0x04 << Shift);
+//	}
+//
+//	Mask = 0x07 << Shift;
+//
+//	Result = IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
+//					     0x0008, Value, Mask);
+//
+//	return Result;
+//}
 
 /*****************************************************************************/
 /**
@@ -1279,75 +1279,75 @@ static int IDT_8T49N24x_SelectInputReference(u32 I2CBaseAddress,
 * @note None.
 *
 ******************************************************************************/
-static int IDT_8T49N24x_OutputDriver(u32 I2CBaseAddress, u8 I2CSlaveAddress,
-					u8 Output, u8 Enable)
-{
-	int Result;
-	u8 Value;
-	u8 Mask;
-	u16 Address;
-	u8 Shift;
-
-	/* OUTEN */
-	Mask = (1 << Output);
-	if (Enable)
-		Value = Mask;
-	else
-		Value = 0x00;
-
-	Result = IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
-					     0x0039, Value, Mask);
-
-	/* OUTMODE */
-	switch (Output) {
-		case 0 : 
-			Address = 0x003e;
-			Shift = 1;
-			break;
-
-		case 1 : 
-			Address = 0x003e;
-			Shift = 5;
-			break;
-
-		case 2 : 
-			Address = 0x003d;
-			Shift = 1;
-			break;
-
-		case 3 : 
-			Address = 0x003d;
-			Shift = 5;
-			break;
-	}
-
-	if (Enable)
-		Value = 0x02;	/* LVDS */
-	else
-		Value = 0x00;	/* High-impedance */
-
-	Value <<= Shift;
-	Mask = (0x07 << Shift);
-
-	Result |= IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
-					      Address, Value, Mask);
-
-	/* Qm_DIS */
-	if (!Enable)
-		Value = (1 << Output);
-	else
-		Value = 0;
-
-	Mask = (1 << Output);
-
-	Result |= IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
-					      0x006f, Value, Mask);
-
-	if (Result != XST_SUCCESS)
-		return XST_FAILURE;
-	else
-		return XST_SUCCESS;
-}
+//static int IDT_8T49N24x_OutputDriver(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+//					u8 Output, u8 Enable)
+//{
+//	int Result;
+//	u8 Value;
+//	u8 Mask;
+//	u16 Address;
+//	u8 Shift;
+//
+//	/* OUTEN */
+//	Mask = (1 << Output);
+//	if (Enable)
+//		Value = Mask;
+//	else
+//		Value = 0x00;
+//
+//	Result = IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
+//					     0x0039, Value, Mask);
+//
+//	/* OUTMODE */
+//	switch (Output) {
+//		case 0 :
+//			Address = 0x003e;
+//			Shift = 1;
+//			break;
+//
+//		case 1 :
+//			Address = 0x003e;
+//			Shift = 5;
+//			break;
+//
+//		case 2 :
+//			Address = 0x003d;
+//			Shift = 1;
+//			break;
+//
+//		case 3 :
+//			Address = 0x003d;
+//			Shift = 5;
+//			break;
+//	}
+//
+//	if (Enable)
+//		Value = 0x02;	/* LVDS */
+//	else
+//		Value = 0x00;	/* High-impedance */
+//
+//	Value <<= Shift;
+//	Mask = (0x07 << Shift);
+//
+//	Result |= IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
+//					      Address, Value, Mask);
+//
+//	/* Qm_DIS */
+//	if (!Enable)
+//		Value = (1 << Output);
+//	else
+//		Value = 0;
+//
+//	Mask = (1 << Output);
+//
+//	Result |= IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
+//					      0x006f, Value, Mask);
+//
+//	if (Result != XST_SUCCESS)
+//		return XST_FAILURE;
+//	else
+//		return XST_SUCCESS;
+//}
 
 /*****************************************************************************/
 /**
@@ -1364,19 +1364,19 @@ static int IDT_8T49N24x_OutputDriver(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 * @note None.
 *
 ******************************************************************************/
-static int IDT_8T49N24x_LockMode(u32 I2CBaseAddress, u8 I2CSlaveAddress)
-{
-	int Result;
-	u8 Value;
-	u8 Mask;
-
-	Value = 0x02;
-	Mask = 0x02;
-	Result = IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
-					     0x006c, Value, Mask);
-
-	return Result;
-}
+//static int IDT_8T49N24x_LockMode(u32 I2CBaseAddress, u8 I2CSlaveAddress)
+//{
+//	int Result;
+//	u8 Value;
+//	u8 Mask;
+//
+//	Value = 0x02;
+//	Mask = 0x02;
+//	Result = IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
+//					     0x006c, Value, Mask);
+//
+//	return Result;
+//}
 
 int IDT_8T49N24x_SetGPOut(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 				u8 PortID, u8 Set)
@@ -1485,24 +1485,24 @@ int IDT_8T49N24x_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 * @note None.
 *
 ******************************************************************************/
-static int IDT_8T49N24x_Configure(u32 I2CBaseAddress, u8 I2CSlaveAddress)
-{
-	int Result;
-	u32 Index;
-	xil_printf("freerun\n\r");
-
-	/* The configuration is started from address 0x08 */
-	for (Index = 8 ; Index < sizeof(IDT_8T49N24x_Config_Syn) ; Index++) {
-		/* Skip address 0x70
-		 * Address 0x70 enables the DPLL and APLL calibration */
-		if (Index != 0x070) {
-			Result = IDT_8T49N24x_SetRegister(I2CBaseAddress,
-						I2CSlaveAddress, Index,
-						IDT_8T49N24x_Config_Syn[Index]);
-		}
-	}
-	return Result;
-}
+//static int IDT_8T49N24x_Configure(u32 I2CBaseAddress, u8 I2CSlaveAddress)
+//{
+//	int Result;
+//	u32 Index;
+//	xil_printf("freerun\n\r");
+//
+//	/* The configuration is started from address 0x08 */
+//	for (Index = 8 ; Index < sizeof(IDT_8T49N24x_Config_Syn) ; Index++) {
+//		/* Skip address 0x70
+//		 * Address 0x70 enables the DPLL and APLL calibration */
+//		if (Index != 0x070) {
+//			Result = IDT_8T49N24x_SetRegister(I2CBaseAddress,
+//						I2CSlaveAddress, Index,
+//						IDT_8T49N24x_Config_Syn[Index]);
+//		}
+//	}
+//	return Result;
+//}
 
 static int IDT_8T49N24x_Configure_JA(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 {

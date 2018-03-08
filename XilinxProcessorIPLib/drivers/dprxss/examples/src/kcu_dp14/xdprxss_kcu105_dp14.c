@@ -441,8 +441,8 @@ int main(void)
 	u32 user_link_rate;
 	u32 user_tx_LaneCount;
 	u32 user_tx_LineRate;
-	int m_aud;
-	int n_aud;
+	int m_aud = 0;
+	int n_aud = 0;
 
 	XV_axi4s_remap_Config   *rx_remap_Config;
 	XV_axi4s_remap_Config   *tx_remap_Config;
@@ -2519,7 +2519,7 @@ static void Dprx_CheckSetupTx(void *InstancePtr)
 {
 	XVidC_VideoMode VmId;
 	u8 tx_with_msa = 0;
-	u32 Status;
+	u32 Status = 0;
 
 	DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.Timing.HActive =
 			Msa[0].Vtm.Timing.HActive;
@@ -3565,7 +3565,7 @@ void DpPt_LinkrateChgHandler(void *InstancePtr)
 void DpPt_pe_vs_adjustHandler(void *InstancePtr)
 {
 	if (PE_VS_ADJUST == 1) {
-		unsigned char preemp;
+		unsigned char preemp = 0;
 		switch(DpTxSsInst.DpPtr->TxInstance.LinkConfig.PeLevel){
 			case 0: preemp = XVPHY_GTHE3_PREEMP_DP_L0; break;
 			case 1: preemp = XVPHY_GTHE3_PREEMP_DP_L1; break;
@@ -3579,7 +3579,7 @@ void DpPt_pe_vs_adjustHandler(void *InstancePtr)
 		XVphy_SetTxPreEmphasis(&VPhy_Instance, 0, XVPHY_CHANNEL_ID_CH4, preemp);
 
 
-		unsigned char diff_swing;
+		unsigned char diff_swing = 0;
 		switch (DpTxSsInst.DpPtr->TxInstance.LinkConfig.VsLevel) {
 		case 0:
 			switch (DpTxSsInst.DpPtr->TxInstance.LinkConfig.PeLevel) {
@@ -4351,7 +4351,7 @@ void detect_rx_video_and_startTx(int *track_count1)
  *
  *****************************************************************************/
 void switch_to_Tx_only(int *track_switch, u8 *pwr_dwn_x){
-	u32 Status;
+	u32 Status = 0;
 
 	/* this kicks in when cable is unplugged. it is observed that 
 	 * some monitors go into unrecoverable state when cable is unplugged.
@@ -4466,12 +4466,14 @@ void switch_to_Tx_only(int *track_switch, u8 *pwr_dwn_x){
 			track_switch = 0;
 		}
 	}
+	if(Status != 0)
+		xil_printf("Switching to Tx failed\r\n");
 }
 
 /* Audio passThrough setting */
 void start_audio_passThrough(){
-	int m_aud;
-	int n_aud;
+	int m_aud = 0;
+	int n_aud = 0;
 
 	if (training_done == 1 && vblank_count < 50) { // video is not stable yet
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
