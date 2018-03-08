@@ -102,13 +102,12 @@ static int TI_LMK03318_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 static u8 TI_LMK03318_GetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 				u8 RegisterAddress)
 {
-	u32 ByteCount = 0;
 	u8 Buffer[2];
 	
 	Buffer[0] = RegisterAddress; 
-	ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress,
+	XIic_Send(I2CBaseAddress, I2CSlaveAddress,
 			      (u8*)Buffer, 1, XIIC_REPEATED_START);
-	ByteCount = XIic_Recv(I2CBaseAddress, I2CSlaveAddress,
+	XIic_Recv(I2CBaseAddress, I2CSlaveAddress,
 			      (u8*)Buffer, 1, XIIC_STOP);
 
 	return Buffer[0];
@@ -347,6 +346,10 @@ int TI_LMK03318_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 		return XST_FAILURE;
 	}
 */
+	if (Result != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
 	return XST_SUCCESS;
 }
 
