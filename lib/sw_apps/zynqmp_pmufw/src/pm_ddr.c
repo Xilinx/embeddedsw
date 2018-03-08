@@ -1696,7 +1696,19 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	if ((PM_DDR_STATE_OFF != slave->node.currState) &&
 	    (PM_DDR_STATE_OFF == nextState)) {
 		/* Here, user can put the DDR controller in reset */
-		status = XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR);
+		if (XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR) == XST_SUCCESS) {
+			/* Check if AIB isolation is enabled */
+			status = XPfw_AibPollForAck(XPFW_AIB_LPD_TO_DDR, AIB_ACK_TIMEOUT);
+
+			if (status != XST_SUCCESS) {
+				PmDbg(DEBUG_DETAILED, "Warning: Failed to receive "
+						"acknowledgment for LPD to DDR isolation\r\n");
+			}
+		} else {
+			PmDbg(DEBUG_DETAILED,
+					"Warning: Failed to Enable AIB isolation LPD to DDR\r\n");
+			status = XST_FAILURE;
+		}
 		goto done;
 	}
 
@@ -1704,8 +1716,18 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_DDR_STATE_ON:
 		if (PM_DDR_STATE_SR == nextState) {
 			if (XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR) == XST_SUCCESS) {
-				status = pm_ddr_sr_enter();
+				/* Check if AIB isolation is enabled */
+				if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_DDR, AIB_ACK_TIMEOUT)
+						== XST_SUCCESS) {
+					status = pm_ddr_sr_enter();
+				} else {
+					PmDbg(DEBUG_DETAILED, "Warning: Failed to receive "
+							"acknowledgment for LPD to DDR isolation\r\n");
+					status = XST_FAILURE;
+				}
 			} else {
+				PmDbg(DEBUG_DETAILED,
+						"Warning: Failed to Enable AIB isolation LPD to DDR\r\n");
 				status = XST_FAILURE;
 			}
 		} else {

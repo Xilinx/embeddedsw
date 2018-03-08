@@ -199,7 +199,18 @@ done:
  */
 static u32 PmPowerDownUsb0(void)
 {
-	XPfw_AibEnable(XPFW_AIB_LPD_TO_USB0);
+	if (XPfw_AibEnable(XPFW_AIB_LPD_TO_USB0) != XST_SUCCESS) {
+		PmDbg(DEBUG_DETAILED,
+				"Warning: Failed to Enable AIB isolation LPD to USB0\r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_USB0, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
+					"for LPD to USB0 isolation");
+		}
+	}
+
 	return XpbrPwrDnUsb0Handler();
 }
 
@@ -271,7 +282,18 @@ done:
  */
 static u32 PmPowerDownUsb1(void)
 {
-	XPfw_AibEnable(XPFW_AIB_LPD_TO_USB1);
+	if (XPfw_AibEnable(XPFW_AIB_LPD_TO_USB1) != XST_SUCCESS) {
+		PmDbg(DEBUG_DETAILED,
+				"Warning: Failed to Enable AIB isolation LPD to USB1\r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_USB1, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
+					"for LPD to USB1 isolation");
+		}
+	}
+
 	return XpbrPwrDnUsb1Handler();
 }
 
