@@ -148,40 +148,6 @@ void XSdiAud_Enable(XSdiAud *InstancePtr, u8 Enable)
 
 /*****************************************************************************/
 /**
- * This function is used to soft reset the XSdiAud registers and core.
- *
- * @param  InstancePtr is a pointer to the XSdiAud instance.
- *
- * @return None.
- *
- ******************************************************************************/
-
-void XSdiAud_SoftReset(XSdiAud *InstancePtr)
-{
-	u32 XSdiAud_RstVal;
-	/* Verify arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
-	XSdiAud_RstVal = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDIAUD_SOFT_RST_REG_OFFSET);
-	XSdiAud_RstVal &= ~XSDIAUD_SOFT_RST_ACLK_MASK;
-	XSdiAud_RstVal &= ~XSDIAUD_SOFT_RST_SCLK_MASK;
-	XSdiAud_RstVal |= (XSDIAUD_SOFT_RST_SCLK_MASK |
-			   XSDIAUD_SOFT_RST_ACLK_MASK);
-
-	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
-			XSDIAUD_SOFT_RST_REG_OFFSET,
-			XSdiAud_RstVal);
-	XSdiAud_RstVal = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDIAUD_SOFT_RST_REG_OFFSET);
-	XSdiAud_RstVal &= ~XSDIAUD_SOFT_RST_ACLK_MASK;
-	XSdiAud_RstVal &= ~XSDIAUD_SOFT_RST_SCLK_MASK;
-	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
-			XSDIAUD_SOFT_RST_REG_OFFSET, XSdiAud_RstVal);
-
-}
-
-/*****************************************************************************/
-/**
  * This function reads all the Channel Status registers and writes to a buffer
  *
  * @param  InstancePtr is a pointer to the XSdiAud instance.
@@ -598,15 +564,15 @@ u32 XSdiAud_Ext_GetActCh(XSdiAud *InstancePtr)
 
 /*****************************************************************************/
 /**
- * This function is used to soft reset the XSdiAud registers.
+ * This function is used to soft reset the XSdiAud registers.It resets all the
+ * configuration registers.
  *
  * @param  InstancePtr is a pointer to the XSdiAud instance.
  *
  * @return None.
  *
  ******************************************************************************/
-
-void XSdiAud_SoftResetReg(XSdiAud *InstancePtr)
+void XSdiAud_ResetReg(XSdiAud *InstancePtr)
 {
 	u32 XSdiAud_RstRVal;
 	/* Verify arguments */
@@ -615,16 +581,9 @@ void XSdiAud_SoftResetReg(XSdiAud *InstancePtr)
 			XSDIAUD_SOFT_RST_REG_OFFSET);
 	XSdiAud_RstRVal &= ~XSDIAUD_SOFT_RST_ACLK_MASK;
 	XSdiAud_RstRVal |= XSDIAUD_SOFT_RST_ACLK_MASK;
-
 	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
 			XSDIAUD_SOFT_RST_REG_OFFSET,
 			XSdiAud_RstRVal);
-	XSdiAud_RstRVal = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDIAUD_SOFT_RST_REG_OFFSET);
-	XSdiAud_RstRVal &= ~XSDIAUD_SOFT_RST_ACLK_MASK;
-	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
-			XSDIAUD_SOFT_RST_REG_OFFSET, XSdiAud_RstRVal);
-
 }
 
 /*****************************************************************************/
@@ -632,12 +591,14 @@ void XSdiAud_SoftResetReg(XSdiAud *InstancePtr)
  * This function is used to soft reset the XSdiAud core.
  *
  * @param  InstancePtr is a pointer to the XSdiAud instance.
+ * @param  RstCoreEnable is to enable or disable. When set to 1(i.e.enable),
+ *         it resets the embedded core. When set to 0, it clears the reset
+ *         (i.e.disable).
  *
  * @return None.
  *
  ******************************************************************************/
-
-void XSdiAud_SoftResetCore(XSdiAud *InstancePtr)
+void XSdiAud_ResetCoreEn(XSdiAud *InstancePtr, u8 RstCoreEnable)
 {
 	u32 XSdiAud_RstCVal;
 	/* Verify arguments */
@@ -645,16 +606,16 @@ void XSdiAud_SoftResetCore(XSdiAud *InstancePtr)
 	XSdiAud_RstCVal = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
 			XSDIAUD_SOFT_RST_REG_OFFSET);
 	XSdiAud_RstCVal &= ~XSDIAUD_SOFT_RST_SCLK_MASK;
+	if(RstCoreEnable) {
 	XSdiAud_RstCVal |= XSDIAUD_SOFT_RST_SCLK_MASK;
-
 	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
 			XSDIAUD_SOFT_RST_REG_OFFSET,
 			XSdiAud_RstCVal);
-	XSdiAud_RstCVal = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDIAUD_SOFT_RST_REG_OFFSET);
-	XSdiAud_RstCVal &= ~XSDIAUD_SOFT_RST_SCLK_MASK;
+	} else {
+	XSdiAud_RstCVal |= RstCoreEnable;
 	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
-			XSDIAUD_SOFT_RST_REG_OFFSET, XSdiAud_RstCVal);
-
+					XSDIAUD_SOFT_RST_REG_OFFSET,
+					XSdiAud_RstCVal);
+	}
 }
 /** @} */

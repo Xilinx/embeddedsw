@@ -134,7 +134,10 @@ int SdiAud_SelfTestExample(u16 DeviceId)
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
-	XSdiAud_SoftReset(&SdiAud0);
+	XSdiAud_ResetCoreEn(&SdiAud0, TRUE);
+	XSdiAud_ResetCoreEn(&SdiAud0, FALSE);
+	XSdiAud_ResetReg(&SdiAud0);
+
 	for (XSdiAud_TstLoop = 0; XSdiAud_TstLoop < XSDIAUD_NUM_REG; XSdiAud_TstLoop++) {
 
 	Status = XSdiAud_ReadReg(SdiAud0.Config.BaseAddress, (XSDIAUD_INT_EN_REG_OFFSET + (4 * XSdiAud_TstLoop)));
