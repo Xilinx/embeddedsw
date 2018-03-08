@@ -81,8 +81,64 @@ static u8 CalculateChecksum(u8 *Data, u8 Size);
 XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane);
 void ReportVideoCRC(void);
 extern void main_loop(void);
+void XVphy_SetTxPreEmphasis(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		u8 Pe);
+void XVphy_SetTxVoltageSwing(XVphy *InstancePtr, u8 QuadId,
+		XVphy_ChannelId ChId, u8 Vs);
 
 /************************** Variable Definitions *****************************/
+static XVphy_User_Config PHY_User_Config_Table[] =
+{
+  // Index,         TxPLL,               RxPLL,
+ //	TxChId,         RxChId,
+// LineRate,              LineRateHz,
+// QPLLRefClkSrc,          CPLLRefClkSrc,    QPLLRefClkFreqHz,CPLLRefClkFreqHz
+  {   0,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,
+		  ONBOARD_REF_CLK, ONBOARD_REF_CLK,     270000000,270000000},
+  {   1,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,
+		  ONBOARD_REF_CLK, ONBOARD_REF_CLK,     270000000,270000000},
+  {   2,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,
+		  ONBOARD_REF_CLK, ONBOARD_REF_CLK,     270000000,270000000},
+  {   3,     XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
+		  0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,
+		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,     270000000,270000000},
+  {   4,     XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
+		  0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,
+		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,     270000000,270000000},
+  {   5,     XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
+		  0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,
+		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,     270000000,270000000},
+  {   6,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,
+		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,         270000000,270000000},
+  {   7,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,
+		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,         270000000,270000000},
+  {   8,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,
+		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,         270000000,270000000},
+  {   9,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x1E,    XVPHY_DP_LINK_RATE_HZ_810GBPS,
+		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,         270000000,270000000},
+  {   10,     XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
+		  0x1E,    XVPHY_DP_LINK_RATE_HZ_810GBPS,
+		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,     270000000,270000000},
+
+};
 
 /************************** Function Definitions *****************************/
 
@@ -612,7 +668,7 @@ void DpPt_pe_vs_adjustHandler(void *InstancePtr){
 //	u8 Buffer[2];
 //	u16 RegisterAddress;
 	if(PE_VS_ADJUST == 1){
-		unsigned char preemp;
+		unsigned char preemp = 0;
 		switch(DpTxSsInst.DpPtr->TxInstance.LinkConfig.PeLevel){
 			case 0: preemp = XVPHY_GTHE3_PREEMP_DP_L0; break;
 			case 1: preemp = XVPHY_GTHE3_PREEMP_DP_L1; break;
@@ -626,7 +682,7 @@ void DpPt_pe_vs_adjustHandler(void *InstancePtr){
 		XVphy_SetTxPreEmphasis(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, preemp);
 
 
-		unsigned char diff_swing;
+		unsigned char diff_swing = 0;
 		switch(DpTxSsInst.DpPtr->TxInstance.LinkConfig.VsLevel){
 			case 0:
 				switch(DpTxSsInst.DpPtr->TxInstance.LinkConfig.PeLevel){
@@ -733,7 +789,7 @@ void DpPt_pe_vs_adjustHandler(void *InstancePtr){
 void DpPt_CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 {
 
-	u32 TimerVal, TimerVal_pre;
+	u32 TimerVal = 0, TimerVal_pre;
 	u32 NumTicks = (MicroSeconds * (
 				XPAR_PROCESSOR_SYSTEM_AXI_TIMER_0_CLOCK_FREQ_HZ / 1000000));
 
@@ -1549,7 +1605,7 @@ XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane)
 	XVidC_VideoTiming Timing;
 	XVidC_VideoMode VmId;
 	u8 bpp;
-	double pixel_freq, pixel_freq1;
+	double pixel_freq, pixel_freq1 = 0;
 	double max_freq[] = {216.0, 172.8, 360.0, 288.0, 720.0, 576.0, 1440, 1152};
 
 	(void)memset((void *)&Timing, 0, sizeof(XVidC_VideoTiming));
@@ -2003,11 +2059,10 @@ int i2c_write_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress,
 void read_DP141(){
 	u8 Data;
 	int i =0;
-	u8 Buffer[1];
 
 	for(i=0; i<0xD; i++){
 		Data = i2c_read_dp141( XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, i);
-		printf("%x : %02x \r\n",i, Data);
+		xil_printf("%x : %02x \r\n",i, Data);
 	}
 
 }
