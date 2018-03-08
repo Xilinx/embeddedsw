@@ -382,14 +382,11 @@ void XSdiAud_Enable(XSdiAud *InstancePtr, u8 Enable);
 
 int XSdiAud_SelfTest(XSdiAud *InstancePtr);
 
-/* Function to soft reset the XSdiaud core and registers*/
-void XSdiAud_SoftReset(XSdiAud *InstancePtr);
-
 /* Function to soft reset the XSdiaud core*/
-void XSdiAud_SoftResetCore(XSdiAud *InstancePtr);
+void XSdiAud_ResetCoreEn(XSdiAud *InstancePtr, u8 RstCoreEnable);
 
 /* Function to soft reset the XSdiaud registers*/
-void XSdiAud_SoftResetReg(XSdiAud *InstancePtr);
+void XSdiAud_ResetReg(XSdiAud *InstancePtr);
 
 void XSdiAud_IntrHandler(void *InstancePtr);
 
