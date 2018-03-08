@@ -433,13 +433,15 @@ void RxStreamUpCallback(void *CallbackRef)
 
 	xil_printf("INFO>> SDI Rx: Input Locked\r\n");
 
-/* TODO: Replace Xil_Out32 calls with driver API */
 #ifdef XPAR_XSDIAUD_NUM_INSTANCES
-	Xil_Out32((UINTPTR)(SDI_AUD_EXTRT), (u32)(0x00000000));
-	Xil_Out32((UINTPTR)(SDI_AUD_EMBED), (u32)(0x00000000));
-	xil_printf("INFO>> SDI Audio Embed Block Enabled\r\n");
+	/*Audio Extract Module Reset De-Assertion*/
+	XSdiAud_ResetCoreEn(&SdiExtract, 0);
+	/*Audio Embed Module Reset De-Assertion*/
+	XSdiAud_ResetCoreEn(&SdiEmbed, 0);
+
+    /*Audio Embed Module Enable*/
 	XSdiAud_Enable(&SdiEmbed, 1);
-	xil_printf("INFO>> SDI Audio Extract Block Enabled\r\n");
+    /*Audio Extract Module Enable*/
 	XSdiAud_Enable(&SdiExtract, 1);
 #endif
 	/* The output clock frequency is set to 148.5MHz because the QPLL1's
@@ -483,15 +485,14 @@ void RxStreamDownCallback(void *CallbackRef)
 
 #ifdef XPAR_XSDIAUD_NUM_INSTANCES
     /*Audio Extract Module Disable*/
-	xil_printf("INFO>> SDI Audio Embed Block Disabled\r\n");
 	XSdiAud_Enable(&SdiEmbed, 0);
 	/*Audio Extract Module Disable*/
-	xil_printf("INFO>> SDI Audio Extract Block Disabled\r\n");
 	XSdiAud_Enable(&SdiExtract, 0);
-	/*Audio Embed Module Reset*/
-	Xil_Out32((UINTPTR)(SDI_AUD_EMBED), (u32)(0x00000002));
-	/*Audio Extract Module Reset*/
-	Xil_Out32((UINTPTR)(SDI_AUD_EXTRT), (u32)(0x00000002));
+
+	/*Audio Extract Module Reset Assertion*/
+	XSdiAud_ResetCoreEn(&SdiExtract, 1);
+	/*Audio Embed Module Reset Assertion*/
+	XSdiAud_ResetCoreEn(&SdiEmbed, 1);
 
 #endif
 }
@@ -636,20 +637,10 @@ void SdiAudGrpChangeDetHandler(void *CallBackRef)
 	/* Set the interrupt received flag. */
 	XSdiAud_IntrClr(&SdiExtract,XSDIAUD_INT_EN_GRP_CHG_MASK);
 
-	xil_printf("INFO>> In SDIAUDIOGRp\r\n");
-
-     /*Audio Extract Module Disable*/
-	xil_printf("INFO>> SDI Audio Embed Block Disabled\r\n");
-	XSdiAud_Enable(&SdiEmbed, 0);
-	/*Audio Extract Module Disable*/
-	xil_printf("INFO>> SDI Audio Extract Block Disabled\r\n");
-	XSdiAud_Enable(&SdiExtract, 0);
-
-	/*Audio Embed Module Reset*/
-	Xil_Out32((UINTPTR)(SDI_AUD_EMBED), (u32)(0x00000002));
-	usleep(1);
-	/*Audio Extract Module Reset*/
-	Xil_Out32((UINTPTR)(SDI_AUD_EXTRT), (u32)(0x00000002));
+	/*Audio Embed Module Reset Assertion*/
+	XSdiAud_ResetCoreEn(&SdiEmbed, 1);
+	/*Audio Extract Module Reset Assertion*/
+	XSdiAud_ResetCoreEn(&SdiExtract, 1);
 
 	xil_printf("------------\n\r");
 	xil_printf("SDI Audio Info\n\r");
@@ -774,8 +765,10 @@ void SdiAudGrpChangeDetHandler(void *CallBackRef)
 		XSdiAud_Emb_SetLineStd(&SdiEmbed, XSDIAUD_SMPTE_274M_1080p_30Hz);
 	}
 
-		Xil_Out32((UINTPTR)(SDI_AUD_EMBED), (u32)(0x00000000));
-		Xil_Out32((UINTPTR)(SDI_AUD_EXTRT), (u32)(0x00000000));
+		/*Audio Extract Module Reset De-Assertion*/
+		XSdiAud_ResetCoreEn(&SdiExtract, 0);
+		/*Audio Embed Module Reset De-Assertion*/
+		XSdiAud_ResetCoreEn(&SdiEmbed, 0);
 
 		/*Audio Extract Module Enable*/
 		XSdiAud_Enable(&SdiExtract, 1);
@@ -963,9 +956,15 @@ int main(void)
 
 	xil_printf("SDI AUDIO EMBED AND EXTRACT DRIVER ready to use\r\n");
 
-	XSdiAud_SoftReset(&SdiExtract);
+	/*Audio Extract Module Reset*/
+	XSdiAud_ResetCoreEn(&SdiExtract, 1);
+	XSdiAud_ResetCoreEn(&SdiExtract, 0);
+	XSdiAud_ResetReg(&SdiExtract);
 
-	XSdiAud_SoftReset(&SdiEmbed);
+	/*Audio Embed Module Reset*/
+	XSdiAud_ResetCoreEn(&SdiEmbed, 1);
+	XSdiAud_ResetCoreEn(&SdiEmbed, 0);
+	XSdiAud_ResetReg(&SdiEmbed);
 
 	XSdiAud_IntrEnable(&SdiExtract,XSDIAUD_INT_EN_GRP_CHG_MASK);
 	XSdiAud_IntrEnable(&SdiExtract,XSDIAUD_EXT_INT_EN_PKT_CHG_MASK);
