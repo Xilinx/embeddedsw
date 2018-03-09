@@ -63,7 +63,8 @@
 *			 02/18/15 Implemented larger data transfer using repeated start
 *					  in Zynq UltraScale MP.
 * 3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
-*
+* 3.6   ask 09/03/18 In XIicPs_MasterRecvPolled, set transfer size register
+* 		     before slave address. Fix for CR996440.
 * </pre>
 *
 ******************************************************************************/
@@ -424,7 +425,6 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
 	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, IntrStatusReg);
 
-	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, SlaveAddr);
 
 	/*
 	 * Set up the transfer size register so the slave knows how much
@@ -439,6 +439,9 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 		XIicPs_WriteReg(BaseAddr, XIICPS_TRANS_SIZE_OFFSET,
 			 ByteCountVar);
 	}
+
+
+	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, SlaveAddr);
 
 	/*
 	 * Intrs keeps all the error-related interrupts.
