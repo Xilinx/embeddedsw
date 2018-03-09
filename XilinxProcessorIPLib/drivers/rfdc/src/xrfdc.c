@@ -92,6 +92,7 @@
 *                       API's to consider the actual factor value.
 * 3.2   sk     02/02/18 Add API's to configure inverse-sinc.
 *       sk     02/27/18 Add API's to configure Multiband.
+*       sk     03/09/18 Update PLL structure in XRFdc_DynamicPLLConfig API.
 * </pre>
 *
 ******************************************************************************/
@@ -178,6 +179,20 @@ int XRFdc_CfgInitialize(XRFdc* InstancePtr, XRFdc_Config *Config)
 			if (XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id, Block_Id) != 0U)
 				InstancePtr->DAC_Tile[Tile_Id].NumOfDACBlocks++;
 		}
+
+		/* Update PLL structure */
+		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate =
+				InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].SamplingRate;
+		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate =
+				InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].SamplingRate;
+		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkFreq =
+				InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].RefClkFreq;
+		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkFreq =
+				InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].RefClkFreq;
+		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.Enabled =
+				InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].PLLEnable;
+		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.Enabled =
+				InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].PLLEnable;
 	}
 
 	for (Tile_Id = 0; Tile_Id < 4U; Tile_Id++) {
@@ -5815,6 +5830,16 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 				PllTuningMatrix[PllFreqIndex][FbDivIndex][1]);
 	}
 
+	if(Type == XRFDC_ADC_TILE) {
+		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkDivider = 0x1;
+		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.FeedbackDivider = Best_FeedbackDiv;
+		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.OutputDivider = Best_OutputDiv;
+	} else {
+		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkDivider = 0x1;
+		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.FeedbackDivider = Best_FeedbackDiv;
+		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.OutputDivider = Best_OutputDiv;
+	}
+
 	Status = XRFDC_SUCCESS;
 
 	return Status;
@@ -5849,6 +5874,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 	u32 Status;
 	u32 BaseAddr;
 	u32 ReadReg;
+	u32 PLLEnable = 0x0;
 
 	/*
 	 * Get Tile clock source information
@@ -5868,6 +5894,13 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		metal_log(METAL_LOG_DEBUG,  "\n Requested Tile %d "
 					"uses external clock source in %s\r\n",Tile_Id, __func__);
 #endif
+		if(Type == XRFDC_ADC_TILE) {
+			InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate = SamplingRate;
+			InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
+		} else {
+			InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate = SamplingRate;
+			InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
+		}
 		Status = XRFDC_SUCCESS;
 		goto RETURN_PATH;
 	} else {
@@ -5955,6 +5988,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	if (Source == XRFDC_INTERNAL_PLL_CLK) {
+		PLLEnable = 0x1;
 		/*
 		 * Wait for internal PLL to lock
 		 */
@@ -5976,6 +6010,16 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		BaseAddr = XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile_Id);
 
 	while (XRFdc_ReadReg16(InstancePtr,BaseAddr, XRFDC_RESTART_OFFSET) != 0U);
+
+	if(Type == XRFDC_ADC_TILE) {
+		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate = SamplingRate;
+		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
+		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.Enabled = PLLEnable;
+	} else {
+		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate = SamplingRate;
+		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
+		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.Enabled = PLLEnable;
+	}
 
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
