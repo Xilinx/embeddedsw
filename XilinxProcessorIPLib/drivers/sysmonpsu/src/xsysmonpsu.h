@@ -177,6 +177,7 @@
 *       ms     12/15/17 Added peripheral test support.
 *       ms     01/04/18 Provided conditional checks for interrupt example
 *                       in sysmonpsu_header.h
+*       mn     03/08/18 Update Clock Divisor to the proper value
 *
 * </pre>
 *
@@ -387,7 +388,8 @@ typedef void (*XSysMonPsu_Handler) (void *CallBackRef);
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID of device */
-	u32 BaseAddress;		/**< Register base address */
+	u32 BaseAddress;	/**< Register base address */
+	u16 InputClockMHz;	/**< Input clock frequency */
 } XSysMonPsu_Config;
 
 /**
@@ -634,6 +636,7 @@ void XSysMonPsu_SetExtenalMux(XSysMonPsu *InstancePtr, u8 Channel, u32 SysmonBlk
 u32 XSysMonPsu_GetExtenalMux(XSysMonPsu *InstancePtr, u32 SysmonBlk);
 void XSysMonPsu_SetAdcClkDivisor(XSysMonPsu *InstancePtr, u8 Divisor, u32 SysmonBlk);
 u8 XSysMonPsu_GetAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk);
+u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk);
 s32 XSysMonPsu_SetSeqChEnables(XSysMonPsu *InstancePtr, u64 ChEnableMask,
 		u32 SysmonBlk);
 u64 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk);
