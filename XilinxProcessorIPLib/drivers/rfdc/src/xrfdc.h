@@ -134,6 +134,7 @@
 *                       API's to consider the actual factor value.
 * 3.2   sk     02/02/18 Add API's to configure inverse-sinc.
 *       sk     02/27/18 Add API's to configure Multiband.
+*       sk     03/09/18 Update PLL structure in XRFdc_DynamicPLLConfig API.
 *
 * </pre>
 *
