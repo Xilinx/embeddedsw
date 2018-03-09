@@ -1281,6 +1281,7 @@ proc generate_adapterconfig_include {libhandle} {
 	set have_axi_ethernet 0
 	set have_axi_ethernet_fifo 0
 	set have_axi_ethernet_dma 0
+	set have_1588_enabled 0
 	set have_ps_ethernet 0
 	set force_axieth_on_zynq 0
 	set force_emaclite_on_zynq 0
@@ -1318,6 +1319,10 @@ proc generate_adapterconfig_include {libhandle} {
 			} else {
 				set have_axi_ethernet_dma 1
 			}
+			#Find 1588 Enabled or not
+			set enable_1588 [common::get_property CONFIG.Enable_1588 $emac]
+			set have_1588_enabled [is_property_set $enable_1588]
+
 			set have_axi_ethernet 1
 		} elseif {$iptype == "ps7_ethernet" || $iptype == "psu_ethernet"} {
 			set have_ps_ethernet 1
@@ -1361,6 +1366,9 @@ proc generate_adapterconfig_include {libhandle} {
 		}
 		if {$have_axi_ethernet_fifo == 1} {
 			puts $fd "\#define XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO 1"
+		}
+		if {$have_1588_enabled == 1} {
+			puts $fd "\#define XLWIP_CONFIG_AXI_ETHERNET_ENABLE_1588 1"
 		}
 	} elseif {$have_ps_ethernet == 1} {
 			puts $fd "\#define XLWIP_CONFIG_INCLUDE_GEM 1"
@@ -1424,6 +1432,16 @@ proc get_checksum {value} {
 		set value 1
 	} else {
 		set value 2
+	}
+
+	return $value
+}
+
+proc is_property_set {value} {
+	if {[string compare -nocase $value "true"] == 0} {
+		set value 1
+	} else {
+		set value 0
 	}
 
 	return $value
