@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -11,10 +11,6 @@
 *
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-*
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -33,7 +29,7 @@
 /**
 *
 * @file xiicps_master.c
-* @addtogroup iicps_v3_7
+* @addtogroup iicps_v3_8
 * @{
 *
 * Handles master mode transfers.
@@ -65,6 +61,7 @@
 * 3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
 * 3.6   ask 09/03/18 In XIicPs_MasterRecvPolled, set transfer size register
 * 		     before slave address. Fix for CR996440.
+* 3.8   sd 09/06/18  Enable the Timeout interrupt
 * </pre>
 *
 ******************************************************************************/
@@ -144,7 +141,7 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 
 	XIicPs_EnableInterrupts(BaseAddr,
 		(u32)XIICPS_IXR_NACK_MASK | (u32)XIICPS_IXR_COMP_MASK |
-		(u32)XIICPS_IXR_ARB_LOST_MASK);
+		(u32)XIICPS_IXR_ARB_LOST_MASK | (u32)XIICPS_IXR_TO_MASK);
 	/*
 	 * Do the address transfer to notify the slave.
 	 */
@@ -229,7 +226,7 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	XIicPs_EnableInterrupts(BaseAddr,
 		(u32)XIICPS_IXR_NACK_MASK | (u32)XIICPS_IXR_DATA_MASK |
 		(u32)XIICPS_IXR_RX_OVR_MASK | (u32)XIICPS_IXR_COMP_MASK |
-		(u32)XIICPS_IXR_ARB_LOST_MASK);
+		(u32)XIICPS_IXR_ARB_LOST_MASK | XIICPS_IXR_TO_MASK);
 	/*
 	 * Do the address transfer to signal the slave.
 	 */
@@ -880,6 +877,10 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 		StatusEvent |= XIICPS_EVENT_ARB_LOST;
 	}
 
+	if (0U != (IntrStatusReg & XIICPS_IXR_TO_MASK)) {
+		XIicPs_DisableInterrupts(BaseAddr, XIICPS_IXR_TO_MASK);
+		StatusEvent |= XIICPS_EVENT_TIME_OUT;
+	}
 	/*
 	 * All other interrupts are treated as error.
 	 */
