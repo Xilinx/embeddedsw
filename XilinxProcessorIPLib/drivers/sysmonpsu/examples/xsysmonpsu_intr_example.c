@@ -66,6 +66,7 @@
 *                       recognize it as documentation block for doxygen
 *                       generation.
 * 2.3  ms      12/12/17 Added peripheral test support
+*       mn     03/08/18 Update code to run at higher frequency
 * </pre>
 *
 *****************************************************************************/
@@ -316,11 +317,9 @@ int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr, XSysMonPsu* SysMonInstPtr,
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Set the ADCCLK frequency equal to 1/32 of System clock for the System
-	 * Monitor/ADC in the Configuration Register 2.
-	 */
-	XSysMonPsu_SetAdcClkDivisor(SysMonInstPtr, 32, XSYSMON_PS);
+	/* Clear any bits set in the Interrupt Status Register. */
+	IntrStatus = XSysMonPsu_IntrGetStatus(SysMonInstPtr);
+	XSysMonPsu_IntrClear(SysMonInstPtr, IntrStatus);
 
 	/* Enable the Channel Sequencer in continuous sequencer cycling mode. */
 	XSysMonPsu_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_CONTINPASS,
