@@ -135,6 +135,8 @@
 * 3.2   sk     02/02/18 Add API's to configure inverse-sinc.
 *       sk     02/27/18 Add API's to configure Multiband.
 *       sk     03/09/18 Update PLL structure in XRFdc_DynamicPLLConfig API.
+*       sk     03/09/18 Update ADC and DAC datatypes in Mixer API and use
+*                       input datatype for ADC in threshold and QMC APIs.
 *
 * </pre>
 *
@@ -497,6 +499,7 @@ typedef struct {
 #define XRFDC_QMC_GAIN_MULT				(0x1U << 14U) /* 2^14 */
 
 #define XRFDC_DATA_TYPE_IQ			0x00000001U
+#define XRFDC_DATA_TYPE_REAL		0x00000000U
 #define XRFDC_TRSHD_STICKY_OVER		0x00000001U
 #define XRFDC_TRSHD_STICKY_UNDER	0x00000002U
 #define XRFDC_TRSHD_HYSTERISIS		0x00000003U
@@ -605,6 +608,8 @@ typedef struct {
 #define XRFDC_MB_C2C_BLK1	0x5D
 #define XRFDC_MB_C2R_BLK0	0x5C
 #define XRFDC_MB_C2R_BLK1	0x0
+
+#define XRFDC_MIXER_MODE_BYPASS		0x2
 
 /*****************************************************************************/
 /**

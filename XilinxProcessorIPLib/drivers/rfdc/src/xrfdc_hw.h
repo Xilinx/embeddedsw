@@ -737,6 +737,16 @@ extern "C" {
 
 /* @} */
 
+/** @name DAC interpolation data
+ *
+ * This register contains bits for DAC interpolation data type
+ * @{
+ */
+
+#define XRFDC_DAC_INTERP_DATA_MASK	0x00000001U	/**< Data type mask */
+
+/* @} */
+
 /** @name NCO Freq Word[47:32] - NCO Phase increment(nco freq 48-bit)
  *
  * This register contains bits for frequency control word of the
