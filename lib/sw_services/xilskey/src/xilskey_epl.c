@@ -2710,13 +2710,8 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 *****************************************************************************/
 static inline u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr)
 {
+#ifdef XSK_MICROBLAZE_ULTRA
 	u32 StatusValues = 0;
-
-	if (XilSKey_EfusePl_ReadControlRegister(CtrlBitsUltra)
-						!= XST_SUCCESS) {
-		return (XSK_EFUSEPL_ERROR_READING_FUSE_CNTRL +
-							ErrorCode);
-	}
 
 	if (XilSKey_EfusePl_ReadStatus(InstancePtr,&StatusValues)
 						!= XST_SUCCESS) {
@@ -2728,6 +2723,14 @@ static inline u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr)
 		(1 << XSK_EFUSEPL_STATUS_FUSE_LOGIC_IS_BUSY_ULTRA)) == TRUE) {
 		return (XSK_EFUSEPL_ERROR_FUSE_BUSY + ErrorCode);
 	}
+#endif
+
+	if (XilSKey_EfusePl_ReadControlRegister(CtrlBitsUltra)
+						!= XST_SUCCESS) {
+		return (XSK_EFUSEPL_ERROR_READING_FUSE_CNTRL +
+							ErrorCode);
+	}
+
 
 	if ((((CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_KEY_RD_ULTRA] == TRUE) ||
 		(CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_KEY_WR_ULTRA] == TRUE))

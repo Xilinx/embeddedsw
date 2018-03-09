@@ -172,6 +172,7 @@
 * 6.0   vns     07/07/16 Added Gpio pin numbers connected to hardware module.
 * 6.4   vns     02/27/18 Added support for programming secure bit 6 -
 *                        enable obfuscation feature for eFUSE AES key
+*               03/09/17 Corrected status bits of Ultrascale plus
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -532,6 +533,7 @@ int main()
 		}else {
 			xil_printf("EfusePL status bits : 128 bit User Key programming enabled\n\r");
 		}
+#ifdef XSK_MICROBLAZE_ULTRA
 		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_FUSE_LOGIC_IS_BUSY_ULTRA)) {
 			xil_printf("EfusePL status bits : FUSE logic is busy \n\r");
 		}else {
@@ -542,6 +544,7 @@ int main()
 		}else {
 			xil_printf("EfusePL status bits : Non encrypted bitstream allowed\n\r");
 		}
+#endif
 		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_AES_ONLY_ENABLED_ULTRA)) {
 			xil_printf("EfusePL status bits : Decryption only by AES of FUSE \n\r");
 		}else {
@@ -552,6 +555,7 @@ int main()
 		}else {
 			xil_printf("EfusePL status bits : RSA authentication is disabled \n\r");
 		}
+#ifdef XSK_MICROBLAZE_ULTRA
 		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_DISABLE_JTAG_ULTRA)) {
 			xil_printf("EfusePL status bits : External Jtag pins are disabled\n\r");
 		}else {
@@ -562,6 +566,14 @@ int main()
 		}else {
 			xil_printf("EfusePL status bits : Xilinx test access is enabled\n\r");
 		}
+#else
+		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_SECURITY_ENABLE_ULTRA)) {
+			xil_printf("EfusePL status bits : Security enabled \n\r");
+		}
+		else {
+			xil_printf("EfusePL status bits : Security is not been enabled\n\r");
+		}
+#endif
 		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_DISABLE_DCRPTR_ULTRA)) {
 			xil_printf("EfusePL status bits : Decryptor disabled \n\r");
 		}else {
