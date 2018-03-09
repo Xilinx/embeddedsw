@@ -137,11 +137,7 @@ u8 StreamPattern_vpg[5] = {0x11, 0x13, 0x15, 0x16, 0x10};
 #define QuadPixelMode 0x200
 
 #include "sleep.h"
-#if defined (__aarch64__)
-#define MicrosecToWait 10
-#else
-#define MicrosecToWait 0
-#endif
+#define MicrosecToWait 1 /*to avoid hang with A53 system*/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

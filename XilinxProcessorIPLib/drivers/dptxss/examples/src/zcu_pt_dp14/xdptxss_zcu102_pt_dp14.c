@@ -61,6 +61,105 @@ void DpTxSs_Main();
 void DpRxSs_Main();
 void DpPt_Main();
 
+
+//extern XVidC_VideoMode resolution_table[];
+// adding new resolution definition example
+// XVIDC_VM_3840x2160_30_P_SB, XVIDC_B_TIMING3_60_P_RB
+// and XVIDC_VM_3840x2160_60_P_RB has added
+typedef enum {
+    XVIDC_VM_1920x1080_60_P_RB = (XVIDC_VM_CUSTOM + 1),
+	XVIDC_B_TIMING3_60_P_RB ,
+	XVIDC_VM_3840x2160_120_P_RB,
+	XVIDC_VM_7680x4320_24_P,
+	XVIDC_VM_7680x4320_25_P,
+	XVIDC_VM_7680x4320_30_P,
+	XVIDC_VM_3840x2160_100_P_RB2,
+	XVIDC_VM_7680x4320_30_DELL,
+	XVIDC_VM_5120x2880_60_P_RB2,
+
+	XVIDC_VM_7680x4320_30_MSTR,
+	XVIDC_VM_5120x2880_60_MSTR,
+	XVIDC_VM_3840x2160_120_MSTR,
+    XVIDC_CM_NUM_SUPPORTED
+} XVIDC_CUSTOM_MODES;
+
+// CUSTOM_TIMING: Here is the detailed timing for each custom resolutions.
+const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
+					(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1))] =
+{
+	{ XVIDC_VM_1920x1080_60_P_RB, "1920x1080@60Hz (RB)", XVIDC_FR_60HZ,
+		{1920, 48, 32, 80, 2080, 1,
+		1080, 3, 5, 23, 1111, 0, 0, 0, 0, 0}},
+	{ XVIDC_B_TIMING3_60_P_RB, "2560x1440@60Hz (RB)", XVIDC_FR_60HZ,
+		 {2560, 48, 32, 80, 2720, 1,
+		1440, 3, 5, 33, 1481, 0, 0, 0, 0, 0}},
+	{ XVIDC_VM_3840x2160_120_P_RB, "3840x2160@120Hz (RB)", XVIDC_FR_120HZ,
+		{3840, 8, 32, 40, 3920, 1,
+		2160, 113, 8, 6, 2287, 0, 0, 0, 0, 1} },
+
+	{ XVIDC_VM_7680x4320_24_P, "7680x4320@24Hz", XVIDC_FR_24HZ,
+		{7680, 352, 176, 592, 8800, 1,
+		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
+	{ XVIDC_VM_7680x4320_25_P, "7680x4320@25Hz", XVIDC_FR_25HZ,
+		{7680, 352, 176, 592, 8800, 1,
+		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
+	{ XVIDC_VM_7680x4320_30_P, "7680x4320@30Hz", XVIDC_FR_30HZ,
+		{7680, 8, 32, 40, 7760, 0,
+		4320, 47, 8, 6, 4381, 0, 0, 0, 0, 1}},
+	{ XVIDC_VM_3840x2160_100_P_RB2, "3840x2160@100Hz (RB2)", XVIDC_FR_100HZ,
+		{3840, 8, 32, 40, 3920, 0,
+		2160, 91, 8, 6, 2265, 0, 0, 0, 0, 1}},
+	{ XVIDC_VM_7680x4320_30_DELL, "7680x4320_DELL@30Hz", XVIDC_FR_30HZ,
+		{7680, 48, 32, 80, 7840, 0,
+		4320, 3, 5, 53, 4381, 0, 0, 0, 0, 1}},
+	{ XVIDC_VM_5120x2880_60_P_RB2, "5120x2880@60Hz (RB2)", XVIDC_FR_60HZ,
+		{5120, 8, 32, 40, 5200, 0,
+		2880, 68, 8, 6, 2962, 0, 0, 0, 0, 1}},
+	{ XVIDC_VM_7680x4320_30_MSTR, "7680x4320_MSTR@30Hz", XVIDC_FR_30HZ,
+		{7680, 25, 97, 239, 8041, 0,
+		4320, 48, 9, 5, 4382, 0, 0, 0, 0, 1}},
+	{ XVIDC_VM_5120x2880_60_MSTR, "5120x2880@60Hz_MSTR", XVIDC_FR_60HZ,
+		{5120, 25, 97, 239, 5481, 0,
+		2880, 48, 9, 5, 2942, 0, 0, 0, 0, 1}},
+	{ XVIDC_VM_3840x2160_120_MSTR, "3840x2160@120Hz_MSTR", XVIDC_FR_120HZ,
+		{3840, 48, 34, 79, 4001, 1,
+		2160, 4, 6, 53, 2223, 0, 0, 0, 0, 1}},
+};
+
+XVidC_VideoMode resolution_table[] =
+{
+	XVIDC_VM_640x480_60_P,
+	XVIDC_VM_480_60_P,
+	XVIDC_VM_800x600_60_P,
+	XVIDC_VM_1024x768_60_P,
+	XVIDC_VM_720_60_P,
+	XVIDC_VM_1600x1200_60_P,
+	XVIDC_VM_1366x768_60_P,
+	XVIDC_VM_1080_60_P,
+	XVIDC_VM_UHD_30_P,
+	XVIDC_VM_UHD_60_P,
+	XVIDC_VM_2560x1600_60_P,
+	XVIDC_VM_1280x1024_60_P,
+	XVIDC_VM_1792x1344_60_P,
+	XVIDC_VM_848x480_60_P,
+	XVIDC_VM_1280x960_60_P,
+	XVIDC_VM_1920x1440_60_P,
+	XVIDC_VM_USE_EDID_PREFERRED,
+
+	XVIDC_VM_1920x1080_60_P_RB,
+	XVIDC_VM_3840x2160_60_P_RB,
+	XVIDC_VM_3840x2160_120_P_RB,
+	XVIDC_VM_7680x4320_24_P,
+	XVIDC_VM_7680x4320_30_P,
+	XVIDC_VM_3840x2160_100_P_RB2,
+	XVIDC_VM_7680x4320_30_DELL,
+	XVIDC_VM_5120x2880_60_P_RB2,
+	XVIDC_VM_7680x4320_30_MSTR,
+	XVIDC_VM_5120x2880_60_MSTR,
+	XVIDC_VM_3840x2160_120_MSTR
+
+};
+
 /*****************************************************************************/
 /**
 *
@@ -78,7 +177,7 @@ int VideoFMC_Init(void)
 	int Status;
 	u8 Buffer[2];
 	int ByteCount;
-	
+
 	xil_printf("VFMC: Setting IO Expanders...\n\r");
 	
 	XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
@@ -266,8 +365,7 @@ u32 DpSs_Main(void)
 	}
 
 
-	/* Obtain the device configuration
-	 * for the DisplayPort TX Subsystem */
+/* Obtain the device configuration for the DisplayPort TX Subsystem */
 	ConfigPtr_tx = XDpTxSs_LookupConfig(XPAR_DPTXSS_0_DEVICE_ID);
 	if (!ConfigPtr_tx) {
 		return XST_FAILURE;
@@ -300,6 +398,16 @@ u32 DpSs_Main(void)
 	XDpRxSs_McDp6000_init(&DpRxSsInst, XPAR_IIC_0_BASEADDR);
 
 
+	/* issue HPD at here to inform DP source */
+	XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFF8FFFF);
+	XDp_RxInterruptEnable(DpRxSsInst.DpPtr, 0x80000000);
+	// Disabling TX interrupts
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_INTERRUPT_MASK, 0xFFF);
+	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 50000);
+
+
+
 	/* FrameBuffer initialization. */
 	Status = XVFrmbufRd_Initialize(&frmbufrd, FRMBUF_RD_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
@@ -320,8 +428,18 @@ u32 DpSs_Main(void)
 
 	DpSs_SetupIntrSystem();
 
-	operationMenu();
 
+	// Adding custom resolutions at here.
+	xil_printf("INFO> Registering Custom Timing Table with %d entries \r\n",
+							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
+	Status = XVidC_RegisterCustomTimingModes(XVidC_MyVideoTimingMode,
+							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: Unable to register custom timing table\r\r\n\n");
+	}
+
+
+    operationMenu();
 	while (1) {
 		UserInput = XUartPs_RecvByte_NonBlocking();
 
@@ -336,6 +454,9 @@ u32 DpSs_Main(void)
 				break;
 			case 'p':
 				DpPt_Main();
+				break;
+			case 'l':
+				Dplb_Main();
 				break;
 			}
 		}
@@ -445,65 +566,6 @@ void PHY_Two_byte_set (XVphy *InstancePtr, u8 Rx_to_two_byte,
 	}
 }
 
-/*****************************************************************************/
-/**
-*
-* This function sets proper ref clk frequency and line rate
-*
-* @param    InstancePtr is a pointer to the Video PHY instance.
-*
-* @return    None.
-*
-* @note        None.
-*
-******************************************************************************/
-//void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate) {
-//
-//    switch (link_rate) {
-//    case 0x6:
-//            XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-//                                ONBOARD_REF_CLK, XVPHY_DP_REF_CLK_FREQ_HZ_270);
-//            XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-//            		DP159_FORWARDED_CLK, XVPHY_DP_REF_CLK_FREQ_HZ_270);
-//            XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
-//                                XVPHY_DP_LINK_RATE_HZ_162GBPS);
-//            XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN1,
-//                                XVPHY_DP_LINK_RATE_HZ_162GBPS);
-//            break;
-//    case 0x14:
-//            XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-//                                ONBOARD_REF_CLK, XVPHY_DP_REF_CLK_FREQ_HZ_270);
-//            XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-//            		DP159_FORWARDED_CLK, XVPHY_DP_REF_CLK_FREQ_HZ_270);
-//            XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
-//                                XVPHY_DP_LINK_RATE_HZ_540GBPS);
-//            XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN1,
-//                                XVPHY_DP_LINK_RATE_HZ_540GBPS);
-//            break;
-//    case 0x1E:
-//            XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-//                                ONBOARD_REF_CLK, XVPHY_DP_REF_CLK_FREQ_HZ_270);
-//            XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-//            		DP159_FORWARDED_CLK, XVPHY_DP_REF_CLK_FREQ_HZ_270);
-//            XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
-//            		XVPHY_DP_LINK_RATE_HZ_810GBPS);
-//            XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN1,
-//            		XVPHY_DP_LINK_RATE_HZ_810GBPS);
-//            break;
-//    default:
-//            XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-//                                ONBOARD_REF_CLK, XVPHY_DP_REF_CLK_FREQ_HZ_270);
-//            XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-////                            DP159_FORWARDED_CLK, XVPHY_DP_REF_CLK_FREQ_HZ_135);
-//            		DP159_FORWARDED_CLK, XVPHY_DP_REF_CLK_FREQ_HZ_270);
-//            XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
-//                                XVPHY_DP_LINK_RATE_HZ_270GBPS);
-//            XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN1,
-//                                XVPHY_DP_LINK_RATE_HZ_270GBPS);
-//            break;
-//    }
-//}
-
 void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate) {
 
 	switch (link_rate) {
@@ -565,11 +627,11 @@ void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate) {
 *
 * This function is a non-blocking UART return byte
 *
-* @param 	None.
+* @param    None.
 *
-* @return 	None.
+* @return    None.
 *
-* @note 	None.
+* @note        None.
 *
 ******************************************************************************/
 char XUartPs_RecvByte_NonBlocking()
@@ -623,13 +685,13 @@ void CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 ******************************************************************************/
 void CalculateCRC(void)
 {
-	/* Reset CRC Test Counter in DP DPCD Space. */
+     /* Reset CRC Test Counter in DP DPCD Space. */
 	VidFrameCRC_rx.TEST_CRC_CNT = 0;
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 		     XDP_RX_CRC_CONFIG,
 		     (VidFrameCRC_rx.TEST_CRC_SUPPORTED << 5 |
 		      VidFrameCRC_rx.TEST_CRC_CNT));
-	
+
 	/*Set pixel mode as per lane count - it is default behavior
 	  User has to adjust this accordingly if there is change in pixel
 	  width programming
@@ -640,9 +702,12 @@ void CalculateCRC(void)
 	
 	/* Set pixel mode as per lane count - it
 	 * is default behavior Reset DTG. */
-//	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, DpRxSsInst.UsrOpt.LaneCount);
-//	XDp_RxDtgDis(DpRxSsInst.DpPtr);
-//	XDp_RxDtgEn(DpRxSsInst.DpPtr);
+	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr,
+			XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+								XDP_RX_USER_PIXEL_WIDTH));
+
+	XDp_RxDtgDis(DpRxSsInst.DpPtr);
+	XDp_RxDtgEn(DpRxSsInst.DpPtr);
 	
 	/* Add delay (~40 ms) for Frame CRC
 	 * to compute on couple of frames. */
@@ -763,11 +828,10 @@ u8 i2c_read_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress)
 			ByteCount = XIic_Recv(I2CBaseAddress, I2CSlaveAddress,
 					      (u8*)Buffer, 1, XIIC_STOP);
 //			ByteCount = XIic_Recv(I2CBaseAddress, I2CSlaveAddress,
-//					      (u8*)Buffer, 2, XIIC_STOP);
 //			if (ByteCount != 1) {
 //				Exit = FALSE;
 //				Exit = TRUE;
-//			} else {
+//			else {
 				Data = Buffer[0];
 				Exit = TRUE;
 //			}
@@ -797,7 +861,7 @@ int i2c_write_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 			Retry++;
 
 			/* Maximum retries */
-			if (Retry == 255) {
+			if (Retry == 15) {
 				return XST_FAILURE;
 			}
 		} else {
@@ -827,9 +891,9 @@ void read_DP141()
 * @param    None.
 *
 * @return
-* 	- XST_SUCCESS if required peripherals are initialized and
-*       	      configured successfully.
-* 	- XST_FAILURE, otherwise.
+*        - XST_SUCCESS if required peripherals are initialized and
+*        configured successfully.
+*        - XST_FAILURE, otherwise.
 *
 * @note        None.
 *
@@ -963,7 +1027,10 @@ u32 DpSs_SetupIntrSystem(void)
 			DpRxSs_AccessErrorCounterHandler, &DpRxSsInst);
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_CRC_TEST_EVENT,
 			DpRxSs_CRCTestEventHandler, &DpRxSsInst);
-	
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_INFO_PKT_EVENT,
+			&DpRxSs_InfoPacketHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_EXT_PKT_EVENT,
+			&DpRxSs_ExtPacketHandler, &DpRxSsInst);
 	/* Set custom timer wait */
 	XDpRxSs_SetUserTimerHandler(&DpRxSsInst, &CustomWaitUs, &TmrCtr);
 
@@ -1002,7 +1069,7 @@ u32 DpSs_SetupIntrSystem(void)
 	/* Connect the device driver handler that will be called when an
 	 * interrupt for the device occurs, the handler defined above performs
 	 * the specific interrupt processing for the device
-	 * */
+	 */
 	Status = XScuGic_Connect(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID,
 				(Xil_InterruptHandler)XDpTxSs_DpIntrHandler,
 				&DpTxSsInst);
@@ -1028,8 +1095,8 @@ u32 DpSs_SetupIntrSystem(void)
 	/* Initialize the exception table. */
 	Xil_ExceptionInit();
 
-	/* Register the interrupt controller
-	 * handler with the exception table. */
+	/* Register the interrupt controller handler with the exception
+	 * table.*/
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 				     (Xil_ExceptionHandler)XINTC_HANDLER,
 				     IntcInstPtr);
@@ -1039,29 +1106,6 @@ u32 DpSs_SetupIntrSystem(void)
 
 	return (XST_SUCCESS);
 }
-
-//void bufferWr_callback(void *InstancePtr){
-//	u32 Status;
-//	if(XVFRMBUFWR_BUFFER_BASEADDR >= (0 + (0x10000000) + (0x08000000 * 3))){
-//		XVFRMBUFRD_BUFFER_BASEADDR = (0 + (0x10000000) + (0x08000000 * 2));
-//		XVFRMBUFWR_BUFFER_BASEADDR = 0 + (0x10000000);
-//	}else{
-//		XVFRMBUFRD_BUFFER_BASEADDR = XVFRMBUFWR_BUFFER_BASEADDR;
-//		XVFRMBUFWR_BUFFER_BASEADDR = XVFRMBUFWR_BUFFER_BASEADDR + 0x08000000;
-//	}
-//
-//
-//
-//	Status = XVFrmbufWr_SetBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR);
-//	if(Status != XST_SUCCESS) {
-//		xil_printf("ERROR:: Unable to configure Frame Buffer Write buffer address\r\n");
-//	}
-//	Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
-//	if(Status != XST_SUCCESS) {
-//		xil_printf("ERROR:: Unable to configure Frame Buffer Read buffer address\r\n");
-//	}
-//
-//}
 
 /*****************************************************************************/
 /**

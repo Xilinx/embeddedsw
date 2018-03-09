@@ -52,53 +52,54 @@
 #define Si570_device_address 0x5D
 #define audio_clk_Hz 24.576
 
+
 static XVphy_User_Config PHY_User_Config_Table[] =
 {
 // Index,         TxPLL,               RxPLL,
 //    TxChId,         RxChId,
 // LineRate,              LineRateHz,
 // QPLLRefClkSrc,          CPLLRefClkSrc,    QPLLRefClkFreqHz,CPLLRefClkFreqHz
-  {   0,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
-          XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
-          0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,
+	{   0,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,
 		  ONBOARD_REF_CLK,    ONBOARD_REF_CLK,     270000000,270000000},
-  {   1,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
-          XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
-          0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,
+	{   1,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,
 		  ONBOARD_REF_CLK,    ONBOARD_REF_CLK,     270000000,270000000},
-  {   2,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
-          XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
-          0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,
+	{   2,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,
 		  ONBOARD_REF_CLK,    ONBOARD_REF_CLK,     270000000,270000000},
-  {   3,     XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
-          XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
-          0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,
-          ONBOARD_REF_CLK,        ONBOARD_REF_CLK,     270000000,270000000},
-  {   4,     XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
-          XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
-          0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,
-          ONBOARD_REF_CLK,        ONBOARD_REF_CLK,     270000000,270000000},
-  {   5,     XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
-          XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
-          0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,
-          ONBOARD_REF_CLK,        ONBOARD_REF_CLK,     270000000,270000000},
-  {   6,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
-          XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
-          0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,
-          ONBOARD_REF_CLK,        ONBOARD_REF_CLK,         270000000,270000000},
-  {   7,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
-          XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
-          0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,
-          ONBOARD_REF_CLK,        ONBOARD_REF_CLK,         270000000,270000000},
-  {   8,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
-          XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
-          0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,
-          ONBOARD_REF_CLK,        ONBOARD_REF_CLK,         270000000,270000000},
-  {   9,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+	{   3,     XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
+		  0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,
+		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,     270000000,270000000},
+	{   4,     XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
+		  0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,
+		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,     270000000,270000000},
+	{   5,     XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
+		  0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,
+		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,     270000000,270000000},
+	{   6,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,
+		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,         270000000,270000000},
+	{   7,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,
+		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,         270000000,270000000},
+	{   8,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,
+		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,         270000000,270000000},
+	{   9,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
 		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
 		  0x14,    XVPHY_DP_LINK_RATE_HZ_810GBPS,
 		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,         270000000,270000000},
-  {   10,     XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
+	{   10,     XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
 		  XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
 		  0x1E,    XVPHY_DP_LINK_RATE_HZ_810GBPS,
 		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,     270000000,270000000},
@@ -113,25 +114,34 @@ u32 DpTxSs_PlatformInit(void);
 u32 DpTxSs_SetupIntrSystem(void);
 u32 DpTxSs_VideoPhyInit(u16 DeviceId);
 void DpPt_CustomWaitUs(void *InstancePtr, u32 MicroSeconds);
-//u32 DpTxSubsystem_Start(XDpTxSs *InstancePtr, int with_msa);
-void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init, 
-			u8 Edid_org[128], u8 Edid1_org[128]);
 void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate);
-//void PHY_Two_byte_set (XVphy *InstancePtr, u8 Rx_to_two_byte);
 void clk_wiz_locked(void);
 void hpd_pulse_con(XDpTxSs *InstancePtr);
 int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time);
 void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern);
-//void LMK04906_init(XSpi *SPI_LMK04906);
 static u8 CalculateChecksum(u8 *Data, u8 Size);
 XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane);
 void ReportVideoCRC(void);
-extern void main_loop(void);
+extern void tx_main_loop(void);
+
+void bpc_help_menu(int DPTXSS_BPC_int);
+void sub_help_menu(void);
+void resolution_help_menu(void);
+void select_link_lane(void);
+void test_pattern_gen_help();
+void format_help_menu(void);
+void operationMenu(void);
+char inbyte_local(void);
+u32 xil_gethex(u8 num_chars);
 
 /************************** Variable Definitions *****************************/
-
+#define DPCD_TEST_CRC_R_Cr   0x240
+#define DPCD_TEST_SINK_MISC  0x246
+#define DPCD_TEST_SINK_START 0x270
+#define CRC_AVAIL_TIMEOUT    1000
 /************************** Function Definitions *****************************/
-
+extern XVidC_VideoMode resolution_table[];
+extern lane_link_rate_struct lane_link_table[];
 /*****************************************************************************/
 /**
 *
@@ -154,8 +164,6 @@ extern void main_loop(void);
 ******************************************************************************/
 u32 DpTxSs_Main()
 {
-//	u32 Status;
-//	XDpTxSs_Config *ConfigPtr;
 	u8 LineRate_init = XDP_TX_LINK_BW_SET_540GBPS;
 	u8 LineRate_init_tx = XDP_TX_LINK_BW_SET_540GBPS;
 	u8 LaneCount_init = XDP_TX_LANE_COUNT_SET_4;
@@ -163,13 +171,11 @@ u32 DpTxSs_Main()
 	u8 Edid_org[128], Edid1_org[128];
 	u8 connected = 0;
 
-
 	user_config_struct user_config;
 	user_config.user_bpc = 8;
 	user_config.VideoMode_local = XVIDC_VM_800x600_60_P;
 	user_config.user_pattern = 1; /*Color Ramp (Default)*/
 	user_config.user_format = XVIDC_CSF_RGB;
-
 
 
 #if ENABLE_AUDIO
@@ -205,7 +211,7 @@ u32 DpTxSs_Main()
 	/* This configures the vid_phy for line rate to start with
 	 * Even though CPLL can be used in limited case,
 	 * using QPLL is recommended for more coverage.
-	 * */
+		*/
 	set_vphy(LineRate_init_tx);
 
 	LaneCount_init_tx = LaneCount_init_tx & 0x7;
@@ -213,95 +219,11 @@ u32 DpTxSs_Main()
 	start_tx (LineRate_init_tx, LaneCount_init_tx,user_config, 0);
 	/* Enabling TX interrupts */
 
-	main_loop();
+	tx_main_loop();
 
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************/
-/**
-*
-* This function sets up the interrupt system so interrupts can occur for the
-* DisplayPort TX Subsystem core. The function is application-specific since
-* the actual system may or may not have an interrupt controller. The DPTX
-* Subsystem core could be directly connected to a processor without an
-* interrupt controller. The user should modify this function to fit the
-* application.
-*
-* @param	None
-*
-* @return
-*		- XST_SUCCESS if interrupt setup was successful.
-*		- A specific error code defined in "xstatus.h" if an error
-*		occurs.
-*
-* @note		None.
-*
-******************************************************************************/
-//u32 DpTxSs_SetupIntrSystem(void)
-//{
-//	u32 Status;
-//	XINTC *IntcInstPtr = &IntcInst;
-//
-//	/* Set custom timer wait */
-//	XDpTxSs_SetUserTimerHandler(&DpTxSsInst, &DpPt_CustomWaitUs, &TmrCtr);
-//	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_HPD_EVENT),
-//						&DpPt_HpdEventHandler, &DpTxSsInst);
-//	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_HPD_PULSE),
-//						&DpPt_HpdPulseHandler, &DpTxSsInst);
-//	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_LINK_RATE_CHG),
-//						&DpPt_LinkrateChgHandler, &DpTxSsInst);
-//	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_PE_VS_ADJUST),
-//						&DpPt_pe_vs_adjustHandler, &DpTxSsInst);
-//
-//
-//	/* The configuration parameters of the interrupt controller */
-//	XScuGic_Config *IntcConfig;
-//
-//	/* Initialize the interrupt controller driver so that it is ready to
-//	 * use.
-//	 */
-//	IntcConfig = XScuGic_LookupConfig(XINTC_DEVICE_ID);
-//	if (NULL == IntcConfig) {
-//		return XST_FAILURE;
-//	}
-//
-//	Status = XScuGic_CfgInitialize(IntcInstPtr, IntcConfig,
-//				IntcConfig->CpuBaseAddress);
-//	if (Status != XST_SUCCESS) {
-//		return XST_FAILURE;
-//	}
-//
-//	/* Connect the device driver handler that will be called when an
-//	 * interrupt for the device occurs, the handler defined above performs
-//	 * the specific interrupt processing for the device
-//	 */
-//	Status = XScuGic_Connect(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID,
-//			(Xil_InterruptHandler)XDpTxSs_DpIntrHandler,
-//				&DpTxSsInst);
-//	if (Status != XST_SUCCESS) {
-//		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
-//		return XST_FAILURE;
-//	}
-//
-//	/* Enable the interrupt */
-//	XScuGic_Enable(IntcInstPtr,
-//			XINTC_DPTXSS_DP_INTERRUPT_ID);
-//
-//	/* Initialize the exception table. */
-//	Xil_ExceptionInit();
-//
-//	/* Register the interrupt controller handler with the exception
-//	 * table.
-//	 */
-//	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-//			(Xil_ExceptionHandler)XINTC_HANDLER, IntcInstPtr);
-//
-//	/* Enable exceptions. */
-//	Xil_ExceptionEnable();
-//
-//	return (XST_SUCCESS);
-//}
 
 /*****************************************************************************/
 /**
@@ -333,8 +255,6 @@ void DpPt_LinkrateChgHandler(void *InstancePtr)
 }
 
 void DpPt_pe_vs_adjustHandler(void *InstancePtr){
-//	u8 Buffer[2];
-//	u16 RegisterAddress;
 	if(PE_VS_ADJUST == 1){
 		unsigned char preemp;
 		switch(DpTxSsInst.DpPtr->TxInstance.LinkConfig.PeLevel){
@@ -624,13 +544,6 @@ void hpd_pulse_con(XDpTxSs *InstancePtr)
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK, 0x0);
 }
 
-//Introduced to address reduced blanking linereset issue from 16.4 release
-//u32 DpTxSubsystem_Start(XDpTxSs *InstancePtr, int with_msa){
-//	u32 Status;
-//		Status = XDpTxSs_Start(&DpTxSsInst);
-//
-//	return Status;
-//}
 
 u32 DpTxSubsystem_Start(XDpTxSs *InstancePtr,
 			XDpTxSs_MainStreamAttributes Msa[4]) {
@@ -800,7 +713,7 @@ u32 PHY_Configuration_Tx(XVphy *InstancePtr,
 	 * GT DRPs may not get completed if GT is busy
 	 * doing something else, hence, this is run in 
 	 * loop and retried 100 times
-	 * */
+	 */
 	while (Status != XST_SUCCESS) {
 		Status = XVphy_ClkInitialize(InstancePtr, QuadId,
 					     TxChId, XVPHY_DIR_TX);
@@ -835,6 +748,7 @@ u32 PHY_Configuration_Tx(XVphy *InstancePtr,
 	}
 	return (Status);
 }
+
 
 /*****************************************************************************/
 /**
@@ -920,11 +834,27 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	/* setting video pattern */
 	Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
 				 C_VideoUserStreamPattern[pat]);
+
+	// Over writing the VTC, so that we no longer need to start tx twice
+	if (DpTxSsInst.VtcPtr[0]) {
+		Status = XDpTxSs_VtcSetup(DpTxSsInst.VtcPtr[0],
+		&DpTxSsInst.DpPtr->TxInstance.MsaConfig[0],
+		DpTxSsInst.UsrOpt.VtcAdjustBs);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
+				"VTC%d setup failed!\n\r", Index);
+		}
+	}
+
+
+
 	xil_printf (".");
 	clk_wiz_locked();
-	Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
+
+// No longer needed to start twice
+//	Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
 	xil_printf (".");
-        Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
+	Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
 	if (Status != (XST_SUCCESS)) {
 		Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
 		if (Status != XST_SUCCESS) {
@@ -933,15 +863,15 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 		}
 	}
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-		     XDP_TX_INTERRUPT_MASK, 0x0);
+			XDP_TX_INTERRUPT_MASK, 0x0);
 
 	/* Initialize CRC */
 	/* Reset CRC*/
 	XVidFrameCrc_Reset(&VidFrameCRC_tx);
 	/* Set Pixel width in CRC engine*/
 	XVidFrameCrc_WriteReg(VidFrameCRC_tx.Base_Addr,
-			      VIDEO_FRAME_CRC_CONFIG,
-			      XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+				  VIDEO_FRAME_CRC_CONFIG,
+				  XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 					  XDP_TX_USER_PIXEL_WIDTH));
 	xil_printf ("..done !\r\n");
 
@@ -974,6 +904,7 @@ void clk_wiz_locked(void) {
 	}
 	xil_printf ("^^");
 }
+
 
 /*****************************************************************************/
 /**
@@ -1028,7 +959,7 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 	} else {
 		good_edid_hpd = 0;
 	}
-	
+
 	/* Till here is the requirement per DP spec */
 
 	/* *******************************************
@@ -1082,11 +1013,11 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 	    max_cap_new == XDP_TX_LINK_BW_SET_162GBPS) {
 		Status = set_vphy(max_cap_new);
 	
-	        XDpTxSs_SetLinkRate(&DpTxSsInst, max_cap_new);
+		XDpTxSs_SetLinkRate(&DpTxSsInst, max_cap_new);
 		XDpTxSs_SetLaneCount(&DpTxSsInst,
 				     max_cap_lanes_new & 0x1F);
 	
-	        if (good_edid_hpd == 1) {
+	    if (good_edid_hpd == 1) {
 			if ((VmId_ptm_hpd != XVIDC_VM_NOT_SUPPORTED) &&
 			    (VmId_test_hpd != XVIDC_VM_NOT_SUPPORTED)) {
 				XDpTxSs_SetVidMode(&DpTxSsInst, res_update);
@@ -1095,17 +1026,17 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 			} else {
 				XDpTxSs_SetVidMode(&DpTxSsInst, VmId_test_hpd);
 			}
-	        } else {
-	             XDpTxSs_SetVidMode(&DpTxSsInst, res_update);
-	        }
+		} else {
+			XDpTxSs_SetVidMode(&DpTxSsInst, res_update);
+		}
 	
 	        /* over subscription check */
 		/*RGB or YCbCr444 - Hence 3 components*/
 		u32 StreamBandwidth = (((
-				DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.Timing.HTotal *
-				DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.Timing.F0PVTotal *
-				DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.FrameRate)/1000000) *
-				(bpc_hpd * 3))/8/DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount;
+			DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.Timing.HTotal *
+			DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.Timing.F0PVTotal *
+			DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.FrameRate)/1000000) *
+			(bpc_hpd * 3))/8/DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount;
 	
 		u32 LinkBandwidth =
 				(DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate * 27);
@@ -1113,7 +1044,6 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 		if (StreamBandwidth>LinkBandwidth) {
 			xil_printf("StreamBandwidth=%d, LinkBandwidth=%d\r\n",
 				   StreamBandwidth,LinkBandwidth);
-	
 			switch (bpc_hpd) {
 			case 16:
 				bpc_hpd = 12;
@@ -1131,13 +1061,11 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 				bpc_hpd = 6;
 				break;
 			}
-			
 			StreamBandwidth = (((
 				DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.Timing.HTotal *
 				DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.Timing.F0PVTotal *
 				DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.FrameRate) / 1000000) *
 				(bpc_hpd * 3))/8/DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount;
-	
 			if(StreamBandwidth>LinkBandwidth){
 				/* setting low resolution to
 				 * fit in the bandwidth */
@@ -1149,20 +1077,20 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 			}
 		}
 	
-	        XDpTxSs_SetBpc(&DpTxSsInst, bpc_hpd);
-	        XDpTxSs_Start(&DpTxSsInst);
-	        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-			     XDP_TX_INTERRUPT_MASK, 0x0);
-	        Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 1);
-	        Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
-					 C_VideoUserStreamPattern[1]);
-	        Status = XDpTxSs_Start(&DpTxSsInst);
-	
-	
-	        Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
-	        if (Status != XST_SUCCESS) {
-			Status = XDpTxSs_Start(&DpTxSsInst);
-	        }
+		XDpTxSs_SetBpc(&DpTxSsInst, bpc_hpd);
+		XDpTxSs_Start(&DpTxSsInst);
+		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+			 XDP_TX_INTERRUPT_MASK, 0x0);
+		Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 1);
+		Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
+				 C_VideoUserStreamPattern[1]);
+		Status = XDpTxSs_Start(&DpTxSsInst);
+
+
+		Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
+		if (Status != XST_SUCCESS) {
+		Status = XDpTxSs_Start(&DpTxSsInst);
+		}
 	}
 
 	Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
@@ -1355,6 +1283,7 @@ XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane)
 			    Timing.VActive + Timing.F0PVBackPorch);
 	FrameRate = PixelClockHz / (Timing.HTotal * Timing.F0PVTotal);
 
+
 	/* Few monitors returns 59 HZ. Hence, setting to 60. */
 	if (FrameRate == 59) {
 		FrameRate = 60;
@@ -1409,7 +1338,6 @@ XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane)
 	default:
 		break;
 	}
-
 	if (pixel_freq1 < pixel_freq) {
 		VmId = XVIDC_VM_NOT_SUPPORTED;
 	} else {
@@ -1417,6 +1345,7 @@ XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane)
 		VmId = XVidC_GetVideoModeId(Timing.HActive, Timing.VActive,
 					    FrameRate,
 					    XVidC_EdidIsDtdPtmInterlaced(EdidPtr));
+
 	}
 
 	return VmId;
@@ -1541,6 +1470,7 @@ u32 set_vphy(int LineRate_init_tx){
 	return Status;
 }
 
+
 /*****************************************************************************/
 /**
 *
@@ -1567,3 +1497,686 @@ void sink_power_cycle(void)
 	usleep(4000);
 }
 
+
+/*****************************************************************************/
+/**
+*
+* This function is the main loop function of Tx
+*
+* @param	none.
+*
+* @return	none.
+*
+* @note		None.
+*
+******************************************************************************/
+void tx_main_loop()
+{
+	int i;
+	u32 Status;
+	u8 exit = 0;
+	char CommandKey;
+	char CmdKey[2];
+	unsigned int Command;
+	u8 LaneCount;
+	u8 LineRate;
+	u8 LineRate_init_tx = 0;
+	u8 Edid_org[128], Edid1_org[128];
+	u8 done=0;
+	u32 user_tx_LaneCount , user_tx_LineRate;
+	u32 aux_reg_address, num_of_aux_registers;
+	u8 Data[8];
+#if ENABLE_AUDIO
+	u8 audio_on=0;
+	XilAudioInfoFrame *xilInfoFrame;
+#endif
+	u8 in_pwr_save = 0;
+	u16 DrpVal =0;
+	u8 C_VideoUserStreamPattern[8] = {0x10, 0x11, 0x12, 0x13,
+					  0x14, 0x15, 0x16, 0x17}; //Duplicate
+
+	unsigned char bpc_table[] = {6,8,10,12,16};
+
+
+	user_config_struct user_config;
+	user_config.user_bpc=8;
+	user_config.VideoMode_local=XVIDC_VM_800x600_60_P;
+	user_config.user_pattern=1;
+	user_config.user_format = XVIDC_CSF_RGB;
+
+#if ENABLE_AUDIO
+	xilInfoFrame = 0; // initialize
+#endif
+
+	sub_help_menu ();
+
+	while (1) { // for menu loop
+		if (tx_is_reconnected == 1) {
+			hpd_con(&DpTxSsInst, Edid_org, Edid1_org,
+					user_config.VideoMode_local);
+			tx_is_reconnected = 0;
+		}
+
+		if(hpd_pulse_con_event == 1){
+			hpd_pulse_con_event = 0;
+			hpd_pulse_con(&DpTxSsInst);
+			if(XDpTxSs_CheckLinkStatus(&DpTxSsInst)){
+				sink_power_cycle();
+			}
+		}
+
+
+		CmdKey[0] = 0;
+		CommandKey = 0;
+
+
+		CommandKey = xil_getc(0xff);
+		Command = atoi(&CommandKey);
+		if (Command != 0) {
+			xil_printf("You have selected command %d\r\n", Command);
+		}
+
+		switch (CommandKey){
+		case 'e':
+			xil_printf ("EDID read is :\r\n");
+
+			XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid_org, 0);
+			for (i=0;i<128;i++) {
+				if(i%16==0 && i != 0)
+					xil_printf("\r\n");
+				xil_printf ("%02x ", Edid_org[i]);
+			}
+
+			xil_printf ("\r\r\n\n");
+			//reading the second block of EDID
+			XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid1_org, 1);
+
+			for (i=0;i<128;i++) {
+				if(i%16==0 && i != 0)
+					xil_printf("\r\n");
+				xil_printf ("%02x ", Edid1_org[i]);
+			}
+			xil_printf ("\r\nEDID read over =======\r\n");
+
+			break;
+
+		case 'd' :
+
+			if (in_pwr_save == 0) {
+				sink_power_down();
+				in_pwr_save = 1;
+				xil_printf (
+					"\r\n==========power down===========\r\n");
+			} else {
+				sink_power_up();
+				in_pwr_save = 0;
+				xil_printf (
+					"\r\n==========power up===========\r\n");
+
+				hpd_con(&DpTxSsInst, Edid1_org, Edid1_org,
+				user_config.VideoMode_local);
+			}
+			break;
+
+
+#if ENABLE_AUDIO
+		case 'a' :
+			audio_on = XDp_ReadReg(
+					DpTxSsInst.DpPtr->Config.BaseAddr,
+					XDP_TX_AUDIO_CONTROL);
+			if (audio_on == 0) {
+				xilInfoFrame->audio_channel_count = 0;
+				xilInfoFrame->audio_coding_type = 0;
+				xilInfoFrame->channel_allocation = 0;
+				xilInfoFrame->downmix_inhibit = 0;
+				xilInfoFrame->info_length = 27;
+				xilInfoFrame->level_shift = 0;
+				xilInfoFrame->sample_size = 1;//16 bits
+				xilInfoFrame->sampling_frequency = 3; //48 Hz
+				xilInfoFrame->type = 4;
+				xilInfoFrame->version = 1;
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_AUDIO_CONTROL, 0x0);
+				sendAudioInfoFrame(xilInfoFrame);
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_AUDIO_CHANNELS, 0x1);
+				switch(LineRate)
+				{
+					case  6:m_aud = 24576; n_aud = 162000; break;
+					case 10:m_aud = 24576; n_aud = 270000; break;
+					case 20:m_aud = 24576; n_aud = 540000; break;
+				}
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_AUDIO_MAUD,  m_aud );
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_AUDIO_NAUD,  n_aud );
+
+				Vpg_Audio_start();
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_AUDIO_CONTROL, 0x1);
+				xil_printf ("Audio enabled\r\n");
+				audio_on = 1;
+			} else {
+				Vpg_Audio_stop();
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_AUDIO_CONTROL, 0x0);
+				xil_printf ("Audio disabled\r\n");
+				audio_on = 0;
+			}
+			break;
+#endif
+		case '1' :
+			//resolution menu
+			LineRate = get_LineRate();
+			LaneCount = get_Lanecounts();
+			resolution_help_menu();
+			exit = 0;
+			while (exit == 0) {
+				CmdKey[0] = 0;
+				Command = 0;
+				CmdKey[0] = inbyte_local();
+				if(CmdKey[0]!=0){
+					Command = (int)CmdKey[0];
+
+					switch  (CmdKey[0])
+					{
+					   case 'x' :
+					   exit = 1;
+					   sub_help_menu ();
+					   break;
+
+					   default :
+					xil_printf("You have selected command '%c'\r\n",
+															CmdKey[0]);
+						if(CmdKey[0] >= 'a' && CmdKey[0] <= 'z'){
+							Command = CmdKey[0] -'a' + 10;
+							done = 1;
+						}
+
+						else if (Command > 47 && Command < 58) {
+							Command = Command - 48;
+							done = 1;
+						}
+						else if (Command >= 58 || Command <= 47) {
+							resolution_help_menu();
+							done = 0;
+							break;
+						}
+						xil_printf ("\r\nSetting resolution...\r\n");
+#if ENABLE_AUDIO
+						audio_on = 0;
+#endif
+						user_config.VideoMode_local =
+											resolution_table[Command];
+
+
+						start_tx (LineRate,LaneCount,user_config, 0);
+						LineRate = get_LineRate();
+						LaneCount = get_Lanecounts();
+
+						exit = done;
+						break;
+					}
+				}
+			}
+
+			sub_help_menu ();
+			break;
+
+		case '2' :
+			// BPC menu
+			LineRate = get_LineRate();
+			LaneCount = get_Lanecounts();
+
+			exit = 0;
+			bpc_help_menu(DPTXSS_BPC);
+			while (exit == 0) {
+				CommandKey = 0;
+				Command = 0;
+				CommandKey = inbyte_local();
+				if(CommandKey!=0){
+					Command = (int)CommandKey;
+					switch  (CommandKey)
+					{
+					   case 'x' :
+					   exit = 1;
+					   sub_help_menu ();
+					   break;
+
+					   default :
+							Command = Command - 48;
+							user_config.user_bpc = bpc_table[Command];
+							xil_printf("You have selected %c\r\n",
+															CommandKey);
+							if((Command>4) || (Command < 0))
+							{
+								bpc_help_menu(DPTXSS_BPC);
+								done = 0;
+								break;
+							}
+							else
+							{
+								xil_printf("Setting BPC of %d\r\n",
+												user_config.user_bpc);
+								done = 1;
+							}
+							start_tx (LineRate, LaneCount,user_config, 0);
+							LineRate = get_LineRate();
+							LaneCount = get_Lanecounts();
+							exit = done;
+						break;
+					}
+				}
+			}
+			sub_help_menu ();
+			break;
+
+			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+
+		case '3' :
+			xil_printf("Select the Link and Lane count\r\n");
+			exit = 0;
+			select_link_lane();
+			while (exit == 0) {
+				CmdKey[0] = 0;
+				Command = 0;
+				CmdKey[0] = inbyte_local();
+				if(CmdKey[0]!=0){
+					Command = (int)CmdKey[0];
+					Command = Command - 48;
+					switch  (CmdKey[0])
+					{
+					   case 'x' :
+					   exit = 1;
+					   sub_help_menu ();
+					   break;
+
+					   default :
+						xil_printf("You have selected command %c\r\n",
+															CmdKey[0]);
+						if(CmdKey[0] >= 'a' && CmdKey[0] <= 'z'){
+							Command = CmdKey[0] -'a' + 10;
+						}
+
+						if((Command>=0)&&(Command<12))
+						{
+							user_tx_LaneCount =
+									lane_link_table[Command].lane_count;
+							user_tx_LineRate =
+									lane_link_table[Command].link_rate;
+							if(lane_link_table[Command].lane_count
+									> DpTxSsInst.Config.MaxLaneCount)
+							{
+								xil_printf(
+					"This Lane Count is not supported by Sink \r\n");
+								xil_printf(
+					"Max Supported Lane Count is 0x%x \r\n",
+										DpTxSsInst.Config.MaxLaneCount);
+								xil_printf(
+					"Training at Supported Lane count  \r\n");
+							LaneCount = DpTxSsInst.Config.MaxLaneCount;
+							}
+							done = 1;
+						}
+						else
+						{
+							xil_printf(
+							"!!!Warning: You have selected wrong option"
+							" for lane count and link rate\r\n");
+							select_link_lane();
+							done = 0;
+							break;
+						}
+						// Disabling TX interrupts
+						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+										XDP_TX_INTERRUPT_MASK, 0xFFF);
+						LineRate_init_tx = user_tx_LineRate;
+						Status = set_vphy(LineRate_init_tx);
+
+						XDpTxSs_Stop(&DpTxSsInst);
+#if ENABLE_AUDIO
+						audio_on = 0;
+#endif
+						xil_printf(
+					"TX Link & Lane Capability is set to %x, %x\r\n",
+					user_tx_LineRate, user_tx_LaneCount);
+						xil_printf(
+					"Setting TX to 8 BPC and 800x600 resolution\r\n");
+						XDpTxSs_Reset(&DpTxSsInst);
+						user_config.user_bpc=8;
+						user_config.VideoMode_local
+										=XVIDC_VM_800x600_60_P;
+						user_config.user_pattern=1;
+						user_config.user_format = XVIDC_CSF_RGB;
+						start_tx (user_tx_LineRate, user_tx_LaneCount,
+												user_config, 0);
+						LineRate = get_LineRate();
+						LaneCount = get_Lanecounts();
+						exit = done;
+						break;
+					}
+				}
+			}
+			sub_help_menu ();
+			break;
+
+			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+
+		case '4' :
+			//pattern menu;
+			test_pattern_gen_help();
+			exit = 0;
+			while (exit == 0) {
+				CommandKey = 0;
+				CommandKey = inbyte_local();
+				if(CommandKey!=0){
+					Command = (int)CommandKey;
+					Command = Command - 48;
+					switch  (CommandKey)
+					{
+						case 'x' :
+							exit = 1;
+							sub_help_menu ();
+							break;
+
+						default :
+
+							if(Command>0 && Command<8)
+							{
+								xil_printf(
+								"You have selected video pattern %d "
+								"from the pattern list \r\n", Command);
+								done = 1;
+							}
+							else
+							{
+								xil_printf(
+						"!!!Warning : Invalid pattern selected \r\n");
+								test_pattern_gen_help();
+								done = 0;
+								break;
+							}
+							user_config.user_pattern = Command;
+							Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
+									C_VideoUserStreamPattern[
+											user_config.user_pattern]);
+							exit = done;
+							break;
+					}
+				}
+			}
+			sub_help_menu ();
+			break;
+
+			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+
+		case '5' :
+			//MSA;
+			XDpTxSs_ReportMsaInfo(&DpTxSsInst);
+			break;
+
+			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+
+		case '6' :
+			LineRate = get_LineRate();
+			LaneCount = get_Lanecounts();
+			exit = 0;
+			format_help_menu();
+			while (exit == 0) {
+				CommandKey = 0;
+				Command = 0;
+				CommandKey = inbyte_local();
+				if(CommandKey!=0){
+					Command = (int)CommandKey;
+					switch  (CommandKey)
+					{
+					   case 'x' :
+					   exit = 1;
+					   sub_help_menu ();
+					   break;
+
+					   default :
+							Command = Command - 48;
+							user_config.user_format = Command;
+							xil_printf("You have selected %c\r\n",
+															CommandKey);
+							if((Command<=0)||(Command>3))
+							{
+								format_help_menu();
+								done = 0;
+								break;
+							}
+							else
+							{
+								xil_printf("Setting Format of %d\r\n",
+											user_config.user_format);
+								done = 1;
+							}
+							if(user_config.user_format!=1)
+							{
+							//Only Color Square is supported for YCbCr
+								user_config.user_pattern = 3;
+							}
+							else
+							{
+								//Set Color Ramp for RGB (default)
+								user_config.user_pattern = 1;
+							}
+							Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
+									C_VideoUserStreamPattern[
+											user_config.user_pattern]);
+							start_tx (LineRate, LaneCount,user_config, 0);
+							LineRate = get_LineRate();
+							LaneCount = get_Lanecounts();
+							exit = done;
+						break;
+					}
+				}
+			}
+			sub_help_menu ();
+			break;
+
+			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+
+		case '7' :
+			//Link config and status
+			XDpTxSs_ReportLinkInfo(&DpTxSsInst);
+			break;
+
+			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+
+		case '8' :
+			//Display DPCD reg
+			XDpTxSs_ReportSinkCapInfo(&DpTxSsInst);
+			break;
+
+			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+
+		case '9' :
+			//"9 - Read Aux registers\r\n"
+			xil_printf(
+		"\r\n Give 4 bit Hex value of base register 0x");
+			aux_reg_address = xil_gethex(4);
+			xil_printf(
+			  "\r\n Give msb 2 bit Hex value of base register 0x");
+			aux_reg_address |= ((xil_gethex(2)<<16) & 0xFFFFFF);
+			xil_printf("\r\n Give number of registers that you "
+								"want to read (1 to 9): ");
+			num_of_aux_registers = xil_gethex(1);
+			if((num_of_aux_registers<1)||(num_of_aux_registers>9))
+			{
+					xil_printf("\r\n!!!Warning: Invalid number "
+				   "selected, hence reading only one register\r\n");
+					num_of_aux_registers = 1;
+			}
+			xil_printf("\r\nGiven base address offset is 0x%x\r\n",
+										aux_reg_address);
+			for(i=0;i<num_of_aux_registers;i++)
+			{
+					Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
+						(aux_reg_address+i), 1, &Data);
+					if(Status == XST_SUCCESS)
+					{
+							xil_printf("Value at address offset "
+						"0x%x, is = 0x%x\r\n",
+										(aux_reg_address+i),
+										((Data[0]) & 0xFF));
+					} else {
+							xil_printf("Aux Read failure\r\n");
+							break;
+					}
+			}
+			break;
+
+			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+
+		// Display VideoPHY status
+		case 'b':
+			xil_printf("Video PHY Config/Status --->\r\n");
+			xil_printf(" RCS (0x10) = 0x%x\r\n",
+			  XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+					  XVPHY_REF_CLK_SEL_REG));
+			xil_printf(" PR  (0x14) = 0x%x\r\n",
+			  XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+					  XVPHY_PLL_RESET_REG));
+			xil_printf(" PLS (0x18) = 0x%x\r\n",
+			  XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+					  XVPHY_PLL_LOCK_STATUS_REG));
+			xil_printf(" TXI (0x1C) = 0x%x\r\n",
+			  XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+					  XVPHY_TX_INIT_REG));
+			xil_printf(" TXIS(0x20) = 0x%x\r\n",
+			  XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+					  XVPHY_TX_INIT_STATUS_REG));
+			xil_printf(" RXI (0x24) = 0x%x\r\n",
+			  XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+					  XVPHY_RX_INIT_REG));
+			xil_printf(" RXIS(0x28) = 0x%x\r\n",
+			  XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+					  XVPHY_RX_INIT_STATUS_REG));
+
+			Status = XVphy_DrpRd(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1,
+					XVPHY_DRP_CPLL_FBDIV, &DrpVal);
+			xil_printf(" GT DRP Addr (XVPHY_DRP_CPLL_FBDIV) "
+				"= 0x%x, Val = 0x%x\r\n",XVPHY_DRP_CPLL_FBDIV,
+				DrpVal
+			);
+
+			Status = XVphy_DrpRd(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1,
+					XVPHY_DRP_CPLL_REFCLK_DIV, &DrpVal);
+			xil_printf(" GT DRP Addr (XVPHY_DRP_CPLL_REFCLK_DIV)"
+				" = 0x%x, Val = 0x%x\r\n",XVPHY_DRP_CPLL_REFCLK_DIV,
+				DrpVal
+			);
+
+			Status = XVphy_DrpRd(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1,
+					XVPHY_DRP_RXOUT_DIV, &DrpVal);
+			xil_printf(" GT DRP Addr (XVPHY_DRP_RXOUT_DIV)"
+				" = 0x%x, Val = 0x%x\r\n",XVPHY_DRP_RXOUT_DIV,
+				DrpVal
+			);
+
+			Status = XVphy_DrpRd(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1,
+					XVPHY_DRP_TXOUT_DIV, &DrpVal);
+			xil_printf(" GT DRP Addr (XVPHY_DRP_TXOUT_DIV)"
+				" = 0x%x, Val = 0x%x\r\n",XVPHY_DRP_TXOUT_DIV,
+				DrpVal
+			);
+
+			break;
+
+
+			// CRC read
+		case 'm' :
+			//XVidFrameCrc_Report(&VidFrameCRC_tx);
+
+			xil_printf ("========== Source CRC===========\r\n");
+			xil_printf ("Txd Hactive =  %d\r\n",
+					((XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0xC)&0xFFFF) + 1) *
+								(XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x0)));
+			xil_printf ("Txd Vactive =  %d\r\n",
+					XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0xC)>>16);
+			xil_printf ("CRC Cfg     =  0x%x\r\n",
+					XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x0));
+			xil_printf ("CRC - R/Y   =  0x%x\r\n",
+					XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x4)&0xFFFF);
+			xil_printf ("CRC - G/Cr  =  0x%x\r\n",
+					XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x4)>>16);
+			xil_printf ("CRC - B/Cb  =  0x%x\r\n",
+					XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x8)&0xFFFF);
+
+
+
+			/* Start TEST_CRC in sink*/
+
+			Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
+				DPCD_TEST_SINK_MISC, 1, &Data);
+
+			// Check if sink supports CRC function
+			if((Data[0]&0x20)!=0){
+				Data[0] = 0x1;
+				Status = XDp_TxAuxWrite(DpTxSsInst.DpPtr,
+						DPCD_TEST_SINK_START, 1, &Data);
+
+				/*Wait till CRC is available or timeout*/
+				u16 crc_wait_cnt=0;
+				while(1){
+					/* Read CRC availability every few ms*/
+					Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
+						DPCD_TEST_SINK_MISC, 1, &Data);
+					//DpPt_CustomWaitUs(&DpTxSsInst,10000);
+					usleep(10000);
+					if((Data[0]&0x0F)!=0){
+//						xil_printf("Sink CRC - Available...\r\n");
+						break;
+					}else if(crc_wait_cnt==CRC_AVAIL_TIMEOUT){
+//						xil_printf("Sink CRC - Timed Out...\r\n");
+						break;
+					}else{
+						crc_wait_cnt++;
+					}
+				}
+
+				/*Wait time so that Tx and Rx has enough time to
+				  calculate CRC values*/
+				if((Data[0]&0x0F)!=0){ // Sink supports CRC
+					usleep(100000);
+
+					Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
+							DPCD_TEST_CRC_R_Cr, 6, &Data);
+
+					xil_printf ("========== Sink CRC ===========\r\n");
+					xil_printf ("CRC - R/Cr   =  0x%x\r\n",
+							Data[0] | (Data[1]<<8));
+					xil_printf ("CRC - G/Y    =  0x%x\r\n",
+							Data[2] | (Data[3]<<8));
+					xil_printf ("CRC - B/Cb   =  0x%x\r\n",
+							Data[4] | (Data[5]<<8));
+				}
+			}
+
+			break;
+
+			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+		case 'z' :
+			sub_help_menu ();
+			break;
+		case 'x' :
+			xil_printf("exit Tx Only mode\r\n");
+
+			XDpTxSs_Stop(&DpTxSsInst);
+			XScuGic_Disable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
+			XScuGic_Disable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
+
+			Vpg_Audio_stop();
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+								XDP_TX_ENABLE, 0x0);
+			XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x140);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x144, 0xFFF);
+
+			operationMenu();
+			return;
+
+		} //end of switch (CmdKey[0])
+	}
+}

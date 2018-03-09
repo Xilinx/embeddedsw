@@ -136,6 +136,9 @@ u8 StreamPattern_vpg[5] = {0x11, 0x13, 0x15, 0x16, 0x10};
 #define DualPixelMode 0x100
 #define QuadPixelMode 0x200
 
+#include "sleep.h"
+#define MicrosecToWait 1 // to avoid hang in A53
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
@@ -187,6 +190,8 @@ void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream);
 void Vpg_Audio_start(void);
 void Vpg_Audio_stop(void);
 
+void ComputeMandD_vidGen(u32 VidFreq);
+
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
@@ -219,7 +224,7 @@ int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time)
 	if (InstancePtr->TxInstance.MstEnable) {
 		for (StreamIndex = 0; StreamIndex < 4; StreamIndex++) {
 			if (XDp_TxMstStreamIsEnabled(InstancePtr,
-			    (XDP_TX_STREAM_ID1) + StreamIndex)) {
+					(XDP_TX_STREAM_ID1) + StreamIndex)) {
 				/* Calculate VPG parameters */
 				VidgenSetConfig(InstancePtr, &VidgenConfig,
 					(XDP_TX_STREAM_ID1) + StreamIndex,
@@ -236,22 +241,25 @@ int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time)
 				/* Enable VPG for each stream. Number of VPG
 				 * are equal to number of streams
 				 */
-				XDp_WriteReg(XILINX_DISPLAYPORT_VID_BASE_ADDRESS,
-					StreamOffset[StreamIndex], 0x1);
+				XDp_WriteReg(
+					XILINX_DISPLAYPORT_VID_BASE_ADDRESS,
+						StreamOffset[StreamIndex],
+							0x1);
 			}
 		}
 	} else {
 		/* Calculate VPG parameters */
 		VidgenSetConfig(InstancePtr, &VidgenConfig,
-				(XDP_TX_STREAM_ID1), 0, first_time);
+					(XDP_TX_STREAM_ID1), 0, first_time);
 
 		/* Update VPG with parameter */
 		VidgenWriteConfig(InstancePtr, &VidgenConfig,
-				  (XDP_TX_STREAM_ID1));
+					(XDP_TX_STREAM_ID1));
 
 		/* Enable VPG for only one stream */
 		XDp_WriteReg(XILINX_DISPLAYPORT_VID_BASE_ADDRESS,
-			     PatternGeneratorEnable, 0x1);
+				PatternGeneratorEnable, 0x1);
+
 	}
 
 	return (XST_SUCCESS);
@@ -336,27 +344,36 @@ void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern)
 * @note		None.
 *
 ******************************************************************************/
-void Vpg_Audio_start(void) {
-	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) + StreamOffset[0],
-		     Audio_Control, 0x1);
+void Vpg_Audio_start(void){
+	//unsigned int MicrosecToWait = 1;
+	usleep(MicrosecToWait);
 
-	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) + StreamOffset[0],
-		     Audio_Control, 0x2);
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+		StreamOffset[0], Audio_Control,	0x1);
+	usleep(MicrosecToWait);
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+		StreamOffset[0], Audio_Control,	0x2);
 
-	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) + StreamOffset[0],
-		     AudioPatternCH1, 0x2);
 
-	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) + StreamOffset[0],
-		     AudioPatternCH2, 0x2);
+	usleep(MicrosecToWait);
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+		StreamOffset[0], AudioPatternCH1,0x2);
 
-	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) + StreamOffset[0],
-		     AudioCHStatus1, 0x10000244); //channel status
+	usleep(MicrosecToWait);
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+		StreamOffset[0], AudioPatternCH2,0x2);
 
-	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) + StreamOffset[0],
-		     AudioCHStatus2, 0x40000000); //channel status
+	usleep(MicrosecToWait);
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+		StreamOffset[0], AudioCHStatus1, 0x10000244);//channel status
 
-	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) + StreamOffset[0],
-		     AudioSampleRate_Chcount, 0x202);
+	usleep(MicrosecToWait);
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+		StreamOffset[0], AudioCHStatus2,0x40000000);//channel status
+
+	usleep(MicrosecToWait);
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+		StreamOffset[0], AudioSampleRate_Chcount,0x202);
 }
 
 /*****************************************************************************/
@@ -525,105 +542,104 @@ static void VidgenWriteConfig(XDp *InstancePtr,
 				Vpg_VidgenConfig *VidgenConfig, u8 Stream)
 {
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     VsyncPolarity,
-		     VidgenConfig->Timing.VSyncPolarity | 1);
+			StreamOffset[Stream - 1], VsyncPolarity,
+				VidgenConfig->Timing.VSyncPolarity | 1);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     HsyncPolarity,
-		     VidgenConfig->Timing.HSyncPolarity | 1);
-	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) + 
-		     StreamOffset[Stream - 1],
-		     VsyncWidth,
-		     VidgenConfig->Timing.F0PVSyncWidth);
+			StreamOffset[Stream - 1], HsyncPolarity,
+				VidgenConfig->Timing.HSyncPolarity | 1);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     VerticalBackPorch,
-		     VidgenConfig->Timing.F0PVBackPorch);
+			StreamOffset[Stream - 1], VsyncWidth,
+				VidgenConfig->Timing.F0PVSyncWidth);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     VerticalFrontPorch,
-		     VidgenConfig->Timing.F0PVFrontPorch);
+			StreamOffset[Stream - 1], VerticalBackPorch,
+				VidgenConfig->Timing.F0PVBackPorch);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     VerticalResolution,
-		     VidgenConfig->Timing.VActive);
+			StreamOffset[Stream - 1], VerticalFrontPorch,
+				VidgenConfig->Timing.F0PVFrontPorch);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     HsyncWidth,
-		     VidgenConfig->Timing.HSyncWidth);
+			StreamOffset[Stream - 1], VerticalResolution,
+				VidgenConfig->Timing.VActive);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     HorizontalBackPorch,
-		     VidgenConfig->Timing.HBackPorch);
+			StreamOffset[Stream - 1], HsyncWidth,
+				VidgenConfig->Timing.HSyncWidth);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     HorizontalFrontPorch,
-		     VidgenConfig->Timing.HFrontPorch);
+			StreamOffset[Stream - 1], HorizontalBackPorch,
+				VidgenConfig->Timing.HBackPorch);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     HorizontalResolution,
-		     VidgenConfig->Timing.HActive);
+			StreamOffset[Stream - 1], HorizontalFrontPorch,
+				VidgenConfig->Timing.HFrontPorch);
+	usleep(MicrosecToWait);
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+			StreamOffset[Stream - 1], HorizontalResolution,
+				VidgenConfig->Timing.HActive);
+	usleep(MicrosecToWait);
 
 
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     DataEnablePolarity,
-		     VidgenConfig->DePolarity);
+			StreamOffset[Stream - 1], DataEnablePolarity,
+				VidgenConfig->DePolarity);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     Framelock_Enable_Delay,
-		     VidgenConfig->FrameLock0);
+			StreamOffset[Stream - 1], Framelock_Enable_Delay,
+				VidgenConfig->FrameLock0);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     FrameLock_AlignHsync_LineFrac,
-		     VidgenConfig->FrameLock1);
+			StreamOffset[Stream - 1], FrameLock_AlignHsync_LineFrac,
+				VidgenConfig->FrameLock1);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     HdColorBarCfg,
-		     VidgenConfig->HdColorBarMode);
+			StreamOffset[Stream - 1], HdColorBarCfg,
+				VidgenConfig->HdColorBarMode);
 
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     HSBLANK,
-		     VidgenConfig->TcHsBlnk);
+			StreamOffset[Stream - 1], HSBLANK,
+				VidgenConfig->TcHsBlnk);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     HSSYNC,
-		     VidgenConfig->TcHsSync);
+			StreamOffset[Stream - 1], HSSYNC,
+				VidgenConfig->TcHsSync);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     HESYNC,
-		     VidgenConfig->TcHeSync);
+			StreamOffset[Stream - 1], HESYNC,
+				VidgenConfig->TcHeSync);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     HEBLNK,
-		     VidgenConfig->TcHeBlnk);
+			StreamOffset[Stream - 1], HEBLNK,
+				VidgenConfig->TcHeBlnk);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     VSBLNK,
-		     VidgenConfig->TcVsBlnk);
+			StreamOffset[Stream - 1], VSBLNK,
+				VidgenConfig->TcVsBlnk);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     VSSYNC,
-		     VidgenConfig->TcVsSync);
+			StreamOffset[Stream - 1], VSSYNC,
+				VidgenConfig->TcVsSync);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     VESYNC,
-		     VidgenConfig->TcVeSync);
+			StreamOffset[Stream - 1], VESYNC,
+				VidgenConfig->TcVeSync);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     VEBLNK,
-		     VidgenConfig->Timing.F0PVTotal);
+			StreamOffset[Stream - 1], VEBLNK,
+				VidgenConfig->Timing.F0PVTotal);
 
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     MISC0,
-		     InstancePtr->TxInstance.MsaConfig[0].Misc0);
+			StreamOffset[Stream - 1], MISC0,
+				InstancePtr->TxInstance.MsaConfig[0].Misc0);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		     StreamOffset[Stream - 1],
-		     MISC1,
-		     InstancePtr->TxInstance.MsaConfig[0].Misc1);
+			StreamOffset[Stream - 1], MISC1,
+				InstancePtr->TxInstance.MsaConfig[0].Misc1);
 }
 
 /*****************************************************************************/
@@ -747,7 +763,7 @@ int wait_for_lock(void)
 * @note		None.
 *
 ******************************************************************************/
-void ComputeMandD(u32 VidFreq)
+void ComputeMandD_vidGen(u32 VidFreq)
 {
 	u32 RefFreq;
 	u32 m, d, Div, Freq, Diff, Fvco;
