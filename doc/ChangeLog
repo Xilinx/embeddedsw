@@ -153,6 +153,9 @@ Added example for testing AMS block voltage measurement
 Added peripheral test support for sysmonpsu. CR-980362
 Provided conditional checks for interrupt example in
 sysmonpsu_header.h
+Get Ref Clock Frequency information from design
+Update Clock Divisor to the proper value
+Update example code to run at higher frequency and remove sleep
 
 sdps_v3_4:
 Use different commands for single and multi block transfers
