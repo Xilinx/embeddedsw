@@ -53,6 +53,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   kvn    12/15/15 First release
+*       mn     03/08/18 Update code to run at higher frequency
 *
 * </pre>
 *
@@ -221,13 +222,11 @@ int SysMonPsuLowLevelExample(u32 BaseAddress)
 			(XSYSMONPSU_SEQ_CH1_VAUX00_MASK | XSYSMONPSU_SEQ_CH1_VAUX0F_MASK));
 
 
-	/*
-	 * Set the ADCCLK frequency equal to 1/32 of System clock for the System
-	 * Monitor in the Configuration Register 2.
-	 */
-	XSysmonPsu_WriteReg(BaseAddress + XPS_BA_OFFSET + XSYSMONPSU_CFG_REG2_OFFSET,
-			(32U << XSYSMONPSU_CFG_REG2_CLK_DVDR_WIDTH));
-
+	/* Clear any bits set in the Interrupt Status Register. */
+	IntrStatusRegister = XSysmonPsu_ReadReg(BaseAddress + XSYSMONPSU_ISR_0_OFFSET);
+	XSysmonPsu_WriteReg(BaseAddress + XSYSMONPSU_ISR_0_OFFSET, IntrStatusRegister);
+	IntrStatusRegister = XSysmonPsu_ReadReg(BaseAddress + XSYSMONPSU_ISR_1_OFFSET);
+	XSysmonPsu_WriteReg(BaseAddress + XSYSMONPSU_ISR_1_OFFSET, IntrStatusRegister);
 
 	/* Enable the Channel Sequencer in continuous sequencer cycling mode. */
 	RegValue = XSysmonPsu_ReadReg(BaseAddress + XPS_BA_OFFSET +
