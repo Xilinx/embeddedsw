@@ -137,6 +137,7 @@
 *       sk     03/09/18 Update PLL structure in XRFdc_DynamicPLLConfig API.
 *       sk     03/09/18 Update ADC and DAC datatypes in Mixer API and use
 *                       input datatype for ADC in threshold and QMC APIs.
+*       sk     03/09/18 Removed FIFO disable check in DDC and DUC APIs.
 *
 * </pre>
 *

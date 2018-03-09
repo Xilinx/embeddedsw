@@ -95,6 +95,7 @@
 *       sk     03/09/18 Update PLL structure in XRFdc_DynamicPLLConfig API.
 *       sk     03/09/18 Update ADC and DAC datatypes in Mixer API and use
 *                       input datatype for ADC in threshold and QMC APIs.
+*       sk     03/09/18 Removed FIFO disable check in DDC and DUC APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -2661,7 +2662,6 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
 	u16 NoOfBlocks;
 	u16 FabricRate;
 	u8 DataType;
-	u8 FIFOEnable;
 	u32 Factor;
 
 #ifdef __BAREMETAL__
@@ -2696,23 +2696,6 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
 #endif
 			goto RETURN_PATH;
 		} else {
-			Status = XRFdc_GetFIFOStatus(InstancePtr,
-					XRFDC_ADC_TILE, Tile_Id, &FIFOEnable);
-			if (Status != XRFDC_SUCCESS) {
-				return XRFDC_FAILURE;
-			}
-			if (FIFOEnable == 0U) {
-				DecimationFactor = XRFDC_INTERP_DECIM_OFF;
-#ifdef __MICROBLAZE__
-				xdbg_printf(XDBG_DEBUG_GENERAL, "\n FIFO disabled "
-					"hence interpolation block is OFF in %s\r\n",
-								__func__);
-#else
-				metal_log(METAL_LOG_DEBUG, "\n FIFO disabled hence "
-					"interpolation block is OFF in %s\r\n",
-							__func__);
-#endif
-			}
 			DataType = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 						XRFDC_ADC_DECI_CONFIG_OFFSET) &
 						XRFDC_DEC_CFG_MASK;
@@ -2880,7 +2863,6 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
 	u32 BaseAddr;
 	u16 FabricRate;
 	u8 DataType;
-	u8 FIFOEnable;
 	u32 Factor;
 
 #ifdef __BAREMETAL__
@@ -2916,23 +2898,6 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
 				"factor in %s\r\n", __func__);
 #endif
 			goto RETURN_PATH;
-		}
-		Status = XRFdc_GetFIFOStatus(InstancePtr, XRFDC_DAC_TILE,
-					Tile_Id, &FIFOEnable);
-		if (Status != XRFDC_SUCCESS) {
-			return XRFDC_FAILURE;
-		}
-		if (FIFOEnable == 0U) {
-			InterpolationFactor = XRFDC_INTERP_DECIM_OFF;
-#ifdef __MICROBLAZE__
-		xdbg_printf(XDBG_DEBUG_GENERAL, "\n FIFO disabled hence "
-				"interpolation block is OFF in %s\r\n",
-							__func__);
-#else
-		metal_log(METAL_LOG_DEBUG, "\n FIFO disabled hence "
-				"interpolation block is OFF in %s\r\n",
-						__func__);
-#endif
 		}
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 				XRFDC_DAC_INTERP_CTRL_OFFSET) &
