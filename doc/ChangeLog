@@ -236,6 +236,15 @@ proper ERROR value upon error conditions.
 
 xilsecure_v3_0:
 Added support for NIST-SHA3 padding
+Added API to make KECCAK/NIST(default)padding selection
+Added AES and KUP key clear call after decryption
+Modified XSecure_AesDecrypt() to use key in Secure header
+Added APIs to load secure single partition image
+
+xilskey_v6_4:
+Corrected status bits for Ultrascale plus
+Added support for Virtex Ultrascale and Ultrascale plus
+Cache is been re-loaded by library after programming eFUSE bits in ZynqMP
 
 xxvethernet_v1_0:
 Add new driver for XXV Ethernet IP
@@ -243,6 +252,9 @@ Add support for USXGMII IP
 
 zynqmp_fsbl:
 Added support for NIST-SHA3 padding
+Added Boot header authentication
+Forcing encryption for all partitions when ENC_ONLY eFUSE bit is set
+Fixed AES KEY and IV re-use vulneribility issue
 
 Changes for 2017.4
 ===============================
