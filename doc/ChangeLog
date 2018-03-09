@@ -28,6 +28,9 @@ Added initial version of Xilinx I2S Tx soft IP driver.
 i2srx_v1_0:
 Added initial version of Xilinx I2S Rx soft IP driver.
 
+iicps_v3_6:
+Set Transfer size before slave address in MasterRecvPolled.
+
 wdttb_4_3
 Added a function to program the width of Watchdog timer
 Updated doxygen tags
