@@ -22,7 +22,7 @@ BEGIN LIBRARY
  PARAMETER lwip_tcpip_core_locking_input = true
  PARAMETER n_rx_descriptors = 512
  PARAMETER n_tx_descriptors = 512
- PARAMETER pbuf_pool_size = 8192
+ PARAMETER pbuf_pool_size = 16384
  PARAMETER tcp_snd_buf = 65535
  PARAMETER tcp_wnd = 65535
  PARAMETER ipv6_enable = false
