@@ -76,6 +76,37 @@ int ceil_func(double x);
 int floor_func(double x);
 int round_func(double number);
 
+
+static u8 IDT_8T49N24x_GetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+				u16 RegisterAddress);
+static int IDT_8T49N24x_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+				u16 RegisterAddress, u8 Value);
+static int IDT_8T49N24x_ModifyRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+				u16 RegisterAddress, u8 Value, u8 Mask);
+static int IDT_8T49N24x_CheckDeviceID(u32 I2CBaseAddress, u8 I2CSlaveAddress);
+static int IDT_8T49N24x_PreDivider(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+				u32 Value, u8 Input);
+static int IDT_8T49N24x_M1Feedback(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+				u32 Value,u8 Input);
+static int IDT_8T49N24x_DSMInteger(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+				u16 Value);
+static int IDT_8T49N24x_DSMFractional(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+				u32 Value);
+static int IDT_8T49N24x_OutputDividerInteger(u32 I2CBaseAddress,
+				u8 I2CSlaveAddress, u32 Value, u8 Output);
+static int IDT_8T49N24x_OutputDividerFractional(u32 I2CBaseAddress,
+				u8 I2CSlaveAddress, u32 Value, u8 Output);
+static int IDT_8T49N24x_Mode(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+				u8 Synthesizer);
+static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable, u8 Bypass);
+static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
+				IDT_8T49N24x_Settings* RegSettings);
+static int IDT_8T49N24x_Enable(u32 I2CBaseAddress,
+				u8 I2CSlaveAddress, u8 Enable);
+static int IDT_8T49N24x_ReferenceInput(u32 I2CBaseAddress,
+				u8 I2CSlaveAddress, u8 Input, u8 Enable);
+static int IDT_8T49N24x_Configure_JA(u32 I2CBaseAddress, u8 I2CSlaveAddress);
+
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
@@ -745,7 +776,7 @@ int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 
 	IDT_8T49N24x_CalculateSettings(FIn, FOut, &RegSettings);
 
-	// TODO: Add support for independent inputs
+
 	// Write Pre-Divider values for the Input Reference
 	Buffer[0] = 0x00; // MSB
 	Buffer[1] = 0x0B; // LSB
@@ -1579,42 +1610,7 @@ int IDT_8T49N24x_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 					     I2CSlaveAddress, TRUE);
 		//MB_Sleep(300);
 		usleep(300);
-///*
-//
-//		// Set GPIO
-//		Result = IDT_8T49N24x_GPIO(I2CBaseAddress, I2CSlaveAddress);
-//
-//		// Disable output 0
-//		Result = IDT_8T49N24x_OutputDriver(I2CBaseAddress,
-//						   I2CSlaveAddress,
-//						   0, FALSE);
-//
-//		// Disable output 1
-//		Result = IDT_8T49N24x_OutputDriver(I2CBaseAddress,
-//						   I2CSlaveAddress,
-//						   1, FALSE);
-//
-//		// Enable output 2
-//		Result = IDT_8T49N24x_OutputDriver(I2CBaseAddress,
-//						   I2CSlaveAddress,
-//						   2, TRUE);
-//
-//		// Enable output 3
-//		Result = IDT_8T49N24x_OutputDriver(I2CBaseAddress,
-//						   I2CSlaveAddress,
-//						   3, TRUE);
-//
-//		// Lock mode
-//		Result = IDT_8T49N24x_LockMode(I2CBaseAddress,
-//					       I2CSlaveAddress);
-//
-//		// Select clock input 0
-//		Result = IDT_8T49N24x_SelectInputReference(I2CBaseAddress,
-//							   I2CSlaveAddress, 0);
-//
-//		return XST_SUCCESS;
-//
-//*/
+
 		return Result;
 	}
 
@@ -1642,7 +1638,7 @@ int IDT_8T49N24x_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 		return XST_FAILURE;
 	}
 
-	//TODO
+
 	// Check device ID and rev ID 
 	// Startup Control
 	Buffer[0] = 0x00; // MSB RegAddr
@@ -2177,7 +2173,7 @@ int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 
 	IDT_8T49N24x_GetSettings(FIn, FOut, &RegSettings);
 
-	// TODO: Add support for independent inputs
+
 	/* Write Pre-Divider values for the Input Reference. */
 	Buffer[0] = 0x00; // MSB
 	Buffer[1] = 0x0B; // LSB
@@ -2380,7 +2376,7 @@ int IDT_8T49N24x_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 		return XST_FAILURE;
 	}
 
-	//TODO
+
 	/* Check device ID and rev ID */
 
 	/* Startup Control */

@@ -172,6 +172,36 @@ typedef struct {
         u8  Itr5Premp;
 } DP_Rx_Training_Algo_Config;
 
+
+typedef struct
+{
+	u8 sec_id;//DP Specific
+	u8 type;
+	u8 version;
+	u8 length;
+	u8 audio_coding_type;
+	u8 audio_channel_count;
+	u8 sampling_frequency;
+	u8 sample_size;
+	u8 level_shift;
+	u8 downmix_inhibit;
+	u8 channel_allocation;
+	u16 info_length;
+	u8 frame_count;
+} XilAudioInfoFrame_rx;
+
+/*The structure defines Generic Frame Packet fields*/
+typedef struct
+{
+	u32 frame_count;
+	u32 frame_count_q;
+	u8 Header[4];
+	u8 Payload[32];
+} XilAudioExtFrame;
+
+XilAudioInfoFrame_rx AudioinfoFrame;
+XilAudioExtFrame  SdpExtFrame;
+XilAudioExtFrame  SdpExtFrame_q;
 /************************** Function Prototypes ******************************/
 
 void DpRxSs_Main(void);
@@ -197,6 +227,12 @@ void DpRxSs_AccessLaneSetHandler(void *InstancePtr);
 void DpRxSs_AccessLinkQualHandler(void *InstancePtr);
 void DpRxSs_AccessErrorCounterHandler(void *InstancePtr);
 void DpRxSs_CRCTestEventHandler(void *InstancePtr);
+void XDp_RxInterruptDisable1(XDp *InstancePtr, u32 Mask);
+void XDp_RxInterruptEnable1(XDp *InstancePtr, u32 Mask);
+void DpRxSs_InfoPacketHandler(void *InstancePtr);
+void DpRxSs_ExtPacketHandler(void *InstancePtr);
+void Print_InfoPkt();
+void Print_ExtPkt();
 
 /************************** Variable Definitions *****************************/
 
