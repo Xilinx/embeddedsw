@@ -96,6 +96,7 @@
 *       sk     03/09/18 Update ADC and DAC datatypes in Mixer API and use
 *                       input datatype for ADC in threshold and QMC APIs.
 *       sk     03/09/18 Removed FIFO disable check in DDC and DUC APIs.
+*       sk     03/09/18 Add support for Marker event source for DAC block.
 * </pre>
 *
 ******************************************************************************/
@@ -943,7 +944,9 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 						XRFDC_EVNT_SRC_IMMEDIATE) &&
 						(Mixer_Settings->EventSource !=
 						XRFDC_EVNT_SRC_SYSREF) &&
-						(Mixer_Settings->EventSource != XRFDC_EVNT_SRC_PL))
+						(Mixer_Settings->EventSource != XRFDC_EVNT_SRC_PL) &&
+						((Mixer_Settings->EventSource != XRFDC_EVNT_SRC_MARKER) ||
+								(Type == XRFDC_ADC_TILE)))
 			{
 #ifdef __MICROBLAZE__
 			xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid event source selection "
@@ -1982,7 +1985,9 @@ int XRFdc_SetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				(QMC_Settings->EventSource != XRFDC_EVNT_SRC_TILE) &&
 				(QMC_Settings->EventSource != XRFDC_EVNT_SRC_IMMEDIATE) &&
 				(QMC_Settings->EventSource != XRFDC_EVNT_SRC_SYSREF) &&
-				(QMC_Settings->EventSource != XRFDC_EVNT_SRC_PL)) {
+				(QMC_Settings->EventSource != XRFDC_EVNT_SRC_PL) &&
+				((QMC_Settings->EventSource != XRFDC_EVNT_SRC_MARKER) ||
+						(Type == XRFDC_ADC_TILE))) {
 #ifdef __MICROBLAZE__
 				xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid event source selection "
 												"in %s\r\n", __func__);
@@ -2331,7 +2336,9 @@ int XRFdc_SetCoarseDelaySettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 						XRFDC_EVNT_SRC_IMMEDIATE) &&
 						(CoarseDelay_Settings->EventSource !=
 						XRFDC_EVNT_SRC_SYSREF) &&
-						(CoarseDelay_Settings->EventSource != XRFDC_EVNT_SRC_PL)) {
+						(CoarseDelay_Settings->EventSource != XRFDC_EVNT_SRC_PL) &&
+						((CoarseDelay_Settings->EventSource !=
+							XRFDC_EVNT_SRC_MARKER) ||(Type == XRFDC_ADC_TILE))) {
 #ifdef __MICROBLAZE__
 				xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid event source selection "
 												"in %s\r\n", __func__);
@@ -2588,7 +2595,8 @@ int XRFdc_UpdateEvent(XRFdc* InstancePtr, u32 Type, int Tile_Id, u32 Block_Id,
 				EventSource = ReadReg & XRFDC_QMC_UPDT_MODE_MASK;
 			}
 			if ((EventSource == XRFDC_EVNT_SRC_SYSREF) ||
-					(EventSource == XRFDC_EVNT_SRC_PL)) {
+					(EventSource == XRFDC_EVNT_SRC_PL) ||
+					(EventSource == XRFDC_EVNT_SRC_MARKER)) {
 				Status = XRFDC_FAILURE;
 #ifdef __MICROBLAZE__
 				xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid Event Source, this"

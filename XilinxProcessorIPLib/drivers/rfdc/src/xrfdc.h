@@ -138,6 +138,7 @@
 *       sk     03/09/18 Update ADC and DAC datatypes in Mixer API and use
 *                       input datatype for ADC in threshold and QMC APIs.
 *       sk     03/09/18 Removed FIFO disable check in DDC and DUC APIs.
+*       sk     03/09/18 Add support for Marker event source for DAC block.
 *
 * </pre>
 *
@@ -486,6 +487,7 @@ typedef struct {
 #define XRFDC_EVNT_SRC_SLICE		0x00000001U
 #define XRFDC_EVNT_SRC_TILE			0x00000002U
 #define XRFDC_EVNT_SRC_SYSREF		0x00000003U
+#define XRFDC_EVNT_SRC_MARKER		0x00000004U
 #define XRFDC_EVNT_SRC_PL			0x00000005U
 #define XRFDC_EVENT_MIXER			0x00000001U
 #define XRFDC_EVENT_CRSE_DLY		0x00000002U
