@@ -78,7 +78,7 @@
 * There is only one interrupt controlled to be selected from SCUGIC and GPIO
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
-//#define XINTC_DPTXSS_DP_INTERRUPT_ID \
+//#define XINTC_DPTXSS_DP_INTERRUPT_ID
 //	XPAR_FABRIC_DPTXSS_0_VEC_ID
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #define XINTC_DPTXSS_HDCP_INTERRUPT_ID \
@@ -211,7 +211,8 @@ int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 			int FIn, int FOut, u8 FreeRun);
 int IDT_8T49N24x_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 int TI_LMK03318_PowerDown(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-
+void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
+			u8 Edid_org[128], u8 Edid1_org[128]);
 /************************** Variable Definitions *****************************/
 
 XDpTxSs DpTxSsInst; 		/* The DPTX Subsystem instance.*/
