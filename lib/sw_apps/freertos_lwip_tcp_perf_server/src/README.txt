@@ -25,7 +25,7 @@ A) From SDK GUI.
 1. Create lwip_tcp_perf application from XSDK
 2. Go to BSP Settings from XSDK
    --> Overview
-      --> freertos901_xilinx
+      --> freertos10_xilinx
         --> lwip202
            --> ipv6_enable
                - Select "true" from value tab.

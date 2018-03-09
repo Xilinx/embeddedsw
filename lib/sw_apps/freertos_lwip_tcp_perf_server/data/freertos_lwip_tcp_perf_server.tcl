@@ -88,7 +88,7 @@ proc check_os {} {
     }
     set os [lindex $oslist 0];
 
-    if { $os != "freertos901_xilinx"} {
+    if { $os != "freertos10_xilinx"} {
         error "This application is supported only on the FreeRTOS Board Support Package.";
     }
 }
@@ -305,5 +305,5 @@ proc swapp_get_supported_processors {} {
 
 proc swapp_get_supported_os {} {
 
-    return "freertos901_xilinx";
+    return "freertos10_xilinx";
 }
