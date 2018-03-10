@@ -74,9 +74,9 @@ void fzetta_fmc_table_init(){
 
 		//Generic FMC Device Initialization Table
 		fzetta_fmc_reg fzetta_fmc_table_temp = {
-		.gpio_dev_id = XPAR_I_SYSTEM_BASIC_SYSTEM_BASIC_I_FZETTON_FMC_GPIO_DEVICE_ID,
-		.iic_dev_id  = XPAR_I_SYSTEM_BASIC_SYSTEM_BASIC_I_FZETTON_FMC_IIC_CTRL_DEVICE_ID,
-		.spi_dev_id  = XPAR_I_SYSTEM_BASIC_SYSTEM_BASIC_I_FZETTON_FMC_SPI_CTRL_DEVICE_ID,
+		.gpio_dev_id = XPAR_GPIO_3_DEVICE_ID,
+		.iic_dev_id  = XPAR_IIC_0_DEVICE_ID,
+		.spi_dev_id  = XPAR_SPI_0_DEVICE_ID,
 		.reglist =
 		{   //Dev Type		Channel		Slave Select		RegAddr			RegData
 			{ IIC_Dev,		DUMMY,		DUMMY,				0x00,			0x0E},	//148.5MHz (IN2-->OUT0); 148.35MHz (IN3-->OUT1)

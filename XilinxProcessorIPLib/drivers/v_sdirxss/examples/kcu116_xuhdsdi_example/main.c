@@ -54,9 +54,9 @@
 #include "fzetta_fmc/fzetta_fmc_ctlr.h"
 
 /************************** Constant Definitions *****************************/
-#define GPIO_0_TX_MODE		XPAR_I_SYSTEM_BASIC_SYSTEM_BASIC_I_AXI_GPIO_0_BASEADDR
-#define GPIO_0_RX_MODE		0x40020000
-#define GPIO_2_TX_FORMAT	0x40030000
+#define GPIO_0_TX_MODE		XPAR_GPIO_0_BASEADDR
+#define GPIO_0_RX_MODE		XPAR_GPIO_1_BASEADDR
+#define GPIO_2_TX_FORMAT	XPAR_GPIO_2_BASEADDR
 
 #define CARRIAGE_RETURN		0x0D
 #define BACKSPACE		0x08
