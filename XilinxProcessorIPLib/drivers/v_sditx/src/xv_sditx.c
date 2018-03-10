@@ -697,6 +697,8 @@ u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVi
 
 	if (SdiMode == XSDIVID_MODE_3GB)
 		InstancePtr->Stream[DataStream].CAssignment = (DataStream << 1);
+	else
+		InstancePtr->Stream[DataStream].CAssignment = 0;
 
 	TimingPtr = XVidC_GetTimingInfo((u32)VideoMode);
 	if (!TimingPtr) {
