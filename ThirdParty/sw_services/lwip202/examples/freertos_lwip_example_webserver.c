@@ -36,7 +36,7 @@
 #include "lwip/sockets.h"
 #include "lwip/sys.h"
 
-#include "webserver.h"
+#include "freertos_lwip_example_webserver.h"
 #include "xil_printf.h"
 
 extern void print_ip(char *msg, ip_addr_t *ip);

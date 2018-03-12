@@ -33,8 +33,8 @@
 #include <sleep.h>
 #include "xparameters.h"
 #include "netif/xadapter.h"
-#include "platform_config.h"
-#include "platform_fs.h"
+#include "lwip_example_platform_config.h"
+#include "freertos_lwip_example_tftp_platform_fs.h"
 #include "xil_printf.h"
 #include "lwip/init.h"
 #include "lwip/inet.h"
