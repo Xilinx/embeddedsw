@@ -35,7 +35,7 @@
 #include "lwip/inet.h"
 #include "lwip/err.h"
 #include "lwip/udp.h"
-#include "tftp_common.h"
+#include "lwip_example_tftpclient_common.h"
 #include "xil_printf.h"
 
 #define FILE_TO_TRANSFER 3

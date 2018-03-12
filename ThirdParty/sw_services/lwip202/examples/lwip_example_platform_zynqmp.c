@@ -46,10 +46,10 @@
 #include "xscugic.h"
 #include "lwip/tcp.h"
 #include "xil_printf.h"
-#include "platform_config.h"
+#include "lwip_example_platform_config.h"
 #include "netif/xadapter.h"
 #ifdef TFTP_APP
-#include "platform_fs.h"
+#include "lwip_example_tftp_platform_fs.h"
 #endif
 #ifdef PLATFORM_ZYNQMP
 #include "xttcps.h"

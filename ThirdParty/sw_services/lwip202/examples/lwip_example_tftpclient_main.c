@@ -33,8 +33,8 @@
 #include <stdio.h>
 #include "xparameters.h"
 #include "netif/xadapter.h"
-#include "platform.h"
-#include "platform_config.h"
+#include "lwip_example_platform.h"
+#include "lwip_example_platform_config.h"
 #include "lwipopts.h"
 #include "xil_printf.h"
 #include "sleep.h"
@@ -42,7 +42,7 @@
 #include "lwip/init.h"
 #include "lwip/inet.h"
 #include "xil_cache.h"
-#include "tftp_common.h"
+#include "lwip_example_tftpclient_common.h"
 
 #if LWIP_DHCP==1
 #include "lwip/dhcp.h"
