@@ -37,9 +37,13 @@ BEGIN driver dptxss
 	OPTION depends = (dual_splitter_v1_0 vtc_v7_2);
 	OPTION copyfiles = all;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	OPTION VERSION = 6.0;
 =======
 	OPTION VERSION = 5.3;
 >>>>>>> DP example designs updates
+=======
+	OPTION VERSION = 6.0;
+>>>>>>> dptxss: Updated major version number
 	OPTION NAME = dptxss;
 END driver
