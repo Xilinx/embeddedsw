@@ -585,7 +585,9 @@ u32 XVidC_Set3DVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
 XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
 		                             u8 IsInterlaced);
 XVidC_VideoMode XVidC_GetVideoModeIdExtensive(XVidC_VideoTiming *Timing,
-											  u32 FrameRate, u8 IsInterlaced);
+											  u32 FrameRate,
+											  u8 IsInterlaced,
+											  u8 IsExtensive);
 XVidC_VideoMode XVidC_GetVideoModeIdRb(u32 Width, u32 Height, u32 FrameRate,
 		                               u8 IsInterlaced, u8 RbN);
 XVidC_VideoMode XVidC_GetVideoModeIdWBlanking(const XVidC_VideoTiming *Timing,

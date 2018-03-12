@@ -2232,7 +2232,14 @@ void XV_HdmiTxSs_SetVideoIDCode(XV_HdmiTxSs *InstancePtr, u8 Vic)
 ******************************************************************************/
 void XV_HdmiTxSs_SetVideoStreamType(XV_HdmiTxSs *InstancePtr, u8 StreamType)
 {
-    InstancePtr->HdmiTxPtr->Stream.IsHdmi = StreamType;
+    //InstancePtr->HdmiTxPtr->Stream.IsHdmi = StreamType;
+    if (StreamType) {
+    	XV_HdmiTxSS_SetHdmiMode(InstancePtr);
+    	XV_HdmiTxSs_AudioMute(InstancePtr, FALSE);
+    } else {
+    	XV_HdmiTxSs_AudioMute(InstancePtr, TRUE);
+    	XV_HdmiTxSS_SetDviMode(InstancePtr);
+    }
 }
 
 /*****************************************************************************/

@@ -451,6 +451,9 @@ XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
  * @param	IsInterlaced is flag.
  *		      - 0 = Progressive
  *			  - 1 = Interlaced.
+ * @param	IsExtensive is flag.
+ *		      - 0 = Basic matching of timing parameters
+ *			  - 1 = Extensive matching of timing parameters
  *
  * @return	Id of a supported video mode.
  *
@@ -459,7 +462,9 @@ XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
  *
 *******************************************************************************/
 XVidC_VideoMode XVidC_GetVideoModeIdExtensive(XVidC_VideoTiming *Timing,
-											  u32 FrameRate, u8 IsInterlaced)
+											  u32 FrameRate,
+											  u8 IsInterlaced,
+											  u8 IsExtensive)
 {
 	u32 Low;
 	u32 High;
@@ -478,7 +483,7 @@ XVidC_VideoMode XVidC_GetVideoModeIdExtensive(XVidC_VideoTiming *Timing,
 		VActive = XVidC_CustomTimingModes[Index].Timing.VActive;
 		Rate = XVidC_CustomTimingModes[Index].FrameRate;
 		if ((HActive == Timing->HActive) && (VActive == Timing->VActive) &&
-				(Rate == FrameRate) &&
+				(Rate == FrameRate) && (IsExtensive == 0 || (
 			XVidC_CustomTimingModes[Index].Timing.HTotal == Timing->HTotal &&
 			XVidC_CustomTimingModes[Index].Timing.F0PVTotal ==
 					Timing->F0PVTotal &&
@@ -491,8 +496,8 @@ XVidC_VideoMode XVidC_GetVideoModeIdExtensive(XVidC_VideoTiming *Timing,
 			XVidC_CustomTimingModes[Index].Timing.F0PVSyncWidth ==
 					Timing->F0PVSyncWidth &&
 			XVidC_CustomTimingModes[Index].Timing.VSyncPolarity ==
-					Timing->VSyncPolarity) {
-				if (!IsInterlaced || (
+					Timing->VSyncPolarity))) {
+				if (!IsInterlaced || IsExtensive == 0 || (
 						XVidC_CustomTimingModes[Index].Timing.F1VTotal ==
 						Timing->F1VTotal &&
 						XVidC_CustomTimingModes[Index].Timing.F1VFrontPorch ==
@@ -560,7 +565,8 @@ XVidC_VideoMode XVidC_GetVideoModeIdExtensive(XVidC_VideoTiming *Timing,
 		while (HActive == Timing->HActive) {
 			/* check current entry */
 			if ((VActive == Timing->VActive) && (Rate == FrameRate) &&
-					XVidC_VideoTimingModes[Mid].Timing.HTotal ==
+					(IsExtensive == 0 ||
+					(XVidC_VideoTimingModes[Mid].Timing.HTotal ==
 							Timing->HTotal &&
 					XVidC_VideoTimingModes[Mid].Timing.F0PVTotal ==
 							Timing->F0PVTotal &&
@@ -573,8 +579,8 @@ XVidC_VideoMode XVidC_GetVideoModeIdExtensive(XVidC_VideoTiming *Timing,
 					XVidC_VideoTimingModes[Mid].Timing.F0PVSyncWidth ==
 							Timing->F0PVSyncWidth &&
 					XVidC_VideoTimingModes[Mid].Timing.VSyncPolarity ==
-							Timing->VSyncPolarity) {
-				if (!IsInterlaced || (
+							Timing->VSyncPolarity))) {
+				if (!IsInterlaced || IsExtensive == 0 || (
 						XVidC_VideoTimingModes[Mid].Timing.F1VTotal ==
 								Timing->F1VTotal &&
 						XVidC_VideoTimingModes[Mid].Timing.F1VFrontPorch ==

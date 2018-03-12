@@ -2252,8 +2252,10 @@ static void XHdmi_DisplayDebugMainMenu(void) {
 	xil_printf("----------------------\r\n");
 	xil_printf("---   DEBUG MENU   ---\r\n");
 	xil_printf("----------------------\r\n");
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
 	xil_printf("  1 - Enable Scrambler.\r\n");
 	xil_printf("  2 - Disable Scrambler.\r\n");
+#endif
 	xil_printf(" 99 - Exit\r\n");
 	xil_printf("Enter Selection -> ");
 }
@@ -2276,19 +2278,19 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	Menu = XHDMI_DEBUG_MAIN_MENU;
 
 	switch (Input) {
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
 		case 1 :
-//			xil_printf("\r\n???\r\n");
 			XV_HdmiTxSs_SetScrambler(&HdmiTxSs, TRUE);
 			// Display the prompt for the next input
 			xil_printf("Enter Selection -> ");
 			break;
 
 		case 2 :
-//			xil_printf("\r\n???\r\n");
 			XV_HdmiTxSs_SetScrambler(&HdmiTxSs, FALSE);
 			// Display the prompt for the next input
 			xil_printf("Enter Selection -> ");
 			break;
+#endif
 
 			// Exit
 		case 99 :

@@ -825,9 +825,6 @@ void ReportStreamMode(XV_HdmiTxSs *HdmiTxSsPtr, u8 IsPassThrough)
 ******************************************************************************/
 void Info(void)
 {
-#if(HDMI_DEBUG_TOOLS == 1)
-	u32 freeCnt = 0;
-#endif
 	u32 Data;
 	xil_printf("\r\n-----\r\n");
 	xil_printf("Info\r\n");
@@ -856,44 +853,6 @@ void Info(void)
 #endif
 	XVphy_HdmiDebugInfo(&Vphy, 0, XVPHY_CHANNEL_ID_CH1);
 
-	xil_printf("------------\r\n");
-	xil_printf("Debugging\r\n");
-	xil_printf("------------\r\n");
-#if(HDMI_DEBUG_TOOLS == 1)
-#if defined (__MICROBLAZE__) || (ARMR5)
-	for (int i = 0; i < (int)(&_STACK_SIZE)>>2; i++) {
-		Data = Xil_In32(((int)&_stack_end) + (i*4));
-#elif defined (XPAR_PSU_CORTEXA53_0_CPU_CLK_FREQ_HZ)
-	for (int i = 0; i < (u64)(&_STACK_SIZE)>>2; i++) {
-		Data = Xil_In32(((u64)&_el3_stack_end) + (i*4));
-#endif
-		/* Check up to which point in the stack being untouched by the processor.
-		 * This will tell the maximum stack size ever accessed  up to now.
-		 */
-		if(Data != STACKSIZE_KEYWORD) {
-			freeCnt = i - 1;
-			break;
-		}
-	}
-
-	// Report the stack size utilization
-#if defined (__MICROBLAZE__) || (ARMR5)
-	xil_printf("CPU Stack Size Utilization: %d%%\r\n",
-			   (((((int)(&_STACK_SIZE)>>2) - freeCnt)*100) /
-				(((int)(&_STACK_SIZE)>>2))));
-#elif defined (__aarch64__)
-	xil_printf("CPU Stack Size Utilization: %d%%\r\n",
-			   (((((u64)(&_STACK_SIZE)>>2) - freeCnt)*100) /
-				(((u64)(&_STACK_SIZE)>>2))));
-#endif
-//  xil_printf("_stack_end: 0x%X\r\n", &_stack_end);
-//  xil_printf("_STACK_SIZE: 0x%X\r\n", &_STACK_SIZE);
-//  xil_printf("_stack: 0x%X\r\n", &_stack);
-//  xil_printf("__stack: 0x%X\r\n", &__stack);
-//  xil_printf("_heap: 0x%X\r\n", &_heap);
-//  xil_printf("_heap_start: 0x%X\r\n", &_heap_start);
-//  xil_printf("_heap_end: 0x%X\r\n", &_heap_end);
-#endif
 }
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -940,11 +899,13 @@ void TxConnectCallback(void *CallbackRef) {
 		 */
 		TxCableConnect = (TRUE);
 
-		/*Set Flag when the cable is connected
-		 *this call back take in to account two scneario
-		 *cable connect and cable disconnect*/
-		if (IsPassThrough) { /*Stable RX stream is available*/
-			StartTxAfterRxFlag = (TRUE);  /* Restart Stream */
+		/* Set Flag when the cable is connected
+		 * this call back take in to account two scneario
+		 * cable connect and cable disconnect */
+		/* Stable RX stream is available */
+		if (IsPassThrough) {
+			/* Restart Stream */
+			StartTxAfterRxFlag = (TRUE);
 		}
 		else { /* No stable RX Stream available, Only TX Cable Connect,
 				* Hence TX-Only mode or Color bar*/
@@ -1145,8 +1106,9 @@ void TxVsCallback(void *CallbackRef) {
 ******************************************************************************/
 void TxBrdgUnlockedCallback(void *CallbackRef) {
 	/* When video out bridge lost lock, reset TPG */
-	ResetTpg();
-	XV_ConfigTpg(&Tpg);
+	/* ResetTpg();                                */
+	/* Config and Run the TPG                     */
+	/* XV_ConfigTpg(&Tpg);                        */
 }
 #endif
 
@@ -1178,6 +1140,9 @@ void TxStreamUpCallback(void *CallbackRef) {
 
 	xil_printf("TX stream is up\r\n");
 
+	/* Reset the TPG */
+	ResetTpg();
+
 	/* Check for the 480i/576i during color bar mode
 	 * When it's (TRUE), set the Info Frame Pixel Repetition to x2
 	 * */
@@ -1193,7 +1158,6 @@ void TxStreamUpCallback(void *CallbackRef) {
 					XHDMIC_PIXEL_REPETITION_FACTOR_1;
 		}
 	}
-
 	TxPllType = XVphy_GetPllType(&Vphy, 0, XVPHY_DIR_TX, XVPHY_CHANNEL_ID_CH1);
 	if ((TxPllType == XVPHY_PLL_TYPE_CPLL)) {
 		TxLineRate = XVphy_GetLineRateHz(&Vphy, 0, XVPHY_CHANNEL_ID_CH1);
@@ -1208,12 +1172,10 @@ void TxStreamUpCallback(void *CallbackRef) {
 	/* Copy Sampling Rate */
 	XV_HdmiTxSs_SetSamplingRate(HdmiTxSsPtr, Vphy.HdmiTxSampleRate);
 
-	/* Run Video Pattern Generator */
-	ResetTpg();
-
 	/* Set colorbar pattern */
 	Pattern = XTPG_BKGND_COLOR_BARS;
 
+	/* Config and Run the TPG */
 	XV_ConfigTpg(&Tpg);
 
 #if defined(XPAR_XV_HDMITXSS_NUM_INSTANCES)
@@ -1325,6 +1287,9 @@ void StartTxAfterRx(void) {
 	// clear start
 	StartTxAfterRxFlag = (FALSE);
 
+	/* Reset TPG */
+	ResetTpg();
+
 	// Disable TX TDMS clock
 	XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_TX, (FALSE));
 
@@ -1345,10 +1310,6 @@ void StartTxAfterRx(void) {
 		IDT_8T49N24x_Init(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR);
 #endif
 	}
-
-	/* Video Pattern Generator */
-	ResetTpg();
-	XV_ConfigTpg(&Tpg);
 
 	// When the GT TX and RX are coupled, then start the TXPLL
 	if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
@@ -1583,7 +1544,8 @@ void UpdateFrameRate(XVphy           *VphyPtr,
 		XVidC_VideoMode VmId = XVidC_GetVideoModeIdExtensive(
 								   &HdmiTxSsVidStreamPtr->Timing,
 								   FrameRate,
-								   HdmiTxSsVidStreamPtr->IsInterlaced);
+								   HdmiTxSsVidStreamPtr->IsInterlaced,
+								   (FALSE));
 
 		if (VmId != XVIDC_VM_NUM_SUPPORTED) {
 
@@ -1717,25 +1679,6 @@ void Xil_AssertCallbackRoutine(u8 *File, s32 Line) {
 *
 ******************************************************************************/
 int main() {
-#if(HDMI_DEBUG_TOOLS == 1)
-#if defined (__MICROBLAZE__) || (ARMR5)
-	int *ptr = (int *) (int)&_stack_end; // Update start address
-	/* Fill the stack with known values so stack utilization can be computed
-	 * by comparing the data in the stack against the known values later.
-	 */
-	for (int i = 0; i < (int)(&_STACK_SIZE)>>2; i++) {
-		*ptr++ = STACKSIZE_KEYWORD;
-#elif defined (XPAR_PSU_CORTEXA53_0_CPU_CLK_FREQ_HZ)
-	int *ptr = (int *) (u64)&_el3_stack_end; // Update start address
-	/* Fill the stack with known values so stack utilization can be computed
-	 * by comparing the data in the stack against the known values later.
-	 */
-	for (int i = 0; i < (u64)(&_STACK_SIZE)>>2; i++) {
-		*ptr++ = STACKSIZE_KEYWORD;
-
-#endif
-	}
-#endif
 	u32 Status = XST_FAILURE;
 	XVphy_Config *XVphyCfgPtr;
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -1822,8 +1765,8 @@ int main() {
 
 	I2cClk_Ps(0, 156250000);
 
-	// Delay 15ms to allow SI chip to lock
-	usleep (15000);
+	// Delay 50ms to allow SI chip to lock
+	usleep (50000);
 
 #endif
 
