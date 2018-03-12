@@ -48,11 +48,10 @@ proc generate {drv_handle} {
     "C_LINE_RATE" \
     "C_MAX_AUDIO_CHANNELS"
 
-    hier_ip_define_canonical_xpars $drv_handle "xparameters.h" "XSDIAUD" \
+    ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "XSDIAUD" \
+    "DEVICE_ID" \
     "C_BASEADDR" \
     "C_HIGHADDR" \
-    "C_AUDIO_FUNCTION" \
-    "C_LINE_RATE" \
     "C_MAX_AUDIO_CHANNELS"
 
 }
