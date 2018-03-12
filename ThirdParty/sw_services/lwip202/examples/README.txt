@@ -265,12 +265,11 @@ FreeRTOS lwIP tftp server
 -------------------------
 
 Files to be included:
-freertos_lwip_example_iic_phyreset.c
-freertos_lwip_example_platform_config.h
+lwip_example_iic_phyreset.c
+lwip_example_platform_config.h
 freertos_lwip_example_tftp_platform_fs.c
 freertos_lwip_example_tftp_platform_fs.h
 freertos_lwip_example_tftp_server.c
-freertos_lwip_example_tftp_client.c
 freertos_lwip_example_tftpserver_common.h
 freertos_lwip_example_tftpsever_main.c
 
@@ -303,8 +302,8 @@ FreeRTOS lwIP tftp client
 -------------------------
 
 Files to be included:
-freertos_lwip_example_iic_phyreset.c
-freertos_lwip_example_platform_config.h
+lwip_example_iic_phyreset.c
+lwip_example_platform_config.h
 freertos_lwip_example_tftp_platform_fs.c
 freertos_lwip_example_tftp_platform_fs.h
 freertos_lwip_example_tftp_client.c
@@ -361,8 +360,8 @@ FreeRTOS lwIP Webserver
 -----------------------
 
 Files to be included:
-freertos_lwip_example_iic_phyreset.c
-freertos_lwip_example_platform_config.h
+lwip_example_iic_phyreset.c
+lwip_example_platform_config.h
 freertos_lwip_example_ws_platform_fs.c
 freertos_lwip_example_web_utils.c
 freertos_lwip_example_ws_http_response.c
@@ -434,8 +433,8 @@ FreeRTOS lwIP IGMP
 ------------------
 
 Files to be included:
-freertos_lwip_example_iic_phyreset.c
-freertos_lwip_example_platform_config.h
+lwip_example_iic_phyreset.c
+lwip_example_platform_config.h
 freertos_lwip_example_igmp_app.c
 freertos_lwip_example_igmp_app.h
 freertos_lwip_example_igmp_main.c

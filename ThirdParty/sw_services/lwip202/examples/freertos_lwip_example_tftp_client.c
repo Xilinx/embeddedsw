@@ -34,7 +34,7 @@
 
 #include "lwip/sockets.h"
 #include "xil_printf.h"
-#include "tftp_common.h"
+#include "freertos_lwip_example_tftpclient_common.h"
 #include "lwip/sys.h"
 
 #define FILE_TO_TRANSFER 3

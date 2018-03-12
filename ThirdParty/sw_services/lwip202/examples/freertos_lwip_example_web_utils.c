@@ -32,7 +32,7 @@
 
 #include <string.h>
 #include <stdio.h>
-#include "webserver.h"
+#include "freertos_lwip_example_webserver.h"
 
 int is_cmd_print(char *buf)
 {
