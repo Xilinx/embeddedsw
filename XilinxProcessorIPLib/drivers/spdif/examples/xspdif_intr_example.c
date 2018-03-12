@@ -66,11 +66,11 @@
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define SPDIF_0_DEVICE_ID	XPAR_SPDIF_0_DEVICE_ID
-#define SPDIF_1_DEVICE_ID	XPAR_SPDIF_1_DEVICE_ID
+#define SPDIF_0_DEVICE_ID	XPAR_XSPDIF_0_DEVICE_ID
+#define SPDIF_1_DEVICE_ID	XPAR_XSPDIF_1_DEVICE_ID
 
-#define SPDIF_0_INTERRUPT_ID	XPAR_FABRIC_SPDIF_0_VEC_ID
-#define XPAR_SPDIF_0_BA		XPAR_SPDIF_0_BASEADDR
+#define SPDIF_0_INTERRUPT_ID	XPAR_INTC_0_SPDIF_0_VEC_ID
+#define XPAR_SPDIF_0_BA		XPAR_XSPDIF_0_BASEADDR
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
