@@ -41,6 +41,7 @@ BEGIN driver dptxss
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	OPTION VERSION = 6.0;
 =======
 	OPTION VERSION = 4.3;
@@ -57,5 +58,8 @@ BEGIN driver dptxss
 =======
 	OPTION VERSION = 5.3;
 >>>>>>> DP example designs updates
+=======
+	OPTION VERSION = 6.0;
+>>>>>>> dptxss: Updated major version number
 	OPTION NAME = dptxss;
 END driver
