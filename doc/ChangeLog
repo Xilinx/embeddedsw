@@ -160,6 +160,8 @@ Move UHS macro check to SD card init routine
 csudma_v1_2:
 Added support for peripheral test app support.
 Fixed compilation issues in peripheral test creation
+Add new API XCsuDma_64BitTransfer() in the driver useful
+for 64-bit dma address transfers through pmu processor CR-996201.
 
 uartps_v3_6:
 This patch updates the flow control mode offset value. CR-995026
