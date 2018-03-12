@@ -14,7 +14,7 @@ fs_interface = 2
 API_MODE = RAW_API if raw example if being used;
 API_MODE = SOCKET_API if freertos example if being used.
 
-3. Enable "SELECT_TFTPAPP" in platform_config.h
+3. Enable "SELECT_TFTPAPP" in platform_config.h except for IGMP tests.
 
 4. To select 16550 as STDOUT, enable SELECT_STDOUT16550 in platform_config.h
 
@@ -142,7 +142,7 @@ lwip_example_platform_zynqmp.c
 lwip_example_sfp.c
 lwip_example_si5324.c
 lwip_example_ws_platform_fs.c
-lwip_example_ws_platform_fs.h
+lwip_example_tftp_platform_fs.h
 lwip_example_web_utils.c
 lwip_example_ws_http_response.c
 lwip_example_webserver.c
@@ -228,6 +228,7 @@ lwip_example_igmp_app.c
 lwip_example_igmp_app.h
 lwip_example_igmp_main.c
 
+Requires igmp options(LWIP_IGMP) in lwip library configuration parameters.
 The lwIP IGMP application joins a default multicast group of 224.10.10.3.
 Any data sent to this Multicast IP address and default 5001 port,
 will be accepted.

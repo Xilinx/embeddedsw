@@ -33,8 +33,8 @@
 #include <stdio.h>
 #include "xparameters.h"
 #include "netif/xadapter.h"
-#include "platform.h"
-#include "platform_config.h"
+#include "lwip_example_platform.h"
+#include "lwip_example_platform_config.h"
 #include "lwipopts.h"
 #include "xil_printf.h"
 #include "sleep.h"

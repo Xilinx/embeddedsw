@@ -34,7 +34,7 @@
 
 #include "lwip/inet.h"
 #include "lwip/udp.h"
-#include "tftp_common.h"
+#include "lwip_example_tftpserver_common.h"
 #include "xil_printf.h"
 
 #define FILES_TO_CREATE 3
