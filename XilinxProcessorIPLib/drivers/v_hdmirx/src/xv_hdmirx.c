@@ -1743,7 +1743,8 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
             InstancePtr->Stream.Video.VmId =
             XVidC_GetVideoModeIdExtensive(&InstancePtr->Stream.Video.Timing,
             		InstancePtr->Stream.Video.FrameRate,
-					InstancePtr->Stream.Video.IsInterlaced);
+					InstancePtr->Stream.Video.IsInterlaced,
+					(TRUE));
 
             //If video mode not found in the table tag it as custom
             if (InstancePtr->Stream.Video.VmId == XVIDC_VM_NOT_SUPPORTED) {

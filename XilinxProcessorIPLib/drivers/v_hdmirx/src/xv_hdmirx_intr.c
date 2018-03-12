@@ -384,8 +384,8 @@ static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
                 InstancePtr->Stream.SyncStatus = XV_HDMIRX_SYNCSTAT_SYNC_EST;
 
                 // Enable sync loss
-                XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress,
-                  (XV_HDMIRX_VTD_CTRL_SET_OFFSET), (XV_HDMIRX_VTD_CTRL_SYNC_LOSS_MASK));
+                //XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress,
+                //  (XV_HDMIRX_VTD_CTRL_SET_OFFSET), (XV_HDMIRX_VTD_CTRL_SYNC_LOSS_MASK));
 
                 // Call stream up callback
                 if (InstancePtr->IsStreamUpCallbackSet) {
@@ -402,15 +402,15 @@ static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
 
             if (Status != XST_SUCCESS) {
                 // Disable sync loss
-                XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress,
-                  (XV_HDMIRX_VTD_CTRL_CLR_OFFSET), (XV_HDMIRX_VTD_CTRL_SYNC_LOSS_MASK));
+                //XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress,
+                //  (XV_HDMIRX_VTD_CTRL_CLR_OFFSET), (XV_HDMIRX_VTD_CTRL_SYNC_LOSS_MASK));
 
                 // Set stream status to up
                 InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_LOCK;
 
             } else if (InstancePtr->Stream.SyncStatus == XV_HDMIRX_SYNCSTAT_SYNC_LOSS) {
-		// Sync Est/Recover Flag
-		InstancePtr->Stream.SyncStatus = XV_HDMIRX_SYNCSTAT_SYNC_EST;
+            	// Sync Est/Recover Flag
+            	InstancePtr->Stream.SyncStatus = XV_HDMIRX_SYNCSTAT_SYNC_EST;
 
 				// Call sync lost callback
 				if (InstancePtr->IsSyncLossCallbackSet) {
@@ -428,8 +428,8 @@ static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_STA_OFFSET), (XV_HDMIRX_VTD_STA_SYNC_LOSS_EVT_MASK));
 
         if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_UP) {
-		// Enable the Stream Up + Sync Loss Flag
-		InstancePtr->Stream.SyncStatus = XV_HDMIRX_SYNCSTAT_SYNC_LOSS;
+        	// Enable the Stream Up + Sync Loss Flag
+        	InstancePtr->Stream.SyncStatus = XV_HDMIRX_SYNCSTAT_SYNC_LOSS;
 
 			// Call sync lost callback
 			if (InstancePtr->IsSyncLossCallbackSet) {
@@ -689,6 +689,18 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
             InstancePtr->Stream.IsHdmi = (FALSE);
         }
 
+        if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_UP) {
+
+            /* Clear variables */
+            XV_HdmiRx_Clear(InstancePtr);
+
+        	// Set stream status to idle
+            InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_IDLE;
+
+            // Load timer
+            XV_HdmiRx_TmrStart(InstancePtr, TIME_10MS);           // 10 ms
+        }
+
         // Call mode callback
         if (InstancePtr->IsModeCallbackSet) {
             InstancePtr->ModeCallback(InstancePtr->ModeRef);
@@ -832,12 +844,12 @@ static void HdmiRx_AuxIntrHandler(XV_HdmiRx *InstancePtr)
 
     /* Check for GCP colordepth event */
     if ((Status) & (XV_HDMIRX_AUX_STA_GCP_CD_EVT_MASK)) {
-	/* Clear event flag */
-	XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_AUX_STA_OFFSET), (XV_HDMIRX_AUX_STA_GCP_CD_EVT_MASK));
+    	/* Clear event flag */
+    	XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_AUX_STA_OFFSET), (XV_HDMIRX_AUX_STA_GCP_CD_EVT_MASK));
 
-	if ((Status) & (XV_HDMIRX_AUX_STA_GCP_MASK)) {
-		InstancePtr->Stream.Video.ColorDepth = XV_HdmiRx_GetGcpColorDepth(InstancePtr);
-	}
+    	if ((Status) & (XV_HDMIRX_AUX_STA_GCP_MASK)) {
+    		InstancePtr->Stream.Video.ColorDepth = XV_HdmiRx_GetGcpColorDepth(InstancePtr);
+    	}
     }
 
     /* Check for new packet */

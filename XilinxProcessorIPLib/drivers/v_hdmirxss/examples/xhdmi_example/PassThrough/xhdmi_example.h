@@ -166,40 +166,6 @@ extern "C" {
 #define VIDEO_MASKING_MENU_EN 0
 
 /************************** Variable Definitions *****************************/
-/* The declarations below are needed to calculate the
- * utilization of stack size.
- */
-#if(HDMI_DEBUG_TOOLS == 1)
-// The known keyword pattern to be filled in to the stack
-#define STACKSIZE_KEYWORD 0xDEADBEEF
-// Declare these as extern so the values can be accessed
-#if defined (__MICROBLAZE__) || (ARMR5)
-extern int _stack_end;
-extern int _STACK_SIZE;
-//extern int _stack;
-//extern int __stack;
-//extern int _heap;
-//extern int _heap_start;
-//extern int _heap_end;
-#elif defined (XPAR_PSU_CORTEXA53_0_CPU_CLK_FREQ_HZ)
-//extern u64 _heap;
-//extern u64 _heap_start;
-//extern u64 _heap_end;
-extern u64 _el3_stack_end;
-extern u64 _STACK_SIZE;
-//extern u64 __el3_stack;
-//extern u64 _el2_stack_end;
-//extern u64 _EL2_STACK_SIZE;
-//extern u64 __el2_stack;
-//extern u64 _el1_stack_end;
-//extern u64 _EL1_STACK_SIZE;
-//extern u64 __el1_stack;
-//extern u64 _el0_stack_end;
-//extern u64 _EL0_STACK_SIZE;
-//extern u64 __el0_stack;
-#endif
-#endif
-
 /* VPhy structure */
 extern XVphy     Vphy;
 
