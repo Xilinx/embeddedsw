@@ -78,6 +78,7 @@ tftp client and server apps.
 Update xInsideISR flag in emacps_error_handler.
 In init_axi_dma() use UINTPTR for axidma base address.
 Add support for Realtek RTL8211 phy.
+Update header names in raw and socket examples.
 
 lwip_udp_perf_client and lwip_udp_perf_server:
 Added new SW apps for raw mode UDP performance tests.
