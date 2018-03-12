@@ -65,9 +65,9 @@
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define I2S_RX_DEVICE_ID	XPAR_I2S_RECEIVER_0_DEVICE_ID
+#define I2S_RX_DEVICE_ID	XPAR_XI2SRX_0_DEVICE_ID
 #define I2S_RX_INTERRUPT_ID	XPAR_FABRIC_I2SRX_0_VEC_ID
-#define XPAR_I2S_TRANSMITTER_0_BA XPAR_I2S_TRANSMITTER_0_BASEADDR
+#define XPAR_I2S_TRANSMITTER_0_BA XPAR_XI2STX_0_BASEADDR
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
 #else
