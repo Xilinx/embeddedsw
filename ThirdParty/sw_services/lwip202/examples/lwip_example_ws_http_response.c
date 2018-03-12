@@ -32,7 +32,7 @@
 
 #include <string.h>
 
-#include "webserver.h"
+#include "lwip_example_webserver.h"
 #include "xil_printf.h"
 
 char *notfound_header =

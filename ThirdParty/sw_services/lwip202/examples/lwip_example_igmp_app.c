@@ -30,7 +30,7 @@
 *
 ******************************************************************************/
 
-#include "igmp_app.h"
+#include "lwip_example_igmp_app.h"
 
 #include "lwipopts.h"
 #include "lwip/udp.h"

@@ -50,7 +50,7 @@
 #include "lwip/err.h"
 #include "lwip/tcp.h"
 
-#include "webserver.h"
+#include "lwip_example_webserver.h"
 #include "xil_printf.h"
 
 extern void print_ip(char *msg, ip_addr_t *ip);

@@ -31,7 +31,7 @@
 ******************************************************************************/
 
 #include <string.h>
-#include "webserver.h"
+#include "lwip_example_webserver.h"
 
 #define HTTP_ARG_ARRAY_SIZE 1000
 
