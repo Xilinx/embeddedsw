@@ -34,7 +34,7 @@
 #include "lwip/sockets.h"
 #include "lwip/inet.h"
 #include "xil_printf.h"
-#include "tftp_common.h"
+#include "freertos_lwip_example_tftpserver_common.h"
 #include "lwip/sys.h"
 #include "FreeRTOS.h"
 

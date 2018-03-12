@@ -35,7 +35,7 @@
 #include "lwip/inet.h"
 #include "lwip/sockets.h"
 
-#include "webserver.h"
+#include "freertos_lwip_example_webserver.h"
 #include "xil_printf.h"
 
 char *notfound_header =
