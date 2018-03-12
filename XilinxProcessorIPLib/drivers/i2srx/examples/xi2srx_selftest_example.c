@@ -58,7 +58,7 @@
  * change all the needed parameters in one place.
  */
 #ifndef TESTAPP_GEN
-#define I2S_RX_DEVICE_ID	XPAR_I2S_RECEIVER_0_DEVICE_ID
+#define I2S_RX_DEVICE_ID	XPAR_XI2SRX_0_DEVICE_ID
 #endif
 
 /**************************** Type Definitions ********************************/
