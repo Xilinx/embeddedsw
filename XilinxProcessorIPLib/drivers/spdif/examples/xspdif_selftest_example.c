@@ -58,8 +58,8 @@
  * change all the needed parameters in one place.
  */
 #ifndef TESTAPP_GEN
-#define SPDIF_0_DEVICE_ID	XPAR_SPDIF_0_DEVICE_ID
-#define SPDIF_1_DEVICE_ID	XPAR_SPDIF_1_DEVICE_ID
+#define SPDIF_0_DEVICE_ID	XPAR_XSPDIF_0_DEVICE_ID
+#define SPDIF_1_DEVICE_ID	XPAR_XSPDIF_1_DEVICE_ID
 #endif
 
 /**************************** Type Definitions *****************************i***/
