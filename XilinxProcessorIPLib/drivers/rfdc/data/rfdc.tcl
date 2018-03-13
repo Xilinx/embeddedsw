@@ -295,11 +295,11 @@ proc generate_canonical_xpars {drv_handle file_name drv_string args} {
    puts $file_handle "\n/******************************************************************/\n"
 
    puts $file_handle "/* Xilinx RFdc Device Name */"
-   set periph_name [string tolower [common::get_property NAME $periph]]
    set lvalue [::hsi::utils::get_driver_param_name $canonical_name DEV_NAME]
    set rvalue [::hsi::utils::get_param_value $periph C_BASEADDR]
    regsub -all {^0x} $rvalue {} rvalue
-   puts $file_handle "#define $lvalue \"[string tolower $rvalue].[string trimright $periph_name _0]\""
+   set ipname [get_property IP_NAME [get_cells -hier $drv_handle]]
+   puts $file_handle "#define $lvalue \"[string tolower $rvalue].$ipname\""
 
    puts $file_handle "\n/******************************************************************/\n"
 
