@@ -43,6 +43,8 @@
  * ----- ---- 	-------- -------------------------------------------------------
  * 1.0   BK 	12/01/18 First release
  *	 MYK	12/01/18 Added hibernation support for device mode
+ *	 vak	13/03/18 Moved the setup interrupt system calls from driver to
+ *			 example.
  *
  * </pre>
  *
@@ -111,13 +113,6 @@ void SetEpHandler(void *InstancePtr, u8 Epnum,
 			u8 Dir, void (*Handler)(void *, u32, u32))
 {
 	XUsbPsu_SetEpHandler((struct XUsbPsu *)InstancePtr, Epnum, Dir, Handler);
-}
-
-s32 SetupInterruptSystem(void *InstancePtr, u16 IntcDeviceID,  u16 USBIntrID,
-			void *IntcInstancePtr)
-{
-	return XUsbPsu_SetupInterruptSystem((struct XUsbPsu *)InstancePtr,
-					IntcDeviceID, USBIntrID, IntcInstancePtr);
 }
 
 s32 Usb_Start(void *InstancePtr)
