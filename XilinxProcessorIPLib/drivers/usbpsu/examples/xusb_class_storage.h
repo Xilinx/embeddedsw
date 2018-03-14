@@ -81,7 +81,7 @@ extern "C" {
 
 /* Virtual Flash memory related definitions.
  */
-#ifdef AXI_USB
+#ifdef __MICROBLAZE__
 /* 16MB due to limited memory on AXIUSB platform. */
 #define VFLASH_SIZE			0x1000000	/* 16MB space */
 #else
