@@ -136,6 +136,7 @@
 *                    Added XQspiPsu_SetWP() in xqspipsu_options.c
 *                    Added XQspiPsu_WriteProtectToggle() in xqspipsu.c and
 *                    also added write protect example.
+* 1.7	tjs	03/14/18 Added support in EL1 NS mode (CR#974882)
 * </pre>
 *
 ******************************************************************************/

@@ -63,6 +63,7 @@
 * 1,5	nsk 08/14/17 Added CCI support
 * 1.7	tjs	01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
 * 1.7	tjs 01/17/18 Added a support to toggle WP pin of the flash.
+* 1.7	tjs	03/14/18 Added support in EL1 NS mode (CR#974882)
 *
 * </pre>
 *

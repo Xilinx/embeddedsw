@@ -52,6 +52,7 @@
 *		     LQSPI options and updated OptionsTable
 *       rk  07/15/16 Added support for TapDelays at different frequencies.
 * 1.7	tjs 01/17/18 Added support to toggle the WP pin of flash. (PR#2448)
+* 1.7	tjs	03/14/18 Added support in EL1 NS mode. (CR#974882)
 *
 * </pre>
 *
@@ -60,6 +61,9 @@
 /***************************** Include Files *********************************/
 
 #include "xqspipsu.h"
+#if defined (__aarch64__)
+#include "xil_smc.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -345,8 +349,15 @@ s32 XQspi_Set_TapDelay(XQspiPsu * InstancePtr,u32 TapdelayBypass,
 	if (InstancePtr->IsBusy == TRUE) {
 		Status = XST_DEVICE_BUSY;
 	} else {
+#if EL1_NONSECURE && defined (__aarch64__)
+		Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
+				IOU_TAPDLY_BYPASS_OFFSET) |
+				((u64)(0x4) << 32),
+				(u64)TapdelayBypass, 0, 0, 0, 0, 0);
+#else
 		XQspiPsu_WriteReg(XPS_SYS_CTRL_BASEADDR,IOU_TAPDLY_BYPASS_OFFSET,
 				TapdelayBypass);
+#endif
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_LPBK_DLY_ADJ_OFFSET,LPBKDelay);
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
@@ -381,8 +392,12 @@ static s32 XQspipsu_Calculate_Tapdelay(XQspiPsu *InstancePtr, u8 Prescaler)
 	Divider = (1 << (Prescaler+1));
 
 	FreqDiv = (InstancePtr->Config.InputClockHz)/Divider;
+#if EL1_NONSECURE && defined (__aarch64__)
+	Tapdelay = IOU_TAPDLY_RESET_STATE;
+#else
 	Tapdelay = XQspiPsu_ReadReg(XPS_SYS_CTRL_BASEADDR,
-					IOU_TAPDLY_BYPASS_OFFSET);
+			IOU_TAPDLY_BYPASS_OFFSET);
+#endif
 
 	Tapdelay = Tapdelay & (~IOU_TAPDLY_BYPASS_LQSPI_RX_MASK);
 
