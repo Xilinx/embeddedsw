@@ -61,7 +61,6 @@ static inline void Usb_DfuWaitForReset(struct dfu_if *DFU)
 
 	/* This bit would be cleared when reset happens*/
 	DFU->dfu_wait_for_interrupt = 1;
-	dmb();
 	while (DFU->dfu_wait_for_interrupt == 0) {
 		/* Wait for an reset event */
 		;

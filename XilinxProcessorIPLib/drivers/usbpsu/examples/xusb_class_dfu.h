@@ -123,7 +123,7 @@ struct dfu_if {
 	u32 total_transfers;
 	u32 total_bytes_dnloaded;
 	u32 total_bytes_uploaded;
-	u8 dfu_wait_for_interrupt;
+	volatile u8 dfu_wait_for_interrupt;
 	u8 is_dfu;
 	u8 runtime_to_dfu;
 };
