@@ -44,6 +44,8 @@
  *  1.0  BK	12/01/18 First release
  *	 MYK	12/01/18 Added hibernation support for device mode
  *	 vak	22/01/18 Added Microblaze support for usbpsu driver
+ *	 vak	13/03/18 Moved the setup interrupt system calls from driver to
+ *			 example.
  *
  * </pre>
  *
@@ -153,8 +155,6 @@ void EpConfigure(void *UsbInstance, u8 EndpointNo, u8 dir, u32 Type);
 s32 ConfigureDevice(void *UsbInstance, u8 *MemPtr, u32 memSize);
 void SetEpHandler(void *InstancePtr, u8 Epnum,
 			u8 Dir, void (*Handler)(void *, u32, u32));
-s32 SetupInterruptSystem(void *InstancePtr, u16 IntcDeviceID, u16 USBIntrID,
-				void *IntcInstancePtr);
 s32 Usb_Start(void *InstancePtr);
 void *Get_DrvData(void *InstancePtr);
 void Set_DrvData(void *InstancePtr, void *data);

@@ -60,6 +60,8 @@
 *		       for all USB IPs.
 *	myk   12/01/18 Added hibernation support for device mode
 *	vak   22/01/18 Added changes for supporting microblaze platform
+*	vak   13/03/18 Moved the setup interrupt system calls from driver to
+*		       example.
 *
 * </pre>
 *
@@ -82,12 +84,6 @@ extern "C" {
 #include "xstatus.h"
 #include "xusbpsu_hw.h"
 #include "xil_io.h"
-
-#ifdef XPAR_INTC_0_DEVICE_ID
-#include "xintc.h"
-#elif defined PLATFORM_ZYNQMP
-#include "xscugic.h"
-#endif
 
 /*
  * The header sleep.h and API usleep() can only be used with an arm design.
@@ -743,9 +739,6 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr);
 void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_SetupScratchpad(struct XUsbPsu *InstancePtr);
 #endif
-
-s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
-			u16 USBIntrID, void *IntcInstancePtr);
 
 /*
  * Functions in xusbpsu_sinit.c
