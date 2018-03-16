@@ -68,11 +68,14 @@
 *					  results into abort if accessed from EL1 non secure privilege
 *					  level. Updated Xil_ConfigureL1Prefetch function to access
 *					  CPUACTLR_EL1 only for EL3.
+<<<<<<< HEAD
 * 6.8  mn   08/01/18  Optimize the Xil_DCacheInvalidateRange() function to remove
 *                     redundant operations
 * 6.8  asa  09/15/18  Fix bug in the Xil_DCacheInvalidateRange API introduced while
 *                     making optimizations in the previous patch. This change fixes
 *                     CR-1008926.
+=======
+>>>>>>> BSP:Cortexa53:64bit: Update Xil_ConfigureL1Prefetch
 *
 * </pre>
 *
