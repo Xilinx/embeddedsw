@@ -122,7 +122,8 @@ _startup:
 	bl XTime_StartTTCTimer
 	#endif
 
-	.if (EL1_NONSECURE == 1 && HYP_GUEST == 1)
+	.if (EL1_NONSECURE == 1 && HYP_GUEST == 1 && \
+	     XEN_USE_PV_CONSOLE == 1)
          bl XPVXenConsole_Init
 	.endif
 	/* make sure argc and argv are valid */
