@@ -126,5 +126,7 @@
 *                      Provided efuse secure bit(obfuscation enable feature)
 *                      programming support for ultrascale and untrascale plus.
 *        vns  03/09/18 Added correct status bits for ultrascale plus
+* 6.5    vns  03/16/18 Fixed hanging issue when program/zeroise is requested
+*                      while programming mode in enabled state.
 *
  ********************************************************************************/
