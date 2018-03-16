@@ -139,6 +139,7 @@
 *                       input datatype for ADC in threshold and QMC APIs.
 *       sk     03/09/18 Removed FIFO disable check in DDC and DUC APIs.
 *       sk     03/09/18 Add support for Marker event source for DAC block.
+*       jm     03/12/18 Fixed DAC latency calculation in MTS.
 *
 * </pre>
 *

@@ -44,6 +44,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 3.1   jm     01/24/18 Initial release
+* 3.2   jm     03/12/18 Fixed DAC latency calculation.
 *
 * </pre>
 *
@@ -858,16 +859,14 @@ static u32 XRFdc_MTS_Latency(XRFdc* InstancePtr, u32 Type,
 	Status = XRFDC_MTS_OK;
 	if (Type == XRFDC_ADC_TILE) {
 		XRFdc_GetDecimationFactor(InstancePtr, Config->RefTile, 0, &Factor);
-		XRFdc_GetFabRdVldWords(InstancePtr, Type, Config->RefTile,
-									0, &Read_Words);
-		Count_w = Read_Words * Factor;
-		Loc_w   = Factor;
 	} else {
 		XRFdc_GetInterpolationFactor(InstancePtr, Config->RefTile, 0, &Factor);
-		Count_w = 8;
-		Loc_w   = Factor;
 	}
-		metal_log(METAL_LOG_DEBUG,
+    XRFdc_GetFabRdVldWords(InstancePtr, Type, Config->RefTile, 0, &Read_Words);
+    Count_w = Read_Words * Factor;
+    Loc_w   = Factor;
+
+    metal_log(METAL_LOG_DEBUG,
 			"Count_w %d, loc_w %d\n", Count_w, Loc_w);
 
 	/* Find the individual latencies */
