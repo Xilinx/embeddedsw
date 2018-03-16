@@ -46,6 +46,7 @@
 * 3.1   jm     01/24/18 Initial release
 * 3.2   jm     03/12/18 Fixed DAC latency calculation.
 *       jm     03/12/18 Added support for reloading DTC scans.
+*       jm     03/12/18 Add option to configure sysref capture after MTS.
 *
 * </pre>
 *
@@ -89,6 +90,7 @@ typedef struct {
 	int Offset[4];
 	int Latency[4];
 	int Marker_Delay;
+	int SysRef_Enable;
 	XRFdc_MTS_DTC_Settings DTC_Set_PLL;
 	XRFdc_MTS_DTC_Settings DTC_Set_T1;
 } XRFdc_MultiConverter_Sync_Config;
