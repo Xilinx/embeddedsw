@@ -2460,7 +2460,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 	recv_frame_clk = ceil((recv_clk_freq*1000000.0) /
 			      (DpHres_total * DpVres_total));
 	//recv_frame_clk_int = recv_frame_clk;
-	Msa[0].Vtm.FrameRate = recv_frame_clk;
+	//Msa[0].Vtm.FrameRate = recv_frame_clk;
 	u32 recv_frame_clk_int = recv_frame_clk;
 	//Doing Approximation here
 	if (recv_frame_clk_int == 59 || recv_frame_clk_int == 61) {
@@ -2472,6 +2472,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 	} else if (recv_frame_clk_int == 121 || recv_frame_clk_int == 119) {
 		recv_frame_clk_int = 120;
 	}
+	Msa[0].Vtm.FrameRate = recv_frame_clk_int; // update the framerate
 
 	rxMsamisc0 = ((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 							XDP_RX_MSA_MISC0) >> 5) & 0x00000007);
