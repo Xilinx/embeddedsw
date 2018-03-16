@@ -45,6 +45,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 3.1   jm     01/24/18 Initial release
 * 3.2   jm     03/12/18 Fixed DAC latency calculation.
+*       jm     03/12/18 Added support for reloading DTC scans.
 *
 * </pre>
 *
@@ -470,9 +471,26 @@ static u32 XRFdc_MTS_Dtc_Calc (u32 Type, u32 Tile_Id,
 					Settings->DTC_Code[Tile_Id], Max_Gap-Min_Gap, Min_Range);
 		}
 	} else {
-		metal_log(METAL_LOG_ERROR,
-			"Multi-Tile-Sync feature not supported in %s\n", __func__);
-		Status |= XRFDC_MTS_NOT_SUPPORTED;
+		/* Reload the results of an initial scan to seed a new scan */
+		if (Tile_Id == Settings->RefTile ) {
+			/* RefTile: Get code closest to the target */
+			Target = Settings->Target[Tile_Id];
+		} else {
+			Target = Settings->DTC_Code[Settings->RefTile] +
+				Settings->Target[Tile_Id] - Settings->Target[Settings->RefTile];
+		}
+		Min_Diff = XRFDC_MTS_NUM_DTC;
+		/* scan all codes to find the closest */
+		for (i = 0; i < Num_Found; i++) {
+			Diff = XRFDC_MTS_ABS(Target - Codes[i]);
+			if (Diff < Min_Diff ) {
+				Min_Diff = Diff;
+				Settings->DTC_Code[Tile_Id] = Codes[i];
+			}
+			metal_log(METAL_LOG_DEBUG,
+				"Reload Target %d, DTC Code %d, Diff %d, Min %d\n", Target,
+				Codes[i], Diff, Min_Diff);
+		}
 	}
 
 	/* Print some debug info */
@@ -972,9 +990,9 @@ void XRFdc_MultiConverter_Init (XRFdc_MultiConverter_Sync_Config* Config,
 
 	Config->RefTile = 0;
 	Config->DTC_Set_PLL.Scan_Mode = (PLL_Codes == 0) ? XRFDC_MTS_SCAN_INIT :
-										XRFDC_MTS_SCAN_NORM;
+										XRFDC_MTS_SCAN_RELOAD;
 	Config->DTC_Set_T1.Scan_Mode = (T1_Codes == 0) ? XRFDC_MTS_SCAN_INIT :
-										XRFDC_MTS_SCAN_NORM;
+										XRFDC_MTS_SCAN_RELOAD;
 	Config->DTC_Set_PLL.IsPLL = 1;
 	Config->DTC_Set_T1 .IsPLL = 0;
 	Config->Target_Latency = -1;
@@ -1042,6 +1060,13 @@ u32 XRFdc_MultiConverter_Sync (XRFdc* InstancePtr, u32 Type,
 				    "%s tile %d in Multi-Tile group not started\n",
                     (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", i);
 				Status |= XRFDC_MTS_IP_NOT_READY;
+			}
+            BaseAddr = XRFDC_DRP_BASE(Type, i) - XRFDC_TILE_DRP_OFFSET;
+            RegData  = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_DLY_ALIGNER);
+			if (RegData == 0U) {
+				metal_log(METAL_LOG_ERROR,"%s tile %d is not enabled for MTS, check IP configuration\n",
+					(Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", i);
+				Status |= XRFDC_MTS_NOT_ENABLED;
 			}
 		}
 	}

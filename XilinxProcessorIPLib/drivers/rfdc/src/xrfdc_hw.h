@@ -1979,6 +1979,7 @@ extern "C" {
 #define XRFDC_CTRL_STATS_OFFSET		0x0
 #define XRFDC_HSCOM_ADDR	0x1C00
 #define XRFDC_BLOCK_ADDR_OFFSET(X)	(X * 0x400)
+#define XRFDC_TILE_DRP_OFFSET		0x2000
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifdef __MICROBLAZE__
