@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,8 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 4.0   vns     10/08/15 First release
+* 6.5   vns     03/16/18 Fixed hanging issue when program/zeroise is requested
+*                        while programming mode in enabled state.
 * </pre>
 *
 ******************************************************************************/
@@ -149,13 +151,29 @@ void XilSKey_ZynqMp_Bbram_Zeroise()
 {
 
 	u32 Status;
+	u32 Offset;
 
+	/*
+	 * Write all zeros to the data regs
+	 * before issuing a zeroize command. Otherwise, we
+	 * may hang waiting for zeroize complete bit if
+	 * we were already in programming mode
+	 */
+	Offset = XSK_ZYNQMP_BBRAM_0_OFFSET;
+	while (Offset <= XSK_ZYNQMP_BBRAM_7_OFFSET) {
+		XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR, Offset, 0x0U);
+		Offset = Offset + 4;
+	}
+
+	/* Issue the zeroize comand */
 	XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR, XSK_ZYNQMP_BBRAM_CTRL_OFFSET,
 				XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_MASK);
 
+	/* Read the status register */
 	Status = XilSKey_ReadReg(XSK_ZYNQMP_BBRAM_BASEADDR,
 				XSK_ZYNQMP_BBRAM_STS_OFFSET);
 
+	/* Wait for zeroize complete bit to get set */
 	while ((Status & XSK_ZYNQMP_BBRAM_STS_ZEROIZED_MASK) == 0x00) {
 		Status = XilSKey_ReadReg(XSK_ZYNQMP_BBRAM_BASEADDR,
 						XSK_ZYNQMP_BBRAM_STS_OFFSET);
@@ -183,6 +201,14 @@ static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn()
 	u32 Status = XST_SUCCESS;
 	u32 StatusRead;
 
+	/*
+	 * Always issue a zeroize command (since we may
+	 * already be in programming mode and it may
+	 * hang waiting for zeroize complete bit)
+	 */
+	XilSKey_ZynqMp_Bbram_Zeroise();
+
+	/* Enter programming mode */
 	XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR,
 	XSK_ZYNQMP_BBRAM_PGM_MODE_OFFSET,XSK_ZYNQMP_BBRAM_PGM_MODE_SET_VAL);
 
