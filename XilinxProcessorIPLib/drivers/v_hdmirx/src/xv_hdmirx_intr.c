@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -997,28 +977,43 @@ static void HdmiRx_AudIntrHandler(XV_HdmiRx *InstancePtr)
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_AUD_STA_OFFSET), (XV_HDMIRX_AUD_STA_CH_EVT_MASK));
 
         // Active channels
-        switch ((Status >> XV_HDMIRX_AUD_STA_AUD_CH_SHIFT) & XV_HDMIRX_AUD_STA_AUD_CH_MASK) {
+	switch ((Status >> XV_HDMIRX_AUD_STA_AUD_CH_SHIFT) &
+			XV_HDMIRX_AUD_STA_AUD_CH_MASK) {
+            // 32 channels
+	case 6 :
+		InstancePtr->Stream.Audio.Channels = 32;
+		break;
 
-            // 8 channels
-            case 3 :
-                InstancePtr->Stream.Audio.Channels = 8;
-                break;
+	// 24 channels
+	case 5 :
+		InstancePtr->Stream.Audio.Channels = 24;
+		break;
 
-            // 6 channels
-            case 2 :
-                InstancePtr->Stream.Audio.Channels = 6;
-                break;
+	// 12 channels
+	case 4 :
+		InstancePtr->Stream.Audio.Channels = 12;
+		break;
 
-            // 4 channels
-            case 1 :
-                InstancePtr->Stream.Audio.Channels = 4;
-                break;
+	// 8 channels
+	case 3 :
+		InstancePtr->Stream.Audio.Channels = 8;
+		break;
 
-            // 2 channels
-            default :
-                InstancePtr->Stream.Audio.Channels = 2;
-                break;
-        }
+	// 6 channels
+	case 2 :
+		InstancePtr->Stream.Audio.Channels = 6;
+		break;
+
+	// 4 channels
+	case 1 :
+		InstancePtr->Stream.Audio.Channels = 4;
+		break;
+
+	// 2 channels
+	default :
+		InstancePtr->Stream.Audio.Channels = 2;
+		break;
+	}
 
         // Audio Format
         InstancePtr->AudFormat = (XV_HdmiRx_AudioFormatType)((Status >> XV_HDMIRX_AUD_STA_AUD_FMT_SHIFT) & XV_HDMIRX_AUD_STA_AUD_FMT_MASK);
