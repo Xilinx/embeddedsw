@@ -5931,10 +5931,12 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 					"uses external clock source in %s\r\n",Tile_Id, __func__);
 #endif
 		if(Type == XRFDC_ADC_TILE) {
-			InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate = SamplingRate;
+			InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate =
+						(SamplingRate/1000);
 			InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
 		} else {
-			InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate = SamplingRate;
+			InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate =
+						(SamplingRate/1000);
 			InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
 		}
 		Status = XRFDC_SUCCESS;
@@ -6048,11 +6050,13 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 	while (XRFdc_ReadReg16(InstancePtr,BaseAddr, XRFDC_RESTART_OFFSET) != 0U);
 
 	if(Type == XRFDC_ADC_TILE) {
-		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate = SamplingRate;
+		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate =
+					(SamplingRate/1000);
 		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
 		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.Enabled = PLLEnable;
 	} else {
-		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate = SamplingRate;
+		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate =
+					(SamplingRate/1000);
 		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
 		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.Enabled = PLLEnable;
 	}
