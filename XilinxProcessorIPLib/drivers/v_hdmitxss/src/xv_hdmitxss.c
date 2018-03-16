@@ -460,6 +460,7 @@ int XV_HdmiTxSs_CfgInitialize(XV_HdmiTxSs *InstancePtr,
   (void)memset((void *)&(HdmiTxSsPtr->AudioInfoframe), 0, sizeof(XHdmiC_AudioInfoFrame));
   memset((void *)&(HdmiTxSsPtr->DrmInfoframe), 0, sizeof(XHdmiC_DRMInfoFrame));
   HdmiTxSsPtr->DrmInfoframe.Static_Metadata_Descriptor_ID = 0xff;
+  HdmiTxSsPtr->DrmInfoframe.EOTF = 0xff;
 
   /* Determine sub-cores included in the provided instance of subsystem */
   XV_HdmiTxSs_GetIncludedSubcores(HdmiTxSsPtr, CfgPtr->DeviceId);
@@ -1469,6 +1470,8 @@ static void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef)
 
   /* Set stream up flag */
   HdmiTxSsPtr->IsStreamUp = (FALSE);
+  HdmiTxSsPtr->DrmInfoframe.Static_Metadata_Descriptor_ID = 0xff;
+  HdmiTxSsPtr->DrmInfoframe.EOTF = 0xff;
 #ifdef XV_HDMITXSS_LOG_ENABLE
   XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_STREAMDOWN, 0);
 #endif
@@ -2543,6 +2546,10 @@ static void XV_HdmiTxSs_ReportDRMInfo(XV_HdmiTxSs *InstancePtr)
 {
 	XHdmiC_DRMInfoFrame *DrmInfoFramePtr;
 	DrmInfoFramePtr = XV_HdmiTxSs_GetDrmInfoframe(InstancePtr);
+
+	if (DrmInfoFramePtr->EOTF != 0xff)
+		xil_printf("eotf: %d\r\n", DrmInfoFramePtr->EOTF);
+
 	if (DrmInfoFramePtr->Static_Metadata_Descriptor_ID == 0xFF) {
 		xil_printf("No DRM info\r\n");
 		return;
