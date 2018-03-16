@@ -95,6 +95,13 @@ Add XRFdc_MultiConverter_Sync() and XRFdc_MultiConverter_Init() APIs to support 
 Updated Set/Get Interpolation/Decimation factor APIs to consider the actual factor.
 Add XRFdc_SetInvSincFIR() and XRFdc_GetInvSincFIR() APIs to support inverse-sinc.
 Add XRFdc_MultiBand() and XRFdc_SetSignalFlow() APIs to configure Multiband and Singleband.
+Update PLL structure in XRFdc_DynamicPLLConfig() API.
+Update ADC and DAC datatypes in Mixer API and use input datatype for ADC in threshold and QMC APIs.
+Removed FIFO disable check in DDC and DUC APIs.
+Add support for Marker event source for DAC block.
+Fixed DAC latency calculation in MTS.
+Added support for reloading DTC scans.
+Add option to configure sysref capture after MTS.
 
 qspipsu_v1_7:
 Removed unsupported 4 byte write and sector erase
