@@ -115,7 +115,7 @@ extern "C" {
 #if(CUSTOM_RESOLUTION_ENABLE == 1)
 	/* Assign Mode ID Enumeration. First entry Must be > XVIDC_VM_CUSTOM */
 	typedef enum {
-		XVIDC_VM_3840x2160_30_P_SB = (XVIDC_VM_CUSTOM + 1),
+		XVIDC_VM_1152x864_60_P = (XVIDC_VM_CUSTOM + 1),
 		XVIDC_CM_NUM_SUPPORTED
 	}
 	XVIDC_CUSTOM_MODES;

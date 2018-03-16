@@ -95,10 +95,10 @@ const XVidC_VideoTimingMode XVidC_MyVideoTimingMode
 	[(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1))] = {
 	/* Custom Modes . */
 	{
-		XVIDC_VM_3840x2160_30_P_SB, "3840x2160@30Hz (SB)", XVIDC_FR_30HZ,
+		XVIDC_VM_1152x864_60_P, "1152x864@60Hz", XVIDC_FR_60HZ,
 		{
-			3840, 48, 32, 80, 4000, 1,
-			2160, 3, 5, 23, 2191, 0, 0, 0, 0, 1
+			1152, 64, 120, 184, 1520, 0,
+			864, 3, 4, 26, 897, 0, 0, 0, 0, 1
 		}
 	}
 };
@@ -648,11 +648,11 @@ void XHdmi_DisplayResolutionMenu(void) {
 	xil_printf("19 -  720 x 480i (NTSC)\r\n");
 	xil_printf("20 -  720 x 576i (PAL)\r\n");
 #if(CUSTOM_RESOLUTION_ENABLE == 1)
-	xil_printf("21 - 3840 x 2160p (SB) (Custom)\r\n");
+	xil_printf("21 - 1152 x 864p (Custom)\r\n");
 #endif
 #else
 #if(CUSTOM_RESOLUTION_ENABLE == 1)
-	xil_printf("19 - 3840 x 2160p (SB) (Custom)\r\n");
+	xil_printf("19 - 1152 x 864p (Custom)\r\n");
 #endif
 #endif
 	xil_printf("99 - Exit\r\n");
@@ -790,13 +790,13 @@ static XHdmi_MenuType XHdmi_ResolutionMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 #if(CUSTOM_RESOLUTION_ENABLE == 1)
 			//3840 x 2160p (SB) (Custom)
 		case 21 :
-			VideoMode = XVIDC_VM_3840x2160_30_P_SB;
+			VideoMode = XVIDC_VM_1152x864_60_P;
 			break;
 #endif
 #else
 #if(CUSTOM_RESOLUTION_ENABLE == 1)
 		case 19 :
-			VideoMode = XVIDC_VM_3840x2160_30_P_SB;
+			VideoMode = XVIDC_VM_1152x864_60_P;
 			break;
 #endif
 #endif
@@ -1933,8 +1933,10 @@ static void XHdmi_DisplayDebugMainMenu(void) {
 	xil_printf("----------------------\r\n");
 	xil_printf("---   DEBUG MENU   ---\r\n");
 	xil_printf("----------------------\r\n");
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
 	xil_printf("  1 - Enable Scrambler.\r\n");
 	xil_printf("  2 - Disable Scrambler.\r\n");
+#endif
 	xil_printf(" 99 - Exit\r\n");
 	xil_printf("Enter Selection -> ");
 }
@@ -1957,19 +1959,19 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	Menu = XHDMI_DEBUG_MAIN_MENU;
 
 	switch (Input) {
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
 		case 1 :
-//			xil_printf("\r\n???\r\n");
 			XV_HdmiTxSs_SetScrambler(&HdmiTxSs, TRUE);
 			// Display the prompt for the next input
 			xil_printf("Enter Selection -> ");
 			break;
 
 		case 2 :
-//			xil_printf("\r\n???\r\n");
 			XV_HdmiTxSs_SetScrambler(&HdmiTxSs, FALSE);
 			// Display the prompt for the next input
 			xil_printf("Enter Selection -> ");
 			break;
+#endif
 
 			// Exit
 		case 99 :
