@@ -65,9 +65,13 @@
 *                     L1 cache system.It fixes CR#967864.
 * 6.6  mus  02/27/18  Updated Xil_DCacheInvalidateRange and 
 *					  Xil_ICacheInvalidateRange APIs to change the data type of 
-*					  "cacheline" variable as "INTPTR", This change has been done  
+*					  "cacheline" variable as "INTPTR", This change has been done
 *					  to avoid the truncation of upper DDR addreses to 32 bit.It
 *					  fixes CR#995581.
+* 6.6  mus  03/15/18  By default CPUACTLR_EL1 is accessible only from EL3, it
+*					  results into abort if accessed from EL1 non secure privilege
+*					  level. Updated Xil_ConfigureL1Prefetch function to access
+*					  CPUACTLR_EL1 only for EL3.
 *
 * </pre>
 *
@@ -828,15 +832,16 @@ void Xil_ICacheInvalidateRange(INTPTR  adr, INTPTR len)
 *
 * @return	None.
 *
-* @note		None.
+* @note		This function is implemented only for EL3 privilege level.
 *
 *****************************************************************************/
 void Xil_ConfigureL1Prefetch (u8 num) {
-
+#if EL3
        u64 val=0;
 
        val= mfcp(S3_1_C15_C2_0 );
        val &= ~(L1_DATA_PREFETCH_CONTROL_MASK);
        val |=  (num << L1_DATA_PREFETCH_CONTROL_SHIFT);
        mtcp(S3_1_C15_C2_0,val);
+#endif
 }
