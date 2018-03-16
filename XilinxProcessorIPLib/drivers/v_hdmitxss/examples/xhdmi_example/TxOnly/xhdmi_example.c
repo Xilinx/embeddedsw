@@ -1227,8 +1227,8 @@ void TxStreamUpCallback(void *CallbackRef) {
 	ReportStreamMode(HdmiTxSsPtr, IsPassThrough);
 
 #ifdef USE_HDCP
-	/* Call HDCP stream-up callback */
-	XHdcp_StreamUpCallback(&HdcpRepeater);
+		/* Call HDCP stream-up callback */
+		XHdcp_StreamUpCallback(&HdcpRepeater);
 #endif
 
 #ifdef VIDEO_FRAME_CRC_EN
@@ -1284,13 +1284,13 @@ void TxStreamDownCallback(void *CallbackRef) {
 ******************************************************************************/
 void StartTxAfterRx(void) {
 
-	// clear start
+	/* Clear the Start Tx After Rx Flag */
 	StartTxAfterRxFlag = (FALSE);
 
 	/* Reset TPG */
 	ResetTpg();
 
-	// Disable TX TDMS clock
+	/* Disable TX TDMS clock */
 	XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_TX, (FALSE));
 
 	XV_HdmiTxSs_StreamStart(&HdmiTxSs);
@@ -1298,8 +1298,8 @@ void StartTxAfterRx(void) {
 	/* Enable RX clock forwarding */
 	XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_RX, (TRUE));
 
-	// Program external clock generator in locked mode
-	// Only when the GT TX and RX are not coupled
+	/*Program external clock generator in locked mode
+	Only when the GT TX and RX are not coupled*/
 	if (!XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
 		I2cClk(Vphy.HdmiRxRefClkHz,Vphy.HdmiTxRefClkHz);
 	} else {
@@ -1309,18 +1309,6 @@ void StartTxAfterRx(void) {
 #else
 		IDT_8T49N24x_Init(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR);
 #endif
-	}
-
-	// When the GT TX and RX are coupled, then start the TXPLL
-	if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
-		// Start TX MMCM
-		XVphy_MmcmStart(&Vphy, 0, XVPHY_DIR_TX);
-		usleep(10000);
-	}
-
-	/* Enable TX TMDS Clock in bonded mode */
-	if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
-		XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_TX, (TRUE));
 	}
 }
 #endif
