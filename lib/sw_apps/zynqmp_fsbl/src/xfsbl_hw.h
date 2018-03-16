@@ -744,14 +744,6 @@ extern "C" {
 /* Register: ACPU_GIC_GICD_CACTIVESGIR3 */
 #define ACPU_GIC_GICD_CACTIVESGIR3    ( ( ACPU_GIC_BASEADDR ) + 0X00010F1CU )
 
-/* VCU SLCR Base Address */
-#define VCU_SLCR_BASEADDR					0XA0040000U
-
-/* VCU GASKET INIT Register */
-#define VCU_GASKET_INIT_REG					( ( VCU_SLCR_BASEADDR ) + 0X00001074U )
-
-#define VCU_GASKET_ISOLATION_REMOVAL_MASK	0X1U
-#define VCU_GASKET_POWER_UP					0X10U
 
 /**************************** Type Definitions *******************************/
 

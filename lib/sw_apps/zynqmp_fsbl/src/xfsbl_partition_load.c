@@ -1587,11 +1587,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		/* Reset PL, if configured for */
 		(void)psu_ps_pl_reset_config_data();
 
-#ifdef XPAR_VCU_0_BASEADDR
-		/*Remove isolation for VCU gasket*/
-		XFsbl_Out32(VCU_GASKET_INIT_REG, VCU_GASKET_POWER_UP |
-				VCU_GASKET_ISOLATION_REMOVAL_MASK);
-#endif
 		/**
 		 * Fsbl hook after bit stream download
 		 */
