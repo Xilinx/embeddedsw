@@ -46,6 +46,7 @@
 * 3.1   jm     01/24/18 Initial release
 * 3.2   jm     03/12/18 Fixed DAC latency calculation.
 *       jm     03/12/18 Added support for reloading DTC scans.
+*       jm     03/12/18 Add option to configure sysref capture after MTS.
 *
 * </pre>
 *
@@ -959,6 +960,9 @@ static u32 XRFdc_MTS_Latency(XRFdc* InstancePtr, u32 Type,
 			/* Report the total latency for this tile */
 			Config->Latency[i] = Config->Latency[i] + (Offset * Factor);
 			Config->Offset[i]  = Offset;
+
+			/* Set the Final SysRef Capture Enable state */
+			XRFdc_MTS_Sysref_Ctrl(InstancePtr, Type, i, 0, Config->SysRef_Enable, 0);
 		}
 	}
 
@@ -997,6 +1001,7 @@ void XRFdc_MultiConverter_Init (XRFdc_MultiConverter_Sync_Config* Config,
 	Config->DTC_Set_T1 .IsPLL = 0;
 	Config->Target_Latency = -1;
 	Config->Marker_Delay = 15;
+	Config->SysRef_Enable = 1; /* By default enable Sysref capture after MTS */
 
 	/* Initialize variables per tile */
 	for (i = 0; i < 4; i++) {

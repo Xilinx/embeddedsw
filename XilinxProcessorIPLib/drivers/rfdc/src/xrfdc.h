@@ -141,6 +141,7 @@
 *       sk     03/09/18 Add support for Marker event source for DAC block.
 *       jm     03/12/18 Fixed DAC latency calculation in MTS.
 *       jm     03/12/18 Added support for reloading DTC scans.
+*       jm     03/12/18 Add option to configure sysref capture after MTS.
 *
 * </pre>
 *
