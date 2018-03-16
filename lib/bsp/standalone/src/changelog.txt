@@ -516,5 +516,13 @@
  * 6.6.mus   02/27/18  Updated Xil_DCacheInvalidateRange and
 *		       Xil_ICacheInvalidateRange APIs in Cortexa53 64 bit BSP, to fix  bug
 *		       in handling upper DDR addresses.It fixes CR#995581.
+* 6.6 mus    03/16/18  By default CPUACTLR_EL1 is accessible only from EL3, it
+*		       results into abort if accessed from EL1 non secure privilege
+*		       level. Updated Xil_ConfigureL1Prefetch function in Cortexa53 64 bit BSP
+*		       to avoid CPUACTLR_EL1 access from privile levels other than EL3.
+* 6.6 mus    03/16/18  Updated hypervisor enabled BSP to use PV console, based on the
+*		       XEN_USE_PV_CONSOLE flag. By deafault hypervisor enabled BSP would
+*		       use UART console, PV console can be enabled by appending
+		       "-DXEN_USE_PV_CONSOLE" to the BSP extra compiler flags.
  *
  *****************************************************************************************/
