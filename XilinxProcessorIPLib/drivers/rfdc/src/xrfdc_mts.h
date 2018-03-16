@@ -44,6 +44,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 3.1   jm     01/24/18 Initial release
+* 3.2   jm     03/12/18 Fixed DAC latency calculation.
 *
 * </pre>
 *
