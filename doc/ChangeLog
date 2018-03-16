@@ -158,6 +158,14 @@ is in lockstep configuration. By default, value of this parameter
 is "false" and debug logic would be disabled. It can be enabled through
 BSP setting by changing value of "lockstep_mode_debug" as "true".
 It fixes CR#993896.
+By default CPUACTLR_EL1 is accessible only from EL3, it
+results into abort if accessed from EL1 non secure privilege
+level. Updated Xil_ConfigureL1Prefetch function in Cortexa53 64 bit BSP
+to avoid CPUACTLR_EL1 access from privile levels other than EL3.
+Updated hypervisor enabled BSP to use PV console, based on the
+XEN_USE_PV_CONSOLE flag. By deafault hypervisor enabled BSP would
+use UART console, PV console can be enabled by appending
+"-DXEN_USE_PV_CONSOLE" to the BSP extra compiler flags.
 
 sysmonpsu_v2_3:
 Added missing closing bracket error when C++ is used
