@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -64,6 +62,11 @@
 *                       Added TMDS Clock Ratio callback support
 * 2.30  EB     05/03/19 Updated the description of the API
 *                          XV_HdmiRx_GetLinkStatus
+* 2.40  EB     30/07/19 Updated XV_HdmiRx_GetVideoTiming to fix an issue where
+*                          FrameRate for YUV420 may be incorrect
+*                       Updated XV_HdmiRx_GetVideoTiming to fix an issue where
+*                          video timing values may be incorrect
+*              06/08/19 Added Vic and Video Timing mismatch callback support
 * </pre>
 *
 ******************************************************************************/
@@ -178,6 +181,9 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
     InstancePtr->TmdsClkRatioCallback =
 				(XV_HdmiRx_Callback)((void *)StubCallback);
     InstancePtr->IsTmdsClkRatioCallbackSet = (FALSE);
+
+    InstancePtr->VicErrorCallback = (XV_HdmiRx_Callback)((void *)StubCallback);
+    InstancePtr->IsVicErrorCallbackSet = (FALSE);
 
     /* Clear HDMI variables */
     XV_HdmiRx_Clear(InstancePtr);
@@ -1464,14 +1470,278 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
     u8 YUV420_Correction;
     u8 IsInterlaced;
 
-    // Lookup the videomode based on the vic
-    InstancePtr->Stream.Video.VmId = XV_HdmiRx_LookupVmId(InstancePtr->Stream.Vic);
+    InstancePtr->Stream.Video.VmId = XVIDC_VM_NOT_SUPPORTED;
 
-    // Was the vic found?
-    // Yes, then get the timing parameters from the video library
-    if (InstancePtr->Stream.Video.VmId != (XVIDC_VM_NOT_SUPPORTED)) {
+    // If the colorspace is YUV420, then the horizontal parameters must be doubled
+    if (InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
+        YUV420_Correction = 2;
+    } else {
+        YUV420_Correction = 1;
+    }
 
-        // Copy the current VideoStream
+    // First we read the video parameters from the VTD and store them in a local variable
+    /* Read Total Pixels */
+    HTotal =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_TOT_PIX_OFFSET)) * YUV420_Correction;
+
+    /* Read Active Pixels */
+    HActive =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_ACT_PIX_OFFSET)) * YUV420_Correction;
+
+    /* Read Hsync Width */
+    HSyncWidth =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_HSW_OFFSET)) * YUV420_Correction;
+
+    /* Read HFront Porch */
+    HFrontPorch =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_HFP_OFFSET)) * YUV420_Correction;
+
+    /* Read HBack Porch */
+    HBackPorch =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_HBP_OFFSET)) * YUV420_Correction;
+
+    /* Total lines field 1 */
+    F0PVTotal =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_TOT_LIN_OFFSET)) & (0xFFFF);
+
+    /* Total lines field 2 */
+    F1VTotal =  ((XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_TOT_LIN_OFFSET))) >> 16);
+
+    /* Active lines field 1 */
+    VActive =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_ACT_LIN_OFFSET)) & (0xFFFF);
+
+    /* Read VSync Width field 1*/
+    F0PVSyncWidth =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_VSW_OFFSET)) & (0xFFFF);
+
+    /* Read VSync Width field 2*/
+    F1VSyncWidth =  ((XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_VSW_OFFSET))) >> 16);
+
+    /* Read VFront Porch field 1*/
+    F0PVFrontPorch =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_VFP_OFFSET)) & (0xFFFF);
+
+    /* Read VFront Porch field 2*/
+    F1VFrontPorch =  ((XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_VFP_OFFSET))) >> 16);
+
+    /* Read VBack Porch field 1 */
+    F0PVBackPorch =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_VBP_OFFSET)) & (0xFFFF);
+
+    /* Read VBack Porch field 2 */
+    F1VBackPorch =  ((XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_VBP_OFFSET))) >> 16);
+
+    /* Read Status register */
+    Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_STA_OFFSET));
+
+    /* Check video format */
+    if ((Data) & (XV_HDMIRX_VTD_STA_FMT_MASK)) {
+        /* Interlaced */
+        IsInterlaced = 1;
+    }
+    else {
+        /* Progressive */
+        IsInterlaced = 0;
+    }
+
+    // Next, we compare these values with the previous stored values
+    // By default the match is true
+    Match = TRUE;
+
+    if (!HActive | !HFrontPorch | !HSyncWidth | !HBackPorch | !HTotal | !VActive |
+        !F0PVFrontPorch | !F0PVSyncWidth | !F0PVBackPorch | !F0PVTotal) {
+        Match = FALSE;
+    }
+
+	if (IsInterlaced == 1) {
+		if (F1VTotal != (VActive + F1VFrontPorch +
+				F1VSyncWidth + F1VBackPorch)) {
+			Match = FALSE;
+		}
+	} else {
+		if (F1VFrontPorch | F1VSyncWidth | F1VBackPorch) {
+			Match = FALSE;
+		}
+	}
+
+    // Htotal
+    if (HTotal != InstancePtr->Stream.Video.Timing.HTotal) {
+        Match = FALSE;
+    }
+
+    // HActive
+    if (HActive != InstancePtr->Stream.Video.Timing.HActive) {
+        Match = FALSE;
+    }
+
+    // HSyncWidth
+    if (HSyncWidth != InstancePtr->Stream.Video.Timing.HSyncWidth) {
+        Match = FALSE;
+    }
+
+    // HFrontPorch
+    if (HFrontPorch != InstancePtr->Stream.Video.Timing.HFrontPorch) {
+        Match = FALSE;
+    }
+
+    // HBackPorch
+    if (HBackPorch != InstancePtr->Stream.Video.Timing.HBackPorch) {
+        Match = FALSE;
+    }
+
+    // F0PVTotal
+    if (F0PVTotal != InstancePtr->Stream.Video.Timing.F0PVTotal) {
+        Match = FALSE;
+    }
+
+    // F1VTotal
+    if (F1VTotal != InstancePtr->Stream.Video.Timing.F1VTotal) {
+        Match = FALSE;
+    }
+
+    // VActive
+    if (VActive != InstancePtr->Stream.Video.Timing.VActive) {
+        Match = FALSE;
+    }
+
+    // F0PVSyncWidth
+    if (F0PVSyncWidth != InstancePtr->Stream.Video.Timing.F0PVSyncWidth) {
+        Match = FALSE;
+    }
+
+    // F1VSyncWidth
+    if (F1VSyncWidth != InstancePtr->Stream.Video.Timing.F1VSyncWidth) {
+        Match = FALSE;
+    }
+
+    // F0PVFrontPorch
+    if (F0PVFrontPorch != InstancePtr->Stream.Video.Timing.F0PVFrontPorch) {
+        Match = FALSE;
+    }
+
+    // F1VFrontPorch
+    if (F1VFrontPorch != InstancePtr->Stream.Video.Timing.F1VFrontPorch) {
+        Match = FALSE;
+    }
+
+    // F0PVBackPorch
+    if (F0PVBackPorch != InstancePtr->Stream.Video.Timing.F0PVBackPorch) {
+        Match = FALSE;
+    }
+
+    // F1VBackPorch
+    if (F1VBackPorch != InstancePtr->Stream.Video.Timing.F1VBackPorch) {
+        Match = FALSE;
+    }
+
+    if (HTotal != (HActive + HFrontPorch + HSyncWidth +HBackPorch)) {
+        Match = FALSE;
+    }
+
+    if (F0PVTotal != (VActive + F0PVFrontPorch + F0PVSyncWidth +F0PVBackPorch)) {
+        Match = FALSE;
+    }
+
+    if ((IsInterlaced == 1) && (F1VTotal != (VActive + F1VFrontPorch + F1VSyncWidth +F1VBackPorch))) {
+        Match = FALSE;
+    }
+
+    // Then we store the timing parameters regardless if there was a match
+    /* Read Total Pixels */
+    InstancePtr->Stream.Video.Timing.HTotal =  HTotal;
+
+    /* Read Active Pixels */
+    InstancePtr->Stream.Video.Timing.HActive = HActive;
+
+    /* Read Hsync Width */
+    InstancePtr->Stream.Video.Timing.HSyncWidth = HSyncWidth;
+
+    /* Read HFront Porch */
+    InstancePtr->Stream.Video.Timing.HFrontPorch = HFrontPorch;
+
+    /* Read HBack Porch */
+    InstancePtr->Stream.Video.Timing.HBackPorch = HBackPorch;
+
+    /* Total lines field 1 */
+    InstancePtr->Stream.Video.Timing.F0PVTotal = F0PVTotal;
+
+    /* Total lines field 2 */
+    InstancePtr->Stream.Video.Timing.F1VTotal = F1VTotal;
+
+    /* Active lines field 1 */
+    InstancePtr->Stream.Video.Timing.VActive = VActive;
+
+    /* Read VSync Width field 1*/
+    InstancePtr->Stream.Video.Timing.F0PVSyncWidth = F0PVSyncWidth;
+
+    /* Read VSync Width field 2*/
+    InstancePtr->Stream.Video.Timing.F1VSyncWidth = F1VSyncWidth;
+
+    /* Read VFront Porch field 1*/
+    InstancePtr->Stream.Video.Timing.F0PVFrontPorch = F0PVFrontPorch;
+
+    /* Read VFront Porch field 2*/
+    InstancePtr->Stream.Video.Timing.F1VFrontPorch = F1VFrontPorch;
+
+    /* Read VBack Porch field 1 */
+    InstancePtr->Stream.Video.Timing.F0PVBackPorch =  F0PVBackPorch;
+
+    /* Read VBack Porch field 2 */
+    InstancePtr->Stream.Video.Timing.F1VBackPorch =  F1VBackPorch;
+
+    // Do we have a match?
+    // Yes, then continue processing
+    if (Match) {
+
+        /* Read Status register */
+        Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_STA_OFFSET));
+
+        /* Check video format */
+        if ((Data) & (XV_HDMIRX_VTD_STA_FMT_MASK)) {
+            /* Interlaced */
+            InstancePtr->Stream.Video.IsInterlaced = 1;
+        }
+        else {
+            /* Progressive */
+            InstancePtr->Stream.Video.IsInterlaced = 0;
+        }
+
+        /* Check Vsync polarity */
+        if ((Data) & (XV_HDMIRX_VTD_STA_VS_POL_MASK)) {
+            /* Positive */
+            InstancePtr->Stream.Video.Timing.VSyncPolarity = 1;
+        }
+        else {
+            /* Negative */
+            InstancePtr->Stream.Video.Timing.VSyncPolarity = 0;
+        }
+
+        /* Check Hsync polarity */
+        if ((Data) & (XV_HDMIRX_VTD_STA_HS_POL_MASK)) {
+            /* Positive */
+            InstancePtr->Stream.Video.Timing.HSyncPolarity = 1;
+        }
+        else {
+            /* Negative */
+            InstancePtr->Stream.Video.Timing.HSyncPolarity = 0;
+        }
+
+        /* Calculate and set the frame rate field assuming the stream is
+         * of YUV420 */
+        InstancePtr->Stream.Video.FrameRate =
+		    (XVidC_FrameRate) (XV_HdmiRx_Divide((InstancePtr->Stream.PixelClk << 1),
+				    (InstancePtr->Stream.Video.Timing.F0PVTotal *
+						    InstancePtr->Stream.Video.Timing.HTotal)));
+
+        /* If the colorspace is not YUV420, then the frame rate must be
+         * halved */
+        if (InstancePtr->Stream.Video.ColorFormatId != XVIDC_CSF_YCRCB_420) {
+            InstancePtr->Stream.Video.FrameRate >>= 1;
+        }
+
+        // Lookup the video mode id
+        InstancePtr->Stream.Video.VmId =
+        XVidC_GetVideoModeIdExtensive(&InstancePtr->Stream.Video.Timing,
+			InstancePtr->Stream.Video.FrameRate,
+			InstancePtr->Stream.Video.IsInterlaced,
+			(TRUE));
+
+        //If video mode not found in the table tag it as custom
+        if (InstancePtr->Stream.Video.VmId == XVIDC_VM_NOT_SUPPORTED) {
+            InstancePtr->Stream.Video.VmId = XVIDC_VM_CUSTOM;
+        }
+
         VidStreamCopy = InstancePtr->Stream.Video;
 
         if (XVidC_IsStream3D(&InstancePtr->Stream.Video)){
@@ -1481,8 +1751,7 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
                                    VidStreamCopy.ColorDepth,
                                    VidStreamCopy.PixPerClk,
                                    &VidStreamCopy.Info_3D);
-        }
-        else {
+        } else {
             XVidC_SetVideoStream(&InstancePtr->Stream.Video,
                                  VidStreamCopy.VmId,
                                  VidStreamCopy.ColorFormatId,
@@ -1490,278 +1759,13 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
                                  VidStreamCopy.PixPerClk);
         }
 
+        // Return success
         return (XST_SUCCESS);
     }
 
-    // No, then read the timing parameters from the video timing detector
+    // No match
     else {
-        // If the colorspace is YUV420, then the horizontal parameters must be doubled
-        if (InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
-            YUV420_Correction = 2;
-        } else {
-            YUV420_Correction = 1;
-        }
-        // First we read the video parameters from the VTD and store them in a local variable
-        /* Read Total Pixels */
-        HTotal =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_TOT_PIX_OFFSET)) * YUV420_Correction;
-
-        /* Read Active Pixels */
-        HActive =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_ACT_PIX_OFFSET)) * YUV420_Correction;
-
-        /* Read Hsync Width */
-        HSyncWidth =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_HSW_OFFSET)) * YUV420_Correction;
-
-        /* Read HFront Porch */
-        HFrontPorch =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_HFP_OFFSET)) * YUV420_Correction;
-
-        /* Read HBack Porch */
-        HBackPorch =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_HBP_OFFSET)) * YUV420_Correction;
-
-        /* Total lines field 1 */
-        F0PVTotal =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_TOT_LIN_OFFSET)) & (0xFFFF);
-
-        /* Total lines field 2 */
-        F1VTotal =  ((XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_TOT_LIN_OFFSET))) >> 16);
-
-        /* Active lines field 1 */
-        VActive =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_ACT_LIN_OFFSET)) & (0xFFFF);
-
-        /* Read VSync Width field 1*/
-        F0PVSyncWidth =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_VSW_OFFSET)) & (0xFFFF);
-
-        /* Read VSync Width field 2*/
-        F1VSyncWidth =  ((XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_VSW_OFFSET))) >> 16);
-
-        /* Read VFront Porch field 1*/
-        F0PVFrontPorch =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_VFP_OFFSET)) & (0xFFFF);
-
-        /* Read VFront Porch field 2*/
-        F1VFrontPorch =  ((XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_VFP_OFFSET))) >> 16);
-
-        /* Read VBack Porch field 1 */
-        F0PVBackPorch =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_VBP_OFFSET)) & (0xFFFF);
-
-        /* Read VBack Porch field 2 */
-        F1VBackPorch =  ((XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_VBP_OFFSET))) >> 16);
-
-        /* Read Status register */
-        Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_STA_OFFSET));
-
-        /* Check video format */
-        if ((Data) & (XV_HDMIRX_VTD_STA_FMT_MASK)) {
-            /* Interlaced */
-            IsInterlaced = 1;
-        }
-        else {
-            /* Progressive */
-            IsInterlaced = 0;
-        }
-
-        // Next, we compare these values with the previous stored values
-        // By default the match is true
-        Match = TRUE;
-
-        if (!HActive | !HFrontPorch | !HSyncWidth | !HBackPorch | !HTotal | !VActive |
-            !F0PVFrontPorch | !F0PVSyncWidth | !F0PVBackPorch | !F0PVTotal) {
-            Match = FALSE;
-        }
-
-        if ((IsInterlaced == 1) & (!F1VFrontPorch | !F1VSyncWidth | !F1VBackPorch | !F1VTotal)) {
-            Match = FALSE;
-        }
-
-        // Htotal
-        if (HTotal != InstancePtr->Stream.Video.Timing.HTotal) {
-            Match = FALSE;
-        }
-
-        // HActive
-        if (HActive != InstancePtr->Stream.Video.Timing.HActive) {
-            Match = FALSE;
-        }
-
-        // HSyncWidth
-        if (HSyncWidth != InstancePtr->Stream.Video.Timing.HSyncWidth) {
-            Match = FALSE;
-        }
-
-        // HFrontPorch
-        if (HFrontPorch != InstancePtr->Stream.Video.Timing.HFrontPorch) {
-            Match = FALSE;
-        }
-
-        // HBackPorch
-        if (HBackPorch != InstancePtr->Stream.Video.Timing.HBackPorch) {
-            Match = FALSE;
-        }
-
-        // F0PVTotal
-        if (F0PVTotal != InstancePtr->Stream.Video.Timing.F0PVTotal) {
-            Match = FALSE;
-        }
-
-        // F1VTotal
-        if (F1VTotal != InstancePtr->Stream.Video.Timing.F1VTotal) {
-            Match = FALSE;
-        }
-
-        // VActive
-        if (VActive != InstancePtr->Stream.Video.Timing.VActive) {
-            Match = FALSE;
-        }
-
-        // F0PVSyncWidth
-        if (F0PVSyncWidth != InstancePtr->Stream.Video.Timing.F0PVSyncWidth) {
-            Match = FALSE;
-        }
-
-        // F1VSyncWidth
-        if (F1VSyncWidth != InstancePtr->Stream.Video.Timing.F1VSyncWidth) {
-            Match = FALSE;
-        }
-
-        // F0PVFrontPorch
-        if (F0PVFrontPorch != InstancePtr->Stream.Video.Timing.F0PVFrontPorch) {
-            Match = FALSE;
-        }
-
-        // F1VFrontPorch
-        if (F1VFrontPorch != InstancePtr->Stream.Video.Timing.F1VFrontPorch) {
-            Match = FALSE;
-        }
-
-        // F0PVBackPorch
-        if (F0PVBackPorch != InstancePtr->Stream.Video.Timing.F0PVBackPorch) {
-            Match = FALSE;
-        }
-
-        // F1VBackPorch
-        if (F1VBackPorch != InstancePtr->Stream.Video.Timing.F1VBackPorch) {
-            Match = FALSE;
-        }
-
-        if (HTotal != (HActive + HFrontPorch + HSyncWidth +HBackPorch)) {
-		Match = FALSE;
-        }
-
-        if (F0PVTotal != (VActive + F0PVFrontPorch + F0PVSyncWidth +F0PVBackPorch)) {
-            Match = FALSE;
-        }
-
-        if ((IsInterlaced == 1) && (F1VTotal != (VActive + F1VFrontPorch + F1VSyncWidth +F1VBackPorch))) {
-            Match = FALSE;
-        }
-
-        // Then we store the timing parameters regardless if there was a match
-        /* Read Total Pixels */
-        InstancePtr->Stream.Video.Timing.HTotal =  HTotal;
-
-        /* Read Active Pixels */
-        InstancePtr->Stream.Video.Timing.HActive = HActive;
-
-        /* Read Hsync Width */
-        InstancePtr->Stream.Video.Timing.HSyncWidth = HSyncWidth;
-
-        /* Read HFront Porch */
-        InstancePtr->Stream.Video.Timing.HFrontPorch = HFrontPorch;
-
-        /* Read HBack Porch */
-        InstancePtr->Stream.Video.Timing.HBackPorch = HBackPorch;
-
-        /* Total lines field 1 */
-        InstancePtr->Stream.Video.Timing.F0PVTotal = F0PVTotal;
-
-        /* Total lines field 2 */
-        InstancePtr->Stream.Video.Timing.F1VTotal = F1VTotal;
-
-        /* Active lines field 1 */
-        InstancePtr->Stream.Video.Timing.VActive = VActive;
-
-        /* Read VSync Width field 1*/
-        InstancePtr->Stream.Video.Timing.F0PVSyncWidth = F0PVSyncWidth;
-
-        /* Read VSync Width field 2*/
-        InstancePtr->Stream.Video.Timing.F1VSyncWidth = F1VSyncWidth;
-
-        /* Read VFront Porch field 1*/
-        InstancePtr->Stream.Video.Timing.F0PVFrontPorch = F0PVFrontPorch;
-
-        /* Read VFront Porch field 2*/
-        InstancePtr->Stream.Video.Timing.F1VFrontPorch = F1VFrontPorch;
-
-        /* Read VBack Porch field 1 */
-        InstancePtr->Stream.Video.Timing.F0PVBackPorch =  F0PVBackPorch;
-
-        /* Read VBack Porch field 2 */
-        InstancePtr->Stream.Video.Timing.F1VBackPorch =  F1VBackPorch;
-
-        // Do we have a match?
-        // Yes, then continue processing
-        if (Match) {
-
-            /* Read Status register */
-            Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_STA_OFFSET));
-
-            /* Check video format */
-            if ((Data) & (XV_HDMIRX_VTD_STA_FMT_MASK)) {
-                /* Interlaced */
-                InstancePtr->Stream.Video.IsInterlaced = 1;
-            }
-            else {
-                /* Progressive */
-                InstancePtr->Stream.Video.IsInterlaced = 0;
-            }
-
-            /* Check Vsync polarity */
-            if ((Data) & (XV_HDMIRX_VTD_STA_VS_POL_MASK)) {
-                /* Positive */
-                InstancePtr->Stream.Video.Timing.VSyncPolarity = 1;
-            }
-            else {
-                /* Negative */
-                InstancePtr->Stream.Video.Timing.VSyncPolarity = 0;
-            }
-
-            /* Check Hsync polarity */
-            if ((Data) & (XV_HDMIRX_VTD_STA_HS_POL_MASK)) {
-                /* Positive */
-                InstancePtr->Stream.Video.Timing.HSyncPolarity = 1;
-            }
-            else {
-                /* Negative */
-                InstancePtr->Stream.Video.Timing.HSyncPolarity = 0;
-            }
-
-            // Calculate and set the frame rate field
-            InstancePtr->Stream.Video.FrameRate =
-               (XVidC_FrameRate) (XV_HdmiRx_Divide(InstancePtr->Stream.PixelClk,
-                                                   (InstancePtr->Stream.Video.Timing.F0PVTotal * InstancePtr->Stream.Video.Timing.HTotal)));
-
-            // If the colorspace is YUV420, then the frame rate must be doubled
-            if (InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
-                InstancePtr->Stream.Video.FrameRate = (XVidC_FrameRate) (InstancePtr->Stream.Video.FrameRate * 2);
-            }
-
-            // Lookup the video mode id
-            InstancePtr->Stream.Video.VmId =
-            XVidC_GetVideoModeIdExtensive(&InstancePtr->Stream.Video.Timing,
-            		InstancePtr->Stream.Video.FrameRate,
-					InstancePtr->Stream.Video.IsInterlaced,
-					(TRUE));
-
-            //If video mode not found in the table tag it as custom
-            if (InstancePtr->Stream.Video.VmId == XVIDC_VM_NOT_SUPPORTED) {
-                InstancePtr->Stream.Video.VmId = XVIDC_VM_CUSTOM;
-            }
-
-            // Return success
-            return (XST_SUCCESS);
-        }
-
-        // No match
-        else {
-            return (XST_FAILURE);
-        }
+        return (XST_FAILURE);
     }
 }
 

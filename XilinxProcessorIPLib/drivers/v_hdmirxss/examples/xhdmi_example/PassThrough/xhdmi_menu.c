@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -691,7 +689,7 @@ void XHdmi_DisplayResolutionMenu(void) {
 	xil_printf("11 -  800 x 600p (SVGA / DMT0860)\r\n");
 	xil_printf("12 - 1024 x 768p (XGA / DMT1060)\r\n");
 	xil_printf("13 - 1280 x 768p (WXGA / CVT1260E)\r\n");
-	xil_printf("14 - 1366 x 768p (WXGA+ / DMT1360)\r\n");
+	xil_printf("14 - 1366 x 768p (RB) (WXGA+ / DMT1360)\r\n");
 	xil_printf("15 - 1280 x 1024p (SXGA / DMT1260G)\r\n");
 	xil_printf("16 - 1680 x 1050p (WSXGA+ / CVT1660D)\r\n");
 	xil_printf("17 - 1600 x 1200p (UXGA / DMT1660)\r\n");
@@ -804,9 +802,9 @@ static XHdmi_MenuType XHdmi_ResolutionMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			VideoMode = XVIDC_VM_1280x768_60_P;
 			break;
 
-			// 1366 x 768p (WXGA+)
+			// 1366 x 768p (RB) (WXGA+)
 		case 14 :
-			VideoMode = XVIDC_VM_1366x768_60_P;
+			VideoMode = XVIDC_VM_1366x768_60_P_RB;
 			break;
 
 			// 1280 x 1024p (SXGA)
@@ -2424,7 +2422,7 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 			}
 
 			// Backspace
-			else if (Data == '\b') {
+			else if (Data == '\b' || Data == 127) {
 				InstancePtr->Value = InstancePtr->Value / 10; //discard previous input
 			}
 

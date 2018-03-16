@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -224,7 +222,10 @@ void XV_HdmiRx_IntrHandler(void *InstancePtr)
 *       installed replaces it with the new handler.
 *
 ******************************************************************************/
-int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr, u32 HandlerType, void *CallbackFunc, void *CallbackRef)
+int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr,
+		XV_HdmiRx_HandlerType HandlerType,
+		void *CallbackFunc,
+		void *CallbackRef)
 {
     u32 Status;
 
@@ -361,6 +362,15 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr, u32 HandlerType, void *Callbac
             Status = (XST_SUCCESS);
             break;
 
+        // Vic Error
+        case (XV_HDMIRX_HANDLER_VIC_ERROR):
+            InstancePtr->VicErrorCallback =
+                                  (XV_HdmiRx_Callback)CallbackFunc;
+            InstancePtr->VicErrorRef = CallbackRef;
+            InstancePtr->IsVicErrorCallbackSet = (TRUE);
+            Status = (XST_SUCCESS);
+            break;
+
         default:
             Status = (XST_INVALID_PARAM);
             break;
@@ -385,15 +395,19 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr, u32 HandlerType, void *Callbac
 static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
 {
     u32 Status;
+    XVidC_VideoMode DecodedVmId = 0;
 
     /* Read Video timing detector Status register */
-    Status = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_STA_OFFSET));
+    Status = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress,
+		    (XV_HDMIRX_VTD_STA_OFFSET));
 
     /* Check for time base event */
     if ((Status) & (XV_HDMIRX_VTD_STA_TIMEBASE_EVT_MASK)) {
 
         // Clear event flag
-        XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_STA_OFFSET), (XV_HDMIRX_VTD_STA_TIMEBASE_EVT_MASK));
+        XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress,
+			(XV_HDMIRX_VTD_STA_OFFSET),
+			(XV_HDMIRX_VTD_STA_TIMEBASE_EVT_MASK));
 
         // Check if we are in lock state
         if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_LOCK) {
@@ -402,12 +416,26 @@ static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
             Status = XV_HdmiRx_GetVideoTiming(InstancePtr);
 
             if (Status == XST_SUCCESS) {
+                if (InstancePtr->Stream.Vic != 0) {
+                    DecodedVmId = XV_HdmiRx_LookupVmId(InstancePtr->Stream.Vic);
+
+                    if (DecodedVmId != InstancePtr->Stream.Video.VmId &&
+				    !(DecodedVmId == XVIDC_VM_NOT_SUPPORTED &&
+						    InstancePtr->Stream.Video.VmId ==
+								    XVIDC_VM_CUSTOM)) {
+                        /* Call VIC error callback */
+                        if (InstancePtr->VicErrorCallback) {
+				InstancePtr->VicErrorCallback(
+						InstancePtr->VicErrorRef);
+                        }
+                    }
+                }
 
                 // Enable AXI Stream output
                 XV_HdmiRx_AxisEnable(InstancePtr, (TRUE));
 
                 // Set stream status to up
-                InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_UP;          // The stream is up
+                InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_UP;
 
                 // Set stream sync status to est
                 InstancePtr->Stream.SyncStatus = XV_HDMIRX_SYNCSTAT_SYNC_EST;
