@@ -12,10 +12,6 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -72,6 +68,11 @@
 *					  results into abort if accessed from EL1 non secure privilege
 *					  level. Updated Xil_ConfigureL1Prefetch function to access
 *					  CPUACTLR_EL1 only for EL3.
+* 6.8  mn   08/01/18  Optimize the Xil_DCacheInvalidateRange() function to remove
+*                     redundant operations
+* 6.8  asa  09/15/18  Fix bug in the Xil_DCacheInvalidateRange API introduced while
+*                     making optimizations in the previous patch. This change fixes
+*                     CR-1008926.
 *
 * </pre>
 *
@@ -424,40 +425,16 @@ void Xil_DCacheInvalidateLine(INTPTR adr)
 void Xil_DCacheInvalidateRange(INTPTR  adr, INTPTR len)
 {
 	const INTPTR cacheline = 64U;
-	INTPTR end;
-	INTPTR tempadr = adr;
-	INTPTR tempend;
-	u32 currmask;
-	currmask = mfcpsr();
+	INTPTR end = adr + len;
+	adr = adr & (~0x3F);
+	u32 currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 	if (len != 0U) {
-		end = tempadr + len;
-		tempend = end;
-
-		if ((tempadr & (cacheline-1U)) != 0U) {
-			tempadr &= (~(cacheline - 1U));
-			Xil_DCacheFlushLine(tempadr);
-			tempadr += cacheline;
-		}
-		if ((tempend & (cacheline-1U)) != 0U) {
-			tempend &= (~(cacheline - 1U));
-			Xil_DCacheFlushLine(tempend);
-		}
-
-		while (tempadr < tempend) {
-			/* Select cache level 0 and D cache in CSSR */
-			mtcp(CSSELR_EL1,0x0);
-			/* Invalidate Data cache line */
-			mtcpdc(IVAC,(tempadr & (~0x3F)));
+		while (adr < end) {
+			mtcpdc(IVAC,adr);
 			/* Wait for invalidate to complete */
 			dsb();
-			/* Select cache level 0 and D cache in CSSR */
-			mtcp(CSSELR_EL1,0x2);
-			/* Invalidate Data cache line */
-			mtcpdc(IVAC,(tempadr & (~0x3F)));
-			/* Wait for invalidate to complete */
-			dsb();
-			tempadr += cacheline;
+			adr += cacheline;
 		}
 	}
 	mtcpsr(currmask);
