@@ -143,9 +143,7 @@ extern "C" {
  */
 #define LOOPBACK_MODE_EN 0
 
-/* Enabling this will enable a debug UART menu and report stack size utilization
- * under the info menu.
- */
+/* Enabling this will enable a debug UART menu */
 #define HDMI_DEBUG_TOOLS 0
 
 /* Enabling this will register a custom resolution to the video timing table

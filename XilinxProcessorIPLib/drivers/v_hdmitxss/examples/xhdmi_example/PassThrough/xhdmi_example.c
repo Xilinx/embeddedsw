@@ -1690,7 +1690,13 @@ void TxStreamUpCallback(void *CallbackRef) {
 		/* If the Start TX after RX Flag is (TRUE), hence, no need to set the
 		 * the TX, let the StartTxAfterRX API executed which will trigger
 		 * TX Stream up eventually */
-		if (StartTxAfterRxFlag) {
+		if (StartTxAfterRxFlag
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+				&& !(XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1))
+#endif
+#endif
+		) {
 			return;
 		}
 	}
@@ -1799,8 +1805,22 @@ void TxStreamUpCallback(void *CallbackRef) {
 	ReportStreamMode(HdmiTxSsPtr, IsPassThrough);
 
 #ifdef USE_HDCP
-	/* Call HDCP stream-up callback */
-	XHdcp_StreamUpCallback(&HdcpRepeater);
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+	/* During Bonded Mode, push for authentication during
+	 * StartAfterTX API
+	 */
+	if ((!(XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)))
+			|| !StartTxAfterRxFlag) {
+#endif
+#endif
+		/* Call HDCP stream-up callback */
+		XHdcp_StreamUpCallback(&HdcpRepeater);
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES		
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+	}
+#endif
+#endif
 #endif
 
 #ifdef VIDEO_FRAME_CRC_EN
@@ -1856,13 +1876,13 @@ void TxStreamDownCallback(void *CallbackRef) {
 ******************************************************************************/
 void StartTxAfterRx(void) {
 
-	// clear start
+	/* Clear the Start Tx After Rx Flag */
 	StartTxAfterRxFlag = (FALSE);
 
 	/* Reset TPG */
 	ResetTpg();
 
-	// Disable TX TDMS clock
+	/* Disable TX TDMS clock */
 	XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_TX, (FALSE));
 
 	XV_HdmiTxSs_StreamStart(&HdmiTxSs);
@@ -1870,8 +1890,8 @@ void StartTxAfterRx(void) {
 	/* Enable RX clock forwarding */
 	XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_RX, (TRUE));
 
-	// Program external clock generator in locked mode
-	// Only when the GT TX and RX are not coupled
+	/*Program external clock generator in locked mode
+	Only when the GT TX and RX are not coupled*/
 	if (!XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
 		I2cClk(Vphy.HdmiRxRefClkHz,Vphy.HdmiTxRefClkHz);
 	} else {
@@ -1882,10 +1902,13 @@ void StartTxAfterRx(void) {
 		IDT_8T49N24x_Init(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR);
 #endif
 	}
-
-	// When the GT TX and RX are coupled, then start the TXPLL
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+	/* When the GT TX and RX are coupled, then start the TXPLL */
 	if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
-		// Start TX MMCM
+		/* Config and Run the TPG */
+		XV_ConfigTpg(&Tpg);
+		/* Start TX MMCM */
 		XVphy_MmcmStart(&Vphy, 0, XVPHY_DIR_TX);
 		usleep(10000);
 	}
@@ -1894,6 +1917,16 @@ void StartTxAfterRx(void) {
 	if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
 		XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_TX, (TRUE));
 	}
+
+	/* Trigger authentication after there are stable stream
+	 * in bonded mode
+	 */
+	if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
+		/* Call HDCP stream-up callback */
+		XHdcp_StreamUpCallback(&HdcpRepeater);
+	}
+#endif
+#endif
 }
 #endif
 /*****************************************************************************/
