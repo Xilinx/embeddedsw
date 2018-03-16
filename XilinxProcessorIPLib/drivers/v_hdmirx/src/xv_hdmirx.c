@@ -12,10 +12,6 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -62,6 +58,10 @@
 *       EB     18/01/18 Moved VicTable to Hdmi Common library
 *       EB     26/01/18 Updated XV_HdmiRx_GetVideoTiming to use
 *                          XVidC_GetVideoModeIdExtensive
+* 2.20  EB     16/08/18 Replaced TIME_10MS, TIME_16MS, TIME_200MS with
+*                          XV_HdmiRx_GetTime10Ms, XV_HdmiRx_GetTime16Ms
+*                          XV_HdmiRx_GetTime200Ms
+*                       Added TMDS Clock Ratio callback support
 * </pre>
 *
 ******************************************************************************/
@@ -173,6 +173,10 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
     InstancePtr->ModeCallback = (XV_HdmiRx_Callback)((void *)StubCallback);
     InstancePtr->IsModeCallbackSet = (FALSE);
 
+    InstancePtr->TmdsClkRatioCallback =
+				(XV_HdmiRx_Callback)((void *)StubCallback);
+    InstancePtr->IsTmdsClkRatioCallbackSet = (FALSE);
+
     /* Clear HDMI variables */
     XV_HdmiRx_Clear(InstancePtr);
 
@@ -237,8 +241,8 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
         Video Timing detector peripheral
     */
 
-    // Set timebase
-    XV_HdmiRx_VtdSetTimebase(InstancePtr, TIME_16MS);  // 16 ms
+    // Set timebase - 16 ms
+    XV_HdmiRx_VtdSetTimebase(InstancePtr, XV_HdmiRx_GetTime16Ms(InstancePtr));
 
     // The VTD run flag is set in the armed state
 

@@ -12,10 +12,6 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -63,6 +59,13 @@
 *                           each clock domain
 *       MMO    08/02/18 Adding proper handling for Sync Loss/Sync Recover
 * 2.10  YH     13/04/18 Fixed a bug in PioIntrHandler
+* 2.20  EB     16/08/18 Replaced TIME_10MS, TIME_16MS, TIME_200MS with
+*                           XV_HdmiRx_GetTime10Ms, XV_HdmiRx_GetTime16Ms
+*                           XV_HdmiRx_GetTime200Ms
+*                       Added TMDS Clock Ratio callback support
+*       YB     15/08/18 Added new cases for HDCP 1.4 & 2.2 protocol events in
+*                           XV_HdmiRx_SetCallback function.
+*                       Updated the HdmiRx_DdcIntrHandler() function.
 * </pre>
 *
 ******************************************************************************/
@@ -302,12 +305,28 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr, u32 HandlerType, void *Callbac
             Status = (XST_SUCCESS);
             break;
 
-		case (XV_HDMIRX_HANDLER_LINK_ERROR):
-			InstancePtr->LinkErrorCallback = (XV_HdmiRx_Callback)CallbackFunc;
-			InstancePtr->LinkErrorRef = CallbackRef;
-			InstancePtr->IsLinkErrorCallbackSet = (TRUE);
-			Status = (XST_SUCCESS);
-			break;
+        // HDCP 1.4 Event
+        case (XV_HDMIRX_HANDLER_DDC_HDCP_14_PROT):
+            InstancePtr->Hdcp14ProtEvtCallback = (XV_HdmiRx_Callback)CallbackFunc;
+            InstancePtr->Hdcp14ProtEvtRef = CallbackRef;
+            InstancePtr->IsHdcp14ProtEvtCallbackSet = (TRUE);
+            Status = (XST_SUCCESS);
+            break;
+
+        // HDCP 2.2 Event
+        case (XV_HDMIRX_HANDLER_DDC_HDCP_22_PROT):
+            InstancePtr->Hdcp22ProtEvtCallback = (XV_HdmiRx_Callback)CallbackFunc;
+            InstancePtr->Hdcp22ProtEvtRef = CallbackRef;
+            InstancePtr->IsHdcp22ProtEvtCallbackSet = (TRUE);
+            Status = (XST_SUCCESS);
+            break;
+
+        case (XV_HDMIRX_HANDLER_LINK_ERROR):
+            InstancePtr->LinkErrorCallback = (XV_HdmiRx_Callback)CallbackFunc;
+            InstancePtr->LinkErrorRef = CallbackRef;
+            InstancePtr->IsLinkErrorCallbackSet = (TRUE);
+            Status = (XST_SUCCESS);
+            break;
 
         // Bridge FIFO Overflow
         case (XV_HDMIRX_HANDLER_BRDG_OVERFLOW):
@@ -330,6 +349,15 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr, u32 HandlerType, void *Callbac
             InstancePtr->ModeCallback = (XV_HdmiRx_Callback)CallbackFunc;
             InstancePtr->ModeRef = CallbackRef;
             InstancePtr->IsModeCallbackSet = (TRUE);
+            Status = (XST_SUCCESS);
+            break;
+
+        // TMDS clock ratio
+        case (XV_HDMIRX_HANDLER_TMDS_CLK_RATIO):
+            InstancePtr->TmdsClkRatioCallback =
+                                  (XV_HdmiRx_Callback)CallbackFunc;
+            InstancePtr->TmdsClkRatioRef = CallbackRef;
+            InstancePtr->IsTmdsClkRatioCallbackSet = (TRUE);
             Status = (XST_SUCCESS);
             break;
 
@@ -514,8 +542,8 @@ static void HdmiRx_DdcIntrHandler(XV_HdmiRx *InstancePtr)
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_STA_OFFSET), (XV_HDMIRX_DDC_STA_HDCP_1_PROT_EVT_MASK));
 
         /* Callback */
-        if (InstancePtr->IsHdcpCallbackSet) {
-            InstancePtr->HdcpCallback(InstancePtr->HdcpRef, XV_HDMIRX_DDC_STA_HDCP_1_PROT_EVT_MASK);
+        if (InstancePtr->IsHdcp14ProtEvtCallbackSet) {
+            InstancePtr->Hdcp14ProtEvtCallback(InstancePtr->Hdcp14ProtEvtRef);
         }
     }
 
@@ -526,8 +554,8 @@ static void HdmiRx_DdcIntrHandler(XV_HdmiRx *InstancePtr)
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_STA_OFFSET), (XV_HDMIRX_DDC_STA_HDCP_2_PROT_EVT_MASK));
 
         /* Callback */
-        if (InstancePtr->IsHdcpCallbackSet) {
-            InstancePtr->HdcpCallback(InstancePtr->HdcpRef, XV_HDMIRX_DDC_STA_HDCP_2_PROT_EVT_MASK);
+        if (InstancePtr->IsHdcp22ProtEvtCallbackSet) {
+            InstancePtr->Hdcp22ProtEvtCallback(InstancePtr->Hdcp22ProtEvtRef);
         }
     }
 
@@ -590,7 +618,8 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
         InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_IDLE;            // The stream idle
 
         // Load timer
-        XV_HdmiRx_TmrStart(InstancePtr, TIME_10MS);           // 10 ms
+        XV_HdmiRx_TmrStart(InstancePtr,
+			XV_HdmiRx_GetTime10Ms(InstancePtr)); // 10 ms
     }
 
     // Video ready event has occurred
@@ -617,8 +646,9 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
             // Set stream status to arm
                 InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_ARM;         // The stream is armed
 
-                // Load timer
-                XV_HdmiRx_TmrStart(InstancePtr, TIME_200MS);          // 200 ms (one UHD frame is 40 ms, 5 frames)
+                // Load timer - 200 ms (one UHD frame is 40 ms, 5 frames)
+                XV_HdmiRx_TmrStart(InstancePtr,
+				XV_HdmiRx_GetTime200Ms(InstancePtr));
             }
         }
 
@@ -699,12 +729,21 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
             InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_IDLE;
 
             // Load timer
-            XV_HdmiRx_TmrStart(InstancePtr, TIME_10MS);           // 10 ms
+            XV_HdmiRx_TmrStart(InstancePtr,
+			XV_HdmiRx_GetTime10Ms(InstancePtr)); // 10 ms
         }
 
         // Call mode callback
         if (InstancePtr->IsModeCallbackSet) {
             InstancePtr->ModeCallback(InstancePtr->ModeRef);
+        }
+    }
+
+    // TMDS clock ratio
+    if ((Event) & (XV_HDMIRX_PIO_IN_SCDC_TMDS_CLOCK_RATIO_MASK)) {
+        // Call TMDS Ratio callback
+        if (InstancePtr->IsTmdsClkRatioCallbackSet) {
+            InstancePtr->TmdsClkRatioCallback(InstancePtr->TmdsClkRatioRef);
         }
     }
 
@@ -764,8 +803,9 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
             // Clear GetVideoPropertiesTries
             InstancePtr->Stream.GetVideoPropertiesTries = 0;
 
-            // Load timer
-            XV_HdmiRx_TmrStart(InstancePtr, TIME_200MS);          // 200 ms (one UHD frame is 40 ms, 5 frames)
+            // Load timer - 200 ms (one UHD frame is 40 ms, 5 frames)
+            XV_HdmiRx_TmrStart(InstancePtr,
+			XV_HdmiRx_GetTime200Ms(InstancePtr));
         }
 
         // Init state
@@ -810,8 +850,9 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
 			}
 
             else {
-		// Load timer
-                XV_HdmiRx_TmrStart(InstancePtr, TIME_200MS);          // 200 ms (one UHD frame is 40 ms, 5 frames)
+		// Load timer - 200 ms (one UHD frame is 40 ms, 5 frames)
+                XV_HdmiRx_TmrStart(InstancePtr,
+				XV_HdmiRx_GetTime200Ms(InstancePtr));
             }
         }
 

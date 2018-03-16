@@ -12,14 +12,10 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -76,6 +72,8 @@
 *       EB   23-01-2018 Reset the counter tagged to the events logged whenever
 *                               log is displayed
 * 1.12  EB   09-04-2018 Fixed messages printing issue
+* 3.03  YB   08-14-2018 Updating the Hdcp Menu to remove Repeater options if
+*                       'ENABLE_HDCP_REPEATER' macro is not selected.
 * </pre>
 *
 ******************************************************************************/
@@ -286,11 +284,7 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			// Check if a source is connected
 			if (HdmiRxSs.IsStreamConnected == (TRUE)) {
 				xil_printf("Toggle HDMI RX HPD\r\n");
-				XVphy_MmcmPowerDown(&Vphy, 0, XVPHY_DIR_RX, FALSE);
-				XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_RX, (FALSE));
-				XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (FALSE));
-				XV_HdmiRxSs_ToggleHpd(&HdmiRxSs);
-				XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (TRUE));
+				ToggleHdmiRxHpd(&Vphy, &HdmiRxSs);
 			}
 
 			// No source

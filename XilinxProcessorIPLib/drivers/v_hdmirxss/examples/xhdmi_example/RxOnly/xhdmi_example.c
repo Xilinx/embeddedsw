@@ -12,14 +12,10 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -51,8 +47,8 @@
 *                       PRBS_validation will check both video & audio contents
 * 2.12  GM     07/10/16 Added onboard SI5324 Initialization API to enable
 *                       125Mhz as NI-DRU reference clock
-* 2.13  YH     03/01/16 Fixed a system hang issue by clearing TxBusy flag when a
-*                            non-supportedvideo resolution is set
+* 2.13  YH     03/01/16 Fixed a system hang issue by clearing TxBusy flag when
+*                            a non-supportedvideo resolution is set
 *                            during enable colorbar API
 * 2.14  GM     23/01/17 Replace the Extraction Value of VPhy line rate with,
 *                            XVphy_GetLineRateHz Rate API return value.
@@ -102,6 +98,19 @@
 *                            support backward compatibility related issues.
 * 3.01  EB     09/04/18 Updated XV_ConfigTpg and EnableColorBar APIs
 *              18/04/18 Updated RxBrdgOverflowCallback to remove printing
+* 3.02  mmo    23/04/18 Added checking Sink Capability whether it's a DVI sink
+*                             or HDMI sink based on EDID-HDMI VSDB.
+*                       Fixed system flow to avoid RX Buffer Overflow during
+*                              transition.
+*                       Code Clean-Up on comments and 80 Characted per line.
+*                       Improve audio configuration during Pass-through mode.
+*                       Disable HDMI RX Video Stream when EnableColorBar API
+*                              is called.
+*                       Added TX Bridge Overflow and TX Bridge Underflow
+* 3.03  YB     08/14/18 Clubbing Repeater specific code under the
+*                       'ENABLE_HDCP_REPEATER' macro.
+*       EB     09/21/18 Added new API ToggleHdmiRxHpd and SetHdmiRxHpd
+*                       Updated CloneTxEdid API
 * </pre>
 *
 ******************************************************************************/
@@ -115,8 +124,8 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /* These macro values need to changed whenever there is a change in version */
-#define APP_MAJ_VERSION 3
-#define APP_MIN_VERSION 1
+#define APP_MAJ_VERSION 5
+#define APP_MIN_VERSION 2
 
 /**************************** Type Definitions *******************************/
 
@@ -146,7 +155,7 @@ void VphyPllLayoutErrorCallback(void *CallbackRef);
 #endif
 void VphyProcessError(void);
 
-// Needed for ZCU106 RevB
+/* Needed for ZCU106 RevB */
 #if defined (ARMR5) || (__aarch64__)
 void Disable_TMDS181_HPD_passthrough();
 #define TMDS181_ADDR    0x5c
@@ -185,7 +194,7 @@ static XScuGic     Intc;
 static XIntc       Intc;
 #endif
 
-/*HDMI Application Menu: Data Structure*/
+/* HDMI Application Menu: Data Structure */
 XHdmi_Menu         HdmiMenu;
 
 /**< Demo mode IsPassThrough
@@ -209,9 +218,9 @@ u8                 StartTxAfterRxFlag = (FALSE);
 * @note   None.
 *
 ******************************************************************************/
-u8 PLLBondedCheck (void)
+u8 PLLBondedCheck(void)
 {
-	// The colorbar can only be displayed when the GT is not bonded.
+	/* The colorbar can only be displayed when the GT is not bonded. */
 	if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
 		xil_printf("\r\nThe GT TX and RX are bonded and clocked by "
 				   "the RX clock.\r\n");
@@ -277,8 +286,11 @@ int I2cClk(u32 InFreq, u32 OutFreq)
 	/* Free running mode */
 	if (InFreq == 0) {
 
-		Status = Si5324_SetClock((XPAR_IIC_0_BASEADDR), (I2C_CLK_ADDR),
-								 (SI5324_CLKSRC_XTAL), (SI5324_XTAL_FREQ), OutFreq);
+		Status = Si5324_SetClock((XPAR_IIC_0_BASEADDR),
+					 (I2C_CLK_ADDR),
+			                 (SI5324_CLKSRC_XTAL),
+					 (SI5324_XTAL_FREQ),
+					 OutFreq);
 		if (Status != (SI5324_SUCCESS)) {
 			xil_printf("Error programming SI5324\r\n");
 			return 0;
@@ -287,34 +299,46 @@ int I2cClk(u32 InFreq, u32 OutFreq)
 
 	/* Locked mode */
 	else {
-		Status = Si5324_SetClock((XPAR_IIC_0_BASEADDR), (I2C_CLK_ADDR),
-								 (SI5324_CLKSRC_CLK1), InFreq, OutFreq);
+		Status = Si5324_SetClock((XPAR_IIC_0_BASEADDR),
+					 (I2C_CLK_ADDR),
+					 (SI5324_CLKSRC_CLK1),
+					 InFreq,
+					 OutFreq);
+
 		if (Status != (SI5324_SUCCESS)) {
 			xil_printf("Error programming SI5324\r\n");
 			return 0;
 		}
 	}
 #else
-	// Reset I2C controller before issuing new transaction. This is required to
-	// recover the IIC controller in case a previous transaction is pending.
+	/* Reset I2C controller before issuing new transaction.
+	 * This is required torecover the IIC controller in case a previous
+	 * transaction is pending.
+	 */
 	XIic_WriteReg(XPAR_IIC_0_BASEADDR, XIIC_RESETR_OFFSET,
 				  XIIC_RESET_MASK);
 
 	/* Free running mode */
 	if (InFreq == 0) {
-		Status = IDT_8T49N24x_SetClock((XPAR_IIC_0_BASEADDR), (I2C_CLK_ADDR),
-									   (IDT_8T49N24X_XTAL_FREQ), OutFreq, TRUE);
+		Status = IDT_8T49N24x_SetClock((XPAR_IIC_0_BASEADDR),
+					       (I2C_CLK_ADDR),
+					       (IDT_8T49N24X_XTAL_FREQ),
+					       OutFreq,
+					       TRUE);
 
 		if (Status != (XST_SUCCESS)) {
-			print("Error programming IDT_8T49N241\n\r");
+			print("Error programming IDT_8T49N241\r\n");
 			return 0;
 		}
 	}
 
 	/* Locked mode */
 	else {
-		Status = IDT_8T49N24x_SetClock((XPAR_IIC_0_BASEADDR), (I2C_CLK_ADDR),
-									   InFreq, OutFreq, FALSE);
+		Status = IDT_8T49N24x_SetClock((XPAR_IIC_0_BASEADDR),
+					       (I2C_CLK_ADDR),
+					       InFreq,
+					       OutFreq,
+					       FALSE);
 
 		if (Status != (XST_SUCCESS)) {
 			print("Error programming SI5324\n\r");
@@ -334,7 +358,10 @@ int I2cMux_Ps(void)
 
 	/* Select SI5324 clock generator */
 	Buffer = 0x10;
-	Status = XIicPs_MasterSendPolled(&Ps_Iic1, (u8 *)&Buffer, 1, I2C_MUX_ADDR);
+	Status = XIicPs_MasterSendPolled(&Ps_Iic1,
+	                                 (u8 *)&Buffer,
+					 1,
+					 I2C_MUX_ADDR);
 
 	return Status;
 }
@@ -346,8 +373,11 @@ int I2cClk_Ps(u32 InFreq, u32 OutFreq)
 	/* Free running mode */
 	if (InFreq == 0) {
 
-		Status = Si5324_SetClock_Ps(&Ps_Iic1, (0x69),
-									(SI5324_CLKSRC_XTAL), (SI5324_XTAL_FREQ), OutFreq);
+		Status = Si5324_SetClock_Ps(&Ps_Iic1,
+		                            (0x69),
+					    (SI5324_CLKSRC_XTAL),
+					    (SI5324_XTAL_FREQ),
+					    OutFreq);
 
 		if (Status != (SI5324_SUCCESS)) {
 			print("Error programming SI5324\r\n");
@@ -357,8 +387,11 @@ int I2cClk_Ps(u32 InFreq, u32 OutFreq)
 
 	/* Locked mode */
 	else {
-		Status = Si5324_SetClock_Ps(&Ps_Iic1, (0x69),
-									(SI5324_CLKSRC_CLK1), InFreq, OutFreq);
+		Status = Si5324_SetClock_Ps(&Ps_Iic1,
+		                            (0x69),
+					    (SI5324_CLKSRC_CLK1),
+					    InFreq,
+					    OutFreq);
 
 		if (Status != (SI5324_SUCCESS)) {
 			print("Error programming SI5324\r\n");
@@ -410,8 +443,10 @@ int OnBoardSi5324Init(void)
 	Si5324_Init(XPAR_IIC_1_BASEADDR, I2C_CLK_ADDR);
 
 	/* Program Output Frequency Si5324 */
-	Status = Si5324_SetClock((XPAR_IIC_1_BASEADDR), (I2C_CLK_ADDR),
-							 (SI5324_CLKSRC_XTAL), (SI5324_XTAL_FREQ), (u32)125000000);
+	Status = Si5324_SetClock((XPAR_IIC_1_BASEADDR),
+	                         (I2C_CLK_ADDR),
+				 (SI5324_CLKSRC_XTAL),
+				 (SI5324_XTAL_FREQ), (u32)125000000);
 
 	if (Status != (SI5324_SUCCESS)) {
 		xil_printf("Error programming On-Board SI5324\r\n");
@@ -451,13 +486,15 @@ void Info(void)
 	XVidFrameCrc_Report();
 #endif
 
-	// GT
+	/* GT */
 	xil_printf("------------\r\n");
 	xil_printf("HDMI PHY\r\n");
 	xil_printf("------------\r\n");
 	Data = XVphy_GetVersion(&Vphy);
 	xil_printf("  VPhy version : %02d.%02d (%04x)\r\n",
-			   ((Data >> 24) & 0xFF), ((Data >> 16) & 0xFF), (Data & 0xFFFF));
+			   ((Data >> 24) & 0xFF),
+			   ((Data >> 16) & 0xFF),
+			   (Data & 0xFFFF));
 	xil_printf("\r\n");
 	xil_printf("GT status\r\n");
 	xil_printf("---------\r\n");
@@ -478,6 +515,54 @@ void Info(void)
 /*****************************************************************************/
 /**
 *
+* This function is used to toggle RX's HPD Line
+*
+* @param  VphyPtr is a pointer to the VPHY instance.
+* @param  HdmiRxSsPtr is a pointer to the HDMI RX Subsystem instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void ToggleHdmiRxHpd(XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr) {
+	SetHdmiRxHpd(VphyPtr, HdmiRxSsPtr, FALSE);
+	/* Wait 500 ms */
+	usleep(500000);
+	SetHdmiRxHpd(VphyPtr, HdmiRxSsPtr, TRUE);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the HPD on the HDMI RXSS.
+*
+* @param  VphyPtr is a pointer to the VPHY instance.
+* @param  HdmiRxSsPtr is a pointer to the HDMI RX Subsystem instance.
+* @param  Hpd is a flag used to set the HPD.
+*   - TRUE drives HPD high
+*   - FALSE drives HPD low
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void SetHdmiRxHpd(XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr, u8 Hpd) {
+	if (Hpd == TRUE) {
+		XV_HdmiRxSs_SetHpd(HdmiRxSsPtr, Hpd);
+		XVphy_IBufDsEnable(VphyPtr, 0, XVPHY_DIR_RX, (TRUE));
+	} else {
+		XVphy_MmcmPowerDown(VphyPtr, 0, XVPHY_DIR_RX, FALSE);
+		XVphy_Clkout1OBufTdsEnable(VphyPtr, XVPHY_DIR_RX, (FALSE));
+		XVphy_IBufDsEnable(VphyPtr, 0, XVPHY_DIR_RX, (FALSE));
+		XV_HdmiRxSs_SetHpd(HdmiRxSsPtr, Hpd);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
 * This function is called when a RX connect event has occurred.
 *
 * @param  None.
@@ -490,13 +575,14 @@ void Info(void)
 void RxConnectCallback(void *CallbackRef) {
 	XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
 
-	// RX cable is disconnected
+	/* RX cable is disconnected */
 	if(HdmiRxSsPtr->IsStreamConnected == (FALSE)) {
-		Vphy.HdmiRxTmdsClockRatio = 0; // Clear GT RX TMDS clock ratio
+		/* Clear GT RX TMDS clock ratio */
+		Vphy.HdmiRxTmdsClockRatio = 0;
 
 #if(LOOPBACK_MODE_EN != 1)
-		/* Check for Pass-through */
-		/* Doesnt require to restart colorbar
+		/* Check for Pass-through:
+		 * Doesnt require to restart colorbar
 		 * if the system is in colorbar mode
 		 */
 		if (IsPassThrough) {
@@ -523,26 +609,6 @@ void RxConnectCallback(void *CallbackRef) {
 #endif
 	}
 
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is called when a RX Bridge Overflow event has occurred.
-* This is Error Condition
-*
-* @param  None.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void RxBrdgOverflowCallback(void *CallbackRef) {
-/*	xil_printf(ANSI_COLOR_YELLOW "RX Video Bridge Overflow"
-			ANSI_COLOR_RESET "\r\n");*/
-/*	XV_HdmiRx_VideoEnable(HdmiRxSs.HdmiRxPtr, (FALSE));
-	XV_HdmiRx_VideoEnable(HdmiRxSs.HdmiRxPtr, (TRUE));*/
 }
 
 /*****************************************************************************/
@@ -583,15 +649,23 @@ void VphyHdmiRxReadyCallback(void *CallbackRef) {
 	/* Reset the menu to main */
 	XHdmi_MenuReset(&HdmiMenu);
 
-	RxPllType = XVphy_GetPllType(VphyPtr, 0, XVPHY_DIR_RX,
-								 XVPHY_CHANNEL_ID_CH1);
+	RxPllType = XVphy_GetPllType(VphyPtr,
+	                             0,
+				     XVPHY_DIR_RX,
+				     XVPHY_CHANNEL_ID_CH1);
+
 	if (!(RxPllType == XVPHY_PLL_TYPE_CPLL)) {
-		XV_HdmiRxSs_SetStream(&HdmiRxSs, VphyPtr->HdmiRxRefClkHz,
-			(XVphy_GetLineRateHz(&Vphy, 0, XVPHY_CHANNEL_ID_CMN0)/1000000));
+		XV_HdmiRxSs_SetStream(&HdmiRxSs,
+		        VphyPtr->HdmiRxRefClkHz,
+			(XVphy_GetLineRateHz(&Vphy,
+				             0,
+					     XVPHY_CHANNEL_ID_CMN0)/1000000));
 
 	} else {
 		XV_HdmiRxSs_SetStream(&HdmiRxSs, VphyPtr->HdmiRxRefClkHz,
-			 (XVphy_GetLineRateHz(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)/1000000));
+			 (XVphy_GetLineRateHz(&Vphy,
+			                      0,
+					      XVPHY_CHANNEL_ID_CH1)/1000000));
 	}
 }
 #endif
@@ -646,8 +720,9 @@ void VphyPllLayoutErrorCallback(void *CallbackRef) {
 * @return None.
 *
 * @note   This function can be expanded to perform necessary actions depending
-* 		  on the error type. For example, XVPHY_ERR_PLL_LAYOUT can be used to
-* 		  automatically switch in and out of bonded mode for GTXE2 devices
+*		on the error type. For example, XVPHY_ERR_PLL_LAYOUT can be
+*		used to automatically switch in and out of bonded mode for
+*               GTXE2 devices
 *
 ******************************************************************************/
 void VphyProcessError(void) {
@@ -661,7 +736,7 @@ void VphyProcessError(void) {
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 	if (VphyPllLayoutErrorFlag == TRUE) {
 		xil_printf(ANSI_COLOR_RED "VPHY Error: Try changing to "
-				   "another PLL Layout" ANSI_COLOR_RESET "\r\n");
+				 "another PLL Layout" ANSI_COLOR_RESET "\r\n");
 	}
 	/* Clear Flag */
 	VphyPllLayoutErrorFlag = FALSE;
@@ -718,7 +793,8 @@ void RxLnkStaCallback(void *CallbackRef) {
 	if (IsPassThrough) {
 		/* Reset RX when the link error has reached its maximum */
 		if ((HdmiRxSsPtr->IsLinkStatusErrMax) &&
-				(Vphy.Quads[0].Plls[0].RxState == XVPHY_GT_STATE_READY)) {
+				(Vphy.Quads[0].Plls[0].RxState ==
+						XVPHY_GT_STATE_READY)) {
 
 			/* Pulse RX PLL reset */
 			XVphy_ClkDetFreqReset(&Vphy, 0, XVPHY_DIR_RX);
@@ -796,34 +872,41 @@ void RxStreamInitCallback(void *CallbackRef) {
 	XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
 	XVidC_VideoStream *HdmiRxSsVidStreamPtr;
 	u32 Status;
-    // xil_printf("RxStreamInitCallback\r\n");
-	// Calculate RX MMCM parameters
-	// In the application the YUV422 colordepth is 12 bits
-	// However the HDMI transports YUV422 in 8 bits.
-	// Therefore force the colordepth to 8 bits when the colorspace is YUV422
+
+	/* Calculate RX MMCM parameters
+	 * In the application the YUV422 colordepth is 12 bits
+	 * However the HDMI transports YUV422 in 8 bits.
+	 * Therefore force the colordepth to 8 bits when the
+	 * colorspace is YUV422
+	 */
 
 	HdmiRxSsVidStreamPtr = XV_HdmiRxSs_GetVideoStream(HdmiRxSsPtr);
 
 	if (HdmiRxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_422) {
-		Status = XVphy_HdmiCfgCalcMmcmParam(&Vphy, 0, XVPHY_CHANNEL_ID_CH1,
-											XVPHY_DIR_RX,
-											HdmiRxSsVidStreamPtr->PixPerClk,
-											XVIDC_BPC_8);
+		Status =
+			XVphy_HdmiCfgCalcMmcmParam(&Vphy,
+					       0,
+					       XVPHY_CHANNEL_ID_CH1,
+					       XVPHY_DIR_RX,
+					       HdmiRxSsVidStreamPtr->PixPerClk,
+					       XVIDC_BPC_8);
 	}
 
-	// Other colorspaces
+	/* Other colorspaces */
 	else {
-		Status = XVphy_HdmiCfgCalcMmcmParam(&Vphy, 0, XVPHY_CHANNEL_ID_CH1,
-											XVPHY_DIR_RX,
-											HdmiRxSsVidStreamPtr->PixPerClk,
-											HdmiRxSsVidStreamPtr->ColorDepth);
+		Status = XVphy_HdmiCfgCalcMmcmParam(&Vphy,
+					     0,
+					     XVPHY_CHANNEL_ID_CH1,
+					     XVPHY_DIR_RX,
+					     HdmiRxSsVidStreamPtr->PixPerClk,
+					     HdmiRxSsVidStreamPtr->ColorDepth);
 	}
 
 	if (Status == XST_FAILURE) {
 		return;
 	}
 
-	// Enable and configure RX MMCM
+	/* Enable and configure RX MMCM */
 	XVphy_MmcmStart(&Vphy, 0, XVPHY_DIR_RX);
 
 	usleep(10000);
@@ -856,6 +939,25 @@ void RxStreamUpCallback(void *CallbackRef) {
 	/* Reset Video Frame CRC */
 	XVidFrameCrc_Reset();
 #endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is called when a RX Bridge Overflow event has occurred.
+* RX Video Bridge Debug Utility
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void RxBrdgOverflowCallback(void *CallbackRef) {
+
+	/* xil_printf(ANSI_COLOR_YELLOW "RX Video Bridge Overflow"
+			ANSI_COLOR_RESET "\r\n"); */
 }
 #endif
 
@@ -899,8 +1001,8 @@ int SetupInterruptSystem(void) {
 		return (XST_DEVICE_NOT_FOUND);
 	}
 	Status = XScuGic_CfgInitialize(IntcInstPtr,
-								   IntcCfgPtr,
-								   IntcCfgPtr->CpuBaseAddress);
+				IntcCfgPtr,
+				IntcCfgPtr->CpuBaseAddress);
 #else
 	Status = XIntc_Initialize(IntcInstPtr, XPAR_INTC_0_DEVICE_ID);
 #endif
@@ -916,7 +1018,7 @@ int SetupInterruptSystem(void) {
 	 */
 #if defined (__MICROBLAZE__)
 	Status = XIntc_Start(IntcInstPtr, XIN_REAL_MODE);
-//  Status = XIntc_Start(IntcInstPtr, XIN_SIMULATION_MODE);
+        /* Status = XIntc_Start(IntcInstPtr, XIN_SIMULATION_MODE); */
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -929,12 +1031,12 @@ int SetupInterruptSystem(void) {
 	 */
 #if defined (ARMR5) || (__aarch64__) || (__arm__)
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-								 (Xil_ExceptionHandler)XScuGic_InterruptHandler,
-								 (XScuGic *)IntcInstPtr);
+				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				(XScuGic *)IntcInstPtr);
 #else
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-								 (Xil_ExceptionHandler)XIntc_InterruptHandler,
-								 (XIntc *)IntcInstPtr);
+				(Xil_ExceptionHandler)XIntc_InterruptHandler,
+				(XIntc *)IntcInstPtr);
 #endif
 
 	return (XST_SUCCESS);
@@ -992,7 +1094,8 @@ int main() {
 		return XST_FAILURE;
 	}
 
-	Status = XIicPs_CfgInitialize(&Ps_Iic0, XIic0Ps_ConfigPtr, XIic0Ps_ConfigPtr->BaseAddress);
+	Status = XIicPs_CfgInitialize(&Ps_Iic0, XIic0Ps_ConfigPtr,
+				XIic0Ps_ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -1009,7 +1112,9 @@ int main() {
 		return XST_FAILURE;
 	}
 
-	Status = XIicPs_CfgInitialize(&Ps_Iic1, XIic1Ps_ConfigPtr, XIic1Ps_ConfigPtr->BaseAddress);
+	Status = XIicPs_CfgInitialize(&Ps_Iic1,
+				XIic1Ps_ConfigPtr,
+				XIic1Ps_ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -1020,14 +1125,14 @@ int main() {
 	 */
 	XIicPs_SetSClk(&Ps_Iic1, PS_IIC_CLK);
 
-	// On Board SI5328 chip for DRU reference clock
+	/* On Board SI5328 chip for DRU reference clock */
 	I2cMux_Ps();
 	/* Initialize external clock generator */
 	Si5324_Init_Ps(&Ps_Iic1, 0x69);
 
 	I2cClk_Ps(0, 156250000);
 
-	// Delay 50ms to allow SI chip to lock
+	/* Delay 50ms to allow SI chip to lock */
 	usleep (50000);
 
 #endif
@@ -1041,35 +1146,52 @@ int main() {
 #endif
 
 	/* Disable TMDS181 HPD passthrough for ZCU106 Rev B and below */
-	//Disable_TMDS181_HPD_passthrough();
+	/* E.g.:
+	 *	Disable_TMDS181_HPD_passthrough();
+	 */
 
 	/* Load HDCP keys from EEPROM */
-#if defined (XPAR_XHDCP_NUM_INSTANCES) || defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
-	if (XHdcp_LoadKeys(Hdcp22Lc128, sizeof(Hdcp22Lc128),
-					   Hdcp22RxPrivateKey, sizeof(Hdcp22RxPrivateKey),
-					   Hdcp14KeyA, sizeof(Hdcp14KeyA),
-					   Hdcp14KeyB, sizeof(Hdcp14KeyB)) == XST_SUCCESS) {
+#if defined (XPAR_XHDCP_NUM_INSTANCES) || \
+		defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || \
+				defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
+	if (XHdcp_LoadKeys(Hdcp22Lc128,
+			sizeof(Hdcp22Lc128),
+			Hdcp22RxPrivateKey,
+			sizeof(Hdcp22RxPrivateKey),
+			Hdcp14KeyA,
+			sizeof(Hdcp14KeyA),
+			Hdcp14KeyB,
+			sizeof(Hdcp14KeyB)) == XST_SUCCESS) {
 
 		/* Set pointers to HDCP 2.2 Keys */
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 #if XPAR_XHDCP22_RX_NUM_INSTANCES
-		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs, XV_HDMIRXSS_KEY_HDCP22_LC128, Hdcp22Lc128);
-		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs, XV_HDMIRXSS_KEY_HDCP22_PRIVATE, Hdcp22RxPrivateKey);
+		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs,
+				XV_HDMIRXSS_KEY_HDCP22_LC128,
+				Hdcp22Lc128);
+		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs,
+				XV_HDMIRXSS_KEY_HDCP22_PRIVATE,
+				Hdcp22RxPrivateKey);
 #endif
 #endif
 
 		/* Set pointers to HDCP 1.4 keys */
 #if XPAR_XHDCP_NUM_INSTANCES
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs, XV_HDMIRXSS_KEY_HDCP14, Hdcp14KeyB);
+		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs,
+				XV_HDMIRXSS_KEY_HDCP14,
+				Hdcp14KeyB);
 #endif
 
 		/* Initialize key manager */
 
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-		Status = XHdcp_KeyManagerInit(XPAR_HDCP_KEYMNGMT_BLK_1_BASEADDR, HdmiRxSs.Hdcp14KeyPtr);
+		Status =
+			XHdcp_KeyManagerInit(XPAR_HDCP_KEYMNGMT_BLK_1_BASEADDR,
+					HdmiRxSs.Hdcp14KeyPtr);
 		if (Status != XST_SUCCESS) {
-			xil_printf("HDCP 1.4 RX Key Manager Initialization error\r\n");
+			xil_printf
+			("HDCP 1.4 RX Key Manager Initialization error\r\n");
 			return XST_FAILURE;
 		}
 #endif
@@ -1082,13 +1204,19 @@ int main() {
 
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 		/* Set pointer to NULL */
-		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs, XV_HDMIRXSS_KEY_HDCP22_LC128, (NULL));
+		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs,
+				XV_HDMIRXSS_KEY_HDCP22_LC128,
+				(NULL));
 
 		/* Set pointer to NULL */
-		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs, XV_HDMIRXSS_KEY_HDCP22_PRIVATE, (NULL));
+		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs,
+				XV_HDMIRXSS_KEY_HDCP22_PRIVATE,
+				(NULL));
 
 		/* Set pointer to NULL */
-		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs, XV_HDMIRXSS_KEY_HDCP14, (NULL));
+		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs,
+				XV_HDMIRXSS_KEY_HDCP14,
+				(NULL));
 #endif
 
 
@@ -1100,7 +1228,7 @@ int main() {
 	/* Initialize on-board clock generator */
 	OnBoardSi5324Init();
 
-	// Delay 15ms to allow SI chip to lock
+	/* Delay 15ms to allow SI chip to lock */
 	usleep (15000);
 #endif
 
@@ -1117,9 +1245,9 @@ int main() {
 
 
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-	/////
-	// Initialize HDMI RX Subsystem
-	/////
+
+	/* Initialize HDMI RX Subsystem */
+
 	/* Get User Edid Info */
 	XV_HdmiRxSs_SetEdidParam(&HdmiRxSs, (u8*)&Edid, sizeof(Edid));
 	XV_HdmiRxSs_ConfigPtr =
@@ -1130,163 +1258,182 @@ int main() {
 		return (XST_DEVICE_NOT_FOUND);
 	}
 
-	//Initialize top level and all included sub-cores
-	Status = XV_HdmiRxSs_CfgInitialize(&HdmiRxSs, XV_HdmiRxSs_ConfigPtr,
-									   XV_HdmiRxSs_ConfigPtr->BaseAddress);
+	/* Initialize top level and all included sub-cores */
+	Status = XV_HdmiRxSs_CfgInitialize(&HdmiRxSs,
+					XV_HdmiRxSs_ConfigPtr,
+					XV_HdmiRxSs_ConfigPtr->BaseAddress);
 	if(Status != XST_SUCCESS) {
-		xil_printf("ERR:: HDMI RX Subsystem Initialization failed %d\r\n", Status);
+		xil_printf
+		("ERR:: HDMI RX Subsystem Initialization failed %d\r\n",
+		Status);
 		return(XST_FAILURE);
 	}
 
 	/* Set the Application version in RXSs driver structure */
 	XV_HdmiRxSS_SetAppVersion(&HdmiRxSs, APP_MAJ_VERSION, APP_MIN_VERSION);
 
-	//Register HDMI RX SS Interrupt Handler with Interrupt Controller
+	/* Register HDMI RX SS Interrupt Handler with Interrupt Controller */
 #if defined(__arm__) || (__aarch64__)
+#ifndef USE_HDCP
 	Status |= XScuGic_Connect(&Intc,
-							  XPAR_FABRIC_V_HDMI_RX_SS_IRQ_INTR,
-							  (XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
-							  (void *)&HdmiRxSs);
+			XPAR_FABRIC_V_HDMIRXSS_0_VEC_ID,
+			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
+			(void *)&HdmiRxSs);
+#else
+	Status |= XScuGic_Connect(&Intc,
+			XPAR_FABRIC_V_HDMIRXSS_0_IRQ_VEC_ID,
+			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
+			(void *)&HdmiRxSs);
+#endif
+
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-	// HDCP 1.4 Cipher interrupt
+	/* HDCP 1.4 Cipher interrupt */
 	Status |= XScuGic_Connect(&Intc,
-							  XPAR_FABRIC_V_HDMI_RX_SS_HDCP14_IRQ_INTR,
-							  (XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
-							  (void *)&HdmiRxSs);
+			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID,
+			(XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
+			(void *)&HdmiRxSs);
 
 	Status |= XScuGic_Connect(&Intc,
-							  XPAR_FABRIC_V_HDMI_RX_SS_HDCP14_TIMER_IRQ_INTR,
-							  (XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
-							  (void *)&HdmiRxSs);
+			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
+			(XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
+			(void *)&HdmiRxSs);
 #endif
 
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
-	//HDCP 2.2 Timer interrupt */
+	/* HDCP 2.2 Timer interrupt */
 	Status |= XScuGic_Connect(&Intc,
-							  XPAR_FABRIC_V_HDMI_RX_SS_HDCP22_TIMER_IRQ_INTR,
-							  (XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
-							  (void *)&HdmiRxSs);
+			XPAR_FABRIC_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
+			(XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
+			(void *)&HdmiRxSs);
 #endif
 
 #else
 	Status |= XIntc_Connect(&Intc,
 #if defined(USE_HDCP)
-							XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID,
+			XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID,
 #else
-							XPAR_INTC_0_V_HDMIRXSS_0_VEC_ID,
+			XPAR_INTC_0_V_HDMIRXSS_0_VEC_ID,
 #endif
-							(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
-							(void *)&HdmiRxSs);
+			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
+			(void *)&HdmiRxSs);
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-	// HDCP 1.4 Cipher interrupt
+	/* HDCP 1.4 Cipher interrupt */
 	Status |= XIntc_Connect(&Intc,
-							XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID,
-							(XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
-							(void *)&HdmiRxSs);
+				XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID,
+				(XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
+				(void *)&HdmiRxSs);
 
-	// HDCP 1.4 Timer interrupt
+	/* HDCP 1.4 Timer interrupt */
 	Status |= XIntc_Connect(&Intc,
-							XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
-							(XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
-							(void *)&HdmiRxSs);
+			XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
+			(XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
+			(void *)&HdmiRxSs);
 #endif
 
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
-	// HDCP 2.2 Timer interrupt
+	/* HDCP 2.2 Timer interrupt */
 	Status |= XIntc_Connect(&Intc,
-							XPAR_INTC_0_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
-							(XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
-							(void *)&HdmiRxSs);
+			XPAR_INTC_0_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
+			(XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
+			(void *)&HdmiRxSs);
 #endif
 
 #endif
 
 	if (Status == XST_SUCCESS) {
 #if defined(__arm__) || (__aarch64__)
+#ifndef USE_HDCP
 		XScuGic_Enable(&Intc,
-					   XPAR_FABRIC_V_HDMI_RX_SS_IRQ_INTR);
+				XPAR_FABRIC_V_HDMIRXSS_0_VEC_ID);
+#else
+		XScuGic_Enable(&Intc,
+				XPAR_FABRIC_V_HDMIRXSS_0_IRQ_VEC_ID);
+#endif
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 		XScuGic_Enable(&Intc,
-					   XPAR_FABRIC_V_HDMI_RX_SS_HDCP14_IRQ_INTR);
+				XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID);
 		XScuGic_Enable(&Intc,
-					   XPAR_FABRIC_V_HDMI_RX_SS_HDCP14_TIMER_IRQ_INTR);
+			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
 #endif
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
 		XScuGic_Enable(&Intc,
-					   XPAR_FABRIC_V_HDMI_RX_SS_HDCP22_TIMER_IRQ_INTR);
+			XPAR_FABRIC_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
 #endif
 
 #else
 		XIntc_Enable(&Intc,
 #if defined(USE_HDCP)
-					 XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID
+			XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID
 #else
-					 XPAR_INTC_0_V_HDMIRXSS_0_VEC_ID
+			XPAR_INTC_0_V_HDMIRXSS_0_VEC_ID
 #endif
-					);
+			);
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-		// HDCP 1.4 Cipher interrupt
+		/* HDCP 1.4 Cipher interrupt */
 		XIntc_Enable(&Intc,
-					 XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID);
+			XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID);
 
-		// HDCP 1.4 Timer interrupt
+		/* HDCP 1.4 Timer interrupt */
 		XIntc_Enable(&Intc,
-					 XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
+			XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
 #endif
 
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
-		// HDCP 2.2 Timer interrupt
+		/* HDCP 2.2 Timer interrupt */
 		XIntc_Enable(&Intc,
-					 XPAR_INTC_0_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
+			XPAR_INTC_0_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
 #endif
 
 #endif
 	} else {
-		xil_printf("ERR:: Unable to register HDMI RX interrupt handler");
+		xil_printf
+			("ERR:: Unable to register HDMI RX interrupt handler");
 		xil_printf("HDMI RX SS initialization error\r\n");
 		return XST_FAILURE;
 	}
 
 	/* RX callback setup */
 	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-							XV_HDMIRXSS_HANDLER_CONNECT,
-							(void *)RxConnectCallback,
-							(void *)&HdmiRxSs);
+				XV_HDMIRXSS_HANDLER_CONNECT,
+				(void *)RxConnectCallback,
+				(void *)&HdmiRxSs);
 	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-							XV_HDMIRXSS_HANDLER_BRDGOVERFLOW,
-							(void *)RxBrdgOverflowCallback,
-							(void *)&HdmiRxSs);
+				XV_HDMIRXSS_HANDLER_BRDGOVERFLOW,
+				(void *)RxBrdgOverflowCallback,
+				(void *)&HdmiRxSs);
 	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-							XV_HDMIRXSS_HANDLER_AUX,
-							(void *)RxAuxCallback,
-							(void *)&HdmiRxSs);
+				XV_HDMIRXSS_HANDLER_AUX,
+				(void *)RxAuxCallback,
+				(void *)&HdmiRxSs);
 	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-							XV_HDMIRXSS_HANDLER_AUD,
-							(void *)RxAudCallback,
-							(void *)&HdmiRxSs);
+				XV_HDMIRXSS_HANDLER_AUD,
+				(void *)RxAudCallback,
+				(void *)&HdmiRxSs);
 	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-							XV_HDMIRXSS_HANDLER_LNKSTA,
-							(void *)RxLnkStaCallback,
-							(void *)&HdmiRxSs);
-	//XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-	//	  	  	  	  	  	  	  XV_HDMIRXSS_HANDLER_DDC,
-	//	  	  	  	  	  	  	  RxDdcCallback,
-	//	  	  	  	  	  	  	  (void *)&HdmiRxSs);
+				XV_HDMIRXSS_HANDLER_LNKSTA,
+				(void *)RxLnkStaCallback,
+				(void *)&HdmiRxSs);
+	/*
+	 *  XV_HdmiRxSs_SetCallback(&HdmiRxSs,
+	 *	  	  	    XV_HDMIRXSS_HANDLER_DDC,
+	 *	  	  	    RxDdcCallback,
+	 *	  	  	    (void *)&HdmiRxSs);
+	 */
 	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-							XV_HDMIRXSS_HANDLER_STREAM_DOWN,
-							(void *)RxStreamDownCallback,
-							(void *)&HdmiRxSs);
+				XV_HDMIRXSS_HANDLER_STREAM_DOWN,
+				(void *)RxStreamDownCallback,
+				(void *)&HdmiRxSs);
 	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-							XV_HDMIRXSS_HANDLER_STREAM_INIT,
-							(void *)RxStreamInitCallback,
-							(void *)&HdmiRxSs);
+				XV_HDMIRXSS_HANDLER_STREAM_INIT,
+				(void *)RxStreamInitCallback,
+				(void *)&HdmiRxSs);
 	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-							XV_HDMIRXSS_HANDLER_STREAM_UP,
-							(void *)RxStreamUpCallback,
-							(void *)&HdmiRxSs);
+				XV_HDMIRXSS_HANDLER_STREAM_UP,
+				(void *)RxStreamUpCallback,
+				(void *)&HdmiRxSs);
 
 #ifdef USE_HDCP
 	/* Set HDCP upstream interface */
@@ -1294,13 +1441,13 @@ int main() {
 #endif
 #endif
 
-	/////
-	// Initialize Video PHY
-	// The GT needs to be initialized after the HDMI RX and TX.
-	// The reason for this is the GtRxInitStartCallback
-	// calls the RX stream down callback.
-	/////
-
+	/*
+	 *  Initialize Video PHY
+	 *  The GT needs to be initialized after the HDMI RX and TX.
+	 *  The reason for this is the GtRxInitStartCallback
+	 *  calls the RX stream down callback.
+	 *
+         */
 	XVphyCfgPtr = XVphy_LookupConfig(XPAR_VPHY_0_DEVICE_ID);
 	if (XVphyCfgPtr == NULL) {
 		xil_printf("Video PHY device not found\r\n\r\n");
@@ -1310,14 +1457,14 @@ int main() {
 	/* Register VPHY Interrupt Handler */
 #if defined(__arm__) || (__aarch64__)
 	Status = XScuGic_Connect(&Intc,
-							 XPAR_FABRIC_VID_PHY_CONTROLLER_IRQ_INTR,
-							 (XInterruptHandler)XVphy_InterruptHandler,
-							 (void *)&Vphy);
+				XPAR_FABRIC_VID_PHY_CONTROLLER_IRQ_INTR,
+				(XInterruptHandler)XVphy_InterruptHandler,
+				(void *)&Vphy);
 #else
 	Status = XIntc_Connect(&Intc,
-						   XPAR_INTC_0_VPHY_0_VEC_ID,
-						   (XInterruptHandler)XVphy_InterruptHandler,
-						   (void *)&Vphy);
+				XPAR_INTC_0_VPHY_0_VEC_ID,
+				(XInterruptHandler)XVphy_InterruptHandler,
+				(void *)&Vphy);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("HDMI VPHY Interrupt Vec ID not found!\r\n");
@@ -1335,31 +1482,31 @@ int main() {
 	/* Enable VPHY Interrupt */
 #if defined(__arm__) || (__aarch64__)
 	XScuGic_Enable(&Intc,
-				   XPAR_FABRIC_VID_PHY_CONTROLLER_IRQ_INTR);
+			XPAR_FABRIC_VID_PHY_CONTROLLER_IRQ_INTR);
 #else
 	XIntc_Enable(&Intc,
-				 XPAR_INTC_0_VPHY_0_VEC_ID);
+			XPAR_INTC_0_VPHY_0_VEC_ID);
 #endif
 
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 	XVphy_SetHdmiCallback(&Vphy,
-						  XVPHY_HDMI_HANDLER_RXINIT,
-						  (void *)VphyHdmiRxInitCallback,
-						  (void *)&Vphy);
+				XVPHY_HDMI_HANDLER_RXINIT,
+				(void *)VphyHdmiRxInitCallback,
+				(void *)&Vphy);
 	XVphy_SetHdmiCallback(&Vphy,
-						  XVPHY_HDMI_HANDLER_RXREADY,
-						  (void *)VphyHdmiRxReadyCallback,
-						  (void *)&Vphy);
+				XVPHY_HDMI_HANDLER_RXREADY,
+				(void *)VphyHdmiRxReadyCallback,
+				(void *)&Vphy);
 #endif
 
 	XVphy_SetErrorCallback(&Vphy,
-						   (void *)VphyErrorCallback,
-						   (void *)&Vphy);
+				(void *)VphyErrorCallback,
+				(void *)&Vphy);
 
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 	XVphy_SetPllLayoutErrorCallback(&Vphy,
-									(void *)VphyPllLayoutErrorCallback,
-									(void *)&Vphy);
+					(void *)VphyPllLayoutErrorCallback,
+					(void *)&Vphy);
 #endif
 
 
@@ -1369,16 +1516,18 @@ int main() {
 	Xil_AssertSetCallback((Xil_AssertCallback) Xil_AssertCallbackRoutine);
 	Xil_ExceptionEnable();
 
-	// Initialize menu
+	/* Initialize menu */
 	XHdmi_MenuInitialize(&HdmiMenu, UART_BASEADDR);
 
 
 
 	/* Enable Scrambling Override
-	 * Note: Setting the override to TRUE will allow scrambling to be disabled
-	 * 		 for video where TMDS Clock > 340 MHz which breaks the HDMI Specification
+	 * Note: Setting the override to TRUE will allow scrambling to be
+	 *       disabled for video where TMDS Clock > 340 MHz which breaks the
+	 *       HDMI Specification
+	 * E.g.:
+	 *   XV_HdmiTxSs_SetVideoStreamScramblingOverrideFlag(&HdmiTxSs, TRUE);
 	 */
-	// XV_HdmiTxSs_SetVideoStreamScramblingOverrideFlag(&HdmiTxSs, TRUE);
 
 	/* Main loop */
 	do {
@@ -1391,7 +1540,7 @@ int main() {
 #endif
 
 
-		// HDMI menu
+		/* HDMI Menu */
 		XHdmi_MenuProcess(&HdmiMenu);
 
 		/* VPHY error */

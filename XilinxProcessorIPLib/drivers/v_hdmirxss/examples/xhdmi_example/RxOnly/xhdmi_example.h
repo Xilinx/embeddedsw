@@ -12,14 +12,10 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -42,6 +38,9 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00         12/02/18 Initial release.
+* 3.03  YB     08/14/18 Adding macro 'ENABLE_HDCP_REPEATER' to allow application
+*                       to select/deselect the Repeater specific code.
+*       EB     09/21/18 Added new API ToggleHdmiRxHpd
 * </pre>
 *
 ******************************************************************************/
@@ -138,10 +137,14 @@ extern "C" {
 #define CUSTOM_RESOLUTION_ENABLE 1
 
 #if defined (XPAR_XHDCP_NUM_INSTANCES) || \
-		defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || \
+	defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || \
 	defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
-/* If HDCP 1.4 or HDCP 2.2 is in the system then use the HDCP abstraction layer */
+
+/* If HDCP 1.4 or HDCP 2.2 is in the system
+ * then use the HDCP abstraction layer */
 #define USE_HDCP
+
+
 #endif
 
 /* Enabling this will enable HDCP Debug menu */
@@ -171,6 +174,12 @@ extern u8 IsPassThrough;
 #if defined (ARMR5) || ((__aarch64__) && (!defined XPS_BOARD_ZCU104))
 XIicPs Ps_Iic0, Ps_Iic1;
 #define PS_IIC_CLK 100000
+#endif
+
+/************************** Function Prototypes ******************************/
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
+void ToggleHdmiRxHpd (XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr);
+void SetHdmiRxHpd(XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr, u8 Hpd);
 #endif
 
 #ifdef __cplusplus
