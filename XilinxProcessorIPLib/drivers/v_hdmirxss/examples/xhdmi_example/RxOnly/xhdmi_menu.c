@@ -74,6 +74,8 @@
 * 1.12  EB   09-04-2018 Fixed messages printing issue
 * 3.03  YB   08-14-2018 Updating the Hdcp Menu to remove Repeater options if
 *                       'ENABLE_HDCP_REPEATER' macro is not selected.
+* 3.04  mmo  08-03-2019 Updating the global variable "EdidHdmi20_t" during
+*                               EDID parsing through menu.
 * </pre>
 *
 ******************************************************************************/
