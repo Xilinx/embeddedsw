@@ -63,6 +63,7 @@
 * 5.10  tjs  11/30/17 Added JEDEC ID info for S25FL-L series flashes
 * 					  CR# 987566
 * 5.10	tjs	 03/01/18 Added MT25Q512 3V and 1.8V flash part support. CR# 995477
+* 5.11	tjs  03/16/18 Added support for ISSI flash parts.
 * </pre>
 *
 ******************************************************************************/
@@ -153,6 +154,13 @@ extern "C" {
  * SST Serial Flash device.
  */
 #define XISF_SST_DEV_SST25WF080		0x2505	/**< Device ID for SST25WF080 */
+
+/**
+* The following definitions specify the Device Id for the different
+* ISSI Serial Flash device.
+*/
+#define XISF_ISSI_DEV_IS25WP256D		0x7019	/**< Device ID for IS25WP256D */
+#define XISF_ISSI_DEV_IS25LP256D		0x6019	/**< Device ID for IS25WP256D */
 
 /**
  * Definitions for Intel, STM, Winbond and Spansion Serial Flash Device
@@ -250,6 +258,7 @@ extern "C" {
 #if (XPAR_XISF_FLASH_FAMILY == SPANSION)
 #define XISF_CMD_ENTER_4BYTE_ADDR_MODE	0xB7
 #define XISF_CMD_EXIT_4BYTE_ADDR_MODE	0xE9
+#define XISF_CMD_EXIT_4BYTE_ADDR_MODE_ISSI	0x29
 #endif
 #if (XPAR_XISF_FLASH_FAMILY == INTEL)
 /**
