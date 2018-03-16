@@ -30,6 +30,7 @@ void init_console(void);
 void register_console_callback(callback_func fptr);
 int XPVXenConsole_Printf(const char *FormatPtr, ...);
 void XPVXenConsole_Init(void);
+int XPVXenConsole_Write(const char *BufferPtr);
 
 #define _XEN_CONSOLE_H_
 
