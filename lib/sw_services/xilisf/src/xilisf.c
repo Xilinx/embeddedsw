@@ -102,6 +102,7 @@
 * 5.10  tjs  11/30/17 Added description of S25FL-L series flash
 * 					  parts in IntelStmDevices array. CR# 987566
 * 5.10	tjs  03/01/18 Added MT25Q512 3V and 1.8V flash part support. CR# 995477
+* 5.11	tjs  03/16/18 Added support for ISSI flash part.
 *
 * </pre>
 *
@@ -457,6 +458,13 @@ static const IntelStmDeviceGeometry IntelStmDevices[] = {
 	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
 	 XISF_NUM_OF_SECTORS4096},
 
+	 {XISF_MANUFACTURER_ID_ISSI, XISF_ISSI_DEV_IS25WP256D,
+	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
+	 XISF_NUM_OF_SECTORS512},
+
+	 {XISF_MANUFACTURER_ID_ISSI, XISF_ISSI_DEV_IS25LP256D,
+	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
+	 XISF_NUM_OF_SECTORS512},
 };
 #endif /* (((XPAR_XISF_FLASH_FAMILY==INTEL) || (XPAR_XISF_FLASH_FAMILY==STM) \
 	|| (XPAR_XISF_FLASH_FAMILY == SST) || 		\
@@ -544,7 +552,17 @@ static const SpaMicWinDeviceGeometry SpaMicWinDevices[] = {
 		0xFFFF0000, 1},
 	{0x20000, 0x100, 512, 0x10000, 0x1000000,
 		XISF_MANUFACTURER_ID_WINBOND, XISF_WINBOND_ID_BYTE2_128,
-		0xFFFE0000, 1}
+		0xFFFE0000, 1},
+
+	{0x10000, 0x200, 256, 0x20000, 0x2000000,
+		XISF_MANUFACTURER_ID_ISSI, XISF_ISSI_ID_BYTE2_256,
+		0xFFFF0000, 1},
+	{0x10000, 0x400, 256, 0x40000, 0x2000000,
+		XISF_MANUFACTURER_ID_ISSI, XISF_ISSI_ID_BYTE2_256,
+		0xFFFF0000, 1},
+	{0x20000, 0x200, 512, 0x20000, 0x2000000,
+		XISF_MANUFACTURER_ID_ISSI, XISF_ISSI_ID_BYTE2_256,
+		0xFFFF0000, 1},
 };
 #endif /* (((XPAR_XISF_FLASH_FAMILY == WINBOND) || 	\
 	  (XPAR_XISF_FLASH_FAMILY == SPANSION)) &&	\
@@ -1598,7 +1616,8 @@ int XIsf_MicronFlashEnter4BAddMode(XIsf *InstancePtr)
 		return (int)(XST_SUCCESS);
 	}
 
-	if (InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON) {
+	if (InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON ||
+			InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_ISSI) {
 
 		InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_ENTER_4BYTE_ADDR_MODE;
 
@@ -1735,9 +1754,12 @@ int XIsf_MicronFlashExit4BAddMode(XIsf *InstancePtr)
 		return (int)(XST_SUCCESS);
 	}
 
-	if (InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON) {
+	if (InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON ||
+			InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_ISSI) {
 		InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_EXIT_4BYTE_ADDR_MODE;
 
+		if(InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_ISSI)
+			InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_EXIT_4BYTE_ADDR_MODE_ISSI;
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
 		/*
 		 * Enable write before transfer
@@ -2012,6 +2034,10 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 		FlashMake = XISF_MANUFACTURER_ID_WINBOND;
 		StartIndex = WINBOND_INDEX_START;
 	}
+	else if(BufferPtr[1] == XISF_MANUFACTURER_ID_ISSI) {
+		FlashMake = XISF_MANUFACTURER_ID_ISSI;
+		StartIndex = ISSI_INDEX_START;
+	}
 	else{
 		FlashMake = 0;
 		StartIndex = 0;
@@ -2073,6 +2099,29 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 				break;
 		}
 	}
+
+	/*
+	 * For ISSI flash.
+	 */
+	if(((FlashMake == XISF_MANUFACTURER_ID_ISSI)) &&
+		(BufferPtr[3] == XISF_ISSI_ID_BYTE2_256)) {
+			switch(InstancePtr->SpiInstPtr->Config.ConnectionMode)
+		{
+			case XISF_QSPIPS_CONNECTION_MODE_SINGLE:
+				XIsf_FCTIndex = FLASH_CFG_TBL_SINGLE_256_ISSI;
+				break;
+			case XISF_QSPIPS_CONNECTION_MODE_PARALLEL:
+				XIsf_FCTIndex = FLASH_CFG_TBL_PARALLEL_256_ISSI;
+				break;
+			case XISF_QSPIPS_CONNECTION_MODE_STACKED:
+				XIsf_FCTIndex = FLASH_CFG_TBL_STACKED_256_ISSI;
+				break;
+			default:
+				XIsf_FCTIndex = 0;
+				break;
+		}
+	}
+
 
 	if(((FlashMake == XISF_MANUFACTURER_ID_MICRON) ||
 		(FlashMake == XISF_MANUFACTURER_ID_SPANSION)) &&
