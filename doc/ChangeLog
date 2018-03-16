@@ -1,3 +1,8 @@
+Changes for 2018.2
+===============================
+xilisf_v5_11
+Added support for ISSI 256Mb series flash parts.
+
 Changes for 2018.1
 ===============================
 csi2txss_v1_2
