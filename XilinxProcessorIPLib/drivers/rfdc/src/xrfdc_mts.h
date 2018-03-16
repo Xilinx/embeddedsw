@@ -45,6 +45,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 3.1   jm     01/24/18 Initial release
 * 3.2   jm     03/12/18 Fixed DAC latency calculation.
+*       jm     03/12/18 Added support for reloading DTC scans.
 *
 * </pre>
 *
@@ -110,12 +111,12 @@ typedef struct {
 #define XRFDC_MTS_REF_TARGET		64U
 #define XRFDC_MTS_MAX_CODE			16U
 #define XRFDC_MTS_MIN_GAP_T1		10U
-#define XRFDC_MTS_MIN_GAP_PLL		3U
+#define XRFDC_MTS_MIN_GAP_PLL		5U
 #define XRFDC_MTS_SR_TIMEOUT		4096U
 #define XRFDC_MTS_DTC_COUNT			10U
 #define XRFDC_MTS_MARKER_COUNT		4U
 #define XRFDC_MTS_SCAN_INIT			0U
-#define XRFDC_MTS_SCAN_NORM			1U
+#define XRFDC_MTS_SCAN_RELOAD   	1U
 #define XRFDC_MTS_SRCOUNT_TIMEOUT	1000U
 #define XRFDC_MTS_DELAY_MAX			31U
 #define XRFDC_MTS_CHECK_ALL_FIFOS	0U
@@ -129,6 +130,7 @@ typedef struct {
 #define XRFDC_MTS_FIFO_DISABLE		0x0002U
 #define XRFDC_MTS_AMARK_LOC_S		0x10U
 #define XRFDC_MTS_AMARK_DONE_S		0x14U
+#define XRFDC_MTS_DLY_ALIGNER		0x28U
 
 /* Error Codes */
 #define XRFDC_MTS_OK				0L
@@ -140,6 +142,7 @@ typedef struct {
 #define XRFDC_MTS_TARGET_LOW		32L
 #define XRFDC_MTS_IP_NOT_READY      64L
 #define XRFDC_MTS_DTC_INVALID       128L
+#define XRFDC_MTS_NOT_ENABLED       512L
 
 
 /*****************************************************************************/
