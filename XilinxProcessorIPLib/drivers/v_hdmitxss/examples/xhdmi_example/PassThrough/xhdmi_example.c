@@ -1918,6 +1918,7 @@ void StartTxAfterRx(void) {
 		XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_TX, (TRUE));
 	}
 
+#ifdef USE_HDCP
 	/* Trigger authentication after there are stable stream
 	 * in bonded mode
 	 */
@@ -1925,6 +1926,7 @@ void StartTxAfterRx(void) {
 		/* Call HDCP stream-up callback */
 		XHdcp_StreamUpCallback(&HdcpRepeater);
 	}
+#endif
 #endif
 #endif
 }
