@@ -1794,7 +1794,8 @@ void TxStreamUpCallback(void *CallbackRef) {
 		/* Refer to CEA-861-D for Audio InfoFrame Channel Allocation
 		** - - - - - - FR FL */
 		AudioInfoFramePtr->ChannelAllocation = 0x0;
-		AudioInfoFramePtr->SampleFrequency = XHDMIC_SAMPLING_FREQUENCY_48K;
+		/* Refer to Stream Header */
+		AudioInfoFramePtr->SampleFrequency = 0x0;
 	}
 
 	/* HDMI TX unmute audio */
