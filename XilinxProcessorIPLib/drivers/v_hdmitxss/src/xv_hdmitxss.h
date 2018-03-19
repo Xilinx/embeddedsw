@@ -460,8 +460,10 @@ void XV_HdmiTxSs_TXCore_VRST(XV_HdmiTxSs *InstancePtr, u8 Reset);
 void XV_HdmiTxSs_TXCore_LRST(XV_HdmiTxSs *InstancePtr, u8 Reset);
 void XV_HdmiTxSs_VRST(XV_HdmiTxSs *InstancePtr, u8 Reset);
 void XV_HdmiTxSs_SYSRST(XV_HdmiTxSs *InstancePtr, u8 Reset);
-void XV_HdmiTxSs_SetGcpAvmute(XV_HdmiTxSs *InstancePtr);
-void XV_HdmiTxSs_ClearGcpAvmute(XV_HdmiTxSs *InstancePtr);
+void XV_HdmiTxSs_SetGcpAvmuteBit(XV_HdmiTxSs *InstancePtr);
+void XV_HdmiTxSs_ClearGcpAvmuteBit(XV_HdmiTxSs *InstancePtr);
+void XV_HdmiTxSs_SetGcpClearAvmuteBit(XV_HdmiTxSs *InstancePtr);
+void XV_HdmiTxSs_ClearGcpClearAvmuteBit(XV_HdmiTxSs *InstancePtr);
 
 int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
     u32 HandlerType,

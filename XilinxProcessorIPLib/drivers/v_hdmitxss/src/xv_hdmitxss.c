@@ -718,11 +718,11 @@ void XV_HdmiTxSs_SYSRST(XV_HdmiTxSs *InstancePtr, u8 Reset)
 * @return None
 *
 ******************************************************************************/
-void XV_HdmiTxSs_SetGcpAvmute(XV_HdmiTxSs *InstancePtr)
+void XV_HdmiTxSs_SetGcpAvmuteBit(XV_HdmiTxSs *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_HdmiTx_SetGcpAvmute(InstancePtr->HdmiTxPtr);
+  XV_HdmiTx_SetGcpAvmuteBit(InstancePtr->HdmiTxPtr);
 }
 
 /*****************************************************************************/
@@ -734,13 +734,44 @@ void XV_HdmiTxSs_SetGcpAvmute(XV_HdmiTxSs *InstancePtr)
 * @return None
 *
 ******************************************************************************/
-void XV_HdmiTxSs_ClearGcpAvmute(XV_HdmiTxSs *InstancePtr)
+void XV_HdmiTxSs_ClearGcpAvmuteBit(XV_HdmiTxSs *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_HdmiTx_ClearGcpAvmute(InstancePtr->HdmiTxPtr);
+  XV_HdmiTx_ClearGcpAvmuteBit(InstancePtr->HdmiTxPtr);
 }
 
+/*****************************************************************************/
+/**
+* This function sets the HDMI TX AUX GCP register CLEAR_AVMUTE bit.
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return None
+*
+******************************************************************************/
+void XV_HdmiTxSs_SetGcpClearAvmuteBit(XV_HdmiTxSs *InstancePtr)
+{
+  Xil_AssertVoid(InstancePtr != NULL);
+
+  XV_HdmiTx_SetGcpClearAvmuteBit(InstancePtr->HdmiTxPtr);
+}
+
+/*****************************************************************************/
+/**
+* This function clears the HDMI TX AUX GCP register CLEAR_AVMUTE bit.
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return None
+*
+******************************************************************************/
+void XV_HdmiTxSs_ClearGcpClearAvmuteBit(XV_HdmiTxSs *InstancePtr)
+{
+  Xil_AssertVoid(InstancePtr != NULL);
+
+  XV_HdmiTx_ClearGcpClearAvmuteBit(InstancePtr->HdmiTxPtr);
+}
 /*****************************************************************************/
 /**
 *
