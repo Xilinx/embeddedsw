@@ -32,7 +32,7 @@
 /**
 *
 * @file xxxvethernet.h
-* @addtogroup xxvethernet_v1_0
+* @addtogroup xxvethernet_v1_1
 * @{
 * @details
 *
@@ -135,6 +135,8 @@
 * ----- ---- -------- ---------------------------------------------------------
 * 1.0   hk   6/16/17  First release
 *       hk   2/15/18  Add support for USXGMII
+* 1.1   mj   3/30/18  Add Macro XXxvEthernet_IsMcDma(InstancePtr) to check
+*                     McDma is connected or not.
 * </pre>
 *
 ******************************************************************************/
@@ -472,6 +474,24 @@ typedef struct XXxvEthernet {
 	XXxvEthernet_ReadReg((InstancePtr)->Config.BaseAddress,		\
 				XXE_ANSR_OFFSET);
 
+/*****************************************************************************/
+/**
+*
+* XXxvEthernet_IsMcDma reports if the device is currently connected to MCDMA.
+*
+* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+*		worked on.
+* @return
+*		- TRUE if the Xxv Ethernet device is connected MCDMA.
+*		- FALSE.if the Xxv Ethernet device is NOT connected to MCDMA
+*
+* @note 	C-style signature:
+* 		u32 XXxvEthernet_IsMcDma(XXxvEthernet *InstancePtr)
+*
+******************************************************************************/
+#define XXxvEthernet_IsMcDma(InstancePtr) \
+	(((InstancePtr)->Config.XxvDevType == XPAR_MCDMA) ? TRUE: FALSE)
+
 /************************** Function Prototypes ******************************/
 
 /*
@@ -487,6 +507,7 @@ void XXxvEthernet_Reset(XXxvEthernet *InstancePtr);
  * Initialization functions in xxxvtemac_sinit.c
  */
 XXxvEthernet_Config *XXxvEthernet_LookupConfig(u16 DeviceId);
+XXxvEthernet_Config *XXxvEthernet_LookupConfigBaseAddr(UINTPTR Baseaddr);
 
 /*
  * MAC configuration/control functions in xxxvethernet.c

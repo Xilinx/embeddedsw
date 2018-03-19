@@ -32,7 +32,7 @@
 /**
 *
 * @file xxxvethernet_hw.h
-* @addtogroup xxvethernet_v1_0
+* @addtogroup xxvethernet_v1_1
 * @{
 *
 * This file contains definitions for register offset, masks and low level
