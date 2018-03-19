@@ -144,6 +144,8 @@ extern "C" {
                                                     * shift */
 #define XV_HDMITX_PIO_OUT_COLOR_SPACE_SHIFT 10  /**< PIO Out Color Space
                                                     * shift */
+#define XV_HDMITX_PIO_OUT_GCP_CLEARAVMUTE_MASK    (1<<28) /**< PIO Out
+												* GCP_CLEARAVMUTE mask */
 #define XV_HDMITX_PIO_OUT_BRIDGE_YUV420_MASK (1<<29) /**< PIO Out Bridge_YUV420
                                                          * mask */
 #define XV_HDMITX_PIO_OUT_BRIDGE_PIXEL_MASK  (1<<30) /**< PIO Out Bridge_Pixel

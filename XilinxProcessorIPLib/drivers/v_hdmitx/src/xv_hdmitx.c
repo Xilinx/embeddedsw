@@ -930,7 +930,7 @@ void XV_HdmiTx_EXT_SYSRST(XV_HdmiTx *InstancePtr, u8 Reset)
 * @note     None.
 *
 ******************************************************************************/
-void XV_HdmiTx_SetGcpAvmute(XV_HdmiTx *InstancePtr)
+void XV_HdmiTx_SetGcpAvmuteBit(XV_HdmiTx *InstancePtr)
 {
 	/* Verify argument. */
     Xil_AssertVoid(InstancePtr != NULL);
@@ -951,13 +951,56 @@ void XV_HdmiTx_SetGcpAvmute(XV_HdmiTx *InstancePtr)
 * @note     None.
 *
 ******************************************************************************/
-void XV_HdmiTx_ClearGcpAvmute(XV_HdmiTx *InstancePtr)
+void XV_HdmiTx_ClearGcpAvmuteBit(XV_HdmiTx *InstancePtr)
 {
 	/* Verify argument. */
     Xil_AssertVoid(InstancePtr != NULL);
 	
     XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, 
         (XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_GCP_AVMUTE_MASK));
+
+}
+
+/*****************************************************************************/
+/**
+*
+*  This function sets the HDMI TX AUX GCP register CLEAR_AVMUTE bit.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTx_SetGcpClearAvmuteBit(XV_HdmiTx *InstancePtr)
+{
+	/* Verify argument. */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_GCP_CLEARAVMUTE_MASK));
+}
+
+/*****************************************************************************/
+/**
+*
+*  This function clears the HDMI TX AUX GCP register CLEAR_AVMUTE bit.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTx_ClearGcpClearAvmuteBit(XV_HdmiTx *InstancePtr)
+{
+	/* Verify argument. */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_GCP_CLEARAVMUTE_MASK));
 
 }
 
