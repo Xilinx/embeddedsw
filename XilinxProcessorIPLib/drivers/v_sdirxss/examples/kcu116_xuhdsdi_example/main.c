@@ -57,12 +57,13 @@
 #define GPIO_0_TX_MODE		XPAR_GPIO_0_BASEADDR
 #define GPIO_0_RX_MODE		XPAR_GPIO_1_BASEADDR
 #define GPIO_2_TX_FORMAT	XPAR_GPIO_2_BASEADDR
+#define AUD_ATPG		XPAR_ATPG_BASEADDR
 
 #define CARRIAGE_RETURN		0x0D
 #define BACKSPACE		0x08
 #define DELETE			0x7F
 
-//global variable
+/* global variables */
 unsigned char inchar;
 unsigned char get_val[9];
 char slv_type[9];
@@ -85,7 +86,6 @@ spi_slave_sel slave_sel;
 u8 regaddr;
 u8 regdata;
 
-
 /*****************************************************************************/
 /**
  *
@@ -96,10 +96,9 @@ u8 regdata;
  *
  * @return	None
  *
- * @note	None.
+ * @note	None
  *
  ******************************************************************************/
-
 void slave_StringCopy(char *StrOut, spi_slave_sel slave_sel) {
 	switch (slave_sel) {
 	case SPI_RCLKR:
@@ -120,7 +119,6 @@ void slave_StringCopy(char *StrOut, spi_slave_sel slave_sel) {
 	}
 }
 
-
 /*****************************************************************************/
 /**
  *
@@ -128,12 +126,14 @@ void slave_StringCopy(char *StrOut, spi_slave_sel slave_sel) {
  *
  * @return	None.
  *
- * @note	None.
+ * @note	None
  *
  ******************************************************************************/
 void cls(void) {
-	xil_printf("%c\[2J", 27); //Clear Sreen
-	xil_printf("%c\033[0;0H", 27); //Bring Cursor to 0,0
+	/* Clear Sreen */
+	xil_printf("%c\[2J", 27);
+	/* Bring Cursor to 0,0 */
+	xil_printf("%c\033[0;0H", 27);
 }
 
 /*****************************************************************************/
@@ -143,7 +143,7 @@ void cls(void) {
  *
  * @return	None.
  *
- * @note	None.
+ * @note	None
  *
  ******************************************************************************/
 void get_input2_val(void) {
@@ -170,7 +170,7 @@ void get_input2_val(void) {
  *
  * @return	None.
  *
- * @note	None.
+ * @note	None
  *
  ******************************************************************************/
 void ctrl_main_menu(unsigned char IsValid) {
@@ -194,7 +194,6 @@ void ctrl_main_menu(unsigned char IsValid) {
 	xil_printf(">");
 }
 
-
 /*****************************************************************************/
 /**
  *
@@ -204,7 +203,7 @@ void ctrl_main_menu(unsigned char IsValid) {
  *
  * @return	None
  *
- * @note	None.
+ * @note	None
  *
  ******************************************************************************/
 void ctlr_spi_slv_select_menu(unsigned char IsValid) {
@@ -225,7 +224,6 @@ void ctlr_spi_slv_select_menu(unsigned char IsValid) {
 	xil_printf(">");
 }
 
-
 /*****************************************************************************/
 /**
  *
@@ -235,7 +233,7 @@ void ctlr_spi_slv_select_menu(unsigned char IsValid) {
  *
  * @return	None
  *
- * @note	None.
+ * @note	None
  *
  ******************************************************************************/
 void mode_menu(unsigned char IsMode) {
@@ -266,7 +264,7 @@ void mode_menu(unsigned char IsMode) {
  *
  * @return	None
  *
- * @note	None.
+ * @note	None
  *
  ******************************************************************************/
 void sd_reso_menu(unsigned char IsSDReso) {
@@ -293,7 +291,7 @@ void sd_reso_menu(unsigned char IsSDReso) {
  *
  * @return	None
  *
- * @note	None.
+ * @note	None
  *
  ******************************************************************************/
 void hd_reso_menu(unsigned char IsHDReso) {
@@ -322,7 +320,7 @@ void hd_reso_menu(unsigned char IsHDReso) {
  *
  * @return	None
  *
- * @note	None.
+ * @note	None
  *
  ******************************************************************************/
 void threeg_reso_menu(unsigned char Is3GReso) {
@@ -348,7 +346,7 @@ void threeg_reso_menu(unsigned char Is3GReso) {
  *
  * @return	None
  *
- * @note	None.
+ * @note	None
  *
  ******************************************************************************/
 void higher_reso_menu(unsigned char IsHigerReso) {
@@ -364,6 +362,7 @@ void higher_reso_menu(unsigned char IsHigerReso) {
 	xil_printf("------------------\n\r");
 	xil_printf(">");
 }
+
 /*****************************************************************************/
 /**
  *
@@ -373,10 +372,10 @@ void higher_reso_menu(unsigned char IsHigerReso) {
  *
  * @return	None
  *
- * @note	None.
+ * @note	HD-720p,1080i, 3G-A, 12G
  *
  ******************************************************************************/
-void fps_1_menu(unsigned char IsFPS1) //HD-720p,1080i, 3G-A, 12G
+void fps_1_menu(unsigned char IsFPS1)
 {
 	if (IsFPS1 == 0)
 		return;
@@ -402,10 +401,10 @@ void fps_1_menu(unsigned char IsFPS1) //HD-720p,1080i, 3G-A, 12G
  *
  * @return	None
  *
- * @note	None.
+ * @note	HD-1080p
  *
  ******************************************************************************/
-void fps_2_menu(unsigned char IsFPS2) //HD-1080p
+void fps_2_menu(unsigned char IsFPS2)
 {
 	if (IsFPS2 == 0)
 		return;
@@ -433,10 +432,10 @@ void fps_2_menu(unsigned char IsFPS2) //HD-1080p
  *
  * @return	None
  *
- * @note	None.
+ * @note	3G-B, 6G
  *
  ******************************************************************************/
-void fps_3_menu(unsigned char IsFPS3) //3G-B, 6G
+void fps_3_menu(unsigned char IsFPS3)
 {
 	if (IsFPS3 == 0)
 		return;
@@ -462,10 +461,10 @@ void fps_3_menu(unsigned char IsFPS3) //3G-B, 6G
  *
  * @return	None
  *
- * @note	None.
+ * @note	HD-1080pSF
  *
  ******************************************************************************/
-void fps_4_menu(unsigned char IsFPS4) //HD-1080pSF
+void fps_4_menu(unsigned char IsFPS4)
 {
 	if (IsFPS4 == 0)
 		return;
@@ -484,18 +483,57 @@ void fps_4_menu(unsigned char IsFPS4) //HD-1080pSF
 /*****************************************************************************/
 /**
  *
+ * This function reports audio status.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ******************************************************************************/
+void report_audio_status(void)
+{
+	xil_printf("\n\r------------\r\nSDI Audio Status\n\r------------\r\n");
+	xil_printf("\n\rAUDIO: Number of audio samples detected: = 0x%x\r\n",(*(u32 *) (AUD_ATPG +(0x48))));
+	xil_printf("\n\rAUDIO: Number of audio samples missed: = 0x%x\r\n",(*(u32 *) (AUD_ATPG +(0x4C))));
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function resets the audio test pattern generator.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ******************************************************************************/
+void reset_audio_generator(void)
+{
+	/* Audio test pattern Generator Reset */
+	Xil_Out32((UINTPTR) (AUD_ATPG), (u32) (0x00000000));
+	Xil_Out32((UINTPTR) (AUD_ATPG), (u32) (0x00000003));
+}
+
+/*****************************************************************************/
+/**
+ *
  * This function has Main control for Fidus FMC register configuration.
  *
  * @param	inchar Character input to show the main menu.
  *
  * @return	None
  *
- * @note	None.
+ * @note	None
  *
  ******************************************************************************/
 void ctrl_app(unsigned char inchar) {
 	switch (State) {
-	case 0: //Main Menu
+	/* Main Menu */
+	case 0:
 		ctrl_main_menu(IsValid);
 		switch (inchar) {
 		case '1':
@@ -503,44 +541,44 @@ void ctrl_app(unsigned char inchar) {
 			State = 0;
 			IsValid = 1;
 			break;
-
-		case '2': // IIC Dev
+		/* IIC Dev */
+		case '2':
 			dev = IIC_Dev;
 			channel = DUMMY;
 			slave_sel = DUMMY;
 			State = 2;
 			IsValid = 1;
 			break;
-
-		case '3': // SPI Dev Ch0
+		/* SPI Dev Ch0 */
+		case '3':
 			dev = SPI_Dev;
 			channel = 0;
 			State = 1;
 			IsValid = 1;
 			break;
-
-		case '4': // SPI Dev Ch1
+		/* SPI Dev Ch1 */
+		case '4':
 			dev = SPI_Dev;
 			channel = 1;
 			State = 1;
 			IsValid = 1;
 			break;
-
-		case '5': // SPI Dev Ch2
+		/* SPI Dev Ch2 */
+		case '5':
 			dev = SPI_Dev;
 			channel = 2;
 			State = 1;
 			IsValid = 1;
 			break;
-
-		case '6': // SPI Dev Ch3
+		/* SPI Dev Ch3 */
+		case '6':
 			dev = SPI_Dev;
 			channel = 3;
 			State = 1;
 			IsValid = 1;
 			break;
-
-		case '7': // Mode
+		/* Mode */
+		case '7':
 			State = 3;
 			IsValid = 1;
 			break;
@@ -560,16 +598,18 @@ void ctrl_app(unsigned char inchar) {
 		}
 	break;
 
-	case 1: //SPI Slave Select Channel
+	/* SPI Slave Select Channel */
+	case 1:
 		ctlr_spi_slv_select_menu(IsValid);
 		switch (inchar) {
-		case '1': // SPI Receiver Select
+		/* SPI Receiver Select */
+		case '1':
 			slave_sel = SPI_RCVR;
 			State = 2;
 			IsValid = 1;
 			break;
-
-		case '2': // SPI Re-Clocker Select
+		/* SPI Re-Clocker Select */
+		case '2':
 			slave_sel = SPI_RCLKR;
 			State = 2;
 			IsValid = 1;
@@ -599,22 +639,26 @@ void ctrl_app(unsigned char inchar) {
 		}
 	break;
 
-	case 2: //Register Read/Write
-		xil_printf("\nEnter E-Exit or Addres: 0x");
+	/* Register Read/Write */
+	case 2:
+		xil_printf("\nEnter E-Exit or Address: 0x");
 		get_input2_val();
-		if ((get_val[0] == 'E') || (get_val[0] == 'e')) { // Exit
+		/* Exit */
+		if ((get_val[0] == 'E') || (get_val[0] == 'e')) {
 			xil_printf("\n");
 			State = (dev == IIC_Dev) ? 0 : 1;
 			IsValid = 1;
 			break;
 		}
 
-	case 3: //Mode Menu
+	/* Mode Menu */
+	case 3:
 		mode_menu(IsMode);
 		inchar = inbyte();
 		xil_printf("\n\rYour choice is: %c\n\r",inchar);
 		switch (inchar) {
-		case 'a': //SD
+		/* SD */
+		case 'a':
 			sd_reso_menu(IsSDReso);
 			inchar = inbyte();
 			xil_printf("\n\rYour choice is: %c\n\r",inchar);
@@ -623,33 +667,39 @@ void ctrl_app(unsigned char inchar) {
 			case '1':
 				Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000001));
 				Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000000));
+				reset_audio_generator();
 				sleep(3);
+				xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 				if (*(u32 *) (GPIO_0_RX_MODE) == 0x1) {
-					xil_printf("\n\rPASS: Rx Mode received: 525i59 (SD-SDI)\n\r");
+					xil_printf("\n\rPASS: Rx mode received: 525i59 (SD-SDI)\n\r");
 				} else {
-					xil_printf("\n\rFAIL: Rx Mode not matching 525i59 (SD-SDI) \n\r");
+					xil_printf("\n\rFAIL: Rx mode not matching 525i59 (SD-SDI) \n\r");
 					xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 				}
+				report_audio_status();
 				IsSDReso = 1;
 				break;
 
 			case '2':
 				Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000001));
 				Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000001));
+				reset_audio_generator();
 				sleep(3);
+				xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 				if (*(u32 *) (GPIO_0_RX_MODE) == 0x1) {
-					xil_printf("\n\rPASS: Rx Mode received: 625i50 (SD-SDI)\n\r");
+					xil_printf("\n\rPASS: Rx mode received: 625i50 (SD-SDI)\n\r");
 				} else {
-					xil_printf("\n\rFAIL: Rx Mode not matching 625i50 (SD-SDI) \n\r");
+					xil_printf("\n\rFAIL: Rx mode not matching 625i50 (SD-SDI) \n\r");
 					xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 				}
+				report_audio_status();
 				IsSDReso = 1;
 				break;
 			}
 		IsMode = 1;
 		break;
-
-		case 'b': //HD
+		/* HD */
+		case 'b':
 			hd_reso_menu(IsHDReso);
 			inchar = inbyte();
 			xil_printf("\n\rYour choice is: %c\n\r",inchar);
@@ -663,42 +713,51 @@ void ctrl_app(unsigned char inchar) {
 				case'1':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000000));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000000));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x2) {
-						xil_printf("\n\rPASS: Rx Mode received: 720p50 (HD-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 720p50 (HD-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 720p50 (HD-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 720p50 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS1 = 1;
 					break;
 
 				case'2':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000008));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000007));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x42) {
-						xil_printf("\n\rPASS: Rx Mode received: 720p59.94 (HD-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 720p59.94 (HD-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 720p59.94 (HD-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 720p59.94 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS1 = 1;
 					break;
 
 				case'3':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000000));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000007));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x2) {
-						xil_printf("\n\rPASS: Rx Mode received: 720p60 (HD-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 720p60 (HD-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 720p60 (HD-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 720p60 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS1 = 1;
 					break;
 				}
@@ -714,42 +773,51 @@ void ctrl_app(unsigned char inchar) {
 				case'1':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000000));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000003));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x2) {
-						xil_printf("\n\rPASS: Rx Mode received: 1080i50 (HD-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 1080i50 (HD-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 1080i50 (HD-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 1080i50 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS1 = 1;
 					break;
 
 				case'2':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000008));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000002));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x42) {
-						xil_printf("\n\rPASS: Rx Mode received: 1080i59.94 (HD-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 1080i59.94 (HD-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 1080i59.94 (HD-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 1080i59.94 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS1 = 1;
 					break;
 
 				case'3':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000000));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000002));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x2) {
-						xil_printf("\n\rPASS: Rx Mode received: 1080i60 (HD-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 1080i60 (HD-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 1080i60 (HD-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 1080i60 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS1 = 1;
 					break;
 				}
@@ -765,28 +833,34 @@ void ctrl_app(unsigned char inchar) {
 				case'1':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000008));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000001));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x42) {
-						xil_printf("\n\rPASS: Rx Mode received: 1080pSF23.98 (HD-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 1080pSF23.98 (HD-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 1080pSF23.98 (HD-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 1080pSF23.98 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS4 = 1;
 					break;
 
 				case'2':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000000));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000001));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x2) {
-						xil_printf("\n\rPASS: Rx Mode received: 1080pSF24 (HD-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 1080pSF24 (HD-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 1080pSF24 (HD-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 1080pSF24 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS4 = 1;
 					break;
 				}
@@ -802,70 +876,85 @@ void ctrl_app(unsigned char inchar) {
 				case'1':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000008));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000006));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x42) {
-						xil_printf("\n\rPASS: Rx Mode received: 1080p23.98 (HD-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 1080p23.98 (HD-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 1080p23.98 (HD-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 1080p23.98 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS2 = 1;
 					break;
 
 				case'2':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000000));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000006));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x2) {
-						xil_printf("\n\rPASS: Rx Mode received: 1080p24 (HD-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 1080p24 (HD-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 1080p24 (HD-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 1080p24 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS2 = 1;
 					break;
 
 				case'3':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000000));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000005));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x2) {
-						xil_printf("\n\rPASS: Rx Mode received: 1080p25 (HD-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 1080p25 (HD-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 1080p25 (HD-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 1080p25 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS2 = 1;
 					break;
 
 				case'4':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000008));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x42) {
-						xil_printf("\n\rPASS: Rx Mode received: 1080p29.97 (HD-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 1080p29.97 (HD-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 1080p29.97 (HD-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 1080p29.97 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS2 = 1;
 					break;
 
 				case'5':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000000));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x2) {
-						xil_printf("\n\rPASS: Rx Mode received: 1080p30 (HD-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 1080p30 (HD-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 1080p30 (HD-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 1080p30 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS2 = 1;
 					break;
 				}
@@ -874,11 +963,11 @@ void ctrl_app(unsigned char inchar) {
 			}
 		IsMode = 1;
 		break;
-
-		case 'c': //3G-A
+		/* 3G-A */
+		case 'c':
 			threeg_reso_menu(Is3GReso);
 			inchar = inbyte();
-			xil_printf("\n\rYour choice is: %c\n\r",inchar);
+			xil_printf("\n\rYour choice is: %c\n\r", inchar);
 			switch(inchar){
 			case'1':
 				fps_1_menu(IsFPS1);
@@ -889,42 +978,51 @@ void ctrl_app(unsigned char inchar) {
 				case'1':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000002));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000005));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x4) {
-						xil_printf("\n\rPASS: Rx Mode received: 1080p50 (3G-SDI Level A)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 1080p50 (3G-SDI Level A)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 1080p50 (3G-SDI Level A) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 1080p50 (3G-SDI Level A) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS1 = 1;
 					break;
 
 				case'2':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x0000000A));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x44) {
-						xil_printf("\n\rPASS: Rx Mode received: 1080p59.94 (3G-SDI Level A)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 1080p59.94 (3G-SDI Level A)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 1080p59.94 (3G-SDI Level A) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 1080p59.94 (3G-SDI Level A) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS1 = 1;
 					break;
 
 				case'3':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000002));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x4) {
-						xil_printf("\n\rPASS: Rx Mode received: 1080p60 (3G-SDI Level A)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 1080p60 (3G-SDI Level A)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 1080p60 (3G-SDI Level A) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 1080p60 (3G-SDI Level A) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS1 = 1;
 					break;
 				}
@@ -933,8 +1031,8 @@ void ctrl_app(unsigned char inchar) {
 			}
 		IsMode = 1;
 		break;
-
-		case 'd': // 3G-B
+		/* 3G-B */
+		case 'd':
 			threeg_reso_menu(Is3GReso);
 			inchar = inbyte();
 			xil_printf("\n\rYour choice is: %c\n\r",inchar);
@@ -948,42 +1046,51 @@ void ctrl_app(unsigned char inchar) {
 				case'1':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000003));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000005));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x24) {
-						xil_printf("\n\rPASS: Rx Mode received: 1080p25 (3G-SDI Level B)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 1080p25 (3G-SDI Level B)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 1080p25 (3G-SDI Level B) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 1080p25 (3G-SDI Level B) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS3 = 1;
 					break;
 
 				case'2':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x0000000B));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x64) {
-						xil_printf("\n\rPASS: Rx Mode received: 1080p29.97 (3G-SDI Level B)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 1080p29.97 (3G-SDI Level B)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 1080p29.97 (3G-SDI Level B) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 1080p29.97 (3G-SDI Level B) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS3 = 1;
 					break;
 
 				case'3':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000003));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x24) {
-						xil_printf("\n\rPASS: Rx Mode received: 1080p30 (3G-SDI Level B)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 1080p30 (3G-SDI Level B)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 1080p30 (3G-SDI Level B) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 1080p30 (3G-SDI Level B) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS3 = 1;
 					break;
 				}
@@ -992,8 +1099,8 @@ void ctrl_app(unsigned char inchar) {
 			}
 		IsMode = 1;
 		break;
-
-		case 'e': // 6G
+		/* 6G */
+		case 'e':
 			higher_reso_menu(IsHigherReso);
 			inchar = inbyte();
 			xil_printf("\n\rYour choice is: %c\n\r",inchar);
@@ -1007,41 +1114,50 @@ void ctrl_app(unsigned char inchar) {
 				case'1':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000004));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000005));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x8) {
-						xil_printf("\n\rPASS: Rx Mode received: 2160p25 (6G-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 2160p25 (6G-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 2160p25 (6G-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 2160p25 (6G-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 					}
+					report_audio_status();
 					IsFPS3 = 1;
 					break;
 
 				case'2':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x0000000C));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x48) {
-						xil_printf("\n\rPASS: Rx Mode received: 2160p29.97 (6G-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 2160p29.97 (6G-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 2160p29.97 (6G-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 2160p29.97 (6G-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS3 = 1;
 					break;
 
 				case'3':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000004));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x8) {
-						xil_printf("\n\rPASS: Rx Mode received: 2160p30 (6G-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 2160p30 (6G-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 2160p30 (6G-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 2160p30 (6G-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS3 = 1;
 					break;
 				}
@@ -1050,8 +1166,8 @@ void ctrl_app(unsigned char inchar) {
 			}
 		IsMode = 1;
 		break;
-
-		case 'f': // 12G
+		/* 12G */
+		case 'f':
 			higher_reso_menu(IsHigherReso);
 			inchar = inbyte();
 			xil_printf("\n\rYour choice is: %c\n\r",inchar);
@@ -1065,42 +1181,51 @@ void ctrl_app(unsigned char inchar) {
 				case'1':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000005));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000005));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x10) {
-						xil_printf("\n\rPASS: Rx Mode received: 2160p50 (12G-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 2160p50 (12G-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 2160p50 (12G-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 2160p50 (12G-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS1 = 1;
 					break;
 
 				case'2':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x0000000D));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x50) {
-						xil_printf("\n\rPASS: Rx Mode received: 2160p59.94 (12G-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 2160p59.94 (12G-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 2160p59.94 (12G-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 2160p59.94 (12G-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS1 = 1;
 					break;
 
 				case'3':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000005));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
+					reset_audio_generator();
 					sleep(3);
+					xil_printf("\n\r------------\r\nSDI Video Status\n\r------------\r\n");
 					if (*(u32 *) (GPIO_0_RX_MODE) == 0x10) {
-						xil_printf("\n\rPASS: Rx Mode received: 2160p60 (12G-SDI)\n\r");
+						xil_printf("\n\rPASS: Rx mode received: 2160p60 (12G-SDI)\n\r");
 					} else {
-						xil_printf("\n\rFAIL: Rx Mode not matching 2160p60 (12G-SDI) \n\r");
+						xil_printf("\n\rFAIL: Rx mode not matching 2160p60 (12G-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
 
 					}
+					report_audio_status();
 					IsFPS1 = 1;
 					break;
 				}
@@ -1126,7 +1251,7 @@ void ctrl_app(unsigned char inchar) {
 		xil_printf("\nEnter R-Read or Data: 0x");
 		get_input2_val();
 		slave_StringCopy(&slv_type[0], slave_sel);
-		if ((get_val[0] == 'R') || (get_val[0] == 'r')) { // READ
+		if ((get_val[0] == 'R') || (get_val[0] == 'r')) { /* READ */
 			if (dev == IIC_Dev) {
 				xil_printf("\nCannot Read Registers from IIC Device!\n\r");
 			} else {
@@ -1135,9 +1260,8 @@ void ctrl_app(unsigned char inchar) {
 						dev ? "SPI" : "IIC", channel, slv_type, regaddr,
 						fzetta_fmc_register_read(dev, channel, slave_sel,
 								regaddr));
-				//xil_printf("\nReg Val: 0x%02x\n\r", fzetta_fmc_register_read(dev, channel, slave_sel, regaddr));
 			}
-		} else { //WRITE
+		} else { /* WRITE */
 			regdata = (unsigned int) strtoul(get_val, NULL, 16);
 			xil_printf(
 					"\n\nWRITE Dev: %s Ch: %d Slave: %s Addr: 0x%02x Data: 0x%02x\n\r",
@@ -1162,6 +1286,7 @@ void ctrl_app(unsigned char inchar) {
 	break;
 	}
 }
+
 /*****************************************************************************/
 /**
  *
@@ -1170,7 +1295,7 @@ void ctrl_app(unsigned char inchar) {
  *
  * @return	None
  *
- * @note	None.
+ * @note	None
  *
  ******************************************************************************/
 void get_ctrl_app_input(void) {
@@ -1191,12 +1316,11 @@ void get_ctrl_app_input(void) {
  *		- XST_SUCCESS if SDI example was successfully.
  *		- XST_FAILURE if SDI example failed.
  *
- * @note	None.
+ * @note	None
  *
  ******************************************************************************/
 int main() {
-	int i = 0;
-	int j=0;
+
 	IsMode = 1;
 	IsValid = 1;
 	IsSDReso = 1;
@@ -1213,7 +1337,10 @@ int main() {
 	Xil_DCacheEnable();
 	cls();
 	fzetta_fmc_init();
-
+	Xil_Out32((UINTPTR) (AUD_ATPG), (u32) (0x00000000));
+	Xil_Out32((UINTPTR) (AUD_ATPG+ (0x04)), (u32) (0x00000823));
+	Xil_Out32((UINTPTR) (AUD_ATPG+ (0x08)), (u32) (0x04040207));
+	Xil_Out32((UINTPTR) (AUD_ATPG), (u32) (0x00000003));
 	ctrl_app(CARRIAGE_RETURN);
 	while (1) {
 		get_ctrl_app_input();
