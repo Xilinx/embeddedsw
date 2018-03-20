@@ -4,14 +4,17 @@ video_common_v4_3:
 Added new color space format XVIDC_CSF_YCBCR_420 to support UHDSDI
 Tx/Rx soft IPs
 
-axi_mcdma_1_1:
+mcdma_v1_1:
 Added failure checks in the tcl to avoid bsp compilation errors incase
 stream interface is unconnected.
 Updated tcl logic to export proper values for CACHE_COHERENT properties
 when h/w is configured for single axi4 data interface.
 Fix unused variable warning.
 
-axi_dma_9_6:
+axicdma_v4_4:
+Extend AXI CDMA examples to support data buffers above 4GB.
+
+axidma_v9_6:
 Use UINTPTR type for storing address.
 Use virtual addr for BD access in _UpdateBdRingCDesc().
 Extend AXI DMA examples to support data buffers above 4GB.
@@ -29,11 +32,11 @@ wdttb_4_3
 Added a function to program the width of Watchdog timer
 Updated doxygen tags
 
-axivdma_6_5:
+axivdma_v6_5:
 Align default TX/RX framebuffer count with IP configuration.
 Fix compilation error in selftest example.
 
-axiethernet_5_7:
+axiethernet_v5_7:
 Fix compilation issues in multicast/extvlan example.
 Implementing poll timeout API which replaces the loops
 Set num of multicast table entries parameter based on hw design.
