@@ -75,6 +75,9 @@ cpu_cortexa9_v2_6:
 Added -g flag in default extra compiler flags, for linaro
 toolchain. It fixes CR#995214.
 
+emacps_v3_7:
+Export TSU clock frequency to xparameters.h
+
 freertos10_xilinx_v1_0:
 Upgraded freertos kernel version to 10.0
 Updated FreeRTOS tcl to fix bug in detecting latest standalone
