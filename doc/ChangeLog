@@ -425,42 +425,6 @@ any functionality from this config file
 - Updated xilfpga API calls in PMU Firmware with the latest version of
   xilfpga library
 
-zynqmp_pmufw:
-- Using CSU WDT for PMU fail-safe mechanism instead of LPD WDT
-- Implemented idle hooks for nodes USB, DP and SATA
-- Added support for graceful forcepowerdown of PU to prevent any mid-flight
-  axi transactions from locking up the interconnect and hanging the device.
-- Added wake on USB support to wakeup all masters for which USB is set as
-  wakeup source
-- Corrected the timeout logic in node idling functions
-- Seperated FPD and PLD power supply check hooks to increase FPD power up
-  delay to 40ms(this is the maximum rampup time for FPD power rails)
-- Added GPO section to config object to get the initial state of PMU GPO's
-  and configure them in PMU Firmware
-- Using TTC instead of IPI interrupt from PMU to interrupt APU upon WDT event
-- Added all builds flags to xpfw_config.h file so that user can enable/disable
-  any functionality from this config file
-- Added misc folder to PMU Firmware
-- Added modularity of xilfpga and xilsecure features using compiler switches
-- Skip FPD power down when debugger is connected
-- Added Power Off Suspend to RAM feature
-- Use IPI-1 for callbacks/communication initiated by PMU Firmware to
-  other masters
-- Updated PM version to 1.0 to match with EEMI API version
-- Added support for resetting GPIO5 resets going to PL
-- Keeping OCM bank3 ON during suspend if wake on LAN is set
-- Added API to support secure single partition image
-- Sending PL_INIT status in PmGetChipid API response to indicate PL EFUSE is
-  loaded into EFUSE IPDISABLE or not
-- Polling for acknowledgment from AIB after isolation is enabled when
-  power domain or island is powered down
-- Checking all access regions present in pmAccessTable for finding vaild
-  permissions for MMIO read and write calls
-- Updated PM API IDs list in PMU Firmware with the new API IDs implemented
-  in EEMI
-- Updated xilfpga API calls in PMU Firmware with the latest version of
-  xilfpga library
-
 Changes for 2017.4
 ===============================
 
