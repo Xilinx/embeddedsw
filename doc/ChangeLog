@@ -67,6 +67,12 @@ Correct freertos version number.
 freertos_lwip_udp_perf_client and freertos_lwip_udp_perf_server:
 Added new SW apps for freertos UDP performance tests.
 
+hdcp1x_v4_2:
+Updated the XHdcp1x_PortDpRxEnable function to remove the
+XDp_RxSetIntrHdcpAksvWriteHandler, XDp_RxSetIntrHdcpBinfoReadHandler,
+and XDp_RxSetIntrHdcpRoReadHandler functions and replace them
+with the new XDp_TxSetCallback function.
+
 lwip202_v1_0:
 Upgrade to LWIP2.0.2 version
 Remove PPC references
