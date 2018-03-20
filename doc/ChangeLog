@@ -19,6 +19,10 @@ Use UINTPTR type for storing address.
 Use virtual addr for BD access in _UpdateBdRingCDesc().
 Extend AXI DMA examples to support data buffers above 4GB.
 
+dp_v7_0:
+Updated the drivers to optimize for size.
+Updated the drivers for DP1.4 support.
+
 i2stx_v1_0:
 Added initial version of Xilinx I2S Tx soft IP driver.
 
