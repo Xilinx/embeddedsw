@@ -23,6 +23,11 @@ dp_v7_0:
 Updated the drivers to optimize for size.
 Updated the drivers for DP1.4 support.
 
+dprxss_v5_0:
+Updated the code to to optimize for size.
+Added support for DP1.4.
+Added new examples for DP1.4.
+
 i2stx_v1_0:
 Added initial version of Xilinx I2S Tx soft IP driver.
 
