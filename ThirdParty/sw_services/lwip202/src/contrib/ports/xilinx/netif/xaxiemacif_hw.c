@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -55,14 +55,10 @@ void init_axiemac(xaxiemacif_s *xaxiemac, struct netif *netif)
 	unsigned link_speed = 1000;
 	unsigned options;
 	XAxiEthernet *xaxiemacp;
-	XAxiEthernet_Config *mac_config;
-
-	/* obtain config of this emac */
-	mac_config = xaxiemac_lookup_config(mac_address);
 
 	xaxiemacp = &xaxiemac->axi_ethernet;
 
-	XAxiEthernet_CfgInitialize(xaxiemacp, mac_config, mac_config->BaseAddress);
+	XAxiEthernet_Reset(xaxiemacp);
 
 	options = XAxiEthernet_GetOptions(xaxiemacp);
 	options |= XAE_FLOW_CONTROL_OPTION;
