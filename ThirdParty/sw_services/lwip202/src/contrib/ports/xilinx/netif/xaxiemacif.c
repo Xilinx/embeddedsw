@@ -364,8 +364,8 @@ static err_t low_level_init(struct netif *netif)
 	/* obtain config of this emac */
 	mac_config = xaxiemac_lookup_config((unsigned)(UINTPTR)netif->state);
 
-	XAxiEthernet_CfgInitialize(&xaxiemacif->axi_ethernet,
-		mac_config, mac_config->BaseAddress);
+	XAxiEthernet_Initialize(&xaxiemacif->axi_ethernet, mac_config,
+				mac_config->BaseAddress);
 
 	/* figure out if the system has DMA */
 	if (XAxiEthernet_IsDma(&xaxiemacif->axi_ethernet)) {
