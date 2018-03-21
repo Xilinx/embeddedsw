@@ -43,6 +43,19 @@ Added initial version of Xilinx I2S Rx soft IP driver.
 iicps_v3_6:
 Set Transfer size before slave address in MasterRecvPolled.
 
+resetps_v1_0
+-Added Initial version of the resetps driver for Ultrascale+ ZynqMPSoC
+-Added xresetps_example.c: Contains a list of peripherals to reset. List has
+ reset ID of the peripheral, a peripheral register, a value for that
+ register to be modified before reset and a reset value to validate
+ successful reset.
+-Change supported peripheral in mdd file from dummy ps7_resetps instance
+ to a valid psu_crf_apb and psu_crl_apb instance to allow SDK to
+ pull the drivers
+-Remove psu_crl_apb IP instance from mdd file.
+ Resetps driver is using both psu_crl_ap, psu_crf_apb  IP instances.
+ But one instance is enough to pull  the driver into the SDK.
+
 wdttb_4_3
 Added a function to program the width of Watchdog timer
 Updated doxygen tags
