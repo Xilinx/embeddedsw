@@ -90,6 +90,13 @@
 #define XPFW_ACCESS_ALLOWED 0x01U
 #define XPFW_ACCESS_DENIED	0x00U
 
+/*
+ * time in ms for checking psu init completion by FSBL
+ */
+#define CHECK_PSU_INIT_CONFIG	100U
+
+#define PSU_INIT_COMPLETION		1U
+
 /* Handler Table Structure */
 typedef void (*VoidFunction_t)(void);
 struct HandlerTable{

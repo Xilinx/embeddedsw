@@ -49,12 +49,6 @@ static XWdtPs WdtInst;
 static XWdtPs *WdtInstPtr = &WdtInst;
 
 /*
- * time in ms for checking psu init completion by FSBL
- */
-#define CHECK_PSU_INIT_CONFIG	100U
-
-#define PSU_INIT_STATUS	1U
-/*
  * WDT expire time in milliseconds.
  */
 #define XPFW_WDT_EXPIRE_TIME 90U
@@ -177,7 +171,7 @@ static void CheckPsuInitConfig(void)
 	s32 Status;
 	u32 PsuInitStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
 
-	if(PsuInitStatus == PSU_INIT_STATUS) {
+	if (PsuInitStatus == PSU_INIT_COMPLETION) {
 		InitCsuPmuWdt();
 		Status = XPfw_CoreRemoveTask(WdtModPtr, CHECK_PSU_INIT_CONFIG,
 				CheckPsuInitConfig);
@@ -185,7 +179,6 @@ static void CheckPsuInitConfig(void)
 			XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d):Removing WDT Cfg task failed.",
 							WdtModPtr->ModId);
 		}
-		XPfw_Write32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5, 0U);
 	}
 }
 
