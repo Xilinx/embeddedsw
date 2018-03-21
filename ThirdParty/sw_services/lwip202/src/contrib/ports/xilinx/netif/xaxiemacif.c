@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2001-2004 Swedish Institute of Computer Science.
+ * Copyright (C) 2010 - 2018 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -25,26 +25,6 @@
  * OF SUCH DAMAGE.
  *
  * This file is part of the lwIP TCP/IP stack.
- *
- * Author: Adam Dunkels <adam@sics.se>
- *
- */
-
-/*
- * Copyright (c) 2013-2017 Xilinx, Inc.  All rights reserved.
- *
- * Xilinx, Inc.
- * XILINX IS PROVIDING THIS DESIGN, CODE, OR INFORMATION "AS IS" AS A
- * COURTESY TO YOU.  BY PROVIDING THIS DESIGN, CODE, OR INFORMATION AS
- * ONE POSSIBLE   IMPLEMENTATION OF THIS FEATURE, APPLICATION OR
- * STANDARD, XILINX IS MAKING NO REPRESENTATION THAT THIS IMPLEMENTATION
- * IS FREE FROM ANY CLAIMS OF INFRINGEMENT, AND YOU ARE RESPONSIBLE
- * FOR OBTAINING ANY RIGHTS YOU MAY REQUIRE FOR YOUR IMPLEMENTATION.
- * XILINX EXPRESSLY DISCLAIMS ANY WARRANTY WHATSOEVER WITH RESPECT TO
- * THE ADEQUACY OF THE IMPLEMENTATION, INCLUDING BUT NOT LIMITED TO
- * ANY WARRANTIES OR REPRESENTATIONS THAT THIS IMPLEMENTATION IS FREE
- * FROM CLAIMS OF INFRINGEMENT, IMPLIED WARRANTIES OF MERCHANTABILITY
- * AND FITNESS FOR A PARTICULAR PURPOSE.
  *
  */
 
@@ -112,8 +92,12 @@ static err_t _unbuffered_low_level_output(xaxiemacif_s *xaxiemacif,
 	pbuf_header(p, -ETH_PAD_SIZE);			/* drop the padding word */
 #endif
 	if (XAxiEthernet_IsDma(&xaxiemacif->axi_ethernet)) {
-#ifndef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO
+#ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_DMA
 		status = axidma_sgsend(xaxiemacif, p);
+#endif
+	} else if (XAxiEthernet_IsMcDma(&xaxiemacif->axi_ethernet)) {
+#ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_MCDMA
+		status = axi_mcdma_sgsend(xaxiemacif, p);
 #endif
 	} else {
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO
@@ -369,7 +353,7 @@ static err_t low_level_init(struct netif *netif)
 
 	/* figure out if the system has DMA */
 	if (XAxiEthernet_IsDma(&xaxiemacif->axi_ethernet)) {
-#ifndef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO
+#ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_DMA
 		/* initialize the DMA engine */
 		init_axi_dma(xemac);
 #endif
@@ -378,9 +362,14 @@ static err_t low_level_init(struct netif *netif)
 		/* initialize the locallink FIFOs */
 		init_axi_fifo(xemac);
 #endif
+	} else if (XAxiEthernet_IsMcDma(&xaxiemacif->axi_ethernet)) {
+#ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_MCDMA
+		/* Initialize MCDMA engine */
+		init_axi_mcdma(xemac);
+#endif
 	} else {
 		/* should not occur */
-		LWIP_DEBUGF(NETIF_DEBUG, ("xaxiemacif_init: mac is not configured with DMA or FIFO\r\n"));
+		LWIP_DEBUGF(NETIF_DEBUG, ("xaxiemacif_init: mac is not configured with DMA, MCDMA or FIFO\r\n"));
 		return ERR_IF;
 	}
 
