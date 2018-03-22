@@ -173,6 +173,7 @@ Add support for Marker event source for DAC block.
 Fixed DAC latency calculation in MTS.
 Added support for reloading DTC scans.
 Add option to configure sysref capture after MTS.
+Update XRFdc_SetPLLConfig() API to correct PLL settings(PLL_CRS1, PLL_LPF1, PLL_CRS2).
 
 qspipsu_v1_7:
 Removed unsupported 4 byte write and sector erase
