@@ -18,11 +18,11 @@ proc vfrmbufrd_example args {
 
 		#create bsp
 		puts "Create BSP"
-		sdk createbsp -name vfrmbufrd_example_bsp -hwproject vfrmbufrd_example_hw_platform -proc microblaze_ss_microblaze_0 -os standalone
+		sdk createbsp -name vfrmbufrd_example_bsp -hwproject vfrmbufrd_example_hw_platform -proc processor_ss_processor -os standalone
 
 		#create application project
 		puts "Create Application Project"
-		sdk createapp -name vfrmbufrd_example_design -hwproject vfrmbufrd_example_hw_platform -proc microblaze_ss_microblaze_0 -os standalone -lang C -app {Empty Application} -bsp vfrmbufrd_example_bsp
+		sdk createapp -name vfrmbufrd_example_design -hwproject vfrmbufrd_example_hw_platform -proc processor_ss_processor -os standalone -lang C -app {Empty Application} -bsp vfrmbufrd_example_bsp
 
 		#copy example source files to app project
 		puts "Get Example Design Source Files"
