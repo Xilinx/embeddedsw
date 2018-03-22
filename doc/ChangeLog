@@ -366,22 +366,28 @@ Added support for NIST-SHA3 padding
 Added Boot header authentication
 Forcing encryption for all partitions when ENC_ONLY eFUSE bit is set
 Fixed AES KEY and IV re-use vulneribility issue
+Added support to exclude partition loading Added warning prints incase 
+PMU-FW is not running Added support for Macronix 1.8V flash Added 
+support to make FSBL wait for PMU to detect boot type Added support to 
+make FSBL indicate boot type detection to PMUFW Isolation fully enabled 
+in FSBL
+
 
 zynqmp_pmufw:
 - Using CSU WDT for PMU fail-safe mechanism instead of LPD WDT
 - Implemented idle hooks for nodes USB, DP and SATA
 - Added support for graceful forcepowerdown of PU to prevent any mid-flight
-  axi transactions from locking up the interconnect and hanging the device.
+axi transactions from locking up the interconnect and hanging the device.
 - Added wake on USB support to wakeup all masters for which USB is set as
-  wakeup source
+wakeup source
 - Corrected the timeout logic in node idling functions
 - Seperated FPD and PLD power supply check hooks to increase FPD power up
-  delay to 40ms(this is the maximum rampup time for FPD power rails)
+delay to 40ms(this is the maximum rampup time for FPD power rails)
 - Added GPO section to config object to get the initial state of PMU GPO's
-  and configure them in PMU Firmware
+and configure them in PMU Firmware
 - Using TTC instead of IPI interrupt from PMU to interrupt APU upon WDT event
 - Added all builds flags to xpfw_config.h file so that user can enable/disable
-  any functionality from this config file
+any functionality from this config file
 - Added misc folder to PMU Firmware
 - Added modularity of xilfpga and xilsecure features using compiler switches
 - Skip FPD power down when debugger is connected
