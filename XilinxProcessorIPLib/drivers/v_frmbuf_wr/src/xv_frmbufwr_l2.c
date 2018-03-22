@@ -12,10 +12,6 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * Use of the Software is limited solely to applications:
- * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -52,19 +48,26 @@
 * 3.00  vyc   04/04/18   Add interlaced support
 *                        Add new memory format BGR8
 *                        Add interrupt handler for ap_ready
+* 4.00  pv    11/10/18   Added flushing feature support in driver.
+*			 flush bit should be set and held (until reset) by
+*			 software to flush pending transactions.IP is expecting
+*			 a hard reset, when flushing is done.(There is a flush
+*			 status bit and is asserted when the flush is done).
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 #include <string.h>
+#include "sleep.h"
 #include "xv_frmbufwr_l2.h"
 
 /************************** Constant Definitions *****************************/
 #define XVFRMBUFWR_MIN_STRM_WIDTH            (64u)
 #define XVFRMBUFWR_MIN_STRM_HEIGHT           (64u)
 #define XVFRMBUFWR_IDLE_TIMEOUT              (1000000)
-
+#define XV_WAIT_FOR_FLUSH_DONE		         (25)
+#define XV_WAIT_FOR_FLUSH_DONE_TIMEOUT		 (2000)
 /************************** Function Prototypes ******************************/
 static void SetPowerOnDefaultState(XV_FrmbufWr_l2 *InstancePtr);
 XVidC_ColorFormat WrMemory2Live(XVidC_ColorFormat MemFmt);
@@ -271,20 +274,50 @@ void XVFrmbufWr_Start(XV_FrmbufWr_l2 *InstancePtr)
 *
 * @param  InstancePtr is a pointer to core instance to be worked upon
 *
-* @return none
+* @return XST_SUCCESS if the core is stop state
+*         XST_FAILURE if the core is not in stop state
 *
 ******************************************************************************/
 int XVFrmbufWr_Stop(XV_FrmbufWr_l2 *InstancePtr)
 {
-  int Status = XST_FAILURE;
-  u32 isIdle = 0;
+  int Status = XST_SUCCESS;
   u32 cnt = 0;
+  u32 Data = 0;
 
   Xil_AssertNonvoid(InstancePtr != NULL);
 
   /* Clear autostart bit */
   XV_frmbufwr_DisableAutoRestart(&InstancePtr->FrmbufWr);
 
+  /* Flush the core bit */
+  XV_frmbufwr_SetFlushbit(&InstancePtr->FrmbufWr);
+
+  do {
+    Data = XV_frmbufwr_Get_FlushDone(&InstancePtr->FrmbufWr);
+    usleep(XV_WAIT_FOR_FLUSH_DONE_TIMEOUT);
+    cnt++;
+  } while((Data == 0) && (cnt < XV_WAIT_FOR_FLUSH_DONE));
+
+  if (Data == 0)
+        Status = XST_FAILURE;
+
+  return(Status);
+}
+/*****************************************************************************/
+/**
+* This function Waits for the core to reach idle state
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+*
+* @return XST_SUCCESS if the core is in idle state
+*         XST_FAILURE if the core is not in idle state
+*
+******************************************************************************/
+int XVFrmbufWr_WaitForIdle(XV_FrmbufWr_l2 *InstancePtr)
+{
+  int Status = XST_FAILURE;
+  u32 isIdle = 0;
+  u32 cnt = 0;
   /* Wait for idle */
   do {
     isIdle = XV_frmbufwr_IsIdle(&InstancePtr->FrmbufWr);
@@ -294,9 +327,9 @@ int XVFrmbufWr_Stop(XV_FrmbufWr_l2 *InstancePtr)
   if (isIdle == 1 ) {
      Status = XST_SUCCESS;
   }
-  return(Status);
-}
 
+  return Status;
+}
 /*****************************************************************************/
 /**
 * This function configures the frame buffer write memory output
