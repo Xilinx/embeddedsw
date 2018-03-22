@@ -38,6 +38,6 @@ BEGIN driver v_frmbuf_wr
  OPTION copyfiles = all;
  OPTION DEPENDS = (video_common);
  OPTION name = v_frmbuf_wr;
- OPTION version = 2.0;
+ OPTION version = 3.0;
 
 END driver
