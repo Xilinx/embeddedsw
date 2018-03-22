@@ -49,6 +49,7 @@
 *			 software to flush pending transactions.IP is expecting
 *			 a hard reset, when flushing is done.(There is a flush
 *			 status bit and is asserted when the flush is done).
+* 4.10  vv    02/05/19   Added new pixel formats with 12 and 16 bpc.
 * </pre>
 *
 ******************************************************************************/
@@ -80,7 +81,7 @@
 #define FRMBUF_IDLE_TIMEOUT (1000000)
 
 #define NUM_TEST_MODES 4
-#define NUM_TEST_FORMATS 16
+#define NUM_TEST_FORMATS 26
 
 #define CHROMA_ADDR_OFFSET   (0x01000000U)
 
@@ -105,11 +106,21 @@ VideoFormats ColorFormats[NUM_TEST_FORMATS] =
   {XVIDC_CSF_MEM_YUV8,       XVIDC_CSF_YCRCB_444, 8},
   {XVIDC_CSF_MEM_Y_UV10,     XVIDC_CSF_YCRCB_422, 10},
   {XVIDC_CSF_MEM_Y_UV10_420, XVIDC_CSF_YCRCB_420, 10},
-  {XVIDC_CSF_MEM_Y8,         XVIDC_CSF_YCRCB_444, 8},
-  {XVIDC_CSF_MEM_Y10,        XVIDC_CSF_YCRCB_444, 10},
+  {XVIDC_CSF_MEM_Y8,         XVIDC_CSF_YONLY, 8},
+  {XVIDC_CSF_MEM_Y10,        XVIDC_CSF_YONLY, 10},
   {XVIDC_CSF_MEM_BGRX8,      XVIDC_CSF_RGB,       8},
   {XVIDC_CSF_MEM_UYVY8,      XVIDC_CSF_YCRCB_422, 8},
-  {XVIDC_CSF_MEM_BGR8,       XVIDC_CSF_RGB,       8}
+  {XVIDC_CSF_MEM_BGR8,       XVIDC_CSF_RGB,       8},
+  {XVIDC_CSF_MEM_RGBX12,     XVIDC_CSF_RGB,       12},
+  {XVIDC_CSF_MEM_RGB16,      XVIDC_CSF_RGB,       16},
+  {XVIDC_CSF_MEM_YUVX12,     XVIDC_CSF_YCRCB_444, 12},
+  {XVIDC_CSF_MEM_YUV16,      XVIDC_CSF_YCRCB_444, 16},
+  {XVIDC_CSF_MEM_Y_UV12,     XVIDC_CSF_YCRCB_422, 12},
+  {XVIDC_CSF_MEM_Y_UV16,     XVIDC_CSF_YCRCB_422, 16},
+  {XVIDC_CSF_MEM_Y_UV12_420, XVIDC_CSF_YCRCB_420, 12},
+  {XVIDC_CSF_MEM_Y_UV16_420, XVIDC_CSF_YCRCB_420, 16},
+  {XVIDC_CSF_MEM_Y12,        XVIDC_CSF_YONLY, 12},
+  {XVIDC_CSF_MEM_Y16,        XVIDC_CSF_YONLY, 16}
 };
 
 XV_FrmbufRd_l2     frmbufrd;
@@ -366,26 +377,60 @@ static u32 CalcStride(XVidC_ColorFormat Cfmt,
   u32 stride;
   int width = StreamPtr->Timing.HActive;
   u16 MMWidthBytes = AXIMMDataWidth/8;
+  u8 bpp_numerator;
+  u8 bpp_denominator = 1;
 
-  if ((Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)
-      || (Cfmt == XVIDC_CSF_MEM_Y10)) {
-    // 4 bytes per 3 pixels (Y_UV10, Y_UV10_420, Y10)
-    stride = ((((width*4)/3)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
+  switch (Cfmt) {
+    case XVIDC_CSF_MEM_Y_UV10:
+    case XVIDC_CSF_MEM_Y_UV10_420:
+    case XVIDC_CSF_MEM_Y10:
+      /* 4 bytes per 3 pixels (Y_UV10, Y_UV10_420, Y10) */
+      bpp_numerator = 4;
+      bpp_denominator = 3;
+      break;
+    case XVIDC_CSF_MEM_Y_UV8:
+    case XVIDC_CSF_MEM_Y_UV8_420:
+    case  XVIDC_CSF_MEM_Y8:
+      /* 1 byte per pixel (Y_UV8, Y_UV8_420, Y8) */
+      bpp_numerator = 1;
+      break;
+    case XVIDC_CSF_MEM_RGB8:
+    case  XVIDC_CSF_MEM_YUV8:
+    case XVIDC_CSF_MEM_BGR8:
+      /* 3 bytes per pixel (RGB8, YUV8, BGR8) */
+      bpp_numerator = 3;
+      break;
+    case XVIDC_CSF_MEM_RGBX12:
+    case  XVIDC_CSF_MEM_YUVX12:
+      /* 5 bytes per pixel (RGBX12, YUVX12) */
+      bpp_numerator = 5;
+      break;
+    case XVIDC_CSF_MEM_Y_UV12:
+    case  XVIDC_CSF_MEM_Y_UV12_420:
+    case XVIDC_CSF_MEM_Y12:
+      /* 3 bytes per 2 pixels (Y_UV12, Y_UV12_420, Y12) */
+      bpp_numerator = 3;
+      bpp_denominator = 2;
+      break;
+    case XVIDC_CSF_MEM_RGB16:
+    case XVIDC_CSF_MEM_YUV16:
+      /* 6 bytes per pixel (RGB16, YUV16) */
+      bpp_numerator = 6;
+      break;
+    case XVIDC_CSF_MEM_YUYV8:
+    case XVIDC_CSF_MEM_UYVY8:
+    case XVIDC_CSF_MEM_Y_UV16:
+    case XVIDC_CSF_MEM_Y_UV16_420:
+    case XVIDC_CSF_MEM_Y16:
+      /* 2 bytes per pixel (YUYV8, UYVY8, Y_UV16, Y_UV16_420, Y16) */
+      bpp_numerator = 2;
+      break;
+    default:
+      /* 4 bytes per pixel */
+      bpp_numerator = 4;
   }
-  else if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420)
-           || (Cfmt == XVIDC_CSF_MEM_Y8)) {
-    // 1 byte per pixel (Y_UV8, Y_UV8_420, Y8)
-    stride = ((width+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
-  }
-  else if ((Cfmt == XVIDC_CSF_MEM_RGB8) || (Cfmt == XVIDC_CSF_MEM_YUV8)
-           || (Cfmt == XVIDC_CSF_MEM_BGR8)) {
-    // 3 bytes per pixel (RGB8, YUV8, BGR8)
-     stride = (((width*3)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
-  }
-  else {
-    // 4 bytes per pixel
-    stride = (((width*4)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
-  }
+  stride = ((((width * bpp_numerator) / bpp_denominator) +
+    MMWidthBytes - 1) / MMWidthBytes) * MMWidthBytes;
 
   return(stride);
 }
@@ -425,10 +470,17 @@ static int ConfigFrmbuf(u32 StrideInBytes,
 
   /* Set Chroma Buffer Address for semi-planar color formats */
   if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420) ||
-      (Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)) {
+      (Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420) ||
+      (Cfmt == XVIDC_CSF_MEM_Y_UV12) || (Cfmt == XVIDC_CSF_MEM_Y_UV12_420) ||
+      (Cfmt == XVIDC_CSF_MEM_Y_UV16) || (Cfmt == XVIDC_CSF_MEM_Y_UV16_420)) {
     Status = XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
     if(Status != XST_SUCCESS) {
       xil_printf("ERROR:: Unable to configure Frame Buffer Read chroma buffer address\r\n");
+      return(XST_FAILURE);
+    }
+    Status = XVFrmbufWr_SetChromaBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
+    if(Status != XST_SUCCESS) {
+      xil_printf("ERROR:: Unable to configure Frame Buffer Write chroma buffer address\r\n");
       return(XST_FAILURE);
     }
   }
@@ -443,16 +495,6 @@ static int ConfigFrmbuf(u32 StrideInBytes,
   if(Status != XST_SUCCESS) {
     xil_printf("ERROR:: Unable to configure Frame Buffer Write buffer address\r\n");
     return(XST_FAILURE);
-  }
-
-  /* Set Chroma Buffer Address for semi-planar color formats */
-  if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420) ||
-      (Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)) {
-    Status = XVFrmbufWr_SetChromaBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
-    if(Status != XST_SUCCESS) {
-      xil_printf("ERROR:: Unable to configure Frame Buffer Write chroma buffer address\r\n");
-      return(XST_FAILURE);
-    }
   }
 
   /* Enable Interrupt */
@@ -491,10 +533,16 @@ static int ValidateTestCase(u16 PixPerClk,
     valid_mode = 1;
   }
 
-  if (DataWidth==10) {
+  if (DataWidth == 16 && Format.FormatBits <= 16) {
       //all Memory Video Formats supported
       valid_format = TRUE;
-  } else if (DataWidth==8 && Format.FormatBits==8) {
+  } else if (DataWidth == 12 && Format.FormatBits <= 12) {
+      //only 12-bit 10-bit and 8-bit Memory Video Formats supported
+      valid_format = TRUE;
+  } else if (DataWidth == 10 && Format.FormatBits <= 10) {
+      //only 10-bit and 8-bit Memory Video Formats supported
+      valid_format = TRUE;
+  } else if (DataWidth == 8 && Format.FormatBits == 8) {
       //only 8-bit Memory Video Formats supported
       valid_format = TRUE;
   } else {
