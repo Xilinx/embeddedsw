@@ -161,27 +161,27 @@ int XI2s_Tx_SelfTest(XI2s_Tx *InstancePtr)
 	 * I2S data width and if the I2S Transmitter is master or not.
 	 */
 	I2s_Tx_IsMaster = XI2s_Tx_IsI2sMaster(InstancePtr);
-	if (I2s_Tx_IsMaster != XPAR_I2S_TRANSMITTER_0_IS_MASTER)
+	if (I2s_Tx_IsMaster != XPAR_XI2STX_0_IS_MASTER)
 		return XST_FAILURE;
 
 	I2s_Tx_MaxNumChannels = XI2s_Tx_GetMaxChannels(InstancePtr);
-	if (I2s_Tx_MaxNumChannels != (2*XPAR_I2S_TRANSMITTER_0_NUM_CHANNELS)) {
+	if (I2s_Tx_MaxNumChannels != (2*XPAR_XI2STX_0_NUM_CHANNELS)) {
 		xil_printf("Num of channels configured "
 				"in the core in the core_cfg (%d) "
 				"doesn't match the configuration of the "
 				"core in the design (%d).\r\n",
 				I2s_Tx_MaxNumChannels,
-				(2*XPAR_I2S_TRANSMITTER_0_NUM_CHANNELS));
+				(2*XPAR_XI2STX_0_NUM_CHANNELS));
 		return XST_FAILURE;
 	}
 
 	I2s_Tx_DWidth = XI2s_Tx_GetXI2sDataWidth(InstancePtr);
-	if (I2s_Tx_DWidth != XPAR_I2S_TRANSMITTER_0_DWIDTH) {
+	if (I2s_Tx_DWidth != XPAR_XI2STX_0_DWIDTH) {
 		xil_printf("Data Width configured "
 				"in the core in the core_cfg (%d) "
 				"doesn't match the configuration of the "
 				"core in the design (%d).\r\n", I2s_Tx_DWidth,
-				XPAR_I2S_TRANSMITTER_0_DWIDTH);
+				XPAR_XI2STX_0_DWIDTH);
 		return XST_FAILURE;
 	}
 	return Status;
