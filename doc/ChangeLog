@@ -48,6 +48,11 @@ v_sdirx_v1_2
 Infer video mode based on ST352 registers.
 Added support for YUV420 color format.
 
+sdiaud_v1_0
+Added initial version of SDI Audio Embed and Extract driver.
+
+spdif_v1_0
+Added initial version of SPDIF TX and RX driver.
 
 axicdma_v4_4:
 Extend AXI CDMA examples to support data buffers above 4GB.
@@ -213,6 +218,12 @@ Updated get_connected_if proc in standalone tcl to detect the HPC
 port configured with smart interconnect. It fixes CR#990318.
 Updated the csu_wdt interupt to the correct value. Fixes CR#992229.
 Fix for heap handling in ARM platforms. Fixes CR#993932.
+Updated Xil_DCacheInvalidateRange and
+Xil_ICacheInvalidateRange APIs in Cortexa53 64 bit BSP, to fix  bug in 
+handling upper DDR addresses.It fixes CR#995581.
+Updated makefile of Cortexa53 32bit BSP to add includes_ps directory in 
+the list of include paths. This change allows applications/BSP files to 
+include .h files in include_ps directory.
 Updated Cortex R5 BSP to add new mld parameter "lockstep_mode_debug",
 to enable/disable debug logic in non-JTAG boot mode, when processor
 is in lockstep configuration. By default, value of this parameter
