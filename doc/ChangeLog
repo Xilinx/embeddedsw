@@ -1,8 +1,25 @@
 Changes for 2018.1
 ===============================
+v_hdmi_common_v1_0
+Initial release of HDMI Common Library
+
+csi2txss_v1_2
+Add Frame End Generation feature
+
+csi2tx_v1_1
+Add Frame End Generation feature
+
 video_common_v4_3:
 Added new color space format XVIDC_CSF_YCBCR_420 to support UHDSDI
 Tx/Rx soft IPs
+
+dptxss_v6_0:
+Updated the code to optimize the code for size.
+Added support for DP1.4.
+Added DP1.4 example designs.
+
+i2stx_v1_0:
+Added initial version of Xilinx I2S Tx soft IP driver.
 
 mcdma_v1_1:
 Added failure checks in the tcl to avoid bsp compilation errors incase
@@ -10,6 +27,27 @@ stream interface is unconnected.
 Updated tcl logic to export proper values for CACHE_COHERENT properties
 when h/w is configured for single axi4 data interface.
 Fix unused variable warning.
+
+v_sditxss_v2_0
+Added support for YUV420 color format.
+Added support for scalable options.
+Added new API for core settings.
+
+v_sditx_v1_2
+Fixed payload calculation API for 3GB mode.
+Added support for YUV420 color format.
+
+v_sdirxss_v2_0
+Added support for YUV420 color format.
+Added kcu116 example design application.
+Added support for scalable options.
+Updated zcu106 example design to add audio support, remove the wait for 
+payload register read, support for fractional frame rate.
+
+v_sdirx_v1_2
+Infer video mode based on ST352 registers.
+Added support for YUV420 color format.
+
 
 axicdma_v4_4:
 Extend AXI CDMA examples to support data buffers above 4GB.
@@ -40,15 +78,15 @@ Set Transfer size before slave address in MasterRecvPolled.
 resetps_v1_0
 -Added Initial version of the resetps driver for Ultrascale+ ZynqMPSoC
 -Added xresetps_example.c: Contains a list of peripherals to reset. List has
- reset ID of the peripheral, a peripheral register, a value for that
- register to be modified before reset and a reset value to validate
- successful reset.
+reset ID of the peripheral, a peripheral register, a value for that
+register to be modified before reset and a reset value to validate
+successful reset.
 -Change supported peripheral in mdd file from dummy ps7_resetps instance
- to a valid psu_crf_apb and psu_crl_apb instance to allow SDK to
- pull the drivers
+to a valid psu_crf_apb and psu_crl_apb instance to allow SDK to
+pull the drivers
 -Remove psu_crl_apb IP instance from mdd file.
- Resetps driver is using both psu_crl_ap, psu_crf_apb  IP instances.
- But one instance is enough to pull  the driver into the SDK.
+Resetps driver is using both psu_crl_ap, psu_crf_apb  IP instances.
+But one instance is enough to pull  the driver into the SDK.
 
 wdttb_4_3
 Added a function to program the width of Watchdog timer
