@@ -1,4 +1,3 @@
-// d52cbaca0ef8cf4fd3d6354deb5066970fb6511d02d18d15835e6014ed847fb0
 /*******************************************************************************
  *
  * Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
@@ -46,26 +45,38 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  vyc   04/05/17   Initial Release
 * 2.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
-                         Add new memory formats BGRX8 and UYVY8
+*                        Add new memory formats BGRX8 and UYVY8
+* 3.00  vyc   04/04/18   Add support for ZCU102, ZCU104, ZCU106
+*                        Add new memory format BGR8
 * </pre>
 *
 ******************************************************************************/
 
 #include "xparameters.h"
 #include "platform.h"
-#include "microblaze_sleep.h"
+#include "sleep.h"
 #include "xv_frmbufrd_l2.h"
 #include "xvidc.h"
 #include "xvtc.h"
+#if defined (__MICROBLAZE__)
 #include "xintc.h"
+#else
+#include "xscugic.h"
+#endif
 #include "xgpio.h"
 
-#define XVFRMBUFRD_BUFFER_BASEADDR      (XPAR_MIG7SERIES_0_BASEADDR + (0x20000000))
+#if defined(__MICROBLAZE__)
+#define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
+#else
+#define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
+#endif
+
+#define XVFRMBUFRD_BUFFER_BASEADDR (DDR_BASEADDR + (0x20000000))
 
 #define VIDEO_MONITOR_LOCK_TIMEOUT (1000000)
 
 #define NUM_TEST_MODES 4
-#define NUM_TEST_FORMATS 15
+#define NUM_TEST_FORMATS 16
 
 #define CHROMA_ADDR_OFFSET   (0x01000000U)
 
@@ -93,12 +104,17 @@ VideoFormats ColorFormats[NUM_TEST_FORMATS] =
   {XVIDC_CSF_MEM_Y8,         XVIDC_CSF_YCRCB_444, 8},
   {XVIDC_CSF_MEM_Y10,        XVIDC_CSF_YCRCB_444, 10},
   {XVIDC_CSF_MEM_BGRX8,      XVIDC_CSF_RGB,       8},
-  {XVIDC_CSF_MEM_UYVY8,      XVIDC_CSF_YCRCB_422, 8}
+  {XVIDC_CSF_MEM_UYVY8,      XVIDC_CSF_YCRCB_422, 8},
+  {XVIDC_CSF_MEM_BGR8,       XVIDC_CSF_RGB,       8}
 };
 XV_FrmbufRd_l2     frmbufrd;
 XV_frmbufrd_Config frmbufrd_cfg;
 XVtc       vtc;
+#if defined (__MICROBLAZE__)
 XIntc      intc;
+#else
+XScuGic    intc;
+#endif
 XGpio      vmon;
 
 XVidC_VideoStream VidStream;
@@ -122,8 +138,8 @@ static u32 CalcStride(XVidC_ColorFormat Cfmt,
                       u16 AXIMMDataWidth,
                       XVidC_VideoStream *StreamPtr);
 static int ConfigFrmbuf(u32 StrideInBytes,
-                         XVidC_ColorFormat Cfmt,
-                         XVidC_VideoStream *StreamPtr);
+                        XVidC_ColorFormat Cfmt,
+                        XVidC_VideoStream *StreamPtr);
 static void ConfigVtc(XVidC_VideoStream *StreamPtr);
 static int ValidateTestCase(u16 PixPerClk,
                             XVidC_VideoMode Mode,
@@ -140,11 +156,13 @@ static int CheckVidoutLock(void);
  *****************************************************************************/
 static int SetupInterrupts(void)
 {
+#if defined(__MICROBLAZE__)
   int Status;
   XIntc *IntcPtr = &intc;
 
   /* Initialize the Interrupt controller */
-  Status = XIntc_Initialize(IntcPtr, XPAR_MICROBLAZE_SS_AXI_INTC_0_DEVICE_ID);
+  Status = XIntc_Initialize(IntcPtr,
+                            XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_DEVICE_ID);
   if(Status != XST_SUCCESS) {
     xil_printf("ERROR:: Interrupt controller device not found\r\n");
     return(XST_FAILURE);
@@ -152,7 +170,7 @@ static int SetupInterrupts(void)
 
   /* Hook up interrupt service routine */
   Status = XIntc_Connect(IntcPtr,
-                         XPAR_MICROBLAZE_SS_AXI_INTC_0_V_FRMBUF_RD_0_INTERRUPT_INTR,
+                         XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_V_FRMBUF_RD_0_INTERRUPT_INTR,
                          (XInterruptHandler)XVFrmbufRd_InterruptHandler,
                          &frmbufrd);
   if (Status != XST_SUCCESS) {
@@ -162,7 +180,7 @@ static int SetupInterrupts(void)
 
   /* Enable the interrupt vector at the interrupt controller */
   XIntc_Enable(IntcPtr,
-               XPAR_MICROBLAZE_SS_AXI_INTC_0_V_FRMBUF_RD_0_INTERRUPT_INTR);
+               XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_V_FRMBUF_RD_0_INTERRUPT_INTR);
 
   /*
    * Start the interrupt controller such that interrupts are recognized
@@ -173,6 +191,44 @@ static int SetupInterrupts(void)
     xil_printf("ERROR:: Failed to start interrupt controller\r\n");
     return XST_FAILURE;
   }
+
+#else
+  int Status;
+  XScuGic *IntcPtr = &intc;
+
+  /* Initialize the Interrupt controller */
+  XScuGic_Config *IntcCfgPtr;
+  IntcCfgPtr = XScuGic_LookupConfig(XPAR_PSU_ACPU_GIC_DEVICE_ID);
+  if(IntcCfgPtr == NULL)
+  {
+    print("ERR:: Interrupt Controller not found");
+    return (XST_DEVICE_NOT_FOUND);
+  }
+  Status = XScuGic_CfgInitialize(IntcPtr,
+                                 IntcCfgPtr,
+                                 IntcCfgPtr->CpuBaseAddress);
+  if (Status != XST_SUCCESS) {
+    xil_printf("Intc initialization failed!\r\n");
+    return XST_FAILURE;
+  }
+
+  /* Hook up interrupt service routine */
+  Status |= XScuGic_Connect(IntcPtr,
+                            XPAR_FABRIC_V_FRMBUF_RD_0_INTERRUPT_INTR,
+                            (XInterruptHandler)XVFrmbufRd_InterruptHandler,
+                            (void *)&frmbufrd);
+  Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+                               (Xil_ExceptionHandler) XScuGic_InterruptHandler,
+                               IntcPtr);
+  if (Status != XST_SUCCESS) {
+    xil_printf("ERR:: Frame Buffer Read interrupt connect failed!\r\n");
+    return XST_FAILURE;
+  }
+
+  /* Enable the interrupt vector at the interrupt controller */
+  XScuGic_Enable(IntcPtr, XPAR_FABRIC_V_FRMBUF_RD_0_INTERRUPT_INTR);
+
+#endif
 
   return(XST_SUCCESS);
 }
@@ -281,8 +337,9 @@ static u32 CalcStride(XVidC_ColorFormat Cfmt,
     // 1 byte per pixel (Y_UV8, Y_UV8_420, Y8)
     stride = ((width+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
   }
-  else if ((Cfmt == XVIDC_CSF_MEM_RGB8) || (Cfmt == XVIDC_CSF_MEM_YUV8)) {
-    // 3 bytes per pixel (RGB8, YUV8)
+  else if ((Cfmt == XVIDC_CSF_MEM_RGB8) || (Cfmt == XVIDC_CSF_MEM_YUV8)
+           || (Cfmt == XVIDC_CSF_MEM_BGR8)) {
+    // 3 bytes per pixel (RGB8, YUV8, BGR8)
     stride = (((width*3)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
   }
   else {
@@ -333,7 +390,7 @@ static int ConfigFrmbuf(u32 StrideInBytes,
   }
 
   /* Enable Interrupt */
-  XVFrmbufRd_InterruptEnable(&frmbufrd);
+  XVFrmbufRd_InterruptEnable(&frmbufrd, XVFRMBUFRD_IRQ_DONE_MASK);
 
   /* Start Frame Buffers */
   XVFrmbufRd_Start(&frmbufrd);
