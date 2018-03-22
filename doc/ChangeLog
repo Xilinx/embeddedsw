@@ -93,7 +93,7 @@ pull the drivers
 Resetps driver is using both psu_crl_ap, psu_crf_apb  IP instances.
 But one instance is enough to pull  the driver into the SDK.
 
-wdttb_4_3
+wdttb_v4_3
 Added a function to program the width of Watchdog timer
 Updated doxygen tags
 
