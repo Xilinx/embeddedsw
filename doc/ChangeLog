@@ -8,6 +8,9 @@ Added support for ISSI 256Mb series flash parts.
 
 Changes for 2018.1
 ===============================
+v_hdmi_common_v1_0
+Initial release of HDMI Common Library
+
 csi2txss_v1_2
 Add Frame End Generation feature
 
