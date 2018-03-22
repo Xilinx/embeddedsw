@@ -1927,6 +1927,15 @@ extern "C" {
 
 /* @} */
 
+/** @name PLL_CRS1 - PLL CRS1 register
+ *
+ * This register contains bits for VCO sel_auto, VCO band selection etc.,
+ * @{
+ */
+
+#define XRFDC_PLL_CRS1_VCO_SEL_MASK		0x00008001U /**< VCO SEL Mask */
+
+/* @} */
 
 #define XRFDC_IXR_FIFOUSRDAT_MASK			0x0000000FU
 #define XRFDC_IXR_FIFOUSRDAT_OF_MASK		0x00000001U
