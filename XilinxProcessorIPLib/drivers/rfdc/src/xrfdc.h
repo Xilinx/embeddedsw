@@ -142,6 +142,7 @@
 *       jm     03/12/18 Fixed DAC latency calculation in MTS.
 *       jm     03/12/18 Added support for reloading DTC scans.
 *       jm     03/12/18 Add option to configure sysref capture after MTS.
+*       sk     03/22/18 Updated PLL settings based on latest IP values.
 *
 * </pre>
 *
@@ -598,6 +599,10 @@ typedef struct {
 #define PLL_DIVIDER_MAX			130U
 #define VCO_RANGE_MIN			8500U
 #define VCO_RANGE_MAX			12800U
+#define XRFDC_PLL_LPF1_VAL		0x6U
+#define XRFDC_PLL_CRS2_VAL		0x7008U
+#define XRFDC_VCO_UPPER_BAND	0x0U
+#define XRFDC_VCO_LOWER_BAND	0x1U
 
 #define XRFDC_SINGLEBAND_MODE		0x1
 #define XRFDC_MULTIBAND_MODE_2X		0x2

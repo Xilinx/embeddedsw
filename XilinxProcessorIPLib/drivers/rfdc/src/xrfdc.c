@@ -97,6 +97,7 @@
 *                       input datatype for ADC in threshold and QMC APIs.
 *       sk     03/09/18 Removed FIFO disable check in DDC and DUC APIs.
 *       sk     03/09/18 Add support for Marker event source for DAC block.
+*       sk     03/22/18 Updated PLL settings based on latest IP values.
 * </pre>
 *
 ******************************************************************************/
@@ -5649,6 +5650,7 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 	u32 DivideValue = 0x0U;
 	u32 PllFreqIndex = 0x0U;
 	u32 FbDivIndex = 0x0U;
+	u8 VCOBand = XRFDC_VCO_UPPER_BAND;
 
 	/*
 	 * Sweep valid integer values of FeedbackDiv(N) and record a list
@@ -5747,14 +5749,9 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_DIVIDER0, ReadReg);
 
 		/*
-		 * Enable automatic selection of the VCO
-		 */
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_CRS1, 0xFA3F);
-
-		/*
 		 * Enable fine sweep
 		 */
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_CRS2, 0x7004);
+		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_CRS2, XRFDC_PLL_CRS2_VAL);
 
 		/*
 		 * Set default PLL spare inputs LSB
@@ -5776,6 +5773,7 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			} else if(Best_FeedbackDiv < 30U) {
 				FbDivIndex = 1U;
 			}
+			VCOBand = XRFDC_VCO_LOWER_BAND;
 		} else if(PllFreq < 10070U) {
 			PllFreqIndex = 1U;
 			FbDivIndex = 2U;
@@ -5784,6 +5782,7 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			} else if(Best_FeedbackDiv < 30U) {
 				FbDivIndex = 1U;
 			}
+			VCOBand = XRFDC_VCO_LOWER_BAND;
 		} else if(PllFreq < 10690U) {
 			PllFreqIndex = 2U;
 			FbDivIndex = 3U;
@@ -5794,6 +5793,7 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			} else if(Best_FeedbackDiv < 35U) {
 				FbDivIndex = 2U;
 			}
+			VCOBand = XRFDC_VCO_LOWER_BAND;
 		} else if(PllFreq < 10990U) {
 			PllFreqIndex = 3U;
 			FbDivIndex = 3U;
@@ -5804,6 +5804,7 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			} else if(Best_FeedbackDiv < 38U) {
 				FbDivIndex = 2U;
 			}
+			VCOBand = XRFDC_VCO_LOWER_BAND;
 		} else if(PllFreq < 11430U) {
 			PllFreqIndex = 4U;
 			FbDivIndex = 3U;
@@ -5814,6 +5815,7 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			} else if(Best_FeedbackDiv < 38U) {
 				FbDivIndex = 2U;
 			}
+			VCOBand = XRFDC_VCO_UPPER_BAND;
 		} else if(PllFreq < 12040U) {
 			PllFreqIndex = 5U;
 			FbDivIndex = 3U;
@@ -5824,6 +5826,7 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			} else if(Best_FeedbackDiv < 40U) {
 				FbDivIndex = 2U;
 			}
+			VCOBand = XRFDC_VCO_UPPER_BAND;
 		} else if(PllFreq < 12530U) {
 			PllFreqIndex = 6U;
 			FbDivIndex = 3U;
@@ -5834,6 +5837,7 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			} else if(Best_FeedbackDiv < 42U) {
 				FbDivIndex = 2U;
 			}
+			VCOBand = XRFDC_VCO_UPPER_BAND;
 		} else if(PllFreq < 20000U) {
 			PllFreqIndex = 7U;
 			FbDivIndex = 2U;
@@ -5846,7 +5850,16 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			} else if(Best_FeedbackDiv < 39U) {
 				FbDivIndex = 1U;
 			}
+			VCOBand = XRFDC_VCO_UPPER_BAND;
 		}
+
+		/*
+		 * Disable automatic selection of the VCO
+		 */
+		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_PLL_CRS1);
+		ReadReg &= ~XRFDC_PLL_CRS1_VCO_SEL_MASK;
+		ReadReg |= VCOBand;
+		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_CRS1, ReadReg);
 
 		/*
 		 * PLL bits for loop filters LSB
@@ -5857,7 +5870,7 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		/*
 		 * PLL bits for loop filters MSB
 		 */
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_LPF1, 0x7);
+		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_LPF1, XRFDC_PLL_LPF1_VAL);
 
 		/*
 		 * Set PLL bits for charge pumps
