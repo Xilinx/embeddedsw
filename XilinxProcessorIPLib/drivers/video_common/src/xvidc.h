@@ -74,6 +74,7 @@
  *       aad  09/05/17 Add XVIDC_VM_1366x768_60_P_RB resolution
  * 4.3   eb   26/01/18 Added API XVidC_GetVideoModeIdExtensive
  *       jsr  02/22/18 Added XVIDC_CSF_YCBCR_420 color space format
+ *       vyc  04/04/18 Added BGR8 memory format
  * </pre>
  *
 *******************************************************************************/
@@ -388,6 +389,7 @@ typedef enum {
 	XVIDC_CSF_MEM_BGRA8,        // [31:0] A:R:G:B 8:8:8:8
 	XVIDC_CSF_MEM_BGRX8,        // [31:0] X:R:G:B 8:8:8:8
 	XVIDC_CSF_MEM_UYVY8,        // [31:0] Y:V:Y:U 8:8:8:8
+	XVIDC_CSF_MEM_BGR8,         // [23:0] R:G:B 8:8:8
 	XVIDC_CSF_MEM_END,          // End of memory formats
 
 	/* Streaming formats with components re-ordered */

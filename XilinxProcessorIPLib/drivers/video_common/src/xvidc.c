@@ -66,6 +66,7 @@
  *       vyc  10/04/17 Added new streaming alpha formats and new memory formats
  * 4.3   eb   26/01/18 Added API XVidC_GetVideoModeIdExtensive
  *       jsr  02/22/18 Added XVIDC_CSF_YCBCR_420 color space format
+ *       vyc  04/04/18 Added BGR8 memory format
  * </pre>
  *
 *******************************************************************************/
@@ -838,6 +839,7 @@ const char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId)
 		case XVIDC_CSF_MEM_BGRA8:      return ("BGRA8");
 		case XVIDC_CSF_MEM_BGRX8:      return ("BGRX8");
 		case XVIDC_CSF_MEM_UYVY8:      return ("UYVY8");
+		case XVIDC_CSF_MEM_BGR8:       return ("BGR8");
 		case XVIDC_CSF_YCBCR_422:      return ("YCBCR_422");
 		case XVIDC_CSF_YCBCR_420:      return ("YCBCR_420");
 		default:
