@@ -189,6 +189,25 @@ u64 XV_frmbufrd_Get_HwReg_frm_buffer2_V(XV_frmbufrd *InstancePtr) {
     return Data;
 }
 
+void XV_frmbufrd_Set_HwReg_field_id(XV_frmbufrd *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+    Xil_AssertVoid(InstancePtr->Config.Interlaced);
+
+    XV_frmbufrd_WriteReg(InstancePtr->Config.BaseAddress, XV_FRMBUFRD_CTRL_ADDR_HWREG_FIELD_ID_DATA, Data);
+}
+
+u32 XV_frmbufrd_Get_HwReg_field_id(XV_frmbufrd *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+    Xil_AssertVoid(InstancePtr->Config.Interlaced);
+
+    Data = XV_frmbufrd_ReadReg(InstancePtr->Config.BaseAddress, XV_FRMBUFRD_CTRL_ADDR_HWREG_FIELD_ID_DATA);
+    return Data;
+}
+
 void XV_frmbufrd_InterruptGlobalEnable(XV_frmbufrd *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
