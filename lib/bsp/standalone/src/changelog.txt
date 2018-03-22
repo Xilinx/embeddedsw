@@ -511,5 +511,29 @@
  *                    configured with smart interconnect.It fixes CR#990318.
  * 6.6 srm   02/10/18 Updated csu_wdt interrupt to the correct value. Fixes CR#992229
  * 6.6 asa   02/12/18 Fix for heap handling for ARM platforms. CR#993932.
+ * 6.6 mus   02/19/18 Updated standalone.tcl to fix bug in handle_profile_opbtimer proc,
+ *                    CR#995014.
+ * 6.6 mus   02/23/18 Presently Cortex R5 BSP boot code is disabling the debug logic in
+*		      non-JTAG boot mode, when processor is in lockstep configuration.
+*		      This behavior is restricting application debugging in non-JTAG boot
+*		      mode.  To get rid of this restriction, added new mld parameter 
+*		      "lockstep_mode_debug", to enable/disable debug logic from BSP 
+*		      settings. Now, debug logic can be enabled through BSP settings, 
+*		      by modifying value of parameter "lockstep_mode_debug" as "true".
+*		      It fixes CR#993896.
+ * 6.6.mus   02/27/18  Updated Xil_DCacheInvalidateRange and
+*		       Xil_ICacheInvalidateRange APIs in Cortexa53 64 bit BSP, to fix  bug
+*		       in handling upper DDR addresses.It fixes CR#995581.
+* 6.6 mus    03/12/18  Updated makefile of Cortexa53 32bit BSP to add includes_ps directory
+*		       in the list of include paths. This change allows applications/BSP
+*		       files to include .h files in include_ps directory.
+* 6.6 mus    03/16/18  By default CPUACTLR_EL1 is accessible only from EL3, it
+*		       results into abort if accessed from EL1 non secure privilege
+*		       level. Updated Xil_ConfigureL1Prefetch function in Cortexa53 64 bit BSP
+*		       to avoid CPUACTLR_EL1 access from privile levels other than EL3.
+* 6.6 mus    03/16/18  Updated hypervisor enabled BSP to use PV console, based on the
+*		       XEN_USE_PV_CONSOLE flag. By deafault hypervisor enabled BSP would
+*		       use UART console, PV console can be enabled by appending
+		       "-DXEN_USE_PV_CONSOLE" to the BSP extra compiler flags.
  *
  *****************************************************************************************/
