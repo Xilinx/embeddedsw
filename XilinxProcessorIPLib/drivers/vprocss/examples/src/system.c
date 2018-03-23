@@ -52,7 +52,12 @@
 #include "system.h"
 
 /************************** Constant Definitions *****************************/
-#define USR_FRAME_BUF_BASEADDR     (XPAR_MIG7SERIES_0_BASEADDR + (0x20000000))
+#if defined(__MICROBLAZE__)
+#define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
+#else
+#define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
+#endif
+#define USR_FRAME_BUF_BASEADDR     (DDR_BASEADDR + (0x20000000))
 
 /**************************** Type Definitions *******************************/
 

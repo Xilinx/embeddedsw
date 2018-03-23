@@ -170,7 +170,7 @@ int main(void)
 	   (VpssPtr->VcrsmplrInPtr == NULL) ||  //No 420 support
 		   (VpssPtr->HcrsmplrPtr   == NULL)) {  //No 422 support
 
-	  //Overwirte default test case with specific ones
+          //Overwrite default test case with specific ones
           // If there is no Deinterlacer AND 420 input is supported (Vcr present),
           //   choose progressive 420 input format
           if ((VpssPtr->DeintPtr      == NULL) &&

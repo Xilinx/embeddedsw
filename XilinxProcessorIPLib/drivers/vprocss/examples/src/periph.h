@@ -61,7 +61,7 @@ extern "C" {
 #include "xv_tpg.h"
 #include "xgpio.h"
 #include "xvtc.h"
-#include "microblaze_sleep.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
