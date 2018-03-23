@@ -202,7 +202,7 @@ u32 XV_frmbufrd_Get_HwReg_field_id(XV_frmbufrd *InstancePtr) {
 
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-    Xil_AssertVoid(InstancePtr->Config.Interlaced);
+    Xil_AssertNonvoid(InstancePtr->Config.Interlaced);
 
     Data = XV_frmbufrd_ReadReg(InstancePtr->Config.BaseAddress, XV_FRMBUFRD_CTRL_ADDR_HWREG_FIELD_ID_DATA);
     return Data;
