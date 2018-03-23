@@ -163,16 +163,10 @@ Added new color space format XVIDC_CSF_YCBCR_420 to support UHDSDI
 Tx/Rx soft IPs
 Added new memory format BGR8
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 v_mix_v4_0
 Added 8th overlay layer
 Moved logo layer enable from bit 8 to bit 15
 
-=======
->>>>>>> v_frmbuf_wr: add interlaced, BGR8, ready interrupt
-=======
->>>>>>> v_frmbuf_wr: add interlaced, BGR8, ready interrupt
 v_frmbuf_rd_v3_0:
 Added interlaced support
 Added new memory format BGR8
