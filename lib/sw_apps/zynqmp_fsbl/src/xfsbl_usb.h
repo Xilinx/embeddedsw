@@ -113,7 +113,7 @@ extern "C" {
 void XFsbl_DfuInit(void);
 void XFsbl_DfuSetIntf(SetupPacket *SetupData);
 void XFsbl_DfuClassReq(SetupPacket *SetupData);
-void XFsbl_DfuReset(struct XUsbPsu* InstancePtr);
+void XFsbl_DfuReset(struct Usb_DevData* InstancePtr);
 u32 XFsbl_Ch9SetupDevDescReply(u8 *BufPtr, u32 BufferLen);
 u32 XFsbl_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufferLen);
 u32 XFsbl_Ch9SetupStrDescReply(u8 *BufPtr, u32 BufferLen, u8 Index);
