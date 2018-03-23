@@ -373,7 +373,8 @@ XStatus XPm_InitFinalize(void)
  * node as argument and specify the reason.
  *
  * @param  target  Node ID of the PU node to be suspended
- * @param  ack     Requested acknowledge type
+ * @param  ack     Requested acknowledge type. REQUEST_ACK_BLOCKING is not
+ * supported.
  * @param  latency Maximum wake-up latency requirement in us(micro sec)
  * @param  state   Instead of specifying a maximum latency, a PU can
  * also explicitly request a certain power state.
@@ -381,9 +382,9 @@ XStatus XPm_InitFinalize(void)
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   If 'ack' is set to PM_ACK_CB_STANDARD, the requesting PU will
+ * @note   If 'ack' is set to PM_ACK_NON_BLOCKING, the requesting PU will
  * be notified upon completion of suspend or if an error occurred,
- * such as an abort or a timeout.
+ * such as an abort. REQUEST_ACK_BLOCKING is not supported for this command.
  *
  ****************************************************************************/
 XStatus XPm_RequestSuspend(const enum XPmNodeId target,
@@ -766,7 +767,7 @@ void XPm_InitSuspendCb(const enum XPmSuspendReason reason,
 /**
  * @brief  This function is called by the power management controller in
  * response to any request where an acknowledge callback was requested,
- * i.e. where the 'ack' argument passed by the PU was REQUEST_ACK_CB_STANDARD.
+ * i.e. where the 'ack' argument passed by the PU was REQUEST_ACK_NON_BLOCKING.
  *
  * @param  node    ID of the component or sub-system in question.
  * @param  status  Status of the operation:
