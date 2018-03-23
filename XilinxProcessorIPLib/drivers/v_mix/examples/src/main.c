@@ -50,23 +50,44 @@
 *                        move
 *             08/05/16   Add Logo Pixel Alpha test
 * 2.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
+* 2.10  vyc   04/04/18   Add support for streaming layers using Frame Buffer
+*                        Read for streaming input
+*                        Add support for ZCU102, ZCU104, ZCU106
 * </pre>
 *
 ******************************************************************************/
 
 #include "xparameters.h"
 #include "platform.h"
-#include "microblaze_sleep.h"
+#include "sleep.h"
 #include "xv_tpg.h"
 #include "xv_mix_l2.h"
+#include "xvidc.h"
 #include "xvtc.h"
+#if defined (__MICROBLAZE__)
 #include "xintc.h"
+#else
+#include "xscugic.h"
+#endif
 #include "xgpio.h"
+
+#if defined(__MICROBLAZE__)
+#define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
+#else
+#define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
+#endif
+
+#ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
+#include "xv_frmbufrd_l2.h"
+extern XV_frmbufrd_Config XV_frmbufrd_ConfigTable[];
+#define XVFRMBUFRD_BUFFER_BASEADDR (DDR_BASEADDR + (0x20000000))
+#define XVFRMBUFRD_CHROMA_ADDR_OFFSET   (0x01000000U)
+#endif
 
 #define NUM_TEST_MODES    (2)
 
 /* Memory Layers for Mixer */
-#define XVMIX_LAYER1_BASEADDR      (XPAR_MIG7SERIES_0_BASEADDR + (0x20000000))
+#define XVMIX_LAYER1_BASEADDR      (DDR_BASEADDR + (0x21000000))
 #define XVMIX_LAYER_ADDR_OFFSET    (0x01000000U)
 #define XVMIX_CHROMA_ADDR_OFFSET   (0x01000000U)
 
@@ -80,14 +101,27 @@ extern unsigned char Logo_A[];
 XV_tpg     tpg;
 XV_Mix_l2  mix;
 XVtc       vtc;
+#if defined (__MICROBLAZE__)
 XIntc      intc;
+#else
+XScuGic    intc;
+#endif
 XGpio      vmon;
 
 XVidC_VideoStream VidStream;
 
 u32 volatile *gpio_hlsIpReset;
 
-static const XVidC_VideoWindow MixLayerConfig[7] =
+#ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
+typedef struct {
+  XV_FrmbufRd_l2 Inst;
+  u32            DeviceId;
+} FrmbufInst;
+
+FrmbufInst FBLayer[XPAR_XV_FRMBUFRD_NUM_INSTANCES];
+#endif
+
+static const XVidC_VideoWindow MixLayerConfig[8] =
 {// X   Y     W    H
   {12,  10,  128, 128}, //Layer 1
   {200, 10,  128, 128}, //Layer 2
@@ -96,6 +130,7 @@ static const XVidC_VideoWindow MixLayerConfig[7] =
   {800, 100, 128, 128}, //Layer 5
   {12,  100, 128, 128}, //Layer 6
   {200, 100, 128, 128}, //Layer 7
+  {200, 300, 128, 128}  //Layer 8
 };
 
 /*****************************************************************************/
@@ -113,6 +148,16 @@ static int DriverInit(void);
 static int SetupInterrupts(void);
 static void ConfigTpg(XVidC_VideoStream *StreamPtr);
 static void ConfigMixer(XVidC_VideoStream *StreamPtr);
+#ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
+static XVidC_ColorFormat FindMemFormat(XVidC_ColorFormat StreamFmt);
+static u32 CalcStride(XVidC_ColorFormat Cfmt,
+                      u16 AXIMMDataWidth,
+                      XVidC_VideoStream *StreamPtr);
+static int ConfigFrmbuf(XV_FrmbufRd_l2 *LayerFrmbuf,
+                        u32 StrideInBytes,
+                        XVidC_ColorFormat Cfmt,
+                        XVidC_VideoStream *LayerStreamPtr);
+#endif
 static void ConfigVtc(XVidC_VideoStream *StreamPtr);
 static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr);
 static int CheckVidoutLock(void);
@@ -126,11 +171,13 @@ static int CheckVidoutLock(void);
  *****************************************************************************/
 static int SetupInterrupts(void)
 {
+#if defined(__MICROBLAZE__)
   int Status;
   XIntc *IntcPtr = &intc;
 
   /* Initialize the Interrupt controller */
-  Status = XIntc_Initialize(IntcPtr, XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_DEVICE_ID);
+  Status = XIntc_Initialize(IntcPtr,
+                            XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_DEVICE_ID);
   if(Status != XST_SUCCESS) {
     xil_printf("ERROR:: Interrupt controller device not found\r\n");
     return(XST_FAILURE);
@@ -138,15 +185,17 @@ static int SetupInterrupts(void)
 
   /* Hook up interrupt service routine */
   Status = XIntc_Connect(IntcPtr,
-		                 XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_V_MIX_0_INTERRUPT_INTR,
-                         (XInterruptHandler)XVMix_InterruptHandler, &mix);
+                         XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_V_MIX_0_INTERRUPT_INTR,
+                         (XInterruptHandler)XVMix_InterruptHandler,
+                         &mix);
   if (Status != XST_SUCCESS) {
     xil_printf("ERROR:: Mixer interrupt connect failed!\r\n");
     return XST_FAILURE;
   }
 
   /* Enable the interrupt vector at the interrupt controller */
-  XIntc_Enable(IntcPtr, XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_V_MIX_0_INTERRUPT_INTR);
+  XIntc_Enable(IntcPtr,
+               XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_V_MIX_0_INTERRUPT_INTR);
 
   /*
    * Start the interrupt controller such that interrupts are recognized
@@ -157,6 +206,44 @@ static int SetupInterrupts(void)
     xil_printf("ERROR:: Failed to start interrupt controller\r\n");
     return XST_FAILURE;
   }
+
+#else
+  int Status;
+  XScuGic *IntcPtr = &intc;
+
+  /* Initialize the Interrupt controller */
+  XScuGic_Config *IntcCfgPtr;
+  IntcCfgPtr = XScuGic_LookupConfig(XPAR_PSU_ACPU_GIC_DEVICE_ID);
+  if(IntcCfgPtr == NULL)
+  {
+    print("ERR:: Interrupt Controller not found");
+    return (XST_DEVICE_NOT_FOUND);
+  }
+  Status = XScuGic_CfgInitialize(IntcPtr,
+                                 IntcCfgPtr,
+                                 IntcCfgPtr->CpuBaseAddress);
+  if (Status != XST_SUCCESS) {
+    xil_printf("Intc initialization failed!\r\n");
+    return XST_FAILURE;
+  }
+
+  /* Hook up interrupt service routine */
+  Status |= XScuGic_Connect(IntcPtr,
+                            XPAR_FABRIC_V_MIX_0_INTERRUPT_INTR,
+                            (XInterruptHandler)XVMix_InterruptHandler,
+                            (void *)&mix);
+  Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+                               (Xil_ExceptionHandler) XScuGic_InterruptHandler,
+                               IntcPtr);
+  if (Status != XST_SUCCESS) {
+    xil_printf("ERR:: Mixer interrupt connect failed!\r\n");
+    return XST_FAILURE;
+  }
+
+  /* Enable the interrupt vector at the interrupt controller */
+  XScuGic_Enable(IntcPtr, XPAR_FABRIC_V_MIX_0_INTERRUPT_INTR);
+
+#endif
 
   return(XST_SUCCESS);
 }
@@ -191,6 +278,18 @@ static int DriverInit(void)
     xil_printf("ERROR:: TPG device not found\r\n");
     return(XST_FAILURE);
   }
+
+#ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
+  for(int count=0; count < XPAR_XV_FRMBUFRD_NUM_INSTANCES; ++count)
+  {
+    FBLayer[count].DeviceId = XV_frmbufrd_ConfigTable[count].DeviceId;
+    Status = XVFrmbufRd_Initialize(&FBLayer[count].Inst, FBLayer[count].DeviceId);
+    if(Status != XST_SUCCESS) {
+        xil_printf("ERROR:: Frame Buffer Read initialization failed\r\n");
+    return(XST_FAILURE);
+    }
+  }
+#endif
 
   Status  = XVMix_Initialize(&mix, XPAR_V_MIX_0_DEVICE_ID);
   if(Status != XST_SUCCESS) {
@@ -239,6 +338,134 @@ static void ConfigTpg(XVidC_VideoStream *StreamPtr)
   XV_tpg_Start(&tpg);
   xil_printf("INFO: TPG configured\r\n");
 }
+
+#ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
+/*****************************************************************************/
+/**
+ * This function calculates the stride
+ *
+ * @returns stride in bytes
+ *
+ *****************************************************************************/
+static u32 CalcStride(XVidC_ColorFormat Cfmt,
+                      u16 AXIMMDataWidth,
+                      XVidC_VideoStream *StreamPtr)
+{
+  u32 stride;
+  int width = StreamPtr->Timing.HActive;
+  u16 MMWidthBytes = AXIMMDataWidth/8;
+
+  if ((Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)
+      || (Cfmt == XVIDC_CSF_MEM_Y10)) {
+    // 4 bytes per 3 pixels (Y_UV10, Y_UV10_420, Y10)
+    stride = ((((width*4)/3)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
+  }
+  else if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420)
+           || (Cfmt == XVIDC_CSF_MEM_Y8)) {
+    // 1 byte per pixel (Y_UV8, Y_UV8_420, Y8)
+    stride = ((width+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
+  }
+  else if ((Cfmt == XVIDC_CSF_MEM_RGB8) || (Cfmt == XVIDC_CSF_MEM_YUV8)
+           || (Cfmt == XVIDC_CSF_MEM_BGR8)) {
+    // 3 bytes per pixel (RGB8, YUV8, BGR8)
+     stride = (((width*3)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
+  }
+  else {
+    // 4 bytes per pixel
+    stride = (((width*4)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
+  }
+
+  return(stride);
+}
+
+/*****************************************************************************/
+/**
+ * This function finds a compatible memory format for the frame buffer
+ *
+ * @returns video color format
+ *
+ *****************************************************************************/
+static XVidC_ColorFormat FindMemFormat(XVidC_ColorFormat StreamFmt)
+{
+  XVidC_ColorFormat Cfmt;
+
+  switch(StreamFmt) {
+    case XVIDC_CSF_RGB :
+        Cfmt  = XVIDC_CSF_MEM_RGB8;
+        break;
+    case XVIDC_CSF_YCRCB_444 :
+        Cfmt  = XVIDC_CSF_MEM_YUV8;
+        break;
+    case XVIDC_CSF_YCRCB_422 :
+        Cfmt  = XVIDC_CSF_MEM_Y_UV8;
+        break;
+    case XVIDC_CSF_YCRCB_420 :
+        Cfmt  = XVIDC_CSF_MEM_Y_UV8_420;
+        break;
+    case XVIDC_CSF_RGBA :
+        Cfmt  = XVIDC_CSF_MEM_RGBA8;
+        break;
+    case XVIDC_CSF_YCRCBA_444 :
+        Cfmt  = XVIDC_CSF_MEM_YUVA8;
+        break;
+    default :
+        Cfmt  = XVIDC_CSF_MEM_RGB8;
+        break;
+  }
+
+  return(Cfmt);
+}
+
+/*****************************************************************************/
+/**
+ * This function configures Frame Buffer for defined mode
+ *
+ * @return XST_SUCCESS if init is OK else XST_FAILURE
+ *
+ *****************************************************************************/
+static int ConfigFrmbuf(XV_FrmbufRd_l2 *LayerFrmbuf,
+                        u32 StrideInBytes,
+                        XVidC_ColorFormat Cfmt,
+                        XVidC_VideoStream *StreamPtr)
+{
+  int Status;
+  u32 IrqMask;
+
+  /* Stop Frame Buffers */
+  XVFrmbufRd_Stop(LayerFrmbuf);
+
+  /* Configure Frame Buffers */
+  Status = XVFrmbufRd_SetMemFormat(LayerFrmbuf, StrideInBytes, Cfmt, StreamPtr);
+  if(Status != XST_SUCCESS) {
+    xil_printf("ERROR:: Unable to configure Frame Buffer Read\r\n");
+    return(XST_FAILURE);
+  }
+
+  Status = XVFrmbufRd_SetBufferAddr(LayerFrmbuf, XVFRMBUFRD_BUFFER_BASEADDR);
+  if(Status != XST_SUCCESS) {
+    xil_printf("ERROR:: Unable to configure Frame Buffer Read buffer address\r\n");
+    return(XST_FAILURE);
+  }
+
+  /* Set Chroma Buffer Address for semi-planar color formats */
+  if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420) ||
+      (Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)) {
+    Status = XVFrmbufRd_SetChromaBufferAddr(LayerFrmbuf, XVFRMBUFRD_BUFFER_BASEADDR+XVFRMBUFRD_CHROMA_ADDR_OFFSET);
+    if(Status != XST_SUCCESS) {
+      xil_printf("ERROR:: Unable to configure Frame Buffer Read chroma buffer address\r\n");
+      return(XST_FAILURE);
+    }
+  }
+
+  /* Start Frame Buffers */
+  IrqMask = XVFRMBUFRD_IRQ_DONE_MASK | XVFRMBUFRD_IRQ_READY_MASK;
+  XVFrmbufRd_InterruptDisable(LayerFrmbuf, IrqMask);
+  XVFrmbufRd_Start(LayerFrmbuf);
+
+  xil_printf("INFO: FRMBUF configured\r\n");
+  return(Status);
+}
+#endif
 
 /*****************************************************************************/
 /**
@@ -292,21 +519,23 @@ static void ConfigMixer(XVidC_VideoStream *StreamPtr)
   MemAddr = XVMIX_LAYER1_BASEADDR;
   for(index = XVMIX_LAYER_1; index < NumLayers; ++index) {
       XVMix_GetLayerColorFormat(MixerPtr, index, &Cfmt);
-      Status = XVMix_SetLayerBufferAddr(MixerPtr, index, MemAddr);
-      if (Status != XST_SUCCESS) {
-          xil_printf("MIXER ERROR:: Unable to set layer %d buffer addr to 0x%X\r\n",
-                      index, MemAddr);
-      } else {
-          if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420) ||
-              (Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)) {
-              MemAddr += XVMIX_CHROMA_ADDR_OFFSET;
-              Status = XVMix_SetLayerChromaBufferAddr(MixerPtr, index, MemAddr);
-              if (Status != XST_SUCCESS) {
-                  xil_printf("MIXER ERROR:: Unable to set layer %d chroma buffer2 addr to 0x%X\r\n",
-                              index, MemAddr);
+      if (!(XVMix_IsLayerInterfaceStream(MixerPtr, index))) {
+          Status = XVMix_SetLayerBufferAddr(MixerPtr, index, MemAddr);
+          if(Status != XST_SUCCESS) {
+              xil_printf("MIXER ERROR:: Unable to set layer %d buffer addr to 0x%X\r\n",
+                          index, MemAddr);
+          } else {
+              if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420) ||
+                  (Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)) {
+                  MemAddr += XVMIX_CHROMA_ADDR_OFFSET;
+                  Status = XVMix_SetLayerChromaBufferAddr(MixerPtr, index, MemAddr);
+                  if (Status != XST_SUCCESS) {
+                      xil_printf("MIXER ERROR:: Unable to set layer %d chroma buffer2 addr to 0x%X\r\n",
+                                  index, MemAddr);
+                  }
               }
+              MemAddr += XVMIX_LAYER_ADDR_OFFSET;
           }
-          MemAddr += XVMIX_LAYER_ADDR_OFFSET;
       }
   }
 
@@ -358,6 +587,8 @@ static int CheckVidoutLock(void)
   u32 Timeout;
 
   Timeout = VIDEO_MONITOR_LOCK_TIMEOUT;
+
+  usleep(2000000);         //wait
 
   while(!Lock && Timeout) {
     if(XVMonitor_IsVideoLocked(&vmon)) {
@@ -415,7 +646,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
       ++ErrorCount;
   }
 
-   /* Test 2: Memory layer En
+   /* Test 2: Layer Enable
       - Set layer window
       - Set layer Alpha, if available
       - Set layer scaling, if available
@@ -428,10 +659,11 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
   */
   for(layerIndex=XVMIX_LAYER_1; layerIndex<XVMix_GetNumLayers(MixerPtr); ++layerIndex) {
 
-    xil_printf("\r\n--> Test Memory Layer %d <--\r\n", layerIndex);
-    baseaddr = XVMix_GetLayerBufferAddr(MixerPtr, layerIndex);
-    xil_printf("   Layer Buffer Addr: 0x%X\r\n", baseaddr);
-
+    xil_printf("\r\n--> Test Mixer Layer %d <--\r\n", layerIndex);
+    if (!(XVMix_IsLayerInterfaceStream(MixerPtr, layerIndex))) {
+      baseaddr = XVMix_GetLayerBufferAddr(MixerPtr, layerIndex);
+      xil_printf("   Layer Buffer Addr: 0x%X\r\n", baseaddr);
+    }
     Win = MixLayerConfig[layerIndex-1];
 
     XVMix_GetLayerColorFormat(MixerPtr, layerIndex, &Cfmt);
@@ -547,9 +779,9 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
 
   xil_printf("   Logo Pixel Alpha: ");
   if(XVMix_IsLogoPixAlphaEnabled(MixerPtr)) {
-	  xil_printf("Enabled\r\n");
+      xil_printf("Enabled\r\n");
   } else {
-	  xil_printf("(Disabled in HW)\r\n");
+      xil_printf("(Disabled in HW)\r\n");
   }
 
   {
@@ -609,6 +841,13 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
  *****************************************************************************/
 void resetIp(void)
 {
+#ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
+  /* Stop Frame Buffer and wait for IDLE */
+  for(int i=0; i<XPAR_XV_FRMBUFRD_NUM_INSTANCES; ++i) {
+    XVFrmbufRd_Stop(&FBLayer[i].Inst);
+  }
+#endif
+
   xil_printf("\r\nReset HLS IP \r\n");
   *gpio_hlsIpReset = 0; //reset IPs
   usleep(1000);         //hold reset line
@@ -624,6 +863,11 @@ int main(void)
   int Status, index;
   int FailCount = 0;
   int Lock = FALSE;
+#ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
+  XV_Mix_l2 *MixerPtr = &mix;
+  XVidC_VideoStream LayerStream;
+  XVidC_ColorFormat StreamFmt, MemFmt;
+#endif
   XVidC_ColorFormat Cfmt;
   XVidC_VideoTiming const *TimingPtr;
   XVidC_VideoMode TestModes[NUM_TEST_MODES] =
@@ -694,6 +938,26 @@ int main(void)
             XVidC_GetColorFormatStr(VidStream.ColorFormatId));
     xil_printf("********************************************\r\n");
     ConfigVtc(&VidStream);
+
+#ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
+
+    /* Configure Frame Buffers */
+    int numFB = 0;
+    for(int layerIndex=XVMIX_LAYER_1; layerIndex<MixerPtr->Mix.Config.NumLayers; ++layerIndex) {
+      if ((XVMix_IsLayerInterfaceStream(MixerPtr, layerIndex))) {
+          XVMix_GetLayerColorFormat(MixerPtr, layerIndex, &StreamFmt);
+          LayerStream.ColorFormatId = StreamFmt;
+          LayerStream.Timing.HActive = MixLayerConfig[layerIndex-1].Width;
+          LayerStream.Timing.VActive = MixLayerConfig[layerIndex-1].Height;
+          MemFmt = FindMemFormat(StreamFmt);
+          int stride = CalcStride(MemFmt,
+                                  FBLayer[numFB].Inst.FrmbufRd.Config.AXIMMDataWidth,
+                                  &LayerStream);
+          ConfigFrmbuf(&FBLayer[numFB].Inst, stride, MemFmt, &LayerStream);
+          numFB++;
+      }
+    }
+#endif
     ConfigMixer(&VidStream);
     ConfigTpg(&VidStream);
     xil_printf("Wait for vid out lock: ");
