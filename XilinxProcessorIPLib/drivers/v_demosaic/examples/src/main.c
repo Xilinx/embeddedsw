@@ -1,5 +1,5 @@
 #include "xparameters.h"
-#include "microblaze_sleep.h"
+#include "sleep.h"
 #include "xv_demosaic.h"
 #include "xv_tpg.h"
 #include "xvtc.h"
@@ -19,9 +19,9 @@ u32 volatile        *gpio_hlsIpReset;
 u32 volatile        *gpio_videoLockMonitor;
 
 #define VideoClockGen_WriteReg(RegOffset, Data) \
-    Xil_Out32((XPAR_VIDEO_CLK_BASEADDR) + (RegOffset), (u32)(Data))
+    Xil_Out32((XPAR_VIDEO_CLK_WIZ_BASEADDR) + (RegOffset), (u32)(Data))
 #define VideoClockGen_ReadReg(RegOffset) \
-    Xil_In32((XPAR_VIDEO_CLK_BASEADDR) + (RegOffset))
+    Xil_In32((XPAR_VIDEO_CLK_WIZ_BASEADDR) + (RegOffset))
 
 int driverInit()
 {
