@@ -42,7 +42,7 @@ When executed on the board the example application will perform following operat
 3. Check for Video Lock and report the status (PASS/FAIL)on UART
 4. Repeat Steps 1-3 for 4KP@30Hz and 4KP@60Hz
 
-@note Serial terminal baud rate should be set to 9600
+@note Serial terminal baud rate should be set to 115200
 
 For details, see vtpg_example.tcl.
 */
