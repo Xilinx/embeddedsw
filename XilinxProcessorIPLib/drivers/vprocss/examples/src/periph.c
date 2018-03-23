@@ -93,11 +93,13 @@ void XPeriph_ReportDeviceInfo(XPeriph *InstancePtr)
 
   xil_printf("\r\n  ->System Peripherals Included\r\n");
 
+#if defined XPAR_XUARTLITE_NUM_INSTANCES
   numInstances = XPAR_XUARTLITE_NUM_INSTANCES;
   if(numInstances > 0)
   {
     xil_printf("    : %d UART-Lite core\r\n", numInstances);
   }
+#endif
 
   numInstances = XPAR_XV_TPG_NUM_INSTANCES;
   if(numInstances > 0)
