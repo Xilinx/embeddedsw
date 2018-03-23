@@ -1,6 +1,6 @@
 /*******************************************************************
 *
-* Copyright (C) 2010-2017 Xilinx, Inc. All rights reserved.
+* Copyright (C) 1986-2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -60,7 +60,8 @@ XV_mix_Config XV_mix_ConfigTable[XPAR_XV_MIX_NUM_INSTANCES] =
 		XPAR_V_MIX_0_LAYER4_ALPHA,
 		XPAR_V_MIX_0_LAYER5_ALPHA,
 		XPAR_V_MIX_0_LAYER6_ALPHA,
-		XPAR_V_MIX_0_LAYER7_ALPHA
+		XPAR_V_MIX_0_LAYER7_ALPHA,
+		XPAR_V_MIX_0_LAYER8_ALPHA
 		}},
 		{{
 		XPAR_V_MIX_0_LAYER1_UPSAMPLE,
@@ -69,7 +70,8 @@ XV_mix_Config XV_mix_ConfigTable[XPAR_XV_MIX_NUM_INSTANCES] =
 		XPAR_V_MIX_0_LAYER4_UPSAMPLE,
 		XPAR_V_MIX_0_LAYER5_UPSAMPLE,
 		XPAR_V_MIX_0_LAYER6_UPSAMPLE,
-		XPAR_V_MIX_0_LAYER7_UPSAMPLE
+		XPAR_V_MIX_0_LAYER7_UPSAMPLE,
+		XPAR_V_MIX_0_LAYER8_UPSAMPLE
 		}},
 		{{
 		XPAR_V_MIX_0_LAYER1_MAX_WIDTH,
@@ -78,7 +80,8 @@ XV_mix_Config XV_mix_ConfigTable[XPAR_XV_MIX_NUM_INSTANCES] =
 		XPAR_V_MIX_0_LAYER4_MAX_WIDTH,
 		XPAR_V_MIX_0_LAYER5_MAX_WIDTH,
 		XPAR_V_MIX_0_LAYER6_MAX_WIDTH,
-		XPAR_V_MIX_0_LAYER7_MAX_WIDTH
+		XPAR_V_MIX_0_LAYER7_MAX_WIDTH,
+		XPAR_V_MIX_0_LAYER8_MAX_WIDTH
 		}},
 		{{
 		XPAR_V_MIX_0_LAYER1_INTF_TYPE,
@@ -87,7 +90,8 @@ XV_mix_Config XV_mix_ConfigTable[XPAR_XV_MIX_NUM_INSTANCES] =
 		XPAR_V_MIX_0_LAYER4_INTF_TYPE,
 		XPAR_V_MIX_0_LAYER5_INTF_TYPE,
 		XPAR_V_MIX_0_LAYER6_INTF_TYPE,
-		XPAR_V_MIX_0_LAYER7_INTF_TYPE
+		XPAR_V_MIX_0_LAYER7_INTF_TYPE,
+		XPAR_V_MIX_0_LAYER8_INTF_TYPE
 		}},
 		{{
 		XPAR_V_MIX_0_LAYER1_VIDEO_FORMAT,
@@ -96,7 +100,8 @@ XV_mix_Config XV_mix_ConfigTable[XPAR_XV_MIX_NUM_INSTANCES] =
 		XPAR_V_MIX_0_LAYER4_VIDEO_FORMAT,
 		XPAR_V_MIX_0_LAYER5_VIDEO_FORMAT,
 		XPAR_V_MIX_0_LAYER6_VIDEO_FORMAT,
-		XPAR_V_MIX_0_LAYER7_VIDEO_FORMAT
+		XPAR_V_MIX_0_LAYER7_VIDEO_FORMAT,
+		XPAR_V_MIX_0_LAYER8_VIDEO_FORMAT
 		}}
 
 	}
