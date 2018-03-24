@@ -37,55 +37,37 @@
 * @addtogroup xfpga_apis XilFPGA APIs
 * @{
 *
-* The XILFPGA Library provides the interfaces to the application to configure
+* The XILFPGA library provides the interface to the application to configure
 * the programmable logic (PL) though the PS.
 *
-* Features
-*	Supported:
-*		Full Bit-stream loading.
-*		Encrypted Bit-stream loading.
-*		Authenticated Bit-stream loading.
-*		Authenticated and Encrypted Bit-stream loading.
-*	To be supported features:
-* 		Partial Bit-stream loading.
+* - Supported Features:
+*    - Full Bit-stream loading
+*    - Encrypted Bit-stream loading.
+*    - Authenticated Bit-stream loading.
+*    - Authenticated and Encrypted Bit-stream loading.
+* - To be supported features:
+*    - Partial Bit-stream loading.
 *
-*
-* Xilfpga_PL library Interface modules:
+* #  Xilfpga_PL library Interface modules 	{#xilfpgapllib}
 *	Xilfpga_PL library uses the below major components to configure the PL through PS.
-*		CSU DMA driver.
-*		Xilsecure_library.
+*  - CSU DMA driver is used to transfer the actual Bit stream file for the PS to PL after PCAP initialization
 *
-* CSU DMA driver:
-*	It is used to transfer the actual Bit stream file for the PS to PL after PCAP initialization
+*  - Xilsecure_library provides APIs to access secure hardware on the Zynq&reg; UltraScale+&tm; MPSoC devices. This library includes:
+*	 - SHA-3 engine hash functions
+*	 - AES for symmetric key encryption
+*	 - RSA for authentication
 *
-* Xilsecure_library:
-*	The LibXilSecure library provides APIs to access secure hardware on the Zynq® UltraScale+™
-*	MPSoC devices.
-*	This library includes:
-*		• SHA-3 engine hash functions
-*		• AES for symmetric key encryption
-*		• RSA for authentication
-*	These algorithms are needed to support to load the Encrypted and Authenticated bit-streams
-*	into PL.
+* These algorithms are needed to support to load the Encrypted and Authenticated bit-streams into PL.
 *
-* @note
-*       -xilfpga library is capable of loading only .bin format files into PL.
-*        it will not support the other file formates.
-*
-*       -The current implementation supports only Full Bit-stream.
-*
-* This is the header file which contains definitions for the PCAP hardware
-* registers and declarations of bitstream download functions
+* @note XilFPGA library is capable of loading only .bin format files into PL. The library does not support other file formats. The current implementation supports only Full Bit-stream.
 *
 *
-* <b>Initialization & writing bitstream </b>
+* ##   Initialization & Writing Bit-Stream  	{#xilinit}
 *
-* The fpga driver can be initialized and load the bit-stream
-* in the following way:
+* Use the u32 XFpga_PL_BitSream_Load(); function to initialize the driver and load the bit-stream.
 *
-*   - u32 XFpga_PL_BitSream_Load ();
-*
-*
+* @{
+* @cond xilfpga_internal
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -208,7 +190,7 @@
 
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
-
+/** @endcond*/
 /************************** Function Prototypes ******************************/
 u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags);
 u32 XFpga_PcapStatus(void);
