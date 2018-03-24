@@ -231,37 +231,44 @@ XSecure_Rsa Secure_Rsa;
 /*****************************************************************************/
 
 /*****************************************************************************/
-/** This function does the calls the necessary PCAP interfaces based on flags.
+/** The API is used to load the user provided bitstream file into Zync MPSoC PL region. 
+ * This function does the following jobs:
+ *		- Power-up the PL fabric.
+ *		- Performs PL-PS Isolation.
+ *		- Initialize PCAP Interface
+ *		- Write a bitstream into the PL
+ *		- Wait for the PL Done Status.
+ *		- Restore PS-PL Isolation (Power-up PL fabric).
+
+ * @note This function contains the polling implementation to provide the PL reset wait time due to this
+ * polling implementation the function call is blocked till the time out value expires or gets the appropriate status value from the PL Done Status register.
  *
  *@param WrAddr Linear memory image base address
  *
  *@param AddrPtr Aes key address which is used for Decryption.
  *
- *@param flags:
- *		BIT(0) - Bit-stream type.
- *			 0 - Full Bit-stream.
- *			 1 - Reserved.
+ *@param flags: Flags are used to specify the type of bitstream file.
+ * 			* BIT(0) - Bit-stream type
+ *					* 0 - Full Bit-stream
+ *					* 1 - Partial Bit-stream
+ *			* BIT(1) - Authentication using DDR
+ *					* 1 - Enable
+ *					* 0 - Disable
+ *			* BIT(2) - Authentication using OCM
+ *					* 1 - Enable
+ *					* 0 - Disable
+ *			* BIT(3) - User-key Encryption
+ *					* 1 - Enable
+ *					* 0 - Disable
+ *			* BIT(4) - Device-key Encryption
+ *					* 1 - Enable
+ *					* 0 - Disable
  *
- *		BIT(1) - Authentication using DDR.
- *			 1 - Enable.
- *		 	 0 - Disable.
+ * @note The current implementation will not support partial  Bit-stream loading.
  *
- *		BIT(2) - Authentication using OCM.
- *			 1 - Enable.
- *		 	 0 - Disable.
+ * @return 
+ *			- Error status based on implemented functionality (SUCCESS by default).
  *
- *		BIT(3) - User-key Encryption.
- *			 1 - Enable.
- *			 0 - Disable.
- *
- *		BIT(4) - Device-key Encryption.
- *			 1 - Enable.
- *			 0 - Disable.
- *
- * NOTE -
- *	The current implementation will not support partial  Bit-stream loading.
- *
- *@return error status based on implemented functionality (SUCCESS by default)
  *
  *****************************************************************************/
 u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR AddrPtr, u32 flags)
@@ -459,12 +466,12 @@ END:
 }
 
 /*****************************************************************************/
-/** This function does the necessary initialization of PCAP interface
+/** Performs the necessary initialization of PCAP interface
  *
- * @param flags It provides the information about Crypto operation needs
+ * @param flags Provides information about Crypto operation needs
  *        to be performed on the given Image (or) Data.
  *
- * @return	error status based on implemented functionality (SUCCESS by default)
+ * @return Error status based on implemented functionality (SUCCESS by default)
  *
  *****************************************************************************/
 static u32 XFpga_PcapInit(u32 flags) {
@@ -508,11 +515,11 @@ static u32 XFpga_PcapInit(u32 flags) {
 	return Status;
 }
 /*****************************************************************************/
-/** This function waits for PCAP transfer to complete
+/** Waits for PCAP transfer to complete
  *
  * @param	None
  *
- * @return	error status based on implemented functionality (SUCCESS by default)
+ * @return	Error status based on implemented functionality (SUCCESS by default)
  *
  *****************************************************************************/
 static u32 XFpga_PcapWaitForDone() {
@@ -535,13 +542,13 @@ static u32 XFpga_PcapWaitForDone() {
 }
 
 /*****************************************************************************/
-/** This is the function to write data to PCAP interface
+/** Writes data to PCAP interface
  *
  * @param WrSize Number of bytes that the DMA should write to the
  *        PCAP interface
  * @param WrAddr Linear Bitstream memory base address
  *
- * @return error status based on implemented functionality (SUCCESS by default)
+ * @return Error status based on implemented functionality (SUCCESS by default)
  *****************************************************************************/
 static u32 XFpga_WriteToPcap(u32 WrSize, UINTPTR WrAddr) {
 	u32 Status = XFPGA_SUCCESS;
@@ -565,13 +572,13 @@ static u32 XFpga_WriteToPcap(u32 WrSize, UINTPTR WrAddr) {
 }
 
 /*****************************************************************************/
-/** This function is used to Bit-stream info from the Image.
+/** Used to Bit-stream info from the Image.
  *
  * @param WrAddr Linear memory secure image base address
  * @param BitstreamAddress: Bit-stream Base address.
  * @param BitstreamSize: Bit-stream Size.
  *
- * @return error status based on implemented functionality (SUCCESS by default)
+ * @return Error status based on implemented functionality (SUCCESS by default)
  *
  *****************************************************************************/
 static u32 XFpga_GetBitstreamInfo(UINTPTR WrAddr,
@@ -589,13 +596,13 @@ static u32 XFpga_GetBitstreamInfo(UINTPTR WrAddr,
 	return Status;
 }
 /*****************************************************************************/
-/** This function is used to validate the user provided crypto flags
+/** Validates the user provided crypto flags
  *  with Image crypto flags.
  * @param WrAddr Linear memory secure image base address
  * @param flags It provides the information about Crypto operation needs
  *        to be performed on the given Image (or) Data.
  *
- * @return error status based on implemented functionality (SUCCESS by default)
+ * @return Error status based on implemented functionality (SUCCESS by default)
  *
  *****************************************************************************/
 static u32 XFpga_ValidateCryptoFlags(UINTPTR WrAddr, u32 flags) {
@@ -645,13 +652,13 @@ static u32 XFpga_ValidateCryptoFlags(UINTPTR WrAddr, u32 flags) {
 #ifdef XFPGA_SECURE_MODE
 
 /*****************************************************************************/
-/** This function is used to loaded the secure Bit-stream into the PL.
+/** Loads the secure Bit-stream into the PL.
  *
  * @param WrAddr Linear memory secure image base address
  * @param KeyAddr Aes key address which is used for Decryption.
  * @param flags It provides the information about Crypto operation needs
  *        to be performed on the given Image (or) Data.
- * @return error status based on implemented functionality (SUCCESS by default)
+ * @return Error status based on implemented functionality (SUCCESS by default)
  *
  *****************************************************************************/
 static u32 XFpga_SecureLoadToPl(UINTPTR WrAddr, UINTPTR KeyAddr,
@@ -689,7 +696,7 @@ static u32 XFpga_SecureLoadToPl(UINTPTR WrAddr, UINTPTR KeyAddr,
 return Status;
 }
 /*****************************************************************************/
-/* This function authenticates the bit-stream by using external memory.
+/* Authenticates the bit-stream by using external memory.
  * Sends the data to PCAP via AES engine if encryption exists or directly
  * to PCAP by CSUDMA if an encryption is not enabled.
  *
@@ -902,7 +909,7 @@ END:
 }
 
 /*****************************************************************************/
-/**
+/*
 * This function performs authentication the Blocks and store the
 * This SHA3 hashes on secure memory.
 * @return      error status based on implemented functionality
@@ -1078,7 +1085,7 @@ END:
 }
 
 /*****************************************************************************/
-/** This is the function to write Encrypted data into PCAP interface
+/* This is the function to write Encrypted data into PCAP interface
  *
  * @param WrSize Number of bytes that the DMA should write to the
  * PCAP interface
@@ -1125,7 +1132,7 @@ static u32 XFpga_WriteEncryptToPcap (UINTPTR WrAddr, UINTPTR KeyAddr,
 }
 
 /*****************************************************************************/
-/** This function is used initialize the Aes H/W Engine.
+/* This function is used initialize the Aes H/W Engine.
  * @param KeyAddr Aes key address which used for decryption.
  * @param AesIv   Aes IV address which used for decryption.
  * @param flags It provides the information about Crypto operation needs
@@ -1163,7 +1170,7 @@ static u32 XFpga_AesInit(UINTPTR KeyAddr, u32 *AesIv, u32 flags) {
 }
 
 /*****************************************************************************/
-/**
+/*
  * This function copies data using CSU DMA.
  *
  * @param DestPtr pointer to the destination address.
@@ -1199,8 +1206,8 @@ static u32 XFpga_CopyToOcm(UINTPTR Src, UINTPTR Dst, u32 WrSize) {
 
 	return Status;
 }
-/******************************************************************************
-*
+/******************************************************************************/
+/*
 * This API decrypts the chunks of data
 *
 * @param PartitionParams is a pointer to XFpgaPs_PlPartition
@@ -1347,8 +1354,8 @@ END:
 
 }
 
-/******************************************************************************
-*
+/******************************************************************************/
+/*
 * This function calculates the next block size and updates the required
 * parameters.
 *
@@ -1404,8 +1411,8 @@ static u32 XFpga_DecrptSetUpNextBlk(XFpgaPs_PlPartition *PartitionParams)
 
 }
 
-/******************************************************************************
-*
+/******************************************************************************/
+/*
 * This function is used to copy data to AES/PL.
 *
 * @param InstancePtr is an instance of CSUDMA
@@ -1433,8 +1440,8 @@ static void XFpga_DmaPlCopy(XCsuDma *InstancePtr, UINTPTR Src, u32 Size,
 
 }
 
-/******************************************************************************
-*
+/******************************************************************************/
+/*
 * This function sends data to AES engine which needs to be decrypted till the
 * end of the encryption block.
 *
@@ -1586,8 +1593,8 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 
 }
 
-/******************************************************************************
-*
+/******************************************************************************/
+/*
 * This function decrypts the secure header when key rolling is enabled
 *
 * @param InstancePtr is an instance AES engine.
@@ -1658,8 +1665,8 @@ static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, u64 SrcAddr)
 
 #endif
 
-/****************************************************************************
- * This function waits for PL Done bit to be set or till timeout and resets
+/****************************************************************************/
+ /* This function waits for PL Done bit to be set or till timeout and resets
  * PCAP after this.
  *
  * @param	None
@@ -1708,7 +1715,7 @@ static u32 XFpga_PLWaitForDone(void) {
 }
 
 /*****************************************************************************/
-/**
+/*
  * This function is used to initialize the DMA driver
  *
  * @param	None
@@ -1737,7 +1744,7 @@ END:
 	return Status;
 }
 /*****************************************************************************/
-/**
+/*
  * This function is used to power-up the PL
  *
  * @param	None
@@ -1772,7 +1779,7 @@ static u32 XFpga_PowerUpPl(void) {
 	return Status;
 
 }
-/**
+/*
 *
 * This function is used to request isolation restore, through PMU
 *
@@ -1813,7 +1820,7 @@ static u32 XFpga_IsolationRestore()
 #endif
 	return Status;
 }
-/**
+/*
 *
 * This function is used to reset the PL from PS EMIO pins
 *
@@ -1855,7 +1862,7 @@ static u32 XFpga_PsPlGpioReset(u32 TotalResets) {
 }
 
 /*****************************************************************************/
-/** This function  provides the STATUS of PCAP interface
+/** Provides the STATUS of PCAP interface
  *
  * @param	None
  *
@@ -1869,7 +1876,7 @@ u32 XFpga_PcapStatus() {
 
 #ifdef XFPGA_SECURE_MODE
 /****************************************************************************/
-/**
+/*
  * Converts the char into the equivalent nibble.
  *	Ex: 'a' -> 0xa, 'A' -> 0xa, '9'->0x9
  *
@@ -1898,7 +1905,7 @@ static u32 Xilfpga_ConvertCharToNibble(char InChar, u8 *Num) {
 }
 
 /****************************************************************************/
-/**
+/*
  * Converts the string into the equivalent Hex buffer.
  *	Ex: "abc123" -> {0xab, 0xc1, 0x23}
  *
@@ -1946,8 +1953,8 @@ static u32 Xilfpga_ConvertStringToHex(const char * Str, u32 * buf, u8 Len)
 
 /*****************************************************************************/
 /**
-*
-* This function returns the value of the specified configuration register.
+* @ingroup xfpga_apis
+* Returns the value of the specified configuration register.
 *
 * @param        InstancePtr is a pointer to the XHwIcap instance.
 * @param        ConfigReg  is a constant which represents the configuration
@@ -1959,7 +1966,6 @@ static u32 Xilfpga_ConvertStringToHex(const char * Str, u32 * buf, u8 Len)
 *               - XST_SUCCESS if successful
 *               - XST_FAILURE if unsuccessful
 *
-* @note None.
 *
 ****************************************************************************/
 u32 Xfpga_GetConfigReg(u32 ConfigReg, u32 *RegData)
@@ -2057,7 +2063,7 @@ u32 Xfpga_GetConfigReg(u32 ConfigReg, u32 *RegData)
 }
 
 /****************************************************************************/
-/**
+/*
 *
 * Generates a Type 1 packet header that reads back the requested Configuration
 * register.
