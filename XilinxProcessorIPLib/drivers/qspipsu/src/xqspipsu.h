@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -137,6 +137,8 @@
 *                    Added XQspiPsu_WriteProtectToggle() in xqspipsu.c and
 *                    also added write protect example.
 * 1.7	tjs	03/14/18 Added support in EL1 NS mode (CR#974882)
+* 1.7	tjs 26/03/18 In dual parallel mode enable both CS when issuing Write
+*		     		 enable command. CR-998478
 * </pre>
 *
 ******************************************************************************/

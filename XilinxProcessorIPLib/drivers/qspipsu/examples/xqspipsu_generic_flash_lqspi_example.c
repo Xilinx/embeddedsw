@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -77,6 +77,8 @@
 * 1.7	tjs	12/01/17 Added support for MT25QL02G Flash from Micron. CR-990642
 * 1.7	tjs 12/19/17 Added support for S25FL064L from Spansion. CR-990724
 * 1.7	tjs 01/11/18 Added support for MX66L1G45G flash from Macronix CR-992367
+* 1.7	tjs 26/03/18 In dual parallel mode enable both CS when issuing Write
+*		     		 enable command. CR-998478
 *</pre>
 *
 ******************************************************************************/
@@ -1750,7 +1752,9 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 * 			for stacked, the lower flash size is subtracted;
 * 			for parallel the address is divided by 2.
 *
-* @note		None.
+* @note		In addition to get the actual address to work on flash this
+* 			function also selects the CS and BUS based on the configuration
+* 			detected.
 *
 ******************************************************************************/
 u32 GetRealAddr(XQspiPsu *QspiPsuPtr, u32 Address)
@@ -1940,6 +1944,7 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr,unsigned int Enable)
 		case ISSI_ID_BYTE0:
 		case MICRON_ID_BYTE0:
 			WriteEnableCmd = WRITE_ENABLE_CMD;
+			GetRealAddr(QspiPsuPtr,TEST_ADDRESS);
 			/*
 			 * Send the write enable command to the Flash so that it can be
 			 * written to, this needs to be sent as a separate transfer before
@@ -2057,6 +2062,7 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr,unsigned int Enable)
 		case ISSI_ID_BYTE0:
 		case MICRON_ID_BYTE0:
 			WriteDisableCmd = WRITE_DISABLE_CMD;
+			GetRealAddr(QspiPsuPtr,TEST_ADDRESS);
 			/*
 			 * Send the write enable command to the Flash so that it can be
 			 * written to, this needs to be sent as a separate transfer before
