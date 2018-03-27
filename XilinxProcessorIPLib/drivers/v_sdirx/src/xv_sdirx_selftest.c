@@ -61,7 +61,7 @@
 /*************************** Macros Definitions ******************************/
 
 #define SDIRX_RST_CTRL_DEFAULT	0x0000
-#define SDIRX_MDL_CTRL_DEFAULT	0x3F30
+#define SDIRX_MDL_CTRL_DEFAULT	0x3F70
 
 /************************** Function Prototypes ******************************/
 
