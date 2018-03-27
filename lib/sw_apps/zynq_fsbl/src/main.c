@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
 * 
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal 
@@ -106,6 +106,8 @@
 * 											before sequence starts and checking
 * 											INIT_B reset status twice in case
 * 											of failure.
+* 16.00a bsv 03/26/18	Fix for CR# 996973  Add code under JTAG_ENABLE_LEVEL_SHIFTERS macro
+* 											to enable level shifters in jtag boot mode.
 * </pre>
 *
 * @note
@@ -492,6 +494,15 @@ int main(void)
 	 */
 	if (BootModeRegister == JTAG_MODE) {
 		fsbl_printf(DEBUG_GENERAL,"Boot mode is JTAG\r\n");
+#ifdef JTAG_ENABLE_LEVEL_SHIFTERS
+#ifdef PS7_POST_CONFIG
+		ps7_post_config();
+		/*
+		 * Unlock SLCR for SLCR register write
+		 */
+		SlcrUnlock();
+#endif
+#endif
 		/*
 		 * Stop the Watchdog before JTAG handoff
 		 */
