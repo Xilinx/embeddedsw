@@ -50,6 +50,7 @@
 /***************************** Include Files *********************************/
 
 #include "xv_sdirx.h"
+#include "sleep.h"
 #include <string.h>
 
 /************************** Constant Definitions *****************************/
