@@ -1,4 +1,4 @@
-﻿POSSIBLE NOTICE(S): [GPL] [Free-Software-Foundation] 
+POSSIBLE NOTICE(S): [GPL] [Free-Software-Foundation] 
 
 COPYRIGHT TEXT:
 ---------------
@@ -884,11 +884,7 @@ embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xaxiema
 embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xaxiemacif_fifo.c
 embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xaxiemacif_hw.c
 embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xaxiemacif_hw.h
-embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xemacpsif_dma.c
-embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xemacpsif_hw.c
-embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xemacpsif_hw.h
 embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xemacpsif_physpeed.c
-embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xpqueue.c
 embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/sys_arch_raw.c
 embeddedsw/ThirdParty/sw_services/openamp/data/openamp.mld
 embeddedsw/ThirdParty/sw_services/openamp/data/openamp.tcl
@@ -2545,6 +2541,7 @@ embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/data/v_demosaic.tcl
 embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic_g.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/data/v_frmbuf_rd.mdd
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/data/v_frmbuf_rd.tcl
+embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/main.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.h
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_g.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.c
@@ -2552,11 +2549,11 @@ embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.h
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2_intr.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/data/v_frmbuf_wr.mdd
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/data/v_frmbuf_wr.tcl
+embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/main.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.h
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_g.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h
-embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2_intr.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/data/v_gamma_lut.mdd
 embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/data/v_gamma_lut.tcl
 embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_g.c
@@ -2643,7 +2640,6 @@ embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/data/v_letterbox.tcl
 embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_g.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.h
-embeddedsw/XilinxProcessorIPLib/drivers/v_mix/data/v_mix.mdd
 embeddedsw/XilinxProcessorIPLib/drivers/v_mix/data/v_mix.tcl
 embeddedsw/XilinxProcessorIPLib/drivers/v_mix/examples/src/main.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_mix/examples/src/platform.c
@@ -4744,70 +4740,6 @@ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
 PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file freertos/irq.c @brief
-FreeRTOS libmetal irq definitions. /
-
-FILES:
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/freertos/irq.h
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
-
-COPYRIGHT TEXT:
----------------
-
-All rights reserved. Redistribution and use in source and binary forms, with or
-without modification, are permitted provided that the following conditions are
-met: 1. Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer. 2. Redistributions in
-binary form must reproduce the above copyright notice, this list of conditions
-and the following disclaimer in the documentation and/or other materials
-provided with the distribution. 3. Neither the name of Xilinx nor the names of
-its contributors may be used to endorse or promote products derived from this
-software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
-THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
-WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file freertos/mutex.h @brief
-FreeRTOS mutex primitives for libmetal. /
-
-FILES:
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/freertos/mutex.h
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
-
-COPYRIGHT TEXT:
----------------
-
-All rights reserved. Redistribution and use in source and binary forms, with or
-without modification, are permitted provided that the following conditions are
-met: 1. Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer. 2. Redistributions in
-binary form must reproduce the above copyright notice, this list of conditions
-and the following disclaimer in the documentation and/or other materials
-provided with the distribution. 3. Neither the name of Xilinx nor the names of
-its contributors may be used to endorse or promote products derived from this
-software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
-THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
-WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file freertos/shmem.c @brief
 FreeRTOS libmetal shared memory handling. /
 
@@ -4845,6 +4777,70 @@ freertos libmetal sleep handling. /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/freertos/sleep.c
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
+
+COPYRIGHT TEXT:
+---------------
+
+All rights reserved. Redistribution and use in source and binary forms, with or
+without modification, are permitted provided that the following conditions are
+met: 1. Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer. 2. Redistributions in
+binary form must reproduce the above copyright notice, this list of conditions
+and the following disclaimer in the documentation and/or other materials
+provided with the distribution. 3. Neither the name of Xilinx nor the names of
+its contributors may be used to endorse or promote products derived from this
+software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
+THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file freertos/irq.c @brief
+FreeRTOS libmetal irq definitions. /
+
+FILES:
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/freertos/irq.h
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
+
+COPYRIGHT TEXT:
+---------------
+
+All rights reserved. Redistribution and use in source and binary forms, with or
+without modification, are permitted provided that the following conditions are
+met: 1. Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer. 2. Redistributions in
+binary form must reproduce the above copyright notice, this list of conditions
+and the following disclaimer in the documentation and/or other materials
+provided with the distribution. 3. Neither the name of Xilinx nor the names of
+its contributors may be used to endorse or promote products derived from this
+software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
+THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file freertos/mutex.h @brief
+FreeRTOS mutex primitives for libmetal. /
+
+FILES:
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/freertos/mutex.h
 --------------------------------------------------------------------------------
 
 
@@ -5353,11 +5349,11 @@ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
 PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file generic/irq.c @brief Generic
-libmetal irq definitions. /
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file generic/mutex.h @brief
+Generic mutex primitives for libmetal. /
 
 FILES:
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/irq.h
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/mutex.h
 --------------------------------------------------------------------------------
 
 
@@ -5385,11 +5381,11 @@ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
 PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file generic/mutex.h @brief
-Generic mutex primitives for libmetal. /
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file generic/irq.c @brief Generic
+libmetal irq definitions. /
 
 FILES:
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/mutex.h
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/irq.h
 --------------------------------------------------------------------------------
 
 
@@ -5550,6 +5546,72 @@ specific io definitions. /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/io.h
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
+
+COPYRIGHT TEXT:
+---------------
+
+All rights reserved. Redistribution and use in source and binary forms, with or
+without modification, are permitted provided that the following conditions are
+met: 1. Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer. 2. Redistributions in
+binary form must reproduce the above copyright notice, this list of conditions
+and the following disclaimer in the documentation and/or other materials
+provided with the distribution. 3. Neither the name of Xilinx nor the names of
+its contributors may be used to endorse or promote products derived from this
+software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
+THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file
+generic/microblaze_generic/sys.c @brief machine specific system primitives
+implementation. /
+
+FILES:
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/microblaze_generic/sys.c
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
+
+COPYRIGHT TEXT:
+---------------
+
+All rights reserved. Redistribution and use in source and binary forms, with or
+without modification, are permitted provided that the following conditions are
+met: 1. Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer. 2. Redistributions in
+binary form must reproduce the above copyright notice, this list of conditions
+and the following disclaimer in the documentation and/or other materials
+provided with the distribution. 3. Neither the name of Xilinx nor the names of
+its contributors may be used to endorse or promote products derived from this
+software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
+THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file
+generic/microblaze_generic/sys.h @brief generic microblaze system primitives for
+libmetal. /
+
+FILES:
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/microblaze_generic/sys.h
 --------------------------------------------------------------------------------
 
 
@@ -5743,72 +5805,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file generic/zynqmp_r5/sys.h
 
 FILES:
 embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/zynqmp_r5/sys.h
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
-
-COPYRIGHT TEXT:
----------------
-
-All rights reserved. Redistribution and use in source and binary forms, with or
-without modification, are permitted provided that the following conditions are
-met: 1. Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer. 2. Redistributions in
-binary form must reproduce the above copyright notice, this list of conditions
-and the following disclaimer in the documentation and/or other materials
-provided with the distribution. 3. Neither the name of Xilinx nor the names of
-its contributors may be used to endorse or promote products derived from this
-software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
-THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
-WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file
-generic/microblaze_generic/sys.c @brief machine specific system primitives
-implementation. /
-
-FILES:
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/microblaze_generic/sys.c
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
-
-COPYRIGHT TEXT:
----------------
-
-All rights reserved. Redistribution and use in source and binary forms, with or
-without modification, are permitted provided that the following conditions are
-met: 1. Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer. 2. Redistributions in
-binary form must reproduce the above copyright notice, this list of conditions
-and the following disclaimer in the documentation and/or other materials
-provided with the distribution. 3. Neither the name of Xilinx nor the names of
-its contributors may be used to endorse or promote products derived from this
-software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
-THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
-WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file
-generic/microblaze_generic/sys.h @brief generic microblaze system primitives for
-libmetal. /
-
-FILES:
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/microblaze_generic/sys.h
 --------------------------------------------------------------------------------
 
 
@@ -6886,6 +6882,41 @@ POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google]
 COPYRIGHT TEXT:
 ---------------
 
+All rights reserved. Redistribution and use in source and binary forms, with or
+without modification, are permitted provided that the following conditions are
+met: 1. Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer. 2. Redistributions in
+binary form must reproduce the above copyright notice, this list of conditions
+and the following disclaimer in the documentation and/or other materials
+provided with the distribution. 3. Neither the name of the <ORGANIZATION> nor
+the names of its contributors may be used to endorse or promote products derived
+from this software without specific prior written permission. THIS SOFTWARE IS
+PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. /
+
+FILES:
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/test/system/generic/microblaze_generic/helper.c
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/test/system/generic/microblaze_generic/platform.c
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/test/system/generic/microblaze_generic/platform.h
+embeddedsw/lib/sw_apps/openamp_echo_test/src/system/freertos/system_helper.c
+embeddedsw/lib/sw_apps/openamp_matrix_multiply/src/system/freertos/system_helper.c
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
+
+COPYRIGHT TEXT:
+---------------
+
 Copyright (c) 2014, Mentor Graphics Corporation All rights reserved. All rights
 reserved. Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met: 1.
@@ -6923,41 +6954,6 @@ embeddedsw/lib/sw_apps/openamp_rpc_demo/src/system/freertos/machine/zynq7/helper
 embeddedsw/lib/sw_apps/openamp_rpc_demo/src/system/freertos/machine/zynqmp_r5/helper.c
 embeddedsw/lib/sw_apps/openamp_rpc_demo/src/system/generic/machine/zynq7/helper.c
 embeddedsw/lib/sw_apps/openamp_rpc_demo/src/system/generic/machine/zynqmp_r5/helper.c
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
-
-COPYRIGHT TEXT:
----------------
-
-All rights reserved. Redistribution and use in source and binary forms, with or
-without modification, are permitted provided that the following conditions are
-met: 1. Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer. 2. Redistributions in
-binary form must reproduce the above copyright notice, this list of conditions
-and the following disclaimer in the documentation and/or other materials
-provided with the distribution. 3. Neither the name of the <ORGANIZATION> nor
-the names of its contributors may be used to endorse or promote products derived
-from this software without specific prior written permission. THIS SOFTWARE IS
-PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
-IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. /
-
-FILES:
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/test/system/generic/microblaze_generic/helper.c
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/test/system/generic/microblaze_generic/platform.c
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/test/system/generic/microblaze_generic/platform.h
-embeddedsw/lib/sw_apps/openamp_echo_test/src/system/freertos/system_helper.c
-embeddedsw/lib/sw_apps/openamp_matrix_multiply/src/system/freertos/system_helper.c
 --------------------------------------------------------------------------------
 
 
@@ -7096,6 +7092,7 @@ embeddedsw/XilinxProcessorIPLib/drivers/dptxss/examples/src/kcu_dp14/menus.c
 embeddedsw/XilinxProcessorIPLib/drivers/dptxss/examples/src/kcu_dp14/xclk_wiz.c
 embeddedsw/XilinxProcessorIPLib/drivers/dptxss/examples/src/kcu_dp14/xedid_print_example.c
 embeddedsw/XilinxProcessorIPLib/drivers/dptxss/examples/src/zcu_pt_dp14/menus.c
+embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2_intr.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h
 embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThrough/xhdcp.c
@@ -7315,6 +7312,7 @@ PURPOSE. /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/lwip141/src/contrib/ports/xilinx/netif/xaxiemacif_physpeed.c
+embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xaxiemacif_physpeed.c
 --------------------------------------------------------------------------------
 
 
@@ -9467,44 +9465,36 @@ embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/sys_arch.c
 
 
 
-POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
+POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
 
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (c) 2007-2008, Advanced Micro Devices, Inc. All rights reserved.
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met: Redistributions of
-source code must retain the above copyright notice, this list of conditions and
-the following disclaimer. Redistributions in binary form must reproduce the
-above copyright notice, this list of conditions and the following disclaimer in
-the documentation and/or other materials provided with the distribution. Neither
-the name of Advanced Micro Devices, Inc. nor the names of its contributors may
-be used to endorse or promote products derived from this software without
-specific prior written permission. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT
-HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
-INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL COPYRIGHT
-OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
-OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
-IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
-OF SUCH DAMAGE. / Some portions copyright (c) 2010-2017 Xilinx, Inc. All rights
-reserved. Xilinx, Inc. XILINX IS PROVIDING THIS DESIGN, CODE, OR INFORMATION "AS
-IS" AS A COURTESY TO YOU. BY PROVIDING THIS DESIGN, CODE, OR INFORMATION AS ONE
-POSSIBLE IMPLEMENTATION OF THIS FEATURE, APPLICATION OR STANDARD, XILINX IS
-MAKING NO REPRESENTATION THAT THIS IMPLEMENTATION IS FREE FROM ANY CLAIMS OF
-INFRINGEMENT, AND YOU ARE RESPONSIBLE FOR OBTAINING ANY RIGHTS YOU MAY REQUIRE
-FOR YOUR IMPLEMENTATION. XILINX EXPRESSLY DISCLAIMS ANY WARRANTY WHATSOEVER WITH
-RESPECT TO THE ADEQUACY OF THE IMPLEMENTATION, INCLUDING BUT NOT LIMITED TO ANY
-WARRANTIES OR REPRESENTATIONS THAT THIS IMPLEMENTATION IS FREE FROM CLAIMS OF
-INFRINGEMENT, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-PURPOSE. /
+All rights reserved. Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including without
+limitation the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to permit persons to whom
+the Software is furnished to do so, subject to the following conditions: The
+above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software. Use of the Software is limited
+solely to applications: (a) running on a Xilinx device, or (b) that interact
+with a Xilinx device through a bus or interconnect. THE SOFTWARE IS PROVIDED "AS
+IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE XILINX BE LIABLE FOR ANY CLAIM, DAMAGES
+OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. Except as contained in this notice, the name of the Xilinx shall
+not be used in advertising or otherwise to promote the sale, use or other
+dealings in this Software without prior written authorization from Xilinx
 
 FILES:
-embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xaxiemacif_physpeed.c
+embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xemacpsif_dma.c
+embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xemacpsif_hw.c
+embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xemacpsif_hw.h
+embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xpqueue.c
+embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_log.c
 --------------------------------------------------------------------------------
 
 
@@ -11017,8 +11007,8 @@ of the author may not be used to endorse or promote products derived from this
 software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
 THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
-PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL AUTHOR BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
@@ -12128,8 +12118,8 @@ of the author may not be used to endorse or promote products derived from this
 software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
 THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
-PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL AUTHOR BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
@@ -13977,8 +13967,8 @@ of the author may not be used to endorse or promote products derived from this
 software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
 THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
-PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL AUTHOR BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
@@ -14495,7 +14485,7 @@ products derived from this software without specific prior written permission.
 THIS SOFTWARE IS PROVIDED BY THE INSTITUTE AND CONTRIBUTORS ``AS IS'' AND ANY
 EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL INSTITUTE OR CONTRIBUTORS BE LIABLE FOR ANY
+DISCLAIMED. IN NO EVENT SHALL THE INSTITUTE OR CONTRIBUTORS BE LIABLE FOR ANY
 DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
@@ -14526,11 +14516,11 @@ Redistributions of any form whatsoever must retain the following acknowledgment:
 "This product includes software developed by Paul Mackerras <paulus@samba.org>".
 THE AUTHORS OF THIS SOFTWARE DISCLAIM ALL WARRANTIES WITH REGARD TO THIS
 SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO
-EVENT SHALL AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES
-OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
-IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
-IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. $Id: ccp.h,v 1.12
-2004/11/04 10:02:26 paulus Exp $ /
+EVENT SHALL THE AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL
+DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING
+OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. $Id:
+ccp.h,v 1.12 2004/11/04 10:02:26 paulus Exp $ /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/lwip202/src/lwip-2.0.2/src/include/netif/ppp/ccp.h
@@ -14553,8 +14543,8 @@ from this software without prior written permission. 3. Redistributions of any
 form whatsoever must retain the following acknowledgment: "This product includes
 software developed by Paul Mackerras <paulus@samba.org>". THE AUTHORS OF THIS
 SOFTWARE DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL AUTHORS BE
-LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE AUTHORS
+BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
 WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF
 CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
 WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. /
@@ -14580,8 +14570,8 @@ from this software without prior written permission. 3. Redistributions of any
 form whatsoever must retain the following acknowledgment: "This product includes
 software developed by Paul Mackerras <paulus@samba.org>". THE AUTHORS OF THIS
 SOFTWARE DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL AUTHORS BE
-LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE AUTHORS
+BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
 WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF
 CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
 WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. /
@@ -14609,7 +14599,7 @@ other materials provided with the distribution. 3. The name(s) of the authors of
 this software must not be used to endorse or promote products derived from this
 software without prior written permission. THE AUTHORS OF THIS SOFTWARE DISCLAIM
 ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL AUTHORS BE LIABLE FOR ANY
+MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
 SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING
 FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
 OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
@@ -14660,7 +14650,7 @@ other materials provided with the distribution. 3. The name(s) of the authors of
 this software must not be used to endorse or promote products derived from this
 software without prior written permission. THE AUTHORS OF THIS SOFTWARE DISCLAIM
 ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL AUTHORS BE LIABLE FOR ANY
+MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
 SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING
 FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
 OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
@@ -14691,12 +14681,12 @@ without prior written permission. 4. Redistributions of any form whatsoever must
 retain the following acknowledgment: "This product includes software developed
 by Tommi Komulainen <Tommi.Komulainen@iki.fi>". THE AUTHORS OF THIS SOFTWARE
 DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL AUTHORS BE LIABLE
-FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER
-RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
-NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE
-USE OR PERFORMANCE OF THIS SOFTWARE. $Id: eui64.h,v 1.6 2002/12/04 23:03:32
-paulus Exp $
+WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE AUTHORS BE
+LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF
+CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
+WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. $Id: eui64.h,v 1.6 2002/12/04
+23:03:32 paulus Exp $
 
 FILES:
 embeddedsw/ThirdParty/sw_services/lwip202/src/lwip-2.0.2/src/include/netif/ppp/eui64.h
@@ -14792,66 +14782,67 @@ without prior written permission. 4. Redistributions of any form whatsoever must
 retain the following acknowledgment: "This product includes software developed
 by Tommi Komulainen <Tommi.Komulainen@iki.fi>". THE AUTHORS OF THIS SOFTWARE
 DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL AUTHORS BE LIABLE
-FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER
-RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
-NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE
-USE OR PERFORMANCE OF THIS SOFTWARE. / Original version, based on RFC2023 :
-Copyright (c) 1995, 1996, 1997 Francis.Dupont@inria.fr, INRIA Rocquencourt,
-Alain.Durand@imag.fr, IMAG, Jean-Luc.Richier@imag.fr, IMAG-LSR. Copyright (c)
-1998, 1999 Francis.Dupont@inria.fr, GIE DYADE, Alain.Durand@imag.fr, IMAG, Jean-
-Luc.Richier@imag.fr, IMAG-LSR. Ce travail a été fait au sein du GIE DYADE
-(Groupement d'Intérêt Économique ayant pour membres BULL S.A. et l'INRIA). Ce
-logiciel informatique est disponible aux conditions usuelles dans la recherche,
-c'est-à-dire qu'il peut être utilisé, copié, modifié, distribué à
-l'unique condition que ce texte soit conservé afin que l'origine de ce logiciel
-soit reconnue. Le nom de l'Institut National de Recherche en Informatique et en
-Automatique (INRIA), de l'IMAG, ou d'une personne morale ou physique ayant
-participé à l'élaboration de ce logiciel ne peut être utilisé sans son
-accord préalable explicite. Ce logiciel est fourni tel quel sans aucune
-garantie, support ou responsabilité d'aucune sorte. Ce logiciel est dérivé de
-sources d'origine "University of California at Berkeley" et "Digital Equipment
-Corporation" couvertes par des copyrights. L'Institut d'Informatique et de
-Mathématiques Appliquées de Grenoble (IMAG) est une fédération d'unités
-mixtes de recherche du CNRS, de l'Institut National Polytechnique de Grenoble et
-de l'Université Joseph Fourier regroupant sept laboratoires dont le laboratoire
-Logiciels, Systèmes, Réseaux (LSR). This work has been done in the context of
-GIE DYADE (joint R & D venture between BULL S.A. and INRIA). This software is
-available with usual "research" terms with the aim of retain credits of the
-software. Permission to use, copy, modify and distribute this software for any
-purpose and without fee is hereby granted, provided that the above copyright
-notice and this permission notice appear in all copies, and the name of INRIA,
-IMAG, or any contributor not be used in advertising or publicity pertaining to
-this material without the prior explicit permission. The software is provided
-"as is" without any warranties, support or liabilities of any kind. This
-software is derived from source code from "University of California at Berkeley"
-and "Digital Equipment Corporation" protected by copyrights. Grenoble's
-Institute of Computer Science and Applied Mathematics (IMAG) is a federation of
-seven research units funded by the CNRS, National Polytechnic Institute of
-Grenoble and University Joseph Fourier. The research unit in Software, Systems,
-Networks (LSR) is member of IMAG. Derived from : ipcp.h - IP Control Protocol
-definitions. Copyright (c) 1984-2000 Carnegie Mellon University. All rights
-reserved. Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 1.
-Redistributions of source code must retain the above copyright notice, this list
-of conditions and the following disclaimer. 2. Redistributions in binary form
-must reproduce the above copyright notice, this list of conditions and the
-following disclaimer in the documentation and/or other materials provided with
-the distribution. 3. The name "Carnegie Mellon University" must not be used to
-endorse or promote products derived from this software without prior written
-permission. For permission or any legal details, please contact Office of
-Technology Transfer Carnegie Mellon University 5000 Forbes Avenue Pittsburgh, PA
-15213-3890 (412) 268-4387, fax: (412) 268-7395 tech-transfer@andrew.cmu.edu 4.
-Redistributions of any form whatsoever must retain the following acknowledgment:
-"This product includes software developed by Computing Services at Carnegie
-Mellon University (http://www.cmu.edu/computing/)." CARNEGIE MELLON UNIVERSITY
-DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL CARNEGIE MELLON
-UNIVERSITY BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY
-DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
-ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
-CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. $Id: ipv6cp.h,v 1.7
-2002/12/04 23:03:32 paulus Exp $ /
+WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE AUTHORS BE
+LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF
+CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
+WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. / Original version, based on
+RFC2023 : Copyright (c) 1995, 1996, 1997 Francis.Dupont@inria.fr, INRIA
+Rocquencourt, Alain.Durand@imag.fr, IMAG, Jean-Luc.Richier@imag.fr, IMAG-LSR.
+Copyright (c) 1998, 1999 Francis.Dupont@inria.fr, GIE DYADE,
+Alain.Durand@imag.fr, IMAG, Jean-Luc.Richier@imag.fr, IMAG-LSR. Ce travail a
+été fait au sein du GIE DYADE (Groupement d'Intérêt Économique ayant pour
+membres BULL S.A. et l'INRIA). Ce logiciel informatique est disponible aux
+conditions usuelles dans la recherche, c'est-à-dire qu'il peut être utilisé,
+copié, modifié, distribué à l'unique condition que ce texte soit conservé
+afin que l'origine de ce logiciel soit reconnue. Le nom de l'Institut National
+de Recherche en Informatique et en Automatique (INRIA), de l'IMAG, ou d'une
+personne morale ou physique ayant participé à l'élaboration de ce logiciel ne
+peut être utilisé sans son accord préalable explicite. Ce logiciel est fourni
+tel quel sans aucune garantie, support ou responsabilité d'aucune sorte. Ce
+logiciel est dérivé de sources d'origine "University of California at
+Berkeley" et "Digital Equipment Corporation" couvertes par des copyrights.
+L'Institut d'Informatique et de Mathématiques Appliquées de Grenoble (IMAG)
+est une fédération d'unités mixtes de recherche du CNRS, de l'Institut
+National Polytechnique de Grenoble et de l'Université Joseph Fourier regroupant
+sept laboratoires dont le laboratoire Logiciels, Systèmes, Réseaux (LSR). This
+work has been done in the context of GIE DYADE (joint R & D venture between BULL
+S.A. and INRIA). This software is available with usual "research" terms with the
+aim of retain credits of the software. Permission to use, copy, modify and
+distribute this software for any purpose and without fee is hereby granted,
+provided that the above copyright notice and this permission notice appear in
+all copies, and the name of INRIA, IMAG, or any contributor not be used in
+advertising or publicity pertaining to this material without the prior explicit
+permission. The software is provided "as is" without any warranties, support or
+liabilities of any kind. This software is derived from source code from
+"University of California at Berkeley" and "Digital Equipment Corporation"
+protected by copyrights. Grenoble's Institute of Computer Science and Applied
+Mathematics (IMAG) is a federation of seven research units funded by the CNRS,
+National Polytechnic Institute of Grenoble and University Joseph Fourier. The
+research unit in Software, Systems, Networks (LSR) is member of IMAG. Derived
+from : ipcp.h - IP Control Protocol definitions. Copyright (c) 1984-2000
+Carnegie Mellon University. All rights reserved. Redistribution and use in
+source and binary forms, with or without modification, are permitted provided
+that the following conditions are met: 1. Redistributions of source code must
+retain the above copyright notice, this list of conditions and the following
+disclaimer. 2. Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution. 3. The name
+"Carnegie Mellon University" must not be used to endorse or promote products
+derived from this software without prior written permission. For permission or
+any legal details, please contact Office of Technology Transfer Carnegie Mellon
+University 5000 Forbes Avenue Pittsburgh, PA 15213-3890 (412) 268-4387, fax:
+(412) 268-7395 tech-transfer@andrew.cmu.edu 4. Redistributions of any form
+whatsoever must retain the following acknowledgment: "This product includes
+software developed by Computing Services at Carnegie Mellon University
+(http://www.cmu.edu/computing/)." CARNEGIE MELLON UNIVERSITY DISCLAIMS ALL
+WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL CARNEGIE MELLON UNIVERSITY BE
+LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF
+CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
+WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. $Id: ipv6cp.h,v 1.7 2002/12/04
+23:03:32 paulus Exp $ /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/lwip202/src/lwip-2.0.2/src/include/netif/ppp/ipv6cp.h
@@ -14931,10 +14922,10 @@ distributions. No written agreement, license, or royalty fee is required for any
 of the authorized uses. THIS SOFTWARE IS PROVIDED BY THE CONTRIBUTORS AS IS AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+DISCLAIMED. IN NO EVENT SHALL THE CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. REVISION HISTORY 03-01-01 Marc
@@ -14965,7 +14956,7 @@ written permission. 4. Redistributions of any form whatsoever must retain the
 following acknowledgment: "This product includes software developed by Paul
 Mackerras <paulus@samba.org>". THE AUTHORS OF THIS SOFTWARE DISCLAIM ALL
 WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL AUTHORS BE LIABLE FOR ANY
+MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
 SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING
 FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
 OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
@@ -14992,10 +14983,10 @@ distributions. No written agreement, license, or royalty fee is required for any
 of the authorized uses. THIS SOFTWARE IS PROVIDED BY THE CONTRIBUTORS AS IS AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+DISCLAIMED. IN NO EVENT SHALL THE CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. REVISION HISTORY 03-01-01 Marc
@@ -15026,7 +15017,7 @@ the distribution. 3. The name(s) of the authors of this software must not be
 used to endorse or promote products derived from this software without prior
 written permission. THE AUTHORS OF THIS SOFTWARE DISCLAIM ALL WARRANTIES WITH
 REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
-FITNESS, IN NO EVENT SHALL AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+FITNESS, IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR
 CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA
 OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS
 ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS
@@ -15055,7 +15046,7 @@ license, or royalty fee is required for any of the authorized uses. THIS
 SOFTWARE IS PROVIDED BY THE CONTRIBUTORS AS IS AND ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+SHALL THE CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
 EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
 OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
 INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
@@ -15085,17 +15076,17 @@ included verbatim in any distributions. No written agreement, license, or
 royalty fee is required for any of the authorized uses. THIS SOFTWARE IS
 PROVIDED BY THE CONTRIBUTORS AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES,
 INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL CONTRIBUTORS
-BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
-GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
-THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-REVISION HISTORY 06-01-01 Marc Boucher <marc@mbsi.ca> Ported to lwIP. based on
-NetBSD: if_pppoe.c,v 1.64 2006/01/31 23:50:15 martin Exp / Copyright (c) 2002
-The NetBSD Foundation, Inc. All rights reserved. This code is derived from
-software contributed to The NetBSD Foundation by Martin Husemann
+FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+OF SUCH DAMAGE. REVISION HISTORY 06-01-01 Marc Boucher <marc@mbsi.ca> Ported to
+lwIP. based on NetBSD: if_pppoe.c,v 1.64 2006/01/31 23:50:15 martin Exp /
+Copyright (c) 2002 The NetBSD Foundation, Inc. All rights reserved. This code is
+derived from software contributed to The NetBSD Foundation by Martin Husemann
 <martin@NetBSD.org>. Redistribution and use in source and binary forms, with or
 without modification, are permitted provided that the following conditions are
 met: 1. Redistributions of source code must retain the above copyright notice,
@@ -15111,13 +15102,13 @@ specific prior written permission. THIS SOFTWARE IS PROVIDED BY THE NETBSD
 FOUNDATION, INC. AND CONTRIBUTORS ``AS IS'' AND ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL FOUNDATION OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
-BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
-IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
-OF SUCH DAMAGE. /
+SHALL THE FOUNDATION OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/lwip202/src/lwip-2.0.2/src/include/netif/ppp/pppoe.h
@@ -15265,7 +15256,7 @@ software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
 THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
 INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
 PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
@@ -15298,7 +15289,7 @@ software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
 THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
 INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
 PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
@@ -15331,7 +15322,7 @@ software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
 THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
 INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
 PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
@@ -15364,7 +15355,7 @@ software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
 THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
 INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
 PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
@@ -15397,7 +15388,7 @@ software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
 THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
 INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
 PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
@@ -15591,7 +15582,7 @@ products derived from this software without specific prior written permission.
 THIS SOFTWARE IS PROVIDED BY THE INSTITUTE AND CONTRIBUTORS ``AS IS'' AND ANY
 EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL INSTITUTE OR CONTRIBUTORS BE LIABLE FOR ANY
+DISCLAIMED. IN NO EVENT SHALL THE INSTITUTE OR CONTRIBUTORS BE LIABLE FOR ANY
 DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
@@ -15633,31 +15624,32 @@ Redistributions of any form whatsoever must retain the following acknowledgment:
 "This product includes software developed by Paul Mackerras <paulus@samba.org>".
 THE AUTHORS OF THIS SOFTWARE DISCLAIM ALL WARRANTIES WITH REGARD TO THIS
 SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO
-EVENT SHALL AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES
-OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
-IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
-IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. Derived from main.c,
-which is: Copyright (c) 1984-2000 Carnegie Mellon University. All rights
-reserved. Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 1.
-Redistributions of source code must retain the above copyright notice, this list
-of conditions and the following disclaimer. 2. Redistributions in binary form
-must reproduce the above copyright notice, this list of conditions and the
-following disclaimer in the documentation and/or other materials provided with
-the distribution. 3. The name "Carnegie Mellon University" must not be used to
-endorse or promote products derived from this software without prior written
-permission. For permission or any legal details, please contact Office of
-Technology Transfer Carnegie Mellon University 5000 Forbes Avenue Pittsburgh, PA
-15213-3890 (412) 268-4387, fax: (412) 268-7395 tech-transfer@andrew.cmu.edu 4.
-Redistributions of any form whatsoever must retain the following acknowledgment:
-"This product includes software developed by Computing Services at Carnegie
-Mellon University (http://www.cmu.edu/computing/)." CARNEGIE MELLON UNIVERSITY
-DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL CARNEGIE MELLON
-UNIVERSITY BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY
-DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
-ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
-CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. /
+EVENT SHALL THE AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL
+DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING
+OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. Derived
+from main.c, which is: Copyright (c) 1984-2000 Carnegie Mellon University. All
+rights reserved. Redistribution and use in source and binary forms, with or
+without modification, are permitted provided that the following conditions are
+met: 1. Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer. 2. Redistributions in
+binary form must reproduce the above copyright notice, this list of conditions
+and the following disclaimer in the documentation and/or other materials
+provided with the distribution. 3. The name "Carnegie Mellon University" must
+not be used to endorse or promote products derived from this software without
+prior written permission. For permission or any legal details, please contact
+Office of Technology Transfer Carnegie Mellon University 5000 Forbes Avenue
+Pittsburgh, PA 15213-3890 (412) 268-4387, fax: (412) 268-7395 tech-
+transfer@andrew.cmu.edu 4. Redistributions of any form whatsoever must retain
+the following acknowledgment: "This product includes software developed by
+Computing Services at Carnegie Mellon University
+(http://www.cmu.edu/computing/)." CARNEGIE MELLON UNIVERSITY DISCLAIMS ALL
+WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL CARNEGIE MELLON UNIVERSITY BE
+LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF
+CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
+WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/lwip202/src/lwip-2.0.2/src/netif/ppp/auth.c
@@ -15681,10 +15673,10 @@ Redistributions of any form whatsoever must retain the following acknowledgment:
 "This product includes software developed by Paul Mackerras <paulus@samba.org>".
 THE AUTHORS OF THIS SOFTWARE DISCLAIM ALL WARRANTIES WITH REGARD TO THIS
 SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO
-EVENT SHALL AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES
-OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
-IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
-IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. /
+EVENT SHALL THE AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL
+DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING
+OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/lwip202/src/lwip-2.0.2/src/netif/ppp/ccp.c
@@ -15707,8 +15699,8 @@ from this software without prior written permission. 3. Redistributions of any
 form whatsoever must retain the following acknowledgment: "This product includes
 software developed by Paul Mackerras <paulus@samba.org>". THE AUTHORS OF THIS
 SOFTWARE DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL AUTHORS BE
-LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE AUTHORS
+BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
 WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF
 CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
 WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. /
@@ -15735,7 +15727,7 @@ other materials provided with the distribution. 3. The name(s) of the authors of
 this software must not be used to endorse or promote products derived from this
 software without prior written permission. THE AUTHORS OF THIS SOFTWARE DISCLAIM
 ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL AUTHORS BE LIABLE FOR ANY
+MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
 SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING
 FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
 OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
@@ -15758,7 +15750,7 @@ other materials provided with the distribution. 3. The name(s) of the authors of
 this software must not be used to endorse or promote products derived from this
 software without prior written permission. THE AUTHORS OF THIS SOFTWARE DISCLAIM
 ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL AUTHORS BE LIABLE FOR ANY
+MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
 SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING
 FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
 OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
@@ -15786,10 +15778,10 @@ Redistributions of any form whatsoever must retain the following acknowledgment:
 "This product includes software developed by Paul Mackerras <paulus@samba.org>".
 THE AUTHORS OF THIS SOFTWARE DISCLAIM ALL WARRANTIES WITH REGARD TO THIS
 SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO
-EVENT SHALL AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES
-OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
-IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
-IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. /
+EVENT SHALL THE AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL
+DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING
+OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/lwip202/src/lwip-2.0.2/src/netif/ppp/demand.c
@@ -15848,7 +15840,7 @@ provided with the distribution. 3. The name(s) of the authors of this software
 must not be used to endorse or promote products derived from this software
 without prior written permission. THE AUTHORS OF THIS SOFTWARE DISCLAIM ALL
 WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL AUTHORS BE LIABLE FOR ANY
+MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
 SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING
 FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
 OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
@@ -15863,10 +15855,10 @@ Redistributions of any form whatsoever must retain the following acknowledgment:
 "This product includes software developed by Paul Mackerras <paulus@samba.org>".
 THE AUTHORS OF THIS SOFTWARE DISCLAIM ALL WARRANTIES WITH REGARD TO THIS
 SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO
-EVENT SHALL AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES
-OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
-IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
-IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. /
+EVENT SHALL THE AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL
+DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING
+OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/lwip202/src/lwip-2.0.2/src/netif/ppp/ecp.c
@@ -15892,12 +15884,12 @@ without prior written permission. 4. Redistributions of any form whatsoever must
 retain the following acknowledgment: "This product includes software developed
 by Tommi Komulainen <Tommi.Komulainen@iki.fi>". THE AUTHORS OF THIS SOFTWARE
 DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL AUTHORS BE LIABLE
-FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER
-RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
-NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE
-USE OR PERFORMANCE OF THIS SOFTWARE. $Id: eui64.c,v 1.6 2002/12/04 23:03:32
-paulus Exp $ /
+WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE AUTHORS BE
+LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF
+CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
+WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. $Id: eui64.c,v 1.6 2002/12/04
+23:03:32 paulus Exp $ /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/lwip202/src/lwip-2.0.2/src/netif/ppp/eui64.c
@@ -15991,67 +15983,68 @@ without prior written permission. 4. Redistributions of any form whatsoever must
 retain the following acknowledgment: "This product includes software developed
 by Tommi Komulainen <Tommi.Komulainen@iki.fi>". THE AUTHORS OF THIS SOFTWARE
 DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL AUTHORS BE LIABLE
-FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER
-RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
-NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE
-USE OR PERFORMANCE OF THIS SOFTWARE. / Original version, based on RFC2023 :
-Copyright (c) 1995, 1996, 1997 Francis.Dupont@inria.fr, INRIA Rocquencourt,
-Alain.Durand@imag.fr, IMAG, Jean-Luc.Richier@imag.fr, IMAG-LSR. Copyright (c)
-1998, 1999 Francis.Dupont@inria.fr, GIE DYADE, Alain.Durand@imag.fr, IMAG, Jean-
-Luc.Richier@imag.fr, IMAG-LSR. Ce travail a été fait au sein du GIE DYADE
-(Groupement d'Intérêt Économique ayant pour membres BULL S.A. et l'INRIA). Ce
-logiciel informatique est disponible aux conditions usuelles dans la recherche,
-c'est-à-dire qu'il peut être utilisé, copié, modifié, distribué à
-l'unique condition que ce texte soit conservé afin que l'origine de ce logiciel
-soit reconnue. Le nom de l'Institut National de Recherche en Informatique et en
-Automatique (INRIA), de l'IMAG, ou d'une personne morale ou physique ayant
-participé à l'élaboration de ce logiciel ne peut être utilisé sans son
-accord préalable explicite. Ce logiciel est fourni tel quel sans aucune
-garantie, support ou responsabilité d'aucune sorte. Ce logiciel est dérivé de
-sources d'origine "University of California at Berkeley" et "Digital Equipment
-Corporation" couvertes par des copyrights. L'Institut d'Informatique et de
-Mathématiques Appliquées de Grenoble (IMAG) est une fédération d'unités
-mixtes de recherche du CNRS, de l'Institut National Polytechnique de Grenoble et
-de l'Université Joseph Fourier regroupant sept laboratoires dont le laboratoire
-Logiciels, Systèmes, Réseaux (LSR). This work has been done in the context of
-GIE DYADE (joint R & D venture between BULL S.A. and INRIA). This software is
-available with usual "research" terms with the aim of retain credits of the
-software. Permission to use, copy, modify and distribute this software for any
-purpose and without fee is hereby granted, provided that the above copyright
-notice and this permission notice appear in all copies, and the name of INRIA,
-IMAG, or any contributor not be used in advertising or publicity pertaining to
-this material without the prior explicit permission. The software is provided
-"as is" without any warranties, support or liabilities of any kind. This
-software is derived from source code from "University of California at Berkeley"
-and "Digital Equipment Corporation" protected by copyrights. Grenoble's
-Institute of Computer Science and Applied Mathematics (IMAG) is a federation of
-seven research units funded by the CNRS, National Polytechnic Institute of
-Grenoble and University Joseph Fourier. The research unit in Software, Systems,
-Networks (LSR) is member of IMAG. Derived from : ipcp.c - PPP IP Control
-Protocol. Copyright (c) 1984-2000 Carnegie Mellon University. All rights
-reserved. Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 1.
-Redistributions of source code must retain the above copyright notice, this list
-of conditions and the following disclaimer. 2. Redistributions in binary form
-must reproduce the above copyright notice, this list of conditions and the
-following disclaimer in the documentation and/or other materials provided with
-the distribution. 3. The name "Carnegie Mellon University" must not be used to
-endorse or promote products derived from this software without prior written
-permission. For permission or any legal details, please contact Office of
-Technology Transfer Carnegie Mellon University 5000 Forbes Avenue Pittsburgh, PA
-15213-3890 (412) 268-4387, fax: (412) 268-7395 tech-transfer@andrew.cmu.edu 4.
-Redistributions of any form whatsoever must retain the following acknowledgment:
-"This product includes software developed by Computing Services at Carnegie
-Mellon University (http://www.cmu.edu/computing/)." CARNEGIE MELLON UNIVERSITY
-DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL CARNEGIE MELLON
-UNIVERSITY BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY
-DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
-ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
-CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. $Id: ipv6cp.c,v 1.21
-2005/08/25 23:59:34 paulus Exp $ / @todo: Proxy Neighbour Discovery. Better
-defines for selecting the ordering of interface up / set address. /
+WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE AUTHORS BE
+LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF
+CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
+WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. / Original version, based on
+RFC2023 : Copyright (c) 1995, 1996, 1997 Francis.Dupont@inria.fr, INRIA
+Rocquencourt, Alain.Durand@imag.fr, IMAG, Jean-Luc.Richier@imag.fr, IMAG-LSR.
+Copyright (c) 1998, 1999 Francis.Dupont@inria.fr, GIE DYADE,
+Alain.Durand@imag.fr, IMAG, Jean-Luc.Richier@imag.fr, IMAG-LSR. Ce travail a
+été fait au sein du GIE DYADE (Groupement d'Intérêt Économique ayant pour
+membres BULL S.A. et l'INRIA). Ce logiciel informatique est disponible aux
+conditions usuelles dans la recherche, c'est-à-dire qu'il peut être utilisé,
+copié, modifié, distribué à l'unique condition que ce texte soit conservé
+afin que l'origine de ce logiciel soit reconnue. Le nom de l'Institut National
+de Recherche en Informatique et en Automatique (INRIA), de l'IMAG, ou d'une
+personne morale ou physique ayant participé à l'élaboration de ce logiciel ne
+peut être utilisé sans son accord préalable explicite. Ce logiciel est fourni
+tel quel sans aucune garantie, support ou responsabilité d'aucune sorte. Ce
+logiciel est dérivé de sources d'origine "University of California at
+Berkeley" et "Digital Equipment Corporation" couvertes par des copyrights.
+L'Institut d'Informatique et de Mathématiques Appliquées de Grenoble (IMAG)
+est une fédération d'unités mixtes de recherche du CNRS, de l'Institut
+National Polytechnique de Grenoble et de l'Université Joseph Fourier regroupant
+sept laboratoires dont le laboratoire Logiciels, Systèmes, Réseaux (LSR). This
+work has been done in the context of GIE DYADE (joint R & D venture between BULL
+S.A. and INRIA). This software is available with usual "research" terms with the
+aim of retain credits of the software. Permission to use, copy, modify and
+distribute this software for any purpose and without fee is hereby granted,
+provided that the above copyright notice and this permission notice appear in
+all copies, and the name of INRIA, IMAG, or any contributor not be used in
+advertising or publicity pertaining to this material without the prior explicit
+permission. The software is provided "as is" without any warranties, support or
+liabilities of any kind. This software is derived from source code from
+"University of California at Berkeley" and "Digital Equipment Corporation"
+protected by copyrights. Grenoble's Institute of Computer Science and Applied
+Mathematics (IMAG) is a federation of seven research units funded by the CNRS,
+National Polytechnic Institute of Grenoble and University Joseph Fourier. The
+research unit in Software, Systems, Networks (LSR) is member of IMAG. Derived
+from : ipcp.c - PPP IP Control Protocol. Copyright (c) 1984-2000 Carnegie Mellon
+University. All rights reserved. Redistribution and use in source and binary
+forms, with or without modification, are permitted provided that the following
+conditions are met: 1. Redistributions of source code must retain the above
+copyright notice, this list of conditions and the following disclaimer. 2.
+Redistributions in binary form must reproduce the above copyright notice, this
+list of conditions and the following disclaimer in the documentation and/or
+other materials provided with the distribution. 3. The name "Carnegie Mellon
+University" must not be used to endorse or promote products derived from this
+software without prior written permission. For permission or any legal details,
+please contact Office of Technology Transfer Carnegie Mellon University 5000
+Forbes Avenue Pittsburgh, PA 15213-3890 (412) 268-4387, fax: (412) 268-7395
+tech-transfer@andrew.cmu.edu 4. Redistributions of any form whatsoever must
+retain the following acknowledgment: "This product includes software developed
+by Computing Services at Carnegie Mellon University
+(http://www.cmu.edu/computing/)." CARNEGIE MELLON UNIVERSITY DISCLAIMS ALL
+WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL CARNEGIE MELLON UNIVERSITY BE
+LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF
+CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
+WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. $Id: ipv6cp.c,v 1.21 2005/08/25
+23:59:34 paulus Exp $ / @todo: Proxy Neighbour Discovery. Better defines for
+selecting the ordering of interface up / set address. /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/lwip202/src/lwip-2.0.2/src/netif/ppp/ipv6cp.c
@@ -16130,7 +16123,7 @@ agreement, license, or royalty fee is required for any of the authorized uses.
 THIS SOFTWARE IS PROVIDED BY THE CONTRIBUTORS AS IS AND ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+SHALL THE CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
 EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
 OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
 INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
@@ -16185,10 +16178,10 @@ Redistributions of any form whatsoever must retain the following acknowledgment:
 "This product includes software developed by Paul Mackerras <paulus@samba.org>".
 THE AUTHORS OF THIS SOFTWARE DISCLAIM ALL WARRANTIES WITH REGARD TO THIS
 SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO
-EVENT SHALL AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES
-OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
-IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
-IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. /
+EVENT SHALL THE AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL
+DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING
+OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/lwip202/src/lwip-2.0.2/src/netif/ppp/multilink.c
@@ -16211,10 +16204,10 @@ distributions. No written agreement, license, or royalty fee is required for any
 of the authorized uses. THIS SOFTWARE IS PROVIDED BY THE CONTRIBUTORS AS IS AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+DISCLAIMED. IN NO EVENT SHALL THE CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. REVISION HISTORY 03-01-01 Marc
@@ -16226,15 +16219,15 @@ Permission to use, copy, modify, and distribute this software and its
 documentation is hereby granted, provided that the above copyright notice
 appears in all copies. This software is provided without any warranty, express
 or implied. The Australian National University makes no representations about
-the suitability of this software for any purpose. IN NO EVENT SHALL AUSTRALIAN
-NATIONAL UNIVERSITY BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT, SPECIAL,
-INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OF THIS SOFTWARE AND
-ITS DOCUMENTATION, EVEN IF THE AUSTRALIAN NATIONAL UNIVERSITY HAVE BEEN ADVISED
-OF THE POSSIBILITY OF SUCH DAMAGE. THE AUSTRALIAN NATIONAL UNIVERSITY
-SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE
-SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND THE AUSTRALIAN NATIONAL
-UNIVERSITY HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES,
+the suitability of this software for any purpose. IN NO EVENT SHALL THE
+AUSTRALIAN NATIONAL UNIVERSITY BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
+SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OF THIS
+SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE AUSTRALIAN NATIONAL UNIVERSITY HAVE
+BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE AUSTRALIAN NATIONAL
+UNIVERSITY SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND THE AUSTRALIAN
+NATIONAL UNIVERSITY HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES,
 ENHANCEMENTS, OR MODIFICATIONS. / if_ppp.h - Point-to-Point Protocol
 definitions. Copyright (c) 1989 Carnegie Mellon University. All rights reserved.
 Redistribution and use in source and binary forms are permitted provided that
@@ -16299,17 +16292,17 @@ included verbatim in any distributions. No written agreement, license, or
 royalty fee is required for any of the authorized uses. THIS SOFTWARE IS
 PROVIDED BY THE CONTRIBUTORS AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES,
 INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL CONTRIBUTORS
-BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
-GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
-THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-REVISION HISTORY 06-01-01 Marc Boucher <marc@mbsi.ca> Ported to lwIP. based on
-NetBSD: if_pppoe.c,v 1.64 2006/01/31 23:50:15 martin Exp / Copyright (c) 2002
-The NetBSD Foundation, Inc. All rights reserved. This code is derived from
-software contributed to The NetBSD Foundation by Martin Husemann
+FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+OF SUCH DAMAGE. REVISION HISTORY 06-01-01 Marc Boucher <marc@mbsi.ca> Ported to
+lwIP. based on NetBSD: if_pppoe.c,v 1.64 2006/01/31 23:50:15 martin Exp /
+Copyright (c) 2002 The NetBSD Foundation, Inc. All rights reserved. This code is
+derived from software contributed to The NetBSD Foundation by Martin Husemann
 <martin@NetBSD.org>. Redistribution and use in source and binary forms, with or
 without modification, are permitted provided that the following conditions are
 met: 1. Redistributions of source code must retain the above copyright notice,
@@ -16325,13 +16318,13 @@ specific prior written permission. THIS SOFTWARE IS PROVIDED BY THE NETBSD
 FOUNDATION, INC. AND CONTRIBUTORS ``AS IS'' AND ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL FOUNDATION OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
-BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
-IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
-OF SUCH DAMAGE. /
+SHALL THE FOUNDATION OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/lwip202/src/lwip-2.0.2/src/netif/ppp/pppoe.c
@@ -16457,10 +16450,10 @@ Redistributions of any form whatsoever must retain the following acknowledgment:
 "This product includes software developed by Paul Mackerras <paulus@samba.org>".
 THE AUTHORS OF THIS SOFTWARE DISCLAIM ALL WARRANTIES WITH REGARD TO THIS
 SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO
-EVENT SHALL AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES
-OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
-IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
-IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. /
+EVENT SHALL THE AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL
+DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING
+OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/lwip202/src/lwip-2.0.2/src/netif/ppp/utils.c
@@ -16515,8 +16508,8 @@ products derived from this software without specific prior written permission.
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
@@ -16550,8 +16543,8 @@ products derived from this software without specific prior written permission.
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
@@ -16586,8 +16579,8 @@ products derived from this software without specific prior written permission.
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
@@ -16621,8 +16614,8 @@ products derived from this software without specific prior written permission.
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
@@ -16655,8 +16648,8 @@ products derived from this software without specific prior written permission.
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
@@ -17366,6 +17359,287 @@ FILES:
 embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_common/src/bigdtypes.h
 embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/hdcp_key_utility/bigdtypes.h
 embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/hdcp_key_utility/bigdtypes.h
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
+
+COPYRIGHT TEXT:
+---------------
+
+All rights reserved. Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files (the
+"Software"),to deal in the Software without restriction, including without
+limitation the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to permit persons to whom
+the Software is furnished to do so, subject to the following conditions: The
+above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software. Use of the Software is limited
+solely to applications: (a) running on a Xilinx device, or (b) that interact
+with a Xilinx device through a bus or interconnect. THE SOFTWARE IS PROVIDED "AS
+IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. Except as contained in this notice, the name of the Xilinx shall
+not be used in advertising or otherwise to promote the sale, use or other
+dealings in this Software without prior written authorization from Xilinx
+
+FILES:
+embeddedsw/XilinxProcessorIPLib/drivers/i2srx/data/xi2srx_header.h
+embeddedsw/XilinxProcessorIPLib/drivers/spdif/data/xspdif_header.h
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
+
+COPYRIGHT TEXT:
+---------------
+
+All rights reserved. Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files (the
+"Software"),to deal in the Software without restriction, including without
+limitation the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to permit persons to whom
+the Software is furnished to do so, subject to the following conditions: The
+above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software. Use of the Software is limited
+solely to applications: (a) running on a Xilinx device, or (b) that interact
+with a Xilinx device through a bus or interconnect. THE SOFTWARE IS PROVIDED "AS
+IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. Except as contained in this notice,the name of the Xilinx shall
+not be used in advertising or otherwise to promote the sale, use or other
+dealings in this Software without prior written authorization from Xilinx
+
+FILES:
+embeddedsw/XilinxProcessorIPLib/drivers/i2srx/examples/xi2srx_intr_example.c
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
+
+COPYRIGHT TEXT:
+---------------
+
+CAUTION: This file is automatically generated by HSI. Version: DO NOT EDIT. All
+Rights Reserved. Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files (the
+Software), to deal in the Software without restriction, including without
+limitation the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to permit persons to whom
+the Software is furnished to do so, subject to the following conditions: The
+above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software. Use of the Software is limited
+solely to applications: (a) running on a Xilinx device, or (b) that interact
+with a Xilinx device through a bus or interconnect. THE SOFTWARE IS PROVIDED AS
+IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. Except as contained in this notice, the name of the Xilinx shall
+not be used in advertising or otherwise to promote the sale, use or other
+dealings in this Software without prior written authorization from Xilinx
+
+FILES:
+embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_g.c
+embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_g.c
+embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_g.c
+embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_g.c
+embeddedsw/lib/sw_apps/zynqmp_fsbl/misc/zcu102-es1/bspconfig.h
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
+
+COPYRIGHT TEXT:
+---------------
+
+All rights reserved. Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including without
+limitation the rights to use, copy, modify, merge, publish, distribute,
+sublicense, andor sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions: The above
+copyright notice and this permission notice shall be included in all copies or
+substantial portions of the Software. Use of the Software is limited solely to
+applications: (a) running on a Xilinx device, or (b) that interact with a Xilinx
+device through a bus or interconnect. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
+WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. Except as contained in this notice, the name of the Xilinx shall
+not be used in advertising or otherwise to promote the sale, use or other
+dealings in this Software without prior written authorization from Xilinx
+
+FILES:
+embeddedsw/XilinxProcessorIPLib/drivers/i2stx/data/i2stx.mdd
+embeddedsw/XilinxProcessorIPLib/drivers/i2stx/data/i2stx.tcl
+embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/data/sdiaud.tcl
+embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/data/v_hdmirxss.mdd
+embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/data/v_hdmirxss.tcl
+embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/data/v_hdmitxss.mdd
+embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/data/v_hdmitxss.tcl
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [EPL-1.0] 
+
+COPYRIGHT TEXT:
+---------------
+
+d52cbaca0ef8cf4fd3d6354deb5066970fb6511d02d18d15835e6014ed847fb0 All rights
+reserved. This file contains confidential and proprietary information of Xilinx,
+Inc. and is protected under U.S. and international copyright and other
+intellectual property laws. DISCLAIMER This disclaimer is not a license and does
+not grant any rights to the materials distributed herewith. Except as otherwise
+provided in a valid license issued to you by Xilinx, and to the maximum extent
+permitted by applicable law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
+WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS,
+EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
+MERCHANTABILITY, NON INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
+(2) Xilinx shall not be liable (whether in contract or tort, including
+negligence, or under any other theory of liability) for any loss or damage of
+any kind or nature related to, arising under or in connection with these
+materials, including for any direct, or any indirect, special, incidental, or
+consequential loss or damage (including loss of data, profits, goodwill, or any
+type of loss or damage suffered as a result of any action brought by a third
+party) even if such damage or loss was reasonably foreseeable or Xilinx had been
+advised of the possibility of the same. CRITICAL APPLICATIONS Xilinx products
+are not designed or intended to be fail safe, or for use in any application
+requiring fail-safe performance, such as life-support or safety devices or
+systems, Class III medical devices, nuclear facilities, applications related to
+the deployment of airbags, or any other applications that could lead to death,
+personal injury, or severe property or environmental damage (individually and
+collectively, "Critical Applications"). Customer assumes the sole risk and
+liability of any use of Xilinx products in Critical Applications, subject only
+to applicable laws and regulations governing limitations on product liability.
+THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE AT
+ALL TIMES.
+
+FILES:
+embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/data/sd_fec.mdd
+embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/data/sd_fec.tcl
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [EPL-1.0] 
+
+COPYRIGHT TEXT:
+---------------
+
+d52cbaca0ef8cf4fd3d6354deb5066970fb6511d02d18d15835e6014ed847fb0 All rights
+reserved. This file contains confidential and proprietary information of Xilinx,
+Inc. and is protected under U.S. and international copyright and other
+intellectual property laws. DISCLAIMER This disclaimer is not a license and does
+not grant any rights to the materials distributed herewith. Except as otherwise
+provided in a valid license issued to you by Xilinx, and to the maximum extent
+permitted by applicable law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
+WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS,
+EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
+MERCHANTABILITY, NON INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
+(2) Xilinx shall not be liable (whether in contract or tort, including
+negligence, or under any other theory of liability) for any loss or damage of
+any kind or nature related to, arising under or in connection with these
+materials, including for any direct, or any indirect, special, incidental, or
+consequential loss or damage (including loss of data, profits, goodwill, or any
+type of loss or damage suffered as a result of any action brought by a third
+party) even if such damage or loss was reasonably foreseeable or Xilinx had been
+advised of the possibility of the same. CRITICAL APPLICATIONS Xilinx products
+are not designed or intended to be fail safe, or for use in any application
+requiring fail-safe performance, such as life-support or safety devices or
+systems, Class III medical devices, nuclear facilities, applications related to
+the deployment of airbags, or any other applications that could lead to death,
+personal injury, or severe property or environmental damage (individually and
+collectively, "Critical Applications"). Customer assumes the sole risk and
+liability of any use of Xilinx products in Critical Applications, subject only
+to applicable laws and regulations governing limitations on product liability.
+THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE AT
+ALL TIMES. \mainpage SD-FEC standalone driver software API summary \section
+sec_init Initialization and Configuration The XSdFec_Config structure is used by
+the driver to configure the FEC mode and interface parameters defined for each
+SD-FEC device. The configuration structure is created by the tool-chain based on
+HW build properties. To support multiple runtime loading and initialization
+strategies employed by various operating systems, the driver instance can be
+initialized in one of two ways: - XSdFecInitialize(InstancePtr, DeviceId) - The
+driver looks up its own configuration structure created by the tool-chain based
+on an ID provided by the tool-chain. - XSdFecCfgInitialize(InstancePtr, CfgPtr)
+- Uses a configuration structure provided by the caller. \section sec_data Data
+Structures One or more device specific headers are produced during the
+generation of the board support package, defining further device specific
+configuration parameters: - When the device is configured for Turbo Decode, the
+header x<ipinst_name>_turbo_params.h, contains an XSdFecturbo_parameters
+structure which is populated to match the corresponding IP GUI configuration. -
+When the device is configured for LDPC a header is generated per LDPC code
+specified on the corresponding IP GUI; x<ipinst_name >_<code_id>_params.h. Each
+header defines an XSdFecldpc_parameters structure populated with the
+configuration data required for the corresponding LDPC code. \section sec_api
+API The driver provides the following functions: -
+XSdFecSetTurboParams(InstancePtr, ParamsPtr) - Set Turbo parameters on a device
+- XSdFecadd_ldpc_params(InstancePtr, CodeId, SCOffset, LAOffset, QCOffset,
+ParamsPtr) - Add LDPC parameters to a device - XSdFecShareTableSize(ParamsPtr,
+SCSizePtr, LASizePtr, QCSizePtr) - Calculate share table size for a LDPC code -
+XSdFecInterruptClassifier(InstancePtr) - Classify interrupts In addition, the
+driver provides set and get functions for all the individual registers defined
+for the SD-FEC. \section sec_ex Example The processor based example design
+output by the SD-FEC IP instance also includes an example application
+demonstrating a basic use case of the software driver. /
+
+FILES:
+embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [EPL-1.0] 
+
+COPYRIGHT TEXT:
+---------------
+
+d52cbaca0ef8cf4fd3d6354deb5066970fb6511d02d18d15835e6014ed847fb0 All rights
+reserved. This file contains confidential and proprietary information of Xilinx,
+Inc. and is protected under U.S. and international copyright and other
+intellectual property laws. DISCLAIMER This disclaimer is not a license and does
+not grant any rights to the materials distributed herewith. Except as otherwise
+provided in a valid license issued to you by Xilinx, and to the maximum extent
+permitted by applicable law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
+WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS,
+EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
+MERCHANTABILITY, NON INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
+(2) Xilinx shall not be liable (whether in contract or tort, including
+negligence, or under any other theory of liability) for any loss or damage of
+any kind or nature related to, arising under or in connection with these
+materials, including for any direct, or any indirect, special, incidental, or
+consequential loss or damage (including loss of data, profits, goodwill, or any
+type of loss or damage suffered as a result of any action brought by a third
+party) even if such damage or loss was reasonably foreseeable or Xilinx had been
+advised of the possibility of the same. CRITICAL APPLICATIONS Xilinx products
+are not designed or intended to be fail safe, or for use in any application
+requiring fail-safe performance, such as life-support or safety devices or
+systems, Class III medical devices, nuclear facilities, applications related to
+the deployment of airbags, or any other applications that could lead to death,
+personal injury, or severe property or environmental damage (individually and
+collectively, "Critical Applications"). Customer assumes the sole risk and
+liability of any use of Xilinx products in Critical Applications, subject only
+to applicable laws and regulations governing limitations on product liability.
+THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE AT
+ALL TIMES. CORE_AXI_WR_PROTECT register /
+
+FILES:
+embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h
 --------------------------------------------------------------------------------
 
 
@@ -18371,42 +18645,6 @@ embeddedsw/XilinxProcessorIPLib/drivers/usb/src/xusb_sinit.c
 
 
 
-POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
-
-COPYRIGHT TEXT:
----------------
-
-All rights reserved. Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including without
-limitation the rights to use, copy, modify, merge, publish, distribute,
-sublicense, andor sell copies of the Software, and to permit persons to whom the
-Software is furnished to do so, subject to the following conditions: The above
-copyright notice and this permission notice shall be included in all copies or
-substantial portions of the Software. Use of the Software is limited solely to
-applications: (a) running on a Xilinx device, or (b) that interact with a Xilinx
-device through a bus or interconnect. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
-WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
-OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. Except as contained in this notice, the name of the Xilinx shall
-not be used in advertising or otherwise to promote the sale, use or other
-dealings in this Software without prior written authorization from Xilinx
-
-FILES:
-embeddedsw/XilinxProcessorIPLib/drivers/i2stx/data/i2stx.mdd
-embeddedsw/XilinxProcessorIPLib/drivers/i2stx/data/i2stx.tcl
-embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/data/sdiaud.tcl
-embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/data/v_hdmirxss.mdd
-embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/data/v_hdmirxss.tcl
-embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/data/v_hdmitxss.mdd
-embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/data/v_hdmitxss.tcl
---------------------------------------------------------------------------------
-
-
-
 POSSIBLE NOTICE(S): [EPL-1.0] 
 
 COPYRIGHT TEXT:
@@ -18541,7 +18779,7 @@ POSSIBLE NOTICE(S): [Boost-1.0] [MIT]
 COPYRIGHT TEXT:
 ---------------
 
-All rights reserved. Permission is hereby granted, free of charge, to any person
+All Rights Reserved. Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation files (the
 "Software"), to deal in the Software without restriction, including without
 limitation the rights to use, copy, modify, merge, publish, distribute,
@@ -18553,15 +18791,15 @@ solely to applications: (a) running on a Xilinx device, or (b) that interact
 with a Xilinx device through a bus or interconnect. THE SOFTWARE IS PROVIDED "AS
 IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
 TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE XILINX BE LIABLE FOR ANY CLAIM, DAMAGES
-OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE. Except as contained in this notice, the name of the Xilinx shall
 not be used in advertising or otherwise to promote the sale, use or other
 dealings in this Software without prior written authorization from Xilinx
 
 FILES:
-embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_log.c
+embeddedsw/XilinxProcessorIPLib/drivers/v_mix/data/v_mix.mdd
 --------------------------------------------------------------------------------
 
 
@@ -18625,251 +18863,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. /
 
 FILES:
 embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_parse_edid.c
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
-
-COPYRIGHT TEXT:
----------------
-
-All rights reserved. Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation files (the
-"Software"),to deal in the Software without restriction, including without
-limitation the rights to use, copy, modify, merge, publish, distribute,
-sublicense, and/or sell copies of the Software, and to permit persons to whom
-the Software is furnished to do so, subject to the following conditions: The
-above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software. Use of the Software is limited
-solely to applications: (a) running on a Xilinx device, or (b) that interact
-with a Xilinx device through a bus or interconnect. THE SOFTWARE IS PROVIDED "AS
-IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
-OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. Except as contained in this notice, the name of the Xilinx shall
-not be used in advertising or otherwise to promote the sale, use or other
-dealings in this Software without prior written authorization from Xilinx
-
-FILES:
-embeddedsw/XilinxProcessorIPLib/drivers/i2srx/data/xi2srx_header.h
-embeddedsw/XilinxProcessorIPLib/drivers/spdif/data/xspdif_header.h
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
-
-COPYRIGHT TEXT:
----------------
-
-All rights reserved. Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation files (the
-"Software"),to deal in the Software without restriction, including without
-limitation the rights to use, copy, modify, merge, publish, distribute,
-sublicense, and/or sell copies of the Software, and to permit persons to whom
-the Software is furnished to do so, subject to the following conditions: The
-above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software. Use of the Software is limited
-solely to applications: (a) running on a Xilinx device, or (b) that interact
-with a Xilinx device through a bus or interconnect. THE SOFTWARE IS PROVIDED "AS
-IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
-OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. Except as contained in this notice,the name of the Xilinx shall
-not be used in advertising or otherwise to promote the sale, use or other
-dealings in this Software without prior written authorization from Xilinx
-
-FILES:
-embeddedsw/XilinxProcessorIPLib/drivers/i2srx/examples/xi2srx_intr_example.c
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
-
-COPYRIGHT TEXT:
----------------
-
-CAUTION: This file is automatically generated by HSI. Version: DO NOT EDIT. All
-Rights Reserved. Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation files (the
-Software), to deal in the Software without restriction, including without
-limitation the rights to use, copy, modify, merge, publish, distribute,
-sublicense, and/or sell copies of the Software, and to permit persons to whom
-the Software is furnished to do so, subject to the following conditions: The
-above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software. Use of the Software is limited
-solely to applications: (a) running on a Xilinx device, or (b) that interact
-with a Xilinx device through a bus or interconnect. THE SOFTWARE IS PROVIDED AS
-IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
-OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. Except as contained in this notice, the name of the Xilinx shall
-not be used in advertising or otherwise to promote the sale, use or other
-dealings in this Software without prior written authorization from Xilinx
-
-FILES:
-embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_g.c
-embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_g.c
-embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_g.c
-embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_g.c
-embeddedsw/lib/sw_apps/zynqmp_fsbl/misc/zcu102-es1/bspconfig.h
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [EPL-1.0] 
-
-COPYRIGHT TEXT:
----------------
-
-d52cbaca0ef8cf4fd3d6354deb5066970fb6511d02d18d15835e6014ed847fb0 All rights
-reserved. This file contains confidential and proprietary information of Xilinx,
-Inc. and is protected under U.S. and international copyright and other
-intellectual property laws. DISCLAIMER This disclaimer is not a license and does
-not grant any rights to the materials distributed herewith. Except as otherwise
-provided in a valid license issued to you by Xilinx, and to the maximum extent
-permitted by applicable law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
-WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS,
-EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
-MERCHANTABILITY, NON INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
-(2) Xilinx shall not be liable (whether in contract or tort, including
-negligence, or under any other theory of liability) for any loss or damage of
-any kind or nature related to, arising under or in connection with these
-materials, including for any direct, or any indirect, special, incidental, or
-consequential loss or damage (including loss of data, profits, goodwill, or any
-type of loss or damage suffered as a result of any action brought by a third
-party) even if such damage or loss was reasonably foreseeable or Xilinx had been
-advised of the possibility of the same. CRITICAL APPLICATIONS Xilinx products
-are not designed or intended to be fail safe, or for use in any application
-requiring fail-safe performance, such as life-support or safety devices or
-systems, Class III medical devices, nuclear facilities, applications related to
-the deployment of airbags, or any other applications that could lead to death,
-personal injury, or severe property or environmental damage (individually and
-collectively, "Critical Applications"). Customer assumes the sole risk and
-liability of any use of Xilinx products in Critical Applications, subject only
-to applicable laws and regulations governing limitations on product liability.
-THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE AT
-ALL TIMES.
-
-FILES:
-embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/data/sd_fec.mdd
-embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/data/sd_fec.tcl
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [EPL-1.0] 
-
-COPYRIGHT TEXT:
----------------
-
-d52cbaca0ef8cf4fd3d6354deb5066970fb6511d02d18d15835e6014ed847fb0 All rights
-reserved. This file contains confidential and proprietary information of Xilinx,
-Inc. and is protected under U.S. and international copyright and other
-intellectual property laws. DISCLAIMER This disclaimer is not a license and does
-not grant any rights to the materials distributed herewith. Except as otherwise
-provided in a valid license issued to you by Xilinx, and to the maximum extent
-permitted by applicable law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
-WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS,
-EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
-MERCHANTABILITY, NON INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
-(2) Xilinx shall not be liable (whether in contract or tort, including
-negligence, or under any other theory of liability) for any loss or damage of
-any kind or nature related to, arising under or in connection with these
-materials, including for any direct, or any indirect, special, incidental, or
-consequential loss or damage (including loss of data, profits, goodwill, or any
-type of loss or damage suffered as a result of any action brought by a third
-party) even if such damage or loss was reasonably foreseeable or Xilinx had been
-advised of the possibility of the same. CRITICAL APPLICATIONS Xilinx products
-are not designed or intended to be fail safe, or for use in any application
-requiring fail-safe performance, such as life-support or safety devices or
-systems, Class III medical devices, nuclear facilities, applications related to
-the deployment of airbags, or any other applications that could lead to death,
-personal injury, or severe property or environmental damage (individually and
-collectively, "Critical Applications"). Customer assumes the sole risk and
-liability of any use of Xilinx products in Critical Applications, subject only
-to applicable laws and regulations governing limitations on product liability.
-THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE AT
-ALL TIMES. \mainpage SD-FEC standalone driver software API summary \section
-sec_init Initialization and Configuration The XSdFec_Config structure is used by
-the driver to configure the FEC mode and interface parameters defined for each
-SD-FEC device. The configuration structure is created by the tool-chain based on
-HW build properties. To support multiple runtime loading and initialization
-strategies employed by various operating systems, the driver instance can be
-initialized in one of two ways: - XSdFecInitialize(InstancePtr, DeviceId) - The
-driver looks up its own configuration structure created by the tool-chain based
-on an ID provided by the tool-chain. - XSdFecCfgInitialize(InstancePtr, CfgPtr)
-- Uses a configuration structure provided by the caller. \section sec_data Data
-Structures One or more device specific headers are produced during the
-generation of the board support package, defining further device specific
-configuration parameters: - When the device is configured for Turbo Decode, the
-header x<ipinst_name>_turbo_params.h, contains an XSdFecturbo_parameters
-structure which is populated to match the corresponding IP GUI configuration. -
-When the device is configured for LDPC a header is generated per LDPC code
-specified on the corresponding IP GUI; x<ipinst_name >_<code_id>_params.h. Each
-header defines an XSdFecldpc_parameters structure populated with the
-configuration data required for the corresponding LDPC code. \section sec_api
-API The driver provides the following functions: -
-XSdFecSetTurboParams(InstancePtr, ParamsPtr) - Set Turbo parameters on a device
-- XSdFecadd_ldpc_params(InstancePtr, CodeId, SCOffset, LAOffset, QCOffset,
-ParamsPtr) - Add LDPC parameters to a device - XSdFecShareTableSize(ParamsPtr,
-SCSizePtr, LASizePtr, QCSizePtr) - Calculate share table size for a LDPC code -
-XSdFecInterruptClassifier(InstancePtr) - Classify interrupts In addition, the
-driver provides set and get functions for all the individual registers defined
-for the SD-FEC. \section sec_ex Example The processor based example design
-output by the SD-FEC IP instance also includes an example application
-demonstrating a basic use case of the software driver. /
-
-FILES:
-embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [EPL-1.0] 
-
-COPYRIGHT TEXT:
----------------
-
-d52cbaca0ef8cf4fd3d6354deb5066970fb6511d02d18d15835e6014ed847fb0 All rights
-reserved. This file contains confidential and proprietary information of Xilinx,
-Inc. and is protected under U.S. and international copyright and other
-intellectual property laws. DISCLAIMER This disclaimer is not a license and does
-not grant any rights to the materials distributed herewith. Except as otherwise
-provided in a valid license issued to you by Xilinx, and to the maximum extent
-permitted by applicable law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
-WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS,
-EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
-MERCHANTABILITY, NON INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
-(2) Xilinx shall not be liable (whether in contract or tort, including
-negligence, or under any other theory of liability) for any loss or damage of
-any kind or nature related to, arising under or in connection with these
-materials, including for any direct, or any indirect, special, incidental, or
-consequential loss or damage (including loss of data, profits, goodwill, or any
-type of loss or damage suffered as a result of any action brought by a third
-party) even if such damage or loss was reasonably foreseeable or Xilinx had been
-advised of the possibility of the same. CRITICAL APPLICATIONS Xilinx products
-are not designed or intended to be fail safe, or for use in any application
-requiring fail-safe performance, such as life-support or safety devices or
-systems, Class III medical devices, nuclear facilities, applications related to
-the deployment of airbags, or any other applications that could lead to death,
-personal injury, or severe property or environmental damage (individually and
-collectively, "Critical Applications"). Customer assumes the sole risk and
-liability of any use of Xilinx products in Critical Applications, subject only
-to applicable laws and regulations governing limitations on product liability.
-THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE AT
-ALL TIMES. CORE_AXI_WR_PROTECT register /
-
-FILES:
-embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h
 --------------------------------------------------------------------------------
 
 
