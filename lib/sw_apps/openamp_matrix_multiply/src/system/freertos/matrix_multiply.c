@@ -108,10 +108,6 @@ static int evt_chnl_deleted = 0;
 extern int init_system(void);
 extern void cleanup_system(void);
 
-extern void buffer_create(void);
-extern int buffer_push(void *data, int len);
-extern void buffer_pull(void **data, int *len);
-
 /*-----------------------------------------------------------------------------*
  *  Calculate the Matrix
  *-----------------------------------------------------------------------------*/
@@ -211,9 +207,6 @@ static void processing(void *unused_arg)
 	(void)unused_arg;
 
 	LPRINTF("Starting application...\n");
-
-	/* Create buffer to send data between RPMSG callback and processing task */
-	buffer_create();
 
 	/* Initialize HW system components */
 	init_system();
