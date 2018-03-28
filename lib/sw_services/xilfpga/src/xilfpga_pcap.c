@@ -53,6 +53,10 @@
  * 4.0  Nava  02/03/18 Added the legacy bit file loading feature support from U-boot.
  *                     and improve the error handling support by returning the
  *                     proper ERROR value upon error conditions.
+ * 4.1  Nava   27/03/18 For Secure Bitstream loading to avoid the Security violations
+ *                      Need to Re-validate the User Crypto flags with the Image
+ *                      Crypto operation by using the internal memory.To Fix this
+ *                      added a new API XFpga_ReValidateCryptoFlags().
  *
  * </pre>
  *
@@ -214,6 +218,7 @@ static void XFpga_DmaPlCopy(XCsuDma *InstancePtr, UINTPTR Src,
 static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 				u64 ChunkAdrs, u32 ChunkSize);
 static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, u64 SrcAddr);
+static u32 XFpga_ReValidateCryptoFlags(XSecure_ImageInfo *ImageInfo, u32 flags);
 #endif
 #ifdef __MICROBLAZE__
 extern const XpbrServHndlr_t XpbrServHndlrTbl[XPBR_SERV_EXT_TBL_MAX];
@@ -367,6 +372,15 @@ u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR AddrPtr, u32 flags)
 			goto END;
 		}
 	}
+
+	/* Re-Validate the User Flags for the Image Crypto operation */
+	Status = XFpga_ReValidateCryptoFlags(&ImageHdrInfo, flags);
+	if (Status != XFPGA_SUCCESS) {
+		xil_printf("Crypto flags not matched with Image crypto operation\r\n");
+		Status = XFPGA_ERROR_SECURE_CRYPTO_FLAGS;
+		goto END;
+	}
+
 
 #endif
 
@@ -650,6 +664,61 @@ static u32 XFpga_ValidateCryptoFlags(UINTPTR WrAddr, u32 flags) {
 	return Status;
 }
 #ifdef XFPGA_SECURE_MODE
+/*****************************************************************************/
+/** This function is used to Re-Validate the user provided crypto flags
+ *  with Image crypto flags.
+ * @param ImageInfo	Pointer to XSecure_ImageInfo structure.
+ * @param flags It provides the information about Crypto operation needs
+ *        to be performed on the given Image (or) Data.
+ *
+ * @return error status based on implemented functionality (SUCCESS by default)
+ *
+ *****************************************************************************/
+static u32 XFpga_ReValidateCryptoFlags(XSecure_ImageInfo *ImageInfo, u32 flags) {
+	u32 Status = XFPGA_SUCCESS;
+	u8 IsImageAuthenticated = 0;
+	u8 IsImageUserKeyEncrypted = 0;
+	u8 IsImageDevKeyEncrypted = 0;
+	u8 IsFlagSetToAuthentication = 0;
+	u8 IsFlagSetToUserKeyEncryption = 0;
+	u8 IsFlagSetToDevKeyEncryption = 0;
+
+	if (ImageInfo->PartitionHdr->PartitionAttributes &
+					XSECURE_PH_ATTR_AUTH_ENABLE)
+		IsImageAuthenticated = 1;
+
+	if (ImageInfo->PartitionHdr->PartitionAttributes &
+					XSECURE_PH_ATTR_ENC_ENABLE) {
+		if ((ImageInfo->KeySrc == XFPGA_KEY_SRC_EFUSE_RED) ||
+				(ImageInfo->KeySrc == XFPGA_KEY_SRC_BBRAM_RED) ||
+				(ImageInfo->KeySrc == XFPGA_KEY_SRC_EFUSE_BLK) ||
+				(ImageInfo->KeySrc == XFPGA_KEY_SRC_BH_BLACK) ||
+				(ImageInfo->KeySrc == XFPGA_KEY_SRC_EFUSE_GRY) ||
+				(ImageInfo->KeySrc == XFPGA_KEY_SRC_BH_GRY))
+			IsImageDevKeyEncrypted = 1;
+		else if (ImageInfo->KeySrc == XFPGA_KEY_SRC_KUP)
+			IsImageUserKeyEncrypted = 1;
+	}
+
+	if ((flags & XFPGA_AUTHENTICATION_DDR_EN) ||
+			(flags & XFPGA_AUTHENTICATION_OCM_EN))
+		IsFlagSetToAuthentication = 1;
+
+	if (flags & XFPGA_ENCRYPTION_USERKEY_EN)
+			IsFlagSetToUserKeyEncryption = 1;
+
+	if (flags & XFPGA_ENCRYPTION_DEVKEY_EN)
+		IsFlagSetToDevKeyEncryption = 1;
+
+	if ((IsImageAuthenticated == IsFlagSetToAuthentication) &&
+			(IsImageDevKeyEncrypted == IsFlagSetToDevKeyEncryption) &&
+			(IsImageUserKeyEncrypted == IsFlagSetToUserKeyEncryption))
+		Status = XFPGA_SUCCESS;
+	else
+		Status = XFPGA_FAILURE;
+
+	return Status;
+}
 
 /*****************************************************************************/
 /** Loads the secure Bit-stream into the PL.
