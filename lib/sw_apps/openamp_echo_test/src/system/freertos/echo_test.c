@@ -90,11 +90,6 @@
 extern int init_system(void);
 extern void cleanup_system(void);
 
-/* from system_helper.c */
-extern void buffer_create(void);
-extern int buffer_push(void *data, int len);
-extern void buffer_pull(void **data, int *len);
-
 /* Local variables */
 static struct rpmsg_channel *app_rp_chnl;
 static struct remote_proc *proc = NULL;
@@ -224,9 +219,6 @@ static void processing(void *unused_arg)
 	(void)unused_arg;
 
 	LPRINTF("Starting application...\n");
-
-	/* Create buffer to send data between RPMSG callback and processing task */
-	buffer_create();
 
 	/* Initialize HW system components */
 	init_system();
