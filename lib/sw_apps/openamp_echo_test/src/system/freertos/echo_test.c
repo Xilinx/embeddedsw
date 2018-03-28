@@ -268,9 +268,7 @@ int main(void)
 	}
 
 	/* Will not get here, unless a call is made to vTaskEndScheduler() */
-	while (1) {
-		__asm__("wfi\n\t");
-	}
+	while (1) ;
 
 	/* suppress compilation warnings*/
 	return 0;
