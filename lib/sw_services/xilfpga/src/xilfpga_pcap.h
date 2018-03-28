@@ -81,10 +81,14 @@
 *                      XFpga_PL_BitStream_Load()
 *                      to avoid the unwanted blocking conditions.
 * 3.0   Nava  12/05/17 Added PL configuration registers readback support.
-* 4.0   Nava  08/02/18 Added Authenticated and Encypted Bitstream loading suppor.
+* 4.0   Nava  08/02/18 Added Authenticated and Encypted Bitstream loading support.
 * 4.0   Nava  02/03/18 Added the legacy bit file loading feature support from U-boot.
 *                      and improve the error handling support by returning the
 *                      proper ERROR value upon error conditions.
+* 4.1  Nava   27/03/18 For Secure Bitstream loading to avoid the Security violations
+*                      Need to Re-validate the User Crypto flags with the Image
+*                      Crypto operation by using the internal memory.To Fix this
+*                      added a new API XFpga_ReValidateCryptoFlags().
 *
 * </pre>
 *
@@ -175,6 +179,15 @@
 #define PCAP_CLK_CTRL		0xFF5E00A4
 #define PCAP_CLK_EN_MASK	0x01000000
 
+/* AES KEY SRC Info */
+#define XFPGA_KEY_SRC_EFUSE_RED		0xA5C3C5A3
+#define XFPGA_KEY_SRC_BBRAM_RED		0x3A5C3C5A
+#define XFPGA_KEY_SRC_EFUSE_BLK		0xA5C3C5A5
+#define XFPGA_KEY_SRC_BH_BLACK		0xA35C7C53
+#define XFPGA_KEY_SRC_EFUSE_GRY		0xA5C3C5A7
+#define XFPGA_KEY_SRC_BH_GRY		0xA35C7CA5
+#define XFPGA_KEY_SRC_KUP		0xA3A5C3C5
+
 #define XFPGA_SUCCESS				(0x0U)
 #define XFPGA_FAILURE				(0x1U)
 #define XFPGA_ERROR_CSUDMA_INIT_FAIL		(0x2U)
@@ -187,6 +200,7 @@
 #define XFPGA_ENC_ISCOMPULSORY			(0x9U)
 #define XFPGA_PARTITION_AUTH_FAILURE		(0xAU)
 #define XFPGA_STRING_INVALID_ERROR		(0xBU)
+#define XFPGA_ERROR_SECURE_CRYPTO_FLAGS		(0xCU)
 
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
