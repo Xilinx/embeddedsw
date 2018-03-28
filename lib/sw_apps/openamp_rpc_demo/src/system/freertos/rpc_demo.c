@@ -309,8 +309,6 @@ int main(void)
 {
 	BaseType_t stat;
 
-	Xil_ExceptionDisable();
-
 	/* Create the tasks */
 	stat = xTaskCreate(processing, ( const char * ) "HW2",
 				1024, NULL, 2, &comm_task);
