@@ -296,7 +296,7 @@
 
 #define DDRQOS_DDR_CLK_CTRL_CLKACT	BIT(0U)
 
-#define PM_DDR_POLL_PERIOD		3200U	/* ~100us @220MHz */
+#define PM_DDR_POLL_PERIOD		32000U	/* ~1ms @220MHz */
 
 #define REPORT_IF_ERROR(status) \
 		if (XST_SUCCESS != status) { \
