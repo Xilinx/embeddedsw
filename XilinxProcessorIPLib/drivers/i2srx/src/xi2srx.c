@@ -353,5 +353,15 @@ void XI2s_Rx_ClrAesChStatRegs(XI2s_Rx *InstancePtr)
 
 	XI2s_Rx_WriteReg((InstancePtr)->Config.BaseAddress,
 			(XI2S_RX_AES_CHSTS0_OFFSET), (u32)0);
+	XI2s_Rx_WriteReg((InstancePtr)->Config.BaseAddress,
+				(XI2S_RX_AES_CHSTS1_OFFSET), (u32)0);
+	XI2s_Rx_WriteReg((InstancePtr)->Config.BaseAddress,
+				(XI2S_RX_AES_CHSTS2_OFFSET), (u32)0);
+	XI2s_Rx_WriteReg((InstancePtr)->Config.BaseAddress,
+				(XI2S_RX_AES_CHSTS3_OFFSET), (u32)0);
+	XI2s_Rx_WriteReg((InstancePtr)->Config.BaseAddress,
+				(XI2S_RX_AES_CHSTS4_OFFSET), (u32)0);
+	XI2s_Rx_WriteReg((InstancePtr)->Config.BaseAddress,
+				(XI2S_RX_AES_CHSTS5_OFFSET), (u32)0);
 }
 /** @} */

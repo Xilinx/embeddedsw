@@ -66,12 +66,12 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /** @name Handler Types
-* @{
-*/
+ * @{
+ */
 /**
-* These constants specify different types of handlers and is used to
-* differentiate interrupt requests from the XI2s Receiver peripheral.
-*/
+ * These constants specify different types of handlers and is used to
+ * differentiate interrupt requests from the XI2s Receiver peripheral.
+ */
 typedef enum {
 		XI2S_RX_HANDLER_AES_BLKCMPLT = 0,//!< AES Block Complete Handler
 		XI2S_RX_HANDLER_AUD_OVRFLW, //!< Audio Overflow Detected Handler
@@ -79,11 +79,11 @@ typedef enum {
 } XI2s_Rx_HandlerType;
 
 /** @name Handler Types
-* @{
-*/
+ * @{
+ */
 /**
-* These constants specify different channel ID's
-*/
+ * These constants specify different channel ID's
+ */
 typedef enum {
 		XI2S_RX_CHID0 = 0,  //!< Channel 0
 		XI2S_RX_CHID1,      //!< Channel 1
@@ -95,67 +95,71 @@ typedef enum {
 /*@}*/
 
 /**
-* Callback function data type for handling interrupt requests
-* from the XI2s Receiver peripheral. The application using this driver is
-* expected to define a handler of this type to support interrupt driven mode.
-* The handler is called in an interrupt context such that minimal processing
-* should be performed.
-*
-* @param CallBackRef is a callback reference passed in by the upper
-*        layer when setting the callback functions, and passed back
-*        to the upper layer when the callback is invoked.
-*
-* @return None
-*
-* @note None
-*/
+ * Callback function data type for handling interrupt requests
+ * from the XI2s Receiver peripheral. The application using this driver is
+ * expected to define a handler of this type to support interrupt driven mode.
+ * The handler is called in an interrupt context such that minimal processing
+ * should be performed.
+ *
+ * @param CallBackRef is a callback reference passed in by the upper
+ *        layer when setting the callback functions, and passed back
+ *        to the upper layer when the callback is invoked.
+ *
+ * @return None
+ *
+ * @note None
+ */
 	typedef void (*XI2s_Rx_Callback)(void *CallbackRef);
 
 /**
-* @brief This typedef contains configuration information for the XI2s Receiver.
-*/
+ * @brief This typedef contains configuration information for the XI2s Receiver.
+ */
 	typedef struct {
 		u32 DeviceId;//!< DeviceId is the unique ID of the XI2s Receiver
-		UINTPTR BaseAddress; /*BaseAddress is the physical base address
-				       of the core's registers */
+		UINTPTR BaseAddress; /* BaseAddress is the physical base address
+				      * of the core's registers
+				      */
 		u8 DWidth; //!<Indicates the I2S data width of the core
-		u8 IsMaster; /*Indicates if the core has been generated as an
-			       I2S Master/Slave*/
+		u8 IsMaster; /* Indicates if the core has been generated as an
+			      * I2S Master/Slave
+			      */
 		u8 MaxNumChannels; /* Indicates the maximum number of channels
-				      supported by the core */
+				    * supported by the core
+				    */
 	} XI2srx_Config;
 
 /**
-* @brief The XI2s Receiver driver instance data.
-*
-* An instance must be allocated for each XI2s Receiver core in use.
-*/
+ * @brief The XI2s Receiver driver instance data.
+ *
+ * An instance must be allocated for each XI2s Receiver core in use.
+ */
 	typedef struct {
 
-		u32                 IsReady;
-		//!< Core and the driver instance are initialized
-		u32                 IsStarted;
-		//!< Core and the driver instance has started
-		XI2srx_Config Config;    //!< Hardware Configuration
+		u32 IsReady; //!< Core and the driver instance are initialized
+		u32 IsStarted; //!< Core and the driver instance has started
+		XI2srx_Config Config; //!< Hardware Configuration
 
-		XI2s_Rx_Log          Log;       //!< Logging for XI2s Receiver
+		XI2s_Rx_Log Log; //!< Logging for XI2s Receiver
 
-		XI2s_Rx_Callback AesBlkCmpltHandler; //!< AES Block Complete
-	                                             //!< Handler
+		XI2s_Rx_Callback AesBlkCmpltHandler; /* AES Block Complete
+						      * Handler
+						      */
 
 		XI2s_Rx_Callback AudOverflowHandler;//!< Audio Overflow Handler
 
 		/* Call backs */
-		void *AesBlkCmpltRef;
-		//!< Callback reference for AES Block Complete Handler
+		void *AesBlkCmpltRef; /* Callback reference for AES
+				       * Block Complete Handler
+				       */
 
-		void *AudOverflowRef;
-		//!< Callback reference for Audio Overflow Handler
+		void *AudOverflowRef; /* Callback reference for Audio
+				       * Overflow Handler
+				       */
 	} XI2s_Rx;
 
 /**
-* @brief This typedef specifies the input sources of the the XI2s Receiver.
-*/
+ * @brief This typedef specifies the input sources of the the XI2s Receiver.
+ */
 typedef enum {
 		XI2S_RX_CHMUX_DISABLED = 0, //!< Channel disabled
 		XI2S_RX_CHMUX_XI2S_01,       //!< XI2S Audio Channel 0 and 1
@@ -169,53 +173,54 @@ typedef enum {
 
 /*****************************************************************************/
 /**
-*
-* This inline function reads the XI2s Receiver version
-*
-* @param  InstancePtr is a pointer to the XI2s_Rx core instance.
-*
-* @return Version.
-*
-*****************************************************************************/
+ *
+ * This inline function reads the XI2s Receiver version
+ *
+ * @param  InstancePtr is a pointer to the XI2s_Rx core instance.
+ *
+ * @return Version.
+ *
+ *****************************************************************************/
 static inline u32 XI2s_Rx_GetVersion(XI2s_Rx *InstancePtr)
 
 {
 		u32 I2sRx_Version;
-		I2sRx_Version=
+
+		I2sRx_Version =
 			XI2s_Rx_ReadReg((InstancePtr)->Config.BaseAddress,
 					(XI2S_RX_CORE_VER_OFFSET));
 		return I2sRx_Version;
 }
 /*****************************************************************************/
 /**
-*
-* This inline function clears the specified interrupt of the XI2s Receiver.
-*
-* @param InstancePtr is a pointer to the XI2s_Rx core instance.
-* @param Mask is a bit mask of the interrupts to be cleared.
-*
-* @return None.
-* @see XI2srx_HW for the available interrupt masks.
-*
-*****************************************************************************/
+ *
+ * This inline function clears the specified interrupt of the XI2s Receiver.
+ *
+ * @param InstancePtr is a pointer to the XI2s_Rx core instance.
+ * @param Mask is a bit mask of the interrupts to be cleared.
+ *
+ * @return None.
+ * @see XI2srx_HW for the available interrupt masks.
+ *
+ *****************************************************************************/
 static inline void XI2s_Rx_IntrClear(XI2s_Rx *InstancePtr, u32 Mask)
 
 {
 		Xil_AssertVoid(InstancePtr != NULL);
 		XI2s_Rx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XI2S_RX_IRQSTS_OFFSET),Mask);
+				(XI2S_RX_IRQSTS_OFFSET), Mask);
 
 }
 /*****************************************************************************/
 /**
-*
-* This inline function enables the XI2s Receiver logging.
-*
-* @param InstancePtr is a pointer to the XI2s_Rx core instance.
-*
-* @return None.
-*
-*****************************************************************************/
+ *
+ * This inline function enables the XI2s Receiver logging.
+ *
+ * @param InstancePtr is a pointer to the XI2s_Rx core instance.
+ *
+ * @return None.
+ *
+ *****************************************************************************/
 static inline void XI2s_Rx_LogEnable(XI2s_Rx *InstancePtr)
 {
 		Xil_AssertVoid(InstancePtr != NULL);
@@ -223,74 +228,58 @@ static inline void XI2s_Rx_LogEnable(XI2s_Rx *InstancePtr)
 }
 /*****************************************************************************/
 /**
-*
-* This inline function disables the XI2s Receiver logging.
-*
-* @param InstancePtr is a pointer to the XI2s_Rx core instance.
-*
-* @return None.
-*
-*****************************************************************************/
+ *
+ * This inline function disables the XI2s Receiver logging.
+ *
+ * @param InstancePtr is a pointer to the XI2s_Rx core instance.
+ *
+ * @return None.
+ *
+ *****************************************************************************/
 static inline void XI2s_Rx_LogDisable(XI2s_Rx *InstancePtr)
 {
 		Xil_AssertVoid(InstancePtr != NULL);
 		(InstancePtr)->Log.IsEnabled = FALSE;
 }
-/*****************************************************************************/
-/**
-*
-* This inline function clears the XI2s Receiver logging.
-*
-* @param InstancePtr is a pointer to the XI2s_Rx core instance.
-*
-* @return None.
-*
-*****************************************************************************/
-static inline void XI2s_Rx_LogClear(XI2s_Rx *InstancePtr)
-{
-		Xil_AssertVoid(InstancePtr != NULL);
-		if (InstancePtr->Log.IsEnabled == TRUE)
-		{
-			InstancePtr->Log.Head = 0;
-			InstancePtr->Log.Tail = 0;
-		}
-}
+
 /************************** Function Prototypes ******************************/
 
-	/* Self-test function in xi2srx_selftest.c */
-	int XI2s_Rx_SelfTest(XI2s_Rx *InstancePtr);
-	/* Initialization function in XI2srx_sinit.c */
-	XI2srx_Config *XI2s_Rx_LookupConfig(u16 DeviceId);
+/* Self-test function in xi2srx_selftest.c */
+int XI2s_Rx_SelfTest(XI2s_Rx *InstancePtr);
+/* Initialization function in XI2srx_sinit.c */
+XI2srx_Config *XI2s_Rx_LookupConfig(u16 DeviceId);
 
-	int XI2s_Rx_Initialize(XI2s_Rx *InstancePtr, u16 DeviceId);
+int XI2s_Rx_Initialize(XI2s_Rx *InstancePtr, u16 DeviceId);
 
-	/* Initialization and control functions in XI2srx.c */
-	int XI2s_Rx_CfgInitialize(XI2s_Rx *InstancePtr,
-			XI2srx_Config *CfgPtr, UINTPTR EffectiveAddr);
+/* Initialization and control functions in XI2srx.c */
+int XI2s_Rx_CfgInitialize(XI2s_Rx *InstancePtr,
+		XI2srx_Config *CfgPtr, UINTPTR EffectiveAddr);
 
-	void XI2s_Rx_Enable(XI2s_Rx *InstancePtr, u8 Enable);
-	void XI2s_Rx_LatchAesChannelStatus(XI2s_Rx *InstancePtr);
+void XI2s_Rx_Enable(XI2s_Rx *InstancePtr, u8 Enable);
+void XI2s_Rx_LatchAesChannelStatus(XI2s_Rx *InstancePtr);
 
-	int XI2s_Rx_SetChMux(XI2s_Rx *InstancePtr, XI2s_Rx_ChannelId ChID,
-			XI2s_Rx_ChMuxInput InputSource);
+int XI2s_Rx_SetChMux(XI2s_Rx *InstancePtr, XI2s_Rx_ChannelId ChID,
+		XI2s_Rx_ChMuxInput InputSource);
 
-	u32 XI2s_Rx_SetSclkOutDiv(XI2s_Rx *InstancePtr, u32 MClk, u32 Fs);
+u32 XI2s_Rx_SetSclkOutDiv(XI2s_Rx *InstancePtr, u32 MClk, u32 Fs);
 
-	void XI2s_Rx_IntrEnable(XI2s_Rx *InstancePtr, u32 Mask);
-	void XI2s_Rx_IntrDisable(XI2s_Rx *InstancePtr, u32 Mask);
+void XI2s_Rx_IntrEnable(XI2s_Rx *InstancePtr, u32 Mask);
+void XI2s_Rx_IntrDisable(XI2s_Rx *InstancePtr, u32 Mask);
 
-	/* Interrupt related functions in XI2srx_intr.c */
-	void XI2s_Rx_IntrHandler(void *InstancePtr);
-	int XI2s_Rx_SetHandler(XI2s_Rx *InstancePtr,
-		       	XI2s_Rx_HandlerType HandlerType,
-			XI2s_Rx_Callback FuncPtr, void *CallbackRef);
-	/* Logging */
-	void XI2s_Rx_LogDisplay(XI2s_Rx *InstancePtr);
-	void XI2s_Rx_LogReset(XI2s_Rx *InstancePtr);
+/* Interrupt related functions in XI2srx_intr.c */
+void XI2s_Rx_IntrHandler(void *InstancePtr);
+int XI2s_Rx_SetHandler(XI2s_Rx *InstancePtr,
+	XI2s_Rx_HandlerType HandlerType,
+	XI2s_Rx_Callback FuncPtr, void *CallbackRef);
+/* Logging */
+void XI2s_Rx_LogDisplay(XI2s_Rx *InstancePtr);
+void XI2s_Rx_LogReset(XI2s_Rx *InstancePtr);
+void XI2s_Rx_LogWrite(XI2s_Rx *InstancePtr, XI2s_Rx_LogEvt Event, u8 Data);
+XI2s_Rx_LogItem* XI2s_Rx_LogRead(XI2s_Rx *InstancePtr);
 
-	/* AES related functions */
-	void XI2s_Rx_SetAesChStatus(XI2s_Rx *InstancePtr, u8 *AesChStatusBuf);
-	void XI2s_Rx_ClrAesChStatRegs(XI2s_Rx *InstancePtr);
+/* AES related functions */
+void XI2s_Rx_SetAesChStatus(XI2s_Rx *InstancePtr, u8 *AesChStatusBuf);
+void XI2s_Rx_ClrAesChStatRegs(XI2s_Rx *InstancePtr);
 
 /************************** Variable Declarations ****************************/
 
