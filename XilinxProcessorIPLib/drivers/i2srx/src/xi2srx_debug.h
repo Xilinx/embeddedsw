@@ -63,19 +63,19 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /** @ name Log Item Buffer Size
-* @{
-*/
+ * @{
+ */
 #define XI2S_RX_LOG_ITEM_BUFFER_SIZE (256)
 /** @} */
 /**************************** Type Definitions *******************************/
 
 /** @name Handler Types
-* @{
-*/
+ * @{
+ */
 /**
-* These constants specify different types of handlers and is used to
-* differentiate interrupt requests from the XI2s Receiver peripheral.
-*/
+ * These constants specify different types of handlers and is used to
+ * differentiate interrupt requests from the XI2s Receiver peripheral.
+ */
 typedef enum {
 		XI2S_RX_AES_BLKCMPLT_EVT,    //!< AES Block Complete Event
 		XI2S_RX_AUD_OVERFLOW_EVT,    //!< Audio Overflow Detected Event
@@ -84,16 +84,16 @@ typedef enum {
 /*@}*/
 
 /**
-* @brief This structure is used to store log events
-*/
+ * @brief This structure is used to store log events
+ */
 typedef struct {
 		XI2s_Rx_LogEvt Event; //!< Log Event
 		u32            Data;  //!< Optional Data
 } XI2s_Rx_LogItem;
 
 /**
-* @brief The XI2s Receiver Log buffer.
-*/
+ * @brief The XI2s Receiver Log buffer.
+ */
 typedef struct {
 		XI2s_Rx_LogItem Items[XI2S_RX_LOG_ITEM_BUFFER_SIZE];
 		//!< Log item buffer
@@ -105,8 +105,6 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-void XI2s_Rx_LogWrite(XI2s_Rx_Log *InstancePtr, XI2s_Rx_LogEvt Event, u8 Data);
-XI2s_Rx_LogItem *XI2s_Rx_LogRead(XI2s_Rx_Log *InstancePtr);
 
 /************************** Variable Declarations ****************************/
 
