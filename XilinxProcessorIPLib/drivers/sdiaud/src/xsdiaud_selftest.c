@@ -75,8 +75,49 @@
  *
  *****************************************************************************/
 #define XSdiAud_IsEmbed(InstancePtr) \
-	(((XSdiAud_ReadReg((InstancePtr)->Config.BaseAddress, (XSDIAUD_GUI_PARAM_REG_OFFSET))\
-	   & XSDIAUD_GUI_AUDF_MASK) >> XSDIAUD_GUI_AUDF_SHIFT) ? TRUE : FALSE)
+	(((XSdiAud_ReadReg((InstancePtr)->Config.BaseAddress,	\
+	(XSDIAUD_GUI_PARAM_REG_OFFSET))	\
+	& XSDIAUD_GUI_AUDF_MASK) >> XSDIAUD_GUI_AUDF_SHIFT) ? TRUE : FALSE)
+
+/*****************************************************************************/
+/**
+ *
+ * This macro returns the XSdiAud UHD-SDI standard.
+ *
+ * @param  InstancePtr is a pointer to the XSdiAud core instance.
+ *
+ * @return UHD-SDI standard
+ *		0: 3G SDI
+ *		1: 6G SDI
+ *		2: 12G SDI 8DS
+ *		3: 12G SDI 16DS
+ *
+ * @note C-style signature:
+ *   u8 XSdiAud_GetSdiStd(XSdiAud *InstancePtr)
+ *
+ *****************************************************************************/
+#define XSdiAud_GetSdiStd(InstancePtr) \
+	((XSdiAud_ReadReg((InstancePtr)->Config.BaseAddress,	\
+	(XSDIAUD_GUI_PARAM_REG_OFFSET)) \
+	& XSDIAUD_GUI_STD_MASK) >> XSDIAUD_GUI_STD_SHIFT)
+
+/*****************************************************************************/
+/**
+ *
+ * This macro returns the XSdiAud Channel field of the GUI register
+ *
+ * @param  InstancePtr is a pointer to the XSdiAud core instance.
+ *
+ * @return Channel field of the GUI register i.e. a value in between 0 to 7
+ *
+ * @note C-style signature:
+ *   u8 XSdiAud_GetCh(XSdiAud *InstancePtr)
+ *
+ *****************************************************************************/
+#define XSdiAud_GetCh(InstancePtr) \
+	((XSdiAud_ReadReg((InstancePtr)->Config.BaseAddress,	\
+	(XSDIAUD_GUI_PARAM_REG_OFFSET))	\
+	& XSDIAUD_GUI_CHAN_MASK) >> XSDIAUD_GUI_CHAN_SHIFT)
 
 /*****************************************************************************/
 /**
@@ -96,7 +137,7 @@
 int XSdiAud_SelfTest(XSdiAud *InstancePtr)
 {
 	int Status = XST_SUCCESS;
-	u32 SdiAud_IsEmbed;
+	u32 SdiAud_IsEmbed, SdiAud_NumCh, SdiAud_SdiStd;
 	/* verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	/* Read the SDI Audio Module control register to know the
@@ -110,6 +151,59 @@ int XSdiAud_SelfTest(XSdiAud *InstancePtr)
 				SdiAud_IsEmbed, InstancePtr->Config.IsEmbed);
 		return XST_FAILURE;
 	}
+
+	/* Read the SDI Audio Module control register to know the
+	 * UHD-SDI Standard.
+	 */
+	SdiAud_SdiStd = XSdiAud_GetSdiStd(InstancePtr);
+	if (SdiAud_SdiStd != InstancePtr->Config.LineRate) {
+
+	xil_printf("Core configuration (%d) doesn't match GUI value (%d).\r\n",
+				SdiAud_SdiStd, InstancePtr->Config.LineRate);
+		return XST_FAILURE;
+	}
+
+	/* Read the SDI Audio Module control register to know the
+	 * number of channels.
+	 */
+	SdiAud_NumCh = XSdiAud_GetCh(InstancePtr);
+	switch (SdiAud_NumCh) {
+	case 0:
+		SdiAud_NumCh = XSDIAUD_2_CHANNELS;
+		break;
+	case 1:
+		SdiAud_NumCh = XSDIAUD_4_CHANNELS;
+		break;
+	case 2:
+		SdiAud_NumCh = XSDIAUD_6_CHANNELS;
+		break;
+	case 3:
+		SdiAud_NumCh = XSDIAUD_8_CHANNELS;
+		break;
+	case 4:
+		SdiAud_NumCh = XSDIAUD_10_CHANNELS;
+		break;
+	case 5:
+		SdiAud_NumCh = XSDIAUD_12_CHANNELS;
+		break;
+	case 6:
+		SdiAud_NumCh = XSDIAUD_14_CHANNELS;
+		break;
+	case 7:
+		SdiAud_NumCh = XSDIAUD_16_CHANNELS;
+		break;
+	default:
+		SdiAud_NumCh = XSDIAUD_16_CHANNELS;
+		break;
+	}
+
+	if (SdiAud_NumCh != InstancePtr->Config.MaxNumChannels) {
+
+	xil_printf("Core configuration (%d) doesn't match GUI value (%d).\r\n",
+			SdiAud_NumCh, InstancePtr->Config.MaxNumChannels);
+		return XST_FAILURE;
+	}
+
 	return Status;
 }
 /** @} */
