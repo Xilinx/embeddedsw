@@ -248,6 +248,9 @@ unsigned int get_phy_negotiated_speed (XAxiEthernet *xaxiemacp, u32 phy_addr)
 
 	xil_printf("Autonegotiation complete \r\n");
 
+	if (xaxiemacp->Config.Speed == XAE_SPEED_2500_MBPS)
+		return XAE_SPEED_2500_MBPS;
+
 #if XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT == 1
 	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 1);
 	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_PARTNER_ABILITIES_1_REG_OFFSET, &temp);

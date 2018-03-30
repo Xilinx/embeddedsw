@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2018-03-30
+	* Add AXI 2.5G Ethernet support
 2018-03-29
 	* Add mcdma support and handle IEEE_1588 for SGMII Phy in ethernet
 	* header
