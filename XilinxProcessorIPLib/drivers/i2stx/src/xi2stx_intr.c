@@ -102,12 +102,11 @@ void XI2s_Tx_IntrHandler(void *InstancePtr)
 	/* Read the interrupt control register */
 	EnableMask = XI2s_Tx_ReadReg(TxPtr->Config.BaseAddress,
 			XI2S_TX_IRQCTRL_OFFSET);
-	Data = Data & EnableMask;
 	/* AES Block Complete Detected */
 	if (Data & EnableMask & XI2S_TX_INTR_AES_BLKCMPLT_MASK) {
 		/* Clear AES Block Complete event */
 		XI2s_Tx_IntrClear(TxPtr, XI2S_TX_INTR_AES_BLKCMPLT_MASK);
-		XI2s_Tx_LogWrite(&TxPtr->Log, XI2S_TX_AES_BLKCMPLT_EVT, 0);
+		XI2s_Tx_LogWrite(TxPtr, XI2S_TX_AES_BLKCMPLT_EVT, 0);
 
 		/* Call the AES Block Complete Handler */
 		if (TxPtr->AesBlkCmpltHandler)
@@ -117,7 +116,7 @@ void XI2s_Tx_IntrHandler(void *InstancePtr)
 	if (Data & EnableMask & XI2S_TX_INTR_AES_BLKSYNCERR_MASK) {
 		/* Clear AES Block Synchronization Error event */
 		XI2s_Tx_IntrClear(TxPtr, XI2S_TX_INTR_AES_BLKSYNCERR_MASK);
-		XI2s_Tx_LogWrite(&TxPtr->Log, XI2S_TX_AES_BLKSYNCERR_EVT, 0);
+		XI2s_Tx_LogWrite(TxPtr, XI2S_TX_AES_BLKSYNCERR_EVT, 0);
 
 		/* Call the AES Block Synchronization Error Handler */
 		if (TxPtr->AesBlkSyncErrHandler)
@@ -127,7 +126,7 @@ void XI2s_Tx_IntrHandler(void *InstancePtr)
 	if (Data & EnableMask & XI2S_TX_INTR_AES_CHSTSUPD_MASK) {
 		/* Clear the AES Channel Status Updated event */
 		XI2s_Tx_IntrClear(TxPtr, XI2S_TX_INTR_AES_CHSTSUPD_MASK);
-		XI2s_Tx_LogWrite(&TxPtr->Log, XI2S_TX_AES_CHSTSUPD_EVT, 0);
+		XI2s_Tx_LogWrite(TxPtr, XI2S_TX_AES_CHSTSUPD_EVT, 0);
 
 		/* Call the AES Channel Status Updated Handler */
 		if (TxPtr->AesChStsUpdHandler)
@@ -137,7 +136,7 @@ void XI2s_Tx_IntrHandler(void *InstancePtr)
 	if (Data & EnableMask & XI2S_TX_INTR_AUDUNDRFLW_MASK) {
 		/* Clear the Audio Underflow Detected event */
 		XI2s_Tx_IntrClear(TxPtr, XI2S_TX_INTR_AUDUNDRFLW_MASK);
-		XI2s_Tx_LogWrite(&TxPtr->Log, XI2S_TX_AUD_UNDRFLW_EVT, 0);
+		XI2s_Tx_LogWrite(TxPtr, XI2S_TX_AUD_UNDRFLW_EVT, 0);
 
 		/* Call the Audio Underflow Detected Handler */
 		if (TxPtr->AudUndrflwHandler)
