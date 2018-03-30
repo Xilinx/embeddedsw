@@ -74,37 +74,30 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /** @name XI2S_Tx_Handlertype
-* @{
-*/
+ * @{
+ */
 /**
-* these constants specify different types of handlers and is used to
-* differentiate interrupt requests from the I2s Transmitter peripheral.
-*/
+ * these constants specify different types of handlers and is used to
+ * differentiate interrupt requests from the I2s Transmitter peripheral.
+ */
 typedef enum {
-		XI2S_TX_HANDLER_AES_BLKCMPLT = 0,  /**< AES Block Complete
-						     Handler */
-		XI2S_TX_HANDLER_AES_BLKSYNCERR,    /**< AES Block
-						     Synchronization Error
-						     Handler */
-		XI2S_TX_HANDLER_AES_CHSTSUPD,      /**< AES Channel Status
-						     Updated
-						     Handler */
-		XI2S_TX_HANDLER_AUD_UNDRFLW,     /**< Audio Underflow Detected
-						   Handler */
-		XI2S_TX_NUM_HANDLERS               /**< Number of handler
-						     types*/
+	XI2S_TX_HANDLER_AES_BLKCMPLT = 0, /**< AES Block Complete Handler */
+	XI2S_TX_HANDLER_AES_BLKSYNCERR,   /**< AES Block Sync Error Handler */
+	XI2S_TX_HANDLER_AES_CHSTSUPD, /**< AES Channel Status Updated Handler */
+	XI2S_TX_HANDLER_AUD_UNDRFLW, /**< Audio Underflow Detected Handler */
+		XI2S_TX_NUM_HANDLERS /**< Number of handler types */
 } XI2s_Tx_HandlerType;
 /*@}*/
 
 /**
-* These constants specify different channel ID's
-*/
+ * These constants specify different channel ID's
+ */
 typedef enum {
-		XI2S_TX_CHID0 = 0,  //!< Channel 0
-		XI2S_TX_CHID1,      //!< Channel 1
-		XI2S_TX_CHID2, //!< Channel 2
-		XI2S_TX_CHID3, //!< Channel 3
-		XI2S_TX_NUM_CHANNELS //!<Number of Channel ID's
+	XI2S_TX_CHID0 = 0,  //!< Channel 0
+	XI2S_TX_CHID1,      //!< Channel 1
+	XI2S_TX_CHID2, //!< Channel 2
+	XI2S_TX_CHID3, //!< Channel 3
+	XI2S_TX_NUM_CHANNELS //!<Number of Channel ID's
 } XI2s_Tx_ChannelId;
 
 /*@}*/
@@ -130,16 +123,11 @@ typedef void (*XI2s_Tx_Callback)(void *CallbackRef);
  * This typedef contains configuration information for the I2s Transmitter.
  */
 typedef struct {
-	u16 DeviceId;       /**< DeviceId is the unique ID of the
-			      I2s Transmitter */
-	UINTPTR BaseAddress;    /**< BaseAddress is the physical base
-				  address of the core's registers */
-	u8  DWidth;	    /**< Data Width (16 bit or 24 bit) of the
-			      I2s Transmitter core */
-	u8  IsMaster;	    /**< IsMaster (true or false) for the I2s
-			      Transmitter core */
-	u8  MaxNumChannels; /**< Maximum number of channels supported
-			      by the I2s Transmitter core */
+	u16 DeviceId; /**< DeviceId is unique ID of the I2s Tx */
+	UINTPTR BaseAddress; /**< BaseAddress is physical address of registers*/
+	u8  DWidth;	    /**< Data Width (16/24bit) of I2s Tx core */
+	u8  IsMaster;	    /**< IsMaster(TRUE/FALSE) for I2s Tx core */
+	u8  MaxNumChannels; /**< Max channels supported by I2s Tx core */
 } XI2stx_Config;
 /**
  * This typedef implements the I2s Transmitter driver instance data.
@@ -147,36 +135,36 @@ typedef struct {
  */
 typedef struct {
 
-	u32                    IsReady;   /**< Core and the driver instance
-					    are initialized */
-	u32                    IsStarted; /**< Core and the driver instance
-					    has started */
-	XI2stx_Config Config;   /**< Hardware Configuration */
+	u32 IsReady; /**< Core and driver instance are initialized */
+	u32 IsStarted; /**< Core and driver instance has started */
+	XI2stx_Config Config; /**< Hardware Configuration */
 
-	XI2s_Tx_Log             Log;      /**< Logging for I2s Transmitter */
+	XI2s_Tx_Log Log; /**< Logging for I2s Transmitter */
 
 	/* Call backs */
 	XI2s_Tx_Callback AesBlkCmpltHandler;  /**< AES Block Complete Handler */
 
-	XI2s_Tx_Callback AesBlkSyncErrHandler;/**< AES Block Synchronization
-						Error Handler */
-	XI2s_Tx_Callback AesChStsUpdHandler;  /**< AES Channel Status Updated
-						Handler */
+	XI2s_Tx_Callback AesBlkSyncErrHandler; /**< AES Block Sync Err Handler*/
+	XI2s_Tx_Callback AesChStsUpdHandler; /* AES Channel Status Updated
+					      * Handler
+					      */
 
 	XI2s_Tx_Callback AudUndrflwHandler; /**< Audio Underflow Handler  */
 
-	void *AesChStsUpdRef;                 /**< Callback reference for AES
-						Channel Status Updated
-						Handler */
+	void *AesChStsUpdRef;  /* Callback reference for AES Channel Status
+				* Updated Handler
+				*/
 
-	void *AesBlkCmpltRef;                 /**< Callback reference for AES
-						Block Complete Handler */
+	void *AesBlkCmpltRef; /* Callback reference for AES Block
+			       * Complete Handler
+			       */
 
-	void *AesBlkSyncErrRef;               /**< Callback reference for AES
-						Block Synchronization Error
-						Handler */
-	void *AudUndrflwRef;                /**< Callback reference for
-					      Audio Underflow Handler */
+	void *AesBlkSyncErrRef; /* Callback reference for AES Block
+				 * Sync Error Handler
+				 */
+	void *AudUndrflwRef; /* Callback reference for Audio
+			      * Underflow Handler
+			      */
 
 } XI2s_Tx;
 
@@ -208,10 +196,12 @@ typedef enum {
  * @return I2sTx_Version
  *
  *****************************************************************************/
-static inline u32 XI2s_Tx_GetVersion(XI2s_Tx *InstancePtr) {
+static inline u32 XI2s_Tx_GetVersion(XI2s_Tx *InstancePtr)
+{
 	u32 I2sTx_Version;
-	I2sTx_Version = XI2s_Tx_ReadReg((InstancePtr)->Config.BaseAddress
-			,(XI2S_TX_CORE_VER_OFFSET));
+
+	I2sTx_Version = XI2s_Tx_ReadReg((InstancePtr)->Config.BaseAddress,
+			(XI2S_TX_CORE_VER_OFFSET));
 	return I2sTx_Version;
 }
 /*****************************************************************************/
@@ -231,7 +221,7 @@ static inline void XI2s_Tx_IntrClear(XI2s_Tx *InstancePtr, u32 Mask)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	XI2s_Tx_WriteReg((InstancePtr)->Config.BaseAddress,
-			(XI2S_TX_IRQSTS_OFFSET),Mask);
+			(XI2S_TX_IRQSTS_OFFSET), Mask);
 
 }
 /*****************************************************************************/
@@ -244,7 +234,8 @@ static inline void XI2s_Tx_IntrClear(XI2s_Tx *InstancePtr, u32 Mask)
  * @return None.
  *
  *****************************************************************************/
-static inline void XI2s_Tx_LogEnable(XI2s_Tx *InstancePtr) {
+static inline void XI2s_Tx_LogEnable(XI2s_Tx *InstancePtr)
+{
 	Xil_AssertVoid(InstancePtr != NULL);
 	(InstancePtr)->Log.IsEnabled = TRUE;
 }
@@ -259,28 +250,12 @@ static inline void XI2s_Tx_LogEnable(XI2s_Tx *InstancePtr) {
  *
  *
  *****************************************************************************/
-static inline void XI2s_Tx_LogDisable(XI2s_Tx *InstancePtr) {
+static inline void XI2s_Tx_LogDisable(XI2s_Tx *InstancePtr)
+{
 	Xil_AssertVoid(InstancePtr != NULL);
 	(InstancePtr)->Log.IsEnabled = FALSE;
 }
-/*****************************************************************************/
-/**
- *
- * This inline function clears the I2s Transmitter logging.
- *
- * @param InstancePtr is a pointer to the XI2s_Tx core instance.
- *
- * @return None.
- *
- *****************************************************************************/
-static inline void  XI2s_Tx_LogClear(XI2s_Tx *InstancePtr) {
-	Xil_AssertVoid(InstancePtr != NULL);
-	if (InstancePtr->Log.IsEnabled == TRUE)
-	{
-		InstancePtr->Log.Head = 0;
-		InstancePtr->Log.Tail = 0;
-	}
-}
+
 /************************** Function Prototypes ******************************/
 /* Self-test function in xi2stx_selftest.c */
 int XI2s_Tx_SelfTest(XI2s_Tx *InstancePtr);
@@ -312,6 +287,8 @@ void XI2s_Tx_ClrAesChStatRegs(XI2s_Tx *InstancePtr);
 
 /* Logging */
 void XI2s_Tx_LogDisplay(XI2s_Tx *InstancePtr);
+void XI2s_Tx_LogWrite(XI2s_Tx *InstancePtr, XI2s_Tx_LogEvt Event, u8 Data);
+XI2s_Tx_LogItem* XI2s_Tx_LogRead(XI2s_Tx *InstancePtr);
 void XI2s_Tx_LogReset(XI2s_Tx *InstancePtr);
 /************************** Variable Declarations ****************************/
 

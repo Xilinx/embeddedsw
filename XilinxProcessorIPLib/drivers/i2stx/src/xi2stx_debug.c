@@ -74,50 +74,50 @@
  *
  * This function writes I2S Transmitter logs into the buffer.
  *
- * @param InstancePtr is a pointer to the XI2s_Tx_Log instance.
+ * @param InstancePtr is a pointer to the XI2s_Tx instance.
  * @param Event is the log event type.
  * @param Data is the log data.
  *
  * @return None.
  *
- * @note Logging will only be written if the logging is enabled.
+ * @note Log write can be done only if the log is enabled.
  *
  ******************************************************************************/
-void XI2s_Tx_LogWrite(XI2s_Tx_Log *InstancePtr, XI2s_Tx_LogEvt Event, u8 Data)
+void XI2s_Tx_LogWrite(XI2s_Tx *InstancePtr, XI2s_Tx_LogEvt Event, u8 Data)
 {
 	u16 LogBufSize = 0;
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Event < XI2S_TX_LOG_EVT_INVALID);
-
-	if (!InstancePtr->IsEnabled)
+	if (!InstancePtr->Log.IsEnabled)
 		return;
 	/* Write data and event into log buffer */
-	InstancePtr->Items[InstancePtr->Head].Data = Data;
-	InstancePtr->Items[InstancePtr->Head].Event = Event;
+	InstancePtr->Log.Items[InstancePtr->Log.Head].Data = Data;
+	InstancePtr->Log.Items[InstancePtr->Log.Head].Event = Event;
 
 	/* Update head pointer */
-	LogBufSize = sizeof(InstancePtr->Items)/sizeof(XI2s_Tx_LogItem);
-	InstancePtr->Head++;
-	if (InstancePtr->Head == LogBufSize)
-		InstancePtr->Head = 0;
+	LogBufSize = sizeof(InstancePtr->Log.Items)/sizeof(XI2s_Tx_LogItem);
+	InstancePtr->Log.Head++;
+	if (InstancePtr->Log.Head == LogBufSize)
+		InstancePtr->Log.Head = 0;
 
 	/* Check tail pointer. When the two pointer are equal, then the
 	 * buffer is full. In this case then increment the tail pointer
 	 * as well to remove the oldest entry from the buffer.
 	 */
-	if (InstancePtr->Tail == InstancePtr->Head) {
-		InstancePtr->Tail++;
-		if (InstancePtr->Tail == (LogBufSize))
-			InstancePtr->Tail = 0;
+	if (InstancePtr->Log.Tail == InstancePtr->Log.Head) {
+		InstancePtr->Log.Tail++;
+		if (InstancePtr->Log.Tail == (LogBufSize))
+			InstancePtr->Log.Tail = 0;
 	}
 }
-/*****************************************************************************/
+
+ /*****************************************************************************/
 /**
  *
  * This function returns the next item in the logging buffer.
  *
- * @param InstancePtr is a pointer to the XI2s_Tx_Log instance.
+ * @param InstancePtr is a pointer to the XI2s_Tx instance.
  *
  * @return When the buffer is filled, the next log item is returned.
  *         When the buffer is empty, NULL is returned.
@@ -125,37 +125,38 @@ void XI2s_Tx_LogWrite(XI2s_Tx_Log *InstancePtr, XI2s_Tx_LogEvt Event, u8 Data)
  * @note None.
  *
  *****************************************************************************/
-XI2s_Tx_LogItem *XI2s_Tx_LogRead(XI2s_Tx_Log *InstancePtr)
+XI2s_Tx_LogItem* XI2s_Tx_LogRead(XI2s_Tx *InstancePtr)
 {
-	XI2s_Tx_LogItem *LogPtr = NULL;
+	XI2s_Tx_LogItem* LogPtr = NULL;
 	u16 LogBufSize = 0;
 	/* Verify whether log is enabled */
-	if((InstancePtr)->IsEnabled == FALSE)
+	if ((InstancePtr)->Log.IsEnabled == FALSE)
 		return NULL;
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check if there is any data in the log buffer */
-	if (InstancePtr->Tail == InstancePtr->Head)
+	if (InstancePtr->Log.Tail == InstancePtr->Log.Head)
 		return NULL;
 
-	LogPtr = &InstancePtr->Items[InstancePtr->Tail];
+	LogPtr = &InstancePtr->Log.Items[InstancePtr->Log.Tail];
 
 	/* Increment tail pointer */
-	LogBufSize = sizeof(InstancePtr->Items)/sizeof(XI2s_Tx_LogItem);
-	if (InstancePtr->Tail == (LogBufSize - 1))
-		InstancePtr->Tail = 0;
+	LogBufSize = sizeof(InstancePtr->Log.Items)/sizeof(XI2s_Tx_LogItem);
+	if (InstancePtr->Log.Tail == (LogBufSize - 1))
+		InstancePtr->Log.Tail = 0;
 	else
-		InstancePtr->Tail++;
+		InstancePtr->Log.Tail++;
 
 	return LogPtr;
 }
+
 /*****************************************************************************/
 /**
  *
  * This function clears the contents of the logging buffer.
  *
- * @param InstancePtr is a pointer to the XI2s_Tx_Log instance.
+ * @param InstancePtr is a pointer to the XI2s_Tx instance.
  *
  * @return None.
  *
@@ -185,7 +186,7 @@ void XI2s_Tx_LogReset(XI2s_Tx *InstancePtr)
  *****************************************************************************/
 void XI2s_Tx_LogDisplay(XI2s_Tx *InstancePtr)
 {
-	XI2s_Tx_LogItem *LogPtr = NULL;
+	XI2s_Tx_LogItem* LogPtr = NULL;
 
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -194,9 +195,9 @@ void XI2s_Tx_LogDisplay(XI2s_Tx *InstancePtr)
 	XI2s_Tx_LogEvt prevEvt = XI2S_TX_LOG_EVT_INVALID;
 	int Count = 0;
 
-	print("--------I2S Transmitter Log Start--------\n\r");
+	xil_printf("--------I2S Transmitter Log Start--------\n\r");
 	while (1) {
-		LogPtr = XI2s_Tx_LogRead(&InstancePtr->Log);
+		LogPtr = XI2s_Tx_LogRead(InstancePtr);
 		/* if buffer is empty, NULL is returned */
 		if (LogPtr == NULL) {
 			if (Count != 0)
@@ -219,26 +220,25 @@ void XI2s_Tx_LogDisplay(XI2s_Tx *InstancePtr)
 				InstancePtr->Config.DeviceId);
 
 		switch (LogPtr->Event) {
-			case XI2S_TX_AES_BLKCMPLT_EVT:
-				xil_printf("AES Block Complete Detected.\n\r");
-				break;
+		case XI2S_TX_AES_BLKCMPLT_EVT:
+			xil_printf("AES Block Complete Detected.\n\r");
+			break;
 
-			case XI2S_TX_AES_BLKSYNCERR_EVT:
-				xil_printf("AES Block Synchronization \
-						Error Detected.\n\r");
-				break;
+		case XI2S_TX_AES_BLKSYNCERR_EVT:
+			xil_printf("AES Block Sync Error Detected.\n\r");
+			break;
 
-			case XI2S_TX_AES_CHSTSUPD_EVT:
-				xil_printf("AES Channel Status Updated.\n\r");
-				break;
+		case XI2S_TX_AES_CHSTSUPD_EVT:
+			xil_printf("AES Channel Status Updated.\n\r");
+			break;
 
-			case XI2S_TX_AUD_UNDRFLW_EVT:
-				xil_printf("Audio Underflow Detected.\n\r");
-				break;
+		case XI2S_TX_AUD_UNDRFLW_EVT:
+			xil_printf("Audio Underflow Detected.\n\r");
+			break;
 
-			default:
-				xil_printf("Unknown Log Entry.\n\r");
-				break;
+		default:
+			xil_printf("Unknown Log Entry.\n\r");
+			break;
 		}
 
 		prevEvt = LogPtr->Event;
