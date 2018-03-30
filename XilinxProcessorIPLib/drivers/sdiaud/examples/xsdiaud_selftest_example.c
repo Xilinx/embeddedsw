@@ -64,6 +64,7 @@
 
 #define XSDIAUD_IPVERSION_NUMBER 0x01 /* IP version number */
 #define XSDIAUD_NUM_REG 9 /* Number of registers to be read after reset */
+#define XSDIAUD_ACR 3 /*loop count value to read the audio control register */
 
 /**************************** Type Definitions ********************************/
 
@@ -142,7 +143,10 @@ int SdiAud_SelfTestExample(u16 DeviceId)
 
 	Status = XSdiAud_ReadReg(SdiAud0.Config.BaseAddress, (XSDIAUD_INT_EN_REG_OFFSET + (4 * XSdiAud_TstLoop)));
 
-	if (Status != XST_SUCCESS)
+	if ((SdiAud0.Config.IsEmbed == TRUE) && (XSdiAud_TstLoop == XSDIAUD_ACR) && (Status == TRUE))
+		Status = XST_SUCCESS;
+
+    if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 	}
 
