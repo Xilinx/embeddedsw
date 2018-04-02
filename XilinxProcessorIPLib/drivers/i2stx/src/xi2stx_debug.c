@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2017 Xilinx, Inc. All rights reserved.
+ * Copyright (C) 2017 - 2018 Xilinx, Inc. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
  *
  * @file xi2stx_debug.c
- * @addtogroup i2stx_v1_0
+ * @addtogroup i2stx_v1_1
  * @{
  *
  * This file contains functions to debug i2s_transmitter driver, and log the
@@ -47,6 +47,7 @@
  * Ver   Who    Date     Changes
  * ----- ------ -------- --------------------------------------------------
  * 1.0   kar    11/16/17 Initial release.
+ * 1.1   kar    04/02/18 Changed log API's to take i2stx instance as argument.
  * </pre>
  *
  *****************************************************************************/
