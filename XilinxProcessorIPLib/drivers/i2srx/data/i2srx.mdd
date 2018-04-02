@@ -36,6 +36,6 @@ BEGIN driver i2s_receiver
 OPTION supported_peripherals = (i2s_receiver);
 OPTION driver_state = ACTIVE;
 OPTION copyfiles = all;
-OPTION VERSION = 1.0;
+OPTION VERSION = 1.1;
 OPTION NAME = i2srx;
 END driver
