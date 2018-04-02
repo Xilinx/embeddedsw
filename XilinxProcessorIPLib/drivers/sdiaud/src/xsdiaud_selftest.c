@@ -33,7 +33,7 @@
 /**
  *
  * @file xsdiaud_selftest.c
- * @addtogroup sdiaud_v1_0
+ * @addtogroup sdiaud_v1_1
  * @{
  * Contains an basic self-test API
  * @note None
@@ -44,6 +44,7 @@
  * Ver   Who   Date        Changes
  * ----- ----- ---------- -----------------------------------------------
  * 1.0    kar  02/14/18    Initial release.
+ * 1.1    kar  04/02/18    Added new macros for UHD-SDI standard and channels.
  * </pre>
  *
  ******************************************************************************/
