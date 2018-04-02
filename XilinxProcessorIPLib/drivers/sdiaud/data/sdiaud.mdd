@@ -36,6 +36,6 @@ BEGIN driver v_uhdsdi_audio
   OPTION supported_peripherals = (v_uhdsdi_audio);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.0;
+  OPTION VERSION = 1.1;
   OPTION NAME = sdiaud;
 END driver
