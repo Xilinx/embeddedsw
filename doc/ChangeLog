@@ -1,5 +1,17 @@
 Changes for 2018.2
 ===============================
+i2srx_v1_1:
+Changed log APIs so that they take the i2srx instance as argument.
+Changed the channel status clear API to cover all the registers.
+
+i2stx_v1_1:
+Changed log APIs so that they take the i2stx instance as argument.
+Changed the channel status clear API to cover all the registers.
+
+sdiaud_v1_1:
+Changed selftest to cover all the GUI parameters like UHD SDI standard and
+maximum number of channels.
+
 lwip202_v1_1:
 Avoid redundant axi ethernet config lookup and intialize.
 
