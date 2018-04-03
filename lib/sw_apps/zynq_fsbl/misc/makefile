@@ -4,10 +4,10 @@ PROCESSOR = ps7_cortexa9_0
 LIBRARIES = ${PROCESSOR}/lib/libxil.a
 BSP_MAKEFILES := $(wildcard $(PROCESSOR)/libsrc/*/src/Makefile)
 SUBDIRS := $(patsubst %/Makefile, %, $(BSP_MAKEFILES))
-CC	:= arm-none-eabi-gcc
-AR	:= arm-none-eabi-ar
+CC	:= arm-xilinx-eabi-gcc
+AR	:= arm-xilinx-eabi-ar
 C_FLAGS	:= -O2 -c
-EC_FLAGS:= -g
+EC_FLAGS	:= -g
 
 all: libs
 	@echo 'Finished building libraries'

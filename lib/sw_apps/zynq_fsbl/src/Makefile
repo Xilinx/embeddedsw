@@ -31,10 +31,10 @@
 ###############################################################################
 
 
-CC := arm-none-eabi-gcc
+CC := arm-xilinx-eabi-gcc
 CC_FLAGS :=  
 CFLAGS := 
-ECFLAGS :=
+ECFLAGS := 
 LDFLAGS := 
 
 c_SOURCES := $(wildcard *.c)
@@ -46,7 +46,7 @@ OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
 OBJS += $(patsubst %.s, %.o, $(s_SOURCES))
 LSCRIPT := -Tlscript.ld
 
-BSP_DIR	:= ../misc
+BSP_DIR	:= ../misc/
 
 LIBS := libxil.a 
 EXEC := fsbl.elf
@@ -60,14 +60,14 @@ DEPS	:= depends
 all: $(EXEC)
 
 $(EXEC): $(DEPS) $(LIBS) $(OBJS) $(INCLUDES)
-	$(LINKER) -o $@ $(OBJS) $(CC_FLAGS) $(ECFLAGS) $(LDFLAGS) $(LSCRIPT)
+	cp $(BSP_DIR)/$(BOARD)/ps7_init.* .
+	$(LINKER) -o $@ $(OBJS) $(CC_FLAGS) $(LDFLAGS) $(LSCRIPT)
 	rm -rf $(OBJS) 
 
 $(DEPS):
-ifeq "$(CC)" "arm-none-eabi-gcc"
-AS=arm-none-eabi-gcc
-LINKER=arm-none-eabi-gcc
-ECFLAGS=-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec
+ifeq "$(CC)" "arm-xilinx-eabi-gcc"
+AS=arm-xilinx-eabi-gcc
+LINKER=arm-xilinx-eabi-gcc
 LDFLAGS = -lrsa -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilffs,-lxil,-lgcc,-lc,--end-group -L$(LIBPATH) -L./
 endif 
 ifeq "$(CC)" "armcc"
@@ -81,25 +81,21 @@ endif
 	
 	
 $(LIBS): 
-	echo "Copying ps7_init* files"
-	cp $(BSP_DIR)/$(BOARD)/ps7_init.* .
 	echo "Copying BSP files"
 	$(BSP_DIR)/copy_bsp.sh "$(BOARD)" "$(CC)"
 	echo "Compiling bsp"
-	if [ $(CC) == "arm-none-eabi-gcc" ]; then \
-		make -C $(BSP_DIR) -k all "CC=arm-none-eabi-gcc" "AR=arm-none-eabi-ar" "C_FLAGS=-O2 -c" "EC_FLAGS=-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard"; \
+	if [ $(CC) == "arm-xilinx-eabi-gcc" ]; then \
+		make -C $(BSP_DIR) -k all "CC=arm-xilinx-eabi-gcc" "AR=arm-xilinx-eabi-ar" "C_FLAGS=-O2 -c" "EC_FLAGS=-g"; \
 	elif [ $(CC) == "armcc" ]; then \
         make -C $(BSP_DIR) -k all "CC=armcc" "AR=armar" "C_FLAGS= -O2 -c" "EC_FLAGS=--debug --wchar32"; \
 	fi;
-
-$(OBJS): $(LIBS)
 
 %.o:%.c
 	$(CC) $(CC_FLAGS) $(CFLAGS) $(ECFLAGS) -c $< -o $@ $(INCLUDEPATH)
 
 %.o:%.S
-	if [ $(CC) == "arm-none-eabi-gcc" ]; then \
-		$(AS) $(CC_FLAGS) $(ECFLAGS) -c $< -o $@ $(INCLUDEPATH); \
+	if [ $(CC) == "arm-xilinx-eabi-gcc" ]; then \
+		$(AS) $(CC_FLAGS) -c $< -o $@ $(INCLUDEPATH); \
 	elif [ $(CC) == "armcc" ]; then \
         $(CC) $(INCLUDEPATH) -E -o fsbl_handoff.s fsbl_handoff.S; \
 		$(AS) $(CC_FLAGS) -c fsbl_handoff.s -o fsbl_handoff.o $(INCLUDEPATH); \
