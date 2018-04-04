@@ -40,7 +40,9 @@
 *
 * @note
 * This example requires downloading an encrypted single partition image
-* to 0x04000000 in DDR memory.
+* to 0x04000000 in DDR memory, decrypted data will be updated at the same
+* location, one can modify this addresses by changing ImageOffset and
+* DstinationAddr variables.
 *
 * Example bif is:
 * //arch = zynqmp; split = false; format = BIN
@@ -66,6 +68,11 @@
 * 2.2   vns    07/06/16 Added doxygen tags
 * 3.0   vns    02/27/18 Modified example to decrypt the single partition
 *                       image instead of FSBL partition in boot image.
+* 3.1   vns    04/04/18 For CR-998923, if data is greater than 1MB size,
+*                       decrypted data is overwritting the part of source and
+*                       decryption of image is failing, to fix this modified
+*                       destination address, from now on image is overwritten
+*                       with decrypted data.
 *
 * </pre>
 ******************************************************************************/
@@ -96,6 +103,7 @@ u8 csu_iv[] = {
 };
 
 static u32 ImageOffset = 0x04000000;
+static u32 DestinationAddr = 0x04000000;
 
 /**************************** Type Definitions *******************************/
 
@@ -167,7 +175,7 @@ int main(void)
 /** //! [AES example] */
 int SecureAesExample(void)
 {
-	u8 *Dst = (u8 *)0x04100000;
+	u8 *Dst = (u8 *)(UINTPTR)DestinationAddr;
 	XCsuDma_Config *Config;
 
 	int Status;
