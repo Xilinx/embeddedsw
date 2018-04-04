@@ -692,7 +692,7 @@ PmProc* PmProcGetByWakeMask(const u32 wake)
 	u32 i;
 
 	for (i = 0U; i < pmNodeClassProc_g.bucketSize; i++) {
-		PmProc* proc = (PmProc*)pmNodeClassProc_g.bucket[i];
+		PmProc* proc = pmNodeClassProc_g.bucket[i]->derived;
 
 		if (0U != (proc->wakeStatusMask & wake)) {
 			found = proc;
