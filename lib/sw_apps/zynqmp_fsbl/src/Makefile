@@ -32,49 +32,64 @@
 
 PROC ?= a53
 CROSS ?=
-BSP_DIR	:= .
-
+BSP_DIR	:= ../misc/zynqmp_fsbl_bsp
+A53_STATE := 64
 ECFLAGS :=
 LSCRIPT := -Tlscript_a53.ld
-BOARD	:=
+BOARD	:= zcu102
 EXEC := ron_a53_fsbl.elf
 
 c_SOURCES := $(wildcard *.c)
-S_SOURCES := $(wildcard *.S)
+c_SOURCES += ../misc/$(BOARD)/psu_init.c
 s_SOURCES := $(wildcard *.s)
 INCLUDES := $(wildcard *.h)
 OBJS := $(patsubst %.c, %.o, $(c_SOURCES))
-OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
 OBJS += $(patsubst %.s, %.o, $(s_SOURCES))
 
 ifeq '$(PROC)' 'r5'
+S_SOURCES := 	xfsbl_exit.S
+OBJS +=		xfsbl_exit.o
 CROSS   :=
-CC      :=      $(CROSS)arm-none-eabi-gcc
-AS      :=      $(CROSS)arm-none-eabi-gcc
-LINKER  :=      $(CROSS)arm-none-eabi-gcc
-DUMP    :=      $(CROSS)arm-none-eabi-objdump -xSD
-CFLAGS =  -Wall -O0 -g3 -fmessage-length=0 \
-		  -mcpu=cortex-r5 -mfloat-abi=softfp
+CC      :=      $(CROSS)armr5-none-eabi-gcc
+AS      :=      $(CROSS)armr5-none-eabi-gcc
+LINKER  :=      $(CROSS)armr5-none-eabi-gcc
+DUMP    :=      $(CROSS)armr5-none-eabi-objdump -xSD
+CFLAGS :=  -Wall -O0 -g3 -fmessage-length=0
+ECFLAGS := -g -DARMR5 -Wall -Wextra -mcpu=cortex-r5 -mfloat-abi=hard -mfpu=vfpv3-d16
 LSCRIPT := -Tlscript.ld
 EXEC := ron_r5_fsbl.elf
-INCLUDEPATH := -I$(BSP_DIR)/psu_cortexr5_0/include -I.
+INCLUDEPATH := -I$(BSP_DIR)/psu_cortexr5_0/include -I. -I../misc/$(BOARD)/$(PROC) -I../misc/$(BOARD)
 LIBPATH := $(BSP_DIR)/psu_cortexr5_0/lib
-LDFLAGS := -Wl,--start-group,-lxil,-lxilffs,-lgcc,-lc,--end-group -L$(LIBPATH) -L./ -Wl,--build-id=none
+LDFLAGS :=  -Wl,--start-group,-lxil,-lxilffs,-lxilsecure,-lxilpm,-lgcc,-lc,--end-group -L$(LIBPATH) -L./ -Wl,--build-id=none -mcpu=cortex-r5 -mfloat-abi=hard -mfpu=vfpv3-d16
 endif
 
 ifeq '$(PROC)' 'a53'
+S_SOURCES := xfsbl_exit.S
+S_SOURCES += xfsbl_translation_table_a53_$(A53_STATE).S
+OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
 CROSS   :=
+CFLAGS =  -Wall -O0 -g3 -fmessage-length=0 \
+                  -march=armv8-a -DARMA53_$(A53_STATE)
+EXEC := ron_a53_fsbl.elf
+INCLUDEPATH := -I$(BSP_DIR)/psu_cortexa53_0/include -I. -I../misc/$(BOARD)/$(PROC) -I../misc/$(BOARD)
+LIBPATH := $(BSP_DIR)/psu_cortexa53_0/lib
+ifeq '$(A53_STATE)' '64'
 CC      :=      $(CROSS)aarch64-none-elf-gcc
 AS      :=      $(CROSS)aarch64-none-elf-gcc
 LINKER  :=      $(CROSS)aarch64-none-elf-gcc
 DUMP    :=      $(CROSS)aarch64-none-elf-objdump -xSD
-CFLAGS =  -Wall -O0 -g3 -fmessage-length=0 \
-		  -march=armv8-a -DXFSBL_A53
-LSCRIPT := -Tlscript_a53.ld
-EXEC := ron_a53_fsbl.elf
-INCLUDEPATH := -I$(BSP_DIR)/psu_cortexa53_0/include -I.
-LIBPATH := $(BSP_DIR)/psu_cortexa53_0/lib
-LDFLAGS := -Wl,--start-group,-lxil,-lxilffs,-lgcc,-lc,--end-group -L$(LIBPATH) -L./ -Wl,--build-id=none
+LSCRIPT := 	-Tlscript_a53.ld
+LDFLAGS := -Wl,--start-group,-lxil,-lxilffs,-lxilsecure,-lxilpm,-lgcc,-lc,--end-group -L$(LIBPATH) -L./ -Wl,--build-id=none
+else
+CC      :=      $(CROSS)arm-none-eabi-gcc
+AS      :=      $(CROSS)arm-none-eabi-gcc
+LINKER  :=      $(CROSS)arm-none-eabi-gcc
+DUMP    :=      $(CROSS)arm-none-eabi-objdump -xSD
+ECFLAGS :=  -Wextra -march=armv7-a -mfloat-abi=hard -mfpu=vfpv3-d16
+LSCRIPT :=	-Tlscript.ld
+LDFLAGS :=  -Wl,--start-group,-lxil,-lxilffs,-lxilsecure,-lxilpm,-lgcc,-lc,--end-group -L$(LIBPATH) -L./ -Wl,--build-id=none -march=armv7-a -mfloat-abi=hard -mfpu=vfpv3-d16
+
+endif
 endif
 
 ifeq "$(CC)" "armcc"
