@@ -5,19 +5,19 @@
 #define XPAR_CPU_ID 0U
 
 /* Definitions for peripheral PSU_CORTEXR5_0 */
-#define XPAR_PSU_CORTEXR5_0_CPU_CLK_FREQ_HZ 499995000
+#define XPAR_PSU_CORTEXR5_0_CPU_CLK_FREQ_HZ 499950000
 
 
 /******************************************************************/
 
 /* Canonical definitions for peripheral PSU_CORTEXR5_0 */
-#define XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ 499995000
+#define XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ 499950000
 
 
 /******************************************************************/
 
  /* Definition for PSS REF CLK FREQUENCY */
-#define XPAR_PSU_PSS_REF_CLK_FREQ_HZ 33333000U
+#define XPAR_PSU_PSS_REF_CLK_FREQ_HZ 33330000U
 
 #include "xparameters_ps.h"
 
@@ -29,18 +29,6 @@
 #define XPAR_PSU_R5_DDR_1_S_AXI_BASEADDR 0x800000000
 #define XPAR_PSU_R5_DDR_1_S_AXI_HIGHADDR 0x87fffffff
 
-/******************************************************************/
-
-/*
- * Definitions of PSU_TTC_3 counter 0 base address and frequency used
- * by sleep and usleep APIs
- */
-
-#define SLEEP_TIMER_BASEADDR 0xFF140000
-#define SLEEP_TIMER_FREQUENCY 100000000
-
-/******************************************************************/
-
 
 /* Number of Fabric Resets */
 #define XPAR_NUM_FABRIC_RESETS 1
@@ -50,6 +38,20 @@
 
 /******************************************************************/
 
+/* Platform specific definitions */
+#define PLATFORM_ZYNQMP
+
+/* Definitions for debug logic configuration in lockstep mode */
+#define LOCKSTEP_MODE_DEBUG 0U
+
+/* Definitions for sleep timer configuration */
+#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR
+#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ
+#define XSLEEP_TTC_INSTANCE 3
+#define XSLEEP_TIMER_IS_DEFAULT_TIMER
+
+
+/******************************************************************/
 /* Definitions for driver AVBUF */
 #define XPAR_XAVBUF_NUM_INSTANCES 1
 
@@ -264,7 +266,7 @@
 #define XPAR_PSU_CAN_1_DEVICE_ID 0
 #define XPAR_PSU_CAN_1_BASEADDR 0xFF070000
 #define XPAR_PSU_CAN_1_HIGHADDR 0xFF07FFFF
-#define XPAR_PSU_CAN_1_CAN_CLK_FREQ_HZ 99999000
+#define XPAR_PSU_CAN_1_CAN_CLK_FREQ_HZ 99990000
 
 
 /******************************************************************/
@@ -273,7 +275,7 @@
 #define XPAR_XCANPS_0_DEVICE_ID XPAR_PSU_CAN_1_DEVICE_ID
 #define XPAR_XCANPS_0_BASEADDR 0xFF070000
 #define XPAR_XCANPS_0_HIGHADDR 0xFF07FFFF
-#define XPAR_XCANPS_0_CAN_CLK_FREQ_HZ 99999000
+#define XPAR_XCANPS_0_CAN_CLK_FREQ_HZ 99990000
 
 
 /******************************************************************/
@@ -307,7 +309,7 @@
 #define XPAR_PSU_DDRC_0_BASEADDR 0xFD070000
 #define XPAR_PSU_DDRC_0_HIGHADDR 0xFD070FFF
 #define XPAR_PSU_DDRC_0_HAS_ECC 0
-#define XPAR_PSU_DDRC_0_DDRC_CLK_FREQ_HZ 533328000
+#define XPAR_PSU_DDRC_0_DDRC_CLK_FREQ_HZ 533280000
 
 
 /******************************************************************/
@@ -316,7 +318,7 @@
 #define XPAR_DDRCPSU_0_DEVICE_ID XPAR_PSU_DDRC_0_DEVICE_ID
 #define XPAR_DDRCPSU_0_BASEADDR 0xFD070000
 #define XPAR_DDRCPSU_0_HIGHADDR 0xFD070FFF
-#define XPAR_DDRCPSU_0_DDRC_CLK_FREQ_HZ 533328000
+#define XPAR_DDRCPSU_0_DDRC_CLK_FREQ_HZ 533280000
 
 
 /******************************************************************/
@@ -347,14 +349,14 @@
 #define XPAR_PSU_ETHERNET_3_DEVICE_ID 0
 #define XPAR_PSU_ETHERNET_3_BASEADDR 0xFF0E0000
 #define XPAR_PSU_ETHERNET_3_HIGHADDR 0xFF0EFFFF
-#define XPAR_PSU_ETHERNET_3_ENET_CLK_FREQ_HZ 124998750
+#define XPAR_PSU_ETHERNET_3_ENET_CLK_FREQ_HZ 124987500
 #define XPAR_PSU_ETHERNET_3_ENET_SLCR_1000MBPS_DIV0 12
 #define XPAR_PSU_ETHERNET_3_ENET_SLCR_1000MBPS_DIV1 1
 #define XPAR_PSU_ETHERNET_3_ENET_SLCR_100MBPS_DIV0 60
 #define XPAR_PSU_ETHERNET_3_ENET_SLCR_100MBPS_DIV1 1
 #define XPAR_PSU_ETHERNET_3_ENET_SLCR_10MBPS_DIV0 60
 #define XPAR_PSU_ETHERNET_3_ENET_SLCR_10MBPS_DIV1 10
-#define XPAR_PSU_ETHERNET_3_ENET_TSU_CLK_FREQ_HZ 249997500
+#define XPAR_PSU_ETHERNET_3_ENET_TSU_CLK_FREQ_HZ 249975000
 
 
 /******************************************************************/
@@ -364,14 +366,14 @@
 #define XPAR_XEMACPS_0_DEVICE_ID XPAR_PSU_ETHERNET_3_DEVICE_ID
 #define XPAR_XEMACPS_0_BASEADDR 0xFF0E0000
 #define XPAR_XEMACPS_0_HIGHADDR 0xFF0EFFFF
-#define XPAR_XEMACPS_0_ENET_CLK_FREQ_HZ 124998750
+#define XPAR_XEMACPS_0_ENET_CLK_FREQ_HZ 124987500
 #define XPAR_XEMACPS_0_ENET_SLCR_1000Mbps_DIV0 12
 #define XPAR_XEMACPS_0_ENET_SLCR_1000Mbps_DIV1 1
 #define XPAR_XEMACPS_0_ENET_SLCR_100Mbps_DIV0 60
 #define XPAR_XEMACPS_0_ENET_SLCR_100Mbps_DIV1 1
 #define XPAR_XEMACPS_0_ENET_SLCR_10Mbps_DIV0 60
 #define XPAR_XEMACPS_0_ENET_SLCR_10Mbps_DIV1 10
-#define XPAR_XEMACPS_0_ENET_TSU_CLK_FREQ_HZ 249997500
+#define XPAR_XEMACPS_0_ENET_TSU_CLK_FREQ_HZ 249975000
 
 
 /******************************************************************/
@@ -425,11 +427,6 @@
 /* Definitions for peripheral PSU_CCI_REG */
 #define XPAR_PSU_CCI_REG_S_AXI_BASEADDR 0xFD5E0000
 #define XPAR_PSU_CCI_REG_S_AXI_HIGHADDR 0xFD5EFFFF
-
-
-/* Definitions for peripheral PSU_CRF_APB */
-#define XPAR_PSU_CRF_APB_S_AXI_BASEADDR 0xFD1A0000
-#define XPAR_PSU_CRF_APB_S_AXI_HIGHADDR 0xFD2DFFFF
 
 
 /* Definitions for peripheral PSU_CRL_APB */
@@ -710,14 +707,14 @@
 #define XPAR_PSU_I2C_0_DEVICE_ID 0
 #define XPAR_PSU_I2C_0_BASEADDR 0xFF020000
 #define XPAR_PSU_I2C_0_HIGHADDR 0xFF02FFFF
-#define XPAR_PSU_I2C_0_I2C_CLK_FREQ_HZ 99999000
+#define XPAR_PSU_I2C_0_I2C_CLK_FREQ_HZ 99990000
 
 
 /* Definitions for peripheral PSU_I2C_1 */
 #define XPAR_PSU_I2C_1_DEVICE_ID 1
 #define XPAR_PSU_I2C_1_BASEADDR 0xFF030000
 #define XPAR_PSU_I2C_1_HIGHADDR 0xFF03FFFF
-#define XPAR_PSU_I2C_1_I2C_CLK_FREQ_HZ 99999000
+#define XPAR_PSU_I2C_1_I2C_CLK_FREQ_HZ 99990000
 
 
 /******************************************************************/
@@ -726,13 +723,13 @@
 #define XPAR_XIICPS_0_DEVICE_ID XPAR_PSU_I2C_0_DEVICE_ID
 #define XPAR_XIICPS_0_BASEADDR 0xFF020000
 #define XPAR_XIICPS_0_HIGHADDR 0xFF02FFFF
-#define XPAR_XIICPS_0_I2C_CLK_FREQ_HZ 99999000
+#define XPAR_XIICPS_0_I2C_CLK_FREQ_HZ 99990000
 
 /* Canonical definitions for peripheral PSU_I2C_1 */
 #define XPAR_XIICPS_1_DEVICE_ID XPAR_PSU_I2C_1_DEVICE_ID
 #define XPAR_XIICPS_1_BASEADDR 0xFF030000
 #define XPAR_XIICPS_1_HIGHADDR 0xFF03FFFF
-#define XPAR_XIICPS_1_I2C_CLK_FREQ_HZ 99999000
+#define XPAR_XIICPS_1_I2C_CLK_FREQ_HZ 99990000
 
 
 /******************************************************************/
@@ -754,7 +751,6 @@
 #define  XPAR_XIPIPSU_0_INT_ID	XPAR_PSU_IPI_1_INT_ID
 
 #define  XPAR_XIPIPSU_NUM_TARGETS  7U
-
 #define  XPAR_PSU_IPI_0_BIT_MASK  0x00000001U
 #define  XPAR_PSU_IPI_0_BUFFER_INDEX  2U
 #define  XPAR_PSU_IPI_1_BIT_MASK  0x00000100U
@@ -805,7 +801,7 @@
 #define XPAR_PSU_QSPI_0_DEVICE_ID 0
 #define XPAR_PSU_QSPI_0_BASEADDR 0xFF0F0000
 #define XPAR_PSU_QSPI_0_HIGHADDR 0xFF0FFFFF
-#define XPAR_PSU_QSPI_0_QSPI_CLK_FREQ_HZ 124998750
+#define XPAR_PSU_QSPI_0_QSPI_CLK_FREQ_HZ 124987500
 #define XPAR_PSU_QSPI_0_QSPI_MODE 2
 #define XPAR_PSU_QSPI_0_QSPI_BUS_WIDTH 2
 
@@ -817,10 +813,18 @@
 #define XPAR_XQSPIPSU_0_DEVICE_ID XPAR_PSU_QSPI_0_DEVICE_ID
 #define XPAR_XQSPIPSU_0_BASEADDR 0xFF0F0000
 #define XPAR_XQSPIPSU_0_HIGHADDR 0xFF0FFFFF
-#define XPAR_XQSPIPSU_0_QSPI_CLK_FREQ_HZ 124998750
+#define XPAR_XQSPIPSU_0_QSPI_CLK_FREQ_HZ 124987500
 #define XPAR_XQSPIPSU_0_QSPI_MODE 2
 #define XPAR_XQSPIPSU_0_QSPI_BUS_WIDTH 2
 
+
+/******************************************************************/
+
+/* Definitions for driver RESETPS */
+#define XPAR_XRESETPS_NUM_INSTANCES 1U
+/* Definitions for peripheral RESETPS */
+#define XPAR_XRESETPS_DEVICE_ID 0
+#define XPAR_XRESETPS_BASEADDR 0xFFFFFFFFU
 
 /******************************************************************/
 
@@ -871,7 +875,7 @@
 #define XPAR_PSU_SD_1_DEVICE_ID 0
 #define XPAR_PSU_SD_1_BASEADDR 0xFF170000
 #define XPAR_PSU_SD_1_HIGHADDR 0xFF17FFFF
-#define XPAR_PSU_SD_1_SDIO_CLK_FREQ_HZ 187498125
+#define XPAR_PSU_SD_1_SDIO_CLK_FREQ_HZ 187481250
 #define XPAR_PSU_SD_1_HAS_CD 1
 #define XPAR_PSU_SD_1_HAS_WP 1
 #define XPAR_PSU_SD_1_BUS_WIDTH 8
@@ -886,7 +890,7 @@
 #define XPAR_XSDPS_0_DEVICE_ID XPAR_PSU_SD_1_DEVICE_ID
 #define XPAR_XSDPS_0_BASEADDR 0xFF170000
 #define XPAR_XSDPS_0_HIGHADDR 0xFF17FFFF
-#define XPAR_XSDPS_0_SDIO_CLK_FREQ_HZ 187498125
+#define XPAR_XSDPS_0_SDIO_CLK_FREQ_HZ 187481250
 #define XPAR_XSDPS_0_HAS_CD 1
 #define XPAR_XSDPS_0_HAS_WP 1
 #define XPAR_XSDPS_0_BUS_WIDTH 8
@@ -907,6 +911,7 @@
 
 /******************************************************************/
 
+#define XPAR_PSU_AMS_REF_FREQMHZ 49.995
 /* Canonical definitions for peripheral PSU_AMS */
 #define XPAR_XSYSMONPSU_0_DEVICE_ID XPAR_PSU_AMS_DEVICE_ID
 #define XPAR_XSYSMONPSU_0_BASEADDR 0xFFA50000
@@ -1054,7 +1059,7 @@
 #define XPAR_PSU_UART_0_DEVICE_ID 0
 #define XPAR_PSU_UART_0_BASEADDR 0xFF000000
 #define XPAR_PSU_UART_0_HIGHADDR 0xFF00FFFF
-#define XPAR_PSU_UART_0_UART_CLK_FREQ_HZ 99999000
+#define XPAR_PSU_UART_0_UART_CLK_FREQ_HZ 99990000
 #define XPAR_PSU_UART_0_HAS_MODEM 0
 
 
@@ -1062,7 +1067,7 @@
 #define XPAR_PSU_UART_1_DEVICE_ID 1
 #define XPAR_PSU_UART_1_BASEADDR 0xFF010000
 #define XPAR_PSU_UART_1_HIGHADDR 0xFF01FFFF
-#define XPAR_PSU_UART_1_UART_CLK_FREQ_HZ 99999000
+#define XPAR_PSU_UART_1_UART_CLK_FREQ_HZ 99990000
 #define XPAR_PSU_UART_1_HAS_MODEM 0
 
 
@@ -1072,14 +1077,14 @@
 #define XPAR_XUARTPS_0_DEVICE_ID XPAR_PSU_UART_0_DEVICE_ID
 #define XPAR_XUARTPS_0_BASEADDR 0xFF000000
 #define XPAR_XUARTPS_0_HIGHADDR 0xFF00FFFF
-#define XPAR_XUARTPS_0_UART_CLK_FREQ_HZ 99999000
+#define XPAR_XUARTPS_0_UART_CLK_FREQ_HZ 99990000
 #define XPAR_XUARTPS_0_HAS_MODEM 0
 
 /* Canonical definitions for peripheral PSU_UART_1 */
 #define XPAR_XUARTPS_1_DEVICE_ID XPAR_PSU_UART_1_DEVICE_ID
 #define XPAR_XUARTPS_1_BASEADDR 0xFF010000
 #define XPAR_XUARTPS_1_HIGHADDR 0xFF01FFFF
-#define XPAR_XUARTPS_1_UART_CLK_FREQ_HZ 99999000
+#define XPAR_XUARTPS_1_UART_CLK_FREQ_HZ 99990000
 #define XPAR_XUARTPS_1_HAS_MODEM 0
 
 
@@ -1119,14 +1124,14 @@
 #define XPAR_PSU_WDT_0_DEVICE_ID 1
 #define XPAR_PSU_WDT_0_BASEADDR 0xFF150000
 #define XPAR_PSU_WDT_0_HIGHADDR 0xFF15FFFF
-#define XPAR_PSU_WDT_0_WDT_CLK_FREQ_HZ 99999001
+#define XPAR_PSU_WDT_0_WDT_CLK_FREQ_HZ 99989998
 
 
 /* Definitions for peripheral PSU_WDT_1 */
 #define XPAR_PSU_WDT_1_DEVICE_ID 2
 #define XPAR_PSU_WDT_1_BASEADDR 0xFD4D0000
 #define XPAR_PSU_WDT_1_HIGHADDR 0xFD4DFFFF
-#define XPAR_PSU_WDT_1_WDT_CLK_FREQ_HZ 99999001
+#define XPAR_PSU_WDT_1_WDT_CLK_FREQ_HZ 99989998
 
 
 /******************************************************************/
@@ -1141,13 +1146,13 @@
 #define XPAR_XWDTPS_1_DEVICE_ID XPAR_PSU_WDT_0_DEVICE_ID
 #define XPAR_XWDTPS_1_BASEADDR 0xFF150000
 #define XPAR_XWDTPS_1_HIGHADDR 0xFF15FFFF
-#define XPAR_XWDTPS_1_WDT_CLK_FREQ_HZ 99999001
+#define XPAR_XWDTPS_1_WDT_CLK_FREQ_HZ 99989998
 
 /* Canonical definitions for peripheral PSU_WDT_1 */
 #define XPAR_XWDTPS_2_DEVICE_ID XPAR_PSU_WDT_1_DEVICE_ID
 #define XPAR_XWDTPS_2_BASEADDR 0xFD4D0000
 #define XPAR_XWDTPS_2_HIGHADDR 0xFD4DFFFF
-#define XPAR_XWDTPS_2_WDT_CLK_FREQ_HZ 99999001
+#define XPAR_XWDTPS_2_WDT_CLK_FREQ_HZ 99989998
 
 
 /******************************************************************/
