@@ -31,7 +31,7 @@
 ###############################################################################
 
 
-CC := arm-xilinx-eabi-gcc
+CC := arm-none-eabi-gcc
 CC_FLAGS :=  
 CFLAGS := 
 ECFLAGS := 
@@ -46,7 +46,7 @@ OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
 OBJS += $(patsubst %.s, %.o, $(s_SOURCES))
 LSCRIPT := -Tlscript.ld
 
-BSP_DIR	:= ../misc/
+BSP_DIR	:= ../misc
 
 LIBS := libxil.a 
 EXEC := fsbl.elf
@@ -57,18 +57,13 @@ LIBPATH := $(BSP_DIR)/ps7_cortexa9_0/lib
 BOARD	:= zc702
 DEPS	:= depends
 
-all: $(EXEC)
-
-$(EXEC): $(DEPS) $(LIBS) $(OBJS) $(INCLUDES)
-	cp $(BSP_DIR)/$(BOARD)/ps7_init.* .
-	$(LINKER) -o $@ $(OBJS) $(CC_FLAGS) $(LDFLAGS) $(LSCRIPT)
-	rm -rf $(OBJS) 
-
-$(DEPS):
-ifeq "$(CC)" "arm-xilinx-eabi-gcc"
-AS=arm-xilinx-eabi-gcc
-LINKER=arm-xilinx-eabi-gcc
-LDFLAGS = -lrsa -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilffs,-lxil,-lgcc,-lc,--end-group -L$(LIBPATH) -L./
+ifeq "$(CC)" "arm-none-eabi-gcc"
+AS=arm-none-eabi-gcc
+CFLAGS=-Wall -O0 -g3 -c -fmessage-length=0
+LINKER=arm-none-eabi-gcc
+LDFLAGS = -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilffs,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lrsa,-lxil,-lgcc,-lc,--end-group
+LD1FLAGS = -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -Wl,-T -Wl,lscript.ld -L$(LIBPATH)
+ECFLAGS = -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard
 endif 
 ifeq "$(CC)" "armcc"
 AS=armasm
@@ -78,14 +73,21 @@ CC_FLAGS	+= --cpu=Cortex-A9 --fpu=VFPv3_FP16
 LDFLAGS = --entry=_vector_table "$(LIBPATH)/libxil.a(*.o)" --no_search_dynamic_libraries --userlibpath=$(LIBPATH),. --library=xil,xilffs,rsa
 LSCRIPT = --scatter="scatter.scat"
 endif
+
+all: $(EXEC)
+
+$(EXEC): $(LIBS) $(OBJS) $(INCLUDES)
+	cp $(BSP_DIR)/$(BOARD)/ps7_init.* .
+	$(LINKER) $(LD1FLAGS)  -o $@ $(OBJS) $(LDFLAGS)
+	rm -rf $(OBJS)
 	
 	
 $(LIBS): 
 	echo "Copying BSP files"
-	$(BSP_DIR)/copy_bsp.sh "$(BOARD)" "$(CC)"
+	$(BSP_DIR)/copy_bsp.sh $(BOARD) $(CC)
 	echo "Compiling bsp"
-	if [ $(CC) == "arm-xilinx-eabi-gcc" ]; then \
-		make -C $(BSP_DIR) -k all "CC=arm-xilinx-eabi-gcc" "AR=arm-xilinx-eabi-ar" "C_FLAGS=-O2 -c" "EC_FLAGS=-g"; \
+	if [ $(CC) == "arm-none-eabi-gcc" ]; then \
+		make -C $(BSP_DIR) -k all "CC=arm-none-eabi-gcc" "AR=arm-none-eabi-ar" "C_FLAGS=-O2 -c" "EC_FLAGS=-g"; \
 	elif [ $(CC) == "armcc" ]; then \
         make -C $(BSP_DIR) -k all "CC=armcc" "AR=armar" "C_FLAGS= -O2 -c" "EC_FLAGS=--debug --wchar32"; \
 	fi;
@@ -94,7 +96,7 @@ $(LIBS):
 	$(CC) $(CC_FLAGS) $(CFLAGS) $(ECFLAGS) -c $< -o $@ $(INCLUDEPATH)
 
 %.o:%.S
-	if [ $(CC) == "arm-xilinx-eabi-gcc" ]; then \
+	if [ $(CC) == "arm-none-eabi-gcc" ]; then \
 		$(AS) $(CC_FLAGS) -c $< -o $@ $(INCLUDEPATH); \
 	elif [ $(CC) == "armcc" ]; then \
         $(CC) $(INCLUDEPATH) -E -o fsbl_handoff.s fsbl_handoff.S; \
