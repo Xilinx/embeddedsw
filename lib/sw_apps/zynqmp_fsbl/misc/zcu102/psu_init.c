@@ -3191,7 +3191,7 @@ unsigned long psu_ddr_init_data(void)
     * ZQ Control Register 1
     * (OFFSET, MASK, VALUE)      (0XFD070184, 0x3FFFFFFFU ,0x020196E5U)
     */
-	PSU_Mask_Write(DDRC_ZQCTL1_OFFSET, 0x3FFFFFFFU, 0x020196E5U);
+	PSU_Mask_Write(DDRC_ZQCTL1_OFFSET, 0x3FFFFFFFU, 0x020196DCU);
 /*##################################################################### */
 
     /*
@@ -5685,7 +5685,7 @@ unsigned long psu_ddr_init_data(void)
     * PHY Timing Register 0
     * (OFFSET, MASK, VALUE)      (0XFD080040, 0xFFFFFFFFU ,0x0AC85590U)
     */
-	PSU_Mask_Write(DDR_PHY_PTR0_OFFSET, 0xFFFFFFFFU, 0x0AC85590U);
+	PSU_Mask_Write(DDR_PHY_PTR0_OFFSET, 0xFFFFFFFFU, 0x0AC85550U);
 /*##################################################################### */
 
     /*
@@ -5703,7 +5703,7 @@ unsigned long psu_ddr_init_data(void)
     * PHY Timing Register 1
     * (OFFSET, MASK, VALUE)      (0XFD080044, 0xFFFFFFFFU ,0x41540B00U)
     */
-	PSU_Mask_Write(DDR_PHY_PTR1_OFFSET, 0xFFFFFFFFU, 0x41540B00U);
+	PSU_Mask_Write(DDR_PHY_PTR1_OFFSET, 0xFFFFFFFFU, 0x41410AFFU);
 /*##################################################################### */
 
     /*
@@ -5823,6 +5823,18 @@ unsigned long psu_ddr_init_data(void)
     * (OFFSET, MASK, VALUE)      (0XFD080090, 0xFFFFFFFFU ,0x02A04161U)
     */
 	PSU_Mask_Write(DDR_PHY_DSGCR_OFFSET, 0xFFFFFFFFU, 0x02A04161U);
+/*##################################################################### */
+
+    /*
+    * Register : GPR0 @ 0XFD0800C0
+
+    * General Purpose Register 0
+    *  PSU_DDR_PHY_GPR0_GPR0                                       0xd3
+
+    * General Purpose Register 0
+    * (OFFSET, MASK, VALUE)      (0XFD0800C0, 0xFFFFFFFFU ,0x000000D3U)
+    */
+	PSU_Mask_Write(DDR_PHY_GPR0_OFFSET, 0xFFFFFFFFU, 0x000000D3U);
 /*##################################################################### */
 
     /*
@@ -10689,96 +10701,11 @@ unsigned long psu_ddr_init_data(void)
 		0xFFFFFFFFU, 0x012643C4U);
 /*##################################################################### */
 
-    /*
-    * PHY_PIR
-    */
-    /*
-    * Register : PIR @ 0XFD080004
 
-    * Reserved. Return zeroes on reads.
-    *  PSU_DDR_PHY_PIR_RESERVED_31                                 0x0
-
-    * Impedance Calibration Bypass
-    *  PSU_DDR_PHY_PIR_ZCALBYP                                     0x0
-
-    * Digital Delay Line (DDL) Calibration Pause
-    *  PSU_DDR_PHY_PIR_DCALPSE                                     0x0
-
-    * Reserved. Return zeroes on reads.
-    *  PSU_DDR_PHY_PIR_RESERVED_28_21                              0x0
-
-    * Write DQS2DQ Training
-    *  PSU_DDR_PHY_PIR_DQS2DQ                                      0x0
-
-    * RDIMM Initialization
-    *  PSU_DDR_PHY_PIR_RDIMMINIT                                   0x0
-
-    * Controller DRAM Initialization
-    *  PSU_DDR_PHY_PIR_CTLDINIT                                    0x1
-
-    * VREF Training
-    *  PSU_DDR_PHY_PIR_VREF                                        0x0
-
-    * Static Read Training
-    *  PSU_DDR_PHY_PIR_SRD                                         0x0
-
-    * Write Data Eye Training
-    *  PSU_DDR_PHY_PIR_WREYE                                       0x0
-
-    * Read Data Eye Training
-    *  PSU_DDR_PHY_PIR_RDEYE                                       0x0
-
-    * Write Data Bit Deskew
-    *  PSU_DDR_PHY_PIR_WRDSKW                                      0x0
-
-    * Read Data Bit Deskew
-    *  PSU_DDR_PHY_PIR_RDDSKW                                      0x0
-
-    * Write Leveling Adjust
-    *  PSU_DDR_PHY_PIR_WLADJ                                       0x0
-
-    * Read DQS Gate Training
-    *  PSU_DDR_PHY_PIR_QSGATE                                      0x0
-
-    * Write Leveling
-    *  PSU_DDR_PHY_PIR_WL                                          0x0
-
-    * DRAM Initialization
-    *  PSU_DDR_PHY_PIR_DRAMINIT                                    0x0
-
-    * DRAM Reset (DDR3/DDR4/LPDDR4 Only)
-    *  PSU_DDR_PHY_PIR_DRAMRST                                     0x0
-
-    * PHY Reset
-    *  PSU_DDR_PHY_PIR_PHYRST                                      0x1
-
-    * Digital Delay Line (DDL) Calibration
-    *  PSU_DDR_PHY_PIR_DCAL                                        0x1
-
-    * PLL Initialiazation
-    *  PSU_DDR_PHY_PIR_PLLINIT                                     0x1
-
-    * Reserved. Return zeroes on reads.
-    *  PSU_DDR_PHY_PIR_RESERVED_3                                  0x0
-
-    * CA Training
-    *  PSU_DDR_PHY_PIR_CA                                          0x0
-
-    * Impedance Calibration
-    *  PSU_DDR_PHY_PIR_ZCAL                                        0x1
-
-    * Initialization Trigger
-    *  PSU_DDR_PHY_PIR_INIT                                        0x1
-
-    * PHY Initialization Register
-    * (OFFSET, MASK, VALUE)      (0XFD080004, 0xFFFFFFFFU ,0x00040073U)
-    */
-	PSU_Mask_Write(DDR_PHY_PIR_OFFSET, 0xFFFFFFFFU, 0x00040073U);
-/*##################################################################### */
-
-    /*
-    * DDR QOS CONTROLLER
-    */
+	return 1;
+}
+unsigned long psu_ddr_qos_init_data(void)
+{
 
 	return 1;
 }
@@ -12192,7 +12119,7 @@ unsigned long psu_mio_init_data(void)
     * Configures MIO Pin 43 peripheral interface mapping
     * (OFFSET, MASK, VALUE)      (0XFF1800AC, 0x000000FEU ,0x00000010U)
     */
-	PSU_Mask_Write(IOU_SLCR_MIO_PIN_43_OFFSET, 0x000000FEU, 0x00000010U);
+	PSU_Mask_Write(IOU_SLCR_MIO_PIN_43_OFFSET, 0x000000FEU, 0x00000000U);
 /*##################################################################### */
 
     /*
@@ -15342,6 +15269,35 @@ unsigned long psu_peripherals_init_data(void)
 /*##################################################################### */
 
     /*
+    * USB0 PIPE POWER PRESENT
+    */
+    /*
+    * Register : fpd_power_prsnt @ 0XFF9D0080
+
+    * This bit is used to choose between PIPE power present and 1'b1
+    *  PSU_USB3_0_FPD_POWER_PRSNT_OPTION                           0X1
+
+    * fpd_power_prsnt
+    * (OFFSET, MASK, VALUE)      (0XFF9D0080, 0x00000001U ,0x00000001U)
+    */
+	PSU_Mask_Write(USB3_0_FPD_POWER_PRSNT_OFFSET,
+		0x00000001U, 0x00000001U);
+/*##################################################################### */
+
+    /*
+    * Register : fpd_pipe_clk @ 0XFF9D007C
+
+    * This bit is used to choose between PIPE clock coming from SerDes and the
+    *  suspend clk
+    *  PSU_USB3_0_FPD_PIPE_CLK_OPTION                              0x0
+
+    * fpd_pipe_clk
+    * (OFFSET, MASK, VALUE)      (0XFF9D007C, 0x00000001U ,0x00000000U)
+    */
+	PSU_Mask_Write(USB3_0_FPD_PIPE_CLK_OFFSET, 0x00000001U, 0x00000000U);
+/*##################################################################### */
+
+    /*
     * SD
     */
     /*
@@ -15913,7 +15869,7 @@ unsigned long psu_peripherals_init_data(void)
     * (OFFSET, MASK, VALUE)      (0XFF260020, 0xFFFFFFFFU ,0x05F5DD18U)
     */
 	PSU_Mask_Write(IOU_SCNTRS_BASE_FREQUENCY_ID_REGISTER_OFFSET,
-		0xFFFFFFFFU, 0x05F5DD18U);
+		0xFFFFFFFFU, 0x05F5B9F0U);
 /*##################################################################### */
 
     /*
@@ -16064,40 +16020,6 @@ unsigned long psu_peripherals_init_data(void)
 
 /*##################################################################### */
 
-    /*
-    * MASK_DATA_0_LSW LOW BANK [15:0]
-    */
-    /*
-    * MASK_DATA_0_MSW LOW BANK [25:16]
-    */
-    /*
-    * MASK_DATA_1_LSW LOW BANK [41:26]
-    */
-    /*
-    * Register : MASK_DATA_1_LSW @ 0XFF0A0008
-
-    * Operation is the same as MASK_DATA_0_LSW[MASK_0_LSW]
-    *  PSU_GPIO_MASK_DATA_1_LSW_MASK_1_LSW                         0xffdf
-
-    * Operation is the same as MASK_DATA_0_LSW[DATA_0_LSW]
-    *  PSU_GPIO_MASK_DATA_1_LSW_DATA_1_LSW                         0x20
-
-    * Maskable Output Data (GPIO Bank1, MIO, Lower 16bits)
-    * (OFFSET, MASK, VALUE)      (0XFF0A0008, 0xFFFFFFFFU ,0xFFDF0020U)
-    */
-	PSU_Mask_Write(GPIO_MASK_DATA_1_LSW_OFFSET,
-		0xFFFFFFFFU, 0xFFDF0020U);
-/*##################################################################### */
-
-    /*
-    * MASK_DATA_1_MSW HIGH BANK [51:42]
-    */
-    /*
-    * MASK_DATA_1_LSW HIGH BANK [67:52]
-    */
-    /*
-    * MASK_DATA_1_LSW HIGH BANK [77:68]
-    */
 
 	return 1;
 }
@@ -19572,35 +19494,6 @@ unsigned long psu_resetout_init_data(void)
 /*##################################################################### */
 
     /*
-    * USB0 PIPE POWER PRESENT
-    */
-    /*
-    * Register : fpd_power_prsnt @ 0XFF9D0080
-
-    * This bit is used to choose between PIPE power present and 1'b1
-    *  PSU_USB3_0_FPD_POWER_PRSNT_OPTION                           0X1
-
-    * fpd_power_prsnt
-    * (OFFSET, MASK, VALUE)      (0XFF9D0080, 0x00000001U ,0x00000001U)
-    */
-	PSU_Mask_Write(USB3_0_FPD_POWER_PRSNT_OFFSET,
-		0x00000001U, 0x00000001U);
-/*##################################################################### */
-
-    /*
-    * Register : fpd_pipe_clk @ 0XFF9D007C
-
-    * This bit is used to choose between PIPE clock coming from SerDes and the
-    *  suspend clk
-    *  PSU_USB3_0_FPD_PIPE_CLK_OPTION                              0x0
-
-    * fpd_pipe_clk
-    * (OFFSET, MASK, VALUE)      (0XFF9D007C, 0x00000001U ,0x00000000U)
-    */
-	PSU_Mask_Write(USB3_0_FPD_PIPE_CLK_OFFSET, 0x00000001U, 0x00000000U);
-/*##################################################################### */
-
-    /*
     * HIBERREST
     */
     /*
@@ -20789,6 +20682,43 @@ unsigned long psu_resetout_init_data(void)
 /*##################################################################### */
 
     /*
+    * PCIE GPIO RESET
+    */
+    /*
+    * MASK_DATA_0_LSW LOW BANK [15:0]
+    */
+    /*
+    * MASK_DATA_0_MSW LOW BANK [25:16]
+    */
+    /*
+    * MASK_DATA_1_LSW LOW BANK [41:26]
+    */
+    /*
+    * Register : MASK_DATA_1_LSW @ 0XFF0A0008
+
+    * Operation is the same as MASK_DATA_0_LSW[MASK_0_LSW]
+    *  PSU_GPIO_MASK_DATA_1_LSW_MASK_1_LSW                         0xffdf
+
+    * Operation is the same as MASK_DATA_0_LSW[DATA_0_LSW]
+    *  PSU_GPIO_MASK_DATA_1_LSW_DATA_1_LSW                         0x20
+
+    * Maskable Output Data (GPIO Bank1, MIO, Lower 16bits)
+    * (OFFSET, MASK, VALUE)      (0XFF0A0008, 0xFFFFFFFFU ,0xFFDF0020U)
+    */
+	PSU_Mask_Write(GPIO_MASK_DATA_1_LSW_OFFSET,
+		0xFFFFFFFFU, 0xFFDF0020U);
+/*##################################################################### */
+
+    /*
+    * MASK_DATA_1_MSW HIGH BANK [51:42]
+    */
+    /*
+    * MASK_DATA_1_LSW HIGH BANK [67:52]
+    */
+    /*
+    * MASK_DATA_1_LSW HIGH BANK [77:68]
+    */
+    /*
     * CHECK PLL LOCK FOR LANE0
     */
     /*
@@ -21304,6 +21234,39 @@ unsigned long psu_ddr_phybringup_data(void)
 
 	unsigned int regval = 0;
 
+	unsigned int pll_retry = 10;
+
+	unsigned int pll_locked = 0;
+
+
+	while ((pll_retry > 0) && (!pll_locked)) {
+
+		Xil_Out32(0xFD080004, 0x00040010);/*PIR*/
+		Xil_Out32(0xFD080004, 0x00040011);/*PIR*/
+
+	while ((Xil_In32(0xFD080030) & 0x1) != 1) {
+	/*****TODO*****/
+
+	/*TIMEOUT poll mechanism need to be inserted in this block*/
+
+	}
+
+
+		pll_locked = (Xil_In32(0xFD080030) & 0x80000000)
+		>> 31;/*PGSR0*/
+		pll_locked &= (Xil_In32(0xFD0807E0) & 0x10000)
+		>> 16;/*DX0GSR0*/
+		pll_locked &= (Xil_In32(0xFD0809E0) & 0x10000)
+		>> 16;/*DX2GSR0*/
+		pll_locked &= (Xil_In32(0xFD080BE0) & 0x10000)
+		>> 16;/*DX4GSR0*/
+		pll_locked &= (Xil_In32(0xFD080DE0) & 0x10000)
+		>> 16;/*DX6GSR0*/
+		pll_retry--;
+	}
+	Xil_Out32(0xFD0800C0, Xil_In32(0xFD0800C0) |
+		(pll_retry << 16));/*GPR0*/
+	Xil_Out32(0xFD080004U, 0x00040063U);
 	/* PHY BRINGUP SEQ */
 	while ((Xil_In32(0xFD080030U) & 0x0000000FU) != 0x0000000FU) {
 	/*****TODO*****/
@@ -21322,45 +21285,6 @@ unsigned long psu_ddr_phybringup_data(void)
 	}
 
 
-	prog_reg(0xFD070010U, 0x00000008U, 0x00000003U, 0x00000001U);
-	prog_reg(0xFD0701B0U, 0x00000001U, 0x00000000U, 0x00000001U);
-	prog_reg(0xFD070010U, 0x00000030U, 0x00000004U, 0x00000001U);
-	prog_reg(0xFD070010U, 0x00000001U, 0x00000000U, 0x00000000U);
-	prog_reg(0xFD070010U, 0x0000F000U, 0x0000000CU, 0x00000006U);
-	prog_reg(0xFD070014U, 0x0003FFFFU, 0x00000000U, 0x00000819U);
-	prog_reg(0xFD070010U, 0x80000000U, 0x0000001FU, 0x00000001U);
-	while ((Xil_In32(0xFD070018) & 0x1) == 1) {
-	/*****TODO*****/
-
-	/*TIMEOUT poll mechanism need to be inserted in this block*/
-
-	}
-
-	prog_reg(0xFD070010U, 0x00000030U, 0x00000004U, 0x00000001U);
-	prog_reg(0xFD070010U, 0x00000001U, 0x00000000U, 0x00000000U);
-	prog_reg(0xFD070010U, 0x0000F000U, 0x0000000CU, 0x00000006U);
-	prog_reg(0xFD070014U, 0x0003FFFFU, 0x00000000U, 0x00000899U);
-	prog_reg(0xFD070010U, 0x80000000U, 0x0000001FU, 0x00000001U);
-	while ((Xil_In32(0xFD070018) & 0x1) == 1) {
-	/*****TODO*****/
-
-	/*TIMEOUT poll mechanism need to be inserted in this block*/
-
-	}
-
-	prog_reg(0xFD070010U, 0x00000030U, 0x00000004U, 0x00000001U);
-	prog_reg(0xFD070010U, 0x00000001U, 0x00000000U, 0x00000000U);
-	prog_reg(0xFD070010U, 0x0000F000U, 0x0000000CU, 0x00000006U);
-	prog_reg(0xFD070014U, 0x0003FFFFU, 0x00000000U, 0x00000819U);
-	prog_reg(0xFD070010U, 0x80000000U, 0x0000001FU, 0x00000001U);
-	while ((Xil_In32(0xFD070018) & 0x1) == 1) {
-	/*****TODO*****/
-
-	/*TIMEOUT poll mechanism need to be inserted in this block*/
-
-	}
-
-	prog_reg(0xFD070010U, 0x00000008U, 0x00000003U, 0x00000000U);
 	Xil_Out32(0xFD0701B0U, 0x00000001U);
 	Xil_Out32(0xFD070320U, 0x00000001U);
 	while ((Xil_In32(0xFD070004U) & 0x0000000FU) != 0x00000001U) {
@@ -21532,68 +21456,78 @@ static void dpll_prog(int ddr_pll_fbdiv, int d_lock_dly, int d_lock_cnt,
   pll_ctrl_regval = pll_ctrl_regval | (1 << CRF_APB_DPLL_CTRL_DIV2_SHIFT);
   Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
 
-  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CFG);
-  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CFG_LOCK_DLY_MASK);
-  pll_ctrl_regval = pll_ctrl_regval | (d_lock_dly << CRF_APB_DPLL_CFG_LOCK_DLY_SHIFT);
-  Xil_Out32(CRF_APB_DPLL_CFG, pll_ctrl_regval);
+	pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CFG);
+	pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CFG_LOCK_DLY_MASK);
+	pll_ctrl_regval = pll_ctrl_regval |
+		(d_lock_dly << CRF_APB_DPLL_CFG_LOCK_DLY_SHIFT);
+	Xil_Out32(CRF_APB_DPLL_CFG, pll_ctrl_regval);
 
-  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CFG);
-  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CFG_LOCK_CNT_MASK);
-  pll_ctrl_regval = pll_ctrl_regval | (d_lock_cnt << CRF_APB_DPLL_CFG_LOCK_CNT_SHIFT);
-  Xil_Out32(CRF_APB_DPLL_CFG, pll_ctrl_regval);
+	pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CFG);
+	pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CFG_LOCK_CNT_MASK);
+	pll_ctrl_regval = pll_ctrl_regval |
+		(d_lock_cnt << CRF_APB_DPLL_CFG_LOCK_CNT_SHIFT);
+	Xil_Out32(CRF_APB_DPLL_CFG, pll_ctrl_regval);
 
-  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CFG);
-  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CFG_LFHF_MASK);
-  pll_ctrl_regval = pll_ctrl_regval | (d_lfhf << CRF_APB_DPLL_CFG_LFHF_SHIFT);
-  Xil_Out32(CRF_APB_DPLL_CFG, pll_ctrl_regval);
+	pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CFG);
+	pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CFG_LFHF_MASK);
+	pll_ctrl_regval = pll_ctrl_regval |
+		(d_lfhf << CRF_APB_DPLL_CFG_LFHF_SHIFT);
+	Xil_Out32(CRF_APB_DPLL_CFG, pll_ctrl_regval);
 
-  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CFG);
-  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CFG_CP_MASK);
-  pll_ctrl_regval = pll_ctrl_regval | (d_cp << CRF_APB_DPLL_CFG_CP_SHIFT);
-  Xil_Out32(CRF_APB_DPLL_CFG, pll_ctrl_regval);
+	pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CFG);
+	pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CFG_CP_MASK);
+	pll_ctrl_regval = pll_ctrl_regval |
+		(d_cp << CRF_APB_DPLL_CFG_CP_SHIFT);
+	Xil_Out32(CRF_APB_DPLL_CFG, pll_ctrl_regval);
 
-  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CFG);
-  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CFG_RES_MASK);
-  pll_ctrl_regval = pll_ctrl_regval | (d_res << CRF_APB_DPLL_CFG_RES_SHIFT);
-  Xil_Out32(CRF_APB_DPLL_CFG, pll_ctrl_regval);
+	pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CFG);
+	pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CFG_RES_MASK);
+	pll_ctrl_regval = pll_ctrl_regval |
+		(d_res << CRF_APB_DPLL_CFG_RES_SHIFT);
+	Xil_Out32(CRF_APB_DPLL_CFG, pll_ctrl_regval);
 
-  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
-  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_FBDIV_MASK);
-  pll_ctrl_regval = pll_ctrl_regval | (ddr_pll_fbdiv << CRF_APB_DPLL_CTRL_FBDIV_SHIFT);
-  Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
+	pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
+	pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_FBDIV_MASK);
+	pll_ctrl_regval = pll_ctrl_regval |
+		(ddr_pll_fbdiv << CRF_APB_DPLL_CTRL_FBDIV_SHIFT);
+	Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
 
-  //Setting PLL BYPASS
-  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
-  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_BYPASS_MASK);
-  pll_ctrl_regval = pll_ctrl_regval | (1 << CRF_APB_DPLL_CTRL_BYPASS_SHIFT);
-  Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
+	/*Setting PLL BYPASS*/
+	pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
+	pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_BYPASS_MASK);
+	pll_ctrl_regval = pll_ctrl_regval |
+		(1 << CRF_APB_DPLL_CTRL_BYPASS_SHIFT);
+	Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
 
-  //Setting PLL RESET
-  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
-  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_RESET_MASK);
-  pll_ctrl_regval = pll_ctrl_regval | (1 << CRF_APB_DPLL_CTRL_RESET_SHIFT);
-  Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
+	/*Setting PLL RESET*/
+	pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
+	pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_RESET_MASK);
+	pll_ctrl_regval = pll_ctrl_regval |
+		(1 << CRF_APB_DPLL_CTRL_RESET_SHIFT);
+	Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
 
-  //Clearing PLL RESET
-  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
-  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_RESET_MASK);
-  pll_ctrl_regval = pll_ctrl_regval | (0 << CRF_APB_DPLL_CTRL_RESET_SHIFT);
-  Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
+	/*Clearing PLL RESET*/
+	pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
+	pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_RESET_MASK);
+	pll_ctrl_regval = pll_ctrl_regval |
+		(0 << CRF_APB_DPLL_CTRL_RESET_SHIFT);
+	Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
 
-  //Checking PLL lock
-  pll_status_regval = 0x00000000;
-  while((pll_status_regval & CRF_APB_PLL_STATUS_DPLL_LOCK_MASK) != CRF_APB_PLL_STATUS_DPLL_LOCK_MASK) {
-    pll_status_regval = Xil_In32(CRF_APB_PLL_STATUS);
-  }
+	/*Checking PLL lock*/
+	pll_status_regval = 0x00000000;
+	while ((pll_status_regval & CRF_APB_PLL_STATUS_DPLL_LOCK_MASK) !=
+		CRF_APB_PLL_STATUS_DPLL_LOCK_MASK)
+		pll_status_regval = Xil_In32(CRF_APB_PLL_STATUS);
 
 
 
 
-  //Clearing PLL BYPASS
-  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
-  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_BYPASS_MASK);
-  pll_ctrl_regval = pll_ctrl_regval | (0 << CRF_APB_DPLL_CTRL_BYPASS_SHIFT);
-  Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
+	/*Clearing PLL BYPASS*/
+	pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
+	pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_BYPASS_MASK);
+	pll_ctrl_regval = pll_ctrl_regval |
+		(0 << CRF_APB_DPLL_CTRL_BYPASS_SHIFT);
+	Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
 
 }
 
@@ -21615,16 +21549,29 @@ static int serdes_enb_coarse_saturation(void)
   return 1;
 }
 
-int serdes_fixcal_code() {
-  int MaskStatus = 1;
+int serdes_fixcal_code(void)
+{
+	int MaskStatus = 1;
 
-  //The valid codes are from 0x26 to 0x3C. There are 23 valid codes in total.
-  unsigned int match_pmos_code[23]; //Each element of array stands for count of occurence of valid code.
-  unsigned int match_nmos_code[23]; //Each element of array stands for count of occurence of valid code.
-                                    //The valid codes are from 0xC to 0x12. There are 7 valid codes in total.
-  unsigned int match_ical_code[7]; //Each element of array stands for count of occurence of valid code.
-                                   //The valid codes are from 0x6 to 0xC. There are 7 valid codes in total.
-  unsigned int match_rcal_code[7]; //Each element of array stands for count of occurence of valid code.
+  unsigned int rdata = 0;
+
+	/*The valid codes are from 0x26 to 0x3C.
+	*There are 23 valid codes in total.
+	*/
+ /*Each element of array stands for count of occurence of valid code.*/
+	unsigned int match_pmos_code[23];
+	/*Each element of array stands for count of occurence of valid code.*/
+	/*The valid codes are from 0xC to 0x12.
+	*There are 7 valid codes in total.
+	*/
+	unsigned int match_nmos_code[23];
+	/*Each element of array stands for count of occurence of valid code.*/
+	/*The valid codes are from 0x6 to 0xC.
+	* There are 7 valid codes in total.
+	*/
+	unsigned int match_ical_code[7];
+	/*Each element of array stands for count of occurence of valid code.*/
+	unsigned int match_rcal_code[7];
 
   unsigned int p_code = 0;
   unsigned int n_code = 0;
@@ -21638,18 +21585,30 @@ int serdes_fixcal_code() {
   unsigned int L3_TM_CALIB_DIG15 = 0;
   unsigned int L3_TM_CALIB_DIG14 = 0;
 
+	int i = 0;
 
-  int i = 0;
-  for (i = 0; i < 23; i++)
+  rdata = Xil_In32(0XFD40289C);
+  rdata = rdata & ~0x03;
+  rdata = rdata | 0x1;
+  Xil_Out32(0XFD40289C, rdata);
+  // check supply good status before starting AFE sequencing
+  int count = 0;
+  do
   {
-    match_pmos_code[i] = 0;
-    match_nmos_code[i] = 0;
-  }
-  for (i = 0; i < 7; i++)
-  {
-    match_ical_code[i] = 0;
-    match_rcal_code[i] = 0;
-  }
+    if (count == PSU_MASK_POLL_TIME)
+      break;
+    rdata = Xil_In32(0xFD402B1C);
+    count++;
+  }while((rdata&0x0000000E) !=0x0000000E);
+
+	for (i = 0; i < 23; i++) {
+		match_pmos_code[i] = 0;
+		match_nmos_code[i] = 0;
+	}
+	for (i = 0; i < 7; i++) {
+		match_ical_code[i] = 0;
+		match_rcal_code[i] = 0;
+	}
 
 
   do {
@@ -21662,88 +21621,75 @@ int serdes_fixcal_code() {
     Xil_Out32(0xFD410010, 0x00000001);
     Xil_Out32(0xFD410014, 0x00000000);
 
-    //is calibration done? polling on L3_CALIB_DONE_STATUS
-    MaskStatus = mask_poll(0xFD40EF14, 0x2);
-    if (MaskStatus == 0)
-    {
-      //failure here is because of calibration done timeout
-      xil_printf("#SERDES initialization timed out\n\r");
-      return MaskStatus;
-    }
+	/*is calibration done? polling on L3_CALIB_DONE_STATUS*/
+	MaskStatus = mask_poll(0xFD40EF14, 0x2);
+	if (MaskStatus == 0) {
+		/*failure here is because of calibration done timeout*/
+		xil_printf("#SERDES initialization timed out\n\r");
+		return MaskStatus;
+	}
 
-    p_code = mask_read(0xFD40EF18, 0xFFFFFFFF); //PMOS code
-    n_code = mask_read(0xFD40EF1C, 0xFFFFFFFF); //NMOS code
-                                                //m_code = mask_read(0xFD40EF20, 0xFFFFFFFF); //MPHY code
-    i_code = mask_read(0xFD40EF24, 0xFFFFFFFF); //ICAL code
-    r_code = mask_read(0xFD40EF28, 0xFFFFFFFF); //RX code
-                                                //u_code = mask_read(0xFD40EF2C, 0xFFFFFFFF); //USB2 code
+	p_code = mask_read(0xFD40EF18, 0xFFFFFFFF);/*PMOS code*/
+	n_code = mask_read(0xFD40EF1C, 0xFFFFFFFF);/*NMOS code*/
+	/*m_code = mask_read(0xFD40EF20, 0xFFFFFFFF)*/;/*MPHY code*/
+	i_code = mask_read(0xFD40EF24, 0xFFFFFFFF);/*ICAL code*/
+	r_code = mask_read(0xFD40EF28, 0xFFFFFFFF);/*RX code*/
+	/*u_code = mask_read(0xFD40EF2C, 0xFFFFFFFF)*/;/*USB2 code*/
 
-    //xil_printf("#SERDES initialization VALUES NMOS = 0x%x, PMOS = 0x%x, ICAL = 0x%x, RCAL = 0x%x\n\r", p_code, n_code, i_code, r_code);
+	/*PMOS code in acceptable range*/
+	if ((p_code >= 0x26) && (p_code <= 0x3C))
+		match_pmos_code[p_code - 0x26] += 1;
 
-    if ((p_code >= 0x26) && (p_code <= 0x3C)) //PMOS code in acceptable range
-    {
-      match_pmos_code[p_code - 0x26] += 1;
-    }
+	/*NMOS code in acceptable range*/
+	if ((n_code >= 0x26) && (n_code <= 0x3C))
+		match_nmos_code[n_code - 0x26] += 1;
 
-    if ((n_code >= 0x26) && (n_code <= 0x3C)) //NMOS code in acceptable range
-    {
-      match_nmos_code[n_code - 0x26] += 1;
-    }
+	/*PMOS code in acceptable range*/
+	if ((i_code >= 0xC) && (i_code <= 0x12))
+		match_ical_code[i_code - 0xC] += 1;
 
-    if ((i_code >= 0xC) && (i_code <= 0x12)) //PMOS code in acceptable range
-    {
-      match_ical_code[i_code - 0xC] += 1;
-    }
-
-    if ((r_code >= 0x6) && (r_code <= 0xC)) //NMOS code in acceptable range
-    {
-      match_rcal_code[r_code - 0x6] += 1;
-    }
+	/*NMOS code in acceptable range*/
+	if ((r_code >= 0x6) && (r_code <= 0xC))
+		match_rcal_code[r_code - 0x6] += 1;
 
 
   } while (repeat_count++ < 10);
 
-  //find the valid code which resulted in maximum times in 10 iterations
-  for (i = 0; i < 23; i++)
-  {
-    if (match_pmos_code[i] >= match_pmos_code[0])
-    {
-      match_pmos_code[0] = match_pmos_code[i];
-      p_code = 0x26 + i;
-    }
-    if (match_nmos_code[i] >= match_nmos_code[0])
-    {
-      match_nmos_code[0] = match_nmos_code[i];
-      n_code = 0x26 + i;
-    }
-  }
+	/*find the valid code which resulted in maximum times in 10 iterations*/
+	for (i = 0; i < 23; i++) {
+		if (match_pmos_code[i] >= match_pmos_code[0]) {
+			match_pmos_code[0] = match_pmos_code[i];
+			p_code = 0x26 + i;
+		}
+	if (match_nmos_code[i] >= match_nmos_code[0]) {
+		match_nmos_code[0] = match_nmos_code[i];
+		n_code = 0x26 + i;
+		}
+	}
 
-  for (i = 0; i < 7; i++)
-  {
-    if (match_ical_code[i] >= match_ical_code[0])
-    {
-      match_ical_code[0] = match_ical_code[i];
-      i_code = 0xC + i;
-    }
-    if (match_rcal_code[i] >= match_rcal_code[0])
-    {
-      match_rcal_code[0] = match_rcal_code[i];
-      r_code = 0x6 + i;
-    }
-  }
-  //xil_printf("#SERDES initialization PASSED NMOS = 0x%x, PMOS = 0x%x, ICAL = 0x%x, RCAL = 0x%x\n\r", p_code, n_code, i_code, r_code);
-  //L3_TM_CALIB_DIG20[3] PSW MSB Override
-  //L3_TM_CALIB_DIG20[2:0]	PSW Code [4:2]
-  L3_TM_CALIB_DIG20 = mask_read(0xFD40EC50, 0xFFFFFFF0); //read DIG20
-  L3_TM_CALIB_DIG20 = L3_TM_CALIB_DIG20 | 0x8 | ((p_code >> 2) & 0x7);
+	for (i = 0; i < 7; i++) {
+		if (match_ical_code[i] >= match_ical_code[0]) {
+			match_ical_code[0] = match_ical_code[i];
+			i_code = 0xC + i;
+		}
+		if (match_rcal_code[i] >= match_rcal_code[0]) {
+			match_rcal_code[0] = match_rcal_code[i];
+			r_code = 0x6 + i;
+		}
+	}
+	/*L3_TM_CALIB_DIG20[3] PSW MSB Override*/
+	/*L3_TM_CALIB_DIG20[2:0]	PSW Code [4:2]*/
+	L3_TM_CALIB_DIG20 = mask_read(0xFD40EC50, 0xFFFFFFF0);/*read DIG20*/
+	L3_TM_CALIB_DIG20 = L3_TM_CALIB_DIG20 | 0x8 | ((p_code >> 2) & 0x7);
 
 
-  //L3_TM_CALIB_DIG19[7:6]	PSW Code [1:0]
-  //L3_TM_CALIB_DIG19[5]	PSW Override
-  //L3_TM_CALIB_DIG19[2]	NSW MSB Override
-  //L3_TM_CALIB_DIG19[1:0]	NSW Code [4:3]
-  L3_TM_CALIB_DIG19 = mask_read(0xFD40EC4C, 0xFFFFFF18); //read DIG19
-  L3_TM_CALIB_DIG19 = L3_TM_CALIB_DIG19 | ((p_code & 0x3) << 6) | 0x20 | 0x4 | ((n_code >> 3) & 0x3);
+	/*L3_TM_CALIB_DIG19[7:6]	PSW Code [1:0]*/
+	/*L3_TM_CALIB_DIG19[5]	PSW Override*/
+	/*L3_TM_CALIB_DIG19[2]	NSW MSB Override*/
+	/*L3_TM_CALIB_DIG19[1:0]	NSW Code [4:3]*/
+	L3_TM_CALIB_DIG19 = mask_read(0xFD40EC4C, 0xFFFFFF18);/*read DIG19*/
+	L3_TM_CALIB_DIG19 = L3_TM_CALIB_DIG19 | ((p_code & 0x3) << 6)
+		| 0x20 | 0x4 | ((n_code >> 3) & 0x3);
 
   //L3_TM_CALIB_DIG18[7:5]	NSW Code [2:0]
   //L3_TM_CALIB_DIG18[4]	NSW Override
@@ -21755,12 +21701,13 @@ int serdes_fixcal_code() {
   L3_TM_CALIB_DIG16 = mask_read(0xFD40EC40, 0xFFFFFFF8); //read DIG16
   L3_TM_CALIB_DIG16 = L3_TM_CALIB_DIG16 | ((r_code >> 1) & 0x7);
 
-  //L3_TM_CALIB_DIG15[7]	RX Code [0]
-  //L3_TM_CALIB_DIG15[6]	RX CODE Override
-  //L3_TM_CALIB_DIG15[3]	ICAL MSB Override
-  //L3_TM_CALIB_DIG15[2:0]	ICAL Code [3:1]
-  L3_TM_CALIB_DIG15 = mask_read(0xFD40EC3C, 0xFFFFFF30); //read DIG15
-  L3_TM_CALIB_DIG15 = L3_TM_CALIB_DIG15 | ((r_code & 0x1) << 7) | 0x40 | 0x8 | ((i_code >> 1) & 0x7);
+	/*L3_TM_CALIB_DIG15[7]	RX Code [0]*/
+	/*L3_TM_CALIB_DIG15[6]	RX CODE Override*/
+	/*L3_TM_CALIB_DIG15[3]	ICAL MSB Override*/
+	/*L3_TM_CALIB_DIG15[2:0]	ICAL Code [3:1]*/
+	L3_TM_CALIB_DIG15 = mask_read(0xFD40EC3C, 0xFFFFFF30);/*read DIG15*/
+	L3_TM_CALIB_DIG15 = L3_TM_CALIB_DIG15 | ((r_code & 0x1) << 7)
+	| 0x40 | 0x8 | ((i_code >> 1) & 0x7);
 
   //L3_TM_CALIB_DIG14[7]	ICAL Code [0]
   //L3_TM_CALIB_DIG14[6]	ICAL Override
@@ -21795,17 +21742,8 @@ static int init_serdes(void)
 
 static void init_peripheral(void)
 {
-    /* Making DPDMA as secure */
-	unsigned int tmp_regval;
-
-	tmp_regval = Xil_In32(0xFD690040);
-	tmp_regval &= ~0x00000001;
-	Xil_Out32(0xFD690040, tmp_regval);
-
-    /* Making PCIe as secure */
-	tmp_regval = Xil_In32(0xFD690030);
-	tmp_regval &= ~0x00000001;
-	Xil_Out32(0xFD690030, tmp_regval);
+/*SMMU_REG Interrrupt Enable: Followig register need to be written all the time to properly catch SMMU messages.*/
+	PSU_Mask_Write(0xFD5F0018, 0x8000001FU, 0x8000001FU);
 }
 
 static int psu_init_xppu_aper_ram(void)
@@ -21816,6 +21754,7 @@ static int psu_init_xppu_aper_ram(void)
 
 int psu_lpd_protection(void)
 {
+	psu_init_xppu_aper_ram();
 	return 0;
 }
 
@@ -21874,6 +21813,7 @@ psu_init(void)
 
 	status &=  psu_peripherals_powerdwn_data();
 	status &=    psu_afi_config();
+	psu_ddr_qos_init_data();
 
 	if (status == 0)
 		return 1;
