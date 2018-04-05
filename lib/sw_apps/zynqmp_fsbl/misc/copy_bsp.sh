@@ -169,3 +169,4 @@ cp -rf $STANDALONE_DIR/common/*.h $BSP_DIR/include/
 # no inbyte and outbyte present in standalone
 cp $BOARD_DIR/inbyte.c $BSP_DIR/libsrc/standalone/src/
 cp $BOARD_DIR/outbyte.c $BSP_DIR/libsrc/standalone/src/
+cp xipipsu_g.c $BSP_DIR/libsrc/ipipsu/src/
