@@ -411,6 +411,10 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 		TrbLink->BufferPtrHigh = ((UINTPTR)TrbStHw >> 16) >> 16;
 		TrbLink->Ctrl |= XUSBPSU_TRBCTL_LINK_TRB;
 		TrbLink->Ctrl |= XUSBPSU_TRB_CTRL_HWO;
+
+		/* flush the link trb */
+		if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
+			Xil_DCacheFlushRange((INTPTR)TrbLink, sizeof(struct XUsbPsu_Trb));
 	}
 
 	return XST_SUCCESS;
