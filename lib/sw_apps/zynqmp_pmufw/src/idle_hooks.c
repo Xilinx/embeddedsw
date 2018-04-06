@@ -432,8 +432,16 @@ void NodeDpIdle(u32 BaseAddress)
 
 #ifdef XPAR_PSU_SATA_S_AXI_BASEADDR
 
-#define SATA_HOST_CTL		0x04
-#define SATA_HOST_IRQ_EN	(1 << 1)
+#define SATA_HOST_CTL			0x04
+#define SATA_HOST_IRQ_EN		(1 << 1)
+#define SATA_HOST_AHCI_EN		(1 << 31)
+
+#define SATA_AHCI_PORT0_CTRL_OFFSET	0x100
+#define SATA_AHCI_PORT1_CTRL_OFFSET	0x180
+
+#define SATA_AHCI_PORT_PXCMD		0x18
+#define SATA_AHCI_PORT_PXCMD_ST		1
+#define SATA_AHCI_PORT_PXCMD_CR		(1 << 15)
 
 /**
  * NodeSataIdle() - Custom code to idle the SATA
@@ -443,11 +451,51 @@ void NodeDpIdle(u32 BaseAddress)
 
 void NodeSataIdle(u32 BaseAddress)
 {
-	u32 regVal;
+	u32 regVal, timeOut = MAX_TIMEOUT;
 
-	/* Disable interrupts */
+	/* Disable Interrupt */
 	regVal = Xil_In32(BaseAddress + SATA_HOST_CTL);
 	regVal &= ~SATA_HOST_IRQ_EN;
+	Xil_Out32(BaseAddress + SATA_HOST_CTL, regVal);
+
+	/* Stop HBA engine for PORT0 and PORT1 */
+	regVal = Xil_In32(BaseAddress + SATA_AHCI_PORT0_CTRL_OFFSET +
+			  SATA_AHCI_PORT_PXCMD);
+	regVal &= ~SATA_AHCI_PORT_PXCMD_ST;
+	Xil_Out32(BaseAddress + SATA_AHCI_PORT0_CTRL_OFFSET +
+		  SATA_AHCI_PORT_PXCMD, regVal);
+
+	regVal = Xil_In32(BaseAddress + SATA_AHCI_PORT1_CTRL_OFFSET +
+			  SATA_AHCI_PORT_PXCMD);
+	regVal &= ~SATA_AHCI_PORT_PXCMD_ST;
+	Xil_Out32(BaseAddress + SATA_AHCI_PORT1_CTRL_OFFSET +
+		  SATA_AHCI_PORT_PXCMD, regVal);
+
+	/* Wait for command list DMA engine to stop running */
+
+	do {
+		regVal = Xil_In32(BaseAddress + SATA_AHCI_PORT0_CTRL_OFFSET +
+				  SATA_AHCI_PORT_PXCMD);
+	} while ((regVal & SATA_AHCI_PORT_PXCMD_CR) && --timeOut);
+
+	if (!timeOut) {
+		PmDbg(DEBUG_DETAILED, "Command list DMA engine not stopped for PORT0.\n");
+	}
+
+	timeOut = MAX_TIMEOUT;
+
+	do {
+		regVal = Xil_In32(BaseAddress + SATA_AHCI_PORT1_CTRL_OFFSET +
+				  SATA_AHCI_PORT_PXCMD);
+	} while ((regVal & SATA_AHCI_PORT_PXCMD_CR) && --timeOut);
+
+	if (!timeOut) {
+		PmDbg(DEBUG_DETAILED, "Command list DMA engine not stopped for PORT1.\n");
+	}
+
+	/* Disable AHCI */
+	regVal = Xil_In32(BaseAddress + SATA_HOST_CTL);
+	regVal &= ~SATA_HOST_AHCI_EN;
 	Xil_Out32(BaseAddress + SATA_HOST_CTL, regVal);
 	Xil_In32(BaseAddress + SATA_HOST_CTL); /* flush */
 }
