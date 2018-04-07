@@ -38,7 +38,7 @@ ECFLAGS :=
 LSCRIPT := -Tlscript_a53.ld
 BOARD	:= zcu102
 EXEC := ron_a53_fsbl.elf
-
+LIBS = libxil.a
 c_SOURCES := $(wildcard *.c)
 c_SOURCES += ../misc/$(BOARD)/psu_init.c
 s_SOURCES := $(wildcard *.s)
@@ -55,7 +55,7 @@ AS      :=      $(CROSS)armr5-none-eabi-gcc
 LINKER  :=      $(CROSS)armr5-none-eabi-gcc
 DUMP    :=      $(CROSS)armr5-none-eabi-objdump -xSD
 CFLAGS :=  -Wall -O0 -g3 -fmessage-length=0
-ECFLAGS := -g -DARMR5 -Wall -Wextra -mcpu=cortex-r5 -mfloat-abi=hard -mfpu=vfpv3-d16
+ECFLAGS := -g -DARMR5 -Wall -Wextra -mcpu=cortex-r5 -mfloat-abi=hard -mfpu=vfpv3-d16 -Os -flto -ffat-lto-objects
 LSCRIPT := -Tlscript.ld
 EXEC := ron_r5_fsbl.elf
 INCLUDEPATH := -I$(BSP_DIR)/psu_cortexr5_0/include -I. -I../misc/$(BOARD)/$(PROC) -I../misc/$(BOARD)
@@ -69,7 +69,7 @@ S_SOURCES += xfsbl_translation_table_a53_$(A53_STATE).S
 OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
 CROSS   :=
 CFLAGS =  -Wall -O0 -g3 -fmessage-length=0 \
-                  -march=armv8-a -DARMA53_$(A53_STATE)
+                  -march=armv8-a -DARMA53_$(A53_STATE) -Os -flto -ffat-lto-objects
 EXEC := ron_a53_fsbl.elf
 INCLUDEPATH := -I$(BSP_DIR)/psu_cortexa53_0/include -I. -I../misc/$(BOARD)/$(PROC) -I../misc/$(BOARD)
 LIBPATH := $(BSP_DIR)/psu_cortexa53_0/lib
@@ -103,11 +103,17 @@ endif
 
 all: $(EXEC)
 
-$(EXEC): $(OBJS) $(INCLUDES)
+$(EXEC): $(LIBS) $(OBJS) $(INCLUDES)
 	$(LINKER) -o $@ $(OBJS) $(CC_FLAGS) $(LDFLAGS) $(LSCRIPT)
 	$(DUMP) $(EXEC)  > dump
 	cp $(EXEC) fsbl.elf
 	rm -rf $(OBJS)
+
+$(LIBS):
+	echo "Copying BSP files"
+	../misc/copy_bsp.sh $(BOARD) $(PROC) $(A53_STATE)
+	echo "Compiling bsp"
+	make -C ../misc BOARD=$(BOARD) PROC=$(PROC) A53_STATE=$(A53_STATE)
 
 %.o:%.c
 	$(CC) $(CC_FLAGS) $(CFLAGS) $(ECFLAGS) -c $< -o $@ $(INCLUDEPATH)
