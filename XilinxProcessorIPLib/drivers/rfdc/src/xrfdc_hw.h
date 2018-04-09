@@ -54,6 +54,7 @@
 * 3.0   sg     13/01/18 Added PLL and external clock switch support
 * 3.1   jm     01/24/18 Add Multi-tile sync support.
 *       sk     02/27/18 Add API's to configure Multiband.
+* 3.3   sk     04/09/18 Removed redundant inclusion of xparameters.h file.
 * </pre>
 *
 ******************************************************************************/
@@ -70,7 +71,6 @@ extern "C" {
 #ifdef __BAREMETAL__
 #include "xil_io.h"
 #endif
-#include "xparameters.h"
 #ifndef __MICROBLAZE__
 #include "metal/io.h"
 #endif
