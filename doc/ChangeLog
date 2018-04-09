@@ -8,6 +8,11 @@ i2stx_v1_1:
 Changed log APIs so that they take the i2stx instance as argument.
 Changed the channel status clear API to cover all the registers.
 
+rfdc_v3_3:
+Add XRFdc_MTS_Sysref_Config API to enable/disable sysref.
+Update max VCO value to 13108MHz to support max DAC sample rate of 6.554MHz.
+Add macro to configure Threshold OFF mode.
+
 sdiaud_v1_1:
 Changed selftest to cover all the GUI parameters like UHD SDI standard and
 maximum number of channels.
