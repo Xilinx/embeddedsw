@@ -144,6 +144,8 @@
 *       jm     03/12/18 Add option to configure sysref capture after MTS.
 *       sk     03/22/18 Updated PLL settings based on latest IP values.
 * 3.3   sk     04/09/18 Added API to enable/disable the sysref.
+*       sk     04/09/18 Updated max VCO to 13108MHz to support max DAC
+*                       sample rate of 6.554MHz.
 *
 * </pre>
 *
@@ -599,7 +601,7 @@ typedef struct {
 #define PLL_DIVIDER_MIN			2U
 #define PLL_DIVIDER_MAX			130U
 #define VCO_RANGE_MIN			8500U
-#define VCO_RANGE_MAX			12800U
+#define VCO_RANGE_MAX			13108U
 #define XRFDC_PLL_LPF1_VAL		0x6U
 #define XRFDC_PLL_CRS2_VAL		0x7008U
 #define XRFDC_VCO_UPPER_BAND	0x0U
