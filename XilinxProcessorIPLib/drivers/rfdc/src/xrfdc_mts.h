@@ -47,6 +47,7 @@
 * 3.2   jm     03/12/18 Fixed DAC latency calculation.
 *       jm     03/12/18 Added support for reloading DTC scans.
 *       jm     03/12/18 Add option to configure sysref capture after MTS.
+* 3.3   sk     04/09/18 Added API to enable/disable the sysref.
 *
 * </pre>
 *
@@ -108,6 +109,9 @@ typedef struct {
 #define METAL_LOG_INFO XDBG_DEBUG_GENERAL
 #define METAL_LOG_ERROR XDBG_DEBUG_ERROR
 #endif
+
+#define XRFDC_MTS_SYSREF_DISABLE	0U
+#define XRFDC_MTS_SYSREF_ENABLE		1U
 
 #define XRFDC_MTS_NUM_DTC			128U
 #define XRFDC_MTS_REF_TARGET		64U
@@ -178,6 +182,9 @@ u32 XRFdc_MultiConverter_Sync (XRFdc* InstancePtr, u32 Type,
 							XRFdc_MultiConverter_Sync_Config* Config);
 void XRFdc_MultiConverter_Init (XRFdc_MultiConverter_Sync_Config* Config,
 						int *PLL_Codes, int *T1_Codes);
+u32 XRFdc_MTS_Sysref_Config(XRFdc* InstancePtr,
+			XRFdc_MultiConverter_Sync_Config* DACSyncConfig,
+			XRFdc_MultiConverter_Sync_Config* ADCSyncConfig, u32 SysRefEnable);
 
 
 #ifdef __cplusplus

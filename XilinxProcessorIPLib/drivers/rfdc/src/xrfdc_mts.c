@@ -47,6 +47,7 @@
 * 3.2   jm     03/12/18 Fixed DAC latency calculation.
 *       jm     03/12/18 Added support for reloading DTC scans.
 *       jm     03/12/18 Add option to configure sysref capture after MTS.
+* 3.3   sk     04/09/18 Added API to enable/disable the sysref.
 *
 * </pre>
 *
@@ -167,10 +168,18 @@ static u32 XRFdc_MTS_Sysref_Ctrl(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		XRFdc_MTS_RMW_DRP(InstancePtr, BaseAddr, XRFDC_MTS_SRCAP_DIG,
 				XRFDC_MTS_SRCAP_DIG_M, RegData);
 
+		/* Set SysRef Cap Clear */
+		XRFdc_MTS_RMW_DRP(InstancePtr, BaseAddr, XRFDC_MTS_SRCAP_T1,
+		XRFDC_MTS_SRCLR_T1_M, XRFDC_MTS_SRCLR_T1_M);
+
 		/* Analog Cap enable */
 		RegData  = (Enable_Cap) ? XRFDC_MTS_SRCAP_T1_EN : 0;
 		XRFdc_MTS_RMW_DRP(InstancePtr, BaseAddr, XRFDC_MTS_SRCAP_T1,
 				XRFDC_MTS_SRCAP_T1_EN, RegData);
+
+		/* Unset SysRef Cap Clear */
+		XRFdc_MTS_RMW_DRP(InstancePtr, BaseAddr, XRFDC_MTS_SRCAP_T1,
+		XRFDC_MTS_SRCLR_T1_M, 0);
 	}
 
 	return XRFDC_MTS_OK;
@@ -965,6 +974,50 @@ static u32 XRFdc_MTS_Latency(XRFdc* InstancePtr, u32 Type,
 			XRFdc_MTS_Sysref_Ctrl(InstancePtr, Type, i, 0, Config->SysRef_Enable, 0);
 		}
 	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to enable/disable the sysref.
+*
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	DACSyncConfig is pointer to DAC Multi-Tile Sync config structure.
+* @param	ADCSyncConfig is pointer to ADC Multi-Tile Sync config structure.
+* @param	SysRefEnable valid values are 0(disable) and 1(enable).
+*
+* @return
+* 		- XRFDC_MTS_OK if successful.
+*
+* @note		None
+*
+******************************************************************************/
+u32 XRFdc_MTS_Sysref_Config(XRFdc* InstancePtr,
+			XRFdc_MultiConverter_Sync_Config* DACSyncConfig,
+			XRFdc_MultiConverter_Sync_Config* ADCSyncConfig, u32 SysRefEnable)
+{
+	u32 Status;
+	int Tile;
+
+	/* Enable/disable SysRef Capture on all DACs participating in MTS */
+	for (Tile = 0; Tile < 4; Tile++) {
+		if((1 << Tile) & DACSyncConfig->Tiles)
+			XRFdc_MTS_Sysref_Ctrl(InstancePtr, XRFDC_DAC_TILE, Tile, 0,
+								SysRefEnable, 0);
+	}
+
+	/* Enable/Disable SysRef Capture on all ADCs participating in MTS */
+	for (Tile = 0; Tile < 4; Tile++) {
+		if((1 << Tile) & ADCSyncConfig->Tiles)
+			XRFdc_MTS_Sysref_Ctrl(InstancePtr, XRFDC_ADC_TILE, Tile, 0,
+								SysRefEnable, 0);
+	}
+
+	/* Enable/Disable SysRef TRX */
+	Status = XRFdc_MTS_Sysref_TRx(InstancePtr, SysRefEnable);
 
 	return Status;
 }
