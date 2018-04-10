@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,7 @@
 * Ver   Who    Date	   Changes
 * ----- ----   ----------  -----------------------------------------------
 * 1.0   nm     05/06/2014  First release
+* 1.4	nsk    04/10/2018  Added ICCARM compiler support.
 * </pre>
 *
 ******************************************************************************/
@@ -200,6 +201,9 @@ enum OnfiCommandList {
 
 /**************************** Type Definitions *******************************/
 /* Parameter page structure of ONFI 3.1 specification. */
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	/* Revision information and features block */
 	u8 Signature[4];		/**< Parameter page signature */
@@ -274,9 +278,17 @@ typedef struct {
 	u16 VendorRevisionNum;		/**< Vendor specific revision number */
 	u8 VendorSpecific[88];		/**< Vendor specific */
 	u16 Crc;			/**< Integrity CRC */
+#ifdef __ICCARM__
+} OnfiParamPage;
+#pragma pack(pop)
+#else
 }__attribute__((packed))OnfiParamPage;
+#endif
 
 /* ONFI extended parameter page structure. */
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	u16 Crc;
 	u8 Sig[4];
@@ -287,16 +299,29 @@ typedef struct {
 	u8 Section1Len;
 	u8 ResSection[12];
 	u8 SectionData[256];
+#ifdef __ICCARM__
+} OnfiExtPrmPage;
+#pragma pack(pop)
+#else
 }__attribute__((packed))OnfiExtPrmPage;
+#endif
 
 /* Driver extended parameter page information. */
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	u8 NumEccBits;
 	u8 CodeWordSize;
 	u16 MaxBadBlocks;
 	u16 BlockEndurance;
 	u16 Reserved;
+#ifdef __ICCARM__
+} OnfiExtEccBlock;
+#pragma pack(pop)
+#else
 }__attribute__((packed))OnfiExtEccBlock;
+#endif
 
 typedef struct {
 	u8 Command1;			/**< Command Cycle 1 */

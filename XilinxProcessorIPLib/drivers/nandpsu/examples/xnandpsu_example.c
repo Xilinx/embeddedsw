@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2018  Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,7 @@
 * ----- ---- ----------  -----------------------------------------------
 * 1.0  nm   05/06/2014  First release.
 *      ms   04/10/17    Modified Comment lines to follow doxygen rules.
+* 1.4  nsk  10/04/2018  Added support for ICCARM Compiler.
 *</pre>
 *
 ******************************************************************************/
@@ -88,8 +89,17 @@ XNandPsu *NandInstPtr = &NandInstance;
 /*
  * Buffers used during read and write transactions.
  */
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
+#ifdef __ICCARM__
+u8 ReadBuffer[TEST_BUF_SIZE];
+u8 WriteBuffer[TEST_BUF_SIZE];
+#pragma pack(pop)
+#else
 u8 ReadBuffer[TEST_BUF_SIZE] __attribute__ ((aligned(64)));	/**< Block sized Read buffer */
 u8 WriteBuffer[TEST_BUF_SIZE] __attribute__ ((aligned(64)));	/**< Block sized write buffer */
+#endif
 
 /************************** Function Definitions ******************************/
 

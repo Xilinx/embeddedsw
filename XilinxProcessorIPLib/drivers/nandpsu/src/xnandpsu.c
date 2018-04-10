@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -102,7 +102,8 @@
 *	                   data access.
 * 1.2	nsk    01/19/17    Fix for the failure of reading nand first redundant
 * 	                   parameter page. CR#966603
-* 1,3	nsk    08/14/17    Added CCI support
+* 1.3	nsk    08/14/17    Added CCI support
+* 1.4	nsk    04/10/18    Added ICCARM compiler support. CR#997552.
 *
 * </pre>
 *
@@ -313,7 +314,13 @@ static s32 XNandPsu_FlashInit(XNandPsu *InstancePtr)
 	u32 Crc;
 	u32 PrmPgOff;
 	u32 PrmPgLen;
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+	OnfiExtPrmPage ExtParam = {0U};
+#pragma pack(pop)
+#else
 	OnfiExtPrmPage ExtParam __attribute__ ((aligned(64))) = {0U};
+#endif
 
 	/* Assert the input arguments. */
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);

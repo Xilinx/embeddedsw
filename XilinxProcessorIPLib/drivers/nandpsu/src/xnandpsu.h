@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -167,6 +167,7 @@
 *       ms     04/10/17    Modified Comment lines in nandpsu_example.c to
 *                          follow doxygen rules.
 * 1.2	nsk    08/08/17    Added support to import example in SDK
+* 1.4	nsk    04/10/18    Added ICCARM compiler support. CR#997552.
 *
 * </pre>
 *
@@ -374,6 +375,9 @@ typedef struct {
  * A pointer to a variable of this type is then passed to the driver API
  * functions.
  */
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	u32 IsReady;		/**< Device is initialized and ready */
 	XNandPsu_Config Config;
@@ -387,8 +391,12 @@ typedef struct {
 	XNandPsu_EccCfg EccCfg;		/**< ECC configuration */
 	XNandPsu_Geometry Geometry;	/**< Flash geometry */
 	XNandPsu_Features Features;	/**< ONFI features */
+#ifdef __ICCARM__
+	u8 PartialDataBuf[XNANDPSU_MAX_PAGE_SIZE];	/**< Partial read/write buffer */
+#pragma pack(pop)
+#else
 	u8 PartialDataBuf[XNANDPSU_MAX_PAGE_SIZE] __attribute__ ((aligned(64)));
-					/**< Partial read/write buffer */
+#endif
 	/* Bad block table definitions */
 	XNandPsu_BbtDesc BbtDesc;	/**< Bad block table descriptor */
 	XNandPsu_BbtDesc BbtMirrorDesc;	/**< Mirror BBT descriptor */
