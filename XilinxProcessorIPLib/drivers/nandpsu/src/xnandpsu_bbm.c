@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -53,6 +53,7 @@
 *			   Oob and No-Oob region.
 * 1.1	nsk    11/07/16    Change memcpy to Xil_MemCpy to handle word aligned
 *	                   data access.
+* 1.4	nsk    04/10/18    Added ICCARM compiler support.
 * </pre>
 *
 ******************************************************************************/
@@ -204,7 +205,13 @@ static void XNandPsu_CreateBbt(XNandPsu *InstancePtr, u32 Target)
 	u8 BlockShift;
 	u32 NumPages;
 	u32 Page;
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+	u8 Buf[XNANDPSU_MAX_SPARE_SIZE] = {0U};
+#pragma pack(pop)
+#else
 	u8 Buf[XNANDPSU_MAX_SPARE_SIZE] __attribute__ ((aligned(64))) = {0U};
+#endif
 	u32 StartBlock = Target * InstancePtr->Geometry.NumTargetBlocks;
 	u32 NumBlocks = InstancePtr->Geometry.NumTargetBlocks;
 	s32 Status;
@@ -407,8 +414,13 @@ static void XNandPsu_ConvertBbt(XNandPsu *InstancePtr, u8 *Buf, u32 Target)
 static s32 XNandPsu_ReadBbt(XNandPsu *InstancePtr, u32 Target)
 {
 	u64 Offset;
-	u8 Buf[XNANDPSU_BBT_BUF_LENGTH]
-					 __attribute__ ((aligned(64))) = {0U};
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+	u8 Buf[XNANDPSU_BBT_BUF_LENGTH]= {0U};
+#pragma pack(pop)
+#else
+	u8 Buf[XNANDPSU_BBT_BUF_LENGTH] __attribute__ ((aligned(64))) = {0U};
+#endif
 	s32 Status1;
 	s32 Status2;
 	s32 Status;
@@ -547,7 +559,13 @@ static s32 XNandPsu_SearchBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 	u32 MaxBlocks;
 	u32 PageOff;
 	u32 SigLength;
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+	u8 Buf[XNANDPSU_MAX_SPARE_SIZE] = {0U};
+#pragma pack(pop)
+#else
 	u8 Buf[XNANDPSU_MAX_SPARE_SIZE] __attribute__ ((aligned(64))) = {0U};
+#endif
 	u32 Block;
 	u32 Offset;
 	s32 Status;
@@ -612,9 +630,16 @@ static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 	u32 Block = {0U};
 	u32 EndBlock = ((Target + (u32)1) *
 			InstancePtr->Geometry.NumTargetBlocks) - (u32)1;
-	u8 Buf[XNANDPSU_BBT_BUF_LENGTH]
-					 __attribute__ ((aligned(64))) = {0U};
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+	u8 Buf[XNANDPSU_BBT_BUF_LENGTH]= {0U};
+	u8 SpareBuf[XNANDPSU_MAX_SPARE_SIZE]= {0U};
+#pragma pack(pop)
+#else
+	u8 Buf[XNANDPSU_BBT_BUF_LENGTH] __attribute__ ((aligned(64))) = {0U};
 	u8 SpareBuf[XNANDPSU_MAX_SPARE_SIZE] __attribute__ ((aligned(64))) = {0U};
+#endif
+
 	u8 Mask[4] = {0x00U, 0x01U, 0x02U, 0x03U};
 	u8 Data;
 	u32 BlockOffset;
@@ -651,6 +676,7 @@ static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 				break;
 			}
 		}
+
 
 		/* Block not found for writing Bad Block Table(BBT) */
 		if (Index >= Desc->MaxBlocks) {
