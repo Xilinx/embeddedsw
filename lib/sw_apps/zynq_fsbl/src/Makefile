@@ -62,7 +62,7 @@ AS=arm-none-eabi-gcc
 CFLAGS=-Wall -O0 -g3 -c -fmessage-length=0
 LINKER=arm-none-eabi-gcc
 LDFLAGS = -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilffs,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lrsa,-lxil,-lgcc,-lc,--end-group
-LD1FLAGS = -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -Wl,-T -Wl,lscript.ld -L$(LIBPATH)
+LD1FLAGS = -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -Wl,-T -Wl,lscript.ld -L$(LIBPATH) -specs=../misc/Xilinx.spec
 ECFLAGS = -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard
 endif 
 ifeq "$(CC)" "armcc"
