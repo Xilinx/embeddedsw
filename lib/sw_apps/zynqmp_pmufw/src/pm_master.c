@@ -962,6 +962,10 @@ int PmMasterRestart(PmMaster* const master)
 		goto done;
 	}
 	XPfw_Write32(PMU_GLOBAL_GLOBAL_GEN_STORAGE4, SUBSYSTEM_RESTART_MASK);
+#ifdef ENABLE_POS
+	/* Signal to FSBL */
+	XPfw_Write32(PMU_GLOBAL_GLOBAL_GEN_STORAGE1, 1U);
+#endif
 	status = master->procs[0]->saveResumeAddr(master->procs[0], address);
 	if (XST_SUCCESS != status) {
 		goto done;
