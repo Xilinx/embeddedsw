@@ -14,6 +14,8 @@ var xv__sditxss_8c =
     [ "XV_SdiTxSs_ReportStreamInfo", "xv__sditxss_8c.html#ac95086a1bc10b4a2dab71fe6413e4be2", null ],
     [ "XV_SdiTxSS_SdiTxIntrHandler", "xv__sditxss_8c.html#ae60511dff2276769326babf05ebf92e2", null ],
     [ "XV_SdiTxSs_SetCallback", "xv__sditxss_8c.html#a0a8055ef29417b51170aace1338c9b25", null ],
+    [ "XV_SdiTxSs_SetColorFormat", "xv__sditxss_8c.html#a46a81701624281a6574f419d86018376", null ],
+    [ "XV_SdiTxSs_SetCoreSettings", "xv__sditxss_8c.html#a1d4fc65e3e0bf26e83db1ae9caf2cdd9", null ],
     [ "XV_SdiTxSs_SetStream", "xv__sditxss_8c.html#a926a8be7d91d7ea5963b38fee737b180", null ],
     [ "XV_SdiTxSs_SetVideoStream", "xv__sditxss_8c.html#a54cbf51612a95c4f1dca721f9888250f", null ],
     [ "XV_SdiTxSs_Stop", "xv__sditxss_8c.html#aa665c8a153ad4e024a9b02d5fc4fb691", null ],

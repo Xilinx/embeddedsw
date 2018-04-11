@@ -127,6 +127,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga40ef6d42e9520bb550163c3afd598980"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__v3__8.html#ga40ef6d42e9520bb550163c3afd598980">XScuGic_InterruptMaptoCpu</a> (<a class="el" href="struct_x_scu_gic.html">XScuGic</a> *InstancePtr, u8 Cpu_Id, u32 Int_Id)</td></tr>
 <tr class="memdesc:ga40ef6d42e9520bb550163c3afd598980"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the target CPU for the interrupt of a peripheral.  <a href="#ga40ef6d42e9520bb550163c3afd598980">More...</a><br /></td></tr>
 <tr class="separator:ga40ef6d42e9520bb550163c3afd598980"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga35a7049368d1fdf455d0414c8aa7858f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__v3__8.html#ga35a7049368d1fdf455d0414c8aa7858f">XScuGic_InterruptUnmapFromCpu</a> (<a class="el" href="struct_x_scu_gic.html">XScuGic</a> *InstancePtr, u8 Cpu_Id, u32 Int_Id)</td></tr>
+<tr class="memdesc:ga35a7049368d1fdf455d0414c8aa7858f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unmaps specific SPI interrupt from the target CPU.  <a href="#ga35a7049368d1fdf455d0414c8aa7858f">More...</a><br /></td></tr>
+<tr class="separator:ga35a7049368d1fdf455d0414c8aa7858f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1e8328554cd2774f965012e63151f826"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__v3__8.html#ga1e8328554cd2774f965012e63151f826">XScuGic_UnmapAllInterruptsFromCpu</a> (<a class="el" href="struct_x_scu_gic.html">XScuGic</a> *InstancePtr, u8 Cpu_Id)</td></tr>
+<tr class="memdesc:ga1e8328554cd2774f965012e63151f826"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unmaps all SPI interrupts from the target CPU.  <a href="#ga1e8328554cd2774f965012e63151f826">More...</a><br /></td></tr>
+<tr class="separator:ga1e8328554cd2774f965012e63151f826"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6146a0489a1c748ceeaee729639d48a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__v3__8.html#ga6146a0489a1c748ceeaee729639d48a7">XScuGic_Stop</a> (<a class="el" href="struct_x_scu_gic.html">XScuGic</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga6146a0489a1c748ceeaee729639d48a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">It checks if the interrupt target register contains all interrupts to be targeted for current CPU.  <a href="#ga6146a0489a1c748ceeaee729639d48a7">More...</a><br /></td></tr>
 <tr class="separator:ga6146a0489a1c748ceeaee729639d48a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,6 +166,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga0c6a61acf2d5d030542c788a9aa42004"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__v3__8.html#ga0c6a61acf2d5d030542c788a9aa42004">XScuGic_GetPriTrigTypeByDistAddr</a> (u32 DistBaseAddress, u32 Int_Id, u8 *Priority, u8 *Trigger)</td></tr>
 <tr class="memdesc:ga0c6a61acf2d5d030542c788a9aa42004"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the interrupt priority and trigger type for the specificd IRQ source.  <a href="#ga0c6a61acf2d5d030542c788a9aa42004">More...</a><br /></td></tr>
 <tr class="separator:ga0c6a61acf2d5d030542c788a9aa42004"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa02951e223977118dd89dfffc151a966"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__v3__8.html#gaa02951e223977118dd89dfffc151a966">XScuGic_InterruptUnmapFromCpuByDistAddr</a> (u32 DistBaseAddress, u8 Cpu_Id, u32 Int_Id)</td></tr>
+<tr class="memdesc:gaa02951e223977118dd89dfffc151a966"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unmaps specific SPI interrupt from the target CPU.  <a href="#gaa02951e223977118dd89dfffc151a966">More...</a><br /></td></tr>
+<tr class="separator:gaa02951e223977118dd89dfffc151a966"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga15a21f6b75030f175dec61355b6ef905"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__v3__8.html#ga15a21f6b75030f175dec61355b6ef905">XScuGic_UnmapAllInterruptsFromCpuByDistAddr</a> (u32 DistBaseAddress, u8 Cpu_Id)</td></tr>
+<tr class="memdesc:ga15a21f6b75030f175dec61355b6ef905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unmaps all SPI interrupts from the target CPU.  <a href="#ga15a21f6b75030f175dec61355b6ef905">More...</a><br /></td></tr>
+<tr class="separator:ga15a21f6b75030f175dec61355b6ef905"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -976,7 +988,7 @@ Running Priority Register</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xscugic_8h.html">xscugic.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a>(((InstancePtr)-&gt;Config-&gt;CpuBaseAddress), (RegOffset), \</div><div class="line">                                        ((u32)(Data))))</div><div class="ttc" id="xscugic__hw_8h_html_a01c0f85e48858531c313ce22cbfd2dfa"><div class="ttname"><a href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a></div><div class="ttdeci">#define XScuGic_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write the given Intc register. </div><div class="ttdef"><b>Definition:</b> xscugic_hw.h:626</div></div>
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a>(((InstancePtr)-&gt;Config-&gt;CpuBaseAddress), (RegOffset), \</div><div class="line">                                        ((u32)(Data))))</div><div class="ttc" id="xscugic__hw_8h_html_a01c0f85e48858531c313ce22cbfd2dfa"><div class="ttname"><a href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a></div><div class="ttdeci">#define XScuGic_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write the given Intc register. </div><div class="ttdef"><b>Definition:</b> xscugic_hw.h:630</div></div>
 </div><!-- fragment -->
 <p>Write the given CPU Interface register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1087,7 +1099,7 @@ Running Priority Register</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the register</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="group__scugic__v3__8.html#ga3d639fe1851f9d833367fb4322390eeb" title="Read the given Distributor Interface register. ">XScuGic_DistReadReg(XScuGic *InstancePtr, u32 RegOffset)</a> </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="group__scugic__v3__8.html#ga6ed162180ffb45b082c2fbe23951ba13">XScuGic_GetPriorityTriggerType()</a>, <a class="el" href="group__scugic__v3__8.html#ga40ef6d42e9520bb550163c3afd598980">XScuGic_InterruptMaptoCpu()</a>, and <a class="el" href="group__scugic__v3__8.html#ga081a9a62546b413d94e609894282a575">XScuGic_SelfTest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__scugic__v3__8.html#ga6ed162180ffb45b082c2fbe23951ba13">XScuGic_GetPriorityTriggerType()</a>, <a class="el" href="group__scugic__v3__8.html#ga40ef6d42e9520bb550163c3afd598980">XScuGic_InterruptMaptoCpu()</a>, <a class="el" href="group__scugic__v3__8.html#ga35a7049368d1fdf455d0414c8aa7858f">XScuGic_InterruptUnmapFromCpu()</a>, and <a class="el" href="group__scugic__v3__8.html#ga081a9a62546b413d94e609894282a575">XScuGic_SelfTest()</a>.</p>
 
 </div>
 </div>
@@ -1124,7 +1136,7 @@ Running Priority Register</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xscugic_8h.html">xscugic.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a>(((InstancePtr)-&gt;Config-&gt;DistBaseAddress), (RegOffset), \</div><div class="line">                                        ((u32)(Data))))</div><div class="ttc" id="xscugic__hw_8h_html_a01c0f85e48858531c313ce22cbfd2dfa"><div class="ttname"><a href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a></div><div class="ttdeci">#define XScuGic_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write the given Intc register. </div><div class="ttdef"><b>Definition:</b> xscugic_hw.h:626</div></div>
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a>(((InstancePtr)-&gt;Config-&gt;DistBaseAddress), (RegOffset), \</div><div class="line">                                        ((u32)(Data))))</div><div class="ttc" id="xscugic__hw_8h_html_a01c0f85e48858531c313ce22cbfd2dfa"><div class="ttname"><a href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a></div><div class="ttdeci">#define XScuGic_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write the given Intc register. </div><div class="ttdef"><b>Definition:</b> xscugic_hw.h:630</div></div>
 </div><!-- fragment -->
 <p>Write the given Distributor Interface register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1138,7 +1150,7 @@ Running Priority Register</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__scugic__v3__8.html#ga22e9f81ed00f7cc39df1c6e76988fdb1" title="Write the given Distributor Interface register. ">XScuGic_DistWriteReg(XScuGic *InstancePtr, u32 RegOffset, u32 Data)</a> </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="group__scugic__v3__8.html#gaafd153e16238a1189c513846675e096a">XScuGic_Disable()</a>, <a class="el" href="group__scugic__v3__8.html#gad162acedbbd41fd890fc7f2225ed480b">XScuGic_Disconnect()</a>, <a class="el" href="group__scugic__v3__8.html#gac965b9e3ae7668a92cf07a65bde142cc">XScuGic_Enable()</a>, <a class="el" href="group__scugic__v3__8.html#ga40ef6d42e9520bb550163c3afd598980">XScuGic_InterruptMaptoCpu()</a>, and <a class="el" href="group__scugic__v3__8.html#gad71d2f581bdc46d89f38fced53e506bf">XScuGic_SoftwareIntr()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__scugic__v3__8.html#gaafd153e16238a1189c513846675e096a">XScuGic_Disable()</a>, <a class="el" href="group__scugic__v3__8.html#gad162acedbbd41fd890fc7f2225ed480b">XScuGic_Disconnect()</a>, <a class="el" href="group__scugic__v3__8.html#gac965b9e3ae7668a92cf07a65bde142cc">XScuGic_Enable()</a>, <a class="el" href="group__scugic__v3__8.html#ga40ef6d42e9520bb550163c3afd598980">XScuGic_InterruptMaptoCpu()</a>, <a class="el" href="group__scugic__v3__8.html#ga35a7049368d1fdf455d0414c8aa7858f">XScuGic_InterruptUnmapFromCpu()</a>, and <a class="el" href="group__scugic__v3__8.html#gad71d2f581bdc46d89f38fced53e506bf">XScuGic_SoftwareIntr()</a>.</p>
 
 </div>
 </div>
@@ -2838,6 +2850,106 @@ Running Priority Register</h2></td></tr>
 
 </div>
 </div>
+<a id="ga35a7049368d1fdf455d0414c8aa7858f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga35a7049368d1fdf455d0414c8aa7858f">&#9670;&nbsp;</a></span>XScuGic_InterruptUnmapFromCpu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XScuGic_InterruptUnmapFromCpu </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_scu_gic.html">XScuGic</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Cpu_Id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Int_Id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xscugic_8c.html">xscugic.c</a>&gt;</code></p>
+
+<p>Unmaps specific SPI interrupt from the target CPU. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the instance to be worked on. </td></tr>
+    <tr><td class="paramname">Cpu_Id</td><td>is a CPU number from which the interrupt has to be unmapped </td></tr>
+    <tr><td class="paramname">Int_Id</td><td>is the IRQ source number to modify</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+
+<p class="reference">References <a class="el" href="group__scugic__v3__8.html#ga3d639fe1851f9d833367fb4322390eeb">XScuGic_DistReadReg</a>, <a class="el" href="group__scugic__v3__8.html#ga22e9f81ed00f7cc39df1c6e76988fdb1">XScuGic_DistWriteReg</a>, and <a class="el" href="xscugic__hw_8h.html#aa2cf2e3acd2e8cf537c415276efa3a97">XSCUGIC_SPI_TARGET_OFFSET_CALC</a>.</p>
+
+</div>
+</div>
+<a id="gaa02951e223977118dd89dfffc151a966"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa02951e223977118dd89dfffc151a966">&#9670;&nbsp;</a></span>XScuGic_InterruptUnmapFromCpuByDistAddr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XScuGic_InterruptUnmapFromCpuByDistAddr </td>
+          <td>(</td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>DistBaseAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Cpu_Id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Int_Id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xscugic__hw_8c.html">xscugic_hw.c</a>&gt;</code></p>
+
+<p>Unmaps specific SPI interrupt from the target CPU. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">DistBaseAddress</td><td>is the device base address </td></tr>
+    <tr><td class="paramname">Cpu_Id</td><td>is a CPU number from which the interrupt has to be unmapped </td></tr>
+    <tr><td class="paramname">Int_Id</td><td>is the IRQ source number to modify</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+
+<p class="reference">References <a class="el" href="xscugic__hw_8h.html#af5fb346faf5dff7820e4ce87c86f8eca">XScuGic_ReadReg</a>, <a class="el" href="xscugic__hw_8h.html#aa2cf2e3acd2e8cf537c415276efa3a97">XSCUGIC_SPI_TARGET_OFFSET_CALC</a>, and <a class="el" href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a>.</p>
+
+</div>
+</div>
 <a id="gab2c0554b809121cc91a96fcd8c749c25"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gab2c0554b809121cc91a96fcd8c749c25">&#9670;&nbsp;</a></span>XScuGic_LookupConfig()</h2>
 
@@ -3182,6 +3294,88 @@ Running Priority Register</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the instance to be worked on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+
+</div>
+</div>
+<a id="ga1e8328554cd2774f965012e63151f826"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1e8328554cd2774f965012e63151f826">&#9670;&nbsp;</a></span>XScuGic_UnmapAllInterruptsFromCpu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XScuGic_UnmapAllInterruptsFromCpu </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_scu_gic.html">XScuGic</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Cpu_Id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xscugic_8c.html">xscugic.c</a>&gt;</code></p>
+
+<p>Unmaps all SPI interrupts from the target CPU. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the instance to be worked on. </td></tr>
+    <tr><td class="paramname">Cpu_Id</td><td>is a CPU number from which the interrupts has to be unmapped</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+
+</div>
+</div>
+<a id="ga15a21f6b75030f175dec61355b6ef905"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga15a21f6b75030f175dec61355b6ef905">&#9670;&nbsp;</a></span>XScuGic_UnmapAllInterruptsFromCpuByDistAddr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XScuGic_UnmapAllInterruptsFromCpuByDistAddr </td>
+          <td>(</td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>DistBaseAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Cpu_Id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xscugic__hw_8c.html">xscugic_hw.c</a>&gt;</code></p>
+
+<p>Unmaps all SPI interrupts from the target CPU. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">DistBaseAddress</td><td>is the device base address </td></tr>
+    <tr><td class="paramname">Cpu_Id</td><td>is a CPU number from which the interrupts has to be unmapped</td></tr>
   </table>
   </dd>
 </dl>

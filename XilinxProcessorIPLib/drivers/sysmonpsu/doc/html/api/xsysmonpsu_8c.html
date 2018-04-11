@@ -90,7 +90,9 @@ $(document).ready(function(){initNavTree('xsysmonpsu_8c.html','');});
                       XSysMonPsu_SetSeqAcqTime
                       and XSysMonPsu_GetSeqAcqTime to provide support for
                       set/get 64 bit value.
-2.1   sk     03/03/16 Check for PL reset before doing PL Sysmon reset.</pre><pre></pre> </div><table class="memberdecls">
+2.1   sk     03/03/16 Check for PL reset before doing PL Sysmon reset.
+2.3   mn     12/13/17 Correct the AMS block channel numbers
+      mn     03/08/18 Update Clock Divisor to the proper value</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a8cd0584410c0931f931aa4da1e3e151b"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu_8c.html#a8cd0584410c0931f931aa4da1e3e151b">XSysMonPsu_CfgInitialize</a> (<a class="el" href="struct_x_sys_mon_psu.html">XSysMonPsu</a> *InstancePtr, <a class="el" href="struct_x_sys_mon_psu___config.html">XSysMonPsu_Config</a> *ConfigPtr, u32 EffectiveAddr)</td></tr>
@@ -239,9 +241,9 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The user needs to first call the <a class="el" href="xsysmonpsu_8h.html#a948f08280b6195869015382d92ba8a50" title="This function looks for the device configuration based on the unique device ID. ">XSysMonPsu_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="xsysmonpsu_8c.html#a8cd0584410c0931f931aa4da1e3e151b" title="This function initializes XSysMonPsu device/instance. ">XSysMonPsu_CfgInitialize()</a> API. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_sys_mon_psu___config.html#a8b2fb5ceb1c132536b320f0b317bb1c6">XSysMonPsu_Config::BaseAddress</a>, <a class="el" href="struct_x_sys_mon_psu.html#a37b1b3b387db33d8aedcbe611b27e45b">XSysMonPsu::Config</a>, and <a class="el" href="struct_x_sys_mon_psu___config.html#abc6dabd175ea52cdf0dbf5b32798f62d">XSysMonPsu_Config::DeviceId</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_sys_mon_psu___config.html#a8b2fb5ceb1c132536b320f0b317bb1c6">XSysMonPsu_Config::BaseAddress</a>, <a class="el" href="struct_x_sys_mon_psu.html#a37b1b3b387db33d8aedcbe611b27e45b">XSysMonPsu::Config</a>, <a class="el" href="struct_x_sys_mon_psu___config.html#abc6dabd175ea52cdf0dbf5b32798f62d">XSysMonPsu_Config::DeviceId</a>, and <a class="el" href="struct_x_sys_mon_psu___config.html#a7ff0bfe3d5f7cb06792fe7ed481711ad">XSysMonPsu_Config::InputClockMHz</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="xsysmonpsu__single__ch__intr__example_8c.html#a88c399487d95b544d35a1bfdf6d296fe">SysMonPsuSingleChannelIntrExample()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xsysmonpsu__ams__example_8c.html#a6e50715ab0def63d0fa4ad6ce47fcb3b">SysMonPsuAMSExample()</a>, and <a class="el" href="xsysmonpsu__single__ch__intr__example_8c.html#a88c399487d95b544d35a1bfdf6d296fe">SysMonPsuSingleChannelIntrExample()</a>.</p>
 
 </div>
 </div>
@@ -1021,8 +1023,6 @@ None.</dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_sys_mon_psu.html#ae4e48efa3298714b2e190f2dbfc9566a">XSysMonPsu::IsReady</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="xsysmonpsu__single__ch__intr__example_8c.html#a88c399487d95b544d35a1bfdf6d296fe">SysMonPsuSingleChannelIntrExample()</a>.</p>
-
 </div>
 </div>
 <a id="a3ce8ca01b6992994737213f342847662"></a>
@@ -1593,6 +1593,8 @@ None.</dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_sys_mon_psu.html#ae4e48efa3298714b2e190f2dbfc9566a">XSysMonPsu::IsReady</a>, <a class="el" href="xsysmonpsu_8h.html#a9fadcdd4e89cd9d96581f81dfe47dce7">XSM_SEQ_MODE_OYLMPUS</a>, and <a class="el" href="xsysmonpsu_8h.html#a3c4487fa8b08f41c807433ef456abc75">XSM_SEQ_MODE_SINGCHAN</a>.</p>
 
+<p class="reference">Referenced by <a class="el" href="xsysmonpsu__ams__example_8c.html#a6e50715ab0def63d0fa4ad6ce47fcb3b">SysMonPsuAMSExample()</a>, and <a class="el" href="xsysmonpsu__single__ch__intr__example_8c.html#a88c399487d95b544d35a1bfdf6d296fe">SysMonPsuSingleChannelIntrExample()</a>.</p>
+
 </div>
 </div>
 <a id="a872e9a41818489e77fa554dd01408281"></a>
@@ -1668,7 +1670,7 @@ None.</dd></dl>
 </ul>
 </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_sys_mon_psu.html#ae4e48efa3298714b2e190f2dbfc9566a">XSysMonPsu::IsReady</a>, <a class="el" href="xsysmonpsu_8h.html#a15ea4b9f08ee9dc44fc000384ca36e42">XSM_CH_GAINERR_CALIB</a>, <a class="el" href="xsysmonpsu_8h.html#a7c4df26dc69ef41921c484fd3ccc006c">XSM_CH_SUPPLY3</a>, <a class="el" href="xsysmonpsu_8h.html#a2939dda6d5c6efbcf10977c6b33aa7fb">XSM_CH_SUPPLY4</a>, <a class="el" href="xsysmonpsu_8h.html#a3fdb14478def5283880cd4d65dfaf56f">XSM_CH_SUPPLY_CALIB</a>, and <a class="el" href="xsysmonpsu_8h.html#ace8eebd74607658044e98c7b5ca1c0c6">XSM_CH_TEMP_REMTE</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_sys_mon_psu.html#ae4e48efa3298714b2e190f2dbfc9566a">XSysMonPsu::IsReady</a>, <a class="el" href="xsysmonpsu_8h.html#a15ea4b9f08ee9dc44fc000384ca36e42">XSM_CH_GAINERR_CALIB</a>, <a class="el" href="xsysmonpsu_8h.html#ae411c55817a64b2351271181ebdae254">XSM_CH_RESERVE1</a>, <a class="el" href="xsysmonpsu_8h.html#a7c4df26dc69ef41921c484fd3ccc006c">XSM_CH_SUPPLY3</a>, <a class="el" href="xsysmonpsu_8h.html#a2939dda6d5c6efbcf10977c6b33aa7fb">XSM_CH_SUPPLY4</a>, <a class="el" href="xsysmonpsu_8h.html#a3fdb14478def5283880cd4d65dfaf56f">XSM_CH_SUPPLY_CALIB</a>, <a class="el" href="xsysmonpsu_8h.html#ace8eebd74607658044e98c7b5ca1c0c6">XSM_CH_TEMP_REMTE</a>, and <a class="el" href="xsysmonpsu_8h.html#a367867d9ef353a759eb5d33620bffed4">XSM_CH_VCC_PSLL0</a>.</p>
 
 </div>
 </div>

@@ -64,7 +64,7 @@ $(document).ready(function(){initNavTree('struct_x_usb_psu.html','');});
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XUsbPsu Struct Reference<div class="ingroups"><a class="el" href="group__usbpsu__v1__0.html">Usbpsu_v1_0</a></div></div>  </div>
+<div class="title">XUsbPsu Struct Reference<div class="ingroups"><a class="el" href="group__usbpsu__v1__3.html">Usbpsu_v1_3</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -88,6 +88,12 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a740530acd1ee913daa3399e377b8916a"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu.html#a740530acd1ee913daa3399e377b8916a">BaseAddress</a></td></tr>
 <tr class="memdesc:a740530acd1ee913daa3399e377b8916a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core register base address.  <a href="#a740530acd1ee913daa3399e377b8916a">More...</a><br /></td></tr>
 <tr class="separator:a740530acd1ee913daa3399e377b8916a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f122f4dc17866427f6353722dfefb0e"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu.html#a9f122f4dc17866427f6353722dfefb0e">IsHibernated</a></td></tr>
+<tr class="memdesc:a9f122f4dc17866427f6353722dfefb0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hibernated state.  <a href="#a9f122f4dc17866427f6353722dfefb0e">More...</a><br /></td></tr>
+<tr class="separator:a9f122f4dc17866427f6353722dfefb0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a050cc34c0d7cc36465d4bc7b9a51c22e"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu.html#a050cc34c0d7cc36465d4bc7b9a51c22e">HasHibernation</a></td></tr>
+<tr class="memdesc:a050cc34c0d7cc36465d4bc7b9a51c22e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Has hibernation support.  <a href="#a050cc34c0d7cc36465d4bc7b9a51c22e">More...</a><br /></td></tr>
+<tr class="separator:a050cc34c0d7cc36465d4bc7b9a51c22e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>USB Device Controller representation. </p>
@@ -154,7 +160,7 @@ Data Fields</h2></td></tr>
 
 <p>Configuration info pointer. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__usbpsu__v1__0.html#ga1da110c07cb7c78f11304b3e3246dca2">XUsbPsu_Ep0StatusDone()</a>, <a class="el" href="group__usbpsu__v1__0.html#ga5fdd7c08c30d46a9c3024ebe404d877e">XUsbPsu_EpXferComplete()</a>, and <a class="el" href="group__usbpsu__v1__0.html#gaa95e2a0adf788cfa67722243e0c6e803">XUsbPsu_EventBufferHandler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__usbpsu__v1__0.html#ga1da110c07cb7c78f11304b3e3246dca2">XUsbPsu_Ep0StatusDone()</a>, and <a class="el" href="group__usbpsu__v1__3.html#gaa95e2a0adf788cfa67722243e0c6e803">XUsbPsu_EventBufferHandler()</a>.</p>
 
 </div>
 </div>
@@ -172,7 +178,41 @@ Data Fields</h2></td></tr>
 
 <p>Endpoints. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__usbpsu__v1__0.html#ga057ab0e4a9511055a42e60b92550660d">XUsbPsu_Ep0Send()</a>, <a class="el" href="group__usbpsu__v1__0.html#ga78d9a929bbb9036e7eb4ba85b176df0d">XUsbPsu_Ep0StallRestart()</a>, <a class="el" href="group__usbpsu__v1__0.html#gaa1b5bb2653180e74fb187989bd68ee5c">XUsbPsu_Ep0XferNotReady()</a>, <a class="el" href="group__usbpsu__v1__0.html#ga04233f31bba830d4fb090e930eb679e9">XUsbPsu_EpInterrupt()</a>, <a class="el" href="group__usbpsu__v1__0.html#ga5fdd7c08c30d46a9c3024ebe404d877e">XUsbPsu_EpXferComplete()</a>, and <a class="el" href="group__usbpsu__v1__0.html#ga1cbbfbb1658f7fe29ec7f1b24ba87eeb">XUsbPsu_RecvSetup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__usbpsu__v1__0.html#ga057ab0e4a9511055a42e60b92550660d">XUsbPsu_Ep0Send()</a>, <a class="el" href="group__usbpsu__v1__0.html#ga78d9a929bbb9036e7eb4ba85b176df0d">XUsbPsu_Ep0StallRestart()</a>, <a class="el" href="group__usbpsu__v1__0.html#gaa1b5bb2653180e74fb187989bd68ee5c">XUsbPsu_Ep0XferNotReady()</a>, <a class="el" href="group__usbpsu__v1__3.html#ga04233f31bba830d4fb090e930eb679e9">XUsbPsu_EpInterrupt()</a>, <a class="el" href="group__usbpsu__v1__3.html#ga5fdd7c08c30d46a9c3024ebe404d877e">XUsbPsu_EpXferComplete()</a>, <a class="el" href="group__usbpsu__v1__3.html#ga2d7229b7b3d937ed82f79c3ec35e97f8">XUsbPsu_EpXferNotReady()</a>, and <a class="el" href="group__usbpsu__v1__0.html#ga1cbbfbb1658f7fe29ec7f1b24ba87eeb">XUsbPsu_RecvSetup()</a>.</p>
+
+</div>
+</div>
+<a id="a050cc34c0d7cc36465d4bc7b9a51c22e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a050cc34c0d7cc36465d4bc7b9a51c22e">&#9670;&nbsp;</a></span>HasHibernation</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XUsbPsu::HasHibernation</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Has hibernation support. </p>
+
+</div>
+</div>
+<a id="a9f122f4dc17866427f6353722dfefb0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f122f4dc17866427f6353722dfefb0e">&#9670;&nbsp;</a></span>IsHibernated</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XUsbPsu::IsHibernated</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hibernated state. </p>
+
+<p class="reference">Referenced by <a class="el" href="xusbpsu__hibernation_8c.html#aed5272335677846a6d7b24096dc825a2">XUsbPsu_InitHibernation()</a>.</p>
 
 </div>
 </div>

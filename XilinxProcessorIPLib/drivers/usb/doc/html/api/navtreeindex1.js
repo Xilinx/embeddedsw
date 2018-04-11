@@ -1,7 +1,7 @@
 var NAVTREEINDEX1 =
 {
-"group__usb__v5__0.html#gafe634ba137a5f8963b7364a32cd56a27":[2,10,100],
-"group__usb__v5__0.html#gafe7ecfedb9f22e7f6360b0498afa1ff1":[2,10,116],
+"group__usb__v5__2.html#gafe634ba137a5f8963b7364a32cd56a27":[2,10,100],
+"group__usb__v5__2.html#gafe7ecfedb9f22e7f6360b0498afa1ff1":[2,10,116],
 "index.html":[],
 "pages.html":[],
 "xusb_8c.html":[2,0],

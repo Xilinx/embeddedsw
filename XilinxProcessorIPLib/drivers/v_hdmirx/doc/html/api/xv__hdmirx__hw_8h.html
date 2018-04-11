@@ -88,6 +88,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 1.09  MMO    02/03/17 Added XV_HDMIRX_VTD_CTRL_SYNC_LOSS_MASK and
                          XV_HDMIRX_VTD_STA_SYNC_LOSS_EVT_MASK for HDCP
                          compliance
+2.00  EB     15/11/17 Added XV_HDMIRX_AUX_STA_GCP_CD_EVT_MASK
+      YH     16/11/17 Added PIO_IN for bridge overflow interrupt
+             16/11/17 Added PIO_OUT for dedicated reset for each clock domain
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -199,6 +202,18 @@ Macros</h2></td></tr>
 <tr class="memitem:a818e2b5f24ae64c160d8291e2a72bbb3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx__hw_8h.html#a818e2b5f24ae64c160d8291e2a72bbb3">XV_HDMIRX_PIO_OUT_BRIDGE_PIXEL_MASK</a>&#160;&#160;&#160;(1&lt;&lt;30)</td></tr>
 <tr class="memdesc:a818e2b5f24ae64c160d8291e2a72bbb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO Out Bridge_Pixel drop mask.  <a href="#a818e2b5f24ae64c160d8291e2a72bbb3">More...</a><br /></td></tr>
 <tr class="separator:a818e2b5f24ae64c160d8291e2a72bbb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a122cccfebb05738c47f29c3880fdafee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx__hw_8h.html#a122cccfebb05738c47f29c3880fdafee">XV_HDMIRX_PIO_OUT_INT_VRST_MASK</a>&#160;&#160;&#160;(1&lt;&lt;0)</td></tr>
+<tr class="memdesc:a122cccfebb05738c47f29c3880fdafee"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO Out INT_VRST mask.  <a href="#a122cccfebb05738c47f29c3880fdafee">More...</a><br /></td></tr>
+<tr class="separator:a122cccfebb05738c47f29c3880fdafee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a218ac4dfa25332f50ef814896cbc645a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx__hw_8h.html#a218ac4dfa25332f50ef814896cbc645a">XV_HDMIRX_PIO_OUT_INT_LRST_MASK</a>&#160;&#160;&#160;(1&lt;&lt;20)</td></tr>
+<tr class="memdesc:a218ac4dfa25332f50ef814896cbc645a"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO Out INT_LRST mask.  <a href="#a218ac4dfa25332f50ef814896cbc645a">More...</a><br /></td></tr>
+<tr class="separator:a218ac4dfa25332f50ef814896cbc645a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44d92cc10a5825726f4ab69f1fef3039"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx__hw_8h.html#a44d92cc10a5825726f4ab69f1fef3039">XV_HDMIRX_PIO_OUT_EXT_VRST_MASK</a>&#160;&#160;&#160;(1&lt;&lt;21)</td></tr>
+<tr class="memdesc:a44d92cc10a5825726f4ab69f1fef3039"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO Out EXT_VRST mask.  <a href="#a44d92cc10a5825726f4ab69f1fef3039">More...</a><br /></td></tr>
+<tr class="separator:a44d92cc10a5825726f4ab69f1fef3039"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67a9be2365d43364996b89791e0f45aa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx__hw_8h.html#a67a9be2365d43364996b89791e0f45aa">XV_HDMIRX_PIO_OUT_EXT_SYSRST_MASK</a>&#160;&#160;&#160;(1&lt;&lt;22)</td></tr>
+<tr class="memdesc:a67a9be2365d43364996b89791e0f45aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO Out EXT_SYSRST mask.  <a href="#a67a9be2365d43364996b89791e0f45aa">More...</a><br /></td></tr>
+<tr class="separator:a67a9be2365d43364996b89791e0f45aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac130c5fe1e9b758f5461b5ef6cd6d22"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx__hw_8h.html#aac130c5fe1e9b758f5461b5ef6cd6d22">XV_HDMIRX_PIO_IN_DET_MASK</a>&#160;&#160;&#160;(1&lt;&lt;0)</td></tr>
 <tr class="memdesc:aac130c5fe1e9b758f5461b5ef6cd6d22"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO In cable detect mask.  <a href="#aac130c5fe1e9b758f5461b5ef6cd6d22">More...</a><br /></td></tr>
 <tr class="separator:aac130c5fe1e9b758f5461b5ef6cd6d22"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -226,6 +241,12 @@ Macros</h2></td></tr>
 <tr class="memitem:af439412374d6713f5b5a375c54d9df68"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx__hw_8h.html#af439412374d6713f5b5a375c54d9df68">XV_HDMIRX_PIO_IN_SCDC_TMDS_CLOCK_RATIO_MASK</a>&#160;&#160;&#160;(1&lt;&lt;8)</td></tr>
 <tr class="memdesc:af439412374d6713f5b5a375c54d9df68"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO In SCDC TMDS clock ratio mask.  <a href="#af439412374d6713f5b5a375c54d9df68">More...</a><br /></td></tr>
 <tr class="separator:af439412374d6713f5b5a375c54d9df68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd03df9d68c4ed7f25d23ee69306f407"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx__hw_8h.html#acd03df9d68c4ed7f25d23ee69306f407">XV_HDMIRX_PIO_IN_ALIGNER_LOCK_MASK</a>&#160;&#160;&#160;(1&lt;&lt;9)</td></tr>
+<tr class="memdesc:acd03df9d68c4ed7f25d23ee69306f407"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO In alinger lock mask.  <a href="#acd03df9d68c4ed7f25d23ee69306f407">More...</a><br /></td></tr>
+<tr class="separator:acd03df9d68c4ed7f25d23ee69306f407"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0b106779d6898b53b151f107745c119"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx__hw_8h.html#aa0b106779d6898b53b151f107745c119">XV_HDMIRX_PIO_IN_BRDG_OVERFLOW_MASK</a>&#160;&#160;&#160;(1&lt;&lt;10)</td></tr>
+<tr class="memdesc:aa0b106779d6898b53b151f107745c119"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO In bridge overflow mask.  <a href="#aa0b106779d6898b53b151f107745c119">More...</a><br /></td></tr>
+<tr class="separator:aa0b106779d6898b53b151f107745c119"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0cf543f243de78f481f48c4639ac1f94"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx__hw_8h.html#a0cf543f243de78f481f48c4639ac1f94">XV_HDMIRX_TMR_ID_OFFSET</a>&#160;&#160;&#160;((XV_HDMIRX_TMR_BASE)+(0*4))</td></tr>
 <tr class="memdesc:a0cf543f243de78f481f48c4639ac1f94"><td class="mdescLeft">&#160;</td><td class="mdescRight">TMR Identification register offset.  <a href="#a0cf543f243de78f481f48c4639ac1f94">More...</a><br /></td></tr>
 <tr class="separator:a0cf543f243de78f481f48c4639ac1f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -511,6 +532,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a031ed61017975ae43a74b82e80a499a3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx__hw_8h.html#a031ed61017975ae43a74b82e80a499a3">XV_HDMIRX_AUX_STA_FIFO_FL_MASK</a>&#160;&#160;&#160;(1&lt;&lt;6)</td></tr>
 <tr class="memdesc:a031ed61017975ae43a74b82e80a499a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">AUX Status FIFO Full mask.  <a href="#a031ed61017975ae43a74b82e80a499a3">More...</a><br /></td></tr>
 <tr class="separator:a031ed61017975ae43a74b82e80a499a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20f3cfcfccb4fa2a3cb1c8503217c08c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx__hw_8h.html#a20f3cfcfccb4fa2a3cb1c8503217c08c">XV_HDMIRX_AUX_STA_GCP_CD_EVT_MASK</a>&#160;&#160;&#160;(1&lt;&lt;25)</td></tr>
+<tr class="memdesc:a20f3cfcfccb4fa2a3cb1c8503217c08c"><td class="mdescLeft">&#160;</td><td class="mdescRight">AUX Status GCP ColorDepth mask.  <a href="#a20f3cfcfccb4fa2a3cb1c8503217c08c">More...</a><br /></td></tr>
+<tr class="separator:a20f3cfcfccb4fa2a3cb1c8503217c08c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e4a698c7fee38a5e5a92cc9530c1c1a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx__hw_8h.html#a2e4a698c7fee38a5e5a92cc9530c1c1a">XV_HDMIRX_AUX_STA_GCP_AVMUTE_MASK</a>&#160;&#160;&#160;(1&lt;&lt;31)</td></tr>
 <tr class="memdesc:a2e4a698c7fee38a5e5a92cc9530c1c1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">AUX Status GCP avmute mask.  <a href="#a2e4a698c7fee38a5e5a92cc9530c1c1a">More...</a><br /></td></tr>
 <tr class="separator:a2e4a698c7fee38a5e5a92cc9530c1c1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1197,6 +1221,22 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>AUX Status GCP avmute mask. </p>
+
+</div>
+</div>
+<a id="a20f3cfcfccb4fa2a3cb1c8503217c08c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20f3cfcfccb4fa2a3cb1c8503217c08c">&#9670;&nbsp;</a></span>XV_HDMIRX_AUX_STA_GCP_CD_EVT_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMIRX_AUX_STA_GCP_CD_EVT_MASK&#160;&#160;&#160;(1&lt;&lt;25)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>AUX Status GCP ColorDepth mask. </p>
 
 </div>
 </div>
@@ -2488,6 +2528,38 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a id="acd03df9d68c4ed7f25d23ee69306f407"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd03df9d68c4ed7f25d23ee69306f407">&#9670;&nbsp;</a></span>XV_HDMIRX_PIO_IN_ALIGNER_LOCK_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMIRX_PIO_IN_ALIGNER_LOCK_MASK&#160;&#160;&#160;(1&lt;&lt;9)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO In alinger lock mask. </p>
+
+</div>
+</div>
+<a id="aa0b106779d6898b53b151f107745c119"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0b106779d6898b53b151f107745c119">&#9670;&nbsp;</a></span>XV_HDMIRX_PIO_IN_BRDG_OVERFLOW_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMIRX_PIO_IN_BRDG_OVERFLOW_MASK&#160;&#160;&#160;(1&lt;&lt;10)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO In bridge overflow mask. </p>
+
+</div>
+</div>
 <a id="aac130c5fe1e9b758f5461b5ef6cd6d22"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aac130c5fe1e9b758f5461b5ef6cd6d22">&#9670;&nbsp;</a></span>XV_HDMIRX_PIO_IN_DET_MASK</h2>
 
@@ -2762,7 +2834,7 @@ Macros</h2></td></tr>
 
 <p>PIO Out Register Clear offset. </p>
 
-<p class="reference">Referenced by <a class="el" href="xv__hdmirx_8h.html#a8601d159dffdd4fd77d05d248b366a54">XV_HdmiRx_SetHpd()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xv__hdmirx_8h.html#ac7e573a18cc3fce40df684e53433ac3b">XV_HdmiRx_EXT_SYSRST()</a>, <a class="el" href="xv__hdmirx_8h.html#aee47f6ad9b1b97962b16b90ccd7ee851">XV_HdmiRx_EXT_VRST()</a>, <a class="el" href="xv__hdmirx_8h.html#ae24d729d135dccfda7ff0c9757e36181">XV_HdmiRx_INT_LRST()</a>, <a class="el" href="xv__hdmirx_8h.html#a9075952d1ee753ba1bf92ea8643359f5">XV_HdmiRx_INT_VRST()</a>, and <a class="el" href="xv__hdmirx_8h.html#a8601d159dffdd4fd77d05d248b366a54">XV_HdmiRx_SetHpd()</a>.</p>
 
 </div>
 </div>
@@ -2834,6 +2906,42 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a id="a67a9be2365d43364996b89791e0f45aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67a9be2365d43364996b89791e0f45aa">&#9670;&nbsp;</a></span>XV_HDMIRX_PIO_OUT_EXT_SYSRST_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMIRX_PIO_OUT_EXT_SYSRST_MASK&#160;&#160;&#160;(1&lt;&lt;22)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO Out EXT_SYSRST mask. </p>
+
+<p class="reference">Referenced by <a class="el" href="xv__hdmirx_8h.html#ac7e573a18cc3fce40df684e53433ac3b">XV_HdmiRx_EXT_SYSRST()</a>.</p>
+
+</div>
+</div>
+<a id="a44d92cc10a5825726f4ab69f1fef3039"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44d92cc10a5825726f4ab69f1fef3039">&#9670;&nbsp;</a></span>XV_HDMIRX_PIO_OUT_EXT_VRST_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMIRX_PIO_OUT_EXT_VRST_MASK&#160;&#160;&#160;(1&lt;&lt;21)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO Out EXT_VRST mask. </p>
+
+<p class="reference">Referenced by <a class="el" href="xv__hdmirx_8h.html#aee47f6ad9b1b97962b16b90ccd7ee851">XV_HdmiRx_EXT_VRST()</a>.</p>
+
+</div>
+</div>
 <a id="a51974eaab5f1447924b24e7ad9795f41"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a51974eaab5f1447924b24e7ad9795f41">&#9670;&nbsp;</a></span>XV_HDMIRX_PIO_OUT_HPD_MASK</h2>
 
@@ -2849,6 +2957,42 @@ Macros</h2></td></tr>
 <p>PIO Out Hot-Plug Detect mask. </p>
 
 <p class="reference">Referenced by <a class="el" href="xv__hdmirx_8h.html#a8601d159dffdd4fd77d05d248b366a54">XV_HdmiRx_SetHpd()</a>.</p>
+
+</div>
+</div>
+<a id="a218ac4dfa25332f50ef814896cbc645a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a218ac4dfa25332f50ef814896cbc645a">&#9670;&nbsp;</a></span>XV_HDMIRX_PIO_OUT_INT_LRST_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMIRX_PIO_OUT_INT_LRST_MASK&#160;&#160;&#160;(1&lt;&lt;20)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO Out INT_LRST mask. </p>
+
+<p class="reference">Referenced by <a class="el" href="xv__hdmirx_8h.html#ae24d729d135dccfda7ff0c9757e36181">XV_HdmiRx_INT_LRST()</a>.</p>
+
+</div>
+</div>
+<a id="a122cccfebb05738c47f29c3880fdafee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a122cccfebb05738c47f29c3880fdafee">&#9670;&nbsp;</a></span>XV_HDMIRX_PIO_OUT_INT_VRST_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMIRX_PIO_OUT_INT_VRST_MASK&#160;&#160;&#160;(1&lt;&lt;0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO Out INT_VRST mask. </p>
+
+<p class="reference">Referenced by <a class="el" href="xv__hdmirx_8h.html#a9075952d1ee753ba1bf92ea8643359f5">XV_HdmiRx_INT_VRST()</a>.</p>
 
 </div>
 </div>
@@ -3018,7 +3162,7 @@ Macros</h2></td></tr>
 
 <p>PIO Out Register Set offset. </p>
 
-<p class="reference">Referenced by <a class="el" href="xv__hdmirx_8h.html#a8601d159dffdd4fd77d05d248b366a54">XV_HdmiRx_SetHpd()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xv__hdmirx_8h.html#ac7e573a18cc3fce40df684e53433ac3b">XV_HdmiRx_EXT_SYSRST()</a>, <a class="el" href="xv__hdmirx_8h.html#aee47f6ad9b1b97962b16b90ccd7ee851">XV_HdmiRx_EXT_VRST()</a>, <a class="el" href="xv__hdmirx_8h.html#ae24d729d135dccfda7ff0c9757e36181">XV_HdmiRx_INT_LRST()</a>, <a class="el" href="xv__hdmirx_8h.html#a9075952d1ee753ba1bf92ea8643359f5">XV_HdmiRx_INT_VRST()</a>, and <a class="el" href="xv__hdmirx_8h.html#a8601d159dffdd4fd77d05d248b366a54">XV_HdmiRx_SetHpd()</a>.</p>
 
 </div>
 </div>
@@ -3847,7 +3991,7 @@ Macros</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="xv__hdmirx__hw_8h.html#a407dbf36f2752c30d265e3a8a25d29fe" title="This macro writes a value to a HDMI RX register. ">XV_HdmiRx_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Data)</a> </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="xv__hdmirx_8h.html#ac1b7e27bd3874e33114b2e0210f54d4c">XV_HdmiRx_ClearLinkStatus()</a>, <a class="el" href="xv__hdmirx_8h.html#a7d5ad8989577d890a1df04c252daa478">XV_HdmiRx_DdcHdcpSetAddress()</a>, <a class="el" href="xv__hdmirx_8h.html#a7cc9095feabfbd561eeb22c90f793a7b">XV_HdmiRx_DdcHdcpWriteData()</a>, <a class="el" href="xv__hdmirx_8h.html#a15aff8e40535d72186c05dcdd2e5aa93">XV_HdmiRx_DdcLoadEdid()</a>, <a class="el" href="xv__hdmirx_8h.html#a72457c11b43becc2fd5bffc1b748bf30">XV_HdmiRx_SetColorFormat()</a>, <a class="el" href="xv__hdmirx_8h.html#a8601d159dffdd4fd77d05d248b366a54">XV_HdmiRx_SetHpd()</a>, and <a class="el" href="xv__hdmirx_8h.html#ab48ac8ab5eeddd6197c6220db1ac8ee5">XV_HdmiRx_SetPixelRate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xv__hdmirx_8h.html#ac1b7e27bd3874e33114b2e0210f54d4c">XV_HdmiRx_ClearLinkStatus()</a>, <a class="el" href="xv__hdmirx_8h.html#a7d5ad8989577d890a1df04c252daa478">XV_HdmiRx_DdcHdcpSetAddress()</a>, <a class="el" href="xv__hdmirx_8h.html#a7cc9095feabfbd561eeb22c90f793a7b">XV_HdmiRx_DdcHdcpWriteData()</a>, <a class="el" href="xv__hdmirx_8h.html#a15aff8e40535d72186c05dcdd2e5aa93">XV_HdmiRx_DdcLoadEdid()</a>, <a class="el" href="xv__hdmirx_8h.html#ac7e573a18cc3fce40df684e53433ac3b">XV_HdmiRx_EXT_SYSRST()</a>, <a class="el" href="xv__hdmirx_8h.html#aee47f6ad9b1b97962b16b90ccd7ee851">XV_HdmiRx_EXT_VRST()</a>, <a class="el" href="xv__hdmirx_8h.html#ae24d729d135dccfda7ff0c9757e36181">XV_HdmiRx_INT_LRST()</a>, <a class="el" href="xv__hdmirx_8h.html#a9075952d1ee753ba1bf92ea8643359f5">XV_HdmiRx_INT_VRST()</a>, <a class="el" href="xv__hdmirx_8h.html#a72457c11b43becc2fd5bffc1b748bf30">XV_HdmiRx_SetColorFormat()</a>, <a class="el" href="xv__hdmirx_8h.html#a8601d159dffdd4fd77d05d248b366a54">XV_HdmiRx_SetHpd()</a>, and <a class="el" href="xv__hdmirx_8h.html#ab48ac8ab5eeddd6197c6220db1ac8ee5">XV_HdmiRx_SetPixelRate()</a>.</p>
 
 </div>
 </div>

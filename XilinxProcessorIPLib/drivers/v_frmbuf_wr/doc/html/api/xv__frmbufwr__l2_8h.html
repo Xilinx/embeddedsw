@@ -65,6 +65,7 @@ $(document).ready(function(){initNavTree('xv__frmbufwr__l2_8h.html','');});
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xv_frmbufwr_l2.h File Reference</div>  </div>
@@ -79,103 +80,616 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga19aa6a466e3ade4418a6aaa1d347b26c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga19aa6a466e3ade4418a6aaa1d347b26c">XVFrmbufWr_IsRGBX8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.RGBX8En)</td></tr>
-<tr class="memdesc:ga19aa6a466e3ade4418a6aaa1d347b26c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format RGBX8 is available.  <a href="group__v__frmbuf__wr.html#ga19aa6a466e3ade4418a6aaa1d347b26c">More...</a><br /></td></tr>
-<tr class="separator:ga19aa6a466e3ade4418a6aaa1d347b26c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga417e541e7cb4be763f8cce44e3839fdd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga417e541e7cb4be763f8cce44e3839fdd">XVFrmbufWr_IsYUVX8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.YUVX8En)</td></tr>
-<tr class="memdesc:ga417e541e7cb4be763f8cce44e3839fdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format YUVX8 is available.  <a href="group__v__frmbuf__wr.html#ga417e541e7cb4be763f8cce44e3839fdd">More...</a><br /></td></tr>
-<tr class="separator:ga417e541e7cb4be763f8cce44e3839fdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gace6c2de36a55c6fb4a000609a88c8348"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gace6c2de36a55c6fb4a000609a88c8348">XVFrmbufWr_IsYUYV8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.YUYV8En)</td></tr>
-<tr class="memdesc:gace6c2de36a55c6fb4a000609a88c8348"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format YUYV8 is available.  <a href="group__v__frmbuf__wr.html#gace6c2de36a55c6fb4a000609a88c8348">More...</a><br /></td></tr>
-<tr class="separator:gace6c2de36a55c6fb4a000609a88c8348"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1f483e2f3d75e138566163021144ac6a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga1f483e2f3d75e138566163021144ac6a">XVFrmbufWr_IsRGBX10Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.RGBX10En)</td></tr>
-<tr class="memdesc:ga1f483e2f3d75e138566163021144ac6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format RGBX10 is available.  <a href="group__v__frmbuf__wr.html#ga1f483e2f3d75e138566163021144ac6a">More...</a><br /></td></tr>
-<tr class="separator:ga1f483e2f3d75e138566163021144ac6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae3a212bbac15f70252c90abde8b945c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gae3a212bbac15f70252c90abde8b945c7">XVFrmbufWr_IsYUVX10Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.YUVX10En)</td></tr>
-<tr class="memdesc:gae3a212bbac15f70252c90abde8b945c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format YUVX10 is available.  <a href="group__v__frmbuf__wr.html#gae3a212bbac15f70252c90abde8b945c7">More...</a><br /></td></tr>
-<tr class="separator:gae3a212bbac15f70252c90abde8b945c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadf587e3fcdfc069da29ea00b1723208b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gadf587e3fcdfc069da29ea00b1723208b">XVFrmbufWr_IsY_UV8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y_UV8En)</td></tr>
-<tr class="memdesc:gadf587e3fcdfc069da29ea00b1723208b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format Y_UV8 is available.  <a href="group__v__frmbuf__wr.html#gadf587e3fcdfc069da29ea00b1723208b">More...</a><br /></td></tr>
-<tr class="separator:gadf587e3fcdfc069da29ea00b1723208b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga452143cc276f467abcd82f6e6fd18477"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga452143cc276f467abcd82f6e6fd18477">XVFrmbufWr_IsY_UV8_420Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y_UV8_420En)</td></tr>
-<tr class="memdesc:ga452143cc276f467abcd82f6e6fd18477"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format Y_UV8_420 is available.  <a href="group__v__frmbuf__wr.html#ga452143cc276f467abcd82f6e6fd18477">More...</a><br /></td></tr>
-<tr class="separator:ga452143cc276f467abcd82f6e6fd18477"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae801db647299b33a32690e944c71144c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gae801db647299b33a32690e944c71144c">XVFrmbufWr_IsRGB8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.RGB8En)</td></tr>
-<tr class="memdesc:gae801db647299b33a32690e944c71144c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format RGB8 is available.  <a href="group__v__frmbuf__wr.html#gae801db647299b33a32690e944c71144c">More...</a><br /></td></tr>
-<tr class="separator:gae801db647299b33a32690e944c71144c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga33f7a0ee2961e09ad812606492b19486"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga33f7a0ee2961e09ad812606492b19486">XVFrmbufWr_IsYUV8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.YUV8En)</td></tr>
-<tr class="memdesc:ga33f7a0ee2961e09ad812606492b19486"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format YUV8 is available.  <a href="group__v__frmbuf__wr.html#ga33f7a0ee2961e09ad812606492b19486">More...</a><br /></td></tr>
-<tr class="separator:ga33f7a0ee2961e09ad812606492b19486"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4c43d86c33361db3072a00a0f196dbea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga4c43d86c33361db3072a00a0f196dbea">XVFrmbufWr_IsY_UV10Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y_UV10En)</td></tr>
-<tr class="memdesc:ga4c43d86c33361db3072a00a0f196dbea"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format Y_UV10 is available.  <a href="group__v__frmbuf__wr.html#ga4c43d86c33361db3072a00a0f196dbea">More...</a><br /></td></tr>
-<tr class="separator:ga4c43d86c33361db3072a00a0f196dbea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga545f80fb4a287747fa9d6dc835841779"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga545f80fb4a287747fa9d6dc835841779">XVFrmbufWr_IsY_UV10_420Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y_UV10_420En)</td></tr>
-<tr class="memdesc:ga545f80fb4a287747fa9d6dc835841779"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format Y_UV10_420 is available.  <a href="group__v__frmbuf__wr.html#ga545f80fb4a287747fa9d6dc835841779">More...</a><br /></td></tr>
-<tr class="separator:ga545f80fb4a287747fa9d6dc835841779"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa1e55cb22cc4068c537c46a90ac92780"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gaa1e55cb22cc4068c537c46a90ac92780">XVFrmbufWr_IsY8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y8En)</td></tr>
-<tr class="memdesc:gaa1e55cb22cc4068c537c46a90ac92780"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format Y8 is available.  <a href="group__v__frmbuf__wr.html#gaa1e55cb22cc4068c537c46a90ac92780">More...</a><br /></td></tr>
-<tr class="separator:gaa1e55cb22cc4068c537c46a90ac92780"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf1770374c9e79b957c4c5da9985ddca1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gaf1770374c9e79b957c4c5da9985ddca1">XVFrmbufWr_IsY10Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y10En)</td></tr>
-<tr class="memdesc:gaf1770374c9e79b957c4c5da9985ddca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format Y10 is available.  <a href="group__v__frmbuf__wr.html#gaf1770374c9e79b957c4c5da9985ddca1">More...</a><br /></td></tr>
-<tr class="separator:gaf1770374c9e79b957c4c5da9985ddca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacbb8fda38bfa532d79d357c930fbd710"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gacbb8fda38bfa532d79d357c930fbd710">XVFrmbufWr_IsBGRX8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.BGRX8En)</td></tr>
-<tr class="memdesc:gacbb8fda38bfa532d79d357c930fbd710"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format BGRX8 is available.  <a href="group__v__frmbuf__wr.html#gacbb8fda38bfa532d79d357c930fbd710">More...</a><br /></td></tr>
-<tr class="separator:gacbb8fda38bfa532d79d357c930fbd710"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga914c6863bc6772d35dbb8e706f9135b7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga914c6863bc6772d35dbb8e706f9135b7">XVFrmbufWr_IsUYVY8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.UYVY8En)</td></tr>
-<tr class="memdesc:ga914c6863bc6772d35dbb8e706f9135b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format UYVY8 is available.  <a href="group__v__frmbuf__wr.html#ga914c6863bc6772d35dbb8e706f9135b7">More...</a><br /></td></tr>
-<tr class="separator:ga914c6863bc6772d35dbb8e706f9135b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19aa6a466e3ade4418a6aaa1d347b26c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#a19aa6a466e3ade4418a6aaa1d347b26c">XVFrmbufWr_IsRGBX8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.RGBX8En)</td></tr>
+<tr class="memdesc:a19aa6a466e3ade4418a6aaa1d347b26c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format RGBX8 is available.  <a href="#a19aa6a466e3ade4418a6aaa1d347b26c">More...</a><br /></td></tr>
+<tr class="separator:a19aa6a466e3ade4418a6aaa1d347b26c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a417e541e7cb4be763f8cce44e3839fdd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#a417e541e7cb4be763f8cce44e3839fdd">XVFrmbufWr_IsYUVX8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.YUVX8En)</td></tr>
+<tr class="memdesc:a417e541e7cb4be763f8cce44e3839fdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format YUVX8 is available.  <a href="#a417e541e7cb4be763f8cce44e3839fdd">More...</a><br /></td></tr>
+<tr class="separator:a417e541e7cb4be763f8cce44e3839fdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace6c2de36a55c6fb4a000609a88c8348"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#ace6c2de36a55c6fb4a000609a88c8348">XVFrmbufWr_IsYUYV8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.YUYV8En)</td></tr>
+<tr class="memdesc:ace6c2de36a55c6fb4a000609a88c8348"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format YUYV8 is available.  <a href="#ace6c2de36a55c6fb4a000609a88c8348">More...</a><br /></td></tr>
+<tr class="separator:ace6c2de36a55c6fb4a000609a88c8348"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f483e2f3d75e138566163021144ac6a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#a1f483e2f3d75e138566163021144ac6a">XVFrmbufWr_IsRGBX10Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.RGBX10En)</td></tr>
+<tr class="memdesc:a1f483e2f3d75e138566163021144ac6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format RGBX10 is available.  <a href="#a1f483e2f3d75e138566163021144ac6a">More...</a><br /></td></tr>
+<tr class="separator:a1f483e2f3d75e138566163021144ac6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3a212bbac15f70252c90abde8b945c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#ae3a212bbac15f70252c90abde8b945c7">XVFrmbufWr_IsYUVX10Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.YUVX10En)</td></tr>
+<tr class="memdesc:ae3a212bbac15f70252c90abde8b945c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format YUVX10 is available.  <a href="#ae3a212bbac15f70252c90abde8b945c7">More...</a><br /></td></tr>
+<tr class="separator:ae3a212bbac15f70252c90abde8b945c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf587e3fcdfc069da29ea00b1723208b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#adf587e3fcdfc069da29ea00b1723208b">XVFrmbufWr_IsY_UV8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y_UV8En)</td></tr>
+<tr class="memdesc:adf587e3fcdfc069da29ea00b1723208b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format Y_UV8 is available.  <a href="#adf587e3fcdfc069da29ea00b1723208b">More...</a><br /></td></tr>
+<tr class="separator:adf587e3fcdfc069da29ea00b1723208b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a452143cc276f467abcd82f6e6fd18477"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#a452143cc276f467abcd82f6e6fd18477">XVFrmbufWr_IsY_UV8_420Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y_UV8_420En)</td></tr>
+<tr class="memdesc:a452143cc276f467abcd82f6e6fd18477"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format Y_UV8_420 is available.  <a href="#a452143cc276f467abcd82f6e6fd18477">More...</a><br /></td></tr>
+<tr class="separator:a452143cc276f467abcd82f6e6fd18477"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae801db647299b33a32690e944c71144c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#ae801db647299b33a32690e944c71144c">XVFrmbufWr_IsRGB8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.RGB8En)</td></tr>
+<tr class="memdesc:ae801db647299b33a32690e944c71144c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format RGB8 is available.  <a href="#ae801db647299b33a32690e944c71144c">More...</a><br /></td></tr>
+<tr class="separator:ae801db647299b33a32690e944c71144c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33f7a0ee2961e09ad812606492b19486"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#a33f7a0ee2961e09ad812606492b19486">XVFrmbufWr_IsYUV8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.YUV8En)</td></tr>
+<tr class="memdesc:a33f7a0ee2961e09ad812606492b19486"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format YUV8 is available.  <a href="#a33f7a0ee2961e09ad812606492b19486">More...</a><br /></td></tr>
+<tr class="separator:a33f7a0ee2961e09ad812606492b19486"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c43d86c33361db3072a00a0f196dbea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#a4c43d86c33361db3072a00a0f196dbea">XVFrmbufWr_IsY_UV10Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y_UV10En)</td></tr>
+<tr class="memdesc:a4c43d86c33361db3072a00a0f196dbea"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format Y_UV10 is available.  <a href="#a4c43d86c33361db3072a00a0f196dbea">More...</a><br /></td></tr>
+<tr class="separator:a4c43d86c33361db3072a00a0f196dbea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a545f80fb4a287747fa9d6dc835841779"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#a545f80fb4a287747fa9d6dc835841779">XVFrmbufWr_IsY_UV10_420Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y_UV10_420En)</td></tr>
+<tr class="memdesc:a545f80fb4a287747fa9d6dc835841779"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format Y_UV10_420 is available.  <a href="#a545f80fb4a287747fa9d6dc835841779">More...</a><br /></td></tr>
+<tr class="separator:a545f80fb4a287747fa9d6dc835841779"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1e55cb22cc4068c537c46a90ac92780"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#aa1e55cb22cc4068c537c46a90ac92780">XVFrmbufWr_IsY8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y8En)</td></tr>
+<tr class="memdesc:aa1e55cb22cc4068c537c46a90ac92780"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format Y8 is available.  <a href="#aa1e55cb22cc4068c537c46a90ac92780">More...</a><br /></td></tr>
+<tr class="separator:aa1e55cb22cc4068c537c46a90ac92780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1770374c9e79b957c4c5da9985ddca1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#af1770374c9e79b957c4c5da9985ddca1">XVFrmbufWr_IsY10Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y10En)</td></tr>
+<tr class="memdesc:af1770374c9e79b957c4c5da9985ddca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format Y10 is available.  <a href="#af1770374c9e79b957c4c5da9985ddca1">More...</a><br /></td></tr>
+<tr class="separator:af1770374c9e79b957c4c5da9985ddca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbb8fda38bfa532d79d357c930fbd710"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#acbb8fda38bfa532d79d357c930fbd710">XVFrmbufWr_IsBGRX8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.BGRX8En)</td></tr>
+<tr class="memdesc:acbb8fda38bfa532d79d357c930fbd710"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format BGRX8 is available.  <a href="#acbb8fda38bfa532d79d357c930fbd710">More...</a><br /></td></tr>
+<tr class="separator:acbb8fda38bfa532d79d357c930fbd710"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a914c6863bc6772d35dbb8e706f9135b7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#a914c6863bc6772d35dbb8e706f9135b7">XVFrmbufWr_IsUYVY8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.UYVY8En)</td></tr>
+<tr class="memdesc:a914c6863bc6772d35dbb8e706f9135b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format UYVY8 is available.  <a href="#a914c6863bc6772d35dbb8e706f9135b7">More...</a><br /></td></tr>
+<tr class="separator:a914c6863bc6772d35dbb8e706f9135b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ffa5d2dc950fdff081a42ad961dd161"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#a3ffa5d2dc950fdff081a42ad961dd161">XVFrmbufWr_IsBGR8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.BGR8En)</td></tr>
+<tr class="memdesc:a3ffa5d2dc950fdff081a42ad961dd161"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format BGR8 is available.  <a href="#a3ffa5d2dc950fdff081a42ad961dd161">More...</a><br /></td></tr>
+<tr class="separator:a3ffa5d2dc950fdff081a42ad961dd161"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1c1f6becc743bf969e23fcb3beeb138"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#af1c1f6becc743bf969e23fcb3beeb138">XVFrmbufWr_InterlacedEnabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Interlaced)</td></tr>
+<tr class="memdesc:af1c1f6becc743bf969e23fcb3beeb138"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if interlaced support is available.  <a href="#af1c1f6becc743bf969e23fcb3beeb138">More...</a><br /></td></tr>
+<tr class="separator:af1c1f6becc743bf969e23fcb3beeb138"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ga4595c9963f01ef0a20784ef370769a8f"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga4595c9963f01ef0a20784ef370769a8f">XVFrmbufWr_Callback</a>) (void *CallbackRef)</td></tr>
-<tr class="memdesc:ga4595c9963f01ef0a20784ef370769a8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback type for interrupt.  <a href="group__v__frmbuf__wr.html#ga4595c9963f01ef0a20784ef370769a8f">More...</a><br /></td></tr>
-<tr class="separator:ga4595c9963f01ef0a20784ef370769a8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4595c9963f01ef0a20784ef370769a8f"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__frmbufwr__l2_8h.html#a4595c9963f01ef0a20784ef370769a8f">XVFrmbufWr_Callback</a>) (void *CallbackRef)</td></tr>
+<tr class="memdesc:a4595c9963f01ef0a20784ef370769a8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback type for interrupt.  <a href="#a4595c9963f01ef0a20784ef370769a8f">More...</a><br /></td></tr>
+<tr class="separator:a4595c9963f01ef0a20784ef370769a8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gaf6ba82d79d84ccc4ee6b505eb629c045"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr__v2__0.html#gaf6ba82d79d84ccc4ee6b505eb629c045">XVFrmbufWr_HandlerType</a> { <a class="el" href="group__v__frmbuf__wr__v2__0.html#ggaf6ba82d79d84ccc4ee6b505eb629c045a3cc801c2a0990cf5bde03a385fd993d0">XVFRMBUFWR_HANDLER_DONE</a> = 1, 
+<a class="el" href="group__v__frmbuf__wr__v2__0.html#ggaf6ba82d79d84ccc4ee6b505eb629c045a651f28f6436d0d5ae6be2581e6871ca7">XVFRMBUFWR_HANDLER_READY</a>
+ }<tr class="memdesc:gaf6ba82d79d84ccc4ee6b505eb629c045"><td class="mdescLeft">&#160;</td><td class="mdescRight">These constants specify different types of handler and used to differentiate interrupt requests from peripheral.  <a href="group__v__frmbuf__wr__v2__0.html#gaf6ba82d79d84ccc4ee6b505eb629c045">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gaf6ba82d79d84ccc4ee6b505eb629c045"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga5453dda299a1e77ed1c692f31dbcb844"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga5453dda299a1e77ed1c692f31dbcb844">XVFrmbufWr_Initialize</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr, u16 DeviceId)</td></tr>
-<tr class="memdesc:ga5453dda299a1e77ed1c692f31dbcb844"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the core instance.  <a href="group__v__frmbuf__wr.html#ga5453dda299a1e77ed1c692f31dbcb844">More...</a><br /></td></tr>
+<tr class="memitem:ga5453dda299a1e77ed1c692f31dbcb844"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr__v2__0.html#ga5453dda299a1e77ed1c692f31dbcb844">XVFrmbufWr_Initialize</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr, u16 DeviceId)</td></tr>
+<tr class="memdesc:ga5453dda299a1e77ed1c692f31dbcb844"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the core instance.  <a href="group__v__frmbuf__wr__v2__0.html#ga5453dda299a1e77ed1c692f31dbcb844">More...</a><br /></td></tr>
 <tr class="separator:ga5453dda299a1e77ed1c692f31dbcb844"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga62c170ef332a536b7461b3ce81def351"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga62c170ef332a536b7461b3ce81def351">XVFrmbufWr_Start</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga62c170ef332a536b7461b3ce81def351"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function starts the core instance.  <a href="group__v__frmbuf__wr.html#ga62c170ef332a536b7461b3ce81def351">More...</a><br /></td></tr>
+<tr class="memitem:ga62c170ef332a536b7461b3ce81def351"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr__v2__0.html#ga62c170ef332a536b7461b3ce81def351">XVFrmbufWr_Start</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga62c170ef332a536b7461b3ce81def351"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function starts the core instance.  <a href="group__v__frmbuf__wr__v2__0.html#ga62c170ef332a536b7461b3ce81def351">More...</a><br /></td></tr>
 <tr class="separator:ga62c170ef332a536b7461b3ce81def351"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0cfe9c77cc5534a27e613e5fc87a8ab4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga0cfe9c77cc5534a27e613e5fc87a8ab4">XVFrmbufWr_Stop</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga0cfe9c77cc5534a27e613e5fc87a8ab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function stops the core instance.  <a href="group__v__frmbuf__wr.html#ga0cfe9c77cc5534a27e613e5fc87a8ab4">More...</a><br /></td></tr>
+<tr class="memitem:ga0cfe9c77cc5534a27e613e5fc87a8ab4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr__v2__0.html#ga0cfe9c77cc5534a27e613e5fc87a8ab4">XVFrmbufWr_Stop</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga0cfe9c77cc5534a27e613e5fc87a8ab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function stops the core instance.  <a href="group__v__frmbuf__wr__v2__0.html#ga0cfe9c77cc5534a27e613e5fc87a8ab4">More...</a><br /></td></tr>
 <tr class="separator:ga0cfe9c77cc5534a27e613e5fc87a8ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4951453d9f7373886327dbbcb8b3ada2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga4951453d9f7373886327dbbcb8b3ada2">XVFrmbufWr_SetMemFormat</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr, u32 StrideInBytes, XVidC_ColorFormat MemFmt, const XVidC_VideoStream *StrmIn)</td></tr>
-<tr class="memdesc:ga4951453d9f7373886327dbbcb8b3ada2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures the frame buffer write memory output.  <a href="group__v__frmbuf__wr.html#ga4951453d9f7373886327dbbcb8b3ada2">More...</a><br /></td></tr>
+<tr class="memitem:ga4951453d9f7373886327dbbcb8b3ada2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr__v2__0.html#ga4951453d9f7373886327dbbcb8b3ada2">XVFrmbufWr_SetMemFormat</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr, u32 StrideInBytes, XVidC_ColorFormat MemFmt, const XVidC_VideoStream *StrmIn)</td></tr>
+<tr class="memdesc:ga4951453d9f7373886327dbbcb8b3ada2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures the frame buffer write memory output.  <a href="group__v__frmbuf__wr__v2__0.html#ga4951453d9f7373886327dbbcb8b3ada2">More...</a><br /></td></tr>
 <tr class="separator:ga4951453d9f7373886327dbbcb8b3ada2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga154001be77ee99cb94fb550980c57016"><td class="memItemLeft" align="right" valign="top">XVidC_VideoStream *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga154001be77ee99cb94fb550980c57016">XVFrmbufWr_GetVideoStream</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga154001be77ee99cb94fb550980c57016"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the pointer to the output stream configuration.  <a href="group__v__frmbuf__wr.html#ga154001be77ee99cb94fb550980c57016">More...</a><br /></td></tr>
-<tr class="separator:ga154001be77ee99cb94fb550980c57016"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga65a4ff585ac85c574eb6111848e3b2c9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga65a4ff585ac85c574eb6111848e3b2c9">XVFrmbufWr_SetBufferAddr</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr, UINTPTR Addr)</td></tr>
-<tr class="memdesc:ga65a4ff585ac85c574eb6111848e3b2c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the buffer address.  <a href="group__v__frmbuf__wr.html#ga65a4ff585ac85c574eb6111848e3b2c9">More...</a><br /></td></tr>
+<tr class="memitem:ga628707a22dc9888af5371e4e7fc82b68"><td class="memItemLeft" align="right" valign="top">XVidC_VideoStream *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr__v2__0.html#ga628707a22dc9888af5371e4e7fc82b68">XVFrmbufWr_GetVideoStream</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga628707a22dc9888af5371e4e7fc82b68"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the pointer to the output stream configuration.  <a href="group__v__frmbuf__wr__v2__0.html#ga628707a22dc9888af5371e4e7fc82b68">More...</a><br /></td></tr>
+<tr class="separator:ga628707a22dc9888af5371e4e7fc82b68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga65a4ff585ac85c574eb6111848e3b2c9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr__v2__0.html#ga65a4ff585ac85c574eb6111848e3b2c9">XVFrmbufWr_SetBufferAddr</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr, UINTPTR Addr)</td></tr>
+<tr class="memdesc:ga65a4ff585ac85c574eb6111848e3b2c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the buffer address.  <a href="group__v__frmbuf__wr__v2__0.html#ga65a4ff585ac85c574eb6111848e3b2c9">More...</a><br /></td></tr>
 <tr class="separator:ga65a4ff585ac85c574eb6111848e3b2c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafd87229d20fa2601db7c527f10d4425f"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gafd87229d20fa2601db7c527f10d4425f">XVFrmbufWr_GetBufferAddr</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gafd87229d20fa2601db7c527f10d4425f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the buffer address.  <a href="group__v__frmbuf__wr.html#gafd87229d20fa2601db7c527f10d4425f">More...</a><br /></td></tr>
+<tr class="memitem:gafd87229d20fa2601db7c527f10d4425f"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr__v2__0.html#gafd87229d20fa2601db7c527f10d4425f">XVFrmbufWr_GetBufferAddr</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gafd87229d20fa2601db7c527f10d4425f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the buffer address.  <a href="group__v__frmbuf__wr__v2__0.html#gafd87229d20fa2601db7c527f10d4425f">More...</a><br /></td></tr>
 <tr class="separator:gafd87229d20fa2601db7c527f10d4425f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae3ad3f1fa2f369041d8e9ab7683a05b0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gae3ad3f1fa2f369041d8e9ab7683a05b0">XVFrmbufWr_SetChromaBufferAddr</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr, UINTPTR Addr)</td></tr>
-<tr class="memdesc:gae3ad3f1fa2f369041d8e9ab7683a05b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the buffer address for the UV plane for semi-planar formats.  <a href="group__v__frmbuf__wr.html#gae3ad3f1fa2f369041d8e9ab7683a05b0">More...</a><br /></td></tr>
+<tr class="memitem:gae3ad3f1fa2f369041d8e9ab7683a05b0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr__v2__0.html#gae3ad3f1fa2f369041d8e9ab7683a05b0">XVFrmbufWr_SetChromaBufferAddr</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr, UINTPTR Addr)</td></tr>
+<tr class="memdesc:gae3ad3f1fa2f369041d8e9ab7683a05b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the buffer address for the UV plane for semi-planar formats.  <a href="group__v__frmbuf__wr__v2__0.html#gae3ad3f1fa2f369041d8e9ab7683a05b0">More...</a><br /></td></tr>
 <tr class="separator:gae3ad3f1fa2f369041d8e9ab7683a05b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaeea208892ad56d1c83915b753f15d6f3"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gaeea208892ad56d1c83915b753f15d6f3">XVFrmbufWr_GetChromaBufferAddr</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaeea208892ad56d1c83915b753f15d6f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the buffer address for the UV plane for semi-planar formats.  <a href="group__v__frmbuf__wr.html#gaeea208892ad56d1c83915b753f15d6f3">More...</a><br /></td></tr>
+<tr class="memitem:gaeea208892ad56d1c83915b753f15d6f3"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr__v2__0.html#gaeea208892ad56d1c83915b753f15d6f3">XVFrmbufWr_GetChromaBufferAddr</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gaeea208892ad56d1c83915b753f15d6f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the buffer address for the UV plane for semi-planar formats.  <a href="group__v__frmbuf__wr__v2__0.html#gaeea208892ad56d1c83915b753f15d6f3">More...</a><br /></td></tr>
 <tr class="separator:gaeea208892ad56d1c83915b753f15d6f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7aa0fd061e4c759a245ec57b551d8d21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga7aa0fd061e4c759a245ec57b551d8d21">XVFrmbufWr_DbgReportStatus</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga7aa0fd061e4c759a245ec57b551d8d21"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reports the frame buffer write status.  <a href="group__v__frmbuf__wr.html#ga7aa0fd061e4c759a245ec57b551d8d21">More...</a><br /></td></tr>
+<tr class="memitem:ga02ac61b5da119e29efb4fcb6bb0a8340"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr__v2__0.html#ga02ac61b5da119e29efb4fcb6bb0a8340">XVFrmbufWr_GetFieldID</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga02ac61b5da119e29efb4fcb6bb0a8340"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the field ID.  <a href="group__v__frmbuf__wr__v2__0.html#ga02ac61b5da119e29efb4fcb6bb0a8340">More...</a><br /></td></tr>
+<tr class="separator:ga02ac61b5da119e29efb4fcb6bb0a8340"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7aa0fd061e4c759a245ec57b551d8d21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr__v2__0.html#ga7aa0fd061e4c759a245ec57b551d8d21">XVFrmbufWr_DbgReportStatus</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga7aa0fd061e4c759a245ec57b551d8d21"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reports the frame buffer write status.  <a href="group__v__frmbuf__wr__v2__0.html#ga7aa0fd061e4c759a245ec57b551d8d21">More...</a><br /></td></tr>
 <tr class="separator:ga7aa0fd061e4c759a245ec57b551d8d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadea6cdf3f0eca400d18bf3b31b87e9c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gadea6cdf3f0eca400d18bf3b31b87e9c7">XVFrmbufWr_InterruptHandler</a> (void *InstancePtr)</td></tr>
-<tr class="memdesc:gadea6cdf3f0eca400d18bf3b31b87e9c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the frame buffer wrote core driver.  <a href="group__v__frmbuf__wr.html#gadea6cdf3f0eca400d18bf3b31b87e9c7">More...</a><br /></td></tr>
-<tr class="separator:gadea6cdf3f0eca400d18bf3b31b87e9c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2dda5edc0f537afe14160ec992c617b6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga2dda5edc0f537afe14160ec992c617b6">XVFrmbufWr_SetCallback</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr, void *CallbackFunc, void *CallbackRef)</td></tr>
-<tr class="memdesc:ga2dda5edc0f537afe14160ec992c617b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function installs an asynchronous callback function for Frame Buffer Write interrupt.  <a href="group__v__frmbuf__wr.html#ga2dda5edc0f537afe14160ec992c617b6">More...</a><br /></td></tr>
-<tr class="separator:ga2dda5edc0f537afe14160ec992c617b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5a20b09b1a055f83c7aa5ed93c373a4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga5a20b09b1a055f83c7aa5ed93c373a4c">XVFrmbufWr_InterruptEnable</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga5a20b09b1a055f83c7aa5ed93c373a4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables interrupts in the core.  <a href="group__v__frmbuf__wr.html#ga5a20b09b1a055f83c7aa5ed93c373a4c">More...</a><br /></td></tr>
-<tr class="separator:ga5a20b09b1a055f83c7aa5ed93c373a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabe1515148b5cb44e7e65ccfedd7bc9bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gabe1515148b5cb44e7e65ccfedd7bc9bc">XVFrmbufWr_InterruptDisable</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gabe1515148b5cb44e7e65ccfedd7bc9bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables interrupts in the core.  <a href="group__v__frmbuf__wr.html#gabe1515148b5cb44e7e65ccfedd7bc9bc">More...</a><br /></td></tr>
-<tr class="separator:gabe1515148b5cb44e7e65ccfedd7bc9bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga918ae9aa7c4a277140c79880b91b5217"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr__v2__0.html#ga918ae9aa7c4a277140c79880b91b5217">XVFrmbufWr_InterruptEnable</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr, u32 IrqMask)</td></tr>
+<tr class="memdesc:ga918ae9aa7c4a277140c79880b91b5217"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables interrupts in the core.  <a href="group__v__frmbuf__wr__v2__0.html#ga918ae9aa7c4a277140c79880b91b5217">More...</a><br /></td></tr>
+<tr class="separator:ga918ae9aa7c4a277140c79880b91b5217"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacb9da6afd1c85b903b5d19048f2079f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr__v2__0.html#gacb9da6afd1c85b903b5d19048f2079f4">XVFrmbufWr_InterruptDisable</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr, u32 IrqMask)</td></tr>
+<tr class="memdesc:gacb9da6afd1c85b903b5d19048f2079f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables interrupts in the core.  <a href="group__v__frmbuf__wr__v2__0.html#gacb9da6afd1c85b903b5d19048f2079f4">More...</a><br /></td></tr>
+<tr class="separator:gacb9da6afd1c85b903b5d19048f2079f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="af1c1f6becc743bf969e23fcb3beeb138"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1c1f6becc743bf969e23fcb3beeb138">&#9670;&nbsp;</a></span>XVFrmbufWr_InterlacedEnabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_InterlacedEnabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Interlaced)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if interlaced support is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a3ffa5d2dc950fdff081a42ad961dd161"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ffa5d2dc950fdff081a42ad961dd161">&#9670;&nbsp;</a></span>XVFrmbufWr_IsBGR8Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsBGR8Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.BGR8En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if Video Format BGR8 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="acbb8fda38bfa532d79d357c930fbd710"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbb8fda38bfa532d79d357c930fbd710">&#9670;&nbsp;</a></span>XVFrmbufWr_IsBGRX8Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsBGRX8Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.BGRX8En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if Video Format BGRX8 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="ae801db647299b33a32690e944c71144c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae801db647299b33a32690e944c71144c">&#9670;&nbsp;</a></span>XVFrmbufWr_IsRGB8Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsRGB8Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.RGB8En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if Video Format RGB8 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a1f483e2f3d75e138566163021144ac6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f483e2f3d75e138566163021144ac6a">&#9670;&nbsp;</a></span>XVFrmbufWr_IsRGBX10Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsRGBX10Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.RGBX10En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if Video Format RGBX10 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a19aa6a466e3ade4418a6aaa1d347b26c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19aa6a466e3ade4418a6aaa1d347b26c">&#9670;&nbsp;</a></span>XVFrmbufWr_IsRGBX8Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsRGBX8Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.RGBX8En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if Video Format RGBX8 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a914c6863bc6772d35dbb8e706f9135b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a914c6863bc6772d35dbb8e706f9135b7">&#9670;&nbsp;</a></span>XVFrmbufWr_IsUYVY8Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsUYVY8Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.UYVY8En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if Video Format UYVY8 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="af1770374c9e79b957c4c5da9985ddca1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1770374c9e79b957c4c5da9985ddca1">&#9670;&nbsp;</a></span>XVFrmbufWr_IsY10Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsY10Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y10En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if Video Format Y10 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="aa1e55cb22cc4068c537c46a90ac92780"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1e55cb22cc4068c537c46a90ac92780">&#9670;&nbsp;</a></span>XVFrmbufWr_IsY8Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsY8Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y8En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if Video Format Y8 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a545f80fb4a287747fa9d6dc835841779"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a545f80fb4a287747fa9d6dc835841779">&#9670;&nbsp;</a></span>XVFrmbufWr_IsY_UV10_420Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsY_UV10_420Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y_UV10_420En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if Video Format Y_UV10_420 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a4c43d86c33361db3072a00a0f196dbea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c43d86c33361db3072a00a0f196dbea">&#9670;&nbsp;</a></span>XVFrmbufWr_IsY_UV10Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsY_UV10Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y_UV10En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if Video Format Y_UV10 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a452143cc276f467abcd82f6e6fd18477"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a452143cc276f467abcd82f6e6fd18477">&#9670;&nbsp;</a></span>XVFrmbufWr_IsY_UV8_420Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsY_UV8_420Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y_UV8_420En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if Video Format Y_UV8_420 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="adf587e3fcdfc069da29ea00b1723208b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf587e3fcdfc069da29ea00b1723208b">&#9670;&nbsp;</a></span>XVFrmbufWr_IsY_UV8Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsY_UV8Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y_UV8En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if Video Format Y_UV8 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a33f7a0ee2961e09ad812606492b19486"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33f7a0ee2961e09ad812606492b19486">&#9670;&nbsp;</a></span>XVFrmbufWr_IsYUV8Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsYUV8Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.YUV8En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if Video Format YUV8 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="ae3a212bbac15f70252c90abde8b945c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3a212bbac15f70252c90abde8b945c7">&#9670;&nbsp;</a></span>XVFrmbufWr_IsYUVX10Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsYUVX10Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.YUVX10En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if Video Format YUVX10 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a417e541e7cb4be763f8cce44e3839fdd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a417e541e7cb4be763f8cce44e3839fdd">&#9670;&nbsp;</a></span>XVFrmbufWr_IsYUVX8Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsYUVX8Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.YUVX8En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if Video Format YUVX8 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="ace6c2de36a55c6fb4a000609a88c8348"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace6c2de36a55c6fb4a000609a88c8348">&#9670;&nbsp;</a></span>XVFrmbufWr_IsYUYV8Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsYUYV8Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.YUYV8En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns if Video Format YUYV8 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="a4595c9963f01ef0a20784ef370769a8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4595c9963f01ef0a20784ef370769a8f">&#9670;&nbsp;</a></span>XVFrmbufWr_Callback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* XVFrmbufWr_Callback) (void *CallbackRef)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback type for interrupt. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">CallbackRef</td><td>is a callback reference passed in by the upper layer when setting the callback functions, and passed back to the upper layer when the callback is invoked.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

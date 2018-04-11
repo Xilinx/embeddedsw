@@ -69,7 +69,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p><b>Mixer IP Features </b></p>
 <p>The Mixer IP supports following features</p><ul>
 <li>AXI4-S Master Layer</li>
-<li>Up to 7 optional layers (user configurable)</li>
+<li>Up to 8 optional layers (user configurable)</li>
 <li>Each layer can be configured as Streaming or Memory (build time)<ul>
 <li>Color format for each layer is set at build time</li>
 </ul>
@@ -87,7 +87,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>Layer 1 provides API's to peek/poke registers at HW level.</li>
 <li>Layer 2 provides API's that abstract sub-core functionality, providing an easy to use feature interface</li>
 </ul>
-<p>Before using the layer-2 API's user must initialize the core by calling API <a class="el" href="group__v__mix.html#ga58ff6dc9ac3a65cb92e5f975846e1e09" title="This function initializes the core instance. ">XVMix_Initialize()</a>. This function will look for a configuration structure for the device and initialize it to defined HW settings. It is recommended user always make use of Layer-2 API to interact with this core. Advanced users always have the capability to directly interact with the IP core using Layer-1 API's that perform low level register peek/poke.</p>
+<p>Before using the layer-2 API's user must initialize the core by calling API <a class="el" href="group__v__mix__v3__0.html#ga58ff6dc9ac3a65cb92e5f975846e1e09" title="This function initializes the core instance. ">XVMix_Initialize()</a>. This function will look for a configuration structure for the device and initialize it to defined HW settings. It is recommended user always make use of Layer-2 API to interact with this core. Advanced users always have the capability to directly interact with the IP core using Layer-1 API's that perform low level register peek/poke.</p>
 <p><b>Pre-Requisite's</b></p>
 <p>If optional layers are included in the IP then</p><ul>
 <li>Application must set the memory address for each layer using provided API Address must be aligned to memory width. This can be computed with following equation Align = 2 * PPC * 4 Bytes (where PPC is the Pixels/Clock selected in IP configuration)</li>
@@ -116,6 +116,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 2.00  rco   07/21/16   Used UINTPTR instead of u32 for Baseaddress
             08/03/16   Add Logo Pixel Alpha support
 3.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
+4.00  vyc   04/04/18   Add 8th overlayer
+                       Move logo layer enable from bit 8 to bit 15
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

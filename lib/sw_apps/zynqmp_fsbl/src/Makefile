@@ -68,7 +68,7 @@ S_SOURCES := xfsbl_exit.S
 S_SOURCES += xfsbl_translation_table_a53_$(A53_STATE).S
 OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
 CROSS   :=
-CFLAGS =  -Wall -O0 -g3 -fmessage-length=0
+CFLAGS =  -Wall -O0 -g3 -fmessage-length=0 
 ECFLAGS = -march=armv8-a -DARMA53_$(A53_STATE) -Os -flto -ffat-lto-objects
 EXEC := ron_a53_fsbl.elf
 INCLUDEPATH := -I$(BSP_DIR)/psu_cortexa53_0/include -I. -I../misc/$(BOARD)/$(PROC) -I../misc/$(BOARD)

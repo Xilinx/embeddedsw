@@ -91,7 +91,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
            02/08/17   Fix C++ compilation warnings
            02/15/17   Fix custom resolution support for 1 PPC configuration
 2.40  vyc  10/04/17   Added support for conversion from 420/422/444/RGB to
-                      420/422/444/RGB with CSC-only topology</pre><pre></pre> </div><table class="memberdecls">
+                      420/422/444/RGB with CSC-only topology
+2.50  vyc  04/04/18   Fix for HScaler setup with 420 input</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Reset Network</div></td></tr>
@@ -322,7 +323,7 @@ const u16&#160;</td><td class="memItemRight" valign="bottom"><b>XVprocSs_PixelHS
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if initialization is successful else XST_FAILURE </dd></dl>
 
-<p class="reference">References <a class="el" href="group__vprocss.html#ggadda80cee8527fb0dac1e98e657f12cd9acc9fe81f5f5652e44b0769a046a02490">XVPROCSS_EVT_INIT</a>, and <a class="el" href="xvprocss_8h.html#a477ddfa18fa5fda8658ec72fb29a2d25">XVprocSs_LogWrite()</a>.</p>
+<p class="reference">References <a class="el" href="group__vprocss__v2__4.html#ggadda80cee8527fb0dac1e98e657f12cd9acc9fe81f5f5652e44b0769a046a02490">XVPROCSS_EVT_INIT</a>, and <a class="el" href="xvprocss_8h.html#a477ddfa18fa5fda8658ec72fb29a2d25">XVprocSs_LogWrite()</a>.</p>
 
 </div>
 </div>
@@ -1171,7 +1172,7 @@ const u16&#160;</td><td class="memItemRight" valign="bottom"><b>XVprocSs_PixelHS
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if window is valid else XST_FAILURE</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Applicable only if CSC core is included in the subsystem and the Demo Window is enabled </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_vproc_ss.html#a70745e8e343154d82af157d3a50eca31">XVprocSs::CscPtr</a>, <a class="el" href="group__vprocss.html#ggadda80cee8527fb0dac1e98e657f12cd9a69ed478af62bfb13c0e68251ca18b3da">XVPROCSS_EVT_CFG_CSC</a>, and <a class="el" href="xvprocss_8h.html#a477ddfa18fa5fda8658ec72fb29a2d25">XVprocSs_LogWrite()</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_vproc_ss.html#a70745e8e343154d82af157d3a50eca31">XVprocSs::CscPtr</a>, <a class="el" href="group__vprocss__v2__4.html#ggadda80cee8527fb0dac1e98e657f12cd9a69ed478af62bfb13c0e68251ca18b3da">XVPROCSS_EVT_CFG_CSC</a>, and <a class="el" href="xvprocss_8h.html#a477ddfa18fa5fda8658ec72fb29a2d25">XVprocSs_LogWrite()</a>.</p>
 
 </div>
 </div>
@@ -1314,7 +1315,7 @@ const u16&#160;</td><td class="memItemRight" valign="bottom"><b>XVprocSs_PixelHS
 <dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Applicable only if Letterbox core is included in the subsystem </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_vproc_ss.html#ad05c179ff8b000570b16a8ac39f885d7">XVprocSs::CtxtData</a>, <a class="el" href="struct_x_vproc_ss___context_data.html#a8f080227d4a5195ea3ec54dc12206e33">XVprocSs_ContextData::LboxBkgndColor</a>, <a class="el" href="struct_x_vproc_ss.html#a7cc8183d534f77c5bf240616db3df97d">XVprocSs::LboxPtr</a>, <a class="el" href="struct_x_vproc_ss___context_data.html#a8e3923646d6b89ff1970f62e0d63d259">XVprocSs_ContextData::StrmCformat</a>, <a class="el" href="struct_x_vproc_ss.html#a6440efa76dbba290ebfdd4b603cff0b2">XVprocSs::VidIn</a>, <a class="el" href="group__vprocss.html#ggadda80cee8527fb0dac1e98e657f12cd9a59c1a12d3255327b3fd10fe3c6e1cbd7">XVPROCSS_EVT_SET_PIPMODE</a>, and <a class="el" href="xvprocss_8h.html#a477ddfa18fa5fda8658ec72fb29a2d25">XVprocSs_LogWrite()</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_vproc_ss.html#ad05c179ff8b000570b16a8ac39f885d7">XVprocSs::CtxtData</a>, <a class="el" href="struct_x_vproc_ss___context_data.html#a8f080227d4a5195ea3ec54dc12206e33">XVprocSs_ContextData::LboxBkgndColor</a>, <a class="el" href="struct_x_vproc_ss.html#a7cc8183d534f77c5bf240616db3df97d">XVprocSs::LboxPtr</a>, <a class="el" href="struct_x_vproc_ss___context_data.html#a8e3923646d6b89ff1970f62e0d63d259">XVprocSs_ContextData::StrmCformat</a>, <a class="el" href="struct_x_vproc_ss.html#a6440efa76dbba290ebfdd4b603cff0b2">XVprocSs::VidIn</a>, <a class="el" href="group__vprocss__v2__4.html#ggadda80cee8527fb0dac1e98e657f12cd9a59c1a12d3255327b3fd10fe3c6e1cbd7">XVPROCSS_EVT_SET_PIPMODE</a>, and <a class="el" href="xvprocss_8h.html#a477ddfa18fa5fda8658ec72fb29a2d25">XVprocSs_LogWrite()</a>.</p>
 
 </div>
 </div>
@@ -1355,7 +1356,7 @@ const u16&#160;</td><td class="memItemRight" valign="bottom"><b>XVprocSs_PixelHS
 <dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>User must call XVprocSs_ConfigureSubsystem() for change to take effect This call has not been added here such that it provides an opportunity to make the change during vertical blanking at system level. This behavior will change once shadow register support is available in sub-core IP's This function is not applicable in Subsystem Stream Mode Configuration </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_vproc_ss.html#ad05c179ff8b000570b16a8ac39f885d7">XVprocSs::CtxtData</a>, <a class="el" href="struct_x_vproc_ss___context_data.html#a153a8ddde9a7c9d7b4fd9abb01339af2">XVprocSs_ContextData::PipEn</a>, <a class="el" href="group__vprocss.html#ggadda80cee8527fb0dac1e98e657f12cd9a59c1a12d3255327b3fd10fe3c6e1cbd7">XVPROCSS_EVT_SET_PIPMODE</a>, <a class="el" href="xvprocss_8h.html#ab0a3f8f3946c8d71bac750de3c62b2c8">XVprocSs_IsConfigModeMax</a>, <a class="el" href="xvprocss_8h.html#a477ddfa18fa5fda8658ec72fb29a2d25">XVprocSs_LogWrite()</a>, and <a class="el" href="struct_x_vproc_ss___context_data.html#a2295b97e85e14cba835e65ce302a7076">XVprocSs_ContextData::ZoomEn</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_vproc_ss.html#ad05c179ff8b000570b16a8ac39f885d7">XVprocSs::CtxtData</a>, <a class="el" href="struct_x_vproc_ss___context_data.html#a153a8ddde9a7c9d7b4fd9abb01339af2">XVprocSs_ContextData::PipEn</a>, <a class="el" href="group__vprocss__v2__4.html#ggadda80cee8527fb0dac1e98e657f12cd9a59c1a12d3255327b3fd10fe3c6e1cbd7">XVPROCSS_EVT_SET_PIPMODE</a>, <a class="el" href="xvprocss_8h.html#ab0a3f8f3946c8d71bac750de3c62b2c8">XVprocSs_IsConfigModeMax</a>, <a class="el" href="xvprocss_8h.html#a477ddfa18fa5fda8658ec72fb29a2d25">XVprocSs_LogWrite()</a>, and <a class="el" href="struct_x_vproc_ss___context_data.html#a2295b97e85e14cba835e65ce302a7076">XVprocSs_ContextData::ZoomEn</a>.</p>
 
 </div>
 </div>
@@ -1596,7 +1597,7 @@ const u16&#160;</td><td class="memItemRight" valign="bottom"><b>XVprocSs_PixelHS
 <dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>User must call XVprocSs_ConfigureSubsystem() for change to take effect This call has not been added here such that it provides an opportunity to make the change during vertical blanking at system level. This behavior will change once shadow register support is available in sub-core IP's This function is not applicable in Subsystem Stream Mode Configuration </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_vproc_ss.html#ad05c179ff8b000570b16a8ac39f885d7">XVprocSs::CtxtData</a>, <a class="el" href="struct_x_vproc_ss___context_data.html#a153a8ddde9a7c9d7b4fd9abb01339af2">XVprocSs_ContextData::PipEn</a>, <a class="el" href="group__vprocss.html#ggadda80cee8527fb0dac1e98e657f12cd9a558e3ec01039cf251147be690d2bd9ec">XVPROCSS_EVT_SET_ZOOMMODE</a>, <a class="el" href="xvprocss_8h.html#ab0a3f8f3946c8d71bac750de3c62b2c8">XVprocSs_IsConfigModeMax</a>, <a class="el" href="xvprocss_8h.html#a477ddfa18fa5fda8658ec72fb29a2d25">XVprocSs_LogWrite()</a>, and <a class="el" href="struct_x_vproc_ss___context_data.html#a2295b97e85e14cba835e65ce302a7076">XVprocSs_ContextData::ZoomEn</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_vproc_ss.html#ad05c179ff8b000570b16a8ac39f885d7">XVprocSs::CtxtData</a>, <a class="el" href="struct_x_vproc_ss___context_data.html#a153a8ddde9a7c9d7b4fd9abb01339af2">XVprocSs_ContextData::PipEn</a>, <a class="el" href="group__vprocss__v2__4.html#ggadda80cee8527fb0dac1e98e657f12cd9a558e3ec01039cf251147be690d2bd9ec">XVPROCSS_EVT_SET_ZOOMMODE</a>, <a class="el" href="xvprocss_8h.html#ab0a3f8f3946c8d71bac750de3c62b2c8">XVprocSs_IsConfigModeMax</a>, <a class="el" href="xvprocss_8h.html#a477ddfa18fa5fda8658ec72fb29a2d25">XVprocSs_LogWrite()</a>, and <a class="el" href="struct_x_vproc_ss___context_data.html#a2295b97e85e14cba835e65ce302a7076">XVprocSs_ContextData::ZoomEn</a>.</p>
 
 </div>
 </div>
@@ -1704,7 +1705,7 @@ const u16&#160;</td><td class="memItemRight" valign="bottom"><b>XVprocSs_PixelHS
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_vproc_ss.html#a70745e8e343154d82af157d3a50eca31">XVprocSs::CscPtr</a>, <a class="el" href="struct_x_vproc_ss.html#ae5a31f08bd16f24a746eceb0ebe7dd09">XVprocSs::DeintPtr</a>, <a class="el" href="struct_x_vproc_ss.html#a554c32cace7c2bcc2637919e17ad0945">XVprocSs::HcrsmplrPtr</a>, <a class="el" href="struct_x_vproc_ss.html#a96d7da785b43ce54736523b9de33ee3e">XVprocSs::HscalerPtr</a>, <a class="el" href="struct_x_vproc_ss.html#a7cc8183d534f77c5bf240616db3df97d">XVprocSs::LboxPtr</a>, <a class="el" href="struct_x_vproc_ss.html#a62f9ab872ac328e7e5ecbccafe65a7e6">XVprocSs::VcrsmplrInPtr</a>, <a class="el" href="struct_x_vproc_ss.html#add2fbe91511d24e070039c1cba33f7c1">XVprocSs::VcrsmplrOutPtr</a>, <a class="el" href="struct_x_vproc_ss.html#a7110cce03d4d2ff4c4972bfe460eee42">XVprocSs::VdmaPtr</a>, <a class="el" href="struct_x_vproc_ss.html#ad8ca19d5dd2ac25e58be55ff8ba2b3fa">XVprocSs::VscalerPtr</a>, <a class="el" href="group__vprocss.html#gabeba7bd429b2f9f668ddf656a0c7ba3f">XVPROCSS_EDAT_SUCCESS</a>, <a class="el" href="group__vprocss.html#ggadda80cee8527fb0dac1e98e657f12cd9a7f440bf73b91e8287f25032ff2b63020">XVPROCSS_EVT_STOP_VPSS</a>, and <a class="el" href="xvprocss_8h.html#a477ddfa18fa5fda8658ec72fb29a2d25">XVprocSs_LogWrite()</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_vproc_ss.html#a70745e8e343154d82af157d3a50eca31">XVprocSs::CscPtr</a>, <a class="el" href="struct_x_vproc_ss.html#ae5a31f08bd16f24a746eceb0ebe7dd09">XVprocSs::DeintPtr</a>, <a class="el" href="struct_x_vproc_ss.html#a554c32cace7c2bcc2637919e17ad0945">XVprocSs::HcrsmplrPtr</a>, <a class="el" href="struct_x_vproc_ss.html#a96d7da785b43ce54736523b9de33ee3e">XVprocSs::HscalerPtr</a>, <a class="el" href="struct_x_vproc_ss.html#a7cc8183d534f77c5bf240616db3df97d">XVprocSs::LboxPtr</a>, <a class="el" href="struct_x_vproc_ss.html#a62f9ab872ac328e7e5ecbccafe65a7e6">XVprocSs::VcrsmplrInPtr</a>, <a class="el" href="struct_x_vproc_ss.html#add2fbe91511d24e070039c1cba33f7c1">XVprocSs::VcrsmplrOutPtr</a>, <a class="el" href="struct_x_vproc_ss.html#a7110cce03d4d2ff4c4972bfe460eee42">XVprocSs::VdmaPtr</a>, <a class="el" href="struct_x_vproc_ss.html#ad8ca19d5dd2ac25e58be55ff8ba2b3fa">XVprocSs::VscalerPtr</a>, <a class="el" href="group__vprocss__v2__4.html#gabeba7bd429b2f9f668ddf656a0c7ba3f">XVPROCSS_EDAT_SUCCESS</a>, <a class="el" href="group__vprocss__v2__4.html#ggadda80cee8527fb0dac1e98e657f12cd9a7f440bf73b91e8287f25032ff2b63020">XVPROCSS_EVT_STOP_VPSS</a>, and <a class="el" href="xvprocss_8h.html#a477ddfa18fa5fda8658ec72fb29a2d25">XVprocSs_LogWrite()</a>.</p>
 
 </div>
 </div>
@@ -1735,7 +1736,7 @@ const u16&#160;</td><td class="memItemRight" valign="bottom"><b>XVprocSs_PixelHS
 <dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This function must be called only after the respective mode (PIP/Zoom) has been enabled and user wants to move window to a new location This function is not applicable in Subsystem Stream Mode Configuration </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_vproc_ss.html#ad05c179ff8b000570b16a8ac39f885d7">XVprocSs::CtxtData</a>, <a class="el" href="struct_x_vproc_ss.html#a7cc8183d534f77c5bf240616db3df97d">XVprocSs::LboxPtr</a>, <a class="el" href="struct_x_vproc_ss.html#a1fce9dc484558616980012f4a77764ee">XVprocSs::VidOut</a>, <a class="el" href="struct_x_vproc_ss___context_data.html#a79a5e7387a84068901a397e67c494e4d">XVprocSs_ContextData::WrWindow</a>, <a class="el" href="group__vprocss.html#gabeba7bd429b2f9f668ddf656a0c7ba3f">XVPROCSS_EDAT_SUCCESS</a>, <a class="el" href="group__vprocss.html#ggadda80cee8527fb0dac1e98e657f12cd9af2ff6134491d7c3675540e4cec7d2cbb">XVPROCSS_EVT_UPDATE_ZPWIN</a>, <a class="el" href="xvprocss_8h.html#ab0a3f8f3946c8d71bac750de3c62b2c8">XVprocSs_IsConfigModeMax</a>, <a class="el" href="xvprocss_8h.html#a2ce543275b5cd3b7f24c31897aecf5fa">XVprocSs_IsPipModeOn</a>, and <a class="el" href="xvprocss_8h.html#a477ddfa18fa5fda8658ec72fb29a2d25">XVprocSs_LogWrite()</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_vproc_ss.html#ad05c179ff8b000570b16a8ac39f885d7">XVprocSs::CtxtData</a>, <a class="el" href="struct_x_vproc_ss.html#a7cc8183d534f77c5bf240616db3df97d">XVprocSs::LboxPtr</a>, <a class="el" href="struct_x_vproc_ss.html#a1fce9dc484558616980012f4a77764ee">XVprocSs::VidOut</a>, <a class="el" href="struct_x_vproc_ss___context_data.html#a79a5e7387a84068901a397e67c494e4d">XVprocSs_ContextData::WrWindow</a>, <a class="el" href="group__vprocss__v2__4.html#gabeba7bd429b2f9f668ddf656a0c7ba3f">XVPROCSS_EDAT_SUCCESS</a>, <a class="el" href="group__vprocss__v2__4.html#ggadda80cee8527fb0dac1e98e657f12cd9af2ff6134491d7c3675540e4cec7d2cbb">XVPROCSS_EVT_UPDATE_ZPWIN</a>, <a class="el" href="xvprocss_8h.html#ab0a3f8f3946c8d71bac750de3c62b2c8">XVprocSs_IsConfigModeMax</a>, <a class="el" href="xvprocss_8h.html#a2ce543275b5cd3b7f24c31897aecf5fa">XVprocSs_IsPipModeOn</a>, and <a class="el" href="xvprocss_8h.html#a477ddfa18fa5fda8658ec72fb29a2d25">XVprocSs_LogWrite()</a>.</p>
 
 </div>
 </div>

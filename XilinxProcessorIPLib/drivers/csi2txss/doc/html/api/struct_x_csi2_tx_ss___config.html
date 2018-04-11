@@ -64,7 +64,7 @@ $(document).ready(function(){initNavTree('struct_x_csi2_tx_ss___config.html','')
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XCsi2TxSs_Config Struct Reference<div class="ingroups"><a class="el" href="group__csi2txss__v1__0.html">Csi2txss_v1_0</a></div></div>  </div>
+<div class="title">XCsi2TxSs_Config Struct Reference<div class="ingroups"><a class="el" href="group__csi2txss__v1__1.html">Csi2txss_v1_1</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -97,6 +97,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a8364cfcd48d9087a1657c96241dad16e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_csi2_tx_ss___config.html#a8364cfcd48d9087a1657c96241dad16e">IsDphyRegIntfcPresent</a></td></tr>
 <tr class="memdesc:a8364cfcd48d9087a1657c96241dad16e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for DPHY register interface presence.  <a href="#a8364cfcd48d9087a1657c96241dad16e">More...</a><br /></td></tr>
 <tr class="separator:a8364cfcd48d9087a1657c96241dad16e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad372aabbf5a19e00a4add55dcf18c455"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_csi2_tx_ss___config.html#ad372aabbf5a19e00a4add55dcf18c455">FEGenEnabled</a></td></tr>
+<tr class="memdesc:ad372aabbf5a19e00a4add55dcf18c455"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frame End Generation enabled flag.  <a href="#ad372aabbf5a19e00a4add55dcf18c455">More...</a><br /></td></tr>
+<tr class="separator:ad372aabbf5a19e00a4add55dcf18c455"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1f1614d0982366c88534f12b5676b52"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_sub_core_csi2_tx.html">SubCoreCsi2Tx</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_csi2_tx_ss___config.html#ac1f1614d0982366c88534f12b5676b52">CsiInfo</a></td></tr>
 <tr class="memdesc:ac1f1614d0982366c88534f12b5676b52"><td class="mdescLeft">&#160;</td><td class="mdescRight">CSI sub-core configuration.  <a href="#ac1f1614d0982366c88534f12b5676b52">More...</a><br /></td></tr>
 <tr class="separator:ac1f1614d0982366c88534f12b5676b52"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,7 +125,7 @@ Data Fields</h2></td></tr>
 
 <p>BaseAddress is the physical base address of the subsystem address range. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__csi2txss__v1__0.html#ga1e0a474f9469d041cee3f863c5a6de97">Csi2TxSs_SelfTestExample()</a>, and <a class="el" href="group__csi2txss__v1__0.html#ga05a335318d3ee341c8288279cf4d8683">XCsi2TxSs_CfgInitialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__csi2txss__v1__0.html#ga1e0a474f9469d041cee3f863c5a6de97">Csi2TxSs_SelfTestExample()</a>, and <a class="el" href="group__csi2txss__v1__1.html#ga05a335318d3ee341c8288279cf4d8683">XCsi2TxSs_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -206,6 +209,24 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="ad372aabbf5a19e00a4add55dcf18c455"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad372aabbf5a19e00a4add55dcf18c455">&#9670;&nbsp;</a></span>FEGenEnabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XCsi2TxSs_Config::FEGenEnabled</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frame End Generation enabled flag. </p>
+
+<p class="reference">Referenced by <a class="el" href="group__csi2txss__v1__1.html#ga20a5a3fc9695ca1ac7fdbea4300da836">XCsi2TxSs_Configure()</a>, <a class="el" href="group__csi2txss__v1__1.html#ga655b4f5658f8e8dc4ebc550fc4c6e8f0">XCsi2TxSs_GetLineCountForVC()</a>, and <a class="el" href="group__csi2txss__v1__1.html#ga66c4f55bd50f54c8712fd8b2c2d70c0b">XCsi2TxSs_SetLineCountForVC()</a>.</p>
+
+</div>
+</div>
 <a id="a7e3d185b3246a66d9fa0c87be4d76170"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7e3d185b3246a66d9fa0c87be4d76170">&#9670;&nbsp;</a></span>HighAddr</h2>
 
@@ -236,7 +257,7 @@ Data Fields</h2></td></tr>
 
 <p>Flag for DPHY register interface presence. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__csi2txss__v1__0.html#gac74b7b2f7be7e695c3034f45d681c8ed">XCsi2TxSs_Activate()</a>, and <a class="el" href="group__csi2txss__v1__0.html#gad5067597d1a3f39b5be158ce026e3f8c">XCsi2TxSs_ReportCoreInfo()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__csi2txss__v1__1.html#gac74b7b2f7be7e695c3034f45d681c8ed">XCsi2TxSs_Activate()</a>, and <a class="el" href="group__csi2txss__v1__1.html#gad5067597d1a3f39b5be158ce026e3f8c">XCsi2TxSs_ReportCoreInfo()</a>.</p>
 
 </div>
 </div>

@@ -2,7 +2,7 @@ var struct_x_axi_dma___bd_ring =
 [
     [ "AllCnt", "struct_x_axi_dma___bd_ring.html#a3c928d2f36e8daf845a70afdae2573a4", null ],
     [ "BdaRestart", "struct_x_axi_dma___bd_ring.html#a2519fd626856e7ab0d822adc46aab7d8", null ],
-    [ "ChanBase", "struct_x_axi_dma___bd_ring.html#a138fd282802e5f6ed3cb1d2505ede08a", null ],
+    [ "ChanBase", "struct_x_axi_dma___bd_ring.html#a203421a70ece72a3757fb690dd4ee75a", null ],
     [ "Cyclic", "struct_x_axi_dma___bd_ring.html#a369f1add66b35ca594404126f3cb55be", null ],
     [ "CyclicBd", "struct_x_axi_dma___bd_ring.html#a7a6a7d28a2416f896e51ce7a80334911", null ],
     [ "FirstBdAddr", "struct_x_axi_dma___bd_ring.html#a6d41078607d5a8165e67d6483e40e9ab", null ],

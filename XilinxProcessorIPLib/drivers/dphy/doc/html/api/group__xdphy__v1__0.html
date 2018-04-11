@@ -82,7 +82,7 @@ Device registers</h2></td></tr>
 <tr class="memdesc:gae4e31f2e733bf381fd409fb8440f0692"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control Register.  <a href="#gae4e31f2e733bf381fd409fb8440f0692">More...</a><br /></td></tr>
 <tr class="separator:gae4e31f2e733bf381fd409fb8440f0692"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga84f9c23d5261fbe306b81a330253d013"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdphy__v1__0.html#ga84f9c23d5261fbe306b81a330253d013">XDPHY_HSEXIT_IDELAY_REG_OFFSET</a>&#160;&#160;&#160;0x00000004</td></tr>
-<tr class="memdesc:ga84f9c23d5261fbe306b81a330253d013"><td class="mdescLeft">&#160;</td><td class="mdescRight">HS_EXIT for Tx and Delay for Rx Register.  <a href="#ga84f9c23d5261fbe306b81a330253d013">More...</a><br /></td></tr>
+<tr class="memdesc:ga84f9c23d5261fbe306b81a330253d013"><td class="mdescLeft">&#160;</td><td class="mdescRight">IDelay Tap per lane for Rx Register.  <a href="#ga84f9c23d5261fbe306b81a330253d013">More...</a><br /></td></tr>
 <tr class="separator:ga84f9c23d5261fbe306b81a330253d013"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab6765e9a336e4a9d4598a2ade003fa3f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdphy__v1__0.html#gab6765e9a336e4a9d4598a2ade003fa3f">XDPHY_INIT_REG_OFFSET</a>&#160;&#160;&#160;0x00000008</td></tr>
 <tr class="memdesc:gab6765e9a336e4a9d4598a2ade003fa3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization Timer Register.  <a href="#gab6765e9a336e4a9d4598a2ade003fa3f">More...</a><br /></td></tr>
@@ -134,21 +134,12 @@ Bitmasks and offsets of XDPHY_CTRL_REG_OFFSET register</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Bitmasks and offsets of XDPHY_HSEXIT_IDELAY_REG_OFFSET register</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp9e5312f57e4dde1e4fb67c31354d7823"></a>This register in TX mode acts like HS_EXIT and RX mode acts like IDELAY.</p>
-<p>In IDELAY mode, it is used to calibrate input delay </p>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp9e5312f57e4dde1e4fb67c31354d7823"></a>This register in RX mode acts like IDELAY.</p>
+<p>In IDELAY mode, it is used to calibrate input delay per lane </p>
 </td></tr>
-<tr class="memitem:ga88c187e4620de483c6429142188d877f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdphy__v1__0.html#ga88c187e4620de483c6429142188d877f">XDPHY_HSEXIT_IDELAY_REG_READY_MASK</a>&#160;&#160;&#160;0x00000200</td></tr>
-<tr class="memdesc:ga88c187e4620de483c6429142188d877f"><td class="mdescLeft">&#160;</td><td class="mdescRight">DLY_RDY of BITSLICE_CONTROL.  <a href="#ga88c187e4620de483c6429142188d877f">More...</a><br /></td></tr>
-<tr class="separator:ga88c187e4620de483c6429142188d877f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga70e60705745389c874fc4931105a958b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdphy__v1__0.html#ga70e60705745389c874fc4931105a958b">XDPHY_HSEXIT_IDELAY_REG_TAP_MASK</a>&#160;&#160;&#160;0x000001FF</td></tr>
-<tr class="memdesc:ga70e60705745389c874fc4931105a958b"><td class="mdescLeft">&#160;</td><td class="mdescRight">used in RX data lanes to compensate clock routing delay  <a href="#ga70e60705745389c874fc4931105a958b">More...</a><br /></td></tr>
+<tr class="memitem:ga70e60705745389c874fc4931105a958b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdphy__v1__0.html#ga70e60705745389c874fc4931105a958b">XDPHY_HSEXIT_IDELAY_REG_TAP_MASK</a>&#160;&#160;&#160;0x1F1F1F1F</td></tr>
+<tr class="memdesc:ga70e60705745389c874fc4931105a958b"><td class="mdescLeft">&#160;</td><td class="mdescRight">used to set the IDELAY TAP value for all lanes  <a href="#ga70e60705745389c874fc4931105a958b">More...</a><br /></td></tr>
 <tr class="separator:ga70e60705745389c874fc4931105a958b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga66536940ca2123d330e9e753116baa76"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdphy__v1__0.html#ga66536940ca2123d330e9e753116baa76">XDPHY_HSEXIT_IDELAY_REG_READY_OFFSET</a>&#160;&#160;&#160;8</td></tr>
-<tr class="memdesc:ga66536940ca2123d330e9e753116baa76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit offset for READY bit.  <a href="#ga66536940ca2123d330e9e753116baa76">More...</a><br /></td></tr>
-<tr class="separator:ga66536940ca2123d330e9e753116baa76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4a16c8bbc59f02759ff527a41cc15441"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdphy__v1__0.html#ga4a16c8bbc59f02759ff527a41cc15441">XDPHY_HSEXIT_IDELAY_REG_TAP_OFFSET</a>&#160;&#160;&#160;0</td></tr>
-<tr class="memdesc:ga4a16c8bbc59f02759ff527a41cc15441"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit offset for TAP.  <a href="#ga4a16c8bbc59f02759ff527a41cc15441">More...</a><br /></td></tr>
-<tr class="separator:ga4a16c8bbc59f02759ff527a41cc15441"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Bitmasks and offsets of XDPHY_INIT_REG_OFFSET register</h2></td></tr>
@@ -978,45 +969,7 @@ Bitmask and offset of XDPHY_HSSETTLE_REG_OFFSET register</h2></td></tr>
 
 <p><code>#include &lt;<a class="el" href="xdphy__hw_8h.html">xdphy_hw.h</a>&gt;</code></p>
 
-<p>HS_EXIT for Tx and Delay for Rx Register. </p>
-
-</div>
-</div>
-<a id="ga88c187e4620de483c6429142188d877f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga88c187e4620de483c6429142188d877f">&#9670;&nbsp;</a></span>XDPHY_HSEXIT_IDELAY_REG_READY_MASK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XDPHY_HSEXIT_IDELAY_REG_READY_MASK&#160;&#160;&#160;0x00000200</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;<a class="el" href="xdphy__hw_8h.html">xdphy_hw.h</a>&gt;</code></p>
-
-<p>DLY_RDY of BITSLICE_CONTROL. </p>
-
-<p class="reference">Referenced by <a class="el" href="group__dphy__v1__0.html#ga0d72a217f030e5c452ce1e61c92f1a29">XDphy_Configure()</a>.</p>
-
-</div>
-</div>
-<a id="ga66536940ca2123d330e9e753116baa76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga66536940ca2123d330e9e753116baa76">&#9670;&nbsp;</a></span>XDPHY_HSEXIT_IDELAY_REG_READY_OFFSET</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XDPHY_HSEXIT_IDELAY_REG_READY_OFFSET&#160;&#160;&#160;8</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;<a class="el" href="xdphy__hw_8h.html">xdphy_hw.h</a>&gt;</code></p>
-
-<p>Bit offset for READY bit. </p>
+<p>IDelay Tap per lane for Rx Register. </p>
 
 </div>
 </div>
@@ -1027,34 +980,16 @@ Bitmask and offset of XDPHY_HSSETTLE_REG_OFFSET register</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDPHY_HSEXIT_IDELAY_REG_TAP_MASK&#160;&#160;&#160;0x000001FF</td>
+          <td class="memname">#define XDPHY_HSEXIT_IDELAY_REG_TAP_MASK&#160;&#160;&#160;0x1F1F1F1F</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xdphy__hw_8h.html">xdphy_hw.h</a>&gt;</code></p>
 
-<p>used in RX data lanes to compensate clock routing delay </p>
+<p>used to set the IDELAY TAP value for all lanes </p>
 
 <p class="reference">Referenced by <a class="el" href="group__dphy__v1__0.html#ga0d72a217f030e5c452ce1e61c92f1a29">XDphy_Configure()</a>.</p>
-
-</div>
-</div>
-<a id="ga4a16c8bbc59f02759ff527a41cc15441"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4a16c8bbc59f02759ff527a41cc15441">&#9670;&nbsp;</a></span>XDPHY_HSEXIT_IDELAY_REG_TAP_OFFSET</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XDPHY_HSEXIT_IDELAY_REG_TAP_OFFSET&#160;&#160;&#160;0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;<a class="el" href="xdphy__hw_8h.html">xdphy_hw.h</a>&gt;</code></p>
-
-<p>Bit offset for TAP. </p>
 
 </div>
 </div>

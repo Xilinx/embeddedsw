@@ -64,8 +64,7 @@ $(document).ready(function(){initNavTree('xv__sditxss_8h.html','');});
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <div class="title">xv_sditxss.h File Reference</div>  </div>
 </div><!--header-->
@@ -88,6 +87,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 <hr/>
 
 1.00  jsr  07/17/17 Initial release.
+2.00  kar  01/25/18 Second  release.
+      jsr  03/02/2018 Added core settings API
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -109,9 +110,6 @@ Macros</h2></td></tr>
 <tr class="memitem:af4ea2e44e5fd24d2b9fe8486a95c5eae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8h.html#af4ea2e44e5fd24d2b9fe8486a95c5eae">XV_SDITXSS_H_</a></td></tr>
 <tr class="memdesc:af4ea2e44e5fd24d2b9fe8486a95c5eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prevent circular inclusions by using protection macros.  <a href="#af4ea2e44e5fd24d2b9fe8486a95c5eae">More...</a><br /></td></tr>
 <tr class="separator:af4ea2e44e5fd24d2b9fe8486a95c5eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa37a6e6934a9872bcae5ffe78b78ca4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8h.html#afa37a6e6934a9872bcae5ffe78b78ca4">XV_SdiTxSs_GetVersion</a>(InstancePtr)</td></tr>
-<tr class="memdesc:afa37a6e6934a9872bcae5ffe78b78ca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro reads the TX version.  <a href="#afa37a6e6934a9872bcae5ffe78b78ca4">More...</a><br /></td></tr>
-<tr class="separator:afa37a6e6934a9872bcae5ffe78b78ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -119,8 +117,70 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:a4ee30ca6be555a1735e6c947765f7c07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback type for interrupt.  <a href="#a4ee30ca6be555a1735e6c947765f7c07">More...</a><br /></td></tr>
 <tr class="separator:a4ee30ca6be555a1735e6c947765f7c07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Bitmasks for interrupt callbacks</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp89c59901e975fcd163f1d7b8d241711e"></a>Please refer to SDI Tx driver for details of the bitmasks.</p>
+<p>The application should use the XV_SDITXSS_IER* masks in the call back functions to decode the exact cause of interrupt and handle it accordingly. </p>
+</td></tr>
+<tr class="memitem:abdc68d60152660b551a131de3f09dcff"><td class="memItemLeft" align="right" valign="top"><a id="abdc68d60152660b551a131de3f09dcff"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SDITXSS_IER_GTTX_RSTDONE_MASK</b>&#160;&#160;&#160;XV_SDITX_IER_GTTX_RSTDONE_MASK</td></tr>
+<tr class="separator:abdc68d60152660b551a131de3f09dcff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11a863fc63972b9979fdb79c7e38d28f"><td class="memItemLeft" align="right" valign="top"><a id="a11a863fc63972b9979fdb79c7e38d28f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SDITXSS_IER_TX_CE_ALIGN_ERR_MASK</b>&#160;&#160;&#160;XV_SDITX_IER_TX_CE_ALIGN_ERR_MASK</td></tr>
+<tr class="separator:a11a863fc63972b9979fdb79c7e38d28f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4af4139591146e1628712ffa47813afa"><td class="memItemLeft" align="right" valign="top"><a id="a4af4139591146e1628712ffa47813afa"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SDITXSS_IER_AXI4S_VID_LOCK_MASK</b>&#160;&#160;&#160;XV_SDITX_IER_AXI4S_VID_LOCK_MASK</td></tr>
+<tr class="separator:a4af4139591146e1628712ffa47813afa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7431ae8d07c2e933ab62fb06389d8da8"><td class="memItemLeft" align="right" valign="top"><a id="a7431ae8d07c2e933ab62fb06389d8da8"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SDITXSS_IER_OVERFLOW_MASK</b>&#160;&#160;&#160;XV_SDITX_IER_OVERFLOW_MASK</td></tr>
+<tr class="separator:a7431ae8d07c2e933ab62fb06389d8da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa2e4b4aa0b858c3bb4c8f290b61eb49"><td class="memItemLeft" align="right" valign="top"><a id="aaa2e4b4aa0b858c3bb4c8f290b61eb49"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SDITXSS_IER_UNDERFLOW_MASK</b>&#160;&#160;&#160;XV_SDITX_IER_UNDERFLOW_MASK</td></tr>
+<tr class="separator:aaa2e4b4aa0b858c3bb4c8f290b61eb49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af55227f530d923820c727edf8590f9cd"><td class="memItemLeft" align="right" valign="top"><a id="af55227f530d923820c727edf8590f9cd"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SDITXSS_IER_ALLINTR_MASK</b>&#160;&#160;&#160;XV_SDITX_IER_ALLINTR_MASK</td></tr>
+<tr class="separator:af55227f530d923820c727edf8590f9cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe1f5ed1c9022fbb0da8ddfbdf2d7553"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553">XV_SdiTxSs_LogEvent</a> { <br />
+&#160;&#160;<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a70c37767e46297173c60928158b84041">XV_SDITXSS_LOG_EVT_NONE</a> = 1, 
+<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553ae22f2169dcf22ddb067ac470c4c3ea28">XV_SDITXSS_LOG_EVT_SDITX_INIT</a>, 
+<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553afc8392e1e0ed781f3a833f6a2b292c3c">XV_SDITXSS_LOG_EVT_VTC_INIT</a>, 
+<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553ab889ddf1b34b030579592b25437c2441">XV_SDITXSS_LOG_EVT_START</a>, 
+<br />
+&#160;&#160;<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553aeac1a799ac1fe555cd20ff918aa62881">XV_SDITXSS_LOG_EVT_STOP</a>, 
+<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a4f123e9b8fe60da8e0840471c809e4d9">XV_SDITXSS_LOG_EVT_RESET</a>, 
+<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a8d9f788e38c6a09a001b0334ac33aa5c">XV_SDITXSS_LOG_EVT_STREAMUP</a>, 
+<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a33768bda2ad7a120398f40e165d1d61d">XV_SDITXSS_LOG_EVT_STREAMDOWN</a>, 
+<br />
+&#160;&#160;<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a9bca7aaeaaba359457841df66108f549">XV_SDITXSS_LOG_EVT_OVERFLOW</a>, 
+<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553aaefd873e00cbcf42d8df28b0ca3def64">XV_SDITXSS_LOG_EVT_UNDERFLOW</a>, 
+<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a1bbcbe23ea627a2ab2a96ed9f403666c">XV_SDITXSS_LOG_EVT_CEALIGN</a>, 
+<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a63589926dcc66160bc9d119c338ebc46">XV_SDITXSS_LOG_EVT_AXI4SVIDLOCK</a>, 
+<br />
+&#160;&#160;<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a9e58b21831ecfa79fd021ddb6eb92e94">XV_SDITXSS_LOG_EVT_STREAMSTART</a>
+, <a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553abde742780ffd0391fac7379cc7052224">XV_SDITXSS_LOG_EVT_DUMMY</a>
+<br />
+ }<tr class="memdesc:afe1f5ed1c9022fbb0da8ddfbdf2d7553"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains the enum for various logging events.  <a href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:afe1f5ed1c9022fbb0da8ddfbdf2d7553"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a866da38a781ee861e5e3374ac376cbf7"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7">XV_SdiTxSs_HandlerType</a> { <br />
+&#160;&#160;<a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a3cacfc6799829a378ca48c19316db727">XV_SDITXSS_HANDLER_GTREADY</a> = 1, 
+<a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7aa20193d62a6c7141931edbf932b4ef2f">XV_SDITXSS_HANDLER_OVERFLOW</a>, 
+<a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a36f4db8f423d8d8d833ad7ecd386356a">XV_SDITXSS_HANDLER_UNDERFLOW</a>, 
+<a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7afac5a72cfeecb7d035f8f9781fa61fe9">XV_SDITXSS_HANDLER_CEALIGN</a>, 
+<br />
+&#160;&#160;<a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a3e7b6fac9eb57a41171353ee31b25c51">XV_SDITXSS_HANDLER_AXI4SVIDLOCK</a>
+<br />
+ }<tr class="memdesc:a866da38a781ee861e5e3374ac376cbf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">These constants specify different types of handler and used to differentiate interrupt requests from peripheral.  <a href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:a866da38a781ee861e5e3374ac376cbf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+SDITxSs Core Configurable Settings</h2></td></tr>
+<tr class="memitem:afa37a6e6934a9872bcae5ffe78b78ca4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8h.html#afa37a6e6934a9872bcae5ffe78b78ca4">XV_SdiTxSs_GetVersion</a>(InstancePtr)</td></tr>
+<tr class="memdesc:afa37a6e6934a9872bcae5ffe78b78ca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro reads the TX version.  <a href="#afa37a6e6934a9872bcae5ffe78b78ca4">More...</a><br /></td></tr>
+<tr class="separator:afa37a6e6934a9872bcae5ffe78b78ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa680a60ab65a11392a41f3c4d3253cb6"><td class="memItemLeft" align="right" valign="top"><a id="aa680a60ab65a11392a41f3c4d3253cb6"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>XV_SdiTxSs_CoreSelId</b> </td></tr>
+<tr class="separator:aa680a60ab65a11392a41f3c4d3253cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fe4829ee3a2e6d471f77b4cf69c8c0f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_v___sdi_tx_ss___config.html">XV_SdiTxSs_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8h.html#a5fe4829ee3a2e6d471f77b4cf69c8c0f">XV_SdiTxSs_LookupConfig</a> (u32 DeviceId)</td></tr>
 <tr class="memdesc:a5fe4829ee3a2e6d471f77b4cf69c8c0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function looks for the device configuration based on the unique device ID.  <a href="#a5fe4829ee3a2e6d471f77b4cf69c8c0f">More...</a><br /></td></tr>
 <tr class="separator:a5fe4829ee3a2e6d471f77b4cf69c8c0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,8 +241,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a926a8be7d91d7ea5963b38fee737b180"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8h.html#a926a8be7d91d7ea5963b38fee737b180">XV_SdiTxSs_SetStream</a> (<a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *InstancePtr, XV_SdiTx_StreamSelId SelId, u32 Data, u8 StreamId)</td></tr>
 <tr class="memdesc:a926a8be7d91d7ea5963b38fee737b180"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the SDI TXSs stream parameters.  <a href="#a926a8be7d91d7ea5963b38fee737b180">More...</a><br /></td></tr>
 <tr class="separator:a926a8be7d91d7ea5963b38fee737b180"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga73c36b96c1df65a8fa2727ecaf4bb647"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xv__sditxss__v1__0.html#ga73c36b96c1df65a8fa2727ecaf4bb647">XV_SdiTxSs_SelfTest</a> (<a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga73c36b96c1df65a8fa2727ecaf4bb647"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs self test on SDI Tx Subsystem sub-cores.  <a href="group__xv__sditxss__v1__0.html#ga73c36b96c1df65a8fa2727ecaf4bb647">More...</a><br /></td></tr>
+<tr class="memitem:ga73c36b96c1df65a8fa2727ecaf4bb647"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xv__sditxss__v1__1.html#ga73c36b96c1df65a8fa2727ecaf4bb647">XV_SdiTxSs_SelfTest</a> (<a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga73c36b96c1df65a8fa2727ecaf4bb647"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs self test on SDI Tx Subsystem sub-cores.  <a href="group__xv__sditxss__v1__1.html#ga73c36b96c1df65a8fa2727ecaf4bb647">More...</a><br /></td></tr>
 <tr class="separator:ga73c36b96c1df65a8fa2727ecaf4bb647"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6018ef35dec27977430d676e948371df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8h.html#a6018ef35dec27977430d676e948371df">XV_SdiTxSs_LogReset</a> (<a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a6018ef35dec27977430d676e948371df"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will reset the driver's logging mechanism.  <a href="#a6018ef35dec27977430d676e948371df">More...</a><br /></td></tr>
@@ -196,63 +256,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ad7c1a04ba9452c9ce929d7d4a54a34ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8h.html#ad7c1a04ba9452c9ce929d7d4a54a34ed">XV_SdiTxSs_LogDisplay</a> (<a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ad7c1a04ba9452c9ce929d7d4a54a34ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will print the entire log.  <a href="#ad7c1a04ba9452c9ce929d7d4a54a34ed">More...</a><br /></td></tr>
 <tr class="separator:ad7c1a04ba9452c9ce929d7d4a54a34ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Bitmasks for interrupt callbacks</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp89c59901e975fcd163f1d7b8d241711e"></a>Please refer to SDI Tx driver for details of the bitmasks.</p>
-<p>The application should use the XV_SDITXSS_IER* masks in the call back functions to decode the exact cause of interrupt and handle it accordingly. </p>
-</td></tr>
-<tr class="memitem:abdc68d60152660b551a131de3f09dcff"><td class="memItemLeft" align="right" valign="top"><a id="abdc68d60152660b551a131de3f09dcff"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SDITXSS_IER_GTTX_RSTDONE_MASK</b>&#160;&#160;&#160;XV_SDITX_IER_GTTX_RSTDONE_MASK</td></tr>
-<tr class="separator:abdc68d60152660b551a131de3f09dcff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11a863fc63972b9979fdb79c7e38d28f"><td class="memItemLeft" align="right" valign="top"><a id="a11a863fc63972b9979fdb79c7e38d28f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SDITXSS_IER_TX_CE_ALIGN_ERR_MASK</b>&#160;&#160;&#160;XV_SDITX_IER_TX_CE_ALIGN_ERR_MASK</td></tr>
-<tr class="separator:a11a863fc63972b9979fdb79c7e38d28f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4af4139591146e1628712ffa47813afa"><td class="memItemLeft" align="right" valign="top"><a id="a4af4139591146e1628712ffa47813afa"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SDITXSS_IER_AXI4S_VID_LOCK_MASK</b>&#160;&#160;&#160;XV_SDITX_IER_AXI4S_VID_LOCK_MASK</td></tr>
-<tr class="separator:a4af4139591146e1628712ffa47813afa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7431ae8d07c2e933ab62fb06389d8da8"><td class="memItemLeft" align="right" valign="top"><a id="a7431ae8d07c2e933ab62fb06389d8da8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SDITXSS_IER_OVERFLOW_MASK</b>&#160;&#160;&#160;XV_SDITX_IER_OVERFLOW_MASK</td></tr>
-<tr class="separator:a7431ae8d07c2e933ab62fb06389d8da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa2e4b4aa0b858c3bb4c8f290b61eb49"><td class="memItemLeft" align="right" valign="top"><a id="aaa2e4b4aa0b858c3bb4c8f290b61eb49"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SDITXSS_IER_UNDERFLOW_MASK</b>&#160;&#160;&#160;XV_SDITX_IER_UNDERFLOW_MASK</td></tr>
-<tr class="separator:aaa2e4b4aa0b858c3bb4c8f290b61eb49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af55227f530d923820c727edf8590f9cd"><td class="memItemLeft" align="right" valign="top"><a id="af55227f530d923820c727edf8590f9cd"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SDITXSS_IER_ALLINTR_MASK</b>&#160;&#160;&#160;XV_SDITX_IER_ALLINTR_MASK</td></tr>
-<tr class="separator:af55227f530d923820c727edf8590f9cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe1f5ed1c9022fbb0da8ddfbdf2d7553"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553">XV_SdiTxSs_LogEvent</a> { <br />
-&#160;&#160;<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a70c37767e46297173c60928158b84041">XV_SDITXSS_LOG_EVT_NONE</a> = 1, 
-<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553ae22f2169dcf22ddb067ac470c4c3ea28">XV_SDITXSS_LOG_EVT_SDITX_INIT</a>, 
-<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553afc8392e1e0ed781f3a833f6a2b292c3c">XV_SDITXSS_LOG_EVT_VTC_INIT</a>, 
-<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553ab889ddf1b34b030579592b25437c2441">XV_SDITXSS_LOG_EVT_START</a>, 
-<br />
-&#160;&#160;<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553aeac1a799ac1fe555cd20ff918aa62881">XV_SDITXSS_LOG_EVT_STOP</a>, 
-<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a4f123e9b8fe60da8e0840471c809e4d9">XV_SDITXSS_LOG_EVT_RESET</a>, 
-<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a8d9f788e38c6a09a001b0334ac33aa5c">XV_SDITXSS_LOG_EVT_STREAMUP</a>, 
-<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a33768bda2ad7a120398f40e165d1d61d">XV_SDITXSS_LOG_EVT_STREAMDOWN</a>, 
-<br />
-&#160;&#160;<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a9bca7aaeaaba359457841df66108f549">XV_SDITXSS_LOG_EVT_OVERFLOW</a>, 
-<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553aaefd873e00cbcf42d8df28b0ca3def64">XV_SDITXSS_LOG_EVT_UNDERFLOW</a>, 
-<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a1bbcbe23ea627a2ab2a96ed9f403666c">XV_SDITXSS_LOG_EVT_CEALIGN</a>, 
-<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a63589926dcc66160bc9d119c338ebc46">XV_SDITXSS_LOG_EVT_AXI4SVIDLOCK</a>, 
-<br />
-&#160;&#160;<a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a9e58b21831ecfa79fd021ddb6eb92e94">XV_SDITXSS_LOG_EVT_STREAMSTART</a>
-, <a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553abde742780ffd0391fac7379cc7052224">XV_SDITXSS_LOG_EVT_DUMMY</a>
-<br />
- }<tr class="memdesc:afe1f5ed1c9022fbb0da8ddfbdf2d7553"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains the enum for various logging events.  <a href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:afe1f5ed1c9022fbb0da8ddfbdf2d7553"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a866da38a781ee861e5e3374ac376cbf7"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7">XV_SdiTxSs_HandlerType</a> { <br />
-&#160;&#160;<a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a3cacfc6799829a378ca48c19316db727">XV_SDITXSS_HANDLER_GTREADY</a> = 1, 
-<a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7aa20193d62a6c7141931edbf932b4ef2f">XV_SDITXSS_HANDLER_OVERFLOW</a>, 
-<a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a36f4db8f423d8d8d833ad7ecd386356a">XV_SDITXSS_HANDLER_UNDERFLOW</a>, 
-<a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7afac5a72cfeecb7d035f8f9781fa61fe9">XV_SDITXSS_HANDLER_CEALIGN</a>, 
-<br />
-&#160;&#160;<a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a3e7b6fac9eb57a41171353ee31b25c51">XV_SDITXSS_HANDLER_AXI4SVIDLOCK</a>
-<br />
- }<tr class="memdesc:a866da38a781ee861e5e3374ac376cbf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">These constants specify different types of handler and used to differentiate interrupt requests from peripheral.  <a href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:a866da38a781ee861e5e3374ac376cbf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46a81701624281a6574f419d86018376"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8h.html#a46a81701624281a6574f419d86018376">XV_SdiTxSs_SetColorFormat</a> (<a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *InstancePtr, XVidC_ColorFormat ColorFormat)</td></tr>
+<tr class="memdesc:a46a81701624281a6574f419d86018376"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function Set the video format of the SDI TX Ss core.  <a href="#a46a81701624281a6574f419d86018376">More...</a><br /></td></tr>
+<tr class="separator:a46a81701624281a6574f419d86018376"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d4fc65e3e0bf26e83db1ae9caf2cdd9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8h.html#a1d4fc65e3e0bf26e83db1ae9caf2cdd9">XV_SdiTxSs_SetCoreSettings</a> (<a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *InstancePtr, XV_SdiTxSs_CoreSelId SelId, u8 Data)</td></tr>
+<tr class="memdesc:a1d4fc65e3e0bf26e83db1ae9caf2cdd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the SDI TXSS core settings.  <a href="#a1d4fc65e3e0bf26e83db1ae9caf2cdd9">More...</a><br /></td></tr>
+<tr class="separator:a1d4fc65e3e0bf26e83db1ae9caf2cdd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="afa37a6e6934a9872bcae5ffe78b78ca4"></a>
@@ -872,7 +881,7 @@ Bitmasks for interrupt callbacks</h2></td></tr>
 
 <p class="reference">References <a class="el" href="struct_x_v___sdi_tx_ss___log.html#a9837f18c49e51f4217f2a3f0fa140ed6">XV_SdiTxSs_Log::DataBuffer</a>, <a class="el" href="struct_x_v___sdi_tx_ss___log.html#a9195a8738123026919280b2386633ddb">XV_SdiTxSs_Log::HeadIndex</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a310541f8343d83af656a6b8a313a3d4c">XV_SdiTxSs::Log</a>, <a class="el" href="struct_x_v___sdi_tx_ss___log.html#a862a821dfbcb36684f083fa35415d657">XV_SdiTxSs_Log::TailIndex</a>, and <a class="el" href="xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553abde742780ffd0391fac7379cc7052224">XV_SDITXSS_LOG_EVT_DUMMY</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="xv__sditxss_8h.html#aa665c8a153ad4e024a9b02d5fc4fb691">XV_SdiTxSs_Stop()</a>, <a class="el" href="xv__sditxss_8h.html#ac527da1833b83b72a0bf989e4230c8ae">XV_SdiTxSs_StreamConfig()</a>, <a class="el" href="group__v__sditxss.html#ga947c864c39e22328573d30b2cd0f4ca3">XV_SdiTxSs_SubcoreInitSdiTx()</a>, and <a class="el" href="group__v__sditxss.html#ga014e94de29a924cc95a2282fe8abf748">XV_SdiTxSs_SubcoreInitVtc()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xv__sditxss_8h.html#aa665c8a153ad4e024a9b02d5fc4fb691">XV_SdiTxSs_Stop()</a>, <a class="el" href="xv__sditxss_8h.html#ac527da1833b83b72a0bf989e4230c8ae">XV_SdiTxSs_StreamConfig()</a>, <a class="el" href="group__v__sditxss__v1__1.html#ga947c864c39e22328573d30b2cd0f4ca3">XV_SdiTxSs_SubcoreInitSdiTx()</a>, and <a class="el" href="group__v__sditxss__v1__1.html#ga014e94de29a924cc95a2282fe8abf748">XV_SdiTxSs_SubcoreInitVtc()</a>.</p>
 
 </div>
 </div>
@@ -1127,6 +1136,105 @@ HandlerType                     Callback Function Type
 <dl class="section note"><dt>Note</dt><dd>Invoking this function for a handler that already has been installed replaces it with the new handler. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_v___sdi_tx_ss.html#afd8c806b7fd57bb351482b360d713b54">XV_SdiTxSs::Axi4sVidLockCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#ae12ceae79ba53231d284dfcb4ced5aa7">XV_SdiTxSs::Axi4sVidLockRef</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a02c3d66fe5b5df8770277aa1244e8ec5">XV_SdiTxSs::CeAlignErrCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a223e2f4f531726f3defd0a0b09fd66fe">XV_SdiTxSs::CeAlignErrRef</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#adadf4d2f39af6521c8a4e984180a3c9d">XV_SdiTxSs::GtReadyCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#ab9db11eab4e545f63807da036b89a13e">XV_SdiTxSs::GtReadyRef</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#aa081253e62e662304ceb1327023b0737">XV_SdiTxSs::OverFlowCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a1487b5295185aaf55fa557244ab002b1">XV_SdiTxSs::OverFlowRef</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#ae9d8bccecf3a53c81d6ad1697f344d38">XV_SdiTxSs::UnderFlowCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a97694a18fd2b734dc690a9a6f31d7a68">XV_SdiTxSs::UnderFlowRef</a>, <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a3e7b6fac9eb57a41171353ee31b25c51">XV_SDITXSS_HANDLER_AXI4SVIDLOCK</a>, <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7afac5a72cfeecb7d035f8f9781fa61fe9">XV_SDITXSS_HANDLER_CEALIGN</a>, <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a3cacfc6799829a378ca48c19316db727">XV_SDITXSS_HANDLER_GTREADY</a>, <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7aa20193d62a6c7141931edbf932b4ef2f">XV_SDITXSS_HANDLER_OVERFLOW</a>, and <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a36f4db8f423d8d8d833ad7ecd386356a">XV_SDITXSS_HANDLER_UNDERFLOW</a>.</p>
+
+</div>
+</div>
+<a id="a46a81701624281a6574f419d86018376"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46a81701624281a6574f419d86018376">&#9670;&nbsp;</a></span>XV_SdiTxSs_SetColorFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XV_SdiTxSs_SetColorFormat </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XVidC_ColorFormat&#160;</td>
+          <td class="paramname"><em>ColorFormat</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function Set the video format of the SDI TX Ss core. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___sdi_tx_ss.html" title="The XV_SdiTxSs driver instance data. ">XV_SdiTxSs</a> core instance. </td></tr>
+    <tr><td class="paramname">ColorFormat</td><td>is a variable of type XVidC_ColorFormat.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___sdi_tx_ss.html#a2499b55a82ee0938a2d0fcdca1077d71">XV_SdiTxSs::SdiTxPtr</a>.</p>
+
+</div>
+</div>
+<a id="a1d4fc65e3e0bf26e83db1ae9caf2cdd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d4fc65e3e0bf26e83db1ae9caf2cdd9">&#9670;&nbsp;</a></span>XV_SdiTxSs_SetCoreSettings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_SdiTxSs_SetCoreSettings </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XV_SdiTxSs_CoreSelId&#160;</td>
+          <td class="paramname"><em>SelId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets the SDI TXSS core settings. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___sdi_tx_ss.html" title="The XV_SdiTxSs driver instance data. ">XV_SdiTxSs</a> core instance. </td></tr>
+    <tr><td class="paramname">SelId</td><td>specifies which parameter of the stream to be set.<ul>
+<li>0 = XV_SDITXSS_CORESELID_INSERTCRC</li>
+<li>1 = XV_SDITXSS_CORESELID_INSERTST352</li>
+<li>2 = XV_SDITXSS_CORESELID_ST352OVERWRITE</li>
+<li>3 = XV_SDITXSS_CORESELID_INSERTSYNCBIT</li>
+<li>4 = XV_SDITXSS_CORESELID_SDBITREPBYPASS</li>
+<li>5 = XV_SDITXSS_CORESELID_USEANCIN</li>
+<li>6 = XV_SDITXSS_CORESELID_INSERTLN</li>
+<li>7 = XV_SDITXSS_CORESELID_INSERTEDH </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">Data</td><td>specifies what data to be set for the selected parameter.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___sdi_tx_ss.html#a2499b55a82ee0938a2d0fcdca1077d71">XV_SdiTxSs::SdiTxPtr</a>.</p>
 
 </div>
 </div>

@@ -42,7 +42,7 @@ var xv__sdirx_8h =
     [ "XV_SdiRx_LookupConfig", "xv__sdirx_8h.html#a83259381009003c84d369a3e0a367e83", null ],
     [ "XV_SdiRx_ReportDetectedError", "xv__sdirx_8h.html#aa5e237f32f024f3faff39e35aa4cb117", null ],
     [ "XV_SdiRx_ResetStream", "xv__sdirx_8h.html#aa66cc2cf6652b5b1278dd7a49ddf9a8e", null ],
-    [ "XV_SdiRx_SelfTest", "group__xv__sdirx__v1__0.html#ga44f1120088e4da9b903c225f4610e830", null ],
+    [ "XV_SdiRx_SelfTest", "group__xv__sdirx__v1__1.html#ga44f1120088e4da9b903c225f4610e830", null ],
     [ "XV_SdiRx_SetCallback", "xv__sdirx_8h.html#a930b44edf2e883bcd5c3ac06e8b257a0", null ],
     [ "XV_SdiRx_SetEdhErrCntTrigger", "xv__sdirx_8h.html#aeb19c921c0ff6ec2b60bdb6911bdc8d2", null ],
     [ "XV_SdiRx_SetVidLckWindow", "xv__sdirx_8h.html#ab2a5fcb4ce17112434766264f92099ef", null ],

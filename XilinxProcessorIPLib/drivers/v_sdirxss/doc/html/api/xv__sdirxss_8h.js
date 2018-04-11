@@ -41,7 +41,7 @@ var xv__sdirxss_8h =
     [ "XV_SdiRxSs_ReportDebugInfo", "xv__sdirxss_8h.html#a1dfbf89e4d3f79928c6b2b1e822efc54", null ],
     [ "XV_SdiRxSs_ReportInfo", "xv__sdirxss_8h.html#af3904a73ebc6ac067616c91965e14a98", null ],
     [ "XV_SdiRxSS_SdiRxIntrHandler", "xv__sdirxss_8h.html#a8e0c0ac7a26fe796c72794420092430c", null ],
-    [ "XV_SdiRxSs_SelfTest", "group__xv__sdirxss__v1__0.html#ga5fe6048ab8f1692c136fd89d6fdf4e46", null ],
+    [ "XV_SdiRxSs_SelfTest", "group__xv__sdirxss__v1__1.html#ga5fe6048ab8f1692c136fd89d6fdf4e46", null ],
     [ "XV_SdiRxSs_SetCallback", "xv__sdirxss_8h.html#accc1c969a550cbdc4ed5612184a03f6f", null ],
     [ "XV_SdiRxSs_Start", "xv__sdirxss_8h.html#a691319ac2baf302e4f0b833c0aafc963", null ],
     [ "XV_SdiRxSs_Stop", "xv__sdirxss_8h.html#ac4e45bc8ac7c85d1ad5958be34844543", null ],

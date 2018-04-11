@@ -77,12 +77,14 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 X.XX  XX  YYYY/MM/DD   ...
 1.00  RHe 2015/10/06   Initial release.
 1.01  YH  2017/07/19   Clean up Print Statement line ending to "\r\n"
+2.00  EB  2018/01/23   This file is deprecated. All the APIs are now moved
+                                            to HDMI Common library
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:acf92f7cbd9dd3364de89a7d1f00c0cba"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx__vsif_8c.html#acf92f7cbd9dd3364de89a7d1f00c0cba">XV_HdmiRx_VSIF_ParsePacket</a> (<a class="el" href="struct_x_v___hdmi_rx___aux.html">XV_HdmiRx_Aux</a> *AuxPtr, <a class="el" href="struct_x_v___hdmi_rx___v_s_i_f.html">XV_HdmiRx_VSIF</a> *VSIFPtr)</td></tr>
-<tr class="memdesc:acf92f7cbd9dd3364de89a7d1f00c0cba"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function parses a Vendor Specific InfoFrame (VSIF).  <a href="#acf92f7cbd9dd3364de89a7d1f00c0cba">More...</a><br /></td></tr>
-<tr class="separator:acf92f7cbd9dd3364de89a7d1f00c0cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a8f0bf42fc0d27cdd42c29ef10e2f93"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx__vsif_8c.html#a0a8f0bf42fc0d27cdd42c29ef10e2f93">XV_HdmiRx_VSIF_ParsePacket</a> (XHdmiC_Aux *AuxPtr, <a class="el" href="struct_x_v___hdmi_rx___v_s_i_f.html">XV_HdmiRx_VSIF</a> *VSIFPtr)</td></tr>
+<tr class="memdesc:a0a8f0bf42fc0d27cdd42c29ef10e2f93"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function parses a Vendor Specific InfoFrame (VSIF).  <a href="#a0a8f0bf42fc0d27cdd42c29ef10e2f93">More...</a><br /></td></tr>
+<tr class="separator:a0a8f0bf42fc0d27cdd42c29ef10e2f93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a55c2e6ac024e6c5e2e164b7d8eb0f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx__vsif_8c.html#a5a55c2e6ac024e6c5e2e164b7d8eb0f0">XV_HdmiRx_VSIF_DisplayInfo</a> (<a class="el" href="struct_x_v___hdmi_rx___v_s_i_f.html">XV_HdmiRx_VSIF</a> *VSIFPtr)</td></tr>
 <tr class="memdesc:a5a55c2e6ac024e6c5e2e164b7d8eb0f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function displays the contents of an <a class="el" href="struct_x_v___hdmi_rx___v_s_i_f.html" title="Structure for holding the VSIF. ">XV_HdmiRx_VSIF</a> instance.  <a href="#a5a55c2e6ac024e6c5e2e164b7d8eb0f0">More...</a><br /></td></tr>
 <tr class="separator:a5a55c2e6ac024e6c5e2e164b7d8eb0f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -215,8 +217,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="acf92f7cbd9dd3364de89a7d1f00c0cba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf92f7cbd9dd3364de89a7d1f00c0cba">&#9670;&nbsp;</a></span>XV_HdmiRx_VSIF_ParsePacket()</h2>
+<a id="a0a8f0bf42fc0d27cdd42c29ef10e2f93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a8f0bf42fc0d27cdd42c29ef10e2f93">&#9670;&nbsp;</a></span>XV_HdmiRx_VSIF_ParsePacket()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -224,7 +226,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int XV_HdmiRx_VSIF_ParsePacket </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_rx___aux.html">XV_HdmiRx_Aux</a> *&#160;</td>
+          <td class="paramtype">XHdmiC_Aux *&#160;</td>
           <td class="paramname"><em>AuxPtr</em>, </td>
         </tr>
         <tr>
@@ -255,7 +257,7 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p class="reference">References <a class="el" href="union_x_v___hdmi_rx___aux_header.html#a98cce1277143a6ed2f3e502e4a89d02a">XV_HdmiRx_AuxHeader::Byte</a>, <a class="el" href="union_x_v___hdmi_rx___aux_data.html#a016851d3728c69b4cff2bf454a797914">XV_HdmiRx_AuxData::Byte</a>, <a class="el" href="struct_x_v___hdmi_rx___aux.html#ab3dc0a540cac6ef317fd3135a459cc3c">XV_HdmiRx_Aux::Data</a>, <a class="el" href="struct_x_v___hdmi_rx___aux.html#acdbf28da615dedad4be9bf8e9ff58216">XV_HdmiRx_Aux::Header</a>, <a class="el" href="struct_x_v___hdmi_rx___v_s_i_f.html#a46841dd105d94c7cacf4d4eefb0e6136">XV_HdmiRx_VSIF::IEEE_ID</a>, and <a class="el" href="struct_x_v___hdmi_rx___v_s_i_f.html#a18f8d4c5e40293f5ed38f0e3baef7512">XV_HdmiRx_VSIF::Version</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_rx___v_s_i_f.html#a46841dd105d94c7cacf4d4eefb0e6136">XV_HdmiRx_VSIF::IEEE_ID</a>, and <a class="el" href="struct_x_v___hdmi_rx___v_s_i_f.html#a18f8d4c5e40293f5ed38f0e3baef7512">XV_HdmiRx_VSIF::Version</a>.</p>
 
 </div>
 </div>

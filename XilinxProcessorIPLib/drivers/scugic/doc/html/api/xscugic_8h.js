@@ -13,10 +13,12 @@ var xscugic_8h =
     [ "XScuGic_GetPriorityTriggerType", "group__scugic__v3__8.html#ga6ed162180ffb45b082c2fbe23951ba13", null ],
     [ "XScuGic_InterruptHandler", "group__scugic__v3__8.html#gaa26a952ecd376be0bc3d8433023d1364", null ],
     [ "XScuGic_InterruptMaptoCpu", "group__scugic__v3__8.html#ga40ef6d42e9520bb550163c3afd598980", null ],
+    [ "XScuGic_InterruptUnmapFromCpu", "group__scugic__v3__8.html#ga35a7049368d1fdf455d0414c8aa7858f", null ],
     [ "XScuGic_LookupConfig", "group__scugic__v3__8.html#gab2c0554b809121cc91a96fcd8c749c25", null ],
     [ "XScuGic_SelfTest", "group__scugic__v3__8.html#ga081a9a62546b413d94e609894282a575", null ],
     [ "XScuGic_SetCpuID", "group__scugic__v3__8.html#ga945e029b4356be809020c81745c4a23b", null ],
     [ "XScuGic_SetPriorityTriggerType", "group__scugic__v3__8.html#ga79abd6248cb578142e9c475f20dbeb06", null ],
     [ "XScuGic_SoftwareIntr", "group__scugic__v3__8.html#gad71d2f581bdc46d89f38fced53e506bf", null ],
-    [ "XScuGic_Stop", "group__scugic__v3__8.html#ga6146a0489a1c748ceeaee729639d48a7", null ]
+    [ "XScuGic_Stop", "group__scugic__v3__8.html#ga6146a0489a1c748ceeaee729639d48a7", null ],
+    [ "XScuGic_UnmapAllInterruptsFromCpu", "group__scugic__v3__8.html#ga1e8328554cd2774f965012e63151f826", null ]
 ];

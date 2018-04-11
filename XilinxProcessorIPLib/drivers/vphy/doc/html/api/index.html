@@ -70,7 +70,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p><b>Video PHY Controller Driver Features</b></p>
 <p>Video PHY Controller driver supports following features</p><ul>
 <li>Xilinx DisplayPort and HDMI MAC IPs</li>
-<li>GTXE2, GTPE2, GTHE2, GTHE3 and GTHE4 GT types</li>
+<li>GTXE2, GTPE2, GTHE2, GTHE3, GTHE4 and GTYE4 GT types</li>
 <li>HDMI:</li>
 <li>2 or 4 pixel-wide video interface</li>
 <li>8/10/12/16 bits per component</li>
@@ -109,6 +109,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
                     Changed ClkOutxDiv declaration to u16
                     Marked XVphy_HdmiInitialize deprecated and replaced by
                        XVphy_Hdmi_CfgInitialize
+1.7   gm   13/09/17 Added GTYE4 support
+                    Added XVphy_SetPolarity, XVphy_SetPrbsSel and
+                       XVphy_TxPrbsForceError APIs
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -65,6 +65,7 @@ $(document).ready(function(){initNavTree('xcsi2tx_8h.html','');});
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xcsi2tx.h File Reference</div>  </div>
@@ -97,6 +98,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ga9dfcb58942d4e840968868fc0decea38"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx__v1__0.html#ga9dfcb58942d4e840968868fc0decea38">XCSI2TX_MAX_LANES</a>&#160;&#160;&#160;4</td></tr>
 <tr class="memdesc:ga9dfcb58942d4e840968868fc0decea38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max Lanes supported by CSI.  <a href="group__csi2tx__v1__0.html#ga9dfcb58942d4e840968868fc0decea38">More...</a><br /></td></tr>
 <tr class="separator:ga9dfcb58942d4e840968868fc0decea38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaad964d27150f8888fdcde05db9f9ad18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx__v1__0.html#gaad964d27150f8888fdcde05db9f9ad18">XCSI2TX_MAX_VC</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:gaad964d27150f8888fdcde05db9f9ad18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max number of Virtual Channels.  <a href="group__csi2tx__v1__0.html#gaad964d27150f8888fdcde05db9f9ad18">More...</a><br /></td></tr>
+<tr class="separator:gaad964d27150f8888fdcde05db9f9ad18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Interrupt Types for setting Callbacks</div></td></tr>
 <tr class="memitem:gadeed03a23550fdd0e8383338a6543549"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_HANDLER_WRG_LANE</b>&#160;&#160;&#160;1</td></tr>
@@ -116,12 +120,32 @@ Macros</h2></td></tr>
 <tr class="memitem:gaaabf910b4c5ff9636584a9ae900ad54e"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_HANDLER_UNDERRUN_PIXEL</b>&#160;&#160;&#160;6</td></tr>
 <tr class="separator:gaaabf910b4c5ff9636584a9ae900ad54e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga80bd59aed54ca99373660fa1e522ff33"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_HANDLER_LCERRVC0</b>&#160;&#160;&#160;7</td></tr>
+<tr class="separator:ga80bd59aed54ca99373660fa1e522ff33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaebd0699e925fbe1b3b1610f759b879bd"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_HANDLER_LCERRVC1</b>&#160;&#160;&#160;8</td></tr>
+<tr class="separator:gaebd0699e925fbe1b3b1610f759b879bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8abb43019cb22c1ee15ec50c113fdb96"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_HANDLER_LCERRVC2</b>&#160;&#160;&#160;9</td></tr>
+<tr class="separator:ga8abb43019cb22c1ee15ec50c113fdb96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaeba76537f34ec4d0b563c28ad9aab71a"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_HANDLER_LCERRVC3</b>&#160;&#160;&#160;10</td></tr>
+<tr class="separator:gaeba76537f34ec4d0b563c28ad9aab71a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:gaf4f2bfd7b641ba97a0203199fc42fab0"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx__v1__0.html#gaf4f2bfd7b641ba97a0203199fc42fab0">XCsi2Tx_CallBack</a>) (void *CallBackRef, u32 Mask)</td></tr>
 <tr class="memdesc:gaf4f2bfd7b641ba97a0203199fc42fab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback type for all interrupts defined.  <a href="group__csi2tx__v1__0.html#gaf4f2bfd7b641ba97a0203199fc42fab0">More...</a><br /></td></tr>
 <tr class="separator:gaf4f2bfd7b641ba97a0203199fc42fab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga46a443dfffd8f26578ebaf2a6139b4f3"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx__v1__0.html#ga46a443dfffd8f26578ebaf2a6139b4f3">XCsi2Tx_LCStatus</a> { <a class="el" href="group__csi2tx__v1__0.html#gga46a443dfffd8f26578ebaf2a6139b4f3ae2ab61672a5cb405cae8c9770e7e7710">XCSI2TX_LC_LESS_LINES</a> = 1, 
+<a class="el" href="group__csi2tx__v1__0.html#gga46a443dfffd8f26578ebaf2a6139b4f3a328322afaa225277614e41216fb55954">XCSI2TX_LC_MORE_LINES</a>
+ }<tr class="memdesc:ga46a443dfffd8f26578ebaf2a6139b4f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef defines the different errors codes for Line Count status for a Virtual Channel when Frame End Generation is enabled.  <a href="group__csi2tx__v1__0.html#ga46a443dfffd8f26578ebaf2a6139b4f3">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga46a443dfffd8f26578ebaf2a6139b4f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -146,6 +170,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gac3002b53f14fc92a2f9dbd70466fb54f"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx__v1__0.html#gac3002b53f14fc92a2f9dbd70466fb54f">XCsi2Tx_IsActiveLaneCountValid</a> (<a class="el" href="struct_x_csi2_tx.html">XCsi2Tx</a> *InstancePtr, u8 ActiveLanesCount)</td></tr>
 <tr class="memdesc:gac3002b53f14fc92a2f9dbd70466fb54f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks the validity of the active lanes parameter.  <a href="group__csi2tx__v1__0.html#gac3002b53f14fc92a2f9dbd70466fb54f">More...</a><br /></td></tr>
 <tr class="separator:gac3002b53f14fc92a2f9dbd70466fb54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1f42ddbe8c72819877271b1e2b1b2f66"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx__v1__0.html#ga1f42ddbe8c72819877271b1e2b1b2f66">XCsi2Tx_SetLineCountForVC</a> (<a class="el" href="struct_x_csi2_tx.html">XCsi2Tx</a> *InstancePtr, u8 VC, u16 LineCount)</td></tr>
+<tr class="memdesc:ga1f42ddbe8c72819877271b1e2b1b2f66"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the Line Count for virtual Channel if Frame End Generation feature is enabled.  <a href="group__csi2tx__v1__0.html#ga1f42ddbe8c72819877271b1e2b1b2f66">More...</a><br /></td></tr>
+<tr class="separator:ga1f42ddbe8c72819877271b1e2b1b2f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7aceee43ac75b5e2e7fb5c072e99543d"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx__v1__0.html#ga7aceee43ac75b5e2e7fb5c072e99543d">XCsi2Tx_GetLineCountForVC</a> (<a class="el" href="struct_x_csi2_tx.html">XCsi2Tx</a> *InstancePtr, u8 VC, u16 *LineCount)</td></tr>
+<tr class="memdesc:ga7aceee43ac75b5e2e7fb5c072e99543d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the Line Count for virtual Channel if Frame End Generation feature is enabled.  <a href="group__csi2tx__v1__0.html#ga7aceee43ac75b5e2e7fb5c072e99543d">More...</a><br /></td></tr>
+<tr class="separator:ga7aceee43ac75b5e2e7fb5c072e99543d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8c4f599fd297b0b87b7b5028bc59a1a4"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx__v1__0.html#ga8c4f599fd297b0b87b7b5028bc59a1a4">XCsi2Tx_SelfTest</a> (<a class="el" href="struct_x_csi2_tx.html">XCsi2Tx</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga8c4f599fd297b0b87b7b5028bc59a1a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the driver/device.  <a href="group__csi2tx__v1__0.html#ga8c4f599fd297b0b87b7b5028bc59a1a4">More...</a><br /></td></tr>
 <tr class="separator:ga8c4f599fd297b0b87b7b5028bc59a1a4"><td class="memSeparator" colspan="2">&#160;</td></tr>

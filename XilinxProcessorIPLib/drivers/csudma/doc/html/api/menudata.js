@@ -7,6 +7,7 @@ var menudata={children:[
 {text:"Variables",url:"functions_vars.html"}]}]},
 {text:"APIs",url:"globals.html",children:[
 {text:"All",url:"globals.html",children:[
+{text:"_",url:"globals.html#index__"},
 {text:"c",url:"globals.html#index_c"},
 {text:"d",url:"globals.html#index_d"},
 {text:"i",url:"globals.html#index_i"},

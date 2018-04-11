@@ -6,7 +6,7 @@ var struct_x_emac_ps___bd_ring =
     [ "FreeCnt", "struct_x_emac_ps___bd_ring.html#a132052ee6b9828a4d86b88d16ea03469", null ],
     [ "FreeHead", "struct_x_emac_ps___bd_ring.html#aa849c1609830416b6cdf8bcb7a0556b7", null ],
     [ "HighBdAddr", "struct_x_emac_ps___bd_ring.html#a1a847678a8445beb667f748e756850bc", null ],
-    [ "HwCnt", "struct_x_emac_ps___bd_ring.html#a08a2a9c959502eeb120ee7aab292f61b", null ],
+    [ "HwCnt", "struct_x_emac_ps___bd_ring.html#afbc7af789975db0a64aac651170fc3f1", null ],
     [ "HwHead", "struct_x_emac_ps___bd_ring.html#a6ec82a9b24de2bce3e44aa0c75530277", null ],
     [ "HwTail", "struct_x_emac_ps___bd_ring.html#a0f43d0e8f576aab1628fe351530ec155", null ],
     [ "Length", "struct_x_emac_ps___bd_ring.html#af2fa25bbd258aa15039fa8f9c59d3536", null ],

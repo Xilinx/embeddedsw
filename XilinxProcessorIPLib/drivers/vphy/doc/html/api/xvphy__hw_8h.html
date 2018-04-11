@@ -80,14 +80,15 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.4   gm   29/11/16 Added ERR_IRQ register offset
 1.5   gm   02/05/17 Added CPLL CAL reg and corresponding masks
 1.6   gm   06/08/17 Added TX and RX MMCM lock Masks
+1.7   gm   13/09/17 Added GTYE4 support
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga4efa6fb68e702bd91a3fb099d7ba0188"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy.html#ga4efa6fb68e702bd91a3fb099d7ba0188">XVphy_ReadReg</a>(BaseAddress,  RegOffset)&#160;&#160;&#160;XVphy_In32((BaseAddress) + (RegOffset))</td></tr>
-<tr class="memdesc:ga4efa6fb68e702bd91a3fb099d7ba0188"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a low-level function that reads from the specified register.  <a href="group__xvphy.html#ga4efa6fb68e702bd91a3fb099d7ba0188">More...</a><br /></td></tr>
+<tr class="memitem:ga4efa6fb68e702bd91a3fb099d7ba0188"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga4efa6fb68e702bd91a3fb099d7ba0188">XVphy_ReadReg</a>(BaseAddress,  RegOffset)&#160;&#160;&#160;XVphy_In32((BaseAddress) + (RegOffset))</td></tr>
+<tr class="memdesc:ga4efa6fb68e702bd91a3fb099d7ba0188"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a low-level function that reads from the specified register.  <a href="group__xvphy__v1__7.html#ga4efa6fb68e702bd91a3fb099d7ba0188">More...</a><br /></td></tr>
 <tr class="separator:ga4efa6fb68e702bd91a3fb099d7ba0188"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga03d7c5c126a6c25d1ed193dfaa7f4a2c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy.html#ga03d7c5c126a6c25d1ed193dfaa7f4a2c">XVphy_WriteReg</a>(BaseAddress,  RegOffset,  Data)&#160;&#160;&#160;XVphy_Out32((BaseAddress) + (RegOffset), (Data))</td></tr>
-<tr class="memdesc:ga03d7c5c126a6c25d1ed193dfaa7f4a2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a low-level function that writes to the specified register.  <a href="group__xvphy.html#ga03d7c5c126a6c25d1ed193dfaa7f4a2c">More...</a><br /></td></tr>
+<tr class="memitem:ga03d7c5c126a6c25d1ed193dfaa7f4a2c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga03d7c5c126a6c25d1ed193dfaa7f4a2c">XVphy_WriteReg</a>(BaseAddress,  RegOffset,  Data)&#160;&#160;&#160;XVphy_Out32((BaseAddress) + (RegOffset), (Data))</td></tr>
+<tr class="memdesc:ga03d7c5c126a6c25d1ed193dfaa7f4a2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a low-level function that writes to the specified register.  <a href="group__xvphy__v1__7.html#ga03d7c5c126a6c25d1ed193dfaa7f4a2c">More...</a><br /></td></tr>
 <tr class="separator:ga03d7c5c126a6c25d1ed193dfaa7f4a2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">VPHY core registers: General registers.</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Address mapping for the Video PHY core. </p>
@@ -159,6 +160,18 @@ Macros</h2></td></tr>
 <tr class="memitem:ga9e9b0e6b169b719d9e37920636da0289"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_DRP_STATUS_COMMON_REG</b>&#160;&#160;&#160;0x064</td></tr>
 <tr class="separator:ga9e9b0e6b169b719d9e37920636da0289"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8cea32476d872f603877a19e842ea155"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_DRP_CONTROL_TXMMCM_REG</b>&#160;&#160;&#160;0x124</td></tr>
+<tr class="separator:ga8cea32476d872f603877a19e842ea155"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf6d23004afaf649bdabf76e0300cce71"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_DRP_STATUS_TXMMCM_REG</b>&#160;&#160;&#160;0x128</td></tr>
+<tr class="separator:gaf6d23004afaf649bdabf76e0300cce71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga11bd28a74f9cfa548f34b9b8a3a1e93b"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_DRP_CONTROL_RXMMCM_REG</b>&#160;&#160;&#160;0x144</td></tr>
+<tr class="separator:ga11bd28a74f9cfa548f34b9b8a3a1e93b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab38b24cd0619d3cd5c5ab494085f8af2"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_DRP_STATUS_RXMMCM_REG</b>&#160;&#160;&#160;0x148</td></tr>
+<tr class="separator:gab38b24cd0619d3cd5c5ab494085f8af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">VPHY core registers: CPLL Calibration registers.</div></td></tr>
 <tr class="memitem:ga8204c3fc1e7ecdd22f462e44bf21af5f"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_CPLL_CAL_PERIOD_REG</b>&#160;&#160;&#160;0x068</td></tr>
@@ -295,33 +308,37 @@ Macros</h2></td></tr>
 <tr class="memitem:gaba5b1afbdd7c9d2b08e13ac692c512af"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_DRU_GAIN_REG</b>(Ch)&#160;&#160;&#160;(0x0310 + (12 * (Ch - 1)))</td></tr>
 <tr class="separator:gaba5b1afbdd7c9d2b08e13ac692c512af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">TMDS Clock Pattern Generator registers (HDMI).</div></td></tr>
+<tr class="memitem:gad4febcf6197f07e133537e71748d402d"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_PATGEN_CTRL_REG</b>&#160;&#160;&#160;0x0340</td></tr>
+<tr class="separator:gad4febcf6197f07e133537e71748d402d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">VPHY core masks, shifts, and register values.</div></td></tr>
-<tr class="memitem:ga74113375bc89436a53bce047a320afae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy.html#ga74113375bc89436a53bce047a320afae">XVPHY_VERSION_INTER_REV_MASK</a>&#160;&#160;&#160;0x000000FF</td></tr>
-<tr class="memdesc:ga74113375bc89436a53bce047a320afae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal revision.  <a href="group__xvphy.html#ga74113375bc89436a53bce047a320afae">More...</a><br /></td></tr>
+<tr class="memitem:ga74113375bc89436a53bce047a320afae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga74113375bc89436a53bce047a320afae">XVPHY_VERSION_INTER_REV_MASK</a>&#160;&#160;&#160;0x000000FF</td></tr>
+<tr class="memdesc:ga74113375bc89436a53bce047a320afae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal revision.  <a href="group__xvphy__v1__7.html#ga74113375bc89436a53bce047a320afae">More...</a><br /></td></tr>
 <tr class="separator:ga74113375bc89436a53bce047a320afae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac5dfad9c937d8e2f86b98a5a931900df"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy.html#gac5dfad9c937d8e2f86b98a5a931900df">XVPHY_VERSION_CORE_PATCH_MASK</a>&#160;&#160;&#160;0x00000F00</td></tr>
-<tr class="memdesc:gac5dfad9c937d8e2f86b98a5a931900df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core patch details.  <a href="group__xvphy.html#gac5dfad9c937d8e2f86b98a5a931900df">More...</a><br /></td></tr>
+<tr class="memitem:gac5dfad9c937d8e2f86b98a5a931900df"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#gac5dfad9c937d8e2f86b98a5a931900df">XVPHY_VERSION_CORE_PATCH_MASK</a>&#160;&#160;&#160;0x00000F00</td></tr>
+<tr class="memdesc:gac5dfad9c937d8e2f86b98a5a931900df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core patch details.  <a href="group__xvphy__v1__7.html#gac5dfad9c937d8e2f86b98a5a931900df">More...</a><br /></td></tr>
 <tr class="separator:gac5dfad9c937d8e2f86b98a5a931900df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7d6b1ef912a814220affa8290d8cf770"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy.html#ga7d6b1ef912a814220affa8290d8cf770">XVPHY_VERSION_CORE_PATCH_SHIFT</a>&#160;&#160;&#160;8</td></tr>
-<tr class="memdesc:ga7d6b1ef912a814220affa8290d8cf770"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift bits for core patch details.  <a href="group__xvphy.html#ga7d6b1ef912a814220affa8290d8cf770">More...</a><br /></td></tr>
+<tr class="memitem:ga7d6b1ef912a814220affa8290d8cf770"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga7d6b1ef912a814220affa8290d8cf770">XVPHY_VERSION_CORE_PATCH_SHIFT</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:ga7d6b1ef912a814220affa8290d8cf770"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift bits for core patch details.  <a href="group__xvphy__v1__7.html#ga7d6b1ef912a814220affa8290d8cf770">More...</a><br /></td></tr>
 <tr class="separator:ga7d6b1ef912a814220affa8290d8cf770"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7c710fe411d729dcc7cfba79d5e3e710"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy.html#ga7c710fe411d729dcc7cfba79d5e3e710">XVPHY_VERSION_CORE_VER_REV_MASK</a>&#160;&#160;&#160;0x0000F000</td></tr>
-<tr class="memdesc:ga7c710fe411d729dcc7cfba79d5e3e710"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core version revision.  <a href="group__xvphy.html#ga7c710fe411d729dcc7cfba79d5e3e710">More...</a><br /></td></tr>
+<tr class="memitem:ga7c710fe411d729dcc7cfba79d5e3e710"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga7c710fe411d729dcc7cfba79d5e3e710">XVPHY_VERSION_CORE_VER_REV_MASK</a>&#160;&#160;&#160;0x0000F000</td></tr>
+<tr class="memdesc:ga7c710fe411d729dcc7cfba79d5e3e710"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core version revision.  <a href="group__xvphy__v1__7.html#ga7c710fe411d729dcc7cfba79d5e3e710">More...</a><br /></td></tr>
 <tr class="separator:ga7c710fe411d729dcc7cfba79d5e3e710"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab2bc0b3efefdecdaddb10f29be2d7975"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy.html#gab2bc0b3efefdecdaddb10f29be2d7975">XVPHY_VERSION_CORE_VER_REV_SHIFT</a>&#160;&#160;&#160;12</td></tr>
-<tr class="memdesc:gab2bc0b3efefdecdaddb10f29be2d7975"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift bits for core version revision.  <a href="group__xvphy.html#gab2bc0b3efefdecdaddb10f29be2d7975">More...</a><br /></td></tr>
+<tr class="memitem:gab2bc0b3efefdecdaddb10f29be2d7975"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#gab2bc0b3efefdecdaddb10f29be2d7975">XVPHY_VERSION_CORE_VER_REV_SHIFT</a>&#160;&#160;&#160;12</td></tr>
+<tr class="memdesc:gab2bc0b3efefdecdaddb10f29be2d7975"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift bits for core version revision.  <a href="group__xvphy__v1__7.html#gab2bc0b3efefdecdaddb10f29be2d7975">More...</a><br /></td></tr>
 <tr class="separator:gab2bc0b3efefdecdaddb10f29be2d7975"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacc4aa2972a26e662a427e19b07311b3e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy.html#gacc4aa2972a26e662a427e19b07311b3e">XVPHY_VERSION_CORE_VER_MNR_MASK</a>&#160;&#160;&#160;0x00FF0000</td></tr>
-<tr class="memdesc:gacc4aa2972a26e662a427e19b07311b3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core minor version.  <a href="group__xvphy.html#gacc4aa2972a26e662a427e19b07311b3e">More...</a><br /></td></tr>
+<tr class="memitem:gacc4aa2972a26e662a427e19b07311b3e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#gacc4aa2972a26e662a427e19b07311b3e">XVPHY_VERSION_CORE_VER_MNR_MASK</a>&#160;&#160;&#160;0x00FF0000</td></tr>
+<tr class="memdesc:gacc4aa2972a26e662a427e19b07311b3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core minor version.  <a href="group__xvphy__v1__7.html#gacc4aa2972a26e662a427e19b07311b3e">More...</a><br /></td></tr>
 <tr class="separator:gacc4aa2972a26e662a427e19b07311b3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadc00e71a2ac79d5ec79419ddeae4a6af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy.html#gadc00e71a2ac79d5ec79419ddeae4a6af">XVPHY_VERSION_CORE_VER_MNR_SHIFT</a>&#160;&#160;&#160;16</td></tr>
-<tr class="memdesc:gadc00e71a2ac79d5ec79419ddeae4a6af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift bits for core minor version.  <a href="group__xvphy.html#gadc00e71a2ac79d5ec79419ddeae4a6af">More...</a><br /></td></tr>
+<tr class="memitem:gadc00e71a2ac79d5ec79419ddeae4a6af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#gadc00e71a2ac79d5ec79419ddeae4a6af">XVPHY_VERSION_CORE_VER_MNR_SHIFT</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:gadc00e71a2ac79d5ec79419ddeae4a6af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift bits for core minor version.  <a href="group__xvphy__v1__7.html#gadc00e71a2ac79d5ec79419ddeae4a6af">More...</a><br /></td></tr>
 <tr class="separator:gadc00e71a2ac79d5ec79419ddeae4a6af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae435c1eaf4380b226c5cd4cc76eb1736"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy.html#gae435c1eaf4380b226c5cd4cc76eb1736">XVPHY_VERSION_CORE_VER_MJR_MASK</a>&#160;&#160;&#160;0xFF000000</td></tr>
-<tr class="memdesc:gae435c1eaf4380b226c5cd4cc76eb1736"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core major version.  <a href="group__xvphy.html#gae435c1eaf4380b226c5cd4cc76eb1736">More...</a><br /></td></tr>
+<tr class="memitem:gae435c1eaf4380b226c5cd4cc76eb1736"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#gae435c1eaf4380b226c5cd4cc76eb1736">XVPHY_VERSION_CORE_VER_MJR_MASK</a>&#160;&#160;&#160;0xFF000000</td></tr>
+<tr class="memdesc:gae435c1eaf4380b226c5cd4cc76eb1736"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core major version.  <a href="group__xvphy__v1__7.html#gae435c1eaf4380b226c5cd4cc76eb1736">More...</a><br /></td></tr>
 <tr class="separator:gae435c1eaf4380b226c5cd4cc76eb1736"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga733b97f887f1043a8c65a74717b0d7ea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy.html#ga733b97f887f1043a8c65a74717b0d7ea">XVPHY_VERSION_CORE_VER_MJR_SHIFT</a>&#160;&#160;&#160;24</td></tr>
-<tr class="memdesc:ga733b97f887f1043a8c65a74717b0d7ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift bits for core major version.  <a href="group__xvphy.html#ga733b97f887f1043a8c65a74717b0d7ea">More...</a><br /></td></tr>
+<tr class="memitem:ga733b97f887f1043a8c65a74717b0d7ea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga733b97f887f1043a8c65a74717b0d7ea">XVPHY_VERSION_CORE_VER_MJR_SHIFT</a>&#160;&#160;&#160;24</td></tr>
+<tr class="memdesc:ga733b97f887f1043a8c65a74717b0d7ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift bits for core major version.  <a href="group__xvphy__v1__7.html#ga733b97f887f1043a8c65a74717b0d7ea">More...</a><br /></td></tr>
 <tr class="separator:ga733b97f887f1043a8c65a74717b0d7ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga928ab82c87b6579f64d209e177acaffc"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_BANK_SELECT_TX_MASK</b>&#160;&#160;&#160;0x00F</td></tr>
@@ -584,15 +601,24 @@ Macros</h2></td></tr>
 <tr class="memitem:ga078438d28b3754ee7a57d242b4d15769"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_TX_CONTROL_TXPOLARITY_MASK</b>(Ch)&#160;&#160;&#160;(0x02 &lt;&lt; (8 * (Ch - 1)))</td></tr>
 <tr class="separator:ga078438d28b3754ee7a57d242b4d15769"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8109b62cceeabde638d4e2a829c0cdff"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_TX_CONTROL_TXPOLARITY_ALL_MASK</b></td></tr>
+<tr class="separator:ga8109b62cceeabde638d4e2a829c0cdff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2bc9cf07a2e8af90452996536fcd2d54"><td class="memItemLeft" align="right" valign="top">
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_TX_CONTROL_TXPRBSSEL_MASK</b>(Ch)&#160;&#160;&#160;(0x1C &lt;&lt; (8 * (Ch - 1)))</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_TX_CONTROL_TXPRBSSEL_MASK</b>(Ch)&#160;&#160;&#160;(0x5C &lt;&lt; (8 * (Ch - 1)))</td></tr>
 <tr class="separator:ga2bc9cf07a2e8af90452996536fcd2d54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf969ba36c63e10793c9f1f2df338403a"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_TX_CONTROL_TXPRBSSEL_ALL_MASK</b></td></tr>
+<tr class="separator:gaf969ba36c63e10793c9f1f2df338403a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa646f03aa531a3521c31f6a6dd7d9915"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_TX_CONTROL_TXPRBSSEL_SHIFT</b>(Ch)&#160;&#160;&#160;(2 + (8 * (Ch - 1)))</td></tr>
 <tr class="separator:gaa646f03aa531a3521c31f6a6dd7d9915"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga662be0c6f2d8f9e6ea6a2a937e81c5be"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_TX_CONTROL_TXPRBSFORCEERR_MASK</b>(Ch)&#160;&#160;&#160;(0x20 &lt;&lt; (8 * (Ch - 1)))</td></tr>
 <tr class="separator:ga662be0c6f2d8f9e6ea6a2a937e81c5be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae4e184459fa69c91b84972a5f40ac0fa"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_TX_CONTROL_TXPRBSFORCEERR_ALL_MASK</b></td></tr>
+<tr class="separator:gae4e184459fa69c91b84972a5f40ac0fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga39a8f8caa14bf945d318b9b8b4c7bc70"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_TX_BUFFER_BYPASS_TXPHDLYRESET_MASK</b>(Ch)&#160;&#160;&#160;(0x01 &lt;&lt; (8 * (Ch - 1)))</td></tr>
 <tr class="separator:ga39a8f8caa14bf945d318b9b8b4c7bc70"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -671,12 +697,18 @@ Macros</h2></td></tr>
 <tr class="memitem:ga632f1cde7ee0e608e7a162be4070833c"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_RX_CONTROL_RXPOLARITY_MASK</b>(Ch)&#160;&#160;&#160;(0x04 &lt;&lt; (8 * (Ch - 1)))</td></tr>
 <tr class="separator:ga632f1cde7ee0e608e7a162be4070833c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5316741ce6fd43a546e3366ffdff0448"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_RX_CONTROL_RXPOLARITY_ALL_MASK</b></td></tr>
+<tr class="separator:ga5316741ce6fd43a546e3366ffdff0448"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9552d8e47c48c1aa0e41b5e978d9fc87"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_RX_CONTROL_RXPRBSCNTRESET_MASK</b>(Ch)&#160;&#160;&#160;(0x08 &lt;&lt; (8 * (Ch - 1)))</td></tr>
 <tr class="separator:ga9552d8e47c48c1aa0e41b5e978d9fc87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1681bb9c7c755d998a7666a1180d0b0b"><td class="memItemLeft" align="right" valign="top">
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_RX_CONTROL_RXPRBSSEL_MASK</b>(Ch)&#160;&#160;&#160;(0x70 &lt;&lt; (8 * (Ch - 1)))</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_RX_CONTROL_RXPRBSSEL_MASK</b>(Ch)&#160;&#160;&#160;(0xF0 &lt;&lt; (8 * (Ch - 1)))</td></tr>
 <tr class="separator:ga1681bb9c7c755d998a7666a1180d0b0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gade0859037c799d019f019d76db45413d"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_RX_CONTROL_RXPRBSSEL_ALL_MASK</b></td></tr>
+<tr class="separator:gade0859037c799d019f019d76db45413d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8a654db92566bb58df1caa2caa1f86e0"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_RX_CONTROL_RXPRBSSEL_SHIFT</b>(Ch)&#160;&#160;&#160;(4 + (8 * (Ch - 1)))</td></tr>
 <tr class="separator:ga8a654db92566bb58df1caa2caa1f86e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -875,6 +907,12 @@ Macros</h2></td></tr>
 <tr class="memitem:gabdb0f03c6ea0b556a7a1ebb82c2466bf"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_DRU_GAIN_G2_SHIFT</b>&#160;&#160;&#160;16</td></tr>
 <tr class="separator:gabdb0f03c6ea0b556a7a1ebb82c2466bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga02dde22afbdca7f21a08281079a87a3f"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_PATGEN_CTRL_RATIO_MASK</b>&#160;&#160;&#160;0x7</td></tr>
+<tr class="separator:ga02dde22afbdca7f21a08281079a87a3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7b46fccb679d4bde534db837772713b6"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_PATGEN_CTRL_RATIO_SHIFT</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:ga7b46fccb679d4bde534db837772713b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Register access macro definitions.</div></td></tr>
 <tr class="memitem:gab09b07508cbdd943eec8e0ce20acb450"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVphy_In32</b>&#160;&#160;&#160;Xil_In32</td></tr>

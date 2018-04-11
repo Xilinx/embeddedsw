@@ -117,7 +117,29 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
              11/08/17 Return error for DAC R2C mode and ADC C2R mode.
              11/10/17 Corrected FIFO and DATA Interrupt masks.
              11/20/17 Fixed StartUp, Shutdown and Reset API for Tile_Id -1.
-             11/20/17 Remove unwanted ADC block checks in 4GSPS mode.</pre><pre></pre> </div></div><!-- contents -->
+             11/20/17 Remove unwanted ADC block checks in 4GSPS mode.
+3.0   sk     12/11/17 Added DDC and DUC support.
+             12/13/17 Add CoarseMixMode field in Mixer_Settings structure.
+             12/15/17 Add support to switch calibration modes.
+             12/15/17 Add support for mixer frequencies &gt; Fs/2 and &lt; -Fs/2.
+        sg     13/01/18 Added PLL and external clock switch support
+                      Added API to get PLL lock status.
+                      Added API to get clock source.
+      sk     01/18/18 Add API to get driver version.
+3.1   jm     01/24/18 Add Multi-tile sync support.
+      sk     01/25/18 Updated Set and Get Interpolation/Decimation factor
+                      API's to consider the actual factor value.
+3.2   sk     02/02/18 Add API's to configure inverse-sinc.
+      sk     02/27/18 Add API's to configure Multiband.
+      sk     03/09/18 Update PLL structure in XRFdc_DynamicPLLConfig API.
+      sk     03/09/18 Update ADC and DAC datatypes in Mixer API and use
+                      input datatype for ADC in threshold and QMC APIs.
+      sk     03/09/18 Removed FIFO disable check in DDC and DUC APIs.
+      sk     03/09/18 Add support for Marker event source for DAC block.
+      jm     03/12/18 Fixed DAC latency calculation in MTS.
+      jm     03/12/18 Added support for reloading DTC scans.
+      jm     03/12/18 Add option to configure sysref capture after MTS.
+      sk     03/22/18 Updated PLL settings based on latest IP values.</pre><pre></pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

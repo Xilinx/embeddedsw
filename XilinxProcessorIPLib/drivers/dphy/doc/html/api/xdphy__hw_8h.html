@@ -80,7 +80,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:gae4e31f2e733bf381fd409fb8440f0692"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control Register.  <a href="group__xdphy__v1__0.html#gae4e31f2e733bf381fd409fb8440f0692">More...</a><br /></td></tr>
 <tr class="separator:gae4e31f2e733bf381fd409fb8440f0692"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga84f9c23d5261fbe306b81a330253d013"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdphy__v1__0.html#ga84f9c23d5261fbe306b81a330253d013">XDPHY_HSEXIT_IDELAY_REG_OFFSET</a>&#160;&#160;&#160;0x00000004</td></tr>
-<tr class="memdesc:ga84f9c23d5261fbe306b81a330253d013"><td class="mdescLeft">&#160;</td><td class="mdescRight">HS_EXIT for Tx and Delay for Rx Register.  <a href="group__xdphy__v1__0.html#ga84f9c23d5261fbe306b81a330253d013">More...</a><br /></td></tr>
+<tr class="memdesc:ga84f9c23d5261fbe306b81a330253d013"><td class="mdescLeft">&#160;</td><td class="mdescRight">IDelay Tap per lane for Rx Register.  <a href="group__xdphy__v1__0.html#ga84f9c23d5261fbe306b81a330253d013">More...</a><br /></td></tr>
 <tr class="separator:ga84f9c23d5261fbe306b81a330253d013"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab6765e9a336e4a9d4598a2ade003fa3f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdphy__v1__0.html#gab6765e9a336e4a9d4598a2ade003fa3f">XDPHY_INIT_REG_OFFSET</a>&#160;&#160;&#160;0x00000008</td></tr>
 <tr class="memdesc:gab6765e9a336e4a9d4598a2ade003fa3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization Timer Register.  <a href="group__xdphy__v1__0.html#gab6765e9a336e4a9d4598a2ade003fa3f">More...</a><br /></td></tr>
@@ -128,21 +128,12 @@ Macros</h2></td></tr>
 <tr class="memdesc:gab7278f1be96272bf247b93afbfe5a471"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit offset for DPHY Enable.  <a href="group__xdphy__v1__0.html#gab7278f1be96272bf247b93afbfe5a471">More...</a><br /></td></tr>
 <tr class="separator:gab7278f1be96272bf247b93afbfe5a471"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Bitmasks and offsets of XDPHY_HSEXIT_IDELAY_REG_OFFSET register</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>This register in TX mode acts like HS_EXIT and RX mode acts like IDELAY.</p>
-<p>In IDELAY mode, it is used to calibrate input delay </p>
+<tr><td colspan="2"><div class="groupText"><p>This register in RX mode acts like IDELAY.</p>
+<p>In IDELAY mode, it is used to calibrate input delay per lane </p>
 </div></td></tr>
-<tr class="memitem:ga88c187e4620de483c6429142188d877f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdphy__v1__0.html#ga88c187e4620de483c6429142188d877f">XDPHY_HSEXIT_IDELAY_REG_READY_MASK</a>&#160;&#160;&#160;0x00000200</td></tr>
-<tr class="memdesc:ga88c187e4620de483c6429142188d877f"><td class="mdescLeft">&#160;</td><td class="mdescRight">DLY_RDY of BITSLICE_CONTROL.  <a href="group__xdphy__v1__0.html#ga88c187e4620de483c6429142188d877f">More...</a><br /></td></tr>
-<tr class="separator:ga88c187e4620de483c6429142188d877f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga70e60705745389c874fc4931105a958b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdphy__v1__0.html#ga70e60705745389c874fc4931105a958b">XDPHY_HSEXIT_IDELAY_REG_TAP_MASK</a>&#160;&#160;&#160;0x000001FF</td></tr>
-<tr class="memdesc:ga70e60705745389c874fc4931105a958b"><td class="mdescLeft">&#160;</td><td class="mdescRight">used in RX data lanes to compensate clock routing delay  <a href="group__xdphy__v1__0.html#ga70e60705745389c874fc4931105a958b">More...</a><br /></td></tr>
+<tr class="memitem:ga70e60705745389c874fc4931105a958b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdphy__v1__0.html#ga70e60705745389c874fc4931105a958b">XDPHY_HSEXIT_IDELAY_REG_TAP_MASK</a>&#160;&#160;&#160;0x1F1F1F1F</td></tr>
+<tr class="memdesc:ga70e60705745389c874fc4931105a958b"><td class="mdescLeft">&#160;</td><td class="mdescRight">used to set the IDELAY TAP value for all lanes  <a href="group__xdphy__v1__0.html#ga70e60705745389c874fc4931105a958b">More...</a><br /></td></tr>
 <tr class="separator:ga70e60705745389c874fc4931105a958b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga66536940ca2123d330e9e753116baa76"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdphy__v1__0.html#ga66536940ca2123d330e9e753116baa76">XDPHY_HSEXIT_IDELAY_REG_READY_OFFSET</a>&#160;&#160;&#160;8</td></tr>
-<tr class="memdesc:ga66536940ca2123d330e9e753116baa76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit offset for READY bit.  <a href="group__xdphy__v1__0.html#ga66536940ca2123d330e9e753116baa76">More...</a><br /></td></tr>
-<tr class="separator:ga66536940ca2123d330e9e753116baa76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4a16c8bbc59f02759ff527a41cc15441"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdphy__v1__0.html#ga4a16c8bbc59f02759ff527a41cc15441">XDPHY_HSEXIT_IDELAY_REG_TAP_OFFSET</a>&#160;&#160;&#160;0</td></tr>
-<tr class="memdesc:ga4a16c8bbc59f02759ff527a41cc15441"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit offset for TAP.  <a href="group__xdphy__v1__0.html#ga4a16c8bbc59f02759ff527a41cc15441">More...</a><br /></td></tr>
-<tr class="separator:ga4a16c8bbc59f02759ff527a41cc15441"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Bitmasks and offsets of XDPHY_INIT_REG_OFFSET register</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>This register is used for lane Initialization.</p>
 <p>Recommended to use 1ms or longer in for TX mode and 200us-500us for RX mode </p>

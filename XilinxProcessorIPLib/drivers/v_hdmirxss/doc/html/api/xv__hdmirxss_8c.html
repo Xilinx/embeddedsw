@@ -131,9 +131,20 @@ $(document).ready(function(){initNavTree('xv__hdmirxss_8c.html','');});
   1.42  YH     06/10/17 Added function XV_HdmiRxSs_GetAudioFormat
         EB     10/10/17 Updated function XV_HdmiRxSs_ReportAudio to report
                             audio format
-******************************************************************************/</pre><pre>/***************************** Include Files *********************************/</pre><pre><h1>110 "/proj/xhdsswstaff/vdubakul/Doxygen_Github/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" 2</h1>
+  5.00  YH     16/11/17 Added dedicated reset for each clock domain
+               16/11/17 Added bridge overflow interrupt
+        EB     16/01/18 Added parsing of InfoFrames during AuxCallback
+                        Changed XV_HdmiRxSs_RetrieveVSInfoframe's input
+                            parameter type
+                        Added function XV_HdmiRxSs_GetAviInfoframe, 
+                            XV_HdmiRxSs_GetGCP, XV_HdmiRxSs_GetAudioInfoframe,
+                            XV_HdmiRxSs_GetVSIF
+                        Updated XV_HdmiRxSs_ConfigBridgeMode so Pixel 
+                            Pepetition is based on received AVI InfoFrame
+        SM     28/02/18 Added definition of <a class="el" href="xv__hdmirxss_8c.html#a3c8f4247ffd9a6540e8aed78e23699a7" title="This function will set the major and minor application version in RXSs struct. ">XV_HdmiRxSS_SetAppVersion()</a> API
+******************************************************************************/</pre><pre>/***************************** Include Files *********************************/</pre><pre><h1>121 "/proj/xhdsswstaff/vdubakul/2018.1_Release/github/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" 2</h1>
 </pre><pre>
-<h1>111 "/proj/xhdsswstaff/vdubakul/Doxygen_Github/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" 2</h1>
+<h1>122 "/proj/xhdsswstaff/vdubakul/2018.1_Release/github/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" 2</h1>
 </pre><pre></pre><pre>/************************** Constant Definitions *****************************/</pre><pre>/**************************** Type Definitions *******************************/
 /**
    This typedef declares the driver instances of all the cores in the subsystem
@@ -146,9 +157,10 @@ XV_HdmiRxSs_SubCores XV_HdmiRxSs_SubCoreRepo[XPAR_XV_HDMIRXSS_NUM_INSTANCES];</p
 static void XV_HdmiRxSs_GetIncludedSubcores(<a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *HdmiRxSsPtr,
     u16 DevId);
 static void XV_HdmiRxSs_WaitUs(XV_HdmiRxSs *InstancePtr, u32 MicroSeconds);
-static void XV_HdmiRxSs_RetrieveVSInfoframe(XV_HdmiRx *HdmiRxPtr);
+static void XV_HdmiRxSs_RetrieveVSInfoframe(XV_HdmiRxSs *HdmiRxSs);
 static int XV_HdmiRxSs_RegisterSubsysCallbacks(XV_HdmiRxSs *InstancePtr);
 static void XV_HdmiRxSs_ConnectCallback(void *CallbackRef);
+static void XV_HdmiRxSs_BrdgOverflowCallback(void *CallbackRef);
 static void XV_HdmiRxSs_AuxCallback(void *CallbackRef);
 static void XV_HdmiRxSs_AudCallback(void *CallbackRef);
 static void XV_HdmiRxSs_LnkStaCallback(void *CallbackRef);
@@ -176,7 +188,7 @@ static void <a class="el" href="xv__hdmirxss_8c.html#ab984feecc99028c5ab95d99e70
 /**
   This macros selects the bridge pixel repeat mode</pre><pre><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the HDMI TX Subsystem</td></tr>
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the HDMI RX Subsystem</td></tr>
   </table>
   </dd>
 </dl>
@@ -320,6 +332,9 @@ static int XV_HdmiRxSs_RegisterSubsysCallbacks(XV_HdmiRxSs *InstancePtr)
                           XV_HDMIRX_HANDLER_CONNECT,
                           (void *)XV_HdmiRxSs_ConnectCallback,
                           (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
+                          XV_HDMIRX_HANDLER_BRDG_OVERFLOW,
+                          (void *)XV_HdmiRxSs_BrdgOverflowCallback,
+                          (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
                           XV_HDMIRX_HANDLER_AUX,
                           (void *)XV_HdmiRxSs_AuxCallback,
                           (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
@@ -408,7 +423,12 @@ int XV_HdmiRxSs_CfgInitialize(<a class="el" href="struct_x_v___hdmi_rx_ss.html" 
      subsystem is ready
    */
   XV_HdmiRxSs_Reset(HdmiRxSsPtr);
-  HdmiRxSsPtr-&gt;IsReady = XIL_COMPONENT_IS_READY;</pre><pre>  return(XST_SUCCESS);
+  HdmiRxSsPtr-&gt;IsReady = XIL_COMPONENT_IS_READY;</pre><pre>  /* Initialize the application version with 0 &lt;default value&gt;=""&gt;.
+     Application need to set the this variable properly to let driver know
+     what version of application is being used.
+   */
+  HdmiRxSsPtr-&gt;AppMajVer = 0;
+  HdmiRxSsPtr-&gt;AppMinVer = 0;</pre><pre>  return(XST_SUCCESS);
 }</pre><pre>/****************************************************************************/
 /**
   This function starts the HDMI RX subsystem including all sub-cores that are
@@ -462,10 +482,85 @@ void XV_HdmiRxSs_Stop(XV_HdmiRxSs *InstancePtr)
 ******************************************************************************/
 void XV_HdmiRxSs_Reset(XV_HdmiRxSs *InstancePtr)
 {
-  Xil_AssertVoid(InstancePtr != NULL);</pre><pre>  XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_RESET, 0);</pre><pre>  /* Assert RX reset */
-  XV_HdmiRx_Reset(InstancePtr-&gt;HdmiRxPtr, TRUE);</pre><pre>  /* Release RX reset */
-  XV_HdmiRx_Reset(InstancePtr-&gt;HdmiRxPtr, FALSE);
+  Xil_AssertVoid(InstancePtr != NULL);</pre><pre>  XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_RESET, 0);</pre><pre>  /* Assert HDMI RX core resets */
+  XV_HdmiRxSs_RXCore_VRST(InstancePtr, TRUE);
+  XV_HdmiRxSs_RXCore_LRST(InstancePtr, TRUE);</pre><pre>  /* Assert SYSCLK VID_IN bridge reset */
+  XV_HdmiRxSs_SYSRST(InstancePtr, TRUE);</pre><pre>  /* Release HDMI RX core resets */
+  XV_HdmiRxSs_RXCore_VRST(InstancePtr, FALSE);
+  XV_HdmiRxSs_RXCore_LRST(InstancePtr, FALSE);</pre><pre>  /* Release SYSCLK VID_IN bridge reset */
+  XV_HdmiRxSs_SYSRST(InstancePtr, FALSE);
 }</pre><pre>/*****************************************************************************/
+/**
+  This function asserts or releases the Internal Video reset 
+  of the HDMI subcore within the subsystem</pre><pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the Subsystem instance to be worked on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
+******************************************************************************/
+void XV_HdmiRxSs_RXCore_VRST(XV_HdmiRxSs *InstancePtr, u8 Reset)
+{
+  Xil_AssertVoid(InstancePtr != NULL);</pre><pre>  XV_HdmiRx_INT_VRST(InstancePtr-&gt;HdmiRxPtr, Reset);
+}</pre><pre>/*****************************************************************************/
+/**
+  This function asserts or releases the Internal Link reset 
+  of the HDMI subcore within the subsystem</pre><pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the Subsystem instance to be worked on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
+******************************************************************************/
+void XV_HdmiRxSs_RXCore_LRST(XV_HdmiRxSs *InstancePtr, u8 Reset)
+{
+  Xil_AssertVoid(InstancePtr != NULL);</pre><pre>  XV_HdmiRx_INT_LRST(InstancePtr-&gt;HdmiRxPtr, Reset);
+}</pre><pre>/*****************************************************************************/
+/**
+  This function asserts or releases the video reset of other 
+  blocks within the subsystem</pre><pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the Subsystem instance to be worked on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
+******************************************************************************/
+void XV_HdmiRxSs_VRST(XV_HdmiRxSs *InstancePtr, u8 Reset)
+{
+  Xil_AssertVoid(InstancePtr != NULL);</pre><pre>  XV_HdmiRx_EXT_VRST(InstancePtr-&gt;HdmiRxPtr, Reset);
+}</pre><pre>/*****************************************************************************/
+/**
+  This function asserts or releases the system reset of other 
+  blocks within the subsystem</pre><pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the Subsystem instance to be worked on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
+******************************************************************************/
+void XV_HdmiRxSs_SYSRST(XV_HdmiRxSs *InstancePtr, u8 Reset)
+{
+  Xil_AssertVoid(InstancePtr != NULL);</pre><pre>  XV_HdmiRx_EXT_SYSRST(InstancePtr-&gt;HdmiRxPtr, Reset);
+}</pre><pre>/*****************************************************************************/
+/**</pre><pre>  This function is called when a Bridge overflow event has occurred.</pre><pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">None.</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
+******************************************************************************/
+static void XV_HdmiRxSs_BrdgOverflowCallback(void *CallbackRef)
+{
+  <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *HdmiRxSsPtr = (<a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *)CallbackRef;</pre><pre>  // Check if user callback has been registered
+  if (HdmiRxSsPtr-&gt;ConnectCallback) {
+    HdmiRxSsPtr-&gt;ConnectCallback(HdmiRxSsPtr-&gt;ConnectRef);
+  }</pre><pre>}</pre><pre>/*****************************************************************************/
 /**</pre><pre>  This function is called when a RX connect event has occurred.</pre><pre><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">None.</td><td></td></tr>
@@ -500,8 +595,39 @@ static void XV_HdmiRxSs_ConnectCallback(void *CallbackRef)
 ******************************************************************************/
 static void XV_HdmiRxSs_AuxCallback(void *CallbackRef)
 {
-  <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *HdmiRxSsPtr = (<a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *)CallbackRef;</pre><pre>  // Retrieve Vendor Specific Info Frame
-  XV_HdmiRxSs_RetrieveVSInfoframe(HdmiRxSsPtr-&gt;HdmiRxPtr);</pre><pre>  // Check if user callback has been registered
+  <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *HdmiRxSsPtr = (<a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *)CallbackRef;
+  XHdmiC_Aux *AuxPtr;
+  XHdmiC_AVI_InfoFrame *AviInfoFramePtr;
+  XHdmiC_GeneralControlPacket *GeneralControlPacketPtr;
+  XHdmiC_AudioInfoFrame *AudioInfoFramePtr;</pre><pre>  AviInfoFramePtr = XV_HdmiRxSs_GetAviInfoframe(HdmiRxSsPtr);
+  GeneralControlPacketPtr = XV_HdmiRxSs_GetGCP(HdmiRxSsPtr);
+  AudioInfoFramePtr = XV_HdmiRxSs_GetAudioInfoframe(HdmiRxSsPtr);
+  AuxPtr = XV_HdmiRxSs_GetAuxiliary(HdmiRxSsPtr);</pre><pre>  if(AuxPtr-&gt;Header.Byte[0] == AUX_VSIF_TYPE){
+          // Retrieve Vendor Specific Info Frame
+          XV_HdmiRxSs_RetrieveVSInfoframe(HdmiRxSsPtr);
+  } else if(AuxPtr-&gt;Header.Byte[0] == AUX_AVI_INFOFRAME_TYPE){
+          // Reset Avi InfoFrame
+          (void)memset((void *)AviInfoFramePtr, 0, sizeof(XHdmiC_AVI_InfoFrame));
+          // Parse Aux to retrieve Avi InfoFrame
+          XV_HdmiC_ParseAVIInfoFrame(AuxPtr, AviInfoFramePtr);
+          HdmiRxSsPtr-&gt;HdmiRxPtr-&gt;Stream.Video.ColorFormatId = 
+                                XV_HdmiRx_GetAviColorSpace(HdmiRxSsPtr-&gt;HdmiRxPtr);
+          HdmiRxSsPtr-&gt;HdmiRxPtr-&gt;Stream.Vic = 
+                                XV_HdmiRx_GetAviVic(HdmiRxSsPtr-&gt;HdmiRxPtr);
+          HdmiRxSsPtr-&gt;HdmiRxPtr-&gt;Stream.Video.AspectRatio =
+                                XV_HdmiC_IFAspectRatio_To_XVidC(HdmiRxSsPtr-&gt;AVIInfoframe.PicAspectRatio);
+  } else if(AuxPtr-&gt;Header.Byte[0] == AUX_GENERAL_CONTROL_PACKET_TYPE) {
+          // Reset General Control Packet
+          (void)memset((void *)GeneralControlPacketPtr, 0, sizeof(XHdmiC_GeneralControlPacket));
+          // Parse Aux to retrieve General Control Packet
+          XV_HdmiC_ParseGCP(AuxPtr, GeneralControlPacketPtr);
+          // Stream.Video.ColorDepth is updated from the core during AUX INTR
+  } else if(AuxPtr-&gt;Header.Byte[0] == AUX_AUDIO_INFOFRAME_TYPE) {
+          // Reset Audio InfoFrame
+          (void)memset((void *)AudioInfoFramePtr, 0, sizeof(XHdmiC_AudioInfoFrame));
+          // Parse Aux to retrieve Audio InfoFrame
+          XV_HdmiC_ParseAudioInfoFrame(AuxPtr, AudioInfoFramePtr);
+  }</pre><pre>  // Check if user callback has been registered
   if (HdmiRxSsPtr-&gt;AuxCallback) {
       HdmiRxSsPtr-&gt;AuxCallback(HdmiRxSsPtr-&gt;AuxRef);
   }
@@ -517,7 +643,14 @@ static void XV_HdmiRxSs_AuxCallback(void *CallbackRef)
 ******************************************************************************/
 static void XV_HdmiRxSs_SyncLossCallback(void *CallbackRef)
 {
-  <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *HdmiRxSsPtr = (<a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *)CallbackRef;</pre><pre>  // Push sync loss event to HDCP event queue</pre><pre>  XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_SYNCLOSS, 0);</pre><pre>}</pre><pre>/*****************************************************************************/
+  <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *HdmiRxSsPtr = (<a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *)CallbackRef;</pre><pre>  if (HdmiRxSsPtr-&gt;HdmiRxPtr-&gt;Stream.SyncStatus ==
+                                                                                                XV_HDMIRX_SYNCSTAT_SYNC_LOSS) {
+  // Push sync loss event to HDCP event queue</pre><pre>  XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_SYNCLOSS, 0);</pre><pre>  }
+  // Sync is recovered/establish
+  else if (HdmiRxSsPtr-&gt;HdmiRxPtr-&gt;Stream.SyncStatus ==
+                                                                                                 XV_HDMIRX_SYNCSTAT_SYNC_EST) {
+          // Push sync loss event to HDCP event queue</pre><pre>          XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_SYNCEST, 0);</pre><pre>  }
+}</pre><pre>/*****************************************************************************/
 /**</pre><pre>  This function is called when the mode has transitioned from DVI to HDMI or
   vice versa.</pre><pre><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -543,25 +676,27 @@ static void XV_HdmiRxSs_ModeCallback(void *CallbackRef)
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
 ******************************************************************************/
-static void XV_HdmiRxSs_RetrieveVSInfoframe(XV_HdmiRx *HdmiRx)
+static void XV_HdmiRxSs_RetrieveVSInfoframe(XV_HdmiRxSs *HdmiRxSs)
 {
   /** Vendor-Specific InfoFrame structure */
-  XV_HdmiRx_VSIF VSIF;</pre><pre>  if (HdmiRx-&gt;Aux.Header.Byte[0] == 0x81) {
-      XV_HdmiRx_VSIF_ParsePacket(&amp;HdmiRx-&gt;Aux, &amp;VSIF);</pre><pre>      // Defaults
-      HdmiRx-&gt;Stream.Video.Is3D = FALSE;
-      HdmiRx-&gt;Stream.Video.Info_3D.Format = XVIDC_3D_UNKNOWN;</pre><pre>      if (VSIF.Format == XV_HDMIRX_VSIF_VF_3D) {
-          HdmiRx-&gt;Stream.Video.Is3D = TRUE;
-          HdmiRx-&gt;Stream.Video.Info_3D = VSIF.Info_3D.Stream;
-      } else if (VSIF.Format == XV_HDMIRX_VSIF_VF_EXTRES) {
-          switch(VSIF.HDMI_VIC) {
+  XHdmiC_VSIF *VSIFPtr;
+  VSIFPtr = XV_HdmiRxSs_GetVSIF(HdmiRxSs);</pre><pre>  if (HdmiRxSs-&gt;HdmiRxPtr-&gt;Aux.Header.Byte[0] == AUX_VSIF_TYPE) {
+          // Reset Vendor Specific InfoFrame
+          (void)memset((void *)VSIFPtr, 0, sizeof(XHdmiC_VSIF));</pre><pre>          XV_HdmiC_VSIF_ParsePacket(&amp;HdmiRxSs-&gt;HdmiRxPtr-&gt;Aux, VSIFPtr);</pre><pre>      // Defaults
+      HdmiRxSs-&gt;HdmiRxPtr-&gt;Stream.Video.Is3D = FALSE;
+      HdmiRxSs-&gt;HdmiRxPtr-&gt;Stream.Video.Info_3D.Format = XVIDC_3D_UNKNOWN;</pre><pre>      if (VSIFPtr-&gt;Format == XHDMIC_VSIF_VF_3D) {
+          HdmiRxSs-&gt;HdmiRxPtr-&gt;Stream.Video.Is3D = TRUE;
+          HdmiRxSs-&gt;HdmiRxPtr-&gt;Stream.Video.Info_3D = VSIFPtr-&gt;Info_3D.Stream;
+      } else if (VSIFPtr-&gt;Format == XHDMIC_VSIF_VF_EXTRES) {
+          switch(VSIFPtr-&gt;HDMI_VIC) {
               case 1 :
-                  HdmiRx-&gt;Stream.Vic = 95;
+                  HdmiRxSs-&gt;HdmiRxPtr-&gt;Stream.Vic = 95;
                   break;</pre><pre>              case 2 :
-                  HdmiRx-&gt;Stream.Vic = 94;
+                  HdmiRxSs-&gt;HdmiRxPtr-&gt;Stream.Vic = 94;
                   break;</pre><pre>              case 3 :
-                  HdmiRx-&gt;Stream.Vic = 93;
+                  HdmiRxSs-&gt;HdmiRxPtr-&gt;Stream.Vic = 93;
                   break;</pre><pre>              case 4 :
-                  HdmiRx-&gt;Stream.Vic = 98;
+                  HdmiRxSs-&gt;HdmiRxPtr-&gt;Stream.Vic = 98;
                   break;</pre><pre>              default :
                   break;
           }
@@ -631,8 +766,10 @@ static void XV_HdmiRxSs_DdcCallback(void *CallbackRef)
 ******************************************************************************/
 static void XV_HdmiRxSs_StreamDownCallback(void *CallbackRef)
 {
-  <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *HdmiRxSsPtr = (<a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *)CallbackRef;</pre><pre>  // Assert HDMI RX reset
-  XV_HdmiRx_Reset(HdmiRxSsPtr-&gt;HdmiRxPtr, TRUE);</pre><pre>  /* Set stream up flag */
+  <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *HdmiRxSsPtr = (<a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *)CallbackRef;</pre><pre>  /* Assert HDMI RX core resets */
+  XV_HdmiRxSs_RXCore_VRST(HdmiRxSsPtr, TRUE);
+  XV_HdmiRxSs_RXCore_LRST(HdmiRxSsPtr, TRUE);</pre><pre>  /* Assert SYSCLK VID_IN bridge reset */
+  XV_HdmiRxSs_SYSRST(HdmiRxSsPtr, TRUE);</pre><pre>  /* Set stream up flag */
   HdmiRxSsPtr-&gt;IsStreamUp = (FALSE);</pre><pre>  XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_STREAMDOWN, 0);</pre><pre>  // Check if user callback has been registered
   if (HdmiRxSsPtr-&gt;StreamDownCallback) {
       HdmiRxSsPtr-&gt;StreamDownCallback(HdmiRxSsPtr-&gt;StreamDownRef);
@@ -722,9 +859,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a938e999c689d01ff3559e472f21c9757"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8c.html#a938e999c689d01ff3559e472f21c9757">XV_HdmiRxSs_ToggleHpd</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a938e999c689d01ff3559e472f21c9757"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function toggles the HPD on the HDMI RX.  <a href="#a938e999c689d01ff3559e472f21c9757">More...</a><br /></td></tr>
 <tr class="separator:a938e999c689d01ff3559e472f21c9757"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdc5756e7c68a5abc93dc6fcb562db03"><td class="memItemLeft" align="right" valign="top">XV_HdmiRx_Aux *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8c.html#abdc5756e7c68a5abc93dc6fcb562db03">XV_HdmiRxSs_GetAuxiliary</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:abdc5756e7c68a5abc93dc6fcb562db03"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the pointer to HDMI RX SS Aux structure.  <a href="#abdc5756e7c68a5abc93dc6fcb562db03">More...</a><br /></td></tr>
-<tr class="separator:abdc5756e7c68a5abc93dc6fcb562db03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a461c8c44a3dc58685afd72b911047ec4"><td class="memItemLeft" align="right" valign="top">XHdmiC_Aux *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8c.html#a461c8c44a3dc58685afd72b911047ec4">XV_HdmiRxSs_GetAuxiliary</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a461c8c44a3dc58685afd72b911047ec4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the pointer to HDMI RX SS Aux structure.  <a href="#a461c8c44a3dc58685afd72b911047ec4">More...</a><br /></td></tr>
+<tr class="separator:a461c8c44a3dc58685afd72b911047ec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa671579897f973e1ad154ef39309a218"><td class="memItemLeft" align="right" valign="top">XHdmiC_AVI_InfoFrame *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8c.html#aa671579897f973e1ad154ef39309a218">XV_HdmiRxSs_GetAviInfoframe</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:aa671579897f973e1ad154ef39309a218"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the pointer to HDMI RX SS AVI InfoFrame structure.  <a href="#aa671579897f973e1ad154ef39309a218">More...</a><br /></td></tr>
+<tr class="separator:aa671579897f973e1ad154ef39309a218"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57cfe6053ed992c9bd8c77428ad1e226"><td class="memItemLeft" align="right" valign="top">XHdmiC_GeneralControlPacket *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8c.html#a57cfe6053ed992c9bd8c77428ad1e226">XV_HdmiRxSs_GetGCP</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a57cfe6053ed992c9bd8c77428ad1e226"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the pointer to HDMI RX SS General Control Packet structure.  <a href="#a57cfe6053ed992c9bd8c77428ad1e226">More...</a><br /></td></tr>
+<tr class="separator:a57cfe6053ed992c9bd8c77428ad1e226"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05f94117a349e62618cd03cefe3208af"><td class="memItemLeft" align="right" valign="top">XHdmiC_AudioInfoFrame *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8c.html#a05f94117a349e62618cd03cefe3208af">XV_HdmiRxSs_GetAudioInfoframe</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a05f94117a349e62618cd03cefe3208af"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the pointer to HDMI RX SS Audio InfoFrame structure.  <a href="#a05f94117a349e62618cd03cefe3208af">More...</a><br /></td></tr>
+<tr class="separator:a05f94117a349e62618cd03cefe3208af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76c089191afe311270bc5f83a83e69d5"><td class="memItemLeft" align="right" valign="top">XHdmiC_VSIF *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8c.html#a76c089191afe311270bc5f83a83e69d5">XV_HdmiRxSs_GetVSIF</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a76c089191afe311270bc5f83a83e69d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the pointer to HDMI RX SS Vendor Specific InfoFrame structure.  <a href="#a76c089191afe311270bc5f83a83e69d5">More...</a><br /></td></tr>
+<tr class="separator:a76c089191afe311270bc5f83a83e69d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6156f804fb138799bb3bd9a243dd36cf"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8c.html#a6156f804fb138799bb3bd9a243dd36cf">XV_HdmiRxSs_SetStream</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr, u32 Clock, u32 LineRate)</td></tr>
 <tr class="memdesc:a6156f804fb138799bb3bd9a243dd36cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function set HDMI RX susbsystem stream parameters.  <a href="#a6156f804fb138799bb3bd9a243dd36cf">More...</a><br /></td></tr>
 <tr class="separator:a6156f804fb138799bb3bd9a243dd36cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -764,6 +913,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a7296f98d74b618438a08c0bb4d303350"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8c.html#a7296f98d74b618438a08c0bb4d303350">XV_HdmiRxSs_SetPpc</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr, u8 Id, u8 Ppc)</td></tr>
 <tr class="memdesc:a7296f98d74b618438a08c0bb4d303350"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set PPC specified by user.  <a href="#a7296f98d74b618438a08c0bb4d303350">More...</a><br /></td></tr>
 <tr class="separator:a7296f98d74b618438a08c0bb4d303350"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c8f4247ffd9a6540e8aed78e23699a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8c.html#a3c8f4247ffd9a6540e8aed78e23699a7">XV_HdmiRxSS_SetAppVersion</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr, u8 maj, u8 min)</td></tr>
+<tr class="memdesc:a3c8f4247ffd9a6540e8aed78e23699a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set the major and minor application version in RXSs struct.  <a href="#a3c8f4247ffd9a6540e8aed78e23699a7">More...</a><br /></td></tr>
+<tr class="separator:a3c8f4247ffd9a6540e8aed78e23699a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a9800e58c46167ce458da016451f88c8d"></a>
@@ -826,14 +978,44 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="abdc5756e7c68a5abc93dc6fcb562db03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdc5756e7c68a5abc93dc6fcb562db03">&#9670;&nbsp;</a></span>XV_HdmiRxSs_GetAuxiliary()</h2>
+<a id="a05f94117a349e62618cd03cefe3208af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05f94117a349e62618cd03cefe3208af">&#9670;&nbsp;</a></span>XV_HdmiRxSs_GetAudioInfoframe()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">XV_HdmiRx_Aux* XV_HdmiRxSs_GetAuxiliary </td>
+          <td class="memname">XHdmiC_AudioInfoFrame* XV_HdmiRxSs_GetAudioInfoframe </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns the pointer to HDMI RX SS Audio InfoFrame structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>pointer to XV_HdmiRXSs instance</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XHdmiC_AudioInfoFrame pointer</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_rx_ss.html#a59073c58e4cdc43aae7bccbc16019954">XV_HdmiRxSs::AudioInfoframe</a>.</p>
+
+</div>
+</div>
+<a id="a461c8c44a3dc58685afd72b911047ec4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a461c8c44a3dc58685afd72b911047ec4">&#9670;&nbsp;</a></span>XV_HdmiRxSs_GetAuxiliary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XHdmiC_Aux* XV_HdmiRxSs_GetAuxiliary </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *&#160;</td>
           <td class="paramname"><em>InstancePtr</em></td><td>)</td>
@@ -853,6 +1035,66 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_v___hdmi_rx_ss.html#a3d76e27b48746aa888d284583ce9399a">XV_HdmiRxSs::HdmiRxPtr</a>.</p>
+
+</div>
+</div>
+<a id="aa671579897f973e1ad154ef39309a218"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa671579897f973e1ad154ef39309a218">&#9670;&nbsp;</a></span>XV_HdmiRxSs_GetAviInfoframe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XHdmiC_AVI_InfoFrame* XV_HdmiRxSs_GetAviInfoframe </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns the pointer to HDMI RX SS AVI InfoFrame structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>pointer to XV_HdmiRXSs instance</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XHdmiC_AVI_InfoFrame pointer</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_rx_ss.html#a4800880ca561a559d9f2c6fcc75a2c32">XV_HdmiRxSs::AVIInfoframe</a>.</p>
+
+</div>
+</div>
+<a id="a57cfe6053ed992c9bd8c77428ad1e226"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57cfe6053ed992c9bd8c77428ad1e226">&#9670;&nbsp;</a></span>XV_HdmiRxSs_GetGCP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XHdmiC_GeneralControlPacket* XV_HdmiRxSs_GetGCP </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns the pointer to HDMI RX SS General Control Packet structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>pointer to XV_HdmiRXSs instance</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XHdmiC_GeneralControlPacket pointer</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_rx_ss.html#a15566d0e8b2bab5ebed734b5ff942748">XV_HdmiRxSs::GCP</a>.</p>
 
 </div>
 </div>
@@ -973,6 +1215,36 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_v___hdmi_rx_ss.html#a3d76e27b48746aa888d284583ce9399a">XV_HdmiRxSs::HdmiRxPtr</a>.</p>
+
+</div>
+</div>
+<a id="a76c089191afe311270bc5f83a83e69d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76c089191afe311270bc5f83a83e69d5">&#9670;&nbsp;</a></span>XV_HdmiRxSs_GetVSIF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XHdmiC_VSIF* XV_HdmiRxSs_GetVSIF </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns the pointer to HDMI RX SS Vendor Specific InfoFrame structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>pointer to <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> instance</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XHdmiC_VSIF pointer</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_rx_ss.html#aed8607cabba43e5efcf59aba9b810ff4">XV_HdmiRxSs::VSIF</a>.</p>
 
 </div>
 </div>
@@ -1165,6 +1437,54 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_v___hdmi_rx_ss.html#a3d76e27b48746aa888d284583ce9399a">XV_HdmiRxSs::HdmiRxPtr</a>.</p>
+
+</div>
+</div>
+<a id="a3c8f4247ffd9a6540e8aed78e23699a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c8f4247ffd9a6540e8aed78e23699a7">&#9670;&nbsp;</a></span>XV_HdmiRxSS_SetAppVersion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiRxSS_SetAppVersion </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>maj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>min</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will set the major and minor application version in RXSs struct. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> core instance. </td></tr>
+    <tr><td class="paramname">maj</td><td>is the major version of the application. </td></tr>
+    <tr><td class="paramname">min</td><td>is the minor version of the application. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_rx_ss.html#a50546d3a788308c4bfb0becf4ad5788c">XV_HdmiRxSs::AppMajVer</a>, and <a class="el" href="struct_x_v___hdmi_rx_ss.html#a9d621556655d6495476016c5e9e6506a">XV_HdmiRxSs::AppMinVer</a>.</p>
 
 </div>
 </div>
