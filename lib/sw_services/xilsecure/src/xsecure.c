@@ -50,6 +50,10 @@
 *                    is using SHA2 hash and single RSA key pair authentication
 * 3.0   vns 02/21/18 Added support for single partition image authentication
 *                    and/or decryption.
+* 3.1   vns 04/13/18 Added device key support even if authentication is not
+*                    been enabled for single partition image, when PMUFW is
+*                    compiled by enabling secure environment variable in bsp
+*                    settings.
 * </pre>
 *
 * @note
@@ -59,6 +63,7 @@
 /***************************** Include Files *********************************/
 
 #include "xsecure.h"
+#include "xparameters.h"
 
 XSecure_Aes SecureAes;
 XSecure_Rsa Secure_Rsa;
@@ -959,10 +964,12 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 		if (NoAuth != 0x00) {
 			ImageHdrInfo.KeySrc = Xil_In32((UINTPTR)Buffer +
 						XSECURE_KEY_SOURCE_OFFSET);
+#ifndef XSECURE_TRUSTED_ENVIRONMENT
 			if (ImageHdrInfo.KeySrc != XSECURE_KEY_SRC_KUP) {
 				Status = XSECURE_DEC_WRONG_KEY_SOURCE;
 				goto END;
 			}
+#endif
 			XSecure_MemCopy(ImageHdrInfo.Iv,
 				(Buffer + XSECURE_IV_OFFSET), XSECURE_IV_SIZE);
 			/* Add partition header IV to boot header IV */

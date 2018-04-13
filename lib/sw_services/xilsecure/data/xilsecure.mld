@@ -40,6 +40,7 @@
 # 3.0   vns 01/03/18  Modified boot image decryption API
 # 3.0   srm 02/16/18  Updated to pick up latest freertos port 10.0
 # 3.1   vns 04/04/18  Updated AES example
+#       vns 04/13/18  Added secure_environment user configurable parameter.
 #
 ##############################################################################
 
@@ -54,4 +55,5 @@ BEGIN LIBRARY xilsecure
   OPTION desc = "Xilinx Secure Library provides interface to AES, RSA and SHA hardware engines on ZynqMP Soc ";
   OPTION VERSION = 3.1;
   OPTION NAME = xilsecure;
+  PARAM name = secure_environment, desc = "Enables trusted execution environment", type = bool, default = false;
 END LIBRARY
