@@ -1,34 +1,32 @@
-/******************************************************************************
-*
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
-******************************************************************************/
+/*
+ * Copyright (C) 2010 - 2018 Xilinx, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. The name of the author may not be used to endorse or promote products
+ *    derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+ * OF SUCH DAMAGE.
+ *
+ * This file is part of the lwIP TCP/IP stack.
+ *
+ */
 
 #ifndef __NETIF_XAXIEMACIF_H__
 #define __NETIF_XAXIEMACIF_H__
@@ -48,6 +46,8 @@ extern "C" {
 #include "xaxiethernet.h"
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO
 #include "xllfifo.h"
+#elif XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_MCDMA
+#include "xmcdma.h"
 #else
 #include "xaxidma.h"
 #include "xaxidma_hw.h"
@@ -55,6 +55,15 @@ extern "C" {
 
 #include "netif/xpqueue.h"
 #include "xlwipconfig.h"
+
+#if XLWIP_CONFIG_INCLUDE_AXIETH_ON_ZYNQ == 1
+#define AXIDMA_TX_INTR_PRIORITY_SET_IN_GIC      0xA0
+#define AXIDMA_RX_INTR_PRIORITY_SET_IN_GIC      0xA0
+#define AXIETH_INTR_PRIORITY_SET_IN_GIC         0xA0
+#define TRIG_TYPE_RISING_EDGE_SENSITIVE         0x3
+
+#define INTC_DIST_BASE_ADDR     XPAR_SCUGIC_0_DIST_BASEADDR
+#endif
 
 void 	xaxiemacif_setmac(u32_t index, u8_t *addr);
 u8_t*	xaxiemacif_getmac(u32_t index);
@@ -74,6 +83,8 @@ void 	xaxiemac_error_handler(XAxiEthernet * Temac);
 typedef struct {
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO
 	XLlFifo      axififo;
+#elif defined(XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_MCDMA)
+	XMcdma       aximcdma;
 #else
 	XAxiDma      axidma;
 #endif
@@ -92,13 +103,22 @@ extern xaxiemacif_s xaxiemacif;
 
 #ifndef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO
 s32_t is_tx_space_available(xaxiemacif_s *emac);
+#ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_MCDMA
+s32_t process_sent_bds(XMcdma_ChanCtrl *Tx_Chan);
+#else
 s32_t process_sent_bds(XAxiDma_BdRing *txring);
 #endif
+#endif
 
-/* xaxiemacif_dma.c */
+/* xaxiemacif_dma.c/xaxiemacif_mcdma.c */
 #ifndef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO
+#ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_MCDMA
+XStatus init_axi_mcdma(struct xemac_s *xemac);
+XStatus axi_mcdma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p);
+#else
 XStatus init_axi_dma(struct xemac_s *xemac);
 XStatus axidma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p);
+#endif
 #endif
 
 #ifdef __cplusplus
