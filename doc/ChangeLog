@@ -19,6 +19,7 @@ maximum number of channels.
 
 lwip202_v1_1:
 Avoid redundant axi ethernet config lookup and intialize.
+Add Hot plug autodetect support for EmacPS and AXI Ethernet.
 
 xilisf_v5_11
 Added support for ISSI 256Mb series flash parts.
