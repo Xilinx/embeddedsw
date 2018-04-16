@@ -33,7 +33,7 @@
 /**
 *
 * @file xspips_hw.h
-* @addtogroup spips_v3_0
+* @addtogroup spips_v3_1
 * @{
 *
 * This header file contains the identifiers and basic driver functions (or

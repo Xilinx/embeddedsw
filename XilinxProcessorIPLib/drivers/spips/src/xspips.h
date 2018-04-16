@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xspips.h
-* @addtogroup spips_v3_0
+* @addtogroup spips_v3_1
 * @{
 * @details
 *
@@ -250,6 +250,8 @@
 *                       for doxygen generation and also modified filename tag
 *                       in eeprom interrupt, eeprom polled and flash polled
 *                       files to include them in doxygen examples.
+* 3.1	tjs    04/12/18 InputClockHz parameter copied in instance for use in
+* 						application. CR#998910
 * </pre>
 *
 ******************************************************************************/

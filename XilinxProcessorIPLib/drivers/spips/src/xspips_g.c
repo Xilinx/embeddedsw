@@ -33,7 +33,7 @@
 /**
 *
 * @file xspips_g.c
-* @addtogroup spips_v3_0
+* @addtogroup spips_v3_1
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
