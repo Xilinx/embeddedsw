@@ -63,6 +63,14 @@ struct xemac_s {
 #endif
 };
 
+enum ethernet_link_status {
+	ETH_LINK_UNDEFINED = 0,
+	ETH_LINK_UP,
+	ETH_LINK_DOWN,
+	ETH_LINK_NEGOTIATING
+};
+
+void eth_link_detect(struct netif *netif);
 void 		lwip_raw_init();
 int 		xemacif_input(struct netif *netif);
 void 		xemacif_input_thread(struct netif *netif);

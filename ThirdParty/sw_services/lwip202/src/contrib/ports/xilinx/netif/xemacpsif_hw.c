@@ -44,6 +44,8 @@ u32_t link_speed = 100;
 extern XEmacPs_Config XEmacPs_ConfigTable[];
 extern u32_t phymapemac0[32];
 extern u32_t phymapemac1[32];
+extern u32_t phyaddrforemac;
+extern enum ethernet_link_status eth_link_status;
 
 #ifdef OS_IS_FREERTOS
 extern long xInsideISR;
@@ -92,47 +94,52 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 
 /*  Please refer to file header comments for the file xemacpsif_physpeed.c
  *  to know more about the PHY programming sequence.
- *  For PCS PMA core, phy_setup is called with the predefined PHY address
+ *  For PCS PMA core, phy_setup_emacps is called with the predefined PHY address
  *  exposed through xaparemeters.h
  *  For RGMII case, assuming multiple PHYs can be present on the MDIO bus,
  *  detect_phy is called to get the addresses of the PHY present on
  *  a particular MDIO bus (emac0 or emac1). This address map is populated
  *  in phymapemac0 or phymapemac1.
- *  phy_setup is then called for each PHY present on the MDIO bus.
+ *  phy_setup_emacps is then called for each PHY present on the MDIO bus.
  */
 #ifdef PCM_PMA_CORE_PRESENT
 #ifdef  XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT
-	link_speed = phy_setup(xemacpsp, XPAR_PCSPMA_1000BASEX_PHYADDR);
+	link_speed = phy_setup_emacps(xemacpsp, XPAR_PCSPMA_1000BASEX_PHYADDR);
 #elif XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT
-	link_speed = phy_setup(xemacpsp, XPAR_PCSPMA_SGMII_PHYADDR);
+	link_speed = phy_setup_emacps(xemacpsp, XPAR_PCSPMA_SGMII_PHYADDR);
 #endif
 #else
 	detect_phy(xemacpsp);
 	for (i = 31; i > 0; i--) {
 		if (xemacpsp->Config.BaseAddress == XPAR_XEMACPS_0_BASEADDR) {
 			if (phymapemac0[i] == TRUE) {
-				link_speed = phy_setup(xemacpsp, i);
+				link_speed = phy_setup_emacps(xemacpsp, i);
 				phyfoundforemac0 = TRUE;
+				phyaddrforemac = i;
 			}
 		} else {
 			if (phymapemac1[i] == TRUE) {
-				link_speed = phy_setup(xemacpsp, i);
+				link_speed = phy_setup_emacps(xemacpsp, i);
 				phyfoundforemac1 = TRUE;
+				phyaddrforemac = i;
 			}
 		}
 	}
 	/* If no PHY was detected, use broadcast PHY address of 0 */
 	if (xemacpsp->Config.BaseAddress == XPAR_XEMACPS_0_BASEADDR) {
 		if (phyfoundforemac0 == FALSE)
-			link_speed = phy_setup(xemacpsp, 0);
+			link_speed = phy_setup_emacps(xemacpsp, 0);
 	} else {
 		if (phyfoundforemac1 == FALSE)
-			link_speed = phy_setup(xemacpsp, 0);
+			link_speed = phy_setup_emacps(xemacpsp, 0);
 	}
 #endif
 
 	if (link_speed == XST_FAILURE) {
+		eth_link_status = ETH_LINK_DOWN;
 		xil_printf("Assert due to phy setup failure \n\r",__func__);
+	} else {
+		eth_link_status = ETH_LINK_UP;
 	}
 
 	XEmacPs_SetOperatingSpeed(xemacpsp, link_speed);

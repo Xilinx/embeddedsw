@@ -63,7 +63,7 @@ int 	xaxiemacif_input(struct netif *netif);
 
 unsigned get_IEEE_phy_speed(XAxiEthernet *xaxiemacp);
 unsigned configure_IEEE_phy_speed(XAxiEthernet *xaxiemacp, unsigned speed);
-unsigned Phy_Setup (XAxiEthernet *xaxiemacp);
+unsigned phy_setup_axiemac (XAxiEthernet *xaxiemacp);
 
 /* xaxiemacif_hw.c */
 void 	xaxiemac_error_handler(XAxiEthernet * Temac);
