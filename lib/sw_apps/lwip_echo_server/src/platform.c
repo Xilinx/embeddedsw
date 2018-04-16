@@ -38,6 +38,7 @@
 #include "xintc.h"
 #include "xil_exception.h"
 #include "lwip/tcp.h"
+#include "netif/xadapter.h"
 #ifdef STDOUT_IS_16550
 #include "xuartns550_l.h"
 #endif
@@ -53,9 +54,12 @@ void dhcp_coarse_tmr();
 volatile int TcpFastTmrFlag = 0;
 volatile int TcpSlowTmrFlag = 0;
 
+extern struct netif *echo_netif;
+
 void
 timer_callback()
 {
+	static int DetectEthLinkStatus = 0;
 	/* we need to call tcp_fasttmr & tcp_slowtmr at intervals specified by lwIP.
 	 * It is not important that the timing is absoluetly accurate.
 	 */
@@ -63,6 +67,7 @@ timer_callback()
 #if LWIP_DHCP==1
     static int dhcp_timer = 0;
 #endif
+	DetectEthLinkStatus++;
 	 TcpFastTmrFlag = 1;
 
 	odd = !odd;
@@ -80,6 +85,12 @@ timer_callback()
 			dhcp_timer = 0;
 		}
 #endif
+	}
+
+	/* For detecting Ethernet phy link status periodically */
+	if (DetectEthLinkStatus == ETH_LINK_DETECT_INTERVAL) {
+		eth_link_detect(echo_netif);
+		DetectEthLinkStatus = 0;
 	}
 }
 

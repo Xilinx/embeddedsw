@@ -57,6 +57,7 @@
 #include "xscugic.h"
 #include "lwip/tcp.h"
 #include "xil_printf.h"
+#include "platform.h"
 #include "platform_config.h"
 #include "netif/xadapter.h"
 #ifdef PLATFORM_ZYNQ
@@ -77,8 +78,9 @@ static XScuTimer TimerInstance;
 
 #ifndef USE_SOFTETH_ON_ZYNQ
 static int ResetRxCntr = 0;
-extern struct netif *echo_netif;
 #endif
+
+extern struct netif *echo_netif;
 
 volatile int TcpFastTmrFlag = 0;
 volatile int TcpSlowTmrFlag = 0;
@@ -92,6 +94,7 @@ void dhcp_coarse_tmr();
 void
 timer_callback(XScuTimer * TimerInstance)
 {
+	static int DetectEthLinkStatus = 0;
 	/* we need to call tcp_fasttmr & tcp_slowtmr at intervals specified
 	 * by lwIP. It is not important that the timing is absoluetly accurate.
 	 */
@@ -99,6 +102,7 @@ timer_callback(XScuTimer * TimerInstance)
 #if LWIP_DHCP==1
     static int dhcp_timer = 0;
 #endif
+	DetectEthLinkStatus++;
 	 TcpFastTmrFlag = 1;
 
 	odd = !odd;
@@ -134,6 +138,12 @@ timer_callback(XScuTimer * TimerInstance)
 		ResetRxCntr = 0;
 	}
 #endif
+	/* For detecting Ethernet phy link status periodically */
+	if (DetectEthLinkStatus == ETH_LINK_DETECT_INTERVAL) {
+		eth_link_detect(echo_netif);
+		DetectEthLinkStatus = 0;
+	}
+
 	XScuTimer_ClearInterruptStatus(TimerInstance);
 }
 
