@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,9 @@
 *       vns  17/08/17 Added APIs XSecure_RsaPublicEncrypt and
 *                     XSecure_RsaPrivateDecrypt.As per functionality
 *                     XSecure_RsaPublicEncrypt is same as XSecure_RsaDecrypt.
+* 3.1   vns  11/04/18 Added support for 512, 576, 704, 768, 992, 1024, 1152,
+*                     1408, 1536, 1984, 3072 key sizes, where previous verision
+*                     has support only 2048 and 4096 key sizes.
 *
 * </pre>
 *
@@ -551,8 +554,19 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Result != NULL);
 	Xil_AssertNonvoid(Input != NULL);
-	Xil_AssertNonvoid((Size != XSECURE_RSA_4096_KEY_SIZE) ||
-					(Size != XSECURE_RSA_2048_KEY_SIZE));
+	Xil_AssertNonvoid((Size == XSECURE_RSA_512_KEY_SIZE) ||
+		(Size == XSECURE_RSA_576_KEY_SIZE) ||
+		(Size == XSECURE_RSA_704_KEY_SIZE) ||
+		(Size == XSECURE_RSA_768_KEY_SIZE) ||
+		(Size == XSECURE_RSA_992_KEY_SIZE) ||
+		(Size == XSECURE_RSA_1024_KEY_SIZE) ||
+		(Size == XSECURE_RSA_1152_KEY_SIZE) ||
+		(Size == XSECURE_RSA_1408_KEY_SIZE) ||
+		(Size == XSECURE_RSA_1536_KEY_SIZE) ||
+		(Size == XSECURE_RSA_1984_KEY_SIZE) ||
+		(Size == XSECURE_RSA_2048_KEY_SIZE) ||
+		(Size == XSECURE_RSA_3072_KEY_SIZE) ||
+		(Size == XSECURE_RSA_4096_KEY_SIZE));
 
 	/* Setting for RSA signature encryption with public key */
 	InstancePtr->EncDec = XSECURE_RSA_SIGN_ENC;
@@ -595,8 +609,19 @@ s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Result != NULL);
 	Xil_AssertNonvoid(Input != NULL);
-	Xil_AssertNonvoid((Size != XSECURE_RSA_4096_KEY_SIZE) ||
-			(Size != XSECURE_RSA_2048_KEY_SIZE));
+	Xil_AssertNonvoid((Size == XSECURE_RSA_512_KEY_SIZE) ||
+			(Size == XSECURE_RSA_576_KEY_SIZE) ||
+			(Size == XSECURE_RSA_704_KEY_SIZE) ||
+			(Size == XSECURE_RSA_768_KEY_SIZE) ||
+			(Size == XSECURE_RSA_992_KEY_SIZE) ||
+			(Size == XSECURE_RSA_1024_KEY_SIZE) ||
+			(Size == XSECURE_RSA_1152_KEY_SIZE) ||
+			(Size == XSECURE_RSA_1408_KEY_SIZE) ||
+			(Size == XSECURE_RSA_1536_KEY_SIZE) ||
+			(Size == XSECURE_RSA_1984_KEY_SIZE) ||
+			(Size == XSECURE_RSA_2048_KEY_SIZE) ||
+			(Size == XSECURE_RSA_3072_KEY_SIZE) ||
+			(Size == XSECURE_RSA_4096_KEY_SIZE));
 
 	/* Setting to perform RSA signature decryption with private key */
 	InstancePtr->EncDec = XSECURE_RSA_SIGN_DEC;
@@ -638,12 +663,51 @@ static s32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 	/* Initialize MINV values from Mod. */
 	XSecure_RsaMod32Inverse(InstancePtr);
 
-	if (InstancePtr->SizeInWords == XSECURE_RSA_4096_SIZE_WORDS) {
-		RsaType = XSECURE_CSU_RSA_CONTROL_4096;
+	switch(InstancePtr->SizeInWords) {
+		case XSECURE_RSA_512_SIZE_WORDS:
+			RsaType = XSECURE_CSU_RSA_CONTROL_512;
+			break;
+		case XSECURE_RSA_576_SIZE_WORDS:
+			RsaType = XSECURE_CSU_RSA_CONTROL_576;
+			break;
+		case XSECURE_RSA_704_SIZE_WORDS:
+			RsaType = XSECURE_CSU_RSA_CONTROL_704;
+			break;
+		case XSECURE_RSA_768_SIZE_WORDS:
+			RsaType = XSECURE_CSU_RSA_CONTROL_768;
+			break;
+		case XSECURE_RSA_992_SIZE_WORDS:
+			RsaType = XSECURE_CSU_RSA_CONTROL_992;
+			break;
+		case XSECURE_RSA_1024_SIZE_WORDS:
+			RsaType = XSECURE_CSU_RSA_CONTROL_1024;
+			break;
+		case XSECURE_RSA_1152_SIZE_WORDS:
+			RsaType = XSECURE_CSU_RSA_CONTROL_1152;
+			break;
+		case XSECURE_RSA_1408_SIZE_WORDS:
+			RsaType = XSECURE_CSU_RSA_CONTROL_1408;
+			break;
+		case XSECURE_RSA_1536_SIZE_WORDS:
+			RsaType = XSECURE_CSU_RSA_CONTROL_1536;
+			break;
+		case XSECURE_RSA_1984_SIZE_WORDS:
+			RsaType = XSECURE_CSU_RSA_CONTROL_1984;
+			break;
+		case XSECURE_RSA_2048_SIZE_WORDS:
+			RsaType = XSECURE_CSU_RSA_CONTROL_2048;
+			break;
+		case XSECURE_RSA_3072_SIZE_WORDS:
+			RsaType = XSECURE_CSU_RSA_CONTROL_3072;
+			break;
+		case XSECURE_RSA_4096_SIZE_WORDS:
+			RsaType = XSECURE_CSU_RSA_CONTROL_4096;
+			break;
+		default:
+			ErrorCode = XST_FAILURE;
+			goto END;
 	}
-	else if (InstancePtr->SizeInWords == XSECURE_RSA_2048_SIZE_WORDS) {
-		RsaType = XSECURE_CSU_RSA_CONTROL_2048;
-	}
+
 	/* Start the RSA operation. */
 	if (InstancePtr->ModExt != NULL) {
 		XSecure_WriteReg(InstancePtr->BaseAddress,

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -72,6 +72,9 @@
 *       vns  17/08/17 Added APIs XSecure_RsaPublicEncrypt and
 *                     XSecure_RsaPrivateDecrypt.As per functionality
 *                     XSecure_RsaPublicEncrypt is same as XSecure_RsaDecrypt.
+* 3.1   vns  11/04/18 Added support for 512, 576, 704, 768, 992, 1024, 1152,
+*                     1408, 1536, 1984, 3072 key sizes, where previous verision
+*                     has support only 2048 and 4096 key sizes.
 *
 * </pre>
 *
@@ -95,12 +98,35 @@ extern "C" {
 /** @cond xsecure_internal
 @{
 */
+/* Key size in bytes */
+#define XSECURE_RSA_512_KEY_SIZE	(512/8)	 /**< RSA 512 key size */
+#define XSECURE_RSA_576_KEY_SIZE	(576/8)	 /**< RSA 576 key size */
+#define XSECURE_RSA_704_KEY_SIZE	(704/8)	 /**< RSA 704 key size */
+#define XSECURE_RSA_768_KEY_SIZE	(768/8)	 /**< RSA 768 key size */
+#define XSECURE_RSA_992_KEY_SIZE	(992/8)	 /**< RSA 992 key size */
+#define XSECURE_RSA_1024_KEY_SIZE	(1024/8) /**< RSA 1024 key size */
+#define XSECURE_RSA_1152_KEY_SIZE	(1152/8) /**< RSA 1152 key size */
+#define XSECURE_RSA_1408_KEY_SIZE	(1408/8) /**< RSA 1408 key size */
+#define XSECURE_RSA_1536_KEY_SIZE	(1536/8) /**< RSA 1536 key size */
+#define XSECURE_RSA_1984_KEY_SIZE	(1984/8) /**< RSA 1984 key size */
+#define XSECURE_RSA_2048_KEY_SIZE	(2048/8) /**< RSA 2048 key size */
+#define XSECURE_RSA_3072_KEY_SIZE	(3072/8) /**< RSA 3072 key size */
+#define XSECURE_RSA_4096_KEY_SIZE	(4096/8) /**< RSA 4096 key size */
 
-#define XSECURE_RSA_4096_KEY_SIZE		(4096/8)	/**< RSA 4096 key size */
-#define XSECURE_RSA_2048_KEY_SIZE		(2048/8)	/**< RSA 2048 key size */
-
-#define XSECURE_RSA_4096_SIZE_WORDS		(128)	/**< RSA 4096 Size in words */
-#define XSECURE_RSA_2048_SIZE_WORDS		(64)	/**< RSA 2048 Size in words */
+/* Key size in words */
+#define XSECURE_RSA_512_SIZE_WORDS	(16)	/**< RSA 512 Size in words */
+#define XSECURE_RSA_576_SIZE_WORDS	(18)	/**< RSA 576 Size in words */
+#define XSECURE_RSA_704_SIZE_WORDS	(22)	/**< RSA 704 Size in words */
+#define XSECURE_RSA_768_SIZE_WORDS	(24)	/**< RSA 768 Size in words */
+#define XSECURE_RSA_992_SIZE_WORDS	(31)	/**< RSA 992 Size in words */
+#define XSECURE_RSA_1024_SIZE_WORDS	(32)	/**< RSA 1024 Size in words */
+#define XSECURE_RSA_1152_SIZE_WORDS	(36)	/**< RSA 1152 Size in words */
+#define XSECURE_RSA_1408_SIZE_WORDS	(44)	/**< RSA 1408 Size in words */
+#define XSECURE_RSA_1536_SIZE_WORDS	(48)	/**< RSA 1536 Size in words */
+#define XSECURE_RSA_1984_SIZE_WORDS	(62)	/**< RSA 1984 Size in words */
+#define XSECURE_RSA_2048_SIZE_WORDS	(64)	/**< RSA 2048 Size in words */
+#define XSECURE_RSA_3072_SIZE_WORDS	(96)	/**< RSA 3072 Size in words */
+#define XSECURE_RSA_4096_SIZE_WORDS	(128)	/**< RSA 4096 Size in words */
 
 /** @name Control Register
  *
@@ -110,7 +136,18 @@ extern "C" {
  *
  * Control Register Bit Definition
  */
+#define XSECURE_CSU_RSA_CONTROL_512	(0x00U)	/**< RSA 512 Length Code */
+#define XSECURE_CSU_RSA_CONTROL_576	(0x10U)	/**< RSA 576 Length Code */
+#define XSECURE_CSU_RSA_CONTROL_704	(0x20U)	/**< RSA 704 Length Code */
+#define XSECURE_CSU_RSA_CONTROL_768	(0x30U)	/**< RSA 768 Length Code */
+#define XSECURE_CSU_RSA_CONTROL_992	(0x40U)	/**< RSA 992 Length Code */
+#define XSECURE_CSU_RSA_CONTROL_1024	(0x50U)	/**< RSA 1024 Length Code */
+#define XSECURE_CSU_RSA_CONTROL_1152	(0x60U)	/**< RSA 1152 Length Code */
+#define XSECURE_CSU_RSA_CONTROL_1408	(0x70U)	/**< RSA 1408 Length Code */
+#define XSECURE_CSU_RSA_CONTROL_1536	(0x80U)	/**< RSA 1536 Length Code */
+#define XSECURE_CSU_RSA_CONTROL_1984	(0x90U)	/**< RSA 1984 Length Code */
 #define XSECURE_CSU_RSA_CONTROL_2048	(0xA0U) /**< RSA 2048 Length Code */
+#define XSECURE_CSU_RSA_CONTROL_3072	(0xB0U) /**< RSA 3072 Length Code */
 #define XSECURE_CSU_RSA_CONTROL_4096	(0xC0U) /**< RSA 4096 Length Code */
 #define XSECURE_CSU_RSA_CONTROL_DCA	(0x08U) /**< Abort Operation */
 #define XSECURE_CSU_RSA_CONTROL_NOP	(0x00U) /**< No Operation */
