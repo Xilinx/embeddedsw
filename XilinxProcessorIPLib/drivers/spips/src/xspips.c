@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xspips.c
-* @addtogroup spips_v3_0
+* @addtogroup spips_v3_1
 * @{
 *
 * Contains implements the interface functions of the XSpiPs driver.
@@ -68,6 +68,8 @@
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.02  raw    11/23/15 Updated XSpiPs_Abort() to read all RXFIFO entries.
 * 			This change is to tackle CR#910231.
+* 3.1	tjs    04/12/18 InputClockHz parameter copied in instance for use in
+* 						application. CR#998910
 *
 * </pre>
 *
@@ -184,6 +186,7 @@ s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, XSpiPs_Config *ConfigPtr,
 		InstancePtr->IsBusy = FALSE;
 
 		InstancePtr->Config.BaseAddress = EffectiveAddr;
+		InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 		InstancePtr->StatusHandler = StubStatusHandler;
 
 		InstancePtr->SendBufferPtr = NULL;
