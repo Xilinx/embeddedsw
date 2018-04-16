@@ -21,6 +21,10 @@ lwip202_v1_1:
 Avoid redundant axi ethernet config lookup and intialize.
 Add Hot plug autodetect support for EmacPS and AXI Ethernet.
 
+spips_v3_1
+InputClockHz parameter copied in instance for use in
+application(CR#998910)
+
 xilisf_v5_11
 Added support for ISSI 256Mb series flash parts.
 
