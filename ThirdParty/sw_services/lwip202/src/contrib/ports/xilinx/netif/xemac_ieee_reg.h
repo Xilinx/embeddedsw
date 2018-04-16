@@ -80,6 +80,7 @@
 #define IEEE_STAT_AUTONEGOTIATE_CAPABLE            0x0008
 #define IEEE_STAT_AUTONEGOTIATE_COMPLETE           0x0020
 #define IEEE_STAT_AUTONEGOTIATE_RESTART            0x0200
+#define IEEE_STAT_LINK_STATUS                      0x0004
 #define IEEE_STAT_1GBPS_EXTENSIONS                 0x0100
 #define IEEE_AN1_ABILITY_MASK                      0x1FE0
 #define IEEE_AN3_ABILITY_MASK_1GBPS                0x0C00

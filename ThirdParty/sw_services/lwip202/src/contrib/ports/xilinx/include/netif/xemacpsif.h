@@ -120,7 +120,7 @@ s32_t	is_tx_space_available(xemacpsif_s *emac);
 /* xemacpsif_dma.c */
 
 void  process_sent_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *txring);
-u32_t phy_setup (XEmacPs *xemacpsp, u32_t phy_addr);
+u32_t phy_setup_emacps (XEmacPs *xemacpsp, u32_t phy_addr);
 void detect_phy(XEmacPs *xemacpsp);
 void emacps_send_handler(void *arg);
 XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p);

@@ -45,12 +45,13 @@
 *   about the detected PHYs. The array phymapemac0 is used for Emac0 and
 *   phymapemac1 is for Emac1.
 * - The users need to parse the corresponding arrays, phymapemac0 or phymapemac1
-*   to know the available PHYs for a MAC. The users then need to call phy_setup
-*   to setup the PHYs for proper speed setting. The API phy_setup should be called
-*   with the PHY address for which the speed needs to be negotiated or configured.
-*   In a specific use case, if 2 PHYs are connected to Emac0 with addresses of 7
-*   and 11, then users get these address details from phymapemac0 (after calling
-*   detect_phy) and then call phy_setup twice, with ab address of 7 and 11.
+*   to know the available PHYs for a MAC. The users then need to call
+*   phy_setup_emacps to setup the PHYs for proper speed setting. The API
+*   phy_setup_emacps should be called with the PHY address for which the speed
+*   needs to be negotiated or configured. In a specific use case, if 2 PHYs are
+*   connected to Emac0 with addresses of 7 and 11, then users get these address
+*   details from phymapemac0 (after calling detect_phy) and then call
+*   phy_setup_emacps twice, with ab address of 7 and 11.
 * - Points to note: The MAC can operate at only one speed. If a MAC is connected
 *   to multiple PHYs, then all PHYs must negotiate and configured for the same
 *   speed.
@@ -181,7 +182,7 @@ static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t s
 #endif
 
 #ifdef PCM_PMA_CORE_PRESENT
-u32_t phy_setup (XEmacPs *xemacpsp, u32_t phy_addr)
+u32_t phy_setup_emacps (XEmacPs *xemacpsp, u32_t phy_addr)
 {
 	u32_t link_speed;
 	u16_t regval;
@@ -314,7 +315,7 @@ void detect_phy(XEmacPs *xemacpsp)
 	}
 }
 
-u32_t phy_setup (XEmacPs *xemacpsp, u32_t phy_addr)
+u32_t phy_setup_emacps (XEmacPs *xemacpsp, u32_t phy_addr)
 {
 	u32_t link_speed;
 	u32_t conv_present = 0;

@@ -121,11 +121,17 @@
 #define IEEE_CTRL_ISOLATE_DISABLE               0xFBFF
 #endif
 
+#define PHY_XILINX_PCS_PMA_ID1			0x0174
+#define PHY_XILINX_PCS_PMA_ID2			0x0C00
+
+extern u32_t phyaddrforemac;
+
 static void __attribute__ ((noinline)) AxiEthernetUtilPhyDelay(unsigned int Seconds);
 
 static int detect_phy(XAxiEthernet *xaxiemacp)
 {
 	u16 phy_reg;
+	u16 phy_id;
 	u32 phy_addr;
 
 	for (phy_addr = 31; phy_addr > 0; phy_addr--) {
@@ -143,7 +149,23 @@ static int detect_phy(XAxiEthernet *xaxiemacp)
                 (phy_reg != TI_PHY_IDENTIFIER)){
 				xil_printf("WARNING: Not a Marvell or TI Ethernet PHY. Please verify the initialization sequence\r\n");
 			}
+			phyaddrforemac = phy_addr;
 			return phy_addr;
+		}
+
+		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, PHY_IDENTIFIER_1_REG,
+				&phy_id);
+
+		if (phy_id == PHY_XILINX_PCS_PMA_ID1) {
+			XAxiEthernet_PhyRead(xaxiemacp, phy_addr, PHY_IDENTIFIER_2_REG,
+					&phy_id);
+			if (phy_id == PHY_XILINX_PCS_PMA_ID2) {
+				/* Found a valid PHY address */
+				LWIP_DEBUGF(NETIF_DEBUG, ("XAxiEthernet detect_phy: PHY detected at address %d.\r\n",
+							phy_addr));
+				phyaddrforemac = phy_addr;
+				return phy_addr;
+			}
 		}
 	}
 
@@ -668,7 +690,7 @@ unsigned configure_IEEE_phy_speed(XAxiEthernet *xaxiemacp, unsigned speed)
 	return 0;
 }
 
-unsigned Phy_Setup (XAxiEthernet *xaxiemacp)
+unsigned phy_setup_axiemac (XAxiEthernet *xaxiemacp)
 {
 	unsigned link_speed = 1000;
 
