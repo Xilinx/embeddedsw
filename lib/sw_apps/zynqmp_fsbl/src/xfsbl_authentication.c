@@ -56,6 +56,7 @@
 *                     takes care of PPK revocation checks as well and
 *                     Modified XFsbl_ReadPpkHashSpkID to XFsbl_ReadPpkHash
 *                     as SPK ID reading and verification moved to XFsbl_SpkVer.
+* 5.0   ka   04/10/18 Added support for user-efuse revocation
 *
 * </pre>
 *
@@ -107,6 +108,8 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 	u8* PpkExpPtr;
 	u32 PpkExp;
 	u8 * AcPtr = (u8*) (PTRSIZE) AcOffset;
+	u8 SpkIdFuseSel = ((*(u32 *)(AcPtr) & XFSBL_AH_ATTR_SPK_ID_FUSE_SEL_MASK)) >>
+		                                        XFSBL_AH_ATTR_SPK_ID_FUSE_SEL_SHIFT;
 	u32 Status;
 	void * ShaCtx = (void * )NULL;
 	u8 XFsbl_RsaSha3Array[512] = {0};
@@ -114,6 +117,8 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 	u32 EfuseRsa = XFsbl_In32(EFUSE_SEC_CTRL);
 	u32 EfuseSpkId;
 	u32 *SpkId = (u32 *)(AcPtr + XFSBL_SPKID_AC_ALIGN);
+	u32 UserFuseAddr;
+	u32 UserFuseVal;
 
 #ifdef XFSBL_SHA2
 	sha2_context ShaCtxObj;
@@ -127,7 +132,18 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 	}
 
 	(void)XFsbl_ShaStart(ShaCtx, HashLen);
-	Status = XFsbl_Sha3PadSelect(XSECURE_CSU_KECCAK_SHA3);
+	if (SpkIdFuseSel == XFSBL_SPKID_EFUSE) {
+		Status = XFsbl_Sha3PadSelect(XSECURE_CSU_KECCAK_SHA3);
+	}
+	else if (SpkIdFuseSel != XFSBL_USER_EFUSE) {
+		Status = XFSBL_ERROR_INVALID_EFUSE_SELECT;
+		XFsbl_Printf(DEBUG_INFO,"Invalid SpkIdFuseSel: %u\n\r : ",SpkIdFuseSel);
+		XFsbl_Printf(DEBUG_GENERAL,
+					"XFsbl_SpkVer: "
+				        "XFSBL_ERROR_INVALID_EFUSE_SELECT\r\n");
+		goto END;
+	}
+
 	if (Status != XST_SUCCESS) {
 		XFsbl_Printf(DEBUG_GENERAL,
 					"XFsbl_SpkVer: Error in SHA3 padding selection\r\n");
@@ -196,24 +212,57 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 		XFsbl_Printf(DEBUG_GENERAL,
 			"XFsbl_SpkVer: XFSBL_ERROR_SPK_SIGNATURE\r\n");
 		Status = XFSBL_ERROR_SPK_SIGNATURE;
+		goto END;
 	}
 
 	/* SPK revocation check */
 	if ((EfuseRsa & EFUSE_SEC_CTRL_RSA_EN_MASK) != 0x00) {
 		EfuseSpkId = Xil_In32(EFUSE_SPKID);
-		if (EfuseSpkId != *SpkId) {
-			Status = XFSBL_ERROR_SPKID_VERIFICATION;
-			XFsbl_Printf(DEBUG_INFO,
-				"Image's SPK ID : %x\n\r", SpkId);
-			XFsbl_Printf(DEBUG_INFO,
-				"eFUSE SPK ID: %x\n\r", EfuseSpkId);
-			XFsbl_Printf(DEBUG_GENERAL,
-				"XFsbl_PartVer: "
-				"XFSBL_ERROR_SPKID_VERIFICATION\r\n");
-			goto END;
+
+		/* If SPKID Efuse is selected , Verifies SPKID with Efuse SPKID*/
+		if (SpkIdFuseSel == XFSBL_SPKID_EFUSE) {
+			if (EfuseSpkId != *SpkId) {
+				Status = XFSBL_ERROR_SPKID_VERIFICATION;
+				XFsbl_Printf(DEBUG_INFO,
+						"Image's SPK ID : %x\n\r", SpkId);
+				XFsbl_Printf(DEBUG_INFO,
+						"eFUSE SPK ID: %x\n\r", EfuseSpkId);
+				XFsbl_Printf(DEBUG_GENERAL,
+						"XFsbl_SpkVer: "
+						"XFSBL_ERROR_SPKID_VERIFICATION\r\n");
+				goto END;
+			}
+		}
+		/*
+		 * If User EFUSE is selected, checks the corresponding User-Efuse bit
+		 * programmed or not. If Programmed (indicates that key is revocated)
+		 * throws an error
+		 */
+		else if (SpkIdFuseSel == XFSBL_USER_EFUSE) {
+			if ((*SpkId >= XFSBL_USER_EFUSE_MIN_VALUE) &&
+				(*SpkId <= XFSBL_USER_EFUSE_MAX_VALUE)) {
+				UserFuseAddr = XFSBL_USER_EFUSE_ADDR +
+								(((*SpkId - 1) / XFSBL_WORD_SHIFT) *
+											XFSBL_WORD_LEN_IN_BYTES);
+				UserFuseVal = Xil_In32(UserFuseAddr);
+				if ((UserFuseVal & (0x1U << ((*SpkId - 1) %
+									XFSBL_WORD_SHIFT))) != 0x0U) {
+					Status = XFSBL_ERROR_USER_EFUSE_ISREVOKED;
+					XFsbl_Printf(DEBUG_GENERAL,
+							"XFsbl_SpkVer: "
+							"XFSBL_ERROR_USER_EFUSE_ISREVOKED\r\n");
+					goto END;
+				}
+			}
+			else {
+				Status = XFSBL_ERROR_OUT_OF_RANGE_USER_EFUSE;
+				XFsbl_Printf(DEBUG_GENERAL,
+								"XFsbl_SpkVer: "
+								"XFSBL_ERROR_OUT_OF_RANGE_USER_EFUSE\r\n");
+				goto END;
+			}
 		}
 	}
-
 
 END:
 	return Status;
