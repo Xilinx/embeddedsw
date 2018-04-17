@@ -41,11 +41,11 @@
 * the programmable logic (PL) though the PS.
 *
 * - Supported Features:
-*    - Full Bit-stream loading
+*    - Full Bit-stream loading.
+*    - Partial Bit-stream loading.
 *    - Encrypted Bit-stream loading.
 *    - Authenticated Bit-stream loading.
 *    - Authenticated and Encrypted Bit-stream loading.
-* - To be supported features:
 *    - Partial Bit-stream loading.
 *
 * #  Xilfpga_PL library Interface modules 	{#xilfpgapllib}
@@ -89,6 +89,8 @@
 *                      Need to Re-validate the User Crypto flags with the Image
 *                      Crypto operation by using the internal memory.To Fix this
 *                      added a new API XFpga_ReValidateCryptoFlags().
+* 4.1 Nava   16/04/18  Added partial bitstream loading support.
+*
 *
 * </pre>
 *
