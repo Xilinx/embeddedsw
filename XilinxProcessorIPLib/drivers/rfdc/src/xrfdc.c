@@ -98,6 +98,8 @@
 *       sk     03/09/18 Removed FIFO disable check in DDC and DUC APIs.
 *       sk     03/09/18 Add support for Marker event source for DAC block.
 *       sk     03/22/18 Updated PLL settings based on latest IP values.
+* 4.0   sk     04/17/18 Corrected Set/Get MixerSettings API description for
+*                       FineMixerScale parameter.
 * </pre>
 *
 ******************************************************************************/
@@ -835,11 +837,11 @@ RETURN_PATH:
 *       - XRFDC_FAILURE if Block not enabled.
 *
 * @note		FineMixerScale in Mixer_Settings structure can have 3 values.
-*		XRFDC_MXR_SCALE_* represents the valid values.
-*		XRFDC_MXR_SCALE_NO_CHANGE - If mixer mode R2C, Mixer Scale is
+*		XRFDC_MIXER_SCALE_* represents the valid values.
+*		XRFDC_MIXER_SCALE_AUTO - If mixer mode is R2C, Mixer Scale is
 *		set to 1 and for other modes mixer scale is set to 0.7
-*		XRFDC_MXR_SCALE_ONE - To set fine mixer scale to 1.
-*		XRFDC_MXR_SCALE_ZERO_DOT_SEVEN - To set fine mixer scale to 0.7.
+*		XRFDC_MIXER_SCALE_1P0 - To set fine mixer scale to 1.
+*		XRFDC_MIXER_SCALE_0P7 - To set fine mixer scale to 0.7.
 *
 ******************************************************************************/
 int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
@@ -1505,11 +1507,11 @@ RETURN_PATH:
 *       - XRFDC_FAILURE if Block not enabled.
 *
 * @note		FineMixerScale in Mixer_Settings structure can have 3 values.
-*		XRFDC_MXR_SCALE_* represents the valid return values.
-*		XRFDC_MXR_SCALE_NO_CHANGE - Default driver implementation.
-*		XRFDC_MXR_SCALE_ONE - If fine Mixer Scale is set to 1 by user.
-*		XRFDC_MXR_SCALE_ZERO_DOT_SEVEN - If fine mixer scale is set
-*		to 0.7 by user.
+*		XRFDC_MIXER_SCALE_* represents the valid values.
+*		XRFDC_MIXER_SCALE_AUTO - If mixer mode is R2C, Mixer Scale is
+*		set to 1 and for other modes mixer scale is set to 0.7
+*		XRFDC_MIXER_SCALE_1P0 - To set fine mixer scale to 1.
+*		XRFDC_MIXER_SCALE_0P7 - To set fine mixer scale to 0.7.
 *
 ******************************************************************************/
 int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,

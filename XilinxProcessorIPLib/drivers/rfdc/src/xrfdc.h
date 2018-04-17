@@ -148,6 +148,8 @@
 *                       sample rate of 6.554MHz.
 *       rk     04/17/18 Adjust calculated latency by sysref period, where doing
 *                       so results in closer alignment to the target latency.
+*       sk     04/17/18 Corrected Set/Get MixerSettings API description for
+*                       FineMixerScale parameter.
 *
 * </pre>
 *
