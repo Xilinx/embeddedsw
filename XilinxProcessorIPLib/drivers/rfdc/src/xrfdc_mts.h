@@ -48,6 +48,8 @@
 *       jm     03/12/18 Added support for reloading DTC scans.
 *       jm     03/12/18 Add option to configure sysref capture after MTS.
 * 4.0   sk     04/09/18 Added API to enable/disable the sysref.
+*       rk     04/17/18 Adjust calculated latency by sysref period, where doing
+*                       so results in closer alignment to the target latency.
 *
 * </pre>
 *
@@ -149,6 +151,8 @@ typedef struct {
 #define XRFDC_MTS_IP_NOT_READY      64L
 #define XRFDC_MTS_DTC_INVALID       128L
 #define XRFDC_MTS_NOT_ENABLED       512L
+#define XRFDC_MTS_SYSREF_GATE_ERROR 2048L
+#define XRFDC_MTS_SYSREF_FREQ_NDONE 4096L
 
 
 /*****************************************************************************/
