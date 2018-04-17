@@ -48,7 +48,7 @@
 * 3.0   vns  09/08/17 Added error code for PPK revoke failure
 * 4.0   vns  03/07/18 Added error codes for boot header authentication
 *                     failure and for encryption compulsory
-*
+* 5.0   ka   04/10/18 Added error codes for user-efuse revocation
 * </pre>
 *
 * @note
@@ -204,6 +204,9 @@ extern "C" {
 #define XFSBL_ERROR_BH_SIGNATURE				(0x69U)
 #define XFSBL_ERROR_BH_AUTH_IS_NOTALLOWED			(0x70U)
 #define XFSBL_ERROR_ENC_IS_MANDATORY				(0x71U)
+#define XFSBL_ERROR_USER_EFUSE_ISREVOKED			(0x72U)
+#define XFSBL_ERROR_OUT_OF_RANGE_USER_EFUSE			(0x73U)
+#define XFSBL_ERROR_INVALID_EFUSE_SELECT			(0x74U)
 #define XFSBL_FAILURE					(0x3FFFFFFFU)
 
 /**************************** Type Definitions *******************************/
