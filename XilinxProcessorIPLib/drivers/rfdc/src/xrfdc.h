@@ -146,6 +146,8 @@
 * 4.0   sk     04/09/18 Added API to enable/disable the sysref.
 *       sk     04/09/18 Updated max VCO to 13108MHz to support max DAC
 *                       sample rate of 6.554MHz.
+*       rk     04/17/18 Adjust calculated latency by sysref period, where doing
+*                       so results in closer alignment to the target latency.
 *
 * </pre>
 *
