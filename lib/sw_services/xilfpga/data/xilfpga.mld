@@ -48,6 +48,7 @@
 #                      Need to Re-validate the User Crypto flags with the Image
 #                      Crypto operation by using the internal memory.To Fix this
 #                      added a new API XFpga_ReValidateCryptoFlags().
+# 4.1 Nava   16/04/18  Added partial bitstream loading support.
 #
 ##############################################################################
 

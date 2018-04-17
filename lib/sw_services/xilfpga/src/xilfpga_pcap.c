@@ -57,6 +57,7 @@
  *                      Need to Re-validate the User Crypto flags with the Image
  *                      Crypto operation by using the internal memory.To Fix this
  *                      added a new API XFpga_ReValidateCryptoFlags().
+ * 4.1 Nava   16/04/18  Added partial bitstream loading support.
  *
  * </pre>
  *
@@ -388,20 +389,22 @@ u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR AddrPtr, u32 flags)
 	RegVal = Xil_In32(PCAP_CLK_CTRL);
 	Xil_Out32(PCAP_CLK_CTRL, RegVal | PCAP_CLK_EN_MASK );
 
-	/* Power-Up PL */
-	Status = XFpga_PowerUpPl();
-	if (Status != XFPGA_SUCCESS) {
-		xil_printf("XFPGA_ERROR_PL_POWER_UP\r\n");
-		Status = XFPGA_ERROR_PL_POWER_UP;
-		goto END;
-	}
+	if (!(flags & XFPGA_PARTIAL_EN)) {
+		/* Power-Up PL */
+		Status = XFpga_PowerUpPl();
+		if (Status != XFPGA_SUCCESS) {
+			xil_printf("XFPGA_ERROR_PL_POWER_UP\r\n");
+			Status = XFPGA_ERROR_PL_POWER_UP;
+			goto END;
+		}
 
-	/* PS PL Isolation Restore */
-	Status = XFpga_IsolationRestore();
-	if (Status != XFPGA_SUCCESS) {
-		xil_printf("XFPGA_ERROR_PL_ISOLATION\r\n");
-		Status = XFPGA_ERROR_PL_ISOLATION;
-		goto END;
+		/* PS PL Isolation Restore */
+		Status = XFpga_IsolationRestore();
+		if (Status != XFPGA_SUCCESS) {
+			xil_printf("XFPGA_ERROR_PL_ISOLATION\r\n");
+			Status = XFPGA_ERROR_PL_ISOLATION;
+			goto END;
+		}
 	}
 
 	Status = XFpga_PcapInit(flags);
@@ -458,16 +461,19 @@ u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR AddrPtr, u32 flags)
 		goto END;
 	}
 
-	/* Power-Up PL */
-	Status = XFpga_PowerUpPl();
-	if (Status != XFPGA_SUCCESS) {
-		xil_printf("XFPGA_ERROR_PL_POWER_UP\r\n");
-		Status = XFPGA_ERROR_PL_POWER_UP;
-		goto END;
-	}
+	if (!(flags & XFPGA_PARTIAL_EN)) {
 
-	/* PS-PL reset */
-	XFpga_PsPlGpioReset(FPGA_NUM_FABRIC_RESETS);
+		/* Power-Up PL */
+		Status = XFpga_PowerUpPl();
+		if (Status != XFPGA_SUCCESS) {
+			xil_printf("XFPGA_ERROR_PL_POWER_UP\r\n");
+			Status = XFPGA_ERROR_PL_POWER_UP;
+			goto END;
+		}
+
+		/* PS-PL reset */
+		XFpga_PsPlGpioReset(FPGA_NUM_FABRIC_RESETS);
+	}
 END:
 	/* Disable the PCAP clk */
 	RegVal = Xil_In32(PCAP_CLK_CTRL);
