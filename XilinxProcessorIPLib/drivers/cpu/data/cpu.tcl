@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2004 - 2016 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,7 @@
 ## 2.5     asa 04/20/16 Fix for CR#947179. While populating the CPU_CORE_FREQ first
 ##                      look for "Clk" pin and if not found use the CONFIG param
 ##                      C_FREQ for microblaze to populate the CPU_CORE_FREQ_HZ.
+## 2.7     vns 04/13/18 Modified post_generate proc to post_generate_final
 # uses xillib.tcl
 
 ########################################
@@ -479,7 +480,7 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
     close $file_handle
 }
 
-proc post_generate {drv_handle} {
+proc post_generate_final {drv_handle} {
 
 	set type [get_property CLASS $drv_handle]
 	if {[string equal $type "driver"]} {
