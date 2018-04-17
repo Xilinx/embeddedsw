@@ -54,6 +54,7 @@
 *                    been enabled for single partition image, when PMUFW is
 *                    compiled by enabling secure environment variable in bsp
 *                    settings.
+* 	ka  04/10/18 Added support for user-efuse revocation
 * </pre>
 *
 * @note
@@ -1225,6 +1226,9 @@ END:
 u32 XSecure_SpkAuthentication(XCsuDma *CsuDmaInstPtr, u8 *AuthCert, u8 *Ppk)
 {
 	u8 SpkHash[XSECURE_HASH_TYPE_SHA3];
+	u8 SpkIdFuseSel = (*(u32 *)AuthCert & XSECURE_AH_ATTR_SPK_ID_FUSE_SEL_MASK) >>
+                                        XSECURE_AH_ATTR_SPK_ID_FUSE_SEL_SHIFT;
+
 	u8* PpkModular;
 	u8* PpkModularEx;
 	u8* PpkExpPtr;
@@ -1242,7 +1246,14 @@ u32 XSecure_SpkAuthentication(XCsuDma *CsuDmaInstPtr, u8 *AuthCert, u8 *Ppk)
 
 	/* Initialize sha3 */
 	XSecure_Sha3Initialize(&Sha3Instance, CsuDmaInstPtr);
-	XSecure_Sha3PadSelection(&Sha3Instance, XSECURE_CSU_KECCAK_SHA3);
+	if (SpkIdFuseSel == XSECURE_SPKID_EFUSE) {
+                XSecure_Sha3PadSelection(&Sha3Instance, XSECURE_CSU_KECCAK_SHA3);
+        }
+        else if (SpkIdFuseSel != XSECURE_USER_EFUSE) {
+		Status = XSECURE_INVALID_EFUSE_SELECT;
+		goto END;
+	}
+
 	XSecure_Sha3Start(&Sha3Instance);
 
 
@@ -1315,10 +1326,40 @@ u32 XSecure_SpkRevokeCheck(u8 *AuthCert)
 {
 	u32 Status = XST_SUCCESS;
 	u32 *SpkID = (u32 *)(UINTPTR)(AuthCert + XSECURE_AC_SPKID_OFFSET);
+	u8 SpkIdFuseSel = (*(u32 *)AuthCert & XSECURE_AH_ATTR_SPK_ID_FUSE_SEL_MASK)
+							>>	XSECURE_AH_ATTR_SPK_ID_FUSE_SEL_SHIFT;
+	u32 UserFuseAddr;
+	u32 UserFuseVal;
 
-	if (*SpkID != Xil_In32(XSECURE_EFUSE_SPKID)) {
-		Status = (XSECURE_SPK_ERR | XSECURE_REVOKE_ERR);
+	/* If SPKID Efuse is selected , Verifies SPKID with Efuse SPKID*/
+	if (SpkIdFuseSel == XSECURE_SPKID_EFUSE) {
+		if (*SpkID != Xil_In32(XSECURE_EFUSE_SPKID)) {
+			Status = (XSECURE_SPK_ERR | XSECURE_REVOKE_ERR);
+		}
 	}
-
+	/*
+	 *	If User EFUSE is selected, checks the corresponding User-Efuse bit
+	 *	programmed or not. If Programmed (indicates that key is revocated)
+	 *	throws an error
+	 */
+	else if (SpkIdFuseSel == XSECURE_USER_EFUSE) {
+		if ((*SpkID >= XSECURE_USER_EFUSE_MIN_VALUE) &&
+			(*SpkID <= XSECURE_USER_EFUSE_MAX_VALUE)) {
+			UserFuseAddr = XSECURE_USER_EFUSE_START_ADDR +
+						(((*SpkID-1)/XSECURE_WORD_SHIFT)*XSECURE_WORD_LEN);
+			UserFuseVal = Xil_In32(UserFuseAddr);
+			if ((UserFuseVal & (0x1U << ((*SpkID - 1) %
+								XSECURE_WORD_SHIFT))) != 0x0U) {
+				Status = (XSECURE_SPK_ERR | XSECURE_REVOKE_ERR);
+			}
+		}
+		/*
+		 *	Maximum 256 keys can be revocated, if exceeds throws
+		 *	out of range error
+		 */
+		else {
+			Status = XSECURE_OUT_OF_RANGE_USER_EFUSE_ERROR;
+		}
+	}
 	return Status;
 }

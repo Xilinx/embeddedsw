@@ -48,6 +48,7 @@
 *                     for SHA3 and RSA hardware at linux level.
 * 3.0   vns  02/19/18 Added error codes and macros for secure image.
 *
+* 3.1   ka   04/10/18 Added support for user-efuse revocation
 * </pre>
 *
 * @note
@@ -75,6 +76,11 @@
 #define XSECURE_SHA3_FINAL	4
 #define XSECURE_SHA3_MASK	(XSECURE_SHA3_INIT | \
 				XSECURE_SHA3_UPDATE | XSECURE_SHA3_FINAL)
+
+#define XSECURE_SPKID_EFUSE				1U /**< SPK ID eFUSE */
+#define XSECURE_USER_EFUSE				2U /**< User eFuse */
+#define XSECURE_USER_EFUSE_MIN_VALUE	1U
+#define XSECURE_USER_EFUSE_MAX_VALUE	256U
 
 /* 0th bit of flag tells about encryption or decryption */
 #define XSECURE_ENC		1
@@ -121,6 +127,8 @@
 #define XSECURE_KUP_KEY_NOT_PROVIDED	0x14
 #define XSECURE_KUP_KEY_NOT_REQUIRED	0x15
 #define XSECURE_AES_GCM_TAG_NOT_MATCH	0x16
+#define XSECURE_INVALID_EFUSE_SELECT 	0x17
+#define XSECURE_OUT_OF_RANGE_USER_EFUSE_ERROR	0x18
 
 #define XSECURE_AUTH_NOT_ENABLED 	0xFF
 
@@ -133,8 +141,6 @@
 #define XSECURE_IMG_HDR_FAIL		0x2000
 #define XSECURE_PARTITION_FAIL		0x3000
 
-
-
 #define XSECURE_CSUDMA_DEVICEID		0
 
 #define XSECURE_MOD_LEN			512
@@ -144,6 +150,9 @@
 
 #define XSECURE_AH_ATTR_PPK_SEL_MASK   	0x30000U
 #define XSECURE_AH_ATTR_PPK_SEL_SHIFT	16
+
+#define XSECURE_AH_ATTR_SPK_ID_FUSE_SEL_MASK 0xC0000U
+#define XSECURE_AH_ATTR_SPK_ID_FUSE_SEL_SHIFT 18
 
 #define XSECURE_AC_SPKID_OFFSET		0x04U
 #define XSECURE_AC_PPK_OFFSET		0x40U
@@ -157,6 +166,10 @@
 
 
 #define XSECURE_EFUSE_BASEADDR		(0XFFCC0000U)
+
+/*User eFuse 0 */
+#define XSECURE_USER_EFUSE_START_ADDR	(XSECURE_EFUSE_BASEADDR + 0x00001020U)
+
 /* Register PPK0_0 */
 #define XSECURE_EFUSE_PPK0	(XSECURE_EFUSE_BASEADDR + 0x000010A0U)
 
