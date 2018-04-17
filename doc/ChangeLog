@@ -1,5 +1,12 @@
 Changes for 2018.2
 ===============================
+cpu_v2_7:
+Replaced post_generate with post_generate_final.
+This change has been made to make sure that "#endif"
+in xparameter.h is placed at the end of file.
+Updated generate proc to set HW based compiler flags,
+earlier it was being done by HSI.It fixes CR#999895.
+
 i2srx_v1_1:
 Changed log APIs so that they take the i2srx instance as argument.
 Changed the channel status clear API to cover all the registers.
