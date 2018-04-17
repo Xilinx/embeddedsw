@@ -33,7 +33,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver v_frmbuf_rd
 
- OPTION supported_peripherals = (v_frmbuf_rd_v2_0);
+ OPTION supported_peripherals = (v_frmbuf_rd_v[2]_[0-1]);
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
  OPTION DEPENDS = (video_common);
