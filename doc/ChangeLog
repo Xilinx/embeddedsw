@@ -44,6 +44,9 @@ Added support for ISSI 256Mb series flash parts.
 nandpsu_v1_4
 Added ICCARM compiler support in driver.
 
+xilfpga_v4_1
+Added partial bitstream loading support.
+
 Changes for 2018.1
 ===============================
 v_hdmi_common_v1_0
