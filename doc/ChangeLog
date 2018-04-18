@@ -32,6 +32,12 @@ spips_v3_1
 InputClockHz parameter copied in instance for use in
 application(CR#998910)
 
+sdps_v3_5
+Resolve compilation warnings for sdps driver
+
+xilffs_v3_9
+Resolve build warnings for xilffs library
+
 xilisf_v5_11
 Added support for ISSI 256Mb series flash parts.
 
