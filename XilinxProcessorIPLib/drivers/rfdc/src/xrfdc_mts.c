@@ -33,7 +33,7 @@
 /**
 *
 * @file xrfdc_mts.c
-* @addtogroup xrfdc_v3_2
+* @addtogroup xrfdc_v4_0
 * @{
 *
 * Contains the multi tile sync functions of the XRFdc driver.
