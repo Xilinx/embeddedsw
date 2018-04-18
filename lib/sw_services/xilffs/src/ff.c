@@ -114,6 +114,15 @@
 / May 19,'14 R0.10b Fixed a hard error in the disk I/O layer can collapse the directory entry.
 /                   Fixed LFN entry is not deleted on delete/rename an object with lossy converted SFN.
 /---------------------------------------------------------------------------*/
+/**
+*
+* MODIFICATION HISTORY:
+*
+* Ver	Who	Date		Changes
+* ----- ---- -------- -------------------------------------------------------
+* 3.9   mn   04/18/18 Resolve build warnings for xilffs library
+*
+******************************************************************************/
 #include "xparameters.h"
 #if (defined FILE_SYSTEM_INTERFACE_SD) || (defined FILE_SYSTEM_INTERFACE_RAM)
 #include "ff.h"			/* FatFs configurations and declarations */
@@ -2695,7 +2704,7 @@ FRESULT f_mount (
 	if (vol < 0) {return FR_INVALID_DRIVE;}
 	cfs = FatFs[vol];					/* Pointer to fs object */
 
-	if (cfs != 0U) {
+	if (cfs != NULL) {
 #if _FS_LOCK
 		clear_lock(cfs);
 #endif
@@ -2707,7 +2716,7 @@ FRESULT f_mount (
 		cfs->fs_type = 0U;				/* Clear old fs object */
 	}
 
-	if (fs != 0U) {
+	if (fs != NULL) {
 		fs->fs_type = 0U;				/* Clear new fs object */
 #if _FS_REENTRANT						/* Create sync object for the new volume */
 		if ((!ff_cre_syncobj((BYTE)vol, &fs->sobj)) != 0U) {

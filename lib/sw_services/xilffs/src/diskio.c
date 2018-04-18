@@ -81,6 +81,7 @@
 * 3.4   sk   06/09/16 Added support for mkfs.
 * 3.8   mj   07/31/17 Added support for RAM based FATfs.
 *       mn   12/04/17 Resolve errors in XilFFS for ARMCC compiler
+* 3.9   mn   04/18/18 Resolve build warnings for xilffs library
 *
 * </pre>
 *
@@ -136,14 +137,6 @@ static u32 CardDetect;
 static u32 WriteProtect;
 static u32 SlotType[2];
 static u8 HostCntrlrVer[2];
-#endif
-
-#ifdef __ICCARM__
-#pragma data_alignment = 32
-static u8 ExtCsd[512];
-#pragma data_alignment = 4
-#else
-static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 #endif
 
 /*-----------------------------------------------------------------------*/
