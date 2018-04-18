@@ -34,7 +34,7 @@
 /**
 *
 * @file xrfdc_g.c
-* @addtogroup rfdc_v3_2
+* @addtogroup rfdc_v4_0
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
