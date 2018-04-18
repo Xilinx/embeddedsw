@@ -47,7 +47,7 @@
 * 3.2   jm     03/12/18 Fixed DAC latency calculation.
 *       jm     03/12/18 Added support for reloading DTC scans.
 *       jm     03/12/18 Add option to configure sysref capture after MTS.
-* 3.3   sk     04/09/18 Added API to enable/disable the sysref.
+* 4.0   sk     04/09/18 Added API to enable/disable the sysref.
 *
 * </pre>
 *
