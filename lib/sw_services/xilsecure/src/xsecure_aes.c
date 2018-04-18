@@ -73,6 +73,9 @@
 
 /************************** Function Prototypes ******************************/
 
+/* Aes Decrypt zeroization in case of Gcm Tag Mismatch*/
+static u32 XSecure_Zeroize(u8 *DataPtr,u32 Length);
+
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -534,6 +537,12 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 					XSECURE_CSU_AES_STS_GCM_TAG_OK;
 
 		if (GcmStatus == 0U) {
+			/* Zeroize the decrypted data*/
+			GcmStatus = XSecure_Zeroize(InstancePtr->Destination,
+							InstancePtr->SizeofData);
+			if (GcmStatus != XST_SUCCESS) {
+				return GcmStatus;
+			}
 			return XSECURE_CSU_AES_GCM_TAG_MISMATCH;
 		}
 	}
@@ -545,6 +554,40 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 
 }
 
+/*****************************************************************************/
+/*
+ * @brief
+ * This function is used to zeroize the memory
+ *
+ *
+ * @param	DataPtr Pointer to the memory which need to be zeroized.
+ * @param	Length	Length of the data.
+ *
+ *return	Final call of this API returns the status of Comparision.
+ *			- XSECURE_CSU_AES_ZEROIZATION_ERROR: If Zeroization is not
+ *								Successfull.
+ *			- XST_SUCCESS: If Zeroization is Scuccesfull.
+ *
+ ********************************************************************************/
+u32 XSecure_Zeroize(u8 *DataPtr,u32 Length)
+{
+	u32 WordLen;
+	u32 Index;
+	u32 *DataAddr = (u32 *)DataPtr;
+
+	/* Clear the decrypted data */
+	memset(DataPtr, 0, Length);
+	WordLen = Length/4U;
+
+	/* Read it back to verify*/
+	 for (Index = 0; Index < WordLen; Index++) {
+		if(*DataAddr != 0x00U) {
+			return XSECURE_CSU_AES_ZEROIZATION_ERROR;
+		}
+		DataAddr++;
+	}
+	return XST_SUCCESS;
+}
 /*****************************************************************************/
 /**
  * @brief
@@ -1364,9 +1407,20 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 
 ENDF:
 	XSecure_AesReset(InstancePtr);
+	if ((Status == XSECURE_CSU_AES_GCM_TAG_MISMATCH) &&
+		(Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)) {
+		/* Zeroize the decrypted data*/
+		Status = XSecure_Zeroize(Dst,ImageLen);
+		if (Status != XST_SUCCESS) {
+			Status = XSECURE_CSU_AES_ZEROIZATION_ERROR;
+		}
+		else {
+			Status = XSECURE_CSU_AES_GCM_TAG_MISMATCH;
+		}
+	}
 	KeyClearStatus = XSecure_AesKeyZero(InstancePtr);
 	if (KeyClearStatus != XST_SUCCESS) {
-		return KeyClearStatus;
+		Status = Status | KeyClearStatus;
 	}
 
 	return Status;
