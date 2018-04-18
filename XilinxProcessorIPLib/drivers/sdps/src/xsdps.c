@@ -90,6 +90,7 @@
 * 3.4   mn     10/17/17 Use different commands for single and multi block
 *                       transfers
 *       mn     03/02/18 Move UHS macro check to SD card initialization routine
+* 3.5   mn     04/18/18 Resolve compilation warnings for sdps driver
 * </pre>
 *
 ******************************************************************************/
@@ -1270,6 +1271,7 @@ u32 XSdPs_FrameCmd(XSdPs *InstancePtr, u32 Cmd)
 		case CMD24:
 		case CMD25:
 			RetVal |= RESP_R1 | (u32)XSDPS_DAT_PRESENT_SEL_MASK;
+		break;
 		case ACMD41:
 			RetVal |= RESP_R3;
 		break;
