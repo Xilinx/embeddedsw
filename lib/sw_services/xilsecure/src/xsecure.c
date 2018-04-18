@@ -54,7 +54,9 @@
 *                    been enabled for single partition image, when PMUFW is
 *                    compiled by enabling secure environment variable in bsp
 *                    settings.
-* 	ka  04/10/18 Added support for user-efuse revocation
+*       ka  04/10/18 Added support for user-efuse revocation
+*       ka  04/18/18 Added support for Zeroization of the memory in case of
+*                    Gcm-Tag mismatch
 * </pre>
 *
 * @note
@@ -1061,14 +1063,11 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 				XSECURE_WORD_LEN));
 
 	if (Status != XST_SUCCESS) {
-		if (Status != XSECURE_CSU_AES_KEY_CLEAR_ERROR) {
-			/* Clear the decrypted data */
-			memset(DecDst, 0,
-			(ImageHdrInfo.PartitionHdr->UnEncryptedDataWordLength *
-				XSECURE_WORD_LEN));
-		}
 		if (Status == XSECURE_CSU_AES_GCM_TAG_MISMATCH) {
 			Status = XSECURE_AES_GCM_TAG_NOT_MATCH;
+		}
+		else if (Status == XSECURE_CSU_AES_ZEROIZATION_ERROR) {
+			Status = XSECURE_AES_ZEROIZATION_ERR;
 		}
 		Status = XSECURE_PARTITION_FAIL |
 				XSECURE_AES_DECRYPTION_FAILURE | Status;

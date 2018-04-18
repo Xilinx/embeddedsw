@@ -49,6 +49,8 @@
 * 3.0   vns  02/19/18 Added error codes and macros for secure image.
 *
 * 3.1   ka   04/10/18 Added support for user-efuse revocation
+*       ka   04/18/18 Added support for Zeroization of the memory in case of
+*                     Gcm-Tag mismatch
 * </pre>
 *
 * @note
@@ -129,6 +131,15 @@
 #define XSECURE_AES_GCM_TAG_NOT_MATCH	0x16
 #define XSECURE_INVALID_EFUSE_SELECT 	0x17
 #define XSECURE_OUT_OF_RANGE_USER_EFUSE_ERROR	0x18
+#define XSECURE_AES_ZEROIZATION_ERR		0x19
+#define XSECURE_AES_KEY_CLEAR_ERROR		XSECURE_CSU_AES_KEY_CLEAR_ERROR
+						/**< 0x20 */
+#define XSECURE_AES_KEYCLR_AND_GCMTAG_NOTMATCH	(XSECURE_AES_KEY_CLEAR_ERROR \
+					| XSECURE_CSU_AES_GCM_TAG_MISMATCH)
+						/**< 0x21*/
+#define XSECURE_AES_KEYCLR_AND_ZEROIZATION_ERR	(XSECURE_AES_KEY_CLEAR_ERROR \
+					| XSECURE_CSU_AES_ZEROIZATION_ERROR)
+						/**< 0x24*/
 
 #define XSECURE_AUTH_NOT_ENABLED 	0xFF
 

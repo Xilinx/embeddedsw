@@ -84,7 +84,8 @@
 * 3.0   vns  02/19/18 Added error code for key clear
 *                     XSECURE_CSU_AES_KEY_CLEAR_ERROR and timeout macro
 *                     XSECURE_AES_TIMEOUT_MAX
-*
+* 3.1   ka   03/16/18 Added Zeroization of Aes Decrypted data in case of
+*                    GCM_TAG_MISMATCH
 * </pre>
 * @endcond
 *
@@ -161,7 +162,9 @@
 					/**< image length mismatch */
 #define XSECURE_CSU_AES_DEVICE_COPY_ERROR	(3L)
 					/**< device copy failed */
-#define XSECURE_CSU_AES_KEY_CLEAR_ERROR		(4L)
+#define XSECURE_CSU_AES_ZEROIZATION_ERROR	(4L)
+					/**< Zeroization error*/
+#define XSECURE_CSU_AES_KEY_CLEAR_ERROR		(0x20)
 					/**< AES key clear error */
 
 #define XSECURE_SECURE_HDR_SIZE		(48U)
