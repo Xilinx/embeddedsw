@@ -33,7 +33,7 @@
 /**
 *
 * @file xrfdc.h
-* @addtogroup rfdc_v3_2
+* @addtogroup rfdc_v4_0
 * @{
 * @details
 *
