@@ -143,7 +143,7 @@
 *       jm     03/12/18 Added support for reloading DTC scans.
 *       jm     03/12/18 Add option to configure sysref capture after MTS.
 *       sk     03/22/18 Updated PLL settings based on latest IP values.
-* 3.3   sk     04/09/18 Added API to enable/disable the sysref.
+* 4.0   sk     04/09/18 Added API to enable/disable the sysref.
 *       sk     04/09/18 Updated max VCO to 13108MHz to support max DAC
 *                       sample rate of 6.554MHz.
 *
@@ -1054,7 +1054,7 @@ static inline int XRFdc_GetConnectedQData(XRFdc* InstancePtr, u32 Type,
 ******************************************************************************/
 static inline double XRFdc_GetDriverVersion()
 {
-	return 3.3;
+	return 4.0;
 }
 
 /************************** Function Prototypes ******************************/
