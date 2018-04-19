@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xiicps.h
-* @addtogroup iicps_v3_5
+* @addtogroup iicps_v3_7
 * @{
 * @details
 *
@@ -186,6 +186,8 @@
 * 3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
 *       ms  03/17/17 Added readme.txt file in examples folder for doxygen
 *                    generation.
+* 3.7   ask  04/17/18 Updated the Eeprom scanning mechanism
+*                     as per the other examples (CR#997545)
 *
 * </pre>
 *
