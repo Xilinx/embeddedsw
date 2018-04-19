@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 2.1   hk   03/15/10 First release
+* 3.7   ask  04/17/18 Updated the Eeprom scanning mechanism
+*		      as per the other examples (CR#997545)
 *
 * </pre>
 *
@@ -88,12 +90,17 @@
  */
 #define IIC_SLAVE_ADDR		0x54
 #define IIC_SCLK_RATE		100000
-#define IIC_MUX_ADDRESS 	0x74
+#define MUX_ADDR 0x74
+#define MAX_CHANNELS 0x04
+#define SLV_MON_LOOP_COUNT 0x00FFFFF
 
 /*
  * The page size determines how much data should be written at a time.
  * The write function should be called with this as a maximum byte count.
  */
+#define MAX_SIZE	32
+#define PAGE_SIZE_16	16
+#define PAGE_SIZE_32	32
 #define PAGE_SIZE		16
 
 /*
@@ -115,13 +122,22 @@ typedef u16 AddressType;
 
 int IicPsRepeatedStartExample(void);
 int EepromWriteData(u16 ByteCount);
-int MuxInit(void);
+static s32 MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer);
 int EepromReadDataRepStart(u8 *BufferPtr, u16 ByteCount);
+static s32 FindEepromDevice(u16 Address);
+static s32 IicPsFindEeprom(u16 *Eeprom_Addr, u32 *PageSize);
+static s32 IicPsConfig(u16 DeviceId);
+static s32 IicPsFindDevice(u16 addr);
+static s32 IicPsSlaveMonitor(u16 Address, u16 DeviceId);
 
 /************************** Variable Definitions *****************************/
 
 XIicPs IicInstance;		/* The instance of the IIC device. */
 u32 Platform;
+u32 PageSize;
+u16 EepromSlvAddr;
+u16 EepromAddr[] = {0x54,0x55,0};
+u16 MuxAddr[] = {0x74,0};
 
 /*
  * Write buffer for writing a page.
@@ -183,7 +199,6 @@ int IicPsRepeatedStartExample(void)
 	XIicPs_Config *ConfigPtr;	/* Pointer to configuration data */
 	AddressType Address = EEPROM_START_ADDRESS;
 	AddressType AddressTemp;
-	int PageCnt;
 	int NumPages = 16;
 	int WrBfrOffset;
 
@@ -207,45 +222,37 @@ int IicPsRepeatedStartExample(void)
 	XIicPs_SetSClk(&IicInstance, IIC_SCLK_RATE);
 
 	/*
-	 * Set the channel value in IIC Mux.
-	 */
-	Platform = XGetPlatform_Info();
-	if(Platform == XPLAT_ZYNQ) {
-		Status = MuxInit();
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-	}
+	*	Find the Eeprom .
+	*/
 
 	AddressTemp = Address;
-	for(PageCnt = 0; PageCnt < NumPages; PageCnt++) {
-		/*
-		 * Initialize the data to write and the read buffer.
-		 */
-		if (Platform == XPLAT_ZYNQ) {
-			WriteBuffer[0] = (u8) (AddressTemp);
-			WrBfrOffset = 1;
-		} else {
-			WriteBuffer[0] = (u8) (AddressTemp >> 8);
-			WriteBuffer[1] = (u8) (AddressTemp);
-			WrBfrOffset = 2;
-		}
+	Status = IicPsFindEeprom(&EepromSlvAddr,&PageSize);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	/*
+	 * Initialize the data to write and the read buffer.
+	 */
+	if (PageSize == PAGE_SIZE_16) {
+		WriteBuffer[0] = (u8) (Address);
+		WrBfrOffset = 1;
+	} else {
+		WriteBuffer[0] = (u8) (Address >> 8);
+		WriteBuffer[1] = (u8) (Address);
+		WrBfrOffset = 2;
+	}
 
-		for (Index = 0; Index < PAGE_SIZE; Index++) {
-			WriteBuffer[WrBfrOffset + Index] = 0xFF;
-			ReadBuffer[Index] = 0;
-		}
+	for (Index = 0; Index < PageSize; Index++) {
+		WriteBuffer[WrBfrOffset + Index] = 0xFF;
+		ReadBuffer[Index] = 0;
+	}
 
-		/*
-		 * Write to the EEPROM.
-		 */
+		xil_printf("EepromWriteData\r\n");
 		Status = EepromWriteData(WrBfrOffset + PAGE_SIZE);
 		if (Status != XST_SUCCESS) {
+			xil_printf("Failed EepromWriteData\r\n");
 			return XST_FAILURE;
 		}
-
-		AddressTemp += PAGE_SIZE;
-	}
 
 	/*
 	 * Read from the EEPROM.
@@ -258,33 +265,27 @@ int IicPsRepeatedStartExample(void)
 	/*
 	 * Verify the data read against the data written.
 	 */
-	for (Index = 0; Index < PAGE_SIZE*NumPages; Index++) {
-		if (ReadBuffer[Index] !=
-			WriteBuffer[Index%PAGE_SIZE + WrBfrOffset]) {
+	for (Index = 0; Index < PageSize; Index++) {
+		if (ReadBuffer[Index] != WriteBuffer[Index + WrBfrOffset]) {
+			xil_printf("Verify the data read aginst the buffer Failed\r\n");
 			return XST_FAILURE;
 		}
-
-		ReadBuffer[Index] = 0;
 	}
 
 	AddressTemp = Address;
-	for(PageCnt = 0; PageCnt < NumPages; PageCnt++) {
-		/*
-		 * Initialize the data to write and the read buffer.
-		 */
-		if (Platform == XPLAT_ZYNQ) {
-			WriteBuffer[0] = (u8) (AddressTemp);
-			WrBfrOffset = 1;
-		} else {
-			WriteBuffer[0] = (u8) (AddressTemp >> 8);
-			WriteBuffer[1] = (u8) (AddressTemp);
-			WrBfrOffset = 2;
-		}
+	if (PageSize == PAGE_SIZE_16) {
+		WriteBuffer[0] = (u8) (Address);
+		WrBfrOffset = 1;
+	} else {
+		WriteBuffer[0] = (u8) (Address >> 8);
+		WriteBuffer[1] = (u8) (Address);
+		WrBfrOffset = 2;
+	}
 
-		for (Index = 0; Index < PAGE_SIZE; Index++) {
-			WriteBuffer[WrBfrOffset + Index] = Index + 10;
-			ReadBuffer[Index] = 0;
-		}
+	for (Index = 0; Index < PageSize; Index++) {
+		WriteBuffer[WrBfrOffset + Index] = Index + 10;
+		ReadBuffer[Index] = 0;
+	}
 
 		/*
 		 * Write to the EEPROM.
@@ -294,7 +295,6 @@ int IicPsRepeatedStartExample(void)
 			return XST_FAILURE;
 		}
 		AddressTemp += PAGE_SIZE;
-	}
 
 	/*
 	 * Read from the EEPROM.
@@ -307,13 +307,11 @@ int IicPsRepeatedStartExample(void)
 	/*
 	 * Verify the data read against the data written.
 	 */
-	for (Index = 0; Index < PAGE_SIZE*NumPages; Index++) {
-		if (ReadBuffer[Index] !=
-			WriteBuffer[Index%PAGE_SIZE + WrBfrOffset]) {
+	for (Index = 0; Index < PageSize; Index++) {
+		if (ReadBuffer[Index] != WriteBuffer[Index + WrBfrOffset]) {
+			xil_printf("Verify the data read aginst the buffer Failed\r\n");
 			return XST_FAILURE;
 		}
-
-		ReadBuffer[Index] = 0;
 	}
 
 	return XST_SUCCESS;
@@ -388,7 +386,7 @@ int EepromReadDataRepStart(u8 *BufferPtr, u16 ByteCount)
 	/*
 	 * Position the Pointer in EEPROM.
 	 */
-	if (Platform == XPLAT_ZYNQ) {
+	if (PageSize == PAGE_SIZE_16) {
 		WriteBuffer[0] = (u8) (Address);
 		WrBfrOffset = 1;
 	} else {
@@ -425,29 +423,27 @@ int EepromReadDataRepStart(u8 *BufferPtr, u16 ByteCount)
 
 	return XST_SUCCESS;
 }
-
 /*****************************************************************************/
 /**
-* This function initializes the IIC MUX to select EEPROM.
+* This function initializes the IIC MUX to select the required channel.
 *
-* @param	None.
+* @param	MuxAddress and Channel select value.
 *
 * @return	XST_SUCCESS if pass, otherwise XST_FAILURE.
 *
 * @note		None.
 *
 ****************************************************************************/
-int MuxInit(void)
+static s32 MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer)
 {
-	u8 WriteBuffer;
-	u8 MuxIicAddr = IIC_MUX_ADDRESS;
 	u8 Buffer = 0;
-	int Status = 0;
+	s32 Status = 0;
+
 
 	/*
-	 * Channel select value for EEPROM.
+	 * Wait until bus is idle to start another transfer.
 	 */
-	WriteBuffer = 0x04;
+	while (XIicPs_BusIsBusy(&IicInstance));
 
 	/*
 	 * Send the Data.
@@ -476,5 +472,208 @@ int MuxInit(void)
 	 */
 	while (XIicPs_BusIsBusy(&IicInstance));
 
+	return XST_SUCCESS;
+}
+/*****************************************************************************/
+/**
+* This function is use to figure out the Eeprom slave device
+*
+* @param	addr: u16 variable
+*
+* @return	XST_SUCCESS if successful and also update the epprom slave
+* device address in addr variable else XST_FAILURE.
+*
+* @note		None.
+*
+******************************************************************************/
+static s32 IicPsFindEeprom(u16 *Eeprom_Addr,u32 *PageSize)
+{
+	s32 Status;
+	u32 MuxIndex,Index;
+	u8 MuxChannel;
+
+	for(MuxIndex=0;MuxAddr[MuxIndex] != 0;MuxIndex++){
+		Status = IicPsFindDevice(MuxAddr[MuxIndex]);
+		if (Status == XST_SUCCESS) {
+			for(Index=0;EepromAddr[Index] != 0;Index++) {
+				for(MuxChannel = MAX_CHANNELS; MuxChannel > 0x0; MuxChannel = MuxChannel >> 1) {
+					Status = MuxInitChannel(MuxAddr[MuxIndex], MuxChannel);
+					if (Status != XST_SUCCESS) {
+						xil_printf("Failed to enable the MUX channel\r\n");
+						return XST_FAILURE;
+					}
+					Status = FindEepromDevice(EepromAddr[Index]);
+					if (Status == XST_SUCCESS) {
+						*Eeprom_Addr = EepromAddr[Index];
+						*PageSize = PAGE_SIZE_16;
+						return XST_SUCCESS;
+					}
+				}
+			}
+		}
+	}
+	for(Index=0;EepromAddr[Index] != 0;Index++) {
+		Status = IicPsFindDevice(EepromAddr[Index]);
+		if (Status == XST_SUCCESS) {
+			*Eeprom_Addr = EepromAddr[Index];
+			*PageSize = PAGE_SIZE_32;
+			return XST_SUCCESS;
+		}
+	}
+	return XST_FAILURE;
+}
+/*****************************************************************************/
+/**
+*
+* This function checks the availability of EEPROM using slave monitor mode.
+*
+* @param	EEPROM address.
+*
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+*
+* @note 	None.
+*
+*******************************************************************************/
+static s32 FindEepromDevice(u16 Address)
+{
+	u32 Index,IntrStatusReg;
+	XIicPs *IicPtr = &IicInstance;
+
+
+	XIicPs_EnableSlaveMonitor(&IicInstance, Address);
+
+	Index = 0;
+	/*
+	 * Wait for the Slave Monitor status
+	 */
+	while (Index < SLV_MON_LOOP_COUNT) {
+		Index++;
+		/*
+		 * Read the Interrupt status register.
+		 */
+		IntrStatusReg = XIicPs_ReadReg(IicPtr->Config.BaseAddress,
+						 (u32)XIICPS_ISR_OFFSET);
+		if (0U != (IntrStatusReg & XIICPS_IXR_SLV_RDY_MASK)) {
+			XIicPs_DisableSlaveMonitor(&IicInstance);
+			XIicPs_WriteReg(IicPtr->Config.BaseAddress,
+					(u32)XIICPS_ISR_OFFSET, IntrStatusReg);
+			return XST_SUCCESS;
+		}
+	}
+	XIicPs_DisableSlaveMonitor(&IicInstance);
+
+	return XST_FAILURE;
+}
+/*****************************************************************************/
+/**
+*
+* This function is use to figure out the slave device is alive or not.
+*
+* @param        slave address and Device ID .
+*
+* @return       XST_SUCCESS if successful, otherwise XST_FAILURE.
+*
+* @note         None.
+*
+*******************************************************************************/
+static s32 IicPsFindDevice(u16 addr)
+{
+	s32 Status;
+
+	Status = IicPsSlaveMonitor(addr,0);
+	if (Status == XST_SUCCESS) {
+		return XST_SUCCESS;
+	}
+	Status = IicPsSlaveMonitor(addr,1);
+	if (Status == XST_SUCCESS) {
+		return XST_SUCCESS;
+	}
+
+	return XST_FAILURE;
+}
+/*****************************************************************************/
+/**
+*
+* This function checks the availability of a slave using slave monitor mode.
+*
+* @param	DeviceId is the Device ID of the IicPs Device and is the
+*		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h
+*
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+*
+* @note 	None.
+*
+*******************************************************************************/
+static s32 IicPsSlaveMonitor(u16 Address, u16 DeviceId)
+{
+	u32 Index,IntrStatusReg;
+	s32 Status;
+	XIicPs *IicPtr;
+
+	/*
+	 * Initialize the IIC driver so that it is ready to use.
+	 */
+	Status = IicPsConfig(DeviceId);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	IicPtr = &IicInstance;
+	XIicPs_EnableSlaveMonitor(&IicInstance, Address);
+
+	Index = 0;
+	/*
+	 * Wait for the Slave Monitor Status
+	 */
+	while (Index < SLV_MON_LOOP_COUNT) {
+		Index++;
+		/*
+		 * Read the Interrupt status register.
+		 */
+		IntrStatusReg = XIicPs_ReadReg(IicPtr->Config.BaseAddress,
+						 (u32)XIICPS_ISR_OFFSET);
+		if (0U != (IntrStatusReg & XIICPS_IXR_SLV_RDY_MASK)) {
+			XIicPs_DisableSlaveMonitor(&IicInstance);
+			XIicPs_WriteReg(IicPtr->Config.BaseAddress,
+					(u32)XIICPS_ISR_OFFSET, IntrStatusReg);
+			return XST_SUCCESS;
+		}
+	}
+	XIicPs_DisableSlaveMonitor(&IicInstance);
+	return XST_FAILURE;
+}
+/*****************************************************************************/
+/**
+* This function perform the initial configuration for the IICPS Device.
+*
+* @param	DeviceId instance.
+*
+* @return	XST_SUCCESS if pass, otherwise XST_FAILURE.
+*
+* @note		None.
+*
+****************************************************************************/
+static s32 IicPsConfig(u16 DeviceId)
+{
+	s32 Status;
+	XIicPs_Config *ConfigPtr;	/* Pointer to configuration data */
+
+	/*
+	 * Initialize the IIC driver so that it is ready to use.
+	 */
+	ConfigPtr = XIicPs_LookupConfig(DeviceId);
+	if (ConfigPtr == NULL) {
+		return XST_FAILURE;
+	}
+
+	Status = XIicPs_CfgInitialize(&IicInstance, ConfigPtr,
+					ConfigPtr->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	/*
+	 * Set the IIC serial clock rate.
+	 */
+	XIicPs_SetSClk(&IicInstance, IIC_SCLK_RATE);
 	return XST_SUCCESS;
 }
