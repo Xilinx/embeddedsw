@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xiicps_hw.h
-* @addtogroup iicps_v3_9
+* @addtogroup iicps_v3_10
 * @{
 *
 * This header file contains the hardware definition for an IIC device.
@@ -45,6 +43,7 @@
 * 1.04a kpc		11/07/13 Added function prototype.
 * 3.0	sk		11/03/14 Modified the TimeOut Register value to 0xFF
 *				01/31/15 Modified the code according to MISRAC 2012 Compliant.
+* 3.10  sg 		06/24/19 Added timeout macro for polled transfer.
 * </pre>
 *
 ******************************************************************************/
@@ -180,7 +179,7 @@ extern "C" {
 
 #define XIICPS_IXR_ARB_LOST_MASK  0x00000200U	 /**< Arbitration Lost Interrupt
 													mask */
-#define XIICPS_IXR_RX_UNF_MASK    0x00000080U	 /**< FIFO Recieve Underflow
+#define XIICPS_IXR_RX_UNF_MASK    0x00000080U	 /**< FIFO Receive Underflow
 													Interrupt mask */
 #define XIICPS_IXR_TX_OVR_MASK    0x00000040U	 /**< Transmit Overflow
 													Interrupt mask */
@@ -262,6 +261,7 @@ extern "C" {
 
 #define XIicPs_In32 Xil_In32
 #define XIicPs_Out32 Xil_Out32
+#define XIICPS_POLL_DEFAULT_TIMEOUT_VAL		1000U /**< Timeout in us */
 
 /****************************************************************************/
 /**
