@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xiicps.h
-* @addtogroup iicps_v3_10
+* @addtogroup iicps_v3_11
 * @{
 * @details
 *
@@ -185,7 +165,11 @@
 * 3.8   ask  08/01/18   Fix for Cppcheck and Doxygen warnings
 * 3.8   sd 09/06/18  Enable the Timeout interrupt
 * 3.9   sg 03/09/19  Added arbitration lost support in polled transfer
-*
+* 3.11  rna  12/23/19 Added 10 bit address support for Master/Slave
+* 3.11  sd   02/06/20 Added clocking support.
+* 3.11  rna  02/20/20 Reorganization of driver for modularity.
+*		      Added new files xiicps_xfer.c and xiicps_xfer.h.
+*		      Moved internal data transfer APIs to xiicps_xfer.
 * </pre>
 *
 ******************************************************************************/
@@ -201,6 +185,9 @@ extern "C" {
 
 #include "xil_types.h"
 #include "xil_assert.h"
+#if defined  (XCLOCKING)
+#include "xil_clocking.h"
+#endif
 #include "xstatus.h"
 #include "xiicps_hw.h"
 #include "xplatform_info.h"
@@ -219,6 +206,8 @@ extern "C" {
 #define XIICPS_10_BIT_ADDR_OPTION	0x02U  /**< 10-bit address mode */
 #define XIICPS_SLAVE_MON_OPTION		0x04U  /**< Slave monitor mode */
 #define XIICPS_REP_START_OPTION		0x08U  /**< Repeated Start */
+
+
 /*@}*/
 
 /** @name Callback events
@@ -274,6 +263,9 @@ typedef struct {
 	u16 DeviceId;     /**< Unique ID  of device */
 	u32 BaseAddress;  /**< Base address of the device */
 	u32 InputClockHz; /**< Input clock frequency */
+#if defined  (XCLOCKING)
+	u32 RefClk;	  /**< Input clocks */
+#endif
 } XIicPs_Config;
 
 /**
@@ -295,8 +287,12 @@ typedef struct {
 	s32 UpdateTxSize;	/* If tx size register has to be updated */
 	s32 IsSend;		/* Whether master is sending or receiving */
 	s32 IsRepeatedStart;	/* Indicates if user set repeated start */
+	s32 Is10BitAddr;	/* Indicates if user set 10 bit address */
 
 	XIicPs_IntrHandler StatusHandler;  /* Event handler function */
+#if defined  (XCLOCKING)
+	u32 IsClkEnabled;	/**< Input clock enabled */
+#endif
 	void *CallBackRef;	/* Callback reference for event handler */
 } XIicPs;
 

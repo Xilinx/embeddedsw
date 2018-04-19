@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xiicps.c
-* @addtogroup iicps_v3_10
+* @addtogroup iicps_v3_11
 * @{
 *
 * Contains implementation of required functions for the XIicPs driver.
@@ -49,6 +29,8 @@
 *				12/06/14 Implemented Repeated start feature.
 *				01/31/15 Modified the code according to MISRAC 2012 Compliant.
 * 3.3   kvn		05/05/16 Modified latest code for MISRA-C:2012 Compliance.
+* 3.11  sd	02/06/20 Added clocking support.
+* 3.11  rna	02/11/20 Moved XIicPs_Reset to xiicps_hw.c
 *
 * </pre>
 *
@@ -57,6 +39,7 @@
 /***************************** Include Files *********************************/
 
 #include "xiicps.h"
+#include "xiicps_xfer.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -66,7 +49,7 @@
 
 /************************** Function Prototypes ******************************/
 
-static void StubHandler(void *CallBackRef, u32 StatusEvent);
+static INLINE void StubHandler(void *CallBackRef, u32 StatusEvent);
 
 /************************** Variable Definitions *****************************/
 
@@ -74,6 +57,7 @@ static void StubHandler(void *CallBackRef, u32 StatusEvent);
 /*****************************************************************************/
 /**
 *
+* @brief
 * Initializes a specific XIicPs instance such that the driver is ready to use.
 *
 * The state of the device after initialization is:
@@ -114,6 +98,11 @@ s32 XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
+#if defined  (XCLOCKING)
+	InstancePtr->Config.RefClk = ConfigPtr->RefClk;
+	InstancePtr->IsClkEnabled = 0;
+#endif
+
 	InstancePtr->StatusHandler = StubHandler;
 	InstancePtr->CallBackRef = NULL;
 
@@ -139,6 +128,7 @@ s32 XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
 
 /*****************************************************************************/
 /**
+* @brief
 * Check whether the I2C bus is busy
 *
 * @param	InstancePtr is a pointer to the XIicPs instance.
@@ -153,13 +143,24 @@ s32 XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
 s32 XIicPs_BusIsBusy(XIicPs *InstancePtr)
 {
 	u32 StatusReg;
-	s32	Status;
+	s32 Status;
+
+        /*
+         * Assert validates the input arguments.
+         */
+        Xil_AssertNonvoid(InstancePtr != NULL);
 
 	StatusReg = XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
 					   XIICPS_SR_OFFSET);
 	if ((StatusReg & XIICPS_SR_BA_MASK) != 0x0U) {
 		Status = (s32)TRUE;
 	}else {
+#if defined  (XCLOCKING)
+		if (InstancePtr->IsClkEnabled == 1) {
+			Xil_ClockDisable(InstancePtr->Config.RefClk);
+			InstancePtr->IsClkEnabled = 0;
+		}
+#endif
 		Status = (s32)FALSE;
 	}
 	return Status;
@@ -181,17 +182,17 @@ s32 XIicPs_BusIsBusy(XIicPs *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void StubHandler(void *CallBackRef, u32 StatusEvent)
+static INLINE void StubHandler(void *CallBackRef, u32 StatusEvent)
 {
-	(void) ((void *)CallBackRef);
-	(void) StatusEvent;
-	Xil_AssertVoidAlways();
+        (void) ((void *)CallBackRef);
+        (void) StatusEvent;
+        Xil_AssertVoidAlways();
 }
-
 
 /*****************************************************************************/
 /**
 *
+* @brief
 * Aborts a transfer in progress by resetting the FIFOs. The byte counts are
 * cleared.
 *
@@ -243,46 +244,6 @@ void XIicPs_Abort(XIicPs *InstancePtr)
 
 }
 
-/*****************************************************************************/
-/**
-*
-* Resets the IIC device. Reset must only be called after the driver has been
-* initialized. The configuration of the device after reset is the same as its
-* configuration after initialization.  Any data transfer that is in progress is
-* aborted.
-*
-* The upper layer software is responsible for re-configuring (if necessary)
-* and reenabling interrupts for the IIC device after the reset.
-*
-* @param	InstancePtr is a pointer to the XIicPs instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void XIicPs_Reset(XIicPs *InstancePtr)
-{
-
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
-
-	/*
-	 * Abort any transfer that is in progress.
-	 */
-	XIicPs_Abort(InstancePtr);
-
-	/*
-	 * Reset any values so the software state matches the hardware device.
-	 */
-	XIicPs_WriteReg(InstancePtr->Config.BaseAddress, XIICPS_CR_OFFSET,
-			  XIICPS_CR_RESET_VALUE);
-	XIicPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XIICPS_TIME_OUT_OFFSET, XIICPS_TO_RESET_VALUE);
-	XIicPs_WriteReg(InstancePtr->Config.BaseAddress, XIICPS_IDR_OFFSET,
-			  XIICPS_IXR_ALL_INTR_MASK);
-
-}
 /*****************************************************************************/
 /**
 * Put more data into the transmit FIFO, number of bytes is ether expected

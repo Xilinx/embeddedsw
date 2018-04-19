@@ -1,32 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xiicps_slave.c
-* @addtogroup iicps_v3_10
+* @addtogroup iicps_v3_11
 * @{
 *
 * Handles slave transfers
@@ -41,7 +21,12 @@
 * 3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
 * 3.8   ask 08/01/18 Fix for Cppcheck and Doxygen warnings.
 * 3.10 sg   06/24/19 Fix for Slave send polled and interruput transfers.
-*
+* 3.11  rna 12/20/19 Clear the ISR before enabling interrupts in Send/Receive.
+*           12/23/19 Add 10 bit address support for Master/Slave
+* 3.11  sd  02/06/20 Added clocking support.
+* 3.11  rna 02/12/20 Moved static data transfer functions to xiicps_xfer.c file
+*	    02/18/20 Modified latest code for MISRA-C:2012 Compliance.
+*       rna 04/09/20 Added timeout as event in slave interrupt handler.
 * </pre>
 *
 ******************************************************************************/
@@ -49,6 +34,7 @@
 /***************************** Include Files *********************************/
 #include "xiicps.h"
 #include "sleep.h"
+#include "xiicps_xfer.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -57,14 +43,12 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-extern s32 TransmitFifoFill(XIicPs *InstancePtr);
-
-static s32 SlaveRecvData(XIicPs *InstancePtr);
 
 /************************* Variable Definitions *****************************/
 
 /*****************************************************************************/
 /**
+* @brief
 * This function sets up the device to be a slave.
 *
 * @param	InstancePtr is a pointer to the XIicPs instance.
@@ -86,18 +70,33 @@ void XIicPs_SetupSlave(XIicPs *InstancePtr, u16 SlaveAddr)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(XIICPS_ADDR_MASK >= SlaveAddr);
+	Xil_AssertVoid((u16)XIICPS_ADDR_MASK >= SlaveAddr);
+
+#if defined  (XCLOCKING)
+	if (InstancePtr->IsClkEnabled == 0) {
+		Xil_ClockEnable(InstancePtr->Config.RefClk);
+		InstancePtr->IsClkEnabled = 1;
+	}
+#endif
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 
 	ControlReg = XIicPs_In32(BaseAddr + XIICPS_CR_OFFSET);
 
 	/*
-	 * Set up master, AckEn, nea and also clear fifo.
+	 * Set up master, AckEn and also clear fifo.
 	 */
 	ControlReg |= (u32)XIICPS_CR_ACKEN_MASK | (u32)XIICPS_CR_CLR_FIFO_MASK;
-	ControlReg |= (u32)XIICPS_CR_NEA_MASK;
 	ControlReg &= (u32)(~XIICPS_CR_MS_MASK);
+
+	/*
+	 * Check if 10 bit address option is set. Clear/Set NEA accordingly.
+	 */
+	if (InstancePtr->Is10BitAddr == 1) {
+		ControlReg &= (u32)(~XIICPS_CR_NEA_MASK);
+	} else {
+		ControlReg |= (u32)(XIICPS_CR_NEA_MASK);
+	}
 
 	XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 			  ControlReg);
@@ -112,6 +111,7 @@ void XIicPs_SetupSlave(XIicPs *InstancePtr, u16 SlaveAddr)
 
 /*****************************************************************************/
 /**
+* @brief
 * This function setup a slave interrupt-driven send. It set the repeated
 * start for the device is the transfer size is larger than FIFO depth.
 * Data processing for the send is initiated by the interrupt handler.
@@ -142,6 +142,11 @@ void XIicPs_SlaveSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 	InstancePtr->SendByteCount = ByteCount;
 	InstancePtr->RecvBufferPtr = NULL;
 
+	/*
+	 * Clear the interrupt status register.
+	 */
+	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, XIICPS_IXR_ALL_INTR_MASK);
+
 	XIicPs_EnableInterrupts(BaseAddr,
 			(u32)XIICPS_IXR_DATA_MASK | (u32)XIICPS_IXR_COMP_MASK |
 			(u32)XIICPS_IXR_TO_MASK | (u32)XIICPS_IXR_NACK_MASK |
@@ -150,6 +155,7 @@ void XIicPs_SlaveSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 
 /*****************************************************************************/
 /**
+* @brief
 * This function setup a slave interrupt-driven receive.
 * Data processing for the receive is handled by the interrupt handler.
 *
@@ -164,6 +170,8 @@ void XIicPs_SlaveSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 ****************************************************************************/
 void XIicPs_SlaveRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 {
+	u32 BaseAddr;
+
 	/*
 	 * Assert validates the input arguments.
 	 */
@@ -172,11 +180,17 @@ void XIicPs_SlaveRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 
+	BaseAddr = InstancePtr->Config.BaseAddress;
 	InstancePtr->RecvBufferPtr = MsgPtr;
 	InstancePtr->RecvByteCount = ByteCount;
 	InstancePtr->SendBufferPtr = NULL;
 
-	XIicPs_EnableInterrupts(InstancePtr->Config.BaseAddress,
+	/*
+	 * Clear the interrupt status register.
+	 */
+	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, XIICPS_IXR_ALL_INTR_MASK);
+
+	XIicPs_EnableInterrupts(BaseAddr,
 		(u32)XIICPS_IXR_DATA_MASK | (u32)XIICPS_IXR_COMP_MASK |
 		(u32)XIICPS_IXR_NACK_MASK | (u32)XIICPS_IXR_TO_MASK |
 		(u32)XIICPS_IXR_RX_OVR_MASK | (u32)XIICPS_IXR_RX_UNF_MASK);
@@ -185,6 +199,7 @@ void XIicPs_SlaveRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 
 /*****************************************************************************/
 /**
+* @brief
 * This function sends  a buffer in polled mode as a slave.
 *
 * @param	InstancePtr is a pointer to the XIicPs instance.
@@ -228,8 +243,8 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 	 * Use RXRW bit in status register to wait master to start a read.
 	 */
 	StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
-	Result = (((u32)(StatusReg & XIICPS_SR_RXRW_MASK) == (u32)0x0U) &&
-			(Error == 0));
+	Result = (((u32)(StatusReg & XIICPS_SR_RXRW_MASK) == (u32)0x0U));
+
 	while (Result != FALSE) {
 
 		/*
@@ -332,6 +347,7 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 }
 /*****************************************************************************/
 /**
+* @brief
 * This function receives a buffer in polled mode as a slave.
 *
 * @param	InstancePtr is a pointer to the XIicPs instance.
@@ -393,7 +409,7 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 			if (((IntrStatusReg & (XIICPS_IXR_DATA_MASK |
 					XIICPS_IXR_COMP_MASK))!=0x0U) &&
 				((StatusReg & XIICPS_SR_RXDV_MASK) == 0U) &&
-				((InstancePtr->RecvByteCount > 0) != 0x0U)) {
+				(InstancePtr->RecvByteCount > 0)) {
 
 				return (s32)XST_FAILURE;
 			}
@@ -409,7 +425,7 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 		 * Read all data from FIFO.
 		 */
 		while (((StatusReg & XIICPS_SR_RXDV_MASK)!=0x0U) &&
-			 ((InstancePtr->RecvByteCount > 0) != 0x0U)){
+			 (InstancePtr->RecvByteCount > 0)){
 
 			XIicPs_RecvByte(InstancePtr);
 
@@ -511,7 +527,7 @@ void XIicPs_SlaveInterruptHandler(XIicPs *InstancePtr)
 	 */
 	if ((u32)0U != (IntrStatusReg & XIICPS_IXR_DATA_MASK)) {
 		if (IsSend != 0x0U) {
-			TransmitFifoFill(InstancePtr);
+			(void)TransmitFifoFill(InstancePtr);
 		} else {
 			LeftOver = SlaveRecvData(InstancePtr);
 
@@ -553,10 +569,17 @@ void XIicPs_SlaveInterruptHandler(XIicPs *InstancePtr)
 	}
 
 	/*
+	 * Timeout interrupt, pass this information to application.
+	 */
+	if (0U != (IntrStatusReg & XIICPS_IXR_TO_MASK)) {
+		XIicPs_DisableInterrupts(BaseAddr, XIICPS_IXR_TO_MASK);
+		StatusEvent |= XIICPS_EVENT_TIME_OUT;
+	}
+
+	/*
 	 * All other interrupts are treated as error.
 	 */
-	if (0U != (IntrStatusReg & (XIICPS_IXR_TO_MASK |
-				XIICPS_IXR_RX_UNF_MASK |
+	if (0U != (IntrStatusReg & (XIICPS_IXR_RX_UNF_MASK |
 				XIICPS_IXR_TX_OVR_MASK |
 				XIICPS_IXR_RX_OVR_MASK))){
 
@@ -570,36 +593,5 @@ void XIicPs_SlaveInterruptHandler(XIicPs *InstancePtr)
 		InstancePtr->StatusHandler(InstancePtr->CallBackRef,
 					   StatusEvent);
 	}
-}
-
-/*****************************************************************************/
-/*
-*
-* This function handles continuation of receiving data. It is invoked
-* from interrupt handler.
-*
-* @param	InstancePtr is a pointer to the XIicPs instance.
-*
-* @return	Number of bytes still expected by the instance.
-*
-* @note		None.
-*
-****************************************************************************/
-static s32 SlaveRecvData(XIicPs *InstancePtr)
-{
-	u32 StatusReg;
-	u32 BaseAddr;
-
-	BaseAddr = InstancePtr->Config.BaseAddress;
-
-	StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
-
-	while (((StatusReg & XIICPS_SR_RXDV_MASK)!=0x0U) &&
-			((InstancePtr->RecvByteCount > 0) != 0x0U)) {
-		XIicPs_RecvByte(InstancePtr);
-		StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
-	}
-
-	return InstancePtr->RecvByteCount;
 }
 /** @} */

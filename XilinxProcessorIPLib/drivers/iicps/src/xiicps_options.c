@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xiicps_options.c
-* @addtogroup iicps_v3_10
+* @addtogroup iicps_v3_11
 * @{
 *
 * Contains functions for the configuration of the XIccPs driver.
@@ -50,7 +30,9 @@
 * 3.0	sk	12/06/14 Implemented Repeated start feature.
 *			01/31/15 Modified the code according to MISRAC 2012 Compliant.
 * 3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
-*
+* 3.11  rna 12/23/19 Add 10 bit address support for Master/Slave
+*	    02/02/20 Correct return value of XIicPs_GetOptions function
+*	    02/04/20 Modified latest code for MISRA-C:2012 Compliance
 * </pre>
 *
 ******************************************************************************/
@@ -94,6 +76,7 @@ static OptionsMap OptionsTable[] = {
 /*****************************************************************************/
 /**
 *
+* @brief
 * This function sets the options for the IIC device driver. The options control
 * how the device behaves relative to the IIC bus. The device must be idle
 * rather than busy transferring data before setting these device options.
@@ -148,9 +131,11 @@ s32 XIicPs_SetOptions(XIicPs *InstancePtr, u32 Options)
 			if ((OptionsTable[Index].Option &
 				XIICPS_10_BIT_ADDR_OPTION) != (u32)0x0U) {
 				/* Turn 7-bit off */
+				InstancePtr->Is10BitAddr = 1;
 				ControlReg &= ~OptionsTable[Index].Mask;
 			} else {
 				/* Turn 7-bit on */
+				InstancePtr->Is10BitAddr = 0;
 				ControlReg |= OptionsTable[Index].Mask;
 			}
 		}
@@ -174,6 +159,7 @@ s32 XIicPs_SetOptions(XIicPs *InstancePtr, u32 Options)
 /*****************************************************************************/
 /**
 *
+* @brief
 * This function clears the options for the IIC device driver. The options
 * control how the device behaves relative to the IIC bus. The device must be
 * idle rather than busy transferring data before setting these device options.
@@ -228,12 +214,13 @@ s32 XIicPs_ClearOptions(XIicPs *InstancePtr, u32 Options)
 			 */
 			if ((OptionsTable[Index].Option &
 				XIICPS_10_BIT_ADDR_OPTION) != (u32)0x0U) {
-
 				/* Turn 7-bit on */
+				InstancePtr->Is10BitAddr = 0;
 				ControlReg |= OptionsTable[Index].Mask;
 			} else {
 
 				/* Turn 7-bit off */
+				InstancePtr->Is10BitAddr = 1;
 				ControlReg &= ~OptionsTable[Index].Mask;
 			}
 		}
@@ -252,23 +239,23 @@ s32 XIicPs_ClearOptions(XIicPs *InstancePtr, u32 Options)
 	 */
 	InstancePtr->Options = XIicPs_GetOptions(InstancePtr);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function gets the options for the IIC device. The options control how
 * the device behaves relative to the IIC bus.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
+* @param        InstancePtr is a pointer to the XIicPs instance.
 *
-* @return	32 bit mask of the options, where a 1 means the option is on,
-*		and a 0 means to the option is off. One or more bit values may
-*		be contained in the mask. See the bit definitions named
-* 		XIICPS_*_OPTION in the file xiicps.h.
+* @return       32 bit mask of the options, where a 1 means the option is on,
+*               and a 0 means to the option is off. One or more bit values may
+*               be contained in the mask. See the bit definitions named
+*               XIICPS_*_OPTION in the file xiicps.h.
 *
-* @note		None.
+* @note         None.
 *
 ******************************************************************************/
 u32 XIicPs_GetOptions(XIicPs *InstancePtr)
@@ -284,7 +271,7 @@ u32 XIicPs_GetOptions(XIicPs *InstancePtr)
 	 * Read control register to find which options are currently set.
 	 */
 	ControlReg = XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
-				      XIICPS_CR_OFFSET);
+					XIICPS_CR_OFFSET);
 
 	/*
 	 * Loop through the options table to determine which options are set.
@@ -293,9 +280,19 @@ u32 XIicPs_GetOptions(XIicPs *InstancePtr)
 		if ((ControlReg & OptionsTable[Index].Mask) != (u32)0x0U) {
 			OptionsFlag |= OptionsTable[Index].Option;
 		}
-		if ((ControlReg & XIICPS_CR_NEA_MASK) == (u32)0x0U) {
-			OptionsFlag |= XIICPS_10_BIT_ADDR_OPTION;
-		}
+	}
+
+	/*
+	 * Handle NEA separately, as 10-bit option and 7-bit option are
+	 * using the same mask.
+	 */
+	if ((ControlReg & XIICPS_CR_NEA_MASK) == (u32)0x0U) {
+		OptionsFlag |= XIICPS_10_BIT_ADDR_OPTION;
+		OptionsFlag &= ~(XIICPS_7_BIT_ADDR_OPTION);
+	}
+	else {
+		OptionsFlag |= XIICPS_7_BIT_ADDR_OPTION;
+		OptionsFlag &= ~(XIICPS_10_BIT_ADDR_OPTION);
 	}
 
 	if (InstancePtr->IsRepeatedStart != 0 ) {
@@ -307,6 +304,7 @@ u32 XIicPs_GetOptions(XIicPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* @brief
 * This function sets the serial clock rate for the IIC device. The device
 * must be idle rather than busy transferring data before setting these device
 * options.
@@ -389,7 +387,7 @@ s32 XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz)
 	 */
 	TempLimit = (((InstancePtr->Config.InputClockHz) %
 			((u32)22 * FsclHzVar)) != 	(u32)0x0U) ?
-						Temp + (u32)1U : Temp;
+						 (Temp + (u32)1U) : Temp;
 	BestError = FsclHzVar;
 
 	BestDivA = 0U;
@@ -454,6 +452,7 @@ s32 XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz)
 /*****************************************************************************/
 /**
 *
+* @brief
 * This function gets the serial clock rate for the IIC device. The device
 * must be idle rather than busy transferring data before setting these device
 * options.
