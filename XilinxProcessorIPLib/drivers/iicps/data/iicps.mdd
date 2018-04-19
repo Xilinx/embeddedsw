@@ -36,7 +36,7 @@ BEGIN driver iicps
   OPTION supported_peripherals = (ps7_i2c psu_i2c);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.6;
+  OPTION VERSION = 3.7;
   OPTION NAME = iicps;
 
 END driver
