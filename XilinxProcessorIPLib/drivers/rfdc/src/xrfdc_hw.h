@@ -1935,6 +1935,7 @@ extern "C" {
  */
 
 #define XRFDC_PLL_CRS1_VCO_SEL_MASK		0x00008001U /**< VCO SEL Mask */
+#define XRFDC_PLL_VCO_SEL_AUTO_MASK		0x00008000U /**< VCO Auto SEL Mask */
 
 /* @} */
 

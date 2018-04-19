@@ -100,6 +100,7 @@
 *       sk     03/22/18 Updated PLL settings based on latest IP values.
 * 4.0   sk     04/17/18 Corrected Set/Get MixerSettings API description for
 *                       FineMixerScale parameter.
+*       sk     04/19/18 Enable VCO Auto selection while configuring the clock.
 * </pre>
 *
 ******************************************************************************/
@@ -5652,7 +5653,6 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 	u32 DivideValue = 0x0U;
 	u32 PllFreqIndex = 0x0U;
 	u32 FbDivIndex = 0x0U;
-	u8 VCOBand = XRFDC_VCO_UPPER_BAND;
 
 	/*
 	 * Sweep valid integer values of FeedbackDiv(N) and record a list
@@ -5775,7 +5775,6 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			} else if(Best_FeedbackDiv < 30U) {
 				FbDivIndex = 1U;
 			}
-			VCOBand = XRFDC_VCO_LOWER_BAND;
 		} else if(PllFreq < 10070U) {
 			PllFreqIndex = 1U;
 			FbDivIndex = 2U;
@@ -5784,7 +5783,6 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			} else if(Best_FeedbackDiv < 30U) {
 				FbDivIndex = 1U;
 			}
-			VCOBand = XRFDC_VCO_LOWER_BAND;
 		} else if(PllFreq < 10690U) {
 			PllFreqIndex = 2U;
 			FbDivIndex = 3U;
@@ -5795,7 +5793,6 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			} else if(Best_FeedbackDiv < 35U) {
 				FbDivIndex = 2U;
 			}
-			VCOBand = XRFDC_VCO_LOWER_BAND;
 		} else if(PllFreq < 10990U) {
 			PllFreqIndex = 3U;
 			FbDivIndex = 3U;
@@ -5806,7 +5803,6 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			} else if(Best_FeedbackDiv < 38U) {
 				FbDivIndex = 2U;
 			}
-			VCOBand = XRFDC_VCO_LOWER_BAND;
 		} else if(PllFreq < 11430U) {
 			PllFreqIndex = 4U;
 			FbDivIndex = 3U;
@@ -5817,7 +5813,6 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			} else if(Best_FeedbackDiv < 38U) {
 				FbDivIndex = 2U;
 			}
-			VCOBand = XRFDC_VCO_UPPER_BAND;
 		} else if(PllFreq < 12040U) {
 			PllFreqIndex = 5U;
 			FbDivIndex = 3U;
@@ -5828,7 +5823,6 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			} else if(Best_FeedbackDiv < 40U) {
 				FbDivIndex = 2U;
 			}
-			VCOBand = XRFDC_VCO_UPPER_BAND;
 		} else if(PllFreq < 12530U) {
 			PllFreqIndex = 6U;
 			FbDivIndex = 3U;
@@ -5839,7 +5833,6 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			} else if(Best_FeedbackDiv < 42U) {
 				FbDivIndex = 2U;
 			}
-			VCOBand = XRFDC_VCO_UPPER_BAND;
 		} else if(PllFreq < 20000U) {
 			PllFreqIndex = 7U;
 			FbDivIndex = 2U;
@@ -5852,15 +5845,15 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			} else if(Best_FeedbackDiv < 39U) {
 				FbDivIndex = 1U;
 			}
-			VCOBand = XRFDC_VCO_UPPER_BAND;
 		}
 
 		/*
-		 * Disable automatic selection of the VCO
+		 * Enable automatic selection of the VCO, this will work with the
+		 * IP version 2.0.1 and above and using older version of IP is
+		 * not likely to work.
 		 */
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_PLL_CRS1);
-		ReadReg &= ~XRFDC_PLL_CRS1_VCO_SEL_MASK;
-		ReadReg |= VCOBand;
+		ReadReg |= XRFDC_PLL_VCO_SEL_AUTO_MASK;
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_CRS1, ReadReg);
 
 		/*
@@ -5908,13 +5901,16 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 * @param	Tile_Id indicates Tile number (0-3)
 * @param	Source Clock source internal PLL or external clock source
 * @param	RefClkFreq Reference Clock Frequency in MHz(50MHz - 1.2GHz)
-* @param	SamplingRate Sampling Rate in MHz(0.5- 6.4 GHz)
+* @param	SamplingRate Sampling Rate in MHz(0.1- 6.554GHz for DAC and
+*           0.5/1.0 - 2.058/4.116GHz for ADC based on the device package).
 *
 * @return
 *       - XRFDC_SUCCESS if successful.
 *       - XRFDC_FAILURE if Tile not enabled.
 *
-* @note		None.
+* @note		This API enables automatic selection of the VCO which will work in
+*           IP version 2.0.1 and above. Using older version of IP this API is
+*           not likely to work.
 *
 ******************************************************************************/
 u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
@@ -5957,6 +5953,41 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		Status = XRFDC_SUCCESS;
 		goto RETURN_PATH;
 	} else {
+		if((((SamplingRate < 100) || (SamplingRate > 6554)) &&
+				(Type == XRFDC_DAC_TILE))) {
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid sampling "
+						"rate value in %s\r\n", __func__);
+#else
+			metal_log(METAL_LOG_ERROR,  "\n Invalid sampling "
+					"rate value in %s\r\n", __func__);
+#endif
+			Status = XRFDC_FAILURE;
+			goto RETURN_PATH;
+		} else if((((SamplingRate < 1000) || (SamplingRate > 4116)) &&
+			((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)))) {
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid sampling "
+						"rate value in %s\r\n", __func__);
+#else
+			metal_log(METAL_LOG_ERROR,  "\n Invalid sampling "
+					"rate value in %s\r\n", __func__);
+#endif
+			Status = XRFDC_FAILURE;
+			goto RETURN_PATH;
+		} else if((((SamplingRate < 500) || (SamplingRate > 2058)) &&
+			((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS)))) {
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid sampling "
+						"rate value in %s\r\n", __func__);
+#else
+			metal_log(METAL_LOG_ERROR,  "\n Invalid sampling "
+					"rate value in %s\r\n", __func__);
+#endif
+			Status = XRFDC_FAILURE;
+			goto RETURN_PATH;
+		}
+
 		/*
 		 * Stop the ADC or DAC tile by putting tile in reset state
 		 */
@@ -5991,18 +6022,6 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		#else
 				metal_log(METAL_LOG_ERROR,  "\n Invalid Reference "
 						"clock value in %s\r\n", __func__);
-		#endif
-				Status = XRFDC_FAILURE;
-				goto RETURN_PATH;
-			}
-
-			if((SamplingRate < 500) || (SamplingRate > 6400)){
-		#ifdef __MICROBLAZE__
-				xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid sampling "
-							"rate value in %s\r\n", __func__);
-		#else
-				metal_log(METAL_LOG_ERROR,  "\n Invalid sampling "
-						"rate value in %s\r\n", __func__);
 		#endif
 				Status = XRFDC_FAILURE;
 				goto RETURN_PATH;
