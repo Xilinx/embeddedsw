@@ -35,7 +35,7 @@
 * 2.1   hk   03/15/10 First release
 * 3.7   ask  04/17/18 Updated the Eeprom scanning mechanism
 *		      as per the other examples (CR#997545)
-* 4.0   rna  10/16/19 Added support for 64 page size eeproms on Veral based
+* 3.11   rna  10/16/19 Added support for 64 page size eeproms on Veral based
 *		      boards, scanning for eeprom on all I2C instances
 *       rna  03/26/20 Eeprom page size detection support is added.
 * </pre>
