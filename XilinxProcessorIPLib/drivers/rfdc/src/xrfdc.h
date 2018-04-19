@@ -150,6 +150,7 @@
 *                       so results in closer alignment to the target latency.
 *       sk     04/17/18 Corrected Set/Get MixerSettings API description for
 *                       FineMixerScale parameter.
+*       sk     04/19/18 Enable VCO Auto selection while configuring the clock.
 *
 * </pre>
 *
