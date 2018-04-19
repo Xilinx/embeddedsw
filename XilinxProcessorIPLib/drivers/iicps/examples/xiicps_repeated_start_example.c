@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -35,7 +33,7 @@
 * The example is tested with a 2Kb/8Kb serial IIC EEPROM (ST M24C02/M24C08).
 * The WP pin of this EEPROM is hardwired to ground in the HW in which this
 * was tested.
-* This example can be used directly to read upto 16 pages
+* This example can be used directly to read up to 16 pages
 * from start address in this EEPROM (Since single address byte).
 *
 * The AddressType should be u8 as the address pointer in the on-board
@@ -263,7 +261,7 @@ int IicPsRepeatedStartExample(void)
 	 */
 	for (Index = 0; Index < PageSize; Index++) {
 		if (ReadBuffer[Index] != WriteBuffer[Index + WrBfrOffset]) {
-			xil_printf("Verify the data read aginst the buffer Failed\r\n");
+			xil_printf("Verify the data read against the buffer Failed\r\n");
 			return XST_FAILURE;
 		}
 	}
@@ -305,7 +303,7 @@ int IicPsRepeatedStartExample(void)
 	 */
 	for (Index = 0; Index < PageSize; Index++) {
 		if (ReadBuffer[Index] != WriteBuffer[Index + WrBfrOffset]) {
-			xil_printf("Verify the data read aginst the buffer Failed\r\n");
+			xil_printf("Verify the data read against the buffer Failed\r\n");
 			return XST_FAILURE;
 		}
 	}
@@ -397,7 +395,7 @@ int EepromReadDataRepStart(u8 *BufferPtr, u16 ByteCount)
 	}
 
 	/*
-	 * Disbale repeated start option.
+	 * Disable repeated start option.
 	 * This call will give an indication to the driver.
 	 * The hold bit is actually reset when the following transfer ends.
 	 */
