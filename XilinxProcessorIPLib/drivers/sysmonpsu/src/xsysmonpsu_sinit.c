@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,6 +33,7 @@
 /**
 *
 * @file xsysmonpsu_sinit.c
+* @addtogroup sysmonpsu_v2_4
 *
 * This file contains the implementation of the XSysMonPsu driver's static
 * initialization functionality.
