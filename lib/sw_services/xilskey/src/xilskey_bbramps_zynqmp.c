@@ -46,6 +46,9 @@
 * 4.0   vns     10/08/15 First release
 * 6.5   vns     03/16/18 Fixed hanging issue when program/zeroise is requested
 *                        while programming mode in enabled state.
+*       vns     04/20/18 Added Zeroization at starting of the function call
+*                        If in case controller is not in programming mode
+*                        zeroization occurs without latency.
 * </pre>
 *
 ******************************************************************************/
@@ -152,6 +155,13 @@ void XilSKey_ZynqMp_Bbram_Zeroise()
 
 	u32 Status;
 	u32 Offset;
+
+	/*
+	 * If we are not in programming mode for zeroizing immediately
+	 * without latency
+	 */
+	XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR, XSK_ZYNQMP_BBRAM_CTRL_OFFSET,
+					XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_MASK);
 
 	/*
 	 * Write all zeros to the data regs
