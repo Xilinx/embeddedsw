@@ -235,6 +235,8 @@ extern void Xil_ExceptionRegisterHandler(u32 Exception_id,
 					 void *Data);
 
 extern void Xil_ExceptionRemoveHandler(u32 Exception_id);
+extern void Xil_GetExceptionRegisterHandler(u32 Exception_id,
+					Xil_ExceptionHandler Handler, void *Data);
 
 extern void Xil_ExceptionInit(void);
 #if defined (__aarch64__)
