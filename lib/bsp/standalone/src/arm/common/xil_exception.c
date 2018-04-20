@@ -177,6 +177,31 @@ void Xil_ExceptionRegisterHandler(u32 Exception_id,
 
 /*****************************************************************************/
 /**
+* @brief	Get a handler for a specific exception. This handler is being
+*			called when the processor encounters the specified exception.
+*
+* @param	exception_id contains the ID of the exception source and should
+*			be in the range of 0 to XIL_EXCEPTION_ID_LAST.
+*			See xil_exception.h for further information.
+* @param	Handler to the Handler for that exception.
+* @param	Data is a reference to Data that will be passed to the
+*			Handler when it gets called.
+*
+* @return	None.
+*
+* @note		None.
+*
+****************************************************************************/
+void Xil_GetExceptionRegisterHandler(u32 Exception_id,
+					Xil_ExceptionHandler Handler __attribute__((unused)),
+					void *Data __attribute__((unused)))
+{
+	Handler = XExc_VectorTable[Exception_id].Handler;
+	Data = XExc_VectorTable[Exception_id].Data;
+}
+
+/*****************************************************************************/
+/**
 *
 * @brief	Removes the Handler for a specific exception Id. The stub Handler
 *			is then registered for this exception Id.
