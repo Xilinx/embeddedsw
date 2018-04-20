@@ -179,6 +179,7 @@
 *       ms     01/04/18 Provided conditional checks for interrupt example
 *                       in sysmonpsu_header.h
 *       mn     03/08/18 Update Clock Divisor to the proper value
+* 2.4   mn     04/20/18 Remove looping check for PL accessible bit
 *
 * </pre>
 *
@@ -403,6 +404,7 @@ typedef struct {
 	u32 IsReady;				/**< Device is initialized and ready */
 	XSysMonPsu_Handler Handler;
 	void *CallBackRef;			/**< Callback reference for event handler */
+	u32 IsPlAccessibleByPs;		/**< PL is accessible by PS */
 } XSysMonPsu;
 
 /* BaseAddress Offsets */
