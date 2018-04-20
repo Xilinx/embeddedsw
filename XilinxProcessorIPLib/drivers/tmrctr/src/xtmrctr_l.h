@@ -33,7 +33,7 @@
 /**
 *
 * @file xtmrctr_l.h
-* @addtogroup tmrctr_v4_4
+* @addtogroup tmrctr_v4_5
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or
@@ -60,6 +60,8 @@
 *		      version of the IP that you are using.
 * 4.4   mus  07/21/17 Updated XTmrCtr_DisableIntr macro to not to clear
 *             T0INT flag
+* 4.5   cjp  03/22/18 Added macros for timer/counter instance number and max
+*                     load value.
 * </pre>
 *
 ******************************************************************************/
@@ -88,6 +90,13 @@ extern "C" {
 /* Each timer counter consumes 16 bytes of address space */
 
 #define XTC_TIMER_COUNTER_OFFSET	16
+
+/* Timer counter instance number used for PWM */
+#define XTC_TIMER_0			0
+#define XTC_TIMER_1			1
+
+/* Max supported load value for timer/counter */
+#define XTC_MAX_LOAD_VALUE		0xFFFFFFFF
 
 /** @name Register Offset Definitions
  * Register offsets within a timer counter, there are multiple
