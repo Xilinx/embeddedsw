@@ -35,6 +35,9 @@ application(CR#998910)
 sdps_v3_5
 Resolve compilation warnings for sdps driver
 
+sysmonpsu_v2_4
+Remove looping check for PL accessible bit
+
 xilffs_v3_9
 Resolve build warnings for xilffs library
 
