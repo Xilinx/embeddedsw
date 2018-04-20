@@ -1496,6 +1496,13 @@ int main(void)
 
 	
 	init_platform();
+
+	ecc_enabled = ((*(volatile unsigned int *)DDR_ECC_CONFIG0) & 0x4) ? true : false;
+	if (ecc_enabled) {
+		disable_caches();
+		dcache_enable = 0;
+	}
+
 	ttc_out_of_reset();
 
 	clear_mailbox_regs();
@@ -1554,6 +1561,7 @@ int main(void)
 			printf("    Bus Width = %d,  ", bus_width);
 			printf(" D-cache is %s,  ", (dcache_enable) ? "enable" : "disable");
 			printf(" Verbose Mode is %s\n\n", (printerr) ? "ON" : "OFF");
+			printf(" DDR ECC is %s\n", ecc_enabled ? "ENABLED" : "DISABLED");
 			printf(" Enter 'h' to print help menu\n");
 			printf(" Enter Test Option: \n");
 
