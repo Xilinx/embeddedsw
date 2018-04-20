@@ -35,6 +35,8 @@
 # -------- ------ -------- --------------------------------------------------
 # 3.0      adk    10/12/13 Removed support for xps_timer
 # 4.0      als    09/30/15 Updated initialization API.
+# 4.5      cjp    03/22/18 Driver version updated as PWM feature is
+#                          added.
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_M
 ##
@@ -55,7 +57,7 @@ BEGIN driver tmrctr
   OPTION supported_peripherals = (axi_timer);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.4;
+  OPTION VERSION = 4.5;
   OPTION NAME = tmrctr;
 
 END driver

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xtmrctr.c
-* @addtogroup tmrctr_v4_4
+* @addtogroup tmrctr_v4_5
 * @{
 *
 * Contains required functions for the XTmrCtr driver.
@@ -63,6 +63,10 @@
 * 4.0   als  09/30/15 Updated initialization API.
 * 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XTmrCtr_CfgInitialize API.
+* 4.5   cjp  03/22/18 Added APIs to support PWM feature. XTmrCtr_PwmConfigure
+*                     is used to configure PWM to operate for specific period
+*                     and high time. XTmrCtr_PwmEnable and XTmrCtr_PwmDisable
+*                     are used to enable/disable the PWM output.
 * </pre>
 *
 ******************************************************************************/
@@ -513,6 +517,194 @@ int XTmrCtr_IsExpired(XTmrCtr * InstancePtr, u8 TmrCtrNumber)
 
 	return ((CounterControlReg & XTC_CSR_INT_OCCURED_MASK) ==
 		XTC_CSR_INT_OCCURED_MASK);
+}
+
+/*****************************************************************************/
+/**
+*
+* Configures timers to generate PWM output.
+*
+* @param	InstancePtr is a pointer to the XTmrCtr instance.
+* @param	PwmPeriod is the period of pwm signal in nano seconds.
+* @param	PwmHighTime is the high time of pwm signal in nano seconds.
+*
+* @return	the duty cycle that will possibly be achieved.
+*
+* @note		This function needs to be called before enabling PWM otherwise
+*		the output of PWM may be indeterminate. Here Down count mode of
+*		timers are used for generating PWM output.
+*
+******************************************************************************/
+u8 XTmrCtr_PwmConfigure(XTmrCtr *InstancePtr, u32 PwmPeriod, u32 PwmHighTime)
+{
+	u32 CounterControlReg;
+	u32 SysClkPeriod;
+	u64 Period;
+	u64 High;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/* Stop the timers if they are running */
+	if (InstancePtr->IsStartedTmrCtr0 == XIL_COMPONENT_IS_STARTED) {
+		XTmrCtr_Stop(InstancePtr, XTC_TIMER_0);
+	}
+	if (InstancePtr->IsStartedTmrCtr1 == XIL_COMPONENT_IS_STARTED) {
+		XTmrCtr_Stop(InstancePtr, XTC_TIMER_1);
+	}
+
+	/* Configure timers modes to be used for PWM */
+	CounterControlReg = XTmrCtr_ReadReg(InstancePtr->BaseAddress,
+					XTC_TIMER_0, XTC_TCSR_OFFSET);
+	CounterControlReg |=
+		(XTC_CSR_DOWN_COUNT_MASK | XTC_CSR_AUTO_RELOAD_MASK);
+	CounterControlReg &= ~(XTC_CSR_CASC_MASK | XTC_CSR_EXT_GENERATE_MASK);
+	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_0,
+					XTC_TCSR_OFFSET, CounterControlReg);
+
+	CounterControlReg = XTmrCtr_ReadReg(InstancePtr->BaseAddress,
+					XTC_TIMER_1, XTC_TCSR_OFFSET);
+	CounterControlReg |=
+		(XTC_CSR_DOWN_COUNT_MASK | XTC_CSR_AUTO_RELOAD_MASK);
+	CounterControlReg &= ~(XTC_CSR_CASC_MASK | XTC_CSR_EXT_GENERATE_MASK);
+	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_1,
+					XTC_TCSR_OFFSET, CounterControlReg);
+
+	/* Set period and high time for PWM */
+	SysClkPeriod = XTC_HZ_TO_NS(InstancePtr->Config.SysClockFreqHz);
+	if (PwmPeriod < PwmHighTime ||
+		PwmPeriod < (2 * SysClkPeriod) ||
+		PwmHighTime < (2 * SysClkPeriod)) {
+		return XST_INVALID_PARAM;
+	}
+
+	Period = XTC_ROUND_DIV(PwmPeriod, SysClkPeriod) - 2;
+	High = XTC_ROUND_DIV(PwmHighTime, SysClkPeriod) - 2;
+	if (Period > XTC_MAX_LOAD_VALUE) {
+		return XST_INVALID_PARAM;
+	}
+
+	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_0,
+						XTC_TLR_OFFSET, (u32)Period);
+	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_1,
+						XTC_TLR_OFFSET, (u32)High);
+
+	/* Configure timers in generate mode */
+	CounterControlReg = XTmrCtr_ReadReg(InstancePtr->BaseAddress,
+					XTC_TIMER_0, XTC_TCSR_OFFSET);
+	CounterControlReg &= ~(XTC_CSR_CAPTURE_MODE_MASK);
+	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_0,
+					XTC_TCSR_OFFSET, CounterControlReg);
+	CounterControlReg = XTmrCtr_ReadReg(InstancePtr->BaseAddress,
+					XTC_TIMER_1, XTC_TCSR_OFFSET);
+	CounterControlReg &= ~(XTC_CSR_CAPTURE_MODE_MASK);
+	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_1,
+					XTC_TCSR_OFFSET, CounterControlReg);
+
+	return (((float)High / Period * 100));
+}
+
+/*****************************************************************************/
+/**
+*
+* Enables the PWM output as per configurations set by XTmrCtr_PwmConfigure.
+*
+* @param	InstancePtr is a pointer to the XTmrCtr instance.
+*
+* @return	none.
+*
+* @note		none.
+*
+******************************************************************************/
+void XTmrCtr_PwmEnable(XTmrCtr *InstancePtr)
+{
+	u32 CounterControlReg;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/* PWM already running */
+	if (InstancePtr->IsPwmEnabled) {
+		return;
+	}
+
+	/* Enable PWM, Generate Out */
+	CounterControlReg = XTmrCtr_ReadReg(InstancePtr->BaseAddress,
+					XTC_TIMER_0, XTC_TCSR_OFFSET);
+	CounterControlReg |=
+			(XTC_CSR_ENABLE_PWM_MASK | XTC_CSR_EXT_GENERATE_MASK);
+	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_0,
+					XTC_TCSR_OFFSET, CounterControlReg);
+
+	CounterControlReg = XTmrCtr_ReadReg(InstancePtr->BaseAddress,
+					XTC_TIMER_1, XTC_TCSR_OFFSET);
+	CounterControlReg |=
+			(XTC_CSR_ENABLE_PWM_MASK | XTC_CSR_EXT_GENERATE_MASK);
+	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_1,
+					XTC_TCSR_OFFSET, CounterControlReg);
+
+	/* Reset Counters */
+	XTmrCtr_Reset(InstancePtr, XTC_TIMER_0);
+	XTmrCtr_Reset(InstancePtr, XTC_TIMER_1);
+
+	/* Enable all timers */
+	CounterControlReg = XTmrCtr_ReadReg(InstancePtr->BaseAddress,
+					XTC_TIMER_0, XTC_TCSR_OFFSET);
+	CounterControlReg |= XTC_CSR_ENABLE_ALL_MASK;
+	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_0,
+					XTC_TCSR_OFFSET, CounterControlReg);
+
+	InstancePtr->IsPwmEnabled = TRUE;
+}
+
+/*****************************************************************************/
+/**
+*
+* Disables the PWM output.
+*
+* @param	InstancePtr is a pointer to the XTmrCtr instance.
+*
+* @return	none.
+*
+* @note		Call to this function disables only the PWM output and do not
+*		alter any configuration. PWM output can again be enabled by
+*		calling XTmrCtr_PwmEnable without the need of re-configuration.
+*
+******************************************************************************/
+void XTmrCtr_PwmDisable(XTmrCtr *InstancePtr)
+{
+	u32 CounterControlReg;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/* PWM already disabled */
+	if (!InstancePtr->IsPwmEnabled) {
+		return;
+	}
+
+	/* Disable timers */
+	XTmrCtr_Stop(InstancePtr, XTC_TIMER_0);
+	XTmrCtr_Stop(InstancePtr, XTC_TIMER_1);
+
+	/* Reset Counters */
+	XTmrCtr_Reset(InstancePtr, XTC_TIMER_0);
+	XTmrCtr_Reset(InstancePtr, XTC_TIMER_1);
+
+	/* Disable PWM, Generate Out */
+	CounterControlReg = XTmrCtr_ReadReg(InstancePtr->BaseAddress,
+					XTC_TIMER_0, XTC_TCSR_OFFSET);
+	CounterControlReg &=
+			~(XTC_CSR_ENABLE_PWM_MASK | XTC_CSR_EXT_GENERATE_MASK);
+	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_0,
+					XTC_TCSR_OFFSET, CounterControlReg);
+
+	CounterControlReg = XTmrCtr_ReadReg(InstancePtr->BaseAddress,
+					XTC_TIMER_1, XTC_TCSR_OFFSET);
+	CounterControlReg &=
+			~(XTC_CSR_ENABLE_PWM_MASK | XTC_CSR_EXT_GENERATE_MASK);
+	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_1,
+					XTC_TCSR_OFFSET, CounterControlReg);
+
+	InstancePtr->IsPwmEnabled = FALSE;
 }
 
 /*****************************************************************************/
