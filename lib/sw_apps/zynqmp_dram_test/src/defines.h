@@ -1,11 +1,14 @@
 #ifndef __DEFINES_H
 #define __DEFINES_H
 
+#include "stdbool.h"
+
 #define KB	1024
 #define MB	KB*KB
 #define GB	MB*KB
 
 #define RESULTS_BASE	0xFF410020
+#define DDR_ECC_CONFIG0	0xFD070070
 
 enum patterns {
 	aggressor_pattern32,
@@ -52,6 +55,7 @@ struct WR_DS {
 unsigned int *tap_count;
 int *eye_start, *eye_end, *eye_start_temp, *eye_end_temp;
 
+bool ecc_enabled;
 double tap_ps;
 double ddr_freq;
 #endif

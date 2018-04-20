@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <xil_printf.h>
+#include "xil_exception.h"
+#include "xpseudo_asm.h"
+#include "xdebug.h"
 
 #define LCDLR0_BASE		DDR_PHY_DX0LCDLR0
 #define LCDLR1_BASE		DDR_PHY_DX0LCDLR1
@@ -325,15 +328,33 @@ void eye_wr_centering() {
 	} 
 }
 
+void eyescan_wrsyncaborthandler(void)
+{
+        u64 returnadd;
+        returnadd = mfelrel3();
+        returnadd = returnadd + 4;
+        mtelrel3(returnadd);
+}
+void eyescan_wrserroraborthandler(void)
+{
+        ;
+}
+
 void measure_wr_eye(unsigned long int testaddr, unsigned int len, unsigned int pattern, unsigned int num_iters) {
 	extern double tap_ps;
-	unsigned int mineyeval;
-	double total=0.0;
 	int i=0, done=0, position=0;	
 	int j=0;
 	unsigned int* raw_centers;
+	Xil_ExceptionHandler SyncHandler = NULL, SerrorHandler = NULL;
+	void *syncdata = NULL, *serrordata = NULL;
+
+	Xil_GetExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT,SyncHandler, syncdata);
+	Xil_GetExceptionRegisterHandler(XIL_EXCEPTION_ID_SERROR_ABORT_INT,SerrorHandler, serrordata);
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT, (Xil_ExceptionHandler)eyescan_wrsyncaborthandler,(void *) 0);
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SERROR_ABORT_INT, (Xil_ExceptionHandler)eyescan_wrserroraborthandler,(void *) 0);
 
 	printf("\nRunning Write Eye Tests\n");
+
 	wr_center = (struct WR_Center*) malloc(sizeof(struct WR_Center) * ddr_config__lanes);
 	if(!wr_center) {
 		xil_printf("Not enough memory to run write eye measurement\n");
@@ -501,4 +522,8 @@ void measure_wr_eye(unsigned long int testaddr, unsigned int len, unsigned int p
 	enable_vtcomp();
 	free(wr_center);
 	free(tap_count);	
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT,
+			(Xil_ExceptionHandler)SyncHandler,(void *) syncdata);
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SERROR_ABORT_INT,
+			(Xil_ExceptionHandler)SerrorHandler,(void *) serrordata);
 }

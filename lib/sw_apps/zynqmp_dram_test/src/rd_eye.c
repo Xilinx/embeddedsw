@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <xil_printf.h>
+#include "xil_exception.h"
+#include "xpseudo_asm.h"
+#include "xdebug.h"
 
 #define LANE0LCDLR3_OFFSET	DDR_PHY_DX0LCDLR3
 #define LANE0LCDLR4_OFFSET	DDR_PHY_DX0LCDLR4
@@ -101,13 +104,30 @@ void eye_rd_centering() {
 	} 
 }
 
+void eyescan_rdsyncaborthandler(void)
+{
+        u64 returnadd;
+        returnadd = mfelrel3();
+        returnadd = returnadd + 4;
+        mtelrel3(returnadd);
+}
+void eyescan_rdserroraborthandler(void)
+{
+	;
+}
 
 void measure_rd_eye(unsigned long int testaddr, unsigned int len, unsigned int pattern, unsigned int num_iters) {
 	extern double tap_ps;
 	extern double ddr_freq;
 	int i=0, done=0, position=0;
 	int j=0;
+	Xil_ExceptionHandler SyncHandler = NULL, SerrorHandler = NULL;
+	void *syncdata = NULL, *serrordata = NULL;
 
+	Xil_GetExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT, SyncHandler, syncdata);
+	Xil_GetExceptionRegisterHandler(XIL_EXCEPTION_ID_SERROR_ABORT_INT,SerrorHandler, serrordata);
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT, (Xil_ExceptionHandler)eyescan_rdsyncaborthandler,(void *) 0);
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SERROR_ABORT_INT, (Xil_ExceptionHandler)eyescan_rdserroraborthandler,(void *) 0);
 
 	printf("\nRunning Read Eye Tests\n");
 
@@ -256,4 +276,8 @@ void measure_rd_eye(unsigned long int testaddr, unsigned int len, unsigned int p
 	reset_rd_center();
 	enable_vtcomp();
 	free(rd_center);
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT,
+			(Xil_ExceptionHandler)SyncHandler,(void *) syncdata);
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SERROR_ABORT_INT,
+			(Xil_ExceptionHandler)SerrorHandler,(void *) serrordata);
 }
