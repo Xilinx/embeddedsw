@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,6 +33,7 @@
 /**
 *
 * @file xsysmonpsu.c
+* @addtogroup sysmonpsu_v2_4
 *
 * Functions in this file are the minimum required functions for the XSysMonPsu
 * driver. See xsysmonpsu.h for a detailed description of the driver.

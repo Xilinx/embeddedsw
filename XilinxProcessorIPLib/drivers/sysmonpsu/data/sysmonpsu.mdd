@@ -36,7 +36,7 @@ BEGIN driver sysmonpsu
   OPTION supported_peripherals = (psu_ams);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 2.3;
+  OPTION VERSION = 2.4;
   OPTION NAME = sysmonpsu;
 
 END driver
