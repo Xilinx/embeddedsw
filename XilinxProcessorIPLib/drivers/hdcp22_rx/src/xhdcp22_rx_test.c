@@ -801,13 +801,13 @@ int XHdcp22Rx_TestSetMode(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestMode TestMode,
 	if(TestMode == XHDCP22_RX_TESTMODE_NO_TX)
 	{
 		/* Print simulation banner */
-		xil_printf("\n\n############################################################\n\r");
-	    xil_printf("HDCP 2.2 Receiver and Repeater Upstream Test.\n\r");
-		xil_printf("Test vectors and keys are from DCP \n\r");
-		xil_printf("Errata to HDCP on HDMI Revision 2.2, February 09, 2015\n\r");
+		xil_printf("\n\n############################################################\r\n");
+		xil_printf("HDCP 2.2 Receiver and Repeater Upstream Test.\r\n");
+		xil_printf("Test vectors and keys are from DCP \r\n");
+		xil_printf("Errata to HDCP on HDMI Revision 2.2, February 09, 2015\r\n");
 
 		/* Load test vector */
-	    Status = XHdcp22Rx_TestLoadVector(InstancePtr, TestFlag);
+		Status = XHdcp22Rx_TestLoadVector(InstancePtr, TestFlag);
 		if(Status != XST_SUCCESS)
 		{
 			return Status;
@@ -826,7 +826,7 @@ int XHdcp22Rx_TestSetMode(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestMode TestMode,
 		{
 			xil_printf("->0x%0x",InstancePtr->Test.NextStateVector[Offset]);
 		}
-		xil_printf("]\n\r");
+		xil_printf("]\r\n");
 	}
 
 	/* Update flags */
@@ -933,7 +933,7 @@ int XHdcp22Rx_TestRun(XHdcp22_Rx *InstancePtr)
 	{
 		XHdcp22Rx_TestEvent2String(String,
 			InstancePtr->Test.NextStateVector[InstancePtr->Test.NextStateOffset]);
-		XHdcp22Rx_Printf(InstancePtr->Test.Verbose, "DEBUG: Executing TestVector[%0d]: %s\n\r",
+		XHdcp22Rx_Printf(InstancePtr->Test.Verbose, "DEBUG: Executing TestVector[%0d]: %s\r\n",
 			(int)InstancePtr->Test.NextStateOffset, String);
 		Status = XHdcp22Rx_TestExecute(InstancePtr);
 
@@ -1215,58 +1215,58 @@ static int XHdcp22Rx_TestLoadVector(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestFlag
 		InstancePtr->Test.TestReceiver = XHDCP22_RX_TEST_RECEIVER_2;
 		InstancePtr->Test.NextStateVector = (int *)TestVector_Receiver_NoStoredKm;
 		TestVectorSize = sizeof(TestVector_Receiver_NoStoredKm)/sizeof(XHdcp22_Rx_TestState);
-		xil_printf("Testcase: [No_Stored_km with Receiver]\n\r");
+		xil_printf("Testcase: [No_Stored_km with Receiver]\r\n");
 		break;
 	case XHDCP22_RX_TEST_FLAG_STOREDKM_WITH_RECEIVER:
 		InstancePtr->Test.TestReceiver = XHDCP22_RX_TEST_RECEIVER_2;
 		InstancePtr->Test.NextStateVector = (int *)TestVector_Receiver_StoredKm;
 		TestVectorSize = sizeof(TestVector_Receiver_StoredKm)/sizeof(XHdcp22_Rx_TestState);
-		xil_printf("Testcase: [Stored_km with Receiver]\n\r");
+		xil_printf("Testcase: [Stored_km with Receiver]\r\n");
 		break;
 	case XHDCP22_RX_TEST_FLAG_NOSTOREDKM_WITH_REPEATER:
 		InstancePtr->Test.TestReceiver = XHDCP22_RX_TEST_RECEIVER_1;
 		InstancePtr->Test.NextStateVector = (int *)TestVector_Repeater_NoStoredKm;
 		TestVectorSize = sizeof(TestVector_Repeater_NoStoredKm)/sizeof(XHdcp22_Rx_TestState);
-		xil_printf("Testcase: [No_Stored_km with Repeater], Sequence: [List, ListAck, StreamManage, StreamReady]\n\r");
+		xil_printf("Testcase: [No_Stored_km with Repeater], Sequence: [List, ListAck, StreamManage, StreamReady]\r\n");
 		break;
 	case XHDCP22_RX_TEST_FLAG_STOREDKM_WITH_REPEATER:
 		InstancePtr->Test.TestReceiver = XHDCP22_RX_TEST_RECEIVER_1;
 		InstancePtr->Test.NextStateVector = (int *)TestVector_Repeater_StoredKm;
 		TestVectorSize = sizeof(TestVector_Repeater_StoredKm)/sizeof(XHdcp22_Rx_TestState);
-		xil_printf("Testcase: [Stored_km with Repeater], Sequence: [List, ListAck, StreamManage, StreamReady]\n\r");
+		xil_printf("Testcase: [Stored_km with Repeater], Sequence: [List, ListAck, StreamManage, StreamReady]\r\n");
 		break;
 	case XHDCP22_RX_TEST_FLAG_REPEATER_MISORDERED_SEQUENCE_1:
 		InstancePtr->Test.TestReceiver = XHDCP22_RX_TEST_RECEIVER_1;
 		InstancePtr->Test.NextStateVector = (int *)TestVector_Repeater_Misordered_Sequence_1;
 		TestVectorSize = sizeof(TestVector_Repeater_Misordered_Sequence_1)/sizeof(XHdcp22_Rx_TestState);
-		xil_printf("Testcase: [Repeater Misordered Sequence 1], Sequence: [StreamManage, StreamReady, List, ListAck]\n\r");
+		xil_printf("Testcase: [Repeater Misordered Sequence 1], Sequence: [StreamManage, StreamReady, List, ListAck]\r\n");
 		break;
 	case XHDCP22_RX_TEST_FLAG_REPEATER_MISORDERED_SEQUENCE_2:
 		InstancePtr->Test.TestReceiver = XHDCP22_RX_TEST_RECEIVER_1;
 		InstancePtr->Test.NextStateVector = (int *)TestVector_Repeater_Misordered_Sequence_2;
 		TestVectorSize = sizeof(TestVector_Repeater_Misordered_Sequence_2)/sizeof(XHdcp22_Rx_TestState);
-		xil_printf("Testcase: [Repeater Misordered Sequence 2], Sequence [List, StreamManage, StreamReady, ListAck]\n\r");
+		xil_printf("Testcase: [Repeater Misordered Sequence 2], Sequence [List, StreamManage, StreamReady, ListAck]\r\n");
 		break;
 	case XHDCP22_RX_TEST_FLAG_REPEATER_MISORDERED_SEQUENCE_3:
 		InstancePtr->Test.TestReceiver = XHDCP22_RX_TEST_RECEIVER_1;
 		InstancePtr->Test.NextStateVector = (int *)TestVector_Repeater_Misordered_Sequence_3;
 		TestVectorSize = sizeof(TestVector_Repeater_Misordered_Sequence_3)/sizeof(XHdcp22_Rx_TestState);
-		xil_printf("Testcase: [Repeater Misordered Sequence 3], Sequence [List, StreamManage, ListAck, StreamReady]\n\r");
+		xil_printf("Testcase: [Repeater Misordered Sequence 3], Sequence [List, StreamManage, ListAck, StreamReady]\r\n");
 		break;
 	case XHDCP22_RX_TEST_FLAG_REPEATER_TOPOLOGY_CHANGE:
 		InstancePtr->Test.TestReceiver = XHDCP22_RX_TEST_RECEIVER_1;
 		InstancePtr->Test.NextStateVector = (int *)TestVector_Repeater_Topology_Change;
 		TestVectorSize = sizeof(TestVector_Repeater_Topology_Change)/sizeof(XHdcp22_Rx_TestState);
-		xil_printf("Testcase: [Repeater Topology Change]\n\r");
+		xil_printf("Testcase: [Repeater Topology Change]\r\n");
 		break;
 	case XHDCP22_RX_TEST_FLAG_REPEATER_TOPOLOGY_TIMEOUT:
 		InstancePtr->Test.TestReceiver = XHDCP22_RX_TEST_RECEIVER_1;
 		InstancePtr->Test.NextStateVector = (int *)TestVector_Repeater_Topology_Timeout;
 		TestVectorSize = sizeof(TestVector_Repeater_Topology_Timeout)/sizeof(XHdcp22_Rx_TestState);
-		xil_printf("Testcase: [Repeater Topology Timeout]\n\r");
+		xil_printf("Testcase: [Repeater Topology Timeout]\r\n");
 		break;
 	default:
-		xil_printf("Unknown Testcase?\n\r");
+		xil_printf("Unknown Testcase?\r\n");
 		return XST_FAILURE;
 	}
 
@@ -1387,13 +1387,13 @@ static int XHdcp22Rx_TestCompare(XHdcp22_Rx *InstancePtr, char *String, const u8
 	{
 		if(Actual[Offset] != Expected[Offset])
 		{
-			xil_printf("ERROR: Checking [%s]: !!Mismatch!! for Byte[%0d], Expected=0x%0x, Actual=0x%0x\n\r",
+			xil_printf("ERROR: Checking [%s]: !!Mismatch!! for Byte[%0d], Expected=0x%0x, Actual=0x%0x\r\n",
 				String, Offset, Expected[Offset], Actual[Offset]);
 			return XST_FAILURE;
 		}
 	}
 
-	XHdcp22Rx_Printf(InstancePtr->Test.Verbose, "DEBUG: Checking [%s]: !!Matched!!\n\r", String);
+	XHdcp22Rx_Printf(InstancePtr->Test.Verbose, "DEBUG: Checking [%s]: !!Matched!!\r\n", String);
 
 	return XST_SUCCESS;
 }
@@ -1426,11 +1426,11 @@ static void XHdcp22Rx_PrintDump(u8 Enable, char *String, const u8 *Data, int Len
 		for(Offset=0; Offset<Length; Offset++)
 		{
 			if((Offset%20) == 0)
-				XHdcp22Rx_Printf(Enable, "\n\r");
+				XHdcp22Rx_Printf(Enable, "\r\n");
 
 			XHdcp22Rx_Printf(Enable, " %02x", Data[Offset]);
 		}
-		XHdcp22Rx_Printf(Enable, "\n\r");
+		XHdcp22Rx_Printf(Enable, "\r\n");
 	}
 }
 
@@ -1570,7 +1570,7 @@ static void XHdcp22Rx_TestPrintMessage(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_Messa
 			Message->RepeaterAuthStreamReady.MPrime, XHDCP22_RX_MPRIME_SIZE);
 		break;
 	default:
-		print("ERROR: Unexpected test print message\n\r");
+		print("ERROR: Unexpected test print message\r\n");
 		break;
 	}
 }
@@ -1630,7 +1630,7 @@ static void XHdcp22Rx_TestEvent2String(char* String, XHdcp22_Rx_TestState EventI
 	case XHDCP22_RX_TEST_STATE_WAIT_AUTHENTICATED:
 		strcpy(String, "Wait_Authenticated"); break;
 	default:
-		print("ERROR: Unexpected test event\n\r"); break;
+		print("ERROR: Unexpected test event\r\n"); break;
 	}
 }
 
