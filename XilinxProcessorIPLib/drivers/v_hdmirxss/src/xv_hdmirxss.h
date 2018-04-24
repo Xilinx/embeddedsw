@@ -174,7 +174,7 @@ typedef enum {
   XV_HDMIRXSS_HDCP_TOPOLOGY_DEVICECNT,
   XV_HDMIRXSS_HDCP_TOPOLOGY_MAXDEVSEXCEEDED,
   XV_HDMIRXSS_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED,
-  XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM,
+  XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM,
   XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM,
   XV_HDMIRXSS_HDCP_TOPOLOGY_INVALID
 } XV_HdmiRxSs_HdcpTopologyField;
@@ -237,7 +237,10 @@ typedef enum
   XV_HDMIRXSS_HDCP_NONE,       /**< No content protection */
   XV_HDMIRXSS_HDCP_14,         /**< HDCP 1.4 */
   XV_HDMIRXSS_HDCP_22,         /**< HDCP 2.2 */
-  XV_HDMIRXSS_HDCP_BOTH        /**< Both HDCP 1.4 and 2.2 */
+  XV_HDMIRXSS_HDCP_BOTH,       /**< Both HDCP 1.4 and 2.2 */
+  XV_HDMIRXSS_HDCP_NOUSERPREF,       /**< Control user selection.
+				       * to be used only with API
+				       * XV_HdmiRxSs_SetUserHdcpProtocol */
 } XV_HdmiRxSs_HdcpProtocol;
 
 /**
@@ -427,6 +430,7 @@ typedef struct
 #ifdef USE_HDCP_RX
   /**< HDCP specific */
   u32                           HdcpIsReady;    /**< HDCP ready flag */
+  XV_HdmiRxSs_HdcpProtocol	UserHdcpProt;    /**< User HDCP preference */
   XV_HdmiRxSs_HdcpEventQueue    HdcpEventQueue;         /**< HDCP event queue */
 #endif
 #ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
@@ -495,6 +499,9 @@ int  XV_HdmiRxSs_IsStreamConnected(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_SetDefaultPpc(XV_HdmiRxSs *InstancePtr, u8 Id);
 void XV_HdmiRxSs_SetPpc(XV_HdmiRxSs *InstancePtr, u8 Id, u8 Ppc);
 void XV_HdmiRxSs_AudioMute(XV_HdmiRxSs *InstancePtr, u8 Enable);
+int XV_HdmiRxSs_SetUserHdcpProtocol(XV_HdmiRxSs *InstancePtr,
+		XV_HdmiRxSs_HdcpProtocol protocol);
+
 
 #ifdef XV_HDMIRXSS_LOG_ENABLE
 void XV_HdmiRxSs_LogReset(XV_HdmiRxSs *InstancePtr);
