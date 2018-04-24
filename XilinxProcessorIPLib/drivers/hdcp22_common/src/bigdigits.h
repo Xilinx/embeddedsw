@@ -25,6 +25,7 @@
 #define BIGDIGITS_H_ 1
 
 #include <stdlib.h>
+#include <xil_printf.h>
 #include "bigdtypes.h"
 
 /**** USER CONFIGURABLE SECTION ****/
