@@ -12,14 +12,10 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -84,11 +80,15 @@ void EdidScdcCheck(XV_HdmiTxSs          *HdmiTxSsPtr,
 
     /*Below Check executed only when TX Cable Connect*/
     if (CheckHdmi20Param->EdidCableConnectRead) {
-        /*Read & Parse the EDID upon the Cable Connect to check
+	/*Read & Parse the EDID upon the Cable Connect to check
 		Sink's Capability*/
-        XV_HdmiTxSs_ReadEdid(HdmiTxSsPtr, (u8*)&Buffer);
-        XV_VidC_parse_edid((u8*)&Buffer, &CheckHdmi20Param->EdidCtrlParam,
-                            XVIDC_VERBOSE_DISABLE);
+	Status = XV_HdmiTxSs_ReadEdid(HdmiTxSsPtr, (u8*)&Buffer);
+	/* Only Parse the EDID when the Read EDID success */
+	if (Status == XST_SUCCESS) {
+		XV_VidC_parse_edid((u8*)&Buffer,
+				&CheckHdmi20Param->EdidCtrlParam,
+				XVIDC_VERBOSE_DISABLE);
+	}
 
         /*Check whether the Sink able to support HDMI 2.0 by checking the
         maximum supported video bandwidth*/
@@ -311,6 +311,10 @@ void SinkCapabilityCheck(EdidHdmi20 *CheckHdmi20Param){
 		CheckHdmi20Param->HdmiSinkWarningFlag |=
 				XV_HDMI_SINK_DEEP_COLOR_10_NOT_SUPP;
 	}
+	if (!CheckHdmi20Param->EdidCtrlParam.IsHdmi) {
+		CheckHdmi20Param->HdmiSinkWarningFlag |=
+				XV_SINK_NOT_HDMI;
+	}
 }
 
 /*****************************************************************************/
@@ -369,6 +373,12 @@ void SinkCapWarningMsg(EdidHdmi20 *CheckHdmi20Param){
 			XV_HDMI_SINK_DEEP_COLOR_16_NOT_SUPP) {
 		xil_printf(ANSI_COLOR_YELLOW "Warning: Connected Sink's "
 		"EDID indicates Deep Color of 16 BpC Not Supported"
+				ANSI_COLOR_RESET "\r\n");
+	}
+	if (CheckHdmi20Param->HdmiSinkWarningFlag &
+			XV_SINK_NOT_HDMI) {
+		xil_printf(ANSI_COLOR_YELLOW "Warning: Connected Sink's "
+		"EDID indicates HDMI is not Supported"
 				ANSI_COLOR_RESET "\r\n");
 	}
 }

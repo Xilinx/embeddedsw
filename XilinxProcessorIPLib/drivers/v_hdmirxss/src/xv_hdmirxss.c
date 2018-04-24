@@ -12,10 +12,6 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -118,6 +114,8 @@
 *                           for cleaner HPD flow during transition from HDMI2.0
 *                           to HDMI1.4
 *       YH     13/04/18 Fixed a bug in XV_HdmiRxSs_BrdgOverflowCallback
+* 5.20	EB     03/08/18 Added function XV_HdmiRxSs_AudioMute
+*                       Added TMDS Clock Ratio callback support
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -164,6 +162,7 @@ static void XV_HdmiRxSs_StreamInitCallback(void *CallbackRef);
 static void XV_HdmiRxSs_StreamUpCallback(void *CallbackRef);
 static void XV_HdmiRxSs_SyncLossCallback(void *CallbackRef);
 static void XV_HdmiRxSs_ModeCallback(void *CallbackRef);
+static void XV_HdmiRxSs_TmdsClkRatioCallback(void *CallbackRef);
 
 static void XV_HdmiRxSs_ReportCoreInfo(XV_HdmiRxSs *InstancePtr);
 static void XV_HdmiRxSs_ReportTiming(XV_HdmiRxSs *InstancePtr);
@@ -423,6 +422,11 @@ static int XV_HdmiRxSs_RegisterSubsysCallbacks(XV_HdmiRxSs *InstancePtr)
     XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
                           XV_HDMIRX_HANDLER_MODE,
                           (void *)XV_HdmiRxSs_ModeCallback,
+                          (void *)InstancePtr);
+
+    XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
+                          XV_HDMIRX_HANDLER_TMDS_CLK_RATIO,
+                          (void *)XV_HdmiRxSs_TmdsClkRatioCallback,
                           (void *)InstancePtr);
   }
 
@@ -769,6 +773,9 @@ static void XV_HdmiRxSs_BrdgOverflowCallback(void *CallbackRef)
 {
   XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
 
+  xdbg_printf(XDBG_DEBUG_GENERAL,
+              "\r\nWarning: RX Bridge Overflow\r\n");
+
   // Check if user callback has been registered
   if (HdmiRxSsPtr->BrdgOverflowCallback) {
     HdmiRxSsPtr->BrdgOverflowCallback(HdmiRxSsPtr->BrdgOverflowRef);
@@ -971,6 +978,29 @@ static void XV_HdmiRxSs_ModeCallback(void *CallbackRef)
     XV_HdmiRxSs_HdcpPushEvent(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_DVI_MODE_EVT);
 #endif
   }
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is called when the TMDS CLK ratio changes.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_HdmiRxSs_TmdsClkRatioCallback(void *CallbackRef)
+{
+  XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
+
+  // Check if user callback has been registered
+  if (HdmiRxSsPtr->TmdsClkRatioCallback) {
+      HdmiRxSsPtr->TmdsClkRatioCallback(HdmiRxSsPtr->TmdsClkRatioRef);
+  }
+
 }
 
 /*****************************************************************************/
@@ -1316,6 +1346,14 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
         case (XV_HDMIRXSS_HANDLER_STREAM_UP):
             InstancePtr->StreamUpCallback = (XV_HdmiRxSs_Callback)CallbackFunc;
             InstancePtr->StreamUpRef = CallbackRef;
+            Status = (XST_SUCCESS);
+            break;
+
+        // TMDS_CLK_RATIO
+        case (XV_HDMIRXSS_HANDLER_TMDS_CLK_RATIO):
+            InstancePtr->TmdsClkRatioCallback =
+                                  (XV_HdmiRxSs_Callback)CallbackFunc;
+            InstancePtr->TmdsClkRatioRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
 
@@ -2139,4 +2177,27 @@ void XV_HdmiRxSS_SetAppVersion(XV_HdmiRxSs *InstancePtr, u8 maj, u8 min)
 {
 	InstancePtr->AppMajVer = maj;
 	InstancePtr->AppMinVer = min;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function set HDMI RX audio parameters
+*
+* @param  Enable 0: Unmute the audio 1: Mute the audio.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiRxSs_AudioMute(XV_HdmiRxSs *InstancePtr, u8 Enable)
+{
+  //Audio Mute Mode
+  if (Enable){
+	XV_HdmiRx_AudioDisable(InstancePtr->HdmiRxPtr);
+  }
+  else{
+	XV_HdmiRx_AudioEnable(InstancePtr->HdmiRxPtr);
+  }
 }
