@@ -152,6 +152,7 @@
 *                       FineMixerScale parameter.
 *       sk     04/19/18 Enable VCO Auto selection while configuring the clock.
 *       sk     04/24/18 Add API to get PLL Configurations.
+*       sk     04/24/18 Add API to get the Link Coupling mode.
 *
 * </pre>
 *
@@ -636,6 +637,9 @@ typedef struct {
 #define XRFDC_MB_C2R_BLK1	0x0
 
 #define XRFDC_MIXER_MODE_BYPASS		0x2
+
+#define XRFDC_LINK_COUPLING_DC	0x0
+#define XRFDC_LINK_COUPLING_AC	0x1
 
 /*****************************************************************************/
 /**
@@ -1210,6 +1214,8 @@ u32 XRFdc_SetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 								u16 Enable);
 u32 XRFdc_GetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 								u16 *Enable);
+u32 XRFdc_GetLinkCoupling(XRFdc* InstancePtr, u32 Tile_Id, u32 Block_Id,
+								u32 *Mode);
 
 #ifdef __cplusplus
 }

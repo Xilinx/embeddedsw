@@ -102,6 +102,7 @@
 *                       FineMixerScale parameter.
 *       sk     04/19/18 Enable VCO Auto selection while configuring the clock.
 *       sk     04/24/18 Add API to get PLL Configurations.
+*       sk     04/24/18 Add API to get the Link Coupling mode.
 * </pre>
 *
 ******************************************************************************/
@@ -6104,6 +6105,65 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 					(SamplingRate/1000);
 		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
 		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.Enabled = PLLEnable;
+	}
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is used to get the Link Coupling mode.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number(0-3 for 2G, 0-1 for 4G).
+* @param	Mode pointer to get link coupling mode.
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled.
+*
+* @note		Only for ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_GetLinkCoupling(XRFdc* InstancePtr, u32 Tile_Id, u32 Block_Id,
+							u32 *Mode)
+{
+	u32 Status;
+	u16 ReadReg;
+	u32 IsBlockAvail;
+	u32 BaseAddr;
+
+#ifdef __BAREMETAL__
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+
+	IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+	if (IsBlockAvail == 0U) {
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested Block %d not "
+					"enabled in %s\r\n", Tile_Id, __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Requested Block %d not "
+					"enabled in %s\r\n", Tile_Id, __func__);
+#endif
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	} else {
+		if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) && (Block_Id == 1U))
+			Block_Id = 2U;
+		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
+							XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
+		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_RXPR_MC_CFG0_OFFSET);
+		if (ReadReg & XRFDC_RX_MC_CFG0_CM_MASK)
+			*Mode = XRFDC_LINK_COUPLING_AC;
+		else
+			*Mode = XRFDC_LINK_COUPLING_DC;
 	}
 
 	Status = XRFDC_SUCCESS;
