@@ -999,7 +999,8 @@ static void XHdcp1x_TxDebugLog(const XHdcp1x *InstancePtr, const char *LogMsg)
 	char Label[16];
 
 	/* Format Label */
-	snprintf(Label, 16, "hdcp-tx(%d) - ", InstancePtr->Config.DeviceId);
+	snprintf(Label, sizeof(Label), "hdcp-tx(%hu) - ",
+			 InstancePtr->Config.DeviceId);
 
 	/* Log it */
 	XHDCP1X_DEBUG_LOGMSG(Label);
