@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -961,7 +961,8 @@ int PmMasterRestart(PmMaster* const master)
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
-	XPfw_Write32(PMU_GLOBAL_GLOBAL_GEN_STORAGE4, SUBSYSTEM_RESTART_MASK);
+	XPfw_RMW32(PMU_GLOBAL_GLOBAL_GEN_STORAGE4, SUBSYSTEM_RESTART_MASK,
+                        SUBSYSTEM_RESTART_MASK);
 #ifdef ENABLE_POS
 	/* Signal to FSBL */
 	XPfw_Write32(PMU_GLOBAL_GLOBAL_GEN_STORAGE1, 1U);

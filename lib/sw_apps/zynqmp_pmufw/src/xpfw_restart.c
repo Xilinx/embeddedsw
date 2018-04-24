@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,8 +52,8 @@
 
 #ifdef CHECK_HEALTHY_BOOT
 
-#define XPFW_BOOT_HEALTH_STS		PMU_GLOBAL_GLOBAL_GEN_STORAGE0
-#define XPFW_BOOT_HEALTH_GOOD		(0x1U << 29U)
+#define XPFW_BOOT_HEALTH_STS		PMU_GLOBAL_GLOBAL_GEN_STORAGE4
+#define XPFW_BOOT_HEALTH_GOOD		(0x1U)
 
 #endif
 /* Macros used to track the phases in restart */
