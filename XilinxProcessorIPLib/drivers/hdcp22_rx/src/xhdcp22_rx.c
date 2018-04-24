@@ -997,7 +997,7 @@ int XHdcp22Rx_LoadPrivateKey(XHdcp22_Rx *InstancePtr, const u8 *PrivateKeyPtr)
 	Status = XHdcp22Rx_CalcMontNPrime(InstancePtr->NPrimeP, (u8 *)PrivateKey->p, XHDCP22_RX_P_SIZE/4);
     if(Status != XST_SUCCESS)
 	{
-	    xil_printf("ERROR: HDCP22-RX MMult NPrimeP Generation Failed\n\r");
+	    xil_printf("ERROR: HDCP22-RX MMult NPrimeP Generation Failed\r\n");
 		return Status;
 	}
 
@@ -1005,7 +1005,7 @@ int XHdcp22Rx_LoadPrivateKey(XHdcp22_Rx *InstancePtr, const u8 *PrivateKeyPtr)
 	Status = XHdcp22Rx_CalcMontNPrime(InstancePtr->NPrimeQ, (u8 *)PrivateKey->q, XHDCP22_RX_P_SIZE/4);
 	if(Status != XST_SUCCESS)
 	{
-	    xil_printf("ERROR: HDCP22-RX MMult NPrimeQ Generation Failed\n\r");
+	    xil_printf("ERROR: HDCP22-RX MMult NPrimeQ Generation Failed\r\n");
 	    return Status;
 	}
 
@@ -3938,7 +3938,7 @@ void XHdcp22Rx_LogDisplay(XHdcp22_Rx *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	xil_printf("\r\n-------HDCP22 RX log start-------\r\n");
-	xil_printf("[Time(us):Delta(us)] <Event>\n\r");
+	xil_printf("[Time(us):Delta(us)] <Event>\r\n");
 	strcpy(str, "UNDEFINED");
 	do {
 		/* Read log data */
@@ -4172,34 +4172,34 @@ void XHdcp22Rx_Info(XHdcp22_Rx *InstancePtr)
 	if (XHdcp22Rx_IsEnabled(InstancePtr)) {
 		switch (InstancePtr->Info.AuthenticationStatus) {
 			case XHDCP22_RX_UNAUTHENTICATED :
-			xil_printf("Not Authenticated.\n\r");
+			xil_printf("Not Authenticated.\r\n");
 			break;
 
 			case XHDCP22_RX_AUTHENTICATION_BUSY :
-			xil_printf("Authentication Busy.\n\r");
+			xil_printf("Authentication Busy.\r\n");
 			break;
 
 			case XHDCP22_RX_AUTHENTICATED :
-			xil_printf("Authenticated.\n\r");
+			xil_printf("Authenticated.\r\n");
 			break;
 
 			case XHDCP22_RX_REAUTHENTICATE_REQUESTED :
-			xil_printf("Reauthentication Requested.\n\r");
+			xil_printf("Reauthentication Requested.\r\n");
 			break;
 
 			default :
-			xil_printf("Unknown?\n\r");
+			xil_printf("Unknown?\r\n");
 			break;
 		}
 	} else {
-		xil_printf("Core is disabled.\n\r");
+		xil_printf("Core is disabled.\r\n");
 	}
 
 	xil_printf("Encryption: ");
 	if (XHdcp22Rx_IsEncryptionEnabled(InstancePtr)) {
-		xil_printf("Enabled.\n\r");
+		xil_printf("Enabled.\r\n");
 	} else {
-		xil_printf("Disabled.\n\r");
+		xil_printf("Disabled.\r\n");
 	}
 
 	xil_printf("Repeater: ");
@@ -4214,15 +4214,15 @@ void XHdcp22Rx_Info(XHdcp22_Rx *InstancePtr)
 			xil_printf("Hdcp1DeviceDownstream, ");
 		xil_printf("Depth=%d, ", InstancePtr->Topology.Depth);
 		xil_printf("DeviceCnt=%d, ", InstancePtr->Topology.DeviceCnt);
-		xil_printf("StreamType=%d\n\r", XHdcp22Rx_GetContentStreamType(InstancePtr));
+		xil_printf("StreamType=%d\r\n", XHdcp22Rx_GetContentStreamType(InstancePtr));
 	} else {
-		xil_printf("Disabled.\n\r");
+		xil_printf("Disabled.\r\n");
 	}
 
-	xil_printf("Auth Requests: %d\n\r", InstancePtr->Info.AuthRequestCnt);
-	xil_printf("Reauth Requests: %d\n\r", InstancePtr->Info.ReauthRequestCnt);
-	xil_printf("Link Errors: %d\n\r", InstancePtr->Info.LinkErrorCnt);
-	xil_printf("DDC Errors: %d\n\r", InstancePtr->Info.DdcErrorCnt);
+	xil_printf("Auth Requests: %d\r\n", InstancePtr->Info.AuthRequestCnt);
+	xil_printf("Reauth Requests: %d\r\n", InstancePtr->Info.ReauthRequestCnt);
+	xil_printf("Link Errors: %d\r\n", InstancePtr->Info.LinkErrorCnt);
+	xil_printf("DDC Errors: %d\r\n", InstancePtr->Info.DdcErrorCnt);
 }
 
 /*****************************************************************************/
