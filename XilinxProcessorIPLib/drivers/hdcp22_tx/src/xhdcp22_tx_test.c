@@ -502,17 +502,17 @@ void XHdcp22Tx_Dump(const char *String, const u8 *Buf, u32 Buflen)
 {
 	u32 Offset;
 
-	xil_printf("\n##########################################\n\r");
+	xil_printf("\n##########################################\r\n");
 	xil_printf("INFO::%s::Byte[0:%0d]", String, Buflen-1);
 	for(Offset=0; Offset<Buflen; Offset++)
 	{
 		if((Offset%20) == 0) {
-			xil_printf("\n\r");
+			xil_printf("\r\n");
 		}
 
 		xil_printf("%02x ", Buf[Offset]);
 	}
-	xil_printf("\n\r##########################################\n\r");
+	xil_printf("\r\n##########################################\r\n");
 }
 
 /*****************************************************************************/
