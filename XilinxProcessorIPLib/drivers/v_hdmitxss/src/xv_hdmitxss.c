@@ -130,17 +130,17 @@
 *							    Common Library
 *                       Updated function XV_HdmiTxSs_StreamStart,
 *                               XV_HdmiTxSs_SendGenericAuxInfoframe
-*                       Added function XV_HdmiTxSs_GetAviInfoframe, 
+*                       Added function XV_HdmiTxSs_GetAviInfoframe,
 *                           XV_HdmiTxSs_GetAudioInfoframe, XV_HdmiTxSs_GetVSIF
 *                           XV_HdmiTxSs_GetAuxiliary
-*                       Updated XV_HdmiTxSs_ConfigBridgeMode so Pixel 
+*                       Updated XV_HdmiTxSs_ConfigBridgeMode so Pixel
 *                           Pepetition AVI InfoFrame is sent out
 *                       Deprecating XV_HdmiTxSs_SendAviInfoframe and
 *                           XV_HdmiTxSs_SendGeneralControlPacket APIs
 *       YH     16/01/18 Added dedicated reset for each clock domain
 *                       Added bridge unlock interrupt
-*                       Added PIO_OUT to set GCP_AVMUTE 
-*       EB     23/01/18 Added function 
+*                       Added PIO_OUT to set GCP_AVMUTE
+*       EB     23/01/18 Added function
 *                           XV_HdmiTxSs_SetVideoStreamHdmi14ScramblingOverrideFlag
 *              25/01/18 Added function XV_HdmiTxSs_SetScrambler
 *              01/02/18	Updated function XV_HdmiTxSs_VtcSetup and changed the
@@ -372,7 +372,7 @@ static int XV_HdmiTxSs_RegisterSubsysCallbacks(XV_HdmiTxSs *InstancePtr)
                           XV_HDMITX_HANDLER_BRDGUNLOCK,
 						  (void *)XV_HdmiTxSs_BrdgUnlockedCallback,
 						  (void *)InstancePtr);
-						  
+
     XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
                           XV_HDMITX_HANDLER_VS,
 						  (void *)XV_HdmiTxSs_VsCallback,
@@ -627,23 +627,23 @@ void XV_HdmiTxSs_Reset(XV_HdmiTxSs *InstancePtr)
   /* Assert HDMI TXCore resets */
   XV_HdmiTxSs_TXCore_LRST(InstancePtr, TRUE);
   XV_HdmiTxSs_TXCore_VRST(InstancePtr, TRUE);
-    
+
   /* Assert VID_OUT bridge resets */
   XV_HdmiTxSs_SYSRST(InstancePtr, TRUE);
   XV_HdmiTxSs_VRST(InstancePtr, TRUE);
-    
+
   /* Release VID_IN bridge resets */
   XV_HdmiTxSs_SYSRST(InstancePtr, FALSE);
   XV_HdmiTxSs_VRST(InstancePtr, FALSE);
-  
+
   /* Release HDMI TXCore resets */
-  XV_HdmiTxSs_TXCore_LRST(InstancePtr, FALSE);  
-  XV_HdmiTxSs_TXCore_VRST(InstancePtr, FALSE);    
+  XV_HdmiTxSs_TXCore_LRST(InstancePtr, FALSE);
+  XV_HdmiTxSs_TXCore_VRST(InstancePtr, FALSE);
 }
 
 /*****************************************************************************/
 /**
-* This function asserts or releases the Internal Video reset 
+* This function asserts or releases the Internal Video reset
 * of the HDMI subcore within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
@@ -660,7 +660,7 @@ void XV_HdmiTxSs_TXCore_VRST(XV_HdmiTxSs *InstancePtr, u8 Reset)
 
 /*****************************************************************************/
 /**
-* This function asserts or releases the Internal Link reset 
+* This function asserts or releases the Internal Link reset
 * of the HDMI subcore within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
@@ -677,7 +677,7 @@ void XV_HdmiTxSs_TXCore_LRST(XV_HdmiTxSs *InstancePtr, u8 Reset)
 
 /*****************************************************************************/
 /**
-* This function asserts or releases the video reset of other 
+* This function asserts or releases the video reset of other
 * blocks within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
@@ -694,7 +694,7 @@ void XV_HdmiTxSs_VRST(XV_HdmiTxSs *InstancePtr, u8 Reset)
 
 /*****************************************************************************/
 /**
-* This function asserts or releases the system reset of other 
+* This function asserts or releases the system reset of other
 * blocks within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
@@ -1163,7 +1163,7 @@ static void XV_HdmiTxSs_BrdgUnlockedCallback(void *CallbackRef)
 static void XV_HdmiTxSs_VsCallback(void *CallbackRef)
 {
   XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
-  
+
   /* Support of backward compatibility by checking HDMI-TXSs Major AppVersion
    * parameter. If value is 0, then TX SS driver will send
    * the InfoFrame. Note: The APIs used here are deprecated.
@@ -1175,7 +1175,7 @@ static void XV_HdmiTxSs_VsCallback(void *CallbackRef)
   	// Vendor-Specific InfoFrame
 	XV_HdmiTxSs_SendVSInfoframe(HdmiTxSsPtr->HdmiTxPtr);
   }
-  
+
   // Check if user callback has been registered
   if (HdmiTxSsPtr->VsCallback) {
       HdmiTxSsPtr->VsCallback(HdmiTxSsPtr->VsRef);
@@ -1361,14 +1361,14 @@ static void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef)
 
   /* Set TX sample rate */
   XV_HdmiTx_SetSampleRate(HdmiTxSsPtr->HdmiTxPtr, HdmiTxSsPtr->SamplingRate);
-    
+
   /* Release VID_IN bridge resets */
   XV_HdmiTxSs_SYSRST(HdmiTxSsPtr, FALSE);
   XV_HdmiTxSs_VRST(HdmiTxSsPtr, FALSE);
-  
+
   /* Release HDMI TXCore resets */
-  XV_HdmiTxSs_TXCore_LRST(HdmiTxSsPtr, FALSE);  
-  XV_HdmiTxSs_TXCore_VRST(HdmiTxSsPtr, FALSE);      
+  XV_HdmiTxSs_TXCore_LRST(HdmiTxSsPtr, FALSE);
+  XV_HdmiTxSs_TXCore_VRST(HdmiTxSsPtr, FALSE);
 
   if (HdmiTxSsPtr->VtcPtr) {
     /* Setup VTC */
@@ -1406,7 +1406,7 @@ static void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef)
   /* Assert HDMI TXCore link reset */
   XV_HdmiTxSs_TXCore_LRST(HdmiTxSsPtr, TRUE);
   XV_HdmiTxSs_TXCore_VRST(HdmiTxSsPtr, TRUE);
-    
+
   /* Assert SYSCLK VID_OUT bridge reset */
   XV_HdmiTxSs_SYSRST(HdmiTxSsPtr, TRUE);
   XV_HdmiTxSs_VRST(HdmiTxSsPtr, TRUE);
@@ -1490,10 +1490,10 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
             InstancePtr->ToggleRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
-			
+
         // Bridge Unlocked
         case (XV_HDMITXSS_HANDLER_BRDGUNLOCK):
-            InstancePtr->BrdgUnlockedCallback = 
+            InstancePtr->BrdgUnlockedCallback =
 			    (XV_HdmiTxSs_Callback)CallbackFunc;
             InstancePtr->BrdgUnlockedRef = CallbackRef;
             Status = (XST_SUCCESS);
@@ -2045,7 +2045,7 @@ void XV_HdmiTxSs_AudioMute(XV_HdmiTxSs *InstancePtr, u8 Enable)
 ******************************************************************************/
 void XV_HdmiTxSs_SetAudioFormat(XV_HdmiTxSs *InstancePtr,
 		 XV_HdmiTx_AudioFormatType format)
-{	
+{
     XV_HdmiTx_SetAudioFormat(InstancePtr->HdmiTxPtr, format);
 }
 
@@ -2387,15 +2387,15 @@ int XV_HdmiTxSs_DetectHdmi20(XV_HdmiTxSs *InstancePtr)
 ******************************************************************************/
 void XV_HdmiTxSs_RefClockChangeInit(XV_HdmiTxSs *InstancePtr)
 {
-  
+
       /* Assert VID_IN bridge resets */
       XV_HdmiTxSs_SYSRST(InstancePtr, TRUE);
       XV_HdmiTxSs_VRST(InstancePtr, TRUE);
-  
+
       /* Assert HDMI TXCore resets */
-      XV_HdmiTxSs_TXCore_LRST(InstancePtr, TRUE);  
-      XV_HdmiTxSs_TXCore_VRST(InstancePtr, TRUE);     
-  
+      XV_HdmiTxSs_TXCore_LRST(InstancePtr, TRUE);
+      XV_HdmiTxSs_TXCore_VRST(InstancePtr, TRUE);
+
       /* Clear variables */
       XV_HdmiTx_Clear(InstancePtr->HdmiTxPtr);
 }
@@ -2660,7 +2660,7 @@ static void XV_HdmiTxSs_ConfigBridgeMode(XV_HdmiTxSs *InstancePtr) {
         else {
             XV_HdmiTxSs_BridgeYuv420(InstancePtr, FALSE);
             XV_HdmiTxSs_BridgePixelRepeat(InstancePtr, FALSE);
-            AviInfoFramePtr->PixelRepetition = 
+            AviInfoFramePtr->PixelRepetition =
 					XHDMIC_PIXEL_REPETITION_FACTOR_1;
         }
     }

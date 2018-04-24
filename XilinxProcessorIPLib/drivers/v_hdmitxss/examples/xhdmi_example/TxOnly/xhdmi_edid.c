@@ -84,22 +84,22 @@ void EdidScdcCheck(XV_HdmiTxSs          *HdmiTxSsPtr,
 
     /*Below Check executed only when TX Cable Connect*/
     if (CheckHdmi20Param->EdidCableConnectRead) {
-        /*Read & Parse the EDID upon the Cable Connect to check 
+        /*Read & Parse the EDID upon the Cable Connect to check
 		Sink's Capability*/
         XV_HdmiTxSs_ReadEdid(HdmiTxSsPtr, (u8*)&Buffer);
         XV_VidC_parse_edid((u8*)&Buffer, &CheckHdmi20Param->EdidCtrlParam,
                             XVIDC_VERBOSE_DISABLE);
 
-        /*Check whether the Sink able to support HDMI 2.0 by checking the 
+        /*Check whether the Sink able to support HDMI 2.0 by checking the
         maximum supported video bandwidth*/
         if (CheckHdmi20Param->EdidCtrlParam.MaxTmdsMhz >= 340) {
             /*Sink's EDID indicated HDMI 2.0 Capable*/
             CheckHdmi20Param->IsHDMI20SinkCapable = (TRUE);
 
             /*Check whether the SCDC is present or not (HF-VSDB EDID)*/
-            if(CheckHdmi20Param->EdidCtrlParam.IsSCDCPresent == 
+            if(CheckHdmi20Param->EdidCtrlParam.IsSCDCPresent ==
 															XVIDC_SUPPORTED) {
-                /*Check whether the SCDC is capable of initiating 
+                /*Check whether the SCDC is capable of initiating
 				Read Request*/
                 if (CheckHdmi20Param->EdidCtrlParam.IsSCDCReadRequestReady ==
                         XVIDC_SUPPORTED) {
@@ -161,13 +161,13 @@ void EdidScdcCheck(XV_HdmiTxSs          *HdmiTxSsPtr,
     } else {
         /*If retry Re Read EDID or Re Access SCDC is enabled*/
         if (CheckHdmi20Param->IsReReadSinkEdid) {
-            /*Read & Parse the EDID upon the Cable Connect to check 
+            /*Read & Parse the EDID upon the Cable Connect to check
 															  Sink Capability*/
             XV_HdmiTxSs_ReadEdid(HdmiTxSsPtr, (u8*)&Buffer);
             XV_VidC_parse_edid((u8*)&Buffer, &CheckHdmi20Param->EdidCtrlParam,
                                 XVIDC_VERBOSE_DISABLE);
 
-            if(CheckHdmi20Param->EdidCtrlParam.IsSCDCPresent == 
+            if(CheckHdmi20Param->EdidCtrlParam.IsSCDCPresent ==
 															XVIDC_SUPPORTED) {
                 if (CheckHdmi20Param->EdidCtrlParam.IsSCDCReadRequestReady ==
                         XVIDC_SUPPORTED) {

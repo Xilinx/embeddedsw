@@ -88,11 +88,11 @@
 *       EB     10/10/17 Added function XV_HdmiTxSs_GetAudioFormat
 * 5.0   YH     16/01/18 Added dedicated reset for each clock domain
 *                       Added bridge unlock interrupt
-*                       Added PIO_OUT to set GCP_AVMUTE 
+*                       Added PIO_OUT to set GCP_AVMUTE
 *       EB     17/01/18 Added InfoFrame data structure to XV_HdmiTxSs
 *                       Added XV_HDMITXSS_LOG_EVT_PIX_REPEAT_ERR log event
 *                       Added functions XV_HdmiTxSs_GetAuxiliary,
-*                             XV_HdmiTxSs_GetAviInfoframe, 
+*                             XV_HdmiTxSs_GetAviInfoframe,
 *                             XV_HdmiTxSs_GetAudioInfoframe,
 *                             XV_HdmiTxSs_GetVSIF
 *                       Updated the return type of the function
@@ -286,8 +286,8 @@ typedef enum {
     XV_HDMITXSS_HANDLER_TOGGLE,                            /**< Handler for
                                                             toggle event */
     XV_HDMITXSS_HANDLER_BRDGUNLOCK,                        /**< Handler for
-                                                            bridge unlocked 
-															event */															
+                                                            bridge unlocked
+															event */
     XV_HDMITXSS_HANDLER_VS,                                /**< Handler for
                                                             vsync event */
     XV_HDMITXSS_HANDLER_STREAM_DOWN,                       /**< Handler for
@@ -393,11 +393,11 @@ typedef struct
     void *ToggleRef;                     /**< To be passed to the toggle
                                               callback */
 
-    XV_HdmiTxSs_Callback BrdgUnlockedCallback; /**< Callback for Bridge UnLocked 
+    XV_HdmiTxSs_Callback BrdgUnlockedCallback; /**< Callback for Bridge UnLocked
                                                   event interrupt */
-    void *BrdgUnlockedRef;                  /**< To be passed to the Bridge 
+    void *BrdgUnlockedRef;                  /**< To be passed to the Bridge
                                               Unlocked interrupt callback */
-											  
+
     XV_HdmiTxSs_Callback VsCallback; /**< Callback for Vsync event */
     void *VsRef;                   /**< To be passed to the Vsync callback */
 
@@ -478,7 +478,7 @@ void XV_HdmiTxSs_SendAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *AuxPtr);
 u32 XV_HdmiTxSs_SendGenericAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *AuxPtr);
 void XV_HdmiTxSs_SetAudioChannels(XV_HdmiTxSs *InstancePtr, u8 AudioChannels);
 void XV_HdmiTxSs_AudioMute(XV_HdmiTxSs *InstancePtr, u8 Enable);
-void XV_HdmiTxSs_SetAudioFormat(XV_HdmiTxSs *InstancePtr, 
+void XV_HdmiTxSs_SetAudioFormat(XV_HdmiTxSs *InstancePtr,
     XV_HdmiTx_AudioFormatType format);
 XV_HdmiTx_AudioFormatType XV_HdmiTxSs_GetAudioFormat(XV_HdmiTxSs *InstancePtr);
 XHdmiC_Aux *XV_HdmiTxSs_GetAuxiliary(XV_HdmiTxSs *InstancePtr);
