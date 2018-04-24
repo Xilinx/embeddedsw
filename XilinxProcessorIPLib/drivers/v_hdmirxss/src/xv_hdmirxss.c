@@ -108,12 +108,16 @@
 *       EB     16/01/18 Added parsing of InfoFrames during AuxCallback
 *                       Changed XV_HdmiRxSs_RetrieveVSInfoframe's input
 *                           parameter type
-*                       Added function XV_HdmiRxSs_GetAviInfoframe, 
+*                       Added function XV_HdmiRxSs_GetAviInfoframe,
 *                           XV_HdmiRxSs_GetGCP, XV_HdmiRxSs_GetAudioInfoframe,
 *                           XV_HdmiRxSs_GetVSIF
-*                       Updated XV_HdmiRxSs_ConfigBridgeMode so Pixel 
+*                       Updated XV_HdmiRxSs_ConfigBridgeMode so Pixel
 *                           Pepetition is based on received AVI InfoFrame
 *       SM     28/02/18 Added definition of XV_HdmiRxSS_SetAppVersion() API
+* 5.10  MMO    06/04/18 Updated XV_HdmiRxSs_ToggleHpd and XV_HdmiRxSs_Stop
+*                           for cleaner HPD flow during transition from HDMI2.0
+*                           to HDMI1.4
+*       YH     13/04/18 Fixed a bug in XV_HdmiRxSs_BrdgOverflowCallback
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -611,7 +615,7 @@ void XV_HdmiRxSs_Start(XV_HdmiRxSs *InstancePtr)
 #ifdef XV_HDMIRXSS_LOG_ENABLE
   XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_START, 0);
 #endif
-  /* Set RX hot plug detect */
+  /* Drive HDMI RX HPD High */
   XV_HdmiRx_SetHpd(InstancePtr->HdmiRxPtr, TRUE);
 
   /* Disable Audio Peripheral */
@@ -632,6 +636,16 @@ void XV_HdmiRxSs_Start(XV_HdmiRxSs *InstancePtr)
 void XV_HdmiRxSs_Stop(XV_HdmiRxSs *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
+
+  /* Clear SCDC variables */
+  XV_HdmiRx_DdcScdcClear(InstancePtr->HdmiRxPtr);
+
+  /* Disable the scrambler */
+  XV_HdmiRx_SetScrambler(InstancePtr->HdmiRxPtr, (FALSE));
+
+  /* Drive HDMI RX HPD Low */
+  XV_HdmiRx_SetHpd(InstancePtr->HdmiRxPtr, (FALSE));
+
 #ifdef XV_HDMIRXSS_LOG_ENABLE
   XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_STOP, 0);
 #endif
@@ -659,7 +673,7 @@ void XV_HdmiRxSs_Reset(XV_HdmiRxSs *InstancePtr)
   /* Assert HDMI RX core resets */
   XV_HdmiRxSs_RXCore_VRST(InstancePtr, TRUE);
   XV_HdmiRxSs_RXCore_LRST(InstancePtr, TRUE);
-			
+
   /* Assert SYSCLK VID_IN bridge reset */
   XV_HdmiRxSs_SYSRST(InstancePtr, TRUE);
 
@@ -673,7 +687,7 @@ void XV_HdmiRxSs_Reset(XV_HdmiRxSs *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function asserts or releases the Internal Video reset 
+* This function asserts or releases the Internal Video reset
 * of the HDMI subcore within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
@@ -690,7 +704,7 @@ void XV_HdmiRxSs_RXCore_VRST(XV_HdmiRxSs *InstancePtr, u8 Reset)
 
 /*****************************************************************************/
 /**
-* This function asserts or releases the Internal Link reset 
+* This function asserts or releases the Internal Link reset
 * of the HDMI subcore within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
@@ -707,7 +721,7 @@ void XV_HdmiRxSs_RXCore_LRST(XV_HdmiRxSs *InstancePtr, u8 Reset)
 
 /*****************************************************************************/
 /**
-* This function asserts or releases the video reset of other 
+* This function asserts or releases the video reset of other
 * blocks within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
@@ -724,7 +738,7 @@ void XV_HdmiRxSs_VRST(XV_HdmiRxSs *InstancePtr, u8 Reset)
 
 /*****************************************************************************/
 /**
-* This function asserts or releases the system reset of other 
+* This function asserts or releases the system reset of other
 * blocks within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
@@ -756,8 +770,8 @@ static void XV_HdmiRxSs_BrdgOverflowCallback(void *CallbackRef)
   XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
 
   // Check if user callback has been registered
-  if (HdmiRxSsPtr->ConnectCallback) {
-    HdmiRxSsPtr->ConnectCallback(HdmiRxSsPtr->ConnectRef);
+  if (HdmiRxSsPtr->BrdgOverflowCallback) {
+    HdmiRxSsPtr->BrdgOverflowCallback(HdmiRxSsPtr->BrdgOverflowRef);
   }
 
 }
@@ -855,9 +869,9 @@ static void XV_HdmiRxSs_AuxCallback(void *CallbackRef)
 	  (void)memset((void *)AviInfoFramePtr, 0, sizeof(XHdmiC_AVI_InfoFrame));
 	  // Parse Aux to retrieve Avi InfoFrame
 	  XV_HdmiC_ParseAVIInfoFrame(AuxPtr, AviInfoFramePtr);
-	  HdmiRxSsPtr->HdmiRxPtr->Stream.Video.ColorFormatId = 
+	  HdmiRxSsPtr->HdmiRxPtr->Stream.Video.ColorFormatId =
 	  			XV_HdmiRx_GetAviColorSpace(HdmiRxSsPtr->HdmiRxPtr);
-	  HdmiRxSsPtr->HdmiRxPtr->Stream.Vic = 
+	  HdmiRxSsPtr->HdmiRxPtr->Stream.Vic =
 				XV_HdmiRx_GetAviVic(HdmiRxSsPtr->HdmiRxPtr);
 	  HdmiRxSsPtr->HdmiRxPtr->Stream.Video.AspectRatio =
 				XV_HdmiC_IFAspectRatio_To_XVidC(HdmiRxSsPtr->AVIInfoframe.PicAspectRatio);
@@ -1114,10 +1128,10 @@ static void XV_HdmiRxSs_StreamDownCallback(void *CallbackRef)
   /* Assert HDMI RX core resets */
   XV_HdmiRxSs_RXCore_VRST(HdmiRxSsPtr, TRUE);
   XV_HdmiRxSs_RXCore_LRST(HdmiRxSsPtr, TRUE);
-			
+
   /* Assert SYSCLK VID_IN bridge reset */
   XV_HdmiRxSs_SYSRST(HdmiRxSsPtr, TRUE);
-  
+
   /* Set stream up flag */
   HdmiRxSsPtr->IsStreamUp = (FALSE);
 #ifdef XV_HDMIRXSS_LOG_ENABLE
@@ -1252,12 +1266,12 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
             InstancePtr->ConnectRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
-			
+
         case (XV_HDMIRXSS_HANDLER_BRDGOVERFLOW):
             InstancePtr->BrdgOverflowCallback = (XV_HdmiRxSs_Callback)CallbackFunc;
             InstancePtr->BrdgOverflowRef = CallbackRef;
             Status = (XST_SUCCESS);
-            break;	
+            break;
 
         case (XV_HDMIRXSS_HANDLER_AUX):
             InstancePtr->AuxCallback = (XV_HdmiRxSs_Callback)CallbackFunc;
@@ -1536,7 +1550,7 @@ void XV_HdmiRxSs_LoadEdid(XV_HdmiRxSs *InstancePtr, u8 *EdidDataPtr,
 ******************************************************************************/
 void XV_HdmiRxSs_SetHpd(XV_HdmiRxSs *InstancePtr, u8 Value)
 {
-  /* Drive HPD low */
+  /* Drive HDMI RX HPD based on the input value */
   XV_HdmiRx_SetHpd(InstancePtr->HdmiRxPtr, Value);
 }
 
@@ -1552,13 +1566,19 @@ void XV_HdmiRxSs_SetHpd(XV_HdmiRxSs *InstancePtr, u8 Value)
 ******************************************************************************/
 void XV_HdmiRxSs_ToggleHpd(XV_HdmiRxSs *InstancePtr)
 {
-  /* Drive HPD low */
+  /* Clear SCDC variables */
+  XV_HdmiRx_DdcScdcClear(InstancePtr->HdmiRxPtr);
+
+  /* Disable the scrambler */
+  XV_HdmiRx_SetScrambler(InstancePtr->HdmiRxPtr, (FALSE));
+
+  /* Drive HDMI RX HPD Low */
   XV_HdmiRx_SetHpd(InstancePtr->HdmiRxPtr, (FALSE));
 
   /* Wait 500 ms */
   XV_HdmiRxSs_WaitUs(InstancePtr, 500000);
 
-  /* Drive HPD high */
+  /* Drive HDMI RX HPD High */
   XV_HdmiRx_SetHpd(InstancePtr->HdmiRxPtr, (TRUE));
 }
 
@@ -2051,7 +2071,7 @@ static void XV_HdmiRxSs_ConfigBridgeMode(XV_HdmiRxSs *InstancePtr) {
          XV_HdmiRxSs_BridgeYuv420(InstancePtr, TRUE);
     }
     else {
-        if (AviInfoFramePtr->PixelRepetition == 
+        if (AviInfoFramePtr->PixelRepetition ==
 				XHDMIC_PIXEL_REPETITION_FACTOR_2)
         {
             /*********************************************************
