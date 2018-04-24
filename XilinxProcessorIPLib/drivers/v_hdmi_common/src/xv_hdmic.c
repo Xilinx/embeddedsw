@@ -47,6 +47,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   EB  21/12/17 Initial release.
+ * 1.1   EB  10/04/18 Fixed a bug in XV_HdmiC_ParseAudioInfoFrame
  * </pre>
  *
 *******************************************************************************/
@@ -228,7 +229,8 @@ void XV_HdmiC_ParseAudioInfoFrame(XHdmiC_Aux *AuxPtr, XHdmiC_AudioInfoFrame *Aud
 		AudIFPtr->ChannelCount = (AuxPtr->Data.Byte[1]) & 0x7;
 
 		/* PB2 */
-		AudIFPtr->SampleFrequency = AuxPtr->Data.Byte[2] & 0x1f;
+		AudIFPtr->SampleFrequency = (AuxPtr->Data.Byte[2] >> 2) & 0x7;
+		AudIFPtr->SampleSize = AuxPtr->Data.Byte[2] & 0x3;
 
 		/* PB4 */
 		AudIFPtr->ChannelAllocation = AuxPtr->Data.Byte[4];
@@ -299,7 +301,7 @@ XHdmiC_Aux XV_HdmiC_AVIIF_GeneratePacket(XHdmiC_AVI_InfoFrame *infoFramePtr)
 
    /* PB6 */
    aux.Data.Byte[6] = infoFramePtr->TopBar & 0xff;
-   
+
    aux.Data.Byte[7] = 0;
 
    /* PB8 */
