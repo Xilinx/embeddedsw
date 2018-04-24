@@ -151,6 +151,7 @@
 *       sk     04/17/18 Corrected Set/Get MixerSettings API description for
 *                       FineMixerScale parameter.
 *       sk     04/19/18 Enable VCO Auto selection while configuring the clock.
+*       sk     04/24/18 Add API to get PLL Configurations.
 *
 * </pre>
 *
@@ -221,9 +222,9 @@ typedef struct {
 	u32 RefClkDivider;
 	u32 FeedbackDivider;
 	u32 OutputDivider;
-	u32 FractionalMode;
-	u64 FractionalData;
-	u32 FractWidth;
+	u32 FractionalMode;	/* Fractional mode is currently not supported */
+	u64 FractionalData;	/* Fractional data is currently not supported */
+	u32 FractWidth;	/* Fractional width is currently not supported */
 } XRFdc_PLL_Settings;
 
 /**
@@ -353,6 +354,8 @@ typedef struct {
 	double SamplingRate;
 	double RefClkFreq;
 	double FabClkFreq;
+	u32 FeedbackDiv;
+	u32 OutputDiv;
 	XRFdc_DACBlock_AnalogDataPath_Config DACBlock_Analog_Config[4];
 	XRFdc_DACBlock_DigitalDataPath_Config DACBlock_Digital_Config[4];
 } XRFdc_DACTile_Config;
@@ -366,6 +369,8 @@ typedef struct {
 	double SamplingRate;
 	double RefClkFreq;
 	double FabClkFreq;
+	u32 FeedbackDiv;
+	u32 OutputDiv;
 	XRFdc_ADCBlock_AnalogDataPath_Config ADCBlock_Analog_Config[4];
 	XRFdc_ADCBlock_DigitalDataPath_Config ADCBlock_Digital_Config[4];
 } XRFdc_ADCTile_Config;
@@ -1041,6 +1046,52 @@ static inline int XRFdc_GetConnectedQData(XRFdc* InstancePtr, u32 Type,
 	} else {
 		return InstancePtr->DAC_Tile[Tile_Id].
 				DACBlock_Digital_Datapath[Block_Id].ConnectedQData;
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to get the PLL Configurations.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Type represents ADC or DAC.
+* @param	Tile_Id Valid values are 0-3.
+* @param	PLLSettings pointer to the XRFdc_PLL_Settings structure to get
+*           the PLL configurations
+*
+* @return   None
+*
+******************************************************************************/
+static inline void XRFdc_GetPLLConfig(XRFdc* InstancePtr, u32 Type,
+					u32 Tile_Id, XRFdc_PLL_Settings *PLLSettings)
+{
+	if (Type == XRFDC_ADC_TILE) {
+		PLLSettings->Enabled =
+				InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.Enabled;
+		PLLSettings->FeedbackDivider =
+				InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.FeedbackDivider;
+		PLLSettings->OutputDivider =
+				InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.OutputDivider;
+		PLLSettings->RefClkDivider =
+				InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkDivider;
+		PLLSettings->RefClkFreq =
+				InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkFreq;
+		PLLSettings->SampleRate =
+				InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate;
+	} else {
+		PLLSettings->Enabled =
+				InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.Enabled;
+		PLLSettings->FeedbackDivider =
+				InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.FeedbackDivider;
+		PLLSettings->OutputDivider =
+				InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.OutputDivider;
+		PLLSettings->RefClkDivider =
+				InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkDivider;
+		PLLSettings->RefClkFreq =
+				InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkFreq;
+		PLLSettings->SampleRate =
+				InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate;
 	}
 }
 
