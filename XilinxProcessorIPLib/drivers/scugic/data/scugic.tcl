@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2017 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -68,6 +68,10 @@
 #                     definitions for pl to ps interrupts.Fix for CR#980534
 # 3.8   mus  08/17/17 Updated get_psu_interrupt_id proc to check if the sink
 #                     pin is connected to peripheral.Fix for CR#980414.
+# 3.10  mus  04/23/18 Updated get_psu_interrupt_id to generate correct
+#                     interrupt id's, when output of utility reduced logic is
+#                     connected to pl-ps interrupt as well as ILA probe. Fix
+#                     for CR#999732.
 #
 ##############################################################################
 
@@ -884,18 +888,19 @@ proc get_psu_interrupt_id { ip_name port_name } {
 	    set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
 	    foreach pin $sink_pins {
 	        set sink_pin $pin
-	    }
-	    set sink_periph [::hsi::get_cells -of_objects $sink_pin]
-	    set connected_ip [get_property IP_NAME [get_cells $sink_periph]]
-	    if { [string compare -nocase "$connected_ip" "xlconcat"] == 0 } {
-	        set number [regexp -all -inline -- {[0-9]+} $sink_pin]
-	        set dout "dout"
-	        set concat_block 1
-                set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
-	        set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
-	        foreach pin $sink_pins {
-	            set sink_pin $pin
-	        }
+
+	        set sink_periph [::hsi::get_cells -of_objects $sink_pin]
+	        set connected_ip [get_property IP_NAME [get_cells $sink_periph]]
+	        if { [string compare -nocase "$connected_ip" "xlconcat"] == 0 } {
+	            set number [regexp -all -inline -- {[0-9]+} $sink_pin]
+	            set dout "dout"
+	            set concat_block 1
+                    set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
+	            set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
+	            foreach pin $sink_pins {
+	                set sink_pin $pin
+	            }
+	         }
 	    }
 	 }
 
