@@ -101,6 +101,7 @@
 * 4.0   sk     04/17/18 Corrected Set/Get MixerSettings API description for
 *                       FineMixerScale parameter.
 *       sk     04/19/18 Enable VCO Auto selection while configuring the clock.
+*       sk     04/24/18 Add API to get PLL Configurations.
 * </pre>
 *
 ******************************************************************************/
@@ -217,6 +218,16 @@ int XRFdc_CfgInitialize(XRFdc* InstancePtr, XRFdc_Config *Config)
 				InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].PLLEnable;
 		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.Enabled =
 				InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].PLLEnable;
+		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.FeedbackDivider =
+				InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].FeedbackDiv;
+		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.FeedbackDivider =
+				InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].FeedbackDiv;
+		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.OutputDivider =
+				InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].OutputDiv;
+		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.OutputDivider =
+				InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].OutputDiv;
+		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkDivider = 0x1;
+		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkDivider = 0x1;
 	}
 
 	for (Tile_Id = 0; Tile_Id < 4U; Tile_Id++) {
