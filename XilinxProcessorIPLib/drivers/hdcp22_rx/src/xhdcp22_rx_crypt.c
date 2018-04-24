@@ -154,7 +154,7 @@ int XHdcp22Rx_CalcMontNPrime(u8 *NPrime, const u8 *N, int NDigits)
 	memcpy(T1, N_i, sizeof(N_i)); // Increase precision of N
 	if(mpModInv(RInv, R, T1, XHdcp22Rx_MpSizeof(RInv)))
 	{
-		print("ERROR: Failed Rinv Calculation\n\r");
+		print("ERROR: Failed Rinv Calculation\r\n");
 		return XST_FAILURE;
 	}
 
@@ -173,7 +173,7 @@ int XHdcp22Rx_CalcMontNPrime(u8 *NPrime, const u8 *N, int NDigits)
 	T2[0] = 1;
 	if(!mpEqual(T1, T2, XHdcp22Rx_MpSizeof(T1)))
 	{
-		print("ERROR: Failed NPrime Calculation\n\r");
+		print("ERROR: Failed NPrime Calculation\r\n");
 		return XST_FAILURE;
 	}
 
