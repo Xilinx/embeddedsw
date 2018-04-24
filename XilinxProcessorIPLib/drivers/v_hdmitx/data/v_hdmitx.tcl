@@ -138,7 +138,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
        set peripheral_name [string toupper [common::get_property NAME $periph]]
        lappend peripherals $peripheral_name
    }
-   
+
    # Get possible canonical names for all the peripherals connected to this
    # driver
    set device_id 0
@@ -187,7 +187,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                 }
                 set rvalue $rfreq
                 puts $file_handle "#define [string toupper $lvalue] $rvalue"
-            
+
             } else {
                puts $file_handle "#define [string toupper $lvalue] $rvalue"
             }
@@ -200,4 +200,4 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
    puts $file_handle "\n/******************************************************************/\n"
    close $file_handle
-}   
+}

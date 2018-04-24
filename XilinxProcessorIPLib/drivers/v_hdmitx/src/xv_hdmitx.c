@@ -805,15 +805,15 @@ void XV_HdmiTx_INT_VRST(XV_HdmiTx *InstancePtr, u8 Reset)
 
     /* Verify argument. */
     Xil_AssertVoid(InstancePtr != NULL);
-		
-    if (Reset) { 
-        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, 
+
+    if (Reset) {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
         (XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_INT_VRST_MASK));
-    } 
-    else { 
-        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, 
-        (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_INT_VRST_MASK)); 
-    } 
+    }
+    else {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_INT_VRST_MASK));
+    }
 }
 
 /*****************************************************************************/
@@ -839,15 +839,15 @@ void XV_HdmiTx_INT_LRST(XV_HdmiTx *InstancePtr, u8 Reset)
 {
 	/* Verify argument. */
     Xil_AssertVoid(InstancePtr != NULL);
-		
-    if (Reset) { 
-        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, 
+
+    if (Reset) {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
         (XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_INT_LRST_MASK));
-    } 
-    else { 
-        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, 
-        (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_INT_LRST_MASK)); 
-    } 
+    }
+    else {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_INT_LRST_MASK));
+    }
 }
 
 /*****************************************************************************/
@@ -873,15 +873,15 @@ void XV_HdmiTx_EXT_VRST(XV_HdmiTx *InstancePtr, u8 Reset)
 {
 	/* Verify argument. */
     Xil_AssertVoid(InstancePtr != NULL);
-		
-    if (Reset) { 
-        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, 
+
+    if (Reset) {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
         (XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_EXT_VRST_MASK));
-    } 
-    else { 
-        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, 
-        (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_EXT_VRST_MASK)); 
-    } 
+    }
+    else {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_EXT_VRST_MASK));
+    }
 }
 
 /*****************************************************************************/
@@ -907,15 +907,15 @@ void XV_HdmiTx_EXT_SYSRST(XV_HdmiTx *InstancePtr, u8 Reset)
 {
 	/* Verify argument. */
     Xil_AssertVoid(InstancePtr != NULL);
-		
-    if (Reset) { 
-        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, 
+
+    if (Reset) {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
         (XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_EXT_SYSRST_MASK));
-    } 
-    else { 
-        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, 
-        (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_EXT_SYSRST_MASK)); 
-    } 
+    }
+    else {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_EXT_SYSRST_MASK));
+    }
 }
 
 /*****************************************************************************/
@@ -934,8 +934,8 @@ void XV_HdmiTx_SetGcpAvmuteBit(XV_HdmiTx *InstancePtr)
 {
 	/* Verify argument. */
     Xil_AssertVoid(InstancePtr != NULL);
-	
-    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, 
+
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
         (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_GCP_AVMUTE_MASK));
 }
 
@@ -955,8 +955,8 @@ void XV_HdmiTx_ClearGcpAvmuteBit(XV_HdmiTx *InstancePtr)
 {
 	/* Verify argument. */
     Xil_AssertVoid(InstancePtr != NULL);
-	
-    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, 
+
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
         (XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_GCP_AVMUTE_MASK));
 
 }
