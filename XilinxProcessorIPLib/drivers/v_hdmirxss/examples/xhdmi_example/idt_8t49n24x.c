@@ -88,7 +88,7 @@ static int IDT_8T49N24x_Configure(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 /*****************************************************************************/
 /**
 *
-* This function reads a single byte to the IDT 8T49N24x  
+* This function reads a single byte to the IDT 8T49N24x
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
@@ -115,14 +115,14 @@ static u8 IDT_8T49N24x_GetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 
 	do {
 		/* Set Address */
-		Buffer[0] = (RegisterAddress >> 8); 
-		Buffer[1] = RegisterAddress & 0xff; 
+		Buffer[0] = (RegisterAddress >> 8);
+		Buffer[1] = RegisterAddress & 0xff;
 		ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer,
 							2, XIIC_REPEATED_START);
 
 		if (ByteCount != 2) {
 			Retry++;
-			
+
 			/* Maximum retries */
 			if (Retry == 255) {
 				Exit = TRUE;
@@ -151,7 +151,7 @@ static u8 IDT_8T49N24x_GetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 /*****************************************************************************/
 /**
 *
-* This function send a single byte to the IDT 8T49N24x  
+* This function send a single byte to the IDT 8T49N24x
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
@@ -171,10 +171,10 @@ static int IDT_8T49N24x_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 	u8 Retry = 0;
 
 	/* Write data */
-	Buffer[0] = (RegisterAddress >> 8); 
-	Buffer[1] = RegisterAddress & 0xff; 
+	Buffer[0] = (RegisterAddress >> 8);
+	Buffer[1] = RegisterAddress & 0xff;
 	Buffer[2] = Value;
-	
+
 	while (1) {
 		ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer,
 							3, XIIC_STOP);
@@ -186,17 +186,17 @@ static int IDT_8T49N24x_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 				return XST_FAILURE;
 			}
 		}
-	
+
 		else {
 			return XST_SUCCESS;
 		}
-	}  
+	}
 }
 
 /*****************************************************************************/
 /**
 *
-* This function modifies a single byte to the IDT 8T49N24x  
+* This function modifies a single byte to the IDT 8T49N24x
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
@@ -219,7 +219,7 @@ static int IDT_8T49N24x_ModifyRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 							RegisterAddress);
 
 	/* Clear masked bits */
-	Data &= ~Mask; 
+	Data &= ~Mask;
 
 	/* Update */
 	Data |= (Value & Mask);
@@ -234,7 +234,7 @@ static int IDT_8T49N24x_ModifyRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 /*****************************************************************************/
 /**
 *
-* This function checks the IDT 8T49N24x device ID  
+* This function checks the IDT 8T49N24x device ID
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
@@ -295,7 +295,7 @@ static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable, u8 Bypass)
 	int index;
 	int NS2Min = 1;
 	int NS2Max = 1;
-	
+
 	int NS2Temp;
 	int OutDivTemp;
 	u32 VCOTemp;
@@ -310,14 +310,14 @@ static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable, u8 Bypass)
 
 	int Count = 0;
 	int *DivTablePtr = DivTable;
-	
+
 	if (Bypass == TRUE) {
 		index = 0;
 	}
 	else {
 		index = 1;
 	}
-	
+
 	for (int i = index; i < (sizeof(NS1_Options)/sizeof(int)); i++) {
 		/* This is for the case where we want to bypass NS2 */
 		if ((NS1_Options[i] == OutDivMin) || (NS1_Options[i] == OutDivMax)) {
@@ -325,7 +325,7 @@ static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable, u8 Bypass)
 			NS2Max = 0;
 		}
 	}
-	
+
 	/* if this test passes, then we know we're not in the bypass case */
 	if (NS2Min == 1) {
 		/* The last element in the list */
@@ -337,11 +337,11 @@ static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable, u8 Bypass)
 		if (NS2Max == 0)
 			/* because we're rounding-down for the max, we may end-up with
 			   it being 0, in which case we need to make it 1 */
-			NS2Max = 1; 
+			NS2Max = 1;
 	}
-	 
+
 	NS2Temp = NS2Min;
-	
+
 	while (NS2Temp <= NS2Max) {
 		for (int i = index; i < (sizeof(NS1_Options)/sizeof(int)); i++) {
 			if (NS2Temp == 0) {
@@ -350,9 +350,9 @@ static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable, u8 Bypass)
 			else {
 				OutDivTemp = NS1_Options[i] * NS2Temp * 2;
 			}
-			
+
 			VCOTemp = FOut * OutDivTemp;
-			
+
 			if ((VCOTemp <= IDT_8T49N24X_FVCO_MAX) &&
 			    (VCOTemp >= IDT_8T49N24X_FVCO_MIN)) {
 				*DivTablePtr = OutDivTemp;
@@ -362,14 +362,14 @@ static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable, u8 Bypass)
 		}
 		NS2Temp++;
 	}
-	
+
 	return Count;
 }
 
 /*****************************************************************************/
 /**
 *
-* This function calculates the settings  
+* This function calculates the settings
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
@@ -386,57 +386,57 @@ static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
 {
 	int DivTable[20];
 	int DivTableCount;
-	
+
 	int MaxDiv = 0;
 	double FVCO;
 	int NS1_RegSettings;
 	int NS2_RegSettings;
-	
+
 	int NS1Ratio;
 	int NS2Ratio;
-	
+
 	double FracDiv;
-	
+
 	double UpperFBDiv;
 	int DSMInt_RegSettings;
 	int DSMFrac_RegSettings;
 	double Ratio;
-	
+
 	int LOS;
 
 	/* Get the valid integer dividers */
 	DivTableCount = IDT_8T49N24x_GetIntDivTable(FOut, DivTable, FALSE);
-	
+
 	/* Find the highest divider */
 	for (int i = 0; i < DivTableCount; i++) {
 		if (MaxDiv < DivTable[i]) {
 			MaxDiv = DivTable[i];
 		}
 	}
-	
+
 	FVCO = (double)FOut*MaxDiv;
-	
+
 	/***************************************************/
 	/* INTEGER DIVIDER: Determine NS1 register setting */
 	/***************************************************/
-	
+
 	/* Only use the divide-by-1 option for really small divide ratios
 	 * note that this option will never be on the list for the
 	 * Q0 - Q3 dividers
 	 */
-	if (MaxDiv < 4) { 
-		
+	if (MaxDiv < 4) {
+
 	}
-	
+
 	/* Make sure we can divide the ratio by 4 in NS1 and by 1 or an
 	 * even number in NS2
 	 */
 	if ((MaxDiv == 4) ||
-	    (MaxDiv % 8 == 0)) { 
+	    (MaxDiv % 8 == 0)) {
 		/* Divide by 4 register selection */
 		NS1_RegSettings = 2;
 	}
-	
+
 	/* Make sure we can divide the ratio by 5 in NS1 and by 1 or
 	 * an even number in NS2
 	 */
@@ -445,7 +445,7 @@ static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
 		/* Divide by 5 register selection */
 		NS1_RegSettings = 0;
 	}
-	
+
 	/* Make sure we can divide the ratio by 6 in NS1 and by 1 or
 	 * an even number in NS2
 	 */
@@ -454,45 +454,45 @@ static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
 		/* Divide by 6 register setting */
 		NS1_RegSettings = 1;
 	}
-	
+
 	/***************************************************/
 	/* INTEGER DIVIDER: Determine NS2 register setting */
 	/***************************************************/
-	
+
 	switch (NS1_RegSettings) {
 		case (0) :
 			NS1Ratio = 5;
 		break;
-		
+
 		case (1) :
 			NS1Ratio = 6;
 		break;
-		
+
 		case (2) :
 			NS1Ratio = 4;
 		break;
-		
+
 		case (3) :
 			/* This is the bypass (divide-by-1) option */
 			NS1Ratio = 1;
 		break;
-		
+
 		default :
 			NS1Ratio = 6;
 		break;
 	}
-	
+
 	/* floor(MaxDiv / NS1Ratio) */
 	NS2Ratio = (MaxDiv / NS1Ratio);
-	
+
 	/* floor(NS2Ratio/2) */
 	NS2_RegSettings = (NS2Ratio/2);
-	
+
 	/***************************************************/
 	/* FRACTIONAL DIVIDER:                             */
 	/***************************************************/
 	FracDiv = FVCO/FOut;
-	
+
 	u32 N_Q2 = 0;
 	u32 NFRAC_Q2 = 0;
 
@@ -524,12 +524,12 @@ static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
 	/*****************************************************/
 	/* Calculate the Upper Loop Feedback divider setting */
 	/*****************************************************/
-	
+
 	UpperFBDiv = (double)(FVCO) / (2*IDT_8T49N24X_XTAL_FREQ);
 
 	/* DSMInt_RegSettings = (int)floor(UpperFBDiv); */
 	DSMInt_RegSettings = (int)(UpperFBDiv);
-	
+
 	/*DSMFrac_RegSettings =
 	 * 			(int)round((UpperFBDiv - floor(UpperFBDiv))*pow(2,21));
 	 */
@@ -540,12 +540,12 @@ static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
 	/* Calculate the Lower Loop Feedback divider and
 	 * Input Divider
 	 *****************************************************/
-	
+
 	Ratio = FVCO/FIn;
-	
+
 	int M1 = 0;
 	int PMin = (int)FIn/IDT_8T49N24X_FPD_MAX;
-	
+
 	/* This M1 divider sets the input PFD frequency at 128KHz, the set max */
 	/* int M1Min = (int)(FVCO/IDT_8T49N24X_FPD_MAX); */
 
@@ -580,9 +580,9 @@ static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
 			break;
 		}
 	}
-	
+
 	/* Calculate LOS */
-	LOS = FVCO / 8 / FIn; 
+	LOS = FVCO / 8 / FIn;
 	LOS = LOS + 3;
 	if (LOS < 6)
 		LOS = 6;
@@ -590,7 +590,7 @@ static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
 	/* Copy registers */
 	RegSettings->NS1_Qx = NS1_RegSettings;
 	RegSettings->NS2_Qx = NS2_RegSettings;
-	
+
 	RegSettings->N_Qx = N_Q2;
 	RegSettings->NFRAC_Qx = NFRAC_Q2;
 
@@ -606,7 +606,7 @@ static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
 /*****************************************************************************/
 /**
 *
-* This function calculates and sets the IDT 8TN49N24x device with the 
+* This function calculates and sets the IDT 8TN49N24x device with the
 * given clock configuration.
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
@@ -621,7 +621,7 @@ static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
 *    - XST_SUCCESS Initialization was successful.
 *    - XST_FAILURE I2C write error or incorrect parameters detected.
 *
-* @note 
+* @note
 *
 ******************************************************************************/
 int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn,
@@ -633,12 +633,12 @@ int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn,
 	   (FIn > IDT_8T49N24X_FIN_MAX)) {
 		return XST_FAILURE;
 	}
-	
+
 	if ((FOut < IDT_8T49N24X_FOUT_MIN) &&
 		(FOut > IDT_8T49N24X_FOUT_MAX)) {
 		return XST_FAILURE;
 	}
-	
+
 	IDT_8T49N24x_Settings RegSettings;
 
 	/* Calculate settings */
@@ -671,7 +671,7 @@ int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn,
 							1, FALSE);
 
 		/* Set jitter attentuator mode */
-		Result = IDT_8T49N24x_Mode(I2CBaseAddress, I2CSlaveAddress, FALSE);	
+		Result = IDT_8T49N24x_Mode(I2CBaseAddress, I2CSlaveAddress, FALSE);
 	}
 
 	/* Pre-divider Input 0 */
@@ -737,8 +737,8 @@ int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn,
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
 *
 * @return
-*    - XST_SUCCESS 
-*    - XST_FAILURE 
+*    - XST_SUCCESS
+*    - XST_FAILURE
 *
 * @note None.
 *
@@ -756,17 +756,17 @@ static int IDT_8T49N24x_InputMonitorControl(u32 I2CBaseAddress,
 		Address = 0x0071;
 
 	/* LOSx[16] */
-	Data = (Value >> 16) & 0x1; 
+	Data = (Value >> 16) & 0x1;
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address, Data);
 
 	/* LOSx[15:8] */
-	Data = (Value >> 8); 
+	Data = (Value >> 8);
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+1, Data);
 
 	/* LOSx[7:0] */
-	Data = (Value & 0xff); 
+	Data = (Value & 0xff);
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+2, Data);
 
@@ -782,8 +782,8 @@ static int IDT_8T49N24x_InputMonitorControl(u32 I2CBaseAddress,
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
 *
 * @return
-*    - XST_SUCCESS 
-*    - XST_FAILURE 
+*    - XST_SUCCESS
+*    - XST_FAILURE
 *
 * @note None.
 *
@@ -801,17 +801,17 @@ static int IDT_8T49N24x_PreDivider(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 		Address = 0x000b;
 
 	/* PREx[20:16] */
-	Data = (Value >> 16) & 0x1f; 
+	Data = (Value >> 16) & 0x1f;
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address, Data);
 
 	/* PREx[15:8] */
-	Data = (Value >> 8); 
+	Data = (Value >> 8);
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+1, Data);
 
 	/* PREx[7:0] */
-	Data = (Value & 0xff); 
+	Data = (Value & 0xff);
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+2, Data);
 
@@ -827,8 +827,8 @@ static int IDT_8T49N24x_PreDivider(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
 *
 * @return
-*    - XST_SUCCESS 
-*    - XST_FAILURE 
+*    - XST_SUCCESS
+*    - XST_FAILURE
 *
 * @note None.
 *
@@ -846,17 +846,17 @@ static int IDT_8T49N24x_M1Feedback(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 		Address = 0x0014;
 
 	/* M1x[23:16] */
-	Data = (Value >> 16); 
+	Data = (Value >> 16);
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address, Data);
 
 	/* M1x[15:8] */
-	Data = (Value >> 8); 
+	Data = (Value >> 8);
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+1, Data);
 
 	/* M1x[7:0] */
-	Data = (Value & 0xff); 
+	Data = (Value & 0xff);
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+2, Data);
 
@@ -872,8 +872,8 @@ static int IDT_8T49N24x_M1Feedback(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
 *
 * @return
-*    - XST_SUCCESS 
-*    - XST_FAILURE 
+*    - XST_SUCCESS
+*    - XST_FAILURE
 *
 * @note None.
 *
@@ -885,12 +885,12 @@ static int IDT_8T49N24x_DSMInteger(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 	u8 Data;
 
 	/* DSM_INT[8] */
-	Data = (Value >> 8) & 0x01; 
+	Data = (Value >> 8) & 0x01;
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							0x0025, Data);
 
 	/* DSM_INT[7:0] */
-	Data = (Value & 0xff); 
+	Data = (Value & 0xff);
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							0x0026, Data);
 
@@ -906,8 +906,8 @@ static int IDT_8T49N24x_DSMInteger(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
 *
 * @return
-*    - XST_SUCCESS 
-*    - XST_FAILURE 
+*    - XST_SUCCESS
+*    - XST_FAILURE
 *
 * @note None.
 *
@@ -919,17 +919,17 @@ static int IDT_8T49N24x_DSMFractional(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 	u8 Data;
 
 	/* DSM_FRAC[20:16] */
-	Data = (Value >> 16) & 0x1f; 
+	Data = (Value >> 16) & 0x1f;
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							0x0028, Data);
 
 	/* DSM_FRAC[15:8] */
-	Data = (Value >> 8); 
+	Data = (Value >> 8);
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							0x0029, Data);
 
 	/* DSM_FRAC[7:0] */
-	Data = (Value & 0xff); 
+	Data = (Value & 0xff);
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							0x002a, Data);
 
@@ -945,8 +945,8 @@ static int IDT_8T49N24x_DSMFractional(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
 *
 * @return
-*    - XST_SUCCESS 
-*    - XST_FAILURE 
+*    - XST_SUCCESS
+*    - XST_FAILURE
 *
 * @note None.
 *
@@ -968,19 +968,19 @@ static int IDT_8T49N24x_OutputDividerInteger(u32 I2CBaseAddress,
 		case 3 : Address = 0x0048;
 			break;
 	}
-	
+
 	/* N_Qm[17:16] */
-	Data = (Value >> 16) & 0x03; 
+	Data = (Value >> 16) & 0x03;
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address, Data);
 
 	/* N_Qm[15:8] */
-	Data = (Value >> 8); 
+	Data = (Value >> 8);
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+1, Data);
 
 	/* N_Qm[7:0] */
-	Data = (Value & 0xff); 
+	Data = (Value & 0xff);
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+2, Data);
 
@@ -996,8 +996,8 @@ static int IDT_8T49N24x_OutputDividerInteger(u32 I2CBaseAddress,
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
 *
 * @return
-*    - XST_SUCCESS 
-*    - XST_FAILURE 
+*    - XST_SUCCESS
+*    - XST_FAILURE
 *
 * @note None.
 *
@@ -1019,24 +1019,24 @@ static int IDT_8T49N24x_OutputDividerFractional(u32 I2CBaseAddress,
 		case 3 : Address = 0x005f;
 			break;
 	}
-	
+
 	/* NFRAC_Qm[27:24] */
-	Data = (Value >> 24) & 0x0f; 
+	Data = (Value >> 24) & 0x0f;
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address, Data);
 
 	/* NFRAC_Qm[23:16] */
-	Data = (Value >> 16); 
+	Data = (Value >> 16);
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+1, Data);
 
 	/* NFRAC_Qm[15:8] */
-	Data = (Value >> 8); 
+	Data = (Value >> 8);
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+2, Data);
 
 	/* NFRAC_Qm[7:0] */
-	Data = (Value & 0xff); 
+	Data = (Value & 0xff);
 	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+3, Data);
 
@@ -1052,8 +1052,8 @@ static int IDT_8T49N24x_OutputDividerFractional(u32 I2CBaseAddress,
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
 *
 * @return
-*    - XST_SUCCESS 
-*    - XST_FAILURE 
+*    - XST_SUCCESS
+*    - XST_FAILURE
 *
 * @note None.
 *
@@ -1105,8 +1105,8 @@ static int IDT_8T49N24x_Mode(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
 *
 * @return
-*    - XST_SUCCESS 
-*    - XST_FAILURE 
+*    - XST_SUCCESS
+*    - XST_FAILURE
 *
 * @note None.
 *
@@ -1152,8 +1152,8 @@ static int IDT_8T49N24x_ReferenceInput(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
 *
 * @return
-*    - XST_SUCCESS 
-*    - XST_FAILURE 
+*    - XST_SUCCESS
+*    - XST_FAILURE
 *
 * @note None.
 *
@@ -1307,8 +1307,8 @@ void IDT_8T49N24x_RegisterDump(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
 *
 * @return
-*    - XST_SUCCESS 
-*    - XST_FAILURE 
+*    - XST_SUCCESS
+*    - XST_FAILURE
 *
 * @note None.
 *
@@ -1362,8 +1362,8 @@ static int IDT_8T49N24x_GPIO(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
 *
 * @return
-*    - XST_SUCCESS 
-*    - XST_FAILURE 
+*    - XST_SUCCESS
+*    - XST_FAILURE
 *
 * @note None.
 *
@@ -1380,12 +1380,12 @@ static int IDT_8T49N24x_SelectInputReference(u32 I2CBaseAddress,
 
 	/* Clock 1 */
 	if (Input == 1) {
-		Value = (0x05 << Shift); 
+		Value = (0x05 << Shift);
 	}
 
 	/* Clock 0 */
 	else {
-		Value = (0x04 << Shift); 	
+		Value = (0x04 << Shift);
 	}
 	Mask = 0x07 << Shift;
 
@@ -1404,8 +1404,8 @@ static int IDT_8T49N24x_SelectInputReference(u32 I2CBaseAddress,
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
 *
 * @return
-*    - XST_SUCCESS 
-*    - XST_FAILURE 
+*    - XST_SUCCESS
+*    - XST_FAILURE
 *
 * @note None.
 *
@@ -1431,22 +1431,22 @@ static int IDT_8T49N24x_OutputDriver(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 
 	/* OUTMODE */
 	switch (Output) {
-		case 0 : 
+		case 0 :
 			Address = 0x003e;
 			Shift = 1;
 			break;
 
-		case 1 : 
+		case 1 :
 			Address = 0x003e;
 			Shift = 5;
 			break;
 
-		case 2 : 
+		case 2 :
 			Address = 0x003d;
 			Shift = 1;
 			break;
 
-		case 3 : 
+		case 3 :
 			Address = 0x003d;
 			Shift = 5;
 			break;
@@ -1489,8 +1489,8 @@ static int IDT_8T49N24x_OutputDriver(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
 *
 * @return
-*    - XST_SUCCESS 
-*    - XST_FAILURE 
+*    - XST_SUCCESS
+*    - XST_FAILURE
 *
 * @note None.
 *
@@ -1516,11 +1516,11 @@ int IDT_8T49N24x_SetGPOut(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 PortID,
 		print("Invalid port ID\r\n");
 		return XST_FAILURE;
 	}
-	
+
 	u32 ByteCount = 0;
 	u8 Data = 0;
 	u8 Buffer[3];
-	
+
 	Buffer[0] = 0x00; /* MSB RegAddr */
 	Buffer[1] = 0x38; /* LSB RegAddr */
 	ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer, 2,
@@ -1534,14 +1534,14 @@ int IDT_8T49N24x_SetGPOut(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 PortID,
 		return XST_FAILURE;
 	}
 	Data = Buffer[0];
-	
+
 	if (Set == TRUE) {
 		Data |= (1<<PortID);
 	}
 	else {
 		Data &= ~(1<<PortID);
 	}
-	
+
 	Buffer[0] = 0x00; /* MSB RegAddr */
 	Buffer[1] = 0x38; /* LSB RegAddr */
 	Buffer[2] = Data;
@@ -1550,7 +1550,7 @@ int IDT_8T49N24x_SetGPOut(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 PortID,
 	if (ByteCount != 3) {
 		return XST_FAILURE;
 	}
-	
+
 	return XST_SUCCESS;
 }
 

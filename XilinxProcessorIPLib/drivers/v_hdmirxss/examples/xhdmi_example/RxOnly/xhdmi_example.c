@@ -100,6 +100,8 @@
 *       GM              Added support for ZCU104
 *       SM     28/02/18 Added code to call API for setting App version to
 *                            support backward compatibility related issues.
+* 3.01  EB     09/04/18 Updated XV_ConfigTpg and EnableColorBar APIs
+*              18/04/18 Updated RxBrdgOverflowCallback to remove printing
 * </pre>
 *
 ******************************************************************************/
@@ -114,7 +116,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 /* These macro values need to changed whenever there is a change in version */
 #define APP_MAJ_VERSION 3
-#define APP_MIN_VERSION 0
+#define APP_MIN_VERSION 1
 
 /**************************** Type Definitions *******************************/
 
@@ -537,8 +539,8 @@ void RxConnectCallback(void *CallbackRef) {
 *
 ******************************************************************************/
 void RxBrdgOverflowCallback(void *CallbackRef) {
-	xil_printf(ANSI_COLOR_YELLOW "RX Video Bridge Overflow"
-			   ANSI_COLOR_RESET "\r\n");
+/*	xil_printf(ANSI_COLOR_YELLOW "RX Video Bridge Overflow"
+			ANSI_COLOR_RESET "\r\n");*/
 /*	XV_HdmiRx_VideoEnable(HdmiRxSs.HdmiRxPtr, (FALSE));
 	XV_HdmiRx_VideoEnable(HdmiRxSs.HdmiRxPtr, (TRUE));*/
 }

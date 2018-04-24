@@ -4,7 +4,7 @@
 * @file idt_8t49n24x.h
 * @addtogroup IDT_8T49N24x
 * @{
-* 
+*
 * <pre>
 * Copyright (c) 2016 Xilinx, Inc.
 * Copyright (c) 2016 Adeas B.V. All rights reserved.
@@ -60,8 +60,8 @@ extern "C" {
 /*
 	This configuration was created with the IDT timing commander.
 	IT configures the clock device in synthesizer mode.
-	It produces a 148.5 MHz free running clock on outputs Q2 and Q3. 
-*/ 
+	It produces a 148.5 MHz free running clock on outputs Q2 and Q3.
+*/
 static const u8 IDT_8T49N24x_Config_Syn[] = {
 	0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE, 0xEF, 0x00, 0x03, 0x00, 0x31, 0x00,
 	0x04, 0x89, 0x00, 0x00, 0x01, 0x00, 0x63, 0xC6, 0x07, 0x00, 0x00, 0x77,
@@ -81,7 +81,7 @@ static const u8 IDT_8T49N24x_Config_Syn[] = {
 	It configures the clock device is Jitter Attenuator mode.
 	It produces a 148.5 MHz clock on outputs Q2 and Q3 from an incoming
 	148.5 MHz clock.
-*/ 
+*/
 static const u8 IDT_8T49N24x_Config_JA[] = {
 	0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE, 0xEF, 0x00, 0x03, 0x00, 0x20, 0x00,
 	0x04, 0x89, 0x00, 0x00, 0x01, 0x00, 0x63, 0xC6, 0x07, 0x00, 0x00, 0x77,
@@ -102,22 +102,22 @@ typedef struct {
 	// Integer Output Divider
 	u8  NS1_Qx;
 	u16 NS2_Qx;
-	
+
 	// Fractional Output Divider
 	u32 N_Qx;
 	u32 NFRAC_Qx;
-	
+
 	// Upper Loop Feedback Divider
 	u16 DSM_INT;
 	u32 DSM_FRAC;
-	
+
 	// Lower Loop Dividers
 	u32 M1_x;
 	u32 PRE_x;
 
 	// Input monitor clocks
 	u32 LOS_x;
-	
+
 } IDT_8T49N24x_Settings;
 
 /***************** Macros (Inline Functions) Definitions *********************/
