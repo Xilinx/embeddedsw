@@ -41,8 +41,8 @@
 ##  1.5     MMO      3/01/17 Fix the TCL to support multiple instance and sync
 ##                           with XV_HdmiTxSs_Config Data Structure
 ##  1.6     MM0     13/02/17 Fix by adding typecasting for C++ Fix
-##  1.7     MMO     08/02/18 Adding YUV420 Support and Low Resolution 
-##                           (NTSC/PAL) Support capability 
+##  1.7     MMO     08/02/18 Adding YUV420 Support and Low Resolution
+##                           (NTSC/PAL) Support capability
 #
 ################################################################################
 
@@ -147,7 +147,7 @@ proc hier_ip_define_include_file {drv_handle file_name drv_string args} {
 					set value 0
 				}
 			}
-			
+
 			if {[string compare -nocase "C_INCLUDE_YUV420_SUP" $arg] == 0} {
 				if {$value=="TRUE"} {
 					set value 1
@@ -234,7 +234,7 @@ proc hier_ip_define_canonical_xpars {drv_handle file_name drv_string args} {
                     }
                     set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
                 }
-				
+
 				if {[string compare -nocase "C_INCLUDE_LOW_RESO_VID" $arg] == 0} {
 					if {$rvalue=="TRUE"} {
 						set rvalue 1
@@ -249,7 +249,7 @@ proc hier_ip_define_canonical_xpars {drv_handle file_name drv_string args} {
 						set rvalue 0
 					}
 				}
-				
+
 				if {[string compare -nocase "C_INCLUDE_YUV420_SUP" $arg] == 0} {
 					if {$rvalue=="TRUE"} {
 						set rvalue 1
