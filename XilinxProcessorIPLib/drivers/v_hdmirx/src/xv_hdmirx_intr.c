@@ -62,6 +62,7 @@
 *              16/11/17 Update Reset sequence with dedicated reset for
 *                           each clock domain
 *       MMO    08/02/18 Adding proper handling for Sync Loss/Sync Recover
+* 2.10  YH     13/04/18 Fixed a bug in PioIntrHandler
 * </pre>
 *
 ******************************************************************************/
@@ -707,6 +708,13 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
         }
     }
 
+    /* Bridge Overflow event has occurred */
+    if ((Event) & (XV_HDMIRX_PIO_IN_BRDG_OVERFLOW_MASK)) {
+        // Check if user callback has been registered
+        if (InstancePtr->IsBrdgOverflowCallbackSet) {
+            InstancePtr->BrdgOverflowCallback(InstancePtr->BrdgOverflowRef);
+        }
+    }
 
 }
 
