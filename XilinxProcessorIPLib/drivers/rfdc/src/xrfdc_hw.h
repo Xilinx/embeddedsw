@@ -1478,6 +1478,7 @@ extern "C" {
  */
 
 #define XRFDC_RX_MC_CFG0_MASK		0x0000FFFFU	/**< RX MC config0 */
+#define XRFDC_RX_MC_CFG0_CM_MASK	0x00000040U /**< Coupling mode mask */
 
 /* @} */
 
