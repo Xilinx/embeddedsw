@@ -1,3 +1,11 @@
+Changes for 2018.3
+===============================
+scugic_v3_10:
+Updated get_psu_interrupt_id to generate correct
+interrupt id's, when output of utility reduced logic
+is connected to pl-ps interrupt as well as ILA probe.
+Fix for CR#999732.
+
 Changes for 2018.2
 ===============================
 v_hdmirxss_v5_1:
