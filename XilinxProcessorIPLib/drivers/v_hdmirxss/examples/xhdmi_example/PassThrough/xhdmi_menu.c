@@ -75,6 +75,7 @@
 *       EB   16-01-2018 Added Audio Channel Menu
 *       EB   23-01-2018 Reset the counter tagged to the events logged whenever
 *                               log is displayed
+* 1.12  EB   09-04-2018 Fixed messages printing issue
 * </pre>
 *
 ******************************************************************************/
@@ -414,9 +415,9 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			// Check if a source is connected
 			if (HdmiRxSs.IsStreamConnected == (TRUE)) {
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-				xil_printf("\r\nForce pass-through\r\n");
+				xil_printf("Force pass-through\r\n");
 #elif defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-				xil_printf("\r\nToggle HDMI RX HPD\r\n");
+				xil_printf("Toggle HDMI RX HPD\r\n");
 #endif
 				XVphy_MmcmPowerDown(&Vphy, 0, XVPHY_DIR_RX, FALSE);
 				XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_RX, (FALSE));
@@ -479,7 +480,7 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 			// Pass-through
 			else {
-				xil_printf("\r\nThe example design is in pass-through mode.\r\n");
+				xil_printf("The example design is in pass-through mode.\r\n");
 				xil_printf("In this mode the video parameters can't be changed.\r\n");
 			}
 			break;
@@ -506,7 +507,7 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 			// Pass-through
 			else {
-				xil_printf("\r\nThe example design is in pass-through mode.\r\n");
+				xil_printf("The example design is in pass-through mode.\r\n");
 				xil_printf("In this mode the video parameters can't be changed.\r\n");
 			}
 			break;
@@ -533,7 +534,7 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 			// Pass-through
 			else {
-				xil_printf("\r\nThe example design is in pass-through mode.\r\n");
+				xil_printf("The example design is in pass-through mode.\r\n");
 				xil_printf("In this mode the video parameters can't be changed.\r\n");
 			}
 			break;
@@ -559,7 +560,7 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 			// Pass-through
 			else {
-				xil_printf("\r\nThe example design is in pass-through mode.\r\n");
+				xil_printf("The example design is in pass-through mode.\r\n");
 				xil_printf("In this mode the video parameters can't be changed.\r\n");
 			}
 			break;
@@ -591,7 +592,7 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			// HDMI Mode
 		case ('m') :
 		case ('M') :
-			xil_printf("\r\nSet TX Mode To HDMI.\r\n");
+			xil_printf("Set TX Mode To HDMI.\r\n");
 			XV_HdmiTxSS_SetHdmiMode(&HdmiTxSs);
 			XV_HdmiTxSs_AudioMute(&HdmiTxSs, FALSE);
 			Menu = XHDMI_MAIN_MENU;
@@ -600,7 +601,7 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			// DVI Mode
 		case ('n') :
 		case ('N') :
-			xil_printf("\r\nSet TX Mode To DVI .\r\n");
+			xil_printf("Set TX Mode To DVI .\r\n");
 			XV_HdmiTxSs_AudioMute(&HdmiTxSs, TRUE);
 			XV_HdmiTxSS_SetDviMode(&HdmiTxSs);
 			Menu = XHDMI_MAIN_MENU;
@@ -1785,7 +1786,7 @@ static XHdmi_MenuType XHdmi_AudioMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	switch (Input) {
 			// Mute
 		case 1 :
-			xil_printf("\r\nMute audio.\r\n");
+			xil_printf("Mute audio.\r\n");
 			XV_HdmiTxSs_AudioMute(&HdmiTxSs, TRUE);
 			// Display the prompt for the next input
 			xil_printf("Enter Selection -> ");
@@ -1793,7 +1794,7 @@ static XHdmi_MenuType XHdmi_AudioMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 			// Unmute
 		case 2 :
-			xil_printf("\r\nUnmute audio.\r\n");
+			xil_printf("Unmute audio.\r\n");
 			XV_HdmiTxSs_AudioMute(&HdmiTxSs, FALSE);
 			// Display the prompt for the next input
 			xil_printf("Enter Selection -> ");
@@ -1801,19 +1802,19 @@ static XHdmi_MenuType XHdmi_AudioMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 			// Audio channels
 		case 3 :
-			xil_printf("\r\nDisplay Audio Channels menu.\r\n");
+			xil_printf("Display Audio Channels menu.\r\n");
 			XHdmi_DisplayAudioChannelMenu();
 			Menu = XHDMI_AUDIO_CHANNEL_MENU;
 			break;
 
 			// Exit
 		case 99 :
-			xil_printf("\r\nReturning to main menu.\r\n");
+			xil_printf("Returning to main menu.\r\n");
 			Menu = XHDMI_MAIN_MENU;
 			break;
 
 		default :
-			xil_printf("\r\nUnknown option\r\n");
+			xil_printf("Unknown option\r\n");
 			XHdmi_DisplayAudioMenu();
 			break;
 	}
@@ -1866,7 +1867,7 @@ static XHdmi_MenuType XHdmi_AudioChannelMenu(XHdmi_Menu *InstancePtr, u8 Input) 
 	switch (Input) {
 			// 2 Audio Channels
 		case 1 :
-			print("\r\n2 Audio Channels.\r\n");
+			print("2 Audio Channels.\r\n");
 			XhdmiAudGen_SetEnabChannels(&AudioGen, 2);
 			XhdmiAudGen_SetPattern(&AudioGen, 1, XAUD_PAT_SINE);
 			XhdmiAudGen_SetPattern(&AudioGen, 2, XAUD_PAT_PING);
@@ -1880,7 +1881,7 @@ static XHdmi_MenuType XHdmi_AudioChannelMenu(XHdmi_Menu *InstancePtr, u8 Input) 
 
 			// 8 Audio Channels
 		case 2 :
-			print("\r\n8 Audio Channels.\r\n");
+			print("8 Audio Channels.\r\n");
 			XhdmiAudGen_SetEnabChannels(&AudioGen, 8);
 			XhdmiAudGen_SetPattern(&AudioGen, 1, XAUD_PAT_SINE);
 			XhdmiAudGen_SetPattern(&AudioGen, 2, XAUD_PAT_PING);
@@ -1900,12 +1901,12 @@ static XHdmi_MenuType XHdmi_AudioChannelMenu(XHdmi_Menu *InstancePtr, u8 Input) 
 
 			// Exit
 		case 99 :
-			xil_printf("\r\nReturning to audio menu.\r\n");
+			xil_printf("Returning to audio menu.\r\n");
 			Menu = XHDMI_AUDIO_MENU;
 			break;
 
 		default :
-			xil_printf("\r\nUnknown option\r\n");
+			xil_printf("Unknown option\r\n");
 			XHdmi_DisplayAudioChannelMenu();
 			break;
 	}
@@ -2294,12 +2295,12 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 			// Exit
 		case 99 :
-			xil_printf("\r\nReturning to main menu.\r\n");
+			xil_printf("Returning to main menu.\r\n");
 			Menu = XHDMI_MAIN_MENU;
 			break;
 
 		default :
-			xil_printf("\r\nUnknown option\r\n");
+			xil_printf("Unknown option\r\n");
 			XHdmi_DisplayDebugMainMenu();
 			break;
 	}
@@ -2331,7 +2332,7 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 		InstancePtr->WaitForColorbar = (FALSE);
 		xil_printf("Enter Selection -> ");
 	}
-#endif	
+#endif
 
 	// Check if the uart has any data
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
@@ -2339,7 +2340,7 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 	else if (!XUartLite_IsReceiveEmpty(InstancePtr->UartBaseAddress)) {
 #else
 	if (!XUartLite_IsReceiveEmpty(InstancePtr->UartBaseAddress)) {
-#endif	
+#endif
 
 		// Read data from uart
 		Data = XUartLite_RecvByte(InstancePtr->UartBaseAddress);
@@ -2369,7 +2370,7 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 #endif
 			// Alpha numeric data
 			if (isalpha(Data)) {
-				xil_printf("\r\nInvalid input. Valid entry is only digits 0-9. Try again\r\n\r\n");
+				xil_printf("Invalid input. Valid entry is only digits 0-9. Try again\r\n\r\n");
 				xil_printf("Enter Selection -> ");
 				InstancePtr->Value = 0;
 			}
@@ -2386,6 +2387,7 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 
 			// Execute
 			else if ((Data == '\n') || (Data == '\r')) {
+				xil_printf("\r\n");
 				InstancePtr->CurrentMenu = XHdmi_MenuTable[InstancePtr->CurrentMenu](InstancePtr, InstancePtr->Value);
 				InstancePtr->Value = 0;
 			}

@@ -88,7 +88,7 @@
 *              16/11/17 Added bridge overflow interrupt
 *       EB     16/01/18 Added InfoFrame data structure to XV_HdmiRxSs
 *                       Added XV_HDMIRXSS_LOG_EVT_PIX_REPEAT_ERR log event
-*                       Added functions XV_HdmiRxSs_GetAviInfoframe, 
+*                       Added functions XV_HdmiRxSs_GetAviInfoframe,
 *                           XV_HdmiRxSs_GetGCP, XV_HdmiRxSs_GetAudioInfoframe,
 *                           XV_HdmiRxSs_GetVSIF
 *       SM     28/02/18 Added XV_HdmiRxSS_SetAppVersion API and AppMajVer and
@@ -258,8 +258,8 @@ typedef enum {
   XV_HDMIRXSS_HANDLER_CONNECT = 1,                  /**< Handler for connect
                                                          event */
   XV_HDMIRXSS_HANDLER_BRDGOVERFLOW,                 /**< Handler for
-                                                         bridge fifo overflow 
-														 event */														 
+                                                         bridge fifo overflow
+														 event */
   XV_HDMIRXSS_HANDLER_AUX,                          /**< Handler for AUX
                                                          peripheral event */
   XV_HDMIRXSS_HANDLER_AUD,                          /**< Handler for AUD
@@ -371,9 +371,9 @@ typedef struct
 
   XV_HdmiRxSs_Callback BrdgOverflowCallback;  /**< Callback for Bridge overflow
                                            event */
-  void *BrdgOverflowRef;         /**< To be passed to the Bridge overflow 
+  void *BrdgOverflowRef;         /**< To be passed to the Bridge overflow
                                     callback */
-  
+
   XV_HdmiRxSs_Callback AuxCallback;     /**< Callback for AUX event */
   void *AuxRef;         /**< To be passed to the AUX callback */
 

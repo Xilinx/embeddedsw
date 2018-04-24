@@ -75,6 +75,7 @@
 *       EB   16-01-2018 Added Audio Channel Menu
 *       EB   23-01-2018 Reset the counter tagged to the events logged whenever
 *                               log is displayed
+* 1.12  EB   09-04-2018 Fixed messages printing issue
 * </pre>
 *
 ******************************************************************************/
@@ -284,7 +285,7 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 		case ('P') :
 			// Check if a source is connected
 			if (HdmiRxSs.IsStreamConnected == (TRUE)) {
-				xil_printf("\r\nToggle HDMI RX HPD\r\n");
+				xil_printf("Toggle HDMI RX HPD\r\n");
 				XVphy_MmcmPowerDown(&Vphy, 0, XVPHY_DIR_RX, FALSE);
 				XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_RX, (FALSE));
 				XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (FALSE));
@@ -709,12 +710,12 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 			// Exit
 		case 99 :
-			xil_printf("\r\nReturning to main menu.\r\n");
+			xil_printf("Returning to main menu.\r\n");
 			Menu = XHDMI_MAIN_MENU;
 			break;
 
 		default :
-			xil_printf("\r\nUnknown option\r\n");
+			xil_printf("Unknown option\r\n");
 			XHdmi_DisplayDebugMainMenu();
 			break;
 	}
@@ -770,7 +771,7 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 #endif
 			// Alpha numeric data
 			if (isalpha(Data)) {
-				xil_printf("\r\nInvalid input. Valid entry is only digits 0-9. Try again\r\n\r\n");
+				xil_printf("Invalid input. Valid entry is only digits 0-9. Try again\r\n\r\n");
 				xil_printf("Enter Selection -> ");
 				InstancePtr->Value = 0;
 			}
@@ -787,6 +788,7 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 
 			// Execute
 			else if ((Data == '\n') || (Data == '\r')) {
+				xil_printf("\r\n");
 				InstancePtr->CurrentMenu = XHdmi_MenuTable[InstancePtr->CurrentMenu](InstancePtr, InstancePtr->Value);
 				InstancePtr->Value = 0;
 			}

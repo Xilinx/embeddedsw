@@ -100,6 +100,8 @@
 *       GM              Added support for ZCU104
 *       SM     28/02/18 Added code to call API for setting App version to
 *                            support backward compatibility related issues.
+* 3.01  EB     09/04/18 Updated XV_ConfigTpg and EnableColorBar APIs
+*              18/04/18 Updated RxBrdgOverflowCallback to remove printing
 * </pre>
 *
 ******************************************************************************/
@@ -114,7 +116,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 /* These macro values need to changed whenever there is a change in version */
 #define APP_MAJ_VERSION 3
-#define APP_MIN_VERSION 0
+#define APP_MIN_VERSION 1
 
 /**************************** Type Definitions *******************************/
 
@@ -343,7 +345,7 @@ void XV_ConfigTpg(XV_tpg *InstancePtr)
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 	XHdmiC_AVI_InfoFrame  *AVIInfoFramePtr;
 #endif
-	
+
 	HdmiTxSsVidStreamPtr = XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
 
 	u32 width, height;
@@ -358,7 +360,7 @@ void XV_ConfigTpg(XV_tpg *InstancePtr)
 		/* NTSC/PAL Support */
 		if ((VideoMode == XVIDC_VM_1440x480_60_I) ||
 				(VideoMode == XVIDC_VM_1440x576_50_I) ) {
-					
+
 			width  = HdmiTxSsVidStreamPtr->Timing.HActive/2;
 			height = HdmiTxSsVidStreamPtr->Timing.VActive;
 		} else {
@@ -372,7 +374,7 @@ void XV_ConfigTpg(XV_tpg *InstancePtr)
 		 * As this design is pass-through, is save to read the incoming
 		 * stream Info frame*/
 		AVIInfoFramePtr = XV_HdmiRxSs_GetAviInfoframe(&HdmiRxSs);
-		
+
 		/* If the incoming (HDMI RX) info frame (pixel repetition) = 2 */
 		/* The 480i/576i HActive need to be divided by 2 */
 		if (AVIInfoFramePtr->PixelRepetition ==
@@ -380,34 +382,39 @@ void XV_ConfigTpg(XV_tpg *InstancePtr)
 			width  = HdmiTxSsVidStreamPtr->Timing.HActive/2;
 			height = HdmiTxSsVidStreamPtr->Timing.VActive;
 		} else {
-			/*If Pixel Repetition != 2, the HActive, and VActive 
-			* remain as it is*/
+			/* If Pixel Repetition != 2, the HActive, and VActive
+			 * remain as it is */
 			width  = HdmiTxSsVidStreamPtr->Timing.HActive;
 			height = HdmiTxSsVidStreamPtr->Timing.VActive;
 		}
 	}
 #endif
-	//Stop TPG
-	XV_tpg_DisableAutoRestart(pTpg);
 
-	XV_tpg_Set_height(pTpg, height);
-	XV_tpg_Set_width(pTpg,  width);
-	XV_tpg_Set_colorFormat(pTpg, HdmiTxSsVidStreamPtr->ColorFormatId);
-	XV_tpg_Set_bckgndId(pTpg, Pattern);
-	XV_tpg_Set_ovrlayId(pTpg, 0);
+	/* Work around */
+	/* Can't set TPG to pass-through mode if the width or height = 0 */
+	if (!((width == 0 || height == 0) && IsPassThrough)) {
+		//Stop TPG
+		XV_tpg_DisableAutoRestart(pTpg);
 
-	XV_tpg_Set_enableInput(pTpg, IsPassThrough);
+		XV_tpg_Set_height(pTpg, height);
+		XV_tpg_Set_width(pTpg,  width);
+		XV_tpg_Set_colorFormat(pTpg, HdmiTxSsVidStreamPtr->ColorFormatId);
+		XV_tpg_Set_bckgndId(pTpg, Pattern);
+		XV_tpg_Set_ovrlayId(pTpg, 0);
 
-	if (IsPassThrough) {
-		XV_tpg_Set_passthruStartX(pTpg,0);
-		XV_tpg_Set_passthruStartY(pTpg,0);
-		XV_tpg_Set_passthruEndX(pTpg,width);
-		XV_tpg_Set_passthruEndY(pTpg,height);
+		XV_tpg_Set_enableInput(pTpg, IsPassThrough);
+
+		if (IsPassThrough) {
+			XV_tpg_Set_passthruStartX(pTpg,0);
+			XV_tpg_Set_passthruStartY(pTpg,0);
+			XV_tpg_Set_passthruEndX(pTpg,width);
+			XV_tpg_Set_passthruEndY(pTpg,height);
+		}
+
+		//Start TPG
+		XV_tpg_EnableAutoRestart(pTpg);
+		XV_tpg_Start(pTpg);
 	}
-
-	//Start TPG
-	XV_tpg_EnableAutoRestart(pTpg);
-	XV_tpg_Start(pTpg);
 }
 
 void ResetTpg(void)
@@ -1101,7 +1108,7 @@ void RxConnectCallback(void *CallbackRef) {
 			 * mode
 			 */
 			IsPassThrough = (FALSE);
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES			
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 			/* Start colorbar with same
 			 * video parameters */
 			if (TxCableConnect) {
@@ -1146,8 +1153,8 @@ void RxConnectCallback(void *CallbackRef) {
 *
 ******************************************************************************/
 void RxBrdgOverflowCallback(void *CallbackRef) {
-	xil_printf(ANSI_COLOR_YELLOW "RX Video Bridge Overflow"
-			   ANSI_COLOR_RESET "\r\n");
+/*	xil_printf(ANSI_COLOR_YELLOW "RX Video Bridge Overflow"
+			ANSI_COLOR_RESET "\r\n");*/
 /*	XV_HdmiRx_VideoEnable(HdmiRxSs.HdmiRxPtr, (FALSE));
 	XV_HdmiRx_VideoEnable(HdmiRxSs.HdmiRxPtr, (TRUE));*/
 }
@@ -1479,7 +1486,7 @@ void RxStreamDownCallback(void *CallbackRef) {
 			 * 1 - When resolution change
 			 * 2 - When the source stops sending stream even the RX cable
 			 *     is connected
-			 * In this example, The color bar should happen only for 2 
+			 * In this example, The color bar should happen only for 2
 			 * scenarios, when the TX Cable is still connected
 			 * 1 - When pressing "c" by forcing the color bar
 			 * 2 - When RX cable is disconnected
@@ -1817,7 +1824,7 @@ void TxStreamUpCallback(void *CallbackRef) {
 #endif
 		/* Call HDCP stream-up callback */
 		XHdcp_StreamUpCallback(&HdcpRepeater);
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES		
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 	}
 #endif
@@ -2210,7 +2217,8 @@ void EnableColorBar(XVphy                *VphyPtr,
 
 	// Check if the TX isn't busy already
 	if (!CheckTxBusy()) {
-		TxBusy = (TRUE);    // Set TX busy flag
+		IsPassThrough = (FALSE); /* Set Color Bar */
+		TxBusy = (TRUE);         /* Set TX busy flag */
 #if(CUSTOM_RESOLUTION_ENABLE == 1)
 		if (VideoMode < XVIDC_VM_NUM_SUPPORTED ||
 				(VideoMode > XVIDC_VM_CUSTOM &&
@@ -2219,14 +2227,14 @@ void EnableColorBar(XVphy                *VphyPtr,
 		if (VideoMode < XVIDC_VM_NUM_SUPPORTED) {
 #endif
 			xil_printf("Starting colorbar\r\n");
-			IsPassThrough = (FALSE);
 
 			// Disable TX TDMS clock
 			XVphy_Clkout1OBufTdsEnable(VphyPtr, XVPHY_DIR_TX, (FALSE));
 
 		} else {
-			TxBusy = (FALSE);  
-			xil_printf("Video Mode Not Supported\r\n");
+			TxBusy = (FALSE);
+			xil_printf("Video mode not supported, please change"
+					" video mode\r\n");
 			return;
 		}
 
@@ -2312,7 +2320,7 @@ int main() {
 	xil_printf("--------------------------------------\r\n");
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 	StartTxAfterRxFlag = (FALSE);
-	
+
 #if(LOOPBACK_MODE_EN != 1)
 	TxBusy            = (TRUE);
 	TxRestartColorbar = (FALSE);
