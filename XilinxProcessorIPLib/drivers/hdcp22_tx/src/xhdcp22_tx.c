@@ -4275,7 +4275,7 @@ void XHdcp22Tx_LogDisplay(XHdcp22_Tx *InstancePtr)
 #endif
 
 	xil_printf("\r\n-------HDCP22 TX log start-------\r\n");
-	xil_printf("[Time(us):Delta(us)] <Event>\n\r");
+	xil_printf("[Time(us):Delta(us)] <Event>\r\n");
 	strcpy(str, "UNDEFINED");
 	do {
 		/* Read log data */
@@ -4454,44 +4454,46 @@ void XHdcp22Tx_Info(XHdcp22_Tx *InstancePtr)
 	if (XHdcp22Tx_IsEnabled(InstancePtr)) {
 		switch (InstancePtr->Info.AuthenticationStatus) {
 			case XHDCP22_TX_INCOMPATIBLE_RX :
-			xil_printf("RX is incompatible.\n\r");
+			xil_printf("RX is incompatible.\r\n");
 			break;
 
 			case XHDCP22_TX_AUTHENTICATION_BUSY :
-			xil_printf("Busy Authentication.\n\r");
+			xil_printf("Busy Authentication.\r\n");
 			break;
 
 			case XHDCP22_TX_REAUTHENTICATE_REQUESTED :
-			xil_printf("Re-authentication Requested.\n\r");
+			xil_printf("Re-authentication Requested.\r\n");
 			break;
 
 			case XHDCP22_TX_UNAUTHENTICATED :
-			xil_printf("Not Authenticated.\n\r");
+			xil_printf("Not Authenticated.\r\n");
 			break;
 
 			case XHDCP22_TX_AUTHENTICATED :
-			xil_printf("Authenticated.\n\r");
+			xil_printf("Authenticated.\r\n");
 			break;
 
-            case XHDCP22_TX_DEVICE_IS_REVOKED :
-            xil_printf("Device Revoked.\n\r");
+			case XHDCP22_TX_DEVICE_IS_REVOKED :
+			xil_printf("Device Revoked.\r\n");
+			break;
 
-            case XHDCP22_TX_NO_SRM_LOADED :
-            xil_printf("No SRM Loaded.\n\r");
+			case XHDCP22_TX_NO_SRM_LOADED :
+			xil_printf("No SRM Loaded.\r\n");
+			break;
 
 			default :
-			xil_printf("Unknown state.\n\r");
+			xil_printf("Unknown state.\r\n");
 			break;
 		}
 	} else {
-		xil_printf("Core is disabled.\n\r");
+		xil_printf("Core is disabled.\r\n");
 	}
 
 	xil_printf("Encryption : ");
 	if (XHdcp22Tx_IsEncryptionEnabled(InstancePtr)) {
-		xil_printf("Enabled.\n\r");
+		xil_printf("Enabled.\r\n");
 	} else {
-		xil_printf("Disabled.\n\r");
+		xil_printf("Disabled.\r\n");
 	}
 
 	xil_printf("Repeater: ");
@@ -4506,14 +4508,14 @@ void XHdcp22Tx_Info(XHdcp22_Tx *InstancePtr)
 			xil_printf("Hdcp1DeviceDownstream, ");
 		xil_printf("Depth=%d, ", InstancePtr->Topology.Depth);
 		xil_printf("DeviceCnt=%d, ", InstancePtr->Topology.DeviceCnt);
-		xil_printf("StreamType=%d\n\r", InstancePtr->Info.ContentStreamType);
+		xil_printf("StreamType=%d\r\n", InstancePtr->Info.ContentStreamType);
 	} else {
-		xil_printf("Disabled.\n\r");
+		xil_printf("Disabled.\r\n");
 	}
 
-	xil_printf("Auth Requests: %d\n\r", InstancePtr->Info.AuthRequestCnt);
-	xil_printf("Reauth Requests: %d\n\r", InstancePtr->Info.ReauthRequestCnt);
-	xil_printf("Polling Interval: %d ms\n\r", InstancePtr->Info.PollingValue);
+	xil_printf("Auth Requests: %d\r\n", InstancePtr->Info.AuthRequestCnt);
+	xil_printf("Reauth Requests: %d\r\n", InstancePtr->Info.ReauthRequestCnt);
+	xil_printf("Polling Interval: %d ms\r\n", InstancePtr->Info.PollingValue);
 }
 
 /** @} */
