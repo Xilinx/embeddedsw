@@ -207,7 +207,7 @@ static void udp_packet_send(u8_t finished)
 		 * To avoid this, added delay of 2us between each
 		 * packets.
 		 */
-#if defined (__aarch64__) && defined (XLWIP_CONFIG_INCLUDE_AXI_ETHERNET)
+#if defined (__aarch64__) && defined (XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_DMA)
 		usleep(2);
 #endif /* __aarch64__ */
 

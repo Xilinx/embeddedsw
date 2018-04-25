@@ -14,5 +14,5 @@ BEGIN LIBRARY
  PARAMETER mem_size = 524288
  PARAMETER memp_n_pbuf = 1024
  PARAMETER n_tx_descriptors = 512
- PARAMETER pbuf_pool_size = 8192
+ PARAMETER pbuf_pool_size = 16384
 END
