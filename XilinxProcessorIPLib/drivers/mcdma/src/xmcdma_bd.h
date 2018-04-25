@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -40,6 +40,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ------------------------------------------------------
 * 1.0	adk  18/07/17 Initial version.
+* 1.2	mj   05/03/18 Added macro XMcdma_BdSetSwId and XMcdma_BdGetSwId to set
+*                     and get Sw ID field from BD.
 *****************************************************************************/
 
 #ifndef XMCDMA_BD_H_
@@ -408,4 +410,40 @@ typedef u32 XMcdma_Bd[16];
 #define XMcdma_BdClear(BdPtr)                    \
 	memset((void *)(((UINTPTR)(BdPtr)) + XMCDMA_BD_START_CLEAR), 0, \
 			XMCDMA_BD_BYTES_TO_CLEAR)
+
+/*****************************************************************************/
+/**
+ * Set the Sw ID field of the given BD. The ID is an arbitrary piece of data the
+ * application can associate with a specific BD.
+ *
+ * @param	BdPtr is the BD to operate on
+ * @param	Id is a 32 bit quantity to set in the BD
+ *
+ * @return	None
+ *
+ * @note
+ *		C-style signature:
+ *		void XMcdma_BdSetSwId(XMcdma_Bd* BdPtr, void Id)
+ *
+ *****************************************************************************/
+#define XMcdma_BdSetSwId(BdPtr, Id) \
+	(XMcdma_BdWrite((BdPtr), XMCDMA_BD_SW_ID_OFFSET, (UINTPTR)(Id)))
+
+
+/*****************************************************************************/
+/**
+ * Retrieve the Sw ID field of the given BD previously set with
+ * XMcdma_BdSetSwId.
+ *
+ * @param	BdPtr is the BD to operate on
+ *
+ * @return	None
+ *
+ * @note
+ *		C-style signature:
+ *		u32 XMcdma_BdGetSwId(XMcdma_Bd* BdPtr)
+ *
+ *****************************************************************************/
+#define XMcdma_BdGetSwId(BdPtr) (XMcdma_BdRead((BdPtr), XMCDMA_BD_SW_ID_OFFSET))
+
 #endif
