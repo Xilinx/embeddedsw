@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxidma.c
-* @addtogroup axidma_v9_5
+* @addtogroup axidma_v9_7
 * @{
 *
 * This file implements DMA engine-wise initialization and control functions.
@@ -81,6 +81,8 @@
 *		      assumes a tx channel is always present it may be configured
 *		      for rx only.
 * 9.6   rsp  01/11/18 In XAxiDma_Reset() use UINTPTR for storing RegBase CR#976392
+* 9.7   rsp  04/25/18 Add support for 64MB data transfer. Read max buffer length
+*                     width from config structure. CR #1000474
 *
 * </pre>
 ******************************************************************************/
@@ -176,8 +178,7 @@ int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config)
 			XAXIDMA_MCHAN_MAX_TRANSFER_LEN;
 	}
 	else {
-		MaxTransferLen =
-			XAXIDMA_MAX_TRANSFER_LEN;
+		MaxTransferLen = (1U << Config->SgLengthWidth) - 1;
 	}
 
 	/* Initialize the ring structures */

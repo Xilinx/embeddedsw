@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
  *  @file xaxidma_hw.h
-* @addtogroup axidma_v9_5
+* @addtogroup axidma_v9_7
 * @{
  *
  * Hardware definition file. It defines the register interface and Buffer
@@ -51,6 +51,8 @@
  * 6.00a srt  01/24/12 Added support for Multi-Channel DMA mode
  * 8.0   srt  01/29/14 Added support for Micro DMA Mode and Cyclic mode of
  *		       operations.
+ * 9.7   rsp  04/24/18 Added support for 64MB data transfer.Instead of #define
+ *                     read max buffer width from IP config.
  *
  * </pre>
  *
@@ -96,7 +98,6 @@ extern "C" {
  *	This is determined by hardware
  * @{
  */
-#define XAXIDMA_MAX_TRANSFER_LEN	0x7FFFFF  /* Max length hw supports */
 #define XAXIDMA_MCHAN_MAX_TRANSFER_LEN	0x00FFFF  /* Max length MCDMA
 						     hw supports */
 /*@}*/

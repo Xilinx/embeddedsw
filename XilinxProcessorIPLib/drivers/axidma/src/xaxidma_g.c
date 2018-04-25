@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxidma_g.c
-* @addtogroup axidma_v9_5
+* @addtogroup axidma_v9_7
 * @{
 *
 * Provide a template for user to define their own hardware settings.
@@ -53,6 +53,7 @@
 * 6.00a srt  01/24/12 Added support for Multi-Channel DMA mode
 * 7.02a srt  01/23/13 Replaced *_TDATA_WIDTH parameters to *_DATA_WIDTH
 *		      (CR 691867)
+* 9.7   rsp  04/25/18 In XAxiDma_Config add SG length width.
 *
 * </pre>
 *
@@ -80,7 +81,8 @@ XAxiDma_Config XAxiDma_ConfigTable[] =
 		XPAR_AXIDMA_0_M_AXI_S2MM_DATA_WIDTH,
 		XPAR_AXIDMA_0_INCLUDE_SG,
 		XPAR_AXIDMA_0_NUM_MM2S_CHANNELS,
-		XPAR_AXIDMA_0_NUM_S2MM_CHANNELS
+		XPAR_AXIDMA_0_NUM_S2MM_CHANNELS,
+		XPAR_AXIDMA_0_SG_LENGTH_WIDTH
 	}
 };
 /** @} */

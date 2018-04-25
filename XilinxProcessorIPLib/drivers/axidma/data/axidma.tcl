@@ -32,6 +32,7 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- ----------------------------------------------------
 #  8.0     adk    12/10/13 Updated as per the New Tcl API's
+#  9.7     rsp    04/25/18 Read c_sg_length_width from IP.
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -39,9 +40,9 @@
 set periph_ninstances    0
 
 proc generate {drv_handle} {
-  ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XAxiDma" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_SG_INCLUDE_STSCNTRL_STRM" "C_INCLUDE_MM2S_DRE" "C_INCLUDE_S2MM_DRE" "C_INCLUDE_MM2S" "C_INCLUDE_S2MM" "C_M_AXI_MM2S_DATA_WIDTH" "C_M_AXI_S2MM_DATA_WIDTH" "C_INCLUDE_SG" "C_ENABLE_MULTI_CHANNEL" "C_NUM_MM2S_CHANNELS" "C_NUM_S2MM_CHANNELS" "C_MM2S_BURST_SIZE" "C_S2MM_BURST_SIZE" "C_MICRO_DMA" "c_addr_width"
-  ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "AxiDma" "DEVICE_ID" "C_BASEADDR" "C_SG_INCLUDE_STSCNTRL_STRM" "C_INCLUDE_MM2S" "C_INCLUDE_MM2S_DRE" "C_M_AXI_MM2S_DATA_WIDTH" "C_INCLUDE_S2MM" "C_INCLUDE_S2MM_DRE" "C_M_AXI_S2MM_DATA_WIDTH" "C_INCLUDE_SG" "C_ENABLE_MULTI_CHANNEL" "C_NUM_MM2S_CHANNELS" "C_NUM_S2MM_CHANNELS" "C_MM2S_BURST_SIZE" "C_S2MM_BURST_SIZE" "C_MICRO_DMA" "c_addr_width"
-  ::hsi::utils::define_config_file  $drv_handle "xaxidma_g.c" "XAxiDma" "DEVICE_ID" "C_BASEADDR" "C_SG_INCLUDE_STSCNTRL_STRM" "C_INCLUDE_MM2S" "C_INCLUDE_MM2S_DRE" "C_M_AXI_MM2S_DATA_WIDTH" "C_INCLUDE_S2MM" "C_INCLUDE_S2MM_DRE" "C_M_AXI_S2MM_DATA_WIDTH" "C_INCLUDE_SG" "C_NUM_MM2S_CHANNELS" "C_NUM_S2MM_CHANNELS" "C_MM2S_BURST_SIZE" "C_S2MM_BURST_SIZE" "C_MICRO_DMA" "c_addr_width"
+  ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XAxiDma" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_SG_INCLUDE_STSCNTRL_STRM" "C_INCLUDE_MM2S_DRE" "C_INCLUDE_S2MM_DRE" "C_INCLUDE_MM2S" "C_INCLUDE_S2MM" "C_M_AXI_MM2S_DATA_WIDTH" "C_M_AXI_S2MM_DATA_WIDTH" "C_INCLUDE_SG" "C_ENABLE_MULTI_CHANNEL" "C_NUM_MM2S_CHANNELS" "C_NUM_S2MM_CHANNELS" "C_MM2S_BURST_SIZE" "C_S2MM_BURST_SIZE" "C_MICRO_DMA" "c_addr_width" "c_sg_length_width"
+  ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "AxiDma" "DEVICE_ID" "C_BASEADDR" "C_SG_INCLUDE_STSCNTRL_STRM" "C_INCLUDE_MM2S" "C_INCLUDE_MM2S_DRE" "C_M_AXI_MM2S_DATA_WIDTH" "C_INCLUDE_S2MM" "C_INCLUDE_S2MM_DRE" "C_M_AXI_S2MM_DATA_WIDTH" "C_INCLUDE_SG" "C_ENABLE_MULTI_CHANNEL" "C_NUM_MM2S_CHANNELS" "C_NUM_S2MM_CHANNELS" "C_MM2S_BURST_SIZE" "C_S2MM_BURST_SIZE" "C_MICRO_DMA" "c_addr_width" "c_sg_length_width"
+  ::hsi::utils::define_config_file  $drv_handle "xaxidma_g.c" "XAxiDma" "DEVICE_ID" "C_BASEADDR" "C_SG_INCLUDE_STSCNTRL_STRM" "C_INCLUDE_MM2S" "C_INCLUDE_MM2S_DRE" "C_M_AXI_MM2S_DATA_WIDTH" "C_INCLUDE_S2MM" "C_INCLUDE_S2MM_DRE" "C_M_AXI_S2MM_DATA_WIDTH" "C_INCLUDE_SG" "C_NUM_MM2S_CHANNELS" "C_NUM_S2MM_CHANNELS" "C_MM2S_BURST_SIZE" "C_S2MM_BURST_SIZE" "C_MICRO_DMA" "c_addr_width" "c_sg_length_width"
 }
 
 #
