@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -56,6 +56,8 @@
 *                       APIs to use correct match register width for zynq
 *                       (i.e. 16 bit) and zynq ultrascale+mpsoc (i.e. 32 bit).
 *                       It fixes CR# 986617
+* 3.6   srm    04/25/18 Corrected the Match register initialization in
+						XTtcPs_CfgInitialize API.
 * </pre>
 *
 ******************************************************************************/
@@ -157,9 +159,9 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
 				  XTTCPS_INTERVAL_VAL_OFFSET, 0x00U);
 		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XTTCPS_MATCH_1_OFFSET, 0x00U);
+				  XTTCPS_MATCH_0_OFFSET, 0x00U);
 		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XTTCPS_MATCH_2_OFFSET, 0x00U);
+				  XTTCPS_MATCH_1_OFFSET, 0x00U);
 		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
 				  XTTCPS_MATCH_2_OFFSET, 0x00U);
 		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
