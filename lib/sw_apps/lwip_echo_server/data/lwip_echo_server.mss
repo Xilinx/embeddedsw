@@ -14,4 +14,5 @@ BEGIN LIBRARY
  PARAMETER dhcp_does_arp_check = true
  PARAMETER lwip_dhcp = true
  PARAMETER ipv6_enable = false
+ PARAMETER pbuf_pool_size = 2048
 END
