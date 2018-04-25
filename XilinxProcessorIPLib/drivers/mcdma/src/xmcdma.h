@@ -597,6 +597,7 @@ typedef struct {
 
 /************************ Prototypes of functions **************************/
 XMcdma_Config *XMcdma_LookupConfig(u16 DeviceId);
+XMcdma_Config *XMcdma_LookupConfigBaseAddr(UINTPTR Baseaddr);
 s32 XMcDma_CfgInitialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr);
 s32 XMcDma_Initialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr);
 void XMcDma_Reset(XMcdma *InstancePtr);
