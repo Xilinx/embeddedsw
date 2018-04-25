@@ -21,5 +21,5 @@ BEGIN LIBRARY
  PARAMETER default_udp_recvmbox_size = 4096
  PARAMETER lwip_tcpip_core_locking_input = true
  PARAMETER n_rx_descriptors = 512
- PARAMETER pbuf_pool_size = 9216
+ PARAMETER pbuf_pool_size = 20480
 END
