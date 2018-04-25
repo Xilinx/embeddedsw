@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,8 @@ extern "C" {
 #include "xaxiethernet.h"
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO
 #include "xllfifo.h"
+#elif XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_MCDMA
+#include "xmcdma.h"
 #else
 #include "xaxidma.h"
 #include "xaxidma_hw.h"
@@ -55,6 +57,15 @@ extern "C" {
 
 #include "netif/xpqueue.h"
 #include "xlwipconfig.h"
+
+#if XLWIP_CONFIG_INCLUDE_AXIETH_ON_ZYNQ == 1
+#define AXIDMA_TX_INTR_PRIORITY_SET_IN_GIC      0xA0
+#define AXIDMA_RX_INTR_PRIORITY_SET_IN_GIC      0xA0
+#define AXIETH_INTR_PRIORITY_SET_IN_GIC         0xA0
+#define TRIG_TYPE_RISING_EDGE_SENSITIVE         0x3
+
+#define INTC_DIST_BASE_ADDR     XPAR_SCUGIC_0_DIST_BASEADDR
+#endif
 
 void 	xaxiemacif_setmac(u32_t index, u8_t *addr);
 u8_t*	xaxiemacif_getmac(u32_t index);
@@ -74,6 +85,8 @@ void 	xaxiemac_error_handler(XAxiEthernet * Temac);
 typedef struct {
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO
 	XLlFifo      axififo;
+#elif defined(XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_MCDMA)
+	XMcdma       aximcdma;
 #else
 	XAxiDma      axidma;
 #endif
@@ -92,13 +105,22 @@ extern xaxiemacif_s xaxiemacif;
 
 #ifndef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO
 s32_t is_tx_space_available(xaxiemacif_s *emac);
+#ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_MCDMA
+s32_t process_sent_bds(XMcdma_ChanCtrl *Tx_Chan);
+#else
 s32_t process_sent_bds(XAxiDma_BdRing *txring);
 #endif
+#endif
 
-/* xaxiemacif_dma.c */
+/* xaxiemacif_dma.c/xaxiemacif_mcdma.c */
 #ifndef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO
+#ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_MCDMA
+XStatus init_axi_mcdma(struct xemac_s *xemac);
+XStatus axi_mcdma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p);
+#else
 XStatus init_axi_dma(struct xemac_s *xemac);
 XStatus axidma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p);
+#endif
 #endif
 
 #ifdef __cplusplus
