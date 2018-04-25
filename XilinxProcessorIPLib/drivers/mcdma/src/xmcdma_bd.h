@@ -33,7 +33,7 @@
 /**
 *
 * @file xmcdma_bd.h
-* @addtogroup mcdma_v1_0
+* @addtogroup mcdma_v1_2
 * @{
 * MODIFICATION HISTORY:
 *
