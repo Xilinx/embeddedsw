@@ -32,7 +32,7 @@
 /******************************************************************************/
 /**
  * @file xsdiaud_hw.h
- * @addtogroup sdiaud_v1_0
+ * @addtogroup sdiaud_v1_2
  * @{
  *
  * <pre>
@@ -42,6 +42,8 @@
  * Ver   Who    Date      Changes
  * ----- ------ -------- --------------------------------------------------
  * 1.0   kar    02/14/18  Initial release.
+ * 1.2   kar    04/25/18  Removed version register offset.
+ *                        Added rate control enable shift and mask.
  * </pre>
  *
  ******************************************************************************/
@@ -67,9 +69,6 @@ extern "C" {
 
 #define XSDIAUD_SOFT_RST_REG_OFFSET 0x04
 	//!< SDI Audio Soft reset register offset
-
-#define XSDIAUD_VER_REG_OFFSET 0x08
-	//!< SDI Audio Version register offset
 
 #define XSDIAUD_INT_EN_REG_OFFSET 0x0C
 	//!< SDI Audio Interrupt enable register offset
@@ -148,6 +147,11 @@ extern "C" {
 	//!< SDI Audio Embed audio control SD sample size shift
 #define XSDIAUD_EMB_AUD_CNT_SS_MASK (1 << XSDIAUD_EMB_AUD_CNT_SS_SHIFT)
 	//!< SDI Audio Embed audio control SD sample size mask
+
+#define XSDIAUD_EMB_AUD_CNT_RCE_SHIFT (4)
+	//!< SDI Audio Embed audio control Rate Control Enable shift
+#define XSDIAUD_EMB_AUD_CNT_RCE_MASK (1 << XSDIAUD_EMB_AUD_CNT_RCE_SHIFT)
+	//!< SDI Audio Embed audio control Rate Control Enable mask
 
 #define XSDIAUD_EMB_AXIS_CHCOUNT_SHIFT (0)
 	//!< SDI Audio Embed AXIS channel count shift

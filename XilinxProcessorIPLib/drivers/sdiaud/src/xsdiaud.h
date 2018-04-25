@@ -32,7 +32,7 @@
 /******************************************************************************/
 /**
  * @file xsdiaud.h
- * @addtogroup sdiaud_v1_0
+ * @addtogroup sdiaud_v1_2
  * @{
  *
  * <pre>
@@ -42,6 +42,10 @@
  * Ver   Who    Date      Changes
  * ----- ------ -------- --------------------------------------------------
  * 1.0   kar    02/15/18  Initial release.
+ * 1.2   kar    04/25/18  Added new line standards.
+ *                        Added new API to enable rate control.
+ *                        Removed inline function which reads the IP version.
+ *
  * </pre>
  *
  ******************************************************************************/
@@ -143,32 +147,35 @@ typedef enum {
  */
 typedef enum {
 	XSDIAUD_SMPTE_260M_1035i_30Hz = 0,
-	XSDIAUD__SMPTE_295M_1080i_25Hz,
-	XSDIAUD_SMPTE_274M_1080i_or_1080sF_30Hz,
-	XSDIAUD_SMPTE_274M_1080i_or_1080sF_25Hz,
-	XSDIAUD_SMPTE_274M_1080p_30Hz,
-	XSDIAUD_SMPTE_274M_1080p_25Hz,
-	XSDIAUD_SMPTE_274M_1080p_24Hz,
-	XSDIAUD_SMPTE_296M_720p_60Hz,
-	XSDIAUD_SMPTE_274M_1080sF_24Hz,
-	XSDIAUD_SMPTE_296M_720p_50Hz,
-	XSDIAUD_SMPTE_296M_720p_30Hz,
-	XSDIAUD_SMPTE_296M_720p_25Hz,
-	XSDIAUD_SMPTE_296M_720p_24Hz,
-	XSDIAUD_SMPTE_274M_1080p_60Hz,
-	XSDIAUD_SMPTE_274M_1080p_50Hz,
+	XSDIAUD_SMPTE_295M_1080i_25Hz = 1,
+	XSDIAUD_SMPTE_274M_1080i_or_1080sF_30Hz_or_29p97Hz = 2,
+	XSDIAUD_SMPTE_274M_1080i_or_1080sF_25Hz = 3,
+	XSDIAUD_SMPTE_274M_1080p_30Hz = 4,
+	XSDIAUD_SMPTE_274M_1080p_25Hz = 5,
+	XSDIAUD_SMPTE_274M_1080p_24Hz_or_23p98Hz = 6,
+	XSDIAUD_SMPTE_296M_720p_60Hz_or_59p94Hz = 7,
+	XSDIAUD_SMPTE_274M_1080sF_24Hz_or_23p98Hz = 8,
+	XSDIAUD_SMPTE_296M_720p_50Hz = 9,
+	XSDIAUD_SMPTE_296M_720p_30Hz_or_29p97Hz = 10,
+	XSDIAUD_SMPTE_296M_720p_25Hz = 11,
+	XSDIAUD_SMPTE_296M_720p_24Hz_or_23p98Hz = 12,
+	XSDIAUD_SMPTE_274M_1080p_60Hz_or_59p94Hz = 13,
+	XSDIAUD_SMPTE_274M_1080p_50Hz = 14,
 	XSDIAUD_NTSC = 16,
-	XSDIAUD_PAL,
-	XSDIAUD_2160_p23_98,
-	XSDIAUD_2160_p24,
-	XSDIAUD_2160_p25,
-	XSDIAUD_2160_p29_97,
-	XSDIAUD_2160_p47_95,
-	XSDIAUD_2160_p48,
-	XSDIAUD_2160_p50,
-	XSDIAUD_2160_p59_94,
-	XSDIAUD_2160_p60,
-	XSDIAUD_Others = 31
+	XSDIAUD_PAL = 17,
+	XSDIAUD_2160p_23p98Hz = 18,
+	XSDIAUD_2160p_24Hz = 19,
+	XSDIAUD_2160p_25Hz = 20,
+	XSDIAUD_2160p_29p97Hz = 21,
+        XSDIAUD_2160p_30Hz = 22,
+	XSDIAUD_2160p_47p95Hz_or_48Hz = 23,
+	XSDIAUD_2160p_50Hz = 24,
+	XSDIAUD_2160p_59p94Hz_or_60Hz = 25,
+	XSDIAUD_2048X1080I_29p97Hz_or_30Hz = 26,
+	XSDIAUD_2048X1080I_25Hz = 27,
+	XSDIAUD_SMPTE_2048_2_1080p_29p97Hz_or_30Hz = 28,
+	XSDIAUD_SMPTE_2048_2_1080p_23p98Hz_or_24Hz_or_25Hz = 29,
+	XSDIAUD_SMPTE_2048_2_1080p_47p95Hz_or_48Hz_50Hz_59p94Hz_60Hz = 30
 } XSdiAud_LineStnd;
 
 /** Number of Channels
@@ -348,25 +355,6 @@ static inline void XSdiAud_IntrEnable(XSdiAud *InstancePtr, u32 Mask)
 			RegValue);
 }
 
-/*****************************************************************************
- *
- *
- * This inline function reads the XSdiAud version
- *
- * @param  InstancePtr is a pointer to the XSdiAud core instance.
- *
- * @return Version.
- *
- *****************************************************************************/
-static inline u32 XSdiAud_GetVersion(XSdiAud *InstancePtr)
-{
-	u32 SdiAud_Version;
-
-	SdiAud_Version = XSdiAud_ReadReg((InstancePtr)->Config.BaseAddress,
-			(XSDIAUD_VER_REG_OFFSET));
-	return SdiAud_Version;
-}
-
 /************************* Function Prototypes ******************************/
 
 /* Initialization function in xsdiAud_sinit.c */
@@ -426,6 +414,9 @@ void XSdiAud_Ext_Mute(XSdiAud *InstancePtr, XSdiAud_GrpNum XSdiAGrpNum,
 
 /* Function reads the control packet status register's active channel field */
 u32 XSdiAud_Ext_GetActCh(XSdiAud *InstancePtr);
+
+/* Function to control the rate at which audio samples are inserted */
+void XSdiAud_Emb_RateCntrlEn(XSdiAud *InstancePtr, u8 XSdiAud_RCE);
 
 /************************** Variable Declarations ****************************/
 #ifdef __cplusplus
