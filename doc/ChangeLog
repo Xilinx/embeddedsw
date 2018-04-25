@@ -1,5 +1,24 @@
 Changes for 2018.2
 ===============================
+v_hdmirxss_v5_1:
+Fixed a bug in XV_HdmiRxSs_BrdgOverflowCallback
+Cleaned up the flow during HPD during the transition from HDMI 2.0 to HDMI 1.4
+Updated application's EDID and udpated XV_ConfigTpg and EnableColorBar
+
+v_hdmitxss_v5_1:
+Updated application's EDID and udpated XV_ConfigTpg and EnableColorBar
+
+v_hdmirx_v2_1:
+Fixed a bug in PioIntrHandler
+
+video_common_v4_4
+Fixed EDID parsing hanging issue
+Fixed timing parameters for 720p24, 720p25 and 720p30
+Removed dependency of math.h library from video_common's EDID parser
+
+v_hdmi_common_v1_1:
+Fixed XV_HdmiC_ParseAudioInfoFrame on SampleFrequency and SampleSize parsing
+
 cpu_v2_7:
 Replaced post_generate with post_generate_final.
 This change has been made to make sure that "#endif"
