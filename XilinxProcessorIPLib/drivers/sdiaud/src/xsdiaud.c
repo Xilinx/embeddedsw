@@ -33,7 +33,7 @@
 /**
  *
  * @file xsdiaud.c
- * @addtogroup sdiaud_v1_0
+ * @addtogroup sdiaud_v1_2
  * @{
  * <pre>
  *
@@ -42,6 +42,7 @@
  * Ver   Who    Date     Changes
  * ----- ------ -------- --------------------------------------------------
  * 1.0   kar   02/14/18  Initial release.
+ * 1.2   kar   04/25/18  Changed Set Clk Phase API's 2nd argument description.
  * </pre>
  *
  ******************************************************************************/
@@ -299,8 +300,8 @@ void XSdiAud_Emb_EnExtrnLine(XSdiAud *InstancePtr, u8 XSdiAud_En)
  * This Audio Extract function sets the clock phase
  *
  * @param  InstancePtr is a pointer to the XSdiAud instance.
- * @param  XSdiAud_SetClkP enables the use of clock phase data, 1 is to enable
- *         0 is to disable
+ * @param  XSdiAud_SetClkP enables the use of clock phase data, 0 is to enable
+ *         1 is to disable
  *
  * @return none
  *
@@ -617,5 +618,34 @@ void XSdiAud_ResetCoreEn(XSdiAud *InstancePtr, u8 RstCoreEnable)
 					XSDIAUD_SOFT_RST_REG_OFFSET,
 					XSdiAud_RstCVal);
 	}
+}
+
+/*****************************************************************************/
+/**
+ * This Audio Embed function controls the rate at which audio samples are
+ * inserted on to the SDI stream.
+ *
+ * @param  InstancePtr is a pointer to the XSdiAud instance.
+ * @param  XSdiAud_RCE can be 0 or 1.
+ *         0 - Audio samples are inserted when they are available.
+ *         1 - Number of audio samples per video line are limited based on video
+ *             resolution, frame rate and audio sample rate.
+ *
+ * @return none
+ *
+ ******************************************************************************/
+void XSdiAud_Emb_RateCntrlEn(XSdiAud *InstancePtr, u8 XSdiAud_RCE)
+{
+	u32 XSdiAud_RateCntrlEn, XSdiAud_RC;
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XSdiAud_RCE <= 1);
+	XSdiAud_RateCntrlEn = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_AUD_CNTRL_REG_OFFSET);
+	XSdiAud_RateCntrlEn &= ~XSDIAUD_EMB_AUD_CNT_RCE_MASK;
+	XSdiAud_RC = XSdiAud_RCE << XSDIAUD_EMB_AUD_CNT_RCE_SHIFT;
+	XSdiAud_RateCntrlEn |= XSdiAud_RC;
+	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_AUD_CNTRL_REG_OFFSET, XSdiAud_RateCntrlEn);
 }
 /** @} */
