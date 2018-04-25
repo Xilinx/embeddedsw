@@ -82,6 +82,9 @@ Added ICCARM compiler support in driver.
 xilfpga_v4_1
 Added partial bitstream loading support.
 
+axidma_v9_7
+Add support for 64MB data transfer.
+
 Changes for 2018.1
 ===============================
 v_hdmi_common_v1_0
