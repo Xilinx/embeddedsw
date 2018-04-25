@@ -33,7 +33,7 @@
 /**
 *
 * @file xmcdma_selftest.c
-* @addtogroup mcdma_v1_0
+* @addtogroup mcdma_v1_2
 * @{
 *
 * This file contains the self-test function for the MCDMA core.

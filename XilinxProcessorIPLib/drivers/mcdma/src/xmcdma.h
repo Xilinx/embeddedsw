@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xmcdma.h
-* @addtogroup mcdma_v1_0
+* @addtogroup mcdma_v1_2
 * @{
 * @details
 *
@@ -139,6 +139,8 @@
 * 1.0   adk 	18/07/17 Initial version.
 * 1.0   adk     09/02/18 Fixed CR#994435 Changes are made in the
 *			 driver tcl file.
+* 1.2   mj      05/03/18 Exported APIs XMcdma_BdChainFree() and
+*                        XMcDma_BdSetAppWord().
 ******************************************************************************/
 #ifndef XMCDMA_H_
 #define XMCDMA_H_
@@ -621,9 +623,12 @@ u32 XMcDma_ChanSubmit(XMcdma_ChanCtrl *Chan, UINTPTR BufAddr, u32 len);
 u32 XMcDma_ChanToHw(XMcdma_ChanCtrl *Chan);
 int XMcdma_BdChainFromHW(XMcdma_ChanCtrl *Chan, u32 BdLimit,
 			 XMcdma_Bd **BdSetPtr);
+int XMcdma_BdChainFree(XMcdma_ChanCtrl *Chan, int BdCount, XMcdma_Bd *BdSetPtr);
 u32 XMcdma_BdSetBufAddr(XMcdma_Bd *BdPtr, UINTPTR Addr);
 void XMcDma_BdSetCtrl(XMcdma_Bd *BdPtr, u32 Data);
 void XMcDma_DumpBd(XMcdma_Bd* BdPtr);
+
+int XMcDma_BdSetAppWord(XMcdma_Bd* BdPtr, int Offset, u32 Word);
 
 /* Gloabal OR'ed Single interrupt */
 void XMcdma_IntrHandler(void *Instance);
