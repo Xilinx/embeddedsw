@@ -657,8 +657,8 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
 		RegVal &= ~XUSBPSU_DCTL_KEEP_CONNECT;
 		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
-
-		/* fall Through */
+		enter_hiber = 1;
+		break;
 	case XUSBPSU_LINK_STATE_U3:
 		/* enter hibernation again */
 		enter_hiber = 1;
