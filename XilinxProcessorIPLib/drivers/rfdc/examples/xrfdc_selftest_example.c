@@ -39,6 +39,9 @@
 * This example does some writes to the hardware to do some sanity checks
 * and does a reset to restore the original settings.
 *
+* For zcu111 board users are expected to define XPS_BOARD_ZCU111 macro
+* while compiling this example.
+*
 * <pre>
 *
 * MODIFICATION HISTORY:
@@ -57,6 +60,9 @@
 
 #include "xparameters.h"
 #include "xrfdc.h"
+#ifdef XPS_BOARD_ZCU111
+#include "xrfdc_clk.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 
@@ -86,6 +92,13 @@ static int CompareFabricRate(u32 SetFabricRate, u32 GetFabricRate);
 /************************** Variable Definitions ****************************/
 
 static XRFdc RFdcInst;      /* RFdc driver instance */
+#ifdef XPS_BOARD_ZCU111
+unsigned int LMK04208_CKin[1][26] = {{ 1441856, 2148795168, 2148795169, 2148795170,
+		3222536227, 1075052580, 2148802053, 53477382, 19922951, 100728840,
+		1431655753, 2432844042, 67178507, 453771372, 587367021, 33554446,
+		2147516431, 3243574288, 88, 46777369, 2410151962, 268443163, 2170908,
+		25166653, 33555262, 4128799 }};
+#endif
 
 /****************************************************************************/
 /**
@@ -178,6 +191,11 @@ int SelfTestExample(u16 RFdcDeviceId)
 	if (Status != XRFDC_SUCCESS) {
 		return XRFDC_FAILURE;
 	}
+#ifdef XPS_BOARD_ZCU111
+	printf("\n Configuring the Clock \r\n");
+	LMK04028ClockConfig( 1, LMK04208_CKin);
+	ClockConfig(1, 3932160);
+#endif
 
 #ifndef __BAREMETAL__
 	ret = metal_device_open(BUS_NAME, RFDC_DEV_NAME, &device);
