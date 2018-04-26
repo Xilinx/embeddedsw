@@ -1374,7 +1374,8 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 	// check if line speed is either 0x6, 0xA, 0x14
 	if (max_cap_new != XDP_TX_LINK_BW_SET_540GBPS
 				&& max_cap_new != XDP_TX_LINK_BW_SET_270GBPS
-				&& max_cap_new != XDP_TX_LINK_BW_SET_162GBPS) {
+				&& max_cap_new != XDP_TX_LINK_BW_SET_162GBPS
+				&& max_cap_new != XDP_TX_LINK_BW_SET_810GBPS) {
 		// soemthing wrong. Read again
 		XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LINK_RATE, 1,
 														&max_cap_new);
@@ -1406,7 +1407,8 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 
 	if (max_cap_new == XDP_TX_LINK_BW_SET_540GBPS
 			|| max_cap_new == XDP_TX_LINK_BW_SET_270GBPS
-			|| max_cap_new == XDP_TX_LINK_BW_SET_162GBPS) {
+			|| max_cap_new == XDP_TX_LINK_BW_SET_162GBPS
+			|| max_cap_new == XDP_TX_LINK_BW_SET_810GBPS) {
 		Status = set_vphy(max_cap_new);
 
 
