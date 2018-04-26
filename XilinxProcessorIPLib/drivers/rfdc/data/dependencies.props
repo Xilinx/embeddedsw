@@ -1,0 +1,3 @@
+xrfdc_intr_example.c=xrfdc_clk.c,xrfdc_clk.h
+xrfdc_selftest_example.c=xrfdc_clk.c,xrfdc_clk.h
+xrfdc_read_write_example.c=xrfdc_clk.c,xrfdc_clk.h
