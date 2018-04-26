@@ -1,22 +1,31 @@
 #
-# Copyright (C) 2015 - 2016 Xilinx, Inc.
+# Copyright (C) 2015 - 2018 Xilinx, Inc.
 #
 # This file is part of the FreeRTOS port.
 #
-# FreeRTOS is free software; you can redistribute it and/or modify it under
-# the terms of the GNU General Public License (version 2) as published by the
-# Free Software Foundation >>!AND MODIFIED BY!<< the FreeRTOS exception.
+# Permission is hereby granted, free of charge, to any person obtaining a copy of
+# this software and associated documentation files (the "Software"), to deal in
+# the Software without restriction, including without limitation the rights to
+# use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+# the Software, and to permit persons to whom the Software is furnished to do so,
+# subject to the following conditions:
 #
-# NOTE: The modification to the GPL is included to allow you to distribute a
-# combined work that includes FreeRTOS without being obliged to provide the
-# source code for proprietary components outside of the FreeRTOS kernel.
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software. If you wish to use our Amazon
+# FreeRTOS name, please do so in a fair use way that does not cause confusion.
 #
-# FreeRTOS is distributed in the hope that it will be useful, but WITHOUT ANY
-# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE.  Full license text is available on the following
-# link: http://www.freertos.org/a00114.html
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+# FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+# COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+# IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+# CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-
+# http://www.FreeRTOS.org
+# http://aws.amazon.com/freertos
+#
+# 1 tab == 4 spaces!
+#
 
 # -----------------------------------------------
 # Return latest "ACTIVE" standalone BSP version
@@ -308,20 +317,6 @@ proc generate {os_handle} {
 			puts $bspcfg_fh "#define HYP_GUEST 0"
 		}
 	}
-<<<<<<< HEAD:ThirdParty/bsp/freertos10_xilinx/data/freertos10_xilinx.tcl
-=======
-
-	if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5"} {
-		puts $bspcfg_fh "#define PLATFORM_ZYNQMP"
-	}
-	if { $proctype == "ps7_cortexa9"} {
-		puts $bspcfg_fh "#define PLATFORM_ZYNQ"
-	}
-	if { $proctype == "microblaze"} {
-		puts $bspcfg_fh "#define PLATFORM_MB"
-	}
-
->>>>>>> bsp: freertos: Export platform information:ThirdParty/bsp/freertos901_xilinx/data/freertos901_xilinx.tcl
 	puts $bspcfg_fh ""
 	puts $bspcfg_fh "\#endif /*end of __BSPCONFIG_H_*/"
 	close $bspcfg_fh
