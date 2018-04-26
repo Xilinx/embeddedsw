@@ -31,8 +31,8 @@
 # Return latest "ACTIVE" standalone BSP version
 # -----------------------------------------------
 proc get_standalone_version {} {
-	set standalone_version [hsi::get_sw_cores standalone_* -filter {CORE_STATE == "ACTIVE"}]
-	return [lindex $standalone_version end]
+	set standalone_path [glob -directory "../" standalone_v*]
+	return [lindex [split $standalone_path /] end]
 }
 
 proc FreeRTOS_drc {os_handle} {
@@ -40,7 +40,7 @@ proc FreeRTOS_drc {os_handle} {
 	global env
 
 	set sw_proc_handle [hsi::get_sw_processor]
-	set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
 	set proctype [common::get_property IP_NAME $hw_proc_handle]
 
 	if { $proctype == "microblaze" } {
@@ -48,12 +48,65 @@ proc FreeRTOS_drc {os_handle} {
 	}
 }
 
+proc Check_ttc_ip {instance_name} {
+	set cortexa53cpu [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa53"]
+	if {[llength $cortexa53cpu] > 0} {
+		set ttc_ips [get_cell -hier -filter {IP_NAME== "psu_ttc"}]
+	} else {
+		set ttc_ips [get_cell -hier -filter {IP_NAME== "ps7_ttc"}]
+	}
+
+	if { [llength $ttc_ips] != 0 } {
+		foreach ttc_ip $ttc_ips {
+			if {[string compare -nocase $ttc_ip $instance_name] == 0} {
+				set isintr [::hsm::utils::is_ip_interrupting_current_proc $ttc_ip]
+				if {$isintr == 1} {
+					return
+				} else {
+					error "FreeRTOS requires timer with interrupt enabled. $ttc_ip is not connected to interrupt controller."
+				}
+			}
+		}
+	}
+	error "FreeRTOS requires valid ticker timer. The HW platform doesn't have a specified ticker timer $instance_name."
+}
+
+proc generate_license {fd} {
+	puts $fd " /*"
+	puts $fd " * FreeRTOS Kernel V10.0.0"
+	puts $fd " * Copyright (C) 2010-2018 Xilinx, Inc. All Rights Reserved."
+	puts $fd " * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved."
+	puts $fd " *"
+	puts $fd " * Permission is hereby granted, free of charge, to any person obtaining a copy of"
+	puts $fd " * this software and associated documentation files (the \"Software\"), to deal in"
+	puts $fd " * the Software without restriction, including without limitation the rights to"
+	puts $fd " * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of"
+	puts $fd " * the Software, and to permit persons to whom the Software is furnished to do so,"
+	puts $fd " * subject to the following conditions:"
+	puts $fd " *"
+	puts $fd " * The above copyright notice and this permission notice shall be included in all"
+	puts $fd " * copies or substantial portions of the Software. If you wish to use our Amazon"
+	puts $fd " * FreeRTOS name, please do so in a fair use way that does not cause confusion."
+	puts $fd " *"
+	puts $fd " * THE SOFTWARE IS PROVIDED \"AS-IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR"
+	puts $fd " * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS"
+	puts $fd " * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR"
+	puts $fd " * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER"
+	puts $fd " * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN"
+	puts $fd " * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+	puts $fd " *"
+	puts $fd " * http://www.FreeRTOS.org"
+	puts $fd " * http://aws.amazon.com/freertos"
+	puts $fd " *"
+	puts $fd " * 1 tab == 4 spaces!"
+	puts $fd " */"
+}
 proc generate {os_handle} {
 
 	set standalone_version [get_standalone_version]
 	set have_tick_timer 0
 	set sw_proc_handle [hsi::get_sw_processor]
-	set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
 	set proctype [common::get_property IP_NAME $hw_proc_handle]
 	set need_config_file "false"
 	set enable_sw_profile [common::get_property CONFIG.enable_sw_intrusive_profiling $os_handle]
@@ -317,20 +370,6 @@ proc generate {os_handle} {
 			puts $bspcfg_fh "#define HYP_GUEST 0"
 		}
 	}
-<<<<<<< HEAD:ThirdParty/bsp/freertos10_xilinx/data/freertos10_xilinx.tcl
-=======
-
-	if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5"} {
-		puts $bspcfg_fh "#define PLATFORM_ZYNQMP"
-	}
-	if { $proctype == "ps7_cortexa9"} {
-		puts $bspcfg_fh "#define PLATFORM_ZYNQ"
-	}
-	if { $proctype == "microblaze"} {
-		puts $bspcfg_fh "#define PLATFORM_MB"
-	}
-
->>>>>>> bsp: freertos: Export platform information:ThirdParty/bsp/freertos901_xilinx/data/freertos901_xilinx.tcl
 	puts $bspcfg_fh ""
 	puts $bspcfg_fh "\#endif /*end of __BSPCONFIG_H_*/"
 	close $bspcfg_fh
@@ -414,7 +453,12 @@ proc generate {os_handle} {
 	## Add constants common to all architectures to the configuration file.
 	############################################################################
 
-	set config_file [xopen_new_include_file "./src/FreeRTOSConfig.h" "FreeRTOS Configuration parameters"]
+	set config_file [open "./src/FreeRTOSConfig.h" w]
+	generate_license $config_file
+	puts $config_file ""
+	puts $config_file "#ifndef _FREERTOSCONFIG_H"
+	puts $config_file "#define _FREERTOSCONFIG_H"
+	puts $config_file ""
 	puts $config_file "\#include \"xparameters.h\" \n"
 
 	set val [common::get_property CONFIG.use_preemption $os_handle]
@@ -639,6 +683,7 @@ proc generate {os_handle} {
 		set val [common::get_property CONFIG.PSU_TTC0_Select $os_handle]
 		if {$val == "true"} {
 			set have_tick_timer 1
+			Check_ttc_ip "psu_ttc_0"
 			set val1 [common::get_property CONFIG.PSU_TTC0_Select_Cntr $os_handle]
 			if {$val1 == "0"} {
 				xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_0_DEVICE_ID"
@@ -667,6 +712,7 @@ proc generate {os_handle} {
 				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 			} else {
 				set have_tick_timer 1
+				Check_ttc_ip "psu_ttc_1"
 				set val1 [common::get_property CONFIG.PSU_TTC1_Select_Cntr $os_handle]
 				if {$val1 == "0"} {
 					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_3_DEVICE_ID"
@@ -696,6 +742,7 @@ proc generate {os_handle} {
 				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 			} else {
 				set have_tick_timer 1
+				Check_ttc_ip "psu_ttc_2"
 				set val1 [common::get_property CONFIG.PSU_TTC2_Select_Cntr $os_handle]
 				if {$val1 == "0"} {
 					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_6_DEVICE_ID"
@@ -725,6 +772,7 @@ proc generate {os_handle} {
 				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 			} else {
 				set have_tick_timer 1
+				Check_ttc_ip "psu_ttc_3"
 				set val1 [common::get_property CONFIG.PSU_TTC3_Select_Cntr $os_handle]
 				if {$val1 == "0"} {
 					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_9_DEVICE_ID"
@@ -791,6 +839,7 @@ proc generate {os_handle} {
 		set val [common::get_property CONFIG.PSU_TTC0_Select $os_handle]
 		if {$val == "true"} {
 			set have_tick_timer 1
+			Check_ttc_ip "psu_ttc_0"
 			set val1 [common::get_property CONFIG.PSU_TTC0_Select_Cntr $os_handle]
 			if {$val1 == "0"} {
 				xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_0_DEVICE_ID"
@@ -819,6 +868,7 @@ proc generate {os_handle} {
 				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 			} else {
 				set have_tick_timer 1
+				Check_ttc_ip "psu_ttc_1"
 				set val1 [common::get_property CONFIG.PSU_TTC1_Select_Cntr $os_handle]
 				if {$val1 == "0"} {
 					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_3_DEVICE_ID"
@@ -848,6 +898,7 @@ proc generate {os_handle} {
 				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 			} else {
 				set have_tick_timer 1
+				Check_ttc_ip "psu_ttc_2"
 				set val1 [common::get_property CONFIG.PSU_TTC2_Select_Cntr $os_handle]
 				if {$val1 == "0"} {
 					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_6_DEVICE_ID"
@@ -877,6 +928,7 @@ proc generate {os_handle} {
 				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 			} else {
 				set have_tick_timer 1
+				Check_ttc_ip "psu_ttc_3"
 				set val1 [common::get_property CONFIG.PSU_TTC3_Select_Cntr $os_handle]
 				if {$val1 == "0"} {
 					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_9_DEVICE_ID"
@@ -946,6 +998,7 @@ proc generate {os_handle} {
 				set val [common::get_property CONFIG.PSU_TTC0_Select $os_handle]
 				if {$val == "true"} {
 					set have_tick_timer 1
+					Check_ttc_ip "psu_ttc_0"
 					set val1 [common::get_property CONFIG.PSU_TTC0_Select_Cntr $os_handle]
 					set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ttc_ip] [format "ps_pl_irq_ttc0_%d" $val1] ]
 					set intcname [::hsi::utils::get_connected_intr_cntrl $ttc_ip  $intr_pin_name]
@@ -964,6 +1017,7 @@ proc generate {os_handle} {
 						error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 					} else {
 						set have_tick_timer 1
+						Check_ttc_ip "psu_ttc_1"
 						set val1 [common::get_property CONFIG.PSU_TTC1_Select_Cntr $os_handle]
 						set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ttc_ip] [format "ps_pl_irq_ttc1_%d" $val1] ]
 						set intcname [::hsi::utils::get_connected_intr_cntrl $ttc_ip  $intr_pin_name]
@@ -983,6 +1037,7 @@ proc generate {os_handle} {
 						error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 					} else {
 						set have_tick_timer 1
+						Check_ttc_ip "psu_ttc_2"
 						set val1 [common::get_property CONFIG.PSU_TTC2_Select_Cntr $os_handle]
 						set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ttc_ip] [format "ps_pl_irq_ttc2_%d" $val1] ]
 						set intcname [::hsi::utils::get_connected_intr_cntrl $ttc_ip  $intr_pin_name]
@@ -1002,6 +1057,7 @@ proc generate {os_handle} {
 						error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 					} else {
 						set have_tick_timer 1
+						Check_ttc_ip "psu_ttc_3"
 						set val1 [common::get_property CONFIG.PSU_TTC3_Select_Cntr $os_handle]
 						set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ttc_ip] [format "ps_pl_irq_ttc2_%d" $val1] ]
 						set intcname [::hsi::utils::get_connected_intr_cntrl $ttc_ip  $intr_pin_name]
@@ -1100,7 +1156,7 @@ proc xhandle_mb_interrupts {} {
 
 	# Handle the interrupt pin
 	set sw_proc_handle [get_sw_processor]
-	set periph [get_cells $sw_proc_handle]
+	set periph [get_cells -hier $sw_proc_handle]
 	set source_ports [xget_interrupt_sources $periph]
 	if {[llength $source_ports] > 1} {
 		error "Too many interrupting ports on the MicroBlaze.  Should only find 1" "" "error"
@@ -1231,7 +1287,7 @@ proc xcreate_mb_exc_config_file { } {
     puts $hconfig_file "\n"
 
     set sw_proc_handle [get_sw_processor]
-    set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
+    set hw_proc_handle [get_cells -hier [get_property HW_INSTANCE $sw_proc_handle] ]
     set proctype [get_property IP_NAME $hw_proc_handle]
     set procver [get_ip_version $hw_proc_handle]
 
