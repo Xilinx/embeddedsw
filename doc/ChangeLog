@@ -981,9 +981,6 @@ Remove usleeps from AMS CTRL example
 Resetps_v1_1
 Fixed compilation warnings in resetps driver
 
-Resetps_v1_1
-Fixed compilation warnings in resetps driver
-
 xilffs_v3_9
 Resolve build warnings for xilffs library
 
