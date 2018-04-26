@@ -50,6 +50,9 @@
 * This example generates ADC fabric interrupts by writing some incorrect
 * fabric data rate based on the read/write clocks.
 *
+* For zcu111 board users are expected to define XPS_BOARD_ZCU111 macro
+* while compiling this example.
+*
 * <pre>
 *
 * MODIFICATION HISTORY:
@@ -70,6 +73,9 @@
 #include "xparameters.h"
 #include "xrfdc.h"
 #include <metal/irq.h>
+#ifdef XPS_BOARD_ZCU111
+#include "xrfdc_clk.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 
@@ -111,6 +117,13 @@ void RFdcHandler(void *CallBackRef, u32 Type, int Tile_Id,
 
 static XRFdc RFdcInst;      /* RFdc driver instance */
 volatile int InterruptOccured;
+#ifdef XPS_BOARD_ZCU111
+unsigned int LMK04208_CKin[1][26] = {{ 1441856, 2148795168, 2148795169, 2148795170,
+		3222536227, 1075052580, 2148802053, 53477382, 19922951, 100728840,
+		1431655753, 2432844042, 67178507, 453771372, 587367021, 33554446,
+		2147516431, 3243574288, 88, 46777369, 2410151962, 268443163, 2170908,
+		25166653, 33555262, 4128799 }};
+#endif
 #ifdef __BAREMETAL__
 XScuGic InterruptController;
 #endif
@@ -210,6 +223,12 @@ int RFdcFabricRateExample(u16 RFdcDeviceId)
 	if (Status != XRFDC_SUCCESS) {
 		return XRFDC_FAILURE;
 	}
+#ifdef XPS_BOARD_ZCU111
+	printf("\n Configuring the Clock \r\n");
+	LMK04028ClockConfig( 1, LMK04208_CKin);
+	ClockConfig(1 , 3932160);
+#endif
+
 #ifndef __BAREMETAL__
 	ret = metal_device_open(BUS_NAME, RFDC_DEV_NAME, &device);
 	if (ret) {
