@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,12 @@
 *			 abort and prefetch abort into DataAbortAddr and
 *			 PrefetchAbortAddr for further use to fix CR#854523
 * 5.4	pkp	12/03/15 Added handler for undefined exception
+* 6.7	mus	04/27/18 Removed __ARM_NEON__ flag definition. Now,
+*			 saving/restoring of of HW floating point register
+*			 would be done through newly introduced flag
+*			 FPU_HARD_FLOAT_ABI_ENABLED. This new flag will be
+*			 configured based on the -mfpu-abi option in extra
+*			 compiler flags.
 * </pre>
 *
 * @note
@@ -59,8 +65,7 @@
 *
 ******************************************************************************/
 #include "xil_errata.h"
-
-#define __ARM_NEON__ 1
+#include "bspconfig.h"
 
 .org 0
 .text
@@ -82,7 +87,7 @@ _vector_table:
 IRQHandler:					/* IRQ vector handler */
 
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code*/
-#ifdef __ARM_NEON__
+#if FPU_HARD_FLOAT_ABI_ENABLED
 	vpush {d0-d7}
 	vpush {d16-d31}
 	vmrs r1, FPSCR
@@ -99,7 +104,7 @@ IRQHandler:					/* IRQ vector handler */
 
 	bl	IRQInterrupt			/* IRQ vector */
 
-#ifdef __ARM_NEON__
+#if FPU_HARD_FLOAT_ABI_ENABLED
 	pop 	{r1}
 	vmsr    FPEXC, r1
 	pop 	{r1}
@@ -115,7 +120,7 @@ IRQHandler:					/* IRQ vector handler */
 
 FIQHandler:					/* FIQ vector handler */
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */
-#ifdef __ARM_NEON__
+#if FPU_HARD_FLOAT_ABI_ENABLED
 	vpush {d0-d7}
 	vpush {d16-d31}
 	vmrs r1, FPSCR
@@ -127,7 +132,7 @@ FIQHandler:					/* FIQ vector handler */
 FIQLoop:
 	bl	FIQInterrupt			/* FIQ vector */
 
-#ifdef __ARM_NEON__
+#if FPU_HARD_FLOAT_ABI_ENABLED
 	pop 	{r1}
 	vmsr    FPEXC, r1
 	pop 	{r1}

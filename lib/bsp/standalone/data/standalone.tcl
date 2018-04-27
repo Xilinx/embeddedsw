@@ -51,6 +51,9 @@
 # 6.6   mus  02/23/18 Export macro for the debug logic configuration in
 # 		      Cortex R5 BSP, macro value is based on the
 #		      mld parameter "lockstep_mode_debug".
+# 6.7   mus  04/27/18 Updated tcl to export definition for
+#                     FPU_HARD_FLOAT_ABI_ENABLED flag to bspconfig.h,based
+#                     on -mfpu-abi option in extra compiler flags.
 #
 ##############################################################################
 
@@ -539,6 +542,19 @@ proc generate {os_handle} {
 	}
     }
 
+    if { $proctype == "ps7_cortexa9" } {
+	if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+		set extra_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ] ]
+		set flagindex [string first {-mfloat-abi=hard} $extra_flags 0]
+		puts $bspcfg_fh ""
+		puts $bspcfg_fh "/* Definition for hard-float ABI */"
+		if { $flagindex != -1 } {
+			puts $bspcfg_fh "#define FPU_HARD_FLOAT_ABI_ENABLED 1"
+		} else {
+			puts $bspcfg_fh "#define FPU_HARD_FLOAT_ABI_ENABLED 0"
+		}
+	}
+    }
 	puts $bspcfg_fh ""
     puts $bspcfg_fh "\#endif /*end of __BSPCONFIG_H_*/"
     close $bspcfg_fh
