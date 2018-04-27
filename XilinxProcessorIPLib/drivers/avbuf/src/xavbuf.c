@@ -48,6 +48,7 @@
  * 1.0   aad  06/24/17 Initial release.
  * 2.0   aad  10/08/17 Some APIs to use enums instead of Macros.
  *		       Some bug fixes.
+ * 2.2   aad  04/26/18 Fixed Warnings
  * </pre>
  *
 *******************************************************************************/
@@ -482,7 +483,6 @@ int XAVBuf_SetInputNonLiveVideoFormat(XAVBuf *InstancePtr,
 				       XAVBuf_VideoFormat Format)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((Format >= CbY0CrY1) | (Format <= YV16Ci2_420_10BPC));
 
 	InstancePtr->AVMode.NonLiveVideo =
 		XAVBuf_GetNLiveVideoAttribute(Format);
@@ -704,8 +704,6 @@ XAVBuf_VideoAttribute *XAVBuf_GetNLiveVideoAttribute(XAVBuf_VideoFormat Format)
 {
 	u8 Index = 0;
 	XAVBuf_VideoAttribute *VideoAttribute;
-
-	Xil_AssertNonvoid((Format >= CbY0CrY1) | (Format <= YV16Ci2_420_10BPC));
 
 	for (Index = CbY0CrY1; Index <= YV16Ci2_420_10BPC; Index++) {
 		VideoAttribute = (XAVBuf_VideoAttribute *)
