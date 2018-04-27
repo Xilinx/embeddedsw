@@ -49,6 +49,7 @@
 * 4.0   vns  03/07/18 Added error codes for boot header authentication
 *                     failure and for encryption compulsory
 * 5.0   ka   04/10/18 Added error codes for user-efuse revocation
+* 6.0   bkm  04/10/18 Added error codes for FMC_VADJ
 * </pre>
 *
 * @note
@@ -207,6 +208,8 @@ extern "C" {
 #define XFSBL_ERROR_USER_EFUSE_ISREVOKED			(0x72U)
 #define XFSBL_ERROR_OUT_OF_RANGE_USER_EFUSE			(0x73U)
 #define XFSBL_ERROR_INVALID_EFUSE_SELECT			(0x74U)
+#define XSFBL_ERROR_FMC_ENABLE						(0x75U)
+#define XSFBL_EEPROM_PRESENT						(0x76U)
 #define XFSBL_FAILURE					(0x3FFFFFFFU)
 
 /**************************** Type Definitions *******************************/
