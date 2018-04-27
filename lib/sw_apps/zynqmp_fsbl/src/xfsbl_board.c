@@ -47,6 +47,7 @@
 * 1.00  ssc  01/20/16 Initial release
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines
 *                     Added ZCU106 support
+* 3.0	bkm  18/4/18  Added Board specific code w.r.t VADJ
 *
 * </pre>
 *
@@ -55,7 +56,8 @@
 ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xfsbl_board.h"
-#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)		\
+		|| defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111)
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -63,13 +65,626 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+#ifdef XPS_BOARD_ZCU104
+static u32 XFsbl_ReadMinMaxEepromVadj(u16 *MinVadj, u16 *MaxVadj);
+static u32 XFsbl_CalVadj(u16 MinVoltage, u16 MaxVoltage);
+#endif
 static u32 XFsbl_BoardConfig(void);
 static void XFsbl_UsbPhyReset(void);
 #if defined(XPS_BOARD_ZCU102)
 static void XFsbl_PcieReset(void);
 #endif
 /************************** Variable Definitions *****************************/
+u8 Read_Buffer[MAX_SIZE];
+#ifdef XPS_BOARD_ZCU104
+/*****************************************************************************/
+/**
+ * This function is used Read the min and max VADJ values from the FMC EEPROM.
+ * These values of min and max VADJ are present in DC Load section of
+ * MULTIRECORD AREA in FMC EEPROM.
+ *
+ *
+ *
+ * @param u16 *MinVadj, u16 *MaxVadj
+ *
+ * @return none
+ *
+ *****************************************************************************/
+static u32 XFsbl_ReadMinMaxEepromVadj(u16 *MinVadj, u16 *MaxVadj)
+{
+	XIicPs I2c0InstancePtr;
+	u32 Count, EepromByteCount;
+	XIicPs_Config *I2c0CfgPtr;
+	XMultipleRecord Ptr;
+	u8 WriteBuffer[BUF_LEN] = {0};
+	u32 UStatus, Index;
+	s32 Status;
+	u16 NominalVoltage;
+	u16 EepromAddr[] = {0x50, 0x51, 0x52};
+	u16 MinVoltage;
+	u16 MaxVoltage;
 
+	EepromByteCount = 256;
+	MinVoltage = 0;
+	MaxVoltage = 0;
+	Ptr.VadjRecordFound = 0;
+
+	/* Initialize the IIC0 driver so that it is ready to use */
+	I2c0CfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
+	if (I2c0CfgPtr == NULL) {
+		UStatus = XFSBL_ERROR_I2C_INIT;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_INIT\r\n");
+		goto END;
+	}
+
+	Status = XIicPs_CfgInitialize(&I2c0InstancePtr, I2c0CfgPtr,
+			I2c0CfgPtr->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		UStatus = XFSBL_ERROR_I2C_INIT;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_INIT\r\n");
+		goto END;
+	}
+
+	/* Set the IIC serial clock rate */
+	Status = XIicPs_SetSClk(&I2c0InstancePtr, IIC_SCLK_RATE_I2CMUX);
+	if (Status != XST_SUCCESS) {
+		UStatus  = XFSBL_ERROR_I2C_SET_SCLK;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_SET_SCLK\r\n");
+		goto END;
+	}
+
+	/* Select the Channal-1 of MUX for I2C EEprom Access */
+	WriteBuffer[0] = 0x20;
+	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+				WriteBuffer, 1, TCA9548A_ADDR);
+	if (Status != XST_SUCCESS) {
+		UStatus = XFSBL_ERROR_I2C_WRITE;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_WRITE\r\n");
+		goto END;
+	}
+
+	/* Wait until bus is idle */
+	while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+		/**
+		 * For MISRA C
+		 * compliance
+		 */
+	}
+
+	for (Index = 0; Index < 3; Index++) {
+	/* Read the contents of FMC EEPROM to Read_Buffer */
+		Status = XIicPs_MasterRecvPolled(&I2c0InstancePtr, Read_Buffer,
+			EepromByteCount, EepromAddr[Index]);
+		if (Status == XST_SUCCESS) {
+			UStatus = XSFBL_EEPROM_PRESENT;
+			XFsbl_Printf(DEBUG_GENERAL, "XFSBL_EEPROM PRESENT\r\n");
+			goto END;
+		}
+	}
+
+    /**
+     * Read the value of Nomianal Voltage
+     * Minimum voltage and Maximum voltage from the
+     * IPMI EEPROM DC Load multiple record area at offset 0x02
+     */
+	if ((Read_Buffer[0] == 0x00) && (Read_Buffer[5] != 0x00)) {
+		Ptr.MultirecordHdrOff = Read_Buffer[5] * 8;
+		do {
+			Ptr.RecordType = Read_Buffer[Ptr.MultirecordHdrOff];
+			Ptr.MultirecordHdrEol = (Read_Buffer
+					[Ptr.MultirecordHdrOff + 1] & 0x80);
+			Ptr.RecordLength = Read_Buffer[Ptr.MultirecordHdrOff
+							+ 2];
+
+			if (Ptr.RecordType == DC_LOAD) {
+				Ptr.OutputNumber = Read_Buffer
+						[Ptr.MultirecordHdrOff +
+						MULTIRECORD_HEADER_SIZE] & 0x0F;
+				if (Ptr.OutputNumber == 0x00) {
+					Ptr.VadjRecordFound = 1;
+				Ptr.VadjHdrOffset = Ptr.MultirecordHdrOff;
+					Ptr.VadjDataOffset = Ptr.VadjHdrOffset
+						+ MULTIRECORD_HEADER_SIZE;
+					break;
+				}
+			}
+			Ptr.MultirecordHdrOff += (Ptr.RecordLength +
+					MULTIRECORD_HEADER_SIZE);
+		} while (Ptr.MultirecordHdrEol == 0x00);
+
+	if (Ptr.VadjRecordFound == 1) {
+		Count = Ptr.VadjDataOffset + 1;
+		NominalVoltage = ((((u16)Read_Buffer[Count+1]<<8) & 0xFF00)
+				| Read_Buffer[Count]);
+		NominalVoltage = NominalVoltage * 10;
+
+		Count = Count + 2;
+		MinVoltage = ((((u16)Read_Buffer[Count+1]<<8) & 0xFF00)
+				| Read_Buffer[Count]) * 10;
+
+
+		Count = Count + 2;
+		MaxVoltage = ((((u16)Read_Buffer[Count+1]<<8) & 0xFF00)
+				| Read_Buffer[Count]) * 10;
+		}
+
+	}
+
+	*MinVadj = MinVoltage;
+	*MaxVadj = MaxVoltage;
+	UStatus = XFSBL_SUCCESS;
+END:
+	return UStatus;
+}
+/*****************************************************************************/
+/**
+ * This function is used to calculates V_ADJ value based on the min and
+ * max VADJ values from the FMC EEPROM.
+ *
+ * @param u16 MinVoltage, u16 MaxVoltage
+ *
+ * @return u32 VadjValue
+ *
+ *****************************************************************************/
+static u32 XFsbl_CalVadj(u16 MinVoltage, u16 MaxVoltage)
+{
+	u32 VadjValue;
+
+	if ((MinVoltage <= 1800) && (MaxVoltage >= 1800)) {
+		VadjValue = SET_VADJ_1V8;
+		XFsbl_Printf(DEBUG_GENERAL, "Calc_Vadj is VADJ_1V8\r\n");
+	} else if ((MinVoltage <= 1500) && (MaxVoltage >= 1500)) {
+		VadjValue = SET_VADJ_1V5;
+		XFsbl_Printf(DEBUG_GENERAL, "Calc_Vadj is VADJ_1V5\r\n");
+	} else if ((MinVoltage <= 1200) && (MaxVoltage >= 1200)) {
+		VadjValue = SET_VADJ_1V2;
+		XFsbl_Printf(DEBUG_GENERAL, "Calc_Vadj is VADJ_1V2\r\n");
+	} else {
+		VadjValue = SET_VADJ_0V0;
+		XFsbl_Printf(DEBUG_GENERAL, "Calc_Vadj is VADJ_0V0\r\n");
+	}
+
+	return(VadjValue);
+}
+#endif
+/*****************************************************************************/
+/**
+ * This function is used to Enable FMC_ADJ .
+ * It also provides VADJ_FMC Rail Voltage to 1.2V default in ZCU104
+ *
+ *This function does
+ *	if( EEPROM PRESENT )
+ *		- Reading the FMC EEPROM minimum and maximum VADJ values
+ *		- Calculate the VADJ values
+ *		- Programming the VADJ rail to Calculated VADJ
+ *	if( EEPROM IS BLANK )
+ *	-	Programming the VADJ rail to 1.2v
+ * @param none
+ *
+ * @return
+ *	- XFSBL_SUCCESS for successful configuration
+ *	- errors as mentioned in xfsbl_error.h
+ *
+ *****************************************************************************/
+static u32 XFsbl_FMCEnable(void)
+{
+	XIicPs I2c0InstancePtr;
+	XIicPs_Config *I2c0CfgPtr;
+	u8 WriteBuffer[BUF_LEN] = {0};
+	s32 Status;
+	u32 UStatus = 0;
+	u16 SlaveAddr;
+#ifdef XPS_BOARD_ZCU104
+	u32 VadjSetting;
+	u16 LpcMin, LpcMax;
+
+	LpcMin = 0;
+	LpcMax = 0;
+	VadjSetting = SET_VADJ_0V0;
+#endif
+
+	/* Initialize the IIC0 driver so that it is ready to use */
+	I2c0CfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
+	if (I2c0CfgPtr == NULL) {
+		UStatus = XFSBL_ERROR_I2C_INIT;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_INIT\r\n");
+		goto END;
+	}
+
+	Status = XIicPs_CfgInitialize(&I2c0InstancePtr, I2c0CfgPtr,
+			I2c0CfgPtr->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		UStatus = XFSBL_ERROR_I2C_INIT;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_INIT\r\n");
+		goto END;
+	}
+
+	/* Change the IIC serial clock rate */
+	Status = XIicPs_SetSClk(&I2c0InstancePtr, IIC_SCLK_RATE_I2CMUX);
+	if (Status != XST_SUCCESS) {
+		UStatus  = XFSBL_ERROR_I2C_SET_SCLK;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_SET_SCLK\r\n");
+		goto END;
+	}
+
+#ifdef XPS_BOARD_ZCU104
+	XFsbl_ReadMinMaxEepromVadj(&LpcMin, &LpcMax);
+	VadjSetting = XFsbl_CalVadj(LpcMin, LpcMax);
+#endif
+
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU111)
+	/* Set I2C Mux for channel-2 */
+	WriteBuffer[0] = CMD_CH_2_REG;
+	SlaveAddr = PCA9544A_ADDR;
+#endif
+
+#ifdef XPS_BOARD_ZCU104
+	/* Set I2C Mux for channel-2 (IRPS5401) */
+	WriteBuffer[0] = CMD_CH_2_REG_IRPS;
+	SlaveAddr = TCA9548A_ADDR;
+#endif
+
+	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+			WriteBuffer, 1, SlaveAddr);
+	if (Status != XST_SUCCESS) {
+		UStatus = XFSBL_ERROR_I2C_WRITE;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_WRITE\r\n");
+		goto END;
+	}
+
+	/* Wait until bus is idle */
+	while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+		/**
+		 * For MISRA C
+		 * compliance
+		 */
+	}
+
+	/**
+	 * The below piece of code is needed for PL DDR to work
+	 * (to take PL DDR out of reset). Hence including this code only when
+	 * PL DDR is in design.
+	 */
+#if defined(XPAR_MIG_0_BASEADDR) || defined(XPS_BOARD_ZCU104)
+#ifdef XPAR_MIG_0_BASEADDR
+	/* Enable Regulator (FMC ADJ) ZCU102 */
+	WriteBuffer[0] = CMD_ON_OFF_CFG;
+	WriteBuffer[1] = ON_OFF_CFG_VAL;
+	SlaveAddr = MAX15301_ADDR;
+
+	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+			WriteBuffer, 2, SlaveAddr);
+	if (Status != XST_SUCCESS) {
+		UStatus = XFSBL_ERROR_I2C_WRITE;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_WRITE\r\n");
+		goto END;
+	}
+#endif
+
+#if defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111)
+	/* PMbus Command for Page Selection */
+	WriteBuffer[0] = CMD_PAGE_CFG;
+#ifdef XPS_BOARD_ZCU104
+	/* Page-3 for SW-D in ZCU104 */
+	WriteBuffer[1] = DATA_SWD_CFG;
+	SlaveAddr = IRPS5401_ADDR;
+#else
+	/* Page-2 for SW-C in ZCU111 */
+	WriteBuffer[1] = DATA_SWC_CFG;
+	SlaveAddr = IRPS5401_SWC_ADDR;
+#endif
+	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+			WriteBuffer, 2, SlaveAddr);
+	if (Status != XST_SUCCESS) {
+		UStatus = XFSBL_ERROR_I2C_WRITE;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_WRITE\r\n");
+		goto END;
+	}
+
+	/* Wait until bus is idle */
+	while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+		/*
+		 * For MISRA C
+		 * compliance
+		 */
+	}
+
+	/* Operation Command For ON and OFF and Control Margining*/
+	WriteBuffer[0] = CMD_OPERATION_CFG;
+	WriteBuffer[1] = OPERATION_VAL;
+	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+			WriteBuffer, 2, SlaveAddr);
+	if (Status != XST_SUCCESS) {
+		UStatus = XFSBL_ERROR_I2C_WRITE;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_WRITE\r\n");
+		goto END;
+	}
+
+	/* Wait until bus is idle */
+	while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+		/**
+		 * For MISRA C
+		 * compliance
+		 */
+	}
+
+	/* PMbus Command for ON_OFF_CFG for Unit to be ON or OFF */
+	WriteBuffer[0] = CMD_ON_OFF_CFG;
+	WriteBuffer[1] = ON_OFF_CFG_VAL_IRPS;
+	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+			WriteBuffer, 2, SlaveAddr);
+	if (Status != XST_SUCCESS) {
+		UStatus = XFSBL_ERROR_I2C_WRITE;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_WRITE\r\n");
+		goto END;
+	}
+
+	/* Wait until bus is idle */
+
+	while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+		/**
+		 * For MISRA C
+		 * compliance
+		 */
+	}
+
+	/**
+	 *  Sets the format for VOUT related commands. Linear mode,
+	 * -8, -9, and -12 exponents supported. No LDO support
+	 *
+	 */
+	WriteBuffer[0] = CMD_VOUT_MODE_CFG;
+	WriteBuffer[1] = DATA_VOUT_MODE_VAL;
+	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+			WriteBuffer, 2, SlaveAddr);
+	if (Status != XST_SUCCESS) {
+		UStatus = XFSBL_ERROR_I2C_WRITE;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_WRITE\r\n");
+		goto END;
+	}
+
+	/* Wait until bus is idle */
+	while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+		/**
+		 * For MISRA C
+		 * compliance
+		 */
+	}
+
+	/**
+	 * PMbus Command for VOUT_MAX Sets an upper limit on the output
+	 * voltage the unit can command. Format according to VOUT_MODE
+	 */
+	WriteBuffer[0] = CMD_VOUT_MAX_CFG;
+	WriteBuffer[1] = DATA_VOUT_MAX_VAL_L;
+	WriteBuffer[2] = DATA_VOUT_MAX_VAL_H;
+	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+			WriteBuffer, 3, SlaveAddr);
+	if (Status != XST_SUCCESS) {
+		UStatus = XFSBL_ERROR_I2C_WRITE;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_WRITE\r\n");
+		goto END;
+	}
+
+	/* Wait until bus is idle */
+	while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+		/**
+		 * For MISRA C
+		 * compliance
+		 */
+	}
+
+	/**
+	 * Lookup table for Vout_Cmd, Vout Margin High,Vout_OV_Warn_Limit,
+	 * Vout_OV_Fault_Limit, Vout Margin_Low, Vout_UV_Warn_Limit
+	 * Vout_UV_Fault_Limit based on Index which is similar to
+	 * VadjSetting
+	 */
+	XVoutCommands LookupTable[] = {
+		{ 0, 0x33, 0x13, 0xCD, 0x14, 0x9A, 0x15, 0x66, 0x16, 0x9A, 0x11,
+				0xCD, 0x10, 0x00, 0x10 },
+		{ 1, 0x33, 0x13, 0xCD, 0x14, 0x9A, 0x15, 0x66, 0x16, 0x9A, 0x11,
+				0xCD, 0x10, 0x00, 0x10 },
+		{ 2, 0x00, 0x18, 0x9A, 0x19, 0x66, 0x1A, 0x33, 0x1B, 0x66, 0x16,
+				0x9A, 0x15, 0xCD, 0x14 },
+		{ 3, 0xCD, 0x1C, 0x66, 0x1E, 0x33, 0x1F, 0x00, 0x20, 0x33, 0x1B,
+				0x66, 0x1A, 0x33, 0x1B },
+		{ 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+
+		};
+
+	for (XVoutCommands *VoutPtr = LookupTable; VoutPtr->Index != 4;
+			++VoutPtr){
+		if (VadjSetting == VoutPtr->Index) {
+		/**
+		 * PMbus Command for Vout CMD
+		 * This is a command that is used to set the
+		 * output voltage when the OPERATION command
+		 * is set to ON without margining
+		 * Format according to VOUT_MODE
+		 */
+
+			WriteBuffer[0] = CMD_VOUT_CMD_CFG;
+			WriteBuffer[1] = VoutPtr->VoutCmdL;
+			WriteBuffer[2] = VoutPtr->VoutCmdH;
+			Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+						WriteBuffer, 3, SlaveAddr);
+			if (Status != XST_SUCCESS) {
+				UStatus = XFSBL_ERROR_I2C_WRITE;
+				XFsbl_Printf(DEBUG_GENERAL,
+					"XFSBL_ERROR_I2C_WRITE1\r\n");
+				goto END;
+			}
+
+			/* Wait until bus is idle */
+			while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+				/**
+				 * For MISRA C
+				 * compliance
+				 */
+			}
+
+			/**
+			 * PMbus Command for VOUT MARGIN_HIGH
+			 * This command is used to set the output voltage
+			 * when the Operation command is set to Margin HIGH.
+			 * The exponent is set by VOUT_MODE
+			 */
+			WriteBuffer[0] = CMD_VOUT_MARGIN_HIGH;
+			WriteBuffer[1] = VoutPtr->VoutMarHighL;
+			WriteBuffer[2] = VoutPtr->VoutMarHighH;
+			Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+						WriteBuffer, 3, SlaveAddr);
+			if (Status != XST_SUCCESS) {
+				UStatus = XFSBL_ERROR_I2C_WRITE;
+				XFsbl_Printf(DEBUG_GENERAL,
+					"XFSBL_ERROR_I2C_WRITE\r\n");
+				goto END;
+			}
+
+			/* Wait until bus is idle */
+			while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+				/**
+				 * For MISRA C
+				 * compliance
+				 */
+			}
+
+			/**
+			 * The VOUT_OV_WARN_LIMIT command
+			 * sets threshold for the output voltage high warning.
+			 * Masked until the unit reaches the programmed
+			 * output voltage. Formatted according to the setting
+			 * of the VOUT_MODE command.
+			 */
+			WriteBuffer[0] = CMD_VOUT_OV_WARN_LIMIT;
+			WriteBuffer[1] = VoutPtr->VoutOvWarnL;
+			WriteBuffer[2] = VoutPtr->VoutOvWarnH;
+			Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+						WriteBuffer, 3, SlaveAddr);
+			if (Status != XST_SUCCESS) {
+				UStatus = XFSBL_ERROR_I2C_WRITE;
+				XFsbl_Printf(DEBUG_GENERAL,
+					"XFSBL_ERROR_I2C_WRITE\r\n");
+				goto END;
+			}
+
+			/* Wait until bus is idle */
+			while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+				/**
+				 * For MISRA C
+				 * compliance
+				 */
+			}
+
+			/**
+			 *  The VOUT_OV_FAULT_LIMIT command
+			 *  Sets threshold for the output voltage high fault.
+			 *  Masked until the unit reaches the programmed
+			 *  output voltage. Formatted according to the
+			 *  setting of the VOUT_MODE command.
+			 */
+			WriteBuffer[0] = CMD_VOUT_OV_FAULT_LIMIT;
+			WriteBuffer[1] = VoutPtr->VoutOvFaultL;
+			WriteBuffer[2] = VoutPtr->VoutOvFaultH;
+			Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+						WriteBuffer, 3, SlaveAddr);
+			if (Status != XST_SUCCESS) {
+				UStatus = XFSBL_ERROR_I2C_WRITE;
+				XFsbl_Printf(DEBUG_GENERAL,
+					"XFSBL_ERROR_I2C_WRITE\r\n");
+				goto END;
+			}
+
+			/**
+			 * PMbus Command for VOUT MARGIN_LOW
+			 * This command is used to set the output voltage
+			 * when the Operation command is set to Margin LOW.
+			 * The exponent is set by VOUT_MODE
+			 */
+			WriteBuffer[0] = CMD_VOUT_MARGIN_LOW;
+			WriteBuffer[1] = VoutPtr->VoutMarLowL;
+			WriteBuffer[2] = VoutPtr->VoutMarLowH;
+			Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+						WriteBuffer, 3, SlaveAddr);
+			if (Status != XST_SUCCESS) {
+				UStatus = XFSBL_ERROR_I2C_WRITE;
+				XFsbl_Printf(DEBUG_GENERAL,
+					"XFSBL_ERROR_I2C_WRITE\r\n");
+				goto END;
+			}
+
+			/* Wait until bus is idle */
+			while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+				/**
+				 * For MISRA C
+				 * compliance
+				 */
+			}
+
+			/**
+			 * The VOUT_UV_WARN_LIMIT command
+			 * sets threshold for the output voltage low warning.
+			 * Masked until the unit reaches the programmed
+			 * output voltage. Formatted according to the setting
+			 * of theVOUT_MODE command.
+			 */
+			WriteBuffer[0] = CMD_VOUT_UV_WARN_LIMIT;
+			WriteBuffer[1] = VoutPtr->VoutUvWarnL;
+				WriteBuffer[2] = VoutPtr->VoutUvWarnH;
+			Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+						WriteBuffer, 3, SlaveAddr);
+			if (Status != XST_SUCCESS) {
+				UStatus = XFSBL_ERROR_I2C_WRITE;
+				XFsbl_Printf(DEBUG_GENERAL,
+					"XFSBL_ERROR_I2C_WRITE\r\n");
+				goto END;
+			}
+
+			/* Wait until bus is idle */
+			while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+				/**
+				 * For MISRA C
+				 * compliance
+				 */
+			}
+
+			/**
+			 * The VOUT_UV_FAULT_LIMIT command
+			 * Sets threshold for the output voltage low fault.
+			 * Masked until the unit reaches the programmed
+			 * output voltage. Formatted according to the
+			 * setting of the VOUT_MODE command.
+			 */
+			WriteBuffer[0] = CMD_VOUT_UV_FAULT_LIMIT;
+			WriteBuffer[1] = VoutPtr->VoutUvFaultL;
+			WriteBuffer[2] = VoutPtr->VoutUvFaultH;
+			Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+						WriteBuffer, 3, SlaveAddr);
+			if (Status != XST_SUCCESS) {
+				UStatus = XFSBL_ERROR_I2C_WRITE;
+				XFsbl_Printf(DEBUG_GENERAL,
+					     "XFSBL_ERROR_I2C_WRITE\r\n");
+				goto END;
+			}
+
+			/* Wait until bus is idle */
+			while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+				/**
+				 * For MISRA C
+				 * compliance
+				 */
+			}
+		}
+	}
+#endif
+	XFsbl_Printf(DEBUG_INFO, "FMC VADJ Configuration Successful\n\r");
+#endif
+
+END:
+
+	return UStatus;
+}
 /*****************************************************************************/
 /**
  * This function is used to perform GT configuration for ZCU102 board.
@@ -85,11 +700,11 @@ static void XFsbl_PcieReset(void);
 static u32 XFsbl_BoardConfig(void)
 {
 	XIicPs I2c0InstancePtr;
-	u8 WriteBuffer[BUF_LEN] = {0};
 	XIicPs_Config *I2c0CfgPtr;
 	s32 Status;
 	u32 UStatus;
 #if defined(XPS_BOARD_ZCU102)
+	u8 WriteBuffer[BUF_LEN] = {0};
 	u32 ICMCfgLane[NUM_GT_LANES];
 #endif
 
@@ -97,7 +712,7 @@ static u32 XFsbl_BoardConfig(void)
 	I2c0CfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
 	if (I2c0CfgPtr == NULL) {
 		UStatus = XFSBL_ERROR_I2C_INIT;
-		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_I2C_INIT\r\n");
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_INIT\r\n");
 		goto END;
 	}
 
@@ -105,25 +720,27 @@ static u32 XFsbl_BoardConfig(void)
 			I2c0CfgPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_ERROR_I2C_INIT;
-		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_I2C_INIT\r\n");
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_INIT\r\n");
 		goto END;
 	}
 
 	/* Set the IIC serial clock rate */
 	Status = XIicPs_SetSClk(&I2c0InstancePtr, IIC_SCLK_RATE_IOEXP);
-    if(Status != XST_SUCCESS) {
-	UStatus  = XFSBL_ERROR_I2C_SET_SCLK;
-	XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_I2C_SET_SCLK\r\n");
-	goto END;
-    }
+	if (Status != XST_SUCCESS) {
+		UStatus  = XFSBL_ERROR_I2C_SET_SCLK;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_SET_SCLK\r\n");
+		goto END;
+	}
+
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
 	/* Configure I/O pins as Output */
 	WriteBuffer[0] = CMD_CFG_0_REG;
 	WriteBuffer[1] = DATA_OUTPUT;
 	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
-			WriteBuffer, 2, IOEXPANDER1_ADDR);
+		WriteBuffer, 2, IOEXPANDER1_ADDR);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_ERROR_I2C_WRITE;
-		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_I2C_WRITE\r\n");
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_WRITE\r\n");
 		goto END;
 	}
 
@@ -202,51 +819,7 @@ static u32 XFsbl_BoardConfig(void)
 			WriteBuffer, 2, IOEXPANDER1_ADDR);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_ERROR_I2C_WRITE;
-		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_I2C_WRITE\r\n");
-		goto END;
-	}
-
-	/* Wait until bus is idle */
-	while (XIicPs_BusIsBusy(&I2c0InstancePtr)>0) {
-		/*For MISRA C compliance*/
-	}
-
-	/* Change the IIC serial clock rate */
-	Status = XIicPs_SetSClk(&I2c0InstancePtr, IIC_SCLK_RATE_I2CMUX);
-
-	if(Status != XST_SUCCESS) {
-		UStatus  = XFSBL_ERROR_I2C_SET_SCLK;
-		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_I2C_SET_SCLK\r\n");
-		goto END;
-	}
-	/* Set I2C Mux for channel-2 (MAXIM_PMBUS) */
-	WriteBuffer[0] = CMD_CH_2_REG;
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
-			WriteBuffer, 1, PCA9544A_ADDR);
-	if (Status != XST_SUCCESS) {
-		UStatus = XFSBL_ERROR_I2C_WRITE;
-		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_I2C_WRITE\r\n");
-		goto END;
-	}
-
-	/* Wait until bus is idle */
-	while (XIicPs_BusIsBusy(&I2c0InstancePtr)>0) {
-		/*For MISRA C compliance*/
-	}
-	/**
-	 * The below piece of code is needed for PL DDR to work
-	 * (to take PL DDR out of reset). Hence including this code only when
-	 * PL DDR is in design.
-	 */
-#ifdef XPAR_MIG_0_BASEADDR
-	/* Enable Regulator (FMC ADJ) */
-	WriteBuffer[0] = CMD_ON_OFF_CFG;
-	WriteBuffer[1] = ON_OFF_CFG_VAL;
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
-			WriteBuffer, 2, MAX15301_ADDR);
-	if (Status != XST_SUCCESS) {
-		UStatus = XFSBL_ERROR_I2C_WRITE;
-		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_I2C_WRITE\r\n");
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_WRITE\r\n");
 		goto END;
 	}
 
@@ -256,7 +829,14 @@ static u32 XFsbl_BoardConfig(void)
 	}
 #endif
 
-	XFsbl_Printf(DEBUG_INFO,"Board Configuration successful \n\r");
+
+	Status = XFsbl_FMCEnable();
+	if (Status != XST_SUCCESS) {
+		UStatus = XSFBL_ERROR_FMC_ENABLE;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_FMC_ENABLE\r\n");
+		goto END;
+	}
+	XFsbl_Printf(DEBUG_INFO, "Board Configuration successful\n\r");
 	UStatus = XFSBL_SUCCESS;
 
 END:
@@ -350,7 +930,8 @@ static void XFsbl_PcieReset(void)
 u32 XFsbl_BoardInit(void)
 {
 	u32 Status;
-#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)		\
+		|| defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111)
 	/* Program I2C to configure GT lanes */
 	Status = XFsbl_BoardConfig();
 	if (Status != XFSBL_SUCCESS) {
