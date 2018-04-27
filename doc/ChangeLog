@@ -69,6 +69,7 @@ Resolve compilation warnings for sdps driver
 
 sysmonpsu_v2_4
 Remove looping check for PL accessible bit
+Remove usleeps from AMS CTRL example
 
 Resetps_v1_1
 Fixed compilation warnings in resetps driver
