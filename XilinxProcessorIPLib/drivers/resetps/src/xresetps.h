@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xresetps.h
-* @addtogroup xresetps_v1_0
+* @addtogroup xresetps_v1_1
 * @{
 * @details
 *
@@ -53,6 +53,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -----------------------------------------------
 * 1.00  cjp    09/05/17 First release
+* 1.1   Nava   04/20/18 Fixed compilation warnings.
 * </pre>
 *
 ******************************************************************************/
