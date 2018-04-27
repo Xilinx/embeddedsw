@@ -38,7 +38,6 @@ AXI_ETHERNET_SRCS = $(PORT)/netif/xaxiemacif_hw.c \
 
 AXI_ETHERNET_FIFO_SRCS = $(PORT)/netif/xaxiemacif_fifo.c
 AXI_ETHERNET_DMA_SRCS = $(PORT)/netif/xaxiemacif_dma.c
-AXI_ETHERNET_MCDMA_SRCS = $(PORT)/netif/xaxiemacif_mcdma.c
 
 PS_ETHERNET_SRCS = $(PORT)/netif/xemacpsif_hw.c \
 	     $(PORT)/netif/xemacpsif_physpeed.c \
@@ -69,9 +68,6 @@ ADAPTER_SRCS += $(AXI_ETHERNET_FIFO_SRCS)
 endif
 ifeq ($(CONFIG_AXI_ETHERNET_DMA), y)
 ADAPTER_SRCS += $(AXI_ETHERNET_DMA_SRCS)
-endif
-ifeq ($(CONFIG_AXI_ETHERNET_MCDMA), y)
-ADAPTER_SRCS += $(AXI_ETHERNET_MCDMA_SRCS)
 endif
 
 ifeq ($(CONFIG_PS_ETHERNET), y)
