@@ -54,6 +54,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   mn     12/13/17 First release
+* 2.4   mn     04/26/18 Remove usleeps from AMS CTRL example
 *
 * </pre>
 *
@@ -81,6 +82,7 @@
 #define SYSMON_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID
 #define SCUGIC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define INTR_ID			XPAR_XSYSMONPSU_INTR
+#define EOC_POLLING_TIMEOUT 1000000
 
 
 /**************************** Type Definitions ******************************/
@@ -199,6 +201,7 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 	float VccPsDdrPllData;
 	float VccPsDdrPhyData;
 	float VccPsIntFpData;
+	u64 IntrStatus;
 
 	/* Initialize the SysMon driver. */
 	ConfigPtr = XSysMonPsu_LookupConfig(SysMonDeviceId);
@@ -213,6 +216,10 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
+	/* Clear any bits set in the Interrupt Status Register. */
+	IntrStatus = XSysMonPsu_IntrGetStatus(SysMonInstPtr);
+	XSysMonPsu_IntrClear(SysMonInstPtr, IntrStatus);
+
 	/* Set the sequencer in Single channel mode. */
 	XSysMonPsu_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_SINGCHAN, XSYSMON_PS);
 
@@ -226,14 +233,26 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
-	usleep(1000);
+	Xil_poll_timeout(Xil_In32, SysMonInstPtr->Config.BaseAddress +
+            XSYSMONPSU_ISR_1_OFFSET, IntrStatus,
+			(IntrStatus & XSYSMONPSU_ISR_1_EOC_MASK) == XSYSMONPSU_ISR_1_EOC_MASK,
+			EOC_POLLING_TIMEOUT);
+
+	xil_printf("\r\n1. EOC: %s , VCC_PSPLL: ", (IntrStatus & 0x8) ? "Done" : "Timeout");
 
 	VccPsPllRawData = XSysMonPsu_GetAdcData(SysMonInstPtr, XSM_CH_VCC_PSLL0, XSYSMON_AMS);
 	if (VccPsPllRawData == 0U)
 		return XST_FAILURE;
 
 	VccPsPllData = XSysMonPsu_RawToVoltage(VccPsPllRawData);
-	xil_printf("\r\nThe VCC_PSPLL is %0d.%03d Volts\r\n", (int)(VccPsPllData), SysMonPsuFractionToInt(VccPsPllData));
+	xil_printf("%0d.%03d Volts\r\n", (int)(VccPsPllData), SysMonPsuFractionToInt(VccPsPllData));
+
+	/* Set the sequencer in Single channel mode. */
+	XSysMonPsu_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_SINGCHAN, XSYSMON_PS);
+
+	/* Clear any bits set in the Interrupt Status Register. */
+	IntrStatus = XSysMonPsu_IntrGetStatus(SysMonInstPtr);
+	XSysMonPsu_IntrClear(SysMonInstPtr, IntrStatus);
 
 	/*
 	 * Set the configuration registers for single channel continuous mode
@@ -245,14 +264,26 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
-	usleep(1000);
+	Xil_poll_timeout(Xil_In32, SysMonInstPtr->Config.BaseAddress +
+            XSYSMONPSU_ISR_1_OFFSET, IntrStatus,
+			(IntrStatus & XSYSMONPSU_ISR_1_EOC_MASK) == XSYSMONPSU_ISR_1_EOC_MASK,
+			EOC_POLLING_TIMEOUT);
+
+	xil_printf("\r\n2. EOC: %s , VCC_PSBATT: ", (IntrStatus & 0x8) ? "Done" : "Timeout");
 
 	VccPsBattRawData = XSysMonPsu_GetAdcData(SysMonInstPtr, XSM_CH_VCC_PSLL3, XSYSMON_AMS);
 	if (VccPsBattRawData == 0U)
 		return XST_FAILURE;
 
 	VccPsBattData = XSysMonPsu_RawToVoltage(VccPsBattRawData);
-	xil_printf("\r\nThe VCC_PSBATT is %0d.%03d Volts\r\n", (int)(VccPsBattData), SysMonPsuFractionToInt(VccPsBattData));
+	xil_printf("%0d.%03d Volts\r\n", (int)(VccPsBattData), SysMonPsuFractionToInt(VccPsBattData));
+
+	/* Set the sequencer in Single channel mode. */
+	XSysMonPsu_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_SINGCHAN, XSYSMON_PS);
+
+	/* Clear any bits set in the Interrupt Status Register. */
+	IntrStatus = XSysMonPsu_IntrGetStatus(SysMonInstPtr);
+	XSysMonPsu_IntrClear(SysMonInstPtr, IntrStatus);
 
 	/*
 	 * Set the configuration registers for single channel continuous mode
@@ -264,14 +295,26 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
-	usleep(1000);
+	Xil_poll_timeout(Xil_In32, SysMonInstPtr->Config.BaseAddress +
+            XSYSMONPSU_ISR_1_OFFSET, IntrStatus,
+			(IntrStatus & XSYSMONPSU_ISR_1_EOC_MASK) == XSYSMONPSU_ISR_1_EOC_MASK,
+			EOC_POLLING_TIMEOUT);
+
+	xil_printf("\r\n3. EOC: %s , VCCINT: ", (IntrStatus & 0x8) ? "Done" : "Timeout");
 
 	VccIntRawData = XSysMonPsu_GetAdcData(SysMonInstPtr, XSM_CH_VCCINT, XSYSMON_AMS);
 	if (VccIntRawData == 0U)
 		return XST_FAILURE;
 
 	VccIntData = XSysMonPsu_RawToVoltage(VccIntRawData);
-	xil_printf("\r\nThe VCCINT is %0d.%03d Volts\r\n", (int)(VccIntData), SysMonPsuFractionToInt(VccIntData));
+	xil_printf("%0d.%03d Volts\r\n", (int)(VccIntData), SysMonPsuFractionToInt(VccIntData));
+
+	/* Set the sequencer in Single channel mode. */
+	XSysMonPsu_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_SINGCHAN, XSYSMON_PS);
+
+	/* Clear any bits set in the Interrupt Status Register. */
+	IntrStatus = XSysMonPsu_IntrGetStatus(SysMonInstPtr);
+	XSysMonPsu_IntrClear(SysMonInstPtr, IntrStatus);
 
 	/*
 	 * Set the configuration registers for single channel continuous mode
@@ -283,14 +326,26 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
-	usleep(1000);
+	Xil_poll_timeout(Xil_In32, SysMonInstPtr->Config.BaseAddress +
+            XSYSMONPSU_ISR_1_OFFSET, IntrStatus,
+			(IntrStatus & XSYSMONPSU_ISR_1_EOC_MASK) == XSYSMONPSU_ISR_1_EOC_MASK,
+			EOC_POLLING_TIMEOUT);
+
+	xil_printf("\r\n4. EOC: %s , VCCBRAM: ", (IntrStatus & 0x8) ? "Done" : "Timeout");
 
 	VccBramRawData = XSysMonPsu_GetAdcData(SysMonInstPtr, XSM_CH_VCCBRAM, XSYSMON_AMS);
 	if (VccBramRawData == 0U)
 		return XST_FAILURE;
 
 	VccBramData = XSysMonPsu_RawToVoltage(VccBramRawData);
-	xil_printf("\r\nThe VCCBRAM is %0d.%03d Volts\r\n", (int)(VccBramData), SysMonPsuFractionToInt(VccBramData));
+	xil_printf("%0d.%03d Volts\r\n", (int)(VccBramData), SysMonPsuFractionToInt(VccBramData));
+
+	/* Set the sequencer in Single channel mode. */
+	XSysMonPsu_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_SINGCHAN, XSYSMON_PS);
+
+	/* Clear any bits set in the Interrupt Status Register. */
+	IntrStatus = XSysMonPsu_IntrGetStatus(SysMonInstPtr);
+	XSysMonPsu_IntrClear(SysMonInstPtr, IntrStatus);
 
 	/*
 	 * Set the configuration registers for single channel continuous mode
@@ -302,14 +357,26 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
-	usleep(1000);
+	Xil_poll_timeout(Xil_In32, SysMonInstPtr->Config.BaseAddress +
+            XSYSMONPSU_ISR_1_OFFSET, IntrStatus,
+			(IntrStatus & XSYSMONPSU_ISR_1_EOC_MASK) == XSYSMONPSU_ISR_1_EOC_MASK,
+			EOC_POLLING_TIMEOUT);
+
+	xil_printf("\r\n5. EOC: %s , VCCAUX: ", (IntrStatus & 0x8) ? "Done" : "Timeout");
 
 	VccAuxRawData = XSysMonPsu_GetAdcData(SysMonInstPtr, XSM_CH_VCCAUX, XSYSMON_AMS);
 	if (VccAuxRawData == 0U)
 		return XST_FAILURE;
 
 	VccAuxData = XSysMonPsu_RawToVoltage(VccAuxRawData);
-	xil_printf("\r\nThe VCCAUX is %0d.%03d Volts\r\n", (int)(VccAuxData), SysMonPsuFractionToInt(VccAuxData));
+	xil_printf("%0d.%03d Volts\r\n", (int)(VccAuxData), SysMonPsuFractionToInt(VccAuxData));
+
+	/* Set the sequencer in Single channel mode. */
+	XSysMonPsu_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_SINGCHAN, XSYSMON_PS);
+
+	/* Clear any bits set in the Interrupt Status Register. */
+	IntrStatus = XSysMonPsu_IntrGetStatus(SysMonInstPtr);
+	XSysMonPsu_IntrClear(SysMonInstPtr, IntrStatus);
 
 	/*
 	 * Set the configuration registers for single channel continuous mode
@@ -321,14 +388,26 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
-	usleep(1000);
+	Xil_poll_timeout(Xil_In32, SysMonInstPtr->Config.BaseAddress +
+            XSYSMONPSU_ISR_1_OFFSET, IntrStatus,
+			(IntrStatus & XSYSMONPSU_ISR_1_EOC_MASK) == XSYSMONPSU_ISR_1_EOC_MASK,
+			EOC_POLLING_TIMEOUT);
+
+	xil_printf("\r\n6. EOC: %s , VCC_PSDDRPLL: ", (IntrStatus & 0x8) ? "Done" : "Timeout");
 
 	VccPsDdrPllRawData = XSysMonPsu_GetAdcData(SysMonInstPtr, XSM_CH_VCC_PSDDRPLL, XSYSMON_AMS);
 	if (VccPsDdrPllRawData == 0U)
 		return XST_FAILURE;
 
 	VccPsDdrPllData = XSysMonPsu_RawToVoltage(VccPsDdrPllRawData);
-	xil_printf("\r\nThe VCC_PSDDRPLL is %0d.%03d Volts\r\n", (int)(VccPsDdrPllData), SysMonPsuFractionToInt(VccPsDdrPllData));
+	xil_printf("%0d.%03d Volts\r\n", (int)(VccPsDdrPllData), SysMonPsuFractionToInt(VccPsDdrPllData));
+
+	/* Set the sequencer in Single channel mode. */
+	XSysMonPsu_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_SINGCHAN, XSYSMON_PS);
+
+	/* Clear any bits set in the Interrupt Status Register. */
+	IntrStatus = XSysMonPsu_IntrGetStatus(SysMonInstPtr);
+	XSysMonPsu_IntrClear(SysMonInstPtr, IntrStatus);
 
 	/*
 	 * Set the configuration registers for single channel continuous mode
@@ -340,14 +419,26 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
-	usleep(1000);
+	Xil_poll_timeout(Xil_In32, SysMonInstPtr->Config.BaseAddress +
+            XSYSMONPSU_ISR_1_OFFSET, IntrStatus,
+			(IntrStatus & XSYSMONPSU_ISR_1_EOC_MASK) == XSYSMONPSU_ISR_1_EOC_MASK,
+			EOC_POLLING_TIMEOUT);
+
+	xil_printf("\r\n7. EOC: %s , VCC_PSDDRPHY_REF: ", (IntrStatus & 0x8) ? "Done" : "Timeout");
 
 	VccPsDdrPhyRawData = XSysMonPsu_GetAdcData(SysMonInstPtr, XSM_CH_DDRPHY_VREF, XSYSMON_AMS);
 	if (VccPsDdrPhyRawData == 0U)
 		return XST_FAILURE;
 
 	VccPsDdrPhyData = XSysMonPsu_RawToVoltage(VccPsDdrPhyRawData);
-	xil_printf("\r\nThe VCC_PSDDRPHY_REF is %0d.%03d Volts\r\n", (int)(VccPsDdrPhyData), SysMonPsuFractionToInt(VccPsDdrPhyData));
+	xil_printf("%0d.%03d Volts\r\n", (int)(VccPsDdrPhyData), SysMonPsuFractionToInt(VccPsDdrPhyData));
+
+	/* Set the sequencer in Single channel mode. */
+	XSysMonPsu_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_SINGCHAN, XSYSMON_PS);
+
+	/* Clear any bits set in the Interrupt Status Register. */
+	IntrStatus = XSysMonPsu_IntrGetStatus(SysMonInstPtr);
+	XSysMonPsu_IntrClear(SysMonInstPtr, IntrStatus);
 
 	/*
 	 * Set the configuration registers for single channel continuous mode
@@ -359,14 +450,19 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
-	usleep(1000);
+	Xil_poll_timeout(Xil_In32, SysMonInstPtr->Config.BaseAddress +
+            XSYSMONPSU_ISR_1_OFFSET, IntrStatus,
+			(IntrStatus & XSYSMONPSU_ISR_1_EOC_MASK) == XSYSMONPSU_ISR_1_EOC_MASK,
+			EOC_POLLING_TIMEOUT);
+
+	xil_printf("\r\n8. EOC: %s , VCC_PSINTFP_DDR: ", (IntrStatus & 0x8) ? "Done" : "Timeout");
 
 	VccPsIntFpRawData = XSysMonPsu_GetAdcData(SysMonInstPtr, XSM_CH_RESERVE1, XSYSMON_AMS);
 	if (VccPsIntFpRawData == 0U)
 		return XST_FAILURE;
 
 	VccPsIntFpData = XSysMonPsu_RawToVoltage(VccPsIntFpRawData);
-	xil_printf("\r\nThe VCC_PSINTFP_DDR is %0d.%03d Volts\r\n", (int)(VccPsIntFpData), SysMonPsuFractionToInt(VccPsIntFpData));
+	xil_printf("%0d.%03d Volts\r\n", (int)(VccPsIntFpData), SysMonPsuFractionToInt(VccPsIntFpData));
 
 	return XST_SUCCESS;
 }
