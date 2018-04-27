@@ -46,12 +46,14 @@
  * Ver	Who   Date     Changes
  * ---- ----- -------- ----------------------------------------------------
  * 1.0  aad   04/12/16 Initial release.
+ * 1.1  aad   04/26/18 Fixed Warnings
  *
  *****************************************************************************/
 
 /***************************** Include Files **********************************/
 #include "xdpdma.h"
 #include "xavbuf.h"
+#include "xil_types.h"
 
 /************************** Constant Definitions ******************************/
 #define XDPDMA_CH_OFFSET		0x100
@@ -244,6 +246,7 @@ static void XDpDma_SetDescriptorAddress(XDpDma *InstancePtr, u8 ChannelNum)
 {
 	u32 AddrOffset;
 	u32 AddrEOffset;
+	u64 DescAddr;
 	Xil_AssertVoid(ChannelNum <= XDPDMA_AUDIO_CHANNEL1);
 	AddrOffset = XDPDMA_CH0_DSCR_STRT_ADDR +
 					(XDPDMA_CH_OFFSET * ChannelNum);
@@ -272,10 +275,11 @@ static void XDpDma_SetDescriptorAddress(XDpDma *InstancePtr, u8 ChannelNum)
 		break;
 	}
 
+	DescAddr = (INTPTR) Descriptor;
 	XDpDma_WriteReg(InstancePtr->Config.BaseAddr, AddrEOffset,
-			(INTPTR) Descriptor >> 32);
+		UPPER_32_BITS(DescAddr));
 	XDpDma_WriteReg(InstancePtr->Config.BaseAddr, AddrOffset,
-			(INTPTR) Descriptor);
+			LOWER_32_BITS(DescAddr));
 }
 
 /*************************************************************************/
@@ -299,7 +303,7 @@ static void XDpDma_SetupAudioDescriptor(XDpDma_Descriptor *CurrDesc,
 	Xil_AssertVoid(CurrDesc != NULL);
 	Xil_AssertVoid(DataSize != 0);
 	Xil_AssertVoid(BuffAddr != 0);
-
+	u64 DescAddr = (INTPTR) NextDesc;
 	if(NextDesc == NULL) {
 		CurrDesc->Control = XDPDMA_DESC_PREAMBLE |
 			XDPDMA_DESC_UPDATE | XDPDMA_DESC_IGNR_DONE |
@@ -317,9 +321,8 @@ static void XDpDma_SetupAudioDescriptor(XDpDma_Descriptor *CurrDesc,
 	CurrDesc->MSB_Timestamp = 0;
 	CurrDesc->ADDR_EXT = ((BuffAddr >> XDPDMA_DESCRIPTOR_SRC_ADDR_WIDTH) <<
 			      XDPDMA_DESCRIPTOR_ADDR_EXT_SRC_ADDR_EXT_SHIFT) |
-			     ((INTPTR) NextDesc >>
-			      XDPDMA_DESCRIPTOR_NEXT_DESR_WIDTH);
-	CurrDesc->NEXT_DESR = (INTPTR) NextDesc;
+			     (UPPER_32_BITS(DescAddr));
+	CurrDesc->NEXT_DESR = LOWER_32_BITS(DescAddr);
 	CurrDesc->SRC_ADDR =  BuffAddr;
 }
 
@@ -652,6 +655,7 @@ void XDpDma_InitVideoDescriptor(XDpDma_Descriptor *CurrDesc,
 	Xil_AssertVoid(CurrDesc != NULL);
 	Xil_AssertVoid(FrameBuffer != NULL);
 	Xil_AssertVoid((FrameBuffer->Stride) % XDPDMA_DESCRIPTOR_ALIGN == 0);
+	u64 DescAddr = (INTPTR) CurrDesc;
 	CurrDesc->Control = XDPDMA_DESC_PREAMBLE | XDPDMA_DESC_IGNR_DONE |
 			    XDPDMA_DESC_LAST_FRAME;
 	CurrDesc->DSCR_ID = 0;
@@ -662,9 +666,8 @@ void XDpDma_InitVideoDescriptor(XDpDma_Descriptor *CurrDesc,
 	CurrDesc->ADDR_EXT = (((FrameBuffer->Address >>
 				XDPDMA_DESCRIPTOR_SRC_ADDR_WIDTH) <<
 			       XDPDMA_DESCRIPTOR_ADDR_EXT_SRC_ADDR_EXT_SHIFT) |
-				((INTPTR) CurrDesc >>
-				 XDPDMA_DESCRIPTOR_NEXT_DESR_WIDTH));
-	CurrDesc->NEXT_DESR = (INTPTR) CurrDesc;
+				(UPPER_32_BITS(DescAddr)));
+	CurrDesc->NEXT_DESR = LOWER_32_BITS(DescAddr);
 	CurrDesc->SRC_ADDR = FrameBuffer->Address;
 }
 
@@ -747,26 +750,33 @@ void  XDpDma_DisplayVideoFrameBuffer(XDpDma *InstancePtr,
 				     XDpDma_FrameBuffer *Plane1,
 				     XDpDma_FrameBuffer *Plane2)
 {
-	u8 NumPlanes;
+	int  NumPlanes;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->Video.VideoInfo != NULL);
 
 	NumPlanes = InstancePtr->Video.VideoInfo->Mode;
 
-	switch(NumPlanes) {
-		case XDPDMA_VIDEO_CHANNEL2:
+	while(NumPlanes >= 0) {
+		switch(NumPlanes) {
+			case XDPDMA_VIDEO_CHANNEL2:
 			Xil_AssertVoid(Plane2 != NULL);
 			InstancePtr->Video.FrameBuffer[XDPDMA_VIDEO_CHANNEL2] =
 				Plane2;
-		case XDPDMA_VIDEO_CHANNEL1:
+			NumPlanes--;
+			break;
+			case XDPDMA_VIDEO_CHANNEL1:
 			Xil_AssertVoid(Plane1 != NULL);
 			InstancePtr->Video.FrameBuffer[XDPDMA_VIDEO_CHANNEL1] =
-				Plane1;
-		case XDPDMA_VIDEO_CHANNEL0:
+					Plane1;
+			NumPlanes--;
+			break;
+			case XDPDMA_VIDEO_CHANNEL0:
 			Xil_AssertVoid(Plane0 != NULL);
 			InstancePtr->Video.FrameBuffer[XDPDMA_VIDEO_CHANNEL0] =
-				Plane0;
+			Plane0;
+			NumPlanes--;
 			break;
+		}
 	}
 
 	if(InstancePtr->Video.Channel[XDPDMA_VIDEO_CHANNEL0].Current == NULL) {
@@ -828,6 +838,7 @@ int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 		      u8 ChannelNum)
 {
 	XDpDma_AudioChannel *Channel;
+	u64 DescAddr;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Buffer != NULL);
 	Xil_AssertNonvoid(Buffer->Size >= 512);
@@ -843,7 +854,7 @@ int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 		Channel->Used = 0;
 	}
 
-else if(Channel->Current == &Channel->Descriptor0) {
+	else if(Channel->Current == &Channel->Descriptor0) {
 		/* Check if descriptor chain can be updated */
 		if(Channel->Descriptor1.MSB_Timestamp >>
 		   XDPDMA_DESC_DONE_SHIFT) {
@@ -852,14 +863,15 @@ else if(Channel->Current == &Channel->Descriptor0) {
 		}
 		else if(Channel->Descriptor7.MSB_Timestamp >>
 			XDPDMA_DESC_DONE_SHIFT || !(Channel->Used)) {
+			DescAddr = (INTPTR) &Channel->Descriptor4;
 			Channel->Descriptor3.Control = XDPDMA_DESC_PREAMBLE |
 				XDPDMA_DESC_UPDATE | XDPDMA_DESC_IGNR_DONE;
 			Channel->Descriptor3.NEXT_DESR =
-				(INTPTR) &Channel->Descriptor4;
+				LOWER_32_BITS(DescAddr);
 			Channel->Descriptor3.ADDR_EXT &=
 				~XDPDMA_DESCRIPTOR_ADDR_EXT_DSC_NXT_MASK;
 			Channel->Descriptor3.ADDR_EXT |=
-				(INTPTR) &Channel->Descriptor4 >> 32;
+				UPPER_32_BITS(DescAddr);
 			Channel->Current = &Channel->Descriptor4;
 			Channel->Used = 1;
 			XDpDma_InitAudioDescriptor(Channel, Buffer);
@@ -878,14 +890,15 @@ else if(Channel->Current == &Channel->Descriptor0) {
 		}
 		else if(Channel->Descriptor3.MSB_Timestamp >>
 			XDPDMA_DESC_DONE_SHIFT) {
+			DescAddr = (INTPTR) &Channel->Descriptor0;
 			Channel->Descriptor7.Control = XDPDMA_DESC_PREAMBLE |
 				XDPDMA_DESC_UPDATE | XDPDMA_DESC_IGNR_DONE;
 			Channel->Descriptor7.NEXT_DESR =
-				(INTPTR) &Channel->Descriptor0;
+				LOWER_32_BITS(DescAddr);
 			Channel->Descriptor7.ADDR_EXT &=
 				~XDPDMA_DESCRIPTOR_ADDR_EXT_DSC_NXT_MASK;
 			Channel->Descriptor7.ADDR_EXT |=
-				(INTPTR) &Channel->Descriptor0 >> 32;
+				UPPER_32_BITS(DescAddr);
 			Channel->Current = &Channel->Descriptor0;
 			XDpDma_InitAudioDescriptor(Channel, Buffer);
 		}
