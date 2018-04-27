@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -71,6 +71,14 @@
 #endif
 
 #if XLWIP_CONFIG_INCLUDE_AXIETH_ON_ZYNQ == 1
+#define AXIDMA_TX_INTR_PRIORITY_SET_IN_GIC	0xA0
+#define AXIDMA_RX_INTR_PRIORITY_SET_IN_GIC	0xA0
+#define AXIETH_INTR_PRIORITY_SET_IN_GIC		0xA0
+#define TRIG_TYPE_RISING_EDGE_SENSITIVE		0x3
+
+
+#define INTC_DIST_BASE_ADDR	XPAR_SCUGIC_0_DIST_BASEADDR
+
 #ifndef XCACHE_FLUSH_DCACHE_RANGE
 #define XCACHE_FLUSH_DCACHE_RANGE(data, length)	\
 		Xil_DCacheFlushRange((UINTPTR)data, length)
