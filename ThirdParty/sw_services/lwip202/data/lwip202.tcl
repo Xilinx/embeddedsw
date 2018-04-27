@@ -1147,7 +1147,6 @@ proc generate_adapterconfig_makefile {libhandle} {
 	set have_axi_ethernet 0
 	set have_axi_ethernet_fifo 0
 	set have_axi_ethernet_dma 0
-	set have_axi_ethernet_mcdma 0
 	set have_ps_ethernet 0
 	set force_axieth_on_zynq 0
 	set force_emaclite_on_zynq 0
@@ -1182,8 +1181,6 @@ proc generate_adapterconfig_makefile {libhandle} {
 			set target_periph_type [axieth_target_periph $emac]
 			if {$target_periph_type == "axi_fifo_mm_s"} {
 				set have_axi_ethernet_fifo 1
-			} elseif {$target_periph_type == "axi_mcdma"} {
-				set have_axi_ethernet_mcdma 1
 			} else {
 				set have_axi_ethernet_dma 1
 			}
@@ -1256,9 +1253,6 @@ proc generate_adapterconfig_makefile {libhandle} {
 		if {$have_axi_ethernet_dma == 1} {
 			puts $fd "CONFIG_AXI_ETHERNET_DMA=y"
 		}
-		if {$have_axi_ethernet_mcdma == 1} {
-			puts $fd "CONFIG_AXI_ETHERNET_MCDMA=y"
-		}
 		if {$have_axi_ethernet_fifo == 1} {
 			puts $fd "CONFIG_AXI_ETHERNET_FIFO=y"
 		}
@@ -1287,8 +1281,6 @@ proc generate_adapterconfig_include {libhandle} {
 	set have_axi_ethernet 0
 	set have_axi_ethernet_fifo 0
 	set have_axi_ethernet_dma 0
-	set have_1588_enabled 0
-	set have_axi_ethernet_mcdma 0
 	set have_ps_ethernet 0
 	set force_axieth_on_zynq 0
 	set force_emaclite_on_zynq 0
@@ -1323,15 +1315,9 @@ proc generate_adapterconfig_include {libhandle} {
 			set target_periph_type [axieth_target_periph $emac]
 			if {$target_periph_type == "axi_fifo_mm_s"} {
 				set have_axi_ethernet_fifo 1
-			} elseif {$target_periph_type == "axi_mcdma"} {
-				set have_axi_ethernet_mcdma 1
 			} else {
 				set have_axi_ethernet_dma 1
 			}
-			#Find 1588 Enabled or not
-			set enable_1588 [common::get_property CONFIG.Enable_1588 $emac]
-			set have_1588_enabled [is_property_set $enable_1588]
-
 			set have_axi_ethernet 1
 		} elseif {$iptype == "ps7_ethernet" || $iptype == "psu_ethernet"} {
 			set have_ps_ethernet 1
@@ -1376,12 +1362,6 @@ proc generate_adapterconfig_include {libhandle} {
 		if {$have_axi_ethernet_fifo == 1} {
 			puts $fd "\#define XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO 1"
 		}
-		if {$have_1588_enabled == 1} {
-			puts $fd "\#define XLWIP_CONFIG_AXI_ETHERNET_ENABLE_1588 1"
-		}
-		if {$have_axi_ethernet_mcdma == 1} {
-			puts $fd "\#define XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_MCDMA 1"
-		}
 	} elseif {$have_ps_ethernet == 1} {
 			puts $fd "\#define XLWIP_CONFIG_INCLUDE_GEM 1"
 	}
@@ -1425,18 +1405,12 @@ proc axieth_target_periph {emac} {
 		# if there is a single match, we know if it is FIFO or DMA
 		set conn_busif_name [get_property NAME  $conn_busif_handle]
 		set target_periph [get_cells -of_objects $conn_busif_handle]
-		foreach target_peri $target_periph {
-			set target_periph_type [get_property IP_NAME $target_periph]
-			if {$target_periph_type == "axi_dma" || $target_periph_type == "axi_fifo_mm_s" || $target_periph_type == "axi_mcdma"} {
-				set target_periph_name [string toupper [get_property NAME $target_periph]]
-				return $target_periph_type
-			}
-			if { [string compare -nocase $target_periph_type "tri_mode_ethernet_mac"] == 0 } {
-				continue
-			}
-			set target_periph_name [string toupper [get_property NAME $target_periph]]
-				break
+		set target_periph_type [get_property IP_NAME $target_periph]
+		if { [string compare -nocase $target_periph_type "tri_mode_ethernet_mac"] == 0 } {
+			continue
 		}
+		set target_periph_name [string toupper [get_property NAME $target_periph]]
+		break
 		}
 	}
 
@@ -1450,16 +1424,6 @@ proc get_checksum {value} {
 		set value 1
 	} else {
 		set value 2
-	}
-
-	return $value
-}
-
-proc is_property_set {value} {
-	if {[string compare -nocase $value "true"] == 0} {
-		set value 1
-	} else {
-		set value 0
 	}
 
 	return $value
