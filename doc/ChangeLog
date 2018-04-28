@@ -47,10 +47,16 @@ Changed Eeprom scanning code with the dynamic Eeprom scanning code
 from other examples. (CR#997545)
 Changed the data packing code as per the other examples.
 
-rfdc_v3_3:
+rfdc_v4_0:
 Add XRFdc_MTS_Sysref_Config API to enable/disable sysref.
 Update max VCO value to 13108MHz to support max DAC sample rate of 6.554MHz.
 Add macro to configure Threshold OFF mode.
+Adjust calculated latency by sysref period, where doing so results in closer alignment to the target latency.
+Corrected Set/Get MixerSettings API description for FineMixerScale parameter.
+Enable VCO Auto selection while configuring the clock.
+Add XRFdc_GetPLLConfig() API to get PLL Configurations.
+Add XRFdc_GetLinkCoupling() API to get the Link Coupling mode.
+Add clock configuration files for ZCU111 in examples.
 
 sdiaud_v1_1:
 Changed selftest to cover all the GUI parameters like UHD SDI standard and
