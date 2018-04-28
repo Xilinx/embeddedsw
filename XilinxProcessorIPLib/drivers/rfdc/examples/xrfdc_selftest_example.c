@@ -51,6 +51,7 @@
 * 1.0   sk     05/25/17 First release
 * 1.1   sk     08/09/17 Modified the example to support both Linux and
 *                       Baremetal.
+* 4.0   sd     04/28/18 Add Clock configuration support for ZCU111.
 *
 * </pre>
 *
@@ -191,10 +192,16 @@ int SelfTestExample(u16 RFdcDeviceId)
 	if (Status != XRFDC_SUCCESS) {
 		return XRFDC_FAILURE;
 	}
+
 #ifdef XPS_BOARD_ZCU111
-	printf("\n Configuring the Clock \r\n");
-	LMK04028ClockConfig( 1, LMK04208_CKin);
-	ClockConfig(1, 3932160);
+printf("\n Configuring the Clock \r\n");
+#ifdef __BAREMETAL__
+	LMK04208ClockConfig(1, LMK04208_CKin);
+	LMX2594ClockConfig(1, 3932160);
+#else
+	LMK04208ClockConfig(12, LMK04208_CKin);
+	LMX2594ClockConfig(12, 3932160);
+#endif
 #endif
 
 #ifndef __BAREMETAL__
