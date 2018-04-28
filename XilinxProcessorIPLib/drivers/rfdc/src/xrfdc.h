@@ -153,6 +153,7 @@
 *       sk     04/19/18 Enable VCO Auto selection while configuring the clock.
 *       sk     04/24/18 Add API to get PLL Configurations.
 *       sk     04/24/18 Add API to get the Link Coupling mode.
+*       sk     04/28/18 Implement timeouts for PLL Lock, Startup and shutdown.
 *
 * </pre>
 *
@@ -174,6 +175,7 @@ extern "C" {
 #ifdef __BAREMETAL__
 #include "xil_assert.h"
 #include "xdebug.h"
+#include "sleep.h"
 #endif
 #ifndef __MICROBLAZE__
 #include <metal/sys.h>
@@ -181,6 +183,7 @@ extern "C" {
 #include <metal/irq.h>
 #include <metal/atomic.h>
 #include <metal/io.h>
+#include <metal/sleep.h>
 #include "metal/alloc.h"
 #endif
 #include "xrfdc_hw.h"

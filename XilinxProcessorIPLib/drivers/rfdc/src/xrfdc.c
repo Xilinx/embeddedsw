@@ -103,6 +103,7 @@
 *       sk     04/19/18 Enable VCO Auto selection while configuring the clock.
 *       sk     04/24/18 Add API to get PLL Configurations.
 *       sk     04/24/18 Add API to get the Link Coupling mode.
+*       sk     04/28/18 Implement timeouts for PLL Lock, Startup and shutdown.
 * </pre>
 *
 ******************************************************************************/
@@ -122,6 +123,7 @@ u32 PllTuningMatrix [8][4][2] = {
 		{{0x7FEC, 0xFFFF}, {0x7FEE, 0x3FFF}, { 0x7F9C, 0xFFFF}}
 };
 
+#define XRFDC_PLL_LOCK_DLY_CNT		1000
 
 /**************************** Type Definitions *******************************/
 
@@ -5934,6 +5936,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 	u32 BaseAddr;
 	u32 ReadReg;
 	u32 PLLEnable = 0x0;
+	u32 DelayCount = 0;
 
 	/*
 	 * Get Tile clock source information
@@ -6016,7 +6019,27 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		else
 			BaseAddr = XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile_Id);
 
-		while(XRFdc_ReadReg16(InstancePtr,BaseAddr, XRFDC_RESTART_OFFSET) != 0U);
+		while(XRFdc_ReadReg16(InstancePtr,BaseAddr, XRFDC_RESTART_OFFSET) != 0U) {
+			if (DelayCount == XRFDC_PLL_LOCK_DLY_CNT) {
+#ifdef __MICROBLAZE__
+				xdbg_printf(XDBG_DEBUG_ERROR, "\n Failed to shutdown "
+						"the tile in %s\r\n", __func__);
+#else
+				metal_log(METAL_LOG_ERROR,  "\n Failed to shutdown "
+					"the tile in %s\r\n", __func__);
+#endif
+				Status = XRFDC_FAILURE;
+				goto RETURN_PATH;
+			} else {
+				/* Wait for 1 msec */
+#ifdef __BAREMETAL__
+				usleep(1000);
+#else
+				metal_sleep_usec(1000);
+#endif
+				DelayCount++;
+			}
+		}
 
 		if(Type == XRFDC_ADC_TILE)
 			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id);
@@ -6076,13 +6099,35 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		/*
 		 * Wait for internal PLL to lock
 		 */
-		do {
-			if (XRFdc_GetPLLLockStatus(InstancePtr, Type, Tile_Id,
-					&LockStatus) != XRFDC_SUCCESS) {
+		if (XRFdc_GetPLLLockStatus(InstancePtr, Type, Tile_Id,
+				&LockStatus) != XRFDC_SUCCESS) {
+			Status = XRFDC_FAILURE;
+			goto RETURN_PATH;
+		}
+		DelayCount = 0;
+		while (LockStatus != XRFDC_PLL_LOCKED) {
+			if (DelayCount == XRFDC_PLL_LOCK_DLY_CNT) {
+#ifdef __MICROBLAZE__
+				xdbg_printf(XDBG_DEBUG_ERROR, "\n PLL Lock timeout "
+						"error in %s\r\n", __func__);
+#else
+				metal_log(METAL_LOG_ERROR,  "\n PLL Lock timeout "
+					"error in %s\r\n", __func__);
+#endif
 				Status = XRFDC_FAILURE;
 				goto RETURN_PATH;
+			} else {
+				/* Wait for 1 msec */
+#ifdef __BAREMETAL__
+				usleep(1000);
+#else
+				metal_sleep_usec(1000);
+#endif
+				DelayCount++;
+				XRFdc_GetPLLLockStatus(InstancePtr, Type, Tile_Id,
+								&LockStatus);
 			}
-		} while (LockStatus != XRFDC_PLL_LOCKED);
+		}
 	}
 
 	/*
@@ -6093,7 +6138,28 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 	else
 		BaseAddr = XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile_Id);
 
-	while (XRFdc_ReadReg16(InstancePtr,BaseAddr, XRFDC_RESTART_OFFSET) != 0U);
+	DelayCount = 0;
+	while (XRFdc_ReadReg16(InstancePtr,BaseAddr, XRFDC_RESTART_OFFSET) != 0U) {
+		if (DelayCount == XRFDC_PLL_LOCK_DLY_CNT) {
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_ERROR, "\n Failed to Restart "
+					"the tile in %s\r\n", __func__);
+#else
+			metal_log(METAL_LOG_ERROR,  "\n Failed to Restart "
+				"the tile in %s\r\n", __func__);
+#endif
+			Status = XRFDC_FAILURE;
+			goto RETURN_PATH;
+		} else {
+			/* Wait for 1 msec */
+#ifdef __BAREMETAL__
+			usleep(1000);
+#else
+			metal_sleep_usec(1000);
+#endif
+			DelayCount++;
+		}
+	}
 
 	if(Type == XRFDC_ADC_TILE) {
 		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate =
