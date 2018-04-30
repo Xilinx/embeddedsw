@@ -1,5 +1,8 @@
 Changes for 2018.3
 ===============================
+clockps_v1_0:
+First release of clocksPS drivers.
+
 scugic_v3_10:
 Updated get_psu_interrupt_id to generate correct
 interrupt id's, when output of utility reduced logic
