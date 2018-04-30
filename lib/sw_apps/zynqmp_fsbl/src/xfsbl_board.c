@@ -274,13 +274,12 @@ static u32 XFsbl_FMCEnable(void)
 	s32 Status;
 	u32 UStatus = 0;
 	u16 SlaveAddr;
-#ifdef XPS_BOARD_ZCU104
 	u32 VadjSetting;
+	VadjSetting = SET_VADJ_0V0;
+#ifdef XPS_BOARD_ZCU104
 	u16 LpcMin, LpcMax;
-
 	LpcMin = 0;
 	LpcMax = 0;
-	VadjSetting = SET_VADJ_0V0;
 #endif
 
 	/* Initialize the IIC0 driver so that it is ready to use */
@@ -312,7 +311,7 @@ static u32 XFsbl_FMCEnable(void)
 	VadjSetting = XFsbl_CalVadj(LpcMin, LpcMax);
 #endif
 
-#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU111)
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU106)
 	/* Set I2C Mux for channel-2 */
 	WriteBuffer[0] = CMD_CH_2_REG;
 	SlaveAddr = PCA9544A_ADDR;
@@ -703,8 +702,8 @@ static u32 XFsbl_BoardConfig(void)
 	XIicPs_Config *I2c0CfgPtr;
 	s32 Status;
 	u32 UStatus;
-#if defined(XPS_BOARD_ZCU102)
 	u8 WriteBuffer[BUF_LEN] = {0};
+#if defined(XPS_BOARD_ZCU102)
 	u32 ICMCfgLane[NUM_GT_LANES];
 #endif
 

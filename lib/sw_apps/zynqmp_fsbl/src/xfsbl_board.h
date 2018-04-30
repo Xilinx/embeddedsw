@@ -80,6 +80,7 @@ extern "C" {
 #define MAX15301_ADDR			0x18U
 #define TCA9548A_ADDR			0x74U
 #define IRPS5401_ADDR			0x44U
+#define IRPS5401_SWC_ADDR		0x45U
 
 #define BUF_LEN		10U
 #define MAX_SIZE		32U
@@ -118,6 +119,7 @@ extern "C" {
 
 #define CMD_CH_2_REG_IRPS	0x04U
 #define CMD_PAGE_CFG		0x00U
+#define DATA_SWC_CFG		0x02U
 #define DATA_SWD_CFG		0x03U
 #define CMD_OPERATION_CFG	0x01U
 #define OPERATION_VAL		0x80U
