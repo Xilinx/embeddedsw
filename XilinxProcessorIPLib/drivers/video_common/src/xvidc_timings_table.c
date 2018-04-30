@@ -12,14 +12,10 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * Use of the Software is limited solely to applications:
- * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -56,6 +52,8 @@
  *       aad  09/05/17 Added 1366x768_60_P_RB
  * 4.4   eb   09/04/18 Fixed timings for 1280x720_24_P, 1280x720_25_P,
  *                         1280x720_30_P
+ * 4.5	 jsr  07/03/18 Added timing for new video mode XVIDC_VM_720x486_60_I
+ *
  * </pre>
  *
 *******************************************************************************/
@@ -99,6 +97,9 @@ const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED] =
 	{ XVIDC_VM_720x480_60_I, "720x480@60Hz (I)", XVIDC_FR_60HZ,
 		{720, 19, 62, 57, 858, 0,
 		240, 4, 3, 15, 262, 5, 3, 15, 263, 0} },
+	{ XVIDC_VM_720x486_60_I, "720x486@60Hz (I)", XVIDC_FR_60HZ,
+		{720, 19, 62, 57, 858, 0,
+		243, 1, 3, 15, 262, 2, 3, 15, 263, 0} },
 	{ XVIDC_VM_720x576_50_I, "720x576@50Hz (I)", XVIDC_FR_50HZ,
 		{720, 12, 63, 69, 864, 0,
 		288, 2, 3, 19, 312, 3, 3, 19, 313, 0} },
@@ -119,13 +120,13 @@ const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED] =
 		540, 2, 5, 15, 562, 3, 5, 15, 563, 1} },
 	{ XVIDC_VM_1920x1080_96_I, "1920x1080@96Hz (I)", XVIDC_FR_96HZ,
 		{1920, 371, 88, 371, 2750, 1,
-		1080, 4, 10, 30, 1124, 6, 10, 30, 1126, 1} },
+		540, 2, 5, 15, 562, 3, 5, 15, 563, 1} },
 	{ XVIDC_VM_1920x1080_100_I, "1920x1080@100Hz (I)", XVIDC_FR_100HZ,
 		{1920, 528, 44, 148, 2640, 1,
-		1080, 4, 10, 30, 1124, 6, 10, 30, 1126, 1} },
+		540, 2, 5, 15, 562, 3, 5, 15, 563, 1} },
 	{ XVIDC_VM_1920x1080_120_I, "1920x1080@120Hz (I)", XVIDC_FR_120HZ,
 		{1920, 88, 44, 148, 2200, 1,
-		1080, 4, 10, 30, 1124, 6, 10, 30, 1126, 1} },
+		540, 2, 5, 15, 562, 3, 5, 15, 563, 1} },
 	{ XVIDC_VM_2048x1080_48_I, "2048x1080@48Hz (I)", XVIDC_FR_48HZ,
 		{2048, 329, 44, 329, 2750, 1,
 		540, 2, 5, 15, 562, 3, 5, 15, 563, 1} },
@@ -137,13 +138,13 @@ const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED] =
 		540, 2, 5, 15, 562, 3, 5, 15, 563, 1} },
 	{ XVIDC_VM_2048x1080_96_I, "2048x1080@96Hz (I)", XVIDC_FR_96HZ,
 		{2048, 329, 44, 329, 2750, 1,
-		1080, 4, 10, 30, 1124, 6, 10, 30, 1126, 1} },
+		540, 2, 5, 15, 562, 3, 5, 15, 563, 1} },
 	{ XVIDC_VM_2048x1080_100_I, "2048x1080@100Hz (I)", XVIDC_FR_100HZ,
 		{2048, 274, 44, 274, 2640, 1,
-		1080, 4, 10, 30, 1124, 6, 10, 30, 1126, 1} },
+		540, 2, 5, 15, 562, 3, 5, 15, 563, 1} },
 	{ XVIDC_VM_2048x1080_120_I, "2048x1080@120Hz (I)", XVIDC_FR_120HZ,
 		{2048, 66, 20, 66, 2200, 1,
-		1080, 4, 10, 30, 1124, 6, 10, 30, 1126, 1} },
+		540, 2, 5, 15, 562, 3, 5, 15, 563, 1} },
 
 
 	/* Progressive modes. */
