@@ -41,6 +41,7 @@
 # 3.0   srm 02/16/18  Updated to pick up latest freertos port 10.0
 # 3.1   vns 04/04/18  Updated AES example
 #       vns 04/13/18  Added secure_environment user configurable parameter.
+# 3.2   vns 04/30/18  Error code is been added if data is greater than moduluss
 #
 ##############################################################################
 
@@ -53,7 +54,7 @@ BEGIN LIBRARY xilsecure
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Library provides interface to AES, RSA and SHA hardware engines on ZynqMP Soc ";
-  OPTION VERSION = 3.1;
+  OPTION VERSION = 3.2;
   OPTION NAME = xilsecure;
   PARAM name = secure_environment, desc = "Enables trusted execution environment", type = bool, default = false;
 END LIBRARY
