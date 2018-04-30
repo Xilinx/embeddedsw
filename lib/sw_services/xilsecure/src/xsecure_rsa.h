@@ -75,6 +75,7 @@
 * 3.1   vns  11/04/18 Added support for 512, 576, 704, 768, 992, 1024, 1152,
 *                     1408, 1536, 1984, 3072 key sizes, where previous verision
 *                     has support only 2048 and 4096 key sizes.
+* 3.2   vns  04/30/18 Added error code XSECURE_RSA_DATA_VALUE_ERROR
 *
 * </pre>
 *
@@ -179,6 +180,9 @@ extern "C" {
 #define XSECURE_CSU_RSA_RAM_WORDS	(6U) /**< Total Locations in RSA RAM */
 
 #define XSECURE_RSA_FAILED		0x1U /**< RSA Failed Error Code */
+#define XSECURE_RSA_DATA_VALUE_ERROR	0x2U /**< for RSA private decryption
+						* data should be lesser than
+						* modulus */
 
 #define XSECURE_HASH_TYPE_SHA3		(48U) /**< SHA-3 hash size */
 #define XSECURE_HASH_TYPE_SHA2		(32U)/**< SHA-2 hash size */

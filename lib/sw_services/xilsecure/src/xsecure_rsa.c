@@ -53,6 +53,8 @@
 * 3.1   vns  11/04/18 Added support for 512, 576, 704, 768, 992, 1024, 1152,
 *                     1408, 1536, 1984, 3072 key sizes, where previous verision
 *                     has support only 2048 and 4096 key sizes.
+* 3.2   vns  04/30/18 Added check for private RSA key decryption, such that only
+*                     data to be decrypted should always be lesser than modulus
 *
 * </pre>
 *
@@ -595,6 +597,10 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 *		data to be stored		.
 *
 * @return	XST_SUCCESS if decryption was successful.
+*               else returns an error code
+*			- XSECURE_RSA_DATA_VALUE_ERROR - if input data is
+*               greater than modulus
+*                       - XST_FAILURE - on RSA operation failure
 *
 * @note		Modulus and Exponent in XSecure_RsaInitialize() API should also
 * 			be same as key size mentioned in this API.
@@ -622,6 +628,13 @@ s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 			(Size == XSECURE_RSA_2048_KEY_SIZE) ||
 			(Size == XSECURE_RSA_3072_KEY_SIZE) ||
 			(Size == XSECURE_RSA_4096_KEY_SIZE));
+	/*
+	 * Input data should always be smaller than modulus
+	 * here we are checking only MSB byte
+	 */
+	if (*(InstancePtr->Mod) < *Input) {
+		return XSECURE_RSA_DATA_VALUE_ERROR;
+	}
 
 	/* Setting to perform RSA signature decryption with private key */
 	InstancePtr->EncDec = XSECURE_RSA_SIGN_DEC;
