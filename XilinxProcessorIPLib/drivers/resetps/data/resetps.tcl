@@ -37,20 +37,26 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.00  cjp  09/05/17 First commit
 # 1.1   Nava   04/20/18 Fixed compilation warnings.
+# 1.2   cjp  04/27/18 Updated for clockps interdependency
 #
 ##############################################################################
 
 #uses "xillib.tcl"
 
 proc generate {drv_handle} {
-    xdefine_zynq_include_file $drv_handle "xparameters.h" "XResetPs" "NUM_INSTANCES" "DEVICE_ID" "BASEADDR"
-    xdefine_zynq_config_file $drv_handle "xresetps_g.c" "XResetPs" "DEVICE_ID" "BASEADDR"
+    xdefine_zynq_include_file $drv_handle "xparameters.h" "XResetPs" "NUM_INSTANCES" "DEVICE_ID"
+
+    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XResetPs" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR"
+
+    xdefine_zynq_canonical_xpars $drv_handle "xparameters.h" "XResetPs" "DEVICE_ID"
+
+    xdefine_pmu_addr $drv_handle "xparameters.h"
 }
 
 #
 # Given a list of arguments, define them all in an include file.
-# Since resetps is a dummy instance we are hardcoding NUM_INSTANCE to 1,
-# DEVICE_ID to 0 and dummy BASEADDRESS to 0xFFFFFFFF
+# Since resetps and clockps has common hardware, generalized defines
+# for both are handled here
 #
 proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
     # Open include file
@@ -65,23 +71,41 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
-	puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
-	puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] $num_instance$uSuffix"
+	puts $file_handle "/* Definitions for driver RESETPS and CLOCKPS */"
+	puts $file_handle "#define XPAR_XCRPSU_NUM_INSTANCES $num_instance$uSuffix"
 	set args [lreplace $args $posn $posn]
     }
 
     set arg "DEVICE_ID"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
-	puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $drv_handle]] */"
-	puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] $device_id"
+	puts $file_handle "\n/* Definitions for peripheral PSU_CR_0 */"
+	puts $file_handle "#define XPAR_PSU_CR_DEVICE_ID $device_id"
 	set args [lreplace $args $posn $posn]
     }
 
-    set arg "BASEADDR"
+    puts $file_handle "\n/******************************************************************/"
+    close $file_handle
+}
+
+#
+# Given a list of arguments, define them all in an include file.
+# Since resetps and clockps has common hardware, generalized defines
+# for both are handled here
+#
+proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
+    # Open include file
+    set file_handle [::hsi::utils::open_include_file $file_name]
+
+    # Get all peripherals connected to this driver
+    set device_id 0
+
+    set arg "DEVICE_ID"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
-	puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] $baseaddr$uSuffix"
+	puts "\n"
+	puts $file_handle "/* Canonical definitions for peripheral PSU_CR_0 */"
+	puts $file_handle "#define XPAR_XCRPSU_0_DEVICE_ID $device_id"
 	set args [lreplace $args $posn $posn]
     }
 
@@ -90,42 +114,26 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 }
 
 #
-# Given a list of arguments, define them all in Configuration C file.
-# Since resetps is a dummy instance we are hardcoding Invalid BASEADDRESS for
-# proper driver functionality
+#  PMU specific register defines
 #
-proc xdefine_zynq_config_file {drv_handle file_name drv_string args} {
-    set args [::hsi::utils::get_exact_arg_list $args]
-   set filename [file join "src" $file_name]
-   #file delete $filename
-   set config_file [open $filename w]
-   ::hsi::utils::write_c_header $config_file "Driver configuration"
-   puts $config_file "#include \"xparameters.h\""
-   puts $config_file "#include \"[string tolower $drv_string].h\""
-   puts $config_file "\n/*"
-   puts $config_file "* The configuration table for devices"
-   puts $config_file "*/\n"
-   set num_insts [::hsi::utils::get_driver_param_name $drv_string "NUM_INSTANCES"]
-   puts $config_file [format "%s_Config %s_ConfigTable\[%s\] =" $drv_string $drv_string $num_insts]
-   puts $config_file "\{"
-   puts $config_file [format "\t\{"]
+proc xdefine_pmu_addr {drv_handle file_name} {
+    set file_handle [::hsi::utils::open_include_file $file_name]
+    set ips [hsi::get_cells -hier "*"]
+    set sw_proc [hsi::get_sw_processor]
 
-    set arg "DEVICE_ID"
-    set posn [lsearch -exact $args $arg]
-    if {$posn > -1} {
-        puts $config_file "\t\t[::hsi::utils::get_driver_param_name $drv_string $arg],"
-	set args [lreplace $args $posn $posn]
+    foreach ip $ips {
+        set periph [common::get_property IP_NAME  $ip]
+        if { [string compare -nocase $periph "psu_pmu_iomodule"] == 0 ||
+             [string compare -nocase $periph "psu_lpd_slcr"] == 0 } {
+            set name [string toupper [common::get_property IP_NAME $ip]]
+            set baddr [common::get_property CONFIG.C_S_AXI_BASEADDR $ip]
+            set haddr [common::get_property CONFIG.C_S_AXI_HIGHADDR $ip]
+            puts $file_handle "\n/* Definitions for peripheral $name */"
+            puts $file_handle "#define XPAR_${name}_S_AXI_BASEADDR $baddr"
+            puts $file_handle "#define XPAR_${name}_S_AXI_HIGHADDR $haddr\n"
+        }
     }
 
-    set arg "BASEADDR"
-    set posn [lsearch -exact $args $arg]
-    if {$posn > -1} {
-        puts $config_file "\t\t[::hsi::utils::get_driver_param_name $drv_string $arg],"
-	set args [lreplace $args $posn $posn]
-    }
-
-   puts $config_file "\t\}"
-   puts $config_file "\};";
-
-   close $config_file
+    puts $file_handle "\n/******************************************************************/\n"
+    close $file_handle
 }
