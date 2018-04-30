@@ -33,7 +33,7 @@
 /**
 *
 * @file xresetps.h
-* @addtogroup xresetps_v1_1
+* @addtogroup xresetps_v1_2
 * @{
 * @details
 *
@@ -54,6 +54,7 @@
 * ----- ------ -------- -----------------------------------------------
 * 1.00  cjp    09/05/17 First release
 * 1.1   Nava   04/20/18 Fixed compilation warnings.
+* 1.2   cjp    04/27/18 Updated for clockps interdependency
 * </pre>
 *
 ******************************************************************************/
@@ -76,6 +77,13 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /*
+ * Device ID and Num Instances defines for resetps. Resetps uses common
+ * hardware with other driver and hence this wrapper defines are required
+ */
+#define XPAR_XRESETPS_NUM_INSTANCES    (XPAR_XCRPSU_NUM_INSTANCES)
+#define XPAR_XRESETPS_DEVICE_ID        (XPAR_XCRPSU_0_DEVICE_ID)
+
+/*
  * Constants for supported/Not supported reset actions
  */
 #define XRESETPS_SUP                   1
@@ -87,7 +95,6 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;                    /**< Unique ID of device */
-	u32 BaseAddress;                 /**< Base address of the device */
 } XResetPs_Config;
 
 /**
@@ -366,7 +373,7 @@ XResetPs_Config *XResetPs_LookupConfig(u16 DeviceId);
  * Interface functions in xresetps.c
  */
 XStatus XResetPs_CfgInitialize(XResetPs *InstancePtr,
-			      XResetPs_Config *ConfigPtr, u32 EffectiveAddress);
+						    XResetPs_Config *ConfigPtr);
 XStatus XResetPs_ResetAssert(XResetPs *InstancePtr,
 						  const XResetPs_RstId ResetID);
 XStatus XResetPs_ResetDeassert(XResetPs *InstancePtr,

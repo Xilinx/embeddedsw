@@ -33,7 +33,7 @@
 /**
 *
 * @file xresetps.c
-* @addtogroup xresetps_v1_1
+* @addtogroup xresetps_v1_2
 * @{
 *
 * Contains the implementation of interface functions of the XResetPs driver.
@@ -45,6 +45,7 @@
 * ----- ------ -------- ---------------------------------------------
 * 1.00  cjp    09/05/17 First release
 * 1.1   Nava   04/20/18 Fixed compilation warnings.
+* 1.2   cjp    04/27/18 Updated for clockps interdependency
 * </pre>
 *
 ******************************************************************************/
@@ -449,7 +450,7 @@ static const XResetPs_Lookup ResetMap[] = {
 *
 ******************************************************************************/
 XStatus XResetPs_CfgInitialize(XResetPs *InstancePtr,
-			       XResetPs_Config *ConfigPtr, u32 EffectiveAddress)
+					       XResetPs_Config *ConfigPtr)
 {
 	/* Arguments validation */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -457,7 +458,6 @@ XStatus XResetPs_CfgInitialize(XResetPs *InstancePtr,
 
 	/* Copying instance */
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
-	InstancePtr->Config.BaseAddress = EffectiveAddress;
 
 	return XST_SUCCESS;
 }

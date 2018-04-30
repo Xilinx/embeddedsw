@@ -33,7 +33,7 @@
 /**
 *
 * @file xresetps_g.c
-* @addtogroup xresetps_v1_1
+* @addtogroup xresetps_v1_2
 * @{
 *
 * This file contains a table that specifies the configuration of the reset
@@ -46,6 +46,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- ---------------------------------------------
 * 1.00  cjp    09/05/17 First release
+* 1.2   cjp    04/27/18 Updated for clockps interdependency
 * </pre>
 *
 ******************************************************************************/
@@ -80,7 +81,6 @@
 XResetPs_Config XResetPs_ConfigTable[XPAR_XRESETPS_NUM_INSTANCES] = {
 	{
 		(u16)XPAR_XRESETPS_DEVICE_ID,
-		(u32)XPAR_XRESETPS_BASEADDR
 	}
 };
 /** @} */

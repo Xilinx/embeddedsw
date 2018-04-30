@@ -33,7 +33,7 @@
 /**
 *
 * @file xresetps_hw.h
-* @addtogroup xresetps_v1_1
+* @addtogroup xresetps_v1_2
 * @{
 *
 * This file contains the hardware interface to the System Reset controller.
@@ -44,6 +44,7 @@
 * ----- ------ -------- ---------------------------------------------
 * 1.00  cjp    09/05/17 First release
 * 1.1   Nava   04/20/18 Fixed compilation warnings.
+* 1.2   cjp    04/27/18 Updated for clockps interdependency
 * </pre>
 *
 ******************************************************************************/
@@ -62,7 +63,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 /* Register address defines */
 /* CRF_APB defines */
-#define XRESETPS_CRF_APB_BASE         (0XFD1A0000U)
+#define XRESETPS_CRF_APB_BASE     (XPAR_PSU_CRF_APB_S_AXI_BASEADDR)
 /* RST_FPD_TOP Address and mask definations */
 #define XRESETPS_CRF_APB_RST_FPD_TOP \
 				  ((XRESETPS_CRF_APB_BASE) + ((u32)0X00000100U))
@@ -114,7 +115,7 @@ extern "C" {
 #define VPLL_RESET_MASK           ((u32)0X00000001U)
 
 /* CRL_APB defines */
-#define XRESETPS_CRL_APB_BASE     (0XFF5E0000U)
+#define XRESETPS_CRL_APB_BASE     (XPAR_PSU_CRL_APB_S_AXI_BASEADDR)
 /* RESET_CTRL Address and mask definations */
 #define XRESETPS_CRL_APB_RESET_CTRL \
 				  ((XRESETPS_CRL_APB_BASE) + ((u32)0X00000218U))
@@ -189,7 +190,7 @@ extern "C" {
 #define RPLL_BYPASS_MASK          ((u32)0X00000008U)
 
 /* PMU_IOM defines */
-#define XRESETPS_PMU_IOM_BASE     (0XFFD40000U)
+#define XRESETPS_PMU_IOM_BASE     (XPAR_PSU_PMU_IOMODULE_S_AXI_BASEADDR)
 /* PMU_IOM_GPO3 Address and mask definations */
 #define XRESETPS_PMU_IOM_GPO3_CTRL \
 				  ((XRESETPS_PMU_IOM_BASE) + ((u32)0X0000001CU))
@@ -227,13 +228,16 @@ extern "C" {
 #define GPO3_PL31_RESET_MASK      ((u32)0X80000000U)
 
 /* PMU_LCL defines */
-#define XRESETPS_PMU_LCL_BASE     (0XFFD60000U)
+#ifndef XPAR_PSU_PMU_LOCAL_0_S_AXI_BASEADDR
+#define XPAR_PSU_PMU_LOCAL_0_S_AXI_BASEADDR 0xFFD60000
+#endif
+#define XRESETPS_PMU_LCL_BASE     (XPAR_PSU_PMU_LOCAL_0_S_AXI_BASEADDR)
 /* GPO Read control address */
 #define XRESETPS_PMU_LCL_READ_CTRL \
 				  ((XRESETPS_PMU_LCL_BASE) + ((u32)0X0000021CU))
 
 /* PMU_GLB defines */
-#define XRESETPS_PMU_GLB_BASE     (0XFFD80000U)
+#define XRESETPS_PMU_GLB_BASE     (XPAR_PSU_PMU_GLOBAL_0_S_AXI_BASEADDR)
 /* PMU_GLB_RST Address and mask definations */
 #define XRESETPS_PMU_GLB_RST_CTRL ((XRESETPS_PMU_GLB_BASE) + ((u32)0X00000608U))
 #define RPU_LS_RESET_MASK         ((u32)0X00000100U)
@@ -270,7 +274,7 @@ extern "C" {
 					(GPU_PP1_PSCHK_MASK) | (FPD_PSCHK_MASK))
 
 /* LPD_SLCR defines */
-#define XRESETPS_LPD_SCR_BASE     (0XFF410000U)
+#define XRESETPS_LPD_SCR_BASE     (XPAR_PSU_LPD_SLCR_S_AXI_BASEADDR)
 /* LPD_SCR_AXIISO_REQ and LPD_SCR_AXIISO_ACK Address and mask definations */
 #define XRESETPS_LPD_SCR_AXIISO_REQ_CTRL \
 				  ((XRESETPS_LPD_SCR_BASE) + ((u32)0X00003030U))
