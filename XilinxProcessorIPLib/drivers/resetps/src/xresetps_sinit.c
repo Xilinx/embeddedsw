@@ -33,7 +33,7 @@
 /**
 *
 * @file xresetps_sinit.c
-* @addtogroup xresetps_v1_1
+* @addtogroup xresetps_v1_2
 * @{
 *
 * This file contains method for static initialization (compile-time) of the
@@ -45,6 +45,7 @@
 * ----- ------ -------- ----------------------------------------------
 * 1.00  cjp    09/05/17 First release
 * 1.1   Nava   04/20/18 Fixed compilation warnings.
+* 1.2   cjp    04/27/18 Updated for clockps interdependency
 * </pre>
 *
 ******************************************************************************/
