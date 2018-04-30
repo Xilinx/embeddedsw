@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -53,7 +51,7 @@
  * 4.4   eb   09/04/18 Fixed timings for 1280x720_24_P, 1280x720_25_P,
  *                         1280x720_30_P
  * 4.5	 jsr  07/03/18 Added timing for new video mode XVIDC_VM_720x486_60_I
- * 4.5   mmo  02/14/19 Added 5k, 8k, 10k and Low Resolution with 200Hz, 240Hz
+ * 4.6   mmo  02/14/19 Added 5k, 8k, 10k and Low Resolution with 200Hz, 240Hz
  * </pre>
  *
 *******************************************************************************/
@@ -550,15 +548,15 @@ const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED] =
 	{ XVIDC_VM_3840x2160_60_P, "3840x2160@60Hz", XVIDC_FR_60HZ,
 		{3840, 176, 88, 296, 4400, 1,
 		2160, 8, 10, 72, 2250, 0, 0, 0, 0, 1} },
+	{ XVIDC_VM_3840x2160_60_P_RB, "3840x2160@60Hz (RB)", XVIDC_FR_60HZ,
+		{3840, 48, 32, 80, 4000, 1,
+		2160, 3, 5, 54, 2222, 0, 0, 0, 0, 0} },
 	{ XVIDC_VM_3840x2160_100_P, "3840x2160@100Hz", XVIDC_FR_100HZ,
 		{3840, 1056, 88, 296, 5280, 1,
 		2160, 8, 10, 72, 2250, 0, 0, 0, 0, 1} },
 	{ XVIDC_VM_3840x2160_120_P, "3840x2160@120Hz", XVIDC_FR_120HZ,
 		{3840, 176, 88, 296, 4400, 1,
 		2160, 8, 10, 72, 2250, 0, 0, 0, 0, 1} },
-	{ XVIDC_VM_3840x2160_60_P_RB, "3840x2160@60Hz (RB)", XVIDC_FR_60HZ,
-		{3840, 48, 32, 80, 4000, 1,
-		2160, 3, 5, 54, 2222, 0, 0, 0, 0, 0} },
 	{ XVIDC_VM_4096x2160_24_P, "4096x2160@24Hz", XVIDC_FR_24HZ,
 		{4096, 1020, 88, 296, 5500, 1,
 		2160, 8, 10, 72, 2250, 0, 0, 0, 0, 1} },
