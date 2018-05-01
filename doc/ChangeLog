@@ -109,6 +109,20 @@ For secure boot added support for enhanced user fuses revocation.
 axidma_v9_7
 Add support for 64MB data transfer.
 
+zynqmp_pmufw:
+- Provide read and write access to AFI configuration registers
+- Enable PLL lock errors only after FSBL completes psu_init to avoid initial
+  PLL lock errors that occur during psu_init
+- Increased polling period of DDR status register to 1ms which is used during
+  DDR re-initialization since 100us is not enough for some DDR memories
+- Fix proc assignment in PmProcGetByWakeMask by returning proc pointer instead
+  of node structure pointer
+- If POS is enabled, signal the FSBL with boot type in APU only restart to
+  avoid infinite wait loop in FSBL
+- Use proper function(PmSlaveChangeState) when resetting the slave state
+- Use GGS4 bit 0 instead of GGS0 bit 29 to indicate healthy boot status during
+  recovery
+
 Changes for 2018.1
 ===============================
 v_hdmi_common_v1_0
