@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@
 * Ver   Who  Date	 Changes
 * ----- ---- -------- -------------------------------------------------------
 * 6.6	srm  10/18/17 First Release.
+* 6.6   srm  04/20/18 Fixed compilation warning in Xil_SleepTTCCommon API
 *
 * </pre>
 *****************************************************************************/
@@ -75,15 +76,15 @@
 *****************************************************************************/
 void Xil_SleepTTCCommon(u32 delay, u64 frequency)
 {
-	INTPTR tEnd = 0U;
-	INTPTR tCur = 0U;
+	u64 tEnd = 0U;
+	u64 tCur = 0U;
 	XCntrVal TimeHighVal = 0U;
 	XCntrVal TimeLowVal1 = 0U;
 	XCntrVal TimeLowVal2 = 0U;
 
 	TimeLowVal1 = XSleep_ReadCounterVal(SLEEP_TIMER_BASEADDR +
 			XSLEEP_TIMER_TTC_COUNT_VALUE_OFFSET);
-	tEnd = (INTPTR)TimeLowVal1 + ((INTPTR)(delay) * frequency);
+	tEnd = (u64)TimeLowVal1 + ((u64)(delay) * frequency);
 	do
 	{
 		TimeLowVal2 = XSleep_ReadCounterVal(SLEEP_TIMER_BASEADDR +
@@ -92,8 +93,8 @@ void Xil_SleepTTCCommon(u32 delay, u64 frequency)
 			TimeHighVal++;
 		}
 		TimeLowVal1 = TimeLowVal2;
-		tCur = (((INTPTR) TimeHighVal) << XSLEEP_TIMER_REG_SHIFT) |
-								(INTPTR)TimeLowVal2;
+		tCur = (((u64) TimeHighVal) << XSLEEP_TIMER_REG_SHIFT) |
+								(u64)TimeLowVal2;
 	}while (tCur < tEnd);
 }
 
