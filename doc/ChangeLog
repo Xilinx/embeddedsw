@@ -1,5 +1,8 @@
 Changes for 2018.2
 ===============================
+standalone_v6_7:
+Fixed compilation warnings in xil_sleeptimer.c
+
 v_hdmirxss_v5_1:
 Fixed a bug in XV_HdmiRxSs_BrdgOverflowCallback
 Cleaned up the flow during HPD during the transition from HDMI 2.0 to HDMI 1.4
