@@ -119,6 +119,25 @@ Added ICCARM compiler support in driver.
 xilfpga_v4_1
 Added partial bitstream loading support.
 
+xilsecure_v3_1
+Added support for 512, 576, 704, 768, 992, 1024, 1152, 1408, 1536, 
+1984, 3072 key sizes, where previous version has support only 2048 and 
+4096 key sizes.
+On GCM tag failure, wrongly decrypted data will be zeroized.
+Added support of user fuses revocation for single partition image.
+Modified xilsecure_aes_example,input data will be over written with 
+decrypted data
+Added compilation flag for opting secure/non-secure environment, by 
+deault it is non -secure, mainly it is taken into account while 
+building PMUFW
+
+xilskey_v6_5
+Fixed hanging issue for BBRAM ZynqMP when program/zeroise is requested 
+while programming mode is in enabled state.
+
+zynqmp_fsbl
+For secure boot added support for enhanced user fuses revocation.
+
 axidma_v9_7
 Add support for 64MB data transfer.
 
