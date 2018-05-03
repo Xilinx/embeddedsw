@@ -9,6 +9,9 @@ interrupt id's, when output of utility reduced logic
 is connected to pl-ps interrupt as well as ILA probe.
 Fix for CR#999732.
 
+xilisf_v5_12:
+Added support for IS25LP064A and IS25WP064A.
+
 Changes for 2018.2
 ===============================
 standalone_v6_7:
