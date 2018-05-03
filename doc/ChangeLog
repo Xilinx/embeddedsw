@@ -888,6 +888,9 @@ Added support for PUF regeneration
 Fixed compilation warnings
 Added doxygen tags
 
+xilisf_v5_12:
+Added support for IS25LP064A and IS25WP064A.
+
 Changes for 2018.2
 ===============================
 freertos10_xilinx_v1_1:
