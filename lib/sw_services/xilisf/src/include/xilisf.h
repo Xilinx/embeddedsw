@@ -514,6 +514,7 @@
 * 5.10 tjs  11/30/17 Added S25FL-L series flash parts support. CR# 987566
 * 5.10 tjs	03/11/17 Added MT25Q512 3V and 1.8V flash part support. CR# 995477
 * 5.11 tjs	03/16/18 Added support for ISSI flash part.
+* 5.12	tjs  05/02/18 Added support for IS25LP064A and IS25WP064A.
 *
 * </pre>
 *
@@ -587,6 +588,7 @@ extern "C" {
 /*Winbond*/
 #define XISF_WINBOND_ID_BYTE2_128	0x18
 /*ISSI*/
+#define XISF_ISSI_ID_BYTE2_64		0x17
 #define XISF_ISSI_ID_BYTE2_256		0x19
 /**
  * The following definitions specify the size of the Serial Flash
@@ -652,9 +654,12 @@ extern "C" {
 
 /*ISSI*/
 #define ISSI_INDEX_START		(FLASH_CFG_TBL_PARALLEL_128_WB + 1)
-#define FLASH_CFG_TBL_SINGLE_256_ISSI	ISSI_INDEX_START
-#define FLASH_CFG_TBL_STACKED_256_ISSI	(ISSI_INDEX_START + 1)
-#define FLASH_CFG_TBL_PARALLEL_256_ISSI	(ISSI_INDEX_START + 2)
+#define FLASH_CFG_TBL_SINGLE_64_ISSI	ISSI_INDEX_START
+#define FLASH_CFG_TBL_STACKED_64_ISSI	(ISSI_INDEX_START + 1)
+#define FLASH_CFG_TBL_PARALLEL_64_ISSI	(ISSI_INDEX_START + 2)
+#define FLASH_CFG_TBL_SINGLE_256_ISSI	(ISSI_INDEX_START + 3)
+#define FLASH_CFG_TBL_STACKED_256_ISSI	(ISSI_INDEX_START + 4)
+#define FLASH_CFG_TBL_PARALLEL_256_ISSI	(ISSI_INDEX_START + 5)
 
 /*
  * Interrupt or Polling mode of Operation Flags
