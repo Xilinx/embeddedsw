@@ -64,6 +64,7 @@
 * 					  CR# 987566
 * 5.10	tjs	 03/01/18 Added MT25Q512 3V and 1.8V flash part support. CR# 995477
 * 5.11	tjs  03/16/18 Added support for ISSI flash parts.
+* 5.12	tjs  05/02/18 Added support for IS25LP064A and IS25WP064A.
 * </pre>
 *
 ******************************************************************************/
@@ -159,6 +160,8 @@ extern "C" {
 * The following definitions specify the Device Id for the different
 * ISSI Serial Flash device.
 */
+#define XISF_ISSI_DEV_IS25WP064A		0x7017	/**< Device ID for IS25WP064A */
+#define XISF_ISSI_DEV_IS25LP064A		0x6017	/**< Device ID for IS25LP064A */
 #define XISF_ISSI_DEV_IS25WP256D		0x7019	/**< Device ID for IS25WP256D */
 #define XISF_ISSI_DEV_IS25LP256D		0x6019	/**< Device ID for IS25WP256D */
 
