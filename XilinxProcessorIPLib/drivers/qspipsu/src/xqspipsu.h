@@ -33,7 +33,7 @@
 /**
 *
 * @file xqspipsu.h
-* @addtogroup qspipsu_v1_7
+* @addtogroup qspipsu_v1_8
 * @{
 * @details
 *
