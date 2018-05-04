@@ -242,7 +242,7 @@ int main(void)
 	u32 BootModeRegister = 0;
 	u32 HandoffAddress = 0;
 	u32 Status = XST_SUCCESS;
-
+	u32 RegVal;
 	/*
 	 * PCW initialization for MIO,PLL,CLK and DDR
 	 */
@@ -494,7 +494,11 @@ int main(void)
 	 */
 	if (BootModeRegister == JTAG_MODE) {
 		fsbl_printf(DEBUG_GENERAL,"Boot mode is JTAG\r\n");
-#ifdef JTAG_ENABLE_LEVEL_SHIFTERS
+
+		RegVal = Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_INT_STS_OFFSET);
+		/** If bitstream was loaded in jtag boot mode prior to running FSBL */
+		if(RegVal & XDCFG_IXR_PCFG_DONE_MASK)
+		{
 #ifdef PS7_POST_CONFIG
 		ps7_post_config();
 		/*
@@ -502,7 +506,7 @@ int main(void)
 		 */
 		SlcrUnlock();
 #endif
-#endif
+		}
 		/*
 		 * Stop the Watchdog before JTAG handoff
 		 */
