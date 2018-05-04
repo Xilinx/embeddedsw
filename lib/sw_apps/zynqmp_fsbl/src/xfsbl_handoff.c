@@ -62,6 +62,7 @@
 #include "psu_init.h"
 #include "xfsbl_main.h"
 #include "xfsbl_image_header.h"
+#include "xfsbl_bs.h"
 
 /************************** Constant Definitions *****************************/
 #define XFSBL_CPU_POWER_UP		(0x1U)
@@ -775,6 +776,13 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	if (FsblInstancePtr->PrimaryBootDevice ==
 			XFSBL_JTAG_BOOT_MODE)
 	{
+		Status = XFsbl_PLCheckForDone();
+		if(Status==XFSBL_SUCCESS)
+		{
+			/**Remove PS-PL isolation as bitstream is loaded*/
+			(void)psu_ps_pl_isolation_removal_data();
+			(void)psu_ps_pl_reset_config_data();
+		}
 		/**
 		 * Mark Error status with Fsbl completed
 		 */
