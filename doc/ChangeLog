@@ -3,6 +3,9 @@ Changes for 2018.3
 clockps_v1_0:
 First release of clocksPS drivers.
 
+qspipsu_v1_8:
+Added support for IS25LP064 and IS25WP064.
+
 scugic_v3_10:
 Updated get_psu_interrupt_id to generate correct
 interrupt id's, when output of utility reduced logic
