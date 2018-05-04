@@ -625,6 +625,9 @@ Update XRFdc_SetPLLConfig() API to support range of REF_CLK_DIV values(1 to 4).
 Corrects the Block_Id used for QMC event in IQ datatype in XRFdc_UpdateEvent() API.
 Add XRFDC_MIXER_MODE_R2R option to support BYPASS mode for Real input.
 
+qspipsu_v1_8:
+Added support for IS25LP064 and IS25WP064.
+
 scugic_v3_10:
 Updated get_psu_interrupt_id to generate correct
 interrupt id's, when output of utility reduced logic
