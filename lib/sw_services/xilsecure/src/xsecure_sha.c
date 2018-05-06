@@ -46,6 +46,13 @@
 * 2.2   vns  07/06/17 Added doxygen tags
 * 3.0   vns  01/23/18 Added NIST SHA3 support.
 *                     Added SSS configuration before every CSU DMA transfer
+* 3.2   ka   04/30/18 Modified SHa3 hash calculation fuctionality to
+* 		      support the following features:
+*                     - To support byte aligned data,
+*                     - To support non-word aligned address
+*                     - And also fixed limitation of input data,
+*                     	now size of input can be of any size.
+*                     	not limitted to 512MB.
 *
 * </pre>
 *
@@ -63,6 +70,10 @@
 
 /************************** Function Prototypes ******************************/
 
+static void XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
+							const u32 Size);
+static void XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
+							const u32 Size);
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
@@ -192,6 +203,8 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	InstancePtr->Sha3Len = 0U;
+	InstancePtr->PartialLen = 0U;
+	memset(InstancePtr->PartialData, 0, XSECURE_SHA3_BLOCK_LEN);
 
 	/* Reset SHA3 engine. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -223,26 +236,32 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 void XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 						const u32 Size)
 {
+	u32 DataSize;
+	u32 TransferredBytes;
+
 	/* Asserts validate the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Size != (u32)0x00U);
 
 	InstancePtr->Sha3Len += Size;
-
-	/* Configure the SSS for SHA3 hashing. */
-	XSecure_SssSetup(XSecure_SssInputSha3(XSECURE_CSU_SSS_SRC_SRC_DMA));
-
-	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-					(UINTPTR)Data, (u32)Size/4, 0);
-
-	/* Checking the CSU DMA done bit should be enough. */
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
-
-	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-						XCSUDMA_IXR_DONE_MASK);
+	DataSize = Size;
+	TransferredBytes = 0;
+	/*
+ 	 * CSU DMA can transfer Max 0x7FFFFFF no of words(0x1FFFFFFC bytes)
+	 * at a time .So if the data sent more than that will be handled
+	 * in the next update internally
+	 */
+	while (DataSize > XSECURE_CSU_DMA_MAX_TRANSFER) {
+		XSecure_Sha3DataUpdate(InstancePtr,
+				(Data + TransferredBytes),
+				XSECURE_CSU_DMA_MAX_TRANSFER);
+		DataSize = DataSize - XSECURE_CSU_DMA_MAX_TRANSFER;
+		TransferredBytes = TransferredBytes +
+			XSECURE_CSU_DMA_MAX_TRANSFER;
+	}
+	XSecure_Sha3DataUpdate(InstancePtr, (Data + TransferredBytes),
+							DataSize);
 }
-
 
 /*****************************************************************************/
 /**
@@ -293,25 +312,28 @@ void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 
 	u32 *HashPtr = (u32 *)Hash;
 	u32 PartialLen = InstancePtr->Sha3Len % XSECURE_SHA3_BLOCK_LEN;
-	u8 XSecure_RsaSha3Array[512] = {0U};
 
 	PartialLen = (PartialLen == 0U)?(XSECURE_SHA3_BLOCK_LEN) :
 		(XSECURE_SHA3_BLOCK_LEN - PartialLen);
 
 	if (InstancePtr->Sha3PadType == XSECURE_CSU_NIST_SHA3) {
-		XSecure_NistSha3Padd(InstancePtr, XSecure_RsaSha3Array,
-						PartialLen);
+		XSecure_NistSha3Padd(InstancePtr,
+			&InstancePtr->PartialData[InstancePtr->PartialLen],
+								PartialLen);
 	}
-	else {
-		XSecure_Sha3Padd(InstancePtr, XSecure_RsaSha3Array,
-						PartialLen);
-	}
+	 else {
+		 XSecure_Sha3Padd(InstancePtr,
+			&InstancePtr->PartialData[InstancePtr->PartialLen],
+								PartialLen);
+	 }
+
 
 	/* Configure the SSS for SHA3 hashing. */
 	XSecure_SssSetup(XSecure_SssInputSha3(XSECURE_CSU_SSS_SRC_SRC_DMA));
 
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-				(UINTPTR)XSecure_RsaSha3Array, PartialLen/4, 1);
+				(UINTPTR)InstancePtr->PartialData,
+				(PartialLen + (InstancePtr->PartialLen))/4, 1);
 
 	/* Check for CSU DMA done bit */
 	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
@@ -392,5 +414,143 @@ void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash)
 		Val = XSecure_ReadReg(InstancePtr->BaseAddress,
 			XSECURE_CSU_SHA3_DIGEST_0_OFFSET + (Index * 4));
 		HashPtr[11U - Index] = Val;
+	}
+}
+/*****************************************************************************/
+/**
+ * @brief
+ * This function Transfers Data through Dma
+ *
+ * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
+ * @param	Data 		Pointer to the input data need to be transferred.
+ * @param	Size 		Size of the input data in bytes.
+ *
+ * @return	None
+ *
+ *
+ ******************************************************************************/
+static void XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
+								const u32 Size)
+{
+	/* Configure the SSS for SHA3 hashing. */
+	XSecure_SssSetup(XSecure_SssInputSha3(XSECURE_CSU_SSS_SRC_SRC_DMA));
+
+	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+				(UINTPTR)Data, (u32)Size/4, 0);
+
+	/* Checking the CSU DMA done bit should be enough. */
+	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+
+	/* Acknowledge the transfer has completed */
+	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+				XCSUDMA_IXR_DONE_MASK);
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function updates hash for data block of size <= 512MB.
+ *
+ * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
+ * @param	Data 		Pointer to the input data for hashing.
+ * @param	Size 		Size of the input data in bytes.
+ *
+ * @return	None
+ *
+ *
+ ******************************************************************************/
+static void XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
+								const u32 Size)
+{
+	u32 CurrentPartialLen;
+	u32 PrevPartialLen;
+	u32 TotalLen ;
+	u32 TransferredBytes ;
+	u32 DataSize;
+
+	/* Asserts validate the input arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Size != (u32)0x00U);
+
+	CurrentPartialLen = (Size % 4);
+	PrevPartialLen = InstancePtr->PartialLen;
+	TotalLen = Size + PrevPartialLen;
+	TransferredBytes = 0;
+
+	/* If always Word Aligned Data and Word aligned address */
+	if ((CurrentPartialLen == 0) && (PrevPartialLen == 0) &&
+			(((UINTPTR)Data & XCSUDMA_ADDR_LSB_MASK) == 0)) {
+		XSecure_Sha3DmaTransfer(InstancePtr, Data,Size);
+	}
+	/* For Non-Word Aligned Data and for Non-Word aligned Address*/
+	else {
+		if (TotalLen < XSECURE_SHA3_BLOCK_LEN) {
+
+			/*
+  			 * Copy the data to buffer when combined length
+			 * does not exceed SHA3_BLOCK_LEN
+			 */
+
+			memcpy(&InstancePtr->PartialData[PrevPartialLen],
+								Data, Size);
+			InstancePtr->PartialLen = TotalLen;
+		}
+		else if (TotalLen == XSECURE_SHA3_BLOCK_LEN) {
+
+			/*
+ 			 * Copy and transfer the data when combined length
+			 * is equal to SHA3_BLOCK_LEN
+			 */
+
+			memcpy(&InstancePtr->PartialData[PrevPartialLen],
+								Data, Size);
+			XSecure_Sha3DmaTransfer(InstancePtr,
+						InstancePtr->PartialData,
+						XSECURE_SHA3_BLOCK_LEN);
+			InstancePtr->PartialLen = 0 ;
+			memset(&InstancePtr->PartialData, 0,
+				sizeof(InstancePtr->PartialData));
+			}
+		else if (TotalLen > XSECURE_SHA3_BLOCK_LEN) {
+			DataSize = Size;
+
+			/*
+ 			 * Perform Multiple Dma transfers until
+			 * Data Size < SHA3_BLOCK_LEN
+			 */
+
+			while (DataSize > XSECURE_SHA3_BLOCK_LEN) {
+				memcpy(&InstancePtr->PartialData[PrevPartialLen],
+						Data + TransferredBytes,
+						(XSECURE_SHA3_BLOCK_LEN -
+						PrevPartialLen ));
+				XSecure_Sha3DmaTransfer(InstancePtr,
+						InstancePtr->PartialData,
+						XSECURE_SHA3_BLOCK_LEN);
+				memset(&InstancePtr->PartialData, 0,
+					sizeof(InstancePtr->PartialData));
+				DataSize = DataSize - (XSECURE_SHA3_BLOCK_LEN -
+						PrevPartialLen);
+				TransferredBytes = TransferredBytes +
+							XSECURE_SHA3_BLOCK_LEN -
+							PrevPartialLen;
+				PrevPartialLen = 0;
+			}
+			/*
+ 			 * Update PartialData and PartialLen based on
+			 * size of the data remaining
+			 */
+			if (DataSize == 0) {
+				InstancePtr->PartialLen = 0;
+				memset(&InstancePtr->PartialData, 0,
+						sizeof(InstancePtr->PartialData));
+			}
+			else if (DataSize < XSECURE_SHA3_BLOCK_LEN) {
+				memcpy(InstancePtr->PartialData,
+					Data + TransferredBytes,
+							DataSize);
+				InstancePtr->PartialLen = DataSize;
+			}
+		}
 	}
 }
