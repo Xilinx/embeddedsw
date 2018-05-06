@@ -57,6 +57,9 @@
 *       ka  04/10/18 Added support for user-efuse revocation
 *       ka  04/18/18 Added support for Zeroization of the memory in case of
 *                    Gcm-Tag mismatch
+* 3.2   ka  04/04/18 Added support for Sha3_Update, if the payload is not
+*        	     4 bytes aligned.
+*
 * </pre>
 *
 * @note
@@ -315,9 +318,6 @@ u32 XSecure_Sha3Hash(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize, u32 Flags)
 		XSecure_Sha3Start(&Sha3Instance);
 		break;
 	case XSECURE_SHA3_UPDATE:
-		if (SrcSize % 4 != 0x00) {
-			return XSECURE_SIZE_ERR;
-		}
 		XSecure_Sha3Update(&Sha3Instance, (u8 *)(UINTPTR)SrcAddr,
 						SrcSize);
 		break;

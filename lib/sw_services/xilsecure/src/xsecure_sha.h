@@ -102,6 +102,9 @@ extern "C" {
 
 #define XSECURE_SHA3_LAST_PACKET	(0x1U) /**< Last Data Packet */
 
+#define XSECURE_CSU_DMA_MAX_TRANSFER	(0x1ffffffc) /** < CSU DMA Max Transfer 
+							rate in bytes*/
+
 /***************************** Type Definitions******************************/
 
 /* SHA3 type selection */
@@ -120,6 +123,8 @@ typedef struct {
 	XCsuDma *CsuDmaPtr; /**< Pointer to CSU DMA Instance */
 	u32 Sha3Len; /**< SHA3 Input Length */
 	XSecure_Sha3PadType Sha3PadType; /** Selection for Sha3 */
+	u32 PartialLen;
+	u8 PartialData[XSECURE_SHA3_BLOCK_LEN];
 } XSecure_Sha3;
 /**
 @}
