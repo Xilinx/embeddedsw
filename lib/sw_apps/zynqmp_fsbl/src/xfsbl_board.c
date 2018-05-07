@@ -347,7 +347,7 @@ static u32 XFsbl_FMCEnable(void)
 	 * (to take PL DDR out of reset). Hence including this code only when
 	 * PL DDR is in design.
 	 */
-#if defined(XPAR_MIG_0_BASEADDR) || defined(XPS_BOARD_ZCU104)
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
 #ifdef XPAR_MIG_0_BASEADDR
 	/* Enable Regulator (FMC ADJ) ZCU102 */
 	WriteBuffer[0] = CMD_ON_OFF_CFG;
@@ -361,6 +361,7 @@ static u32 XFsbl_FMCEnable(void)
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_WRITE\r\n");
 		goto END;
 	}
+#endif
 #endif
 
 #if defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111)
@@ -681,7 +682,7 @@ static u32 XFsbl_FMCEnable(void)
 	}
 #endif
 	XFsbl_Printf(DEBUG_INFO, "FMC VADJ Configuration Successful\n\r");
-#endif
+
 
 END:
 
