@@ -79,6 +79,7 @@
 * 1.7	tjs 01/11/18 Added support for MX66L1G45G flash from Macronix CR-992367
 * 1.7	tjs 26/03/18 In dual parallel mode enable both CS when issuing Write
 *		     		 enable command. CR-998478
+* 1.8	tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
 *</pre>
 *
 ******************************************************************************/

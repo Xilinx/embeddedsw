@@ -53,6 +53,7 @@
 *       rk  07/15/16 Added support for TapDelays at different frequencies.
 * 1.7	tjs 01/17/18 Added support to toggle the WP pin of flash. (PR#2448)
 * 1.7	tjs	03/14/18 Added support in EL1 NS mode. (CR#974882)
+* 1.8	tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
 *
 * </pre>
 *
