@@ -139,6 +139,7 @@
 * 1.7	tjs	03/14/18 Added support in EL1 NS mode (CR#974882)
 * 1.7	tjs 26/03/18 In dual parallel mode enable both CS when issuing Write
 *		     		 enable command. CR-998478
+* 1.8	tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
 * </pre>
 *
 ******************************************************************************/
@@ -256,6 +257,8 @@ typedef struct {
 #define XQSPIPSU_CLK_PHASE_1_OPTION	0x4U
 #define XQSPIPSU_MANUAL_START_OPTION	0x8U
 #define XQSPIPSU_LQSPI_MODE_OPTION	0x20U
+
+#define XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB	1U
 
 #define XQSPIPSU_GENFIFO_EXP_START	0x100U
 
