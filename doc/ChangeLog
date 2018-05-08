@@ -17,6 +17,9 @@ Added support for IS25LP064A and IS25WP064A.
 
 Changes for 2018.2
 ===============================
+freertos10_xilinx_v1_1:
+Updated licensing information as per Freertos 10.0
+
 standalone_v6_7:
 Fixed compilation warnings in xil_sleeptimer.c
 
