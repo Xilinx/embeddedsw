@@ -66,9 +66,11 @@
 #if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
 #define INCLUDE_HDMI_RX
 #endif
-#if defined(XPAR_XDP_NUM_INSTANCES) && (XPAR_XDP_NUM_INSTANCES > 0)
-#define INCLUDE_DP_TX
+#if defined(XPAR_XDPRXSS_NUM_INSTANCES) && (XPAR_XDPRXSS_NUM_INSTANCES > 0)
 #define INCLUDE_DP_RX
+#endif
+#if defined(XPAR_XDPTXSS_NUM_INSTANCES) && (XPAR_XDPTXSS_NUM_INSTANCES > 0)
+#define INCLUDE_DP_TX
 #endif
 
 /**************************** Type Definitions *******************************/
