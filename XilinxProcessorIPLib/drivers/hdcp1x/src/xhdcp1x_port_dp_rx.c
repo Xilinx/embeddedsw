@@ -57,7 +57,7 @@
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"
-#if defined(XPAR_XDP_NUM_INSTANCES) && (XPAR_XDP_NUM_INSTANCES > 0)
+#if defined(XPAR_XDPRXSS_NUM_INSTANCES) && (XPAR_XDPRXSS_NUM_INSTANCES > 0)
 #include <stdlib.h>
 #include <string.h>
 #include "xhdcp1x_port.h"
