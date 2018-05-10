@@ -33,7 +33,7 @@
 /**
  *
  * @file xsdiaud.c
- * @addtogroup sdiaud_v1_2
+ * @addtogroup sdiaud_v1_1
  * @{
  * <pre>
  *
@@ -42,7 +42,7 @@
  * Ver   Who    Date     Changes
  * ----- ------ -------- --------------------------------------------------
  * 1.0   kar   02/14/18  Initial release.
- * 1.2   kar   04/25/18  Changed Set Clk Phase API's 2nd argument description.
+ * 1.1   kar   04/25/18  Changed Set Clk Phase API's 2nd argument description.
  * </pre>
  *
  ******************************************************************************/

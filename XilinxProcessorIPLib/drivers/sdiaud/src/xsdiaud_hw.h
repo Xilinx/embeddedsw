@@ -32,7 +32,7 @@
 /******************************************************************************/
 /**
  * @file xsdiaud_hw.h
- * @addtogroup sdiaud_v1_2
+ * @addtogroup sdiaud_v1_1
  * @{
  *
  * <pre>
@@ -42,7 +42,7 @@
  * Ver   Who    Date      Changes
  * ----- ------ -------- --------------------------------------------------
  * 1.0   kar    02/14/18  Initial release.
- * 1.2   kar    04/25/18  Removed version register offset.
+ * 1.1   kar    04/25/18  Removed version register offset.
  *                        Added rate control enable shift and mask.
  * </pre>
  *
