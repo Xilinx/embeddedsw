@@ -32,7 +32,7 @@
 /******************************************************************************/
 /**
  * @file xsdiaud.h
- * @addtogroup sdiaud_v1_2
+ * @addtogroup sdiaud_v1_1
  * @{
  *
  * <pre>
@@ -42,7 +42,7 @@
  * Ver   Who    Date      Changes
  * ----- ------ -------- --------------------------------------------------
  * 1.0   kar    02/15/18  Initial release.
- * 1.2   kar    04/25/18  Added new line standards.
+ * 1.1   kar    04/25/18  Added new line standards.
  *                        Added new API to enable rate control.
  *                        Removed inline function which reads the IP version.
  *

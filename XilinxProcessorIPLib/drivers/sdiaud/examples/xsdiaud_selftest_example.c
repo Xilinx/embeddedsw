@@ -42,8 +42,8 @@
  * Ver	 Who	Date		Changes
  * ----  ---	--------	-----------------------------------------------
  * 1.0	 kar	02/16/18	First release
- * 1.1   kar    04/02/18        Changed default value of the clk phase bit to 1.
- * 1.2   kar    04/25/18        Removed version register macro
+ * 1.1   kar    04/25/18        Changed default value of the clk phase bit to 1.
+ *                              Removed version register macro.
  *                              Removed get version API call from the self test.
  * </pre>
  *
