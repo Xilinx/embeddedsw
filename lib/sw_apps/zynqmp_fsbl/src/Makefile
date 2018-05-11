@@ -1,28 +1,8 @@
 #/******************************************************************************
-#*
-#* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
-#*
-#* Permission is hereby granted, free of charge, to any person obtaining a copy
-#* of this software and associated documentation files (the "Software"), to deal
-#* in the Software without restriction, including without limitation the rights
-#* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-#* copies of the Software, and to permit persons to whom the Software is
-#* furnished to do so, subject to the following conditions:
-#*
-#* The above copyright notice and this permission notice shall be included in
-#* all copies or substantial portions of the Software.
-#*
-#* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-#* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-#* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-#* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-#* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-#* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-#* THE SOFTWARE.
-#*
-#*
-#*
+#* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+#* SPDX-License-Identifier: MIT
 #******************************************************************************/
+
 
 PROC ?= a53
 CROSS ?=
@@ -48,7 +28,7 @@ AS      :=      $(CROSS)armr5-none-eabi-gcc
 LINKER  :=      $(CROSS)armr5-none-eabi-gcc
 DUMP    :=      $(CROSS)armr5-none-eabi-objdump -xSD
 CFLAGS :=  -Wall -O0 -g3 -fmessage-length=0
-ECFLAGS := -g -DARMR5 -Wall -Wextra -mcpu=cortex-r5 -mfloat-abi=hard -mfpu=vfpv3-d16 -Os -flto -ffat-lto-objects
+ECFLAGS := -g -DARMR5 -Wall -mcpu=cortex-r5 -mfloat-abi=hard -mfpu=vfpv3-d16 -Os -flto -ffat-lto-objects
 LSCRIPT := -Tlscript.ld
 EXEC := ron_r5_fsbl.elf
 INCLUDEPATH := -I$(BSP_DIR)/psu_cortexr5_0/include -I. -I../misc/$(BOARD)/$(PROC) -I../misc/$(BOARD)
@@ -90,7 +70,7 @@ CC      :=      $(CROSS)arm-none-eabi-gcc
 AS      :=      $(CROSS)arm-none-eabi-gcc
 LINKER  :=      $(CROSS)arm-none-eabi-gcc
 DUMP    :=      $(CROSS)arm-none-eabi-objdump -xSD
-ECFLAGS :=  -Wextra -march=armv7-a -mfloat-abi=hard -mfpu=vfpv3-d16 -DARMA53_$(A53_STATE) -Os -flto -ffat-lto-objects
+ECFLAGS :=	-march=armv7-a -mfloat-abi=hard -mfpu=vfpv3-d16 -DARMA53_$(A53_STATE) -Os -flto -ffat-lto-objects
 LSCRIPT :=	-Tlscript.ld
 LDFLAGS :=  -Wl,--start-group,-lxil,-lxilffs,-lxilsecure,-lxilpm,-lgcc,-lc,--end-group -L$(LIBPATH) -L./ -Wl,--build-id=none -march=armv7-a -mfloat-abi=hard -mfpu=vfpv3
 OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
