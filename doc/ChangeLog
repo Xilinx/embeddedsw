@@ -57,8 +57,16 @@ Add XRFdc_GetLinkCoupling() API to get the Link Coupling mode.
 Add clock configuration files for ZCU111 in examples.
 
 sdiaud_v1_1:
-Changed selftest to cover all the GUI parameters like UHD SDI standard and
-maximum number of channels.
+Changed selftest to cover all the GUI parameters like UHD SDI standard and maximum number of channels.
+Changed clk phase bit default value.
+Changed Set Clk Phase API's 2nd argument description.
+Removed get version API call from the self test.
+Added new line standards.
+Added new API to enable rate control.
+Removed inline function which reads the IP version.
+Removed version register offset.
+Added rate control enable shift and mask.
+Added new macros for UHD-SDI standard and channels.
 
 lwip202_v1_1:
 Avoid redundant axi ethernet config lookup and intialize.
