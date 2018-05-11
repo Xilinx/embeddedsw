@@ -69,7 +69,6 @@ S_SOURCES += xfsbl_translation_table_a53_$(A53_STATE).S
 OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
 CROSS   :=
 CFLAGS =  -Wall -O0 -g3 -fmessage-length=0 
-ECFLAGS = -march=armv8-a -DARMA53_$(A53_STATE) -Os -flto -ffat-lto-objects
 EXEC := ron_a53_fsbl.elf
 INCLUDEPATH := -I$(BSP_DIR)/psu_cortexa53_0/include -I. -I../misc/$(BOARD)/$(PROC) -I../misc/$(BOARD)
 LIBPATH := $(BSP_DIR)/psu_cortexa53_0/lib
@@ -78,6 +77,7 @@ CC      :=      $(CROSS)aarch64-none-elf-gcc
 AS      :=      $(CROSS)aarch64-none-elf-gcc
 LINKER  :=      $(CROSS)aarch64-none-elf-gcc
 DUMP    :=      $(CROSS)aarch64-none-elf-objdump -xSD
+ECFLAGS = -march=armv8-a -DARMA53_$(A53_STATE) -Os -flto -ffat-lto-objects
 LSCRIPT := 	-Tlscript_a53.ld
 LDFLAGS := -Wl,--start-group,-lxil,-lxilffs,-lxilsecure,-lxilpm,-lgcc,-lc,--end-group -L$(LIBPATH) -L./ -Wl,--build-id=none
 else
@@ -85,9 +85,9 @@ CC      :=      $(CROSS)arm-none-eabi-gcc
 AS      :=      $(CROSS)arm-none-eabi-gcc
 LINKER  :=      $(CROSS)arm-none-eabi-gcc
 DUMP    :=      $(CROSS)arm-none-eabi-objdump -xSD
-ECFLAGS :=  -Wextra -march=armv7-a -mfloat-abi=hard -mfpu=vfpv3-d16
+ECFLAGS :=  -Wextra -march=armv7-a -mfloat-abi=hard -mfpu=vfpv3-d16 -DARMA53_$(A53_STATE) -Os -flto -ffat-lto-objects
 LSCRIPT :=	-Tlscript.ld
-LDFLAGS :=  -Wl,--start-group,-lxil,-lxilffs,-lxilsecure,-lxilpm,-lgcc,-lc,--end-group -L$(LIBPATH) -L./ -Wl,--build-id=none -march=armv7-a -mfloat-abi=hard -mfpu=vfpv3-d16
+LDFLAGS :=  -Wl,--start-group,-lxil,-lxilffs,-lxilsecure,-lxilpm,-lgcc,-lc,--end-group -L$(LIBPATH) -L./ -Wl,--build-id=none -march=armv7-a -mfloat-abi=hard -mfpu=vfpv3
 
 endif
 endif
