@@ -122,3 +122,4 @@ $(LIBS):
 
 clean:
 	rm -rf $(OBJS) *.elf dump
+	rm -rf ../misc/zynqmp_fsbl_bsp
