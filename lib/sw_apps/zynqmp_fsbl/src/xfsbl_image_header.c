@@ -255,7 +255,7 @@ static u32 XFsbl_ValidateImageHeaderTable(
 		 */
 
 		PartitionPresentDevice = ImageHeaderTable->PartitionPresentDevice;
-		if ((PartitionPresentDevice < XIH_IHT_PPD_SAME) &&
+		if ((PartitionPresentDevice < XIH_IHT_PPD_SAME) ||
 		(PartitionPresentDevice > XIH_IHT_PPD_SATA) )
 		{
 			Status = XFSBL_ERROR_PPD;
