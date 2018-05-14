@@ -157,6 +157,13 @@ static u32 XFsbl_ReadMinMaxEepromVadj(u16 *MinVadj, u16 *MaxVadj)
 			EepromByteCount, EepromAddr[Index]);
 		if (Status == XST_SUCCESS) {
 			UStatus = XSFBL_EEPROM_PRESENT;
+			/* Wait until bus is idle */
+			while (XIicPs_BusIsBusy(&I2c0InstancePtr)!=XST_SUCCESS) {
+					/**
+					 * For MISRA C
+					 * compliance
+					 */
+			}
 			XFsbl_Printf(DEBUG_GENERAL, "XFSBL_EEPROM PRESENT\r\n");
 			goto END;
 		}
