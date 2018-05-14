@@ -1,63 +1,55 @@
-POSSIBLE NOTICE(S): [GPL] [Free-Software-Foundation] 
+POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
 
 COPYRIGHT TEXT:
 ---------------
 
-This file is part of the FreeRTOS port. FreeRTOS is free software; you can
-redistribute it and/or modify it under the terms of the GNU General Public
-License (version 2) as published by the Free Software Foundation >>!AND MODIFIED
-BY!<< the FreeRTOS exception. NOTE: The modification to the GPL is included to
-allow you to distribute a combined work that includes FreeRTOS without being
-obliged to provide the source code for proprietary components outside of the
-FreeRTOS kernel. FreeRTOS is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE. Full license text is available on the
-following link: http://www.freertos.org/a00114.html
+This file is part of the FreeRTOS port. Permission is hereby granted, free of
+charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use, copy, modify,
+merge, publish, distribute, sublicense, and/or sell copies of the Software, and
+to permit persons to whom the Software is furnished to do so, subject to the
+following conditions: The above copyright notice and this permission notice
+shall be included in all copies or substantial portions of the Software. If you
+wish to use our Amazon FreeRTOS name, please do so in a fair use way that does
+not cause confusion. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. http://www.FreeRTOS.org http://aws.amazon.com/freertos 1 tab 4
+spaces!
 
 FILES:
 embeddedsw/ThirdParty/bsp/freertos10_xilinx/data/freertos10_xilinx.mld
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [GPL] [Free-Software-Foundation] 
-
-COPYRIGHT TEXT:
----------------
-
-This file is part of the FreeRTOS port. FreeRTOS is free software; you can
-redistribute it and/or modify it under the terms of the GNU General Public
-License (version 2) as published by the Free Software Foundation >>!AND MODIFIED
-BY!<< the FreeRTOS exception. NOTE: The modification to the GPL is included to
-allow you to distribute a combined work that includes FreeRTOS without being
-obliged to provide the source code for proprietary components outside of the
-FreeRTOS kernel. FreeRTOS is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE. Full license text is available on the
-following link: http://www.freertos.org/a00114.html
-
-FILES:
 embeddedsw/ThirdParty/bsp/freertos10_xilinx/data/freertos10_xilinx.mss
 --------------------------------------------------------------------------------
 
 
 
-POSSIBLE NOTICE(S): [GPL] [Free-Software-Foundation] 
+POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
 
 COPYRIGHT TEXT:
 ---------------
 
-This file is part of the FreeRTOS port. FreeRTOS is free software; you can
-redistribute it and/or modify it under the terms of the GNU General Public
-License (version 2) as published by the Free Software Foundation >>!AND MODIFIED
-BY!<< the FreeRTOS exception. NOTE: The modification to the GPL is included to
-allow you to distribute a combined work that includes FreeRTOS without being
-obliged to provide the source code for proprietary components outside of the
-FreeRTOS kernel. FreeRTOS is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE. Full license text is available on the
-following link: http://www.freertos.org/a00114.html Return latest "ACTIVE"
-standalone BSP version
+This file is part of the FreeRTOS port. Permission is hereby granted, free of
+charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use, copy, modify,
+merge, publish, distribute, sublicense, and/or sell copies of the Software, and
+to permit persons to whom the Software is furnished to do so, subject to the
+following conditions: The above copyright notice and this permission notice
+shall be included in all copies or substantial portions of the Software. If you
+wish to use our Amazon FreeRTOS name, please do so in a fair use way that does
+not cause confusion. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. http://www.FreeRTOS.org http://aws.amazon.com/freertos 1 tab 4
+spaces! Return latest "ACTIVE" standalone BSP version
 
 FILES:
 embeddedsw/ThirdParty/bsp/freertos10_xilinx/data/freertos10_xilinx.tcl
@@ -65,22 +57,28 @@ embeddedsw/ThirdParty/bsp/freertos10_xilinx/data/freertos10_xilinx.tcl
 
 
 
-POSSIBLE NOTICE(S): [GPL] [Free-Software-Foundation] 
+POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
 
 COPYRIGHT TEXT:
 ---------------
 
-All rights reserved. This file is part of the FreeRTOS distribution. FreeRTOS is
-free software; you can redistribute it and/or modify it under the terms of the
-GNU General Public License (version 2) as published by the Free Software
-Foundation >>!AND MODIFIED BY!<< the FreeRTOS exception. >>! NOTE: The
-modification to the GPL is included to allow you to !<< >>! distribute a
-combined work that includes FreeRTOS without being !<< >>! obliged to provide
-the source code for proprietary components !<< >>! outside of the FreeRTOS
-kernel. !<< FreeRTOS is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE. Full license text is available on the
-following link: http://www.freertos.org/a00114.html @file FreeRTOSSTMTrace.h
+All rights reserved. This file is part of the FreeRTOS distribution. Permission
+is hereby granted, free of charge, to any person obtaining a copy of this
+software and associated documentation files (the "Software"), to deal in the
+Software without restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions: The above copyright notice and this
+permission notice shall be included in all copies or substantial portions of the
+Software. If you wish to use our Amazon FreeRTOS name, please do so in a fair
+use way that does not cause confusion. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
+WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+THE USE OR OTHER DEALINGS IN THE SOFTWARE. http://www.FreeRTOS.org
+http://aws.amazon.com/freertos 1 tab 4 spaces! / @file FreeRTOSSTMTrace.h
 Contains FreeRTOS trace macros to write trace data to STM address space on ZU+.
 STM generates STPI packets, which are consumed by SDK to generate trace <pre>
 MODIFICATION HISTORY: Ver Who Date Changes ----- ---- -------- 1.00a sdm
@@ -92,45 +90,29 @@ embeddedsw/ThirdParty/bsp/freertos10_xilinx/src/FreeRTOSSTMTrace.h
 
 
 
-POSSIBLE NOTICE(S): [GPL] [Free-Software-Foundation] 
+POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
 
 COPYRIGHT TEXT:
 ---------------
 
 This file is part of the port for FreeRTOS made by Xilinx to allow FreeRTOS to
-operate with Xilinx Zynq devices. This file is free software; you can
-redistribute it and/or modify it under the terms of the GNU General Public
-License (version 2) as published by the Free Software Foundation AND MODIFIED BY
-the FreeRTOS exception (see text further below). This file is distributed in the
-hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-General Public License for more details. You should have received a copy of the
-GNU General Public License; if not it can be viewed here:
-<http://www.gnu.org/licenses/> The following exception language was found at
-http://www.freertos.org/a00114.html on May 8, 2012. GNU General Public License
-Exception Any FreeRTOS source code, whether modified or in its original release
-form, or whether in whole or in part, can only be distributed by you under the
-terms of the GNU General Public License plus this exception. An independent
-module is a module which is not derived from or based on FreeRTOS. EXCEPTION
-TEXT: Clause 1 Linking FreeRTOS statically or dynamically with other modules is
-making a combined work based on FreeRTOS. Thus, the terms and conditions of the
-GNU General Public License cover the whole combination. As a special exception,
-the copyright holder of FreeRTOS gives you permission to link FreeRTOS with
-independent modules that communicate with FreeRTOS solely through the FreeRTOS
-API interface, regardless of the license terms of these independent modules, and
-to copy and distribute the resulting combined work under terms of your choice,
-provided that Every copy of the combined work is accompanied by a written
-statement that details to the recipient the version of FreeRTOS used and an
-offer by yourself to provide the FreeRTOS source code (including any
-modifications you may have made) should the recipient request it. The combined
-work is not itself an RTOS, scheduler, kernel or related product. The
-independent modules add significant and primary functionality to FreeRTOS and do
-not merely extend the existing functionality already present in FreeRTOS. Clause
-2 FreeRTOS may not be used for any competitive or comparative purpose, including
-the publication of any form of run time or compile time metric, without the
-express permission of Real Time Engineers Ltd. (this is the norm within the
-industry and is intended to ensure information accuracy). Processor architecture
-microblaze
+operate with Xilinx Zynq devices. Permission is hereby granted, free of charge,
+to any person obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to permit persons to whom
+the Software is furnished to do so, subject to the following conditions: The
+above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software. If you wish to use our Amazon
+FreeRTOS name, please do so in a fair use way that does not cause confusion. THE
+SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+http://www.FreeRTOS.org http://aws.amazon.com/freertos 1 tab 4 spaces! Processor
+architecture microblaze
 
 FILES:
 embeddedsw/ThirdParty/bsp/freertos10_xilinx/src/Makefile_microblaze
@@ -138,45 +120,29 @@ embeddedsw/ThirdParty/bsp/freertos10_xilinx/src/Makefile_microblaze
 
 
 
-POSSIBLE NOTICE(S): [GPL] [Free-Software-Foundation] 
+POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
 
 COPYRIGHT TEXT:
 ---------------
 
 This file is part of the port for FreeRTOS made by Xilinx to allow FreeRTOS to
-operate with Xilinx Zynq devices. This file is free software; you can
-redistribute it and/or modify it under the terms of the GNU General Public
-License (version 2) as published by the Free Software Foundation AND MODIFIED BY
-the FreeRTOS exception (see text further below). This file is distributed in the
-hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-General Public License for more details. You should have received a copy of the
-GNU General Public License; if not it can be viewed here:
-<http://www.gnu.org/licenses/> The following exception language was found at
-http://www.freertos.org/a00114.html on May 8, 2012. GNU General Public License
-Exception Any FreeRTOS source code, whether modified or in its original release
-form, or whether in whole or in part, can only be distributed by you under the
-terms of the GNU General Public License plus this exception. An independent
-module is a module which is not derived from or based on FreeRTOS. EXCEPTION
-TEXT: Clause 1 Linking FreeRTOS statically or dynamically with other modules is
-making a combined work based on FreeRTOS. Thus, the terms and conditions of the
-GNU General Public License cover the whole combination. As a special exception,
-the copyright holder of FreeRTOS gives you permission to link FreeRTOS with
-independent modules that communicate with FreeRTOS solely through the FreeRTOS
-API interface, regardless of the license terms of these independent modules, and
-to copy and distribute the resulting combined work under terms of your choice,
-provided that Every copy of the combined work is accompanied by a written
-statement that details to the recipient the version of FreeRTOS used and an
-offer by yourself to provide the FreeRTOS source code (including any
-modifications you may have made) should the recipient request it. The combined
-work is not itself an RTOS, scheduler, kernel or related product. The
-independent modules add significant and primary functionality to FreeRTOS and do
-not merely extend the existing functionality already present in FreeRTOS. Clause
-2 FreeRTOS may not be used for any competitive or comparative purpose, including
-the publication of any form of run time or compile time metric, without the
-express permission of Real Time Engineers Ltd. (this is the norm within the
-industry and is intended to ensure information accuracy). Processor architecture
-ps7_cortexa9
+operate with Xilinx Zynq devices. Permission is hereby granted, free of charge,
+to any person obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to permit persons to whom
+the Software is furnished to do so, subject to the following conditions: The
+above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software. If you wish to use our Amazon
+FreeRTOS name, please do so in a fair use way that does not cause confusion. THE
+SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+http://www.FreeRTOS.org http://aws.amazon.com/freertos 1 tab 4 spaces! Processor
+architecture ps7_cortexa9
 
 FILES:
 embeddedsw/ThirdParty/bsp/freertos10_xilinx/src/Makefile_ps7_cortexa9
@@ -185,45 +151,29 @@ embeddedsw/ThirdParty/bsp/freertos10_xilinx/src/Makefile_psu_cortexr5
 
 
 
-POSSIBLE NOTICE(S): [GPL] [Free-Software-Foundation] 
+POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
 
 COPYRIGHT TEXT:
 ---------------
 
 This file is part of the port for FreeRTOS made by Xilinx to allow FreeRTOS to
-operate with Xilinx Zynq devices. This file is free software; you can
-redistribute it and/or modify it under the terms of the GNU General Public
-License (version 2) as published by the Free Software Foundation AND MODIFIED BY
-the FreeRTOS exception (see text further below). This file is distributed in the
-hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-General Public License for more details. You should have received a copy of the
-GNU General Public License; if not it can be viewed here:
-<http://www.gnu.org/licenses/> The following exception language was found at
-http://www.freertos.org/a00114.html on May 8, 2012. GNU General Public License
-Exception Any FreeRTOS source code, whether modified or in its original release
-form, or whether in whole or in part, can only be distributed by you under the
-terms of the GNU General Public License plus this exception. An independent
-module is a module which is not derived from or based on FreeRTOS. EXCEPTION
-TEXT: Clause 1 Linking FreeRTOS statically or dynamically with other modules is
-making a combined work based on FreeRTOS. Thus, the terms and conditions of the
-GNU General Public License cover the whole combination. As a special exception,
-the copyright holder of FreeRTOS gives you permission to link FreeRTOS with
-independent modules that communicate with FreeRTOS solely through the FreeRTOS
-API interface, regardless of the license terms of these independent modules, and
-to copy and distribute the resulting combined work under terms of your choice,
-provided that Every copy of the combined work is accompanied by a written
-statement that details to the recipient the version of FreeRTOS used and an
-offer by yourself to provide the FreeRTOS source code (including any
-modifications you may have made) should the recipient request it. The combined
-work is not itself an RTOS, scheduler, kernel or related product. The
-independent modules add significant and primary functionality to FreeRTOS and do
-not merely extend the existing functionality already present in FreeRTOS. Clause
-2 FreeRTOS may not be used for any competitive or comparative purpose, including
-the publication of any form of run time or compile time metric, without the
-express permission of Real Time Engineers Ltd. (this is the norm within the
-industry and is intended to ensure information accuracy). Processor architecture
-psu_cortexa53
+operate with Xilinx Zynq devices. Permission is hereby granted, free of charge,
+to any person obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to permit persons to whom
+the Software is furnished to do so, subject to the following conditions: The
+above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software. If you wish to use our Amazon
+FreeRTOS name, please do so in a fair use way that does not cause confusion. THE
+SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+http://www.FreeRTOS.org http://aws.amazon.com/freertos 1 tab 4 spaces! Processor
+architecture psu_cortexa53
 
 FILES:
 embeddedsw/ThirdParty/bsp/freertos10_xilinx/src/Makefile_psu_cortexa53
@@ -884,6 +834,7 @@ embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xaxiema
 embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xaxiemacif_fifo.c
 embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xaxiemacif_hw.c
 embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xaxiemacif_hw.h
+embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xemac_ieee_reg.h
 embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xemacpsif_physpeed.c
 embeddedsw/ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/sys_arch_raw.c
 embeddedsw/ThirdParty/sw_services/openamp/data/openamp.mld
@@ -1070,6 +1021,7 @@ embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_intr.c
 embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_selftest.c
 embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_sinit.c
 embeddedsw/XilinxProcessorIPLib/drivers/canps/data/canps.mdd
+embeddedsw/XilinxProcessorIPLib/drivers/canps/data/canps.mld
 embeddedsw/XilinxProcessorIPLib/drivers/canps/data/canps.tcl
 embeddedsw/XilinxProcessorIPLib/drivers/canps/data/canps_header.h
 embeddedsw/XilinxProcessorIPLib/drivers/canps/data/canps_tapp.tcl
@@ -2113,6 +2065,8 @@ embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps_hw.h
 embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps_sinit.c
 embeddedsw/XilinxProcessorIPLib/drivers/rfdc/data/rfdc.mdd
 embeddedsw/XilinxProcessorIPLib/drivers/rfdc/data/rfdc.tcl
+embeddedsw/XilinxProcessorIPLib/drivers/rfdc/examples/xrfdc_clk.c
+embeddedsw/XilinxProcessorIPLib/drivers/rfdc/examples/xrfdc_clk.h
 embeddedsw/XilinxProcessorIPLib/drivers/rfdc/examples/xrfdc_intr_example.c
 embeddedsw/XilinxProcessorIPLib/drivers/rfdc/examples/xrfdc_mts_example.c
 embeddedsw/XilinxProcessorIPLib/drivers/rfdc/examples/xrfdc_read_write_example.c
@@ -2542,6 +2496,7 @@ embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic_g.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/data/v_frmbuf_rd.mdd
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/data/v_frmbuf_rd.tcl
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/main.c
+embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.h
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_g.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.c
@@ -2550,6 +2505,7 @@ embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2_intr.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/data/v_frmbuf_wr.mdd
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/data/v_frmbuf_wr.tcl
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/main.c
+embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.h
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_g.c
 embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c
@@ -3076,9 +3032,8 @@ embeddedsw/lib/bsp/standalone/src/profile/profile.h
 embeddedsw/lib/bsp/standalone/src/profile/profile_cg.c
 embeddedsw/lib/bsp/standalone/src/profile/profile_config.h
 embeddedsw/lib/bsp/standalone/src/profile/profile_hist.c
+embeddedsw/lib/sw_apps/ddr_self_refresh/data/ddr_self_refresh.mss
 embeddedsw/lib/sw_apps/ddr_self_refresh/data/ddr_self_refresh.tcl
-embeddedsw/lib/sw_apps/ddr_self_refresh/src/platform.c
-embeddedsw/lib/sw_apps/ddr_self_refresh/src/platform.h
 embeddedsw/lib/sw_apps/freertos_hello_world/data/freertos_hello_world.tcl
 embeddedsw/lib/sw_apps/freertos_lwip_echo_server/src/echo.c
 embeddedsw/lib/sw_apps/freertos_lwip_echo_server/src/iic_phyreset.c
@@ -3209,9 +3164,12 @@ embeddedsw/lib/sw_apps/zynq_fsbl/src/rsa.c
 embeddedsw/lib/sw_apps/zynq_fsbl/src/rsa.h
 embeddedsw/lib/sw_apps/zynq_fsbl/src/sd.c
 embeddedsw/lib/sw_apps/zynq_fsbl/src/sd.h
+embeddedsw/lib/sw_apps/zynqmp_dram_test/src/platform.c
+embeddedsw/lib/sw_apps/zynqmp_dram_test/src/platform.h
 embeddedsw/lib/sw_apps/zynqmp_fsbl/data/zynqmp_fsbl.mss
 embeddedsw/lib/sw_apps/zynqmp_fsbl/data/zynqmp_fsbl.tcl
 embeddedsw/lib/sw_apps/zynqmp_fsbl/misc/pm_cfg_obj.c
+embeddedsw/lib/sw_apps/zynqmp_fsbl/misc/xipipsu_g.c
 embeddedsw/lib/sw_apps/zynqmp_fsbl/misc/zcu102-es1/a53/xparameters_ps.h
 embeddedsw/lib/sw_apps/zynqmp_fsbl/misc/zcu102-es1/psu_init.c
 embeddedsw/lib/sw_apps/zynqmp_fsbl/misc/zcu102-es1/psu_init.h
@@ -3263,6 +3221,8 @@ embeddedsw/lib/sw_apps/zynqmp_fsbl/src/xfsbl_usb.c
 embeddedsw/lib/sw_apps/zynqmp_fsbl/src/xfsbl_usb.h
 embeddedsw/lib/sw_apps/zynqmp_pmufw/data/zynqmp_pmufw.mss
 embeddedsw/lib/sw_apps/zynqmp_pmufw/data/zynqmp_pmufw.tcl
+embeddedsw/lib/sw_apps/zynqmp_pmufw/misc/xipipsu_g.c
+embeddedsw/lib/sw_apps/zynqmp_pmufw/src/afi.h
 embeddedsw/lib/sw_apps/zynqmp_pmufw/src/apu.h
 embeddedsw/lib/sw_apps/zynqmp_pmufw/src/crf_apb.h
 embeddedsw/lib/sw_apps/zynqmp_pmufw/src/crl_apb.h
@@ -4740,70 +4700,6 @@ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
 PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file freertos/shmem.c @brief
-FreeRTOS libmetal shared memory handling. /
-
-FILES:
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/freertos/shmem.c
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
-
-COPYRIGHT TEXT:
----------------
-
-All rights reserved. Redistribution and use in source and binary forms, with or
-without modification, are permitted provided that the following conditions are
-met: 1. Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer. 2. Redistributions in
-binary form must reproduce the above copyright notice, this list of conditions
-and the following disclaimer in the documentation and/or other materials
-provided with the distribution. 3. Neither the name of Xilinx nor the names of
-its contributors may be used to endorse or promote products derived from this
-software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
-THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
-WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file freertos/sleep.c @brief
-freertos libmetal sleep handling. /
-
-FILES:
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/freertos/sleep.c
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
-
-COPYRIGHT TEXT:
----------------
-
-All rights reserved. Redistribution and use in source and binary forms, with or
-without modification, are permitted provided that the following conditions are
-met: 1. Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer. 2. Redistributions in
-binary form must reproduce the above copyright notice, this list of conditions
-and the following disclaimer in the documentation and/or other materials
-provided with the distribution. 3. Neither the name of Xilinx nor the names of
-its contributors may be used to endorse or promote products derived from this
-software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
-THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
-WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file freertos/irq.c @brief
 FreeRTOS libmetal irq definitions. /
 
@@ -4841,6 +4737,70 @@ FreeRTOS mutex primitives for libmetal. /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/freertos/mutex.h
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
+
+COPYRIGHT TEXT:
+---------------
+
+All rights reserved. Redistribution and use in source and binary forms, with or
+without modification, are permitted provided that the following conditions are
+met: 1. Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer. 2. Redistributions in
+binary form must reproduce the above copyright notice, this list of conditions
+and the following disclaimer in the documentation and/or other materials
+provided with the distribution. 3. Neither the name of Xilinx nor the names of
+its contributors may be used to endorse or promote products derived from this
+software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
+THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file freertos/shmem.c @brief
+FreeRTOS libmetal shared memory handling. /
+
+FILES:
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/freertos/shmem.c
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
+
+COPYRIGHT TEXT:
+---------------
+
+All rights reserved. Redistribution and use in source and binary forms, with or
+without modification, are permitted provided that the following conditions are
+met: 1. Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer. 2. Redistributions in
+binary form must reproduce the above copyright notice, this list of conditions
+and the following disclaimer in the documentation and/or other materials
+provided with the distribution. 3. Neither the name of Xilinx nor the names of
+its contributors may be used to endorse or promote products derived from this
+software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
+THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file freertos/sleep.c @brief
+freertos libmetal sleep handling. /
+
+FILES:
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/freertos/sleep.c
 --------------------------------------------------------------------------------
 
 
@@ -5349,11 +5309,11 @@ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
 PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file generic/mutex.h @brief
-Generic mutex primitives for libmetal. /
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file generic/irq.c @brief Generic
+libmetal irq definitions. /
 
 FILES:
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/mutex.h
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/irq.h
 --------------------------------------------------------------------------------
 
 
@@ -5381,11 +5341,11 @@ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
 PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file generic/irq.c @brief Generic
-libmetal irq definitions. /
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file generic/mutex.h @brief
+Generic mutex primitives for libmetal. /
 
 FILES:
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/irq.h
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/mutex.h
 --------------------------------------------------------------------------------
 
 
@@ -5546,72 +5506,6 @@ specific io definitions. /
 
 FILES:
 embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/io.h
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
-
-COPYRIGHT TEXT:
----------------
-
-All rights reserved. Redistribution and use in source and binary forms, with or
-without modification, are permitted provided that the following conditions are
-met: 1. Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer. 2. Redistributions in
-binary form must reproduce the above copyright notice, this list of conditions
-and the following disclaimer in the documentation and/or other materials
-provided with the distribution. 3. Neither the name of Xilinx nor the names of
-its contributors may be used to endorse or promote products derived from this
-software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
-THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
-WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file
-generic/microblaze_generic/sys.c @brief machine specific system primitives
-implementation. /
-
-FILES:
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/microblaze_generic/sys.c
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
-
-COPYRIGHT TEXT:
----------------
-
-All rights reserved. Redistribution and use in source and binary forms, with or
-without modification, are permitted provided that the following conditions are
-met: 1. Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer. 2. Redistributions in
-binary form must reproduce the above copyright notice, this list of conditions
-and the following disclaimer in the documentation and/or other materials
-provided with the distribution. 3. Neither the name of Xilinx nor the names of
-its contributors may be used to endorse or promote products derived from this
-software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
-THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
-WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file
-generic/microblaze_generic/sys.h @brief generic microblaze system primitives for
-libmetal. /
-
-FILES:
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/microblaze_generic/sys.h
 --------------------------------------------------------------------------------
 
 
@@ -5805,6 +5699,72 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file generic/zynqmp_r5/sys.h
 
 FILES:
 embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/zynqmp_r5/sys.h
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
+
+COPYRIGHT TEXT:
+---------------
+
+All rights reserved. Redistribution and use in source and binary forms, with or
+without modification, are permitted provided that the following conditions are
+met: 1. Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer. 2. Redistributions in
+binary form must reproduce the above copyright notice, this list of conditions
+and the following disclaimer in the documentation and/or other materials
+provided with the distribution. 3. Neither the name of Xilinx nor the names of
+its contributors may be used to endorse or promote products derived from this
+software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
+THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file
+generic/microblaze_generic/sys.c @brief machine specific system primitives
+implementation. /
+
+FILES:
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/microblaze_generic/sys.c
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
+
+COPYRIGHT TEXT:
+---------------
+
+All rights reserved. Redistribution and use in source and binary forms, with or
+without modification, are permitted provided that the following conditions are
+met: 1. Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer. 2. Redistributions in
+binary form must reproduce the above copyright notice, this list of conditions
+and the following disclaimer in the documentation and/or other materials
+provided with the distribution. 3. Neither the name of Xilinx nor the names of
+its contributors may be used to endorse or promote products derived from this
+software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
+THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file
+generic/microblaze_generic/sys.h @brief generic microblaze system primitives for
+libmetal. /
+
+FILES:
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/microblaze_generic/sys.h
 --------------------------------------------------------------------------------
 
 
@@ -6882,41 +6842,6 @@ POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google]
 COPYRIGHT TEXT:
 ---------------
 
-All rights reserved. Redistribution and use in source and binary forms, with or
-without modification, are permitted provided that the following conditions are
-met: 1. Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer. 2. Redistributions in
-binary form must reproduce the above copyright notice, this list of conditions
-and the following disclaimer in the documentation and/or other materials
-provided with the distribution. 3. Neither the name of the <ORGANIZATION> nor
-the names of its contributors may be used to endorse or promote products derived
-from this software without specific prior written permission. THIS SOFTWARE IS
-PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
-IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. /
-
-FILES:
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/test/system/generic/microblaze_generic/helper.c
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/test/system/generic/microblaze_generic/platform.c
-embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/test/system/generic/microblaze_generic/platform.h
-embeddedsw/lib/sw_apps/openamp_echo_test/src/system/freertos/system_helper.c
-embeddedsw/lib/sw_apps/openamp_matrix_multiply/src/system/freertos/system_helper.c
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
-
-COPYRIGHT TEXT:
----------------
-
 Copyright (c) 2014, Mentor Graphics Corporation All rights reserved. All rights
 reserved. Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met: 1.
@@ -6954,6 +6879,39 @@ embeddedsw/lib/sw_apps/openamp_rpc_demo/src/system/freertos/machine/zynq7/helper
 embeddedsw/lib/sw_apps/openamp_rpc_demo/src/system/freertos/machine/zynqmp_r5/helper.c
 embeddedsw/lib/sw_apps/openamp_rpc_demo/src/system/generic/machine/zynq7/helper.c
 embeddedsw/lib/sw_apps/openamp_rpc_demo/src/system/generic/machine/zynqmp_r5/helper.c
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
+
+COPYRIGHT TEXT:
+---------------
+
+All rights reserved. Redistribution and use in source and binary forms, with or
+without modification, are permitted provided that the following conditions are
+met: 1. Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer. 2. Redistributions in
+binary form must reproduce the above copyright notice, this list of conditions
+and the following disclaimer in the documentation and/or other materials
+provided with the distribution. 3. Neither the name of the <ORGANIZATION> nor
+the names of its contributors may be used to endorse or promote products derived
+from this software without specific prior written permission. THIS SOFTWARE IS
+PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. /
+
+FILES:
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/test/system/generic/microblaze_generic/helper.c
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/test/system/generic/microblaze_generic/platform.c
+embeddedsw/ThirdParty/sw_services/libmetal/src/libmetal/test/system/generic/microblaze_generic/platform.h
 --------------------------------------------------------------------------------
 
 
@@ -17363,287 +17321,6 @@ embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/hdcp_key_utility/big
 
 
 
-POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
-
-COPYRIGHT TEXT:
----------------
-
-All rights reserved. Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation files (the
-"Software"),to deal in the Software without restriction, including without
-limitation the rights to use, copy, modify, merge, publish, distribute,
-sublicense, and/or sell copies of the Software, and to permit persons to whom
-the Software is furnished to do so, subject to the following conditions: The
-above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software. Use of the Software is limited
-solely to applications: (a) running on a Xilinx device, or (b) that interact
-with a Xilinx device through a bus or interconnect. THE SOFTWARE IS PROVIDED "AS
-IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
-OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. Except as contained in this notice, the name of the Xilinx shall
-not be used in advertising or otherwise to promote the sale, use or other
-dealings in this Software without prior written authorization from Xilinx
-
-FILES:
-embeddedsw/XilinxProcessorIPLib/drivers/i2srx/data/xi2srx_header.h
-embeddedsw/XilinxProcessorIPLib/drivers/spdif/data/xspdif_header.h
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
-
-COPYRIGHT TEXT:
----------------
-
-All rights reserved. Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation files (the
-"Software"),to deal in the Software without restriction, including without
-limitation the rights to use, copy, modify, merge, publish, distribute,
-sublicense, and/or sell copies of the Software, and to permit persons to whom
-the Software is furnished to do so, subject to the following conditions: The
-above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software. Use of the Software is limited
-solely to applications: (a) running on a Xilinx device, or (b) that interact
-with a Xilinx device through a bus or interconnect. THE SOFTWARE IS PROVIDED "AS
-IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
-OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. Except as contained in this notice,the name of the Xilinx shall
-not be used in advertising or otherwise to promote the sale, use or other
-dealings in this Software without prior written authorization from Xilinx
-
-FILES:
-embeddedsw/XilinxProcessorIPLib/drivers/i2srx/examples/xi2srx_intr_example.c
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
-
-COPYRIGHT TEXT:
----------------
-
-CAUTION: This file is automatically generated by HSI. Version: DO NOT EDIT. All
-Rights Reserved. Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation files (the
-Software), to deal in the Software without restriction, including without
-limitation the rights to use, copy, modify, merge, publish, distribute,
-sublicense, and/or sell copies of the Software, and to permit persons to whom
-the Software is furnished to do so, subject to the following conditions: The
-above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software. Use of the Software is limited
-solely to applications: (a) running on a Xilinx device, or (b) that interact
-with a Xilinx device through a bus or interconnect. THE SOFTWARE IS PROVIDED AS
-IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
-OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. Except as contained in this notice, the name of the Xilinx shall
-not be used in advertising or otherwise to promote the sale, use or other
-dealings in this Software without prior written authorization from Xilinx
-
-FILES:
-embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_g.c
-embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_g.c
-embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_g.c
-embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_g.c
-embeddedsw/lib/sw_apps/zynqmp_fsbl/misc/zcu102-es1/bspconfig.h
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
-
-COPYRIGHT TEXT:
----------------
-
-All rights reserved. Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including without
-limitation the rights to use, copy, modify, merge, publish, distribute,
-sublicense, andor sell copies of the Software, and to permit persons to whom the
-Software is furnished to do so, subject to the following conditions: The above
-copyright notice and this permission notice shall be included in all copies or
-substantial portions of the Software. Use of the Software is limited solely to
-applications: (a) running on a Xilinx device, or (b) that interact with a Xilinx
-device through a bus or interconnect. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
-WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
-OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. Except as contained in this notice, the name of the Xilinx shall
-not be used in advertising or otherwise to promote the sale, use or other
-dealings in this Software without prior written authorization from Xilinx
-
-FILES:
-embeddedsw/XilinxProcessorIPLib/drivers/i2stx/data/i2stx.mdd
-embeddedsw/XilinxProcessorIPLib/drivers/i2stx/data/i2stx.tcl
-embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/data/sdiaud.tcl
-embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/data/v_hdmirxss.mdd
-embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/data/v_hdmirxss.tcl
-embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/data/v_hdmitxss.mdd
-embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/data/v_hdmitxss.tcl
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [EPL-1.0] 
-
-COPYRIGHT TEXT:
----------------
-
-d52cbaca0ef8cf4fd3d6354deb5066970fb6511d02d18d15835e6014ed847fb0 All rights
-reserved. This file contains confidential and proprietary information of Xilinx,
-Inc. and is protected under U.S. and international copyright and other
-intellectual property laws. DISCLAIMER This disclaimer is not a license and does
-not grant any rights to the materials distributed herewith. Except as otherwise
-provided in a valid license issued to you by Xilinx, and to the maximum extent
-permitted by applicable law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
-WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS,
-EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
-MERCHANTABILITY, NON INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
-(2) Xilinx shall not be liable (whether in contract or tort, including
-negligence, or under any other theory of liability) for any loss or damage of
-any kind or nature related to, arising under or in connection with these
-materials, including for any direct, or any indirect, special, incidental, or
-consequential loss or damage (including loss of data, profits, goodwill, or any
-type of loss or damage suffered as a result of any action brought by a third
-party) even if such damage or loss was reasonably foreseeable or Xilinx had been
-advised of the possibility of the same. CRITICAL APPLICATIONS Xilinx products
-are not designed or intended to be fail safe, or for use in any application
-requiring fail-safe performance, such as life-support or safety devices or
-systems, Class III medical devices, nuclear facilities, applications related to
-the deployment of airbags, or any other applications that could lead to death,
-personal injury, or severe property or environmental damage (individually and
-collectively, "Critical Applications"). Customer assumes the sole risk and
-liability of any use of Xilinx products in Critical Applications, subject only
-to applicable laws and regulations governing limitations on product liability.
-THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE AT
-ALL TIMES.
-
-FILES:
-embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/data/sd_fec.mdd
-embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/data/sd_fec.tcl
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [EPL-1.0] 
-
-COPYRIGHT TEXT:
----------------
-
-d52cbaca0ef8cf4fd3d6354deb5066970fb6511d02d18d15835e6014ed847fb0 All rights
-reserved. This file contains confidential and proprietary information of Xilinx,
-Inc. and is protected under U.S. and international copyright and other
-intellectual property laws. DISCLAIMER This disclaimer is not a license and does
-not grant any rights to the materials distributed herewith. Except as otherwise
-provided in a valid license issued to you by Xilinx, and to the maximum extent
-permitted by applicable law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
-WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS,
-EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
-MERCHANTABILITY, NON INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
-(2) Xilinx shall not be liable (whether in contract or tort, including
-negligence, or under any other theory of liability) for any loss or damage of
-any kind or nature related to, arising under or in connection with these
-materials, including for any direct, or any indirect, special, incidental, or
-consequential loss or damage (including loss of data, profits, goodwill, or any
-type of loss or damage suffered as a result of any action brought by a third
-party) even if such damage or loss was reasonably foreseeable or Xilinx had been
-advised of the possibility of the same. CRITICAL APPLICATIONS Xilinx products
-are not designed or intended to be fail safe, or for use in any application
-requiring fail-safe performance, such as life-support or safety devices or
-systems, Class III medical devices, nuclear facilities, applications related to
-the deployment of airbags, or any other applications that could lead to death,
-personal injury, or severe property or environmental damage (individually and
-collectively, "Critical Applications"). Customer assumes the sole risk and
-liability of any use of Xilinx products in Critical Applications, subject only
-to applicable laws and regulations governing limitations on product liability.
-THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE AT
-ALL TIMES. \mainpage SD-FEC standalone driver software API summary \section
-sec_init Initialization and Configuration The XSdFec_Config structure is used by
-the driver to configure the FEC mode and interface parameters defined for each
-SD-FEC device. The configuration structure is created by the tool-chain based on
-HW build properties. To support multiple runtime loading and initialization
-strategies employed by various operating systems, the driver instance can be
-initialized in one of two ways: - XSdFecInitialize(InstancePtr, DeviceId) - The
-driver looks up its own configuration structure created by the tool-chain based
-on an ID provided by the tool-chain. - XSdFecCfgInitialize(InstancePtr, CfgPtr)
-- Uses a configuration structure provided by the caller. \section sec_data Data
-Structures One or more device specific headers are produced during the
-generation of the board support package, defining further device specific
-configuration parameters: - When the device is configured for Turbo Decode, the
-header x<ipinst_name>_turbo_params.h, contains an XSdFecturbo_parameters
-structure which is populated to match the corresponding IP GUI configuration. -
-When the device is configured for LDPC a header is generated per LDPC code
-specified on the corresponding IP GUI; x<ipinst_name >_<code_id>_params.h. Each
-header defines an XSdFecldpc_parameters structure populated with the
-configuration data required for the corresponding LDPC code. \section sec_api
-API The driver provides the following functions: -
-XSdFecSetTurboParams(InstancePtr, ParamsPtr) - Set Turbo parameters on a device
-- XSdFecadd_ldpc_params(InstancePtr, CodeId, SCOffset, LAOffset, QCOffset,
-ParamsPtr) - Add LDPC parameters to a device - XSdFecShareTableSize(ParamsPtr,
-SCSizePtr, LASizePtr, QCSizePtr) - Calculate share table size for a LDPC code -
-XSdFecInterruptClassifier(InstancePtr) - Classify interrupts In addition, the
-driver provides set and get functions for all the individual registers defined
-for the SD-FEC. \section sec_ex Example The processor based example design
-output by the SD-FEC IP instance also includes an example application
-demonstrating a basic use case of the software driver. /
-
-FILES:
-embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [EPL-1.0] 
-
-COPYRIGHT TEXT:
----------------
-
-d52cbaca0ef8cf4fd3d6354deb5066970fb6511d02d18d15835e6014ed847fb0 All rights
-reserved. This file contains confidential and proprietary information of Xilinx,
-Inc. and is protected under U.S. and international copyright and other
-intellectual property laws. DISCLAIMER This disclaimer is not a license and does
-not grant any rights to the materials distributed herewith. Except as otherwise
-provided in a valid license issued to you by Xilinx, and to the maximum extent
-permitted by applicable law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
-WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS,
-EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
-MERCHANTABILITY, NON INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
-(2) Xilinx shall not be liable (whether in contract or tort, including
-negligence, or under any other theory of liability) for any loss or damage of
-any kind or nature related to, arising under or in connection with these
-materials, including for any direct, or any indirect, special, incidental, or
-consequential loss or damage (including loss of data, profits, goodwill, or any
-type of loss or damage suffered as a result of any action brought by a third
-party) even if such damage or loss was reasonably foreseeable or Xilinx had been
-advised of the possibility of the same. CRITICAL APPLICATIONS Xilinx products
-are not designed or intended to be fail safe, or for use in any application
-requiring fail-safe performance, such as life-support or safety devices or
-systems, Class III medical devices, nuclear facilities, applications related to
-the deployment of airbags, or any other applications that could lead to death,
-personal injury, or severe property or environmental damage (individually and
-collectively, "Critical Applications"). Customer assumes the sole risk and
-liability of any use of Xilinx products in Critical Applications, subject only
-to applicable laws and regulations governing limitations on product liability.
-THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE AT
-ALL TIMES. CORE_AXI_WR_PROTECT register /
-
-FILES:
-embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h
---------------------------------------------------------------------------------
-
-
-
 POSSIBLE NOTICE(S): [EPL-1.0] 
 
 COPYRIGHT TEXT:
@@ -18645,6 +18322,42 @@ embeddedsw/XilinxProcessorIPLib/drivers/usb/src/xusb_sinit.c
 
 
 
+POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
+
+COPYRIGHT TEXT:
+---------------
+
+All rights reserved. Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including without
+limitation the rights to use, copy, modify, merge, publish, distribute,
+sublicense, andor sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions: The above
+copyright notice and this permission notice shall be included in all copies or
+substantial portions of the Software. Use of the Software is limited solely to
+applications: (a) running on a Xilinx device, or (b) that interact with a Xilinx
+device through a bus or interconnect. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
+WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. Except as contained in this notice, the name of the Xilinx shall
+not be used in advertising or otherwise to promote the sale, use or other
+dealings in this Software without prior written authorization from Xilinx
+
+FILES:
+embeddedsw/XilinxProcessorIPLib/drivers/i2stx/data/i2stx.mdd
+embeddedsw/XilinxProcessorIPLib/drivers/i2stx/data/i2stx.tcl
+embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/data/sdiaud.tcl
+embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/data/v_hdmirxss.mdd
+embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/data/v_hdmirxss.tcl
+embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/data/v_hdmitxss.mdd
+embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/data/v_hdmitxss.tcl
+--------------------------------------------------------------------------------
+
+
+
 POSSIBLE NOTICE(S): [EPL-1.0] 
 
 COPYRIGHT TEXT:
@@ -18809,38 +18522,6 @@ POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google]
 COPYRIGHT TEXT:
 ---------------
 
-vim: set et fde fdmsyntax ftc.doxygen ts4 sts4 sw4 : / Copyright © 2010-2011
-Saleem Abdulrasool <compnerd@compnerd.org>. All rights reserved. Redistribution
-and use in source and binary forms, with or without modification, are permitted
-provided that the following conditions are met: 1. Redistributions of source
-code must retain the above copyright notice, this list of conditions and the
-following disclaimer. 2. Redistributions in binary form must reproduce the above
-copyright notice, this list of conditions and the following disclaimer in the
-documentation and/or other materials provided with the distribution. 3. The name
-of the author may not be used to endorse or promote products derived from this
-software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY
-THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
-PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
-ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. /
-
-FILES:
-embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_cea861.h
-embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h
---------------------------------------------------------------------------------
-
-
-
-POSSIBLE NOTICE(S): [BSD] [BSD-3] [BSD-2] [Google] 
-
-COPYRIGHT TEXT:
----------------
-
 vim: set et fde fdmsyntax ftc.doxygen ts4 sts4 sw4 : / Copyright © 2011 Saleem
 Abdulrasool <compnerd@compnerd.org>. All rights reserved. Redistribution and use
 in source and binary forms, with or without modification, are permitted provided
@@ -18859,10 +18540,266 @@ ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. /
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. / @file
+xvidc_parse_edid.c <pre> MODIFICATION HISTORY: Ver Who Date Changes ----- ---
+---------- 1.00 mmo 24-01-2017 Included into video_common 1.01 eb 13-04-2018
+Fixed XV_VidC_parse_edid API and xvidc_edid_extension_handler struct to enhance
+system stability </pre> /
 
 FILES:
 embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_parse_edid.c
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
+
+COPYRIGHT TEXT:
+---------------
+
+All rights reserved. Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files (the
+"Software"),to deal in the Software without restriction, including without
+limitation the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to permit persons to whom
+the Software is furnished to do so, subject to the following conditions: The
+above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software. Use of the Software is limited
+solely to applications: (a) running on a Xilinx device, or (b) that interact
+with a Xilinx device through a bus or interconnect. THE SOFTWARE IS PROVIDED "AS
+IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. Except as contained in this notice, the name of the Xilinx shall
+not be used in advertising or otherwise to promote the sale, use or other
+dealings in this Software without prior written authorization from Xilinx
+
+FILES:
+embeddedsw/XilinxProcessorIPLib/drivers/i2srx/data/xi2srx_header.h
+embeddedsw/XilinxProcessorIPLib/drivers/spdif/data/xspdif_header.h
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
+
+COPYRIGHT TEXT:
+---------------
+
+All rights reserved. Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files (the
+"Software"),to deal in the Software without restriction, including without
+limitation the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to permit persons to whom
+the Software is furnished to do so, subject to the following conditions: The
+above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software. Use of the Software is limited
+solely to applications: (a) running on a Xilinx device, or (b) that interact
+with a Xilinx device through a bus or interconnect. THE SOFTWARE IS PROVIDED "AS
+IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. Except as contained in this notice,the name of the Xilinx shall
+not be used in advertising or otherwise to promote the sale, use or other
+dealings in this Software without prior written authorization from Xilinx
+
+FILES:
+embeddedsw/XilinxProcessorIPLib/drivers/i2srx/examples/xi2srx_intr_example.c
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [Boost-1.0] [MIT] 
+
+COPYRIGHT TEXT:
+---------------
+
+CAUTION: This file is automatically generated by HSI. Version: DO NOT EDIT. All
+Rights Reserved. Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files (the
+Software), to deal in the Software without restriction, including without
+limitation the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to permit persons to whom
+the Software is furnished to do so, subject to the following conditions: The
+above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software. Use of the Software is limited
+solely to applications: (a) running on a Xilinx device, or (b) that interact
+with a Xilinx device through a bus or interconnect. THE SOFTWARE IS PROVIDED AS
+IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. Except as contained in this notice, the name of the Xilinx shall
+not be used in advertising or otherwise to promote the sale, use or other
+dealings in this Software without prior written authorization from Xilinx
+
+FILES:
+embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_g.c
+embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_g.c
+embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_g.c
+embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_g.c
+embeddedsw/lib/sw_apps/zynq_fsbl/misc/zc702/bspconfig.h
+embeddedsw/lib/sw_apps/zynq_fsbl/misc/zc706/bspconfig.h
+embeddedsw/lib/sw_apps/zynq_fsbl/misc/zed/bspconfig.h
+embeddedsw/lib/sw_apps/zynqmp_fsbl/misc/zcu102-es1/bspconfig.h
+embeddedsw/lib/sw_apps/zynqmp_fsbl/misc/zcu102-es1/bspconfig32.h
+embeddedsw/lib/sw_apps/zynqmp_fsbl/misc/zcu102-es2/bspconfig32.h
+embeddedsw/lib/sw_apps/zynqmp_fsbl/misc/zcu102/bspconfig32.h
+embeddedsw/lib/sw_apps/zynqmp_pmufw/misc/xwdtps_g.c
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [EPL-1.0] 
+
+COPYRIGHT TEXT:
+---------------
+
+d52cbaca0ef8cf4fd3d6354deb5066970fb6511d02d18d15835e6014ed847fb0 All rights
+reserved. This file contains confidential and proprietary information of Xilinx,
+Inc. and is protected under U.S. and international copyright and other
+intellectual property laws. DISCLAIMER This disclaimer is not a license and does
+not grant any rights to the materials distributed herewith. Except as otherwise
+provided in a valid license issued to you by Xilinx, and to the maximum extent
+permitted by applicable law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
+WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS,
+EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
+MERCHANTABILITY, NON INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
+(2) Xilinx shall not be liable (whether in contract or tort, including
+negligence, or under any other theory of liability) for any loss or damage of
+any kind or nature related to, arising under or in connection with these
+materials, including for any direct, or any indirect, special, incidental, or
+consequential loss or damage (including loss of data, profits, goodwill, or any
+type of loss or damage suffered as a result of any action brought by a third
+party) even if such damage or loss was reasonably foreseeable or Xilinx had been
+advised of the possibility of the same. CRITICAL APPLICATIONS Xilinx products
+are not designed or intended to be fail safe, or for use in any application
+requiring fail-safe performance, such as life-support or safety devices or
+systems, Class III medical devices, nuclear facilities, applications related to
+the deployment of airbags, or any other applications that could lead to death,
+personal injury, or severe property or environmental damage (individually and
+collectively, "Critical Applications"). Customer assumes the sole risk and
+liability of any use of Xilinx products in Critical Applications, subject only
+to applicable laws and regulations governing limitations on product liability.
+THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE AT
+ALL TIMES.
+
+FILES:
+embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/data/sd_fec.mdd
+embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/data/sd_fec.tcl
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [EPL-1.0] 
+
+COPYRIGHT TEXT:
+---------------
+
+d52cbaca0ef8cf4fd3d6354deb5066970fb6511d02d18d15835e6014ed847fb0 All rights
+reserved. This file contains confidential and proprietary information of Xilinx,
+Inc. and is protected under U.S. and international copyright and other
+intellectual property laws. DISCLAIMER This disclaimer is not a license and does
+not grant any rights to the materials distributed herewith. Except as otherwise
+provided in a valid license issued to you by Xilinx, and to the maximum extent
+permitted by applicable law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
+WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS,
+EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
+MERCHANTABILITY, NON INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
+(2) Xilinx shall not be liable (whether in contract or tort, including
+negligence, or under any other theory of liability) for any loss or damage of
+any kind or nature related to, arising under or in connection with these
+materials, including for any direct, or any indirect, special, incidental, or
+consequential loss or damage (including loss of data, profits, goodwill, or any
+type of loss or damage suffered as a result of any action brought by a third
+party) even if such damage or loss was reasonably foreseeable or Xilinx had been
+advised of the possibility of the same. CRITICAL APPLICATIONS Xilinx products
+are not designed or intended to be fail safe, or for use in any application
+requiring fail-safe performance, such as life-support or safety devices or
+systems, Class III medical devices, nuclear facilities, applications related to
+the deployment of airbags, or any other applications that could lead to death,
+personal injury, or severe property or environmental damage (individually and
+collectively, "Critical Applications"). Customer assumes the sole risk and
+liability of any use of Xilinx products in Critical Applications, subject only
+to applicable laws and regulations governing limitations on product liability.
+THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE AT
+ALL TIMES. \mainpage SD-FEC standalone driver software API summary \section
+sec_init Initialization and Configuration The XSdFec_Config structure is used by
+the driver to configure the FEC mode and interface parameters defined for each
+SD-FEC device. The configuration structure is created by the tool-chain based on
+HW build properties. To support multiple runtime loading and initialization
+strategies employed by various operating systems, the driver instance can be
+initialized in one of two ways: - XSdFecInitialize(InstancePtr, DeviceId) - The
+driver looks up its own configuration structure created by the tool-chain based
+on an ID provided by the tool-chain. - XSdFecCfgInitialize(InstancePtr, CfgPtr)
+- Uses a configuration structure provided by the caller. \section sec_data Data
+Structures One or more device specific headers are produced during the
+generation of the board support package, defining further device specific
+configuration parameters: - When the device is configured for Turbo Decode, the
+header x<ipinst_name>_turbo_params.h, contains an XSdFecturbo_parameters
+structure which is populated to match the corresponding IP GUI configuration. -
+When the device is configured for LDPC a header is generated per LDPC code
+specified on the corresponding IP GUI; x<ipinst_name >_<code_id>_params.h. Each
+header defines an XSdFecldpc_parameters structure populated with the
+configuration data required for the corresponding LDPC code. \section sec_api
+API The driver provides the following functions: -
+XSdFecSetTurboParams(InstancePtr, ParamsPtr) - Set Turbo parameters on a device
+- XSdFecadd_ldpc_params(InstancePtr, CodeId, SCOffset, LAOffset, QCOffset,
+ParamsPtr) - Add LDPC parameters to a device - XSdFecShareTableSize(ParamsPtr,
+SCSizePtr, LASizePtr, QCSizePtr) - Calculate share table size for a LDPC code -
+XSdFecInterruptClassifier(InstancePtr) - Classify interrupts In addition, the
+driver provides set and get functions for all the individual registers defined
+for the SD-FEC. \section sec_ex Example The processor based example design
+output by the SD-FEC IP instance also includes an example application
+demonstrating a basic use case of the software driver. /
+
+FILES:
+embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [EPL-1.0] 
+
+COPYRIGHT TEXT:
+---------------
+
+d52cbaca0ef8cf4fd3d6354deb5066970fb6511d02d18d15835e6014ed847fb0 All rights
+reserved. This file contains confidential and proprietary information of Xilinx,
+Inc. and is protected under U.S. and international copyright and other
+intellectual property laws. DISCLAIMER This disclaimer is not a license and does
+not grant any rights to the materials distributed herewith. Except as otherwise
+provided in a valid license issued to you by Xilinx, and to the maximum extent
+permitted by applicable law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
+WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS,
+EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
+MERCHANTABILITY, NON INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
+(2) Xilinx shall not be liable (whether in contract or tort, including
+negligence, or under any other theory of liability) for any loss or damage of
+any kind or nature related to, arising under or in connection with these
+materials, including for any direct, or any indirect, special, incidental, or
+consequential loss or damage (including loss of data, profits, goodwill, or any
+type of loss or damage suffered as a result of any action brought by a third
+party) even if such damage or loss was reasonably foreseeable or Xilinx had been
+advised of the possibility of the same. CRITICAL APPLICATIONS Xilinx products
+are not designed or intended to be fail safe, or for use in any application
+requiring fail-safe performance, such as life-support or safety devices or
+systems, Class III medical devices, nuclear facilities, applications related to
+the deployment of airbags, or any other applications that could lead to death,
+personal injury, or severe property or environmental damage (individually and
+collectively, "Critical Applications"). Customer assumes the sole risk and
+liability of any use of Xilinx products in Critical Applications, subject only
+to applicable laws and regulations governing limitations on product liability.
+THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE AT
+ALL TIMES. CORE_AXI_WR_PROTECT register /
+
+FILES:
+embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h
 --------------------------------------------------------------------------------
 
 
@@ -19121,45 +19058,6 @@ embeddedsw/lib/sw_apps/ddr_self_refresh/src/main.c
 
 
 
-POSSIBLE NOTICE(S): [EPL-1.0] 
-
-COPYRIGHT TEXT:
----------------
-
-All rights reserved. This file contains confidential and proprietary information
-of Xilinx, Inc. and is protected under U.S. and international copyright and
-other intellectual property laws. DISCLAIMER This disclaimer is not a license
-and does not grant any rights to the materials distributed herewith. Except as
-otherwise provided in a valid license issued to you by Xilinx, and to the
-maximum extent permitted by applicable law: (1) THESE MATERIALS ARE MADE
-AVAILABLE "AS IS" AND WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL
-WARRANTIES AND CONDITIONS, EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT
-LIMITED TO WARRANTIES OF MERCHANTABILITY, NON-INFRINGEMENT, OR FITNESS FOR ANY
-PARTICULAR PURPOSE; and (2) Xilinx shall not be liable (whether in contract or
-tort, including negligence, or under any other theory of liability) for any loss
-or damage of any kind or nature related to, arising under or in connection with
-these materials, including for any direct, or any indirect, special, incidental,
-or consequential loss or damage (including loss of data, profits, goodwill, or
-any type of loss or damage suffered as a result of any action brought by a third
-party) even if such damage or loss was reasonably foreseeable or Xilinx had been
-advised of the possibility of the same. CRITICAL APPLICATIONS Xilinx products
-are not designed or intended to be fail-safe, or for use in any application
-requiring fail-safe performance, such as life-support or safety devices or
-systems, Class III medical devices, nuclear facilities, applications related to
-the deployment of airbags, or any other applications that could lead to death,
-personal injury, or severe property or environmental damage (individually and
-collectively, "Critical Applications"). Customer assumes the sole risk and
-liability of any use of Xilinx products in Critical Applications, subject only
-to applicable laws and regulations governing limitations on product liability.
-THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE AT
-ALL TIMES. /
-
-FILES:
-embeddedsw/lib/sw_apps/ddr_self_refresh/src/xil_ddr.h
---------------------------------------------------------------------------------
-
-
-
 POSSIBLE NOTICE(S): [GPL] [Free-Software-Foundation] [EPL-1.0] 
 
 COPYRIGHT TEXT:
@@ -19393,6 +19291,180 @@ shared buffers from RPU to APU | |0x400000 - 0x7FFFFF | APU to RPU buffers |
 FILES:
 embeddedsw/lib/sw_apps/libmetal_echo_demo/src/system/freertos/zynqmp_r5/zynqmp_amp_demo/shmem_throughput_demod.c
 embeddedsw/lib/sw_apps/libmetal_echo_demo/src/system/generic/zynqmp_r5/zynqmp_amp_demo/shmem_throughput_demod.c
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [EPL-1.0] 
+
+COPYRIGHT TEXT:
+---------------
+
+(c) 2013 Xilinx Inc. XREGDB v0.79 XREGCHDR v0.23 Generated on: 2015-11-30 @file:
+ddr_phy.h @module_name: DDR_PHY This file contains confidential and proprietary
+information of Xilinx, Inc. and is protected under U.S. and international
+copyright and other intellectual property laws. DISCLAIMER This disclaimer is
+not a license and does not grant any rights to the materials distributed
+herewith. Except as otherwise provided in a valid license issued to you by
+Xilinx, and to the maximum extent permitted by applicable law: (1) THESE
+MATERIALS ARE MADE AVAILABLE "AS IS" AND WITH ALL FAULTS, AND XILINX HEREBY
+DISCLAIMS ALL WARRANTIES AND CONDITIONS, EXPRESS, IMPLIED, OR STATUTORY,
+INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, NON INFRINGEMENT, OR
+FITNESS FOR ANY PARTICULAR PURPOSE; and (2) Xilinx shall not be liable (whether
+in contract or tort, including negligence, or under any other theory of
+liability) for any loss or damage of any kind or nature related to, arising
+under or in connection with these materials, including for any direct, or any
+indirect, special, incidental, or consequential loss or damage (including loss
+of data, profits, goodwill, or any type of loss or damage suffered as a result
+of any action brought by a third party) even if such damage or loss was
+reasonably foreseeable or Xilinx had been advised of the possibility of the
+same. CRITICAL APPLICATIONS Xilinx products are not designed or intended to be
+fail safe, or for use in any application requiring fail-safe performance, such
+as life-support or safety devices or systems, Class III medical devices, nuclear
+facilities, applications related to the deployment of airbags, or any other
+applications that could lead to death, personal injury, or severe property or
+environmental damage (individually and collectively, "Critical Applications").
+Customer assumes the sole risk and liability of any use of Xilinx products in
+Critical Applications, subject only to applicable laws and regulations governing
+limitations on product liability. THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE
+RETAINED AS PART OF THIS FILE AT ALL TIMES. Naming Convention:
+<MODULE>_<REGISTER>[_<FIELD>[_<DESC>]] <MODULE> Module name (e.g. can or usb)
+<REGISTER> Register within the current module [_<FIELD>] Bit field within a
+register [_<DESC>] Type of bit field define: SHIFT: Least significant bit for
+the field WIDTH: Size of field in bites MASK: A masking over a range of bits or
+a bit to be used for setting or clearing /
+
+FILES:
+embeddedsw/lib/sw_apps/zynqmp_dram_test/src/ddr_phy.h
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [EPL-1.0] 
+
+COPYRIGHT TEXT:
+---------------
+
+(c) 2013 Xilinx Inc. XREGDB v0.79 XREGCHDR v0.23 Generated on: 2016-02-29 @file:
+ddrc.h @module_name: DDRC This file contains confidential and proprietary
+information of Xilinx, Inc. and is protected under U.S. and international
+copyright and other intellectual property laws. DISCLAIMER This disclaimer is
+not a license and does not grant any rights to the materials distributed
+herewith. Except as otherwise provided in a valid license issued to you by
+Xilinx, and to the maximum extent permitted by applicable law: (1) THESE
+MATERIALS ARE MADE AVAILABLE "AS IS" AND WITH ALL FAULTS, AND XILINX HEREBY
+DISCLAIMS ALL WARRANTIES AND CONDITIONS, EXPRESS, IMPLIED, OR STATUTORY,
+INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, NON INFRINGEMENT, OR
+FITNESS FOR ANY PARTICULAR PURPOSE; and (2) Xilinx shall not be liable (whether
+in contract or tort, including negligence, or under any other theory of
+liability) for any loss or damage of any kind or nature related to, arising
+under or in connection with these materials, including for any direct, or any
+indirect, special, incidental, or consequential loss or damage (including loss
+of data, profits, goodwill, or any type of loss or damage suffered as a result
+of any action brought by a third party) even if such damage or loss was
+reasonably foreseeable or Xilinx had been advised of the possibility of the
+same. CRITICAL APPLICATIONS Xilinx products are not designed or intended to be
+fail safe, or for use in any application requiring fail-safe performance, such
+as life-support or safety devices or systems, Class III medical devices, nuclear
+facilities, applications related to the deployment of airbags, or any other
+applications that could lead to death, personal injury, or severe property or
+environmental damage (individually and collectively, "Critical Applications").
+Customer assumes the sole risk and liability of any use of Xilinx products in
+Critical Applications, subject only to applicable laws and regulations governing
+limitations on product liability. THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE
+RETAINED AS PART OF THIS FILE AT ALL TIMES. Naming Convention:
+<MODULE>_<REGISTER>[_<FIELD>[_<DESC>]] <MODULE> Module name (e.g. can or usb)
+<REGISTER> Register within the current module [_<FIELD>] Bit field within a
+register [_<DESC>] Type of bit field define: SHIFT: Least significant bit for
+the field WIDTH: Size of field in bites MASK: A masking over a range of bits or
+a bit to be used for setting or clearing /
+
+FILES:
+embeddedsw/lib/sw_apps/zynqmp_dram_test/src/ddrc.h
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [EPL-1.0] 
+
+COPYRIGHT TEXT:
+---------------
+
+(c) 2013 Xilinx Inc. XREGDB v0.79 XREGCHDR v0.23 Generated on: 2015-11-11 @file:
+gdma_ch0.h @module_name: ZDMA This file contains confidential and proprietary
+information of Xilinx, Inc. and is protected under U.S. and international
+copyright and other intellectual property laws. DISCLAIMER This disclaimer is
+not a license and does not grant any rights to the materials distributed
+herewith. Except as otherwise provided in a valid license issued to you by
+Xilinx, and to the maximum extent permitted by applicable law: (1) THESE
+MATERIALS ARE MADE AVAILABLE "AS IS" AND WITH ALL FAULTS, AND XILINX HEREBY
+DISCLAIMS ALL WARRANTIES AND CONDITIONS, EXPRESS, IMPLIED, OR STATUTORY,
+INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, NON INFRINGEMENT, OR
+FITNESS FOR ANY PARTICULAR PURPOSE; and (2) Xilinx shall not be liable (whether
+in contract or tort, including negligence, or under any other theory of
+liability) for any loss or damage of any kind or nature related to, arising
+under or in connection with these materials, including for any direct, or any
+indirect, special, incidental, or consequential loss or damage (including loss
+of data, profits, goodwill, or any type of loss or damage suffered as a result
+of any action brought by a third party) even if such damage or loss was
+reasonably foreseeable or Xilinx had been advised of the possibility of the
+same. CRITICAL APPLICATIONS Xilinx products are not designed or intended to be
+fail safe, or for use in any application requiring fail-safe performance, such
+as life-support or safety devices or systems, Class III medical devices, nuclear
+facilities, applications related to the deployment of airbags, or any other
+applications that could lead to death, personal injury, or severe property or
+environmental damage (individually and collectively, "Critical Applications").
+Customer assumes the sole risk and liability of any use of Xilinx products in
+Critical Applications, subject only to applicable laws and regulations governing
+limitations on product liability. THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE
+RETAINED AS PART OF THIS FILE AT ALL TIMES. Naming Convention:
+<MODULE>_<REGISTER>[_<FIELD>[_<DESC>]] <MODULE> Module name (e.g. can or usb)
+<REGISTER> Register within the current module [_<FIELD>] Bit field within a
+register [_<DESC>] Type of bit field define: SHIFT: Least significant bit for
+the field WIDTH: Size of field in bites MASK: A masking over a range of bits or
+a bit to be used for setting or clearing /
+
+FILES:
+embeddedsw/lib/sw_apps/zynqmp_dram_test/src/gdma_ch0.h
+--------------------------------------------------------------------------------
+
+
+
+POSSIBLE NOTICE(S): [EPL-1.0] 
+
+COPYRIGHT TEXT:
+---------------
+
+All rights reserved. This file contains confidential and proprietary information
+of Xilinx, Inc. and is protected under U.S. and international copyright and
+other intellectual property laws. DISCLAIMER This disclaimer is not a license
+and does not grant any rights to the materials distributed herewith. Except as
+otherwise provided in a valid license issued to you by Xilinx, and to the
+maximum extent permitted by applicable law: (1) THESE MATERIALS ARE MADE
+AVAILABLE "AS IS" AND WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL
+WARRANTIES AND CONDITIONS, EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT
+LIMITED TO WARRANTIES OF MERCHANTABILITY, NON-INFRINGEMENT, OR FITNESS FOR ANY
+PARTICULAR PURPOSE; and (2) Xilinx shall not be liable (whether in contract or
+tort, including negligence, or under any other theory of liability) for any loss
+or damage of any kind or nature related to, arising under or in connection with
+these materials, including for any direct, or any indirect, special, incidental,
+or consequential loss or damage (including loss of data, profits, goodwill, or
+any type of loss or damage suffered as a result of any action brought by a third
+party) even if such damage or loss was reasonably foreseeable or Xilinx had been
+advised of the possibility of the same. CRITICAL APPLICATIONS Xilinx products
+are not designed or intended to be fail-safe, or for use in any application
+requiring fail-safe performance, such as life-support or safety devices or
+systems, Class III medical devices, nuclear facilities, applications related to
+the deployment of airbags, or any other applications that could lead to death,
+personal injury, or severe property or environmental damage (individually and
+collectively, "Critical Applications"). Customer assumes the sole risk and
+liability of any use of Xilinx products in Critical Applications, subject only
+to applicable laws and regulations governing limitations on product liability.
+THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE AT
+ALL TIMES. /
+
+FILES:
+embeddedsw/lib/sw_apps/zynqmp_dram_test/src/memtest.c
 --------------------------------------------------------------------------------
 
 
@@ -20347,6 +20419,8 @@ entry with LFN fails on too many SFN collisions. May 19,'14 R0.10b Fixed a hard
 error in the disk I/O layer can collapse the directory entry. Fixed LFN entry is
 not deleted on delete/rename an object with lossy converted SFN.
 ---------------------------------------------------------------------------/
+MODIFICATION HISTORY: Ver Who Date Changes ----- ---- -------- 3.9 mn 04/18/18
+Resolve build warnings for xilffs library
 
 FILES:
 embeddedsw/lib/sw_services/xilffs/src/ff.c
