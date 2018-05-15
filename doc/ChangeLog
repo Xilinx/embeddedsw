@@ -116,6 +116,13 @@ while programming mode is in enabled state.
 
 zynqmp_fsbl
 For secure boot added support for enhanced user fuses revocation.
+Added ability to control VADJ values by reading FMC EEPROM for ZCU104
+PS-PL isolation will be removed in case of jtag boot mode if bitstream 
+is loaded prior to running FSBL
+
+zynq_fsbl
+ps7_postconfig would be run in case of jtag boot mode if bitstream is 
+loaded prior to running FSBL
 
 axidma_v9_7
 Add support for 64MB data transfer.
