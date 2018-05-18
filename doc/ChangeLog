@@ -22,6 +22,7 @@ Updated licensing information as per Freertos 10.0
 
 standalone_v6_7:
 Fixed compilation warnings in xil_sleeptimer.c
+Added API Xil_GetExceptionRegisterHandler.
 
 v_hdmirxss_v5_1:
 Fixed a bug in XV_HdmiRxSs_BrdgOverflowCallback
