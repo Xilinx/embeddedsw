@@ -124,8 +124,8 @@ void measure_rd_eye(unsigned long int testaddr, unsigned int len, unsigned int p
 	Xil_ExceptionHandler SyncHandler = NULL, SerrorHandler = NULL;
 	void *syncdata = NULL, *serrordata = NULL;
 
-	Xil_GetExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT, SyncHandler, syncdata);
-	Xil_GetExceptionRegisterHandler(XIL_EXCEPTION_ID_SERROR_ABORT_INT,SerrorHandler, serrordata);
+	Xil_GetExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT, &SyncHandler,&syncdata);
+	Xil_GetExceptionRegisterHandler(XIL_EXCEPTION_ID_SERROR_ABORT_INT,&SerrorHandler, &serrordata);
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT, (Xil_ExceptionHandler)eyescan_rdsyncaborthandler,(void *) 0);
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SERROR_ABORT_INT, (Xil_ExceptionHandler)eyescan_rdserroraborthandler,(void *) 0);
 
@@ -277,7 +277,7 @@ void measure_rd_eye(unsigned long int testaddr, unsigned int len, unsigned int p
 	enable_vtcomp();
 	free(rd_center);
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT,
-			(Xil_ExceptionHandler)SyncHandler,(void *) syncdata);
+			SyncHandler, syncdata);
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SERROR_ABORT_INT,
-			(Xil_ExceptionHandler)SerrorHandler,(void *) serrordata);
+			SerrorHandler, serrordata);
 }
