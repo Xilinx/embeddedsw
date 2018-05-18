@@ -8,6 +8,9 @@ WORKING_DIR=../misc
 #bsp dir where files will be copied
 BSP_DIR=$WORKING_DIR/zynqmp_pmufw_bsp/psu_pmu_0
 
+#processor dir
+PROC_DIRNAME=cpu
+
 # Embedded Sw dir relaive path from pmufw src
 EMBEDDED_SW_DIR=$WORKING_DIR/../../../..
 
@@ -93,3 +96,5 @@ cp $STANDALONE_DIR/profile/*.h  $BSP_DIR/include/
 
 # no inbyte and outbyte present in standalone
 cp $WORKING_DIR/inbyte.c $WORKING_DIR/outbyte.c  $BSP_DIR/libsrc/standalone/src/
+
+
