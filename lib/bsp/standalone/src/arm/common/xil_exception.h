@@ -51,6 +51,8 @@
 * ----- -------- -------- -----------------------------------------------
 * 5.2	pkp  	 28/05/15 First release
 * 6.0   mus      27/07/16 Consolidated file for a53,a9 and r5 processors
+* 6.7   mna      26/04/18 Add API Xil_GetExceptionRegisterHandler.
+* 6.7   asa      18/05/18 Update signature of API Xil_GetExceptionRegisterHandler.
 * </pre>
 *
 ******************************************************************************/
@@ -236,7 +238,7 @@ extern void Xil_ExceptionRegisterHandler(u32 Exception_id,
 
 extern void Xil_ExceptionRemoveHandler(u32 Exception_id);
 extern void Xil_GetExceptionRegisterHandler(u32 Exception_id,
-					Xil_ExceptionHandler Handler, void *Data);
+					Xil_ExceptionHandler *Handler, void **Data);
 
 extern void Xil_ExceptionInit(void);
 #if defined (__aarch64__)

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,10 @@
 *                         for a53 32 bit and r5 as well.
 * 6.4   mus      08/06/17 Updated debug prints to replace %x with the %lx, to
 *                         fix the warnings.
+* 6.7   mna      26/04/18 Add an API to obtain a corresponding
+*                         Xil_ExceptionHandler entry from XExc_VectorTable.
+* 6.7  asa       18/05/18 Fix bugs in the API Xil_GetExceptionRegisterHandler.
+*
 * </pre>
 *
 *****************************************************************************/
@@ -193,11 +197,11 @@ void Xil_ExceptionRegisterHandler(u32 Exception_id,
 *
 ****************************************************************************/
 void Xil_GetExceptionRegisterHandler(u32 Exception_id,
-					Xil_ExceptionHandler Handler __attribute__((unused)),
-					void *Data __attribute__((unused)))
+					Xil_ExceptionHandler *Handler,
+					void **Data)
 {
-	Handler = XExc_VectorTable[Exception_id].Handler;
-	Data = XExc_VectorTable[Exception_id].Data;
+	*Handler = XExc_VectorTable[Exception_id].Handler;
+	*Data = XExc_VectorTable[Exception_id].Data;
 }
 
 /*****************************************************************************/
