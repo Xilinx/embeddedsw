@@ -68,6 +68,7 @@
 * 2.4   sk     12/11/17 Add test case for DDC and DUC.
 * 3.2   sk     03/01/18 Add test case for Multiband.
 * 4.0   sd     04/28/18 Add Clock configuration support for ZCU111.
+*       sd     05/15/18 Updated Clock configuration for lmk.
 *
 * </pre>
 *
@@ -117,11 +118,12 @@ static int CompareThresholdSettings(XRFdc_Threshold_Settings *SetThresholdSettin
 
 static XRFdc RFdcInst;      /* RFdc driver instance */
 #ifdef XPS_BOARD_ZCU111
-unsigned int LMK04208_CKin[1][26] = {{ 1441856, 2148795168, 2148795169, 2148795170,
-		3222536227, 1075052580, 2148802053, 53477382, 19922951, 100728840,
-		1431655753, 2432844042, 67178507, 453771372, 587367021, 33554446,
-		2147516431, 3243574288, 88, 46777369, 2410151962, 268443163, 2170908,
-		25166653, 33555262, 4128799 }};
+unsigned int LMK04208_CKin[1][26] = {
+		{0x00160040,0x80140320,0x80140321,0x80140322,
+		0xC0140023,0x40140024,0x80141E05,0x03300006,0x01300007,0x06010008,
+		0x55555549,0x9102410A,0x0401100B,0x1B0C006C,0x2302886D,0x0200000E,
+		0x8000800F,0xC1550410,0x00000058,0x02C9C419,0x8FA8001A,0x10001E1B,
+		0x0021201C,0x0180033D,0x0200033E,0x003F001F }};
 #endif
 
 /****************************************************************************/
