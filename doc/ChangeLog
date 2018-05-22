@@ -73,6 +73,9 @@ Enable VCO Auto selection while configuring the clock.
 Add XRFdc_GetPLLConfig() API to get PLL Configurations.
 Add XRFdc_GetLinkCoupling() API to get the Link Coupling mode.
 Add clock configuration files for ZCU111 in examples.
+Updated the lmk configuration to support different revisions of zcu111
+Added support for configuring lmx 5.12GHz
+
 
 sdiaud_v1_1:
 Changed selftest to cover all the GUI parameters like UHD SDI standard and maximum number of channels.
