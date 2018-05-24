@@ -14,6 +14,8 @@ Fix for CR#999732.
 
 xilisf_v5_12:
 Added support for IS25LP064A and IS25WP064A.
+Removed the check for address to be non zero and
+Added check for Spansion flash before proceeding to quad mode read (CR#1002769)
 
 Changes for 2018.2
 ===============================
