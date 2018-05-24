@@ -64,6 +64,7 @@
 * 5.7  rk	27/07/16 Added the subsector erase command.
 * 5.9  nsk  07/11/17 Add Micron 4Byte addressing support in SectorErase, CR#980169
 *      ms   08/03/17 Added tags and updated comment lines style for doxygen.
+* 5.12 tjs	05/21/18 Removed the check for address to be non zero CR#1002769
 *
 * </pre>
 *
@@ -215,7 +216,6 @@ static int PageErase(XIsf *InstancePtr, u32 Address)
 	int Status = (int)(XST_FAILURE);
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Address != 0);
 
 #if (XPAR_XISF_FLASH_FAMILY == ATMEL)
 	InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_PAGE_ERASE;
@@ -259,7 +259,6 @@ static int BlockErase(XIsf *InstancePtr, u32 Address)
 	int Status = (int)(XST_FAILURE);
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Address != 0);
 
 #if ((XPAR_XISF_FLASH_FAMILY == ATMEL) || (XPAR_XISF_FLASH_FAMILY == INTEL) \
     || (XPAR_XISF_FLASH_FAMILY == WINBOND))

@@ -515,6 +515,7 @@
 * 5.10 tjs	03/11/17 Added MT25Q512 3V and 1.8V flash part support. CR# 995477
 * 5.11 tjs	03/16/18 Added support for ISSI flash part.
 * 5.12	tjs  05/02/18 Added support for IS25LP064A and IS25WP064A.
+* 5.12 tjs	05/21/18 Removed the check for address to be non zero.
 *
 * </pre>
 *
