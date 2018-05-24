@@ -62,6 +62,8 @@
 * 5.8  nsk  03/02/17 Update WriteBuffer index to 10 in FastReadData, CR#968476
 * 5.9  nsk  97/11/17 Add Micron 4Byte addressing support in Xisf_Read, CR#980169
 *      ms   08/03/17 Added tags and modified comment lines style for doxygen.
+* 5.12 tjs	05/21/18 Added check for Spansion flash before proceeding to
+*                    quad mode read CR#1002769
 *
 * </pre>
 *
@@ -342,7 +344,8 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
 		case XISF_QUAD_OP_FAST_READ:
 			ReadParamPtr = (XIsf_ReadParam*)(void *) OpParamPtr;
 			Xil_AssertNonvoid(ReadParamPtr != NULL);
-#if (!defined(XPAR_XISF_INTERFACE_PSQSPI))
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 			if (InstancePtr->FourByteAddrMode == TRUE) {
 				Status = FastReadData(InstancePtr,
 							XISF_CMD_FAST_READ_4BYTE,
