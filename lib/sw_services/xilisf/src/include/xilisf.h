@@ -516,6 +516,8 @@
 * 5.11 tjs	03/16/18 Added support for ISSI flash part.
 * 5.12	tjs  05/02/18 Added support for IS25LP064A and IS25WP064A.
 * 5.12 tjs	05/21/18 Removed the check for address to be non zero.
+*                    Added check for Spansion flash before proceeding
+*                    to quad mode read CR#1002769
 *
 * </pre>
 *
