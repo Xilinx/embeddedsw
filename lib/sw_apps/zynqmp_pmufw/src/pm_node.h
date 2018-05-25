@@ -74,8 +74,11 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
 #define DEFINE_PM_POWER_INFO(i)	.powerInfo = (i), \
 				.powerInfoCnt = ARRAY_SIZE(i)
 
-#define DEFINE_NODE_NAME(n)		\
-	.name = n
+#if defined(PM_LOG_LEVEL) && (PM_LOG_LEVEL > 0)
+#define DEFINE_NODE_NAME(n)	.name = n
+#else
+#define DEFINE_NODE_NAME(n)	.name = ""
+#endif
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
@@ -150,6 +153,7 @@ void PmNodeUpdateCurrState(PmNode* const node, const PmStateId newState);
 void PmNodeClearConfig(void);
 void PmNodeConstruct(void);
 void PmNodeForceDownUnusable(void);
+void PmNodeLogUnknownState(const PmNode* const node, const PmStateId state);
 
 int PmNodeGetPowerInfo(const PmNode* const node, u32* const data);
 int PmNodeForceDown(PmNode* const node);

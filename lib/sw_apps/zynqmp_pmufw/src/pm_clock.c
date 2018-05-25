@@ -1085,7 +1085,6 @@ s32 PmClockIsActive(PmNode* const node)
 {
 	s32 Status = XST_SUCCESS;
 	PmClockHandle* ch = node->clocks;
-	PmDbg(DEBUG_DETAILED,"%s\r\n", node->name);
 
 	while (NULL != ch) {
 		if(ch->IsActiveClk) {
@@ -1196,8 +1195,7 @@ int PmClockRequest(PmNode* const node)
 	int status = XST_SUCCESS;
 
 	if (0U != (NODE_LOCKED_CLOCK_FLAG & node->flags)) {
-		PmDbg(DEBUG_DETAILED,"Warning %s double request\r\n",
-				node->name);
+		PmWarn("%s double request\r\n", node->name);
 		goto done;
 	}
 	while (NULL != ch) {
@@ -1237,8 +1235,7 @@ void PmClockRelease(PmNode* const node)
 	PmClockHandle* ch = node->clocks;
 
 	if (0U == (NODE_LOCKED_CLOCK_FLAG & node->flags)) {
-		PmDbg(DEBUG_DETAILED, "Warning %s double release\r\n",
-				node->name);
+		PmWarn("%s double release\r\n", node->name);
 		goto done;
 	}
 	while (NULL != ch) {

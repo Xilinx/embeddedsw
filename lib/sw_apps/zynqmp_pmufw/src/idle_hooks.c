@@ -118,7 +118,7 @@ void NodeSdioIdle(u32 BaseAddress)
 		} while ((StatusReg & SdpsActive) && --Timeout);
 	}
 	if (Timeout == 0) {
-		PmDbg(DEBUG_DETAILED,"SD was still not idle\n");
+		PmWarn("sd not idle\r\n");
 	}
 
 	/* Reset the eMMC card */
@@ -163,7 +163,7 @@ void NodeSdioIdle(u32 BaseAddress)
 		Val = XSdPs_ReadReg8(BaseAddress, XSDPS_SW_RST_OFFSET);
 	}
 	if (Timeout == 0) {
-		PmDbg(DEBUG_DETAILED,"SD was still not reset\n");
+		PmWarn("sd not reset\r\n");
 	}
 }
 
@@ -190,7 +190,7 @@ void NodeI2cIdle(u32 BaseAddress)
 					   XIICPS_SR_OFFSET);
 	} while (((StatusReg & XIICPS_SR_BA_MASK) != 0x0U) && --Timeout);
 	if (Timeout == 0) {
-		PmDbg(DEBUG_DETAILED,"i2c was still not idle\n");
+		PmWarn("i2c not idle\r\n");
 	}
 }
 #endif
@@ -218,7 +218,7 @@ void NodeGemIdle(u32 BaseAddress)
 	} while ((!(Reg & XEMACPS_NWSR_MDIOIDLE_MASK)) && --Timeout);
 
 	if (Timeout == 0) {
-		PmDbg(DEBUG_DETAILED,"gem was still not idle\n");
+		PmWarn("gem not idle\r\n");
 	}
 
 	/* stop all transactions of the Ethernet */
@@ -256,7 +256,7 @@ void NodeQspiIdle(u32 BaseAddress)
 	} while ((StatusReg != 0) && --Timeout);
 
 	if (Timeout == 0) {
-		PmDbg(DEBUG_DETAILED,"QSPI was still not idle\n");
+		PmWarn("qspi not idle\r\n");
 	}
 }
 
@@ -318,8 +318,7 @@ void NodeUsbIdle(u32 BaseAddress)
 				 --LocalTimeout);
 
 			if (LocalTimeout == 0U)
-				PmDbg(DEBUG_DETAILED,
-				      "Endpoint transfer not completed\n");
+				PmWarn("Endpoint transfer not completed\r\n");
 		}
 
 		/* Disable endpoints */
@@ -342,8 +341,7 @@ void NodeUsbIdle(u32 BaseAddress)
 		} while (!(regVal & XUSBPSU_DSTS_DEVCTRLHLT) && --LocalTimeout);
 
 		if (LocalTimeout == 0U)
-			PmDbg(DEBUG_DETAILED,
-			      "USB device controller not stopped\n");
+			PmWarn("USB device controller not stopped\r\n");
 	}
 
 	/* Clear event buffer */
@@ -394,7 +392,7 @@ static void XDpDmaStopChannels(void)
 		} while ((regVal & XDPDMA_CH_STATUS_OTRAN_CNT_MASK) &&
 			  --LocalTimeout);
 		if (!LocalTimeout) {
-			PmDbg(DEBUG_DETAILED, "DPDMA is not ready to stop.\n");
+			PmWarn("DP DMA not ready to stop\r\n");
 			continue;
 		}
 
@@ -477,7 +475,7 @@ void NodeSataIdle(u32 BaseAddress)
 	} while ((regVal & SATA_AHCI_PORT_PXCMD_CR) && --timeOut);
 
 	if (!timeOut) {
-		PmDbg(DEBUG_DETAILED, "Command list DMA engine not stopped for PORT0.\n");
+		PmWarn("Command list DMA engine not stopped for PORT0\r\n");
 	}
 
 	timeOut = MAX_TIMEOUT;
@@ -488,7 +486,7 @@ void NodeSataIdle(u32 BaseAddress)
 	} while ((regVal & SATA_AHCI_PORT_PXCMD_CR) && --timeOut);
 
 	if (!timeOut) {
-		PmDbg(DEBUG_DETAILED, "Command list DMA engine not stopped for PORT1.\n");
+		PmWarn("Command list DMA engine not stopped for PORT1\r\n");
 	}
 
 	/* Disable AHCI */

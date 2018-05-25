@@ -139,8 +139,7 @@ static int PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		break;
 	default:
 		status = XST_PM_INTERNAL;
-		PmDbg(DEBUG_DETAILED,"ERROR: Unknown SRAM state #%d\r\n",
-				slave->node.currState);
+		PmNodeLogUnknownState(&slave->node, slave->node.currState);
 		break;
 	}
 

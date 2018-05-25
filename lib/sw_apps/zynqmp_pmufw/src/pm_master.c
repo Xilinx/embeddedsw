@@ -54,8 +54,11 @@
 #define DEFINE_PM_PROCS(c)	.procs = (c), \
 				.procsCnt = ARRAY_SIZE(c)
 
-#define DEFINE_MASTER_NAME(n)		\
-	.name = n
+#if defined(PM_LOG_LEVEL) && (PM_LOG_LEVEL > 0)
+#define DEFINE_MASTER_NAME(n)	.name = n
+#else
+#define DEFINE_MASTER_NAME(n)	.name = ""
+#endif
 
 static PmMaster* pmMasterHead = NULL;
 
@@ -796,7 +799,7 @@ static void PmMasterIdleSlaves(PmMaster* const master)
 	PmRequirement* req = master->reqs;
 	PmNode* Node;
 
-	PmDbg(DEBUG_DETAILED,"%s\r\n", master->name);
+	PmInfo("%s idle slaves\r\n", master->name);
 
 	while (NULL != req) {
 		u32 usage = PmSlaveGetUsageStatus(req->slave, master);
@@ -912,7 +915,7 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 		break;
 	default:
 		status = XST_PM_INTERNAL;
-		PmDbg(DEBUG_DETAILED,"ERROR: undefined event #%d\r\n", event);
+		PmErr("Unknown event #%d\r\n", event);
 		break;
 	}
 

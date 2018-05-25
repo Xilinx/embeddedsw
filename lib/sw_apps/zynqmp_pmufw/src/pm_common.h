@@ -53,26 +53,44 @@
 #endif
 
 typedef u32 (*const PmTranHandler)(void);
+typedef struct PmNode PmNode;
 
 /*********************************************************************
  * Macros
  ********************************************************************/
+#define pm_printf	xil_printf
+
 /*
- * Undefine DEBUG_PM macro to disable power management prints
+ * PM log levels. The configured log level should be specifid with:
+ * -DPM_LOG_LEVEL=X where X is one of the numbers defined below
  */
-#ifdef DEBUG_MODE
-	#define DEBUG_PM
-#endif
-/*
- * Conditional debugging prints used for PM. PM prints should never
- * appear if pmu-fw has disabled debug prints, however even when pmu-fw
- * has enabled debug prints, power management prints should be configurable.
- */
-#ifdef DEBUG_PM
-	#define PmDbg(DebugType, MSG, ...)	\
-		XPfw_Printf(DebugType, "PMUFW: %s: " MSG, __func__, ##__VA_ARGS__)
+#define PM_ALERT	1
+#define PM_ERROR	2
+#define PM_WARNING	3
+#define PM_INFO		4
+
+#if defined(PM_LOG_LEVEL) && (PM_LOG_LEVEL >= PM_INFO)
+	#define PmInfo(...)	pm_printf(__VA_ARGS__)
 #else
-	#define PmDbg(DebugType, MSG, ...) {}
+	#define PmInfo(...)	{}
+#endif
+
+#if defined(PM_LOG_LEVEL) && (PM_LOG_LEVEL >= PM_WARNING)
+	#define PmWarn(...)	xil_printf(__VA_ARGS__)
+#else
+	#define PmWarn(...)	{}
+#endif
+
+#if defined(PM_LOG_LEVEL) && (PM_LOG_LEVEL >= PM_ERROR)
+	#define PmErr(...)	pm_printf("Err: "); xil_printf(__VA_ARGS__)
+#else
+	#define PmErr(...)	{}
+#endif
+
+#if defined(PM_LOG_LEVEL) && (PM_LOG_LEVEL >= PM_ALERT)
+	#define PmAlert(...)	pm_printf("Alert: "); xil_printf(__VA_ARGS__)
+#else
+	#define PmAlert(...)	{}
 #endif
 
 #define ARRAY_SIZE(x)   (sizeof(x) / sizeof((x)[0]))

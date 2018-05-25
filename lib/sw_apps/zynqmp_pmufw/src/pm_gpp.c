@@ -90,8 +90,7 @@ static int PmGppFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		}
 		break;
 	default:
-		PmDbg(DEBUG_DETAILED,"ERROR: Unknown state #%d\r\n",
-				slave->node.currState);
+		PmNodeLogUnknownState(&slave->node, slave->node.currState);
 		break;
 	}
 
