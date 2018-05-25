@@ -77,7 +77,7 @@ void XPfw_PmInit(void)
 	u32 bootType = PM_COLD_BOOT;
 #endif
 
-	PmDbg(DEBUG_DETAILED,"Power Management Init\r\n");
+	PmInfo("Power Management Init\r\n");
 
 	if (bootType == PM_COLD_BOOT) {
 		PmMasterDefaultConfig();
@@ -108,8 +108,7 @@ int XPfw_PmIpiHandler(const u32 IsrMask, const u32* Payload, u8 Len)
 
 	if ((NULL == Payload) || (NULL == master) || (Len < PAYLOAD_ELEM_CNT)) {
 		/* Never happens if IPI irq handler is implemented correctly */
-		PmDbg(DEBUG_DETAILED,"ERROR: IPI source not supported %lu\r\n",
-				IsrMask);
+		PmErr("Unknown IPI %lu\r\n", IsrMask);
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -137,7 +136,7 @@ int XPfw_PmWfiHandler(const u32 srcMask)
 	PmProc *proc = PmGetProcByWfiStatus(srcMask);
 
 	if (NULL == proc) {
-		PmDbg(DEBUG_DETAILED,"ERROR: Unknown processor %lu\r\n", srcMask);
+		PmErr("Unknown processor 0x%lx\r\n", srcMask);
 		status = XST_INVALID_PARAM;
 		goto done;
 	}

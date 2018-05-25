@@ -77,7 +77,7 @@ static PmRequirement* PmRequirementMalloc(void)
 		newReq = &pmReqData[pmReqTop];
 		pmReqTop++;
 	} else {
-		PmDbg(DEBUG_DETAILED,"ERROR: out of memory!\r\n");
+		PmAlert("out of memory!\r\n");
 	}
 
 	return newReq;
@@ -286,8 +286,7 @@ int PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap)
 			status = PmUpdateSlave(req->slave);
 			/* if rom works correctly, status should be always ok */
 			if (XST_SUCCESS != status) {
-				PmDbg(DEBUG_DETAILED,"ERROR setting slave node %s\r\n",
-				      req->slave->node.name);
+				PmErr("updating %s\r\n", req->slave->node.name);
 				break;
 			}
 		}
@@ -458,8 +457,8 @@ int PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
 	goto done;
 
 error:
-	PmDbg(DEBUG_DETAILED,"ERROR: Slave %s has no state with caps 0x%lx\r\n",
-		 req->slave->node.name, currReq);
+	PmErr("%s has no state with caps 0x%lx\r\n",
+	      req->slave->node.name, currReq);
 
 done:
 	return status;

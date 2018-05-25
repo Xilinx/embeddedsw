@@ -236,15 +236,14 @@ done:
 		PmNodeUpdateCurrState(&slave->node, state);
 		PmSlaveClearAfterState(slave, oldState);
 	}
-#ifdef DEBUG_PM
 	if (XST_SUCCESS == status) {
-		PmDbg(DEBUG_DETAILED,"%s %d->%d\r\n", slave->node.name,
-				oldState, slave->node.currState);
+		PmInfo("%s %d->%d\r\n", slave->node.name, oldState,
+		       slave->node.currState);
 	} else {
-		PmDbg(DEBUG_DETAILED,"%s ERROR #%d\r\n", slave->node.name,
-				status);
+		PmErr("#%d %s state#%u\r\n", status, slave->node.name,
+		      oldState);
 	}
-#endif
+
 	return status;
 }
 

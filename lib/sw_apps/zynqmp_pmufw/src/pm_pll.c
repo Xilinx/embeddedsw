@@ -113,7 +113,7 @@ static void PmPllRestoreContext(PmPll* const pll)
  */
 static void PmPllSuspend(PmPll* const pll)
 {
-	PmDbg(DEBUG_DETAILED,"%s\r\n", pll->node.name);
+	PmInfo("%s 1->0\r\n", pll->node.name);
 
 	PmPllSaveContext(pll);
 
@@ -140,7 +140,7 @@ static int PmPllResume(PmPll* const pll)
 {
 	int status = XST_SUCCESS;
 
-	PmDbg(DEBUG_DETAILED,"%s\r\n", pll->node.name);
+	PmInfo("%s 0->1\r\n", pll->node.name);
 
 	if (true == pll->context.saved) {
 		PmPllRestoreContext(pll);

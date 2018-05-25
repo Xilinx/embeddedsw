@@ -427,7 +427,7 @@ static int PmProcTrActiveToSuspend(PmProc* const proc)
 {
 	int status;
 
-	PmDbg(DEBUG_DETAILED,"ACTIVE->SUSPENDING %s\r\n", proc->node.name);
+	PmInfo("%s active->susp\r\n", proc->node.name);
 
 	ENABLE_WFI(proc->mask);
 	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_SUSPENDING);
@@ -462,7 +462,7 @@ static int PmProcTrToForcedOff(PmProc* const proc)
 	bool killed;
 	u32 pwrReq;
 
-	PmDbg(DEBUG_DETAILED,"ACTIVE->FORCED_PWRDN %s\r\n", proc->node.name);
+	PmInfo("%s active->forced off\r\n", proc->node.name);
 
 	proc->node.latencyMarg = MAX_LATENCY;
 	proc->resumeAddress = 0ULL;
@@ -502,7 +502,7 @@ static int PmProcTrSuspendToActive(PmProc* const proc)
 {
 	int status;
 
-	PmDbg(DEBUG_DETAILED,"SUSPENDING->ACTIVE %s\r\n", proc->node.name);
+	PmInfo("%s susp->active\r\n", proc->node.name);
 
 	DISABLE_WFI(proc->mask);
 
@@ -527,7 +527,7 @@ static int PmProcTrSuspendToSleep(PmProc* const proc)
 	int status;
 	u32 worstCaseLatency = proc->pwrDnLatency + proc->pwrUpLatency;
 
-	PmDbg(DEBUG_DETAILED,"SUSPENDING->SLEEP %s\r\n", proc->node.name);
+	PmInfo("%s susp->sleep\r\n", proc->node.name);
 	proc->node.latencyMarg = proc->latencyReq - worstCaseLatency;
 
 	status = PmProcSleep(proc);
@@ -563,7 +563,7 @@ static int PmProcTrSleepToActive(PmProc* const proc)
 {
 	int status;
 
-	PmDbg(DEBUG_DETAILED,"SLEEP->ACTIVE %s\r\n", proc->node.name);
+	PmInfo("%s sleep->active\r\n", proc->node.name);
 	status = PmProcWake(proc);
 	DISABLE_WAKE(proc->mask);
 
@@ -586,7 +586,7 @@ static int PmProcTrForcePwrdnToActive(PmProc* const proc)
 {
 	int status;
 
-	PmDbg(DEBUG_DETAILED,"FORCED_PWRDN->ACTIVE %s\r\n", proc->node.name);
+	PmInfo("%s forced off->active\r\n", proc->node.name);
 	status = PmProcWake(proc);
 
 	return status;
@@ -657,15 +657,12 @@ int PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		proc->latencyReq = MAX_LATENCY;
 		break;
 	default:
-		PmDbg(DEBUG_DETAILED,"ERROR: unrecognized event %d\r\n", event);
+		PmErr("Unknown event %d\r\n", event);
 		break;
 	}
-#ifdef DEBUG_PM
 	if (status == XST_PM_INTERNAL) {
-		PmDbg(DEBUG_DETAILED,"ERROR: state #%d event #%d\r\n",
-				currState, event);
+		PmErr("state #%d event #%d\r\n", currState, event);
 	}
-#endif
 
 	return status;
 }

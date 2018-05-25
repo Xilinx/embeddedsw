@@ -271,7 +271,7 @@ int PmNodeInit(void)
 			status = pmNodeClasses[i]->init(node);
 			if (XST_SUCCESS != status) {
 				ret = XST_FAILURE;
-				PmDbg(DEBUG_DETAILED,"%s failed\r\n", node->name);
+				PmErr("init %s failed\r\n", node->name);
 			}
 
 		}
@@ -326,4 +326,12 @@ void PmNodeForceDownUnusable(void)
 	}
 }
 
+/**
+ * PmNodeLogUnknownState() - Log an unknown state error for a given node
+ * @node	Node pointer
+ */
+void PmNodeLogUnknownState(const PmNode* const node, const PmStateId state)
+{
+	PmErr("Unknown %s state #%u\r\n", node->name, state);
+}
 #endif

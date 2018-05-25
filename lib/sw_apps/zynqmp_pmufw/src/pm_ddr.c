@@ -303,7 +303,7 @@
 
 #define REPORT_IF_ERROR(status) \
 		if (XST_SUCCESS != status) { \
-			PmDbg(DEBUG_DETAILED, "ERROR @line %d\r\n", __LINE__); \
+			PmErr("@line %d\r\n", __LINE__); \
 		}
 
 /* Power states of DDR */
@@ -1812,8 +1812,7 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		break;
 	default:
 		status = XST_PM_INTERNAL;
-		PmDbg(DEBUG_DETAILED,"ERROR: Unknown DDR state #%d\r\n",
-				slave->node.currState);
+		PmNodeLogUnknownState(&slave->node, slave->node.currState);
 		break;
 	}
 

@@ -107,7 +107,7 @@ void PmPowerStackPush(PmPower* const power, const u8 index)
 {
 	/* Stack overflow should never happen */
 	if (ARRAY_SIZE(pmPowerStack) == pmDfs.sp) {
-		PmDbg(DEBUG_DETAILED,"ERROR: stack overflow!\r\n");
+		PmAlert("Power stack overflow\r\n");
 		goto done;
 	}
 	pmPowerStack[pmDfs.sp].power = power;
@@ -126,7 +126,7 @@ void PmPowerStackPop(PmPower** const power, u8* const index)
 {
 	if (0U == pmDfs.sp) {
 		/* This should never happen */
-		PmDbg(DEBUG_DETAILED,"ERROR: empty stack!\r\n");
+		PmAlert("Power stack empty\r\n");
 		goto done;
 	}
 	pmDfs.sp--;
@@ -326,15 +326,13 @@ static int PmPowerDownFpd(void)
 				XPfw_Read32(A53_DBG_1_EDPRCR_REG) |
 				XPfw_Read32(A53_DBG_2_EDPRCR_REG) |
 				XPfw_Read32(A53_DBG_3_EDPRCR_REG))) {
-		PmDbg(DEBUG_DETAILED,"Skiping FPD power down since debugger "
-				"is connected\r\n");
+		PmInfo("Skipped FPD pwrdn (debugger connected)\r\n");
 		return XST_SUCCESS;
 	}
 
 /* Block FPD power down if any of the LPD peripherals uses CCI path which is in FPD */
 #ifdef XPAR_LPD_IS_CACHE_COHERENT
-	PmDbg(DEBUG_DETAILED,"Blocking FPD power down since CCI is "
-			"used by LPD\r\n");
+	PmErr("Blocked FPD pwrdn (CCI used by LPD)\r\n");
 	status = XST_FAILURE;
 	goto err;
 #endif /* XPAR_LPD_IS_CACHE_COHERENT */
@@ -415,7 +413,7 @@ static int PmPowerUpFpd(void)
 {
 	if (0 != (XPfw_Read32(PMU_GLOBAL_PWR_STATE) &
 				PMU_GLOBAL_PWR_STATE_FP_MASK)) {
-		PmDbg(DEBUG_DETAILED,"Skiping FPD power up as FPD is on\r\n");
+		PmInfo("Skipped FPD pwrup (FPD is on)\r\n");
 		return XST_SUCCESS;
 	}
 
@@ -450,7 +448,6 @@ static int PmPowerDownRpu(void)
 	XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD);
 	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU0);
 	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU1);
-	PmDbg(DEBUG_DETAILED,"Enabled AIB\r\n");
 
 	return XpbrPwrDnRpuHandler();
 }
@@ -553,7 +550,7 @@ int PmPowerDown(PmPower* const power)
 	if (NULL != power->node.clocks) {
 		PmClockRelease(&power->node);
 	}
-	PmDbg(DEBUG_DETAILED,"%s\r\n", power->node.name);
+	PmInfo("%s 1->0\r\n", power->node.name);
 #ifdef DEBUG_MODE
 	PmRequirement* req;
 	if ((pmPowerIslandRpu_g.power.node.currState == PM_PWR_STATE_OFF) &&
@@ -608,7 +605,7 @@ static int PmPowerUp(PmPower* const power)
 	PmRequirementUpdate(req, PM_CAP_ACCESS);
 #endif
 
-	PmDbg(DEBUG_DETAILED,"%s\r\n", power->node.name);
+	PmInfo("%s 0->1\r\n", power->node.name);
 
 	if (PM_PWR_STATE_ON == power->node.currState) {
 		goto done;

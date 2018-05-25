@@ -110,8 +110,8 @@ void PmNotifyCb(const PmMaster* const master, const PmNodeId nodeId,
 void PmInitSuspendCb(const PmMaster* const master, const u32 reason,
 		     const u32 latency, const u32 state, const u32 timeout)
 {
-	PmDbg(DEBUG_DETAILED,"of %s (%lu, %lu, %lu, %lu)\r\n", master->name,
-	      reason, latency, state, timeout);
+	PmInfo("%s> (%lu, %lu, %lu, %lu)\r\n", master->name, reason, latency,
+	       state, timeout);
 
 	IPI_REQUEST5(master->ipiMask, PM_INIT_SUSPEND_CB, reason, latency,
 		     state, timeout);
