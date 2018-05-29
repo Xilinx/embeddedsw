@@ -17,6 +17,9 @@ Added support for IS25LP064A and IS25WP064A.
 Removed the check for address to be non zero and
 Added check for Spansion flash before proceeding to quad mode read (CR#1002769)
 
+Resetps_v1_2
+Fixed compilation warnings in resetps driver
+
 Changes for 2018.2
 ===============================
 freertos10_xilinx_v1_1:
