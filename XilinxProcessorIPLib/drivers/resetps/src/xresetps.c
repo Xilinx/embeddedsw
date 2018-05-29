@@ -46,6 +46,7 @@
 * 1.00  cjp    09/05/17 First release
 * 1.1   Nava   04/20/18 Fixed compilation warnings.
 * 1.2   cjp    04/27/18 Updated for clockps interdependency
+* 1.2   Nava   05/21/18 Fixed compilation warnings on R5.
 * </pre>
 *
 ******************************************************************************/
@@ -758,8 +759,9 @@ XStatus XResetPs_ResetAssert(XResetPs *InstancePtr,
 {
 	/* Arguments validation */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	if ((ResetID > XRESETPS_RSTID_END) ||
-		(ResetID < XRESETPS_RSTID_START)) {
+	if (!((ResetID <= XRESETPS_RSTID_END) &&
+		 ((ResetID > XRESETPS_RSTID_START)||
+		  (ResetID == XRESETPS_RSTID_START)))) {
 		return XST_INVALID_PARAM;
 	}
 
@@ -816,8 +818,9 @@ XStatus XResetPs_ResetDeassert(XResetPs *InstancePtr,
 {
 	/* Arguments validation */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	if ((ResetID > XRESETPS_RSTID_END) ||
-		(ResetID < XRESETPS_RSTID_START)) {
+	if (!((ResetID <= XRESETPS_RSTID_END) &&
+		((ResetID > XRESETPS_RSTID_START) ||
+		(ResetID == XRESETPS_RSTID_START)))) {
 		return XST_INVALID_PARAM;
 	}
 
@@ -873,8 +876,9 @@ XStatus XResetPs_ResetPulse(XResetPs *InstancePtr, const XResetPs_RstId ResetID)
 {
 	/* Arguments validation */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	if ((ResetID > XRESETPS_RSTID_END) ||
-		(ResetID < XRESETPS_RSTID_START)) {
+	if (!((ResetID <= XRESETPS_RSTID_END) &&
+		((ResetID > XRESETPS_RSTID_START)||
+		(ResetID == XRESETPS_RSTID_START)))) {
 		return XST_INVALID_PARAM;
 	}
 
@@ -978,8 +982,9 @@ XStatus XResetPs_ResetStatus(XResetPs *InstancePtr,
 	/* Arguments validation */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Status != NULL);
-	if ((ResetID > XRESETPS_RSTID_END) ||
-		(ResetID < XRESETPS_RSTID_START)) {
+	if (!((ResetID <= XRESETPS_RSTID_END) &&
+		((ResetID > XRESETPS_RSTID_START)||
+		 (ResetID == XRESETPS_RSTID_START)))) {
 		return XST_INVALID_PARAM;
 	}
 
