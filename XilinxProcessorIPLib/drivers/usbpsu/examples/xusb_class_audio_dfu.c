@@ -417,7 +417,17 @@ static void Usb_AudioClassReq(struct Usb_DevData *InstancePtr, SetupPacket *Setu
 {
 	u32 ReplyLen;
 	u8 Error = 0;
+#ifdef __ICCARM__
+#ifdef PLATFORM_ZYNQMP
+#pragma data_alignment = 64
+#else
+#pragma data_alignment = 32
+#endif
+	static u8 Reply[USB_REQ_REPLY_LEN];
+#pragma data_alignment = 4
+#else
 	static u8 Reply[USB_REQ_REPLY_LEN] ALIGNMENT_CACHELINE;
+#endif
 	u8 UnitId = SetupData->wIndex >> 8;
 
 	/* Check that the requested reply length is not bigger than our reply
@@ -653,7 +663,17 @@ static void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 	u32 rxBytesLeft;
 	s32 result = -1;
 
+#ifdef __ICCARM__
+#ifdef PLATFORM_ZYNQMP
+#pragma data_alignment = 64
+#else
+#pragma data_alignment = 32
+#endif
+	static u8 DFUReply[6];
+#pragma data_alignment = 4
+#else
 	static u8 DFUReply[6] ALIGNMENT_CACHELINE;
+#endif
 	USBCH9_DATA *ch9_ptr =
 		(USBCH9_DATA *)Get_DrvData(InstancePtr->PrivateData);
 	struct audio_dfu_if *f = (struct audio_dfu_if *)(ch9_ptr->data_ptr);

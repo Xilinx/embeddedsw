@@ -65,12 +65,17 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+
+#if defined (__ICCARM__)
+#pragma pack(push, 1)
+#endif
+
 typedef struct {
 	USB_STD_CFG_DESC stdCfg;
 	USB_STD_IF_DESC ifCfg;
 	USB_STD_EP_DESC epin;
 	USB_STD_EP_DESC epout;
-} __attribute__((__packed__))USB_CONFIG;
+} attribute(USB_CONFIG);
 
 typedef struct {
 	USB_STD_CFG_DESC stdCfg;
@@ -79,7 +84,12 @@ typedef struct {
 	USB_STD_EP_SS_COMP_DESC epssin;
 	USB_STD_EP_DESC epout;
 	USB_STD_EP_SS_COMP_DESC epssout;
-} __attribute__((__packed__))USB30_CONFIG;
+
+} attribute(USB30_CONFIG);
+
+#if defined (__ICCARM__)
+#pragma pack(pop)
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /* Check where these defines need to go  */

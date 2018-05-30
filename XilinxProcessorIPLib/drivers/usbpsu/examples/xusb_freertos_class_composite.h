@@ -361,8 +361,19 @@ struct storage_if {
 	u32			disksize;
 	u32			bytesleft;
 	u8			phase;
+#ifdef __ICCARM__
+#ifdef PLATFORM_ZYNQMP
+#pragma data_alignment = 64
+#else
+#pragma data_alignment = 32
+#endif
+	USB_CBW			cbw;
+	USB_CSW			csw;
+#pragma data_alignment = 4
+#else
 	USB_CBW			cbw ALIGNMENT_CACHELINE;
 	USB_CSW			csw ALIGNMENT_CACHELINE;
+#endif
 	TaskHandle_t		xSCSITask;
 	xSemaphoreHandle	xSemaphore;
 	struct transfer		currTrans;

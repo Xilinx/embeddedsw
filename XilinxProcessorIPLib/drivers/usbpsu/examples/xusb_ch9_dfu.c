@@ -67,7 +67,15 @@
 /*
  * Device Descriptors
  */
+#ifdef __ICCARM__
+#pragma data_alignment = 16
+#endif
+
+#ifdef __ICCARM__
+USB_STD_DEV_DESC deviceDesc[] = {
+#else
 USB_STD_DEV_DESC __attribute__ ((aligned(16))) deviceDesc[] = {
+#endif
 	{/*
 	  * USB 2.0
 	  */
@@ -109,7 +117,11 @@ USB_STD_DEV_DESC __attribute__ ((aligned(16))) deviceDesc[] = {
 /*
  * Configuration Descriptors
  */
+#ifdef __ICCARM__
+USB30_CONFIG config3 = {
+#else
 USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
+#endif
 	{/*
 	  * Std Config
 	  */
@@ -208,7 +220,11 @@ USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 	}
 };
 
+#ifdef __ICCARM__
+USB_CONFIG config2 = {
+#else
 USB_CONFIG __attribute__ ((aligned(16))) config2 = {
+#endif
 	{/*
 	  * Std Config
 	  */
@@ -291,7 +307,11 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 /*
  * DFU Configuration Descriptors
  */
+#ifdef __ICCARM__
+DFU_USB30_CONFIG DFUconfig3 = {
+#else
 DFU_USB30_CONFIG __attribute__ ((aligned(16))) DFUconfig3 = {
+#endif
 	{/*
 	  * Std Config
 	  */
@@ -336,7 +356,11 @@ DFU_USB30_CONFIG __attribute__ ((aligned(16))) DFUconfig3 = {
 	}
 };
 
+#ifdef __ICCARM__
+DFU_USB_CONFIG DFUconfig2 = {
+#else
 DFU_USB_CONFIG __attribute__ ((aligned(16))) DFUconfig2 = {
+#endif
 	{/*
 	  * Std Config
 	  */
@@ -380,6 +404,10 @@ DFU_USB_CONFIG __attribute__ ((aligned(16))) DFUconfig2 = {
 					/* DFU version 1.1 */
 	}
 };
+
+#ifdef __ICCARM__
+#pragma data_alignment = 4
+#endif
 
 /*
  * String Descriptors
@@ -628,7 +656,12 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr,
 u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen)
 {
 
-	USB_BOS_DESC __attribute__ ((aligned(16))) bosDesc = {
+#ifdef __ICCARM__
+#pragma data_alignment = 16
+	static USB_BOS_DESC bosDesc = {
+#else
+	static USB_BOS_DESC __attribute__ ((aligned(16))) bosDesc = {
+#endif
 		/* BOS descriptor */
 		{sizeof(USB_STD_BOS_DESC), /* bLength */
 		USB_TYPE_BOS_DESC, /* DescriptorType */
@@ -658,6 +691,10 @@ u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen)
 		0x00} /* Disable LPM for USB 3.0 */
 #endif
 	};
+
+#ifdef __ICCARM__
+#pragma data_alignment = 4
+#endif
 
 	/* Check buffer pointer is OK and buffer is big enough. */
 	if (!BufPtr)

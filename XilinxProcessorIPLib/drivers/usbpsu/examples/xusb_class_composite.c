@@ -72,13 +72,35 @@ static inline void Usb_DfuWaitForReset(struct dfu_if *DFU)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+#ifdef __ICCARM__
+#ifdef PLATFORM_ZYNQMP
+#pragma data_alignment = 64
+#else
+#pragma data_alignment = 32
+#endif
+u8 DetachCounter = 0;
+static u8 txBuffer[128];
+static u8 MaxLUN = 0;
+static u8 ClassData[10];
+#pragma data_alignment = 4
+#else
 u8 DetachCounter = 0;
 static u8 txBuffer[128] ALIGNMENT_CACHELINE;
 static u8 MaxLUN ALIGNMENT_CACHELINE = 0;
 static u8 ClassData[10];
+#endif
 
 /* Pre-manufactured response to the SCSI Inquiry command */
+#ifdef __ICCARM__
+#ifdef PLATFORM_ZYNQMP
+#pragma data_alignment = 64
+#else
+#pragma data_alignment = 32
+#endif
+const static SCSI_INQUIRY scsiInquiry[] = {
+#else
 const static SCSI_INQUIRY scsiInquiry[] ALIGNMENT_CACHELINE = {
+#endif
 	{
 		0x00,
 		0x80,
@@ -106,6 +128,10 @@ const static SCSI_INQUIRY scsiInquiry[] ALIGNMENT_CACHELINE = {
 		{"1.00"}		/* Revision:   must be  4 characters long. */
 	}
 };
+
+#ifdef __ICCARM__
+#pragma data_alignment = 4
+#endif
 
 /*****************************************************************************/
 /**
@@ -450,7 +476,18 @@ static void Usb_AudioClassReq(struct Usb_DevData *InstancePtr, SetupPacket *Setu
 {
 	u32 ReplyLen;
 	u8 Error = 0;
+
+#ifdef __ICCARM__
+#ifdef PLATFORM_ZYNQMP
+#pragma data_alignment = 64
+#else
+#pragma data_alignment = 32
+#endif
+	static u8 Reply[USB_REQ_REPLY_LEN];
+#pragma data_alignment = 4
+#else
 	static u8 Reply[USB_REQ_REPLY_LEN] ALIGNMENT_CACHELINE;
+#endif
 	u8 UnitId = SetupData->wIndex >> 8;
 
 	/* Check that the requested reply length is not bigger than our reply
@@ -688,7 +725,17 @@ static void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 	u32 rxBytesLeft;
 	s32 result = -1;
 
+#ifdef __ICCARM__
+#ifdef PLATFORM_ZYNQMP
+#pragma data_alignment = 64
+#else
+#pragma data_alignment = 32
+#endif
+	static u8 DFUReply[6];
+#pragma data_alignment = 4
+#else
 	static u8 DFUReply[6] ALIGNMENT_CACHELINE;
+#endif
 	USBCH9_DATA *ch9_ptr =
 		(USBCH9_DATA *)Get_DrvData(InstancePtr->PrivateData);
 	struct composite_dev *f = (struct composite_dev *)(ch9_ptr->data_ptr);

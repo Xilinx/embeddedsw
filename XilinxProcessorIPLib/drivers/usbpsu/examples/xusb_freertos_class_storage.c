@@ -67,7 +67,16 @@
 TaskHandle_t xMainTask;
 
 /* Pre-manufactured response to the SCSI Inquiry command */
+#ifdef __ICCARM__
+#ifdef PLATFORM_ZYNQMP
+#pragma data_alignment = 64
+#else
+#pragma data_alignment = 32
+#endif
+const static SCSI_INQUIRY scsiInquiry[] = {
+#else
 const static SCSI_INQUIRY scsiInquiry[] ALIGNMENT_CACHELINE = {
+#endif
 	{
 		0x00,
 		0x80,
@@ -96,10 +105,23 @@ const static SCSI_INQUIRY scsiInquiry[] ALIGNMENT_CACHELINE = {
 	}
 };
 
+#ifdef __ICCARM__
+#ifdef PLATFORM_ZYNQMP
+#pragma data_alignment = 64
+#else
+#pragma data_alignment = 32
+#endif
+static u8 MaxLUN = 0;
+
+/* Local transmit buffer for simple replies. */
+static u8 txBuffer[128];
+#pragma data_alignment = 4
+#else
 static u8 MaxLUN ALIGNMENT_CACHELINE = 0;
 
 /* Local transmit buffer for simple replies. */
 static u8 txBuffer[128] ALIGNMENT_CACHELINE;
+#endif
 
 /*****************************************************************************/
 /**

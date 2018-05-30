@@ -66,6 +66,10 @@ extern "C" {
 #define DFU_MAX_TRANSFER	1024
 
 /**************************** Type Definitions *******************************/
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
+
 typedef struct {
 	u8 bLength;
 	u8 bDescriptorType;
@@ -73,7 +77,7 @@ typedef struct {
 	u16 wDetachTimeOut;
 	u16 wTransferSize;
 	u16 bcdDFUVersion;
-}  __attribute__((__packed__))USB_DFU_FUNC_DESC;
+} attribute(USB_DFU_FUNC_DESC);
 
 typedef struct {
 	USB_STD_CFG_DESC stdCfg;
@@ -82,7 +86,7 @@ typedef struct {
 	USB_STD_EP_DESC epout;
 	USB_STD_IF_DESC ifCfg_alt_dfu;
 	USB_DFU_FUNC_DESC dfu_func_desc;
-} __attribute__((__packed__))USB_CONFIG;
+} attribute(USB_CONFIG);
 
 typedef struct {
 	USB_STD_CFG_DESC stdCfg;
@@ -93,19 +97,23 @@ typedef struct {
 	USB_STD_EP_SS_COMP_DESC epssout;
 	USB_STD_IF_DESC ifCfg_alt_dfu;
 	USB_DFU_FUNC_DESC dfu_func_desc;
-} __attribute__((__packed__))USB30_CONFIG;
+} attribute(USB30_CONFIG);
 
 typedef struct {
 	USB_STD_CFG_DESC stdCfg;
 	USB_STD_IF_DESC ifCfg_alt_dfu;
 	USB_DFU_FUNC_DESC dfu_func_desc;
-} __attribute__((__packed__))DFU_USB_CONFIG;
+} attribute(DFU_USB_CONFIG);
 
 typedef struct {
 	USB_STD_CFG_DESC stdCfg;
 	USB_STD_IF_DESC ifCfg_alt_dfu;
 	USB_DFU_FUNC_DESC dfu_func_desc;
-} __attribute__((__packed__))DFU_USB30_CONFIG;
+} attribute(DFU_USB30_CONFIG);
+
+#ifdef __ICCARM__
+#pragma pack(pop)
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
