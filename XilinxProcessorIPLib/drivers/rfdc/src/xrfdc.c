@@ -105,6 +105,7 @@
 *       sk     04/24/18 Add API to get the Link Coupling mode.
 *       sk     04/28/18 Implement timeouts for PLL Lock, Startup and shutdown.
 *       sk     05/29/18 Updated the minimum value of Ref clock to 102.4062MHz.
+*       sk     05/30/18 Removed CalibrationMode check for DAC.
 * </pre>
 *
 ******************************************************************************/
@@ -1875,7 +1876,8 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 		} while ((NCOFreq > ((SamplingRate * 1000) / 2.0)) ||
 				(NCOFreq < -((SamplingRate * 1000) / 2.0)));
 	}
-	if (CalibrationMode == XRFDC_CALIB_MODE1)
+	if ((Type == XRFDC_ADC_TILE) &&
+			(CalibrationMode == XRFDC_CALIB_MODE1))
 		Mixer_Settings->Freq += (SamplingRate * 1000) / 2.0;
 
 	(void)BaseAddr;
@@ -5050,7 +5052,8 @@ int XRFdc_GetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 		} else {
 			*NyquistZone = XRFDC_EVEN_NYQUIST_ZONE;
 		}
-		if (CalibrationMode == XRFDC_CALIB_MODE1) {
+		if ((Type == XRFDC_ADC_TILE) &&
+				(CalibrationMode == XRFDC_CALIB_MODE1)) {
 			if (*NyquistZone == XRFDC_EVEN_NYQUIST_ZONE)
 				*NyquistZone = XRFDC_ODD_NYQUIST_ZONE;
 			else
