@@ -104,6 +104,7 @@
 *       sk     04/24/18 Add API to get PLL Configurations.
 *       sk     04/24/18 Add API to get the Link Coupling mode.
 *       sk     04/28/18 Implement timeouts for PLL Lock, Startup and shutdown.
+*       sk     05/29/18 Updated the minimum value of Ref clock to 102.4062MHz.
 * </pre>
 *
 ******************************************************************************/
@@ -5914,7 +5915,7 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 * @param	Type indicates ADC/DAC
 * @param	Tile_Id indicates Tile number (0-3)
 * @param	Source Clock source internal PLL or external clock source
-* @param	RefClkFreq Reference Clock Frequency in MHz(50MHz - 1.2GHz)
+* @param	RefClkFreq Reference Clock Frequency in MHz(102.4062MHz - 1.2GHz)
 * @param	SamplingRate Sampling Rate in MHz(0.1- 6.554GHz for DAC and
 *           0.5/1.0 - 2.058/4.116GHz for ADC based on the device package).
 *
@@ -6050,7 +6051,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 
 		if (Source == XRFDC_INTERNAL_PLL_CLK) {
 
-			if((RefClkFreq < 50) ||  (RefClkFreq > 1200)){
+			if((RefClkFreq < 102.4062) ||  (RefClkFreq > 1200)){
 		#ifdef __MICROBLAZE__
 				xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid Reference "
 							"clock value in %s\r\n", __func__);
