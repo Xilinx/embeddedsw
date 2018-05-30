@@ -888,6 +888,10 @@ Added support for PUF regeneration
 Fixed compilation warnings
 Added doxygen tags
 
+usbpsu_v1_4
+Fixed the errors which occur when tested with IAR compiler
+Added the new examples into mss file
+
 Changes for 2018.2
 ===============================
 freertos10_xilinx_v1_1:
