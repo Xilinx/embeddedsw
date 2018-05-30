@@ -174,7 +174,6 @@ extern "C" {
 /**************************** Type Definitions ******************************/
 
 /************************** Variable Definitions *****************************/
-struct XUsbPsu PrivateData;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 Usb_Config* LookupConfig(u16 DeviceId);

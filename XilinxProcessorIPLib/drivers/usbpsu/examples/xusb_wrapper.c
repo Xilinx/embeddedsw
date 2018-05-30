@@ -62,6 +62,8 @@
 
 /************************** Variable Definitions *****************************/
 
+struct XUsbPsu PrivateData;
+
 /************************** Function Prototypes ******************************/
 Usb_Config* LookupConfig(u16 DeviceId)
 {
