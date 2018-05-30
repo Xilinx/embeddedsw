@@ -20,6 +20,10 @@ Added check for Spansion flash before proceeding to quad mode read (CR#1002769)
 Resetps_v1_2
 Fixed compilation warnings in resetps driver
 
+usbpsu_v1_4
+Fixed the errors which occur when tested with IAR compiler
+Added the new examples into mss file
+
 Changes for 2018.2
 ===============================
 freertos10_xilinx_v1_1:
