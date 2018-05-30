@@ -23,6 +23,7 @@
  *		       example for all USB IPs.
  * 1.5	  vak 13/02/19  Added support for versal
  * 1.5    vak 03/25/19 Fixed incorrect data_alignment pragma directive for IAR
+ * 1.8   pm   15/09/20 Fixed C++ Compilation error.
  *
  * </pre>
  *
@@ -67,9 +68,9 @@ const static SCSI_INQUIRY scsiInquiry[] ALIGNMENT_CACHELINE = {
 		0x00,
 		0x00,
 		0x00,
-		{"Xilinx  "},			/* Vendor ID:  must be  8 characters long. */
+		{"Xilinx "},			/* Vendor ID:  must be  8 characters long. */
 		{"PS USB VirtDisk"},	/* Product ID: must be 16 characters long. */
-		{"1.00"}				/* Revision:   must be  4 characters long. */
+		{"1.0"}				/* Revision:   must be  4 characters long. */
 	},
 	{
 		0x00,
@@ -81,8 +82,8 @@ const static SCSI_INQUIRY scsiInquiry[] ALIGNMENT_CACHELINE = {
 		0x00,
 		0x00,
 		{"Linux  "},			/* Vendor ID:  must be  8 characters long. */
-		{"File-Stor Gadget"},	/* Product ID: must be 16 characters long. */
-		{"0404"}				/* Revision:   must be  4 characters long. */
+		{"File-StorGadget"},	/* Product ID: must be 16 characters long. */
+		{"040"}				/* Revision:   must be  4 characters long. */
 	}
 };
 
@@ -164,13 +165,14 @@ void ParseCBW(struct Usb_DevData *InstancePtr)
 
 	switch (CBW.CBWCB[0]) {
 	case USB_RBC_INQUIRY:
+	{
 #ifdef CLASS_STORAGE_DEBUG
 		printf("SCSI: INQUIRY\r\n");
 #endif
 		Phase = USB_EP_STATE_DATA_IN;
 
 		Status = IsSuperSpeed(InstancePtr);
-		if(Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			/* USB 2.0 */
 			Index = 0;
 		} else {
@@ -178,9 +180,11 @@ void ParseCBW(struct Usb_DevData *InstancePtr)
 			Index = 1;
 		}
 
-		EpBufferSend(InstancePtr->PrivateData, 1, (void *) &scsiInquiry[Index],
-								sizeof(scsiInquiry[Index]));
+		EpBufferSend(InstancePtr->PrivateData, 1,
+					(u8 *) &scsiInquiry[Index],
+					sizeof(scsiInquiry[Index]));
 		break;
+	}
 
 	case USB_UFI_GET_CAP_LIST:
 	{
@@ -196,9 +200,11 @@ void ParseCBW(struct Usb_DevData *InstancePtr)
 		CapList->blockLength = htons(VFLASH_BLOCK_SIZE);
 
 		Phase = USB_EP_STATE_DATA_IN;
-		EpBufferSend(InstancePtr->PrivateData, 1, txBuffer, sizeof(SCSI_CAP_LIST));
-	}
+		EpBufferSend(InstancePtr->PrivateData, 1, txBuffer,
+						sizeof(SCSI_CAP_LIST));
+
 		break;
+	}
 
 	case USB_RBC_READ_CAP:
 	{
@@ -212,12 +218,14 @@ void ParseCBW(struct Usb_DevData *InstancePtr)
 		Cap->blockSize = htonl(VFLASH_BLOCK_SIZE);
 		Phase = USB_EP_STATE_DATA_IN;
 		EpBufferSend(InstancePtr->PrivateData, 1, txBuffer,
-								sizeof(SCSI_READ_CAPACITY));
-	}
+					sizeof(SCSI_READ_CAPACITY));
+
 		break;
+	}
 
 	case USB_RBC_READ:
-		Offset = htonl(((SCSI_READ_WRITE *) &CBW.CBWCB)-> block) *
+	{
+		Offset = htonl(((SCSI_READ_WRITE *) &CBW.CBWCB)->block) *
 					VFLASH_BLOCK_SIZE;
 #ifdef CLASS_STORAGE_DEBUG
 		printf("SCSI: READ Offset 0x%08x\r\n", Offset);
@@ -225,25 +233,28 @@ void ParseCBW(struct Usb_DevData *InstancePtr)
 
 		Phase = USB_EP_STATE_DATA_IN;
 		u32 RetVal = EpBufferSend(InstancePtr->PrivateData, 1,
-						&VirtFlash[Offset],
-						htons(((SCSI_READ_WRITE *) &CBW.CBWCB)->
-							 length) * VFLASH_BLOCK_SIZE);
+				&VirtFlash[Offset],
+				htons(((SCSI_READ_WRITE *) &CBW.CBWCB)->
+				 length) * VFLASH_BLOCK_SIZE);
 		if (RetVal != XST_SUCCESS) {
-			xil_printf("Failed: READ Offset 0x%08x\n", Offset);
+			xil_printf("Failed: READ Offset 0x%08x\n",
+								Offset);
 			return;
 		}
 		break;
-
+	}
 	case USB_RBC_MODE_SENSE:
+	{
 #ifdef CLASS_STORAGE_DEBUG
 		printf("SCSI: MODE SENSE\r\n");
 #endif
 		Phase = USB_EP_STATE_DATA_IN;
 		EpBufferSend(InstancePtr->PrivateData, 1,
-						(u8 *) "\003\000\000\000", 4);
+					(u8 *) "\003\000\000\000", 4);
 		break;
-
+	}
 	case USB_RBC_MODE_SELECT:
+	{
 	#ifdef CLASS_STORAGE_DEBUG
 			printf("SCSI: MODE_SELECT\r\n");
 	#endif
@@ -251,44 +262,48 @@ void ParseCBW(struct Usb_DevData *InstancePtr)
 		EpBufferRecv(InstancePtr->PrivateData,
 				1, (u8 *)Array, 24);
 		break;
-
+	}
 	case USB_RBC_TEST_UNIT_READY:
+	{
 #ifdef CLASS_STORAGE_DEBUG
 	printf("SCSI: TEST UNIT READY\r\n");
 #endif
 		SendCSW(InstancePtr, 0);
 		break;
-
+	}
 	case USB_RBC_MEDIUM_REMOVAL:
+	{
 #ifdef CLASS_STORAGE_DEBUG
 	printf("SCSI: MEDIUM REMOVAL\r\n");
 #endif
 		SendCSW(InstancePtr, 0);
 		break;
-
+	}
 	case USB_RBC_VERIFY:
+	{
 #ifdef CLASS_STORAGE_DEBUG
 	printf("SCSI: VERIFY\n");
 #endif
 		SendCSW(InstancePtr, 0);
 		break;
-
+	}
 	case USB_RBC_WRITE:
+	{
 		Offset = htonl(((SCSI_READ_WRITE *) &CBW.CBWCB)->
-				       block) * VFLASH_BLOCK_SIZE;
+					   block) * VFLASH_BLOCK_SIZE;
 #ifdef CLASS_STORAGE_DEBUG
 		printf("SCSI: WRITE Offset 0x%08x\r\n", Offset);
 #endif
 		VirtFlashWritePointer = &VirtFlash[Offset];
 
 		rxBytesLeft = htons(((SCSI_READ_WRITE *) &CBW.CBWCB)->length)
-							* VFLASH_BLOCK_SIZE;
+						* VFLASH_BLOCK_SIZE;
 
 		Phase = USB_EP_STATE_DATA_OUT;
-		EpBufferRecv(InstancePtr->PrivateData, 1, &VirtFlash[Offset],
-							rxBytesLeft);
+		EpBufferRecv(InstancePtr->PrivateData, 1,
+				&VirtFlash[Offset], rxBytesLeft);
 		break;
-
+	}
 	case USB_RBC_STARTSTOP_UNIT:
 	{
 		u8 immed;
@@ -307,17 +322,20 @@ void ParseCBW(struct Usb_DevData *InstancePtr)
 	}
 
 	case USB_RBC_REQUEST_SENSE:
+	{
 #ifdef CLASS_STORAGE_DEBUG
 		printf("SCSI: REQUEST_SENSE\r\n");
 #endif
 		break;
-
+	}
 	case USB_SYNC_SCSI:
+	{
 #ifdef CLASS_STORAGE_DEBUG
 		printf("SCSI: SYNCHRONISE_SCSI\r\n");
 #endif
 		SendCSW(InstancePtr, 0);
 		break;
+	}
 	}
 }
 
@@ -340,5 +358,5 @@ void SendCSW(struct Usb_DevData *InstancePtr, u32 Length)
 	CSW.dCSWDataResidue = Length;
 	CSW.bCSWStatus = 0;
 	Phase = USB_EP_STATE_STATUS;
-	EpBufferSend(InstancePtr->PrivateData, 1, (void *) &CSW, 13);
+	EpBufferSend(InstancePtr->PrivateData, 1, (u8 *) &CSW, 13);
 }
