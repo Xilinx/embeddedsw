@@ -154,6 +154,7 @@
 *       sk     04/24/18 Add API to get PLL Configurations.
 *       sk     04/24/18 Add API to get the Link Coupling mode.
 *       sk     04/28/18 Implement timeouts for PLL Lock, Startup and shutdown.
+*       sk     05/29/18 Updated the minimum value of Ref clock to 102.4062MHz.
 *
 * </pre>
 *
