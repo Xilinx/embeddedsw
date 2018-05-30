@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,10 @@
  *	 MYK	12/01/18 Added hibernation support for device mode
  *	 vak	13/03/18 Moved the setup interrupt system calls from driver to
  *			 example.
+ * 1.5	 vak	02/06/19 Modified the code to add UsbPollHandler and
+ *			 UsbEnableEvent API's
+ *	 vak	02/07/19 Modified the code to issue XUsbPsu_Ep0StallRestart()
+ *			 for Endpoint Zero
  *
  * </pre>
  *
@@ -158,7 +162,11 @@ s32 EpBufferRecv(void *InstancePtr, u8 UsbEp,
 
 void EpSetStall(void *InstancePtr, u8 Epnum, u8 Dir)
 {
-	XUsbPsu_EpSetStall((struct XUsbPsu *)InstancePtr, Epnum, Dir);
+	if (!Epnum) {
+		XUsbPsu_Ep0StallRestart((struct XUsbPsu *)InstancePtr);
+	} else  {
+		XUsbPsu_EpSetStall((struct XUsbPsu *)InstancePtr, Epnum, Dir);
+	}
 }
 
 void SetBits(void *InstancePtr, u32 TestSel)
@@ -222,6 +230,38 @@ s32 EpDisable(void *InstancePtr, u8 UsbEpNum, u8 Dir)
 void Usb_SetSpeed(void *InstancePtr, u32 Speed)
 {
 	XUsbPsu_SetSpeed((struct XUsbPsu *)InstancePtr, Speed);
+}
+
+/****************************************************************************/
+/**
+* Handler called from polled mode for handling usb events
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void UsbPollHandler(struct XUsbPsu *InstancePtr)
+{
+	XUsbPsu_IntrHandler(InstancePtr);
+}
+
+/****************************************************************************/
+/**
+* Enables the events specified in the mask
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void UsbEnableEvent(struct XUsbPsu *InstancePtr, u32 Mask)
+{
+	XUsbPsu_EnableIntr(InstancePtr, Mask);
 }
 
 /****************************************************************************/

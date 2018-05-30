@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@
  *	 vak	22/01/18 Added Microblaze support for usbpsu driver
  *	 vak	13/03/18 Moved the setup interrupt system calls from driver to
  *			 example.
+ *  1.5  vak	02/06/19 Add UsbPollHandler and UsbEnableEvent API's
  *
  * </pre>
  *
@@ -151,6 +152,8 @@ s32 ConfigureDevice(void *UsbInstance, u8 *MemPtr, u32 memSize);
 void SetEpHandler(void *InstancePtr, u8 Epnum,
 			u8 Dir, void (*Handler)(void *, u32, u32));
 s32 Usb_Start(void *InstancePtr);
+void UsbPollHandler(struct XUsbPsu *InstancePtr);
+void UsbEnableEvent(struct XUsbPsu *InstancePtr, u32 Mask);
 void *Get_DrvData(void *InstancePtr);
 void Set_DrvData(void *InstancePtr, void *data);
 s32 IsEpStalled(void *InstancePtr, u8 Epnum, u8 Dir);
