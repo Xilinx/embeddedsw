@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -39,6 +39,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   rb   26/03/18 First release
+* 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
 *
 *</pre>
 *
@@ -809,10 +810,6 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 	}
 };
 
-#ifdef __ICCARM__
-#pragma data_alignment = 4
-#endif
-
 /* String Descriptors */
 static u8 StringList[2][20][128] = {
 	{
@@ -1057,9 +1054,7 @@ u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen)
 			0x01,				/* bU1DevExitLat */
 			(0x01F4)}			/* wU2DevExitLat */
 	};
-#ifdef __ICCARM__
-#pragma data_alignment = 4
-#endif
+
 	if (!BufPtr || BufLen < sizeof(USB_STD_BOS_DESC))
 		return 0;
 
