@@ -888,9 +888,6 @@ Added support for PUF regeneration
 Fixed compilation warnings
 Added doxygen tags
 
-Resetps_v1_2
-Fixed compilation warnings in resetps driver
-
 Changes for 2018.2
 ===============================
 freertos10_xilinx_v1_1:
