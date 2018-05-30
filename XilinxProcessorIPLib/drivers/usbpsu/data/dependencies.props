@@ -1,2 +1,9 @@
-xusb_intr_example.c=xusb_class_storage.c,xusb_class_storage.h,xusb_ch9_storage.c,xusb_ch9_storage.h,xusb_ch9.c,xusb_ch9.h
-xusb_dfu_example.c=xusb_class_dfu.c,xusb_class_dfu.h,xusb_ch9_dfu.c,xusb_ch9_dfu.h,xusb_ch9.c,xusb_ch9.h
+xusb_intr_example.c=xusb_class_storage.c,xusb_class_storage.h,xusb_ch9_storage.c,xusb_ch9_storage.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
+xusb_dfu_example.c=xusb_class_dfu.c,xusb_class_dfu.h,xusb_ch9_dfu.c,xusb_ch9_dfu.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
+xusb_freertos_composite.c=xusb_freertos_ch9_composite.c,xusb_freertos_ch9_composite.h,xusb_freertos_class_composite.c,xusb_freertos_class_composite.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
+xusb_composite_example.c=xusb_ch9_composite.c,xusb_ch9_composite.h,xusb_class_composite.c,xusb_class_composite.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
+xusb_audio_dfu_example.c=xusb_ch9_audio_dfu.c,xusb_ch9_audio_dfu.h,xusb_class_audio_dfu.c,xusb_class_audio_dfu.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
+xusb_freertos_massstorage.c=xusb_freertos_ch9_storage.c,xusb_freertos_ch9_storage.h,xusb_freertos_class_storage.c,xusb_freertos_class_storage.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
+xusb_freertos_keyboard.c=xusb_freertos_ch9_keyboard.c,xusb_freertos_ch9_keyboard.h,xusb_freertos_class_keyboard.c,xusb_freertos_class_keyboard.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
+xusb_freertos_audio.c=xusb_freertos_ch9_audio.c,xusb_freertos_ch9_audio.h,xusb_freertos_class_audio.c,xusb_freertos_class_audio.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
+xusb_freertos_dfu.c=xusb_class_dfu.c,xusb_class_dfu.h,xusb_ch9_dfu.c,xusb_ch9_dfu.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
