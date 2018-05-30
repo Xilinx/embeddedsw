@@ -134,11 +134,23 @@ void Ch9Handler(struct Usb_DevData *InstancePtr,
 static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 			      SetupPacket *SetupData)
 {
+#ifdef __ICCARM__
+#ifdef PLATFORM_ZYNQMP
+#pragma data_alignment = 64
+#else
+#pragma data_alignment = 32
+#endif
+	static u8 Reply[USB_REQ_REPLY_LEN];
+	static u8 TmpBuffer[10];
+#pragma data_alignment = 4
+#else
+	static u8 Reply[USB_REQ_REPLY_LEN] ALIGNMENT_CACHELINE;
+	static u8 TmpBuffer[10] ALIGNMENT_CACHELINE;
+#endif
+
 	s32 Status;
 	u8 Error = 0;
 	u32 ReplyLen;
-	static u8 Reply[USB_REQ_REPLY_LEN] ALIGNMENT_CACHELINE;
-	static u8 TmpBuffer[10] ALIGNMENT_CACHELINE;
 	USBCH9_DATA *usb_data =
 			(USBCH9_DATA *)Get_DrvData(InstancePtr->PrivateData);
 	u8 EpNum = SetupData->wIndex & USB_ENDPOINT_NUMBER_MASK;

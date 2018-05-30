@@ -145,6 +145,11 @@ extern "C" {
 
 
 /**************************** Type Definitions *******************************/
+
+#if defined (__ICCARM__)
+#pragma pack(push, 1)
+#endif
+
 /* USB_DT_INTERFACE_ASSOCIATION: groups interfaces */
 typedef struct {
 	u8  bLength;
@@ -156,7 +161,7 @@ typedef struct {
 	u8  bFunctionSubClass;
 	u8  bFunctionProtocol;
 	u8  iFunction;
-} __attribute__ ((packed))USB_IF_ASSOC_DESC;
+} attribute(USB_IF_ASSOC_DESC);
 
 /* UAC2 class specific audio interface header descriptor */
 typedef struct {
@@ -168,7 +173,7 @@ typedef struct {
 	u8 bCategory;
 	u16 wTotalLength;
 	u8 bmControls;
-} __attribute__((__packed__))UAC2_AC_HEADER_DESC;
+} attribute(UAC2_AC_HEADER_DESC);
 
 typedef struct {
 	u8 bLength;
@@ -179,7 +184,7 @@ typedef struct {
 	u8 bmControls;
 	u8 bAssocTerminal;
 	u8 iClockSource;
-} __attribute__((__packed__))UAC2_CLOCK_SOURCE_DESC;
+} attribute(UAC2_CLOCK_SOURCE_DESC);
 
 /* UAC2 class specific audio Input terminal descriptor */
 typedef struct {
@@ -199,7 +204,7 @@ typedef struct {
 	u8 iChannelNames;
 	u16 bmControls;;
 	u8 iTerminal;
-} __attribute__((__packed__))UAC2_INPUT_TERMINAL_DESC;
+} attribute(UAC2_INPUT_TERMINAL_DESC);
 
 /* UAC2 class specific audio Output terminal descriptor */
 typedef struct {
@@ -214,7 +219,7 @@ typedef struct {
 	u8 bCSourceId;
 	u16 bmControls;
 	u8 iTerminal;
-} __attribute__((__packed__))UAC2_OUTPUT_TERMINAL_DESC;
+} attribute(UAC2_OUTPUT_TERMINAL_DESC);
 
 /* UAC2 class specific audio feature unit descriptor */
 typedef struct {
@@ -225,7 +230,7 @@ typedef struct {
 	u8 bSourceID;
 	u32 bmaControls[AUDIO_CHANNEL_NUM + 1];
 	u8 iFeature;
-} __attribute__((__packed__))UAC2_FEATURE_UNIT_DESC;
+} attribute(UAC2_FEATURE_UNIT_DESC);
 
 /* UAC2 Class-Specific AS Interface Descriptor */
 typedef struct {
@@ -245,7 +250,7 @@ typedef struct {
 	u8 bmChannelConfigL2;
 	u8 bmChannelConfigL3;
 	u8 iChannelNames;
-} __attribute__((__packed__))UAC2_AS_HEADER_DESC;
+} attribute(UAC2_AS_HEADER_DESC);
 
 /* Type I Format Type Descriptor (Frmts20 final.pdf) */
 typedef struct {
@@ -255,7 +260,7 @@ typedef struct {
 	u8 bFormatType;
 	u8 bSubSlotSize;
 	u8 bBitResolution;
-} __attribute__((__packed__))UAC2_FORMAT_TYPE_I_DESC;
+} attribute(UAC2_FORMAT_TYPE_I_DESC);
 
 /* USB Standard Audio Endpoint descriptor */
 typedef struct {
@@ -266,7 +271,7 @@ typedef struct {
 	u8 bMaxPacketSizeL;
 	u8 bMaxPacketSizeH;
 	u8 bInterval;
-} __attribute__((__packed__))USB_EP_DESC;
+} attribute(USB_EP_DESC);
 
 /* UAC2 Class Specific Audio Data Endpoint descriptor */
 typedef struct {
@@ -278,7 +283,7 @@ typedef struct {
 	u8 bLockDelayUnits;
 	u8 wLockDelayL;
 	u8 wLockDelayH;
-} __attribute__((__packed__))UAC2_ISO_EP_DESC;
+} attribute(UAC2_ISO_EP_DESC);
 
 typedef struct {
 	u8 bLength;
@@ -289,7 +294,7 @@ typedef struct {
 	u8 baCSourceID[NUM_CLK_SRC];
 	u8 bmControl;
 	u8 iClockSelector;
-}UAC2_CLOCK_SELECTOR_DESC;
+} attribute(UAC2_CLOCK_SELECTOR_DESC);
 
 typedef struct {
 	u8 bLength;
@@ -298,7 +303,7 @@ typedef struct {
 	u16 wDetachTimeOut;
 	u16 wTransferSize;
 	u16 bcdDFUVersion;
-}  __attribute__((__packed__))USB_DFU_FUNC_DESC;
+} attribute(USB_DFU_FUNC_DESC);
 
 typedef struct {
 	USB_STD_CFG_DESC		stdCfg;
@@ -341,7 +346,7 @@ typedef struct {
 	USB_STD_EP_DESC			epout;
 	USB_STD_IF_DESC			ifCfg_alt_dfu;
 	USB_DFU_FUNC_DESC		dfu_func_desc;
-} __attribute__((__packed__))USB_CONFIG;
+} attribute(USB_CONFIG);
 
 typedef struct {
 	USB_STD_CFG_DESC		stdCfg;
@@ -388,19 +393,23 @@ typedef struct {
 	USB_STD_EP_SS_COMP_DESC		epssout;
 	USB_STD_IF_DESC			ifCfg_alt_dfu;
 	USB_DFU_FUNC_DESC		dfu_func_desc;
-} __attribute__((__packed__))USB30_CONFIG;
+} attribute(USB30_CONFIG);
 
 typedef struct {
 	USB_STD_CFG_DESC		stdCfg;
 	USB_STD_IF_DESC			ifCfg_alt_dfu;
 	USB_DFU_FUNC_DESC		dfu_func_desc;
-} __attribute__((__packed__))DFU_USB_CONFIG;
+} attribute(DFU_USB_CONFIG);
 
 typedef struct {
 	USB_STD_CFG_DESC		stdCfg;
 	USB_STD_IF_DESC			ifCfg_alt_dfu;
 	USB_DFU_FUNC_DESC		dfu_func_desc;
-} __attribute__((__packed__))DFU_USB30_CONFIG;
+} attribute(DFU_USB30_CONFIG);
+
+#if defined (__ICCARM__)
+#pragma pack(pop)
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

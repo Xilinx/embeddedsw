@@ -346,7 +346,16 @@ void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
 	u32 rxBytesLeft;
 	s32 result = -1;
 
+#ifdef __ICCARM__
+#ifdef PLATFORM_ZYNQMP
+#pragma data_alignment = 64
+#else
+#pragma data_alignment = 32
+#endif
+	static u8 DFUReply[6];
+#else
 	static u8 DFUReply[6] ALIGNMENT_CACHELINE;
+#endif
 	USBCH9_DATA *ch9_ptr =
 		(USBCH9_DATA *)Get_DrvData(InstancePtr->PrivateData);
 	struct dfu_if *dfu = (struct dfu_if *)(ch9_ptr->data_ptr);

@@ -69,12 +69,22 @@ extern "C" {
 #define printf	xil_printf
 #endif
 
+#ifdef __ICCARM__
+#define attribute(attr) attr
+#else
+#define attribute(attr) __attribute__((__packed__)) attr
+#endif
+
 /************************** Constant Definitions *****************************/
 
 /************************** TypeDef Definitions *****************************/
 /*
  * Standard USB structures as per 2.0 specification
  */
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
+
 typedef struct {
 	u8 bLength;
 	u8 bDescriptorType;
@@ -90,7 +100,7 @@ typedef struct {
 	u8 iProduct;
 	u8 iSerialNumber;
 	u8 bNumConfigurations;
-} __attribute__((__packed__))USB_STD_DEV_DESC;
+} attribute(USB_STD_DEV_DESC);
 
 typedef struct {
 	u8 bLength;
@@ -101,7 +111,7 @@ typedef struct {
 	u8 bIConfigString;
 	u8 bAttributes;
 	u8 bMaxPower;
-}  __attribute__((__packed__))USB_STD_CFG_DESC;
+} attribute(USB_STD_CFG_DESC);
 
 typedef struct {
 	u8 bLength;
@@ -113,7 +123,7 @@ typedef struct {
 	u8 bInterfaceSubClass;
 	u8 bInterfaceProtocol;
 	u8 iInterface;
-}  __attribute__((__packed__))USB_STD_IF_DESC;
+} attribute(USB_STD_IF_DESC);
 
 
 typedef struct {
@@ -124,7 +134,7 @@ typedef struct {
 	u8 bMaxPacketSizeL;
 	u8 bMaxPacketSizeH;
 	u8 bInterval;
-}  __attribute__((__packed__))USB_STD_EP_DESC;
+} attribute(USB_STD_EP_DESC);
 
 /*
  * SUPERSPEED USB ENDPOINT COMPANION descriptor structure
@@ -135,27 +145,27 @@ typedef struct {
   u8 bMaxBurst;
   u8 bmAttributes;
   u16 wBytesPerInterval;
-} __attribute__((__packed__))USB_STD_EP_SS_COMP_DESC;
+} attribute (USB_STD_EP_SS_COMP_DESC);
 
 typedef struct {
 	u8 bLength;
 	u8 bDescriptorType;
 	u16 wLANGID[1];
-}  __attribute__((__packed__))USB_STD_STRING_DESC;
+} attribute(USB_STD_STRING_DESC);
 
 typedef struct {
 	u8 bLength;
 	u8 bDescriptorType;
 	u16 wTotalLength;
 	u8 bNumDeviceCaps;
-} __attribute__((__packed__))USB_STD_BOS_DESC;
+} attribute(USB_STD_BOS_DESC);
 
 typedef struct {
 	u8 bLength;
 	u8 bDescriptorType;
 	u8 bDevCapabiltyType;
 	u32 bmAttributes;
-} __attribute__((__packed__))USB_STD_DEVICE_CAP_7BYTE;
+} attribute(USB_STD_DEVICE_CAP_7BYTE);
 
 typedef struct {
 	u8 bLength;
@@ -166,13 +176,13 @@ typedef struct {
 	u8 bFunctionalitySupport;
 	u8 bU1DevExitLat;
 	u16 wU2DevExitLat;
-} __attribute__((__packed__))USB_STD_DEVICE_CAP_10BYTE;
+} attribute(USB_STD_DEVICE_CAP_10BYTE);
 
 typedef struct{
 	USB_STD_BOS_DESC	bos_desc;
 	USB_STD_DEVICE_CAP_7BYTE dev_cap7;
 	USB_STD_DEVICE_CAP_10BYTE dev_cap10;
-} __attribute__((__packed__))USB_BOS_DESC;
+} attribute(USB_BOS_DESC);
 
 typedef struct {
     u32 (*Usb_Ch9SetupDevDescReply)(struct Usb_DevData *,u8 *, u32);
@@ -184,12 +194,16 @@ typedef struct {
 	void (*Usb_SetInterfaceHandler)(struct Usb_DevData *, SetupPacket *);
 	void (*Usb_ClassReq)(struct Usb_DevData *, SetupPacket *);
 	u32 (*Usb_GetDescReply)(struct Usb_DevData *, SetupPacket *,u8 *);
-} __attribute__((__packed__))CH9FUNC_CONTAINER;
+} attribute(CH9FUNC_CONTAINER);
 
 typedef struct {
 	CH9FUNC_CONTAINER ch9_func;
 	void * data_ptr;
-} __attribute__((__packed__))USBCH9_DATA;
+} attribute(USBCH9_DATA);
+
+#ifdef __ICCARM__
+#pragma pack(pop)
+#endif
 
 /************************** Constant Definitions *****************************/
 /**

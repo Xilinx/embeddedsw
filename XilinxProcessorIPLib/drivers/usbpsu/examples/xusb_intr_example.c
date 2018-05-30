@@ -74,7 +74,11 @@
 /************************** Constant Definitions ****************************/
 #define MEMORY_SIZE (64 * 1024)
 #ifdef __ICCARM__
+#ifdef PLATFORM_ZYNQMP
+#pragma data_alignment = 64
+#else
 #pragma data_alignment = 32
+#endif
 u8 Buffer[MEMORY_SIZE];
 #pragma data_alignment = 4
 #else
@@ -121,10 +125,21 @@ XScuGic	InterruptController;	/* Interrupt controller instance */
 #endif
 
 /* Buffer for virtual flash disk space. */
+#ifdef __ICCARM__
+#ifdef PLATFORM_ZYNQMP
+#pragma data_alignment = 64
+#else
+#pragma data_alignment = 32
+#endif
+u8 VirtFlash[VFLASH_SIZE];
+USB_CBW CBW;
+USB_CSW CSW;
+#pragma data_alignment = 4
+#else
 u8 VirtFlash[VFLASH_SIZE] ALIGNMENT_CACHELINE;
-
 USB_CBW CBW ALIGNMENT_CACHELINE;
 USB_CSW CSW ALIGNMENT_CACHELINE;
+#endif
 
 u8 Phase;
 u32	rxBytesLeft;

@@ -90,7 +90,17 @@ void BulkInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed);
 struct Usb_DevData UsbInstance;
 
 /* Buffer for virtual flash disk space. */
+#ifdef __ICCARM__
+#ifdef PLATFORM_ZYNQMP
+#pragma data_alignment = 64
+#else
+#pragma data_alignment = 32
+#endif
+u8 StorageDisk[STORAGE_SIZE];
+#pragma data_alignment = 4
+#else
 u8 StorageDisk[STORAGE_SIZE] ALIGNMENT_CACHELINE;
+#endif
 
 struct storage_dev storage_dev = {
 	.disk = StorageDisk,
