@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
  ******************************************************************************/
 /*****************************************************************************/
@@ -1011,7 +1009,7 @@ static u8 StringList[2][18][128] = {
 		"Playback Active",
 		"Capture Inactive",
 		"Capture Active",
-		"DEFAULT DFU ITERFACE",
+		"DEFAULT DFU INTERFACE",
 		"7ABC7ABC7ABC7ABC7ABC7ABC"
 	},
 	{
@@ -1030,7 +1028,7 @@ static u8 StringList[2][18][128] = {
 		"Playback Active",
 		"Capture Inactive",
 		"Capture Active",
-		"DEFAULT DFU ITERFACE",
+		"DEFAULT DFU INTERFACE",
 		"7ABC7ABC7ABC7ABC7ABC7ABC"
 	},
 };
@@ -1042,7 +1040,7 @@ static u8 DFUStringList[2][6][128] = {
 		"XILINX INC",
 		"DFU 2.0 emulation v 1.1",
 		"2A49876D9CC1AA4",
-		"DEFAULT DFU RUNTIME ITERFACE",
+		"DEFAULT DFU RUNTIME INTERFACE",
 		"7ABC7ABC7ABC7ABC7ABC7ABC"
 	},
 	{
@@ -1050,7 +1048,7 @@ static u8 DFUStringList[2][6][128] = {
 		"XILINX INC",
 		"DFU 3.0 emulation v 1.1",
 		"2A49876D9CC1AA4",
-		"DEFAULT DFU RUNTIME ITERFACE",
+		"DEFAULT DFU RUNTIME INTERFACE",
 		"7ABC7ABC7ABC7ABC7ABC7ABC"
 	},
 };
