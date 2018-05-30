@@ -47,12 +47,14 @@
 * 1.4	bk  12/01/18 Modify USBPSU driver code to fit USB common example code
 *		       for all USB IPs
 *	myk 12/01/18 Added hibernation support for device mode
+* 1.4	vak 30/05/18 Removed xusb_wrapper files
 * </pre>
 *
 *****************************************************************************/
 
 /***************************** Include Files *********************************/
 #include "xusbpsu_endpoint.h"
+#include "xusbpsu.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -112,7 +114,7 @@ u32 XUsbPsu_EpGetTransferIndex(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 	Xil_AssertNonvoid((Dir == XUSBPSU_EP_DIR_IN) ||
 						(Dir == XUSBPSU_EP_DIR_OUT));
 
-	PhyEpNum = (u8)PhysicalEp(UsbEpNum, Dir);
+	PhyEpNum = (u8)XUSBPSU_PhysicalEp(UsbEpNum, Dir);
 	ResourceIndex = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DEPCMD(PhyEpNum));
 
 	return (u32)XUSBPSU_DEPCMD_GET_RSC_IDX(ResourceIndex);
@@ -144,7 +146,7 @@ s32 XUsbPsu_SendEpCmd(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Xil_AssertNonvoid((Dir == XUSBPSU_EP_DIR_IN) ||
 					  (Dir == XUSBPSU_EP_DIR_OUT));
 
-	PhyEpNum = PhysicalEp(UsbEpNum, Dir);
+	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum, Dir);
 
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DEPCMDPAR0(PhyEpNum),
 					 Params->Param0);
@@ -197,7 +199,7 @@ s32 XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum, u8 Dir)
 	Xil_AssertNonvoid((Dir == XUSBPSU_EP_DIR_IN) ||
 					  (Dir == XUSBPSU_EP_DIR_OUT));
 
-	PhyEpNum = (u8)PhysicalEp(UsbEpNum, (u32)Dir);
+	PhyEpNum = (u8)XUSBPSU_PhysicalEp(UsbEpNum, (u32)Dir);
 	Params =  XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertNonvoid(Params != NULL);
 
@@ -252,7 +254,7 @@ s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertNonvoid(Params != NULL);
 
-	PhyEpNum = PhysicalEp(UsbEpNum , Dir);
+	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum , Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	Params->Param0 = XUSBPSU_DEPCFG_EP_TYPE(Type)
@@ -359,7 +361,7 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 					  (Dir == XUSBPSU_EP_DIR_OUT));
 	Xil_AssertNonvoid((Maxsize >= 64U) && (Maxsize <= 1024U));
 
-	PhyEpNum = PhysicalEp(UsbEpNum , Dir);
+	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum , Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	Ept->UsbEpNum	= UsbEpNum;
@@ -445,7 +447,7 @@ s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	Xil_AssertNonvoid((Dir == XUSBPSU_EP_DIR_IN) ||
 						(Dir == XUSBPSU_EP_DIR_OUT));
 
-	PhyEpNum = PhysicalEp(UsbEpNum , Dir);
+	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum , Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	/* make sure HW endpoint isn't stalled */
@@ -559,7 +561,7 @@ void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 	Xil_AssertVoid(UsbEpNum <= (u8)16U);
 	Xil_AssertVoid((Dir == XUSBPSU_EP_DIR_IN) || (Dir == XUSBPSU_EP_DIR_OUT));
 
-	PhyEpNum = PhysicalEp(UsbEpNum, Dir);
+	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum, Dir);
 	Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertVoid(Params != NULL);
 
@@ -674,7 +676,7 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	Xil_AssertNonvoid(UsbEp <= (u8)16U);
 	Xil_AssertNonvoid(BufferPtr != NULL);
 
-	PhyEpNum = PhysicalEp(UsbEp, XUSBPSU_EP_DIR_IN);
+	PhyEpNum = XUSBPSU_PhysicalEp(UsbEp, XUSBPSU_EP_DIR_IN);
 	if (PhyEpNum == 1U) {
 		RetVal = XUsbPsu_Ep0Send(InstancePtr, BufferPtr, BufferLen);
 		return RetVal;
@@ -814,7 +816,7 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	Xil_AssertNonvoid(UsbEp <= (u8)16U);
 	Xil_AssertNonvoid(BufferPtr != NULL);
 
-	PhyEpNum = PhysicalEp(UsbEp, XUSBPSU_EP_DIR_OUT);
+	PhyEpNum = XUSBPSU_PhysicalEp(UsbEp, XUSBPSU_EP_DIR_OUT);
 	if (PhyEpNum == 0U) {
 		RetVal = XUsbPsu_Ep0Recv(InstancePtr, BufferPtr, Length);
 		return RetVal;
@@ -961,7 +963,7 @@ void XUsbPsu_EpSetStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 	Xil_AssertVoid(Epnum <= (u8)16U);
 	Xil_AssertVoid((Dir == XUSBPSU_EP_DIR_IN) || (Dir == XUSBPSU_EP_DIR_OUT));
 
-	PhyEpNum = PhysicalEp(Epnum, Dir);
+	PhyEpNum = XUSBPSU_PhysicalEp(Epnum, Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	Params = XUsbPsu_GetEpParams(InstancePtr);
@@ -996,7 +998,7 @@ void XUsbPsu_EpClearStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 	Xil_AssertVoid(Epnum <= (u8)16U);
 	Xil_AssertVoid((Dir == XUSBPSU_EP_DIR_IN) || (Dir == XUSBPSU_EP_DIR_OUT));
 
-	PhyEpNum = PhysicalEp(Epnum, Dir);
+	PhyEpNum = XUSBPSU_PhysicalEp(Epnum, Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	Params = XUsbPsu_GetEpParams(InstancePtr);
@@ -1032,7 +1034,7 @@ void XUsbPsu_SetEpHandler(struct XUsbPsu *InstancePtr, u8 Epnum,
 	Xil_AssertVoid(Epnum <= (u8)16U);
 	Xil_AssertVoid((Dir == XUSBPSU_EP_DIR_IN) || (Dir == XUSBPSU_EP_DIR_OUT));
 
-	PhyEpNum = PhysicalEp(Epnum, Dir);
+	PhyEpNum = XUSBPSU_PhysicalEp(Epnum, Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
 	Ept->Handler = Handler;
 }
@@ -1061,7 +1063,7 @@ s32 XUsbPsu_IsEpStalled(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 	Xil_AssertNonvoid(Epnum <= (u8)16U);
 	Xil_AssertNonvoid((Dir == XUSBPSU_EP_DIR_IN) || (Dir == XUSBPSU_EP_DIR_OUT));
 
-	PhyEpNum = PhysicalEp(Epnum, Dir);
+	PhyEpNum = XUSBPSU_PhysicalEp(Epnum, Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	return (s32)(!!(Ept->EpStatus & XUSBPSU_EP_STALL));

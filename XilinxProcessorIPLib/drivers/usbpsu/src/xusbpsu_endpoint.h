@@ -62,8 +62,8 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xil_cache.h"
-#include "xusb_wrapper.h"
 #include "xil_types.h"
+#include "xusbpsu.h"
 
 /**************************** Type Definitions *******************************/
 

@@ -113,6 +113,9 @@ extern "C" {
 #define XUSBPSU_EP_DIR_IN				1U
 #define XUSBPSU_EP_DIR_OUT				0U
 
+#define XUSBPSU_USB_DIR_OUT				0U		/* to device */
+#define XUSBPSU_USB_DIR_IN				0x80U	/* to host */
+
 #define XUSBPSU_ENDPOINT_XFERTYPE_MASK      0x03    /* in bmAttributes */
 #define XUSBPSU_ENDPOINT_XFER_CONTROL       0U
 #define XUSBPSU_ENDPOINT_XFER_ISOC          1U
@@ -273,7 +276,10 @@ typedef enum {
 #define		XUSBPSU_SPEED_HIGH				3U
 #define		XUSBPSU_SPEED_SUPER				4U
 
-
+/*
+ * return Physical EP number as dwc3 mapping
+ */
+#define XUSBPSU_PhysicalEp(epnum, direction)	(((epnum) << 1 ) | (direction))
 
 /**************************** Type Definitions ******************************/
 

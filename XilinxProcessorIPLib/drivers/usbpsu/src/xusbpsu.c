@@ -47,13 +47,14 @@
 * 1.4	bk    12/01/18 Modify USBPSU driver code to fit USB common example code
 *		       for all USB IPs.
 *	myk   12/01/18 Added hibernation support for device mode
+* 1.4	vak   30/05/18 Removed xusb_wrapper files
 * </pre>
 *
 *****************************************************************************/
 
 /***************************** Include Files ********************************/
 
-#include "xusb_wrapper.h"
+#include "xusbpsu.h"
 
 /************************** Constant Definitions *****************************/
 

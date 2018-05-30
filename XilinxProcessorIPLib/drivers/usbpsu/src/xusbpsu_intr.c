@@ -50,6 +50,7 @@
 *	vak 22/01/18 Added changes for supporting microblaze platform
 *	vak 13/03/18 Moved the setup interrupt system calls from driver to
 *		     example.
+* 1.4	vak 30/05/18 Removed xusb_wrapper files
 *
 * </pre>
 *
@@ -57,7 +58,7 @@
 
 /***************************** Include Files ********************************/
 
-#include "xusb_wrapper.h"
+#include "xusbpsu.h"
 
 /************************** Constant Definitions *****************************/
 

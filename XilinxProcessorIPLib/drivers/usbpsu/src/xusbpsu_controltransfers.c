@@ -45,7 +45,7 @@
 * 1.3	vak 04/03/17 Added CCI support for USB
 * 1.4	bk  12/01/18 Modify USBPSU driver code to fit USB common example code
 *		     for all USB IPs.
-*
+* 1.4	vak 30/05/18 Removed xusb_wrapper files
 * </pre>
 *
 *****************************************************************************/
@@ -53,7 +53,7 @@
 /***************************** Include Files *********************************/
 #include "xusbpsu_endpoint.h"
 #include "sleep.h"
-#include "xusb_wrapper.h"
+#include "xusbpsu.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -302,7 +302,7 @@ void XUsbPsu_Ep0XferComplete(struct XUsbPsu *InstancePtr,
 		} else {
 			InstancePtr->IsThreeStage = 1U;
 			InstancePtr->ControlDir = !!(Ctrl->bRequestType &
-							USB_DIR_IN);
+							XUSBPSU_USB_DIR_IN);
 		}
 
 		Xil_AssertVoid(InstancePtr->Chapter9 != NULL);
