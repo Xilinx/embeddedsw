@@ -123,6 +123,7 @@ u32 Xil_GetNextMPURegion(void);
 u32 Xil_DisableMPURegionByRegNum (u32 reg_num);
 u16 Xil_GetMPUFreeRegMask (void);
 u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib);
+void* Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags);
 
 #ifdef __cplusplus
 }
