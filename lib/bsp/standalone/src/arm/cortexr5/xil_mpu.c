@@ -69,7 +69,7 @@
 /**************************** Type Definitions *******************************/
 
 /************************** Constant Definitions *****************************/
-
+#define MPU_REGION_SIZE_MIN 0x20
 /************************** Variable Definitions *****************************/
 
 static const struct {
@@ -576,4 +576,43 @@ u32 Xil_GetNextMPURegion(void)
 		Index++;
 	}
 	return NextAvailableReg;
+}
+
+/*****************************************************************************/
+/**
+* @brief       Memory mapping for Cortex r5.
+*
+* @param       Physaddr is base physical address at which to start mapping.
+* @param       size of region to be mapped.
+* @param       flags used to set translation table.
+*
+* @return      Pointer to virtual address.
+*
+* @note:      Previously this was implemented in libmetal. Move to embeddedsw as this
+*             functionality is specific to r5.
+*
+******************************************************************************/
+void* Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
+{
+	size_t Regionsize = MPU_REGION_SIZE_MIN;
+	UINTPTR Basephysaddr;
+
+	if (!flags)
+		return (void*)&Physaddr;
+
+	while(1) {
+		if (Regionsize < size) {
+			Regionsize <<= 1;
+			continue;
+		} else {
+			Basephysaddr = Physaddr & ~(Regionsize - 1);
+			if ((Basephysaddr + Regionsize) < (Physaddr + size)) {
+				Regionsize <<= 1;
+				continue;
+			}
+			break;
+		}
+	}
+	Xil_SetMPURegion(Basephysaddr, Regionsize, flags);
+	return (void*)&Physaddr;
 }
