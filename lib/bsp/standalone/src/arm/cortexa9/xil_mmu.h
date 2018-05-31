@@ -97,6 +97,7 @@ extern "C" {
 void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib);
 void Xil_EnableMMU(void);
 void Xil_DisableMMU(void);
+void* Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags);
 
 #ifdef __cplusplus
 }

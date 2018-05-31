@@ -76,7 +76,8 @@
 /**************************** Type Definitions *******************************/
 
 /************************** Constant Definitions *****************************/
-
+#define     ARM_AR_MEM_TTB_SECT_SIZE               1024*1024
+#define     ARM_AR_MEM_TTB_SECT_SIZE_MASK          (~(ARM_AR_MEM_TTB_SECT_SIZE-1UL))
 /************************** Variable Definitions *****************************/
 
 extern u32 MMUTable;
@@ -187,4 +188,42 @@ void Xil_DisableMMU(void)
 	Reg &= (u32)(~0x800U);
 #endif
 	mtcp(XREG_CP15_SYS_CONTROL, Reg);
+}
+
+/*****************************************************************************/
+/**
+* @brief   Memory mapping for Cortex A9 processor.
+*
+* @param   PhysAddr is physical address.
+* @param   size is size of region.
+* @param   flags is flags used to set translation table.
+*
+* @return  Pointer to virtual address.
+*
+* @note: Previously this was implemented in libmetal. Move to embeddedsw as this
+*       functionality is specific to A9 processor.
+*
+******************************************************************************/
+void* Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags)
+{
+   u32 Sectionoffset;
+   u32 Ttbaddr;
+
+   if (!flags)
+       return (void*)&PhysAddr;
+
+   /* Ensure alignement on a section boundary */
+   PhysAddr &= ARM_AR_MEM_TTB_SECT_SIZE_MASK;
+
+   /* Loop through entire region of memory (one MMU section at a time).
+      Each section requires a TTB entry. */
+   for (Sectionoffset = 0; Sectionoffset < size;
+		Sectionoffset += ARM_AR_MEM_TTB_SECT_SIZE) {
+       /* Calculate translation table entry for this memory section */
+       Ttbaddr = (PhysAddr + Sectionoffset);
+
+       /* Write translation table entry value to entry address */
+       Xil_SetTlbAttributes(Ttbaddr, flags);
+   }
+   return (void*)&PhysAddr;
 }
