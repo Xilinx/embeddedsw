@@ -51,7 +51,7 @@
 *			 abort and prefetch abort into DataAbortAddr and
 *			 PrefetchAbortAddr for further use to fix CR#854523
 * 5.4	pkp	12/03/15 Added handler for undefined exception
-* 6.7	mus	04/27/18 Removed __ARM_NEON__ flag definition. Now,
+* 6.8	mus	04/27/18 Removed __ARM_NEON__ flag definition. Now,
 *			 saving/restoring of of HW floating point register
 *			 would be done through newly introduced flag
 *			 FPU_HARD_FLOAT_ABI_ENABLED. This new flag will be

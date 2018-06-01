@@ -51,7 +51,7 @@
 # 6.6   mus  02/23/18 Export macro for the debug logic configuration in
 # 		      Cortex R5 BSP, macro value is based on the
 #		      mld parameter "lockstep_mode_debug".
-# 6.7   mus  04/27/18 Updated tcl to export definition for
+# 6.8   mus  04/27/18 Updated tcl to export definition for
 #                     FPU_HARD_FLOAT_ABI_ENABLED flag to bspconfig.h,based
 #                     on -mfpu-abi option in extra compiler flags.
 #
