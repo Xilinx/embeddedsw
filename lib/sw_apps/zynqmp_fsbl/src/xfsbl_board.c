@@ -283,8 +283,8 @@ static u32 XFsbl_FMCEnable(void)
 	s32 Status;
 	u32 UStatus = 0;
 	u16 SlaveAddr;
-	XVoutCommands *VoutPtr;
 #if defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111)
+	XVoutCommands *VoutPtr;
 	u32 VadjSetting;
 	VadjSetting = SET_VADJ_0V0;
 #ifdef XPS_BOARD_ZCU104
