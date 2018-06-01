@@ -130,8 +130,6 @@ extern "C" {
 #define DATA_VOUT_MAX_VAL_L		0x00U
 #define DATA_VOUT_MAX_VAL_H		0x80U
 #define CMD_VOUT_CMD_CFG		0x21U
-#define CMD_VOUT_MARGIN_HIGH	0x25U
-#define CMD_VOUT_MARGIN_LOW		0x26U
 #define CMD_VOUT_UV_WARN_LIMIT	0x43U
 #define CMD_VOUT_UV_FAULT_LIMIT	0x44U
 #define CMD_VOUT_OV_WARN_LIMIT	0x42U
@@ -157,17 +155,12 @@ typedef struct {
 } XMultipleRecord;
 
 typedef struct XVoutCommands {
-	u32 Index;
 	u32 VoutCmdL;
 	u32 VoutCmdH;
-	u32 VoutMarHighL;
-	u32 VoutMarHighH;
 	u32 VoutOvWarnL;
 	u32 VoutOvWarnH;
 	u32 VoutOvFaultL;
 	u32 VoutOvFaultH;
-	u32 VoutMarLowL;
-	u32 VoutMarLowH;
 	u32 VoutUvWarnL;
 	u32 VoutUvWarnH;
 	u32 VoutUvFaultL;

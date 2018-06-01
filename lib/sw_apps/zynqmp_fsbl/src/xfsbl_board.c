@@ -283,7 +283,7 @@ static u32 XFsbl_FMCEnable(void)
 	s32 Status;
 	u32 UStatus = 0;
 	u16 SlaveAddr;
-
+	XVoutCommands *VoutPtr;
 #if defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111)
 	u32 VadjSetting;
 	VadjSetting = SET_VADJ_0V0;
@@ -424,26 +424,6 @@ static u32 XFsbl_FMCEnable(void)
 		 */
 	}
 
-	/* PMbus Command for ON_OFF_CFG for Unit to be ON or OFF */
-	WriteBuffer[0] = CMD_ON_OFF_CFG;
-	WriteBuffer[1] = ON_OFF_CFG_VAL_IRPS;
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
-			WriteBuffer, 2, SlaveAddr);
-	if (Status != XST_SUCCESS) {
-		UStatus = XFSBL_ERROR_I2C_WRITE;
-		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_WRITE\r\n");
-		goto END;
-	}
-
-	/* Wait until bus is idle */
-
-	while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
-		/**
-		 * For MISRA C
-		 * compliance
-		 */
-	}
-
 	/**
 	 *  Sets the format for VOUT related commands. Linear mode,
 	 * -8, -9, and -12 exponents supported. No LDO support
@@ -497,21 +477,18 @@ static u32 XFsbl_FMCEnable(void)
 	 * VadjSetting
 	 */
 	XVoutCommands LookupTable[] = {
-		{ 0, 0x33, 0x13, 0xCD, 0x14, 0x9A, 0x15, 0x66, 0x16, 0x9A, 0x11,
+		{ 0x33, 0x13, 0xCD,  0x15, 0x66, 0x16,
 				0xCD, 0x10, 0x00, 0x10 },
-		{ 1, 0x33, 0x13, 0xCD, 0x14, 0x9A, 0x15, 0x66, 0x16, 0x9A, 0x11,
+		{ 0x33, 0x13, 0x9A, 0x15, 0x66, 0x16,
 				0xCD, 0x10, 0x00, 0x10 },
-		{ 2, 0x00, 0x18, 0x9A, 0x19, 0x66, 0x1A, 0x33, 0x1B, 0x66, 0x16,
+		{ 0x00, 0x18, 0x66, 0x1A, 0x33, 0x1B,
 				0x9A, 0x15, 0xCD, 0x14 },
-		{ 3, 0xCD, 0x1C, 0x66, 0x1E, 0x33, 0x1F, 0x00, 0x20, 0x33, 0x1B,
+		{ 0xCD, 0x1C, 0x33, 0x1F, 0x00, 0x20,
 				0x66, 0x1A, 0x33, 0x1B },
-		{ 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 
 		};
 
-	for (XVoutCommands *VoutPtr = LookupTable; VoutPtr->Index != 4;
-			++VoutPtr){
-		if (VadjSetting == VoutPtr->Index) {
+		VoutPtr = &LookupTable[VadjSetting];
 		/**
 		 * PMbus Command for Vout CMD
 		 * This is a command that is used to set the
@@ -523,32 +500,6 @@ static u32 XFsbl_FMCEnable(void)
 			WriteBuffer[0] = CMD_VOUT_CMD_CFG;
 			WriteBuffer[1] = VoutPtr->VoutCmdL;
 			WriteBuffer[2] = VoutPtr->VoutCmdH;
-			Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
-						WriteBuffer, 3, SlaveAddr);
-			if (Status != XST_SUCCESS) {
-				UStatus = XFSBL_ERROR_I2C_WRITE;
-				XFsbl_Printf(DEBUG_GENERAL,
-					"XFSBL_ERROR_I2C_WRITE1\r\n");
-				goto END;
-			}
-
-			/* Wait until bus is idle */
-			while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
-				/**
-				 * For MISRA C
-				 * compliance
-				 */
-			}
-
-			/**
-			 * PMbus Command for VOUT MARGIN_HIGH
-			 * This command is used to set the output voltage
-			 * when the Operation command is set to Margin HIGH.
-			 * The exponent is set by VOUT_MODE
-			 */
-			WriteBuffer[0] = CMD_VOUT_MARGIN_HIGH;
-			WriteBuffer[1] = VoutPtr->VoutMarHighL;
-			WriteBuffer[2] = VoutPtr->VoutMarHighH;
 			Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
 						WriteBuffer, 3, SlaveAddr);
 			if (Status != XST_SUCCESS) {
@@ -613,32 +564,6 @@ static u32 XFsbl_FMCEnable(void)
 			}
 
 			/**
-			 * PMbus Command for VOUT MARGIN_LOW
-			 * This command is used to set the output voltage
-			 * when the Operation command is set to Margin LOW.
-			 * The exponent is set by VOUT_MODE
-			 */
-			WriteBuffer[0] = CMD_VOUT_MARGIN_LOW;
-			WriteBuffer[1] = VoutPtr->VoutMarLowL;
-			WriteBuffer[2] = VoutPtr->VoutMarLowH;
-			Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
-						WriteBuffer, 3, SlaveAddr);
-			if (Status != XST_SUCCESS) {
-				UStatus = XFSBL_ERROR_I2C_WRITE;
-				XFsbl_Printf(DEBUG_GENERAL,
-					"XFSBL_ERROR_I2C_WRITE\r\n");
-				goto END;
-			}
-
-			/* Wait until bus is idle */
-			while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
-				/**
-				 * For MISRA C
-				 * compliance
-				 */
-			}
-
-			/**
 			 * The VOUT_UV_WARN_LIMIT command
 			 * sets threshold for the output voltage low warning.
 			 * Masked until the unit reaches the programmed
@@ -691,8 +616,7 @@ static u32 XFsbl_FMCEnable(void)
 				 * compliance
 				 */
 			}
-		}
-	}
+
 #endif
 	XFsbl_Printf(DEBUG_INFO, "FMC VADJ Configuration Successful\n\r");
 
