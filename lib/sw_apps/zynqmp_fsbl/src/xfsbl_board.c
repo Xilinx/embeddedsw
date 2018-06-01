@@ -97,10 +97,10 @@ static u32 XFsbl_ReadMinMaxEepromVadj(u16 *MinVadj, u16 *MaxVadj)
 	XIicPs_Config *I2c0CfgPtr;
 	XMultipleRecord Ptr;
 	u8 WriteBuffer[BUF_LEN] = {0};
-	u32 UStatus, Index;
+	u32 UStatus;
 	s32 Status;
 	u16 NominalVoltage;
-	u16 EepromAddr[] = {0x50, 0x51, 0x52};
+	u16 EepromAddr = 0x54U;
 	u16 MinVoltage;
 	u16 MaxVoltage;
 
@@ -133,8 +133,8 @@ static u32 XFsbl_ReadMinMaxEepromVadj(u16 *MinVadj, u16 *MaxVadj)
 		goto END;
 	}
 
-	/* Select the Channal-1 of MUX for I2C EEprom Access */
-	WriteBuffer[0] = 0x20;
+	/* Select the Channel-1 of MUX for I2C EEprom Access */
+	WriteBuffer[0] = 0x1;
 	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
 				WriteBuffer, 1, TCA9548A_ADDR);
 	if (Status != XST_SUCCESS) {
@@ -151,10 +151,9 @@ static u32 XFsbl_ReadMinMaxEepromVadj(u16 *MinVadj, u16 *MaxVadj)
 		 */
 	}
 
-	for (Index = 0; Index < 3; Index++) {
 	/* Read the contents of FMC EEPROM to Read_Buffer */
 		Status = XIicPs_MasterRecvPolled(&I2c0InstancePtr, Read_Buffer,
-			EepromByteCount, EepromAddr[Index]);
+			EepromByteCount, EepromAddr);
 		if (Status == XST_SUCCESS) {
 			UStatus = XSFBL_EEPROM_PRESENT;
 			/* Wait until bus is idle */
@@ -165,16 +164,19 @@ static u32 XFsbl_ReadMinMaxEepromVadj(u16 *MinVadj, u16 *MaxVadj)
 					 */
 			}
 			XFsbl_Printf(DEBUG_GENERAL, "XFSBL_EEPROM PRESENT\r\n");
+		}
+		else
+		{
+			UStatus = XFSBL_FAILURE;
 			goto END;
 		}
-	}
 
     /**
      * Read the value of Nomianal Voltage
      * Minimum voltage and Maximum voltage from the
      * IPMI EEPROM DC Load multiple record area at offset 0x02
      */
-	if ((Read_Buffer[0] == 0x00) && (Read_Buffer[5] != 0x00)) {
+	if ((Read_Buffer[0] == 0x01) && (Read_Buffer[5] != 0x00)) {
 		Ptr.MultirecordHdrOff = Read_Buffer[5] * 8;
 		do {
 			Ptr.RecordType = Read_Buffer[Ptr.MultirecordHdrOff];
@@ -317,7 +319,11 @@ static u32 XFsbl_FMCEnable(void)
 	}
 
 #ifdef XPS_BOARD_ZCU104
-	XFsbl_ReadMinMaxEepromVadj(&LpcMin, &LpcMax);
+	UStatus = XFsbl_ReadMinMaxEepromVadj(&LpcMin, &LpcMax);
+	if(UStatus != XFSBL_SUCCESS)
+	{
+		goto END;
+	}
 	VadjSetting = XFsbl_CalVadj(LpcMin, LpcMax);
 #endif
 
