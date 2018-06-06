@@ -61,6 +61,7 @@ Added support for configuring lmx 5.12GHz
 Removed CalibrationMode check for DAC in XRFdc_GetMixerSettings() and XRFdc_GetNyquistZone() APIs.
 Updated lower limit of Ref clock to 102.40625MHz.
 
+
 sdiaud_v1_1:
 Changed selftest to cover all the GUI parameters like UHD SDI standard and maximum number of channels.
 Changed clk phase bit default value.
