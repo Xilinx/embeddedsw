@@ -71,13 +71,16 @@ $(document).ready(function(){initNavTree('xrfdc__intr__example_8c.html','');});
 <div class="textblock"><p>For the RFSoC Data Converter, the interrupts are mostly used for error reporting. </p>
 <p>The interrupts do not do any data processing. Since they dont do any data processing, interrupts are invoked in rare conditions. The example here attempts to demonstrate users how an error interrupt can be generated. Also once generated how does the processing happen. Upon an interrupt, the control reaches to ScuGIC interrupt handler. From there the control is transferred to the libmetal isr handling which then calls the driver interrupt handler. Users are expected to register their callbacks with the driver interrupt framework. The actual interrupt handling is expected to happen in the user provided callback.</p>
 <p>This example generates ADC fabric interrupts by writing some incorrect fabric data rate based on the read/write clocks.</p>
+<p>For zcu111 board users are expected to define XPS_BOARD_ZCU111 macro while compiling this example.</p>
 <pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 <hr/>
 
 1.0   sk     05/25/17 First release
 1.1   sk     08/09/17 Modified the example to support both Linux and
                       Baremetal.
-2.2   sk     10/18/17 Check for FIFO intr to return success.</pre><pre></pre> </div><table class="memberdecls">
+2.2   sk     10/18/17 Check for FIFO intr to return success.
+4.0   sd     04/28/18 Add Clock configuration support for ZCU111.
+      sd     05/15/18 Updated Clock configuration for lmk.</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ab5c0a56431afac742306e5d9deda46d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xrfdc__intr__example_8c.html#ab5c0a56431afac742306e5d9deda46d4">RFdcHandler</a> (void *CallBackRef, u32 Type, int Tile_Id, u32 Block_Id, u32 StatusEvent)</td></tr>

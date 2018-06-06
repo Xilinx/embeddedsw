@@ -70,85 +70,7 @@ $(document).ready(function(){initNavTree('xsysmonpsu_8h.html','');});
 <div class="title">xsysmonpsu.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>The XSysMon driver supports the Xilinx System Monitor device. </p>
-<p>The System Monitor device has the following features:</p><ul>
-<li>PL Sysmon instance has 10-bit, 200-KSPS (kilo samples per second) Analog-to-Digital Converter (ADC)</li>
-<li>PS Sysmon instance has 10-bit, 1000-KSPS ADC.</li>
-<li>Monitoring of on-chip supply voltages and temperature</li>
-<li>1 dedicated differential analog-input pair and 16 auxiliary differential analog-input pairs</li>
-<li>Automatic alarms based on user defined limits for the on-chip supply voltages and temperature</li>
-<li>Automatic Channel Sequencer, programmable averaging, programmable acquisition time for the external inputs, unipolar or differential input selection for the external inputs</li>
-<li>Inbuilt Calibration</li>
-<li>Optional interrupt request generation</li>
-<li>External Mux</li>
-</ul>
-<p>The user should refer to the hardware device specification for detailed information about the device.</p>
-<p>This header file contains the prototypes of driver functions that can be used to access the System Monitor device.</p>
-<p><b> System Monitor Channel Sequencer Modes </b></p>
-<p>The System Monitor Channel Sequencer supports the following operating modes:</p>
-<ul>
-<li><b> Default </b>: This is the default mode after power up. In this mode of operation the System Monitor operates in a sequence mode, monitoring the on chip sensors: Temperature, VCCINT, and VCCAUX.</li>
-<li><b> One pass through sequence </b>: In this mode the System Monitor converts the channels enabled in the Sequencer Channel Enable registers for a single pass and then stops.</li>
-<li><b> Continuous cycling of sequence </b>: In this mode the System Monitor converts the channels enabled in the Sequencer Channel Enable registers continuously.</li>
-<li><b> Single channel mode</b>: In this mode the System Monitor Channel Sequencer is disabled and the System Monitor operates in a Single Channel Mode. The System Monitor can operate either in a Continuous or Event driven sampling mode in the single channel mode.</li>
-</ul>
-<p><b> Initialization and Configuration </b></p>
-<p>The device driver enables higher layer software (e.g., an application) to communicate to the System Monitor device.</p>
-<p><a class="el" href="xsysmonpsu_8h.html#a8cd0584410c0931f931aa4da1e3e151b" title="This function initializes XSysMonPsu device/instance. ">XSysMonPsu_CfgInitialize()</a> API is used to initialize the System Monitor device. The user needs to first call the <a class="el" href="xsysmonpsu_8h.html#a948f08280b6195869015382d92ba8a50" title="This function looks for the device configuration based on the unique device ID. ">XSysMonPsu_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="xsysmonpsu_8h.html#a8cd0584410c0931f931aa4da1e3e151b" title="This function initializes XSysMonPsu device/instance. ">XSysMonPsu_CfgInitialize()</a> API.</p>
-<p><b>Interrupts</b></p>
-<p>The System Monitor device supports interrupt driven mode and the default operation mode is polling mode.</p>
-<p>This driver does not provide a Interrupt Service Routine (ISR) for the device. It is the responsibility of the application to provide one if needed. Refer to the interrupt example provided with this driver for details on using the device in interrupt mode.</p>
-<p><b> Virtual Memory </b></p>
-<p>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</p>
-<p><b> Threads </b></p>
-<p>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</p>
-<p><b> Asserts </b></p>
-<p>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</p>
-<p><b> Building the driver </b></p>
-<p>The <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> driver is composed of several source files. This allows the user to build and link only those parts of the driver that are necessary.</p>
-<p><b> Limitations of the driver </b></p>
-<p>System Monitor device can be accessed through the JTAG port and the AXI interface. The driver implementation does not support the simultaneous access of the device by both these interfaces. The user has to take care of this situation in the user application code.</p>
-<p><br />
-<br />
-</p>
-<pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
-<hr/>
-
-1.00  kvn    12/15/15 First release
-             02/15/16 Corrected Assert function call in
-                      XSysMonPsu_GetMonitorStatus API.
-             03/03/16 Added Temperature remote channel for Setsingle
-                      channel API. Also corrected external mux channel
-                      numbers.
-1.1   kvn    05/05/16 Modified code for MISRA-C:2012 Compliance.
-2.0   vns    08/14/16 Fixed CR #956780, added support for enabling/disabling
-                      SEQ_CH2 and SEQ_AVG2 registers, modified function
-                      prototypes of XSysMonPsu_GetSeqAvgEnables,
-                      XSysMonPsu_SetSeqAvgEnables, XSysMonPsu_SetSeqChEnables,
-                      XSysMonPsu_GetSeqChEnables,
-                      XSysMonPsu_SetSeqInputMode, XSysMonPsu_GetSeqInputMode,
-                      XSysMonPsu_SetSeqAcqTime
-                      and XSysMonPsu_GetSeqAcqTime to provide support for
-                      set/get 64 bit value.
-                      Added constants XSM_CFR_ALM_SUPPLY*(8-31)_MASKs to
-                      provide support for enabling extra PS alarams.
-2.1   sk     03/03/16 Check for PL reset before doing PL Sysmon reset.
-      ms     03/17/17 Added readme.txt file in examples folder for doxygen
-                      generation.
-      ms     04/05/17 Modified Comment lines in functions of sysmonpsu
-                      examples to recognize it as documentation block
-                      for doxygen generation.
-2.2   sk     04/14/17 Corrected temperature conversion formulas.
-2.3   mn     12/11/17 Added missing closing bracket error when C++ is used
-      mn     12/12/17 Added Conversion Support for voltages having Range of
-                      1 Volt
-      mn     12/13/17 Correct the AMS block channel numbers
-      ms     12/15/17 Added peripheral test support.
-      ms     01/04/18 Provided conditional checks for interrupt example
-                      in sysmonpsu_header.h
-      mn     03/08/18 Update Clock Divisor to the proper value</pre><pre></pre> </div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sys_mon_psu___config.html">XSysMonPsu_Config</a></td></tr>
@@ -556,7 +478,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:af83bb4ad116f2bb1ea7676050bd74b6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the calibration coefficient data for the specified parameter.  <a href="#af83bb4ad116f2bb1ea7676050bd74b6b">More...</a><br /></td></tr>
 <tr class="separator:af83bb4ad116f2bb1ea7676050bd74b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4312c89ab0280cd7df2de940193fe32"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu_8h.html#aa4312c89ab0280cd7df2de940193fe32">XSysMonPsu_GetMinMaxMeasurement</a> (<a class="el" href="struct_x_sys_mon_psu.html">XSysMonPsu</a> *InstancePtr, u8 MeasurementType, u32 SysmonBlk)</td></tr>
-<tr class="memdesc:aa4312c89ab0280cd7df2de940193fe32"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the Minimum/Maximum measurement for one of the XSM_MIN_* or XSM_MAX_* constants defined in <a class="el" href="xsysmonpsu_8h.html" title="The XSysMon driver supports the Xilinx System Monitor device. ">xsysmonpsu.h</a>.  <a href="#aa4312c89ab0280cd7df2de940193fe32">More...</a><br /></td></tr>
+<tr class="memdesc:aa4312c89ab0280cd7df2de940193fe32"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the Minimum/Maximum measurement for one of the XSM_MIN_* or XSM_MAX_* constants defined in <a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a>.  <a href="#aa4312c89ab0280cd7df2de940193fe32">More...</a><br /></td></tr>
 <tr class="separator:aa4312c89ab0280cd7df2de940193fe32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a711d9441ecb7c36f22b11f941d7f994b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu_8h.html#a711d9441ecb7c36f22b11f941d7f994b">XSysMonPsu_SetAvg</a> (<a class="el" href="struct_x_sys_mon_psu.html">XSysMonPsu</a> *InstancePtr, u8 Average, u32 SysmonBlk)</td></tr>
 <tr class="memdesc:a711d9441ecb7c36f22b11f941d7f994b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the number of samples of averaging that is to be done for all the channels in both the single channel mode and sequence mode of operations.  <a href="#a711d9441ecb7c36f22b11f941d7f994b">More...</a><br /></td></tr>
@@ -2889,7 +2811,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">Channel</td><td>is the channel number. Use the XSM_CH_* defined in the file <a class="el" href="xsysmonpsu_8h.html" title="The XSysMon driver supports the Xilinx System Monitor device. ">xsysmonpsu.h</a>. The valid channels for PS / PL SysMon are 0 - 6, 8 - 10 and 13 - 37. For AMS, 38 - 53 channels are valid. </td></tr>
+    <tr><td class="paramname">Channel</td><td>is the channel number. Use the XSM_CH_* defined in the file <a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a>. The valid channels for PS / PL SysMon are 0 - 6, 8 - 10 and 13 - 37. For AMS, 38 - 53 channels are valid. </td></tr>
     <tr><td class="paramname">Block</td><td>is the value that tells whether it is for PS Sysmon block or PL Sysmon block or the AMS controller register region.</td></tr>
   </table>
   </dd>
@@ -2935,7 +2857,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>This is the bit-mask of the enabled alarm outputs in the Configuration Register 1. Use the masks XSYSMONPSU_CFG_REG1_ALRM_*_MASK masks defined in <a class="el" href="xsysmonpsu_8h.html" title="The XSysMon driver supports the Xilinx System Monitor device. ">xsysmonpsu.h</a> to interpret the returned value.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>This is the bit-mask of the enabled alarm outputs in the Configuration Register 1. Use the masks XSYSMONPSU_CFG_REG1_ALRM_*_MASK masks defined in <a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a> to interpret the returned value.</dd></dl>
 <p>Bit positions of 1 indicate that the alarm output is enabled. Bit positions of 0 indicate that the alarm output is disabled.</p>
 <dl class="section note"><dt>Note</dt><dd>The implementation of the alarm enables in the Configuration register 1 is such that alarms for the bit positions of 1 will be disabled and alarms for bit positions of 0 will be enabled. The enabled alarm outputs returned by this function is the negated value of the the data read from the Configuration Register 1. Upper 16 bits of return value are valid only if the channel selected is PS. </dd></dl>
 
@@ -2979,7 +2901,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">AlarmThrReg</td><td>is the index of an Alarm Threshold Register to be read. Use XSM_ATR_* constants defined in <a class="el" href="xsysmonpsu_8h.html" title="The XSysMon driver supports the Xilinx System Monitor device. ">xsysmonpsu.h</a> to specify the index. </td></tr>
+    <tr><td class="paramname">AlarmThrReg</td><td>is the index of an Alarm Threshold Register to be read. Use XSM_ATR_* constants defined in <a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a> to specify the index. </td></tr>
     <tr><td class="paramname">SysmonBlk</td><td>is the value that tells whether it is for PS Sysmon block or PL Sysmon block register region.</td></tr>
   </table>
   </dd>
@@ -3025,7 +2947,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The averaging read from the Configuration Register 0 is returned. Use the XSM_AVG_* bit definitions defined in <a class="el" href="xsysmonpsu_8h.html" title="The XSysMon driver supports the Xilinx System Monitor device. ">xsysmonpsu.h</a> file to interpret the returned value :<ul>
+<dl class="section return"><dt>Returns</dt><dd>The averaging read from the Configuration Register 0 is returned. Use the XSM_AVG_* bit definitions defined in <a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a> file to interpret the returned value :<ul>
 <li>XSM_AVG_0_SAMPLES means no averaging</li>
 <li>XSM_AVG_16_SAMPLES means 16 samples of averaging</li>
 <li>XSM_AVG_64_SAMPLES means 64 samples of averaging</li>
@@ -3074,7 +2996,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">CoeffType</td><td>specifies the calibration coefficient to be read. Use XSM_CALIB_* constants defined in <a class="el" href="xsysmonpsu_8h.html" title="The XSysMon driver supports the Xilinx System Monitor device. ">xsysmonpsu.h</a> to specify the calibration coefficient to be read. </td></tr>
+    <tr><td class="paramname">CoeffType</td><td>specifies the calibration coefficient to be read. Use XSM_CALIB_* constants defined in <a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a> to specify the calibration coefficient to be read. </td></tr>
     <tr><td class="paramname">SysmonBlk</td><td>is the value that tells whether it is for PS Sysmon block or PL Sysmon block register region.</td></tr>
   </table>
   </dd>
@@ -3159,11 +3081,11 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function reads the Minimum/Maximum measurement for one of the XSM_MIN_* or XSM_MAX_* constants defined in <a class="el" href="xsysmonpsu_8h.html" title="The XSysMon driver supports the Xilinx System Monitor device. ">xsysmonpsu.h</a>. </p>
+<p>This function reads the Minimum/Maximum measurement for one of the XSM_MIN_* or XSM_MAX_* constants defined in <a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">MeasurementType</td><td>specifies the parameter for which the Minimum/Maximum measurement has to be read. Use XSM_MAX_* and XSM_MIN_* constants defined in <a class="el" href="xsysmonpsu_8h.html" title="The XSysMon driver supports the Xilinx System Monitor device. ">xsysmonpsu.h</a> to specify the data to be read. </td></tr>
+    <tr><td class="paramname">MeasurementType</td><td>specifies the parameter for which the Minimum/Maximum measurement has to be read. Use XSM_MAX_* and XSM_MIN_* constants defined in <a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a> to specify the data to be read. </td></tr>
     <tr><td class="paramname">SysmonBlk</td><td>is the value that tells whether it is for PS Sysmon block or PL Sysmon block register region.</td></tr>
   </table>
   </dd>
@@ -3197,7 +3119,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns the monitor status. See XSYSMONPSU_MON_STS_*_MASK definations present in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a> for knowing the status.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns the monitor status. See XSYSMONPSU_MON_STS_*_MASK definations present in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a> for knowing the status.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None</dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_sys_mon_psu___config.html#a8b2fb5ceb1c132536b320f0b317bb1c6">XSysMonPsu_Config::BaseAddress</a>, <a class="el" href="struct_x_sys_mon_psu.html#a37b1b3b387db33d8aedcbe611b27e45b">XSysMonPsu::Config</a>, <a class="el" href="struct_x_sys_mon_psu.html#ae4e48efa3298714b2e190f2dbfc9566a">XSysMonPsu::IsReady</a>, <a class="el" href="xsysmonpsu__hw_8h.html#a621f41dbdff59725822f0dc2f29ac1e8">XSYSMONPSU_MON_STS_OFFSET</a>, and <a class="el" href="xsysmonpsu__hw_8h.html#ae9106d31caad5928fff1fc352968f9c1">XSysmonPsu_ReadReg</a>.</p>
@@ -3238,7 +3160,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The acquisition time for all the channels. Use XSYSMONPSU_SEQ_ACQ* defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a> to interpret the Channel numbers. Bit masks of 1 are the channels for which acquisition cycles are extended and bit mask of 0 are the channels for which acquisition cycles are not extended.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The acquisition time for all the channels. Use XSYSMONPSU_SEQ_ACQ* defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a> to interpret the Channel numbers. Bit masks of 1 are the channels for which acquisition cycles are extended and bit mask of 0 are the channels for which acquisition cycles are not extended.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_sys_mon_psu.html#ae4e48efa3298714b2e190f2dbfc9566a">XSysMonPsu::IsReady</a>.</p>
@@ -3279,7 +3201,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The status of averaging (enabled/disabled) for all the channels. Use XSYSMONPSU_SEQ_AVERAGE* defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a> to interpret the Channel numbers. Bit masks of 1 are the channels for which averaging is enabled and bit mask of 0 are the channels for averaging is disabled.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The status of averaging (enabled/disabled) for all the channels. Use XSYSMONPSU_SEQ_AVERAGE* defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a> to interpret the Channel numbers. Bit masks of 1 are the channels for which averaging is enabled and bit mask of 0 are the channels for averaging is disabled.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_sys_mon_psu.html#ae4e48efa3298714b2e190f2dbfc9566a">XSysMonPsu::IsReady</a>.</p>
@@ -3320,7 +3242,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Gets the channel enable bits. Use XSYSMONPSU_SEQ_CH* defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a> to interpret the Channel numbers. Bit masks of 1 are the channels that are enabled and bit mask of 0 are the channels that are disabled.</dd>
+<dl class="section return"><dt>Returns</dt><dd>Gets the channel enable bits. Use XSYSMONPSU_SEQ_CH* defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a> to interpret the Channel numbers. Bit masks of 1 are the channels that are enabled and bit mask of 0 are the channels that are disabled.</dd>
 <dd>
 None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
@@ -3363,7 +3285,7 @@ None.</dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The input mode for all the channels. Use XSYSMONPSU_SEQ_INPUT_MDE* defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a> to interpret the Channel numbers. Bit masks of 1 are the channels for which input mode is differential/Bipolar and bit mask of 0 are the channels for which input mode is unipolar.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The input mode for all the channels. Use XSYSMONPSU_SEQ_INPUT_MDE* defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a> to interpret the Channel numbers. Bit masks of 1 are the channels for which input mode is differential/Bipolar and bit mask of 0 are the channels for which input mode is unipolar.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_sys_mon_psu.html#ae4e48efa3298714b2e190f2dbfc9566a">XSysMonPsu::IsReady</a>.</p>
@@ -3493,7 +3415,7 @@ None.</dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A 32-bit value representing the contents of the Status Register. Use the XSYSMONPSU_MON_STS_* constants defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a> to interpret the returned value.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A 32-bit value representing the contents of the Status Register. Use the XSYSMONPSU_MON_STS_* constants defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a> to interpret the returned value.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_sys_mon_psu.html#ae4e48efa3298714b2e190f2dbfc9566a">XSysMonPsu::IsReady</a>.</p>
@@ -3530,7 +3452,7 @@ None.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">Mask</td><td>is the 64 bit-mask of the interrupts to be cleared. Bit positions of 1 will be cleared. Bit positions of 0 will not change the previous interrupt status. This mask is formed by OR'ing the XSYSMONPSU_ISR_0_* and XSYSMONPSU_ISR_1_* bits which are defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a>.</td></tr>
+    <tr><td class="paramname">Mask</td><td>is the 64 bit-mask of the interrupts to be cleared. Bit positions of 1 will be cleared. Bit positions of 0 will not change the previous interrupt status. This mask is formed by OR'ing the XSYSMONPSU_ISR_0_* and XSYSMONPSU_ISR_1_* bits which are defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -3538,6 +3460,8 @@ None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_sys_mon_psu___config.html#a8b2fb5ceb1c132536b320f0b317bb1c6">XSysMonPsu_Config::BaseAddress</a>, <a class="el" href="struct_x_sys_mon_psu.html#a37b1b3b387db33d8aedcbe611b27e45b">XSysMonPsu::Config</a>, <a class="el" href="struct_x_sys_mon_psu.html#ae4e48efa3298714b2e190f2dbfc9566a">XSysMonPsu::IsReady</a>, <a class="el" href="xsysmonpsu__hw_8h.html#a83ea9d678f45ad885e86555b51d308cd">XSYSMONPSU_ISR_0_OFFSET</a>, and <a class="el" href="xsysmonpsu__hw_8h.html#ae9106d31caad5928fff1fc352968f9c1">XSysmonPsu_ReadReg</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="xsysmonpsu__ams__example_8c.html#a6e50715ab0def63d0fa4ad6ce47fcb3b">SysMonPsuAMSExample()</a>.</p>
 
 </div>
 </div>
@@ -3571,7 +3495,7 @@ None.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">Mask</td><td>is the 64 bit-mask of the interrupts to be disabled. Bit positions of 1 will be disabled. Bit positions of 0 will keep the previous setting. This mask is formed by OR'ing XSYSMONPSU_IDR_0_* and XSYSMONPSU_IDR_1_* bits defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a>.</td></tr>
+    <tr><td class="paramname">Mask</td><td>is the 64 bit-mask of the interrupts to be disabled. Bit positions of 1 will be disabled. Bit positions of 0 will keep the previous setting. This mask is formed by OR'ing XSYSMONPSU_IDR_0_* and XSYSMONPSU_IDR_1_* bits defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -3612,7 +3536,7 @@ None.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">Mask</td><td>is the 64 bit-mask of the interrupts to be enabled. Bit positions of 1 will be enabled. Bit positions of 0 will keep the previous setting. This mask is formed by OR'ing XSYSMONPSU_IER_0_* and XSYSMONPSU_IER_1_* bits defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a>.</td></tr>
+    <tr><td class="paramname">Mask</td><td>is the 64 bit-mask of the interrupts to be enabled. Bit positions of 1 will be enabled. Bit positions of 0 will keep the previous setting. This mask is formed by OR'ing XSYSMONPSU_IER_0_* and XSYSMONPSU_IER_1_* bits defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -3640,7 +3564,7 @@ None.</dd></dl>
 </div><div class="memdoc">
 
 <p>This function returns the enabled interrupts read from the Interrupt Enable Register (IER). </p>
-<p>Use the XSYSMONPSU_IER_0_* and XSYSMONPSU_IER_1_* constants defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a> to interpret the returned value.</p>
+<p>Use the XSYSMONPSU_IER_0_* and XSYSMONPSU_IER_1_* constants defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a> to interpret the returned value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance.</td></tr>
@@ -3671,7 +3595,7 @@ None.</dd></dl>
 </div><div class="memdoc">
 
 <p>This function returns the interrupt status read from Interrupt Status Register(ISR). </p>
-<p>Use the XSYSMONPSU_ISR_0_* and XSYSMONPSU_ISR_1_ constants defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a> to interpret the returned value.</p>
+<p>Use the XSYSMONPSU_ISR_0_* and XSYSMONPSU_ISR_1_ constants defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a> to interpret the returned value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance.</td></tr>
@@ -3682,6 +3606,8 @@ None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_sys_mon_psu___config.html#a8b2fb5ceb1c132536b320f0b317bb1c6">XSysMonPsu_Config::BaseAddress</a>, <a class="el" href="struct_x_sys_mon_psu.html#a37b1b3b387db33d8aedcbe611b27e45b">XSysMonPsu::Config</a>, <a class="el" href="struct_x_sys_mon_psu.html#ae4e48efa3298714b2e190f2dbfc9566a">XSysMonPsu::IsReady</a>, <a class="el" href="xsysmonpsu__hw_8h.html#a83ea9d678f45ad885e86555b51d308cd">XSYSMONPSU_ISR_0_OFFSET</a>, and <a class="el" href="xsysmonpsu__hw_8h.html#ae9106d31caad5928fff1fc352968f9c1">XSysmonPsu_ReadReg</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="xsysmonpsu__ams__example_8c.html#a6e50715ab0def63d0fa4ad6ce47fcb3b">SysMonPsuAMSExample()</a>.</p>
 
 </div>
 </div>
@@ -3897,7 +3823,7 @@ None.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">AlmEnableMask</td><td>is the bit-mask of the alarm outputs to be enabled in the Configuration Registers 1 and 3. Bit positions of 1 will be enabled. Bit positions of 0 will be disabled. This mask is formed by OR'ing XSYSMONPSU_CFR_REG1_ALRM_*_MASK masks defined in <a class="el" href="xsysmonpsu_8h.html" title="The XSysMon driver supports the Xilinx System Monitor device. ">xsysmonpsu.h</a>, but XSM_CFR_ALM_SUPPLY8_MASK to XSM_CFR_ALM_SUPPLY13_MASK are applicable only for PS. </td></tr>
+    <tr><td class="paramname">AlmEnableMask</td><td>is the bit-mask of the alarm outputs to be enabled in the Configuration Registers 1 and 3. Bit positions of 1 will be enabled. Bit positions of 0 will be disabled. This mask is formed by OR'ing XSYSMONPSU_CFR_REG1_ALRM_*_MASK masks defined in <a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a>, but XSM_CFR_ALM_SUPPLY8_MASK to XSM_CFR_ALM_SUPPLY13_MASK are applicable only for PS. </td></tr>
     <tr><td class="paramname">SysmonBlk</td><td>is the value that tells whether it is for PS Sysmon block or PL Sysmon block register region.</td></tr>
   </table>
   </dd>
@@ -3951,7 +3877,7 @@ None.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">AlarmThrReg</td><td>is the index of an Alarm Threshold Register to be set. Use XSM_ATR_* constants defined in <a class="el" href="xsysmonpsu_8h.html" title="The XSysMon driver supports the Xilinx System Monitor device. ">xsysmonpsu.h</a> to specify the index. </td></tr>
+    <tr><td class="paramname">AlarmThrReg</td><td>is the index of an Alarm Threshold Register to be set. Use XSM_ATR_* constants defined in <a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a> to specify the index. </td></tr>
     <tr><td class="paramname">Value</td><td>is the 16-bit threshold value to write into the register. </td></tr>
     <tr><td class="paramname">SysmonBlk</td><td>is the value that tells whether it is for PS Sysmon block or PL Sysmon block register region.</td></tr>
   </table>
@@ -4002,7 +3928,7 @@ None.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">Average</td><td>is the number of samples of averaging programmed to the Configuration Register 0. Use the XSM_AVG_* definitions defined in <a class="el" href="xsysmonpsu_8h.html" title="The XSysMon driver supports the Xilinx System Monitor device. ">xsysmonpsu.h</a> file :<ul>
+    <tr><td class="paramname">Average</td><td>is the number of samples of averaging programmed to the Configuration Register 0. Use the XSM_AVG_* definitions defined in <a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a> file :<ul>
 <li>XSM_AVG_0_SAMPLES for no averaging</li>
 <li>XSM_AVG_16_SAMPLES for 16 samples of averaging</li>
 <li>XSM_AVG_64_SAMPLES for 64 samples of averaging</li>
@@ -4139,7 +4065,7 @@ None.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">AcqCyclesChMask</td><td>is the bit mask of all the channels for which the number of acquisition cycles is to be extended. Use XSYSMONPSU_SEQ_ACQ* defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a> to specify the Channel numbers. Acquisition cycles will be extended to 10 ADCCLK cycles for bit masks of 1 and will be the default 4 ADCCLK cycles for bit masks of 0. The AcqCyclesChMask is a 64 bit mask that is written to the three 16 bit ADC Channel Acquisition Time Sequencer Registers. </td></tr>
+    <tr><td class="paramname">AcqCyclesChMask</td><td>is the bit mask of all the channels for which the number of acquisition cycles is to be extended. Use XSYSMONPSU_SEQ_ACQ* defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a> to specify the Channel numbers. Acquisition cycles will be extended to 10 ADCCLK cycles for bit masks of 1 and will be the default 4 ADCCLK cycles for bit masks of 0. The AcqCyclesChMask is a 64 bit mask that is written to the three 16 bit ADC Channel Acquisition Time Sequencer Registers. </td></tr>
     <tr><td class="paramname">SysmonBlk</td><td>is the value that tells whether it is for PS Sysmon block or PL Sysmon block register region.</td></tr>
   </table>
   </dd>
@@ -4192,7 +4118,7 @@ None.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">AvgEnableChMask</td><td>is the bit mask of all the channels for which averaging is to be enabled. Use XSYSMONPSU_SEQ_AVERAGE* defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a> to specify the Channel numbers. Averaging will be enabled for bit masks of 1 and disabled for bit mask of 0. The AvgEnableChMask is a 64 bit mask that is written to the three 16 bit ADC Channel Averaging Enable Sequencer Registers. </td></tr>
+    <tr><td class="paramname">AvgEnableChMask</td><td>is the bit mask of all the channels for which averaging is to be enabled. Use XSYSMONPSU_SEQ_AVERAGE* defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a> to specify the Channel numbers. Averaging will be enabled for bit masks of 1 and disabled for bit mask of 0. The AvgEnableChMask is a 64 bit mask that is written to the three 16 bit ADC Channel Averaging Enable Sequencer Registers. </td></tr>
     <tr><td class="paramname">SysmonBlk</td><td>is the value that tells whether it is for PS Sysmon block or PL Sysmon block register region.</td></tr>
   </table>
   </dd>
@@ -4298,7 +4224,7 @@ None.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">InputModeChMask</td><td>is the bit mask of all the channels for which the input mode is differential mode. Use XSYSMONPSU_SEQ_INPUT_MDE* defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a> to specify the channel numbers. Differential or Bipolar input mode will be set for bit masks of 1 and unipolar input mode for bit masks of 0. The InputModeChMask is a 64 bit mask that is written to the three 16 bit ADC Channel Analog-Input Mode Sequencer Registers. </td></tr>
+    <tr><td class="paramname">InputModeChMask</td><td>is the bit mask of all the channels for which the input mode is differential mode. Use XSYSMONPSU_SEQ_INPUT_MDE* defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a> to specify the channel numbers. Differential or Bipolar input mode will be set for bit masks of 1 and unipolar input mode for bit masks of 0. The InputModeChMask is a 64 bit mask that is written to the three 16 bit ADC Channel Analog-Input Mode Sequencer Registers. </td></tr>
     <tr><td class="paramname">SysmonBlk</td><td>is the value that tells whether it is for PS Sysmon block or PL Sysmon block register region.</td></tr>
   </table>
   </dd>
@@ -4405,7 +4331,7 @@ None.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">SequencerMode</td><td>is the sequencer mode to be set. Use XSM_SEQ_MODE_* bits defined in <a class="el" href="xsysmonpsu_8h.html" title="The XSysMon driver supports the Xilinx System Monitor device. ">xsysmonpsu.h</a>. </td></tr>
+    <tr><td class="paramname">SequencerMode</td><td>is the sequencer mode to be set. Use XSM_SEQ_MODE_* bits defined in <a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a>. </td></tr>
     <tr><td class="paramname">SysmonBlk</td><td>is the value that tells whether it is for PS Sysmon block or PL Sysmon block register region.</td></tr>
   </table>
   </dd>

@@ -1,4 +1,4 @@
 var xiicps__intr_8c =
 [
-    [ "XIicPs_SetStatusHandler", "group__iicps__v3__5.html#gab2581047e7d5607fe96fe0dac9673527", null ]
+    [ "XIicPs_SetStatusHandler", "group__iicps__v3__7.html#gab2581047e7d5607fe96fe0dac9673527", null ]
 ];

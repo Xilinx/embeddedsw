@@ -2,6 +2,7 @@ var files =
 [
     [ "xrfdc.c", "xrfdc_8c.html", "xrfdc_8c" ],
     [ "xrfdc.h", "xrfdc_8h.html", "xrfdc_8h" ],
+    [ "xrfdc_clk.c", "xrfdc__clk_8c.html", null ],
     [ "xrfdc_g.c", "xrfdc__g_8c.html", "xrfdc__g_8c" ],
     [ "xrfdc_hw.h", "xrfdc__hw_8h.html", "xrfdc__hw_8h" ],
     [ "xrfdc_intr.c", "xrfdc__intr_8c.html", "xrfdc__intr_8c" ],

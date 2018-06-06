@@ -72,7 +72,9 @@ $(document).ready(function(){initNavTree('xrfdc__read__write__example_8c.html','
 <p>Subsequently it uses "get" APIs to read back the configurations to ensure that the desired configurations are applied.</p>
 <p>For DAC it sets the following configurations: MixerSettings, QMCSettings, Write Fabricrate, Decoder mode, Output Current and Coarse Delay.</p>
 <p>For ADC it sets the following configurations: MixerSettings, QMCSettings, Read Fabricrate and Threshold Settings. This example shows how to change the configurations for ADC and DAC using driver functions.</p>
-<p>NOTE: The purpose of the example is to show how to use the driver APIs. For real user scenarios this example will not be relevant. </p><pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+<p>NOTE: The purpose of the example is to show how to use the driver APIs. For real user scenarios this example will not be relevant.</p>
+<p>For zcu111 board users are expected to define XPS_BOARD_ZCU111 macro while compiling this example.</p>
+<pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 <hr/>
 
 1.0   sk     05/15/17 First release
@@ -81,7 +83,9 @@ $(document).ready(function(){initNavTree('xrfdc__read__write__example_8c.html','
       sk     08/23/17 Add Nyquist Zone test case.
       sk     09/25/17 Add GetOutput Current test case.
 2.4   sk     12/11/17 Add test case for DDC and DUC.
-3.2   sk     03/01/18 Add test case for Multiband.</pre><pre></pre> </div><table class="memberdecls">
+3.2   sk     03/01/18 Add test case for Multiband.
+4.0   sd     04/28/18 Add Clock configuration support for ZCU111.
+      sd     05/15/18 Updated Clock configuration for lmk.</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xrfdc__read__write__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>

@@ -58,20 +58,10 @@
 *                      examples.
 * 1.4	bk    12/01/18 Modify USBPSU driver code to fit USB common example code
 *		       for all USB IPs.
-<<<<<<< HEAD
-<<<<<<< HEAD
 *	myk   12/01/18 Added hibernation support for device mode
 *	vak   22/01/18 Added changes for supporting microblaze platform
-<<<<<<< HEAD
 *	vak   13/03/18 Moved the setup interrupt system calls from driver to
 *		       example.
-=======
->>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
-=======
-*	myk   12/01/18 Added hibernation support for device mode
->>>>>>> drivers: usbpsu: Add hibernation support for usb
-=======
->>>>>>> drivers: usbpsu: add microblaze support to usbpsu driver
 *
 * </pre>
 *
@@ -94,21 +84,7 @@ extern "C" {
 #include "xstatus.h"
 #include "xusbpsu_hw.h"
 #include "xil_io.h"
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
-#include "xscugic.h"
->>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
-=======
-
-#ifdef XPAR_INTC_0_DEVICE_ID
-#include "xintc.h"
-#elif defined PLATFORM_ZYNQMP
-#include "xscugic.h"
-#endif
-
->>>>>>> drivers: usbpsu: add microblaze support to usbpsu driver
 /*
  * The header sleep.h and API usleep() can only be used with an arm design.
  * MB_Sleep() is used for microblaze design.
@@ -126,10 +102,7 @@ extern "C" {
 
 #define NO_OF_TRB_PER_EP		2
 
-<<<<<<< HEAD
 #ifdef PLATFORM_ZYNQMP
-=======
->>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
 #define ALIGNMENT_CACHELINE		__attribute__ ((aligned(64)))
 #else
 #define ALIGNMENT_CACHELINE		__attribute__ ((aligned(32)))
@@ -463,16 +436,8 @@ struct XUsbPsu {
 	u8 UnalignedTx;
 	u8 IsConfigDone;
 	u8 IsThreeStage;
-<<<<<<< HEAD
-<<<<<<< HEAD
 	u8 IsHibernated;                /**< Hibernated state */
 	u8 HasHibernation;              /**< Has hibernation support */
-=======
->>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
-=======
-	u8 IsHibernated;                /**< Hibernated state */
-	u8 HasHibernation;              /**< Has hibernation support */
->>>>>>> drivers: usbpsu: Add hibernation support for usb
 	void *data_ptr;		/* pointer for storing applications data */
 };
 
@@ -703,15 +668,7 @@ s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 				u16 Size, u8 Type, u8 Restore);
 s32 XUsbPsu_SetXferResource(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir);
 s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
-<<<<<<< HEAD
-<<<<<<< HEAD
 				u16 Maxsize, u8 Type, u8 Restore);
-=======
-				u16 Maxsize, u8 Type);
->>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
-=======
-				u16 Maxsize, u8 Type, u8 Restore);
->>>>>>> drivers: usbpsu: Add hibernation support for usb
 s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir);
 s32 XUsbPsu_EnableControlEp(struct XUsbPsu *InstancePtr, u16 Size);
 void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr);
@@ -774,17 +731,6 @@ void XUsbPsu_EventHandler(struct XUsbPsu *InstancePtr,
                 const union XUsbPsu_Event *Event);
 void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr);
 void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr);
-
-#ifdef XUSBPSU_HIBERNATION_ENABLE
-void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr);
-void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr);
-void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr);
-void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr);
-s32 XUsbPsu_SetupScratchpad(struct XUsbPsu *InstancePtr);
-#endif
-
-s32 XUsbPsu_SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
-			void *IntcInstancePtr);
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr);

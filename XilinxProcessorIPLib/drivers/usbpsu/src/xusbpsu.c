@@ -46,14 +46,7 @@
 * 1.1   sg    10/24/16 Added new function XUsbPsu_IsSuperSpeed
 * 1.4	bk    12/01/18 Modify USBPSU driver code to fit USB common example code
 *		       for all USB IPs.
-<<<<<<< HEAD
-<<<<<<< HEAD
 *	myk   12/01/18 Added hibernation support for device mode
-=======
->>>>>>> drivers: usbpsu: change driver for adding common example code for all USB IPs
-=======
-*	myk   12/01/18 Added hibernation support for device mode
->>>>>>> drivers: usbpsu: Add hibernation support for usb
 * </pre>
 *
 *****************************************************************************/

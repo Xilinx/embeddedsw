@@ -123,11 +123,7 @@ struct dfu_if {
 	u32 total_transfers;
 	u32 total_bytes_dnloaded;
 	u32 total_bytes_uploaded;
-<<<<<<< HEAD
 	volatile u8 dfu_wait_for_interrupt;
-=======
-	u8 dfu_wait_for_interrupt;
->>>>>>> drivers: usbpsu: Change dfu example code to be in sync with common example code
 	u8 is_dfu;
 	u8 runtime_to_dfu;
 };

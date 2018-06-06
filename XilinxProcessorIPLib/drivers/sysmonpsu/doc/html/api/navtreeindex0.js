@@ -9,8 +9,8 @@ var NAVTREEINDEX0 =
 "files.html":[2],
 "functions.html":[0,1,0],
 "functions_vars.html":[0,1,1],
-"globals.html":[1,0],
 "globals.html":[1,0,0],
+"globals.html":[1,0],
 "globals_defs.html":[1,4,0],
 "globals_defs.html":[1,4],
 "globals_func.html":[1,1],
@@ -22,7 +22,8 @@ var NAVTREEINDEX0 =
 "pages.html":[],
 "struct_x_sys_mon_psu.html":[0,0,0],
 "struct_x_sys_mon_psu.html#a37b1b3b387db33d8aedcbe611b27e45b":[0,0,0,1],
-"struct_x_sys_mon_psu.html#ae4e48efa3298714b2e190f2dbfc9566a":[0,0,0,2],
+"struct_x_sys_mon_psu.html#aa71eec0e2a0e06244feded448d359278":[0,0,0,2],
+"struct_x_sys_mon_psu.html#ae4e48efa3298714b2e190f2dbfc9566a":[0,0,0,3],
 "struct_x_sys_mon_psu.html#af937c4d2141574d90d79bea0c909713e":[0,0,0,0],
 "struct_x_sys_mon_psu___config.html":[0,0,1],
 "struct_x_sys_mon_psu___config.html#a7ff0bfe3d5f7cb06792fe7ed481711ad":[0,0,1,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "xsysmonpsu__hw_8h.html#a223b55c4cf54d98be0b94a0c79e5a041":[2,4,122],
 "xsysmonpsu__hw_8h.html#a234b8a08f4ce052751b2f7e50b8546ad":[2,4,52],
 "xsysmonpsu__hw_8h.html#a26a83b449c5188602bafa2bfaa24e18c":[2,4,83],
-"xsysmonpsu__hw_8h.html#a28087627fdc979f91185c35516f9b2a0":[2,4,69],
-"xsysmonpsu__hw_8h.html#a2deb727c6b3705ab2c3190a2d9341af5":[2,4,111]
+"xsysmonpsu__hw_8h.html#a28087627fdc979f91185c35516f9b2a0":[2,4,69]
 };

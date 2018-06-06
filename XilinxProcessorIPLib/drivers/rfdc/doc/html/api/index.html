@@ -139,7 +139,20 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
       jm     03/12/18 Fixed DAC latency calculation in MTS.
       jm     03/12/18 Added support for reloading DTC scans.
       jm     03/12/18 Add option to configure sysref capture after MTS.
-      sk     03/22/18 Updated PLL settings based on latest IP values.</pre><pre></pre> </div></div><!-- contents -->
+      sk     03/22/18 Updated PLL settings based on latest IP values.
+4.0   sk     04/09/18 Added API to enable/disable the sysref.
+      sk     04/09/18 Updated max VCO to 13108MHz to support max DAC
+                      sample rate of 6.554MHz.
+      rk     04/17/18 Adjust calculated latency by sysref period, where doing
+                      so results in closer alignment to the target latency.
+      sk     04/17/18 Corrected Set/Get MixerSettings API description for
+                      FineMixerScale parameter.
+      sk     04/19/18 Enable VCO Auto selection while configuring the clock.
+      sk     04/24/18 Add API to get PLL Configurations.
+      sk     04/24/18 Add API to get the Link Coupling mode.
+      sk     04/28/18 Implement timeouts for PLL Lock, Startup and shutdown.
+      sk     05/30/18 Removed CalibrationMode check for DAC.
+      sk     06/05/18 Updated minimum Ref clock value to 102.40625MHz.</pre><pre></pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

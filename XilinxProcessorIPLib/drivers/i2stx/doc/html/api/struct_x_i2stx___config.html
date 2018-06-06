@@ -74,19 +74,19 @@ $(document).ready(function(){initNavTree('struct_x_i2stx___config.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a1cc38afcbc4c3273e97aca5b75d50641"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i2stx___config.html#a1cc38afcbc4c3273e97aca5b75d50641">DeviceId</a></td></tr>
-<tr class="memdesc:a1cc38afcbc4c3273e97aca5b75d50641"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeviceId is the unique ID of the I2s Transmitter.  <a href="#a1cc38afcbc4c3273e97aca5b75d50641">More...</a><br /></td></tr>
+<tr class="memdesc:a1cc38afcbc4c3273e97aca5b75d50641"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeviceId is unique ID of the I2s Tx.  <a href="#a1cc38afcbc4c3273e97aca5b75d50641">More...</a><br /></td></tr>
 <tr class="separator:a1cc38afcbc4c3273e97aca5b75d50641"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af68feefd4d9c6ccefa84679124e68735"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i2stx___config.html#af68feefd4d9c6ccefa84679124e68735">BaseAddress</a></td></tr>
-<tr class="memdesc:af68feefd4d9c6ccefa84679124e68735"><td class="mdescLeft">&#160;</td><td class="mdescRight">BaseAddress is the physical base address of the core's registers.  <a href="#af68feefd4d9c6ccefa84679124e68735">More...</a><br /></td></tr>
+<tr class="memdesc:af68feefd4d9c6ccefa84679124e68735"><td class="mdescLeft">&#160;</td><td class="mdescRight">BaseAddress is physical address of registers.  <a href="#af68feefd4d9c6ccefa84679124e68735">More...</a><br /></td></tr>
 <tr class="separator:af68feefd4d9c6ccefa84679124e68735"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3490395f577210a6eddf197e4466923a"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i2stx___config.html#a3490395f577210a6eddf197e4466923a">DWidth</a></td></tr>
-<tr class="memdesc:a3490395f577210a6eddf197e4466923a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data Width (16 bit or 24 bit) of the I2s Transmitter core.  <a href="#a3490395f577210a6eddf197e4466923a">More...</a><br /></td></tr>
+<tr class="memdesc:a3490395f577210a6eddf197e4466923a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data Width (16/24bit) of I2s Tx core.  <a href="#a3490395f577210a6eddf197e4466923a">More...</a><br /></td></tr>
 <tr class="separator:a3490395f577210a6eddf197e4466923a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a859e555af49b28a0fc21cc78001654e5"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i2stx___config.html#a859e555af49b28a0fc21cc78001654e5">IsMaster</a></td></tr>
-<tr class="memdesc:a859e555af49b28a0fc21cc78001654e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">IsMaster (true or false) for the I2s Transmitter core.  <a href="#a859e555af49b28a0fc21cc78001654e5">More...</a><br /></td></tr>
+<tr class="memdesc:a859e555af49b28a0fc21cc78001654e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">IsMaster(TRUE/FALSE) for I2s Tx core.  <a href="#a859e555af49b28a0fc21cc78001654e5">More...</a><br /></td></tr>
 <tr class="separator:a859e555af49b28a0fc21cc78001654e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43a22f65a31208715277ffd61dc2d3fe"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i2stx___config.html#a43a22f65a31208715277ffd61dc2d3fe">MaxNumChannels</a></td></tr>
-<tr class="memdesc:a43a22f65a31208715277ffd61dc2d3fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of channels supported by the I2s Transmitter core.  <a href="#a43a22f65a31208715277ffd61dc2d3fe">More...</a><br /></td></tr>
+<tr class="memdesc:a43a22f65a31208715277ffd61dc2d3fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max channels supported by I2s Tx core.  <a href="#a43a22f65a31208715277ffd61dc2d3fe">More...</a><br /></td></tr>
 <tr class="separator:a43a22f65a31208715277ffd61dc2d3fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -104,9 +104,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>BaseAddress is the physical base address of the core's registers. </p>
+<p>BaseAddress is physical address of registers. </p>
 
-<p class="reference">Referenced by <a class="el" href="xi2stx__selftest__example_8c.html#a3b48b73e19976c8d41c321471431f674">I2sSelfTestExample()</a>, <a class="el" href="group__i2stx__v1__0.html#gab33cb9b421dbb85cef8a75a0dbf8a1dd">XI2s_Tx_CfgInitialize()</a>, <a class="el" href="group__i2stx__v1__0.html#gac4321c85028de0ddb48f966d80325b10">XI2s_Tx_Enable()</a>, <a class="el" href="group__i2stx__v1__0.html#gab68c1f16ccac1a678e93bd9c3bcdaed0">XI2s_Tx_GetAesChStatus()</a>, <a class="el" href="group__i2stx__v1__0.html#gab8f9b6a032bcb91ac82b9552f1ba3194">XI2s_Tx_IntrDisable()</a>, <a class="el" href="group__i2stx__v1__0.html#ga8d2df1eb8affcff7f6b1eacad5016b39">XI2s_Tx_IntrEnable()</a>, <a class="el" href="group__i2stx__v1__0.html#gad17911935c47159f6b1c144c3df63ce2">XI2s_Tx_IntrHandler()</a>, <a class="el" href="group__i2stx__v1__0.html#ga265a3458a6fd3232bba3df9f9341e3cd">XI2s_Tx_SetChMux()</a>, and <a class="el" href="group__i2stx__v1__0.html#gacdd2c6678f1038ca76099cbcaebe1fde">XI2s_Tx_SetSclkOutDiv()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xi2stx__selftest__example_8c.html#a3b48b73e19976c8d41c321471431f674">I2sSelfTestExample()</a>, <a class="el" href="group__i2stx__v1__1.html#gab33cb9b421dbb85cef8a75a0dbf8a1dd">XI2s_Tx_CfgInitialize()</a>, <a class="el" href="group__i2stx__v1__1.html#gac4321c85028de0ddb48f966d80325b10">XI2s_Tx_Enable()</a>, <a class="el" href="group__i2stx__v1__1.html#gab68c1f16ccac1a678e93bd9c3bcdaed0">XI2s_Tx_GetAesChStatus()</a>, <a class="el" href="group__i2stx__v1__1.html#gab8f9b6a032bcb91ac82b9552f1ba3194">XI2s_Tx_IntrDisable()</a>, <a class="el" href="group__i2stx__v1__1.html#ga8d2df1eb8affcff7f6b1eacad5016b39">XI2s_Tx_IntrEnable()</a>, <a class="el" href="group__i2stx__v1__1.html#gad17911935c47159f6b1c144c3df63ce2">XI2s_Tx_IntrHandler()</a>, <a class="el" href="group__i2stx__v1__1.html#ga265a3458a6fd3232bba3df9f9341e3cd">XI2s_Tx_SetChMux()</a>, and <a class="el" href="group__i2stx__v1__1.html#gacdd2c6678f1038ca76099cbcaebe1fde">XI2s_Tx_SetSclkOutDiv()</a>.</p>
 
 </div>
 </div>
@@ -122,9 +122,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>DeviceId is the unique ID of the I2s Transmitter. </p>
+<p>DeviceId is unique ID of the I2s Tx. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__i2stx__v1__0.html#ga6ecb01665e82e3373ad2de2085a8dc87">XI2s_Tx_LogDisplay()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__i2stx__v1__1.html#ga6ecb01665e82e3373ad2de2085a8dc87">XI2s_Tx_LogDisplay()</a>.</p>
 
 </div>
 </div>
@@ -140,9 +140,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Data Width (16 bit or 24 bit) of the I2s Transmitter core. </p>
+<p>Data Width (16/24bit) of I2s Tx core. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__i2stx__v1__0.html#gacdd2c6678f1038ca76099cbcaebe1fde">XI2s_Tx_SetSclkOutDiv()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__i2stx__v1__1.html#gacdd2c6678f1038ca76099cbcaebe1fde">XI2s_Tx_SetSclkOutDiv()</a>.</p>
 
 </div>
 </div>
@@ -158,7 +158,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>IsMaster (true or false) for the I2s Transmitter core. </p>
+<p>IsMaster(TRUE/FALSE) for I2s Tx core. </p>
 
 </div>
 </div>
@@ -174,7 +174,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Maximum number of channels supported by the I2s Transmitter core. </p>
+<p>Max channels supported by I2s Tx core. </p>
 
 </div>
 </div>

@@ -67,14 +67,7 @@ $(document).ready(function(){initNavTree('xsysmonpsu__intr_8c.html','');});
 <div class="title">xsysmonpsu_intr.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains functions related to SYSMONPSU interrupt handling. </p>
-<pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
-<hr/>
-
-1.0   kvn    12/15/15 First release
-</pre> </div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a97be122426bd5302e93b45ba5a3fc8ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu__intr_8c.html#a97be122426bd5302e93b45ba5a3fc8ec">XSysMonPsu_IntrEnable</a> (<a class="el" href="struct_x_sys_mon_psu.html">XSysMonPsu</a> *InstancePtr, u64 Mask)</td></tr>
@@ -124,7 +117,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">Mask</td><td>is the 64 bit-mask of the interrupts to be cleared. Bit positions of 1 will be cleared. Bit positions of 0 will not change the previous interrupt status. This mask is formed by OR'ing the XSYSMONPSU_ISR_0_* and XSYSMONPSU_ISR_1_* bits which are defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a>.</td></tr>
+    <tr><td class="paramname">Mask</td><td>is the 64 bit-mask of the interrupts to be cleared. Bit positions of 1 will be cleared. Bit positions of 0 will not change the previous interrupt status. This mask is formed by OR'ing the XSYSMONPSU_ISR_0_* and XSYSMONPSU_ISR_1_* bits which are defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -132,6 +125,8 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_sys_mon_psu___config.html#a8b2fb5ceb1c132536b320f0b317bb1c6">XSysMonPsu_Config::BaseAddress</a>, <a class="el" href="struct_x_sys_mon_psu.html#a37b1b3b387db33d8aedcbe611b27e45b">XSysMonPsu::Config</a>, <a class="el" href="struct_x_sys_mon_psu.html#ae4e48efa3298714b2e190f2dbfc9566a">XSysMonPsu::IsReady</a>, <a class="el" href="xsysmonpsu__hw_8h.html#a83ea9d678f45ad885e86555b51d308cd">XSYSMONPSU_ISR_0_OFFSET</a>, and <a class="el" href="xsysmonpsu__hw_8h.html#ae9106d31caad5928fff1fc352968f9c1">XSysmonPsu_ReadReg</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="xsysmonpsu__ams__example_8c.html#a6e50715ab0def63d0fa4ad6ce47fcb3b">SysMonPsuAMSExample()</a>.</p>
 
 </div>
 </div>
@@ -165,7 +160,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">Mask</td><td>is the 64 bit-mask of the interrupts to be disabled. Bit positions of 1 will be disabled. Bit positions of 0 will keep the previous setting. This mask is formed by OR'ing XSYSMONPSU_IDR_0_* and XSYSMONPSU_IDR_1_* bits defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a>.</td></tr>
+    <tr><td class="paramname">Mask</td><td>is the 64 bit-mask of the interrupts to be disabled. Bit positions of 1 will be disabled. Bit positions of 0 will keep the previous setting. This mask is formed by OR'ing XSYSMONPSU_IDR_0_* and XSYSMONPSU_IDR_1_* bits defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -206,7 +201,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance. </td></tr>
-    <tr><td class="paramname">Mask</td><td>is the 64 bit-mask of the interrupts to be enabled. Bit positions of 1 will be enabled. Bit positions of 0 will keep the previous setting. This mask is formed by OR'ing XSYSMONPSU_IER_0_* and XSYSMONPSU_IER_1_* bits defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a>.</td></tr>
+    <tr><td class="paramname">Mask</td><td>is the 64 bit-mask of the interrupts to be enabled. Bit positions of 1 will be enabled. Bit positions of 0 will keep the previous setting. This mask is formed by OR'ing XSYSMONPSU_IER_0_* and XSYSMONPSU_IER_1_* bits defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -234,7 +229,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function returns the enabled interrupts read from the Interrupt Enable Register (IER). </p>
-<p>Use the XSYSMONPSU_IER_0_* and XSYSMONPSU_IER_1_* constants defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a> to interpret the returned value.</p>
+<p>Use the XSYSMONPSU_IER_0_* and XSYSMONPSU_IER_1_* constants defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a> to interpret the returned value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance.</td></tr>
@@ -265,7 +260,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function returns the interrupt status read from Interrupt Status Register(ISR). </p>
-<p>Use the XSYSMONPSU_ISR_0_* and XSYSMONPSU_ISR_1_ constants defined in <a class="el" href="xsysmonpsu__hw_8h.html" title="This header file contains the identifiers and basic driver functions (or macros) that can be used to ...">xsysmonpsu_hw.h</a> to interpret the returned value.</p>
+<p>Use the XSYSMONPSU_ISR_0_* and XSYSMONPSU_ISR_1_ constants defined in <a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a> to interpret the returned value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance.</td></tr>
@@ -276,6 +271,8 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_sys_mon_psu___config.html#a8b2fb5ceb1c132536b320f0b317bb1c6">XSysMonPsu_Config::BaseAddress</a>, <a class="el" href="struct_x_sys_mon_psu.html#a37b1b3b387db33d8aedcbe611b27e45b">XSysMonPsu::Config</a>, <a class="el" href="struct_x_sys_mon_psu.html#ae4e48efa3298714b2e190f2dbfc9566a">XSysMonPsu::IsReady</a>, <a class="el" href="xsysmonpsu__hw_8h.html#a83ea9d678f45ad885e86555b51d308cd">XSYSMONPSU_ISR_0_OFFSET</a>, and <a class="el" href="xsysmonpsu__hw_8h.html#ae9106d31caad5928fff1fc352968f9c1">XSysmonPsu_ReadReg</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="xsysmonpsu__ams__example_8c.html#a6e50715ab0def63d0fa4ad6ce47fcb3b">SysMonPsuAMSExample()</a>.</p>
 
 </div>
 </div>

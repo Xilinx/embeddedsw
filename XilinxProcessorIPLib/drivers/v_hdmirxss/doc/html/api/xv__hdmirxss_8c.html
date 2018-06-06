@@ -136,15 +136,19 @@ $(document).ready(function(){initNavTree('xv__hdmirxss_8c.html','');});
         EB     16/01/18 Added parsing of InfoFrames during AuxCallback
                         Changed XV_HdmiRxSs_RetrieveVSInfoframe's input
                             parameter type
-                        Added function XV_HdmiRxSs_GetAviInfoframe, 
+                        Added function XV_HdmiRxSs_GetAviInfoframe,
                             XV_HdmiRxSs_GetGCP, XV_HdmiRxSs_GetAudioInfoframe,
                             XV_HdmiRxSs_GetVSIF
-                        Updated XV_HdmiRxSs_ConfigBridgeMode so Pixel 
+                        Updated XV_HdmiRxSs_ConfigBridgeMode so Pixel
                             Pepetition is based on received AVI InfoFrame
         SM     28/02/18 Added definition of <a class="el" href="xv__hdmirxss_8c.html#a3c8f4247ffd9a6540e8aed78e23699a7" title="This function will set the major and minor application version in RXSs struct. ">XV_HdmiRxSS_SetAppVersion()</a> API
-******************************************************************************/</pre><pre>/***************************** Include Files *********************************/</pre><pre><h1>121 "/proj/xhdsswstaff/vdubakul/2018.1_Release/github/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" 2</h1>
+  5.10  MMO    06/04/18 Updated XV_HdmiRxSs_ToggleHpd and XV_HdmiRxSs_Stop
+                            for cleaner HPD flow during transition from HDMI2.0
+                            to HDMI1.4
+        YH     13/04/18 Fixed a bug in XV_HdmiRxSs_BrdgOverflowCallback
+******************************************************************************/</pre><pre>/***************************** Include Files *********************************/</pre><pre><h1>125 "/proj/xhdsswstaff/saddepal/rebase_esw/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" 2</h1>
 </pre><pre>
-<h1>122 "/proj/xhdsswstaff/vdubakul/2018.1_Release/github/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" 2</h1>
+<h1>126 "/proj/xhdsswstaff/saddepal/rebase_esw/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" 2</h1>
 </pre><pre></pre><pre>/************************** Constant Definitions *****************************/</pre><pre>/**************************** Type Definitions *******************************/
 /**
    This typedef declares the driver instances of all the cores in the subsystem
@@ -448,7 +452,7 @@ int XV_HdmiRxSs_CfgInitialize(<a class="el" href="struct_x_v___hdmi_rx_ss.html" 
 void XV_HdmiRxSs_Start(XV_HdmiRxSs *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);</dd></dl>
-XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_START, 0);</pre><pre>  /* Set RX hot plug detect */
+XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_START, 0);</pre><pre>  /* Drive HDMI RX HPD High */
   XV_HdmiRx_SetHpd(InstancePtr-&gt;HdmiRxPtr, TRUE);</pre><pre>  /* Disable Audio Peripheral */
   XV_HdmiRx_AudioDisable(InstancePtr-&gt;HdmiRxPtr);
   XV_HdmiRx_AudioIntrDisable(InstancePtr-&gt;HdmiRxPtr);
@@ -465,7 +469,10 @@ XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_START, 0);</pre><pre>  /* 
 ******************************************************************************/
 void XV_HdmiRxSs_Stop(XV_HdmiRxSs *InstancePtr)
 {
-  Xil_AssertVoid(InstancePtr != NULL);</pre><pre>  XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_STOP, 0);</pre><pre>}</pre><pre>/*****************************************************************************/
+  Xil_AssertVoid(InstancePtr != NULL);</pre><pre>  /* Clear SCDC variables */
+  XV_HdmiRx_DdcScdcClear(InstancePtr-&gt;HdmiRxPtr);</pre><pre>  /* Disable the scrambler */
+  XV_HdmiRx_SetScrambler(InstancePtr-&gt;HdmiRxPtr, (FALSE));</pre><pre>  /* Drive HDMI RX HPD Low */
+  XV_HdmiRx_SetHpd(InstancePtr-&gt;HdmiRxPtr, (FALSE));</pre><pre>  XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_STOP, 0);</pre><pre>}</pre><pre>/*****************************************************************************/
 /**
   This function resets the video subsystem sub-cores. There are 2 reset
   networks within the subsystem<ul>
@@ -491,7 +498,7 @@ void XV_HdmiRxSs_Reset(XV_HdmiRxSs *InstancePtr)
   XV_HdmiRxSs_SYSRST(InstancePtr, FALSE);
 }</pre><pre>/*****************************************************************************/
 /**
-  This function asserts or releases the Internal Video reset 
+  This function asserts or releases the Internal Video reset
   of the HDMI subcore within the subsystem</pre><pre><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the Subsystem instance to be worked on.</td></tr>
@@ -505,7 +512,7 @@ void XV_HdmiRxSs_RXCore_VRST(XV_HdmiRxSs *InstancePtr, u8 Reset)
   Xil_AssertVoid(InstancePtr != NULL);</pre><pre>  XV_HdmiRx_INT_VRST(InstancePtr-&gt;HdmiRxPtr, Reset);
 }</pre><pre>/*****************************************************************************/
 /**
-  This function asserts or releases the Internal Link reset 
+  This function asserts or releases the Internal Link reset
   of the HDMI subcore within the subsystem</pre><pre><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the Subsystem instance to be worked on.</td></tr>
@@ -519,7 +526,7 @@ void XV_HdmiRxSs_RXCore_LRST(XV_HdmiRxSs *InstancePtr, u8 Reset)
   Xil_AssertVoid(InstancePtr != NULL);</pre><pre>  XV_HdmiRx_INT_LRST(InstancePtr-&gt;HdmiRxPtr, Reset);
 }</pre><pre>/*****************************************************************************/
 /**
-  This function asserts or releases the video reset of other 
+  This function asserts or releases the video reset of other
   blocks within the subsystem</pre><pre><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the Subsystem instance to be worked on.</td></tr>
@@ -533,7 +540,7 @@ void XV_HdmiRxSs_VRST(XV_HdmiRxSs *InstancePtr, u8 Reset)
   Xil_AssertVoid(InstancePtr != NULL);</pre><pre>  XV_HdmiRx_EXT_VRST(InstancePtr-&gt;HdmiRxPtr, Reset);
 }</pre><pre>/*****************************************************************************/
 /**
-  This function asserts or releases the system reset of other 
+  This function asserts or releases the system reset of other
   blocks within the subsystem</pre><pre><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the Subsystem instance to be worked on.</td></tr>
@@ -558,8 +565,8 @@ void XV_HdmiRxSs_SYSRST(XV_HdmiRxSs *InstancePtr, u8 Reset)
 static void XV_HdmiRxSs_BrdgOverflowCallback(void *CallbackRef)
 {
   <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *HdmiRxSsPtr = (<a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *)CallbackRef;</pre><pre>  // Check if user callback has been registered
-  if (HdmiRxSsPtr-&gt;ConnectCallback) {
-    HdmiRxSsPtr-&gt;ConnectCallback(HdmiRxSsPtr-&gt;ConnectRef);
+  if (HdmiRxSsPtr-&gt;BrdgOverflowCallback) {
+    HdmiRxSsPtr-&gt;BrdgOverflowCallback(HdmiRxSsPtr-&gt;BrdgOverflowRef);
   }</pre><pre>}</pre><pre>/*****************************************************************************/
 /**</pre><pre>  This function is called when a RX connect event has occurred.</pre><pre><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -610,9 +617,9 @@ static void XV_HdmiRxSs_AuxCallback(void *CallbackRef)
           (void)memset((void *)AviInfoFramePtr, 0, sizeof(XHdmiC_AVI_InfoFrame));
           // Parse Aux to retrieve Avi InfoFrame
           XV_HdmiC_ParseAVIInfoFrame(AuxPtr, AviInfoFramePtr);
-          HdmiRxSsPtr-&gt;HdmiRxPtr-&gt;Stream.Video.ColorFormatId = 
+          HdmiRxSsPtr-&gt;HdmiRxPtr-&gt;Stream.Video.ColorFormatId =
                                 XV_HdmiRx_GetAviColorSpace(HdmiRxSsPtr-&gt;HdmiRxPtr);
-          HdmiRxSsPtr-&gt;HdmiRxPtr-&gt;Stream.Vic = 
+          HdmiRxSsPtr-&gt;HdmiRxPtr-&gt;Stream.Vic =
                                 XV_HdmiRx_GetAviVic(HdmiRxSsPtr-&gt;HdmiRxPtr);
           HdmiRxSsPtr-&gt;HdmiRxPtr-&gt;Stream.Video.AspectRatio =
                                 XV_HdmiC_IFAspectRatio_To_XVidC(HdmiRxSsPtr-&gt;AVIInfoframe.PicAspectRatio);

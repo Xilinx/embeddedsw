@@ -1,9 +1,6 @@
 var struct_x_i2s___rx =
 [
-    [ "AesBlkCmpltHandler", "struct_x_i2s___rx.html#a9dcab9eceedaf6eb5ba5639a6f469e9d", null ],
-    [ "AesBlkCmpltRef", "struct_x_i2s___rx.html#af63159ab15b109fa022a810672ca25c5", null ],
     [ "AudOverflowHandler", "struct_x_i2s___rx.html#a0e284b134511282b0e3402dc679b057d", null ],
-    [ "AudOverflowRef", "struct_x_i2s___rx.html#a8e7042f620d5d7a8f45056fa727390f8", null ],
     [ "Config", "struct_x_i2s___rx.html#a7657d091fcc3dd42b0a8d86a1713b18f", null ],
     [ "IsReady", "struct_x_i2s___rx.html#af37339d572a56a98e696f0dec19b0c74", null ],
     [ "IsStarted", "struct_x_i2s___rx.html#a03429754d7904790001a12c6ab28877f", null ],

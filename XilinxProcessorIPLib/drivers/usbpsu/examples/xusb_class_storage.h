@@ -81,11 +81,7 @@ extern "C" {
 
 /* Virtual Flash memory related definitions.
  */
-<<<<<<< HEAD
 #ifdef __MICROBLAZE__
-=======
-#ifdef AXI_USB
->>>>>>> drivers: usbpsu: Add common mass storage example changes
 /* 16MB due to limited memory on AXIUSB platform. */
 #define VFLASH_SIZE			0x1000000	/* 16MB space */
 #else
