@@ -72,8 +72,8 @@ extern "C" {
 #define CRL_APB_BOOTMODE_1_HI 	0x00000202U
 #define CRL_APB_BOOTMODE_1_LO 	0x00000002U
 
-#define IIC_SCLK_RATE_IOEXP		400000
-#define IIC_SCLK_RATE_I2CMUX 	600000
+#define IIC_SCLK_RATE_IOEXP		400000U
+#define IIC_SCLK_RATE_I2CMUX 	600000U
 
 #define IOEXPANDER1_ADDR		0x20U
 #define PCA9544A_ADDR			0x75U
@@ -135,12 +135,45 @@ extern "C" {
 #define CMD_VOUT_OV_WARN_LIMIT	0x42U
 #define CMD_VOUT_OV_FAULT_LIMIT	0x40U
 
-#define MULTIRECORD_HEADER_SIZE				5
-#define DC_LOAD								0x02
-#define SET_VADJ_0V0							0
-#define SET_VADJ_1V2							1
-#define SET_VADJ_1V5							2
-#define SET_VADJ_1V8							3
+#define MULTIRECORD_HEADER_SIZE				0x5U
+#define DC_LOAD								0x2U
+#define SET_VADJ_0V0						0x0U
+#define SET_VADJ_1V2						0x1U
+#define SET_VADJ_1V5						0x2U
+#define SET_VADJ_1V8						0x3U
+/** Vout values for 1.2V output voltage */
+#define VOUT_CMDL_1V2						0x33U
+#define VOUT_CMDH_1V2						0x13U
+#define VOUT_OV_WARNL_1V2					0xCDU
+#define VOUT_OV_WARNH_1V2					0x15U
+#define VOUT_OV_FAULTL_1V2					0x66U
+#define VOUT_OV_FAULTH_1V2					0x16U
+#define VOUT_UV_WARNL_1V2					0xCDU
+#define VOUT_UV_WARNH_1V2					0x10U
+#define VOUT_UV_FAULTL_1V2					0x00U
+#define VOUT_UV_FAULTH_1V2					0x10U
+/** Vout values for 1.5V output voltage */
+#define VOUT_CMDL_1V5						0x00U
+#define VOUT_CMDH_1V5						0x18U
+#define VOUT_OV_WARNL_1V5					0x66U
+#define VOUT_OV_WARNH_1V5					0x1AU
+#define VOUT_OV_FAULTL_1V5					0x33U
+#define VOUT_OV_FAULTH_1V5					0x1BU
+#define VOUT_UV_WARNL_1V5					0x9AU
+#define VOUT_UV_WARNH_1V5					0x15U
+#define VOUT_UV_FAULTL_1V5					0xCDU
+#define VOUT_UV_FAULTH_1V5					0x14U
+/** Vout values for 1.8V output voltage */
+#define VOUT_CMDL_1V8						0xCDU
+#define VOUT_CMDH_1V8						0x1CU
+#define VOUT_OV_WARNL_1V8					0x33U
+#define VOUT_OV_WARNH_1V8					0x1FU
+#define VOUT_OV_FAULTL_1V8					0x00U
+#define VOUT_OV_FAULTH_1V8					0x20U
+#define VOUT_UV_WARNL_1V8					0x66U
+#define VOUT_UV_WARNH_1V8					0x1AU
+#define VOUT_UV_FAULTL_1V8					0x33U
+#define VOUT_UV_FAULTH_1V8					0x1BU
 
 /**************************** Type Definitions *******************************/
 typedef struct {
