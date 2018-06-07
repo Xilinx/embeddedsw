@@ -66,11 +66,12 @@
 
 /************************** Function Prototypes ******************************/
 #ifdef XPS_BOARD_ZCU104
-static u32 XFsbl_ReadMinMaxEepromVadj(u16 *MinVadj, u16 *MaxVadj);
+static u32 XFsbl_ReadMinMaxEepromVadj(XIicPs* I2c0InstancePtr, u16 *MinVadj, u16 *MaxVadj);
 static u32 XFsbl_CalVadj(u16 MinVoltage, u16 MaxVoltage);
 #endif
 static u32 XFsbl_BoardConfig(void);
 static void XFsbl_UsbPhyReset(void);
+static u32 XFsbl_FMCEnable(XIicPs* I2c0InstancePtr);
 #if defined(XPS_BOARD_ZCU102)
 static void XFsbl_PcieReset(void);
 #endif
@@ -90,11 +91,9 @@ u8 Read_Buffer[MAX_SIZE];
  * @return none
  *
  *****************************************************************************/
-static u32 XFsbl_ReadMinMaxEepromVadj(u16 *MinVadj, u16 *MaxVadj)
+static u32 XFsbl_ReadMinMaxEepromVadj(XIicPs* I2c0InstancePtr, u16 *MinVadj, u16 *MaxVadj)
 {
-	XIicPs I2c0InstancePtr;
 	u32 Count, EepromByteCount;
-	XIicPs_Config *I2c0CfgPtr;
 	XMultipleRecord Ptr;
 	u8 WriteBuffer[BUF_LEN] = {0};
 	u32 UStatus;
@@ -109,33 +108,9 @@ static u32 XFsbl_ReadMinMaxEepromVadj(u16 *MinVadj, u16 *MaxVadj)
 	MaxVoltage = 0;
 	Ptr.VadjRecordFound = 0;
 
-	/* Initialize the IIC0 driver so that it is ready to use */
-	I2c0CfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
-	if (I2c0CfgPtr == NULL) {
-		UStatus = XFSBL_ERROR_I2C_INIT;
-		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_INIT\r\n");
-		goto END;
-	}
-
-	Status = XIicPs_CfgInitialize(&I2c0InstancePtr, I2c0CfgPtr,
-			I2c0CfgPtr->BaseAddress);
-	if (Status != XST_SUCCESS) {
-		UStatus = XFSBL_ERROR_I2C_INIT;
-		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_INIT\r\n");
-		goto END;
-	}
-
-	/* Set the IIC serial clock rate */
-	Status = XIicPs_SetSClk(&I2c0InstancePtr, IIC_SCLK_RATE_I2CMUX);
-	if (Status != XST_SUCCESS) {
-		UStatus  = XFSBL_ERROR_I2C_SET_SCLK;
-		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_SET_SCLK\r\n");
-		goto END;
-	}
-
 	/* Select the Channel-1 of MUX for I2C EEprom Access */
 	WriteBuffer[0] = 0x1;
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+	Status = XIicPs_MasterSendPolled(I2c0InstancePtr,
 				WriteBuffer, 1, TCA9548A_ADDR);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_ERROR_I2C_WRITE;
@@ -144,7 +119,7 @@ static u32 XFsbl_ReadMinMaxEepromVadj(u16 *MinVadj, u16 *MaxVadj)
 	}
 
 	/* Wait until bus is idle */
-	while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+	while (XIicPs_BusIsBusy(I2c0InstancePtr) > 0) {
 		/**
 		 * For MISRA C
 		 * compliance
@@ -152,12 +127,12 @@ static u32 XFsbl_ReadMinMaxEepromVadj(u16 *MinVadj, u16 *MaxVadj)
 	}
 
 	/* Read the contents of FMC EEPROM to Read_Buffer */
-		Status = XIicPs_MasterRecvPolled(&I2c0InstancePtr, Read_Buffer,
+		Status = XIicPs_MasterRecvPolled(I2c0InstancePtr, Read_Buffer,
 			EepromByteCount, EepromAddr);
 		if (Status == XST_SUCCESS) {
 			UStatus = XSFBL_EEPROM_PRESENT;
 			/* Wait until bus is idle */
-			while (XIicPs_BusIsBusy(&I2c0InstancePtr)!=XST_SUCCESS) {
+			while (XIicPs_BusIsBusy(I2c0InstancePtr)!=XST_SUCCESS) {
 					/**
 					 * For MISRA C
 					 * compliance
@@ -268,17 +243,15 @@ static u32 XFsbl_CalVadj(u16 MinVoltage, u16 MaxVoltage)
  *		- Programming the VADJ rail to Calculated VADJ
  *	if( EEPROM IS BLANK )
  *	-	Programming the VADJ rail to 1.2v
- * @param none
+ * @param I2c Instance Pointer
  *
  * @return
  *	- XFSBL_SUCCESS for successful configuration
  *	- errors as mentioned in xfsbl_error.h
  *
  *****************************************************************************/
-static u32 XFsbl_FMCEnable(void)
+static u32 XFsbl_FMCEnable(XIicPs* I2c0InstancePtr)
 {
-	XIicPs I2c0InstancePtr;
-	XIicPs_Config *I2c0CfgPtr;
 	u8 WriteBuffer[BUF_LEN] = {0};
 	s32 Status;
 	u32 UStatus = 0;
@@ -294,24 +267,8 @@ static u32 XFsbl_FMCEnable(void)
 #endif
 #endif
 
-	/* Initialize the IIC0 driver so that it is ready to use */
-	I2c0CfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
-	if (I2c0CfgPtr == NULL) {
-		UStatus = XFSBL_ERROR_I2C_INIT;
-		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_INIT\r\n");
-		goto END;
-	}
-
-	Status = XIicPs_CfgInitialize(&I2c0InstancePtr, I2c0CfgPtr,
-			I2c0CfgPtr->BaseAddress);
-	if (Status != XST_SUCCESS) {
-		UStatus = XFSBL_ERROR_I2C_INIT;
-		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_INIT\r\n");
-		goto END;
-	}
-
 	/* Change the IIC serial clock rate */
-	Status = XIicPs_SetSClk(&I2c0InstancePtr, IIC_SCLK_RATE_I2CMUX);
+	Status = XIicPs_SetSClk(I2c0InstancePtr, IIC_SCLK_RATE_I2CMUX);
 	if (Status != XST_SUCCESS) {
 		UStatus  = XFSBL_ERROR_I2C_SET_SCLK;
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_SET_SCLK\r\n");
@@ -319,7 +276,7 @@ static u32 XFsbl_FMCEnable(void)
 	}
 
 #ifdef XPS_BOARD_ZCU104
-	UStatus = XFsbl_ReadMinMaxEepromVadj(&LpcMin, &LpcMax);
+	UStatus = XFsbl_ReadMinMaxEepromVadj(I2c0InstancePtr, &LpcMin, &LpcMax);
 	if(UStatus != XFSBL_SUCCESS)
 	{
 		goto END;
@@ -339,7 +296,7 @@ static u32 XFsbl_FMCEnable(void)
 	SlaveAddr = TCA9548A_ADDR;
 #endif
 
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+	Status = XIicPs_MasterSendPolled(I2c0InstancePtr,
 			WriteBuffer, 1, SlaveAddr);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_ERROR_I2C_WRITE;
@@ -348,7 +305,7 @@ static u32 XFsbl_FMCEnable(void)
 	}
 
 	/* Wait until bus is idle */
-	while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+	while (XIicPs_BusIsBusy(I2c0InstancePtr) > 0) {
 		/**
 		 * For MISRA C
 		 * compliance
@@ -367,7 +324,7 @@ static u32 XFsbl_FMCEnable(void)
 	WriteBuffer[1] = ON_OFF_CFG_VAL;
 	SlaveAddr = MAX15301_ADDR;
 
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+	Status = XIicPs_MasterSendPolled(I2c0InstancePtr,
 			WriteBuffer, 2, SlaveAddr);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_ERROR_I2C_WRITE;
@@ -389,7 +346,7 @@ static u32 XFsbl_FMCEnable(void)
 	WriteBuffer[1] = DATA_SWC_CFG;
 	SlaveAddr = IRPS5401_SWC_ADDR;
 #endif
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+	Status = XIicPs_MasterSendPolled(I2c0InstancePtr,
 			WriteBuffer, 2, SlaveAddr);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_ERROR_I2C_WRITE;
@@ -398,7 +355,7 @@ static u32 XFsbl_FMCEnable(void)
 	}
 
 	/* Wait until bus is idle */
-	while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+	while (XIicPs_BusIsBusy(I2c0InstancePtr) > 0) {
 		/*
 		 * For MISRA C
 		 * compliance
@@ -408,7 +365,7 @@ static u32 XFsbl_FMCEnable(void)
 	/* Operation Command For ON and OFF and Control Margining*/
 	WriteBuffer[0] = CMD_OPERATION_CFG;
 	WriteBuffer[1] = OPERATION_VAL;
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+	Status = XIicPs_MasterSendPolled(I2c0InstancePtr,
 			WriteBuffer, 2, SlaveAddr);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_ERROR_I2C_WRITE;
@@ -417,7 +374,7 @@ static u32 XFsbl_FMCEnable(void)
 	}
 
 	/* Wait until bus is idle */
-	while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+	while (XIicPs_BusIsBusy(I2c0InstancePtr) > 0) {
 		/**
 		 * For MISRA C
 		 * compliance
@@ -431,7 +388,7 @@ static u32 XFsbl_FMCEnable(void)
 	 */
 	WriteBuffer[0] = CMD_VOUT_MODE_CFG;
 	WriteBuffer[1] = DATA_VOUT_MODE_VAL;
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+	Status = XIicPs_MasterSendPolled(I2c0InstancePtr,
 			WriteBuffer, 2, SlaveAddr);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_ERROR_I2C_WRITE;
@@ -440,7 +397,7 @@ static u32 XFsbl_FMCEnable(void)
 	}
 
 	/* Wait until bus is idle */
-	while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+	while (XIicPs_BusIsBusy(I2c0InstancePtr) > 0) {
 		/**
 		 * For MISRA C
 		 * compliance
@@ -454,7 +411,7 @@ static u32 XFsbl_FMCEnable(void)
 	WriteBuffer[0] = CMD_VOUT_MAX_CFG;
 	WriteBuffer[1] = DATA_VOUT_MAX_VAL_L;
 	WriteBuffer[2] = DATA_VOUT_MAX_VAL_H;
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+	Status = XIicPs_MasterSendPolled(I2c0InstancePtr,
 			WriteBuffer, 3, SlaveAddr);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_ERROR_I2C_WRITE;
@@ -463,7 +420,7 @@ static u32 XFsbl_FMCEnable(void)
 	}
 
 	/* Wait until bus is idle */
-	while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+	while (XIicPs_BusIsBusy(I2c0InstancePtr) > 0) {
 		/**
 		 * For MISRA C
 		 * compliance
@@ -500,7 +457,7 @@ static u32 XFsbl_FMCEnable(void)
 			WriteBuffer[0] = CMD_VOUT_CMD_CFG;
 			WriteBuffer[1] = VoutPtr->VoutCmdL;
 			WriteBuffer[2] = VoutPtr->VoutCmdH;
-			Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+			Status = XIicPs_MasterSendPolled(I2c0InstancePtr,
 						WriteBuffer, 3, SlaveAddr);
 			if (Status != XST_SUCCESS) {
 				UStatus = XFSBL_ERROR_I2C_WRITE;
@@ -510,7 +467,7 @@ static u32 XFsbl_FMCEnable(void)
 			}
 
 			/* Wait until bus is idle */
-			while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+			while (XIicPs_BusIsBusy(I2c0InstancePtr) > 0) {
 				/**
 				 * For MISRA C
 				 * compliance
@@ -527,7 +484,7 @@ static u32 XFsbl_FMCEnable(void)
 			WriteBuffer[0] = CMD_VOUT_OV_WARN_LIMIT;
 			WriteBuffer[1] = VoutPtr->VoutOvWarnL;
 			WriteBuffer[2] = VoutPtr->VoutOvWarnH;
-			Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+			Status = XIicPs_MasterSendPolled(I2c0InstancePtr,
 						WriteBuffer, 3, SlaveAddr);
 			if (Status != XST_SUCCESS) {
 				UStatus = XFSBL_ERROR_I2C_WRITE;
@@ -537,7 +494,7 @@ static u32 XFsbl_FMCEnable(void)
 			}
 
 			/* Wait until bus is idle */
-			while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+			while (XIicPs_BusIsBusy(I2c0InstancePtr) > 0) {
 				/**
 				 * For MISRA C
 				 * compliance
@@ -554,7 +511,7 @@ static u32 XFsbl_FMCEnable(void)
 			WriteBuffer[0] = CMD_VOUT_OV_FAULT_LIMIT;
 			WriteBuffer[1] = VoutPtr->VoutOvFaultL;
 			WriteBuffer[2] = VoutPtr->VoutOvFaultH;
-			Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+			Status = XIicPs_MasterSendPolled(I2c0InstancePtr,
 						WriteBuffer, 3, SlaveAddr);
 			if (Status != XST_SUCCESS) {
 				UStatus = XFSBL_ERROR_I2C_WRITE;
@@ -573,7 +530,7 @@ static u32 XFsbl_FMCEnable(void)
 			WriteBuffer[0] = CMD_VOUT_UV_WARN_LIMIT;
 			WriteBuffer[1] = VoutPtr->VoutUvWarnL;
 				WriteBuffer[2] = VoutPtr->VoutUvWarnH;
-			Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+			Status = XIicPs_MasterSendPolled(I2c0InstancePtr,
 						WriteBuffer, 3, SlaveAddr);
 			if (Status != XST_SUCCESS) {
 				UStatus = XFSBL_ERROR_I2C_WRITE;
@@ -583,7 +540,7 @@ static u32 XFsbl_FMCEnable(void)
 			}
 
 			/* Wait until bus is idle */
-			while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+			while (XIicPs_BusIsBusy(I2c0InstancePtr) > 0) {
 				/**
 				 * For MISRA C
 				 * compliance
@@ -600,7 +557,7 @@ static u32 XFsbl_FMCEnable(void)
 			WriteBuffer[0] = CMD_VOUT_UV_FAULT_LIMIT;
 			WriteBuffer[1] = VoutPtr->VoutUvFaultL;
 			WriteBuffer[2] = VoutPtr->VoutUvFaultH;
-			Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+			Status = XIicPs_MasterSendPolled(I2c0InstancePtr,
 						WriteBuffer, 3, SlaveAddr);
 			if (Status != XST_SUCCESS) {
 				UStatus = XFSBL_ERROR_I2C_WRITE;
@@ -610,7 +567,7 @@ static u32 XFsbl_FMCEnable(void)
 			}
 
 			/* Wait until bus is idle */
-			while (XIicPs_BusIsBusy(&I2c0InstancePtr) > 0) {
+			while (XIicPs_BusIsBusy(I2c0InstancePtr) > 0) {
 				/**
 				 * For MISRA C
 				 * compliance
@@ -639,7 +596,7 @@ END:
  *****************************************************************************/
 static u32 XFsbl_BoardConfig(void)
 {
-	XIicPs I2c0InstancePtr;
+	XIicPs I2c0Instance;
 	XIicPs_Config *I2c0CfgPtr;
 	s32 Status;
 	u32 UStatus;
@@ -658,7 +615,7 @@ static u32 XFsbl_BoardConfig(void)
 		goto END;
 	}
 
-	Status = XIicPs_CfgInitialize(&I2c0InstancePtr, I2c0CfgPtr,
+	Status = XIicPs_CfgInitialize(&I2c0Instance, I2c0CfgPtr,
 			I2c0CfgPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_ERROR_I2C_INIT;
@@ -667,7 +624,7 @@ static u32 XFsbl_BoardConfig(void)
 	}
 
 	/* Set the IIC serial clock rate */
-	Status = XIicPs_SetSClk(&I2c0InstancePtr, IIC_SCLK_RATE_IOEXP);
+	Status = XIicPs_SetSClk(&I2c0Instance, IIC_SCLK_RATE_IOEXP);
 	if (Status != XST_SUCCESS) {
 		UStatus  = XFSBL_ERROR_I2C_SET_SCLK;
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_SET_SCLK\r\n");
@@ -678,7 +635,7 @@ static u32 XFsbl_BoardConfig(void)
 	/* Configure I/O pins as Output */
 	WriteBuffer[0] = CMD_CFG_0_REG;
 	WriteBuffer[1] = DATA_OUTPUT;
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+	Status = XIicPs_MasterSendPolled(&I2c0Instance,
 		WriteBuffer, 2, IOEXPANDER1_ADDR);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_ERROR_I2C_WRITE;
@@ -687,7 +644,7 @@ static u32 XFsbl_BoardConfig(void)
 	}
 
 	/* Wait until bus is idle to start another transfer */
-	while (XIicPs_BusIsBusy(&I2c0InstancePtr)>0) {
+	while (XIicPs_BusIsBusy(&I2c0Instance)>0) {
 		/*For MISRA C compliance*/
 	}
 
@@ -757,7 +714,7 @@ static u32 XFsbl_BoardConfig(void)
 #endif
 
 	/* Send the Data */
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+	Status = XIicPs_MasterSendPolled(&I2c0Instance,
 			WriteBuffer, 2, IOEXPANDER1_ADDR);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_ERROR_I2C_WRITE;
@@ -766,13 +723,13 @@ static u32 XFsbl_BoardConfig(void)
 	}
 
 	/* Wait until bus is idle */
-	while (XIicPs_BusIsBusy(&I2c0InstancePtr)>0) {
+	while (XIicPs_BusIsBusy(&I2c0Instance)>0) {
 		/*For MISRA C compliance*/
 	}
 #endif
 
 
-	Status = XFsbl_FMCEnable();
+	Status = XFsbl_FMCEnable(&I2c0Instance);
 	if (Status != XST_SUCCESS) {
 		UStatus = XSFBL_ERROR_FMC_ENABLE;
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_FMC_ENABLE\r\n");
