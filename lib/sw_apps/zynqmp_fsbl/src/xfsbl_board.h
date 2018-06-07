@@ -144,14 +144,14 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 typedef struct {
-	u8 VadjRecordFound;
-	u8 MultirecordHdrOff;
-	u8 MultirecordHdrEol;
-	u8 RecordType;
-	u8 RecordLength;
-	u8 VadjHdrOffset;
-	u8 VadjDataOffset;
-	u8 OutputNumber;
+	u32 VadjRecordFound;
+	u32 MultirecordHdrOff;
+	u32 MultirecordHdrEol;
+	u32 RecordType;
+	u32 RecordLength;
+	u32 VadjHdrOffset;
+	u32 VadjDataOffset;
+	u32 OutputNumber;
 } XMultipleRecord;
 
 typedef struct XVoutCommands {

@@ -66,7 +66,7 @@
 
 /************************** Function Prototypes ******************************/
 #ifdef XPS_BOARD_ZCU104
-static u32 XFsbl_ReadMinMaxEepromVadj(XIicPs* I2c0InstancePtr, u16 *MinVadj, u16 *MaxVadj);
+static u32 XFsbl_ReadMinMaxEepromVadj(XIicPs* I2c0InstancePtr, u32 *MinVadj, u32 *MaxVadj);
 static u32 XFsbl_CalVadj(u16 MinVoltage, u16 MaxVoltage);
 #endif
 static u32 XFsbl_BoardConfig(void);
@@ -91,17 +91,17 @@ u8 Read_Buffer[MAX_SIZE];
  * @return none
  *
  *****************************************************************************/
-static u32 XFsbl_ReadMinMaxEepromVadj(XIicPs* I2c0InstancePtr, u16 *MinVadj, u16 *MaxVadj)
+static u32 XFsbl_ReadMinMaxEepromVadj(XIicPs* I2c0InstancePtr, u32 *MinVadj, u32 *MaxVadj)
 {
 	u32 Count, EepromByteCount;
 	XMultipleRecord Ptr;
 	u8 WriteBuffer[BUF_LEN] = {0};
 	u32 UStatus;
 	s32 Status;
-	u16 NominalVoltage;
-	u16 EepromAddr = 0x54U;
-	u16 MinVoltage;
-	u16 MaxVoltage;
+	u32 NominalVoltage;
+	u32 EepromAddr = 0x54U;
+	u32 MinVoltage;
+	u32 MaxVoltage;
 
 	EepromByteCount = 256;
 	MinVoltage = 0;
@@ -255,15 +255,14 @@ static u32 XFsbl_FMCEnable(XIicPs* I2c0InstancePtr)
 	u8 WriteBuffer[BUF_LEN] = {0};
 	s32 Status;
 	u32 UStatus = 0;
-	u16 SlaveAddr;
+	u32 SlaveAddr;
 #if defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111)
 	XVoutCommands *VoutPtr;
 	u32 VadjSetting;
 	VadjSetting = SET_VADJ_0V0;
 #ifdef XPS_BOARD_ZCU104
-	u16 LpcMin, LpcMax;
-	LpcMin = 0;
-	LpcMax = 0;
+	u32 LpcMin;
+	u32 LpcMax;
 #endif
 #endif
 
