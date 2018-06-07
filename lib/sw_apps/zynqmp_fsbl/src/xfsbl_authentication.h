@@ -145,7 +145,7 @@ u32 XFsbl_BhAuthentication(const XFsblPs * FsblInstancePtr, u8 *Data,
 
 #ifndef XFSBL_PS_DDR
 #ifdef XFSBL_BS
-u32 XFsbl_ShaUpdate_DdrLess(XFsblPs *FsblInstancePtr, void *Ctx,
+u32 XFsbl_ShaUpdate_DdrLess(const XFsblPs *FsblInstancePtr, void *Ctx,
 		u64 PartitionOffset, u32 PartitionLen,
 		u32 HashLen, u8 *PartitionHash);
 #endif
