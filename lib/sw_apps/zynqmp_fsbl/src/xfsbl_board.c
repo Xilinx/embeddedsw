@@ -104,7 +104,7 @@ static u32 XFsbl_ReadMinMaxEepromVadj(XIicPs* I2c0InstancePtr, u32 *MinVadj, u32
 	u32 MinVoltage;
 	u32 MaxVoltage;
 
-	EepromByteCount = 256;
+	EepromByteCount = MAX_SIZE;
 	MinVoltage = 0U;
 	MaxVoltage = 0U;
 	XRecord.VadjRecordFound = 0U;
@@ -349,6 +349,10 @@ static u32 XFsbl_FMCEnable(XIicPs* I2c0InstancePtr)
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_WRITE\r\n");
 		goto END;
 	}
+	/* Wait until bus is idle */
+	while (XIicPs_BusIsBusy(I2c0InstancePtr) == TRUE) {
+		/** For MISRA-C compliance */
+	}
 #endif
 #endif
 
@@ -551,6 +555,7 @@ static u32 XFsbl_FMCEnable(XIicPs* I2c0InstancePtr)
 	}
 
 #endif
+	UStatus = XFSBL_SUCCESS;
 	XFsbl_Printf(DEBUG_INFO, "FMC VADJ Configuration Successful\n\r");
 
 
@@ -599,6 +604,7 @@ static u32 XFsbl_BoardConfig(void)
 		goto END;
 	}
 
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
 	/* Set the IIC serial clock rate */
 	Status = XIicPs_SetSClk(&I2c0Instance, IIC_SCLK_RATE_IOEXP);
 	if (Status != XST_SUCCESS) {
@@ -606,8 +612,6 @@ static u32 XFsbl_BoardConfig(void)
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_SET_SCLK\r\n");
 		goto END;
 	}
-
-#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
 	/* Configure I/O pins as Output */
 	WriteBuffer[0U] = CMD_CFG_0_REG;
 	WriteBuffer[1U] = DATA_OUTPUT;
