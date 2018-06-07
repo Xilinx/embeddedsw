@@ -326,7 +326,7 @@ static u32 XFsbl_PartitionSignVer(const XFsblPs *FsblInstancePtr, u64 PartitionO
 
 	/* Calculate Partition Hash */
 #ifndef XFSBL_PS_DDR
-	XFsblPs_PartitionHeader * PartitionHeader;
+	const XFsblPs_PartitionHeader * PartitionHeader;
 	u32 DestinationDevice = 0U;
 	PartitionHeader =
 		&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum];
@@ -492,7 +492,7 @@ END:
  *             XFSBL_FAILURE - In case of Failure
  *
  ******************************************************************************/
-u32 XFsbl_ShaUpdate_DdrLess(XFsblPs *FsblInstancePtr, void *Ctx,
+u32 XFsbl_ShaUpdate_DdrLess(const XFsblPs *FsblInstancePtr, void *Ctx,
 		u64 PartitionOffset, u32 PartitionLen,
 		u32 HashLen, u8 *PartitionHash)
 {
