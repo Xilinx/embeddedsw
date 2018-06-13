@@ -92,7 +92,9 @@
 #endif
 #define PM_INIT_COMPLETED_KEY		0x5A5A5A5AU
 /************************** Function Prototypes ******************************/
+#ifdef XFSBL_WDT_PRESENT
 static u32 XFsbl_ConvertTime_WdtCounter(u32 seconds);
+#endif
 /************************** Variable Definitions *****************************/
 #ifdef XFSBL_WDT_PRESENT
 static XWdtPs Watchdog={0};		/* Instance of WatchDog Timer	*/
