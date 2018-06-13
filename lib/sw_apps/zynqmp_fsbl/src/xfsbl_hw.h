@@ -939,11 +939,7 @@ extern "C" {
 #define XFSBL_R5_1_TCM		(0x2U)
 #define XFSBL_R5_L_TCM		(0x3U)
 
-#ifdef ARMA53_64
-#define PTRSIZE		u64
-#else
-#define PTRSIZE		u32
-#endif
+#define PTRSIZE		UINTPTR
 
 /* Reset Reason */
 #define XFSBL_SYSTEM_RESET		0U
