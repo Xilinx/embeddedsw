@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,6 +33,10 @@
 /**
  * @file xilskey_eps.h
  *
+ * @addtogroup xilskey_zynq_efuse Zynq EFUSE PS
+ * @{
+ * @cond xilskey_internal
+ * @{
  *
  * @note	None.
  *
@@ -52,6 +56,7 @@
 * 2.00  hk      23/01/14 Changed PS efuse error codes for voltage out of range
 * 2.1   sk      04/03/15 Initialized RSAKeyReadback with Zeros CR# 829723.
 * 4.0   vns     10/20/15 Added cplusplus boundary blocks.
+* 6.6   vns     06/06/18 Added doxygen tags
 *
 *
 *****************************************************************************/
@@ -108,6 +113,8 @@ typedef struct {
 	 */
 	u8 RsaKeyReadback[XSK_EFUSEPS_RSA_KEY_HASH_LEN_IN_BYTES];
 } XilSKey_EPs;
+/** @}
+@endcond */
 
 /**
  * PS eFUSE interface functions
@@ -121,3 +128,4 @@ u32 XilSKey_EfusePs_ReadStatus(XilSKey_EPs *InstancePtr, u32 *StatusBits);
 #endif
 
 #endif /* XILSKEY_EPS_H */
+/**@}*/

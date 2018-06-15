@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -56,6 +56,7 @@
 *       vns     07/17/16 Fixed CR# 954260, Modified XilSKey_EfusePs_Write
 *                        API to program eFUSE protect bit after programming
 *                        DFT bits
+* 6.6   vns     06/06/18 Added doxygen tags
 *
 *****************************************************************************/
 
@@ -90,16 +91,26 @@ static u8 XilSKey_EfusePs_IsReadModeSupported (u8 ReadMode);
 /**
 * This function is used to write to the PS eFUSE.
 *
-* @param  InstancePtr is the pointer to the PsEfuseHandle which describes
-* 	  which PS eFUSE bit should be burned.
+* @param	InstancePtr	Pointer to the PsEfuseHandle which describes
+*		which PS eFUSE bit should be burned.
 *
 * @return
 * 		- XST_SUCCESS.
-* 		- Incase of error, value is as defined in xeFUSE_error.h.
+* 		- Incase of error, value is as defined in xilskey_utils.h
 * 		Error value is a combination of Upper 8 bit value and
 * 		Lower 8 bit value. For example, 0x8A03 should be checked
 * 		in error.h as 0x8A00 and 0x03. Upper 8 bit value signifies
 * 		the major error and lower 8 bit values tells more precisely.
+* @note		When called, this Initializes the timer, XADC subsystems.
+*		Unlocks the PS eFUSE controller.Configures the PS eFUSE
+*		controller. Writes the hash and control bits if requested.
+*		Programs the PS eFUSE to enable the RSA authentication
+*		if requested. Locks the PS eFUSE controller.
+*		Returns an error, if the reference clock frequency is not
+*		in between 20 and 60 MHz or if the system not in a position to
+*		write the requested PS eFUSE bits (because the bits are already
+*		written or not allowed to write) or if the temperature and
+*		voltage are not within range
 *
 ****************************************************************************/
 u32 XilSKey_EfusePs_Write(XilSKey_EPs *InstancePtr)
@@ -319,16 +330,25 @@ ExitFinal:
 /**
 * This function is used to read the PS eFUSE.
 *
-* @param  InstancePtr is the pointer to the PsEfuseHandle which describes
+* @param  InstancePtr	Pointer to the PsEfuseHandle which describes
 * 	  which PS eFUSE should be burned.
 *
 * @return
 * 		- XST_SUCCESS no errors occured.
-* 		- Incase of error, value is as defined in xeFUSE_error.h.
+* 		- Incase of error, value is as defined in xilskey_utils.h.
 * 		Error value is a combination of Upper 8 bit value and
 * 		Lower 8 bit value. For example, 0x8A03 should be checked
 * 		in error.h as 0x8A00 and 0x03. Upper 8 bit value signifies
 * 		the major error and lower 8 bit values tells more precisely.
+* @note		When called: This API initializes the timer, XADC subsystems.
+*		Unlocks the PS eFUSE Controller. Configures the PS eFUSE
+*		Controller and enables read-only mode. Reads the PS eFUSE
+*		(Hash Value), and enables read-only mode. Locks the PS eFUSE
+*		Controller.
+*		Returns an error, if the reference clock frequency is not in
+*		between 20 and 60MHz. or if unable to unlock PS eFUSE
+*		controller or requested address corresponds to restricted bits.
+*		or if the temperature and voltage are not within range
 *
 ****************************************************************************/
 u32 XilSKey_EfusePs_Read(XilSKey_EPs *InstancePtr)
@@ -445,7 +465,7 @@ ExitFinal:
 *		- XSK_EFUSEPS_ERROR_RSA_HASH_ALREADY_PROGRAMMED if any RSA hash
 *		  eFUSE bit is set
 *		- Other errors because of internal controller functions and
-*		  can be checked in xeFUSE_error.h
+*		  can be checked in xilskey_utils.h.
 *
 ****************************************************************************/
 
@@ -526,7 +546,7 @@ ExitControllerReset:
 *		- an error XSK_EFUSEPS_ERROR_WRITE_TEMPERATURE_OUT_OF_RANGE when
 *		  temperature not in range
 *		- Other errors because of internal functions and
-*		  can be checked in xeFUSE_error.h
+*		  can be checked in xilskey_utils.h
 ****************************************************************************/
 static u32
 XilSKey_EfusePs_WriteWithXadcCheckAndVerify(u32 EfuseAddress, u32 RefClk)
@@ -624,7 +644,7 @@ XilSKey_EfusePs_WriteWithXadcCheckAndVerify(u32 EfuseAddress, u32 RefClk)
 * @return
 * 		- XST_SUCCESS no errors occurred.
 *		- Other errors because of internal controller functions and
-*		  can be checked in xeFUSE_error.h
+*		  can be checked in xilskey_utils.h
 *
 ****************************************************************************/
 static u32 XilSKey_EfusePs_WriteRsaKeyHash(u8 *RsaKeyHashBuf, u32 RefClk)
@@ -801,7 +821,7 @@ static u32 XilSKey_EfusePs_ReadRsaKeyHash(u8 *RsaKeyHashBuf, u32 RefClk)
 *		- an error XSK_EFUSEPS_ERROR_READ_TMEPERATURE_OUT_OF_RANGE when
 *		  temperature not in range
 *		- Other errors because of internal controller functions and
-*		  can be checked in xeFUSE_error.h
+*		  can be checked in xilskey_utils.h
 ****************************************************************************/
 static u32
 XilSKey_EfusePs_ReadWithXadcCheck(u32 EfuseAddress, u32 RefClk, u8 *Data)
@@ -856,7 +876,7 @@ XilSKey_EfusePs_ReadWithXadcCheck(u32 EfuseAddress, u32 RefClk, u8 *Data)
 *		  temperature not in range
 *		- an error XSK_EFUSEPS_ERROR_VERIFICATION when verification fails
 *		- Other errors because of internal controller functions and
-*		  can be checked in xeFUSE_error.h
+*		  can be checked in xilskey_utils.h
 ****************************************************************************/
 static u32 XilSKey_EfusePs_VerifyWithXadcCheck(u32 EfuseAddress, u32 RefClk)
 {
@@ -1518,13 +1538,14 @@ u32 XilSKey_EfusePs_WriteEfuseBit(u32 Addr)
 /**
 * This function is used to read the PS efuse status register.
 *
-* @param  InstancePtr is the pointer to the PsEfuseHandle which describes
-* 	  which PS eFUSE bit should be burned.
-* @param  StatusBits - variable to store the status register read.
+* @param	InstancePtr	Pointer to the PS eFUSE instance.
+* @param	StatusBits	Buffer to store the status register read.
 *
 * @return
 * 		- XST_SUCCESS.
 * 		- XST_FAILURE
+* @note		This API unlocks the controller and reads the Zynq
+*		PS eFUSE status register.
 *
 ****************************************************************************/
 u32 XilSKey_EfusePs_ReadStatus(XilSKey_EPs *InstancePtr, u32 *StatusBits)

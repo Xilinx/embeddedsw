@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,7 @@
 * 6.0   vns     07/28/16 Added configuration counting feature and Obfuscated key
 *                        programming and calculation of ECC for 28 bits
 *                        of control word.
+* 6.6   vns     06/06/18 Added doxygen tags
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -157,7 +158,7 @@ static inline u8 XilSKey_Calc_Row_Ecc_Bbram_Ultra(u8 *Value, u8 *Mask);
 * verifying key. The program and verify will only work together in and
 * in that order.
 *
-* @param  BBRAM instance pointer
+* @param  InstancePtr	Pointer to XilSKey_Bbram
 *
 * @return
 *

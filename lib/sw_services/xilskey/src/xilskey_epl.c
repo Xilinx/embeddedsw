@@ -66,6 +66,7 @@
 *                        128 bit user keys for eFUSE Ultrascale.
 * 6.4   vns     02/27/18 Added support for programming secure bit 6 -
 *                        enable obfuscation feature for eFUSE AES key
+* 6.6   vns     06/06/18 Added doxygen tags
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -443,18 +444,22 @@ extern u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption);
 /**
 *
 *
-*	Programs PL eFUSE with input data given
+* Programs PL eFUSE with input data given through InstancePtr.
 *
-*
-* @param	InstancePtr - Input data to be written to PL eFUSE
+* @param	InstancePtr	Pointer to PL eFUSE instance which holds the
+*		input data to be written to PL eFUSE.
 *
 * @return
+*		- XST_FAILURE - In case of failure
+*		- XST_SUCCESS - In case of Success
 *
-*	- XST_FAILURE - In case of failure
-*	- XST_SUCCESS - In case of Success
-*
-*
-* @note		Updates the global variable ErrorCode with error code(if any).
+* @note		When this API is called: Initializes the timer, XADC/xsysmon
+*		and JTAG server subsystems. Returns an error in the following
+*		cases, if the reference clock frequency is not in the range or
+*		if the PL DAP ID is not identified, if the system is not in a
+*		position to write the requested PL eFUSE bits
+* 		(because the bits are already written or not allowed to write)
+* 		if the temperature and voltage are not within range.
 *
 *****************************************************************************/
 u32 XilSKey_EfusePl_Program(XilSKey_EPl *InstancePtr)
@@ -1221,19 +1226,17 @@ void XilSKey_EfusePl_CalculateEcc(u8 *RowData, u8 *ECCData)
 /**
 *
 *
-*	Reads the PL efuse status bits
+* Reads the PL efuse status bits and gets all secure and control bits.
 *
 *
-* @param	InstancePtr - Input data to be written to PL eFUSE
-* @param	StatusBits - Variable to store the status bits read.
+* @param	InstancePtr	Pointer to PL eFUSE instance.
+* @param	StatusBits	Buffer to store the status bits read.
 *
 * @return
 *
 *	- XST_FAILURE - In case of failure
 *	- XST_SUCCESS - In case of Success
-*
-*
-* @note		Updates the global variable ErrorCode with error code(if any).
+
 *
 *****************************************************************************/
 u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
@@ -1353,10 +1356,10 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 /**
 *
 *
-*	Reads the PL efuse key (AES and user)
+* Reads the PL efuse keys and stores them in the corresponding
+* arrays in instance structure.
 *
-*
-* @param	InstancePtr - Input data to be written to PL eFUSE
+* @param	InstancePtr	Pointer to PL eFUSE instance.
 *
 * @return
 *
@@ -1364,7 +1367,17 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 *	- XST_SUCCESS - In case of Success
 *
 *
-* @note		Updates the global variable ErrorCode with error code(if any).
+* @note		This function initializes the timer, XADC and JTAG server
+* 		subsystems, if not already done so.
+* 		In Zynq - Reads AES key and User keys.
+* 		In Ultrascale - Reads 32 bit and 128 bit User keys and RSA hash
+* 		But AES key cannot be read directly it can be verified with
+*		CRC check (for that we need to update the instance with
+*		32 bit CRC value, API updates whether provided CRC value is
+*		matched with actuals or not). To calculate
+* 		the CRC of expected AES key one can use any of the following
+* 		APIs XilSKey_CrcCalculation() or
+*		XilSkey_CrcCalculation_AesKey()
 *
 *****************************************************************************/
 u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr)

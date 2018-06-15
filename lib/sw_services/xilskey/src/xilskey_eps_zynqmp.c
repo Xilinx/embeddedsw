@@ -64,6 +64,7 @@
 *                      XilSKey_ZynqMp_EfusePs_Write(), so on successful
 *                      efuse programming, programmed fuses can directly read
 *                      from cache of the efuse.
+* 6.6   vns   06/06/18 Added doxygen tags
 *
 * </pre>
 *
@@ -132,9 +133,10 @@ u32 XilSKey_ZynqMp_EfusePs_Init();
 
 /***************************************************************************/
 /**
-* This function is used to program the PS efuse of ZynqMP.
+* This function is used to program the PS efuse of ZynqMP, based on user
+* inputs
 *
-* @param	InstancePtr is the pointer to the XilSKey_ZynqMpEPs.
+* @param	InstancePtr	Pointer to the XilSKey_ZynqMpEPs.
 *
 * @return
 * 		- XST_SUCCESS if programs successfully.
@@ -421,11 +423,12 @@ UNLOCK:
 
 /*****************************************************************************/
 /**
-* This function is used to read the PS efuse secure control bits.
+* This function is used to read the PS efuse secure control bits from cache or
+* eFUSE based on user input provided.
 *
-* @param	ReadBackSecCtrlBits is the pointer to the XilSKey_SecCtrlBits
+* @param	ReadBackSecCtrlBits	Pointer to the XilSKey_SecCtrlBits
 *		which holds the read secure control bits.
-* @param	ReadOption is a u8 variable which has to be provided by user
+* @param	ReadOption 	Variable which has to be provided by user
 *		based on this input reading is happend from cache or from efuse
 *		array.
 *		- 0	Reads from cache
@@ -1100,10 +1103,13 @@ static inline u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 * @param	None.
 *
 * @return
-*		XST_SUCCESS - On success
-*		ErrorCode - on Failure
+*		- XST_SUCCESS on successful cache reload
+*		- ErrorCode on failure
 *
-* @note		None.
+* @note		Not recommended to call this API
+*		frequently, if this API is called all the cache memory is reloded
+*		by reading eFUSE array, reading eFUSE bit multiple times may
+*		diminish the life time.
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_CacheLoad()
@@ -1719,17 +1725,17 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_UsrCtrlBits(
 }
 
 /*****************************************************************************/
-/*
+/**
 * This function performs CRC check of AES key
 *
-* @param	CrcValue is a 32 bit CRC of AES key.
+* @param	CrcValue	A 32 bit CRC value of an expected AES key.
 *
 * @return
-*		XST_SUCCESS - On success
-*		ErrorCode - on Failure
+*		- XST_SUCCESS on successful CRC check.
+*		- ErrorCode on failure
 *
-* @note		For Calculating CRC of AES key key use XilSKey_CrcCalculation()
-* 			API.
+* @note		For Calculating CRC of AES key  use XilSKey_CrcCalculation()
+* 		API or XilSkey_CrcCalculation_AesKey() API.
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue)
@@ -1775,24 +1781,23 @@ u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue)
 }
 
 /*****************************************************************************/
-/*
-* This function is used to read user fuse from efuse based on read option.
+/**
+* This function is used to read user fuse from efuse or cache based on user's
+* read option.
 *
-* @param	UseFusePtr is a pointer to an array which holds the readback
+* @param	UseFusePtr	Pointer to an array which holds the readback
 *		user fuse in.
-* @param	UserFuse_Num is a variable which holds the user fuse number.
+* @param	UserFuse_Num	A variable which holds the user fuse number.
 *		Range is (User fuses: 0 to 7)
-* @param	ReadOption is a u8 variable which has to be provided by user
+* @param	ReadOption 	A variable which has to be provided by user
 *		based on this input reading is happend from cache or from efuse
 *		array.
 *		- 0	Reads from cache
 *		- 1	Reads from efuse array
 *
 * @return
-*		XST_SUCCESS - On success
-*		ErrorCode - on Failure
-*
-* @note		None.
+*		- XST_SUCCESS on successful read
+*		- ErrorCode on failure
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_ReadUserFuse(u32 *UseFusePtr, u8 UserFuse_Num,
@@ -1841,22 +1846,21 @@ UNLOCK:
 }
 
 /*****************************************************************************/
-/*
-* This function is used to read PPK0 hash from efuse based on read option.
+/**
+* This function is used to read PPK0 hash from efuse or cache based on user's
+* read option.
 *
-* @param	Ppk0Hash is a pointer to an array which holds the readback
+* @param	Ppk0Hash	A pointer to an array which holds the readback
 *		PPK0 hash in.
-* @param	ReadOption is a u8 variable which has to be provided by user
+* @param	ReadOption	A variable which has to be provided by user
 *		based on this input reading is happend from cache or from efuse
 *		array.
 *		- 0	Reads from cache
 *		- 1	Reads from efuse array
 *
 * @return
-*		XST_SUCCESS - On success
-*		ErrorCode - on Failure
-*
-* @note		None.
+*		- XST_SUCCESS on successful read
+*		- ErrorCode on failure
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption)
@@ -1916,22 +1920,21 @@ UNLOCK:
 }
 
 /*****************************************************************************/
-/*
-* This function is used to read PPK1 hash from efuse based on read option.
+/**
+* This function is used to read PPK1 hash from efuse or cache based on user's
+* read option.
 *
-* @param	Ppk1Hash is a pointer to an array which holds the readback
+* @param	Ppk1Hash	Pointer to an array which holds the readback
 *		PPK1 hash in.
-* @param	ReadOption is a u8 variable which has to be provided by user
+* @param	ReadOption	A variable which has to be provided by user
 *		based on this input reading is happend from cache or from efuse
 *		array.
 *		- 0	Reads from cache
 *		- 1	Reads from efuse array
 *
 * @return
-*		XST_SUCCESS - On success
-*		ErrorCode - on Failure
-*
-* @note		None.
+*		- XST_SUCCESS on successful read
+*		- ErrorCode on failure
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption)
@@ -1991,21 +1994,20 @@ UNLOCK:
 }
 
 /*****************************************************************************/
-/*
-* This function is used to read SPKID from efuse based on read option.
+/**
+* This function is used to read SPKID from efuse or cache based on user's
+* read option.
 *
-* @param	SPK ID is a pointer to a 32 bit variable which holds SPK ID.
-* @param	ReadOption is a u8 variable which has to be provided by user
+* @param	SpkId	Pointer to a 32 bit variable which holds SPK ID.
+* @param	ReadOption	A variable which has to be provided by user
 *		based on this input reading is happend from cache or from efuse
 *		array.
 *		- 0	Reads from cache
 *		- 1	Reads from efuse array
 *
 * @return
-*		XST_SUCCESS - On success
-*		ErrorCode - on Failure
-*
-* @note		None.
+*		- XST_SUCCESS on successful read
+*		- ErrorCode on failure
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_ReadSpkId(u32 *SpkId, u8 ReadOption)
@@ -2050,15 +2052,13 @@ UNLOCK:
 }
 
 /*****************************************************************************/
-/*
+/**
 * This function is used to read DNA from efuse.
 *
-* @param	DnaRead is a pointer to 32 bit variable which holds the
+* @param	DnaRead	Pointer to 32 bit variable which holds the
 *		readback DNA in.
 *
 * @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XilSKey_ZynqMp_EfusePs_ReadDna(u32 *DnaRead)

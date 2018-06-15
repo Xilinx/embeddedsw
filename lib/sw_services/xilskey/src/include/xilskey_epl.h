@@ -35,6 +35,10 @@
 * @file
 *
 * 		xilskey_epl.h
+* @addtogroup xilskey_zynq_ultra_efuse EFUSE PL
+* @{
+* @cond xilskey_internal
+* @{
 * @note
 *		 Contains the function prototypes, defines and macros for the PL eFUSE
 *		 functionality.
@@ -54,6 +58,7 @@
 * 6.4   vns     02/27/18 Added support for programming secure bit 6 -
 *                        enable obfuscation feature for eFUSE AES key
 *       vns     03/09/18 Added correct status bit positions to Ultrascale plus
+* 6.6   vns     06/06/18 Added doxygen tags
 *
 ****************************************************************************/
 #ifndef XILSKEY_EPL_H
@@ -384,6 +389,8 @@ typedef struct {
 
 
 }XilSKey_EPl;
+/** @}
+@endcond */
 /************************** Function Prototypes *****************************/
 /************************** Constant Definitions *****************************/
 
@@ -393,10 +400,9 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits);
 
 u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr);
 
-u32 XilSKey_CrcCalculation(u8 *Key);
-
 #ifdef __cplusplus
 }
 #endif
 
 #endif	/* End of XILSKEY_EPL_H */
+/**@}*/
