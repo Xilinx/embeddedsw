@@ -49,6 +49,7 @@
 *       vns     04/20/18 Added Zeroization at starting of the function call
 *                        If in case controller is not in programming mode
 *                        zeroization occurs without latency.
+* 6.6   vns     06/06/18 Added doxygen tags
 * </pre>
 *
 ******************************************************************************/
@@ -79,15 +80,15 @@ extern u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 *
 * This function implements the BBRAM programming and verifying the key written.
 * Program and verification of AES will work only together.
-* CRC of the provided key will be calculated internally and verified.
+* CRC of the provided key will be calculated internally and verified after
+* programming.
 *
-* @param	AesKey is a pointer to the key which has to be programmed.
+* @param	AesKey	Pointer to the key which has to be programmed.
 *
 * @return
 * 		- Error code from XskZynqMp_Ps_Bbram_ErrorCodes enum if it fails
 * 		- XST_SUCCESS if programming is done.
 *
-* @note		None.
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)

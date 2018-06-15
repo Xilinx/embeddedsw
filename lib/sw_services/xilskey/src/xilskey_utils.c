@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -61,6 +61,7 @@
 *       vns     07/18/16 Initialized sysmonpsu driver and added
 *                        XilSKey_ZynqMP_EfusePs_ReadSysmonVol and
 *                        XilSKey_ZynqMP_EfusePs_ReadSysmonTemp functions
+* 6.6   vns     06/06/18 Added doxygen tags
 *
  *****************************************************************************/
 
@@ -1103,18 +1104,28 @@ void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To)
 
 /****************************************************************************/
 /**
- * Calculates CRC value of provided key.
+ * Calculates CRC value of provided key, this API expects key in string
+ * format.
  *
- * @param	Key is the string contains AES key in hexa decimal of length
- *		less than or equal to 64.
+ * @param	Key	Pointer to the string contains AES key in hexa decimal
+ *		 of length less than or equal to 64.
  *
- * @return	Crc of AES key value.
+ * @return
+ *		- On Success returns the Crc of AES key value.
+ *		- On failure returns the error code when string length
+ *		  is greater than 64
  *
  * @note	This API calculates CRC of AES key for Ultrascale Microblaze's
- * 		PL eFuse and ZynqMp Ultrascale's PS eFuse.
+ * 		PL eFuse and ZynqMp UltraScale PS eFuse.
+ *		If length of the string provided is lesser than 64, API appends
+ *		the string with zeros.
+ * @cond xilskey_internal
+ * @{
  * 		In Microblaze CRC will be calculated from 8th word of key to 0th
  * 		word whereas in ZynqMp Ultrascale's PS eFuse from 0th word to
  * 		8th word
+ * @}
+ @endcond
  *
  ****************************************************************************/
 u32 XilSKey_CrcCalculation(u8 *Key)
@@ -1294,18 +1305,22 @@ u32 XilSKey_Ceil(float Value)
  * Calculates CRC value of the provided key. Key should be provided in
  * hexa buffer.
  *
- * @param	Key is the array of size 32 which contains AES key in
+ * @param	Key 	Pointer to an array of size 32 which contains AES key in
  *		hexa decimal.
  *
- * @return	Crc of AES key value.
+ * @return	Crc of provided AES key value.
  *
  * @note	This API calculates CRC of AES key for Ultrascale Microblaze's
  * 		PL eFuse and ZynqMp Ultrascale's PS eFuse.
+ * @cond xilskey_internal
+ * @{
  * 		In Microblaze CRC will be calculated from 8th word of key to 0th
  * 		word whereas in ZynqMp Ultrascale's PS eFuse from 0th word to
  * 		8th word
- *		This API is calculates CRC on AES key provided in an array.
- *		To calculate CRC on the AES string please use
+ * @}
+ @endcond
+ *		This API calculates CRC on AES key provided in hexa format.
+ *		To calculate CRC on the AES key in string format please use
  *		XilSKey_CrcCalculation.
  *		To call this API one can directly pass array of
  *		AES key which exists in an instance.

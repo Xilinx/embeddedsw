@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,10 @@
 /*****************************************************************************/
 /**
 * @file xilskey_eps_zynqmp_puf.h
+* @addtogroup xilskey_zynqmp_efuse ZynqMP EFUSE PS
+* @{
+* @cond xilskey_internal
+* @{
 * Contains the function prototypes, defines and macros for ZynqMP efusePs puf
 * functionality.
 *
@@ -43,6 +47,7 @@
 * Ver   Who   Date     Changes
 * ----- ---- -------- --------------------------------------------------------
 * 6.1   vns  17/10/16 First release.
+* 6.6   vns  06/06/18 Added doxygen tags
 * </pre>
 *
 *****************************************************************************/
@@ -132,8 +137,8 @@ typedef struct {
 	u8 BlackKey[XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BYTES];
 				/**< Black Key generated */
 } XilSKey_Puf;
-/*@}*/
-
+/** @}
+@endcond */
 /****************************Prototypes***************************************/
 u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr);
 u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u32 *Address);
@@ -156,3 +161,4 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr);
 #endif
 
 #endif /* __XSK_EPS_ZYNQMP_HW_H__ */
+/*@}*/

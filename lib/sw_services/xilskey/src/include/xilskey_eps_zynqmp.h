@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,11 @@
 /*****************************************************************************/
 /**
 * @file xilskey_eps_zynqmp.h
+* @addtogroup xilskey_zynqmp_efuse ZynqMP EFUSE PS
+* @{
+* @cond xilskey_internal
+* @{
+*
 * Contains the function prototypes, defines and macros for ZynqMP efusePs
 * functionality.
 *
@@ -58,6 +63,7 @@
 *                        PBR_BOOT_ERROR. Modified names of secure control
 *                        bits UseAESOnly -> EncOnly, PMUError->ErrorDisable,
 *                        PPK0Revoke->PPK0InVld and PPK1Revoke->PPK1InVld
+* 6.6   vns     06/06/18 Added doxygen tags
 * </pre>
 *
 *****************************************************************************/
@@ -441,6 +447,8 @@ typedef struct {
 		XSK_ZYNQMP_EFUSEPS_CFG_OFFSET) & \
 		(~XSK_ZYNQMP_EFUSEPS_CFG_PGM_EN_MASK))))
 
+/** @}
+@endcond */
 /****************************Prototypes***************************************/
 /* Ps eFuse interface functions of Zynq MP */
 u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue);
@@ -461,3 +469,4 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr);
 #endif
 
 #endif /* XILSKEY_EPS_ZYNQMP_H */
+/**@}*/

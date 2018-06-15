@@ -128,5 +128,6 @@
 *        vns  03/09/18 Added correct status bits for ultrascale plus
 * 6.5    vns  03/16/18 Fixed hanging issue when program/zeroise is requested
 *                      while programming mode in enabled state.
+* 6.6    vns  06/06/18 Added doxygen tags
 *
  ********************************************************************************/

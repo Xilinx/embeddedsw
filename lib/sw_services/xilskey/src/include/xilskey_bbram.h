@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,9 +32,11 @@
 /*****************************************************************************/
 /**
 *
-* @file
-*
-* 		xilskey_bbram.h
+* @file xilskey_bbram.h
+* @addtogroup xilskey_zynq_ultra_bbram BBRAM PL
+* @{
+* @cond xilskey_internal
+* @{
 * @note
 *		 Contains the function prototypes, defines and macros for
 *		 BBRAM functionality.
@@ -52,6 +54,7 @@
 * 6.1   vns     10/25/16 Removed ForcePowerCycle and JtagDisable from BBRAM
 *                        Zynq instance, as they are not actually programming
 *                        any bit They already exists in Zynq eFUSE PL instances
+* 6.6   vns     06/06/18 Added doxygen tags
 *
 ****************************************************************************/
 #ifndef XILSKEY_BBRAM_H
@@ -217,16 +220,22 @@ typedef struct {
  */
 #define IRDEINITLEN		10
 #define DRDEINITLEN		2
-
+/** @}
+@endcond */
 /************************** Function Prototypes *****************************/
 /*
  * Function for BBRAM program and verify algorithm
  */
 int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr);
+/**@}*/
+
+/** @addtogroup xilskey_zynqMP zynqmp bbram
+ @{ */
 
 /* Functions to program AES key and function to zeroise AES key */
 u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey);
 void XilSKey_ZynqMp_Bbram_Zeroise();
+/**@}*/
 
 #ifdef __cplusplus
 }
