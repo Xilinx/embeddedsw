@@ -1147,11 +1147,11 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 		return XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH;
 	}
 	if (Length < 64) {
-		strcpy((char *)&FullKey[64-Length + 1], (char *)Key);
+		XilSKey_StrCpyRange(Key, &FullKey[64-Length + 1], 0, Length);
 
 	}
 	else {
-		strcpy((char *)FullKey, (char *)Key);
+		XilSKey_StrCpyRange(Key, FullKey, 0, Length);
 	}
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
 	u8 Row = 0;
