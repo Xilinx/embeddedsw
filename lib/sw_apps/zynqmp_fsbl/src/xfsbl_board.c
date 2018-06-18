@@ -70,7 +70,6 @@ static u32 XFsbl_ReadMinMaxEepromVadj(XIicPs* I2c0InstancePtr, u32 *MinVadj, u32
 static u32 XFsbl_CalVadj(u16 MinVoltage, u16 MaxVoltage);
 #endif
 static u32 XFsbl_BoardConfig(void);
-static void XFsbl_UsbPhyReset(void);
 static u32 XFsbl_FMCEnable(XIicPs* I2c0InstancePtr);
 #if defined(XPS_BOARD_ZCU102)
 static void XFsbl_PcieReset(void);
@@ -724,27 +723,6 @@ END:
 
 }
 
-/*****************************************************************************/
-/**
- * This function is used to provide Reset to USB Phy on ZCU102 board.
- *
- * @param none
- *
- * @return none
- *
- *****************************************************************************/
-static void XFsbl_UsbPhyReset(void)
-{
-
-	/* USB PHY Reset */
-	XFsbl_Out32(CRL_APB_BOOT_PIN_CTRL, CRL_APB_BOOTMODE_1_HI);
-	(void)usleep(DELAY_1_US);
-	XFsbl_Out32(CRL_APB_BOOT_PIN_CTRL, CRL_APB_BOOTMODE_1_LO);
-	(void)usleep(DELAY_5_US);
-	XFsbl_Out32(CRL_APB_BOOT_PIN_CTRL, CRL_APB_BOOTMODE_1_HI);
-
-}
-
 #if defined(XPS_BOARD_ZCU102)
 /*****************************************************************************/
 /**
@@ -817,7 +795,6 @@ u32 XFsbl_BoardInit(void)
 		goto END;
 	}
 
-	XFsbl_UsbPhyReset();
 #if defined(XPS_BOARD_ZCU102)
 	XFsbl_PcieReset();
 #endif
