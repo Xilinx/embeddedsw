@@ -69,9 +69,6 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define GPIO_MIO31_MASK	0x00000020U
 
-#define CRL_APB_BOOTMODE_1_HI 	0x00000202U
-#define CRL_APB_BOOTMODE_1_LO 	0x00000002U
-
 #define IIC_SCLK_RATE_IOEXP		400000U
 #define IIC_SCLK_RATE_I2CMUX 	600000U
 
