@@ -888,9 +888,6 @@ Added support for PUF regeneration
 Fixed compilation warnings
 Added doxygen tags
 
-xilfpga_v4_2
-Refactor the xilfpga library to support different PL programming Interfaces.
-
 Changes for 2018.2
 ===============================
 freertos10_xilinx_v1_1:
