@@ -16,6 +16,8 @@ xilisf_v5_12:
 Added support for IS25LP064A and IS25WP064A.
 Removed the check for address to be non zero and
 Added check for Spansion flash before proceeding to quad mode read (CR#1002769)
+Added support for Macronix 1G flash parts. (CR#978447)
+Removed checkpatch and GCC warnings.
 
 Resetps_v1_2
 Fixed compilation warnings in resetps driver
