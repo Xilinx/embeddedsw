@@ -318,6 +318,7 @@ u32 Key[XSECURE_KEY_LEN];
 u32 XSecure_RsaAes(u32 SrcAddrHigh, u32 SrcAddrLow, u32 WrSize, u32 flags);
 u32 XSecure_Sha3Hash(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize, u32 Flags);
 u32 XSecure_RsaCore(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize, u32 Flags);
+u32 XSecure_DataAuth(u8 *Signature, XSecure_RsaKey *Key, u8 *Hash);
 
 /* Memory copy */
 u32 XSecure_MemCopy(void * DestPtr, void * SrcPtr, u32 Size);

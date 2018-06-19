@@ -712,7 +712,7 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 		XSECURE_BOOT_HDR_MAX_SIZE/XSECURE_WORD_LEN);
 
 	/* Know image header's authentication certificate */
-	ImgHdrToffset = (Xil_In32((u32)(Buffer + XSECURE_IMAGE_HDR_OFFSET)));
+	ImgHdrToffset = Xil_In32((UINTPTR)Buffer + XSECURE_IMAGE_HDR_OFFSET);
 	AuthCertOffset = Xil_In32((UINTPTR)(StartAddr +
 			ImgHdrToffset + XSECURE_AC_IMAGE_HDR_OFFSET)) *
 					XSECURE_WORD_LEN;
