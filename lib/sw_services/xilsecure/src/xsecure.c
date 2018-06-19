@@ -624,7 +624,6 @@ u32 XSecure_MemCopy(void * DestPtr, void * SrcPtr, u32 Size)
 	return XST_SUCCESS;
 }
 
-#if defined (PSU_PMU)
 /*****************************************************************************/
 /**
  * @brief
@@ -1087,7 +1086,6 @@ END:
 
 	return Status;
 }
-#endif
 
 /*****************************************************************************/
 /**
