@@ -518,6 +518,7 @@
 * 5.12 tjs	05/21/18 Removed the check for address to be non zero.
 *                    Added check for Spansion flash before proceeding
 *                    to quad mode read CR#1002769
+* 5.12  tjs  06/05/18 Added support for Macronix 1G flash parts. CR#978447
 *
 * </pre>
 *
@@ -579,6 +580,7 @@ extern "C" {
 #define XISF_MANUFACTURER_ID_SST	0xBF	/**< SST device */
 #define XISF_MANUFACTURER_ID_MICRON	0x20	/**< Micron device */
 #define XISF_MANUFACTURER_ID_ISSI	0x9D	/**< ISSI device */
+#define XISF_MANUFACTURER_ID_MACRONIX	0xC2	/**< Macronix device */
 
 #define XISF_SPANSION_ID_BYTE2_128	0x18
 #define XISF_SPANSION_ID_BYTE2_256	0x19
@@ -593,6 +595,10 @@ extern "C" {
 /*ISSI*/
 #define XISF_ISSI_ID_BYTE2_64		0x17
 #define XISF_ISSI_ID_BYTE2_256		0x19
+/*Macronix*/
+#define XISF_MACRONIX_ID_BYTE2_1G	0x1B
+#define XISF_MACRONIX_ID_BYTE2_1GU	0x3B
+
 /**
  * The following definitions specify the size of the Serial Flash
  * supported by this library.
@@ -663,6 +669,15 @@ extern "C" {
 #define FLASH_CFG_TBL_SINGLE_256_ISSI	(ISSI_INDEX_START + 3)
 #define FLASH_CFG_TBL_STACKED_256_ISSI	(ISSI_INDEX_START + 4)
 #define FLASH_CFG_TBL_PARALLEL_256_ISSI	(ISSI_INDEX_START + 5)
+
+/* Macronix */
+#define MACRONIX_INDEX_START	(FLASH_CFG_TBL_PARALLEL_256_ISSI + 1)
+#define FLASH_CFG_TBL_SINGLE_1G_MX		MACRONIX_INDEX_START
+#define FLASH_CFG_TBL_STACKED_1G_MX		(MACRONIX_INDEX_START + 1)
+#define FLASH_CFG_TBL_PARALLEL_1G_MX	(MACRONIX_INDEX_START + 2)
+#define FLASH_CFG_TBL_SINGLE_1GU_MX		(MACRONIX_INDEX_START + 3)
+#define FLASH_CFG_TBL_STACKED_1GU_MX	(MACRONIX_INDEX_START + 4)
+#define FLASH_CFG_TBL_PARALLEL_1GU_MX	(MACRONIX_INDEX_START + 5)
 
 /*
  * Interrupt or Polling mode of Operation Flags

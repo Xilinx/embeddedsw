@@ -65,6 +65,7 @@
 * 5.10	tjs	 03/01/18 Added MT25Q512 3V and 1.8V flash part support. CR# 995477
 * 5.11	tjs  03/16/18 Added support for ISSI flash parts.
 * 5.12	tjs  05/02/18 Added support for IS25LP064A and IS25WP064A.
+* 5.12  tjs  06/05/18 Added support for Macronix 1G flash parts. CR#978447
 * </pre>
 *
 ******************************************************************************/
@@ -164,6 +165,14 @@ extern "C" {
 #define XISF_ISSI_DEV_IS25LP064A		0x6017	/**< Device ID for IS25LP064A */
 #define XISF_ISSI_DEV_IS25WP256D		0x7019	/**< Device ID for IS25WP256D */
 #define XISF_ISSI_DEV_IS25LP256D		0x6019	/**< Device ID for IS25WP256D */
+
+/**
+* The following definitions specify the Device Id for the different
+* Macronix Serial Flash device.
+*/
+#define XISF_MACRONIX_DEV_MX66U1G45G	0x253B	/**< Device ID for MX66U1G45G */
+#define XISF_MACRONIX_DEV_MX66L1G45G	0x201B	/**< Device ID for MX66L1G45G */
+#define XISF_MACRONIX_DEV_MX66L1G55G	0x261B	/**< Device ID for MX66L1G55G */
 
 /**
  * Definitions for Intel, STM, Winbond and Spansion Serial Flash Device
