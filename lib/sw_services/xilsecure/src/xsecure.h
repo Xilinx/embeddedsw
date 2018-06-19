@@ -302,14 +302,12 @@ typedef struct {
 }XSecure_ImageInfo;
 
 /************************** Variable Definitions *****************************/
-#if defined (PSU_PMU)
 u8 EfusePpk[XSECURE_PPK_SIZE]__attribute__ ((aligned (32)));
 			/**< eFUSE verified PPK */
 u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE]__attribute__ ((aligned (32)));
 			/**< Buffer to store authentication certificate */
 u8 Buffer[XSECURE_BUFFER_SIZE] __attribute__ ((aligned (32)));
 			/**< Buffer to store */
-#endif
 
 u32 Iv[XSECURE_IV_LEN];
 u32 Key[XSECURE_KEY_LEN];
@@ -325,9 +323,7 @@ u32 XSecure_RsaCore(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize, u32 Flags);
 u32 XSecure_MemCopy(void * DestPtr, void * SrcPtr, u32 Size);
 
 /* Keys verification */
-#if defined (PSU_PMU)
 u32 XSecure_VerifySpk(u8 *Acptr, u32 EfuseRsaenable);
-#endif
 u32 XSecure_PpkVerify(XCsuDma *CsuDmaInstPtr, u8 *AuthCert);
 u32 XSecure_SpkAuthentication(XCsuDma *CsuDmaInstPtr, u8 *AuthCert, u8 *Ppk);
 u32 XSecure_SpkRevokeCheck(u8 *AuthCert);
@@ -335,19 +331,15 @@ u32 XSecure_SpkRevokeCheck(u8 *AuthCert);
 /* Authentication functions */
 u32 XSecure_PartitionAuthentication(XCsuDma *CsuDmaInstPtr, u8 *Data,
 				u32 Size, u8 *AuthCertPtr);
-#if defined (PSU_PMU)
 u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo);
-#endif
 
 /* eFUSE read functions */
 u32 XSecure_IsRsaEnabled();
 u32 XSecure_IsEncOnlyEnabled();
 
-#if defined (PSU_PMU)
 /* For single partition secure image */
 u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 		u32 KupAddrHigh, u32 KupAddrLow, XSecure_DataAddr *Addr);
-#endif
 /*****************************************************************************/
 
 #endif  /* XSECURE_HW_H */
