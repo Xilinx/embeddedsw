@@ -104,6 +104,7 @@
 * 5.10	tjs  03/01/18 Added MT25Q512 3V and 1.8V flash part support. CR# 995477
 * 5.11	tjs  03/16/18 Added support for ISSI flash part.
 * 5.12	tjs  05/02/18 Added support for IS25LP064A and IS25WP064A.
+* 5.12  tjs  06/05/18 Added support for Macronix 1G flash parts.
 *
 * </pre>
 *
@@ -474,6 +475,19 @@ static const IntelStmDeviceGeometry IntelStmDevices[] = {
 	 {XISF_MANUFACTURER_ID_ISSI, XISF_ISSI_DEV_IS25LP256D,
 	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
 	 XISF_NUM_OF_SECTORS512},
+
+	 {XISF_MANUFACTURER_ID_MACRONIX, XISF_MACRONIX_DEV_MX66U1G45G,
+	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
+	 XISF_NUM_OF_SECTORS2048},
+
+	 {XISF_MANUFACTURER_ID_MACRONIX, XISF_MACRONIX_DEV_MX66L1G45G,
+	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
+	 XISF_NUM_OF_SECTORS2048},
+
+	 {XISF_MANUFACTURER_ID_MACRONIX, XISF_MACRONIX_DEV_MX66L1G55G,
+	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
+	 XISF_NUM_OF_SECTORS2048},
+
 };
 #endif /* (((XPAR_XISF_FLASH_FAMILY==INTEL) || (XPAR_XISF_FLASH_FAMILY==STM) \
 	|| (XPAR_XISF_FLASH_FAMILY == SST) || 		\
@@ -581,6 +595,25 @@ static const SpaMicWinDeviceGeometry SpaMicWinDevices[] = {
 	{0x20000, 0x200, 512, 0x20000, 0x2000000,
 		XISF_MANUFACTURER_ID_ISSI, XISF_ISSI_ID_BYTE2_256,
 		0xFFFF0000, 1},
+	/* Macronix*/
+	{0x10000, 0x800, 256, 0x80000, 0x8000000,
+		XISF_MANUFACTURER_ID_MACRONIX, XISF_MACRONIX_ID_BYTE2_1G,
+		0xFFFF0000, 4},
+	{0x10000, 0x1000, 256, 0x100000, 0x8000000,
+		XISF_MANUFACTURER_ID_MACRONIX, XISF_MACRONIX_ID_BYTE2_1G,
+		0xFFFF0000, 4},
+	{0x20000, 0x800, 512, 0x80000, 0x8000000,
+		XISF_MANUFACTURER_ID_MACRONIX, XISF_MACRONIX_ID_BYTE2_1G,
+		0xFFFE0000, 4},
+	{0x10000, 0x800, 256, 0x80000, 0x8000000,
+		XISF_MANUFACTURER_ID_MACRONIX, XISF_MACRONIX_ID_BYTE2_1GU,
+		0xFFFF0000, 4},
+	{0x10000, 0x1000, 256, 0x100000, 0x8000000,
+		XISF_MANUFACTURER_ID_MACRONIX, XISF_MACRONIX_ID_BYTE2_1GU,
+		0xFFFF0000, 4},
+	{0x20000, 0x800, 512, 0x80000, 0x8000000,
+		XISF_MANUFACTURER_ID_MACRONIX, XISF_MACRONIX_ID_BYTE2_1GU,
+		0xFFFE0000, 4},
 };
 #endif /* (((XPAR_XISF_FLASH_FAMILY == WINBOND) || 	\
 	  (XPAR_XISF_FLASH_FAMILY == SPANSION)) &&	\
@@ -1635,6 +1668,7 @@ int XIsf_MicronFlashEnter4BAddMode(XIsf *InstancePtr)
 	}
 
 	if (InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON ||
+			InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MACRONIX ||
 			InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_ISSI) {
 
 		InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_ENTER_4BYTE_ADDR_MODE;
@@ -1773,11 +1807,14 @@ int XIsf_MicronFlashExit4BAddMode(XIsf *InstancePtr)
 	}
 
 	if (InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON ||
+			InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MACRONIX ||
 			InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_ISSI) {
-		InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_EXIT_4BYTE_ADDR_MODE;
 
 		if(InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_ISSI)
 			InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_EXIT_4BYTE_ADDR_MODE_ISSI;
+		else
+			InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_EXIT_4BYTE_ADDR_MODE;
+
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
 		/*
 		 * Enable write before transfer
@@ -2056,6 +2093,10 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 		FlashMake = XISF_MANUFACTURER_ID_ISSI;
 		StartIndex = ISSI_INDEX_START;
 	}
+	else if (BufferPtr[1] == XISF_MANUFACTURER_ID_MACRONIX) {
+		FlashMake = XISF_MANUFACTURER_ID_MACRONIX;
+		StartIndex = MACRONIX_INDEX_START;
+	}
 	else{
 		FlashMake = 0;
 		StartIndex = 0;
@@ -2209,6 +2250,36 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 			default:
 				XIsf_FCTIndex = 0;
 				break;
+		}
+	}
+
+	/* 1Gbit single, parallel and stacked supported for Macronix */
+	if (((FlashMake == XISF_MANUFACTURER_ID_MACRONIX) &&
+		 ((BufferPtr[3] == XISF_MACRONIX_ID_BYTE2_1G) ||
+		 (BufferPtr[3] == XISF_MACRONIX_ID_BYTE2_1GU)))) {
+
+		switch (InstancePtr->SpiInstPtr->Config.ConnectionMode) {
+		case XISF_QSPIPS_CONNECTION_MODE_SINGLE:
+			if (BufferPtr[3] == XISF_MACRONIX_ID_BYTE2_1GU)
+				XIsf_FCTIndex = FLASH_CFG_TBL_SINGLE_1GU_MX;
+			else
+				XIsf_FCTIndex = FLASH_CFG_TBL_SINGLE_1G_MX;
+			break;
+		case XISF_QSPIPS_CONNECTION_MODE_PARALLEL:
+			if (BufferPtr[3] == XISF_MACRONIX_ID_BYTE2_1GU)
+				XIsf_FCTIndex = FLASH_CFG_TBL_PARALLEL_1GU_MX;
+			else
+				XIsf_FCTIndex = FLASH_CFG_TBL_PARALLEL_1G_MX;
+			break;
+		case XISF_QSPIPS_CONNECTION_MODE_STACKED:
+			if (BufferPtr[3] == XISF_MACRONIX_ID_BYTE2_1GU)
+				XIsf_FCTIndex = FLASH_CFG_TBL_STACKED_1GU_MX;
+			else
+				XIsf_FCTIndex = FLASH_CFG_TBL_STACKED_1G_MX;
+			break;
+		default:
+			XIsf_FCTIndex = 0;
+			break;
 		}
 	}
 
