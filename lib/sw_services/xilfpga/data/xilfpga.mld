@@ -49,6 +49,8 @@
 #                      Crypto operation by using the internal memory.To Fix this
 #                      added a new API XFpga_ReValidateCryptoFlags().
 # 4.1 Nava   16/04/18  Added partial bitstream loading support.
+# 4.2 Nava   30/05/18  Refactor the xilfpga library to support
+#                      different PL programming Interfaces.
 #
 ##############################################################################
 
@@ -61,9 +63,9 @@ BEGIN LIBRARY xilfpga
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilfpga,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "XilFPGA library provides an interface to the Linux or bare-metal users for configuring the PL over PCAP from PS";
-  OPTION VERSION = 4.1;
+  OPTION VERSION = 4.2;
   OPTION NAME = xilfpga;
-PARAM name = secure_mode, desc = "Enable secure Bitstream loading support", type = bool, default = false;
+PARAM name = secure_mode, desc = "Enable secure Bitstream loading support", type = bool, default = true;
 PARAM name = ocm_address, desc = "OCM Address", type = int, default = 0xfffc0000, drc = drc_ocm_address ;
 PARAM name = base_address, desc = "Base Address", type = int, default = 0x80000, drc = drc_base_address ;
 END LIBRARY
