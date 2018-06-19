@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2016 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,13 @@
 #                      to avoid the unwanted blocking conditions.
 # 3.0   Nava  12/05/17 Added PL configuration registers readback support.
 # 4.0   Nava  08/02/18 Added Authenticated and Encypted Bitstream loading support.
+# 4.1	Nava   27/03/18 For Secure Bitstream loading to avoid the Security violations
+#                      Need to Re-validate the User Crypto flags with the Image
+#                      Crypto operation by using the internal memory.To Fix this
+#                      added a new API XFpga_ReValidateCryptoFlags().
+# 4.1	Nava   16/04/18  Added partial bitstream loading support.
+# 4.2	Nava  30/05/18 Refactor the xilfpga library to support
+#                      different PL programming Interfaces.
 #
 ##############################################################################
 
@@ -71,11 +78,23 @@ proc xfpga_open_include_file {file_name} {
 
 proc generate {lib_handle} {
 
-    puts "XFPGA generate ..."
-    file copy "src/xilfpga_pcap.h"  "../../include/xilfpga_pcap.h"
+    file copy "src/xilfpga.h"  "../../include/xilfpga.h"
 
     set conffile  [xfpga_open_include_file "xfpga_config.h"]
+    set zynqmp "src/interface/zynqmp/"
+    set interface "src/interface/"
+    # check processor type
+    set proc_instance [hsi::get_sw_processor];
+    set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+    set os_type [hsi::get_os];
 
+    if { $proc_type == "psu_cortexa53" || $proc_type == "psu_cortexr5" || $proc_type == "psu_pmu" } {
+	foreach entry [glob -nocomplain [file join $zynqmp *]] {
+            file copy -force $entry "./src"
+        }
+	file delete -force $interface
+    }
     puts $conffile "#ifndef _XFPGA_CONFIG_H"
     puts $conffile "#define _XFPGA_CONFIG_H"
     set value  [common::get_property CONFIG.ocm_address $lib_handle]

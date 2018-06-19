@@ -48,7 +48,7 @@
 #include "pm_mmio_access.h"
 #include "pm_system.h"
 #ifdef ENABLE_FPGA_LOAD
-#include "xilfpga_pcap.h"
+#include "xilfpga.h"
 #endif
 #include "pm_clock.h"
 #include "pm_requirement.h"
@@ -670,9 +670,9 @@ static void PmFpgaLoad(const PmMaster *const master,
 			const u32 KeyAddr, const u32 flags)
 {
 	u32 Status;
-	UINTPTR WrAddr = ((u64)AddrHigh << 32)|AddrLow;
+	UINTPTR BitStreamAddr = ((u64)AddrHigh << 32)|AddrLow;
 
-       Status = XFpga_PL_BitSream_Load(WrAddr, KeyAddr, flags);
+       Status = XFpga_PL_BitStream_Load(BitStreamAddr, KeyAddr, flags);
 
        IPI_RESPONSE1(master->ipiMask, Status);
 }
@@ -685,7 +685,7 @@ static void PmFpgaGetStatus(const PmMaster *const master)
 {
 	u32 value;
 
-       value = XFpga_PcapStatus();
+       value = XFpga_InterfaceStatus();
 
        IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, value);
 }

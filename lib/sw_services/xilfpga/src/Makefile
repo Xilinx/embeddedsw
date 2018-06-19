@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2007 - 2015 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2007 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -48,7 +48,7 @@ OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 xilfpga_SRCS := $(wildcard *.c)
 xilfpga_OBJS = $(addprefix $(xilfpga_DIR)/, $(xilfpga_SRCS:%.c=%.o))
 
-INCLUDEFILES=$(xilfpga_DIR)/xilfpga_pcap.h
+INCLUDEFILES=$(xilfpga_DIR)/$(wildcard *.h)
 
 
 libs: libxilfpga.a
