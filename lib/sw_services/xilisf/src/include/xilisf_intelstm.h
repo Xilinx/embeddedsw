@@ -66,6 +66,8 @@
 * 5.11	tjs  03/16/18 Added support for ISSI flash parts.
 * 5.12	tjs  05/02/18 Added support for IS25LP064A and IS25WP064A.
 * 5.12  tjs  06/05/18 Added support for Macronix 1G flash parts. CR#978447
+* 5.12 tjs  06/18/18 Added support for MT25QL01G and MT25QL02G 3V
+*					  flash.CR#1004264
 * </pre>
 *
 ******************************************************************************/
@@ -131,8 +133,10 @@ extern "C" {
 #define XISF_MIC_DEV_N25Q256_1V8	0xBB19
 #define XISF_MIC_DEV_MT25Q512_3V0	0xBA20	/**< Device ID for MT25QL512 */
 #define XISF_MIC_DEV_MT25Q512_1V8	0xBB20	/**< Device ID for MT25QU512 */
-#define XISF_MIC_DEV_MT25Q01_1V8	0xBB21
-#define XISF_MIC_DEV_MT25Q02_1V8	0xBB22
+#define XISF_MIC_DEV_MT25Q01_3V0	0xBA21	/**< Device ID for MT25QL01G */
+#define XISF_MIC_DEV_MT25Q01_1V8	0xBB21	/**< Device ID for MT25QU01G */
+#define XISF_MIC_DEV_MT25Q02_3V0	0xBA22	/**< Device ID for MT25QL02G */
+#define XISF_MIC_DEV_MT25Q02_1V8	0xBB22	/**< Device ID for MT25QU02G */
 
 /**
  * The following definitions specify the Device Id for the different
