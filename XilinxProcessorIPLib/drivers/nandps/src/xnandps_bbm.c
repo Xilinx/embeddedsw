@@ -43,6 +43,9 @@
 * ----- ----   ----------  -----------------------------------------------
 * 1.00a nm     12/10/2010  First release
 * 1.03a nm     10/22/2012  Fixed CR# 683787.
+* 2.4   nsk    06/20/2018  Fixed BBT offset overflow in XNandPs_WriteBbt()
+*			   and XNandPs_ReadBbt(), overflow causes incorrect
+*			   BBT writes.
 * </pre>
 *
 ******************************************************************************/
@@ -402,8 +405,8 @@ static int XNandPs_ReadBbt(XNandPs *InstancePtr)
 		 * Valid BBT & Mirror BBT found
 		 */
 		if (Desc->Version > MirrorDesc->Version) {
-			Offset = Desc->PageOffset *
-				InstancePtr->Geometry.BytesPerPage;
+			Offset = ((u64)Desc->PageOffset) *
+				((u64)InstancePtr->Geometry.BytesPerPage);
 			XNandPs_Read(InstancePtr, Offset, BbtLen, &Buf, NULL);
 
 			/*
@@ -421,8 +424,8 @@ static int XNandPs_ReadBbt(XNandPs *InstancePtr)
 				return Status;
 			}
 		} else if (Desc->Version < MirrorDesc->Version) {
-			Offset = MirrorDesc->PageOffset *
-				InstancePtr->Geometry.BytesPerPage;
+			Offset = ((u64)MirrorDesc->PageOffset) *
+				((u64)InstancePtr->Geometry.BytesPerPage);
 			XNandPs_Read(InstancePtr, Offset, BbtLen, &Buf, NULL);
 
 			/*
@@ -441,8 +444,8 @@ static int XNandPs_ReadBbt(XNandPs *InstancePtr)
 			}
 		} else {
 			/* Both are up-to-date */
-			Offset = Desc->PageOffset *
-				InstancePtr->Geometry.BytesPerPage;
+			Offset = ((u64)Desc->PageOffset) *
+				((u64)InstancePtr->Geometry.BytesPerPage);
 			XNandPs_Read(InstancePtr, Offset, BbtLen, &Buf, NULL);
 
 			/*
@@ -454,7 +457,7 @@ static int XNandPs_ReadBbt(XNandPs *InstancePtr)
 		/*
 		 * Valid Primary BBT found
 		 */
-		Offset = Desc->PageOffset * InstancePtr->Geometry.BytesPerPage;
+		Offset = ((u64)Desc->PageOffset) * ((u64)InstancePtr->Geometry.BytesPerPage);
 		XNandPs_Read(InstancePtr, Offset, BbtLen, &Buf, NULL);
 
 		/*
@@ -474,8 +477,8 @@ static int XNandPs_ReadBbt(XNandPs *InstancePtr)
 		/*
 		 * Valid Mirror BBT found
 		 */
-		Offset = MirrorDesc->PageOffset *
-			InstancePtr->Geometry.BytesPerPage;
+		Offset = ((u64)MirrorDesc->PageOffset) *
+			((u64)InstancePtr->Geometry.BytesPerPage);
 		XNandPs_Read(InstancePtr, Offset, BbtLen, &Buf, NULL);
 
 		/*
@@ -674,7 +677,7 @@ static int XNandPs_WriteBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc,
 	/*
 	 * Write the BBT to page offset
 	 */
-	Offset = Desc->PageOffset * InstancePtr->Geometry.BytesPerPage;
+	Offset = ((u64)Desc->PageOffset) * ((u64)InstancePtr->Geometry.BytesPerPage);
 	Status = XNandPs_Write(InstancePtr, Offset, BbtLen, &Buf[0], SpareBuf);
 	if (Status != XST_SUCCESS) {
 		return Status;
