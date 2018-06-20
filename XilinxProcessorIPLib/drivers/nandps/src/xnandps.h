@@ -174,6 +174,8 @@
 *                          rules.
 * 2.3   ms     04/18/17    Modified tcl file to add suffix U for all macros
 *                          definitions of nandps in xparameters.h
+* 2.4   nsk    06/20/18    Fixed BBT offset overflow in XNandPs_WriteBbt()
+*			   and XNandPs_ReadBbt().
 * </pre>
 *
 ******************************************************************************/
