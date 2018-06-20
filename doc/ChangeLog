@@ -18,6 +18,7 @@ Removed the check for address to be non zero and
 Added check for Spansion flash before proceeding to quad mode read (CR#1002769)
 Added support for Macronix 1G flash parts. (CR#978447)
 Removed checkpatch and GCC warnings.
+Added support for MT25QL01G flash from Micron (CR#1004264)
 
 Resetps_v1_2
 Fixed compilation warnings in resetps driver
