@@ -1,76 +1,77 @@
 /******************************************************************************
-*
-* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
-******************************************************************************/
+ *
+ * Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * Use of the Software is limited solely to applications:
+ * (a) running on a Xilinx device, or
+ * (b) that interact with a Xilinx device through a bus or interconnect.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+ * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * Except as contained in this notice, the name of the Xilinx shall not be used
+ * in advertising or otherwise to promote the sale, use or other dealings in
+ * this Software without prior written authorization from Xilinx.
+ *
+ ******************************************************************************/
 /*****************************************************************************/
 /**
-*
-* @file xilisf_intelstm.h
-*
-* This file contains the definitions to be used when accessing the Intel, STM,
-* Winbond and Spansion Serial Flash.
-* If any new definitions are added to this file, check if they need to be
-* added to the xilisf_atmel.h file too.
-*
-* @note	None
-*
-* <pre>
-*
-* MODIFICATION HISTORY:
-*
-* Ver   Who      Date     Changes
-* ----- -------  -------- -----------------------------------------------
-* 1.00a ksu/sdm  03/03/08 First release
-* 2.01a sdm      01/04/10 Added Support for Winbond W25QXX/W25XX devices
-* 2.04a sdm      08/17/10 Updated to support Numonyx (N25QXX) and Spansion
-*			  flash memories
-* 3.00a srt	 06/20/12 Updated to support interfaces SPI PS and QSPI PS.
-*			  Added support to SST flash on SPI PS interface.
-* 3.02a srt	 04/26/13 Modified SECTOR and BLOCK Erase commands for
-*			  SST flash (CR 703816).
-* 5.2   asa  05/12/15 Added macros for 4 byte commands.
-* 5.5   sk   01/14/16 Updated IntelStmDevices list to add support for S25FL512S
-*                     and S25FL256S.
-*       sk   03/02/16 Added support for MT25QU01G.
-* 5.7   rk   27/07/16 Added Subsector erase command.
-* 5.10  tjs  11/30/17 Added JEDEC ID info for S25FL-L series flashes
-* 					  CR# 987566
-* 5.10	tjs	 03/01/18 Added MT25Q512 3V and 1.8V flash part support. CR# 995477
-* 5.11	tjs  03/16/18 Added support for ISSI flash parts.
-* 5.12	tjs  05/02/18 Added support for IS25LP064A and IS25WP064A.
-* 5.12  tjs  06/05/18 Added support for Macronix 1G flash parts. CR#978447
-* 5.12 tjs  06/18/18 Added support for MT25QL01G and MT25QL02G 3V
-*					  flash.CR#1004264
-* </pre>
-*
-******************************************************************************/
+ *
+ * @file xilisf_intelstm.h
+ *
+ * This file contains the definitions to be used when accessing the Intel, STM,
+ * Winbond and Spansion Serial Flash.
+ * If any new definitions are added to this file, check if they need to be
+ * added to the xilisf_atmel.h file too.
+ *
+ * @note	None
+ *
+ * <pre>
+ *
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who      Date     Changes
+ * ----- -------  -------- -----------------------------------------------
+ * 1.00a ksu/sdm  03/03/08 First release
+ * 2.01a sdm      01/04/10 Added Support for Winbond W25QXX/W25XX devices
+ * 2.04a sdm      08/17/10 Updated to support Numonyx (N25QXX) and Spansion
+ *			  flash memories
+ * 3.00a srt	 06/20/12 Updated to support interfaces SPI PS and QSPI PS.
+ *			  Added support to SST flash on SPI PS interface.
+ * 3.02a srt	 04/26/13 Modified SECTOR and BLOCK Erase commands for
+ *			  SST flash (CR 703816).
+ * 5.2   asa  05/12/15 Added macros for 4 byte commands.
+ * 5.5   sk   01/14/16 Updated IntelStmDevices list to add support for S25FL512S
+ *                     and S25FL256S.
+ *       sk   03/02/16 Added support for MT25QU01G.
+ * 5.7   rk   27/07/16 Added Subsector erase command.
+ * 5.10  tjs  11/30/17 Added JEDEC ID info for S25FL-L series flashes
+ *					  CR# 987566
+ * 5.10	tjs 03/01/18 Added MT25Q512 3V and 1.8V flash part support. CR# 995477
+ * 5.11	tjs  03/16/18 Added support for ISSI flash parts.
+ * 5.12	tjs  05/02/18 Added support for IS25LP064A and IS25WP064A.
+ * 5.12  tjs  06/05/18 Added support for Macronix 1G flash parts. CR#978447
+ * 5.12 tjs  06/18/18 Added support for MT25QL01G and MT25QL02G 3V
+ *					  flash.CR#1004264
+ * 5.12 tjs  06/18/18 Removed warnings reported by checkpatch.
+ * </pre>
+ *
+ ******************************************************************************/
 #ifndef XILISF_INTELSTM_H /* prevent circular inclusions */
 #define XILISF_INTELSTM_H /* by using protection macros */
 
@@ -149,7 +150,8 @@ extern "C" {
 #define XISF_SPANSION_DEV_S25FL064	0x0216	/**< Device ID for S25FL064 */
 #define XISF_SPANSION_DEV_S25FL064L	0x6017	/**< Device ID for S25FL064L */
 #define XISF_SPANSION_DEV_S25FL128	0x2018	/**< Device ID for S25FL128
-						  *  and S25FL129 */
+						  * and S25FL129
+						  */
 #define XISF_SPANSION_DEV_S25FL128L	0x6018	/**< Device ID for S25FL128L */
 #define XISF_SPANSION_DEV_S25FL256	0x0219	/**< Device ID for S25FL256 */
 #define XISF_SPANSION_DEV_S25FL256L	0x6019	/**< Device ID for S25FL256L */
@@ -162,18 +164,18 @@ extern "C" {
 #define XISF_SST_DEV_SST25WF080		0x2505	/**< Device ID for SST25WF080 */
 
 /**
-* The following definitions specify the Device Id for the different
-* ISSI Serial Flash device.
-*/
-#define XISF_ISSI_DEV_IS25WP064A		0x7017	/**< Device ID for IS25WP064A */
-#define XISF_ISSI_DEV_IS25LP064A		0x6017	/**< Device ID for IS25LP064A */
-#define XISF_ISSI_DEV_IS25WP256D		0x7019	/**< Device ID for IS25WP256D */
-#define XISF_ISSI_DEV_IS25LP256D		0x6019	/**< Device ID for IS25WP256D */
+ * The following definitions specify the Device Id for the different
+ * ISSI Serial Flash device.
+ */
+#define XISF_ISSI_DEV_IS25WP064A	0x7017	/**< Device ID for IS25WP064A */
+#define XISF_ISSI_DEV_IS25LP064A	0x6017	/**< Device ID for IS25LP064A */
+#define XISF_ISSI_DEV_IS25WP256D	0x7019	/**< Device ID for IS25WP256D */
+#define XISF_ISSI_DEV_IS25LP256D	0x6019	/**< Device ID for IS25WP256D */
 
 /**
-* The following definitions specify the Device Id for the different
-* Macronix Serial Flash device.
-*/
+ * The following definitions specify the Device Id for the different
+ * Macronix Serial Flash device.
+ */
 #define XISF_MACRONIX_DEV_MX66U1G45G	0x253B	/**< Device ID for MX66U1G45G */
 #define XISF_MACRONIX_DEV_MX66L1G45G	0x201B	/**< Device ID for MX66L1G45G */
 #define XISF_MACRONIX_DEV_MX66L1G55G	0x261B	/**< Device ID for MX66L1G55G */
@@ -213,11 +215,15 @@ extern "C" {
 #define XISF_CMD_STATUSREG_READ		0x05	/**< Status Reg Read command */
 #define XISF_CMD_STATUSREG2_READ	0x35	/**< Status Reg2 Read command */
 #define XISF_CMD_DUAL_OP_FAST_READ	0x3B	/**< Dual output fast read */
-#define XISF_CMD_DUAL_OP_FAST_READ_4B	0x3C /**< 4 byte Dual output fast read */
+#define XISF_CMD_DUAL_OP_FAST_READ_4B	0x3C /**< 4 byte Dual
+					       * output fast read
+					       */
 #define XISF_CMD_DUAL_IO_FAST_READ	0xBB	/**< Dual i/o fast read */
 #define XISF_CMD_DUAL_IO_FAST_READ_4B	0xBC /**< 4 byte Dual i/o fast read */
 #define XISF_CMD_QUAD_OP_FAST_READ	0x6B	/**< Quad output fast read */
-#define XISF_CMD_QUAD_OP_FAST_READ_4B	0x6C /**< 4 byte Quad output fast read */
+#define XISF_CMD_QUAD_OP_FAST_READ_4B	0x6C /**< 4 byte Quad
+					       * output fast read
+					       */
 #define XISF_CMD_QUAD_IO_FAST_READ	0xEB	/**< Quad i/o fast read */
 #define XISF_CMD_QUAD_IO_FAST_READ_4B	0xEC /**< 4 byte Quad i/o fast read */
 
@@ -225,16 +231,22 @@ extern "C" {
  * Definitions of Write commands.
  */
 #define XISF_CMD_PAGEPROG_WRITE		0x02	/**< Page Program command */
-#define XISF_CMD_PAGEPROG_WRITE_4BYTE	0x12	/**< 4 byte Page Program command */
+#define XISF_CMD_PAGEPROG_WRITE_4BYTE	0x12	/**< 4 byte Page
+						  * Program command
+						  */
 #define XISF_CMD_STATUSREG_WRITE	0x01	/**< Status Reg Write Command */
-#define XISF_CMD_DUAL_IP_PAGE_WRITE	0xA2	/**< Dual input fast page write
+#define XISF_CMD_DUAL_IP_PAGE_WRITE	0xA2	/**< Dual input fast
+						  * page write
 						  */
 #define XISF_CMD_DUAL_IP_EXT_PAGE_WRITE	0xD2	/**< Dual input extended fast
-						  *  page write */
-#define XISF_CMD_QUAD_IP_PAGE_WRITE	0x32	/**< Quad input fast page write
+						  * page write
+						  */
+#define XISF_CMD_QUAD_IP_PAGE_WRITE	0x32	/**< Quad input fast
+						  * page write
 						  */
 #define XISF_CMD_QUAD_IP_EXT_PAGE_WRITE	0x12	/**< Dual input extended fast
-						  *  page write */
+						  * page write
+						  */
 
 /**
  * Definitions of Erase commands.
@@ -243,14 +255,19 @@ extern "C" {
 
 
 #if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
-    (XPAR_XISF_FLASH_FAMILY == SPANSION))
+	(XPAR_XISF_FLASH_FAMILY == SPANSION))
 #define XISF_CMD_SECTOR_ERASE		0xD8	/**< Sector Erase command */
 #define XISF_CMD_SUB_SECTOR_ERASE	0x20	/**< Sub-sector Erase command.
-						  *  only for N25QXX */
+						  * only for N25QXX
+						  */
 #define XISF_CMD_4BYTE_SECTOR_ERASE 0xDC
 #define XISF_CMD_4BYTE_SUB_SECTOR_ERASE 0x21
-#endif /* ((XPAR_XISF_FLASH_FAMILY==INTEL)||(XPAR_XISF_FLASH_FAMILY == STM) ||
-	   (XPAR_XISF_FLASH_FAMILY == SPANSION)) */
+#endif
+/**
+ * ((XPAR_XISF_FLASH_FAMILY==INTEL) || \
+ * (XPAR_XISF_FLASH_FAMILY == STM) || \
+ * (XPAR_XISF_FLASH_FAMILY == SPANSION))
+ */
 
 #if ((XPAR_XISF_FLASH_FAMILY == WINBOND) || (XPAR_XISF_FLASH_FAMILY == SST))
 #define XISF_CMD_BLOCK_ERASE		0xD8	/**< Block Erase command */
@@ -269,7 +286,8 @@ extern "C" {
 #define XISF_CMD_RELEASE_FROM_DPD	0xAB	/**< Release DPD mode command */
 
 #define XISF_CMD_ENABLE_HPM		0xA3	/**< Enable high performance
-						  *  mode */
+						  * mode
+						  */
 
 #if (XPAR_XISF_FLASH_FAMILY == SPANSION)
 #define XISF_CMD_ENTER_4BYTE_ADDR_MODE	0xB7
@@ -283,10 +301,12 @@ extern "C" {
 #define XISF_CMD_OTP_READ		0x4B	/**< OTP data read command */
 #define XISF_CMD_OTP_WRITE		0x42	/**< OTP write command */
 #define XISF_CMD_PARAM_BLOCK_ERASE	0x40	/**< Parameter Block Erase
-						  *  command */
+						  * command
+						  */
 #define XISF_CMD_CLEAR_SRFAIL_FLAGS	0x30	/**< Clear SR fail bits Cmd */
-#define XISF_OTP_RDWR_EXTRA_BYTES	0x05 	/**< OTP Read/Write
-						  *  extra bytes */
+#define XISF_OTP_RDWR_EXTRA_BYTES	0x05	/**< OTP Read/Write
+						  * extra bytes
+						  */
 #endif /* INTEL */
 
 
@@ -295,10 +315,11 @@ extern "C" {
  * Intel, STM, Winbond and Spansion Serial Flash.
  */
 #define XISF_SR_IS_READY_MASK		0x01	/**< Ready mask */
-#define XISF_SR_WRITE_ENABLE_MASK 	0x02	/**< Write Enable latch mask */
+#define XISF_SR_WRITE_ENABLE_MASK	0x02	/**< Write Enable latch mask */
 #define XISF_SR_BLOCK_PROTECT_MASK	0x1C	/**< Block Protect mask */
 #define XISF_SR_WRITE_PROTECT_MASK	0x80	/**< Status Reg write
-						   * protect mask */
+						  * protect mask
+						  */
 #define XISF_SR_BLOCK_PROTECT_SHIFT	2	/**< Block protect bits shift */
 
 #if (XPAR_XISF_FLASH_FAMILY == INTEL)
@@ -316,14 +337,14 @@ extern "C" {
  * The definition specifies the total bytes in Bulk Erase commands.
  *  This count includes Command byte and any don't care bytes needed.
  */
-#define XISF_BULK_ERASE_BYTES		0x01	/**< Bulk erase extra bytes */
+#define XISF_BULK_ERASE_BYTES	0x01	/**< Bulk erase extra bytes */
 
 /**
  * The following definitions specify the Write Enable and Disable operation
  * arguments to be passed to the XIsf_WriteEnable API.
  */
-#define XISF_WRITE_ENABLE		1	/**< Write enable */
-#define XISF_WRITE_DISABLE		0	/**< Write disable */
+#define XISF_WRITE_ENABLE	1	/**< Write enable */
+#define XISF_WRITE_DISABLE	0	/**< Write disable */
 
 /**
  * This definition specifies the extra bytes in each of the Write Enable/Disable
@@ -331,14 +352,16 @@ extern "C" {
  * bytes needed.
  */
 #define XISF_CMD_WRITE_ENABLE_DISABLE_BYTES	1  /**< Write enable/disable
-						     *  command extra bytes */
+						     * command extra bytes
+						     */
 
 /**
  * This definition specifies the extra bytes in 4 byte addr mode enter and exit
  * commands. This count refers to the Command byte.
  */
 #define XISF_CMD_4BYTE_ADDR_ENTER_EXIT_BYTES	1 /**< Four byte addr mode
-							 *  command extra bytes */
+						    * command extra bytes
+						    */
 /**
  * This definition specifies the extra bytes in each of the Write/Read/Erase
  * commands, commands operating on SPR, auto page write, page to
@@ -362,39 +385,44 @@ extern "C" {
  * bytes needed.
  */
 #define XISF_CMD_FAST_READ_EXTRA_BYTES	5	/**< Fast read and Fast buffer
-						  *  read extra bytes */
+						  *  read extra bytes
+						  */
 
 /**
  * The following definitions specify the total bytes in some of the commands.
  * This count includes Command byte and any don't care bytes needed.
  */
-#define XISF_STATUS_RDWR_BYTES		2	/**< Status Read/Write bytes
-						  *  count */
-#define XISF_INFO_READ_BYTES		5	/**< Serial Flash Info read
-						  *  bytes count */
-#define XISF_INFO_EXTRA_BYTES		1	/**< Serial Flash Info extra
-						  *  bytes */
-#define XISF_IOCTL_BYTES		1	/**< Serial Flash IOCTL bytes */
-#define XISF_HPM_BYTES			4	/**< Serial Flash HPM bytes */
+#define XISF_STATUS_RDWR_BYTES	2	/**< Status Read/Write bytes
+					  * count
+					  */
+#define XISF_INFO_READ_BYTES	5	/**< Serial Flash Info read
+					  * bytes count
+					  */
+#define XISF_INFO_EXTRA_BYTES	1	/**< Serial Flash Info extra
+					  * bytes
+					  */
+#define XISF_IOCTL_BYTES	1	/**< Serial Flash IOCTL bytes */
+#define XISF_HPM_BYTES		4	/**< Serial Flash HPM bytes */
 #define XISF_CMD_MAX_EXTRA_BYTES	5	/**< Max extra bytes for
-						  *  all commands  */
-#define XISF_DUMMYBYTE			0xFF	/**< Dummy byte to fill */
+						  *  all commands
+						  */
+#define XISF_DUMMYBYTE		0xFF	/**< Dummy byte to fill */
 
 /**
  * Address Shift Masks.
  */
-#define XISF_ADDR_SHIFT24		24 /**< 24 bit Shift */
-#define XISF_ADDR_SHIFT16		16 /**< 16 bit Shift */
-#define XISF_ADDR_SHIFT8		8  /**< 8 bit Shift */
+#define XISF_ADDR_SHIFT24	24 /**< 24 bit Shift */
+#define XISF_ADDR_SHIFT16	16 /**< 16 bit Shift */
+#define XISF_ADDR_SHIFT8	8  /**< 8 bit Shift */
 
 /**
  * Byte Positions.
  */
-#define BYTE1				0 /**< Byte 1 position */
-#define BYTE2				1 /**< Byte 2 position */
-#define BYTE3				2 /**< Byte 3 position */
-#define BYTE4				3 /**< Byte 4 position */
-#define BYTE5				4 /**< Byte 5 position */
+#define BYTE1	0 /**< Byte 1 position */
+#define BYTE2	1 /**< Byte 2 position */
+#define BYTE3	2 /**< Byte 3 position */
+#define BYTE4	3 /**< Byte 4 position */
+#define BYTE5	4 /**< Byte 5 position */
 
 /**************************** Type Definitions *******************************/
 
