@@ -655,6 +655,7 @@ s32 XUsbPsu_U1SleepEnable(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_U2SleepEnable(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_U1SleepDisable(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_U2SleepDisable(struct XUsbPsu *InstancePtr);
+s32 XUsbPsu_IsSuperSpeed(struct XUsbPsu *InstancePtr);
 
 /*
  * Functions in xusbpsu_endpoint.c

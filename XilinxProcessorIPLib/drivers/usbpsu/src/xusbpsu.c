@@ -892,4 +892,24 @@ s32 XUsbPsu_U2SleepDisable(struct XUsbPsu *InstancePtr)
 
 	return XST_SUCCESS;
 }
+
+/****************************************************************************/
+/**
+* Gets speed of the Core for connecting to Host
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+*
+* @return	XST_SUCCESS else XST_FAILURE
+*
+* @note		None.
+*
+*****************************************************************************/
+s32 XUsbPsu_IsSuperSpeed(struct XUsbPsu *InstancePtr)
+{
+	if (InstancePtr->AppData->Speed != XUSBPSU_SPEED_SUPER) {
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
 /** @} */

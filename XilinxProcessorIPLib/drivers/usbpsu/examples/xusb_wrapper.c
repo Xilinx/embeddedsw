@@ -237,11 +237,7 @@ void Usb_SetSpeed(void *InstancePtr, u32 Speed)
 *****************************************************************************/
 s32 IsSuperSpeed(struct Usb_DevData *InstancePtr)
 {
-	if (InstancePtr->Speed != XUSBPSU_SPEED_SUPER) {
-		return XST_FAILURE;
-	}
-
-	return XST_SUCCESS;
+	return XUsbPsu_IsSuperSpeed((struct XUsbPsu *)InstancePtr->PrivateData);
 }
 
 /****************************************************************************/
