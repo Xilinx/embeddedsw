@@ -46,6 +46,7 @@ fi
 # copy the libraries required
 cp -r $SERVICES_DIR/xilfpga/ $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilfpga/src/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilfpga/src/interface/zynqmp/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilsecure/ $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilsecure/src/*.h $BSP_DIR/include/
 
