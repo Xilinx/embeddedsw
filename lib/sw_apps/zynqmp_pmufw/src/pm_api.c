@@ -231,10 +231,16 @@ static PmPayloadStatus PmCheckArgument(const u8 argType,
 			status = PM_PAYLOAD_ERR_SHUTDOWN_TYPE;
 		}
 		break;
+	case ARG_EVENT_ID:
+		if ((arg != EVENT_STATE_CHANGE) &&
+		    (arg != EVENT_ZERO_USERS) &&
+		    (arg != EVENT_ERROR_CONDITION)) {
+			status = PM_PAYLOAD_ERR_EVENT_ID;
+		}
+		break;
 	case ARG_CAPABILITIES:
 	case ARG_OP_CH_TYPE:
 	case ARG_STATE:
-	case ARG_EVENT_ID:
 	case ARG_RESET:
 	case ARG_LATENCY:
 	case ARG_UINT32:
