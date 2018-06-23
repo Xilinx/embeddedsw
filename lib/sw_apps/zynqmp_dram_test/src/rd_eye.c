@@ -7,6 +7,7 @@
 #include "xil_exception.h"
 #include "xpseudo_asm.h"
 #include "xdebug.h"
+#include "xil_io.h"
 
 #define LANE0LCDLR3_OFFSET	DDR_PHY_DX0LCDLR3
 #define LANE0LCDLR4_OFFSET	DDR_PHY_DX0LCDLR4
@@ -56,9 +57,13 @@ void set_rd_dqs_delay(int position) {
 	int i;
 
 	for(i=0; i<ddr_config__lanes; i++) {
-		*(volatile unsigned int *)(UINTPTR)(LANE0LCDLR3_OFFSET + (LANEOFFSET*i)) = ((rd_center[i].qsd) + position);
+		if (abs(position) <= rd_center[i].qsd)
+			Xil_Out32(LANE0LCDLR3_OFFSET + (LANEOFFSET * i),
+				  (rd_center[i].qsd) + position);
 		asm("dsb sy");
-		*(volatile unsigned int *)(UINTPTR)(LANE0LCDLR4_OFFSET + (LANEOFFSET*i)) = ((rd_center[i].qsnd) + position);
+		if (abs(position) <= rd_center[i].qsnd)
+			Xil_Out32(LANE0LCDLR4_OFFSET + (LANEOFFSET * i),
+				  (rd_center[i].qsnd) + position);
 		asm("dsb sy");
 	}
 	
@@ -179,7 +184,9 @@ void measure_rd_eye(unsigned long int testaddr, unsigned int len, unsigned int p
 
 			done = 1;
 			for(i=0; i<ddr_config__lanes; i++) {
-				if(eye_end[i] == 0) {
+				if (!eye_end[i] &&
+				    ((abs(position) < rd_center[i].qsd) ||
+					(abs(position) < rd_center[i].qsnd))) {
 					done = 0;
 				}
 			}
@@ -216,7 +223,9 @@ void measure_rd_eye(unsigned long int testaddr, unsigned int len, unsigned int p
 
 			done = 1;
 			for(i=0; i<ddr_config__lanes; i++) {
-				if(eye_start[i] == 0) {
+				if (!eye_start[i] &&
+				    ((abs(position) < rd_center[i].qsd) ||
+					(abs(position) < rd_center[i].qsnd))) {
 					done = 0;
 				}
 			}
