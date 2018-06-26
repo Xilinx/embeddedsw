@@ -159,6 +159,9 @@
 * 5.0   sk     06/25/18 Update DAC min sampling rate to 500MHz and also update
 *                       VCO Range, PLL_DIVIDER and PLL_FPDIV ranges.
 *                       Update PLL structure with calculated sampling rate.
+*       sk     06/25/18 Add XRFdc_GetFabClkOutDiv() API to read fabric clk div.
+*                       Add Inline APIs XRFdc_CheckBlockEnabled(),
+*                       XRFdc_CheckTileEnabled().
 *
 * </pre>
 *
@@ -509,6 +512,8 @@ typedef struct {
 
 #define XRFDC_ADC_TILE				0U
 #define XRFDC_DAC_TILE				1U
+#define XRFDC_TILE_ID_MAX			0x3
+#define XRFDC_BLOCK_ID_MAX			0x3
 #define XRFDC_EVNT_SRC_IMMEDIATE	0x00000000U
 #define XRFDC_EVNT_SRC_SLICE		0x00000001U
 #define XRFDC_EVNT_SRC_TILE			0x00000002U
@@ -1120,6 +1125,94 @@ static inline void XRFdc_GetPLLConfig(XRFdc* InstancePtr, u32 Type,
 /*****************************************************************************/
 /**
 *
+* Checks whether ADC/DAC block is enabled or not.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
+* @param	Tile_Id Valid values are 0-3.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+*
+* @return
+*		- XRFDC_SUCCESS if block enabled.
+*       - XRFDC_FAILURE if Block not enabled.
+*
+******************************************************************************/
+static inline u32 XRFdc_CheckBlockEnabled(XRFdc* InstancePtr, u32 Type,
+			u32 Tile_Id, u32 Block_Id)
+{
+	u8 IsBlockAvail;
+
+	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE))
+		return XRFDC_FAILURE;
+
+	if ((Tile_Id > XRFDC_TILE_ID_MAX) || (Block_Id > XRFDC_BLOCK_ID_MAX))
+			return XRFDC_FAILURE;
+
+	if (Type == XRFDC_ADC_TILE) {
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+	} else {
+		IsBlockAvail = XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+	}
+	if (IsBlockAvail == 0U) {
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block not "
+						"available in %s\r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+						"available in %s\r\n", __func__);
+#endif
+		return XRFDC_FAILURE;
+	} else
+		return XRFDC_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* Checks whether ADC/DAC tile is enabled or not.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
+* @param	Tile_Id Valid values are 0-3.
+*
+* @return
+*		- XRFDC_SUCCESS if tile enabled.
+*       - XRFDC_FAILURE if tile not enabled.
+*
+******************************************************************************/
+static inline u32 XRFdc_CheckTileEnabled(XRFdc* InstancePtr, u32 Type,
+								u32 Tile_Id)
+{
+	u8 IsTileAvail;
+
+	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE))
+		return XRFDC_FAILURE;
+
+	if (Tile_Id > XRFDC_TILE_ID_MAX)
+		return XRFDC_FAILURE;
+
+	if (Type == XRFDC_ADC_TILE) {
+		IsTileAvail = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].Enable;
+	} else {
+		IsTileAvail = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].Enable;
+	}
+	if (IsTileAvail == 0U) {
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested tile not "
+						"available in %s\r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Requested tile not "
+						"available in %s\r\n", __func__);
+#endif
+		return XRFDC_FAILURE;
+	} else
+		return XRFDC_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
 * This API is used to get the driver version.
 *
 * @param	None
@@ -1234,6 +1327,8 @@ u32 XRFdc_GetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 								u16 *Enable);
 u32 XRFdc_GetLinkCoupling(XRFdc* InstancePtr, u32 Tile_Id, u32 Block_Id,
 								u32 *Mode);
+u32 XRFdc_GetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
+								u16 *FabClkDiv);
 
 #ifdef __cplusplus
 }

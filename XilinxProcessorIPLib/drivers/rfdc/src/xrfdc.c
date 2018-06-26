@@ -108,6 +108,9 @@
 *       sk     06/05/18 Updated minimum Ref clock value to 102.40625MHz.
 * 5.0   sk     06/25/18 Update DAC min sampling rate to 500MHz and also update
 *                       VCO Range, PLL_DIVIDER and PLL_FPDIV ranges.
+*       sk     06/25/18 Add XRFdc_GetFabClkOutDiv() API to read fabric clk div.
+*                       Add Inline APIs XRFdc_CheckBlockEnabled(),
+*                       XRFdc_CheckTileEnabled().
 * </pre>
 *
 ******************************************************************************/
@@ -2862,6 +2865,56 @@ u32 XRFdc_SetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, int Tile_Id,
 
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is to get the divider for clock fabric out.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param	Tile_Id Valid values are 0-3.
+* @param	FabClkDiv is a pointer to get fabric clock for a tile.
+*           XRFDC_FAB_CLK_* defines the valid divider values.
+*
+* @return
+*		- XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled.
+*
+* @note		API is applicable for both ADC and DAC Tiles
+*
+******************************************************************************/
+u32 XRFdc_GetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
+								u16 *FabClkDiv)
+{
+	s32 Status;
+	u32 BaseAddr;
+
+#ifdef __BAREMETAL__
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+
+	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
+	if (Status != XRFDC_SUCCESS)
+		return Status;
+
+	if (Type == XRFDC_ADC_TILE)
+		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) + XRFDC_HSCOM_ADDR;
+	else
+		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) + XRFDC_HSCOM_ADDR;
+
+	*FabClkDiv = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+				XRFDC_HSCOM_CLK_DIV_OFFSET) & XRFDC_FAB_CLK_DIV_MASK;
+
+	if ((*FabClkDiv < XRFDC_FAB_CLK_DIV1) ||
+			(*FabClkDiv > XRFDC_FAB_CLK_DIV16))
+		*FabClkDiv = XRFDC_FAB_CLK_DIV16;
+
+	Status = XRFDC_SUCCESS;
+
 	return Status;
 }
 

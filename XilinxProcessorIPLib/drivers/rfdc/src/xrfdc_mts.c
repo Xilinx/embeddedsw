@@ -334,6 +334,10 @@ static void XRFdc_MTS_Dtc_Flag_Debug(u8 *Flags, u32 Type, u32 Tile_Id,
 	metal_log(METAL_LOG_INFO, "%s%d: %s\n",
 			(Type == XRFDC_DAC_TILE) ? "DAC" : "ADC", Tile_Id, buf);
 
+	(void)buf;
+	(void)Type;
+	(void)Tile_Id;
+
 }
 
 /*****************************************************************************/
