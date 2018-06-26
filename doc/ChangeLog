@@ -684,6 +684,10 @@ Resolved MISRA-C mandatory violations.(CR#1007752)
 Fixed compilation warnings.
 Added Versal support & Fixed MISRA-C violations.
 
+rtcpsu_v1_6
+Modified logic to get the last day of month correctly.(CR#1004282)
+Removed Checkpatch warnings.
+
 usbpsu_v1_4
 Fixed the errors which occur when tested with IAR compiler
 Added the new examples into mss file
