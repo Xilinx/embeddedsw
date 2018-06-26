@@ -23,6 +23,10 @@ Added support for MT25QL01G flash from Micron (CR#1004264)
 Resetps_v1_2
 Fixed compilation warnings in resetps driver
 
+rtcpsu_v1_6
+Modified logic to get the last day of month correctly.(CR#1004282)
+Removed Checkpatch warnings.
+
 usbpsu_v1_4
 Fixed the errors which occur when tested with IAR compiler
 Added the new examples into mss file
