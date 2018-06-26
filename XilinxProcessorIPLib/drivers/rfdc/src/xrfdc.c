@@ -106,6 +106,8 @@
 *       sk     04/28/18 Implement timeouts for PLL Lock, Startup and shutdown.
 *       sk     05/30/18 Removed CalibrationMode check for DAC.
 *       sk     06/05/18 Updated minimum Ref clock value to 102.40625MHz.
+* 5.0   sk     06/25/18 Update DAC min sampling rate to 500MHz and also update
+*                       VCO Range, PLL_DIVIDER and PLL_FPDIV ranges.
 * </pre>
 *
 ******************************************************************************/
@@ -5681,13 +5683,13 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 
 		PllFreq = FeedbackDiv * RefClkFreq;
 
-		if ((PllFreq > VCO_RANGE_MIN) && (PllFreq <= VCO_RANGE_MAX)) {
+		if ((PllFreq >= VCO_RANGE_MIN) && (PllFreq <= VCO_RANGE_MAX)) {
 			/*
 			 * Sweep values of OutputDiv(M) to find the output frequency
 			 * that best matches the user requested value
 			 */
 
-			for (OutputDiv = PLL_DIVIDER_MIN; OutputDiv < PLL_DIVIDER_MAX;
+			for (OutputDiv = PLL_DIVIDER_MIN; OutputDiv <= PLL_DIVIDER_MAX;
 					OutputDiv += 2) {
 
 				CalcSamplingRate = (PllFreq / OutputDiv);
@@ -5892,11 +5894,18 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 				PllTuningMatrix[PllFreqIndex][FbDivIndex][1]);
 	}
 
+	CalcSamplingRate = (Best_FeedbackDiv * RefClkFreq) / Best_OutputDiv;
+	CalcSamplingRate /= XRFDC_MILLI;
+
 	if(Type == XRFDC_ADC_TILE) {
+		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate =
+							CalcSamplingRate;
 		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkDivider = 0x1;
 		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.FeedbackDivider = Best_FeedbackDiv;
 		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.OutputDivider = Best_OutputDiv;
 	} else {
+		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate =
+					CalcSamplingRate;
 		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkDivider = 0x1;
 		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.FeedbackDivider = Best_FeedbackDiv;
 		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.OutputDivider = Best_OutputDiv;
@@ -5972,7 +5981,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		Status = XRFDC_SUCCESS;
 		goto RETURN_PATH;
 	} else {
-		if((((SamplingRate < 100) || (SamplingRate > 6554)) &&
+		if((((SamplingRate <= XRFDC_DAC_SAMPLING_MIN) ||
+				(SamplingRate >= XRFDC_DAC_SAMPLING_MAX)) &&
 				(Type == XRFDC_DAC_TILE))) {
 #ifdef __MICROBLAZE__
 			xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid sampling "
@@ -5983,7 +5993,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 #endif
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
-		} else if((((SamplingRate < 1000) || (SamplingRate > 4116)) &&
+		} else if((((SamplingRate <= XRFDC_ADC_4G_SAMPLING_MIN) ||
+				(SamplingRate >= XRFDC_ADC_4G_SAMPLING_MAX)) &&
 			((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)))) {
 #ifdef __MICROBLAZE__
 			xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid sampling "
@@ -5994,7 +6005,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 #endif
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
-		} else if((((SamplingRate < 500) || (SamplingRate > 2058)) &&
+		} else if((((SamplingRate <= XRFDC_ADC_2G_SAMPLING_MIN) ||
+				(SamplingRate >= XRFDC_ADC_2G_SAMPLING_MAX)) &&
 			((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS)))) {
 #ifdef __MICROBLAZE__
 			xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid sampling "
@@ -6054,7 +6066,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 
 		if (Source == XRFDC_INTERNAL_PLL_CLK) {
 
-			if((RefClkFreq < 102.40625) || (RefClkFreq > 1200)) {
+			if((RefClkFreq <= XRFDC_REFFREQ_MIN) ||
+					(RefClkFreq >= XRFDC_REFFREQ_MAX)) {
 		#ifdef __MICROBLAZE__
 				xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid Reference "
 							"clock value in %s\r\n", __func__);
@@ -6166,13 +6179,9 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	if(Type == XRFDC_ADC_TILE) {
-		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate =
-					(SamplingRate/1000);
 		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
 		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.Enabled = PLLEnable;
 	} else {
-		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate =
-					(SamplingRate/1000);
 		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
 		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.Enabled = PLLEnable;
 	}
