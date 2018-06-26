@@ -156,6 +156,9 @@
 *       sk     04/28/18 Implement timeouts for PLL Lock, Startup and shutdown.
 *       sk     05/30/18 Removed CalibrationMode check for DAC.
 *       sk     06/05/18 Updated minimum Ref clock value to 102.40625MHz.
+* 5.0   sk     06/25/18 Update DAC min sampling rate to 500MHz and also update
+*                       VCO Range, PLL_DIVIDER and PLL_FPDIV ranges.
+*                       Update PLL structure with calculated sampling rate.
 *
 * </pre>
 *
@@ -614,12 +617,12 @@ typedef struct {
 #define XRFDC_INTERNAL_PLL_CLK		0x1U
 #define XRFDC_EXTERNAL_CLK		0x2U
 
-#define PLL_FPDIV_MIN			10U
-#define PLL_FPDIV_MAX			255U
+#define PLL_FPDIV_MIN			13U
+#define PLL_FPDIV_MAX			128U
 #define PLL_DIVIDER_MIN			2U
-#define PLL_DIVIDER_MAX			130U
+#define PLL_DIVIDER_MAX			28U
 #define VCO_RANGE_MIN			8500U
-#define VCO_RANGE_MAX			13108U
+#define VCO_RANGE_MAX			13200U
 #define XRFDC_PLL_LPF1_VAL		0x6U
 #define XRFDC_PLL_CRS2_VAL		0x7008U
 #define XRFDC_VCO_UPPER_BAND	0x0U
@@ -645,6 +648,16 @@ typedef struct {
 
 #define XRFDC_LINK_COUPLING_DC	0x0
 #define XRFDC_LINK_COUPLING_AC	0x1
+
+#define XRFDC_MILLI		1000U
+#define XRFDC_DAC_SAMPLING_MIN	500
+#define XRFDC_DAC_SAMPLING_MAX	6554
+#define XRFDC_ADC_4G_SAMPLING_MIN	1000
+#define XRFDC_ADC_4G_SAMPLING_MAX	4116
+#define XRFDC_ADC_2G_SAMPLING_MIN	500
+#define XRFDC_ADC_2G_SAMPLING_MAX	2058
+#define XRFDC_REFFREQ_MIN	102.40625
+#define XRFDC_REFFREQ_MAX	614
 
 /*****************************************************************************/
 /**
