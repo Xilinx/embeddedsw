@@ -1119,7 +1119,7 @@ static inline void XRFdc_GetPLLConfig(XRFdc* InstancePtr, u32 Type,
 ******************************************************************************/
 static inline double XRFdc_GetDriverVersion()
 {
-	return 4.0;
+	return 5.0;
 }
 
 /************************** Function Prototypes ******************************/
