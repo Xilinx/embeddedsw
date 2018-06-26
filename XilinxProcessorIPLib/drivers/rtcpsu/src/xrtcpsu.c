@@ -334,7 +334,7 @@ void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt)
 		else {
 			Leap = 0U;
 		}
-		if (TempDays < (365U + Leap)) {
+		if (TempDays <= (365U + Leap)) {
 			break;
 		}
 		TempDays -= (365U + Leap);
@@ -345,7 +345,7 @@ void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt)
 		if ((Leap == 1U) && (dt->Month == 2U)) {
 			DaysPerMonth++;
 		}
-		if (TempDays < DaysPerMonth) {
+		if (TempDays <= DaysPerMonth) {
 			break;
 		}
 		TempDays -= DaysPerMonth;
