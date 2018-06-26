@@ -215,6 +215,8 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 	u16 SetInvSinc;
 	u16 GetInvSinc;
 	u32 GetLinkCM;
+	u16 SetFabClkDiv;
+	u16 GetFabClkDiv;
 	XRFdc_PLL_Settings PLLSettings;
 #ifndef __BAREMETAL__
 	struct metal_device *device;
@@ -517,6 +519,42 @@ printf("\n Configuring the Clock \r\n");
 				if (Status != XRFDC_SUCCESS)
 					return XRFDC_FAILURE;
 				if (SetInvSinc != GetInvSinc)
+					return XRFDC_FAILURE;
+
+				SetFabClkDiv = XRFDC_FAB_CLK_DIV1;
+				Status = XRFdc_SetFabClkOutDiv(RFdcInstPtr, XRFDC_DAC_TILE,
+						Tile, SetFabClkDiv);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetFabClkOutDiv(RFdcInstPtr, XRFDC_DAC_TILE,
+						Tile, &GetFabClkDiv);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetFabClkDiv != GetFabClkDiv)
+					return XRFDC_FAILURE;
+
+				SetFabClkDiv = XRFDC_FAB_CLK_DIV16;
+				Status = XRFdc_SetFabClkOutDiv(RFdcInstPtr, XRFDC_DAC_TILE,
+						Tile, SetFabClkDiv);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetFabClkOutDiv(RFdcInstPtr, XRFDC_DAC_TILE,
+						Tile, &GetFabClkDiv);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetFabClkDiv != GetFabClkDiv)
+					return XRFDC_FAILURE;
+
+				SetFabClkDiv = 0x7;
+				Status = XRFdc_SetFabClkOutDiv(RFdcInstPtr, XRFDC_DAC_TILE,
+						Tile, SetFabClkDiv);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetFabClkOutDiv(RFdcInstPtr, XRFDC_DAC_TILE,
+						Tile, &GetFabClkDiv);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (XRFDC_FAB_CLK_DIV16 != GetFabClkDiv)
 					return XRFDC_FAILURE;
 			}
 
@@ -1004,6 +1042,42 @@ printf("\n Configuring the Clock \r\n");
 				if (Status != XRFDC_SUCCESS)
 					return XRFDC_FAILURE;
 				printf("\n ADC%d%d: Link Coupling Mode is %d \r\n", Tile, Block, GetLinkCM);
+
+				SetFabClkDiv = XRFDC_FAB_CLK_DIV4;
+				Status = XRFdc_SetFabClkOutDiv(RFdcInstPtr, XRFDC_ADC_TILE,
+						Tile, SetFabClkDiv);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetFabClkOutDiv(RFdcInstPtr, XRFDC_ADC_TILE,
+						Tile, &GetFabClkDiv);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetFabClkDiv != GetFabClkDiv)
+					return XRFDC_FAILURE;
+
+				SetFabClkDiv = XRFDC_FAB_CLK_DIV16;
+				Status = XRFdc_SetFabClkOutDiv(RFdcInstPtr, XRFDC_ADC_TILE,
+						Tile, SetFabClkDiv);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetFabClkOutDiv(RFdcInstPtr, XRFDC_ADC_TILE,
+						Tile, &GetFabClkDiv);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetFabClkDiv != GetFabClkDiv)
+					return XRFDC_FAILURE;
+
+				SetFabClkDiv = 0x0;
+				Status = XRFdc_SetFabClkOutDiv(RFdcInstPtr, XRFDC_ADC_TILE,
+						Tile, SetFabClkDiv);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetFabClkOutDiv(RFdcInstPtr, XRFDC_ADC_TILE,
+						Tile, &GetFabClkDiv);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (XRFDC_FAB_CLK_DIV16 != GetFabClkDiv)
+					return XRFDC_FAILURE;
 			}
 		}
 		if (XRFdc_GetNoOfADCBlocks(RFdcInstPtr, Tile) != 0U) {
