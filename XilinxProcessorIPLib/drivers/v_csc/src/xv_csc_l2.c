@@ -50,6 +50,7 @@
 *                      Updated the XV_CscDbgReportStatus routine
 * 2.1   rco   02/09/17 Fix c++ warnings
 * 2.2   vyc   10/04/17 Added support for 4:2:0
+* 2.3   viv   06/19/18 Added support for color range
 * </pre>
 *
 ******************************************************************************/
@@ -81,13 +82,15 @@ static void cscFwYCbCrtoRGB(s32 K[3][4],
                             XVidC_ColorStd cstdIn,
                             s32 pixPrec,
                             s32 *ClampMin,
-                            s32 *ClipMax);
+                            s32 *ClipMax,
+                            XVidC_ColorRange cRangeOut);
 
 static void cscFwRGBtoYCbCr(s32 K[3][4],
                             XVidC_ColorStd cstdOut,
                             s32 pixPrec,
                             s32 *ClampMin,
-                            s32 *ClipMax);
+                            s32 *ClipMax,
+                            XVidC_ColorRange cRangeOut);
 #if 0 //currently not used
 static void cscFwGetCoefficients(XV_Csc_l2 *CscPtr,
                                  s32 K[3][4],
@@ -180,7 +183,6 @@ void XV_CscSetPowerOnDefaultState(XV_Csc_l2 *CscPtr)
   CscPtr->ColorFormatOut    = XVIDC_CSF_RGB;
   CscPtr->StandardIn        = XVIDC_BT_601;
   CscPtr->StandardOut       = XVIDC_BT_601;
-  CscPtr->OutputRange       = XVIDC_CR_0_255;
   CscPtr->ColorDepth        = XVIDC_BPC_8;
   CscPtr->Brightness        = 120;
   CscPtr->Contrast          = 0;
@@ -371,12 +373,12 @@ int XV_CscSetColorspace(XV_Csc_l2 *InstancePtr,
   //RGB in and 444/422/420 out
   if ((cfmtIn == XVIDC_CSF_RGB) && (cfmtOut != XVIDC_CSF_RGB) )
   {
-    cscFwRGBtoYCbCr(K, cstdOut, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
+    cscFwRGBtoYCbCr(K, cstdOut, InstancePtr->ColorDepth, &ClampMin, &ClipMax, cRangeOut);
   }
   //444/422/420 in and RGB out
   else if ((cfmtIn != XVIDC_CSF_RGB) && (cfmtOut == XVIDC_CSF_RGB))
   {
-    cscFwYCbCrtoRGB(K, cstdIn, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
+    cscFwYCbCrtoRGB(K, cstdIn, InstancePtr->ColorDepth, &ClampMin, &ClipMax, cRangeOut);
   }
   //RGB in and RGB out
   else if ((cfmtIn == XVIDC_CSF_RGB) && (cfmtOut == XVIDC_CSF_RGB) )
@@ -389,8 +391,8 @@ int XV_CscSetColorspace(XV_Csc_l2 *InstancePtr,
     //color standard change from input to output
     if (cstdIn != cstdOut)
     {
-      cscFwYCbCrtoRGB(K1, cstdIn,  InstancePtr->ColorDepth, &ClampMin, &ClipMax);
-      cscFwRGBtoYCbCr(K2, cstdOut, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
+      cscFwYCbCrtoRGB(K1, cstdIn,  InstancePtr->ColorDepth, &ClampMin, &ClipMax, cRangeOut);
+      cscFwRGBtoYCbCr(K2, cstdOut, InstancePtr->ColorDepth, &ClampMin, &ClipMax, cRangeOut);
       cscFwMatrixMult(K1, K2, K);
     }
   }
@@ -443,7 +445,8 @@ static void cscFwYCbCrtoRGB(s32 YCC2RGB[3][4],
                             XVidC_ColorStd cstdIn,
                             s32 pixPrec,
                             s32 *ClampMin,
-                            s32 *ClipMax)
+                            s32 *ClipMax,
+                            XVidC_ColorRange cRangeOut)
 {
   s32 scale_factor = (1<<XV_CSC_COEFF_FRACTIONAL_BITS);
   s32 bpcScale = (1<<(pixPrec-8));
@@ -451,48 +454,198 @@ static void cscFwYCbCrtoRGB(s32 YCC2RGB[3][4],
   switch(cstdIn)
   {
     case XVIDC_BT_601:
-        YCC2RGB[0][0] = (s32) ( 1.1644*(float)scale_factor);  //K11
-        YCC2RGB[0][1] = (s32)  0;                             //K12
-        YCC2RGB[0][2] = (s32) ( 1.5906*(float)scale_factor);  //K13
-        YCC2RGB[1][0] = (s32) ( 1.1644*(float)scale_factor);  //K21
-        YCC2RGB[1][1] = (s32) (-0.3918*(float)scale_factor);  //K22
-        YCC2RGB[1][2] = (s32) (-0.8130*(float)scale_factor);  //K23
-        YCC2RGB[2][0] = (s32)  (1.1644*(float)scale_factor);  //K31
-        YCC2RGB[2][1] = (s32) ( 2.0172*(float)scale_factor);  //K32
-        YCC2RGB[2][2] = (s32)  0;                             //K33
-        YCC2RGB[0][3] = (s32) -223*bpcScale;                  //R Offset
-        YCC2RGB[1][3] = (s32)  136*bpcScale;                  //G Offset
-        YCC2RGB[2][3] = (s32) -277*bpcScale;                  //B Offset
+        switch(cRangeOut)
+        {
+          case XVIDC_CR_0_255:
+              YCC2RGB[0][0] = (s32) ( 1.1644*(float)scale_factor);  //K11
+              YCC2RGB[0][1] = (s32)  0;                             //K12
+              YCC2RGB[0][2] = (s32) ( 1.5906*(float)scale_factor);  //K13
+              YCC2RGB[1][0] = (s32) ( 1.1644*(float)scale_factor);  //K21
+              YCC2RGB[1][1] = (s32) (-0.3918*(float)scale_factor);  //K22
+              YCC2RGB[1][2] = (s32) (-0.8130*(float)scale_factor);  //K23
+              YCC2RGB[2][0] = (s32)  (1.1644*(float)scale_factor);  //K31
+              YCC2RGB[2][1] = (s32) ( 2.0172*(float)scale_factor);  //K32
+              YCC2RGB[2][2] = (s32)  0;                             //K33
+              YCC2RGB[0][3] = (s32) -223*bpcScale;                  //R Offset
+              YCC2RGB[1][3] = (s32)  136*bpcScale;                  //G Offset
+              YCC2RGB[2][3] = (s32) -277*bpcScale;
+              break;
+
+          case XVIDC_CR_16_235:
+              YCC2RGB[0][0] = (s32) ( 1.0000*(float)scale_factor);  //K11
+              YCC2RGB[0][1] = (s32)  0;                             //K12
+              YCC2RGB[0][2] = (s32) ( 1.3669*(float)scale_factor);  //K13
+              YCC2RGB[1][0] = (s32) ( 1.0000*(float)scale_factor);  //K21
+              YCC2RGB[1][1] = (s32) (-0.3367*(float)scale_factor);  //K22
+              YCC2RGB[1][2] = (s32) (-0.6986*(float)scale_factor);  //K23
+              YCC2RGB[2][0] = (s32)  (1.0000*(float)scale_factor);  //K31
+              YCC2RGB[2][1] = (s32) ( 1.7335*(float)scale_factor);  //K32
+              YCC2RGB[2][2] = (s32)  0;                             //K33
+              YCC2RGB[0][3] = (s32) -175*bpcScale;                  //R Offset
+              YCC2RGB[1][3] = (s32)  132*bpcScale;                  //G Offset
+              YCC2RGB[2][3] = (s32) -222*bpcScale;
+       	      break;
+
+          case XVIDC_CR_16_240:
+              YCC2RGB[0][0] = (s32) ( 1.0479*(float)scale_factor);  //K11
+              YCC2RGB[0][1] = (s32)  0;                             //K12
+              YCC2RGB[0][2] = (s32) ( 1.3979*(float)scale_factor);  //K13
+              YCC2RGB[1][0] = (s32) ( 1.0479*(float)scale_factor);  //K21
+              YCC2RGB[1][1] = (s32) (-0.3443*(float)scale_factor);  //K22
+              YCC2RGB[1][2] = (s32) (-0.7145*(float)scale_factor);  //K23
+              YCC2RGB[2][0] = (s32)  (1.0479*(float)scale_factor);  //K31
+              YCC2RGB[2][1] = (s32) ( 1.7729*(float)scale_factor);  //K32
+              YCC2RGB[2][2] = (s32)  0;                             //K33
+              YCC2RGB[0][3] = (s32) -179*bpcScale;                  //R Offset
+              YCC2RGB[1][3] = (s32)  136*bpcScale;                  //G Offset
+              YCC2RGB[2][3] = (s32) -227*bpcScale;
+	      break;
+
+          default:
+              YCC2RGB[0][0] = (s32) ( 1.1644*(float)scale_factor);  //K11
+              YCC2RGB[0][1] = (s32)  0;                             //K12
+              YCC2RGB[0][2] = (s32) ( 1.5906*(float)scale_factor);  //K13
+              YCC2RGB[1][0] = (s32) ( 1.1644*(float)scale_factor);  //K21
+              YCC2RGB[1][1] = (s32) (-0.3918*(float)scale_factor);  //K22
+              YCC2RGB[1][2] = (s32) (-0.8130*(float)scale_factor);  //K23
+              YCC2RGB[2][0] = (s32)  (1.1644*(float)scale_factor);  //K31
+              YCC2RGB[2][1] = (s32) ( 2.0172*(float)scale_factor);  //K32
+              YCC2RGB[2][2] = (s32)  0;                             //K33
+              YCC2RGB[0][3] = (s32) -223*bpcScale;                  //R Offset
+              YCC2RGB[1][3] = (s32)  136*bpcScale;                  //G Offset
+              YCC2RGB[2][3] = (s32) -277*bpcScale;                  //B Offset
+              break;
+	}
         break;
 
     case XVIDC_BT_709:
-        YCC2RGB[0][0] = (s32) ( 1.1644*(float)scale_factor);  //K11
-        YCC2RGB[0][1] = (s32)  0;                             //K12
-        YCC2RGB[0][2] = (s32) ( 1.7927*(float)scale_factor);  //K13
-        YCC2RGB[1][0] = (s32) ( 1.1644*(float)scale_factor);  //K21
-        YCC2RGB[1][1] = (s32) (-0.2132*(float)scale_factor);  //K22
-        YCC2RGB[1][2] = (s32) (-0.5329*(float)scale_factor);  //K23
-        YCC2RGB[2][0] = (s32) ( 1.1644*(float)scale_factor);  //K31
-        YCC2RGB[2][1] = (s32) ( 2.1124*(float)scale_factor);  //K32
-        YCC2RGB[2][2] = (s32)  0;                             //K33
-        YCC2RGB[0][3] = (s32) -248*bpcScale;                  //R Offset
-        YCC2RGB[1][3] = (s32)  77*bpcScale;                   //G Offset
-        YCC2RGB[2][3] = (s32) -289*bpcScale;                  //B Offset
+        switch(cRangeOut)
+        {
+          case XVIDC_CR_0_255:
+              YCC2RGB[0][0] = (s32) ( 1.1644*(float)scale_factor);  //K11
+              YCC2RGB[0][1] = (s32)  0;                             //K12
+              YCC2RGB[0][2] = (s32) ( 1.7927*(float)scale_factor);  //K13
+              YCC2RGB[1][0] = (s32) ( 1.1644*(float)scale_factor);  //K21
+              YCC2RGB[1][1] = (s32) (-0.2132*(float)scale_factor);  //K22
+              YCC2RGB[1][2] = (s32) (-0.5329*(float)scale_factor);  //K23
+              YCC2RGB[2][0] = (s32) ( 1.1644*(float)scale_factor);  //K31
+              YCC2RGB[2][1] = (s32) ( 2.1124*(float)scale_factor);  //K32
+              YCC2RGB[2][2] = (s32)  0;                             //K33
+              YCC2RGB[0][3] = (s32) -248*bpcScale;                  //R Offset
+              YCC2RGB[1][3] = (s32)  77*bpcScale;                   //G Offset
+              YCC2RGB[2][3] = (s32) -289*bpcScale;                  //B Offset
+              break;
+
+          case XVIDC_CR_16_235:
+              YCC2RGB[0][0] = (s32) ( 1.0000*(float)scale_factor);  //K11
+              YCC2RGB[0][1] = (s32)  0;                             //K12
+              YCC2RGB[0][2] = (s32) ( 1.5406*(float)scale_factor);  //K13
+              YCC2RGB[1][0] = (s32) ( 1.0000*(float)scale_factor);  //K21
+              YCC2RGB[1][1] = (s32) (-0.1832*(float)scale_factor);  //K22
+              YCC2RGB[1][2] = (s32) (-0.4579*(float)scale_factor);  //K23
+              YCC2RGB[2][0] = (s32) ( 1.0000*(float)scale_factor);  //K31
+              YCC2RGB[2][1] = (s32) ( 1.8153*(float)scale_factor);  //K32
+              YCC2RGB[2][2] = (s32)  0;                             //K33
+              YCC2RGB[0][3] = (s32) -197*bpcScale;                  //R Offset
+              YCC2RGB[1][3] = (s32)  82*bpcScale;                   //G Offset
+              YCC2RGB[2][3] = (s32) -232*bpcScale;                  //B Offset
+              break;
+
+          case XVIDC_CR_16_240:
+              YCC2RGB[0][0] = (s32) ( 1.0233*(float)scale_factor);  //K11
+              YCC2RGB[0][1] = (s32)  0;                             //K12
+              YCC2RGB[0][2] = (s32) ( 1.5756*(float)scale_factor);  //K13
+              YCC2RGB[1][0] = (s32) ( 1.0233*(float)scale_factor);  //K21
+              YCC2RGB[1][1] = (s32) (-0.1873*(float)scale_factor);  //K22
+              YCC2RGB[1][2] = (s32) (-0.4683*(float)scale_factor);  //K23
+              YCC2RGB[2][0] = (s32) ( 1.0233*(float)scale_factor);  //K31
+              YCC2RGB[2][1] = (s32) ( 1.8566*(float)scale_factor);  //K32
+              YCC2RGB[2][2] = (s32)  0;                             //K33
+              YCC2RGB[0][3] = (s32) -202*bpcScale;                  //R Offset
+              YCC2RGB[1][3] = (s32)  84*bpcScale;                   //G Offset
+              YCC2RGB[2][3] = (s32) -238*bpcScale;                  //B Offset
+              break;
+
+          default:
+              YCC2RGB[0][0] = (s32) ( 1.1644*(float)scale_factor);  //K11
+              YCC2RGB[0][1] = (s32)  0;                             //K12
+              YCC2RGB[0][2] = (s32) ( 1.7927*(float)scale_factor);  //K13
+              YCC2RGB[1][0] = (s32) ( 1.1644*(float)scale_factor);  //K21
+              YCC2RGB[1][1] = (s32) (-0.2132*(float)scale_factor);  //K22
+              YCC2RGB[1][2] = (s32) (-0.5329*(float)scale_factor);  //K23
+              YCC2RGB[2][0] = (s32) ( 1.1644*(float)scale_factor);  //K31
+              YCC2RGB[2][1] = (s32) ( 2.1124*(float)scale_factor);  //K32
+              YCC2RGB[2][2] = (s32)  0;                             //K33
+              YCC2RGB[0][3] = (s32) -248*bpcScale;                  //R Offset
+              YCC2RGB[1][3] = (s32)  77*bpcScale;                   //G Offset
+              YCC2RGB[2][3] = (s32) -289*bpcScale;                  //B Offset
+              break;
+        }
         break;
 
     case XVIDC_BT_2020:
-        YCC2RGB[0][0] = (s32) ( 1.1644*(float)scale_factor);  //K11
-        YCC2RGB[0][1] = (s32)  0;                             //K12
-        YCC2RGB[0][2] = (s32) ( 1.6787*(float)scale_factor);  //K13
-        YCC2RGB[1][0] = (s32) ( 1.1644*(float)scale_factor);  //K21
-        YCC2RGB[1][1] = (s32) (-0.1873*(float)scale_factor);  //K22
-        YCC2RGB[1][2] = (s32) (-0.6504*(float)scale_factor);  //K23
-        YCC2RGB[2][0] = (s32) ( 1.1644*(float)scale_factor);  //K31
-        YCC2RGB[2][1] = (s32) ( 2.1418*(float)scale_factor);  //K32
-        YCC2RGB[2][2] = (s32)  0;                             //K33
-        YCC2RGB[0][3] = (s32) -234*bpcScale;                  //R Offset
-        YCC2RGB[1][3] = (s32)  89*bpcScale;                   //G Offset
-        YCC2RGB[2][3] = (s32) -293*bpcScale;                  //B Offset
+        switch(cRangeOut)
+ 	{
+          case XVIDC_CR_0_255:
+              YCC2RGB[0][0] = (s32) ( 1.1644*(float)scale_factor);  //K11
+              YCC2RGB[0][1] = (s32)  0;                             //K12
+              YCC2RGB[0][2] = (s32) ( 1.6787*(float)scale_factor);  //K13
+              YCC2RGB[1][0] = (s32) ( 1.1644*(float)scale_factor);  //K21
+              YCC2RGB[1][1] = (s32) (-0.1873*(float)scale_factor);  //K22
+              YCC2RGB[1][2] = (s32) (-0.6504*(float)scale_factor);  //K23
+              YCC2RGB[2][0] = (s32) ( 1.1644*(float)scale_factor);  //K31
+              YCC2RGB[2][1] = (s32) ( 2.1418*(float)scale_factor);  //K32
+              YCC2RGB[2][2] = (s32)  0;                             //K33
+              YCC2RGB[0][3] = (s32) -234*bpcScale;                  //R Offset
+              YCC2RGB[1][3] = (s32)  89*bpcScale;                   //G Offset
+              YCC2RGB[2][3] = (s32) -293*bpcScale;                  //B Offset
+              break;
+
+          case XVIDC_CR_16_235:
+              YCC2RGB[0][0] = (s32) ( 1.0000*(float)scale_factor);  //K11
+              YCC2RGB[0][1] = (s32)  0;                             //K12
+              YCC2RGB[0][2] = (s32) ( 1.4426*(float)scale_factor);  //K13
+              YCC2RGB[1][0] = (s32) ( 1.0000*(float)scale_factor);  //K21
+              YCC2RGB[1][1] = (s32) (-0.1609*(float)scale_factor);  //K22
+              YCC2RGB[1][2] = (s32) (-0.5589*(float)scale_factor);  //K23
+              YCC2RGB[2][0] = (s32) ( 1.0000*(float)scale_factor);  //K31
+              YCC2RGB[2][1] = (s32) ( 1.8406*(float)scale_factor);  //K32
+              YCC2RGB[2][2] = (s32)  0;                             //K33
+              YCC2RGB[0][3] = (s32) -185*bpcScale;                  //R Offset
+              YCC2RGB[1][3] = (s32)  92*bpcScale;                   //G Offset
+              YCC2RGB[2][3] = (s32) -236*bpcScale;                  //B Offset
+              break;
+
+          case XVIDC_CR_16_240:
+              YCC2RGB[0][0] = (s32) ( 1.0233*(float)scale_factor);  //K11
+              YCC2RGB[0][1] = (s32)  0;                             //K12
+              YCC2RGB[0][2] = (s32) ( 1.4754*(float)scale_factor);  //K13
+              YCC2RGB[1][0] = (s32) ( 1.0233*(float)scale_factor);  //K21
+              YCC2RGB[1][1] = (s32) (-0.1646*(float)scale_factor);  //K22
+              YCC2RGB[1][2] = (s32) (-0.5716*(float)scale_factor);  //K23
+              YCC2RGB[2][0] = (s32) ( 1.0233*(float)scale_factor);  //K31
+              YCC2RGB[2][1] = (s32) ( 1.8824*(float)scale_factor);  //K32
+              YCC2RGB[2][2] = (s32)  0;                             //K33
+              YCC2RGB[0][3] = (s32) -189*bpcScale;                  //R Offset
+              YCC2RGB[1][3] = (s32)  94*bpcScale;                   //G Offset
+              YCC2RGB[2][3] = (s32) -241*bpcScale;                  //B Offset
+              break;
+
+          default:
+              YCC2RGB[0][0] = (s32) ( 1.1644*(float)scale_factor);  //K11
+              YCC2RGB[0][1] = (s32)  0;                             //K12
+              YCC2RGB[0][2] = (s32) ( 1.6787*(float)scale_factor);  //K13
+              YCC2RGB[1][0] = (s32) ( 1.1644*(float)scale_factor);  //K21
+              YCC2RGB[1][1] = (s32) (-0.1873*(float)scale_factor);  //K22
+              YCC2RGB[1][2] = (s32) (-0.6504*(float)scale_factor);  //K23
+              YCC2RGB[2][0] = (s32) ( 1.1644*(float)scale_factor);  //K31
+              YCC2RGB[2][1] = (s32) ( 2.1418*(float)scale_factor);  //K32
+              YCC2RGB[2][2] = (s32)  0;                             //K33
+              YCC2RGB[0][3] = (s32) -234*bpcScale;                  //R Offset
+              YCC2RGB[1][3] = (s32)  89*bpcScale;                   //G Offset
+              YCC2RGB[2][3] = (s32) -293*bpcScale;                  //B Offset
+              break;
+        }
         break;
 
     default: //use 601 numbers
@@ -532,7 +685,8 @@ static void cscFwRGBtoYCbCr(s32 RGB2YCC[3][4],
                             XVidC_ColorStd cstdOut,
                             s32 pixPrec,
                             s32 *ClampMin,
-                            s32 *ClipMax)
+                            s32 *ClipMax,
+                            XVidC_ColorRange cRangeOut)
 {
   s32 scale_factor = (1<<XV_CSC_COEFF_FRACTIONAL_BITS);
   s32 bpcScale = (1<<(pixPrec-8));
@@ -540,48 +694,198 @@ static void cscFwRGBtoYCbCr(s32 RGB2YCC[3][4],
   switch(cstdOut)
   {
     case XVIDC_BT_601:
-        RGB2YCC[0][0] = (s32) ( 0.2568*(float)scale_factor);  //K11
-        RGB2YCC[0][1] = (s32) ( 0.5041*(float)scale_factor);  //K12
-        RGB2YCC[0][2] = (s32) ( 0.0979*(float)scale_factor);  //K13
-        RGB2YCC[1][0] = (s32) (-0.1482*(float)scale_factor);  //K21
-        RGB2YCC[1][1] = (s32) (-0.2910*(float)scale_factor);  //K22
-        RGB2YCC[1][2] = (s32) ( 0.4393*(float)scale_factor);  //K23
-        RGB2YCC[2][0] = (s32) ( 0.4393*(float)scale_factor);  //K31
-        RGB2YCC[2][1] = (s32) (-0.3678*(float)scale_factor);  //K32
-        RGB2YCC[2][2] = (s32) (-0.0714*(float)scale_factor);  //K33
-        RGB2YCC[0][3] =  16*bpcScale;                   //R Offset
-        RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
-        RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
+        switch(cRangeOut)
+ 	{
+          case XVIDC_CR_0_255:
+              RGB2YCC[0][0] = (s32) ( 0.2568*(float)scale_factor);  //K11
+              RGB2YCC[0][1] = (s32) ( 0.5041*(float)scale_factor);  //K12
+              RGB2YCC[0][2] = (s32) ( 0.0979*(float)scale_factor);  //K13
+              RGB2YCC[1][0] = (s32) (-0.1482*(float)scale_factor);  //K21
+              RGB2YCC[1][1] = (s32) (-0.2910*(float)scale_factor);  //K22
+              RGB2YCC[1][2] = (s32) ( 0.4393*(float)scale_factor);  //K23
+              RGB2YCC[2][0] = (s32) ( 0.4393*(float)scale_factor);  //K31
+              RGB2YCC[2][1] = (s32) (-0.3678*(float)scale_factor);  //K32
+              RGB2YCC[2][2] = (s32) (-0.0714*(float)scale_factor);  //K33
+              RGB2YCC[0][3] =  16*bpcScale;                   //R Offset
+              RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
+              RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
+              break;
+
+          case XVIDC_CR_16_235:
+              RGB2YCC[0][0] = (s32) ( 0.299*(float)scale_factor);  //K11
+              RGB2YCC[0][1] = (s32) ( 0.587*(float)scale_factor);  //K12
+              RGB2YCC[0][2] = (s32) ( 0.144*(float)scale_factor);  //K13
+              RGB2YCC[1][0] = (s32) (-0.172*(float)scale_factor);  //K21
+              RGB2YCC[1][1] = (s32) (-0.339*(float)scale_factor);  //K22
+              RGB2YCC[1][2] = (s32) ( 0.511*(float)scale_factor);  //K23
+              RGB2YCC[2][0] = (s32) ( 0.511*(float)scale_factor);  //K31
+              RGB2YCC[2][1] = (s32) (-0.428*(float)scale_factor);  //K32
+              RGB2YCC[2][2] = (s32) (-0.083*(float)scale_factor);  //K33
+              RGB2YCC[0][3] =  0*bpcScale;                   //R Offset
+              RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
+              RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
+              break;
+
+          case XVIDC_CR_16_240:
+              RGB2YCC[0][0] = (s32) ( 0.2921*(float)scale_factor);  //K11
+              RGB2YCC[0][1] = (s32) ( 0.5735*(float)scale_factor);  //K12
+              RGB2YCC[0][2] = (s32) ( 0.1113*(float)scale_factor);  //K13
+              RGB2YCC[1][0] = (s32) (-0.1686*(float)scale_factor);  //K21
+              RGB2YCC[1][1] = (s32) (-0.3310*(float)scale_factor);  //K22
+              RGB2YCC[1][2] = (s32) ( 0.4393*(float)scale_factor);  //K23
+              RGB2YCC[2][0] = (s32) ( 0.4393*(float)scale_factor);  //K31
+              RGB2YCC[2][1] = (s32) (-0.4184*(float)scale_factor);  //K32
+              RGB2YCC[2][2] = (s32) (-0.0812*(float)scale_factor);  //K33
+              RGB2YCC[0][3] =  0*bpcScale;                   //R Offset
+              RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
+              RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
+              break;
+
+          default:
+              RGB2YCC[0][0] = (s32) ( 0.2568*(float)scale_factor);  //K11
+              RGB2YCC[0][1] = (s32) ( 0.5041*(float)scale_factor);  //K12
+              RGB2YCC[0][2] = (s32) ( 0.0979*(float)scale_factor);  //K13
+              RGB2YCC[1][0] = (s32) (-0.1482*(float)scale_factor);  //K21
+              RGB2YCC[1][1] = (s32) (-0.2910*(float)scale_factor);  //K22
+              RGB2YCC[1][2] = (s32) ( 0.4999*(float)scale_factor);  //K23
+              RGB2YCC[2][0] = (s32) ( 0.4999*(float)scale_factor);  //K31
+              RGB2YCC[2][1] = (s32) (-0.3678*(float)scale_factor);  //K32
+              RGB2YCC[2][2] = (s32) (-0.0714*(float)scale_factor);  //K33
+              RGB2YCC[0][3] =  16*bpcScale;                   //R Offset
+              RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
+              RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
+              break;
+        }
         break;
 
     case XVIDC_BT_709:
-        RGB2YCC[0][0] = (s32) ( 0.1826*(float)scale_factor);  //K11
-        RGB2YCC[0][1] = (s32) ( 0.6142*(float)scale_factor);  //K12
-        RGB2YCC[0][2] = (s32) ( 0.0620*(float)scale_factor);  //K13
-        RGB2YCC[1][0] = (s32) (-0.1006*(float)scale_factor);  //K21
-        RGB2YCC[1][1] = (s32) (-0.3386*(float)scale_factor);  //K22
-        RGB2YCC[1][2] = (s32) ( 0.4392*(float)scale_factor);  //K23
-        RGB2YCC[2][0] = (s32) ( 0.4392*(float)scale_factor);  //K31
-        RGB2YCC[2][1] = (s32) (-0.3989*(float)scale_factor);  //K32
-        RGB2YCC[2][2] = (s32) (-0.0403*(float)scale_factor);  //K33
-        RGB2YCC[0][3] =  16*bpcScale;                   //R Offset
-        RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
-        RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
+        switch(cRangeOut)
+        {
+          case XVIDC_CR_0_255:
+              RGB2YCC[0][0] = (s32) ( 0.1826*(float)scale_factor);  //K11
+              RGB2YCC[0][1] = (s32) ( 0.6142*(float)scale_factor);  //K12
+              RGB2YCC[0][2] = (s32) ( 0.0620*(float)scale_factor);  //K13
+              RGB2YCC[1][0] = (s32) (-0.1006*(float)scale_factor);  //K21
+              RGB2YCC[1][1] = (s32) (-0.3386*(float)scale_factor);  //K22
+              RGB2YCC[1][2] = (s32) ( 0.4392*(float)scale_factor);  //K23
+              RGB2YCC[2][0] = (s32) ( 0.4392*(float)scale_factor);  //K31
+              RGB2YCC[2][1] = (s32) (-0.3989*(float)scale_factor);  //K32
+              RGB2YCC[2][2] = (s32) (-0.0403*(float)scale_factor);  //K33
+              RGB2YCC[0][3] =  16*bpcScale;                   //R Offset
+              RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
+              RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
+              break;
+
+          case XVIDC_CR_16_235:
+              RGB2YCC[0][0] = (s32) ( 0.212*(float)scale_factor);  //K11
+              RGB2YCC[0][1] = (s32) ( 0.715*(float)scale_factor);  //K12
+              RGB2YCC[0][2] = (s32) ( 0.072*(float)scale_factor);  //K13
+              RGB2YCC[1][0] = (s32) (-0.117*(float)scale_factor);  //K21
+              RGB2YCC[1][1] = (s32) (-0.394*(float)scale_factor);  //K22
+              RGB2YCC[1][2] = (s32) ( 0.511*(float)scale_factor);  //K23
+              RGB2YCC[2][0] = (s32) ( 0.51*(float)scale_factor);  //K31
+              RGB2YCC[2][1] = (s32) (-0.464*(float)scale_factor);  //K32
+              RGB2YCC[2][2] = (s32) (-0.047*(float)scale_factor);  //K33
+              RGB2YCC[0][3] =  0*bpcScale;                   //R Offset
+              RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
+              RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
+              break;
+
+          case XVIDC_CR_16_240:
+              RGB2YCC[0][0] = (s32) ( 0.2077*(float)scale_factor);  //K11
+              RGB2YCC[0][1] = (s32) ( 0.6988*(float)scale_factor);  //K12
+              RGB2YCC[0][2] = (s32) ( 0.0705*(float)scale_factor);  //K13
+              RGB2YCC[1][0] = (s32) (-0.1144*(float)scale_factor);  //K21
+              RGB2YCC[1][1] = (s32) (-0.3582*(float)scale_factor);  //K22
+              RGB2YCC[1][2] = (s32) ( 0.4997*(float)scale_factor);  //K23
+              RGB2YCC[2][0] = (s32) ( 0.4997*(float)scale_factor);  //K31
+              RGB2YCC[2][1] = (s32) (-0.4538*(float)scale_factor);  //K32
+              RGB2YCC[2][2] = (s32) (-0.0458*(float)scale_factor);  //K33
+              RGB2YCC[0][3] =  0*bpcScale;                   //R Offset
+              RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
+              RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
+              break;
+
+          default:
+              RGB2YCC[0][0] = (s32) ( 0.1826*(float)scale_factor);  //K11
+              RGB2YCC[0][1] = (s32) ( 0.6142*(float)scale_factor);  //K12
+              RGB2YCC[0][2] = (s32) ( 0.0620*(float)scale_factor);  //K13
+              RGB2YCC[1][0] = (s32) (-0.1006*(float)scale_factor);  //K21
+              RGB2YCC[1][1] = (s32) (-0.3386*(float)scale_factor);  //K22
+              RGB2YCC[1][2] = (s32) ( 0.4392*(float)scale_factor);  //K23
+              RGB2YCC[2][0] = (s32) ( 0.4392*(float)scale_factor);  //K31
+              RGB2YCC[2][1] = (s32) (-0.3989*(float)scale_factor);  //K32
+              RGB2YCC[2][2] = (s32) (-0.0403*(float)scale_factor);  //K33
+              RGB2YCC[0][3] =  16*bpcScale;                   //R Offset
+              RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
+              RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
+              break;
+        }
         break;
 
     case XVIDC_BT_2020:
-        RGB2YCC[0][0] = (s32) ( 0.2256*(float)scale_factor);  //K11
-        RGB2YCC[0][1] = (s32) ( 0.5823*(float)scale_factor);  //K12
-        RGB2YCC[0][2] = (s32) ( 0.0509*(float)scale_factor);  //K13
-        RGB2YCC[1][0] = (s32) (-0.1227*(float)scale_factor);  //K21
-        RGB2YCC[1][1] = (s32) (-0.3166*(float)scale_factor);  //K22
-        RGB2YCC[1][2] = (s32) ( 0.4392*(float)scale_factor);  //K23
-        RGB2YCC[2][0] = (s32) ( 0.4392*(float)scale_factor);  //K31
-        RGB2YCC[2][1] = (s32) (-0.4039*(float)scale_factor);  //K32
-        RGB2YCC[2][2] = (s32) (-0.0353*(float)scale_factor);  //K33
-        RGB2YCC[0][3] =  16*bpcScale;                   //R Offset
-        RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
-        RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
+        switch(cRangeOut)
+        {
+          case XVIDC_CR_0_255:
+              RGB2YCC[0][0] = (s32) ( 0.2256*(float)scale_factor);  //K11
+              RGB2YCC[0][1] = (s32) ( 0.5823*(float)scale_factor);  //K12
+              RGB2YCC[0][2] = (s32) ( 0.0509*(float)scale_factor);  //K13
+              RGB2YCC[1][0] = (s32) (-0.1227*(float)scale_factor);  //K21
+              RGB2YCC[1][1] = (s32) (-0.3166*(float)scale_factor);  //K22
+              RGB2YCC[1][2] = (s32) ( 0.4392*(float)scale_factor);  //K23
+              RGB2YCC[2][0] = (s32) ( 0.4392*(float)scale_factor);  //K31
+              RGB2YCC[2][1] = (s32) (-0.4039*(float)scale_factor);  //K32
+              RGB2YCC[2][2] = (s32) (-0.0353*(float)scale_factor);  //K33
+              RGB2YCC[0][3] =  16*bpcScale;                   //R Offset
+              RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
+              RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
+              break;
+
+          case XVIDC_CR_16_235:
+              RGB2YCC[0][0] = (s32) ( 0.2625*(float)scale_factor);  //K11
+              RGB2YCC[0][1] = (s32) ( 0.6775*(float)scale_factor);  //K12
+              RGB2YCC[0][2] = (s32) ( 0.0592*(float)scale_factor);  //K13
+              RGB2YCC[1][0] = (s32) (-0.1427*(float)scale_factor);  //K21
+              RGB2YCC[1][1] = (s32) (-0.3684*(float)scale_factor);  //K22
+              RGB2YCC[1][2] = (s32) ( 0.5110*(float)scale_factor);  //K23
+              RGB2YCC[2][0] = (s32) ( 0.5110*(float)scale_factor);  //K31
+              RGB2YCC[2][1] = (s32) (-0.4699*(float)scale_factor);  //K32
+              RGB2YCC[2][2] = (s32) (-0.0410*(float)scale_factor);  //K33
+              RGB2YCC[0][3] =  0*bpcScale;                   //R Offset
+              RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
+              RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
+              break;
+
+          case XVIDC_CR_16_240:
+              RGB2YCC[0][0] = (s32) ( 0.2566*(float)scale_factor);  //K11
+              RGB2YCC[0][1] = (s32) ( 0.6625*(float)scale_factor);  //K12
+              RGB2YCC[0][2] = (s32) ( 0.0579*(float)scale_factor);  //K13
+              RGB2YCC[1][0] = (s32) (-0.1396*(float)scale_factor);  //K21
+              RGB2YCC[1][1] = (s32) (-0.3602*(float)scale_factor);  //K22
+              RGB2YCC[1][2] = (s32) ( 0.4997*(float)scale_factor);  //K23
+              RGB2YCC[2][0] = (s32) ( 0.4997*(float)scale_factor);  //K31
+              RGB2YCC[2][1] = (s32) (-0.4595*(float)scale_factor);  //K32
+              RGB2YCC[2][2] = (s32) (-0.0401*(float)scale_factor);  //K33
+              RGB2YCC[0][3] =  0*bpcScale;                   //R Offset
+              RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
+              RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
+              break;
+
+          default:
+              RGB2YCC[0][0] = (s32) ( 0.2256*(float)scale_factor);  //K11
+              RGB2YCC[0][1] = (s32) ( 0.5823*(float)scale_factor);  //K12
+              RGB2YCC[0][2] = (s32) ( 0.0509*(float)scale_factor);  //K13
+              RGB2YCC[1][0] = (s32) (-0.1227*(float)scale_factor);  //K21
+              RGB2YCC[1][1] = (s32) (-0.3166*(float)scale_factor);  //K22
+              RGB2YCC[1][2] = (s32) ( 0.4392*(float)scale_factor);  //K23
+              RGB2YCC[2][0] = (s32) ( 0.4392*(float)scale_factor);  //K31
+              RGB2YCC[2][1] = (s32) (-0.4039*(float)scale_factor);  //K32
+              RGB2YCC[2][2] = (s32) (-0.0353*(float)scale_factor);  //K33
+              RGB2YCC[0][3] =  16*bpcScale;                   //R Offset
+              RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
+              RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
+              break;
+        }
         break;
 
     default:
@@ -903,7 +1207,7 @@ void XV_CscSetSaturation(XV_Csc_l2 *InstancePtr, s32 val)
   if ((InstancePtr->ColorFormatIn == XVIDC_CSF_RGB) &&
       (InstancePtr->ColorFormatOut != XVIDC_CSF_RGB) )
   {
-    cscFwRGBtoYCbCr(M2, InstancePtr->StandardOut, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
+    cscFwRGBtoYCbCr(M2, InstancePtr->StandardOut, InstancePtr->ColorDepth, &ClampMin, &ClipMax, InstancePtr->OutputRange);
     cscFwMatrixMult(K3, M2, Kout);
   }
 
@@ -911,7 +1215,7 @@ void XV_CscSetSaturation(XV_Csc_l2 *InstancePtr, s32 val)
   if ((InstancePtr->ColorFormatIn != XVIDC_CSF_RGB) &&
       (InstancePtr->ColorFormatOut == XVIDC_CSF_RGB) )
   {
-    cscFwYCbCrtoRGB(M1, InstancePtr->StandardIn, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
+    cscFwYCbCrtoRGB(M1, InstancePtr->StandardIn, InstancePtr->ColorDepth, &ClampMin, &ClipMax, InstancePtr->OutputRange);
     cscFwMatrixMult(M1, K3, Kout);
   }
 
@@ -919,9 +1223,9 @@ void XV_CscSetSaturation(XV_Csc_l2 *InstancePtr, s32 val)
   if ((InstancePtr->ColorFormatIn != XVIDC_CSF_RGB) &&
       (InstancePtr->ColorFormatOut != XVIDC_CSF_RGB) )
   {
-    cscFwYCbCrtoRGB(M1, InstancePtr->StandardIn, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
+    cscFwYCbCrtoRGB(M1, InstancePtr->StandardIn, InstancePtr->ColorDepth, &ClampMin, &ClipMax, InstancePtr->OutputRange);
     cscFwMatrixMult(M1, K3, K4);
-    cscFwRGBtoYCbCr(M2, InstancePtr->StandardOut, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
+    cscFwRGBtoYCbCr(M2, InstancePtr->StandardOut, InstancePtr->ColorDepth, &ClampMin, &ClipMax, InstancePtr->OutputRange);
     cscFwMatrixMult(K4, M2, Kout);
   }
 
@@ -1107,22 +1411,22 @@ static void cscFwComputeCoeff(XV_Csc_l2 *CscPtr,
   else if ((CscPtr->ColorFormatIn == XVIDC_CSF_RGB) &&
           (CscPtr->ColorFormatOut != XVIDC_CSF_RGB) )
   {
-    cscFwRGBtoYCbCr(M2, CscPtr->StandardOut, CscPtr->ColorDepth, &ClampMin, &ClipMax);
+    cscFwRGBtoYCbCr(M2, CscPtr->StandardOut, CscPtr->ColorDepth, &ClampMin, &ClipMax, CscPtr->OutputRange);
     cscFwMatrixMult(K2, M2, Kout);
   }
   //444/422/420 in and RGB out
   else if ((CscPtr->ColorFormatIn != XVIDC_CSF_RGB) &&
           (CscPtr->ColorFormatOut == XVIDC_CSF_RGB) )
   {
-    cscFwYCbCrtoRGB(M1, CscPtr->StandardIn, CscPtr->ColorDepth, &ClampMin, &ClipMax);
+    cscFwYCbCrtoRGB(M1, CscPtr->StandardIn, CscPtr->ColorDepth, &ClampMin, &ClipMax, CscPtr->OutputRange);
     cscFwMatrixMult(M1, K2, Kout);
   }
   //444/422/420 in and 444/422/420 out
   else
   {
-    cscFwYCbCrtoRGB(M1, CscPtr->StandardIn, CscPtr->ColorDepth, &ClampMin, &ClipMax);
+    cscFwYCbCrtoRGB(M1, CscPtr->StandardIn, CscPtr->ColorDepth, &ClampMin, &ClipMax, CscPtr->OutputRange);
     cscFwMatrixMult(M1, K2, K3);
-    cscFwRGBtoYCbCr(M2, CscPtr->StandardOut, CscPtr->ColorDepth, &ClampMin, &ClipMax);
+    cscFwRGBtoYCbCr(M2, CscPtr->StandardOut, CscPtr->ColorDepth, &ClampMin, &ClipMax, CscPtr->OutputRange);
     cscFwMatrixMult(K3, M2, Kout);
   }
   cscFwSetCoefficients(CscPtr, Kout, ClampMin, ClipMax);
