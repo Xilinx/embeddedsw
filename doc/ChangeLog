@@ -585,6 +585,9 @@ qspips_v3_5:
 Fixed compilation warnings for ARMCC.
 Added support for the low density ISSI flash parts.
 
+cpu_v2_8:
+Added Os and LTO settings in extra compiler flags for PMU BSP
+
 qspipsu_v1_8:
 Added support for IS25LP064 and IS25WP064.
 Added an example for accessing 64bit dma within 32 bit application.(CR#1004701)
