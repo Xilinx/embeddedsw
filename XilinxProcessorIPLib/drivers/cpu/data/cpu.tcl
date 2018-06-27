@@ -63,6 +63,7 @@
 ## 2.7     mus 04/17/18 Updated the generate proc to add HW parameter based compiler
 ##                      flags for microblaze. Till now this setting was being done by
 ##                      HSI.
+## 2.8     mga 06/27/18 Added -Os and LTO to extra_compiler_flags for pmu bsp
 # uses xillib.tcl
 
 ########################################
@@ -352,6 +353,17 @@ proc generate {drv_handle} {
     append compiler_flags " -mcpu=v" $cpu_version
 
     common::set_property CONFIG.compiler_flags $compiler_flags $drv_handle
+
+    # Append LTO flag in extra_compiler_flags for PMU Firmware BSP
+    if {[string compare "psu_pmu" $proctype] == 0} {
+
+        set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
+        #Check if LTO flag in EXTRA_COMPILER_FLAGS exist previoulsy
+        if {[string first "-flto" $extra_flags] == -1 } {
+                append extra_flags " -Os -flto -ffat-lto-objects"
+                common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
+        }
+    }
 
 	#------------------------------------------------------------------------------
 	# If the processor is PMU Microblaze, then generate required params and return

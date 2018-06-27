@@ -33,7 +33,7 @@
 /**
 *
 * @file xio.c
-* @addtogroup cpu_v2_7
+* @addtogroup cpu_v2_8
 * @{
 *
 * Contains I/O functions for memory-mapped or non-memory-mapped I/O
