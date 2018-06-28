@@ -544,5 +544,7 @@
 *                      the -mfpu-abi option in extra compiler flags.. This change has
 *                      been done to avoid saving/restoring of HW floating point registers,
 *                      when BSP is not compiled with HW floating point configuration.
+* 6.8 aru    06/15/18  Removed unused variable in xil_cache.c for A53-32. It
+*                      fixes CR1005118.
 *
  *****************************************************************************************/
