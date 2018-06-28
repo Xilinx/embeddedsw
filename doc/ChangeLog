@@ -888,6 +888,9 @@ Added support for PUF regeneration
 Fixed compilation warnings
 Added doxygen tags
 
+standalone_v6_8:
+Fixed compilation warnings in xil_cache.c.(CR#1005118)
+
 Changes for 2018.2
 ===============================
 freertos10_xilinx_v1_1:
