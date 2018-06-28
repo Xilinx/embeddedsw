@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2005 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2005 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -79,6 +79,9 @@
 ##                  to generate separate canonical definitions and constants
 ##                  definitions for interrupt IDs/Masks, if interrupt pin of same IP
 ##                  is connected to two axi intc pins
+##     06/28/18 mus Updated check_cascade proc, to add check
+##                  for irq_in pin, while detecting cascaded
+##                  interrupt controllers.It fixes CR#1005371.
 ##
 ##
 ##
@@ -645,6 +648,11 @@ proc check_cascade {drv_handle} {
     foreach periph $periphs {
 		set i 0
 		set source_pins [::hsi::utils::get_interrupt_sources $periph]
+        set irq_input [::hsi::get_pins -of_objects $periph irq_in]
+        set irq [::hsi::utils::get_source_pins $irq_input]
+        if { [llength $irq] > 0 } {
+            lappend source_pins $irq
+        }
         foreach source_pin $source_pins {
             set source_pin_name($i) [common::get_property NAME $source_pin]
             if { [::hsi::utils::is_external_pin $source_pin] } {
