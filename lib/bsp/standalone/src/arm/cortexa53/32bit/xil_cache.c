@@ -45,6 +45,7 @@
 * 5.5	pkp	 04/15/16 Updated the Xil_DCacheInvalidate,
 *					  Xil_DCacheInvalidateLine and Xil_DCacheInvalidateRange
 *					  functions description for proper explaination
+* 6.8   aru  06/15/18 Removed unused variables.
 *
 ******************************************************************************/
 
@@ -140,7 +141,8 @@ void Xil_DCacheInvalidate(void)
 {
 	register u32 CsidReg, C7Reg;
 	u32 LineSize, NumWays;
-	u32 Way, WayIndex,WayAdjust, Set, SetIndex, NumSet, NumCacheLevel, CacheLevel,CacheLevelIndex;
+	u32 Way, WayIndex, WayAdjust, Set, SetIndex, NumSet;
+	u32 NumCacheLevel, CacheLevel;
 	u32 currmask;
 
 	u32 stack_start,stack_end,stack_size;
@@ -353,7 +355,8 @@ void Xil_DCacheFlush(void)
 {
 	register u32 CsidReg, C7Reg;
 	u32 LineSize, NumWays;
-	u32 Way, WayIndex,WayAdjust, Set, SetIndex, NumSet, NumCacheLevel, CacheLevel,CacheLevelIndex;
+	u32 Way, WayIndex, WayAdjust, Set, SetIndex, NumSet;
+	u32 NumCacheLevel, CacheLevel;
 	u32 currmask;
 
 	currmask = mfcpsr();
