@@ -509,14 +509,13 @@ XStatus XPm_AbortSuspend(const enum XPmAbortReason reason)
 	/* Send request to the PMU */
 	PACK_PAYLOAD2(payload, PM_ABORT_SUSPEND, reason, primary_master->node_id);
 	status = pm_ipi_send(primary_master, payload);
-	if (XST_SUCCESS == status) {
-		/* Wait for PMU to finish handling request */
-		status = XIpiPsu_PollForAck(primary_master->ipi,
-					IPI_PMU_PM_INT_MASK, PM_IPI_TIMEOUT);
-		if (status != XST_SUCCESS) {
-			pm_dbg("%s: ERROR: Timeout expired\n", __func__);
-		}
-	}
+	if (XST_SUCCESS != status)
+		goto done;
+
+	/* Check the response from PMU */
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	if (XST_SUCCESS != status)
+		goto done;
 
 	/*
 	 * Do client specific abort suspend operations
@@ -524,6 +523,7 @@ XStatus XPm_AbortSuspend(const enum XPmAbortReason reason)
 	 */
 	XPm_ClientAbortSuspend();
 
+done:
 	return status;
 }
 
@@ -552,9 +552,21 @@ XStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
 			    const enum XPmNodeId wkup_node,
 			    const u8 enable)
 {
+	XStatus status;
 	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
 	PACK_PAYLOAD3(payload, PM_SET_WAKEUP_SOURCE, target, wkup_node, enable);
-	return pm_ipi_send(primary_master, payload);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status)
+		goto done;
+
+	/* Read the result from IPI return buffer */
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -578,9 +590,21 @@ XStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
  ****************************************************************************/
 XStatus XPm_SystemShutdown(u32 type, u32 subtype)
 {
+	XStatus status;
 	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
 	PACK_PAYLOAD2(payload, PM_SYSTEM_SHUTDOWN, type, subtype);
-	return pm_ipi_send(primary_master, payload);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status)
+		goto done;
+
+	/* Read the result from IPI return buffer */
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return status;
 }
 
 /* APIs for managing PM slaves */
@@ -678,9 +702,21 @@ XStatus XPm_SetRequirement(const enum XPmNodeId nid,
  ****************************************************************************/
 XStatus XPm_ReleaseNode(const enum XPmNodeId node)
 {
+	XStatus status;
 	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
 	PACK_PAYLOAD1(payload, PM_RELEASE_NODE, node);
-	return pm_ipi_send(primary_master, payload);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status)
+		goto done;
+
+	/* Read the result from IPI return buffer */
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -702,11 +738,21 @@ XStatus XPm_ReleaseNode(const enum XPmNodeId node)
 XStatus XPm_SetMaxLatency(const enum XPmNodeId node,
 			  const u32 latency)
 {
+	XStatus status;
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	/* Send request to the PMU */
 	PACK_PAYLOAD2(payload, PM_SET_MAX_LATENCY, node, latency);
-	return pm_ipi_send(primary_master, payload);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status)
+		goto done;
+
+	/* Read the result from IPI return buffer */
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return status;
 }
 
 /* Callback API functions */
