@@ -6,6 +6,10 @@ First release of clocksPS drivers.
 cpu_v2_8:
 Added Os and LTO settings in extra compiler flags for PMU BSP
 
+intc_v3_8:
+Updated check_cascade proc, to add check
+for irq_in pin.It fixes CR#1005371
+
 qspipsu_v1_8:
 Added support for IS25LP064 and IS25WP064.
 
