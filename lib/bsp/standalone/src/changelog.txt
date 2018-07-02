@@ -521,7 +521,7 @@
 *		      settings. Now, debug logic can be enabled through BSP settings, 
 *		      by modifying value of parameter "lockstep_mode_debug" as "true".
 *		      It fixes CR#993896.
- * 6.6.mus   02/27/18  Updated Xil_DCacheInvalidateRange and
+* 6.6.mus   02/27/18  Updated Xil_DCacheInvalidateRange and
 *		       Xil_ICacheInvalidateRange APIs in Cortexa53 64 bit BSP, to fix  bug
 *		       in handling upper DDR addresses.It fixes CR#995581.
 * 6.6 mus    03/12/18  Updated makefile of Cortexa53 32bit BSP to add includes_ps directory
@@ -546,5 +546,7 @@
 *                      when BSP is not compiled with HW floating point configuration.
 * 6.8 aru    06/15/18  Removed unused variable in xil_cache.c for A53-32. It
 *                      fixes CR1005118.
+* 6.8 aru    07/02/18  Returned the pointer instead of address of that pointer in xil_mpu.c
+*                      for R5 processor.It Fixes CR#1005119.
 *
  *****************************************************************************************/
