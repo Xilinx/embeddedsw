@@ -209,10 +209,6 @@ qspips_v3_5:
 Fixed compilation warnings for ARMCC.
 Added support for the low density ISSI flash parts.
 
-intc_v3_8:
-Updated check_cascade proc, to add check
-for irq_in pin.It fixes CR#1005371
-
 qspipsu_v1_8:
 Added support for IS25LP064 and IS25WP064.
 Added an example for accessing 64bit dma within 32 bit application.(CR#1004701)
@@ -512,9 +508,6 @@ Added supportive APIs to program efuse from Linux via smc calls
 Added support for PUF regeneration
 Fixed compilation warnings
 Added doxygen tags
-
-standalone_v6_8:
-Fixed compilation warnings in xil_cache.c.(CR#1005118)
 
 Changes for 2018.2
 ===============================
