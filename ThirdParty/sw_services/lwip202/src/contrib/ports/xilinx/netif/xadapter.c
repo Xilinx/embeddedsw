@@ -297,6 +297,21 @@ static u32_t phy_link_detect(XAxiEthernet *xemacp, u32_t phy_addr)
 		return 1;
 	return 0;
 }
+#elif defined(XLWIP_CONFIG_INCLUDE_EMACLITE)
+static u32_t phy_link_detect(XEmacLite *xemacp, u32_t phy_addr)
+{
+	u16_t status;
+
+	/* Read Phy Status register twice to get the confirmation of the current
+	 * link status.
+	 */
+	XEmacLite_PhyRead(xemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
+	XEmacLite_PhyRead(xemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
+
+	if (status & IEEE_STAT_LINK_STATUS)
+		return 1;
+	return 0;
+}
 #endif
 
 #if defined(XLWIP_CONFIG_INCLUDE_GEM)
@@ -329,6 +344,21 @@ static u32_t phy_autoneg_status(XAxiEthernet *xemacp, u32_t phy_addr)
 		return 1;
 	return 0;
 }
+#elif defined(XLWIP_CONFIG_INCLUDE_EMACLITE)
+static u32_t phy_autoneg_status(XEmacLite *xemacp, u32_t phy_addr)
+{
+	u16_t status;
+
+	/* Read Phy Status register twice to get the confirmation of the current
+	 * link status.
+	 */
+	XEmacLite_PhyRead(xemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
+	XEmacLite_PhyRead(xemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
+
+	if (status & IEEE_STAT_AUTONEGOTIATE_COMPLETE)
+		return 1;
+	return 0;
+}
 #endif
 
 void eth_link_detect(struct netif *netif)
@@ -342,6 +372,9 @@ void eth_link_detect(struct netif *netif)
 #elif defined(XLWIP_CONFIG_INCLUDE_AXI_ETHERNET)
 	xaxiemacif_s *xemacs = (xaxiemacif_s *)(xemac->state);
 	XAxiEthernet *xemacp = &xemacs->axi_ethernet;
+#elif defined(XLWIP_CONFIG_INCLUDE_EMACLITE)
+	xemacliteif_s *xemacs = (xemacliteif_s *)(xemac->state);
+	XEmacLite *xemacp = &xemacs->instance;
 #endif
 
 	if ((xemacp->IsReady != (u32)XIL_COMPONENT_IS_READY) ||
