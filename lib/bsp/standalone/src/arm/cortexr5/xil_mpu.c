@@ -51,6 +51,8 @@
 * 					  Xil_InitializeExistingMPURegConfig.
 * 					  Added a new array of structure of type XMpuConfig to
 * 					  represent the MPU configuration table.
+* 6.8  aru  07/02/18 Returned the pointer instead of address
+*			of that pointer in Xil_MemMap().
 * </pre>
 *
 *
@@ -588,8 +590,8 @@ u32 Xil_GetNextMPURegion(void)
 *
 * @return      Pointer to virtual address.
 *
-* @note:      Previously this was implemented in libmetal. Move to embeddedsw as this
-*             functionality is specific to r5.
+* @note:      Previously this was implemented in libmetal. Move
+*	      to embeddedsw as this functionality is specific to r5.
 *
 ******************************************************************************/
 void* Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
@@ -598,7 +600,7 @@ void* Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
 	UINTPTR Basephysaddr;
 
 	if (!flags)
-		return (void*)&Physaddr;
+		return (void *)Physaddr;
 
 	while(1) {
 		if (Regionsize < size) {
@@ -614,5 +616,5 @@ void* Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
 		}
 	}
 	Xil_SetMPURegion(Basephysaddr, Regionsize, flags);
-	return (void*)&Physaddr;
+	return (void *)Physaddr;
 }
