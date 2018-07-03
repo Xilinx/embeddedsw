@@ -301,6 +301,8 @@
 * 6.4   ms   04/18/17 Modified tcl file to add suffix U for all macro
 *                     definitions of axivdma in xparameters.h
 *       ms   08/07/17 Fixed compilation warnings in xaxivdma_sinit.c
+* 6.6   rsp  07/02/18 Add vertical flip states in config structures
+*
 * </pre>
 *
 ******************************************************************************/
@@ -466,6 +468,7 @@ typedef struct {
 						       This corresponds to C_ENABLE_DEBUG_ALL
 							   configuration parameter */
 	int AddrWidth;		  /**< Address Width */
+	u8 HasVFlip;		 /**< Whether hardware has Vertical Flip enabled(c_enable_vert_flip) */
 } XAxiVdma_Config;
 
 /**
@@ -487,6 +490,7 @@ typedef struct {
                             /**< Start Addresses of Frame Store Buffers. */
     int FixedFrameStoreAddr;/**< Fixed Frame Store Address index */
     int GenLockRepeat;      /**< Gen-Lock Repeat? */
+    u8 EnableVFlip;	    /**< Vertical Flip state */
 } XAxiVdma_DmaSetup;
 
 /**

@@ -69,6 +69,8 @@
 *			parameters (CR: 703738)
 * 6.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XAxiVdma_CfgInitialize API.
+* 6.6   rsp  07/02/18   Add Vertical flip support. Populate "HasVFlip" from
+*                       XAxiVdma_Config(CR-989453)
 *
 * </pre>
 *
@@ -273,6 +275,7 @@ int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
 		                                 XAXIVDMA_S2MM_ADDR_OFFSET;
 		WrChannel->NumFrames = CfgPtr->MaxFrameStoreNum;
 		WrChannel->AddrWidth = InstancePtr->AddrWidth;
+		WrChannel->HasVFlip = CfgPtr->HasVFlip;
 
 		/* Flush on Sync */
 		WrChannel->FlushonFsync = CfgPtr->FlushonFsync;
