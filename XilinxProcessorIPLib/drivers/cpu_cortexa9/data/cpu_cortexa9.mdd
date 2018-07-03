@@ -33,7 +33,7 @@ OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
 OPTION supported_peripherals = (ps7_cortexa9);
 OPTION default_os = "standalone_v3_05_a";
-OPTION VERSION = 2.6;
+OPTION VERSION = 2.7;
 OPTION NAME = cpu_cortexa9;
 
 

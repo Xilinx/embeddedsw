@@ -57,6 +57,9 @@
 #                     parameter of cpu_cortexa9 in xparameters.h
 # 2.6   mus  02/20/18 Updated tcl to add "-g" flag in extra compiler flags, for
 #                     linaro toolchain. It fixes CR#995214
+# 2.7   mus  07/03/18 Updated tcl to not to add default flags forcefully into
+#                     extra compiler flags. Now, user can remove default flags
+#                     from extra compiler flags. It fixes CR#998768.
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -80,69 +83,27 @@ proc xdefine_cortexa9_params {drvhandle} {
     set compiler_name [file tail $compiler]
     set archiver [common::get_property CONFIG.archiver $procdrv]
     set extra_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ] ]
-    if {[string compare -nocase $compiler_name "arm-none-eabi-gcc"] == 0} {
+    if {[string compare -nocase $compiler_name "iccarm"] == 0 || [string compare -nocase $compiler_name "armcc"] == 0} {
 	set temp_flag $extra_flags
-	if {[string compare -nocase $temp_flag "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra "] != 0} {
-		set flagindex [string first {-mcpu=cortex-a9} $temp_flag 0]
-		if { $flagindex == -1 } {
-		    set temp_flag "$temp_flag -mcpu=cortex-a9"
-		}
-
-		set flagindex [string first {-mfpu=} $temp_flag 0]
-		if { $flagindex == -1 } {
-		    set temp_flag "$temp_flag -mfpu=vfpv3"
-		}
-
-		set flagindex [string first {-mfloat-abi=} $temp_flag 0]
-		if { $flagindex == -1 } {
-		    set temp_flag "$temp_flag -mfloat-abi=hard"
-		}
-
-		set flagindex [string first {-nostartfiles} $temp_flag 0]
-		if { $flagindex == -1 } {
-		    set temp_flag "$temp_flag -nostartfiles"
-		}
-
-		set flagindex [string first {-g} $temp_flag 0]
-		if { $flagindex == -1 } {
-		    set temp_flag "$temp_flag -g"
-		}
-
-		set flagindex [string first {-Wall} $temp_flag 0]
-		if { $flagindex == -1 } {
-                    set temp_flag "$temp_flag -Wall"
-		}
-		set flagindex [string first {-Wextra} $temp_flag 0]
-		if { $flagindex == -1 } {
-		    set temp_flag "$temp_flag -Wextra"
-		}
+	#
+	# Default flags set by mdd parameter extra_compiler_flags are
+	# applicable only for gcc compiler. Remove those flags,
+	# if compiler is other than gcc.
+	#
+	if {[string compare -nocase $temp_flag "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"] == 0} {
+		regsub -- {-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra} $temp_flag "" temp_flag
 		set extra_flags $temp_flag
 		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
 	}
-   } elseif {[string compare -nocase $compiler_name "iccarm"] == 0} {
-	set temp_flag $extra_flags
-	if {[string compare -nocase $temp_flag "--debug"] != 0} {
-		regsub -- {-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra} $temp_flag "" temp_flag
-		regsub -- {--debug } $temp_flag "" temp_flag
-		set extra_flags "--debug $temp_flag"
-		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
-	}
 
-	set compiler_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == compiler_flags } ] ]
-	if {[string compare -nocase $compiler_flags "-Om --cpu=Cortex-A9"] != 0} {
-		regsub -- "-O2 -c" $compiler_flags "" compiler_flags
-		regsub -- {-Om --cpu=Cortex-A9 } $compiler_flags "" compiler_flags
-		set compiler_flags "-Om --cpu=Cortex-A9 $compiler_flags"
-		common::set_property -name VALUE -value $compiler_flags -objects  [hsi::get_comp_params -filter { NAME == compiler_flags } ]
-	}
-   } elseif {[string compare -nocase $compiler_name "arm-xilinx-eabi-gcc"] == 0
-	    || [string compare -nocase $compiler_name "armcc"] == 0} {
-	set temp_flag $extra_flags
-	if {[string compare -nocase $temp_flag "-g"] != 0} {
-		regsub -- {-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra} $temp_flag {} temp_flag
-		regsub -- {-g } $temp_flag "" temp_flag
-		set extra_flags "-g $temp_flag"
-		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags }]
+	if {[string compare -nocase $compiler_name "iccarm"] == 0} {
+		set compiler_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == compiler_flags } ] ]
+		if {[string compare -nocase $compiler_flags "-Om --cpu=Cortex-A9"] != 0} {
+			regsub -- "-O2 -c" $compiler_flags "" compiler_flags
+			regsub -- {-Om --cpu=Cortex-A9 } $compiler_flags "" compiler_flags
+			set compiler_flags "-Om --cpu=Cortex-A9 $compiler_flags"
+			common::set_property -name VALUE -value $compiler_flags -objects  [hsi::get_comp_params -filter { NAME == compiler_flags } ]
+		}
 	}
     } else {
 	common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
