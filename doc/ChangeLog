@@ -45,6 +45,9 @@ standalone_v6_8:
 Fixed compilation warnings in xil_cache.c.(CR#1005118)
 Modified the return value of Xil_MemMap() as pointer instead of address of pointer in xil_mpu.c(CR#1005119)
 
+axivdma_v6_6:
+Added support for vertical flip programming.
+
 Changes for 2018.2
 ===============================
 freertos10_xilinx_v1_1:
