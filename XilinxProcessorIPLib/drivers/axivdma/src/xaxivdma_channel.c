@@ -74,6 +74,7 @@
 *			parameters (CR: 703738)
 * 4.05a srt  04/26/13 - Added unalignment checks for Hsize and Stride
 *			(CR 710279)
+* 6.6   rsp  07/02/18 - Program vertical flip state for S2MM channel
 *
 * </pre>
 *
@@ -776,6 +777,16 @@ int XAxiVdma_ChannelConfig(XAxiVdma_Channel *Channel,
 	 */
 	XAxiVdma_WriteReg(Channel->ChanBase, XAXIVDMA_CR_OFFSET,
 	    CrBits);
+
+	if (Channel->HasVFlip && !Channel->IsRead) {
+		u32 RegValue;
+		RegValue = XAxiVdma_ReadReg(Channel->InstanceBase,
+				XAXIVDMA_VFLIP_OFFSET);
+		RegValue &= ~XAXIVDMA_VFLIP_EN_MASK;
+		RegValue |= (ChannelCfgPtr->EnableVFlip & XAXIVDMA_VFLIP_EN_MASK);
+		XAxiVdma_WriteReg(Channel->InstanceBase, XAXIVDMA_VFLIP_OFFSET,
+			RegValue);
+	}
 
 	if (Channel->HasSG) {
 		/* Setup the information in BDs

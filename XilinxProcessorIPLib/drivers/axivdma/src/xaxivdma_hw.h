@@ -67,6 +67,7 @@
  *                       added in the new version of IP v5.04 (CR: 691391)
  * 4.06a srt  04/09/13 - Added support for the newly added S2MM_DMA_IRQ_MASK
  *			 register (CR 734741)
+ * 6.6   rsp  07/02/18 - Add offset and mask for Vertical flip register
  * </pre>
  *
  *****************************************************************************/
@@ -148,6 +149,7 @@ extern "C" {
 #define XAXIVDMA_BUFTHRES_OFFSET	0x0000001C	 /**< Line Buffer Thres */
 #define XAXIVDMA_MM2S_ADDR_OFFSET 0x00000050 /**< MM2S channel Addr */
 #define XAXIVDMA_S2MM_ADDR_OFFSET 0x000000A0 /**< S2MM channel Addr */
+#define XAXIVDMA_VFLIP_OFFSET     0x000000EC /**< Enable Vertical Flip Register */
 
 /* This register is specific to S2MM channel
  */
@@ -182,6 +184,7 @@ extern "C" {
 #define XAXIVDMA_CR_GENLCK_SRC_MASK 0x00000080 /**< Genlock Source Select */
 #define XAXIVDMA_CR_RD_PTR_MASK     0x00000F00 /**< Read pointer number */
 #define XAXIVDMA_CR_GENLCK_RPT_MASK 0x00008000 /**< GenLock Repeat */
+#define XAXIVDMA_VFLIP_EN_MASK      0x00000001 /**< Vertical flip enable */
 
 #define XAXIVDMA_CR_RD_PTR_SHIFT    8   /**< Shift for read pointer number */
 /*@}*/
