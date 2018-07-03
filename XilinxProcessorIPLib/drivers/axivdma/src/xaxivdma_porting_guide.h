@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxivdma_porting_guide.h
-* @addtogroup axivdma_v6_7
+* @addtogroup axivdma_v6_8
 * @{
 *
 * This is a guide on how to move from using the xvdma driver to use xaxivdma
