@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxivdma_g.c
-* @addtogroup axivdma_v6_5_5_5_5_5_
+* @addtogroup axivdma_v6_6
 * @{
 *
 * Provide a template for user to define their own hardware settings.
