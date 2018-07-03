@@ -888,6 +888,9 @@ Added support for PUF regeneration
 Fixed compilation warnings
 Added doxygen tags
 
+axivdma_v6_6:
+Added support for vertical flip programming.
+
 Changes for 2018.2
 ===============================
 freertos10_xilinx_v1_1:
