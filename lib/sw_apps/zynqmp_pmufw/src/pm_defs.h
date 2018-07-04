@@ -249,7 +249,6 @@
 #define EVENT_NONE              0U
 #define EVENT_STATE_CHANGE      0x1U
 #define EVENT_ZERO_USERS        0x2U
-#define EVENT_ERROR_CONDITION   0x4U
 
 /* Power management specific return error statuses */
 #define XST_PM_INTERNAL		2000L

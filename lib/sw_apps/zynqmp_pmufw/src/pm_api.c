@@ -229,8 +229,7 @@ static PmPayloadStatus PmCheckArgument(const u8 argType,
 		break;
 	case ARG_EVENT_ID:
 		if ((arg != EVENT_STATE_CHANGE) &&
-		    (arg != EVENT_ZERO_USERS) &&
-		    (arg != EVENT_ERROR_CONDITION)) {
+		    (arg != EVENT_ZERO_USERS)) {
 			status = PM_PAYLOAD_ERR_EVENT_ID;
 		}
 		break;
