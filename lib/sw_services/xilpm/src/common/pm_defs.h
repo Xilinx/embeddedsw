@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -471,7 +471,6 @@ enum XPmReset {
 enum XPmNotifyEvent {
 	EVENT_STATE_CHANGE = 1,
 	EVENT_ZERO_USERS = 2,
-	EVENT_ERROR_CONDITION = 4,
 };
  /** @} */
 #endif /* PM_DEFS_H_ */

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -1064,7 +1064,7 @@ XStatus XPm_ResetGetStatus(const enum XPmReset reset, u32 *status)
  * - nodeID : ID of the node to be notified about,
  *
  * - eventID : ID of the event in question, '-1' denotes all events
- * ( - EVENT_STATE_CHANGE, EVENT_ZERO_USERS, EVENT_ERROR_CONDITION),
+ * ( - EVENT_STATE_CHANGE, EVENT_ZERO_USERS),
  *
  * - wake : true: wake up on event, false: do not wake up
  * (only notify if awake), no buffering/queueing
