@@ -1263,7 +1263,7 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 
 	XQspiPsu_TXRXSetup(InstancePtr, &Msg[Index], &GenFifoEntry);
 
-	if (Msg[Index].ByteCount < XQSPIPSU_GENFIFO_IMM_DATA_MASK) {
+	if (Msg[Index].ByteCount <= XQSPIPSU_GENFIFO_IMM_DATA_MASK) {
 		GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_IMM_DATA_MASK);
 		GenFifoEntry |= Msg[Index].ByteCount;
 #ifdef DEBUG
