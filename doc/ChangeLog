@@ -55,6 +55,11 @@ Modified the return value of Xil_MemMap() as pointer instead of address of point
 axivdma_v6_6:
 Added support for vertical flip programming.
 
+axicdma_v4_5:
+Include missing initializers for 'XAxiCdma_Config' fields.
+Fix cppcheck warning.
+Fix gcc warning in peripheral test application.
+
 Changes for 2018.2
 ===============================
 freertos10_xilinx_v1_1:
