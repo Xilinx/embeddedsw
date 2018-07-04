@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xaxicdma_sinit.c
-* @addtogroup axicdma_v4_3
+* @addtogroup axicdma_v4_5
 * @{
 *
 * Look up the hardware settings using device ID. The hardware setting is inside
