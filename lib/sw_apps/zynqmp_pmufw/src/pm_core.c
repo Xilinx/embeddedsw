@@ -1164,6 +1164,7 @@ static void PmGetOpCharacteristics(const PmMaster *const master, const u32 node,
 	case PM_OPCHAR_TYPE_TEMP:
 		PmDbg(DEBUG_DETAILED,"(%s) WARNING: Temperature unsupported\r\n",
 				PmStrNode(node));
+		status = XST_NO_FEATURE;
 		break;
 	case PM_OPCHAR_TYPE_LATENCY:
 		if (NULL == nodePtr->class->getWakeUpLatency) {
