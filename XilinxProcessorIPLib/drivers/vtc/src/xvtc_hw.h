@@ -146,6 +146,7 @@
 *                       Added backward compatibility macros.
 * 7.1   vns   10/14/15  Added XVTC_CTL_INTERLACE_MASK macro and
 *                       modified XVTC_CTL_ALLSS_MASK
+* 8.0   jsr   07/03/18  Added new register XVTC_GASIZE_F1_OFFSET
 * </pre>
 *
 ******************************************************************************/
@@ -223,6 +224,8 @@ extern "C" {
 #define XVTC_GVSYNC_F1_OFFSET	0x08C	/**< Generator Field 1 Vertical
 					  *  Sync Offset */
 #define XVTC_GVSHOFF_F1_OFFSET	0x090	/**< Generator Field 1 Vsync horizontal
+					  *  Offset */
+#define XVTC_GASIZE_F1_OFFSET	0x094	/**< Generator Field 1 Active Size
 					  *  Offset */
 
 #define XVTC_FS00_OFFSET	0x100	/**< Frame Sync 00 Config
