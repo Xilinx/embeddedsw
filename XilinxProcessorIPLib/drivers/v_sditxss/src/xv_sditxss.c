@@ -42,6 +42,7 @@
  * 2.00  kar    01/25/18 Second  release.
  *       jsr    02/23/2018 Added YUV420 color format support
  *       jsr	03/02/2018 Added core settings API
+ * 2.1   jsr    07/03/2018 Corrected 720x480_60_I to be 720x486_60_I for SD mode
  * </pre>
  *
  ******************************************************************************/
@@ -694,7 +695,7 @@ static int XV_SdiTxSs_VtcSetup(XVtc *XVtcPtr, XV_SdiTx *SdiTxPtr)
 * is in the Video Common Library for SD SDI modes. As a workaround
 * they're manually set to 1.
 */
-	if (SdiTxPtr->Stream[0].Video.VmId == XVIDC_VM_720x480_60_I ||
+	if (SdiTxPtr->Stream[0].Video.VmId == XVIDC_VM_720x486_60_I ||
 			SdiTxPtr->Stream[0].Video.VmId == XVIDC_VM_720x576_50_I) {
 		Polarity.VBlankPol = 1;
 		Polarity.VSyncPol = 1;
@@ -792,7 +793,7 @@ void XV_SdiTxSs_StreamConfig(XV_SdiTxSs *InstancePtr)
 	switch (InstancePtr->SdiTxPtr->Transport.TMode) {
 	case XSDIVID_MODE_SD:
 		if (InstancePtr->SdiTxPtr->Stream[0].Video.VmId
-				== XVIDC_VM_720x480_60_I) {
+				== XVIDC_VM_720x486_60_I) {
 			/* NTSC */
 			PayloadLineNum1 = XV_SDITX_PAYLOADLN1_SDNTSC;
 			PayloadLineNum2 = XV_SDITX_PAYLOADLN2_SDNTSC;
