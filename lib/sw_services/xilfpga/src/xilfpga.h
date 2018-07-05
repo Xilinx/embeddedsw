@@ -41,29 +41,32 @@
  *
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
- * 4.2   Nava  08/06/16 Refactor the xilfpga library to support
+ * 4.2   Nava  06/08/16 Refactor the xilfpga library to support
  *                      different PL programming Interfaces.
- * 4.2   adk   11/07/18 Added support for readback of PL configuration data.
- * 4.2   Nava  16/08/18 Modified the PL data handling Logic to support
+ * 4.2   adk   07/11/18 Added support for readback of PL configuration data.
+ * 4.2   Nava  08/16/18 Modified the PL data handling Logic to support
  *                      different PL programming interfaces.
- * 4.2   adk   28/08/18 Fixed misra-c required standard violations.
- * 4.2   Nava  15/09/18 Fixed global function call-backs issue.
- * 5.0   Nava  11/05/18 Added full bitstream loading support for versal Platform.
- * 5.0   Div   21/01/19 Fixed misra-c required standard violations.
- * 5.0   Nava  06/02/19 Remove redundant API's from the interface agnostic layer
+ * 4.2   adk   08/28/18 Fixed misra-c required standard violations.
+ * 4.2   Nava  09/15/18 Fixed global function call-backs issue.
+ * 5.0   Nava  05/11/18 Added full bitstream loading support for versal Platform.
+ * 5.0   Div   01/21/19 Fixed misra-c required standard violations.
+ * 5.0   Nava  02/06/19 Remove redundant API's from the interface agnostic layer
  *                      and make the existing API's generic to support both
  *                      ZynqMP and versal platforms.
- * 5.0  Nava  26/02/19  Update the data handling logic to avoid the code
+ * 5.0  Nava  02/26/19  Update the data handling logic to avoid the code
  *                      duplication
- * 5.0   sne  27/03/19  Fixed misra-c violations.
- * 5.0 Nava   29/03/19  Removed vesal platform related changes.As per the new
+ * 5.0  sne   03/27/19  Fixed misra-c violations.
+ * 5.0  Nava  03/29/19  Removed vesal platform related changes.As per the new
  *                      design, the Bitstream loading for versal platform is
  *                      done by PLM based on the CDO's data exists in the PDI
  *                      images. So there is no need of xilfpga API's for versal
  *                      platform to configure the PL.
- * 5.2 Nava  05/12/19   Added Versal platform support.
- * 5.2 Nava  14/02/20   Added Bitstream loading support by using IPI services
+ * 5.2  Nava  12/05/19  Added Versal platform support.
+ * 5.2  Nava  02/14/20  Added Bitstream loading support by using IPI services
  *                      for ZynqMP platform.
+ * 5.3  Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
+ * 5.3  Nava  09/09/20  Added a new error code (XFPGA_INVALID_PARAM)
+ *                      for user API's input validation parameters.
  *
  * </pre>
  *
@@ -128,7 +131,8 @@ typedef struct XFpgatag{
 #define XFPGA_WRITE_BITSTREAM_ERROR	(0x4U)
 #define XFPGA_POST_CONFIG_ERROR		(0x5U)
 #define XFPGA_OPS_NOT_IMPLEMENTED	(0x6U)
-#define XFPGA_INPROGRESS			(0x7U)
+#define XFPGA_INPROGRESS		(0x7U)
+#define XFPGA_INVALID_PARAM		(0x8U)
 
 #define XFPGA_FULLBIT_EN			(0x00000000U)
 #define XFPGA_PARTIAL_EN			(0x00000001U)
@@ -168,6 +172,29 @@ typedef struct XFpgatag{
 					XFPGA_AUTHENTICATION_OCM_EN	\
 					| XFPGA_ENCRYPTION_DEVKEY_EN	\
 					)
+/* FPGA Configuration Registers Offsets */
+#define CRC             0U  /* Status Register */
+#define FAR1            1U  /* Frame Address Register */
+#define FDRI            2U  /* FDRI Register */
+#define FDRO            3U  /* FDRO Register */
+#define CMD             4U  /* Command Register */
+#define CTL0            5U  /* Control Register 0 */
+#define MASK            6U  /* MASK Register */
+#define STAT            7U  /* Status Register */
+#define LOUT            8U  /* LOUT Register */
+#define COR0            9U  /* Configuration Options Register 0 */
+#define MFWR            10U /* MFWR Register */
+#define CBC             11U /* CBC Register */
+#define IDCODE          12U /* IDCODE Register */
+#define AXSS            13U /* AXSS Register */
+#define COR1            14U /* Configuration Options Register 1 */
+#define WBSTAR          16U /* Warm Boot Start Address Register */
+#define TIMER           17U /* Watchdog Timer Register */
+#define BOOTSTS         22U /* Boot History Status Register */
+#define CTL1            24U /* Control Register 1 */
+#else
+#define XFPGA_PDI_LOAD			(0x00000000U)
+#define XFPGA_DELAYED_PDI_LOAD		(0x00000001U)
 #endif
 
 #define Xfpga_Printf(DebugType, ...) \

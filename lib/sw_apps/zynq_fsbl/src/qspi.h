@@ -16,9 +16,10 @@
 * Ver	Who	Date		Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a ecm	01/10/10 Initial release
-* 3.00a mb  01/09/12 Added the Delay Values defines for qspi
+* 3.00a mb	01/09/12  Added the Delay Values defines for qspi
 * 5.00a sgd	05/17/13 Added Flash Size > 128Mbit support
 * 					 Dual Stack support
+* 6.00a bsv	09/04/20 Added support for 2Gb flash parts
 * </pre>
 *
 * @note
@@ -74,9 +75,11 @@ extern "C" {
 #define FLASH_SIZE_ID_256M		0x19
 #define FLASH_SIZE_ID_512M		0x20
 #define FLASH_SIZE_ID_1G		0x21
+#define FLASH_SIZE_ID_2G		0x22
 /* Macronix size constants are different for 512M and 1G */
 #define MACRONIX_FLASH_SIZE_ID_512M		0x1A
 #define MACRONIX_FLASH_SIZE_ID_1G		0x1B
+#define MACRONIX_FLASH_SIZE_ID_2G		0x1C
 #define MACRONIX_FLASH_1_8_V_MX66_ID_512        (0x3A)
 /*
  * Size in bytes
@@ -89,6 +92,7 @@ extern "C" {
 #define FLASH_SIZE_256M			0x2000000
 #define FLASH_SIZE_512M			0x4000000
 #define FLASH_SIZE_1G			0x8000000
+#define FLASH_SIZE_2G			0x10000000
 
 /************************** Function Prototypes ******************************/
 u32 InitQspi(void);

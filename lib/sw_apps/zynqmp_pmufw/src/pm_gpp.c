@@ -18,8 +18,9 @@
 /* A GPP has its own power islands and dependencies to the FPD power parent */
 #define PM_GPP_SLAVE_STATE_OFF	0U
 #define PM_GPP_SLAVE_STATE_ON	1U
+#define PM_GPP_SLAVE_MAX_STATE	2U
 
-static const u8 pmGppStates[] = {
+static const u8 pmGppStates[PM_GPP_SLAVE_MAX_STATE] = {
 	[PM_GPP_SLAVE_STATE_OFF] = 0U,
 	[PM_GPP_SLAVE_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_POWER,
 };
@@ -53,7 +54,7 @@ static s32 PmGppFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_GPP_SLAVE_STATE_ON:
 		if (PM_GPP_SLAVE_STATE_OFF == nextState) {
 			/* ON -> OFF*/
-			status = gpp->PwrDn();
+			status = (s32)gpp->PwrDn();
 		} else {
 			status = XST_NO_FEATURE;
 		}
@@ -61,9 +62,9 @@ static s32 PmGppFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_GPP_SLAVE_STATE_OFF:
 		if (PM_GPP_SLAVE_STATE_ON == nextState) {
 			/* OFF -> ON */
-			status = gpp->PwrUp();
+			status = (s32)gpp->PwrUp();
 			if ((XST_SUCCESS == status) && (NULL != gpp->reset)) {
-				status = gpp->reset();
+				status = (s32)gpp->reset();
 			}
 		} else {
 			status = XST_NO_FEATURE;
@@ -153,11 +154,11 @@ static s32 PmGpuFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_GPP_SLAVE_STATE_ON:
 		if (PM_GPP_SLAVE_STATE_OFF == nextState) {
 			/* ON -> OFF*/
-			status = pmSlaveGpuPP0_g.PwrDn();
+			status = (s32)pmSlaveGpuPP0_g.PwrDn();
 			if (XST_SUCCESS != status) {
 				goto done;
 			}
-			status = pmSlaveGpuPP1_g.PwrDn();
+			status = (s32)pmSlaveGpuPP1_g.PwrDn();
 			if (XST_SUCCESS != status) {
 				goto done;
 			}
@@ -168,17 +169,17 @@ static s32 PmGpuFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_GPP_SLAVE_STATE_OFF:
 		if (PM_GPP_SLAVE_STATE_ON == nextState) {
 			/* OFF -> ON */
-			status = pmSlaveGpuPP0_g.PwrUp();
+			status = (s32)pmSlaveGpuPP0_g.PwrUp();
 			if ((XST_SUCCESS == status) && (NULL != pmSlaveGpuPP0_g.reset)) {
-				status = pmSlaveGpuPP0_g.reset();
+				status = (s32)pmSlaveGpuPP0_g.reset();
 			}
 			if (XST_SUCCESS != status) {
 				goto done;
 			}
 
-			status = pmSlaveGpuPP1_g.PwrUp();
+			status = (s32)pmSlaveGpuPP1_g.PwrUp();
 			if ((XST_SUCCESS == status) && (NULL != pmSlaveGpuPP1_g.reset)) {
-				status = pmSlaveGpuPP1_g.reset();
+				status = (s32)pmSlaveGpuPP1_g.reset();
 			}
 			if (XST_SUCCESS != status) {
 				goto done;
@@ -223,13 +224,13 @@ PmSlave pmSlaveGpu_g = {
 };
 
 #pragma weak pmUserHookVcuPwrDn
-u32 pmUserHookVcuPwrDn(void)
+static u32 pmUserHookVcuPwrDn(void)
 {
 	return XST_SUCCESS;
 }
 
 #pragma weak pmUserHookVcuPwrUp
-u32 pmUserHookVcuPwrUp(void)
+static u32 pmUserHookVcuPwrUp(void)
 {
 	return XST_SUCCESS;
 }

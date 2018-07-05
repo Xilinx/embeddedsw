@@ -45,7 +45,10 @@
 *                        XSecure_RsaPublicEncrypt, as XSecure_RsaDecrypt is
 *                        deprecated, also calls to secure stream switch
 *                        are modified
-* 4.1   har     01/03/20 Added checks to verify the value of XSecure_SssAes
+*       har     01/03/20 Added checks to verify the value of XSecure_SssAes
+* 5.0   har     01/16/20 Added checks for Status of SSS configuration when AES
+*                        engine is the Resource
+*
 * </pre>
 *
 ******************************************************************************/

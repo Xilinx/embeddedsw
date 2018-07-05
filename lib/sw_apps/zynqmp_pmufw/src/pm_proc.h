@@ -78,8 +78,6 @@ typedef u8 PmProcEvent;
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
-typedef struct PmMaster PmMaster;
-typedef struct PmProc PmProc;
 
 /**
  * PmProc - Processor node's structure
@@ -102,12 +100,12 @@ typedef struct PmProc PmProc;
  *                  PM_IOMODULE_GPI1, PM_LOCAL_GPI2_ENABLE, and
  *                  PM_LOCAL_GPI1_ENABLE registers
  */
-typedef struct PmProc {
+struct PmProc {
 	PmNode node;
 	u64 resumeAddress;
 	PmMaster* master;
-	s32 (*const saveResumeAddr)(PmProc* const, u64);
-	void (*const restoreResumeAddr)(PmProc* const);
+	s32 (*const saveResumeAddr)(PmProc* const proc, u64 address);
+	void (*const restoreResumeAddr)(PmProc* const proc);
 	void (*const init)(PmProc* const proc);
 	s32 (*const sleep)(void);
 	s32 (*const wake)(void);
@@ -118,7 +116,7 @@ typedef struct PmProc {
 	u32 latencyReq;
 	const u32 pwrDnLatency;
 	const u32 pwrUpLatency;
-} PmProc;
+};
 
 /*********************************************************************
  * Global data declarations

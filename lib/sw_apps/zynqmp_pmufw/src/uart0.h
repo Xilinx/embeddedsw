@@ -3,8 +3,8 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef _UART0_H_
-#define _UART0_H_
+#ifndef UART0_H_
+#define UART0_H_
 
 #ifdef __cplusplus
 extern "C" {

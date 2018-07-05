@@ -148,7 +148,7 @@ int tcp_send_perf_traffic(int sock)
 	int bytes_send;
 	u8_t apiflags = MSG_MORE;
 
-	client.start_time = sys_now() * portTICK_RATE_MS;
+	client.start_time = sys_now();
 	client.client_id++;
 	client.i_report.last_report_time = 0;
 	client.i_report.start_time = 0;
@@ -168,7 +168,7 @@ int tcp_send_perf_traffic(int sock)
 						apiflags)) < 0) {
 			xil_printf("TCP Client: Either connection aborted"
 					" from remote or Error on tcp_write\r\n");
-			u64_t now = sys_now() * portTICK_RATE_MS;
+			u64_t now = sys_now();
 			u64_t diff_ms = now - client.start_time;
 			tcp_conn_report(diff_ms, TCP_ABORTED_REMOTE);
 			break;
@@ -177,7 +177,7 @@ int tcp_send_perf_traffic(int sock)
 		client.total_bytes += bytes_send;
 
 		if (END_TIME || REPORT_INTERVAL_TIME) {
-			u64_t now = sys_now() * portTICK_RATE_MS;
+			u64_t now = sys_now();
 			if (REPORT_INTERVAL_TIME) {
 				client.i_report.total_bytes += bytes_send;
 				if (client.i_report.start_time) {

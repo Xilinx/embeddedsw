@@ -180,7 +180,7 @@ static s32 PmConfigMasterSectionHandler(u32* const addr)
 		PmMasterConfig config;
 
 		nodeId = PmConfigReadNext(addr);
-		master = PmMasterGetPlaceholder(nodeId);
+		master = PmMasterGetPlaceholder((PmNodeId)nodeId);
 		if (NULL == master) {
 			PmErr("Unknown master #%lu\r\n", nodeId);
 			status = XST_FAILURE;
@@ -612,7 +612,7 @@ done:
 		status = PmNodeInit();
 		PmNodeForceDownUnusable();
 	} else {
-		pmConfig.flags &= ~PM_CONFIG_OBJECT_LOADED;
+		pmConfig.flags &= ~(u8)PM_CONFIG_OBJECT_LOADED;
 	}
 ret:
 	return status;

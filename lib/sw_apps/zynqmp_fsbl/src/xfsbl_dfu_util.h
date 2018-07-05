@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   bvikram  02/01/17 First release
+* 2.0   bvikram  09/20/20 Fix USB boot issue
 *
 * </pre>
 *
@@ -179,17 +180,41 @@ typedef struct{
 } __attribute__((__packed__))XFsblPs_UsbBosDesc;
 
 struct XFsblPs_DfuIf {
+	struct Usb_DevData* InstancePtr;
 	u8 CurrState;
 	u8 NextState;
 	u8 CurrStatus;
 	u8 GotReset;
-	u32 CurrentInf; /* current interface */
+	u32 CurrentInf; /**< Current interface */
 	u8 GotDnloadRqst;
+	u32 TotalTransfers;
 	u32 TotalBytesDnloaded;
-	u8 DfuWaitForInterrupt;
+	volatile u8 DfuWaitForInterrupt;
+	u8 IsDfu;
 	u8 RuntimeToDfu;
 };
 
+typedef struct {
+	u32 (*XFsblPs_Ch9SetupDevDescReply)(u8 *BufPtr, u32 BufferLen);
+	u32 (*XFsblPs_Ch9SetupCfgDescReply)(u8 *BufPtr, const u32 BufferLen);
+	u32 (*XFsblPs_Ch9SetupBosDescReply)(u8 *BufPtr, u32 BufferLen);
+	u32 (*XFsblPs_Ch9SetupStrDescReply)(u8 *BufPtr, const u32 BufferLen, u8 Index);
+	int (*XFsblPs_SetConfiguration)(struct Usb_DevData* InstancePtr,
+		SetupPacket *SetupData);
+	int (*XFsblPs_SetConfigurationApp)(const struct Usb_DevData* InstancePtr,
+		SetupPacket *SetupData);
+	void (*XFsblPs_SetInterfaceHandler)(struct Usb_DevData* InstancePtr,
+		SetupPacket *SetupData);
+	void (*XFsblPs_ClassReq)(struct Usb_DevData* InstancePtr,
+		SetupPacket *SetupData);
+	u32 (*XFsblPs_GetDescReply)(const struct Usb_DevData* InstancePtr,
+                SetupPacket *SetupData, u8 *BufPtr);
+}XFsbl_Ch9Func_Container;
+
+typedef struct {
+	XFsbl_Ch9Func_Container Ch9_func;
+	void * Data_ptr;
+}XFsbl_UsbCh9_Data;
 
 #define DFU_MAX_TRANSFER			1024U
 /* DFU status */

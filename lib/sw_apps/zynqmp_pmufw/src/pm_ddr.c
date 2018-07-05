@@ -92,9 +92,9 @@
 
 #define DDRC_MSTR_BUS_WIDTH_MASK	3U
 #define DDRC_MSTR_BUS_WIDTH_SHIFT	12U
-#define DDRC_MSTR_BUS_WIDTH_FULL_DQ	(0U << DDRC_MSTR_BUS_WIDTH_SHIFT)
-#define DDRC_MSTR_BUS_WIDTH_HALF_DQ	(1U << DDRC_MSTR_BUS_WIDTH_SHIFT)
-#define DDRC_MSTR_BUS_WIDTH_QUART_DQ	(2U << DDRC_MSTR_BUS_WIDTH_SHIFT)
+#define DDRC_MSTR_BUS_WIDTH_FULL_DQ	((u32)0 << DDRC_MSTR_BUS_WIDTH_SHIFT)
+#define DDRC_MSTR_BUS_WIDTH_HALF_DQ	((u32)1 << DDRC_MSTR_BUS_WIDTH_SHIFT)
+#define DDRC_MSTR_BUS_WIDTH_QUART_DQ	((u32)2 << DDRC_MSTR_BUS_WIDTH_SHIFT)
 
 #define DDRC_STAT_OPMODE_MASK	7U
 #define DDRC_STAT_OPMODE_SHIFT	0U
@@ -239,7 +239,7 @@
 #define DDRPHY_ACIOCR0_ACPDRMDOE_MASK	(BIT(5) | BIT(4))
 #define DDRPHY_ACIOCR0_ACODTMODE_SHIFT	2U
 #define DDRPHY_ACIOCR0_ACODTMODE_MASK	(BIT(3) | BIT(2))
-#define DDRPHY_ACIOCR1_AOEMODE_MASK	((u32)0xFFFFFFFF)
+#define DDRPHY_ACIOCR1_AOEMODE_MASK	((u32)0xFFFFFFFFU)
 #define DDRPHY_ACIOCR3_PAROEMODE_SHIFT	30U
 #define DDRPHY_ACIOCR3_PAROEMODE_MASK	(BIT(31) | BIT(30))
 #define DDRPHY_ACIOCR3_BGOEMODE_SHIFT	26U
@@ -300,7 +300,7 @@
 #endif
 
 #define REPORT_IF_ERROR(status) \
-		if (XST_SUCCESS != status) { \
+		if (XST_SUCCESS != (status)) { \
 			PmErr("@line %d\r\n", __LINE__); \
 		}
 
@@ -733,7 +733,7 @@ static void ddr_disable_rd_drift(void)
 
 	r = Xil_In32(DDRPHY_DQSDR(1U));
 	r &= ~DDRPHY_DQSDR1_DFTRDIDLF;
-	r |= (10U << DDRPHY_DQSDR1_DFTRDIDLF_SHIFT);
+	r |= ((u32)10U << DDRPHY_DQSDR1_DFTRDIDLF_SHIFT);
 	Xil_Out32(DDRPHY_DQSDR(1U), r);
 }
 
@@ -790,12 +790,12 @@ static void ddr_enable_rd_drift(void)
 
 	r = Xil_In32(DDRPHY_DQSDR(0U));
 	r &= ~DDRPHY_DQSDR0_DFTRDSPC;
-	r |= (1U << DDRPHY_DQSDR0_DFTRDSPC_SHIFT);
+	r |= ((u32)1 << DDRPHY_DQSDR0_DFTRDSPC_SHIFT);
 	Xil_Out32(DDRPHY_DQSDR(0U), r);
 
 	r = Xil_In32(DDRPHY_DQSDR(0U));
 	r &= ~DDRPHY_DQSDR0_DFTDLY;
-	r |= (2U << DDRPHY_DQSDR0_DFTDLY_SHIFT);
+	r |= ((u32)2 << DDRPHY_DQSDR0_DFTDLY_SHIFT);
 	Xil_Out32(DDRPHY_DQSDR(0U), r);
 
 	for (i = 0U; i < 9U; i++) {
@@ -833,6 +833,8 @@ static void ddr_enable_drift(void)
 		/* enable read and write drift for LPDDR4 */
 		ddr_enable_rd_drift();
 		ddr_enable_wr_drift();
+	} else {
+		/* For MISRA compliance */
 	}
 	drift_enable_req = 0U;
 	/* do not enable drift for DDR3/4, and LPDDR2 is not supported */
@@ -910,13 +912,15 @@ static void store_state(PmRegisterContext *context)
 		} else if (context->addr == DDRPHY_PGCR(0U)) {
 			/* assert FIFO reset */
 			context->value &= ~DDRPHY_PGCR0_PHYFRST;
-		} else if (context->addr == DDRPHY_DX8SLNOSC(0U) ||
-			   context->addr == DDRPHY_DX8SLNOSC(1U) ||
-			   context->addr == DDRPHY_DX8SLNOSC(2U) ||
-			   context->addr == DDRPHY_DX8SLNOSC(3U) ||
-			   context->addr == DDRPHY_DX8SLNOSC(4U)) {
+		} else if ((context->addr == DDRPHY_DX8SLNOSC(0U)) ||
+			   (context->addr == DDRPHY_DX8SLNOSC(1U)) ||
+			   (context->addr == DDRPHY_DX8SLNOSC(2U)) ||
+			   (context->addr == DDRPHY_DX8SLNOSC(3U)) ||
+			   (context->addr == DDRPHY_DX8SLNOSC(4U))) {
 			/* assert FIFO reset */
 			context->value &= ~DDRPHY_DX8SLBOSC_PHYFRST;
+		} else {
+			/* For MISRA compliance */
 		}
 #ifdef DDRSR_DEBUG_STATE
 		ddr_print_dbg("%s: addr:%lx, value:%lx\r\n",
@@ -990,7 +994,7 @@ static void restore_ddrphy_odtcr(PmRegisterContext *context)
 static void ddr_io_retention_set(bool en)
 {
 	u32 r = Xil_In32(PMU_GLOBAL_DDR_CNTRL);
-	if (0U != en) {
+	if (false != en) {
 		r |= PMU_GLOBAL_DDR_CNTRL_RET_MASK;
 	} else {
 		r &= ~PMU_GLOBAL_DDR_CNTRL_RET_MASK;
@@ -1011,7 +1015,7 @@ static void ddr_power_down_io(void)
 
 	/* RIOCR2.COEMODE[25:24] = 10 */
 	XPfw_UtilRMW(DDRPHY_RIOCR(2U), DDRPHY_RIOCR2_COEMODE_MASK,
-		     0x2U << DDRPHY_RIOCR2_COEMODE_SHIFT);
+		     (u32)0x2 << DDRPHY_RIOCR2_COEMODE_SHIFT);
 
 	/* RIOCR2.CSOEMODE[3:0] = 1010 */
 	XPfw_UtilRMW(DDRPHY_RIOCR(2U), DDRPHY_RIOCR2_CSOEMODE_MASK , 0xAU);
@@ -1029,11 +1033,11 @@ static void ddr_power_down_io(void)
 
 	/* ACIOCR0.ACPDRMODE[5:4] = 01 */
 	XPfw_UtilRMW(DDRPHY_ACIOCR(0U), DDRPHY_ACIOCR0_ACPDRMDOE_MASK,
-		     0x1U << DDRPHY_ACIOCR0_ACPDRMDOE_SHIFT);
+		     (u32)0x1 << DDRPHY_ACIOCR0_ACPDRMDOE_SHIFT);
 
 	/* ACIOCR0.ACODTMODE[3:2] = 10 */
 	XPfw_UtilRMW(DDRPHY_ACIOCR(0U), DDRPHY_ACIOCR0_ACODTMODE_MASK,
-		     0x2U << DDRPHY_ACIOCR0_ACODTMODE_SHIFT);
+		     (u32)0x2 << DDRPHY_ACIOCR0_ACODTMODE_SHIFT);
 
 	/* ACIOCR1.AOEMODE[31:0] = 0xAAAAAAAA */
 	XPfw_UtilRMW(DDRPHY_ACIOCR(1U), DDRPHY_ACIOCR1_AOEMODE_MASK,
@@ -1041,27 +1045,27 @@ static void ddr_power_down_io(void)
 
 	/* ACIOCR3.PAROEMODE[31:30] = 10 */
 	XPfw_UtilRMW(DDRPHY_ACIOCR(3U), DDRPHY_ACIOCR3_PAROEMODE_MASK,
-		     0x2U << DDRPHY_ACIOCR3_PAROEMODE_SHIFT);
+		     (u32)0x2 << DDRPHY_ACIOCR3_PAROEMODE_SHIFT);
 
 	/* ACIOCR3.BGOEMODE[29:26] = 1010 */
 	XPfw_UtilRMW(DDRPHY_ACIOCR(3U), DDRPHY_ACIOCR3_BGOEMODE_MASK,
-		     0xAU << DDRPHY_ACIOCR3_BGOEMODE_SHIFT);
+		     (u32)0xA << DDRPHY_ACIOCR3_BGOEMODE_SHIFT);
 
 	/* ACIOCR3.BAOEMODE[25:22] = 1010 */
 	XPfw_UtilRMW(DDRPHY_ACIOCR(3U), DDRPHY_ACIOCR3_BAOEMODE_MASK,
-		     0xAU << DDRPHY_ACIOCR3_BAOEMODE_SHITT);
+		     (u32)0xA << DDRPHY_ACIOCR3_BAOEMODE_SHITT);
 
 	/* ACIOCR3.A17OEMODE[21:20] = 10 */
 	XPfw_UtilRMW(DDRPHY_ACIOCR(3U), DDRPHY_ACIOCR3_A17OEMODE_MASK,
-		     0x2U << DDRPHY_ACIOCR3_A17OEMODE_SHIFT);
+		     (u32)0x2 << DDRPHY_ACIOCR3_A17OEMODE_SHIFT);
 
 	/* ACIOCR3.A16OEMODE[19:18] = 10 */
 	XPfw_UtilRMW(DDRPHY_ACIOCR(3U), DDRPHY_ACIOCR3_A16OEMODE_MASK,
-		     0x2U << DDRPHY_ACIOCR3_A16OEMODE_SHIFT);
+		     (u32)0x2 << DDRPHY_ACIOCR3_A16OEMODE_SHIFT);
 
 	/* ACIOCR3.ACTOEMODE[17:16] = 10 */
 	XPfw_UtilRMW(DDRPHY_ACIOCR(3U), DDRPHY_ACIOCR3_ACTOEMODE_MASK,
-		     0x2U << DDRPHY_ACIOCR3_ACTOEMODE_SHIFT);
+		     (u32)0x2 << DDRPHY_ACIOCR3_ACTOEMODE_SHIFT);
 
 	/* ACIOCR3.CKOEMODE[3:0] = 1010 */
 	XPfw_UtilRMW(DDRPHY_ACIOCR(3U), DDRPHY_ACIOCR3_CKOEMODE, 0xAU);
@@ -1091,7 +1095,7 @@ static void ddr_power_down_io(void)
 
 	/* DX[8:0]GCR1.DXPDRMODE[31:16] = 0x5555 */
 	for (i = 0U; i < 9U; i++) {
-		XPfw_UtilRMW(DDRPHY_DXGCR(i, 1U), 0xFFFF0000U, 0x5555U << 16U);
+		XPfw_UtilRMW(DDRPHY_DXGCR(i, 1U), 0xFFFF0000U, (u32)0x5555 << 16U);
 	}
 
 	/* DX[8:0]GCR2.DXOEMODE[31:16] = 0xAAAA */
@@ -1129,7 +1133,7 @@ static void DDR_reinit(bool ddrss_is_reset)
 	if (true == ddrss_is_reset) {
 		/* Data Bus Width */
 		readVal = Xil_In32(DDRC_MSTR);
-		busWidth = (readVal & (DDRC_MSTR_BUS_WIDTH_MASK <<
+		busWidth = (readVal & ((u32)DDRC_MSTR_BUS_WIDTH_MASK <<
 				       DDRC_MSTR_BUS_WIDTH_SHIFT));
 
 		/* PHY init */
@@ -1365,8 +1369,8 @@ static void DDR_reinit(bool ddrss_is_reset)
 			readVal = Xil_In32(DDRPHY_DTCR(0U));
 			readVal &= ~(DDRPHY_DTCR0_RFSHEN_MASK |
 				     DDRPHY_DTCR0_RFSHDT_MASK);
-			readVal |= ((0x8U << DDRPHY_DTCR0_RFSHDT_SHIFT) |
-				    (0x1U << DDRPHY_DTCR0_RFSHEN_SHIFT));
+			readVal |= (((u32)0x8 << DDRPHY_DTCR0_RFSHDT_SHIFT) |
+				    ((u32)0x1 << DDRPHY_DTCR0_RFSHEN_SHIFT));
 			Xil_Out32(DDRPHY_DTCR(0U), readVal);
 
 			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
@@ -1485,12 +1489,14 @@ static bool ddr4_is_old_mapping(void)
 {
 	u32 bg_b0, col_b4;
 	bool old_mapping = false;
+	u32 ddrcMstr;
 
 	bg_b0 = Xil_In32(DDRC_ADDRMAP(8U)) & DDRC_ADDRMAP8_ADDRMAP_BG_B0;
 	col_b4 = (Xil_In32(DDRC_ADDRMAP(2U)) & DDRC_ADDRMAP2_ADDRMAP_COL_B4) >>
 		DDRC_ADDRMAP2_ADDRMAP_COL_B4_SHIFT;
+	ddrcMstr = Xil_In32(DDRC_MSTR);
 	if (((bg_b0 + 2U) > (col_b4 + 4U)) ||
-			(DDRC_MSTR_DDR4 != (Xil_In32(DDRC_MSTR) &
+			(DDRC_MSTR_DDR4 != (ddrcMstr &
 					    DDRC_MSTR_DDR_TYPE))) {
 		old_mapping = true;
 	}
@@ -1506,7 +1512,7 @@ static void ddr_rank1_addr(u32 *haddr, u32 *laddr)
 	if (31U != reg) {
 		if (reg <= 21U) {
 			*haddr = 0U;
-			*laddr = (1U << (reg + 9U));
+			*laddr = ((u32)1 << (reg + 9U));
 		} else if (22U == reg) {
 			/* Upper 32 bits for address at 32 GB. */
 			*haddr = 0x00000008U;
@@ -1551,7 +1557,7 @@ static u32 ddr_training_size(void)
 		size = LPDDR4_SIZE;
 		break;
 	case DDRC_MSTR_DDR4:
-		if (0U != ddr4_is_old_mapping()) {
+		if (false != ddr4_is_old_mapping()) {
 			size = DDR4_SIZE_OLD;
 		} else {
 			size = DDR4_SIZE;
@@ -1581,6 +1587,8 @@ static u64 hif_to_axi_addr(u64 hif_addr)
 	} else if (hif_addr < (DDR_LO_SIZE + DDR_HI_SIZE)) {
 		/* HIF address in high DDR address range */
 		axi_addr = hif_addr + (DDR_HI_ADDR - DDR_LO_SIZE);
+	} else {
+		/* For MISRA compliance */
 	}
 
 	return axi_addr;
@@ -1887,8 +1895,7 @@ static s32 PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		break;
 	case PM_DDR_STATE_SR:
 		if (PM_DDR_STATE_ON == nextState) {
-			bool ddrss_is_reset = !Xil_In32(DDRC_STAT);
-
+			bool ddrss_is_reset = ((0U == Xil_In32(DDRC_STAT)) ? true : false);
 			pm_ddr_sr_exit(ddrss_is_reset);
 			XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
 		} else {

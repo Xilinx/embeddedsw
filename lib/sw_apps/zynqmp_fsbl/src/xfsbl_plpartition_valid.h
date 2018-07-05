@@ -22,6 +22,10 @@
 *                        another member(Hdr) to store size of data stored.
 * 3.0   vns     03/12/19 Added instance to XSecure_Sss structure in
 *                        XFsblPs_PlPartition structure.
+* 4.0   har     06/17/20 Removed references to unused algorithms
+* 5.0   har     01/16/20 Added checks for Status of SSS configuration when AES
+*                        engine is the Resource
+*
 * </pre>
 *
 ******************************************************************************/
@@ -48,7 +52,7 @@ extern "C" {
  * @{
  */
 typedef struct {
-	u8 AuthType;	/**< Type of Authentication used SHA2/SHA3 */
+	u8 AuthType;	/**< Type of Authentication used */
 	u8 *AuthCertBuf;/**< Buffer to store authentication certificate */
 	u32 AcOfset;	/**< Offset of first authentication certificate
 			  *  of bitstream */

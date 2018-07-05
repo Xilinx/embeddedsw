@@ -3,8 +3,8 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef _PMU_GLOBAL_H_
-#define _PMU_GLOBAL_H_
+#ifndef PMU_GLOBAL_H_
+#define PMU_GLOBAL_H_
 
 #ifdef __cplusplus
 extern "C" {

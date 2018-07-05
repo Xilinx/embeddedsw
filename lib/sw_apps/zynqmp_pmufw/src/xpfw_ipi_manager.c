@@ -57,14 +57,14 @@ s32 XPfw_IpiManagerInit(void)
 	Status = XIpiPsu_CfgInitialize(Ipi0InstPtr, Ipi0CfgPtr,
 			Ipi0CfgPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
-		return Status;
+		goto Done;
 	}
 
 	/* Initialize the Instance pointer of IPI-1 channel */
 	Status = XIpiPsu_CfgInitialize(Ipi1InstPtr, Ipi1CfgPtr,
 			Ipi1CfgPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
-		return Status;
+		goto Done;
 	}
 
 	/* Enable IPI-0 and IPI-1 from all Masters */
@@ -182,7 +182,7 @@ s32 XPfw_IpiReadMessage(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen)
 Done:
 	/* Send response for failure status */
 	if (XST_SUCCESS != Status) {
-		RespBuf[0] = Status;
+		RespBuf[0] = (u32)Status;
 #ifdef ENABLE_IPI_CRC
 		RespBuf[7] = XPfw_CalculateCRC((u32)RespBuf, XPFW_IPI_W0_TO_W6_SIZE);
 #endif

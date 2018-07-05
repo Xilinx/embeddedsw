@@ -21,6 +21,9 @@
 * ----- ------  -------- ------------------------------------------------------
 * 4.0   vns     10/08/15 First release
 * 6.7   psl     04/10/19 Fixed IAR warnings.
+* 7.0   kpt     09/02/20 Added successfully ran print to the example in case of
+*                        Success
+*
 * </pre>
 *
 ******************************************************************************/
@@ -83,7 +86,12 @@ int main()
 	Status = XilSKey_ZynqMp_Bbram_Program((u32 *)AesKey);
 
 END:
-	xil_printf("BBRAM programming exit with Status = %08x\n\r", Status);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ZynqMP BBRAM example failed with Status = %08x\n\r", Status);
+	}
+	else {
+		xil_printf("Successfully ran ZynqMP BBRAM example...");
+	}
 
 	return Status;
 

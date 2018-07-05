@@ -17,6 +17,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 5.00 	pkp  02/20/14 First release
 * 6.2   mus  01/27/17 Updated to support IAR compiler
+* 7.3   dp   06/25/20 Updated to support armclang compiler
 * </pre>
 *
 ******************************************************************************/
@@ -35,10 +36,14 @@
 
 #define IRQ_FIQ_MASK 0xC0	/* Mask IRQ and FIQ interrupts in cpsr */
 
-#if defined (__GNUC__)
+#if defined (__clang__)
+extern s32  Image$$ARM_LIB_STACK$$Limit;
+extern s32  Image$$ARM_UNDEF_STACK$$Base;
+#elif defined (__GNUC__)
 extern s32  _stack_end;
 extern s32  __undef_stack;
 #endif
+
 /****************************************************************************/
 /************************** Function Prototypes ******************************/
 
@@ -121,14 +126,21 @@ void Xil_DCacheInvalidate(void)
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 
-#if defined (__GNUC__)
+#if defined (__clang__)
+	stack_end = (u32 )&Image$$ARM_LIB_STACK$$Limit;
+	stack_start = (u32 )&Image$$ARM_UNDEF_STACK$$Base;
+#elif defined (__GNUC__)
 	stack_end = (u32 )&_stack_end;
 	stack_start = (u32 )&__undef_stack;
+#endif
+
+#if defined(__GNUC__) || defined(__clang__)
 	stack_size = stack_start-stack_end;
 
 	/* Flush stack memory to save return address */
 	Xil_DCacheFlushRange(stack_end, stack_size);
 #endif
+
 	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0);
 
 	/*invalidate all D cache*/

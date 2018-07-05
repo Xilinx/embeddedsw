@@ -14,7 +14,7 @@ extern "C" {
 #include "xil_types.h"
 
 #define XPFW_PLATFORM_PS_V1    0x0U
-#define	PBR_VERSION_REG			0xFFD07FCC
+#define	PBR_VERSION_REG			0xFFD07FCCU
 
 u8 XPfw_PlatformGetPsVersion(void);
 void XPfw_PrintPBRVersion(u32 xpbr_version);

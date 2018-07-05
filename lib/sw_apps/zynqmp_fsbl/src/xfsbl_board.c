@@ -21,7 +21,9 @@
 * 1.00  ssc  01/20/16 Initial release
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines
 *                     Added ZCU106 support
-* 3.0	bkm  18/4/18  Added Board specific code w.r.t VADJ
+* 3.0	bkm  04/18/18 Added Board specific code w.r.t VADJ
+* 4.0   bsv  11/12/19 Added support for ZCU216 board
+*       bsv  02/05/20 Added support for ZCU208 board
 *
 * </pre>
 *

@@ -26,6 +26,7 @@
 *                       XSecure_RsaPublicEncrypt, as XSecure_RsaDecrypt is
 *                       deprecated.
 *       vns    03/26/19 Fixed compilation errors on IAR
+* 4.3   har    10/12/20 Addressed security review comments
 *
 * </pre>
 ******************************************************************************/
@@ -74,7 +75,7 @@ static u32 HeaderFsblTotalLenOffset = 0x040;
 
 /************************** Function Prototypes ******************************/
 
-u32 SecureRsaExample(void);
+static u32 SecureRsaExample(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -126,7 +127,7 @@ int main(void)
 *
 ****************************************************************************/
 /** //! [RSA example] */
-u32 SecureRsaExample(void)
+static u32 SecureRsaExample(void)
 {
 	u32 Status;
 	int ii;

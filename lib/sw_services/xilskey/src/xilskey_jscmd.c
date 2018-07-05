@@ -62,6 +62,8 @@
 *                        device series for different devices.
 *       psl     08/23/19 Added Debug define to avoid writing of eFuse.
 * 6.9   vns     03/18/20 Fixed Armcc compilation errors
+* 7.0	am	 	10/04/20 Resolved MISRA C violations
+*
 * </pre>
 *
 *
@@ -123,7 +125,6 @@ typedef struct ftd_async_transfer_struct ftd_async_transfer_t;
 static js_port_t *g_port = NULL;
 static js_server_t *g_js = NULL;
 static js_port_descr_t *g_useport = NULL;
-extern u32 TimerTicksfor100ns;
 extern u32 TimerTicksfor1000ns;
 u32 GpoOutValue = 0;
 extern XSKEfusePl_Fpga PlFpgaFlag;
@@ -2546,6 +2547,7 @@ u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
 
 }
 
+#ifdef XSK_MICROBLAZE_PLATFORM
 /****************************************************************************/
 /**
 *
@@ -2574,10 +2576,8 @@ int Bbram_Init_Ultra(void)
 		jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 				NULL, JS_IDLE);
 
-#ifdef XSK_MICROBLAZE_PLATFORM
 	/* Wait 100 msec */
 	Time = XSK_EFUSEPL_CLCK_FREQ_ULTRA/10000;
-#endif
 
 	XilSKey_Efuse_StartTimer();
 
@@ -2755,6 +2755,7 @@ void Bbram_DeInit_Ultra(void)
 		setPin (MIO_TCK, 0);
 	}
 }
+#endif
 
 /****************************************************************************/
 /**
@@ -2815,6 +2816,7 @@ void Bbram_Close_Ultra(void)
 
 }
 
+#ifdef XSK_MICROBLAZE_PLATFORM
 /****************************************************************************/
 /**
 *
@@ -2861,6 +2863,7 @@ int Bbram_VerifyKey_Ultra(u32 *Crc32)
 	return Status;
 
 }
+#endif
 
 /****************************************************************************/
 /**

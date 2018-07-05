@@ -30,6 +30,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 5.00  pkp  02/10/14 Initial version
 * 6.2   mus  01/27/17 Updated to support IAR compiler
+* 7.3   dp   06/25/20 Initial version for armclang
 * </pre>
 *
 ******************************************************************************/
@@ -41,7 +42,9 @@ extern "C" {
 #endif
 
 #include "xreg_cortexr5.h"
-#if defined (__GNUC__)
+#if defined (__clang__)
+#include "xpseudo_asm_armclang.h"
+#elif defined (__GNUC__)
 #include "xpseudo_asm_gcc.h"
 #elif defined (__ICCARM__)
 #include "xpseudo_asm_iccarm.h"

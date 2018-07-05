@@ -67,6 +67,9 @@
 *                        XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED
 *                        XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED
 *                        XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED
+* 7.0	am		10/04/20 Resolved MISRA C violations
+*
+* </pre>
 *
  *****************************************************************************/
 
@@ -419,6 +422,7 @@ typedef enum {
 #define XSK_STRING_SIZE_96		(96U)
 
 /************************** Variable Definitions ****************************/
+#ifdef XSK_MICROBLAZE_PLATFORM
 typedef enum {
 	 XSK_SLR_NUM_0,
 	 XSK_SLR_NUM_1,
@@ -437,6 +441,8 @@ typedef enum {
 	XSK_TARGET_MAX_3_SLRS,
 	XSK_TARGET_MAX_4_SLRS
 }XSK_MaxSlrs;
+#endif
+
 /**
  * 	XADC Structure
  */
@@ -947,10 +953,10 @@ typedef enum {
 					*  when an PUF generation timedout. */
 	XSK_EFUSEPS_ERROR_PUF_ACCESS = 0xE900,/**< 0xE900<br>Error
 					*  when an PUF Access violation. */
-	XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED = 0XEA00,/** 0xEA00<br>Error
+	XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED = 0XEA00,/**< 0xEA00<br>Error
 					*  When PUF Chash already programmed
 					*  in eFuse. */
-	XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED = 0XEB00,/** 0xEB00<br>Error
+	XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED = 0XEB00,/**< 0xEB00<br>Error
 					*  When PUF AUX already programmed
 					* in eFuse. */
 	XSK_EFUSEPS_ERROR_CMPLTD_EFUSE_PRGRM_WITH_ERR = 0x10000U,/**< 0x10000<br>
@@ -1060,7 +1066,8 @@ u32 XilSKey_EfusePs_XAdcInit (void );
 #if defined (XSK_ZYNQ_ULTRA_MP_PLATFORM) && !defined (XSK_OVERRIDE_SYSMON_CFG)
 u32 XilSKey_EfusePs_XAdcCfgValidate (void);
 #endif
-void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstancePtr);
+void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(
+		XSKEfusePs_XAdc *XAdcInstancePtr);
 u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks(void);
 void XilSKey_Efuse_StartTimer(void);
 u64 XilSKey_Efuse_GetTime(void);
@@ -1069,7 +1076,7 @@ u8 XilSKey_Efuse_IsTimerExpired(u64 t);
 void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len);
 void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits, u32 Len);
 void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len);
-u32 XilSKey_Efuse_ValidateKey(const char *key, u32 len);
+u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len);
 u32 XilSKey_Efuse_IsValidChar(const char *c);
 /**
  * Common functions
@@ -1079,16 +1086,18 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
 u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len);
 u32 XilSKey_Timer_Intialise(void);
 u32 XilSKey_Efuse_ReverseHex(u32 Input);
-void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To);
+void XilSKey_StrCpyRange(const u8 *Src, u8 *Dst, u32 From, u32 To);
+#ifdef XSK_MICROBLAZE_PLATFORM
 void XilSKey_GetSlrNum(u32 MasterSlr, u32 ConfigOrderIndex, u32 *SlrNum);
+#endif
  /** @}
 @endcond */
 /**
  * @addtogroup xilskey_cmn_crc xilskey common file
  * @{
 */
-u32 XilSKey_CrcCalculation(u8 *Key);
-u32 XilSkey_CrcCalculation_AesKey(u8 *Key);
+u32 XilSKey_CrcCalculation(const u8 *Key);
+u32 XilSkey_CrcCalculation_AesKey(const u8 *Key);
 /***************************************************************************/
 
 #ifdef __cplusplus

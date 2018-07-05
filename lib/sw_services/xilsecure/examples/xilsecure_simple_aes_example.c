@@ -22,6 +22,7 @@
 * 2.0   vns    02/10/17 First Release
 * 2.2   vns    07/06/16 Added doxygen tags
 * 4.0   vns    03/26/19 Fixed compilation errors on IAR
+* 4.3   har    10/12/20 Addressed security review comments
 *
 * </pre>
 ******************************************************************************/
@@ -30,6 +31,7 @@
 
 #include "xparameters.h"
 #include "xsecure_aes.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -57,7 +59,6 @@
 
 static s32 SecureAesExample(void);
 static u32 Secure_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
-static u32 Secure_ConvertCharToNibble(char InChar, u8 *Num);
 
 /************************** Variable Definitions *****************************/
 static u8 Iv[XSECURE_IV_SIZE];
@@ -230,36 +231,6 @@ static s32 SecureAesExample(void)
 
 /****************************************************************************/
 /**
- * Converts the char into the equivalent nibble.
- *	Ex: 'a' -> 0xa, 'A' -> 0xa, '9'->0x9
- *
- * @param	InChar is input character. It has to be between 0-9,a-f,A-F
- * @param	Num is the output nibble.
- *
- * @return
- * 		- XST_SUCCESS no errors occurred.
- *		- ERROR when input parameters are not valid
- *
- * @note	None.
- *
- *****************************************************************************/
-static u32 Secure_ConvertCharToNibble(char InChar, u8 *Num)
-{
-	/* Convert the char to nibble */
-	if ((InChar >= '0') && (InChar <= '9'))
-		*Num = InChar - '0';
-	else if ((InChar >= 'a') && (InChar <= 'f'))
-		*Num = InChar - 'a' + 10;
-	else if ((InChar >= 'A') && (InChar <= 'F'))
-		*Num = InChar - 'A' + 10;
-	else
-		return XST_FAILURE;
-
-	return XST_SUCCESS;
-}
-
-/****************************************************************************/
-/**
  * Converts the string into the equivalent Hex buffer.
  *	Ex: "abc123" -> {Buf[2] = 0x23, Buf[1] = 0xc1, Buf[0] = 0xab}
  *
@@ -296,10 +267,10 @@ static u32 Secure_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 	ConvertedLen = 0;
 	while (ConvertedLen < Len) {
 		/* Convert char to nibble */
-		if (Secure_ConvertCharToNibble(Str[ConvertedLen],
+		if (Xil_ConvertCharToNibble(Str[ConvertedLen],
 				&UpperNibble) ==XST_SUCCESS) {
 			/* Convert char to nibble */
-			if (Secure_ConvertCharToNibble(
+			if (Xil_ConvertCharToNibble(
 					Str[ConvertedLen + 1],
 					&LowerNibble) == XST_SUCCESS) {
 				/* Merge upper and lower nibble to Hex */

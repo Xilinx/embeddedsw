@@ -20,25 +20,18 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0   hk  27/01/14 First release
+*       kpt 20/08/20 Removed underscore from macro name
 *
 *</pre>
 *
 ******************************************************************************/
-#ifndef ___RSAEXHEADER_H___
-#define ___RSAEXHEADER_H___
+#ifndef RSAEXHEADER_H_
+#define RSAEXHEADER_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 /***************************** Include Files *********************************/
-
-#include "xparameters.h"
-#include "xil_types.h"
-#include "xil_assert.h"
-#include "xil_io.h"
-#include "xstatus.h"
-#include "xil_printf.h"
-#include "xilrsa.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -72,26 +65,30 @@ extern "C" {
  *
  */
 
-#define APPLICATION_START_ADDR	0x0
+#define APPLICATION_START_ADDR	0x0U
 
-#define PARTITION_SIZE	0x0
+#define PARTITION_SIZE			0x0U
 
-#define CERTIFICATE_START_ADDR	0x0
+#define CERTIFICATE_START_ADDR	0x0U
 
 /*
  * RSA certificate related definitions
  */
-#define RSA_PPK_MODULAR_SIZE		256
-#define RSA_PPK_MODULAR_EXT_SIZE	256
-#define RSA_PPK_EXPO_SIZE		64
-#define RSA_SPK_MODULAR_SIZE		256
-#define RSA_SPK_MODULAR_EXT_SIZE	256
-#define RSA_SPK_EXPO_SIZE		64
-#define RSA_SPK_SIGNATURE_SIZE		256
-#define RSA_PARTITION_SIGNATURE_SIZE	256
-#define RSA_SIGNATURE_SIZE		0x6C0 	/* Signature size in bytes */
-#define RSA_HEADER_SIZE			4 /* Signature header size in bytes */
-#define RSA_MAGIC_WORD_SIZE		60	/* Magic word size in bytes */
+#define RSA_PPK_MODULAR_SIZE			256U
+#define RSA_PPK_MODULAR_EXT_SIZE		256U
+#define RSA_PPK_EXPO_SIZE				64U
+#define RSA_SPK_MODULAR_SIZE			256U
+#define RSA_SPK_MODULAR_EXT_SIZE		256U
+#define RSA_SPK_EXPO_SIZE				64U
+#define RSA_SPK_SIGNATURE_SIZE			256U
+#define RSA_PARTITION_SIGNATURE_SIZE	256U
+#define RSA_HEADER_SIZE			        4U /* Signature header size in bytes */
+#define RSA_MAGIC_WORD_SIZE		        60U	/* Magic word size in bytes */
+
+#define RSA_BYTE_PAD_LENGTH				3U  /**< PKCS Byte Padding */
+#define RSA_T_PAD_LENGTH				19U /**< PKCS T Padding */
+#define HASHLEN             			32U /**  Hash length */
+
 
 /**************************** Type Definitions *******************************/
 
@@ -99,7 +96,7 @@ extern "C" {
 
 /************************** Global Function Prototypes ***********************/
 
-int AuthenticateApp(void);
+static int AuthenticateApp(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -107,4 +104,4 @@ int AuthenticateApp(void);
 }
 #endif
 
-#endif /* ___RSAEXHEADER_H___ */
+#endif /* RSAEXHEADER_H_ */

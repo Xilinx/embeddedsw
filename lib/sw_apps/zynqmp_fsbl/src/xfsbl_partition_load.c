@@ -36,7 +36,9 @@
 *                     internal memory), using same way for non authenticated
 *                     case as well.
 *       mus  02/26/19 Added support for armclang compiler.
-*       skd  02/2/20  Added register writes to PMU GLOBAL to indicate PL configuration
+*       skd  02/02/20 Added register writes to PMU GLOBAL to indicate PL configuration
+*       har  09/22/20 Removed checks for IsCheckSumEnabled with authentication
+*                     and encryption
 *
 * </pre>
 *
@@ -94,12 +96,10 @@ static void XFsbl_SetBSSecureState(u32 State);
 static void XFsbl_PollForDDRReady(void);
 #endif
 
-#ifdef XFSBL_SECURE
 static u32 XFsbl_CalcualteCheckSum(XFsblPs* FsblInstancePtr,
 		PTRSIZE LoadAddress, u32 PartitionNum);
 static u32 XFsbl_CalcualteSHA(const XFsblPs* FsblInstancePtr,
 		PTRSIZE LoadAddress, u32 PartitionNum, u32 ShaType);
-#endif
 
 #ifdef ARMR5
 static void XFsbl_SetR5ExcepVectorHiVec(void);
@@ -574,6 +574,21 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * This function validates the load address for R5 elfs and maps it to global
+ * physical TCM address space so that any cpu can access it globally.
+ *
+ * @param       DestinationCpu is the cpu on which partition will run
+ *
+ * @param       LoadAddress will be updated according to the cpu and address
+ *
+ * @param       Length of the data to be copied. This is required only to
+ *              check for error cases
+ *
+ * @return      returns the error codes described in xfsbl_error.h on any error
+ *                      returns XFSBL_SUCCESS on success
+ *****************************************************************************/
 static u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr, u32 Length)
 {
 	u32 Status;
@@ -669,7 +684,7 @@ END:
  * cpu. For R5 cpu's TCM address is remapped to the higher TCM address
  * so that any cpu can globally access it
  *
- * @param	DestinationCpu is the cpu which partition will run
+ * @param	DestinationCpu is the cpu on which partition will run
  *
  * @param	LoadAddress will be updated according to the cpu and address
  *
@@ -1111,13 +1126,13 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	u32 ExecState;
 	u32 CpuNo;
 	XFsblPs_PartitionHeader * PartitionHeader;
+	u32 Length;
 
 #if defined(XFSBL_SECURE)
 	s32 SStatus;
 	u32 FsblIv[XIH_BH_IV_LENGTH / 4U] = { 0 };
 	u8 *IvPtr = (u8 *)&FsblIv[2];
 	u32 UnencryptedLength = 0U;
-	u32 Length;
 	static XSecure_Aes SecureAes;
 #ifdef XFSBL_BS
 	XFsblPs_PlPartition PlParams = {0};
@@ -1227,9 +1242,11 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #endif
 
 #ifdef XFSBL_SECURE
-	if ((IsAuthenticationEnabled == TRUE) || (IsEncryptionEnabled == TRUE) ||
-			(IsChecksumEnabled == TRUE))
-	{
+	if ((IsChecksumEnabled == TRUE) || (IsAuthenticationEnabled == TRUE) ||
+			(IsEncryptionEnabled == TRUE))	{
+#else
+	if ((IsChecksumEnabled == TRUE)) {
+#endif
 		Length = PartitionHeader->TotalDataWordLength * 4U;
 		Status = XFsbl_GetLoadAddress(DestinationCpu,
 				&LoadAddress, Length);
@@ -1238,7 +1255,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			goto END;
 		}
 	}
-#endif
 
 #ifdef XFSBL_BS
 	if ((DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL) &&
@@ -1301,9 +1317,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #endif
 
 	/* Checksum verification */
-	if (IsChecksumEnabled == TRUE)
-	{
-#ifdef XFSBL_SECURE
+	if (IsChecksumEnabled == TRUE) {
 		Status = XFsbl_CalcualteCheckSum(FsblInstancePtr,
 				LoadAddress, PartitionNum);
 		if (Status != XFSBL_SUCCESS) {
@@ -1312,11 +1326,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			Status = XFSBL_ERROR_PARTITION_CHECKSUM_FAILED;
 			goto END;
 		}
-#else
-		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_SECURE_NOT_ENABLED \r\n");
-		Status = XFSBL_ERROR_SECURE_NOT_ENABLED;
-		goto END;
-#endif
 	}
 
 	/**
@@ -1597,8 +1606,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 
 		/* Update PMU_GLOBAL_GEN_STORE Register */
 #ifdef XFSBL_SECURE
-		if ((IsAuthenticationEnabled == TRUE) || (IsEncryptionEnabled == TRUE) ||
-				(IsChecksumEnabled == TRUE))
+		if ((IsAuthenticationEnabled == TRUE) || (IsEncryptionEnabled == TRUE))
 		{
 			XFsbl_SetBSSecureState(XFSBL_FIRMWARE_STATE_SECURE);
 		} else
@@ -1733,7 +1741,6 @@ static void XFsbl_SetBSSecureState(u32 State)
 }
 #endif
 
-#ifdef XFSBL_SECURE
 /*****************************************************************************/
 /**
  * This function validates the partition
@@ -1903,7 +1910,6 @@ static u32 XFsbl_CalcualteSHA(const XFsblPs * FsblInstancePtr, PTRSIZE LoadAddre
 	}
 	return Status;
 }
-#endif  /* end of XFSBL_SECURE */
 
 #ifdef XFSBL_ENABLE_DDR_SR
 /*****************************************************************************/

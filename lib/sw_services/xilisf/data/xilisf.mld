@@ -31,6 +31,7 @@ BEGIN LIBRARY xilisf
   OPTION desc = "Xilinx In-system and Serial Flash Library\nWARNING: Xilisf library is being deprecated from 2020.1 release. It will be made obsolete in 2021.1 release.";
   OPTION VERSION = 5.15;
   OPTION NAME = xilisf;
+  OPTION library_state = "deprecated";
   PARAM name = serial_flash_family, desc = "Indicates the Serial Flash family type.  Enter 1 for ATMEL.  2 for INTEL.  3 for STM (M25PXX). 4 for Winbond. 5 for Spansion/ Cypress, Micron, Macronix and ISSI. 6 for SST Flash", type = int, default = 1;
   PARAM name = serial_flash_interface, desc = "Indicates the Serial Flash Interface. Enter 1 for AXI SPI. 2 for PS SPI. 3 for PS QSPI(supported families are Winbond(4), Spansion/Cypress and Micron(5)). 4 for OSPI(supported families are Micron(5))", type = int, default = 1;
 END LIBRARY

@@ -166,7 +166,7 @@ done:
  */
 static s32 PmProcApu0Sleep(void)
 {
-	return XpbrACPU0SleepHandler();
+	return (s32)XpbrACPU0SleepHandler();
 }
 
 /**
@@ -175,7 +175,7 @@ static s32 PmProcApu0Sleep(void)
  */
 static s32 PmProcApu1Sleep(void)
 {
-	return XpbrACPU1SleepHandler();
+	return (s32)XpbrACPU1SleepHandler();
 }
 
 /**
@@ -184,7 +184,7 @@ static s32 PmProcApu1Sleep(void)
  */
 static s32 PmProcApu2Sleep(void)
 {
-	return XpbrACPU2SleepHandler();
+	return (s32)XpbrACPU2SleepHandler();
 }
 
 /**
@@ -193,7 +193,7 @@ static s32 PmProcApu2Sleep(void)
  */
 static s32 PmProcApu3Sleep(void)
 {
-	return XpbrACPU3SleepHandler();
+	return (s32)XpbrACPU3SleepHandler();
 }
 
 /**
@@ -252,7 +252,7 @@ static s32 PmProcRpu1Sleep(void)
  */
 static s32 PmProcApu0Wake(void)
 {
-	return XpbrACPU0WakeHandler();
+	return (s32)XpbrACPU0WakeHandler();
 }
 
 /**
@@ -261,7 +261,7 @@ static s32 PmProcApu0Wake(void)
  */
 static s32 PmProcApu1Wake(void)
 {
-	return XpbrACPU1WakeHandler();
+	return (s32)XpbrACPU1WakeHandler();
 }
 
 /**
@@ -270,7 +270,7 @@ static s32 PmProcApu1Wake(void)
  */
 static s32 PmProcApu2Wake(void)
 {
-	return XpbrACPU2WakeHandler();
+	return (s32)XpbrACPU2WakeHandler();
 }
 
 /**
@@ -279,7 +279,7 @@ static s32 PmProcApu2Wake(void)
  */
 static s32 PmProcApu3Wake(void)
 {
-	return XpbrACPU3WakeHandler();
+	return (s32)XpbrACPU3WakeHandler();
 }
 
 /**
@@ -290,7 +290,7 @@ static s32 PmProcRpu0Wake(void)
 {
 	s32 status;
 
-	status = XpbrRstR50Handler();
+	status = (s32)XpbrRstR50Handler();
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
@@ -309,7 +309,7 @@ static s32 PmProcRpu1Wake(void)
 {
 	s32 status;
 
-	status = XpbrRstR51Handler();
+	status = (s32)XpbrRstR51Handler();
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
@@ -531,7 +531,7 @@ static s32 PmProcTrSuspendToSleep(PmProc* const proc)
 		status = PmMasterFsm(proc->master, PM_MASTER_EVENT_SLEEP);
 
 		/* If suspended, remember which processor to wake-up first */
-		if (true == (u8)PmMasterIsSuspended(proc->master)) {
+		if (true == PmMasterIsSuspended(proc->master)) {
 			proc->master->wakeProc = proc;
 		}
 	}
@@ -621,7 +621,7 @@ s32 PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		} else {
 			status = XST_SUCCESS;
 		}
-		if (true == (u8)PmIsRequestedToSuspend(proc->master)) {
+		if (true == PmIsRequestedToSuspend(proc->master)) {
 			status = PmMasterSuspendAck(proc->master,
 						    XST_PM_ABORT_SUSPEND);
 		}
@@ -644,6 +644,7 @@ s32 PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		} else if (PM_PROC_STATE_SUSPENDING == currState) {
 			status = XST_PM_CONFLICT;
 		} else {
+			/* For MISRA compliance */
 		}
 
 		/* Reset latency requirement */
@@ -780,7 +781,7 @@ void PmForceDownUnusableRpuCores(void)
 	 * for that core is cleared. So check that bit and force down that core.
 	 */
 	if (0U == (value & RPU0_STATUS_MASK)) {
-		PmProcForceDown(&pmProcRpu0_g.node);
+		(void)PmProcForceDown(&pmProcRpu0_g.node);
 	}
 	if (0U == (value & RPU1_STATUS_MASK)) {
 		mode = XPfw_Read32(RPU_RPU_GLBL_CNTL);
@@ -796,11 +797,11 @@ void PmForceDownUnusableRpuCores(void)
 				PmClockRelease(&proc->node);
 			}
 			if (NULL != proc->master) {
-				PmMasterFsm(proc->master,
+				(void)PmMasterFsm(proc->master,
 					    PM_MASTER_EVENT_FORCED_PROC);
 			}
 		} else {
-			PmProcFsm(&pmProcRpu1_g, PM_PROC_EVENT_FORCE_PWRDN);
+			(void)PmProcFsm(&pmProcRpu1_g, PM_PROC_EVENT_FORCE_PWRDN);
 		}
 	}
 

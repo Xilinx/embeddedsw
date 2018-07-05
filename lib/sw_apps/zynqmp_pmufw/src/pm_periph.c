@@ -18,8 +18,9 @@
 
 /* Always-on slave has only one state */
 #define PM_AON_SLAVE_STATE	0U
+#define PM_AON_SLAVE_MAX_STATE	1U
 
-static const u8 pmAonFsmStates[] = {
+static const u8 pmAonFsmStates[PM_AON_SLAVE_MAX_STATE] = {
 	[PM_AON_SLAVE_STATE] = PM_CAP_WAKEUP | PM_CAP_ACCESS | PM_CAP_CONTEXT,
 };
 
@@ -36,11 +37,13 @@ static u8 pmSlaveAonPowers[] = {
 
 #define PM_GENERIC_SLAVE_STATE_UNUSED	0U
 #define PM_GENERIC_SLAVE_STATE_RUNNING	1U
+#define PM_GENERIC_SLAVE_MAX_STATE	2U
 
 /* Generic slaves state transition latency values */
 #define PM_GENERIC_SLAVE_UNUSED_TO_RUNNING_LATENCY	304U
 #define PM_GENERIC_SLAVE_RUNNING_TO_UNUSED_LATENCY	6U
-static const u8 pmGenericSlaveStates[] = {
+
+static const u8 pmGenericSlaveStates[PM_GENERIC_SLAVE_MAX_STATE] = {
 	[PM_GENERIC_SLAVE_STATE_UNUSED] = 0U,
 	[PM_GENERIC_SLAVE_STATE_RUNNING] = PM_CAP_CONTEXT | PM_CAP_WAKEUP |
 			PM_CAP_ACCESS | PM_CAP_CLOCK | PM_CAP_POWER,
@@ -537,7 +540,7 @@ static bool ocmStored;
 static void PmWakeEventEthConfig(PmWakeEvent* const wake, const u32 ipiMask,
 				 const u32 enable)
 {
-	s32 i;
+	u32 i;
 	PmRequirement* req = PmRequirementGetNoMaster(&pmSlaveOcm3_g.slv);
 	PmWakeEventEth* ethWake = (PmWakeEventEth*)wake->derived;
 
@@ -546,7 +549,7 @@ static void PmWakeEventEthConfig(PmWakeEvent* const wake, const u32 ipiMask,
 		return;
 	}
 
-	if (!enable && ethWake->wakeEnabled) {
+	if ((0U == enable) && ethWake->wakeEnabled) {
 		/* Disable GEM Rx in network contorl register */
 		XPfw_RMW32(ethWake->baseAddr, ETH_RECV_ENABLE_MASK,
 			   ~ETH_RECV_ENABLE_MASK);
@@ -565,7 +568,7 @@ static void PmWakeEventEthConfig(PmWakeEvent* const wake, const u32 ipiMask,
 			 * queue pointer
 			 */
 			for (i = 0; i < ETH_OCM_REQ_SIZE; i++) {
-				XPfw_Write32(RECV_Q_OCM_ADDR + (i * 4),
+				XPfw_Write32(RECV_Q_OCM_ADDR + (i * 4U),
 					     ocmData[i]);
 			}
 			ocmStored = false;
@@ -593,7 +596,7 @@ static void PmWakeEventEthConfig(PmWakeEvent* const wake, const u32 ipiMask,
 static void PmWakeEventEthSet(PmWakeEvent* const wake, const u32 ipiMask,
 			      const u32 enable)
 {
-	s32 i;
+	u32 i;
 	PmRequirement* req = PmRequirementGetNoMaster(&pmSlaveOcm3_g.slv);
 	PmWakeEventEth* ethWake = (PmWakeEventEth*)wake->derived;
 
@@ -615,7 +618,7 @@ static void PmWakeEventEthSet(PmWakeEvent* const wake, const u32 ipiMask,
 			 */
 			for (i = 0; i < ETH_OCM_REQ_SIZE; i++) {
 				ocmData[i] = XPfw_Read32(RECV_Q_OCM_ADDR +
-							 (i * 4));
+							 (i * 4U));
 			}
 			ocmStored = true;
 		}
@@ -656,7 +659,7 @@ static void PmWakeEventEthSet(PmWakeEvent* const wake, const u32 ipiMask,
 	}
 }
 
-PmWakeEventClass pmWakeEventClassEth_g = {
+static PmWakeEventClass pmWakeEventClassEth_g = {
 	.set = PmWakeEventEthSet,
 	.config = PmWakeEventEthConfig,
 };

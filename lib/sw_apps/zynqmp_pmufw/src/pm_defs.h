@@ -383,6 +383,7 @@ extern "C" {
 #define PM_RESET_GPIO5_EMIO_93	(PM_RESET_BASE + 117U)
 #define PM_RESET_GPIO5_EMIO_94	(PM_RESET_BASE + 118U)
 #define PM_RESET_GPIO5_EMIO_95	(PM_RESET_BASE + 119U)
+#define PM_RESET_MAX_LINE		(120U)
 
 /* Clock IDs */
 #define PM_CLOCK_IOPLL			0U
@@ -609,6 +610,7 @@ extern "C" {
 #define PM_PLL_PARAM_LFHF		7U
 #define PM_PLL_PARAM_CP			8U
 #define PM_PLL_PARAM_RES		9U
+#define PM_PLL_MAX_PARAM		10U
 
 /* PLL modes */
 #define PM_PLL_MODE_RESET		0U
@@ -681,6 +683,7 @@ extern "C" {
 #define PINCTRL_CONFIG_SCHMITT_CMOS	3U
 #define PINCTRL_CONFIG_DRIVE_STRENGTH	4U
 #define PINCTRL_CONFIG_VOLTAGE_STATUS	5U
+#define PINCTRL_MAX_CONFIG		6U
 
 #ifdef __cplusplus
 }

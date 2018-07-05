@@ -325,9 +325,13 @@ u32 ErrorCode;	/**< Global variable which holds the error key*/
 static u8 AesDataInBytes[XSK_EFUSEPL_ARRAY_FUSE_AES_KEY_SIZE];
 static u8 UserDataInBytes[XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE];
 XSKEfusePl_Fpga PlFpgaFlag;		/**< For Storing Fpga series */
+#ifdef XSK_MICROBLAZE_PLATFORM
 static u8 RsaDataInBytes[XSK_EFUSEPL_RSA_HASH_SIZE_ULTRA];
+#endif
 static u8 CtrlBitsUltra[XSK_EFUSEPL_ARRAY_MAX_ROW];
+#ifdef XSK_MICROBLAZE_PLATFORM
 static u8 User128BitData[XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE];
+#endif
 XSKEfusePl_Fpga	PlFpgaFlag;		/**< For Storing Fpga series */
 extern XilSKey_JtagSlr XilSKeyJtag;
 /************************** Function Prototypes *****************************/
@@ -356,7 +360,9 @@ static INLINE u8 XilSKey_EfusePl_VerifyAES_Ultrascale(u32 CrcValue);
 
 static u32 XilSKey_EfusePl_Program_Zynq(XilSKey_EPl *InstancePtr);
 
+#ifdef XSK_MICROBLAZE_PLATFORM
 static INLINE u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr);
+#endif
 
 static INLINE u32 XilSKey_EfusePl_Program_AesKey_ultra(void);
 
@@ -370,7 +376,9 @@ static INLINE u32 XilSKey_EfusePl_GetDataRowRange_Ultra(u8 RowStart, u8 RowEnd,
 
 static INLINE u32 XilSKey_EfusePl_ReadKey_Zynq(XilSKey_EPl *InstancePtr);
 
+#ifdef XSK_MICROBLAZE_PLATFORM
 static INLINE u32 XilSKey_EfusePl_ReadKey_Ultra(XilSKey_EPl *InstancePtr);
+#endif
 
 static INLINE u32 XilSKey_EfusePl_ReadKey_Checks(XilSKey_EPl *InstancePtr);
 
@@ -587,12 +595,14 @@ u32 XilSKey_EfusePl_Program(XilSKey_EPl *InstancePtr)
 		}
 
 	}
+#ifdef XSK_MICROBLAZE_PLATFORM
 	else {
 		Status = XilSKey_EfusePl_Program_Ultra(InstancePtr);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
 	}
+#endif
 
 	/**
 	 * If everything is ok then return PASS.
@@ -1493,12 +1503,14 @@ u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr)
 			return Status;
 		}
 	}
+#ifdef XSK_MICROBLAZE_PLATFORM
 	else {
 		Status = XilSKey_EfusePl_ReadKey_Ultra(InstancePtr);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
 	}
+#endif
 
 	return XST_SUCCESS;
 
@@ -1608,6 +1620,7 @@ static INLINE u32 XilSKey_EfusePl_ReadKey_Zynq(XilSKey_EPl *InstancePtr)
 	return XST_SUCCESS;
 }
 
+#ifdef XSK_MICROBLAZE_PLATFORM
 /****************************************************************************/
 /**
 * Reads the PL efuse keys AES,user,RSA and RES of Ultrascale based on the
@@ -1735,6 +1748,7 @@ static INLINE u32 XilSKey_EfusePl_ReadKey_Ultra(XilSKey_EPl *InstancePtr)
 	return XST_SUCCESS;
 
 }
+#endif
 
 /****************************************************************************/
 /**
@@ -2566,6 +2580,7 @@ u32 XilSKey_EfusePl_Program_Zynq(XilSKey_EPl *InstancePtr)
 
 }
 
+#ifdef XSK_MICROBLAZE_PLATFORM
 /****************************************************************************/
 /**
 *
@@ -2789,6 +2804,7 @@ static INLINE u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 	return XST_SUCCESS;
 
 }
+#endif
 
 /****************************************************************************/
 /**

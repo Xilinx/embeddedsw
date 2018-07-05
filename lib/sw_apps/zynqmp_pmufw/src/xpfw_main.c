@@ -30,7 +30,7 @@
 XStl_ErrReport PMUEccErrInfo;
 #endif
 
-void Assert_CallBack(const char8 *File, s32 Line)
+static void Assert_CallBack(const char8 *File, s32 Line)
 {
 	XPfw_Printf(DEBUG_PRINT_ALWAYS, "Assert occurred from file %s "
 			"at line %d\r\n", File, Line);

@@ -25,6 +25,8 @@
 * 6.7	arc  01/05/19 Fixed MISRA-C violations.
 *       mmd  03/17/19 Added PUF syndrome data length in bytes for 4K mode
 * 6.9   kpt  02/27/20 Removed prototype XilSKey_Puf_Debug2
+* 7.0 	am	 10/04/20 Resolved MISRA C violations
+*
 * </pre>
 *
 *****************************************************************************/
@@ -52,7 +54,7 @@ extern "C" {
 				{xil_printf (__VA_ARGS__);}
 
 #define		XSK_ZYNQMP_PUF_MODE4K			(0U)
-#define		XSK_ZYNQMP_PUF_SYN_LEN			(386)
+#define		XSK_ZYNQMP_PUF_SYN_LEN			(386U)
 
 #define		XSK_ZYNQMP_MAX_RAW_4K_PUF_SYN_LEN	(140U)
 						/* In bytes */
@@ -70,6 +72,7 @@ extern "C" {
 #define		XSK_ZYNQMP_PUF_KEY_IV_LEN_IN_BYTES	(12U)
 #define		XSK_ZYNQMP_PUF_AUX_LEN_IN_BITS		(24U)
 #define		XSK_ZYNQMP_PUF_SHUTTER_VALUE		(0x0100005eU)
+#define 	XSK_ZYNQMP_GCM_TAG_SIZE				(16U)
 
 /************************** Type Definitions ********************************/
 
@@ -115,28 +118,30 @@ typedef struct {
 	u8 BlackKeyIV[XSK_ZYNQMP_PUF_KEY_IV_LEN_IN_BYTES];
 				/**< Black key IV (IV used to encrypt the
 				  *  red key using PUF key) */
-	u8 BlackKey[XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BYTES];
+	u8 BlackKey[XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BYTES +
+				XSK_ZYNQMP_GCM_TAG_SIZE];
 				/**< Black Key generated */
 } XilSKey_Puf;
 /** @}
 @endcond */
 /****************************Prototypes***************************************/
-u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr);
+u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(const XilSKey_Puf *InstancePtr);
 u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u32 *Address);
 
-u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr);
+u32 XilSKey_ZynqMp_EfusePs_WritePufChash(const XilSKey_Puf *InstancePtr);
 u32 XilSKey_ZynqMp_EfusePs_ReadPufChash(u32 *Address, u8 ReadOption);
 
-u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr);
+u32 XilSKey_ZynqMp_EfusePs_WritePufAux(const XilSKey_Puf *InstancePtr);
 u32 XilSKey_ZynqMp_EfusePs_ReadPufAux(u32 *Address, u8 ReadOption);
 
-u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits);
+u32 XilSKey_Write_Puf_EfusePs_SecureBits(
+		const XilSKey_Puf_Secure *WriteSecureBits);
 u32 XilSKey_Read_Puf_EfusePs_SecureBits(
 		XilSKey_Puf_Secure *SecureBitsRead, u8 ReadOption);
 
 u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr);
 
-u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr);
+u32 XilSKey_Puf_Regeneration(const XilSKey_Puf *InstancePtr);
 #ifdef __cplusplus
 }
 #endif

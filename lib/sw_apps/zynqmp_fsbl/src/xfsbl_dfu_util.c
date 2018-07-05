@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   bvikram  02/01/17 First release
+* 2.0   bvikram  09/30/20 Fix USB boot mode
 *
 * </pre>
 *
@@ -36,17 +37,32 @@
 #define USB_MODES_NUM				2U
 #define STRING_DESCRIPTORS_NUM		6U
 
-static void XFsbl_DfuSetState(u32 DfuState );
-
 /**************************** Type Definitions *******************************/
-extern struct XUsbPsu UsbInstance;
 struct XFsblPs_DfuIf DfuObj;
 extern u32 DownloadDone;
 extern u8* DfuVirtFlash;
+extern struct Usb_DevData UsbInstance;
+
+/* Initialize a DFU data structure */
+XFsbl_UsbCh9_Data Dfu_data = {
+        .Ch9_func = {
+                .XFsblPs_Ch9SetupDevDescReply = XFsbl_Ch9SetupDevDescReply,
+                .XFsblPs_Ch9SetupCfgDescReply = XFsbl_Ch9SetupCfgDescReply,
+                .XFsblPs_Ch9SetupBosDescReply = XFsbl_Ch9SetupBosDescReply,
+                .XFsblPs_Ch9SetupStrDescReply = XFsbl_Ch9SetupStrDescReply,
+                .XFsblPs_SetConfiguration = XFsbl_SetConfiguration,
+                /* Hook the set interface handler */
+                .XFsblPs_SetInterfaceHandler = XFsbl_DfuSetIntf,
+                /* Hook up storage class handler */
+                .XFsblPs_ClassReq = XFsbl_DfuClassReq,
+                /* Set the DFU address for call back */
+        },
+        .Data_ptr = (void *)&DfuObj,
+};
 
 /* Device Descriptors */
-static XFsblPs_UsbStdDevDesc __attribute__ ((aligned(16))) DDesc[] = {
-	{/* USB 2.0 */
+static XFsblPs_UsbStdDevDesc __attribute__ ((aligned(16))) DDesc = {
+	/* USB 2.0 */
 		(u8)sizeof(XFsblPs_UsbStdDevDesc), /* bLength */
 		USB_DEVICE_DESC, /* bDescriptorType */
 		(0x0200U), /* bcdUSB 2.0 */
@@ -61,118 +77,17 @@ static XFsblPs_UsbStdDevDesc __attribute__ ((aligned(16))) DDesc[] = {
 		0x02U, /* iProduct */
 		0x03U, /* iSerialNumber */
 		0x01U /* bNumConfigurations */
-	},
-	{/* USB 3.0 */
-		(u8)sizeof(XFsblPs_UsbStdDevDesc), /* bLength */
-		USB_DEVICE_DESC, /* bDescriptorType */
-		(0x0300U), /* bcdUSB 3.0 */
-		0x00U, /* bDeviceClass */
-		0x00U, /* bDeviceSubClass */
-		0x00U, /* bDeviceProtocol */
-		0x09U, /* bMaxPackedSize0 */
-		(0x03FDU), /* idVendor */
-		(0x0050U), /* idProduct */
-		(0x0404U), /* bcdDevice */
-		0x01U, /* iManufacturer */
-		0x02U, /* iProduct */
-		0x03U, /* iSerialNumber */
-		0x01U /* bNumConfigurations */
-	}};
+	};
 
 /* String Descriptors */
-static char* StringList[USB_MODES_NUM][STRING_DESCRIPTORS_NUM] = {
-	{
+static char* StringList[STRING_DESCRIPTORS_NUM] = {
 		"UNUSED",
 		"XILINX INC",
 		"DFU 2.0 emulation v 1.1",
 		"2A49876D9CC1AA4",
 		"Xilinx DFU Downloader",
 		"7ABC7ABC7ABC7ABC7ABC7ABC"
-	},
-	{
-		"UNUSED",
-		"XILINX INC",
-		"DFU 3.0 emulation v 1.1",
-		"2A49876D9CC1AA4",
-		"Xilinx DFU Downloader",
-		"7ABC7ABC7ABC7ABC7ABC7ABC"
-	},
-};
-
-static XFsblPs_Usb30Config __attribute__ ((aligned(16))) Config3 = {
-	/* Std Config */
-	{	(u8)sizeof(XFsblPs_UsbStdCfgDesc), /* bLength */
-		USB_CONFIG_DESC, /* bDescriptorType */
-		(u16) sizeof(XFsblPs_Usb30Config), /* wTotalLength */
-		0x01U, /* bNumInterfaces */
-		0x01U, /* bConfigurationValue */
-		0x00U, /* iConfiguration */
-		0xC0U, /* bmAttribute */
-		0x00U}, /* bMaxPower  */
-
-	/* Interface Config */
-	{	(u8)sizeof(XFsblPs_UsbStdIfDesc), /* bLength */
-		USB_INTERFACE_CFG_DESC, /* bDescriptorType */
-		0x00U, /* bInterfaceNumber */
-		0x00U, /* bAlternateSetting */
-		0x02U, /* bNumEndPoints */
-		0xFFU, /* bInterfaceClass */
-		0xFFU, /* bInterfaceSubClass */
-		0xFFU, /* bInterfaceProtocol */
-		0x04U}, /* iInterface */
-
-	/* Bulk In Endpoint Config */
-	{	(u8)sizeof(XFsblPs_UsbStdEpDesc), /* bLength */
-		USB_ENDPOINT_CFG_DESC, /* bDescriptorType */
-		0x81U, /* bEndpointAddress */
-		0x02U, /* bmAttribute  */
-		0x00U, /* wMaxPacketSize - LSB */
-		0x04U, /* wMaxPacketSize - MSB */
-		0x00U}, /* bInterval */
-
-	/* SS Endpoint companion  */
-	{	(u8)sizeof(XFsblPs_UsbStdEpSsCompDesc), /* bLength */
-		0x30U, /* bDescriptorType */
-		0x0FU, /* bMaxBurst */
-		0x00U, /* bmAttributes */
-		0x00U}, /* wBytesPerInterval */
-
-	/* Bulk Out Endpoint Config */
-	{	(u8)sizeof(XFsblPs_UsbStdEpDesc), /* bLength */
-		USB_ENDPOINT_CFG_DESC, /* bDescriptorType */
-		0x01U, /* bEndpointAddress */
-		0x02U, /* bmAttribute  */
-		0x00U, /* wMaxPacketSize - LSB */
-		0x04U, /* wMaxPacketSize - MSB */
-		0x00U}, /* bInterval */
-
-	/* SS Endpoint companion  */
-	{	(u8)sizeof(XFsblPs_UsbStdEpSsCompDesc), /* bLength */
-		0x30U, /* bDescriptorType */
-		0x0FU, /* bMaxBurst */
-		0x00U, /* bmAttributes */
-		0x00U}, /* wBytesPerInterval */
-
-	/*** DFU Interface descriptor ***/
-	{	(u8)sizeof(XFsblPs_UsbStdIfDesc), /* bLength */
-		USB_INTERFACE_CFG_DESC, /* bDescriptorType */
-		0x00U, /* bInterfaceNumber */
-		0x01U, /* bAlternateSetting */
-		0x00U, /* bNumEndPoints */
-		0xFEU, /* bInterfaceClass DFU application specific class code */
-		0x01U, /* bInterfaceSubClass DFU device firmware upgrade code*/
-		0x02U, /* bInterfaceProtocol DFU mode protocol*/
-		0x04U}, /* iInterface DFU string descriptor*/
-
-	/**** DFU functional descriptor ****/
-	{	(u8)sizeof(XFsblPs_UsbDfuFuncDesc), /* bLength*/
-		DFUFUNC_DESCR, /* bDescriptorType DFU functional descriptor type */
-		0x3U, /* bmAttributes Device is only download/upload capable */
-		8192U, /* wDetatchTimeOut 8192 ms */
-		DFU_MAX_TRANSFER, /*wTransferSize DFU block size 1024*/
-		0x0110U /*bcdDfuVersion 1.1 */
-	}
-};
+	};
 
 static XFsblPs_UsbConfig __attribute__ ((aligned(16))) Config2 = {
 	/* Std Config */
@@ -291,22 +206,12 @@ u32 XFsbl_Ch9SetupStrDescReply(u8 *BufPtr, u32 BufferLen, u8 Index)
 		goto END;
 	}
 
-	SStatus = XUsbPsu_IsSuperSpeed(&UsbInstance);
-	if(SStatus != XST_SUCCESS) {
-		/* USB 2.0 */
-		String = StringList[0][Index];
-
-	} else {
-		/* USB 3.0 */
-		String = StringList[1][Index];
-	}
-
+	String = StringList[Index];
 	StringLen = strlen(String);
 
 	/* Index 0 is LangId which is special as we can not represent
 	 * the string required in the table above.Therefore we handle
-	 * index 0 as a special case.*/
-
+	 * index 0 as a special case. */
 	if (0U == Index) {
 		StringDesc.Length = 4U;
 		StringDesc.DescriptorType = 0x03U;
@@ -372,15 +277,7 @@ u32 XFsbl_Ch9SetupDevDescReply(u8 *BufPtr, u32 BufferLen)
 		goto END;
 	}
 
-	SStatus = XUsbPsu_IsSuperSpeed(&UsbInstance);
-	if(SStatus != XST_SUCCESS) {
-		/* USB 2.0 */
-		(void)memcpy(BufPtr, &DDesc[0], DevDescLength);
-
-	} else {
-		/* USB 3.0 */
-		(void)memcpy(BufPtr, &DDesc[1], DevDescLength);
-	}
+	(void)memcpy(BufPtr, &DDesc, DevDescLength);
 
 END:
 	return DevDescLength;
@@ -411,17 +308,8 @@ u32 XFsbl_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufferLen)
 		goto END;
 	}
 
-	SStatus = XUsbPsu_IsSuperSpeed(&UsbInstance);
-	if(SStatus != XST_SUCCESS) {
-		/* USB 2.0 */
-		Config = (u8 *)&Config2;
-		CfgDescLen = sizeof(XFsblPs_UsbConfig);
-	} else {
-		/* USB 3.0 */
-		Config = (u8 *)&Config3;
-		CfgDescLen = sizeof(XFsblPs_Usb30Config);
-	}
-
+	Config = (u8 *)&Config2;
+	CfgDescLen = sizeof(XFsblPs_UsbConfig);
 	if (BufferLen < CfgDescLen) {
 		CfgDescLen = 0U;
 		goto END;
@@ -493,24 +381,26 @@ END:
 
 /****************************************************************************/
 /**
- * Changes State of Core to USB configured State.
+ * @brief	This function changes State of Core to USB configured State.
  *
- * @param	Ctrl is a pointer to the Setup packet data.
+ * @param	InstancePtr is a pointer to XUsbPsu instance of the controller
+ * @param	Ctrl is a pointer to the Setup packet data
  *
- * @return	XST_SUCCESS else XST_FAILURE
+ * @return	XST_SUCCESS on success and error code on failure
  *
  * @note		None.
  *
  *****************************************************************************/
-s32 XFsbl_SetConfiguration(SetupPacket *Ctrl)
+s32 XFsbl_SetConfiguration(struct Usb_DevData* InstancePtr, SetupPacket *Ctrl)
 {
 	s32 Ret;
 
+	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Ctrl != NULL);
 
-	UsbInstance.IsConfigDone = 0U;
+	((struct XUsbPsu*)(InstancePtr->PrivateData))->IsConfigDone = 0U;
 
-	switch (UsbInstance.AppData->State) {
+	switch (InstancePtr->State) {
 		case XUSBPSU_STATE_DEFAULT:
 		{
 			Ret = XST_FAILURE;
@@ -519,7 +409,7 @@ s32 XFsbl_SetConfiguration(SetupPacket *Ctrl)
 
 		case XUSBPSU_STATE_ADDRESS:
 		{
-			UsbInstance.AppData->State = XUSBPSU_STATE_CONFIGURED;
+			InstancePtr->State = XUSBPSU_STATE_CONFIGURED;
 			Ret = XST_SUCCESS;
 		}
 			break;
@@ -543,7 +433,8 @@ s32 XFsbl_SetConfiguration(SetupPacket *Ctrl)
 /*****************************************************************************
  * This function handles setting of DFU state.
  *
- * @param	dfu_state is a value of the DFU state to be set
+ * @param	InstancePtr is a pointer to XUsbPsu instance of the controller
+ * @param	DfuState is a value of the DFU state to be set
  *
  * @return
  *				None.
@@ -551,7 +442,8 @@ s32 XFsbl_SetConfiguration(SetupPacket *Ctrl)
  * @note		None.
  *
  ******************************************************************************/
-static void XFsbl_DfuSetState(u32 DfuState) {
+void XFsbl_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState) {
+	int Status = XST_FAILURE;
 
 	switch (DfuState) {
 
@@ -560,9 +452,13 @@ static void XFsbl_DfuSetState(u32 DfuState) {
 			DfuObj.CurrState = STATE_APP_IDLE;
 			DfuObj.NextState = STATE_APP_DETACH;
 			DfuObj.CurrStatus = DFU_STATUS_OK;
-			DfuObj.RuntimeToDfu = 0U;
+			/* Set to runtime mode by default */
+			DfuObj.IsDfu = (u8)FALSE;
+			DfuObj.RuntimeToDfu = (u8)FALSE;
+			++DownloadDone;
+			Status = XST_SUCCESS;
 		}
-		break;
+			break;
 
 		case STATE_APP_DETACH:
 		{
@@ -573,11 +469,17 @@ static void XFsbl_DfuSetState(u32 DfuState) {
 
 				/* Wait For USB Reset to happen */
 				XFsbl_DfuWaitForReset();
-
-				/* Set this flag to indicate we are going from runtime to dfu mode */
-				DfuObj.RuntimeToDfu = 1U;
-
-				/* fall through */
+				/* Setting Dfu Mode */
+				DfuObj.IsDfu = (u8)TRUE;
+				/*
+				 * Set this flag to indicate we are going
+				 * from runtime to dfu mode
+				 */
+				DfuObj.RuntimeToDfu = (u8)TRUE;
+				DfuObj.CurrState = STATE_DFU_IDLE;
+				DfuObj.NextState = STATE_DFU_DOWNLOAD_SYNC;
+				DfuObj.IsDfu = (u8)TRUE;
+				Status = XST_SUCCESS;
 			} else if (DfuObj.CurrState == STATE_DFU_IDLE) {
 				/* Wait For USB Reset to happen */
 				XFsbl_DfuWaitForReset();
@@ -585,21 +487,26 @@ static void XFsbl_DfuSetState(u32 DfuState) {
 				DfuObj.CurrState = STATE_APP_IDLE;
 				DfuObj.NextState = STATE_APP_DETACH;
 				DfuObj.CurrStatus = DFU_STATUS_OK;
-				break;
-			} else {
-				goto stall;
+				DfuObj.IsDfu = (u8)FALSE;
+				Status = XST_SUCCESS;
+			}
+			else {
+				/* Error */
 			}
 		}
-
+			break;
 		case STATE_DFU_IDLE:
 		{
 			DfuObj.CurrState = STATE_DFU_IDLE;
 			DfuObj.NextState = STATE_DFU_DOWNLOAD_SYNC;
+			DfuObj.IsDfu = (u8)TRUE;
+			Status = XST_SUCCESS;
 		}
 		break;
 		case STATE_DFU_DOWNLOAD_SYNC:
 		{
 			DfuObj.CurrState = STATE_DFU_DOWNLOAD_SYNC;
+			Status = XST_SUCCESS;
 		}
 		break;
 
@@ -607,13 +514,14 @@ static void XFsbl_DfuSetState(u32 DfuState) {
 		case STATE_DFU_DOWNLOAD_IDLE:
 		case STATE_DFU_ERROR:
 		default:
-		{
-		stall:
-			 /* Unsupported command. Stall the end point.*/
+			break;
+	}
 
-			DfuObj.CurrState = STATE_DFU_ERROR;
-			XUsbPsu_EpSetStall(&UsbInstance, 0U, XUSBPSU_EP_DIR_IN);
-		}
+	if (Status != XST_SUCCESS) {
+		/* Unsupported command. Stall the end point. */
+		DfuObj.CurrState = STATE_DFU_ERROR;
+		XUsbPsu_Ep0StallRestart(
+			(struct XUsbPsu*)InstancePtr->PrivateData);
 	}
 
 }
@@ -648,27 +556,32 @@ void XFsbl_DfuReset(struct Usb_DevData* InstancePtr)
  * @note		None.
  *
  ******************************************************************************/
-void XFsbl_DfuSetIntf(SetupPacket *SetupData)
+void XFsbl_DfuSetIntf(struct Usb_DevData* InstancePtr, SetupPacket *SetupData)
 {
 	/* Setting the alternate setting requested */
 	DfuObj.CurrentInf = SetupData->wValue;
-	if ((DfuObj.CurrentInf >= DFU_ALT_SETTING) || (DfuObj.RuntimeToDfu == 1U)) {
-
-		/* Clear the flag , before entering into DFU mode from runtime mode */
-		if (DfuObj.RuntimeToDfu == 1U)
-			DfuObj.RuntimeToDfu = 0U;
-
+	if (DfuObj.RuntimeToDfu == (u8)TRUE) {
+		/*
+		 * Clear the flag, before entering into DFU
+		 * mode from runtime mode.
+		 */
+		DfuObj.RuntimeToDfu = (u8)FALSE;
 		/* Entering DFU_IDLE state */
-		XFsbl_DfuSetState(STATE_DFU_IDLE);
+		XFsbl_DfuSetState(InstancePtr, STATE_DFU_IDLE);
+	}
+	else if (DfuObj.CurrentInf >= DFU_ALT_SETTING) {
+		/* Entering DFU_IDLE state */
+		XFsbl_DfuSetState(InstancePtr, STATE_DFU_IDLE);
 	} else {
 		/* Entering APP_IDLE state */
-		XFsbl_DfuSetState(STATE_APP_IDLE);
+		XFsbl_DfuSetState(InstancePtr, STATE_APP_IDLE);
 	}
 }
 
 /*****************************************************************************
  * This function handles DFU heart and soul of DFU state machine.
  *
+ * @param	InstancePtr is a pointer to XUsbPsu instance of the controller
  * @param	SetupData is a pointer to setup token of control transfer
  *
  * @return
@@ -677,82 +590,99 @@ void XFsbl_DfuSetIntf(SetupPacket *SetupData)
  * @note		None.
  *
  ******************************************************************************/
-void XFsbl_DfuClassReq(SetupPacket *SetupData)
+void XFsbl_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *SetupData)
 {
-	Xil_AssertVoid(SetupData != NULL);
+	int Result = XST_FAILURE;
 	u32 RxBytesLeft;
-	s32 Result;
+	static u8 DfuReply[DFU_STATUS_SIZE] = {0,};
 
-	static u8 DfuReply[DFU_STATUS_SIZE]={0,};
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(SetupData != NULL);
 
 	switch(SetupData->bRequest) {
 		case DFU_DETACH:
 		{
-			XFsbl_DfuSetState(STATE_APP_DETACH);
+			XFsbl_DfuSetState(InstancePtr, STATE_APP_DETACH);
 		}
 		break;
 
 		case DFU_DNLOAD:
 		{
-			if (SetupData->wValue == 0U) {
-				/* we are the start of the data, clear the download counter  */
+			if(DfuObj.GotDnloadRqst == (u8)FALSE) {
+				DfuObj.GotDnloadRqst = (u8)TRUE;
+			}
+			if ((DfuObj.TotalTransfers == 0U) &&
+				(SetupData->wValue == 0U)) {
+				/* We are at the start of the data,
+				 * clear the download counter
+				 */
 				DfuObj.TotalBytesDnloaded = 0U;
 			}
 
-			RxBytesLeft = (u32)(SetupData->wLength);
+			RxBytesLeft = SetupData->wLength;
 
 			if(RxBytesLeft > 0U) {
-				do {
-					Result = XUsbPsu_EpBufferRecv(&UsbInstance, 0U, &DfuVirtFlash[DfuObj.TotalBytesDnloaded],
-								RxBytesLeft);
-				}while(Result != XST_SUCCESS);
-
+				Result = XUsbPsu_EpBufferRecv(
+					(struct XUsbPsu*)InstancePtr->PrivateData,
+					0U, &DfuVirtFlash[DfuObj.TotalBytesDnloaded],
+					RxBytesLeft);
 				DfuObj.TotalBytesDnloaded += RxBytesLeft;
-				DfuObj.CurrState = STATE_DFU_DOWNLOAD_IDLE;
-				DfuObj.GotDnloadRqst = 0U;
-			} else {/*if (RxBytesLeft == 0U)*/
-				DfuObj.CurrState = STATE_DFU_IDLE;
-				DfuObj.GotDnloadRqst = 0U;
-				Result = XST_FAILURE;
+			}
+			else {
+				if (DfuObj.GotDnloadRqst == (u8)TRUE) {
+					DfuObj.CurrState =
+						STATE_DFU_IDLE;
+					DfuObj.GotDnloadRqst = (u8)FALSE;
+					DfuObj.TotalTransfers = 0U;
+				}
+			}
+
+			if((DfuObj.GotDnloadRqst == (u8)TRUE) &&
+				(Result == XST_SUCCESS)) {
+				DfuObj.CurrState =
+					STATE_DFU_DOWNLOAD_IDLE;
+				DfuObj.GotDnloadRqst = (u8)FALSE;
 			}
 		}
-
-		break;
-
+			break;
 		case DFU_GETSTATUS:
 		{
-			if(DfuObj.CurrState == STATE_DFU_IDLE )
-			{
-				DfuObj.CurrState = STATE_DFU_DOWNLOAD_SYNC;
-				++DownloadDone;
-			}
-			else if (DfuObj.CurrState == STATE_DFU_DOWNLOAD_SYNC)
-			{
-				DfuObj.CurrState = STATE_DFU_DOWNLOAD_BUSY;
-			}
-			else
-			{
-				/*Misra C compliance*/
+			if (DfuObj.GotDnloadRqst == (u8)TRUE) {
+				if (DfuObj.CurrState == STATE_DFU_IDLE ) {
+					DfuObj.CurrState =
+						STATE_DFU_DOWNLOAD_SYNC;
+				}
+				else if (DfuObj.CurrState ==
+						STATE_DFU_DOWNLOAD_SYNC) {
+					DfuObj.CurrState =
+						STATE_DFU_DOWNLOAD_BUSY;
+				}
+				else {
+					/*Do nothing */
+				}
 			}
 			DfuReply[0] = DfuObj.CurrStatus;
 			DfuReply[4] = DfuObj.CurrState;
-
-			do {
-					Result = XUsbPsu_EpBufferSend(&UsbInstance, 0U, DfuReply, (u32)SetupData->wLength);
-
-			}while(Result != XST_SUCCESS);
-
+			if (SetupData->wLength > 0U) {
+				Result = XUsbPsu_EpBufferSend(
+				(struct XUsbPsu*)InstancePtr->PrivateData,
+				0U, DfuReply, (u32)SetupData->wLength);
+				if (Result != XST_SUCCESS) {
+					goto END;
+				}
+			}
 		}
-		break;
-
+			break;
 		default:
-		{
-			/* Unsupported command. Stall the end point.*/
+			/* Unsupported command. Stall the end point. */
 			DfuObj.CurrState = STATE_DFU_ERROR;
-			XUsbPsu_EpSetStall(&UsbInstance, 0U, XUSBPSU_EP_DIR_IN);
-		}
-		break;
+			XUsbPsu_Ep0StallRestart(
+				(struct XUsbPsu*)InstancePtr->PrivateData);
+			break;
 	}
+
+END:
+	return;
 }
 
 #endif

@@ -50,6 +50,11 @@ SECTIONS
    *(.vfp11_veneer)
    *(.ARM.extab)
    *(.gnu.linkonce.armextab.*)
+   *(.note.gnu.build-id)
+} > psu_ddr_S_AXI_BASEADDR
+
+.note.gnu.build-id : {
+   KEEP (*(.note.gnu.build-id))
 } > psu_ddr_S_AXI_BASEADDR
 
 .init : {

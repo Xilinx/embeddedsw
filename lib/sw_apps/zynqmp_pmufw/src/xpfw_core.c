@@ -31,6 +31,11 @@ XStatus XPfw_CoreInit(u32 Options)
 {
 	u32 Index;
 	XStatus Status;
+
+	/* Disable scan clear signal bit */
+	XPfw_UtilRMW(PMU_GLOBAL_SAFETY_GATE,
+				PMU_GLOBAL_SAFETY_GATE_SCAN_ENABLE_MASK, 0U);
+
 	if (CorePtr == NULL) {
 		Status = XST_FAILURE;
 		goto Done;
@@ -196,7 +201,7 @@ XStatus XPfw_CoreDispatchEvent(u32 EventId)
 			 * Check if Mod[Idx] and event handler are registered for this event
 			 */
 			if (((XPfw_EventGetModMask(EventId) & ((u32) 1U << Idx))
-					== ((u32) 1U << Idx)) && CorePtr->ModList[Idx].EventHandler != NULL) {
+					== ((u32) 1U << Idx)) && (CorePtr->ModList[Idx].EventHandler != NULL)) {
 				CorePtr->ModList[Idx].EventHandler(&CorePtr->ModList[Idx],
 						EventId);
 				CallCount++;
@@ -361,12 +366,12 @@ XStatus XPfw_CoreLoop(void)
 		#endif
 
 		#ifdef ENABLE_SCHEDULER
-			if(TRUE == CorePtr->Scheduler.Enabled){
+			if((u32)TRUE == CorePtr->Scheduler.Enabled){
 				XPfw_SchedulerProcess(&CorePtr->Scheduler);
 			}
 		#endif
 
-		} while (1);
+		} while (TRUE);
 
 	}
 	/* If we reach this point then there was an error */
@@ -493,5 +498,7 @@ void XPfw_Exception_Handler(void)
 			PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK);
 	XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
 			0x0U);
-	while(1);
+	while(TRUE) {
+		;
+	}
 }

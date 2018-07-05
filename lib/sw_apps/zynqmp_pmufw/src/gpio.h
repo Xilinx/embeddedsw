@@ -4,8 +4,8 @@
 ******************************************************************************/
 
 
-#ifndef _GPIO_H_
-#define _GPIO_H_
+#ifndef GPIO_H_
+#define GPIO_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,7 +41,7 @@ extern "C" {
 #define GPIO5_EMIO94_MSW_DATA_BIT    14
 #define GPIO5_EMIO95_MSW_DATA_BIT    15
 
-#define GPIO_PIN_MASK_BITS         0xFFFF0000
+#define GPIO_PIN_MASK_BITS         0xFFFF0000U
 
 #ifdef __cplusplus
 }

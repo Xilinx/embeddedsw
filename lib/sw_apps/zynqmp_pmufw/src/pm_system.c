@@ -87,7 +87,7 @@ typedef struct PmTcmMemorySection {
  * Data initialization
  ********************************************************************/
 
-PmSystem pmSystem = {
+static PmSystem pmSystem = {
 	.psRestartPerms = 0U,
 	.systemRestartPerms = 0U,
 	.suspendType = PM_SUSPEND_TYPE_REGULAR,
@@ -98,7 +98,7 @@ PmSystem pmSystem = {
  * - OCM bank(s) store FSBL which is needed to restart APU, and should never be
  *   powered down unless the whole system goes down.
  */
-PmSystemRequirement pmSystemReqs[] = {
+static PmSystemRequirement pmSystemReqs[] = {
 	{
 		.slave = &pmSlaveOcm0_g.slv,
 		.caps = PM_CAP_CONTEXT,
@@ -513,10 +513,10 @@ s32 PmSystemRequirementAdd(void)
 			goto done;
 		}
 		req->info |= PM_SYSTEM_USING_SLAVE_MASK;
-		req->preReq = pmSystemReqs[i].caps;
-		req->currReq = pmSystemReqs[i].caps;
-		req->nextReq = pmSystemReqs[i].caps;
-		req->defaultReq = pmSystemReqs[i].caps;
+		req->preReq = (u8)pmSystemReqs[i].caps;
+		req->currReq = (u8)pmSystemReqs[i].caps;
+		req->nextReq = (u8)pmSystemReqs[i].caps;
+		req->defaultReq = (u8)pmSystemReqs[i].caps;
 		req->latencyReq = MAX_LATENCY;
 	}
 
@@ -586,14 +586,14 @@ void PmSystemRestartDone(const PmMaster* const master)
 	req = PmRequirementGetNoMaster(&pmSlaveDdr_g);
 	caps = PmSystemGetRequirement(&pmSlaveDdr_g);
 	if ((NULL != req) && (0U == (PM_CAP_ACCESS & caps))) {
-		req->currReq &= ~PM_CAP_ACCESS;
+		req->currReq &= ~(u8)PM_CAP_ACCESS;
 	}
 
 	/* Clear system requirement for PL once restart is done*/
 	req = PmRequirementGetNoMaster(&pmSlavePl_g);
 	caps = PmSystemGetRequirement(&pmSlavePl_g);
 	if ((NULL != req) && (0U == (PM_CAP_ACCESS & caps))) {
-		req->currReq &= ~PM_CAP_ACCESS;
+		req->currReq &= ~(u8)PM_CAP_ACCESS;
 	}
 
 	return;

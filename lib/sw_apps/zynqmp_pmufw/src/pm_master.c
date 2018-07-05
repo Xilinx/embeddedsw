@@ -375,7 +375,7 @@ void PmMasterClearConfig(void)
 		PmMaster* next;
 
 		/* Clear the configuration of the master */
-		mst->wakeProc = 0U;
+		mst->wakeProc = NULL;
 		mst->ipiMask = 0U;
 		mst->wakePerms = 0U;
 		mst->suspendPerms = 0U;
@@ -435,14 +435,14 @@ PmMaster* PmGetMasterByIpiMask(const u32 mask)
 PmMaster* PmMasterGetNextFromIpiMask(u32* const mask)
 {
 	PmMaster* master = NULL;
-	u32 masterCnt = __builtin_popcount(*mask);
+	u32 masterCnt = (u32)__builtin_popcount(*mask);
 	u32 ipiMask;
 
 	if (0U == masterCnt) {
 		goto done;
 	}
 
-	ipiMask = 1U << __builtin_ctz(*mask);
+	ipiMask = (u32)1 << (u32)__builtin_ctz(*mask);
 	master = PmGetMasterByIpiMask(ipiMask);
 	*mask &= ~ipiMask;
 
@@ -536,7 +536,7 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
 	PmRequirement* req = master->reqs;
 
 	while (NULL != req) {
-		req->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
+		req->info &= ~(u8)PM_MASTER_WAKEUP_REQ_MASK;
 		req = req->nextSlave;
 	}
 
@@ -544,7 +544,7 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
 	if (NULL != master->gic) {
 		master->gic->clear();
 	}
-	PmMasterConfigWakeEvents(master, 0U);
+	PmMasterConfigWakeEvents(master, false);
 }
 
 /**
@@ -601,10 +601,10 @@ s32 PmMasterSuspendAck(PmMaster* const mst, const s32 response)
 
 	if (REQUEST_ACK_NON_BLOCKING == mst->suspendRequest.acknowledge) {
 		PmAcknowledgeCb(mst->suspendRequest.initiator,
-				mst->procs[0]->node.nodeId, response,
+				mst->procs[0]->node.nodeId, (u32)response,
 				mst->procs[0]->node.currState);
 	} else if (REQUEST_ACK_BLOCKING == mst->suspendRequest.acknowledge) {
-		IPI_RESPONSE1(mst->ipiMask, response);
+		IPI_RESPONSE1(mst->ipiMask, (u32)response);
 	} else {
 		/* No acknowledge */
 	}
@@ -679,7 +679,7 @@ s32 PmWakeMasterBySlave(const PmSlave * const slave)
 	s32 finalStatus = XST_SUCCESS;
 	s32 status;
 
-	while (mst) {
+	while (NULL != mst) {
 		PmRequirement *masterReq = PmRequirementGet(mst, slave);
 
 		if ((masterReq->info & PM_MASTER_WAKEUP_REQ_MASK) != 0U) {
@@ -832,7 +832,7 @@ s32 PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 			if (true == condition) {
 				status = PmMasterSuspendAck(master, XST_SUCCESS);
 			}
-			PmMasterConfigWakeEvents(master, 1U);
+			PmMasterConfigWakeEvents(master, true);
 #ifdef ENABLE_POS
 			if (true == isPoS) {
 				status = PmSystemFinalizePowerOffSuspend();
@@ -921,9 +921,9 @@ s32 PmMasterWake(const PmMaster* const mst)
  *
  * @return	Void
  */
-void PmGetStartAddress (PmMaster* const master, u64 *address)
+static void PmGetStartAddress (PmMaster* const master, u64 *address)
 {
-	if (master == &pmMasterRpu_g || master == &pmMasterRpu0_g) {
+	if ((master == &pmMasterRpu_g) || (master == &pmMasterRpu0_g)) {
 		u32 i;
 		*address = PM_PROC_RPU_HIVEC_ADDR;	/* Highvec */
 

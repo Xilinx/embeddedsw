@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   bvikram  02/01/17 First release
+* 2.0   bvikram  09/30/20 Fix USB boot issue
 *
 * </pre>
 *
@@ -87,14 +88,15 @@ extern "C" {
 #define XFSBL_USB_ENDPOINT_DIR_MASK		0x80U
 /************************** Function Prototypes **************************/
 void XFsbl_DfuInit(void);
-void XFsbl_DfuSetIntf(SetupPacket *SetupData);
-void XFsbl_DfuClassReq(SetupPacket *SetupData);
+void XFsbl_DfuSetIntf(struct Usb_DevData *InstancePtr, SetupPacket *SetupData);
+void XFsbl_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData);
 void XFsbl_DfuReset(struct Usb_DevData* InstancePtr);
 u32 XFsbl_Ch9SetupDevDescReply(u8 *BufPtr, u32 BufferLen);
 u32 XFsbl_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufferLen);
 u32 XFsbl_Ch9SetupStrDescReply(u8 *BufPtr, u32 BufferLen, u8 Index);
 u32 XFsbl_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufferLen);
-s32 XFsbl_SetConfiguration(SetupPacket *Ctrl);
+s32 XFsbl_SetConfiguration(struct Usb_DevData *InstancePtr, SetupPacket *Ctrl);
+void XFsbl_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState);
 u32 XFsbl_UsbInit(u32 DeviceFlags);
 u32 XFsbl_UsbCopy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length);
 u32 XFsbl_UsbRelease(void);

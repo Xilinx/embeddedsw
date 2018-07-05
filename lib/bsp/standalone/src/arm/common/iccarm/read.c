@@ -17,6 +17,7 @@
  */
 
 #include <yfuns.h>
+#include "xparameters.h"
 #include "xil_types.h"
 
 size_t __read(sint32 handle, u8 * buffer, size_t size);
@@ -24,5 +25,27 @@ size_t __read(sint32 handle, u8 * buffer, size_t size);
 size_t __read(sint32 handle, u8 * buffer, size_t size)
 {
 
-return size;
+#ifdef STDIN_BASEADDRESS
+  s32 i;
+  s32 numbytes = 0;
+  char8* LocalBuf = buffer;
+
+  (void)handle;
+  if(LocalBuf != NULL) {
+	for (i = 0; i < size; i++) {
+		numbytes++;
+		*(LocalBuf + i) = inbyte();
+		if ((*(LocalBuf + i) == '\n' )|| (*(LocalBuf + i) == '\r')) {
+			break;
+		}
+	}
+  }
+
+  return numbytes;
+#else
+  (void)handle;
+  (void)buffer;
+  (void)size;
+  return 0;
+#endif
 }

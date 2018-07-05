@@ -4,8 +4,8 @@
 ******************************************************************************/
 
 
-#ifndef _AFI_H_
-#define _AFI_H_
+#ifndef AFI_H_
+#define AFI_H_
 
 #ifdef __cplusplus
 extern "C" {

@@ -39,7 +39,7 @@ BEGIN LIBRARY xilskey
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilskey,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Key Library supports programming efuse and bbram ";
-  OPTION VERSION = 6.9;
+  OPTION VERSION = 7.0;
   OPTION NAME = xilskey;
   PARAM name = device_series, desc = "Device series", type = enum, values = ("FPGA SERIES ZYNQ" = XSK_FPGA_SERIES_ZYNQ, "FPGA SERIES ULTRA" = XSK_FPGA_SERIES_ULTRA  , "FPGA SERIES ULTRA PLUS" = XSK_FPGA_SERIES_ULTRA_PLUS), default = XSK_FPGA_SERIES_ZYNQ;
   PARAM name = device_id, desc = "IDCODE", type = int, default = 0;

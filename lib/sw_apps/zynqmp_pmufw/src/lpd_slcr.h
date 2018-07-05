@@ -4,8 +4,8 @@
 ******************************************************************************/
 
 
-#ifndef _LPD_SLCR_H_
-#define _LPD_SLCR_H_
+#ifndef LPD_SLCR_H_
+#define LPD_SLCR_H_
 
 #ifdef __cplusplus
 extern "C" {

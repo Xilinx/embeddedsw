@@ -39,8 +39,8 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
 #include "xfsbl_main.h"
-#ifdef XFSBL_SECURE
 #include "xsecure_sha.h"
+#ifdef XFSBL_SECURE
 #include "xsecure_rsa.h"
 #include "xsecure_aes.h"
 #endif
@@ -96,12 +96,11 @@ extern "C" {
 * CSU RSA Register Map
 */
 
-
+void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen);
 #ifdef XFSBL_SECURE
 u32 XFsbl_Authentication(const XFsblPs * FsblInstancePtr, u64 PartitionOffset,
 				u32 PartitionLen, u64 AcOffset,
 				u32 PartitionNum);
-void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen);
 void XFsbl_ShaStart(void * Ctx, u32 HashLen);
 void XFsbl_ShaUpdate(void * Ctx, u8 * Data, u32 Size, u32 HashLen);
 void XFsbl_ShaFinish(void * Ctx, u8 * Hash, u32 HashLen);

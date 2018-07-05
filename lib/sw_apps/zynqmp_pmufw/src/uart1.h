@@ -4,8 +4,8 @@
 ******************************************************************************/
 
 
-#ifndef _UART1_H_
-#define _UART1_H_
+#ifndef UART1_H_
+#define UART1_H_
 
 #ifdef __cplusplus
 extern "C" {
