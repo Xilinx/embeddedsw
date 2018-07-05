@@ -52,6 +52,8 @@
  *       aad  09/05/17 Added 1366x768_60_P_RB
  * 4.4   eb   09/04/18 Fixed timings for 1280x720_24_P, 1280x720_25_P,
  *                         1280x720_30_P
+ * 4.5	 jsr  07/03/18 Added timing for new video mode XVIDC_VM_720x486_60_I
+ *
  * </pre>
  *
 *******************************************************************************/
@@ -95,6 +97,9 @@ const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED] =
 	{ XVIDC_VM_720x480_60_I, "720x480@60Hz (I)", XVIDC_FR_60HZ,
 		{720, 19, 62, 57, 858, 0,
 		240, 4, 3, 15, 262, 5, 3, 15, 263, 0} },
+	{ XVIDC_VM_720x486_60_I, "720x486@60Hz (I)", XVIDC_FR_60HZ,
+		{720, 19, 62, 57, 858, 0,
+		243, 1, 3, 15, 262, 2, 3, 15, 263, 0} },
 	{ XVIDC_VM_720x576_50_I, "720x576@50Hz (I)", XVIDC_FR_50HZ,
 		{720, 12, 63, 69, 864, 0,
 		288, 2, 3, 19, 312, 3, 3, 19, 313, 0} },

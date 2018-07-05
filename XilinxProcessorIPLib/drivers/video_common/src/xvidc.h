@@ -71,6 +71,7 @@
  * 4.3   eb   26/01/18 Added API XVidC_GetVideoModeIdExtensive
  *       jsr  02/22/18 Added XVIDC_CSF_YCBCR_420 color space format
  *       vyc  04/04/18 Added BGR8 memory format
+ * 4.5   jsr  07/03/18 Added XVIDC_VM_720x486_60_I video format
  * </pre>
  *
 *******************************************************************************/
@@ -100,6 +101,7 @@ extern "C" {
 typedef enum {
 	/* Interlaced modes. */
 	XVIDC_VM_720x480_60_I = 0,
+	XVIDC_VM_720x486_60_I,
 	XVIDC_VM_720x576_50_I,
 	XVIDC_VM_1440x480_60_I,
 	XVIDC_VM_1440x576_50_I,
@@ -261,6 +263,7 @@ typedef enum {
 
 	/* Common naming. */
 	XVIDC_VM_480_60_I = XVIDC_VM_720x480_60_I,
+	XVIDC_VM_486_60_I = XVIDC_VM_720x486_60_I,
 	XVIDC_VM_576_50_I = XVIDC_VM_720x576_50_I,
 	XVIDC_VM_1080_50_I = XVIDC_VM_1920x1080_50_I,
 	XVIDC_VM_1080_60_I = XVIDC_VM_1920x1080_60_I,
