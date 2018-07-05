@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -307,6 +305,16 @@ extern "C" {
  */
 #define XSM_CLK_DIV_MIN	 0U /**< Minimum Clock Divisor value */
 #define XSM_CLK_DIV_MAX	 255U /**< Maximum Clock Divisor value */
+
+/*@}*/
+
+/**
+ * @name Power down modes.
+ * @{
+ */
+#define XSM_PWR_MODE_NORMAL	 	0U /**< Normal operation */
+#define XSM_PWR_MODE_PARTIAL_SLEEP	1U /**< Partial sleep mode */
+#define XSM_PWR_MODE_SLEEP		3U /**< Full sleep mode */
 
 /*@}*/
 
@@ -655,6 +663,8 @@ u16 XSysMonPsu_GetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 		u32 SysmonBlk);
 void XSysMonPsu_SetPSAutoConversion(XSysMonPsu *InstancePtr);
 u32 XSysMonPsu_GetMonitorStatus(XSysMonPsu *InstancePtr);
+void XSysMonPsu_InitInstance(XSysMonPsu *InstancePtr,
+	XSysMonPsu_Config *ConfigPtr);
 
 /* interrupt functions in xsysmonpsu_intr.c */
 void XSysMonPsu_IntrEnable(XSysMonPsu *InstancePtr, u64 Mask);

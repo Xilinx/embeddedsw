@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF 
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /******************************************************************************/
@@ -43,7 +41,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- --------------------------------------------------------
  * 1.00a jz  10/10/10 First release
- * 2.1   kpc 04/28/14 Removed ununsed functions
+ * 2.1   kpc 04/28/14 Removed unused functions
  * </pre>
  ******************************************************************************/
 
@@ -80,12 +78,12 @@
 *		of the device.
 * 		For systems that do not support virtual memory this address
 * 		should be the physical address of the device. For backwards
-* 		compatibilty NULL may be passed in systems that do not support
+* 		compatibility NULL may be passed in systems that do not support
 * 		virtual memory (deprecated).
 *
 * @return
-*		- XST_SUCCESS no errors occured.
-*		- XST_FAILURE an error occured during initialization.
+*		- XST_SUCCESS no errors occurred.
+*		- XST_FAILURE an error occurred during initialization.
 *
 * @note
 *		After calling XUsbPs_CfgInitialize() the controller
@@ -329,7 +327,7 @@ int XUsbPs_RequestHostResume(const XUsbPs *InstancePtr)
 *
 * @return
 *		- XST_SUCCESS: Address set successfully.
-*		- XST_FAILURE: An error occured.
+*		- XST_FAILURE: An error occurred.
 *		- XST_INVALID_PARAM: Invalid parameter passed, e.g. address
 *		value too big.
 *
@@ -347,7 +345,7 @@ int XUsbPs_SetDeviceAddress(XUsbPs *InstancePtr, u8 Address)
 
 	/* Set the address register with the Address value provided. Also set
 	 * the Address Advance Bit. This will cause the address to be set only
-	 * after an IN occured and has been ACKed on the endpoint.
+	 * after an IN occurred and has been ACKed on the endpoint.
 	 */
 	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress,
 				XUSBPS_DEVICEADDR_OFFSET,

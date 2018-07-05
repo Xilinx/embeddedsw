@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /******************************************************************************/
@@ -105,7 +103,7 @@ static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
  *
  * @return
  *		- XST_SUCCESS: The operation completed successfully.
- *		- XST_FAILURE: An error occured.
+ *		- XST_FAILURE: An error occurred.
  *
  * @note
  * 		The caller may configure the controller for both, DEVICE and
@@ -184,7 +182,7 @@ int XUsbPs_ConfigureDevice(XUsbPs *InstancePtr,
 *
 * @return
 *		- XST_SUCCESS: The operation completed successfully.
-*		- XST_FAILURE: An error occured.
+*		- XST_FAILURE: An error occurred.
 *		- XST_USB_BUF_TOO_BIG: Provided buffer is too big (>16kB).
 *		- XST_USB_NO_DESC_AVAILABLE: No TX descriptor is available.
 *
@@ -211,7 +209,7 @@ int XUsbPs_EpBufferSend(XUsbPs *InstancePtr, u8 EpNum,
 *
 * @return
 *		- XST_SUCCESS: The operation completed successfully.
-*		- XST_FAILURE: An error occured.
+*		- XST_FAILURE: An error occurred.
 *		- XST_USB_BUF_TOO_BIG: Provided buffer is too big (>16kB).
 *		- XST_USB_NO_DESC_AVAILABLE: No TX descriptor is available.
 *
@@ -249,7 +247,7 @@ int XUsbPs_EpBufferSendWithZLT(XUsbPs *InstancePtr, u8 EpNum,
 *
 * @return
 *		- XST_SUCCESS: The operation completed successfully.
-*		- XST_FAILURE: An error occured.
+*		- XST_FAILURE: An error occurred.
 *		- XST_USB_BUF_TOO_BIG: Provided buffer is too big (>16kB).
 *		- XST_USB_NO_DESC_AVAILABLE: No TX descriptor is available.
 *
@@ -390,7 +388,7 @@ static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
  *
  * @return
  *		- XST_SUCCESS: The operation completed successfully.
- *		- XST_FAILURE: An error occured.
+ *		- XST_FAILURE: An error occurred.
  *		- XST_USB_NO_BUF: No buffer available.
  *
  * @note
@@ -511,7 +509,7 @@ void XUsbPs_EpBufferRelease(u32 Handle)
  *
  * @return
  *		- XST_SUCCESS: The operation completed successfully.
- *		- XST_FAILURE: An error occured.
+ *		- XST_FAILURE: An error occurred.
  *		- XST_INVALID_PARAM: Invalid parameter passed.
  *
  * @note
@@ -557,7 +555,7 @@ int XUsbPs_EpSetHandler(XUsbPs *InstancePtr, u8 EpNum, u8 Direction,
 *
 * @return
 *		- XST_SUCCESS: The operation completed successfully.
-*		- XST_FAILURE: An error occured.
+*		- XST_FAILURE: An error occurred.
 *		- XST_INVALID_PARAM: Invalid parameter passed.
 *
 * @note		None.
@@ -605,7 +603,7 @@ int XUsbPs_EpPrime(XUsbPs *InstancePtr, u8 EpNum, u8 Direction)
 *
 * @return
 *		- XST_SUCCESS: The operation completed successfully.
-*		- XST_FAILURE: An error occured.
+*		- XST_FAILURE: An error occurred.
 *
 * @note		None.
 ******************************************************************************/
@@ -659,7 +657,7 @@ int XUsbPs_EpGetSetupData(XUsbPs *InstancePtr, int EpNum,
 	 * reading the setup data values.
 	 *
 	 * Need to check if there is a smarter way to do this and take the
-	 * processor/memory-controller endianess into account?
+	 * processor/memory-controller endianness into account?
 	 */
 	p = (u8 *) Data;
 
@@ -786,7 +784,7 @@ static void XUsbPs_EpListInit(XUsbPs_DeviceConfig *DevCfgPtr)
 
 
 	/* 'p' now points to the first address after the Transfer Descriptors.
-	 * The data buffers for the OUT Transfer Desciptors start here.
+	 * The data buffers for the OUT Transfer Descriptors start here.
 	 *
 	 * Note that IN (TX) Transfer Descriptors are not assigned buffers at
 	 * this point. Buffers will be assigned when the user calls the send()
@@ -920,7 +918,7 @@ static void XUsbPs_dQHInit(XUsbPs_DeviceConfig *DevCfgPtr)
  *
  * @return
  *		- XST_SUCCESS: The operation completed successfully.
- *		- XST_FAILURE: An error occured.
+ *		- XST_FAILURE: An error occurred.
  *
  ******************************************************************************/
 static int XUsbPs_dTDInit(XUsbPs_DeviceConfig *DevCfgPtr)
@@ -1046,7 +1044,7 @@ static int XUsbPs_dTDInit(XUsbPs_DeviceConfig *DevCfgPtr)
  *
  * @return
  *		- XST_SUCCESS: The operation completed successfully.
- *		- XST_FAILURE: An error occured.
+ *		- XST_FAILURE: An error occurred.
  *		- XST_USB_BUF_TOO_BIG: The provided buffer is bigger than tha
  *		maximum allowed buffer size (16k).
  *
@@ -1350,7 +1348,7 @@ int EpNum, unsigned short NewDirection)
  *
  * @return
  *		- XST_SUCCESS: The operation completed successfully.
- *		- XST_FAILURE: An error occured.
+ *		- XST_FAILURE: An error occurred.
  *
  ******************************************************************************/
 static int XUsbPs_dTDReinitEp(XUsbPs_DeviceConfig *DevCfgPtr,

@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -572,6 +570,56 @@ u32 XV_SdiRx_ReportDetectedError(XV_SdiRx *InstancePtr)
 	}
 
 	return RegValue;
+}
+/*****************************************************************************/
+/**
+*
+* This function enables 10bit YUV444 and RGB color format support for SDI Rx
+*
+* @param	InstancePtr is a pointer to the XV_SdiRx core instance.
+*
+* @return	None.
+*
+******************************************************************************/
+
+void XV_SdiRx_SetYCbCr444_RGB_10bit(XV_SdiRx *InstancePtr)
+{
+	u32 Data;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+				XV_SDIRX_RST_CTRL_OFFSET);
+	Data |= XV_SDIRX_RST_CTRL_CH_FORMAT_AXI_EN_MASK;
+
+	XV_SdiRx_WriteReg(InstancePtr->Config.BaseAddress,
+			  XV_SDIRX_RST_CTRL_OFFSET, Data);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function disables 10bit YUV444 and RGB color format support for SDI Rx
+*
+* @param	InstancePtr is a pointer to the XV_SdiRx core instance.
+*
+* @return	None.
+*
+******************************************************************************/
+void XV_SdiRx_ClearYCbCr444_RGB_10bit(XV_SdiRx *InstancePtr)
+{
+	u32 Data;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+				XV_SDIRX_RST_CTRL_OFFSET);
+	Data &= ~XV_SDIRX_RST_CTRL_CH_FORMAT_AXI_EN_MASK;
+
+	XV_SdiRx_WriteReg(InstancePtr->Config.BaseAddress,
+			  XV_SDIRX_RST_CTRL_OFFSET, Data);
 }
 
 /*****************************************************************************/

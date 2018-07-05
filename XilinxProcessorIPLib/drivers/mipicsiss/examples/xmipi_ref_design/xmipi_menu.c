@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
  ******************************************************************************/
 /*****************************************************************************/
@@ -210,7 +208,7 @@ static XMipi_MenuType XMipi_MainMenu(XMipi_Menu *InstancePtr, u8 Input) {
 			if (Pipeline_Cfg.CameraPresent == TRUE)
 				New_Cfg.VideoSrc = XVIDSRC_SENSOR;
 			else
-				xil_printf(TXT_RED "Switch failed as no Camera Sensor connected!\r\n" TXT_RST);
+xil_printf(TXT_RED "Switch failed as no Camera Sensor connected!\r\n" TXT_RST);
 			break;
 
 		case ('t'):
@@ -232,15 +230,17 @@ static XMipi_MenuType XMipi_MainMenu(XMipi_Menu *InstancePtr, u8 Input) {
 				TxRestartColorbar = 1;
 				if (Pipeline_Cfg.VideoMode == XVIDC_VM_3840x2160_60_P)
 				{
-					xil_printf(TXT_RED "\n\rCurrent Resolution: XVIDC_VM_3840x2160_60_P\n\r");
-					xil_printf("Current HDMI configuration doesn't support it\n\r");
-					xil_printf("Switching to supported maximum resolution: XVIDC_VM_3840x2160_30_P\n\r" TXT_RST);
-					Pipeline_Cfg.VideoMode = XVIDC_VM_3840x2160_30_P;
+xil_printf(TXT_RED "\n\rCurrent Resolution: XVIDC_VM_3840x2160_60_P\n\r");
+xil_printf("Current HDMI configuration doesn't support it\n\r");
+xil_printf("Switching to supported maximum resolution:" TXT_RST);
+xil_printf(" XVIDC_VM_3840x2160_30_P\n\r" TXT_RST);
+Pipeline_Cfg.VideoMode = XVIDC_VM_3840x2160_30_P;
 				}
 				New_Cfg.VideoDestn = XVIDDES_HDMI;
 
 			} else {
-				xil_printf(TXT_RED "Invalid selection - The HDMI monitor is not connected\r\n" TXT_RST);
+xil_printf(TXT_RED "Invalid selection - " TXT_RST);
+xil_printf(TXT_RED "The HDMI monitor is not connected\r\n" TXT_RST);
 			}
 			break;
 
@@ -254,7 +254,8 @@ static XMipi_MenuType XMipi_MainMenu(XMipi_Menu *InstancePtr, u8 Input) {
 			if (Pipeline_Cfg.DSIDisplayPresent == TRUE) {
 				New_Cfg.VideoDestn = XVIDDES_DSI;
 			} else {
-				xil_printf(TXT_RED "Invalid selection - The DSI Display panel is not connected\r\n" TXT_RST);
+xil_printf(TXT_RED "Invalid selection -" TXT_RST);
+xil_printf(TXT_RED "The DSI Display panel is not connected\r\n" TXT_RST);
 			}
 			break;
 
@@ -275,8 +276,8 @@ static XMipi_MenuType XMipi_MainMenu(XMipi_Menu *InstancePtr, u8 Input) {
 				}
 
 				else {
-					xil_printf("\n\rThe GT TX and RX are bonded and clocked by the RX clock.\n\r");
-					xil_printf("Please select independent PLL layout to enable TX only mode.\n\r");
+xil_printf("\n\rThe GT TX and RX are bonded and clocked by the RX clock.\n\r");
+xil_printf("Please select independent PLL layout to enable TX only mode.\n\r");
 				}
 			}
 
@@ -373,9 +374,10 @@ static XMipi_MenuType XMipi_ResolutionMenu(XMipi_Menu *InstancePtr, u8 Input) {
 
 			if (Pipeline_Cfg.VideoDestn == XVIDDES_HDMI)
 			{
-				xil_printf(TXT_RED "\n\rCurrent Resolution: XVIDC_VM_3840x2160_60_P\n\r");
-				xil_printf("Current HDMI configuration doesn't support it\n\r");
-				xil_printf("Switching to supported maximum resolution: XVIDC_VM_3840x2160_30_P\n\r" TXT_RST);
+xil_printf(TXT_RED "\n\rCurrent Resolution: XVIDC_VM_3840x2160_60_P\n\r");
+xil_printf("Current HDMI configuration doesn't support it\n\r");
+xil_printf("Switching to supported maximum resolution:" TXT_RST);
+xil_printf(" XVIDC_VM_3840x2160_30_P\n\r" TXT_RST);
 				New_Cfg.VideoMode = XVIDC_VM_3840x2160_30_P;
 			} else
 			{
@@ -439,8 +441,9 @@ static XMipi_MenuType XMipi_ResolutionMenu(XMipi_Menu *InstancePtr, u8 Input) {
 	EnableCSI();
 	usleep(20000);
 	SetupCameraSensor();
-
-	EnableDSI();
+	if (Pipeline_Cfg.VideoDestn == XVIDDES_DSI) {
+	        EnableDSI();
+        }
 	XAxiVdma_DmaStart(&TpgVdma, XAXIVDMA_READ);
 
 	usleep(200000);
@@ -496,8 +499,10 @@ void XMipi_MenuProcess(XMipi_Menu *InstancePtr) {
 
 			/* Alpha numeric data */
 			if (isalpha(Data)) {
-				xil_printf(TXT_RED "\r\nInvalid input. Valid entry is only digits 0-9. Try again\r\n\r\n" TXT_RST);
-				xil_printf(TXT_CYAN "Enter Selection -> " TXT_RST);
+xil_printf(TXT_RED "\r\nInvalid input."TXT_RST);
+xil_printf(TXT_RED "Valid entry is only digits 0-9. \r\n\r\n"TXT_RST);
+xil_printf(TXT_RED " Try again\r\n\r\n"TXT_RST);
+xil_printf(TXT_CYAN "Enter Selection -> " TXT_RST);
 				InstancePtr->Value = 0;
 			}
 
@@ -547,7 +552,8 @@ static XMipi_MenuType XMipi_LanesMenu(XMipi_Menu *InstancePtr, u8 Input) {
 		case 1:
 			if ((Pipeline_Cfg.VideoMode == XVIDC_VM_1920x1080_60_P)
 					|| (Pipeline_Cfg.VideoMode == XVIDC_VM_3840x2160_30_P)) {
-				xil_printf(TXT_RED "Current resolution doesn't support single lane\n\r" TXT_RST);
+xil_printf(TXT_RED "Current resolution doesn't support single lane" TXT_RST);
+xil_printf("\n\r" TXT_RST);
 				PrintPipeConfig();
 				XMipi_DisplayLanesMenu();
 				return Menu;
@@ -558,7 +564,7 @@ static XMipi_MenuType XMipi_LanesMenu(XMipi_Menu *InstancePtr, u8 Input) {
 			/* Dual Lane */
 		case 2:
 			if (Pipeline_Cfg.VideoMode == XVIDC_VM_3840x2160_30_P) {
-				xil_printf(TXT_RED "Current resolution doesn't support dual lane\n\r" TXT_RST);
+xil_printf(TXT_RED "Current resolution doesn't support dual lane\n\r" TXT_RST);
 				PrintPipeConfig();
 				XMipi_DisplayLanesMenu();
 				return Menu;
@@ -618,6 +624,48 @@ static XMipi_MenuType XMipi_LanesMenu(XMipi_Menu *InstancePtr, u8 Input) {
 	return Menu;
 }
 
+void Shutdown_DSI(void) {
+	DisableDSI();
+	usleep(20000);
+	InitDSI();
+	usleep(20000);
+	xil_printf("DSI Turned Off...!!\r\n");
+}
+
+void Reconfigure_DSI(void) {
+	/* shutdown pipeline */
+	CamReset();
+	DisableCSI();
+	DisableImageProcessingPipe();
+	Reset_IP_Pipe();
+	DisableTPGVdma();
+	DisableScaler();
+	DisableDSI();
+
+	/* Enable pipeline */
+	ResetTpg();
+	InitCSC2TPG_Vdma();
+	XV_ConfigTpg(&Tpg);
+
+	InitVprocSs_Scaler(0);
+	InitDSI();
+	InitImageProcessingPipe();
+	EnableCSI();
+	usleep(20000);
+	SetupCameraSensor();
+
+	XAxiVdma_DmaStart(&TpgVdma, XAXIVDMA_READ);
+
+	usleep(200000);
+	StartSensor();
+	EnableDSI();
+
+	usleep(200000);
+//	TxRestartColorbar = 1;
+//	PrintPipeConfig();
+	xil_printf("Restarted DSI pipeline...!!\r\n");
+
+}
 /*****************************************************************************/
 /**
  *

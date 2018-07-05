@@ -14,21 +14,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xcanfd.h
-* @addtogroup canfd_v2_1
+* @addtogroup canfd_v2_2
 * @{
 * @details
 *
@@ -49,7 +47,7 @@
 *   - Maskable Error and Status Interrupts.
 *   - Readable Error Counters.
 *   - External PHY chip required.
-*   - Backward compatiable for Legacy CAN.
+*   - Backward compatible for Legacy CAN.
 *   - Supports reception in Mailbox and Sequential Mode
 *
 * The device driver supports all the features listed above, if applicable.
@@ -239,7 +237,7 @@ exclusion
 *			 Modified apis
 *						XCanFd_SetBitTiming
 *                                               XCanFd_SetFBitTiming in xcanfd.h
-*       ask  07/03/18 Fix for Sequencial recv CR# 992606,CR# 1004222.
+*       ask  07/03/18 Fix for Sequential recv CR# 992606,CR# 1004222.
 *       nsk  07/11/18 Updated tcl to generate CANFD Frequency macro in
 *		      xparameters.h (CR 1005641).
 *	ask  08/27/18 Modified RecvSeq function to return XST_NO_DATA when the
@@ -263,6 +261,9 @@ exclusion
 		      XCanFd_Addto_Queue(). CR# 1022093
 * 2.1	nsk  03/09/19 Added support for PS CANFD, PL CANFD 1.0 and PL CANFD 2.0
 *		      CR# 1021963
+* 2.2   sn   06/11/19 Corrected below incorrect Mask values for CANFD2.0 in xcanfd_hw.h
+*		      XCANFD_MAILBOX_RB_MASK_BASE_OFFSET,XCANFD_WMR_RXFP_MASK
+*		      and CONTROL_STATUS_3.
 *
 * </pre>
 *

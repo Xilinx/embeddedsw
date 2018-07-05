@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -31,7 +29,7 @@
 * @file xresetps_example.c
 *
 * This file contains a design example using the Reset Controller (ResetPs)
-* driver. A list of peripheral blocks to be resetted is maintained. The list
+* driver. A list of peripheral blocks to be reset is maintained. The list
 * has a peripheral reset ID, a register address that is to be modified, value
 * to be modified and value after reset for that register. The register provided
 * for a peripheral block is modified with the value provided. The peripheral is
@@ -64,7 +62,7 @@ typedef struct {
 	const XResetPs_RstId ResetID;    /* Peripheral to reset */
 	const u32            RegAddr;    /* Register to modify */
 	const u32            ResetVal;   /* Reset value of register */
-	const u32            ModifVal;   /* Value to modifiy before reset */
+	const u32            ModifVal;   /* Value to modify before reset */
 } ResetPsPeripherals;
 
 /***************** Macros (Inline Functions) Definitions *********************/

@@ -16,14 +16,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 
 *******************************************************************************/
@@ -80,7 +78,8 @@
 * 1.8	tjs 16/07/18 Added support for the low density ISSI flash parts.
 * 1.9   akm 02/27/19 Added support for IS25LP128, IS25WP128, IS25LP256,
 *                     IS25WP256, IS25LP512, IS25WP512 Flash Devices
-* 1.9   akm 03/26/19 Fixed data alignment warnings on IAR compiler.
+* 1.9   akm 04/03/19 Fixed data alignment warnings on IAR compiler.
+* 1.10  akm 09/05/19 Added Multi Die Erase and Muti Die Read support.
 *
 *</pre>
 *
@@ -392,6 +391,8 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 				u8 *WriteBfrPtr);
 int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 				u8 *WriteBfrPtr, u8 *ReadBfrPtr);
+int MultiDieRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
+                 u8 *WriteBfrPtr, u8 *ReadBfrPtr);
 u32 GetRealAddr(XQspiPsu *QspiPsuPtr, u32 Address);
 int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr);
 int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr);
@@ -1595,104 +1596,292 @@ int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	int Status;
 
 	/* Check die boundary conditions if required for any flash */
-
-	/* For Dual Stacked, split and read for boundary crossing */
-	/*
-	 * Translate address based on type of connection
-	 * If stacked assert the slave select based on address
-	 */
-	RealAddr = GetRealAddr(QspiPsuPtr, Address);
-
-	WriteBfrPtr[COMMAND_OFFSET]   = Command;
-	if (Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
-		WriteBfrPtr[ADDRESS_1_OFFSET] =
-				(u8)((RealAddr & 0xFF000000) >> 24);
-		WriteBfrPtr[ADDRESS_2_OFFSET] =
-				(u8)((RealAddr & 0xFF0000) >> 16);
-		WriteBfrPtr[ADDRESS_3_OFFSET] =
-				(u8)((RealAddr & 0xFF00) >> 8);
-		WriteBfrPtr[ADDRESS_4_OFFSET] =
-				(u8)(RealAddr & 0xFF);
-		DiscardByteCnt = 5;
+	if (Flash_Config_Table[FCTIndex].NumDie > 1) {
+		Status = MultiDieRead(QspiPsuPtr, Address, ByteCount, Command,
+				      WriteBfrPtr, ReadBfrPtr);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
 	} else {
-		WriteBfrPtr[ADDRESS_1_OFFSET] =
-				(u8)((RealAddr & 0xFF0000) >> 16);
-		WriteBfrPtr[ADDRESS_2_OFFSET] =
-				(u8)((RealAddr & 0xFF00) >> 8);
-		WriteBfrPtr[ADDRESS_3_OFFSET] =
-				(u8)(RealAddr & 0xFF);
-		DiscardByteCnt = 4;
-	}
-
-	FlashMsg[0].TxBfrPtr = WriteBfrPtr;
-	FlashMsg[0].RxBfrPtr = NULL;
-	FlashMsg[0].ByteCount = DiscardByteCnt;
-	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-	FlashMsgCnt = 1;
-
-	/* It is recommended to have a separate entry for dummy */
-	if ((Command == FAST_READ_CMD) || (Command == DUAL_READ_CMD) ||
-	    (Command == QUAD_READ_CMD) || (Command == FAST_READ_CMD_4B) ||
-	    (Command == DUAL_READ_CMD_4B) || (Command == QUAD_READ_CMD_4B)) {
-		/* Update Dummy cycles as per flash specs for QUAD IO */
-
+		/* For Dual Stacked, split and read for boundary crossing */
 		/*
-		 * It is recommended that Bus width value during dummy
-		 * phase should be same as data phase
+		 * Translate address based on type of connection
+		 * If stacked assert the slave select based on address
 		 */
-		if ((Command == FAST_READ_CMD) ||
-				(Command == FAST_READ_CMD_4B)) {
-			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		RealAddr = GetRealAddr(QspiPsuPtr, Address);
+
+		WriteBfrPtr[COMMAND_OFFSET]   = Command;
+		if (Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
+			WriteBfrPtr[ADDRESS_1_OFFSET] =
+					(u8)((RealAddr & 0xFF000000) >> 24);
+			WriteBfrPtr[ADDRESS_2_OFFSET] =
+					(u8)((RealAddr & 0xFF0000) >> 16);
+			WriteBfrPtr[ADDRESS_3_OFFSET] =
+					(u8)((RealAddr & 0xFF00) >> 8);
+			WriteBfrPtr[ADDRESS_4_OFFSET] =
+					(u8)(RealAddr & 0xFF);
+			DiscardByteCnt = 5;
+		} else {
+			WriteBfrPtr[ADDRESS_1_OFFSET] =
+					(u8)((RealAddr & 0xFF0000) >> 16);
+			WriteBfrPtr[ADDRESS_2_OFFSET] =
+					(u8)((RealAddr & 0xFF00) >> 8);
+			WriteBfrPtr[ADDRESS_3_OFFSET] =
+					(u8)(RealAddr & 0xFF);
+			DiscardByteCnt = 4;
 		}
 
-		if ((Command == DUAL_READ_CMD) ||
-				(Command == DUAL_READ_CMD_4B)) {
-			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_DUALSPI;
+		FlashMsg[0].TxBfrPtr = WriteBfrPtr;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = DiscardByteCnt;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+		FlashMsgCnt = 1;
+
+		/* It is recommended to have a separate entry for dummy */
+		if (Command == FAST_READ_CMD || Command == DUAL_READ_CMD ||
+		    Command == QUAD_READ_CMD || Command == FAST_READ_CMD_4B ||
+		    Command == DUAL_READ_CMD_4B ||
+		    Command == QUAD_READ_CMD_4B) {
+			/* Update Dummy cycles as per flash specs for QUAD IO */
+
+			/*
+			 * It is recommended that Bus width value during dummy
+			 * phase should be same as data phase
+			 */
+			if (Command == FAST_READ_CMD ||
+			    Command == FAST_READ_CMD_4B)
+				FlashMsg[1].BusWidth =
+						XQSPIPSU_SELECT_MODE_SPI;
+
+			if (Command == DUAL_READ_CMD ||
+			    Command == DUAL_READ_CMD_4B)
+				FlashMsg[1].BusWidth =
+						XQSPIPSU_SELECT_MODE_DUALSPI;
+
+			if (Command == QUAD_READ_CMD ||
+			    Command == QUAD_READ_CMD_4B)
+				FlashMsg[1].BusWidth =
+						XQSPIPSU_SELECT_MODE_QUADSPI;
+
+			FlashMsg[1].TxBfrPtr = NULL;
+			FlashMsg[1].RxBfrPtr = NULL;
+			FlashMsg[1].ByteCount = DUMMY_CLOCKS;
+			FlashMsg[1].Flags = 0;
+
+			FlashMsgCnt++;
 		}
 
-		if ((Command == QUAD_READ_CMD) ||
-				(Command == QUAD_READ_CMD_4B)) {
-			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
-		}
+		if (Command == FAST_READ_CMD ||
+		    Command == FAST_READ_CMD_4B)
+			FlashMsg[FlashMsgCnt].BusWidth =
+					XQSPIPSU_SELECT_MODE_SPI;
 
-		FlashMsg[1].TxBfrPtr = NULL;
-		FlashMsg[1].RxBfrPtr = NULL;
-		FlashMsg[1].ByteCount = DUMMY_CLOCKS;
-		FlashMsg[1].Flags = 0;
+		if (Command == DUAL_READ_CMD ||
+		    Command == DUAL_READ_CMD_4B)
+			FlashMsg[FlashMsgCnt].BusWidth =
+					XQSPIPSU_SELECT_MODE_DUALSPI;
 
-		FlashMsgCnt++;
+		if (Command == QUAD_READ_CMD ||
+		    Command == QUAD_READ_CMD_4B)
+			FlashMsg[FlashMsgCnt].BusWidth =
+					XQSPIPSU_SELECT_MODE_QUADSPI;
+
+		FlashMsg[FlashMsgCnt].TxBfrPtr = NULL;
+		FlashMsg[FlashMsgCnt].RxBfrPtr = ReadBfrPtr;
+		FlashMsg[FlashMsgCnt].ByteCount = ByteCount;
+		FlashMsg[FlashMsgCnt].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+		if (QspiPsuPtr->Config.ConnectionMode ==
+				XQSPIPSU_CONNECTION_MODE_PARALLEL)
+			FlashMsg[FlashMsgCnt].Flags |=
+					XQSPIPSU_MSG_FLAG_STRIPE;
+
+		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg,
+						 FlashMsgCnt + 1);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
 	}
-
-	if ((Command == FAST_READ_CMD) || (Command == FAST_READ_CMD_4B)) {
-		FlashMsg[FlashMsgCnt].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-	}
-
-	if ((Command == DUAL_READ_CMD) || (Command == DUAL_READ_CMD_4B)) {
-		FlashMsg[FlashMsgCnt].BusWidth = XQSPIPSU_SELECT_MODE_DUALSPI;
-	}
-
-	if ((Command == QUAD_READ_CMD) || (Command == QUAD_READ_CMD_4B)) {
-		FlashMsg[FlashMsgCnt].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
-	}
-
-	FlashMsg[FlashMsgCnt].TxBfrPtr = NULL;
-	FlashMsg[FlashMsgCnt].RxBfrPtr = ReadBfrPtr;
-	FlashMsg[FlashMsgCnt].ByteCount = ByteCount;
-	FlashMsg[FlashMsgCnt].Flags = XQSPIPSU_MSG_FLAG_RX;
-
-	if (QspiPsuPtr->Config.ConnectionMode ==
-			XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-		FlashMsg[FlashMsgCnt].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
-	}
-
-	Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, FlashMsgCnt+1);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
 	return 0;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This functions performs a read operation for multi die flash devices.
+ *
+ * @param	QspiPtr is a pointer to the QSPIPSU driver component to use.
+ * @param	Address contains the address of the first sector which needs to
+ *			be erased.
+ * @param	ByteCount contains the total size to be erased.
+ * @param	Command is the command used to read data from the flash.
+ *			Supports normal, fast, dual and quad read commands.
+ * @param	Pointer to the write buffer which contains data to be
+ *			transmitted
+ * @param	Pointer to the read buffer to which valid received data
+ *			should be written.
+ *
+ * @return	XST_SUCCESS if successful, else XST_FAILURE.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+int MultiDieRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
+		 u8 *WriteBfrPtr, u8 *ReadBfrPtr)
+{
+	u32 RealAddr;
+	u32 DiscardByteCnt;
+	u32 FlashMsgCnt;
+	int Status;
+	u32 cur_bank = 0;
+	u32 nxt_bank = 0;
+	u32 bank_size;
+	u32 remain_len = ByteCount;
+	u32 data_len;
+	u32 transfer_len;
+	u8 *ReadBuffer = ReadBfrPtr;
+
+	/*
+	 * Some flash devices like N25Q512 have multiple dies
+	 * in it. Read operation in these devices is bounded
+	 * by its die segment. In a continuous read, across
+	 * multiple dies, when the last byte of the selected
+	 * die segment is read, the next byte read is the
+	 * first byte of the same die segment. This is Die
+	 * cross over issue. So to handle this issue, split
+	 * a read transaction, that spans across multiple
+	 * banks, into one read per bank. Bank size is 16MB
+	 * for single and dual stacked mode and 32MB for dual
+	 * parallel mode.
+	 */
+	if (QspiPsuPtr->Config.ConnectionMode ==
+			XQSPIPSU_CONNECTION_MODE_PARALLEL)
+
+		bank_size = SIXTEENMB << 1;
+
+	else if (QspiPsuPtr->Config.ConnectionMode ==
+			XQSPIPSU_CONNECTION_MODE_SINGLE)
+
+		bank_size = SIXTEENMB;
+
+	while (remain_len) {
+		cur_bank = Address / bank_size;
+		nxt_bank = (Address + remain_len) / bank_size;
+
+		if (cur_bank != nxt_bank) {
+			transfer_len = (bank_size * (cur_bank  + 1)) - Address;
+			if (remain_len < transfer_len)
+				data_len = remain_len;
+			else
+				data_len = transfer_len;
+		} else {
+			data_len = remain_len;
+		}
+		/*
+		 * Translate address based on type of connection
+		 * If stacked assert the slave select based on address
+		 */
+		RealAddr = GetRealAddr(QspiPsuPtr, Address);
+
+		WriteBfrPtr[COMMAND_OFFSET]   = Command;
+		if (Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
+			WriteBfrPtr[ADDRESS_1_OFFSET] =
+					(u8)((RealAddr & 0xFF000000) >> 24);
+			WriteBfrPtr[ADDRESS_2_OFFSET] =
+					(u8)((RealAddr & 0xFF0000) >> 16);
+			WriteBfrPtr[ADDRESS_3_OFFSET] =
+					(u8)((RealAddr & 0xFF00) >> 8);
+			WriteBfrPtr[ADDRESS_4_OFFSET] =
+					(u8)(RealAddr & 0xFF);
+			DiscardByteCnt = 5;
+		} else {
+			WriteBfrPtr[ADDRESS_1_OFFSET] =
+					(u8)((RealAddr & 0xFF0000) >> 16);
+			WriteBfrPtr[ADDRESS_2_OFFSET] =
+					(u8)((RealAddr & 0xFF00) >> 8);
+			WriteBfrPtr[ADDRESS_3_OFFSET] =
+					(u8)(RealAddr & 0xFF);
+			DiscardByteCnt = 4;
+		}
+
+		FlashMsg[0].TxBfrPtr = WriteBfrPtr;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = DiscardByteCnt;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+		FlashMsgCnt = 1;
+
+		/* It is recommended to have a separate entry for dummy */
+		if (Command == FAST_READ_CMD || Command == DUAL_READ_CMD ||
+		    Command == QUAD_READ_CMD || Command == FAST_READ_CMD_4B ||
+		    Command == DUAL_READ_CMD_4B ||
+		    Command == QUAD_READ_CMD_4B) {
+			/* Update Dummy cycles as per flash specs for QUAD IO */
+
+			/*
+			 * It is recommended that Bus width value during dummy
+			 * phase should be same as data phase
+			 */
+			if (Command == FAST_READ_CMD ||
+			    Command == FAST_READ_CMD_4B)
+				FlashMsg[1].BusWidth =
+						XQSPIPSU_SELECT_MODE_SPI;
+
+			if (Command == DUAL_READ_CMD ||
+			    Command == DUAL_READ_CMD_4B)
+				FlashMsg[1].BusWidth =
+						XQSPIPSU_SELECT_MODE_DUALSPI;
+
+			if (Command == QUAD_READ_CMD ||
+			    Command == QUAD_READ_CMD_4B)
+				FlashMsg[1].BusWidth =
+						XQSPIPSU_SELECT_MODE_QUADSPI;
+
+			FlashMsg[1].TxBfrPtr = NULL;
+			FlashMsg[1].RxBfrPtr = NULL;
+			FlashMsg[1].ByteCount = DUMMY_CLOCKS;
+			FlashMsg[1].Flags = 0;
+
+			FlashMsgCnt++;
+		}
+
+		if (Command == FAST_READ_CMD ||
+		    Command == FAST_READ_CMD_4B)
+			FlashMsg[FlashMsgCnt].BusWidth =
+					XQSPIPSU_SELECT_MODE_SPI;
+
+		if (Command == DUAL_READ_CMD ||
+		    Command == DUAL_READ_CMD_4B)
+			FlashMsg[FlashMsgCnt].BusWidth =
+					XQSPIPSU_SELECT_MODE_DUALSPI;
+
+		if (Command == QUAD_READ_CMD ||
+		    Command == QUAD_READ_CMD_4B)
+			FlashMsg[FlashMsgCnt].BusWidth =
+					XQSPIPSU_SELECT_MODE_QUADSPI;
+
+		FlashMsg[FlashMsgCnt].TxBfrPtr = NULL;
+		FlashMsg[FlashMsgCnt].RxBfrPtr = ReadBuffer;
+		FlashMsg[FlashMsgCnt].ByteCount = data_len;
+		FlashMsg[FlashMsgCnt].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+		if (QspiPsuPtr->Config.ConnectionMode ==
+				XQSPIPSU_CONNECTION_MODE_PARALLEL)
+			FlashMsg[FlashMsgCnt].Flags |=
+					XQSPIPSU_MSG_FLAG_STRIPE;
+
+		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg,
+						 FlashMsgCnt + 1);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
+
+		ReadBuffer += data_len;
+		Address += data_len;
+		remain_len -= data_len;
+	}
+
+	return XST_SUCCESS;
 }
 
 
@@ -1961,8 +2150,12 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 	u8 ReadStatusCmd;
 	u8 FlashStatus[2];
 	int Status;
+	u32 DieSize = 0;
+	u32 Address;
+	u32 RealAddr;
 
 	WriteEnableCmd = WRITE_ENABLE_CMD;
+	DieSize = ((Flash_Config_Table[FCTIndex]).NumSect *(Flash_Config_Table[FCTIndex]).SectSize) / Flash_Config_Table[FCTIndex].NumDie;
 	for (DieCnt = 0;
 		DieCnt < Flash_Config_Table[FCTIndex].NumDie;
 		DieCnt++) {
@@ -1983,14 +2176,34 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 		}
 
 		WriteBfrPtr[COMMAND_OFFSET]   = DIE_ERASE_CMD;
-		/* Check these number of address bytes as per flash device */
-		WriteBfrPtr[ADDRESS_1_OFFSET] = 0;
-		WriteBfrPtr[ADDRESS_2_OFFSET] = 0;
-		WriteBfrPtr[ADDRESS_3_OFFSET] = 0;
+		Address = DieSize * DieCnt;
+		RealAddr = GetRealAddr(QspiPsuPtr, Address);
+		/*
+		 * To be used only if 4B address sector erase cmd is
+		 * supported by flash
+		 */
+		if (Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
+			WriteBfrPtr[ADDRESS_1_OFFSET] =
+					(u8)((RealAddr & 0xFF000000) >> 24);
+			WriteBfrPtr[ADDRESS_2_OFFSET] =
+					(u8)((RealAddr & 0xFF0000) >> 16);
+			WriteBfrPtr[ADDRESS_3_OFFSET] =
+					(u8)((RealAddr & 0xFF00) >> 8);
+			WriteBfrPtr[ADDRESS_4_OFFSET] =
+					(u8)(RealAddr & 0xFF);
+			FlashMsg[0].ByteCount = 5;
+		} else {
+			WriteBfrPtr[ADDRESS_1_OFFSET] =
+					(u8)((RealAddr & 0xFF0000) >> 16);
+			WriteBfrPtr[ADDRESS_2_OFFSET] =
+					(u8)((RealAddr & 0xFF00) >> 8);
+			WriteBfrPtr[ADDRESS_3_OFFSET] =
+					(u8)(RealAddr & 0xFF);
+			FlashMsg[0].ByteCount = 4;
+		}
 
 		FlashMsg[0].TxBfrPtr = WriteBfrPtr;
 		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 4;
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 

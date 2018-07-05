@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xwdttb_selftest.c
-* @addtogroup wdttb_v4_4
+* @addtogroup wdttb_v4_5
 * @{
 *
 * Contains diagnostic self-test functions for the XWdtTb component.
@@ -56,9 +54,11 @@
 *                     No brackets to then/else,
 *                     Literal value requires a U suffix,Function return
 *                     type inconsistent,Logical conjunctions need brackets,
-*                     Declared the poiner param as Pointer to const,
+*                     Declared the pointer param as Pointer to const,
 *                     Procedure has more than one exit point.
 * 4.4   sne  03/04/19 Added Support for Versal.
+* 4.5	sne  09/27/19 Updated driver to support WWDT and AXI Timebase WDT.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -92,7 +92,7 @@
 * This function runs a self-test on the timebase or window if enabled. Timebase
 * test verifies that the timebase is incrementing. The watchdog timer is not
 * tested due to the time required to wait for the watchdog timer to expire. The
-* time consumed by this test is dependant on the system clock and the
+* time consumed by this test is dependent on the system clock and the
 * configuration of the dividers in for the input clock of the timebase.
 *
 * Window test verifies that the windowing feature does not generate bad event
@@ -112,9 +112,7 @@
 ******************************************************************************/
 s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 {
-#ifndef versal
 	u32 LoopCount;
-#endif
 	u32 TbrValue1;
 	u32 TbrValue2;
 	s32 Status;
@@ -180,7 +178,7 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 		}
 	}
 	else {
-#ifdef versal
+		if (!InstancePtr->Config.IsPl) {
                 /*Set Generic Watchdog Compare Value Register 0 */
                 XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCVR0_OFFSET,XWT_GWCVR0_COUNT);
                 /*Set Generic Watchdog Compare Value Register 1 */
@@ -209,7 +207,7 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
                 else {
                         Status = XST_FAILURE;
                 }
-#else
+		} else {
 
 		/*
 		 * Read the timebase register twice to start the test
@@ -241,7 +239,7 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 		else {
 			Status = XST_WDTTB_TIMER_FAILED;
 		}
-#endif
+		}
 	}
 End:
 	return Status;

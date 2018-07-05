@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -258,6 +256,118 @@ void XDsi_SendShortPacket(XDsi *InstancePtr, XDsi_ShortPacket *ShortPacket)
 
 /*****************************************************************************/
 /**
+ * * This function will send the long packet.
+ * *
+ * * @param        InstancePtr is the XDsiTxSs instance to operate on
+ * * @param        CmdPacket is the cmd mode long packet structure to operate on
+ * *
+ * * @return       None
+ * *
+ * * @note         None.
+ * *
+ * ****************************************************************************/
+void XDsi_SendLongPacket(XDsi *InstancePtr, XDsiTx_CmdModePkt *CmdPacket)
+{
+	u32 i;
+	u32 MaxSize;
+
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CmdPacket != NULL);
+
+	MaxSize = CmdPacket->SpktData.Data0;
+
+	if (MaxSize%4 == 0)
+		MaxSize /= 4;
+	else
+		MaxSize = MaxSize/4 + 1;
+
+	for (i = 0; i < MaxSize; i++)
+		XDsi_WriteReg(InstancePtr->Config.BaseAddr,
+				XDSI_DATA_OFFSET, CmdPacket->LongPktData[i]);
+
+	XDsi_SendShortPacket(InstancePtr, &CmdPacket->SpktData);
+}
+
+/*****************************************************************************/
+/**
+ * * This function sets the mode to send short packet.
+ * *
+ * * @param        InstancePtr is the XDsiTxSs instance to operate on
+ * * @param        CmdPacket is the cmd mode short pkt structure to operate on
+ * *
+ * * @return
+ *	           - XST_SUCCESS is returned if DSI mode packet was
+ *		     successfully sent
+ *		   - XST_FAILURE is returned if DSI mode packet is not found
+ * *
+ * * @note         None.
+ * *
+ * ****************************************************************************/
+int XDsi_SendCmdModePkt(XDsi *InstancePtr, XDsiTx_CmdModePkt *CmdPktData)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if (!(XDsi_IsEnabled(InstancePtr)) ||
+				!(XDsi_IsModeEnabled(InstancePtr)))
+		return XST_FAILURE;
+
+	if (CmdPktData->CmdPkt == XDSI_CMD_MODE_SHORT_PKT) {
+		/*Wait for short command ready status*/
+		while (!XDsi_GetReadyForShortPkt(InstancePtr));
+		XDsi_SendShortPacket(InstancePtr, &CmdPktData->SpktData);
+	} else {
+		/*Wait for Long command ready status*/
+		while (!XDsi_GetReadyForLongPkt(InstancePtr));
+		XDsi_SendLongPacket(InstancePtr, CmdPktData);
+	}
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * * This function sets the mode to send short packet.
+ * *
+ * * @param        InstancePtr is the XDsiTxSs instance to operate on
+ * * @param        mode is the DSI mode (video or command) to operate on
+ * *
+ * * @return
+ *	           - XST_SUCCESS is returned if DSI mode(command/video) was
+ *		     successfully set
+ *		   - XST_INVALID_PARAM is returned if DSI mode is not found
+ * *
+ * * @note         None.
+ * *
+ * ****************************************************************************/
+int XDsi_SetMode(XDsi *InstancePtr, XDsi_DsiModeType mode)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if ((!(XDsi_IsModeEnabled(InstancePtr)) && (mode == XDSI_VIDEO_MODE)) ||
+		(XDsi_IsModeEnabled(InstancePtr) &&
+					(mode == XDSI_COMMAND_MODE))) {
+		return XST_INVALID_PARAM;
+	}
+
+	if (!(XDsi_IsModeEnabled(InstancePtr)) && (mode == XDSI_COMMAND_MODE)) {
+		XDsi_Disable(InstancePtr);
+		XDsi_CmdModeEnable(InstancePtr);
+		XDsi_Enable(InstancePtr);
+	} else if (XDsi_IsModeEnabled(InstancePtr) &&
+					(mode == XDSI_VIDEO_MODE)) {
+		/*Wait for in progress status to be clear*/
+		while (XDsi_GetInProgress(InstancePtr));
+		XDsi_VideoModeEnable(InstancePtr);
+	} else {
+		return XST_INVALID_PARAM;
+	}
+
+	return XST_SUCCESS;
+}
+/*****************************************************************************/
+/**
 * This function will get the information from the GUI settings and other
 * protocol control register values like video mode, Blank packet type,
 * Packet Mode, EOTP value
@@ -465,6 +575,11 @@ s32 XDsi_SetCustomVideoInterfaceTiming(XDsi *InstancePtr,
 		XDSI_TIME1_OFFSET, XDSI_TIME1_BLLP_BURST_MASK,
 		XDSI_TIME1_BLLP_BURST_SHIFT, 0);
 	}
+
+
+	XDsi_SetBitField(InstancePtr->Config.BaseAddr,
+	XDSI_TIME1_OFFSET, XDSI_TIME1_HSA_MASK, XDSI_TIME1_HSA_SHIFT,
+	Timing->HSyncWidth);
 
 	/* Set HACT and VACT in Timing 2 register */
 	XDsi_SetBitField(InstancePtr->Config.BaseAddr,

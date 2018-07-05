@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -238,6 +236,7 @@ extern "C" {
  */
 #define XCSI_ISR_FR_MASK	0x80000000	/**< Frame Received */
 #define XCSI_ISR_VCXFE_MASK	0x40000000	/**< VCX Frame Error */
+#define XCSI_ISR_SKEWCALCHS_MASK	0x20000000	/**< Skewcalhs Error */
 #define XCSI_ISR_WC_MASK	0x00400000	/**< Word count corruption */
 #define XCSI_ISR_ILC_MASK	0x00200000	/**< Incorrect Lanes
 						  *  Configured */
@@ -286,6 +285,8 @@ extern "C" {
 					  *  Frame received interrupt */
 #define XCSI_ISR_VCXFE_SHIFT	30	/**< Shift bits for
 					  *  VCx Frame Error interrupt */
+#define XCSI_ISR_SKEWCALCHS_SHIFT	29	/**< Shift bits for
+					  *  skeecalchs Error interrupt */
 #define XCSI_ISR_WC_SHIFT	22	/**< Shift bits for Word Count
 					  *  corruption */
 #define XCSI_ISR_ILC_SHIFT	21	/**< Shift bits for Incorrect Lanes
@@ -463,7 +464,8 @@ extern "C" {
 
 #define XCSI_INTR_VCXFE_MASK		(XCSI_ISR_VCXFE_MASK)
 
-#define XCSI_INTR_ERR_MASK 	(XCSI_ISR_WC_MASK	|\
+#define XCSI_INTR_ERR_MASK 	(XCSI_ISR_SKEWCALCHS_MASK |\
+				 XCSI_ISR_WC_MASK	|\
 				 XCSI_ISR_ILC_MASK 	|\
 				 XCSI_ISR_SLBF_MASK 	|\
 				 XCSI_ISR_STOP_MASK)
@@ -477,6 +479,7 @@ extern "C" {
  */
 #define XCSI_IER_FR_MASK	0x80000000	/**< Frame Received */
 #define XCSI_IER_VCXFE_MASK	0x40000000	/**< VCX Frame Error */
+#define XCSI_IER_SKEWCALHS_MASK	0x20000000	/**< Skewcalchs State */
 #define XCSI_IER_WC_MASK	0x00400000	/**< Word Count Corruption */
 #define XCSI_IER_ILC_MASK	0x00200000	/**< Incorrect Lanes
 						  *  Configured */
@@ -521,6 +524,7 @@ extern "C" {
 
 #define XCSI_IER_FR_SHIFT	31	/**< Shift bits for Frame received
 					  *  interrupt*/
+#define XCSI_IER_SKEWCALHS_SHIFT	29	/**< Shift bits for skewcalhs status */
 #define XCSI_IER_WC_SHIFT	22	/**< Shift bits for Word count
 					 *  corruption */
 #define XCSI_IER_ILC_SHIFT	21	/**< Shift bits for Incorrect Lanes
@@ -608,6 +612,7 @@ extern "C" {
  */
 
 #define XCSI_LXINFR_STOP_MASK	0x00000020	/**< Stop State on clock lane */
+#define XCSI_LXINFR_SKEWCALHS_MASK	0x00000004	/**< SkewcalHs State on clock lane */
 #define XCSI_LXINFR_SOTERR_MASK		0x00000002	/**< Detection of
 							  *  ErrSoTHS */
 #define XCSI_LXINFR_SOTSYNCERR_MASK	0x00000001	/**< Detection of
@@ -615,6 +620,8 @@ extern "C" {
 
 #define XCSI_LXINFR_STOP_SHIFT	5	/**< Bit Shift for Data Lane
 					  *  Stop State */
+#define XCSI_LXINFR_SKEWCALHS_SHIFT	2	/**< Bit Shift for Data Lane
+					  *  SkewCalHs State */
 #define XCSI_LXINFR_SOTERR_SHIFT	1	/**< Bit Shift for Start of
 						  *  Transmission Error */
 #define XCSI_LXINFR_SOTSYNCERR_SHIFT	0	/**< Bit Shift for Start of

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xttcps.c
-* @addtogroup ttcps_v3_7
+* @addtogroup ttcps_v3_10
 * @{
 *
 * This file contains the implementation of the XTtcPs driver. This driver
@@ -59,6 +57,9 @@
 *						MAX interval count to 16 bit value(i.e.65532),
 *						which is incorrect for  zynq ultrascale+mpsoc
 *						(i.e. max interval count is 32 bit).
+* 3.10  aru    05/06/19 Added assert check for driver instance and freq
+*			parameter in  XTtcPs_CalcIntervalFromFreq().
+* 3.10  aru    05/30/19 Added interrupt handler to clear ISR
 * </pre>
 *
 ******************************************************************************/
@@ -74,7 +75,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
+static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent);
 /************************** Variable Definitions *****************************/
 
 
@@ -131,6 +132,7 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
+	InstancePtr->StatusHandler = StubStatusHandler;
 
 	IsStartResult = XTtcPs_IsStarted(InstancePtr);
 	/*
@@ -194,8 +196,12 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 *
 * @param	InstancePtr is a pointer to the XTtcPs instance.
 * @param	MatchIndex is the index to the match register to be set.
-*		Valid values are 0, 1, or 2.
+*		    Valid values are: 0 - 2.
 * @param	Value is the 16-bit value to be set in the match register.
+*           Valid Values are: (For Zynq):
+*                             0 - ((2^16)-1)
+*                             (For Zynq UltraScale + MpSoc) and Versal:
+*                             0 - ((2^32) - 1)
 *
 * @return	None
 *
@@ -226,7 +232,8 @@ void XTtcPs_SetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex, XMatchRegValue Val
 *
 * @param	InstancePtr is a pointer to the XTtcPs instance.
 * @param	MatchIndex is the index to the match register to be set.
-*		Valid values are 0, 1, or 2.
+*           There are three match registers are there.
+*		    Valid values are: 0 - 2.
 *
 * @return	The match register value
 *
@@ -258,11 +265,13 @@ XMatchRegValue XTtcPs_GetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex)
 *
 * @param	InstancePtr is a pointer to the XTtcPs instance.
 * @param	PrescalerValue is a number from 0-16 that sets the prescaler
-*		to use.
-*		If the parameter is 0 - 15, use a prescaler on the clock of
-*		2^(PrescalerValue+1), or 2-65536.
-*		If the parameter is XTTCPS_CLK_CNTRL_PS_DISABLE, do not use a
-*		prescaler.
+*		    to use.
+*		    If the parameter is 0 - 15, use a prescaler on the clock of
+*		    2^(PrescalerValue+1), or 2-65536.
+*		    If the parameter is XTTCPS_CLK_CNTRL_PS_DISABLE, do not use a
+*		    prescaler.
+*
+*		    Valid values are: 0 - 15
 *
 * @return	None
 *
@@ -317,7 +326,7 @@ void XTtcPs_SetPrescaler(XTtcPs *InstancePtr, u8 PrescalerValue)
 *
 * <pre>
 * @return	The value(n) from which the prescalar value is calculated
-*		as 2^(n+1). Some example values are given below :
+*		    as 2^(n+1). Some example values are given below :
 *
 * 	Value		Prescaler
 * 	0		2
@@ -325,6 +334,8 @@ void XTtcPs_SetPrescaler(XTtcPs *InstancePtr, u8 PrescalerValue)
 * 	N		2^(n+1)
 * 	15		65536
 * 	16		1
+*
+*           Valid values are: 0 - 16
 * </pre>
 *
 * @note		None.
@@ -369,10 +380,11 @@ u8 XTtcPs_GetPrescaler(XTtcPs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XTtcPs instance.
 * @param	Freq is the requested output frequency for the device.
+*           valid values are: 1 - (2^32)-1
 * @param	Interval is the interval value for the given frequency,
-*		it is the output value for this function.
+*		    it is the output value for this function.
 * @param	Prescaler is the prescaler value for the given frequency,
-*		it is the output value for this function.
+*		    it is the output value for this function.
 *
 * @return	None.
 *
@@ -390,6 +402,12 @@ void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
 	u8 TmpPrescaler;
 	UINTPTR TempValue;
 	u32 InputClock;
+
+	/*
+         * Assert to validate input arguments.
+         */
+	Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid(Freq > 0U);
 
 	InputClock = InstancePtr->Config.InputClockHz;
 	/*
@@ -445,5 +463,93 @@ void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
 	*Interval = XTTCPS_MAX_INTERVAL_COUNT;
 	*Prescaler = 0XFFU;
 	return;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * Handles interrupts by resetting the counter value
+ * and clearing the status register
+ *
+ * @param	InstancePtr is a pointer to the XTtcPs instance.
+ *
+ * @return
+ *		- XST_SUCCESS if successful.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+
+u32 XTtcPs_InterruptHandler(XTtcPs *InstancePtr)
+{
+	u32 XTtcPsStatusReg;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	XTtcPsStatusReg = XTtcPs_GetInterruptStatus(InstancePtr);
+	XTtcPs_ClearInterruptStatus(InstancePtr, XTtcPsStatusReg);
+	InstancePtr->StatusHandler(InstancePtr->StatusRef,
+			                                XTtcPsStatusReg);
+	return XST_SUCCESS;
+
+
+
+}
+
+/*****************************************************************************/
+/**
+ *
+ * Sets the status callback function, the status handler, which the driver
+ * calls when it encounters conditions that should be reported to upper
+ * layer software. The handler executes in an interrupt context, so it must
+ * minimize the amount of processing performed. One of the following status
+ * events is passed to the status handler.
+ *
+ * </pre>
+ * @param	InstancePtr is a pointer to the XTtcPs instance.
+ * @param	CallBackRef is the upper layer callback reference passed back
+ *		when the callback function is invoked.
+ * @param	FuncPointer is the pointer to the callback function.
+ *
+ * @return	None.
+ *
+ * @note
+ *
+ * The handler is called within interrupt context, so it should do its work
+ * quickly and queue potentially time-consuming work to a task-level thread.
+ *
+ ******************************************************************************/
+void XTtcPs_SetStatusHandler(XTtcPs *InstancePtr, void *CallBackRef,
+		XTtcPs_StatusHandler FuncPointer)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(FuncPointer != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	InstancePtr->StatusHandler = FuncPointer;
+	InstancePtr->StatusRef = CallBackRef;
+}
+
+
+/*****************************************************************************/
+/**
+ *
+ * This is a stub for the status callback. The stub is here in case the upper
+ * layers forget to set the handler.
+ *
+ * @param	CallBackRef is a pointer to the upper layer callback reference
+ * @param	StatusEvent is the event that just occurred.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent)
+{
+	(const void) CallBackRef;
+	(void) StatusEvent;
+
+	Xil_AssertVoidAlways();
 }
 /** @} */

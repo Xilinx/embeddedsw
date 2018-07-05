@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -34,7 +32,7 @@
 *
 * This file contains the interrupt processing for the XIOModule component
 * which is the driver for the Xilinx IO Module interrupt.  The interrupt
-* processing is partitioned seperately such that users are not required to
+* processing is partitioned separately such that users are not required to
 * use the provided interrupt processing.  This file requires other files of
 * the driver to be linked in also.
 *
@@ -265,7 +263,7 @@ void XIOModule_Timer_InterruptHandler(void *InstancePtr)
     ModeMask = ~IOModulePtr->CurrentIMR;
 
     /*
-     * Loop thru each timer in the device and call the callback function
+     * Loop through each timer in the device and call the callback function
      * for each timer which has caused an interrupt, but only if not fast
      */
     for (Index = 0; Index < XTC_DEVICE_TIMER_COUNT; Index++) {
@@ -275,7 +273,7 @@ void XIOModule_Timer_InterruptHandler(void *InstancePtr)
 	if (IOModulePtr->CfgPtr->PitUsed[Index]) {
 
 	    /*
-	     * Check if timer expired and interrupt occured,
+	     * Check if timer expired and interrupt occurred,
 	     * but only if it is not a fast interrupt
 	     */
 	    if (IntPendingReg & ModeMask & XIOModule_TimerBitPosMask[Index]) {

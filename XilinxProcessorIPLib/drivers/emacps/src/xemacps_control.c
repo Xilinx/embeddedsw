@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
  *
  * @file xemacps_control.c
-* @addtogroup emacps_v3_9
+* @addtogroup emacps_v3_10
 * @{
  *
  * Functions in this file implement general purpose command and control related
@@ -641,7 +639,7 @@ LONG XEmacPs_ClearOptions(XEmacPs *InstancePtr, u32 Options)
 	RegNewNetCfg = RegNetCfg;
 
 	/* There is only RX configuration!?
-	 * It is configured in two different length, upto 1536 and 10240 bytes
+	 * It is configured in two different length, up to 1536 and 10240 bytes
 	 */
 		if ((Options & XEMACPS_FRAME1536_OPTION) != 0x00000000U) {
 			RegNewNetCfg &= (u32)(~XEMACPS_NWCFG_1536RXEN_MASK);
@@ -772,7 +770,7 @@ LONG XEmacPs_ClearOptions(XEmacPs *InstancePtr, u32 Options)
  *
  * @return
  * A bitmask of XTE_*_OPTION constants. Any bit set to 1 is to be interpreted
- * as a set opion.
+ * as a set option.
  *
  * @note
  * See xemacps.h for a description of the available options.

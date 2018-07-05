@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -56,7 +54,7 @@
 *		     consistent, see the xiic_i.h and xiic_l.h files for further
 *		     information
 * 2.03a rkv 01/25/11 Updated in NAAS interrupt handler to support data
-*		     recieved less than FIFO size prior to NAAS interrupt.
+*		     received less than FIFO size prior to NAAS interrupt.
 *		     Fixed for CR590212.
 * 2.04a sdm  07/22/11 Added IsSlaveSetAckOff flag to the instance structure.
 *		      The IsSlaveSetAckOff is set when the Slave has set the
@@ -95,7 +93,7 @@ static void SendSlaveData(XIic *InstancePtr);
 /*****************************************************************************/
 /**
 *
-* This function includes slave code such that slave events will be processsed.
+* This function includes slave code such that slave events will be processed.
 * It is necessary to allow slave code to be optional to reduce the size of
 * the driver. This function may be called at any time but must be prior to
 * being selected as a slave on the IIC bus. This function may be called prior
@@ -215,10 +213,10 @@ int XIic_SlaveSend(XIic *InstancePtr, u8 *TxMsgPtr, int ByteCount)
 * repeated start options.
 *
 * When the master is not using repeated start:
-*  - Not Adressed As Slave NAAS interrupt signals the master has sent a stop
+*  - Not Addressed As Slave NAAS interrupt signals the master has sent a stop
 *    condition and is no longer sending data. This doesn't imply that the master
 *    will not send a No Ack. It covers when the master fails to send No
-*    Ackowledge before releasing the bus.
+*    Acknowledge before releasing the bus.
 *  - Tx Error interrupt signals end of message.
 *
 * When the master is using repeated start:
@@ -236,7 +234,7 @@ int XIic_SlaveSend(XIic *InstancePtr, u8 *TxMsgPtr, int ByteCount)
 *
 * The slave will always receive 1 byte before the bus is throttled causing a
 * receive pending interrupt before this routine is executed. After one byte
-* the bus will throttle. The depth is set to the proper amount immediatelly
+* the bus will throttle. The depth is set to the proper amount immediately
 * allowing the master to send more bytes and then to again throttle, but at the
 * proper fifo depth. The interrupt is a level. Clearing and enabling will cause
 * the Rx interrupt to pend at the correct level.
@@ -317,7 +315,7 @@ static void AddrAsSlaveHandler(XIic *InstancePtr)
 	/*
 	 * Disable AAS interrupt to clear the interrupt condition since this is
 	 * interrupt does not go away and enable the not addressed as a slave
-	 * interrrupt to tell when the master stops data transfer.
+	 * interrupt to tell when the master stops data transfer.
 	 */
 	XIic_DisableIntr(InstancePtr->BaseAddress, XIIC_INTR_AAS_MASK);
 	XIic_ClearEnableIntr(InstancePtr->BaseAddress, XIIC_INTR_NAAS_MASK);
@@ -395,16 +393,16 @@ static void NotAddrAsSlaveHandler(XIic *InstancePtr)
 
 	/*
 	 * Flush Tx FIFO by toggling TxFIFOResetBit. FIFO runs normally at 0
-	 * Do this incase needed to Tx FIFO with more than expected if what
+	 * Do this in case needed to Tx FIFO with more than expected if what
 	 * was set to Tx was less than what the Master expected - read more
 	 * from this slave so FIFO had junk in it.
 	 */
 	XIic_FlushTxFifo(InstancePtr);
 
 	/*
-	 * NAAS interrupt was asserted but received data in recieve FIFO is
+	 * NAAS interrupt was asserted but received data in receive FIFO is
 	 * less than Rc_FIFO_PIRQ to assert an receive full interrupt,in this
-	 * condition as data recieved is valid we have to read data before FIFO
+	 * condition as data received is valid we have to read data before FIFO
 	 * flush.
 	 */
 	Status = XIic_ReadReg(InstancePtr->BaseAddress, XIIC_SR_REG_OFFSET);
@@ -429,7 +427,7 @@ static void NotAddrAsSlaveHandler(XIic *InstancePtr)
 
 	/*
 	 * Set FIFO occupancy depth = 1 so that the first byte will throttle
-	 * next recieve msg.
+	 * next receive msg.
 	 */
 	XIic_WriteReg(InstancePtr->BaseAddress, XIIC_RFD_REG_OFFSET, 0);
 
@@ -512,7 +510,7 @@ static void RecvSlaveData(XIic *InstancePtr)
 	 */
 	if (InstancePtr->RecvByteCount == 0) {
 		/*
-		 * Set ACKnowlege OFF to signal master to stop sending data.
+		 * Set acknowledge OFF to signal master to stop sending data.
 		 */
 		CntlReg = XIic_ReadReg(InstancePtr->BaseAddress,
 						XIIC_CR_REG_OFFSET);
@@ -550,7 +548,7 @@ static void RecvSlaveData(XIic *InstancePtr)
 	/*
 	 * Set receive FIFO depth for the number of bytes to be received such
 	 * that a receive interrupt will occur, the count is 0 based, the
-	 * last byte of the message has to be received seperately to ack the
+	 * last byte of the message has to be received separately to ack the
 	 * message.
 	 */
 	if (InstancePtr->RecvByteCount > IIC_RX_FIFO_DEPTH) {

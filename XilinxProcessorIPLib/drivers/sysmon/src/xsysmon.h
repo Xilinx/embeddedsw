@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
@@ -185,8 +183,8 @@
 *			XSM_MIN_VUSR3,XSM_ATR_VUSR0_UPPER -
 *			XSM_ATR_VUSR3_LOWER macros.
 *			Added XSM_IP_OFFSET macro(since register
-*			offsets are different for Ultrascale comapared to
-*			earlier familes),Offsets,Masks for VUSER0 to
+*			offsets are different for Ultrascale compared to
+*			earlier families),Offsets,Masks for VUSER0 to
 *			VUSER3 channels, Configuration Register 3 and
 *			Sequence Registers 8 and 9 in xsysmon_hw.h.
 *			Modified XSysMon_GetAdcData,
@@ -370,7 +368,7 @@ extern "C" {
 
 /*@}*/
 
-/* For backwards compatabilty */
+/* For backwards compatibility */
 #define XSM_CH_CALIBRATION	XSM_CH_ADC_CALIB
 #define XSM_ATR_BRAM_UPPER	XSM_ATR_VBRAM_UPPER
 #define XSM_ATR_BRAM_LOWER	XSM_ATR_VBRAM_LOWER

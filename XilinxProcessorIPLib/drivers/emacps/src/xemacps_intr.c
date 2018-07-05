@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xemacps_intr.c
-* @addtogroup emacps_v3_9
+* @addtogroup emacps_v3_10
 * @{
 *
 * Functions in this file implement general purpose interrupt processing related
@@ -79,7 +77,7 @@
 
 /*****************************************************************************/
 /**
- * Install an asynchronious handler function for the given HandlerType:
+ * Install an asynchronous handler function for the given HandlerType:
  *
  * @param InstancePtr is a pointer to the instance to be worked on.
  * @param HandlerType indicates what interrupt handler type is.
@@ -233,7 +231,7 @@ void XEmacPs_IntrHandler(void *XEmacPsPtr)
 		}
 	}
 
-        /* When XEMACPS_IXR_TXCOMPL_MASK is flaged, XEMACPS_IXR_TXUSED_MASK
+        /* When XEMACPS_IXR_TXCOMPL_MASK is flagged, XEMACPS_IXR_TXUSED_MASK
          * will be asserted the same time.
          * Have to distinguish this bit to handle the real error condition.
          */

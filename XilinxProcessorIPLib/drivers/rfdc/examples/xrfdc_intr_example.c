@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
@@ -49,6 +47,9 @@
 * For zcu111 board users are expected to define XPS_BOARD_ZCU111 macro
 * while compiling this example.
 *
+* This example is design specific, PL-PS Interrupts must be attached and
+* The Stimulus/Capture Block device names/addresses may vary.
+*
 * <pre>
 *
 * MODIFICATION HISTORY:
@@ -67,7 +68,8 @@
 *                       platform.
 * 6.0   cog    02/06/19 Updated for libmetal v2.0 and added configure PLL to
 *                       set clock to incompatible rate
-*
+*       cog    06/08/19 Linux platform compatibility fixes.
+* 7.0   cog    07/25/19 Updated example for new metal register API.
 *
 * </pre>
 *
@@ -99,9 +101,11 @@
 #define CAP_BASE_ADDR	XPAR_DATA_CAPTURE_AXI_S_0_BASEADDR
 #define BUS_NAME        "generic"
 #define RFDC_DEV_NAME    XPAR_XRFDC_0_DEV_NAME
+#define I2CBUS	1
 #else
 #define RFDC_DEVICE_ID  0
 #define BUS_NAME        "platform"
+#define I2CBUS	12
 #endif
 
 #define STIM_DEV_NAME    "a8000000.stimulus_gen_axi_s"
@@ -139,8 +143,7 @@ unsigned int LMK04208_CKin[1][26] = {
 		0x0021201C,0x0180033D,0x0200033E,0x003F001F }};
 #endif
 
-struct metal_device *device;
-struct metal_io_region *io;
+struct metal_device *deviceptr;
 struct metal_device *device_stim;
 struct metal_io_region *io_stim;
 struct metal_device *device_cap;
@@ -149,73 +152,67 @@ struct metal_io_region *io_cap;
 #ifdef __BAREMETAL__
 XScuGic InterruptController;
 
-const metal_phys_addr_t metal_phys[] = {
-		XRFDC_BASE_ADDR,
-		STIM_BASE_ADDR,
-		CAP_BASE_ADDR
+static struct metal_device metal_dev_rfdc = {
+	/* RFdc device */
+	.name = RFDC_DEV_NAME,
+	.bus = NULL,
+	.num_regions = 1,
+	.regions = {
+		{
+			.virt = (void *)XRFDC_BASE_ADDR,
+			.physmap = &metal_phys[0],
+			.size = 0x40000,
+			.page_shift = (unsigned)(-1),
+			.page_mask = (unsigned)(-1),
+			.mem_flags = 0x0,
+			.ops = {NULL},
+		}
+	},
+	.node = {NULL},
+	.irq_num = 1,
+	.irq_info = (void *)RFDC_IRQ_VECT_ID,
 };
 
-static struct metal_device metal_dev_table[] = {
-	{
-		/* RFdc device */
-		.name = RFDC_DEV_NAME,
-		.bus = NULL,
-		.num_regions = 1,
-		.regions = {
-			{
-				.virt = (void *)XRFDC_BASE_ADDR,
-				.physmap = &metal_phys[0],
-				.size = 0x40000,
-				.page_shift = (unsigned)(-1),
-				.page_mask = (unsigned)(-1),
-				.mem_flags = 0x0,
-				.ops = {NULL},
-			}
-		},
-		.node = {NULL},
-		.irq_num = 1,
-		.irq_info = (void *)RFDC_IRQ_VECT_ID,
+static struct metal_device metal_dev_stim = {
+	/* Stimulus device */
+	.name = STIM_DEV_NAME,
+	.bus = NULL,
+	.num_regions = 1,
+	.regions = {
+		{
+			.virt = (void *)STIM_BASE_ADDR,
+			.physmap = &metal_phys[1],
+			.size = 0x10000,
+			.page_shift = (unsigned)(-1),
+			.page_mask = (unsigned)(-1),
+			.mem_flags = 0x0,
+			.ops = {NULL},
+		}
 	},
-	{
-		/* Stimulus device */
-		.name = STIM_DEV_NAME,
-		.bus = NULL,
-		.num_regions = 1,
-		.regions = {
-			{
-				.virt = (void *)STIM_BASE_ADDR,
-				.physmap = &metal_phys[1],
-				.size = 0x10000,
-				.page_shift = (unsigned)(-1),
-				.page_mask = (unsigned)(-1),
-				.mem_flags = 0x0,
-				.ops = {NULL},
-			}
-		},
-		.node = {NULL},
-		.irq_num = 0,
-		.irq_info = NULL,
+	.node = {NULL},
+	.irq_num = 0,
+	.irq_info = NULL,
+};
+
+static struct metal_device metal_dev_cap = {
+	/* Capture device */
+	.name = CAP_DEV_NAME,
+	.bus = NULL,
+	.num_regions = 1,
+	.regions = {
+		{
+			.virt = (void *)CAP_BASE_ADDR,
+			.physmap = &metal_phys[2],
+			.size = 0x10000,
+			.page_shift = (unsigned)(-1),
+			.page_mask = (unsigned)(-1),
+			.mem_flags = 0x0,
+			.ops = {NULL},
+		}
 	},
-	{
-		/* Capture device */
-		.name = CAP_DEV_NAME,
-		.bus = NULL,
-		.num_regions = 1,
-		.regions = {
-			{
-				.virt = (void *)CAP_BASE_ADDR,
-				.physmap = &metal_phys[2],
-				.size = 0x10000,
-				.page_shift = (unsigned)(-1),
-				.page_mask = (unsigned)(-1),
-				.mem_flags = 0x0,
-				.ops = {NULL},
-			}
-		},
-		.node = {NULL},
-		.irq_num = 0,
-		.irq_info = NULL,
-	}
+	.node = {NULL},
+	.irq_num = 0,
+	.irq_info = NULL,
 };
 
 #endif
@@ -254,40 +251,6 @@ int main(void)
 	return XRFDC_SUCCESS;
 }
 
-#ifdef __BAREMETAL__
-/****************************************************************************/
-/**
-*
-* This function registers devices to the libmetal generic bus.
-* Before accessing the device with libmetal device operation,
-* register the device to a libmetal supported bus. For non-Linux system,
-* libmetal only supports "generic" bus to manage memory mapped devices.
-*
-* @param	None.
-*
-* @return
-*		0 - succeeded, non-zero for failures.
-*
-* @note		None.
-*
-*****************************************************************************/
-int register_metal_device(void)
-{
-	unsigned int i;
-	int ret;
-
-	for (i = 0; i < sizeof(metal_dev_table)/sizeof(struct metal_device);
-					i++) {
-		device = &metal_dev_table[i];
-		xil_printf("registering: %d, name=%s\n", i, device->name);
-		ret = metal_register_generic_device(device);
-		if (ret)
-			return ret;
-	}
-	return 0;
-}
-#endif
-
 /****************************************************************************/
 /**
 *
@@ -311,8 +274,6 @@ int register_metal_device(void)
 ****************************************************************************/
 int RFdcFabricRateExample(u16 RFdcDeviceId)
 {
-
-
 	int Status;
 	u16 Tile = 0U;
 	u16 Block = 0U;
@@ -323,7 +284,8 @@ int RFdcFabricRateExample(u16 RFdcDeviceId)
 	int ret = 0;
 	InterruptOccured = 0;
 #ifndef __BAREMETAL__
-	char DeviceName[NAME_MAX];
+	struct metal_device metal_dev_stim;
+	struct metal_device metal_dev_cap;
 	int irq;
 #else
 	int irq = RFDC_IRQ_VECT_ID;
@@ -332,7 +294,7 @@ int RFdcFabricRateExample(u16 RFdcDeviceId)
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 
 	if (metal_init(&init_param)) {
-		printf("ERROR: Failed to run metal initialization\n");
+		printf("ERROR: Failed to run metal initialization\r\n");
 		return XRFDC_FAILURE;
 	}
 
@@ -341,6 +303,14 @@ int RFdcFabricRateExample(u16 RFdcDeviceId)
 	if (ConfigPtr == NULL) {
 		return XRFDC_FAILURE;
 	}
+#ifdef __BAREMETAL__
+	deviceptr = &metal_dev_rfdc;
+#endif
+	Status = XRFdc_RegisterMetal(RFdcInstPtr, RFdcDeviceId, &deviceptr);
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
+	}
+
 	Status = XRFdc_CfgInitialize(RFdcInstPtr, ConfigPtr);
 	if (Status != XRFDC_SUCCESS) {
 		return XRFDC_FAILURE;
@@ -348,49 +318,9 @@ int RFdcFabricRateExample(u16 RFdcDeviceId)
 
 #ifdef XPS_BOARD_ZCU111
 printf("\n Configuring the Clock \r\n");
-#ifdef __BAREMETAL__
-	LMK04208ClockConfig(1, LMK04208_CKin);
-	LMX2594ClockConfig(1, 3932160);
-#else
-	LMK04208ClockConfig(12, LMK04208_CKin);
-	LMX2594ClockConfig(12, 3932160);
+	LMK04208ClockConfig(I2CBUS, LMK04208_CKin);
+	LMX2594ClockConfig(I2CBUS, 3932160);
 #endif
-#endif
-
-#ifdef __BAREMETAL__
-	ret = register_metal_device();
-	if (ret) {
-		printf("%s: failed to register devices: %d\n", __func__, ret);
-		return ret;
-	}
-	ret = metal_device_open(BUS_NAME, RFDC_DEV_NAME, &device);
-	if (ret) {
-		printf("ERROR: Failed to open device usp_rf_data_converter.\n");
-		return XRFDC_FAILURE;
-	}
-#else
-	Status = XRFdc_GetDeviceNameByDeviceId(DeviceName, RFDC_DEVICE_ID);
-	if (Status < 0) {
-		printf("ERROR: Failed to find rfdc device with device id %d\n",
-				RFDC_DEVICE_ID);
-		return XRFDC_FAILURE;
-	}
-	ret = metal_device_open(BUS_NAME, DeviceName, &device);
-	if (ret) {
-		printf("ERROR: Failed to open device %s.\n",DeviceName);
-		return XRFDC_FAILURE;
-	}
-#endif
-
-	/* Map RFDC device IO region */
-	io = metal_device_io_region(device, 0);
-	if (!io) {
-		printf("ERROR: Failed to map RFDC regio for %s.\n",
-			  device->name);
-		return XRFDC_FAILURE;
-	}
-	RFdcInstPtr->device = device;
-	RFdcInstPtr->io = io;
 
 	/*
 	 * Setup the handler for the RFdc that will be called from the
@@ -423,48 +353,66 @@ printf("\n Configuring the Clock \r\n");
 	/* Get interrupt ID from RFDC metal device */
 	irq = (intptr_t)RFdcInstPtr->device->irq_info;
 	if (irq < 0) {
-		printf("ERROR: Failed to request interrupt for %s.\n",
-			  device->name);
+		printf("ERROR: Failed to request interrupt for %s.\r\n",
+			  RFdcInstPtr->device->name);
 		return XRFDC_FAILURE;
 	}
 
+#ifdef __BAREMETAL__
 	ret = metal_xlnx_irq_init();
 	if (ret) {
 		printf("\n failed to initialise interrupt handler \r\n");
 	}
+#endif
 	ret =  metal_irq_register(irq,
 				(metal_irq_handler)XRFdc_IntrHandler,
 						RFdcInstPtr);
 	if (ret) {
 		printf("\n failed to register interrupt handler \r\n");
 	} else {
-		printf("registered IPI interrupt.\n");
+		printf("registered IPI interrupt.\r\n");
 	}
 
+	ret = metal_register_generic_device(&metal_dev_stim);
+	if (ret) {
+		printf("\n failed to register stim block \r\n");
+	} else {
+		printf("registered stim block.\r\n");
+	}
+
+	device_stim = &metal_dev_stim;
 	ret = metal_device_open(BUS_NAME, STIM_DEV_NAME, &device_stim);
 	if (ret) {
-		printf("ERROR: Failed to open device stimulus_gen_axi_s.\n");
+		printf("ERROR: Failed to open device stimulus_gen_axi_s.\r\n");
 		return XRFDC_FAILURE;
 	}
 
 	/* Map Stimulus device IO region */
 	io_stim = metal_device_io_region(device_stim, 0);
-	if (!io) {
-		printf("ERROR: Failed to map Stimulus regio for %s.\n",
+	if (!io_stim) {
+		printf("ERROR: Failed to map Stimulus regio for %s.\r\n",
 			  device_stim->name);
 		return XRFDC_FAILURE;
 	}
 
+	ret = metal_register_generic_device(&metal_dev_cap);
+	if (ret) {
+		printf("\n failed to register cap block \r\n");
+	} else {
+		printf("registered cap block.\r\n");
+	}
+
+	device_cap = &metal_dev_cap;
 	ret = metal_device_open(BUS_NAME, CAP_DEV_NAME, &device_cap);
 	if (ret) {
-		printf("ERROR: Failed to open device data_capture_axi_s.\n");
+		printf("ERROR: Failed to open device data_capture_axi_s.\r\n");
 		return XRFDC_FAILURE;
 	}
 
 	/* Map Data Capture device IO region */
 	io_cap = metal_device_io_region(device_cap, 0);
-	if (!io) {
-		printf("ERROR: Failed to map Capture regio for %s.\n",
+	if (!io_cap) {
+		printf("ERROR: Failed to map Capture regio for %s.\r\n",
 			  device_cap->name);
 		return XRFDC_FAILURE;
 	}
@@ -483,7 +431,7 @@ printf("\n Configuring the Clock \r\n");
 
 #ifdef __BAREMETAL__
 	if (init_irq()) {
-		xil_printf("Failed to initialize interrupt\n");
+		xil_printf("Failed to initialize interrupt\r\n");
 	}
 #endif
 
@@ -492,7 +440,7 @@ printf("\n Configuring the Clock \r\n");
 		printf("Could not set PLL");
 		return XRFDC_FAILURE;
 	}
-	xil_printf("Waiting for Interrupt\r\n");
+	printf("Waiting for Interrupt\r\n");
 	/* Wait till interrupt occurs */
 	while (InterruptOccured == 0);
 

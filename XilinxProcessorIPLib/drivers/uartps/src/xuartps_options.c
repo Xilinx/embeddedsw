@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
 /**
 *
 * @file xuartps_options.c
-* @addtogroup uartps_v3_5
+* @addtogroup uartps_v3_8
 * @{
 *
 * The implementation of the options functions for the XUartPs driver.
@@ -100,13 +98,13 @@ static Mapping OptionsTable[] = {
 *
 * Gets the options for the specified driver instance. The options are
 * implemented as bit masks such that multiple options may be enabled or
-* disabled simulataneously.
+* disabled simultaneously.
 *
 * @param	InstancePtr is a pointer to the XUartPs instance.
 *
 * @return
 *
-* The current options for the UART. The optionss are bit masks that are
+* The current options for the UART. The options are bit masks that are
 * contained in the file xuartps.h and named XUARTPS_OPTION_*.
 *
 * @note		None.
@@ -123,7 +121,7 @@ u16 XUartPs_GetOptions(XUartPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Loop thru the options table to map the physical options in the
+	 * Loop through the options table to map the physical options in the
 	 * registers of the UART to the logical options to be returned
 	 */
 	for (Index = 0U; Index < XUARTPS_NUM_OPTIONS; Index++) {
@@ -176,7 +174,7 @@ void XUartPs_SetOptions(XUartPs *InstancePtr, u16 Options)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Loop thru the options table to map the logical options to the
+	 * Loop through the options table to map the logical options to the
 	 * physical options in the registers of the UART.
 	 */
 	for (Index = 0U; Index < XUARTPS_NUM_OPTIONS; Index++) {
@@ -583,7 +581,7 @@ u8 XUartPs_GetRecvTimeout(XUartPs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XUartPs instance.
 * @param	RecvTimeout setting allows the UART to detect an idle connection
-*		on the reciever data line.
+*		on the receiver data line.
 *		Timeout duration = RecvTimeout x 4 x Bit Period. 0 disables the
 *		timeout function.
 *

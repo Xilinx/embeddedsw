@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -196,7 +194,7 @@ typedef void (*XAssertCallback) (char *FilenamePtr, int LineNumber);
 /**
 * This assert macro is to be used for functions that do not return anything
 * (void). This in conjunction with the XWaitInAssert boolean can be used to
-* accomodate tests so that asserts which fail allow execution to continue.
+* accommodate tests so that asserts which fail allow execution to continue.
 *
 * @param    expression is the expression to evaluate. If it evaluates to
 *           false, the assert occurs.
@@ -224,7 +222,7 @@ typedef void (*XAssertCallback) (char *FilenamePtr, int LineNumber);
 /*****************************************************************************/
 /**
 * This assert macro is to be used for functions that do return a value. This in
-* conjunction with the XWaitInAssert boolean can be used to accomodate tests so
+* conjunction with the XWaitInAssert boolean can be used to accommodate tests so
 * that asserts which fail allow execution to continue.
 *
 * @param    expression is the expression to evaluate. If it evaluates to false,

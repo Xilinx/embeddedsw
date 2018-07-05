@@ -15,14 +15,12 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+#
 #
 # MODIFICATION HISTORY:
 # Ver      Who    Date     Changes
@@ -44,7 +42,7 @@
 ##     06/25/09 sdm  Updated so that canonical definitions are
 ##              not generated when instance name matches
 ##              canonical name
-##     04/27/10 sdm Updated the tcl so that the defintions are generated in
+##     04/27/10 sdm Updated the tcl so that the definitions are generated in
 ##		the xparameters.h to know whether the optional registers
 ##		SIE, CIE and IVR are enabled in the HW - Refer CR 555392
 ##     05/24/11 hvm updated tcl to generate vector ids for external interrupts
@@ -64,8 +62,8 @@
 ##		    for Slave controllers in Cascade mode
 ##     01/22/14 bss Modified check_cascade to fix CR#764865
 ##     17/02/14 adk Fixed the CR:771287 in intc_define_vector_table
-##		    if number of interrupt ports not equal to total numer of
-##		    interrupts returning immediatly.And in the xredefine_intc
+##		    if number of interrupt ports not equal to total number of
+##		    interrupts returning immediately.And in the xredefine_intc
 ##		    if there is not interrupt source returining immediately.
 ##     4/8/14   bss Modified xredefine_intc to handle external interrupt pins
 ##		    correctly (CR#799609).
@@ -80,7 +78,11 @@
 ##     06/28/18 mus Updated check_cascade proc, to add check
 ##                  for irq_in pin, while detecting cascaded
 ##                  interrupt controllers.It fixes CR#1005371.
-##
+##     04/10/19 mus Updated intc_update_source_array proc to consider
+##                  interrupt port width, while calculating
+##                  total_source_intrs. It fixes CR#1020269
+##     12/09/19 adk When interrupt source pin is connected to slice consider
+##		    slice width, while calculating the total interrupt sources.
 ##
 ##
 ## @END_CHANGELOG
@@ -88,6 +90,7 @@
 ############################################################
 # Global interrupt handlers array, default handler routine
 ############################################################
+source [file join [file dirname [info script]] slice_width.tcl]
 array set interrupt_handlers ""
 set default_interrupt_handler "XNullHandler"
 set cascade 0
@@ -753,13 +756,19 @@ proc intc_update_source_array {periph} {
                 incr j
             }
         } else {
-            set source_port_name($intr_cnt)         "${t_source_port_name}"
-            set source_name($intr_cnt)              $t_source_name
-            set source_port_type($intr_cnt)          $t_port_type
-            set source_driver($intr_cnt)            $t_source_driver
-            set source_interrupt_handler($intr_cnt) $t_source_interrupt_handler
-            set source_interrupt_id($intr_cnt)      $port_intr_id
-            incr intr_cnt
+            set width [::hsi::utils::get_intr_connected_slice_width $periph $source_pin]
+            if {$width == 0 || $width == ""} {
+                set width [expr [common::get_property LEFT $source_pin] + 1]
+            }
+            for {set count 0} {$count != $width} {incr count} {
+                set source_port_name($intr_cnt)         "${t_source_port_name}"
+                set source_name($intr_cnt)              $t_source_name
+                set source_port_type($intr_cnt)          $t_port_type
+                set source_driver($intr_cnt)            $t_source_driver
+                set source_interrupt_handler($intr_cnt) $t_source_interrupt_handler
+                set source_interrupt_id($intr_cnt)      [expr $count + $port_intr_id]
+                incr intr_cnt
+            }
         }
     }
     set total_source_intrs $intr_cnt

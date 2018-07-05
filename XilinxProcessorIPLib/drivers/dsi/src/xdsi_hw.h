@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -76,6 +74,7 @@ extern "C" {
 #define XDSI_IER_OFFSET         0x00000028  /**< Interrupt Enable Register */
 #define XDSI_STATUS_OFFSET      0x0000002C  /**< Status Register */
 #define XDSI_COMMAND_OFFSET	0x00000030  /**< Packet Entry to command Queue */
+#define XDSI_DATA_OFFSET	0x00000034  /**< Packet Data to data Queue */
 #define XDSI_TIME1_OFFSET	0x00000050  /**< Time 1 Offset */
 #define XDSI_TIME2_OFFSET	0x00000054  /**< Time 2 Offset */
 #define XDSI_TIME3_OFFSET	0x00000058  /**< Time 3 Offset */
@@ -90,13 +89,21 @@ extern "C" {
  * @{
  */
 
+#define XDSI_CCR_RESET_CMD_FIFO_MASK	0x00000020	/**< Command FIFO Reset
+						  *  bit Mask */
+#define XDSI_CCR_RESET_DATA_FIFO_MASK	0x00000010	/**< Data FIFO Reset
+						  *  bit Mask */
 #define XDSI_CCR_CRREADY_MASK	0x00000004	/**< Controller Ready
 						  *  bit Mask */
 #define XDSI_CCR_SOFTRESET_MASK	0x00000002	/**< Soft Reset
 						  *  core bit Mask*/
 #define XDSI_CCR_COREENB_MASK 	0x00000001	/**< Enable/Disable
 						  *  core Mask */
+#define XDSI_CCR_CORECMDMODE_MASK	0x00000008	/**< Enable/Disable
+						  *  Command/video mode Mask */
 
+#define XDSI_CCR_CORECMDMODE_SHIFT      3	/**< Shift for selection of
+						  *  command/video mode */
 #define XDSI_CCR_CRREADY_SHIFT          2	/**< Shift for
 						  *  Controller Ready */
 #define XDSI_CCR_SOFTRESET_SHIFT	1	/**< Shift for
@@ -142,8 +149,22 @@ extern "C" {
  * This register used to get Command Queue Vacancy
  * @{
  */
-#define XDSI_CMDQ_MASK		0x0000003F	/**< Command Queue Vacancy*/
+#define XDSI_UNDER_PROCESS_MASK		0x00001000	/**< Command Underprocess*/
+#define XDSI_INPOGRESS_MASK			0x00000800	/**< Command InProgress*/
+#define XDSI_WAIT_FOR_DATA_MASK		0x00000400	/**< Wait for Long packet data*/
+#define XDSI_FIFO_EMPTY_MASK			0x00000200	/**< FIFO EMPTY*/
+#define XDSI_FIFO_FULL_MASK			0x00000100	/**< FIFO FULL*/
+#define XDSI_RDY_FOR_LONG_MASK		0x00000080	/**< Readiness for Long packet*/
+#define XDSI_RDY_FOR_SHORT_MASK		0x00000040	/**< Readiness for short packet*/
+#define XDSI_CMDQ_MASK			0x0000003F	/**< Command Queue Vacancy*/
 
+#define XDSI_UNDER_PROCESS_SHIFT	12	/**< Command Underprocess*/
+#define XDSI_INPOGRESS_SHIFT		11  /**< Command InProgress*/
+#define XDSI_WAIT_FOR_DATA_SHIFT	10	/**< Wait for Long packet data*/
+#define XDSI_FIFO_EMPTY_SHIFT		9	/**< FIFO EMPTY*/
+#define XDSI_FIFO_FULL_SHIFT		8	/**< FIFO FULL*/
+#define XDSI_RDY_FOR_LONGPKT_SHIFT	7	/**< Readiness for Long packet*/
+#define XDSI_RDY_FOR_SHORTPKT_SHIFT	6	/**< Command Queue Vacancy*/
 #define XDSI_CMDQ_SHIFT		0		/**< Shift for Command Queue */
 
 /*@}*/

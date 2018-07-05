@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2004 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+#
 #
 ###############################################################################
 #
@@ -39,6 +37,9 @@
 # 2.6   mus  01/24/17 Added "-Wall -Wextra" to extra_compiler_flags
 # 2.7   vns  04/13/18 Modified post_generate proc to post_generate_final
 # 2.8   mga  06/27/18 Added -Os and LTO to extra_compiler_flags for pmu bsp
+# 2.10  mus  04/16/19 Replace XILINX_SDK env variable with RDI_APPROOT. Fix for
+#                     CR#1028460.
+#       aru  04/18/19 Updated to add Assembler support
 #
 ###############################################################################
 OPTION psf_version = 2.1;
@@ -49,13 +50,14 @@ OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
 OPTION supported_peripherals = (microblaze psu_pmu psu_pmc psu_psm psv_pmc psv_psm);
 OPTION default_os = "standalone_v5_0";
-OPTION VERSION = 2.9;
+OPTION VERSION = 2.10;
 OPTION NAME = cpu;
 
 PARAM name = compiler, desc = "Compiler used to compile both BSP/Libraries and Applications.", type = string, default = mb-gcc;
+PARAM name = assembler, desc = "Assembler used to assemble both BSP/Libraries and Applications.", type = string, default = mb-as;
 PARAM name = archiver, desc = "Archiver used to archive libraries for both BSP generation as well as for applications", type = string, default = mb-ar;
-PARAM name = compiler_flags, desc = "Compiler flags used in BSP and library generation. '-c' flag stands for 'compile and assemble, but do not link'. Without this flag, gcc tries to link the code, which will fail bacause there is no application involved during libgen. '-O2' can be overwritten by extra compiler flags", type = string, default = "-O2 -c", permit = none;
-PARAM name = extra_compiler_flags, desc = "Extra compiler flags used in BSP and library generation.", type = string, default = "-ffunction-sections -fdata-sections -Wall -Wextra";
+PARAM name = compiler_flags, desc = "Compiler flags used in BSP and library generation. '-c' flag stands for 'compile and assemble, but do not link'. Without this flag, gcc tries to link the code, which will fail because there is no application involved during libgen. '-O2' can be overwritten by extra compiler flags", type = string, default = "-O2 -c", permit = none;
+PARAM name = extra_compiler_flags, desc = "Extra compiler flags used in BSP and library generation.", type = string, default = "-g -ffunction-sections -fdata-sections -Wall -Wextra";
 PARAM name = multiplier, desc = "Is there a hard multiplier present ?", type = bool, default = false, state = "deprecated", state_desc = "Presence of hardware multiplier is now automatically detected based on the target FPGA architecture.";
 PARAM name = xmdstub_peripheral, desc = "Debug peripheral to be used with xmdstub", type = peripheral_instance, range = (none, opb_uartlite, opb_uart16550, opb_jtag_uart, opb_mdm, debugnotraceblaze, debugnotraceblazenode, debugtraceblazenode, debugtraceblaze, mdm, xps_uartlite), default = none;
 

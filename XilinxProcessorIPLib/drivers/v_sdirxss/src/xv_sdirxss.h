@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -222,6 +220,8 @@ void XV_SdiRxSs_StreamFlowDisable(XV_SdiRxSs *InstancePtr);
 void XV_SdiRxSs_Start(XV_SdiRxSs *InstancePtr, XV_SdiRx_SearchMode Mode);
 void XV_SdiRxSs_Stop(XV_SdiRxSs *InstancePtr);
 void XV_SdiRxSs_ReportDetectedError(XV_SdiRxSs *InstancePtr);
+void XV_SdiRxSs_SetYCbCr444_RGB_10bit(XV_SdiRxSs *InstancePtr);
+void XV_SdiRxSs_ClearYCbCr444_RGB_10bit(XV_SdiRxSs *InstancePtr);
 int XV_SdiRxSs_SetCallback(XV_SdiRxSs *InstancePtr, u32 HandlerType,
 		void *CallbackFunc, void *CallbackRef);
 void XV_SdiRxSs_ReportCoreInfo(XV_SdiRxSs *InstancePtr);

@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
@@ -54,9 +52,9 @@
 *                     that the complete IIC core is Reset on giving a software
 *                     reset to the IIC core. Some previous versions of the
 *                     core only reset the Interrupt Logic/Registers, please
-*                     refer to the HW specification for futher details.
+*                     refer to the HW specification for further details.
 * 2.00a sdm  10/22/09 Converted all register accesses to 32 bit access,
-*		      the register offsets are defined to be on 32 bit boundry.
+*		      the register offsets are defined to be on 32 bit boundary.
 *		      Removed the macro XIIC_RESET, XIic_Reset API should be
 *		      used in its place.
 *		      Some of the macros have been renamed to be consistent -

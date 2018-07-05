@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
@@ -49,6 +47,7 @@
 *              02/21/19 Set frequency and sample rate to appropriate values
 *                       for MTS.
 *              02/21/19 Set metal log level to DEBUG.
+* 7.0   cog    07/25/19 Updated example for new metal register API.
 *
 * </pre>
 *
@@ -68,12 +67,10 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-
-#ifndef __BAREMETAL__
-#define BUS_NAME        "platform"
-#define RFDC_DEVICE_ID	0U
-#else
+#ifdef __BAREMETAL__
 #define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID
+#else
+#define RFDC_DEVICE_ID 	0
 #endif
 
 /**************************** Type Definitions ******************************/
@@ -150,10 +147,7 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
 	XRFdc_Config *ConfigPtr;
 	XRFdc *RFdcInstPtr = &RFdcInst;
 #ifndef __BAREMETAL__
-	struct metal_device *device;
-	struct metal_io_region *io;
-	int ret = 0;
-	char DeviceName[NAME_MAX];
+	struct metal_device *deviceptr;
 #endif
 
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
@@ -167,6 +161,13 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
     if (ConfigPtr == NULL) {
 		return XRFDC_FAILURE;
 	}
+
+#ifndef __BAREMETAL__
+	status = XRFdc_RegisterMetal(RFdcInstPtr, RFdcDeviceId, &deviceptr);
+	if (status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
+	}
+#endif
 
     status = XRFdc_CfgInitialize(RFdcInstPtr, ConfigPtr);
     if (status != XRFDC_SUCCESS) {
@@ -196,29 +197,6 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
 		printf("ERROR: Could not configure PLL For ADC 2");
 		return XRFDC_FAILURE;
 	}
-#endif
-#ifndef __BAREMETAL__
-	status = XRFdc_GetDeviceNameByDeviceId(DeviceName, RFDC_DEVICE_ID);
-	if (status < 0) {
-		printf("ERROR: Failed to find rfdc device with device id %d\n",
-				RFDC_DEVICE_ID);
-		return XRFDC_FAILURE;
-	}
-	ret = metal_device_open(BUS_NAME, DeviceName, &device);
-	if (ret) {
-		printf("ERROR: Failed to open device %s.\n", DeviceName);
-		return XRFDC_FAILURE;
-	}
-
-	/* Map RFDC device IO region */
-	io = metal_device_io_region(device, 0);
-	if (!io) {
-		printf("ERROR: Failed to map RFDC regio for %s.\n",
-			  device->name);
-		return XRFDC_FAILURE;
-	}
-	RFdcInstPtr->device = device;
-	RFdcInstPtr->io = io;
 #endif
 
     printf("=== RFdc Initialized - Running Multi-tile Sync ===\n");

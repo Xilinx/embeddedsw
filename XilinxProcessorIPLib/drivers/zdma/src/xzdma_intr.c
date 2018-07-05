@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -42,6 +40,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   vns     2/27/15  First release
 * 1.6   aru     08/18/18 Resolved MISRA-C mandatory violations.(CR#1007757)
+* 1.8   aru    07/02/19  Fix coverity warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -161,7 +160,6 @@ void XZDma_IntrHandler(void *Instance)
 s32 XZDma_SetCallBack(XZDma *InstancePtr, XZDma_Handler HandlerType,
 	void *CallBackFunc, void *CallBackRef)
 {
-	s32 Status;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -176,25 +174,16 @@ s32 XZDma_SetCallBack(XZDma *InstancePtr, XZDma_Handler HandlerType,
 	 * Calls the respective callback function corresponding to
 	 * the handler type
 	 */
-	switch (HandlerType) {
-		case XZDMA_HANDLER_DONE:
-			InstancePtr->DoneHandler =
+	if(HandlerType == XZDMA_HANDLER_DONE) {
+		InstancePtr->DoneHandler =
 				(XZDma_DoneHandler)((void *)CallBackFunc);
-			InstancePtr->DoneRef = CallBackRef;
-			Status = (XST_SUCCESS);
-			break;
-
-		case XZDMA_HANDLER_ERROR:
-			InstancePtr->ErrorHandler =
+				InstancePtr->DoneRef = CallBackRef;
+	} else {
+		InstancePtr->ErrorHandler =
 				(XZDma_ErrorHandler)((void *)CallBackFunc);
-			InstancePtr->ErrorRef = CallBackRef;
-			Status = (XST_SUCCESS);
-			break;
-		default:
-			Status = (XST_INVALID_PARAM);
-			break;
+				InstancePtr->ErrorRef = CallBackRef;
 	}
 
-	return Status;
+	return XST_SUCCESS;
 }
 /** @} */

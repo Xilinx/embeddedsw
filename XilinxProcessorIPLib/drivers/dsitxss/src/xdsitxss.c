@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 ******************************************************************************/
 /*****************************************************************************/
@@ -272,6 +270,46 @@ void XDsiTxSs_ReportCoreInfo(XDsiTxSs *InstancePtr)
 		xdbg_printf(XDBG_DEBUG_GENERAL,"register interface \n\r");
 	}
 #endif
+}
+
+/*****************************************************************************/
+/**
+ * * This function sets the mode to send short packet.
+ * *
+ * * @param        InstancePtr is the XDsiTxSs instance to operate on
+ * * @param        mode is the DSI mode (video or command) to operate on
+ * *
+ * * @return       None
+ * *
+ * * @note         None.
+ * *
+ * ****************************************************************************/
+int XDsiTxSs_SetDSIMode(XDsiTxSs *InstancePtr, XDsi_DsiModeType mode)
+{
+	/* Verify argument */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	return XDsi_SetMode(InstancePtr->DsiPtr, mode);
+}
+
+/*****************************************************************************/
+/**
+ * * This function will send the short packet to controller in command mode
+ * * Generic Short Packet Register and fill up the structure passed from caller.
+ * *
+ * * @param        InstancePtr is the XDsiTxSs instance to operate on
+ * *
+ * * @return
+ *		   - XST_SUCCESS on successful packet transmission
+ *		   - XST_FAILURE on failure in packet transmission
+ * *
+ * * @note         None.
+ * *
+ * ****************************************************************************/
+int XDsiTxSs_SendCmdModePacket(XDsiTxSs *InstancePtr)
+{
+	/* Verify argument */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	return XDsi_SendCmdModePkt(InstancePtr->DsiPtr, &InstancePtr->CmdPkt);
 }
 
 /*****************************************************************************/

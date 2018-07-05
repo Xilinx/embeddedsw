@@ -14,20 +14,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
-* OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 *******************************************************************/
 /******************************************************************/
 /**
 *
 * @file xwdttb_g.c
-* @addtogroup wdttb_v4_4
+* @addtogroup wdttb_v4_5
 * @{
 *
 * Contains the required functions of the XWdtTb driver. See xwdttb.h for a
@@ -41,6 +40,9 @@
 * 1.00a ecm  08/16/01 First release
 * 4.3   srm  01/30/18 Added doxygen tags
 * 4.4   sne  03/04/19 Added support for versal
+* 4.5	sne  09/27/19 Added common configuration structure for
+*		      AXI Timebase WDT and WWWDT.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -62,14 +64,11 @@ XWdtTb_Config XWdtTb_ConfigTable[] =
 {
 	{
 		XPAR_WDTTB_0_DEVICE_ID,
-#ifdef versal
-		XPAR_WDTTB_0_BASEADDR
-#else
 		XPAR_WDTTB_0_BASEADDR,
 		XPAR_WDTTB_0_ENABLE_WINDOW_WDT,
 		XPAR_WDTTB_0_MAX_COUNT_WIDTH,
-		XPAR_WDTTB_0_SST_COUNT_WIDTH
-#endif
+		XPAR_WDTTB_0_SST_COUNT_WIDTH,
+		XPAR_WDTTB_0_IS_PL
 	}
 };
 /** @} */

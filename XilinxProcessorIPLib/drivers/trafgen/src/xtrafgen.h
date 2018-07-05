@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -53,16 +51,16 @@
 *
 * The Axi Traffic Genrator has five different modes:
 *
-* - Advanced Mode: Advanced Mode allows full control over the traffic genration
-*   Control registers are provided to you to program the core to genrate 
+* - Advanced Mode: Advanced Mode allows full control over the traffic generation
+*   Control registers are provided to you to program the core to generate
 *   different AXI4 transactions.
 *
-* - Basic Mode: Basic Mode allows basic AXI4 traffic genration with less 
+* - Basic Mode: Basic Mode allows basic AXI4 traffic generation with less
 *   resource overhead.
 *
-* - Static Mode: Static Mode allows you to genrate a simple AXI4 traffic with 
+* - Static Mode: Static Mode allows you to generate a simple AXI4 traffic with
 *   very less resource and minimum processor intervention.In this Mode the core
-*   continuously genrates fixed address and fixed length INCR type read and 
+*   continuously generates fixed address and fixed length INCR type read and
 *   write transfers.
 *
 * - System Init Mode: System Init Mode is a special Mode where core provides
@@ -83,7 +81,7 @@
 * by various operating systems, the driver instance can be initialized in the
 * following way:
 *
-* - XTrafGen_LookupConfig(DeviceId) - Use the devide identifier to find the
+* - XTrafGen_LookupConfig(DeviceId) - Use the divide identifier to find the
 *   static configuration structure defined in xtrafgen_g.c. This is setup
 *   by the tools. For some operating systems the config structure will be
 *   initialized by the software and this call is not needed.
@@ -471,7 +469,7 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_LoopDisable Disbales the loop bit in Master control regiset in 
+* XTrafGen_LoopDisable Disables the loop bit in Master control regiset in
 * Advanced mode/Basic mode of ATG.
 *
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
@@ -744,7 +742,7 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 * 
-* XTrafGen_StaticEnable enable the traffic genration when the core is 
+* XTrafGen_StaticEnable enable the traffic generation when the core is
 * configured Static Mode.
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
@@ -764,7 +762,7 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 * 
-* XTrafGen_StaticDisable disables the traffic genration on the Axi TrafGen 
+* XTrafGen_StaticDisable disables the traffic generation on the Axi TrafGen
 * when the core is configured in Static Mode
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
@@ -845,7 +843,7 @@ typedef struct XTrafGen {
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
 *
-* @return       Value of the Tranfer Done bit.
+* @return       Value of the Transfer Done bit.
 *
 * @note         C-style signature:
 *               u32 XTrafGen_GetStaticTransferDone(XTrafGen *InstancePtr)
@@ -879,7 +877,7 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_IsStaticTransferDone checks for reset value  When Static Traffic genration 
+* XTrafGen_IsStaticTransferDone checks for reset value  When Static Traffic generation
 * Completed by reading Control Register.
 *
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
@@ -901,7 +899,7 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 * 
-* XTrafGen_StreamEnable enable the traffic genration on the Axi TrafGen 
+* XTrafGen_StreamEnable enable the traffic generation on the Axi TrafGen
 * When the core is configured in Streaming Mode
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
@@ -921,7 +919,7 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 * 
-* XTrafGen_StreamDisable Disable the traffic genration on the Axi TrafGen 
+* XTrafGen_StreamDisable Disable the traffic generation on the Axi TrafGen
 * When core is configured in Streaming Mode
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
@@ -1157,7 +1155,7 @@ typedef struct XTrafGen {
 /**
 *
 * XTrafGen_IsStreamingTransferDone checks for reset value  When Streaming Traffic 
-* genration is Completed by reading Stream Control Register.
+* generation is Completed by reading Stream Control Register.
 *
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.

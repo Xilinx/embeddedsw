@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -1892,6 +1890,39 @@ u32 XSysMonPsu_GetMonitorStatus(XSysMonPsu *InstancePtr)
 			XSYSMONPSU_MON_STS_OFFSET);
 
 	return AMSMonStatusReg;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function initializes XSysMonPsu device/instance.
+*
+* @param	InstancePtr is a pointer to the XSysMonPsu instance.
+* @param	ConfigPtr points to the XSysMonPsu device configuration
+*		structure.
+*
+* @return	None
+*
+* @note 	The user needs to first call the XSysMonPsu_LookupConfig() API
+*		which returns the Configuration structure pointer, this pointer
+*		is then passed as a parameter to the XSysMonPsu_InitInstance()
+*		API. Note that this function just initializes the instance and
+*		doesn't configure the System Monitor device.
+*
+******************************************************************************/
+void XSysMonPsu_InitInstance(XSysMonPsu *InstancePtr,
+	XSysMonPsu_Config *ConfigPtr)
+{
+	/* Assert the input arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(ConfigPtr != NULL);
+
+	/* Set the values read from the device config and the base address.*/
+	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+	InstancePtr->Config.BaseAddress = ConfigPtr->BaseAddress;
+
+	/* Indicate the instance is now ready to use */
+	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 }
 
 /** @} */

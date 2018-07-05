@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -73,6 +71,7 @@
  * 9.6   rsp  02/14/18 Support data buffers above 4GB.Use UINTPTR for typecasting
  *                     buffer address (CR-992638).
  * 9.9   rsp  01/21/19 Fix use of #elif check in deriving DDR_BASE_ADDR.
+ * 9.10  rsp  09/17/19 Fix cache maintenance ops for source and dest buffer.
  * </pre>
  *
  * ***************************************************************************
@@ -317,13 +316,11 @@ int main(void)
 			Value = (Value + 1) & 0xFF;
 	}
 
-	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache
+	/* Flush the buffers before the DMA transfer, in case the Data Cache
 	 * is enabled
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TxBufferPtr, MAX_PKT_LEN);
-#ifdef __aarch64__
 	Xil_DCacheFlushRange((UINTPTR)RxBufferPtr, MAX_PKT_LEN);
-#endif
 
 	/* Send a packet */
 	for(Index = 0; Index < Tries; Index ++) {
@@ -436,9 +433,7 @@ static int CheckData(int Length, u8 StartValue)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
-#ifndef __aarch64__
 	Xil_DCacheInvalidateRange((UINTPTR)RxPacket, Length);
-#endif
 
 	for(Index = 0; Index < Length; Index++) {
 		if (RxPacket[Index] != Value) {
@@ -612,7 +607,7 @@ static void RxIntrHandler(void *Callback)
 *
 * @return
 *		- XST_SUCCESS if successful,
-*		- XST_FAILURE.if not succesful
+*		- XST_FAILURE.if not successful
 *
 * @note		None.
 *

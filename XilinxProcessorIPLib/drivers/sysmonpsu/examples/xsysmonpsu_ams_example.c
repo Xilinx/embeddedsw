@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
@@ -51,6 +49,8 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   mn     12/13/17 First release
 * 2.4   mn     04/26/18 Remove usleeps from AMS CTRL example
+* 2.5   aad    08/26/19 Added local timeout poll function for IAR compiler
+*			support
 *
 * </pre>
 *
@@ -92,8 +92,7 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 			u16 SysMonDeviceId,
 			u16 SysMonIntrId);
 static int SysMonPsuFractionToInt(float FloatNum);
-
-
+static s32 XSysmonPsu_Poll_timeout(u32 Addr, u64 *Value, u32 Conditon, u64 TimeOutUs);
 
 /************************** Variable Definitions ****************************/
 
@@ -101,8 +100,8 @@ static XSysMonPsu SysMonInst; 	  /* System Monitor driver instance */
 static XScuGic InterruptController; /* Instance of the XScuGic driver. */
 
 /* Shared variables used to test the callbacks. */
-volatile static int EocFlag = FALSE;	  	/* EOC interrupt */
-volatile static int VccintIntr = FALSE;	  	/* VCCINT alarm interrupt */
+volatile int EocFlag = FALSE;	  	/* EOC interrupt */
+volatile int VccintIntr = FALSE;	  	/* VCCINT alarm interrupt */
 
 
 /****************************************************************************/
@@ -140,6 +139,48 @@ int main(void)
 	xil_printf("\r\nSuccessfully ran Sysmon AMS Example Test\r\n");
 	return XST_SUCCESS;
 }
+
+
+/*****************************************************************************/
+/**
+*
+* This function polls an address periodically until a condition is met or till the
+* timeout occurs.
+* The minimum timeout for calling this macro is 100us. If the timeout is less
+* than 100us, it still waits for 100us. Also the unit for the timeout is 100us.
+* If the timeout is not a multiple of 100us, it waits for a timeout of
+* the next usec value which is a multiple of 100us.
+*
+* @param            Addr - Address to be polled
+* @param            Val - variable to read the value
+* @param            Condition - Condition to checked (usually involves Val)
+* @param            TimeOutUs - timeout in micro seconds
+*
+* @return           0 - when the condition is met
+*                   -1 - when the condition is not met till the timeout period
+*
+* @note             none
+*
+*****************************************************************************/
+static s32 XSysmonPsu_Poll_timeout(u32 Addr, u64 *Val, u32 Condition, u64 TimeOutUs)
+{
+	u64 timeout = TimeOutUs/100;
+	if(TimeOutUs%100!=0)
+		timeout++;
+	for(;;) {
+		*Val = Xil_In32(Addr);
+		if(Condition)
+			break;
+		else {
+			usleep(100);
+			timeout--;
+			if(timeout==0)
+			break;
+		}
+	}
+	return	((timeout>0) ? 0 : -1);
+ }
+
 
 /****************************************************************************/
 /**
@@ -229,8 +270,8 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
-	Xil_poll_timeout(Xil_In32, SysMonInstPtr->Config.BaseAddress +
-            XSYSMONPSU_ISR_1_OFFSET, IntrStatus,
+	XSysmonPsu_Poll_timeout(SysMonInstPtr->Config.BaseAddress +
+            XSYSMONPSU_ISR_1_OFFSET, &IntrStatus,
 			(IntrStatus & XSYSMONPSU_ISR_1_EOC_MASK) == XSYSMONPSU_ISR_1_EOC_MASK,
 			EOC_POLLING_TIMEOUT);
 
@@ -260,8 +301,8 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
-	Xil_poll_timeout(Xil_In32, SysMonInstPtr->Config.BaseAddress +
-            XSYSMONPSU_ISR_1_OFFSET, IntrStatus,
+	XSysmonPsu_Poll_timeout(SysMonInstPtr->Config.BaseAddress +
+            XSYSMONPSU_ISR_1_OFFSET, &IntrStatus,
 			(IntrStatus & XSYSMONPSU_ISR_1_EOC_MASK) == XSYSMONPSU_ISR_1_EOC_MASK,
 			EOC_POLLING_TIMEOUT);
 
@@ -291,8 +332,8 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
-	Xil_poll_timeout(Xil_In32, SysMonInstPtr->Config.BaseAddress +
-            XSYSMONPSU_ISR_1_OFFSET, IntrStatus,
+	XSysmonPsu_Poll_timeout(SysMonInstPtr->Config.BaseAddress +
+            XSYSMONPSU_ISR_1_OFFSET, &IntrStatus,
 			(IntrStatus & XSYSMONPSU_ISR_1_EOC_MASK) == XSYSMONPSU_ISR_1_EOC_MASK,
 			EOC_POLLING_TIMEOUT);
 
@@ -322,8 +363,8 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
-	Xil_poll_timeout(Xil_In32, SysMonInstPtr->Config.BaseAddress +
-            XSYSMONPSU_ISR_1_OFFSET, IntrStatus,
+	XSysmonPsu_Poll_timeout(SysMonInstPtr->Config.BaseAddress +
+            XSYSMONPSU_ISR_1_OFFSET, &IntrStatus,
 			(IntrStatus & XSYSMONPSU_ISR_1_EOC_MASK) == XSYSMONPSU_ISR_1_EOC_MASK,
 			EOC_POLLING_TIMEOUT);
 
@@ -353,8 +394,8 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
-	Xil_poll_timeout(Xil_In32, SysMonInstPtr->Config.BaseAddress +
-            XSYSMONPSU_ISR_1_OFFSET, IntrStatus,
+	XSysmonPsu_Poll_timeout(SysMonInstPtr->Config.BaseAddress +
+            XSYSMONPSU_ISR_1_OFFSET, &IntrStatus,
 			(IntrStatus & XSYSMONPSU_ISR_1_EOC_MASK) == XSYSMONPSU_ISR_1_EOC_MASK,
 			EOC_POLLING_TIMEOUT);
 
@@ -384,8 +425,8 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
-	Xil_poll_timeout(Xil_In32, SysMonInstPtr->Config.BaseAddress +
-            XSYSMONPSU_ISR_1_OFFSET, IntrStatus,
+	XSysmonPsu_Poll_timeout(SysMonInstPtr->Config.BaseAddress +
+            XSYSMONPSU_ISR_1_OFFSET, &IntrStatus,
 			(IntrStatus & XSYSMONPSU_ISR_1_EOC_MASK) == XSYSMONPSU_ISR_1_EOC_MASK,
 			EOC_POLLING_TIMEOUT);
 
@@ -415,8 +456,8 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
-	Xil_poll_timeout(Xil_In32, SysMonInstPtr->Config.BaseAddress +
-            XSYSMONPSU_ISR_1_OFFSET, IntrStatus,
+	XSysmonPsu_Poll_timeout(SysMonInstPtr->Config.BaseAddress +
+            XSYSMONPSU_ISR_1_OFFSET, &IntrStatus,
 			(IntrStatus & XSYSMONPSU_ISR_1_EOC_MASK) == XSYSMONPSU_ISR_1_EOC_MASK,
 			EOC_POLLING_TIMEOUT);
 
@@ -446,8 +487,8 @@ int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 		return XST_FAILURE;
 	}
 
-	Xil_poll_timeout(Xil_In32, SysMonInstPtr->Config.BaseAddress +
-            XSYSMONPSU_ISR_1_OFFSET, IntrStatus,
+	XSysmonPsu_Poll_timeout(SysMonInstPtr->Config.BaseAddress +
+            XSYSMONPSU_ISR_1_OFFSET, &IntrStatus,
 			(IntrStatus & XSYSMONPSU_ISR_1_EOC_MASK) == XSYSMONPSU_ISR_1_EOC_MASK,
 			EOC_POLLING_TIMEOUT);
 

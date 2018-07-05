@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xcsudma_hw.h
-* @addtogroup csudma_v1_4
+* @addtogroup csudma_v1_5
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or
@@ -62,23 +60,23 @@ extern "C" {
 /** @name Registers offsets
  * @{
  */
-#define XCSUDMA_ADDR_OFFSET	0x000	/**< Address Register Offset */
-#define XCSUDMA_SIZE_OFFSET	0x004	/**< Size Register Offset */
-#define XCSUDMA_STS_OFFSET	0x008	/**< Status Register Offset */
-#define XCSUDMA_CTRL_OFFSET	0x00C	/**< Control Register Offset */
-#define XCSUDMA_CRC_OFFSET	0x010	/**< CheckSum Register Offset */
-#define XCSUDMA_I_STS_OFFSET	0x014	/**< Interrupt Status Register
+#define XCSUDMA_ADDR_OFFSET	0x000U	/**< Address Register Offset */
+#define XCSUDMA_SIZE_OFFSET	0x004U	/**< Size Register Offset */
+#define XCSUDMA_STS_OFFSET	0x008U	/**< Status Register Offset */
+#define XCSUDMA_CTRL_OFFSET	0x00CU	/**< Control Register Offset */
+#define XCSUDMA_CRC_OFFSET	0x010U	/**< CheckSum Register Offset */
+#define XCSUDMA_I_STS_OFFSET	0x014U	/**< Interrupt Status Register
 					  *  Offset */
-#define XCSUDMA_I_EN_OFFSET	0x018	/**< Interrupt Enable Register
+#define XCSUDMA_I_EN_OFFSET	0x018U	/**< Interrupt Enable Register
 					  *  Offset */
-#define XCSUDMA_I_DIS_OFFSET	0x01C	/**< Interrupt Disable Register
+#define XCSUDMA_I_DIS_OFFSET	0x01CU	/**< Interrupt Disable Register
 					  *  Offset */
-#define XCSUDMA_I_MASK_OFFSET	0x020	/**< Interrupt Mask Register Offset */
-#define XCSUDMA_CTRL2_OFFSET	0x024	/**< Interrupt Control Register 2
+#define XCSUDMA_I_MASK_OFFSET	0x020U	/**< Interrupt Mask Register Offset */
+#define XCSUDMA_CTRL2_OFFSET	0x024U	/**< Interrupt Control Register 2
 					  *  Offset */
-#define XCSUDMA_ADDR_MSB_OFFSET	0x028	/**< Address's MSB Register Offset */
-#define XCSUDMA_SAFETY_CHK_OFFSET 0xFF8	/**< Safety Check Field Offset */
-#define XCSUDMA_FUTURE_ECO_OFFSET 0xFFC	/**< Future potential ECO Offset */
+#define XCSUDMA_ADDR_MSB_OFFSET	0x028U	/**< Address's MSB Register Offset */
+#define XCSUDMA_SAFETY_CHK_OFFSET 0xFF8U /**< Safety Check Field Offset */
+#define XCSUDMA_FUTURE_ECO_OFFSET 0xFFCU /**< Future potential ECO Offset */
 /*@}*/
 
 /** @name CSU Base address and CSU_DMA reset offset

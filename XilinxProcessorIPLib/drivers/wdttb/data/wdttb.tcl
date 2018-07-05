@@ -15,14 +15,12 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+#
 #
 ###############################################################################
 #
@@ -35,6 +33,10 @@
 # 4.2      ms     04/18/17 Modified tcl file to add suffix U for all macros
 #                          definitions of wdttb in xparameters.h
 # 4.4      sne    03/04/19 Added versal support.
+# 4.5      mus    04/10/19 Added -hier option to get_cells command to support
+#                          hierarchical designs. Fix for CR#1020269.
+# 4.5	   sne	  09/24/19 Updated Tcl file for WWDT and AXI Timebase WDT.
+#
 ###############################################################################
 
 #uses "xillib.tcl"
@@ -46,18 +48,9 @@ set periph_ninstances		0
 # Main generate function - called by the tool
 # -----------------------------------------------------------------------------
 proc generate {drv_handle} {
-set ip_name [get_property IP_NAME [get_cells $drv_handle]]
-if {$ip_name == "psu_wwdt" || $ip_name == "psv_wwdt"} {
-     xdefine_zynq_include_file $drv_handle "xparameters.h" "XWdtTb" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_WDT_CLK_FREQ_HZ"
-
-    xdefine_zynq_config_file $drv_handle "xwdttb_g.c" "XWdtTb" "DEVICE_ID" "C_S_AXI_BASEADDR"
-
-    xdefine_zynq_canonical_xpars $drv_handle "xparameters.h" "WdtTb" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_WDT_CLK_FREQ_HZ"
-} else {
 
 	xdefine_wdttb_include_file $drv_handle "xparameters.h" "XWdtTb"
 	xdefine_wdttb_config_file "xwdttb_g.c" "XWdtTb"
-}
 }
 proc init_periph_config_struct { deviceid } {
 	global periph_config_params_wdt
@@ -162,20 +155,30 @@ proc xdefine_wdttb_config_file {file_name drv_string} {
 proc xdefine_params_include_file {file_handle periph device_id} {
 	set uSuffix "U"
 	puts $file_handle "\n/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
-
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id$uSuffix"
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_BASEADDR $periph]$uSuffix"
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [common::get_property CONFIG.C_HIGHADDR $periph]$uSuffix"
-
-	set enable_wdt [common::get_property CONFIG.C_ENABLE_WINDOW_WDT $periph]
-	if {[llength $enable_wdt] == 1 } {
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "ENABLE_WINDOW_WDT"] $enable_wdt$uSuffix"
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "MAX_COUNT_WIDTH"] [common::get_property CONFIG.C_MAX_COUNT_WIDTH $periph]$uSuffix"
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "SST_COUNT_WIDTH"] [common::get_property CONFIG.C_SST_COUNT_WIDTH $periph]$uSuffix"
+	set is_pl [common::get_property IS_PL $periph]
+	if {$is_pl == 1} {
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_BASEADDR $periph]$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [common::get_property CONFIG.C_HIGHADDR $periph]$uSuffix"
+		set enable_wdt [common::get_property CONFIG.C_ENABLE_WINDOW_WDT $periph]
+                if {$enable_wdt == 1 } {
+                        puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "ENABLE_WINDOW_WDT"] $enable_wdt$uSuffix"
+                        puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "MAX_COUNT_WIDTH"] [common::get_property CONFIG.C_MAX_COUNT_WIDTH $periph]$uSuffix"
+                        puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "SST_COUNT_WIDTH"] [common::get_property CONFIG.C_SST_COUNT_WIDTH $periph]$uSuffix"
+                } else {
+                        puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "ENABLE_WINDOW_WDT"] 0$uSuffix"
+                        puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "MAX_COUNT_WIDTH"] 0$uSuffix"
+                        puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "SST_COUNT_WIDTH"] 0$uSuffix"
+                }
+                        puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "IS_PL"] 1$uSuffix"
 	} else {
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_S_AXI_BASEADDR $periph]$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [common::get_property CONFIG.C_S_AXI_HIGHADDR $periph]$uSuffix"
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "ENABLE_WINDOW_WDT"] 0$uSuffix"
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "MAX_COUNT_WIDTH"] 0$uSuffix"
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "SST_COUNT_WIDTH"] 0$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "IS_PL"] 0$uSuffix"
 	}
 }
 
@@ -186,6 +189,7 @@ proc xdefine_params_include_file {file_handle periph device_id} {
 proc xdefine_params_canonical {file_handle periph device_id} {
 	set uSuffix "U"
 	puts $file_handle "\n/* Canonical definitions for peripheral [string toupper [get_property NAME $periph]] */"
+	set is_pl [common::get_property IS_PL $periph]
 
 	set canonical_tag [string toupper [format "XPAR_WDTTB_%d" $device_id]]
 
@@ -194,6 +198,7 @@ proc xdefine_params_canonical {file_handle periph device_id} {
 	puts $file_handle "\#define $canonical_name $device_id$uSuffix"
 	add_field_to_periph_config_struct $device_id $canonical_name
 
+	if {$is_pl == 1} {
 	# Handle BASEADDR argument
 	set canonical_name [format "%s_BASEADDR" $canonical_tag]
 	puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_BASEADDR]$uSuffix"
@@ -204,7 +209,7 @@ proc xdefine_params_canonical {file_handle periph device_id} {
 	puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_HIGHADDR]$uSuffix"
 
 	set enable_wdt [::hsi::utils::get_param_value $periph C_ENABLE_WINDOW_WDT]
-	if {[llength $enable_wdt] == 1 } {
+	if {$enable_wdt == 1 } {
 		# Handle ENABLE_WINDOW_WDT argument
 		set canonical_name [format "%s_ENABLE_WINDOW_WDT" $canonical_tag]
 		puts $file_handle "\#define $canonical_name $enable_wdt$uSuffix"
@@ -232,6 +237,35 @@ proc xdefine_params_canonical {file_handle periph device_id} {
 
 		# Handle SST_COUNT_WIDTH argument
 		set canonical_name [format "%s_SST_COUNT_WIDTH" $canonical_tag]
+		puts $file_handle "\#define $canonical_name 0$uSuffix"
+		add_field_to_periph_config_struct $device_id $canonical_name
+	}
+
+	# Handle IS_PL argument
+	set canonical_name [format "%s_IS_PL" $canonical_tag]
+	puts $file_handle "\#define $canonical_name 1$uSuffix"
+	add_field_to_periph_config_struct $device_id $canonical_name
+	} else {
+		set canonical_name [format "%s_BASEADDR" $canonical_tag]
+		puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_S_AXI_BASEADDR]$uSuffix"
+		add_field_to_periph_config_struct $device_id $canonical_name
+
+		set canonical_name [format "%s_HIGHADDR" $canonical_tag]
+		puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_S_AXI_HIGHADDR]$uSuffix"
+
+		set canonical_name [format "%s_ENABLE_WINDOW_WDT" $canonical_tag]
+		puts $file_handle "\#define $canonical_name 0$uSuffix"
+		add_field_to_periph_config_struct $device_id $canonical_name
+
+		set canonical_name [format "%s_MAX_COUNT_WIDTH" $canonical_tag]
+		puts $file_handle "\#define $canonical_name 0$uSuffix"
+		add_field_to_periph_config_struct $device_id $canonical_name
+
+		set canonical_name [format "%s_SST_COUNT_WIDTH" $canonical_tag]
+		puts $file_handle "\#define $canonical_name 0$uSuffix"
+		add_field_to_periph_config_struct $device_id $canonical_name
+
+		set canonical_name [format "%s_IS_PL" $canonical_tag]
 		puts $file_handle "\#define $canonical_name 0$uSuffix"
 		add_field_to_periph_config_struct $device_id $canonical_name
 	}

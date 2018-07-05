@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xspips.c
-* @addtogroup spips_v3_2
+* @addtogroup spips_v3_3
 * @{
 *
 * Contains implements the interface functions of the XSpiPs driver.
@@ -72,6 +70,7 @@
 *                       in safety mode and done changes such as
 *                       Declared the pointer param as Pointer to const,
 *			added goto statements.
+* 3.3	akm    08/06/19 Initialized DeviceID in XSpiPs_CfgInitialize function.
 * </pre>
 *
 ******************************************************************************/
@@ -189,6 +188,7 @@ s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, const XSpiPs_Config *ConfigPtr,
 		InstancePtr->Config.BaseAddress = EffectiveAddr;
 		InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 		InstancePtr->StatusHandler = StubStatusHandler;
+		InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
 
 		InstancePtr->SendBufferPtr = NULL;
 		InstancePtr->RecvBufferPtr = NULL;
@@ -372,7 +372,7 @@ s32 XSpiPs_Transfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 		XSpiPs_Enable(InstancePtr);
 
 		/*
-		 * Clear all the interrrupts.
+		 * Clear all the interrupts.
 		 */
 		XSpiPs_WriteReg(InstancePtr->Config.BaseAddress, XSPIPS_SR_OFFSET,
 				XSPIPS_IXR_WR_TO_CLR_MASK);
@@ -648,7 +648,7 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 * @param	InstancePtr is a pointer to the XSpiPs instance.
 * @param	SlaveSel is the slave number to be selected.
 * 		Normally, 3 slaves can be selected with values 0-2.
-* 		In case, 3-8 decode option is set, then upto 8 slaves
+* 		In case, 3-8 decode option is set, then up to 8 slaves
 * 		can be selected. Only one slave can be selected at a time.
 *
 * @return
@@ -962,7 +962,7 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr)
 		}
 
 		/*
-		 * Fill the TXFIFO until data exists, otherwise fill upto
+		 * Fill the TXFIFO until data exists, otherwise fill up to
 		 * FIFO depth.
 		 */
 		while ((SpiPtr->RemainingBytes > 0U) &&

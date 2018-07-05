@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xwdttb_hw.h
-* @addtogroup wdttb_v4_4
+* @addtogroup wdttb_v4_5
 * @{
 *
 * This header file contains identifiers and register-level core functions (or
@@ -76,6 +74,12 @@
 *                   XWT_GW_WR_MASK,XWT_GWRR_MASK.
 *                   Added following macro for Win WDT:
 *                   XWT_SSTWR_OFFSET.
+* 4.5 sne  09/27/19 Added common driver support for WWDT and AXI Timebase WDT.
+*		    Removed versal flag. Removed AXI Timebase WDT offsets.
+*		    Added following macros for WWDT
+*		    XWT_TSR0_WWDT_OFFSET,XWT_TSR1_WWDT_OFFSET,
+*		    XWT_STR_WWDT_OFFSET.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -92,54 +96,58 @@ extern "C" {
 #include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
-#ifdef versal
-/** @name Register offsets for the WDT core with Generic & windowing
- * *   feature with basic mode. Each register is 32 bits.
- * *  @{
- * */
-
-#define XWT_MWR_OFFSET          0x0000U    /**< Master Write Control Register Offset */
-#define XWT_ESR_OFFSET          0x0004U    /**< Enable & Status Register Offset */
-#define XWT_FCR_OFFSET          0x0008U    /**< Function Control Register Register Offset */
-#define XWT_FWR_OFFSET          0x000CU    /**< First Window Configuration Register Offset */
-#define XWT_SWR_OFFSET          0x0010U    /**< Second Window Configuration Register Offset */
-#define XWT_TSR0_OFFSET         0x0018U    /**< Task Signature Register 0 Offset */
-#define XWT_TSR1_OFFSET         0x001CU    /**< Task Signature Register 1 Offset */
-#define XWT_STR_OFFSET          0x0020U    /**< Second Sequence Timer Register Offset */
-#else
-/** @name Register offsets for the AXI Timebase WDT core with windowing
+/** @name Register offsets for the WWDT core with Generic & windowing
 *   feature with basic mode. Each register is 32 bits.
 *  @{
 */
-#define XWT_MWR_OFFSET          0x0CU   /**< Master Write Control Register
-                                          *  Offset */
-#define XWT_ESR_OFFSET          0x10U   /**< Enable & Status Register Offset */
-#define XWT_FCR_OFFSET          0x14U   /**< Function Control Register
-                                          *  Offset */
-#define XWT_FWR_OFFSET          0x18U   /**< First Window Configuration
-                                          *  Register Offset */
-#define XWT_SWR_OFFSET          0x1CU   /**< Second Window Configuration
-                                          *  Register Offset */
-#define XWT_TSR0_OFFSET         0x20U   /**< Task Signature Register 0
-                                          *  Offset */
-#define XWT_TSR1_OFFSET         0x24U   /**< Task Signature Register 1
-                                          *  Offset */
-#define XWT_STR_OFFSET          0x28U   /**< Second Sequence Timer Register
-                                          *  Offset */
-/* @} */
-#endif
-#define XWT_SSTWR_OFFSET        0x0014U    /**< Second Sequence Timer Window Configuration Register Offset */
-#define XWT_TFR_OFFSET          0x0024U    /**< Token Feedback Register Offset */
-#define XWT_TRR_OFFSET          0x0028U    /**< Token Response Register offset */
-#define XWT_IENR_OFFSET         0x002CU    /**< Interrupt Enable Register Offset */
-#define XWT_IDR_OFFSET          0x0030U    /**< Interrupt Disable Register Offset */
-#define XWT_IMR_OFFSET          0x0034U    /**< Interrupt Mask Register Offset */
-#define XWT_GWRR_OFFSET         0x1000U    /**< Generic Watchdog Refresh Register Offset */
-#define XWT_GWCSR_OFFSET        0x2000U    /**< Generic Watchdog Control and Status Register Offset */
-#define XWT_GWOR_OFFSET         0x2008U    /**< Generic Watchdog Offset Register Offset */
-#define XWT_GWCVR0_OFFSET       0x2010U    /**< Generic Watchdog Compare Value Register 0 Offset */
-#define XWT_GWCVR1_OFFSET       0x2014U    /**< Generic Watchdog Compare Value Register 1 Offset */
-#define XWT_GW_WR_OFFSET        0x2FD0U    /**< Generic Watchdog Warm Reset Register Offset */
+
+#define XWT_MWR_OFFSET          0x0000U    /**< Master Write Control Register
+						Offset */
+#define XWT_ESR_OFFSET          0x0004U    /**< Enable & Status Register
+						Offset */
+#define XWT_FCR_OFFSET          0x0008U    /**< Function Control Register
+						Register Offset */
+#define XWT_FWR_OFFSET          0x000CU    /**< First Window Configuration
+						Register Offset */
+#define XWT_SWR_OFFSET          0x0010U    /**< Second Window Configuration
+						Register Offset */
+#define XWT_TSR0_WWDT_OFFSET	0x0018U    /**< Task Signature Register 0
+						Offset for WWDT */
+#define XWT_TSR1_WWDT_OFFSET	0x001CU    /**< Task Signature Register 1
+						Offset for WWDT */
+#define XWT_STR_WWDT_OFFSET	0x0020U    /**< Second Sequence Timer Register
+						Offset for WWDT */
+#define XWT_TSR0_OFFSET         0x0014U    /**< Task Signature Register 0
+						Offset */
+#define XWT_TSR1_OFFSET         0x0018U    /**< Task Signature Register 1
+						Offset */
+#define XWT_STR_OFFSET          0x001CU    /**< Second Sequence Timer Register
+						Offset */
+#define XWT_SSTWR_OFFSET        0x0014U    /**< Second Sequence Timer Window
+						Configuration Register Offset
+						 */
+#define XWT_TFR_OFFSET          0x0024U    /**< Token Feedback Register
+						Offset */
+#define XWT_TRR_OFFSET          0x0028U    /**< Token Response Register
+						offset */
+#define XWT_IENR_OFFSET         0x002CU    /**< Interrupt Enable Register
+						Offset */
+#define XWT_IDR_OFFSET          0x0030U    /**< Interrupt Disable Register
+						Offset */
+#define XWT_IMR_OFFSET          0x0034U    /**< Interrupt Mask Register
+						Offset */
+#define XWT_GWRR_OFFSET         0x1000U    /**< Generic Watchdog Refresh
+						Register Offset */
+#define XWT_GWCSR_OFFSET        0x2000U    /**< Generic Watchdog Control and
+						Status Register Offset */
+#define XWT_GWOR_OFFSET         0x2008U    /**< Generic Watchdog Offset
+						Register Offset */
+#define XWT_GWCVR0_OFFSET       0x2010U    /**< Generic Watchdog Compare
+						Value Register 0 Offset */
+#define XWT_GWCVR1_OFFSET       0x2014U    /**< Generic Watchdog Compare
+						Value Register 1 Offset */
+#define XWT_GW_WR_OFFSET        0x2FD0U    /**< Generic Watchdog Warm Reset
+						Register Offset */
 
 /** @name Register offsets for the AXI Timebase WDT core. Each register is 32
 *   bits.

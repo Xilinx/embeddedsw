@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -104,6 +102,24 @@ typedef struct {
       u8 Data1;		/**< Second data byte*/
 } XDsi_ShortPacket;
 
+
+
+/**
+ * * This typedef contains the DSI mode selection
+ * *
+ * */
+typedef enum {
+        XDSI_VIDEO_MODE = 0,
+        XDSI_COMMAND_MODE
+} XDsi_DsiModeType;
+/**
+ * * This typedef contains the type of Command mode Packet
+ * *
+ * */
+typedef enum {
+        XDSI_CMD_MODE_SHORT_PKT,
+        XDSI_CMD_MODE_LONG_PKT
+} XDsi_CmdModePktType;
 /**
  * Video Timing Mode by default Non-burst mode with Sync Events
  */
@@ -114,6 +130,21 @@ typedef enum {
 	XDSI_VM_NUM_SUPPORTED
 } XDsi_VideoMode;
 
+/**
+* DSI Long packet supports upto 255 word counts - i.e
+* 64 writes into data fifo
+*
+*/
+#define NUM_PACKETS	64
+/**
+ * MIPI DSI Command Mode configuration structure.
+ */
+typedef struct {
+	u32 LongPktData[NUM_PACKETS];	/**< Long packet data in command mode */
+	XDsi_CmdModePktType CmdPkt; /**< Packet type in command mode */
+	XDsi_ShortPacket SpktData; /**< Short packet strucute to
+					send short packet */
+} XDsiTx_CmdModePkt;
 /**
  * Video timing structure.
  */
@@ -416,6 +447,82 @@ static inline void XDsi_Enable(XDsi *InstancePtr)
 /****************************************************************************/
 /**
 *
+* This function is used to reset the command fifo by setting
+* Command FIFO Reset bit in the Core Configuration Register
+*
+* @param	InstancePtr is a pointer to the DSI Instance to be
+*		worked on.
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+static inline void XDsi_ResetCmdFifo(XDsi *InstancePtr)
+{
+	XDsi_BitSet(InstancePtr->Config.BaseAddr, XDSI_CCR_OFFSET,
+			XDSI_CCR_RESET_CMD_FIFO_MASK);
+}
+/****************************************************************************/
+/**
+*
+* This function is used to reset the command fifo by clearing
+* Command FIFO Reset in the Core Configuration Register
+*
+* @param	InstancePtr is a pointer to the DSI Instance to be
+*		worked on.
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+static inline void XDsi_ClearCmdFifo(XDsi *InstancePtr)
+{
+	XDsi_BitReset(InstancePtr->Config.BaseAddr, XDSI_CCR_OFFSET,
+			XDSI_CCR_RESET_CMD_FIFO_MASK);
+}
+/****************************************************************************/
+/**
+*
+* This function is used to reset the command fifo by setting
+* Data FIFO Reset bit in the Core Configuration Register
+*
+* @param	InstancePtr is a pointer to the DSI Instance to be
+*		worked on.
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+static inline void XDsi_ResetDataFifo(XDsi *InstancePtr)
+{
+	XDsi_BitSet(InstancePtr->Config.BaseAddr, XDSI_CCR_OFFSET,
+			XDSI_CCR_RESET_DATA_FIFO_MASK);
+}
+/****************************************************************************/
+/**
+*
+* This function is used to reset the command fifo by clearing
+* Data FIFO Reset bit in the Core Configuration Register
+*
+* @param	InstancePtr is a pointer to the DSI Instance to be
+*		worked on.
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+static inline void XDsi_ClearDataFifo(XDsi *InstancePtr)
+{
+	XDsi_BitReset(InstancePtr->Config.BaseAddr, XDSI_CCR_OFFSET,
+			XDSI_CCR_RESET_DATA_FIFO_MASK);
+}
+/****************************************************************************/
+/**
+*
 * This function is used to check if the Core is enabled by checking
 * the core enable bit
 *
@@ -431,6 +538,65 @@ static inline u32 XDsi_IsEnabled(XDsi *InstancePtr)
 {
 	return XDsi_GetBitField(InstancePtr->Config.BaseAddr,
 	XDSI_CCR_OFFSET, XDSI_CCR_COREENB_MASK, XDSI_CCR_COREENB_SHIFT);
+}
+
+/****************************************************************************/
+/**
+*
+* This function is used to check if the Command/video mode is enabled by checking
+* Command Mode bit in the Core Configuration Register
+*
+* @param	InstancePtr is a pointer to the DSI Instance to be
+*		worked on.
+*
+* @return	SET (for command mode) or RESET(for video mode) in u32 format
+*
+* @note		None
+*
+****************************************************************************/
+static inline u32 XDsi_IsModeEnabled(XDsi *InstancePtr)
+{
+	return XDsi_GetBitField(InstancePtr->Config.BaseAddr,
+	XDSI_CCR_OFFSET, XDSI_CCR_CORECMDMODE_MASK, XDSI_CCR_CORECMDMODE_SHIFT);
+}
+
+/****************************************************************************/
+/**
+*
+* This function is used to set Command Mode bit
+* in the Core Configuration Register
+*
+* @param	InstancePtr is a pointer to the DSI Instance to be
+*		    worked on.
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+static inline void XDsi_CmdModeEnable(XDsi *InstancePtr)
+{
+	XDsi_BitSet(InstancePtr->Config.BaseAddr, XDSI_CCR_OFFSET,
+			XDSI_CCR_CORECMDMODE_MASK);
+}
+/****************************************************************************/
+/**
+*
+* This function is used to clear Command Mode bit
+* in the Core Configuration Register
+*
+* @param	InstancePtr is a pointer to the DSI Instance to be
+*		    worked on.
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+static inline void XDsi_VideoModeEnable(XDsi *InstancePtr)
+{
+	XDsi_BitReset(InstancePtr->Config.BaseAddr, XDSI_CCR_OFFSET,
+			XDSI_CCR_CORECMDMODE_MASK);
 }
 
 /****************************************************************************/
@@ -618,6 +784,138 @@ static inline u32 XDsi_GetCmdQVacancy(XDsi *InstancePtr)
 	return XDsi_GetBitField(InstancePtr->Config.BaseAddr,
 	XDSI_STATUS_OFFSET, XDSI_CMDQ_MASK, XDSI_CMDQ_SHIFT);
 }
+/****************************************************************************/
+/**
+*
+* This function is used to get readiness status to short packet
+*
+* @param	InstancePtr is a pointer to the DSI Instance to be
+*		worked on.
+*
+* @return	SET(ready to send short packet) or RESET(not ready to send short packet) in u32 format
+*
+*
+* @note		None
+*
+****************************************************************************/
+static inline u32 XDsi_GetReadyForShortPkt(XDsi *InstancePtr)
+{
+	return XDsi_GetBitField(InstancePtr->Config.BaseAddr,
+	XDSI_STATUS_OFFSET, XDSI_RDY_FOR_SHORT_MASK, XDSI_RDY_FOR_SHORTPKT_SHIFT);
+}
+/****************************************************************************/
+/**
+*
+* This function is used to get readiness status to Long packet
+*
+* @param	InstancePtr is a pointer to the DSI Instance to be
+*		worked on.
+*
+* @return	SET(ready to send short packet) or RESET(not ready to send short packet) in u32 format
+*
+*
+* @note		None
+*
+****************************************************************************/
+static inline u32 XDsi_GetReadyForLongPkt(XDsi *InstancePtr)
+{
+	return XDsi_GetBitField(InstancePtr->Config.BaseAddr,
+	XDSI_STATUS_OFFSET, XDSI_RDY_FOR_LONG_MASK, XDSI_RDY_FOR_LONGPKT_SHIFT);
+}
+/****************************************************************************/
+/**
+*
+* This function is used to get Data FIFO full status
+*
+* @param	InstancePtr is a pointer to the DSI Instance to be
+*		worked on.
+*
+* @return	SET(FIFO is full) or RESET(FIFO is not full) in u32 format
+*
+*
+* @note		None
+*
+****************************************************************************/
+static inline u32 XDsi_GetFIFOFull(XDsi *InstancePtr)
+{
+	return XDsi_GetBitField(InstancePtr->Config.BaseAddr,
+	XDSI_STATUS_OFFSET, XDSI_FIFO_FULL_MASK, XDSI_FIFO_FULL_SHIFT);
+}
+/****************************************************************************/
+/**
+*
+* This function is used to get Data FIFO Empty status
+*
+* @param	InstancePtr is a pointer to the DSI Instance to be
+*		worked on.
+*
+* @return	SET(FIFO is Empty) or RESET(FIFO is not Empty) in u32 format
+*
+* @note		None
+*
+****************************************************************************/
+static inline u32 XDsi_GetFIFOEmpty(XDsi *InstancePtr)
+{
+	return XDsi_GetBitField(InstancePtr->Config.BaseAddr,
+	XDSI_STATUS_OFFSET, XDSI_FIFO_EMPTY_MASK, XDSI_FIFO_EMPTY_SHIFT);
+}
+/****************************************************************************/
+/**
+*
+* This function is used to get wait status for data to process long command
+*
+* @param	InstancePtr is a pointer to the DSI Instance to be
+*		worked on.
+*
+* @return	SET(long command is in progress) or RESET(Long command is processed) in u32 format
+*
+*
+* @note		None
+*
+****************************************************************************/
+static inline u32 XDsi_GetWaitForData(XDsi *InstancePtr)
+{
+	return XDsi_GetBitField(InstancePtr->Config.BaseAddr,
+	XDSI_STATUS_OFFSET, XDSI_WAIT_FOR_DATA_MASK, XDSI_WAIT_FOR_DATA_SHIFT);
+}
+/****************************************************************************/
+/**
+*
+* This function is used to get in progress status for Short/Long Commands
+*
+* @param	InstancePtr is a pointer to the DSI Instance to be
+*		worked on.
+*
+* @return	SET(Long command) or RESET(short command) in u32 format
+*
+*
+* @note		None
+*
+****************************************************************************/
+static inline u32 XDsi_GetInProgress(XDsi *InstancePtr)
+{
+	return XDsi_GetBitField(InstancePtr->Config.BaseAddr,
+	XDSI_STATUS_OFFSET, XDSI_INPOGRESS_MASK, XDSI_INPOGRESS_SHIFT);
+}
+/****************************************************************************/
+/**
+*
+* This function is used to get under process status for Short/Long Commands
+*
+* @param	InstancePtr is a pointer to the DSI Instance to be
+*		worked on.
+*
+* @return	SET(Long command) or RESET(short command) in u32 format
+*
+*
+* @note		None
+*
+****************************************************************************/
+static inline u32 XDsi_GetUnderProgress(XDsi *InstancePtr)
+{
+	return XDsi_GetBitField(InstancePtr->Config.BaseAddr,
+	XDSI_STATUS_OFFSET, XDSI_UNDER_PROCESS_MASK, XDSI_UNDER_PROCESS_SHIFT);
+}
 
 /************************** Function Prototypes ******************************/
 
@@ -629,6 +927,8 @@ void XDsi_Reset(XDsi *InstancePtr);
 u32 XDsi_DefaultConfigure(XDsi *InstancePtr);
 u32 XDsi_SelfTest(XDsi *InstancePtr);
 void XDsi_SendShortPacket(XDsi *InstancePtr, XDsi_ShortPacket *ShortPacket);
+int XDsi_SendCmdModePkt(XDsi *InstancePtr, XDsiTx_CmdModePkt *CmdPkt);
+int XDsi_SetMode(XDsi *InstancePtr, XDsi_DsiModeType mode);
 void XDsi_GetConfigParams(XDsi *InstancePtr,
 		XDsi_ConfigParameters *ConfigInfo);
 s32 XDsi_SetVideoInterfaceTiming(XDsi *InstancePtr, XDsi_VideoMode VideoMode,

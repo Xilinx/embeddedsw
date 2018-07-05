@@ -15,14 +15,12 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+#
 #
 ###############################################################################
 #
@@ -33,12 +31,12 @@
 # 4.2     ms     04/18/17 Modified tcl file to add suffix U for all macros
 #                         definitions of bram in xparameters.h
 # 4.3	  aru    03/23/19 Added default CTRL_BASEADDRESS and CTRL_HIGHADDRESS
-#			  if it is not present for any instance
+#			  if it is not present for any instance 
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_P
 ##
-##  - Addded the generation of C_*E_FAILING_DATA_REGISTERS to the config structure
+##  - Added the generation of C_*E_FAILING_DATA_REGISTERS to the config structure
 ##    to distinguish between AXI BRAM and LMB BRAM. These registers are not present 
 ##    in the current common::version of the AXI BRAM Controller.
 ##
@@ -62,7 +60,7 @@ proc generate {drv_handle} {
 # and sort them in the following order: *BASE* *HIGH* *CTRL*BASE* *CTRL*HIGH*
 #
 proc find_addr_params {periph} {
-    set addr_params [::hsi::utils::find_addr_params $periph]
+    set addr_params [::hsi::utils::find_addr_params $periph]    
     global flag
     set flag 0
     set sorted_addr_params {}
@@ -368,7 +366,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                 puts $file_handle "#define $lvalue $rvalue$uSuffix"
             }
 	   if {$flag == 1} {
-		puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "CTRL_BASEADDR" ] 0xFFFFFFFF$uSuffix  "
+        	puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "CTRL_BASEADDR" ] 0xFFFFFFFF$uSuffix  "
 	        puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "CTRL_HIGHADDR" ] 0xFFFFFFFE$uSuffix  "
                 }
             puts $file_handle ""

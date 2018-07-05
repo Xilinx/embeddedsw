@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
@@ -53,6 +51,8 @@
 *			Put the device normal mode at the end of the example
 * 3.1	kvn		04/10/15 Added code to support Zynq Ultrascale+ MP.
 * 3.1   mus     01/14/16 Added support for intc interrupt controller
+* 3.8   adk     10/05/19 Don't update the DeviceId variable in peripheral test
+*			 app case.
 *
 * </pre>
 ****************************************************************************/
@@ -198,11 +198,13 @@ int UartPsIntrExample(INTC *IntcInstPtr, XUartPs *UartInstPtr,
 	u32 IntrMask;
 	int BadByteCount = 0;
 
+#ifndef TESTAPP_GEN
 	if (XGetPlatform_Info() == XPLAT_ZYNQ_ULTRA_MP) {
 #ifdef XPAR_XUARTPS_1_DEVICE_ID
 		DeviceId = XPAR_XUARTPS_1_DEVICE_ID;
 #endif
 	}
+#endif
 
 	/*
 	 * Initialize the UART driver so that it's ready to use

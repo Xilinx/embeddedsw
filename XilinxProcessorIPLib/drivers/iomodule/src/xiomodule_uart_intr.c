@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -380,7 +378,7 @@ unsigned int XIOModule_SendBuffer(XIOModule *InstancePtr)
 	    (InstancePtr->CurrentIER & 0xFFFFFFF8) | (IntrEnableStatus & 0x7));
 
 	/*
-	 * Return the number of bytes that were sent, althought they really were
+	 * Return the number of bytes that were sent, although they really were
 	 * only put into the FIFO, not completely sent yet
 	 */
 	return SentCount;
@@ -708,7 +706,7 @@ void XIOModule_Uart_DisableInterrupt(XIOModule *InstancePtr)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Write to the interupt enable register to disable the UART
+	 * Write to the interrupt enable register to disable the UART
 	 * interrupts.
 	 */
 	NewIER = InstancePtr->CurrentIER & 0xFFFFFFF8;

@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -65,7 +63,7 @@
  *
  * @param InstancePtr is the pointer to the DMA engine to work on
  * @param Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
- * @param IntrType is the bit mask for the interrups to be enabled
+ * @param IntrType is the bit mask for the interrupts to be enabled
  *
  * @return
  *  None
@@ -93,7 +91,7 @@ void XAxiVdma_IntrEnable(XAxiVdma *InstancePtr, u32 IntrType, u16 Direction)
  * Interrupts not specified by the mask will not be affected
  *
  * @param InstancePtr is the pointer to the DMA engine to work on
- * @param IntrType is the bit mask for the interrups to be disabled
+ * @param IntrType is the bit mask for the interrupts to be disabled
  * @param Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
  *
  * @return
@@ -159,7 +157,7 @@ u32 XAxiVdma_IntrGetPending(XAxiVdma *InstancePtr, u16 Direction)
  *
  * @param InstancePtr is the pointer to the DMA engine to work on
  * @param Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
- * @param IntrType is the bit mask for the interrups to be cleared
+ * @param IntrType is the bit mask for the interrupts to be cleared
  *
  * @return
  *  None

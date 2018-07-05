@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
  ******************************************************************************/
 
@@ -30,7 +28,7 @@
 /**
  *
  * @file xqspipsu.h
- * @addtogroup qspipsu_v1_9
+ * @addtogroup qspipsu_v1_10
  * @{
  * @details
  *
@@ -87,7 +85,7 @@
  * 1.0   hk  08/21/14 First release
  *       sk  03/13/15 Added IO mode support.
  *       hk  03/18/15 Switch to I/O mode before clearing RX FIFO.
- *                    Clear and disbale DMA interrupts/status in abort.
+ *                    Clear and disable DMA interrupts/status in abort.
  *                    Use DMA DONE bit instead of BUSY as recommended.
  *       sk  04/24/15 Modified the code according to MISRAC-2012.
  *       sk  06/17/15 Removed NULL checks for Rx/Tx buffers. As
@@ -159,10 +157,15 @@
  *
  * 1.9 akm 03/08/19 Set recommended clock and data tap delay values for 40MHZ,
  *                  100MHZ and 150MHZ frequencies(CR#1023187)
- * 1.9   akm 03/26/19 Fixed data alignment warnings on IAR compiler.
- * 1.9   akm 03/26/19 Fixed compilation error in XQspiPsu_LqspiRead()
+ * 1.9  nsk 03/27/19 Update 64bit dma support
+ *		     (CR#1018102).
+ * 1.9  akm 04/03/19 Fixed data alignment warnings on IAR compiler.
+ * 1.9  akm 04/03/19 Fixed compilation error in XQspiPsu_LqspiRead()
  *                     function on IAR compiler.
- * 1.9   akm 04/12/19 Fixed compilation error in XQspiPsu_LqspiRead() function.
+ * 1.10 sk  08/20/19 Fixed issues in poll timeout feature.
+ * 1.10 akm 08/22/19 Set recommended tap delay values for 37.5MHZ, 100MHZ and
+ *		     150MHZ frequencies in Versal.
+ * 1.10 akm 09/05/19 Added Multi Die Erase and Muti Die Read support.
  *
  * </pre>
  *
@@ -218,6 +221,7 @@ typedef struct {
 	u8 PollStatusCmd;
 	u8 PollBusMask;
 	u64 RxAddr64bit;
+	u8 Xfer64bit;
 } XQspiPsu_Msg;
 
 /**
@@ -338,6 +342,7 @@ typedef struct {
 #define XQSPIPSU_CONNECTION_MODE_PARALLEL	2U
 
 /*QSPI Frequencies*/
+#define XQSPIPSU_FREQ_37_5MHZ 37500000U
 #define XQSPIPSU_FREQ_40MHZ 40000000U
 #define XQSPIPSU_FREQ_100MHZ 100000000U
 #define XQSPIPSU_FREQ_150MHZ 150000000U

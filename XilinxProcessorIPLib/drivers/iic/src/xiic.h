@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -124,7 +122,7 @@
 * Addresses are represented as hex values with no adjustment for the data
 * direction bit as the software manages address bit placement. This is
 * especially important as the bit placement is not handled the same depending
-* on which options are used such as repeated start and 7 vs 10 bit addessing.
+* on which options are used such as repeated start and 7 vs 10 bit addressing.
 *
 * <b>Data Rates</b>
 *
@@ -162,7 +160,7 @@
 *   - Addressed As Slave
 *   - Not Addressed As Slave
 *
-* The following interrupts are not passed directly to the application thru the
+* The following interrupts are not passed directly to the application through the
 * status callback.  These are only used internally for the driver processing
 * and may result in the receive and send handlers being called to indicate
 * completion of an operation.  The following interrupts are data related
@@ -192,7 +190,7 @@
 * <b>Not Addressed As Slave Interrupt</b>
 *
 * The Not Addressed As Slave interrupt is not passed directly to the
-* application thru the status callback.  It is used to determine the end of
+* application through the status callback.  It is used to determine the end of
 * a message being received by a slave when there was no stop condition
 * (repeated start).  It will cause the receive handler to be called to
 * indicate completion of the operation.
@@ -261,7 +259,7 @@
 *		      using Addressed As Slave (AAS) bit when addressed as
 *		      slave in XIic_Send for CR565373.
 * 2.03a rkv  01/25/11 Updated in NAAS interrupt handler to support data
-*		      recieved less than FIFO size prior to NAAS interrupt.
+*		      received less than FIFO size prior to NAAS interrupt.
 *		      Fixed for CR590212.
 * 2.04a sdm  07/22/11 Added IsSlaveSetAckOff flag to the instance structure.
 *		      This flag is set when the Slave has set the Ack Off in the

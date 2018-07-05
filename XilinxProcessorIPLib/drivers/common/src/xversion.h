@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -38,7 +36,7 @@
 *
 * The version is formatted as X.YYZ where X = 0 - 9, Y = 00 - 99, Z = a - z
 * X is the major revision, YY is the minor revision, and Z is the
-* compatability revision.
+* compatibility revision.
 *
 * Packed versions are also utilized for the configuration ROM such that
 * memory is minimized. A packed version consumes only 16 bits and is
@@ -49,7 +47,7 @@
 *
 * Major Revision            0 - 9       Bits 15 - 12
 * Minor Revision            0 - 99      Bits 11 - 5
-* Compatability Revision    a - z       Bits 4 - 0
+* Compatibility Revision    a - z       Bits 4 - 0
 *
 * MODIFICATION HISTORY:
 *

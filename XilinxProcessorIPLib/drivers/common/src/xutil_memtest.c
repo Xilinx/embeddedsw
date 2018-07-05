@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -83,7 +81,7 @@ static u32 RotateRight(u32 Input, u8 Width);
 * Used for spaces where the address range of the region is smaller than
 * the data width. If the memory range is greater than 2 ** width,
 * the patterns used in XUT_WALKONES and XUT_WALKZEROS will repeat on a
-* boundry of a power of two making it more difficult to detect addressing
+* boundary of a power of two making it more difficult to detect addressing
 * errors. The XUT_INCREMENT and XUT_INVERSEADDR tests suffer the same
 * problem. Ideally, if large blocks of memory are to be tested, break
 * them up into smaller regions of memory to allow the test patterns used
@@ -418,7 +416,7 @@ int XUtil_MemoryTest32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 * Used for spaces where the address range of the region is smaller than
 * the data width. If the memory range is greater than 2 ** width,
 * the patterns used in XUT_WALKONES and XUT_WALKZEROS will repeat on a
-* boundry of a power of two making it more difficult to detect addressing
+* boundary of a power of two making it more difficult to detect addressing
 * errors. The XUT_INCREMENT and XUT_INVERSEADDR tests suffer the same
 * problem. Ideally, if large blocks of memory are to be tested, break
 * them up into smaller regions of memory to allow the test patterns used
@@ -757,7 +755,7 @@ int XUtil_MemoryTest16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 * Used for spaces where the address range of the region is smaller than
 * the data width. If the memory range is greater than 2 ** width,
 * the patterns used in XUT_WALKONES and XUT_WALKZEROS will repeat on a
-* boundry of a power of two making it more difficult to detect addressing
+* boundary of a power of two making it more difficult to detect addressing
 * errors. The XUT_INCREMENT and XUT_INVERSEADDR tests suffer the same
 * problem. Ideally, if large blocks of memory are to be tested, break
 * them up into smaller regions of memory to allow the test patterns used

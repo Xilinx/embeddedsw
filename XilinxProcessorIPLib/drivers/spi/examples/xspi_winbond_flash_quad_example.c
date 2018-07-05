@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -139,7 +137,7 @@
 /*
  * The following definitions specify the number of dummy bytes to ignore in the
  * data read from the flash, through various Read commands. This is apart from
- * the dummy bytes returned in reponse to the command and address transmitted.
+ * the dummy bytes returned in response to the command and address transmitted.
  */
 /*
  * After transmitting Dual Read command and address on DIO0, the quad spi device
@@ -308,7 +306,7 @@ int main(void)
 
 	/*
 	 * Set the Quad Enable (QE) bit in the flash device, so that Quad
-	 * operations can be perfomed on the flash.
+	 * operations can be performed on the flash.
 	 */
 	Status = SpiFlashQuadEnable(&Spi);
 	if (Status != XST_SUCCESS) {
@@ -1157,7 +1155,7 @@ static int SetupInterruptSystem(XSpi *SpiPtr)
 	/*
 	 * Start the interrupt controller such that interrupts are enabled for
 	 * all devices that cause interrupts, specific real mode so that
-	 * the SPI can cause interrupts thru the interrupt controller.
+	 * the SPI can cause interrupts through the interrupt controller.
 	 */
 	Status = XIntc_Start(&InterruptController, XIN_REAL_MODE);
 	if(Status != XST_SUCCESS) {

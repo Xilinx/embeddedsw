@@ -15,20 +15,18 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 * @file xgpio.c
-* @addtogroup gpio_v4_4
+* @addtogroup gpio_v4_5
 * @{
 *
 * The implementation of the XGpio driver's basic functionality. See xgpio.h
@@ -109,7 +107,7 @@
 *		address instead.
 *
 * @return
-* 		- XST_SUCCESS if the initialization is successfull.
+* 		- XST_SUCCESS if the initialization is successful.
 *
 * @note		None.
 *
@@ -197,7 +195,7 @@ u32 XGpio_GetDataDirection(XGpio *InstancePtr, unsigned Channel)
 
 /****************************************************************************/
 /**
-* Read state of discretes for the specified GPIO channnel.
+* Read state of discretes for the specified GPIO channel.
 *
 * @param	InstancePtr is a pointer to an XGpio instance to be worked on.
 * @param	Channel contains the channel of the GPIO (1 or 2) to operate on.

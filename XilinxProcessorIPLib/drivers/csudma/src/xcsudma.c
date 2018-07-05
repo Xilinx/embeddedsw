@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -30,7 +28,7 @@
 /**
 *
 * @file xcsudma.c
-* @addtogroup csudma_v1_4
+* @addtogroup csudma_v1_5
 * @{
 *
 * This file contains the implementation of the interface functions for CSU_DMA
@@ -49,6 +47,8 @@
 *			 PMU Microblaze platform.
 *		Rama	02/26/19 Fixed IAR issue by changing
 *						 "XCsuDma_WaitForDoneTimeout" to function
+*       arc     03/26/19 Fixed MISRA-C violations.
+* 1.5   aru     07/05/19 Fixed coverity warning.
 * </pre>
 *
 ******************************************************************************/
@@ -100,7 +100,7 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 						sizeof(XCsuDma_Config));
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
-	if (InstancePtr->Config.DmaType == XCSUDMA_DMATYPEIS_CSUDMA) {
+	if (InstancePtr->Config.DmaType == (u8)XCSUDMA_DMATYPEIS_CSUDMA) {
 		/* Reset CSUDMA */
 		XCsuDma_Reset();
 	}
@@ -144,6 +144,7 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 					UINTPTR Addr, u32 Size, u8 EnDataLast)
 {
+	u64 LocalAddr = (u64)Addr;
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(((Addr) & (u64)(XCSUDMA_ADDR_LSB_MASK)) == (u64)0x00);
@@ -174,9 +175,9 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 				((u32)(Addr) & (u32)(XCSUDMA_ADDR_MASK)));
 
 	XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
-		((u32)(XCSUDMA_ADDR_MSB_OFFSET) +
-			((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))),
-			((u32)((Addr & ULONG64_HI_MASK) >> XCSUDMA_MSB_ADDR_SHIFT) &
+		(u32)(XCSUDMA_ADDR_MSB_OFFSET +
+			((u32)Channel * XCSUDMA_OFFSET_DIFF)),
+			((u32)((LocalAddr & ULONG64_HI_MASK) >> XCSUDMA_MSB_ADDR_SHIFT) &
 					(u32)(XCSUDMA_MSB_ADDR_MASK)));
 
 	if (EnDataLast == (u8)(XCSUDMA_LAST_WORD_MASK)) {
@@ -297,7 +298,7 @@ u64 XCsuDma_GetAddr(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 	Xil_AssertNonvoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
 					(Channel == (XCSUDMA_DST_CHANNEL)));
 
-	FullAddr = XCsuDma_ReadReg(InstancePtr->Config.BaseAddress,
+	FullAddr = (u64)XCsuDma_ReadReg(InstancePtr->Config.BaseAddress,
 				((u32)(XCSUDMA_ADDR_OFFSET) +
 			((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))));
 
@@ -370,6 +371,8 @@ u32 XCsuDma_GetSize(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 void XCsuDma_Pause(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 						XCsuDma_PauseType Type)
 {
+	u32 CsuDmaChannel = (u32)Channel;
+
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((Type == (XCSUDMA_PAUSE_MEMORY)) ||
@@ -381,20 +384,20 @@ void XCsuDma_Pause(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	/* Pause Memory Read/Write/Stream operations */
 	if (Type == (XCSUDMA_PAUSE_MEMORY)) {
 		XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
-			((u32)(XCSUDMA_CTRL_OFFSET) +
-				((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))),
+			((XCSUDMA_CTRL_OFFSET) +
+				(u32)(CsuDmaChannel * XCSUDMA_OFFSET_DIFF)),
 			(XCsuDma_ReadReg(InstancePtr->Config.BaseAddress,
-				((u32)(XCSUDMA_CTRL_OFFSET) +
-				((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF)))) |
+				((XCSUDMA_CTRL_OFFSET) +
+				(u32)(CsuDmaChannel * XCSUDMA_OFFSET_DIFF))) |
 					(u32)(XCSUDMA_CTRL_PAUSE_MEM_MASK)));
 	}
 	if (Type == (XCSUDMA_PAUSE_STREAM)) {
 		XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
-			((u32)(XCSUDMA_CTRL_OFFSET) +
-				((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))),
+			(XCSUDMA_CTRL_OFFSET +
+				(u32)(CsuDmaChannel * XCSUDMA_OFFSET_DIFF)),
 			(XCsuDma_ReadReg(InstancePtr->Config.BaseAddress,
-				((u32)(XCSUDMA_CTRL_OFFSET) +
-				(Channel * (u32)XCSUDMA_OFFSET_DIFF))) |
+				(XCSUDMA_CTRL_OFFSET +
+				(u32)(CsuDmaChannel * XCSUDMA_OFFSET_DIFF))) |
 				(u32)(XCSUDMA_CTRL_PAUSE_STRM_MASK)));
 	}
 }
@@ -711,13 +714,13 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 				(Channel == (XCSUDMA_DST_CHANNEL)));
 	Xil_AssertVoid(XCsuDma_IsBusy(InstancePtr, Channel) != (s32)(TRUE));
 
-	Data = (((ConfigurValues->EndianType <<
+	Data = ((((u32)(ConfigurValues->EndianType) <<
 			(u32)(XCSUDMA_CTRL_ENDIAN_SHIFT)) &
 			(u32)(XCSUDMA_CTRL_ENDIAN_MASK)) |
-		((ConfigurValues->ApbErr <<
+		(((u32)(ConfigurValues->ApbErr) <<
 			(u32)(XCSUDMA_CTRL_APB_ERR_SHIFT)) &
 			(u32)(XCSUDMA_CTRL_APB_ERR_MASK)) |
-		((ConfigurValues->AxiBurstType <<
+		(((u32)(ConfigurValues->AxiBurstType) <<
 			(u32)(XCSUDMA_CTRL_BURST_SHIFT)) &
 			(u32)(XCSUDMA_CTRL_BURST_MASK)) |
 		((ConfigurValues->TimeoutValue <<
@@ -727,7 +730,7 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 			(u32)(XCSUDMA_CTRL_FIFO_THRESH_SHIFT)) &
 			(u32)(XCSUDMA_CTRL_FIFO_THRESH_MASK)));
 	if(Channel == XCSUDMA_DST_CHANNEL) {
-		Data = Data | (u32)((ConfigurValues->SssFifoThesh <<
+		Data = Data | (u32)(((u32)(ConfigurValues->SssFifoThesh) <<
 				(u32)(XCSUDMA_CTRL_SSS_FIFOTHRESH_SHIFT)) &
 				(u32)(XCSUDMA_CTRL_SSS_FIFOTHRESH_MASK));
 	}
@@ -740,13 +743,13 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 			((u32)(XCSUDMA_CTRL2_OFFSET) +
 			((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF)))) &
 				(u32)(XCSUDMA_CTRL2_RESERVED_MASK));
-	Data |= (((ConfigurValues->Acache <<
+	Data |= ((((u32)(ConfigurValues->Acache) <<
 			(u32)(XCSUDMA_CTRL2_ACACHE_SHIFT)) &
 			(u32)(XCSUDMA_CTRL2_ACACHE_MASK)) |
-		((ConfigurValues->RouteBit <<
+		(((u32)(ConfigurValues->RouteBit) <<
 			(u32)(XCSUDMA_CTRL2_ROUTE_SHIFT)) &
 			(u32)(XCSUDMA_CTRL2_ROUTE_MASK)) |
-		((ConfigurValues->TimeoutEn <<
+		(((u32)(ConfigurValues->TimeoutEn) <<
 			(u32)(XCSUDMA_CTRL2_TIMEOUT_EN_SHIFT)) &
 			(u32)(XCSUDMA_CTRL2_TIMEOUT_EN_MASK)) |
 		((ConfigurValues->TimeoutPre <<

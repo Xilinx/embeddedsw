@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -1123,8 +1121,10 @@ int XV_HdmiTx_SelfTest(XV_HdmiTx *InstancePtr);
 
 /* Interrupt related functions in xv_hdmitx_intr.c */
 void XV_HdmiTx_IntrHandler(void *InstancePtr);
-int XV_HdmiTx_SetCallback(XV_HdmiTx *InstancePtr, u32 HandlerType,
-    void *CallbackFunc, void *CallbackRef);
+int XV_HdmiTx_SetCallback(XV_HdmiTx *InstancePtr,
+		XV_HdmiTx_HandlerType HandlerType,
+		void *CallbackFunc,
+		void *CallbackRef);
 
 
 /* Vendor Specific Information related functions in xv_hdmitx_vsif.c */

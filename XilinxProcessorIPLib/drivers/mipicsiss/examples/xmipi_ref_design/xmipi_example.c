@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
  *****************************************************************************/
 /*****************************************************************************/
@@ -177,6 +175,8 @@ void XV_ConfigTpg(XV_tpg *InstancePtr);
 void ResetTpg(void);
 
 extern void EnableDSI();
+extern void Shutdown_DSI();
+extern void Reconfigure_DSI();
 
 /*****************************************************************************/
 /**
@@ -701,8 +701,8 @@ void EnableColorBar(XVphy *VphyPtr, XV_HdmiTxSs *HdmiTxSsPtr,
 	 * In this case the TX only color bar can't be displayed
 	 */
 	if (XVphy_IsBonded(VphyPtr, 0, XVPHY_CHANNEL_ID_CH1)) {
-		xil_printf("Both the GT RX and GT TX are clocked by the RX reference clock.\n\r");
-		xil_printf("Please connect a source to the RX input\n\r");
+xil_printf("Both GT RX and GT TX are clocked by the RX reference clock.\n\r");
+xil_printf("Please connect a source to the RX input\n\r");
 	}
 
 	/* Independent TX reference clock */
@@ -868,7 +868,8 @@ int main(void)
 	xil_printf("--------------------------------------------------\r\n");
 	xil_printf(TXT_RST);
 
-	xil_printf("Please answer the following questions about the hardware setup.\r\n");
+xil_printf("Please answer the following questions about the hardware setup.");
+xil_printf("\r\n");
 
 	do {
 		xil_printf("Is the camera sensor connected? (Y/N)\r\n");
@@ -1239,6 +1240,7 @@ int main(void)
 				Pipeline_Cfg.VideoDestn = XVIDDES_HDMI;
 
 				/* Make Video Scaler TREADY High */
+				Shutdown_DSI();
 				SelectHDMIOutput();
 			}
 
@@ -1248,6 +1250,7 @@ int main(void)
 
 				/* Make TREADY of HDMI as high */
 				SelectDSIOuptut();
+				Reconfigure_DSI();
 			}
 
 			PrintPipeConfig();

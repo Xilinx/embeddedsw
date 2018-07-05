@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
@@ -48,7 +46,7 @@
 * - EmacPsErrorHandler() demonstrates how to manage asynchronous errors.
 *
 * - EmacPsResetDevice() demonstrates how to reset the driver/HW without
-*   loosing all configuration settings.
+*   losing all configuration settings.
 *
 *
 * <pre>
@@ -114,12 +112,17 @@
 *                   ensure that "Successfully ran" and "Failed" strings
 *                   are available in all examples. This is a fix for
 *                   CR-965028.
-* 3.5 hk    08/14/17 Dont perform data cache operations when CCI is enabled
+* 3.5 hk    08/14/17 Don't perform data cache operations when CCI is enabled
 *                    on ZynqMP.
 * 3.8 hk    10/01/18 Fix warning for redefinition of interrupt number.
 * 3.9 hk    02/12/19 Change MDC divisor for Versal emulation.
 *           03/06/19 Fix BD space assignment and its memory attributes.
 *           03/20/19 Fix alignment pragmas for IAR compiler.
+* 3.10 hk   05/17/19 Use correct platform register for Versal.
+*           08/12/19 Add clock setup support for Versal.
+*           14/08/19 Move definition of Platform to _util file for common use.
+*           08/24/19 Add support for clock configuration in EL1 Non Secure for
+*                    Versal.
 *
 * </pre>
 *
@@ -131,6 +134,10 @@
 
 #ifndef __MICROBLAZE__
 #include "xil_mmu.h"
+#endif
+
+#if EL1_NONSECURE
+#include "xil_smc.h"
 #endif
 /*************************** Constant Definitions ***************************/
 
@@ -197,9 +204,18 @@
 #define CRL_GEM_1G_DIV0		0x00000C00
 #define CRL_GEM_1G_DIV1		0x00010000
 
+#ifdef XPAR_PSV_CRL_0_S_AXI_BASEADDR
+#define CRL_GEM0_REF_CTRL	(XPAR_PSV_CRL_0_S_AXI_BASEADDR + 0x118)
+#define CRL_GEM1_REF_CTRL	(XPAR_PSV_CRL_0_S_AXI_BASEADDR + 0x11C)
+#endif
+
+#define CRL_GEM_DIV_VERSAL_MASK		0x0003FF00
+#define CRL_GEM_DIV_VERSAL_SHIFT	8
+
 #define JUMBO_FRAME_SIZE	10240
 #define FRAME_HDR_SIZE		18
 
+#define GEMVERSION_ZYNQMP	0x7
 #define GEMVERSION_VERSAL	0x107
 
 /*************************** Variable Definitions ***************************/
@@ -276,7 +292,6 @@ XEmacPs_Bd BdRxTerminate __attribute__ ((aligned(64)));
 #endif
 
 u32 GemVersion;
-u32 Platform;
 
 /*************************** Function Prototypes ****************************/
 
@@ -382,6 +397,19 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	/* Setup device for first-time usage */
 	/*************************************/
 
+#if EL1_NONSECURE
+	/* Request device to indicate it is in use by this application */
+#ifdef XPAR_PSV_ETHERNET_0_DEVICE_ID
+	if (EmacPsIntrId == XPS_GEM0_INT_ID) {
+		Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, DEV_GEM_0, 1, 0, 100, 1, 0, 0);
+	}
+#endif
+#ifdef XPAR_PSV_ETHERNET_1_DEVICE_ID
+	if (EmacPsIntrId == XPS_GEM1_INT_ID) {
+		Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, DEV_GEM_1, 1, 0, 100, 1, 0, 0);
+	}
+#endif
+#endif
 
 	/*
 	 *  Initialize instance. Should be configured for DMA
@@ -402,7 +430,7 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	GemVersion = ((Xil_In32(Config->BaseAddress + 0xFC)) >> 16) & 0xFFF;
 
 	if (GemVersion == GEMVERSION_VERSAL) {
-		Platform = PLATFORM_VERSALEMU;
+		Platform = Xil_In32(VERSAL_VERSION);
 	} else if (GemVersion > 2) {
 		Platform = Xil_In32(CSU_VERSION);
 	}
@@ -549,7 +577,7 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	{
 		/*
 		 * This version of GEM supports priority queuing and the current
-		 * dirver is using tx priority queue 1 and normal rx queue for
+		 * driver is using tx priority queue 1 and normal rx queue for
 		 * packet transmit and receive. The below code ensure that the
 		 * other queue pointers are parked to known state for avoiding
 		 * the controller to malfunction by fetching the descriptors
@@ -582,13 +610,14 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	}
 	else
 	{
-		if ((Platform & PLATFORM_MASK) == PLATFORM_VERSALEMU) {
+		if ((Platform & PLATFORM_MASK_VERSAL) == PLATFORM_VERSALEMU) {
 			XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_8);
 		} else {
 			XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
 		}
 
-		if ((Platform & PLATFORM_MASK) == PLATFORM_SILICON) {
+		if (((Platform & PLATFORM_MASK) == PLATFORM_SILICON) ||
+			((Platform & PLATFORM_MASK_VERSAL) == PLATFORM_VERSALSIL)) {
 			EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
 			XEmacPs_SetOperatingSpeed(EmacPsInstancePtr,EMACPS_LOOPBACK_SPEED_1G);
 		} else {
@@ -1425,7 +1454,7 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 	#endif
 	}
 
-	if ((GemVersion > 2) && ((Platform & PLATFORM_MASK) == PLATFORM_SILICON)) {
+	if ((GemVersion == GEMVERSION_ZYNQMP) && ((Platform & PLATFORM_MASK) == PLATFORM_SILICON)) {
 
 #ifdef XPAR_PSU_CRL_APB_S_AXI_BASEADDR
 #ifdef XPAR_PSU_ETHERNET_0_DEVICE_ID
@@ -1478,6 +1507,39 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 			ClkCntrl |= CRL_GEM_1G_DIV0;
 			*(volatile unsigned int *)(CRL_GEM3_REF_CTRL) =
 									ClkCntrl;
+		}
+#endif
+#endif
+	}
+	if ((GemVersion == GEMVERSION_VERSAL) &&
+		((Platform & PLATFORM_MASK_VERSAL) == PLATFORM_VERSALSIL)) {
+
+#ifdef XPAR_PSV_CRL_0_S_AXI_BASEADDR
+#ifdef XPAR_PSV_ETHERNET_0_DEVICE_ID
+		if (EmacPsIntrId == XPS_GEM0_INT_ID) {
+			/* GEM0 1G clock configuration*/
+#if EL1_NONSECURE
+			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)XPAR_PSV_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0 << 32) | CLK_GEM0_REF), 0, 0, 0, 0, 0, 0);
+#else
+			ClkCntrl = Xil_In32((UINTPTR)CRL_GEM0_REF_CTRL);
+			ClkCntrl &= ~CRL_GEM_DIV_VERSAL_MASK;
+			ClkCntrl |= XPAR_PSV_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0 << CRL_GEM_DIV_VERSAL_SHIFT;
+			Xil_Out32((UINTPTR)CRL_GEM0_REF_CTRL, ClkCntrl);
+#endif
+		}
+#endif
+#ifdef XPAR_PSV_ETHERNET_1_DEVICE_ID
+		if (EmacPsIntrId == XPS_GEM1_INT_ID) {
+
+			/* GEM1 1G clock configuration*/
+#if EL1_NONSECURE
+			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)XPAR_PSV_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0 << 32) | CLK_GEM1_REF), 0, 0, 0, 0, 0, 0);
+#else
+			ClkCntrl = Xil_In32((UINTPTR)CRL_GEM1_REF_CTRL);
+			ClkCntrl &= ~CRL_GEM_DIV_VERSAL_MASK;
+			ClkCntrl |= XPAR_PSV_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0 << CRL_GEM_DIV_VERSAL_SHIFT;
+			Xil_Out32((UINTPTR)CRL_GEM1_REF_CTRL, ClkCntrl);
+#endif
 		}
 #endif
 #endif

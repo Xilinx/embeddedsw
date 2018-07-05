@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xwdttb.h
-* @addtogroup wdttb_v4_4
+* @addtogroup wdttb_v4_5
 * @{
 * @details
 *
@@ -163,13 +161,23 @@
 *                     No brackets to then/else,
 *                     Literal value requires a U suffix,Function return
 *                     type inconsistent,Logical conjunctions need brackets,
-*                     Declared the poiner param as Pointer to const,
+*                     Declared the pointer param as Pointer to const,
 *                     Procedure has more than one exit point.
 * 4.4   sne  03/04/19 Added support for Versal ( Generic Watchdog and
 *                     Window Watchdog timer).
 *                     Added following functions:
 *                     XWdtTb_IsGenericWdtFWExpired, XWdtTb_SetSSTWindow
 *                     XWdtTb_SetGenericWdtWindow.
+* 4.5   nsk  08/07/19 Updated testapp tcl to generate polled mode
+*                     example, when Wdttb interrupt pin is not connected
+*                     CR# 1035919.
+* 4.5   nsk  08/07/19 Fixed the warnings while generating test app
+* 4.5   sne  06/25/19 Fixed Coverity warning.
+* 4.5   sne  09/27/19 Updated Tcl file for WWDT & AXI Timebase WDT IP.
+*		      Updated driver to support for WWDT and AXI Timebase WDT.
+*		      While accessing AXI Timebase WDT appending "C" to base
+*		      address for getting AXI Watchdog offsets.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -210,11 +218,10 @@ typedef enum {
 typedef struct {
 	u16 DeviceId;		/**< Unique ID of the device */
 	UINTPTR BaseAddr;	/**< Base address of the device */
-#ifndef versal
 	u32 EnableWinWdt;	/**< Flag for Window WDT enable */
 	u32 MaxCountWidth;	/**< Maximum width of first timer */
 	u32 SstCountWidth;	/**< Maximum width of Second Sequence Timer */
-#endif
+	u32 IsPl;		/**< IsPl, 1= AXI Timebase ,0= WWDT  */
 } XWdtTb_Config;
 
 /**
@@ -452,6 +459,7 @@ static inline u32 XWdtTb_IsWrongCfg(const XWdtTb *InstancePtr)
 	return ((XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET) &
 		XWT_ESR_WCFG_MASK) >> XWT_ESR_WCFG_SHIFT);
 }
+
 /*****************************************************************************/
 /**
 *
@@ -482,14 +490,13 @@ static inline void XWdtTb_SetSSTWindow(const XWdtTb *InstancePtr, u32 SST_window
         XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_SSTWR_OFFSET,SST_window_config);
 }
 
-
 /************************** Function Prototypes ******************************/
 
 /*
  * Required functions in xwdttb.c
  */
  s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
-				u32 EffectiveAddr);
+				UINTPTR EffectiveAddr);
 
 s32 XWdtTb_Initialize(XWdtTb *InstancePtr, u16 DeviceId);
 

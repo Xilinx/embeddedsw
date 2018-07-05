@@ -15,14 +15,12 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+#
 #
 ###############################################################################
 ##############################################################################
@@ -55,7 +53,7 @@
 # 3.8   mus  05/25/17 Updated proc xdefine_gic_params to declare "valid_periph"
 #                     variable at start of the proc, to avoid the tcl errors
 #                     in case of unsupported processor.It fixes CR#976861
-# 3.8   mus  07/05/17 Added support for intrrupts connected through
+# 3.8   mus  07/05/17 Added support for interrupts connected through
 #                     util_reduced_vector IP(OR gate).
 # 3.8   mus  07/05/17 Updated xdefine_zynq_canonical_xpars proc to initialize
 #                     the HandlerTable in XScuGic_ConfigTable to 0, it removes
@@ -79,6 +77,15 @@
 #                     computation for vectored interrupts. It fixes CR#998583
 # 4.0   mus  04/15/19 Updated get_concat_number proc to avoid executing
 #                     get_pins command twice. It fixes CR#1028356
+# 4.1   mus  04/09/19 Add pl-ps interrupt id generation support for versal
+# 4.1   mus  06/20/19 Updated get_concat_number proc to check if
+#                     common::get_property LEFT is returning empty. It
+#                     fixes CR#1033637.
+# 4.1   mus  07/09/19 Unlike ZynqMP, Versal doesnt have IRQ0_F2P/IRQ01_F2P
+#                     ports and interrupt source from PL can be directly
+#                     connected to the pl_ps_irq0, pl_ps_irq1...pl_ps_irq15
+#                     pins. Updated get_psu_interrupt_id proc to generate correct
+#                     pl-ps interrupt IDs for Versal. It fixes CR#1017942
 #
 ##############################################################################
 
@@ -540,7 +547,7 @@ proc xdefine_gic_params {drvhandle} {
                 set source_name_temp [common::get_property NAME $source_periph_temp]
                 for {set count 0} {$count < $i} {incr count} {
                     if {([string compare -nocase $source_name_temp $source_name($count)] == 0) &&  ([string compare -nocase $source_port_name($count) $source_port_name_temp ] == 0)} {
-                        #IP name and correponding interrupt pair has been already detected
+                        #IP name and corresponding interrupt pair has been already detected
 			set is_ip_port_detected 1
                     }
 		}
@@ -786,12 +793,56 @@ proc get_concat_number {ip pin} {
 		if {[llength $offset] > 1} {
 			set offset [lindex $offset 0]
 		}
-		set temp [expr {$offset +1}]
-		set number [expr {$number + $temp}]
+		if {[llength $offset] != 0} {
+			set temp [expr {$offset +1}]
+			set number [expr {$number + $temp}]
+		}
 
 	}
 	return $number
 }
+
+###################################################################
+#
+# Get interrupt ID for Versal pl-ps interrupts
+#
+###################################################################
+proc get_psv_interrupt_id { sink_pin } {
+    if {[string compare -nocase "$sink_pin" "pl_ps_irq0"] == 0 } {
+        return 84
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq1"] == 0 } {
+        return 85
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq2"] == 0 } {
+        return 86
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq3"] == 0 } {
+        return 87
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq4"] == 0 } {
+        return 88
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq5"] == 0 } {
+        return 89
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq6"] == 0 } {
+        return 90
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq7"] == 0 } {
+        return 91
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq8"] == 0 } {
+        return 92
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq9"] == 0 } {
+        return 93
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq10"] == 0 } {
+        return 94
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq11"] == 0 } {
+        return 95
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq12"] == 0 } {
+        return 96
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq13"] == 0 } {
+        return 97
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq14"] == 0 } {
+        return 98
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq15"] == 0 } {
+        return 99
+    }
+}
+
 ###################################################################
 #
 # Get interrupt ID for zynqmpsoc
@@ -807,6 +858,7 @@ proc get_psu_interrupt_id { ip_name port_name } {
     global pl_ps_irq0
     global or_id
     global or_cnt
+    set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
 
     if { [llength $port_name] == 0 } {
         return $ret
@@ -936,9 +988,17 @@ proc get_psu_interrupt_id { ip_name port_name } {
 	}
 
     }
-
-    set intr_list_irq0 [list 89 90 91 92 93 94 95 96]
-    set intr_list_irq1 [list 104 105 106 107 108 109 110 111]
+    if {[llength $is_versal] == 0} {
+        set irq0_base 89
+        set irq1_base 104
+        set intr_list_irq0 [list 89 90 91 92 93 94 95 96]
+        set intr_list_irq1 [list 104 105 106 107 108 109 110 111]
+    } else {
+        set irq0_base 84
+        set irq1_base 92
+        set intr_list_irq0 [list 84 85 86 87 88 89 90 91]
+        set intr_list_irq1 [list 92 93 94 95 96 97 98 99]
+    }
     set sink_pins [::hsi::utils::get_sink_pins $intr_pin]
     if { [llength $sink_pins] == 0 } {
         return
@@ -971,6 +1031,11 @@ proc get_psu_interrupt_id { ip_name port_name } {
                         set is_pl_ps_irq1 1
                     } elseif {[string compare -nocase "$sink_pin" "op1"] == 0 } {
                         set is_or_gate 1
+                    } elseif {[llength $is_versal] != 0} {
+                        set port_intr_id [get_psv_interrupt_id $sink_pin]
+                        if {[llength $port_intr_id] != 0} {
+                            return $port_intr_id
+                        }
                     }
                 }
                 if { $is_pl_ps_irq0 == 1 || $is_pl_ps_irq1 == 1 || $is_or_gate == 1 } {
@@ -991,6 +1056,11 @@ proc get_psu_interrupt_id { ip_name port_name } {
                       set is_pl_ps_irq0 1
                  } elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
                        set is_pl_ps_irq1 1
+                 } elseif {[llength $is_versal] != 0 } {
+                        set port_intr_id [get_psv_interrupt_id $sink_pin]
+                        if {[llength $port_intr_id] != 0} {
+                            return $port_intr_id
+                        }
                  }
 
         }
@@ -1039,7 +1109,7 @@ proc get_psu_interrupt_id { ip_name port_name } {
                     if {$concat_block == "0"} {
                         return [lindex $intr_list_irq1 $irqval]
                     } else {
-                        set ret [expr 104 + [expr {$number + $vec}]]
+                        set ret [expr $irq1_base + [expr {$number + $vec}]]
                         lappend result $ret
                     }
 	        }
@@ -1052,7 +1122,7 @@ proc get_psu_interrupt_id { ip_name port_name } {
 		    if {$concat_block == "0"} {
                         return [lindex $intr_list_irq0 $irqval]
                     } else {
-                        set ret [expr 89 + [expr {$number + $vec}]]
+                        set ret [expr $irq0_base + [expr {$number + $vec}]]
                         lappend result $ret
                     }
                 }
@@ -1062,7 +1132,7 @@ proc get_psu_interrupt_id { ip_name port_name } {
            return $result
        }
     }
-    set port_width [get_port_width $intr_pin]
+    set port_width [::hsi::utils::get_port_width $intr_pin]
     set id $ret
     for {set i 1 } { $i < $port_width } { incr i } {
        lappend ret [expr $id + 1]

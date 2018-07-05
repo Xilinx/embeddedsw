@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xttcps.h
-* @addtogroup ttcps_v3_8
+* @addtogroup ttcps_v3_10
 * @{
 * @details
 *
@@ -70,13 +68,79 @@
 * Interrupt handler is not provided by the driver, as handling of interrupt
 * is application specific.
 *
-* @note
-* The default setting for a timer/counter is:
-*  - Overflow Mode
-*  - Internal clock (pclk) selected
-*  - Counter disabled
-*  - All Interrupts disabled
-*  - Output waveforms disabled
+* <b>stack usage(in bytes)</b>
+*
+* 	XTtcPs_LookupConfig : 32
+* 	XTtcPs_CfgInitialize : 80
+* 	XTtcPs_SetMatchValue : 32
+* 	XTtcPs_GetMatchValue : 48
+* 	XTtcPs_SetPrescaler : 48
+* 	XTtcPs_GetPrescaler : 48
+* 	XTtcPs_CalcIntervalFromFreq : 48
+* 	XTtcPs_SetOptions : 48
+* 	XTtcPs_GetOptions : 48
+* 	XTtcPs_SelfTest : 48
+* 	XTtcPs_InterruptHandler : 48
+* 	XTtcPs_SetStatusHandler : 48
+*
+* <b>Memory foot-print(in bytes)</b>
+*
+* 	XTtcPs_LookupConfig : 72
+* 	XTtcPs_CfgInitialize : 304
+* 	XTtcPs_SetMatchValue : 168
+* 	XTtcPs_GetMatchValue : 176
+* 	XTtcPs_SetPrescaler : 172
+* 	XTtcPs_GetPrescaler : 152
+* 	XTtcPs_CalcIntervalFromFreq : 228
+* 	XTtcPs_SetOptions : 424
+* 	XTtcPs_GetOptions : 200
+* 	XTtcPs_SelfTest : 148
+* 	XTtcPs_InterruptHandler : 88
+* 	XTtcPs_SetStatusHandler : 140
+*
+* <b>Execution Time(in usec)</b>
+*
+* 	XTtcPs_LookupConfig : 8.31
+* 	TtcPs_CfgInitialize : 1.30
+* 	XTtcPs_SetMatchValue : 1.10
+* 	XTtcPs_GetMatchValue : 1.00
+* 	XTtcPs_SetPrescaler : 1.09
+* 	XTtcPs_GetPrescaler : 1.00
+* 	XTtcPs_CalcIntervalFromFreq : 1.29
+* 	XTtcPs_SetOptions: 1.91
+* 	XTtcPs_GetOptions: 2.55
+* 	XTtcPs_SelfTest: .85
+*
+* <b>Assumptions of Use</b>
+
+* 	1.The default setting for a timer/counter is:
+* 	 - Overflow Mode
+* 	 - Internal clock (pclk) selected
+* 	 - Counter disabled
+* 	 - All Interrupts disabled
+* 	 - Output waveforms disabled
+*
+* <b>Compiler Name</b>
+*
+*	gcc
+*
+* <b>Compiler version</b>
+*
+*	8.2.0
+*
+* <b>Compiler options</b>
+*
+* 	-DARMR5 -Wall -O0 -g3 -c -fmessage-length=0 -MT"$@" -mcpu=cortex-r5 -mfloat-abi=hard  -mfpu=vfpv3-d16 -I<include_path>
+* 	-Wall -O0 -g3 -c -fmessage-length=0 -MT"$@" -mcpu=cortex-a72 -I<include_path>
+* 	-Wall -O0 -g3 -c -fmessage-length=0 -MT"$@" -I<include_path>
+*
+* <b>User Defined data types</b>
+*
+* 	u8	1 byte
+* 	u16	2 bytes
+* 	u32	4 bytes / 1 word
+* 	u64	8 bytes / double word
+*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -115,6 +179,10 @@ extern "C" {
 
 #include "xttcps_hw.h"
 #include "xstatus.h"
+
+/*****************************************************************************/
+typedef void (*XTtcPs_StatusHandler) (const void *CallBackRef, u32 StatusEvent);
+
 
 /************************** Constant Definitions *****************************/
 
@@ -164,6 +232,8 @@ typedef struct {
 typedef struct {
 	XTtcPs_Config Config;	/**< Configuration structure */
 	u32 IsReady;		/**< Device is initialized and ready */
+	XTtcPs_StatusHandler StatusHandler;
+	void *StatusRef;	/**< Callback reference for status handler */
 } XTtcPs;
 
 /**
@@ -454,6 +524,9 @@ u32 XTtcPs_GetOptions(XTtcPs *InstancePtr);
  * Function for self-test, in file xttcps_selftest.c
  */
 s32 XTtcPs_SelfTest(XTtcPs *InstancePtr);
+u32 XTtcPs_InterruptHandler(XTtcPs *InstancePtr);
+void XTtcPs_SetStatusHandler(XTtcPs *InstancePtr, void *CallBackRef,
+		XTtcPs_StatusHandler FuncPointer);
 
 #ifdef __cplusplus
 }

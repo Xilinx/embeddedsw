@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -53,6 +51,7 @@
 *                     Calling XWdtTb_LookupConfig and XWdtTb_CfgInitialize
 *                     functions instead of XWdtTb_Initialize for
 *                     initialization.
+* 4.5   nsk 08/07/19  Add macro to support testapp generation for polled mode
 *</pre>
 ******************************************************************************/
 
@@ -98,6 +97,7 @@ XWdtTb WatchdogTimebase; /* Instance of WatchDog Timer Base */
 * @note		None.
 *
 ******************************************************************************/
+#ifndef TESTAPP_GEN
 int main(void)
 {
 	int Status;
@@ -115,7 +115,7 @@ int main(void)
 
 	return XST_SUCCESS;
 }
-
+#endif
 /*****************************************************************************/
 /**
 * This function tests the functioning of the TimeBase WatchDog Timer module

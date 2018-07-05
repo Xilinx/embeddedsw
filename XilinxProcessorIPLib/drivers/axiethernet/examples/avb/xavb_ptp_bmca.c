@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -254,7 +252,7 @@ void XAvb_DecodeRxAnnounceFrame(XAvb * InstancePtr,
 /**
 *
 * A New Announce Packet is to be analyzed.  This function will read in the
-* packet, decode it, and extract the relevent information fields to the
+* packet, decode it, and extract the relevant information fields to the
 * "AnnounceFrame" data pointer.
 *
 * @param  BaseAddress is the base address of the device
@@ -584,7 +582,7 @@ u32 XAvb_BestMasterClockAlgorithm(XAvb_BmcData * AnnounceFrame,
 * information from the NewMaster.
 *
 * @param  NewMaster is a pointer to a suitable data structure which has recorded
-*         the relevent Announce Packet fields of the new (winning) Grand Master.
+*         the relevant Announce Packet fields of the new (winning) Grand Master.
 * @param  CurrentBmc is a pointer to a suitable data structure which has
 *         recorded the current fields of the current Grand Master's Announce
 *         Packet.

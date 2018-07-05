@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF 
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -43,7 +41,7 @@
 * 1.04a nm      02/05/13 Fixed CR# 696550.
 *		         Added template code for Vendor request.
 * 1.06a kpc		11/11/13 Fixed CR#759458, cacheInvalidate size should be
-*				 ailgned to ccahe line size.
+*				 ailgned to cache line size.
 * 2.1   kpc    04/28/14 Cleanup and removed unused functions
 * 2.4   vak    04/01/19 Fixed IAR data_alignment warnings
 *</pre>
@@ -359,7 +357,7 @@ static void UsbIntrHandler(void *CallBackRef, u32 Mask)
 
 /*****************************************************************************/
 /**
-* This funtion is registered to handle callbacks for endpoint 0 (Control).
+* This function is registered to handle callbacks for endpoint 0 (Control).
 *
 * It is called from an interrupt context such that the amount of processing
 * performed should be minimized.
@@ -367,8 +365,8 @@ static void UsbIntrHandler(void *CallBackRef, u32 Mask)
 *
 * @param	CallBackRef is the reference passed in when the function
 *		was registered.
-* @param	EpNum is the Number of the endpoint on which the event occured.
-* @param	EventType is type of the event that occured.
+* @param	EpNum is the Number of the endpoint on which the event occurred.
+* @param	EventType is type of the event that occurred.
 *
 * @return	None.
 *
@@ -423,7 +421,7 @@ static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum,
 
 /*****************************************************************************/
 /**
-* This funtion is registered to handle callbacks for endpoint 1 (Bulk data).
+* This function is registered to handle callbacks for endpoint 1 (Bulk data).
 *
 * It is called from an interrupt context such that the amount of processing
 * performed should be minimized.
@@ -431,8 +429,8 @@ static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum,
 *
 * @param	CallBackRef is the reference passed in when the function was
 *		registered.
-* @param	EpNum is the Number of the endpoint on which the event occured.
-* @param	EventType is type of the event that occured.
+* @param	EpNum is the Number of the endpoint on which the event occurred.
+* @param	EventType is type of the event that occurred.
 *
 * @return	None.
 *

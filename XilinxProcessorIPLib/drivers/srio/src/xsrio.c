@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xsrio.c
-* @addtogroup srio_v1_1
+* @addtogroup srio_v1_2
 * @{
 * This file contains the required functions for the XSrio driver. See the 
 * xsrio.h header file for more details on this driver.
@@ -86,7 +84,7 @@ int XSrio_CfgInitialize(XSrio *InstancePtr,
 		
 	/* Port width for the Device */
 	Portwidth = XSrio_ReadReg(InstancePtr->Config.BaseAddress,
-		XSRIO_PORT_N_ERR_STS_CSR_OFFSET + XSRIO_PORT_N_CTL_CSR_OFFSET);
+				  XSRIO_PORT_N_CTL_CSR_OFFSET);
 	InstancePtr->PortWidth = ((Portwidth & XSRIO_PORT_N_CTL_CSR_PW_MASK) >> 
 					XSRIO_PORT_N_CTL_CSR_PW_SHIFT);
 

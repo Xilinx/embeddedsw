@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
@@ -32,7 +30,7 @@
 *
 * This file contains an example using the XUartPs driver in polled mode.
 *
-* This function sends data and expects to receive the data thru the device
+* This function sends data and expects to receive the data through the device
 * using the local loopback mode.
 *
 * @note
@@ -97,7 +95,7 @@ static u8 RecvBuffer[TEST_BUFFER_SIZE];	/* Buffer for Receiving Data */
 *
 * @param	None
 *
-* @return	XST_SUCCESS if succesful, otherwise XST_FAILURE
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE
 *
 * @note		None
 *
@@ -127,7 +125,7 @@ int main(void)
 *
 * This function does a minimal test on the XUartPs device in polled mode.
 *
-* This function sends data and expects to receive the data thru the UART
+* This function sends data and expects to receive the data through the UART
 * using the local loopback mode.
 *
 *

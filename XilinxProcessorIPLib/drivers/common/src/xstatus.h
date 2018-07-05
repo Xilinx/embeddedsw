@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -135,7 +133,7 @@ extern "C" {
 						   to be processed */
 #define XST_DMA_SG_IS_STARTED           514L	/* scatter gather not stopped */
 #define XST_DMA_SG_IS_STOPPED           515L	/* scatter gather not running */
-#define XST_DMA_SG_LIST_FULL            517L	/* all the buffer desciptors of
+#define XST_DMA_SG_LIST_FULL            517L	/* all the buffer descriptors of
 						   the scatter gather list are
 						   being used */
 #define XST_DMA_SG_BD_LOCKED            518L	/* the scatter gather buffer
@@ -144,7 +142,7 @@ extern "C" {
 						   list is locked */
 #define XST_DMA_SG_NOTHING_TO_COMMIT    519L	/* no buffer descriptors have been
 						   put into the scatter gather
-						   list to be commited */
+						   list to be committed */
 #define XST_DMA_SG_COUNT_EXCEEDED       521L	/* the packet count threshold
 						   specified was larger than the
 						   total # of buffer descriptors

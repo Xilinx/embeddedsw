@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xttcps_options.c
-* @addtogroup ttcps_v3_7
+* @addtogroup ttcps_v3_10
 * @{
 *
 * This file contains functions to get or set option features for the device.
@@ -43,6 +41,7 @@
 * 1.01a nm     03/05/2012 Removed break statement after return to remove
 *                         compilation warnings.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.10  aru    05/16/19 Removed the redudant code from XTtcPs_SetOptions().
 * </pre>
 *
 ******************************************************************************/
@@ -135,43 +134,17 @@ s32 XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
 	 * depending on whether the bit is set in the incoming options flag.
 	 */
 	for (Index = 0U; Index < XTTCPS_NUM_TMRCTR_OPTIONS; Index++) {
-		if(Status != (s32)XST_FAILURE) {
-			if ((Options & TmrCtrOptionsTable[Index].Option) != (u32)0) {
-
-			switch (TmrCtrOptionsTable[Index].Register) {
-
-			case XTTCPS_CLK_CNTRL_OFFSET:
-				/* Add option */
+		if ((Options & TmrCtrOptionsTable[Index].Option) != (u32)0) {
+			if(TmrCtrOptionsTable[Index].Register == XTTCPS_CLK_CNTRL_OFFSET) {
 				ClockReg |= TmrCtrOptionsTable[Index].Mask;
-				break;
-
-			case XTTCPS_CNT_CNTRL_OFFSET:
-				/* Add option */
+			} else {
 				CountReg |= TmrCtrOptionsTable[Index].Mask;
-				break;
-
-			default:
-				Status = XST_FAILURE;
-				break;
 			}
-		}
-		else {
-			switch (TmrCtrOptionsTable[Index].Register) {
-
-			case XTTCPS_CLK_CNTRL_OFFSET:
-				/* Remove option*/
+		} else {
+			if(TmrCtrOptionsTable[Index].Register == XTTCPS_CLK_CNTRL_OFFSET) {
 				ClockReg &= ~TmrCtrOptionsTable[Index].Mask;
-				break;
-
-			case XTTCPS_CNT_CNTRL_OFFSET:
-				/* Remove option*/
+			} else {
 				CountReg &= ~TmrCtrOptionsTable[Index].Mask;
-				break;
-
-			default:
-				Status = XST_FAILURE;
-				break;
-				}
 			}
 		}
 	}

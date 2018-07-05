@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
 /**
  *
  * @file xemacps.h
-* @addtogroup emacps_v3_9
+* @addtogroup emacps_v3_10
 * @{
 * @details
  *
@@ -103,7 +101,7 @@
  * when transferring data in and out of the packet buffers. Each BD describes
  * a memory region containing either a full or partial Ethernet packet.
  *
- * Interrupt coalescing is not suppoted from this built-in DMA engine.
+ * Interrupt coalescing is not supported from this built-in DMA engine.
  *
  * This API requires the user to understand how the DMA operates. The
  * following paragraphs provide some explanation, but the user is encouraged
@@ -509,7 +507,7 @@ typedef void (*XEmacPs_Handler) (void *CallBackRef);
 /**
  * Callback when an asynchronous error occurs. To set this callback, invoke
  * XEmacPs_SetHandler() with XEMACPS_HANDLER_ERROR in the HandlerType
- * paramter.
+ * parameter.
  *
  * @param CallBackRef is user data assigned when the callback was set.
  * @param Direction defines either receive or transmit error(s) has occurred.

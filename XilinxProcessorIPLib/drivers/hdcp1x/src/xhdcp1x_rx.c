@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xhdcp1x_rx.c
-* @addtogroup hdcp1x_v4_2
+* @addtogroup hdcp1x_v4_3
 * @{
 *
 * This contains the main implementation file for the Xilinx HDCP receive state
@@ -84,7 +82,10 @@
 #include "xhdcp1x_cipher.h"
 #include "xhdcp1x_debug.h"
 #include "xhdcp1x_port.h"
-#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+#if (defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)) || \
+    (defined(XPAR_XV_HDMIRX1_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX1_NUM_INSTANCES > 0))
 #include "xhdcp1x_port_hdmi.h"
 #else
 #include "xhdcp1x_port_dp.h"
@@ -1257,7 +1258,10 @@ static void XHdcp1x_RxPollForComputations(XHdcp1x *InstancePtr,
 		XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_RO,
 				Buf, 2);
 
-#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+#if (defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)) || \
+    (defined(XPAR_XV_HDMIRX1_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX1_NUM_INSTANCES > 0))
 		/* No reset required in the sofware for HDMI. KSV fifo
 		 * pointer reset is implemented in the hardware. */
 
@@ -1529,7 +1533,10 @@ void XHdcp1x_RxSetTopologyDeviceCnt(XHdcp1x *InstancePtr, u32 Value)
 ******************************************************************************/
 void XHdcp1x_RxSetTopologyMaxCascadeExceeded(XHdcp1x *InstancePtr, u8 Value)
 {
-#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+#if (defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)) || \
+    (defined(XPAR_XV_HDMIRX1_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX1_NUM_INSTANCES > 0))
 
 	u32 BStatus;
 
@@ -1573,7 +1580,10 @@ void XHdcp1x_RxSetTopologyMaxDevsExceeded(XHdcp1x *InstancePtr, u8 Value)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Value == FALSE || Value == TRUE);
 
-#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+#if (defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)) || \
+    (defined(XPAR_XV_HDMIRX1_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX1_NUM_INSTANCES > 0))
 
 	u16 DevCntErr = (Value & 0xFFFF);
 	u32 BStatus;
@@ -1616,7 +1626,10 @@ void XHdcp1x_RxSetHdmiMode(XHdcp1x *InstancePtr, u8 Value)
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+#if (defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)) || \
+    (defined(XPAR_XV_HDMIRX1_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX1_NUM_INSTANCES > 0))
 	u32 BStatus;
 
 	/* Update the value of HDMI_MODE bit in the BStatus Register */
@@ -1667,7 +1680,10 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 		*NextStatePtr = XHDCP1X_STATE_UNAUTHENTICATED;
 	}
 	else {
-#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+#if (defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)) || \
+    (defined(XPAR_XV_HDMIRX1_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX1_NUM_INSTANCES > 0))
 		u32 BCaps;
 #else
 		u32 BInfo;
@@ -1680,7 +1696,10 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 		u32 ksvCount, ksvsToWrite;
 		u16 RepeaterInfo = 0;
 
-#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+#if (defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)) || \
+    (defined(XPAR_XV_HDMIRX1_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX1_NUM_INSTANCES > 0))
 
 		/* Ensure that the READY bit is clear */
 		/* Update the Ready bit in the BCaps Register */
@@ -1730,7 +1749,10 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 			tempKsv = InstancePtr->RepeaterValues.KsvList[ksvCount];
 			XHDCP1X_PORT_UINT_TO_BUF(Buf, tempKsv ,
 					(XHDCP1X_PORT_SIZE_BKSV * 8));
-#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+#if (defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)) || \
+    (defined(XPAR_XV_HDMIRX1_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX1_NUM_INSTANCES > 0))
 
 			/* Write the KSV to the HDCP_DAT register each time,
 			 * The KSV Fifo will auto increment
@@ -1749,7 +1771,10 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 			ksvsToWrite -= 1;
 		}
 
-#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+#if (defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)) || \
+    (defined(XPAR_XV_HDMIRX1_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX1_NUM_INSTANCES > 0))
 		RepeaterInfo = (XHDCP1X_PORT_BIT_BSTATUS_HDMI_MODE) |
 				(XHDCP1X_PORT_BSTATUS_BIT_DEPTH_NO_ERR) |
 			(InstancePtr->RepeaterValues.Depth <<
@@ -1768,7 +1793,10 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 
 		XHdcp1x_RxCalculateSHA1Value(InstancePtr,RepeaterInfo);
 
-#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+#if (defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)) || \
+    (defined(XPAR_XV_HDMIRX1_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX1_NUM_INSTANCES > 0))
 
 		/* Update the value of V'H0 */
 		sha1value = 0;

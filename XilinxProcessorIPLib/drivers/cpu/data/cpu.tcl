@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2004 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+#
 #
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_L
@@ -61,6 +59,11 @@
 ##                      HSI.
 ## 2.8     mga 06/27/18 Added -Os and LTO to extra_compiler_flags for pmu bsp
 ## 2.8     mus 09/11/18 Added support for Microblaze-X
+## 2.10  mus  04/16/19 Replace XILINX_SDK env variable with HDI_APPROOT. Fix for
+#                     CR#1028460.
+##         mus 08/26/19 Updated tcl logic to be in sync with XILINX_SDK to XILINX_VITIS
+##                      renaming. Now tcl uses XILINX_VITIS env variable if XILINX_SDK
+##                      is not defined.
 # uses xillib.tcl
 
 ########################################
@@ -109,16 +112,22 @@ proc generate {drv_handle} {
 
             set compiler_root ""
             set xilinx_edk_gnu [array get env XILINX_EDK_GNU]
+            set xilinx_sdk [array get env XILINX_SDK]
+            set xilinx_vitis [array get env XILINX_VITIS]
+            set xilinx_approot [array get env HDI_APPROOT]
+
 			set gnu_osdir $osname
 			if {[string first "win64" $osname] != -1  || [string first "win" $osname] != -1 } {
 			    set gnu_osdir "nt"
 			} elseif {[string first "lnx64" $osname] != -1   || [string first "lnx" $osname] != -1 } {
 				set gnu_osdir "lin"
 			}
-            if { $xilinx_edk_gnu == "" } {
-                append compiler_root $env(XILINX_SDK) "/gnu/microblaze/" $gnu_osdir
-            } {
-                append compiler_root $env(XILINX_EDK_GNU) "/microblaze/" $gnu_osdir
+            if { $xilinx_approot != "" } {
+                append compiler_root $env(HDI_APPROOT) "/gnu/microblaze/" $gnu_osdir
+            } elseif { $xilinx_vitis != "" } {
+                    append compiler_root $env(XILINX_VITIS) "/gnu/microblaze/" $gnu_osdir
+            } elseif { $xilinx_sdk != "" } {
+                    append compiler_root $env(XILINX_SDK) "/gnu/microblaze/" $gnu_osdir
             }
         } else {
             set compiler_root [file dirname $temp]
@@ -255,7 +264,14 @@ proc generate {drv_handle} {
    }
 
    if { ![file exists $libxil_path] } {
-	set libxil_path [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/" $libxil]
+	if { $xilinx_approot != "" } {
+		set libxil_path [file join $env(HDI_APPROOT) "data/embeddedsw/lib/microblaze/" $libxil]
+	} elseif { $xilinx_vitis != "" } {
+		set libxil_path [file join $env(XILINX_VITIS) "data/embeddedsw/lib/microblaze/" $libxil]
+	} elseif  { $xilinx_sdk != "" } {
+		set libxil_path [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/" $libxil]
+	}
+
    }
 
     file copy -force $libxil_path $targetdir
@@ -280,10 +296,22 @@ proc generate {drv_handle} {
         set xmdstub_periph_handle [xget_hwhandle $xmdstub_periph]
         set targetdir "../../code"
         set filename "xmdstub.s"
-        file copy -force [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	if { $xilinx_approot != "" } {
+		file copy -force [file join $env(HDI_APPROOT) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	} elseif { $xilinx_vitis != "" } {
+		file copy -force [file join $env(XILINX_VITIS) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	} elseif { $xilinx_sdk != "" } {
+		file copy -force [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	}
             file mtime [file join $targetdir $filename] [clock seconds]
         set filename "make.xmdstub"
-        file copy -force [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	if {$xilinx_approot != "" } {
+		file copy -force [file join $env(HDI_APPROOT) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	} elseif { $xilinx_vitis == "" } {
+		file copy -force [file join $env(XILINX_VITIS) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	} elseif { $xilinx_sdk == "" } {
+			file copy -force [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	}
             file mtime [file join $targetdir $filename] [clock seconds]
         set xmd_addr_file [open "../../code/xmdstubaddr.s" w]
         set xmdstub_periph_baseaddr [::hsi::utils::format_addr_string [xget_value $xmdstub_periph_handle "PARAMETER" "C_BASEADDR"] "C_BASEADDR"]
@@ -383,7 +411,7 @@ proc generate {drv_handle} {
 
 	#------------------------------------------------------------------------------
 	# If the processor is PMU Microblaze, then generate required params and return
-	# We dont need the Parameters being generated after this code block
+	# We don't need the Parameters being generated after this code block
 	#------------------------------------------------------------------------------
 	if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psu_psm" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psv_psm" $proctype] == 0} {
 

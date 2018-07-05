@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xemacps.c
-* @addtogroup emacps_v3_9
+* @addtogroup emacps_v3_10
 * @{
 *
 * The XEmacPs driver. Functions in this file are the minimum required functions
@@ -52,6 +50,7 @@
 *                    its config structure.
 * 3.8  hk   09/17/18 Cleanup stale comments.
 * 3.8  mus  11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
+* 3.10 hk   05/16/19 Clear status registers properly in reset
 *
 * </pre>
 ******************************************************************************/
@@ -364,7 +363,7 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 	}
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			   XEMACPS_TXSR_OFFSET, 0x0U);
+			   XEMACPS_TXSR_OFFSET, XEMACPS_SR_ALL_MASK);
 
 	XEmacPs_SetQueuePtr(InstancePtr, 0, 0x00U, (u16)XEMACPS_SEND);
 	if (InstancePtr->Version > 2)
@@ -372,7 +371,7 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 	XEmacPs_SetQueuePtr(InstancePtr, 0, 0x00U, (u16)XEMACPS_RECV);
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			   XEMACPS_RXSR_OFFSET, 0x0U);
+			   XEMACPS_RXSR_OFFSET, XEMACPS_SR_ALL_MASK);
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_IDR_OFFSET,
 			   XEMACPS_IXR_ALL_MASK);
@@ -436,7 +435,7 @@ void XEmacPs_StubHandler(void)
 * @param	InstancePtr is a pointer to the instance to be worked on.
 * @param	QPtr is the address of the Queue to be written
 * @param	QueueNum is the Buffer Queue Index
-* @param	Direction indicates Transmit/Recive
+* @param	Direction indicates Transmit/Receive
 *
 * @note
 * The buffer queue addresses has to be set before starting the transfer, so

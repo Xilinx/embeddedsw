@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2007 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2007 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+#
 #
 #
 # Modification History
@@ -36,6 +34,8 @@
 # 4.1   sk   11/09/15 Removed delete filename statement CR# 784758.
 # 4.3   ms   04/18/17 Modified tcl file to add suffix U for all macros
 #                     definitions of mutex in xparameters.h
+# 4.4   adk  19/09/19 Updated tcl to generate proper canonical definitions when
+#		      mutex is configured for more then one axi interface.
 ###############################################################################
 #uses "xillib.tcl"
 
@@ -194,22 +194,15 @@ proc gen_canonical_if_def {file_handle periph num_ifs drv_string dev_id common_p
     upvar $dev_id device_id
 
     set periph_name [string toupper [common::get_property NAME $periph]]
-    set canonical_name [format "%s_%s" $drv_string $device_id]
     
-    # Make sure canonical name is not the same as hardware instance
-    if { [string compare -nocase $canonical_name $periph_name] == 0 } {
-	return
-    }
-   
     for {set x 0} {$x < $num_ifs} {incr x} {
 	set if_connected [check_if_connected $periph $x]
-	puts "correct"
-	puts $if_connected
 	
 	if {$if_connected} {
 	    puts $file_handle ""
 	    puts $file_handle "/* Canonical definitions for peripheral $periph_name IF ${x} */"
 
+	    set canonical_name [format "%s_%s" $drv_string $x]
 	    gen_canonical_device_id $file_handle $canonical_name $periph_name $x
 
 	    set addr_args [list "BASEADDR" "HIGHADDR"]

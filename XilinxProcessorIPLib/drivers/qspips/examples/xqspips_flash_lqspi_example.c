@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -71,7 +69,7 @@
 *		     Added FlashQuadEnable API to enable quad mode in flash.
 * 3.6   akm 04/15/19 Modified FlashQuadEnable, FlashWrie and FlashErase APIs,
 *                    to wait for the on going operation to complete before
-*                    performing the next opeartion.
+*                    performing the next operation.
 *</pre>
 *
 ******************************************************************************/
@@ -413,7 +411,7 @@ void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command)
 
 	/*
 	 * Send the write enable command to the FLASH so that it can be
-	 * written to, this needs to be sent as a seperate transfer before
+	 * written to, this needs to be sent as a separate transfer before
 	 * the write
 	 */
 	XQspiPs_PolledTransfer(QspiPtr, &WriteEnableCmd, NULL,
@@ -494,7 +492,7 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 	if (ByteCount == (NUM_SECTORS * SECTOR_SIZE)) {
 		/*
 		 * Send the write enable command to the FLASH so that it can be
-		 * written to, this needs to be sent as a seperate transfer
+		 * written to, this needs to be sent as a separate transfer
 		 * before the erase
 		 */
 		XQspiPs_PolledTransfer(QspiPtr, &WriteEnableCmd, NULL,
@@ -544,7 +542,7 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 	for (Sector = 0; Sector < ((ByteCount / SECTOR_SIZE) + 1); Sector++) {
 		/*
 		 * Send the write enable command to the SEEPOM so that it can be
-		 * written to, this needs to be sent as a seperate transfer
+		 * written to, this needs to be sent as a separate transfer
 		 * before the write
 		 */
 		XQspiPs_PolledTransfer(QspiPtr, &WriteEnableCmd, NULL,

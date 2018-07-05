@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xwdttb.c
-* @addtogroup wdttb_v4_4
+* @addtogroup wdttb_v4_5
 * @{
 *
 * Contains the required functions of the XWdtTb driver. See xwdttb.h for a
@@ -83,14 +81,16 @@
 *                     No brackets to then/else,
 *                     Literal value requires a U suffix,Function return
 *                     type inconsistent,Logical conjunctions need brackets,
-*                     Declared the poiner param as Pointer to const,
+*                     Declared the pointer param as Pointer to const,
 *                     Procedure has more than one exit point.
 * 4.4   sne  03/04/19 Added support for Versal( Generic Watchdog and
 *                     Window Watchdog Timer). Added below functions:
 *                     XWdtTb_EnableGenericWdt,XWdtTb_DisableGenericWdt,
 *                     XWdtTb_EnableTimebaseWdt,XWdtTb_DisableTimebaseWdt,
 *                     XWdtTb_IsGenericWdtFWExpired,XWdtTb_SetGenericWdtWindow.
-*
+* 4.5  sne  06/25/19 Fixed Coverity warning in driver file.
+* 4.5  sne   09/27/19 Added common driver support for Window watchdog Timer
+*		      and AXI Timebase watchdog timer.
 *
 * </pre>
 *
@@ -112,13 +112,10 @@
 
 static void XWdtTb_EnableWinWdt(XWdtTb *InstancePtr);
 static s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr);
-#ifdef versal
 static inline void XWdtTb_EnableGenericWdt(XWdtTb *InstancePtr);
 static s32 XWdtTb_DisableGenericWdt(XWdtTb *InstancePtr);
-#else
 static void XWdtTb_EnableTimebaseWdt(XWdtTb *InstancePtr);
 static s32 XWdtTb_DisableTimebaseWdt(XWdtTb *InstancePtr);
-#endif
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
@@ -146,14 +143,14 @@ static s32 XWdtTb_DisableTimebaseWdt(XWdtTb *InstancePtr);
 *
 ******************************************************************************/
 s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
-				u32 EffectiveAddr)
+				UINTPTR EffectiveAddr)
 {
 	s32 Status;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid(EffectiveAddr != (u32)0);
+	Xil_AssertNonvoid(EffectiveAddr != (UINTPTR)0);
 
 	/*
 	 * If the device is started, disallow the initialize and return a
@@ -166,24 +163,24 @@ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 	}
         else {
        InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
-	InstancePtr->Config.BaseAddr = CfgPtr->BaseAddr;
-#ifndef versal
 	InstancePtr->Config.EnableWinWdt = CfgPtr->EnableWinWdt;
 	InstancePtr->Config.MaxCountWidth = CfgPtr->MaxCountWidth;
 	InstancePtr->Config.SstCountWidth = CfgPtr->SstCountWidth;
-#endif
-	InstancePtr->Config.BaseAddr = EffectiveAddr;
-
+	InstancePtr->Config.IsPl = CfgPtr->IsPl;
+	if(InstancePtr->Config.EnableWinWdt == 1U) {
+		InstancePtr->Config.BaseAddr = EffectiveAddr + 0xCU;
+	} else {
+		InstancePtr->Config.BaseAddr = EffectiveAddr;
+	}
 	InstancePtr->IsStarted = (u32)0;
 	InstancePtr->EnableFailCounter = (u32)0;
-#ifdef versal
-        InstancePtr->EnableWinMode = (u32)0U;
-        /* Reset all the Generic WDT Registers */
-        XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_GW_WR_OFFSET,XWT_GW_WR_MASK);
-#else
-       InstancePtr->EnableWinMode = CfgPtr->EnableWinWdt;
-
-#endif
+	if (!InstancePtr->Config.IsPl) {
+		InstancePtr->EnableWinMode = (u32)0U;
+		/* Reset all the Generic WDT Registers */
+		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_GW_WR_OFFSET,XWT_GW_WR_MASK);
+	} else {
+		InstancePtr->EnableWinMode = CfgPtr->EnableWinWdt;
+	}
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	Status = XST_SUCCESS;
         }
@@ -276,14 +273,14 @@ void XWdtTb_Start(XWdtTb *InstancePtr)
                 /* Enable Window WDT */
                 XWdtTb_EnableWinWdt(InstancePtr);
         } else {
-#ifdef versal
-                /* Versal supports Generic wathdog timer & Window WDT features*/
+		if (!InstancePtr->Config.IsPl) {
+                /* WWDT supports Generic watchdog timer & Window WDT features*/
                 /* Enable Generic Watchdog Timer */
                 XWdtTb_EnableGenericWdt(InstancePtr);
-#else
+		} else {
                 /* Enable Timebase Watchdog Timer */
                 XWdtTb_EnableTimebaseWdt(InstancePtr);
-#endif
+		}
         }
 }
 
@@ -326,13 +323,13 @@ s32 XWdtTb_Stop(XWdtTb *InstancePtr)
                 Status = XWdtTb_DisableWinWdt(InstancePtr);
         }
         else {
-#ifdef versal
+		if (!InstancePtr->Config.IsPl) {
                 /* Disable Generic Watchdog Timer */
                 Status = XWdtTb_DisableGenericWdt(InstancePtr);
-#else
+		} else {
                 /* Disable Timebase Watchdog timer */
                 Status = XWdtTb_DisableTimebaseWdt(InstancePtr);
-#endif
+		}
         }
 	return Status;
 }
@@ -375,7 +372,7 @@ u32 XWdtTb_IsWdtExpired(const XWdtTb *InstancePtr)
 		Status = !ControlStatusRegister0;
         }
         else {
-#ifdef versal
+		if (!InstancePtr->Config.IsPl) {
                /* Read the current contents */
                 ControlStatusRegister0 =XWdtTb_ReadReg (InstancePtr->Config.BaseAddr,XWT_GWCSR_OFFSET);
                 /* Check whether state and reset status */
@@ -386,7 +383,7 @@ u32 XWdtTb_IsWdtExpired(const XWdtTb *InstancePtr)
                 else {
                         Status = (u32)FALSE;
                 }
-#else
+		} else {
 		/* Read the current contents */
 		ControlStatusRegister0 =
 			XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
@@ -399,7 +396,7 @@ u32 XWdtTb_IsWdtExpired(const XWdtTb *InstancePtr)
 		else {
 			Status = (u32)FALSE;
 		}
-#endif
+		}
         }
 	return Status;
 }
@@ -473,7 +470,7 @@ void XWdtTb_RestartWdt(const XWdtTb *InstancePtr)
 			ControlStatusRegister0);
 	}
         else {
-#ifdef versal
+		if (!InstancePtr->Config.IsPl) {
 		/*  Read enable status register and update Refresh Register  bit */
 		ControlStatusRegister0 =
 				XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
@@ -481,7 +478,7 @@ void XWdtTb_RestartWdt(const XWdtTb *InstancePtr)
 		/* Write control status register to restart the timer */
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_GWRR_OFFSET,
 				ControlStatusRegister0);
-#else
+		} else {
 		/*
 		 * Read the current contents of TCSR0 so that subsequent writes
 		 * won't destroy any other bits.
@@ -499,7 +496,7 @@ void XWdtTb_RestartWdt(const XWdtTb *InstancePtr)
 
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
 			XWT_TWCSR0_OFFSET, ControlStatusRegister0);
-#endif
+		}
         }
 }
 /*****************************************************************************/
@@ -1293,7 +1290,7 @@ u32 XWdtTb_ProgramWDTWidth(const XWdtTb *InstancePtr, u32 width)
         }
         return Status;
 }
-#ifdef versal
+
 /*****************************************************************************/
 /**
 *
@@ -1344,7 +1341,7 @@ static s32 XWdtTb_DisableGenericWdt(XWdtTb *InstancePtr)
         InstancePtr->IsStarted = (u32)0U;
 	return Status;
 }
-#else
+
 /*****************************************************************************/
 /**
 *
@@ -1441,5 +1438,4 @@ static s32 XWdtTb_DisableTimebaseWdt(XWdtTb *InstancePtr)
 	}
 	return Status;
 }
-#endif
 /** @} */

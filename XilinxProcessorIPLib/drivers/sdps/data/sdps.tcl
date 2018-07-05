@@ -15,14 +15,12 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+#
 #
 ###############################################################################
 ##############################################################################
@@ -38,6 +36,7 @@
 # 3.3   mn   08/17/17 Enabled CCI support for A53 by adding cache coherency
 #                     information.
 # 3.6   mn   07/06/18 Generate canonical entry for IS_CACHE_COHERENT
+# 3.8   mus  07/30/19 Added CCI support for Versal at EL1 NS
 #
 ##############################################################################
 
@@ -67,6 +66,12 @@ proc generate_cci_params {drv_handle file_name} {
 		if {$processor_type == "psu_cortexa53"} {
 			set hypervisor [common::get_property CONFIG.hypervisor_guest [hsi::get_os]]
 			if {[string match -nocase $hypervisor "true"]} {
+				set cci_enble [common::get_property CONFIG.IS_CACHE_COHERENT $ip]
+			}
+		} elseif {$processor_type == "psv_cortexa72"} {
+			set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
+			set flagindex [string first {-DARMA72_EL3} $extra_flags 0]
+			if {$flagindex == -1} {
 				set cci_enble [common::get_property CONFIG.IS_CACHE_COHERENT $ip]
 			}
 		}

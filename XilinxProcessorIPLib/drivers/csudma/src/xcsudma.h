@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -84,7 +82,7 @@
 * to build and link only those parts of the driver that are necessary.
 *
 * @file xcsudma.h
-* @addtogroup csudma_v1_4
+* @addtogroup csudma_v1_5
 * @{
 * @details
 *
@@ -116,6 +114,7 @@
 *	adk     28/08/18 Fixed misra-c required standard violations..
 *       Rama	02/26/19 Fixed IAR issue by changing
 *						 "XCsuDma_WaitForDoneTimeout" to function
+*       arc     03/26/19 Fixed MISRA-C violations.
 * </pre>
 *
 ******************************************************************************/
@@ -166,9 +165,9 @@ typedef enum {
  */
 #define XCSUDMA_SIZE_MAX 0x07FFFFFFU	/**< Maximum allowed no of words */
 
-#define XCSUDMA_DMATYPEIS_CSUDMA 	0
-#define XCSUDMA_DMATYPEIS_PMCDMA0	1
-#define XCSUDMA_DMATYPEIS_PMCDMA1	2
+#define XCSUDMA_DMATYPEIS_CSUDMA 	0U
+#define XCSUDMA_DMATYPEIS_PMCDMA0	1U
+#define XCSUDMA_DMATYPEIS_PMCDMA1	2U
 
 /*@}*/
 

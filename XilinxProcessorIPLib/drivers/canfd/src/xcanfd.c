@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xcanfd.c
-* @addtogroup canfd_v2_1
+* @addtogroup canfd_v2_2
 * @{
 *
 * The XCanFd driver. Functions in this file are the minimum required functions
@@ -63,7 +61,7 @@
 *					  XCanfd_TrrVal_Get_SetBit_Position.
 *					  Added Macros regarding legacy API.
 *		ask 09/27/18 Removed unnecessary register read from XCanFd_Send
-*       ask  07/03/18 Fix for Sequencial recv CR# 992606,CR# 1004222.
+*       ask  07/03/18 Fix for Sequential recv CR# 992606,CR# 1004222.
 *       ask  08/27/18 Modified RecvSeq function to return XST_NO_DATA when the
 *       		fifo fill levels are zero.
 *		ask  08/08/18 Fixed Cppcheck warnings.
@@ -74,6 +72,7 @@
 * 2.1	nsk  03/09/19 Fix for TrrMask to not to get written when using
 		      XCanFd_Addto_Queue(), to send more than 32 buffers.
 		      CR# 1022093
+* 2.2   sn   06/11/19 Inactivating Mailbox RX buffers based on requirement.
 *
 * </pre>
 ******************************************************************************/
@@ -262,7 +261,7 @@ u8 XCanFd_GetMode(XCanFd *InstancePtr)
 * - Auto Bus-Off Recovery Mode: Pass in Parameter XCANFD_MODE_ABR
 * - Start Bus-Off Recovery Mode: Pass in Parameter XCANFD_MODE_SBR
 * - Protocol Exception Event Mode: Pass in Parameter XCANFD_MODE_PEE
-* - Disable AutoRetransmission Mode: Pass in Paramter XCANFD_MODE_DAR
+* - Disable AutoRetransmission Mode: Pass in Parameter XCANFD_MODE_DAR
 *
 * Read xcanfd.h and device specification for detailed description of each
 * operation mode.
@@ -682,7 +681,7 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 *		 ->Sequential Mode - Core writes data sequentially to RxBuffers.
 *		 ->MailBox Mode	  - Core writes data to RxBuffers when a ID
 *					        Match happened.
-* 		This routine distinguishes recieve checking as per the frame
+* 		This routine distinguishes receive checking as per the frame
 *       availability from either Fifo 0 or Fifo 1.
 *
 ******************************************************************************/
@@ -1038,7 +1037,7 @@ u32 XCanFd_RxBuff_MailBox_DeActive(XCanFd *InstancePtr, u32 RxBuffer)
 	Status = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_RCS_OFFSET(NoCtrlStatus));
 	if (Status & 1 << RxBuffer) {
-		Status &= ~(1<< RxBuffer);
+		Status &= ((~(1<< RxBuffer)) & XCANFD_MBRXBUF_MASK);
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_RCS_OFFSET(NoCtrlStatus),Status);
 	}
@@ -1741,7 +1740,7 @@ void XCanFd_Disable_Tranceiver_Delay_Compensation(XCanFd *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function calcualtes the index position of the right most set bit.
+* This function calculates the index position of the right most set bit.
 *
 * @param	GlobalTrrValue
 *
@@ -1776,7 +1775,7 @@ static int XCanfd_TrrVal_Get_SetBit_Position(u32 u) {
 *
 * @return	- XST_SUCCESS after all operations
 *
-* @note		This routine has generic logic for sequential recieve mode
+* @note		This routine has generic logic for sequential receive mode
 *
 ******************************************************************************/
 static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, u32 *FramePtr, u8 fifo_no)

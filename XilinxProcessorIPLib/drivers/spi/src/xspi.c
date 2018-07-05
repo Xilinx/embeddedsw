@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2001 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2001 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xspi.c
-* @addtogroup spi_v4_4
+* @addtogroup spi_v4_5
 * @{
 *
 * Contains required functions of the XSpi driver component.  See xspi.h for
@@ -95,7 +93,9 @@
 *                     Changed the prototype of XSpi_CfgInitialize API.
 * 4.4	tjs  11/28/17 When receive fifo exists, we need to check for status
 *                     register rx fifo empty flag. If clear we can proceed for
-*                     read. Otherwise we will hit execption. CR# 989938
+*                     read. Otherwise we will hit exception. CR# 989938
+* 4.5	akm  05/29/19 Removed master inhibit dependency while writing DTR
+*		      in between multiple transfers.
 * </pre>
 *
 ******************************************************************************/
@@ -617,6 +617,12 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 
 	DataWidth = InstancePtr->DataWidth;
 
+	/* Inhibit the transmitter while the transmit register/FIFO is
+	 * being filled.
+	 */
+	ControlReg = XSpi_GetControlReg(InstancePtr);
+	XSpi_SetControlReg(InstancePtr, ControlReg |
+			   XSP_CR_TRANS_INHIBIT_MASK);
 	/*
 	 * Fill the DTR/FIFO with as many bytes as it will take (or as many as
 	 * we have to send). We use the tx full status bit to know if the device
@@ -705,16 +711,6 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 
 			XSpi_IntrClear(InstancePtr,XSP_INTR_TX_EMPTY_MASK);
 
-			/*
-			 * A transmit has just completed. Process received data
-			 * and check for more data to transmit. Always inhibit
-			 * the transmitter while the transmit register/FIFO is
-			 * being filled, or make sure it is stopped if we're
-			 * done.
-			 */
-			ControlReg = XSpi_GetControlReg(InstancePtr);
-			XSpi_SetControlReg(InstancePtr, ControlReg |
-						XSP_CR_TRANS_INHIBIT_MASK);
 
 			/*
 			 * First get the data received as a result of the
@@ -819,13 +815,6 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 							InstancePtr);
 				}
 
-				/*
-				 * Start the transfer by not inhibiting the
-				 * transmitter any longer.
-				 */
-				ControlReg = XSpi_GetControlReg(InstancePtr);
-				ControlReg &= ~XSP_CR_TRANS_INHIBIT_MASK;
-				XSpi_SetControlReg(InstancePtr, ControlReg);
 			}
 		}
 
@@ -1103,7 +1092,6 @@ void XSpi_InterruptHandler(void *InstancePtr)
 	u32 IntrStatus;
 	unsigned int BytesDone;	/* number of bytes done so far */
 	u32 Data = 0;
-	u32 ControlReg;
 	u32 StatusReg;
 	u8  DataWidth;
 
@@ -1156,15 +1144,6 @@ void XSpi_InterruptHandler(void *InstancePtr)
 	if ((IntrStatus & XSP_INTR_TX_EMPTY_MASK) ||
 	    (IntrStatus & XSP_INTR_TX_HALF_EMPTY_MASK)) {
 
-		/*
-		 * A transmit has just completed. Process received data and
-		 * check for more data to transmit. Always inhibit the
-		 * transmitter while the Isr re-fills the transmit
-		 * register/FIFO, or make sure it is stopped if we're done.
-		 */
-		ControlReg = XSpi_GetControlReg(SpiPtr);
-		XSpi_SetControlReg(SpiPtr, ControlReg |
-					XSP_CR_TRANS_INHIBIT_MASK);
 
 		/*
 		 * First get the data received as a result of the transmit that
@@ -1249,11 +1228,6 @@ void XSpi_InterruptHandler(void *InstancePtr)
 				StatusReg = XSpi_GetStatusReg(SpiPtr);
 			}
 
-			/*
-			 * Start the transfer by not inhibiting the transmitter
-			 * any longer.
-			 */
-			XSpi_SetControlReg(SpiPtr, ControlReg);
 		} else {
 
 			/*

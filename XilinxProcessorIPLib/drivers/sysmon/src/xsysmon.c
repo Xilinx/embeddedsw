@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
@@ -914,7 +912,7 @@ u16 XSysMon_GetCalibEnables(XSysMon *InstancePtr)
 *		- One pass through sequence (XSM_SEQ_MODE_ONEPASS)
 *		- Continuous channel sequencing (XSM_SEQ_MODE_CONTINPASS)
 *		- Single Channel/Sequencer off (XSM_SEQ_MODE_SINGCHAN)
-*		- Simulataneous sampling mode (XSM_SEQ_MODE_SIMUL)
+*		- Simultaneous sampling mode (XSM_SEQ_MODE_SIMUL)
 *		- Independent mode (XSM_SEQ_MODE_INDEPENDENT)
 *
 * @param	InstancePtr is a pointer to the XSysMon instance.
@@ -963,7 +961,7 @@ void XSysMon_SetSequencerMode(XSysMon *InstancePtr, u8 SequencerMode)
 *		- XSM_SEQ_MODE_ONEPASS : One pass through sequence
 *		- XSM_SEQ_MODE_CONTINPASS : Continuous channel sequencing
 *		- XSM_SEQ_MODE_SINGCHAN : Single channel/Sequencer off
-*		- XSM_SEQ_MODE_SIMUL : Simulataneous sampling mode
+*		- XSM_SEQ_MODE_SIMUL : Simultaneous sampling mode
 *		- XSM_SEQ_MODE_INDEPENDENT : Independent mode
 *
 * @note		None.

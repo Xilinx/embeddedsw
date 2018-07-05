@@ -15,24 +15,22 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xqspipsu_options.c
-* @addtogroup qspipsu_v1_9
+* @addtogroup qspipsu_v1_10
 * @{
 *
-* This file implements funcitons to configure the QSPIPSU component,
+* This file implements functions to configure the QSPIPSU component,
 * specifically some optional settings, clock and flash related information.
 *
 * <pre>
@@ -59,6 +57,8 @@
 *                  as Pointer to const, declared XQspi_Set_TapDelay() as static.
 * 1.9 akm 03/08/19 Set recommended clock and data tap delay values for 40MHZ,
 *		   100MHZ and 150MHZ frequencies(CR#1023187)
+* 1.10 akm 08/22/19 Set recommended tap delay values for 37.5MHZ, 100MHZ and
+*		    150MHZ frequencies in Versal.
 *
 * </pre>
 *
@@ -84,6 +84,7 @@
 #define USE_DATA_DLY_ADJ 0x01U
 #define DATA_DLY_ADJ_DLY 0X02U
 #define LPBK_DLY_ADJ_DLY0 0X02U
+#define LPBK_DLY_ADJ_DLY1 0X02U
 #endif
 
 /************************** Function Prototypes ******************************/
@@ -404,24 +405,43 @@ static s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler
 	u32 LBkModeReg = 0;
 	u32 delayReg = 0;
 	s32 Status;
+#if defined (versal)
+	u32 IsVersal = 1;
+#else
+	u32 IsVersal = 0;
+#endif
 
 	Divider = (1U << (Prescaler+1U));
 
 	FreqDiv = (InstancePtr->Config.InputClockHz)/Divider;
 
+#if defined (versal)
+	if(FreqDiv <= XQSPIPSU_FREQ_37_5MHZ){
+#else
 	if(FreqDiv <= XQSPIPSU_FREQ_40MHZ){
-		Tapdelay = Tapdelay |
-				(TAPDLY_BYPASS_VALVE_40MHZ << IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT);
+#endif
+		Tapdelay |= (TAPDLY_BYPASS_VALVE_40MHZ <<
+			     IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT);
 	} else if (FreqDiv <= XQSPIPSU_FREQ_100MHZ) {
-		Tapdelay = Tapdelay | (TAPDLY_BYPASS_VALVE_100MHZ << IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT);
-		LBkModeReg = LBkModeReg |
-				(USE_DLY_LPBK <<  XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT);
-		delayReg = delayReg |
-				(USE_DATA_DLY_ADJ  << XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_SHIFT) |
-				(DATA_DLY_ADJ_DLY  << XQSPIPSU_DATA_DLY_ADJ_DLY_SHIFT);
+		Tapdelay |= (TAPDLY_BYPASS_VALVE_100MHZ <<
+			     IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT);
+		LBkModeReg |= (USE_DLY_LPBK <<
+			       XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT);
+		delayReg |= (IsVersal != 0) ?
+			    (USE_DATA_DLY_ADJ  <<
+                             XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_SHIFT) :
+			    ((USE_DATA_DLY_ADJ  <<
+			      XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_SHIFT) |
+			     (DATA_DLY_ADJ_DLY  <<
+			      XQSPIPSU_DATA_DLY_ADJ_DLY_SHIFT));
 	} else if (FreqDiv <= XQSPIPSU_FREQ_150MHZ) {
-		LBkModeReg = LBkModeReg |
-				(USE_DLY_LPBK  <<  XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT );
+		LBkModeReg |= (IsVersal != 0) ?
+			      ((USE_DLY_LPBK  <<
+			        XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT) |
+			       (LPBK_DLY_ADJ_DLY1 <<
+			        XQSPIPSU_LPBK_DLY_ADJ_DLY1_SHIFT)) :
+			      (USE_DLY_LPBK  <<
+			       XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT);
 	} else {
 		Status = XST_FAILURE;
 		goto END;
@@ -497,8 +517,8 @@ s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
 /*****************************************************************************/
 /**
 *
-* This funciton should be used to tell the QSPIPSU driver the HW flash
-* configuration being used. This API should be called atleast once in the
+* This function should be used to tell the QSPIPSU driver the HW flash
+* configuration being used. This API should be called at least once in the
 * application. If desired, it can be called multiple times when switching
 * between communicating to different flahs devices/using different configs.
 *
@@ -511,7 +531,7 @@ s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
 *		- XST_DEVICE_IS_STARTED if the device is already started.
 *		It must be stopped to re-initialize.
 *
-* @note		If this funciton is not called atleast once in the application,
+* @note		If this function is not called at least once in the application,
 *		the driver assumes there is a single flash connected to the
 *		lower bus and CS line.
 *

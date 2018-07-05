@@ -15,20 +15,18 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 * @file xgpio.h
-* @addtogroup gpio_v4_4
+* @addtogroup gpio_v4_5
 * @{
 * @details
 *
@@ -99,7 +97,7 @@
 * 3.01a bss  04/18/13 Updated driver tcl to generate Canonical params in
 *		      xparameters.h. CR#698589
 * 4.0   adk  19/12/13 Updated as per the New Tcl API's
-* 4.1   lks  11/18/15 Updated to use cannonical xparameters in examples and
+* 4.1   lks  11/18/15 Updated to use canonical xparameters in examples and
 *		      clean up of the comments, removed support for DCR bridge
 *		      and removed xgpio_intr_example for CR 900381
 * 4.2   sk   08/16/16 Used UINTPTR instead of u32 for Baseaddress as part of
@@ -114,6 +112,7 @@
 *       ms   03/17/17 Added readme.txt file in examples folder for doxygen
 *                     generation.
 * 4.4   sne  04/25/19 Updated Makefile for IAR compier (CR-1029421).
+* 4.5   sne  06/14/19 Fixed IAR compiler warnings on example files.
 *
 * </pre>
 *****************************************************************************/

@@ -15,24 +15,22 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xqspipsu_hw.h
-* @addtogroup qspipsu_v1_9
+* @addtogroup qspipsu_v1_10
 * @{
 *
-* This file contains low level access funcitons using the base address
+* This file contains low level access functions using the base address
 * directly without an instance.
 *
 * <pre>
@@ -146,7 +144,7 @@ extern "C" {
 #define XQSPIPSU_LQSPI_CR_OFFSET	0X000000A0U
 #define XQSPIPSU_LQSPI_CR_LINEAR_MASK     0x80000000U /**< LQSPI mode enable */
 #define XQSPIPSU_LQSPI_CR_TWO_MEM_MASK    0x40000000U /**< Both memories or one */
-#define XQSPIPSU_LQSPI_CR_SEP_BUS_MASK    0x20000000U /**< Seperate memory bus */
+#define XQSPIPSU_LQSPI_CR_SEP_BUS_MASK    0x20000000U /**< Separate memory bus */
 #define XQSPIPSU_LQSPI_CR_U_PAGE_MASK     0x10000000U /**< Upper memory page */
 #define XQSPIPSU_LQSPI_CR_ADDR_32BIT_MASK     0x01000000U /**< Upper memory page */
 #define XQSPIPSU_LQSPI_CR_MODE_EN_MASK    0x02000000U /**< Enable mode bits */

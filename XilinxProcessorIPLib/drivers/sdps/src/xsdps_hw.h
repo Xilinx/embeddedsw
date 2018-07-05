@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xsdps_hw.h
-* @addtogroup sdps_v3_7
+* @addtogroup sdps_v3_8
 * @{
 *
 * This header file contains the identifiers and basic HW access driver
@@ -57,6 +55,11 @@
 *       mn     09/06/17 Added support for ARMCC toolchain
 * 3.4   mn     01/22/18 Separated out SDR104 and HS200 clock defines
 * 3.6   mn     07/06/18 Fix Doxygen warnings for sdps driver
+* 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
+*       mn     05/21/19 Set correct tap delays for Versal
+*       mn     05/21/19 Disable DLL Reset code for Versal
+*       mn     05/21/19 Enable SD UHS Mode support by default for Versal
+*       mn     07/03/19 Update Input Tap Delays for Versal
 *
 * </pre>
 *
@@ -78,6 +81,10 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
+/* Enable UHS Mode support by default for Versal */
+#ifdef versal
+#define UHS_MODE_ENABLE
+#endif
 /** @name Register Map
  *
  * Register offsets from the base address of an SD device.
@@ -504,7 +511,7 @@ extern "C" {
 
 /* @} */
 
-/** @name Maximum Current Capablities Register
+/** @name Maximum Current Capabilities Register
  *
  * This register is read only register which contains
  * information about current capabilities at each voltage levels.
@@ -560,7 +567,7 @@ extern "C" {
 #define XSDPS_FE_INTR_ERR_CUR_LMT_MASK	0x0080U /**< Current Limit Error */
 #define XSDPS_FE_INTR_ERR_AUTO_CMD_MASK	0x0100U /**< Auto CMD Error */
 #define XSDPS_FE_INTR_ERR_ADMA_MASK	0x0200U /**< ADMA Error */
-#define XSDPS_FE_INTR_ERR_TR_MASK	0x1000U /**< Target Reponse */
+#define XSDPS_FE_INTR_ERR_TR_MASK	0x1000U /**< Target Response */
 #define XSDPS_FE_INTR_VEND_SPF_ERR_MASK	0xE000U /**< Vendor Specific
 							Error */
 
@@ -1027,6 +1034,26 @@ extern "C" {
 
 
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
+#ifdef versal
+#define SD_ITAPDLY_SEL_MASK			0x000000FFU
+#define SD_OTAPDLY_SEL_MASK			0x0000003FU
+#define SD_ITAPDLY					0x0000F0F8U
+#define SD_OTAPDLY					0x0000F0FCU
+#define SD_ITAPCHGWIN				0x00000200U
+#define SD_ITAPDLYENA				0x00000100U
+#define SD_OTAPDLYENA				0x00000040U
+#define SD_OTAPDLYSEL_HS200_B0		0x00000002U
+#define SD_OTAPDLYSEL_HS200_B2		0x00000002U
+#define SD_ITAPDLYSEL_SD50			0x0000000EU
+#define SD_OTAPDLYSEL_SD50			0x00000003U
+#define SD_ITAPDLYSEL_SD_DDR50		0x00000036U
+#define SD_ITAPDLYSEL_EMMC_DDR50	0x0000001EU
+#define SD_OTAPDLYSEL_SD_DDR50		0x00000003U
+#define SD_OTAPDLYSEL_EMMC_DDR50	0x00000005U
+#define SD_ITAPDLYSEL_HSD			0x0000002CU
+#define SD_OTAPDLYSEL_SD_HSD		0x00000004U
+#define SD_OTAPDLYSEL_EMMC_HSD		0x00000005U
+#else
 #define SD0_ITAPDLY_SEL_MASK		0x000000FFU
 #define SD0_OTAPDLY_SEL_MASK		0x0000003FU
 #define SD1_ITAPDLY_SEL_MASK		0x00FF0000U
@@ -1042,30 +1069,18 @@ extern "C" {
 #define SD1_ITAPCHGWIN				0x02000000U
 #define SD1_ITAPDLYENA				0x01000000U
 #define SD1_OTAPDLYENA				0x00400000U
-
-#define SD0_OTAPDLYSEL_HS200_B0		0x00000003U
-#define SD0_OTAPDLYSEL_HS200_B2		0x00000002U
-#define SD0_ITAPDLYSEL_SD50			0x00000014U
-#define SD0_OTAPDLYSEL_SD50			0x00000003U
-#define SD0_ITAPDLYSEL_SD_DDR50		0x0000003DU
-#define SD0_ITAPDLYSEL_EMMC_DDR50	0x00000012U
-#define SD0_OTAPDLYSEL_SD_DDR50		0x00000004U
-#define SD0_OTAPDLYSEL_EMMC_DDR50	0x00000006U
-#define SD0_ITAPDLYSEL_HSD			0x00000015U
-#define SD0_OTAPDLYSEL_SD_HSD		0x00000005U
-#define SD0_OTAPDLYSEL_EMMC_HSD		0x00000006U
-
-#define SD1_OTAPDLYSEL_HS200_B0		0x00030000U
-#define SD1_OTAPDLYSEL_HS200_B2		0x00020000U
-#define SD1_ITAPDLYSEL_SD50			0x00140000U
-#define SD1_OTAPDLYSEL_SD50			0x00030000U
-#define SD1_ITAPDLYSEL_SD_DDR50		0x003D0000U
-#define SD1_ITAPDLYSEL_EMMC_DDR50	0x00120000U
-#define SD1_OTAPDLYSEL_SD_DDR50		0x00040000U
-#define SD1_OTAPDLYSEL_EMMC_DDR50	0x00060000U
-#define SD1_ITAPDLYSEL_HSD			0x00150000U
-#define SD1_OTAPDLYSEL_SD_HSD		0x00050000U
-#define SD1_OTAPDLYSEL_EMMC_HSD		0x00060000U
+#define SD_OTAPDLYSEL_HS200_B0		0x00000003U
+#define SD_OTAPDLYSEL_HS200_B2		0x00000002U
+#define SD_ITAPDLYSEL_SD50			0x00000014U
+#define SD_OTAPDLYSEL_SD50			0x00000003U
+#define SD_ITAPDLYSEL_SD_DDR50		0x0000003DU
+#define SD_ITAPDLYSEL_EMMC_DDR50	0x00000012U
+#define SD_OTAPDLYSEL_SD_DDR50		0x00000004U
+#define SD_OTAPDLYSEL_EMMC_DDR50	0x00000006U
+#define SD_ITAPDLYSEL_HSD			0x00000015U
+#define SD_OTAPDLYSEL_SD_HSD		0x00000005U
+#define SD_OTAPDLYSEL_EMMC_HSD		0x00000006U
+#endif
 
 #endif
 

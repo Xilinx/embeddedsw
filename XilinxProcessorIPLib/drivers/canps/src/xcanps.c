@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xcanps.c
-* @addtogroup canps_v3_2
+* @addtogroup canps_v3_3
 * @{
 *
 * Functions in this file are the minimum required functions for the XCanPs
@@ -47,6 +45,8 @@
 * 1.01a bss    12/27/11 Added the APIs XCanPs_SetTxIntrWatermark and
 * 			XCanPs_GetTxIntrWatermark.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.3	sne    08/06/19	Fixed coverity warnings.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -276,17 +276,15 @@ void XCanPs_EnterMode(XCanPs *InstancePtr, u8 OperationMode)
 		return;
 	}
 	else {
-		/*This else was made for misra-c compliance*/
-		;
-	}
-
-	/*
-	 * If the mode transition is not any of the two cases above, CAN must
-	 * enter Configuration Mode before switching into the target operation
-	 * mode.
-	 */
-	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+		/*
+		 * If the mode transition is not any of the two cases above, CAN must
+		 * enter Configuration Mode before switching into the target operation
+		 * mode.
+		 */
+		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_SRR_OFFSET, 0U);
+
+	}
 
 	/*
 	 * Check if the device has entered Configuration Mode, if not, return to
@@ -318,12 +316,6 @@ void XCanPs_EnterMode(XCanPs *InstancePtr, u8 OperationMode)
 					XCANPS_SRR_OFFSET, XCANPS_SRR_CEN_MASK);
 			break;
 
-		case XCANPS_MODE_LOOPBACK:
-			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-					XCANPS_MSR_OFFSET, XCANPS_MSR_LBACK_MASK);
-			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-					XCANPS_SRR_OFFSET, XCANPS_SRR_CEN_MASK);
-			break;
 
 		case XCANPS_MODE_SNOOP:
 			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
@@ -333,7 +325,10 @@ void XCanPs_EnterMode(XCanPs *InstancePtr, u8 OperationMode)
 			break;
 
 		default:
-			/*This default was made for misra-c compliance*/
+			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+					XCANPS_MSR_OFFSET, XCANPS_MSR_LBACK_MASK);
+			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+					XCANPS_SRR_OFFSET, XCANPS_SRR_CEN_MASK);
 			break;
 
 	}
@@ -767,13 +762,6 @@ s32 XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
 			 * Write to the AFMR and AFIR of the specified filter.
 			 */
 			switch (FilterIndex) {
-				case XCANPS_AFR_UAF1_MASK:	/* Acceptance Filter No. 1 */
-
-					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-							XCANPS_AFMR1_OFFSET, MaskValue);
-					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-							XCANPS_AFIR1_OFFSET, IdValue);
-					break;
 
 				case XCANPS_AFR_UAF2_MASK:	/* Acceptance Filter No. 2 */
 					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
@@ -797,7 +785,12 @@ s32 XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
 					break;
 
 				default:
-					/*This default was made for misra-c compliance*/
+					/* Acceptance Filter No. 1 */
+
+					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+							XCANPS_AFMR1_OFFSET, MaskValue);
+					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+							XCANPS_AFIR1_OFFSET, IdValue);
 					break;
 			}
 
@@ -844,12 +837,6 @@ void XCanPs_AcceptFilterGet(XCanPs *InstancePtr, u32 FilterIndex,
 	 * Read from the AFMR and AFIR of the specified filter.
 	 */
 	switch (FilterIndex) {
-		case XCANPS_AFR_UAF1_MASK:	/* Acceptance Filter No. 1 */
-			*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-						  XCANPS_AFMR1_OFFSET);
-			*IdValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-						  XCANPS_AFIR1_OFFSET);
-			break;
 
 		case XCANPS_AFR_UAF2_MASK:	/* Acceptance Filter No. 2 */
 			*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
@@ -873,8 +860,13 @@ void XCanPs_AcceptFilterGet(XCanPs *InstancePtr, u32 FilterIndex,
 			break;
 
 		default:
-			/*This default was made for misra-c compliance*/
+			/* Acceptance Filter No. 1 */
+			*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+					XCANPS_AFMR1_OFFSET);
+			*IdValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+					XCANPS_AFIR1_OFFSET);
 			break;
+
 	}
 }
 

@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -1311,4 +1309,43 @@ void XV_SdiTxSs_SetCoreSettings(XV_SdiTxSs *InstancePtr, XV_SdiTxSs_CoreSelId Se
 		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITXSS_CORESELID_INSERTEDH, Data);
 		break;
 	};
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enable the YUV444/RGB 10bit support SDI TX SS video stream
+*
+* @param	InstancePtr pointer to XV_SdiTxSs instance
+*
+* @return	None
+*
+******************************************************************************/
+void XV_SdiTxSs_SetYCbCr444_RGB_10bit(XV_SdiTxSs *InstancePtr)
+{
+        /* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+
+        /* Print detected error information */
+        XV_SdiTx_SetYCbCr444_RGB_10bit(InstancePtr->SdiTxPtr);
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This function disable the YUV444/RGB 10bit support SDI TX SS video stream
+*
+* @param	InstancePtr pointer to XV_SdiTxSs instance
+*
+* @return	None
+*
+******************************************************************************/
+void XV_SdiTxSs_ClearYCbCr444_RGB_10bit(XV_SdiTxSs *InstancePtr)
+{
+        /* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+
+        /* Print detected error information */
+        XV_SdiTx_ClearYCbCr444_RGB_10bit(InstancePtr->SdiTxPtr);
 }

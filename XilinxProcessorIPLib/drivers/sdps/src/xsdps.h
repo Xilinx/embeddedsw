@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xsdps.h
-* @addtogroup sdps_v3_7
+* @addtogroup sdps_v3_8
 * @{
 * @details
 *
@@ -47,7 +45,7 @@
 * line) can be sent, most often to obtain status.
 * This driver does not support multi card slots at present.
 *
-* Intialization:
+* Initialization:
 * This includes initialization on the host controller side to select
 * clock frequency, bus power and default transfer related parameters.
 * The default voltage is 3.3V.
@@ -56,7 +54,7 @@
 * identifies key card related specifications.
 *
 * Data transfer:
-* The SD card is put in tranfer state to read from or write to it.
+* The SD card is put in transfer state to read from or write to it.
 * The default block size is 512 bytes and if supported,
 * default bus width is 4-bit and bus speed is High speed.
 * The read and write functions are implemented in polled mode using ADMA2.
@@ -75,7 +73,7 @@
 *
 * There is no example for using SD driver without file system at present.
 * However, the driver can be used without the file system. The glue layer
-* in filesytem can be used as reference for the same. The block count
+* in filesystem can be used as reference for the same. The block count
 * passed to the read/write function in one call is limited by the ADMA2
 * descriptor table and hence care will have to be taken to call read/write
 * API's in a loop for large file sizes.
@@ -147,6 +145,8 @@
 *       mn     09/06/17 Resolved compilation errors with IAR toolchain
 * 3.6   mn     08/01/18 Add support for using 64Bit DMA with 32-Bit Processor
 * 3.7   mn     02/01/19 Add support for idling of SDIO
+* 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
+*       mn     09/17/19 Modified ADMA handling API for 32bit and 64bit addresses
 *
 * </pre>
 *
@@ -192,16 +192,28 @@ typedef struct {
 	u8 IsCacheCoherent; 		/**< If SD is Cache Coherent or not */
 } XSdPs_Config;
 
-/* ADMA2 descriptor table */
+/* ADMA2 32-Bit descriptor table */
+typedef struct {
+	u16 Attribute;		/**< Attributes of descriptor */
+	u16 Length;		/**< Length of current dma transfer */
+	u32 Address;		/**< Address of current dma transfer */
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+} XSdPs_Adma2Descriptor32;
+#else
+}  __attribute__((__packed__))XSdPs_Adma2Descriptor32;
+#endif
+
+/* ADMA2 64-Bit descriptor table */
 typedef struct {
 	u16 Attribute;		/**< Attributes of descriptor */
 	u16 Length;		/**< Length of current dma transfer */
 	u64 Address;		/**< Address of current dma transfer */
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-} XSdPs_Adma2Descriptor;
+} XSdPs_Adma2Descriptor64;
 #else
-}  __attribute__((__packed__))XSdPs_Adma2Descriptor;
+}  __attribute__((__packed__))XSdPs_Adma2Descriptor64;
 #endif
 
 /**
@@ -227,14 +239,8 @@ typedef struct {
 	u32 SectorCount;		/**< Sector Count */
 	u32 SdCardConfig;	/**< Sd Card Configuration Register */
 	u32 Mode;			/**< Bus Speed Mode */
-	XSdPs_ConfigTap Config_TapDelay;	/**< Configuring the tap delays */
-	/**< ADMA Descriptors */
-#ifdef __ICCARM__
-#pragma data_alignment = 32
-	XSdPs_Adma2Descriptor Adma2_DescrTbl[32];
-#else
-	XSdPs_Adma2Descriptor Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
-#endif
+	u32	OTapDelay;		/**< Output Tap Delay */
+	u32	ITapDelay;		/**< Input Tap Delay */
 	u64 Dma64BitAddr;	/**< 64 Bit DMA Address */
 } XSdPs;
 

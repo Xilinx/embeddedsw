@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
@@ -684,7 +682,7 @@ static XStatus XResetPs_PulseResetFpd(void)
 	XResetPs_WriteReg(XRESETPS_LPD_SCR_AXIISO_REQ_CTRL, RegValue);
 
 	/*
-	 * Here we need to check for AIB ack, since nothing is done incase
+	 * Here we need to check for AIB ack, since nothing is done in case
 	 * ack is not received, we are just waiting for specified timeout
 	 * and continuing
 	 */
@@ -928,7 +926,7 @@ XStatus XResetPs_ResetPulse(XResetPs *InstancePtr, const XResetPs_RstId ResetID)
 	RegValue |= RegBitmask;
 	XResetPs_WriteReg(RegAddr, RegValue);
 
-	/* Wait for assert propogation */
+	/* Wait for assert propagation */
 	if (ResetMap[ResetID].PulseType != XRESETPS_PT_NO_DLY_NO_PSCHK) {
 		TimeOut = XRESETPS_PULSE_PROP_DELAY;
 		while (TimeOut > 0U) {
@@ -941,7 +939,7 @@ XStatus XResetPs_ResetPulse(XResetPs *InstancePtr, const XResetPs_RstId ResetID)
 	RegValue &= (~RegBitmask);
 	XResetPs_WriteReg(RegAddr, RegValue);
 
-	/* Wait for release propogation */
+	/* Wait for release propagation */
 	if (ResetMap[ResetID].PulseType != XRESETPS_PT_NO_DLY_NO_PSCHK) {
 		TimeOut = XRESETPS_PULSE_PROP_DELAY;
 		while (TimeOut > 0U) {

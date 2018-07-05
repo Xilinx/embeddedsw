@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -113,7 +111,7 @@ void XIic_MultiMasterInclude()
 * - Disable Bus not busy interrupt
 * - Enable bus Ack
 *	 Should the slave receive have disabled acknowledgement, enable to allow
-*	 acknowledgment of the sending of our address to again be addresed as
+*	 acknowledgment of the sending of our address to again be addressed as
 *	 slave
 * - Flush Rx FIFO
 *	 Should the slave receive have disabled acknowledgement, a few bytes may
@@ -137,7 +135,7 @@ static void BusNotBusyHandler(XIic *InstancePtr)
 	/*
 	 * Should the slave receive have disabled acknowledgement,
 	 * enable to allow acknowledgment of the sending of our address to
-	 * again be addresed as slave.
+	 * again be addressed as slave.
 	 */
 	CntlReg = XIic_ReadReg(InstancePtr->BaseAddress, XIIC_CR_REG_OFFSET);
 	XIic_WriteReg(InstancePtr->BaseAddress, XIIC_CR_REG_OFFSET,
@@ -145,7 +143,7 @@ static void BusNotBusyHandler(XIic *InstancePtr)
 
 	/*
 	 * Flush Tx FIFO by toggling TxFIFOResetBit. FIFO runs normally at 0
-	 * Do this incase needed to Tx FIFO with more than expected if what
+	 * Do this in case needed to Tx FIFO with more than expected if what
 	 * was set to Tx was less than what the Master expected - read more
 	 * from this slave so FIFO had junk in it.
 	 */

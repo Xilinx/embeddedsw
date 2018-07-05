@@ -15,14 +15,12 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+#
 #
 ###############################################################################
 #
@@ -30,6 +28,8 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- ------------------------------------
 # 4.0     adk    12/10/13 Updated as per the New Tcl API's
+# 4.5     sd     08/05/19 Added a check for custom for running
+# 				gpiooutput example
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_I
@@ -174,6 +174,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     set gpio_width [common::get_property CONFIG.C_GPIO_WIDTH $mhsinst]
     set gpio_intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
     set gpio_isdual [common::get_property CONFIG.C_IS_DUAL $mhsinst]
+    set gpio_interface [common::get_property CONFIG.GPIO_BOARD_INTERFACE $mhsinst]
     set all_inputs [common::get_property CONFIG.C_ALL_INPUTS $mhsinst]
     set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
     if { $stdout == "" || $stdout == "none" } {
@@ -193,13 +194,15 @@ proc gen_testfunc_call {swproj mhsinst} {
         
         switch ${all_inputs} {
             0       { 
-                append testfunc_call "
+                if { [string compare -nocase "Custom" ${gpio_interface}] != 0 } {
+                   append testfunc_call "
 
    {
       int status;
       
       status = GpioOutputExample(${deviceid},${gpio_width});
    }"
+                }
             }
             1       { 
                 append testfunc_call "
@@ -249,7 +252,8 @@ proc gen_testfunc_call {swproj mhsinst} {
         
         switch ${all_inputs} {
             0       { 
-                append testfunc_call "
+                        if { [string compare -nocase "Custom" ${gpio_interface}] != 0 } {
+                            append testfunc_call "
 
    {
       u32 status;
@@ -265,6 +269,7 @@ proc gen_testfunc_call {swproj mhsinst} {
          print(\"GpioOutputExample FAILED.\\r\\n\");
       }
    }"
+                    }
             }
             1       { 
                 append testfunc_call "

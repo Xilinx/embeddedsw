@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -55,6 +53,9 @@
 *					   XTtcPs_CfgInitialize
 * 3.2  mus    10/28/16 Updated TmrCntrSetup as per prototype of
 *                      XTtcPs_CalcIntervalFromFreq
+* 3.10 mus    05/20/19 Update example to make it generic to run on any
+*                      intended TTC device
+*      aru    05/30/19 Updated the exapmle to use XTtcPs_InterruptHandler().
 *</pre>
 ******************************************************************************/
 
@@ -70,11 +71,22 @@
 #include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
+#if defined (PLATFORM_ZYNQ)
+#define NUM_DEVICES    9U
+#else
+#define NUM_DEVICES    12U
+#endif
 
 /*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
+ * Note: To run this example on intended TTC device, following changes
+ *       needs to be done
+ *       - Map constants given below to the intended TTC devices
+ *       - Fill SettingsTable array based on the intended device IDs.
+ *         e.g. If intended device IDs are 3 and 4, then SettingsTable[3]
+ *              and SettingsTable[4] should be set properly.
  */
 #define TTC_TICK_DEVICE_ID	XPAR_XTTCPS_1_DEVICE_ID
 #define TTC_TICK_INTR_ID	XPAR_XTTCPS_1_INTR
@@ -121,14 +133,14 @@ static int WaitForDutyCycleFull(void);
 
 static int SetupInterruptSystem(u16 IntcDeviceID, XScuGic *IntcInstancePtr);
 
-static void TickHandler(void *CallBackRef);
-static void PWMHandler(void *CallBackRef);
+static void TickHandler(void *CallBackRef, u32 StatusEvent);
+static void PWMHandler(void *CallBackRef, u32 StatusEvent);
 
 /************************** Variable Definitions *****************************/
 
-static XTtcPs TtcPsInst[2];	/* Two timer counters */
+static XTtcPs TtcPsInst[NUM_DEVICES];	/* Number of available timer counters */
 
-static TmrCntrSetup SettingsTable[2] = {
+static TmrCntrSetup SettingsTable[NUM_DEVICES] = {
 	{100, 0, 0, 0},	/* Ticker timer counter initial setup, only output freq */
 	{200, 0, 0, 0}, /* PWM timer counter initial setup, only output freq */
 };
@@ -283,10 +295,13 @@ int SetupTicker(void)
 	 * Connect to the interrupt controller
 	 */
 	Status = XScuGic_Connect(&InterruptController, TTC_TICK_INTR_ID,
-		(Xil_ExceptionHandler)TickHandler, (void *)TtcPsTick);
+		(Xil_ExceptionHandler)XTtcPs_InterruptHandler, (void *)TtcPsTick);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+
+	XTtcPs_SetStatusHandler(&(TtcPsInst[TTC_TICK_DEVICE_ID]), &(TtcPsInst[TTC_TICK_DEVICE_ID]),
+		              (XTtcPs_StatusHandler)TickHandler);
 
 	/*
 	 * Enable the interrupt for the Timer counter
@@ -350,11 +365,13 @@ int SetupPWM(void)
 	 * Connect to the interrupt controller
 	 */
 	Status = XScuGic_Connect(&InterruptController, TTC_PWM_INTR_ID,
-		(Xil_ExceptionHandler)PWMHandler, (void *)&MatchValue);
+		(Xil_ExceptionHandler)XTtcPs_InterruptHandler, (void *)TtcPsPWM);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
+	XTtcPs_SetStatusHandler(&(TtcPsInst[TTC_PWM_DEVICE_ID]), &(TtcPsInst[TTC_PWM_DEVICE_ID]),
+		              (XTtcPs_StatusHandler) PWMHandler);
 	/*
 	 * Enable the interrupt for the Timer counter
 	 */
@@ -589,16 +606,8 @@ static int SetupInterruptSystem(u16 IntcDeviceID,
 * @note		None.
 *
 *****************************************************************************/
-static void TickHandler(void *CallBackRef)
+static void TickHandler(void *CallBackRef, u32 StatusEvent)
 {
-	u32 StatusEvent;
-
-	/*
-	 * Read the interrupt status, then write it back to clear the interrupt.
-	 */
-	StatusEvent = XTtcPs_GetInterruptStatus((XTtcPs *)CallBackRef);
-	XTtcPs_ClearInterruptStatus((XTtcPs *)CallBackRef, StatusEvent);
-
 	if (0 != (XTTCPS_IXR_INTERVAL_MASK & StatusEvent)) {
 		TickCount++;
 
@@ -634,23 +643,14 @@ static void TickHandler(void *CallBackRef)
 * @note		None.
 *
 *****************************************************************************/
-static void PWMHandler(void *CallBackRef)
+static void PWMHandler(void *CallBackRef, u32 StatusEvent)
 {
-	u32 *MatchReg;
-	u32 StatusEvent;
 	XTtcPs *Timer;
 
-	MatchReg = (u32 *) CallBackRef;
 	Timer = &(TtcPsInst[TTC_PWM_DEVICE_ID]);
 
-	/*
-	 * Read the interrupt status, then write it back to clear the interrupt.
-	 */
-	StatusEvent = XTtcPs_GetInterruptStatus(Timer);
-	XTtcPs_ClearInterruptStatus(Timer, StatusEvent);
-
 	if (0 != (XTTCPS_IXR_INTERVAL_MASK & StatusEvent)) {
-		XTtcPs_SetMatchValue(Timer, 0, *MatchReg);
+		XTtcPs_SetMatchValue(Timer, 0, MatchValue);
 	}
 	else {
 		/*

@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
@@ -69,6 +67,7 @@ XEmacPs EmacPsInstance;	/* XEmacPs instance used throughout examples */
  */
 char EmacPsMAC[] = { 0x00, 0x0a, 0x35, 0x01, 0x02, 0x03 };
 
+u32 Platform;
 
 /****************************************************************************/
 /**
@@ -290,13 +289,13 @@ void EmacPsUtilFrameMemClear(EthernetFrame * FramePtr)
 /****************************************************************************/
 /**
 *
-* This function copys data from source to desitnation for n bytes.
+* This function copies data from source to desitnation for n bytes.
 *
 * @param    Destination is the targeted string to copy to.
 * @param    Source is the source string to copy from.
 * @param    n is number of bytes to be copied.
 *
-* @note     This function is similiar to strncpy(), however strncpy will
+* @note     This function is similar to strncpy(), however strncpy will
 *           stop either at null byte or n bytes is been copied.
 *           This function will copy n bytes without checking the content.
 *
@@ -606,7 +605,7 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_ADDR);
 	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, PHY_RGMIIDCTL);
 	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_DATA);
-	if ((Platform & PLATFORM_MASK) == PLATFORM_VERSALEMU) {
+	if ((Platform & PLATFORM_MASK_VERSAL) == PLATFORM_VERSALEMU) {
 		RgmiiTuning = PHY_TI_RGMII_VERSALEMU;
 	}
 	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, RgmiiTuning);

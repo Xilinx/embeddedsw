@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 
 *******************************************************************************/
@@ -59,6 +57,10 @@
 * 3.3   ms   04/17/17 Added notes about input and output pin description
 *                     for zcu102 and zc702 boards.
 * 3.5   sne  04/26/19 Added versal support.
+* 3.6	sne  08/19/19 Updated gpio pin numbers for versal platform.
+*		      Using pmc_MIO38,pmc_MIO39 for PMC device and
+*		      LPD_MIO14,LPD_MIO15 for PS device.
+*
 * </pre>
 *
 *****************************************************************************/
@@ -74,7 +76,7 @@
 /************************** Constant Definitions ****************************/
 
 /*
- * The followig constants map to the XPAR parameters created in the
+ * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place for ZYNQ & ZYNQMP.
  *
@@ -198,13 +200,13 @@ int GpioPolledExample(u16 DeviceId, u32 *DataRead)
 #ifdef versal
 		case XPLAT_versal:
 			if(Gpio.PmcGpio == 0x1U) {
-				Input_Pin = 52;
-				Output_Pin = 84;
+				Input_Pin = 38;
+				Output_Pin = 39;
 				break;
 			}
 			else {
-				Input_Pin = 26;
-				Output_Pin = 41;
+				Input_Pin = 14;
+				Output_Pin = 15;
 				break;
 			}
 #endif

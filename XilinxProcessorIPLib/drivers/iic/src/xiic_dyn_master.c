@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -425,7 +423,7 @@ int XIic_DynMasterRecv(XIic *InstancePtr, u8 *RxMsgPtr, u8 ByteCount)
 	XIic_DynSendStop(InstancePtr->BaseAddress, ByteCount);
 
 	/*
-	 * Tx error is enabled incase the address has no device to answer
+	 * Tx error is enabled in case the address has no device to answer
 	 * with Ack. When only one byte of data, must set NO ACK before address
 	 * goes out therefore Tx error must not be enabled as it will go off
 	 * immediately and the Rx full interrupt will be checked. If full, then
@@ -584,7 +582,7 @@ static int IsBusBusy(XIic *InstancePtr)
 	if (((CntlReg & XIIC_CR_MSMS_MASK) == 0) &&	/* Not master */
 		(StatusReg & XIIC_SR_BUS_BUSY_MASK)) {	/* Is busy    */
 		/*
-		 * The bus is busy, clear pending BNB interrupt incase
+		 * The bus is busy, clear pending BNB interrupt in case
 		 * previously set and then enable BusNotBusy interrupt.
 		 */
 		InstancePtr->BNBOnly = TRUE;

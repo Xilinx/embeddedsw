@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
  ******************************************************************************/
 
@@ -30,7 +28,7 @@
 /**
  *
  * @file xqspipsu.c
- * @addtogroup qspipsu_v1_9
+ * @addtogroup qspipsu_v1_10
  * @{
  *
  * This file implements the functions required to use the QSPIPSU hardware to
@@ -44,7 +42,7 @@
  * 1.0   hk  08/21/14 First release
  *       sk  03/13/15 Added IO mode support.
  *       hk  03/18/15 Switch to I/O mode before clearing RX FIFO.
- *                    Clear and disbale DMA interrupts/status in abort.
+ *                    Clear and disable DMA interrupts/status in abort.
  *                    Use DMA DONE bit instead of BUSY as recommended.
  *       sk  04/24/15 Modified the code according to MISRAC-2012.
  *       sk  06/17/15 Removed NULL checks for Rx/Tx buffers. As
@@ -82,6 +80,8 @@
  * 1.9  nsk 02/01/19 Added QSPI idling support.
  * 1.9  rama 03/13/19 Fixed MISRA violations related to UR data anamoly,
  *					  expression is not a boolean
+ * 1.9  nsk 03/27/19 Update 64bit dma support
+ * 1.10 sk  08/20/19 Fixed issues in poll timeout feature.
  * </pre>
  *
  ******************************************************************************/
@@ -367,9 +367,9 @@ void XQspiPsu_Abort(XQspiPsu *InstancePtr)
 	}
 
 	/*
-	 * Switch to IO mode to Clear RX FIFO. This is becuase of DMA behaviour
+	 * Switch to IO mode to Clear RX FIFO. This is because of DMA behaviour
 	 * where it waits on RX empty and goes busy assuming there is data
-	 * to be transfered even if there is no request.
+	 * to be transferred even if there is no request.
 	 */
 	if ((IntrStatus & XQSPIPSU_ISR_RXEMPTY_MASK) != 0U) {
 		ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
@@ -968,25 +968,28 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 			(void)XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_RXD_OFFSET);
 
-			XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_IDR_OFFSET,
-				(u32)XQSPIPSU_IER_TXNOT_FULL_MASK |
-				(u32)XQSPIPSU_IER_TXEMPTY_MASK |
-				(u32)XQSPIPSU_IER_RXNEMPTY_MASK |
-				(u32)XQSPIPSU_IER_GENFIFOEMPTY_MASK |
-				(u32)XQSPIPSU_IER_RXEMPTY_MASK |
-				(u32)XQSPIPSU_IER_POLL_TIME_EXPIRE_MASK);
 			InstancePtr->StatusHandler(InstancePtr->StatusRef,
 				XST_SPI_POLL_DONE, 0);
-
-			InstancePtr->IsBusy = FALSE;
-			/* Disable the device. */
-			XQspiPsu_Disable(InstancePtr);
 
 		}
 		if ((QspiPsuStatusReg & XQSPIPSU_ISR_POLL_TIME_EXPIRE_MASK) != FALSE) {
 			InstancePtr->StatusHandler(InstancePtr->StatusRef,
 					XST_FLASH_TIMEOUT_ERROR, 0);
 		}
+
+		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_IDR_OFFSET,
+				(u32)XQSPIPSU_IER_RXNEMPTY_MASK |
+				(u32)XQSPIPSU_IER_POLL_TIME_EXPIRE_MASK);
+		InstancePtr->IsBusy = FALSE;
+		if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
+			XQspiPsu_SetReadMode(InstancePtr, XQSPIPSU_READMODE_DMA);
+		}
+
+		/* De-select slave */
+		XQspiPsu_GenFifoEntryCSDeAssert(InstancePtr);
+
+		/* Disable the device. */
+		XQspiPsu_Disable(InstancePtr);
 	}
 	return XST_SUCCESS;
 }
@@ -1152,7 +1155,8 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_RX;
 		InstancePtr->RxBytes = (s32)Msg->ByteCount;
 		InstancePtr->SendBufferPtr = NULL;
-		if (Msg->RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) {
+		if ((Msg->RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
+			(Msg->Xfer64bit != (u8)0U)) {
 			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
 				XQspiPsu_Setup64BRxDma(InstancePtr, Msg);
 			}
@@ -1184,7 +1188,8 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		InstancePtr->SendBufferPtr = Msg->TxBfrPtr;
 		XQspiPsu_FillTxFifo(InstancePtr, Msg, XQSPIPSU_TXD_DEPTH);
 		/* Add check for DMA or PIO here */
-		if (Msg->RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) {
+		if ((Msg->RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
+			(Msg->Xfer64bit != (u8)0U)) {
 			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
 				XQspiPsu_Setup64BRxDma(InstancePtr, Msg);
 			}
@@ -1630,6 +1635,8 @@ static inline void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMs
 
 	XQspiPsu_Enable(QspiPsuPtr);
 
+	XQspiPsu_GenFifoEntryCSAssert(QspiPsuPtr);
+
 	GenFifoEntry = (u32)0;
 	GenFifoEntry |= (u32)XQSPIPSU_GENFIFO_TX;
 	GenFifoEntry |= QspiPsuPtr->GenFifoBus;
@@ -1639,9 +1646,6 @@ static inline void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMs
 
 	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
 		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
-	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
-				(XQSPIPSU_CFG_START_GEN_FIFO_MASK
-				| XQSPIPSU_CFG_GEN_FIFO_START_MODE_MASK));
 
 	GenFifoEntry = (u32)0;
 	GenFifoEntry |= (u32)XQSPIPSU_GENFIFO_POLL;
@@ -1657,12 +1661,18 @@ static inline void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMs
 	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
 		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
 
+	/* One Dummy entry required for IO mode */
+	GenFifoEntry = 0x0U;
+	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
+		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
+
 	QspiPsuPtr->Msg = FlashMsg;
 	QspiPsuPtr->NumMsg = (s32)1;
 	QspiPsuPtr->MsgCnt = 0;
 
 	Value = XQspiPsu_ReadReg(QspiPsuPtr->Config.BaseAddress,
 			XQSPIPSU_CFG_OFFSET);
+	Value &= ~XQSPIPSU_CFG_MODE_EN_MASK;
 	Value |= (XQSPIPSU_CFG_START_GEN_FIFO_MASK |
 			XQSPIPSU_CFG_GEN_FIFO_START_MODE_MASK |
 			XQSPIPSU_CFG_EN_POLL_TO_MASK);
@@ -1670,14 +1680,12 @@ static inline void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMs
 			Value);
 
 	/* Enable interrupts */
-	Value = ((u32)XQSPIPSU_IER_TXNOT_FULL_MASK |
-		(u32)XQSPIPSU_IER_TXEMPTY_MASK |
-		(u32)XQSPIPSU_IER_RXNEMPTY_MASK |
-		(u32)XQSPIPSU_IER_GENFIFOEMPTY_MASK |
-		(u32)XQSPIPSU_IER_RXEMPTY_MASK |
+	Value = ((u32)XQSPIPSU_IER_RXNEMPTY_MASK |
 		(u32)XQSPIPSU_IER_POLL_TIME_EXPIRE_MASK);
+
 	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress, XQSPIPSU_IER_OFFSET,
 			Value);
+
 }
 
 /*****************************************************************************/

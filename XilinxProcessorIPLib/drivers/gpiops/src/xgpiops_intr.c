@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xgpiops_intr.c
-* @addtogroup gpiops_v3_5
+* @addtogroup gpiops_v3_6
 * @{
 *
 * This file contains functions related to GPIO interrupt handling.
@@ -48,12 +46,15 @@
 * 3.4   aru  08/09/18 Ressolved cppcheck warnings.
 * 3.4   aru  08/17/18 Resolved MISRA-C mandatory violations. CR# 1007751
 * 3.5   sne  03/01/19 Fixes violations according to MISRAC-2012
-*                     in saftey mode and modified the code such as
-*                     Use of mixed mode arithmetic,Declared the poiner param
+*                     in safety mode and modified the code such as
+*                     Use of mixed mode arithmetic,Declared the pointer param
 *                     as Pointer to const,Casting operation to a pointer,
 *                     Literal value requires a U suffix.
 * 3.5   sne  03/14/19 Added Versal support.
 * 3.5   sne  03/20/19 Fixed multiple interrupts problem CR#1024556.
+* 3.6	sne  06/12/19 Fixed IAR compiler warning.
+* 3.6   sne  08/14/19 Added interrupt handler support on versal.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -774,16 +775,27 @@ void XGpioPs_IntrHandler(const XGpioPs *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-        for (Bank = 0U; Bank < InstancePtr->MaxBanks; Bank++) {
-                IntrStatus = XGpioPs_IntrGetStatus(InstancePtr, Bank);
-                IntrEnabled = XGpioPs_IntrGetEnabled(InstancePtr,Bank);
-                if ((IntrStatus & IntrEnabled) != (u32)0) {
-                        XGpioPs_IntrClear(InstancePtr, Bank,
-                                        (IntrStatus & IntrEnabled));
-                        InstancePtr->Handler(InstancePtr->
-                                        CallBackRef, Bank,
-                                        (IntrStatus & IntrEnabled));
-                }
+	for (Bank = 0U; Bank < InstancePtr->MaxBanks; Bank++) {
+#ifdef versal
+		if(InstancePtr->PmcGpio == TRUE) {
+			if(Bank == XGPIOPS_TWO) {
+				continue;
+			}
+		} else {
+			if((Bank == XGPIOPS_ONE) || (Bank == XGPIOPS_TWO)) {
+				continue;
+			}
+		}
+#endif
+		IntrStatus = XGpioPs_IntrGetStatus(InstancePtr, Bank);
+		IntrEnabled = XGpioPs_IntrGetEnabled(InstancePtr,Bank);
+		if ((IntrStatus & IntrEnabled) != (u32)0) {
+			XGpioPs_IntrClear(InstancePtr, Bank,
+					(IntrStatus & IntrEnabled));
+			InstancePtr->Handler(InstancePtr->
+					CallBackRef, Bank,
+					(IntrStatus & IntrEnabled));
+		}
 	}
 }
 
@@ -804,7 +816,7 @@ void XGpioPs_IntrHandler(const XGpioPs *InstancePtr)
 ******************************************************************************/
 void StubHandler(const void *CallBackRef, u32 Bank, u32 Status)
 {
-	(const void) CallBackRef;
+	(void) CallBackRef;
 	(void) Bank;
 	(void) Status;
 

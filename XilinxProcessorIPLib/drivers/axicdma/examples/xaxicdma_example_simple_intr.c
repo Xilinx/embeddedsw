@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -68,6 +66,8 @@
  *                     generation of examples.
  * 4.4   rsp  02/22/18 Support data buffers above 4GB.Use UINTPTR for
  *                     typecasting buffer address(CR-995116).
+ * 4.6   rsp  09/13/19 Add error prints for failing scenarios.
+ *                     Fix cache maintenance ops for source and dest buffer.
  * </pre>
  *
  ****************************************************************************/
@@ -330,9 +330,7 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	 * is enabled
 	 */
 	Xil_DCacheFlushRange((UINTPTR)&SrcBuffer, Length);
-#ifdef __aarch64__
 	Xil_DCacheFlushRange((UINTPTR)&DestBuffer, Length);
-#endif
 
 	/* Try to start the DMA transfer
 	 */
@@ -349,6 +347,8 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	}
 
 	if (!Retries) {
+		xdbg_printf(XDBG_DEBUG_ERROR,
+			    "Failed to submit the transfer with %d\r\n", Status);
 		return XST_FAILURE;
 	}
 
@@ -359,15 +359,14 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	}
 
 	if (Error) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "DMA transfer error\r\n");
 		return XST_FAILURE;
 	}
 
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
-#ifndef __aarch64__
 	Xil_DCacheInvalidateRange((UINTPTR)&DestBuffer, Length);
-#endif
 
 	/* Transfer completes successfully, check data
 	 *
@@ -375,6 +374,9 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	 */
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {
+			xdbg_printf(XDBG_DEBUG_ERROR,
+			    "Data check failure %d: %x/%x\r\n",
+			    Index, DestPtr[Index], SrcPtr[Index]);
 			return XST_FAILURE;
 		}
 	}

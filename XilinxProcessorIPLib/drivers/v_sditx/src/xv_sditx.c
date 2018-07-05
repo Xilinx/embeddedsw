@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -319,7 +317,8 @@ u32 XV_SdiTx_SetStream(XV_SdiTx *InstancePtr, XV_SdiTx_StreamSelId SelId,
 		break;
 
 	case XV_SDITX_STREAMSELID_COLORFORMAT:
-		Xil_AssertNonvoid( ((u32)Data == XVIDC_CSF_YCBCR_422) || ((u32)Data == XVIDC_CSF_YCBCR_420) );
+		Xil_AssertNonvoid( ((u32)Data == XVIDC_CSF_YCBCR_422) || ((u32)Data == XVIDC_CSF_YCBCR_420)
+					|| ((u32)Data == XVIDC_CSF_YCBCR_444));
 
 		InstancePtr->Stream[StreamId].Video.ColorFormatId = (u32)Data;
 		break;
@@ -670,6 +669,9 @@ u8 XV_SdiTx_GetPayloadColorFormat(XSdiVid_TransMode SdiMode, XVidC_ColorFormat C
 				Data = 0x0;
 		else if(ColorFormatId == XVIDC_CSF_YCBCR_420)
 				Data = 0x3;
+		else if (ColorFormatId == XVIDC_CSF_YCBCR_444 &&
+				((SdiMode != XSDIVID_MODE_6G) || (SdiMode != XSDIVID_MODE_12GF)))
+				Data = 0x1;
 		else {
 			xil_printf("Error: Invalid ColorFomat input. Defaulting to YCBCR_422\n\r");
 			Data = 0x0;
@@ -680,6 +682,8 @@ u8 XV_SdiTx_GetPayloadColorFormat(XSdiVid_TransMode SdiMode, XVidC_ColorFormat C
 	case XSDIVID_MODE_3GA:
 		if (ColorFormatId == XVIDC_CSF_YCBCR_422)
 				Data = 0x0;
+		else if (ColorFormatId == XVIDC_CSF_YCBCR_444 && (SdiMode == XSDIVID_MODE_3GA))
+				Data = 0x1;
 		else {
 				xil_printf("Error: Invalid ColorFomat input. Defaulting to YCBCR_422\n\r");
 				Data = 0x0;
@@ -1112,7 +1116,9 @@ void XV_SdiTx_ST352CStreamEnable(XV_SdiTx *InstancePtr)
 int XV_SdiTx_SetColorFormat(XV_SdiTx *InstancePtr, XVidC_ColorFormat ColorFormat)
 {
 	Xil_AssertNonvoid( (ColorFormat == XVIDC_CSF_YCBCR_422) ||
-			((ColorFormat == XVIDC_CSF_YCBCR_420) && (InstancePtr->Transport.TMode >= XSDIVID_MODE_6G)) );
+			    (ColorFormat == XVIDC_CSF_YCBCR_444) ||
+			     ((ColorFormat == XVIDC_CSF_YCBCR_420) &&
+			       (InstancePtr->Transport.TMode >= XSDIVID_MODE_6G)) );
 
 	u32 Data;
 
@@ -1128,6 +1134,10 @@ int XV_SdiTx_SetColorFormat(XV_SdiTx *InstancePtr, XVidC_ColorFormat ColorFormat
 		break;
 
 	case XVIDC_CSF_YCBCR_420:
+		Data |= 0x1 << XV_SDITX_MDL_CTRL_VID_FRMT_SHIFT;
+		break;
+
+	case XVIDC_CSF_YCBCR_444:
 		Data |= 0x1 << XV_SDITX_MDL_CTRL_VID_FRMT_SHIFT;
 		break;
 
@@ -1491,4 +1501,55 @@ static void StubCallback(void *CallbackRef)
 {
 	Xil_AssertVoid(CallbackRef != NULL);
 	Xil_AssertVoidAlways();
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables 10bit YUV444 color format support for SDI Tx
+*
+* @param	InstancePtr is a pointer to the XV_SdiTx core instance.
+*
+* @return	None.
+*
+******************************************************************************/
+void XV_SdiTx_SetYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr)
+{
+	u32 Data;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
+				XV_SDITX_MDL_CTRL_OFFSET);
+
+	Data |= XV_SDITX_MDL_CTRL_VID_FRMTYUV444_MASK;
+
+	XV_SdiTx_WriteReg(InstancePtr->Config.BaseAddress,
+			  XV_SDITX_MDL_CTRL_OFFSET, Data);
+}
+/*****************************************************************************/
+/**
+*
+* This function disables 10bit YUV444 color format support for SDI Tx
+*
+* @param	InstancePtr is a pointer to the XV_SdiTx core instance.
+*
+* @return	None.
+*
+******************************************************************************/
+void XV_SdiTx_ClearYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr)
+{
+	u32 Data;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
+				XV_SDITX_MDL_CTRL_OFFSET);
+
+	Data &= ~XV_SDITX_MDL_CTRL_VID_FRMTYUV444_MASK;
+
+	XV_SdiTx_WriteReg(InstancePtr->Config.BaseAddress,
+			  XV_SDITX_MDL_CTRL_OFFSET, Data);
 }

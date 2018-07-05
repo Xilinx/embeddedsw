@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
 /**
 *
 * @file xwdtps.c
-* @addtogroup wdtps_v3_1
+* @addtogroup wdtps_v3_2
 * @{
 *
 * Contains the implementation of interface functions of the XWdtPs driver.
@@ -46,6 +44,8 @@
 *			Removed APIs XWdtPs_SetExternalSignalLength,
 *			XWdtPs_GetExternalSignalLength
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.2	sne    08/05/19 Fixed coverity warnings.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -256,15 +256,12 @@ void XWdtPs_EnableOutput(XWdtPs *InstancePtr, u8 Signal)
 		 */
 		Register |= XWDTPS_ZMR_RSTEN_MASK;
 
-	} else if (Signal == XWDTPS_IRQ_SIGNAL) {
+	} else {
 		/*
 		 * Enable the field in the register.
 		 */
 		Register |= XWDTPS_ZMR_IRQEN_MASK;
 
-	} else {
-		/* Else was made for misra-c compliance */
-		;
 	}
 
 	/*
@@ -317,15 +314,12 @@ void XWdtPs_DisableOutput(XWdtPs *InstancePtr, u8 Signal)
 		 */
 		Register &= (u32)(~XWDTPS_ZMR_RSTEN_MASK);
 
-	} else if (Signal == XWDTPS_IRQ_SIGNAL) {
+	} else {
 		/*
 		 * Disable the field in the register.
 		 */
 		Register &= (u32)(~XWDTPS_ZMR_IRQEN_MASK);
 
-	} else {
-		/* Else was made for misra-c compliance */
-		;
 	}
 
 	/*
@@ -355,7 +349,7 @@ void XWdtPs_DisableOutput(XWdtPs *InstancePtr, u8 Signal)
 * @return	The contents of the requested control field in the Counter
 *		Control Register (XWDTPS_CCR_OFFSET).
 *		If the Control is XWDTPS_CLK_PRESCALE then use the
-*		defintions XWDTEPB_CCR_PSCALE_XXXX.
+*		definitions XWDTEPB_CCR_PSCALE_XXXX.
 *		If the Control is XWDTPS_COUNTER_RESET then the values are
 *		0x0 to 0xFFF. This is the Counter Restart value in the CCR
 *		register.
@@ -385,7 +379,7 @@ u32 XWdtPs_GetControlValue(XWdtPs *InstancePtr, u8 Control)
 		 */
 		ReturnValue = Register & XWDTPS_CCR_CLKSEL_MASK;
 
-	} else if (Control == XWDTPS_COUNTER_RESET) {
+	} else {
 		/*
 		 * Mask off the field in the register.
 		 */
@@ -395,9 +389,6 @@ u32 XWdtPs_GetControlValue(XWdtPs *InstancePtr, u8 Control)
 		 * Shift over to the right most positions.
 		 */
 		ReturnValue = Register >> XWDTPS_CCR_CRV_SHIFT;
-	} else {
-		/* Else was made for misra-c compliance */
-		;
 	}
 
 	return ReturnValue;
@@ -419,7 +410,7 @@ u32 XWdtPs_GetControlValue(XWdtPs *InstancePtr, u8 Control)
 *		time.
 * @param	Value is the desired control value.
 *		If the Control is XWDTPS_CLK_PRESCALE then use the
-*		defintions XWDTEPB_CCR_PSCALE_XXXX.
+*		definitions XWDTEPB_CCR_PSCALE_XXXX.
 *		If the Control is XWDTPS_COUNTER_RESET then the valid values
 *		are 0x0 to 0xFFF, this sets the counter restart value of the CCR
 *		register.
@@ -451,7 +442,7 @@ void XWdtPs_SetControlValue(XWdtPs *InstancePtr, u8 Control, u32 Value)
 		 */
 		Register &= (u32)(~XWDTPS_CCR_CLKSEL_MASK);
 
-	} else if (Control == XWDTPS_COUNTER_RESET) {
+	} else {
 		/*
 		 * Zero the field in the register.
 		 */
@@ -461,9 +452,6 @@ void XWdtPs_SetControlValue(XWdtPs *InstancePtr, u8 Control, u32 Value)
 		 * Shift Value over to the proper positions.
 		 */
 		LocalValue = LocalValue << XWDTPS_CCR_CRV_SHIFT;
-	} else{
-		/* This was made for misrac compliance. */
-		;
 	}
 
 	Register |= LocalValue;

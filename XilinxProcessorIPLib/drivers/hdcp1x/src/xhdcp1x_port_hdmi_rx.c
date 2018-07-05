@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xhdcp1x_port_hdmi_rx.c
-* @addtogroup hdcp1x_v4_2
+* @addtogroup hdcp1x_v4_3
 * @{
 *
 * This contains the implementation of the HDCP port driver for HDMI RX
@@ -58,14 +56,25 @@
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"
-#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+#if (defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)) || \
+    (defined(XPAR_XV_HDMIRX1_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX1_NUM_INSTANCES > 0))
 #include <stdlib.h>
 #include <string.h>
 #include "xhdcp1x_port.h"
 #include "xhdcp1x_port_hdmi.h"
-#include "xv_hdmirx.h"
 #include "xil_assert.h"
 #include "xil_types.h"
+
+#if (defined(XPAR_XV_HDMITX_NUM_INSTANCES) && \
+     (XPAR_XV_HDMITX_NUM_INSTANCES > 0))
+#include "xv_hdmirx.h"
+#endif
+#if (defined(XPAR_XV_HDMITX1_NUM_INSTANCES) && \
+     (XPAR_XV_HDMITX1_NUM_INSTANCES > 0))
+#include "xv_hdmirx1.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 

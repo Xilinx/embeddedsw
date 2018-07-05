@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 ******************************************************************************/
 /*****************************************************************************/
@@ -235,6 +233,7 @@ typedef struct {
 #endif
 	XDsi_ShortPacket SpktData; /**< Short packet strucute to
 					send short packet */
+	XDsiTx_CmdModePkt CmdPkt; /**< DSI Command mode packet structure */
 
 	XDsi_ConfigParameters ConfigInfo;  /**< Configuration information
 						contains GUI parameters,
@@ -257,6 +256,8 @@ void XDsiTxSs_Reset(XDsiTxSs *InstancePtr);
 void XDsiTxSs_ReportCoreInfo(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_SelfTest(XDsiTxSs *InstancePtr);
 void XDsiTxSs_SendShortPacket(XDsiTxSs *InstancePtr);
+int XDsiTxSs_SetDSIMode(XDsiTxSs *InstancePtr, XDsi_DsiModeType mode);
+int XDsiTxSs_SendCmdModePacket(XDsiTxSs *InstancePtr);
 void XDsiTxSs_GetConfigParams(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_IsControllerReady(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_GetPixelFormat(XDsiTxSs *InstancePtr);

@@ -15,14 +15,12 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+#
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -56,6 +54,8 @@ proc generate {drv_handle} {
 	"C_ADC_Mixer_Mode11" "C_ADC_Slice12_Enable" "C_ADC_Mixer_Mode12" "C_ADC_Slice13_Enable" "C_ADC_Mixer_Mode13" "C_ADC_Data_Type10" "C_ADC_Data_Width10" "C_ADC_Decimation_Mode10" "C_ADC_Fifo10_Enable" "C_ADC_Mixer_Type10" "C_ADC_Data_Type11" "C_ADC_Data_Width11" "C_ADC_Decimation_Mode11" "C_ADC_Fifo11_Enable" "C_ADC_Mixer_Type11" "C_ADC_Data_Type12" "C_ADC_Data_Width12" "C_ADC_Decimation_Mode12" "C_ADC_Fifo12_Enable" "C_ADC_Mixer_Type12" "C_ADC_Data_Type13" "C_ADC_Data_Width13" "C_ADC_Decimation_Mode13" "C_ADC_Fifo13_Enable" "C_ADC_Mixer_Type13" "C_ADC2_Enable" "C_ADC2_PLL_Enable" "C_ADC2_Sampling_Rate" "C_ADC2_Refclk_Freq" "C_ADC2_Fabric_Freq" "C_ADC2_FBDIV" "C_ADC2_OutDiv" "C_ADC2_Refclk_Div" "C_ADC2_Band" "C_ADC2_Fs_Max" "C_ADC2_Slices" "C_ADC_Slice20_Enable" "C_ADC_Mixer_Mode20" "C_ADC_Slice21_Enable" "C_ADC_Mixer_Mode21" "C_ADC_Slice22_Enable" "C_ADC_Mixer_Mode22" "C_ADC_Slice23_Enable" "C_ADC_Mixer_Mode23" "C_ADC_Data_Type20" \
 	"C_ADC_Data_Width20" "C_ADC_Decimation_Mode20" "C_ADC_Fifo20_Enable" "C_ADC_Mixer_Type20" "C_ADC_Data_Type21" "C_ADC_Data_Width21" "C_ADC_Decimation_Mode21" "C_ADC_Fifo21_Enable" "C_ADC_Mixer_Type21" "C_ADC_Data_Type22" "C_ADC_Data_Width22" "C_ADC_Decimation_Mode22" "C_ADC_Fifo22_Enable" "C_ADC_Mixer_Type22" "C_ADC_Data_Type23" "C_ADC_Data_Width23" "C_ADC_Decimation_Mode23" "C_ADC_Fifo23_Enable" "C_ADC_Mixer_Type23" "C_ADC3_Enable" "C_ADC3_PLL_Enable" "C_ADC3_Sampling_Rate" "C_ADC3_Refclk_Freq" "C_ADC3_Fabric_Freq" "C_ADC3_FBDIV" "C_ADC3_OutDiv" "C_ADC3_Refclk_Div" "C_ADC3_Band" "C_ADC3_Fs_Max" "C_ADC3_Slices" "C_ADC_Slice30_Enable" "C_ADC_Mixer_Mode30" "C_ADC_Slice31_Enable" "C_ADC_Mixer_Mode31" "C_ADC_Slice32_Enable" "C_ADC_Mixer_Mode32" "C_ADC_Slice33_Enable" "C_ADC_Mixer_Mode33" "C_ADC_Data_Type30" "C_ADC_Data_Width30" "C_ADC_Decimation_Mode30" "C_ADC_Fifo30_Enable" "C_ADC_Mixer_Type30" "C_ADC_Data_Type31" "C_ADC_Data_Width31" \
 	"C_ADC_Decimation_Mode31" "C_ADC_Fifo31_Enable" "C_ADC_Mixer_Type31" "C_ADC_Data_Type32" "C_ADC_Data_Width32" "C_ADC_Decimation_Mode32" "C_ADC_Fifo32_Enable" "C_ADC_Mixer_Type32" "C_ADC_Data_Type33" "C_ADC_Data_Width33" "C_ADC_Decimation_Mode33" "C_ADC_Fifo33_Enable" "C_ADC_Mixer_Type33"
+
+	generate_libmetal
 }
 
 proc generate_config_file {drv_handle file_name drv_string args} {
@@ -397,4 +397,97 @@ proc generate_include_file {drv_handle file_name drv_string args} {
     }
     puts $file_handle "\n/******************************************************************/\n"
     close $file_handle
+}
+
+proc generate_libmetal {} {
+	# Get the processor
+	set proc_instance [hsi::get_sw_processor]
+	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+	set os [common::get_property NAME [hsi::get_os]]
+	set compiler_str [common::get_property CONFIG.compiler -object ${proc_instance}]
+	set compiler_l [split ${compiler_str}]
+	set compiler [lindex ${compiler_l} 0]
+	set crosscompile [string map {gcc ""} "${compiler}"]
+	set c_flags [common::get_property CONFIG.compiler_flags -object ${proc_instance}]
+	set extra_flags [common::get_property CONFIG.extra_compiler_flags -object ${proc_instance}]
+	set linclude [file normalize "../.."]
+	set extra_flags "${extra_flags} -I${linclude}/include"
+
+	# Generate cmake toolchain file
+	set toolchain_cmake "toolchain"
+	set dir [glob ../libmetal_v*]
+	set fd [open "$dir/src/libmetal/cmake/platforms/${toolchain_cmake}.cmake" w]
+
+	if { "${proc_type}" == "psu_cortexr5" } {
+		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"arm\" CACHE STRING \"\")"
+		puts $fd "set (MACHINE \"zynqmp_r5\")"
+	} elseif { "${proc_type}" == "psu_cortexa53" } {
+		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"arm\" CACHE STRING \"\")"
+		puts $fd "set (MACHINE \"zynqmp_a53\")"
+	} elseif { "${proc_type}" == "ps7_cortexa9" } {
+		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"arm\" CACHE STRING \"\")"
+		puts $fd "set (MACHINE \"zynq7\")"
+	} elseif { ("${proc_type}" == "microblaze" || "${proc_type}" == "psu_pmu"
+		|| "${proc_type}" == "psu_pmc")
+		&& [string match "standalone" "${os}"] > 0} {
+		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"microblaze\" CACHE STRING \"\")"
+		puts $fd "set (MACHINE \"microblaze_generic\")"
+		set c_flags "${c_flags}  -mlittle-endian"
+	}
+	puts $fd "set (CROSS_PREFIX \"${crosscompile}\" CACHE STRING \"\")"
+	puts $fd "set (CMAKE_C_FLAGS \"${c_flags} ${extra_flags}\" CACHE STRING \"\")"
+	if { [string match "freertos*" "${os}"] > 0 } {
+		puts $fd "set (CMAKE_SYSTEM_NAME \"FreeRTOS\" CACHE STRING \"\")"
+	} else {
+		puts $fd "set (CMAKE_SYSTEM_NAME \"Generic\" CACHE STRING \"\")"
+	}
+	puts $fd "include (CMakeForceCompiler)"
+	puts $fd "CMAKE_FORCE_C_COMPILER (\"\$\{CROSS_PREFIX\}gcc\" GNU)"
+	puts $fd "CMAKE_FORCE_CXX_COMPILER (\"\$\{CROSS_PREFIX\}g++\" GNU)"
+
+	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER CACHE STRING \"\")"
+	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_LIBRARY NEVER CACHE STRING \"\")"
+	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER CACHE STRING \"\")"
+	close $fd
+
+	# Run cmake to generate make file
+	set bdir "$dir/build_libmetal"
+	if { [catch {file mkdir "${bdir}"} msg] } {
+		error "Failed to create Metal build directory."
+	}
+
+	cd "${bdir}"
+	set cmake_cmd "../src/run_cmake"
+	set os_platform_type "$::tcl_platform(platform)"
+
+	set cmake_opt "-DCMAKE_TOOLCHAIN_FILE=toolchain"
+	append cmake_opt " -DCMAKE_INSTALL_PREFIX=/"
+	append cmake_opt " -DCMAKE_VERBOSE_MAKEFILE=on"
+	append cmake_opt " -DWITH_DEFAULT_LOGGER=off"
+	append cmake_opt " -DWITH_DOC=off"
+
+	if { [string match -nocase "windows*" "${os_platform_type}"] == 0 } {
+		# Linux
+		file attributes ${cmake_cmd} -permissions ugo+rx
+		if { [catch {exec ${cmake_cmd} "../src/libmetal" ${cmake_opt}} msg] } {
+			puts "${msg}"
+			error "Failed to generate cmake files Linux."
+		} else {
+			puts "${msg}"
+		}
+
+	} else {
+		# Windows
+		#
+		# Note: windows tcl exec does not do well when trying to provide ${cmake_opt}
+		#       for now hardcoding the values directly on the command line.
+		if { [catch {exec ${cmake_cmd} "../src/libmetal" -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=toolchain -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on -DWITH_DEFAULT_LOGGER=off -DWITH_DOC=off } msg] } {
+			puts "${msg}"
+			error "Failed to generate cmake files Windows."
+		} else {
+			puts "${msg}"
+		}
+	}
+
 }

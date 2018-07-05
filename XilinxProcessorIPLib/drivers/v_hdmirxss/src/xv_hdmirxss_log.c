@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2017 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -45,6 +43,7 @@
  * 5.0   EB   16/01/18 Added new log XV_HDMIRXSS_LOG_EVT_PIX_REPEAT_ERR
  *            23/01/18 Minor cleanup
  *       MMO  05/02/18 Added new log XV_HDMIRXSS_LOG_EVT_SYNCEST
+ * 5.4   EB   06/08/19 Added new log XV_HDMIRXSS_LOG_EVT_VICERROR
  * </pre>
  *
 *******************************************************************************/
@@ -283,11 +282,15 @@ void XV_HdmiRxSs_LogDisplay(XV_HdmiRxSs *InstancePtr)
             xil_printf("RX Sync Loss detected\r\n");
             break;
         case (XV_HDMIRXSS_LOG_EVT_PIX_REPEAT_ERR):
-			xil_printf(ANSI_COLOR_RED "Unsupported Pixel Repetition: %d"
-					ANSI_COLOR_RESET "\r\n", Data);
-			break;
-		case (XV_HDMIRXSS_LOG_EVT_SYNCEST):
+            xil_printf(ANSI_COLOR_RED "Unsupported Pixel Repetition: %d"
+			    ANSI_COLOR_RESET "\r\n", Data);
+            break;
+	case (XV_HDMIRXSS_LOG_EVT_SYNCEST):
             xil_printf("RX Sync Loss recovered\r\n");
+            break;
+        case (XV_HDMIRXSS_LOG_EVT_VICERROR):
+            xil_printf(ANSI_COLOR_YELLOW "Vic and video timing mismatch\r\n"
+			    ANSI_COLOR_RESET);
             break;
         default:
             xil_printf("Unknown event\r\n");

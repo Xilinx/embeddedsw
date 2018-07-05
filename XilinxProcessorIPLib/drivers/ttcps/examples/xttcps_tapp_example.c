@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -53,6 +51,7 @@
 *                      ensure that "Successfully ran" and "Failed" strings
 *                      are available in all examples. This is a fix for
 *                      CR-965028.
+* 3.10 aru    05/30/19 Updated the example to use XTtcPs_InterruptHandler().
 *</pre>
 ******************************************************************************/
 
@@ -106,7 +105,7 @@ static int SetupTimer(u16 DeviceID, XTtcPs *TtcPsInst);
 
 static int SetupInterruptSystem(u16 IntcDeviceID, XScuGic *IntcInstancePtr);
 
-static void TickHandler(void *CallBackRef);
+static void TickHandler(void *CallBackRef, u32 StatusEvent);
 
 /************************** Variable Definitions *****************************/
 static TmrCntrSetup SettingsTable=
@@ -263,11 +262,12 @@ int SetupTicker(XTtcPs *TtcPsInst,u16 DeviceID,u16 TtcTickIntrID,
 	 * Connect to the interrupt controller
 	 */
 	Status = XScuGic_Connect(InterruptController, TtcTickIntrID,
-		(Xil_InterruptHandler)TickHandler, (void *)TtcPsTick);
+		(Xil_InterruptHandler)XTtcPs_InterruptHandler, (void *)TtcPsTick);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-
+	XTtcPs_SetStatusHandler(TtcPsInst, TtcPsInst,
+					 (XTtcPs_StatusHandler) TickHandler);
 
 	/*
 	 * Enable the interrupt for the Timer counter
@@ -417,15 +417,8 @@ static int SetupInterruptSystem(u16 IntcDeviceID,
 * @return	None.
 *
 *****************************************************************************/
-static void TickHandler(void *CallBackRef)
+static void TickHandler(void *CallBackRef, u32 StatusEvent)
 {
-	u32 StatusEvent;
-	/*
-	 * Read the interrupt status, then write it back to clear the interrupt.
-	 */
-	StatusEvent = XTtcPs_GetInterruptStatus((XTtcPs *)CallBackRef);
-	XTtcPs_ClearInterruptStatus((XTtcPs *)CallBackRef, StatusEvent);
-
 	/*update the flag if interrupt has been occurred*/
 	UpdateFlag = TRUE;
 

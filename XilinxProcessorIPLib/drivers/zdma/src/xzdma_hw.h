@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -41,6 +39,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   vns     2/27/15  First release
+* 1.8   hk      7/19/19  Remove versal clock and routing workarounds.
 * </pre>
 *
 ******************************************************************************/
@@ -103,10 +102,6 @@ extern "C" {
 #define XZDMA_CH_CTRL2_OFFSET			(0x200U)
 /*@}*/
 
-#define XZDMA_SLCR_SECURE_OFFSET		(0xff4b0024)
-#define XZDMA_CRLADMA_CLK_OFFSET		(0xff5e0104)
-#define XZDMA_CRLADMA_RESET_OFFSET		(0xff5e0304)
-#define XZDMA_INTLPD_CONFIG_OFFSET		(0xfe600014)
 /** @name Interrupt Enable/Disable/Mask/Status registers bit masks and shifts
  * @{
  */
