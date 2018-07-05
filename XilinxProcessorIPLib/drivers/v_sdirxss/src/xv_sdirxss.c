@@ -77,7 +77,6 @@ static void XV_SdiRxSs_StreamUpCallback(void *CallbackRef);
 static void XV_SdiRxSs_OverFlowCallback(void *CallbackRef);
 static void XV_SdiRxSs_UnderFlowCallback(void *CallbackRef);
 static void XV_SdiRxSs_ReportTiming(XV_SdiRxSs *InstancePtr);
-static void XV_SdiRxSs_ReportSubcoreVersion(XV_SdiRxSs *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -572,29 +571,6 @@ void XV_SdiRxSs_ReportDetectedError(XV_SdiRxSs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function prints the SDI RX SS subcore versions
-*
-* @param	InstancePtr pointer to XV_SdiRxSs instance
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-static void XV_SdiRxSs_ReportSubcoreVersion(XV_SdiRxSs *InstancePtr)
-{
-	u32 Data;
-
-	if (InstancePtr->SdiRxPtr) {
-		Data = XV_SdiRx_GetVersion(InstancePtr->SdiRxPtr);
-		xil_printf("  SDI RX version : %02d.%02d (%04x)\n\r",
-		((Data >> 24) & 0xFF), ((Data >> 16) & 0xFF), (Data & 0xFFFF));
-	}
-}
-
-/*****************************************************************************/
-/**
-*
 * This function prints the SDI RX SS information.
 *
 * @param	InstancePtr pointer to XV_SdiRxSs instance
@@ -610,7 +586,6 @@ void XV_SdiRxSs_ReportInfo(XV_SdiRxSs *InstancePtr)
 	xil_printf("SDI Rx SubSystem\n\r");
 	xil_printf("------------\n\r");
 	XV_SdiRxSs_ReportCoreInfo(InstancePtr);
-	/*	XV_SdiRxSs_ReportSubcoreVersion(InstancePtr); */
 	xil_printf("\n\r");
 	xil_printf("SDI stream info\n\r");
 	xil_printf("------------\n\r");
