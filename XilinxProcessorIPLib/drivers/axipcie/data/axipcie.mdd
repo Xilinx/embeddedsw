@@ -14,7 +14,7 @@ BEGIN driver axipcie
  OPTION supported_peripherals = (axi_pcie_v1_[0-9][5-9]_[a-z]  axi_pcie_v[2-9]_[0-9][0-9]_[a-z] axi_pcie_v[0-9]_[0-9] axi_pcie3);
  OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.2;
+  OPTION VERSION = 3.3;
   OPTION NAME = axipcie;
 
 END driver

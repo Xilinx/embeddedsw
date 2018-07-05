@@ -7,7 +7,7 @@
 /**
 *
 * @file xdeint.h
-* @addtogroup deinterlacer_v3_3
+* @addtogroup deinterlacer_v3_4
 * @{
 * @details
 *

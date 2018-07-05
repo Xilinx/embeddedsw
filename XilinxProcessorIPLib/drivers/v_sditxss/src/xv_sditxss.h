@@ -235,6 +235,8 @@ void XV_SdiTxSs_StreamStart(XV_SdiTxSs *InstancePtr);
 void XV_SdiTxSs_StreamConfig(XV_SdiTxSs *InstancePtr);
 void XV_SdiTxSs_Stop(XV_SdiTxSs *InstancePtr);
 u32 *XV_SdiTxSs_GetPayloadId(XV_SdiTxSs *InstancePtr, u8 StreamId);
+void XV_SdiTxSs_SetEotf(XV_SdiTxSs *InstancePtr, XVidC_Eotf Eotf,
+		XVidC_ColorStd Colorimetry);
 XSdiVid_Transport *XV_SdiTxSs_GetTransport(XV_SdiTxSs *InstancePtr);
 XVidC_VideoStream *XV_SdiTxSs_GetVideoStream(XV_SdiTxSs *InstancePtr,
 		u8 StreamId);

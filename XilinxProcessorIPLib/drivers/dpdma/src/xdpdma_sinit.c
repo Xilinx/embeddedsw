@@ -7,7 +7,7 @@
 /**
  *
  * @file xdpdma_sinit.c
- * @addtogroup dpdma_v1_2
+ * @addtogroup dpdma_v1_3
  * @{
  *
  * This file contains static initialization methods for the XDpDma driver.
@@ -28,14 +28,6 @@
 
 #include "xdpdma.h"
 #include "xparameters.h"
-
-/*************************** Variable Declarations ****************************/
-
-/**
- * A table of configuration structures containing the configuration information
- * for each DisplayPort TX core in the system.
- */
-extern XDpDma_Config XDpDma_ConfigTable[XPAR_XDPDMA_NUM_INSTANCES];
 
 /**************************** Function Definitions ****************************/
 
@@ -58,7 +50,7 @@ XDpDma_Config *XDpDma_LookupConfig(u16 DeviceId)
 	XDpDma_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index = 0; Index < XPAR_XDPDMA_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < (u32)XPAR_XDPDMA_NUM_INSTANCES; Index++) {
 		if (XDpDma_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XDpDma_ConfigTable[Index];
 			break;

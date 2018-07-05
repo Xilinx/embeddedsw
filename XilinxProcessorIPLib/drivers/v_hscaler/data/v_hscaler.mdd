@@ -8,11 +8,11 @@ OPTION psf_version = 2.1;
 
 BEGIN driver v_hscaler
 
- OPTION supported_peripherals = (v_hscaler_v1_0);
+ OPTION supported_peripherals = (v_hscaler_v1_[0-1]);
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
  OPTION DEPENDS = (video_common);
  OPTION name = v_hscaler;
- OPTION version = 3.3;
+ OPTION version = 3.4;
 
 END driver

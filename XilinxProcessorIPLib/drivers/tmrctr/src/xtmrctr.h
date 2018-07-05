@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmrctr.h
-* @addtogroup tmrctr_v4_6
+* @addtogroup tmrctr_v4_7
 * @{
 * @details
 *
@@ -139,6 +139,9 @@
 * 4.6   mus  03/13/19 tmrctr_tapp tcl is updated to support scenario where
 *                     AXI TIMER is interrupting ARM processor through more
 *                     than one interrupt pin. Fix for CR#1024699
+* 4.7   mus  08/31/20 Updated makefile to support parallel make and
+*                     incremental builds. It would help to reduce
+*                     compilation time.
 * </pre>
 *
 ******************************************************************************/

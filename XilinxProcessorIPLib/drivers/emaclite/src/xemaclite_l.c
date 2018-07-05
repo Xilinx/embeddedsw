@@ -7,7 +7,7 @@
 /**
 *
 * @file xemaclite_l.c
-* @addtogroup emaclite_v4_5
+* @addtogroup emaclite_v4_6
 * @{
 *
 * This file contains the minimal, polled functions to send and receive Ethernet
@@ -36,6 +36,8 @@
 *                     XEmacLite_AlignedRead APIs.
 * 4.3   asa  08/27/16 Fix compilation warning by making changes in
 *                     XEmacLite_AlignedWrite.
+* 4.6   rsp  08/08/20 Fix selftest failure on zynqmp. In XEmacLite_AlignedWrite
+*                     use correct pointer data type i.e u32 for To32Ptr.
 * </pre>
 *
 ******************************************************************************/
@@ -212,14 +214,14 @@ void XEmacLite_AlignedWrite(void *SrcPtr, UINTPTR *DestPtr, unsigned ByteCount)
 	unsigned Index;
 	unsigned Length = ByteCount;
 	volatile u32 AlignBuffer;
-	volatile UINTPTR *To32Ptr;
+	volatile u32 *To32Ptr;
 	u32 *From32Ptr;
 	volatile u16 *To16Ptr;
 	u16 *From16Ptr;
 	volatile u8 *To8Ptr;
 	u8 *From8Ptr;
 
-	To32Ptr = (volatile UINTPTR *)DestPtr;
+	To32Ptr = (volatile u32*)DestPtr;
 
 	if ((((u32) SrcPtr) & 0x00000003) == 0) {
 

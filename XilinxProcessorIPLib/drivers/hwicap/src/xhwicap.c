@@ -7,7 +7,7 @@
 /**
 *
 * @file xhwicap.c
-* @addtogroup hwicap_v11_3
+* @addtogroup hwicap_v11_4
 * @{
 *
 * This file contains the functions of the XHwIcap driver. See xhwicap.h for a

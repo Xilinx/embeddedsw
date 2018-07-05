@@ -7,7 +7,7 @@
 /**
 *
 * @file xzdma.c
-* @addtogroup zdma_v1_9
+* @addtogroup zdma_v1_10
 * @{
 *
 * This file contains the implementation of the interface functions for ZDMA
@@ -29,6 +29,8 @@
 * 1.3   mus    08/14/17  Add CCI support for A53 in EL1 NS
 * 1.8   aru    07/02/19  Fix coverity warnings
 *       hk     07/19/19  Remove Versal clock and routing workarounds.
+* 1.10  hk     04/29/20  Enable Scatter Gather setup and Enable APIs for use
+*                        in applications directly.
 * </pre>
 *
 ******************************************************************************/
@@ -42,8 +44,6 @@
 static void StubCallBack(void *CallBackRef, u32 Mask);
 static void StubDoneCallBack(void *CallBackRef);
 static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data);
-static void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
-								u32 Num);
 static void XZDma_LinearMode(XZDma *InstancePtr, XZDma_Transfer *Data,
 	XZDma_LiDscr *SrcDscrPtr,XZDma_LiDscr *DstDscrPtr, u8 IsLast);
 static void XZDma_ConfigLinear(XZDma_LiDscr *DscrPtr, u64 Addr, u32 Size,
@@ -52,7 +52,6 @@ static void XZDma_LinkedListMode(XZDma *InstancePtr, XZDma_Transfer *Data,
 	XZDma_LlDscr *SrcDscrPtr,XZDma_LlDscr *DstDscrPtr, u8 IsLast);
 static void XZDma_ConfigLinkedList(XZDma_LlDscr *DscrPtr, u64 Addr, u32 Size,
 					u32 CtrlValue, u64 NextDscrAddr);
-static void XZDma_Enable(XZDma *InstancePtr);
 static void XZDma_GetConfigurations(XZDma *InstancePtr);
 
 /************************** Function Definitions *****************************/
@@ -880,7 +879,7 @@ static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data)
 /*****************************************************************************/
 /**
 *
-* This static function sets all the required fields for initiating data
+* This function sets all the required fields for initiating data
 * transfer in scatter gather mode.
 *
 * @param	InstancePtr is a pointer to the XZDma instance.
@@ -894,7 +893,7 @@ static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data)
 * @note		None.
 *
 ******************************************************************************/
-static void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
+void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
 								u32 Num)
 {
 	u32 Count = 0x00U;
@@ -1166,7 +1165,7 @@ static void XZDma_ConfigLinkedList(XZDma_LlDscr *DscrPtr, u64 Addr, u32 Size,
 
 /*****************************************************************************/
 /**
-* This static function enable's all the interrupts which user intended to
+* This function enables all the interrupts which user intended to
 * enable and enables the ZDMA channel for initiating data transfer.
 *
 * @param	InstancePtr is a pointer to the XZDma instance.
@@ -1176,7 +1175,7 @@ static void XZDma_ConfigLinkedList(XZDma_LlDscr *DscrPtr, u64 Addr, u32 Size,
 *
 ******************************************************************************/
 
-static void XZDma_Enable(XZDma *InstancePtr)
+void XZDma_Enable(XZDma *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);

@@ -7,7 +7,7 @@
 /**
 *
 * @file xvtc.h
-* @addtogroup vtc_v8_2
+* @addtogroup vtc_v8_3
 * @{
 * @details
 *
@@ -273,6 +273,9 @@
 *                       Changed the prototype of XVtc_CfgInitialize API.
 *       ms     03/17/17 Added readme.txt file in examples folder for doxygen
 *                       generation.
+* 8.2	rg     08/12/20	Implemented XVtc_SetAdaptiveSyncMode,
+* 				    XVtc_DisableAdaptiveSync and
+* 				    XVtc_SetVfpStretchLimit API's.
 * </pre>
 *
 ******************************************************************************/
@@ -928,6 +931,11 @@ int XVtc_SetCallBack(XVtc *InstancePtr, u32 IntrType,
 
 /* SelfTest related function in xvtc_selftest.c */
 int XVtc_SelfTest(XVtc *InstancePtr);
+
+/* Adaptive-Sync related functions */
+void XVtc_SetAdaptiveSyncMode(XVtc *InstancePtr, XVtc_AdaptiveSyncMode Mode);
+void XVtc_DisableAdaptiveSync(XVtc *InstancePtr);
+void XVtc_SetVfpStretchLimit(XVtc *InstancePtr, u32 StretchLimit);
 
 /************************** Variable Declarations ****************************/
 

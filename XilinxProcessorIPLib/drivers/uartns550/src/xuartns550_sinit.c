@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartns550_sinit.c
-* @addtogroup uartns550_v3_6
+* @addtogroup uartns550_v3_7
 * @{
 *
 * The implementation of the XUartNs550 component's static initialization

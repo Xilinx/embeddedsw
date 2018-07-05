@@ -52,6 +52,12 @@
 													be aligned to 256*/
 
 /************************** Variable Declarations ***************************/
+XDpDma DpDma;
+XDpPsu DpPsu;
+XAVBuf AVBuf;
+XScuGic Intr;
+Run_Config RunCfg;
+
 u8 Frame[BUFFERSIZE] __attribute__ ((__aligned__(256)));
 XDpDma_FrameBuffer FrameBuffer;
 

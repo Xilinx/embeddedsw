@@ -7,7 +7,7 @@
 /**
 *
 * @file xspi_selftest.c
-* @addtogroup spi_v4_6
+* @addtogroup spi_v4_7
 * @{
 *
 * This component contains the implementation of selftest functions for the

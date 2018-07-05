@@ -65,7 +65,7 @@ proc generate {drv_handle} {
 				# if substring CMN_PXL_FORMAT is present in the string
 				if {[regexp -nocase {CMN_PXL_FORMAT} $line]} {
 					# using string map to replace true with 1 and false with 0
-					set line [string map {RGB444 0x20 RGB555 0x21 RGB565 0x22 RGB666 0x23 RGB888 0x24 RAW6 0x28 RAW7 0x29 RAW8 0x2A RAW10 0x2B RAW12 0x2C RAW14 0x2D YUV422_8bit 0x1E YUV422_10bit 0x1F RAW16 0x2E RAW20 0x2F} $line]
+					set line [string map {RGB444 0x20 RGB555 0x21 RGB565 0x22 RGB666 0x23 RGB888 0x24 RAW6 0x28 RAW7 0x29 RAW8 0x2A RAW10 0x2B RAW12 0x2C RAW14 0x2D YUV422_8bit 0x1E YUV422_10bit 0x1F RAW16 0x2E RAW20 0x2F YUV420_8bit 0x18} $line]
 				}
 
 				if {[regexp -nocase {CMN_VC} $line]} {

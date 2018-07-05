@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp22_tx.c
-* @addtogroup hdcp22_tx_v2_5
+* @addtogroup hdcp22_tx_v3_0
 * @{
 * @details
 *
@@ -194,7 +194,7 @@ static u32 XHdcp22Tx_GetTopologyDepth(XHdcp22_Tx *InstancePtr);
 static u32 XHdcp22Tx_GetTopologyDeviceCnt(XHdcp22_Tx *InstancePtr);
 static u32 XHdcp22Tx_GetTopologyMaxDevsExceeded(XHdcp22_Tx *InstancePtr);
 static u32 XHdcp22Tx_GetTopologyMaxCascadeExceeded(XHdcp22_Tx *InstancePtr);
-static u32 XHdcp22Tx_GetTopologyHdcp20RepeaterDownstream(XHdcp22_Tx *InstancePtr);
+static u32 XHdcp22Tx_GetTopologyHdcp2LegacyDeviceDownstream(XHdcp22_Tx *InstancePtr);
 static u32 XHdcp22Tx_GetTopologyHdcp1DeviceDownstream(XHdcp22_Tx *InstancePtr);
 
 /************************** Variable Definitions *****************************/
@@ -849,8 +849,8 @@ u32 XHdcp22Tx_GetTopologyField(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_TopologyField
 		return XHdcp22Tx_GetTopologyMaxDevsExceeded(InstancePtr);
 	case XHDCP22_TX_TOPOLOGY_MAXCASCADEEXCEEDED :
 		return XHdcp22Tx_GetTopologyMaxCascadeExceeded(InstancePtr);
-	case XHDCP22_TX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM :
-		return XHdcp22Tx_GetTopologyHdcp20RepeaterDownstream(InstancePtr);
+	case XHDCP22_TX_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM:
+		return XHdcp22Tx_GetTopologyHdcp2LegacyDeviceDownstream(InstancePtr);
 	case XHDCP22_TX_TOPOLOGY_HDCP1DEVICEDOWNSTREAM :
 		return XHdcp22Tx_GetTopologyHdcp1DeviceDownstream(InstancePtr);
 	default:
@@ -1634,7 +1634,7 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA1(XHdcp22_Tx *InstancePtr)
 	InstancePtr->Topology.Depth = 0;
 	InstancePtr->Topology.MaxDevsExceeded = FALSE;
 	InstancePtr->Topology.MaxCascadeExceeded = FALSE;
-	InstancePtr->Topology.Hdcp20RepeaterDownstream = FALSE;
+	InstancePtr->Topology.Hdcp2LegacyDeviceDownstream = FALSE;
 	InstancePtr->Topology.Hdcp1DeviceDownstream = FALSE;
 	InstancePtr->Info.ReceivedFirstSeqNum_V = FALSE;
 	InstancePtr->Info.SentFirstSeqNum_M = FALSE;
@@ -2397,7 +2397,7 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA6_A7_A8(XHdcp22_Tx *InstancePtr)
 		(MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[1] & 0x8) ? TRUE : FALSE;
 	InstancePtr->Topology.MaxCascadeExceeded =
 		(MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[1] & 0x4) ? TRUE : FALSE;
-	InstancePtr->Topology.Hdcp20RepeaterDownstream =
+	InstancePtr->Topology.Hdcp2LegacyDeviceDownstream =
 		(MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[1] & 0x2) ? TRUE : FALSE;
 	InstancePtr->Topology.Hdcp1DeviceDownstream =
 		(MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[1] & 0x1) ? TRUE : FALSE;
@@ -3951,6 +3951,50 @@ static void XHdcp22Tx_InvalidatePairingInfo(XHdcp22_Tx *InstancePtr,
 /*****************************************************************************/
 /**
 *
+* This function adds a ReceiverID to RevocationList
+*
+* @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+* @param  ReceiverId is a pointer to a 5-byte receiver Id.
+*
+* @return None.
+*
+* @note Supposed to be called by Upstream Content Control Function
+*
+******************************************************************************/
+void XHdcp22Tx_RevokeReceiverId(XHdcp22_Tx *InstancePtr,
+				u8* ReceiverIdPtr)
+{
+	XHdcp22_Tx_RevocationList* RevocationListPtr;
+	u32 NumDevices;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(ReceiverIdPtr != NULL);
+
+	RevocationListPtr =
+			XHdcp22Tx_GetRevocationReceiverIdList(InstancePtr);
+	NumDevices = RevocationListPtr->NumDevices;
+
+	if (InstancePtr->Config.Mode != XHDCP22_TX_TRANSMITTER)
+		return;
+
+	if (!XHdcp22Tx_IsDeviceRevoked(InstancePtr, ReceiverIdPtr)) {
+		memcpy(RevocationListPtr->ReceiverId[NumDevices],
+				ReceiverIdPtr, XHDCP22_TX_SRM_RCVID_SIZE);
+		RevocationListPtr->NumDevices++;
+		InstancePtr->Info.IsRevocationListValid = TRUE;
+	}
+
+	InstancePtr->Info.IsDeviceRevoked = TRUE;
+	InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_DEVICE_IS_REVOKED;
+
+	XHdcp22Tx_HandleAuthenticationFailed(InstancePtr);
+	InstancePtr->Info.CurrentState = XHDCP22_TX_STATE_A0;
+}
+
+/*****************************************************************************/
+/**
+*
 * This function returns the DEPTH in the repeater topology structure.
 *
 * @param    InstancePtr is a pointer to the XHdcp22_Tx core instance.
@@ -4033,22 +4077,22 @@ static u32 XHdcp22Tx_GetTopologyMaxCascadeExceeded(XHdcp22_Tx *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function returns the HDCP2_0_REPEATER_DOWNSTREAM flag in the repeater
+* This function returns the HDCP2_LEGACY_DEVICE_DOWNSTREAM flag in the repeater
 * topology structure.
 *
 * @param    InstancePtr is a pointer to the XHdcp22_Tx core instance.
 *
-* @return   HDCP2_0_REPEATER_DOWNSTREAM flag in the repeater structure.
+* @return   HDCP2_LEGACY_DEVICE_DOWNSTREAM flag in the repeater structure.
 *
 * @note     None.
 *
 ******************************************************************************/
-static u32 XHdcp22Tx_GetTopologyHdcp20RepeaterDownstream(XHdcp22_Tx *InstancePtr)
+static u32 XHdcp22Tx_GetTopologyHdcp2LegacyDeviceDownstream(XHdcp22_Tx *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	return (InstancePtr->Topology.Hdcp20RepeaterDownstream) ? TRUE : FALSE;
+	return (InstancePtr->Topology.Hdcp2LegacyDeviceDownstream) ? TRUE : FALSE;
 }
 
 /*****************************************************************************/
@@ -4480,8 +4524,8 @@ void XHdcp22Tx_Info(XHdcp22_Tx *InstancePtr)
 			xil_printf("MaxDevsExceeded, ");
 		if (InstancePtr->Topology.MaxCascadeExceeded)
 			xil_printf("MaxCascadeExceeded, ");
-		if (InstancePtr->Topology.Hdcp20RepeaterDownstream)
-			xil_printf("Hdcp20RepeaterDownstream, ");
+		if (InstancePtr->Topology.Hdcp2LegacyDeviceDownstream)
+			xil_printf("Hdcp2LegacyDeviceDownstream, ");
 		if (InstancePtr->Topology.Hdcp1DeviceDownstream)
 			xil_printf("Hdcp1DeviceDownstream, ");
 		xil_printf("Depth=%d, ", InstancePtr->Topology.Depth);

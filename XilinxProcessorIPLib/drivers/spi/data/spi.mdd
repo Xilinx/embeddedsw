@@ -28,7 +28,7 @@ BEGIN driver spi
   OPTION supported_peripherals = (axi_spi axi_quad_spi);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.6;
+  OPTION VERSION = 4.7;
   OPTION NAME = spi;
 
 END driver

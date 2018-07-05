@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandpsu_g.c
-* @addtogroup nandpsu_v1_6
+* @addtogroup nandpsu_v1_7
 * @{
 *
 * This file contains a configuration table where each entry is a configuration

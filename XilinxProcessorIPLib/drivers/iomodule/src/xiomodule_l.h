@@ -7,7 +7,7 @@
 /**
 *
 * @file xiomodule_l.h
-* @addtogroup iomodule_v2_8
+* @addtogroup iomodule_v2_9
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or

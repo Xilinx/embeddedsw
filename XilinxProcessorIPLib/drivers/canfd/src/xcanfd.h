@@ -7,7 +7,7 @@
 /**
 *
 * @file xcanfd.h
-* @addtogroup canfd_v2_3
+* @addtogroup canfd_v2_4
 * @{
 * @details
 *
@@ -253,6 +253,7 @@ exclusion
 *		      CR#1048363 & CR#1046723.
 * 2.3	sne  03/06/20 Fixed sending extra frames in XCanFd_Send_Queue API.
 * 2.3	sne  03/09/20 Initialize IsPl of config structure.
+* 2.4   sne  08/28/20 Modify Makefile to support parallel make execution.
 *
 * </pre>
 *

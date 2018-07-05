@@ -7,7 +7,7 @@
 /**
  *
  * @file xi2stx_chsts.c
- * @addtogroup i2stx_v2_1
+ * @addtogroup i2stx_v2_2
  * @{
  *
  * This file implements the channel status format related functions.For

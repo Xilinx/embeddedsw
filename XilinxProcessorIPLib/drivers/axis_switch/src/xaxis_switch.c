@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxis_switch.c
-* @addtogroup axis_switch_v1_3
+* @addtogroup axis_switch_v1_4
 * @{
 *
 * This is the main file for Xilinx AXI4-Stream Switch Control Router core.

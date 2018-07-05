@@ -254,6 +254,7 @@ int XV_SdiTx_StopSdi(XV_SdiTx *InstancePtr);
 int XV_SdiTx_SetVidFormat(XV_SdiTx *InstancePtr, XVidC_ColorFormat ColorFormat);
 void XV_SdiTx_ReportDetectedError(XV_SdiTx *InstancePtr);
 void XV_SdiTx_ClearDetectedError(XV_SdiTx *InstancePtr);
+u32 XV_SdiTx_GetPayloadEotf(XV_SdiTx *InstancePtr, XVidC_Eotf Eotf, XVidC_ColorStd Colorimetry);
 u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVid_TransMode SdiMode, u8 DataStream);
 void XV_SdiTx_SetPayloadId(XV_SdiTx *InstancePtr, u8 DataStream, u32 Payload);
 void XV_SdiTx_SetPayloadLineNum(XV_SdiTx *InstancePtr,

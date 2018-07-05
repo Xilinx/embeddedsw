@@ -7,7 +7,7 @@
 /**
 *
 * @file xmcdma.h
-* @addtogroup mcdma_v1_4
+* @addtogroup mcdma_v1_5
 * @{
 * @details
 *
@@ -119,6 +119,8 @@
 * 1.3   rsp     02/12/19 Add HasRxLength field in config and channel structure.
 * 1.3   rsp     02/11/19 Add top level submit XMcDma_Chan_Sideband_Submit() API
 *                        to program BD control and sideband information.
+* 1.5	sk	07/13/20 Add XMcDma_BdGetAppWord() function declaration to fix
+* 			 the gcc warning in mcdma integration test suite.
 ******************************************************************************/
 #ifndef XMCDMA_H_
 #define XMCDMA_H_
@@ -612,6 +614,7 @@ void XMcDma_BdSetCtrl(XMcdma_Bd *BdPtr, u32 Data);
 void XMcDma_DumpBd(XMcdma_Bd* BdPtr);
 
 int XMcDma_BdSetAppWord(XMcdma_Bd* BdPtr, int Offset, u32 Word);
+u32 XMcDma_BdGetAppWord(XMcdma_Bd* BdPtr, int Offset, int *Valid);
 
 /* Global OR'ed Single interrupt */
 void XMcdma_IntrHandler(void *Instance);

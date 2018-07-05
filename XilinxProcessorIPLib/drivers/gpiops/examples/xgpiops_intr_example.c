@@ -23,6 +23,11 @@
 * zc702 board) and Output Pin is 10(DS23 on zc702 board). SW15 on zc702 board
 * is a combination of sw13 and sw14. To operate either of the input
 * pins, keep SW15 low(both should be 00).
+* In Versal Platform we have two GPIOPS instances(PMC GPIO and PS GPIO),PMC GPIO
+* contain 4 banks and 116 pins, PS GPIO contains 2 banks and 58 pins.
+* Driver supports both PS GPIO and PMC GPIO.
+* For accessing PMC GPIOs application need to configure "GPIO->PmcGpio =1" else
+* it works for PS GPIO.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -34,6 +39,8 @@
 *                     for zcu102 and zc702 boards, configured Interrupt pin
 *                     to input pin for proper working of interrupt example.
 * 3.7	sne  12/04/19 Reverted versal example support.
+* 3.8	sne  09/17/20 Added description for Versal PS and PMC GPIO pins.
+*
 *</pre>
 *
 ******************************************************************************/

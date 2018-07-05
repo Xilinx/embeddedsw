@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartns550_l.h
-* @addtogroup uartns550_v3_6
+* @addtogroup uartns550_v3_7
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or

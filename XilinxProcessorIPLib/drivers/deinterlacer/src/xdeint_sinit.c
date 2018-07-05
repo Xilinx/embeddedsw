@@ -7,7 +7,7 @@
 /**
 *
 * @file xdeint_sinit.c
-* @addtogroup deinterlacer_v3_3
+* @addtogroup deinterlacer_v3_4
 * @{
 *
 * This file contains static initialization methods for Xilinx Video

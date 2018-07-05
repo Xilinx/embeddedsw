@@ -7,7 +7,7 @@
 /**
 *
 * @file xgpiops_intr.c
-* @addtogroup gpiops_v3_7
+* @addtogroup gpiops_v3_8
 * @{
 *
 * This file contains functions related to GPIO interrupt handling.

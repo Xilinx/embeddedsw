@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio_extra.c
-* @addtogroup gpio_v4_6
+* @addtogroup gpio_v4_7
 * @{
 *
 * The implementation of the XGpio driver's advanced discrete functions.

@@ -7,7 +7,7 @@
 /**
 *
 * @file xprd_hw.h
-* @addtogroup prd_v2_0
+* @addtogroup prd_v2_1
 * @{
 *
 * This header file contains the identifiers and basic driver functions (or

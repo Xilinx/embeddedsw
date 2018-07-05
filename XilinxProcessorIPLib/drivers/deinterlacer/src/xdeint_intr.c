@@ -7,7 +7,7 @@
 /**
 *
 * @file xdeint_intr.c
-* @addtogroup deinterlacer_v3_3
+* @addtogroup deinterlacer_v3_4
 * @{
 *
 * This code contains interrupt related functions of Xilinx Video

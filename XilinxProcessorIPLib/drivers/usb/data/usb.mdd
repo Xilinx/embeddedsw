@@ -14,7 +14,7 @@ BEGIN driver usb
   OPTION supported_peripherals = (axi_usb2_device);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 5.4;
+  OPTION VERSION = 5.5;
   OPTION NAME = usb;  
     
 END driver

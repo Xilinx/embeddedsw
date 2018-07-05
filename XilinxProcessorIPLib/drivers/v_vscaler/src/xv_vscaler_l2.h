@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_vscaler_l2.h
-* @addtogroup v_vscaler_v3_1
+* @addtogroup v_vscaler_v3_2
 * @{
 * @details
 *

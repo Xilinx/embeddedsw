@@ -116,6 +116,7 @@ extern "C" {
 /* Interrupt status register masks */
 #define XV_SDIRX_ISR_VIDEO_LOCK_MASK				(1<<0)
 #define XV_SDIRX_ISR_VIDEO_UNLOCK_MASK				(1<<1)
+#define XV_SDIRX_ISR_VSYNC_MASK					(1<<2)
 #define XV_SDIRX_ISR_OVERFLOW_MASK				(1<<9)
 #define XV_SDIRX_ISR_UNDERFLOW_MASK				(1<<10)
 #define XV_SDIRX_ISR_VIDEO_LOCK_SHIFT				0
@@ -124,11 +125,12 @@ extern "C" {
 #define XV_SDIRX_ISR_UNDERFLOW_SHIFT				10
 
 /* All interrupts status mask */
-#define XV_SDIRX_ISR_ALLINTR_MASK				0x00000603
+#define XV_SDIRX_ISR_ALLINTR_MASK				0x00000607
 
 /* Interrupt Enable Register masks */
 #define XV_SDIRX_IER_VIDEO_LOCK_MASK				(1<<0)
 #define XV_SDIRX_IER_VIDEO_UNLOCK_MASK				(1<<1)
+#define XV_SDIRX_IER_VSYNC_MASK					(1<<2)
 #define XV_SDIRX_IER_OVERFLOW_MASK				(1<<9)
 #define XV_SDIRX_IER_UNDERFLOW_MASK				(1<<10)
 #define XV_SDIRX_IER_VIDEO_LOCK_SHIFT				0
@@ -137,7 +139,7 @@ extern "C" {
 #define XV_SDIRX_IER_UNDERFLOW_SHIFT				10
 
 /* All interrupts enable mask */
-#define XV_SDIRX_IER_ALLINTR_MASK				0x00000603
+#define XV_SDIRX_IER_ALLINTR_MASK				0x00000607
 
 /* RX_ST352_VALID register masks */
 #define XV_SDIRX_RX_ST352_VLD_ST352_0				(1<<0)
@@ -280,6 +282,13 @@ extern "C" {
 #define XST352_BYTE2_FPS_120F			0xE
 #define XST352_BYTE2_FPS_120			0xF
 
+/* Electro Optical Transfer Function bit[5:4] */
+#define XST352_BYTE2_EOTF_MASK			(0x3 << 12)
+#define XST352_BYTE2_EOTF_SHIFT			12
+#define XST352_BYTE2_EOTF_SDRTV			0x0
+#define XST352_BYTE2_EOTF_HLG			0x1
+#define XST352_BYTE2_EOTF_SMPTE2084		0x2
+
 #define XST352_BYTE3_COLOR_FORMAT_MASK		0xF
 #define XST352_BYTE3_COLOR_FORMAT_420		0x3
 #define XST352_BYTE3_COLOR_FORMAT_422		0x0
@@ -288,6 +297,13 @@ extern "C" {
 
 #define XST352_BYTE3_ACT_LUMA_COUNT_MASK	1 << 22
 #define XST352_BYTE3_ACT_LUMA_COUNT_OFFSET	22
+
+#define XST352_BYTE3_COLORIMETRY_MASK		(0x3 << 20)
+#define XST352_BYTE3_COLORIMETRY_SHIFT		20
+#define XST352_BYTE3_COLORIMETRY_BT709		0
+#define XST352_BYTE3_COLORIMETRY_VANC		1
+#define XST352_BYTE3_COLORIMETRY_UHDTV		2
+#define XST352_BYTE3_COLORIMETRY_UNKNOWN	3
 
 #define XST352_BYTE4_BIT_DEPTH_MASK		0x03
 #define XST352_BYTE4_BIT_DEPTH_8		0x00

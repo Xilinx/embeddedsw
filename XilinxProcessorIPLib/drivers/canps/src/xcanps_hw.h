@@ -7,7 +7,7 @@
 /**
 *
 * @file xcanps_hw.h
-* @addtogroup canps_v3_4
+* @addtogroup canps_v3_5
 * @{
 *
 * This header file contains the identifiers and basic driver functions (or
@@ -33,6 +33,7 @@
 *			XCANPS_TXBUF_DW2_OFFSET  to XCANPS_TXHPB_DW2_OFFSET
 * 1.02a adk   08/08/13  Updated for including the function prototype
 * 3.00  kvn   02/13/15  Modified code for MISRA-C:2012 compliance.
+* 3.5	sne   07/01/20  Fixed MISRAC warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -333,7 +334,7 @@ extern "C" {
 /*
  * Perform reset operation to the CanPs interface
  */
-void XCanPs_ResetHw(u32 BaseAddr);
+void XCanPs_ResetHw(UINTPTR BaseAddr);
 
 #ifdef __cplusplus
 }

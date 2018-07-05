@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp1x_port_hdmi.h
-* @addtogroup hdcp1x_v4_4
+* @addtogroup hdcp1x_v4_5
 * @{
 *
 * This file contains the definitions for the hdcp port registers/offsets for

@@ -7,7 +7,7 @@
 /**
 *
 * @file xdsitxss.c
-* @addtogroup dsitxss_v2_0
+* @addtogroup dsitxss_v2_1
 * @{
 *
 * This is main code of Xilinx MIPI DSI Tx Subsystem device driver.

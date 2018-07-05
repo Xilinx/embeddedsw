@@ -7,7 +7,7 @@
 /**
 *
 * @file xcan.h
-* @addtogroup can_v3_4
+* @addtogroup can_v3_5
 * @{
 * @details
 *
@@ -172,6 +172,8 @@ exclusion
 *       ms   03/17/17 Added readme.txt file in examples folder for doxygen
 *                     generation.
 * 3.3   ask  08/01/18 Fixed Cppcheck and GCC warnings in can driver
+* 3.5	sne  08/28/20 Modify Makefile to support parallel make execution.
+*
 * </pre>
 *
 ******************************************************************************/

@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandps_onfi.h
-* @addtogroup nandps_v2_5
+* @addtogroup nandps_v2_6
 * @{
 *
 * This file implements ONFI specific commands which are used to get the

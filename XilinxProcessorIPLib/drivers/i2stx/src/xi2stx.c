@@ -7,7 +7,7 @@
 /**
  *
  * @file xi2stx.c
- * @addtogroup i2stx_v2_1
+ * @addtogroup i2stx_v2_2
  * @{
  *
  * Contains a minimal set of functions for the i2s_transmitter driver

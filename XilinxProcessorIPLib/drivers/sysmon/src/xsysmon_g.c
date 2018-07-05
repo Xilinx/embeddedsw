@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmon_g.c
-* @addtogroup sysmon_v7_6
+* @addtogroup sysmon_v7_7
 * @{
 *
 * This file contains a configuration table that specifies the configuration

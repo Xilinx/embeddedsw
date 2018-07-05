@@ -52,8 +52,6 @@
  *                     buffer address (CR-992638).
  * 9.9   rsp  01/21/19 Fix use of #elif check in deriving DDR_BASE_ADDR.
  * 9.10  rsp  09/17/19 Fix cache maintenance ops for source and dest buffer.
- * 9.11  rsp  04/15/20 Fix s2mm "Engine is busy" failure for smaller(<16)
- *                     packet size.
  * </pre>
  *
  * ***************************************************************************
@@ -285,6 +283,10 @@ int main(void)
 	XAxiDma_IntrEnable(&AxiDma, XAXIDMA_IRQ_ALL_MASK,
 							XAXIDMA_DEVICE_TO_DMA);
 
+	/* Initialize flags before start transfer test  */
+	TxDone = 0;
+	RxDone = 0;
+	Error = 0;
 
 	Value = TEST_START_VALUE;
 
@@ -303,10 +305,6 @@ int main(void)
 	/* Send a packet */
 	for(Index = 0; Index < Tries; Index ++) {
 
-		/* Initialize flags before start transfer test  */
-		TxDone = 0;
-		RxDone = 0;
-		Error = 0;
 		Status = XAxiDma_SimpleTransfer(&AxiDma,(UINTPTR) RxBufferPtr,
 					MAX_PKT_LEN, XAXIDMA_DEVICE_TO_DMA);
 
@@ -323,9 +321,9 @@ int main(void)
 
 
 		/*
-		 * Wait for both TX and RX done
+		 * Wait TX done and RX done
 		 */
-		while ((!TxDone || !RxDone) && !Error) {
+		while (!TxDone && !RxDone && !Error) {
 				/* NOP */
 		}
 

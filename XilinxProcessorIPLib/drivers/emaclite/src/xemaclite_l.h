@@ -7,7 +7,7 @@
 /**
 *
 * @file xemaclite_l.h
-* @addtogroup emaclite_v4_5
+* @addtogroup emaclite_v4_6
 * @{
 *
 * This header file contains identifiers and basic driver functions and macros

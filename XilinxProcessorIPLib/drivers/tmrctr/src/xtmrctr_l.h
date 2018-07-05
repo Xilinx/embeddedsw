@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmrctr_l.h
-* @addtogroup tmrctr_v4_6
+* @addtogroup tmrctr_v4_7
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or

@@ -7,7 +7,7 @@
 /**
  *
  * @file xi2srx_selftest.c
- * @addtogroup i2srx_v2_1
+ * @addtogroup i2srx_v2_2
  * @{
  * Contains an basic self-test API that displays the version of the
  * I2S Receiver device. Additionally, it also verifies and displays

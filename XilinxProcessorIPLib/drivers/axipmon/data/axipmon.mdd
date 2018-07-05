@@ -10,7 +10,7 @@ BEGIN driver axipmon
   OPTION supported_peripherals = (axi_perf_mon_v[5-9]_[0-9] psu_apm);
   OPTION copyfiles = all;
   OPTION driver_state = ACTIVE;
-  OPTION VERSION = 6.8;
+  OPTION VERSION = 6.9;
   OPTION NAME = axipmon;
 
 END driver

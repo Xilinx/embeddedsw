@@ -7,7 +7,7 @@
 /**
 *
 * @file xcsi2tx_intr.c
-* @addtogroup csi2tx_v1_2
+* @addtogroup csi2tx_v1_3
 * @{
 *
 * This file implements the functions which handle the interrupts and callbacks

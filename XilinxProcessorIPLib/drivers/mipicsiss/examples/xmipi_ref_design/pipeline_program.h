@@ -29,7 +29,7 @@ extern "C" {
 #endif
 
 extern u32 SetupDSI(void);
-extern u32 InitTreadyGpio(void);
+extern u32 InitStreamMuxGpio(void);
 extern u32 InitializeCFA(void);
 extern u32 InitializeCsiRxSs(void);
 extern u32 InitializeVdma(void);

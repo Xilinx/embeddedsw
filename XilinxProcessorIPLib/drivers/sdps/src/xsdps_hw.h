@@ -7,7 +7,7 @@
 /**
 *
 * @file xsdps_hw.h
-* @addtogroup sdps_v3_9
+* @addtogroup sdps_v3_10
 * @{
 *
 * This header file contains the identifiers and basic HW access driver
@@ -809,18 +809,18 @@ extern "C" {
 #define EXT_CSD_PART_CONFIG_ACC_BOOT1   (0x2U)
 #define EXT_CSD_PART_CONFIG_ACC_RPMB    (0x3U)
 #define EXT_CSD_PART_CONFIG_ACC_GP0     (0x4U)
-#define EXT_CSD_PART_CONFIG_BYTE		179U
-#define XSDPS_MMC_PART_CFG_0_ARG		((XSDPS_EXT_CSD_WRITE_BYTE << 24U) \
-					 | (EXT_CSD_PART_CONFIG_BYTE << 16U) \
-					 | ((0U) << 8U))
+#define EXT_CSD_PART_CONFIG_BYTE	(179U)
+#define XSDPS_MMC_PART_CFG_0_ARG		(((u32)XSDPS_EXT_CSD_WRITE_BYTE << 24U) \
+					 | ((u32)EXT_CSD_PART_CONFIG_BYTE << 16U) \
+					 | ((u32)(0U) << 8U))
 
-#define XSDPS_MMC_PART_CFG_1_ARG		((XSDPS_EXT_CSD_WRITE_BYTE << 24U) \
-					 | (EXT_CSD_PART_CONFIG_BYTE << 16U) \
-					 | (EXT_CSD_PART_CONFIG_ACC_BOOT0 << 8U))
+#define XSDPS_MMC_PART_CFG_1_ARG		(((u32)XSDPS_EXT_CSD_WRITE_BYTE << 24U) \
+					 | ((u32)EXT_CSD_PART_CONFIG_BYTE << 16U) \
+					 | ((u32)EXT_CSD_PART_CONFIG_ACC_BOOT0 << 8U))
 
-#define XSDPS_MMC_PART_CFG_2_ARG		((XSDPS_EXT_CSD_WRITE_BYTE << 24U) \
-					 | (EXT_CSD_PART_CONFIG_BYTE << 16U) \
-					 | (EXT_CSD_PART_CONFIG_ACC_BOOT1 << 8U))
+#define XSDPS_MMC_PART_CFG_2_ARG		(((u32)XSDPS_EXT_CSD_WRITE_BYTE << 24U) \
+					 | ((u32)EXT_CSD_PART_CONFIG_BYTE << 16U) \
+					 | ((u32)EXT_CSD_PART_CONFIG_ACC_BOOT1 << 8U))
 
 #define EXT_CSD_PART_SUPPORT_PART_EN    (0x1U)
 

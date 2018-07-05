@@ -7,7 +7,7 @@
 /**
  *
  * @file xhdmic.h
- * @addtogroup hdmi_common_v1_3
+ * @addtogroup hdmi_common_v1_4
  * @{
  * @details
  *
@@ -523,7 +523,7 @@ XHdmiC_SamplingFrequencyVal
 	XHdmiC_FRL_GetAudSampFreq(XHdmiC_FRLCharRate FRLCharRate,
 		u32 CTS, u32 N);
 XHdmiC_SamplingFrequency XHdmiC_TMDS_GetAudSampFreq(u32 TMDSCharRate,
-		u32 N);
+		u32 N, u32 CTSVal);
 XHdmiC_SamplingFrequency
 	XHdmiC_GetAudIFSampFreq (XHdmiC_SamplingFrequencyVal AudSampFreqVal);
 XHdmiC_SamplingFrequencyVal

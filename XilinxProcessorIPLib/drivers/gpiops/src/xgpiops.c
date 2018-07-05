@@ -7,7 +7,7 @@
 /**
 *
 * @file xgpiops.c
-* @addtogroup gpiops_v3_7
+* @addtogroup gpiops_v3_8
 * @{
 *
 * The XGpioPs driver. Functions in this file are the minimum required functions

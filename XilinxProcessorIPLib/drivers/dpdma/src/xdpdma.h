@@ -44,7 +44,7 @@ extern "C" {
 /************************** Constant Definitions ******************************/
 
 /* Alignment for DPDMA Descriptor and Payload */
-#define XDPDMA_DESCRIPTOR_ALIGN 256
+#define XDPDMA_DESCRIPTOR_ALIGN 256U
 /* DPDMA preamble field */
 #define XDPDMA_DESCRIPTOR_PREAMBLE 0xA5
 /**************************** Type Definitions ********************************/
@@ -141,7 +141,7 @@ typedef struct {
  */
 typedef struct {
 	u64 Address;
-	u64 Size;
+	u32 Size;
 } XDpDma_AudioBuffer;
 
 /**
@@ -236,13 +236,11 @@ void XDpDma_SetQOS(XDpDma *InstancePtr, u8 QOS);
 void XDpDma_SetupChannel(XDpDma *InstancePtr, XDpDma_ChannelType Channel);
 int XDpDma_SetVideoFormat(XDpDma *InstancePtr, XAVBuf_VideoFormat Format);
 int XDpDma_SetGraphicsFormat(XDpDma *InstancePtr, XAVBuf_VideoFormat Format);
-void XDpDma_SetVideoTiming(XDpDma *InstancePtr, XVidC_VideoTiming *Timing);
 int XDpDma_Trigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel);
 int XDpDma_ReTrigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel);
 void XDpDma_InterruptEnable(XDpDma *InstancePtr, u32 Mask);
 void XDpDma_InterruptHandler(XDpDma *InstancePtr);
 void XDpDma_VSyncHandler(XDpDma *InstancePtr);
-void XDpDma_DoneHandler(XDpDma *InstancePtr);
 void XDpDma_InitVideoDescriptor(XDpDma_Descriptor *CurrDesc,
 				XDpDma_FrameBuffer *FrameBuffer);
 void  XDpDma_DisplayVideoFrameBuffer(XDpDma *InstancePtr,
@@ -255,6 +253,15 @@ void XDpDma_InitAudioDescriptor(XDpDma_AudioChannel *Channel,
 			       XDpDma_AudioBuffer *AudioBuffer);
 int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 		      u8 ChannelNum);
+
+/*************************** Variable Declarations ****************************/
+
+/**
+ * A table of configuration structures containing the configuration information
+ * for each DisplayPort TX core in the system.
+ */
+extern XDpDma_Config XDpDma_ConfigTable[XPAR_XDPDMA_NUM_INSTANCES];
+
 #ifdef __cplusplus
 }
 #endif

@@ -9,7 +9,7 @@ BEGIN driver tpg
   OPTION supported_peripherals = (v_tpg_v[0-6]_[0-9]);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.2;
+  OPTION VERSION = 3.3;
   OPTION NAME = tpg;
 
 END driver

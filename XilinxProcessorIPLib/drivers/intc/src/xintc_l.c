@@ -7,7 +7,7 @@
 /**
 *
 * @file xintc_l.c
-* @addtogroup intc_v3_11
+* @addtogroup intc_v3_12
 * @{
 *
 * This file contains low-level driver functions that can be used to access the
@@ -46,6 +46,8 @@
 *                     Changed the prototypes of LookupConfigByBaseAddress,
 *                     XIntc_SetIntrSvcOption, XIntc_RegisterHandler,
 *                     XIntc_RegisterFastHandler APIs.
+* 3.12  mus  05/28/20 Updated XIntc_DeviceInterruptHandler to support software
+*                     interrupts
 *
 * </pre>
 *
@@ -195,7 +197,7 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 		 * checking each bit in the register from LSB to MSB which
 		 * corresponds to an interrupt input signal
 		 */
-		for (IntrNumber = 0; IntrNumber < CfgPtr->NumberofIntrs;
+		for (IntrNumber = 0; IntrNumber < (CfgPtr->NumberofIntrs + CfgPtr->NumberofSwIntrs);
 								IntrNumber++) {
 			if (IntrStatus & 1) {
 				XIntc_VectorTableEntry *TablePtr;
@@ -595,7 +597,7 @@ static void XIntc_CascadeHandler(void *DeviceId)
 	 * checking each bit in the register from LSB to MSB which
 	 * corresponds to an interrupt input signal
 	 */
-	for (IntrNumber = 0; IntrNumber < CfgPtr->NumberofIntrs; IntrNumber++) {
+	for (IntrNumber = 0; IntrNumber < (CfgPtr->NumberofIntrs + CfgPtr->NumberofSwIntrs); IntrNumber++) {
 		if (IntrStatus & 1) {
 			XIntc_VectorTableEntry *TablePtr;
 

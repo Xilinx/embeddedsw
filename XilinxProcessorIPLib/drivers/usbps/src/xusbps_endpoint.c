@@ -6,7 +6,7 @@
 /******************************************************************************/
 /**
  * @file xusbps_endpoint.c
-* @addtogroup usbps_v2_5
+* @addtogroup usbps_v2_6
 * @{
  *
  * Endpoint specific function implementations.

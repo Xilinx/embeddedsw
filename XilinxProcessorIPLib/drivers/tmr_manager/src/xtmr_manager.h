@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmr_manager.h
-* @addtogroup tmr_manager_v1_1
+* @addtogroup tmr_manager_v1_2
 * @{
 * @details
 *
@@ -59,6 +59,9 @@
 * 1.0   sa   04/05/17 First release
 *       ms   03/17/17 Added readme.txt file in examples folder for doxygen
 *                     generation.
+* 1.2   mus  08/31/20 Updated makefile to support parallel make and
+*                     incremental builds. It would help to reduce
+*                     compilation time.
 * </pre>
 *
 *****************************************************************************/

@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmr_manager_selftest.c
-* @addtogroup tmr_manager_v1_1
+* @addtogroup tmr_manager_v1_2
 * @{
 *
 * This file contains the self-test functions for the TMR Manager component

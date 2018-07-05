@@ -28,7 +28,7 @@ BEGIN driver uartlite
   OPTION supported_peripherals = (mdm axi_uartlite tmr_sem psv_pmc_ppu1_mdm);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;	
-  OPTION VERSION = 3.4;
+  OPTION VERSION = 3.5;
   OPTION NAME = uartlite; 
 
     BEGIN INTERFACE stdin

@@ -7,7 +7,7 @@
 /**
 *
 * @file xio.c
-* @addtogroup cpu_v2_11
+* @addtogroup cpu_v2_12
 * @{
 *
 * Contains I/O functions for memory-mapped or non-memory-mapped I/O

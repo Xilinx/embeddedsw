@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandps_onfi.c
-* @addtogroup nandps_v2_5
+* @addtogroup nandps_v2_6
 * @{
 *
 * This module implements the ONFI specific commands.

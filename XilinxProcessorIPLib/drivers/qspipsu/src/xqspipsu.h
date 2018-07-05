@@ -8,7 +8,7 @@
 /**
  *
  * @file xqspipsu.h
- * @addtogroup qspipsu_v1_11
+ * @addtogroup qspipsu_v1_12
  * @{
  * @details
  *
@@ -157,6 +157,7 @@
  * 1.11 akm 03/26/20 Fixed issue by updating XQspiPsu_CfgInitialize to return
  *		     XST_DEVICE_IS_STARTED instead of asserting, when the
  *		     instance is already configured(CR#1058525).
+ * 1.12	akm 09/02/20 Updated the Makefile to support parallel make execution.
  *
  * </pre>
  *

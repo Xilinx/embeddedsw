@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_vscaler_coeff.c
-* @addtogroup v_vscaler_v3_1
+* @addtogroup v_vscaler_v3_2
 * @{
 * @details
 *

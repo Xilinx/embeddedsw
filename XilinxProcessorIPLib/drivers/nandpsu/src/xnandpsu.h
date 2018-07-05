@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandpsu.h
-* @addtogroup nandpsu_v1_6
+* @addtogroup nandpsu_v1_7
 * @{
 * @details
 *

@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp1x.c
-* @addtogroup hdcp1x_v4_4
+* @addtogroup hdcp1x_v4_5
 * @{
 *
 * This contains the implementation of the HDCP state machine module

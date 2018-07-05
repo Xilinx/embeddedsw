@@ -7,7 +7,7 @@
 /**
 *
 * @file xvtc.c
-* @addtogroup vtc_v8_2
+* @addtogroup vtc_v8_3
 * @{
 *
 * This is main code of Xilinx MVI Video Timing Controller (VTC) device driver.
@@ -155,6 +155,9 @@
 * 			driver.
 * 	jsr    10/03/18	Corrected the VGA resoultion timing paramters w.r.t the
 * 			timing values given in the VTC GUI for 640x480p
+* 8.2	rg     08/12/20	Implemented XVtc_SetAdaptiveSyncMode,
+*			XVtc_DisableAdaptiveSync and
+*			XVtc_SetVfpStretchLimit API's.
 * </pre>
 *
 ******************************************************************************/
@@ -2583,6 +2586,91 @@ u16 XVtc_GetDetectorVideoMode(XVtc *InstancePtr)
 	mode = XVtc_ConvTiming2VideoMode(InstancePtr, &Timing);
 
 	return mode;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function sets the vertical front porch stretch mechanism in VTC core
+ * to support Adaptive-Sync feature. VTC core supports two types of stretch
+ * mechanisms. 1.Fixed stretch mode 2. Auto adjust mode
+ *
+ * @param InstancePtr is a pointer to the VTC instance
+ * @param mode is the type of mode that is being set.
+ *
+ * @return
+ *		None.
+ *
+ * @note	Modification of this register is fine irrespective of whether
+ * 		VTC has started or not.
+ *
+ ******************************************************************************/
+void XVtc_SetAdaptiveSyncMode(XVtc *InstancePtr, XVtc_AdaptiveSyncMode Mode)
+{
+	u32 RegValue;
+
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
+				XVTC_ADAPTIVE_CTL_OFFSET);
+	/* Enable Adaptive-Sync and set mode */
+	if (Mode > XVTC_FIXED_MODE)
+		RegValue |= XVTC_ADAPTIVE_MODE_MASK;
+	else
+		RegValue &= ~XVTC_ADAPTIVE_MODE_MASK;
+	XVtc_WriteReg(InstancePtr->Config.BaseAddress, XVTC_ADAPTIVE_CTL_OFFSET,
+		      RegValue | XVTC_ADAPTIVE_ENABLE_MASK);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function disable Adaptive-Sync in VTC core.
+ *
+ * @param InstancePtr is a pointer to the VTC instance to be worked on.
+ *
+ * @return
+ *		None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+void XVtc_DisableAdaptiveSync(XVtc *InstancePtr)
+{
+	u32 RegValue;
+
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
+				XVTC_ADAPTIVE_CTL_OFFSET);
+	RegValue &= (~XVTC_ADAPTIVE_ENABLE_MASK);
+	XVtc_WriteReg(InstancePtr->Config.BaseAddress,
+		      XVTC_ADAPTIVE_CTL_OFFSET, RegValue);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function sets vertical front porch stretch limit.
+ *
+ * @param InstancePtr is a pointer to the VTC instance to be worked on.
+ * @param StretchLimit is the  vertical front porch stretch limit to be set.
+ *
+ * @return
+ *		None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+void XVtc_SetVfpStretchLimit(XVtc *InstancePtr, u32 StretchLimit)
+{
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	XVtc_WriteReg(InstancePtr->Config.BaseAddress,
+		      XVTC_VFP_STRETCH_OFFSET, StretchLimit);
 }
 
 /*****************************************************************************/

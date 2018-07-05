@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp22_rng_hw.h
-* @addtogroup hdcp22_rng_v1_3
+* @addtogroup hdcp22_rng_v1_4
 * @{
 * @details
 *

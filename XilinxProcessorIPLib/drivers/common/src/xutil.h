@@ -7,7 +7,7 @@
 /**
 *
 * @file xutil.h
-* @addtogroup common_v1_00_a
+* @addtogroup common_v1_1
 * @{
 *
 * This file contains utility functions such as memory test functions.

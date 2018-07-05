@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  *  @file xaxicdma_intr.c
-* @addtogroup axicdma_v4_7
+* @addtogroup axicdma_v4_8
 * @{
  *
  * The implementation of the interrupt related API. The interrupt handler is

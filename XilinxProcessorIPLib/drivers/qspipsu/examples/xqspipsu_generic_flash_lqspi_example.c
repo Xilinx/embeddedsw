@@ -67,234 +67,13 @@
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"	/* SDK generated parameters */
-#include "xqspipsu.h"		/* QSPIPSU device driver */
+#include "xqspipsu_flash_config.h"
 #include "xscugic.h"		/* Interrupt controller device driver */
 #include "xil_exception.h"
 #include "xil_printf.h"
 #include "xil_cache.h"
 
 /************************** Constant Definitions *****************************/
-
-/*
- * The following constants define the commands which may be sent to the Flash
- * device.
- */
-#define WRITE_STATUS_CMD	0x01
-#define WRITE_CMD		0x02
-#define READ_CMD		0x03
-#define WRITE_DISABLE_CMD	0x04
-#define READ_STATUS_CMD		0x05
-#define WRITE_ENABLE_CMD	0x06
-#define VOLATILE_WRITE_ENABLE_CMD	0x50
-#define QUAD_MODE_ENABLE_BIT	0x06
-#define FAST_READ_CMD		0x0B
-#define DUAL_READ_CMD		0x3B
-#define QUAD_READ_CMD		0x6B
-#define BULK_ERASE_CMD		0xC7
-#define	SEC_ERASE_CMD		0xD8
-#define READ_ID			0x9F
-#define READ_CONFIG_CMD		0x35
-#define WRITE_CONFIG_CMD	0x01
-#define ENTER_4B_ADDR_MODE	0xB7
-#define EXIT_4B_ADDR_MODE	0xE9
-#define EXIT_4B_ADDR_MODE_ISSI	0x29
-
-#define READ_CMD_4B		0x13
-#define FAST_READ_CMD_4B	0x0C
-#define DUAL_READ_CMD_4B	0x3C
-#define QUAD_READ_CMD_4B	0x6C
-
-#define BANK_REG_RD		0x16
-#define BANK_REG_WR		0x17
-/* Bank register is called Extended Address Register in Micron */
-#define EXTADD_REG_RD		0xC8
-#define EXTADD_REG_WR		0xC5
-#define	DIE_ERASE_CMD		0xC4
-#define READ_FLAG_STATUS_CMD	0x70
-
-/*
- * The following constants define the offsets within a FlashBuffer data
- * type for each kind of data.  Note that the read data offset is not the
- * same as the write data because the QSPIPSU driver is designed to allow full
- * duplex transfers such that the number of bytes received is the number
- * sent and received.
- */
-#define COMMAND_OFFSET		0 /* Flash instruction */
-#define ADDRESS_1_OFFSET	1 /* MSB byte of address to read or write */
-#define ADDRESS_2_OFFSET	2 /* Middle byte of address to read or write */
-#define ADDRESS_3_OFFSET	3 /* LSB byte of address to read or write */
-#define ADDRESS_4_OFFSET	4 /* LSB byte of address to read or write when
-				   * 4 byte address
-				   */
-#define DATA_OFFSET		5 /* Start of Data for Read/Write */
-#define DUMMY_OFFSET		4 /* Dummy byte offset for fast, dual and quad
-				   * reads
-				   */
-#define DUMMY_SIZE		1 /* Number of dummy bytes for fast, dual and
-				   * quad reads
-				   */
-#define DUMMY_CLOCKS		8 /* Number of dummy bytes for fast, dual and
-				   * quad reads
-				   */
-#define RD_ID_SIZE		4 /* Read ID command + 3 bytes ID response */
-#define BULK_ERASE_SIZE		1 /* Bulk Erase command size */
-#define SEC_ERASE_SIZE		4 /* Sector Erase command + Sector address */
-#define BANK_SEL_SIZE	2 /* BRWR or EARWR command + 1 byte bank value */
-#define RD_CFG_SIZE		2 /* 1 byte Configuration register + RD CFG
-				   * command
-				   */
-#define WR_CFG_SIZE		3 /* WRR command + 1 byte each Status and
-				   * Config Reg
-				   */
-#define DIE_ERASE_SIZE	4	/* Die Erase command + Die address */
-
-/*
- * The following constants specify the extra bytes which are sent to the
- * Flash on the QSPIPSU interface, that are not data, but control information
- * which includes the command and address
- */
-#define OVERHEAD_SIZE		4
-
-/*
- * Base address of Flash1
- */
-#define FLASH1BASE 0x0000000
-
-/*
- * Sixteen MB
- */
-#define SIXTEENMB 0x1000000
-
-
-/*
- * Mask for quad enable bit in Flash configuration register
- */
-#define FLASH_QUAD_EN_MASK 0x02
-
-#define FLASH_SRWD_MASK 0x80
-
-/*
- * Bank mask
- */
-#define BANKMASK 0xF000000
-
-/*
- * Identification of Flash
- * Micron:
- * Byte 0 is Manufacturer ID;
- * Byte 1 is first byte of Device ID - 0xBB or 0xBA
- * Byte 2 is second byte of Device ID describes flash size:
- * 128Mbit : 0x18; 256Mbit : 0x19; 512Mbit : 0x20
- * Spansion:
- * Byte 0 is Manufacturer ID;
- * Byte 1 is Device ID - Memory Interface type - 0x20 or 0x02
- * Byte 2 is second byte of Device ID describes flash size:
- * 128Mbit : 0x18; 256Mbit : 0x19; 512Mbit : 0x20
- */
-#define MICRON_ID_BYTE0		0x20
-#define MICRON_ID_BYTE2_128	0x18
-#define MICRON_ID_BYTE2_256	0x19
-#define MICRON_ID_BYTE2_512	0x20
-#define MICRON_ID_BYTE2_1G	0x21
-#define MICRON_ID_BYTE2_2G	0x22
-
-#define SPANSION_ID_BYTE0	0x01
-#define SPANSION_ID_BYTE2_64	0x17
-#define SPANSION_ID_BYTE2_128	0x18
-#define SPANSION_ID_BYTE2_256	0x19
-#define SPANSION_ID_BYTE2_512	0x20
-
-#define WINBOND_ID_BYTE0	0xEF
-#define WINBOND_ID_BYTE2_128	0x18
-
-#define MACRONIX_ID_BYTE0	0xC2
-#define MACRONIX_ID_BYTE2_1G	0x1B
-#define MACRONIX_ID_BYTE2_1GU	0x3B
-
-#define ISSI_ID_BYTE0		0x9D
-#define ISSI_ID_BYTE2_08	0x14
-#define ISSI_ID_BYTE2_16	0x15
-#define ISSI_ID_BYTE2_32	0x16
-#define ISSI_ID_BYTE2_64	0x17
-#define ISSI_ID_BYTE2_128	0x18
-#define ISSI_ID_BYTE2_256	0x19
-#define ISSI_ID_BYTE2_512	0x1a
-
-/*
- * The index for Flash config table
- */
-/* Spansion*/
-#define SPANSION_INDEX_START			0
-#define FLASH_CFG_TBL_SINGLE_64_SP	SPANSION_INDEX_START
-#define FLASH_CFG_TBL_STACKED_64_SP	(SPANSION_INDEX_START + 1)
-#define FLASH_CFG_TBL_PARALLEL_64_SP	(SPANSION_INDEX_START + 2)
-#define FLASH_CFG_TBL_SINGLE_128_SP	(SPANSION_INDEX_START + 3)
-#define FLASH_CFG_TBL_STACKED_128_SP	(SPANSION_INDEX_START + 4)
-#define FLASH_CFG_TBL_PARALLEL_128_SP	(SPANSION_INDEX_START + 5)
-#define FLASH_CFG_TBL_SINGLE_256_SP	(SPANSION_INDEX_START + 6)
-#define FLASH_CFG_TBL_STACKED_256_SP	(SPANSION_INDEX_START + 7)
-#define FLASH_CFG_TBL_PARALLEL_256_SP	(SPANSION_INDEX_START + 8)
-#define FLASH_CFG_TBL_SINGLE_512_SP	(SPANSION_INDEX_START + 9)
-#define FLASH_CFG_TBL_STACKED_512_SP	(SPANSION_INDEX_START + 10)
-#define FLASH_CFG_TBL_PARALLEL_512_SP	(SPANSION_INDEX_START + 11)
-
-/* Micron */
-#define MICRON_INDEX_START		(FLASH_CFG_TBL_PARALLEL_512_SP + 1)
-#define FLASH_CFG_TBL_SINGLE_128_MC	MICRON_INDEX_START
-#define FLASH_CFG_TBL_STACKED_128_MC	(MICRON_INDEX_START + 1)
-#define FLASH_CFG_TBL_PARALLEL_128_MC	(MICRON_INDEX_START + 2)
-#define FLASH_CFG_TBL_SINGLE_256_MC	(MICRON_INDEX_START + 3)
-#define FLASH_CFG_TBL_STACKED_256_MC	(MICRON_INDEX_START + 4)
-#define FLASH_CFG_TBL_PARALLEL_256_MC	(MICRON_INDEX_START + 5)
-#define FLASH_CFG_TBL_SINGLE_512_MC	(MICRON_INDEX_START + 6)
-#define FLASH_CFG_TBL_STACKED_512_MC	(MICRON_INDEX_START + 7)
-#define FLASH_CFG_TBL_PARALLEL_512_MC	(MICRON_INDEX_START + 8)
-#define FLASH_CFG_TBL_SINGLE_1GB_MC	(MICRON_INDEX_START + 9)
-#define FLASH_CFG_TBL_STACKED_1GB_MC	(MICRON_INDEX_START + 10)
-#define FLASH_CFG_TBL_PARALLEL_1GB_MC	(MICRON_INDEX_START + 11)
-#define FLASH_CFG_TBL_SINGLE_2GB_MC	(MICRON_INDEX_START + 12)
-#define FLASH_CFG_TBL_STACKED_2GB_MC	(MICRON_INDEX_START + 13)
-#define FLASH_CFG_TBL_PARALLEL_2GB_MC	(MICRON_INDEX_START + 14)
-
-/* Winbond */
-#define WINBOND_INDEX_START		(FLASH_CFG_TBL_PARALLEL_2GB_MC + 1)
-#define FLASH_CFG_TBL_SINGLE_128_WB	WINBOND_INDEX_START
-#define FLASH_CFG_TBL_STACKED_128_WB	(WINBOND_INDEX_START + 1)
-#define FLASH_CFG_TBL_PARALLEL_128_WB	(WINBOND_INDEX_START + 2)
-
-/* Macronix */
-#define MACRONIX_INDEX_START		(FLASH_CFG_TBL_PARALLEL_128_WB + 1)
-#define FLASH_CFG_TBL_SINGLE_1G_MX	MACRONIX_INDEX_START
-#define FLASH_CFG_TBL_STACKED_1G_MX	(MACRONIX_INDEX_START + 1)
-#define FLASH_CFG_TBL_PARALLEL_1G_MX	(MACRONIX_INDEX_START + 2)
-#define FLASH_CFG_TBL_SINGLE_1GU_MX	(MACRONIX_INDEX_START + 3)
-#define FLASH_CFG_TBL_STACKED_1GU_MX	(MACRONIX_INDEX_START + 4)
-#define FLASH_CFG_TBL_PARALLEL_1GU_MX	(MACRONIX_INDEX_START + 5)
-
-/* ISSI */
-#define ISSI_INDEX_START		(FLASH_CFG_TBL_PARALLEL_1GU_MX + 1)
-#define FLASH_CFG_TBL_SINGLE_08_ISSI	ISSI_INDEX_START
-#define FLASH_CFG_TBL_STACKED_08_ISSI	(ISSI_INDEX_START + 1)
-#define FLASH_CFG_TBL_PARALLEL_08_ISSI	(ISSI_INDEX_START + 2)
-#define FLASH_CFG_TBL_SINGLE_16_ISSI	(ISSI_INDEX_START + 3)
-#define FLASH_CFG_TBL_STACKED_16_ISSI	(ISSI_INDEX_START + 4)
-#define FLASH_CFG_TBL_PARALLEL_16_ISSI	(ISSI_INDEX_START + 5)
-#define FLASH_CFG_TBL_SINGLE_32_ISSI	(ISSI_INDEX_START + 6)
-#define FLASH_CFG_TBL_STACKED_32_ISSI	(ISSI_INDEX_START + 7)
-#define FLASH_CFG_TBL_PARALLEL_32_ISSI	(ISSI_INDEX_START + 8)
-#define FLASH_CFG_TBL_SINGLE_64_ISSI	(ISSI_INDEX_START + 9)
-#define FLASH_CFG_TBL_STACKED_64_ISSI	(ISSI_INDEX_START + 10)
-#define FLASH_CFG_TBL_PARALLEL_64_ISSI	(ISSI_INDEX_START + 11)
-#define FLASH_CFG_TBL_SINGLE_128_ISSI	(ISSI_INDEX_START + 12)
-#define FLASH_CFG_TBL_STACKED_128_ISSI	(ISSI_INDEX_START + 13)
-#define FLASH_CFG_TBL_PARALLEL_128_ISSI	(ISSI_INDEX_START + 14)
-#define FLASH_CFG_TBL_SINGLE_256_ISSI	(ISSI_INDEX_START + 15)
-#define FLASH_CFG_TBL_STACKED_256_ISSI	(ISSI_INDEX_START + 16)
-#define FLASH_CFG_TBL_PARALLEL_256_ISSI	(ISSI_INDEX_START + 17)
-#define FLASH_CFG_TBL_SINGLE_512_ISSI	(ISSI_INDEX_START + 18)
-#define FLASH_CFG_TBL_STACKED_512_ISSI	(ISSI_INDEX_START + 19)
-#define FLASH_CFG_TBL_PARALLEL_512_ISSI	(ISSI_INDEX_START + 20)
 
 /*
  * The following constants map to the XPAR parameters created in the
@@ -328,27 +107,6 @@
 
 /**************************** Type Definitions *******************************/
 
-typedef struct{
-	u32 SectSize;	/* Individual sector size or combined sector
-			 * size in case of parallel config
-			 */
-	u32 NumSect;	/* Total no. of sectors in one/two flash devices */
-	u32 PageSize;	/* Individual page size or
-			 * combined page size in case of parallel config
-			 */
-	u32 NumPage;	/* Total no. of pages in one/two flash devices */
-	u32 FlashDeviceSize;	/* This is the size of one flash device
-				 * NOT the combination of both devices,
-				 * if present
-				 */
-	u8 ManufacturerID;	/* Manufacturer ID - used to identify make */
-	u8 DeviceIDMemSize;	/* Byte of device ID indicating the
-				 * memory size
-				 */
-	u32 SectMask;		/* Mask to get sector start address */
-	u8 NumDie;		/* No. of die forming a single flash */
-} FlashInfo;
-
 u8 ReadCmd;
 u8 WriteCmd;
 u8 StatusCmd;
@@ -378,168 +136,6 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr);
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
 u8 ReadBfrPtr[3];
-FlashInfo Flash_Config_Table[] = {
-	/* Spansion */
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS128, BYTES256_PER_PAGE,
-		0x8000, 0x800000, SPANSION_ID_BYTE0,
-		SPANSION_ID_BYTE2_64, 0xFFFF0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS256, BYTES256_PER_PAGE,
-		0x10000, 0x800000, SPANSION_ID_BYTE0,
-		SPANSION_ID_BYTE2_64, 0xFFFF0000, 1},
-	{SECTOR_SIZE_128K, NUM_OF_SECTORS128, BYTES512_PER_PAGE,
-		0x8000, 0x800000, SPANSION_ID_BYTE0,
-		SPANSION_ID_BYTE2_64, 0xFFFE0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS256, BYTES256_PER_PAGE,
-		0x10000, 0x1000000, SPANSION_ID_BYTE0,
-		SPANSION_ID_BYTE2_128, 0xFFFF0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE,
-		0x20000, 0x1000000, SPANSION_ID_BYTE0,
-		SPANSION_ID_BYTE2_128, 0xFFFF0000, 1},
-	{SECTOR_SIZE_128K, NUM_OF_SECTORS256, BYTES512_PER_PAGE,
-		0x10000, 0x1000000, SPANSION_ID_BYTE0,
-		SPANSION_ID_BYTE2_128, 0xFFFE0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE,
-		0x20000, 0x2000000, SPANSION_ID_BYTE0,
-		SPANSION_ID_BYTE2_256, 0xFFFF0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE,
-		0x40000, 0x2000000, SPANSION_ID_BYTE0,
-		SPANSION_ID_BYTE2_256, 0xFFFF0000, 1},
-	{SECTOR_SIZE_128K, NUM_OF_SECTORS512, BYTES512_PER_PAGE,
-		0x20000, 0x2000000, SPANSION_ID_BYTE0,
-		SPANSION_ID_BYTE2_256, 0xFFFE0000, 1},
-	{SECTOR_SIZE_256K, NUM_OF_SECTORS256, BYTES512_PER_PAGE,
-		0x20000, 0x4000000, SPANSION_ID_BYTE0,
-		SPANSION_ID_BYTE2_512, 0xFFFC0000, 1},
-	{SECTOR_SIZE_256K, NUM_OF_SECTORS512, BYTES512_PER_PAGE,
-		0x40000, 0x4000000, SPANSION_ID_BYTE0,
-		SPANSION_ID_BYTE2_512, 0xFFFC0000, 1},
-	{SECTOR_SIZE_512K, NUM_OF_SECTORS256, BYTES1024_PER_PAGE,
-		0x20000, 0x4000000, SPANSION_ID_BYTE0,
-		SPANSION_ID_BYTE2_512, 0xFFF80000, 1},
-	/* Spansion 1Gbit is handled as 512Mbit stacked */
-	/* Micron */
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS256, BYTES256_PER_PAGE,
-		0x10000, 0x1000000, MICRON_ID_BYTE0,
-		MICRON_ID_BYTE2_128, 0xFFFF0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE,
-		0x20000, 0x1000000, MICRON_ID_BYTE0,
-		MICRON_ID_BYTE2_128, 0xFFFF0000, 1},
-	{SECTOR_SIZE_128K, NUM_OF_SECTORS256, BYTES512_PER_PAGE,
-		0x10000, 0x1000000, MICRON_ID_BYTE0,
-		MICRON_ID_BYTE2_128, 0xFFFE0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE,
-		0x20000, 0x2000000, MICRON_ID_BYTE0,
-		MICRON_ID_BYTE2_256, 0xFFFF0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE,
-		0x40000, 0x2000000, MICRON_ID_BYTE0,
-		MICRON_ID_BYTE2_256, 0xFFFF0000, 1},
-	{SECTOR_SIZE_128K, NUM_OF_SECTORS512, BYTES512_PER_PAGE,
-		0x20000, 0x2000000, MICRON_ID_BYTE0,
-		MICRON_ID_BYTE2_256, 0xFFFE0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE,
-		0x40000, 0x4000000, MICRON_ID_BYTE0,
-		MICRON_ID_BYTE2_512, 0xFFFF0000, 2},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,
-		0x80000, 0x4000000, MICRON_ID_BYTE0,
-		MICRON_ID_BYTE2_512, 0xFFFF0000, 2},
-	{SECTOR_SIZE_128K, NUM_OF_SECTORS1024, BYTES512_PER_PAGE,
-		0x40000, 0x4000000, MICRON_ID_BYTE0,
-		MICRON_ID_BYTE2_512, 0xFFFE0000, 2},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,
-		0x80000, 0x8000000, MICRON_ID_BYTE0,
-		MICRON_ID_BYTE2_1G, 0xFFFF0000, 4},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE,
-		0x100000, 0x8000000, MICRON_ID_BYTE0,
-		MICRON_ID_BYTE2_1G, 0xFFFF0000, 4},
-	{SECTOR_SIZE_128K, NUM_OF_SECTORS2048, BYTES512_PER_PAGE,
-		0x80000, 0x8000000, MICRON_ID_BYTE0,
-		MICRON_ID_BYTE2_1G, 0xFFFE0000, 4},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE,
-		0x100000, 0x10000000, MICRON_ID_BYTE0,
-		MICRON_ID_BYTE2_2G, 0xFFFF0000, 4},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS8192, BYTES256_PER_PAGE,
-		0x200000, 0x10000000, MICRON_ID_BYTE0,
-		MICRON_ID_BYTE2_2G, 0xFFFF0000, 4},
-	{SECTOR_SIZE_128K, NUM_OF_SECTORS4096, BYTES512_PER_PAGE,
-		0x100000, 0x10000000, MICRON_ID_BYTE0,
-		MICRON_ID_BYTE2_2G, 0xFFFE0000, 4},
-	/* Winbond */
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS256, BYTES256_PER_PAGE,
-		0x10000, 0x1000000, WINBOND_ID_BYTE0,
-		WINBOND_ID_BYTE2_128, 0xFFFF0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE,
-		0x20000, 0x1000000, WINBOND_ID_BYTE0,
-		WINBOND_ID_BYTE2_128, 0xFFFF0000, 1},
-	{SECTOR_SIZE_128K, NUM_OF_SECTORS256, BYTES512_PER_PAGE,
-		0x10000, 0x1000000, WINBOND_ID_BYTE0,
-		WINBOND_ID_BYTE2_128, 0xFFFE0000, 1},
-	/* Macronix */
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,
-		0x80000, 0x8000000, MACRONIX_ID_BYTE0,
-		MACRONIX_ID_BYTE2_1G, 0xFFFF0000, 4},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE,
-		0x100000, 0x8000000, MACRONIX_ID_BYTE0,
-		MACRONIX_ID_BYTE2_1G, 0xFFFF0000, 4},
-	{SECTOR_SIZE_128K, NUM_OF_SECTORS2048, BYTES512_PER_PAGE,
-		0x80000, 0x8000000, MACRONIX_ID_BYTE0,
-		MACRONIX_ID_BYTE2_1G, 0xFFFE0000, 4},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,
-		0x80000, 0x8000000, MACRONIX_ID_BYTE0,
-		MACRONIX_ID_BYTE2_1GU, 0xFFFF0000, 4},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE,
-		0x100000, 0x8000000, MACRONIX_ID_BYTE0,
-		MACRONIX_ID_BYTE2_1GU, 0xFFFF0000, 4},
-	{SECTOR_SIZE_128K, NUM_OF_SECTORS2048, BYTES512_PER_PAGE,
-		0x80000, 0x8000000, MACRONIX_ID_BYTE0,
-		MACRONIX_ID_BYTE2_1GU, 0xFFFE0000, 4},
-	/* ISSI */
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS16, BYTES256_PER_PAGE,
-		0x1000, 0x100000, ISSI_ID_BYTE0,
-		ISSI_ID_BYTE2_08, 0xFFFF0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS32, BYTES256_PER_PAGE,
-		0x2000, 0x100000, ISSI_ID_BYTE0,
-		ISSI_ID_BYTE2_08, 0xFFFF0000, 1},
-	{SECTOR_SIZE_128K, NUM_OF_SECTORS16, BYTES512_PER_PAGE,
-		0x1000, 0x100000, ISSI_ID_BYTE0,
-		ISSI_ID_BYTE2_08, 0xFFFE0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS32, BYTES256_PER_PAGE,
-		0x2000, 0x200000, ISSI_ID_BYTE0,
-		ISSI_ID_BYTE2_16, 0xFFFF0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS64, BYTES256_PER_PAGE,
-		0x4000, 0x200000, ISSI_ID_BYTE0,
-		ISSI_ID_BYTE2_16, 0xFFFF0000, 1},
-	{SECTOR_SIZE_128K, NUM_OF_SECTORS32, BYTES512_PER_PAGE,
-		0x2000, 0x200000, ISSI_ID_BYTE0,
-		ISSI_ID_BYTE2_16, 0xFFFE0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS64, BYTES256_PER_PAGE,
-		0x4000, 0x400000, ISSI_ID_BYTE0,
-		ISSI_ID_BYTE2_32, 0xFFFF0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS128, BYTES256_PER_PAGE,
-		0x8000, 0x400000, ISSI_ID_BYTE0,
-		ISSI_ID_BYTE2_32, 0xFFFF0000, 1},
-	{SECTOR_SIZE_128K, NUM_OF_SECTORS64, BYTES512_PER_PAGE,
-		0x4000, 0x400000, ISSI_ID_BYTE0,
-		ISSI_ID_BYTE2_32, 0xFFFE0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS128, BYTES256_PER_PAGE,
-		0x8000, 0x800000, ISSI_ID_BYTE0,
-		ISSI_ID_BYTE2_64, 0xFFFF0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS256, BYTES256_PER_PAGE,
-		0x10000, 0x800000, ISSI_ID_BYTE0,
-		ISSI_ID_BYTE2_64, 0xFFFF0000, 1},
-	{SECTOR_SIZE_128K, NUM_OF_SECTORS128, BYTES512_PER_PAGE,
-		0x8000, 0x800000, ISSI_ID_BYTE0,
-		ISSI_ID_BYTE2_64, 0xFFFE0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE,
-		0x20000, 0x2000000, ISSI_ID_BYTE0,
-		ISSI_ID_BYTE2_256, 0xFFFF0000, 1},
-	{SECTOR_SIZE_64K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE,
-		0x40000, 0x2000000, ISSI_ID_BYTE0,
-		ISSI_ID_BYTE2_256, 0xFFFF0000, 1},
-	{SECTOR_SIZE_128K, NUM_OF_SECTORS512, BYTES512_PER_PAGE,
-		0x20000, 0x2000000, ISSI_ID_BYTE0,
-		ISSI_ID_BYTE2_256, 0xFFFF0000, 1}
-};
-
 u32 FlashMake;
 u32 FCTIndex;	/* Flash configuration table index */
 
@@ -694,6 +290,7 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
 	int Page;
 	XQspiPsu_Config *QspiPsuConfig;
 	int ReadBfrSize;
+	u32 PageSize = 0;
 
 	ReadBfrSize = (PAGE_COUNT * MAX_PAGE_SIZE) +
 			(DATA_OFFSET + DUMMY_SIZE)*8;
@@ -780,7 +377,12 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
 	/*
 	 * Initialize MaxData according to page size.
 	 */
-	MaxData = PAGE_COUNT * (Flash_Config_Table[FCTIndex].PageSize);
+	if(QspiPsuConfig->ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL)
+		PageSize = Flash_Config_Table[FCTIndex].PageSize * 2;
+	else
+		PageSize = Flash_Config_Table[FCTIndex].PageSize;
+
+	MaxData = PAGE_COUNT * PageSize;
 
 	/*
 	 * Some flash needs to enable Quad mode before using
@@ -819,7 +421,7 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
 	}
 
 	for (UniqueValue = UNIQUE_VALUE, Count = 0;
-			Count < Flash_Config_Table[FCTIndex].PageSize;
+			Count < PageSize;
 			Count++, UniqueValue++) {
 		WriteBuffer[Count] = (u8)(UniqueValue + Test);
 	}
@@ -835,10 +437,8 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
 
 	for (Page = 0; Page < PAGE_COUNT; Page++) {
 		Status = FlashWrite(QspiPsuInstancePtr,
-			(Page * Flash_Config_Table[FCTIndex].PageSize) +
-			TEST_ADDRESS,
-			Flash_Config_Table[FCTIndex].PageSize,
-			WriteCmd, WriteBuffer);
+			(Page * PageSize) +	TEST_ADDRESS,
+			PageSize, WriteCmd, WriteBuffer);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -928,7 +528,7 @@ void QspiPsuHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 int FlashReadID(XQspiPsu *QspiPsuPtr)
 {
 	int Status;
-	int StartIndex;
+	u32 ReadId = 0;
 
 	/*
 	 * Read ID
@@ -961,326 +561,15 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	/*
 	 * Deduce flash make
 	 */
-	if (ReadBfrPtr[0] == MICRON_ID_BYTE0) {
-		FlashMake = MICRON_ID_BYTE0;
-		StartIndex = MICRON_INDEX_START;
-	} else if (ReadBfrPtr[0] == SPANSION_ID_BYTE0) {
-		FlashMake = SPANSION_ID_BYTE0;
-		StartIndex = SPANSION_INDEX_START;
-	} else if (ReadBfrPtr[0] == WINBOND_ID_BYTE0) {
-		FlashMake = WINBOND_ID_BYTE0;
-		StartIndex = WINBOND_INDEX_START;
-	} else if (ReadBfrPtr[0] == MACRONIX_ID_BYTE0) {
-		FlashMake = MACRONIX_ID_BYTE0;
-		StartIndex = MACRONIX_INDEX_START;
-	} else if (ReadBfrPtr[0] == ISSI_ID_BYTE0) {
-		FlashMake = ISSI_ID_BYTE0;
-		StartIndex = ISSI_INDEX_START;
-	}
+	FlashMake = ReadBfrPtr[0];
 
+	ReadId = ((ReadBfrPtr[0] << 16) | (ReadBfrPtr[1] << 8) | ReadBfrPtr[2]);
 	/*
-	 * If valid flash ID, then check connection mode & size and
-	 * assign corresponding index in the Flash configuration table
+	 * Assign corresponding index in the Flash configuration table
 	 */
-	if((FlashMake == SPANSION_ID_BYTE0) ||
-			(ReadBfrPtr[2] == SPANSION_ID_BYTE2_64)) {
-		switch(QspiPsuPtr->Config.ConnectionMode)
-		{
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-				FCTIndex = FLASH_CFG_TBL_SINGLE_64_SP + StartIndex;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_64_SP + StartIndex;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FCTIndex = FLASH_CFG_TBL_STACKED_64_SP + StartIndex;
-				break;
-			default:
-				FCTIndex = 0;
-				break;
-		}
-	}
-
-	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake == SPANSION_ID_BYTE0)||
-			(FlashMake == WINBOND_ID_BYTE0)) &&
-			(ReadBfrPtr[2] == MICRON_ID_BYTE2_128)) {
-
-		switch (QspiPsuPtr->Config.ConnectionMode) {
-		case XQSPIPSU_CONNECTION_MODE_SINGLE:
-			if (FlashMake == SPANSION_ID_BYTE0) {
-				FCTIndex = FLASH_CFG_TBL_SINGLE_128_SP;
-			} else if (FlashMake == MICRON_ID_BYTE0) {
-				FCTIndex = FLASH_CFG_TBL_SINGLE_128_MC;
-			} else {
-				FCTIndex = FLASH_CFG_TBL_SINGLE_128_WB;
-			}
-			break;
-		case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-			if (FlashMake == SPANSION_ID_BYTE0) {
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_128_SP;
-			} else if (FlashMake == MICRON_ID_BYTE0) {
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_128_MC;
-			} else {
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_128_WB;
-			}
-			break;
-		case XQSPIPSU_CONNECTION_MODE_STACKED:
-			if (FlashMake == SPANSION_ID_BYTE0) {
-				FCTIndex = FLASH_CFG_TBL_STACKED_128_SP;
-			} else if (FlashMake == MICRON_ID_BYTE0) {
-				FCTIndex = FLASH_CFG_TBL_STACKED_128_MC;
-			} else {
-				FCTIndex = FLASH_CFG_TBL_STACKED_128_WB;
-			}
-			break;
-		default:
-			FCTIndex = 0;
-			break;
-		}
-	}
-	/* 256 and 512Mbit supported only for Micron and Spansion, not Winbond */
-	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake == SPANSION_ID_BYTE0)) &&
-			(ReadBfrPtr[2] == MICRON_ID_BYTE2_256)) {
-		switch (QspiPsuPtr->Config.ConnectionMode) {
-		case XQSPIPSU_CONNECTION_MODE_SINGLE:
-			if (FlashMake == SPANSION_ID_BYTE0) {
-				FCTIndex = FLASH_CFG_TBL_SINGLE_256_SP;
-			} else {
-				FCTIndex = FLASH_CFG_TBL_SINGLE_256_MC;
-			}
-			break;
-		case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-			if (FlashMake == SPANSION_ID_BYTE0) {
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_256_SP;
-			} else {
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_256_MC;
-			}
-			break;
-		case XQSPIPSU_CONNECTION_MODE_STACKED:
-			if (FlashMake == SPANSION_ID_BYTE0) {
-				FCTIndex = FLASH_CFG_TBL_STACKED_256_SP;
-			} else {
-				FCTIndex = FLASH_CFG_TBL_STACKED_256_MC;
-			}
-			break;
-		default:
-			FCTIndex = 0;
-			break;
-		}
-	}
-
-	if (FlashMake == ISSI_ID_BYTE0) {
-		if (ReadBfrPtr[2] == ISSI_ID_BYTE2_08) {
-			switch (QspiPsuPtr->Config.ConnectionMode)
-			{
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-				FCTIndex = FLASH_CFG_TBL_SINGLE_08_ISSI;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_08_ISSI;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FCTIndex = FLASH_CFG_TBL_STACKED_08_ISSI;
-				break;
-			default:
-				FCTIndex = 0;
-				break;
-			}
-		} else if (ReadBfrPtr[2] == ISSI_ID_BYTE2_16) {
-			switch (QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-				FCTIndex = FLASH_CFG_TBL_SINGLE_16_ISSI;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_16_ISSI;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FCTIndex = FLASH_CFG_TBL_STACKED_16_ISSI;
-				break;
-			default:
-				FCTIndex = 0;
-				break;
-			}
-		} else if (ReadBfrPtr[2] == ISSI_ID_BYTE2_32) {
-			switch (QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-				FCTIndex = FLASH_CFG_TBL_SINGLE_32_ISSI;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_32_ISSI;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FCTIndex = FLASH_CFG_TBL_STACKED_32_ISSI;
-				break;
-			default:
-				FCTIndex = 0;
-				break;
-			}
-		} else if (ReadBfrPtr[2] == ISSI_ID_BYTE2_64) {
-			switch (QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-				FCTIndex = FLASH_CFG_TBL_SINGLE_64_ISSI;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_64_ISSI;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FCTIndex = FLASH_CFG_TBL_STACKED_64_ISSI;
-				break;
-			default:
-				FCTIndex = 0;
-				break;
-			}
-		}else if (ReadBfrPtr[2] == ISSI_ID_BYTE2_128) {
-			switch (QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-				FCTIndex = FLASH_CFG_TBL_SINGLE_128_ISSI;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_128_ISSI;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FCTIndex = FLASH_CFG_TBL_STACKED_128_ISSI;
-				break;
-			default:
-				FCTIndex = 0;
-				break;
-			}
-		}else if (ReadBfrPtr[2] == ISSI_ID_BYTE2_256) {
-			switch (QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-				FCTIndex = FLASH_CFG_TBL_SINGLE_256_ISSI;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_256_ISSI;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FCTIndex = FLASH_CFG_TBL_STACKED_256_ISSI;
-				break;
-			default:
-				FCTIndex = 0;
-				break;
-			}
-		}else if (ReadBfrPtr[2] == ISSI_ID_BYTE2_512) {
-			switch (QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-				FCTIndex = FLASH_CFG_TBL_SINGLE_512_ISSI;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_512_ISSI;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FCTIndex = FLASH_CFG_TBL_STACKED_512_ISSI;
-				break;
-			default:
-				FCTIndex = 0;
-				break;
-			}
-		}
-	}
-	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake == SPANSION_ID_BYTE0)) &&
-			(ReadBfrPtr[2] == MICRON_ID_BYTE2_512)) {
-		switch (QspiPsuPtr->Config.ConnectionMode) {
-		case XQSPIPSU_CONNECTION_MODE_SINGLE:
-			if (FlashMake == SPANSION_ID_BYTE0) {
-				FCTIndex = FLASH_CFG_TBL_SINGLE_512_SP;
-			} else {
-				FCTIndex = FLASH_CFG_TBL_SINGLE_512_MC;
-			}
-			break;
-		case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-			if (FlashMake == SPANSION_ID_BYTE0) {
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_512_SP;
-			} else {
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_512_MC;
-			}
-			break;
-		case XQSPIPSU_CONNECTION_MODE_STACKED:
-			if (FlashMake == SPANSION_ID_BYTE0) {
-				FCTIndex = FLASH_CFG_TBL_STACKED_512_SP;
-			} else {
-				FCTIndex = FLASH_CFG_TBL_STACKED_512_MC;
-			}
-			break;
-		default:
-			FCTIndex = 0;
-			break;
-		}
-	}
-	/*
-	 * 1Gbit Single connection supported for Spansion.
-	 * The ConnectionMode will indicate stacked as this part has 2 SS
-	 * The device ID will indicate 512Mbit.
-	 * This configuration is handled as the above 512Mbit stacked configuration
-	 */
-	/* 1Gbit single, parallel and stacked supported for Micron */
-	if((FlashMake == MICRON_ID_BYTE0) &&
-			(ReadBfrPtr[2] == MICRON_ID_BYTE2_1G)) {
-
-		switch(QspiPsuPtr->Config.ConnectionMode)
-		{
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-				FCTIndex = FLASH_CFG_TBL_SINGLE_1GB_MC;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_1GB_MC;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FCTIndex = FLASH_CFG_TBL_STACKED_1GB_MC;
-				break;
-			default:
-				FCTIndex = 0;
-				break;
-		}
-	}
-	/* 2Gbit single, parallel and stacked supported for Micron */
-	if(((FlashMake == MICRON_ID_BYTE0) &&
-			(ReadBfrPtr[2] == MICRON_ID_BYTE2_2G))) {
-
-		switch(QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-				FCTIndex = FLASH_CFG_TBL_SINGLE_2GB_MC;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_2GB_MC;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FCTIndex = FLASH_CFG_TBL_STACKED_2GB_MC;
-				break;
-			default:
-				FCTIndex = 0;
-				break;
-		}
-	}
-
-	/* 1Gbit single, parallel and stacked supported for Macronix */
-	if(((FlashMake == MACRONIX_ID_BYTE0) &&
-			((ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1G) ||
-					(ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1GU)))) {
-
-		switch(QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-				if (ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1GU)
-					FCTIndex = FLASH_CFG_TBL_SINGLE_1GU_MX;
-				else
-					FCTIndex = FLASH_CFG_TBL_SINGLE_1G_MX;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				if (ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1GU)
-					FCTIndex = FLASH_CFG_TBL_PARALLEL_1GU_MX;
-				else
-					FCTIndex = FLASH_CFG_TBL_PARALLEL_1G_MX;
-				break;
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				if (ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1GU)
-					FCTIndex = FLASH_CFG_TBL_STACKED_1GU_MX;
-				else
-					FCTIndex = FLASH_CFG_TBL_STACKED_1G_MX;
-				break;
-			default:
-				FCTIndex = 0;
-				break;
-		}
+	Status = CalculateFCTIndex(ReadId, &FCTIndex);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
 
 	return XST_SUCCESS;
@@ -1471,14 +760,28 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 	u32 RealAddr;
 	u32 NumSect;
 	int Status;
+	u32 SectSize;
+	u32 SectMask;
 
 	WriteEnableCmd = WRITE_ENABLE_CMD;
+
+	if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+		SectMask = (Flash_Config_Table[FCTIndex]).SectMask - (Flash_Config_Table[FCTIndex]).SectSize;
+		SectSize = (Flash_Config_Table[FCTIndex]).SectSize * 2;
+	} else if (QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_STACKED) {
+		NumSect = (Flash_Config_Table[FCTIndex]).NumSect * 2;
+		SectMask = (Flash_Config_Table[FCTIndex]).SectMask;
+	} else {
+		SectSize = (Flash_Config_Table[FCTIndex]).SectSize;
+		NumSect = (Flash_Config_Table[FCTIndex]).NumSect;
+		SectMask = (Flash_Config_Table[FCTIndex]).SectMask;
+	}
+
 	/*
 	 * If erase size is same as the total size of the flash, use bulk erase
 	 * command or die erase command multiple times as required
 	 */
-	if (ByteCount == ((Flash_Config_Table[FCTIndex]).NumSect *
-			(Flash_Config_Table[FCTIndex]).SectSize)) {
+	if (ByteCount == NumSect * SectSize) {
 
 		if (QspiPsuPtr->Config.ConnectionMode ==
 				XQSPIPSU_CONNECTION_MODE_STACKED) {
@@ -1536,7 +839,7 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 	/*
 	 * Calculate no. of sectors to erase based on byte count
 	 */
-	NumSect = ByteCount/(Flash_Config_Table[FCTIndex].SectSize) + 1;
+	NumSect = ByteCount / SectSize + 1;
 
 	/*
 	 * If ByteCount to k sectors,
@@ -1544,9 +847,8 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 	 * increment no. of sectors to be erased
 	 */
 
-	if (((Address + ByteCount) & Flash_Config_Table[FCTIndex].SectMask) ==
-		((Address + (NumSect * Flash_Config_Table[FCTIndex].SectSize)) &
-		Flash_Config_Table[FCTIndex].SectMask)) {
+	if (((Address + ByteCount) & SectMask) ==
+		((Address + (NumSect * SectSize)) & SectMask)) {
 		NumSect++;
 	}
 
@@ -1661,7 +963,7 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 				}
 			}
 		}
-		Address += Flash_Config_Table[FCTIndex].SectSize;
+		Address += SectSize;
 	}
 
 	return 0;
@@ -1932,6 +1234,7 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 	int Status;
 
 	WriteEnableCmd = WRITE_ENABLE_CMD;
+
 	for (DieCnt = 0;
 		DieCnt < Flash_Config_Table[FCTIndex].NumDie;
 		DieCnt++) {
@@ -2067,7 +1370,7 @@ u32 GetRealAddr(XQspiPsu *QspiPsuPtr, u32 Address)
 			 */
 			RealAddr = Address &
 				(~Flash_Config_Table[FCTIndex].FlashDeviceSize);
-		} else {
+		}else {
 			/*
 			 * Set selection to L_PAGE
 			 */

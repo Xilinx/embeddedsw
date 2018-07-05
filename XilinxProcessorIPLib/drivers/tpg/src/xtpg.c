@@ -7,7 +7,7 @@
 /**
 *
 * @file xtpg.c
-* @addtogroup tpg_v3_2
+* @addtogroup tpg_v3_3
 * @{
 *
 * This file contains the implementation of the interface functions for

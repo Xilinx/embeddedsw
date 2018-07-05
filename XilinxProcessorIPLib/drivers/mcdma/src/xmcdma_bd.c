@@ -7,7 +7,7 @@
 /**
 *
 * @file xmcdma_bd.c
-* @addtogroup mcdma_v1_4
+* @addtogroup mcdma_v1_5
 * @{
 *
 * This file implements all the Scatter/Gather handling for the MCDMA Core,

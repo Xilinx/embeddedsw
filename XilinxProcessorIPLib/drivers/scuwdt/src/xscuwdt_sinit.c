@@ -7,7 +7,7 @@
 /**
 *
 * @file xscuwdt_sinit.c
-* @addtogroup scuwdt_v2_2
+* @addtogroup scuwdt_v2_3
 * @{
 *
 * This file contains method for static initialization (compile-time) of the
@@ -27,7 +27,6 @@
 /***************************** Include Files *********************************/
 
 #include "xscuwdt.h"
-#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -36,9 +35,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
-/************************** Variable Definitions *****************************/
-extern XScuWdt_Config XScuWdt_ConfigTable[XPAR_XSCUWDT_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
@@ -58,7 +54,7 @@ XScuWdt_Config *XScuWdt_LookupConfig(u16 DeviceId)
 	XScuWdt_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index = 0U; Index < XPAR_XSCUWDT_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < (u32)XPAR_XSCUWDT_NUM_INSTANCES; Index++) {
 		if (XScuWdt_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XScuWdt_ConfigTable[Index];
 			break;

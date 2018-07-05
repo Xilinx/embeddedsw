@@ -7,7 +7,7 @@
 /**
 *
 * @file xdevcfg_g.c
-* @addtogroup devcfg_v3_6
+* @addtogroup devcfg_v3_7
 * @{
 *
 * This file contains a table that specifies the configuration of the Device

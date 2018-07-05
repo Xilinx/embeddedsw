@@ -11,6 +11,9 @@
 # 4.5      nsk    07/08/19 Updated tcl to not to generate Wdttb interrupt
 #                          example, when Wdttb interrupt pin is not connected
 #                          (CR-1035919).
+# 5.1	   sne    06/05/20 Updated tcl to support WWDT mode.
+# 5.1	   sne	  06/30/20 Added interrupt connection check for Generic WDT
+#			   example.
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_Im_SP2
@@ -75,6 +78,7 @@ proc gen_src_files {swproj mhsinst} {
         return ""
     }
     set ps_wdt [isps_wdttb $mhsinst]
+    set wwdt [common::get_property CONFIG.ENABLE_WINDOW_WDT [::hsi::get_cells -hier $mhsinst]]
     if {$swproj == 1} {
         set iftmrintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
         
@@ -82,9 +86,17 @@ proc gen_src_files {swproj mhsinst} {
             if {$ps_wdt == 0} {
                 set intcname [get_intcname $mhsinst]
                 if {$intcname == ""} {
+                   if {$wwdt == 1 } {
+                      set inc_file_lines {examples/xwdttb_selftest_example.c examples/xwdttb_winwdt_example.c data/wdttb_header.h}
+                   } else {
                     set inc_file_lines {examples/xwdttb_selftest_example.c examples/xwdttb_example.c data/wdttb_header.h}
+                   }
                 } else {
+                   if {$wwdt == 1 } {
+                     set inc_file_lines {examples/xwdttb_selftest_example.c examples/xwdttb_winwdt_intr_example.c data/wdttb_header.h data/wdttb_intr_header.h}
+                   } else {
                     set inc_file_lines {examples/xwdttb_selftest_example.c examples/xwdttb_intr_example.c data/wdttb_header.h data/wdttb_intr_header.h}
+                   }
                 }
             } else {
                 set inc_file_lines {examples/xwdttb_selftest_example.c examples/xwdttb_gwdt_example.c data/wdttb_header.h}
@@ -134,6 +146,7 @@ proc gen_testfunc_call {swproj mhsinst} {
   set iftmrintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
   set ipname [common::get_property NAME $mhsinst]
   set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
+  set wwdt [common::get_property CONFIG.ENABLE_WINDOW_WDT [::hsi::get_cells -hier $mhsinst]]
   set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
   if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
@@ -171,6 +184,16 @@ proc gen_testfunc_call {swproj mhsinst} {
           set intr_id [string toupper $intr_id]
 
           if {$intcname == ""} {
+             if {$wwdt == 1} {
+        append testfunc_call "
+
+   {
+      int Status;
+
+      Status = WinWdtTbExample(${deviceid});
+
+   }"
+             } else {
         append testfunc_call "
 
    {
@@ -179,7 +202,18 @@ proc gen_testfunc_call {swproj mhsinst} {
       Status = WdtTbExample(${deviceid});
 
    }"
+            }
          } else {
+             if {$wwdt == 1} {
+          append testfunc_call "
+
+   {
+      int Status;
+      Status = WinWdtIntrExample(&${intcvar}, &${ipname}_Wdttb, \\
+                                 ${deviceid}, \\
+                                 ${intr_id});
+   }"
+             } else {
           append testfunc_call "
         
    {
@@ -188,9 +222,11 @@ proc gen_testfunc_call {swproj mhsinst} {
                                  ${deviceid}, \\
                                  ${intr_id});
    }"
+            }
           
       }
    } else {
+     if {$ps_wdt == 1} {
         append testfunc_call "
 
    {
@@ -199,6 +235,7 @@ proc gen_testfunc_call {swproj mhsinst} {
       Status = GWdtTbExample(${deviceid});
 
    }"
+     }
    }
   } else {
 
@@ -228,6 +265,24 @@ proc gen_testfunc_call {swproj mhsinst} {
 	} 
           set intr_id [string toupper $intr_id]
           if {$intcname == ""} {
+             if {$wwdt == 1} {
+    append testfunc_call "
+
+   {
+      int Status;
+
+      print(\"\\r\\n Running Window Watchdog Polled Test for ${ipname}...\\r\\n\");
+
+      Status = WinWdtTbExample(${deviceid});
+
+      if (Status == 0) {
+         print(\"Window Watchdog Polled Test PASSED\\r\\n\");
+      }
+      else {
+         print(\"Window Watchdog Polled Test FAILED\\r\\n\");
+      }
+   }"
+             } else {
     append testfunc_call "
 
    {
@@ -244,8 +299,29 @@ proc gen_testfunc_call {swproj mhsinst} {
          print(\"WdtTbExample FAILED\\r\\n\");
       }
    }"
+             }
          } else {
-          
+           if {$wwdt == 1} {
+          append testfunc_call "
+
+   {
+      int Status;
+
+      print(\"\\r\\n Running Window Watchdog Interrupt Test for ${ipname}...\\r\\n\");
+      Status = WinWdtIntrExample(&${intcvar}, &${ipname}_Wdttb, \\
+                                 ${deviceid}, \\
+                                 ${intr_id});
+
+      if (Status == 0) {
+         print(\"Window Watchdog Interrupt Test PASSED\\r\\n\");
+      }
+      else {
+         print(\"Window Watchdog Interrupt Test FAILED\\r\\n\");
+      }
+
+
+   }"
+           } else {
           append testfunc_call "
         
    {
@@ -266,8 +342,10 @@ proc gen_testfunc_call {swproj mhsinst} {
 
 
    }"
+           }
          }
        } else {
+         if {$ps_wdt == 1} {
     append testfunc_call "
 
    {
@@ -284,6 +362,7 @@ proc gen_testfunc_call {swproj mhsinst} {
          print(\"GWdtTbExample FAILED\\r\\n\");
       }
    }"
+         }
        }
   }
 

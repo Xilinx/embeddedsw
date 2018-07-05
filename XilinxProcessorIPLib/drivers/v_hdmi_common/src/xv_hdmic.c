@@ -7,7 +7,7 @@
 /**
  *
  * @file xhdmic.c
- * @addtogroup hdmi_common_v1_3
+ * @addtogroup hdmi_common_v1_4
  * @{
  *
  * Contains common utility functions that are typically used by hdmi-related
@@ -276,29 +276,67 @@ u32 XHdmiC_TMDS_GetNVal(u32 TMDSCharRate,
 
 /**
 * This returns the Audio Sampling Rate and TMDS
-* Character Rate
+* Character Rate.
+*
+* This function is not expected to be called for CTS/N as 0.
 */
 XHdmiC_SamplingFrequency XHdmiC_TMDS_GetAudSampFreq(u32 TMDSCharRate,
-		u32 N)
+		u32 N, u32 CTSVal)
 {
   XHdmiC_TMDS_N_Table const *item;
   u8 i = 0;
   u8 j = 0;
+  u64 fs;
+  u32 FsTol = 1000; /* Max Fs tolerance limit */
 
+  /* Look for standard TMDS rates */
   for(i = 0; i < sizeof(TMDSChar_N_Table)/sizeof(XHdmiC_TMDS_N_Table); i++) {
 		item = &TMDSChar_N_Table[i];
 		if(TMDSCharRate <= (item->TMDSCharRate + 10000) &&
 			(TMDSCharRate >= (item->TMDSCharRate - 10000))) {
 			for (j = 0; j < 7; j++) {
 				if(N == item->ACR_NVal[j]) {
-					return j;
+					/*
+					 * starts from
+					 * XHDMIC_SAMPLING_FREQUENCY_32K
+					 */
+					return (j + 1);
 					break;
 				}
 			}
 		}
   }
-  /* Return non-valid sample frequency */
-  return XHDMIC_SAMPLING_FREQUENCY;
+
+  if (!CTSVal)
+          return XHDMIC_SAMPLING_FREQUENCY;
+
+ /* compute and approximate */
+  fs = ((u64)TMDSCharRate * (u64)N) ;
+  fs = fs / (128 * CTSVal);
+
+  if (((XHDMIC_SAMPLING_FREQ_32K - FsTol) <= fs) &&
+		  (fs <= (XHDMIC_SAMPLING_FREQ_32K + FsTol)))
+	  return XHDMIC_SAMPLING_FREQUENCY_32K;
+  else if (((XHDMIC_SAMPLING_FREQ_44_1K - FsTol) <= fs) &&
+		  (fs <= (XHDMIC_SAMPLING_FREQ_44_1K + FsTol)))
+	  return XHDMIC_SAMPLING_FREQUENCY_44_1K;
+  else if (((XHDMIC_SAMPLING_FREQ_48K - FsTol) <= fs) &&
+		  (fs <= (XHDMIC_SAMPLING_FREQ_48K + FsTol)))
+	  return XHDMIC_SAMPLING_FREQUENCY_48K;
+  else if (((XHDMIC_SAMPLING_FREQ_88_2K - FsTol) <= fs) &&
+		  (fs <= (XHDMIC_SAMPLING_FREQ_88_2K + FsTol)))
+	  return XHDMIC_SAMPLING_FREQUENCY_88_2K;
+  else if (((XHDMIC_SAMPLING_FREQ_96K - FsTol) <= fs) &&
+		  (fs <= (XHDMIC_SAMPLING_FREQ_96K + FsTol)))
+	  return XHDMIC_SAMPLING_FREQUENCY_96K;
+  else if (((XHDMIC_SAMPLING_FREQ_176_4K - FsTol) <= fs) &&
+		  (fs <= (XHDMIC_SAMPLING_FREQ_176_4K + FsTol)))
+	  return XHDMIC_SAMPLING_FREQUENCY_176_4K;
+  else if (((XHDMIC_SAMPLING_FREQ_192K - FsTol) <= fs) &&
+		  (fs <= (XHDMIC_SAMPLING_FREQ_192K + FsTol)))
+	  return XHDMIC_SAMPLING_FREQUENCY_192K;
+  else
+	  return  XHDMIC_SAMPLING_FREQUENCY; /* invalid */
 }
 
 /**
@@ -1201,7 +1239,7 @@ void XV_HdmiC_DRMIF_GeneratePacket(XHdmiC_DRMInfoFrame *DRMInfoFrame, XHdmiC_Aux
 	aux->Header.Byte[1] = 0x1;
 
 	/* Length of DRM InfoFrame */
-	aux->Header.Byte[2] = 27;
+	aux->Header.Byte[2] = 26;
 
 	/* HB3 */
 	aux->Header.Byte[3] = 0; /* CRC */

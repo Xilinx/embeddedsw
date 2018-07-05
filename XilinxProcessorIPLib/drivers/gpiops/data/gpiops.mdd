@@ -10,7 +10,7 @@ BEGIN driver gpiops
   OPTION supported_peripherals = (ps7_gpio psu_gpio psv_pmc_gpio psv_gpio);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.7;
+  OPTION VERSION = 3.8;
   OPTION NAME = gpiops;
 
 END driver

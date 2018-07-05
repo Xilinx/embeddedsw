@@ -7,7 +7,7 @@
 /**
 *
 * @file xcsi_intr.c
-* @addtogroup csi_v1_4
+* @addtogroup csi_v1_5
 * @{
 *
 * This file implements the functions which handle the interrupts and callbacks
@@ -291,7 +291,7 @@ void XCsi_IntrHandler(void *InstancePtr)
 	Xil_AssertVoid(XCsiPtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Get Active interrupts */
-	ActiveIntr = XCsi_GetIntrStatus(XCsiPtr);
+	ActiveIntr = XCsi_GetIntrStatus(XCsiPtr) & XCsi_GetIntrEnable(XCsiPtr);
 
 	Mask = ActiveIntr & XCSI_INTR_FRAMERCVD_MASK;
 	if (Mask) {

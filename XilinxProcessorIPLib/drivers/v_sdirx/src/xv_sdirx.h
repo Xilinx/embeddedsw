@@ -52,7 +52,8 @@ typedef enum {
 	XV_SDIRX_HANDLER_STREAM_DOWN = 1,
 	XV_SDIRX_HANDLER_STREAM_UP,
 	XV_SDIRX_HANDLER_OVERFLOW,
-	XV_SDIRX_HANDLER_UNDERFLOW
+	XV_SDIRX_HANDLER_UNDERFLOW,
+	XV_SDIRX_HANDLER_VSYNC,
 } XV_SdiRx_HandlerType;
 /*@}*/
 
@@ -201,6 +202,9 @@ typedef struct {
 	XV_SdiRx_Callback	UnderFlowCallback;		/**< Callback for Underflow callback */
 	void	*UnderFlowRef;				/**< To be passed to the Underflow callback */
 
+	XV_SdiRx_Callback	VsyncCallback;		/**< Callback for Vsync callback */
+	void	*VsyncRef;				/**< To be passed to the Vsync callback */
+
 	/* SDI RX stream */
 	XV_SdiRx_Stream		Stream[XV_SDIRX_MAX_DATASTREAM];	/**< SDI RX stream information */
 	XSdiVid_Transport	Transport;
@@ -210,6 +214,7 @@ typedef struct {
 } XV_SdiRx;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XSDIRX_BIT(n)		(1 << (n))
 
 /*****************************************************************************/
 /**

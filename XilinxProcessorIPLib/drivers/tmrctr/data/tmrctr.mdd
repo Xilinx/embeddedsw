@@ -14,6 +14,9 @@
 # 4.6      mus    03/13/19 tmrctr_tapp tcl is updated to support scenario where
 #                          AXI TIMER is interrupting ARM processor through more
 #                          than one interrupt pin. Fix for CR#1024699
+# 4.7      mus    08/31/20 Updated makefile to support parallel make and
+#                          incremental builds. It would help to reduce
+#                          compilation time.
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_M
 ##
@@ -34,7 +37,7 @@ BEGIN driver tmrctr
   OPTION supported_peripherals = (axi_timer);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.6;
+  OPTION VERSION = 4.7;
   OPTION NAME = tmrctr;
 
 END driver

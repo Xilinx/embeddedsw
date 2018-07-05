@@ -7,7 +7,7 @@
 /**
 *
 * @file xresetps_sinit.c
-* @addtogroup xresetps_v1_3
+* @addtogroup xresetps_v1_4
 * @{
 *
 * This file contains method for static initialization (compile-time) of the

@@ -7,7 +7,7 @@
 /**
 *
 * @file xutil_memtest.c
-* @addtogroup common_v1_00_a
+* @addtogroup common_v1_1
 * @{
 *
 * Contains the memory test utility functions.

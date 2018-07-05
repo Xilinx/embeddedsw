@@ -7,7 +7,7 @@
 /**
 *
 * @file xcanps_intr.c
-* @addtogroup canps_v3_4
+* @addtogroup canps_v3_5
 * @{
 *
 * This file contains functions related to CAN interrupt handling.
@@ -21,6 +21,7 @@
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.1   nsk    12/21/15 Updated XCanPs_IntrHandler to handle error
 *			interrupts correctly. CR#925615
+* 3.5	sne    07/01/20 Fixed MISRAC warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -210,7 +211,7 @@ void XCanPs_IntrHandler(void *InstancePtr)
 	u32 PendingIntr;
 	u32 EventIntr;
 	u32 ErrorStatus;
-	XCanPs *CanPtr = (XCanPs *) ((void *)InstancePtr);
+	XCanPs *CanPtr = (XCanPs *) InstancePtr;
 
 	Xil_AssertVoid(CanPtr != NULL);
 	Xil_AssertVoid(CanPtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -269,9 +270,6 @@ void XCanPs_IntrHandler(void *InstancePtr)
 			 * handling of other interrupts is needed any more.
 			 */
 			return;
-		} else {
-			/*This else was made for misra-c compliance*/
-			;
 		}
 	}
 
@@ -361,32 +359,32 @@ s32 XCanPs_SetHandler(XCanPs *InstancePtr, u32 HandlerType,
 			InstancePtr->SendHandler =
 				(XCanPs_SendRecvHandler) CallBackFunc;
 			InstancePtr->SendRef = CallBackRef;
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 			break;
 
 		case XCANPS_HANDLER_RECV:
 			InstancePtr->RecvHandler =
 				(XCanPs_SendRecvHandler) CallBackFunc;
 			InstancePtr->RecvRef = CallBackRef;
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 			break;
 
 		case XCANPS_HANDLER_ERROR:
 			InstancePtr->ErrorHandler =
 				(XCanPs_ErrorHandler) CallBackFunc;
 			InstancePtr->ErrorRef = CallBackRef;
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 			break;
 
 		case XCANPS_HANDLER_EVENT:
 			InstancePtr->EventHandler =
 				(XCanPs_EventHandler) CallBackFunc;
 			InstancePtr->EventRef = CallBackRef;
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 			break;
 
 		default:
-			Status = XST_INVALID_PARAM;
+			Status = (s32)XST_INVALID_PARAM;
 			break;
 	}
 	return Status;

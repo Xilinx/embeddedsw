@@ -7,7 +7,7 @@
 /**
  *
  * @file xsdiaud.c
- * @addtogroup sdiaud_v2_1
+ * @addtogroup sdiaud_v2_2
  * @{
  * <pre>
  *

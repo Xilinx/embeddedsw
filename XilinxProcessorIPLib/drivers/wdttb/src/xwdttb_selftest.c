@@ -7,7 +7,7 @@
 /**
 *
 * @file xwdttb_selftest.c
-* @addtogroup wdttb_v5_0
+* @addtogroup wdttb_v5_1
 * @{
 *
 * Contains diagnostic self-test functions for the XWdtTb component.
@@ -95,7 +95,7 @@
 ******************************************************************************/
 s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 {
-	u32 LoopCount;
+	u32 LoopCount = 0;
 	u32 TbrValue1;
 	u32 TbrValue2;
 	s32 Status;
@@ -193,12 +193,12 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 		 * Read the timebase register for a number of iterations or
 		 * until it increments, which ever occurs first
 		 */
-		for (LoopCount = (u32)0;
-			((LoopCount <= XWT_MAX_SELFTEST_LOOP_COUNT) &&
-				(TbrValue2 == TbrValue1)); LoopCount++) {
+		while ((LoopCount <= XWT_MAX_SELFTEST_LOOP_COUNT) &&
+		       (TbrValue2 == TbrValue1)) {
 			TbrValue2 =
 				XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
 					XWT_TBR_OFFSET);
+			LoopCount++;
 		}
 
 		/*

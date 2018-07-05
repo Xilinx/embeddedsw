@@ -87,11 +87,6 @@ void DpPsu_IsrHpdEvent(void *ref);
 void DpPsu_IsrHpdPulse(void *ref);
 
 /************************** Variable Definitions *****************************/
-XDpDma DpDma;
-XDpPsu DpPsu;
-XAVBuf AVBuf;
-XScuGic Intr;
-Run_Config RunCfg;
 
 
 #endif /* SRC_DPDMA_VIDEO_EXAMPLE_H_ */

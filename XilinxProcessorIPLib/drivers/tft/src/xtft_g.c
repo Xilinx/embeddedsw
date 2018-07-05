@@ -7,7 +7,7 @@
 /**
 *
 * @file xtft_g.c
-* @addtogroup tft_v6_2
+* @addtogroup tft_v6_3
 * @{
 *
 * This file contains a configuration table that specifies the parameters of

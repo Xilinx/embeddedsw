@@ -7,7 +7,7 @@
 /**
 *
 * @file xclockps_pll.c
-* @addtogroup xclockps_v1_2
+* @addtogroup xclockps_v1_3
 * @{
 *
 * This file handles PLL related definition and operations.

@@ -7,7 +7,7 @@
 /**
 *
 * @file xsdps_options.c
-* @addtogroup sdps_v3_9
+* @addtogroup sdps_v3_10
 * @{
 *
 * Contains API's for changing the various options in host and card.
@@ -58,6 +58,7 @@
 *       mn     08/29/19 Add call to Cache Invalidation API in XSdPs_Get_BusWidth
 * 3.9   mn     03/03/20 Restructured the code for more readability and modularity
 *       mn     03/16/20 Move XSdPs_Select_Card API to User APIs
+* 3.10  mn     06/05/20 Modified code for SD Non-Blocking Read support
 *
 * </pre>
 *
@@ -145,6 +146,8 @@ s32 XSdPs_SetBlkSize(XSdPs *InstancePtr, u16 BlkSize)
 	/* Set block size to the value passed */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_BLK_SIZE_OFFSET,
 			 BlkSize & XSDPS_BLK_SIZE_MASK);
+
+	InstancePtr->BlkSize = BlkSize;
 
 RETURN_PATH:
 	return Status;
@@ -692,6 +695,110 @@ s32 XSdPs_Select_Card (XSdPs *InstancePtr)
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD7,
 			InstancePtr->RelCardAddr, 0U);
 
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function performs SD read in polled mode.
+*
+* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	Arg is the address passed by the user that is to be sent as
+* 		argument along with the command.
+* @param	BlkCnt - Block count passed by the user.
+* @param	Buff - Pointer to the data buffer for a DMA transfer.
+*
+* @return
+* 		- XST_SUCCESS if Transfer initialization was successful
+* 		- XST_FAILURE if failure - could be because another transfer
+* 		is in progress or command or data inhibit is set
+*
+******************************************************************************/
+s32 XSdPs_StartReadTransfer(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
+{
+	s32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	if (InstancePtr->IsBusy == TRUE) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	/* Setup the Read Transfer */
+	Status = XSdPs_SetupTransfer(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	/* Read from the card */
+	Status = XSdPs_Read(InstancePtr, Arg, BlkCnt, Buff);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+	}
+
+	InstancePtr->IsBusy = TRUE;
+
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* This function is used to check if the transfer is completed successfully.
+*
+* @param	InstancePtr is a pointer to the instance to be worked on.
+*
+* @return
+* 		- XST_SUCCESS if transfer was successful
+* 		- XST_FAILURE if failure
+* 		- XST_DEVICE_BUSY - if the transfer is still in progress
+*
+******************************************************************************/
+s32 XSdPs_CheckReadTransfer(XSdPs *InstancePtr)
+{
+	u16 StatusReg;
+	s32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	if (InstancePtr->IsBusy == FALSE) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	/*
+	 * Check for transfer complete
+	 */
+	StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_NORM_INTR_STS_OFFSET);
+	if ((StatusReg & XSDPS_INTR_ERR_MASK) != 0U) {
+		/* Write to clear error bits */
+		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_ERR_INTR_STS_OFFSET,
+				XSDPS_ERROR_INTR_ALL_MASK);
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	if ((StatusReg & XSDPS_INTR_TC_MASK) == 0U) {
+		Status = XST_DEVICE_BUSY;
+		goto RETURN_PATH;
+	}
+
+	/* Write to clear bit */
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
+
+	InstancePtr->IsBusy = FALSE;
+
+	Status = XST_SUCCESS;
+
+RETURN_PATH:
 	return Status;
 }
 

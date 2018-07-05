@@ -7,7 +7,7 @@
 /**
 *
 * @file xemacps.c
-* @addtogroup emacps_v3_11
+* @addtogroup emacps_v3_12
 * @{
 *
 * The XEmacPs driver. Functions in this file are the minimum required functions

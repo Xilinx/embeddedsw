@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsu_selftest.c
-* @addtogroup sysmonpsu_v2_6
+* @addtogroup sysmonpsu_v2_7
 *
 * This file contains a diagnostic self test function for the XSysMon driver.
 * The self test function does a simple read/write test of the Alarm Threshold
@@ -23,8 +23,9 @@
 *
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
-* 1.0   kvn   12/15/15  First release
+* 1.0   kvn    12/15/15 First release
 * 2.5   mn     07/06/18 Fixed Doxygen warnings
+* 2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
 *
 * </pre>
 *
@@ -94,9 +95,9 @@ s32 XSysMonPsu_SelfTest(XSysMonPsu *InstancePtr)
 					XSM_ATR_SUP1_UPPER, XSYSMON_PS);
 
 	if (RegValue == XSM_ATR_TEST_VALUE) {
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	} else {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	}
 
 	/* Reset the device again to its default state. */

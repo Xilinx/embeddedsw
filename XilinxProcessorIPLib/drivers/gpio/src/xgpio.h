@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio.h
-* @addtogroup gpio_v4_6
+* @addtogroup gpio_v4_7
 * @{
 * @details
 *
@@ -94,6 +94,7 @@
 * 4.4   sne  04/25/19 Updated Makefile for IAR compier (CR-1029421).
 * 4.5   sne  06/14/19 Fixed IAR compiler warnings on example files.
 * 4.6	sne  08/11/19 Fixed compilation error of armcc compiler.
+* 4.7   sne  08/28/20 Modify Makefile to support parallel make execution.
 *
 * </pre>
 *****************************************************************************/

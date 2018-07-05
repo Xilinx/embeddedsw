@@ -7,7 +7,7 @@
 /**
 *
 * @file xresetps.h
-* @addtogroup xresetps_v1_3
+* @addtogroup xresetps_v1_4
 * @{
 * @details
 *
@@ -30,6 +30,8 @@
 * 1.1   Nava   04/20/18 Fixed compilation warnings.
 * 1.2   cjp    04/27/18 Updated for clockps interdependency
 * 1.2   sd     07/20/18 Fixed Doxygen Reported warnings.
+* 1.4   sk     09/01/20 Updated the Makefile to support parallel make
+*                       execution.
 * </pre>
 *
 ******************************************************************************/

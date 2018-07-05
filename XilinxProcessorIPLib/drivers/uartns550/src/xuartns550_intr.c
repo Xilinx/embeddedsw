@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartns550_intr.c
-* @addtogroup uartns550_v3_6
+* @addtogroup uartns550_v3_7
 * @{
 *
 * This file contains the functions that are related to interrupt processing

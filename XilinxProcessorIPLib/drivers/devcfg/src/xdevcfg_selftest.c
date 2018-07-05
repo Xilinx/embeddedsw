@@ -7,7 +7,7 @@
 /**
 *
 * @file xdevcfg_selftest.c
-* @addtogroup devcfg_v3_6
+* @addtogroup devcfg_v3_7
 * @{
 *
 * Contains diagnostic self-test functions for the XDcfg driver.

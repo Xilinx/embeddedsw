@@ -7,7 +7,7 @@
 /**
 *
 * @file xcoresightpsdcc.h
-* @addtogroup coresightps_dcc_v1_7
+* @addtogroup coresightps_dcc_v1_8
 * @{
 * @details
 *

@@ -32,12 +32,13 @@ OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
 OPTION supported_peripherals = (microblaze psu_pmu psu_pmc psu_psm psv_pmc psv_psm);
 OPTION default_os = "standalone_v5_0";
-OPTION VERSION = 2.11;
+OPTION VERSION = 2.12;
 OPTION NAME = cpu;
 
 PARAM name = compiler, desc = "Compiler used to compile both BSP/Libraries and Applications.", type = string, default = mb-gcc;
 PARAM name = assembler, desc = "Assembler used to assemble both BSP/Libraries and Applications.", type = string, default = mb-as;
 PARAM name = archiver, desc = "Archiver used to archive libraries for both BSP generation as well as for applications", type = string, default = mb-ar;
+PARAM name = dependency_flags, desc = "Flags used by compiler to generate dependency files", type = string, default = " -MMD -MP";
 PARAM name = compiler_flags, desc = "Compiler flags used in BSP and library generation. '-c' flag stands for 'compile and assemble, but do not link'. Without this flag, gcc tries to link the code, which will fail because there is no application involved during libgen. '-O2' can be overwritten by extra compiler flags", type = string, default = "-O2 -c", permit = none;
 PARAM name = extra_compiler_flags, desc = "Extra compiler flags used in BSP and library generation.", type = string, default = "-g -ffunction-sections -fdata-sections -Wall -Wextra";
 PARAM name = multiplier, desc = "Is there a hard multiplier present ?", type = bool, default = false, state = "deprecated", state_desc = "Presence of hardware multiplier is now automatically detected based on the target FPGA architecture.";

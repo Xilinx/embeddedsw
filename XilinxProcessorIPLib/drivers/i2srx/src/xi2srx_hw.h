@@ -7,7 +7,7 @@
 /**
 *
 * @file xi2srx_hw.h
-* @addtogroup i2srx_v2_1
+* @addtogroup i2srx_v2_2
 * @{
 *
 * <pre>

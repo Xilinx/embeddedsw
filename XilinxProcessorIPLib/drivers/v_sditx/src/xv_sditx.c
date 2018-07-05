@@ -22,6 +22,8 @@
 	jsr    10/05/18 Moved 3GB specific video modes timing
 			parameters from video common library
 			to SDI common driver
+* 3.1   vsa    08/12/20 Avoid workaround in XV_SdiTx_StreamStart() for versal
+*			device
 * </pre>
 *
 ******************************************************************************/
@@ -702,6 +704,84 @@ u8 XV_SdiTx_GetPayloadColorFormat(XSdiVid_TransMode SdiMode, XVidC_ColorFormat C
 /*****************************************************************************/
 /**
  *
+ * This function updates the eotf and colorimetry fields of st352 payload
+ * value for all SDI modes.
+ *
+ * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
+ * @param	Eotf is a variable of type XVidC_Eotf
+ * @param	Colorimetry is a variable of type XVidC_ColorStd
+ *
+ * @return
+ *		Updated payload value.
+ *
+ * @note
+ *		This function depends on sdi mode(Transport.TMode) being set, to
+ *		correctly calculate the payload
+ *
+ ******************************************************************************/
+u32 XV_SdiTx_GetPayloadEotf(XV_SdiTx *InstancePtr,
+			    XVidC_Eotf Eotf, XVidC_ColorStd Colorimetry)
+{
+	XVidC_Eotf eotf;
+	XVidC_ColorStd colorimetry;
+	u32 payload;
+
+	switch(Eotf) {
+	case XVIDC_EOTF_TG_SDR:
+		eotf = XSDIVID_EOTF_SDRTV;
+		break;
+	case XVIDC_EOTF_SMPTE2084:
+		eotf = XSDIVID_EOTF_SMPTE2084;
+		break;
+	case XVIDC_EOTF_HLG:
+		eotf = XSDIVID_EOTF_HLG;
+		break;
+	case XVIDC_EOTF_UNKNOWN:
+		eotf = XSDIVID_EOTF_UNKNOWN;
+		break;
+	default:
+		eotf = XSDIVID_EOTF_SDRTV;
+		break;
+	}
+
+	switch(Colorimetry) {
+	case XVIDC_BT_709:
+		colorimetry = XV_SDIVID_COLORIMETRY_BT709;
+		break;
+	case XVIDC_BT_2020:
+		colorimetry = XV_SDIVID_COLORIMETRY_BT2020;
+		break;
+	default:
+		colorimetry = XV_SDIVID_COLORIMETRY_BT709;
+		break;
+	}
+
+	payload = InstancePtr->Stream[0].PayloadId;
+
+	/*
+	 * For HD mode, bit 23 and bit 20 of payload represents colorimetry as per
+	 * SMPTE 292-1:2018 Sec 9.5
+	 * For other modes, its bit 21 and bit 20.
+	 * For BT709 and BT2020 -bit 20 is always zero.
+	 */
+	if (InstancePtr->Transport.TMode == XSDIVID_MODE_HD) {
+		payload &= ~(XV_SDITX_TX_ST352_EOTF_MASK |
+			     XV_SDITX_TX_ST352_COLORIMETRY_HD_MASK);
+		payload |= eotf << XV_SDITX_TX_ST352_EOTF_SHIFT |
+			colorimetry << XV_SDITX_TX_ST352_COLORIMETRY_HD_SHIFT;
+	} else {
+		payload &= ~(XV_SDITX_TX_ST352_EOTF_MASK |
+			     XV_SDITX_TX_ST352_COLORIMETRY_MASK);
+		payload |= eotf << XV_SDITX_TX_ST352_EOTF_SHIFT |
+			colorimetry << XV_SDITX_TX_ST352_COLORIMETRY_SHIFT;
+	}
+
+	return payload;
+}
+
+/*****************************************************************************/
+/**
+ *
  * This function calculates the final st352 payload value for all SDI modes
  * with given video mode and SDI data stream number
  *
@@ -775,6 +855,9 @@ u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVi
 		Data |= 1 << XST352_BYTE2_PIC_TYPE_SHIFT;
 		Data |= 0 << XST352_BYTE2_TS_TYPE_SHIFT;
 	}
+
+	Data |= (XV_SdiTx_GetPayloadEotf(InstancePtr, InstancePtr->Stream[DataStream].Video.Eotf,
+			InstancePtr->Stream[DataStream].Video.ColorStd));
 
 	Data |=	 (XV_SdiTx_GetPayloadColorFormat(SdiMode, InstancePtr->Stream[DataStream].Video.ColorFormatId) <<
 												XST352_BYTE3_COLOR_FORMAT_SHIFT);
@@ -939,6 +1022,7 @@ void XV_SdiTx_StreamStart(XV_SdiTx *InstancePtr)
 		break;
 	}
 
+#ifndef versal
 	/* Workaround for the current limitation of the TX core */
 	/* Read back the current mode and fractional information then program
 	* it accordingly
@@ -963,6 +1047,7 @@ void XV_SdiTx_StreamStart(XV_SdiTx *InstancePtr)
 					~(InstancePtr->Transport.IsFractional),
 					MuxPattern);
 	}
+#endif
 
 	InstancePtr->State = XV_SDITX_STATE_GTRESETDONE_NORMAL;
 	XV_SdiTx_StartSdi(InstancePtr, InstancePtr->Transport.TMode,

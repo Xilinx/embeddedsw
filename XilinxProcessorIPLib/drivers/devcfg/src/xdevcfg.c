@@ -7,7 +7,7 @@
 /**
 *
 * @file xdevcfg.c
-* @addtogroup devcfg_v3_6
+* @addtogroup devcfg_v3_7
 * @{
 *
 * This file contains the implementation of the interface functions for XDcfg

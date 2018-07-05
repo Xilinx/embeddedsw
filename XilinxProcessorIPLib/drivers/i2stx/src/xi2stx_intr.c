@@ -7,7 +7,7 @@
 /**
  *
  * @file xi2stx_intr.c
- * @addtogroup i2stx_v2_1
+ * @addtogroup i2stx_v2_2
  * @{
  *
  * This file contains functions related to i2s_transmitter interrupt handling.

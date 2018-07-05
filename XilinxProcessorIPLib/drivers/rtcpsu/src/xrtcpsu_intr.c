@@ -7,7 +7,7 @@
 /**
 *
 * @file xrtcpsu_intr.c
-* @addtogroup rtcpsu_v1_9
+* @addtogroup rtcpsu_v1_10
 * @{
 *
 * This file contains functions related to RTC interrupt handling.
@@ -62,7 +62,7 @@
 * @note		None.
 *
 *****************************************************************************/
-void XRtcPsu_SetInterruptMask(const XRtcPsu *InstancePtr, u32 Mask)
+void XRtcPsu_SetInterruptMask(XRtcPsu *InstancePtr, u32 Mask)
 {
 	/*
 	 * Clear the Status register to be sure of no pending interrupts.
@@ -97,7 +97,7 @@ void XRtcPsu_SetInterruptMask(const XRtcPsu *InstancePtr, u32 Mask)
 * @note		None.
 *
 *****************************************************************************/
-void XRtcPsu_ClearInterruptMask(const XRtcPsu *InstancePtr, u32 Mask)
+void XRtcPsu_ClearInterruptMask(XRtcPsu *InstancePtr, u32 Mask)
 {
 	/*
 	 * XRTC_INT_MSK_RSTVAL contains the valid interrupts
@@ -117,7 +117,7 @@ void XRtcPsu_ClearInterruptMask(const XRtcPsu *InstancePtr, u32 Mask)
 * occurs that needs application's attention.
 *
 * @param	InstancePtr is a pointer to the XRtcPsu instance
-* @param	FuncPtr is the pointer to the callback function.
+* @param	FunctionPtr is the pointer to the callback function.
 * @param	CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.
 *
@@ -129,7 +129,7 @@ void XRtcPsu_ClearInterruptMask(const XRtcPsu *InstancePtr, u32 Mask)
 * is (nor should it)
 *
 *****************************************************************************/
-void XRtcPsu_SetHandler(XRtcPsu *InstancePtr, XRtcPsu_Handler FuncPtr,
+void XRtcPsu_SetHandler(XRtcPsu *InstancePtr, XRtcPsu_Handler FunctionPtr,
 		 void *CallBackRef)
 {
 	/*
@@ -137,10 +137,10 @@ void XRtcPsu_SetHandler(XRtcPsu *InstancePtr, XRtcPsu_Handler FuncPtr,
 	 * CallBackRef not checked, no way to know what is valid
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(FuncPtr != NULL);
+	Xil_AssertVoid(FunctionPtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->Handler = FuncPtr;
+	InstancePtr->Handler = FunctionPtr;
 	InstancePtr->CallBackRef = CallBackRef;
 }
 

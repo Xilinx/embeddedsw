@@ -7,7 +7,7 @@
 /**
 *
 * @file xtrafgen_hw.h
-* @addtogroup trafgen_v4_3
+* @addtogroup trafgen_v4_4
 * @{
 *
 * This header file contains identifiers and macros that can be used to access

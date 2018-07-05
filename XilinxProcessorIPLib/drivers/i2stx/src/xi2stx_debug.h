@@ -7,7 +7,7 @@
 /**
  *
  * @file xi2stx_debug.h
- * @addtogroup i2stx_v2_1
+ * @addtogroup i2stx_v2_2
  * @{
  *
  * This file contains defintions of data structures used in debugging and

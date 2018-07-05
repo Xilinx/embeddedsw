@@ -142,6 +142,7 @@ int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr, XV_SdiRx_Config *CfgPtr,
 	InstancePtr->OverFlowCallback = (XV_SdiRx_Callback)((void *)StubCallback);
 
 	InstancePtr->UnderFlowCallback = (XV_SdiRx_Callback)((void *)StubCallback);
+	InstancePtr->VsyncCallback = (XV_SdiRx_Callback)((void *)StubCallback);
 
 	/* Clear SDI variables */
 	XV_SdiRx_ResetStream(InstancePtr);

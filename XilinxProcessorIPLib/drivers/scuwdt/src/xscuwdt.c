@@ -7,7 +7,7 @@
 /**
 *
 * @file xscuwdt.c
-* @addtogroup scuwdt_v2_2
+* @addtogroup scuwdt_v2_3
 * @{
 *
 * Contains the implementation of interface functions of the XScuWdt driver.
@@ -175,7 +175,7 @@ void XScuWdt_Stop(XScuWdt *InstancePtr)
 	/*
 	 * Clear the 'watchdog enable' bit in the register.
 	 */
-	Register &= (u32)(~XSCUWDT_CONTROL_WD_ENABLE_MASK);
+	Register &= (~(u32)XSCUWDT_CONTROL_WD_ENABLE_MASK);
 
 	/*
 	 * Update the Control register with the new value.

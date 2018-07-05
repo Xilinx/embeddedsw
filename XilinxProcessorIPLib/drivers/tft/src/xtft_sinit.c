@@ -7,7 +7,7 @@
 /**
 *
 * @file xtft_sinit.c
-* @addtogroup tft_v6_2
+* @addtogroup tft_v6_3
 * @{
 *
 * This file defines the implementation of Tft device static initialization

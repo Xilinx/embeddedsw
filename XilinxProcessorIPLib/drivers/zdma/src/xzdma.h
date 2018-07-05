@@ -7,7 +7,7 @@
 /**
 *
 * @file xzdma.h
-* @addtogroup zdma_v1_9
+* @addtogroup zdma_v1_10
 * @{
 * @details
 *
@@ -111,6 +111,8 @@
 * 1.7	adk	08/03/19 Added support for versal IP.
 * 1.7   adk     18/03/19 Updated the writeonly mode example data verification
 *			 check to support versal adma IP.
+* 1.10  hk      04/29/20 Enable Scatter Gather setup and Enable APIs for use
+*                        in applications directly.
 * </pre>
 *
 ******************************************************************************/
@@ -684,6 +686,9 @@ s32 XZDma_SelfTest(XZDma *InstancePtr);
 void XZDma_IntrHandler(void *Instance);
 s32 XZDma_SetCallBack(XZDma *InstancePtr, XZDma_Handler HandlerType,
 	void *CallBackFunc, void *CallBackRef);
+void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
+								u32 Num);
+void XZDma_Enable(XZDma *InstancePtr);
 
 /*@}*/
 

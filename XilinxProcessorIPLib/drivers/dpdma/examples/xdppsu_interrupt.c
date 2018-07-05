@@ -24,6 +24,7 @@
 * ----- --- -------- -----------------------------------------------
 * 1.0	aad 10/19/17	Initial Release
 * 1.1   aad 02/22/18    Fixed the header
+* 1.3   rbv 07/15/20    Fixed C++ compilation issues
 *</pre>
 *
 ******************************************************************************/
@@ -182,7 +183,7 @@ void DpPsu_Run(Run_Config *RunCfgPtr)
 
 		Status = InitDpDmaSubsystem(RunCfgPtr);
 		if (Status != XST_SUCCESS)
-			return XST_FAILURE;
+			return;
 
 		XDpDma_DisplayGfxFrameBuffer(RunCfgPtr->DpDmaPtr, &FrameBuffer);
 
@@ -213,7 +214,7 @@ void DpPsu_Run(Run_Config *RunCfgPtr)
 void DpPsu_IsrHpdEvent(void *ref)
 {
 	xil_printf("HPD event .......... ");
-	DpPsu_Run(ref);
+	DpPsu_Run((Run_Config *)ref);
 	xil_printf(".......... HPD event\n\r");
 }
 /******************************************************************************/
@@ -251,7 +252,7 @@ void DpPsu_IsrHpdPulse(void *ref)
 	do {
 		Count++;
 
-		Status = DpPsu_Hpd_Train(ref);
+		Status = DpPsu_Hpd_Train((Run_Config *)ref);
 		if (Status == XST_DEVICE_NOT_FOUND) {
 			xil_printf("Lost connection .......... HPD pulse\n\r");
 			return;
@@ -260,7 +261,7 @@ void DpPsu_IsrHpdPulse(void *ref)
 			continue;
 		}
 
-		DpPsu_SetupVideoStream(ref);
+		DpPsu_SetupVideoStream((Run_Config *)ref);
 		XDpPsu_EnableMainLink(DpPsuPtr, 1);
 
 		Status = XDpPsu_CheckLinkStatus(DpPsuPtr, DpPsuPtr->LinkConfig.LaneCount);

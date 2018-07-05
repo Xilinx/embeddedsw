@@ -7,7 +7,7 @@
 /**
 *
 * @file xparameters.h
-* @addtogroup common_v1_00_a
+* @addtogroup common_v1_1
 * @{
 *
 * This file contains system parameters for the Xilinx device driver environment.

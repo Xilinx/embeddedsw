@@ -74,8 +74,8 @@
 
 XDsiTxSs DsiTxSs;
 
-#define XGPIO_TREADY_DEVICE_ID	XPAR_GPIO_2_DEVICE_ID
-XGpio Gpio_Tready;
+#define XGPIO_STREAM_MUX_GPIO_DEVICE_ID	XPAR_GPIO_4_DEVICE_ID
+XGpio Gpio_Stream_Mux;
 
 #define XCSIRXSS_DEVICE_ID	XPAR_CSISS_0_DEVICE_ID
 XCsiSs CsiRxSs;
@@ -945,10 +945,10 @@ void ResetVprocSs_Scaler(void)
  *****************************************************************************/
 void EnableDSI(void)
 {
-	int Status;
+
 //	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_ENABLE);
-	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_ENABLE);
-	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_ENABLE);
+	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_ENABLE);
+	 XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_ENABLE);
 }
 
 /*****************************************************************************/
@@ -962,11 +962,10 @@ void EnableDSI(void)
  *****************************************************************************/
 void DisableDSI(void)
 {
-	u32 Status;
-	u8 Flag = 1;
-//	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DISABLE);
-	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_DISABLE);
-	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_DISABLE);
+
+	//XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DISABLE);
+	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_DISABLE);
+	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_DISABLE);
 	usleep(100000);
 }
 
@@ -1083,21 +1082,23 @@ u32 SetupDSI(void)
 
 /*****************************************************************************/
 /**
- * This function programs GPIO to 0 to select tready from MIPI DSI SS.
+ * This function programs GPIO to 1 to select MIPI DSI SS Stream Path in AXI-
+ * Stream switch.
  *
  * @return	None.
  *
  * @note	None.
  *
  *****************************************************************************/
-void SelectDSIOuptut(void)
+void SelectDSIOutput(void)
 {
-	XGpio_DiscreteWrite(&Gpio_Tready, 1, 0);
+	XGpio_DiscreteWrite(&Gpio_Stream_Mux, 1, 1);
 }
 
 /*****************************************************************************/
 /**
- * This function programs GPIO to '1' to select tready from HDMI.
+ * This function programs GPIO to '0' to select HDMI Stream path in AXI-Stream
+ * switch.
  *
  * @return	None.
  *
@@ -1105,7 +1106,7 @@ void SelectDSIOuptut(void)
  *
  *****************************************************************************/
 void SelectHDMIOutput(void) {
-	XGpio_DiscreteWrite(&Gpio_Tready, 1, 1);
+	XGpio_DiscreteWrite(&Gpio_Stream_Mux, 1, 0);
 }
 
 /*****************************************************************************/
@@ -1139,7 +1140,7 @@ void DisableTPGVdma(void)
 
 /*****************************************************************************/
 /**
- * This function initializes GPIO IP for tready selection and gets config
+ * This function initializes GPIO IP for Stream Switch selection and gets config
  * parameters.
  *
  * @return	XST_SUCCESS if successful or else XST_FAILURE.
@@ -1147,23 +1148,23 @@ void DisableTPGVdma(void)
  * @note	None.
  *
  *****************************************************************************/
-u32 InitTreadyGpio(void)
+u32 InitStreamMuxGpio(void)
 {
 	u32 Status = 0;
-	XGpio_Config *GpioTreadyCfgPtr = NULL;
+	XGpio_Config *GpioStreamMuxCfgPtr = NULL;
 
-	GpioTreadyCfgPtr = XGpio_LookupConfig(XGPIO_TREADY_DEVICE_ID);
+	GpioStreamMuxCfgPtr = XGpio_LookupConfig(XGPIO_STREAM_MUX_GPIO_DEVICE_ID);
 
-	if (!GpioTreadyCfgPtr) {
-		xil_printf("Tready GPIO LookupCfg failed\r\n");
+	if (!GpioStreamMuxCfgPtr) {
+		xil_printf("Stream Mux GPIO LookupCfg failed\r\n");
 		return XST_FAILURE;
 	}
 
-	Status = XGpio_CfgInitialize(&Gpio_Tready, GpioTreadyCfgPtr,
-			GpioTreadyCfgPtr->BaseAddress);
+	Status = XGpio_CfgInitialize(&Gpio_Stream_Mux, GpioStreamMuxCfgPtr,
+			GpioStreamMuxCfgPtr->BaseAddress);
 
 	if (Status != XST_SUCCESS) {
-		xil_printf("TREADY GPIO cfg init failed - %x\r\n", Status);
+		xil_printf("Stream Mux GPIO cfg init failed - %x\r\n", Status);
 		return Status;
 	}
 

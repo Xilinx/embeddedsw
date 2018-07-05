@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartlite_g.c
-* @addtogroup uartlite_v3_4
+* @addtogroup uartlite_v3_5
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

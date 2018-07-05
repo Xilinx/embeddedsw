@@ -7,7 +7,7 @@
 /**
 *
 * @file xiomodule_intr.c
-* @addtogroup iomodule_v2_8
+* @addtogroup iomodule_v2_9
 * @{
 *
 * This file contains the interrupt processing for the XIOModule component

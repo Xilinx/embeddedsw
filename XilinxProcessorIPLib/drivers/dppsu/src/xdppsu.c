@@ -468,12 +468,13 @@ static u32 XDpPsu_CheckClockRecovery(XDpPsu *InstancePtr, u8 LaneCount)
 				XDPPSU_DPCD_STATUS_LANE_1_CR_DONE_MASK)) {
 			return XST_FAILURE;
 		}
-		/* Drop through and check lane 0. */
+		/* Fall Through */
 	case XDPPSU_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] &
 				XDPPSU_DPCD_STATUS_LANE_0_CR_DONE_MASK)) {
 			return XST_FAILURE;
 		}
+		/* Fall Through */
 	default:
 		/* All (LaneCount) lanes have achieved clock recovery. */
 		return XST_SUCCESS;
@@ -512,12 +513,13 @@ static u32 XDpPsu_CheckChannelEqualization(XDpPsu *InstancePtr, u8 LaneCount)
 				XDPPSU_DPCD_STATUS_LANE_1_CE_DONE_MASK)) {
 			return XST_FAILURE;
 		}
-		/* Drop through and check lane 0. */
+		/* Fall Through */
 	case XDPPSU_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] &
 				XDPPSU_DPCD_STATUS_LANE_0_CE_DONE_MASK)) {
 			return XST_FAILURE;
 		}
+		/* Fall Through */
 	default:
 		/* All (LaneCount) lanes have achieved channel equalization. */
 		break;
@@ -530,12 +532,13 @@ static u32 XDpPsu_CheckChannelEqualization(XDpPsu *InstancePtr, u8 LaneCount)
 				XDPPSU_DPCD_STATUS_LANE_1_SL_DONE_MASK)) {
 			return XST_FAILURE;
 		}
-		/* Drop through and check lane 0. */
+		/* Fall Through */
 	case XDPPSU_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] &
 				XDPPSU_DPCD_STATUS_LANE_0_SL_DONE_MASK)) {
 			return XST_FAILURE;
 		}
+		/* Fall Through */
 	default:
 		/* All (LaneCount) lanes have achieved symbol lock. */
 		break;
@@ -1189,20 +1192,23 @@ static u32 XDpPsu_WaitPhyReady(XDpPsu *InstancePtr)
 {
 	u32 Timeout = 100;
 	u32 PhyStatus;
+	u8 PhyReadyMask = InstancePtr->LinkConfig.MaxLaneCount == 1 ?
+			XDPPSU_PHY_STATUS_RESET_LANE_0_DONE_MASK |
+			XDPPSU_PHY_STATUS_GT_PLL_LOCK_MASK :
+			XDPPSU_PHY_STATUS_ALL_LANES_READY_MASK;
 
 	/* Wait until the PHY is ready. */
 	do {
 		XDpPsu_WaitUs(InstancePtr, 20);
 		PhyStatus = XDpPsu_ReadReg(InstancePtr->Config.BaseAddr,
 					XDPPSU_PHY_STATUS);
-		PhyStatus &= XDPPSU_PHY_STATUS_ALL_LANES_READY_MASK;
+		PhyStatus &= PhyReadyMask;
 		/* Protect against an infinite loop. */
 		if (!Timeout--) {
 			return XST_ERROR_COUNT_MAX;
 		}
 
-	}
-	while (PhyStatus != XDPPSU_PHY_STATUS_ALL_LANES_READY_MASK);
+	} while (PhyStatus != PhyReadyMask);
 
 	return XST_SUCCESS;
 }
@@ -1964,8 +1970,7 @@ u32 XDpPsu_SetLaneCount(XDpPsu *InstancePtr, u8 LaneCount)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid((LaneCount == XDPPSU_LANE_COUNT_SET_1) ||
-					(LaneCount == XDPPSU_LANE_COUNT_SET_2));
+	Xil_AssertNonvoid(LaneCount <= XDPPSU_0_LANE_COUNT);
 
 
 	InstancePtr->LinkConfig.LaneCount = LaneCount;

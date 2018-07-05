@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp22_mmult_linux.c
-* @addtogroup hdcp22_mmult_v1_2
+* @addtogroup hdcp22_mmult_v1_3
 * @{
 * @details
 *

@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  *  @file xclk_wiz_hw.h
- * @addtogroup clk_wiz_v1_3
+ * @addtogroup clk_wiz_v1_4
  * @{
  *
  * Hardware definition file. It defines the register interface.
@@ -18,6 +18,8 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0 ram 02/12/16 Initial version for Clock Wizard
  * 1.3 sd  4/09/20 Added versal support.
+ * 1.4 sd  5/22/20 Added zynqmp set rate.
+ * 		   Add Enable and Disable clock APIs.
  * </pre>
  *
  *****************************************************************************/
@@ -42,8 +44,10 @@ extern "C" {
  *  @{
  */
 
+#define XCLK_WIZ_STATUS_OFFSET	0x00000004  /**< Status Register */
 #define XCLK_WIZ_ISR_OFFSET	0x0000000C  /**< Interrupt Status Register */
 #define XCLK_WIZ_IER_OFFSET	0x00000010  /**< Interrupt Enable Register */
+#define XCLK_WIZ_RECONFIG_OFFSET	0x00000014  /**< Reconfig Register */
 #define XCLK_WIZ_REG1_OFFSET	0x00000330
 #define XCLK_WIZ_REG2_OFFSET	0x00000334
 #define XCLK_WIZ_REG3_OFFSET	0x00000338
@@ -55,15 +59,22 @@ extern "C" {
 #define XCLK_WIZ_REG15_OFFSET	0x0000039C
 #define XCLK_WIZ_REG16_OFFSET	0x000003A0
 #define XCLK_WIZ_REG17_OFFSET	0x000003A8
+#define XCLK_WIZ_REG19_OFFSET	0x000003CC
 #define XCLK_WIZ_REG25_OFFSET	0x000003F0
 #define XCLK_WIZ_REG26_OFFSET	0x000003FC
 
+#define XCLK_WIZ_ZYNQMP_REG0_OFFSET	0x00000200
+#define XCLK_WIZ_ZYNQMP_REG2_OFFSET	0x00000208
+
+#define XCLK_WIZ_LOCK				1    /** Lock */
 #define XCLK_WIZ_REG3_PREDIV2			(1 << 11)    /**< Prediv2  3*/
 #define XCLK_WIZ_REG3_USED			(1 << 12)    /**< Prediv2  3*/
 #define XCLK_WIZ_REG3_MX			(1 << 9)    /**< MX*/
 #define XCLK_WIZ_REG1_PREDIV2			(1 << 12)    /**< Prediv2  3*/
 #define XCLK_WIZ_REG1_EN			(1 << 9)    /**< FBout enable*/
 #define XCLK_WIZ_REG1_MX			(1 << 10)    /**< MX  3*/
+#define XCLK_WIZ_RECONFIG_LOAD			1
+#define XCLK_WIZ_RECONFIG_SADDR			2
 
 #define XCLK_WIZ_CLKOUT0_PREDIV2_SHIFT		11   /**< Shift bits for Prediv2 */
 #define XCLK_WIZ_CLKOUT0_MX_SHIFT		9   /**< Shift bits for MUX */
@@ -237,7 +248,7 @@ extern "C" {
 							register mask */
 #define XCLK_WIZ_ISR_ALLINTR_SHIFT	         0 /**< All interrupts status
 							register shift */
-
+#define XCLK_WIZ_MAX_OUTPUT			7
 /**************************** Type Definitions *******************************/
 
 /*****************************************************************************/

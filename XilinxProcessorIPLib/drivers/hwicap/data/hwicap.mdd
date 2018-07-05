@@ -16,7 +16,7 @@ BEGIN driver hwicap
 OPTION supported_peripherals = axi_hwicap_v[0-9]_[0-9]; 
 OPTION driver_state = ACTIVE;
 OPTION copyfiles = all;
-OPTION VERSION = 11.3;
+OPTION VERSION = 11.4;
 OPTION NAME = hwicap;
 
 END DRIVER

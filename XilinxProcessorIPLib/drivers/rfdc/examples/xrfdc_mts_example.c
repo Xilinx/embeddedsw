@@ -13,6 +13,10 @@
 * This example calls the RFdc Multi-tile-sync (MTS) API with the
 * following configuration:
 * Tiles to Sync: DAC0, DAC1, ADC0, ADC1, ADC2, ADC3.
+*
+* MTS expects the PL clock, the AXI stream clock and the FS to all be
+* compatible for it to function correctly. More information surrounding this
+* can be found in PG269.
 * <pre>
 *
 * MODIFICATION HISTORY:
@@ -28,6 +32,7 @@
 *                       for MTS.
 *              02/21/19 Set metal log level to DEBUG.
 * 7.0   cog    07/25/19 Updated example for new metal register API.
+* 8.1   cog    08/28/20 Make the example toatally generic, updated information.
 *
 * </pre>
 *
@@ -40,6 +45,7 @@
 #endif
 #include "xrfdc.h"
 #include "xrfdc_mts.h"
+
 /************************** Constant Definitions ****************************/
 
 /*
@@ -49,8 +55,10 @@
  */
 #ifdef __BAREMETAL__
 #define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID
+#define I2CBUS	1
 #else
 #define RFDC_DEVICE_ID 	0
+#define I2CBUS	12
 #endif
 
 /**************************** Type Definitions ******************************/
@@ -67,7 +75,6 @@ int RFdcMTS_Example(u16 RFdcDeviceId);
 /************************** Variable Definitions ****************************/
 
 static XRFdc RFdcInst;      /* RFdc driver instance */
-
 /****************************************************************************/
 /**
 *
@@ -154,31 +161,6 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
         printf("RFdc Init Failure\n\r");
     }
 
-#ifdef XPS_BOARD_ZCU111
-    /*Setting Frequency & Sample Rate to Appropriate Values for MTS*/
-    printf("Configuring Clock Frequency and Sampling Rate\n");
-    status = XRFdc_DynamicPLLConfig(RFdcInstPtr, XRFDC_DAC_TILE, 0, XRFDC_EXTERNAL_CLK, 122.88,3932.16);
-	if (status != XRFDC_SUCCESS) {
-		printf("ERROR: Could not configure PLL For DAC 0");
-		return XRFDC_FAILURE;
-	}
-	status = XRFdc_DynamicPLLConfig(RFdcInstPtr, XRFDC_DAC_TILE, 1, XRFDC_EXTERNAL_CLK, 122.88,3932.16);
-	if (status != XRFDC_SUCCESS) {
-		printf("ERROR: Could not configure PLL For DAC 1");
-		return XRFDC_FAILURE;
-	}
-	status = XRFdc_DynamicPLLConfig(RFdcInstPtr, XRFDC_ADC_TILE, 0, XRFDC_EXTERNAL_CLK, 122.88,3932.16);
-	if (status != XRFDC_SUCCESS) {
-		printf("ERROR: Could not configure PLL For ADC 0");
-		return XRFDC_FAILURE;
-	}
-	status = XRFdc_DynamicPLLConfig(RFdcInstPtr, XRFDC_ADC_TILE, 2, XRFDC_EXTERNAL_CLK, 122.88,3932.16);
-	if (status != XRFDC_SUCCESS) {
-		printf("ERROR: Could not configure PLL For ADC 2");
-		return XRFDC_FAILURE;
-	}
-#endif
-
     printf("=== RFdc Initialized - Running Multi-tile Sync ===\n");
 
     /* ADC MTS Settings */
@@ -207,7 +189,7 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
 
     /* Initialize ADC MTS Settings */
     XRFdc_MultiConverter_Init (&ADC_Sync_Config, 0, 0);
-    ADC_Sync_Config.Tiles = 0x5;	/* Sync ADC tiles 0, 2 */
+    ADC_Sync_Config.Tiles = 0xF;	/* Sync ADC tiles 0, 1, 2, 3 */
 
     status_adc = XRFdc_MultiConverter_Sync(RFdcInstPtr, XRFDC_ADC_TILE,
 					&ADC_Sync_Config);

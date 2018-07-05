@@ -7,7 +7,7 @@
 /**
 *
 * @file xrtcpsu_selftest.c
-* @addtogroup rtcpsu_v1_9
+* @addtogroup rtcpsu_v1_10
 * @{
 *
 * This file contains the self-test functions for the XRtcPsu driver.
@@ -66,9 +66,9 @@
 * This function can hang if the hardware is not functioning properly.
 *
 ******************************************************************************/
-s32 XRtcPsu_SelfTest(const XRtcPsu *InstancePtr)
+s32 XRtcPsu_SelfTest(XRtcPsu *InstancePtr)
 {
-	s32 Status = XST_SUCCESS;
+	s32 Status = (s32)XST_SUCCESS;
 	u32 SafetyCheck;
 
 	/* Assert validates the input arguments */
@@ -85,7 +85,7 @@ s32 XRtcPsu_SelfTest(const XRtcPsu *InstancePtr)
 			XRTC_SFTY_CHK_OFFSET);
 
 	if (SafetyCheck != XRTC_SFTY_CHK_RSTVAL) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	}
 
 	return Status;

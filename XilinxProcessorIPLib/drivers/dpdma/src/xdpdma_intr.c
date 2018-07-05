@@ -62,18 +62,18 @@ void XDpDma_InterruptHandler(XDpDma *InstancePtr)
 	u32 RegVal;
 	RegVal = XDpDma_ReadReg(InstancePtr->Config.BaseAddr,
 				XDPDMA_ISR);
-	if(RegVal & XDPDMA_ISR_VSYNC_INT_MASK) {
+	if ((RegVal & XDPDMA_ISR_VSYNC_INT_MASK) != 0U) {
 		XDpDma_VSyncHandler(InstancePtr);
 	}
 
-	if(RegVal & XDPDMA_ISR_DSCR_DONE4_MASK) {
+	if ((RegVal & XDPDMA_ISR_DSCR_DONE4_MASK) != 0U) {
 		XDpDma_SetChannelState(InstancePtr, AudioChan0, XDPDMA_DISABLE);
 		InstancePtr->Audio[0].Current = NULL;
 		XDpDma_WriteReg(InstancePtr->Config.BaseAddr, XDPDMA_ISR,
 				XDPDMA_ISR_DSCR_DONE4_MASK);
 	}
 
-	if(RegVal & XDPDMA_ISR_DSCR_DONE5_MASK) {
+	if ((RegVal & XDPDMA_ISR_DSCR_DONE5_MASK) != 0U) {
 		XDpDma_SetChannelState(InstancePtr, AudioChan1, XDPDMA_DISABLE);
 		InstancePtr->Audio[1].Current = NULL;
 		XDpDma_WriteReg(InstancePtr->Config.BaseAddr, XDPDMA_ISR,
@@ -107,6 +107,10 @@ void XDpDma_VSyncHandler(XDpDma *InstancePtr)
 	else if(InstancePtr->Video.TriggerStatus == XDPDMA_RETRIGGER_EN) {
 		XDpDma_SetupChannel(InstancePtr, VideoChan);
 		XDpDma_ReTrigger(InstancePtr, VideoChan);
+	} else {
+		/* Do nothing if TriggerStatus is XDPDMA_TRIGGER_DONE or
+		 * XDPDMA_RETRIGGER_DONE
+		 */
 	}
 
 	/* Graphics Channel Trigger/Retrigger Handler */
@@ -119,6 +123,10 @@ void XDpDma_VSyncHandler(XDpDma *InstancePtr)
 	else if(InstancePtr->Gfx.TriggerStatus == XDPDMA_RETRIGGER_EN) {
 		XDpDma_SetupChannel(InstancePtr, GraphicsChan);
 		XDpDma_ReTrigger(InstancePtr, GraphicsChan);
+	} else {
+		/* Do nothing if TriggerStatus is XDPDMA_TRIGGER_DONE or
+		 * XDPDMA_RETRIGGER_DONE
+		 */
 	}
 
 	/* Audio Channel 0 Trigger Handler */

@@ -7,7 +7,7 @@
 /**
 *
 * @file xcsiss_hw.h
-* @addtogroup csiss_v1_3
+* @addtogroup csiss_v1_4
 * @{
 *
 * This header file contains identifiers and register-level core functions (or
@@ -25,6 +25,7 @@
 * 1.0 vsa 07/25/15 Initial release
 * 1.1 sss 08/17/16 Added 64 bit support
 * 1.2 vsa 03/12/17 Add Word Count corruption interrupt support
+* 1.5 vsa 08/10/20 Add YUV 420 8bits support
 * </pre>
 *
 ******************************************************************************/
@@ -50,6 +51,9 @@ extern "C" {
  * @{
  */
 #define XCSISS_ISR_FR_MASK		XCSI_ISR_FR_MASK
+#define XCSISS_ISR_VCXFE_MASK		XCSI_ISR_VCXFE_MASK
+#define XCSISS_ISR_SKEWCALCHS_MASK	XCSI_ISR_SKEWCALCHS_MASK
+#define XCSISS_ISR_YUV420_MASK		XCSI_ISR_YUV420_MASK
 #define XCSISS_ISR_WC_MASK		XCSI_ISR_WC_MASK
 #define XCSISS_ISR_ILC_MASK		XCSI_ISR_ILC_MASK
 #define XCSISS_ISR_SPFIFOF_MASK		XCSI_ISR_SPFIFOF_MASK

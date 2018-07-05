@@ -8,11 +8,11 @@ OPTION psf_version = 2.1;
 
 BEGIN driver v_csc
 
- OPTION supported_peripherals = (v_csc_v1_0);
+ OPTION supported_peripherals = (v_csc_v1_[0-1]);
  OPTION driver_state = ACTIVE;
  OPTION DEPENDS = (video_common);
  OPTION copyfiles = all;
  OPTION name = v_csc;
- OPTION version = 2.4;
+ OPTION version = 2.5;
 
 END driver

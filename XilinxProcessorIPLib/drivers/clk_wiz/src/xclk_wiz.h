@@ -8,7 +8,7 @@
 *
 * @file xclk_wiz.h
 *
-* @addtogroup clk_wiz_v1_3
+* @addtogroup clk_wiz_v1_4
 * @{
 * @details
 *
@@ -79,6 +79,7 @@
 *     ms  03/17/17 Added readme.txt file in examples folder for doxygen
 *                  generation.
 * 1.3 sd  4/09/20 Added versal support.
+* 1.4 sd  5/22/20 Added zynqmp set rate.
 * </pre>
 *
 ******************************************************************************/
@@ -101,6 +102,7 @@ extern "C" {
 
 #include "xclk_wiz_hw.h"
 #include "xplatform_info.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 /** @name Interrupt Types for setting Callbacks
@@ -120,6 +122,16 @@ extern "C" {
 #define XCLK_O_MIN 2
 #define XCLK_O_MAX 511
 
+#define XCLK_US_VCO_MAX 1600
+#define XCLK_US_VCO_MIN 800
+#define XCLK_US_M_MIN 2
+#define XCLK_US_M_MAX 128
+#define XCLK_US_D_MAX 106
+#define XCLK_US_D_MIN 1
+#define XCLK_US_O_MAX 128
+#define XCLK_US_O_MIN 1
+
+#define XCLK_MHZ 1000000
 /*@}*/
 
 /*****************************************************************************/
@@ -146,6 +158,8 @@ typedef struct {
 				going as input to the PLL/MMCM */
 	u8  EnablePll1;        /**< specify if this user clock is
 				going as input to the PLL/MMCM */
+	double PrimInClkFreq;       /**< Input Clock */
+	u32 NumClocks;		/**< Number of clocks */
 } XClk_Wiz_Config;
 
 /*****************************************************************************/
@@ -199,6 +213,7 @@ typedef struct {
 	u32 MVal;	/* Multiplier valuer */
 	u32 DVal;	/* Divisor value */
 	u32  OVal;	/* Output Value */
+	u64 MinErr;	/* Min Error that is acceptable */
 } XClk_Wiz;
 
 /************************** Macros Definitions *******************************/
@@ -415,6 +430,14 @@ void XClk_Wiz_GetInterruptSettings(XClk_Wiz  *InstancePtr);
 
 int XClk_Wiz_SetCallBack(XClk_Wiz *InstancePtr, u32 HandleType,
 			void *CallBackFunc, void *CallBackRef);
+
+u32 XClk_Wiz_EnableClock(XClk_Wiz  *InstancePtr, u32 ClockId);
+
+u32 XClk_Wiz_DisableClock(XClk_Wiz  *InstancePtr, u32 ClockId);
+
+void XClk_Wiz_SetInputRate(XClk_Wiz  *InstancePtr, double Rate);
+
+u32 XClk_Wiz_WaitForLock(XClk_Wiz  *InstancePtr);
 
 #ifdef __cplusplus
 }

@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_frmbufrd_l2.h
-* @addtogroup v_frmbuf_rd_v4_2
+* @addtogroup v_frmbuf_rd_v4_3
 * @{
 * @details
 *

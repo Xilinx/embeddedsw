@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /*
  * @file xi2srx_chsts.h
- * @addtogroup i2srx_v2_1
+ * @addtogroup i2srx_v2_2
  * @{
  * Format status related offsets & masks definitions related to the channel
  * status format.For formats/line protocols check the AES standard

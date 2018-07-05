@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp1x_tx.h
-* @addtogroup hdcp1x_v4_4
+* @addtogroup hdcp1x_v4_5
 * @{
 *
 * This file provides the interface of the HDCP TX state machine

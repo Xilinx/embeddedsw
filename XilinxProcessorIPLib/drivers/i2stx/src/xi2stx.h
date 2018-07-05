@@ -7,7 +7,7 @@
 /**
  *
  * @file xi2stx.h
- * @addtogroup i2stx_v2_1
+ * @addtogroup i2stx_v2_2
  * @{
  *
  * The Xilinx I2s Transmitter driver. This driver supports the Xilinx I2s

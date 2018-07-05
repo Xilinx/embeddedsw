@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmr_inject.h
-* @addtogroup tmr_inject_v1_2
+* @addtogroup tmr_inject_v1_3
 * @{
 * @details
 *
@@ -50,6 +50,9 @@
 *                     generation.
 * 1.1   mus  10/25/18 Added new member "LMBAddrWidth" to config structure.
 *                     It contains value of C_INJECT_LMB_AWIDTH parameter.
+* 1.3   mus  08/31/20 Updated makefile to support parallel make and
+*                          incremental builds. It would help to reduce
+*                          compilation time.
 * </pre>
 *
 *****************************************************************************/

@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartns550_format.c
-* @addtogroup uartns550_v3_6
+* @addtogroup uartns550_v3_7
 * @{
 *
 * This file contains the data format functions for the 16450/16550 UART driver.

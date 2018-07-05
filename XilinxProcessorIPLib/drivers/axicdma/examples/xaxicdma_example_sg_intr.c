@@ -51,6 +51,8 @@
  *                     Reset error and done states before starting the DMA.
  * 4.6   rsp  09/13/19 Fix cache maintenance ops for source and dest buffer.
  * 4.7   rsp  12/06/19 For aarch64 include xil_mmu.h. Fixes gcc warning.
+ * 4.8	 sk   09/28/20 Fix the compilation error for xreg_cortexa9.h
+ * 		       preprocessor on R5 processor.
  * </pre>
  *
  ****************************************************************************/
@@ -68,10 +70,6 @@
 
 #ifndef __MICROBLAZE__
 #include "xpseudo_asm_gcc.h"
-#endif
-
-#ifdef __arm__
-#include "xreg_cortexa9.h"
 #endif
 
 #ifdef __aarch64__

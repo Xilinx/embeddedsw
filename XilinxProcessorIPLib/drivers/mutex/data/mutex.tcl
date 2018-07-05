@@ -16,6 +16,7 @@
 #                     definitions of mutex in xparameters.h
 # 4.4   adk  19/09/19 Updated tcl to generate proper canonical definitions when
 #		      mutex is configured for more then one axi interface.
+# 4.6   sd   28/07/20 Updated tcl to prevent canonical redefinition
 ###############################################################################
 #uses "xillib.tcl"
 
@@ -182,7 +183,7 @@ proc gen_canonical_if_def {file_handle periph num_ifs drv_string dev_id common_p
 	    puts $file_handle ""
 	    puts $file_handle "/* Canonical definitions for peripheral $periph_name IF ${x} */"
 
-	    set canonical_name [format "%s_%s" $drv_string $x]
+	    set canonical_name [format "%s_%s" $drv_string $device_id]
 	    gen_canonical_device_id $file_handle $canonical_name $periph_name $x
 
 	    set addr_args [list "BASEADDR" "HIGHADDR"]

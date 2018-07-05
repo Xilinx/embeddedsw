@@ -7,7 +7,7 @@
 /**
 *
 * @file xspips.h
-* @addtogroup spips_v3_4
+* @addtogroup spips_v3_5
 * @{
 * @details
 *
@@ -233,6 +233,7 @@
 * 3.3   mus    04/05/19 Replaced XPLAT_versal macro with XPLAT_VERSAL, to be in
 *                       sync with standalone BSP
 * 3.3   akm    08/06/19 Initialized DeviceID in XSpiPs_CfgInitialize function.
+* 3.5	akm    09/02/20 Updated the Makefile to support parallel make execution.
 *
 * </pre>
 *

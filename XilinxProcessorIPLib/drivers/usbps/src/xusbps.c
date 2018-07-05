@@ -6,7 +6,7 @@
 /******************************************************************************/
 /**
  * @file xusbps.c
-* @addtogroup usbps_v2_5
+* @addtogroup usbps_v2_6
 * @{
  *
  * The XUsbPs driver. Functions in this file are the minimum required
@@ -22,7 +22,7 @@
  * ----- ---- -------- --------------------------------------------------------
  * 1.00a jz  10/10/10 First release
  * 2.1   kpc 04/28/14 Removed unused functions
- * 2.5   pm  02/20/20 02/22/20 Added usb state interface.
+ * 2.5   pm  02/20/20 Added usb state interface.
  * </pre>
  ******************************************************************************/
 

@@ -8,6 +8,9 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- --------------------------------------------------
 # 1.0      sa     04/05/17 First release
+# 1.3      mus    08/31/20 Updated makefile to support parallel make and
+#                          incremental builds. It would help to reduce
+#                          compilation time.
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -17,7 +20,7 @@ BEGIN driver tmr_inject
   OPTION supported_peripherals = (tmr_inject);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.2;
+  OPTION VERSION = 1.3;
   OPTION NAME = tmr_inject;
 
 END driver

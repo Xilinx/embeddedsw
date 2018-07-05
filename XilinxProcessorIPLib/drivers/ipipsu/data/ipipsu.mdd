@@ -10,7 +10,7 @@ BEGIN driver ipipsu
   OPTION supported_peripherals = (psu_ipi psv_ipi);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 2.6;
+  OPTION VERSION = 2.7;
   OPTION NAME = ipipsu;
 
 END driver

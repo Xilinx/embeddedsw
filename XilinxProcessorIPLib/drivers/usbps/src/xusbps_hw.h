@@ -7,7 +7,7 @@
 /**
  *
  * @file xusbps_hw.h
-* @addtogroup usbps_v2_5
+* @addtogroup usbps_v2_6
 * @{
  *
  * This header file contains identifiers and low-level driver functions (or

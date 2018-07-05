@@ -20,6 +20,6 @@ BEGIN driver v_sdirxss
   OPTION driver_state = ACTIVE;
   OPTION DEPENDS = (v_sdirx);
   OPTION copyfiles = all;
-  OPTION VERSION = 3.0;
+  OPTION VERSION = 3.1;
   OPTION NAME = v_sdirxss;
 END driver

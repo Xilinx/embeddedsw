@@ -7,7 +7,7 @@
 /**
 *
 * @file xadcps.h
-* @addtogroup xadcps_v2_4
+* @addtogroup xadcps_v2_5
 * @{
 * @details
 *

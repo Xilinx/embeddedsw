@@ -7,7 +7,7 @@
 /**
 *
 * @file xgpiops.h
-* @addtogroup gpiops_v3_7
+* @addtogroup gpiops_v3_8
 * @{
 * @details
 *
@@ -92,6 +92,8 @@
 * 3.6	sne  06/12/19 Fixed IAR compiler warning.
 * 3.6   sne  08/14/19 Added interrupt handler support on versal.
 * 3.7	sne  12/04/19 Reverted versal examples support.
+* 3.8   sne  08/28/20 Modify Makefile to support parallel make execution.
+* 3.8	sne  09/17/20 Added description for Versal PS and PMC GPIO pins.
 *
 * </pre>
 *

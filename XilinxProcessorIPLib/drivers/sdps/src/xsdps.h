@@ -7,7 +7,7 @@
 /**
 *
 * @file xsdps.h
-* @addtogroup sdps_v3_9
+* @addtogroup sdps_v3_10
 * @{
 * @details
 *
@@ -129,6 +129,9 @@
 *       mn     09/17/19 Modified ADMA handling API for 32bit and 64bit addresses
 * 3.9   mn     03/03/20 Restructured the code for more readability and modularity
 *       mn     03/16/20 Move XSdPs_Select_Card API to User APIs
+* 3.10  mn     06/05/20 Check Transfer completion separately from XSdPs_Read and
+*                       XSdPs_Write APIs
+*       mn     06/05/20 Modified code for SD Non-Blocking Read support
 *
 * </pre>
 *
@@ -262,6 +265,8 @@ typedef struct {
 	u64 Dma64BitAddr;	/**< 64 Bit DMA Address */
 	u16 TransferMode;	/**< Transfer Mode */
 	u32 SlcrBaseAddr;	/**< SLCR base address*/
+	u8  IsBusy;			/**< Busy Flag*/
+	u32 BlkSize;		/**< Block Size*/
 } XSdPs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -286,6 +291,8 @@ s32 XSdPs_Set_Mmc_ExtCsd(XSdPs *InstancePtr, u32 Arg);
 s32 XSdPs_SetBlkSize(XSdPs *InstancePtr, u16 BlkSize);
 s32 XSdPs_Get_Status(XSdPs *InstancePtr, u8 *SdStatReg);
 s32 XSdPs_Select_Card(XSdPs *InstancePtr);
+s32 XSdPs_StartReadTransfer(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff);
+s32 XSdPs_CheckReadTransfer(XSdPs *InstancePtr);
 
 #ifdef __cplusplus
 }

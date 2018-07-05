@@ -7,7 +7,7 @@
 /**
 *
 * @file xsrio_g.c
-* @addtogroup srio_v1_3
+* @addtogroup srio_v1_4
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp1x_tx.c
-* @addtogroup hdcp1x_v4_4
+* @addtogroup hdcp1x_v4_5
 * @{
 *
 * This contains the main implementation file for the Xilinx HDCP transmit

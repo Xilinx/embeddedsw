@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartns550_options.c
-* @addtogroup uartns550_v3_6
+* @addtogroup uartns550_v3_7
 * @{
 *
 * The implementation of the options functions for the XUartNs550 driver.

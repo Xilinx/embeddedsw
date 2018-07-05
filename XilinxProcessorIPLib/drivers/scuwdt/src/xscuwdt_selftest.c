@@ -7,7 +7,7 @@
 /**
 *
 * @file xscuwdt_selftest.c
-* @addtogroup scuwdt_v2_2
+* @addtogroup scuwdt_v2_3
 * @{
 *
 * Contains diagnostic self-test functions for the XScuWdt driver.
@@ -74,7 +74,7 @@ s32 XScuWdt_SelfTest(XScuWdt *InstancePtr)
 	 */
 	CtrlOrig = XScuWdt_GetControlReg(InstancePtr);
 	XScuWdt_SetControlReg(InstancePtr,
-			      CtrlOrig & (u32)(~XSCUWDT_CONTROL_WD_ENABLE_MASK));
+			      CtrlOrig & (~(u32)XSCUWDT_CONTROL_WD_ENABLE_MASK));
 
 	LoadOrig = XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr,
 				   XSCUWDT_LOAD_OFFSET);

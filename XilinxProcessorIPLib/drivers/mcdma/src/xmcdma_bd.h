@@ -7,7 +7,7 @@
 /**
 *
 * @file xmcdma_bd.h
-* @addtogroup mcdma_v1_4
+* @addtogroup mcdma_v1_5
 * @{
 * MODIFICATION HISTORY:
 *

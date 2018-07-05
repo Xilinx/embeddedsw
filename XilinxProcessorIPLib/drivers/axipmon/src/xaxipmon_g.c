@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxipmon_g.c
-* @addtogroup axipmon_v6_8
+* @addtogroup axipmon_v6_9
 * @{
 *
 * This file contains a configuration table that specifies the configuration

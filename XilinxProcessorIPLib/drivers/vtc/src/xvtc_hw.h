@@ -7,7 +7,7 @@
 /**
 *
 * @file xvtc_hw.h
-* @addtogroup vtc_v8_2
+* @addtogroup vtc_v8_3
 * @{
 *
 * This header file contains identifiers and register-level core functions (or
@@ -153,6 +153,9 @@ extern "C" {
 #define XVTC_IER_OFFSET		0x00C	/**< Interrupt Enable Register
 					  *  Offset */
 #define XVTC_VER_OFFSET		0x010	/**< Version Register Offset */
+#define XVTC_ADAPTIVE_CTL_OFFSET	0x014	/**< Adaptive-Sync Control
+						  *  Offset */
+#define XVTC_VFP_STRETCH_OFFSET		0x18	/**< VFP Stretch Limit Offset */
 
 #define XVTC_DASIZE_OFFSET	0x020	/**< Detector Active Size Offset */
 #define XVTC_DTSTAT_OFFSET	0x024	/**< Detector Timing Status Offset */
@@ -302,6 +305,10 @@ extern "C" {
 #define XVTC_CTL_GE_MASK	0x00000004 /**< VTC Generator Enable */
 #define XVTC_CTL_RU_MASK	0x00000002 /**< VTC Register Update */
 #define XVTC_CTL_SW_MASK	0x00000001 /**< VTC Core Enable */
+#define XVTC_ADAPTIVE_ENABLE_MASK	0x00000001 /**< VTC Adaptive-Sync
+						      * enable mask */
+#define XVTC_ADAPTIVE_MODE_MASK		0x00000002 /**< VTC Adaptive-Sync
+						      * mode mask */
 /*@}*/
 
 /** @name Interrupt Status/Enable Register Bit Definitions
@@ -631,6 +638,14 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 
+/**
+ * This typedef enumerates the list of vertical front porch stretch mechanism
+ * supported by VTC core.
+ */
+typedef enum {
+	XVTC_FIXED_MODE = 0,
+	XVTC_AUTO_ADJUST_MODE
+} XVtc_AdaptiveSyncMode;
 
 /************************** Function Prototypes ******************************/
 

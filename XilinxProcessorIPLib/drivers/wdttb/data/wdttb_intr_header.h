@@ -37,11 +37,19 @@ int WdtTbIntrExample(XIntc *IntcInstancePtr, \
                          XWdtTb *WdtTbInstancePtr, \
                          u16 WdtTbDeviceId, \
                          u16 WdtTbIntrId);
+int WinWdtIntrExample(XIntc *IntcInstancePtr, \
+                        XWdtTb *WdtTbInstancePtr, \
+                        u16 WdtTbDeviceId, \
+                        u16 WdtTbIntrId);
 #else
 int WdtTbIntrExample(XScuGic *IntcInstancePtr, \
                          XWdtTb *WdtTbInstancePtr, \
                          u16 WdtTbDeviceId, \
                          u16 WdtTbIntrId);
+int WinWdtIntrExample(XScuGic *IntcInstancePtr, \
+                        XWdtTb *WdtTbInstancePtr, \
+                        u16 WdtTbDeviceId, \
+                        u16 WdtTbIntrId);
 
 #endif
 #endif

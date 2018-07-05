@@ -7,7 +7,7 @@
 /**
 *
 * @file xtrafgen.h
-* @addtogroup trafgen_v4_3
+* @addtogroup trafgen_v4_4
 * @{
 * @details
 *
@@ -180,6 +180,7 @@
 *                    examples.
 * 4.2   ms  04/18/17 Modified tcl file to add suffix U for all macros
 *                    definitions of trafgen in xparameters.h
+* 4.4   sd   09/03/20 Updated makefile for parallel execution.
 * </pre>
 ******************************************************************************/
 

@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartlite_stats.c
-* @addtogroup uartlite_v3_4
+* @addtogroup uartlite_v3_5
 * @{
 *
 * This file contains the statistics functions for the UART Lite component

@@ -7,7 +7,7 @@
 /**
 *
 * @file xspi_g.c
-* @addtogroup spi_v4_6
+* @addtogroup spi_v4_7
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
@@ -64,7 +64,12 @@ XSpi_Config XSpi_ConfigTable[XPAR_XSPI_NUM_INSTANCES] = {
 	 XPAR_SPI_0_NUM_SS_BITS,	/* Number of slave select bits */
 	 XPAR_SPI_0_NUM_TRANSFER_BITS	/* Transfer Data width */
 	 XPAR_SPI_0_SPI_MODE		/* standard/dual/quad mode */
+	 XPAR_SPI_0_TYPE_OF_AXI4_INTERFACE, /* AXI-Lite/AXI Full Interface */
+	 XPAR_SPI_0_AXI4_BASEADDR,	/* AXI Full Interface Base address of
+					the device */
+	 XPAR_SPI_0_XIP_MODE,		/* 0 if Non-XIP, 1 if XIP Mode */
 	 XPAR_SPI_0_USE_STARTUP		/* Startup Parameter */
+	 XPAR_SPI_0_FIFO_DEPTH		/* TX and RX FIFO DEPTH */
 	}
 	,
 	{
@@ -75,7 +80,12 @@ XSpi_Config XSpi_ConfigTable[XPAR_XSPI_NUM_INSTANCES] = {
 	 XPAR_SPI_1_NUM_SS_BITS,	/* Number of slave select bits */
 	 XPAR_SPI_1_NUM_TRANSFER_BITS	/* Transfer Data width */
 	 XPAR_SPI_1_SPI_MODE		/* standard/dual/quad mode */
-	 XPAR_SPI_0_USE_STARTUP		/* Startup Parameter */
+	 XPAR_SPI_1_TYPE_OF_AXI4_INTERFACE, /* AXI-Lite/AXI Full Interface */
+	 XPAR_SPI_1_AXI4_BASEADDR,	/* AXI Full Interface Base address of
+					the device */
+	 XPAR_SPI_1_XIP_MODE,		/* 0 if Non-XIP, 1 if XIP Mode */
+	 XPAR_SPI_1_USE_STARTUP		/* Startup Parameter */
+	 XPAR_SPI_1_FIFO_DEPTH		/* TX and RX FIFO DEPTH */
 	}
 };
 /** @} */

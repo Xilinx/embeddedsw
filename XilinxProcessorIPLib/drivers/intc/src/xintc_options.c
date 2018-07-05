@@ -7,7 +7,7 @@
 /**
 *
 * @file xintc_options.c
-* @addtogroup intc_v3_11
+* @addtogroup intc_v3_12
 * @{
 *
 * Contains option functions for the XIntc driver. These functions allow the

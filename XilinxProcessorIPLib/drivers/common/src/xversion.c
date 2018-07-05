@@ -7,7 +7,7 @@
 /**
 *
 * @file xversion.c
-* @addtogroup common_v1_00_a
+* @addtogroup common_v1_1
 * @{
 *
 * This file contains the implementation of the XVersion component. This

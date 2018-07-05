@@ -7,7 +7,7 @@
 /**
 *
 * @file xspi_stats.c
-* @addtogroup spi_v4_6
+* @addtogroup spi_v4_7
 * @{
 *
 * This component contains the implementation of statistics functions for the

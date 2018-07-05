@@ -7,7 +7,7 @@
 /**
 *
 * @file xemaclite_intr.c
-* @addtogroup emaclite_v4_5
+* @addtogroup emaclite_v4_6
 * @{
 *
 * Functions in this file are for the interrupt driven processing functionality.

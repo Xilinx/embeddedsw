@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp1x.h
-* @addtogroup hdcp1x_v4_4
+* @addtogroup hdcp1x_v4_5
 * @{
 * @details
 *

@@ -7,7 +7,7 @@
 /**
 *
 * @file xbasic_types.h
-* @addtogroup common_v1_00_a
+* @addtogroup common_v1_1
 * @{
 *
 * This file contains basic types for Xilinx software IP.  These types do not

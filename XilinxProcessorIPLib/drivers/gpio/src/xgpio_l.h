@@ -7,7 +7,7 @@
 /**
 *
 * @file xgpio_l.h
-* @addtogroup gpio_v4_6
+* @addtogroup gpio_v4_7
 * @{
 *
 * This header file contains identifiers and driver functions (or

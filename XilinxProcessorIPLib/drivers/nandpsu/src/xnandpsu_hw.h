@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandpsu_hw.h
-* @addtogroup nandpsu_v1_6
+* @addtogroup nandpsu_v1_7
 * @{
 *
 * This file contains identifiers and low-level macros/functions for the Arasan
@@ -25,6 +25,8 @@
 * 1.0   nm     05/06/2014  First Release
 * 2.0   sb     11/04/2014  Changed XNANDPSU_ECC_SLC_MLC_MASK to
 *			   XNANDPSU_ECC_HAMMING_BCH_MASK.
+* 1.7	akm    09/03/20    Updated the Makefile to support parallel make
+* 			   execution.
 * </pre>
 *
 ******************************************************************************/

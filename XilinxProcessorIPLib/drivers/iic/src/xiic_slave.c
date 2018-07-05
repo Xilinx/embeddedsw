@@ -7,7 +7,7 @@
 /**
 *
 * @file xiic_slave.c
-* @addtogroup iic_v3_6
+* @addtogroup iic_v3_7
 * @{
 *
 * Contains slave functions for the XIic component. This file is necessary when
@@ -46,6 +46,8 @@
 * 3.1   adk  01/08/15 When configured as a slave return the actual number of
 *		      bytes have been received/sent by the Master
 *		      to the user callback (CR: 828504).
+* 3.7  rna  10/06/20 Flush the RxFIFO in NAAS handler only when the FIFO is not
+*                    empty and the controller is still in NAAS state.
 * </pre>
 *
 ****************************************************************************/
@@ -395,15 +397,15 @@ static void NotAddrAsSlaveHandler(XIic *InstancePtr)
 			for (LoopCnt = 0; LoopCnt < BytesToRead; LoopCnt++) {
 					XIic_ReadRecvByte(InstancePtr);
 			}
+		} else if (!(Status & XIIC_SR_ADDR_AS_SLAVE_MASK)) {
+			/*
+			 * Flush Rx FIFO should slave Rx had a problem, sent No ack but
+			 * still received a few bytes. Should the slave receive have disabled
+			 * acknowledgement, clear Rx FIFO.
+			 */
+			XIic_FlushRxFifo(InstancePtr);
 		}
 	}
-
-	/*
-	 * Flush Rx FIFO should slave Rx had a problem, sent No ack but
-	 * still received a few bytes. Should the slave receive have disabled
-	 * acknowledgement, clear Rx FIFO.
-	 */
-	XIic_FlushRxFifo(InstancePtr);
 
 	/*
 	 * Set FIFO occupancy depth = 1 so that the first byte will throttle

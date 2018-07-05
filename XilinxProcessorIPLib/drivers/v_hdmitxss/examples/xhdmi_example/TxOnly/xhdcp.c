@@ -644,11 +644,11 @@ static void XHdcp_EnforceBlank(XHdcp_Repeater *InstancePtr)
              Allow content under the following conditons:
              - Stream type is 0
              - Stream type is 1, and no HDCP 1.x devices are downstream,
-               and no HDCP 2.0 repeaters are downstream. */
+               and no HDCP2 legacy devices are downstream. */
           case XV_HDMITXSS_HDCP_22:
             Status = XV_HdmiTxSs_HdcpGetTopologyField(
                        InstancePtr->DownstreamInstancePtr[i],
-                       XV_HDMITXSS_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM);
+                       XV_HDMITXSS_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM);
             Status |= XV_HdmiTxSs_HdcpGetTopologyField(
                         InstancePtr->DownstreamInstancePtr[i],
                         XV_HDMITXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM);

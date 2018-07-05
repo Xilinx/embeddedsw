@@ -7,7 +7,7 @@
 /**
 *
 * @file xspi.c
-* @addtogroup spi_v4_6
+* @addtogroup spi_v4_7
 * @{
 *
 * Contains required functions of the XSpi driver component.  See xspi.h for
@@ -75,6 +75,8 @@
 *                     register rx fifo empty flag. If clear we can proceed for
 *                     read. Otherwise we will hit exception. CR# 989938
 * 4.5	akm  05/29/19 Removed master inhibit dependency while writing DTR
+*		      in between multiple transfers.
+* 4.7	akm  10/22/20 Removed dependency of Tx_Full flag while writing DTR
 *		      in between multiple transfers.
 * </pre>
 *
@@ -172,6 +174,7 @@ int XSpi_CfgInitialize(XSpi *InstancePtr, XSpi_Config *Config,
 	InstancePtr->RemainingBytes = 0;
 	InstancePtr->BaseAddr = EffectiveAddr;
 	InstancePtr->HasFifos = Config->HasFifos;
+	InstancePtr->FifosDepth = Config->FifosDepth;
 	InstancePtr->SlaveOnly = Config->SlaveOnly;
 	InstancePtr->NumSlaveBits = Config->NumSlaveBits;
 	if (Config->DataWidth == 0) {
@@ -523,6 +526,8 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 	u32 StatusReg;
 	u32 Data = 0;
 	u8  DataWidth;
+	u32 DataLen;
+	u32 Index;
 
 	/*
 	 * The RecvBufPtr argument can be NULL.
@@ -755,10 +760,10 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 				 * The downside is that the status must be read
 				 * each loop iteration.
 				 */
-				StatusReg = XSpi_GetStatusReg(InstancePtr);
+				DataLen = (InstancePtr->RemainingBytes > InstancePtr->FifosDepth) ?
+						InstancePtr->FifosDepth : InstancePtr->RemainingBytes;
 
-				while(((StatusReg & XSP_SR_TX_FULL_MASK)== 0) &&
-					(InstancePtr->RemainingBytes > 0)) {
+				for(Index = 0; Index < DataLen; Index += (DataWidth / 8)) {
 					if (DataWidth == XSP_DATAWIDTH_BYTE) {
 						/*
 						 * Data Transfer Width is Byte
@@ -789,11 +794,8 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 							XSP_DTR_OFFSET, Data);
 					InstancePtr->SendBufferPtr +=
 							(DataWidth >> 3);
-					InstancePtr->RemainingBytes -=
-							(DataWidth >> 3);
-					StatusReg = XSpi_GetStatusReg(
-							InstancePtr);
 				}
+				InstancePtr->RemainingBytes -= DataLen;
 
 			}
 		}
@@ -1074,6 +1076,8 @@ void XSpi_InterruptHandler(void *InstancePtr)
 	u32 Data = 0;
 	u32 StatusReg;
 	u8  DataWidth;
+	u32 DataLen;
+	u32 Index;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
@@ -1177,9 +1181,9 @@ void XSpi_InterruptHandler(void *InstancePtr)
 			 * The downside is that the status must be read each
 			 * loop iteration.
 			 */
-			StatusReg = XSpi_GetStatusReg(SpiPtr);
-			while (((StatusReg & XSP_SR_TX_FULL_MASK) == 0) &&
-				(SpiPtr->RemainingBytes > 0)) {
+			DataLen = (SpiPtr->RemainingBytes > SpiPtr->FifosDepth) ?
+					SpiPtr->FifosDepth : SpiPtr->RemainingBytes;
+			for(Index = 0; Index < DataLen; Index += (DataWidth / 8)) {
 				if (DataWidth == XSP_DATAWIDTH_BYTE) {
 					/*
 					 * Data Transfer Width is Byte (8 bit).
@@ -1204,9 +1208,8 @@ void XSpi_InterruptHandler(void *InstancePtr)
 				XSpi_WriteReg(SpiPtr->BaseAddr, XSP_DTR_OFFSET,
 						Data);
 				SpiPtr->SendBufferPtr += (DataWidth >> 3);
-				SpiPtr->RemainingBytes -= (DataWidth >> 3);
-				StatusReg = XSpi_GetStatusReg(SpiPtr);
 			}
+			SpiPtr->RemainingBytes -= DataLen;
 
 		} else {
 

@@ -61,6 +61,7 @@ extern "C" {
 #define XV_SDIRXSS_IER_VIDEO_UNLOCK_MASK	XV_SDIRX_IER_VIDEO_UNLOCK_MASK
 #define XV_SDIRXSS_IER_OVERFLOW_MASK		XV_SDIRX_IER_OVERFLOW_MASK
 #define XV_SDIRXSS_IER_UNDERFLOW_MASK		XV_SDIRX_IER_UNDERFLOW_MASK
+#define XV_SDIRXSS_IER_VSYNC_MASK		XV_SDIRX_IER_VSYNC_MASK
 #define XV_SDIRXSS_IER_ALLINTR_MASK		XV_SDIRX_IER_ALLINTR_MASK
 
 /**************************** Type Definitions *******************************/
@@ -80,6 +81,7 @@ typedef enum {
 	XV_SDIRXSS_LOG_EVT_UNDERFLOW,	/**< Log event Under flow. */
 	XV_SDIRXSS_LOG_EVT_STREAMSTART, /**< Log event Stream Start. */
 	XV_SDIRXSS_LOG_EVT_SETSTREAM,	/**< Log event SDIRXSS Setstream. */
+	/* Leaving out Vsync event logging as it will flood messages */
 	XV_SDIRXSS_LOG_EVT_DUMMY,	/**< Dummy Event should be last */
 } XV_SdiRxSs_LogEvent;
 
@@ -103,7 +105,8 @@ typedef enum {
 	XV_SDIRXSS_HANDLER_STREAM_DOWN = 1,	/**< Handler for stream down event */
 	XV_SDIRXSS_HANDLER_STREAM_UP,		/**< Handler for stream up event */
 	XV_SDIRXSS_HANDLER_OVERFLOW,		/**< Handler for over flow event */
-	XV_SDIRXSS_HANDLER_UNDERFLOW		/**< Handler for under flow event */
+	XV_SDIRXSS_HANDLER_UNDERFLOW,		/**< Handler for under flow event */
+	XV_SDIRXSS_HANDLER_VSYNC,		/**< Handler for vsync event */
 } XV_SdiRxSs_HandlerType;
 /*@}*/
 
@@ -165,6 +168,9 @@ typedef struct {
 
 	XV_SdiRxSs_Callback UnderFlowCallback; /**< Callback for Under Flow event */
 	void *UnderFlowRef;		/**< To be passed to the Under Flow callback */
+
+	XV_SdiRxSs_Callback VsyncCallback; /**< Callback for Vsync event */
+	void *VsyncRef;		/**< To be passed to the Vsync callback */
 
 	u8 IsStreamUp;			/**< SDI RX Stream Up */
 } XV_SdiRxSs;

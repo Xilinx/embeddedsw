@@ -49,6 +49,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr);
 static void SdiRx_VidUnLckIntrHandler(XV_SdiRx *InstancePtr);
 static void SdiRx_OverFlowIntrHandler(XV_SdiRx *InstancePtr);
 static void SdiRx_UnderFlowIntrHandler(XV_SdiRx *InstancePtr);
+static void SdiRx_VsyncIntrHandler(XV_SdiRx *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -213,6 +214,13 @@ void XV_SdiRx_IntrHandler(void *InstancePtr)
 		XV_SdiRx_InterruptClear(SdiRxPtr, Mask);
 	}
 
+	Mask = ActiveIntr & XV_SDIRX_ISR_VSYNC_MASK;
+	if (Mask) {
+		SdiRx_VsyncIntrHandler(SdiRxPtr);
+
+		/* Clear handled interrupt(s) */
+		XV_SdiRx_InterruptClear(SdiRxPtr, Mask);
+	}
 
 }
 
@@ -229,6 +237,7 @@ void XV_SdiRx_IntrHandler(void *InstancePtr)
 * (XV_SDIRX_HANDLER_STREAM_UP)		StreamUpCallback
 * (XV_SDIRX_HANDLER_OVERFLOW)		OverFlowCallback
 * (XV_SDIRX_HANDLER_UNDERFLOW)		UnderFlowCallback
+* (XV_SDIRX_HANDLER_VSYNC)		VsyncCallback
 * </pre>
 *
 * @param	InstancePtr is a pointer to the SDI RX core instance.
@@ -286,6 +295,12 @@ int XV_SdiRx_SetCallback(XV_SdiRx *InstancePtr, u32 HandlerType,
 		Status = (XST_SUCCESS);
 		break;
 
+	/* Vsync */
+	case (XV_SDIRX_HANDLER_VSYNC):
+		InstancePtr->VsyncCallback = (XV_SdiRx_Callback)CallbackFunc;
+		InstancePtr->VsyncRef = CallbackRef;
+		Status = (XST_SUCCESS);
+		break;
 	default:
 		Status = (XST_INVALID_PARAM);
 		break;
@@ -737,7 +752,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 								XVIDC_VM_2048x1080_24_P : XVIDC_VM_1920x1080_24_P);
 					else
 						SdiStream->VmId = ((active_luma == 1) ?
-							XVIDC_VM_2048x1080_96_I : XVIDC_VM_1920x1080_96_I);
+							XVIDC_VM_2048x1080_48_I : XVIDC_VM_1920x1080_48_I);
 					break;
 				case XVIDC_FR_25HZ:
 					if (color_format == XST352_BYTE3_COLOR_FORMAT_444)
@@ -755,7 +770,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 							XVIDC_VM_2048x1080_25_P : XVIDC_VM_1920x1080_25_P);
 					else
 						SdiStream->VmId = ((active_luma == 1) ?
-							XVIDC_VM_2048x1080_100_I : XVIDC_VM_1920x1080_100_I);
+							XVIDC_VM_2048x1080_50_I : XVIDC_VM_1920x1080_50_I);
 					break;
 				case XVIDC_FR_30HZ:
 					if (color_format == XST352_BYTE3_COLOR_FORMAT_444)
@@ -773,10 +788,10 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 							XVIDC_VM_2048x1080_30_P : XVIDC_VM_1920x1080_30_P);
 					else
 					SdiStream->VmId = ((active_luma == 1) ?
-							XVIDC_VM_2048x1080_120_I : XVIDC_VM_1920x1080_120_I);
+							XVIDC_VM_2048x1080_60_I : XVIDC_VM_1920x1080_60_I);
 					break;
 				default:
-					SdiStream->VmId = XVIDC_VM_1920x1080_120_I;
+					SdiStream->VmId = XVIDC_VM_1920x1080_60_I;
 					break;
 				}
 				break;
@@ -1039,7 +1054,9 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			default:
 				xil_printf(" Error::: No ST352 valid payload available for 3G modes\n\r");
 			}
-			SdiStream->IsInterlaced = (~InstancePtr->Transport.TScan) & 0x1;
+
+			SdiStream->IsInterlaced = (payload & XST352_BYTE2_PIC_TYPE_MASK) ? 0 : 1;
+
 			break;
 
 		case XV_SDIRX_MODE_6G:
@@ -1297,6 +1314,63 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			SdiStream->Timing = *Timing;
 		}
 
+		SdiStream->FrameRate = FrameRate;
+
+		if (InstancePtr->Transport.TMode != XSDIVID_MODE_SD) {
+			u8 eotf = (payload & XST352_BYTE2_EOTF_MASK) >>
+				XST352_BYTE2_EOTF_SHIFT;
+
+			u8 colorimetry = (payload & XST352_BYTE3_COLORIMETRY_MASK) >>
+				XST352_BYTE3_COLORIMETRY_SHIFT;
+
+			/*
+			 * Bit 7 and 4 of byte 3 form the colorimetry field for HD.
+			 * Checkout SMPTE 292-1:2018 Sec 9.5 for details
+			 */
+			if (InstancePtr->Transport.TMode == XSDIVID_MODE_HD ||
+					byte1 == XST352_BYTE1_ST372_DL_3GB) {
+				/* In case of no payload */
+				colorimetry = XST352_BYTE3_COLORIMETRY_BT709;
+
+				if (valid & XV_SDIRX_RX_ST352_VLD_ST352_0) {
+					colorimetry = ((XSDIRX_BIT(23) & payload) >> 23) << 1;
+					colorimetry |= (XSDIRX_BIT(20) & payload) >> 20;
+				}
+			}
+
+			/* Get the EOTF function */
+			switch(eotf) {
+			case XST352_BYTE2_EOTF_SDRTV:
+				SdiStream->Eotf = XVIDC_EOTF_TG_SDR;
+				break;
+			case XST352_BYTE2_EOTF_SMPTE2084:
+				SdiStream->Eotf = XVIDC_EOTF_SMPTE2084;
+				break;
+			case XST352_BYTE2_EOTF_HLG:
+				SdiStream->Eotf = XVIDC_EOTF_HLG;
+				break;
+			default:
+				SdiStream->Eotf = XVIDC_EOTF_UNKNOWN;
+				break;
+			}
+
+			/* Get Colorimetry */
+			switch (colorimetry) {
+			case XST352_BYTE3_COLORIMETRY_BT709:
+				SdiStream->ColorStd = XVIDC_BT_709;
+				break;
+			case XST352_BYTE3_COLORIMETRY_UHDTV:
+				SdiStream->ColorStd = XVIDC_BT_2020;
+				break;
+			default:
+				SdiStream->ColorStd = XVIDC_BT_UNKNOWN;
+				break;
+			}
+		} else {
+			SdiStream->Eotf = XVIDC_EOTF_TG_SDR;
+			SdiStream->ColorStd = XVIDC_BT_601;
+		}
+
 		/* Call stream up callback */
 		if (InstancePtr->StreamUpCallback) {
 			InstancePtr->StreamUpCallback(InstancePtr->StreamUpRef);
@@ -1371,4 +1445,49 @@ static void SdiRx_UnderFlowIntrHandler(XV_SdiRx *InstancePtr)
 	if (InstancePtr->UnderFlowCallback) {
 		InstancePtr->UnderFlowCallback(InstancePtr->UnderFlowRef);
 	}
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This function is the interrupt handler for the SDI Vsync Event.
+*
+* @param	InstancePtr is a pointer to the XV_SdiRx core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void SdiRx_VsyncIntrHandler(XV_SdiRx *InstancePtr)
+{
+	u32 valid, payload;
+
+	/* Video is locked */
+
+	/* Read payload */
+	valid = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+				 (XV_SDIRX_RX_ST352_VLD_OFFSET));
+	payload = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+				   (XV_SDIRX_RX_ST352_0_OFFSET));
+	/* If invalid payload */
+	if (!(valid & XV_SDIRX_RX_ST352_VLD_ST352_0))
+		goto do_vsync;
+
+	/* If payload is same as stored in InstancePtr */
+	if (payload == InstancePtr->Stream[0].PayloadId)
+		goto do_vsync;
+
+	/*
+	 * Payload has changed without video lock / unlock occuring. So update
+	 * the video parameters
+	 */
+	SdiRx_VidLckIntrHandler(InstancePtr);
+
+do_vsync:
+	/* Call any callback associated */
+	if (InstancePtr->VsyncCallback)
+		InstancePtr->VsyncCallback(InstancePtr->VsyncRef);
+
 }

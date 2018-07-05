@@ -612,6 +612,10 @@ void CsiSs_ErrEventHandler(void *InstancePtr, u32 Mask)
 	xil_printf("+===> Other Errors detected.\n\r");
 	interrupt_counts++;
 
+	if (Mask & XCSISS_ISR_YUV420_MASK) {
+		xil_printf("YUV420 Word count corruption Error\n\r");
+	}
+
 	if (Mask & XCSISS_ISR_WC_MASK) {
 		xil_printf("Word count corruption Error\n\r");
 	}
@@ -622,11 +626,6 @@ void CsiSs_ErrEventHandler(void *InstancePtr, u32 Mask)
 
 	if (Mask & XCSISS_ISR_SLBF_MASK) {
 		xil_printf("Stream line buffer full Error \n\r");
-	}
-
-	if (Mask & XCSISS_ISR_STOP_MASK) {
-		xil_printf("Stop Error \n\r");
-		XCsiSs_IntrDisable(CsiSsInstance, XCSISS_ISR_STOP_MASK);
 	}
 }
 

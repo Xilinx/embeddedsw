@@ -10,6 +10,6 @@ BEGIN driver csi
 	OPTION supported_peripherals = (mipi_csi2_tx_ctrl_v[1-9]_[0-9][0-9]_[a-z] mipi_csi2_tx_ctrl_v[1-9]_[0-9]);
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.2;
+	OPTION VERSION = 1.3;
 	OPTION NAME = csi2tx;
 END driver

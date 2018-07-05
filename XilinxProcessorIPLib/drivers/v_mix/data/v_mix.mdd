@@ -9,11 +9,11 @@ OPTION psf_version = 2.1;
 
 BEGIN driver v_mix
 
- OPTION supported_peripherals = (v_mix_v5_0);
+ OPTION supported_peripherals = (v_mix_v5_[0-1]);
  OPTION driver_state = ACTIVE;
  OPTION DEPENDS = (video_common);
  OPTION copyfiles = all;
  OPTION name = v_mix;
- OPTION version = 6.0;
+ OPTION version = 6.1;
 
 END driver

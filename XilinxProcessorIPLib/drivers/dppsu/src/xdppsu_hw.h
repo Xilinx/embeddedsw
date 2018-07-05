@@ -29,6 +29,10 @@
 /* Prevent circular inclusions by using protection macros. */
 #define XDPPSU_HW_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /***************************** Include Files **********************************/
 
 #include "xil_io.h"
@@ -1139,7 +1143,7 @@
 #define XDPPSU_DISPID_TDT_TOP2_VLOC_H_MASK	0x3
 /* @} */
 
-#define XDPPSU_0_LANE_COUNT			2
+#define XDPPSU_0_LANE_COUNT			XPAR_PSU_DP_LANE_COUNT
 #define XDPPSU_0_LINK_RATE			20
 #define XDPPSU_0_MAX_BITS_PER_COLOR		12
 #define XDPPSU_0_QUAD_PIXEL_ENABLE		0
@@ -1201,5 +1205,8 @@
 #define XDpPsu_WriteReg(BaseAddress, RegOffset, Data) \
 				XDpPsu_Out32((BaseAddress) + (RegOffset), (Data))
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XDPPSU_HW_H_ */

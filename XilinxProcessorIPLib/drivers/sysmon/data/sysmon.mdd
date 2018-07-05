@@ -19,7 +19,7 @@ BEGIN driver sysmon
   OPTION supported_peripherals = (axi_sysmon_adc axi_xadc xadc_wiz system_management_wiz);
   OPTION copyfiles = all;
   OPTION driver_state = ACTIVE;
-  OPTION VERSION = 7.6;
+  OPTION VERSION = 7.7;
   OPTION NAME = sysmon;
 
 END driver

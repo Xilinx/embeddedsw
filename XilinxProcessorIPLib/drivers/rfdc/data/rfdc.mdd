@@ -19,7 +19,7 @@ BEGIN driver rfdc
   OPTION supported_peripherals = (usp_rf_data_converter);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 8.0;
+  OPTION VERSION = 8.1;
   OPTION NAME = rfdc;
   OPTION depends = libmetal;
   OPTION APP_COMPILER_FLAGS = "-D __BAREMETAL__";

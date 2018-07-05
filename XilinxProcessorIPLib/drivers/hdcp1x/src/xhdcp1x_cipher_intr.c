@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp1x_cipher_intr.c
-* @addtogroup hdcp1x_v4_4
+* @addtogroup hdcp1x_v4_5
 * @{
 *
 * This file contains interrupt related functions for Xilinx HDCP core.

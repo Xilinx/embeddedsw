@@ -45,6 +45,18 @@
 ##                      renaming. Now tcl uses XILINX_VITIS env variable if XILINX_SDK
 ##                      is not defined.
 ## 2.11  mus  02/26/20 Updated as per 2020.1 Vitis toolchain directory structure
+## 2.12  sd  07/09/20 Updated the CPUID for the pmufw case CR#1069466
+## 2.12   mus  08/18/20 Updated mdd file with new parameter dependency_flags,
+##                     it would be used to generate appropriate flags
+##                     required for dependency files configuration
+## 2.12  mus  08/27/20 Updated generate proc, to detect toolchain path through
+##                     "which" command, instead of relying on env variables
+##                     XILINX_VITIS/XILINX_SDK/HDI_APPROOT. It fixes
+##                     CR#1073988.
+## 2.12  mus  27/10/20 Added separate logic to export CPUID for firmware processors,
+##                     instead of using define_processor_params.
+##                     define_processor_params was exporting lot of other
+##                     parameters which are not required. It fixes CR#1081668.
 # uses xillib.tcl
 
 ########################################
@@ -103,7 +115,9 @@ proc generate {drv_handle} {
 			} elseif {[string first "lnx64" $osname] != -1   || [string first "lnx" $osname] != -1 } {
 				set gnu_osdir "lin"
 			}
-            if { $xilinx_approot != "" } {
+            if { [catch {exec which $compiler} compiler_path ] == 0 } {
+                set compiler_root [ file dirname [ file dirname $compiler_path]]
+            } elseif { $xilinx_approot != "" } {
                 append compiler_root $env(HDI_APPROOT) "/gnu/microblaze/" $gnu_osdir
             } elseif { $xilinx_vitis != "" } {
                     append compiler_root $env(XILINX_VITIS) "/gnu/microblaze/" $gnu_osdir
@@ -416,12 +430,17 @@ proc generate {drv_handle} {
 		append compiler_flags " -m64"
 	}
     }
-    append compiler_flags " -mcpu=v" $cpu_version
+
+    if {[string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0} {
+        append compiler_flags " -mcpu=v10.0"
+    } else {
+        append compiler_flags " -mcpu=v" $cpu_version
+    }
 
     common::set_property CONFIG.compiler_flags $compiler_flags $drv_handle
 
-    # Append LTO flag in extra_compiler_flags for PMU Firmware BSP
-    if {[string compare "psu_pmu" $proctype] == 0} {
+    # Append LTO flag in extra_compiler_flags for BSPs of PMU Firmware, PLM
+    if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0} {
 
         set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
         #Check if LTO flag in EXTRA_COMPILER_FLAGS exist previoulsy
@@ -429,6 +448,12 @@ proc generate {drv_handle} {
                 append extra_flags " -Os -flto -ffat-lto-objects"
                 common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
         }
+    }
+
+    # Update archiver to mb-gcc-ar for PLM
+    if {[string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0} {
+	set arch_flags "mb-gcc-ar"
+	common::set_property -name {ARCHIVER} -value $arch_flags -objects [hsi::get_sw_processor]
     }
 
 	#------------------------------------------------------------------------------
@@ -442,6 +467,18 @@ proc generate {drv_handle} {
 		puts $file_handle "#ifndef XPARAMETERS_H   /* prevent circular inclusions */"
 		puts $file_handle "#define XPARAMETERS_H   /* by using protection macros */"
 		puts $file_handle ""
+		set lprocs [::hsi::get_cells -hier -filter {IP_TYPE==PROCESSOR}]
+		set iname [common::get_property NAME $periph]
+		set uSuffix "U"
+		set id 0
+
+		foreach processor $lprocs {
+			if {[string compare -nocase $processor $iname] == 0} {
+				puts $file_handle "#define XPAR_CPU_ID $id$uSuffix"
+				puts $file_handle ""
+			}
+			incr id
+		}
 		set params [list]
 		lappend reserved_param_list "C_DEVICE" "C_PACKAGE" "C_SPEEDGRADE" "C_FAMILY" "C_INSTANCE" "C_KIND_OF_EDGE" "C_KIND_OF_LVL" "C_KIND_OF_INTR" "C_NUM_INTR_INPUTS" "C_MASK" "C_NUM_MASTERS" "C_NUM_SLAVES" "C_LMB_AWIDTH" "C_LMB_DWIDTH" "C_LMB_MASK" "C_LMB_NUM_SLAVES" "INSTANCE" "HW_VER"
 		# Print all parameters for psu_pmu with XPAR_MICROBLAZE prefix

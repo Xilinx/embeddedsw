@@ -7,7 +7,7 @@
 /**
 *
 * @file xsrio.c
-* @addtogroup srio_v1_3
+* @addtogroup srio_v1_4
 * @{
 * This file contains the required functions for the XSrio driver. See the 
 * xsrio.h header file for more details on this driver.

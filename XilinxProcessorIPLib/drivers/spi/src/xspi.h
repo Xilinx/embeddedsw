@@ -7,7 +7,7 @@
 /**
 *
 * @file xspi.h
-* @addtogroup spi_v4_6
+* @addtogroup spi_v4_7
 * @{
 * @details
 *
@@ -278,6 +278,9 @@
 * 4.5   akm  07/12/19 Fixed compilation error in spi interrupt example by
 *		       passing the correct interrupt controller instance to
 *		       SpiIntrExample() function (CR-1035793).
+* 4.7	akm  09/02/20 Updated the Makefile to support parallel make execution.
+* 4.7   akm  10/22/20 Removed dependency of Tx_Full flag while writing DTR
+*                     in between multiple transfers.
 * </pre>
 *
 ******************************************************************************/
@@ -392,6 +395,7 @@ typedef struct {
 					the device */
 	u8 XipMode;             /**< 0 if Non-XIP, 1 if XIP Mode */
 	u8 Use_Startup;		/**< 1 if Starup block is used in h/w */
+	u16 FifosDepth;		/**< TX and RX FIFO Depth */
 } XSpi_Config;
 
 /**
@@ -422,6 +426,7 @@ typedef struct {
 	void *StatusRef;	/**< Callback reference for status handler */
 	u32 FlashBaseAddr;    	/**< Used in XIP Mode */
 	u8 XipMode;             /**< 0 if Non-XIP, 1 if XIP Mode */
+	u16 FifosDepth;		/**< TX and RX FIFO Depth */
 } XSpi;
 
 /***************** Macros (Inline Functions) Definitions *********************/

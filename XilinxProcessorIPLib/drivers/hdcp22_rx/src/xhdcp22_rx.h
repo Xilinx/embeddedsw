@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx.h
-* @addtogroup hdcp22_rx_v2_3
+* @addtogroup hdcp22_rx_v3_0
 * @{
 * @details
 *
@@ -218,7 +218,7 @@ typedef enum {
 	XHDCP22_RX_TOPOLOGY_DEVICECNT,
 	XHDCP22_RX_TOPOLOGY_MAXDEVSEXCEEDED,
 	XHDCP22_RX_TOPOLOGY_MAXCASCADEEXCEEDED,
-	XHDCP22_RX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM,
+	XHDCP22_RX_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM,
 	XHDCP22_RX_TOPOLOGY_HDCP1DEVICEDOWNSTREAM,
 	XHDCP22_RX_TOPOLOGY_INVALID
 } XHdcp22_Rx_TopologyField;
@@ -514,8 +514,8 @@ typedef struct
 	    than four levels of repeaters have been casaded together. */
 	u8 MaxCascadeExceeded;
 	/** Flag used to indicate topology information. When set to one,
-	    indicates presence of an HDCP2.0-compliant Repeater in the topology. */
-	u8 Hdcp20RepeaterDownstream;
+	    indicates presence of an HDCP2.1-compliant Device in the topology. */
+	u8 Hdcp2LegacyDeviceDownstream;
 	/** Flag used to indicate topology information. When set to one,
 	    indicates precense of an HDCP1.x-compliant device in the topology. */
 	u8 Hdcp1DeviceDownstream;
@@ -594,6 +594,7 @@ typedef struct
 	/** Test instance */
 	XHdcp22_Rx_Test Test;
 #endif
+	u8 Hdcp22Broadcast;
 } XHdcp22_Rx;
 
 /***************** Macros (Inline Functions) Definitions ********************/
@@ -611,6 +612,7 @@ int  XHdcp22Rx_SetCallback(XHdcp22_Rx *InstancePtr,
        XHdcp22_Rx_HandlerType HandlerType, void *CallbackFunc, void *CallbackRef);
 u32  XHdcp22Rx_GetVersion(XHdcp22_Rx *InstancePtr);
 XTmrCtr* XHdcp22Rx_GetTimer(XHdcp22_Rx *InstancePtr);
+void XHdcp22Rx_SetBroadcast(XHdcp22_Rx *InstancePtr, u8 enable);
 
 /* Functions for checking status */
 u8   XHdcp22Rx_IsEnabled(XHdcp22_Rx *InstancePtr);

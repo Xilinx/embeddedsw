@@ -65,6 +65,28 @@
 ##		    slice width, while calculating the total interrupt sources.
 ##     18/10/19 adk Updated the get_slice_interrupt_sources_for_slice proc to consider
 ##		    external interrupt source pin connected to slice use case.
+##     05/28/20 mus Added support for software interrupts.
+##     06/15/20 mus Added checks to see if IP property value is empty string,
+##                  if so, variable which is storing that value will be set to 0, to
+##                  avoid failure in arithmatic calculations. It fixes CR#1067679.
+##     07/11/20 mus Fix tcl failures for design with more than one AXI INTC, chained
+##                  to the GIC. It fixes CR#1069891
+##     07/15/20 mus Fixed designs where external interrupt port is connected
+##                  to more than one slice instances of variable output width.
+##     07/24/20 mus Added support for interrupt sources traversed through OR gate.
+##                  It fixes CR#1071073
+##     07/28/20 mus Updated intc_define_vector_table to have single interrupt
+##                  handler entry for each interrupt id.
+##    08/10/20  mus Updated intc_define_vector_table to create HandlerTable entry,
+##                  in case if no valid interrupts are connected to AXI INTC IP in
+##                  specific HW design. It fixes CR#1072238
+##    08/28/20  mus For specific use cases, some of the inputs of AXI INTC
+##                  IP would be left un-connected purposefully. Existing logic
+##                  is aborting BSP generation in such scenarios. Updated
+##                  xredefine_intc to make use of "puts" instead of "error" to
+##                  display message related to unconnected pins in HW design.
+##                  Now, with this change, BSP generation would not be aborted
+##                  anymore. It fixes CR#1073535.
 ##
 ##
 ## @END_CHANGELOG
@@ -85,7 +107,9 @@ array set source_driver            ""
 array set source_interrupt_handler ""
 array set source_interrupt_id      ""
 set total_source_intrs             0
-
+set num_or_gate_instance_traversed 0
+# Number of OR gate input sources in path of specific AXI INTC instance
+set num_or_gate_inputs             0
 ############################################################
 # DRC procedure
 ############################################################
@@ -111,12 +135,31 @@ proc generate {drv_handle} {
 	}
 
 	if {$cascade == 0} {
-		::hsi::utils::define_max $drv_handle "xparameters.h" "XPAR_INTC_MAX_NUM_INTR_INPUTS" "C_NUM_INTR_INPUTS"
+		set intrs [common::get_property CONFIG.C_NUM_INTR_INPUTS [lindex $periphs 0]]
+		if { [llength $intrs] == 0 } {
+			set intrs 0
+		}
+		set swintrs [common::get_property CONFIG.C_NUM_SW_INTR [lindex $periphs 0]]
+		if { [llength $swintrs] == 0 } {
+			set swintrs 0
+		}
+		set maxintrs [expr "$intrs + $swintrs"]
+		set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+		puts $file_handle "#define XPAR_INTC_MAX_NUM_INTR_INPUTS $maxintrs"
+		close $file_handle
+
 	} else {
 		set maxintrs 0
 		foreach periph $periphs {
 			set intrs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periph]
-			set maxintrs [expr "$maxintrs + $intrs"]
+			if { [llength $intrs] == 0 } {
+				set intrs 0
+			}
+			set swintrs [common::get_property CONFIG.C_NUM_SW_INTR $periph]
+			if { [llength $swintrs] == 0 } {
+				set swintrs 0
+			}
+			set maxintrs [expr "$maxintrs + $intrs + $swintrs"]
 		}
 		set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 		puts $file_handle "#define XPAR_INTC_MAX_NUM_INTR_INPUTS $maxintrs"
@@ -135,7 +178,7 @@ proc generate {drv_handle} {
 	}
 
 	::hsi::utils::define_if_all $drv_handle "xparameters.h" "XIntc" "C_HAS_IPR" "C_HAS_SIE" "C_HAS_CIE" "C_HAS_IVR" "C_HAS_ILR"
-	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XIntc" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_KIND_OF_INTR" "C_HAS_FAST" "C_IVAR_RESET_VALUE" "C_NUM_INTR_INPUTS" "C_ADDR_WIDTH"
+	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XIntc" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_KIND_OF_INTR" "C_HAS_FAST" "C_IVAR_RESET_VALUE" "C_NUM_INTR_INPUTS" "C_NUM_SW_INTR" "C_ADDR_WIDTH"
 
 
 	# Define XPAR_SINGLE_DEVICE_ID
@@ -153,7 +196,7 @@ proc generate {drv_handle} {
 	close $config_inc
 
 	# Generate canonical xparameters
-	xdefine_canonical_xpars $drv_handle "xparameters.h" "Intc" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_KIND_OF_INTR" "C_HAS_FAST" "C_IVAR_RESET_VALUE" "C_NUM_INTR_INPUTS" "C_ADDR_WIDTH"
+	xdefine_canonical_xpars $drv_handle "xparameters.h" "Intc" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_KIND_OF_INTR" "C_HAS_FAST" "C_IVAR_RESET_VALUE" "C_NUM_INTR_INPUTS" "C_NUM_SW_INTR" "C_ADDR_WIDTH"
 }
 
 
@@ -221,6 +264,13 @@ proc intc_define_config_file {drv_handle periphs config_inc} {
 		# generate the vector table for this intc instance
 		intc_define_vector_table $periph $config_inc $tmp_config_file
 
+        # generate entry for software interrupts parameter
+        set value [common::get_property CONFIG.C_NUM_SW_INTR $drv_handle ]
+        if {[llength $value] == 0} {
+             puts -nonewline $tmp_config_file [format "\t\t%s" [::hsi::utils::get_ip_param_name $periph C_NUM_SW_INTR]]
+        } else {
+             puts -nonewline $tmp_config_file [format "\t\t%s" [::hsi::utils::get_driver_param_name $drv_string C_NUM_SW_INTR]]
+        }
 		puts $config_inc "\n/******************************************************************/\n"
 
 		puts -nonewline $tmp_config_file "\n\t\}"
@@ -260,6 +310,9 @@ proc intc_define_vector_table {periph config_inc config_file} {
     variable source_interrupt_id
     variable total_source_intrs
 
+    set prev_intr_id    -1
+    set is_entry_already_present    1
+
     #update global array of Interrupt sources for this periph
     intc_update_source_array $periph
 
@@ -269,7 +322,7 @@ proc intc_define_vector_table {periph config_inc config_file} {
     # Get pins/ports that are driving the interrupt
 	lappend source_pins
 	set source_pins [::hsi::utils::get_source_pins $interrupt_pin]
-
+    set num_sw_intrs [common::get_property CONFIG.C_NUM_SW_INTR $periph]
     set num_intr_inputs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periph]
     #calculate the total interrupt sources
 
@@ -279,6 +332,9 @@ proc intc_define_vector_table {periph config_inc config_file} {
         if {$num_intr_inputs != 1} {
             puts "ERROR: Internal error: Num intr inputs $num_intr_inputs not the same as length of ::hsi::utils::get_interrupt_sources [llength $source_pins] hsi_error"
         }
+       puts -nonewline $config_file ",\n\t\t\{"
+       puts $config_file "\t\tNULL"
+       puts $config_file "\n\t\t\},"
        return
     }
 
@@ -292,6 +348,7 @@ proc intc_define_vector_table {periph config_inc config_file} {
     set instance_list {}
 
     for {set i 0} {$i < $total_source_intrs} {incr i} {
+        set is_entry_already_present 0
         set source_ip $source_name($i)
         if { [llength $source_ip] != 0 && [llength [hsi::get_cells -hier $source_ip]] != 0} {
            set ip_name [common::get_property IP_NAME [hsi::get_cells -hier $source_ip]]
@@ -300,10 +357,17 @@ proc intc_define_vector_table {periph config_inc config_file} {
               continue
            }
         }
-        puts $config_file [format "%s\t\t\t\{" $comma ]
-        puts $config_file [format "\t\t\t\t%s," $source_interrupt_handler($i) ]
+        if { $prev_intr_id == $source_interrupt_id($i)} {
+            set is_entry_already_present 1
+        }
+        if { $is_entry_already_present == 0} {
+            puts $config_file [format "%s\t\t\t\{" $comma ]
+            puts $config_file [format "\t\t\t\t%s," $source_interrupt_handler($i) ]
+        }
         if {[llength $source_name($i)] == 0} {
-            puts $config_file "\t\t\t\t(void *)XNULL"
+            if { $is_entry_already_present == 0 } {
+                puts $config_file "\t\t\t\t(void *)XNULL"
+            }
         } else {
             set source_name_port_name $source_name($i)$source_port_name($i)
             set sname [string toupper $source_name($i)]
@@ -311,9 +375,9 @@ proc intc_define_vector_table {periph config_inc config_file} {
 	    set pname [string toupper $periph_name]
 	    set periph_xparam_name [::hsi::utils::format_xparam_name $pname]
 	    if {[lcount $instance_list $source_name_port_name] != 0} {
-	        puts $config_inc [format "#define XPAR_%s_%s_LOW_PRIORITY_MASK %#08X$uSuffix" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $i]]
+	        puts $config_inc [format "#define XPAR_%s_%s_LOW_PRIORITY_MASK %#08X$uSuffix" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $source_interrupt_id($i)]]
 	    } else {
-	        puts $config_inc [format "#define XPAR_%s_%s_MASK %#08X$uSuffix" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $i]]
+	        puts $config_inc [format "#define XPAR_%s_%s_MASK %#08X$uSuffix" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $source_interrupt_id($i)]]
 	    }
 	    if {$cascade ==1} {
 	       if {[lcount $instance_list $source_name_port_name] == 0} {
@@ -323,24 +387,42 @@ proc intc_define_vector_table {periph config_inc config_file} {
 	       }
             } else {
                  if {[lcount $instance_list $source_name_port_name] == 0} {
-                     puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $i]
+                     puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $source_interrupt_id($i)]
                  } else {
-                     puts $config_inc [format "#define XPAR_%s_%s_%s_LOW_PRIORITY_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $i]
+                     puts $config_inc [format "#define XPAR_%s_%s_%s_LOW_PRIORITY_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $source_interrupt_id($i)]
                  }
 
             }
 	    lappend instance_list $source_name_port_name
-            if {[string compare -nocase "global" $source_port_type($i) ] != 0 && \
-                [string compare $source_interrupt_handler($i) $default_interrupt_handler ] != 0} {
-                puts $config_file [format "\t\t\t\t(void *) %s" $source_handler_arg($i)]
-            } else {
-                puts $config_file "\t\t\t\t(void *) XNULL"
+            if { $is_entry_already_present == 0 } {
+                if {[string compare -nocase "global" $source_port_type($i) ] != 0 && \
+                    [string compare $source_interrupt_handler($i) $default_interrupt_handler ] != 0} {
+                    puts $config_file [format "\t\t\t\t(void *) %s" $source_handler_arg($i)]
+                } else {
+                    puts $config_file "\t\t\t\t(void *) XNULL"
+                }
             }
         }
-        puts -nonewline $config_file "\t\t\t\}"
-        set comma ",\n"
+        set prev_intr_id    $source_interrupt_id($i)
+        if { $is_entry_already_present == 0 } {
+            puts -nonewline $config_file "\t\t\t\}"
+            set comma ",\n"
+        }
     }
-    puts $config_file "\n\t\t\}"
+    puts $config_file "\n\t\t\},"
+	#Export Definitions for software interrupts to xparameters.h
+	if {$num_sw_intrs > 0} {
+		puts $config_inc "\n"
+		puts $config_inc "/*Definitions for software interrupts*/"
+		set i [expr "$i - 1"]
+		# Interrupt ID's for software interrupts starts after the hardware interrupt ID's
+		set offset [expr "$source_interrupt_id($i) + 1"]
+		for {set i 0} {$i < $num_sw_intrs} {incr i} {
+			set value [expr "$offset + $i"]
+			puts $config_inc [format "#define XPAR_%s_SW_%s_INTR %s" \
+			[string toupper $periph] $i $value]
+		}
+	}
 }
 
 ################################################
@@ -450,6 +532,8 @@ proc xredefine_intc {drvhandle config_inc} {
     variable source_interrupt_handler
     variable source_interrupt_id
     variable total_source_intrs
+    variable num_or_gate_instance_traversed
+    variable num_or_gate_inputs
 
 
     # Next define interrupt IDs for each connected peripheral
@@ -479,13 +563,13 @@ proc xredefine_intc {drvhandle config_inc} {
         set periph_ip_name [common::get_property NAME $periph]
 
         set num_intr_inputs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periph]
-	if {$num_intr_inputs != $total_source_intrs} {
-	    error "ERROR: unconnected interrupt pins in the design.\n" "" "MDT_ERROR"
+	if {$num_intr_inputs != [ expr $total_source_intrs + $num_or_gate_instance_traversed - $num_or_gate_inputs]} {
+	    puts "ERROR: unconnected interrupt pins in the design \n"
 	    return
 	}
 
         set instance_list {}
-        for {set i 0} {$i < $num_intr_inputs} {incr i} {
+        for {set i 0} {$i < $total_source_intrs} {incr i} {
 
             if {[string compare -nocase $source_name($i) "system"] == 0} {
                 continue
@@ -697,6 +781,12 @@ proc intc_update_source_array {periph} {
     variable source_interrupt_handler
     variable source_interrupt_id
     variable total_source_intrs
+    variable traversed_source_port_name
+    variable num_slice_traversed
+    variable traversed_slice_instance
+    variable check_slice_duplication
+    variable num_or_gate_instance_traversed
+    variable num_or_gate_inputs
 
     array unset source_port_name
     array unset source_name
@@ -704,6 +794,16 @@ proc intc_update_source_array {periph} {
     array unset source_driver
     array unset source_interrupt_handler
     array unset source_interrupt_id
+    array unset traversed_source_port_name
+    array unset traversed_slice_instance
+    set num_slice_traversed 0
+    set num_or_gate_instance_traversed 0
+    set num_or_gate_inputs 0
+
+    set prev_intr_id -1
+    set or_gate_width -1
+     #OR gate input sources traversed, for specific OR gate instance
+    set or_gate_inputs_traversed 0
 
 	lappend source_pins
 	set source_pins [::hsi::utils::get_interrupt_sources $periph]
@@ -718,6 +818,7 @@ proc intc_update_source_array {periph} {
         set t_source_interrupt_handler  $default_interrupt_handler
         set t_source_intrrupt_id        "-1"
 
+        set check_slice_duplication 0
         #if interrupt is coming from IP, update it.
         if { [::hsi::utils::is_external_pin $source_pin] == 0} {
             set source_periph   [hsi::get_cells -of_objects $source_pin]
@@ -727,9 +828,15 @@ proc intc_update_source_array {periph} {
             set t_source_driver [hsi::get_drivers -filter "HW_INSTANCE==$t_source_name"]
         }
         set port_intr_id [::hsi::utils::get_interrupt_id $t_ip_name $source_pin]
-        set isslice_exist [::hsi::utils::is_slice_exists_in_path $periph $source_pin]
+        set isslice_exist [is_slice_exists_in_path $periph $source_pin]
+        if { $or_gate_width !=-1 && $or_gate_inputs_traversed == $or_gate_width } {
+            set or_gate_inputs_traversed 0
+            incr num_or_gate_instance_traversed
+            incr prev_intr_id
+        }
+        set or_gate_width [is_orgate_exist_in_path $source_pin]
         if { [llength $port_intr_id ] > 1  &&
-             $isslice_exist == 0} {
+             $isslice_exist == 0 && $or_gate_width == -1 } {
             #this is the case of vector interrupt port
             set j 0
             foreach pin_id $port_intr_id {
@@ -738,16 +845,28 @@ proc intc_update_source_array {periph} {
                 set source_port_type($intr_cnt)         $t_port_type
                 set source_driver($intr_cnt)            $t_source_driver
                 set source_interrupt_handler($intr_cnt) $t_source_interrupt_handler
-                set source_interrupt_id($intr_cnt)      $pin_id
+                if { $num_or_gate_inputs != 0} {
+                    set source_interrupt_id($intr_cnt)      [expr $intr_cnt - $num_or_gate_inputs + $num_or_gate_instance_traversed]
+                } else {
+                   set source_interrupt_id($intr_cnt)      $intr_cnt
+                }
+                set prev_intr_id $source_interrupt_id($intr_cnt)
                 incr intr_cnt
                 incr j
             }
-        } else {
-            set width [::hsi::utils::get_intr_connected_slice_width $periph $source_pin]
+		} else {
+           if {([::hsi::utils::is_external_pin $source_pin] == 1) && ($isslice_exist == 1)} {
+                set check_slice_duplication 1
+                set traversed_source_port_name($num_slice_traversed) $t_source_port_name
+            }
+            set width [get_intr_connected_slice_width $periph $source_pin]
+
+            if {$check_slice_duplication == 1} {
+                incr num_slice_traversed
+            }
+
             if {$width == 0 || $width == ""} {
                 set width [expr [common::get_property LEFT $source_pin] + 1]
-            } else {
-                set port_intr_id 0
             }
             for {set count 0} {$count != $width} {incr count} {
                 if { ${count} > 0 } {
@@ -759,12 +878,52 @@ proc intc_update_source_array {periph} {
                 set source_port_type($intr_cnt)          $t_port_type
                 set source_driver($intr_cnt)            $t_source_driver
                 set source_interrupt_handler($intr_cnt) $t_source_interrupt_handler
-                set source_interrupt_id($intr_cnt)      [expr $count + $port_intr_id]
+                if { $or_gate_width != -1 } {
+                    #OR gate is preset in source_pin path
+                    set source_interrupt_id($intr_cnt)      [expr $prev_intr_id + 1]
+                    incr or_gate_inputs_traversed
+                    incr num_or_gate_inputs
+                } elseif { $num_or_gate_inputs != 0 } {
+                    #
+                    #OR gate is not present in path of source_pin, but other source pin which is
+                    #interrupting same AXI INTC IP is having OR gate in it's path
+                    #
+                    set source_interrupt_id($intr_cnt)      [expr $intr_cnt - $num_or_gate_inputs + $num_or_gate_instance_traversed]
+                    set prev_intr_id $source_interrupt_id($intr_cnt)
+                } else {
+                    # OR gate is not present in HW design
+                    set source_interrupt_id($intr_cnt)      $intr_cnt
+                    set prev_intr_id $source_interrupt_id($intr_cnt)
+                }
                 incr intr_cnt
             }
         }
     }
     set total_source_intrs $intr_cnt
+}
+
+proc is_orgate_exist_in_path { intc_src_port } {
+    set ret -1
+    set intr_sink_pins [::hsi::utils::get_sink_pins $intc_src_port]
+    foreach intr_sink_pin $intr_sink_pins {
+        set sink_periph [::hsi::get_cells -of_objects $intr_sink_pin]
+        set ipname [get_property IP_NAME $sink_periph]
+        if { $ipname == "xlconcat" || $ipname == "xlslice" } {
+            set intf_concat "dout"
+            set intf_slice  "Dout"
+            set intr1_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$intf_concat || NAME==$intf_slice"]
+            set intr_sink_pins1 [::hsi::utils::get_sink_pins $intr1_pin]
+            foreach sink_pin $intr_sink_pins1 {
+                set sink_periph [::hsi::get_cells -of_objects $sink_pin]
+                set ipname [get_property IP_NAME $sink_periph]
+                if {$ipname == "util_reduced_logic"} {
+                    set width [get_property CONFIG.C_SIZE $sink_periph]
+                    return $width
+                }
+            }
+        }
+    }
+    return $ret
 }
 
 proc xdefine_getSuffix {arg_name value} {

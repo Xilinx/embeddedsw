@@ -7,7 +7,7 @@
 /**
 *
 * @file xzdma_selftest.c
-* @addtogroup zdma_v1_9
+* @addtogroup zdma_v1_10
 * @{
 *
 * This file contains the self-test function for the ZDMA core.

@@ -7,7 +7,7 @@
 /**
 *
 * @file xwdttb_sinit.c
-* @addtogroup xwdttb_v5_0
+* @addtogroup xwdttb_v5_1
 * @{
 *
 * This file contains static initialization method for Xilinx AXI Timebase
@@ -68,7 +68,6 @@
 ******************************************************************************/
 XWdtTb_Config *XWdtTb_LookupConfig(u16 DeviceId)
 {
-	extern XWdtTb_Config XWdtTb_ConfigTable[XPAR_XWDTTB_NUM_INSTANCES];
 	XWdtTb_Config *CfgPtr = NULL;
 	u32 Index;
 

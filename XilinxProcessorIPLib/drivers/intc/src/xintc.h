@@ -7,7 +7,7 @@
 /**
 *
 * @file xintc.h
-* @addtogroup intc_v3_11
+* @addtogroup intc_v3_12
 * @{
 * @details
 *
@@ -281,7 +281,7 @@ typedef struct {
 	u32 AckBeforeService;	/**< Ack location per interrupt */
 	int FastIntr;		/**< Fast Interrupt enabled */
 	u32 IntVectorAddr;	/**< Interrupt Vector Address */
-	int NumberofIntrs;      /**< Number of Interrupt sources */
+	int NumberofIntrs;      /**< Number of HW Interrupt sources */
 	u8 VectorAddrWidth;		/**< Width of vector address */
 	u32 Options;		/**< Device options */
 	int IntcType;		/**< Intc type 0 - No Cascade Mode
@@ -295,7 +295,7 @@ typedef struct {
 #else
 	XIntc_VectorTableEntry HandlerTable[XPAR_INTC_MAX_NUM_INTR_INPUTS];
 #endif
-
+	int NumberofSwIntrs;      /**< Number of SW interrupts */
 } XIntc_Config;
 
 /**
@@ -339,6 +339,7 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 				XFastInterruptHandler Handler);
 void XIntc_SetNormalIntrMode(XIntc *InstancePtr, u8 Id);
 
+int XIntc_TriggerSwIntr(XIntc * InstancePtr, u8 Id);
 /*
  * Interrupt functions in xintr_intr.c
  */

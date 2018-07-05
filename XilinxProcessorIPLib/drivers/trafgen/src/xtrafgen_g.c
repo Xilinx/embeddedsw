@@ -7,7 +7,7 @@
 /**
 *
 * @file xtrafgen_g.c
-* @addtogroup trafgen_v4_3
+* @addtogroup trafgen_v4_4
 * @{
 *
 * Provide a template for user to define their own hardware settings.

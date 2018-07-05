@@ -7,7 +7,7 @@
 /**
 *
 * @file xdeint_selftest.c
-* @addtogroup deinterlacer_v3_3
+* @addtogroup deinterlacer_v3_4
 * @{
 *
 * This file contains the self-test functions for the XCfa driver.

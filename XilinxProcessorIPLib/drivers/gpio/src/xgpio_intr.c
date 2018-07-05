@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio_intr.c
-* @addtogroup gpio_v4_6
+* @addtogroup gpio_v4_7
 * @{
 *
 * Implements GPIO interrupt processing functions for the XGpio driver.

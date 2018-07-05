@@ -7,7 +7,7 @@
 /**
 *
 * @file xcanps.h
-* @addtogroup canps_v3_4
+* @addtogroup canps_v3_5
 * @{
 * @details
 *
@@ -181,6 +181,9 @@
 *     ms      03/17/17  Added readme.txt file in examples folder for doxygen
 *                       generation.
 * 3.3 sne     08/06/19	Fixed coverity warnings.
+* 3.5 sne     06/29/20  Fixed MISRA-C violations.
+* 3.5 sne     06/29/20  Fix multiple packets send issue #CR-1066438.
+* 3.5 sne     08/28/20  Modify Makefile to support parallel make execution.
 *
 * </pre>
 *
@@ -226,7 +229,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID of device */
-	u32 BaseAddr;		/**< Register base address */
+	UINTPTR BaseAddr;	/**< Register base address */
 } XCanPs_Config;
 
 /******************************************************************************/
@@ -298,9 +301,14 @@ typedef struct {
 	 */
 	XCanPs_EventHandler EventHandler;
 	void *EventRef;
+	u32 IsBusy;              /**< A transfer is in progress (state) */
 
 } XCanPs;
 
+
+/************************** Variable Definitions *****************************/
+
+extern XCanPs_Config XCanPs_ConfigTable[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -490,7 +498,7 @@ typedef struct {
  * Functions in xcanps.c
  */
 s32 XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
-				u32 EffectiveAddr);
+				UINTPTR EffectiveAddr);
 
 void XCanPs_Reset(XCanPs *InstancePtr);
 u8 XCanPs_GetMode(XCanPs *InstancePtr);

@@ -7,7 +7,7 @@
 /**
 *
 * @file xqspips.h
-* @addtogroup qspips_v3_7
+* @addtogroup qspips_v3_8
 * @{
 * @details
 *
@@ -269,6 +269,7 @@
 * 3.7	akm 03/19/20 Modified XQspiPs_PolledTransfer(), XQspiPs_Transfer() and
 *			XQspiPs_InterruptHandler() APIs to fill TX FIFO with valid
 *			data when RX buffer is not NULL.
+* 3.8	akm 09/02/20 Updated the Makefile to support parallel make execution.
 *
 * </pre>
 *

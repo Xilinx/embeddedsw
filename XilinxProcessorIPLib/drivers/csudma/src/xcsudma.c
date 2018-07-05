@@ -8,7 +8,7 @@
 /**
 *
 * @file xcsudma.c
-* @addtogroup csudma_v1_6
+* @addtogroup csudma_v1_7
 * @{
 *
 * This file contains the implementation of the interface functions for CSU_DMA
@@ -32,6 +32,10 @@
 * 1.6   aru     08/29/19 Added assert check in XCsuDma_WaitForDoneTimeout().
 * 1.6   rm      11/05/19 Modified usleep waitloop and timeout value in
 *				XCsuDma_WaitForDoneTimeout().
+* 1.7	hk	08/03/20 Reorganize transfer function to accommodate all
+*			 processors and cache functionality.
+* 1.7	sk	08/26/20 Fix MISRA-C violations.
+* 1.7	sk	08/26/20 Remove busy check in SetConfig.
 * </pre>
 *
 ******************************************************************************/
@@ -39,6 +43,7 @@
 /***************************** Include Files *********************************/
 
 #include "xcsudma.h"
+#include <stdbool.h>
 
 /************************** Function Prototypes ******************************/
 
@@ -70,7 +75,7 @@
 *
 ******************************************************************************/
 s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
-			u32 EffectiveAddr)
+			UINTPTR EffectiveAddr)
 {
 
 	/* Verify arguments. */
@@ -90,7 +95,7 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
-	return (XST_SUCCESS);
+	return (s32)(XST_SUCCESS);
 
 }
 
@@ -125,9 +130,8 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 *
 ******************************************************************************/
 void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
-					UINTPTR Addr, u32 Size, u8 EnDataLast)
+					u64 Addr, u32 Size, u8 EnDataLast)
 {
-	u64 LocalAddr = (u64)Addr;
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(((Addr) & (u64)(XCSUDMA_ADDR_LSB_MASK)) == (u64)0x00);
@@ -136,20 +140,26 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	Xil_AssertVoid(Size <= (u32)(XCSUDMA_SIZE_MAX));
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
 
-#if !defined(PSU_PMU)
-	/* Flushing cache memory */
-	if (Channel == (XCSUDMA_SRC_CHANNEL)) {
-		Xil_DCacheFlushRange(Addr, Size << (u32)(XCSUDMA_SIZE_SHIFT));
+#if defined(ARMR5)
+	/* No action if 64 bit address is used when this code is running on R5.
+	 * Flush if 32 bit addressing is used.
+	 */
+	if ((Addr >> XCSUDMA_MSB_ADDR_SHIFT) == 0U) {
+		Xil_DCacheFlushRange((INTPTR)Addr, Size << XCSUDMA_SIZE_SHIFT);
 	}
-	/* Invalidating cache memory */
-	else {
-#if defined(__aarch64__)
-		Xil_DCacheInvalidateRange(Addr, Size <<
-					(u32)(XCSUDMA_SIZE_SHIFT));
 #else
-		Xil_DCacheFlushRange(Addr, Size << (u32)(XCSUDMA_SIZE_SHIFT));
-#endif
-	}
+	/* No action required for PSU_PMU.
+	 * Perform cache operations on ARM64 (either 32 bit and 64 bit address)
+	 */
+	#if defined(__aarch64__)
+		if (Channel == (XCSUDMA_SRC_CHANNEL)) {
+			Xil_DCacheFlushRange((INTPTR)Addr,
+					(INTPTR)(Size << XCSUDMA_SIZE_SHIFT));
+		} else {
+			Xil_DCacheInvalidateRange((INTPTR)Addr,
+					(INTPTR)(Size << XCSUDMA_SIZE_SHIFT));
+		}
+	#endif
 #endif
 
 	XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
@@ -160,7 +170,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 		(u32)(XCSUDMA_ADDR_MSB_OFFSET +
 			((u32)Channel * XCSUDMA_OFFSET_DIFF)),
-			((u32)((LocalAddr & ULONG64_HI_MASK) >> XCSUDMA_MSB_ADDR_SHIFT) &
+			((u32)((Addr & ULONG64_HI_MASK) >> XCSUDMA_MSB_ADDR_SHIFT) &
 					(u32)(XCSUDMA_MSB_ADDR_MASK)));
 
 	if (EnDataLast == (u8)(XCSUDMA_LAST_WORD_MASK)) {
@@ -416,7 +426,7 @@ s32 XCsuDma_IsPaused(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 {
 
 	u32 Data;
-	s32 PauseState;
+	bool PauseState;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -433,19 +443,19 @@ s32 XCsuDma_IsPaused(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	if (Type == (XCSUDMA_PAUSE_MEMORY)) {
 		if ((Data & (u32)(XCSUDMA_CTRL_PAUSE_MEM_MASK)) ==
 								(u32)0x00) {
-			PauseState = (s32)(FALSE);
+			PauseState = FALSE;
 		}
 		else {
-			PauseState = (s32)(TRUE);
+			PauseState = TRUE;
 		}
 	}
 	else {
 		if ((Data & (u32)(XCSUDMA_CTRL_PAUSE_STRM_MASK)) ==
 								(u32)0x00) {
-				PauseState = (s32)(FALSE);
+				PauseState = FALSE;
 		}
 		else {
-			PauseState = (s32)(TRUE);
+			PauseState = TRUE;
 		}
 	}
 
@@ -588,7 +598,7 @@ u32 XCsuDma_WaitForDoneTimeout(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 	volatile u32 Regval;
 	u32 Timeout = XCSUDMA_DONE_TIMEOUT_VAL;
 	u32 status;
-	u32 Addr;
+	UINTPTR Addr;
 	u32 TimeoutFlag = (u32)XST_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -686,6 +696,8 @@ done:
 *
 * @note		To use timers timeout value Timeout enable field should be
 *		enabled.
+*		Users should check for the status of existing transfers before
+*		making configuration changes.
 *
 ******************************************************************************/
 void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
@@ -699,7 +711,6 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	Xil_AssertVoid(ConfigurValues != NULL);
 	Xil_AssertVoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
 				(Channel == (XCSUDMA_DST_CHANNEL)));
-	Xil_AssertVoid(XCsuDma_IsBusy(InstancePtr, Channel) != (s32)(TRUE));
 
 	Data = ((((u32)(ConfigurValues->EndianType) <<
 			(u32)(XCSUDMA_CTRL_ENDIAN_SHIFT)) &
@@ -713,7 +724,7 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 		((ConfigurValues->TimeoutValue <<
 			(u32)(XCSUDMA_CTRL_TIMEOUT_SHIFT)) &
 			(u32)(XCSUDMA_CTRL_TIMEOUT_MASK)) |
-		((ConfigurValues->FifoThresh <<
+		(((u32)(ConfigurValues->FifoThresh) <<
 			(u32)(XCSUDMA_CTRL_FIFO_THRESH_SHIFT)) &
 			(u32)(XCSUDMA_CTRL_FIFO_THRESH_MASK)));
 	if(Channel == XCSUDMA_DST_CHANNEL) {
@@ -739,7 +750,7 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 		(((u32)(ConfigurValues->TimeoutEn) <<
 			(u32)(XCSUDMA_CTRL2_TIMEOUT_EN_SHIFT)) &
 			(u32)(XCSUDMA_CTRL2_TIMEOUT_EN_MASK)) |
-		((ConfigurValues->TimeoutPre <<
+		(((u32)(ConfigurValues->TimeoutPre) <<
 			(u32)(XCSUDMA_CTRL2_TIMEOUT_PRE_SHIFT)) &
 			(u32)(XCSUDMA_CTRL2_TIMEOUT_PRE_MASK)) |
 		((ConfigurValues->MaxOutCmds) &

@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartns550_g.c
-* @addtogroup uartns550_v3_6
+* @addtogroup uartns550_v3_7
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

@@ -7,7 +7,7 @@
 /**
  *
  * @file xi2stx_sinit.c
- * @addtogroup i2stx_v2_1
+ * @addtogroup i2stx_v2_2
  * @{
  *
  * This file contains static initialization methods for the i2stx drivers.

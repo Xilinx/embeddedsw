@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_csc_l2.c
-* @addtogroup v_csc_v2_4
+* @addtogroup v_csc_v2_5
 * @{
 * @details
 *

@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_frmbufrd_l2.c
-* @addtogroup v_frmbuf_rd_v4_2
+* @addtogroup v_frmbuf_rd_v4_3
 * @{
 *
 * Frame Buffer Read Layer-2 Driver. The functions in this file provides an

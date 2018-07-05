@@ -7,7 +7,7 @@
 /**
 *
 * @file xcanps_sinit.c
-* @addtogroup canps_v3_4
+* @addtogroup canps_v3_5
 * @{
 *
 * This file contains the implementation of the XCanPs driver's static
@@ -23,6 +23,7 @@
 * ----- -----  -------- -----------------------------------------------
 * 1.00a xd/sv  01/12/10 First release
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.5	sne    07/01/20 Fixed MISRAC warnings.
 *
 * </pre>
 *
@@ -41,9 +42,6 @@
 
 /************************** Function Prototypes ******************************/
 
-/************************** Variable Definitions *****************************/
-
-extern XCanPs_Config XCanPs_ConfigTable[XPAR_XCANPS_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**

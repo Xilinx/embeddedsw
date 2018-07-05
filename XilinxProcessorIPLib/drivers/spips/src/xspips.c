@@ -7,7 +7,7 @@
 /**
 *
 * @file xspips.c
-* @addtogroup spips_v3_4
+* @addtogroup spips_v3_5
 * @{
 *
 * Contains implements the interface functions of the XSpiPs driver.

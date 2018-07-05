@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 * @file xbram_intr.c
-* @addtogroup bram_v4_4
+* @addtogroup bram_v4_5
 * @{
 *
 * Implements BRAM interrupt processing functions for the

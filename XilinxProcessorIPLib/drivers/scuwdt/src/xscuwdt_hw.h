@@ -7,7 +7,7 @@
 /**
 *
 * @file xscuwdt_hw.h
-* @addtogroup scuwdt_v2_2
+* @addtogroup scuwdt_v2_3
 * @{
 *
 * This file contains the hardware interface to the Xilinx SCU private Watch Dog

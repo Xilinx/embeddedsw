@@ -7,7 +7,7 @@
 /**
  *
  * @file xi2stx_debug.c
- * @addtogroup i2stx_v2_1
+ * @addtogroup i2stx_v2_2
  * @{
  *
  * This file contains functions to debug i2s_transmitter driver, and log the

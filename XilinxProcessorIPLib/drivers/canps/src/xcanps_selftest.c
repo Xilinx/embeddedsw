@@ -7,7 +7,7 @@
 /**
 *
 * @file xcanps_selftest.c
-* @addtogroup canps_v3_4
+* @addtogroup canps_v3_5
 * @{
 *
 * This file contains a diagnostic self-test function for the XCanPs driver.
@@ -29,6 +29,7 @@
 * 2.1 adk 		23/08/14 Fixed CR:798792 Peripheral test for CANPS IP in
 *						 SDK claims a 40kbps baud rate but it's not.
 * 3.00  kvn    02/13/15 Modified code for MISRA_C:2012 compliance.
+* 3.5	sne    07/01/20 Fixed MISRAC warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -107,7 +108,7 @@ s32 XCanPs_SelfTest(XCanPs *InstancePtr)
 	 * it is not Configuration Mode.
 	 */
 	if (XCanPs_GetMode(InstancePtr) != XCANPS_MODE_CONFIG) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 		return Status;
 	}
 
@@ -136,7 +137,7 @@ s32 XCanPs_SelfTest(XCanPs *InstancePtr)
 	TxFrame[0] = (u32)XCanPs_CreateIdValue((u32)2000U, (u32)0U, (u32)0U, (u32)0U, (u32)0U);
 	TxFrame[1] = (u32)XCanPs_CreateDlcValue((u32)8U);
 
-	FramePtr = (u8 *)((void *)(&TxFrame[2]));
+	FramePtr = (u8 *)(&TxFrame[2]);
 	for (Index = 0U; Index < 8U; Index++) {
 		if(*FramePtr != 0U) {
 			*FramePtr = (u8)Index;
@@ -149,7 +150,7 @@ s32 XCanPs_SelfTest(XCanPs *InstancePtr)
 	 */
 	Status = XCanPs_Send(InstancePtr, TxFrame);
 	if (Status != (s32)XST_SUCCESS) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 		return Status;
 	}
 
@@ -169,7 +170,7 @@ s32 XCanPs_SelfTest(XCanPs *InstancePtr)
 	 */
 	Status = XCanPs_Recv(InstancePtr, RxFrame);
 	if (Status != (s32)XST_SUCCESS) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 		return Status;
 	}
 
@@ -178,19 +179,19 @@ s32 XCanPs_SelfTest(XCanPs *InstancePtr)
 	 */
 	if (RxFrame[0] !=
 		(u32)XCanPs_CreateIdValue((u32)2000U, (u32)0U, (u32)0U, (u32)0U, (u32)0U)) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 		return Status;
 	}
 
 	if ((RxFrame[1] & ~XCANPS_DLCR_TIMESTAMP_MASK) != TxFrame[1]) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 		return Status;
 	}
 
 
 	for (Index = 2U; Index < (XCANPS_MAX_FRAME_SIZE_IN_WORDS); Index++) {
 		if (RxFrame[Index] != TxFrame[Index]) {
-			Status = XST_FAILURE;
+			Status = (s32)XST_FAILURE;
 			return Status;
 		}
 	}
@@ -200,7 +201,7 @@ s32 XCanPs_SelfTest(XCanPs *InstancePtr)
 	 */
 	XCanPs_Reset(InstancePtr);
 
-	Status = XST_SUCCESS;
+	Status = (s32)XST_SUCCESS;
 	return Status;
 }
 

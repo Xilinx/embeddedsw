@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp22_cipher_sinit.c
-* @addtogroup hdcp22_cipher_v1_2
+* @addtogroup hdcp22_cipher_v1_3
 * @{
 * @details
 *

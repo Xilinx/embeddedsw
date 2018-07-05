@@ -7,7 +7,7 @@
 /**
 *
 * @file xintc.c
-* @addtogroup intc_v3_11
+* @addtogroup intc_v3_12
 * @{
 *
 * Contains required functions for the XIntc driver for the Xilinx Interrupt
@@ -48,6 +48,10 @@
 * 3.9  sa   03/18/19 Modified XIntc_ConnectFastHandler, XIntc_SetNormalIntrMode
 *		             and XIntc_InitializeSlaves APIs to support vector addresses
 *		             of width > 32 bits.
+* 3.12 mus  05/28/20 Updated XIntc_Initialize and XIntc_InitializeSlaves to support
+*                    software interrupts
+* 3.12 mus  05/28/20 Added new API XIntc_TriggerSwIntr to trigger the software
+*                    interrupts.
 *
 * </pre>
 *
@@ -162,7 +166,7 @@ int XIntc_Initialize(XIntc * InstancePtr, u16 DeviceId)
 	 * Initialize all the data needed to perform interrupt processing for
 	 * each interrupt ID up to the maximum used
 	 */
-	for (Id = 0; Id < CfgPtr->NumberofIntrs; Id++) {
+	for (Id = 0; Id < (CfgPtr->NumberofIntrs + CfgPtr->NumberofSwIntrs) ; Id++) {
 
 		/*
 		 * Initialize the handler to point to a stub to handle an
@@ -1143,7 +1147,7 @@ static void XIntc_InitializeSlaves(XIntc * InstancePtr)
 		 * Initialize all the data needed to perform interrupt
 		 * processing for each interrupt ID up to the maximum used
 		 */
-		for (Id = 0; Id < CfgPtr->NumberofIntrs; Id++) {
+		for (Id = 0; Id < (CfgPtr->NumberofIntrs + CfgPtr->NumberofSwIntrs); Id++) {
 
 			/*
 			 * Initialize the handler to point to a stub to handle an
@@ -1162,5 +1166,64 @@ static void XIntc_InitializeSlaves(XIntc * InstancePtr)
 			CfgPtr->HandlerTable[Id].CallBackRef = InstancePtr;
 		}
 	}
+}
+
+/*****************************************************************************/
+/**
+*
+* Allows software to trigger software interrupt.
+* This function will only be successful when the interrupt controller has been
+* configured with software interrupt in HW design
+*
+* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
+* @param	Id is the interrupt ID to be triggered
+*
+* @return
+* 		- XST_SUCCESS if successful
+*		- XST_FAILURE if the instance pointer is invalid
+*					  if interrupt id does not belongs to software interrupt
+*
+* @note		HW design must have software interrupts and interrupt id passed
+*			should be of software interrupt type. Interrupt id's for software
+*			interrupts for specific HW design can be found in xparameters.h file.
+*
+******************************************************************************/
+int XIntc_TriggerSwIntr(XIntc * InstancePtr, u8 Id)
+{
+	u32 Mask;
+	XIntc_Config *CfgPtr;
+
+	/*
+	 * Check the parameters and driver status
+	 */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	if ( InstancePtr == NULL ) {
+		return XST_FAILURE;
+	}
+
+	if ( InstancePtr->IsReady != XIL_COMPONENT_IS_READY ) {
+		return XST_FAILURE;
+	}
+
+	if (Id > 31) {
+		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return XST_FAILURE;
+		}
+		/* Check if interrupt id belongs to software interrupts */
+		if ( (Id%32) < CfgPtr->NumberofIntrs ) {
+			return XST_FAILURE;
+		}
+
+		Mask = XIntc_BitPosMask[Id%32];
+		XIntc_Out32(CfgPtr->BaseAddress + XIN_ISR_OFFSET, Mask);
+
+	} else {
+		Mask = XIntc_BitPosMask[Id];
+		XIntc_Out32(InstancePtr->BaseAddress + XIN_ISR_OFFSET, Mask);
+	}
+
+	/* indicate the interrupt was successfully triggered */
+	return XST_SUCCESS;
 }
 /** @} */

@@ -7,7 +7,7 @@
 /**
 *
 * @file xgpiops_selftest.c
-* @addtogroup gpiops_v3_7
+* @addtogroup gpiops_v3_8
 * @{
 *
 * This file contains a diagnostic self-test function for the XGpioPs driver.

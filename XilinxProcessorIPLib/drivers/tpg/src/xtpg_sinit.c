@@ -7,7 +7,7 @@
 /**
 *
 * @file xtpg_sinit.c
-* @addtogroup tpg_v3_2
+* @addtogroup tpg_v3_3
 * @{
 *
 * This file contains static initialization methods for Xilinx TPG core

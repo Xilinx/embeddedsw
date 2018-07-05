@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmr_inject_selftest.c
-* @addtogroup tmr_inject_v1_2
+* @addtogroup tmr_inject_v1_3
 * @{
 *
 * This file contains the self-test functions for the TMR Inject component
