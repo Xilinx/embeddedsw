@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 
 #include "xpfw_default.h"
@@ -48,7 +46,7 @@ static XWdtPs *WdtInstPtr = &WdtInst;
 /*
  * WDT expire time in milliseconds.
  */
-#define XPFW_WDT_EXPIRE_TIME 90U
+#define XPFW_WDT_EXPIRE_TIME XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
 
 /*
  * WDT restart time in milliseconds.
@@ -82,6 +80,44 @@ static void XPfw_WdtRestart(void)
 
 /****************************************************************************/
 /**
+ * @brief  This scheduler sets the watchdog timer.
+ *
+ * @param  TimeOutVal - Watchdog timeout in ms.
+ *
+ * @return None.
+ *
+ * @note   None.
+ *
+ ****************************************************************************/
+void XPfw_WdtSetVal(u32 TimeOutVal)
+{
+	u32 CounterValue;
+
+	if (TimeOutVal > 0U) {
+		/* Stop the Watchdog timer */
+		XWdtPs_Stop(WdtInstPtr);
+
+		/* Watchdog counter reset value for Expire time of 100Sec,
+		 * i.e., XPFW_WDT_EXPIRE_TIME
+		 */
+		CounterValue = ((TimeOutVal) * (XPFW_WDT_CLK_PER_MSEC)) >> XPFW_WDT_CRV_SHIFT;
+
+		/* Set the Watchdog counter reset value */
+		XWdtPs_SetControlValue(WdtInstPtr, XWDTPS_COUNTER_RESET,
+				CounterValue);
+
+		/* Enable reset output */
+		XWdtPs_EnableOutput(WdtInstPtr, XWDTPS_RESET_SIGNAL);
+
+		/* Start the Watchdog timer */
+		XWdtPs_Start(WdtInstPtr);
+
+		XWdtPs_RestartWdt(WdtInstPtr);
+	}
+}
+
+/****************************************************************************/
+/**
  * @brief  This function initializes the CSU PMU Watchdog timer.
  *
  * @param  None.
@@ -91,7 +127,7 @@ static void XPfw_WdtRestart(void)
  * @note   None.
  *
  ****************************************************************************/
-static void InitCsuPmuWdt(void)
+void InitCsuPmuWdt(void)
 {
 	s32 Status;
 	XWdtPs_Config *WdtConfigPtr;
@@ -153,37 +189,11 @@ Done:
 
 /****************************************************************************/
 /**
- * @brief  This scheduler task checks for psu init completion and initializes
- * 			CSU PMU WDT.
+ * @brief  WDT module init
  *
- * @param  None.
- *
- * @return None.
- *
- * @note   None.
- *
- ****************************************************************************/
-static void CheckPsuInitConfig(void)
-{
-	s32 Status;
-	u32 FsblCompletionStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
-
-	if ((FsblCompletionStatus & FSBL_COMPLETION) == FSBL_COMPLETION) {
-		InitCsuPmuWdt();
-		Status = XPfw_CoreRemoveTask(WdtModPtr, CHECK_FSBL_COMPLETION,
-				CheckPsuInitConfig);
-		if(XST_FAILURE == Status) {
-			XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d):Removing WDT Cfg task failed.",
-							WdtModPtr->ModId);
-		}
-	}
-}
-
-/****************************************************************************/
-/**
- * @brief  This function schedules PSU init completion checking task.
- *
- * @param  None.
+ * @param  ModPtr Module pointer
+ *         CfgData Module config data
+ *         Len Length of config data
  *
  * @return None.
  *
@@ -192,15 +202,7 @@ static void CheckPsuInitConfig(void)
  ****************************************************************************/
 static void WdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 {
-	s32 Status;
-
-	Status = XPfw_CoreScheduleTask(ModPtr, CHECK_FSBL_COMPLETION, CheckPsuInitConfig);
-	if (XST_FAILURE == Status) {
-		XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d):Scheduling WDT Cfg task failed.",
-				ModPtr->ModId);
-	}
 }
-
 
 void ModWdtInit(void)
 {

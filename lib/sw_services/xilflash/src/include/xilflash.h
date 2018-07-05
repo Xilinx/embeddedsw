@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -60,7 +58,7 @@
 * 	Flash memory space is segmented into areas called blocks. The size of
 * 	each block is based on a power of 2. A region is defined as a contiguous
 *	set of blocks of the same size. Some parts have several regions while
-*	others have one. The arrangement of blocks and regions is refered to by
+*	others have one. The arrangement of blocks and regions is referred to by
 *	this module as the part's geometry. Some Intel flash supports multiple
 *	banks on the same device. This library supports single and multiple bank
 *	flash devices.
@@ -216,6 +214,9 @@
 * 4.4   ms   08/03/17 Added doxygen tags.
 * 4.5	tjs  08/13/18 Fixed compilation errors for ARMCC (CR#1008306)
 * 4.6	akm  01/22/19 Fixed compilation errors (CR#1018603)
+* 4.7	akm  07/10/19 Updated XFlashAmd_Write() to use adjusted base address
+*                     in write operation(CR-1029074).
+* 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 * </pre>
 *
 ***************************************************************************/

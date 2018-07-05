@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -49,6 +47,9 @@
 *       arc     04/04/19 Fixed CPP warnings.
 *       psl     04/15/19 Moved XilSKey_Bbram_JTAGServerInit function from
 *                        examples to library.
+* 6.8   psl     05/21/19 Added check for SystemInitDone, to initialize jtag
+*                        server only once to solve stack corruption issue.
+*       vns     08/29/19 Initialized Status variables
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -169,6 +170,7 @@ int XilSKey_Bbram_JTAGServerInit(XilSKey_Bbram *InstancePtr)
 	if(JtagServerInitBbram(InstancePtr) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+	InstancePtr->SystemInitDone = 1;
 
 	return XST_SUCCESS;
 
@@ -194,15 +196,17 @@ int XilSKey_Bbram_JTAGServerInit(XilSKey_Bbram *InstancePtr)
 *****************************************************************************/
 int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	if(NULL == InstancePtr)	{
 		return XST_FAILURE;
 	}
 
-	if(XilSKey_Bbram_JTAGServerInit(InstancePtr) != XST_SUCCESS) {
-		xil_printf("JTAG Sever Init failed \r\n");
-		return XST_FAILURE;
+	if(!(InstancePtr->SystemInitDone))
+	{
+		if(XilSKey_Bbram_JTAGServerInit(InstancePtr) != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
 	}
 
 	if (InstancePtr->FpgaFlag == XSK_FPGA_SERIES_ZYNQ) {
@@ -217,8 +221,6 @@ int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 			return XST_FAILURE;
 		}
 	}
-
-
 
 	return XST_SUCCESS;
 }
@@ -239,9 +241,9 @@ int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 *****************************************************************************/
 static inline int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
-	InstancePtr->CurSlr = 0;
+	XilSKeyJtag.CurSlr = 0;
 	/*
 	 * BBRAM Algorithm initialization
 	 */
@@ -292,9 +294,10 @@ static inline int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr)
 ******************************************************************************/
 static inline int XilSKey_Bbram_Program_Ultra(XilSKey_Bbram *InstancePtr)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
-	XilSKeyJtag.CurSlr = InstancePtr->CurSlr;
+	XilSKey_GetSlrNum(InstancePtr->MasterSlr,
+		 InstancePtr->SlrConfigOrderIndex, &(XilSKeyJtag.CurSlr));
 
 	/* Formation of control word */
 	XilSKey_Bbram_Framing_Ctrl_Word_Ultra(InstancePtr);

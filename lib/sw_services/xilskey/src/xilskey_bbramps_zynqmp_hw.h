@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -133,17 +131,17 @@ extern "C" {
  * @{
  */
 #define XSK_ZYNQMP_BBRAM_CTRL_OFFSET		0x00000004U
-						/**< Cotrol reg offset */
+						/**< Control reg offset */
 #define XSK_ZYNQMP_BBRAM_CTRL_RSTVAL		0x00000000U
-						/**< Cotrol reg reset value */
+						/**< Control reg reset value */
 #define XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_SHIFT	0U
-						/**< Cotrol reg zeroise shift */
+						/**< Control reg zeroise shift */
 #define XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_WIDTH	1U
-						/**< Cotrol reg zeroise width */
+						/**< Control reg zeroise width */
 #define XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_MASK	0x00000001U
-						/**< Cotrol reg zeroise mask */
+						/**< Control reg zeroise mask */
 #define XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_DEFVAL	0x0U
-						/**< Cotrol reg default value*/
+						/**< Control reg default value*/
 /*@}*/
 
 /** @name Register: BbramPgmMode

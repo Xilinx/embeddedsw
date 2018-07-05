@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -68,6 +66,7 @@
 * 1.00a sdm 04/02/08 First release
 * 2.00a ktn 11/22/09 The Spi Driver APIs have changed. Replaced the call
 *		     to XSpi_mIntrGlobalDisable with XSpi_IntrGlobalDisable.
+* 5.14 akm  08/01/19 Initialized Status variable to XST_FAILURE.
 *</pre>
 *
 ******************************************************************************/
@@ -159,7 +158,7 @@ u8 WriteBuffer[ISF_PAGE_SIZE]; 				   /* Write buffer */
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	xil_printf("Atmel Serial Flash Buffer Read/Write Polled example\r\n");
 
@@ -190,7 +189,7 @@ int main(void)
 ******************************************************************************/
 static int IsfAtmelFlashExample(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u16 Index;
 	XIsf_WriteParam WriteParam;
 	XIsf_ReadParam ReadParam;
@@ -329,7 +328,7 @@ static int IsfAtmelFlashExample(void)
 ******************************************************************************/
 static int IsfWaitForFlashNotBusy()
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u8 StatusReg;
 	u8 ReadBuffer[2];
 

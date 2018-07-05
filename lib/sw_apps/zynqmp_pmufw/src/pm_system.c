@@ -14,14 +14,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  */
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
@@ -511,7 +509,7 @@ done:
  */
 s32 PmSystemRequirementAdd(void)
 {
-	s32 status;
+	s32 status = XST_FAILURE;
 	u32 i;
 
 	for (i = 0U; i < ARRAY_SIZE(pmSystemReqs); i++) {
@@ -574,17 +572,12 @@ void PmSystemPrepareForRestart(const PmMaster* const master)
 {
 	PmRequirement* req;
 
-	if (master != &pmMasterApu_g) {
-		goto done;
-	}
-
 	/* Change system requirement for DDR to hold it ON while restarting */
 	req = PmRequirementGetNoMaster(&pmSlaveDdr_g);
 	if ((NULL != req) && (0U == (PM_CAP_ACCESS & req->currReq))) {
 		req->currReq |= PM_CAP_ACCESS;
 	}
 
-done:
 	return;
 }
 
@@ -597,10 +590,6 @@ void PmSystemRestartDone(const PmMaster* const master)
 	PmRequirement* req;
 	u32 caps;
 
-	if (master != &pmMasterApu_g) {
-		goto done;
-	}
-
 	/* Change system requirement for DDR to hold it ON while restarting */
 	req = PmRequirementGetNoMaster(&pmSlaveDdr_g);
 	caps = PmSystemGetRequirement(&pmSlaveDdr_g);
@@ -608,7 +597,6 @@ void PmSystemRestartDone(const PmMaster* const master)
 		req->currReq &= ~PM_CAP_ACCESS;
 	}
 
-done:
 	return;
 }
 

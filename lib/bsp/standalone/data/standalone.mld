@@ -15,14 +15,12 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
 #
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+#
 #
 ##############################################################################
 
@@ -34,13 +32,13 @@ OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lgcc,-lc,--end-group";
 OPTION DESC = "Standalone is a simple, low-level software layer. It provides access to basic processor features such as caches, interrupts and exceptions as well as the basic features of a hosted environment, such as standard input and output, profiling, abort and exit.";
 OPTION copyfiles = all;
 OPTION OS_STATE = ACTIVE;
-OPTION VERSION = 7.0;
+OPTION VERSION = 7.1;
 OPTION NAME = standalone;
 
 PARAM name = zynqmp_fsbl_bsp, type = bool, default = false, desc = "Disable or Enable Optimization for FSBL's BSP. ZynqMP FSBL will set this to true";
 
-PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (ps7_uart, psu_uart, psu_sbsauart,psv_sbsauart, ps7_coresight_comp, psu_coresight_0, psv_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm, pmc_ppu1_mdm);
-PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, requires_interface = stdout, default=none, range = (ps7_uart, psu_uart, psu_sbsauart, psv_sbsauart, ps7_coresight_comp, psu_coresight_0, psv_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm, pmc_ppu1_mdm);
+PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (ps7_uart, psu_uart, psu_sbsauart,psv_sbsauart, ps7_coresight_comp, psu_coresight_0, psv_coresight_0, psv_pmc_ppu1_mdm, axi_uartlite, axi_uart16550, mdm, iomodule);
+PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, requires_interface = stdout, default=none, range = (ps7_uart, psu_uart, psu_sbsauart, psv_sbsauart, ps7_coresight_comp, psu_coresight_0, psv_coresight_0, psv_pmc_ppu1_mdm, axi_uartlite, axi_uart16550, mdm, iomodule);
 
 BEGIN CATEGORY sw_intrusive_profiling
     PARAM name = enable_sw_intrusive_profiling, type = bool, default = false, desc = "Enable S/W Intrusive Profiling on Hardware Targets", permit = user;
@@ -56,7 +54,7 @@ PARAM name = hypervisor_guest, type = bool, default = false, desc = "Enable hype
 
 PARAM name = sleep_timer, type = peripheral_instance, range = (ps7_ttc,psu_ttc,ps7_globaltimer,psu_iou_scntr,psu_iou_scntrs,axi_timer,psv_ttc,psv_iou_scntr,psv_iou_scntrs), default=none, desc = "This parameter is used to select specific timer for sleep functionality", permit = user;
 
-PARAM name = ttc_select_cntr, type = enum, default = 2, values = ("0" = 0, "1" = 1, "2" = 2), desc = "Selects the counter to be used in the repective module. Allowed range is 0-2", permit = user;
+PARAM name = ttc_select_cntr, type = enum, default = 2, values = ("0" = 0, "1" = 1, "2" = 2), desc = "Selects the counter to be used in the respective module. Allowed range is 0-2", permit = user;
 
 PARAM name = lockstep_mode_debug, type = bool, default = false, desc = "Enable debug logic in non-JTAG boot mode, when Cortex R5 is configured in lockstep mode", permit = user;
 END OS

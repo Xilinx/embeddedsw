@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /******************************************************************************
@@ -58,6 +56,7 @@
 * 2.00a ktn  11/22/09 Updated to use HAL processor APIs.
 * 5.0   sb   08/05/14 Registering to Xilisf Interrupt handler
 *		      instead of driver handler.
+* 5.14  akm  08/01/19 Initialized Status variable to XST_FAILURE.
 * </pre>
 *
 ******************************************************************************/
@@ -172,7 +171,7 @@ u8 WriteBuffer[ISF_PAGE_SIZE];
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	xil_printf("STM Serial Flash SPR example\r\n");
 
@@ -203,7 +202,7 @@ int main(void)
 ******************************************************************************/
 static int IsfStmFlashExample()
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 Index;
 	u32 Address;
 	XIsf_WriteParam WriteParam;
@@ -622,7 +621,7 @@ static int IsfStmFlashExample()
 ******************************************************************************/
 int IsfWaitForFlashNotBusy(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u8 StatusReg;
 
 	while(1) {
@@ -718,7 +717,7 @@ void SpiHandler(void *CallBackRef, u32 StatusEvent, u16 ByteCount)
 static int SetupInterruptSystem(XSpi *SpiPtr)
 {
 
-	int Status;
+	int Status = XST_FAILURE;
 
 	/*
 	 * Initialize the interrupt controller driver so that
@@ -746,7 +745,7 @@ static int SetupInterruptSystem(XSpi *SpiPtr)
 	/*
 	 * Start the interrupt controller such that interrupts are enabled for
 	 * all devices that cause interrupts, specific real mode so that
-	 * the SPI can cause interrupts thru the interrupt controller.
+	 * the SPI can cause interrupts through the interrupt controller.
 	 */
 	Status = XIntc_Start(&InterruptController, XIN_REAL_MODE);
 	if(Status != XST_SUCCESS) {

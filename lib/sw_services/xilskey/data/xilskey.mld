@@ -15,14 +15,12 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
 #
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+#
 #
 ###############################################################################
 #
@@ -48,7 +46,10 @@
 #       srm  02/26/18 Updated to pick up latest freertos port 10.0
 # 6.5   vns  03/16/18 Modified BBRAM functions for ZynqMP
 # 6.7   arc  10/29/18 Fixed ARMCC compiler warnings
-#
+# 6.8   psl  06/26/19 Added support for user to add IDCODE, IR_length, SLR Nos,
+#                     device series for different devices.
+#       mmd  09/05/19 Added support for enabling/disabling sysmon intialization
+#       vns  09/23/19 Added master SLR input into bsp settings to add new device
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -58,6 +59,12 @@ BEGIN LIBRARY xilskey
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilskey,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Key Library supports programming efuse and bbram ";
-  OPTION VERSION = 6.7;
+  OPTION VERSION = 6.8;
   OPTION NAME = xilskey;
+  PARAM name = device_series, desc = "Device series", type = enum, values = ("FPGA SERIES ZYNQ" = XSK_FPGA_SERIES_ZYNQ, "FPGA SERIES ULTRA" = XSK_FPGA_SERIES_ULTRA  , "FPGA SERIES ULTRA PLUS" = XSK_FPGA_SERIES_ULTRA_PLUS), default = XSK_FPGA_SERIES_ZYNQ;
+  PARAM name = device_id, desc = "IDCODE", type = int, default = 0;
+  PARAM name = device_irlen, desc = "IR length", type = int, default = 0;
+  PARAM name = device_numslr, desc = "Number of SLRs", type = int, default = 1;
+  PARAM name = device_masterslr, desc = "Master SLR number", type = int, default = 0;
+  PARAM name = override_sysmon_cfg, desc = "Override Sysmon configuration", type = bool, default = true;
 END LIBRARY

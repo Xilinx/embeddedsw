@@ -15,14 +15,12 @@
 ; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 ; IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 ; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-; XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-; WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-; OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-; SOFTWARE.
+; THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+; LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+; THE SOFTWARE.
 ;
-; Except as contained in this notice, the name of the Xilinx shall not be used
-; in advertising or otherwise to promote the sale, use or other dealings in
-; this Software without prior written authorization from Xilinx.
+;
 ;
 ;*****************************************************************************
 ;****************************************************************************
@@ -160,7 +158,7 @@ EndlessLoop1
 OKToRun
         ldr r0,=EFUSEStaus
         ldr r1,[r0]      ; Read eFuse to detect zynq silicon configuration
-        ands r1,r1,#0x80  ; Check wheter cpu1 is disabled through eFuse
+        ands r1,r1,#0x80  ; Check whether cpu1 is disabled through eFuse
 	beq DualCPU
 	; cpu1 is disabled through eFuse,reset cpu1
 	ldr	r0,=SLCRUnlockReg		; Load SLCR base address base + unlock register
@@ -463,7 +461,7 @@ skip
 	bgt	loop1
 
 finished
-	mov	r10, #0				; swith back to cache level 0
+	mov	r10, #0				; switch back to cache level 0
 	mcr	p15, 2, r10, c0, c0, 0		; select current cache level in cssr
 	dsb
 	isb

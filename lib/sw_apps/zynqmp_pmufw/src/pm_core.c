@@ -14,14 +14,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  */
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
@@ -60,6 +58,11 @@
 #include "xilskey_eps_zynqmp.h"
 #endif
 #include "pmu_iomodule.h"
+#include "xpfw_ipi_manager.h"
+
+#ifdef ENABLE_WDT
+#include "xpfw_mod_wdt.h"
+#endif
 
 #define AES_PUF_KEY_SEL_MASK	0x2U
 
@@ -326,7 +329,7 @@ static void PmRequestSuspend(const PmMaster *const master,
 
 done:
 	if (XST_SUCCESS != status) {
-		/* Something went wrong, acknowledge immediatelly */
+		/* Something went wrong, acknowledge immediately */
 		PmProcessAckRequest(ack, master, node, status, 0U);
 	}
 }
@@ -350,23 +353,27 @@ static void PmForcePowerdown(const PmMaster *const master,
 	u32 oppoint = 0U;
 	s32 status;
 	PmNode* nodePtr = PmGetNodeById(node);
+	PmPower *power;
 
 	if (NULL == nodePtr || INVALID_ACK_ARG(ack)) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if (NODE_IS_SLAVE(nodePtr)) {
+	if (NODE_IS_POWER(nodePtr)) {
+		power = (PmPower*)nodePtr->derived;
+	} else if (NODE_IS_PROC(nodePtr)) {
+		PmProc* proc = (PmProc*)nodePtr->derived;
+		power = (PmPower*)proc->node.parent;
+	} else {
+		/* Slaves and PLLs can not be force power down */
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if (NODE_IS_POWER(nodePtr)) {
-		PmPower* power = (PmPower*)nodePtr->derived;
-		if (false == PmMasterCanForceDown(master, power)) {
-			status = XST_PM_NO_ACCESS;
-			goto done;
-		}
+	if (false == PmMasterCanForceDown(master, power)) {
+		status = XST_PM_NO_ACCESS;
+		goto done;
 	}
 
 	status = PmNodeForceDown(nodePtr);
@@ -772,6 +779,44 @@ done:
 	IPI_RESPONSE2(master->ipiMask, status, value);
 }
 
+#if defined (ENABLE_WDT) &&	\
+	(XPFW_CFG_PMU_FPGA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT || \
+	XPFW_CFG_PMU_SHA3_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT ||  \
+	XPFW_CFG_PMU_RSA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT ||   \
+	XPFW_CFG_PMU_AES_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT ||   \
+	XPFW_CFG_PMU_SECURE_IMG_LOAD_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
+
+/* Notification IDs used to inform R5 about STL status
+ *
+ * STL will not run between notifications PM_NOTIFY_STL_NO_OP_ENTER &
+ * PM_NOTIFY_STL_NO_OP_EXIT
+ *
+ * PM_NOTIFY_STL_NO_OP_EXIT  : STL is restored
+ * PM_NOTIFY_STL_NO_OP_ENTER : STL is stopped
+ */
+typedef enum {
+	PM_NOTIFY_STL_NO_OP_EXIT,
+	PM_NOTIFY_STL_NO_OP_ENTER
+} PmR5StlNoOpNotification;
+
+/**
+ * PmNotifyR5AndModifyWdtTimeout() - Notify R5 and modify watchdog timeout.
+ *
+ * Timeout: Watchdog Timeout value in ms
+ * Notification : Notification parameter
+ *
+ * @return  None
+ */
+static void PmNotifyR5AndModifyWdtTimeout(u32 Timeout,
+		PmR5StlNoOpNotification Notification)
+{
+	IPI_REQUEST2(IPI_PMU_0_IER_RPU_0_MASK, PM_NOTIFY_STL_NO_OP, Notification);
+	(void)XPfw_IpiTrigger(IPI_PMU_0_IER_RPU_0_MASK);
+	XPfw_WdtSetVal(Timeout);
+}
+
+#endif
+
 #ifdef ENABLE_FPGA_LOAD
 /**
  * Pmfpgaload() - Load the bitstream into the PL.
@@ -796,12 +841,23 @@ static void PmFpgaLoad(const PmMaster *const master,
 	XFpga XFpgaInstance = {0U};
 	UINTPTR BitStreamAddr = ((u64)AddrHigh << 32)|AddrLow;
 
+#if defined (ENABLE_WDT) &&	\
+	(XPFW_CFG_PMU_FPGA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
+	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_FPGA_WDT_TIMEOUT,
+			PM_NOTIFY_STL_NO_OP_ENTER);
+#endif
+
 	Status = XFpga_Initialize(&XFpgaInstance);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
     Status = XFpga_PL_BitStream_Load(&XFpgaInstance, BitStreamAddr,
 				     KeyAddr, flags);
+#if defined (ENABLE_WDT) &&	\
+	(XPFW_CFG_PMU_FPGA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
+	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT,
+				PM_NOTIFY_STL_NO_OP_EXIT);
+#endif
   done:
        IPI_RESPONSE1(master->ipiMask, Status);
 }
@@ -812,7 +868,7 @@ static void PmFpgaLoad(const PmMaster *const master,
  */
 static void PmFpgaGetStatus(const PmMaster *const master)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status;
 	u32 Value = 0;
 	XFpga XFpgaInstance = {0U};
 
@@ -827,6 +883,7 @@ static void PmFpgaGetStatus(const PmMaster *const master)
 	IPI_RESPONSE2(master->ipiMask, Status, Value);
 }
 
+#if defined(ENABLE_FPGA_READ_CONFIG_DATA) || defined(ENABLE_FPGA_READ_CONFIG_REG)
 /**
  * PmFpgaRead() - Perform the FPGA configuration Read back
  *
@@ -850,6 +907,11 @@ static void PmFpgaRead(const PmMaster *const master,
 	XFpga XFpgaInstance = {0U};
 	UINTPTR Address = ((u64)AddrHigh << 32U)|AddrLow;
 
+#if defined (ENABLE_WDT) &&	\
+	(XPFW_CFG_PMU_FPGA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
+	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_FPGA_WDT_TIMEOUT,
+			PM_NOTIFY_STL_NO_OP_ENTER);
+#endif
 
 	Status = XFpga_Initialize(&XFpgaInstance);
 	if (Status != XST_SUCCESS) {
@@ -857,16 +919,34 @@ static void PmFpgaRead(const PmMaster *const master,
 	}
 
 	if (Readback_Type != 0U) {
+#if defined(ENABLE_FPGA_READ_CONFIG_DATA)
 		Status = XFpga_GetPlConfigData(&XFpgaInstance, Address, Reg_Numframes);
 		Value = CFGDATA_DSTDMA_OFFSET/4U;
+#else
+		PmWarn("Unsupported EEMI API\r\n");
+		Status = XST_NO_ACCESS;
+#endif
+
 	} else {
+#if defined(ENABLE_FPGA_READ_CONFIG_REG)
 		Status = XFpga_GetPlConfigReg(&XFpgaInstance, Address, Reg_Numframes);
 		Value = *(UINTPTR *)Address;
+#else
+		PmWarn("Unsupported EEMI API\r\n");
+		Status = XST_NO_ACCESS;
+#endif
 	}
+
+#if defined (ENABLE_WDT) &&	\
+	(XPFW_CFG_PMU_FPGA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
+	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT,
+				PM_NOTIFY_STL_NO_OP_EXIT);
+#endif
 
  done:
 	IPI_RESPONSE2(master->ipiMask, Status, Value);
 }
+#endif
 #endif
 
 #ifdef ENABLE_SECURE
@@ -891,9 +971,19 @@ static void PmSecureSha(const PmMaster *const master,
 {
 	u32 Status;
 
+#if defined (ENABLE_WDT) &&	\
+	(XPFW_CFG_PMU_SHA3_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
+	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_SHA3_WDT_TIMEOUT,
+				PM_NOTIFY_STL_NO_OP_ENTER);
+#endif
+
 	Status = XSecure_Sha3Hash(SrcAddrHigh, SrcAddrLow,
 			SrcSize, Flags);
-
+#if defined (ENABLE_WDT) &&	\
+	(XPFW_CFG_PMU_SHA3_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
+	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT,
+				PM_NOTIFY_STL_NO_OP_EXIT);
+#endif
 	IPI_RESPONSE1(master->ipiMask, Status);
 }
 
@@ -919,8 +1009,20 @@ static void PmSecureRsa(const PmMaster *const master,
 {
 	u32 Status;
 
+#if defined (ENABLE_WDT) &&	\
+	(XPFW_CFG_PMU_RSA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
+	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_RSA_WDT_TIMEOUT,
+				PM_NOTIFY_STL_NO_OP_ENTER);
+#endif
+
 	Status = XSecure_RsaCore(SrcAddrHigh, SrcAddrLow,
 			SrcSize, Flags);
+
+#if defined (ENABLE_WDT) &&	\
+	(XPFW_CFG_PMU_RSA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
+	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT,
+				PM_NOTIFY_STL_NO_OP_EXIT);
+#endif
 
 	IPI_RESPONSE1(master->ipiMask, Status);
 }
@@ -945,6 +1047,12 @@ static void PmSecureAes(const PmMaster *const master,
 	u64 WrAddr = ((u64)SrcAddrHigh << 32U) | SrcAddrLow;
 	XSecure_AesParams *Aes = (XSecure_AesParams *)(UINTPTR)WrAddr;
 
+#if defined (ENABLE_WDT) &&	\
+	(XPFW_CFG_PMU_AES_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
+	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_AES_WDT_TIMEOUT,
+				PM_NOTIFY_STL_NO_OP_ENTER);
+#endif
+
 	if (Aes->KeySrc == AES_PUF_KEY_SEL_MASK) {
 		Status = XilSKey_Puf_Regeneration(&InstancePtr);
 		if (Status != 0U) {
@@ -953,6 +1061,13 @@ static void PmSecureAes(const PmMaster *const master,
 	}
 
 	Status = XSecure_AesOperation(SrcAddrHigh, SrcAddrLow);
+
+#if defined (ENABLE_WDT) &&	\
+	(XPFW_CFG_PMU_AES_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
+	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT,
+				PM_NOTIFY_STL_NO_OP_EXIT);
+#endif
+
 END:
 	IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, Status);
 }
@@ -981,7 +1096,19 @@ static void PmSecureImage(const PmMaster *const master,
 	u32 Status;
 	XSecure_DataAddr Addr = {0U};
 
+#if defined (ENABLE_WDT) &&	\
+	(XPFW_CFG_PMU_SECURE_IMG_LOAD_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
+	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_SECURE_IMG_LOAD_WDT_TIMEOUT,
+				PM_NOTIFY_STL_NO_OP_ENTER);
+#endif
+
 	Status = XSecure_SecureImage(SrcAddrHigh, SrcAddrLow, KupAddrHigh, KupAddrLow, &Addr);
+
+#if defined (ENABLE_WDT) &&	\
+	(XPFW_CFG_PMU_SECURE_IMG_LOAD_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
+	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT,
+				PM_NOTIFY_STL_NO_OP_EXIT);
+#endif
 
 	if (Status != 0x0U) {
 		 PmErr("Failed image loading  with error : %x\r\n", Status);
@@ -1002,7 +1129,7 @@ static void PmSecureImage(const PmMaster *const master,
 static void PmEfuseAccess(const PmMaster *const master,
 			const u32 AddrHigh, const u32 AddrLow)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status;
 
 #ifdef EFUSE_ACCESS
 	Status = XilSkey_ZynqMpEfuseAccess(AddrHigh, AddrLow);
@@ -1936,9 +2063,11 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 	case PM_FPGA_GET_STATUS:
 		PmFpgaGetStatus(master);
 		break;
+#if defined(ENABLE_FPGA_READ_CONFIG_DATA) || defined(ENABLE_FPGA_READ_CONFIG_REG)
 	case PM_FPGA_READ:
 		PmFpgaRead(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
+#endif
 #endif
 	case PM_GET_CHIPID:
 		PmGetChipid(master);

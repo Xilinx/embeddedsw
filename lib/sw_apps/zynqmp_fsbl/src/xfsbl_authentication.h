@@ -16,14 +16,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 *
 *******************************************************************************/
@@ -42,7 +40,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   ssc  01/20/16 Initial release
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines.
-*       vns  02/17/17 Added API prototype to compare hashs
+*       vns  02/17/17 Added API prototype to compare hashes
 * 3.0   vns  01/23/18 Added prototype for XFsbl_Sha3PadSelect()
 *       vns  03/07/18 Added PPK/SPK offsets w.r.t to AC, modified
 *                     prototype of XFsbl_CompareHashs()

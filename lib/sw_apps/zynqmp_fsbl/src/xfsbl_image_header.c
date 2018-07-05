@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -50,6 +48,8 @@
 * 3.0   vns  03/07/18 All the partitions should be encrypted when ENC_ONLY
 *                     eFUSE bit is set, if not encrypted FSBL throw an error.
 *       mus  02/26/19 Added support for armclang compiler
+*       bsv  07/05/19 Remove MD5 checksum related code
+*
 * </pre>
 *
 * @note
@@ -176,7 +176,7 @@ u32 XFsbl_ValidateChecksum(u32 Buffer[], u32 Length)
 	u32 Count;
 
 	/**
-	 * Length has to be atleast equal to 2,
+	 * Length has to be at least equal to 2,
 	 */
 	if (Length < 2U)
 	{
@@ -652,12 +652,16 @@ u32 XFsbl_ValidatePartitionHeader(
 #endif
 
 	DestinationCpu = XFsbl_GetDestinationCpu(PartitionHeader);
-		if(ResetType == XFSBL_APU_ONLY_RESET){
-		if((DestinationCpu <= XIH_PH_ATTRB_DEST_CPU_A53_3) && (DestinationCpu >= XIH_PH_ATTRB_DEST_CPU_A53_0)){
+	if (XFSBL_MASTER_ONLY_RESET == ResetType) {
+		if (((XIH_PH_ATTRB_DEST_CPU_A53_0 == RunningCpu) &&
+				(DestinationCpu <= XIH_PH_ATTRB_DEST_CPU_A53_3 ) &&
+				(DestinationCpu >= XIH_PH_ATTRB_DEST_CPU_A53_0 )) ||
+				((XIH_PH_ATTRB_DEST_CPU_R5_0 == RunningCpu) &&
+						(XIH_PH_ATTRB_DEST_CPU_R5_0 == DestinationCpu)) ||
+				((XIH_PH_ATTRB_DEST_CPU_R5_L == RunningCpu) &&
+						(XIH_PH_ATTRB_DEST_CPU_R5_L == DestinationCpu))) {
 			/* Do Nothing*/
-		}
-		else
-		{
+		} else {
 			Status = XFSBL_SUCCESS_NOT_PARTITION_OWNER;
 			goto END;
 		}
@@ -806,7 +810,7 @@ u32 XFsbl_ValidatePartitionHeader(
 		/**
 		 * DDR address for A53-x should be greater than TCM
 		 */
-		if (PartitionHeader->DestinationLoadAddress < 0x80000U)
+		if (PartitionHeader->DestinationLoadAddress < 0x40000U)
 		{
 			Status = XFSBL_ERROR_ADDRESS;
 			XFsbl_Printf(DEBUG_GENERAL,
@@ -821,8 +825,6 @@ u32 XFsbl_ValidatePartitionHeader(
 	 */
 	if ((XFsbl_GetChecksumType(PartitionHeader) !=
 	                      XIH_PH_ATTRB_NOCHECKSUM)
-	          && (XFsbl_GetChecksumType(PartitionHeader) !=
-	                      XIH_PH_ATTRB_CHECKSUM_MD5)
 			  && (XFsbl_GetChecksumType(PartitionHeader) !=
 					  XIH_PH_ATTRB_HASH_SHA3))
 	{

@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -88,7 +86,7 @@ typedef void (*Xil_AssertCallback) (const char8 *File, s32 Line);
 /**
 * @brief    This assert macro is to be used for void functions. This in
 *           conjunction with the Xil_AssertWait boolean can be used to
-*           accomodate tests so that asserts which fail allow execution to
+*           accommodate tests so that asserts which fail allow execution to
 *           continue.
 *
 * @param    Expression: expression to be evaluated. If it evaluates to
@@ -113,7 +111,7 @@ typedef void (*Xil_AssertCallback) (const char8 *File, s32 Line);
 /**
 * @brief    This assert macro is to be used for functions that do return a
 *           value. This in conjunction with the Xil_AssertWait boolean can be
-*           used to accomodate tests so that asserts which fail allow execution
+*           used to accommodate tests so that asserts which fail allow execution
 *           to continue.
 *
 * @param    Expression: expression to be evaluated. If it evaluates to false,

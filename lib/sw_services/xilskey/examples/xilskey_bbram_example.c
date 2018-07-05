@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -68,6 +66,8 @@
 * 6.7   psl     03/20/19 Added BBRAM jtag server init function.
 *       psl     03/15/19 Moved XilSKey_Bbram_JTAGServerInit function from
 *                        example to library.
+* 6.8   psl     05/21/19 Initialized SystemInitDone ,to indicate
+*                        XilSKey_Bbram_JTAGServerInit status.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "stdio.h"
@@ -137,6 +137,7 @@ int XilSKey_Bbram_InitData(XilSKey_Bbram *BbramInstancePtr)
 	BbramInstancePtr->JtagMioMuxSel 		=	XSK_BBRAM_MIO_JTAG_MUX_SELECT;
 	BbramInstancePtr->JtagMuxSelLineDefVal	=  XSK_BBRAM_MIO_MUX_SEL_DEFAULT_VAL;
 
+	BbramInstancePtr->SystemInitDone = 0;
 	/*
 	 * Convert key given in xilskey_input.h and
 	 * assign it to the variable in instance.

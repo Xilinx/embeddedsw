@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -55,7 +53,11 @@
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
 	.align	2
-
+/*
+ * 0th bit of PROCESSOR_ACCESS_VALUE macro signifies trustzone
+ * setting for RPU address space
+ */
+.set RPU_TZ_MASK,	0x1
 	.text
 .Lsbss_start:
 	.long	__sbss_start
@@ -81,6 +83,7 @@
 
 _startup:
 	bl      __cpu_init		/* Initialize the CPU first (BSP provides this) */
+#if (PROCESSOR_ACCESS_VALUE & RPU_TZ_MASK)
 	mrc	p15, 0, r0,  c0,  c0, 5	/* Read MPIDR register */
 	ands	r0, r0, #MPIDR_AFF0	/* Get affinity level 0 */
 	bne	core1
@@ -96,7 +99,7 @@ test_boot_status:
 
 	/* if warm reset, skip the clearing of BSS and SBSS */
 	bne	.Lenclbss
-
+#endif
 	mov	r0, #0
 
 	/* clear sbss */

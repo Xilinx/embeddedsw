@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -117,7 +115,7 @@ extern "C" {
 
 #define	ENABLE_PM_VAL					(1U)
 #define	ENABLE_EM_VAL					(0U)
-#define	ENABLE_SCHEDULER_VAL			(0U)
+#define	ENABLE_SCHEDULER_VAL			(1U)
 #define	ENABLE_RECOVERY_VAL				(0U)
 #define	ENABLE_RECOVERY_RESET_SYSTEM_VAL		(0U)
 #define	ENABLE_RECOVERY_RESET_PS_ONLY_VAL		(0U)
@@ -129,6 +127,8 @@ extern "C" {
 #define	ENABLE_RTC_TEST_VAL				(0U)
 #define	ENABLE_IPI_CRC_VAL				(0U)
 #define	ENABLE_FPGA_LOAD_VAL			(1U)
+#define ENABLE_FPGA_READ_CONFIG_DATA_VAL		(1U)
+#define ENABLE_FPGA_READ_CONFIG_REG_VAL			(1U)
 #define	ENABLE_SECURE_VAL				(1U)
 #define ENABLE_EFUSE_ACCESS				(0U)
 #define	XPU_INTR_DEBUG_PRINT_ENABLE_VAL	(0U)
@@ -152,6 +152,39 @@ extern "C" {
 #define CONNECT_PMU_GPO_5_VAL			(1U)
 
 #define SECURE_ACCESS_VAL		(0U)
+
+/*
+ * XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ * 		Default watchdog timeout
+ *
+ * XPFW_CFG_PMU_FPGA_WDT_TIMEOUT
+ * 		This watchdog timeout is applied during bitstream download, provided
+ * 		its value is greater than XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ *
+ * XPFW_CFG_PMU_SHA3_WDT_TIMEOUT
+ * 		This watchdog timeout is applied during SHA3 request, provided
+ * 		its value is greater than XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ *
+ * XPFW_CFG_PMU_RSA_WDT_TIMEOUT
+ * 		This watchdog timeout is applied during RSA request, provided
+ * 		its value is greater than XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ *
+ * XPFW_CFG_PMU_AES_WDT_TIMEOUT
+ * 		This watchdog timeout is applied during AES request, provided
+ * 		its value is greater than XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ *
+ * XPFW_CFG_PMU_SECURE_IMAGE_WDT_TIMEOUT
+ * 		This watchdog timeout is applied during secure image download, provided
+ * 		its value is greater than XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ *
+ */
+#define XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT		(90U)	/* ms */
+#define XPFW_CFG_PMU_FPGA_WDT_TIMEOUT			(500U)	/* ms */
+#define XPFW_CFG_PMU_SHA3_WDT_TIMEOUT			(500U)	/* ms */
+#define XPFW_CFG_PMU_RSA_WDT_TIMEOUT			(500U)	/* ms */
+#define XPFW_CFG_PMU_AES_WDT_TIMEOUT			(500U)	/* ms */
+#define XPFW_CFG_PMU_SECURE_IMG_LOAD_WDT_TIMEOUT	(500U)	/* ms */
+
 
 #if ENABLE_PM_VAL
 #define ENABLE_PM
@@ -204,6 +237,15 @@ extern "C" {
 #if ENABLE_FPGA_LOAD_VAL
 #define ENABLE_FPGA_LOAD
 #endif
+
+#if ENABLE_FPGA_READ_CONFIG_DATA_VAL
+#define ENABLE_FPGA_READ_CONFIG_DATA
+#endif
+
+#if ENABLE_FPGA_READ_CONFIG_REG_VAL
+#define ENABLE_FPGA_READ_CONFIG_REG
+#endif
+
 #if ENABLE_SECURE_VAL
 #define ENABLE_SECURE
 #endif
@@ -281,9 +323,9 @@ extern "C" {
 
 /* FPD WDT recovery action */
 #ifdef ENABLE_RECOVERY
-#define FPD_WDT_EM_ACTION EM_ACTION_CUSTOM
+#define SWDT_EM_ACTION EM_ACTION_CUSTOM
 #else
-#define FPD_WDT_EM_ACTION EM_ACTION_SRST
+#define SWDT_EM_ACTION EM_ACTION_SRST
 #endif
 
 #ifdef ENABLE_POS

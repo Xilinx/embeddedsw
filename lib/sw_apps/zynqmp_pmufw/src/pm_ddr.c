@@ -14,14 +14,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  */
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
@@ -315,7 +313,7 @@
 #define PM_DDR_POLL_PERIOD		32000U	/* ~1ms @220MHz */
 
 #ifdef ENABLE_DDR_SR_WR
-/* Timeout period of arround 1 second to poll for DDR flags */
+/* Timeout period of around 1 second to poll for DDR flags */
 #define DDR_FLAG_POLL_PERIOD		XPAR_MICROBLAZE_FREQ
 #endif
 
@@ -1693,7 +1691,7 @@ static s32 store_training_data(void)
 	bool old_mapping;
 	u32 haddr, laddr;
 	u64 mirr_offset;
-	s32 status = XST_SUCCESS;
+	s32 status;
 
 	ddr_rank1_addr(&haddr, &laddr);
 	size = ddr_training_size();
@@ -1786,8 +1784,8 @@ static void restore_training_data(void)
 		PmDma64BitTransfer(old_map_offset, 0U, RESERVED_ADDRESS + size,
 				   0U, size);
 	} else {
-		PmDma64BitTransfer(laddr, haddr, 0U,
-				   RESERVED_ADDRESS + size, size);
+		PmDma64BitTransfer(laddr, haddr, RESERVED_ADDRESS + size, 0U,
+				   size);
 	}
 
 #ifdef ENABLE_DDR_SR_WR
@@ -1797,7 +1795,7 @@ static void restore_training_data(void)
 	 * will cause ECC errors. That is because the Xil_Out32() function first
 	 * reads 8 bytes, then modifies the 4 bytes to be updated, before writing
 	 * out all 8 bytes. Since the memory has already been corrupted by
-	 * calibration, the inital read will cause ECC errors.
+	 * calibration, the initial read will cause ECC errors.
 	 */
 	if (0U != Xil_In32(DDRC_ERRCNT)) {
 		Xil_Out32(DDRC_ERRCLR, 0xfU);
@@ -1994,7 +1992,7 @@ done:
  */
 s32 PmDdrPowerOffSuspendResume(void)
 {
-	s32 status = XST_SUCCESS;
+	s32 status;
 
 	PmClockRestoreDdr();
 

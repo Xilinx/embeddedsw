@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -66,6 +64,9 @@
 * 6.7   psl     03/20/19 Added eFuse key write support for SSIT devices.
 *       arc     04/04/19 Fixed CPP warnings.
 *       psl     04/15/19 Added JtagServerInit function.
+* 6.8   psl     05/21/19 Added else case to clear UserFuses_TobePrgrmd
+*       psl     08/23/19 Added Debug define to avoid writing of eFuse.
+*       vns     08/29/19 Initialized Status variables
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -543,7 +544,7 @@ u32 XilSKey_EfusePl_SystemInit(XilSKey_EPl *InstancePtr)
 *****************************************************************************/
 u32 XilSKey_EfusePl_Program(XilSKey_EPl *InstancePtr)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	ErrorCode = XSK_EFUSEPL_ERROR_NONE;
 
 
@@ -1368,7 +1369,7 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 		InstancePtr->SystemInitDone = 1;
 		PlFpgaFlag = InstancePtr->FpgaFlag;
 	}
-	XilSKeyJtag.CurSlr = InstancePtr->CurSlr;
+
 #ifdef XSK_ZYNQ_PLATFORM
 
 	/**
@@ -1395,6 +1396,7 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 		ErrorCode = XSK_EFUSEPL_ERROR_READ_VCCINT_VOLTAGE_OUT_OF_RANGE;
 		return XST_FAILURE;
 	}
+	XilSKeyJtag.CurSlr = 0;
 
 	/*
 	 * Read row 0 for status bits
@@ -1405,6 +1407,8 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 #endif
 	/* For Ultrascale */
 #ifdef XSK_MICROBLAZE_PLATFORM
+	XilSKey_GetSlrNum(InstancePtr->MasterSlr,
+			InstancePtr->SlrConfigOrderIndex, &(XilSKeyJtag.CurSlr));
 
 	/* Monitor Temperature and voltage */
 	XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(&PL_XAdc);
@@ -1457,7 +1461,7 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 *****************************************************************************/
 u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	if(NULL == InstancePtr)	{
 		return XSK_EFUSEPL_ERROR_PL_STRUCT_NULL;
@@ -1536,6 +1540,7 @@ static inline u32 XilSKey_EfusePl_ReadKey_Zynq(XilSKey_EPl *InstancePtr)
 	u32 KeyCnt;
 	u32 RowCount;
 	unsigned int RowData;
+	XilSKeyJtag.CurSlr = 0;
 
 #ifdef XSK_ZYNQ_PLATFORM
 	XSKEfusePs_XAdc PL_XAdc = {0};
@@ -1636,6 +1641,8 @@ static inline u32 XilSKey_EfusePl_ReadKey_Ultra(XilSKey_EPl *InstancePtr)
 {
 
 	u32 Index;
+	XilSKey_GetSlrNum(InstancePtr->MasterSlr,
+			InstancePtr->SlrConfigOrderIndex, &(XilSKeyJtag.CurSlr));
 
 	/* Checks conditions for read key */
 	if (XilSKey_EfusePl_ReadKey_Checks(InstancePtr) != XST_SUCCESS) {
@@ -1791,7 +1798,7 @@ static inline u32 XilSKey_EfusePl_ReadKey_Checks(XilSKey_EPl *InstancePtr)
 *
 * @param	Row is the row number of Fuse array.
 * @param	Margin option is the option to select in which mode read has
-*		to be happend
+*		to be happened
 * @param	RowDataBytes is a pointer to an array to store the read value
 *		of given row.
 * @param	Redundant is the option to be selected either redundant row
@@ -1939,7 +1946,7 @@ static inline u8 XilSKey_EfusePl_ReadRow_Ultra(u32 Row, u8 MarginOption,
 * @param	Row is the row number of Fuse array.
 * @param	Bit is the bit position to be read.
 * @param	Margin option is the option to select in which mode read has
-*		to be happend
+*		to be happened
 * @param	BitData is a pointer to a variable to store the read value
 *		of given given bit in provided row.
 * @param	Redundant is the option to be selected either redundant row
@@ -1962,7 +1969,7 @@ static inline u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
 {
 	u8 RowData[XSK_EFUSEPL_ARRAY_MAX_COL]={0};
 	u8 RowDataBits[XSK_EFUSEPL_ARRAY_MAX_COL] = {0};
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/**
 	 * check if row_data is not NULL
@@ -2051,7 +2058,7 @@ static inline u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
 static inline u8 XilSKey_EfusePl_ProgramBit_Ultra(u8 Row, u8 Bit, u8 Redundant, u8 Page)
 {
 
-	u8 Status;
+	u8 Status = (u32)XST_FAILURE;
 
 	Status = XilSKey_EfusePl_Ultra_Check(Row, Bit, Redundant, Page);
 	if (Status != XST_SUCCESS) {
@@ -2159,10 +2166,15 @@ static inline u8 XilSKey_EfusePl_ProgramRow_Ultra(u8 Row, u8 *RowData,
 			if (! ((Row >= AesStartRow) &&
 				(Row <= AesEndRow) &&
 				(Page == XSK_EFUSEPL_PAGE_0_ULTRA))) {
+#ifndef DEBUG_FUSE_WRITE_DISABLE
 				if (XilSkey_EfusePl_VerifyBit_Ultra(Row,
 					Bit, Redundant, Page) != XST_SUCCESS) {
 					return XST_FAILURE;
 				}
+#else
+				XilsKey_DbgPrint("Skipping XilSkey_EfusePl_VerifyBit_Ultra "
+									"as DEBUG_FUSE_WRITE_DISABLE defined\n\r");
+#endif
 			}
 		}
 	}
@@ -2323,7 +2335,7 @@ static inline u8 XilSKey_EfusePl_ProgramSecRegister(u8 *SecData)
 *****************************************************************************/
 static inline u8 XilSKey_EfusePl_ReadSecRegister(u8 *SecData)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 	u32 SecDataUltra;
 
 	/**
@@ -2396,7 +2408,7 @@ u32 XilSKey_EfusePl_Program_Zynq(XilSKey_EPl *InstancePtr)
 	u32 Index = 0;
 
 	/* Initialize current SLR */
-	InstancePtr->CurSlr = 0;
+	XilSKeyJtag.CurSlr = 0;
 	/**
 	 *	Read the FUSE_CNTL register bits [5:2], and if any of them is found to
 	 *	be set to 1 then we can not write to the eFUSE, so return with unique
@@ -2587,11 +2599,12 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 {
 	u8 CtrlData[XSK_EFUSEPL_ARRAY_MAX_COL] = {0};
 	u8 SecData[XSK_EFUSEPL_ARRAY_MAX_COL] = {0};
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u8 User32Data[XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE];
 	u8 User128Data[XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE];
 
-	XilSKeyJtag.CurSlr = InstancePtr->CurSlr;
+	XilSKey_GetSlrNum(InstancePtr->MasterSlr,
+			InstancePtr->SlrConfigOrderIndex, &(XilSKeyJtag.CurSlr));
 
 	Status = XilSKey_EfusePl_Program_Checks(InstancePtr);
 	if (Status != XST_SUCCESS) {
@@ -2610,10 +2623,15 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 			return Status;
 		}
 		/* Verify AES key programmed */
+#ifndef DEBUG_FUSE_WRITE_DISABLE
 		if (XilSKey_EfusePl_VerifyAES_Ultrascale(
 				InstancePtr->CrcToVerify) != XST_SUCCESS) {
 			return XSK_EFUSEPL_ERROR_KEY_VALIDATION;
 		}
+#else
+		XilsKey_DbgPrint("AES key verification failed but "
+				"DEBUG_FUSE_WRITE_DISABLE set so continuing\r\n");
+#endif
 	}
 	/* Programming USER key */
 	if (InstancePtr->ProgUserKeyUltra == TRUE) {
@@ -2905,7 +2923,7 @@ static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 {
 	u32 Row;
 	u8 RowData[XSK_EFUSEPL_MAX_BITS_IN_A_ROW_ULTRA]={0};
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 MaxBits;
 	u8 RsaRowStart;
 	u8 RsaRowEnd;
@@ -3088,7 +3106,7 @@ static inline u32 XilSKey_EfusePl_Program_AesKey_ultra(void)
 * of Ultrascale and ultrascale plus.
 * For ultrascale plus, read row contains both redundant and normal bits
 * upper 16 bits contains redundant bits and lower 16 bits contain normal
-* bits, each row wil have only 16 valid bits.
+* bits, each row will have only 16 valid bits.
 *
 * @param	Row is the row number.
 * @param	RowData is the ORed result of both rows.
@@ -3166,7 +3184,7 @@ static inline u32 XilSKey_EfusePl_ReadRowData_Ultra(u8 Row,
 *****************************************************************************/
 static inline u32 XilSKey_EfusePl_GetRowData_Ultra(u8 Row, u8 *RowData, u8 Page)
 {
-	u32 ErrorCode;
+	u32 ErrorCode = (u32)XST_FAILURE;
 
 	if (((Row >= XSK_EFUSEPL_AES_ROW_START_ULTRA) &&
 		(Row <= XSK_EFUSEPL_AES_ROW_END_ULTRA)) &&
@@ -3427,7 +3445,7 @@ static inline u32 XilSkey_EfusePl_UserFuses_TobeProgrammed(
 	u32 UserFuseColumn;
 	u8 UserFuses_Read[XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE];
 	u8 ReadData[XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES];
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Read 128 bit User Key */
 	if (Size == XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE) {
@@ -3489,7 +3507,10 @@ static inline u32 XilSkey_EfusePl_UserFuses_TobeProgrammed(
 		if ((UserFuses_Write[UserFuseColumn] == 1) &&
 			(UserFuses_Read[UserFuseColumn] == 0)) {
 			UserFuses_TobePrgrmd[UserFuseColumn] = 1;
-		}
+		}else {
+            UserFuses_TobePrgrmd[UserFuseColumn] = 0;
+       }
+
 	}
 
 	return XST_SUCCESS;

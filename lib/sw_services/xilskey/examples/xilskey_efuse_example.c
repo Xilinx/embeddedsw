@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -174,6 +172,14 @@
 *       psl     03/29/19 Added support for user configurable GPIO for
 *                        jtag control.
 *       psl     04/29/19 Resolved GCC warnings.
+* 6.8   psl     05/21/19 Added platform dependent macros for variables and
+*                        initialized PlStatus.
+*                        Added print for current SLR and CRC.
+*               07/17/19 Added print to display CRC of AES key during CRC
+*                        verification.
+*               08/30/19 Corrected length in bits parameter while converting
+*                        PPK hash string(zynq efuse ps)
+*
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "stdio.h"
@@ -229,20 +235,6 @@
 #define XSK_EFUSEPL_STATUS_JTAG_DISABLE				0x200
 #define XSK_EFUSEPL_STATUS_BBRAM_KEY_DISABLE		0x400
 
-#define MAX_SLRS 4
-
-/*SLR Definitions*/
-#define XSK_EFUSEPL_SLR1	0U
-#define	XSK_EFUSEPL_SLR2	1U
-#define	XSK_EFUSEPL_SLR3	2U
-#define XSK_EFUSEPL_SLR4	3U
-
-/*Number of SLR present against target*/
-#define XSK_EFUSEPL_TARGET_SLR_NUM1 1U
-#define XSK_EFUSEPL_TARGET_SLR_NUM2 2U
-#define XSK_EFUSEPL_TARGET_SLR_NUM3 3U
-#define XSK_EFUSEPL_TARGET_SLR_NUM4 4U
-
 /************************** Variable Definitions ****************************/
 /************************** Function Prototypes *****************************/
 /**
@@ -272,8 +264,13 @@ int main()
 	u32 PlStatus = 0xFFFF;
 	u32 PsStatus = 0xFFFF;
 	u32 Status = 0;
-	u32 StatusSum[MAX_SLRS] = {0};
+#if defined (XSK_MICROBLAZE_PLATFORM) || defined (XSK_EFUSEPS_DRIVER)
 	u32 Index;
+#endif
+
+#if defined (XSK_EFUSEPL_DRIVER) && defined (XSK_MICROBLAZE_PLATFORM)
+	u32 StatusSum[XSK_TARGET_MAX_4_SLRS] = {0};
+#endif
 
     /*ps7_init();*/
 #ifdef XSK_EFUSEPS_DRIVER
@@ -423,26 +420,27 @@ int main()
 	switch(PlInstance.NumSlr)
 	{
 
-		case XSK_EFUSEPL_TARGET_SLR_NUM1:
-			if(((XSK_EFUSEPL_PGM_SLR2 == TRUE) || (XSK_EFUSEPL_PGM_SLR3 == TRUE) || ( XSK_EFUSEPL_PGM_SLR4 == TRUE))
-					&& (PlInstance.NumSlr == 1U))
+		case XSK_TARGET_MAX_1_SLRS:
+			if(((XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_1 == TRUE) ||
+					(XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_2 == TRUE) ||
+					( XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_3 == TRUE)))
 			{
 				PlStatus = (u32)XST_FAILURE;
 			}
 			break;
-		case XSK_EFUSEPL_TARGET_SLR_NUM2:
-			if(((XSK_EFUSEPL_PGM_SLR3 == TRUE) || (XSK_EFUSEPL_PGM_SLR4 == TRUE)) &&
-					(PlInstance.NumSlr == 2U))
+		case XSK_TARGET_MAX_2_SLRS:
+			if((XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_2 == TRUE) ||
+					(XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_3 == TRUE))
 			{
 				PlStatus = (u32)XST_FAILURE;
 			}
 			break;
-		case XSK_EFUSEPL_TARGET_SLR_NUM3:
-			if((XSK_EFUSEPL_PGM_SLR4 == TRUE)  && (PlInstance.NumSlr == 3U)) {
+		case XSK_TARGET_MAX_3_SLRS:
+			if(XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_3 == TRUE) {
 				PlStatus = (u32)XST_FAILURE;
 			}
 			break;
-		case XSK_EFUSEPL_TARGET_SLR_NUM4:
+		case XSK_TARGET_MAX_4_SLRS:
 			PlStatus = (u32)XST_SUCCESS;
 			break;
 		default:
@@ -466,7 +464,9 @@ int main()
 		 * Program and Read for SLRX
 		 * Programming will not happen until corresponding PGM_SLR1 is not TRUE
 		 */
-		PlInstance.CurSlr = Index;
+		PlInstance.SlrConfigOrderIndex = Index;
+		xil_printf("-----------------------SLR CONFIG ORDER INDEX %d-----------------------\n\r",
+				PlInstance.SlrConfigOrderIndex);
 		PlStatus=XilSKey_EfusePl_ReadorWrite(&PlInstance);
 		if(PlStatus != XST_SUCCESS)
 		{
@@ -479,8 +479,8 @@ int main()
 #endif
 EFUSE_ERROR:
 
+#if defined (XSK_EFUSEPL_DRIVER) && defined (XSK_MICROBLAZE_PLATFORM)
 FINAL_EFUSE_ERROR:
-#if defined (XSK_MICROBLAZE_ULTRA_PLUS) || defined (XSK_MICROBLAZE_ULTRA)
 	PlStatus =  (StatusSum[0] |
 				 StatusSum[1] |
 				 StatusSum[2] |
@@ -551,7 +551,8 @@ u32 XilSKey_EfusePs_InitData(XilSKey_EPs *PsInstancePtr)
 		 */
 		PsStatus = XilSKey_Efuse_ConvertStringToHexBE(
 						XSK_EFUSEPS_RSA_KEY_HASH_VALUE,
-						&(PsInstancePtr->RsaKeyHashValue[0]), 64);
+						&(PsInstancePtr->RsaKeyHashValue[0]),
+						256U);
 		if(PsStatus != XST_SUCCESS)	{
 			return PsStatus;
 		}
@@ -586,36 +587,41 @@ u32 XilSKey_EfusePl_ReadorWrite(XilSKey_EPl *PlInstancePtr)
 {
 	u32 PlStatus;
 
-	if(((PlInstancePtr->CurSlr == XSK_EFUSEPL_SLR1) && (XSK_EFUSEPL_PGM_SLR1 == TRUE)) ||
-	   ((PlInstancePtr->CurSlr == XSK_EFUSEPL_SLR2) && (XSK_EFUSEPL_PGM_SLR2 == TRUE)) ||
-	   ((PlInstancePtr->CurSlr == XSK_EFUSEPL_SLR3) && (XSK_EFUSEPL_PGM_SLR3 == TRUE)) ||
-	   ((PlInstancePtr->CurSlr == XSK_EFUSEPL_SLR4) && (XSK_EFUSEPL_PGM_SLR4 == TRUE)))
-	{
-		PlStatus = XilSKey_EfusePl_LoadData_Slr(PlInstancePtr, PlInstancePtr->CurSlr);
-		if(PlStatus != XST_SUCCESS)
-		{
-			xil_printf("Loading data for SLR%x failed\r\n", PlInstancePtr->CurSlr);
-			goto END;
-		}
 
+	PlStatus = XilSKey_EfusePl_LoadData_Slr(PlInstancePtr, PlInstancePtr->SlrConfigOrderIndex);
+	if(PlStatus != XST_SUCCESS)
+	{
+		xil_printf("Loading data for SLR%x failed\r\n", PlInstancePtr->SlrConfigOrderIndex);
+		goto END;
+	}
+
+	if(((PlInstancePtr->SlrConfigOrderIndex == XSK_SLR_CONFIG_ORDER_0) &&
+						(XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_0 == TRUE)) ||
+	   ((PlInstancePtr->SlrConfigOrderIndex == XSK_SLR_CONFIG_ORDER_1) &&
+						  (XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_1 == TRUE)) ||
+	   ((PlInstancePtr->SlrConfigOrderIndex == XSK_SLR_CONFIG_ORDER_2) &&
+						   (XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_2 == TRUE)) ||
+	   ((PlInstancePtr->SlrConfigOrderIndex == XSK_SLR_CONFIG_ORDER_3) &&
+					   (XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_3 == TRUE)))
+	{
 		/**
 		* Call the PL eFUSE programming function to program the eFUSE
 		* based on the user input
 		*/
 		PlStatus = XilSKey_EfusePl_Program(PlInstancePtr);
 		if(PlStatus != XST_SUCCESS)	{
-			xil_printf("PL eFUSE programming failed for SLR%lx\r\n", PlInstancePtr->CurSlr);
+			xil_printf("PL eFUSE programming failed for SLR%lx\r\n", PlInstancePtr->SlrConfigOrderIndex);
 			goto END;
 		}
 	}
 	else
 	{
-		xil_printf("Programming not enabled for SLR(%x)\r\n", PlInstancePtr->CurSlr);
+		xil_printf("Programming not enabled for SLR(%x)\r\n", PlInstancePtr->SlrConfigOrderIndex);
 	}
 	PlStatus = XilSKey_EfusePl_ReadnCheck(PlInstancePtr);
 	if(PlStatus != XST_SUCCESS)
 	{
-		xil_printf("Read Status/Check failed for SLR%x\r\n", PlInstancePtr->CurSlr);
+		xil_printf("Read Status/Check failed for SLR%x\r\n", PlInstancePtr->SlrConfigOrderIndex);
 		goto END;
 	}
 
@@ -660,8 +666,6 @@ u32 XilSKey_EfusePl_ReadnCheck(XilSKey_EPl *PlInstancePtr)
     /*
      * Print Efuse PL status bits
      */
-    xil_printf("-----------------------SLR%d-----------------------\n\r",
-		PlInstance.CurSlr);
     xil_printf("EfusePL status bits : 0x%x \n\r", PlStatusBits);
     /* Status bits for Zynq */
 	if (PlInstancePtr->FpgaFlag == XSK_FPGA_SERIES_ZYNQ) {
@@ -853,6 +857,8 @@ u32 XilSKey_EfusePl_ReadnCheck(XilSKey_EPl *PlInstancePtr)
 #else
 
 		if (XSK_EFUSEPL_CHECK_AES_KEY_CRC == TRUE){
+			xil_printf("AES Key's CRC provided for verification : %08x\n\r",
+					PlInstancePtr->CrcOfAESKey);
 			if (PlInstancePtr->AESKeyMatched == TRUE) {
 				xil_printf("AES key matched with expected AES Key's CRC\n\r");
 			}
@@ -911,16 +917,16 @@ EFUSE_ERROR:
 #if defined (XSK_MICROBLAZE_ULTRA_PLUS) || defined (XSK_MICROBLAZE_ULTRA)
 u32 XilSKey_EfusePl_LoadData_Slr(XilSKey_EPl *PlInstancePtr, u32 SlrNum)
 {
-	u32 PlStatus;
+	u32 PlStatus = XST_SUCCESS;
 
 	if (PlInstancePtr->ProgUserKeyUltra == TRUE) {
 
 		memset(&PlInstancePtr->UserKey[0], 0, sizeof(PlInstancePtr->UserKey));
 		switch(SlrNum)
 		{
-			case XSK_EFUSEPL_SLR1:			/* Validation of 32 bit User Key */
+			case XSK_SLR_CONFIG_ORDER_0:			/* Validation of 32 bit User Key */
 				PlStatus = XilSKey_Efuse_ValidateKey(
-					(char *)XSK_EFUSEPL_USER_KEY,
+					(char *)XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_0,
 					XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 
 				if(PlStatus != XST_SUCCESS)
@@ -929,13 +935,13 @@ u32 XilSKey_EfusePl_LoadData_Slr(XilSKey_EPl *PlInstancePtr, u32 SlrNum)
 
 				/* Assign the User key [31:0]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY ,
+					(char *)XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_0,
 					&PlInstancePtr->UserKey[0],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				break;
-			case XSK_EFUSEPL_SLR2:
+			case XSK_SLR_CONFIG_ORDER_1:
 				PlStatus = XilSKey_Efuse_ValidateKey(
-					(char *)XSK_EFUSEPL_USER_KEY_SLR2,
+					(char *)XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_1,
 					XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 
 				if(PlStatus != XST_SUCCESS)
@@ -944,13 +950,13 @@ u32 XilSKey_EfusePl_LoadData_Slr(XilSKey_EPl *PlInstancePtr, u32 SlrNum)
 
 				/* Assign the User key [31:0]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_SLR2 ,
+					(char *)XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_1 ,
 					&PlInstancePtr->UserKey[0],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				break;
-			case XSK_EFUSEPL_SLR3:
+			case XSK_SLR_CONFIG_ORDER_2:
 				PlStatus = XilSKey_Efuse_ValidateKey(
-					(char *)XSK_EFUSEPL_USER_KEY_SLR3,
+					(char *)XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_2,
 					XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 
 				if(PlStatus != XST_SUCCESS)
@@ -959,13 +965,13 @@ u32 XilSKey_EfusePl_LoadData_Slr(XilSKey_EPl *PlInstancePtr, u32 SlrNum)
 
 				/* Assign the User key [31:0]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_SLR3 ,
+					(char *)XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_2 ,
 					&PlInstancePtr->UserKey[0],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				break;
-			case XSK_EFUSEPL_SLR4:
+			case XSK_SLR_CONFIG_ORDER_3:
 				PlStatus = XilSKey_Efuse_ValidateKey(
-					(char *)XSK_EFUSEPL_USER_KEY_SLR4,
+					(char *)XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_3,
 					XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 
 				if(PlStatus != XST_SUCCESS)
@@ -974,7 +980,7 @@ u32 XilSKey_EfusePl_LoadData_Slr(XilSKey_EPl *PlInstancePtr, u32 SlrNum)
 
 				/* Assign the User key [31:0]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_SLR4 ,
+					(char *)XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_3 ,
 					&PlInstancePtr->UserKey[0],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				break;
@@ -992,9 +998,9 @@ u32 XilSKey_EfusePl_LoadData_Slr(XilSKey_EPl *PlInstancePtr, u32 SlrNum)
 		memset(&PlInstancePtr->AESKey[0], 0, sizeof(PlInstancePtr->AESKey));
 		switch(SlrNum)
 		{/* Validation of AES Key */
-			case XSK_EFUSEPL_SLR1:
+			case XSK_SLR_CONFIG_ORDER_0:
 				PlStatus = XilSKey_Efuse_ValidateKey(
-					(char *)XSK_EFUSEPL_AES_KEY,
+					(char *)XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_0,
 					XSK_EFUSEPL_AES_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
@@ -1002,64 +1008,68 @@ u32 XilSKey_EfusePl_LoadData_Slr(XilSKey_EPl *PlInstancePtr, u32 SlrNum)
 
 				/* Assign the AES Key Value */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_AES_KEY,
+					(char *)XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_0,
 					&PlInstancePtr->AESKey[0],
 					XSK_EFUSEPL_AES_KEY_SIZE_IN_BITS);
 
 				PlInstancePtr->CrcToVerify =
-						XilSKey_CrcCalculation((u8 *)XSK_EFUSEPL_AES_KEY);
+						XilSKey_CrcCalculation((u8 *)XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_0);
+				xil_printf("Expected CRC : %08x\n",PlInstancePtr->CrcToVerify);
 
 				if(PlStatus != XST_SUCCESS)
 				goto PL_INIT_ERROR;
 				break;
-			case XSK_EFUSEPL_SLR2:
+			case XSK_SLR_CONFIG_ORDER_1:
 
 				PlStatus = XilSKey_Efuse_ValidateKey(
-					(char *)XSK_EFUSEPL_AES_KEY_SLR2,
+					(char *)XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_1,
 					XSK_EFUSEPL_AES_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				/* Assign the AES Key Value */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_AES_KEY_SLR2,
+					(char *)XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_1,
 					&PlInstancePtr->AESKey[0],
 					XSK_EFUSEPL_AES_KEY_SIZE_IN_BITS);
 
 				PlInstancePtr->CrcToVerify =
-						XilSKey_CrcCalculation((u8 *)XSK_EFUSEPL_AES_KEY_SLR2);
+						XilSKey_CrcCalculation((u8 *)XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_1);
+				xil_printf("Expected CRC : %08x\n",PlInstancePtr->CrcToVerify);
 				break;
-			case XSK_EFUSEPL_SLR3:
+			case XSK_SLR_CONFIG_ORDER_2:
 				PlStatus = XilSKey_Efuse_ValidateKey(
-					(char *)XSK_EFUSEPL_AES_KEY_SLR3,
+					(char *)XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_2,
 					XSK_EFUSEPL_AES_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				/* Assign the AES Key Value */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_AES_KEY_SLR3,
+					(char *)XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_2,
 					&PlInstancePtr->AESKey[0],
 					XSK_EFUSEPL_AES_KEY_SIZE_IN_BITS);
 
 				PlInstancePtr->CrcToVerify =
-						XilSKey_CrcCalculation((u8 *)XSK_EFUSEPL_AES_KEY_SLR3);
+						XilSKey_CrcCalculation((u8 *)XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_2);
+				xil_printf("Expected CRC : %08x\n",PlInstancePtr->CrcToVerify);
 				break;
-			case XSK_EFUSEPL_SLR4:
+			case XSK_SLR_CONFIG_ORDER_3:
 				PlStatus = XilSKey_Efuse_ValidateKey(
-					(char *)XSK_EFUSEPL_AES_KEY_SLR4,
+					(char *)XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_3,
 					XSK_EFUSEPL_AES_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				/* Assign the AES Key Value */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_AES_KEY_SLR4,
+					(char *)XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_3,
 					&PlInstancePtr->AESKey[0],
 					XSK_EFUSEPL_AES_KEY_SIZE_IN_BITS);
 
 				PlInstancePtr->CrcToVerify =
-						XilSKey_CrcCalculation((u8 *)XSK_EFUSEPL_AES_KEY_SLR4);
+						XilSKey_CrcCalculation((u8 *)XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_3);
+				xil_printf("Expected CRC : %08x\n",PlInstancePtr->CrcToVerify);
 				break;
 			default:
 				PlStatus = XST_FAILURE;
@@ -1074,59 +1084,59 @@ u32 XilSKey_EfusePl_LoadData_Slr(XilSKey_EPl *PlInstancePtr, u32 SlrNum)
 		memset(&PlInstancePtr->RSAKeyHash[0], 0, sizeof(PlInstancePtr->RSAKeyHash));
 		switch(SlrNum)
 		{
-			case XSK_EFUSEPL_SLR1:
+			case XSK_SLR_CONFIG_ORDER_0:
 				/* Validation of RSA hash */
 				PlStatus = XilSKey_Efuse_ValidateKey(
-					(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE,
+					(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_0,
 					XSK_EFUSEPL_RSA_KEY_HASH_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				/* Assign the RSA hash */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE,
+					(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_0,
 					&PlInstancePtr->RSAKeyHash[0],
 					XSK_EFUSEPL_RSA_KEY_SIZE_IN_BITS);
 				break;
-			case XSK_EFUSEPL_SLR2:
+			case XSK_SLR_CONFIG_ORDER_1:
 				/* Validation of RSA hash */
 				PlStatus = XilSKey_Efuse_ValidateKey(
-					(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE_SLR2,
+					(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_1,
 					XSK_EFUSEPL_RSA_KEY_HASH_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				/* Assign the RSA hash */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE_SLR2,
+					(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_1,
 					&PlInstancePtr->RSAKeyHash[0],
 					XSK_EFUSEPL_RSA_KEY_SIZE_IN_BITS);
 				break;
-			case XSK_EFUSEPL_SLR3:
+			case XSK_SLR_CONFIG_ORDER_2:
 				/* Validation of RSA hash */
 				PlStatus = XilSKey_Efuse_ValidateKey(
-					(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE_SLR3,
+					(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_2,
 					XSK_EFUSEPL_RSA_KEY_HASH_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				/* Assign the RSA hash */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE_SLR3,
+					(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_2,
 					&PlInstancePtr->RSAKeyHash[0],
 					XSK_EFUSEPL_RSA_KEY_SIZE_IN_BITS);
 				break;
-			case XSK_EFUSEPL_SLR4:
+			case XSK_SLR_CONFIG_ORDER_3:
 				/* Validation of RSA hash */
 				PlStatus = XilSKey_Efuse_ValidateKey(
-					(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE_SLR4,
+					(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_3,
 					XSK_EFUSEPL_RSA_KEY_HASH_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				/* Assign the RSA hash */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE_SLR4,
+					(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_3,
 					&PlInstancePtr->RSAKeyHash[0],
 					XSK_EFUSEPL_RSA_KEY_SIZE_IN_BITS);
 				break;
@@ -1142,194 +1152,219 @@ u32 XilSKey_EfusePl_LoadData_Slr(XilSKey_EPl *PlInstancePtr, u32 SlrNum)
 		memset(&PlInstancePtr->User128Bit[0], 0, sizeof(PlInstancePtr->User128Bit));
 		switch(SlrNum)
 		{
-			case XSK_EFUSEPL_SLR1:
+			case XSK_SLR_CONFIG_ORDER_0:
 				/* Validation of 128 bit User Key */
 				PlStatus = XilSKey_Efuse_ValidateKey(
-						(char *)XSK_EFUSEPL_USER_KEY_128BIT_0,
+						(char *)XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_0,
 						XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				PlStatus = XilSKey_Efuse_ValidateKey(
-						(char *)XSK_EFUSEPL_USER_KEY_128BIT_1,
+						(char *)XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_0,
 						XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				PlStatus = XilSKey_Efuse_ValidateKey(
-						(char *)XSK_EFUSEPL_USER_KEY_128BIT_2,
+						(char *)XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_0,
 						XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				PlStatus = XilSKey_Efuse_ValidateKey(
-						(char *)XSK_EFUSEPL_USER_KEY_128BIT_3,
+						(char *)XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_0,
 						XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				/* Assign the 128 bit User key [31:0]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_128BIT_0,
+					(char *)XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_0,
 					&PlInstancePtr->User128Bit[0],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				/* Assign the 128 bit User key [63:32]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_128BIT_1,
+					(char *)XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_0,
 					&PlInstancePtr->User128Bit[4],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				/* Assign the 128 bit User key [95:64]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_128BIT_2,
+					(char *)XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_0,
 					&PlInstancePtr->User128Bit[8],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				/* Assign the 128 bit User key [128:95]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_128BIT_3,
+					(char *)XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_0,
 					&PlInstancePtr->User128Bit[12],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				break;
-			case XSK_EFUSEPL_SLR2:
+			case XSK_SLR_CONFIG_ORDER_1:
 				/* Validation of 128 bit User Key */
 				PlStatus = XilSKey_Efuse_ValidateKey(
-						(char *)XSK_EFUSEPL_USER_KEY_128BIT_0_SLR2,
+						(char *)XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_1,
 						XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				PlStatus = XilSKey_Efuse_ValidateKey(
-						(char *)XSK_EFUSEPL_USER_KEY_128BIT_1_SLR2,
+						(char *)XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_1,
 						XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				PlStatus = XilSKey_Efuse_ValidateKey(
-						(char *)XSK_EFUSEPL_USER_KEY_128BIT_2_SLR2,
+						(char *)XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_1,
 						XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				PlStatus = XilSKey_Efuse_ValidateKey(
-						(char *)XSK_EFUSEPL_USER_KEY_128BIT_3_SLR2,
+						(char *)XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_1,
 						XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				/* Assign the 128 bit User key [31:0]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_128BIT_0_SLR2,
+					(char *)XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_1,
 					&PlInstancePtr->User128Bit[0],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				/* Assign the 128 bit User key [63:32]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_128BIT_1_SLR2,
+					(char *)XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_1,
 					&PlInstancePtr->User128Bit[4],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				/* Assign the 128 bit User key [95:64]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_128BIT_2_SLR2,
+					(char *)XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_1,
 					&PlInstancePtr->User128Bit[8],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				/* Assign the 128 bit User key [128:95]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_128BIT_3_SLR2,
+					(char *)XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_1,
 					&PlInstancePtr->User128Bit[12],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				break;
-			case XSK_EFUSEPL_SLR3:
+			case XSK_SLR_CONFIG_ORDER_2:
 				/* Validation of 128 bit User Key */
 				PlStatus = XilSKey_Efuse_ValidateKey(
-						(char *)XSK_EFUSEPL_USER_KEY_128BIT_0_SLR3,
+						(char *)XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_2,
 						XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				PlStatus = XilSKey_Efuse_ValidateKey(
-						(char *)XSK_EFUSEPL_USER_KEY_128BIT_1_SLR3,
+						(char *)XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_2,
 						XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				PlStatus = XilSKey_Efuse_ValidateKey(
-						(char *)XSK_EFUSEPL_USER_KEY_128BIT_2_SLR3,
+						(char *)XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_2,
 						XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				PlStatus = XilSKey_Efuse_ValidateKey(
-						(char *)XSK_EFUSEPL_USER_KEY_128BIT_3_SLR3,
+						(char *)XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_2,
 						XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				/* Assign the 128 bit User key [31:0]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_128BIT_0_SLR3,
+					(char *)XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_2,
 					&PlInstancePtr->User128Bit[0],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				/* Assign the 128 bit User key [63:32]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_128BIT_1_SLR3,
+					(char *)XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_2,
 					&PlInstancePtr->User128Bit[4],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				/* Assign the 128 bit User key [95:64]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_128BIT_2_SLR3,
+					(char *)XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_2,
 					&PlInstancePtr->User128Bit[8],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				/* Assign the 128 bit User key [128:95]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_128BIT_3_SLR3,
+					(char *)XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_2,
 					&PlInstancePtr->User128Bit[12],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 
 				break;
-			case XSK_EFUSEPL_SLR4:
+			case XSK_SLR_CONFIG_ORDER_3:
 				/* Validation of 128 bit User Key */
 				PlStatus = XilSKey_Efuse_ValidateKey(
-						(char *)XSK_EFUSEPL_USER_KEY_128BIT_0_SLR4,
+						(char *)XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_3,
 						XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				PlStatus = XilSKey_Efuse_ValidateKey(
-						(char *)XSK_EFUSEPL_USER_KEY_128BIT_1_SLR4,
+						(char *)XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_3,
 						XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				PlStatus = XilSKey_Efuse_ValidateKey(
-						(char *)XSK_EFUSEPL_USER_KEY_128BIT_2_SLR4,
+						(char *)XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_3,
 						XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				PlStatus = XilSKey_Efuse_ValidateKey(
-						(char *)XSK_EFUSEPL_USER_KEY_128BIT_3_SLR4,
+						(char *)XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_3,
 						XSK_EFUSEPL_USER_KEY_STRING_SIZE);
 				if(PlStatus != XST_SUCCESS) {
 					goto PL_INIT_ERROR;
 				}
 				/* Assign the 128 bit User key [31:0]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_128BIT_0_SLR4,
+					(char *)XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_3,
 					&PlInstancePtr->User128Bit[0],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				/* Assign the 128 bit User key [63:32]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_128BIT_1_SLR4,
+					(char *)XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_3,
 					&PlInstancePtr->User128Bit[4],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				/* Assign the 128 bit User key [95:64]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_128BIT_2_SLR4,
+					(char *)XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_3,
 					&PlInstancePtr->User128Bit[8],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 				/* Assign the 128 bit User key [128:95]bits */
 				XilSKey_Efuse_ConvertStringToHexLE(
-					(char *)XSK_EFUSEPL_USER_KEY_128BIT_3_SLR4,
+					(char *)XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_3,
 					&PlInstancePtr->User128Bit[12],
 					XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
+				break;
+			default:
+				PlStatus = XST_FAILURE;
+				goto PL_INIT_ERROR;
+				break;
+
+		}
+	}
+
+	if (PlInstancePtr->CheckAESKeyUltra == TRUE)
+	{
+
+		switch(SlrNum)
+		{/* Set expected AES Key CRC */
+			case XSK_SLR_CONFIG_ORDER_0:
+				PlInstancePtr->CrcOfAESKey = XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_0;
+				break;
+			case XSK_SLR_CONFIG_ORDER_1:
+				PlInstancePtr->CrcOfAESKey = XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_1;
+				break;
+			case XSK_SLR_CONFIG_ORDER_2:
+				PlInstancePtr->CrcOfAESKey = XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_2;
+				break;
+			case XSK_SLR_CONFIG_ORDER_3:
+				PlInstancePtr->CrcOfAESKey = XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_3;
 				break;
 			default:
 				PlStatus = XST_FAILURE;
@@ -1498,7 +1533,6 @@ u32 XilSKey_EfusePl_InitData(XilSKey_EPl *PlInstancePtr)
 	PlInstancePtr->CheckAESKeyUltra = XSK_EFUSEPL_CHECK_AES_KEY_CRC;
 	PlInstancePtr->ReadUser128BitUltra = XSK_EFUSEPL_READ_USER_KEY128_BIT;
 
-	PlInstancePtr->CrcOfAESKey = XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY;
 
 	PlInstancePtr->JtagGpioID  = XSK_EFUSEPL_AXI_GPIO_DEVICE_ID;
 	PlInstancePtr->JtagGpioTDI = XSK_EFUSEPL_AXI_GPIO_JTAG_TDI;

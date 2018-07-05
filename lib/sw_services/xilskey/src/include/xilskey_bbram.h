@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -56,6 +54,7 @@
 *       psl     03/20/19 Added BBRAM key write support for SSIT devices.
 *       psl     03/29/19 Added Support for user configurable GPIO for jtag
 *                        control.
+* 6.8   psl     05/21/19 Added SystemInitDone to check jtag initialized or not.
 ****************************************************************************/
 #ifndef XILSKEY_BBRAM_H
 #define XILSKEY_BBRAM_H
@@ -132,7 +131,12 @@ typedef struct {
     /* Number of SLRs to iterate through */
     u32 NumSlr;
     /* Current SLR to iterate through */
-    u32 CurSlr;
+    u32 MasterSlr;
+    u32 SlrConfigOrderIndex;
+    /**
+     * Internal variable to check if timer, XADC and JTAG are initialized.
+     */
+    u32 SystemInitDone;
 
 }XilSKey_Bbram;
 /************************** Constant Definitions *****************************/
@@ -223,7 +227,7 @@ typedef struct {
 #define DRDEINIT		0x00
 
 /*
- * Data and instruction lenghts in de-init
+ * Data and instruction lengths in de-init
  */
 #define IRDEINITLEN		10
 #define DRDEINITLEN		2

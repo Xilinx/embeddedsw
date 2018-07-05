@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -78,6 +76,11 @@ extern "C" {
 #pragma message ("For the sleep routines, TTC3 is used if present else the assembly instructions are called")
 #endif
 
+/*
+ * 1st bit of PROCESSOR_ACCESS_VALUE macro signifies trustzone
+ * setting for IOU slcr address space
+ */
+#define IOU_SLCR_TZ_MASK	0x2U
 /**************************** Type Definitions *******************************/
 
 /* The following definitions are applicable only when TTC3 is present*/
@@ -87,6 +90,7 @@ typedef u32 XTime;
 void XTime_SetTime(XTime Xtime_Global);
 void XTime_GetTime(XTime *Xtime_Global);
 #endif
+
 
 #ifdef __cplusplus
 }

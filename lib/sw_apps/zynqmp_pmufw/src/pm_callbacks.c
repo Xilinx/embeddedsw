@@ -14,14 +14,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  */
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
@@ -38,35 +36,6 @@
 #include "xpfw_ipi_manager.h"
 #include "xpfw_mod_pm.h"
 
-#define IPI_REQUEST1(mask, arg0)				\
-{	\
-	u32 _ipi_req_data[] = {(arg0)};	\
-	(void)XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
-}
-
-#define IPI_REQUEST2(mask, arg0, arg1)				\
-{	\
-	u32 _ipi_req_data[] = {(arg0), (arg1)};	\
-	(void)XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
-}
-
-#define IPI_REQUEST3(mask, arg0, arg1, arg2)			\
-{	\
-	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2)};	\
-	(void)XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
-}
-
-#define IPI_REQUEST4(mask, arg0, arg1, arg2, arg3)		\
-{	\
-	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2), (arg3)};	\
-	(void)XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
-}
-
-#define IPI_REQUEST5(mask, arg0, arg1, arg2, arg3, arg4)	\
-{	\
-	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2), (arg3), (arg4)};	\
-	(void)XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
-}
 /**
  * PmAcknowledgeCb() - sends acknowledge via callback
  * @master      Master who is blocked and waiting for the acknowledge
@@ -86,7 +55,7 @@ void PmAcknowledgeCb(const PmMaster* const master, const PmNodeId nodeId,
 }
 
 /**
- * PmNotifyCb() - notifies a master about an event occurance
+ * PmNotifyCb() - notifies a master about an event occurrence
  * @master      Master to be notified about the event
  * @nodeId      Node id regarding which the event is triggered
  * @event       Event to informa master about

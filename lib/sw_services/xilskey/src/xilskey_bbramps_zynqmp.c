@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -53,6 +51,8 @@
 *                        XilSKey_ZynqMp_Bbram_Program
 *                        XilSKey_ZynqMp_Bbram_Zeroise
 * 6.7   psl     03/21/19 Fixed MISRA-C violation.
+* 6.8   psl     08/13/19 Fixed MISRA-C violation.
+*       vns     08/29/19 Initialized Status variables
 * </pre>
 *
 ******************************************************************************/
@@ -97,7 +97,7 @@ extern u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 {
 
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 AesCrc;
 	u32 *KeyPtr = AesKey;
 	u32 StatusRead = 0U;
@@ -110,7 +110,7 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 	/* Set in programming mode */
 	Status = XilSKey_ZynqMp_Bbram_PrgrmEn();
 	if (Status != (u32)XST_SUCCESS) {
-		Status = (Status + (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG);
+		Status = (Status | (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG);
 		goto END;
 	}
 
@@ -193,7 +193,7 @@ u32 XilSKey_ZynqMp_Bbram_Zeroise(void)
 		Offset = Offset + 4U;
 	}
 
-	/* Issue the zeroize comand */
+	/* Issue the zeroize command */
 	XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR, XSK_ZYNQMP_BBRAM_CTRL_OFFSET,
 				XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_MASK);
 
@@ -232,7 +232,7 @@ static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
 {
 
 	u32 StatusRead = 0U;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 TimeOut = 0U;
 
 	/*

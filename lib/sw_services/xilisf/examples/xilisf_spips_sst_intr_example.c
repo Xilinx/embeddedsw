@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -50,13 +48,14 @@
 * ----- --- -------- -----------------------------------------------
 * 1.00  srt 06/20/12 First release
 * 3.01  srt 03/03/13 Modified the flash write, erase and read logic.
-*		     Ensured flash blocks are unprotected befor a flash erase
+*		     Ensured flash blocks are unprotected before a flash erase
 *		     or write operation. (CR 703816)
 * 3.02  srt 04/26/13 Modified Erase function to perform Write Enable operation
 *		     for each sector erase.
 * 5.0   sb  08/05/14 Registering to Xilisf Interrupt handler
 *	             instead of driver handler.
 * 5.4   sk  08/07/15 Modified the example to support on ZynqMP.
+* 5.14  akm 08/01/19 Initialized Status variable to XST_FAILURE.
 *</pre>
 *
 ******************************************************************************/
@@ -185,7 +184,7 @@ u8 IsfWriteBuffer[XISF_CMD_SEND_EXTRA_BYTES + 1];
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	xil_printf("SPI FLASH Interrupt Example Test \r\n");
 
@@ -224,7 +223,7 @@ int main(void)
 int SpiFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 			 u16 SpiDeviceId, u16 SpiIntrId)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u8 *BufferPtr;
 	u8 UniqueValue;
 	u32 Count;
@@ -336,7 +335,7 @@ int SpiFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 ******************************************************************************/
 int IsfWaitForFlashNotBusy(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u8 StatusReg;
 
 	while(1) {
@@ -432,7 +431,7 @@ int FlashWrite(XIsf *InstancePtr, u32 Address, u32 ByteCount, u8 Command)
 {
 	XIsf_WriteParam WriteParam;
 
-	int Status;
+	int Status = XST_FAILURE;
 
 	WriteEnable(InstancePtr);
 
@@ -487,7 +486,7 @@ int FlashWrite(XIsf *InstancePtr, u32 Address, u32 ByteCount, u8 Command)
 int FlashRead(XIsf *InstancePtr, u32 Address, u32 ByteCount, u8 Command)
 {
 	XIsf_ReadParam ReadParam;
-	int Status;
+	int Status = XST_FAILURE;
 
 	/*
 	 * Set the
@@ -537,7 +536,7 @@ int FlashRead(XIsf *InstancePtr, u32 Address, u32 ByteCount, u8 Command)
 ******************************************************************************/
 int FlashErase(XIsf *InstancePtr, u32 Address, u32 ByteCount)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	int Sector;
 
 	/*
@@ -596,7 +595,7 @@ int FlashErase(XIsf *InstancePtr, u32 Address, u32 ByteCount)
 ******************************************************************************/
 int WriteEnable(XIsf *InstancePtr)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	/*
 	 * Perform the Write Enable operation.
@@ -643,7 +642,7 @@ int WriteEnable(XIsf *InstancePtr)
 static int SpiSetupIntrSystem(XScuGic *IntcInstancePtr,
 			       XSpiPs *SpiInstancePtr, u16 SpiIntrId)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	XScuGic_Config *IntcConfig; /* Instance of the interrupt controller */
 

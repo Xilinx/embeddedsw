@@ -14,14 +14,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  */
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
@@ -191,7 +189,7 @@ void PmNotifierUnregisterAll(const PmMaster* const mst)
 /**
  * PmNotifierProcessEvent() - Process event for the registration
  * @nt          Pointer to registered notifier
- * @event       Event that occured in the system
+ * @event       Event that occurred in the system
  */
 static void PmNotifierProcessEvent(const PmNotifier* const nt,
 				   const u32 event)
@@ -216,7 +214,7 @@ done:
  *              whether the notification callback should be sent for given
  *              arguments
  * @nd          Node regarding which the event is generated
- * @event       Event that occured in the system (check for its PU receipients)
+ * @event       Event that occurred in the system (check for its PU recipients)
  */
 void PmNotifierEvent(const PmNode* const nd, const u32 event)
 {

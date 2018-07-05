@@ -15,14 +15,10 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -42,12 +38,12 @@
 *                        CR#768077
 * 2.1   kvn     04/01/15 Fixed warnings. CR#716453.
 * 3.00  vns     31/07/15 Added efuse functionality for Ultrascale.
-* 4.0   vns     10/01/15 Modified condtional compilation
+* 4.0   vns     10/01/15 Modified conditional compilation
 *                        to support ZynqMp platform also.
 *                        Added new API Xsk_Ceil
 *                        Modified Xilskey_CrcCalculation() API for providing
 *                        support for efuse ZynqMp also.
-* 6.0   vns     07/07/16 Modifed XilSKey_Timer_Intialise API to intialize
+* 6.0   vns     07/07/16 Modified XilSKey_Timer_Intialise API to initialize
 *                        TimerTicks to 10us. As Hardware module only takes
 *                        care of programming time(5us), through software we
 *                        only need to control hardware module.
@@ -72,6 +68,13 @@
 * 6.7   psl     03/21/19 Fixed MISRA-C violation.
 *       vns     03/23/19 Fixed CRC calculation for Ultra plus
 *       arc     04/04/19 Fixed CPP warnings.
+* 6.8   psl     06/07/19 Added doxygen tags.
+*       psl     06/25/19 Fixed Coverity warnings.
+*       psl     06/28/19 Added doxygen tags.
+*       psl     07/29/19 Fixed MISRA-C violation.
+*       vns     08/29/19 Initialized Status variables
+*       mmd     07/31/19 Avoided reconfiguration of sysmon, if it is in use
+*
  *****************************************************************************/
 
 /***************************** Include Files ********************************/
@@ -111,6 +114,9 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 					XSKEfusePs_XAdc *XAdcInstancePtr);
 static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 					XSKEfusePs_XAdc *XAdcInstancePtr);
+#ifndef XSK_OVERRIDE_SYSMON_CFG
+static u32 XilSKey_Is_Valid_SysMon_Cfg(XSysMonPsu *InstancePtr);
+#endif
 #endif
 /***************************************************************************/
 /**
@@ -252,12 +258,12 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 	 * Read the on-chip Temperature Data (Current)
 	 * from the Sysmon PSU data registers.
 	 */
-	XAdcInstancePtr->Temp = XSysMonPsu_GetAdcData(XSysmonInstPtr,
+	XAdcInstancePtr->Temp = (u32)XSysMonPsu_GetAdcData(XSysmonInstPtr,
 						XSM_CH_TEMP, XSYSMON_PS);
 	xeFUSE_printf(XSK_EFUSE_DEBUG_GENERAL,
 		"Read Temperature Value: %0x -> %d in Centigrades \n",
 		XAdcInstancePtr->Temp,
-	(int )XSysMonPsu_RawToTemperature_OnChip(XAdcInstancePtr->Temp));
+	(int )XSysMonPsu_RawToTemperature_OnChip((float)XAdcInstancePtr->Temp));
 END:
 	return;
 
@@ -270,7 +276,7 @@ END:
 * @param	XAdcInstancePtr Pointer to the XSKEfusePs_XAdc.
 *		Voltage typ should be specified in XAdcInstancePtr's
 *		structure member VType.
-*		XSK_EFUSEPS_VPAUX - Reads PS VCC Auxilary voltage
+*		XSK_EFUSEPS_VPAUX - Reads PS VCC Auxiliary voltage
 *		XSK_EFUSEPS_VPINT - Reads VCC INT LP voltage
 *
 * @return	None
@@ -307,12 +313,12 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 		break;
 	}
 
-	XAdcInstancePtr->V = XSysMonPsu_GetAdcData(XSysmonInstPtr, V,
+	XAdcInstancePtr->V = (u32)XSysMonPsu_GetAdcData(XSysmonInstPtr, V,
 						XSYSMON_PS);
 	xeFUSE_printf(XSK_EFUSE_DEBUG_GENERAL,
 			"Read Voltage Value: %0x -> %d in Volts \n",
 			XAdcInstancePtr->V,
-			(int )XSysMonPsu_RawToVoltage(XAdcInstancePtr->V));
+			(int )XSysMonPsu_RawToVoltage((float)XAdcInstancePtr->V));
 END:
 	return;
 }
@@ -450,7 +456,7 @@ u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks(void)
 	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
 	 */
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-	XSKEfusePs_XAdc XAdcInstance;
+	XSKEfusePs_XAdc XAdcInstance = {0U};
 	XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(&XAdcInstance);
 	if ((XAdcInstance.Temp < (u32)XSK_EFUSEPS_TEMP_MIN_RAW) ||
 			((XAdcInstance.Temp > (u32)XSK_EFUSEPS_TEMP_MAX_RAW))) {
@@ -486,7 +492,7 @@ END:
 *
 *
 *
-* @param	RefClk - reference clock
+* @param	None.
 *
 * @return
 *
@@ -567,7 +573,7 @@ u64 XilSKey_Efuse_GetTime(void)
 *
 *
 * @return
-*	t  - timer ticks to wait to set the timeout
+*	None.
 *
 * @note		None.
 *
@@ -614,12 +620,12 @@ u8 XilSKey_Efuse_IsTimerExpired(u64 t)
  * @param InChar is input character. It has to be between 0-9,a-f,A-F
  * @param Num is the output nibble.
  * @return
- * 		- XST_SUCCESS no errors occured.
+ * 		- XST_SUCCESS no errors occurred.
  *		- XST_FAILURE an error when input parameters are not valid
  ****************************************************************************/
 static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num)
 {
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 	/**
 	 * Convert the char to nibble
 	 */
@@ -636,6 +642,7 @@ static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num)
 		Status = (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
 		goto END;
 	}
+	Status = (u32)XST_SUCCESS;
 END:
 	return Status;
 }
@@ -651,7 +658,7 @@ END:
  * @param	Buf is Output buffer.
  * @param	Len of the input string. Should have even values
  * @return
- * 		- XST_SUCCESS no errors occured.
+ * 		- XST_SUCCESS no errors occurred.
  *		- XST_FAILURE an error when input parameters are not valid
  *		- an error when input buffer has invalid values
  *
@@ -760,7 +767,7 @@ END:
  * @param	Buf is Output buffer.
  * @param	Len of the input string. Should have even values
  * @return
- * 		- XST_SUCCESS no errors occured.
+ * 		- XST_SUCCESS no errors occurred.
  *		- XST_FAILURE an error when input parameters are not valid
  *		- an error when input buffer has invalid values
  *
@@ -867,10 +874,9 @@ END:
 *
 * @param Be Big endian data
 * @param Le Little endian data
-* @param Len Length of data to be converted and it should be multiple of 4
-* @return
-* 		- XST_SUCCESS no errors occurred.
-*		- XST_FAILURE an error occurred during reading the PS eFUSE.
+* @param Len Length of data to be converted and it should be in number of
+* 	 words (multiple of 4 bytes)
+* @return	None.
 *
 * TDD Test Cases:
 *
@@ -878,12 +884,13 @@ END:
 void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len)
 {
 	u32 Index;
+	u32 Length;
 
 	if ((Be == NULL) || (Le == NULL) || (Len == 0U)) {
 		goto END;
 	}
-
-	for (Index = 0U; Index < Len; Index = Index+4U) {
+	Length = Len * 4U;
+	for (Index = 0U; Index < Length; Index = Index+4U) {
 		Le[Index+3]=Be[Index];
 		Le[Index+2]=Be[Index+1];
 		Le[Index+1]=Be[Index+2];
@@ -1029,7 +1036,7 @@ END:
 u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 {
 	u32 i;
-	u32 Status = (u32)XSK_EFUSEPL_ERROR_NONE;
+	u32 Status = (u32)XST_FAILURE;
 
 	Xil_AssertNonvoid(Key != NULL);
 	Xil_AssertNonvoid((Len == XSK_STRING_SIZE_2) ||
@@ -1042,13 +1049,13 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 	* Make sure passed key is not NULL
 	*/
 	if(Key == NULL) {
-		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION |
 			(u32)XSK_EFUSEPL_ERROR_NULL_KEY);
 		goto END;
 	}
 
 	if(Len == 0U) {
-		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION |
 			(u32)XSK_EFUSEPL_ERROR_ZERO_KEY_LENGTH);
 		goto END;
 	}
@@ -1057,7 +1064,7 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 	 * Make sure the key has valid length
 	 */
 	if (strlen(Key) != Len) {
-		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION |
 			(u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH);
 		goto END;
 	}
@@ -1067,11 +1074,13 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 	*/
 	for(i = 0U; i < strlen(Key); i++) {
 		if(XilSKey_Efuse_IsValidChar(&Key[i]) != (u32)XST_SUCCESS) {
-			Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+			Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION |
 				(u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_CHAR);
 			goto END;
 		}
 	}
+
+	Status = (u32)XSK_EFUSEPL_ERROR_NONE;
 END:
 	return Status;
 }
@@ -1107,7 +1116,7 @@ END:
 }
 /****************************************************************************/
 /**
- * This API intialises the Timer based on platform
+ * This API initializes the Timer based on platform
  *
  * @param	None.
  *
@@ -1152,7 +1161,7 @@ u32 XilSKey_Timer_Intialise(void)
 		(((RefClk * ArmPllFdiv)/ArmClkDivisor) / 2U) / 10000000U;
 #elif defined(XSK_MICROBLAZE_PLATFORM)
 
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	TimerTicksfor1000ns = 0U;
 
 	RefClk = XSK_EFUSEPL_CLCK_FREQ_ULTRA;
@@ -1213,10 +1222,9 @@ END:
 
 /****************************************************************************/
 /**
- * Calculates CRC value of provided key, this API expects key in string
- * format.
+ * This function Calculates CRC value based on hexadecimal string passed.
  *
- * @param	Key	Pointer to the string contains AES key in hexa decimal
+ * @param	Key	Pointer to the string contains AES key in hexadecimal
  *		 of length less than or equal to 64.
  *
  * @return
@@ -1224,10 +1232,12 @@ END:
  *		- On failure returns the error code when string length
  *		  is greater than 64
  *
- * @note	This API calculates CRC of AES key for Ultrascale Microblaze's
- * 		PL eFuse and ZynqMp UltraScale PS eFuse.
- *		If length of the string provided is lesser than 64, API appends
- *		the string with zeros.
+ * @note
+ *		If the length of the string provided is less than 64, this function
+ *		appends the string with zeros.
+ *		For calculation of AES key's CRC one can use
+ *		u32 XilSKey_CrcCalculation(u8 *Key) API or reverse polynomial
+ *      	0x82F63B78.
  * @cond xilskey_internal
  * @{
  * 		In Microblaze CRC will be calculated from 8th word of key to 0th
@@ -1248,7 +1258,7 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 	u32 Key_32 = 0U;
 	u32 Status;
 	u8 Key_Hex[4U] = {0};
-	u8 Key_8[9U];
+	u8 Key_8[9U] = {0};
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
 	u8 Row = 0U;
@@ -1405,39 +1415,13 @@ u32 XilSKey_Efuse_ReverseHex(u32 Input)
 
 /****************************************************************************/
 /**
-* This API celis the provided float value.
-*
-* @param	Value is a float variable which has to ceiled to nearest
-*		integer.
-*
-* @return	Returns ceiled value.
-*
-* @note	None.
-*
-*****************************************************************************/
-u32 XilSKey_Ceil(float Freq)
-{
-	u32 RetValue;
-
-	RetValue = ((Freq > (u32)Freq) || ((u32)Freq == 0U)) ?
-					(u32)((u32)Freq + 1U) : (u32)Freq;
-
-	return RetValue;
-
-}
-
-/****************************************************************************/
-/**
  * Calculates CRC value of the provided key. Key should be provided in
  * hexa buffer.
  *
- * @param	Key 	Pointer to an array of size 32 which contains AES key in
- *		hexa decimal.
+ * @param	Key 	Pointer to an array of 32 bytes, which holds an AES key.
  *
  * @return	Crc of provided AES key value.
  *
- * @note	This API calculates CRC of AES key for Ultrascale Microblaze's
- * 		PL eFuse and ZynqMp Ultrascale's PS eFuse.
  * @cond xilskey_internal
  * @{
  * 		In Microblaze CRC will be calculated from 8th word of key to 0th
@@ -1445,13 +1429,8 @@ u32 XilSKey_Ceil(float Freq)
  * 		8th word
  * @}
  @endcond
- *		This API calculates CRC on AES key provided in hexa format.
  *		To calculate CRC on the AES key in string format please use
  *		XilSKey_CrcCalculation.
- *		To call this API one can directly pass array of
- *		AES key which exists in an instance.
- *		Example for storing key into Buffer:
- *		If Key is "123456" buffer should be {0x12 0x34 0x56}
  *
  ****************************************************************************/
 u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
@@ -1459,13 +1438,13 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 	u32 Crc = 0U;
 	u32 Index;
 	u32 MaxIndex;
-	u32 Index1 = 0xFFFFFFFF;
+	u32 Index1 = 0xFFFFFFFFU;
 #if defined (XSK_MICROBLAZE_PLATFORM) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
 		u32 Key_32 = 0U;
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
-	u32 Row = 0;
+	u32 Row = 0U;
 #endif
 
 #if defined(XSK_MICROBLAZE_ULTRA_PLUS)
@@ -1522,4 +1501,164 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 	}
 
 	return Crc;
+}
+
+#if defined (XSK_ZYNQ_ULTRA_MP_PLATFORM) && !defined (XSK_OVERRIDE_SYSMON_CFG)
+
+/***************************************************************************/
+/**
+* This function is used to check ADC configuration is suitable for XilsKey
+*
+* @return
+* 		- XST_SUCCESS in case of valid ADC configuration for XilSKey
+*		- XST_FAILURE in case of invalid ADC configuration for XilSKey
+* 		- XSK_EFUSEPS_ERROR_XADC_CONFIG Error occurred with XADC config
+*
+* TDD Cases:
+*
+****************************************************************************/
+
+u32 XilSKey_EfusePs_XAdcCfgValidate (void)
+{
+	u32 Status = (u32)XST_FAILURE;
+
+	XSysMonPsu_Config *ConfigPtr;
+	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
+
+	/**
+	 * specify the Device ID that is
+	 * generated in xparameters.h
+	 */
+	XSysmonDevId = (u16)XSYSMON_DEVICE_ID;
+
+	/**
+	 * Initialize the XAdc driver.
+	 */
+	ConfigPtr = XSysMonPsu_LookupConfig(XSysmonDevId);
+	if (NULL == ConfigPtr) {
+		Status = (u32)XSK_EFUSEPS_ERROR_XADC_CONFIG;
+		goto END;
+	}
+
+	XSysMonPsu_InitInstance(XSysmonInstPtr, ConfigPtr);
+	Status = XilSKey_Is_Valid_SysMon_Cfg(XSysmonInstPtr);
+
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * This function checks if sysmon is configured correctly for XilSKey
+ * functions to monitor LPD temperature, VPINT, and VPAUX.
+ *
+ * @param	InstancePtr Instance pointer of SysMon.
+ *
+ * @return	XST_SUCCESS - If sysmon is configured for XilSKey library usage.
+ *		XST_FAILURE - If sysmon is not configured correctly for XilSKey
+ *		              library usage.
+ * @note	None.
+ *
+ ****************************************************************************/
+static u32 XilSKey_Is_Valid_SysMon_Cfg(XSysMonPsu *InstancePtr)
+{
+	u32 Status = XST_FAILURE;
+	u32 CfgData;
+	u32 SeqMode;
+	u32 SleepMode;
+	u32 Mask;
+
+	/* Calculate the effective baseaddress based on the Sysmon instance. */
+	u32 EffectiveBaseAddress =
+		XSysMonPsu_GetEffBaseAddress(InstancePtr->Config.BaseAddress,
+					XSYSMON_PS);
+
+	/* Read Cfg1 and make sure channels are configured to read in loop */
+	CfgData = Xil_In32(EffectiveBaseAddress + XSYSMONPSU_CFG_REG1_OFFSET);
+	SeqMode = (CfgData & XSYSMONPSU_CFG_REG1_SEQ_MDE_MASK) >>
+	                                     XSYSMONPSU_CFG_REG1_SEQ_MDE_SHIFT;
+	if ((SeqMode != XSM_SEQ_MODE_SAFE) &&
+	    (SeqMode != XSM_SEQ_MODE_CONTINPASS)) {
+		goto END;
+	}
+
+	/* When in continuous pass mode, make sure it includes below channels
+	 * for sampling
+	 *  1. Supply 1 (VPINT)
+	 *  2. Supply 3 (VPAUX)
+	 *  3. LPD Temperature
+	 */
+	if (XSM_SEQ_MODE_CONTINPASS == SeqMode) {
+		/* Get Channel sequence mask */
+		CfgData = Xil_In32(EffectiveBaseAddress +
+		                  XSYSMONPSU_SEQ_CH0_OFFSET);
+
+		Mask = XSYSMONPSU_SEQ_CH0_SUP3_MASK |
+		       XSYSMONPSU_SEQ_CH0_SUP1_MASK |
+		       XSYSMONPSU_SEQ_CH0_TEMP_MASK;
+
+		/* Make sure required channels for XilSKey are enabled */
+		if ((CfgData & Mask) != Mask) {
+			goto END;
+		}
+	}
+
+	/* Read Cfg2 and make sure sysmon is not in power save mode */
+	CfgData = Xil_In32(EffectiveBaseAddress + XSYSMONPSU_CFG_REG2_OFFSET);
+	SleepMode = (CfgData & XSYSMONPSU_CFG_REG2_PWR_DOWN_MASK) >>
+	                                    XSYSMONPSU_CFG_REG2_PWR_DOWN_SHIFT;
+	if (XSM_PWR_MODE_NORMAL == SleepMode) {
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+#endif
+
+/****************************************************************************/
+/**
+*
+* This function provides correct SLR number to be accessed for corresponding
+* config order index.
+*
+* @param	ConfigOrderIndex	provide config order index of SLR
+* @param	SlrNum		Pointer to SLR number, where this API updates with
+* 			corresponding SLR number.
+*
+* @return	None.
+*
+* @note	If master SLR of target device is SLR0 then both config order index
+* 		and SLR number are same in order.
+* 		If master SLR of target device is SLR1 then config oder and SLR
+* 		numbers are as below.
+* 		SLR 1 = config order index 0
+* 		SLR 0 = config order index 1
+* 		SLR 2 = config order index 2
+* 		SLR 3 = config order index 3
+* 		Configuration order index is the order of SLRs starting from master
+* 		followed by slaves.
+*
+*****************************************************************************/
+void XilSKey_GetSlrNum(u32 MasterSlrNum, u32 ConfigOrderIndex, u32 *SlrNum)
+{
+	/* If master SLR is SLR 0 */
+	if (MasterSlrNum == XSK_SLR_NUM_0) {
+		*SlrNum = ConfigOrderIndex;
+	}
+	else {
+		/* If master SLR is SLR 1 */
+		if (ConfigOrderIndex == XSK_SLR_CONFIG_ORDER_0) {
+			/* Master SLR is 1 */
+			*SlrNum = XSK_SLR_NUM_1;
+		}
+		else if (ConfigOrderIndex == XSK_SLR_CONFIG_ORDER_1) {
+			/* SLave 0 is SLR 0 */
+			*SlrNum = XSK_SLR_NUM_0;
+		}
+		else {
+			/* remaining are same */
+			*SlrNum = ConfigOrderIndex;
+		}
+	}
 }

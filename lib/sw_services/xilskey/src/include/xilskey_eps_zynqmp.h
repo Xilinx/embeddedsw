@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -62,6 +60,7 @@
 * 6.6   vns     06/06/18 Added doxygen tags
 *       vns     09/18/18 Added APIs to support eFUSE programming from linux
 * 6.7   arc     01/05/19 Fixed MISRA-C violations.
+* 6.8   psl     07/30/19 Fixed MISRA-C violations.
 * </pre>
 *
 *****************************************************************************/
@@ -150,17 +149,29 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_USR6_FUSE	(6U)
 #define XSK_ZYNQMP_EFUSEPS_USR7_FUSE	(7U)
 
+#define XSK_EFUSEPS_TPRGM_VALUE \
+	(((5.0f) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / (1000000.0f))
+#define XSK_EFUSEPS_TRD_VALUE	\
+ (((15.0f) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / (100000000.0f))
+#define XSK_EFUSEPS_TSUHPS_VALUE \
+ (((67.0f) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / (1000000000.0f))
+#define XSK_EFUSEPS_TSUHPSCS_VALUE \
+ (((46.0f) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / (1000000000.0f))
+#define XSK_EFUSEPS_TSUHCS_VALUE \
+ (((30.0f) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / (1000000000.0f))
+
 /* Timer related macros */
-#define XilSKey_ZynqMp_EfusePs_Tprgrm(RefClk) \
-	XilSKey_Ceil((((float)5.0) * (RefClk)) / ((float)1000000.0))
-#define XilSKey_ZynqMp_EfusePs_Trd(RefClk) \
-	XilSKey_Ceil((((float)15.0) * (RefClk)) / ((float)100000000.0))
-#define XilSKey_ZynqMp_EfusePs_TsuHPs(RefClk) \
-	XilSKey_Ceil((((float)67.0) * (RefClk)) / ((float)1000000000.0))
-#define XilSKey_ZynqMp_EfusePs_TsuHPsCs(RefClk) \
-	XilSKey_Ceil((((float)46.0) * (RefClk)) / ((float)1000000000.0))
-#define XilSKey_ZynqMp_EfusePs_TsuHCs(RefClk) \
-	XilSKey_Ceil((((float)30.0) * (RefClk)) / ((float)1000000000.0))
+#define XilSKey_ZynqMp_EfusePs_Tprgrm() \
+	Xil_Ceil(XSK_EFUSEPS_TPRGM_VALUE)
+#define XilSKey_ZynqMp_EfusePs_Trd() \
+	Xil_Ceil(XSK_EFUSEPS_TRD_VALUE)
+#define XilSKey_ZynqMp_EfusePs_TsuHPs() \
+	Xil_Ceil(XSK_EFUSEPS_TSUHPS_VALUE)
+#define XilSKey_ZynqMp_EfusePs_TsuHPsCs() \
+	Xil_Ceil(XSK_EFUSEPS_TSUHPSCS_VALUE)
+#define XilSKey_ZynqMp_EfusePs_TsuHCs() \
+	Xil_Ceil(XSK_EFUSEPS_TSUHCS_VALUE)
+
 
 #define XSK_ZYNQMP_SEC_PPK_INVLD_BITS_SET	(0x3U)
 			/**< If PPK invalid bits are set */

@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
  ******************************************************************************/
 /*****************************************************************************/
@@ -56,6 +54,9 @@
  *                     done by PLM based on the CDO's data exists in the PDI
  *                     images. So there is no need of xilfpga API's for versal
  *                     platform to configure the PL.
+ * 5.1 Nava  27/06/19  Updated documentation for readback API's.
+ * 5.1 Nava  16/07/19  Initialize empty status (or) status success to status failure
+ *                     to avoid security violations.
  *</pre>
  *
  *@note
@@ -112,7 +113,7 @@ u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 			    UINTPTR BitstreamImageAddr,
 			    UINTPTR AddrPtr_Size, u32 Flags)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 
 	/* Validate Bitstream Image */
 	Status = XFpga_PL_ValidateImage(InstancePtr, BitstreamImageAddr,
@@ -179,7 +180,7 @@ u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
 			   UINTPTR BitstreamImageAddr,
 			   UINTPTR AddrPtr_Size, u32 Flags)
 {
-	u32 Status;
+	u32 Status = XFPGA_VALIDATE_ERROR;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -210,7 +211,7 @@ u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
  *****************************************************************************/
 u32 XFpga_PL_Preconfig(XFpga *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XFPGA_PRE_CONFIG_ERROR;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -262,7 +263,7 @@ u32 XFpga_PL_Preconfig(XFpga *InstancePtr)
 u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 		   UINTPTR AddrPtr_Size, u32 Flags)
 {
-	 u32 Status;
+	 u32 Status = XFPGA_WRITE_BITSTREAM_ERROR;
 
 	 Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -294,7 +295,7 @@ u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
  *****************************************************************************/
 u32 XFpga_PL_PostConfig(XFpga *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XFPGA_POST_CONFIG_ERROR;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -319,10 +320,9 @@ u32 XFpga_PL_PostConfig(XFpga *InstancePtr)
  *
  * @param InstancePtr Pointer to the XFgpa structure
  *
- * @ReadbackAddr Address which is used to store the PL readback data.
+ * @param ReadbackAddr Address which is used to store the PL readback data.
  *
- * @ConfigReg_NumFrames Configuration register value to be returned (or)
- * 			The number of Fpga configuration frames to read
+ * @param NumFrames The number of Fpga configuration frames to read.
  *
  * @return
  *	- XFPGA_SUCCESS if successful
@@ -331,14 +331,14 @@ u32 XFpga_PL_PostConfig(XFpga *InstancePtr)
  *
  ****************************************************************************/
 u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
-			  u32 ConfigReg_NumFrames)
+			  u32 NumFrames)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	InstancePtr->ReadInfo.ReadbackAddr = ReadbackAddr;
-	InstancePtr->ReadInfo.ConfigReg_NumFrames = ConfigReg_NumFrames;
+	InstancePtr->ReadInfo.ConfigReg_NumFrames = NumFrames;
 
 	if (InstancePtr->XFpga_GetConfigData == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
@@ -357,9 +357,11 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
  *
  * @param InstancePtr Pointer to the XFgpa structure
  *
- * @param ConfigReg  Constant which represents the configuration
- *        register value to be returned.
- * @param Address DMA linear buffer address.
+ * @param ReadbackAddr Address which is used to store the PL Configuration
+ *		       register data.
+ *
+ * @param ConfigRegAddr Configuration register address as mentioned in the
+ *			ug570.
  *
  * @return
  *	- XFPGA_SUCCESS if successful
@@ -368,16 +370,16 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
  *
  ****************************************************************************/
 u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
-						 u32 ConfigReg_NumFrames)
+						 u32 ConfigRegAddr)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	InstancePtr->ReadInfo.ReadbackAddr = ReadbackAddr;
-	InstancePtr->ReadInfo.ConfigReg_NumFrames = ConfigReg_NumFrames;
+	InstancePtr->ReadInfo.ConfigReg_NumFrames = ConfigRegAddr;
 
-	if (InstancePtr->XFpga_GetConfigData == NULL) {
+	if (InstancePtr->XFpga_GetConfigReg == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 			"%s Implementation not exists..\r\n", __FUNCTION__);
@@ -398,7 +400,7 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
  *****************************************************************************/
 u32 XFpga_InterfaceStatus(XFpga *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 

@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************
 *
@@ -119,7 +117,7 @@ s32 powerpc405_init()
 
 	/* Initialize the Timer.
 	  * 1. If PowerPC PIT Timer has to be used, initialize PIT timer.
-	  * 2. Else use opb_timer. It can be directly connected or thru intc to PowerPC */
+	  * 2. Else use opb_timer. It can be directly connected or through intc to PowerPC */
 #ifdef PPC_PIT_INTERRUPT
 	ppc_pit_init();
 #else
@@ -193,7 +191,7 @@ s32 powerpc405_init(void)
 
 	/* Initialize the Timer.
 	 * 1. If PowerPC DEC Timer has to be used, initialize DEC timer.
-	 * 2. Else use opb_timer. It can be directly connected or thru intc to PowerPC */
+	 * 2. Else use opb_timer. It can be directly connected or through intc to PowerPC */
 #ifdef PPC_PIT_INTERRUPT
 	ppc_dec_init();
 #else

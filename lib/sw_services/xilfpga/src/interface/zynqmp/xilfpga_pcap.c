@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
  ******************************************************************************/
 /*****************************************************************************/
@@ -89,6 +87,12 @@
  *                     address return error.
  * 5.0 sne   27/03/19  Fixed misra-c violations.
  * 5.0 Nava  23/04/19  Optimize the API's logic to avoid code duplication.
+ * 5.1 Nava  27/06/19  Adds support to clear out the SHA3 engine.
+ * 5.1 Nava  05/07/19  Zeroize the Secure data to avoid security violations.
+ * 5.1 Nava  16/07/19  Begin all functions return status with failure and return
+ *		       to success only on successful completion of the operation
+ *                     of the functions.
+ * 5.1 Nava  16/07/19  Improve error handling in the bitstream validation path.
  * </pre>
  *
  * @note
@@ -318,9 +322,9 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 			if (Status != XFPGA_SUCCESS) {
 				Status = XFPGA_PCAP_UPDATE_ERR(Status, (u32)0U);
 				goto END;
-			} else {
-				goto UPDATE;
 			}
+
+			goto UPDATE;
 		}
 	}
 
@@ -347,25 +351,18 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 
 UPDATE:
 	if ((InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS) == 0U) {
-		if (Status == XFPGA_SUCCESS) {
-			if (BitstreamPos == BOOTGEN_DATA_OFFSET) {
-				PartHeaderOffset = Xil_In32(
-				InstancePtr->WriteInfo.BitstreamAddr
-						+ PARTATION_HEADER_OFFSET);
-				InstancePtr->WriteInfo.AddrPtr_Size =
-				Xil_In32(
-				InstancePtr->WriteInfo.BitstreamAddr +
-				PartHeaderOffset) * WORD_LEN;
-			} else {
-				InstancePtr->WriteInfo.AddrPtr_Size -=
-								BitstreamPos;
-			}
-
-			InstancePtr->WriteInfo.BitstreamAddr += BitstreamPos;
-
+		if (BitstreamPos == BOOTGEN_DATA_OFFSET) {
+			PartHeaderOffset = Xil_In32(
+					InstancePtr->WriteInfo.BitstreamAddr
+					+ PARTATION_HEADER_OFFSET);
+			InstancePtr->WriteInfo.AddrPtr_Size =
+			Xil_In32(InstancePtr->WriteInfo.BitstreamAddr +
+						PartHeaderOffset) * WORD_LEN;
 		} else {
-			Status = XFPGA_PCAP_UPDATE_ERR(Status, 0U);
+			InstancePtr->WriteInfo.AddrPtr_Size -= BitstreamPos;
 		}
+
+		InstancePtr->WriteInfo.BitstreamAddr += BitstreamPos;
 	}
 END:
 	InstancePtr->PLInfo.State = XFPGA_PRE_CONFIG;
@@ -505,7 +502,7 @@ END:
  *****************************************************************************/
 static u32 XFpga_PostConfigPcap(XFpga *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 	u8 EndianType = 0U;
 	u32 RegVal;
 
@@ -704,7 +701,7 @@ static u32 XFpga_PcapWaitForidle(void)
 static u32 XFpga_ValidateCryptoFlags(const XSecure_ImageInfo *ImageInfo,
 								u32 Flags)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 	u8 IsImageAuthenticated = 0U;
 	u8 IsImageUserKeyEncrypted = 0U;
 	u8 IsImageDevKeyEncrypted = 0U;
@@ -728,9 +725,10 @@ static u32 XFpga_ValidateCryptoFlags(const XSecure_ImageInfo *ImageInfo,
 			IsImageDevKeyEncrypted = 1U;
 		} else if (ImageInfo->KeySrc == XFPGA_KEY_SRC_KUP) {
 			IsImageUserKeyEncrypted = 1U;
+		} else {
+			goto END;
 		}
-                else { /* for MISRA-C viloation */}
-	}
+     }
 
 	if (((Flags & XFPGA_AUTHENTICATION_DDR_EN) != 0U) ||
 			((Flags & XFPGA_AUTHENTICATION_OCM_EN) != 0U)) {
@@ -749,10 +747,9 @@ static u32 XFpga_ValidateCryptoFlags(const XSecure_ImageInfo *ImageInfo,
 		(IsImageDevKeyEncrypted == IsFlagSetToDevKeyEncryption) &&
 		(IsImageUserKeyEncrypted == IsFlagSetToUserKeyEncryption)) {
 		Status = XFPGA_SUCCESS;
-	} else {
-		Status = XFPGA_FAILURE;
 	}
 
+END:
 	return Status;
 }
 #ifdef XFPGA_SECURE_MODE
@@ -891,6 +888,11 @@ static u32 XFpga_SecureBitstreamLoad(XFpga *InstancePtr)
 	}
 
 END:
+	/* Zeroize the Secure data*/
+	(void)memset(&InstancePtr->PLInfo.SecureImageInfo, 0,
+			sizeof(InstancePtr->PLInfo.SecureImageInfo));
+	(void)memset(&InstancePtr->PLInfo.PlAesInfo, 0,
+				sizeof(InstancePtr->PLInfo.PlAesInfo));
 
 	return Status;
 }
@@ -1090,6 +1092,9 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 
 	Status = XSecure_DataAuth(Signature, &Key, Sha3Hash);
 END:
+	/* Set SHA under reset */
+	XSecure_SetReset(Secure_Sha3.BaseAddress,
+					XSECURE_CSU_SHA3_RESET_OFFSET);
 	return Status;
 }
 /*****************************************************************************/
@@ -1185,6 +1190,9 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 	Status = XSecure_Sha3Finish(&Secure_Sha3, Sha3Hash);
 
 END:
+	/* Set SHA under reset */
+	XSecure_SetReset(Secure_Sha3.BaseAddress,
+					XSECURE_CSU_SHA3_RESET_OFFSET);
 	return Status;
 }
 
@@ -1515,55 +1523,60 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 			goto END;
 		}
 
-		/* Send whole chunk of data to AES */
-		if ((Size <=
-			(PartitionParams->PlEncrypt.SecureAes->SizeofData)) &&
-		   (PartitionParams->PlEncrypt.SecureAes->SizeofData != 0U)) {
-			XFpga_DmaPlCopy(
+		if (PartitionParams->PlEncrypt.SecureAes->SizeofData != 0U) {
+
+			/* Send whole chunk of data to AES */
+			if ((Size <=
+			    (PartitionParams->PlEncrypt.SecureAes->
+			    SizeofData))) {
+				XFpga_DmaPlCopy(
 				PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
 					(UINTPTR)SrcAddr, Size/WORD_LEN, 0U);
-			PartitionParams->PlEncrypt.SecureAes->SizeofData =
-			PartitionParams->PlEncrypt.SecureAes->SizeofData - Size;
-			Size = 0U;
-		}
-
-		/*
-		 * If data to be processed is not zero
-		 * and chunk of data is greater
-		 */
-		else if (
-			PartitionParams->PlEncrypt.SecureAes->SizeofData != 0U) {
-			/* First transfer whole data other than secure header */
-			XFpga_DmaPlCopy(
-				PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
-				(UINTPTR)SrcAddr,
-			PartitionParams->PlEncrypt.SecureAes->SizeofData/
-								WORD_LEN, 0U);
-			SrcAddr = SrcAddr +
-			(u64)PartitionParams->PlEncrypt.SecureAes->SizeofData;
-			Size = Size -
-			PartitionParams->PlEncrypt.SecureAes->SizeofData;
-			PartitionParams->PlEncrypt.SecureAes->SizeofData = 0U;
+				PartitionParams->
+				PlEncrypt.SecureAes->SizeofData =
+				PartitionParams->PlEncrypt.SecureAes->SizeofData
+									 - Size;
+				Size = 0U;
+			} else {
 			/*
-			 * when data to be processed is greater than
-			 * remaining data of the encrypted block
-			 * and part of GCM tag and secure header of next block
-			 * also exists with chunk, copy that portion for
-			 * proceessing along with next chunk of data
+			 * If data to be processed is not zero
+			 * and chunk of data is greater
 			 */
 
-			if (Size <
-			 (XSECURE_SECURE_HDR_SIZE +
-				XSECURE_SECURE_GCM_TAG_SIZE)) {
-				if(SrcAddr == (UINTPTR)NULL)
-				{goto END;}
-				(void)memcpy(PartitionParams->SecureHdr,
+			/* First transfer whole data other than secure header */
+				XFpga_DmaPlCopy(
+				PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
+				(UINTPTR)SrcAddr,
+				PartitionParams->
+				PlEncrypt.SecureAes->SizeofData/WORD_LEN, 0U);
+				SrcAddr = SrcAddr + (u64)PartitionParams->
+						PlEncrypt.SecureAes->SizeofData;
+				Size = Size - PartitionParams->
+						PlEncrypt.SecureAes->SizeofData;
+				PartitionParams->
+					PlEncrypt.SecureAes->SizeofData = 0U;
+				/*
+				 * when data to be processed is greater than
+				 * remaining data of the encrypted block
+				 * and part of GCM tag and secure header of
+				 * next block also exists with chunk,
+				 * copy that portion for proceessing along
+				 *  with next chunk of data
+				 */
+				if (Size < (XSECURE_SECURE_HDR_SIZE +
+					XSECURE_SECURE_GCM_TAG_SIZE)) {
+
+					if(SrcAddr == (UINTPTR)NULL) {
+						goto END;
+					}
+
+					(void)memcpy(PartitionParams->SecureHdr,
 						(u8 *)(UINTPTR)SrcAddr, Size);
-				PartitionParams->Hdr = (u8)Size;
-				Size = 0U;
+					PartitionParams->Hdr = (u8)Size;
+					Size = 0U;
+				}
 			}
 		}
-                else { /* MISRA-C violations */}
 
 		/* Wait PCAP done */
 		Status = XFpga_PcapWaitForDone();
@@ -1989,7 +2002,7 @@ static u32 XFpga_PcapStatus(void)
  ****************************************************************************/
 static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 	u32 RegVal;
 	UINTPTR Address = InstancePtr->ReadInfo.ReadbackAddr;
 	u32 CmdIndex;
@@ -2116,7 +2129,7 @@ END:
  ****************************************************************************/
 static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 	UINTPTR Address = InstancePtr->ReadInfo.ReadbackAddr;
 	u32 NumFrames = InstancePtr->ReadInfo.ConfigReg_NumFrames;
 	u32 RegVal;
@@ -2429,7 +2442,7 @@ static u8 XFpga_GetFirmwareState(void)
 }
 
 /*****************************************************************************/
-/* This function is responsible for  identifying the Bitstream Endianess,
+/* This function is responsible for  identifying the Bitstream Endianness,
  * and set the required csudma configurations before transfer the data
  * into the PL.
  *
@@ -2451,45 +2464,59 @@ static u32 XFpga_SelectEndianess(u8 *Buf, u32 Size, u32 *Pos)
 	u8 BitHdrSize = ARRAY_LENGTH(BootgenBinFormat);
 	u32 IsBitNonAligned;
 
-	if(BitHdrSize ==0U){/*For Misrac violation*/}
-	if(Size ==0U){/*For Misrac violation*/}
+	/* Check for Bitstream Size */
+	if(Size ==0U){
+		goto END;
+	}
+
+	/* Check For Header length */
+	if(BitHdrSize ==0U){
+		goto END;
+	}
+
 	for (Index = 0U; Index <= BOOTGEN_DATA_OFFSET; Index++) {
 	/* Find the First Dummy Byte */
 		if (Buf[Index] == DUMMY_BYTE) {
+			/* For Bootgen generated Bin files */
 			if ((memcmp(&Buf[Index + SYNC_BYTE_POSITION],
 			    BootgenBinFormat, BitHdrSize)) == 0) {
 				EndianType = 0U;
 				Status = XFPGA_SUCCESS;
 				break;
-			} else if ((memcmp(&Buf[Index + SYNC_BYTE_POSITION],
+			}
+			/* For Vivado generated Bit files  */
+			if ((memcmp(&Buf[Index + SYNC_BYTE_POSITION],
 				   VivadoBinFormat, BitHdrSize)) == 0) {
 				EndianType = 1U;
 				Status = XFPGA_SUCCESS;
 				break;
 			}
-                        else { /* MISRA-C violation */}
 		}
 	}
 
-	if (Status == XFPGA_SUCCESS) {
-		IsBitNonAligned = Index % 4U;
-		if (IsBitNonAligned != 0U) {
-			(void)memcpy(Buf, Buf + IsBitNonAligned, Size - IsBitNonAligned);
-			Index -= IsBitNonAligned;
-		}
+	if (Status != XFPGA_SUCCESS) {
+		goto END;
+	}
 
-		RegVal = XCsuDma_ReadReg(CsuDmaPtr->Config.BaseAddress,
-					((u32)(XCSUDMA_CTRL_OFFSET) +
-					((u32)XCSUDMA_SRC_CHANNEL *
-					(u32)(XCSUDMA_OFFSET_DIFF))));
-		RegVal |= ((u32)EndianType << (u32)(XCSUDMA_CTRL_ENDIAN_SHIFT)) &
-					(u32)(XCSUDMA_CTRL_ENDIAN_MASK);
-		XCsuDma_WriteReg(CsuDmaPtr->Config.BaseAddress,
+	IsBitNonAligned = Index % 4U;
+	if (IsBitNonAligned != 0U) {
+		(void)memcpy(Buf, Buf + IsBitNonAligned, Size - IsBitNonAligned);
+		Index -= IsBitNonAligned;
+	}
+
+	RegVal = XCsuDma_ReadReg(CsuDmaPtr->Config.BaseAddress,
 				((u32)(XCSUDMA_CTRL_OFFSET) +
 				((u32)XCSUDMA_SRC_CHANNEL *
-				(u32)(XCSUDMA_OFFSET_DIFF))), RegVal);
-		*Pos = Index;
-	}
+				(u32)(XCSUDMA_OFFSET_DIFF))));
+	RegVal |= ((u32)EndianType << (u32)(XCSUDMA_CTRL_ENDIAN_SHIFT)) &
+				(u32)(XCSUDMA_CTRL_ENDIAN_MASK);
+	XCsuDma_WriteReg(CsuDmaPtr->Config.BaseAddress,
+			((u32)(XCSUDMA_CTRL_OFFSET) +
+			((u32)XCSUDMA_SRC_CHANNEL *
+			(u32)(XCSUDMA_OFFSET_DIFF))), RegVal);
+	*Pos = Index;
+
+END:
 
 	return Status;
 }

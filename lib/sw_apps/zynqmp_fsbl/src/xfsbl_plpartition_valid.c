@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 *******************************************************************************/
 /*****************************************************************************/
@@ -280,7 +278,7 @@ static u32 XFsbl_PlBlockAuthentication(XFsblPs * FsblInstancePtr,
 		XFsbl_Printf(DEBUG_GENERAL,
 			"XFsbl_PlPartition:"
 			"XFSBL_ERROR_PROVIDED_BUF_HASH_STORE Required "
-			"hashs = %d \t provided = %d\r\n", NoOfChunks,
+			"hashes = %d \t provided = %d\r\n", NoOfChunks,
 			PartitionParams->PlAuth.NoOfHashs);
 		return XFSBL_ERROR_PROVIDED_BUF_HASH_STORE;
 	}
@@ -303,7 +301,7 @@ static u32 XFsbl_PlBlockAuthentication(XFsblPs * FsblInstancePtr,
 
 	/*
 	 * Re-Authentication of block calculates the hash on
-	 * chunks and compares with stored hashs
+	 * chunks and compares with stored hashes
 	 * If decryption is enabled data is been sent to AES
 	 * and if decryption is disabled
 	 * data is written to PCAP with CSU DMA
@@ -358,7 +356,7 @@ static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
 	}
 	XSecure_Sha3Start(&SecureSha3);
 
-	/* calculating hashs for all chunks copies to AES/PCAP */
+	/* calculating hashes for all chunks copies to AES/PCAP */
 	for (Index = 0; Index < NoOfChunks; Index++) {
 			/* Last chunk */
 			if (Index == NoOfChunks -1) {
@@ -379,7 +377,7 @@ static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
 				PartitionParams->ChunkBuffer, Len);
 			XSecure_Sha3_ReadHash(&SecureSha3, (u8 *)ChunksHash);
 
-			/* Comparing with stored Hashs */
+			/* Comparing with stored Hashes */
 			Status = XFsbl_CompareHashs(HashStored, ChunksHash,
 					PartitionParams->PlAuth.AuthType);
 			if (Status != XFSBL_SUCCESS) {
@@ -404,7 +402,7 @@ static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
 
 			/* If image is not encrypted */
 			if (PartitionParams->IsEncrypted == FALSE) {
-				/* Configure Secure stream swith to PCAP */
+				/* Configure Secure stream switch to PCAP */
 				XFsbl_Out32(CSU_CSU_SSS_CFG,
 					XFSBL_CSU_SSS_SRC_SRC_DMA <<
 					CSU_CSU_SSS_CFG_PCAP_SSS_SHIFT);

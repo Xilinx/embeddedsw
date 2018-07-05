@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
  ******************************************************************************/
 
@@ -150,7 +148,7 @@ extern u32 Iv[XIH_BH_IV_LENGTH / 4U];
 /****************************************************************************/
 /**
  * This function is used to save the data section into duplicate data section
- * so that it can be restored from incase of subsequent warm restarts
+ * so that it can be restored from in case of subsequent warm restarts
  *
  * @param  None
  *
@@ -243,7 +241,7 @@ static u32 XFsbl_GetResetReason (void)
 		}
 		else
 		{
-			Ret = XFSBL_APU_ONLY_RESET;
+			Ret = XFSBL_MASTER_ONLY_RESET;
 			XFsbl_RestoreData();
 		}
 	}
@@ -288,20 +286,11 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	/**
 	 * Configure the system as in PSU
 	 */
-	if(FsblInstancePtr->ResetReason !=  XFSBL_APU_ONLY_RESET){
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason) {
 		Status = XFsbl_SystemInit(FsblInstancePtr);
 		if (XFSBL_SUCCESS != Status) {
 			goto END;
 		}
-	}
-	else
-	{
-		/* XFSBL_APU_ONLY_RESET */
-		/* APU only restart with pending interrupts can cause the linux to
-		 * hang when it starts the second time. So FSBL clears all pending interrupts
-		 * in case of APU only restart.
-		 */
-		XFsbl_ClearPendingInterrupts();
 	}
 
 	/**
@@ -322,7 +311,18 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 		goto END;
 	}
 
-	if(FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET) {
+	if (XFSBL_MASTER_ONLY_RESET == FsblInstancePtr->ResetReason) {
+
+		if (FsblInstancePtr->ProcessorID == XIH_PH_ATTRB_DEST_CPU_A53_0) {
+			/* APU only restart with pending interrupts can cause the linux
+			 * to hang when it starts the second time. So FSBL clears all
+			 * pending interrupts in case of APU only restart.
+			 */
+			XFsbl_ClearPendingInterrupts();
+		}
+	}
+
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason) {
 		/* Do ECC Initialization of TCM if required */
 		Status = XFsbl_TcmInit(FsblInstancePtr);
 		if (XFSBL_SUCCESS != Status) {
@@ -356,8 +356,8 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 
 #if defined(XFSBL_PL_CLEAR) && defined(XFSBL_BS)
 		/* In case of PS only reset and APU only reset skipping PCAP initialization*/
-		if ((FsblInstancePtr->ResetReason != XFSBL_PS_ONLY_RESET)&&
-			(FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET)) {
+		if ((XFSBL_PS_ONLY_RESET != FsblInstancePtr->ResetReason)&&
+			(XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason)) {
 			Status = XFsbl_PcapInit();
 			if (XFSBL_SUCCESS != Status) {
 				goto END;
@@ -484,6 +484,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 	PTRSIZE ClusterId;
 	u32 RegValue;
 	u32 Index=0U;
+	u32 FsblProcType = 0;
 	char DevName[PART_NAME_LEN_MAX];
 
 	/**
@@ -521,6 +522,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 		XFsbl_Printf(DEBUG_GENERAL,"Running on A53-0 ");
 		FsblInstancePtr->ProcessorID =
 				XIH_PH_ATTRB_DEST_CPU_A53_0;
+		FsblProcType = XFSBL_RUNNING_ON_A53 << XFSBL_STATE_PROC_SHIFT;
 #ifdef __aarch64__
 		/* Running on A53 64-bit */
 		XFsbl_Printf(DEBUG_GENERAL,"(64-bit) Processor");
@@ -541,13 +543,14 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 				"Running on R5 Processor in Lockstep");
 			FsblInstancePtr->ProcessorID =
 				XIH_PH_ATTRB_DEST_CPU_R5_L;
+			FsblProcType = XFSBL_RUNNING_ON_R5_L << XFSBL_STATE_PROC_SHIFT;
 		} else {
 			XFsbl_Printf(DEBUG_GENERAL,
 				"Running on R5-0 Processor");
 			FsblInstancePtr->ProcessorID =
 				XIH_PH_ATTRB_DEST_CPU_R5_0;
+			FsblProcType = XFSBL_RUNNING_ON_R5_0 << XFSBL_STATE_PROC_SHIFT;
 		}
-
 
 		/* Update the Low Vector locations in R5 TCM */
 		while (Index<32U) {
@@ -567,6 +570,14 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 				"XFSBL_ERROR_UNSUPPORTED_CLUSTER_ID\n\r");
 		goto END;
 	}
+
+	/*
+	 * Update FSBL processor information to PMU Global Reg5
+	 * as PMU require this during boot for warm-restart feature.
+	*/
+	FsblProcType |= (XFsbl_In32(PMU_GLOBAL_GLOB_GEN_STORAGE5) & ~(XFSBL_STATE_PROC_INFO_MASK));
+
+	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, FsblProcType);
 
 	/* Build Device name and print it */
 	(void)XFsbl_Strcpy(DevName, "XCZU");
@@ -725,13 +736,9 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 				goto END;
 			}
 		}
-	}
-	else if(FsblInstancePtr->ResetReason == XFSBL_APU_ONLY_RESET)
-	{
+	} else if (XFSBL_MASTER_ONLY_RESET == FsblInstancePtr->ResetReason) {
 		/*Do nothing*/
-	}
-	else
-	{
+	} else {
         /**
         * PMU-fw applied AIB between ps and pl only while ps only reset.
         * Remove the isolation so as to access pl again
@@ -857,7 +864,7 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		 * Skip watching over APU using WDT during APU only restart
 		 * as PMU will watchover APU
 		 */
-		if (FsblInstance.ResetReason != XFSBL_APU_ONLY_RESET) {
+		if (XFSBL_MASTER_ONLY_RESET != FsblInstance.ResetReason) {
 			Status = XFsbl_InitWdt();
 			if (XFSBL_SUCCESS != Status) {
 				XFsbl_Printf(DEBUG_GENERAL,"WDT initialization failed \n\r");
@@ -1249,6 +1256,11 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 			 */
 			Size = (AcOffset * XIH_PARTITION_WORD_LENGTH) -
 				(ImageHeaderTableAddressOffset);
+			if(Size > sizeof(ReadBuffer))
+			{
+				Status = XFSBL_ERROR_IMAGE_HEADER_SIZE;
+				goto END;
+			}
 
 			/* Copy the Image header to OCM */
 			Status = FsblInstancePtr->DeviceOps.DeviceCopy(
@@ -1741,7 +1753,7 @@ u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr, u32 CpuId)
 
 	 /**
 	  * For R5-L,R5-0 don't initialize initial 32 bytes of TCM,
-	  * because inital 32 bytes are holding R5 vectors.
+	  * because initial 32 bytes are holding R5 vectors.
 	  */
 
 	if(CpuId == XIH_PH_ATTRB_DEST_CPU_A53_0) {
@@ -1876,7 +1888,7 @@ END:
 
 /*****************************************************************************/
 /**
- * This function clears pending interrupts. This is called only during APU ony
+ * This function clears pending interrupts. This is called only during APU only
  *  reset.
  *
  * @param

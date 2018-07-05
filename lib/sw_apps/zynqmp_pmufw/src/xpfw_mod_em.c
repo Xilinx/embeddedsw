@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 
 #include "xpfw_default.h"
@@ -130,64 +128,11 @@ void NullHandler(u8 ErrorId)
  * @note      Called when an error from watchdog timer in the FPD subsystem
  *            occurs and it resets the FPD. APU resumes from HIVEC after reset
  */
-void FpdSwdtHandler(u8 ErrorId)
+void SwdtHandler(u8 ErrorId)
 {
-	XPfw_Printf(DEBUG_ERROR,"EM: FPD Watchdog Timer Error (Error ID: %d)\r\n",
+	XPfw_Printf(DEBUG_ERROR,"EM: Watchdog Timer Error (Error ID: %d)\r\n",
 			ErrorId);
 	XPfw_RecoveryHandler(ErrorId);
-}
-
-/****************************************************************************/
-/**
- * @brief  This scheduler task checks for FSBL execution completion and sets
- *         error action for PLL lock errors and FPD WDT error
- *
- * @param  None.
- *
- * @return None.
- *
- * @note   None.
- *
- ****************************************************************************/
-static void CheckFsblCompletion(void)
-{
-	s32 Status;
-	u32 FsblCompletionStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
-
-	if ((FsblCompletionStatus & FSBL_COMPLETION) == FSBL_COMPLETION) {
-
-		/* Clear previous PLL lock errors if any */
-		XPfw_Write32(PMU_GLOBAL_ERROR_STATUS_2, PMU_GLOBAL_ERROR_STATUS_2_PLL_LOCK_MASK);
-
-		/* Set PS Error Out action for PLL lock errors */
-		(void)XPfw_EmSetAction(EM_ERR_ID_PLL_LOCK, EM_ACTION_PSERR, NULL);
-
-		/* If ENABLE_RECOVERY is defined, PMU need to call this function and
-		 * set FPD WDT error action to APU only restart after FSBL execution
-		 * is completed
-		 */
-		(void)XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, FPD_WDT_EM_ACTION,
-				ErrorTable[EM_ERR_ID_FPD_SWDT].Handler);
-		if (XPfw_RecoveryInit() == (u32)XST_SUCCESS) {
-			/* This is to enable FPD WDT and enable recovery mechanism when
-			* ENABLE_RECOVERY flag is defined.
-			*/
-		}
-
-		/*
-		 * Once FSBL execution is completed, PMU need to enable the LPD WDT
-		 * error and set the error action as FSBL disables while exiting.
-		 */
-		(void)XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_SRST,
-				ErrorTable[EM_ERR_ID_LPD_SWDT].Handler);
-
-		Status = XPfw_CoreRemoveTask(EmModPtr, (u32)CHECK_FSBL_COMPLETION,
-				CheckFsblCompletion);
-		if (XST_FAILURE == Status) {
-			XPfw_Printf(DEBUG_ERROR,"EM (MOD-%d):Removing EM config task "
-					"failed.", EmModPtr->ModId);
-		}
-	}
 }
 
 /* CfgInit Handler */
@@ -195,7 +140,6 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 		u32 Len)
 {
 	u32 ErrId = 0U;
-	s32 Status;
 
 	/* Register for Error events from Core */
 	(void) XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ERROR_1);
@@ -211,17 +155,6 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 			(void)XPfw_EmSetAction((u8)ErrId, ErrorTable[ErrId].Action,
 					ErrorTable[ErrId].Handler);
 		}
-	}
-
-	/*
-	 * Schedule a task to check for FSBL completion to enable
-	 * PLL lock errors and FPD WDT error
-	 */
-	Status = XPfw_CoreScheduleTask(EmModPtr, CHECK_FSBL_COMPLETION,
-			CheckFsblCompletion);
-	if (XST_FAILURE == Status) {
-		XPfw_Printf(DEBUG_ERROR,"EM (MOD-%d):Scheduling EM Cfg task failed.",
-				ModPtr->ModId);
 	}
 
 	/* Enable the interrupts at XMPU/XPPU block level */
@@ -274,6 +207,6 @@ void ModEmInit(void)
 #else /* ENABLE_EM */
 void ModEmInit(void) { }
 void RpuLsHandler(u8 ErrorId) { }
-void FpdSwdtHandler(u8 ErrorId) { }
+void SwdtHandler(u8 ErrorId) { }
 void NullHandler(u8 ErrorId) { }
 #endif /* ENABLE_EM */

@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -41,9 +39,9 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- ---------------------------------------------------
 * 1.00a rp/sdm 11/03/09 Initial release.
-* 3.06a sgd    05/15/12 Upadted get/set time functions to make use Global Timer
+* 3.06a sgd    05/15/12 Updated get/set time functions to make use Global Timer
 * 3.06a asa    06/17/12 Reverted back the changes to make use Global Timer.
-* 3.07a sgd    07/05/12 Upadted get/set time functions to make use Global Timer
+* 3.07a sgd    07/05/12 Updated get/set time functions to make use Global Timer
 * 6.6   srm    10/23/17 Updated the macros to support user configurable sleep
 *						implementation
 * 6.8   aru  09/06/18 Removed compilation warnings for ARMCC toolchain.

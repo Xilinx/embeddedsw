@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
  *******************************************************************************/
 /*****************************************************************************/
@@ -303,7 +301,7 @@ u32 XFsbl_Ch9SetupStrDescReply(u8 *BufPtr, u32 BufferLen, u8 Index)
 	s32 SStatus;
 	XFsblPs_UsbStdStringDesc StringDesc;
 
-	if (Index >= (sizeof(StringList) / sizeof(u8 *))) {
+	if (Index >= STRING_DESCRIPTORS_NUM) {
 		DescLen = 0U;
 		goto END;
 	}
@@ -387,12 +385,12 @@ u32 XFsbl_Ch9SetupDevDescReply(u8 *BufPtr, u32 BufferLen)
 		goto END;
 	}
 
-	if (BufferLen < sizeof(XFsblPs_UsbStdDevDesc)) {
+	DevDescLength = sizeof(XFsblPs_UsbStdDevDesc);
+
+	if (BufferLen < DevDescLength) {
 		DevDescLength = 0U;
 		goto END;
 	}
-
-	DevDescLength = sizeof(XFsblPs_UsbStdDevDesc);
 
 	SStatus = XUsbPsu_IsSuperSpeed(&UsbInstance);
 	if(SStatus != XST_SUCCESS) {
@@ -433,11 +431,6 @@ u32 XFsbl_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufferLen)
 		goto END;
 	}
 
-	if (BufferLen < sizeof(XFsblPs_UsbStdCfgDesc)) {
-		CfgDescLen = 0U;
-		goto END;
-	}
-
 	SStatus = XUsbPsu_IsSuperSpeed(&UsbInstance);
 	if(SStatus != XST_SUCCESS) {
 		/* USB 2.0 */
@@ -447,6 +440,11 @@ u32 XFsbl_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufferLen)
 		/* USB 3.0 */
 		Config = (u8 *)&Config3;
 		CfgDescLen = sizeof(XFsblPs_Usb30Config);
+	}
+
+	if (BufferLen < CfgDescLen) {
+		CfgDescLen = 0U;
+		goto END;
 	}
 
 	(void)XFsbl_MemCpy(BufPtr, Config, CfgDescLen);
@@ -477,7 +475,9 @@ u32 XFsbl_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufferLen)
 		goto END;
 	}
 
-	if (BufferLen < sizeof(XFsblPs_UsbStdBosDesc)) {
+	UsbBosDescLen = sizeof(XFsblPs_UsbBosDesc);
+
+	if (BufferLen < UsbBosDescLen) {
 		UsbBosDescLen = 0U;
 		goto END;
 	}
@@ -504,8 +504,6 @@ u32 XFsbl_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufferLen)
 			0x00U} /* Disable LPM for USB 3.0 */
 
 	};
-
-	UsbBosDescLen = sizeof(XFsblPs_UsbBosDesc);
 
 	(void)XFsbl_MemCpy(BufPtr, &BosDesc, UsbBosDescLen);
 

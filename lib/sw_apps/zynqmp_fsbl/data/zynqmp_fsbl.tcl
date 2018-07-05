@@ -15,14 +15,12 @@
 #* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 #* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 #* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-#* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-#* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-#* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-#* SOFTWARE.
+#* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+#* THE SOFTWARE.
 #*
-#* Except as contained in this notice, the name of the Xilinx shall not be used
-#* in advertising or otherwise to promote the sale, use or other dealings in
-#* this Software without prior written authorization from Xilinx.
+#*
 #*
 #******************************************************************************/
 
@@ -130,7 +128,7 @@ proc check_program_memory {} {
 	lappend ocm_ranges [list $base $size]
     }
     if { [llength $ocm_ranges] == 0 } {
-	error "This application requires atleast [expr $required_mem_size/1024] KB of OCM memory at 0xfffc0000 to run"
+	error "This application requires at least [expr $required_mem_size/1024] KB of OCM memory at 0xfffc0000 to run"
     }
 
     # Sort the regions and contatenate sequential regions
@@ -161,7 +159,7 @@ proc check_program_memory {} {
 	if { $base == 0xfffc0000 && $size >= $required_mem_size } return
     }
 
-    error "This application requires atleast [expr $required_mem_size/1024] KB of OCM memory at 0xfffc0000 to run"
+    error "This application requires at least [expr $required_mem_size/1024] KB of OCM memory at 0xfffc0000 to run"
 }
 
 proc swapp_is_supported_sw {} {
@@ -310,7 +308,7 @@ proc swapp_generate {} {
     set def_link_flags [common::get_property APP_LINKER_FLAGS [hsi::current_sw_design]]
 
     # based on the CPU (A53 64-bit, A53 32-bit or R5),
-    # remove unnecesary linker script and retain just one: lscript.ld
+    # remove unnecessary linker script and retain just one: lscript.ld
     # copy the corresponding translation table for A53 (64-bit and 32-bit)
     # set the compiler flags
     set trans_tbl_a53_64 "xfsbl_translation_table_a53_64.S"

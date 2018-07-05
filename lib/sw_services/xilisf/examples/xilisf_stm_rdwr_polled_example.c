@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /******************************************************************************
@@ -60,6 +58,7 @@
 *                    supports 4 byte addressing.
 * 5.5   sk  01/14/16 Added support for Spansion flash in extended address
 *                    mode.
+* 5.14  akm 08/01/19 Initialized Status variable to XST_FAILURE.
 * </pre>
 *
 ******************************************************************************/
@@ -156,7 +155,7 @@ u8 WriteBuffer[ISF_PAGE_SIZE];				  /* Write buffer */
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	xil_printf("STM Read Write example\r\n");
 
@@ -187,7 +186,7 @@ int main(void)
 ******************************************************************************/
 static int IsfFlashPolledExample(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 Index;
 	u32 Address;
 	XIsf_WriteParam WriteParam;
@@ -388,7 +387,7 @@ static int IsfFlashPolledExample(void)
 ******************************************************************************/
 int IsfWaitForFlashNotBusy(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u8 StatusReg;
 
 	while(1) {

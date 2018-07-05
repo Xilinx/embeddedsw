@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 
 #include "xpfw_config.h"
@@ -40,6 +38,7 @@
 #include "xpfw_mod_sched.h"
 #include "xpfw_mod_stl.h"
 #include "xpfw_mod_wdt.h"
+#include "xpfw_mod_common.h"
 
 #include "xpfw_mod_ultra96.h"
 
@@ -55,9 +54,8 @@
 ******************************************************************************/
 static void XPfw_Enable_Inner_Shareable_Broadcast(void)
 {
-	u32 val = 0U;
+	u32 val = XPfw_Read32(LPD_SLCR_LPD_APU);
 
-	val = XPfw_Read32(LPD_SLCR_LPD_APU);
 	val |= (1U << LPD_SLCR_LPD_APU_BRDC_INNER_SHIFT);
 	XPfw_Write32(LPD_SLCR_LPD_APU , val);
 }
@@ -92,4 +90,5 @@ void XPfw_UserStartUp(void)
 #endif
 
 	ModUltra96Init();
+	ModCommonInit();
 }

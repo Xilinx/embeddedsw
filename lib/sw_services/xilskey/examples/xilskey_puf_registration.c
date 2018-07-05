@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
  *****************************************************************************/
 /*****************************************************************************/
@@ -31,7 +29,7 @@
  * @file xilskey_puf_registration.c
  *
  * This file illustrates how to do PUF registration and generating syndrome
- * data and obtaining helper data, debug 2 result, Auxilary and CHash values
+ * data and obtaining helper data, debug 2 result, Auxiliary and CHash values
  * from generated syndrome data.
  * This example also encrypts the provided AES key with PUF and generates
  * the black key.
@@ -81,13 +79,14 @@
 typedef enum {
 	XPUF_REGISTRATION_WO_AUTH_ERROR = (0x2000U),
 	XPUF_FUSE_12K_NOT_ALLOWED_ERROR = (0x2001U),
-	XPUF_STRING_INVALID_ERROR = (0x2001U),
+	XPUF_STRING_INVALID_ERROR = (0x2002U),
 	XPUF_PARAMETER_NULL_ERROR= (0x2003U),
 
 	XPUF_DMA_CONFIG_FAILED_ERROR = (0x2004U),
 	XPUF_DMA_INIT_FAILED_ERROR = (0x20005U),
 	XPUF_AES_INIT_FAILED_ERROR = (0x2006U),
-	XPUF_ENCRYPTION_FAILED_ERROR = (0x2007U)
+	XPUF_ENCRYPTION_FAILED_ERROR = (0x2007U),
+	XPUF_ZERO_BLACK_KEY_ERROR = (0x2008U)
 }Xsk_PufErrocodes;
 
 /************************** Function Prototypes ******************************/
@@ -108,6 +107,8 @@ static u32 XilSKey_Puf_Fetch_Dbg_Mode2_result(XilSKey_Puf *InstancePtr);
 int main() {
 
 	u32 Status;
+	u32 Index;
+	u32 IsBlackKeyZero = TRUE;
 	u32 SiliconVer = XGetPSVersion_Info();
 
 	xPuf_printf(XPUF_DEBUG_GENERAL,
@@ -193,12 +194,24 @@ int main() {
 			"App:Key encryption failed:0x%08x\r\n", Status);
 		goto ENDF;
 	}
-
+	for (Index = 0; Index < XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BYTES;
+								Index++) {
+		if (PufInstance.BlackKey[Index] != 0x00U) {
+			IsBlackKeyZero = FALSE;
+			break;
+		}
+	}
+	/* If Black key is zero, don't program eFuse with helper data */
+	if (IsBlackKeyZero) {
+		Status = XPUF_ZERO_BLACK_KEY_ERROR;
+		xPuf_printf(XPUF_DEBUG_GENERAL,
+			"App: Zero Black Key:0x%08x\r\n", Status);
+		goto ENDF;
+	}
 #if defined XPUF_FUSE_SYN_DATA
 	u32 SynReadData[128];
 	u32 Aux;
 	u32 Chash;
-	u32 Index;
 
 	xPuf_printf(XPUF_DEBUG_GENERAL, "App: Programming eFUSE \r\n");
 
@@ -245,7 +258,7 @@ int main() {
 			}
 		}
 
-		/* Programming Auxilary data into eFUSE */
+		/* Programming Auxiliary data into eFUSE */
 		Status = XilSKey_ZynqMp_EfusePs_WritePufAux(&PufInstance);
 		if (Status != XST_SUCCESS) {
 			xPuf_printf(XPUF_DEBUG_GENERAL,
@@ -679,7 +692,7 @@ static u32 XilSkey_Program_Black_Key()
  * @param	Num is the output nibble.
  *
  * @return
- * 		- XST_SUCCESS no errors occured.
+ * 		- XST_SUCCESS no errors occurred.
  *		- ERROR when input parameters are not valid
  *
  * @note	None.
@@ -711,7 +724,7 @@ static u32 XilSKey_Puf_ConvertCharToNibble(char InChar, u8 *Num) {
  * @param	Len of the input string. Should have even values
  *
  * @return
- *		- XST_SUCCESS no errors occured.
+ *		- XST_SUCCESS no errors occurred.
  *		- ERROR when input parameters are not valid
  *		- an error when input buffer has invalid values
  *
@@ -859,7 +872,7 @@ static u32 XilSKey_Puf_Encrypt_Key()
 			"App: AES Initialize failed \n\r");
 		goto ENDENCRYPT;
 	}
-	/* Set the data endianess for IV */
+	/* Set the data endianness for IV */
 	XCsuDma_GetConfig(&CsuDma, XCSUDMA_SRC_CHANNEL,
 				&ConfigurValues);
 	ConfigurValues.EndianType = 1U;

@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -40,7 +38,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   10/21/13 Initial release
 * 2.0   bv   12/02/16 Made compliance to MISRAC 2012 guidelines
-*       vns  01/29/17 Added API XFsbl_AdmaCopy to trasfer data using ADMA
+*       vns  01/29/17 Added API XFsbl_AdmaCopy to transfer data using ADMA
 *
 * </pre>
 *
@@ -802,7 +800,7 @@ END:
 * @param	DestPtr is a pointer to destination buffer to which data needs
 *		to be copied.
 * @param	SrcPtr is a pointer to the source buffer.
-* @param	size holds the size of the data to be transfered.
+* @param	size holds the size of the data to be transferred.
 *
 * @return
 *		Success on successful copy
@@ -876,10 +874,60 @@ u32 XFsbl_AdmaCopy(void * DestPtr, void * SrcPtr, u32 Size)
 	}
 
 	/* Clear the TOTAL BYTE COUNT register to avoid the BYTE_CNT_OVRFLW
-	*interupt from being set
+	*interrupt from being set
 	*/
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_CTRL0_TOTAL_BYTE_COUNT,0x00000000U);
 
 	return Status;
 
 }
+
+/*****************************************************************************/
+/**
+ * *
+ * * This macro polls an address periodically until a condition is met or till the
+ * * timeout occurs.
+ * * The minimum timeout for calling this macro is 100us. If the timeout is less
+ * * than 100us, it still waits for 100us. Also the unit for the timeout is 100us.
+ * * If the timeout is not a multiple of 100us, it waits for a timeout of
+ * * the next usec value which is a multiple of 100us.
+ * *
+ * * @param            Addr - Address to be polled
+ * * @param            Value - variable to read the value
+ * * @param            Cond - Condition to checked (usually involves VALUE)
+ * * @param            TimeOutInUs - timeout in micro seconds
+ * *
+ * * @return           XFSBL_SUCCESS - when the condition is met
+ * *                   XFSBL_FAILURE - when the condition is not met
+ * * @note             none
+ * *
+ * *****************************************************************************/
+s32 XFsbl_PollTimeout(u32 Addr,u32 Value, u32 cond, u32 TimeOutInUs)
+{
+	s32 Status;
+	u64 timeout = TimeOutInUs / 100U;
+
+	if ((TimeOutInUs % (100U)) != 0U) {
+		timeout++;
+	}
+
+	for(;;) {
+		Value = Xil_In32(Addr);
+		if(cond) {
+			break;
+		} else {
+			usleep(100U);
+			timeout--;
+			if(timeout==0U)
+			break;
+		}
+	}
+
+	if (timeout > 0U) {
+		Status = XFSBL_SUCCESS;
+	} else {
+		Status = XFSBL_FAILURE;
+	}
+
+	return Status;
+ }

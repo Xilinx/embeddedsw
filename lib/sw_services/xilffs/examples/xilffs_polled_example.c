@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -98,8 +96,8 @@ u8 DestinationAddress[10*1024];
 #pragma data_alignment = 32
 u8 SourceAddress[10*1024];
 #else
-u8 DestinationAddress[10*1024*1024] __attribute__ ((aligned(32)));
-u8 SourceAddress[10*1024*1024] __attribute__ ((aligned(32)));
+u8 DestinationAddress[10*1024] __attribute__ ((aligned(32)));
+u8 SourceAddress[10*1024] __attribute__ ((aligned(32)));
 #endif
 
 #define TEST 7
@@ -156,11 +154,7 @@ int FfsSdPolledExample(void)
 	UINT NumBytesWritten;
 	u32 BuffCnt;
 	BYTE work[FF_MAX_SS];
-#ifdef __ICCARM__
 	u32 FileSize = (8*1024);
-#else
-	u32 FileSize = (8*1024*1024);
-#endif
 
 	/*
 	 * To test logical drive 0, Path should be "0:/"

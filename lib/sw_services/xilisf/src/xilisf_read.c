@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
  ******************************************************************************/
 /*****************************************************************************/
@@ -65,6 +63,7 @@
  * 5.13 nsk  01/22/18 Make variable declaration to XQspiPsu_Msg as global
  *                    CR#1015808.
  *      sk   02/11/19 Added support for OSPI flash interface.
+ * 5.14 akm  08/01/19 Initialized Status variable to XST_FAILURE.
  *
  * </pre>
  *
@@ -473,7 +472,7 @@ static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 	u8 ShiftSize;
 #endif
 	u32 RealAddr;
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	u32 RealByteCnt;
 #ifndef XPAR_XISF_INTERFACE_QSPIPSU
 	u32 TotalByteCnt = ByteCount;
@@ -548,7 +547,7 @@ static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 				Mode = XIsf_GetTransferMode(InstancePtr);
 
 				/*
-				 * Seting the transfer mode to
+				 * Setting the transfer mode to
 				 * Polled Mode before
 				 * performing the Bank Select
 				 * operation.
@@ -745,7 +744,7 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 	int Index;
 	u32 TotalByteCnt = ByteCount;
 #endif
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	u32 RealAddr;
 	u32 RealByteCnt;
 	u32 LocalAddress = Address;
@@ -814,7 +813,7 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 				Mode = XIsf_GetTransferMode(InstancePtr);
 
 				/*
-				 * Seting the transfer mode to
+				 * Setting the transfer mode to
 				 * Polled Mode before performing
 				 * the Bank Select operation.
 				 */
@@ -1351,7 +1350,7 @@ static int ReadOTPData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr,
 static int OctalReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 			u8 *ReadPtr, u32 ByteCount, int NumDummyBytes)
 {
-	u8 Status;
+	u8 Status = (int)(XST_FAILURE);
 	u8 *NULLPtr = NULL;
 
 	FlashMsg.Opcode = Command;
@@ -1398,7 +1397,7 @@ static int OctalReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 static int ReadVCR(XIsf *InstancePtr, u8 Command, u32 Address,
 			u8 *BufferPtr, u32 ByteCount, u8 NumDummyBytes)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	u8 *NULLPtr = NULL;
 
 	FlashMsg.Opcode = Command;

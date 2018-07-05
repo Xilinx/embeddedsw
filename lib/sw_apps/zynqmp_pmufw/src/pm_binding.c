@@ -14,14 +14,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  */
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
@@ -238,7 +236,10 @@ done:
  */
 void XPfw_DapFpdWakeEvent(void)
 {
-	pmPowerDomainFpd_g.power.node.currState = PM_PWR_STATE_ON;
+	if (0 != (XPfw_Read32(PMU_GLOBAL_PWR_STATE) &
+		  PMU_GLOBAL_PWR_STATE_FP_MASK)) {
+		pmPowerDomainFpd_g.power.node.currState = PM_PWR_STATE_ON;
+	}
 }
 
 /**
@@ -246,7 +247,10 @@ void XPfw_DapFpdWakeEvent(void)
  */
 void XPfw_DapRpuWakeEvent(void)
 {
-	pmPowerIslandRpu_g.power.node.currState = PM_PWR_STATE_ON;
+	if (0 != (XPfw_Read32(PMU_GLOBAL_PWR_STATE) &
+		  PMU_GLOBAL_PWR_STATE_R5_0_MASK)) {
+		pmPowerIslandRpu_g.power.node.currState = PM_PWR_STATE_ON;
+	}
 }
 
 #endif

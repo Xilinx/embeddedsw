@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -36,88 +34,88 @@
 *
 *  		User configurable parameters for Ultrascale BBRAM
 *  	----------------------------------------------------------------------
-*	#define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR1_MONO	FALSE
+*	#define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0		FALSE
 *	TRUE will program BBRAM with OBFUSCATED key provided in
-*	XSK_BBRAM_OBFUSCATED_KEY_SLR1. While programming obfuscated key DPA
+*	XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0. While programming obfuscated key DPA
 *	configurations cannot be done due to silicon bug, and values provided
 *	in DPA configuration macros will be ignored.
-*	FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY_SLR1
+*	FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_0
 *	and DPA configurations (protect, count and mode) can be configured
 *
-*       #define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2		FALSE
+*       #define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1		FALSE
 *       TRUE will program BBRAM with OBFUSCATED key provided in
-*	XSK_BBRAM_OBFUSCATED_KEY_SLR2. While programming obfuscated key DPA
+*	XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1. While programming obfuscated key DPA
 *	configurations cannot be done due to silicon bug, and values provided
 *	in DPA configuration macros will be ignored.
-*	FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY_SLR2
+*	FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_1
 *	and DPA configurations (protect, count and mode) can be configured
 *
-*       #define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3		FALSE
+*       #define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2		FALSE
 *       TRUE will program BBRAM with OBFUSCATED key provided in
-*	XSK_BBRAM_OBFUSCATED_KEY_SLR3. While programming obfuscated key DPA
+*	XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2. While programming obfuscated key DPA
 *	configurations cannot be done due to silicon bug, and values provided
 *	in DPA configuration macros will be ignored.
-*	FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY_SLR3
+*	FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_2
 *	and DPA configurations (protect, count and mode) can be configured
 *
-*       #define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4		FALSE
+*       #define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3		FALSE
 *	TRUE will program BBRAM with OBFUSCATED key provided in
-*	XSK_BBRAM_OBFUSCATED_KEY_SLR4. While programming obfuscated key DPA
+*	XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3. While programming obfuscated key DPA
 *	configurations cannot be done due to silicon bug, and values provided
 *	in DPA configuration macros will be ignored.
-*	FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY_SLR4
+*	FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_3
 *	and DPA configurations (protect, count and mode) can be configured
 *
-*	#define		XSK_BBRAM_OBFUSCATED_KEY_SLR1
+*	#define		XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0
 *	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
 *	The value mentioned in this will be converted to hex buffer and the
 *	key is programmed into BBRAM, when program API used. It should be 64
 *	characters long, valid characters are 0-9,a-f,A-F. Any other character
 *	is considered as invalid string and will not program BBRAM. Note that,
-*	for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR1 should
+*	for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0 should
 *	have TRUE value.
 *
-*       #define		XSK_BBRAM_OBFUSCATED_KEY_SLR2
+*       #define		XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1
 *       "b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
 *       The value mentioned in this will be converted to hex buffer and the
 *	key is programmed into BBRAM, when program API used. It should be 64
 *	characters long, valid characters are 0-9,a-f,A-F. Any other character
 *	is considered as invalid string and will not program BBRAM. Note that,
-*	for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2 should
+*	for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1 should
 *	have TRUE value.
 *
-*	#define		XSK_BBRAM_OBFUSCATED_KEY_SLR3
+*	#define		XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2
 *	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
 *	The value mentioned in this will be converted to hex buffer and the
 *	key is programmed into BBRAM, when program API used. It should be 64
 *	characters long, valid characters are 0-9,a-f,A-F. Any other character
 *	is considered as invalid string and will not program BBRAM. Note that,
-*	for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3 should
+*	for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2 should
 *	have TRUE value.
 *
-*	#define		XSK_BBRAM_OBFUSCATED_KEY_SLR4
+*	#define		XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3
 *	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
 *	The value mentioned in this will be converted to hex buffer and the
 *	key is programmed into BBRAM, when program API used. It should be 64
 *	characters long, valid characters are 0-9,a-f,A-F. Any other character
 *	is considered as invalid string and will not program BBRAM. Note that,
-*	for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 should
+*	for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3 should
 *	have TRUE value.
 *
-*	#define XSK_BBRAM_PGM_AES_KEY_SLR1_OR_MONO	FALSE
-*	#define XSK_BBRAM_PGM_AES_KEY_SLR2			FALSE
-*	#define XSK_BBRAM_PGM_AES_KEY_SLR3			FALSE
-*	#define XSK_BBRAM_PGM_AES_KEY_SLR4			FALSE
+*	#define XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_0			FALSE
+*	#define XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_1			FALSE
+*	#define XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_2			FALSE
+*	#define XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_3			FALSE
 *       TRUE will program BBRAM with AES Key provided in XSK_BBRAM_AES_KEY for
 *       particular SLR.
 *
-* 	#define 	XSK_BBRAM_AES_KEY_SLR1
+* 	#define 	XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_0
 *	"349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd"
-*	#define 	XSK_BBRAM_AES_KEY_SLR2
+*	#define 	XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_1
 *	"349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd"
-*	#define 	XSK_BBRAM_AES_KEY_SLR3
+*	#define 	XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_2
 *	"349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd"
-*	#define 	XSK_BBRAM_AES_KEY_SLR4
+*	#define 	XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_3
 *	"349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd"
 *	The value mentioned in this will be converted to hex buffer and the
 *	key is programmed into BBRAM for particular SLR(1/2/3/4), when
@@ -248,33 +246,42 @@ extern "C" {
  * otherwise AES key will be programmed and DPA configurations will
  * be considered
  */
-#define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR1_MONO	FALSE	/** TRUE burns obfuscated key */
-#define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2		FALSE	/** TRUE burns obfuscated key */
-#define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3		FALSE	/** TRUE burns obfuscated key */
-#define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4		FALSE	/** TRUE burns obfuscated key */
+#define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0		FALSE
+									/**< TRUE burns obfuscated key */
+#define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1		FALSE
+									/**< TRUE burns obfuscated key */
+#define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2		FALSE
+									/**< TRUE burns obfuscated key */
+#define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3		FALSE
+									/**< TRUE burns obfuscated key */
 
 /**
- * If the following is TRUE BBRAM Key in SLR1/MONO is programmed
+ * If the following is TRUE BBRAM Key in corresponding
+ * XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_INDEX is programmed
  * Returns error if the target doesn't have enabled SLR
  */
-#define XSK_BBRAM_PGM_AES_KEY_SLR1_OR_MONO	FALSE	/** TRUE burns BBRAM key */
-#define XSK_BBRAM_PGM_AES_KEY_SLR2			FALSE	/** TRUE burns BBRAM key */
-#define XSK_BBRAM_PGM_AES_KEY_SLR3			FALSE	/** TRUE burns BBRAM key */
-#define XSK_BBRAM_PGM_AES_KEY_SLR4			FALSE 	/** TRUE burns BBRAM key */
+#define XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_0	FALSE
+									/**< TRUE burns BBRAM key */
+#define XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_1	FALSE
+									/**< TRUE burns BBRAM key */
+#define XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_2	FALSE
+									/**< TRUE burns BBRAM key */
+#define XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_3	FALSE
+									/**< TRUE burns BBRAM key */
 /**
  *
  * This is the 256 bit key to be programmed into BBRAM.
  * This should entered by user in HEX.
  */
-#define		XSK_BBRAM_OBFUSCATED_KEY_SLR1	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
-#define		XSK_BBRAM_OBFUSCATED_KEY_SLR2	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
-#define		XSK_BBRAM_OBFUSCATED_KEY_SLR3	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
-#define		XSK_BBRAM_OBFUSCATED_KEY_SLR4	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
+#define		XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
+#define		XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
+#define		XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
+#define		XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
 
-#define		XSK_BBRAM_AES_KEY_SLR1			"0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa"
-#define		XSK_BBRAM_AES_KEY_SLR2			"0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa"
-#define		XSK_BBRAM_AES_KEY_SLR3			"0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa"
-#define		XSK_BBRAM_AES_KEY_SLR4			"0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa"
+#define		XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_0			"0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa"
+#define		XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_1			"0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa"
+#define		XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_2			"0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa"
+#define		XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_3			"0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa"
 
 #define		XSK_BBRAM_AES_KEY_SIZE_IN_BITS	256
 

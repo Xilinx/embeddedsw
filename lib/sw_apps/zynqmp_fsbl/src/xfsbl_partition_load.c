@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -42,7 +40,7 @@
 * 2.0   bv   12/02/16 Made compliance to MISRAC 2012 guidelines
 *       bo   01/25/17 Fixed Vector regions overwritten in R5 FSBL
 *       vns  03/01/17 Enhanced security of bitstream authentication
-*                     Modified endianess of IV as APIs are modified in Xilsecure
+*                     Modified endianness of IV as APIs are modified in Xilsecure
 *                     While loading bitstream clearing of PL is skipped
 *                     when PL is already cleared at initialize.
 *                     Updated destination cpu for PMUFW.
@@ -160,7 +158,7 @@ u32 XFsbl_PartitionLoad(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 #endif
 
 #ifdef XFSBL_WDT_PRESENT
-	if (FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET) {
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason) {
 		/* Restart WDT as partition copy can take more time */
 		XFsbl_RestartWdt();
 	}
@@ -443,7 +441,7 @@ u32 XFsbl_PowerUpMemory(u32 MemoryType)
 
 			/**
 			 * Provide some delay,
-			 * so that clock propogates properly.
+			 * so that clock propagates properly.
 			 */
 			(void)usleep(0x50U);
 
@@ -496,7 +494,7 @@ u32 XFsbl_PowerUpMemory(u32 MemoryType)
 
 			/**
 			 * Provide some delay,
-			 * so that clock propogates properly.
+			 * so that clock propagates properly.
 			 */
 			(void )usleep(0x50U);
 
@@ -560,7 +558,7 @@ u32 XFsbl_PowerUpMemory(u32 MemoryType)
 
                         /**
                          * Provide some delay,
-                         * so that clock propogates properly.
+                         * so that clock propagates properly.
                          */
                         (void )usleep(0x50U);
 
@@ -1639,6 +1637,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		}
 	}
 
+	Status = XFSBL_SUCCESS;
 END:
 	return Status;
 }
@@ -1896,7 +1895,7 @@ static u32 XFsbl_CalcualteSHA(const XFsblPs * FsblInstancePtr, PTRSIZE LoadAddre
 static void XFsbl_PollForDDRSrExit(void)
 {
 	u32 RegValue;
-	/* Timeout count for arround 1 second */
+	/* Timeout count for around 1 second */
 	u32 TimeOut = XPAR_PSU_CORTEXA53_0_CPU_CLK_FREQ_HZ;
 
 	/* Wait for DDR exit from self refresh mode within 1 second */
@@ -1941,7 +1940,7 @@ static void XFsbl_PollForDDRReady(void)
 		RegValue = Xil_In32(XFSBL_DDR_STATUS_REGISTER_OFFSET) &
 			DDR_STATUS_FLAG_MASK;
 		if (RegValue) {
-			/* Wait untill DDR exit from self refresh */
+			/* Wait until DDR exits from self refresh */
 			XFsbl_PollForDDRSrExit();
 			/*
 			 * Mark DDR region as "Memory" as DDR initialization is
@@ -1959,7 +1958,7 @@ static void XFsbl_PollForDDRReady(void)
 /**
  * This function set the vector bit of SCTLR.
  * It will configure R5,so that R5 will jump to
- * HIVEC when exeption arise.
+ * HIVEC when exception arise.
  *
  * @param	None
  *
@@ -1979,7 +1978,7 @@ static void XFsbl_SetR5ExcepVectorHiVec(void)
 /**
  * This function reset the vector bit of SCTLR.
  * It will configure R5,so that R5 will jump to
- * LOVEC when exeption arise.
+ * LOVEC when exception arise.
  *
  * @param	None
  *

@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -82,6 +80,9 @@ u32 GpioDeviceId;
 #define FEEDTHROUGH			0x24
 #define FUSE_CTS_SLRX		0x30
 #define FUSE_KEY_SLRX		0x31
+
+/* zu+ pl_idcode instruction */
+#define ZUPLUS_PL_IDCODE 	0x25U
 
 /*
  * Pre and post pads
@@ -191,6 +192,7 @@ typedef struct {
 	u32 id;					/* Device ID */
 	u32 irLen;				/* IR length for device */
 	char numSlr;			/* Number of SLRs in device */
+	int masterSlr;		/* master SLR number */
 } id_codes_t;
 /**
  * XEfusePl is the PL eFUSE driver instance. Using this
@@ -444,7 +446,8 @@ typedef struct {
 	/* Number of SLRs to iterate through */
     u32 NumSlr;
     /* Current SLR to iterate through */
-    u32 CurSlr;
+    u32 MasterSlr;
+    u32 SlrConfigOrderIndex;
 
 }XilSKey_EPl;
 

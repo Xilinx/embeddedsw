@@ -14,14 +14,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  */
 
 /*********************************************************************
@@ -48,7 +46,7 @@ typedef u8 PmProcEvent;
 #define DISABLE_WFI(mask)   XPfw_RMW32(PMU_LOCAL_GPI2_ENABLE, (mask), ~(mask));
 
 /*
- * Processor is powered down as requested by a master which is priviledged
+ * Processor is powered down as requested by a master which is privileged
  * to request so. Processor has not saved its context.
  */
 #define PM_PROC_STATE_FORCEDOFF     0U
@@ -91,6 +89,9 @@ typedef u8 PmProcEvent;
 
 #define RPU0_STATUS_MASK		BIT(1U)
 #define RPU1_STATUS_MASK		BIT(2U)
+
+#define PM_PROC_RPU_LOVEC_ADDR  0x00000000U
+#define PM_PROC_RPU_HIVEC_ADDR  0xFFFF0000U
 
 /*********************************************************************
  * Structure definitions

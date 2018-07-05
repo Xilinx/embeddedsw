@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -66,6 +64,8 @@
 * 						  AES key CRC if TRUE.
 * 	psl      03/28/19 Corrected typos
 *       psl      04/10/19 Fixed IAR warnings.
+* 6.8   psl      07/17/19 Added print to display CRC of AES key for CRC
+*                         verification.
 * </pre>
 *
 ******************************************************************************/
@@ -182,6 +182,8 @@ int main()
 	/* CRC check for programmed AES key */
 	if (XSK_EFUSEPS_CHECK_AES_KEY_CRC == TRUE) {
 		AesCrc = XilSKey_CrcCalculation((u8 *)XSK_EFUSEPS_AES_KEY);
+		xil_printf("AES Key's CRC provided for verification: %08x\n\r",
+								AesCrc);
 		PsStatus = XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(AesCrc);
 		if (PsStatus != XST_SUCCESS) {
 			xil_printf("\r\nAES CRC check is failed\n\r");
@@ -290,7 +292,7 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 	PsInstancePtr->PrgrmUser6Fuse = XSK_EFUSEPS_WRITE_USER6_FUSE;
 	PsInstancePtr->PrgrmUser7Fuse = XSK_EFUSEPS_WRITE_USER7_FUSE;
 
-	/* Variable for Timer Intialization */
+	/* Variable for Timer Initialization */
 	PsInstancePtr->IntialisedTimer = 0;
 
 	/* Copying PPK hash types */
