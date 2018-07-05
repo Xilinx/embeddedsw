@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,10 @@
 #ifndef XPFW_ERROR_MANAGER_H_
 #define XPFW_ERROR_MANAGER_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xpfw_default.h"
 
 /* Error IDs to identify each Error */
@@ -45,7 +49,7 @@
 #define EM_ERR_ID_AUX2 11U
 #define EM_ERR_ID_AUX1 12U
 #define EM_ERR_ID_AUX0 13U
-#define EM_ERR_ID_DFT 14U
+#define EM_ERR_ID_CSU_SWDT 14U
 #define EM_ERR_ID_CLK_MON 15U
 #define EM_ERR_ID_XMPU 16U
 #define EM_ERR_ID_PWR_SUPPLY 17U
@@ -76,6 +80,9 @@
 #define EM_ACTION_CUSTOM 3U
 #define EM_ACTION_PSERR  4U
 #define EM_ACTION_MAX    5U
+
+/* EM action change permissions */
+#define EM_ACTION_CHANGE_PERM_NONE	0U
 
 
 /* Pointer to Error Handler Function */
@@ -138,7 +145,13 @@ struct XPfw_Error_t {
 	XPfw_ErrorHandler_t Handler;
 	const u8 Type;
 	u8 Action;
+	u32 ChngPerm;
 };
 
 extern struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX];
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* XPFW_ERROR_MANAGER_H_ */

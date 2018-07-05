@@ -35,7 +35,7 @@
 
 #include "pm_client.h"
 #include "xparameters.h"
-#include <xil_cache.h>
+#include "xil_cache.h"
 #include <xreg_cortexa53.h>
 #include <xpseudo_asm.h>
 
@@ -86,11 +86,13 @@ static struct XPm_Master *const pm_masters_all[] = {
  */
 struct XPm_Master *pm_get_master(const u32 cpuid)
 {
+	struct XPm_Master *master = NULL;
 	if (cpuid < PM_ARRAY_SIZE(pm_masters_all)) {
-		return pm_masters_all[cpuid];
+		master = pm_masters_all[cpuid];
+		goto done;
 	}
-
-	return NULL;
+done:
+	return master;
 }
 
 /**
@@ -102,27 +104,35 @@ struct XPm_Master *pm_get_master(const u32 cpuid)
 struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid)
 {
 	u8 i;
+	struct XPm_Master *master = NULL;
 
-	for (i = 0; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
+	for (i = 0U; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
 		if (nid == pm_masters_all[i]->node_id) {
-			return pm_masters_all[i];
+			master = pm_masters_all[i];
+			goto done;
 		}
 	}
 
-	return NULL;
+done:
+	return master;
 }
 
 static u32 pm_get_cpuid(const enum XPmNodeId node)
 {
 	u32 i;
+	u32 ret;
 
-	for (i = 0; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
+	for (i = 0U; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
 		if (pm_masters_all[i]->node_id == node) {
-			return i;
+			ret = i;
+			goto done;
 		}
 	}
 
-	return UNDEFINED_CPUID;
+	ret = UNDEFINED_CPUID;
+
+done:
+	return ret;
 }
 
 const enum XPmNodeId subsystem_node = NODE_APU;
@@ -135,20 +145,25 @@ void XPm_ClientSuspend(const struct XPm_Master *const master)
 	/* Disable interrupts at processor level */
 	pm_disable_int();
 	/* Set powerdown request */
-	pwrdn_req = pm_read(master->pwrctl);
-	pwrdn_req |= master->pwrdn_mask;
-	pm_write(master->pwrctl, pwrdn_req);
+	if (NULL != master) {
+		pwrdn_req = pm_read(master->pwrctl);
+		pwrdn_req |= master->pwrdn_mask;
+		pm_write(master->pwrctl, pwrdn_req);
+	}
 }
 
 void XPm_ClientAbortSuspend(void)
 {
-	u32 pwrdn_req = pm_read(primary_master->pwrctl);
+	u32 pwrdn_req;
+	if (NULL != primary_master) {
+		pwrdn_req = pm_read(primary_master->pwrctl);
 
-	/* Clear powerdown request */
-	pwrdn_req &= ~primary_master->pwrdn_mask;
-	pm_write(primary_master->pwrctl, pwrdn_req);
-	/* Enable interrupts at processor level */
-	pm_enable_int();
+		/* Clear powerdown request */
+		pwrdn_req &= ~primary_master->pwrdn_mask;
+		pm_write(primary_master->pwrctl, pwrdn_req);
+		/* Enable interrupts at processor level */
+		pm_enable_int();
+	}
 }
 
 void XPm_ClientWakeup(const struct XPm_Master *const master)
@@ -173,12 +188,14 @@ void XPm_ClientSuspendFinalize(void)
 	/* Flush the data cache only if it is enabled */
 #ifdef __aarch64__
 	ctrlReg = mfcp(SCTLR_EL3);
-	if (XREG_CONTROL_DCACHE_BIT & ctrlReg)
+	if ((XREG_CONTROL_DCACHE_BIT & ctrlReg) != 0U) {
 		Xil_DCacheFlush();
+	}
 #else
 	ctrlReg = mfcp(XREG_CP15_SYS_CONTROL);
-	if (XREG_CP15_CONTROL_C_BIT & ctrlReg)
+	if ((XREG_CP15_CONTROL_C_BIT & ctrlReg) != 0U) {
 		Xil_DCacheFlush();
+	}
 #endif
 
 	pm_dbg("Going to WFI...\n");

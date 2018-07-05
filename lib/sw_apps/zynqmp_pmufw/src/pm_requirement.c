@@ -132,9 +132,9 @@ done:
  * @note        Slave state will be updated according to the saved requirements
  *              after all processors/master suspends.
  */
-int PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps)
+s32 PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps)
 {
-	int status;
+	s32 status;
 
 	/* Check if slave has a state with requested capabilities */
 	status = PmCheckCapabilities(masterReq->slave, caps);
@@ -158,9 +158,9 @@ done:
  *
  * @return      Status of the operation
  */
-int PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps)
+s32 PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps)
 {
-	int status;
+	s32 status;
 	u32 tmpCaps;
 
 	/* Check if slave has a state with requested capabilities */
@@ -194,9 +194,9 @@ done:
  *
  * @return	Status of processing the request
  */
-int PmRequirementRequest(PmRequirement* const req, const u32 caps)
+s32 PmRequirementRequest(PmRequirement* const req, const u32 caps)
 {
-	int status;
+	s32 status;
 
 	req->info |= PM_MASTER_REQUESTED_SLAVE_MASK;
 	status = PmRequirementUpdate(req, caps);
@@ -211,9 +211,9 @@ int PmRequirementRequest(PmRequirement* const req, const u32 caps)
  *
  * @return	Status of processing the release
  */
-int PmRequirementRelease(PmRequirement* const first, const PmReleaseScope scope)
+s32 PmRequirementRelease(PmRequirement* const first, const PmReleaseScope scope)
 {
-	int status = XST_FAILURE;
+	s32 status = XST_FAILURE;
 	PmRequirement* req = first;
 
 	if (RELEASE_ONE == scope) {
@@ -258,9 +258,9 @@ done:
  * current requirements. Default requirements has priority over current
  * requirements.
  */
-int PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap)
+s32 PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmRequirement* req = master->reqs;
 
 	while (NULL != req) {
@@ -428,10 +428,10 @@ PmRequirement* PmRequirementGetNoMaster(const PmSlave* const slave)
  * @return      XST_SUCCESS if requirements are configured properly,
  *              XST_FAILURE otherwise
  */
-int PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
+s32 PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
 			   const u32 currReq, const u32 defaultReq)
 {
-	int status;
+	s32 status;
 
 	status = PmCheckCapabilities(req->slave, currReq);
 	if (XST_SUCCESS != status) {

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -73,6 +73,13 @@
 *       vns     07/28/16 Modified Bbram_ProgramKey_Ultra API to program control
 *                        word based on user inputs.
 * 6.4   vns     02/27/18 Added support for virtex and virtex ultrascale plus
+* 6.7   psl     03/18/19 Modified code to mask most significant nibble which
+*                        represents production version for ultrascale plus.
+*               03/20/19 Added eFuse/BBRAM key write support for SSIT devices.
+*       psl     03/29/19 Added Support for user configurable GPIO for jtag
+*                        control.
+*       arc     04/04/19 Fixed CPP warnings.
+*       psl     04/15/19 Corrected zynq Dap ID.
 * </pre>
 *
 *
@@ -102,6 +109,8 @@ typedef long ssize_t;
 
 #include "xilskey_bbram.h"
 
+XilSKey_JtagSlr XilSKeyJtag; /*JTAG Tap Instance*/
+
 //#define DEBUG_PRINT
 
 #ifdef DEBUG_PRINT
@@ -111,15 +120,16 @@ void dummy_printf(const char *ctrl1, ...);
 #define js_printf		dummy_printf
 #endif
 
-#define DEFAULT_FREQUENCY 10000000
-#define MAX_FREQUENCY 30000000
-#define ZYNQ_DAP_ID 0x4ba00477
-#define KINTEX_ULTRA_MB_DAP_ID 0x13822093 /**< Kintex Ultrascale microblaze TAP ID */
-#define KINTEX_ULTRAPLUS_DAP_ID 0x4A62093 /**< Kintex Ultrascale plus microblaze TAP ID */
+#define DEFAULT_FREQUENCY         10000000
+#define MAX_FREQUENCY             30000000
+#define ZYNQ_DAP_ID 0x0ba00477
+#define KINTEX_ULTRA_MB_DAP_ID 0x03822093 /**< Kintex Ultrascale microblaze TAP ID */
+#define KINTEX_ULTRAPLUS_DAP_ID 0x04A62093 /**< Kintex Ultrascale plus microblaze TAP ID */
 
 #define VIRTEX110_ULTRA_MB_DAP_ID 0x03931093	/**< VIRTEX 110 Ultrascale microblaze TAP id */
-#define VIRTEX108_ULTRA_MB_DAP_ID 0x23842093	/**< VIRTEX 108 Ultrascale microblaze TAP id */
-#define VIRTEX_ULTRAPLUS_DAP_ID	0x4b31093		/**< VIRTEX Ultrascale plus microblaze TAP id */
+#define VIRTEX108_ULTRA_MB_DAP_ID 0x03842093	/**< VIRTEX 108 Ultrascale microblaze TAP id */
+#define VIRTEX_ULTRAPLUS_DAP_ID	0x04b31093		/**< VIRTEX Ultrascale plus microblaze TAP id */
+#define VIRTEX_ULTRAPLUS_VC13P_DAP_ID 0x04B51093  /**< XCVU13P VIRTEX Ultrascale Plus microblaze TAP id */
 
 #define set_last_error(JS, ...) js_set_last_error(&(JS)->js.base, __VA_ARGS__)
 
@@ -134,10 +144,10 @@ extern u32 TimerTicksfor100ns;
 extern u32 TimerTicksfor1000ns;
 u32 GpoOutValue = 0;
 extern XSKEfusePl_Fpga PlFpgaFlag;
-
-static inline int JtagValidateMioPins_Efuse_Ultra();
-static inline int JtagValidateMioPins_Bbram_Ultra();
-
+#ifndef XSK_ARM_PLATFORM
+static inline int JtagValidateMioPins_Efuse_Ultra(void);
+static inline int JtagValidateMioPins_Bbram_Ultra(void);
+#endif
 void dummy_printf(const char *ctrl1, ...)
 {
 	(void) ctrl1;
@@ -203,6 +213,16 @@ int readPin (int pin);
 
 u32 Bbram_ReadKey[8];
 
+const id_codes_t IDcodeArray [] = {
+  {.flag=XSK_FPGA_SERIES_ZYNQ,       .id = ZYNQ_DAP_ID, 					.irLen =  6, .numSlr = 1},  /**< Zynq TAP ID */
+  {.flag=XSK_FPGA_SERIES_ULTRA,      .id = KINTEX_ULTRA_MB_DAP_ID, 			.irLen =  6, .numSlr = 1},  /**< Kintex Ultrascale microblaze TAP ID */
+  {.flag=XSK_FPGA_SERIES_ULTRA,      .id = VIRTEX110_ULTRA_MB_DAP_ID, 		.irLen = 18, .numSlr = 3},  /**< VCU110 xcvu190 VIRTEX Ultrascale microblaze TAP id */
+  {.flag=XSK_FPGA_SERIES_ULTRA,      .id = VIRTEX108_ULTRA_MB_DAP_ID, 		.irLen =  6, .numSlr = 1},  /**< VCU108 VIRTEX Ultrascale microblaze TAP id */
+  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = KINTEX_ULTRAPLUS_DAP_ID, 		.irLen =  6, .numSlr = 1},  /**< Kintex Ultrascale plus microblaze TAP ID */
+  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = VIRTEX_ULTRAPLUS_DAP_ID, 		.irLen = 18, .numSlr = 3},  /**< VCU140 VIRTEX Ultrascale Plus microblaze TAP id */
+  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = VIRTEX_ULTRAPLUS_VC13P_DAP_ID, 	.irLen = 24, .numSlr = 4}  /**< XCVU13P VIRTEX Ultrascale Plus microblaze TAP id */
+};
+
 void GpioConfig(unsigned long addr, unsigned long mask, unsigned long val)
 {
 	unsigned long current_val = *(volatile unsigned long *)addr;
@@ -245,7 +265,7 @@ void JtagInitGpio (XilSKey_ModuleSelection Module)
 	u32 DataDirection;
 
 	js_printf("===== Initializing PL GPIO pins...\n\r");
-	XGpio_Config *ptrConfigPtr = XGpio_LookupConfig(XSK_GPIO_DEVICE_ID);
+	XGpio_Config *ptrConfigPtr = XGpio_LookupConfig(GpioDeviceId);
 	XGpio_CfgInitialize(&structXGpio, ptrConfigPtr,
 						ptrConfigPtr->BaseAddress);
 
@@ -565,6 +585,31 @@ const unsigned int JTAGNavigateTable [256] =
     0x1B05, // Start=15, End=15, TMSValue=1B, BitCount= 5
 };
 
+
+u32 calcInstr(u8 Instr, u8 cmd)
+{
+	int index;
+	u32 val=0;
+	int SlrNum;
+	int SlrMax=XilSKeyJtag.NumSlr;
+
+	if(cmd == CALC_MSTR) {
+		SlrNum = 0;
+	} else {
+		SlrNum=XilSKeyJtag.CurSlr;
+	}
+
+	for(index=0; index<SlrMax; index++) {
+		val = val << 6;
+		if((cmd == CALC_ALL) || (SlrNum == index)) {
+			val |= Instr;
+		} else {
+			val |= FEEDTHROUGH;
+		}
+	}
+	return val;
+}
+
 unsigned int getNavigateTAPValue (unsigned char startState, unsigned char endState)
 {
     unsigned char index;
@@ -723,8 +768,7 @@ int jtagShiftTDIBits (unsigned char* tdiBuf, unsigned char* tdoBuf, int bitCount
 	bitsLeft = bitCount % 8;
     }
 
-	if(flags | JS_ONES)
-		TdiTemp = 0xFF;
+	TdiTemp = 0xFF;
 
     while (index < byteCount)
     {
@@ -784,6 +828,11 @@ int jtag_setPreAndPostPads (js_port_t *port_arg, int irPrePadBits, int irPostPad
 int jtag_navigate (js_port_t *port, js_state_t state)
 {
 	int status = 0;
+
+	if (port == NULL) {
+		return -1;
+	}
+
 	js_command_sequence_t *cmds = js_create_command_sequence(port->root_node);
 	if (cmds == NULL)
 	{
@@ -1100,8 +1149,8 @@ void JtagWrite(unsigned char row, unsigned char bit)
     Go to TLR to clear FUSE_CTS
 	*/
     unsigned char wrBuffer [8];
-    u32 bits = 0;
     u64 time = 0;
+	u32 *WriteBuf32 = (u32 *)wrBuffer;
 
 	// program FUSE_USER bit in row 31 bit 0
 	//Go to TLR to clear FUSE_CTS
@@ -1109,9 +1158,8 @@ void JtagWrite(unsigned char row, unsigned char bit)
 
 	//Load FUSE_CTS instruction on IR
 	jtag_setPreAndPostPads (g_port, 0, ZYNQ_DAP_IR_LENGTH, 0, 1);
-	bits = TAP_IR_LENGTH; // xc7z020 ir length
-	wrBuffer [0] = 0x30; // FUSE_CTS instruction
-	jtag_shift (g_port, ATOMIC_IR_SCAN, bits, wrBuffer, NULL, JS_DRSELECT);
+	*WriteBuf32 = calcInstr(FUSE_CTS_SLRX, CALC_SINGLE); // FUSE_CTS instruction
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, wrBuffer, NULL, JS_DRSELECT);
 
 	//prepare FUSE_CTS data.
 	wrBuffer [0] = (unsigned char)((row<<3)| 0x3);		//Enable DMA, program and select row.
@@ -1124,13 +1172,11 @@ void JtagWrite(unsigned char row, unsigned char bit)
 	wrBuffer [6] = 0x8A;
 	wrBuffer [7] = 0xA0;
 
-	bits = 64; // fuse_cts data length
-
 	/* Step to CDR/SDR to shift in the command word
      * dma=1; pgm=1; a_row<4:0> & a_bit<4:0>
      * Continuously shift in MAGIC_CTS_WRITE
      */
-	jtag_shift (g_port, ATOMIC_DR_SCAN, bits, wrBuffer, NULL, JS_DRSELECT);
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_FUSE, wrBuffer, NULL, JS_DRSELECT);
 
 	jtag_navigate (g_port, JS_DRCAPTURE);
 	jtag_navigate (g_port, JS_DREXIT1);
@@ -1182,19 +1228,18 @@ void JtagRead(unsigned char row, unsigned int * row_data, unsigned char marginOp
 	*/
     unsigned char wrBuffer [8];
     unsigned char rdBuffer [8];
-    int bits = 8;
     unsigned char * row_data_ptr = (unsigned char *)row_data;
+	u32 *WriteBuf32 = (u32 *)wrBuffer;
 
 		// read 64-bit eFUSE dna
 		//Go to TLR to clear FUSE_CTS
 		jtag_navigate (g_port, JS_RESET);
 
-		//Load FUSE_CTS instruction on IR
-		jtag_setPreAndPostPads (g_port, 0, ZYNQ_DAP_IR_LENGTH, 0, 1);
-		bits = TAP_IR_LENGTH; // xc7z020 ir length
-		wrBuffer [0] = 0x30; // FUSE_CTS instruction
-		jtag_shift (g_port, ATOMIC_IR_SCAN, bits, wrBuffer, NULL, JS_DRSELECT);
-		//prepare FUSE_CTS data.
+	//Load FUSE_CTS instruction on IR
+	jtag_setPreAndPostPads (g_port, 0, ZYNQ_DAP_IR_LENGTH, 0, 1);
+	*WriteBuf32 = calcInstr(FUSE_CTS_SLRX, CALC_SINGLE); // FUSE_CTS instruction
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, wrBuffer, NULL, JS_DRSELECT);
+	//prepare FUSE_CTS data.
 
 		wrBuffer [0] = (unsigned char)((row<<3)| 0x1);		//Enable DMA and select the row number.
 		wrBuffer [1] = (unsigned char)(marginOption<<5);
@@ -1206,10 +1251,9 @@ void JtagRead(unsigned char row, unsigned int * row_data, unsigned char marginOp
 		wrBuffer [6] = 0x8A;
 		wrBuffer [7] = 0xA0;
 
-		bits = 64; // fuse_cts data length
-		jtag_shift (g_port, ATOMIC_DR_SCAN, bits, wrBuffer, NULL, JS_DRSELECT);
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_FUSE, wrBuffer, NULL, JS_DRSELECT);
 
-		jtag_shift (g_port, ATOMIC_DR_SCAN, bits, NULL, rdBuffer, JS_DRSELECT);
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_FUSE, NULL, rdBuffer, JS_DRSELECT);
 
 		row_data_ptr[0] = rdBuffer [4];
 		row_data_ptr[1] = rdBuffer [5];
@@ -1282,6 +1326,7 @@ int JtagServerInit(XilSKey_EPl *InstancePtr)
 {
     int retval=0, i=0, num_taps=0, status=0;
     u32 *tap_codes = NULL;
+    u32 index;
 
 #ifdef XSK_ARM_PLATFORM
 	g_mio_jtag_tdi		=	InstancePtr->JtagMioTDI;
@@ -1314,6 +1359,7 @@ int JtagServerInit(XilSKey_EPl *InstancePtr)
 
 	GpioInPutCh = InstancePtr->GpioInputCh;
 	GpioOutPutCh = InstancePtr->GpioOutPutCh;
+	GpioDeviceId = InstancePtr->JtagGpioID;
 
 	status = JtagValidateMioPins(XSK_EFUSE);
 	if(status != 0)
@@ -1352,26 +1398,26 @@ int JtagServerInit(XilSKey_EPl *InstancePtr)
     }
     js_printf("\n");
 
-
 	//Check if one of the tap code is for Zynq DAP ID: 4ba00477
+    //and mask out most significant nibble which represents Production Version
 
-    for (i = 0; i < num_taps; i++) {
-		if(tap_codes[i] == ZYNQ_DAP_ID){
-			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ZYNQ;
-			break;
+  for (i = 0; i < num_taps; i++) {
+	for(index = 0; index < sizeof(IDcodeArray)/sizeof(IDcodeArray[0]); index++) {
+		if( (tap_codes[i] & 0x0FFFFFFF) == IDcodeArray[index].id) {
+			InstancePtr->FpgaFlag = IDcodeArray[index].flag;
+			InstancePtr->NumSlr    = IDcodeArray[index].numSlr;
+			XilSKeyJtag.NumSlr    = IDcodeArray[index].numSlr;
+			XilSKeyJtag.IrLen     = IDcodeArray[index].irLen;
+			js_printf("Match. ID code: %08x\r\n", tap_codes[i]);
+			js_printf("Match. numSlr:  %2d\r\n", XilSKeyJtag.NumSlr);
+			js_printf("Match. irLen:   %2d\r\n", XilSKeyJtag.IrLen);
+			goto IDSCAN_DONE;
+			}
 		}
-		if ((tap_codes[i] == KINTEX_ULTRA_MB_DAP_ID) ||
-			(tap_codes[i] == VIRTEX108_ULTRA_MB_DAP_ID) ||
-			(tap_codes[i] == VIRTEX110_ULTRA_MB_DAP_ID)) {
-			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ULTRA;
-			break;
-		}
-		if ((tap_codes[i] == KINTEX_ULTRAPLUS_DAP_ID) ||
-			(tap_codes[i] == VIRTEX_ULTRAPLUS_DAP_ID)) {
-			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ULTRA_PLUS;
-			break;
-		}
-    }
+		js_printf("DAP ID code: %08x no match for tap: %d\r\n", tap_codes[i], i);
+	}
+
+IDSCAN_DONE:
 
 	if(i == num_taps)
 	{
@@ -1413,6 +1459,7 @@ int JtagServerInitBbram(XilSKey_Bbram *InstancePtr)
 {
     int retval=0, i=0, num_taps=0, status=0;
     u32 *tap_codes = NULL;
+    u32 index;
 #ifdef XSK_ARM_PLATFORM
     g_mio_jtag_tdi		=	InstancePtr->JtagMioTDI;
     g_mio_jtag_tdo		= 	InstancePtr->JtagMioTDO;
@@ -1440,9 +1487,11 @@ int JtagServerInitBbram(XilSKey_Bbram *InstancePtr)
 
 	GpioInPutCh = InstancePtr->GpioInputCh;
 	GpioOutPutCh = InstancePtr->GpioOutPutCh;
+	GpioDeviceId = InstancePtr->JtagGpioID;
 
 	status = JtagValidateMioPins(XSK_BBRAM);
 	if (status != 0) {
+		js_printf("JtagValidateMioPins() failed\r\n");
 	  return 1;
 	}
 
@@ -1478,24 +1527,25 @@ int JtagServerInitBbram(XilSKey_Bbram *InstancePtr)
 
 
 	//Check if one of the tap code is for Zynq DAP ID: 4ba00477
+    //and mask out most significant nibble which represents Production version
 
-    for (i = 0; i < num_taps; i++) {
-		if(tap_codes[i] == ZYNQ_DAP_ID){
-			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ZYNQ;
-			break;
+  for (i = 0; i < num_taps; i++) {
+	for(index = 0; index < sizeof(IDcodeArray)/sizeof(IDcodeArray[0]); index++) {
+		if( (tap_codes[i] & 0x0FFFFFFF) == IDcodeArray[index].id) {
+			InstancePtr->FpgaFlag = IDcodeArray[index].flag;
+			InstancePtr->NumSlr	  = IDcodeArray[index].numSlr;
+			XilSKeyJtag.NumSlr    = IDcodeArray[index].numSlr;
+			XilSKeyJtag.IrLen     = IDcodeArray[index].irLen;
+			js_printf("Match. ID code: %08x\r\n", tap_codes[i]);
+			js_printf("Match. numSlr:  %2d\r\n", XilSKeyJtag.NumSlr);
+			js_printf("Match. irLen:   %2d\r\n", XilSKeyJtag.IrLen);
+			goto IDSCAN_DONE;
+			}
 		}
-		if ((tap_codes[i] == KINTEX_ULTRA_MB_DAP_ID) ||
-			(tap_codes[i] == VIRTEX108_ULTRA_MB_DAP_ID) ||
-			(tap_codes[i] == VIRTEX110_ULTRA_MB_DAP_ID)) {
-			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ULTRA;
-			break;
-		}
-		if ((tap_codes[i] == KINTEX_ULTRAPLUS_DAP_ID) ||
-			(tap_codes[i] == VIRTEX_ULTRAPLUS_DAP_ID)) {
-			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ULTRA_PLUS;
-			break;
-		}
-    }
+		js_printf("DAP ID code: %08x no match for tap: %d\r\n", tap_codes[i], i);
+	}
+
+IDSCAN_DONE:
 
 	if(i == num_taps)
 	{
@@ -1538,6 +1588,7 @@ int Bbram_Init(void)
 	u8 IRCaptureStatus = 0;
 	u8 WriteBuffer[4];
 	u64 Time = 0;
+	u32 *WriteBuf32 = (u32 *)WriteBuffer;
 
 	jtag_navigate (g_port, JS_RESET);
 	jtag_navigate (g_port, JS_IDLE);
@@ -1545,8 +1596,8 @@ int Bbram_Init(void)
 	/* Load bypass */
 	jtag_setPreAndPostPads (g_port, IRHEADER, IRTRAILER,
 			DRHEADER, DRTRAILER);
-	WriteBuffer[0] = BYPASS;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(BYPASS, CALC_ALL);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IDLE);
 
 	/*
@@ -1554,15 +1605,15 @@ int Bbram_Init(void)
 	 */
 	jtag_setPreAndPostPads (g_port, IRHEADER, IRTRAILER,
 			DRHEADER, DRTRAILER);
-	WriteBuffer[0] = JPROGRAM;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(JPROGRAM, CALC_ALL);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IDLE);
 
 	/*
 	 * Load ISC_NOOP
 	 */
-	WriteBuffer[0] = ISC_NOOP;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(ISC_NOOP, CALC_ALL);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IDLE);
 
 	/*
@@ -1579,8 +1630,8 @@ int Bbram_Init(void)
 	/*
 	 * Load ISC_NOOP
 	 */
-	WriteBuffer[0] = ISC_NOOP;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(ISC_NOOP, CALC_ALL);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			&IRCaptureStatus, JS_IDLE);
 
 	/*
@@ -1615,6 +1666,7 @@ int Bbram_ProgramKey(XilSKey_Bbram *InstancePtr)
 	u32 KeyCnt;
 	u8 WriteBuffer[4];
 	u8 TckCnt;
+	u32 *WriteBuf32 = (u32 *)WriteBuffer;
 
 	/*
 	 * Initial state - RTI
@@ -1626,8 +1678,8 @@ int Bbram_ProgramKey(XilSKey_Bbram *InstancePtr)
 	 */
 	jtag_setPreAndPostPads (g_port, IRHEADER, IRTRAILER,
 			DRHEADER, DRTRAILER);
-	WriteBuffer[0] = ISC_ENABLE;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(ISC_ENABLE, CALC_SINGLE);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IRPAUSE);
 
 	/*
@@ -1648,8 +1700,8 @@ int Bbram_ProgramKey(XilSKey_Bbram *InstancePtr)
 	/*
 	 * Load ISC_PROGRAM_KEY
 	 */
-	WriteBuffer[0] = ISC_PROGRAM_KEY;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(ISC_PROGRAM_KEY, CALC_SINGLE);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IRPAUSE);
 
 	/*
@@ -1673,8 +1725,8 @@ int Bbram_ProgramKey(XilSKey_Bbram *InstancePtr)
 	/*
 	 * Load ISC_PROGRAM
 	 */
-	WriteBuffer[0] = ISC_PROGRAM;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(ISC_PROGRAM, CALC_SINGLE);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IRPAUSE);
 
 	/*
@@ -1701,8 +1753,8 @@ int Bbram_ProgramKey(XilSKey_Bbram *InstancePtr)
 		/*
 		 * Load ISC_PROGRAM
 		 */
-		WriteBuffer[0] = ISC_PROGRAM;
-		jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+		*WriteBuf32 = calcInstr(ISC_PROGRAM, CALC_SINGLE);
+		jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 				NULL, JS_IRPAUSE);
 
 		/*
@@ -1764,6 +1816,7 @@ int Bbram_VerifyKey(XilSKey_Bbram *InstancePtr)
 	u8 TckCnt;
 	unsigned long long DataReg = 0;
 	int Status = XST_SUCCESS;
+	u32 *WriteBuf32 = (u32 *)WriteBuffer;
 
 	/*
 	 * Initial state - RTI
@@ -1775,8 +1828,8 @@ int Bbram_VerifyKey(XilSKey_Bbram *InstancePtr)
 	/*
 	 * Load ISC_ENABLE
 	 */
-	WriteBuffer[0] = ISC_ENABLE;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(ISC_ENABLE, CALC_SINGLE);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IRPAUSE);
 
 	/*
@@ -1797,8 +1850,8 @@ int Bbram_VerifyKey(XilSKey_Bbram *InstancePtr)
 	/*
 	 * Load ISC_READ
 	 */
-	WriteBuffer[0] = ISC_READ;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(ISC_READ, CALC_SINGLE);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IRPAUSE);
 
 	/*
@@ -1858,8 +1911,8 @@ int Bbram_VerifyKey(XilSKey_Bbram *InstancePtr)
 		/*
 		 * Load ISC_READ
 		 */
-		WriteBuffer[0] = ISC_READ;
-		jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	  *WriteBuf32 = calcInstr(ISC_READ, CALC_SINGLE);
+		jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 				NULL, JS_IRPAUSE);
 
 		WriteBuffer[0] = 0xFF;
@@ -1944,8 +1997,8 @@ int Bbram_VerifyKey(XilSKey_Bbram *InstancePtr)
 	/*
 	 * Load ISC_DISABLE
 	 */
-	WriteBuffer[0] = ISC_DISABLE;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(ISC_DISABLE, CALC_ALL);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IDLE);
 
 	/*
@@ -1978,6 +2031,7 @@ int Bbram_VerifyKey(XilSKey_Bbram *InstancePtr)
 void Bbram_DeInit(void)
 {
 	u8 WriteBuffer[5];
+	u32 *WriteBuf32 = (u32 *)WriteBuffer;
 
 	/*
 	 * Load BYPASS
@@ -1985,8 +2039,8 @@ void Bbram_DeInit(void)
 	jtag_setPreAndPostPads (g_port, IRHEADER_BYP, IRTRAILER_BYP,
 			DRHEADER_BYP, DRTRAILER_BYP);
 
-	WriteBuffer[0] = BYPASS;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(BYPASS, CALC_ALL);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IDLE);
 
 	WriteBuffer[0] = IRDEINIT_L;
@@ -2033,27 +2087,30 @@ void Jtag_Read_Sysmon(u8 Row, u32 *Row_Data)
 	u8 ReadBuf[4];
 	u8 *DataPtr = (u8 *)Row_Data;
 	u32 TckCnt;
-	jtag_navigate (g_port, JS_RESET);
-	WriteBuf[0] = 0x37;
+	u32 *WriteBuf32 = (u32 *)WriteBuf;
 
-	jtag_shift (g_port, ATOMIC_IR_SCAN, 6, WriteBuf,
+	jtag_navigate (g_port, JS_RESET);
+
+	*WriteBuf32 = calcInstr(SYSMON_DRP, CALC_MSTR);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuf,
 						NULL, JS_IREXIT1);
 	WriteBuf[3] = 0xC4;
 	WriteBuf[2] = Row;
 	WriteBuf[1] = 0x00;
 	WriteBuf[0] = 0x00;
 
-	jtag_shift (g_port, ATOMIC_DR_SCAN, 32, WriteBuf,
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_PROGRAM, WriteBuf,
 					NULL, JS_IDLE);
 	/*
 	 * Wait 12 TCK
+	 * To ensure arbitration of sysmon DRP is fully resolved
 	 */
 	for(TckCnt = 0; TckCnt < 12; TckCnt++){
 		setPin (MIO_TCK, 1);
 		setPin (MIO_TCK, 0);
 	}
 
-	jtag_shift (g_port, ATOMIC_DR_SCAN, 32, NULL,
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_PROGRAM, NULL,
 						ReadBuf, JS_IDLE);
 
 	DataPtr[0] = ReadBuf[0];
@@ -2082,14 +2139,15 @@ int JtagWrite_Ultrascale(u8 Row, u8 Bit, u8 Page, u8 Redundant)
 {
 
 	u8 wrBuffer [8];
-	u32 Bits = 0;
+	u32 *WriteBuf32 = (u32 *)wrBuffer;
 	int Status = XST_SUCCESS;
 
 	jtag_navigate (g_port, JS_RESET);
 
-	Bits = TAP_IR_LENGTH;
-	wrBuffer [0] = 0x30; /* FUSE_CTS instruction */
-	jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, wrBuffer, NULL, JS_DRSELECT);
+	/* FUSE_CTS instruction */
+	*WriteBuf32 = calcInstr(FUSE_CTS_SLRX, CALC_SINGLE);
+
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, wrBuffer, NULL, JS_DRSELECT);
 
 	/* Prepare FUSE_CTS data */
 	wrBuffer [0] = (((Bit & 0x1) << 7) | ((Row << 2)| 0x3));
@@ -2111,9 +2169,7 @@ int JtagWrite_Ultrascale(u8 Row, u8 Bit, u8 Page, u8 Redundant)
 	wrBuffer [6] = 0xED;
 	wrBuffer [7] = 0xFE;
 
-	Bits = 64; /* fuse_cts data length */
-
-	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, wrBuffer, NULL, JS_DRSELECT);
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_FUSE, wrBuffer, NULL, JS_DRSELECT);
 
 	jtag_navigate (g_port, JS_DRCAPTURE);
 	jtag_navigate (g_port, JS_DREXIT1);
@@ -2183,16 +2239,15 @@ void JtagRead_Ultrascale(u8 Row, u32 *RowData, u8 MarginOption,
 {
 
 	u8 WrBuffer [8];
-	u8 RdBuffer [8];
-	u32 Bits = 8;
+	u8 RdBuffer [8]= {0};
 	u8 *RowDataPtr = (u8 *)RowData;
+	u32 *WriteBuf32 = (u32 *)WrBuffer;
 
 	jtag_navigate (g_port, JS_RESET);
 
 	/* Load FUSE_CTS instruction on IR */
-	Bits = TAP_IR_LENGTH; /* IR length */
-	WrBuffer [0] = 0x30; /* FUSE_CTS instruction */
-	jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuffer, NULL, JS_DRSELECT);
+	*WriteBuf32 = calcInstr(FUSE_CTS_SLRX, CALC_SINGLE); /* FUSE_CTS instruction */
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WrBuffer, NULL, JS_DRSELECT);
 
 	/*prepare FUSE_CTS data. */
 	WrBuffer [0] = ((Row << 2)| 0x1);	/* Select the row number */
@@ -2211,10 +2266,9 @@ void JtagRead_Ultrascale(u8 Row, u32 *RowData, u8 MarginOption,
 	WrBuffer [6] = 0xED;
 	WrBuffer [7] = 0xFE;
 
-	Bits = 64; /* Fuse_cts data length */
-	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, WrBuffer, NULL, JS_IDLE);
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_FUSE, WrBuffer, NULL, JS_IDLE);
 
-	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, NULL, RdBuffer, JS_IDLE);
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_FUSE, NULL, RdBuffer, JS_IDLE);
 
 	/*
 	 * Captured macro word (32 Bits) is stored in [63:32] of
@@ -2249,17 +2303,15 @@ void JtagRead_Status_Ultrascale(u32 *Rowdata)
 {
 	u8 WrBuffer[32];
 	u8 RdBuffer [4];
-	u32 Bits = 8;
 	u8 *RowDataPtr = (u8 *)Rowdata;
+	u32 *WriteBuf32 = (u32 *)WrBuffer;
 
 	/* Go to TLR to clear FUSE_CTS */
 	jtag_navigate (g_port, JS_RESET);
 
-	/* Load FUSE_CTS instruction on IR */
-	Bits = TAP_IR_LENGTH; /* ir length */
-
-	WrBuffer [0] = 0x05; /* FUSE_CTS instruction */
-	jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuffer, NULL, JS_DRSELECT);
+	/* CFG_IN instruction */
+	*WriteBuf32 = calcInstr(CFG_IN_SLRX, CALC_SINGLE);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WrBuffer, NULL, JS_DRSELECT);
 
 	/* prepare Bit stream data */
 	WrBuffer[0] = 0xff;
@@ -2302,15 +2354,12 @@ void JtagRead_Status_Ultrascale(u32 *Rowdata)
 	WrBuffer [30] = 0x00;
 	WrBuffer [31] = 0x00;
 
-	Bits = 256;
-	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, WrBuffer, NULL, JS_IDLE);
+	jtag_shift (g_port, ATOMIC_DR_SCAN, 256, WrBuffer, NULL, JS_IDLE);
 
-	WrBuffer [0] = 0x04;
-	Bits = 0x06;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuffer, NULL, JS_DRSELECT);
+	*WriteBuf32 = calcInstr(CFG_OUT_SLRX, CALC_SINGLE);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WrBuffer, NULL, JS_DRSELECT);
 
-	Bits = 32;
-	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, NULL, RdBuffer, JS_IDLE);
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_PROGRAM, NULL, RdBuffer, JS_IDLE);
 
 	RowDataPtr[0] = RdBuffer [0];
 	RowDataPtr[1] = RdBuffer [1];
@@ -2354,21 +2403,20 @@ u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
 {
 	u8 WrBuffer [32];
 	u8 RdBuffer [8];
-	u32 Bits = 8;
 	u8 *RowDataPtr = (u8 *)Crc;
 	u32 Row;
 	u32 Index;
 	u8 WrBuf[8];
 	u8 AesRowStart;
 	u8 AesRowEnd;
+	u32 *WriteBuf32 = (u32 *)WrBuf;
 
 	/* Go to TLR to clear FUSE_CTS */
 	jtag_navigate (g_port, JS_RESET);
 
 	/* Load FUSE_CTS instruction on IR */
-	Bits = TAP_IR_LENGTH; /* IR length */
-	WrBuffer [0] = 0x30; /* FUSE_CTS instruction */
-	jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuffer, NULL, JS_DRSELECT);
+	*WriteBuf32 = calcInstr(FUSE_CTS_SLRX, CALC_SINGLE); /* FUSE_CTS instruction */
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WrBuf, NULL, JS_DRSELECT);
 
 	/* Prepare FUSE_CTS data. */
 	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA) {
@@ -2389,12 +2437,10 @@ u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
 	WrBuffer [6] = 0xED;
 	WrBuffer [7] = 0xFE;
 
-	Bits = 64; /* fuse_cts data length */
-	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, WrBuffer, NULL, JS_IDLE);
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_FUSE, WrBuffer, NULL, JS_IDLE);
 
-	Bits = TAP_IR_LENGTH; /* Ir length */
-	WrBuffer [0] = 0x31; /* CMD for FUSE Key */
-	jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuffer, NULL, JS_DRSELECT);
+	*WriteBuf32 = calcInstr(FUSE_KEY_SLRX, CALC_SINGLE); /* FUSE_CTS instruction */
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WrBuf, NULL, JS_DRSELECT);
 
 
 	WrBuffer[0] = RowDataPtr[0];
@@ -2404,11 +2450,10 @@ u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
 	for (Index = 4; Index < 32; Index++) {
 		WrBuffer[Index] = 0;
 	}
-	Bits = 256;
-	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, WrBuffer, NULL, JS_IDLE);
-	Bits = TAP_IR_LENGTH;
-	WrBuffer [0] = 0x30; /* FUSE_CTS instruction */
-	jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuffer, NULL, JS_DRSELECT);
+
+	jtag_shift (g_port, ATOMIC_DR_SCAN, 256, WrBuffer, NULL, JS_IDLE);
+	*WriteBuf32 = calcInstr(FUSE_CTS_SLRX, CALC_SINGLE); /* FUSE_CTS instruction */
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WrBuf, NULL, JS_DRSELECT);
 
 
 	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA) {
@@ -2433,17 +2478,14 @@ u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
 	WrBuffer [6] = 0xED;
 	WrBuffer [7] = 0xFE;
 
-	Bits = 64;
-	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, WrBuffer, NULL, JS_IDLE);
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_FUSE, WrBuffer, NULL, JS_IDLE);
 	/*
 	 * Repeat for all AES key Rows 20-27 and repeat one extra read
 	 * for getting CRC back.
 	 */
 	for (Row = AesRowStart; Row < AesRowEnd; Row++) {
-		WrBuf[0] = 0x30;
-		Bits = 6;
-		jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuf, NULL,
-							JS_DRSELECT);
+		*WriteBuf32 = calcInstr(FUSE_CTS_SLRX, CALC_SINGLE); /* FUSE_CTS instruction */
+		jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WrBuf, NULL, JS_DRSELECT);
 
 		if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA) {
 			WrBuffer [0] = (Row << 2) | 0x1;/* Select row number */
@@ -2462,16 +2504,14 @@ u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
 		WrBuffer [5] = 0x28;
 		WrBuffer [6] = 0xED;
 		WrBuffer [7] = 0xFE;
-		Bits = 64;
-		jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, WrBuffer,
+		jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_FUSE, WrBuffer,
 						RdBuffer, JS_IDLE);
 	}
 
-	WrBuf[0] = 0x30;
-	Bits = 6;
-	jtag_shift(g_port, ATOMIC_IR_SCAN, Bits, WrBuf, NULL, JS_DRSELECT);
-	Bits = 64;
-	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, WrBuffer, RdBuffer, JS_IDLE);
+	*WriteBuf32 = calcInstr(FUSE_CTS_SLRX, CALC_SINGLE); /* FUSE_CTS instruction */
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WrBuf, NULL, JS_DRSELECT);
+
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_FUSE, WrBuffer, RdBuffer, JS_IDLE);
 	if ((RowDataPtr[0] == RdBuffer[4]) &&
 		(RowDataPtr[1] == RdBuffer[5]) &&
 		(RowDataPtr[2] == RdBuffer[6]) &&
@@ -2500,15 +2540,16 @@ u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
 int Bbram_Init_Ultra(void)
 {
 	u8 WriteBuffer[4];
+	u32 *WriteBuf32 = (u32 *)WriteBuffer;
 	u64 Time = 0;
 
 	jtag_navigate (g_port, JS_RESET);
 	jtag_navigate (g_port, JS_IDLE);
 
 	/* Load ISC_NOOP */
-	WriteBuffer[0] = ISC_NOOP;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
-			NULL, JS_IDLE);
+		*WriteBuf32 = calcInstr(ISC_NOOP, CALC_ALL);
+		jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
+				NULL, JS_IDLE);
 
 #ifdef XSK_MICROBLAZE_PLATFORM
 	/* Wait 100 msec */
@@ -2550,12 +2591,14 @@ int Bbram_ProgramKey_Ultra(XilSKey_Bbram *InstancePtr)
 	u8 TckCnt;
 	u32 *WriteBuf32 = (u32 *)WriteBuffer;
 
+	js_printf("Entered. SLRNUM: %d\r\n", XilSKeyJtag.CurSlr);
+
 	/* Initial state - RTI */
 	jtag_navigate (g_port, JS_IDLE);
 
 	/* Load ISC_ENABLE */
-	WriteBuffer[0] = ISC_ENABLE;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(ISC_ENABLE_SLRX, CALC_SINGLE);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IRPAUSE);
 
 	/* Shift 5 bits (0x15) */
@@ -2582,16 +2625,13 @@ int Bbram_ProgramKey_Ultra(XilSKey_Bbram *InstancePtr)
 
 	jtag_navigate (g_port, JS_IDLE);
 
-	/* Load ISC_PROGRAM_KEY */
-	WriteBuffer[0] = ISC_PROGRAM_KEY;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	/* Load XSC_PROGRAM_SLRx */
+	*WriteBuf32 = calcInstr(XSC_PROGRAM_SLRX, CALC_SINGLE);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IRPAUSE);
 
 	/* Shift 0xFFFFFFFF */
-	WriteBuffer[0] = 0xFF;
-	WriteBuffer[1] = 0xFF;
-	WriteBuffer[2] = 0xFF;
-	WriteBuffer[3] = 0xFF;
+	*WriteBuf32 = 0xFFFFFFFF;
 	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_PROGRAM,
 			&WriteBuffer[0], NULL, JS_IDLE);
 
@@ -2601,12 +2641,12 @@ int Bbram_ProgramKey_Ultra(XilSKey_Bbram *InstancePtr)
 		setPin (MIO_TCK, 0);
 	}
 
-	/* Load ISC_PROGRAM */
-	WriteBuffer[0] = ISC_PROGRAM;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	/* Load ISC_PROGRAM_SLRx */
+	*WriteBuf32 = calcInstr(ISC_PROGRAM_SLRX, CALC_SINGLE);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IRPAUSE);
 
-	/* Shift 0x0000557B Cotrol word */
+	/* Shift 0x0000557B Control word */
 	*WriteBuf32 = InstancePtr->CtrlWord;
 	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_PROGRAM,
 			&WriteBuffer[0], NULL, JS_IDLE);
@@ -2618,9 +2658,9 @@ int Bbram_ProgramKey_Ultra(XilSKey_Bbram *InstancePtr)
 	/* Program key - 32 bits at a time */
 	KeyCnt = 31;
 	while (KeyCnt < NUMCHARINKEY) {
-		/* Load ISC_PROGRAM */
-		WriteBuffer[0] = ISC_PROGRAM;
-		jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+		/* Load ISC_PROGRAM_SLRx */
+		*WriteBuf32 = calcInstr(ISC_PROGRAM_SLRX, CALC_SINGLE);
+		jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 				NULL, JS_IRPAUSE);
 
 		/* Copy key from Instance structure */
@@ -2639,8 +2679,8 @@ int Bbram_ProgramKey_Ultra(XilSKey_Bbram *InstancePtr)
 	}
 
 	/* Write CRC of BBRAM key */
-	WriteBuffer[0] = ISC_PROGRAM;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(ISC_PROGRAM_SLRX, CALC_SINGLE);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IRPAUSE);
 	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_PROGRAM,
 			(u8 *)&(InstancePtr->Crc), NULL, JS_IDLE);
@@ -2671,13 +2711,14 @@ int Bbram_ProgramKey_Ultra(XilSKey_Bbram *InstancePtr)
 void Bbram_DeInit_Ultra(void)
 {
 	u8 WriteBuffer[5];
+	u32 *WriteBuf32 = (u32 *)WriteBuffer;
 	u32 TckCnt;
 
 	jtag_navigate (g_port, JS_IDLE);
 
 	/* ISC_PROG_SECURITY */
-	WriteBuffer[0] = 0x12;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(XSC_PROGRAM_SLRX, CALC_SINGLE);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IDLE);
 	WriteBuffer[0] = 0x00;
 	WriteBuffer[1] = 0x00;
@@ -2690,10 +2731,29 @@ void Bbram_DeInit_Ultra(void)
 		setPin (MIO_TCK, 1);
 		setPin (MIO_TCK, 0);
 	}
+}
+
+/****************************************************************************/
+/**
+*
+* This function close  UltraScale.
+*
+* @param 	none
+*
+* @return	none
+*
+* @note		none
+*
+*****************************************************************************/
+void Bbram_Close_Ultra(void)
+{
+	u8 WriteBuffer[4];
+	u32 *WriteBuf32 = (u32 *)WriteBuffer;
+	u32 TckCnt;
 
 	/* Load ISC_DISABLE */
-	WriteBuffer[0] = ISC_DISABLE;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(ISC_DISABLE, CALC_ALL);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IDLE);
 
 	/* Wait 12 TCK */
@@ -2708,9 +2768,16 @@ void Bbram_DeInit_Ultra(void)
 		setPin (MIO_TCK, 0);
 	}
 
+	jtag_navigate (g_port, JS_IDLE);
+
+	for(TckCnt = 0; TckCnt < 6; TckCnt++){
+		setPin (MIO_TCK, 1);
+		setPin (MIO_TCK, 0);
+	}
+
 	/* BYPASS */
-	WriteBuffer[0] = BYPASS;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(BYPASS, CALC_ALL);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 				NULL, JS_IDLE);
 
 	jtag_navigate (g_port, JS_RESET);
@@ -2743,6 +2810,7 @@ void Bbram_DeInit_Ultra(void)
 int Bbram_VerifyKey_Ultra(u32 *Crc32)
 {
 	u8 WriteBuffer[5];
+	u32 *WriteBuf32 = (u32 *)WriteBuffer;
 	u64 ReadBuffer;
 	int Status = XST_SUCCESS;
 	u32 Num;
@@ -2751,8 +2819,8 @@ int Bbram_VerifyKey_Ultra(u32 *Crc32)
 	jtag_navigate (g_port, JS_IDLE);
 
 	/* Load ISC_READ */
-	WriteBuffer[0] = ISC_READ;
-	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+	*WriteBuf32 = calcInstr(ISC_READ_SLRX, CALC_SINGLE);
+	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 			NULL, JS_IDLE);
 
 	for (Num = 0; Num < 10; Num++) {
@@ -2784,6 +2852,7 @@ int Bbram_VerifyKey_Ultra(u32 *Crc32)
 * @note		None.
 *
 *****************************************************************************/
+#ifndef XSK_ARM_PLATFORM
 static inline int JtagValidateMioPins_Efuse_Ultra(void)
 {
 
@@ -2906,7 +2975,7 @@ static inline int JtagValidateMioPins_Efuse_Ultra(void)
 * @note		Hardware module is not required over here.
 *
 *****************************************************************************/
-static inline int JtagValidateMioPins_Bbram_Ultra()
+static inline int JtagValidateMioPins_Bbram_Ultra(void)
 {
 	/*
 	 * Make sure that each every AXI GPIO pin defined is valid
@@ -2967,3 +3036,4 @@ static inline int JtagValidateMioPins_Bbram_Ultra()
 	return XST_SUCCESS;
 
 }
+#endif

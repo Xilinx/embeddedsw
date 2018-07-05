@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,10 @@
 
 #ifndef PM_POWER_H_
 #define PM_POWER_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "pm_common.h"
 #include "pm_node.h"
@@ -74,8 +78,8 @@ typedef struct PmPower {
 	PmNode node;
 	PmPowerClass* const class;
 	PmNode** const children;
-	int (*const powerUp)(void);
-	int (*const powerDown)(void);
+	s32 (*const powerUp)(void);
+	s32 (*const powerDown)(void);
 	const u32 pwrDnLatency;
 	const u32 pwrUpLatency;
 	u32 forcePerms;
@@ -132,11 +136,15 @@ extern PmNodeClass pmNodeClassPower_g;
 void PmPowerReleaseParent(PmNode* const node);
 void PmPowerReleaseRpu(PmSlaveTcm* const tcm);
 
-int PmPowerRequestRpu(PmSlaveTcm* const tcm);
-int PmPowerRequestParent(PmNode* const node);
-int PmPowerUpdateLatencyReq(const PmNode* const node);
+s32 PmPowerRequestRpu(PmSlaveTcm* const tcm);
+s32 PmPowerRequestParent(PmNode* const node);
+s32 PmPowerUpdateLatencyReq(const PmNode* const node);
 void PmFpdSaveContext(void);
 void PmFpdRestoreContext(void);
-int PmPowerDown(PmPower* const power);
+s32 PmPowerDown(PmPower* const power);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_POWER_H_ */

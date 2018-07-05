@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -80,10 +80,10 @@ static u32 PmGetMaxCapabilities(const PmSlave* const slave)
  *          - XST_SUCCESS if slave has state with given capabilities
  *          - XST_NO_FEATURE if slave does not have such state
  */
-int PmCheckCapabilities(const PmSlave* const slave, const u32 capabilities)
+s32 PmCheckCapabilities(const PmSlave* const slave, const u32 capabilities)
 {
 	PmStateId i;
-	int status = XST_NO_FEATURE;
+	s32 status = XST_NO_FEATURE;
 
 	for (i = 0U; i < slave->slvFsm->statesCnt; i++) {
 		/* Find the first state that contains all capabilities */
@@ -103,9 +103,9 @@ int PmCheckCapabilities(const PmSlave* const slave, const u32 capabilities)
  * @return	XST_SUCCESS if the slave has the wake-up capability
  *		XST_NO_FEATURE if the slave doesn't have the wake-up capability
  */
-int PmSlaveHasWakeUpCap(const PmSlave* const slv)
+s32 PmSlaveHasWakeUpCap(const PmSlave* const slv)
 {
-	int status;
+	s32 status;
 
 	/* Check is the slave's pointer to the GIC Proxy wake initialized */
 	if (NULL == slv->wake) {
@@ -128,9 +128,9 @@ done:
  * @return	Status fo preparing for the transition (XST_SUCCESS or an error
  *		code)
  */
-static int PmSlavePrepareState(PmSlave* const slv, const PmStateId next)
+static s32 PmSlavePrepareState(PmSlave* const slv, const PmStateId next)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	const PmStateId curr = slv->node.currState;
 
 	/* If slave has power parent make sure the parent is in proper state */
@@ -192,10 +192,10 @@ static void PmSlaveClearAfterState(PmSlave* const slv, const PmStateId prev)
  * @return      XST_SUCCESS if transition was performed successfully.
  *              Error otherwise.
  */
-static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
+static s32 PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 {
 	u32 t;
-	int status;
+	s32 status;
 	const PmSlaveFsm* fsm = slave->slvFsm;
 	PmStateId oldState = slave->node.currState;
 
@@ -267,11 +267,11 @@ done:
  * has capabilities requested by all masters. This conflict has to be resolved
  * between the masters, so PM returns an error.
  */
-static int PmGetStateWithCaps(const PmSlave* const slave, const u32 caps,
+static s32 PmGetStateWithCaps(const PmSlave* const slave, const u32 caps,
 				  PmStateId* const state)
 {
 	PmStateId i;
-	int status = XST_PM_CONFLICT;
+	s32 status = XST_PM_CONFLICT;
 
 	for (i = 0U; i < slave->slvFsm->statesCnt; i++) {
 		/* Find the first state that contains all capabilities */
@@ -347,12 +347,12 @@ static u32 PmGetLatencyFromState(const PmSlave* const slave,
  *              requirements, then XST_PM_CONFLICT is returned. Otherwise,
  *              function returns success.
  */
-static int PmConstrainStateByLatency(const PmSlave* const slave,
+static s32 PmConstrainStateByLatency(const PmSlave* const slave,
 				     PmStateId* const state,
 				     const u32 capsToSet,
 				     const u32 minLatency)
 {
-	int status = XST_PM_CONFLICT;
+	s32 status = XST_PM_CONFLICT;
 	PmStateId startState = *state;
 	u32 wkupLat, i;
 
@@ -391,10 +391,10 @@ static int PmConstrainStateByLatency(const PmSlave* const slave,
  * requested capabilities is configured (in the worst case it's the highest
  * power state).
  */
-int PmUpdateSlave(PmSlave* const slave)
+s32 PmUpdateSlave(PmSlave* const slave)
 {
 	PmStateId state = 0U;
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 wkupLat, minLat;
 	u32 caps = PmGetMaxCapabilities(slave);
 
@@ -474,7 +474,7 @@ u32 PmSlaveGetUsersMask(const PmSlave* const slave)
 u32 PmSlaveGetUsageStatus(const PmSlave* const slave,
 			  const PmMaster* const master)
 {
-	u32 usageStatus = 0;
+	u32 usageStatus = 0U;
 	const PmRequirement* req = slave->reqs;
 
 	while (NULL != req) {
@@ -503,7 +503,7 @@ u32 PmSlaveGetUsageStatus(const PmSlave* const slave,
 u32 PmSlaveGetRequirements(const PmSlave* const slave,
 			   const PmMaster* const master)
 {
-	u32 currReq = 0;
+	u32 currReq = 0U;
 	PmRequirement* masterReq = PmRequirementGet(master, slave);
 
 	if (NULL == masterReq) {
@@ -532,9 +532,9 @@ done:
  *              currently uses the slave)
  *              XST_PM_NODE_USED otherwise
  */
-int PmSlaveVerifyRequest(const PmSlave* const slave)
+s32 PmSlaveVerifyRequest(const PmSlave* const slave)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 usage;
 
 	/* If slave is shareable the request is ok */
@@ -567,9 +567,9 @@ done:
  *              requirements structure is automatically allocated and added in
  *              master's/slave's lists of requirements.
  */
-int PmSlaveSetConfig(PmSlave* const slave, const u32 policy, const u32 perms)
+s32 PmSlaveSetConfig(PmSlave* const slave, const u32 policy, const u32 perms)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 masterIpiMasks = perms;
 	u32 caps = slave->slvFsm->states[slave->slvFsm->statesCnt - 1U];
 
@@ -620,16 +620,21 @@ static void PmSlaveClearConfig(PmNode* const slaveNode)
  *		if the latency depends on power parent which has no method
  *		(getWakeUpLatency) to provide latency information
  */
-static int PmSlaveGetWakeUpLatency(const PmNode* const node, u32* const lat)
+static s32 PmSlaveGetWakeUpLatency(const PmNode* const node, u32* const lat)
 {
 	PmSlave* const slave = (PmSlave*)node->derived;
-	PmNode* const powerNode = &node->parent->node;
-	int status = XST_SUCCESS;
-	u32 latency;
+	PmNode* powerNode;
+	s32 status = XST_SUCCESS;
+	u32 latency = 0U;
 
 	*lat = PmGetLatencyFromState(slave, slave->node.currState);
 
+	if (NULL == node->parent) {
+		status = XST_NO_FEATURE;
+		goto done;
+	}
 
+	powerNode = &node->parent->node;
 	if (NULL == powerNode->class->getWakeUpLatency) {
 		status = XST_NO_FEATURE;
 		goto done;
@@ -651,9 +656,9 @@ done:
  *
  * @return	Status of performing force down operation
  */
-static int PmSlaveForceDown(PmNode* const node)
+static s32 PmSlaveForceDown(PmNode* const node)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmSlave* const slave = (PmSlave*)node->derived;
 	PmRequirement* req = slave->reqs;
 
@@ -678,10 +683,10 @@ static int PmSlaveForceDown(PmNode* const node)
  *
  * @return	Status of initializing the node
  */
-static int PmSlaveInit(PmNode* const node)
+static s32 PmSlaveInit(PmNode* const node)
 {
 	PmSlave* const slave = (PmSlave*)node->derived;
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	if (NULL != node->parent) {
 		if (HAS_CAPABILITIES(slave, node->currState, PM_CAP_POWER)) {
@@ -833,7 +838,7 @@ void PmResetSlaveStates(void)
 
 	for (i = 0U; i < ARRAY_SIZE(pmNodeSlaveBucket); i++) {
 		slave = (PmSlave*)pmNodeSlaveBucket[i]->derived;
-		PmSlaveChangeState(slave, slave->slvFsm->statesCnt - 1);
+		(void)PmSlaveChangeState(slave, slave->slvFsm->statesCnt - 1U);
 	}
 }
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -41,7 +41,8 @@
 * 4.0   vns     10/01/15 First release
 * 6.0   vns     07/18/16 Modified RSA enable bit mask
 * 6.2   vns     03/10/17 Added support for LBIST, LPD and FPD sc enable,
-*                       PBR_BOOT_ERROR.
+*                        PBR_BOOT_ERROR.
+* 6.7   arc     01/05/19 Fixed MISRA-C violations.
 * </pre>
 *
 ******************************************************************************/
@@ -95,8 +96,8 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_CFG_MARGIN_RD_MASK	0x0000000cU
 #define XSK_ZYNQMP_EFUSEPS_CFG_MARGIN_RD_DEFVAL	0x0U
 #define XSK_ZYNQMP_EFUSEPS_CFG_MARGIN_1_RD	0x01
-#define XSK_ZYNQMP_EFUSEPS_CFG_MARGIN_2_RD	0x02
-#define XSK_ZYNQMP_EFUSEPS_CFG_NORMAL_RD	0x00
+#define XSK_ZYNQMP_EFUSEPS_CFG_MARGIN_2_RD	0x02U
+#define XSK_ZYNQMP_EFUSEPS_CFG_NORMAL_RD	0x00U
 
 #define XSK_ZYNQMP_EFUSEPS_CFG_PGM_EN_SHIFT	1U
 #define XSK_ZYNQMP_EFUSEPS_CFG_PGM_EN_WIDTH	1U
@@ -449,8 +450,8 @@ extern "C" {
 /** @name Tbits programming enable register
  * @{
  */
-#define XSK_ZYNQMP_EFUSEPS_TBITS_PRGRMG_EN_OFFSET	0x00000100
-#define XSK_ZYNQMP_EFUSEPS_TBITS_PRGRMG_EN_MASK		0x00000008
+#define XSK_ZYNQMP_EFUSEPS_TBITS_PRGRMG_EN_OFFSET	0x00000100U
+#define XSK_ZYNQMP_EFUSEPS_TBITS_PRGRMG_EN_MASK		0x00000008U
 /*@}*/
 
 /** @name DNA 0 register
@@ -756,9 +757,9 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_0_DEFVAL		0x0U
 
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_MASK			( \
-				XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_0_MASK | \
-				XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_1_MASK | \
-				XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_2_MASK)
+				(u32)XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_0_MASK | \
+				(u32)XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_1_MASK | \
+				(u32)XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_2_MASK)
 
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_DFT_DIS_SHIFT		6U
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_DFT_DIS_WIDTH		1U
@@ -1099,9 +1100,9 @@ extern "C" {
 /** @name PUF masks and shifts
  * @{
  */
-#define XSK_ZYNQMP_EFUSEPS_PUF_ROW_UPPER_MASK		0xFFFF0000
-#define XSK_ZYNQMP_EFUSEPS_PUF_ROW_LOWER_MASK		0x0000FFFF
-#define XSK_ZYNQMP_EFUSEPS_PUF_ROW_HALF_WORD_SHIFT	16
+#define XSK_ZYNQMP_EFUSEPS_PUF_ROW_UPPER_MASK		0xFFFF0000U
+#define XSK_ZYNQMP_EFUSEPS_PUF_ROW_LOWER_MASK		0x0000FFFFU
+#define XSK_ZYNQMP_EFUSEPS_PUF_ROW_HALF_WORD_SHIFT	16U
 /*@}*/
 
 /** @name CSU module register offset and base address

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,10 @@
 
 #ifndef PM_COMMON_H_
 #define PM_COMMON_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "pmu_local.h"
 #include "xpfw_default.h"
@@ -64,10 +68,10 @@ typedef struct PmNode PmNode;
  * PM log levels. The configured log level should be specifid with:
  * -DPM_LOG_LEVEL=X where X is one of the numbers defined below
  */
-#define PM_ALERT	1
-#define PM_ERROR	2
-#define PM_WARNING	3
-#define PM_INFO		4
+#define PM_ALERT	1U
+#define PM_ERROR	2U
+#define PM_WARNING	3U
+#define PM_INFO		4U
 
 #if defined(PM_LOG_LEVEL) && (PM_LOG_LEVEL >= PM_INFO)
 	#define PmInfo(...)	pm_printf(__VA_ARGS__)
@@ -102,32 +106,32 @@ typedef struct PmNode PmNode;
 /* Macros for IPI responses (return values and callbacks) */
 #define IPI_RESPONSE1(mask, arg0)				\
 {	\
-	u32 _ipi_resp_data[] = {(arg0)};	\
-	XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
+	u32 _ipi_resp_data[XPFW_IPI_MAX_MSG_LEN] = {(arg0), 0U, 0U, 0U, 0U, 0U, 0U, 0U};	\
+	(void)XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
 }
 
 #define IPI_RESPONSE2(mask, arg0, arg1)				\
 {	\
-	u32 _ipi_resp_data[] = {(arg0), (arg1)};	\
-	XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
+	u32 _ipi_resp_data[XPFW_IPI_MAX_MSG_LEN] = {(arg0), (arg1), 0U, 0U, 0U, 0U, 0U, 0U};	\
+	(void)XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
 }
 
 #define IPI_RESPONSE3(mask, arg0, arg1, arg2)			\
 {	\
-	u32 _ipi_resp_data[] = {(arg0), (arg1), (arg2)};	\
-	XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
+	u32 _ipi_resp_data[XPFW_IPI_MAX_MSG_LEN] = {(arg0), (arg1), (arg2), 0U, 0U, 0U, 0U, 0U};	\
+	(void)XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
 }
 
 #define IPI_RESPONSE4(mask, arg0, arg1, arg2, arg3)		\
 {	\
-	u32 _ipi_resp_data[] = {(arg0), (arg1), (arg2), (arg3)};	\
-	XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
+	u32 _ipi_resp_data[XPFW_IPI_MAX_MSG_LEN] = {(arg0), (arg1), (arg2), (arg3),0U, 0U, 0U, 0U};	\
+	(void)XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
 }
 
 #define IPI_RESPONSE5(mask, arg0, arg1, arg2, arg3, arg4)	\
 {	\
-	u32 _ipi_resp_data[] = {(arg0), (arg1), (arg2), (arg3), (arg4)};	\
-	XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
+	u32 ipi_resp_data[XPFW_IPI_MAX_MSG_LEN] = {(arg0), (arg1), (arg2), (arg3), (arg4), 0U, 0U, 0U};	\
+	(void)XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
 }
 
 /* PMU internal capabilities used in definition of slaves' states */
@@ -155,7 +159,7 @@ typedef struct PmNode PmNode;
 /* Number of payload elements (api id and api's arguments) */
 #define PAYLOAD_ELEM_CNT		(PAYLOAD_API_ID + PAYLOAD_API_ARGS_CNT)
 
-#define MASK_OF_BITS(bits)		((1 << (bits)) - 1)
+#define MASK_OF_BITS(bits)		((1U << (bits)) - 1U)
 
 /*********************************************************************
  * Structure definitions
@@ -184,5 +188,9 @@ typedef struct PmMemorySection {
 /*********************************************************************
  * Function declarations
  ********************************************************************/
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* PM_COMMON_H_ */

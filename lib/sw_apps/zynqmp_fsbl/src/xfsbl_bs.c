@@ -64,8 +64,14 @@
 
 /************************** Variable Definitions *****************************/
 /* Global OCM buffer to store data chunks */
+#ifdef __clang__
+u8 ReadBuffer[READ_BUFFER_SIZE]__attribute__ ((aligned (64)))
+			   __attribute__((section (".bss.bitstream_buffer")));
+#else
+
 u8 ReadBuffer[READ_BUFFER_SIZE]__attribute__ ((aligned (64)))
 				__attribute__((section (".bitstream_buffer")));
+#endif
 
 /*****************************************************************************/
 /** This function does the necessary initialization of PCAP interface

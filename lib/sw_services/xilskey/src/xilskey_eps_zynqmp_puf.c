@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016-18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,11 @@
 *                     is fixed for PUF registration.
 * 6.2   vns  02/18/17 Added masking for PUF auxilary read.
 * 6.6   vns  06/06/18 Added doxygen tags
+* 6.7	arc  01/05/19 Fixed MISRA-C violations.
+*       arc  03/15/19 Modified initial default status value as XST_FAILURE
+*       mmd  03/17/19 Handled buffer underflow issue and added timeouts during
+*                     syndrome data reading
+*       rama 03/25/19 Added polling routine for PUF ready state
 * </pre>
 *
 *****************************************************************************/
@@ -51,9 +56,13 @@
 #include "xilskey_eps_zynqmp_hw.h"
 #include "sleep.h"
 /************************** Constant Definitions *****************************/
-
+#define XILSKEY_PUF_STATUS_SYN_WRD_RDY_TIMEOUT	(500000U)
 
 /**************************** Type Definitions ******************************/
+typedef enum {
+	XSK_EFUSEPS_PUF_REGISTRATION_STARTED,
+	XSK_EFUSEPS_PUF_REGISTRATION_COMPLETE
+} XilsKey_PufRegistrationState;
 
 
 /***************** Macros (Inline Functions) Definitions ********************/
@@ -64,22 +73,22 @@
 
 /************************** Function Prototypes *****************************/
 
-u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions();
+u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(void);
 u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
 						XskEfusePs_Type EfuseType);
 u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 						XskEfusePs_Type EfuseType);
 u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 							u32 *RowData);
-u32 XilSKey_ZynqMp_EfusePs_Init();
+u32 XilSKey_ZynqMp_EfusePs_Init(void);
 static inline u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType);
-static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf();
+static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void);
 
 static inline u32 XilSKey_ZynqMp_EfusePs_PufRowWrite(u8 Row, u8 *Data,
 						XskEfusePs_Type EfuseType);
 static inline u32 XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
 		XilSKey_Puf_Secure *SecureBits, u8 ReadOption);
-
+static u32  XilSKey_WaitForPufStatus(u32 *PufStatus);
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -104,29 +113,30 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr)
 	u32 *TempPtr = InstancePtr->EfuseSynData;
 	XskEfusePs_Type EfuseType;
 	u8 DataInBits[32];
-	u32 Status = XST_SUCCESS;
+	u32 Status;
 
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 
 	/* Check the unlock status */
-	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
-		return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
+		Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		goto END;
 	}
 
 	Status = XilSKey_ZynqMp_EfusePs_SetWriteConditions();
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 	/* Check for zeros */
 	Status = XilSKey_ZynqMp_EfusePs_CheckZeros_Puf();
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 	EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_2;
 	/* Write Helper Data */
-	for (Row = 0; Row <= XSK_ZYNQMP_EFUSEPS_PUF_ROW_END; Row++) {
-		if (Row == 0) {
+	for (Row = 0U; Row <= XSK_ZYNQMP_EFUSEPS_PUF_ROW_END; Row++) {
+		if (Row == 0U) {
 			Data = (u32)(((*DataPtr) &
 				XSK_ZYNQMP_EFUSEPS_PUF_ROW_UPPER_MASK) >>
 				XSK_ZYNQMP_EFUSEPS_PUF_ROW_HALF_WORD_SHIFT);
@@ -142,13 +152,16 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr)
 		DataPtr++;
 		XilSKey_Efuse_ConvertBitsToBytes((u8 *)&Data, DataInBits,
 				XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
-		XilSKey_ZynqMp_EfusePs_PufRowWrite(Row, DataInBits, EfuseType);
+		Status = XilSKey_ZynqMp_EfusePs_PufRowWrite(Row, DataInBits, EfuseType);
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
+		}
 	}
 	DataPtr--;
 
 	EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_3;
-	for (Row = 0; Row <= XSK_ZYNQMP_EFUSEPS_PUF_ROW_END; Row++) {
-		if (Row == 0) {
+	for (Row = 0U; Row <= XSK_ZYNQMP_EFUSEPS_PUF_ROW_END; Row++) {
+		if (Row == 0U) {
 			Data = (u32)((*DataPtr) &
 				XSK_ZYNQMP_EFUSEPS_PUF_ROW_LOWER_MASK);
 		}
@@ -161,7 +174,7 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr)
 				XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
 		Status = XilSKey_ZynqMp_EfusePs_PufRowWrite(Row, DataInBits,
 								EfuseType);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 	}
@@ -194,33 +207,34 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u32 *Address)
 
 	u32 Status;
 	u32 Row;
-	u32 RowData[128];
-	u32 *PtrEfuse2 = &RowData[0];
-	u32 *PtrEfuse3 = &RowData[64];
+	u32 RowDataVal[128] = {0U};
+	u32 *PtrEfuse2 = &RowDataVal[0];
+	u32 *PtrEfuse3 = &RowDataVal[64];
 	u32 *AddrPtr = (u32 *)Address;
 	u32 Temp;
 
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 	/* Check the unlock status */
-	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
-		return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
+		Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		goto END;
 	}
 	/* Init timer and AMS */
 	Status = XilSKey_ZynqMp_EfusePs_Init();
-	if (Status != XST_SUCCESS) {
-		return Status;
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
 	}
 
-	for (Row = 0; Row <= XSK_ZYNQMP_EFUSEPS_PUF_ROW_END; Row++) {
-		Status = XilSKey_ZynqMp_EfusePs_ReadRow(Row,
+	for (Row = 0U; Row <= XSK_ZYNQMP_EFUSEPS_PUF_ROW_END; Row++) {
+		Status = XilSKey_ZynqMp_EfusePs_ReadRow((u8)Row,
 			XSK_ZYNQMP_EFUSEPS_EFUSE_2, PtrEfuse2);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
-		Status = XilSKey_ZynqMp_EfusePs_ReadRow(Row,
+		Status = XilSKey_ZynqMp_EfusePs_ReadRow((u8)Row,
 			XSK_ZYNQMP_EFUSEPS_EFUSE_3, PtrEfuse3);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 		PtrEfuse2++;
@@ -228,10 +242,10 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u32 *Address)
 
 	}
 
-	for (Row = 0; Row < XSK_ZYNQMP_EFUSEPS_PUF_ROW_END; Row++) {
-		Temp = (RowData[Row] & XSK_ZYNQMP_EFUSEPS_PUF_ROW_LOWER_MASK) <<
+	for (Row = 0U; Row < XSK_ZYNQMP_EFUSEPS_PUF_ROW_END; Row++) {
+		Temp = (RowDataVal[Row] & XSK_ZYNQMP_EFUSEPS_PUF_ROW_LOWER_MASK) <<
 				XSK_ZYNQMP_EFUSEPS_PUF_ROW_HALF_WORD_SHIFT;
-		Temp = ((RowData[Row + 1] &
+		Temp = ((RowDataVal[Row + 1] &
 			XSK_ZYNQMP_EFUSEPS_PUF_ROW_UPPER_MASK) >>
 			XSK_ZYNQMP_EFUSEPS_PUF_ROW_HALF_WORD_SHIFT) | Temp;
 
@@ -239,17 +253,17 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u32 *Address)
 		AddrPtr++;
 	}
 	for (Row = XSK_ZYNQMP_EFUSEPS_PUF_ROW_END;
-			Row < (XSK_ZYNQMP_EFUSEPS_PUF_TOTAL_ROWS - 1);
+			Row < (XSK_ZYNQMP_EFUSEPS_PUF_TOTAL_ROWS - 1U);
 								Row++) {
 		if (Row == XSK_ZYNQMP_EFUSEPS_PUF_ROW_END) {
-			Temp = (RowData[Row] &
+			Temp = (RowDataVal[Row] &
 				XSK_ZYNQMP_EFUSEPS_PUF_ROW_LOWER_MASK) <<
 				XSK_ZYNQMP_EFUSEPS_PUF_ROW_HALF_WORD_SHIFT;
-			Temp = Temp | ((RowData[Row + 1] &
+			Temp = Temp | ((RowDataVal[Row + 1] &
 				XSK_ZYNQMP_EFUSEPS_PUF_ROW_LOWER_MASK));
 		}
 		else {
-			Temp = RowData[Row + 1];
+			Temp = RowDataVal[Row + 1];
 		}
 		*AddrPtr = Temp;
 		AddrPtr++;
@@ -281,20 +295,21 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
 {
 
 	u32 Status;
-	u8 Value[32];
-	u8 Column = 0;
+	u8 Value[32] = {0U};
+	u8 Column;
 	XskEfusePs_Type EfuseType;
-	u8 *CHash = (u8 *)&(InstancePtr->Chash);
+	u8 *PufChash = (u8 *)&(InstancePtr->Chash);
 
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 	/* Check the unlock status */
-	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
-		return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
+		Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		goto END;
 	}
 
 	Status = XilSKey_ZynqMp_EfusePs_SetWriteConditions();
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
@@ -302,20 +317,21 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
 	/* Check for Zeros */
 	if (XilSKey_ZynqMp_EfusePs_CheckForZeros(
 		XSK_ZYNQMP_EFUSEPS_PUF_CHASH_ROW,
-		XSK_ZYNQMP_EFUSEPS_PUF_CHASH_ROW, EfuseType) != XST_SUCCESS) {
-		return XST_FAILURE; /* Error code */
+		XSK_ZYNQMP_EFUSEPS_PUF_CHASH_ROW, EfuseType) != (u32)XST_SUCCESS) {
+		Status = (u32)XST_FAILURE; /* Error code */
+		goto END;
 	}
 
-	XilSKey_Efuse_ConvertBitsToBytes((u8 *)CHash, Value,
+	XilSKey_Efuse_ConvertBitsToBytes((u8 *)PufChash, Value,
 			XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
 
-	for (Column = 0; Column < XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW;
+	for (Column = 0U; Column < XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW;
 							Column++) {
 		if (Value[Column] != 0x00U) {
 			Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(
 					XSK_ZYNQMP_EFUSEPS_PUF_CHASH_ROW,
 						Column, EfuseType);
-			if (Status != XST_SUCCESS) {
+			if (Status != (u32)XST_SUCCESS) {
 				goto END;
 			}
 		}
@@ -352,25 +368,26 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufChash(u32 *Address, u8 ReadOption)
 {
 
 	u32 Data;
-	u32 Status = XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 	u32 *ChashPtr = (u32 *)Address;
 
 	if (ReadOption == XSK_EFUSEPS_READ_FROM_EFUSE) {
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 		/* Check the unlock status */
-		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
-			return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
+			Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+			goto END;
 		}
 		/* Init timer and AMS */
 		Status = XilSKey_ZynqMp_EfusePs_Init();
-		if (Status != XST_SUCCESS) {
-			return Status;
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
 		}
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(
 			XSK_ZYNQMP_EFUSEPS_PUF_CHASH_ROW,
 			XSK_ZYNQMP_EFUSEPS_EFUSE_0, &Data);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 END:
@@ -380,6 +397,7 @@ END:
 	else {
 		Data = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 				XSK_ZYNQMP_EFUSEPS_PUF_CHASH_OFFSET);
+		Status = (u32)XST_SUCCESS;
 	}
 
 	*ChashPtr = Data;
@@ -406,46 +424,49 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr)
 {
 
 	u32 Status;
-	u8 Value[32];
-	u8 Column = 0;
+	u8 Value[32] = {0U};
+	u8 Column;
 	XskEfusePs_Type EfuseType;
-	u32 RowData;
+	u32 RowDataVal;
 	u8 *AuxValue = (u8 *)&(InstancePtr->Aux);
 
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 
 	/* Check the unlock status */
-	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
-		return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
+		Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		goto END;
 	}
 
 	Status = XilSKey_ZynqMp_EfusePs_SetWriteConditions();
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
 	EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 	/* Check for Zeros */
 	if (XilSKey_ZynqMp_EfusePs_ReadRow(
-		XSK_ZYNQMP_EFUSEPS_PUF_AUX_ROW, EfuseType, &RowData)
-						!= XST_SUCCESS) {
-		return XST_FAILURE; /* Error code */
+		XSK_ZYNQMP_EFUSEPS_PUF_AUX_ROW, EfuseType, &RowDataVal)
+						!= (u32)XST_SUCCESS) {
+		Status = (u32)XST_FAILURE; /* Error code */
+		goto END;
 	}
-	if ((RowData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_AUX_MASK) != 0x00) {
-		return XST_FAILURE;
+	if ((RowDataVal & XSK_ZYNQMP_EFUSEPS_PUF_MISC_AUX_MASK) != 0x00U) {
+		Status = (u32)XST_FAILURE;
+		goto END;
 	}
 
 	XilSKey_Efuse_ConvertBitsToBytes((u8 *)AuxValue, Value,
 					XSK_ZYNQMP_PUF_AUX_LEN_IN_BITS);
 
-	for (Column = 0; Column < XSK_ZYNQMP_PUF_AUX_LEN_IN_BITS;
+	for (Column = 0U; Column < XSK_ZYNQMP_PUF_AUX_LEN_IN_BITS;
 							Column++) {
 		if (Value[Column] != 0x00U) {
 			Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(
 					XSK_ZYNQMP_EFUSEPS_PUF_AUX_ROW,
 					Column, EfuseType);
-			if (Status != XST_SUCCESS) {
+			if (Status != (u32)XST_SUCCESS) {
 				goto END;
 			}
 		}
@@ -483,26 +504,27 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufAux(u32 *Address, u8 ReadOption)
 {
 
 	u32 Data;
-	u32 Status = XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 	u32 *AuxPtr = (u32 *)Address;
 
 	if (ReadOption == XSK_EFUSEPS_READ_FROM_EFUSE) {
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 		/* Check the unlock status */
-		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
-			return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
+			Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+			goto END;
 		}
 		/* Init timer and AMS */
 		Status = XilSKey_ZynqMp_EfusePs_Init();
-		if (Status != XST_SUCCESS) {
-			return Status;
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
 		}
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(
 				XSK_ZYNQMP_EFUSEPS_PUF_AUX_ROW,
 				XSK_ZYNQMP_EFUSEPS_EFUSE_0, &Data);
 		Data = Data & XSK_ZYNQMP_EFUSEPS_PUF_MISC_AUX_MASK;
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 
@@ -514,6 +536,7 @@ END:
 		Data = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 			XSK_ZYNQMP_EFUSEPS_PUF_MISC_OFFSET) &
 			XSK_ZYNQMP_EFUSEPS_PUF_MISC_AUX_MASK;
+		Status = (u32)XST_SUCCESS;
 	}
 
 	*AuxPtr = Data;
@@ -521,6 +544,41 @@ END:
 	return Status;
 
 }
+
+/*****************************************************************************/
+/**
+* This function will poll for syndrome word is ready in the PUF_WORD register
+* or till the timeout occurs.
+*
+* @param	None.
+*
+* @return	XST_SUCCESS - Incase of Success
+*			XST_FAILURE - Incase of Timeout.
+*
+* @note		None.
+*
+******************************************************************************/
+static u32  XilSKey_WaitForPufStatus(u32 *PufStatus)
+{
+	u32 Timeout = XILSKEY_PUF_STATUS_SYN_WRD_RDY_TIMEOUT/100U;
+	u32 TimeoutFlag = (u32)XST_FAILURE;
+
+	while(Timeout != 0U) {
+		*PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
+											XSK_ZYNQMP_CSU_PUF_STATUS);
+		if ((*PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_SYN_WRD_RDY_MASK) ==
+							XSK_ZYNQMP_CSU_PUF_STATUS_SYN_WRD_RDY_MASK) {
+			TimeoutFlag = (u32)XST_SUCCESS;
+			goto done;
+		}
+		usleep(100U);
+		Timeout--;
+	}
+
+done:
+	return TimeoutFlag;
+}
+
 
 /*****************************************************************************/
 /**
@@ -537,11 +595,13 @@ END:
  *****************************************************************************/
 u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status;
+	s8 Timeout;
 	u32 PufStatus;
-	u32 Index;
-	Index = 0U;
+	u32 Index = 0U;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
+	u32 MaxSyndromeSizeInWords = XSK_ZYNQMP_PUF_SYN_DATA_LEN_IN_BYTES;
+	XilsKey_PufRegistrationState RegistrationStatus;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -551,7 +611,7 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 	InstancePtr->ShutterValue = XSK_ZYNQMP_PUF_SHUTTER_VALUE;
 
 	Status = XilSkey_Puf_Validate_Access_Rules(XSK_ZYNQMP_PUF_REGISTRATION);
-	if(Status != XST_SUCCESS) {
+	if(Status != (u32)XST_SUCCESS) {
 		xPuf_printf(Debug,"API: Registration Failed:0x%08x\r\n",
 								Status);
 		goto ENDF;
@@ -564,9 +624,10 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 	if (InstancePtr->RegistrationMode == XSK_ZYNQMP_PUF_MODE4K) {
 		XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR,
 		XSK_ZYNQMP_CSU_PUF_CFG1, XSK_ZYNQMP_PUF_CFG1_INIT_VAL_4K);
+		MaxSyndromeSizeInWords = XSK_ZYNQMP_MAX_RAW_4K_PUF_SYN_LEN;
 	}
 	else {
-		Status = XSK_EFUSEPS_ERROR_PUF_INVALID_REG_MODE;
+		Status = (u32)XSK_EFUSEPS_ERROR_PUF_INVALID_REG_MODE;
 		xPuf_printf(Debug,"API:Invalid Registration Mode:0x%08x\r\n",
 							Status);
 		goto ENDF;
@@ -583,45 +644,61 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 	XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR, XSK_ZYNQMP_CSU_PUF_CMD,
 				XSK_ZYNQMP_PUF_REGISTRATION);
 
-	 /* Wait till the data word ready */
-	PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
-				XSK_ZYNQMP_CSU_PUF_STATUS);
-	while((PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_KEY_RDY_MASK) !=
-			XSK_ZYNQMP_CSU_PUF_STATUS_KEY_RDY_MASK) {
-		PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
-						XSK_ZYNQMP_CSU_PUF_STATUS);
-		while ((PufStatus
-			& XSK_ZYNQMP_CSU_PUF_STATUS_SYN_WRD_RDY_MASK) !=
-				XSK_ZYNQMP_CSU_PUF_STATUS_SYN_WRD_RDY_MASK) {
-			PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
-						XSK_ZYNQMP_CSU_PUF_STATUS);
+	RegistrationStatus = XSK_EFUSEPS_PUF_REGISTRATION_STARTED;
+	do {
+
+		Timeout = XilSKey_WaitForPufStatus(&PufStatus);
+		if (Timeout != 0U) {
+			Status = (u32)XSK_EFUSEPS_ERROR_PUF_TIMEOUT;
+			break;
 		}
 
-		InstancePtr->SyndromeData[Index] = XilSKey_ReadReg(
-			XSK_ZYNQMP_CSU_BASEADDR, XSK_ZYNQMP_CSU_PUF_WORD);
+		if (PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_OVERFLOW_MASK) {
+			xPuf_printf(Debug, "API: Overflow warning\r\n");
+			Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW;
+			break;
+		}
+
+		InstancePtr->SyndromeData[Index] =
+		    XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,XSK_ZYNQMP_CSU_PUF_WORD);
+
+		if ((PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_KEY_RDY_MASK) ==
+		    XSK_ZYNQMP_CSU_PUF_STATUS_KEY_RDY_MASK) {
+			if (Index < MaxSyndromeSizeInWords) {
+				xPuf_printf(Debug,
+				    "API: Underflow warning (Syndrome Data Length = %d)\r\n",
+				    Index);
+				Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_UNDERFLOW;
+				break;
+			}
+			RegistrationStatus = XSK_EFUSEPS_PUF_REGISTRATION_COMPLETE;
+
+			/* Capture CHASH & AUX */
+			InstancePtr->Chash = InstancePtr->SyndromeData[Index - 1U];
+			InstancePtr->Aux = ((PufStatus &
+			        XSK_ZYNQMP_CSU_PUF_STATUS_AUX_MASK) >> 4U);
+
+			/* Also move the CHASH & AUX into array */
+			InstancePtr->SyndromeData[XSK_ZYNQMP_PUF_SYN_LEN - 2U] =
+			        InstancePtr->Chash;
+			InstancePtr->SyndromeData[XSK_ZYNQMP_PUF_SYN_LEN - 1U] =
+			        ((PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_AUX_MASK) << 4U);
+
+			Status = (u32)XST_SUCCESS;
+			xPuf_printf(Debug,"API: PUF Helper Data Generated!!!\r\n");
+			break;
+		}
+
 		Index++;
-	}
-	/**
-	 * Need to verify the overflow error to make sure that data
-	 * read is valid
-	 */
-	if ((PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_OVERFLOW_MASK) != 0U) {
-		xPuf_printf(Debug,
-			"API: Overflow warning\r\n");
-		Status = XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW;
-	}
-	/* Capture CHASH & AUX */
-	InstancePtr->Chash = InstancePtr->SyndromeData[Index - 1];
-	InstancePtr->Aux = ((PufStatus &
-		XSK_ZYNQMP_CSU_PUF_STATUS_AUX_MASK) >> 4U);
+		if (Index > MaxSyndromeSizeInWords)
+		{
+			xPuf_printf(Debug, "API: Overflow warning\r\n");
+			Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW;
+			break;
+		}
 
-	/* Also move the CHASH & AUX into array */
-	InstancePtr->SyndromeData[XSK_ZYNQMP_PUF_SYN_LEN - 2] =
-						InstancePtr->Chash;
-	InstancePtr->SyndromeData[XSK_ZYNQMP_PUF_SYN_LEN - 1] =
-	((PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_AUX_MASK) << 4U);
+	} while (RegistrationStatus != XSK_EFUSEPS_PUF_REGISTRATION_COMPLETE);
 
-	xPuf_printf(Debug,"API: PUF Helper Data Generated!!!\r\n");
 ENDF:
 	return Status;
 }
@@ -640,19 +717,19 @@ ENDF:
 u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr)
 {
 	u32 PufStatus;
-	u32 Status = XST_SUCCESS;
-	u32 PufChash;
+	u32 Status;
+	u32 PufChash = 0U;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 
         /* Assert validates the input arguments */
         Xil_AssertNonvoid(InstancePtr != NULL);
 
 	Status = XilSKey_ZynqMp_EfusePs_ReadPufChash(&PufChash, 0);
-        if (Status != XST_SUCCESS) {
+        if (Status != (u32)XST_SUCCESS) {
                 goto END;
         }
 	if (PufChash == 0U) {
-		Status = XSK_EFUSEPS_ERROR_PUF_INVALID_REQUEST;
+		Status = (u32)XSK_EFUSEPS_ERROR_PUF_INVALID_REQUEST;
 		xPuf_printf(Debug,"PUF regeneration is not allowed"
 			", as PUF data is not stored in eFuse\r\n");
 		goto END;
@@ -663,9 +740,6 @@ u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr)
 	XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR,
 		XSK_ZYNQMP_CSU_PUF_CFG0, XSK_ZYNQMP_PUF_CFG0_INIT_VAL);
 
-	XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR,
-			XSK_ZYNQMP_CSU_PUF_CFG1, XSK_ZYNQMP_PUF_CFG1_INIT_VAL_4K);
-
 	/* Configure the PUF shutter Value */
 	XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR, XSK_ZYNQMP_CSU_PUF_SHUT,
 				XSK_ZYNQMP_PUF_SHUTTER_VALUE);
@@ -674,9 +748,7 @@ u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr)
 		XSK_ZYNQMP_PUF_REGENERATION);
 
 	/* Wait till the data word ready */
-        PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
-                                XSK_ZYNQMP_CSU_PUF_STATUS);
-	usleep(500000);
+	usleep(3000);
 
 	PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
 					XSK_ZYNQMP_CSU_ISR);
@@ -700,9 +772,8 @@ END:
  ******************************************************************************/
 u32 XilSKey_Puf_Debug2(XilSKey_Puf *InstancePtr)
 {
-	u32 Status=XST_SUCCESS;
 	u32 PufStatus;
-	u32 Index = 0;
+	u32 Index;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 
 	xPuf_printf(Debug,"API: PUF Debug 2\r\n");
@@ -724,7 +795,7 @@ u32 XilSKey_Puf_Debug2(XilSKey_Puf *InstancePtr)
 	 */
 	PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
 					XSK_ZYNQMP_CSU_PUF_STATUS);
-	for(Index = 0; Index < 36; Index++) {
+	for(Index = 0U; Index < 36U; Index++) {
 		do {
 			PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
 						XSK_ZYNQMP_CSU_PUF_STATUS);
@@ -738,7 +809,7 @@ u32 XilSKey_Puf_Debug2(XilSKey_Puf *InstancePtr)
 	}
 	xPuf_printf(Debug,"API: PUF Debug 2 completed\r\n");
 
-	return Status;
+	return (u32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -758,88 +829,90 @@ u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits)
 {
 	u32 Status;
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
-	u32 Row = XSK_ZYNQMP_EFUSEPS_PUF_AUX_ROW;
-	u32 RowData;
-	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW];
+	u8 Row = XSK_ZYNQMP_EFUSEPS_PUF_AUX_ROW;
+	u32 RowDataVal;
+	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW] = {0U};
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 
 	/* If user requests any of the secure bit to be programmed */
-	if ((WriteSecureBits->SynInvalid != 0x00) ||
-		(WriteSecureBits->SynWrLk != 0x00) ||
-		(WriteSecureBits->RegisterDis != 0x00) ||
-		(WriteSecureBits->Reserved != 0x00)) {
+	if ((WriteSecureBits->SynInvalid != 0x00U) ||
+		(WriteSecureBits->SynWrLk != 0x00U) ||
+		(WriteSecureBits->RegisterDis != 0x00U) ||
+		(WriteSecureBits->Reserved != 0x00U)) {
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 
 		/* Check the unlock status */
-		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
-			return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
+			Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+			goto END;
 		}
 
 		Status = XilSKey_ZynqMp_EfusePs_SetWriteConditions();
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(Row, EfuseType,
-							&RowData);
-		if (Status != XST_SUCCESS) {
+							&RowDataVal);
+		if (Status != (u32)XST_SUCCESS) {
 			xPuf_printf(Debug,
 				"API: Failed at reading secure bits\r\n");
-			return Status;
+			goto END;
 		}
-		XilSKey_Efuse_ConvertBitsToBytes((u8 *)&RowData, DataInBits,
+		XilSKey_Efuse_ConvertBitsToBytes((u8 *)&RowDataVal, DataInBits,
 			XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
 	}
 	else {
-		return XST_SUCCESS;
+		Status = (u32)XST_SUCCESS;
+		goto END;
 	}
 
-	if ((WriteSecureBits->SynInvalid != 0x00) &&
-		(DataInBits[XSK_ZYNQMP_EFUSEPS_PUF_SYN_INVALID] == 0x00)) {
+	if ((WriteSecureBits->SynInvalid != 0x00U) &&
+		(DataInBits[XSK_ZYNQMP_EFUSEPS_PUF_SYN_INVALID] == 0x00U)) {
 		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
 				XSK_ZYNQMP_EFUSEPS_PUF_SYN_INVALID, EfuseType);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			xPuf_printf(Debug,"API: Failed programming Syndrome"
 						" invalid bit\r\n");
 			Status = (Status +
-				XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_INVLD);
+				(u32)XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_INVLD);
 			goto END;
 		}
 	}
-	if ((WriteSecureBits->SynWrLk != 0x00) &&
-		(DataInBits[XSK_ZYNQMP_EFUSEPS_PUF_SYN_LOCK] == 0x00)) {
+	if ((WriteSecureBits->SynWrLk != 0x00U) &&
+		(DataInBits[XSK_ZYNQMP_EFUSEPS_PUF_SYN_LOCK] == 0x00U)) {
 		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
 				XSK_ZYNQMP_EFUSEPS_PUF_SYN_LOCK, EfuseType);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			xPuf_printf(Debug,"API: Failed programming Syndrome"
 							" write lock bit\r\n");
 			Status = (Status +
-				XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_WRLK);
+				(u32)XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_WRLK);
 			goto END;
 		}
 	}
-	if ((WriteSecureBits->RegisterDis != 0x00) &&
-		(DataInBits[XSK_ZYNQMP_EFUSEPS_PUF_REG_DIS] == 0x00)) {
+	if ((WriteSecureBits->RegisterDis != 0x00U) &&
+		(DataInBits[XSK_ZYNQMP_EFUSEPS_PUF_REG_DIS] == 0x00U)) {
 		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
 				XSK_ZYNQMP_EFUSEPS_PUF_REG_DIS, EfuseType);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			xPuf_printf(Debug,"API: Failed programming register"
 							" disable bit\r\n");
 			Status = (Status +
-				XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_REG_DIS);
+				(u32)XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_REG_DIS);
 			goto END;
 		}
 	}
 
-	if ((WriteSecureBits->Reserved != 0x00) &&
-		(DataInBits[XSK_ZYNQMP_EFUSEPS_PUF_RESERVED] == 0x00)) {
+	if ((WriteSecureBits->Reserved != 0x00U) &&
+		(DataInBits[XSK_ZYNQMP_EFUSEPS_PUF_RESERVED] == 0x00U)) {
 		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
 				XSK_ZYNQMP_EFUSEPS_PUF_RESERVED, EfuseType);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			xPuf_printf(Debug,"API: Failed programming reserved"
 							" bit\r\n");
 			Status = (Status +
-					XSK_EFUSEPS_ERROR_WRITE_PUF_RESERVED_BIT);
+					(u32)XSK_EFUSEPS_ERROR_WRITE_PUF_RESERVED_BIT);
 			goto END;
 		}
 	}
@@ -885,18 +958,19 @@ u32 XilSKey_Read_Puf_EfusePs_SecureBits(
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 		/* Check the unlock status */
-		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
-			return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
+			Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+			goto END;
 		}
 		Status = XilSKey_ZynqMp_EfusePs_Init();
-		if (Status != XST_SUCCESS) {
-			return Status;
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
 		}
 		Status = XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
 					SecureBitsRead,ReadOption);
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 	}
-
+END:
 	return Status;
 }
 
@@ -922,34 +996,35 @@ static inline u32 XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
 		XilSKey_Puf_Secure *SecureBits, u8 ReadOption)
 {
 
-	u32 RegData;
-	u32 Status = XST_SUCCESS;
+	u32 RegData = 0U;
+	u32 Status;
 
 	if (ReadOption == XSK_EFUSEPS_READ_FROM_CACHE) {
 		RegData = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 				XSK_ZYNQMP_EFUSEPS_PUF_MISC_OFFSET);
+		Status = (u32)XST_SUCCESS;
 	}
 	else {
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(
 				XSK_ZYNQMP_EFUSEPS_PUF_AUX_ROW,
 					XSK_ZYNQMP_EFUSEPS_EFUSE_0, &RegData);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 	}
 
 	SecureBits->SynInvalid =
-		(RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_SYN_INVLD_MASK) >>
-				XSK_ZYNQMP_EFUSEPS_PUF_MISC_SYN_INVLD_SHIFT;
+		(u8)((RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_SYN_INVLD_MASK) >>
+				XSK_ZYNQMP_EFUSEPS_PUF_MISC_SYN_INVLD_SHIFT);
 	SecureBits->SynWrLk =
-		(RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_SYN_WRLK_MASK) >>
-				XSK_ZYNQMP_EFUSEPS_PUF_MISC_SYN_WRLK_SHIFT;
+		(u8)((RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_SYN_WRLK_MASK) >>
+				XSK_ZYNQMP_EFUSEPS_PUF_MISC_SYN_WRLK_SHIFT);
 	SecureBits->RegisterDis =
-		(RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_REG_DIS_MASK) >>
-			XSK_ZYNQMP_EFUSEPS_PUF_MISC_REG_DIS_SHIFT;
+		(u8)((RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_REG_DIS_MASK) >>
+			XSK_ZYNQMP_EFUSEPS_PUF_MISC_REG_DIS_SHIFT);
 	SecureBits->Reserved =
-			(RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_RESERVED_MASK) >>
-				XSK_ZYNQMP_EFUSEPS_PUF_MISC_RESERVED_SHIFT;
+			(u8)((RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_RESERVED_MASK) >>
+				XSK_ZYNQMP_EFUSEPS_PUF_MISC_RESERVED_SHIFT);
 END:
 
 	return Status;
@@ -976,20 +1051,21 @@ static inline u32 XilSKey_ZynqMp_EfusePs_PufRowWrite(u8 Row,
 {
 
 	u8 Column;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
-	for (Column = 0; Column < XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW;
+	for (Column = 0U; Column < XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW;
 						Column++) {
-		if (Data[Column] != 0x00) {
+		if (Data[Column] != 0x00U) {
 		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
 							Column, EfuseType);
-			if (Status != XST_SUCCESS) {
-				return Status;
+			if (Status != (u32)XST_SUCCESS) {
+				goto END;
 			}
 		}
 	}
-
-	return XST_SUCCESS;
+	Status = (u32)XST_SUCCESS;
+END:
+	return Status;
 
 }
 
@@ -1006,10 +1082,10 @@ static inline u32 XilSKey_ZynqMp_EfusePs_PufRowWrite(u8 Row,
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf()
+static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void)
 {
-	u32 RowData;
-	u32 Status = XST_SUCCESS;
+	u32 RowDataVal = 0U;
+	u32 Status;
 
 	/*
 	 * By the time of checking PUF syndrome data T bits
@@ -1018,41 +1094,41 @@ static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf()
 	 */
 	Status = XilSKey_ZynqMp_EfusePs_ReadRow(
 			XSK_ZYNQMP_EFUSEPS_PUF_ROW_START,
-			XSK_ZYNQMP_EFUSEPS_EFUSE_2, &RowData);
-	if (Status != XST_SUCCESS) {
+			XSK_ZYNQMP_EFUSEPS_EFUSE_2, &RowDataVal);
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
-	if ((RowData & (~(XSK_ZYNQMP_EFUSEPS_TBITS_MASK <<
-			XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT))) != 0x00) {
-		Status = XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
+	if ((RowDataVal & (~(XSK_ZYNQMP_EFUSEPS_TBITS_MASK <<
+			XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT))) != 0x00U) {
+		Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
 		goto END;
 	}
 
 	Status = XilSKey_ZynqMp_EfusePs_ReadRow(
 			XSK_ZYNQMP_EFUSEPS_PUF_ROW_START,
-			XSK_ZYNQMP_EFUSEPS_EFUSE_3, &RowData);
-	if (Status != XST_SUCCESS) {
+			XSK_ZYNQMP_EFUSEPS_EFUSE_3, &RowDataVal);
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
-	if ((RowData & (~(XSK_ZYNQMP_EFUSEPS_TBITS_MASK <<
-			XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT))) != 0x00) {
-		Status = XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
+	if ((RowDataVal & (~(XSK_ZYNQMP_EFUSEPS_TBITS_MASK <<
+			XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT))) != 0x00U) {
+		Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
 		goto END;
 	}
 
 	if (XilSKey_ZynqMp_EfusePs_CheckForZeros(
-		(XSK_ZYNQMP_EFUSEPS_PUF_ROW_START + 1),
+		(XSK_ZYNQMP_EFUSEPS_PUF_ROW_START + 1U),
 		XSK_ZYNQMP_EFUSEPS_PUF_ROW_END, XSK_ZYNQMP_EFUSEPS_EFUSE_2) !=
-								XST_SUCCESS) {
-		Status = XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
+								(u32)XST_SUCCESS) {
+		Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
 		goto END;
 	}
 
 	if (XilSKey_ZynqMp_EfusePs_CheckForZeros(
-		(XSK_ZYNQMP_EFUSEPS_PUF_ROW_START + 1),
+		(XSK_ZYNQMP_EFUSEPS_PUF_ROW_START + 1U),
 		XSK_ZYNQMP_EFUSEPS_PUF_ROW_END,
-		XSK_ZYNQMP_EFUSEPS_EFUSE_3) != XST_SUCCESS) {
-		Status = XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
+		XSK_ZYNQMP_EFUSEPS_EFUSE_3) != (u32)XST_SUCCESS) {
+		Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
 		goto END;
 	}
 
@@ -1076,31 +1152,31 @@ END:
  ******************************************************************************/
 static inline u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType)
 {
-	u32 PufChash;
-	u32 PufAux;
-	u32 Status = XST_SUCCESS;
+	u32 PufChash = 0U;
+	u32 PufAux = 0U;
+	u32 Status;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 	XilSKey_SecCtrlBits ReadSecCtrlBits;
 	XilSKey_Puf_Secure PufSecureBits;
 
 	/* Read secure control register for RSA bits value from eFUSE */
 	Status = XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(&ReadSecCtrlBits, 0);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
 	/* Reading PUF secure bits */
 	Status = XilSKey_Read_Puf_EfusePs_SecureBits(&PufSecureBits, 0);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
 	Status = XilSKey_ZynqMp_EfusePs_ReadPufAux(&PufAux, 0);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 	Status = XilSKey_ZynqMp_EfusePs_ReadPufChash(&PufChash, 0);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
@@ -1112,7 +1188,7 @@ static inline u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType)
 		 * 	2.1  Make sure that use RSA bits set in eFUSE.
 		 */
 		if (PufSecureBits.RegisterDis != 0U ) {
-			Status = XSK_EFUSEPS_ERROR_PUF_REG_DISABLED;
+			Status = (u32)XSK_EFUSEPS_ERROR_PUF_REG_DISABLED;
 			xPuf_printf(Debug,
 				"API: PUF Registration not allowed "
 			"(Disabled in eFUSE):0x%08x\r\n",Status);
@@ -1120,15 +1196,18 @@ static inline u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType)
 		else if ((PufChash != 0U) || (PufAux != 0U)) {
 			if (ReadSecCtrlBits.RSAEnable == 0U) {
 				Status =
-				XSK_EFUSEPS_ERROR_PUF_REG_WO_AUTH;
+				(u32)XSK_EFUSEPS_ERROR_PUF_REG_WO_AUTH;
 				xPuf_printf(Debug,
 				"API:Registration not allowed w/o "
 				"Authentication:0x%08x\r\n", Status);
 			}
 		}
+		else {
+			Status = (u32)XST_SUCCESS;
+		}
 	}
 	else {
-		Status = XSK_EFUSEPS_ERROR_PUF_INVALID_REQUEST;
+		Status = (u32)XSK_EFUSEPS_ERROR_PUF_INVALID_REQUEST;
 		xPuf_printf(Debug,
 		"API: Invalid Request type for validation:0x%08x\r\n",
 			Status);

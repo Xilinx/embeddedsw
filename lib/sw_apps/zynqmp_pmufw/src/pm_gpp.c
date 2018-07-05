@@ -64,9 +64,9 @@ static const PmStateTran pmGppTransitions[] = {
  *
  * @return	Status of performing transition action
  */
-static int PmGppFsmHandler(PmSlave* const slave, const PmStateId nextState)
+static s32 PmGppFsmHandler(PmSlave* const slave, const PmStateId nextState)
 {
-	int status = XST_PM_INTERNAL;
+	s32 status = XST_PM_INTERNAL;
 	PmSlaveGpp* gpp = (PmSlaveGpp*)slave->node.derived;
 
 	switch (slave->node.currState) {
@@ -156,6 +156,90 @@ PmSlaveGpp pmSlaveGpuPP1_g = {
 	.PwrDn = XpbrPwrDnPp1Handler,
 	.PwrUp = XpbrPwrUpPp1Handler,
 	.reset = XpbrRstPp1Handler,
+};
+
+/**
+ * PmGpuFsmHandler() - FSM handler of a GPU slave
+ * @slave	Slave whose state should be changed
+ * @nextState	State the slave should enter
+ *
+ * @return	Status of performing transition action
+ */
+static s32 PmGpuFsmHandler(PmSlave* const slave, const PmStateId nextState)
+{
+	s32 status = XST_PM_INTERNAL;
+
+	switch (slave->node.currState) {
+	case PM_GPP_SLAVE_STATE_ON:
+		if (PM_GPP_SLAVE_STATE_OFF == nextState) {
+			/* ON -> OFF*/
+			status = pmSlaveGpuPP0_g.PwrDn();
+			if (XST_SUCCESS != status) {
+				goto done;
+			}
+			status = pmSlaveGpuPP1_g.PwrDn();
+			if (XST_SUCCESS != status) {
+				goto done;
+			}
+		} else {
+			status = XST_NO_FEATURE;
+		}
+		break;
+	case PM_GPP_SLAVE_STATE_OFF:
+		if (PM_GPP_SLAVE_STATE_ON == nextState) {
+			/* OFF -> ON */
+			status = pmSlaveGpuPP0_g.PwrUp();
+			if ((XST_SUCCESS == status) && (NULL != pmSlaveGpuPP0_g.reset)) {
+				status = pmSlaveGpuPP0_g.reset();
+			}
+			if (XST_SUCCESS != status) {
+				goto done;
+			}
+
+			status = pmSlaveGpuPP1_g.PwrUp();
+			if ((XST_SUCCESS == status) && (NULL != pmSlaveGpuPP1_g.reset)) {
+				status = pmSlaveGpuPP1_g.reset();
+			}
+			if (XST_SUCCESS != status) {
+				goto done;
+			}
+		} else {
+			status = XST_NO_FEATURE;
+		}
+		break;
+	default:
+		PmNodeLogUnknownState(&slave->node, slave->node.currState);
+		break;
+	}
+
+done:
+	return status;
+}
+
+static const PmSlaveFsm pmSlaveGpuFsm = {
+	DEFINE_SLAVE_STATES(pmGppStates),
+	DEFINE_SLAVE_TRANS(pmGppTransitions),
+	.enterState = PmGpuFsmHandler,
+};
+
+PmSlave pmSlaveGpu_g = {
+	.node = {
+		.derived = &pmSlaveGpu_g,
+		.nodeId = NODE_GPU,
+		.class = &pmNodeClassSlave_g,
+		.parent = &pmPowerDomainFpd_g.power,
+		.clocks = NULL,
+		.currState = PM_GPP_SLAVE_STATE_ON,
+		.latencyMarg = MAX_LATENCY,
+		.flags = 0U,
+		DEFINE_PM_POWER_INFO(pmGppSlavePowers),
+		DEFINE_NODE_NAME("gpu"),
+	},
+	.class = NULL,
+	.reqs = NULL,
+	.wake = NULL,
+	.slvFsm = &pmSlaveGpuFsm,
+	.flags = 0U,
 };
 
 #pragma weak pmUserHookVcuPwrDn

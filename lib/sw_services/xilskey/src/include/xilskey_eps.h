@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -53,7 +53,7 @@
 * 2.1   sk      04/03/15 Initialized RSAKeyReadback with Zeros CR# 829723.
 * 4.0   vns     10/20/15 Added cplusplus boundary blocks.
 * 6.6   vns     06/06/18 Added doxygen tags
-*
+* 6.7   arc     01/05/19 Fixed MISRA-C changes.
 *
 *****************************************************************************/
 
@@ -67,7 +67,7 @@ extern "C" {
 /**
  * Key length definition for RSA KEY Hash
  */
-#define XSK_EFUSEPS_RSA_KEY_HASH_LEN_IN_BYTES			(32)
+#define XSK_EFUSEPS_RSA_KEY_HASH_LEN_IN_BYTES			(32U)
 
 /**
  * XSKEfusePs is the PS eFUSE driver instance. Using this

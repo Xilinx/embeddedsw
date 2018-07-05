@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2004 - 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2004 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -40,18 +40,29 @@
 #include "xparameters.h"
 #include "microblaze_instructions.h"
 
+/* 64-bit definitions */
+#if defined (__arch64__)
+#define INTPTR_DATAITEM                 .quad
+#define REGSIZE                         8
+#define DATAALIGN                       4
+#else
+#define INTPTR_DATAITEM                 .long
+#define REGSIZE                         4
+#define DATAALIGN                       2
+#endif /* 64-bit definitions */
+
 /* Helpful Macros */
-#define EX_HANDLER_STACK_SIZ            (4*21)
-#define RMSR_OFFSET                     (20 * 4)
+#define EX_HANDLER_STACK_SIZ            (REGSIZE*21)
+#define RMSR_OFFSET                     (20 * REGSIZE)
 #define R17_OFFSET                      (0)
-#define REG_OFFSET(regnum)              (4 * (regnum + 1))
+#define REG_OFFSET(regnum)              (REGSIZE * (regnum + 1))
 #define NUM_TO_REG(num)                 r ## num
 
-#define R3_TO_STACK(regnum)             swi     r3, r1, REG_OFFSET(regnum)
-#define R3_FROM_STACK(regnum)           lwi     r3, r1, REG_OFFSET(regnum)
+#define R3_TO_STACK(regnum)             SI      r3, r1, REG_OFFSET(regnum)
+#define R3_FROM_STACK(regnum)           LI      r3, r1, REG_OFFSET(regnum)
 
-#define PUSH_REG(regnum)                swi     NUM_TO_REG(regnum), r1, REG_OFFSET(regnum)
-#define POP_REG(regnum)                 lwi     NUM_TO_REG(regnum), r1, REG_OFFSET(regnum)
+#define PUSH_REG(regnum)                SI      NUM_TO_REG(regnum), r1, REG_OFFSET(regnum)
+#define POP_REG(regnum)                 LI      NUM_TO_REG(regnum), r1, REG_OFFSET(regnum)
 
 /* Uses r5 */
 #define PUSH_MSR                                                                \
@@ -70,9 +81,9 @@
         mts     rmsr, r5;
 
 /* Push r17 */
-#define PUSH_R17                swi     r17, r1, R17_OFFSET
+#define PUSH_R17                SI      r17, r1, R17_OFFSET
 /* Pop r17 */
-#define POP_R17                 lwi     r17, r1, R17_OFFSET
+#define POP_R17                 LI      r17, r1, R17_OFFSET
 
 #define LWREG_NOP                                                               \
         BRI     ex_handler_unhandled;                                           \
@@ -89,7 +100,7 @@
 
 /* r3 is the source */
 #define R3_TO_LWREG(regnum)                                                     \
-        or      NUM_TO_REG (regnum), r0, r3;                                    \
+        OR      NUM_TO_REG (regnum), r0, r3;                                    \
         BRI     ex_handler_done;
 
 /* r3 is the target */
@@ -99,31 +110,31 @@
 
 /* r3 is the target */
 #define SWREG_TO_R3(regnum)                                                     \
-        or      r3, r0, NUM_TO_REG (regnum);                                    \
+        OR      r3, r0, NUM_TO_REG (regnum);                                    \
         BRI     ex_sw_tail;
 
 /* regnum is the source */
 #define FP_EX_OPB_SAVE(regnum)                                                  \
-        swi     NUM_TO_REG (regnum), r0, mb_fpex_op_b;                          \
+        SI      NUM_TO_REG (regnum), r0, mb_fpex_op_b;                          \
         nop;                                                                    \
         BRI     handle_fp_ex_opa;
 
 /* regnum is the source */
 #define FP_EX_OPB_SAVE_V(regnum)                                                \
         R3_FROM_STACK (regnum);                                                 \
-        swi     r3, r0, mb_fpex_op_b;                                           \
+        SI      r3, r0, mb_fpex_op_b;                                           \
         BRI     handle_fp_ex_opa;
 
 /* regnum is the source */
 #define FP_EX_OPA_SAVE(regnum)                                                  \
-        swi     NUM_TO_REG (regnum), r0, mb_fpex_op_a;                          \
+        SI      NUM_TO_REG (regnum), r0, mb_fpex_op_a;                          \
         nop;                                                                    \
         BRI     handle_fp_ex_done;
 
 /* regnum is the source */
 #define FP_EX_OPA_SAVE_V(regnum)                                                \
         R3_FROM_STACK (regnum);                                                 \
-        swi     r3, r0, mb_fpex_op_a;                                           \
+        SI      r3, r0, mb_fpex_op_a;                                           \
         BRI     handle_fp_ex_done;
 
 #define FP_EX_UNHANDLED                                                         \
@@ -154,7 +165,7 @@
  *  Relevant register structures
  *
  *  EAR - |----|----|----|----|----|----|----|----|
- *      - <  ##   32 bit faulting address     ##  >
+ *      - <  ## 32 or 64 bit faulting address ##  >
  *
  *  ESR - |----|----|----|----|----| - | - |-----|-----|
  *      -                            W   S   REG   EXC
@@ -165,19 +176,19 @@
  *
  *      +-------------+         + 0
  *      |     r17     |
- *      +-------------+         + 4
+ *      +-------------+         + 4 (32-bit)    + 8 (64-bit)
  *      |  Args for   |
  *      |  next func  |
- *      +-------------+         + 8
+ *      +-------------+         + 8 (32-bit)    + 16 (64-bit)
  *      |     r1      |
  *      |      .      |
  *      |      .      |
  *      |      .      |
  *      |      .      |
  *      |     r18     |
- *      +-------------+         + 80
+ *      +-------------+         + 80 (32-bit)   + 160 (64-bit)
  *      |     MSR     |
- *      +-------------+         + 84
+ *      +-------------+         + 84 (32-bit)   + 168 (64-bit)
  *      |      .      |
  *      |      .      |
  */
@@ -192,18 +203,18 @@ _hw_exception_handler:
 
 #if defined(XPAR_MICROBLAZE_USE_STACK_PROTECTION) && (XPAR_MICROBLAZE_USE_STACK_PROTECTION == 1)
 	/* Immediately halt for stack protection violation exception without using any stack       */
-	swi	r3, r0, mb_sp_save_r3;			/* Save temporary register                 */
+	SI	r3, r0, mb_sp_save_r3;			/* Save temporary register                 */
 	mfs	r3, resr;				/* Extract ESR[DS]                         */
 	andi	r3, r3, ESR_EXC_MASK;
 	xori	r3, r3, 0x7;				/* Check for stack protection violation    */
-	bnei	r3, ex_handler_not_sp_violation;
+	BNEI	r3, ex_handler_not_sp_violation;
 ex_handler_sp_violation:
 	bri	0;					/* Halt here if stack protection violation */
 ex_handler_not_sp_violation:
-	lwi	r3, r0, mb_sp_save_r3;			/* Restore temporary register              */
+	LI	r3, r0, mb_sp_save_r3;			/* Restore temporary register              */
 #endif /* defined(XPAR_MICROBLAZE_USE_STACK_PROTECTION) && (XPAR_MICROBLAZE_USE_STACK_PROTECTION == 1) */
 
-        addik   r1, r1, -(EX_HANDLER_STACK_SIZ);        /* Create stack frame */
+        ADDIK   r1, r1, -(EX_HANDLER_STACK_SIZ);        /* Create stack frame */
         PUSH_REG(3);
         PUSH_REG(4);
         PUSH_REG(5);
@@ -211,7 +222,7 @@ ex_handler_not_sp_violation:
 #ifdef MICROBLAZE_CAN_HANDLE_EXCEPTIONS_IN_DELAY_SLOTS
         mfs     r6, resr;
         andi    r6, r6, ESR_DS_MASK;
-        beqi    r6, ex_handler_no_ds;
+        BEQI    r6, ex_handler_no_ds;
         mfs     r17, rbtr;
 ex_handler_no_ds:
 #endif
@@ -222,30 +233,30 @@ ex_handler_no_ds:
         andi    r5, r3, ESR_EXC_MASK;                   /* Extract ESR[EXC]                     */
 #ifndef NO_UNALIGNED_EXCEPTIONS
         xori    r6, r5, 1;                              /* 00001 = Unaligned Exception          */
-        bnei    r6, handle_ex_regular;
+        BNEI    r6, handle_ex_regular;
 
-        la      r4, r0, MB_ExceptionVectorTable;        /* Check if user has registered an unaligned exception handler */
-        lwi     r4, r4, 8;
-        la      r6, r0, XNullHandler;                   /* If exceptionvectortable entry is still XNullHandler, use */
-        xor     r6, r4, r6;                             /* the default exception handler */
-        beqi    r6, handle_unaligned_ex ;
+        ADDIK   r4, r0, MB_ExceptionVectorTable;        /* Check if user has registered an unaligned exception handler */
+        LI      r4, r4, 8;
+        ADDIK   r6, r0, XNullHandler;                   /* If exceptionvectortable entry is still XNullHandler, use */
+        XOR     r6, r4, r6;                             /* the default exception handler */
+        BEQI    r6, handle_unaligned_ex ;
 
 handle_ex_regular:
 #endif  /* ! NO_UNALIGNED_EXCEPTIONS */
 
 #if defined (MICROBLAZE_FP_EXCEPTION_ENABLED) && defined (MICROBLAZE_FP_EXCEPTION_DECODE)
         xori   r6, r5, 6;                               /* 00110 = FPU exception */
-        beqi   r6, handle_fp_ex;                        /* Go and decode the FP exception */
+        BEQI   r6, handle_fp_ex;                        /* Go and decode the FP exception */
 #endif  /* defined (MICROBLAZE_FP_EXCEPTION_ENABLED) && defined (MICROBLAZE_FP_EXCEPTION_DECODE) */
 
 handle_other_ex:                                        /* Handle Other exceptions here         */
         ori     r6, r0, 20;
         cmp     r6, r5, r6;                             /* >= 20 are exceptions we do not handle. */
-        blei    r6, ex_handler_unhandled;
+        BLEI    r6, ex_handler_unhandled;
 
         ori     r6, r0, 7;
         cmp     r6, r5, r6;                             /* Convert MMU exception indices into an ordinal of 7 */
-        bgti    r6, handle_other_ex_tail;
+        BGTI    r6, handle_other_ex_tail;
         ori     r5, r0, 0x7;
 
 handle_other_ex_tail:
@@ -258,13 +269,16 @@ handle_other_ex_tail:
         PUSH_REG(15);
         PUSH_REG(18);
 
-        la      r4, r0, MB_ExceptionVectorTable;        /* Load the Exception vector table base address         */
-        addk    r7, r5, r5;                             /* Calculate exception vector offset = r5 * 8           */
-        addk    r7, r7, r7;
-        addk    r7, r7, r7;
-        addk    r7, r7, r4;                             /* Get pointer to exception vector               */
-        lwi     r5, r7, 4;                              /* Load argument to exception handler from table */
-        lw      r7, r7, r0;                             /* Load vector itself here                       */
+        ADDIK   r4, r0, MB_ExceptionVectorTable;        /* Load the Exception vector table base address         */
+        ADDK    r7, r5, r5;                             /* Calculate exception vector offset = r5 * 8 (32-bit)  */
+        ADDK    r7, r7, r7;
+        ADDK    r7, r7, r7;
+#if defined (__arch64__)
+        ADDK    r7, r7, r7;                             /* or r5 * 16 (64-bit)  */
+#endif
+        ADDK    r7, r7, r4;                             /* Get pointer to exception vector               */
+        LI      r5, r7, REGSIZE;                        /* Load argument to exception handler from table */
+        LOAD    r7, r7, r0;                             /* Load vector itself here                       */
 
         brald   r15, r7;                                /* Branch to handler                             */
         nop;
@@ -278,7 +292,7 @@ handle_other_ex_tail:
         POP_REG(15);
         POP_REG(18);
 
-        bri     ex_handler_done;                        /* Complete exception handling       */
+        BRI     ex_handler_done;                        /* Complete exception handling       */
 
 #ifndef NO_UNALIGNED_EXCEPTIONS
 handle_unaligned_ex:
@@ -291,10 +305,10 @@ handle_unaligned_ex:
         sbi     r6, r0, ex_reg_op;                      /* Store the register operand in a temporary location */
         mfs     r4, rear;
         andi    r6, r3, ESR_LW_SW_MASK;                 /* Extract ESR[S]               */
-        bnei    r6, ex_sw;
+        BNEI    r6, ex_sw;
 ex_lw:
         andi    r6, r3, ESR_WORD_MASK;                  /* Extract ESR[W]               */
-        beqi    r6, ex_lhw;
+        BEQI    r6, ex_lhw;
         lbui    r5, r4, 0;                              /* Exception address in r4      */
         sbi     r5, r0, ex_tmp_data_loc_0;              /* Load a word, byte-by-byte from destination address and save it in tmp space  */
         lbui    r5, r4, 1;
@@ -304,7 +318,7 @@ ex_lw:
         lbui    r5, r4, 3;
         sbi     r5, r0, ex_tmp_data_loc_3;
         lwi     r3, r0, ex_tmp_data_loc_0;              /* Get the destination register value into r3   */
-        bri     ex_lw_tail;
+        BRI     ex_lw_tail;
 ex_lhw:
         lbui    r5, r4, 0;                              /* Exception address in r4                      */
         sbi     r5, r0, ex_tmp_data_loc_0;              /* Load a half-word, byte-by-byte from destination address and save it in tmp space */
@@ -313,25 +327,25 @@ ex_lhw:
         lhui    r3, r0, ex_tmp_data_loc_0;              /* Get the destination register value into r3   */
 ex_lw_tail:
         lbui    r5, r0, ex_reg_op;                      /* Get the destination register number into r5  */
-        la      r6, r0, lw_table;                       /* Form load_word jump table offset (lw_table + (8 * regnum)) */
-        addk    r5, r5, r5;
-        addk    r5, r5, r5;
-        addk    r5, r5, r5;
-        addk    r5, r5, r6;
+        ADDIK   r6, r0, lw_table;                       /* Form load_word jump table offset (lw_table + (8 * regnum)) */
+        ADDK    r5, r5, r5;
+        ADDK    r5, r5, r5;
+        ADDK    r5, r5, r5;
+        ADDK    r5, r5, r6;
         bra     r5;
 ex_lw_end:                                              /* Exception handling of load word, ends */
 ex_sw:
         lbui    r5, r0, ex_reg_op;                      /* Get the destination register number into r5 */
-        la      r6, r0, sw_table;                       /* Form store_word jump table offset (sw_table + (8 * regnum)) */
-        add     r5, r5, r5;
-        add     r5, r5, r5;
-        add     r5, r5, r5;
-        add     r5, r5, r6;
+        ADDIK   r6, r0, sw_table;                       /* Form store_word jump table offset (sw_table + (8 * regnum)) */
+        ADDK    r5, r5, r5;
+        ADDK    r5, r5, r5;
+        ADDK    r5, r5, r5;
+        ADDK    r5, r5, r6;
         bra     r5;
 ex_sw_tail:
         mfs     r6, resr;
         andi    r6, r6, ESR_WORD_MASK;                  /* Extract ESR[W]       */
-        beqi    r6, ex_shw;
+        BEQI    r6, ex_shw;
         swi     r3, r0, ex_tmp_data_loc_0;
         lbui    r3, r0, ex_tmp_data_loc_0;              /* Store the word, byte-by-byte into destination address                */
         sbi     r3, r4, 0;
@@ -341,7 +355,7 @@ ex_sw_tail:
         sbi     r3, r4, 2;
         lbui    r3, r0, ex_tmp_data_loc_3;
         sbi     r3, r4, 3;
-        bri     ex_handler_done;
+        BRI     ex_handler_done;
 ex_shw:
         swi     r3, r0, ex_tmp_data_loc_0;              /* Store the lower half-word, byte-by-byte into destination address      */
 
@@ -358,16 +372,16 @@ ex_shw:
 #endif
         sbi     r3, r4, 1;
 ex_sw_end:                                              /* Exception handling of store word, ends. */
-        bri     ex_handler_done;
+        BRI     ex_handler_done;
 #endif  /* !NO_UNALIGNED_EXCEPTIONS */
 
 #if defined (MICROBLAZE_FP_EXCEPTION_ENABLED) && defined (MICROBLAZE_FP_EXCEPTION_DECODE)
 handle_fp_ex:
-        addik   r3, r17, -4;                            /* r17 contains (addr of exception causing FP instruction + 4) */
+        ADDIK   r3, r17, -4;                            /* r17 contains (addr of exception causing FP instruction + 4) */
         lw      r4, r0, r3;                             /* We might find ourselves in a spot here. Unguaranteed load   */
 
 handle_fp_ex_opb:
-        la      r6, r0, fp_table_opb;                   /* Decode opB and store its value in mb_fpex_op_b */
+        ADDIK   r6, r0, fp_table_opb;                   /* Decode opB and store its value in mb_fpex_op_b */
         srl     r4, r4;
         srl     r4, r4;
         srl     r4, r4;
@@ -380,31 +394,31 @@ handle_fp_ex_opb:
         srl     r4, r4;
         srl     r4, r4;
         andi    r3, r4, 0x1F;
-        add     r3, r3, r3;                             /* Calculate (fp_table_opb + (regno * 12)) in r5 */
-        add     r3, r3, r3;
-        add     r5, r3, r3;
-        add     r5, r5, r3;
-        add     r5, r5, r6;
+        ADDK    r3, r3, r3;                             /* Calculate (fp_table_opb + (regno * 12)) in r5 */
+        ADDK    r3, r3, r3;
+        ADDK    r5, r3, r3;
+        ADDK    r5, r5, r3;
+        ADDK    r5, r5, r6;
         bra     r5;
 
 handle_fp_ex_opa:
-        la      r6, r0, fp_table_opa;                   /* Decode opA and store its value in mb_fpex_op_a */
+        ADDIK   r6, r0, fp_table_opa;                   /* Decode opA and store its value in mb_fpex_op_a */
         srl     r4, r4;
         srl     r4, r4;
         srl     r4, r4;
         srl     r4, r4;
         srl     r4, r4;
         andi    r3, r4, 0x1F;
-        add     r3, r3, r3;                             /* Calculate (fp_table_opb + (regno * 12)) in r5 */
-        add     r3, r3, r3;
-        add     r5, r3, r3;
-        add     r5, r5, r3;
-        add     r5, r5, r6;
+        ADDK    r3, r3, r3;                             /* Calculate (fp_table_opb + (regno * 12)) in r5 */
+        ADDK    r3, r3, r3;
+        ADDK    r5, r3, r3;
+        ADDK    r5, r5, r3;
+        ADDK    r5, r5, r6;
         bra     r5;
 
 handle_fp_ex_done:
         ori     r5, r0, 6;                              /* Set exception number back to 6 */
-        bri     handle_other_ex_tail;
+        BRI     handle_other_ex_tail;
 
 fp_ex_unhandled:
         bri     0;
@@ -418,8 +432,10 @@ ex_handler_done:
         POP_REG(5);
         POP_REG(6);
 
+        ADDIK   r1, r1, (EX_HANDLER_STACK_SIZ);         /* Restore stack frame  */
         rted    r17, 0
-        addik   r1, r1, (EX_HANDLER_STACK_SIZ);         /* Restore stack frame  */
+	nop
+
 ex_handler_unhandled:
         bri 0                                           /* UNHANDLED. TRAP HERE */
 .end _hw_exception_handler
@@ -506,7 +522,7 @@ sw_r31: SWREG_TO_R3   (31);
 
 /* Temporary data structures used in the handler */
 .section .data
-.align 2
+.align DATAALIGN
 ex_tmp_data_loc_0:
         .byte 0
 ex_tmp_data_loc_1:
@@ -604,44 +620,44 @@ opb_r31: FP_EX_OPB_SAVE (31);
 #if defined(MICROBLAZE_FP_EXCEPTION_ENABLED) && defined(MICROBLAZE_FP_EXCEPTION_DECODE)
 /* This is where we store the opA and opB of the last excepting FP instruction */
 .section .data
-.align 2
+.align DATAALIGN
 .global mb_fpex_op_a
 .global mb_fpex_op_b
 mb_fpex_op_a:
-        .long 0
+        INTPTR_DATAITEM 0
 mb_fpex_op_b:
-        .long 0
+        INTPTR_DATAITEM 0
 #endif /* defined (MICROBLAZE_FP_EXCEPTION_ENABLED) && defined (MICROBLAZE_FP_EXCEPTION_DECODE) */
 
 #if defined(XPAR_MICROBLAZE_USE_STACK_PROTECTION) && (XPAR_MICROBLAZE_USE_STACK_PROTECTION == 1)
 /* This is where we store the register used to check which exception occurred */
 	.section .data
-	.align 2
+	.align DATAALIGN
 mb_sp_save_r3:
-        .long 0
+        INTPTR_DATAITEM 0
 #endif /* defined(XPAR_MICROBLAZE_USE_STACK_PROTECTION) && (XPAR_MICROBLAZE_USE_STACK_PROTECTION == 1) */
 
 /* The exception vector table */
 .section .data
-.align 2
+.align DATAALIGN
 .global MB_ExceptionVectorTable
 MB_ExceptionVectorTable:
-    .long XNullHandler
-    .long 0                                 /* --          FSL Exception         -- */
-    .long XNullHandler
-    .long 1                                 /* -- Unaligned Access Exception     -- */
-    .long XNullHandler
-    .long 2                                 /* --   Illegal Opcode Exception     -- */
-    .long XNullHandler
-    .long 3                                 /* --      Instruction Bus Exception -- */
-    .long XNullHandler
-    .long 4                                 /* --     Data Bus Exception         -- */
-    .long XNullHandler
-    .long 5                                 /* --       Div-by-0 Exception       -- */
-    .long XNullHandler
-    .long 6                                 /* --         FPU  Exception         -- */
-    .long XNullHandler
-    .long 7                                 /* --         MMU  Exceptions        -- */
+    INTPTR_DATAITEM XNullHandler
+    INTPTR_DATAITEM 0                       /* --          FSL Exception         -- */
+    INTPTR_DATAITEM XNullHandler
+    INTPTR_DATAITEM 1                       /* -- Unaligned Access Exception     -- */
+    INTPTR_DATAITEM XNullHandler
+    INTPTR_DATAITEM 2                       /* --   Illegal Opcode Exception     -- */
+    INTPTR_DATAITEM XNullHandler
+    INTPTR_DATAITEM 3                       /* --      Instruction Bus Exception -- */
+    INTPTR_DATAITEM XNullHandler
+    INTPTR_DATAITEM 4                       /* --     Data Bus Exception         -- */
+    INTPTR_DATAITEM XNullHandler
+    INTPTR_DATAITEM 5                       /* --       Div-by-0 Exception       -- */
+    INTPTR_DATAITEM XNullHandler
+    INTPTR_DATAITEM 6                       /* --         FPU  Exception         -- */
+    INTPTR_DATAITEM XNullHandler
+    INTPTR_DATAITEM 7                       /* --         MMU  Exceptions        -- */
 
 #else                                       /* Dummy exception handler, in case exceptions are not present in the processor */
 

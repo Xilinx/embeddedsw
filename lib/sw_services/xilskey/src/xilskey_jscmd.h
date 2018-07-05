@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +36,7 @@ extern "C" {
 #endif
 
 extern js_server_t *js_init_zynq(void);
-void initGPIO ();
+void initGPIO (void);
 int jtag_setPreAndPostPads (js_port_t *port_arg, int irPrePadBits, int irPostPadBits, int drPrePadBits, int drPostPadBits);
 int jtag_navigate (js_port_t *port, js_state_t state);
 int jtag_shift (js_port_t *port, unsigned char mode, int bits, unsigned char* wrBuffer, unsigned char* rdBuffer, js_state_t state);
@@ -58,6 +58,70 @@ u32 GpioPinHwmReady;
 
 u32 GpioInPutCh;
 u32 GpioOutPutCh;
+
+u32 GpioDeviceId;
+/*
+ * Constant definitions for instruction used in BBRAM key program and verify
+ */
+#define JPROGRAM			0x0B
+#define ISC_NOOP			0x14
+#define ISC_ENABLE			0x10
+#define ISC_PROGRAM_KEY		0x12
+#define ISC_PROGRAM			0x11
+#define ISC_READ			0x15
+#define ISC_DISABLE			0x16
+#define BYPASS				0x3F
+#define SYSMON_DRP			0x37
+
+#define CFG_OUT_SLRX		0x04
+#define CFG_IN_SLRX			0x05
+#define ISC_ENABLE_SLRX		0x10
+#define ISC_PROGRAM_SLRX	0x11
+#define XSC_PROGRAM_SLRX	0x12
+#define ISC_READ_SLRX		0x15
+#define FEEDTHROUGH			0x24
+#define FUSE_CTS_SLRX		0x30
+#define FUSE_KEY_SLRX		0x31
+
+/*
+ * Pre and post pads
+ */
+#define IRHEADER			0
+#define IRTRAILER			4
+#define DRHEADER			0
+#define DRTRAILER			1
+
+/*
+ * Pre and post pads for BYPASS in de-init
+ */
+#define IRHEADER_BYP		0
+#define IRTRAILER_BYP		0
+#define DRHEADER_BYP		0
+#define DRTRAILER_BYP		0
+
+/*
+ * Data register length for fuse_cts
+ */
+#define DRLENGTH_FUSE		64
+/*
+ * Data register lengths for program
+ */
+#define DRLENGTH_PROGRAM	32
+/*
+ * Data register lengths for verify
+ */
+#define DRLENGTH_VERIFY		37
+/*
+ * Data register lengths for data load after ISC_ENABLE
+ */
+#define DRLENGTH_EN			5
+/*
+ * Data register load after ISC_ENABLE
+ */
+#define DR_EN				0x15
+#define CALC_SINGLE			0
+#define CALC_ALL			1
+#define CALC_MSTR			2
 
 // MIO assignments
 #ifdef XSK_MICROBLAZE_PLATFORM
@@ -82,10 +146,10 @@ u32 GpioOutPutCh;
 #define GPIO_HWM_END		GpioPinHwmEnd
 
 #define TAP_IR_LENGTH		(6)
-#define ZYNQ_DAP_IR_LENGTH		(4)
+#define ZYNQ_DAP_IR_LENGTH	(4)
 
-#define ATOMIC_DR_SCAN                 0x40
-#define ATOMIC_IR_SCAN                 0x50
+#define ATOMIC_DR_SCAN		0x40
+#define ATOMIC_IR_SCAN		0x50
 
 #define GPIO_BASE_ADDR		0xF8000700
 #define GPIO_MASK_VAL		0x00003FFFU
@@ -105,6 +169,15 @@ u32 GpioOutPutCh;
 #define XSK_GPIO_PIN_MAX	(31)	/**< Maximum valid
 					  * gpio pin number */
 
+typedef struct {
+    /* Number of SLRs to iterate through */
+    u32 NumSlr;
+    /* Current SLR to iterate through */
+    u32 CurSlr;
+    /* Device IR length */
+    u32 IrLen;
+}XilSKey_JtagSlr;
+
 /**
  * Option selection among efuse and bbram
  */
@@ -113,6 +186,12 @@ typedef enum {
 	XSK_BBRAM		/* For BBRAM */
 } XilSKey_ModuleSelection;
 
+typedef struct {
+	XSKEfusePl_Fpga flag;	/* Fpga series of Efuse */
+	u32 id;					/* Device ID */
+	u32 irLen;				/* IR length for device */
+	char numSlr;			/* Number of SLRs in device */
+} id_codes_t;
 /**
  * XEfusePl is the PL eFUSE driver instance. Using this
  * structure, user can define the eFUSE bits to be
@@ -299,6 +378,10 @@ typedef struct {
 	 * Value on the MUX Selection line for ZYNQ
 	 */
 	u32 JtagMuxSelLineDefVal;/* Only for ZYNQ */
+	/**
+     * GPIO device ID
+     */
+    u32 JtagGpioID; /* Only for Ultrascale*/
 	/*
 	 * Hardware module Start signal's GPIO pin
 	 * number
@@ -358,6 +441,11 @@ typedef struct {
 	XSKEfusePl_Fpga FpgaFlag;
 	/* CRC of AES key to verify programmed AES key */
     u32 CrcToVerify; /* Only for Ultrascale */
+	/* Number of SLRs to iterate through */
+    u32 NumSlr;
+    /* Current SLR to iterate through */
+    u32 CurSlr;
+
 }XilSKey_EPl;
 
 #ifdef __cplusplus

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -39,25 +39,20 @@
 #include "pm_system.h"
 #include "pm_pll.h"
 
-typedef int (*const PmConfigSectionHandler)(u32* const addr);
+typedef s32 (*const PmConfigSectionHandler)(u32* const addr);
 
-static int PmConfigSlaveSectionHandler(u32* const addr);
-static int PmConfigMasterSectionHandler(u32* const addr);
-static int PmConfigPreallocSectionHandler(u32* const addr);
-static int PmConfigPowerSectionHandler(u32* const addr);
-static int PmConfigResetSectionHandler(u32* const addr);
-static int PmConfigShutdownSectionHandler(u32* const addr);
-static int PmConfigSetConfigSectionHandler(u32* const addr);
-static int PmConfigGpoSectionHandler(u32* const addr);
+static s32 PmConfigSlaveSectionHandler(u32* const addr);
+static s32 PmConfigMasterSectionHandler(u32* const addr);
+static s32 PmConfigPreallocSectionHandler(u32* const addr);
+static s32 PmConfigPowerSectionHandler(u32* const addr);
+static s32 PmConfigResetSectionHandler(u32* const addr);
+static s32 PmConfigShutdownSectionHandler(u32* const addr);
+static s32 PmConfigSetConfigSectionHandler(u32* const addr);
+static s32 PmConfigGpoSectionHandler(u32* const addr);
 
 /*********************************************************************
  * Macros
  ********************************************************************/
-
-#define IOU_SLCR_MIO_PIN_34_OFFSET	0x00000088
-#define IOU_SLCR_MIO_PIN_35_OFFSET	0x0000008C
-#define IOU_SLCR_MIO_PIN_36_OFFSET	0x00000090
-#define IOU_SLCR_MIO_PIN_37_OFFSET	0x00000094
 
 #define PM_CONFIG_GPO_2_ENABLE_MASK	BIT(10U)
 #define PM_CONFIG_GPO_3_ENABLE_MASK	BIT(11U)
@@ -192,9 +187,9 @@ static void PmConfigSkipWords(u32* const addr, const u32 words)
  * @return      XST_SUCCESS if section is loaded successfully, XST_FAILURE
  *              otherwise
  */
-static int PmConfigMasterSectionHandler(u32* const addr)
+static s32 PmConfigMasterSectionHandler(u32* const addr)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i, mastersCnt;
 
 	mastersCnt = PmConfigReadNext(addr);
@@ -230,9 +225,9 @@ done:
  * @return      XST_SUCCESS if section is loaded successfully, XST_FAILURE
  *              otherwise
  */
-static int PmConfigSlaveSectionHandler(u32* const addr)
+static s32 PmConfigSlaveSectionHandler(u32* const addr)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i, slavesCnt;
 
 	slavesCnt = PmConfigReadNext(addr);
@@ -242,7 +237,7 @@ static int PmConfigSlaveSectionHandler(u32* const addr)
 		PmSlave* slave;
 
 		nodeId = PmConfigReadNext(addr);
-		slave = PmNodeGetSlave(nodeId);
+		slave = (PmSlave*)PmNodeGetSlave(nodeId);
 		if (NULL == slave) {
 			PmErr("Unknown slave #%lu\r\n", nodeId);
 			status = XST_FAILURE;
@@ -270,10 +265,10 @@ done:
  * @return      XST_SUCCESS if preallocated slaves are processed correctly,
  *              XST_FAILURE otherwise
  */
-static int PmConfigPreallocForMaster(const PmMaster* const master,
+static s32 PmConfigPreallocForMaster(const PmMaster* const master,
 				     u32* const addr)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i, preallocCnt;
 
 	preallocCnt = PmConfigReadNext(addr);
@@ -284,7 +279,7 @@ static int PmConfigPreallocForMaster(const PmMaster* const master,
 
 		/* Get slave by node ID */
 		nodeId = PmConfigReadNext(addr);
-		slave = PmNodeGetSlave(nodeId);
+		slave = (PmSlave*)PmNodeGetSlave(nodeId);
 		if (NULL == slave) {
 			PmErr("Unknown slave #%lu\r\n", nodeId);
 			status = XST_FAILURE;
@@ -321,9 +316,9 @@ done:
  * @return      XST_SUCCESS if section is loaded successfully, XST_FAILURE
  *              otherwise
  */
-static int PmConfigPreallocSectionHandler(u32* const addr)
+static s32 PmConfigPreallocSectionHandler(u32* const addr)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	u32 i, mastersCnt;
 
@@ -359,9 +354,9 @@ done:
  * @return      XST_SUCCESS if section is loaded successfully, XST_FAILURE
  *              otherwise
  */
-static int PmConfigPowerSectionHandler(u32* const addr)
+static s32 PmConfigPowerSectionHandler(u32* const addr)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i, powersCnt;
 
 	powersCnt = PmConfigReadNext(addr);
@@ -372,7 +367,7 @@ static int PmConfigPowerSectionHandler(u32* const addr)
 
 		powerId = PmConfigReadNext(addr);
 
-		power = PmNodeGetPower(powerId);
+		power = (PmPower*)PmNodeGetPower(powerId);
 		if (NULL == power) {
 			PmErr("Unknown power #%lu\r\n", powerId);
 			status = XST_FAILURE;
@@ -392,9 +387,9 @@ done:
  * @return      XST_SUCCESS if section is loaded successfully, XST_FAILURE
  *              otherwise
  */
-static int PmConfigResetSectionHandler(u32* const addr)
+static s32 PmConfigResetSectionHandler(u32* const addr)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i, resetsCnt;
 
 	resetsCnt = PmConfigReadNext(addr);
@@ -423,9 +418,9 @@ done:
  * @return      XST_SUCCESS if section is loaded successfully, XST_FAILURE
  *              otherwise
  */
-static int PmConfigShutdownSectionHandler(u32* const addr)
+static s32 PmConfigShutdownSectionHandler(u32* const addr)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	/* Shutdown section doesn't have shutdown types information */
 	PmConfigSkipWords(addr, 1);
@@ -440,7 +435,7 @@ static int PmConfigShutdownSectionHandler(u32* const addr)
  *
  * @return      XST_SUCCESS always
  */
-static int PmConfigSetConfigSectionHandler(u32* const addr)
+static s32 PmConfigSetConfigSectionHandler(u32* const addr)
 {
 	pmConfig.configPerms = PmConfigReadNext(addr);
 
@@ -459,7 +454,7 @@ static void PmConfigHeaderHandler(u32* const addr)
 	remWords = PmConfigReadNext(addr);
 
 	/* If there is words in header, get number of sections in object */
-	if (remWords > 0) {
+	if (remWords > 0U) {
 		pmConfig.secNumber = PmConfigReadNext(addr);
 		remWords--;
 	}
@@ -474,7 +469,7 @@ static void PmConfigHeaderHandler(u32* const addr)
  *
  * @return      XST_SUCCESS always
  */
-static int PmConfigGpoSectionHandler(u32* const addr)
+static s32 PmConfigGpoSectionHandler(u32* const addr)
 {
 	u32 gpoState, reg;
 
@@ -484,25 +479,33 @@ static int PmConfigGpoSectionHandler(u32* const addr)
 	reg |= (gpoState & PM_CONFIG_GPO_MASK);
 	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
 
-	if (gpoState & PM_CONFIG_GPO_2_ENABLE_MASK) {
+#ifdef CONNECT_PMU_GPO_2
+	if ((gpoState & PM_CONFIG_GPO_2_ENABLE_MASK) != 0U) {
 		XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_34_OFFSET),
 				0x000000FEU, 0x00000008U);
 	}
+#endif
 
-	if (gpoState & PM_CONFIG_GPO_3_ENABLE_MASK) {
+#ifdef CONNECT_PMU_GPO_3
+	if ((gpoState & PM_CONFIG_GPO_3_ENABLE_MASK) != 0U) {
 		XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_35_OFFSET),
 				0x000000FEU, 0x00000008U);
 	}
+#endif
 
-	if (gpoState & PM_CONFIG_GPO_4_ENABLE_MASK) {
+#ifdef CONNECT_PMU_GPO_4
+	if ((gpoState & PM_CONFIG_GPO_4_ENABLE_MASK) != 0U) {
 		XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_36_OFFSET),
 				0x000000FEU, 0x00000008U);
 	}
+#endif
 
-	if (gpoState & PM_CONFIG_GPO_5_ENABLE_MASK) {
+#ifdef CONNECT_PMU_GPO_5
+	if ((gpoState & PM_CONFIG_GPO_5_ENABLE_MASK) != 0U) {
 		XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_37_OFFSET),
 				0x000000FEU, 0x00000008U);
 	}
+#endif
 
 	return XST_SUCCESS;
 }
@@ -555,10 +558,10 @@ static PmConfigSection* PmConfigGetSectionById(const u32 sid)
 static void PmConfigPllPermsWorkaround(void)
 {
 	PmMaster* apu = PmMasterGetPlaceholder(NODE_APU);
-	PmSlave* dp = PmNodeGetSlave(NODE_DP);
+	PmSlave* dp = (PmSlave*)PmNodeGetSlave(NODE_DP);
 	PmRequirement* req;
 
-	if (NULL == apu || NULL == dp) {
+	if ((NULL == apu) || (NULL == dp)) {
 		goto done;
 	}
 
@@ -580,9 +583,9 @@ done:
  *
  * @return      Status of loading information from configuration object
  */
-int PmConfigLoadObject(const u32 address, const u32 callerIpi)
+s32 PmConfigLoadObject(const u32 address, const u32 callerIpi)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 currAddr = address;
 	u32 i;
 

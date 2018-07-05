@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -65,8 +65,9 @@
 * 6.1   vns     10/25/16 Removed ForcePowerCycle and JtagDisable from Zynq
 *                        BBRAM configuration as they are not actually
 *                        programming any control bit.
-*
-*
+* 6.7   psl     03/20/19 Added BBRAM jtag server init function.
+*       psl     03/15/19 Moved XilSKey_Bbram_JTAGServerInit function from
+*                        example to library.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "stdio.h"

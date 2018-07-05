@@ -38,6 +38,10 @@
 #ifndef PM_DEFS_H_
 #define PM_DEFS_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /** @name PM Version Number macros
  *
  * @{
@@ -95,6 +99,9 @@
 #define PMF_SHUTDOWN_SUBTYPE_SYSTEM	2U
 /**@}*/
 
+#define PM_CLOCK_DIV0_ID	0U
+#define PM_CLOCK_DIV1_ID	1U
+
 /**
  *  APIs for Miscellaneous functions, suspending of PUs, managing PM slaves and Direct control.
  */
@@ -128,8 +135,7 @@ enum XPmApiId {
 	PM_FPGA_GET_STATUS,
 	PM_GET_CHIPID,
 	/* Secure library generic API functions */
-	PM_SECURE_RSA_AES,
-	PM_SECURE_SHA,
+	PM_SECURE_SHA = 26U,
 	PM_SECURE_RSA,
 	PM_PINCTRL_REQUEST,
 	PM_PINCTRL_RELEASE,
@@ -694,11 +700,6 @@ enum XPmClock {
 	PM_CLOCK_EXT_MIO77,
 };
 
-enum XPmClockDivId {
-	PM_CLOCK_DIV0_ID,
-	PM_CLOCK_DIV1_ID,
-};
-
 enum XPmPllParam {
 	PM_PLL_PARAM_ID_DIV2,
 	PM_PLL_PARAM_ID_FBDIV,
@@ -786,6 +787,10 @@ enum XPmPinParam {
 	PINCTRL_CONFIG_DRIVE_STRENGTH,
 	PINCTRL_CONFIG_VOLTAGE_STATUS,
 };
+
+#ifdef __cplusplus
+}
+#endif
 
  /** @} */
 #endif /* PM_DEFS_H_ */

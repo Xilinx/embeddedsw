@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,9 @@
 #ifndef XPFW_CORE_H_
 #define XPFW_CORE_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "xpfw_module.h"
 #include "xpfw_scheduler.h"
@@ -66,5 +69,8 @@ XStatus XPfw_CoreSetCfgHandler(const XPfw_Module_t *ModPtr, XPfwModCfgInitHandle
 XStatus XPfw_CoreSetEventHandler(const XPfw_Module_t *ModPtr, XPfwModEventHandler_t EventHandlerFn);
 XStatus XPfw_CoreSetIpiHandler(const XPfw_Module_t *ModPtr, XPfwModIpiHandler_t IpiHandlerFn, u16 IpiId);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPFW_CORE_H_ */

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -32,8 +32,6 @@ CP=cp
 COMPILER_FLAGS =
 LIB=libxilsecure.a
 
-EXTRA_ARCHIVE_FLAGS=rc
-
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
@@ -44,18 +42,27 @@ OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 SECURE_SRCS := $(wildcard *.c)
 SECURE_OBJS = $(addprefix $(SECURE_DIR)/, $(SECURE_SRCS:%.c=%.o))
 
-INCLUDEFILES=$(SECURE_DIR)/xsecure_sha.h \
-		$(SECURE_DIR)/xsecure_aes.h \
-		$(SECURE_DIR)/xsecure_rsa.h \
-		$(SECURE_DIR)/xsecure_hw.h \
-		$(SECURE_DIR)/xsecure_sha2.h \
-		$(SECURE_DIR)/xsecure.h
+INCLUDEFILES := $(wildcard *.h)
+
+ifeq ($(notdir $(COMPILER)) , iccarm)
+	EXTRA_ARCHIVE_FLAGS=--create
+else
+ifeq ($(notdir $(COMPILER)) , armclang)
+      EXTRA_ARCHIVE_FLAGS=-rc
+else
+       EXTRA_ARCHIVE_FLAGS=rc
+endif
+endif
 
 libs: libxilsecure.a
 
 libxilsecure.a: print_msg_secure $(SECURE_OBJS)
-	cp $(SECURE_DIR)/$(LIB) $(RELEASEDIR)
-	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${SECURE_OBJS}
+ifneq ("$(wildcard $(SECURE_DIR)/$(LIB))","")
+	 cp $(SECURE_DIR)/$(LIB) $(RELEASEDIR)
+	 $(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${SECURE_OBJS}
+else
+	 $(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${SECURE_OBJS}
+endif
 
 print_msg_secure:
 	@echo "Compiling XilSecure Library"

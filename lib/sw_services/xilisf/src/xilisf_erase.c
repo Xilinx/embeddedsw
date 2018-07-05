@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -65,6 +65,11 @@
  * 5.12 tjs	 06/18/18 Removed checkpatch and gcc warnings.
  * 5.12 tjs	07/05/18 Removed the mentions of Spansion flash from
  *			 BlockErase API CR#1006247
+ * 5.13 nsk  01/22/18 Make variable declaration to XQspiPsu_Msg as global
+ *                    CR#1015808.
+ *      sk   02/11/19 Added support for OSPI flash interface.
+ *      sk   02/15/19 4B Sector erase command is not supported by all QSPI
+ *                    Micron flashes hence used used 3B sector erase command.
  *
  * </pre>
  *
@@ -82,6 +87,7 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 extern int SendBankSelect(XIsf *InstancePtr, u32 BankSel);
 #endif
@@ -93,8 +99,17 @@ static int PageErase(XIsf *InstancePtr, u32 Address);
 	(XPAR_XISF_FLASH_FAMILY == WINBOND))
 static int BlockErase(XIsf *InstancePtr, u32 Address);
 #endif
-static int SectorErase(XIsf *InstancePtr, u32 Address);
+#ifdef	XPAR_XISF_INTERFACE_QSPIPSU
+	static XQspiPsu_Msg FlashMsg[2];
+#endif
+#if ((XPAR_XISF_FLASH_FAMILY != WINBOND) && (XPAR_XISF_FLASH_FAMILY != SST))
 static int SubSectorErase(XIsf *InstancePtr, u32 Address);
+#endif
+#endif
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+	static XOspiPsv_Msg FlashMsg;
+#endif
+static int SectorErase(XIsf *InstancePtr, u32 Address);
 static int BulkErase(XIsf *InstancePtr);
 #if defined(XPAR_XISF_INTERFACE_PSQSPI) || \
 	defined(XPAR_XISF_INTERFACE_QSPIPSU)
@@ -154,6 +169,7 @@ int XIsf_Erase(XIsf *InstancePtr, XIsf_EraseOperation Operation, u32 Address)
 		return (int)(XST_FAILURE);
 
 	switch (Operation) {
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 	case XISF_PAGE_ERASE:
 #if (XPAR_XISF_FLASH_FAMILY == ATMEL)
 		Status = PageErase(InstancePtr, Address);
@@ -168,12 +184,15 @@ int XIsf_Erase(XIsf *InstancePtr, XIsf_EraseOperation Operation, u32 Address)
 #endif
 		break;
 
+#if ((XPAR_XISF_FLASH_FAMILY != WINBOND) && (XPAR_XISF_FLASH_FAMILY != SST))
+	case XISF_SUB_SECTOR_ERASE:
+			Status = SubSectorErase(InstancePtr, Address);
+			break;
+#endif
+#endif
+
 	case XISF_SECTOR_ERASE:
 		Status = SectorErase(InstancePtr, Address);
-		break;
-
-	case XISF_SUB_SECTOR_ERASE:
-		Status = SubSectorErase(InstancePtr, Address);
 		break;
 
 	case XISF_BULK_ERASE:
@@ -190,14 +209,19 @@ int XIsf_Erase(XIsf *InstancePtr, XIsf_EraseOperation Operation, u32 Address)
 	 */
 	Mode = XIsf_GetTransferMode(InstancePtr);
 
-	if (Mode == XISF_INTERRUPT_MODE)
+	if (Mode == XISF_INTERRUPT_MODE) {
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 		InstancePtr->StatusHandler(InstancePtr,
 				XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+#else
+	InstancePtr->StatusHandler(InstancePtr, XIsf_StatusEventInfo);
+#endif
+	}
 
 	return Status;
 }
 
-
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 /*****************************************************************************/
 /**
  *
@@ -291,260 +315,7 @@ static int BlockErase(XIsf *InstancePtr, u32 Address)
 }
 #endif /* ((XPAR_XISF_FLASH_FAMILY==ATMEL)||(XPAR_XISF_FLASH_FAMILY==INTEL)) */
 
-/*****************************************************************************/
-/**
- *
- * This function erases the contents of the specified Sector in Serial Flash.
- *
- * @param	InstancePtr is a pointer to the XIsf instance.
- * @param	Address is the address of the Sector to be erased. This can be
- *		any address in the Sector to be erased.
- *		The Block/Page/Byte address values in this address are ignored.
- *
- * @return	XST_SUCCESS if successful else XST_FAILURE.
- *
- * @note
- *		- The erased bytes will read as 0xFF.
- *		- This operation is supported for Atmel, Intel, STM, Winbond
- *		  and Spansion Serial Flash.
- *
- ******************************************************************************/
-static int SectorErase(XIsf *InstancePtr, u32 Address)
-{
-	int Status = (int)(XST_FAILURE);
-#ifdef XPAR_XISF_INTERFACE_PSQSPI
-	u8 Mode;
-	u32 BankSel;
-#endif
-	u32 RealAddr;
-	u8 *NULLPtr = NULL;
-#ifndef XPAR_XISF_INTERFACE_QSPIPSU
-	u8 FlagStatus[2] = {0};
-	u8 ReadStatusCmdBuf[] = { READ_STATUS_CMD, 0 };
-	u8 ReadFlagSRCmd[] = {READ_FLAG_STATUS_CMD, 0};
-#endif
-	u8 FlashStatus[2] = {0};
-#if !defined(XPAR_XISF_INTERFACE_PSQSPI)
-	u8 FSRFlag, ReadStatusCmd;
-#endif
-#ifdef	XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
-#endif
-
-#if defined(XPAR_XISF_INTERFACE_PSQSPI) || \
-	defined(XPAR_XISF_INTERFACE_QSPIPSU)
-	u32 FlashMake = InstancePtr->ManufacturerID;
-#endif
-
-	Xil_AssertNonvoid(NULLPtr == NULL);
-
-	/*
-	 * Translate address based on type of connection
-	 * If stacked assert the slave select based on address
-	 */
-	RealAddr = GetRealAddr(InstancePtr->SpiInstPtr, Address);
-
-#ifdef XPAR_XISF_INTERFACE_PSQSPI
-	/*
-	 * Initial bank selection
-	 */
-	if (InstancePtr->DeviceIDMemSize > 0x18U) {
-
-		/*
-		 * Get the Transfer Mode
-		 */
-		Mode = XIsf_GetTransferMode(InstancePtr);
-
-		/*
-		 * Seting the transfer mode to Polled Mode before
-		 * performing the Bank Select operation.
-		 */
-		XIsf_SetTransferMode(InstancePtr, XISF_POLLING_MODE);
-
-		/*
-		 * Calculate initial bank
-		 */
-		BankSel = RealAddr/SIXTEENMB;
-		/*
-		 * Select bank
-		 */
-		Status = SendBankSelect(InstancePtr, BankSel);
-
-		/*
-		 * Restoring the transfer mode back
-		 */
-		XIsf_SetTransferMode(InstancePtr, Mode);
-
-		if (Status != (int)(XST_SUCCESS))
-			return (int)XST_FAILURE;
-	}
-#endif
-#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
-	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
-	if (InstancePtr->FourByteAddrMode == TRUE) {
-		if (InstancePtr->ManufacturerID ==
-				XISF_MANUFACTURER_ID_SPANSION ||
-		    InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON)
-			InstancePtr->WriteBufPtr[BYTE1] =
-					XISF_CMD_4BYTE_SECTOR_ERASE;
-		else
-			InstancePtr->WriteBufPtr[BYTE1] =
-					XISF_CMD_SECTOR_ERASE;
-
-		InstancePtr->WriteBufPtr[BYTE2] =
-				(u8) (RealAddr >> XISF_ADDR_SHIFT24);
-		InstancePtr->WriteBufPtr[BYTE3] =
-				(u8) (RealAddr >> XISF_ADDR_SHIFT16);
-		InstancePtr->WriteBufPtr[BYTE4] =
-				(u8) (RealAddr >> XISF_ADDR_SHIFT8);
-		InstancePtr->WriteBufPtr[BYTE5] = (u8) (RealAddr);
-#ifdef XPAR_XISF_INTERFACE_QSPIPSU
-		FlashMsg[0].ByteCount = 5;
-#endif
-	} else {
-#endif
-		InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_SECTOR_ERASE;
-		InstancePtr->WriteBufPtr[BYTE2] =
-				(u8) (RealAddr >> XISF_ADDR_SHIFT16);
-		InstancePtr->WriteBufPtr[BYTE3] =
-				(u8) (RealAddr >> XISF_ADDR_SHIFT8);
-		InstancePtr->WriteBufPtr[BYTE4] = (u8) (RealAddr);
-#ifdef XPAR_XISF_INTERFACE_QSPIPSU
-		FlashMsg[0].ByteCount = 4;
-#endif
-
-#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
-	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
-	}
-#endif
-
-#if defined(XPAR_XISF_INTERFACE_PSQSPI) || \
-	defined(XPAR_XISF_INTERFACE_QSPIPSU)
-	/*
-	 * Enable write before transfer
-	 */
-	Status = XIsf_WriteEnable(InstancePtr, XISF_WRITE_ENABLE);
-	if (Status != (int)XST_SUCCESS)
-		return (int)XST_FAILURE;
-#endif
-
-#ifdef XPAR_XISF_INTERFACE_QSPIPSU
-	FlashMsg[0].TxBfrPtr = InstancePtr->WriteBufPtr;
-	FlashMsg[0].RxBfrPtr = NULL;
-	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-	InstancePtr->SpiInstPtr->Msg = FlashMsg;
-
-	Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 1);
-#else
-	if (InstancePtr->FourByteAddrMode == TRUE)
-		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
-			NULLPtr, XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE);
-	else
-		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
-				NULLPtr, XISF_CMD_SEND_EXTRA_BYTES);
-#endif
-	if (Status != (int)XST_SUCCESS)
-		return (int)XST_FAILURE;
-
-#if defined(XPAR_XISF_INTERFACE_PSQSPI) || \
-	defined(XPAR_XISF_INTERFACE_QSPIPSU)
-
-	if ((InstancePtr->NumDie > (u8)1) &&
-		(FlashMake == (u32)XISF_MANUFACTURER_ID_MICRON)) {
-#ifdef XPAR_XISF_INTERFACE_QSPIPSU
-		ReadStatusCmd = READ_FLAG_STATUS_CMD;
-		FSRFlag = 1;
-#endif
-#ifndef XPAR_XISF_INTERFACE_QSPIPSU
-		Status = XIsf_Transfer(InstancePtr, ReadFlagSRCmd, FlagStatus,
-					(u32)sizeof(ReadFlagSRCmd));
-#endif
-	}
-#ifdef XPAR_XISF_INTERFACE_QSPIPSU
-	else {
-		ReadStatusCmd = READ_STATUS_CMD;
-		FSRFlag = 0;
-	}
-#endif
-
-	/*
-	 * Wait for the sector erase command to the Flash to be completed
-	 */
-	while (1) {
-#ifdef XPAR_XISF_INTERFACE_QSPIPSU
-		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-		FlashMsg[1].TxBfrPtr = NULL;
-		FlashMsg[1].RxBfrPtr = FlashStatus;
-		FlashMsg[1].ByteCount = 2;
-		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-
-		if (InstancePtr->SpiInstPtr->Config.ConnectionMode ==
-				XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
-			FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
-		}
-		InstancePtr->SpiInstPtr->Msg = FlashMsg;
-
-		Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 2);
-		if (Status != XST_SUCCESS)
-			return XST_FAILURE;
-
-		if (InstancePtr->SpiInstPtr->Config.ConnectionMode ==
-				XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
-			if (FSRFlag)
-				FlashStatus[1] &= FlashStatus[0];
-			else
-				FlashStatus[1] |= FlashStatus[0];
-		}
-
-		if (FSRFlag) {
-			if ((FlashStatus[1] & 0x80) != 0)
-				break;
-		} else {
-			if ((FlashStatus[1] & 0x01) == 0)
-				break;
-		}
-#else
-		/*
-		 * Poll the status register of the device to determine
-		 * when it completes, by sending a read status command
-		 * and receiving the status byte
-		 */
-		Status = XIsf_Transfer(InstancePtr, ReadStatusCmdBuf,
-					FlashStatus,
-					(u32)sizeof(ReadStatusCmdBuf));
-
-		/*
-		 * If the status indicates the write is done, then stop
-		 * waiting, if a value of 0xFF in the status byte is
-		 * read from the device and this loop never exits, the
-		 * device slave select is possibly incorrect such that
-		 * the device status is not being read
-		 */
-		if ((FlashStatus[1] & 0x01) == 0)
-			break;
-#endif
-	}
-
-#ifdef XPAR_XISF_INTERFACE_PSQSPI
-	if ((InstancePtr->NumDie > (u8)1) &&
-		(FlashMake == (u32)XISF_MANUFACTURER_ID_MICRON)) {
-		Status =
-			XIsf_Transfer(InstancePtr, ReadFlagSRCmd, FlagStatus,
-				(u32)sizeof(ReadFlagSRCmd));
-	}
-#endif
-#endif
-
-	return Status;
-}
-
+#if ((XPAR_XISF_FLASH_FAMILY != WINBOND) && (XPAR_XISF_FLASH_FAMILY != SST))
 /*****************************************************************************/
 /**
  *
@@ -583,9 +354,6 @@ static int SubSectorErase(XIsf *InstancePtr, u32 Address)
 #endif
 #if ((XPAR_XISF_FLASH_FAMILY != ATMEL) && \
 	(XPAR_XISF_FLASH_FAMILY != WINBOND))
-#ifdef	XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
-#endif
 
 #if defined(XPAR_XISF_INTERFACE_PSQSPI) || \
 	defined(XPAR_XISF_INTERFACE_QSPIPSU)
@@ -799,7 +567,315 @@ static int SubSectorErase(XIsf *InstancePtr, u32 Address)
 #endif
 	return Status;
 }
+#endif
+#endif
+/*****************************************************************************/
+/**
+ *
+ * This function erases the contents of the specified Sector in Serial Flash.
+ *
+ * @param	InstancePtr is a pointer to the XIsf instance.
+ * @param	Address is the address of the Sector to be erased. This can be
+ *		any address in the Sector to be erased.
+ *		The Block/Page/Byte address values in this address are ignored.
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE.
+ *
+ * @note
+ *		- The erased bytes will read as 0xFF.
+ *		- This operation is supported for Atmel, Intel, STM, Winbond
+ *		  and Spansion Serial Flash.
+ *
+ ******************************************************************************/
+static int SectorErase(XIsf *InstancePtr, u32 Address)
+{
+	int Status = (int)(XST_FAILURE);
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
+	u8 Mode;
+	u32 BankSel;
+#endif
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
+	u32 RealAddr;
+#endif
+	u8 *NULLPtr = NULL;
+#if ((!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
+		(!defined(XPAR_XISF_INTERFACE_OSPIPSV)) && \
+		(!defined(XPAR_XISF_INTERFACE_PSSPI)))
+	u8 FlagStatus[2] = {0};
+	u8 ReadStatusCmdBuf[] = { READ_STATUS_CMD, 0 };
+	u8 ReadFlagSRCmd[] = {READ_FLAG_STATUS_CMD, 0};
+#endif
+#if (!defined(XPAR_XISF_INTERFACE_PSSPI))
+	u8 FlashStatus[2] __attribute__ ((aligned(4))) = {0};
+#endif
+#if ((!defined(XPAR_XISF_INTERFACE_PSQSPI)) && \
+		(!defined(XPAR_XISF_INTERFACE_OSPIPSV))&& \
+		(!defined(XPAR_XISF_INTERFACE_PSSPI)))
+	u8 FSRFlag, ReadStatusCmd;
+#endif
 
+#if defined(XPAR_XISF_INTERFACE_PSQSPI) || \
+	defined(XPAR_XISF_INTERFACE_QSPIPSU)
+	u32 FlashMake = InstancePtr->ManufacturerID;
+#endif
+
+	Xil_AssertNonvoid(NULLPtr == NULL);
+
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
+	/*
+	 * Translate address based on type of connection
+	 * If stacked assert the slave select based on address
+	 */
+	RealAddr = GetRealAddr(InstancePtr->SpiInstPtr, Address);
+
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
+	/*
+	 * Initial bank selection
+	 */
+	if (InstancePtr->DeviceIDMemSize > 0x18U) {
+
+		/*
+		 * Get the Transfer Mode
+		 */
+		Mode = XIsf_GetTransferMode(InstancePtr);
+
+		/*
+		 * Seting the transfer mode to Polled Mode before
+		 * performing the Bank Select operation.
+		 */
+		XIsf_SetTransferMode(InstancePtr, XISF_POLLING_MODE);
+
+		/*
+		 * Calculate initial bank
+		 */
+		BankSel = RealAddr/SIXTEENMB;
+		/*
+		 * Select bank
+		 */
+		Status = SendBankSelect(InstancePtr, BankSel);
+
+		/*
+		 * Restoring the transfer mode back
+		 */
+		XIsf_SetTransferMode(InstancePtr, Mode);
+
+		if (Status != (int)(XST_SUCCESS))
+			return (int)XST_FAILURE;
+	}
+#endif
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
+	if (InstancePtr->FourByteAddrMode == TRUE) {
+		if (InstancePtr->ManufacturerID ==
+				XISF_MANUFACTURER_ID_SPANSION)
+			InstancePtr->WriteBufPtr[BYTE1] =
+					XISF_CMD_4BYTE_SECTOR_ERASE;
+		else
+			InstancePtr->WriteBufPtr[BYTE1] =
+					XISF_CMD_SECTOR_ERASE;
+
+		InstancePtr->WriteBufPtr[BYTE2] =
+				(u8) (RealAddr >> XISF_ADDR_SHIFT24);
+		InstancePtr->WriteBufPtr[BYTE3] =
+				(u8) (RealAddr >> XISF_ADDR_SHIFT16);
+		InstancePtr->WriteBufPtr[BYTE4] =
+				(u8) (RealAddr >> XISF_ADDR_SHIFT8);
+		InstancePtr->WriteBufPtr[BYTE5] = (u8) (RealAddr);
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		FlashMsg[0].ByteCount = 5;
+#endif
+	} else {
+#endif
+		InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_SECTOR_ERASE;
+		InstancePtr->WriteBufPtr[BYTE2] =
+				(u8) (RealAddr >> XISF_ADDR_SHIFT16);
+		InstancePtr->WriteBufPtr[BYTE3] =
+				(u8) (RealAddr >> XISF_ADDR_SHIFT8);
+		InstancePtr->WriteBufPtr[BYTE4] = (u8) (RealAddr);
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		FlashMsg[0].ByteCount = 4;
+#endif
+
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
+	}
+#endif
+
+#if defined(XPAR_XISF_INTERFACE_PSQSPI) || \
+	defined(XPAR_XISF_INTERFACE_QSPIPSU)
+	/*
+	 * Enable write before transfer
+	 */
+	Status = XIsf_WriteEnable(InstancePtr, XISF_WRITE_ENABLE);
+	if (Status != (int)XST_SUCCESS)
+		return (int)XST_FAILURE;
+#endif
+
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	FlashMsg[0].TxBfrPtr = InstancePtr->WriteBufPtr;
+	FlashMsg[0].RxBfrPtr = NULL;
+	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+	InstancePtr->SpiInstPtr->Msg = FlashMsg;
+
+	Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 1);
+#else
+	if (InstancePtr->FourByteAddrMode == TRUE)
+		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
+			NULLPtr, XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE);
+	else
+		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
+				NULLPtr, XISF_CMD_SEND_EXTRA_BYTES);
+#endif
+	if (Status != (int)XST_SUCCESS)
+		return (int)XST_FAILURE;
+
+#if defined(XPAR_XISF_INTERFACE_PSQSPI) || \
+	defined(XPAR_XISF_INTERFACE_QSPIPSU)
+
+	if ((InstancePtr->NumDie > (u8)1) &&
+		(FlashMake == (u32)XISF_MANUFACTURER_ID_MICRON)) {
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		ReadStatusCmd = READ_FLAG_STATUS_CMD;
+		FSRFlag = 1;
+#endif
+#ifndef XPAR_XISF_INTERFACE_QSPIPSU
+		Status = XIsf_Transfer(InstancePtr, ReadFlagSRCmd, FlagStatus,
+					(u32)sizeof(ReadFlagSRCmd));
+#endif
+	}
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	else {
+		ReadStatusCmd = READ_STATUS_CMD;
+		FSRFlag = 0;
+	}
+#endif
+
+	/*
+	 * Wait for the sector erase command to the Flash to be completed
+	 */
+	while (1) {
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = 1;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+		FlashMsg[1].TxBfrPtr = NULL;
+		FlashMsg[1].RxBfrPtr = FlashStatus;
+		FlashMsg[1].ByteCount = 2;
+		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+		if (InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+				XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
+			FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+		}
+		InstancePtr->SpiInstPtr->Msg = FlashMsg;
+
+		Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 2);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
+
+		if (InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+				XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
+			if (FSRFlag)
+				FlashStatus[1] &= FlashStatus[0];
+			else
+				FlashStatus[1] |= FlashStatus[0];
+		}
+
+		if (FSRFlag) {
+			if ((FlashStatus[1] & 0x80) != 0)
+				break;
+		} else {
+			if ((FlashStatus[1] & 0x01) == 0)
+				break;
+		}
+#else
+		/*
+		 * Poll the status register of the device to determine
+		 * when it completes, by sending a read status command
+		 * and receiving the status byte
+		 */
+		Status = XIsf_Transfer(InstancePtr, ReadStatusCmdBuf,
+					FlashStatus,
+					(u32)sizeof(ReadStatusCmdBuf));
+
+		/*
+		 * If the status indicates the write is done, then stop
+		 * waiting, if a value of 0xFF in the status byte is
+		 * read from the device and this loop never exits, the
+		 * device slave select is possibly incorrect such that
+		 * the device status is not being read
+		 */
+		if ((FlashStatus[1] & 0x01) == 0)
+			break;
+#endif
+	}
+
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
+	if ((InstancePtr->NumDie > (u8)1) &&
+		(FlashMake == (u32)XISF_MANUFACTURER_ID_MICRON)) {
+		Status =
+			XIsf_Transfer(InstancePtr, ReadFlagSRCmd, FlagStatus,
+				(u32)sizeof(ReadFlagSRCmd));
+	}
+#endif
+#endif
+#else
+	Status = XIsf_WriteEnable(InstancePtr, XISF_WRITE_ENABLE);
+	if (Status != (int)XST_SUCCESS)
+		return (int)XST_FAILURE;
+
+	FlashMsg.Opcode = XISF_CMD_4BYTE_SECTOR_ERASE;
+	FlashMsg.Addrsize = 4;
+	FlashMsg.Addrvalid = 1;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = NULL;
+	FlashMsg.ByteCount = 0;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.Addr = Address;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	FlashMsg.Dummy = 0;
+	if (InstancePtr->SpiInstPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_8_0;
+	}
+	InstancePtr->SpiInstPtr->Msg = &FlashMsg;
+	Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 0);
+	if (Status != (int)XST_SUCCESS)
+		return (int)XST_FAILURE;
+
+	while (1) {
+		FlashMsg.Opcode = READ_FLAG_STATUS_CMD;
+		FlashMsg.Addrsize = 0;
+		FlashMsg.Addrvalid = 0;
+		FlashMsg.TxBfrPtr = NULL;
+		FlashMsg.RxBfrPtr = FlashStatus;
+		FlashMsg.ByteCount = 1;
+		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+		FlashMsg.Dummy = 0;
+		FlashMsg.IsDDROpCode = 0;
+		FlashMsg.Proto = 0;
+		if (InstancePtr->SpiInstPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+			FlashMsg.ByteCount = 2;
+			FlashMsg.Dummy = 8;
+		}
+		InstancePtr->SpiInstPtr->Msg = &FlashMsg;
+		Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, FlashMsg.ByteCount);
+		if (Status != (int)XST_SUCCESS)
+			return (int)XST_FAILURE;
+
+		if ((FlashStatus[0] & 0x80) != 0)
+			break;
+	}
+#endif
+
+	return Status;
+}
 
 /*****************************************************************************/
 /**
@@ -820,9 +896,6 @@ static int BulkErase(XIsf *InstancePtr)
 {
 	int Status = (int)(XST_FAILURE);
 	u8 *NULLPtr = NULL;
-#ifdef XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
-#endif
 
 #if ((XPAR_XISF_FLASH_FAMILY == INTEL) || \
 	(XPAR_XISF_FLASH_FAMILY == STM) || \
@@ -904,7 +977,6 @@ static int DieErase(XIsf *InstancePtr)
 	int Status = (int)(XST_FAILURE);
 	u8 *NULLPtr = NULL;
 #ifdef	XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
 	u8 ReadStatusCmd, FSRFlag;
 	u32 FlashMake = InstancePtr->ManufacturerID;
 	u8 FlashStatus[2] = {0};

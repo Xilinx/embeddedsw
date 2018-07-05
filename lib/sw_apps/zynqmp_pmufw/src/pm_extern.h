@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,11 @@
 #ifndef PM_EXTERN_H_
 #define PM_EXTERN_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "xil_types.h"
 typedef struct PmSlave PmSlave;
 
 /*********************************************************************
@@ -37,6 +42,10 @@ extern PmSlave pmSlaveExternDevice_g;
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-int PmExternWakeMasters(void);
+s32 PmExternWakeMasters(void);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_EXTERN_H_ */

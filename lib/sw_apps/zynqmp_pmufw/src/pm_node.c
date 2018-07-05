@@ -78,6 +78,15 @@ void PmNodeUpdateCurrState(PmNode* const node, const PmStateId newState)
 	if (newState == node->currState) {
 		goto done;
 	}
+
+	/*
+	 * Clear NODE_IDLE_DONE flag, if current state of node is OFF and
+	 * new state is other than OFF.
+	 */
+	if (NODE_IS_OFF(node)) {
+		node->flags &= ~NODE_IDLE_DONE;
+	}
+
 	node->currState = newState;
 
 	PmNotifierEvent(node, EVENT_STATE_CHANGE);
@@ -95,9 +104,9 @@ done:
  *		XST_SUCCESS if power info is stored in *data
  *		XST_NO_FEATURE if no power info can be provided for the node
  */
-int PmNodeGetPowerInfo(const PmNode* const node, u32* const data)
+s32 PmNodeGetPowerInfo(const PmNode* const node, u32* const data)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	if (NULL == node->powerInfo) {
 		status = XST_NO_FEATURE;
@@ -222,11 +231,11 @@ void PmNodeConstruct(void)
  * PmNodeInit() - Initialize all nodes
  * @return	XST_SUCCESS or error code if failed to initialize a node
  */
-int PmNodeInit(void)
+s32 PmNodeInit(void)
 {
 	u32 i, n;
-	int status;
-	int ret = XST_SUCCESS;
+	s32 status;
+	s32 ret = XST_SUCCESS;
 
 	PmClockInit();
 	for (i = 0U; i < ARRAY_SIZE(pmNodeClasses); i++) {
@@ -255,9 +264,9 @@ int PmNodeInit(void)
  * @return	XST_FAILURE if no force operation to execute for the node,
  *		otherwise status of performing force down operation
  */
-int PmNodeForceDown(PmNode* const node)
+s32 PmNodeForceDown(PmNode* const node)
 {
-	int status = XST_FAILURE;
+	s32 status = XST_FAILURE;
 
 	if (NULL != node->class->forceDown) {
 		status = node->class->forceDown(node);

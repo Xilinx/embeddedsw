@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,12 +32,16 @@
 #ifndef PM_NODE_IDLE_H_
 #define PM_NODE_IDLE_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xparameters.h"
 
 #if defined(XPAR_PSU_TTC_0_DEVICE_ID) || \
-	defined(XPAR_PSU_TTC_1_DEVICE_ID) || \
-	defined(XPAR_PSU_TTC_2_DEVICE_ID) || \
-	defined(XPAR_PSU_TTC_3_DEVICE_ID)
+	defined(XPAR_PSU_TTC_3_DEVICE_ID) || \
+	defined(XPAR_PSU_TTC_6_DEVICE_ID) || \
+	defined(XPAR_PSU_TTC_9_DEVICE_ID)
 	#include <xttcps_hw.h>
 void NodeTtcIdle(u32 BaseAddress);
 #endif
@@ -98,6 +102,10 @@ void NodeDpIdle(u32 BaseAddress);
 
 #ifdef XPAR_PSU_SATA_S_AXI_BASEADDR
 void NodeSataIdle(u32 BaseAddress);
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* PM_NODE_IDLE_H_ */

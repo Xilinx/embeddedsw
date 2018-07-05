@@ -75,7 +75,7 @@ extern "C" {
 #define FAST_READ_CMD_32BIT		(0x0CU)
 #define DUAL_READ_CMD_32BIT		(0x3CU)
 #define QUAD_READ_CMD_32BIT		(0x6CU)
-#define QUAD_READ_CMD_32BIT2		(0xEBU)
+#define QUAD_READ_CMD_24BIT2	(0xEBU)
 
 
 #define WRITE_STATUS_CMD	(0x01U)
@@ -197,6 +197,10 @@ extern "C" {
 #define FLASH_SIZE_512M			(0x4000000U)
 #define FLASH_SIZE_1G			(0x8000000U)
 #define FLASH_SIZE_2G			(0x10000000U)
+
+/* Macronix */
+#define DISABLE_QPI		0x0U
+#define ENABLE_QPI		0x1U
 
 /**************************** Type Definitions *******************************/
 

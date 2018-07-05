@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -51,8 +51,8 @@
 #define PM_REQUESTED_SUSPEND        0x1U
 #define TO_ACK_CB(ack, status) (REQUEST_ACK_NON_BLOCKING == (ack))
 
-#define DEFINE_PM_PROCS(c)	.procs = (c), \
-				.procsCnt = ARRAY_SIZE(c)
+#define DEFINE_PM_PROCS(c)	.procs = ((c)), \
+				.procsCnt = ARRAY_SIZE((c))
 
 #if defined(PM_LOG_LEVEL) && (PM_LOG_LEVEL > 0)
 #define DEFINE_MASTER_NAME(n)	.name = n
@@ -74,9 +74,9 @@ static const PmSlave* pmApuMemories[] = {
 /**
  * PmApuPrepareSuspendToRam() - Prepare the APU data structs for suspend to RAM
  */
-static int PmApuPrepareSuspendToRam(void)
+static s32 PmApuPrepareSuspendToRam(void)
 {
-	int status;
+	s32 status;
 	u32 i;
 	PmRequirement* req = PmRequirementGet(&pmMasterApu_g, &pmSlaveL2_g.slv);
 
@@ -119,9 +119,9 @@ done:
  *		XST_NO_FEATURE if state is not supported
  *		Error code if requirements are not properly set for a slave
  */
-static int PmApuEvaluateState(const u32 state)
+static s32 PmApuEvaluateState(const u32 state)
 {
-	int status;
+	s32 status;
 
 	switch (state) {
 	case PM_APU_STATE_CPU_IDLE:
@@ -148,7 +148,7 @@ static u32 PmMasterRpuRemapAddr(const u32 address)
 {
 	u32 remapAddr = address;
 
-	if (address < 4U * pmSlaveTcm0A_g.size) {
+	if (address < (4U * pmSlaveTcm0A_g.size)) {
 		remapAddr += pmSlaveTcm0A_g.base;
 	}
 
@@ -168,8 +168,8 @@ static u32 PmMasterRpu0RemapAddr(const u32 address)
 	if (address < pmSlaveTcm0A_g.size) {
 		remapAddr += pmSlaveTcm0A_g.base;
 	} else {
-		if ((address >= 2U * pmSlaveTcm0A_g.size) &&
-		    (address < 2U * pmSlaveTcm0A_g.size + pmSlaveTcm0B_g.size)) {
+		if ((address >= (2U * pmSlaveTcm0A_g.size)) &&
+		    (address < ((2U * pmSlaveTcm0A_g.size) + pmSlaveTcm0B_g.size))) {
 			remapAddr += pmSlaveTcm0B_g.base;
 		}
 	}
@@ -190,8 +190,8 @@ static u32 PmMasterRpu1RemapAddr(const u32 address)
 	if (address < pmSlaveTcm1A_g.size) {
 		remapAddr += pmSlaveTcm1A_g.base;
 	} else {
-		if ((address >= 2U * pmSlaveTcm1A_g.size) &&
-		    (address < 2U * pmSlaveTcm1A_g.size + pmSlaveTcm1B_g.size)) {
+		if ((address >= (2U * pmSlaveTcm1A_g.size)) &&
+		    (address < ((2U * pmSlaveTcm1A_g.size) + pmSlaveTcm1B_g.size))) {
 			remapAddr += pmSlaveTcm1B_g.base;
 		}
 	}
@@ -466,40 +466,6 @@ PmProc* PmGetProcOfThisMaster(const PmMaster* const master,
 }
 
 /**
- * PmGetProcOfOtherMaster() - Get pointer to the processor with given node id,
- *          by excluding given master from the search
- * @master  Master to be excluded from search
- * @nodeId  Node id of the processor to be found
- *
- * @return  Pointer to processor that is not within the master and which has
- *          given node id, or NULL if such processor is not found
- */
-PmProc* PmGetProcOfOtherMaster(const PmMaster* const master,
-			       const PmNodeId nodeId)
-{
-	u32 i;
-	PmProc* proc = NULL;
-	PmMaster* mst = pmMasterHead;
-
-	while (NULL != mst) {
-		if (master == mst) {
-			continue;
-		}
-
-		for (i = 0U; i < mst->procsCnt; i++) {
-			if (nodeId == mst->procs[i]->node.nodeId) {
-				proc = mst->procs[i];
-				goto done;
-			}
-		}
-		mst = mst->nextMaster;
-	}
-
-done:
-	return proc;
-}
-
-/**
  * PmGetProcByWfiStatus() - Get processor struct by wfi interrupt status
  * @mask    WFI interrupt mask read from GPI2 register
  *
@@ -615,9 +581,9 @@ bool PmIsRequestedToSuspend(const PmMaster* const master)
  *		- XST_FAILURE otherwise - this function didn't suppose to be
  *		  called
  */
-int PmMasterSuspendAck(PmMaster* const mst, const int response)
+s32 PmMasterSuspendAck(PmMaster* const mst, const s32 response)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	if (NULL == mst->suspendRequest.initiator) {
 		status = XST_FAILURE;
@@ -698,19 +664,20 @@ static bool PmMasterAllProcsDown(const PmMaster* const master)
  *
  * @return	Status of performing wake
  */
-int PmWakeMasterBySlave(const PmSlave * const slave)
+s32 PmWakeMasterBySlave(const PmSlave * const slave)
 {
 	PmMaster *mst = pmMasterHead;
-	int finalStatus = XST_SUCCESS;
-	int status;
+	s32 finalStatus = XST_SUCCESS;
+	s32 status;
 
 	while (mst) {
 		PmRequirement *masterReq = PmRequirementGet(mst, slave);
 
-		if (masterReq->info & PM_MASTER_WAKEUP_REQ_MASK) {
+		if ((masterReq->info & PM_MASTER_WAKEUP_REQ_MASK) != 0U) {
 			status = PmMasterWake(mst);
-			if (status != XST_SUCCESS)
+			if (status != XST_SUCCESS) {
 				finalStatus = XST_FAILURE;
+			}
 		}
 		mst = mst->nextMaster;
 	}
@@ -723,9 +690,9 @@ int PmWakeMasterBySlave(const PmSlave * const slave)
  *
  * @return	Status of performing wake
  */
-int PmMasterWakeProc(PmProc* const proc)
+s32 PmMasterWakeProc(PmProc* const proc)
 {
-	int status;
+	s32 status;
 	bool hasResumeAddr = PmProcHasResumeAddr(proc);
 
 	if (false == hasResumeAddr) {
@@ -749,13 +716,13 @@ done:
  *
  * @return	Status of forcing down
  */
-static int PmMasterForceDownProcs(const PmMaster* const master)
+static s32 PmMasterForceDownProcs(const PmMaster* const master)
 {
 	u32 i;
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	for (i = 0U; i < master->procsCnt; i++) {
-		int ret = PmNodeForceDown(&master->procs[i]->node);
+		s32 ret = PmNodeForceDown(&master->procs[i]->node);
 
 		if (XST_SUCCESS != ret) {
 			status = ret;
@@ -771,9 +738,9 @@ static int PmMasterForceDownProcs(const PmMaster* const master)
  *
  * @return	Status of performing cleanup (releasing resources)
  */
-static int PmMasterForceDownCleanup(PmMaster* const master)
+static s32 PmMasterForceDownCleanup(PmMaster* const master)
 {
-	int status;
+	s32 status;
 
 	status = PmRequirementRelease(master->reqs, RELEASE_ALL);
 	PmWakeUpCancelScheduled(master);
@@ -805,12 +772,15 @@ static void PmMasterIdleSlaves(PmMaster* const master)
 		u32 usage = PmSlaveGetUsageStatus(req->slave, master);
 		Node = &req->slave->node;
 
-		if (((PM_MASTER_STATE_UNINITIALIZED == master->state) &&
-				(0U == (usage & PM_USAGE_OTHER_MASTER))) ||
-				(usage == PM_USAGE_CURRENT_MASTER)) {
-			if (XST_SUCCESS == PmClockIsActive(Node)) {
-				PmNodeReset(master, Node->nodeId,
-					NODE_IDLE_REQ);
+		if (0U == (Node->flags & NODE_IDLE_DONE)) {
+			if (((PM_MASTER_STATE_UNINITIALIZED == master->state) &&
+			     (0U == (usage & PM_USAGE_OTHER_MASTER))) ||
+			    (usage == PM_USAGE_CURRENT_MASTER)) {
+				if (XST_SUCCESS == PmClockIsActive(Node)) {
+					PmNodeReset(master, Node->nodeId,
+						NODE_IDLE_REQ);
+					Node->flags |= NODE_IDLE_DONE;
+				}
 			}
 		}
 		req = req->nextSlave;
@@ -825,9 +795,9 @@ static void PmMasterIdleSlaves(PmMaster* const master)
  *
  * @return	Status of changing state
  */
-int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
+s32 PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	bool condition;
 	u8 prevState = master->state;
 
@@ -922,9 +892,9 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
  * @mst		Master whose processor shall be woken up
  * @return	Status of the wake-up operation
  */
-int PmMasterWake(const PmMaster* const mst)
+s32 PmMasterWake(const PmMaster* const mst)
 {
-	int status;
+	s32 status;
 	PmProc* proc = mst->wakeProc;
 
 	if (NULL == proc) {
@@ -941,14 +911,19 @@ int PmMasterWake(const PmMaster* const mst)
  *
  * @return	Status of performing the operation
  */
-int PmMasterRestart(PmMaster* const master)
+s32 PmMasterRestart(PmMaster* const master)
 {
-	int status;
+	s32 status;
 	u64 address = 0xFFFC0000ULL;
 
 	/* Master restart is currently supported only for APU */
 	if (master != &pmMasterApu_g) {
 		status = XST_NO_FEATURE;
+		goto done;
+	}
+
+	status = XPfw_RestoreFsblToOCM();
+	if (XST_SUCCESS != status) {
 		goto done;
 	}
 
@@ -1032,9 +1007,9 @@ void PmMasterIdleSystem(void)
  * PmMasterInitFinalize() - Master has completed initialization, finalize init
  * @master	Master which has finalized initialization
  */
-int PmMasterInitFinalize(PmMaster* const master)
+s32 PmMasterInitFinalize(PmMaster* const master)
 {
-	int status;
+	s32 status;
 
 	master->state = PM_MASTER_STATE_ACTIVE;
 
@@ -1121,9 +1096,9 @@ done:
  *
  * @return     Status of releasing all requirements for every master in system
  */
-int PmMasterReleaseAll(void)
+s32 PmMasterReleaseAll(void)
 {
-	int status;
+	s32 status = 0;
 	PmMaster* mst = pmMasterHead;
 
 	while (NULL != mst) {

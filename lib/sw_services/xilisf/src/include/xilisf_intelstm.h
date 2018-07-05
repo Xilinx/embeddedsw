@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -66,6 +66,9 @@
  *					  flash.CR#1004264
  * 5.12 tjs  06/18/18 Removed warnings reported by checkpatch.
  * 5.12 tjs  06/18/18 Added support for low density ISSI flash parts. PR#9237
+ * 5.13	akm  02/26/19 Added support for ISSI serial NOR Flash Devices.
+ *			   PR# 11442
+ * 5.13 sk   02/28/19 Added support for SST26WF016B flash.
  * </pre>
  *
  ******************************************************************************/
@@ -159,6 +162,7 @@ extern "C" {
  * SST Serial Flash device.
  */
 #define XISF_SST_DEV_SST25WF080		0x2505	/**< Device ID for SST25WF080 */
+#define XISF_SST_DEV_SST26WF016B	0x2651	/**< Device ID for SST26WF016B */
 
 /**
  * The following definitions specify the Device Id for the different
@@ -172,8 +176,12 @@ extern "C" {
 #define XISF_ISSI_DEV_IS25LP032D	0x6016	/**< Device ID for IS25LP032D */
 #define XISF_ISSI_DEV_IS25WP064A	0x7017	/**< Device ID for IS25WP064A */
 #define XISF_ISSI_DEV_IS25LP064A	0x6017	/**< Device ID for IS25LP064A */
+#define	XISF_ISSI_DEV_IS25LP128F	0x6018	/**< Device ID for IS25LP128F */
+#define	XISF_ISSI_DEV_IS25WP128F	0x7018	/**< Device ID for IS25LP128F */
 #define XISF_ISSI_DEV_IS25WP256D	0x7019	/**< Device ID for IS25WP256D */
 #define XISF_ISSI_DEV_IS25LP256D	0x6019	/**< Device ID for IS25WP256D */
+#define	XISF_ISSI_DEV_IS25LP512M	0x601a	/**< Device ID for IS25LP512M */
+#define	XISF_ISSI_DEV_IS25WP512M	0x701a	/**< Device ID for IS25WP512M */
 
 /**
  * The following definitions specify the Device Id for the different
@@ -221,6 +229,7 @@ extern "C" {
 #define XISF_CMD_DUAL_OP_FAST_READ_4B	0x3C /**< 4 byte Dual
 					       * output fast read
 					       */
+#define XISF_CMD_VOLATILE_CONFIG_READ		0x85	/**< Volatile config Reg Read */
 #define XISF_CMD_DUAL_IO_FAST_READ	0xBB	/**< Dual i/o fast read */
 #define XISF_CMD_DUAL_IO_FAST_READ_4B	0xBC /**< 4 byte Dual i/o fast read */
 #define XISF_CMD_QUAD_OP_FAST_READ	0x6B	/**< Quad output fast read */
@@ -229,6 +238,8 @@ extern "C" {
 					       */
 #define XISF_CMD_QUAD_IO_FAST_READ	0xEB	/**< Quad i/o fast read */
 #define XISF_CMD_QUAD_IO_FAST_READ_4B	0xEC /**< 4 byte Quad i/o fast read */
+#define XISF_CMD_OCTAL_IO_FAST_READ_4B	0xCC /**< 4 byte Octal i/o fast read */
+#define XISF_CMD_VOLATILE_CONFIG_READ		0x85	/**< Volatile config Reg Read */
 
 /**
  * Definitions of Write commands.
@@ -250,6 +261,8 @@ extern "C" {
 #define XISF_CMD_QUAD_IP_EXT_PAGE_WRITE	0x12	/**< Dual input extended fast
 						  * page write
 						  */
+#define XISF_CMD_OCTAL_WRITE_4B		0x84	/**< Octal 4-Byte write */
+#define XISF_CMD_VOLATILE_CONFIG_WRITE		0x81	/**< Volatile config Reg Write */
 
 /**
  * Definitions of Erase commands.
@@ -275,6 +288,9 @@ extern "C" {
 #if ((XPAR_XISF_FLASH_FAMILY == WINBOND) || (XPAR_XISF_FLASH_FAMILY == SST))
 #define XISF_CMD_BLOCK_ERASE		0xD8	/**< Block Erase command */
 #define XISF_CMD_SECTOR_ERASE		0x20	/**< Sector Erase command */
+#if (XPAR_XISF_FLASH_FAMILY == SST)
+#define GLOBAL_BLK_PROT_UNLK		0x98
+#endif
 #endif
 
 /**

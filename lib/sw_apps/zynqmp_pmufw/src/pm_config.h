@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,10 @@
 #ifndef PM_CONFIG_H_
 #define PM_CONFIG_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xil_types.h"
 #include "pm_common.h"
 
@@ -38,8 +42,12 @@
  * Function declarations
  ********************************************************************/
 
-int PmConfigLoadObject(const u32 address, const u32 callerIpi);
+s32 PmConfigLoadObject(const u32 address, const u32 callerIpi);
 
 bool PmConfigObjectIsLoaded(void);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_CONFIG_H_ */

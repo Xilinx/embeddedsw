@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -36,31 +36,96 @@
 *
 *  		User configurable parameters for Ultrascale BBRAM
 *  	----------------------------------------------------------------------
-*	#define XSK_BBRAM_PGM_OBFUSCATED_KEY	FALSE
+*	#define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR1_MONO	FALSE
 *	TRUE will program BBRAM with OBFUSCATED key provided in
-*	XSK_BBRAM_OBFUSCATED_KEY. While programming obfuscated key DPA
+*	XSK_BBRAM_OBFUSCATED_KEY_SLR1. While programming obfuscated key DPA
 *	configurations cannot be done due to silicon bug, and values provided
 *	in DPA configuration macros will be ignored.
-*	FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY
+*	FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY_SLR1
 *	and DPA configurations (protect, count and mode) can be configured
 *
-*	#define		XSK_BBRAM_OBFUSCATED_KEY
+*       #define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2		FALSE
+*       TRUE will program BBRAM with OBFUSCATED key provided in
+*	XSK_BBRAM_OBFUSCATED_KEY_SLR2. While programming obfuscated key DPA
+*	configurations cannot be done due to silicon bug, and values provided
+*	in DPA configuration macros will be ignored.
+*	FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY_SLR2
+*	and DPA configurations (protect, count and mode) can be configured
+*
+*       #define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3		FALSE
+*       TRUE will program BBRAM with OBFUSCATED key provided in
+*	XSK_BBRAM_OBFUSCATED_KEY_SLR3. While programming obfuscated key DPA
+*	configurations cannot be done due to silicon bug, and values provided
+*	in DPA configuration macros will be ignored.
+*	FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY_SLR3
+*	and DPA configurations (protect, count and mode) can be configured
+*
+*       #define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4		FALSE
+*	TRUE will program BBRAM with OBFUSCATED key provided in
+*	XSK_BBRAM_OBFUSCATED_KEY_SLR4. While programming obfuscated key DPA
+*	configurations cannot be done due to silicon bug, and values provided
+*	in DPA configuration macros will be ignored.
+*	FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY_SLR4
+*	and DPA configurations (protect, count and mode) can be configured
+*
+*	#define		XSK_BBRAM_OBFUSCATED_KEY_SLR1
 *	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
 *	The value mentioned in this will be converted to hex buffer and the
 *	key is programmed into BBRAM, when program API used. It should be 64
 *	characters long, valid characters are 0-9,a-f,A-F. Any other character
 *	is considered as invalid string and will not program BBRAM. Note that,
-*	for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY should
+*	for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR1 should
 *	have TRUE value.
 *
-* 	#define 	XSK_BBRAM_AES_KEY
-*	"349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd"
+*       #define		XSK_BBRAM_OBFUSCATED_KEY_SLR2
+*       "b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
+*       The value mentioned in this will be converted to hex buffer and the
+*	key is programmed into BBRAM, when program API used. It should be 64
+*	characters long, valid characters are 0-9,a-f,A-F. Any other character
+*	is considered as invalid string and will not program BBRAM. Note that,
+*	for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2 should
+*	have TRUE value.
+*
+*	#define		XSK_BBRAM_OBFUSCATED_KEY_SLR3
+*	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
 *	The value mentioned in this will be converted to hex buffer and the
 *	key is programmed into BBRAM, when program API used. It should be 64
 *	characters long, valid characters are 0-9,a-f,A-F. Any other character
 *	is considered as invalid string and will not program BBRAM. Note that,
-*	for writing the BBRAM Key, XSK_BBRAM_PGM_OBFUSCATED_KEY should
-*	have FALSE value.
+*	for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3 should
+*	have TRUE value.
+*
+*	#define		XSK_BBRAM_OBFUSCATED_KEY_SLR4
+*	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
+*	The value mentioned in this will be converted to hex buffer and the
+*	key is programmed into BBRAM, when program API used. It should be 64
+*	characters long, valid characters are 0-9,a-f,A-F. Any other character
+*	is considered as invalid string and will not program BBRAM. Note that,
+*	for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 should
+*	have TRUE value.
+*
+*	#define XSK_BBRAM_PGM_AES_KEY_SLR1_OR_MONO	FALSE
+*	#define XSK_BBRAM_PGM_AES_KEY_SLR2			FALSE
+*	#define XSK_BBRAM_PGM_AES_KEY_SLR3			FALSE
+*	#define XSK_BBRAM_PGM_AES_KEY_SLR4			FALSE
+*       TRUE will program BBRAM with AES Key provided in XSK_BBRAM_AES_KEY for
+*       particular SLR.
+*
+* 	#define 	XSK_BBRAM_AES_KEY_SLR1
+*	"349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd"
+*	#define 	XSK_BBRAM_AES_KEY_SLR2
+*	"349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd"
+*	#define 	XSK_BBRAM_AES_KEY_SLR3
+*	"349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd"
+*	#define 	XSK_BBRAM_AES_KEY_SLR4
+*	"349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd"
+*	The value mentioned in this will be converted to hex buffer and the
+*	key is programmed into BBRAM for particular SLR(1/2/3/4), when
+*	program API used. It should be 64 characters long, valid characters
+*	are 0-9,a-f,A-F. Any other character is considered as invalid string
+*	and will not program BBRAM. Note that, for writing the BBRAM Key, XSK_
+*	BBRAM_PGM_OBFUSCATED_KEY for particular SLR(1/2/3/4)should have FALSE value.
+*
 * 	#define	XSK_BBRAM_AES_KEY_SIZE_IN_BITS	256
 *
 *	#define XSK_BBRAM_DPA_PROTECT_ENABLE	FALSE
@@ -85,6 +150,12 @@
 *	XSK_BBRAM_INVALID_CONFIGURATIONS or XSK_BBRAM_ALL_CONFIGURATIONS
 *	If XSK_BBRAM_DPA_PROTECT_ENABLE is FALSE, it should be
 *	XSK_BBRAM_INVALID_CONFIGURATIONS.
+*
+*	#define XSK_BBRAM_AXI_GPIO_DEVICE_ID  XPAR_AXI_GPIO_0_DEVICE_ID
+*	Default value is XPAR_AXI_GPIO_0_DEVICE_ID
+*	This macro is for providing exact GPIO device ID, based on the
+*	design configuration this macro should be modified to provide
+*	GPIO device ID which is used for connecting MASTER JTAG pins.
 *
 *	In Ultrascale GPIO pins are used for connecting MASTER_JTAG pins to
 *	access BBRAM.
@@ -117,7 +188,9 @@
 * 6.0   vns     07/28/16 Added counting configuration
 *                        feature(DPA count), protection and to
 *                        program Obfuscated key.
-*
+* 6.7   psl     03/20/19 Added BBRAM key write support for SSIT devices.
+*       psl     03/29/19 Added Support for user configurable GPIO for
+*                        jtag control.
 * </pre>
 *
 ******************************************************************************/
@@ -132,7 +205,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xil_types.h"
-
+#include "xparameters.h"
 /************************** Constant Definitions *****************************/
 
 /* Constant definitions to specify the configurations in XSK_BBRAM_DPA_MODE*/
@@ -151,6 +224,9 @@ extern "C" {
  * AXI GPIO pin numbers connected to MASTER JTAG primitive and corresponding
  * channel numbers for GPIO pins
  */
+/* GPIO device ID */
+#define XSK_BBRAM_AXI_GPIO_DEVICE_ID	XPAR_AXI_GPIO_0_DEVICE_ID
+
 #define	XSK_BBRAM_AXI_GPIO_JTAG_TDO	(0)	/**< MASTER JTAG GPIO
 						  *  pin for TDO */
 #define	XSK_BBRAM_AXI_GPIO_JTAG_TDI	(0)	/**< MASTER JTAG GPIO
@@ -172,15 +248,33 @@ extern "C" {
  * otherwise AES key will be programmed and DPA configurations will
  * be considered
  */
-#define XSK_BBRAM_PGM_OBFUSCATED_KEY	FALSE	/** TRUE burns obfuscated key */
+#define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR1_MONO	FALSE	/** TRUE burns obfuscated key */
+#define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2		FALSE	/** TRUE burns obfuscated key */
+#define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3		FALSE	/** TRUE burns obfuscated key */
+#define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4		FALSE	/** TRUE burns obfuscated key */
 
+/**
+ * If the following is TRUE BBRAM Key in SLR1/MONO is programmed
+ * Returns error if the target doesn't have enabled SLR
+ */
+#define XSK_BBRAM_PGM_AES_KEY_SLR1_OR_MONO	FALSE	/** TRUE burns BBRAM key */
+#define XSK_BBRAM_PGM_AES_KEY_SLR2			FALSE	/** TRUE burns BBRAM key */
+#define XSK_BBRAM_PGM_AES_KEY_SLR3			FALSE	/** TRUE burns BBRAM key */
+#define XSK_BBRAM_PGM_AES_KEY_SLR4			FALSE 	/** TRUE burns BBRAM key */
 /**
  *
  * This is the 256 bit key to be programmed into BBRAM.
  * This should entered by user in HEX.
  */
-#define		XSK_BBRAM_OBFUSCATED_KEY	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
-#define		XSK_BBRAM_AES_KEY		"0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa"
+#define		XSK_BBRAM_OBFUSCATED_KEY_SLR1	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
+#define		XSK_BBRAM_OBFUSCATED_KEY_SLR2	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
+#define		XSK_BBRAM_OBFUSCATED_KEY_SLR3	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
+#define		XSK_BBRAM_OBFUSCATED_KEY_SLR4	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
+
+#define		XSK_BBRAM_AES_KEY_SLR1			"0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa"
+#define		XSK_BBRAM_AES_KEY_SLR2			"0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa"
+#define		XSK_BBRAM_AES_KEY_SLR3			"0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa"
+#define		XSK_BBRAM_AES_KEY_SLR4			"0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa"
 
 #define		XSK_BBRAM_AES_KEY_SIZE_IN_BITS	256
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -105,6 +105,7 @@
 static int IsfWaitForFlashNotBusy(void);
 void SpiHandler(void *CallBackRef, u32 StatusEvent, u16 ByteCount);
 static int SetupInterruptSystem(XSpi *SpiPtr);
+static int IsfIntelFlashExample();
 
 /************************** Variable Definitions *****************************/
 
@@ -153,7 +154,36 @@ u8 WriteBuffer[ISF_PAGE_SIZE];				  /* Write buffer */
 /*****************************************************************************/
 /**
 *
-* Main function to execute the Intel Serial Flash Read/Write example.
+* Main function to call the Intel Serial Flash Read/Write example.
+*
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+*
+* @note		None
+*
+******************************************************************************/
+int main(void)
+{
+	int Status;
+
+	xil_printf("Intel Serial Flash Read/Write example\r\n");
+
+	/*
+	 * Run the Intel flash example.
+	 */
+	Status = IsfIntelFlashExample();
+	if (Status != XST_SUCCESS) {
+		xil_printf("Intel Serial Flash Read/Write example Failed\r\n");
+		return XST_FAILURE;
+	}
+
+	xil_printf("Successfully ran Intel Serial Flash Read/Write example\r\n");
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* Function to execute the Intel Serial Flash Read/Write example.
 *
 * @param	None
 *
@@ -162,7 +192,7 @@ u8 WriteBuffer[ISF_PAGE_SIZE];				  /* Write buffer */
 * @note		None
 *
 ******************************************************************************/
-int main()
+static int IsfIntelFlashExample()
 {
 	int Status;
 	u32 Index;

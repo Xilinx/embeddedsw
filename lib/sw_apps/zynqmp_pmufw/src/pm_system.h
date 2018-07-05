@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,25 +31,33 @@
 #ifndef PM_SYSTEM_H_
 #define PM_SYSTEM_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xil_types.h"
 #include "pm_master.h"
 #include "pm_slave.h"
 
-#define PM_SUSPEND_TYPE_REGULAR		0
-#define PM_SUSPEND_TYPE_POWER_OFF	1
+#define PM_SUSPEND_TYPE_REGULAR		0U
+#define PM_SUSPEND_TYPE_POWER_OFF	1U
 
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-int PmSystemRequirementAdd(void);
+s32 PmSystemRequirementAdd(void);
 
 void PmSystemPrepareForRestart(const PmMaster* const master);
 void PmSystemRestartDone(const PmMaster* const master);
 bool PmSystemDetectPowerOffSuspend(const PmMaster* const master);
-int PmSystemPreparePowerOffSuspend(void);
-int PmSystemFinalizePowerOffSuspend(void);
-int PmSystemResumePowerOffSuspend(void);
+s32 PmSystemPreparePowerOffSuspend(void);
+s32 PmSystemFinalizePowerOffSuspend(void);
+s32 PmSystemResumePowerOffSuspend(void);
 u32 PmSystemSuspendType(void);
 void PmSystemSetSuspendType(u32 type);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_SYSTEM_H_ */

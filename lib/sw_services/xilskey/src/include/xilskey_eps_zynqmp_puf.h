@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,11 +44,13 @@
 * ----- ---- -------- --------------------------------------------------------
 * 6.1   vns  17/10/16 First release.
 * 6.6   vns  06/06/18 Added doxygen tags
+* 6.7	arc  01/05/19 Fixed MISRA-C violations.
+*       mmd  03/17/19 Added PUF syndrome data length in bytes for 4K mode
 * </pre>
 *
 *****************************************************************************/
-#ifndef __XSK_EPS_ZYNQMP_PUF_H__
-#define __XSK_EPS_ZYNQMP_PUF_H__
+#ifndef XSK_EPS_ZYNQMP_PUF_H
+#define XSK_EPS_ZYNQMP_PUF_H
 
 
 #ifdef __cplusplus
@@ -73,20 +75,22 @@ extern "C" {
 #define		XSK_ZYNQMP_PUF_MODE4K			(0U)
 #define		XSK_ZYNQMP_PUF_SYN_LEN			(386)
 
+#define		XSK_ZYNQMP_MAX_RAW_4K_PUF_SYN_LEN	(140U)
+						/* In bytes */
+
 #define		XSK_ZYNQMP_PUF_REGISTRATION		(1U)
 #define 	XSK_ZYNQMP_PUF_REGENERATION		(4U)
-#define 	XSK_ZYNQMP_PUF_STATUS_READ		(5U)
 
 #define 	XSK_ZYNQMP_PUF_CFG0_INIT_VAL		(2U)
 #define 	XSK_ZYNQMP_PUF_CFG1_INIT_VAL_4K		(0x0c230090U)
 
-#define		XSK_ZYNQMP_EFUSEPS_PUF_TOTAL_ROWS	(128)
-#define		XSK_ZYNQMP_PUF_SYN_DATA_LEN_IN_BYTES	(386)
-#define		XSK_ZYNQMP_PUF_FORMATTED_SYN_DATA_LEN_IN_BYTES	(140)
-#define		XSK_ZYNQMP_PUF_DBG2_DATA_LEN_IN_BYTES	(36)
-#define		XSK_ZYNQMP_PUF_KEY_IV_LEN_IN_BYTES	(12)
-#define		XSK_ZYNQMP_PUF_AUX_LEN_IN_BITS		(24)
-#define		XSK_ZYNQMP_PUF_SHUTTER_VALUE		(0x0100005e)
+#define		XSK_ZYNQMP_EFUSEPS_PUF_TOTAL_ROWS	(128U)
+#define		XSK_ZYNQMP_PUF_SYN_DATA_LEN_IN_BYTES	(386U)
+#define		XSK_ZYNQMP_PUF_FORMATTED_SYN_DATA_LEN_IN_BYTES	(140U)
+#define		XSK_ZYNQMP_PUF_DBG2_DATA_LEN_IN_BYTES	(36U)
+#define		XSK_ZYNQMP_PUF_KEY_IV_LEN_IN_BYTES	(12U)
+#define		XSK_ZYNQMP_PUF_AUX_LEN_IN_BITS		(24U)
+#define		XSK_ZYNQMP_PUF_SHUTTER_VALUE		(0x0100005eU)
 
 /************************** Type Definitions ********************************/
 
@@ -159,5 +163,5 @@ u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr);
 }
 #endif
 
-#endif /* __XSK_EPS_ZYNQMP_HW_H__ */
+#endif /* XSK_EPS_ZYNQMP_PUF_H */
 /*@}*/

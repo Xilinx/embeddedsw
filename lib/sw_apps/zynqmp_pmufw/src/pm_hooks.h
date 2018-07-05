@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,11 @@
 
 #ifndef PM_HOOKS_H_
 #define PM_HOOKS_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "pm_common.h"
 #include "pm_slave.h"
 
@@ -42,7 +47,7 @@
  * with DDR in self refresh mode, PMU must wait until DDR controller have been
  * initialized by the FSBL before it can bring the DDR out of self refresh mode.
  */
-#define DDRC_INIT_FLAG_MASK		BIT(4)
+#define DDRC_INIT_FLAG_MASK		BIT(4U)
 /*
  * DDR self refresh mode indication flag mask
  *
@@ -50,7 +55,7 @@
  * by PMU to signal FSBL in order to skip over DDR phy and ECC initialization
  * at boot time.
  */
-#define DDR_STATUS_FLAG_MASK		BIT(3)
+#define DDR_STATUS_FLAG_MASK		BIT(3U)
 #endif
 
 #define POS_DDR_REQS_SIZE	1U
@@ -67,15 +72,19 @@ typedef struct PmPosRequirement {
 
 extern PmPosRequirement pmPosDdrReqs_g[POS_DDR_REQS_SIZE];
 
-int PmHookPosSaveDdrContext(void);
+s32 PmHookPosSaveDdrContext(void);
 void PmHookFinalizePowerOffSuspend(void);
 void PmHookPowerDownLpd(void);
 void PmHookInitPowerOffSuspend(void);
 u32 PmHookGetBootType(void);
-int PmHookRestoreDdrContext(void);
+s32 PmHookRestoreDdrContext(void);
 void PmHookPowerOffSuspendDdrReady(void);
 #ifdef ENABLE_DDR_SR_WR
 void PmHookSystemStart(void);
 #endif
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_HOOKS_H_ */

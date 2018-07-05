@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -62,6 +62,10 @@
 * 6.4   vns      02/19/18 Removed XilSKey_ZynqMp_EfusePs_CacheLoad() call as
 *                         now library is been updated to reload cache after
 *                         successful programming of the requested efuse bits.
+* 6.7	psl      03/13/19 Added XSK_EFUSEPS_CHECK_AES_KEY_CRC, to check for
+* 						  AES key CRC if TRUE.
+* 	psl      03/28/19 Corrected typos
+*       psl      04/10/19 Fixed IAR warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -74,13 +78,11 @@
 #define XSK_EFUSEPS_AES_KEY_STRING_LEN			(64)
 #define XSK_EFUSEPS_USER_FUSE_ROW_STRING_LEN		(8)
 #define XSK_EFUSEPS_PPK_SHA3_HASH_STRING_LEN_96		(96)
-#define XSK_EFUSEPS_PPK_SHA2_HASH_STRING_LEN_64		(64)
 #define XSK_EFUSEPS_SPK_ID_STRING_LEN			(8)
 
 #define XSK_EFUSEPS_AES_KEY_LEN_IN_BITS			(256)
 #define XSK_EFUSEPS_USER_FUSE_ROW_LEN_IN_BITS		(32)
 #define XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384	(384)
-#define XSK_EFUSEPS_PPK_SHA2HASH_LEN_IN_BITS_256	(256)
 #define XSK_EFUSEPS_SPKID_LEN_IN_BITS			(32)
 
 #define XSK_EFUSEPS_RD_FROM_CACHE				(0)
@@ -110,7 +112,7 @@ int main()
 	u32 AesCrc;
 	u32 Dna[3];
 
-#if defined (XSK_XPLAT_ZYNQ) || (XSK_MICROBLAZE_PLATFORM)
+#if defined (XSK_ZYNQ_PLATFORM) || defined (XSK_MICROBLAZE_PLATFORM)
 	xil_printf("This example will not work for this platform\n\r");
 #endif
 	/* Initiate the Efuse PS instance */
@@ -178,14 +180,16 @@ int main()
 	}
 
 	/* CRC check for programmed AES key */
-	AesCrc = XilSKey_CrcCalculation((u8 *)XSK_EFUSEPS_AES_KEY);
-	PsStatus = XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(AesCrc);
-	if (PsStatus != XST_SUCCESS) {
-		xil_printf("\r\nAES CRC checK is failed\n\r");
-		goto EFUSE_ERROR;
-	}
-	else {
-		xil_printf("\r\nAES CRC checK is passed\n\r");
+	if (XSK_EFUSEPS_CHECK_AES_KEY_CRC == TRUE) {
+		AesCrc = XilSKey_CrcCalculation((u8 *)XSK_EFUSEPS_AES_KEY);
+		PsStatus = XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(AesCrc);
+		if (PsStatus != XST_SUCCESS) {
+			xil_printf("\r\nAES CRC check is failed\n\r");
+			goto EFUSE_ERROR;
+		}
+		else {
+			xil_printf("\r\nAES CRC check is passed\n\r");
+		}
 	}
 
 	/* Reading control and secure bits of eFuse */
@@ -442,21 +446,6 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 				&PsInstancePtr->Ppk0Hash[0],
 				XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384);
 		}
-		/* If Sha2 hash is programming into Efuse PPK0 */
-		else {
-			/* Validation of PPK0 sha2 hash */
-			PsStatus = XilSKey_Efuse_ValidateKey(
-				(char *)XSK_EFUSEPS_PPK0_HASH,
-				XSK_EFUSEPS_PPK_SHA2_HASH_STRING_LEN_64);
-			if(PsStatus != XST_SUCCESS) {
-				goto ERROR;
-			}
-			/* Assign the PPK0 sha3 hash */
-			XilSKey_Efuse_ConvertStringToHexBE(
-				(char *)XSK_EFUSEPS_PPK0_HASH,
-				&PsInstancePtr->Ppk0Hash[0],
-				XSK_EFUSEPS_PPK_SHA2HASH_LEN_IN_BITS_256);
-		}
 	}
 
 	/* Is PPK1 hash programming is enabled */
@@ -475,21 +464,6 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 				(char *)XSK_EFUSEPS_PPK1_HASH,
 				&PsInstancePtr->Ppk1Hash[0],
 				XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384);
-		}
-		/* If Sha2 hash is programming into Efuse PPK1 */
-		else {
-			/* Validation of PPK1 sha2 hash */
-			PsStatus = XilSKey_Efuse_ValidateKey(
-				(char *)XSK_EFUSEPS_PPK1_HASH,
-				XSK_EFUSEPS_PPK_SHA2_HASH_STRING_LEN_64);
-			if(PsStatus != XST_SUCCESS) {
-				goto ERROR;
-			}
-			/* Assign the PPK1 sha2 hash */
-			XilSKey_Efuse_ConvertStringToHexBE(
-				(char *)XSK_EFUSEPS_PPK1_HASH,
-				&PsInstancePtr->Ppk1Hash[0],
-				XSK_EFUSEPS_PPK_SHA2HASH_LEN_IN_BITS_256);
 		}
 	}
 

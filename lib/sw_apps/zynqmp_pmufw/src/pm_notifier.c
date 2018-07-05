@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -93,10 +93,10 @@ static void PmRegisterEvent(const u32 entry, const u32 event, const u32 wake)
  *                pmNotifiers array are occupied
  *              - XST_SUCCESS - notifier is successfully registered
  */
-int PmNotifierRegister(const PmMaster* const mst, const PmNode* const nd,
+s32 PmNotifierRegister(const PmMaster* const mst, const PmNode* const nd,
 		       const u32 event, const u32 wake)
 {
-	int status = XST_FAILURE;
+	s32 status = XST_FAILURE;
 	u32 i, empty = ARRAY_SIZE(pmNotifiers); /* init just to exceed max */
 
 	for (i = 0U; i < ARRAY_SIZE(pmNotifiers); i++) {
@@ -148,7 +148,7 @@ static void PmUnregisterEvent(const u32 entry, const u32 event)
 	pmNotifiers[entry].eventMask &= ~event;
 	pmNotifiers[entry].wakeMask &= ~event;
 	if (0U == pmNotifiers[entry].eventMask) {
-		memset(&pmNotifiers[entry], 0, sizeof(PmNotifier));
+		(void)memset(&pmNotifiers[entry], 0U, sizeof(PmNotifier));
 	}
 }
 
@@ -183,7 +183,7 @@ void PmNotifierUnregisterAll(const PmMaster* const mst)
 
 	for (i = 0U; i < ARRAY_SIZE(pmNotifiers); i++) {
 		if (mst == pmNotifiers[i].master) {
-			memset(&pmNotifiers[i], 0, sizeof(PmNotifier));
+			(void)memset(&pmNotifiers[i], 0U, sizeof(PmNotifier));
 		}
 	}
 }

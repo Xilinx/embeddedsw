@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -34,8 +34,8 @@
  * the execution environment.
  */
 
-#ifndef _PM_CLIENT_H_
-#define _PM_CLIENT_H_
+#ifndef PM_CLIENT_H
+#define PM_CLIENT_H
 
 #include <xil_exception.h>
 #include <xil_io.h>
@@ -43,12 +43,30 @@
 #include "pm_defs.h"
 #include "pm_common.h"
 
-#define IPI_TRIG_OFFSET		0x0
-#define IPI_OBS_OFFSET		0x4
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-char* XPm_GetMasterName(void);
+const char* XPm_GetMasterName(void);
+#ifdef DEBUG_MODE
+#if defined (__GNUC__)
 
 #define pm_print(MSG, ...)	xil_printf("%s: "MSG, \
-					   XPm_GetMasterName(), ##__VA_ARGS__)
+										XPm_GetMasterName(), ##__VA_ARGS__)
 
-#endif /* _PM_CLIENT_H_ */
+#elif defined (__ICCARM__)
+
+#define pm_print	xil_printf
+
+#endif
+#else
+#define pm_print(...)	{}
+#endif
+
+
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* PM_CLIENT_H */

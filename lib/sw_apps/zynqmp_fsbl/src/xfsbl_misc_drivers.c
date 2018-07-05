@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -74,6 +74,7 @@
 #ifdef XPAR_XILPM_ENABLED
 #include "pm_defs.h"
 #include "pm_cfg_obj.h"
+#include "pm_api_sys.h"
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -85,7 +86,6 @@
 #define IPI_DEVICE_ID			XPAR_XIPIPSU_0_DEVICE_ID
 #define IPI_PMU_PM_INT_MASK		XPAR_XIPIPS_TARGET_PSU_PMU_0_CH0_MASK
 #define PM_INIT				21U
-#define PM_IPI_TIMEOUT			(~0)
 #endif
 #define PM_INIT_COMPLETED_KEY		0x5A5A5A5AU
 /************************** Function Prototypes ******************************/
@@ -267,11 +267,6 @@ void XFsbl_StopWdt(void)
 		XWdtPs_Stop(&Watchdog);
 	}
 
-	/* Disable SWDT0/1 System Watchdog Timer Error */
-	RegValue = XFsbl_In32(PMU_GLOBAL_ERROR_EN_1);
-	RegValue &= ~(XFSBL_WDT_MASK);
-	XFsbl_Out32(PMU_GLOBAL_ERROR_EN_1, RegValue);
-
 	/* Disable generation of system reset by PMU due to SWDT0/1 */
 	RegValue = XFsbl_In32(PMU_GLOBAL_ERROR_SRST_DIS_1);
 	RegValue |= XFSBL_WDT_MASK;
@@ -301,12 +296,11 @@ u32 XFsbl_PmInit(void)
 	s32 Status ;
 	XIpiPsu IpiInstance;
 	XIpiPsu_Config *Config;
-	u32 Response = 0U;
 
 	#ifdef __aarch64__
-	u32 CfgCmd[2U] = {PM_SET_CONFIGURATION, (u32)((u64)&XPm_ConfigObject[0])};
+	u32 CfgCmd = (u32)((u64)&XPm_ConfigObject[0]);
 	#else
-	u32 CfgCmd[2U] = {PM_SET_CONFIGURATION, (u32)&XPm_ConfigObject[0]};
+	u32 CfgCmd = (u32)&XPm_ConfigObject[0];
 	#endif
 #endif
 
@@ -345,32 +339,15 @@ u32 XFsbl_PmInit(void)
 		UStatus = XFSBL_ERROR_PM_INIT;
 		goto END;
 	}
-	/* Send PM_SET_CONFIGURATION API to the PMU */
-	Status = XIpiPsu_WriteMessage(&IpiInstance, IPI_PMU_PM_INT_MASK,
-					&CfgCmd[0], 2U, XIPIPSU_BUF_TYPE_MSG);
+
+	Status = XPm_InitXilpm(&IpiInstance);
 	if (XFSBL_SUCCESS != Status) {
 		UStatus = XFSBL_ERROR_PM_INIT;
 		goto END;
 	}
 
-	Status = XIpiPsu_TriggerIpi(&IpiInstance, IPI_PMU_PM_INT_MASK);
+	Status = XPm_SetConfiguration(CfgCmd);
 	if (XFSBL_SUCCESS != Status) {
-		UStatus = XFSBL_ERROR_PM_INIT;
-		goto END;
-	}
-
-
-	/* This is a blocking call, wait until IPI is handled by the PMU */
-	Status = XIpiPsu_PollForAck(&IpiInstance, IPI_PMU_PM_INT_MASK,
-				  PM_IPI_TIMEOUT);
-	if (XFSBL_SUCCESS != Status) {
-		UStatus = XFSBL_ERROR_PM_INIT;
-		goto END;
-	}
-
-	Status = XIpiPsu_ReadMessage(&IpiInstance, IPI_PMU_PM_INT_MASK,
-					&Response, 1, XIPIPSU_BUF_TYPE_RESP);
-	if ((Status != XFSBL_SUCCESS) || (Response != XFSBL_SUCCESS)) {
 		UStatus = XFSBL_ERROR_PM_INIT;
 		goto END;
 	}

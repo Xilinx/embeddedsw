@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,10 @@
 
 #ifndef PM_SLAVE_H_
 #define PM_SLAVE_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "pm_defs.h"
 #include "pm_common.h"
@@ -101,7 +105,7 @@ typedef struct {
  */
 typedef struct {
 	const u32* const states;
-	int (*const enterState)(PmSlave* const slave, const PmStateId nextState);
+	s32 (*const enterState)(PmSlave* const slave, const PmStateId nextState);
 	const PmStateTran* const trans;
 	const u8 statesCnt;
 	const u8 transCnt;
@@ -133,8 +137,8 @@ typedef struct PmSlave {
  * @forceDown	Force down specific to the slave
  */
 typedef struct PmSlaveClass {
-	int (*const init)(PmSlave* const slave);
-	int (*const forceDown)(PmSlave* const slave);
+	s32 (*const init)(PmSlave* const slave);
+	s32 (*const forceDown)(PmSlave* const slave);
 } PmSlaveClass;
 
 /*********************************************************************
@@ -146,12 +150,12 @@ extern PmNodeClass pmNodeClassSlave_g;
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-int PmUpdateSlave(PmSlave* const slave);
-int PmCheckCapabilities(const PmSlave* const slave, const u32 capabilities);
-int PmSlaveHasWakeUpCap(const PmSlave* const slv);
-int PmSlaveSetConfig(PmSlave* const slave, const u32 policy, const u32 perms);
+s32 PmUpdateSlave(PmSlave* const slave);
+s32 PmCheckCapabilities(const PmSlave* const slave, const u32 capabilities);
+s32 PmSlaveHasWakeUpCap(const PmSlave* const slv);
+s32 PmSlaveSetConfig(PmSlave* const slave, const u32 policy, const u32 perms);
 
-int PmSlaveVerifyRequest(const PmSlave* const slave);
+s32 PmSlaveVerifyRequest(const PmSlave* const slave);
 
 u32 PmSlaveGetUsersMask(const PmSlave* const slave);
 
@@ -161,4 +165,8 @@ u32 PmSlaveGetRequirements(const PmSlave* const slave,
 			   const PmMaster* const master);
 void PmResetSlaveStates(void);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_SLAVE_H_ */

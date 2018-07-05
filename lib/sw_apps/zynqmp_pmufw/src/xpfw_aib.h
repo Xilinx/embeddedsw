@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,10 @@
 
 #ifndef XPFW_AIB_H_
 #define XPFW_AIB_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "xstatus.h"
 #include "xil_types.h"
@@ -57,5 +61,9 @@ enum XPfwAib {
 
 void XPfw_AibEnable(enum XPfwAib AibId);
 void XPfw_AibDisable(enum XPfwAib AibId);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPFW_AIB_H_ */

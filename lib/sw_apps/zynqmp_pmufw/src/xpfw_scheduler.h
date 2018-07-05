@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,10 @@
 
 #ifndef XPFW_SCHEDULER_H_
 #define XPFW_SCHEDULER_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "xpfw_default.h"
 
@@ -59,5 +63,9 @@ XStatus XPfw_SchedulerStop(XPfw_Scheduler_t *SchedPtr);
 XStatus XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr);
 XStatus XPfw_SchedulerAddTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId,u32 MilliSeconds, XPfw_Callback_t CallbackFn);
 XStatus XPfw_SchedulerRemoveTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId, u32 MilliSeconds, XPfw_Callback_t CallbackFn);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPFW_SCHEDULER_H_ */

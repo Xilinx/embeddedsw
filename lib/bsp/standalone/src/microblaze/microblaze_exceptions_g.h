@@ -45,6 +45,14 @@
 #ifndef MICROBLAZE_EXCEPTIONS_G_H /* prevent circular inclusions */
 #define MICROBLAZE_EXCEPTIONS_G_H /* by using protection macros */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define MICROBLAZE_EXCEPTIONS_ENABLED   1
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* end of protection macro */

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -28,6 +28,12 @@
 
 #ifndef XPFW_CONFIG_H_
 #define XPFW_CONFIG_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "xparameters.h"
 
 /************* User Configurable Options ***************/
 
@@ -77,7 +83,7 @@
  * 	- ENABLE_WDT : Enables WDT based restart functionality for PMU
  * 	- ENABLE_STL : Enables STL Module
  * 	- ENABLE_RTC_TEST : Enables RTC Event Handler Test Module
- * 	- ENABLE_SAFETY : Enables CRC calculation for IPI messages
+ * 	- ENABLE_IPI_CRC_VAL : Enables CRC calculation for IPI messages
  * 	- ENABLE_FPGA_LOAD : Enables FPGA bit stream loading feature
  * 	- ENABLE_SECURE : Enables security features
  * 	- XPU_INTR_DEBUG_PRINT_ENABLE : Enables debug for XMPU/XPPU functionality
@@ -118,9 +124,10 @@
 #define	ENABLE_ESCALATION_VAL			(0U)
 #define CHECK_HEALTHY_BOOT_VAL			(0U)
 #define	ENABLE_WDT_VAL					(0U)
+#define ENABLE_CUSTOM_MOD_VAL			(0U)
 #define	ENABLE_STL_VAL					(0U)
 #define	ENABLE_RTC_TEST_VAL				(0U)
-#define	ENABLE_SAFETY_VAL				(0U)
+#define	ENABLE_IPI_CRC_VAL				(0U)
 #define	ENABLE_FPGA_LOAD_VAL			(1U)
 #define	ENABLE_SECURE_VAL				(1U)
 #define ENABLE_EFUSE_ACCESS				(0U)
@@ -138,6 +145,11 @@
 #define	PMU_MIO_INPUT_PIN_VAL			(0U)
 #define	BOARD_SHUTDOWN_PIN_VAL			(0U)
 #define	BOARD_SHUTDOWN_PIN_STATE_VAL	(0U)
+
+#define CONNECT_PMU_GPO_2_VAL			(1U)
+#define CONNECT_PMU_GPO_3_VAL			(1U)
+#define CONNECT_PMU_GPO_4_VAL			(1U)
+#define CONNECT_PMU_GPO_5_VAL			(1U)
 
 #define SECURE_ACCESS_VAL		(0U)
 
@@ -177,6 +189,10 @@
 #define ENABLE_WDT
 #endif
 
+#if ENABLE_CUSTOM_MOD_VAL
+#define ENABLE_CUSTOM_MOD
+#endif
+
 #if ENABLE_STL_VAL
 #define ENABLE_STL
 #endif
@@ -191,8 +207,8 @@
 #if ENABLE_SECURE_VAL
 #define ENABLE_SECURE
 #endif
-#if ENABLE_SAFETY_VAL
-#define ENABLE_SAFETY
+#if ENABLE_IPI_CRC_VAL
+#define ENABLE_IPI_CRC
 #endif
 
 #if XPU_INTR_DEBUG_PRINT_ENABLE_VAL
@@ -215,12 +231,24 @@
 #define DEBUG_MODE
 #endif
 
+#ifdef XPAR_PSU_DDRC_0_DEVICE_ID
 #if ENABLE_POS_VAL
 #define ENABLE_POS
 #endif
+#else
+#ifdef ENABLE_POS
+#error "Error: POS feature is not supported in DDR less design"
+#endif
+#endif
 
+#ifdef XPAR_PSU_DDRC_0_DEVICE_ID
 #if ENABLE_DDR_SR_WR_VAL
 #define ENABLE_DDR_SR_WR
+#endif
+#else
+#ifdef ENABLE_DDR_SR_WR
+#error "Error: DDR_SR_WR feature is not supported in DDR less design"
+#endif
 #endif
 
 #if DISABLE_CLK_PERMS_VAL
@@ -260,6 +288,26 @@
 
 #ifdef ENABLE_POS
 #define ENABLE_POS_QSPI
+#endif
+
+#if CONNECT_PMU_GPO_2_VAL
+#define CONNECT_PMU_GPO_2
+#endif
+
+#if CONNECT_PMU_GPO_3_VAL
+#define CONNECT_PMU_GPO_3
+#endif
+
+#if CONNECT_PMU_GPO_4_VAL
+#define CONNECT_PMU_GPO_4
+#endif
+
+#if CONNECT_PMU_GPO_5_VAL
+#define CONNECT_PMU_GPO_5
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* XPFW_CONFIG_H_ */

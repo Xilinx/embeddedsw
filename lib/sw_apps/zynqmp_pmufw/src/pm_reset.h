@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,10 @@
 #ifndef PM_RESET_H_
 #define PM_RESET_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xil_types.h"
 #include "gpio.h"
 #include "pm_common.h"
@@ -46,14 +50,18 @@ typedef struct PmMaster PmMaster;
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-u32 PmResetGetStatusInt(const PmReset* const resetPtr);
+u32 PmResetGetStatusInt(const PmReset* const resetPtr, u32 *status);
 
-int PmResetDoAssert(const PmReset *reset, u32 action);
-int PmResetAssertInt(u32 reset, u32 action);
-int PmResetSetConfig(const u32 resetId, const u32 permissions);
+s32 PmResetDoAssert(const PmReset *reset, u32 action);
+s32 PmResetAssertInt(u32 reset, u32 action);
+s32 PmResetSetConfig(const u32 resetId, const u32 permissions);
 void PmResetClearConfig(void);
 
 bool PmResetMasterHasAccess(const PmMaster* const m, const PmReset* const r);
 PmReset* PmGetResetById(const u32 resetId);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_RESET_H_ */

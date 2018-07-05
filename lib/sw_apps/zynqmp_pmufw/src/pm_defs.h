@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,10 @@
 
 #ifndef PM_DEFS_H_
 #define PM_DEFS_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "pmu_global.h"
 
@@ -102,7 +106,6 @@
 
 #define PM_GET_CHIPID			24U
 
-#define PM_SECURE_RSA_AES		25U
 #define PM_SECURE_SHA			26U
 #define PM_SECURE_RSA			27U
 
@@ -270,6 +273,7 @@
 #define XST_PM_ABORT_SUSPEND	2005L
 #define XST_PM_TIMEOUT		2006L
 #define XST_PM_NODE_USED	2007L
+#define XST_PM_MULT_USER	2008L
 
 /* Reset configuration argument */
 #define PM_RESET_ACTION_RELEASE	0U
@@ -695,4 +699,8 @@
 #define PINCTRL_CONFIG_DRIVE_STRENGTH	4U
 #define PINCTRL_CONFIG_VOLTAGE_STATUS	5U
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_DEFS_H_ */

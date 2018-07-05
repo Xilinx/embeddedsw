@@ -207,6 +207,7 @@ extern "C" {
 #define XSFBL_ERROR_FMC_ENABLE						(0x75U)
 #define XSFBL_EEPROM_PRESENT						(0x76U)
 #define XFSBL_BITSTREAM_NOT_LOADED				(0x77U)
+#define XFSBL_ERROR_SHA2_NOT_SUPPORTED				(0x78U)
 #define XFSBL_FAILURE					(0x3FFFFFFFU)
 
 /**************************** Type Definitions *******************************/

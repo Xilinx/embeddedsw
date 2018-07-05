@@ -63,7 +63,7 @@ libs: $(LIBS)
 standalone_libs: $(LIBSOURCES)
 	echo "Compiling standalone"
 	$(CC) $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $^
-	$(AR) -r ${RELEASEDIR}/${LIB} ${OUTS}
+	$(AR) -r ${RELEASEDIR}/${LIB} ${OBJECTS} ${ASSEMBLY_OBJECTS}
 
 profile_libs:
 	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(AR)" libs

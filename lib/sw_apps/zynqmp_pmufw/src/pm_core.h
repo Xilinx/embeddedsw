@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,14 +35,23 @@
 #ifndef PM_CORE_H_
 #define PM_CORE_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "pm_master.h"
 #include "xil_types.h"
 
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-void PmProcessRequest(PmMaster *const master, const u32 *payload);
-
+void PmProcessRequest(PmMaster *const master, const u32 *pload);
+void PmResetAssert(const PmMaster *const master, const u32 reset,
+		   const u32 action);
 void PmShutdownInterruptHandler(void);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_CORE_H_ */

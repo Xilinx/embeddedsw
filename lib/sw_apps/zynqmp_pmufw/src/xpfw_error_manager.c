@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -26,42 +26,283 @@
 #include "xpfw_error_manager.h"
 #include "xpfw_mod_em.h"
 #include "xpfw_xpu.h"
+#include "xpfw_ipi_manager.h"
 
-u32 ErrorLog[EM_ERROR_LOG_MAX] = {0};
+u32 ErrorLog[EM_ERROR_LOG_MAX] = {0U};
 
 /*
  * Structure to define error action type and handler if action type
  * is EM_ACTION_CUSTOM for each error.
  */
 struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
-	[EM_ERR_ID_INVALID] = {.Type = (u8)0U, .RegMask = MASK32_ALL_LOW, .Action = EM_ACTION_NONE, .Handler = NULL},
-	[EM_ERR_ID_CSU_ROM] = { .Type = EM_ERR_TYPE_2, .RegMask = PMU_GLOBAL_ERROR_STATUS_2_CSU_ROM_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_PMU_PB] = { .Type = EM_ERR_TYPE_2, .RegMask = PMU_GLOBAL_ERROR_STATUS_2_PMU_PB_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_PMU_SERVICE] = { .Type = EM_ERR_TYPE_2, .RegMask = PMU_GLOBAL_ERROR_STATUS_2_PMU_SERVICE_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_PMU_FW] = { .Type = EM_ERR_TYPE_2, .RegMask = PMU_GLOBAL_ERROR_STATUS_2_PMU_FW_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_PMU_UC] = { .Type = EM_ERR_TYPE_2, .RegMask = PMU_GLOBAL_ERROR_STATUS_2_PMU_UC_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_CSU] = { .Type = EM_ERR_TYPE_2, .RegMask = PMU_GLOBAL_ERROR_STATUS_2_CSU_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_PLL_LOCK] = { .Type = EM_ERR_TYPE_2, .RegMask = PMU_GLOBAL_ERROR_STATUS_2_PLL_LOCK_MASK, .Action = EM_ACTION_NONE, .Handler = NullHandler},
-	[EM_ERR_ID_PL] = { .Type = EM_ERR_TYPE_2, .RegMask = PMU_GLOBAL_ERROR_STATUS_2_PL_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_TO] = { .Type = EM_ERR_TYPE_2, .RegMask = PMU_GLOBAL_ERROR_STATUS_2_TO_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_AUX3] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_AUX3_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_AUX2] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_AUX2_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_AUX1] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_AUX1_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_AUX0] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_AUX0_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_DFT] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_DFT_MASK, .Action = EM_ACTION_SRST, .Handler = NullHandler},
-	[EM_ERR_ID_CLK_MON] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_CLK_MON_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_XMPU] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_XMPU_MASK, .Action = EM_ACTION_CUSTOM, .Handler = XPfw_XpuIntrHandler},
-	[EM_ERR_ID_PWR_SUPPLY] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_PWR_SUPPLY_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_FPD_SWDT] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_FPD_SWDT_MASK, .Action = EM_ACTION_SRST, .Handler = FpdSwdtHandler},
-	[EM_ERR_ID_LPD_SWDT] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK, .Action = EM_ACTION_SRST, .Handler = NullHandler},
-	[EM_ERR_ID_RPU_CCF] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_RPU_CCF_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_RPU_LS] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_RPU_LS_MASK, .Action = EM_ACTION_CUSTOM, .Handler = RpuLsHandler},
-	[EM_ERR_ID_FPD_TEMP] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_FPD_TEMP_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_LPD_TEMP] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_LPD_TEMP_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_RPU1] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_RPU1_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_RPU0] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_RPU0_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_OCM_ECC] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_OCM_ECC_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_DDR_ECC] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_DDR_ECC_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
+	[EM_ERR_ID_INVALID] =
+	{
+			.RegMask = MASK32_ALL_LOW,
+			.Handler = NULL,
+			.Type = (u8)0U,
+			.Action = EM_ACTION_NONE,
+			.ChngPerm = (u32)EM_ACTION_CHANGE_PERM_NONE
+	},
+	[EM_ERR_ID_CSU_ROM] = {
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_CSU_ROM_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_2,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_PMU_PB] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_PMU_PB_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_2,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_PMU_SERVICE] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_PMU_SERVICE_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_2,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_PMU_FW] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_PMU_FW_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_2,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_PMU_UC] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_PMU_UC_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_2,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_CSU] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_CSU_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_2,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_PLL_LOCK] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_PLL_LOCK_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_2,
+			.Action = EM_ACTION_NONE,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_PL] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_PL_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_2,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_TO] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_TO_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_2,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_AUX3] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_AUX3_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_AUX2] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_AUX2_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_AUX1] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_AUX1_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_AUX0] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_AUX0_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_CSU_SWDT] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_CSU_SWDT_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_SRST,
+			.ChngPerm = (u32)EM_ACTION_CHANGE_PERM_NONE
+	},
+	[EM_ERR_ID_CLK_MON] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_CLK_MON_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_XMPU] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_XMPU_MASK,
+			.Handler = XPfw_XpuIntrHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_CUSTOM,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_PWR_SUPPLY] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_PWR_SUPPLY_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_FPD_SWDT] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_FPD_SWDT_MASK,
+			.Handler = FpdSwdtHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_SRST,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_LPD_SWDT] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_SRST,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_RPU_CCF] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_RPU_CCF_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_RPU_LS] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_RPU_LS_MASK,
+			.Handler = RpuLsHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_CUSTOM,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_FPD_TEMP] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_FPD_TEMP_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_LPD_TEMP] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_LPD_TEMP_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_RPU1] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_RPU1_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_RPU0] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_RPU0_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_OCM_ECC] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_OCM_ECC_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
+	[EM_ERR_ID_DDR_ECC] =
+	{
+			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_DDR_ECC_MASK,
+			.Handler = NullHandler,
+			.Type = EM_ERR_TYPE_1,
+			.Action = EM_ACTION_PSERR,
+			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_0_MASK) |
+						(u32)(IPI_PMU_0_IER_RPU_1_MASK)
+	},
 };
 
 s32 XPfw_EmDisable(u8 ErrorId)
@@ -212,48 +453,46 @@ s32 XPfw_EmSetAction(u8 ErrorId, u8 ActionId,
 		Status = XST_FAILURE;
 		goto Done;
 	}
+	if((EM_ACTION_CUSTOM == ActionId) && (NULL == ErrorHandler)) {
+		/* Null handler */
+		Status = XST_FAILURE;
+		goto Done;
+	}
+
+	if((ActionId > EM_ACTION_NONE) && (ActionId < EM_ACTION_MAX)) {
+		/* Disable the error actions for Error ID for configuring
+		 * the requested error action */
+		if (XST_SUCCESS != XPfw_EmDisable(ErrorId)) {
+			/* Error action disabling failure */
+			Status = XST_FAILURE;
+			goto Done;
+		}
+	}
 
 	switch (ActionId) {
 
 	case EM_ACTION_POR:
-		if (XPfw_EmDisable(ErrorId) != XST_SUCCESS) {
-			Status = XST_FAILURE;
-			goto Done;
-		}
+		/* Set the error action and enable it */
 		ErrorTable[ErrorId].Action = ActionId;
 		Status = XPfw_EmEnablePOR(ErrorId);
 		break;
 
 	case EM_ACTION_SRST:
-		if (XPfw_EmDisable(ErrorId) != XST_SUCCESS) {
-			Status = XST_FAILURE;
-			goto Done;
-		}
+		/* Set error action POR for the errorId */
 		ErrorTable[ErrorId].Action = ActionId;
 		Status = XPfw_EmEnableSRST(ErrorId);
 		break;
 
 	case EM_ACTION_CUSTOM:
-		if (ErrorHandler != NULL) {
-			if (XPfw_EmDisable(ErrorId) != XST_SUCCESS) {
-				Status = XST_FAILURE;
-				goto Done;
-			}
-			ErrorTable[ErrorId].Action = ActionId;
-			ErrorTable[ErrorId].Handler = ErrorHandler;
-			Status = XPfw_EmEnableInt(ErrorId);
-		} else {
-			/* Null handler */
-			Status = XST_FAILURE;
-		}
+		/* Set custom handler as error action for the errorId */
+		ErrorTable[ErrorId].Action = ActionId;
+		ErrorTable[ErrorId].Handler = ErrorHandler;
+		Status = XPfw_EmEnableInt(ErrorId);
 		break;
 
 	case EM_ACTION_PSERR:
-		if (XPfw_EmDisable(ErrorId) != XST_SUCCESS) {
-			Status = XST_FAILURE;
-			goto Done;
-		}
 		ErrorTable[ErrorId].Action = ActionId;
+		/* Set error action PSERR signal for the errorId */
 		Status = XPfw_EmEnablePSError(ErrorId);
 		break;
 
@@ -271,10 +510,11 @@ Done:
 s32 XPfw_EmProcessError(u8 ErrorType)
 {
 	s32 Status;
-	u32 ErrRegVal;
+	u32 ErrRegVal = 0U;
 	u8 Index;
-	u32 RegAddress;
+	u32 RegAddress = 0U;
 
+	/* Read the error status register based on error type */
 	switch (ErrorType) {
 	case EM_ERR_TYPE_1:
 		RegAddress = PMU_GLOBAL_ERROR_STATUS_1;
