@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2001 - 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2001 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xwdttb.h
-* @addtogroup wdttb_v4_3
+* @addtogroup wdttb_v4_4
 * @{
 * @details
 *
@@ -156,6 +156,20 @@
 *                     definitions of wdttb in xparameters.h
 * 4.3   srm  01/27/18 Added XWdtTb_ProgramWDTWidth to pragram the WDT width
 *            01/30/18 Added doxygen tags
+* 4.4   aru  11/15/18 Replaced "Xil_AssertVoid" as "Xil_AssertNonvoid"
+*                     in XWdtTb_ProgramWDTWidth().
+* 4.4   sne  03/01/19 Fixed violations according to MISRAC-2012 standards
+*                     modified the code for below violations,
+*                     No brackets to then/else,
+*                     Literal value requires a U suffix,Function return
+*                     type inconsistent,Logical conjunctions need brackets,
+*                     Declared the poiner param as Pointer to const,
+*                     Procedure has more than one exit point.
+* 4.4   sne  03/04/19 Added support for Versal ( Generic Watchdog and
+*                     Window Watchdog timer).
+*                     Added following functions:
+*                     XWdtTb_IsGenericWdtFWExpired, XWdtTb_SetSSTWindow
+*                     XWdtTb_SetGenericWdtWindow.
 * </pre>
 *
 ******************************************************************************/
@@ -196,9 +210,11 @@ typedef enum {
 typedef struct {
 	u16 DeviceId;		/**< Unique ID of the device */
 	UINTPTR BaseAddr;	/**< Base address of the device */
+#ifndef versal
 	u32 EnableWinWdt;	/**< Flag for Window WDT enable */
 	u32 MaxCountWidth;	/**< Maximum width of first timer */
 	u32 SstCountWidth;	/**< Maximum width of Second Sequence Timer */
+#endif
 } XWdtTb_Config;
 
 /**
@@ -212,10 +228,10 @@ typedef struct {
 	u32 IsReady;		/**< Device is initialized and ready */
 	u32 IsStarted;		/**< Device watchdog timer is running */
 	u32 EnableFailCounter;	/**< Fail counter, 0 = Disable, 1 = Enable */
+       u32 EnableWinMode;      /**<Enable Window WDT Method,0= DIsable,1=Enable*/
 } XWdtTb;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
 /*****************************************************************************/
 /**
 *
@@ -229,17 +245,16 @@ typedef struct {
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XWdtTb_GetTbValue(XWdtTb *InstancePtr)
+static inline u32 XWdtTb_GetTbValue(const XWdtTb *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(InstancePtr->Config.EnableWinWdt == 0U);
+	Xil_AssertNonvoid(InstancePtr->EnableWinMode == 0U);
 
 	/* Return the contents of the timebase register */
 	return XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_TBR_OFFSET);
 }
-
 /*****************************************************************************/
 /**
 *
@@ -259,12 +274,12 @@ static inline u32 XWdtTb_GetTbValue(XWdtTb *InstancePtr)
 *		are ignored and does not lead to good or bad event generation.
 *
 ******************************************************************************/
-static inline void XWdtTb_SetRegSpaceAccessMode(XWdtTb *InstancePtr,
+static inline void XWdtTb_SetRegSpaceAccessMode(const XWdtTb *InstancePtr,
 						u32 AccessMode)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->Config.EnableWinWdt == 1U);
+	Xil_AssertVoid(InstancePtr->EnableWinMode == 1U);
 	Xil_AssertVoid((AccessMode == 0U) || (AccessMode == 1U));
 
 	/* Write access mode */
@@ -287,11 +302,11 @@ static inline void XWdtTb_SetRegSpaceAccessMode(XWdtTb *InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XWdtTb_GetRegSpaceAccessMode(XWdtTb *InstancePtr)
+static inline u32 XWdtTb_GetRegSpaceAccessMode(const XWdtTb *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.EnableWinWdt == 1U);
+	Xil_AssertNonvoid(InstancePtr->EnableWinMode == 1U);
 
 	/* Read master write control register and return register space read
 	 * only or writable
@@ -314,11 +329,11 @@ static inline u32 XWdtTb_GetRegSpaceAccessMode(XWdtTb *InstancePtr)
 *		reset was caused by a watchdog timeout.
 *
 ******************************************************************************/
-static inline u32 XWdtTb_GetLastEvent(XWdtTb *InstancePtr)
+static inline u32 XWdtTb_GetLastEvent(const XWdtTb *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.EnableWinWdt == 1U);
+	Xil_AssertNonvoid(InstancePtr->EnableWinMode == 1U);
 
 	/* Read enable status register and return last bad event(s) */
 	return ((XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET) &
@@ -343,12 +358,12 @@ static inline u32 XWdtTb_GetLastEvent(XWdtTb *InstancePtr)
 *		- When fail counter is disabled, bad event leads to reset.
 *
 ******************************************************************************/
-static inline u32 XWdtTb_GetFailCounter(XWdtTb *InstancePtr)
+static inline u32 XWdtTb_GetFailCounter(const XWdtTb *InstancePtr)
 {
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.EnableWinWdt == 1U);
+	Xil_AssertNonvoid(InstancePtr->EnableWinMode == 1U);
 
 	/* Read enable status register and return fail counter value */
 	return ((XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET) &
@@ -371,11 +386,11 @@ static inline u32 XWdtTb_GetFailCounter(XWdtTb *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XWdtTb_IsResetPending(XWdtTb *InstancePtr)
+static inline u32 XWdtTb_IsResetPending(const XWdtTb *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.EnableWinWdt == 1U);
+	Xil_AssertNonvoid(InstancePtr->EnableWinMode == 1U);
 
 	/* Read enable status register and return reset pending bit */
 	return ((XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET) &
@@ -400,11 +415,11 @@ static inline u32 XWdtTb_IsResetPending(XWdtTb *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XWdtTb_GetIntrStatus(XWdtTb *InstancePtr)
+static inline u32 XWdtTb_GetIntrStatus(const XWdtTb *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.EnableWinWdt == 1U);
+	Xil_AssertNonvoid(InstancePtr->EnableWinMode == 1U);
 
 	/* Read enable status register and return interrupt status */
 	return ((XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET) &
@@ -427,23 +442,53 @@ static inline u32 XWdtTb_GetIntrStatus(XWdtTb *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XWdtTb_IsWrongCfg(XWdtTb *InstancePtr)
+static inline u32 XWdtTb_IsWrongCfg(const XWdtTb *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.EnableWinWdt == 1U);
+	Xil_AssertNonvoid(InstancePtr->EnableWinMode == 1U);
 
 	/* Read enable status register and return wrong configuration value */
 	return ((XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET) &
 		XWT_ESR_WCFG_MASK) >> XWT_ESR_WCFG_SHIFT);
 }
+/*****************************************************************************/
+/**
+*
+* This function sets the count value for the  Second Sequence Timer window.
+*
+* @param     InstancePtr is a pointer to the XWdtTb instance to be
+*            worked on.
+* @param     SST_window_config specifies the first window count value.
+*
+* @return    None.
+*
+* @note
+*            This function must be called before Window WDT start/enable
+*            or after Window WDT stop/disable.
+*            - For SSTWR window, This option provides additional time to software
+*              by delaying the inevitable wwdt_reset assertion/generation by
+*              SC count delay
+*
+******************************************************************************/
+
+static inline void XWdtTb_SetSSTWindow(const XWdtTb *InstancePtr, u32 SST_window_config)
+{
+        /* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid(InstancePtr->EnableWinMode == (u32)TRUE);
+
+        /*  Write SST window count value */
+        XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_SSTWR_OFFSET,SST_window_config);
+}
+
 
 /************************** Function Prototypes ******************************/
 
 /*
  * Required functions in xwdttb.c
  */
- s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, XWdtTb_Config *CfgPtr,
+ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 				u32 EffectiveAddr);
 
 s32 XWdtTb_Initialize(XWdtTb *InstancePtr, u16 DeviceId);
@@ -452,39 +497,41 @@ void XWdtTb_Start(XWdtTb *InstancePtr);
 
 s32 XWdtTb_Stop(XWdtTb *InstancePtr);
 
-u32 XWdtTb_IsWdtExpired(XWdtTb *InstancePtr);
+u32 XWdtTb_IsWdtExpired(const XWdtTb *InstancePtr);
+u32 XWdtTb_IsGenericWdtFWExpired(const XWdtTb *InstancePtr);
 
-void XWdtTb_RestartWdt(XWdtTb *InstancePtr);
+void XWdtTb_RestartWdt(const XWdtTb *InstancePtr);
 
 XWdtTb_Config *XWdtTb_LookupConfig(u16 DeviceId);
 
 /* Window WDT functions implemented in xwdttb.c */
-void XWdtTb_AlwaysEnable(XWdtTb *InstancePtr);
-void XWdtTb_ClearLastEvent(XWdtTb *InstancePtr);
-void XWdtTb_ClearResetPending(XWdtTb *InstancePtr);
-void XWdtTb_IntrClear(XWdtTb *InstancePtr);
+void XWdtTb_AlwaysEnable(const XWdtTb *InstancePtr);
+void XWdtTb_ClearLastEvent(const XWdtTb *InstancePtr);
+void XWdtTb_ClearResetPending(const XWdtTb *InstancePtr);
+void XWdtTb_IntrClear(const XWdtTb *InstancePtr);
 
-void XWdtTb_SetByteCount(XWdtTb *InstancePtr, u32 ByteCount);
-u32 XWdtTb_GetByteCount(XWdtTb *InstancePtr);
-void XWdtTb_SetByteSegment(XWdtTb *InstancePtr, u32 ByteSegment);
-u32 XWdtTb_GetByteSegment(XWdtTb *InstancePtr);
-void XWdtTb_EnableSst(XWdtTb *InstancePtr);
-void XWdtTb_DisableSst(XWdtTb *InstancePtr);
-void XWdtTb_EnablePsm(XWdtTb *InstancePtr);
-void XWdtTb_DisablePsm(XWdtTb *InstancePtr);
+void XWdtTb_SetByteCount(const XWdtTb *InstancePtr, u32 ByteCount);
+u32 XWdtTb_GetByteCount(const XWdtTb *InstancePtr);
+void XWdtTb_SetByteSegment(const XWdtTb *InstancePtr, u32 ByteSegment);
+u32 XWdtTb_GetByteSegment(const XWdtTb *InstancePtr);
+void XWdtTb_EnableSst(const XWdtTb *InstancePtr);
+void XWdtTb_DisableSst(const XWdtTb *InstancePtr);
+void XWdtTb_EnablePsm(const XWdtTb *InstancePtr);
+void XWdtTb_DisablePsm(const XWdtTb *InstancePtr);
 void XWdtTb_EnableFailCounter(XWdtTb *InstancePtr);
 void XWdtTb_DisableFailCounter(XWdtTb *InstancePtr);
-void XWdtTb_EnableExtraProtection(XWdtTb *InstancePtr);
-void XWdtTb_DisableExtraProtection(XWdtTb *InstancePtr);
+void XWdtTb_EnableExtraProtection(const XWdtTb *InstancePtr);
+void XWdtTb_DisableExtraProtection(const XWdtTb *InstancePtr);
 
-void XWdtTb_SetWindowCount(XWdtTb *InstancePtr, u32 FirstWinCount,
+void XWdtTb_SetWindowCount(const XWdtTb *InstancePtr, u32 FirstWinCount,
 				u32 SecondWinCount);
-u32 XWdtTb_ProgramWDTWidth(XWdtTb *InstancePtr, u32 width);
+void XWdtTb_SetGenericWdtWindow(const XWdtTb *InstancePtr,u32 GWCVR0_config, u32 GWCVR1_config, u32 GWOR_config);
+u32 XWdtTb_ProgramWDTWidth(const XWdtTb *InstancePtr, u32 width);
 
 /*
  * Self-test functions in xwdttb_selftest.c
  */
-s32 XWdtTb_SelfTest(XWdtTb *InstancePtr);
+s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr);
 
 #ifdef __cplusplus
 }

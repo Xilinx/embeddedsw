@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------------
 * 1.0   vnsld   22/10/14 First release
+* 1.4   adk     04/12/17 Added support for PMC DMA.
 * </pre>
 *
 ******************************************************************************/
@@ -62,6 +63,11 @@
 #define CSU_SSS_CONFIG_OFFSET	0x008		/**< CSU SSS_CFG Offset */
 #define CSUDMA_LOOPBACK_CFG	0x00000050	/**< LOOP BACK configuration
 						  *  macro */
+#define PMC_SSS_CONFIG_OFFSET	0x500		/**< CSU SSS_CFG Offset */
+#define PMCDMA0_LOOPBACK_CFG	0x0000000D	/**< LOOP BACK configuration
+						  *  macro for PMCDMA0*/
+#define PMCDMA1_LOOPBACK_CFG	0x00000090	/**< LOOP BACK configuration
+						  *  macro for PMCDMA1*/
 
 #define SRC_ADDR	0x04200000		/**< Source Address */
 #define DST_ADDR	0x04300000		/**< Destination Address */
@@ -150,6 +156,11 @@ int XCsuDma_PolledExample(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
+#if defined (versal)
+	if (Config->DmaType != XCSUDMA_DMATYPEIS_CSUDMA)
+		XCsuDma_PmcReset(Config->DmaType);
+#endif
+
 	/*
 	 * Performs the self-test to check hardware build.
 	 */
@@ -161,10 +172,21 @@ int XCsuDma_PolledExample(u16 DeviceId)
 	/*
 	 * Setting CSU_DMA in loop back mode.
 	 */
-
-	Xil_Out32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET,
-		((Xil_In32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET) & 0xF0000) |
-					CSUDMA_LOOPBACK_CFG));
+	if (Config->DmaType == XCSUDMA_DMATYPEIS_CSUDMA) {
+		Xil_Out32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET,
+			((Xil_In32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET) & 0xF0000) |
+						CSUDMA_LOOPBACK_CFG));
+#if defined (versal)
+	} else if(Config->DmaType == XCSUDMA_DMATYPEIS_PMCDMA0) {
+		Xil_Out32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET,
+			((Xil_In32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET) & 0xFF000000) |
+						PMCDMA0_LOOPBACK_CFG));
+	} else {
+		Xil_Out32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET,
+			((Xil_In32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET) & 0xFF000000) |
+						PMCDMA1_LOOPBACK_CFG));
+#endif
+	}
 
 	/* Data writing at source address location */
 

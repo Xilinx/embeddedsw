@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,11 +25,12 @@
  * this Software without prior written authorization from Xilinx.
  *
  ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
  * @file xqspipsu.c
- * @addtogroup qspipsu_v1_8
+ * @addtogroup qspipsu_v1_9
  * @{
  *
  * This file implements the functions required to use the QSPIPSU hardware to
@@ -49,27 +50,38 @@
  *       sk  06/17/15 Removed NULL checks for Rx/Tx buffers. As
  *                    writing/reading from 0x0 location is permitted.
  * 1.1   sk  04/12/16 Added debug message prints.
- * 1.2	nsk 07/01/16 Changed XQspiPsu_Select to support GQSPI and LQSPI
- *		     selection.
+ * 1.2 nsk 07/01/16 Changed XQspiPsu_Select to support GQSPI and LQSPI
+ *                  selection.
  *       rk  07/15/16 Added support for TapDelays at different frequencies.
- *	nsk 08/05/16 Added example support PollData and PollTimeout
- * 1.3	nsk 09/16/16 Update PollData and PollTimeout support for dual
- *	             parallel configurations, modified XQspiPsu_PollData()
- *	             and XQspiPsu_Create_PollConfigData()
- * 1,5	nsk 08/14/17 Added CCI support
- * 1.7	tjs 01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
- * 1.7	tjs 01/17/18 Added a support to toggle WP pin of the flash.
- * 1.7	tjs 03/14/18 Added support in EL1 NS mode (CR#974882)
- * 1.8	tjs 06/26/18 Added an example for accessing 64bit dma within
- *		     32 bit application. CR#1004701
- * 1.8	tjs 06/26/18 Removed checkpatch warnings.
- * 1.8	tjs 07/09/18 Fixed cppcheck and doxygen warnings. (CR#1006336)
- * 1.8	tjs 07/18/18 Setup64BRxDma() should be called only if the RxAddress is
- *		     greater than 32 bit address space. (CR#1006862)
- * 1.8	tjs 09/06/18 Fixed the code in XQspiPsu_GenFifoEntryData() for data
- *		     transfer length up to 255 for reducing the extra loop.
+ *     nsk 08/05/16 Added example support PollData and PollTimeout
+ * 1.3 nsk 09/16/16 Update PollData and PollTimeout support for dual
+ *                  parallel configurations, modified XQspiPsu_PollData()
+ *                  and XQspiPsu_Create_PollConfigData()
+ * 1,5 nsk 08/14/17 Added CCI support
+ * 1.7 tjs 01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
+ * 1.7 tjs 01/17/18 Added a support to toggle WP pin of the flash.
+ * 1.7 tjs 03/14/18 Added support in EL1 NS mode (CR#974882)
+ * 1.8 tjs 06/26/18 Added an example for accessing 64bit dma within
+ *                  32 bit application. CR#1004701
+ * 1.8 tjs 06/26/18 Removed checkpatch warnings.
+ * 1.8 tjs 07/09/18 Fixed cppcheck and doxygen warnings. (CR#1006336)
+ * 1.8 tjs 07/18/18 Setup64BRxDma() should be called only if the RxAddress is
+ *                  greater than 32 bit address space. (CR#1006862)
+ * 1.8 tjs 09/06/18 Fixed the code in XQspiPsu_GenFifoEntryData() for data
+ *                  transfer length up to 255 for reducing the extra loop.
  * 1.8  mus 11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
- *
+ * 1.9 tjs 11/22/17 Added the check for A72 and R5 processors (CR-987075)
+ * 1.9 tjs 04/17/18 Updated register addresses as per the latest revision
+ *		    of versal (CR#999610)
+ * 1.9  aru 01/17/19 Fixes violations according to MISRAC-2012
+ *                  in safety mode and modified the code such as
+ *                  Added UNITPTR inplace of INTPTR,Declared the pointer param
+ *		    as Pointer to const .
+ * 1.9  nsk 02/01/19 Clear DMA_DST_ADDR_MSB register on 32bit machine, if the
+ *		     address is of only 32bit (CR#1020031)
+ * 1.9  nsk 02/01/19 Added QSPI idling support.
+ * 1.9  rama 03/13/19 Fixed MISRA violations related to UR data anamoly,
+ *					  expression is not a boolean
  * </pre>
  *
  ******************************************************************************/
@@ -85,26 +97,26 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
+static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
 			u32 ByteCount);
 static inline u32 XQspiPsu_SelectSpiMode(u8 SpiMode);
 static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			u32 *GenFifoEntry);
 static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
 			XQspiPsu_Msg *Msg, s32 Size);
-static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
+static inline void XQspiPsu_SetupRxDma(const XQspiPsu *InstancePtr,
 			XQspiPsu_Msg *Msg);
-static inline void XQspiPsu_GenFifoEntryCSAssert(XQspiPsu *InstancePtr);
+static inline void XQspiPsu_GenFifoEntryCSAssert(const XQspiPsu *InstancePtr);
 static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 			XQspiPsu_Msg *Msg, s32 Index);
-static inline void XQspiPsu_GenFifoEntryCSDeAssert(XQspiPsu *InstancePtr);
+static inline void XQspiPsu_GenFifoEntryCSDeAssert(const XQspiPsu *InstancePtr);
 static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
 			XQspiPsu_Msg *Msg, s32 Size);
 static inline void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr,
 		XQspiPsu_Msg *FlashMsg);
-static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
-		XQspiPsu_Msg *FlashMsg);
-static inline void XQspiPsu_Setup64BRxDma(XQspiPsu *InstancePtr,
+static inline u32 XQspiPsu_Create_PollConfigData(const XQspiPsu *QspiPsuPtr,
+		const XQspiPsu_Msg *FlashMsg);
+static inline void XQspiPsu_Setup64BRxDma(const XQspiPsu *InstancePtr,
 			XQspiPsu_Msg *Msg);
 /************************** Variable Definitions *****************************/
 
@@ -135,7 +147,7 @@ static inline void XQspiPsu_Setup64BRxDma(XQspiPsu *InstancePtr,
  * @note	None.
  *
  ******************************************************************************/
-s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
+s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, const XQspiPsu_Config *ConfigPtr,
 				u32 EffectiveAddr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -193,6 +205,43 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
 	}
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * Stops the transfer of data to internal DST FIFO from stream interface and
+ * also stops the issuing of new write commands to memory.
+ *
+ * By calling this API, any ongoing Dma transfers will be paused and DMA will
+ * not issue AXI write commands to memory
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+void XQspiPsu_Idle(const XQspiPsu *InstancePtr)
+{
+	u32 RegEn;
+	u32 DmaStatus;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/* Check for QSPI enable */
+	RegEn = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_EN_OFFSET);
+	if ((RegEn & XQSPIPSU_EN_MASK) != 0U) {
+		DmaStatus = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+				XQSPIPSU_QSPIDMA_DST_CTRL_OFFSET);
+		DmaStatus |= XQSPIPSU_QSPIDMA_DST_CTRL_PAUSE_STRM_MASK;
+		DmaStatus |= XQSPIPSU_QSPIDMA_DST_CTRL_PAUSE_MEM_MASK;
+		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XQSPIPSU_QSPIDMA_DST_CTRL_OFFSET,
+				DmaStatus);
+	}
 }
 
 /*****************************************************************************/
@@ -376,6 +425,7 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	u32 BaseAddress;
 	s32 RxThr;
 	u32 IOPending = (u32)FALSE;
+	s32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -388,7 +438,8 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	 * Not thread-safe
 	 */
 	if (InstancePtr->IsBusy == TRUE) {
-		return (s32)XST_DEVICE_BUSY;
+		Status = (s32)XST_DEVICE_BUSY;
+		goto END;
 	}
 
 	/* Check for ByteCount upper limit - 2^28 for DMA */
@@ -396,7 +447,8 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		if ((Msg[Index].ByteCount > XQSPIPSU_DMA_BYTES_MAX) &&
 				((Msg[Index].Flags &
 					XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
-			return (s32)XST_FAILURE;
+			Status = (s32)XST_FAILURE;
+			goto END;
 		}
 	}
 
@@ -484,18 +536,19 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			} else {
 				if ((Msg[Index].Flags &
 					XQSPIPSU_MSG_FLAG_RX) != FALSE) {
-					/*
-					 * Check if PIO RX is complete and
-					 * update RxBytes
-					 */
-					RxThr = (s32)XQspiPsu_ReadReg(
-						BaseAddress,
-						XQSPIPSU_RX_THRESHOLD_OFFSET);
 					if ((QspiPsuStatusReg &
 						XQSPIPSU_ISR_RXNEMPTY_MASK)
 						!= 0U) {
+						/*
+						 * Check if PIO RX is complete and
+						 * update RxBytes
+						 */
+					RxThr = (s32)XQspiPsu_ReadReg(
+						        BaseAddress,
+						        XQSPIPSU_RX_THRESHOLD_OFFSET);
+						RxThr = RxThr*4;
 						XQspiPsu_ReadRxFifo(InstancePtr,
-							&Msg[Index], RxThr*4);
+							&Msg[Index], RxThr);
 
 					} else {
 						if ((QspiPsuStatusReg &
@@ -558,7 +611,10 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	/* Disable the device. */
 	XQspiPsu_Disable(InstancePtr);
 
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+
+	END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -586,6 +642,7 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 	s32 Index;
 	u32 BaseAddress;
+	s32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -598,10 +655,11 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	 * Not thread-safe
 	 */
 	if (InstancePtr->IsBusy == TRUE) {
-		return (s32)XST_DEVICE_BUSY;
+		Status = (s32)XST_DEVICE_BUSY;
+		goto END;
 	}
 
-	if (Msg[0].Flags & XQSPIPSU_MSG_FLAG_POLL) {
+	if ((Msg[0].Flags & XQSPIPSU_MSG_FLAG_POLL) != FALSE) {
 		InstancePtr->IsBusy = TRUE;
 		XQspiPsu_PollData(InstancePtr, Msg);
 	} else {
@@ -610,7 +668,8 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			if ((Msg[Index].ByteCount > XQSPIPSU_DMA_BYTES_MAX) &&
 				((Msg[Index].Flags &
 					XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
-				return (s32)XST_FAILURE;
+				Status = (s32)XST_FAILURE;
+				goto END;
 			}
 		}
 
@@ -658,7 +717,10 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 				XQSPIPSU_QSPIDMA_DST_I_EN_DONE_MASK);
 	}
 	}
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+
+	END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -779,9 +841,10 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 					RxThr =
 					(s32)XQspiPsu_ReadReg(BaseAddress,
 						XQSPIPSU_RX_THRESHOLD_OFFSET);
+					RxThr = RxThr*4;
 					XQspiPsu_ReadRxFifo(InstancePtr,
 						&Msg[MsgCnt],
-						RxThr*4);
+						RxThr);
 				} else {
 					if (((QspiPsuStatusReg &
 						XQSPIPSU_ISR_GENFIFOEMPTY_MASK)
@@ -895,14 +958,14 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 		}
 	}
 	if ((TxRxFlag & XQSPIPSU_MSG_FLAG_POLL) != FALSE) {
-		if (QspiPsuStatusReg & XQSPIPSU_ISR_RXNEMPTY_MASK) {
+		if ((QspiPsuStatusReg & XQSPIPSU_ISR_RXNEMPTY_MASK) != FALSE) {
 			/*
 			 * Read data from RXFIFO, since when data from the
 			 * flash device (status data) matched with configured
 			 * value in poll_cfg, then controller writes the
 			 * matched data into RXFIFO.
 			 */
-			XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+			(void)XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_RXD_OFFSET);
 
 			XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_IDR_OFFSET,
@@ -920,7 +983,7 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 			XQspiPsu_Disable(InstancePtr);
 
 		}
-		if (QspiPsuStatusReg & XQSPIPSU_ISR_POLL_TIME_EXPIRE_MASK) {
+		if ((QspiPsuStatusReg & XQSPIPSU_ISR_POLL_TIME_EXPIRE_MASK) != FALSE) {
 			InstancePtr->StatusHandler(InstancePtr->StatusRef,
 					XST_FLASH_TIMEOUT_ERROR, 0);
 		}
@@ -992,10 +1055,10 @@ void XQspiPsu_SetStatusHandler(XQspiPsu *InstancePtr, void *CallBackRef,
  * @note	None.
  *
  ******************************************************************************/
-static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
+static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
 				u32 ByteCount)
 {
-	(void) CallBackRef;
+	(const void) CallBackRef;
 	(void) StatusEvent;
 	(void) ByteCount;
 
@@ -1102,7 +1165,7 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 	/* If only dummy is requested as a separate entry */
 	if (((Msg->Flags & XQSPIPSU_MSG_FLAG_TX) == FALSE) &&
-			(Msg->Flags & XQSPIPSU_MSG_FLAG_RX) == FALSE) {
+			((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) == FALSE)) {
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
 		*GenFifoEntry &= ~(XQSPIPSU_GENFIFO_TX | XQSPIPSU_GENFIFO_RX);
 		InstancePtr->TxBytes = 0;
@@ -1152,7 +1215,7 @@ static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
 					XQspiPsu_Msg *Msg, s32 Size)
 {
 	s32 Count = 0;
-	u32 Data;
+	u32 Data = 0U;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
@@ -1162,13 +1225,13 @@ static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
 
 	while ((InstancePtr->TxBytes > 0) && (Count < Size)) {
 		if (InstancePtr->TxBytes >= 4) {
-			(void)memcpy(&Data, Msg->TxBfrPtr, 4);
+			(void)Xil_MemCpy((u8 *)&Data, Msg->TxBfrPtr, 4);
 			Msg->TxBfrPtr += 4;
 			InstancePtr->TxBytes -= 4;
 			Count += 4;
 		} else {
-			(void)memcpy(&Data, Msg->TxBfrPtr,
-				InstancePtr->TxBytes);
+			(void)Xil_MemCpy((u8 *)&Data, Msg->TxBfrPtr,
+				(u32)InstancePtr->TxBytes);
 			Msg->TxBfrPtr += InstancePtr->TxBytes;
 			Count += InstancePtr->TxBytes;
 			InstancePtr->TxBytes = 0;
@@ -1198,16 +1261,16 @@ static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
  * @note	None.
  *
  ******************************************************************************/
-static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
+static inline void XQspiPsu_SetupRxDma(const XQspiPsu *InstancePtr,
 					XQspiPsu_Msg *Msg)
 {
 	s32 Remainder;
 	s32 DmaRxBytes;
-	u64 AddrTemp;
+	UINTPTR AddrTemp;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	AddrTemp = (u64)((INTPTR)(Msg->RxBfrPtr) &
+	AddrTemp = ((UINTPTR)(Msg->RxBfrPtr) &
 				XQSPIPSU_QSPIDMA_DST_ADDR_MASK);
 	/* Check for RXBfrPtr to be word aligned */
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
@@ -1215,11 +1278,15 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 			(u32)AddrTemp);
 
 #if defined(__aarch64__) || defined(__arch64__)
-	AddrTemp = (u64)((INTPTR)(Msg->RxBfrPtr) >> 32);
+	AddrTemp = ((UINTPTR)(Msg->RxBfrPtr) >> 32U);
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,
 			(u32)AddrTemp &
 			XQSPIPSU_QSPIDMA_DST_ADDR_MSB_MASK);
+#else
+	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,
+			0U);
 #endif
 
 	Remainder = InstancePtr->RxBytes % 4;
@@ -1229,7 +1296,7 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 		DmaRxBytes = InstancePtr->RxBytes - Remainder;
 		Msg->ByteCount = (u32)DmaRxBytes;
 	}
-	if (InstancePtr->Config.IsCacheCoherent == 0) {
+	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr,
 			Msg->ByteCount);
 	}
@@ -1254,12 +1321,12 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
  * @note	None.
  *
  ******************************************************************************/
-static inline void XQspiPsu_Setup64BRxDma(XQspiPsu *InstancePtr,
+static inline void XQspiPsu_Setup64BRxDma(const XQspiPsu *InstancePtr,
 					XQspiPsu_Msg *Msg)
 {
 	s32 Remainder;
 	s32 DmaRxBytes;
-	u32 AddrTemp;
+	u64 AddrTemp;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	AddrTemp = Msg->RxAddr64bit & XQSPIPSU_QSPIDMA_DST_ADDR_MASK;
@@ -1300,7 +1367,7 @@ static inline void XQspiPsu_Setup64BRxDma(XQspiPsu *InstancePtr,
  * @note	None.
  *
  ******************************************************************************/
-static inline void XQspiPsu_GenFifoEntryCSAssert(XQspiPsu *InstancePtr)
+static inline void XQspiPsu_GenFifoEntryCSAssert(const XQspiPsu *InstancePtr)
 {
 	u32 GenFifoEntry;
 
@@ -1456,7 +1523,7 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
  * @note	None.
  *
  ******************************************************************************/
-static inline void XQspiPsu_GenFifoEntryCSDeAssert(XQspiPsu *InstancePtr)
+static inline void XQspiPsu_GenFifoEntryCSDeAssert(const XQspiPsu *InstancePtr)
 {
 	u32 GenFifoEntry;
 
@@ -1515,14 +1582,14 @@ static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
 		xil_printf("\nData is %08x\r\n", Data);
 #endif
 		if (InstancePtr->RxBytes >= 4) {
-			(void)memcpy(Msg->RxBfrPtr, &Data, 4);
+			(void)Xil_MemCpy(Msg->RxBfrPtr, (u8 *)&Data, 4);
 			InstancePtr->RxBytes -= 4;
 			Msg->RxBfrPtr += 4;
 			Count += 4;
 		} else {
 			/* Read unaligned bytes (< 4 bytes) */
-			(void)memcpy(Msg->RxBfrPtr, &Data,
-				InstancePtr->RxBytes);
+			(void)Xil_MemCpy(Msg->RxBfrPtr, (u8 *)&Data,
+				(u32)InstancePtr->RxBytes);
 			Msg->RxBfrPtr += InstancePtr->RxBytes;
 			Count += InstancePtr->RxBytes;
 			InstancePtr->RxBytes = 0;
@@ -1546,7 +1613,7 @@ static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
  * @note	None.
  *
  ******************************************************************************/
-void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMsg)
+static inline void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMsg)
 {
 
 	u32 GenFifoEntry;
@@ -1582,11 +1649,11 @@ void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMsg)
 	GenFifoEntry |= QspiPsuPtr->GenFifoBus;
 	GenFifoEntry |= QspiPsuPtr->GenFifoCS;
 	GenFifoEntry |= (u32)XQSPIPSU_GENFIFO_MODE_SPI;
-	if (((FlashMsg->Flags) & XQSPIPSU_MSG_FLAG_STRIPE) != FALSE)
+	if (((FlashMsg->Flags) & XQSPIPSU_MSG_FLAG_STRIPE) != FALSE) {
 		GenFifoEntry |= XQSPIPSU_GENFIFO_STRIPE;
-	else
+	} else {
 		GenFifoEntry &= ~XQSPIPSU_GENFIFO_STRIPE;
-
+	}
 	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
 		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
 
@@ -1629,21 +1696,23 @@ void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMsg)
  * @note	None.
  *
  ******************************************************************************/
-static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
-		XQspiPsu_Msg *FlashMsg)
+static inline u32 XQspiPsu_Create_PollConfigData(const XQspiPsu *QspiPsuPtr,
+		const XQspiPsu_Msg *FlashMsg)
 {
 	u32 ConfigData = 0;
 
-	if (QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_UPPER)
+	if ((QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_UPPER) != FALSE) {
 		ConfigData = XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
 				XQSPIPSU_POLL_CFG_EN_MASK_UPPER_SHIFT;
-	if (QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_LOWER)
+	}
+	if ((QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_LOWER) != FALSE) {
 		ConfigData |= XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
 				XQSPIPSU_POLL_CFG_EN_MASK_LOWER_SHIFT;
-	ConfigData |= ((FlashMsg->PollBusMask <<
+	}
+	ConfigData |= (u32)(((u32)FlashMsg->PollBusMask <<
 			XQSPIPSU_POLL_CFG_MASK_EN_SHIFT)
 			& XQSPIPSU_POLL_CFG_MASK_EN_MASK);
-	ConfigData |= ((FlashMsg->PollData <<
+	ConfigData |= (u32)(((u32)FlashMsg->PollData <<
 			XQSPIPSU_POLL_CFG_DATA_VALUE_SHIFT)
 			& XQSPIPSU_POLL_CFG_DATA_VALUE_MASK);
 	return ConfigData;
@@ -1665,26 +1734,25 @@ static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
  *		will enable the protection.
  *
  ******************************************************************************/
-void XQspiPsu_WriteProtectToggle(XQspiPsu *QspiPsuPtr, u32 Toggle)
+void XQspiPsu_WriteProtectToggle(const XQspiPsu *InstancePtr, u32 Toggle)
 {
 	/* For Single and Stacked flash configuration with x1 or x2 mode*/
-	if (QspiPsuPtr->Config.ConnectionMode ==
+	if (InstancePtr->Config.ConnectionMode ==
 		XQSPIPSU_CONNECTION_MODE_SINGLE) {
 		/* Enable */
-		XQspiPsu_Enable(QspiPsuPtr);
+		XQspiPsu_Enable(InstancePtr);
 
 		/* Select slave */
-		XQspiPsu_GenFifoEntryCSAssert(QspiPsuPtr);
+		XQspiPsu_GenFifoEntryCSAssert(InstancePtr);
 
-		XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
+		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_GPIO_OFFSET, Toggle);
 
-	} else if ((QspiPsuPtr->Config.ConnectionMode ==
-			XQSPIPSU_CONNECTION_MODE_PARALLEL) ||
-			(QspiPsuPtr->Config.ConnectionMode ==
-					XQSPIPSU_CONNECTION_MODE_STACKED)) {
+	} else {
+#ifdef DEBUG
 		xil_printf("Dual Parallel/Stacked configuration ");
 		xil_printf("is not supported by this API\r\n");
+#endif
 	}
 }
 /** @} */

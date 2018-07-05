@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xsdps.h
-* @addtogroup sdps_v3_6
+* @addtogroup sdps_v3_7
 * @{
 * @details
 *
@@ -146,6 +146,7 @@
 *                       information.
 *       mn     09/06/17 Resolved compilation errors with IAR toolchain
 * 3.6   mn     08/01/18 Add support for using 64Bit DMA with 32-Bit Processor
+* 3.7   mn     02/01/19 Add support for idling of SDIO
 *
 * </pre>
 *
@@ -168,8 +169,9 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define XSDPS_CT_ERROR	0x2U	/**< Command timeout flag */
+#define XSDPS_CT_ERROR	0x2L	/**< Command timeout flag */
 #define MAX_TUNING_COUNT	40U		/**< Maximum Tuning count */
+#define MAX_TIMEOUT		0x1FFFFFFFU		/**< Maximum Timeout */
 
 /**************************** Type Definitions *******************************/
 
@@ -198,7 +200,6 @@ typedef struct {
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 } XSdPs_Adma2Descriptor;
-#pragma data_alignment = 4
 #else
 }  __attribute__((__packed__))XSdPs_Adma2Descriptor;
 #endif
@@ -231,7 +232,6 @@ typedef struct {
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 	XSdPs_Adma2Descriptor Adma2_DescrTbl[32];
-#pragma data_alignment = 4
 #else
 	XSdPs_Adma2Descriptor Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
 #endif
@@ -252,14 +252,16 @@ s32 XSdPs_Select_Card (XSdPs *InstancePtr);
 s32 XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq);
 s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr);
 s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr);
-s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *SCR);
+s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *ReadBuff);
 s32 XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff);
+s32 XSdPs_Get_Status(XSdPs *InstancePtr, u8 *SdStatReg);
 s32 XSdPs_Pullup(XSdPs *InstancePtr);
 s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr);
 s32 XSdPs_CardInitialize(XSdPs *InstancePtr);
 s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff);
 s32 XSdPs_Set_Mmc_ExtCsd(XSdPs *InstancePtr, u32 Arg);
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+void XSdPs_Idle(XSdPs *InstancePtr);
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff);
 void XSdPs_ddr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
 void XSdPs_hsd_sdr25_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);

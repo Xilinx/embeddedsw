@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014-2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,9 @@
 *			 buffers are configured on OCM memory(CR#990806).
 *		18/01/18 Remove unnecessary column in XIntc_Connect() API.
 *		01/02/18 Added support for error handling.
+* 1.7   adk    21/03/19  Fix alignment pragmas in the example for IAR compiler.
+*	       19/04/19  Rename the dma buffers to avoid peripheral
+*			 test compilation errors with armclang compiler.
 * </pre>
 *
 ******************************************************************************/
@@ -115,14 +118,13 @@ static INTC Intc;	/**< XIntc Instance */
 
 #if defined(__ICCARM__)
     #pragma data_alignment = 64
-	u8 DstBuf[SIZE]; /**< Destination buffer */
-	u8 SrcBuf[SIZE]; /**< Source buffer */
-	#pragma data_alignment = 4
+	u8 ZDmaDstBuf[SIZE]; /**< Destination buffer */
+    #pragma data_alignment = 64
+	u8 ZDmaSrcBuf[SIZE]; /**< Source buffer */
 #else
-u8 DstBuf[SIZE] __attribute__ ((aligned (64)));	/**< Destination buffer */
-u8 SrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
+	u8 ZDmaDstBuf[SIZE] __attribute__ ((aligned (64)));	/**< Destination buffer */
+	u8 ZDmaSrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
 #endif
-
 volatile static int Done = 0;				/**< Done flag */
 volatile static int ErrorStatus = 0;			/**< Error Status flag*/
 
@@ -207,15 +209,15 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 	/* Filling the buffer for data transfer */
 	Value = TESTVALUE;
 	for (Index = 0; Index < SIZE/4; Index++) {
-		*(SrcBuf +Index) = Value++;
+		*(ZDmaSrcBuf +Index) = Value++;
 	}
 	/*
 	 * Invalidating destination address and flushing
 	 * source address in cache
 	 */
 	if (!Config->IsCacheCoherent) {
-	Xil_DCacheFlushRange((INTPTR)SrcBuf, SIZE);
-	Xil_DCacheInvalidateRange((INTPTR)DstBuf, SIZE);
+	Xil_DCacheFlushRange((INTPTR)ZDmaSrcBuf, SIZE);
+	Xil_DCacheInvalidateRange((INTPTR)ZDmaDstBuf, SIZE);
 	}
 
 	/* ZDMA has set in simple transfer of Normal mode */
@@ -260,10 +262,10 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 	/*
 	 * Transfer elements
 	 */
-	Data.DstAddr = (UINTPTR)DstBuf;
+	Data.DstAddr = (UINTPTR)ZDmaDstBuf;
 	Data.DstCoherent = 1;
 	Data.Pause = 0;
-	Data.SrcAddr = (UINTPTR)SrcBuf;
+	Data.SrcAddr = (UINTPTR)ZDmaSrcBuf;
 	Data.SrcCoherent = 1;
 	Data.Size = SIZE; /* Size in bytes */
 
@@ -282,7 +284,7 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 
 	/* Checking the data transferred */
 	for (Index = 0; Index < SIZE/4; Index++) {
-		if (SrcBuf[Index] != DstBuf[Index]) {
+		if (ZDmaSrcBuf[Index] != ZDmaDstBuf[Index]) {
 			return XST_FAILURE;
 		}
 	}

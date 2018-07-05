@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -153,7 +153,7 @@ extern "C" {
 #define XMCDMA_BD_NDESC_MSB_OFFSET	0x04  /**< Next descriptor pointer */
 #define XMCDMA_BD_BUFA_OFFSET		0x08  /**< Buffer address */
 #define XMCDMA_BD_BUFA_MSB_OFFSET	0x0C  /**< Buffer address */
-#define XMCDMA_BD_RESERVED_OFFSET	0x10  /**< Reserverd field */
+#define XMCDMA_BD_RESERVED_OFFSET	0x10  /**< Reserved field */
 #define XMCDMA_BD_CTRL_OFFSET		0x14  /**< Control/buffer length */
 #define XMCDMA_BD_STS_OFFSET		0x18  /**< Status */
 #define XMCDMA_BD_SIDEBAND_STS_OFFSET	0x1C  /**< Side Band Status */
@@ -212,7 +212,7 @@ extern "C" {
 *
 * This macro reads the given register.
 *
-* @param	BaseAddress is the Xilinx base address of the MCDMA core.
+* @param	BaseAddress is the base address of the MCDMA core.
 * @param	RegOffset is the register offset of the register.
 *
 * @return	The 32-bit value of the register.
@@ -229,7 +229,7 @@ extern "C" {
 *
 * This macro writes the value into the given register.
 *
-* @param	BaseAddress is the Xilinx base address of the MCDMA core.
+* @param	BaseAddress is the base address of the MCDMA core.
 * @param	RegOffset is the register offset of the register.
 * @param	Data is the 32-bit value to write to the register.
 *

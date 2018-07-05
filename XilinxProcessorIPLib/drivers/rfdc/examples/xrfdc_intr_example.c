@@ -65,6 +65,8 @@
 *                       device and register the device to libmetal generic bus.
 *       mus    08/18/18 Updated to remove xparameters.h dependency for linux
 *                       platform.
+* 6.0   cog    02/06/19 Updated for libmetal v2.0 and added configure PLL to
+*                       set clock to incompatible rate
 *
 *
 * </pre>
@@ -426,12 +428,17 @@ printf("\n Configuring the Clock \r\n");
 		return XRFDC_FAILURE;
 	}
 
+	ret = metal_xlnx_irq_init();
+	if (ret) {
+		printf("\n failed to initialise interrupt handler \r\n");
+	}
 	ret =  metal_irq_register(irq,
-				(metal_irq_handler)XRFdc_IntrHandler, RFdcInstPtr->device,
+				(metal_irq_handler)XRFdc_IntrHandler,
 						RFdcInstPtr);
-	printf("registered IPI interrupt.\n");
 	if (ret) {
 		printf("\n failed to register interrupt handler \r\n");
+	} else {
+		printf("registered IPI interrupt.\n");
 	}
 
 	ret = metal_device_open(BUS_NAME, STIM_DEV_NAME, &device_stim);
@@ -480,6 +487,12 @@ printf("\n Configuring the Clock \r\n");
 	}
 #endif
 
+	if (XRFdc_DynamicPLLConfig(RFdcInstPtr, XRFDC_ADC_TILE, Tile,
+					XRFDC_EXTERNAL_CLK,250,2000) != XRFDC_SUCCESS) {
+		printf("Could not set PLL");
+		return XRFDC_FAILURE;
+	}
+	xil_printf("Waiting for Interrupt\r\n");
 	/* Wait till interrupt occurs */
 	while (InterruptOccured == 0);
 
@@ -550,7 +563,7 @@ int init_irq()
 	Xil_ExceptionEnable();
 	/* Connect IPI Interrupt ID with libmetal ISR */
 	XScuGic_Connect(&InterruptController, RFDC_IRQ_VECT_ID,
-			   (Xil_ExceptionHandler)metal_irq_isr,
+			   (Xil_ExceptionHandler)metal_xlnx_irq_isr,
 			   (void *)RFDC_IRQ_VECT_ID);
 
 	XScuGic_Enable(&InterruptController, RFDC_IRQ_VECT_ID);

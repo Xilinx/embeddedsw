@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xqspips.c
-* @addtogroup qspips_v3_5
+* @addtogroup qspips_v3_6
 * @{
 *
 * Contains implements the interface functions of the XQspiPs driver.
@@ -99,6 +99,10 @@
 * 3.3   sk  11/07/15 Modified the API prototypes according to MISRAC standards
 *                    to remove compilation warnings. CR# 868893.
 * 3.5	tjs 13/08/18 Fixed compilation warnings for ARMCC.
+* 3.6	akm 03/28/19 Fixed memory leak issue while reading from qspi.(CR#1016357)
+* 3.6 	akm 04/15/19 Modified the mask in XQspiPs_GetReadData() API to retrieve
+*		     configuration register values of both the Flashes in dual
+*		     parellel connection.
 *
 * </pre>
 *
@@ -614,10 +618,20 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 	 */
 	while ((InstancePtr->RemainingBytes > 0) &&
 		(TransCount < XQSPIPS_FIFO_DEPTH)) {
-		XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XQSPIPS_TXD_00_OFFSET,
-				  *((u32 *)InstancePtr->SendBufferPtr));
-		InstancePtr->SendBufferPtr += 4;
+		/*
+		 * In case of Write fill the Tx FIFO with data to be transmitted.
+		 * In case of Read fill the Tx FIFO with DUMMY bytes.
+		 */
+		if (!InstancePtr->RecvBufferPtr) {
+			XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
+					 XQSPIPS_TXD_00_OFFSET,
+					 *((u32 *)InstancePtr->SendBufferPtr));
+			InstancePtr->SendBufferPtr += 4;
+		} else {
+			XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
+					 XQSPIPS_TXD_00_OFFSET,
+					 XQSPIPS_DUMMY_TX_DATA);
+		}
 		InstancePtr->RemainingBytes -= 4;
 		if (InstancePtr->RemainingBytes < 0) {
 			InstancePtr->RemainingBytes = 0;
@@ -905,10 +919,20 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 	 */
 	while ((InstancePtr->RemainingBytes > 0) &&
 		(TransCount < XQSPIPS_FIFO_DEPTH)) {
-		XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
-				 XQSPIPS_TXD_00_OFFSET,
-				 *((u32 *)InstancePtr->SendBufferPtr));
-		InstancePtr->SendBufferPtr += 4;
+		/*
+		 * In case of Write fill the Tx FIFO with data to be transmitted.
+		 * In case of Read fill the Tx FIFO with DUMMY bytes.
+		 */
+		if (!InstancePtr->RecvBufferPtr) {
+			XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
+					 XQSPIPS_TXD_00_OFFSET,
+					 *((u32 *)InstancePtr->SendBufferPtr));
+			InstancePtr->SendBufferPtr += 4;
+		} else {
+			XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
+					 XQSPIPS_TXD_00_OFFSET,
+					 XQSPIPS_DUMMY_TX_DATA);
+		}
 		InstancePtr->RemainingBytes -= 4;
 		if (InstancePtr->RemainingBytes < 0) {
 			InstancePtr->RemainingBytes = 0;
@@ -925,10 +949,20 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 		 */
 		while ((InstancePtr->RemainingBytes > 0) &&
 			(TransCount < XQSPIPS_RXFIFO_THRESHOLD_OPT)) {
-			XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
-					 XQSPIPS_TXD_00_OFFSET,
-					 *((u32 *)InstancePtr->SendBufferPtr));
-			InstancePtr->SendBufferPtr += 4;
+			/*
+			 * In case of Write fill the Tx FIFO with data to be transmitted.
+			 * In case of Read fill the Tx FIFO with DUMMY bytes.
+			 */
+			if (!InstancePtr->RecvBufferPtr) {
+				XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
+						 XQSPIPS_TXD_00_OFFSET,
+						 *((u32 *)InstancePtr->SendBufferPtr));
+				InstancePtr->SendBufferPtr += 4;
+			} else {
+				XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
+						 XQSPIPS_TXD_00_OFFSET,
+						 XQSPIPS_DUMMY_TX_DATA);
+			}
 			InstancePtr->RemainingBytes -= 4;
 			if (InstancePtr->RemainingBytes < 0) {
 				InstancePtr->RemainingBytes = 0;
@@ -1343,11 +1377,19 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 			(Count < XQSPIPS_RXFIFO_THRESHOLD_OPT)) {
 			/*
 			 * Send more data.
+			 * In case of Write fill the Tx FIFO with data to be transmitted.
+			 * In case of Read fill the Tx FIFO with DUMMY bytes.
 			 */
-			XQspiPs_WriteReg(QspiPtr->Config.BaseAddress,
-				XQSPIPS_TXD_00_OFFSET,
-				*((u32 *)QspiPtr->SendBufferPtr));
-			QspiPtr->SendBufferPtr += 4;
+			if (!QspiPtr->RecvBufferPtr) {
+				XQspiPs_WriteReg(QspiPtr->Config.BaseAddress,
+						 XQSPIPS_TXD_00_OFFSET,
+						 *((u32 *)QspiPtr->SendBufferPtr));
+				QspiPtr->SendBufferPtr += 4;
+			} else {
+				XQspiPs_WriteReg(QspiPtr->Config.BaseAddress,
+						 XQSPIPS_TXD_00_OFFSET,
+						 XQSPIPS_DUMMY_TX_DATA);
+			}
 			QspiPtr->RemainingBytes -= 4;
 			if (QspiPtr->RemainingBytes < 0) {
 				QspiPtr->RemainingBytes = 0;
@@ -1531,7 +1573,8 @@ static void XQspiPs_GetReadData(XQspiPs *InstancePtr, u32 Data, u8 Size)
 		case 2:
 			if (InstancePtr->ShiftReadData == 1) {
 				*((u16 *)InstancePtr->RecvBufferPtr) =
-					((Data & 0xFFFF0000) >> 16);
+					((Data >> 16) & 0xFF00) |
+					((Data >> 8) & 0xFF);
 			} else 	{
 				*((u16 *)InstancePtr->RecvBufferPtr) =
 					(Data & 0xFFFF);

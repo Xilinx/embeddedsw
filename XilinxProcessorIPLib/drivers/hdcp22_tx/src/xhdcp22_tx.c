@@ -71,6 +71,8 @@
 *                          buffer.
 *                       6. Check return status of DDC write/read when polling
 *                          RxStatus register.
+* 2.31  YB     03/28/19 Moved the reading of the DDC status from
+*                          XHdcp22Tx_TimerHandler to XHdcp22Tx_Poll.
 * </pre>
 *
 ******************************************************************************/
@@ -1022,6 +1024,11 @@ int XHdcp22Tx_Poll(XHdcp22_Tx *InstancePtr)
 
 	/* Store the authentication status before executing the next state */
 	PrvAuthenticationStatus = InstancePtr->Info.AuthenticationStatus;
+
+	/* Set timer expired signaling flag */
+	if (InstancePtr->Timer.TimerExpired == (TRUE) && InstancePtr->Info.IsEnabled) {
+		XHdcp22Tx_ReadRxStatus(InstancePtr);
+	}
 
 	/* continue executing the statemachine */
 	NewState = XHdcp22_Tx_StateTable[InstancePtr->Info.CurrentState](InstancePtr);
@@ -3220,9 +3227,6 @@ static void XHdcp22Tx_TimerHandler(void *CallbackRef, u8 TmrCntNumber)
 
 	/* Set timer expired signaling flag */
 	InstancePtr->Timer.TimerExpired = (TRUE);
-
-	if (InstancePtr->Info.IsEnabled)
-		XHdcp22Tx_ReadRxStatus(InstancePtr);
 }
 
 

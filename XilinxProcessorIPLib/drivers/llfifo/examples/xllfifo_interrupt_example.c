@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@
  *
  * This is the interrupt example for the FIFO it assumes that at the
  * h/w level FIFO is connected in loopback.In these we write known amount of
- * data to the FIFO and wait for interrupts and after compltely receiving the
+ * data to the FIFO and wait for interrupts and after completely receiving the
  * data compares it with the data transmitted.
  *
  * Note: The TDEST Must be enabled in the H/W design inorder to get
@@ -57,6 +57,15 @@
  *                      proper documentation and Modified Comment lines
  *                      to consider it as a documentation block while
  *                      generating doxygen.
+ * 5.3  rsp 11/08/18    Modified TxSend to fill SourceBuffer with non-zero
+ *                      data otherwise the test can return a false positive
+ *                      because DestinationBuffer is initialized with zeros.
+ *                      In fact, fixing this exposed a bug in FifoRecvHandler
+ *                      and caused the test to start failing. According to the
+ *                      product guide (pg080) for the AXI4-Stream FIFO, the
+ *                      RDFO should be read before reading RLR. Reading RLR
+ *                      first will result in the RDFO being reset to zero and
+ *                      no data being received.
  * </pre>
  *
  * ***************************************************************************
@@ -198,7 +207,7 @@ int main()
 *
 * @param	InstancePtr is a pointer to the instance of the
 *		XLlFifo instance.
-* @param	DeviceId is Device ID of the Axi Fifo Deive instance,
+* @param	DeviceId is Device ID of the Axi Fifo Device instance,
 *		typically XPAR_<AXI_FIFO_instance>_DEVICE_ID value from
 *		xparameters.h.
 *
@@ -321,9 +330,9 @@ int TxSend(XLlFifo *InstancePtr, u32  *SourceAddr)
 	int j;
 	xil_printf("Transmitting Data ... \r\n");
 
-	/* Filling the buffer with the */
+	/* Fill the transmit buffer with incremental pattern */
 	for (i=0; i < MAX_DATA_BUFFER_SIZE; i++)
-		*(SourceAddr + i) = 0;
+		*(SourceAddr + i) = i;
 
 	for(i=0; i < NO_OF_PACKETS; i++){
 		/* Writing into the FIFO Transmit Port Buffer */
@@ -400,10 +409,9 @@ static void FifoRecvHandler(XLlFifo *InstancePtr)
 
 	xil_printf("Receiving Data... \n\r");
 
-	/* Read Recieve Length */
-	ReceiveLength = (XLlFifo_iRxGetLen(InstancePtr))/WORD_SIZE;
-
 	while(XLlFifo_iRxOccupancy(InstancePtr)) {
+		/* Read Receive Length */
+		ReceiveLength = (XLlFifo_iRxGetLen(InstancePtr))/WORD_SIZE;
 		for (i=0; i < ReceiveLength; i++) {
 				RxWord = XLlFifo_RxGetWord(InstancePtr);
 				*(DestinationBuffer+i) = RxWord;
@@ -416,7 +424,7 @@ static void FifoRecvHandler(XLlFifo *InstancePtr)
 *
 * This is the transfer Complete Interrupt handler function.
 *
-* This clears the trasmit complete interrupt and set the done flag.
+* This clears the transmit complete interrupt and set the done flag.
 *
 * @param	InstancePtr is a pointer to Instance of AXI FIFO device.
 *

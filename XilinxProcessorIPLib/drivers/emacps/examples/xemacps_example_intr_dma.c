@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -117,6 +117,9 @@
 * 3.5 hk    08/14/17 Dont perform data cache operations when CCI is enabled
 *                    on ZynqMP.
 * 3.8 hk    10/01/18 Fix warning for redefinition of interrupt number.
+* 3.9 hk    02/12/19 Change MDC divisor for Versal emulation.
+*           03/06/19 Fix BD space assignment and its memory attributes.
+*           03/20/19 Fix alignment pragmas for IAR compiler.
 *
 * </pre>
 *
@@ -152,9 +155,13 @@
 
 #if defined(XPAR_INTC_0_DEVICE_ID)
 #define EMACPS_IRPT_INTR	XPAR_AXI_INTC_0_PROCESSING_SYSTEM7_0_IRQ_P2F_ENET0_INTR
-#elif defined(XPAR_PSU_ETHERNET_0_DEVICE_ID) || defined(XPAR_PS7_ETHERNET_0_DEVICE_ID)
+#elif defined(XPAR_PSV_ETHERNET_0_DEVICE_ID) || \
+	defined(XPAR_PSU_ETHERNET_0_DEVICE_ID) || \
+	defined(XPAR_PS7_ETHERNET_0_DEVICE_ID)
 #define EMACPS_IRPT_INTR	XPS_GEM0_INT_ID
-#elif defined(XPAR_PSU_ETHERNET_1_DEVICE_ID) || defined(XPAR_PS7_ETHERNET_1_DEVICE_ID)
+#elif defined(XPAR_PSV_ETHERNET_1_DEVICE_ID) || \
+	defined(XPAR_PSU_ETHERNET_1_DEVICE_ID) || \
+	defined(XPAR_PS7_ETHERNET_1_DEVICE_ID)
 #define EMACPS_IRPT_INTR	XPS_GEM1_INT_ID
 #elif defined(XPAR_PSU_ETHERNET_2_DEVICE_ID)
 #define EMACPS_IRPT_INTR	XPS_GEM2_INT_ID
@@ -179,10 +186,12 @@
 #define SLCR_ADDR_GEM_RST_CTRL		(XPS_SYS_CTRL_BASEADDR + 0x214)
 
 /* CRL APB registers for GEM clock control */
+#ifdef XPAR_PSU_CRL_APB_S_AXI_BASEADDR
 #define CRL_GEM0_REF_CTRL	(XPAR_PSU_CRL_APB_S_AXI_BASEADDR + 0x50)
 #define CRL_GEM1_REF_CTRL	(XPAR_PSU_CRL_APB_S_AXI_BASEADDR + 0x54)
 #define CRL_GEM2_REF_CTRL	(XPAR_PSU_CRL_APB_S_AXI_BASEADDR + 0x58)
 #define CRL_GEM3_REF_CTRL	(XPAR_PSU_CRL_APB_S_AXI_BASEADDR + 0x5C)
+#endif
 
 #define CRL_GEM_DIV_MASK	0x003F3F00
 #define CRL_GEM_1G_DIV0		0x00000C00
@@ -191,13 +200,19 @@
 #define JUMBO_FRAME_SIZE	10240
 #define FRAME_HDR_SIZE		18
 
-#define CSU_VERSION			0xFFCA0044
-#define PLATFORM_MASK		0xF000
-#define PLATFORM_SILICON	0x0000
+#define GEMVERSION_VERSAL	0x107
+
 /*************************** Variable Definitions ***************************/
 
+#ifdef __ICCARM__
+#pragma data_alignment = 64
+EthernetFrame TxFrame;		/* Transmit buffer */
+#pragma data_alignment = 64
+EthernetFrame RxFrame;		/* Receive buffer */
+#else
 EthernetFrame TxFrame;		/* Transmit buffer */
 EthernetFrame RxFrame;		/* Receive buffer */
+#endif
 
 /*
  * Buffer descriptors are allocated in uncached memory. The memory is made
@@ -210,9 +225,29 @@ EthernetFrame RxFrame;		/* Receive buffer */
 /*
  * Buffer descriptors are allocated in uncached memory. The memory is made
  * uncached by setting the attributes appropriately in the MMU table.
+ * The minimum region for which attribute settings take effect is 2MB for
+ * arm 64 variants(A53) and 1MB for the rest (R5 and A9). Hence the same
+ * is allocated, even if not used fully by this example, to make sure none
+ * of the adjacent global memory is affected.
  */
-#define RX_BD_LIST_START_ADDRESS	0x0FF00000
-#define TX_BD_LIST_START_ADDRESS	0x0FF70000
+#ifdef __ICCARM__
+#if defined __aarch64__
+#pragma data_alignment = 0x200000
+u8 bd_space[0x200000];
+#else
+#pragma data_alignment = 0x100000
+u8 bd_space[0x100000];
+#endif
+#else
+#if defined __aarch64__
+u8 bd_space[0x200000] __attribute__ ((aligned (0x200000)));
+#else
+u8 bd_space[0x100000] __attribute__ ((aligned (0x100000)));
+#endif
+#endif
+
+u8 *RxBdSpacePtr;
+u8 *TxBdSpacePtr;
 
 #define FIRST_FRAGMENT_SIZE 64
 
@@ -232,8 +267,8 @@ static INTC IntcInstance;
 #ifdef __ICCARM__
 #pragma data_alignment = 64
 XEmacPs_Bd BdTxTerminate;
+#pragma data_alignment = 64
 XEmacPs_Bd BdRxTerminate;
-#pragma data_alignment = 4
 #else
 XEmacPs_Bd BdTxTerminate __attribute__ ((aligned(64)));
 
@@ -366,7 +401,9 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 
 	GemVersion = ((Xil_In32(Config->BaseAddress + 0xFC)) >> 16) & 0xFFF;
 
-	if (GemVersion > 2) {
+	if (GemVersion == GEMVERSION_VERSAL) {
+		Platform = PLATFORM_VERSALEMU;
+	} else if (GemVersion > 2) {
 		Platform = Xil_In32(CSU_VERSION);
 	}
 	/* Enable jumbo frames for zynqmp */
@@ -405,6 +442,37 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 		return XST_FAILURE;
 	}
 
+	/* Gem IP version on Zynq-7000 */
+	if (GemVersion == 2)
+	{
+		/*
+		 * The BDs need to be allocated in uncached memory. Hence the 1 MB
+		 * address range that starts at "bd_space" is made uncached.
+		 */
+#if !defined(__MICROBLAZE__) && !defined(ARMR5)
+		Xil_SetTlbAttributes((INTPTR)bd_space, DEVICE_MEMORY);
+#else
+		Xil_DCacheDisable();
+#endif
+
+	}
+
+	if (GemVersion > 2) {
+
+#if defined (ARMR5)
+		Xil_SetTlbAttributes((INTPTR)bd_space, STRONG_ORDERD_SHARED |
+					PRIV_RW_USER_RW);
+#endif
+#if defined __aarch64__
+		Xil_SetTlbAttributes((UINTPTR)bd_space, NORM_NONCACHE |
+					INNER_SHAREABLE);
+#endif
+	}
+
+	/* Allocate Rx and Tx BD space each */
+	RxBdSpacePtr = &(bd_space[0]);
+	TxBdSpacePtr = &(bd_space[0x10000]);
+
 	/*
 	 * Setup RxBD space.
 	 *
@@ -424,8 +492,8 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	 */
 	Status = XEmacPs_BdRingCreate(&(XEmacPs_GetRxRing
 				       (EmacPsInstancePtr)),
-				       (UINTPTR) RX_BD_LIST_START_ADDRESS,
-				       (UINTPTR)RX_BD_LIST_START_ADDRESS,
+				       (UINTPTR) RxBdSpacePtr,
+				       (UINTPTR) RxBdSpacePtr,
 				       XEMACPS_BD_ALIGNMENT,
 				       RXBD_CNT);
 	if (Status != XST_SUCCESS) {
@@ -440,20 +508,6 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 		EmacPsUtilErrorTrap
 			("Error setting up RxBD space, BdRingClone");
 		return XST_FAILURE;
-	}
-
-	if (GemVersion == 2)
-	{
-		/*
-		 * The BDs need to be allocated in uncached memory. Hence the 1 MB
-		 * address range that starts at address 0xFF00000 is made uncached.
-		 */
-#ifndef __MICROBLAZE__
-		Xil_SetTlbAttributes(0x0FF00000, 0xc02);
-#else
-		Xil_DCacheDisable();
-#endif
-
 	}
 
 	/*
@@ -474,8 +528,8 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	 */
 	Status = XEmacPs_BdRingCreate(&(XEmacPs_GetTxRing
 				       (EmacPsInstancePtr)),
-				       (UINTPTR) TX_BD_LIST_START_ADDRESS,
-				       (UINTPTR) TX_BD_LIST_START_ADDRESS,
+				       (UINTPTR) TxBdSpacePtr,
+				       (UINTPTR) TxBdSpacePtr,
 				       XEMACPS_BD_ALIGNMENT,
 				       TXBD_CNT);
 	if (Status != XST_SUCCESS) {
@@ -528,7 +582,12 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	}
 	else
 	{
-		XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
+		if ((Platform & PLATFORM_MASK) == PLATFORM_VERSALEMU) {
+			XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_8);
+		} else {
+			XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
+		}
+
 		if ((Platform & PLATFORM_MASK) == PLATFORM_SILICON) {
 			EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
 			XEmacPs_SetOperatingSpeed(EmacPsInstancePtr,EMACPS_LOOPBACK_SPEED_1G);
@@ -904,8 +963,8 @@ static LONG EmacPsResetDevice(XEmacPs * EmacPsInstancePtr)
 	 */
 	Status = XEmacPs_BdRingCreate(&(XEmacPs_GetRxRing
 				      (EmacPsInstancePtr)),
-				      (UINTPTR) RX_BD_LIST_START_ADDRESS,
-				      (UINTPTR) RX_BD_LIST_START_ADDRESS,
+				      (UINTPTR) RxBdSpacePtr,
+				      (UINTPTR) RxBdSpacePtr,
 				      XEMACPS_BD_ALIGNMENT,
 				      RXBD_CNT);
 	if (Status != XST_SUCCESS) {
@@ -941,8 +1000,8 @@ static LONG EmacPsResetDevice(XEmacPs * EmacPsInstancePtr)
 	 */
 	Status = XEmacPs_BdRingCreate(&(XEmacPs_GetTxRing
 				      (EmacPsInstancePtr)),
-				      (UINTPTR) TX_BD_LIST_START_ADDRESS,
-				      (UINTPTR) TX_BD_LIST_START_ADDRESS,
+				      (UINTPTR) TxBdSpacePtr,
+				      (UINTPTR) TxBdSpacePtr,
 				      XEMACPS_BD_ALIGNMENT,
 				      TXBD_CNT);
 	if (Status != XST_SUCCESS) {
@@ -1198,7 +1257,7 @@ static void XEmacPsRecvHandler(void *Callback)
 	}
 	if (GemVersion > 2) {
 		if (EmacPsInstancePtr->Config.IsCacheCoherent == 0) {
-			Xil_DCacheInvalidateRange((UINTPTR)RX_BD_LIST_START_ADDRESS, 64);
+			Xil_DCacheInvalidateRange((UINTPTR)RxBdSpacePtr, 64);
 		}
 	}
 }
@@ -1368,6 +1427,7 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 
 	if ((GemVersion > 2) && ((Platform & PLATFORM_MASK) == PLATFORM_SILICON)) {
 
+#ifdef XPAR_PSU_CRL_APB_S_AXI_BASEADDR
 #ifdef XPAR_PSU_ETHERNET_0_DEVICE_ID
 		if (EmacPsIntrId == XPS_GEM0_INT_ID) {
 			/* GEM0 1G clock configuration*/
@@ -1419,6 +1479,7 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 			*(volatile unsigned int *)(CRL_GEM3_REF_CTRL) =
 									ClkCntrl;
 		}
+#endif
 #endif
 	}
 }

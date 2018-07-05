@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xspips_selftest.c
-* @addtogroup spips_v3_1
+* @addtogroup spips_v3_2
 * @{
 *
 * This component contains the implementation of selftest functions for an SPI
@@ -43,7 +43,9 @@
 * 1.00  drg/jz 01/25/10 First release
 * 1.04a	sg     01/30/13 SetDelays test includes DelayTestNss parameter.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
-*
+* 3.2   aru    01/20/19 Fixes violations according to MISRAC-2012
+*                       in safety mode and done changes such as
+*                       Added goto statements.
 * </pre>
 *
 ******************************************************************************/
@@ -109,13 +111,15 @@ s32 XSpiPs_SelfTest(XSpiPs *InstancePtr)
 	Register = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
 				 XSPIPS_CR_OFFSET);
 	if (Register != XSPIPS_CR_RESET_STATE) {
-		return (s32)XST_REGISTER_ERROR;
+		Status = (s32)XST_REGISTER_ERROR;
+		goto END;
 	}
 
 	Register = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
 				 XSPIPS_SR_OFFSET);
 	if (Register != XSPIPS_ISR_RESET_STATE) {
-		return (s32)XST_REGISTER_ERROR;
+		Status = (s32)XST_REGISTER_ERROR;
+		goto END;;
 	}
 
 	DelayTestNss = 0x5AU;
@@ -130,19 +134,20 @@ s32 XSpiPs_SelfTest(XSpiPs *InstancePtr)
 	Status = XSpiPs_SetDelays(InstancePtr, DelayTestNss, DelayTestBtwn,
 				   DelayTestAfter, DelayTestInit);
 	if (Status != (s32)XST_SUCCESS) {
-		return Status;
+		goto END;
 	}
 
 	XSpiPs_GetDelays(InstancePtr, &DelayTestNss, &DelayTestBtwn,
 			&DelayTestAfter, &DelayTestInit);
 	if ((0x5AU != DelayTestNss) || (0xA5U != DelayTestBtwn) ||
 		(0xAAU != DelayTestAfter) || (0x55U != DelayTestInit)) {
-		return (s32)XST_REGISTER_ERROR;
+		Status = (s32)XST_REGISTER_ERROR;
+		goto END;
 	}
 
 	Status = XSpiPs_SetDelays(InstancePtr, 0U, 0U, 0U, 0U);
 	if (Status != (s32)XST_SUCCESS) {
-		return Status;
+		goto END;
 	}
 
 	/*
@@ -150,6 +155,9 @@ s32 XSpiPs_SelfTest(XSpiPs *InstancePtr)
 	 */
 	XSpiPs_Reset(InstancePtr);
 
-	return (s32)XST_SUCCESS;
+	Status = (s32)XST_SUCCESS;
+
+	END:
+	return Status;
 }
 /** @} */

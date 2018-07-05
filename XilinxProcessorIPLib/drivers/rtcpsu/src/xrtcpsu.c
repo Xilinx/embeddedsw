@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
  *
  * @file xrtcpsu.c
- * @addtogroup rtcpsu_v1_6
+ * @addtogroup rtcpsu_v1_7
  * @{
  *
  * Functions in this file are the minimum required functions for the XRtcPsu
@@ -57,6 +57,13 @@
  * 1.6   aru    07/11/18 Resolved cppcheck warnings.
  * 1.6   aru    07/11/18 Resolved doxygen warnings.
  * 1.6   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007752)
+ * 1.7   sne    03/01/19 Added Versal support.
+ * 1.7   sne    03/01/19 Fixed violations according to MISRAC-2012 standards
+ *                       modified the code such as
+ *                       No brackets to loop body,Declared the poiner param
+ *                       as Pointer to const,No brackets to then/else,
+ *                       Literal value requires a U suffix,Casting operation to a pointer
+ *			 Array has no bounds specified,Logical conjunctions need brackets.
  * </pre>
  *
  ******************************************************************************/
@@ -79,7 +86,7 @@ static const u32 DaysInMonth[] = {31, 28, 31, 30, 31,
 
 /************************** Function Prototypes ******************************/
 
-static void XRtcPsu_StubHandler(void *CallBackRef, u32 Event);
+static void XRtcPsu_StubHandler(const void *CallBackRef, u32 Event);
 
 /*****************************************************************************/
 /*
@@ -102,7 +109,7 @@ static void XRtcPsu_StubHandler(void *CallBackRef, u32 Event);
  * @note		None.
  *
  ******************************************************************************/
-s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr,
+s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, const XRtcPsu_Config *ConfigPtr,
 				u32 EffectiveAddr)
 {
 	s32 Status;
@@ -157,8 +164,8 @@ s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr,
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	/* Clear TimeUpdated and CurrTimeUpdated */
-	InstancePtr->TimeUpdated = 0;
-	InstancePtr->CurrTimeUpdated = 0;
+	InstancePtr->TimeUpdated = (u32)0U;
+	InstancePtr->CurrTimeUpdated = (u32)0U;
 
 	Status = XST_SUCCESS;
 	return Status;
@@ -179,9 +186,9 @@ s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr,
  * @note		None.
  *
  *****************************************************************************/
-static void XRtcPsu_StubHandler(void *CallBackRef, u32 Event)
+static void XRtcPsu_StubHandler(const void *CallBackRef, u32 Event)
 {
-	(void) CallBackRef;
+	(const void) CallBackRef;
 	(void) Event;
 	/* Assert occurs always since this is a stub and should
 	 * never be called
@@ -212,14 +219,14 @@ void XRtcPsu_SetTime(XRtcPsu *InstancePtr, u32 Time)
 	/* clear the RTC secs interrupt from status register */
 	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr + XRTC_INT_STS_OFFSET,
 						XRTC_INT_STS_SECS_MASK);
-	InstancePtr->CurrTimeUpdated = 0;
+	InstancePtr->CurrTimeUpdated = (u32)0U;
 	/* Update the flag before setting the time */
-	InstancePtr->TimeUpdated = 1;
+	InstancePtr->TimeUpdated = (u32)1U;
 	/* Since RTC takes 1 sec to update the time into current
 	 * time register, write
 	 * load time + 1sec into the set time register.
 	 */
-	XRtcPsu_WriteSetTime(InstancePtr, Time + 1);
+	XRtcPsu_WriteSetTime(InstancePtr, Time + (u32)1U);
 }
 
 /****************************************************************************/
@@ -248,7 +255,7 @@ u32 XRtcPsu_GetCurrentTime(XRtcPsu *InstancePtr)
 		Status = XRtcPsu_ReadReg(InstancePtr->RtcConfig.BaseAddr +
 			XRTC_INT_STS_OFFSET);
 		if ((InstancePtr->TimeUpdated == (u32)1) &&
-			(Status & XRTC_INT_STS_SECS_MASK) == (u32)0) {
+			((Status & XRTC_INT_STS_SECS_MASK) == (u32)0)) {
 			/* Give the previous written time */
 			CurrTime = XRtcPsu_GetLastSetTime(InstancePtr) - 1;
 		} else {
@@ -270,7 +277,9 @@ u32 XRtcPsu_GetCurrentTime(XRtcPsu *InstancePtr)
 		} else {
 			/* Clear TimeUpdated */
 			if (InstancePtr->TimeUpdated == (u32)1)
+                        {
 				InstancePtr->TimeUpdated = (u32)0;
+                        }
 			/* RTC time got updated */
 			CurrTime = XRtcPsu_ReadCurrentTime(InstancePtr);
 		}
@@ -343,17 +352,25 @@ void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt)
 	TempDays = CurrentTime / 24U;
 
 	if (TempDays == 0U)
+        {
 		TempDays = 1U;
+        }
 	dt->WeekDay = TempDays % 7U;
 
 	for (dt->Year = 0U; dt->Year <= 99U; ++(dt->Year)) {
 		if ((dt->Year % 4U) == 0U)
+                {
 			Leap = 1U;
+                }
 		else
+                {
 			Leap = 0U;
+                }
 
 		if (TempDays <= (365U + Leap))
+                {
 			break;
+                }
 
 		TempDays -= (365U + Leap);
 	}
@@ -361,10 +378,13 @@ void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt)
 	for (dt->Month = 1U; dt->Month >= 1U; ++(dt->Month)) {
 		DaysPerMonth = DaysInMonth[dt->Month - 1];
 		if ((Leap == 1U) && (dt->Month == 2U))
+                {
 			DaysPerMonth++;
-
+                }
 		if (TempDays <= DaysPerMonth)
+                {
 			break;
+                }
 
 		TempDays -= DaysPerMonth;
 	}
@@ -396,13 +416,18 @@ u32 XRtcPsu_DateTimeToSec(XRtcPsu_DT *dt)
 	Xil_AssertNonvoid(dt != NULL);
 
 	if (dt->Year >= 2000U)
+        {
 		dt->Year -= 2000U;
+        }
 
 	for (i = 1U; i < dt->Month; i++)
+        {
 		dt->Day += (u32)DaysInMonth[i-1];
+        }
 	if ((dt->Month > 2U) && ((dt->Year % 4U) == 0U))
+        {
 		dt->Day++;
-
+        }
 	Days = dt->Day + (365U * dt->Year) + ((dt->Year + 3U) / 4U);
 	Seconds = (((((Days * 24U) + dt->Hour) * 60U) + dt->Min) * 60U)
 							+ dt->Sec;
@@ -501,7 +526,7 @@ void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr, u32 TimeReal,
  *			This also clears interrupt status seconds bit.
  *
  *****************************************************************************/
-u32 XRtcPsu_IsSecondsEventGenerated(XRtcPsu *InstancePtr)
+u32 XRtcPsu_IsSecondsEventGenerated(const XRtcPsu *InstancePtr)
 {
 	u32 Status;
 
@@ -532,7 +557,7 @@ u32 XRtcPsu_IsSecondsEventGenerated(XRtcPsu *InstancePtr)
  *		This also clears interrupt status alarm bit.
  *
  *****************************************************************************/
-u32 XRtcPsu_IsAlarmEventGenerated(XRtcPsu *InstancePtr)
+u32 XRtcPsu_IsAlarmEventGenerated(const XRtcPsu *InstancePtr)
 {
 	u32 Status;
 

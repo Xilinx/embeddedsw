@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -29,10 +29,10 @@ OPTION psf_version = 2.1;
 
 BEGIN driver gpiops
 
-  OPTION supported_peripherals = (ps7_gpio psu_gpio);
+  OPTION supported_peripherals = (ps7_gpio psu_gpio psv_pmc_gpio psv_gpio);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.4;
+  OPTION VERSION = 3.5;
   OPTION NAME = gpiops;
 
 END driver

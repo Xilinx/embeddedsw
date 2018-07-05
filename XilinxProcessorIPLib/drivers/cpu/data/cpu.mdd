@@ -37,7 +37,7 @@
 #                     default extra compiler flags.Also, "-g" is removed from
 #                     the default extra compiler flags.
 # 2.6   mus  01/24/17 Added "-Wall -Wextra" to extra_compiler_flags
-# 2.7   vns  04/13/18 Modified post_generate proc to post_generate_final 
+# 2.7   vns  04/13/18 Modified post_generate proc to post_generate_final
 # 2.8   mga  06/27/18 Added -Os and LTO to extra_compiler_flags for pmu bsp
 #
 ###############################################################################
@@ -47,9 +47,9 @@ BEGIN driver cpu
 
 OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
-OPTION supported_peripherals = (microblaze psu_pmu);
+OPTION supported_peripherals = (microblaze psu_pmu psu_pmc psu_psm psv_pmc psv_psm);
 OPTION default_os = "standalone_v5_0";
-OPTION VERSION = 2.8;
+OPTION VERSION = 2.9;
 OPTION NAME = cpu;
 
 PARAM name = compiler, desc = "Compiler used to compile both BSP/Libraries and Applications.", type = string, default = mb-gcc;

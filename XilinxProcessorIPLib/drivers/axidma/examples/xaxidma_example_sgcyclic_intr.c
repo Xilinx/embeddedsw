@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -62,6 +62,9 @@
  *                     and typecasting buffer address(CR-992638).
  * 9.8   rsp  07/24/18 Set TX DMACR[Cyclic BD enable] before starting DMA
  *                     operation i.e. in TxSetup.
+ * 9.9   rsp  01/21/19 Fix use of #elif check in deriving DDR_BASE_ADDR.
+ *       rsp  02/05/19 For test completion wait for both TX and RX done counters.
+ *
  * </pre>
  *
  * ***************************************************************************
@@ -99,11 +102,11 @@ extern void xil_printf(const char *format, ...);
 
 #ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #define DDR_BASE_ADDR		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
-#elif XPAR_MIG7SERIES_0_BASEADDR
+#elif defined (XPAR_MIG7SERIES_0_BASEADDR)
 #define DDR_BASE_ADDR	XPAR_MIG7SERIES_0_BASEADDR
-#elif XPAR_MIG_0_BASEADDR
+#elif defined (XPAR_MIG_0_BASEADDR)
 #define DDR_BASE_ADDR	XPAR_MIG_0_BASEADDR
-#elif XPAR_PSU_DDR_0_S_AXI_BASEADDR
+#elif defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR)
 #define DDR_BASE_ADDR	XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #endif
 
@@ -150,7 +153,7 @@ extern void xil_printf(const char *format, ...);
 /*
  * Number of BDs in the transfer example
  * We show how to submit multiple BDs for one transmit.
- * The receive side gets one completion per transfer.
+ * The receive side get one completion interrupt per cyclic transfer.
  */
 #define NUMBER_OF_BDS_PER_PKT		2
 #define NUMBER_OF_PKTS_TO_TRANSFER 	10
@@ -163,7 +166,7 @@ extern void xil_printf(const char *format, ...);
  * Valid range is 1 to 255
  *
  * We set the coalescing threshold to be the total number of packets.
- * The receive side will only get one completion interrupt for this example.
+ * The receive side will only get one completion interrupt per cyclic transfer.
  */
 #define COALESCING_COUNT		NUMBER_OF_PKTS_TO_TRANSFER
 #define DELAY_TIMER_COUNT		100
@@ -324,7 +327,7 @@ int main(void)
 	 * Wait TX done and RX done
 	 */
 	while(1) {
-		if (((RxDone >= NUMBER_OF_BDS_TO_TRANSFER * NUMBER_OF_CYCLIC_TRANSFERS) ||
+		if (((RxDone >= NUMBER_OF_BDS_TO_TRANSFER * NUMBER_OF_CYCLIC_TRANSFERS) &&
 			 (TxDone >= NUMBER_OF_BDS_TO_TRANSFER * NUMBER_OF_CYCLIC_TRANSFERS))
 			 && !Error)
 			break;
@@ -646,7 +649,7 @@ static void RxIntrHandler(void *Callback)
 *
 * @return
 *		- XST_SUCCESS if successful,
-*		- XST_FAILURE.if not succesful
+*		- XST_FAILURE.if not successful
 *
 * @note		None.
 *
@@ -879,8 +882,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 	}
 
 	/*
-	 * Set the coalescing threshold, so only one receive interrupt
-	 * occurs for this example
+	 * Set the coalescing threshold
 	 *
 	 * If you would like to have multiple interrupts to happen, change
 	 * the COALESCING_COUNT to be a smaller value

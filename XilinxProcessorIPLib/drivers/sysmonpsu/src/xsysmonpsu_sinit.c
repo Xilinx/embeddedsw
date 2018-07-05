@@ -63,7 +63,7 @@
 
 /************************** Variable Definitions *****************************/
 
-extern XSysMonPsu_Config XSysMonPsu_ConfigTable[];
+extern XSysMonPsu_Config XSysMonPsu_ConfigTable[XPAR_XSYSMONPSU_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -38,18 +38,20 @@
 #			Added failure checks in the tcl to avoid bsp compilation
 #			errors incase stream interface is unconnected.
 # 1.2   rsp   09/07/18  Pass "hier" argument to get_cells API to support hierarchical designs.
+# 1.3   rsp   02/05/19  Enable CCI only at EL1 non-secure state.
+#       rsp   02/12/19  Export use RxLength field.
 #
 ##############################################################################
 
 #uses "xillib.tcl"
 
 proc generate {drv_handle} {
-    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XMcdma" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_INCLUDE_MM2S" "C_INCLUDE_S2MM" "C_NUM_MM2S_CHANNELS" "C_NUM_S2MM_CHANNELS" "C_INCLUDE_MM2S_DRE" "C_M_AXI_SG_ADDR_WIDTH" "C_INCLUDE_S2MM_DRE" "C_ENABLE_SINGLE_INTR" "C_M_AXI_MM2S_DATA_WIDTH" "C_M_AXI_S2MM_DATA_WIDTH" "C_SG_LENGTH_WIDTH" "C_SG_INCLUDE_STSCNTRL_STRM"
+    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XMcdma" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_INCLUDE_MM2S" "C_INCLUDE_S2MM" "C_NUM_MM2S_CHANNELS" "C_NUM_S2MM_CHANNELS" "C_INCLUDE_MM2S_DRE" "C_M_AXI_SG_ADDR_WIDTH" "C_INCLUDE_S2MM_DRE" "C_ENABLE_SINGLE_INTR" "C_M_AXI_MM2S_DATA_WIDTH" "C_M_AXI_S2MM_DATA_WIDTH" "C_SG_LENGTH_WIDTH" "C_SG_INCLUDE_STSCNTRL_STRM" "C_SG_USE_STSAPP_LENGTH"
 
     generate_cci_params $drv_handle "xparameters.h"
-    ::hsi::utils::define_config_file $drv_handle "xmcdma_g.c" "XMcdma" "DEVICE_ID" "C_BASEADDR" "C_M_AXI_SG_ADDR_WIDTH" "C_ENABLE_SINGLE_INTR" "C_INCLUDE_MM2S" "C_INCLUDE_MM2S_DRE" "C_NUM_MM2S_CHANNELS" "C_INCLUDE_S2MM" "C_INCLUDE_S2MM_DRE" "C_NUM_S2MM_CHANNELS" "C_M_AXI_MM2S_DATA_WIDTH" "C_M_AXI_S2MM_DATA_WIDTH" "C_SG_LENGTH_WIDTH" "C_SG_INCLUDE_STSCNTRL_STRM" "IS_MM2S_CACHE_COHERENT" "IS_S2MM_CACHE_COHERENT"
+    ::hsi::utils::define_config_file $drv_handle "xmcdma_g.c" "XMcdma" "DEVICE_ID" "C_BASEADDR" "C_M_AXI_SG_ADDR_WIDTH" "C_ENABLE_SINGLE_INTR" "C_INCLUDE_MM2S" "C_INCLUDE_MM2S_DRE" "C_NUM_MM2S_CHANNELS" "C_INCLUDE_S2MM" "C_INCLUDE_S2MM_DRE" "C_NUM_S2MM_CHANNELS" "C_M_AXI_MM2S_DATA_WIDTH" "C_M_AXI_S2MM_DATA_WIDTH" "C_SG_LENGTH_WIDTH" "C_SG_INCLUDE_STSCNTRL_STRM" "C_SG_USE_STSAPP_LENGTH" "IS_MM2S_CACHE_COHERENT" "IS_S2MM_CACHE_COHERENT"
 
-    ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "Mcdma" "DEVICE_ID" "C_BASEADDR" "C_M_AXI_SG_ADDR_WIDTH" "C_ENABLE_SINGLE_INTR" "C_INCLUDE_MM2S" "C_INCLUDE_MM2S_DRE" "C_NUM_MM2S_CHANNELS" "C_INCLUDE_S2MM" "C_INCLUDE_S2MM_DRE" "C_NUM_S2MM_CHANNELS" "C_M_AXI_MM2S_DATA_WIDTH" "C_M_AXI_S2MM_DATA_WIDTH" "C_SG_LENGTH_WIDTH" "C_SG_INCLUDE_STSCNTRL_STRM"
+    ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "Mcdma" "DEVICE_ID" "C_BASEADDR" "C_M_AXI_SG_ADDR_WIDTH" "C_ENABLE_SINGLE_INTR" "C_INCLUDE_MM2S" "C_INCLUDE_MM2S_DRE" "C_NUM_MM2S_CHANNELS" "C_INCLUDE_S2MM" "C_INCLUDE_S2MM_DRE" "C_NUM_S2MM_CHANNELS" "C_M_AXI_MM2S_DATA_WIDTH" "C_M_AXI_S2MM_DATA_WIDTH" "C_SG_LENGTH_WIDTH" "C_SG_INCLUDE_STSCNTRL_STRM" "C_SG_USE_STSAPP_LENGTH"
 
 }
 
@@ -69,13 +71,14 @@ proc generate_cci_params {drv_handle file_name} {
 			set is_hpcdesign 0
 			set has_signleintf [common::get_property CONFIG.c_single_interface [get_cells -hier $ip]]
 			set has_mm2s [common::get_property CONFIG.c_include_mm2s [get_cells -hier $ip]]
+			set hypervisor [common::get_property CONFIG.hypervisor_guest [hsi::get_os]]
 			if {$has_mm2s == 1} {
 				set is_hpcdesign [get_connected_if $ip "M_AXI_MM2S"]
 			}
 			if {$has_signleintf == 1} {
 				set is_hpcdesign [get_connected_if $ip "M_AXI"]
 			}
-			if { $is_hpcdesign } {
+			if { $is_hpcdesign && $hypervisor} {
 				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_MM2S_CACHE_COHERENT"] 1"
 			} else {
 				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_MM2S_CACHE_COHERENT"] 0"
@@ -88,7 +91,7 @@ proc generate_cci_params {drv_handle file_name} {
 			if {$has_signleintf == 1} {
 				set is_hpcdesign [get_connected_if $ip "M_AXI"]
 			}
-			if { $is_hpcdesign } {
+			if { $is_hpcdesign && $hypervisor} {
 				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_S2MM_CACHE_COHERENT"] 1"
 			} else {
 				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_S2MM_CACHE_COHERENT"] 0"

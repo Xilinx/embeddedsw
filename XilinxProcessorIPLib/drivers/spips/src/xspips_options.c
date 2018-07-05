@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xspips_options.c
-* @addtogroup spips_v3_1
+* @addtogroup spips_v3_2
 * @{
 *
 * Contains functions for the configuration of the XSpiPs driver.
@@ -47,7 +47,9 @@
 * 1.05a hk 	   26/04/13 Added disable and enable in XSpiPs_SetOptions when
 *				CPOL/CPHA bits are set/reset. Fix for CR#707669.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
-*
+* 3.2   aru    01/20/19 Fixes violations according to MISRAC-2012
+*                       in safety mode and done changes such as
+*                       Declared the pointer param as Pointer to const
 * </pre>
 *
 ******************************************************************************/
@@ -114,7 +116,7 @@ static OptionsMap OptionsTable[] = {
 * This function is not thread-safe.
 *
 ******************************************************************************/
-s32 XSpiPs_SetOptions(XSpiPs *InstancePtr, u32 Options)
+s32 XSpiPs_SetOptions(const XSpiPs *InstancePtr, u32 Options)
 {
 	u32 ConfigReg;
 	u32 Index;
@@ -203,7 +205,7 @@ s32 XSpiPs_SetOptions(XSpiPs *InstancePtr, u32 Options)
 * @note		None.
 *
 ******************************************************************************/
-u32 XSpiPs_GetOptions(XSpiPs *InstancePtr)
+u32 XSpiPs_GetOptions(const XSpiPs *InstancePtr)
 {
 	u32 OptionsFlag = 0U;
 	u32 ConfigReg;
@@ -222,8 +224,8 @@ u32 XSpiPs_GetOptions(XSpiPs *InstancePtr)
 	/*
 	 * Loop through the options table to grab options
 	 */
-	for (Index = 0; Index < XSPIPS_NUM_OPTIONS; Index++) {
-		if (ConfigReg & OptionsTable[Index].Mask) {
+	for (Index = 0U; Index < XSPIPS_NUM_OPTIONS; Index++) {
+		if ((ConfigReg & OptionsTable[Index].Mask) != FALSE) {
 			OptionsFlag |= OptionsTable[Index].Option;
 		}
 	}
@@ -252,7 +254,7 @@ u32 XSpiPs_GetOptions(XSpiPs *InstancePtr)
 * This function is not thread-safe.
 *
 ******************************************************************************/
-s32 XSpiPs_SetClkPrescaler(XSpiPs *InstancePtr, u8 Prescaler)
+s32 XSpiPs_SetClkPrescaler(const XSpiPs *InstancePtr, u8 Prescaler)
 {
 	u32 ConfigReg;
 	s32 Status;
@@ -303,7 +305,7 @@ s32 XSpiPs_SetClkPrescaler(XSpiPs *InstancePtr, u8 Prescaler)
 *
 *
 ******************************************************************************/
-u8 XSpiPs_GetClkPrescaler(XSpiPs *InstancePtr)
+u8 XSpiPs_GetClkPrescaler(const XSpiPs *InstancePtr)
 {
 	u32 ConfigReg;
 
@@ -350,7 +352,7 @@ u8 XSpiPs_GetClkPrescaler(XSpiPs *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-s32 XSpiPs_SetDelays(XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
+s32 XSpiPs_SetDelays(const XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
 			 u8 DelayAfter, u8 DelayInit)
 {
 	u32 DelayRegister;
@@ -403,7 +405,7 @@ s32 XSpiPs_SetDelays(XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
 * @note		None.
 *
 ******************************************************************************/
-void XSpiPs_GetDelays(XSpiPs *InstancePtr,u8 *DelayNss, u8 *DelayBtwn,
+void XSpiPs_GetDelays(const XSpiPs *InstancePtr,u8 *DelayNss, u8 *DelayBtwn,
 			u8 *DelayAfter, u8 *DelayInit)
 {
 	u32 DelayRegister;

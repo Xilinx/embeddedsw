@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -77,6 +77,7 @@
 *                       strongly ordered.
 *       ms   04/05/17   Added tabspace for return statements in functions for
 *                       proper documentation while generating doxygen.
+* 3.9   hk   03/20/19   Fix alignment pragmas for IAR compiler.
 * </pre>
 *
 ******************************************************************************/
@@ -156,7 +157,6 @@ u8 UnicastMAC[]  = {0x00, 0x0A, 0x35, 0x01, 0x02, 0x09};
 #ifdef __ICCARM__
 #pragma data_alignment = XEMACPS_RX_BUF_ALIGNMENT
 u8 RxBuf[XEMACPS_IEEE1588_NO_OF_RX_DESCS][XEMACPS_PACKET_LEN + 2];
-#pragma data_alignment = 32
 #else
 u8 RxBuf[XEMACPS_IEEE1588_NO_OF_RX_DESCS][XEMACPS_PACKET_LEN + 2]
 							__attribute__ ((aligned(32)));

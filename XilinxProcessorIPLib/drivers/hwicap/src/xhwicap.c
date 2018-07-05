@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xhwicap.c
-* @addtogroup hwicap_v11_1
+* @addtogroup hwicap_v11_2
 * @{
 *
 * This file contains the functions of the XHwIcap driver. See xhwicap.h for a
@@ -81,6 +81,8 @@
 * 11.0   MNK  12/06/16 Added support for 8-series family devices.
 * 11.1   sg   08/29/17 Updated software reset and fifo flush api by adding
 *			delay as per IP specifications
+* 11.2	Nava  02/01/19 Updated the Number of words per frame as mention in the
+*		       ug570
 * </pre>
 *
 *****************************************************************************/
@@ -96,7 +98,9 @@
 /************************** Constant Definitions ****************************/
 
 /**************************** Type Definitions ******************************/
-
+#define DEVICE_7SERIES_WORDS_PER_FRAME		101
+#define DEVICE_ULTRA_WORDS_PER_FRAME		123
+#define DEVICE_ULTRA_PLUS_WORDS_PER_FRAME	93
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
@@ -240,13 +244,13 @@ int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
 
 	switch (DeviceType) {
 		case DEVICE_TYPE_7SERIES :
-				InstancePtr->WordsPerFrame = 101;
+				InstancePtr->WordsPerFrame = DEVICE_7SERIES_WORDS_PER_FRAME;
 				break;
 		case DEVICE_TYPE_ULTRA :
-				InstancePtr->WordsPerFrame = 93;
+				InstancePtr->WordsPerFrame = DEVICE_ULTRA_WORDS_PER_FRAME;
 				break;
 		case DEVICE_TYPE_ULTRA_PLUS :
-				InstancePtr->WordsPerFrame = 123;
+				InstancePtr->WordsPerFrame = DEVICE_ULTRA_PLUS_WORDS_PER_FRAME;
 				break;
 		default:
 			return XST_FAILURE;

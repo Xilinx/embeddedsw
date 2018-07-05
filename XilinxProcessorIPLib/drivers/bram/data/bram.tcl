@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2004 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,8 @@
 # 4.1     sk     11/09/15 Removed delete filename statement CR# 784758.
 # 4.2     ms     04/18/17 Modified tcl file to add suffix U for all macros
 #                         definitions of bram in xparameters.h
+# 4.3	  aru    03/23/19 Added default CTRL_BASEADDRESS and CTRL_HIGHADDRESS
+#			  if it is not present for any instance
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_P
@@ -61,7 +63,8 @@ proc generate {drv_handle} {
 #
 proc find_addr_params {periph} {
     set addr_params [::hsi::utils::find_addr_params $periph]
-
+    global flag
+    set flag 0
     set sorted_addr_params {}
     foreach addr_param $addr_params {
        if {[string first "BASE" $addr_param] > 0 && [string first "CTRL_BASE" $addr_param] < 0} {
@@ -82,6 +85,9 @@ proc find_addr_params {periph} {
        if {[string first "CTRL_HIGH" $addr_param] > 0} {
            lappend sorted_addr_params $addr_param
        }
+    }
+    if {[string first "CTRL_HIGH" $addr_params] < 0 && [string first "CTRL_BASE" $addr_params] < 0} {
+       set flag 1
     }
 
     return $sorted_addr_params
@@ -144,6 +150,8 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
         puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
         set addr_params ""
         set addr_params [find_addr_params $periph]
+	global flag
+
         set arguments [concat $args $addr_params]
         foreach arg $arguments {
             if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
@@ -170,7 +178,6 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
             if {[llength $value] == 0} {
                 set value 0
             }
-
             set value [::hsi::utils::format_addr_string $value $arg]
             set arg_name [::hsi::utils::get_driver_param_name $periph $arg]
             if { [string compare -nocase "C_S_AXI_DATA_WIDTH" $arg] == 0 } {
@@ -182,9 +189,9 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                     puts $file_handle "#define $arg_name $value$uSuffix"
             }
         }
-        if {$have_ecc == 0} {
-            puts $file_handle "#define [::hsi::utils::get_driver_param_name $periph "C_S_AXI_CTRL_BASEADDR" ] 0xFFFFFFFF$uSuffix "
-            puts $file_handle "#define [::hsi::utils::get_driver_param_name $periph "C_S_AXI_CTRL_HIGHADDR" ] 0xFFFFFFFF$uSuffix "
+        if {$have_ecc == 0 || $flag == 1} {
+            puts $file_handle "#define [::hsi::utils::get_driver_param_name $periph "C_S_AXI_CTRL_BASEADDR" ] 0xFFFFFFFF$uSuffix  "
+            puts $file_handle "#define [::hsi::utils::get_driver_param_name $periph "C_S_AXI_CTRL_HIGHADDR" ] 0xFFFFFFFF$uSuffix  "
         }
         puts $file_handle ""
     }		
@@ -214,6 +221,8 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
         set comma ""
         set addr_params ""
         set addr_params [find_addr_params $periph]
+	global flag
+
         set arguments [concat $args $addr_params]
         foreach arg $arguments {
             set local_value [common::get_property CONFIG.$arg $periph]
@@ -251,7 +260,7 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
             }
             set comma ",\n"
         }
-        if {$have_ecc == 0} {
+        if {$have_ecc == 0 || $flag == 1} {
             set arg_name [::hsi::utils::get_driver_param_name $periph "C_S_AXI_CTRL_BASEADDR"]
             puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
             set arg_name [::hsi::utils::get_driver_param_name $periph "C_S_AXI_CTRL_HIGHADDR"]
@@ -328,6 +337,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
             # Generate canonical definitions for address parameters
             set addr_params ""
             set addr_params [find_addr_params $periph]
+	    global flag
             set arguments [concat $args $addr_params]
             foreach arg $arguments {
                 set match 0
@@ -357,6 +367,10 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 		set uSuffix [xdefine_getSuffix $lvalue $rvalue]
                 puts $file_handle "#define $lvalue $rvalue$uSuffix"
             }
+	   if {$flag == 1} {
+		puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "CTRL_BASEADDR" ] 0xFFFFFFFF$uSuffix  "
+	        puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "CTRL_HIGHADDR" ] 0xFFFFFFFE$uSuffix  "
+                }
             puts $file_handle ""
             incr i
         }

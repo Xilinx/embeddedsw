@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xrfdc.c
-* @addtogroup xrfdc_v5_0
+* @addtogroup xrfdc_v6_0
 * @{
 *
 * Contains the interface functions of the XRFdc driver.
@@ -80,9 +80,9 @@
 *              12/13/17 Add CoarseMixMode field in Mixer_Settings structure.
 *              12/15/17 Add support to switch calibration modes.
 *              12/15/17 Add support for mixer frequencies > Fs/2 and < -Fs/2.
-*	sg     13/01/18 Added PLL and external clock switch support.
-*			Added API to get PLL lock status.
-*			Added API to get clock source. 
+*       sg     13/01/18 Added PLL and external clock switch support.
+*                       Added API to get PLL lock status.
+*                       Added API to get clock source.
 * 3.1   jm     01/24/18 Add Multi-tile sync support.
 *       sk     01/25/18 Updated Set and Get Interpolation/Decimation factor
 *                       API's to consider the actual factor value.
@@ -130,6 +130,36 @@
 *       sk     10/13/18 Add support to read the REFCLKDIV param from design.
 *                       Update XRFdc_SetPLLConfig() API to support range of
 *                       REF_CLK_DIV values(1 to 4).
+* 5.1   cog    01/29/19 Replace structure reference ADC checks with
+*                       function.
+*       cog    01/29/19 Added XRFdc_SetDither() and XRFdc_GetDither() APIs.
+*       cog    01/29/19 Rename DataType for mixer input to MixerInputDataType
+*                       for readability.
+*       cog    01/29/19 Refactoring of interpolation and decimation APIs and
+*                       changed fabric rate for decimation X8 for non-high speed ADCs.
+*       cog    01/29/19 New inline functions to determine max & min sampling rates
+*                       rates in PLL range checking.
+* 6.0   cog    02/17/19 Added decimation & interpolation modes
+*              02/17/19 Added Inverse-Sinc Second Nyquist Zone Support
+*       cog    02/17/19 Added new clock Distribution functionality.
+*       cog    02/17/19 Refactored to improve delay balancing in clock
+*                       distribution.
+*       cog    02/17/19 Added delay calculation & metal log messages.
+*       cog    02/17/19 Added intratile clock settings.
+*       cog    02/17/19 Moved multiband to a new file xrfdc_mb.c
+*       cog    02/17/19 Moved clocking functionality to a new file xrfdc_clock.c
+*       cog    02/17/19 Added XRFdc_SetIMRPassMode() and XRFdc_SetIMRPassMode() APIs
+*       cog    02/17/19 Added XRFdc_SetDACMode() and XRFdc_GetDACMode() APIs
+*       cog    02/17/19	Added XRFdc_SetSignalDetector() and XRFdc_GetSignalDetector() APIs.
+*       cog    02/17/19 Added XRFdc_DisableCoefficientsOverride(), XRFdc_SetCalCoefficients
+*                       and XRFdc_GetCalCoefficients APIs.
+*       cog    02/21/19 Added XRFdc_SetCalFreeze() and XRFdc_GetCalFreeze() APIs.
+*       cog    04/09/19 Changed Calibrtation coefficient override control register for OCB1.
+*       cog    04/15/19 Rename XRFdc_SetDACMode() and XRFdc_GetDACMode() APIs to
+*                       XRFdc_SetDataPathMode() and XRFdc_GetDataPathMode() respectively.
+*       cog    04/30/19 Made Changes to the bypass calibration functionality to support Gen2
+*                       and below.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -138,17 +168,6 @@
 #include "xrfdc.h"
 
 /************************** Constant Definitions *****************************/
-static u32 PllTuningMatrix[8][4][2] = {
-		{{0x7F8A, 0x3FFF}, {0x7F9C, 0x3FFF}, {0x7FE2, 0x3FFF} },
-		{{0x7FE9, 0xFFFF}, {0x7F8E, 0xFFFF}, {0x7F9C, 0xFFFF} },
-		{{0x7F95, 0xFFFF}, {0x7F8E, 0xFFFF}, { 0x7F9A, 0xFFFF}, {0x7F8C, 0xFFFF} },
-		{{0x7F95, 0x3FFF}, {0x7FEE, 0x3FFF}, { 0x7F9A, 0xFFFF}, {0x7F9C, 0xFFFF} },
-		{{0x7F95, 0x3FFF}, {0x7FEE, 0x3FFF}, { 0x7F9A, 0xFFFF}, {0x7F9C, 0xFFFF} },
-		{{0x7F95, 0xFFFF}, {0x7F8E, 0xFFFF}, { 0x7FEA, 0xFFFF}, {0x7F9C, 0xFFFF} },
-		{{0x7FE9, 0xFFFF}, {0x7F8E, 0xFFFF}, { 0x7F9A, 0xFFFF}, {0x7F9C, 0xFFFF} },
-		{{0x7FEC, 0xFFFF}, {0x7FEE, 0x3FFF}, { 0x7F9C, 0xFFFF} }
-};
-
 #define XRFDC_PLL_LOCK_DLY_CNT		1000U
 
 /**************************** Type Definitions *******************************/
@@ -158,11 +177,6 @@ static u32 XRFdc_RestartIPSM(XRFdc *InstancePtr, u32 Type, int Tile_Id,
 					u32 Start, u32 End);
 static void StubHandler(void *CallBackRefPtr, u32 Type, u32 Tile_Id,
 								u32 Block_Id, u32 StatusEvent);
-static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		double RefClkFreq, double SamplingRate);
-static void XRFdc_SetSignalFlow(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		u32 Mode, u32 DigitalDataPathId, u32 DataType,
-		int ConnectIData, int ConnectQData);
 static void XRFdc_ADCInitialize(XRFdc *InstancePtr);
 static void XRFdc_DACInitialize(XRFdc *InstancePtr);
 static void XRFdc_DACMBConfigInit(XRFdc *InstancePtr, u32 Tile_Id,
@@ -174,18 +188,6 @@ static u32 XRFdc_GetADCBlockStatus(XRFdc *InstancePtr, u32 BaseAddr,
 				u32 Tile_Id, u32 Block_Id, XRFdc_BlockStatus *BlockStatusPtr);
 static u32 XRFdc_GetDACBlockStatus(XRFdc *InstancePtr, u32 BaseAddr,
 				u32 Tile_Id, u32 Block_Id, XRFdc_BlockStatus *BlockStatusPtr);
-static u32 XRFdc_UpdateMBConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		u8 NoOfDataPaths, u32 *ModePtr, u32 DataPathIndex[]);
-static void XRFdc_MB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		u8 NoOfDataPaths, u32 DataType, u32 Mode,
-				u32 DataPathIndex[], u32 BlockIndex[]);
-static void XRFdc_MB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		u8 NoOfDataPaths, u32 DataType, u32 Mode,
-			u32 DataPathIndex[], u32 BlockIndex[]);
-static void XRFdc_SB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		u32 DataType, u32 Mode, u32 DataPathIndex[], u32 BlockIndex[]);
-static void XRFdc_SB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		u32 DataType, u32 Mode, u32 DataPathIndex[], u32 BlockIndex[]);
 static void XRFdc_DumpHSCOMRegs(XRFdc *InstancePtr, u32 Type, int Tile_Id);
 static void XRFdc_DumpDACRegs(XRFdc *InstancePtr, int Tile_Id);
 static void XRFdc_DumpADCRegs(XRFdc *InstancePtr, int Tile_Id);
@@ -280,10 +282,10 @@ static void XRFdc_ADCInitialize(XRFdc *InstancePtr)
 			/* Initialize Data Type */
 			if (InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
 				ADCBlock_Analog_Config[Block_Id].MixMode == XRFDC_MIXER_MODE_BYPASS) {
-				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].DataType =
-					InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].ADCBlock_Digital_Config[Block_Id].DataType;
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].MixerInputDataType =
+					InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].ADCBlock_Digital_Config[Block_Id].MixerInputDataType;
 			} else {
-				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].DataType =
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].MixerInputDataType =
 						InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
 										ADCBlock_Analog_Config[Block_Id].MixMode;
 			}
@@ -345,10 +347,10 @@ static void XRFdc_DACInitialize(XRFdc *InstancePtr)
 			/* Initialize Data Type */
 			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
 				DACBlock_Analog_Config[Block_Id].MixMode == XRFDC_MIXER_MODE_BYPASS) {
-				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].DataType =
-					InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].DACBlock_Digital_Config[Block_Id].DataType;
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].MixerInputDataType =
+					InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].DACBlock_Digital_Config[Block_Id].MixerInputDataType;
 			} else {
-				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].DataType =
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].MixerInputDataType =
 						XRFDC_DATA_TYPE_IQ;
 			}
 			/* Initialize MixerType */
@@ -888,7 +890,7 @@ u32 XRFdc_GetIPStatus(XRFdc *InstancePtr, XRFdc_IPStatus *IPStatusPtr)
 		}
 	}
 
-	//TODO IP state
+	/*TODO IP state*/
 
 	return XRFDC_SUCCESS;
 }
@@ -934,7 +936,7 @@ u32 XRFdc_GetBlockStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	Block = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Block_Id == XRFDC_BLK_ID1) && (Type == XRFDC_ADC_TILE)) {
 		Block_Id = XRFDC_BLK_ID2;
 	}
@@ -1116,7 +1118,7 @@ static u32 XRFdc_GetDACBlockStatus(XRFdc *InstancePtr, u32 BaseAddr,
 
 	/* AnalogDataPathStatus */
 	BlockStatusPtr->AnalogDataPathStatus = XRFdc_RDReg(InstancePtr, BaseAddr,
-				XRFDC_DAC_INVSINC_OFFSET, XRFDC_EN_INVSINC_MASK);
+				XRFDC_DAC_INVSINC_OFFSET, (InstancePtr->RFdc_Config.IPType < 2)?XRFDC_EN_INVSINC_MASK:XRFDC_MODE_INVSINC_MASK);
 	(void)XRFdc_GetDecoderMode(InstancePtr, Tile_Id, Block_Id,
 				&DecoderMode);
 	BlockStatusPtr->AnalogDataPathStatus |=
@@ -1178,7 +1180,7 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	Index = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Type == XRFDC_ADC_TILE)) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
@@ -1186,7 +1188,7 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
 		}
 		if (InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Index].
-				DataType == XRFDC_DATA_TYPE_IQ) {
+				MixerInputDataType == XRFDC_DATA_TYPE_IQ) {
 			Index = Block_Id;
 			NoOfBlocks = XRFDC_NUM_OF_BLKS3;
 			if (Block_Id == XRFDC_BLK_ID1) {
@@ -1247,7 +1249,7 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 			goto RETURN_PATH;
 		}
 
-		if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+		if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 				(Type == XRFDC_ADC_TILE) &&
 				((QMCSettingsPtr->EventSource == XRFDC_EVNT_SRC_SLICE) ||
 				(QMCSettingsPtr->EventSource ==
@@ -1267,10 +1269,10 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		/* Phase Correction factor is applicable to ADC/DAC IQ mode only */
 		if (((Type == XRFDC_ADC_TILE) &&
 			(InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Index].
-			DataType == XRFDC_DATA_TYPE_IQ)) ||
+			MixerInputDataType == XRFDC_DATA_TYPE_IQ)) ||
 			((Type == XRFDC_DAC_TILE) &&
 			(InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Index].
-					DataType == XRFDC_DATA_TYPE_IQ))) {
+					MixerInputDataType == XRFDC_DATA_TYPE_IQ))) {
 			PhaseCorrectionFactor =
 				((QMCSettingsPtr->PhaseCorrectionFactor / XRFDC_MAX_PHASE_CORR_FACTOR) *
 							XRFDC_QMC_PHASE_MULT);
@@ -1311,9 +1313,9 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		QMCConfigPtr->EnableGain = QMCSettingsPtr->EnableGain;
 		if ((Type == XRFDC_ADC_TILE) &&
 			(InstancePtr->ADC_Tile[Tile_Id].
-				ADCBlock_Digital_Datapath[Index].DataType ==
-					XRFDC_DATA_TYPE_IQ) && (InstancePtr->ADC4GSPS ==
-				XRFDC_ADC_4GSPS)) {
+				ADCBlock_Digital_Datapath[Index].MixerInputDataType ==
+				XRFDC_DATA_TYPE_IQ) && (XRFdc_IsHighSpeedADC(InstancePtr,
+				Tile_Id) == 1)) {
 			Index += XRFDC_BLK_ID2;
 		} else {
 			Index += XRFDC_BLK_ID1;
@@ -1365,10 +1367,10 @@ u32 XRFdc_GetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Block_Id == XRFDC_BLK_ID1) && (Type == XRFDC_ADC_TILE) &&
 				(InstancePtr->ADC_Tile[Tile_Id].
-					ADCBlock_Digital_Datapath[Block_Id].DataType !=
+					ADCBlock_Digital_Datapath[Block_Id].MixerInputDataType !=
 						XRFDC_DATA_TYPE_IQ)) {
 		Block_Id = XRFDC_BLK_ID2;
 	}
@@ -1384,10 +1386,10 @@ u32 XRFdc_GetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	/* Phase Correction factor */
 	if (((Type == XRFDC_ADC_TILE) &&
 		(InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].
-				DataType == XRFDC_DATA_TYPE_IQ)) ||
+				MixerInputDataType == XRFDC_DATA_TYPE_IQ)) ||
 		((Type == XRFDC_DAC_TILE) &&
 		(InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].
-				DataType == XRFDC_DATA_TYPE_IQ))) {
+				MixerInputDataType == XRFDC_DATA_TYPE_IQ))) {
 		PhaseCorrectionFactor = XRFdc_RDReg(InstancePtr, BaseAddr,
 				XRFDC_QMC_PHASE_OFFSET, XRFDC_QMC_PHASE_CRCTN_MASK);
 		PhaseCorrectionFactor = (PhaseCorrectionFactor >>
@@ -1448,12 +1450,16 @@ u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	u32 BaseAddr;
 	u32 Index;
 	u32 NoOfBlocks;
+	u16 Mask;
+	u16 MaxDelay;
 	XRFdc_CoarseDelay_Settings *CoarseDelayConfigPtr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CoarseDelaySettingsPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
+	Mask = (InstancePtr->RFdc_Config.IPType < 2)?XRFDC_CRSE_DLY_CFG_MASK:XRFDC_CRSE_DLY_CFG_MASK_EXT;
+	MaxDelay = (InstancePtr->RFdc_Config.IPType < 2)?XRFDC_CRSE_DLY_MAX:XRFDC_CRSE_DLY_MAX_EXT;
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n Requested block not "
@@ -1462,7 +1468,7 @@ u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	Index = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Type == XRFDC_ADC_TILE)) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
@@ -1486,7 +1492,7 @@ u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 
 		BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Index);
 
-		if (CoarseDelaySettingsPtr->CoarseDelay > XRFDC_CRSE_DLY_MAX) {
+		if (CoarseDelaySettingsPtr->CoarseDelay > MaxDelay) {
 			metal_log(METAL_LOG_ERROR, "\n Requested coarse "
 				"delay not valid in %s\r\n", __func__);
 			Status = XRFDC_FAILURE;
@@ -1500,7 +1506,7 @@ u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
-		if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+		if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Type == XRFDC_ADC_TILE) &&
 			((CoarseDelaySettingsPtr->EventSource ==
 				XRFDC_EVNT_SRC_SLICE) ||
@@ -1513,8 +1519,7 @@ u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 			goto RETURN_PATH;
 		}
 		if (Type == XRFDC_ADC_TILE) {
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_CRSE_DLY_CFG_OFFSET,
-				XRFDC_CRSE_DLY_CFG_MASK, CoarseDelaySettingsPtr->CoarseDelay);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_CRSE_DLY_CFG_OFFSET, Mask, CoarseDelaySettingsPtr->CoarseDelay);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr,
 				XRFDC_ADC_CRSE_DLY_UPDT_OFFSET, XRFDC_QMC_UPDT_MODE_MASK,
 				CoarseDelaySettingsPtr->EventSource);
@@ -1526,7 +1531,7 @@ u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 			}
 		} else {
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr,
-				XRFDC_DAC_CRSE_DLY_CFG_OFFSET, XRFDC_CRSE_DLY_CFG_MASK,
+				XRFDC_DAC_CRSE_DLY_CFG_OFFSET, Mask,
 				CoarseDelaySettingsPtr->CoarseDelay);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr,
 				XRFDC_DAC_CRSE_DLY_UPDT_OFFSET, XRFDC_QMC_UPDT_MODE_MASK,
@@ -1587,7 +1592,7 @@ u32 XRFdc_GetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Block_Id == XRFDC_BLK_ID1) && (Type == XRFDC_ADC_TILE)) {
 		Block_Id = XRFDC_BLK_ID2;
 	}
@@ -1646,7 +1651,7 @@ u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
 	Index = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Type == XRFDC_ADC_TILE)) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
@@ -1654,7 +1659,7 @@ u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
 			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
 		}
 		if ((Event == XRFDC_EVENT_QMC) && (InstancePtr->ADC_Tile[Tile_Id].
-				ADCBlock_Digital_Datapath[Index].DataType ==
+				ADCBlock_Digital_Datapath[Index].MixerInputDataType ==
 				XRFDC_DATA_TYPE_IQ)) {
 			Index = Block_Id;
 			NoOfBlocks = XRFDC_NUM_OF_BLKS3;
@@ -1731,9 +1736,9 @@ u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
 			}
 		}
 		if ((Event == XRFDC_EVENT_QMC) && (InstancePtr->ADC_Tile[Tile_Id].
-				ADCBlock_Digital_Datapath[Index].DataType ==
-				XRFDC_DATA_TYPE_IQ) && (InstancePtr->ADC4GSPS ==
-				XRFDC_ADC_4GSPS) && (Type == XRFDC_ADC_TILE)) {
+				ADCBlock_Digital_Datapath[Index].MixerInputDataType ==
+				XRFDC_DATA_TYPE_IQ) && (XRFdc_IsHighSpeedADC(InstancePtr,
+				Tile_Id) == 1) && (Type == XRFDC_ADC_TILE)) {
 			Index += XRFDC_BLK_ID2;
 		} else {
 			Index += XRFDC_BLK_ID1;
@@ -1769,7 +1774,6 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 					u32 DecimationFactor)
 {
 	u32 Status;
-	u16 ReadReg;
 	u32 BaseAddr;
 	u32 Index;
 	u32 NoOfBlocks;
@@ -1792,7 +1796,17 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 			(DecimationFactor != XRFDC_INTERP_DECIM_1X) &&
 			(DecimationFactor != XRFDC_INTERP_DECIM_2X) &&
 			(DecimationFactor != XRFDC_INTERP_DECIM_4X) &&
-			(DecimationFactor != XRFDC_INTERP_DECIM_8X)) {
+			(DecimationFactor != XRFDC_INTERP_DECIM_8X) &&
+			((InstancePtr->RFdc_Config.IPType < 2) ||
+			((DecimationFactor != XRFDC_INTERP_DECIM_3X) &&
+			(DecimationFactor != XRFDC_INTERP_DECIM_5X) &&
+			(DecimationFactor != XRFDC_INTERP_DECIM_6X) &&
+			(DecimationFactor != XRFDC_INTERP_DECIM_10X) &&
+			(DecimationFactor != XRFDC_INTERP_DECIM_12X) &&
+			(DecimationFactor != XRFDC_INTERP_DECIM_16X) &&
+			(DecimationFactor != XRFDC_INTERP_DECIM_20X) &&
+			(DecimationFactor != XRFDC_INTERP_DECIM_24X) &&
+			(DecimationFactor != XRFDC_INTERP_DECIM_40X)))) {
 		metal_log(METAL_LOG_ERROR, "\n Invalid Decimation factor "
 					"value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
@@ -1800,7 +1814,7 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	}
 
 	Index = Block_Id;
-	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Index = XRFDC_BLK_ID2;
@@ -1816,37 +1830,52 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 				XRFDC_ADC_DECI_CONFIG_OFFSET, XRFDC_DEC_CFG_MASK);
 
 		/* Decimation factor */
-		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-					XRFDC_ADC_DECI_MODE_OFFSET) &
-					~XRFDC_DEC_MOD_MASK;
 		Factor = DecimationFactor;
-		if (DecimationFactor == XRFDC_INTERP_DECIM_4X) {
-			Factor = 0x3;
+		if (InstancePtr->RFdc_Config.IPType < 2) {
+			if (DecimationFactor == XRFDC_INTERP_DECIM_4X) {
+				Factor = 0x3;
+			}
+			if (DecimationFactor == XRFDC_INTERP_DECIM_8X) {
+				Factor = 0x4;
+			}
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DECI_MODE_OFFSET,
+				XRFDC_DEC_MOD_MASK, Factor);
+		} else {
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DECI_MODE_OFFSET,
+				XRFDC_DEC_MOD_MASK_EXT, Factor);
 		}
-		if (DecimationFactor == XRFDC_INTERP_DECIM_8X) {
-			Factor = 0x4;
-		}
-		ReadReg |= Factor;
-		XRFdc_WriteReg16(InstancePtr, BaseAddr,
-				XRFDC_ADC_DECI_MODE_OFFSET, ReadReg);
+
+
 
 		/* Fabric rate */
 		FabricRate = XRFdc_RDReg(InstancePtr, BaseAddr,
-				XRFDC_ADC_FABRIC_RATE_OFFSET,XRFDC_ADC_FAB_RATE_WR_MASK);
+				XRFDC_ADC_FABRIC_RATE_OFFSET, XRFDC_ADC_FAB_RATE_WR_MASK);
 		if ((DataType == XRFDC_DECIM_2G_IQ_DATA_TYPE) ||
 				(DataType == XRFDC_DECIM_4G_DATA_TYPE) ||
-				(InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
+				(XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
 			switch (DecimationFactor) {
 				case XRFDC_INTERP_DECIM_1X:
 					FabricRate = XRFDC_FAB_RATE_8;
 					break;
 				case XRFDC_INTERP_DECIM_2X:
+				case XRFDC_INTERP_DECIM_3X:
 					FabricRate = XRFDC_FAB_RATE_4;
 					break;
 				case XRFDC_INTERP_DECIM_4X:
+				case XRFDC_INTERP_DECIM_5X:
+				case XRFDC_INTERP_DECIM_6X:
 					FabricRate = XRFDC_FAB_RATE_2;
 					break;
+				case XRFDC_INTERP_DECIM_10X:
+				case XRFDC_INTERP_DECIM_12X:
 				case XRFDC_INTERP_DECIM_8X:
+					FabricRate = XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) ?
+							XRFDC_FAB_RATE_1:XRFDC_FAB_RATE_2;
+					break;
+				case XRFDC_INTERP_DECIM_16X:
+				case XRFDC_INTERP_DECIM_20X:
+				case XRFDC_INTERP_DECIM_24X:
+				case XRFDC_INTERP_DECIM_40X:
 					FabricRate = XRFDC_FAB_RATE_1;
 					break;
 				default:
@@ -1860,10 +1889,19 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 					FabricRate = XRFDC_FAB_RATE_4;
 					break;
 				case XRFDC_INTERP_DECIM_2X:
+				case XRFDC_INTERP_DECIM_3X:
 					FabricRate = XRFDC_FAB_RATE_2;
 					break;
 				case XRFDC_INTERP_DECIM_4X:
 				case XRFDC_INTERP_DECIM_8X:
+				case XRFDC_INTERP_DECIM_5X:
+				case XRFDC_INTERP_DECIM_6X:
+				case XRFDC_INTERP_DECIM_10X:
+				case XRFDC_INTERP_DECIM_12X:
+				case XRFDC_INTERP_DECIM_16X:
+				case XRFDC_INTERP_DECIM_20X:
+				case XRFDC_INTERP_DECIM_24X:
+				case XRFDC_INTERP_DECIM_40X:
 					FabricRate = XRFDC_FAB_RATE_1;
 					break;
 				default:
@@ -2018,7 +2056,6 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 						u32 InterpolationFactor)
 {
 	u32 Status;
-	u16 ReadReg;
 	u32 BaseAddr;
 	u16 FabricRate;
 	u8 DataType;
@@ -2039,7 +2076,17 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 			(InterpolationFactor != XRFDC_INTERP_DECIM_1X) &&
 			(InterpolationFactor != XRFDC_INTERP_DECIM_2X) &&
 			(InterpolationFactor != XRFDC_INTERP_DECIM_4X) &&
-			(InterpolationFactor != XRFDC_INTERP_DECIM_8X)) {
+			(InterpolationFactor != XRFDC_INTERP_DECIM_8X) &&
+			((InstancePtr->RFdc_Config.IPType < 2) ||
+			((InterpolationFactor != XRFDC_INTERP_DECIM_3X) &&
+			(InterpolationFactor != XRFDC_INTERP_DECIM_5X) &&
+			(InterpolationFactor != XRFDC_INTERP_DECIM_6X) &&
+			(InterpolationFactor != XRFDC_INTERP_DECIM_10X) &&
+			(InterpolationFactor != XRFDC_INTERP_DECIM_12X) &&
+			(InterpolationFactor != XRFDC_INTERP_DECIM_16X) &&
+			(InterpolationFactor != XRFDC_INTERP_DECIM_20X) &&
+			(InterpolationFactor != XRFDC_INTERP_DECIM_24X) &&
+			(InterpolationFactor != XRFDC_INTERP_DECIM_40X)))) {
 		metal_log(METAL_LOG_ERROR, "\n Invalid Interpolation factor "
 				"divider value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
@@ -2060,22 +2107,22 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	}
 
 	/* Interpolation factor */
-	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-			XRFDC_DAC_INTERP_CTRL_OFFSET) &
-			~XRFDC_INTERP_MODE_MASK;
 	Factor = InterpolationFactor;
-	if (InterpolationFactor == XRFDC_INTERP_DECIM_4X) {
-		Factor = 0x3;
+
+	if (InstancePtr->RFdc_Config.IPType < 2) {
+		if (InterpolationFactor == XRFDC_INTERP_DECIM_4X) {
+			Factor = 0x3;
+		}
+		if (InterpolationFactor == XRFDC_INTERP_DECIM_8X) {
+			Factor = 0x4;
+		}
 	}
-	if (InterpolationFactor == XRFDC_INTERP_DECIM_8X) {
-		Factor = 0x4;
-	}
-	ReadReg |= Factor;
 	if (DataType == XRFDC_ADC_MIXER_MODE_IQ) {
-		ReadReg |= Factor << XRFDC_INTERP_MODE_Q_SHIFT;
+		Factor |= Factor << ((InstancePtr->RFdc_Config.IPType < 2)?XRFDC_INTERP_MODE_Q_SHIFT:XRFDC_INTERP_MODE_Q_SHIFT_EXT);
 	}
-	XRFdc_WriteReg16(InstancePtr, BaseAddr,
-			XRFDC_DAC_INTERP_CTRL_OFFSET, ReadReg);
+
+	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_INTERP_CTRL_OFFSET,
+			(InstancePtr->RFdc_Config.IPType < 2)?XRFDC_INTERP_MODE_MASK:XRFDC_INTERP_MODE_MASK_EXT, Factor);
 
 	/* Fabric rate */
 	FabricRate = XRFdc_RDReg(InstancePtr, BaseAddr,
@@ -2084,13 +2131,24 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	if (DataType == XRFDC_ADC_MIXER_MODE_IQ) {
 		switch (InterpolationFactor) {
 			case XRFDC_INTERP_DECIM_2X:
+			case XRFDC_INTERP_DECIM_3X:
 				FabricRate = XRFDC_FAB_RATE_8;
 				break;
 			case XRFDC_INTERP_DECIM_4X:
+				case XRFDC_INTERP_DECIM_5X:
+				case XRFDC_INTERP_DECIM_6X:
 				FabricRate = XRFDC_FAB_RATE_4;
 				break;
 			case XRFDC_INTERP_DECIM_8X:
+				case XRFDC_INTERP_DECIM_10X:
+				case XRFDC_INTERP_DECIM_12X:
 				FabricRate = XRFDC_FAB_RATE_2;
+				break;
+			case XRFDC_INTERP_DECIM_16X:
+			case XRFDC_INTERP_DECIM_20X:
+			case XRFDC_INTERP_DECIM_24X:
+			case XRFDC_INTERP_DECIM_40X:
+				FabricRate = XRFDC_FAB_RATE_1;
 				break;
 			default:
 				metal_log(METAL_LOG_DEBUG, "\n Interpolation block "
@@ -2103,12 +2161,21 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 				FabricRate = XRFDC_FAB_RATE_8;
 				break;
 			case XRFDC_INTERP_DECIM_2X:
+			case XRFDC_INTERP_DECIM_3X:
 				FabricRate = XRFDC_FAB_RATE_4;
 				break;
 			case XRFDC_INTERP_DECIM_4X:
+				case XRFDC_INTERP_DECIM_5X:
+				case XRFDC_INTERP_DECIM_6X:
 				FabricRate = XRFDC_FAB_RATE_2;
 				break;
 			case XRFDC_INTERP_DECIM_8X:
+			case XRFDC_INTERP_DECIM_10X:
+			case XRFDC_INTERP_DECIM_12X:
+			case XRFDC_INTERP_DECIM_16X:
+			case XRFDC_INTERP_DECIM_20X:
+			case XRFDC_INTERP_DECIM_24X:
+			case XRFDC_INTERP_DECIM_40X:
 				FabricRate = XRFDC_FAB_RATE_1;
 				break;
 			default:
@@ -2164,12 +2231,17 @@ u32 XRFdc_GetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id,
 
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
 
-	*InterpolationFactorPtr = XRFdc_RDReg(InstancePtr, BaseAddr,
+	if (InstancePtr->RFdc_Config.IPType < 2) {
+		*InterpolationFactorPtr = XRFdc_RDReg(InstancePtr, BaseAddr,
 		XRFDC_DAC_INTERP_CTRL_OFFSET, XRFDC_INTERP_MODE_I_MASK);
-	if (*InterpolationFactorPtr == 0x3U) {
-		*InterpolationFactorPtr = XRFDC_INTERP_DECIM_4X;
-	} else if (*InterpolationFactorPtr == 0x4U) {
-		*InterpolationFactorPtr = XRFDC_INTERP_DECIM_8X;
+		if (*InterpolationFactorPtr == 0x3U) {
+			*InterpolationFactorPtr = XRFDC_INTERP_DECIM_4X;
+		} else if (*InterpolationFactorPtr == 0x4U) {
+			*InterpolationFactorPtr = XRFDC_INTERP_DECIM_8X;
+		}
+	} else {
+		*InterpolationFactorPtr = XRFdc_RDReg(InstancePtr, BaseAddr,
+				XRFDC_DAC_INTERP_CTRL_OFFSET, XRFDC_INTERP_MODE_I_MASK_EXT);
 	}
 
 	Status = XRFDC_SUCCESS;
@@ -2214,19 +2286,26 @@ u32 XRFdc_GetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 				(Block_Id == XRFDC_BLK_ID1)) {
 		Block_Id = XRFDC_BLK_ID2;
 	}
 
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Block_Id);
 
-	*DecimationFactorPtr = XRFdc_RDReg(InstancePtr, BaseAddr,
+
+
+	if (InstancePtr->RFdc_Config.IPType < 2) {
+		*DecimationFactorPtr = XRFdc_RDReg(InstancePtr, BaseAddr,
 			XRFDC_ADC_DECI_MODE_OFFSET, XRFDC_DEC_MOD_MASK);
-	if (*DecimationFactorPtr == 0x3U) {
-		*DecimationFactorPtr = XRFDC_INTERP_DECIM_4X;
-	} else if (*DecimationFactorPtr == 0x4U) {
-		*DecimationFactorPtr = XRFDC_INTERP_DECIM_8X;
+		if (*DecimationFactorPtr == 0x3U) {
+			*DecimationFactorPtr = XRFDC_INTERP_DECIM_4X;
+		} else if (*DecimationFactorPtr == 0x4U) {
+			*DecimationFactorPtr = XRFDC_INTERP_DECIM_8X;
+		}
+	} else {
+		*DecimationFactorPtr = XRFdc_RDReg(InstancePtr, BaseAddr,
+			XRFDC_ADC_DECI_MODE_OFFSET, XRFDC_DEC_MOD_MASK_EXT);
 	}
 
 	Status = XRFDC_SUCCESS;
@@ -2335,7 +2414,7 @@ u32 XRFdc_SetFabRdVldWords(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	}
 
 	Index = Block_Id;
-	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Index = XRFDC_BLK_ID2;
@@ -2396,7 +2475,7 @@ u32 XRFdc_GetFabWrVldWords(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Block_Id == XRFDC_BLK_ID1) && (Type == XRFDC_ADC_TILE)) {
 		Block_Id = XRFDC_BLK_ID2;
 	}
@@ -2454,7 +2533,7 @@ u32 XRFdc_GetFabRdVldWords(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Block_Id == XRFDC_BLK_ID1) && (Type == XRFDC_ADC_TILE)) {
 		Block_Id = XRFDC_BLK_ID2;
 	}
@@ -2517,14 +2596,14 @@ u32 XRFdc_ThresholdStickyClear(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	}
 
 	Index = Block_Id;
-	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Index = XRFDC_BLK_ID2;
 			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
 		}
 		if (InstancePtr->ADC_Tile[Tile_Id].
-				ADCBlock_Digital_Datapath[Index].DataType ==
+				ADCBlock_Digital_Datapath[Index].MixerInputDataType ==
 				XRFDC_DATA_TYPE_IQ) {
 			Index = Block_Id;
 			NoOfBlocks = XRFDC_NUM_OF_BLKS3;
@@ -2554,9 +2633,9 @@ u32 XRFdc_ThresholdStickyClear(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		}
 
 		if ((InstancePtr->ADC_Tile[Tile_Id].
-				ADCBlock_Digital_Datapath[Index].DataType ==
-				XRFDC_DATA_TYPE_IQ) && (InstancePtr->ADC4GSPS ==
-				XRFDC_ADC_4GSPS)) {
+				ADCBlock_Digital_Datapath[Index].MixerInputDataType ==
+				XRFDC_DATA_TYPE_IQ) && (XRFdc_IsHighSpeedADC(InstancePtr,
+				Tile_Id) == 1)) {
 			Index += XRFDC_BLK_ID2;
 		} else {
 			Index += XRFDC_BLK_ID1;
@@ -2628,14 +2707,14 @@ u32 XRFdc_SetThresholdClrMode(XRFdc *InstancePtr, u32 Tile_Id,
 	}
 
 	Index = Block_Id;
-	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Index = XRFDC_BLK_ID2;
 			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
 		}
 		if (InstancePtr->ADC_Tile[Tile_Id].
-				ADCBlock_Digital_Datapath[Index].DataType ==
+				ADCBlock_Digital_Datapath[Index].MixerInputDataType ==
 				XRFDC_DATA_TYPE_IQ) {
 			Index = Block_Id;
 			NoOfBlocks = XRFDC_NUM_OF_BLKS3;
@@ -2676,9 +2755,9 @@ u32 XRFdc_SetThresholdClrMode(XRFdc *InstancePtr, u32 Tile_Id,
 				XRFDC_ADC_TRSHD1_CFG_OFFSET, ReadReg);
 		}
 		if ((InstancePtr->ADC_Tile[Tile_Id].
-				ADCBlock_Digital_Datapath[Index].DataType ==
-				XRFDC_DATA_TYPE_IQ) && (InstancePtr->ADC4GSPS ==
-				XRFDC_ADC_4GSPS)) {
+				ADCBlock_Digital_Datapath[Index].MixerInputDataType ==
+				XRFDC_DATA_TYPE_IQ) && (XRFdc_IsHighSpeedADC(InstancePtr,
+				Tile_Id) == 1)) {
 			Index += XRFDC_BLK_ID2;
 		} else {
 			Index += XRFDC_BLK_ID1;
@@ -2735,14 +2814,14 @@ u32 XRFdc_SetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	}
 
 	Index = Block_Id;
-	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Index = XRFDC_BLK_ID2;
 			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
 		}
 		if (InstancePtr->ADC_Tile[Tile_Id].
-				ADCBlock_Digital_Datapath[Index].DataType ==
+				ADCBlock_Digital_Datapath[Index].MixerInputDataType ==
 				XRFDC_DATA_TYPE_IQ) {
 			Index = Block_Id;
 			NoOfBlocks = XRFDC_NUM_OF_BLKS3;
@@ -2854,9 +2933,9 @@ u32 XRFdc_SetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 				ThresholdSettingsPtr->ThresholdOverVal[1];
 		}
 		if ((InstancePtr->ADC_Tile[Tile_Id].
-				ADCBlock_Digital_Datapath[Index].DataType ==
-				XRFDC_DATA_TYPE_IQ) && (InstancePtr->ADC4GSPS ==
-				XRFDC_ADC_4GSPS)) {
+				ADCBlock_Digital_Datapath[Index].MixerInputDataType ==
+				XRFDC_DATA_TYPE_IQ) && (XRFdc_IsHighSpeedADC(InstancePtr,
+				Tile_Id) ==	1)) {
 			Index += XRFDC_BLK_ID2;
 		} else {
 			Index += XRFDC_BLK_ID1;
@@ -2909,9 +2988,9 @@ u32 XRFdc_GetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Block_Id == XRFDC_BLK_ID1) && (InstancePtr->ADC_Tile[Tile_Id].
-					ADCBlock_Digital_Datapath[Block_Id].DataType !=
+					ADCBlock_Digital_Datapath[Block_Id].MixerInputDataType !=
 						XRFDC_DATA_TYPE_IQ)) {
 		Block_Id = XRFDC_BLK_ID2;
 	}
@@ -2929,7 +3008,7 @@ u32 XRFdc_GetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	ThresholdSettingsPtr->ThresholdAvgVal[0] = XRFdc_ReadReg16(InstancePtr,
 			BaseAddr, XRFDC_ADC_TRSHD0_AVG_LO_OFFSET);
 	ThresholdSettingsPtr->ThresholdAvgVal[0] |= (XRFdc_ReadReg16(InstancePtr,
-			BaseAddr,XRFDC_ADC_TRSHD0_AVG_UP_OFFSET) <<
+			BaseAddr, XRFDC_ADC_TRSHD0_AVG_UP_OFFSET) <<
 					XRFDC_TRSHD0_AVG_UPP_SHIFT);
 	ThresholdSettingsPtr->ThresholdAvgVal[1] = XRFdc_ReadReg16(InstancePtr,
 			BaseAddr, XRFDC_ADC_TRSHD1_AVG_LO_OFFSET);
@@ -3098,7 +3177,7 @@ u32 XRFdc_ResetNCOPhase(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	Index = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Type == XRFDC_ADC_TILE)) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
@@ -3120,711 +3199,6 @@ RETURN_PATH:
 	return Status;
 
 }
-
-/*****************************************************************************/
-/**
-*
-* Static API to setup Singleband configuration for C2C Datatype
-*
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param    DataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
-* @param    Mode is connection mode SB/MB_2X/MB_4X.
-* @param    DataPathIndex is the array that represents the blocks enabled in
-*           DigitalData Path.
-* @param    BlockIndex is the array that represents the blocks enabled in
-*           Analog Path(Data Converters).
-*
-* @return
-*		- None
-*
-* @note		Static API for ADC/DAC blocks
-*
-******************************************************************************/
-static void XRFdc_SB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		u32 DataType, u32 Mode, u32 DataPathIndex[], u32 BlockIndex[])
-{
-	u32 Block_Id;
-
-	if ((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
-		/* Update ConnectedIData and ConnectedQData for ADC 4GSPS */
-		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-						ConnectedIData = BlockIndex[0U];
-		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-						ConnectedQData = BlockIndex[1U];
-		Block_Id = (DataPathIndex[0] == 0U ? 1U : 0U);
-		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].
-						ConnectedIData = -1;
-		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].
-						ConnectedQData = -1;
-
-		if (DataPathIndex[0] == XRFDC_BLK_ID1) {
-			DataPathIndex[0] = XRFDC_BLK_ID2;
-		}
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
-				DataType, BlockIndex[0U], BlockIndex[0U]+1U);
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+1U,
-				DataType, BlockIndex[1U]+1U, BlockIndex[1U]+2U);
-		Block_Id = (DataPathIndex[0] == XRFDC_BLK_ID2 ? XRFDC_BLK_ID0 :
-				XRFDC_BLK_ID2);
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, Block_Id,
-				DataType, -1, -1);
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, Block_Id+1U,
-				DataType, -1, -1);
-	} else {
-		DataPathIndex[1] = BlockIndex[0] + BlockIndex[1] - DataPathIndex[0];
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
-				DataType, BlockIndex[0], BlockIndex[1]);
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
-				DataType, -1, -1);
-
-		/* Update ConnectedIData and ConnectedQData for DAC and ADC 2GSPS */
-		if (Type == XRFDC_ADC_TILE) {
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedIData = BlockIndex[0];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedQData = BlockIndex[1];
-
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedIData = -1;
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedQData = -1;
-		} else {
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedIData = BlockIndex[0];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedQData = BlockIndex[1];
-
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedIData = -1;
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedQData = -1;
-		}
-	}
-}
-
-/*****************************************************************************/
-/**
-*
-* Static API to setup Singleband configuration for C2R and R2C Datatypes
-*
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param    DataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
-* @param    Mode is connection mode SB/MB_2X/MB_4X.
-* @param    DataPathIndex is the array that represents the blocks enabled in
-*           DigitalData Path.
-* @param    BlockIndex is the array that represents the blocks enabled in
-*           Analog Path(Data Converters).
-*
-* @return
-*		- None
-*
-* @note		Static API for ADC/DAC blocks
-*
-******************************************************************************/
-static void XRFdc_SB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		u32 DataType, u32 Mode, u32 DataPathIndex[], u32 BlockIndex[])
-{
-	if (Type == XRFDC_ADC_TILE) {
-		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-						ConnectedIData = BlockIndex[0U];
-		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-						ConnectedQData = -1;
-	} else {
-		InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
-						ConnectedIData = BlockIndex[0U];
-		InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
-						ConnectedQData = -1;
-	}
-	if ((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
-		if (DataPathIndex[0] == XRFDC_BLK_ID1) {
-			DataPathIndex[0] = XRFDC_BLK_ID2;
-		}
-		if (BlockIndex[0] == XRFDC_BLK_ID1) {
-			BlockIndex[0] = XRFDC_BLK_ID2;
-		}
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+1U,
-				DataType, BlockIndex[0U]+1U, -1);
-	}
-	XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
-			DataType, BlockIndex[0U], -1);
-}
-
-/*****************************************************************************/
-/**
-*
-* Static API to setup Multiband configuration for C2C Datatype
-*
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param    DataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
-* @param    Mode is connection mode SB/MB_2X/MB_4X.
-* @param    DataPathIndex is the array that represents the blocks enabled in
-*           DigitalData Path.
-* @param    BlockIndex is the array that represents the blocks enabled in
-*           Analog Path(Data Converters).
-*
-* @return
-*		- None
-*
-* @note		Static API for ADC/DAC blocks
-*
-******************************************************************************/
-static void XRFdc_MB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		u8 NoOfDataPaths, u32 DataType, u32 Mode,
-			u32 DataPathIndex[], u32 BlockIndex[])
-{
-	if ((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
-				DataType, BlockIndex[0U], BlockIndex[0U]+1U);
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+1U,
-				DataType, BlockIndex[0U]+2U, BlockIndex[0U]+3U);
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+2U,
-				DataType, BlockIndex[0U], BlockIndex[0U]+1U);
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+3U,
-				DataType, BlockIndex[0U]+2U, BlockIndex[0U]+3U);
-
-		/* Update ConnectedIData and ConnectedQData for ADC 4GSPS */
-		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-						ConnectedIData = BlockIndex[0U];
-		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-						ConnectedQData = BlockIndex[1U];
-		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
-						ConnectedIData = BlockIndex[0U];
-		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
-						ConnectedQData = BlockIndex[1U];
-	} else if (NoOfDataPaths == 2U) {
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
-				DataType, BlockIndex[0U], BlockIndex[1U]);
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
-				DataType, BlockIndex[0U], BlockIndex[1U]);
-
-		/* Update ConnectedIData and ConnectedQData for DAC and ADC 2GSPS */
-		if (Type == XRFDC_ADC_TILE) {
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedQData = BlockIndex[1U];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedQData = BlockIndex[1U];
-		} else {
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedQData = BlockIndex[1U];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedQData = BlockIndex[1U];
-		}
-	}
-	if (NoOfDataPaths == 4U) {
-		if (Type == XRFDC_ADC_TILE) {
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
-					DataType, BlockIndex[0U], BlockIndex[1U]);
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
-					DataType,  BlockIndex[0U], BlockIndex[1U]);
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[2],
-					DataType, BlockIndex[0U], BlockIndex[1U]);
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[3],
-					DataType, BlockIndex[0U], BlockIndex[1U]);
-
-			/* Update ConnectedIData and ConnectedQData for ADC 4GSPS */
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedQData = BlockIndex[1U];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedQData = BlockIndex[1U];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[2]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[2]].
-							ConnectedQData = BlockIndex[1U];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[3]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[3]].
-							ConnectedQData = BlockIndex[1U];
-		} else {
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
-					DataType, DataPathIndex[0], DataPathIndex[1U]);
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
-					DataType, DataPathIndex[0U], DataPathIndex[1U]);
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[2],
-					DataType, DataPathIndex[2U], DataPathIndex[3U]);
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[3],
-					DataType, DataPathIndex[2U], DataPathIndex[3U]);
-
-			/* Update ConnectedIData and ConnectedQData for DAC and ADC 2GSPS */
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedQData = BlockIndex[1U];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedQData = BlockIndex[1U];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[2]].
-							ConnectedIData = DataPathIndex[0U];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[2]].
-							ConnectedQData = DataPathIndex[1U];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[3]].
-							ConnectedIData = DataPathIndex[0U];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[3]].
-							ConnectedQData = DataPathIndex[1U];
-		}
-	}
-}
-
-/*****************************************************************************/
-/**
-*
-* Static API to setup Multiband configuration for C2C Datatype
-*
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param    DataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
-* @param    Mode is connection mode SB/MB_2X/MB_4X.
-* @param    DataPathIndex is the array that represents the blocks enabled in
-*           DigitalData Path.
-* @param    BlockIndex is the array that represents the blocks enabled in
-*           Analog Path(Data Converters).
-*
-* @return
-*		- None
-*
-* @note		Static API for ADC/DAC blocks
-*
-******************************************************************************/
-static void XRFdc_MB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		u8 NoOfDataPaths, u32 DataType, u32 Mode,
-				u32 DataPathIndex[], u32 BlockIndex[])
-{
-	if ((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
-		/* Update ConnectedIData and ConnectedQData */
-		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-						ConnectedIData = BlockIndex[0U];
-		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-						ConnectedQData = -1;
-		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
-						ConnectedIData = BlockIndex[0U];
-		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
-						ConnectedQData = -1;
-		if (BlockIndex[0] == XRFDC_BLK_ID1) {
-			BlockIndex[0] = XRFDC_BLK_ID2;
-		}
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
-				DataType, BlockIndex[0U], -1);
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
-				DataType, BlockIndex[0U]+1U, -1);
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+2U,
-				DataType, BlockIndex[0U], -1);
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1]+2U,
-				DataType, BlockIndex[0U]+1U, -1);
-	} else if (NoOfDataPaths == 2U) {
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
-				DataType, BlockIndex[0], -1);
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
-				DataType, BlockIndex[0], -1);
-
-		/* Update ConnectedIData and ConnectedQData */
-		if (Type == XRFDC_ADC_TILE) {
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedQData = -1;
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedQData = -1;
-		} else {
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedQData = -1;
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedQData = -1;
-		}
-
-	}
-	if (NoOfDataPaths == 4U) {
-		if (Type == XRFDC_ADC_TILE) {
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
-					DataType, BlockIndex[0], -1);
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
-					DataType, BlockIndex[0], -1);
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[2],
-					DataType, BlockIndex[0], -1);
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[3],
-					DataType, BlockIndex[0], -1);
-
-			/* Update ConnectedIData and ConnectedQData */
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedQData = -1;
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedQData = -1;
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[2]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[2]].
-							ConnectedQData = -1;
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[3]].
-							ConnectedIData = BlockIndex[0U];
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[3]].
-							ConnectedQData = -1;
-
-		} else {
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
-					DataType, DataPathIndex[0], -1);
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
-					DataType, DataPathIndex[0], -1);
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[2],
-					DataType, DataPathIndex[2], -1);
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[3],
-					DataType, DataPathIndex[2], -1);
-
-			/* Update ConnectedIData and ConnectedQData */
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedIData = DataPathIndex[0];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
-							ConnectedQData = -1;
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedIData = DataPathIndex[0];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].
-							ConnectedQData = -1;
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[2]].
-							ConnectedIData = DataPathIndex[0];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[2]].
-							ConnectedQData = -1;
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[3]].
-							ConnectedIData = DataPathIndex[0];
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[3]].
-							ConnectedQData = -1;
-		}
-	}
-}
-
-/*****************************************************************************/
-/**
-*
-* Static API to update mode and MultibandConfig
-*
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param    NoOfDataPaths is number of DataPaths enabled.
-* @param    ModePtr is a pointer to connection mode SB/MB_2X/MB_4X.
-* @param    DataPathIndex is the array that represents the blocks enabled in
-*           DigitalData Path.
-*
-* @return
-*		- None
-*
-* @note		Static API for ADC/DAC blocks
-*
-******************************************************************************/
-static u32 XRFdc_UpdateMBConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		u8 NoOfDataPaths, u32 *ModePtr, u32 DataPathIndex[])
-{
-	u8 MultibandConfig;
-	u32 Status;
-
-	if (Type == XRFDC_ADC_TILE) {
-		MultibandConfig = InstancePtr->ADC_Tile[Tile_Id].MultibandConfig;
-	} else {
-		MultibandConfig = InstancePtr->DAC_Tile[Tile_Id].MultibandConfig;
-	}
-
-	if (NoOfDataPaths == 1U) {
-		*ModePtr = XRFDC_SINGLEBAND_MODE;
-		if (((DataPathIndex[0] == XRFDC_BLK_ID2) ||
-				(DataPathIndex[0] == XRFDC_BLK_ID3)) &&
-				((MultibandConfig == XRFDC_MB_MODE_2X_BLK01_BLK23) ||
-						(MultibandConfig == XRFDC_MB_MODE_4X))) {
-			MultibandConfig = XRFDC_MB_MODE_2X_BLK01;
-		} else if (((DataPathIndex[0] == XRFDC_BLK_ID0) ||
-				(DataPathIndex[0] == XRFDC_BLK_ID1)) &&
-				((MultibandConfig == XRFDC_MB_MODE_2X_BLK01_BLK23) ||
-						(MultibandConfig == XRFDC_MB_MODE_4X))) {
-			MultibandConfig = XRFDC_MB_MODE_2X_BLK23;
-		} else if ((MultibandConfig == XRFDC_MB_MODE_2X_BLK01) &&
-				((DataPathIndex[0] == XRFDC_BLK_ID0) ||
-						(DataPathIndex[0] == XRFDC_BLK_ID1))) {
-			MultibandConfig = XRFDC_MB_MODE_SB;
-		} else if ((MultibandConfig == XRFDC_MB_MODE_2X_BLK23) &&
-				((DataPathIndex[0] == XRFDC_BLK_ID2) ||
-						(DataPathIndex[0] == XRFDC_BLK_ID3))) {
-			MultibandConfig = XRFDC_MB_MODE_SB;
-		}
-	} else if (NoOfDataPaths == 2U) {
-		*ModePtr = XRFDC_MULTIBAND_MODE_2X;
-		if (((MultibandConfig == XRFDC_MB_MODE_2X_BLK01) &&
-				(DataPathIndex[0] == XRFDC_BLK_ID2) && (DataPathIndex[1] == XRFDC_BLK_ID3)) ||
-				((MultibandConfig == XRFDC_MB_MODE_2X_BLK23) && (DataPathIndex[0] == XRFDC_BLK_ID0) &&
-				(DataPathIndex[1] == XRFDC_BLK_ID1)) || (MultibandConfig == XRFDC_MB_MODE_4X)) {
-			MultibandConfig = XRFDC_MB_MODE_2X_BLK01_BLK23;
-		} else if (((DataPathIndex[0] == XRFDC_BLK_ID2) && (DataPathIndex[1] == XRFDC_BLK_ID3)) &&
-				(MultibandConfig == XRFDC_MB_MODE_SB)) {
-			MultibandConfig = XRFDC_MB_MODE_2X_BLK23;
-		} else if (((DataPathIndex[0] == XRFDC_BLK_ID0) && (DataPathIndex[1] == XRFDC_BLK_ID1)) &&
-				(MultibandConfig == XRFDC_MB_MODE_SB)) {
-			MultibandConfig = XRFDC_MB_MODE_2X_BLK01;
-		}
-	} else if (NoOfDataPaths == 4U) {
-		*ModePtr = XRFDC_MULTIBAND_MODE_4X;
-		MultibandConfig = XRFDC_MB_MODE_4X;
-	} else {
-		metal_log(METAL_LOG_ERROR, "\n Invalid DigitalDataPathMask "
-				"value in %s\r\n", __func__);
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-
-	/* Update Multiband Config member */
-	if (Type == XRFDC_ADC_TILE) {
-		InstancePtr->ADC_Tile[Tile_Id].MultibandConfig = MultibandConfig;
-	} else {
-		InstancePtr->DAC_Tile[Tile_Id].MultibandConfig = MultibandConfig;
-	}
-
-	Status = XRFDC_SUCCESS;
-RETURN_PATH:
-	return Status;
-}
-/*****************************************************************************/
-/**
-*
-* User-level API to setup multiband configuration.
-*
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param    DigitalDataPathMask is the DataPath mask. First 4 bits represent
-*           4 data paths, 1 means enabled and 0 means disabled.
-* @param    DataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
-* @param    DataConverterMask is block enabled mask (input/output driving
-*           blocks). 1 means enabled and 0 means disabled.
-*
-* @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
-*
-* @note		Common API for ADC/DAC blocks
-*
-******************************************************************************/
-u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		u8 DigitalDataPathMask, u32 DataType, u32 DataConverterMask)
-{
-	u32 Status;
-	u32 Block_Id;
-	u8 NoOfDataPaths = 0U;
-	u32 BlockIndex[XRFDC_NUM_OF_BLKS4] = {XRFDC_BLK_ID4};
-	u32 DataPathIndex[XRFDC_NUM_OF_BLKS4] = {XRFDC_BLK_ID4};
-	u32 NoOfDataConverters = 0U;
-	u32 Mode = 0x0;
-	u32 NoOfBlocks = XRFDC_BLK_ID4;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
-
-	if ((DigitalDataPathMask == 0U) || (DigitalDataPathMask > 0xFU)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid DigitalDataPathMask "
-					"value in %s\r\n", __func__);
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-
-	if ((DataConverterMask == 0U) || (DataConverterMask > 0xFU)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid DataConverterMask "
-					"value in %s\r\n", __func__);
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-
-	if ((DataType != XRFDC_MB_DATATYPE_C2C) &&
-			(DataType != XRFDC_MB_DATATYPE_R2C) &&
-			(DataType != XRFDC_MB_DATATYPE_C2R)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid DataType "
-				"value in %s\r\n", __func__);
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
-				(Type == XRFDC_ADC_TILE)) {
-		NoOfBlocks = XRFDC_BLK_ID2;
-	}
-	/* Identify DataPathIndex and BlockIndex */
-	for (Block_Id = XRFDC_BLK_ID0; Block_Id < NoOfBlocks; Block_Id++) {
-		if ((DataConverterMask & (1U << Block_Id)) != 0U) {
-			BlockIndex[NoOfDataConverters] = Block_Id;
-			NoOfDataConverters += 1U;
-			Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id,
-					Block_Id);
-			if (Status != XRFDC_SUCCESS) {
-				metal_log(METAL_LOG_ERROR, "\n Requested block not "
-										"available in %s\r\n", __func__);
-				goto RETURN_PATH;
-			}
-		}
-		if ((DigitalDataPathMask & (1U << Block_Id)) != 0U) {
-			DataPathIndex[NoOfDataPaths] = Block_Id;
-			NoOfDataPaths += 1U;
-			Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, Type, Tile_Id,
-					Block_Id);
-			if (Status != XRFDC_SUCCESS) {
-				metal_log(METAL_LOG_ERROR, "\n Requested block digital path "
-									"not enabled in %s\r\n", __func__);
-				goto RETURN_PATH;
-			}
-		}
-	}
-
-	if (BlockIndex[0] != DataPathIndex[0]) {
-		metal_log(METAL_LOG_ERROR, "\n Not a valid MB/SB "
-					"combination in %s\r\n", __func__);
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-
-	/* UPdate MultibandConfig in driver instance */
-	Status = XRFdc_UpdateMBConfig(InstancePtr, Type, Tile_Id, NoOfDataPaths, &Mode,
-					DataPathIndex);
-	if (Status != XRFDC_SUCCESS) {
-		goto RETURN_PATH;
-	}
-
-	if ((DataType == XRFDC_MB_DATATYPE_C2C) && (Mode == XRFDC_SINGLEBAND_MODE)) {
-		/* Singleband C2C */
-		XRFdc_SB_C2C(InstancePtr, Type, Tile_Id, DataType, Mode,
-				DataPathIndex, BlockIndex);
-	} else if (((DataType == XRFDC_MB_DATATYPE_R2C) ||
-			(DataType == XRFDC_MB_DATATYPE_C2R)) && (Mode == XRFDC_SINGLEBAND_MODE)) {
-		/* Singleband R2C and C2R */
-		XRFdc_SB_R2C_C2R(InstancePtr, Type, Tile_Id, DataType, Mode,
-						DataPathIndex, BlockIndex);
-	}
-	if ((DataType == XRFDC_MB_DATATYPE_C2C) &&
-			((Mode == XRFDC_MULTIBAND_MODE_2X) || (Mode == XRFDC_MULTIBAND_MODE_4X))) {
-		/* Multiband C2C */
-		XRFdc_MB_C2C(InstancePtr, Type, Tile_Id, NoOfDataPaths, DataType, Mode,
-							DataPathIndex, BlockIndex);
-	} else if (((DataType == XRFDC_MB_DATATYPE_R2C) || (DataType == XRFDC_MB_DATATYPE_C2R)) &&
-				((Mode == XRFDC_MULTIBAND_MODE_2X) || (Mode == XRFDC_MULTIBAND_MODE_4X))) {
-		/* Multiband C2R and R2C */
-		XRFdc_MB_R2C_C2R(InstancePtr, Type, Tile_Id, NoOfDataPaths, DataType,
-					Mode, DataPathIndex, BlockIndex);
-	}
-
-	Status = XRFDC_SUCCESS;
-RETURN_PATH:
-	return Status;
-}
-/*****************************************************************************/
-/**
-*
-* Sets up signal flow configuration.
-*
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param    Mode is connection mode SB/MB_2X/MB_4X.
-* @param    DigitalDataPathId for the requested I or Q data.
-* @param    DataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
-* @param    ConnectIData is analog blocks that are connected to
-*           DigitalDataPath I.
-* @param    ConnectQData is analog blocks that are connected to
-*           DigitalDataPath Q.
-*
-* @return   None
-*
-* @note		static API used internally.
-*
-******************************************************************************/
-static void XRFdc_SetSignalFlow(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		u32 Mode, u32 DigitalDataPathId, u32 DataType,
-		int ConnectIData, int ConnectQData)
-{
-	u16 ReadReg;
-	u32 BaseAddr;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
-
-	BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, DigitalDataPathId);
-	if (Type == XRFDC_ADC_TILE) {
-		/* ADC */
-		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-						XRFDC_ADC_SWITCH_MATRX_OFFSET);
-		ReadReg &= ~XRFDC_SWITCH_MTRX_MASK;
-		if (ConnectIData != -1) {
-			ReadReg |= ((u16)ConnectIData) << XRFDC_SEL_CB_TO_MIX0_SHIFT;
-		}
-		if (ConnectQData != -1) {
-			ReadReg |= (u16)ConnectQData;
-		}
-		if ((DataType == XRFDC_MB_DATATYPE_C2C) &&
-				(InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
-			ReadReg |= XRFDC_SEL_CB_TO_QMC_MASK;
-		}
-		if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
-			ReadReg |= XRFDC_SEL_CB_TO_DECI_MASK;
-		}
-
-		XRFdc_WriteReg16(InstancePtr, BaseAddr,
-						XRFDC_ADC_SWITCH_MATRX_OFFSET, ReadReg);
-	} else {
-		/* DAC */
-		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-					XRFDC_DAC_MB_CFG_OFFSET);
-		ReadReg &= ~XRFDC_MB_CFG_MASK;
-		if (Mode == XRFDC_SINGLEBAND_MODE) {
-			if ((u32)ConnectIData == DigitalDataPathId) {
-				if (ConnectQData != -1) {
-					ReadReg |= XRFDC_SB_C2C_BLK0;
-				} else {
-					ReadReg |= XRFDC_SB_C2R;
-				}
-			}
-			if ((ConnectIData == -1) && (ConnectQData == -1)) {
-				ReadReg |= XRFDC_SB_C2C_BLK1;
-			}
-		} else {
-			if (Mode == XRFDC_MULTIBAND_MODE_4X) {
-				ReadReg |= XRFDC_MB_EN_4X_MASK;
-			}
-			if ((u32)ConnectIData == DigitalDataPathId) {
-				if (ConnectQData != -1) {
-					ReadReg |= XRFDC_MB_C2C_BLK0;
-				} else {
-					ReadReg |= XRFDC_MB_C2R_BLK0;
-				}
-			} else {
-				if (ConnectQData != -1) {
-					ReadReg |= XRFDC_MB_C2C_BLK1;
-				} else {
-					ReadReg |= XRFDC_MB_C2R_BLK1;
-				}
-			}
-		}
-		XRFdc_WriteReg16(InstancePtr, BaseAddr,
-					XRFDC_DAC_MB_CFG_OFFSET, ReadReg);
-	}
-}
-
 /*****************************************************************************/
 /**
 *
@@ -4047,7 +3421,7 @@ u32 XRFdc_SetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	Index = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Type == XRFDC_ADC_TILE)) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
@@ -4166,7 +3540,7 @@ u32 XRFdc_GetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	Block = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Block_Id == XRFDC_BLK_ID1) && (Type == XRFDC_ADC_TILE)) {
 		Block_Id = XRFDC_BLK_ID2;
 	}
@@ -4211,6 +3585,187 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
+* This API is to set the DAC Datapath mode.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param    Mode valid values are 0-3.
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled / out of range.
+*
+* @note		Only for DAC blocks
+*
+******************************************************************************/
+u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+						u32 Mode)
+{
+	u32 Status = XRFDC_SUCCESS;
+	u32 BaseAddr;
+	u32 NyquistZone;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+								"available in %s\r\n", __func__);
+		return Status;
+	}
+
+	if (Mode > XRFDC_DAC_MODE_MAX) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid Mode "
+					"value in %s\r\n", __func__);
+		Status = XRFDC_FAILURE;
+		return Status;
+	}
+
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_DATAPATH_OFFSET,
+			XRFDC_DATAPATH_MODE_MASK, Mode);
+
+	NyquistZone = (Mode == XRFDC_DAC_MODE_7G_NQ2) ?
+			XRFDC_EVEN_NYQUIST_ZONE : XRFDC_ODD_NYQUIST_ZONE;
+	XRFdc_SetNyquistZone(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, NyquistZone);
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is to get the DAC Datapath mode.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param    ModePtr pointer used to return value.
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled.
+*
+* @note		Only for DAC blocks
+*
+******************************************************************************/
+u32 XRFdc_GetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+						u32 *ModePtr)
+{
+	u32 Status = XRFDC_SUCCESS;
+	u32 BaseAddr;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(ModePtr != NULL);
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+								"available in %s\r\n", __func__);
+		return Status;
+	}
+
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	*ModePtr = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_DATAPATH_OFFSET,
+			XRFDC_DATAPATH_MODE_MASK);
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is to set the DAC Image Reject Filter Pass mode.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param    Mode valid values are 0 (for low pass) 1 (for high pass).
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled / bad parameter passed
+*
+* @note		Only for DAC blocks
+*
+******************************************************************************/
+u32 XRFdc_SetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+						u32 Mode)
+{
+	u32 Status = XRFDC_SUCCESS;
+	u32 BaseAddr;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+								"available in %s\r\n", __func__);
+		return Status;
+	}
+
+	if (Mode > XRFDC_DAC_IMR_MODE_MAX) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid Mode "
+					"value in %s\r\n", __func__);
+		Status = XRFDC_FAILURE;
+		return Status;
+	}
+
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_DATAPATH_OFFSET,
+			XRFDC_DATAPATH_IMR_MASK, Mode << 2);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is to get the DAC Image Reject Filter Pass mode.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param     ModePtr pointer used to return value.
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled.
+*
+* @note		Only for DAC blocks
+*
+******************************************************************************/
+u32 XRFdc_GetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+						u32 *ModePtr)
+{
+	u32 Status = XRFDC_SUCCESS;
+	u32 BaseAddr;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(ModePtr != NULL);
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+								"available in %s\r\n", __func__);
+		return Status;
+	}
+
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	*ModePtr = (XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_DATAPATH_OFFSET,
+			XRFDC_DATAPATH_IMR_MASK)) >> 2;
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
 * This API is to set the Calibration mode.
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
@@ -4248,7 +3803,7 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	}
 
 	Index = Block_Id;
-	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Index = XRFDC_BLK_ID2;
@@ -4280,9 +3835,9 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		ReadReg &= ~XRFDC_TI_DCB_MODE_MASK;
 		if (CalibrationMode == XRFDC_CALIB_MODE1) {
 			if (((Index % 2U) != 0U) &&
-				(InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
+				(XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
 				ReadReg |= XRFDC_TI_DCB_MODE1_4GSPS;
-			} else if (InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) {
+			} else if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) {
 				ReadReg |= XRFDC_TI_DCB_MODE1_2GSPS;
 			}
 		}
@@ -4353,7 +3908,7 @@ u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		goto RETURN_PATH;
 	}
 
-	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Block_Id = XRFDC_BLK_ID3;
 		}
@@ -4379,23 +3934,24 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This API is used to set enable/disable the Inverse-Sinc filter.
+* This API is used to set the mode for the Inverse-Sinc filter.
 *
 * @param	InstancePtr is a pointer to the XRfdc instance.
 * @param	Tile_Id Valid values are 0-3.
 * @param	Block_Id is DAC block number inside the tile. Valid values
 *			are 0-3.
-* @param	Enable valid values are 0(disable) and 1(enable).
+* @param	Mode valid values are 0(disable),  1(1st Nyquist zone)
+			and 2(2nd Nyquist zone).
 *
 * @return
 *		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*       - XRFDC_FAILURE if Block not enabled/invalid mode.
 *
 * @note		Only DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-								u16 Enable)
+								u16 Mode)
 {
 	u32 Status;
 	u32 BaseAddr;
@@ -4403,8 +3959,8 @@ u32 XRFdc_SetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	if ((Enable != 0U) && (Enable != 1U)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid enable "
+	if (Mode > ((InstancePtr->RFdc_Config.IPType < 2)?XRFDC_INV_SYNC_EN_MAX:XRFDC_INV_SYNC_MODE_MAX)) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid mode "
 						"value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
@@ -4419,8 +3975,7 @@ u32 XRFdc_SetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_INVSINC_OFFSET,
-					XRFDC_EN_INVSINC_MASK, Enable);
-
+					(InstancePtr->RFdc_Config.IPType < 2)?XRFDC_EN_INVSINC_MASK:XRFDC_MODE_INVSINC_MASK, Mode);
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
@@ -4429,14 +3984,14 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This API is used to get the Inverse-Sinc filter status(enable/disable).
+* This API is used to get the Inverse-Sinc filter mode.
 *
 * @param	InstancePtr is a pointer to the XRfdc instance.
 * @param	Tile_Id Valid values are 0-3.
 * @param	Block_Id is DAC block number inside the tile. Valid values
 *			are 0-3.
-* @param	EnablePtr is a pointer to get the inv-sinc status. valid values
-*               are 0(disable) and 1(enable).
+* @param	ModePtr is a pointer to get the inv-sinc status. valid values
+*           are 0(disable),  1(1st Nyquist zone) and 2(2nd Nyquist zone).
 *
 * @return
 *		- XRFDC_SUCCESS if successful.
@@ -4446,13 +4001,14 @@ RETURN_PATH:
 *
 ******************************************************************************/
 u32 XRFdc_GetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-								u16 *EnablePtr)
+								u16 *ModePtr)
 {
 	u32 Status;
 	u32 BaseAddr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(ModePtr != NULL);
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id,
 					Block_Id);
@@ -4463,9 +4019,8 @@ u32 XRFdc_GetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	}
 
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
-	*EnablePtr = XRFdc_RDReg(InstancePtr, BaseAddr,
-					XRFDC_DAC_INVSINC_OFFSET, XRFDC_EN_INVSINC_MASK);
-
+	*ModePtr = XRFdc_RDReg(InstancePtr, BaseAddr,
+					XRFDC_DAC_INVSINC_OFFSET, (InstancePtr->RFdc_Config.IPType < 2)?XRFDC_EN_INVSINC_MASK:XRFDC_MODE_INVSINC_MASK);
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
@@ -4496,7 +4051,7 @@ static void XRFdc_DumpADCRegs(XRFdc *InstancePtr, int Tile_Id)
 
 	for (BlockId = XRFDC_BLK_ID0; BlockId < XRFDC_BLK_ID4; BlockId++) {
 		Block = BlockId;
-		if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+		if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 			if (BlockId == XRFDC_BLK_ID1) {
 				Block = XRFDC_BLK_ID0;
 			}
@@ -4709,598 +4264,6 @@ static void StubHandler(void *CallBackRefPtr, u32 Type, u32 Tile_Id,
 	Xil_AssertVoidAlways();
 
 }
-
-/*****************************************************************************/
-/**
-*
-* This function gets Clock source
-*
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type indicates ADC/DAC.
-* @param	Tile_Id indicates Tile number (0-3).
-* @param	ClockSourcePtr Pointer to return the clock source
-*
-* @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
-*
-* @note		None.
-*
-******************************************************************************/
-u32 XRFdc_GetClockSource(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-								u32 *ClockSourcePtr)
-{
-	u32 BaseAddr;
-	u32 Status;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(ClockSourcePtr != NULL);
-
-	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
-	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested tile not "
-								"available in %s\r\n", __func__);
-		goto RETURN_PATH;
-	}
-
-	BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_HSCOM_ADDR;
-
-	*ClockSourcePtr = XRFdc_RDReg(InstancePtr, BaseAddr,
-				XRFDC_CLK_NETWORK_CTRL1, XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK);
-
-	Status = XRFDC_SUCCESS;
-RETURN_PATH:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function gets PLL lock status
-*
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type indicates ADC/DAC.
-* @param	Tile_Id indicates Tile number (0-3).
-* @param	LockStatusPtr Pointer to return the PLL lock status
-*
-* @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
-*
-* @note		None.
-*
-******************************************************************************/
-u32 XRFdc_GetPLLLockStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-							u32 *LockStatusPtr)
-{
-	u32 BaseAddr;
-	u32 ReadReg;
-	u32 ClkSrc = 0U;
-	u32 Status;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(LockStatusPtr != NULL);
-
-	/*
-	 * Get Tile clock source information
-	 */
-	if (XRFdc_GetClockSource(InstancePtr, Type, Tile_Id, &ClkSrc)
-								!= XRFDC_SUCCESS) {
-			metal_log(METAL_LOG_ERROR, "\n Get clock source request Tile %d "
-						"failed in %s\r\n", Tile_Id, __func__);
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-
-	if (ClkSrc == XRFDC_EXTERNAL_CLK) {
-		metal_log(METAL_LOG_DEBUG,  "\n Requested Tile %d "
-					"uses external clock source in %s\r\n", Tile_Id, __func__);
-		*LockStatusPtr = XRFDC_PLL_LOCKED;
-	} else {
-		if (Type == XRFDC_ADC_TILE) {
-			BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
-		} else {
-			BaseAddr = XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile_Id);
-		}
-
-		ReadReg = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_STATUS_OFFSET,
-				XRFDC_PLL_LOCKED_MASK);
-		if (ReadReg != 0U) {
-			*LockStatusPtr = XRFDC_PLL_LOCKED;
-		} else {
-			*LockStatusPtr = XRFDC_PLL_UNLOCKED;
-		}
-	}
-
-	Status = XRFDC_SUCCESS;
-RETURN_PATH:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function used for configuring the internal PLL registers
-* based on reference clock and sampling rate
-*
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type indicates ADC/DAC.
-* @param	Tile_Id indicates Tile number (0-3).
-* @param	RefClkFreq Reference Clock Frequency MHz(50MHz - 1.2GHz)
-* @param	SamplingRate Sampling Rate in MHz(0.5- 4 GHz)
-*
-* @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
-*
-* @note		None.
-*
-******************************************************************************/
-static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		double RefClkFreq, double SamplingRate)
-{
-	u32 BaseAddr;
-	u32 Status;
-	u32 FeedbackDiv;
-	u32 OutputDiv;
-	double CalcSamplingRate;
-	double PllFreq;
-	double SamplingError;
-	u32 Best_FeedbackDiv = 0x0U;
-	u32 Best_OutputDiv = 0x2U;
-	double Best_Error = 0xFFFFFFFFU;
-	u32 DivideMode = 0x0U;
-	u32 DivideValue = 0x0U;
-	u32 PllFreqIndex = 0x0U;
-	u32 FbDivIndex = 0x0U;
-	u32 RefClkDiv = 0x1;
-	u16 ReadReg;
-
-	if (Type == XRFDC_ADC_TILE) {
-		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id);
-	} else {
-		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id);
-	}
-
-	BaseAddr += XRFDC_HSCOM_ADDR;
-
-	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_PLL_REFDIV);
-	if (ReadReg & XRFDC_REFCLK_DIV_1_MASK) {
-		RefClkDiv = XRFDC_REF_CLK_DIV_1;
-	} else {
-		switch (ReadReg & XRFDC_REFCLK_DIV_MASK) {
-			case XRFDC_REFCLK_DIV_2_MASK:
-				RefClkDiv = XRFDC_REF_CLK_DIV_2;
-				break;
-			case XRFDC_REFCLK_DIV_3_MASK:
-				RefClkDiv = XRFDC_REF_CLK_DIV_3;
-				break;
-			case XRFDC_REFCLK_DIV_4_MASK:
-				RefClkDiv = XRFDC_REF_CLK_DIV_4;
-				break;
-			default:
-				/*
-				 * IP currently supporting 1 to 4 divider values. This
-				 * error condition might change in future based on IP update.
-				 */
-				metal_log(METAL_LOG_ERROR,  "\n Unsupported Reference "
-						"clock Divider value in %s\r\n", __func__);
-				return XRFDC_FAILURE;
-		}
-	}
-
-	RefClkFreq /= RefClkDiv;
-
-	/*
-	 * Sweep valid integer values of FeedbackDiv(N) and record a list
-	 * of values that fall in the valid VCO range 8.5GHz - 12.8GHz
-	 */
-	for (FeedbackDiv = PLL_FPDIV_MIN; FeedbackDiv <= PLL_FPDIV_MAX;
-			FeedbackDiv++) {
-
-		PllFreq = FeedbackDiv * RefClkFreq;
-
-		if ((PllFreq >= VCO_RANGE_MIN) && (PllFreq <= VCO_RANGE_MAX)) {
-			/*
-			 * Sweep values of OutputDiv(M) to find the output frequency
-			 * that best matches the user requested value
-			 */
-
-			for (OutputDiv = PLL_DIVIDER_MIN; OutputDiv <= PLL_DIVIDER_MAX;
-					OutputDiv += 2U) {
-
-				CalcSamplingRate = (PllFreq / OutputDiv);
-
-				if (SamplingRate > CalcSamplingRate) {
-					SamplingError = SamplingRate - CalcSamplingRate;
-				} else {
-					SamplingError = CalcSamplingRate - SamplingRate;
-				}
-
-				if (Best_Error > SamplingError) {
-					Best_FeedbackDiv = FeedbackDiv;
-					Best_OutputDiv = OutputDiv;
-					Best_Error = SamplingError;
-				}
-			}
-
-			OutputDiv = 3U;
-			CalcSamplingRate = (PllFreq / OutputDiv);
-
-			if (SamplingRate > CalcSamplingRate) {
-				SamplingError = SamplingRate - CalcSamplingRate;
-			} else {
-				SamplingError = CalcSamplingRate - SamplingRate;
-			}
-
-			if (Best_Error > SamplingError) {
-				Best_FeedbackDiv = FeedbackDiv;
-				Best_OutputDiv = OutputDiv;
-				Best_Error = SamplingError;
-			}
-		}
-
-		/*
-		 * PLL Static configuration
-		 */
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SDM_CFG0, 0x80U);
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SDM_SEED0, 0x111U);
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SDM_SEED1, 0x11U);
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_VREG, 0x45U);
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_VCO0, 0x5800U);
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_VCO1, 0x08U);
-
-		/*
-		 * Set Feedback divisor value
-		 */
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_FPDIV,
-				Best_FeedbackDiv - 2U);
-
-		/*
-		 * Set Output divisor value
-		 */
-		if (Best_OutputDiv == 2U) {
-			DivideMode = 0x1U;
-		} else if (Best_OutputDiv == 3U) {
-			DivideMode = 0x2U;
-			DivideValue = 0x1U;
-		} else if (Best_OutputDiv >= 4U) {
-			DivideMode = 0x3U;
-			DivideValue = ((Best_OutputDiv - 4U)/2U);
-		}
-
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_PLL_DIVIDER0,
-			XRFDC_PLL_DIVIDER0_MASK, ((DivideMode << XRFDC_PLL_DIVIDER0_SHIFT) | DivideValue));
-
-		/*
-		 * Enable fine sweep
-		 */
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_CRS2, XRFDC_PLL_CRS2_VAL);
-
-		/*
-		 * Set default PLL spare inputs LSB
-		 */
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SPARE0, 0x507U);
-
-		/*
-		 * Set PLL spare inputs MSB
-		 */
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SPARE1, 0x0U);
-
-		PllFreq = RefClkFreq * Best_FeedbackDiv;
-
-		if (PllFreq < 9400U) {
-			PllFreqIndex = 0U;
-			FbDivIndex = 2U;
-			if (Best_FeedbackDiv < 21U) {
-				FbDivIndex = 0U;
-			} else if (Best_FeedbackDiv < 30U) {
-				FbDivIndex = 1U;
-			}
-		} else if (PllFreq < 10070U) {
-			PllFreqIndex = 1U;
-			FbDivIndex = 2U;
-			if (Best_FeedbackDiv < 18U) {
-				FbDivIndex = 0U;
-			} else if (Best_FeedbackDiv < 30U) {
-				FbDivIndex = 1U;
-			}
-		} else if (PllFreq < 10690U) {
-			PllFreqIndex = 2U;
-			FbDivIndex = 3U;
-			if (Best_FeedbackDiv < 18U) {
-				FbDivIndex = 0U;
-			} else if (Best_FeedbackDiv < 25U) {
-				FbDivIndex = 1U;
-			} else if (Best_FeedbackDiv < 35U) {
-				FbDivIndex = 2U;
-			}
-		} else if (PllFreq < 10990U) {
-			PllFreqIndex = 3U;
-			FbDivIndex = 3U;
-			if (Best_FeedbackDiv < 19U) {
-				FbDivIndex = 0U;
-			} else if (Best_FeedbackDiv < 27U) {
-				FbDivIndex = 1U;
-			} else if (Best_FeedbackDiv < 38U) {
-				FbDivIndex = 2U;
-			}
-		} else if (PllFreq < 11430U) {
-			PllFreqIndex = 4U;
-			FbDivIndex = 3U;
-			if (Best_FeedbackDiv < 19U) {
-				FbDivIndex = 0U;
-			} else if (Best_FeedbackDiv < 27U) {
-				FbDivIndex = 1U;
-			} else if (Best_FeedbackDiv < 38U) {
-				FbDivIndex = 2U;
-			}
-		} else if (PllFreq < 12040U) {
-			PllFreqIndex = 5U;
-			FbDivIndex = 3U;
-			if (Best_FeedbackDiv < 20U) {
-				FbDivIndex = 0U;
-			} else if (Best_FeedbackDiv < 28U) {
-				FbDivIndex = 1U;
-			} else if (Best_FeedbackDiv < 40U) {
-				FbDivIndex = 2U;
-			}
-		} else if (PllFreq < 12530U) {
-			PllFreqIndex = 6U;
-			FbDivIndex = 3U;
-			if (Best_FeedbackDiv < 23U) {
-				FbDivIndex = 0U;
-			} else if (Best_FeedbackDiv < 30U) {
-				FbDivIndex = 1U;
-			} else if (Best_FeedbackDiv < 42U) {
-				FbDivIndex = 2U;
-			}
-		} else if (PllFreq < 20000U) {
-			PllFreqIndex = 7U;
-			FbDivIndex = 2U;
-			if (Best_FeedbackDiv < 20U) {
-				FbDivIndex = 0U;
-				/*
-				 * Set PLL spare inputs LSB
-				 */
-				XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SPARE0, 0x577);
-			} else if (Best_FeedbackDiv < 39U) {
-				FbDivIndex = 1U;
-			}
-		}
-
-		/*
-		 * Enable automatic selection of the VCO, this will work with the
-		 * IP version 2.0.1 and above and using older version of IP is
-		 * not likely to work.
-		 */
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_PLL_CRS1,
-				XRFDC_PLL_VCO_SEL_AUTO_MASK, XRFDC_PLL_VCO_SEL_AUTO_MASK);
-
-		/*
-		 * PLL bits for loop filters LSB
-		 */
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_LPF0,
-				PllTuningMatrix[PllFreqIndex][FbDivIndex][0]);
-
-		/*
-		 * PLL bits for loop filters MSB
-		 */
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_LPF1, XRFDC_PLL_LPF1_VAL);
-
-		/*
-		 * Set PLL bits for charge pumps
-		 */
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_CHARGEPUMP,
-				PllTuningMatrix[PllFreqIndex][FbDivIndex][1]);
-	}
-
-	CalcSamplingRate = (Best_FeedbackDiv * RefClkFreq) / Best_OutputDiv;
-	CalcSamplingRate /= XRFDC_MILLI;
-
-	if (Type == XRFDC_ADC_TILE) {
-		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate =
-							CalcSamplingRate;
-		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkDivider = RefClkDiv;
-		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.FeedbackDivider = Best_FeedbackDiv;
-		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.OutputDivider = Best_OutputDiv;
-	} else {
-		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate =
-					CalcSamplingRate;
-		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkDivider = RefClkDiv;
-		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.FeedbackDivider = Best_FeedbackDiv;
-		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.OutputDivider = Best_OutputDiv;
-	}
-
-	Status = XRFDC_SUCCESS;
-
-	return Status;
-}
-
-
-/*****************************************************************************/
-/**
-*
-* This function used for dynamically switch between internal PLL and
-* external clcok source and configuring the internal PLL
-*
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type indicates ADC/DAC
-* @param	Tile_Id indicates Tile number (0-3)
-* @param	Source Clock source internal PLL or external clock source
-* @param	RefClkFreq Reference Clock Frequency in MHz(102.40625MHz - 1.2GHz)
-* @param	SamplingRate Sampling Rate in MHz(0.1- 6.554GHz for DAC and
-*           0.5/1.0 - 2.058/4.116GHz for ADC based on the device package).
-*
-* @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
-*
-* @note		This API enables automatic selection of the VCO which will work in
-*           IP version 2.0.1 and above. Using older version of IP this API is
-*           not likely to work.
-*
-******************************************************************************/
-u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-				u8 Source, double RefClkFreq, double SamplingRate)
-{
-	u32 ClkSrc = 0U;
-	u32 Status;
-	u32 BaseAddr;
-	u32 PLLEnable = 0x0;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
-
-	if ((Source != XRFDC_INTERNAL_PLL_CLK) &&
-			(Source != XRFDC_EXTERNAL_CLK)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid Source "
-					"value in %s\r\n", __func__);
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-
-	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
-	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested tile not "
-								"available in %s\r\n", __func__);
-		goto RETURN_PATH;
-	}
-
-	/*
-	 * Get Tile clock source information
-	 */
-	if (XRFdc_GetClockSource(InstancePtr, Type, Tile_Id, &ClkSrc)
-								!= XRFDC_SUCCESS) {
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-
-	if ((Source != XRFDC_INTERNAL_PLL_CLK) &&
-			(ClkSrc != XRFDC_INTERNAL_PLL_CLK)) {
-		metal_log(METAL_LOG_DEBUG,  "\n Requested Tile %d "
-					"uses external clock source in %s\r\n", Tile_Id, __func__);
-		if (Type == XRFDC_ADC_TILE) {
-			InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate =
-						(double)(SamplingRate/1000);
-			InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
-		} else {
-			InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate =
-						(double)(SamplingRate/1000);
-			InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
-		}
-		Status = XRFDC_SUCCESS;
-		goto RETURN_PATH;
-	}
-	if ((((SamplingRate < XRFDC_DAC_SAMPLING_MIN) ||
-			(SamplingRate > XRFDC_DAC_SAMPLING_MAX)) &&
-			(Type == XRFDC_DAC_TILE))) {
-		metal_log(METAL_LOG_ERROR,  "\n Invalid sampling "
-				"rate value in %s\r\n", __func__);
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-	if ((((SamplingRate < XRFDC_ADC_4G_SAMPLING_MIN) ||
-			(SamplingRate > XRFDC_ADC_4G_SAMPLING_MAX)) &&
-		((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)))) {
-		metal_log(METAL_LOG_ERROR,  "\n Invalid sampling "
-				"rate value in %s\r\n", __func__);
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-	if ((((SamplingRate < XRFDC_ADC_2G_SAMPLING_MIN) ||
-			(SamplingRate > XRFDC_ADC_2G_SAMPLING_MAX)) &&
-		((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS)))) {
-		metal_log(METAL_LOG_ERROR,  "\n Invalid sampling "
-				"rate value in %s\r\n", __func__);
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-	if (Source == XRFDC_INTERNAL_PLL_CLK) {
-		if ((RefClkFreq < XRFDC_REFFREQ_MIN) ||
-				(RefClkFreq > XRFDC_REFFREQ_MAX)) {
-			metal_log(METAL_LOG_ERROR,  "\n Input reference clock "
-					"frequency does not respect the specifications "
-					"for internal PLL usage. Please use a different "
-					"frequency or bypass the internal PLL", __func__);
-			Status = XRFDC_FAILURE;
-			goto RETURN_PATH;
-		}
-	}
-
-	/*
-	 * Stop the ADC or DAC tile by putting tile in reset state
-	 */
-	if (XRFdc_Shutdown(InstancePtr, Type, Tile_Id) != XRFDC_SUCCESS) {
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-
-	if(Type == XRFDC_ADC_TILE) {
-		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) + XRFDC_HSCOM_ADDR;
-	} else {
-		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) + XRFDC_HSCOM_ADDR;
-	}
-
-	if (Source == XRFDC_INTERNAL_PLL_CLK) {
-		PLLEnable = 0x1;
-		/*
-		 * Configure the PLL
-		 */
-		if (XRFdc_SetPLLConfig(InstancePtr, Type, Tile_Id, RefClkFreq,
-				SamplingRate) != XRFDC_SUCCESS) {
-			Status = XRFDC_FAILURE;
-			goto RETURN_PATH;
-		}
-
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr,
-			XRFDC_CLK_NETWORK_CTRL1, XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK,
-			XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK);
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
-				XRFDC_HSCOM_PWR_STATS_PLL);
-	} else {
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1,
-				XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK, 0x0);
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
-				XRFDC_HSCOM_PWR_STATS_EXTERNAL);
-		SamplingRate /= XRFDC_MILLI;
-
-		if (Type == XRFDC_ADC_TILE) {
-			InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate =
-					SamplingRate;
-			InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkDivider = 0x0U;
-			InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.FeedbackDivider = 0x0U;
-			InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.OutputDivider = 0x0U;
-		} else {
-			InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate =
-					SamplingRate;
-			InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkDivider = 0x0U;
-			InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.FeedbackDivider = 0x0U;
-			InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.OutputDivider = 0x0U;
-		}
-	}
-
-	/*
-	 * Re-start the ADC or DAC tile
-	 */
-	if (XRFdc_StartUp(InstancePtr, Type, Tile_Id) != XRFDC_SUCCESS) {
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-
-	if (Type == XRFDC_ADC_TILE) {
-		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
-		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.Enabled = PLLEnable;
-	} else {
-		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
-		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.Enabled = PLLEnable;
-	}
-
-	Status = XRFDC_SUCCESS;
-RETURN_PATH:
-	return Status;
-}
-
 /*****************************************************************************/
 /**
 *
@@ -5337,7 +4300,7 @@ u32 XRFdc_GetLinkCoupling(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Block_Id == XRFDC_BLK_ID1)) {
 		Block_Id = XRFDC_BLK_ID2;
 	}
@@ -5357,4 +4320,1026 @@ RETURN_PATH:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+*
+* This function is used to set the IM3 Dither mode.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
+* @param	Mode 0: Disable
+*				 1: Enable
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled.
+*
+* @note		Only for ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_SetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+							u32 Mode)
+{
+	u32 Status;
+	u32 BaseAddr;
+	u32 Index;
+	u32 NoOfBlocks;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id,
+								Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+								"available in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	if (Mode > XRFDC_DITH_ENABLE) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Invalid Dither Mode "
+								"in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+	Index = Block_Id;
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
+		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Index = XRFDC_BLK_ID2;
+			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
+		}
+	} else {
+		NoOfBlocks = Block_Id + 1U;
+	}
+
+	for (; Index < NoOfBlocks; Index++) {
+		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr,
+			XRFDC_ADC_DAC_MC_CFG0_OFFSET, XRFDC_RX_MC_CFG0_IM3_DITH_MASK,
+			(Mode << XRFDC_RX_MC_CFG0_IM3_DITH_SHIFT));
+	}
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is used to get the IM3 Dither mode.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
+* @param	ModePtr pointer to get link coupling mode.
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled.
+*
+* @note		Only for ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_GetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+							u32 *ModePtr)
+{
+	u32 Status;
+	u16 ReadReg;
+	u32 BaseAddr;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(ModePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id,
+								Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+								"available in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
+			(Block_Id == XRFDC_BLK_ID1)) {
+		Block_Id = XRFDC_BLK_ID2;
+	}
+
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Block_Id);
+
+	ReadReg = XRFdc_RDReg(InstancePtr, BaseAddr,
+					XRFDC_ADC_DAC_MC_CFG0_OFFSET, XRFDC_RX_MC_CFG0_IM3_DITH_MASK);
+	if (ReadReg != 0U) {
+		*ModePtr = XRFDC_DITH_ENABLE;
+	} else {
+		*ModePtr = XRFDC_DITH_DISABLE;
+	}
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* This function is used to set the ADC Signal Detector Settings.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
+* @param    SettingsPtr pointer to the XRFdc_Signal_Detector_Settings structure
+*           to set the signal detector configurations
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled, or invaid values.
+*
+* @note		Only for ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_SetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Signal_Detector_Settings *SettingsPtr)
+{
+	u32 Status;
+	u32 BaseAddr;
+	u32 Index;
+	u32 NoOfBlocks;
+	u16 SignalDetCtrlReg = 0;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(SettingsPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (InstancePtr->RFdc_Config.IPType < 2) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested fuctionality not "
+			  "available for this IP in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
+
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested block not "
+			  "available in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+	if (SettingsPtr->Mode > XRFDC_SIGDET_MODE_RNDM) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid Signal Detector "
+			  "Mode in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+	if (SettingsPtr->EnableIntegrator > XRFDC_ENABLED) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid Signal Detector "
+			  "Integrator Enable in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+	if (SettingsPtr->HysteresisEnable > XRFDC_ENABLED) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid Signal Detector "
+			  "Hysteresis Enable in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+	if (SettingsPtr->Flush > XRFDC_ENABLED) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid Signal Detector "
+			  "Flush Option in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+	if (SettingsPtr->TimeConstant > XRFDC_SIGDET_TC_2_18) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid Signal Detector "
+			  "Time Constant in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+	SignalDetCtrlReg |= SettingsPtr->EnableIntegrator << XRFDC_ADC_SIG_DETECT_INTG_SHIFT;
+	SignalDetCtrlReg |= SettingsPtr->Flush << XRFDC_ADC_SIG_DETECT_FLUSH_SHIFT;
+	SignalDetCtrlReg |= SettingsPtr->TimeConstant << XRFDC_ADC_SIG_DETECT_TCONST_SHIFT;
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
+		SignalDetCtrlReg |= ((SettingsPtr->Mode << 1) | 1) << XRFDC_ADC_SIG_DETECT_MODE_WRITE_SHIFT;
+	} else {
+		SignalDetCtrlReg |= (SettingsPtr->Mode << 1) << XRFDC_ADC_SIG_DETECT_MODE_WRITE_SHIFT;
+	}
+	SignalDetCtrlReg |= SettingsPtr->HysteresisEnable << XRFDC_ADC_SIG_DETECT_HYST_SHIFT;
+
+	Index = Block_Id;
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
+		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Index = XRFDC_BLK_ID2;
+			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
+		}
+	} else {
+		NoOfBlocks = Block_Id + 1U;
+	}
+
+	for (; Index < NoOfBlocks; Index++) {
+		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_CTRL_OFFSET, XRFDC_ADC_SIG_DETECT_MASK,
+				SignalDetCtrlReg);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_LEVEL_OFFSET,
+				XRFDC_ADC_SIG_DETECT_THRESH_MASK, SettingsPtr->HighThreshold);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD1_LEVEL_OFFSET,
+				XRFDC_ADC_SIG_DETECT_THRESH_MASK, SettingsPtr->LowThreshold);
+	}
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is used to get the ADC Signal Detector Settings.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
+* @param    SettingsPtr pointer to the XRFdc_Signal_Detector_Settings structure
+*           to get the signal detector configurations
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled.
+*
+* @note		Only for ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_GetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Signal_Detector_Settings *SettingsPtr)
+{
+	u32 Status;
+	u32 BaseAddr;
+	u16 SignalDetCtrlReg = 0;
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(SettingsPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (InstancePtr->RFdc_Config.IPType < 2) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested functionality not "
+			  "available for this IP in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
+
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested block not "
+			  "available in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) && (Block_Id == XRFDC_BLK_ID1)) {
+		Block_Id = XRFDC_BLK_ID2;
+	}
+
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Block_Id);
+
+	SignalDetCtrlReg =
+		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_CTRL_OFFSET, XRFDC_ADC_SIG_DETECT_MASK);
+	SettingsPtr->EnableIntegrator =
+		(SignalDetCtrlReg & XRFDC_ADC_SIG_DETECT_INTG_MASK) >> XRFDC_ADC_SIG_DETECT_INTG_SHIFT;
+	SettingsPtr->Flush = (SignalDetCtrlReg & XRFDC_ADC_SIG_DETECT_FLUSH_MASK) >> XRFDC_ADC_SIG_DETECT_FLUSH_SHIFT;
+	SettingsPtr->TimeConstant =
+		(SignalDetCtrlReg & XRFDC_ADC_SIG_DETECT_TCONST_MASK) >> XRFDC_ADC_SIG_DETECT_TCONST_SHIFT;
+	SettingsPtr->Mode = (SignalDetCtrlReg & XRFDC_ADC_SIG_DETECT_MODE_MASK) >> XRFDC_ADC_SIG_DETECT_MODE_READ_SHIFT;
+
+	SettingsPtr->HysteresisEnable =
+		(SignalDetCtrlReg & XRFDC_ADC_SIG_DETECT_HYST_MASK) >> XRFDC_ADC_SIG_DETECT_HYST_SHIFT;
+	SettingsPtr->HighThreshold = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_LEVEL_OFFSET,
+						 XRFDC_ADC_SIG_DETECT_THRESH_MASK);
+	SettingsPtr->LowThreshold = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD1_LEVEL_OFFSET,
+						XRFDC_ADC_SIG_DETECT_THRESH_MASK);
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* This function is used to disable Calibration Coefficients override.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
+* @param	CalibrationBlock indicates the calibration block.
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if error occurs.
+*
+* @note		Only for ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_DisableCoefficientsOverride(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 CalibrationBlock)
+{
+	u32 BaseAddr;
+	u32 Status;
+	u32 Index;
+	u32 NoOfBlocks;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested block not "
+			  "available in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+
+	if ((InstancePtr->RFdc_Config.IPType < 2) && (CalibrationBlock == XRFDC_CAL_BLOCK_OCB1)) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested functionality not "
+			  "available for this IP in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+
+	Index = Block_Id;
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
+		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Index = XRFDC_BLK_ID2;
+			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
+		}
+	} else {
+		NoOfBlocks = Block_Id + 1U;
+	}
+
+	for (; Index < NoOfBlocks; Index++) {
+		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
+		switch (CalibrationBlock) {
+		case XRFDC_CAL_BLOCK_OCB1:
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET, XRFDC_CAL_OCB_EN_MASK,
+					XRFDC_DISABLED);
+			break;
+		case XRFDC_CAL_BLOCK_OCB2:
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL3_OFFSET, XRFDC_CAL_OCB_EN_MASK,
+					XRFDC_DISABLED);
+			break;
+		case XRFDC_CAL_BLOCK_GCB:
+			if (InstancePtr->RFdc_Config.IPType < 2) {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET,
+						XRFDC_CAL_GCB_ENFL_MASK, XRFDC_CAL_GCB_ACEN_MASK);
+				/*Clear IP Override Coeffs*/
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+						XRFDC_CAL_GCB_COEFF0_FAB(Index), XRFDC_CAL_GCB_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+						XRFDC_CAL_GCB_COEFF1_FAB(Index), XRFDC_CAL_GCB_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+						XRFDC_CAL_GCB_COEFF2_FAB(Index), XRFDC_CAL_GCB_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+						XRFDC_CAL_GCB_COEFF3_FAB(Index), XRFDC_CAL_GCB_MASK, XRFDC_DISABLED);
+			} else {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL2_OFFSET,
+						XRFDC_CAL_GCB_EN_MASK, XRFDC_DISABLED);
+			}
+			break;
+		case XRFDC_CAL_BLOCK_TSCB:
+			if (InstancePtr->RFdc_Config.IPType < 2) {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+			} else {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+			}
+			break;
+		default:
+			Status = XRFDC_FAILURE;
+			metal_log(METAL_LOG_ERROR,
+				  "\n Invalid Calibration "
+				  "Mode in %s\r\n",
+				  __func__);
+			goto RETURN_PATH;
+		}
+	}
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* This function is used to set the ADC Calibration Coefficients.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
+* @param	CalibrationBlock indicates the block to be written to.
+* @param    CoeffPtr is pointer to the XRFdc_Calibration_Coefficients structure
+*           to set the calibration coefficients.
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if error occurs.
+*
+* @note		Only for ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 CalibrationBlock,
+			     XRFdc_Calibration_Coefficients *CoeffPtr)
+{
+	u32 BaseAddr;
+	u32 Status;
+	u32 Index;
+	u32 NoOfBlocks;
+	u32 HighSpeed;
+	u32 Shift;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(CoeffPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if ((InstancePtr->RFdc_Config.IPType < 2) && (CalibrationBlock == XRFDC_CAL_BLOCK_OCB1)) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested functionality not "
+			  "available for this IP in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+
+	if (CalibrationBlock == XRFDC_CAL_BLOCK_GCB) {
+		if ((CoeffPtr->Coeff0 | CoeffPtr->Coeff1 | CoeffPtr->Coeff2 | CoeffPtr->Coeff3) &
+		    ~(XRFDC_CAL_GCB_MASK | (XRFDC_CAL_GCB_MASK << XRFDC_CAL_SLICE_SHIFT))) {
+			Status = XRFDC_FAILURE;
+			metal_log(METAL_LOG_ERROR,
+				  "\n Bad Coefficient "
+				  "available for this IP in %s\r\n",
+				  __func__);
+			goto RETURN_PATH;
+		}
+	}
+
+	if (CalibrationBlock == XRFDC_CAL_BLOCK_TSCB) {
+		if ((CoeffPtr->Coeff0 | CoeffPtr->Coeff1 | CoeffPtr->Coeff2 | CoeffPtr->Coeff3 | CoeffPtr->Coeff4 |
+		     CoeffPtr->Coeff5 | CoeffPtr->Coeff6 | CoeffPtr->Coeff7) &
+		    ~(XRFDC_CAL_TSCB_MASK | (XRFDC_CAL_TSCB_MASK << XRFDC_CAL_SLICE_SHIFT))) {
+			Status = XRFDC_FAILURE;
+			metal_log(METAL_LOG_ERROR,
+				  "\n Bad Coefficient "
+				  "available for this IP in %s\r\n",
+				  __func__);
+			goto RETURN_PATH;
+		}
+	}
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested block not "
+			  "available in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+
+	Index = Block_Id;
+	HighSpeed = XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id);
+	if (HighSpeed == XRFDC_ENABLED) {
+		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Index = XRFDC_BLK_ID2;
+			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
+		}
+	} else {
+		NoOfBlocks = Block_Id + 1U;
+	}
+	for (; Index < NoOfBlocks; Index++) {
+		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
+		Shift = HighSpeed ? XRFDC_CAL_SLICE_SHIFT * (Index % 2) : 0;
+		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
+		switch (CalibrationBlock) {
+		case XRFDC_CAL_BLOCK_OCB1:
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET, XRFDC_CAL_OCB_EN_MASK,
+					XRFDC_ENABLED);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF0, XRFDC_CAL_OCB_MASK,
+					CoeffPtr->Coeff0 >> Shift);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF1, XRFDC_CAL_OCB_MASK,
+					CoeffPtr->Coeff1 >> Shift);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF2, XRFDC_CAL_OCB_MASK,
+					CoeffPtr->Coeff2 >> Shift);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF3, XRFDC_CAL_OCB_MASK,
+					CoeffPtr->Coeff3 >> Shift);
+			break;
+		case XRFDC_CAL_BLOCK_OCB2:
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL3_OFFSET, XRFDC_CAL_OCB_EN_MASK,
+					XRFDC_ENABLED);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF0, XRFDC_CAL_OCB_MASK,
+					CoeffPtr->Coeff0 >> Shift);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF1, XRFDC_CAL_OCB_MASK,
+					CoeffPtr->Coeff1 >> Shift);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF2, XRFDC_CAL_OCB_MASK,
+					CoeffPtr->Coeff2 >> Shift);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF3, XRFDC_CAL_OCB_MASK,
+					CoeffPtr->Coeff3 >> Shift);
+			break;
+		case XRFDC_CAL_BLOCK_GCB:
+
+			if (InstancePtr->RFdc_Config.IPType < 2) {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET,
+						XRFDC_CAL_GCB_ACEN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET,
+						XRFDC_CAL_GCB_FLSH_MASK, XRFDC_ENABLED << XRFDC_CAL_GCB_FLSH_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+						XRFDC_CAL_GCB_COEFF0_FAB(Index), XRFDC_CAL_GCB_MASK,
+						CoeffPtr->Coeff0 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+						XRFDC_CAL_GCB_COEFF1_FAB(Index), XRFDC_CAL_GCB_MASK,
+						CoeffPtr->Coeff1 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+						XRFDC_CAL_GCB_COEFF2_FAB(Index), XRFDC_CAL_GCB_MASK,
+						CoeffPtr->Coeff2 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+						XRFDC_CAL_GCB_COEFF3_FAB(Index), XRFDC_CAL_GCB_MASK,
+						CoeffPtr->Coeff3 >> Shift);
+			} else {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL2_OFFSET,
+						XRFDC_CAL_GCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_GCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF0, XRFDC_CAL_GCB_MASK,
+						CoeffPtr->Coeff0 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF1, XRFDC_CAL_GCB_MASK,
+						CoeffPtr->Coeff1 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF2, XRFDC_CAL_GCB_MASK,
+						CoeffPtr->Coeff2 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF3, XRFDC_CAL_GCB_MASK,
+						CoeffPtr->Coeff3 >> Shift);
+			}
+			break;
+		case XRFDC_CAL_BLOCK_TSCB:
+			if (InstancePtr->RFdc_Config.IPType < 2) {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0_ALT,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff0 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1_ALT,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff1);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2_ALT,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff2 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3_ALT,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff3 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4_ALT,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff4 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5_ALT,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff5 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6_ALT,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff6 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7_ALT,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff7 >> Shift);
+			} else {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff0 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff1 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff2 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff3 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff4 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff5 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff6 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff7 >> Shift);
+			}
+			break;
+		default:
+			Status = XRFDC_FAILURE;
+			metal_log(METAL_LOG_ERROR,
+				  "\n Invalid Calibration "
+				  "Mode in %s\r\n",
+				  __func__);
+			goto RETURN_PATH;
+		}
+	}
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* This function is used to get the ADC Calibration Coefficients.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
+* @param	CalibrationBlock indicates the block to be read from
+* @param    CoeffPtr is pointer to the XRFdc_Calibration_Coefficients structure
+*           to get the calibration coefficients.
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if error occurs.
+*
+* @note		Only for ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 CalibrationBlock,
+			     XRFdc_Calibration_Coefficients *CoeffPtr)
+{
+	u32 BaseAddr;
+	u32 Status;
+	u32 Index;
+	u32 HighSpeed;
+	u32 Shift;
+	u32 NoOfBlocks;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(CoeffPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested block not "
+			  "available in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+
+	memset(CoeffPtr, 0, sizeof(XRFdc_Calibration_Coefficients));
+	Index = Block_Id;
+	HighSpeed = XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id);
+	if (HighSpeed == XRFDC_ENABLED) {
+		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Index = XRFDC_BLK_ID2;
+			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
+		}
+	} else {
+		NoOfBlocks = Block_Id + 1U;
+	}
+	for (; Index < NoOfBlocks; Index++) {
+		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
+		Shift = HighSpeed ? XRFDC_CAL_SLICE_SHIFT * (Index % 2) : 0;
+		switch (CalibrationBlock) {
+		case XRFDC_CAL_BLOCK_OCB1:
+			CoeffPtr->Coeff0 |=
+				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF0, XRFDC_CAL_OCB_MASK)
+				<< Shift;
+			CoeffPtr->Coeff1 |=
+				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF1, XRFDC_CAL_OCB_MASK)
+				<< Shift;
+			CoeffPtr->Coeff2 |=
+				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF2, XRFDC_CAL_OCB_MASK)
+				<< Shift;
+			CoeffPtr->Coeff3 |=
+				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF3, XRFDC_CAL_OCB_MASK)
+				<< Shift;
+			break;
+		case XRFDC_CAL_BLOCK_OCB2:
+			CoeffPtr->Coeff0 |=
+				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF0, XRFDC_CAL_OCB_MASK)
+				<< Shift;
+			CoeffPtr->Coeff1 |=
+				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF1, XRFDC_CAL_OCB_MASK)
+				<< Shift;
+			CoeffPtr->Coeff2 |=
+				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF2, XRFDC_CAL_OCB_MASK)
+				<< Shift;
+			CoeffPtr->Coeff3 |=
+				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF3, XRFDC_CAL_OCB_MASK)
+				<< Shift;
+			break;
+		case XRFDC_CAL_BLOCK_GCB:
+			if (InstancePtr->RFdc_Config.IPType < 2) {
+				if (XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET,
+						XRFDC_CAL_GCB_FLSH_MASK) == XRFDC_DISABLED) {
+					CoeffPtr->Coeff0 |=
+						(XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF0_ALT,
+							     XRFDC_CAL_GCB_FAB_MASK) >>
+						 4)
+						<< Shift;
+					CoeffPtr->Coeff1 |=
+						(XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF1_ALT,
+							     XRFDC_CAL_GCB_FAB_MASK) >>
+						 4)
+						<< Shift;
+					CoeffPtr->Coeff2 |=
+						(XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF2_ALT,
+							     XRFDC_CAL_GCB_FAB_MASK) >>
+						 4)
+						<< Shift;
+					CoeffPtr->Coeff3 |=
+						(XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF3_ALT,
+							     XRFDC_CAL_GCB_FAB_MASK) >>
+						 4)
+						<< Shift;
+				} else {
+					CoeffPtr->Coeff0 |=
+						XRFdc_RDReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+							    XRFDC_CAL_GCB_COEFF0_FAB(Block_Id), XRFDC_CAL_GCB_MASK)
+						<< Shift;
+					CoeffPtr->Coeff1 |=
+						XRFdc_RDReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+							    XRFDC_CAL_GCB_COEFF1_FAB(Block_Id), XRFDC_CAL_GCB_MASK)
+						<< Shift;
+					CoeffPtr->Coeff2 |=
+						XRFdc_RDReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+							    XRFDC_CAL_GCB_COEFF2_FAB(Block_Id), XRFDC_CAL_GCB_MASK)
+						<< Shift;
+					CoeffPtr->Coeff3 |=
+						XRFdc_RDReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+							    XRFDC_CAL_GCB_COEFF3_FAB(Block_Id), XRFDC_CAL_GCB_MASK)
+						<< Shift;
+				}
+			} else {
+				CoeffPtr->Coeff0 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF0,
+								XRFDC_CAL_GCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff1 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF1,
+								XRFDC_CAL_GCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff2 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF2,
+								XRFDC_CAL_GCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff3 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF3,
+								XRFDC_CAL_GCB_MASK)
+						    << Shift;
+			}
+			break;
+		case XRFDC_CAL_BLOCK_TSCB:
+			if (InstancePtr->RFdc_Config.IPType < 2) {
+				CoeffPtr->Coeff0 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0_ALT,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff1 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1_ALT,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff2 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2_ALT,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff3 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3_ALT,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff4 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4_ALT,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff5 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5_ALT,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff6 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6_ALT,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff7 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7_ALT,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+			} else {
+				CoeffPtr->Coeff0 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff1 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff2 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff3 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff4 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff5 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff6 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff7 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+			}
+			break;
+		default:
+			Status = XRFDC_FAILURE;
+			metal_log(METAL_LOG_ERROR,
+				  "\n Invalid Calibration "
+				  "Mode in %s\r\n",
+				  __func__);
+			goto RETURN_PATH;
+		}
+	}
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* This function is used to set calibration freeze settings.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
+* @param	CalFreezePtr pointer to the settings to be applied.
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if error occurs.
+*
+* @note		Only for ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_SetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_Freeze_Settings *CalFreezePtr)
+{
+	u32 BaseAddr;
+	u32 Status;
+	u32 Index;
+	u32 NoOfBlocks;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(CalFreezePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (CalFreezePtr->FreezeCalibration > XRFDC_CAL_FREEZE_CALIB) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid FreezeCalibration "
+			  "option in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+
+	if (CalFreezePtr->DisableFreezePin > XRFDC_CAL_FRZ_PIN_DISABLE) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid DisableFreezePin "
+			  "option in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested block not "
+			  "available in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+
+	BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
+
+	Index = Block_Id;
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
+		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Index = XRFDC_BLK_ID2;
+			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
+		}
+	} else {
+		NoOfBlocks = Block_Id + 1U;
+	}
+
+	for (; Index < NoOfBlocks; Index++) {
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Index), XRFDC_CAL_FREEZE_PIN_MASK,
+				CalFreezePtr->DisableFreezePin << XRFDC_CAL_FREEZE_PIN_SHIFT);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Index), XRFDC_CAL_FREEZE_CAL_MASK,
+				CalFreezePtr->FreezeCalibration << XRFDC_CAL_FREEZE_CAL_SHIFT);
+	}
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* This function is used to get calibration freeze settings and status.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
+* @param	CalFreezePtr pointer to be filled the settings/status.
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if error occurs.
+*
+* @note		Only for ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_Freeze_Settings *CalFreezePtr)
+{
+	u32 BaseAddr;
+	u32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(CalFreezePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested block not "
+			  "available in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+
+	BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
+
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Block_Id = XRFDC_BLK_ID2;
+		}
+	}
+	CalFreezePtr->CalFrozen =
+		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Block_Id), XRFDC_CAL_FREEZE_STS_MASK) >>
+		XRFDC_CAL_FREEZE_STS_SHIFT;
+	CalFreezePtr->DisableFreezePin =
+		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Block_Id), XRFDC_CAL_FREEZE_PIN_MASK) >>
+		XRFDC_CAL_FREEZE_PIN_SHIFT;
+	CalFreezePtr->FreezeCalibration =
+		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Block_Id), XRFDC_CAL_FREEZE_CAL_MASK) >>
+		XRFDC_CAL_FREEZE_CAL_SHIFT;
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
 /** @} */

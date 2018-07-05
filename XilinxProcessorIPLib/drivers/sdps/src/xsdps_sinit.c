@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xsdps_sinit.c
-* @addtogroup sdps_v3_6
+* @addtogroup sdps_v3_7
 * @{
 *
 * The implementation of the XSdPs component's static initialization
@@ -42,6 +42,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.00a hk/sg  10/17/13 Initial release
 *       kvn    07/15/15 Modified the code according to MISRAC-2012.
+* 3.7   aru    03/12/19 Modified the code according to MISRAC-2012.
 *
 * </pre>
 *
@@ -60,7 +61,7 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-extern XSdPs_Config XSdPs_ConfigTable[];
+extern XSdPs_Config XSdPs_ConfigTable[XPAR_XSDPS_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**

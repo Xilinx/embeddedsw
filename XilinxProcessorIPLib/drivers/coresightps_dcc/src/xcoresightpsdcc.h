@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcoresightpsdcc.h
-* @addtogroup coresightps_dcc_v1_4
+* @addtogroup coresightps_dcc_v1_5
 * @{
 * @details
 *
@@ -54,17 +54,21 @@
 * 1.3   asa    07/01/16 Made changes to ensure that the file does not compile
 *                       for MB BSPs. Instead it throws up a warning. This
 *                       fixes the CR#953056.
+* 1.5   sne    01/19/19 Fixed MISRA-C Violations CR#1025101.
 *
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#ifndef XCORESIGHTPSDCC_H                /* prevent circular inclusions */
+#define XCORESIGHTPSDCC_H                /* by using protection macros */
 #ifndef __MICROBLAZE__
 #include <xil_types.h>
 
 void XCoresightPs_DccSendByte(u32 BaseAddress, u8 Data);
 
 u8 XCoresightPs_DccRecvByte(u32 BaseAddress);
+#endif
 #endif
 /** @} */

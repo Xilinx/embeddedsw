@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcanfd.c
-* @addtogroup canfd_v2_0
+* @addtogroup canfd_v2_1
 * @{
 *
 * The XCanFd driver. Functions in this file are the minimum required functions
@@ -51,8 +51,7 @@
 * 1.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XCanFd_CfgInitialize API.
 * 1.2   mi   09/22/16 Fixed compilation warnings.
-* 2.0   ask  08/08/18 Fixed Cppcheck warnings.
-* 2.0	ask  09/21/18 Added support for canfd 2.0 spec in PL canfd SoftIP.
+* 2.1   ask  09/21/18 Added support for canfd 2.0 spec in PL canfd SoftIP.
 *				  	  Added Api:XCanFd_Recv_Sequential
 *								XCanFd_SeqRecv_logic
 *								XCanFd_Recv_TXEvents_Sequential
@@ -63,8 +62,18 @@
 *					  and XCanFd_GetFreeBuffer. Added an static function
 *					  XCanfd_TrrVal_Get_SetBit_Position.
 *					  Added Macros regarding legacy API.
-*	ask 09/27/18 Removed unnecessary register read from XCanFd_Send
-*
+*		ask 09/27/18 Removed unnecessary register read from XCanFd_Send
+*       ask  07/03/18 Fix for Sequencial recv CR# 992606,CR# 1004222.
+*       ask  08/27/18 Modified RecvSeq function to return XST_NO_DATA when the
+*       		fifo fill levels are zero.
+*		ask  08/08/18 Fixed Cppcheck warnings.
+* 2.1   nsk  01/22/19 Pass correct fifo number to XCanFd_SeqRecv_logic()
+*		      CR# 1018379
+* 2.1	nsk  03/09/19 For CAN frames, DLC should always 8, even data bytes
+*		      are greater than 8. CR# 1022045.
+* 2.1	nsk  03/09/19 Fix for TrrMask to not to get written when using
+		      XCanFd_Addto_Queue(), to send more than 32 buffers.
+		      CR# 1022093
 *
 * </pre>
 ******************************************************************************/
@@ -83,7 +92,6 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
 
 /************************** Variable Definitions *****************************/
 
@@ -500,7 +508,8 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 
 			/* CAN FD Frames. */
 			Dlc = XCanFd_GetDlc2len(FramePtr[1] &
-				XCANFD_DLCR_DLC_MASK);
+				XCANFD_DLCR_DLC_MASK,
+				(CanEDL & XCANFD_DLCR_EDL_MASK));
 			/* Write Data to Data Register */
 
 			for (Len = 0;Len < Dlc;Len += 4) {
@@ -517,7 +526,8 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 
 			/* Legacy CAN Frames */
 			Dlc = XCanFd_GetDlc2len(FramePtr[1] &
-				XCANFD_DLCR_DLC_MASK);
+				XCANFD_DLCR_DLC_MASK,
+				(CanEDL & XCANFD_DLCR_EDL_MASK));
 			for (Len = 0;Len < Dlc;Len += 4) {
 				OutValue = Xil_EndianSwap32(
 						FramePtr[2+DwIndex]);
@@ -584,6 +594,10 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 			XCANFD_TRR_OFFSET);
 
 	TrrVal = XCanFd_GetFreeBuffer(InstancePtr);
+	if (InstancePtr->MultiBuffTrr == TRR_MASK_INIT_VAL) {
+		return XST_FIFO_NO_ROOM;
+	}
+
 	if(InstancePtr->GlobalTrrMask == 0)
 		InstancePtr->GlobalTrrMask = TRR_MASK_INIT_VAL;
 	MaskValue = (~TrrVal) & InstancePtr->GlobalTrrMask ;
@@ -609,7 +623,8 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 		CanEDL = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_TXDLC_OFFSET(FreeTxBuffer));
 
-		Dlc = XCanFd_GetDlc2len(FramePtr[1] & XCANFD_DLCR_DLC_MASK);
+		Dlc = XCanFd_GetDlc2len(FramePtr[1] & XCANFD_DLCR_DLC_MASK,
+			(CanEDL & XCANFD_DLCR_EDL_MASK));
 
 		if (CanEDL & XCANFD_DLCR_EDL_MASK) {
 
@@ -675,8 +690,8 @@ u32 XCanFd_Recv_Sequential(XCanFd *InstancePtr, u32 *FramePtr)
 {
 	u32 Result;
 	u32 ReadIndex = 0;
-	u32 status;
-	u8  fifo_no = 0xFF;
+	u32 Status = (u32)XST_NO_DATA;
+	u8  FifoNo = 0xFF;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -684,28 +699,28 @@ u32 XCanFd_Recv_Sequential(XCanFd *InstancePtr, u32 *FramePtr)
 	Result = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_FSR_OFFSET);
 
-	/* Check for the Packet Availability by reading FSR Register */
-	if (Result & XCANFD_FSR_FL_MASK) {
+	if ((Result & XCANFD_FSR_FL_MASK) || (Result & XCANFD_FSR_FL_1_MASK)) {
 
-			/*Fill the canfd frame for current RI value for Fifo 0 */
-			ReadIndex = Result & XCANFD_FSR_RI_MASK;
-			fifo_no = XCANFD_RX_FIFO_0;
+		/* Check for the Packet Available by reading FSR Register */
+		if (Result & XCANFD_FSR_FL_MASK) {
+		/*Fill the canfd frame for current RI value for Fifo 0 */
+
+				ReadIndex = Result & XCANFD_FSR_RI_MASK;
+				FifoNo = XCANFD_RX_FIFO_0;
+		}
+
+		if (Result & XCANFD_FSR_FL_1_MASK) {
+		/*Fill the canfd frame for current RI value for Fifo 1 */
+
+				ReadIndex = ((Result & XCANFD_FSR_IRI_1_MASK)
+						>> XCANFD_FSR_RI_1_SHIFT);
+				FifoNo = XCANFD_RX_FIFO_1;
+		}
+
+		Status = XCanFd_SeqRecv_logic(InstancePtr, ReadIndex, Result,
+			      FramePtr, FifoNo);
 	}
-
-	if (Result & XCANFD_FSR_FL_1_MASK) {
-
-			/*Fill the canfd frame for current RI value for Fifo 1 */
-			ReadIndex = ((Result & XCANFD_FSR_IRI_1_MASK) >> XCANFD_FSR_RI_1_SHIFT);
-			fifo_no = XCANFD_RX_FIFO_1;
-     }
-
-     status = XCanFd_SeqRecv_logic(InstancePtr, ReadIndex, Result,
-			      FramePtr, fifo_no);
-
-	if(status == XST_SUCCESS)
-		return status;
-	else
-		return XST_NO_DATA;
+	return Status;
 
 }
 
@@ -832,7 +847,8 @@ u32 XCanFd_Recv_Mailbox(XCanFd *InstancePtr, u32 *FramePtr)
 					XCANFD_RXDLC_OFFSET(RxBufferIndex));
 
 		Dlc = XCanFd_GetDlc2len(FramePtr[1] &
-			XCANFD_DLCR_DLC_MASK);
+			XCANFD_DLCR_DLC_MASK,
+			(CanEDL & XCANFD_DLCR_EDL_MASK));
 		/* A CanFD Frame is received */
 
 		if (CanEDL & XCANFD_DLCR_EDL_MASK) {
@@ -1327,6 +1343,7 @@ static void StubHandler(void)
 * DLC Field value in DLC Register.
 *
 * @param	Dlc Field in Data Length Code Register.
+* @param	Edl/Fdf Field in DLC register.
 *
 *
 * @return	Total Number of Bytes stored in each Buffer.
@@ -1334,10 +1351,14 @@ static void StubHandler(void)
 * @note		Refer CAN FD Spec about DLC.
 *
 ******************************************************************************/
-int XCanFd_GetDlc2len(u32 Dlc)
+int XCanFd_GetDlc2len(u32 Dlc, u32 Edl)
 {
 
 	u32 NofBytes=0;
+
+	if ((Edl == 0U) && ((Dlc >> XCANFD_DLCR_DLC_SHIFT) > 8)) {
+		Dlc = XCANFD_DLC8;
+	}
 
 	switch(Dlc) {
 
@@ -1764,7 +1785,6 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, 
 	u32 CanEDL;
 	u32 Dlc=0;
 	u32 Len;
-
 /* Read ID from ID Register*/
 	if (fifo_no == XCANFD_RX_FIFO_0) {
 		FramePtr[0] = XCanFd_ReadReg(
@@ -1786,7 +1806,8 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, 
 				InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_FIFO_1_RXDLC_OFFSET(ReadIndex));
 	}
-		Dlc = XCanFd_GetDlc2len(FramePtr[1] & XCANFD_DLCR_DLC_MASK);
+		Dlc = XCanFd_GetDlc2len(FramePtr[1] & XCANFD_DLCR_DLC_MASK,
+				(CanEDL & XCANFD_DLCR_EDL_MASK));
 
 		if (CanEDL & XCANFD_DLCR_EDL_MASK) {
 

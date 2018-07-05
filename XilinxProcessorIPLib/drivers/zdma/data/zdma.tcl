@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +35,7 @@
 # 1.3   mus     08/14/17 Export cache coherency information
 # 1.6	adk	07/09/18 Use -hier option while using get_cells command to
 #			 support hierarchical designs.
+# 1.7   adk     08/03/19 Add support for versal.
 #
 ##############################################################################
 
@@ -62,7 +63,7 @@ proc generate_cci_params {drv_handle file_name} {
 	foreach ip $ips {
                 set is_cc 0
 		set iptype [common::get_property IP_NAME [get_cells -hier $ip]]
-		if {$processor_type == "psu_cortexa53" && $iptype == "psu_adma"} {
+		if {$processor_type == "psu_cortexa53" && $iptype == "psu_adma" || $iptype == "psv_adma"} {
                         set is_xen [common::get_property CONFIG.hypervisor_guest [hsi::get_os]]
                         if {$is_xen == "true"} {
                             set is_cc [common::get_property CONFIG.IS_CACHE_COHERENT $ip]

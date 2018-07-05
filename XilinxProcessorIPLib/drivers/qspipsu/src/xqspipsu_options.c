@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xqspipsu_options.c
-* @addtogroup qspipsu_v1_8
+* @addtogroup qspipsu_v1_9
 * @{
 *
 * This file implements funcitons to configure the QSPIPSU component,
@@ -49,8 +49,16 @@
 *       rk  07/15/16 Added support for TapDelays at different frequencies.
 * 1.7	tjs 01/17/18 Added support to toggle the WP pin of flash. (PR#2448)
 * 1.7	tjs	03/14/18 Added support in EL1 NS mode. (CR#974882)
-* 1.8	tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
-* 1.8	tjs 07/26/18 Resolved cppcheck errors. (CR#1006336)
+* 1.8  tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
+* 1.8  tjs 07/26/18 Resolved cppcheck errors. (CR#1006336)
+* 1.9	tjs	04/17/18 Updated register addresses as per the latest revision
+* 					 of versal (CR#999610)
+* 1.9  aru 01/17/19 Fixes violations according to MISRAC-2012
+*                  in safety mode and modified the code such as
+*                  Added Xil_MemCpy inplace of memcpy,Declared the pointer param
+*                  as Pointer to const, declared XQspi_Set_TapDelay() as static.
+* 1.9 akm 03/08/19 Set recommended clock and data tap delay values for 40MHZ,
+*		   100MHZ and 150MHZ frequencies(CR#1023187)
 *
 * </pre>
 *
@@ -81,9 +89,9 @@
 /************************** Function Prototypes ******************************/
 
 #if defined (ARMR5) || (__aarch64__)
-s32 XQspi_Set_TapDelay(XQspiPsu * InstancePtr,u32 TapdelayBypass,
+static s32 XQspi_Set_TapDelay(const XQspiPsu * InstancePtr,u32 TapdelayBypass,
 						u32 LPBKDelay,u32 Datadelay);
-static s32 XQspipsu_Calculate_Tapdelay(XQspiPsu *InstancePtr, u8 Prescaler);
+static s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -136,6 +144,8 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 	u32 Index;
 	u32 QspiPsuOptions;
 	s32 Status;
+	u32 OptionsVal;
+	OptionsVal = Options;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -150,14 +160,14 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 
 		ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 					      XQSPIPSU_CFG_OFFSET);
-		QspiPsuOptions = Options & XQSPIPSU_LQSPI_MODE_OPTION;
-		Options &= ~XQSPIPSU_LQSPI_MODE_OPTION;
+		QspiPsuOptions = OptionsVal & XQSPIPSU_LQSPI_MODE_OPTION;
+		OptionsVal &= (~XQSPIPSU_LQSPI_MODE_OPTION);
 		/*
 		 * Loop through the options table, turning the option on
 		 * depending on whether the bit is set in the incoming options flag.
 		 */
 		for (Index = 0U; Index < XQSPIPSU_NUM_OPTIONS; Index++) {
-			if ((Options & OptionsTable[Index].Option) != FALSE) {
+			if ((OptionsVal & OptionsTable[Index].Option) == OptionsTable[Index].Option) {
 				/* Turn it on */
 				ConfigReg |= OptionsTable[Index].Mask;
 			} else {
@@ -173,16 +183,12 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
 				 ConfigReg);
 
-		if ((Options & XQSPIPSU_MANUAL_START_OPTION) != FALSE) {
+		if ((OptionsVal & XQSPIPSU_MANUAL_START_OPTION) != FALSE) {
 			InstancePtr->IsManualstart = TRUE;
 		}
-		/*
-		 * Check for the LQSPI configuration options.
-		 */
-		ConfigReg = XQspiPsu_ReadReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET);
 
-		if (QspiPsuOptions & XQSPIPSU_LQSPI_MODE_OPTION) {
-			if (Options & XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB) {
+		if ((QspiPsuOptions & XQSPIPSU_LQSPI_MODE_OPTION) != FALSE) {
+			if ((Options & XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB) != FALSE) {
 				XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET,XQSPIPS_LQSPI_CR_RST_STATE);
 			} else {
 				XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET,XQSPIPS_LQSPI_CR_4_BYTE_STATE);
@@ -191,6 +197,10 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 			/* Enable the QSPI controller */
 			XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_EN_OFFSET,XQSPIPSU_EN_MASK);
 		} else {
+			/*
+			 * Check for the LQSPI configuration options.
+			 */
+			ConfigReg = XQspiPsu_ReadReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET);
 			ConfigReg &= ~(XQSPIPSU_LQSPI_CR_LINEAR_MASK);
 			XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET, ConfigReg);
 		}
@@ -289,7 +299,7 @@ s32 XQspiPsu_ClearOptions(XQspiPsu *InstancePtr, u32 Options)
 * @note		None.
 *
 ******************************************************************************/
-u32 XQspiPsu_GetOptions(XQspiPsu *InstancePtr)
+u32 XQspiPsu_GetOptions(const XQspiPsu *InstancePtr)
 {
 	u32 OptionsFlag = 0;
 	u32 ConfigReg;
@@ -298,14 +308,13 @@ u32 XQspiPsu_GetOptions(XQspiPsu *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/*
-	 * Get the current options from QSPIPSU configuration register.
-	 */
-	ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-				      XQSPIPSU_CFG_OFFSET);
-
 	/* Loop through the options table to grab options */
 	for (Index = 0U; Index < XQSPIPSU_NUM_OPTIONS; Index++) {
+		/*
+		 * Get the current options from QSPIPSU configuration register.
+		 */
+		ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+						      XQSPIPSU_CFG_OFFSET);
 		if ((ConfigReg & OptionsTable[Index].Mask) != FALSE) {
 			OptionsFlag |= OptionsTable[Index].Option;
 		}
@@ -335,7 +344,7 @@ u32 XQspiPsu_GetOptions(XQspiPsu *InstancePtr)
 * This function is not thread-safe.
 *
 ******************************************************************************/
-s32 XQspi_Set_TapDelay(XQspiPsu * InstancePtr,u32 TapdelayBypass,
+static s32 XQspi_Set_TapDelay(const XQspiPsu * InstancePtr,u32 TapdelayBypass,
 						u32 LPBKDelay,u32 Datadelay)
 {
 	s32 Status;
@@ -350,11 +359,14 @@ s32 XQspi_Set_TapDelay(XQspiPsu * InstancePtr,u32 TapdelayBypass,
 	if (InstancePtr->IsBusy == TRUE) {
 		Status = XST_DEVICE_BUSY;
 	} else {
-#if EL1_NONSECURE && defined (__aarch64__)
+#if EL1_NONSECURE && defined (__aarch64__) && !defined (versal)
 		Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 				IOU_TAPDLY_BYPASS_OFFSET) |
 				((u64)(0x4) << 32),
 				(u64)TapdelayBypass, 0, 0, 0, 0, 0);
+#elif defined (versal)
+		XQspiPsu_WriteReg(XQSPIPS_BASEADDR,IOU_TAPDLY_BYPASS_OFFSET,
+				TapdelayBypass);
 #else
 		XQspiPsu_WriteReg(XPS_SYS_CTRL_BASEADDR,IOU_TAPDLY_BYPASS_OFFSET,
 				TapdelayBypass);
@@ -385,39 +397,19 @@ s32 XQspi_Set_TapDelay(XQspiPsu * InstancePtr,u32 TapdelayBypass,
 * @note		None.
 *
 ******************************************************************************/
-static s32 XQspipsu_Calculate_Tapdelay(XQspiPsu *InstancePtr, u8 Prescaler)
+static s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler)
 {
-	u32 FreqDiv, Divider, Tapdelay, LBkModeReg, delayReg;
+	u32 FreqDiv, Divider;
+	u32 Tapdelay = 0;
+	u32 LBkModeReg = 0;
+	u32 delayReg = 0;
 	s32 Status;
 
-	Divider = (1 << (Prescaler+1));
+	Divider = (1U << (Prescaler+1U));
 
 	FreqDiv = (InstancePtr->Config.InputClockHz)/Divider;
-#if EL1_NONSECURE && defined (__aarch64__)
-	Tapdelay = IOU_TAPDLY_RESET_STATE;
-#else
-	Tapdelay = XQspiPsu_ReadReg(XPS_SYS_CTRL_BASEADDR,
-			IOU_TAPDLY_BYPASS_OFFSET);
-#endif
 
-	Tapdelay = Tapdelay & (~IOU_TAPDLY_BYPASS_LQSPI_RX_MASK);
-
-	LBkModeReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-			XQSPIPSU_LPBK_DLY_ADJ_OFFSET);
-
-	LBkModeReg = (LBkModeReg &
-			(~(XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_MASK))) &
-			(LBkModeReg & (~(XQSPIPSU_LPBK_DLY_ADJ_DLY1_MASK))) &
-			(LBkModeReg & (~(XQSPIPSU_LPBK_DLY_ADJ_DLY0_MASK)));
-
-	delayReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-			XQSPIPSU_DATA_DLY_ADJ_OFFSET);
-
-	delayReg = (delayReg &
-			(~(XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_MASK))) &
-			(delayReg & (~( XQSPIPSU_DATA_DLY_ADJ_DLY_MASK)));
-
-	if(FreqDiv < XQSPIPSU_FREQ_40MHZ){
+	if(FreqDiv <= XQSPIPSU_FREQ_40MHZ){
 		Tapdelay = Tapdelay |
 				(TAPDLY_BYPASS_VALVE_40MHZ << IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT);
 	} else if (FreqDiv <= XQSPIPSU_FREQ_100MHZ) {
@@ -429,11 +421,15 @@ static s32 XQspipsu_Calculate_Tapdelay(XQspiPsu *InstancePtr, u8 Prescaler)
 				(DATA_DLY_ADJ_DLY  << XQSPIPSU_DATA_DLY_ADJ_DLY_SHIFT);
 	} else if (FreqDiv <= XQSPIPSU_FREQ_150MHZ) {
 		LBkModeReg = LBkModeReg |
-				(USE_DLY_LPBK  <<  XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT ) |
-				(LPBK_DLY_ADJ_DLY0  << XQSPIPSU_LPBK_DLY_ADJ_DLY0_SHIFT);
+				(USE_DLY_LPBK  <<  XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT );
+	} else {
+		Status = XST_FAILURE;
+		goto END;
 	}
 	Status = XQspi_Set_TapDelay(InstancePtr, Tapdelay, LBkModeReg, delayReg);
 
+
+	END:
 	return Status;
 }
 #endif
@@ -456,7 +452,7 @@ static s32 XQspipsu_Calculate_Tapdelay(XQspiPsu *InstancePtr, u8 Prescaler)
 * @note		None.
 *
 ******************************************************************************/
-s32 XQspiPsu_SetClkPrescaler(XQspiPsu *InstancePtr, u8 Prescaler)
+s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
 {
 	u32 ConfigReg;
 	s32 Status;
@@ -654,13 +650,13 @@ s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode)
 * x4 data mode and dual parallel and stacked flash configuration.
 *
 ******************************************************************************/
-void XQspiPsu_SetWP(XQspiPsu *InstancePtr, u8 Value)
+void XQspiPsu_SetWP(const XQspiPsu *InstancePtr, u8 Value)
 {
 	u32 ConfigReg;
 
 	ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_CFG_OFFSET);
-	ConfigReg |= Value << XQSPIPSU_CFG_WP_HOLD_SHIFT;
+	ConfigReg |= (u32)((u32)Value << XQSPIPSU_CFG_WP_HOLD_SHIFT);
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
 					 ConfigReg);
 }

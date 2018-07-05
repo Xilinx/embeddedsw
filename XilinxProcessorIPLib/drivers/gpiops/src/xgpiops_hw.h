@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xgpiops_hw.h
-* @addtogroup gpiops_v3_4
+* @addtogroup gpiops_v3_5
 * @{
 *
 * This header file contains the identifiers and basic driver functions (or
@@ -46,6 +46,7 @@
 *                     related constant definitions
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.1	kvn  04/13/15 Corrected reset values of banks.
+* 3.5   sne  03/14/19 Added versal support.
 * </pre>
 *
 ******************************************************************************/
@@ -110,6 +111,13 @@ extern "C" {
 #define XGPIOPS_INTTYPE_BANK4_RESET  0xFFFFFFFFU  /* Resets specific to Zynq Ultrascale+ MP */
 #define XGPIOPS_INTTYPE_BANK5_RESET  0xFFFFFFFFU
 /* @} */
+#define XGPIOPS_PS_GPIO_BASEADDR     0xFF0B0000U     /* Flag for Base Address for PS_GPIO in Versal */
+#define XGPIOPS_ZERO    0U  /* Flag for 0 Value */
+#define XGPIOPS_ONE     1U  /* Flag for 1 Value */
+#define XGPIOPS_TWO     2U  /* Flag for 2 Value */
+#define XGPIOPS_THREE   3U  /* Flag for 3 Value */
+#define XGPIOPS_FOUR    4U  /* Flag for 4 Value */
+#define XGPIOPS_SIX     6U  /* Flag for 6 Value */
 
 /**************************** Type Definitions *******************************/
 

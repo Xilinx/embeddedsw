@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,7 @@
 * 3.0   kpc  01/23/15 Removed PEEP board related code
 * 3.2	hk   09/30/15 Added support for TI PHY DP83867
 * 3.2   mus  02/20/16 Added support for microblaze.
+* 3.9   hk   02/12/19 Use selected speed in loopback mode.
 * </pre>
 *
 *****************************************************************************/
@@ -405,6 +406,10 @@ u32 XEmacPsDetectPHY(XEmacPs * EmacPsInstancePtr)
 #define PHY_REGCR_ADDR	0x001F
 #define PHY_REGCR_DATA	0x401F
 
+/* RGMII RX and TX tuning values */
+#define PHY_TI_RGMII_ZCU102	0xA8
+#define PHY_TI_RGMII_VERSALEMU	0xAB
+
 LONG EmacPsUtilMarvellPhyLoopback(XEmacPs * EmacPsInstancePtr,
 									u32 Speed, u32 PhyAddr)
 {
@@ -502,7 +507,8 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 								u32 Speed, u32 PhyAddr)
 {
 	LONG Status;
-	u16 PhyReg0  = 0;
+	u16 PhyReg0  = 0, LoopbackSpeed = 0;
+	u16 RgmiiTuning = PHY_TI_RGMII_ZCU102;
 
 	/*
 	 * Setup speed and duplex
@@ -521,6 +527,7 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 		EmacPsUtilErrorTrap("Error: speed not recognized ");
 		return XST_FAILURE;
 	}
+	LoopbackSpeed = PhyReg0;
 
 	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 0, PhyReg0);
 	/*
@@ -580,7 +587,7 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 	EmacpsDelay(1);
 
 	/* enable loopback */
-	PhyReg0 = PHY_REG0_1000 | PHY_REG0_LOOPBACK;
+	PhyReg0 = LoopbackSpeed | PHY_REG0_LOOPBACK;
 	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 0, PhyReg0);
 	Status = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 0, &PhyReg0);
 	if (Status != XST_SUCCESS) {
@@ -599,7 +606,10 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_ADDR);
 	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, PHY_RGMIIDCTL);
 	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_DATA);
-	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, 0xA8);
+	if ((Platform & PLATFORM_MASK) == PLATFORM_VERSALEMU) {
+		RgmiiTuning = PHY_TI_RGMII_VERSALEMU;
+	}
+	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, RgmiiTuning);
 		if (Status != XST_SUCCESS) {
 		EmacPsUtilErrorTrap("Error in tuning");
 		return XST_FAILURE;

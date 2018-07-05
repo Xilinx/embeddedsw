@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xhwicap.h
-* @addtogroup hwicap_v11_1
+* @addtogroup hwicap_v11_2
 * @{
 * @details
 *
@@ -39,11 +39,6 @@
 * The HWICAP device is used for reconfiguration of select FPGA resources
 * as well as loading partial bitstreams from the system memory through the
 * Internal Configuration Access Port (ICAP).
-*
-* The source code for the XHwIcap_SetClbBits and XHwIcap_GetClbBits
-* functions  are not included. These functions are delivered as .o
-* files. These files have been compiled using gcc version 4.1.1.
-* Libgen uses the appropriate .o files for the target processor.
 *
 * <b> Initialization and Configuration </b>
 *
@@ -185,6 +180,9 @@
 *                      for CR-965028.
 *       ms    03/17/17 Added readme.txt file in examples folder for doxygen
 *                      generation.
+* 11.2 Nava   02/08/19 The current version of the driver is not supported for
+*                      families older than 7 series.So removed .o referenced
+*                      function prototypes from the header file.
 *
 * </pre>
 *
@@ -687,67 +685,6 @@ int XHwIcap_DeviceWriteFrame(XHwIcap *InstancePtr, long Top,
 				long Block, long HClkRow,
 				long MajorFrame, long MinorFrame,
 				u32 *FrameData);
-
-/****************************************************************************/
-/**
-*
-* Sets bits contained in a Center tile specified by the CLB row and col
-* coordinates.  The coordinate system lables the upper left CLB as
-* (1,1).
-*
-* @param	InstancePtr is a pointer to XHwIcap instance to be worked on
-* @param	Row is the CLB row. (1,1) is the upper left CLB.
-* @param	Col is the CLB col. (1,1) is the upper left CLB.
-* @param	Resource is the Target bits (first dimension length will be
-*		the number of bits to set and must match the numBits parameter)
-*		(second dimension contains two value -- one for
-*		 minor row and one for col information from within
-*		the Center tile targetted by the above row and
-*		col coords).
-* @param	Value is the values to set each of the targets bits to.
-*		The size of this array must be euqal to NumBits.
-* @param	NumBits is the number of Bits to change in this method.
-*
-* @return	XST_SUCCESS, XST_BUFFER_TOO_SMALL or XST_INVALID_PARAM.
-*
-* @note		The source code for this function is not included. This
-*		function is delivered as .o file. Libgen uses the appropriate
-*		.o file for the target processor.
-*
-*****************************************************************************/
-int XHwIcap_SetClbBits(XHwIcap *InstancePtr, long Row, long Col,
-		const u8 Resource[][2], const u8 Value[], long NumBits);
-
-/****************************************************************************/
-/**
-*
-* Gets bits contained in a Center tile specified by the CLB row and col
-* coordinates.  The coordinate system lables the upper left CLB as
-* (1,1).
-*
-* @param	InstancePtr is a pointer to the XHwIcap instance.
-* @param	Row is the CLB row. (1,1) is the upper left CLB.
-* @param	Col is the CLB col. (1,1) is the upper left CLB.
-* @param	Resource is the Target bits (first dimension length will be
-*		the number of bits to set and must match the numBits parameter)
-*		(second dimension contains two value -- one for
-*		 minor row and one for col information from within
-*		the Center tile targetted by the above row and
-*		col coords).
-* @param	Value is the values to set each of the targets bits to.
-*		The size of this array must be euqal to NumBits.
-* @param	NumBits is the number of Bits to change in this method.
-*
-* @return	XST_SUCCESS, XST_BUFFER_TOO_SMALL or XST_INVALID_PARAM.
-*
-* @note		The source code for this function is not included. This
-*		function is delivered as .o file.  Libgen uses the appropriate
-*		.o file for the target processor.
-*
-*****************************************************************************/
-int XHwIcap_GetClbBits(XHwIcap *InstancePtr, long Row, long Col,
-      const u8 Resource[][2], u8 Value[], long NumBits);
-
 
 /************************** Variable Declarations ***************************/
 

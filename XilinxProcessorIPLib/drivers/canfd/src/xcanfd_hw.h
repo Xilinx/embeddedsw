@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcanfd_hw.h
-* @addtogroup canfd_v2_0
+* @addtogroup canfd_v2_1
 * @{
 *
 * This header file contains the identifiers and basic driver functions (or
@@ -48,8 +48,8 @@
 *			bits since RTL has changed.RTL Changes,Added
 *		        new bits to MSR,SR,ISR,IER,ICR Registers and modified
 *		        TS2 bits in BTR and F_SJW bits in F_BTR Registers.
-* 2.0   ask  07/03/18 Added support for canfd 2.0 spec sequential mode.
-*					  Added H/W #defines regarding CANFD V2.0
+* 2.1   ask  07/03/18 Added support for canfd 2.0 spec sequential mode.
+*       ask  07/03/18 Fix for Sequencial recv CR# 992606,CR# 1004222.
 *
 * </pre>
 *
@@ -160,7 +160,6 @@ extern "C" {
 #define XCANFD_TXEFIFO_0_BASE_DLC_OFFSET  0x2004  /**< Tx Event Message Buffer
                                                   Element 0 DLC Register  */
 /* @} */
-
 /** @name Rx Message Buffer Element ID Registers.
  * Start Address - 0x1100   (2304 Bytes)
 			     End Address   - 0x19FF
@@ -222,7 +221,7 @@ extern "C" {
 * @{
 */
 #define XCANFD_RXFIFO_1_BUFFER_0_BASE_DW0_OFFSET 0x4108 /**< Rx Message Buffer Element
-							0 DW Register	*/
+							0 DW Register  */
 /* @} */
 
 /** @name Rx Message Buffer Element ID,DLC,DW Sizes.
@@ -893,6 +892,8 @@ Mask/Acceptance Filter ID)
 #define MAX_BUFFER_INDEX    32
 #define MIN_FILTER_INDEX        0
 #define MAX_FILTER_INDEX        32
+#define EDL_CANFD		1
+#define EDL_CAN			0
 /* @} */
 
 /**************************** Type Definitions *******************************/

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2004 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2004 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xemaclite.c
-* @addtogroup emaclite_v4_3
+* @addtogroup emaclite_v4_4
 * @{
 *
 * Functions in this file are the minimum required functions for the EmacLite

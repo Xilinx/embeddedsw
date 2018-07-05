@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,8 @@
 * ---- ------ -------- --------------------------------------------------------
 * 1.00 drg/jz 01/23/10 First release
 * 3.0  pkp	  12/09/14 Change TTC_NUM_DEVICES for Zynq Ultrascale MP support
+* 3.9  mus    04/09/19 Updated SettingsTable values as per TmrCntrSetup
+*                      template
 *</pre>
 ******************************************************************************/
 
@@ -117,7 +119,7 @@ static TmrCntrSetup SettingsTable[] = {
 	/* Table offset of 3 */
 	{100, 50, 3},
 	{200, 25, 2},
-	{400, 12.5, 1},
+	{400, 12, 1},
 
 	/* Table offset of 6 */
 	{500, 50, 1},

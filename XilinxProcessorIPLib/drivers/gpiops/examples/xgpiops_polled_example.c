@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,11 @@
 * For Zynq Platform, Input Pins are 12(sw14 on zc702 board), 14(sw13 on
 * zc702 board) and Output Pin is 10(DS23 on zc702 board).
 *
+* In versal Platform we have two devices(PMC GPIO and PS GPIO),PMC contain 4
+* banks and 116 pins,PS GPIO  contain 2 banks and 58 pins.
+* This example can work for both PS and PMC GPIO based on the value of GPIO_DEVICE_ID
+* The default value of 0 makes this example work for PMC GPIO controller.
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -53,6 +58,7 @@
 *		      Updated the example to use only pin APIs.
 * 3.3   ms   04/17/17 Added notes about input and output pin description
 *                     for zcu102 and zc702 boards.
+* 3.5   sne  04/26/19 Added versal support.
 * </pre>
 *
 *****************************************************************************/
@@ -68,11 +74,19 @@
 /************************** Constant Definitions ****************************/
 
 /*
- * The following constants map to the XPAR parameters created in the
+ * The followig constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
+ * change all the needed parameters in one place for ZYNQ & ZYNQMP.
+ *
+ * For Versal users can pass GPIO_DEVICE_ID value as a compile time argument
+ *  to make the same example work for PS or PMC.
+ * -DGPIO_DEVICE_ID=0 ensures that the example compiles for PMC GPIO.
+ * Similarly -DGPIO_DEVICE_ID=1 ensures that the example compiles for PS GPIO.
  */
-#define GPIO_DEVICE_ID  	XPAR_XGPIOPS_0_DEVICE_ID
+
+#ifndef GPIO_DEVICE_ID
+#define GPIO_DEVICE_ID		XPAR_XGPIOPS_0_DEVICE_ID
+#endif
 
 /*
  * The following constant is used to wait after an LED is turned on to make
@@ -160,6 +174,15 @@ int GpioPolledExample(u16 DeviceId, u32 *DataRead)
 	XGpioPs_Config *ConfigPtr;
 	int Type_of_board;
 
+	/* Initialize the GPIO driver. */
+	ConfigPtr = XGpioPs_LookupConfig(GPIO_DEVICE_ID);
+#ifdef versal
+	if(ConfigPtr->DeviceId == 0x0U)
+	{
+		/* Accessing PMC GPIO by setting 1 value*/
+		Gpio.PmcGpio=1;
+	}
+#endif
 	Type_of_board = XGetPlatform_Info();
 	switch (Type_of_board) {
 		case XPLAT_ZYNQ_ULTRA_MP:
@@ -171,16 +194,27 @@ int GpioPolledExample(u16 DeviceId, u32 *DataRead)
 			Input_Pin = 14;
 			Output_Pin = 10;
 			break;
-		}
 
-	/* Initialize the GPIO driver. */
-	ConfigPtr = XGpioPs_LookupConfig(GPIO_DEVICE_ID);
+#ifdef versal
+		case XPLAT_versal:
+			if(Gpio.PmcGpio == 0x1U) {
+				Input_Pin = 52;
+				Output_Pin = 84;
+				break;
+			}
+			else {
+				Input_Pin = 26;
+				Output_Pin = 41;
+				break;
+			}
+#endif
+	}
+
 	Status = XGpioPs_CfgInitialize(&Gpio, ConfigPtr,
 					ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-
 	/* Run the Output Example. */
 	Status = GpioOutputExample();
 	if (Status != XST_SUCCESS) {
@@ -227,7 +261,6 @@ static int GpioOutputExample(void)
 
 
 	for (LedLoop = 0; LedLoop < LED_MAX_BLINK; LedLoop ++) {
-
 
 #ifndef __SIM__
 		/* Wait a small amount of time so the LED is visible. */
@@ -289,7 +322,6 @@ static int GpioInputExample(u32 *DataRead)
 
 	/* Set the direction for the specified pin to be input. */
 	XGpioPs_SetDirectionPin(&Gpio, Input_Pin, 0x0);
-
 	/* Read the state of the data so that it can be  verified. */
 	*DataRead = XGpioPs_ReadPin(&Gpio, Input_Pin);
 

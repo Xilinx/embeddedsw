@@ -49,6 +49,7 @@
 * 1.00a drg  01/30/10 First release
 * 3.10  mus  09/19/18 Update prototype of LowInterruptHandler to fix the GCC
 *                     warning
+* 4.0   mus  01/28/19  Updated to support Cortexa72 GIC (GIC500).
 * </pre>
 ******************************************************************************/
 
@@ -60,6 +61,7 @@
 #include "xscugic_hw.h"
 #include "xil_printf.h"
 #include "xstatus.h"
+#include "xscugic.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -71,11 +73,14 @@
 #define CPU_BASEADDR		XPAR_SCUGIC_0_CPU_BASEADDR
 #define DIST_BASEADDR		XPAR_SCUGIC_0_DIST_BASEADDR
 
-
+#if defined (versal) && !defined(ARMR5)
+#define GIC_DEVICE_INT_MASK        0x11000001 /* Bit [27:24] SGI Interrupt ID
+                                                 Bit [15:0] Targeted CPUs */
+#else
 #define GIC_DEVICE_INT_MASK        0x02010003 /* Bit [25:24] Target list filter
                                                  Bit [23:16] 16 = Target CPU iface 0
                                                  Bit [3:0] identifies the SFI */
-
+#endif
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -161,7 +166,9 @@ static int ScuGicLowLevelExample(u32 CpuBaseAddress, u32 DistBaseAddress)
 
 	GicDistInit(DistBaseAddress);
 
-	GicCPUInit(CpuBaseAddress);
+#if !defined (versal) || defined(ARMR5)
+		GicCPUInit(CpuBaseAddress);
+#endif
 
 	/*
 	 * This step is processor specific, connect the handler for the
@@ -172,14 +179,27 @@ static int ScuGicLowLevelExample(u32 CpuBaseAddress, u32 DistBaseAddress)
 	/*
 	 * Enable the software interrupts only.
 	 */
+#if defined (versal) && !defined(ARMR5)
+	 XScuGic_WriteReg(DistBaseAddress + XSCUGIC_RDIST_SGI_PPI_OFFSET,
+	 XSCUGIC_RDIST_ISENABLE_OFFSET, 0xFFFFFFFF);
+#else
 	XScuGic_WriteReg(DistBaseAddress, XSCUGIC_ENABLE_SET_OFFSET, 0x0000FFFF);
+#endif
 
 	/*
 	 * Cause (simulate) an interrupt so the handler will be called.
 	 * This is done by changing the interrupt source to be software driven,
 	 * then set a bit which simulates an interrupt.
 	 */
+#if defined (versal) && !defined(ARMR5)
+	#if EL3
+	XScuGic_WriteICC_SGI0R_EL1(GIC_DEVICE_INT_MASK);
+    #else
+	XScuGic_WriteICC_SGI1R_EL1(GIC_DEVICE_INT_MASK);
+	#endif
+#else
 	XScuGic_WriteReg(DistBaseAddress, XSCUGIC_SFI_TRIG_OFFSET, GIC_DEVICE_INT_MASK);
+#endif
 
 	/*
 	 * Wait for the interrupt to be processed, if the interrupt does not
@@ -222,7 +242,7 @@ void SetupInterruptSystem(void)
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
 			(Xil_ExceptionHandler) LowInterruptHandler,
-			CPU_BASEADDR);
+			(void *)CPU_BASEADDR);
 
 	/*
 	 * Enable interrupts in the ARM
@@ -260,12 +280,16 @@ void LowInterruptHandler(u32 CallbackRef)
 
 	BaseAddress = CallbackRef;
 
+#if defined (versal) && !defined(ARMR5)
+	    IntID = XScuGic_get_IntID();
+#else
 	/*
 	 * Read the int_ack register to identify the interrupt and
 	 * make sure it is valid.
 	 */
 	IntID = XScuGic_ReadReg(BaseAddress, XSCUGIC_INT_ACK_OFFSET) &
 			    XSCUGIC_ACK_INTID_MASK;
+#endif
 	if(XSCUGIC_MAX_NUM_INTR_INPUTS < IntID){
 		return;
 	}
@@ -281,11 +305,16 @@ void LowInterruptHandler(u32 CallbackRef)
 	 */
 	InterruptProcessed = 1;
 
+#if defined (versal) && !defined(ARMR5)
+	   XScuGic_ack_Int(IntID);
+
+#else
 	/*
 	 * Write to the EOI register, we are all done here.
 	 * Let this function return, the boot code will restore the stack.
 	 */
 	XScuGic_WriteReg(BaseAddress, XSCUGIC_EOI_OFFSET, IntID);
+#endif
 }
 
 
@@ -293,7 +322,29 @@ static void GicDistInit(u32 BaseAddress)
 {
 	u32 Int_Id;
 
+#if defined (versal) && !defined(ARMR5)
+	u32 temp;
+	u32 Waker_State;
+
+   /* CPU is active, reset GICR_WAKER.ProcessorSleep to enable interrupts */
+	Waker_State = XScuGic_ReadReg(BaseAddress + XSCUGIC_RDIST_OFFSET, XSCUGIC_RDIST_WAKER_OFFSET);
+	XScuGic_WriteReg(BaseAddress + XSCUGIC_RDIST_OFFSET, XSCUGIC_RDIST_WAKER_OFFSET,
+							Waker_State & (~ XSCUGIC_RDIST_WAKER_LOW_POWER_STATE_MASK));
+
+	/* Enable system reg interface through ICC_SRE_EL1/EL3  */
+	#if EL3
+		XScuGic_Enable_SystemReg_CPU_Interface_EL3();
+	#endif
+	XScuGic_Enable_SystemReg_CPU_Interface_EL1();
+
+    /* Disable distributor */
+	temp = XScuGic_ReadReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET);
+	temp |= (XSCUGIC500_DCTLR_ARE_NS_ENABLE | XSCUGIC500_DCTLR_ARE_S_ENABLE);
+	temp &= ~(XSCUGIC_EN_INT_MASK);
+	XScuGic_WriteReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET, temp);
+#else
 	XScuGic_WriteReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET, 0UL);
+#endif
 
 	/*
 	 * Set the security domains in the int_security registers for non-secure interrupts
@@ -319,7 +370,12 @@ static void GicDistInit(u32 BaseAddress)
 
 
 #define DEFAULT_PRIORITY    0xa0a0a0a0UL
+#if defined (versal) && !defined(ARMR5)
+#define DEFAULT_TARGET    0x0UL
+#else
 #define DEFAULT_TARGET    0x01010101UL
+#endif
+
 	for(Int_Id = 0; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS; Int_Id+=4){
 		/*
 		 * 2. The priority using int the priority_level register
@@ -331,7 +387,17 @@ static void GicDistInit(u32 BaseAddress)
 				XSCUGIC_PRIORITY_OFFSET +((Int_Id *4)/4),
 				DEFAULT_PRIORITY);
 	}
-
+#if defined (versal) && !defined(ARMR5)
+for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+1){
+	/*
+	 * 3. The CPU interface in the spi_target register
+	 * Only write to the SPI interrupts, so start at 32
+	 */
+	temp = Int_Id -32;
+	XScuGic_WriteReg(BaseAddress, XSCUGIC_IROUTER_OFFSET_CALC(temp),
+						  DEFAULT_TARGET);
+}
+#else
 	for(Int_Id = 32; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id+=4){
 		/*
 		 * 3. The CPU interface in the spi_target register
@@ -340,7 +406,7 @@ static void GicDistInit(u32 BaseAddress)
 			XSCUGIC_SPI_TARGET_OFFSET +((Int_Id *4)/4),
 			DEFAULT_TARGET);
 	}
-
+#endif
 	for(Int_Id = 0; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id+=32){
 		/*
 		 * 4. Enable the SPI using the enable_set register.
@@ -350,8 +416,17 @@ static void GicDistInit(u32 BaseAddress)
 			XSCUGIC_DISABLE_OFFSET +((Int_Id *4)/32), 0xFFFFFFFFUL);
 
 	}
+#if defined (versal) && !defined(ARMR5)
+	temp = XScuGic_ReadReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET);
+	temp |= XSCUGIC_EN_INT_MASK;
+	XScuGic_WriteReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET, temp);
 
+	XScuGic_Enable_Group1_Interrupts();
+	XScuGic_Enable_Group0_Interrupts();
+	XScuGic_set_priority_filter(0xff);
+#else
     XScuGic_WriteReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET, 0x01UL);
+#endif
 }
 
 static void GicCPUInit(u32 BaseAddress)

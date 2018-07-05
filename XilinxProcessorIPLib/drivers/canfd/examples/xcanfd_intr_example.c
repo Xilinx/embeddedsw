@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,18 +50,21 @@
 *
 * Ver   Who	Date	 Changes
 * ----- -----  -------- -----------------------------------------------
-* 1.0   nsk    06/04/15 First release
-* 1.2   ms     01/23/17 Modified xil_printf statement in main function to
-*                       ensure that "Successfully ran" and "Failed" strings are
-*                       available in all examples. This is a fix for CR-965028.
-*       ms     04/05/17 Added tabspace for return statements in functions
-*                       for proper documentation while generating doxygen.
-* 2.0   ask    08/08/18 Changed the Can ID to 11 bit value as standard Can ID
-*						is 11 bit.
-*  	ask    09/12/18 Added timeout, and Code to handle Timestamp Counter
-*		                Overflow Interrupt. Made logic generic for both
-*						scugic and intc vectors.
-*
+* 1.0   nsk 06/04/15 First release
+* 1.2   ms  01/23/17 Modified xil_printf statement in main function to
+*                    ensure that "Successfully ran" and "Failed" strings are
+*                    available in all examples. This is a fix for CR-965028.
+*       ms  04/05/17 Added tabspace for return statements in functions
+*                    for proper documentation while generating doxygen.
+* 2.1   ask 07/03/18 Added timeout, and Code to handle Timestamp Counter
+*		     Overflow Interrupt for CR# 992606, CR# 1004222 and
+*		     fixed gcc warnings.
+* 		ask    08/08/18 Changed the Can ID to 11 bit value as standard Can ID
+*                                              is 11 bit.
+*		ask    09/12/18 Added timeout, and Code to handle Timestamp Counter
+*                              Overflow Interrupt. Made logic generic for both
+*                                              scugic and intc vectors.
+* 2.1	nsk  03/09/19 Fix build error in example
 *
 * </pre>
 *
@@ -97,7 +100,11 @@
  #define CAN_INTR_VEC_ID	XPAR_INTC_0_CANFD_0_VEC_ID
 #else
  #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
- #define CAN_INTR_VEC_ID	XPAR_FABRIC_CANFD_0_VEC_ID
+ #ifdef XPAR_CANFD_ISPS
+  #define CAN_INTR_VEC_ID	XPAR_XCANPS_0_INTR
+ #else
+  #define CAN_INTR_VEC_ID	XPAR_FABRIC_CANFD_0_VEC_ID
+ #endif
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 /* Maximum CAN frame length in Bytes */
@@ -401,7 +408,8 @@ static int SendFrame(XCanFd *InstancePtr)
 	 */
 	TxFrame[0] = XCanFd_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0);
 	TxFrame[1] = XCanFd_Create_CanFD_Dlc_BrsValue(TEST_CANFD_DLC);
-	NofBytes = XCanFd_GetDlc2len(TxFrame[1] & XCANFD_DLCR_DLC_MASK);
+	NofBytes = XCanFd_GetDlc2len(TxFrame[1] & XCANFD_DLCR_DLC_MASK,
+			EDL_CANFD);
 	/*
 	 * Now fill in the data field with known values so we can verify them
 	 * on receive.
@@ -480,7 +488,8 @@ static void RecvHandler(void *CallBackRef)
 	}
 
 	/* Get the Dlc inthe form of bytes */
-	Dlc = XCanFd_GetDlc2len(RxFrame[1] & XCANFD_DLCR_DLC_MASK);
+	Dlc = XCanFd_GetDlc2len(RxFrame[1] & XCANFD_DLCR_DLC_MASK,
+		EDL_CANFD);
 	if (Status != XST_SUCCESS) {
 		LoopbackError = TRUE;
 		RecvDone = TRUE;

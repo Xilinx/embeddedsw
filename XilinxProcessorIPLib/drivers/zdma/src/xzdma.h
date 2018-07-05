@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xzdma.h
-* @addtogroup zdma_v1_6
+* @addtogroup zdma_v1_7
 * @{
 * @details
 *
@@ -130,6 +130,9 @@
 *			 errors in the driver(CR#1006353).
 *		19/07/18 Fixed cppcheck warning in the driver.
 * 1.6   aru     08/18/18 Resolved MISRA-C mandatory violations.
+* 1.7	adk	08/03/19 Added support for versal IP.
+* 1.7   adk     18/03/19 Updated the writeonly mode example data verification
+*			 check to support versal adma IP.
 * </pre>
 *
 ******************************************************************************/
@@ -147,6 +150,7 @@ extern "C" {
 #include "xstatus.h"
 #include "xil_cache.h"
 #include "bspconfig.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 

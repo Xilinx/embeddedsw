@@ -43,6 +43,7 @@
  * ---- ----- -------- ----------------------------------------------------
  * 1.0  aad   04/12/16 Initial release.
  * 1.1  aad   04/26/18 Fixed Warnings
+ * </pre>
  *
  *****************************************************************************/
 
@@ -329,7 +330,7 @@ static void XDpDma_SetupAudioDescriptor(XDpDma_Descriptor *CurrDesc,
  * fills in the InstancePtr->Config structure.
  *
  * @param    InstancePtr is a pointer to the driver instance.
- * @param    ConfigPtr is a pointer to the configuration structure that will
+ * @param    CfgPtr is a pointer to the configuration structure that will
  *           be used to copy the settings from.
  *
  * @return   None.
@@ -363,7 +364,7 @@ void XDpDma_CfgInitialize(XDpDma *InstancePtr, XDpDma_Config *CfgPtr)
  * This functions controls the states in which a channel should go into.
  *
  * @param    InstancePtr is a pointer to the driver instance.
- * @param    ChannelType is an enum of XDpDma_ChannelType.
+ * @param    Channel is an enum of XDpDma_ChannelType.
  * @param    ChannelState is an enum of type XDpDma_ChannelState.
  *
  * @return   XST_SUCCESS when the mentioned channel is enabled successfully.
@@ -433,7 +434,7 @@ int XDpDma_SetChannelState(XDpDma *InstancePtr, XDpDma_ChannelType Channel,
  * planes in the video
  *
  * @param	InstancePtr is a pointer to the driver instance.
- * @params	Format is the video format to be used for the DPDMA transfer
+ * @param	Format is the video format to be used for the DPDMA transfer
  *
  * @return	XST_SUCCESS, When the format is valid Video Format.
  *		XST_FAILURE, When the format is not valid Video Format
@@ -460,7 +461,7 @@ int XDpDma_SetVideoFormat(XDpDma *InstancePtr, XAVBuf_VideoFormat Format)
  * This function allocates DPDMA Graphics Channels.
  *
  * @param	InstancePtr is a pointer to the driver instance.
- * @params	Format is the video format to be used for the DPDMA transfer
+ * @param	Format is the video format to be used for the DPDMA transfer
  *
  * @return	XST_SUCCESS, When the format is a valid Graphics Format.
  *		XST_FAILURE, When the format is not valid Graphics Format.
@@ -636,7 +637,7 @@ int XDpDma_ReTrigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
  *
  * This function intializes Video Descriptor for Video and Graphics channel
  *
- * @param    Channel is a pointer to the current Descriptor of Video or
+ * @param    CurrDesc is a pointer to the current Descriptor of Video or
  *	     Graphics Channel.
  * @param    FrameBuffer is a pointer to the Frame Buffer structure
  *

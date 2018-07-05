@@ -111,7 +111,7 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 			  u32 EffectiveAddr)
 {
 	u32 PsSysmonControlStatus;
-	u32 IntrStatus;
+	u64 IntrStatus;
 
 	/* Assert the input arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -125,8 +125,8 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 	/* Set all handlers to stub values, let user configure this data later. */
 	InstancePtr->Handler = (XSysMonPsu_Handler)XSysMonPsu_StubHandler;
 
-	XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PS);
-	XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PL);
+	(void)XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PS);
+	(void)XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PL);
 
 	/* Reset the device such that it is in a known state. */
 	XSysMonPsu_Reset(InstancePtr);
@@ -203,7 +203,7 @@ void XSysMonPsu_Reset(XSysMonPsu *InstancePtr)
 			XSYSMONPSU_VP_VN_OFFSET, XSYSMONPSU_VP_VN_MASK);
 
 	/* Check for PL is under reset or not */
-	IsPlReset = (XSysmonPsu_ReadReg(XSYSMONPSU_CSU_BASEADDR + PCAP_STATUS_OFFSET) &
+	IsPlReset = (u8)(XSysmonPsu_ReadReg(XSYSMONPSU_CSU_BASEADDR + PCAP_STATUS_OFFSET) &
 						PL_CFG_RESET_MASK) >> PL_CFG_RESET_SHIFT;
 	if (IsPlReset != 0U) {
 		/* RESET the PL SYSMON */
@@ -1176,12 +1176,29 @@ u8 XSysMonPsu_GetAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	return (u8) (Divisor >> XSYSMONPSU_CFG_REG2_CLK_DVDR_SHIFT);
 }
 
+/****************************************************************************/
+/**
+*
+* The function update the ADCCLK divisor to the Configuration Register 2.
+*
+* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
+*       block or PL Sysmon block register region.
+*
+* @return	The divisor update  the Configuration Register 2.
+*
+* @note		The ADCCLK is an internal clock used by the ADC and is
+*		synchronized to the DCLK clock. The ADCCLK is equal to DCLK
+*		divided by the user selection in the Configuration Register 2.
+*
+*****************************************************************************/
 u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u16 Divisor;
 	u32 EffectiveBaseAddress;
 	u32 RegValue;
 	u32 InputFreq;
+	u32 Count = 0U;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1198,21 +1215,23 @@ u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 							XSYSMONPSU_CFG_REG2_OFFSET);
 	Divisor = Divisor >> XSYSMONPSU_CFG_REG2_CLK_DVDR_SHIFT;
 
-	while (1) {
-		if (!Divisor) {
+	while (Count < XSM_POLL_TIMEOUT) {
+		if (Divisor == 0U) {
 			if ((SysmonBlk == XSYSMON_PS) &&
-			(InputFreq/8 >= 1) && (InputFreq/8 <= 26)) {
-				break;
-			} else if ((SysmonBlk == XSYSMON_PL) &&
-			(InputFreq/2 >= 1) && (InputFreq/2 <= 26)) {
+			((InputFreq/8U) >= 1U) && ((InputFreq/8U) <= 26U)) {
 				break;
 			}
-		} else if ((InputFreq/Divisor >= 1) &&
-				(InputFreq/Divisor <= 26)) {
+			if ((SysmonBlk == XSYSMON_PL) &&
+			((InputFreq/2U) >= 1U) && ((InputFreq/2U) <= 26U)) {
+				break;
+			}
+		} else if (((InputFreq/Divisor) >= 1U) &&
+				((InputFreq/Divisor) <= 26U)) {
 			break;
 		} else {
-			Divisor += 1;
+			Divisor += 1U;
 		}
+		Count += 1U;
 	}
 
 	/*
@@ -1287,14 +1306,14 @@ s32 XSysMonPsu_SetSeqChEnables(XSysMonPsu *InstancePtr, u64 ChEnableMask,
 	 * Registers.
 	 */
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_SEQ_CH0_OFFSET,
-			 (ChEnableMask & XSYSMONPSU_SEQ_CH0_VALID_MASK));
+			 (u32)(ChEnableMask & XSYSMONPSU_SEQ_CH0_VALID_MASK));
 
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_SEQ_CH1_OFFSET,
-			 (ChEnableMask >> XSM_SEQ_CH_SHIFT) &
+			 (u32)(ChEnableMask >> XSM_SEQ_CH_SHIFT) &
 			 XSYSMONPSU_SEQ_CH1_VALID_MASK);
 
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_SEQ_CH2_OFFSET,
-				 (ChEnableMask >> XSM_SEQ_CH2_SHIFT) &
+				 (u32)(ChEnableMask >> XSM_SEQ_CH2_SHIFT) &
 			 XSYSMONPSU_SEQ_CH2_VALID_MASK);
 
 	Status = (s32)XST_SUCCESS;
@@ -1342,12 +1361,12 @@ u64 XSysMonPsu_GetSeqChEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	 * Read the channel enable bits for all the channels from the ADC
 	 * Channel Selection Register.
 	 */
-	RegVal = XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegVal = (u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_CH0_OFFSET) & XSYSMONPSU_SEQ_CH0_VALID_MASK;
-	RegVal |= (XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegVal |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_CH1_OFFSET) & XSYSMONPSU_SEQ_CH1_VALID_MASK) <<
 					XSM_SEQ_CH_SHIFT;
-	RegVal |= (u64)(XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegVal |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_CH2_OFFSET) &
 			XSYSMONPSU_SEQ_CH2_VALID_MASK) << XSM_SEQ_CH2_SHIFT;
 
@@ -1408,16 +1427,16 @@ s32 XSysMonPsu_SetSeqAvgEnables(XSysMonPsu *InstancePtr, u64 AvgEnableChMask,
 		 */
 		XSysmonPsu_WriteReg(EffectiveBaseAddress +
 				XSYSMONPSU_SEQ_AVERAGE0_OFFSET,
-				(AvgEnableChMask & XSYSMONPSU_SEQ_AVERAGE0_MASK));
+				(u32)(AvgEnableChMask & XSYSMONPSU_SEQ_AVERAGE0_MASK));
 
 		XSysmonPsu_WriteReg(EffectiveBaseAddress +
 				XSYSMONPSU_SEQ_AVERAGE1_OFFSET,
-				 (AvgEnableChMask >> XSM_SEQ_CH_SHIFT) &
+				 (u32)(AvgEnableChMask >> XSM_SEQ_CH_SHIFT) &
 				 XSYSMONPSU_SEQ_AVERAGE1_MASK);
 
 		XSysmonPsu_WriteReg(EffectiveBaseAddress +
 				XSYSMONPSU_SEQ_AVERAGE2_OFFSET,
-				 (AvgEnableChMask >> XSM_SEQ_CH2_SHIFT) &
+				 (u32)(AvgEnableChMask >> XSM_SEQ_CH2_SHIFT) &
 				 XSYSMONPSU_SEQ_AVERAGE2_MASK);
 
 		Status = (s32)XST_SUCCESS;
@@ -1464,12 +1483,12 @@ u64 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	 * Read the averaging enable status for all the channels from the
 	 * ADC Channel Averaging Enables Sequencer Registers.
 	 */
-	RegVal = XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegVal = (u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_AVERAGE0_OFFSET) & XSYSMONPSU_SEQ_AVERAGE0_MASK;
-	RegVal |= (XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegVal |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_AVERAGE1_OFFSET) & XSYSMONPSU_SEQ_AVERAGE1_MASK) <<
 			XSM_SEQ_CH_SHIFT;
-	RegVal |= (u64)(XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegVal |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_AVERAGE2_OFFSET) &
 			XSYSMONPSU_SEQ_AVERAGE2_MASK) << XSM_SEQ_CH2_SHIFT;
 
@@ -1535,16 +1554,16 @@ s32 XSysMonPsu_SetSeqInputMode(XSysMonPsu *InstancePtr, u64 InputModeChMask,
 	 */
 	XSysmonPsu_WriteReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_INPUT_MDE0_OFFSET,
-			 (InputModeChMask & XSYSMONPSU_SEQ_INPUT_MDE0_MASK));
+			 (u32)(InputModeChMask & XSYSMONPSU_SEQ_INPUT_MDE0_MASK));
 
 	XSysmonPsu_WriteReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_INPUT_MDE1_OFFSET,
-			 (InputModeChMask >> XSM_SEQ_CH_SHIFT) &
+			 (u32)(InputModeChMask >> XSM_SEQ_CH_SHIFT) &
 			 XSYSMONPSU_SEQ_INPUT_MDE1_MASK);
 
 	XSysmonPsu_WriteReg(EffectiveBaseAddress +
 		XSYSMONPSU_SEQ_INPUT_MDE2_OFFSET,
-		 (InputModeChMask >> XSM_SEQ_CH2_SHIFT) &
+		(u32)(InputModeChMask >> XSM_SEQ_CH2_SHIFT) &
 		 XSYSMONPSU_SEQ_INPUT_MDE2_MASK);
 
 	Status = (s32)XST_SUCCESS;
@@ -1591,12 +1610,12 @@ u64 XSysMonPsu_GetSeqInputMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	 *  Get the input mode for all the channels from the ADC Channel
 	 * Analog-Input Mode Sequencer Registers.
 	 */
-	InputMode = XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	InputMode = (u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_INPUT_MDE0_OFFSET) & XSYSMONPSU_SEQ_INPUT_MDE0_MASK;
-	InputMode |= (XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	InputMode |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_INPUT_MDE1_OFFSET) & XSYSMONPSU_SEQ_INPUT_MDE1_MASK) <<
 				XSM_SEQ_CH_SHIFT;
-	InputMode |= (u64)(XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	InputMode |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_INPUT_MDE2_OFFSET) &
 			XSYSMONPSU_SEQ_INPUT_MDE2_MASK) << XSM_SEQ_CH2_SHIFT;
 
@@ -1662,13 +1681,14 @@ s32 XSysMonPsu_SetSeqAcqTime(XSysMonPsu *InstancePtr, u64 AcqCyclesChMask,
 	 * ADC Channel Acquisition Time Sequencer Registers.
 	 */
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_SEQ_ACQ0_OFFSET,
-			 (AcqCyclesChMask & XSYSMONPSU_SEQ_ACQ0_MASK));
+			 (u32)(AcqCyclesChMask & XSYSMONPSU_SEQ_ACQ0_MASK));
 
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_SEQ_ACQ1_OFFSET,
-			 (AcqCyclesChMask >> XSM_SEQ_CH_SHIFT) & XSYSMONPSU_SEQ_ACQ1_MASK);
+			 (u32)(AcqCyclesChMask >> XSM_SEQ_CH_SHIFT) &
+					XSYSMONPSU_SEQ_ACQ1_MASK);
 
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_SEQ_ACQ2_OFFSET,
-			(AcqCyclesChMask >> XSM_SEQ_CH2_SHIFT) &
+			(u32)(AcqCyclesChMask >> XSM_SEQ_CH2_SHIFT) &
 					XSYSMONPSU_SEQ_ACQ2_MASK);
 
 	Status = (s32)XST_SUCCESS;
@@ -1715,12 +1735,12 @@ u64 XSysMonPsu_GetSeqAcqTime(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	 * Get the Acquisition cycles for the specified channels from the ADC
 	 * Channel Acquisition Time Sequencer Registers.
 	 */
-	RegValAcq = XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegValAcq = (u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 					XSYSMONPSU_SEQ_ACQ0_OFFSET) & XSYSMONPSU_SEQ_ACQ0_MASK;
-	RegValAcq |= (XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegValAcq |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 					XSYSMONPSU_SEQ_ACQ1_OFFSET) & XSYSMONPSU_SEQ_ACQ1_MASK) <<
 					XSM_SEQ_CH_SHIFT;
-	RegValAcq |= (u64)(XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegValAcq |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_ACQ2_OFFSET) &
 			XSYSMONPSU_SEQ_ACQ2_MASK) << XSM_SEQ_CH2_SHIFT;
 

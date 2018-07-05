@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xmcdma.c
-* @addtogroup mcdma_v1_2
+* @addtogroup mcdma_v1_3
 * @{
 *
 * This file contains the implementation of the interface functions for MCDMA
@@ -42,6 +42,7 @@
 * 1.0    adk    18/07/17 Initial version.
 * 1.1    rsp    20/02/18 Fix unused variable warning.
 *                        Remove TimeOut variable.CR-979061
+* 1.3    rsp    14/02/19 Populate HasRxLength value from config.
 *
 ******************************************************************************/
 
@@ -152,6 +153,7 @@ s32 XMcDma_Initialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr)
 	InstancePtr->Config.HasS2MM = CfgPtr->HasS2MM;
 	InstancePtr->Config.MaxTransferlen = CfgPtr->MaxTransferlen;
 	InstancePtr->Config.HasStsCntrlStrm = CfgPtr->HasStsCntrlStrm;
+	InstancePtr->Config.HasRxLength = CfgPtr->HasRxLength;
 	InstancePtr->Config.IsTxCacheCoherent = CfgPtr->IsTxCacheCoherent;
 	InstancePtr->Config.IsRxCacheCoherent = CfgPtr->IsRxCacheCoherent;
 
@@ -183,6 +185,7 @@ s32 XMcDma_Initialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr)
 							XMCDMA_RX_OFFSET;
 			InstancePtr->Rx_Chan[i].Has_Rxdre = CfgPtr->HasS2MMDRE;
 			InstancePtr->Rx_Chan[i].HasStsCntrlStrm = CfgPtr->HasStsCntrlStrm;
+			InstancePtr->Rx_Chan[i].HasRxLength = CfgPtr->HasRxLength;
 			InstancePtr->Rx_Chan[i].RxDataWidth =
 				((unsigned int)CfgPtr->S2MMDataWidth >> 3);
 			InstancePtr->Rx_Chan[i].Chan_id = i;
@@ -246,11 +249,11 @@ void XMcDma_Reset(XMcdma *InstancePtr)
 
 /*****************************************************************************/
 /**
- * This function sets the awcache field of the SG interface
+ * This function sets the AWCACHE field of the SG interface
  * With the user specified value
  *
  * @param	InstancePtr is the driver instance we are working on
- * @param	Value is the awcache value to be written.
+ * @param	Value is the AWCACHE value to be written.
  *
  * @return	None
  *
@@ -277,11 +280,11 @@ void XMcdma_SetSGAWCache(XMcdma *InstancePtr, u8 Value)
 
 /*****************************************************************************/
 /**
- * This function sets the arcache field of the SG inteface
+ * This function sets the ARCACHE field of the SG interface
  * With the user specified value
  *
  * @param	InstancePtr is the driver instance we are working on
- * @param	Value is the arcache value to be written.
+ * @param	Value is the ARCACHE value to be written.
  *
  * @return	None
  *
@@ -451,7 +454,7 @@ u32 XMcdma_ChanHwStop(XMcdma_ChanCtrl *Chan)
 /*****************************************************************************/
 /**
 *
-* Enables a particuarl channel.
+* Enables a particular channel.
 *
 * @param	Chan is the Channel instance to be worked on
 *

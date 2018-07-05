@@ -154,7 +154,7 @@ void XV_DeintStart(XV_Deint_l2 *InstancePtr);
 void XV_DeintStop(XV_Deint_l2 *InstancePtr);
 int XV_DeintWaitForIdle(XV_Deint_l2 *InstancePtr);
 void XV_DeintSetFieldBuffers(XV_Deint_l2   *InstancePtr,
-							 u32 memAddr,
+							 u64 memAddr,
 							 XVidC_ColorFormat cformat);
 
 void XV_DeintDbgReportStatus(XV_Deint_l2 *InstancePtr);

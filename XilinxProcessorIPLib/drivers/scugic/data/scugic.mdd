@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -29,10 +29,10 @@ OPTION psf_version = 2.1;
 
 BEGIN driver scugic
 
-  OPTION supported_peripherals = (ps7_scugic psu_scugic psu_acpu_gic psu_rcpu_gic);
+  OPTION supported_peripherals = (ps7_scugic psu_scugic psu_acpu_gic psu_rcpu_gic psv_scugic psv_acpu_gic psv_rcpu_gic);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.10;
+  OPTION VERSION = 4.0;
   OPTION NAME = scugic;
   OPTION INTC_TYPE = XScuGic;
 END driver

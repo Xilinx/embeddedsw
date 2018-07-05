@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -34,6 +34,7 @@
 # 1.0   sg  06/06/16 First release
 # 1.3	vak 16/08/17 Export CCI related information
 # 1.4	vak 24/09/18 Added SUPER_SPEED parameter
+# 1.5	vak 13/02/19 Correct the logic for setting SUPER_SPEED parameter
 #
 ##############################################################################
 
@@ -69,22 +70,27 @@ proc generate_usb_params {drv_handle file_name} {
 		}
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_CACHE_COHERENT"] $is_cc"
 
+		set val 0
 		set peripheral [get_cells -hier -filter {IP_NAME == zynq_ultra_ps_e}]
-		set parameters [list_property [get_cells -hier $peripheral]]
 
-		if {[string match -nocase $ip "psu_usb_xhci_0"]} {
-			if {[lsearch -nocase $parameters "CONFIG.PSU__USB3_0__PERIPHERAL__ENABLE"] >= 0} {
-				set val [get_property CONFIG.PSU__USB3_0__PERIPHERAL__ENABLE [get_cells -hier $peripheral]]
-				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "SUPER_SPEED"] $val"
+		if {$peripheral > 0} {
+			set parameters [list_property [get_cells -hier $peripheral]]
+
+			if {[string match -nocase $ip "psu_usb_xhci_0"]} {
+				if {[lsearch -nocase $parameters "CONFIG.PSU__USB3_0__PERIPHERAL__ENABLE"] >= 0} {
+					set val [get_property CONFIG.PSU__USB3_0__PERIPHERAL__ENABLE [get_cells -hier $peripheral]]
+				}
+			}
+
+			if {[string match -nocase $ip "psu_usb_xhci_1"]} {
+				if {[lsearch -nocase $parameters "CONFIG.PSU__USB3_1__PERIPHERAL__ENABLE"] >= 0} {
+					set val [get_property CONFIG.PSU__USB3_1__PERIPHERAL__ENABLE [get_cells -hier $peripheral]]
+				}
 			}
 		}
 
-		if {[string match -nocase $ip "psu_usb_xhci_1"]} {
-			if {[lsearch -nocase $parameters "CONFIG.PSU__USB3_1__PERIPHERAL__ENABLE"] >= 0} {
-				set val [get_property CONFIG.PSU__USB3_1__PERIPHERAL__ENABLE [get_cells -hier $peripheral]]
-				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "SUPER_SPEED"] $val"
-			}
-		}
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "SUPER_SPEED"] $val"
+
 	}
 	close $file_handle
 }

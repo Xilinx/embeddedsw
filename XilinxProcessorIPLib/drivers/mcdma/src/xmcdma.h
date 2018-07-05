@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xmcdma.h
-* @addtogroup mcdma_v1_2
+* @addtogroup mcdma_v1_3
 * @{
 * @details
 *
@@ -56,7 +56,7 @@
 * XMcDma_CfgInitialize() API.
 *
 * <b> Interrupts </b>
-* In single interrupt mulitple channels case driver provides interrupt
+* In single interrupt multiple channels case driver provides interrupt
 * handler XMcdma_TxIntrHandler and XMcdma_IntrHandler for mm2s and s2mm
 * side respectively for handling the interrupt from the MCDMA core.
 * The users of this driver have to register this handler with the interrupt
@@ -137,7 +137,10 @@
 *			 driver tcl file.
 * 1.2   mj      05/03/18 Exported APIs XMcdma_BdChainFree() and
 *                        XMcDma_BdSetAppWord().
-* 1.2   mus    11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
+* 1.2   mus     11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
+* 1.3   rsp     02/12/19 Add HasRxLength field in config and channel structure.
+* 1.3   rsp     02/11/19 Add top level submit XMcDma_Chan_Sideband_Submit() API
+*                        to program BD control and sideband information.
 ******************************************************************************/
 #ifndef XMCDMA_H_
 #define XMCDMA_H_
@@ -205,8 +208,8 @@ typedef enum {
 typedef struct {
 	UINTPTR ChanBase;
 	u32 Chan_id;		/* Channel Number */
-	u32 MaxTransferLen;	/* Maximum tranfser lenght */
-	u32 len;		/* Total size of bd's lenght in chan */
+	u32 MaxTransferLen;	/* Maximum transfer length */
+	u32 len;		/* Total size of bd's length in channel */
 	u32 IsRxChan;
 	u32 ext_addr;
 	u32 Has_Txdre;
@@ -214,6 +217,7 @@ typedef struct {
 	u32 TxDataWidth;
 	u32 RxDataWidth;
 	u32 HasStsCntrlStrm;
+	int HasRxLength;
 	volatile int ChanState;
 
 	UINTPTR FirstBdAddr;
@@ -260,6 +264,7 @@ typedef struct {
 	int S2MMDataWidth;
 	u32 MaxTransferlen;
 	int HasStsCntrlStrm;
+	int HasRxLength;
 	u8 IsTxCacheCoherent; /**< Describes whether Cache Coherent or not */
 	u8 IsRxCacheCoherent; /**< Describes whether Cache Coherent or not */
 } XMcdma_Config;
@@ -507,10 +512,10 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This function sets the arcache field with the user specified value
+ * This function sets the ARCACHE field with the user specified value
  *
  * @param	InstancePtr is the driver instance we are working on
- * @param	Value is the arcache value to be written.
+ * @param	Value is the ARCACHE value to be written.
  *
  * @return	None
  *
@@ -524,10 +529,10 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This function sets the awcache field with the user specified value
+ * This function sets the AWCACHE field with the user specified value
  *
  * @param	InstancePtr is the driver instance we are working on
- * @param	Value is the awcache value to be written.
+ * @param	Value is the AWCACHE value to be written.
  *
  * @return	None
  *
@@ -618,6 +623,8 @@ int XMcdma_UpdateChanCDesc(XMcdma_ChanCtrl *Chan);
 int XMcdma_UpdateChanTDesc(XMcdma_ChanCtrl *Chan);
 u32 XMcDma_ChanBdCreate(XMcdma_ChanCtrl *Chan, UINTPTR Addr, u32 Count);
 u32 XMcDma_ChanSubmit(XMcdma_ChanCtrl *Chan, UINTPTR BufAddr, u32 len);
+u32 XMcDma_Chan_Sideband_Submit(XMcdma_ChanCtrl *ChanPtr, UINTPTR BufAddr,
+				u32 Len, u32 *AppPtr, u16 Tuser, u16 Tid);
 u32 XMcDma_ChanToHw(XMcdma_ChanCtrl *Chan);
 int XMcdma_BdChainFromHW(XMcdma_ChanCtrl *Chan, u32 BdLimit,
 			 XMcdma_Bd **BdSetPtr);
@@ -628,7 +635,7 @@ void XMcDma_DumpBd(XMcdma_Bd* BdPtr);
 
 int XMcDma_BdSetAppWord(XMcdma_Bd* BdPtr, int Offset, u32 Word);
 
-/* Gloabal OR'ed Single interrupt */
+/* Global OR'ed Single interrupt */
 void XMcdma_IntrHandler(void *Instance);
 void XMcdma_TxIntrHandler(void *Instance);
 s32 XMcdma_SetCallBack(XMcdma *InstancePtr, XMcdma_Handler HandlerType,

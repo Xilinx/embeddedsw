@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcanfd_config.c
-* @addtogroup canfd_v2_0
+* @addtogroup canfd_v2_1
 * @{
 *
 * Functions in this file are CAN Configuration Register access related.
@@ -40,13 +40,14 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   nsk  06/04/15 First release
-* 2.0   ask  08/08/18 Fixed Cppcheck warnings.
-* 2.0   ask  09/21/18 Added support for canfd 2.0 spec sequential mode.
-*				  	  Added Api: XCanFd_SetRxIntrWatermarkFifo1
+* 2.1   ask  06/25/18 Added support for canfd 2.0 spec sequential mode CR# 992606,
+*			 CR# 1004222. Added Api: XCanFd_SetRxIntrWatermarkFifo1
 *								 XCanFd_SetTxEventIntrWatermark
 *								 XCanFd_SetRxFilterPartition
 *					  Modified Api: XCanFd_SetBitTiming
 *							XCanFd_SetFBitTiming
+* 2.1   nsk  01/22/19 Fixed XCanFd_SetFBaudPrescalar(), which is not setting
+*		      prescalar value properly CR# 1016013
 *
 * </pre>
 ******************************************************************************/
@@ -272,6 +273,7 @@ int XCanFd_SetFBaudRatePrescaler(XCanFd *InstancePtr, u8 Prescaler)
 	}
 	RegValue = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_F_BRPR_OFFSET);
+	RegValue = RegValue & (~ XCANFD_BRPR_BRP_MASK);
 	RegValue |= ((u32) Prescaler & XCANFD_BRPR_BRP_MASK);
 	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 		XCANFD_F_BRPR_OFFSET,RegValue);

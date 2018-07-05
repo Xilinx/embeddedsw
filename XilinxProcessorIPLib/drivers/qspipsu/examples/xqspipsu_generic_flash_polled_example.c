@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc. All rights reserved.
 *
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -78,6 +78,10 @@
 *		     		 enable command. CR-998478
 * 1.8	tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
 * 1.8	tjs 16/07/18 Added support for the low density ISSI flash parts.
+* 1.9   akm 02/27/19 Added support for IS25LP128, IS25WP128, IS25LP256,
+*                     IS25WP256, IS25LP512, IS25WP512 Flash Devices
+* 1.9   akm 03/26/19 Fixed data alignment warnings on IAR compiler.
+*
 *</pre>
 *
 ******************************************************************************/
@@ -102,6 +106,7 @@
 #define READ_STATUS_CMD		0x05
 #define WRITE_ENABLE_CMD	0x06
 #define VOLATILE_WRITE_ENABLE_CMD	0x50
+#define QUAD_MODE_ENABLE_BIT	0x06
 #define FAST_READ_CMD		0x0B
 #define DUAL_READ_CMD		0x3B
 #define QUAD_READ_CMD		0x6B
@@ -233,7 +238,9 @@
 #define ISSI_ID_BYTE2_16	0x15
 #define ISSI_ID_BYTE2_32	0x16
 #define ISSI_ID_BYTE2_64	0x17
+#define ISSI_ID_BYTE2_128	0x18
 #define ISSI_ID_BYTE2_256	0x19
+#define ISSI_ID_BYTE2_512	0x1a
 
 /*
  * The index for Flash config table
@@ -300,9 +307,15 @@
 #define FLASH_CFG_TBL_SINGLE_64_ISSI	(ISSI_INDEX_START + 9)
 #define FLASH_CFG_TBL_STACKED_64_ISSI	(ISSI_INDEX_START + 10)
 #define FLASH_CFG_TBL_PARALLEL_64_ISSI	(ISSI_INDEX_START + 11)
-#define FLASH_CFG_TBL_SINGLE_256_ISSI	(ISSI_INDEX_START + 12)
-#define FLASH_CFG_TBL_STACKED_256_ISSI	(ISSI_INDEX_START + 13)
-#define FLASH_CFG_TBL_PARALLEL_256_ISSI	(ISSI_INDEX_START + 14)
+#define FLASH_CFG_TBL_SINGLE_128_ISSI   (ISSI_INDEX_START + 12)
+#define FLASH_CFG_TBL_STACKED_128_ISSI  (ISSI_INDEX_START + 13)
+#define FLASH_CFG_TBL_PARALLEL_128_ISSI (ISSI_INDEX_START + 14)
+#define FLASH_CFG_TBL_SINGLE_256_ISSI   (ISSI_INDEX_START + 15)
+#define FLASH_CFG_TBL_STACKED_256_ISSI  (ISSI_INDEX_START + 16)
+#define FLASH_CFG_TBL_PARALLEL_256_ISSI (ISSI_INDEX_START + 17)
+#define FLASH_CFG_TBL_SINGLE_512_ISSI   (ISSI_INDEX_START + 18)
+#define FLASH_CFG_TBL_STACKED_512_ISSI  (ISSI_INDEX_START + 19)
+#define FLASH_CFG_TBL_PARALLEL_512_ISSI (ISSI_INDEX_START + 20)
 
 /*
  * The following constants map to the XPAR parameters created in the
@@ -541,6 +554,15 @@ FlashInfo Flash_Config_Table[] = {
 	{SECTOR_SIZE_128K, NUM_OF_SECTORS128, BYTES512_PER_PAGE,
 		0x8000, 0x800000, ISSI_ID_BYTE0,
 		ISSI_ID_BYTE2_64, 0xFFFE0000, 1},
+	{SECTOR_SIZE_64K, NUM_OF_SECTORS256, BYTES256_PER_PAGE,
+		0x10000, 0x1000000, ISSI_ID_BYTE0,
+		ISSI_ID_BYTE2_128, 0xFFFF0000, 1},
+	{SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE,
+		0x20000, 0x1000000, ISSI_ID_BYTE0,
+		ISSI_ID_BYTE2_128, 0xFFFF0000, 1},
+	{SECTOR_SIZE_128K, NUM_OF_SECTORS256, BYTES512_PER_PAGE,
+		0x10000, 0x1000000, ISSI_ID_BYTE0,
+		ISSI_ID_BYTE2_128, 0xFFFE0000, 1},
 	{SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE,
 		0x20000, 0x2000000, ISSI_ID_BYTE0,
 		ISSI_ID_BYTE2_256, 0xFFFF0000, 1},
@@ -549,7 +571,16 @@ FlashInfo Flash_Config_Table[] = {
 		ISSI_ID_BYTE2_256, 0xFFFF0000, 1},
 	{SECTOR_SIZE_128K, NUM_OF_SECTORS512, BYTES512_PER_PAGE,
 		0x20000, 0x2000000, ISSI_ID_BYTE0,
-		ISSI_ID_BYTE2_256, 0xFFFF0000, 1}
+		ISSI_ID_BYTE2_256, 0xFFFF0000, 1},
+	{SECTOR_SIZE_64K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE,
+		0x40000, 0x4000000, ISSI_ID_BYTE0,
+		ISSI_ID_BYTE2_512, 0xFFFF0000, 2},
+	{SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,
+		0x80000, 0x4000000, ISSI_ID_BYTE0,
+		ISSI_ID_BYTE2_512, 0xFFFF0000, 2},
+	{SECTOR_SIZE_128K, NUM_OF_SECTORS1024, BYTES512_PER_PAGE,
+		0x40000, 0x4000000, ISSI_ID_BYTE0,
+		ISSI_ID_BYTE2_512, 0xFFFE0000, 2}
 };
 
 u32 FlashMake;
@@ -582,7 +613,6 @@ int Test = 1;
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + (DATA_OFFSET + DUMMY_SIZE)*8];
-#pragma data_alignment = 4
 #else
 u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + (DATA_OFFSET + DUMMY_SIZE)*8] __attribute__ ((aligned(64)));
 #endif
@@ -619,11 +649,11 @@ int main(void)
 	 */
 	Status = QspiPsuPolledFlashExample(&QspiPsuInstance, QSPIPSU_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("QSPIPSU Generic Flash Polled Ex Failed\r\n");
+		xil_printf("QSPIPSU Generic Flash Polled Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("Successfully ran QSPIPSU Generic Flash Polled Ex\r\n");
+	xil_printf("Successfully ran QSPIPSU Generic Flash Polled Example\r\n");
 	return XST_SUCCESS;
 }
 
@@ -1012,12 +1042,24 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 				FCTIndex = 0;
 				break;
 			}
-		}
-	}
-	if((FlashMake == ISSI_ID_BYTE0) &&
-			(ReadBfrPtr[2] == MICRON_ID_BYTE2_256)) {
-		switch(QspiPsuPtr->Config.ConnectionMode)
-		{
+		}else if (ReadBfrPtr[2] == ISSI_ID_BYTE2_128) {
+			switch (QspiPsuPtr->Config.ConnectionMode) {
+			case XQSPIPSU_CONNECTION_MODE_SINGLE:
+				FCTIndex = FLASH_CFG_TBL_SINGLE_128_ISSI;
+				break;
+			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
+				FCTIndex = FLASH_CFG_TBL_PARALLEL_128_ISSI;
+				break;
+			case XQSPIPSU_CONNECTION_MODE_STACKED:
+				FCTIndex = FLASH_CFG_TBL_STACKED_128_ISSI;
+				break;
+			default:
+				FCTIndex = 0;
+				break;
+			}
+
+		}else if (ReadBfrPtr[2] == ISSI_ID_BYTE2_256) {
+			switch (QspiPsuPtr->Config.ConnectionMode) {
 			case XQSPIPSU_CONNECTION_MODE_SINGLE:
 				FCTIndex = FLASH_CFG_TBL_SINGLE_256_ISSI;
 				break;
@@ -1030,6 +1072,22 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 			default:
 				FCTIndex = 0;
 				break;
+			}
+		}else if (ReadBfrPtr[2] == ISSI_ID_BYTE2_512) {
+			switch (QspiPsuPtr->Config.ConnectionMode) {
+			case XQSPIPSU_CONNECTION_MODE_SINGLE:
+				FCTIndex = FLASH_CFG_TBL_SINGLE_512_ISSI;
+				break;
+			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
+				FCTIndex = FLASH_CFG_TBL_PARALLEL_512_ISSI;
+				break;
+			case XQSPIPSU_CONNECTION_MODE_STACKED:
+				FCTIndex = FLASH_CFG_TBL_STACKED_512_ISSI;
+				break;
+			default:
+				FCTIndex = 0;
+				break;
+			}
 		}
 	}
 	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake == SPANSION_ID_BYTE0)) &&
@@ -2268,6 +2326,9 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 {
 	int Status;
 	u8 WriteEnableCmd;
+	u8 ReadStatusCmd;
+	u8 FlashStatus[2];
+	u8 StatusRegVal;
 	u8 WriteBuffer[3] = {0};
 
 	switch (FlashMake) {
@@ -2355,6 +2416,92 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 			}
 		}
 		break;
+	case ISSI_ID_BYTE0:
+		/*
+		 * Read Status register
+		 */
+		ReadStatusCmd = READ_STATUS_CMD;
+		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = 1;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+		FlashMsg[1].TxBfrPtr = NULL;
+		FlashMsg[1].RxBfrPtr = FlashStatus;
+		FlashMsg[1].ByteCount = 2;
+		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+		if (QspiPsuPtr->Config.ConnectionMode ==
+						XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+		}
+		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 2);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		if (QspiPsuPtr->Config.ConnectionMode ==
+					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+			if (FSRFlag) {
+				FlashStatus[1] &= FlashStatus[0];
+			}else {
+				FlashStatus[1] |= FlashStatus[0];
+			}
+		}
+		/*
+		 * Set Quad Enable Bit in the buffer
+		 */
+		StatusRegVal = FlashStatus[1];
+		StatusRegVal |= 0x1 << QUAD_MODE_ENABLE_BIT;
+
+		/*
+		 * Write Enable
+		 */
+		WriteEnableCmd = WRITE_ENABLE_CMD;
+		FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = 1;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 1);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		/*
+		 * Write Status register
+		 */
+		WriteBuffer[COMMAND_OFFSET] = WRITE_STATUS_CMD;
+		FlashMsg[0].TxBfrPtr = WriteBuffer;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = 1;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+		FlashMsg[1].TxBfrPtr = &StatusRegVal;
+		FlashMsg[1].RxBfrPtr = NULL;
+		FlashMsg[1].ByteCount = 1;
+		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_TX;
+		if (QspiPsuPtr->Config.ConnectionMode ==
+				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+			FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+		}
+		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 2);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		/*
+		 * Write Disable
+		 */
+		WriteEnableCmd = WRITE_DISABLE_CMD;
+		FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = 1;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 2);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
 
 	default:
 		/*
