@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2002 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xintc_selftest.c
-* @addtogroup intc_v3_9
+* @addtogroup intc_v3_11
 * @{
 *
 * Contains diagnostic self-test functions for the XIntc component. This file
@@ -211,6 +191,10 @@ int XIntc_SimulateIntr(XIntc * InstancePtr, u8 Id)
 		DeviceId = Id/32;
 
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return XST_FAILURE;
+		}
+
 		Mask = XIntc_BitPosMask[Id%32];
 		XIntc_Out32(CfgPtr->BaseAddress + XIN_ISR_OFFSET, Mask);
 
@@ -222,7 +206,9 @@ int XIntc_SimulateIntr(XIntc * InstancePtr, u8 Id)
 		for (Index = DeviceId - 1; Index >= 0; Index--)
 		{
 			CfgPtr = XIntc_LookupConfig(Index);
-
+			if (CfgPtr == NULL) {
+				return XST_FAILURE;
+			}
 			XIntc_Out32(CfgPtr->BaseAddress + XIN_ISR_OFFSET,
 									Mask);
 		}

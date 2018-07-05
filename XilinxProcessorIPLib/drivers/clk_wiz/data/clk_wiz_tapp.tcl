@@ -1,26 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-#
+# Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 ###############################################################################
 #
@@ -29,6 +9,7 @@
 # -------- ------ -------- ------------------------------------
 # 1.0 ram 02/15/16 Initial version for Clock Wizard
 # 1.1 siv 08/17/16 Added support for Zynq MPSoC and 64-bit addressing
+# 1.3 sd  05/04/20 Added check for interrupts for the interrupt example
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_I
@@ -60,18 +41,26 @@ proc gen_include_files {swproj mhsinst} {
   if {$swproj == 0} {
     return ""
   }
+  set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
   if {$swproj == 1} {
+    if {$isintr == 0} {
+      return ""
+    }
     set inc_file_lines {clk_wiz_header.h}
     return $inc_file_lines
   }
 }
 
 proc gen_src_files {swproj mhsinst} {
+  set inc_file_lines ""
   if {$swproj == 0} {
     return ""
   }
+  set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
   if {$swproj == 1} {
-    set inc_file_lines {examples/xclk_wiz_intr_example.c data/clk_wiz_header.h}
+    if {$isintr == 1} {
+	set inc_file_lines {examples/xclk_wiz_intr_example.c data/clk_wiz_header.h}
+    }
     return $inc_file_lines
   }
 }
@@ -100,6 +89,10 @@ proc gen_testfunc_call {swproj mhsinst} {
    }
 
   set testfunc_call ""
+  set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+  if {$isintr == 0} {
+	return $testfunc_call
+  }
 
   if {${hasStdout} == 0} {
 

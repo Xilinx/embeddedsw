@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xclk_wiz.c
-* @addtogroup clk_wiz_v1_2
+* @addtogroup clk_wiz_v1_3
 * @{
 *
 * This file implements the functions to get the CLK_WIZ GUI information and
@@ -42,6 +22,7 @@
 * 1.1 siv 8/17/16 Used UINTPTR instead of u32 for Baseaddress
 * 	Changed the prototype of XClk_Wiz_CfgInitialize
 * 1.2 ms  3/02/17 Fixed compilation warnings. Fix for CR-970507.
+* 1.3 sd  4/09/20 Added versal support.
 * </pre>
 ******************************************************************************/
 
@@ -116,7 +97,151 @@ u32 XClk_Wiz_CfgInitialize(XClk_Wiz *InstancePtr, XClk_Wiz_Config *CfgPtr,
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
 	return XST_SUCCESS;
+}
 
+/****************************************************************************/
+/**
+* Calculate the M, D, and O values for the given SetRate frequency.
+*
+* @param	InstancePtr is the XClk_Wiz instance to operate on.
+* @param	SetRate is the frequency for which the M, D and O values are to
+*		be calculated.
+*
+* @return
+*		- XST_SUCCESS Initialization was successful.
+*		- XST_FAILURE Initialization was failure.
+*
+* @note		None
+*****************************************************************************/
+static u32  XClk_Wiz_CalculateDivisors (XClk_Wiz  *InstancePtr, u64 SetRate)
+{
+	u32 m;
+	u32 d;
+	u32 Div;
+	u64 Fvco;
+	u64 Freq;
+	u64 Diff;
+	u64 Minerr = 1000;
+	u32 Status = XST_FAILURE;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(SetRate != 0);
+
+	for (m = XCLK_M_MIN; m <= XCLK_M_MAX; m++) {
+		for (d = XCLK_D_MIN; d <= XCLK_D_MAX; d++) {
+			Fvco = InstancePtr->Config.RefClkFreq  * m / d;
+			if ( Fvco >= XCLK_VCO_MIN && Fvco <= XCLK_VCO_MAX ) {
+
+				for (Div = XCLK_O_MIN; Div <= XCLK_O_MAX; Div++ ) {
+					Freq = Fvco/Div;
+
+					if (Freq > SetRate) {
+						Diff = Freq - SetRate;
+					} else {
+						Diff = SetRate - Freq;
+					}
+ 					if (Diff == 0 ) {
+						InstancePtr->MVal = m;
+						InstancePtr->DVal = d;
+						InstancePtr->OVal = Div;
+						Status =  XST_SUCCESS;
+					} else if (Diff < Minerr) {
+						Minerr = Diff;
+						InstancePtr->MVal = m;
+						InstancePtr->DVal = d;
+						InstancePtr->OVal = Div;
+						Status =  XST_SUCCESS;
+					}
+
+				}
+			}
+		}
+	}
+	return Status;
+}
+
+/**
+* Change the frequency to the given rate.
+*
+* @param	InstancePtr is the XClk_Wiz instance to operate on.
+* @param	SetRate is the frequency for which is desired.
+*
+* @return
+*		- XST_SUCCESS Initialization was successful.
+*		- XST_FAILURE Initialization was failure.
+*
+* @note		Should be called only if there is only one output clock.
+*****************************************************************************/
+u32 XClk_Wiz_SetRate(XClk_Wiz  *InstancePtr, u64 SetRate)
+{
+	u32 Platform;
+	u32 HighTime;
+	u32 DivEdge;
+	u32 Reg;
+	u32 P5Enable;
+	u32 P5fEdge;
+	u32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(SetRate != 0);
+
+	Platform = XGetPlatform_Info();
+
+	if(Platform != (u32)XPLAT_VERSAL)
+		return XST_SUCCESS;
+
+	Status = XClk_Wiz_CalculateDivisors(InstancePtr, SetRate);
+	if ( Status != XST_SUCCESS)
+		return Status;
+	/* Implement O */
+	HighTime = (InstancePtr->OVal / 4);
+	Reg =  XCLK_WIZ_REG3_PREDIV2 | XCLK_WIZ_REG3_USED | XCLK_WIZ_REG3_MX;
+	if (InstancePtr->OVal % 4 <= 1) {
+		DivEdge = 0;
+	} else {
+		DivEdge = 1;
+	}
+	Reg |= (DivEdge << 8);
+	P5fEdge = InstancePtr->OVal % 2;
+	P5Enable = InstancePtr->OVal % 2;
+	Reg = Reg | P5Enable << XCLK_WIZ_CLKOUT0_P5EN_SHIFT | P5fEdge << XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT;
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG3_OFFSET, Reg);
+	Reg = HighTime | HighTime << 8;
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG4_OFFSET, Reg);
+
+	/* Implement D */
+	HighTime = (InstancePtr->DVal / 2);
+	Reg  = 0;
+	Reg = Reg & ~(1 << XCLK_WIZ_REG12_EDGE_SHIFT);
+	DivEdge = InstancePtr->DVal % 2;
+	Reg = Reg | DivEdge << XCLK_WIZ_REG12_EDGE_SHIFT;
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG12_OFFSET, Reg);
+	Reg = HighTime | HighTime << 8;
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG13_OFFSET, Reg);
+
+	/* Implement M*/
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
+
+	DivEdge = InstancePtr->MVal % 2;
+	HighTime = InstancePtr->MVal / 2;
+	Reg = HighTime | HighTime << 8;
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG2_OFFSET, Reg);
+	Reg = XCLK_WIZ_REG1_PREDIV2 | XCLK_WIZ_REG1_EN | XCLK_WIZ_REG1_MX;
+
+	if (DivEdge) {
+		Reg = Reg | (1 << XCLK_WIZ_REG1_EDGE_SHIFT);
+	} else {
+		Reg = Reg & ~(1 << XCLK_WIZ_REG1_EDGE_SHIFT);
+	}
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG1_OFFSET, Reg);
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG11_OFFSET, 0x2e);
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG14_OFFSET, 0xe80);
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG15_OFFSET, 0x4271);
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG16_OFFSET, 0x43e9);
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG17_OFFSET, 0x001C);
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG26_OFFSET, 0x0001);
+
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/

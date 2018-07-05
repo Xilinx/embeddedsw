@@ -1,26 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2004 - 2019 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-#
+# Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_L
@@ -64,6 +44,7 @@
 ##         mus 08/26/19 Updated tcl logic to be in sync with XILINX_SDK to XILINX_VITIS
 ##                      renaming. Now tcl uses XILINX_VITIS env variable if XILINX_SDK
 ##                      is not defined.
+## 2.11  mus  02/26/20 Updated as per 2020.1 Vitis toolchain directory structure
 # uses xillib.tcl
 
 ########################################
@@ -153,8 +134,8 @@ proc generate {drv_handle} {
         set periph [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle]]
         set proctype [common::get_property IP_NAME $periph]
 
-        set endian [common::get_property CONFIG.C_ENDIANNESS $periph]
-        if {[string compare -nocase "1" $endian] == 0 } {
+        set little_endian [common::get_property CONFIG.C_ENDIANNESS $periph]
+        if {[string compare -nocase "1" $little_endian] == 0 } {
             set endian "_le"
                 set libxil_endian "le"
             } else {
@@ -171,11 +152,19 @@ proc generate {drv_handle} {
         set hard_float [common::get_property CONFIG.C_USE_FPU $periph]
         if {[string compare -nocase "1" $hard_float] == 0 || [string compare -nocase "2" $hard_float] == 0} {
             set fpu "_fpd"
-        }
+            set libxil_fpu "fpd"
+        } else {
+            set fpu ""
+            set libxil_fpu ""
+	}
 
         set pcmp [common::get_property CONFIG.C_USE_PCMP_INSTR $periph]
         if {[string compare -nocase "1" $pcmp] == 0 } {
             set pattern "_p"
+            set libxil_pattern "p"
+        } else {
+            set pattern ""
+            set libxil_pattern ""
         }
 
         #-------------------------------------------------
@@ -207,11 +196,11 @@ proc generate {drv_handle} {
         set data_size [common::get_property CONFIG.C_DATA_SIZE $periph]
         if {[string compare -nocase "64" $data_size] == 0 } {
             set m64 "_m64"
-            set flag_m64 "m64"
+            set libxil_m64 "m64"
+        } else {
+            set m64 ""
+            set libxil_m64 ""
         }
-
-	set libc [format "%s%s%s%s%s%s%s" $libc $m64 $endian $multiplier $shifter $pattern ".a"]
-	set libm [format "%s%s%s%s%s%s%s%s" $libm $m64 $endian $multiplier $shifter $pattern $fpu ".a"]
 	set libxil "libgloss.a"
 	set libgcc "libgcc.a"
 	set targetdir "../../lib/"
@@ -225,60 +214,93 @@ proc generate {drv_handle} {
 	#------------------------------------------------------
 	set libcfilename [format "%s%s" $targetdir "libc.a"]
 	set libmfilename [format "%s%s" $targetdir "libm.a"]
+	set libxilfilename [format "%s%s" $targetdir "libgloss.a"]
 
     set library_dir [file join $compiler_root "microblaze/lib"]
 
     if { ![file exists $library_dir] } {
         set library_dir [file join $compiler_root "microblaze-xilinx-elf/lib"]
          if { ![file exists $library_dir] } {
+             set library_new_dir [file join $compiler_root "microblazeeb-xilinx-elf/usr/lib"]
+             if { ![file exists $library_dir] && ![file exists $library_new_dir] } {
 	            error "Couldn't figure out compiler's library directory" "" "hsi_error"
+             }
         }
+    }
+
+   if { ![file exists $library_dir] } {
+        set libc "libc.a"
+        set libm "libm.a"
+
+        #construct lib path
+        set libc_path [file join $library_new_dir $libxil_endian $libxil_m64 $libxil_shifter $libxil_pattern $libxil_multiplier $libc]
+        set libm_path [file join $library_new_dir $libxil_endian $libxil_m64 $libxil_shifter $libxil_pattern $libxil_multiplier $libm]
+        set libxil_path [file join $library_new_dir $libxil_endian $libxil_m64 $libxil_shifter $libxil_pattern $libxil_multiplier $libxil]
+        set libgcc_path [file join $library_new_dir $libxil_endian $libxil_m64 $libxil_shifter $libxil_pattern $libxil_multiplier]
+        file copy -force $libxil_path $libxilfilename
+        make_writable $osname $libxilfilename
+        if { [string compare -nocase "1" $little_endian] == 0 } {
+            set libgcc_new [file join $libgcc_path "microblazeel-xilinx-elf"]
+        } else {
+            set libgcc_new [file join $libgcc_path "microblaze-xilinx-elf"]
+        }
+        set libgcc_new [glob -dir $libgcc_new *]
+        set libgcc_new [file join $libgcc_new $libgcc]
+        #copy libraries to BSP lib directory
+        file copy -force $libgcc_new $targetdir
+        make_writable $osname [file join $targetdir $libgcc]
+        file copy -force $libc_path $libcfilename
+        make_writable $osname $libcfilename
+        file copy -force $libm_path $libmfilename
+        make_writable $osname $libmfilename
+   } else {
+        set libc [format "%s%s%s%s%s%s%s" $libc $m64 $endian $multiplier $shifter $pattern ".a"]
+        set libm [format "%s%s%s%s%s%s%s%s" $libm $m64 $endian $multiplier $shifter $pattern $fpu ".a"]
         set libgcc_dir [file join $compiler_root "lib/gcc/microblaze-xilinx-elf"]
         set libgcc_dir [glob -dir $libgcc_dir *]
         if { ![file exists $libgcc_dir] } {
             error "Couldn't figure out compiler's GCC library directory" "" "hsi_error"
         }
+
+
+
+        file copy -force [file join $library_dir $libc] $libcfilename
+        make_writable $osname $libcfilename
+
+        file copy -force [file join $library_dir $libm] $libmfilename
+        make_writable $osname $libmfilename
+
+        set m64_library_dir [file join $library_dir "m64"]
+        if { ![file exists $m64_library_dir] } {
+           #toolchain from older SDK release (< 2018.3)
+           set libxil_path [file join $library_dir $libxil_shifter $libxil_multiplier $libxil_endian $libxil]
+           set libgcc_path [file join $libgcc_dir $libxil_shifter $libxil_multiplier $libxil_endian $libgcc]
+        } else {
+           set libxil_path [file join $library_dir $flag_m64 $libxil_shifter $libxil_endian $libxil_multiplier $libxil]
+           set libgcc_path [file join $libgcc_dir $flag_m64 $libxil_shifter $libxil_endian $libxil_multiplier $libgcc]
+        }
+        set symlink [file type $libxil_path]
+        if { ![file exists $libxil_path] || $symlink == "link"} {
+            # no libgloss.a in older SDK use libxil.a
+            set libxil "libxil.a"
+            set libxil_path [file join $library_dir $libxil_shifter $libxil_multiplier $libxil_endian $libxil]
+        }
+
+        if { ![file exists $libxil_path] } {
+            if { $xilinx_approot != "" } {
+                set libxil_path [file join $env(HDI_APPROOT) "data/embeddedsw/lib/microblaze/" $libxil]
+            } elseif { $xilinx_vitis != "" } {
+                set libxil_path [file join $env(XILINX_VITIS) "data/embeddedsw/lib/microblaze/" $libxil]
+            } elseif  { $xilinx_sdk != "" } {
+                set libxil_path [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/" $libxil]
+            }
+        }
+
+        file copy -force $libxil_path $targetdir
+        make_writable $osname [file join $targetdir $libxil]
+        file copy -force $libgcc_path $targetdir
+        make_writable $osname [file join $targetdir $libgcc]
     }
-
-
-   file copy -force [file join $library_dir $libc] $libcfilename
-   make_writable $osname $libcfilename
-
-   file copy -force [file join $library_dir $libm] $libmfilename
-   make_writable $osname $libmfilename
-
-   set m64_library_dir [file join $library_dir "m64"]
-   if { ![file exists $m64_library_dir] } {
-       #toolchain from older SDK release (< 2018.3)
-       set libxil_path [file join $library_dir $libxil_shifter $libxil_multiplier $libxil_endian $libxil]
-       set libgcc_path [file join $libgcc_dir $libxil_shifter $libxil_multiplier $libxil_endian $libgcc]
-   } else {
-        set libxil_path [file join $library_dir $flag_m64 $libxil_shifter $libxil_endian $libxil_multiplier $libxil]
-        set libgcc_path [file join $libgcc_dir $flag_m64 $libxil_shifter $libxil_endian $libxil_multiplier $libgcc]
-   }
-   set symlink [file type $libxil_path]
-   if { ![file exists $libxil_path] || $symlink == "link"} {
-	# no libgloss.a in older SDK use libxil.a
-	set libxil "libxil.a"
-	set libxil_path [file join $library_dir $libxil_shifter $libxil_multiplier $libxil_endian $libxil]
-   }
-
-   if { ![file exists $libxil_path] } {
-	if { $xilinx_approot != "" } {
-		set libxil_path [file join $env(HDI_APPROOT) "data/embeddedsw/lib/microblaze/" $libxil]
-	} elseif { $xilinx_vitis != "" } {
-		set libxil_path [file join $env(XILINX_VITIS) "data/embeddedsw/lib/microblaze/" $libxil]
-	} elseif  { $xilinx_sdk != "" } {
-		set libxil_path [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/" $libxil]
-	}
-
-   }
-
-    file copy -force $libxil_path $targetdir
-    make_writable $osname [file join $targetdir $libxil]
-    file copy -force $libgcc_path $targetdir
-    make_writable $osname [file join $targetdir $libgcc]
-
     } else {
 	error  "ERROR: Wrong compiler type selected please use mb-gcc or mb-g++ or mb-c++"
 	return;

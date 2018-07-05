@@ -1,32 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal 
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /******************************************************************************/
 /**
  * @file xusbps.c
-* @addtogroup usbps_v2_4
+* @addtogroup usbps_v2_5
 * @{
  *
  * The XUsbPs driver. Functions in this file are the minimum required
@@ -42,6 +22,7 @@
  * ----- ---- -------- --------------------------------------------------------
  * 1.00a jz  10/10/10 First release
  * 2.1   kpc 04/28/14 Removed unused functions
+ * 2.5   pm  02/20/20 02/22/20 Added usb state interface.
  * </pre>
  ******************************************************************************/
 
@@ -338,6 +319,12 @@ int XUsbPs_SetDeviceAddress(XUsbPs *InstancePtr, u8 Address)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
+	if ((InstancePtr->AppData != NULL) &&
+			(InstancePtr->AppData->State ==
+					XUSBPS_STATE_CONFIGURED)) {
+		return XST_FAILURE;
+	}
+
 	/* Check address range validity. */
 	if (Address > XUSBPS_DEVICEADDR_MAX) {
 		return XST_INVALID_PARAM;
@@ -352,6 +339,12 @@ int XUsbPs_SetDeviceAddress(XUsbPs *InstancePtr, u8 Address)
 			 	(Address << XUSBPS_DEVICEADDR_ADDR_SHIFT) |
 			 	XUSBPS_DEVICEADDR_DEVICEAADV_MASK);
 
+	if (InstancePtr->AppData != NULL) {
+		if (Address)
+			InstancePtr->AppData->State = XUSBPS_STATE_ADDRESS;
+		else
+			InstancePtr->AppData->State = XUSBPS_STATE_DEFAULT;
+	}
 	return XST_SUCCESS;
 }
 

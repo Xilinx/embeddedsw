@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -136,6 +116,8 @@ static inline void XV_SdiRx_ResetGlobalInterrupt(XV_SdiRx *InstancePtr)
 int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr, XV_SdiRx_Config *CfgPtr,
 				UINTPTR EffectiveAddr)
 {
+	XV_SdiRx_SupportedModes SupportModes = XV_SDIRX_SUPPORT_ALL;
+
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
@@ -169,7 +151,14 @@ int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr, XV_SdiRx_Config *CfgPtr,
 
 	/* Configure SDI RX Core */
 	XV_SdiRx_FramerEnable(InstancePtr);
-	XV_SdiRx_EnableMode(InstancePtr, XV_SDIRX_SUPPORT_ALL);
+
+	if (InstancePtr->Config.MaxRateSupported < XSDIRX_LINE_RATE_12G8DS)
+		SupportModes &= ~(XV_SDIRX_SUPPORT_12GI | XV_SDIRX_SUPPORT_12GF);
+
+	if (InstancePtr->Config.MaxRateSupported < XSDIRX_LINE_RATE_6G)
+		SupportModes &= ~XV_SDIRX_SUPPORT_6G;
+
+	XV_SdiRx_EnableMode(InstancePtr, SupportModes);
 
 	/* Enables FF EDH and AP EDH errors counter */
 	XV_SdiRx_SetEdhErrCntTrigger(InstancePtr, 0x420);
@@ -275,7 +264,10 @@ void XV_SdiRx_DebugInfo(XV_SdiRx *InstancePtr, XV_SdiRx_DebugSelId SelId)
 			break;
 
 		case 2:
-			xil_printf("3GA");
+			if (!InstancePtr->Transport.IsLevelB3G)
+				xil_printf("3GA");
+			else
+				xil_printf("3GB");
 			break;
 
 		case 3:
@@ -989,6 +981,27 @@ void XV_SdiRx_DisableMode(XV_SdiRx *InstancePtr,
 
 	InstancePtr->SupportedModes &= ~RemoveModes;
 }
+
+/*****************************************************************************/
+/**
+*
+* This function sets the BitDepth configured for the SDI RXSS into SDI RX core.
+*
+* @param	InstancePtr is a pointer to the XV_SdiRx core instance.
+* @param	BitDepth specifies which BitDepth to be set
+*
+* @return	None.
+*
+* @note         None.
+*
+******************************************************************************/
+void XV_SdiRx_SetBitDepth(XV_SdiRx *InstancePtr, XVidC_ColorDepth BitDepth)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	InstancePtr->BitDepth = BitDepth;
+}
+
 
 /*****************************************************************************/
 /**

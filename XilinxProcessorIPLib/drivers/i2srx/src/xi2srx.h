@@ -1,33 +1,13 @@
 /*******************************************************************************
- *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
  * @file xi2srx.h
- * @addtogroup i2srx_v1_0
+ * @addtogroup i2srx_v2_1
  * @{
  *
  * <pre>
@@ -40,6 +20,9 @@
  * 1.1   kar    04/02/18  Added debug log function prototypes.
  * 2.0   kar    09/28/18  Added new API to enable justification.
  *                        Added new API to select left/right justification.
+ * 2.1   pg     01/30/20  Added 32bit_LR support is added to calculate i2s clock
+ *                        for 32bit mode. Added variable Is32bitLR to
+ *                        XI2srx_Config structure and updated xi2srx.c file
  * </pre>
  *
  *****************************************************************************/
@@ -123,6 +106,7 @@ typedef enum {
 		u8 MaxNumChannels; /* Indicates the maximum number of channels
 				    * supported by the core
 				    */
+		u8 Is32BitLR; /* Indicates if the core is 32bitwidth or not */
 	} XI2srx_Config;
 
 /**

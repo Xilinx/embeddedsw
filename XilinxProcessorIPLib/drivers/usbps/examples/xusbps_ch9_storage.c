@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal 
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  * @file xusbps_ch9_storage.c
@@ -36,6 +16,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ---------------------------------------------------------
  * 1.00a wgr  10/10/10 First release
+ * 2.5	 pm   02/20/20 Added SetConfigurationApp and SetInterfaceHandler API to
+ *			make ch9 common framework to all example.
  *</pre>
  ******************************************************************************/
 
@@ -407,4 +389,47 @@ void XUsbPs_SetConfiguration(XUsbPs *InstancePtr, int ConfigIdx)
 
 	/* Prime the OUT endpoint. */
 	XUsbPs_EpPrime(InstancePtr, 1, XUSBPS_EP_DIRECTION_OUT);
+}
+
+/****************************************************************************/
+/**
+ * This function is called by Chapter9 handler when SET_CONFIGURATION command
+ * is received from Host.
+ *
+ * @param	InstancePtr is pointer to XUsbPs instance of the controller.
+ * @param	SetupData is the setup packet received from Host.
+ *
+ * @return
+ *		- XST_SUCCESS if successful,
+ *		- XST_FAILURE if unsuccessful.
+ *
+ * @note
+ *		Non control endpoints must be enabled after SET_CONFIGURATION
+ *		command since hardware clears all previously enabled endpoints
+ *		except control endpoints when this command is received.
+ *
+ *****************************************************************************/
+void XUsbPs_SetConfigurationApp(XUsbPs *InstancePtr,
+					XUsbPs_SetupData *SetupData)
+{
+	(void)InstancePtr;
+	(void)SetupData;
+}
+
+/****************************************************************************/
+/**
+ * This function is called by Chapter9 handler when SET_CONFIGURATION command
+ * or SET_INTERFACE command is received from Host.
+ *
+ * @param	InstancePtr is pointer to XUsbPs instance of the controller.
+ * @param	SetupData is the setup packet received from Host.
+ *
+ * @note
+ *
+ *****************************************************************************/
+void XUsbPs_SetInterfaceHandler(XUsbPs *InstancePtr,
+					XUsbPs_SetupData *SetupData)
+{
+	(void)InstancePtr;
+	(void)SetupData;
 }

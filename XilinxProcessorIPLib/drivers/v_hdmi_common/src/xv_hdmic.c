@@ -1,33 +1,13 @@
 /*******************************************************************************
- *
- * Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
  * @file xhdmic.c
- * @addtogroup hdmi_common_v1_2
+ * @addtogroup hdmi_common_v1_3
  * @{
  *
  * Contains common utility functions that are typically used by hdmi-related
@@ -45,6 +25,9 @@
  * 1.2   EB   15/08/19 Added enumeration for HDMI 2.1 Support
  *       mmo  15/08/19 Updated the VIC table to support HDMI 2.1 Resolution
  *                     Added Audio ACR CTS/N Enumeration and Library
+ * 1.3   EB  29/10/19 Fixed a bug where XV_HdmiC_AVIIF_GeneratePacket and
+ *                        XV_HdmiC_AudioIF_GeneratePacket return incorrect Aux
+ *           02/12/19 Added 3D Audio Enumerations and APIs
  * </pre>
  *
 *******************************************************************************/
@@ -70,6 +53,15 @@ const XHdmiC_VicTable VicTable[VICTABLE_SIZE] = {
     {XVIDC_VM_1440x480_60_I, 6},     /* Vic 6 */
     {XVIDC_VM_1440x480_60_I, 7},     /* Vic 7 */
 
+    {XVIDC_VM_1440x240_60_P, 8},     /* Vic 8 */
+    {XVIDC_VM_1440x240_60_P, 9},     /* Vic 9 */
+    {XVIDC_VM_2880x480_60_I, 10},    /* Vic 10 */
+    {XVIDC_VM_2880x480_60_I, 11},    /* Vic 11 */
+    {XVIDC_VM_2880x240_60_P, 12},    /* Vic 12 */
+    {XVIDC_VM_2880x240_60_P, 13},    /* Vic 13 */
+    {XVIDC_VM_1440x480_60_P, 14},    /* Vic 14 */
+    {XVIDC_VM_1440x480_60_P, 15},    /* Vic 15 */
+
     {XVIDC_VM_1920x1080_60_P, 16},   /* Vic 16 */
     {XVIDC_VM_720x576_50_P, 17},     /* Vic 17 */
     {XVIDC_VM_720x576_50_P, 18},     /* Vic 18 */
@@ -77,6 +69,48 @@ const XHdmiC_VicTable VicTable[VICTABLE_SIZE] = {
     {XVIDC_VM_1920x1080_50_I, 20},   /* Vic 20 */
     {XVIDC_VM_1440x576_50_I, 21},    /* Vic 21 */
     {XVIDC_VM_1440x576_50_I, 22},    /* Vic 22 */
+
+    {XVIDC_VM_1440x288_50_P, 23},    /* Vic 23 */
+    {XVIDC_VM_1440x288_50_P, 24},    /* Vic 24 */
+    {XVIDC_VM_2880x576_50_I, 25},    /* Vic 25 */
+    {XVIDC_VM_2880x576_50_I, 26},    /* Vic 26 */
+    {XVIDC_VM_2880x288_50_P, 27},    /* Vic 27 */
+    {XVIDC_VM_2880x288_50_P, 28},    /* Vic 28 */
+    {XVIDC_VM_1440x576_50_P, 29},    /* Vic 29 */
+    {XVIDC_VM_1440x576_50_P, 30},    /* Vic 30 */
+    {XVIDC_VM_1920x1080_50_P, 31},   /* Vic 31 */
+    {XVIDC_VM_1920x1080_24_P, 32},   /* Vic 32 */
+    {XVIDC_VM_1920x1080_25_P, 33},   /* Vic 33 */
+    {XVIDC_VM_1920x1080_30_P, 34},   /* Vic 34 */
+    {XVIDC_VM_2880x480_60_P, 35},    /* Vic 35 */
+    {XVIDC_VM_2880x480_60_P, 36},    /* Vic 36 */
+    {XVIDC_VM_2880x576_50_P, 37},    /* Vic 37 */
+    {XVIDC_VM_2880x576_50_P, 38},    /* Vic 38 */
+    {XVIDC_VM_1920x1080_100_I, 40},  /* Vic 40 */
+    {XVIDC_VM_1280x720_100_P, 41},   /* Vic 41 */
+    {XVIDC_VM_720x576_100_P, 42},    /* Vic 42 */
+    {XVIDC_VM_720x576_100_P, 43},    /* Vic 43 */
+    {XVIDC_VM_1440x576_100_I, 44},   /* Vic 44 */
+    {XVIDC_VM_1440x576_100_I, 45},   /* Vic 45 */
+    {XVIDC_VM_1920x1080_120_I, 46},  /* Vic 46 */
+    {XVIDC_VM_1280x720_120_P, 47},   /* Vic 47 */
+    {XVIDC_VM_720x480_120_P, 48},    /* Vic 48 */
+    {XVIDC_VM_720x480_120_P, 49},    /* Vic 49 */
+    {XVIDC_VM_1440x480_120_I, 50},   /* Vic 50 */
+    {XVIDC_VM_1440x480_120_I, 51},   /* Vic 51 */
+    {XVIDC_VM_720x576_200_P, 52},    /* Vic 52 */
+    {XVIDC_VM_720x576_200_P, 53},    /* Vic 53 */
+    {XVIDC_VM_1440x576_200_I, 54},   /* Vic 54 */
+    {XVIDC_VM_1440x576_200_I, 55},   /* Vic 55 */
+    {XVIDC_VM_720x480_240_P, 56},    /* Vic 56 */
+    {XVIDC_VM_720x480_240_P, 57},    /* Vic 57 */
+    {XVIDC_VM_1440x480_240_I, 58},   /* Vic 58 */
+    {XVIDC_VM_1440x480_240_I, 59},   /* Vic 59 */
+    {XVIDC_VM_1280x720_24_P, 60},    /* Vic 60 */
+    {XVIDC_VM_1280x720_25_P, 61},    /* Vic 61 */
+    {XVIDC_VM_1280x720_30_P, 62},    /* Vic 62 */
+    {XVIDC_VM_1920x1080_120_P, 63},  /* Vic 63 */
+    {XVIDC_VM_1920x1080_100_P, 64},  /* Vic 64 */
 
     /* 1280 x 720 */
     {XVIDC_VM_1280x720_24_P, 65},    /* Vic 65 */
@@ -88,18 +122,22 @@ const XHdmiC_VicTable VicTable[VICTABLE_SIZE] = {
     {XVIDC_VM_1280x720_120_P, 71},   /* Vic 71 */
 
     /* 1680 x 720 */
+    {XVIDC_VM_1680x720_24_P, 79},    /* Vic 82 */
+    {XVIDC_VM_1680x720_25_P, 80},    /* Vic 82 */
+    {XVIDC_VM_1680x720_30_P, 81},    /* Vic 82 */
     {XVIDC_VM_1680x720_50_P, 82},    /* Vic 82 */
     {XVIDC_VM_1680x720_60_P, 83},    /* Vic 83 */
     {XVIDC_VM_1680x720_100_P, 84},   /* Vic 84 */
     {XVIDC_VM_1680x720_120_P, 85},   /* Vic 85 */
 
     /* 1920 x 1080 */
-    {XVIDC_VM_1920x1080_24_P, 32},   /* Vic 32 */
-    {XVIDC_VM_1920x1080_25_P, 33},   /* Vic 33 */
-    {XVIDC_VM_1920x1080_30_P, 34},   /* Vic 34 */
-    {XVIDC_VM_1920x1080_50_P, 31},   /* Vic 31 */
-    {XVIDC_VM_1920x1080_100_P, 64},  /* Vic 64 */
-    {XVIDC_VM_1920x1080_120_P, 63},  /* Vic 63 */
+    {XVIDC_VM_1920x1080_24_P, 72},   /* Vic 32 */
+    {XVIDC_VM_1920x1080_25_P, 73},   /* Vic 33 */
+    {XVIDC_VM_1920x1080_30_P, 74},   /* Vic 34 */
+    {XVIDC_VM_1920x1080_50_P, 75},   /* Vic 75 */
+    {XVIDC_VM_1920x1080_60_P, 76},   /* Vic 76 */
+    {XVIDC_VM_1920x1080_100_P, 77},  /* Vic 77 */
+    {XVIDC_VM_1920x1080_120_P, 78},  /* Vic 78 */
 
     /* 2560 x 1080 */
     {XVIDC_VM_2560x1080_24_P, 86},   /* Vic 86 */
@@ -399,22 +437,22 @@ XHdmiC_SamplingFrequencyVal
         /* Adding tolerance of 10k CTS */
         if ((CTS <  (item->CTS_NVal[FRLCharRate].ACR_CTSVal + 10000)) &&
         (CTS >  (item->CTS_NVal[FRLCharRate].ACR_CTSVal - 10000))) {
-		for (Index_1 = 0; Index_1 < 6; Index_1++) {
-			if (N ==
-				item->CTS_NVal[FRLCharRate].ACR_NVal[Index_1]){
-				if (Index_0 == 0) {
-					SampleFreq =
-					XHDMIC_SAMPLING_FREQ_32K << Index_1;
-				} else if (Index_0 == 1) {
-					SampleFreq =
-					XHDMIC_SAMPLING_FREQ_44_1K << Index_1;
-				} else {
-					SampleFreq =
-					XHDMIC_SAMPLING_FREQ_48K << Index_1;
-				}
-				break;
-			}
-		}
+        	for (Index_1 = 0; Index_1 < 6; Index_1++) {
+        		if (N ==
+        			item->CTS_NVal[FRLCharRate].ACR_NVal[Index_1]){
+        			if (Index_0 == 0) {
+        				SampleFreq =
+        				XHDMIC_SAMPLING_FREQ_32K << Index_1;
+        			} else if (Index_0 == 1) {
+        				SampleFreq =
+        				XHDMIC_SAMPLING_FREQ_44_1K << Index_1;
+        			} else {
+        				SampleFreq =
+        				XHDMIC_SAMPLING_FREQ_48K << Index_1;
+        			}
+        			break;
+        		}
+        	}
         }
     }
     return SampleFreq;
@@ -529,7 +567,6 @@ XHdmiC_SamplingFrequencyVal
 }
 
 /*************************** Function Definitions *****************************/
-
 /**
 *
 * This function retrieves the Auxiliary Video Information Info Frame.
@@ -629,7 +666,8 @@ void XV_HdmiC_ParseGCP(XHdmiC_Aux *AuxPtr, XHdmiC_GeneralControlPacket *GcpPtr)
 * @note   None.
 *
 ******************************************************************************/
-void XV_HdmiC_ParseAudioInfoFrame(XHdmiC_Aux *AuxPtr, XHdmiC_AudioInfoFrame *AudIFPtr)
+void XV_HdmiC_ParseAudioInfoFrame(XHdmiC_Aux *AuxPtr,
+		XHdmiC_AudioInfoFrame *AudIFPtr)
 {
 	if (AuxPtr->Header.Byte[0] == AUX_AUDIO_INFOFRAME_TYPE) {
 
@@ -657,6 +695,166 @@ void XV_HdmiC_ParseAudioInfoFrame(XHdmiC_Aux *AuxPtr, XHdmiC_AudioInfoFrame *Aud
 /*****************************************************************************/
 /**
 *
+* This function retrieves the Audio Metadata.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiC_ParseAudioMetadata(XHdmiC_Aux *AuxPtr,
+		XHdmiC_AudioMetadata *AudMetadata)
+{
+	if (AuxPtr->Header.Byte[0] == AUX_AUDIO_METADATA_PACKET_TYPE) {
+		/* 3D Audio */
+		AudMetadata->Audio3D = AuxPtr->Header.Byte[1] & 0x1;
+
+		/* HB2 */
+		AudMetadata->Num_Audio_Str =
+				(AuxPtr->Header.Byte[2] >> 2) & 0x3;
+		AudMetadata->Num_Views = AuxPtr->Header.Byte[2] & 0x3;
+
+		/* PB0 */
+		AudMetadata->Audio3D_ChannelCount =
+				AuxPtr->Data.Byte[0] & 0x1F;
+
+		/* PB1 */
+		AudMetadata->ACAT = AuxPtr->Data.Byte[1] & 0x0F;
+
+		/* PB2 */
+		AudMetadata->Audio3D_ChannelAllocation =
+				AuxPtr->Data.Byte[2] & 0xFF;
+	}
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function retrieves the SPD Infoframes.
+ *
+ * @param  None.
+ *
+ * @return None.
+ *
+ * @note   None.
+ *
+******************************************************************************/
+void XV_HdmiC_ParseSPDIF(XHdmiC_Aux *AuxPtr, XHdmiC_SPDInfoFrame *SPDInfoFrame)
+{
+	if (AuxPtr->Header.Byte[0] == AUX_SPD_INFOFRAME_TYPE) {
+		/* 3D Audio */
+		SPDInfoFrame->Version = AuxPtr->Header.Byte[1];
+
+		/* Vendor Name Characters */
+		SPDInfoFrame->VN1 = AuxPtr->Data.Byte[1];
+		SPDInfoFrame->VN2 = AuxPtr->Data.Byte[2];
+		SPDInfoFrame->VN3 = AuxPtr->Data.Byte[3];
+		SPDInfoFrame->VN4 = AuxPtr->Data.Byte[4];
+		SPDInfoFrame->VN5 = AuxPtr->Data.Byte[5];
+		SPDInfoFrame->VN6 = AuxPtr->Data.Byte[6];
+		SPDInfoFrame->VN7 = AuxPtr->Data.Byte[8];
+		SPDInfoFrame->VN8 = AuxPtr->Data.Byte[9];
+
+		/* Product Description Character */
+		SPDInfoFrame->PD1 = AuxPtr->Data.Byte[10];
+		SPDInfoFrame->PD2 = AuxPtr->Data.Byte[11];
+		SPDInfoFrame->PD3 = AuxPtr->Data.Byte[12];
+		SPDInfoFrame->PD4 = AuxPtr->Data.Byte[13];
+		SPDInfoFrame->PD5 = AuxPtr->Data.Byte[14];
+		SPDInfoFrame->PD6 = AuxPtr->Data.Byte[16];
+		SPDInfoFrame->PD7 = AuxPtr->Data.Byte[17];
+		SPDInfoFrame->PD8 = AuxPtr->Data.Byte[18];
+		SPDInfoFrame->PD9 = AuxPtr->Data.Byte[19];
+		SPDInfoFrame->PD10 = AuxPtr->Data.Byte[20];
+		SPDInfoFrame->PD11 = AuxPtr->Data.Byte[21];
+		SPDInfoFrame->PD12 = AuxPtr->Data.Byte[22];
+		SPDInfoFrame->PD13 = AuxPtr->Data.Byte[24];
+		SPDInfoFrame->PD14 = AuxPtr->Data.Byte[25];
+		SPDInfoFrame->PD15 = AuxPtr->Data.Byte[26];
+		SPDInfoFrame->PD16 = AuxPtr->Data.Byte[27];
+
+		/* Source Information */
+		SPDInfoFrame->SourceInfo = AuxPtr->Data.Byte[28];
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function retrieves the DRM Infoframes.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiC_ParseDRMIF(XHdmiC_Aux *AuxPtr, XHdmiC_DRMInfoFrame *DRMInfoFrame)
+{
+	if (AuxPtr->Header.Byte[0] == AUX_DRM_INFOFRAME_TYPE) {
+
+		/* Vendor Name Characters */
+		DRMInfoFrame->EOTF = AuxPtr->Data.Byte[1] & 0x7;
+
+		DRMInfoFrame->Static_Metadata_Descriptor_ID =
+				AuxPtr->Data.Byte[2] & 0x7;
+
+		DRMInfoFrame->disp_primaries[0].x =
+				(AuxPtr->Data.Byte[3] & 0xFF) |
+				(AuxPtr->Data.Byte[4] << 8);
+
+		DRMInfoFrame->disp_primaries[0].y =
+				(AuxPtr->Data.Byte[5] & 0xFF) |
+				(AuxPtr->Data.Byte[6] << 8);
+
+		DRMInfoFrame->disp_primaries[1].x =
+				(AuxPtr->Data.Byte[8] & 0xFF) |
+				(AuxPtr->Data.Byte[9] << 8);
+
+		DRMInfoFrame->disp_primaries[1].y =
+				(AuxPtr->Data.Byte[10] & 0xFF) |
+				(AuxPtr->Data.Byte[11] << 8);
+
+		DRMInfoFrame->disp_primaries[2].x =
+				(AuxPtr->Data.Byte[12] & 0xFF) |
+				(AuxPtr->Data.Byte[13] << 8);
+
+		DRMInfoFrame->disp_primaries[2].y =
+				(AuxPtr->Data.Byte[14] & 0xFF) |
+				(AuxPtr->Data.Byte[16] << 8);
+
+		DRMInfoFrame->white_point.x =
+				(AuxPtr->Data.Byte[17] & 0xFF) |
+				(AuxPtr->Data.Byte[18] << 8);
+
+		DRMInfoFrame->white_point.y =
+				(AuxPtr->Data.Byte[19] & 0xFF) |
+				(AuxPtr->Data.Byte[20] << 8);
+
+		DRMInfoFrame->Max_Disp_Mastering_Luminance =
+				(AuxPtr->Data.Byte[21] & 0xFF) |
+				(AuxPtr->Data.Byte[22] << 8);
+
+		DRMInfoFrame->Min_Disp_Mastering_Luminance =
+				(AuxPtr->Data.Byte[24] & 0xFF) |
+				(AuxPtr->Data.Byte[25] << 8);
+
+		DRMInfoFrame->Max_Content_Light_Level =
+				(AuxPtr->Data.Byte[26] & 0xFF) |
+				(AuxPtr->Data.Byte[27] << 8);
+
+		DRMInfoFrame->Max_Frame_Average_Light_Level =
+				(AuxPtr->Data.Byte[28] & 0xFF) |
+				(AuxPtr->Data.Byte[29] << 8);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
 * This function generates and sends Auxilliary Video Infoframes
 *
 * @param  InstancePtr is a pointer to the HDMI TX Subsystem instance.
@@ -674,6 +872,8 @@ XHdmiC_Aux XV_HdmiC_AVIIF_GeneratePacket(XHdmiC_AVI_InfoFrame *infoFramePtr)
 	u8 Crc;
 	XHdmiC_Aux aux;
 
+	(void)memset((void *)&aux, 0, sizeof(XHdmiC_Aux));
+
 	/* Header, Packet type*/
 	aux.Header.Byte[0] = AUX_AVI_INFOFRAME_TYPE;
 
@@ -687,80 +887,78 @@ XHdmiC_Aux XV_HdmiC_AVIIF_GeneratePacket(XHdmiC_AVI_InfoFrame *infoFramePtr)
 	aux.Header.Byte[3] = 0;
 
 	/* PB1 */
-   aux.Data.Byte[1] = (infoFramePtr->ColorSpace & 0x7) << 5 |
-		   ((infoFramePtr->ActiveFormatDataPresent << 4) & 0x10) |
-		   ((infoFramePtr->BarInfo << 2) & 0xc) |
-		   (infoFramePtr->ScanInfo & 0x3);
+	aux.Data.Byte[1] = (infoFramePtr->ColorSpace & 0x7) << 5 |
+		((infoFramePtr->ActiveFormatDataPresent << 4) & 0x10) |
+		((infoFramePtr->BarInfo << 2) & 0xc) |
+		(infoFramePtr->ScanInfo & 0x3);
 
-   /* PB2 */
-   aux.Data.Byte[2] = ((infoFramePtr->Colorimetry & 0x3) << 6  |
-		   ((infoFramePtr->PicAspectRatio << 4) & 0x30) |
-		   (infoFramePtr->ActiveAspectRatio & 0xf));
+	/* PB2 */
+	aux.Data.Byte[2] = ((infoFramePtr->Colorimetry & 0x3) << 6  |
+		((infoFramePtr->PicAspectRatio << 4) & 0x30) |
+		(infoFramePtr->ActiveAspectRatio & 0xf));
 
-   /* PB3 */
-   aux.Data.Byte[3] = (infoFramePtr->Itc & 0x1) << 7 |
-		   ((infoFramePtr->ExtendedColorimetry << 4) & 0x70) |
-		   ((infoFramePtr->QuantizationRange << 2) & 0xc) |
-		   (infoFramePtr->NonUniformPictureScaling & 0x3);
+	/* PB3 */
+	aux.Data.Byte[3] = (infoFramePtr->Itc & 0x1) << 7 |
+		((infoFramePtr->ExtendedColorimetry << 4) & 0x70) |
+		((infoFramePtr->QuantizationRange << 2) & 0xc) |
+		(infoFramePtr->NonUniformPictureScaling & 0x3);
 
-   /* PB4 */
-   aux.Data.Byte[4] = infoFramePtr->VIC;
+	/* PB4 */
+	aux.Data.Byte[4] = infoFramePtr->VIC;
 
-   /* PB5 */
-   aux.Data.Byte[5] = (infoFramePtr->YccQuantizationRange & 0x3) << 6 |
-		   ((infoFramePtr->ContentType << 4) & 0x30) |
-		   (infoFramePtr->PixelRepetition & 0xf);
+	/* PB5 */
+	aux.Data.Byte[5] = (infoFramePtr->YccQuantizationRange & 0x3) << 6 |
+		((infoFramePtr->ContentType << 4) & 0x30) |
+		(infoFramePtr->PixelRepetition & 0xf);
 
-   /* PB6 */
-   aux.Data.Byte[6] = infoFramePtr->TopBar & 0xff;
+	/* PB6 */
+	aux.Data.Byte[6] = infoFramePtr->TopBar & 0xff;
 
-   aux.Data.Byte[7] = 0;
+	aux.Data.Byte[7] = 0;
 
-   /* PB8 */
-   aux.Data.Byte[8] = (infoFramePtr->TopBar & 0xff00) >> 8;
+	/* PB8 */
+	aux.Data.Byte[8] = (infoFramePtr->TopBar & 0xff00) >> 8;
 
-   /* PB9 */
-   aux.Data.Byte[9] = infoFramePtr->BottomBar & 0xff;
+	/* PB9 */
+	aux.Data.Byte[9] = infoFramePtr->BottomBar & 0xff;
 
-   /* PB10 */
-   aux.Data.Byte[10] = (infoFramePtr->BottomBar & 0xff00) >> 8;
+	/* PB10 */
+	aux.Data.Byte[10] = (infoFramePtr->BottomBar & 0xff00) >> 8;
 
-   /* PB11 */
-   aux.Data.Byte[11] = infoFramePtr->LeftBar & 0xff;
+	/* PB11 */
+	aux.Data.Byte[11] = infoFramePtr->LeftBar & 0xff;
 
-   /* PB12 */
-   aux.Data.Byte[12] = (infoFramePtr->LeftBar & 0xff00) >> 8;
+	/* PB12 */
+	aux.Data.Byte[12] = (infoFramePtr->LeftBar & 0xff00) >> 8;
 
-   /* PB13 */
-   aux.Data.Byte[13] = infoFramePtr->RightBar & 0xff;
+	/* PB13 */
+	aux.Data.Byte[13] = infoFramePtr->RightBar & 0xff;
 
-   /* PB14 */
-   aux.Data.Byte[14] = (infoFramePtr->RightBar & 0xff00) >> 8;
+	/* PB14 */
+	aux.Data.Byte[14] = (infoFramePtr->RightBar & 0xff00) >> 8;
 
-   /* Index references the length to calculate start of loop from where values are reserved */
-   for (Index = aux.Header.Byte[2] + 2; Index < 32; Index++) {
-	   aux.Data.Byte[Index] = 0;
-   }
+	/* Index references the length to calculate start of loop from
+	 * where values are reserved */
+	for (Index = aux.Header.Byte[2] + 2; Index < 32; Index++)
+		aux.Data.Byte[Index] = 0;
 
-   /* Calculate AVI infoframe checksum */
-   Crc = 0;
+	/* Calculate AVI infoframe checksum */
+	Crc = 0;
 
-   /* Header */
-   for (Index = 0; Index < 3; Index++) {
-     Crc += aux.Header.Byte[Index];
-   }
+	/* Header */
+	for (Index = 0; Index < 3; Index++)
+		Crc += aux.Header.Byte[Index];
 
-   /* Data */
-   for (Index = 1; Index < (aux.Header.Byte[2] + 2); Index++) {
-     Crc += aux.Data.Byte[Index];
-   }
+	/* Data */
+	for (Index = 1; Index < (aux.Header.Byte[2] + 2); Index++)
+		Crc += aux.Data.Byte[Index];
 
-   Crc = 256 - Crc;
+	Crc = 256 - Crc;
 
-   /* PB0 */
-   aux.Data.Byte[0] = Crc;
+	/* PB0 */
+	aux.Data.Byte[0] = Crc;
 
-   return aux;
+	return aux;
 }
 
 /*****************************************************************************/
@@ -782,6 +980,8 @@ XHdmiC_Aux XV_HdmiC_AudioIF_GeneratePacket(XHdmiC_AudioInfoFrame *AudioInfoFrame
 	u8 Index;
 	u8 Crc;
 	XHdmiC_Aux aux;
+
+	(void)memset((void *)&aux, 0, sizeof(XHdmiC_Aux));
 
 	/* Header, Packet Type */
 	aux.Header.Byte[0] = AUX_AUDIO_INFOFRAME_TYPE;
@@ -837,6 +1037,237 @@ XHdmiC_Aux XV_HdmiC_AudioIF_GeneratePacket(XHdmiC_AudioInfoFrame *AudioInfoFrame
 	  aux.Data.Byte[0] = Crc;
 
 	  return aux;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function generates and sends Audio Metadata Packet
+*
+* @param  InstancePtr is a pointer to the HDMI TX Subsystem instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+XHdmiC_Aux XV_HdmiC_AudioMetadata_GeneratePacket(XHdmiC_AudioMetadata
+		*AudMetadata)
+{
+	u8 Index;
+	XHdmiC_Aux aux;
+
+	(void)memset((void *)&aux, 0, sizeof(XHdmiC_Aux));
+
+	/* Header, Packet Type */
+	aux.Header.Byte[0] = AUX_AUDIO_METADATA_PACKET_TYPE;
+
+	/* 3D Audio */
+	aux.Header.Byte[1] = AudMetadata->Audio3D & 0x1;
+
+	/* HB2 */
+	aux.Header.Byte[2] = ((AudMetadata->Num_Audio_Str & 0x3) << 2) |
+			(AudMetadata->Num_Views & 0x3);
+
+	/* HB3 */
+	aux.Header.Byte[3] = 0;
+
+	/* PB0 */
+	aux.Data.Byte[0] = AudMetadata->Audio3D_ChannelCount & 0x1F;
+
+	/* PB1 */
+	aux.Data.Byte[1] = AudMetadata->ACAT & 0x0F;
+
+	/* PB2 */
+	aux.Data.Byte[2] = AudMetadata->Audio3D_ChannelAllocation & 0xFF;
+
+	for (Index = 3; Index < 32; Index++)
+		aux.Data.Byte[Index] = 0;
+
+	return aux;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function generates and sends SPD Infoframes
+ *
+ * @param  InstancePtr is a pointer to the HDMI TX Subsystem instance.
+ *
+ * @return None.
+ *
+ * @note   None.
+ *
+******************************************************************************/
+XHdmiC_Aux XV_HdmiC_SPDIF_GeneratePacket(XHdmiC_SPDInfoFrame *SPDInfoFrame)
+{
+	u8 Index;
+	u8 Crc;
+	XHdmiC_Aux aux;
+
+	(void)memset((void *)&aux, 0, sizeof(XHdmiC_Aux));
+
+	/* Header, Packet Type */
+	aux.Header.Byte[0] = AUX_SPD_INFOFRAME_TYPE;
+
+	/* 3D Audio */
+	aux.Header.Byte[1] = SPDInfoFrame->Version;
+
+	/* Length of SPD InfoFrame */
+	aux.Header.Byte[2] = 25;
+
+	/* HB3 */
+	aux.Header.Byte[3] = 0; /* CRC */
+
+	/* Vendor Name Characters */
+	aux.Data.Byte[0] = 0; /* CRC */
+	aux.Data.Byte[1] = SPDInfoFrame->VN1;
+	aux.Data.Byte[2] = SPDInfoFrame->VN2;
+	aux.Data.Byte[3] = SPDInfoFrame->VN3;
+	aux.Data.Byte[4] = SPDInfoFrame->VN4;
+	aux.Data.Byte[5] = SPDInfoFrame->VN5;
+	aux.Data.Byte[6] = SPDInfoFrame->VN6;
+	aux.Data.Byte[7] = 0; /* ECC */
+	aux.Data.Byte[8] = SPDInfoFrame->VN7;
+	aux.Data.Byte[9] = SPDInfoFrame->VN8;
+
+	/* Product Description Character */
+	aux.Data.Byte[10] = SPDInfoFrame->PD1;
+	aux.Data.Byte[11] = SPDInfoFrame->PD2;
+	aux.Data.Byte[12] = SPDInfoFrame->PD3;
+	aux.Data.Byte[13] = SPDInfoFrame->PD4;
+	aux.Data.Byte[14] = SPDInfoFrame->PD5;
+	aux.Data.Byte[15] = 0; /* ECC */
+	aux.Data.Byte[16] = SPDInfoFrame->PD6;
+	aux.Data.Byte[17] = SPDInfoFrame->PD7;
+	aux.Data.Byte[18] = SPDInfoFrame->PD8;
+	aux.Data.Byte[19] = SPDInfoFrame->PD9;
+	aux.Data.Byte[20] = SPDInfoFrame->PD10;
+	aux.Data.Byte[21] = SPDInfoFrame->PD11;
+	aux.Data.Byte[22] = SPDInfoFrame->PD12;
+	aux.Data.Byte[23] = 0; /* ECC */
+	aux.Data.Byte[24] = SPDInfoFrame->PD13;
+	aux.Data.Byte[25] = SPDInfoFrame->PD14;
+	aux.Data.Byte[26] = SPDInfoFrame->PD15;
+	aux.Data.Byte[27] = SPDInfoFrame->PD16;
+
+	/* Source Information */
+	aux.Data.Byte[28] = SPDInfoFrame->SourceInfo;
+	aux.Data.Byte[29] = 0;
+	aux.Data.Byte[30] = 0;
+	aux.Data.Byte[31] = 0; /* ECC */
+
+	/* Calculate SPD infoframe checksum */
+	Crc = 0;
+
+	/* Header */
+	for (Index = 0; Index < 3; Index++)
+		Crc += aux.Header.Byte[Index];
+
+	/* Data */
+	for (Index = 1; Index < aux.Header.Byte[2] + 1; Index++)
+		Crc += aux.Data.Byte[Index];
+
+	Crc = 256 - Crc;
+
+	aux.Data.Byte[0] = Crc;
+
+	return aux;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function generates and sends DRM Infoframes
+ *
+ * @param  InstancePtr is a pointer to the HDMI TX Subsystem instance.
+ *
+ * @return None.
+ *
+ * @note   None.
+ *
+******************************************************************************/
+void XV_HdmiC_DRMIF_GeneratePacket(XHdmiC_DRMInfoFrame *DRMInfoFrame, XHdmiC_Aux *aux)
+{
+	u8 Index;
+	u8 Crc;
+
+	memset(aux, 0, sizeof(XHdmiC_Aux));
+
+	/* Header, Packet Type */
+	aux->Header.Byte[0] = AUX_DRM_INFOFRAME_TYPE;
+
+	/* Version Refer CEA-861-G */
+	aux->Header.Byte[1] = 0x1;
+
+	/* Length of DRM InfoFrame */
+	aux->Header.Byte[2] = 27;
+
+	/* HB3 */
+	aux->Header.Byte[3] = 0; /* CRC */
+
+	/* Vendor Name Characters */
+	aux->Data.Byte[0] = 0; /* CRC */
+	aux->Data.Byte[1] = DRMInfoFrame->EOTF & 0x7;
+
+	aux->Data.Byte[2] = DRMInfoFrame->Static_Metadata_Descriptor_ID & 0x7;
+
+	aux->Data.Byte[3] = DRMInfoFrame->disp_primaries[0].x & 0xFF;
+	aux->Data.Byte[4] = DRMInfoFrame->disp_primaries[0].x >> 8;
+
+	aux->Data.Byte[5] = DRMInfoFrame->disp_primaries[0].y & 0xFF;
+	aux->Data.Byte[6] = DRMInfoFrame->disp_primaries[0].y >> 8;
+	aux->Data.Byte[7] = 0; /* ECC */
+
+	aux->Data.Byte[8] = DRMInfoFrame->disp_primaries[1].x & 0xFF;
+	aux->Data.Byte[9] = DRMInfoFrame->disp_primaries[1].x >> 8;
+
+	aux->Data.Byte[10] = DRMInfoFrame->disp_primaries[1].y & 0xFF;
+	aux->Data.Byte[11] = DRMInfoFrame->disp_primaries[1].y >> 8;
+
+	aux->Data.Byte[12] = DRMInfoFrame->disp_primaries[2].x & 0xFF;
+	aux->Data.Byte[13] = DRMInfoFrame->disp_primaries[2].x >> 8;
+
+	aux->Data.Byte[14] = DRMInfoFrame->disp_primaries[2].y & 0xFF;
+	aux->Data.Byte[15] = 0; /* ECC */
+	aux->Data.Byte[16] = DRMInfoFrame->disp_primaries[2].y >> 8;
+
+	aux->Data.Byte[17] = DRMInfoFrame->white_point.x & 0xFF;
+	aux->Data.Byte[18] = DRMInfoFrame->white_point.x >> 8;
+
+	aux->Data.Byte[19] = DRMInfoFrame->white_point.y & 0xFF;
+	aux->Data.Byte[20] = DRMInfoFrame->white_point.y >> 8;
+
+	aux->Data.Byte[21] = DRMInfoFrame->Max_Disp_Mastering_Luminance & 0xFF;
+	aux->Data.Byte[22] = DRMInfoFrame->Max_Disp_Mastering_Luminance >> 8;
+	aux->Data.Byte[23] = 0; /* ECC */
+
+	aux->Data.Byte[24] = DRMInfoFrame->Min_Disp_Mastering_Luminance & 0xFF;
+	aux->Data.Byte[25] = DRMInfoFrame->Min_Disp_Mastering_Luminance >> 8;
+
+	aux->Data.Byte[26] = DRMInfoFrame->Max_Content_Light_Level & 0xFF;
+	aux->Data.Byte[27] = DRMInfoFrame->Max_Content_Light_Level >> 8;
+
+	aux->Data.Byte[28] = DRMInfoFrame->Max_Frame_Average_Light_Level & 0xFF;
+	aux->Data.Byte[29] = DRMInfoFrame->Max_Frame_Average_Light_Level >> 8;
+
+	aux->Data.Byte[30] = 0;
+	aux->Data.Byte[31] = 0; /* ECC */
+
+	/* Calculate DRM infoframe checksum */
+	Crc = 0;
+
+	/* Header */
+	for (Index = 0; Index < 3; Index++)
+		Crc += aux->Header.Byte[Index];
+
+	/* Data */
+	for (Index = 1; Index < aux->Header.Byte[2] + 1; Index++)
+		Crc += aux->Data.Byte[Index];
+
+	Crc = 256 - Crc;
+
+	aux->Data.Byte[0] = Crc;
 }
 
 /*****************************************************************************/

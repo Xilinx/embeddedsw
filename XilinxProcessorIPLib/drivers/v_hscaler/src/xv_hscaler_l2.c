@@ -1,33 +1,13 @@
 /******************************************************************************
- *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xv_hscaler_l2.c
-* @addtogroup v_hscaler_v3_1
+* @addtogroup v_hscaler_v3_3
 * @{
 * @details
 *
@@ -49,6 +29,7 @@
 *                        check should be made only if input is not RGB
 *       rco   02/09/17   Fix c++ compilation warnings
 *	jsr   09/07/18 Fix for 64-bit driver support
+* 3.3   vsa   04/07/20   Improve quality with better coefficient tables
 * </pre>
 *
 ******************************************************************************/
@@ -72,10 +53,17 @@
 static const int STEP_PRECISION_SHIFT = 16;
 static const u64 XHSC_MASK_LOW_32BITS = ((u64)1<<32)-1;
 
-extern const short XV_hscaler_fixedcoeff_taps6[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6];
-extern const short XV_hscaler_fixedcoeff_taps8[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8];
-extern const short XV_hscaler_fixedcoeff_taps10[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_10];
-extern const short XV_hscaler_fixedcoeff_taps12[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_12];
+extern const short XV_hscaler_Lanczos2_taps6[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6];
+extern const short XV_hscaler_fixedcoeff_taps6_ScalingRatio1p2[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6];
+extern const short XV_hscaler_fixedcoeff_taps6_ScalingRatio2[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6];
+extern const short XV_hscaler_fixedcoeff_taps6_ScalingRatio3[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6];
+extern const short XV_hscaler_fixedcoeff_taps6_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6];
+extern const short XV_hscaler_fixedcoeff_taps8_ScalingRatio2[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8];
+extern const short XV_hscaler_fixedcoeff_taps8_ScalingRatio3[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8];
+extern const short XV_hscaler_fixedcoeff_taps8_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8];
+extern const short XV_hscaler_fixedcoeff_taps10_ScalingRatio3[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_10];
+extern const short XV_hscaler_fixedcoeff_taps10_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_10];
+extern const short XV_hscaler_fixedcoeff_taps12_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_12];
 
 /************************** Function Prototypes ******************************/
 static void XV_HScalerSelectCoeff(XV_Hscaler_l2 *InstancePtr,
@@ -186,47 +174,67 @@ static void XV_HScalerSelectCoeff(XV_Hscaler_l2 *InstancePtr,
     switch(InstancePtr->Hsc.Config.NumTaps)
     {
       case XV_HSCALER_TAPS_6:
-           coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
-           numTaps = XV_HSCALER_TAPS_6;
+		if (ScalingRatio > 35) {// > 3.5
+			coeff = &XV_hscaler_fixedcoeff_taps6_ScalingRatio4[0][0];
+			numTaps = XV_HSCALER_TAPS_6;
+		} else if (ScalingRatio > 25) {//2.6 < Ratio <= 3.5
+			coeff = &XV_hscaler_fixedcoeff_taps6_ScalingRatio3[0][0];
+			numTaps = XV_HSCALER_TAPS_6;
+		} else if (ScalingRatio > 15) {//1.6 < Ratio <= 2.5
+			coeff = &XV_hscaler_fixedcoeff_taps6_ScalingRatio2[0][0];
+			numTaps = XV_HSCALER_TAPS_6;
+		} else {// <= 1.5
+			coeff = &XV_hscaler_fixedcoeff_taps6_ScalingRatio1p2[0][0];
+			numTaps = XV_HSCALER_TAPS_6;
+		}
            break;
 
       case XV_HSCALER_TAPS_8:
-           if(ScalingRatio > 15) {//>1.5
-             coeff = &XV_hscaler_fixedcoeff_taps8[0][0];
-             numTaps = XV_HSCALER_TAPS_8;
-           } else {//<=1.5
-             coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
-             numTaps = XV_HSCALER_TAPS_6;
-           }
+		if (ScalingRatio > 35) {// > 3.5
+			coeff = &XV_hscaler_fixedcoeff_taps8_ScalingRatio4[0][0];
+			numTaps = XV_HSCALER_TAPS_8;
+		} else if (ScalingRatio > 25) {//2.6 < Ratio <= 3.5
+			coeff = &XV_hscaler_fixedcoeff_taps8_ScalingRatio3[0][0];
+			numTaps = XV_HSCALER_TAPS_8;
+		} else if (ScalingRatio > 15) {//1.6 < Ratio <= 2.5
+			coeff = &XV_hscaler_fixedcoeff_taps8_ScalingRatio2[0][0];
+			numTaps = XV_HSCALER_TAPS_8;
+		} else {// <= 1.5
+			coeff = &XV_hscaler_fixedcoeff_taps6_ScalingRatio1p2[0][0];
+			numTaps = XV_HSCALER_TAPS_6;
+		}
            break;
 
       case XV_HSCALER_TAPS_10:
-           if(ScalingRatio > 25) {//2.5
-             coeff = &XV_hscaler_fixedcoeff_taps10[0][0];
-             numTaps = XV_HSCALER_TAPS_10;
-           } else if(ScalingRatio > 15) {// 1.6 < ratio <= 2.5
-             coeff = &XV_hscaler_fixedcoeff_taps8[0][0];
-             numTaps = XV_HSCALER_TAPS_8;
-           } else {// <= 1.5
-             coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
-             numTaps = XV_HSCALER_TAPS_6;
-           }
+		if (ScalingRatio > 35) {// > 3.5
+			coeff = &XV_hscaler_fixedcoeff_taps10_ScalingRatio4[0][0];
+			numTaps = XV_HSCALER_TAPS_10;
+		} else if (ScalingRatio > 25) {//2.6 < Ratio <= 3.5
+			coeff = &XV_hscaler_fixedcoeff_taps10_ScalingRatio3[0][0];
+			numTaps = XV_HSCALER_TAPS_10;
+		} else if (ScalingRatio > 15) {//1.6 < Ratio <= 2.5
+			coeff = &XV_hscaler_fixedcoeff_taps8_ScalingRatio2[0][0];
+			numTaps = XV_HSCALER_TAPS_8;
+		} else {// <= 1.5
+			coeff = &XV_hscaler_fixedcoeff_taps6_ScalingRatio1p2[0][0];
+			numTaps = XV_HSCALER_TAPS_6;
+		}
            break;
 
       case XV_HSCALER_TAPS_12:
-           if(ScalingRatio > 35) {//> 3.5
-             coeff = &XV_hscaler_fixedcoeff_taps12[0][0];
-             numTaps = XV_HSCALER_TAPS_12;
-           } else if(ScalingRatio > 25) {//2.6 < Ratio <= 3.5
-             coeff = &XV_hscaler_fixedcoeff_taps10[0][0];
-             numTaps = XV_HSCALER_TAPS_10;
-           } else if(ScalingRatio > 15) {//1.6 < Ratio <= 2.5
-             coeff = &XV_hscaler_fixedcoeff_taps8[0][0];
-             numTaps = XV_HSCALER_TAPS_8;
-           } else {// <=1.5
-             coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
-             numTaps = XV_HSCALER_TAPS_6;
-           }
+		if (ScalingRatio > 35) {// > 3.5
+			coeff = &XV_hscaler_fixedcoeff_taps12_ScalingRatio4[0][0];
+			numTaps = XV_HSCALER_TAPS_12;
+		} else if (ScalingRatio > 25) {//2.6 < Ratio <= 3.5
+			coeff = &XV_hscaler_fixedcoeff_taps10_ScalingRatio3[0][0];
+			numTaps = XV_HSCALER_TAPS_10;
+		} else if (ScalingRatio > 15) {//1.6 < Ratio <= 2.5
+			coeff = &XV_hscaler_fixedcoeff_taps8_ScalingRatio2[0][0];
+			numTaps = XV_HSCALER_TAPS_8;
+		} else {// <= 1.5
+			coeff = &XV_hscaler_fixedcoeff_taps6_ScalingRatio1p2[0][0];
+			numTaps = XV_HSCALER_TAPS_6;
+		}
            break;
 
       default:
@@ -235,8 +243,8 @@ static void XV_HScalerSelectCoeff(XV_Hscaler_l2 *InstancePtr,
   }
   else //Scale Up
   {
-    coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
-    numTaps = XV_HSCALER_TAPS_6;
+	coeff = &XV_hscaler_Lanczos2_taps6[0][0];
+	numTaps = XV_HSCALER_TAPS_6;
   }
 
   XV_HScalerLoadExtCoeff(InstancePtr,

@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xgpiops_intr_example.c
@@ -44,12 +24,6 @@
 * is a combination of sw13 and sw14. To operate either of the input
 * pins, keep SW15 low(both should be 00).
 *
-* In versal Platform we have two devices(PMC GPIO and PS GPIO),PMC contain 4
-* banks and 116 pins,PS GPIO  contain 2 banks and 58 pins.
-* This example can work for both PS and PMC GPIO based on the value of GPIO_DEVICE_ID
-* The default value of 0 makes this example work for PMC GPIO controller.
-*
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -59,10 +33,7 @@
 * 3.3   ms   04/17/17 Added notes about gpio input and output pin description
 *                     for zcu102 and zc702 boards, configured Interrupt pin
 *                     to input pin for proper working of interrupt example.
-* 3.6   sne  08/19/19 Added interrupt support on versal.Using pmc_MIO38 and
-*		      pmc_MIO39 for PMC device and LPD_MIO14,LPD_MIO15 for PS
-*		      for testing purpose.
-*
+* 3.7	sne  12/04/19 Reverted versal example support.
 *</pre>
 *
 ******************************************************************************/
@@ -182,13 +153,6 @@ int GpioIntrExample(XScuGic *Intc, XGpioPs *Gpio, u16 DeviceId, u16 GpioIntrId)
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
-#ifdef versal
-	if(ConfigPtr->DeviceId == 0x0U)
-	{
-		/* Accessing PMC GPIO by setting 1 value*/
-		Gpio->PmcGpio=1;
-	}
-#endif
 	Type_of_board = XGetPlatform_Info();
 	switch (Type_of_board) {
 		case XPLAT_ZYNQ_ULTRA_MP:
@@ -200,19 +164,6 @@ int GpioIntrExample(XScuGic *Intc, XGpioPs *Gpio, u16 DeviceId, u16 GpioIntrId)
 			Input_Pin = 14;
 			Output_Pin = 10;
 			break;
-#ifdef versal
-		case XPLAT_versal:
-			if(Gpio.PmcGpio == 0x1U) {
-				Input_Pin = 38;
-				Output_Pin = 39;
-				break;
-			}
-			else {
-				Input_Pin = 14;
-				Output_Pin = 15;
-				break;
-			}
-#endif
 	}
 	XGpioPs_CfgInitialize(Gpio, ConfigPtr, ConfigPtr->BaseAddr);
 

@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xqspips.h
-* @addtogroup qspips_v3_6
+* @addtogroup qspips_v3_7
 * @{
 * @details
 *
@@ -284,6 +264,11 @@
 * 3.6   akm 04/15/19 Modified the mask in XQspiPs_GetReadData() API to retrieve
 *                    configuration register values of both the Flashes in dual
 *                    parellel connection.
+* 3.7	akm 11/19/19 Fixed Coverity unused value warning in XQspiPs_PolledTransfer()
+* 			and XQspiPs_Transfer() APIs.
+* 3.7	akm 03/19/20 Modified XQspiPs_PolledTransfer(), XQspiPs_Transfer() and
+*			XQspiPs_InterruptHandler() APIs to fill TX FIFO with valid
+*			data when RX buffer is not NULL.
 *
 * </pre>
 *

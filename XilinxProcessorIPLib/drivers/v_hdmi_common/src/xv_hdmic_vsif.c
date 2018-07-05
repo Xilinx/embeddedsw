@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -34,10 +14,12 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who    Date     Changes
-* ----- ------ -------- --------------------------------------------------
-* 1.00  yh     15/01/15 Initial release for 3D video support
-* 1.01  YH  2017/07/19   Clean up Print Statement line ending to "\r\n"
+* Ver   Who    Date       Changes
+* ----- ---- ----------   --------------------------------------------------
+* 1.00  yh   2015/01/15   Initial release for 3D video support
+* 1.01  YH   2017/07/19   Clean up Print Statement line ending to "\r\n"
+* 1.02  EB   2019/10/29   Fixed a bug where XV_HdmiC_VSIF_GeneratePacket
+*                             returns incorrect Aux
 * </pre>
 *
 ******************************************************************************/
@@ -471,15 +453,12 @@ XHdmiC_Aux XV_HdmiC_VSIF_GeneratePacket(XHdmiC_VSIF  *VSIFPtr)
     u8 ByteCount = 0;
     u8 Crc = 0;
     XHdmiC_Aux Aux;
-//    XHdmiC_Aux *AuxPtr;
+
+    (void)memset((void *)&Aux, 0, sizeof(XHdmiC_Aux));
 
     XHdmiC_3D_Struct_Field Format;
     XHdmiC_3D_Sampling_Method SampMethod;
     XHdmiC_3D_Sampling_Position SampPos;
-
-    /* Verify arguments */
-//    Xil_AssertNonvoid(VSIFPtr != NULL);
-//    Xil_AssertNonvoid(AuxPtr != NULL);
 
     /* Header, Packet type*/
     Aux.Header.Byte[0] = AUX_VSIF_TYPE;

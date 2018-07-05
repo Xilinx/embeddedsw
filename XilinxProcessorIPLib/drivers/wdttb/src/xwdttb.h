@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2001 - 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2001 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xwdttb.h
-* @addtogroup wdttb_v4_5
+* @addtogroup wdttb_v5_0
 * @{
 * @details
 *
@@ -177,6 +157,11 @@
 *		      Updated driver to support for WWDT and AXI Timebase WDT.
 *		      While accessing AXI Timebase WDT appending "C" to base
 *		      address for getting AXI Watchdog offsets.
+* 5.0	sne  12/30/19 Updated example files with "Successfully ran"string.CR#1050724
+* 5.0	sne  01/31/20 Removed compare value registers write while configuring Generic
+*		      watchdog window timer.CR#1052544
+* 5.0	sne  02/27/20 Reorganize the driver source and Fixed doxygen warnings.
+*		      Added XWdtTb_ConfigureWDTMode function.
 *
 * </pre>
 *
@@ -241,6 +226,7 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function returns the current contents of the timebase.
 *
@@ -264,6 +250,7 @@ static inline u32 XWdtTb_GetTbValue(const XWdtTb *InstancePtr)
 }
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function controls the read/write access to the complete Window WDT
 * register space.
@@ -296,6 +283,7 @@ static inline void XWdtTb_SetRegSpaceAccessMode(const XWdtTb *InstancePtr,
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function provides Window WDT register space read only or writable.
 *
@@ -324,6 +312,7 @@ static inline u32 XWdtTb_GetRegSpaceAccessMode(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function provides the last bad event and read even after system reset.
 *
@@ -349,6 +338,7 @@ static inline u32 XWdtTb_GetLastEvent(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function provides fail count value.
 *
@@ -379,6 +369,7 @@ static inline u32 XWdtTb_GetFailCounter(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function states that whether the reset is pending or not when Secondary
 * Sequence Timer(SST) counter has started.
@@ -406,6 +397,7 @@ static inline u32 XWdtTb_IsResetPending(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function states that whether window watchdog timer has reached at the
 * interrupt programmed point in second window.
@@ -435,6 +427,7 @@ static inline u32 XWdtTb_GetIntrStatus(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function states wrong configuration when second window count is set to
 * zero.
@@ -462,6 +455,7 @@ static inline u32 XWdtTb_IsWrongCfg(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function sets the count value for the  Second Sequence Timer window.
 *
@@ -488,6 +482,33 @@ static inline void XWdtTb_SetSSTWindow(const XWdtTb *InstancePtr, u32 SST_window
 
         /*  Write SST window count value */
         XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_SSTWR_OFFSET,SST_window_config);
+}
+
+/*****************************************************************************/
+/**
+* @brief
+*
+* This function set configure WDT mode.
+*
+* @param     InstancePtr is a pointer to the XWdtTb instance to be
+*            worked on.
+* @param     Mode specifies the GWDT or WWDT. 0 for GWDT and 1 for WWDT.
+*
+* @return    -XST_SUCESS, if Mode with in the range.
+*			 -XST_FAILURE,if Mode is out side of range.
+*
+******************************************************************************/
+
+static inline u32 XWdtTb_ConfigureWDTMode(XWdtTb *InstancePtr, u32 Mode)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if ((Mode == (u32) 0) || (Mode == (u32)1)) {
+		InstancePtr->EnableWinMode = Mode;
+		return XST_SUCCESS;
+	} else {
+		return XST_FAILURE;
+	}
 }
 
 /************************** Function Prototypes ******************************/
@@ -532,7 +553,7 @@ void XWdtTb_DisableExtraProtection(const XWdtTb *InstancePtr);
 
 void XWdtTb_SetWindowCount(const XWdtTb *InstancePtr, u32 FirstWinCount,
 				u32 SecondWinCount);
-void XWdtTb_SetGenericWdtWindow(const XWdtTb *InstancePtr,u32 GWCVR0_config, u32 GWCVR1_config, u32 GWOR_config);
+void XWdtTb_SetGenericWdtWindow(const XWdtTb *InstancePtr, u32 GWOR_config);
 u32 XWdtTb_ProgramWDTWidth(const XWdtTb *InstancePtr, u32 width);
 
 /*

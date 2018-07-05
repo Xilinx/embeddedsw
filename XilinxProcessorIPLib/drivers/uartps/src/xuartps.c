@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
 * @file xuartps.c
-* @addtogroup uartps_v3_8
+* @addtogroup uartps_v3_9
 * @{
 *
 * This file contains the implementation of the interface functions for XUartPs
@@ -45,6 +25,7 @@
 * 3.1	kvn    04/10/15 Modified code for latest RTL changes.
 * 3.5	NK     09/26/17 Fix the RX Buffer Overflow issue.
 * 3.7   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007755)
+* 3.9   sd     02/06/20 Added clock support
 * </pre>
 *
 *****************************************************************************/
@@ -137,6 +118,9 @@ s32 XUartPs_CfgInitialize(XUartPs *InstancePtr,
 	/* Setup the driver instance using passed in parameters */
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = Config->InputClockHz;
+#if defined  (XCLOCKING)
+	InstancePtr->Config.RefClk = Config->RefClk;
+#endif
 	InstancePtr->Config.ModemPinsConnected = Config->ModemPinsConnected;
 
 	/* Initialize other instance data to default values */
@@ -250,6 +234,9 @@ u32 XUartPs_Send(XUartPs *InstancePtr, u8 *BufferPtr,
 	Xil_AssertNonvoid(BufferPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#if defined  (XCLOCKING)
+	Xil_ClockEnable(InstancePtr->Config.RefClk);
+#endif
 	/*
 	 * Disable the UART transmit interrupts to allow this call to stop a
 	 * previous operation that may be interrupt driven.
@@ -313,6 +300,9 @@ u32 XUartPs_Recv(XUartPs *InstancePtr,
 	Xil_AssertNonvoid(BufferPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#if defined  (XCLOCKING)
+	Xil_ClockEnable(InstancePtr->Config.RefClk);
+#endif
 	/*
 	 * Disable all the interrupts.
 	 * This stops a previous operation that may be interrupt driven

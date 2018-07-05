@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -270,6 +250,7 @@ extern "C" {
 #define XST352_BYTE1_ST372_2x720L_3GB		0x8B
 #define XST352_BYTE1_ST372_2x1080L_3GB		0x8C
 #define XST352_BYTE1_ST2081_10_2160L_6G		0xC0
+#define XST352_BYTE1_ST2081_10_2_1080L_6G	0xC1
 #define XST352_BYTE1_ST2081_10_DL_2160L_6G	0xC2
 #define XST352_BYTE1_ST2082_10_2160L_12G	0xCE
 
@@ -282,6 +263,7 @@ extern "C" {
 
 #define XST352_BYTE2_FPS_MASK			0xF
 #define XST352_BYTE2_FPS_SHIFT			8
+#define XST352_BYTE2_FPS_96F			0x1
 #define XST352_BYTE2_FPS_24F			0x2
 #define XST352_BYTE2_FPS_24			0x3
 #define XST352_BYTE2_FPS_48F			0x4
@@ -295,17 +277,22 @@ extern "C" {
 /* Table 4 ST 2081-10:2015 */
 #define XST352_BYTE2_FPS_96			0xC
 #define XST352_BYTE2_FPS_100			0xD
-#define XST352_BYTE2_FPS_120			0xE
-#define XST352_BYTE2_FPS_120F			0xF
+#define XST352_BYTE2_FPS_120F			0xE
+#define XST352_BYTE2_FPS_120			0xF
 
 #define XST352_BYTE3_COLOR_FORMAT_MASK		0xF
 #define XST352_BYTE3_COLOR_FORMAT_420		0x3
 #define XST352_BYTE3_COLOR_FORMAT_422		0x0
 #define XST352_BYTE3_COLOR_FORMAT_444		0x1
+#define XST352_BYTE3_COLOR_FORMAT_444_RGB	0x2
 
 #define XST352_BYTE3_ACT_LUMA_COUNT_MASK	1 << 22
 #define XST352_BYTE3_ACT_LUMA_COUNT_OFFSET	22
 
+#define XST352_BYTE4_BIT_DEPTH_MASK		0x03
+#define XST352_BYTE4_BIT_DEPTH_8		0x00
+#define XST352_BYTE4_BIT_DEPTH_10		0x01
+#define XST352_BYTE4_BIT_DEPTH_12		0x02
 
 /**************************** Type Definitions *******************************/
 

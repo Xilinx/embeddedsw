@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xsdps_hw.h
-* @addtogroup sdps_v3_8
+* @addtogroup sdps_v3_9
 * @{
 *
 * This header file contains the identifiers and basic HW access driver
@@ -58,8 +38,8 @@
 * 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
 *       mn     05/21/19 Set correct tap delays for Versal
 *       mn     05/21/19 Disable DLL Reset code for Versal
-*       mn     05/21/19 Enable SD UHS Mode support by default for Versal
 *       mn     07/03/19 Update Input Tap Delays for Versal
+* 3.9   mn     03/03/20 Restructured the code for more readability and modularity
 *
 * </pre>
 *
@@ -81,10 +61,6 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-/* Enable UHS Mode support by default for Versal */
-#ifdef versal
-#define UHS_MODE_ENABLE
-#endif
 /** @name Register Map
  *
  * Register offsets from the base address of an SD device.
@@ -226,8 +202,8 @@ extern "C" {
 #define XSDPS_CC_INT_CLK_STABLE_MASK	0x00000002U
 #define XSDPS_CC_SD_CLK_EN_MASK			0x00000004U
 #define XSDPS_CC_SD_CLK_GEN_SEL_MASK		0x00000020U
-#define XSDPS_CC_SDCLK_FREQ_SEL_EXT_MASK	0x000000C0U
-#define XSDPS_CC_SDCLK_FREQ_SEL_MASK		0x0000FF00U
+#define XSDPS_CC_SDCLK_FREQ_SEL_EXT_MASK	0x00000003U
+#define XSDPS_CC_SDCLK_FREQ_SEL_MASK		0x000000FFU
 #define XSDPS_CC_SDCLK_FREQ_D256_MASK		0x00008000U
 #define XSDPS_CC_SDCLK_FREQ_D128_MASK		0x00004000U
 #define XSDPS_CC_SDCLK_FREQ_D64_MASK		0x00002000U
@@ -830,8 +806,21 @@ extern "C" {
 
 #define EXT_CSD_PART_CONFIG_ACC_MASK    (0x7U)
 #define EXT_CSD_PART_CONFIG_ACC_BOOT0   (0x1U)
+#define EXT_CSD_PART_CONFIG_ACC_BOOT1   (0x2U)
 #define EXT_CSD_PART_CONFIG_ACC_RPMB    (0x3U)
 #define EXT_CSD_PART_CONFIG_ACC_GP0     (0x4U)
+#define EXT_CSD_PART_CONFIG_BYTE		179U
+#define XSDPS_MMC_PART_CFG_0_ARG		((XSDPS_EXT_CSD_WRITE_BYTE << 24U) \
+					 | (EXT_CSD_PART_CONFIG_BYTE << 16U) \
+					 | ((0U) << 8U))
+
+#define XSDPS_MMC_PART_CFG_1_ARG		((XSDPS_EXT_CSD_WRITE_BYTE << 24U) \
+					 | (EXT_CSD_PART_CONFIG_BYTE << 16U) \
+					 | (EXT_CSD_PART_CONFIG_ACC_BOOT0 << 8U))
+
+#define XSDPS_MMC_PART_CFG_2_ARG		((XSDPS_EXT_CSD_WRITE_BYTE << 24U) \
+					 | (EXT_CSD_PART_CONFIG_BYTE << 16U) \
+					 | (EXT_CSD_PART_CONFIG_ACC_BOOT1 << 8U))
 
 #define EXT_CSD_PART_SUPPORT_PART_EN    (0x1U)
 
@@ -976,6 +965,8 @@ extern "C" {
 #define XSDPS_EXT_CSD_CMD_BLKSIZE	512U
 #define XSDPS_TUNING_CMD_BLKCNT		1U
 #define XSDPS_TUNING_CMD_BLKSIZE	64U
+#define XSDPS_SD_STATUS_BLKCNT		1U
+#define XSDPS_SD_STATUS_BLKSIZE		64U
 
 #define XSDPS_HIGH_SPEED_MAX_CLK	50000000U
 #define XSDPS_UHS_SDR104_MAX_CLK	208000000U
@@ -1033,12 +1024,14 @@ extern "C" {
 #define XSDPS_WIDTH_4		4U
 
 
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 #ifdef versal
 #define SD_ITAPDLY_SEL_MASK			0x000000FFU
 #define SD_OTAPDLY_SEL_MASK			0x0000003FU
 #define SD_ITAPDLY					0x0000F0F8U
 #define SD_OTAPDLY					0x0000F0FCU
+#define SD0_DLL_CTRL 				0x00000448U
+#define SD1_DLL_CTRL 				0x000004C8U
+#define SD_DLL_RST					0x00000004U
 #define SD_ITAPCHGWIN				0x00000200U
 #define SD_ITAPDLYENA				0x00000100U
 #define SD_OTAPDLYENA				0x00000040U
@@ -1080,8 +1073,6 @@ extern "C" {
 #define SD_ITAPDLYSEL_HSD			0x00000015U
 #define SD_OTAPDLYSEL_SD_HSD		0x00000005U
 #define SD_OTAPDLYSEL_EMMC_HSD		0x00000006U
-#endif
-
 #endif
 
 #ifdef __MICROBLAZE__

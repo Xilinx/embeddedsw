@@ -1,26 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2004 - 2019 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-#
+# Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 ###############################################################################
 #
@@ -31,6 +11,9 @@
 # 2.00a sdm  06/18/10 Updated to not generate duplicate canonical definitions
 #                     when canonical names are same as instance specific names
 # 3.0   adk  12/10/13 Updated as per the New Tcl API's
+# 3.4   adk  06/04/20 Updated the tcl to not to generate defines for instance
+#		      where IP is not configured for uart functionality(i.e
+#		      base address is not configured for IP)
 #
 ##############################################################################
 #uses "xillib.tcl"
@@ -65,7 +48,20 @@ proc xdefine_uartlite_include_file {drv_handle file_name drv_string} {
 
         # Get all peripherals connected to this driver
         set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
+        set tmp_periphs ""
+        foreach periph $periphs {
+            set is_pl [common::get_property IS_PL $periph]
+            if {$is_pl == 1} {
+                set isaddr_exist [common::get_property CONFIG.C_BASEADDR $periph]
+            } else {
+                set isaddr_exist 1
+            }
+            if {${isaddr_exist} != ""} {
+                lappend tmp_periphs $periph
+            }
+        }
 
+        set periphs $tmp_periphs
         set uSuffix "U"
         # Handle NUM_INSTANCES
         set periph_ninstances 0

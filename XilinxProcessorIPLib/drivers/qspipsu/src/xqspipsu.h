@@ -1,34 +1,14 @@
 /******************************************************************************
- *
- * Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
- ******************************************************************************/
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
 
 /*****************************************************************************/
 /**
  *
  * @file xqspipsu.h
- * @addtogroup qspipsu_v1_10
+ * @addtogroup qspipsu_v1_11
  * @{
  * @details
  *
@@ -166,6 +146,17 @@
  * 1.10 akm 08/22/19 Set recommended tap delay values for 37.5MHZ, 100MHZ and
  *		     150MHZ frequencies in Versal.
  * 1.10 akm 09/05/19 Added Multi Die Erase and Muti Die Read support.
+ * 1.11 akm 11/07/19 Removed LQSPI register access in Versal.
+ * 1.11	akm 11/15/19 Fixed Coverity deadcode warning in
+ * 				XQspipsu_Calculate_Tapdelay().
+ * 1.11 akm 02/19/20 Added XQspiPsu_StartDmaTransfer() and XQspiPsu_CheckDmaDone()
+ * 		     APIs for non-blocking transfer.
+ * 1.11 sd  01/02/20 Added clocking support
+ * 1.11 akm 03/09/20 Reorganize the source code, enable qspi controller and
+ *		     interrupts in XQspiPsu_CfgInitialize() API.
+ * 1.11 akm 03/26/20 Fixed issue by updating XQspiPsu_CfgInitialize to return
+ *		     XST_DEVICE_IS_STARTED instead of asserting, when the
+ *		     instance is already configured(CR#1058525).
  *
  * </pre>
  *
@@ -184,6 +175,9 @@ extern "C" {
 #include "xqspipsu_hw.h"
 #include "xil_cache.h"
 #include "xil_mem.h"
+#if defined  (XCLOCKING)
+#include "xil_clocking.h"
+#endif
 
 /**************************** Type Definitions *******************************/
 /**
@@ -234,6 +228,9 @@ typedef struct {
 	u8  ConnectionMode;	/**< Single, Stacked and Parallel mode */
 	u8  BusWidth;		/**< Bus width available on board */
 	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
+#if defined  (XCLOCKING)
+	u32 RefClk;		/**< Input clocks */
+#endif
 } XQspiPsu_Config;
 
 /**
@@ -319,9 +316,11 @@ typedef struct {
 #define XQSPIPSU_CLK_ACTIVE_LOW_OPTION	0x2U
 #define XQSPIPSU_CLK_PHASE_1_OPTION	0x4U
 #define XQSPIPSU_MANUAL_START_OPTION	0x8U
+#if !defined (versal)
 #define XQSPIPSU_LQSPI_MODE_OPTION	0x20U
 
 #define XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB	1U
+#endif
 
 #define XQSPIPSU_GENFIFO_EXP_START	0x100U
 
@@ -370,10 +369,130 @@ typedef struct {
 	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + \
 			XQSPIPSU_EN_OFFSET, 0x0U)
 
+#if !defined (versal)
 #define XQspiPsu_GetLqspiConfigReg(InstancePtr)	\
 	XQspiPsu_In32((XQSPIPS_BASEADDR) + \
 			XQSPIPSU_LQSPI_CR_OFFSET)
+#endif
 
+/*****************************************************************************/
+/**
+ *
+ * This function enables the manual start option
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static inline void XQspiPsu_ManualStartEnable(XQspiPsu *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+#ifdef DEBUG
+	xil_printf("\nXQspiPsu_ManualStartEnable\r\n");
+#endif
+
+	if (InstancePtr->IsManualstart == TRUE) {
+#ifdef DEBUG
+		xil_printf("\nManual Start\r\n");
+#endif
+		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
+		XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET) |
+			XQSPIPSU_CFG_START_GEN_FIFO_MASK);
+	}
+}
+/*****************************************************************************/
+/**
+ *
+ * This function writes the GENFIFO entry to assert CS.
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static inline void XQspiPsu_GenFifoEntryCSAssert(const XQspiPsu *InstancePtr)
+{
+	u32 GenFifoEntry;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+#ifdef DEBUG
+	xil_printf("\nXQspiPsu_GenFifoEntryCSAssert\r\n");
+#endif
+
+	GenFifoEntry = 0x0U;
+	GenFifoEntry |= (XQSPIPSU_GENFIFO_MODE_SPI | InstancePtr->GenFifoCS |
+					 InstancePtr->GenFifoBus | XQSPIPSU_GENFIFO_CS_SETUP);
+#ifdef DEBUG
+	xil_printf("\nFifoEntry=%08x\r\n", GenFifoEntry);
+#endif
+	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function writes the GENFIFO entry to de-assert CS.
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static inline void XQspiPsu_GenFifoEntryCSDeAssert(const XQspiPsu *InstancePtr)
+{
+	u32 GenFifoEntry;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+#ifdef DEBUG
+	xil_printf("\nXQspiPsu_GenFifoEntryCSDeAssert\r\n");
+#endif
+
+	GenFifoEntry = 0x0U;
+	GenFifoEntry |= (XQSPIPSU_GENFIFO_MODE_SPI | InstancePtr->GenFifoBus |
+					XQSPIPSU_GENFIFO_CS_HOLD);
+#ifdef DEBUG
+	xil_printf("\nFifoEntry=%08x\r\n", GenFifoEntry);
+#endif
+	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This is a stub for the status callback. The stub is here in case the upper
+ * layers forget to set the handler.
+ *
+ * @param	CallBackRef is a pointer to the upper layer callback reference
+ * @param	StatusEvent is the event that just occurred.
+ * @param	ByteCount is the number of bytes transferred up until the event
+ *		occurred.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static inline void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
+				u32 ByteCount)
+{
+	(const void) CallBackRef;
+	(void) StatusEvent;
+	(void) ByteCount;
+
+	Xil_AssertVoidAlways();
+}
 /************************** Function Prototypes ******************************/
 
 /* Initialization and reset */
@@ -391,6 +510,11 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr);
 void XQspiPsu_SetStatusHandler(XQspiPsu *InstancePtr, void *CallBackRef,
 				XQspiPsu_StatusHandler FuncPointer);
+
+/* Non blocking Transfer functions */
+s32 XQspiPsu_StartDmaTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
+				u32 NumMsg);
+s32 XQspiPsu_CheckDmaDone(XQspiPsu *InstancePtr);
 
 /* Configuration functions */
 s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler);

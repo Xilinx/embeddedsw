@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017-2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
@@ -72,6 +52,8 @@
 *                       correction factor range in driver
 * 5.1   cog    01/29/19 Fixed some comments.
 * 7.0   cog    07/25/19 Updated example for new metal register API.
+* 7.1   cog    07/25/19 Updated example for Gen 3 compatibility.
+* 8.0   cog    04/03/20 Updated example for 48dr compatibility.
 *
 * </pre>
 *
@@ -104,6 +86,8 @@
 #define RFDC_DEVICE_ID 	0
 #define I2CBUS	12
 #endif
+
+#define REG_BOND_NSLICES 4U
 
 /**************************** Type Definitions ******************************/
 
@@ -254,7 +238,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 	u16 SetFabClkDiv;
 	u16 GetFabClkDiv;
 	XRFdc_PLL_Settings PLLSettings;
-	int ret = 0;
+
 
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 
@@ -301,6 +285,13 @@ printf("\n Configuring the Clock \r\n");
 		for (Block = 0; Block <4; Block++) {
 			/* Check for DAC block Enable */
 			if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
+				/* Check datapath mode is not bypass*/
+				if(RFdcInstPtr->RFdc_Config.IPType == XRFDC_GEN3){
+					Status = XRFdc_SetDataPathMode(RFdcInstPtr, Tile, Block, XRFDC_DATAPATH_MODE_DUC_0_FSDIVTWO);
+					if (Status != XRFDC_SUCCESS) {
+						return XRFDC_FAILURE;
+					}
+				}
 				/* Set DAC fabric rate */
 				Status = XRFdc_SetFabWrVldWords(RFdcInstPtr, Tile, Block, SetFabricRate);
 				if (Status != XRFDC_SUCCESS) {
@@ -940,7 +931,7 @@ printf("\n Configuring the Clock \r\n");
 				SetMixerSettings.CoarseMixFreq = XRFDC_COARSE_MIX_BYPASS;
 				SetMixerSettings.MixerType = XRFDC_MIXER_TYPE_COARSE;
 				SetMixerSettings.MixerMode = XRFDC_MIXER_MODE_R2C;
-				SetMixerSettings.Freq = 4500;
+				SetMixerSettings.Freq = 1250;
 				SetMixerSettings.PhaseOffset = -9.0565;
 				SetMixerSettings.FineMixerScale = XRFDC_MIXER_SCALE_AUTO;
 				SetMixerSettings.EventSource =
@@ -1238,7 +1229,7 @@ printf("\n Configuring the Clock \r\n");
 
 	if (RFdcInstPtr->DAC_Tile[Tile].NumOfDACBlocks >= 2U) {
 		/* DAC Singleband C2C */
-		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x1, XRFDC_MB_DATATYPE_C2C, 0x3);
+		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x1, XRFDC_MB_DATATYPE_C2C, ((RFdcInstPtr->RFdc_Config.DACTile_Config[Tile].NumSlices == REG_BOND_NSLICES)?0x3:0x5));
 		if (Status != XRFDC_SUCCESS) {
 			return XRFDC_FAILURE;
 		}
@@ -1262,30 +1253,32 @@ printf("\n Configuring the Clock \r\n");
 		printf("\n DAC0 MB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
 		printf("\n ============================================\r\n");
 
-		/* DAC Multiband 2x C2C */
-		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x3, XRFDC_MB_DATATYPE_C2C, 0x3);
-		if (Status != XRFDC_SUCCESS) {
-			return XRFDC_FAILURE;
-		}
+		if (XRFdc_IsDACDigitalPathEnabled(RFdcInstPtr, Tile, XRFDC_BLK_ID1) == XRFDC_ENABLED) {
+			/* DAC Multiband 2x C2C */
+			Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x3, XRFDC_MB_DATATYPE_C2C, ((RFdcInstPtr->RFdc_Config.DACTile_Config[Tile].NumSlices == REG_BOND_NSLICES)?0x3:0x5));
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
 
-		printf("=======DAC0,1 MB 2X Configuration C2C=======\r\n");
-		for (Block = 0; Block <4; Block++) {
-			/* Check for DAC block Enable */
-			if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
-				printf("\n DAC DigitalDataPath%d-> Connected I data = %d",
-						Block, XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block));
-				printf("\n DAC DigitalDataPath%d-> Connected Q data = %d",
-						Block, XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block));
+			printf("=======DAC0,1 MB 2X Configuration C2C=======\r\n");
+			for (Block = 0; Block <4; Block++) {
+				/* Check for DAC block Enable */
+				if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
+					printf("\n DAC DigitalDataPath%d-> Connected I data = %d",
+							Block, XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block));
+					printf("\n DAC DigitalDataPath%d-> Connected Q data = %d",
+							Block, XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block));
+				}
+				if ((Block == 0) || (Block == 1)) {
+					if (XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 0)
+						return XRFDC_FAILURE;
+					if (XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 1)
+						return XRFDC_FAILURE;
+				}
 			}
-			if ((Block == 0) || (Block == 1)) {
-				if (XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 0)
-					return XRFDC_FAILURE;
-				if (XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 1)
-					return XRFDC_FAILURE;
-			}
+			printf("\n DAC0 MB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
+			printf("\n ============================================\r\n");
 		}
-		printf("\n DAC0 MB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
-		printf("\n ============================================\r\n");
 	}
 
 	if (RFdcInstPtr->DAC_Tile[Tile].NumOfDACBlocks == 4U) {

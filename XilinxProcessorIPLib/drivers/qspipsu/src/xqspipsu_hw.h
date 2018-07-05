@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xqspipsu_hw.h
-* @addtogroup qspipsu_v1_10
+* @addtogroup qspipsu_v1_11
 * @{
 *
 * This file contains low level access functions using the base address
@@ -48,6 +28,7 @@
 * 					 of versal (CR#999610)
 * 1.9  aru 01/17/19 Fixed the violations for  MISRAC-2012
 *                  in safety mode .Done changes such as added U suffix
+* 1.11	akm 11/07/19 Removed LQSPI register access in Versal.
 *
 * </pre>
 *
@@ -141,6 +122,7 @@ extern "C" {
 /**
  * Register: XQSPIPSU_CFG
  */
+#if !defined (versal)
 #define XQSPIPSU_LQSPI_CR_OFFSET	0X000000A0U
 #define XQSPIPSU_LQSPI_CR_LINEAR_MASK     0x80000000U /**< LQSPI mode enable */
 #define XQSPIPSU_LQSPI_CR_TWO_MEM_MASK    0x40000000U /**< Both memories or one */
@@ -155,6 +137,7 @@ extern "C" {
 #define XQSPIPS_LQSPI_CR_RST_STATE       0x80000003U /**< Default LQSPI CR value */
 #define XQSPIPS_LQSPI_CR_4_BYTE_STATE       0x88000013U /**< Default 4 Byte LQSPI CR value */
 #define XQSPIPS_LQSPI_CFG_RST_STATE       0x800238C1U /**< Default LQSPI CFG value */
+#endif
 /**
  * Register: XQSPIPSU_ISR
  */
@@ -432,7 +415,9 @@ extern "C" {
 
 #define XQSPIPSU_SEL_SHIFT   0U
 #define XQSPIPSU_SEL_WIDTH   1U
+#if !defined (versal)
 #define XQSPIPSU_SEL_LQSPI_MASK    0X0U
+#endif
 #define XQSPIPSU_SEL_GQSPI_MASK    0X00000001U
 
 /**
@@ -839,8 +824,10 @@ extern "C" {
 #endif
 
 #define IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT 0X02U
+#if !defined (versal)
 #define IOU_TAPDLY_BYPASS_LQSPI_RX_WIDTH 0X01U
 #define IOU_TAPDLY_BYPASS_LQSPI_RX_MASK 0x00000004U
+#endif
 
 #if defined versal
 #define IOU_TAPDLY_RESET_STATE 0x4U

@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2001 - 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2001 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xwdttb.c
-* @addtogroup wdttb_v4_5
+* @addtogroup wdttb_v5_0
 * @{
 *
 * Contains the required functions of the XWdtTb driver. See xwdttb.h for a
@@ -91,6 +71,10 @@
 * 4.5  sne  06/25/19 Fixed Coverity warning in driver file.
 * 4.5  sne   09/27/19 Added common driver support for Window watchdog Timer
 *		      and AXI Timebase watchdog timer.
+* 5.0  sne   01/31/20 Removed compare value registers write in
+*		      XWdtTb_SetGenericWdtWindow function.
+* 5.0  sne   02/27/20 Reorganize the driver source and Fixed doxygen warnings.
+* 5.0  sne   03/09/20 Fixed MISRA-C violations.
 *
 * </pre>
 *
@@ -99,6 +83,7 @@
 /***************************** Include Files *********************************/
 
 #include "xwdttb.h"
+#include "xwdttb_config.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -107,19 +92,95 @@
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/**
+*
+* This function enables Window Watchdog Timer feature.
+*
+* @param       InstancePtr is a pointer to the XWdtTb instance to be
+*              worked on.
+*
+* @return      None.
+*
+* @note        This will generate the first kick and start first window. This
+*              auto clears MWC bit to make address space read only.
+*
+******************************************************************************/
+static inline void XWdtTb_EnableWinWdt(XWdtTb *InstancePtr)
+{
+	u32 RegValue;
+
+	/* Indicate that the device is started before we enable it */
+	InstancePtr->IsStarted = XIL_COMPONENT_IS_STARTED;
+
+	/* Read enable status register and update WEN bit */
+	RegValue = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
+				  XWT_ESR_OFFSET) | XWT_ESR_WEN_MASK;
+
+	/* Write enable status register with updated WEN value */
+	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET,
+			RegValue);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables generic Watchdog Timer feature.
+*
+* @param        InstancePtr is a pointer to the XWdtTb instance to be
+*               worked on.
+*
+* @return       None.
+*
+* @note         This will Start the Generic Watchdog timer.Starts
+*               the First window.
+*
+******************************************************************************/
+static inline void XWdtTb_EnableGenericWdt(XWdtTb *InstancePtr)
+{
+	/* Indicate that the device is started before we enable it */
+	InstancePtr->IsStarted = XIL_COMPONENT_IS_STARTED;
+	/* Enable the Generic Watchdog Timer */
+	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_GWCSR_OFFSET,
+			((u32)XWT_GWCSR_GWEN_MASK));
+}
+
+/*****************************************************************************/
+/**
+*
+* This function Disable Generic Watchdog Timer feature.
+*
+* @param        InstancePtr is a pointer to the XWdtTb instance to be
+*               worked on.
+*
+* @return
+*               - XST_SUCESS, if  Generic  WDT feature is disabled.
+*               - XST_FAILURE, if Generic  WDT feature is not disabled.
+*
+* @note         This will Disable Generic Watchdog Timer.
+*
+******************************************************************************/
+static inline s32 XWdtTb_DisableGenericWdt(XWdtTb *InstancePtr)
+{
+	u32 ControlStatusRegister0;
+	s32 Status;
+	ControlStatusRegister0 = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
+						XWT_GWCSR_OFFSET);
+	ControlStatusRegister0 &= (~(u32)XWT_GWCSR_GWEN_MASK);
+	/* Disable the GWEN bit */
+	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_GWCSR_OFFSET,
+			ControlStatusRegister0);
+	InstancePtr->IsStarted = (u32)0U;
+	Status = (s32)XST_SUCCESS;
+	return Status;
+}
 
 /************************** Function Prototypes ******************************/
 
-static void XWdtTb_EnableWinWdt(XWdtTb *InstancePtr);
-static s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr);
-static inline void XWdtTb_EnableGenericWdt(XWdtTb *InstancePtr);
-static s32 XWdtTb_DisableGenericWdt(XWdtTb *InstancePtr);
-static void XWdtTb_EnableTimebaseWdt(XWdtTb *InstancePtr);
-static s32 XWdtTb_DisableTimebaseWdt(XWdtTb *InstancePtr);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function initializes the AXI Timebase Watchdog Timer core. This function
 * must be called prior to using the core. Initialization of the core includes
@@ -159,7 +220,7 @@ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 	 * initializing.
 	 */
 	if (InstancePtr->IsStarted == XIL_COMPONENT_IS_STARTED) {
-		Status = XST_DEVICE_IS_STARTED;
+		Status = (s32)XST_DEVICE_IS_STARTED;
 	}
         else {
        InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
@@ -174,7 +235,7 @@ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 	}
 	InstancePtr->IsStarted = (u32)0;
 	InstancePtr->EnableFailCounter = (u32)0;
-	if (!InstancePtr->Config.IsPl) {
+	if (InstancePtr->Config.IsPl == (u32)0) {
 		InstancePtr->EnableWinMode = (u32)0U;
 		/* Reset all the Generic WDT Registers */
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_GW_WR_OFFSET,XWT_GW_WR_MASK);
@@ -182,13 +243,14 @@ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 		InstancePtr->EnableWinMode = CfgPtr->EnableWinWdt;
 	}
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
-	Status = XST_SUCCESS;
+	Status = (s32)XST_SUCCESS;
         }
 	return Status;
 }
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * Initialize a specific legacy/window watchdog timer/timebase instance/driver.
 * This function must be called before other functions of the driver are called.
@@ -211,7 +273,7 @@ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 ******************************************************************************/
 s32 XWdtTb_Initialize(XWdtTb *InstancePtr, u16 DeviceId)
 {
-	XWdtTb_Config *ConfigPtr;
+	const XWdtTb_Config *ConfigPtr;
 	s32 Status;
 
 	/* Verify argument. */
@@ -224,13 +286,13 @@ s32 XWdtTb_Initialize(XWdtTb *InstancePtr, u16 DeviceId)
 	 * initializing.
 	 */
 	if (InstancePtr->IsStarted == XIL_COMPONENT_IS_STARTED) {
-		Status = XST_DEVICE_IS_STARTED;
+		Status = (s32)XST_DEVICE_IS_STARTED;
 		goto End;
 	}
 
 	ConfigPtr = XWdtTb_LookupConfig(DeviceId);
 	if (ConfigPtr == NULL) {
-		Status = XST_DEVICE_NOT_FOUND;
+		Status = (s32)XST_DEVICE_NOT_FOUND;
 		goto End;
 	}
 
@@ -239,13 +301,14 @@ s32 XWdtTb_Initialize(XWdtTb *InstancePtr, u16 DeviceId)
 	InstancePtr->EnableFailCounter = (u32)0;
         InstancePtr->EnableWinMode = (u32)0U;
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
-	Status = XST_SUCCESS;
+	Status = (s32)XST_SUCCESS;
 End:
 	return Status;
 }
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function starts the legacy or window watchdog timer.
 *
@@ -273,7 +336,7 @@ void XWdtTb_Start(XWdtTb *InstancePtr)
                 /* Enable Window WDT */
                 XWdtTb_EnableWinWdt(InstancePtr);
         } else {
-		if (!InstancePtr->Config.IsPl) {
+		if (InstancePtr->Config.IsPl == (u32)0) {
                 /* WWDT supports Generic watchdog timer & Window WDT features*/
                 /* Enable Generic Watchdog Timer */
                 XWdtTb_EnableGenericWdt(InstancePtr);
@@ -286,6 +349,7 @@ void XWdtTb_Start(XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function disables the legacy or window watchdog timer.
 *
@@ -323,7 +387,7 @@ s32 XWdtTb_Stop(XWdtTb *InstancePtr)
                 Status = XWdtTb_DisableWinWdt(InstancePtr);
         }
         else {
-		if (!InstancePtr->Config.IsPl) {
+		if (InstancePtr->Config.IsPl == (u32)0) {
                 /* Disable Generic Watchdog Timer */
                 Status = XWdtTb_DisableGenericWdt(InstancePtr);
 		} else {
@@ -336,6 +400,7 @@ s32 XWdtTb_Stop(XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function checks if the legacy watchdog timer has expired or window
 * watchdog timer either in second window or not in second window.
@@ -372,7 +437,7 @@ u32 XWdtTb_IsWdtExpired(const XWdtTb *InstancePtr)
 		Status = !ControlStatusRegister0;
         }
         else {
-		if (!InstancePtr->Config.IsPl) {
+		if (InstancePtr->Config.IsPl == (u32)0) {
                /* Read the current contents */
                 ControlStatusRegister0 =XWdtTb_ReadReg (InstancePtr->Config.BaseAddr,XWT_GWCSR_OFFSET);
                 /* Check whether state and reset status */
@@ -402,6 +467,7 @@ u32 XWdtTb_IsWdtExpired(const XWdtTb *InstancePtr)
 }
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function checks if the Generic watchdog timer has First window expired
 * or not.
@@ -421,6 +487,9 @@ u32 XWdtTb_IsGenericWdtFWExpired(const XWdtTb *InstancePtr)
 {
         u32 Status;
         u32 ControlStatusRegister0;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
         /* Read the current contents */
         ControlStatusRegister0 =XWdtTb_ReadReg (InstancePtr->Config.BaseAddr,XWT_GWCSR_OFFSET);
         /* Check whether state and reset status */
@@ -437,6 +506,7 @@ u32 XWdtTb_IsGenericWdtFWExpired(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function restarts the legacy or window watchdog timer. An application
 * needs to call this function periodically to keep the timer from asserting
@@ -470,7 +540,7 @@ void XWdtTb_RestartWdt(const XWdtTb *InstancePtr)
 			ControlStatusRegister0);
 	}
         else {
-		if (!InstancePtr->Config.IsPl) {
+		if (InstancePtr->Config.IsPl == (u32)0) {
 		/*  Read enable status register and update Refresh Register  bit */
 		ControlStatusRegister0 =
 				XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
@@ -501,6 +571,7 @@ void XWdtTb_RestartWdt(const XWdtTb *InstancePtr)
 }
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function keeps Window Watchdog Timer always enabled.
 *
@@ -531,6 +602,7 @@ void XWdtTb_AlwaysEnable(const XWdtTb *InstancePtr)
 }
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function clears event(s) that present after system reset.
 *
@@ -573,6 +645,7 @@ void XWdtTb_ClearLastEvent(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function clears the window watchdog reset pending.
 *
@@ -603,6 +676,7 @@ void XWdtTb_ClearResetPending(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function clears window watchdog timer interrupt (WINT) bit.
 *
@@ -645,6 +719,7 @@ void XWdtTb_IntrClear(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function sets byte count to determine the interrupt assertion point
 * in the second window configuration.
@@ -685,6 +760,7 @@ void XWdtTb_SetByteCount(const XWdtTb *InstancePtr, u32 ByteCount)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function provides byte count value of the selected byte count in the
 * second window configuration.
@@ -711,6 +787,7 @@ u32 XWdtTb_GetByteCount(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function sets byte segment selection to determine the interrupt
 * assertion point in the second window configuration.
@@ -755,6 +832,7 @@ void XWdtTb_SetByteSegment(const XWdtTb *InstancePtr, u32 ByteSegment)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function provides byte segment selection in the second window
 * configuration.
@@ -784,6 +862,7 @@ u32 XWdtTb_GetByteSegment(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function enables Second Sequence Timer (SST) function.
 *
@@ -820,6 +899,7 @@ void XWdtTb_EnableSst(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function disables Second Sequence Timer (SST) function.
 *
@@ -851,6 +931,7 @@ void XWdtTb_DisableSst(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function enables Program Sequence Monitor (PSM) function.
 *
@@ -889,6 +970,7 @@ void XWdtTb_EnablePsm(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function disables Program Sequence Monitor (PSM) function.
 *
@@ -920,6 +1002,7 @@ void XWdtTb_DisablePsm(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function enables Fail Counter (FC) function.
 *
@@ -959,6 +1042,7 @@ void XWdtTb_EnableFailCounter(XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function disables Fail Counter (FC) function.
 *
@@ -992,6 +1076,7 @@ void XWdtTb_DisableFailCounter(XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function provides extra safeguard against unintentional clear of WEN
 * bit.
@@ -1024,6 +1109,7 @@ void XWdtTb_EnableExtraProtection(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function enables unintentional clear of WEN bit.
 *
@@ -1055,6 +1141,7 @@ void XWdtTb_DisableExtraProtection(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function sets the count value for the first and second window.
 *
@@ -1094,170 +1181,39 @@ void XWdtTb_SetWindowCount(const XWdtTb *InstancePtr, u32 FirstWinCount,
 		SecondWinCount);
 }
 /*****************************************************************************/
-/*
- *
- * This function sets the count value for the GWDT_Compare_value_reg0 ,GWDT_Compare_value_reg1 &
- * GWDT_Offset_regs .
- *
- * @param     InstancePtr is a pointer to the XWdtTb instance to be
- *            worked on.
- * @param     GWCVR0_config  specifies the GWDT_Compare_value_reg0 count value.
- * @param     GWCVR1_config  specifies the GWDT_Compare_value_reg1 count value.
- * @param     GWOR_config    specifies the GWDT_Offset_reg count value.
- * @return    None.
- *
- * @note
- *            This function must be called before Window WDT start/enable
- *            or after Window WDT stop/disable.
- *            - For first window,We are configuring Two registers i.e
- *              GWDT_Compare_value_reg0 &GWDT_Compare_value_reg1.
- *            - For second window, We are configuring the GWDT_Offset Reg
- *
- ******************************************************************************/
-void XWdtTb_SetGenericWdtWindow(const XWdtTb *InstancePtr,u32 GWCVR0_config, u32 GWCVR1_config, u32 GWOR_config)
+/**
+* @brief
+*
+* This function sets the count value for the GWDT_Compare_value_reg0 ,GWDT_Compare_value_reg1 &
+* GWDT_Offset_regs .
+*
+* @param     InstancePtr is a pointer to the XWdtTb instance to be
+*            worked on.
+* @param     GWOR_config    specifies the GWDT_Offset_reg count value.
+* @return    None.
+*
+* @note
+*            This function must be called before Window WDT start/enable
+*            or after Window WDT stop/disable.
+*
+******************************************************************************/
+void XWdtTb_SetGenericWdtWindow(const XWdtTb *InstancePtr, u32 GWOR_config)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	/* Write GWDT_Compare_value_reg0 count value*/
-	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCVR0_OFFSET,GWCVR0_config);
-	/* Write GWDT_Compare_value_reg1 count value*/
-	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCVR1_OFFSET,GWCVR1_config);
 	/* Write GWDT_Offset_reg count value*/
 	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWOR_OFFSET,GWOR_config);
 }
-/*****************************************************************************/
-/**
-*
-* This function enables Window Watchdog Timer feature.
-*
-* @param	InstancePtr is a pointer to the XWdtTb instance to be
-*		worked on.
-*
-* @return	None.
-*
-* @note		This will generate the first kick and start first window. This
-*		auto clears MWC bit to make address space read only.
-*
-******************************************************************************/
-static void XWdtTb_EnableWinWdt(XWdtTb *InstancePtr)
-{
-	u32 RegValue;
-
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->EnableWinMode == (u32)TRUE);
-
-        /* Indicate that the device is started before we enable it */
-	InstancePtr->IsStarted = XIL_COMPONENT_IS_STARTED;
-
-	/* Read enable status register and update WEN bit */
-	RegValue = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-			XWT_ESR_OFFSET) | XWT_ESR_WEN_MASK;
-
-	/* Write enable status register with updated WEN value */
-	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET,
-		RegValue);
-}
 
 /*****************************************************************************/
 /**
-*
-* This function disables Window Watchdog Timer feature.
-*
-* @param	InstancePtr is a pointer to the XWdtTb instance to be
-*		worked on.
-*
-* @return
-*		- XST_SUCESS, if Window WDT feature is disabled.
-*		- XST_FAILURE, if Window WDT feature is not disabled. Refer
-*		note section for the reasons.
-*
-* @note
-*		- Disabling watchdog in first window duration is considered as
-*		bade event. It can only be disabled in the second window
-*		duration.
-*		- If fail counter is enabled, watchdog can be disabled only
-*		when fail counter is zero.
-*
-******************************************************************************/
-static s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr)
-{
-	s32 Status;
-	u32 FailCounterVal;
-	u32 SecWindow;
-	u32 RegValue;
-
-	/* Verify arguments. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->EnableWinMode == (u32)TRUE);
-
-        /* Read enable status register and get second window value */
-	SecWindow = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-		XWT_ESR_OFFSET) & XWT_ESR_WSW_MASK) >> XWT_ESR_WSW_SHIFT;
-
-	/* Check whether FC is enabled */
-	if (InstancePtr->EnableFailCounter == (u32)XWT_ONE) {
-		/* Read enable status register and get FC value */
-		FailCounterVal = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-			XWT_ESR_OFFSET) & XWT_ESR_FCV_MASK) >>
-				XWT_ESR_FCV_SHIFT;
-
-		/* Check whether FC is zero and WDT is in second window */
-		if ((FailCounterVal == (u32)XWT_ZERO) && (SecWindow == (u32)XWT_ONE)) {
-			/* Read enable status register and update WEN bit */
-			RegValue = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-				XWT_ESR_OFFSET) & (~XWT_ESR_WEN_MASK);
-
-			/* Set WSW bit to zero. It is RW1C bit */
-			RegValue &= ~((u32)XWT_ESR_WSW_MASK);
-
-			/*
-			 * Write enable status register with updated WEN and
-			 * WSW value
-			 */
-			XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
-				XWT_ESR_OFFSET, RegValue);
-
-			InstancePtr->IsStarted = (u32)0U;
-			Status = XST_SUCCESS;
-		}
-		else {
-			Status = XST_FAILURE;
-		}
-	}
-	/* Check whether watchdog in second window */
-	else if (SecWindow == (u32)XWT_ONE) {
-		/* Read enable status register and update WEN bit */
-		RegValue = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-			XWT_ESR_OFFSET) & (~XWT_ESR_WEN_MASK);
-
-		/* Set WSW bit to zero. It is RW1C bit */
-		RegValue &= ~((u32)XWT_ESR_WSW_MASK);
-
-		/*
-		 * Write enable status register with updated WEN and WSW
-		 * value
-		 */
-		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET,
-			RegValue);
-
-		InstancePtr->IsStarted = (u32)0U;
-		Status = XST_SUCCESS;
-	}
-	else {
-		Status = XST_FAILURE;
-	}
-
-	return Status;
-}
-/*****************************************************************************/
-/**
+* @brief
 *
 * This function programs the width of Watchdog Timer.
 *
 * @param	InstancePtr - InstancePtr is a pointer to the XWdtTb instance to be
 *		    worked on.
-*			width - width of the Watchdog Timer.
+* @param	width - width of the Watchdog Timer.
 *
 * @return
 *		- XST_SUCESS, if window mode is disabled and the width is
@@ -1289,153 +1245,5 @@ u32 XWdtTb_ProgramWDTWidth(const XWdtTb *InstancePtr, u32 width)
                 Status =(u32)XST_FAILURE;
         }
         return Status;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function enables generic Watchdog Timer feature.
-*
-* @param        InstancePtr is a pointer to the XWdtTb instance to be
-*               worked on.
-*
-* @return       None.
-*
-* @note         This will Start the Generic Watchdog timer.Starts
-*               the First window.
-*
-******************************************************************************/
-static inline void XWdtTb_EnableGenericWdt(XWdtTb *InstancePtr)
-{
-	/* Indicate that the device is started before we enable it */
-	InstancePtr->IsStarted = XIL_COMPONENT_IS_STARTED;
-	/* Enable the Generic Watchdog Timer */
-	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCSR_OFFSET,((u32)XWT_GWCSR_GWEN_MASK));
-}
-
-
-/*****************************************************************************/
-/**
-*
-* This function Disable Generic Watchdog Timer feature.
-*
-* @param        InstancePtr is a pointer to the XWdtTb instance to be
-*               worked on.
-*
-* @return
-*               - XST_SUCESS, if  Generic  WDT feature is disabled.
-*               - XST_FAILURE, if Generic  WDT feature is not disabled.
-*
-* @note         This will Disable Generic Watchdog Timer.
-*
-******************************************************************************/
-static s32 XWdtTb_DisableGenericWdt(XWdtTb *InstancePtr)
-{
-	u32 ControlStatusRegister0;
-	s32 Status;
-	ControlStatusRegister0=XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,XWT_GWCSR_OFFSET);
-	ControlStatusRegister0 &= (~(u32)XWT_GWCSR_GWEN_MASK);
-	/* Disable the GWEN bit */
-	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_GWCSR_OFFSET,ControlStatusRegister0);
-	Status = XST_SUCCESS;
-        InstancePtr->IsStarted = (u32)0U;
-	return Status;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function enables Timebase Watchdog Timer feature.
-*
-* @param        InstancePtr is a pointer to the XWdtTb instance to be
-*               worked on.
-*
-* @return       None.
-*
-* @note         This will Start the Timebase Watchdog timer.
-*
-******************************************************************************/
-static void XWdtTb_EnableTimebaseWdt(XWdtTb *InstancePtr)
-{
-	u32 ControlStatusRegister0;
-	/*
-	 * Read the current contents of TCSR0 so that subsequent writes
-	 * to the register won't destroy any other bits
-         */
-	ControlStatusRegister0 =
-			XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,XWT_TWCSR0_OFFSET);
-	/*
-	 * Clear the bit that indicates the reason for the last
-	 * system reset, WRS and the WDS bit, if set, by writing
-	 * 1's to TCSR0
-	 */
-	ControlStatusRegister0 |= ((u32)XWT_CSR0_WRS_MASK |(u32)XWT_CSR0_WDS_MASK);
-
-	/* Indicate that the device is started before we enable it */
-	InstancePtr->IsStarted = XIL_COMPONENT_IS_STARTED;
-	/*
-	 * Set the registers to enable the watchdog timer, both enable
-	 * bits in TCSR0 and TCSR1 need to be set to enable it
-	 */
-	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
-			XWT_TWCSR0_OFFSET, (ControlStatusRegister0 |(u32)XWT_CSR0_EWDT1_MASK));
-	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
-			XWT_TWCSR1_OFFSET, XWT_CSRX_EWDT2_MASK);
-}
-/*****************************************************************************/
-/**
-*
-* This function Disable Timebase Watchdog Timer feature.
-*
-* @param        InstancePtr is a pointer to the XWdtTb instance to be
-*               worked on.
-*
-* @return
-*               - XST_SUCESS, if  Timebase  WDT feature is disabled.
-*               - XST_FAILURE, if Timebase  WDT feature is not disabled.
-*
-* @note         This will Disable Timebase Watchdog Timer.
-*
-******************************************************************************/
-static s32 XWdtTb_DisableTimebaseWdt(XWdtTb *InstancePtr)
-{
-	u32 ControlStatusRegister0;
-	s32 Status;
-	/*
-         * Check if the disable of the watchdog timer is possible by
-         * writing a 0 to TCSR1 to clear the 2nd enable. If the Enable
-         * does not clear in TCSR0, the watchdog cannot be disabled.
-         * Return a NO_FEATURE to indicate this.
-        */
-	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_TWCSR1_OFFSET, (u32)0U);
-	/*
-     * Read the contents of TCSR0 so that the writes to the
-     * register that follow are not destructive to other bits and
-     * to check if the second enable was set to zero.
-     */
-	ControlStatusRegister0 =
-			XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,XWT_TWCSR0_OFFSET);
-	/*
-	 * If the second enable was not set to zero, the feature is not
-     * allowed in the hardware. Return with NO_FEATURE status
-     */
-	if ((ControlStatusRegister0 & XWT_CSRX_EWDT2_MASK) != (u32)XWT_ZERO) {
-		Status = XST_NO_FEATURE;
-	}
-        else
-        {
-	/*
-     * Disable the watchdog timer by performing 2 writes, 1st to
-     * TCSR0 to clear the enable 1 and then to TCSR1 to clear the
-     * 2nd enable.
-     */
-	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
-			XWT_TWCSR0_OFFSET, (ControlStatusRegister0 &~((u32)XWT_CSR0_EWDT1_MASK)));
-	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
-			XWT_TWCSR1_OFFSET, 0U);
-	InstancePtr->IsStarted = (u32)0U;
-	Status = XST_SUCCESS;
-	}
-	return Status;
 }
 /** @} */

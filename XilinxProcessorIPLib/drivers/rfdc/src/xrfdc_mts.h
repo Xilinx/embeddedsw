@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xrfdc_mts.c
-* @addtogroup xrfdc_v7_0
+* @addtogroup rfdc_v8_0
 * @{
 *
 * Contains the multi tile sync related structures, Macros of the XRFdc driver.
@@ -50,6 +30,8 @@
 *                       optimization.
 * 6.0   cog    02/17/19 Added XRFdc_GetMTSEnable API.
 * 7.0   cog    05/13/19 Formatting changes.
+* 7.1   cog    01/20/20 Changes for MTS Gen 1/2 compatibility mode.
+* 8.0   cog    02/10/20 Updated addtogroup.
 *
 * </pre>
 *
@@ -129,7 +111,12 @@ typedef struct {
 #define XRFDC_MTS_FIFO_DISABLE 0x0002U
 #define XRFDC_MTS_AMARK_LOC_S 0x10U
 #define XRFDC_MTS_AMARK_DONE_S 0x14U
-#define XRFDC_MTS_DLY_ALIGNER 0x28U
+#define XRFDC_MTS_DLY_ALIGNER0 0x28U
+#define XRFDC_MTS_DLY_ALIGNER1 0x2CU
+#define XRFDC_MTS_DLY_ALIGNER2 0x30U
+#define XRFDC_MTS_DLY_ALIGNER3 0x34U
+#define XRFDC_MTS_DIR_FIFO_PTR 0x40U
+#define XRFDC_MTS_DAC_MARKER_LOC_MASK(X) ((X < XRFDC_GEN3) ? 0x7U : 0xFU)
 
 /* Error Codes */
 #define XRFDC_MTS_OK 0U

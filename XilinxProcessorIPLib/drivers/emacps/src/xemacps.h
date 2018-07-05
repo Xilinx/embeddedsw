@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
  *
  * @file xemacps.h
-* @addtogroup emacps_v3_10
+* @addtogroup emacps_v3_11
 * @{
 * @details
  *
@@ -327,6 +307,7 @@
  * 3.8   hk   07/19/18 Fixed CPP, GCC and doxygen warnings - CR-1006327
  *	 hk   09/17/18 Fix PTP interrupt masks and cleanup comments.
  * 3.9   hk   01/23/19 Add RX watermark support
+ * 3.11  sd   02/14/20 Add clock support
  *
  * </pre>
  *
@@ -347,6 +328,9 @@ extern "C" {
 #include "xemacps_hw.h"
 #include "xemacps_bd.h"
 #include "xemacps_bdring.h"
+#if defined  (XCLOCKING)
+#include "xil_clocking.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 
@@ -527,6 +511,9 @@ typedef struct {
 	UINTPTR BaseAddress;/**< Physical base address of IPIF registers */
 	u8 IsCacheCoherent; /**< Applicable only to A53 in EL1 mode;
 				* describes whether Cache Coherent or not */
+#if defined  (XCLOCKING)
+	u32 RefClk;	/**< Input clock */
+#endif
 } XEmacPs_Config;
 
 

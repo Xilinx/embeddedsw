@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2007 - 2014 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
 * @file xsysmon.h
-* @addtogroup sysmon_v7_5
+* @addtogroup sysmon_v7_6
 * @{
 * @details
 *
@@ -218,6 +198,8 @@
 *                    for doxygen generation.
 * 7.4  ms   04/18/17 Modified tcl file to add suffix U for all macros
 *                    definitions of sysmon in xparameters.h
+* 7.6  aad  03/23/20 Aligned Macros to the documentation
+*
 * </pre>
 *
 *****************************************************************************/
@@ -256,6 +238,12 @@ extern "C" {
 #define XSM_CH_VCCPINT		0x0D /**< On-chip PS VCCPINT Channel, Zynq */
 #define XSM_CH_VCCPAUX		0x0E /**< On-chip PS VCCPAUX Channel, Zynq */
 #define XSM_CH_VCCPDRO		0x0F /**< On-chip PS VCCPDRO Channel, Zynq */
+#define XSM_CH_VCCLPINT		0x0D /**< On-chip PS VCCLPINT Channel,
+				       Ultrascale */
+#define XSM_CH_VCCFPINT		0x0E /**< On-chip PS VCCFPINT Channel,
+				       Ultrascale */
+#define XSM_CH_VCCPSAUX		0x0F /**< On-chip PS VCCPAUX Channel,
+				       Ultrascale */
 #define XSM_CH_AUX_MIN		16   /**< Channel number for 1st Aux Channel */
 #define XSM_CH_AUX_MAX		31   /**< Channel number for Last Aux channel */
 #define XSM_CH_VUSR0            32  /**< VUSER0 Supply - UltraScale */

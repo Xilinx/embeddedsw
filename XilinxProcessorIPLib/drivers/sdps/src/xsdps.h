@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xsdps.h
-* @addtogroup sdps_v3_8
+* @addtogroup sdps_v3_9
 * @{
 * @details
 *
@@ -147,6 +127,8 @@
 * 3.7   mn     02/01/19 Add support for idling of SDIO
 * 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
 *       mn     09/17/19 Modified ADMA handling API for 32bit and 64bit addresses
+* 3.9   mn     03/03/20 Restructured the code for more readability and modularity
+*       mn     03/16/20 Move XSdPs_Select_Card API to User APIs
 *
 * </pre>
 *
@@ -165,13 +147,46 @@ extern "C" {
 #include "xstatus.h"
 #include "xsdps_hw.h"
 #include "xplatform_info.h"
+#include "sleep.h"
 #include <string.h>
+#if defined  (XCLOCKING)
+#include "xil_clocking.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
 #define XSDPS_CT_ERROR	0x2L	/**< Command timeout flag */
 #define MAX_TUNING_COUNT	40U		/**< Maximum Tuning count */
 #define MAX_TIMEOUT		0x1FFFFFFFU		/**< Maximum Timeout */
+#define XSDPS_CMD8_VOL_PATTERN	0x1AAU
+#define XSDPS_RESPOCR_READY	0x80000000U
+#define XSDPS_ACMD41_HCS	0x40000000U
+#define XSDPS_ACMD41_3V3	0x00300000U
+#define XSDPS_CMD1_HIGH_VOL	0x00FF8000U
+#define XSDPS_CMD1_DUAL_VOL	0x00FF8010U
+#define HIGH_SPEED_SUPPORT	0x2U
+#define UHS_SDR12_SUPPORT	0x1U
+#define UHS_SDR25_SUPPORT	0x2U
+#define UHS_SDR50_SUPPORT	0x4U
+#define UHS_SDR104_SUPPORT	0x8U
+#define UHS_DDR50_SUPPORT	0x10U
+#define WIDTH_4_BIT_SUPPORT	0x4U
+#define SD_CLK_25_MHZ		25000000U
+#define SD_CLK_19_MHZ		19000000U
+#define SD_CLK_26_MHZ		26000000U
+#define EXT_CSD_DEVICE_TYPE_BYTE	196U
+#define EXT_CSD_SEC_COUNT_BYTE1		212U
+#define EXT_CSD_SEC_COUNT_BYTE2		213U
+#define EXT_CSD_SEC_COUNT_BYTE3		214U
+#define EXT_CSD_SEC_COUNT_BYTE4		215U
+#define EXT_CSD_DEVICE_TYPE_HIGH_SPEED			0x2U
+#define EXT_CSD_DEVICE_TYPE_DDR_1V8_HIGH_SPEED	0x4U
+#define EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED	0x8U
+#define EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200		0x10U
+#define EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200		0x20U
+#define CSD_SPEC_VER_3		0x3U
+#define SCR_SPEC_VER_3		0x80U
+#define ADDRESS_BEYOND_32BIT	0x100000000U
 
 /**************************** Type Definitions *******************************/
 
@@ -190,6 +205,9 @@ typedef struct {
 	u32 BankNumber;			/**< MIO Bank selection for SD */
 	u32 HasEMIO;			/**< If SD is connected to EMIO */
 	u8 IsCacheCoherent; 		/**< If SD is Cache Coherent or not */
+#if defined  (XCLOCKING)
+	u32 RefClk;			/**< Input clocks */
+#endif
 } XSdPs_Config;
 
 /* ADMA2 32-Bit descriptor table */
@@ -239,9 +257,11 @@ typedef struct {
 	u32 SectorCount;		/**< Sector Count */
 	u32 SdCardConfig;	/**< Sd Card Configuration Register */
 	u32 Mode;			/**< Bus Speed Mode */
-	u32	OTapDelay;		/**< Output Tap Delay */
-	u32	ITapDelay;		/**< Input Tap Delay */
+	u32 OTapDelay;		/**< Output Tap Delay */
+	u32 ITapDelay;		/**< Input Tap Delay */
 	u64 Dma64BitAddr;	/**< 64 Bit DMA Address */
+	u16 TransferMode;	/**< Transfer Mode */
+	u32 SlcrBaseAddr;	/**< SLCR base address*/
 } XSdPs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -250,29 +270,22 @@ typedef struct {
 XSdPs_Config *XSdPs_LookupConfig(u16 DeviceId);
 s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 				u32 EffectiveAddr);
-s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr);
+s32 XSdPs_CardInitialize(XSdPs *InstancePtr);
 s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff);
 s32 XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff);
-s32 XSdPs_SetBlkSize(XSdPs *InstancePtr, u16 BlkSize);
-s32 XSdPs_Select_Card (XSdPs *InstancePtr);
-s32 XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq);
-s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr);
+s32 XSdPs_Idle(XSdPs *InstancePtr);
+
 s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr);
-s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *ReadBuff);
-s32 XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff);
-s32 XSdPs_Get_Status(XSdPs *InstancePtr, u8 *SdStatReg);
+s32 XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq);
 s32 XSdPs_Pullup(XSdPs *InstancePtr);
-s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr);
-s32 XSdPs_CardInitialize(XSdPs *InstancePtr);
+s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *ReadBuff);
+s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr);
+s32 XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff);
 s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff);
 s32 XSdPs_Set_Mmc_ExtCsd(XSdPs *InstancePtr, u32 Arg);
-void XSdPs_Idle(XSdPs *InstancePtr);
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
-void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff);
-void XSdPs_ddr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
-void XSdPs_hsd_sdr25_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
-void XSdPs_sdr104_hs200_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
-#endif
+s32 XSdPs_SetBlkSize(XSdPs *InstancePtr, u16 BlkSize);
+s32 XSdPs_Get_Status(XSdPs *InstancePtr, u8 *SdStatReg);
+s32 XSdPs_Select_Card(XSdPs *InstancePtr);
 
 #ifdef __cplusplus
 }

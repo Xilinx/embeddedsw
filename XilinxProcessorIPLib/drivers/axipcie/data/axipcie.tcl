@@ -1,26 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2011 - 2014 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-#
+# Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
 #
@@ -80,6 +60,10 @@ proc generate {drv_handle} {
 	"C_PCIEBAR2AXIBAR_2"\
 	"C_PCIEBAR_LEN_3"\
 	"C_PCIEBAR2AXIBAR_3"\
+	"C_PCIEBAR_LEN_4"\
+	"C_PCIEBAR2AXIBAR_4"\
+	"C_PCIEBAR_LEN_5"\
+	"C_PCIEBAR2AXIBAR_5"\
 	"C_INCLUDE_RC" 
   
         ::hsi::utils::define_config_file $drv_handle "xaxipcie_g.c" "XAxiPcie" \
@@ -131,6 +115,10 @@ proc generate {drv_handle} {
 	"C_PCIEBAR2AXIBAR_2"\
 	"C_PCIEBAR_LEN_3"\
 	"C_PCIEBAR2AXIBAR_3"\
+	"C_PCIEBAR_LEN_4"\
+	"C_PCIEBAR2AXIBAR_4"\
+	"C_PCIEBAR_LEN_5"\
+	"C_PCIEBAR2AXIBAR_5"\
  	"C_INCLUDE_RC" 
 }
 
@@ -140,7 +128,7 @@ proc xdefine_pcie_include_file {drv_handle file_name drv_string args} {
 
     # Get all peripherals connected to this driver
     set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
-
+    set ipname [common::get_property IP_NAME [get_cells -hier $drv_handle]]
     # Handle special cases
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
@@ -190,6 +178,10 @@ proc xdefine_pcie_include_file {drv_handle file_name drv_string args} {
 		set arg "HIGHADDR"
                 set value [::hsi::utils::get_param_value $periph $arg]
 	    }	
+	    if { $value == 0 && $arg == "C_PCIEBAR_NUM" && [string match -nocase $ipname "axi_pcie3"]} {
+		set arg "PCIEBAR_NUM"
+                set value [::hsi::utils::get_param_value $periph $arg]
+	    }
 
             set value [::hsi::utils::format_addr_string $value $arg]
             if {[string compare -nocase "HW_VER" $arg] == 0} {
@@ -208,6 +200,7 @@ proc xdefine_pcie_canonical_xpars {drv_handle file_name drv_string args} {
     # Open include file
     set file_handle [::hsi::utils::open_include_file $file_name]
 
+    set ipname [common::get_property IP_NAME [get_cells -hier $drv_handle]]
     # Get all the peripherals connected to this driver
     set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 
@@ -265,6 +258,10 @@ proc xdefine_pcie_canonical_xpars {drv_handle file_name drv_string args} {
 		    set arg "HIGHADDR"
                     set rvalue [::hsi::utils::get_param_value $periph $arg]
 	        }	
+	        if { $rvalue == 0 && $arg == "C_PCIEBAR_NUM" && [string match -nocase $ipname "axi_pcie3"]} {
+		    set arg "PCIEBAR_NUM"
+		    set rvalue [::hsi::utils::get_param_value $periph $arg]
+		}
 
                 set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
 

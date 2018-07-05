@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xrfdc_mts.c
-* @addtogroup xrfdc_v7_0
+* @addtogroup rfdc_v8_0
 * @{
 *
 * Contains the multi tile sync functions of the XRFdc driver.
@@ -53,6 +33,12 @@
 * 6.0   cog    02/17/19 Added XRFdc_GetMTSEnable API.
 * 7.0   cog    05/13/19 Formatting changes.
 *       cog    08/02/19 Formatting changes.
+* 7.1   cog    12/20/19 Metal log messages are now more descriptive.
+*       cog    01/20/20 Changes for MTS Gen 1/2 compatibility mode.
+*       cog    01/29/20 Fixed metal log typos.
+* 8.0   cog    02/10/20 Updated addtogroup.
+*       cog    02/20/20 Apply applicable clock gated offets to marker counter.
+*       cog    02/20/20 Double sysref frequency if in IQ mode.
 *
 * </pre>
 *
@@ -191,7 +177,7 @@ static u32 XRFdc_MTS_Sysref_Dist(XRFdc *InstancePtr, int Num_DAC)
 {
 	if (Num_DAC < 0) {
 		/* Auto-detect. Only 2 types Supported - 2GSPS ADCs, 4GSPS ADCs */
-		if (XRFdc_IsHighSpeedADC(InstancePtr, 0) != 0U) {
+		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3 && XRFdc_IsHighSpeedADC(InstancePtr, 0) != 0U) {
 			Num_DAC = 2;
 		} else {
 			Num_DAC = 4;
@@ -656,18 +642,72 @@ static void XRFdc_MTS_Marker_Read(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32
 {
 	u32 BaseAddr;
 	u32 RegData = 0x0;
+	u32 RateFactor;
+	u32 Group;
+	u32 GStart;
+	u32 GOffset = XRFDC_CG_FIXED_OFS;
 
 	if (Type == XRFDC_ADC_TILE) {
-		BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) - 0x2000;
+		BaseAddr = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
 		RegData = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_ADC_MARKER_CNT + (FIFO_Id << 2));
 		*CountPtr = XRFDC_MTS_FIELD(RegData, XRFDC_MTS_AMARK_CNT_M, 0);
 		*LocPtr = XRFDC_MTS_FIELD(RegData, XRFDC_MTS_AMARK_LOC_M, XRFDC_MTS_AMARK_LOC_S);
 		*DonePtr = XRFDC_MTS_FIELD(RegData, XRFDC_MTS_AMARK_DONE_M, XRFDC_MTS_AMARK_DONE_S);
 	} else {
-		BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_BLOCK_ADDR_OFFSET(FIFO_Id);
+		BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, FIFO_Id);
 		*CountPtr = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_MARKER_CNT);
-		*LocPtr = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_MARKER_LOC);
+		*LocPtr = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_MARKER_LOC,
+				      XRFDC_MTS_DAC_MARKER_LOC_MASK(InstancePtr->RFdc_Config.IPType));
 		*DonePtr = 1;
+		if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+			RateFactor = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_INTERP_CTRL_OFFSET,
+						 XRFDC_INTERP_MODE_I_MASK_EXT);
+			switch (RateFactor) {
+			case XRFDC_INTERP_DECIM_1X:
+			case XRFDC_INTERP_DECIM_2X:
+			case XRFDC_INTERP_DECIM_4X:
+			case XRFDC_INTERP_DECIM_8X:
+				break;
+			case XRFDC_INTERP_DECIM_3X:
+			case XRFDC_INTERP_DECIM_6X:
+			case XRFDC_INTERP_DECIM_12X:
+				Group = (*CountPtr - GOffset) / XRFDC_CG_CYCLES_TOTAL_X3_X6_X12;
+				GStart = Group * XRFDC_CG_CYCLES_TOTAL_X3_X6_X12;
+				*CountPtr = (Group * XRFDC_CG_CYCLES_KEPT_X3_X6_X12) + *CountPtr - GStart;
+				break;
+			case XRFDC_INTERP_DECIM_5X:
+			case XRFDC_INTERP_DECIM_10X:
+				Group = (*CountPtr - GOffset) / XRFDC_CG_CYCLES_TOTAL_X5_X10;
+				GStart = Group * XRFDC_CG_CYCLES_TOTAL_X5_X10;
+				*CountPtr = (Group * XRFDC_CG_CYCLES_KEPT_X5_X10) + *CountPtr - GStart;
+				break;
+			case XRFDC_INTERP_DECIM_16X:
+				Group = (*CountPtr - GOffset) / XRFDC_CG_CYCLES_TOTAL_X16;
+				GStart = Group * XRFDC_CG_CYCLES_TOTAL_X16;
+				*CountPtr = (Group * XRFDC_CG_CYCLES_KEPT_X16) + *CountPtr - GStart;
+				break;
+			case XRFDC_INTERP_DECIM_20X:
+				Group = (*CountPtr - GOffset) / XRFDC_CG_CYCLES_TOTAL_X20;
+				GStart = Group * XRFDC_CG_CYCLES_TOTAL_X20;
+				*CountPtr = (Group * XRFDC_CG_CYCLES_KEPT_X20) + *CountPtr - GStart;
+				break;
+			case XRFDC_INTERP_DECIM_24X:
+				Group = (*CountPtr - GOffset) / XRFDC_CG_CYCLES_TOTAL_X24;
+				GStart = Group * XRFDC_CG_CYCLES_TOTAL_X24;
+				*CountPtr = (Group * XRFDC_CG_CYCLES_KEPT_X24) + *CountPtr - GStart;
+				break;
+			case XRFDC_INTERP_DECIM_40X:
+				Group = (*CountPtr - GOffset) / XRFDC_CG_CYCLES_TOTAL_X40;
+				GStart = Group * XRFDC_CG_CYCLES_TOTAL_X40;
+				*CountPtr = (Group * XRFDC_CG_CYCLES_KEPT_X40) + *CountPtr - GStart;
+				break;
+			default:
+				metal_log(METAL_LOG_DEBUG,
+					  "\n Interpolation block is OFF for DAC %u block %u in %s\r\n", Tile_Id,
+					  FIFO_Id, __func__);
+				break;
+			}
+		}
 	}
 	metal_log(METAL_LOG_DEBUG, "Marker Read Tile %d, FIFO %d - %08X = %04X: count=%d, loc=%d, done=%d\n", Tile_Id,
 		  FIFO_Id, BaseAddr, RegData, *CountPtr, *LocPtr, *DonePtr);
@@ -703,6 +743,7 @@ static u32 XRFdc_MTS_GetMarker(XRFdc *InstancePtr, u32 Type, u32 Tiles, XRFdc_MT
 	u32 Tile_Id;
 	u32 Block_Id;
 	u32 Status;
+	u32 BaseAddr;
 
 	Status = XRFDC_MTS_OK;
 	if (Type == XRFDC_ADC_TILE) {
@@ -710,18 +751,30 @@ static u32 XRFdc_MTS_GetMarker(XRFdc *InstancePtr, u32 Type, u32 Tiles, XRFdc_MT
 		XRFdc_WriteReg(InstancePtr, 0, XRFDC_MTS_ADC_MARKER, 1);
 		XRFdc_WriteReg(InstancePtr, 0, XRFDC_MTS_ADC_MARKER, 0);
 	} else {
-		/*
+		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+			/*
 		 * SysRef Capture should be still active from the DTC Scan
 		 * but set it anyway to be sure
 		 */
-		for (Tile_Id = XRFDC_TILE_ID0; Tile_Id < XRFDC_TILE_ID4; Tile_Id++) {
-			if (((1U << Tile_Id) & Tiles) != 0U) {
-				XRFdc_MTS_Sysref_Ctrl(InstancePtr, XRFDC_DAC_TILE, Tile_Id, 0, 1, 0);
+			for (Tile_Id = XRFDC_TILE_ID0; Tile_Id < XRFDC_TILE_ID4; Tile_Id++) {
+				if (((XRFDC_ENABLED << Tile_Id) & Tiles) != 0U) {
+					XRFdc_MTS_Sysref_Ctrl(InstancePtr, XRFDC_DAC_TILE, Tile_Id, 0, 1, 0);
+				}
+			}
+
+			/* Set marker delay */
+			XRFdc_WriteReg(InstancePtr, XRFDC_IP_BASE, XRFDC_MTS_DAC_MARKER_CTRL, Marker_Delay);
+		} else {
+			for (Tile_Id = XRFDC_TILE_ID0; Tile_Id < XRFDC_TILE_ID4; Tile_Id++) {
+				if (((XRFDC_ENABLED << Tile_Id) & Tiles) != 0U) {
+					for (Block_Id = XRFDC_BLK_ID0; Block_Id < XRFDC_BLK_ID4; Block_Id++) {
+						BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Block_Id);
+						XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_FIFO_MARKER_CTRL,
+								0x1, 0x1);
+					}
+				}
 			}
 		}
-
-		/* Set marker delay */
-		XRFdc_WriteReg(InstancePtr, 0, XRFDC_MTS_DAC_MARKER_CTRL, Marker_Delay);
 	}
 
 	/* Allow the marker counter to run */
@@ -765,7 +818,7 @@ static u32 XRFdc_MTS_GetMarker(XRFdc *InstancePtr, u32 Type, u32 Tiles, XRFdc_MT
 						metal_log(
 							METAL_LOG_ERROR,
 							"SysRef capture mismatch on %s tile %d, PL SysRef may not have been captured synchronously\n",
-							(Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Block_Id);
+							(Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id);
 						Status |= XRFDC_MTS_MARKER_MISM;
 					}
 				}
@@ -801,7 +854,7 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 			     XRFdc_MTS_Marker *MarkersPtr)
 {
 	u32 Status, Fifo, Index, BaseAddr, RegAddr;
-	int Count_W, Loc_W, Latency, Offset, Max_Latency, Target, Delta;
+	int Count_W, Loc_W, Latency, Offset, OffsetReg, Max_Latency, Target, Delta;
 	int I_Part, F_Part, SysRefT1Period, LatencyDiff, LatencyOffset;
 	u32 RegData, SysRefFreqCntrDone;
 	int Target_Latency = -1;
@@ -809,6 +862,9 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 	u32 Factor = 1U;
 	u32 Write_Words = 0U;
 	u32 Read_Words = 1U;
+	u32 Block_Id;
+	XRFdc_Mixer_Settings Mixer_Settings;
+	u32 IQFactor = 1U;
 
 	Status = XRFDC_MTS_OK;
 	if (Type == XRFDC_ADC_TILE) {
@@ -816,6 +872,12 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 	} else {
 		(void)XRFdc_GetInterpolationFactor(InstancePtr, ConfigPtr->RefTile, 0, &Factor);
 		(void)XRFdc_GetFabWrVldWords(InstancePtr, Type, ConfigPtr->RefTile, 0, &Write_Words);
+		XRFdc_GetMixerSettings(InstancePtr, Type, ConfigPtr->RefTile, 0, &Mixer_Settings);
+		if (Mixer_Settings.MixerMode == (XRFDC_MIXER_MODE_C2R)) {
+			IQFactor = 2U;
+		} else {
+			IQFactor = 1U;
+		}
 	}
 	(void)XRFdc_GetFabRdVldWords(InstancePtr, Type, ConfigPtr->RefTile, 0, &Read_Words);
 	Count_W = Read_Words * Factor;
@@ -855,7 +917,7 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 			 * DAC marker counter is on the tile clock domain so need
 			 * to update SysRef period accordingly
 			 */
-			SysRefT1Period = (SysRefT1Period * Write_Words) / Read_Words;
+			SysRefT1Period = ((SysRefT1Period * Write_Words) / Read_Words) / IQFactor;
 		}
 		metal_log(METAL_LOG_INFO, "SysRef period in terms of %s T1s = %d\n",
 			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", SysRefT1Period);
@@ -927,19 +989,34 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 			/* check for excessive delay correction values */
 			if (Offset > (int)XRFDC_MTS_DELAY_MAX) {
 				Offset = (int)XRFDC_MTS_DELAY_MAX;
-				metal_log(METAL_LOG_ERROR,
-					  "Alignment correction delay %d required exceeds maximum for %s Tile %d\n",
-					  Offset, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", XRFDC_MTS_DELAY_MAX, Index);
+				metal_log(
+					METAL_LOG_ERROR,
+					"Alignment correction delay %d required exceeds maximum (%u) for %s Tile %d\n",
+					Offset, XRFDC_MTS_DELAY_MAX, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Index);
 				Status |= XRFDC_MTS_DELAY_OVER;
 			}
 
-			/* Adjust the latency, write the same value to each FIFO */
-			BaseAddr = XRFDC_DRP_BASE(Type, Index) - 0x2000;
-			for (Fifo = XRFDC_BLK_ID0; Fifo < XRFDC_BLK_ID4; Fifo++) {
-				RegAddr = XRFDC_MTS_DELAY_CTRL + (Fifo << 2);
-				RegData = XRFdc_ReadReg(InstancePtr, BaseAddr, RegAddr);
-				RegData = XRFDC_MTS_RMW(RegData, XRFDC_MTS_DELAY_VAL_M, Offset);
-				XRFdc_WriteReg(InstancePtr, BaseAddr, RegAddr, RegData);
+			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+				// Adjust the latency, write the same value to each FIFO
+				BaseAddr = XRFDC_CTRL_STS_BASE(Type, Index);
+				;
+				for (Fifo = XRFDC_BLK_ID0; Fifo < XRFDC_BLK_ID4; Fifo++) {
+					RegAddr = XRFDC_MTS_DELAY_CTRL + (Fifo << 2);
+					RegData = XRFdc_ReadReg(InstancePtr, BaseAddr, RegAddr);
+					RegData = XRFDC_MTS_RMW(RegData, XRFDC_MTS_DELAY_VAL_M, Offset);
+					XRFdc_WriteReg(InstancePtr, BaseAddr, RegAddr, RegData);
+				}
+			} else {
+				for (Block_Id = XRFDC_BLK_ID0; Block_Id < XRFDC_BLK_ID4; Block_Id++) {
+					BaseAddr = XRFDC_BLOCK_BASE(Type, Index, Block_Id);
+					if (Offset > 0) {
+						OffsetReg = Offset | XRFDC_MTS_DIR_FIFO_PTR;
+					} else {
+						OffsetReg = Offset;
+					}
+					XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_FABRIC_OFFSET, 0x7F,
+							OffsetReg);
+				}
 			}
 
 			/* Report the total latency for this tile */
@@ -1098,7 +1175,7 @@ u32 XRFdc_MultiConverter_Sync(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter
 				Status |= XRFDC_MTS_IP_NOT_READY;
 			}
 			BaseAddr = XRFDC_DRP_BASE(Type, Index) - XRFDC_TILE_DRP_OFFSET;
-			RegData = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_DLY_ALIGNER);
+			RegData = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_DLY_ALIGNER0);
 			if (RegData == 0U) {
 				metal_log(METAL_LOG_ERROR,
 					  "%s tile %d is not enabled for MTS, check IP configuration\n",
@@ -1133,14 +1210,28 @@ u32 XRFdc_MultiConverter_Sync(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter
 		if ((ConfigPtr->Tiles & (1U << Index)) != 0U) {
 			/* Run DTC Scan for T1/PLL */
 			BaseAddr = XRFDC_DRP_BASE(Type, Index) + XRFDC_HSCOM_ADDR;
-			RegData = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_MTS_CLKSTAT);
-			if ((RegData & XRFDC_MTS_PLLEN_M) != 0U) {
-				/* DTC Scan PLL */
-				if (Index == 0U) {
-					metal_log(METAL_LOG_INFO, "\nDTC Scan PLL\n", 0);
+			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+				RegData = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_MTS_CLKSTAT);
+				if ((RegData & XRFDC_MTS_PLLEN_M) != XRFDC_DISABLED) {
+					/* DTC Scan PLL */
+					if (Index == XRFDC_BLK_ID0) {
+						metal_log(METAL_LOG_INFO, "\nDTC Scan PLL\n");
+					}
+					ConfigPtr->DTC_Set_PLL.RefTile = ConfigPtr->RefTile;
+					Status |= XRFdc_MTS_Dtc_Scan(InstancePtr, Type, Index, &ConfigPtr->DTC_Set_PLL);
 				}
-				ConfigPtr->DTC_Set_PLL.RefTile = ConfigPtr->RefTile;
-				Status |= XRFdc_MTS_Dtc_Scan(InstancePtr, Type, Index, &ConfigPtr->DTC_Set_PLL);
+			} else {
+				RegData = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_PLL_DIVIDER0);
+				if ((((RegData & XRFDC_PLL_DIVIDER0_BYP_PLL_MASK) == XRFDC_DISABLED) ||
+				     ((RegData & XRFDC_PLL_DIVIDER0_BYP_OPDIV_MASK) == XRFDC_DISABLED)) &&
+				    ((RegData & XRFDC_PLL_DIVIDER0_MODE_MASK) != XRFDC_DISABLED)) {
+					/* DTC Scan PLL */
+					if (Index == XRFDC_BLK_ID0) {
+						metal_log(METAL_LOG_INFO, "\nDTC Scan PLL\n");
+					}
+					ConfigPtr->DTC_Set_PLL.RefTile = ConfigPtr->RefTile;
+					Status |= XRFdc_MTS_Dtc_Scan(InstancePtr, Type, Index, &ConfigPtr->DTC_Set_PLL);
+				}
 			}
 		}
 	}
@@ -1196,12 +1287,13 @@ u32 XRFdc_GetMTSEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 *EnablePtr
 
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested Tile not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested Tile (%s %u) not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		goto RETURN_PATH;
 	}
 
-	BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) - XRFDC_TILE_DRP_OFFSET;
-	RegData = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_DLY_ALIGNER);
+	BaseAddr = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
+	RegData = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_DLY_ALIGNER0);
 	if (RegData == 0) {
 		*EnablePtr = 0;
 	} else {

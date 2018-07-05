@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal 
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -55,6 +35,7 @@ extern "C" {
 #include "xusbps_hw.h"
 #include "xil_types.h"
 #include "xstatus.h"
+#include "xusbps.h"		/* USB controller driver */
 
 /************************** Constant Definitions *****************************/
 
@@ -72,7 +53,10 @@ extern "C" {
 #define XUSBPS_CMD_CLASSREQ	0x20	/**< */
 #define XUSBPS_CMD_VENDREQ	0x40	/**< */
 
-#define XUSBPS_REQ_REPLY_LEN	1024	/**< Max size of reply buffer. */
+#define XUSBPS_REQ_REPLY_LEN		1024	/**< Max size of reply buffer. */
+#define XUSBPS_ENDPOINT_NUMBER_MASK	0x0f
+#define XUSBPS_ENDPOINT_DIR_MASK	0x80
+#define XUSBPS_ENDPOINT_XFERTYPE_MASK	0x03
 /* @} */
 
 /**
@@ -90,6 +74,8 @@ extern "C" {
 #define XUSBPS_REQ_GET_INTERFACE	0x0a
 #define XUSBPS_REQ_SET_INTERFACE	0x0b
 #define XUSBPS_REQ_SYNC_FRAME		0x0c
+#define XUSBPS_REQ_SET_SEL		0x30
+#define XUSBPS_REQ_SET_ISOCH_DELAY	0x31
 /* @} */
 
 /**
@@ -112,6 +98,7 @@ extern "C" {
 #define XUSBPS_TYPE_ENDPOINT_CFG_DESC	0x05
 #define XUSBPS_TYPE_DEVICE_QUALIFIER	0x06
 #define XUSBPS_TYPE_HID_DESC			0x21
+#define XUSBPS_TYPE_INTERFACE_ASSOCIATION		0x0b
 
 #define XUSBPS_TYPE_REPORT_DESC		0x22
 /* @} */
@@ -154,9 +141,11 @@ extern "C" {
  * @name Device Classes
  * @{
  */
+#define XUSBPS_CLASS_AUDIO			0x01
 #define XUSBPS_CLASS_HID		0x03
 #define XUSBPS_CLASS_STORAGE		0x08
 #define XUSBPS_CLASS_VENDOR		0xFF
+#define XUSBPS_CLASS_MISC			0xEF
 /* @} */
 
 /**
@@ -184,7 +173,8 @@ typedef struct {
 
 int XUsbPs_Ch9HandleSetupPacket(XUsbPs *InstancePtr,
 				 XUsbPs_SetupData *SetupData);
-
+u8 XUsbPs_GetConfigDone(void *InstancePtr);
+void XUsbPs_SetConfigDone(void *InstancePtr, u8 Flag);
 
 #ifdef __cplusplus
 }

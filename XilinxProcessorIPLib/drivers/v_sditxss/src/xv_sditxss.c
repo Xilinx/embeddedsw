@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 - 2018 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -859,8 +839,21 @@ void XV_SdiTxSs_StreamConfig(XV_SdiTxSs *InstancePtr)
 	case XSDIVID_MODE_HD:
 	case XSDIVID_MODE_3GA:
 	case XSDIVID_MODE_3GB:
-	case XSDIVID_MODE_6G:
 	case XSDIVID_MODE_12G:
+		PayloadLineNum1 = XV_SDITX_PAYLOADLN1_HD_3G_6G_12G;
+		PayloadLineNum2 = XV_SDITX_PAYLOADLN2_HD_3G_6G_12G;
+		break;
+	case XSDIVID_MODE_6G:
+		if (InstancePtr->SdiTxPtr->Stream[0].Video.ColorFormatId ==
+				XVIDC_CSF_YCRCB_444) {
+			InstancePtr->MaxDataStreams = 4;
+		} else if (InstancePtr->SdiTxPtr->Stream[0].Video.ColorFormatId ==
+				XVIDC_CSF_YCRCB_422){
+			InstancePtr->MaxDataStreams =
+					(InstancePtr->Config.bitdepth == 10) ? 8 : 4;
+		} else {
+			InstancePtr->MaxDataStreams = 8;
+		}
 		PayloadLineNum1 = XV_SDITX_PAYLOADLN1_HD_3G_6G_12G;
 		PayloadLineNum2 = XV_SDITX_PAYLOADLN2_HD_3G_6G_12G;
 		break;

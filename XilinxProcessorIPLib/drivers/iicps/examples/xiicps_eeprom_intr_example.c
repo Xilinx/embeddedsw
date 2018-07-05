@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xiicps_eeprom_intr_example.c
@@ -58,7 +38,10 @@
 *                     Updated to use usleep instead of delay loop
 * 1.04a hk   09/03/13 Removed GPIO code to pull MUX out of reset - CR#722425.
 * 2.3 	sk	 10/07/14 Removed multiple initializations for read buffer.
-*
+* 3.11   rna  10/16/19 Added support for 64 page size Eeproms on Versal based
+*		      boards, scanning for eeprom until found on all I2C
+*		      instances
+*        rna  03/26/20 Eeprom page size detection support is added.
 * </pre>
 *
 ******************************************************************************/
@@ -98,9 +81,10 @@
  * The page size determines how much data should be written at a time.
  * The write function should be called with this as a maximum byte count.
  */
-#define MAX_SIZE		32
+#define MAX_SIZE		64
 #define PAGE_SIZE_16	16
 #define PAGE_SIZE_32	32
+#define PAGE_SIZE_64	64
 
 /*
  * The Starting address in the IIC EEPROM on which this test is performed.
@@ -127,9 +111,10 @@ static int IicPsSlaveMonitor(u16 Address, u16 DeviceId, u32 Int_Id);
 static int SetupInterruptSystem(XIicPs *IicPsPtr, u32 Int_Id);
 static int MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer);
 static int FindEepromDevice(u16 Address);
-static int IicPsFindEeprom(u16 *Eeprom_Addr, int *PageSize);
+static int IicPsFindEeprom(u16 *Eeprom_Addr, u32 *PageSize);
 static int IicPsConfig(u16 DeviceId, u32 Int_Id);
-static int IicPsFindDevice(u16 addr);
+static int IicPsFindDevice(u16 addr, u16 DeviceId);
+static int FindEepromPageSize(u16 EepromAddr, u32 *PageSize_ptr);
 /************************** Variable Definitions *****************************/
 #ifndef TESTAPP_GEN
 XIicPs IicInstance;		/* The instance of the IIC device. */
@@ -154,8 +139,7 @@ volatile u32 SlaveResponse;		/**< Slave Response Flag */
 u16 EepromAddr[] = {0x54,0x55,0};
 u16 MuxAddr[] = {0x74,0};
 u16 EepromSlvAddr;
-int PageSize;
-//XIicPs IicInstance;
+u32 PageSize;
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -618,25 +602,21 @@ static int IicPsConfig(u16 DeviceId, u32 Int_Id)
 	return XST_SUCCESS;
 }
 
-static int IicPsFindDevice(u16 addr)
+static int IicPsFindDevice(u16 addr, u16 DeviceId)
 {
 	int Status;
 
-	Status = IicPsSlaveMonitor(addr,0,XPAR_XIICPS_0_INTR);
-	if (Status == XST_SUCCESS) {
-		return XST_SUCCESS;
+	if (DeviceId == 0){
+		Status = IicPsSlaveMonitor(addr,DeviceId,XPAR_XIICPS_0_INTR);
+		if (Status == XST_SUCCESS) {
+			return XST_SUCCESS;
+		}
 	}
-	Status = IicPsSlaveMonitor(addr,1,XPAR_XIICPS_1_INTR);
-	if (Status == XST_SUCCESS) {
-		return XST_SUCCESS;
-	}
-	Status = IicPsSlaveMonitor(addr,0,XPAR_XIICPS_1_INTR);
-	if (Status == XST_SUCCESS) {
-		return XST_SUCCESS;
-	}
-	Status = IicPsSlaveMonitor(addr,1,XPAR_XIICPS_0_INTR);
-	if (Status == XST_SUCCESS) {
-		return XST_SUCCESS;
+	else if (DeviceId == 1) {
+		Status = IicPsSlaveMonitor(addr,DeviceId,XPAR_XIICPS_1_INTR);
+		if (Status == XST_SUCCESS) {
+			return XST_SUCCESS;
+		}
 	}
 	return XST_FAILURE;
 }
@@ -644,7 +624,9 @@ static int IicPsFindDevice(u16 addr)
 /**
 * This function is use to figure out the Eeprom slave device
 *
-* @param	addr: u16 variable
+* @param	Eeprom slave address
+*
+* @param	Pagesize pointer
 *
 * @return	XST_SUCCESS if successful and also update the epprom slave
 * device address in addr variable else XST_FAILURE.
@@ -652,39 +634,47 @@ static int IicPsFindDevice(u16 addr)
 * @note		None.
 *
 ******************************************************************************/
-static int IicPsFindEeprom(u16 *Eeprom_Addr,int *PageSize)
+static int IicPsFindEeprom(u16 *Eeprom_Addr,u32 *PageSize)
 {
 	int Status;
+	u16 DeviceId;
 	int MuxIndex,Index;
 	u8 MuxChannel;
 
-	for(MuxIndex=0;MuxAddr[MuxIndex] != 0;MuxIndex++){
-		Status = IicPsFindDevice(MuxAddr[MuxIndex]);
-		if (Status == XST_SUCCESS) {
-			for(Index=0;EepromAddr[Index] != 0;Index++) {
+	for (DeviceId = 0; DeviceId < XPAR_XIICPS_NUM_INSTANCES; DeviceId++) {
+		for(MuxIndex=0;MuxAddr[MuxIndex] != 0;MuxIndex++){
+			Status = IicPsFindDevice(MuxAddr[MuxIndex], DeviceId);
+			if (Status == XST_SUCCESS) {
+				for(Index=0;EepromAddr[Index] != 0;Index++) {
 					for(MuxChannel = 0x01; MuxChannel <= MAX_CHANNELS; MuxChannel = MuxChannel << 1) {
-					Status = MuxInitChannel(MuxAddr[MuxIndex], MuxChannel);
-					if (Status != XST_SUCCESS) {
-						xil_printf("Failed to enable the MUX channel\r\n");
-						return XST_FAILURE;
-					}
-					Status = FindEepromDevice(EepromAddr[Index]);
-					FindEepromDevice(MUX_ADDR);
-					if (Status == XST_SUCCESS) {
-						*Eeprom_Addr = EepromAddr[Index];
-						*PageSize = PAGE_SIZE_16;
+						Status = MuxInitChannel(MuxAddr[MuxIndex], MuxChannel);
+						if (Status != XST_SUCCESS) {
+							xil_printf("Failed to enable the MUX channel\r\n");
+							return XST_FAILURE;
+						}
+						Status = FindEepromDevice(EepromAddr[Index]);
+						FindEepromDevice(MUX_ADDR);
+						if (Status == XST_SUCCESS) {
+							*Eeprom_Addr = EepromAddr[Index];
+						Status = FindEepromPageSize(EepromAddr[Index], PageSize);
+						if (Status != XST_SUCCESS) {
+							xil_printf("Failed to find the page size of 0X%X EEPROM\r\n", EepromAddr[Index]);
+							return XST_FAILURE;
+						}
+						xil_printf("Page size %d\r\n", *PageSize);
 						return XST_SUCCESS;
+						}
 					}
 				}
 			}
 		}
-	}
-	for(Index=0;EepromAddr[Index] != 0;Index++) {
-		Status = IicPsFindDevice(EepromAddr[Index]);
-		if (Status == XST_SUCCESS) {
-			*Eeprom_Addr = EepromAddr[Index];
-			*PageSize = PAGE_SIZE_32;
-			return XST_SUCCESS;
+		for(Index=0;EepromAddr[Index] != 0;Index++) {
+			Status = IicPsFindDevice(EepromAddr[Index], DeviceId);
+			if (Status == XST_SUCCESS) {
+				*Eeprom_Addr = EepromAddr[Index];
+				*PageSize = PAGE_SIZE_32;
+				return XST_SUCCESS;
+			}
 		}
 	}
 	return XST_FAILURE;
@@ -728,6 +718,83 @@ static int FindEepromDevice(u16 Address)
 
 		XIicPs_DisableSlaveMonitor(&IicInstance);
 		return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* This function is used to figure out page size Eeprom slave device
+*
+* @param	Eeprom Address
+*
+* @param	Pagesize pointer
+*
+* @return	XST_SUCCESS if successful and also update the epprom slave
+* device pagesize else XST_FAILURE.
+*
+* @note		None.
+*
+******************************************************************************/
+static int FindEepromPageSize(u16 EepromAddr, u32 *PageSize_ptr)
+{
+	u32 Index, i;
+	int Status = XST_FAILURE;
+	AddressType Address = EEPROM_START_ADDRESS;
+	int WrBfrOffset = 0;
+	u32 ps[3] = {64, 32, 16};
+	u32 PageSize_test, count;
+
+	for (i = 0; i < 3; i++)
+	{
+		count = 0;
+		PageSize_test = ps[i];
+		*PageSize_ptr = PageSize_test;
+		/*
+		 * Initialize the data to write and the read buffer.
+		 */
+		if (PageSize_test == PAGE_SIZE_16) {
+			WriteBuffer[0] = (u8) (Address);
+			WrBfrOffset = 1;
+		} else {
+			WriteBuffer[0] = (u8) (Address >> 8);
+			WriteBuffer[1] = (u8) (Address);
+			WrBfrOffset = 2;
+		}
+
+		for (Index = 0; Index < PageSize_test; Index++) {
+			WriteBuffer[WrBfrOffset + Index] = Index + i;
+			ReadBuffer[Index] = 0;
+		}
+
+		/*
+		 * Write to the EEPROM.
+		 */
+		Status = EepromWriteData(&IicInstance, WrBfrOffset + PageSize_test);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		/*
+		 * Read from the EEPROM.
+		 */
+		Status = EepromReadData(&IicInstance, ReadBuffer, PageSize_test);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		/*
+		 * Verify the data read against the data written.
+		 */
+		for (Index = 0; Index < PageSize_test; Index++) {
+			if (ReadBuffer[Index] == Index + i) {
+				count++;
+			}
+		}
+		if (count == PageSize_test)
+		{
+			return XST_SUCCESS;
+		}
+	}
+	return Status;
 }
 
 /*****************************************************************************/

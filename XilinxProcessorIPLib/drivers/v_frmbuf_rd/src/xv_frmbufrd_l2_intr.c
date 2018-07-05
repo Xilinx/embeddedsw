@@ -1,33 +1,13 @@
 /******************************************************************************
- *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2017-2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xv_frmbufrd_l2_intr.c
-* @addtogroup v_frmbuf_rd_v2_0
+* @addtogroup v_frmbuf_rd_v4_2
 * @{
 *
 * The functions in this file provides interrupt handler and associated
@@ -40,6 +20,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  vyc   04/05/17   Initial Release
 * 3.00  vyc   04/04/18   Add interrupt handler for ap_ready
+* 4.20  pg    01/31/20   Removed Frmbuf start function from Interrupt handler.
 * </pre>
 *
 ******************************************************************************/
@@ -145,7 +126,6 @@ void XVFrmbufRd_InterruptHandler(void *InstancePtr)
     if(FrmbufRdPtr->FrameDoneCallback) {
           FrmbufRdPtr->FrameDoneCallback(FrmbufRdPtr->CallbackDoneRef);
     }
-    XV_frmbufrd_Start(&FrmbufRdPtr->FrmbufRd);
   }
 
   /* Check for Ready Signal */
@@ -156,7 +136,6 @@ void XVFrmbufRd_InterruptHandler(void *InstancePtr)
     if(FrmbufRdPtr->FrameReadyCallback) {
           FrmbufRdPtr->FrameReadyCallback(FrmbufRdPtr->CallbackReadyRef);
     }
-    XV_frmbufrd_Start(&FrmbufRdPtr->FrmbufRd);
   }
 }
 /** @} */

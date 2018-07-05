@@ -1,32 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *  @file xaxicdma.c
-* @addtogroup axicdma_v4_6
+* @addtogroup axicdma_v4_7
 * @{
  *
  * The implementation of the API of Xilinx CDMA engine.
@@ -43,6 +23,7 @@
  * 2.02a srt  01/18/13 Added support for Key Hole feature (CR: 687217).
  * 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
  *                     Changed the prototype of XAxiCdma_CfgInitialize API.
+ * 4.7   rsp  11/29/19 Fix XAxiCdma_SimpleTransfer documentation for BTT.
  * </pre>
  *
  *****************************************************************************/
@@ -452,7 +433,7 @@ int XAxiCdma_SwitchMode(XAxiCdma *InstancePtr, int Mode)
  *			Another simple transfer is still going
  *   . 		Another SG transfer is still going
  *		- XST_INVALID_PARAM if:
- *		Length out of valid range [1:8M]
+ *		Length out of valid range [1: XAXICDMA_MAX_TRANSFER_LEN]
  *		Or, address not aligned when DRE is not built in
  *
  * @note	Only set the callback function if using interrupt to signal

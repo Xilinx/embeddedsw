@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -72,6 +52,8 @@
  *                     buffer address (CR-992638).
  * 9.9   rsp  01/21/19 Fix use of #elif check in deriving DDR_BASE_ADDR.
  * 9.10  rsp  09/17/19 Fix cache maintenance ops for source and dest buffer.
+ * 9.11  rsp  04/15/20 Fix s2mm "Engine is busy" failure for smaller(<16)
+ *                     packet size.
  * </pre>
  *
  * ***************************************************************************
@@ -303,10 +285,6 @@ int main(void)
 	XAxiDma_IntrEnable(&AxiDma, XAXIDMA_IRQ_ALL_MASK,
 							XAXIDMA_DEVICE_TO_DMA);
 
-	/* Initialize flags before start transfer test  */
-	TxDone = 0;
-	RxDone = 0;
-	Error = 0;
 
 	Value = TEST_START_VALUE;
 
@@ -325,6 +303,10 @@ int main(void)
 	/* Send a packet */
 	for(Index = 0; Index < Tries; Index ++) {
 
+		/* Initialize flags before start transfer test  */
+		TxDone = 0;
+		RxDone = 0;
+		Error = 0;
 		Status = XAxiDma_SimpleTransfer(&AxiDma,(UINTPTR) RxBufferPtr,
 					MAX_PKT_LEN, XAXIDMA_DEVICE_TO_DMA);
 
@@ -341,9 +323,9 @@ int main(void)
 
 
 		/*
-		 * Wait TX done and RX done
+		 * Wait for both TX and RX done
 		 */
-		while (!TxDone && !RxDone && !Error) {
+		while ((!TxDone || !RxDone) && !Error) {
 				/* NOP */
 		}
 

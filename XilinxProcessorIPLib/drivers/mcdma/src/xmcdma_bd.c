@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xmcdma_bd.c
-* @addtogroup mcdma_v1_3
+* @addtogroup mcdma_v1_4
 * @{
 *
 * This file implements all the Scatter/Gather handling for the MCDMA Core,
@@ -41,6 +21,7 @@
 *  1.2  mus  11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
 *  1.3  rsp  02/11/19 Add top level submit XMcDma_Chan_Sideband_Submit() API
 *                     to program BD control and sideband information.
+*  1.4  rsp  09/17/19 Prefer using dmb in XMcdma_UpdateChanTDesc.
 ******************************************************************************/
 
 #include "xmcdma.h"
@@ -157,13 +138,13 @@ int XMcdma_UpdateChanTDesc(XMcdma_ChanCtrl *Chan)
 
 	if (Chan->BdPendingCnt > 0) {
 		XMCDMA_CACHE_INVALIDATE(Chan->BdTail);
+#if !defined (__MICROBLAZE__)
+			dmb();
+#endif
 		XMcdma_WriteReg(Chan->ChanBase,
 				(XMCDMA_TDESC_OFFSET + Offset),
 				LOWER_32_BITS((UINTPTR)Chan->BdTail));
 		if (Chan->ext_addr) {
-#if !defined (__MICROBLAZE__)
-			dsb();
-#endif
 			XMcdma_WriteReg(Chan->ChanBase,
 				  (XMCDMA_TDESC_MSB_OFFSET + Offset),
 				  UPPER_32_BITS((UINTPTR)Chan->BdTail));

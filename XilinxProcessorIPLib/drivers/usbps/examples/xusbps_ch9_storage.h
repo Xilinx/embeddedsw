@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal 
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -37,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00a wgr  10/10/10 First release
+ * 2.5	 pm   02/20/20 Added SetConfigurationApp and SetInterfaceHandler API
  * </pre>
  *
  ******************************************************************************/
@@ -76,6 +57,10 @@ u32 XUsbPs_Ch9SetupDevDescReply(u8 *BufPtr, u32 BufLen);
 u32 XUsbPs_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufLen);
 u32 XUsbPs_Ch9SetupStrDescReply(u8 *BufPtr, u32 BufLen, u8 Index);
 void XUsbPs_SetConfiguration(XUsbPs *InstancePtr, int ConfigIdx);
+void XUsbPs_SetConfigurationApp(XUsbPs *InstancePtr,
+				XUsbPs_SetupData *SetupData);
+void XUsbPs_SetInterfaceHandler(XUsbPs *InstancePtr,
+				XUsbPs_SetupData *SetupData);
 
 #ifdef __cplusplus
 }

@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2002 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xintc.c
-* @addtogroup intc_v3_9
+* @addtogroup intc_v3_11
 * @{
 *
 * Contains required functions for the XIntc driver for the Xilinx Interrupt
@@ -317,12 +297,7 @@ int XIntc_Start(XIntc * InstancePtr, u8 Mode)
 	/*
 	 * Check for simulation mode
 	 */
-	if (Mode == XIN_SIMULATION_MODE) {
-		if (MasterEnable & XIN_INT_HARDWARE_ENABLE_MASK) {
-			return XST_FAILURE;
-		}
-	}
-	else {
+	if (Mode == XIN_REAL_MODE) {
 		MasterEnable |= XIN_INT_HARDWARE_ENABLE_MASK;
 	}
 
@@ -421,6 +396,9 @@ int XIntc_Connect(XIntc * InstancePtr, u8 Id,
 	if (Id > 31) {
 
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return XST_FAILURE;
+		}
 
 		CfgPtr->HandlerTable[Id%32].Handler = Handler;
 		CfgPtr->HandlerTable[Id%32].CallBackRef = CallBackRef;
@@ -481,6 +459,9 @@ void XIntc_Disconnect(XIntc * InstancePtr, u8 Id)
 	if (Id > 31) {
 
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return;
+		}
 
 		CurrentIER = XIntc_In32(CfgPtr->BaseAddress + XIN_IER_OFFSET);
 
@@ -550,6 +531,9 @@ void XIntc_Enable(XIntc * InstancePtr, u8 Id)
 
 		/* Enable user required Id in Slave controller */
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return;
+		}
 
 		CurrentIER = XIntc_In32(CfgPtr->BaseAddress + XIN_IER_OFFSET);
 
@@ -613,6 +597,9 @@ void XIntc_Disable(XIntc * InstancePtr, u8 Id)
 	if (Id > 31) {
 		/* Enable user required Id in Slave controller */
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return;
+		}
 
 		CurrentIER = XIntc_In32(CfgPtr->BaseAddress + XIN_IER_OFFSET);
 
@@ -673,6 +660,9 @@ void XIntc_Acknowledge(XIntc * InstancePtr, u8 Id)
 	if (Id > 31) {
 		/* Enable user required Id in Slave controller */
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return;
+		}
 
 		/* Convert from integer id to bit mask */
 		Mask = XIntc_BitPosMask[(Id%32)];
@@ -742,6 +732,9 @@ XIntc_Config *XIntc_LookupConfig(u16 DeviceId)
 	for (Index = 0; Index < XPAR_XINTC_NUM_INSTANCES; Index++) {
 		if (XIntc_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XIntc_ConfigTable[Index];
+			if (CfgPtr == NULL) {
+				return NULL;
+			}
 			break;
 		}
 	}
@@ -799,6 +792,9 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 	if (Id > 31) {
 		/* Enable user required Id in Slave controller */
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return XST_FAILURE;
+		}
 
 		if (CfgPtr->FastIntr != TRUE) {
 			/*Fast interrupts of slave controller are not enabled*/
@@ -824,7 +820,7 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 					((Id%32) * 8), (UINTPTR) Handler);
 		} else {
 			XIntc_Out32(CfgPtr->BaseAddress + XIN_IVAR_OFFSET +
-					((Id%32) * 4), (u32) Handler);
+					((Id%32) * 4), (UINTPTR) Handler);
 		}
 
 		/* Slave controllers in Cascade Mode should have all as Fast
@@ -860,7 +856,7 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 				XIN_IVEAR_OFFSET + (Id * 8), (UINTPTR) Handler);
 		} else {
 			XIntc_Out32(InstancePtr->BaseAddress +
-				XIN_IVAR_OFFSET + (Id * 4), (u32) Handler);
+				XIN_IVAR_OFFSET + (Id * 4), (UINTPTR) Handler);
 		}
 
 		Imr = XIntc_In32(InstancePtr->BaseAddress + XIN_IMR_OFFSET);
@@ -919,6 +915,9 @@ void XIntc_SetNormalIntrMode(XIntc *InstancePtr, u8 Id)
 	if (Id > 31) {
 		/* Enable user required Id in Slave controller */
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return;
+		}
 
 		/* Get the Enabled Interrupts */
 		CurrentIER = XIntc_In32(CfgPtr->BaseAddress + XIN_IER_OFFSET);
@@ -1079,6 +1078,9 @@ static void XIntc_InitializeSlaves(XIntc * InstancePtr)
 
 	for (Index = 1; Index <= XPAR_XINTC_NUM_INSTANCES - 1; Index++) {
 		CfgPtr = XIntc_LookupConfig(Index);
+		if (CfgPtr == NULL) {
+			return;
+		}
 
 		XIntc_Out32(CfgPtr->BaseAddress + XIN_IAR_OFFSET,
 							0xFFFFFFFF);

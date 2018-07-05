@@ -1,26 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2005 - 2018 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-#
+# Copyright (C) 2005 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
 # Ver      Who    Date     Changes
@@ -83,6 +63,8 @@
 ##                  total_source_intrs. It fixes CR#1020269
 ##     12/09/19 adk When interrupt source pin is connected to slice consider
 ##		    slice width, while calculating the total interrupt sources.
+##     18/10/19 adk Updated the get_slice_interrupt_sources_for_slice proc to consider
+##		    external interrupt source pin connected to slice use case.
 ##
 ##
 ## @END_CHANGELOG
@@ -484,6 +466,9 @@ proc xredefine_intc {drvhandle config_inc} {
         #update global array of Interrupt sources for this periph
         intc_update_source_array $periph
 
+        if {$total_source_intrs == 0} {
+            continue
+        }
         lappend source_list
         for {set j 0 } { $j < $total_source_intrs   } { incr j} {
             lappend source_list $source_name($j)
@@ -742,7 +727,9 @@ proc intc_update_source_array {periph} {
             set t_source_driver [hsi::get_drivers -filter "HW_INSTANCE==$t_source_name"]
         }
         set port_intr_id [::hsi::utils::get_interrupt_id $t_ip_name $source_pin]
-        if { [llength $port_intr_id ] > 1 } {
+        set isslice_exist [::hsi::utils::is_slice_exists_in_path $periph $source_pin]
+        if { [llength $port_intr_id ] > 1  &&
+             $isslice_exist == 0} {
             #this is the case of vector interrupt port
             set j 0
             foreach pin_id $port_intr_id {
@@ -759,9 +746,15 @@ proc intc_update_source_array {periph} {
             set width [::hsi::utils::get_intr_connected_slice_width $periph $source_pin]
             if {$width == 0 || $width == ""} {
                 set width [expr [common::get_property LEFT $source_pin] + 1]
+            } else {
+                set port_intr_id 0
             }
             for {set count 0} {$count != $width} {incr count} {
-                set source_port_name($intr_cnt)         "${t_source_port_name}"
+                if { ${count} > 0 } {
+                    set source_port_name($intr_cnt)         "${t_source_port_name}_${count}"
+                } else {
+                    set source_port_name($intr_cnt)         "${t_source_port_name}"
+                }
                 set source_name($intr_cnt)              $t_source_name
                 set source_port_type($intr_cnt)          $t_port_type
                 set source_driver($intr_cnt)            $t_source_driver

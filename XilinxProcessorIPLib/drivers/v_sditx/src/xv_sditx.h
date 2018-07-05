@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -60,7 +40,8 @@ extern "C" {
 
 #define XV_SDITX_MAX_DATASTREAM 8
 #define XV_SDITX_COLORFORMAT	(0x0 << 16)
-#define XV_SDITX_COLORDEPTH	(0x1 << 24)
+#define XV_SDITX_COLORDEPTH_10	(0x1 << 24)
+#define XV_SDITX_COLORDEPTH_12	(0x2 << 24)
 /**************************** Type Definitions *******************************/
 
 /** @name Handler Types
@@ -135,8 +116,8 @@ typedef enum {
 	XV_SDITX_MUX_SD_HD_3GA = 0,
 	XV_SDITX_MUX_3GB = 1,
 	XV_SDITX_MUX_8STREAM_6G_12G = 2,
-	XV_SDITX_MUX_4STREAM_6G = 1,
-	XV_SDITX_MUX_16STREAM_12G = 1
+	XV_SDITX_MUX_4STREAM_6G = 3,
+	XV_SDITX_MUX_16STREAM_12G = 4
 } XV_SdiTx_MuxPattern;
 
 /** @name Default Payload Id Line 1 Number
@@ -222,6 +203,7 @@ typedef struct {
   XSdiVid_Transport	Transport;	/**< SDI TX Transport information */
   XV_SdiTx_State	State;		/**< State */
   u8			IsStreamUp;
+  XVidC_ColorDepth	bitdepth;	/**< bit depth */
 } XV_SdiTx;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -314,6 +296,8 @@ void XV_SdiTx_IntrDisable(XV_SdiTx *InstancePtr, u32 Mask);
 void XV_SdiTx_IntrEnable(XV_SdiTx *InstancePtr, u32 Mask);
 void XV_SdiTx_SetYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr);
 void XV_SdiTx_ClearYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr);
+void XV_SdiTx_Set_Bpc(XV_SdiTx *InstancePtr,
+		XVidC_ColorDepth bitdepth);
 
 /************************** Variable Declarations ****************************/
 

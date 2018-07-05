@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xrfdc_hw.h
-* @addtogroup rfdc_v7_0
+* @addtogroup rfdc_v8_0
 * @{
 *
 * This header file contains the identifiers and basic HW access driver
@@ -85,6 +65,17 @@
 *       cog    09/18/19 Added mask for bypassing PLL output divider.
 *       cog    10/02/19 Added mask for clock divider.
 *       cog    10/02/19 Added mask for PLL output clock divider.
+* 7.1   cog    11/15/19 Added offsets & masks for calibration mode support for
+*                       Gen 3 devices.
+*       cog    11/28/19 Added offset & shift for datapath modes.
+*       cog    01/03/19 Change shift and mask for alternate bondout devices.
+*       cog    01/23/20 Fixed shift and mask for GCB calibration override operations
+*                       in Gen 3 Devices.
+* 8.0   cog    02/10/20 Updated addtogroup.
+*       cog    02/17/20 Added masks and shifts for tile/path enables.
+*       cog    02/20/20 Added offsets, masks and shifts for FIFO delays.
+*       cog    03/20/20 Added masks and shifts for power state mask.
+*       cog    03/20/20 Added masks and shifts for datapath clock enables.
 *
 *</pre>
 *
@@ -114,8 +105,10 @@ extern "C" {
 #define XRFDC_CLK_EN_OFFSET 0x000U /**< ADC Clock Enable Register */
 #define XRFDC_ADC_DEBUG_RST_OFFSET 0x004U /**< ADC Debug Reset Register */
 #define XRFDC_ADC_FABRIC_RATE_OFFSET 0x008U /**< ADC Fabric Rate Register */
+#define XRFDC_DAC_FABRIC_RATE_OFFSET 0x008U /**< DAC Fabric Rate Register */
 #define XRFDC_ADC_FABRIC_OFFSET 0x00CU /**< ADC Fabric Register */
 #define XRFDC_ADC_FABRIC_ISR_OFFSET 0x010U /**< ADC Fabric ISR Register */
+#define XRFDC_DAC_FIFO_START_OFFSET 0x010U /**< DAC FIFO Start Register */
 #define XRFDC_DAC_FABRIC_ISR_OFFSET 0x014U /**< DAC Fabric ISR Register */
 #define XRFDC_ADC_FABRIC_IMR_OFFSET 0x014U /**< ADC Fabric IMR Register */
 #define XRFDC_DAC_FABRIC_IMR_OFFSET 0x018U /**< DAC Fabric IMR Register */
@@ -175,7 +168,8 @@ extern "C" {
 #define XRFDC_ADC_TI_TISK_CRL2_OFFSET 0x15CU /**< ADC Time skew correction control bits2 Register */
 #define XRFDC_ADC_TI_TISK_CRL3_OFFSET 0x160U /**< ADC Time skew correction control bits3 Register */
 #define XRFDC_ADC_TI_TISK_CRL4_OFFSET 0x164U /**< ADC Time skew correction control bits4 Register */
-#define XRFDC_ADC_TI_TISK_DAC0_OFFSET 0x168U /**< ADC Time skew DAC cal code of subadc ch0 Register */
+#define XRFDC_ADC_TI_TISK_CRL5_OFFSET 0x168U /**< ADC Time skew correction control bits5 Register (Gen 3 only) */
+#define XRFDC_ADC_TI_TISK_DAC0_OFFSET 0x168U /**< ADC Time skew DAC cal code of subadc ch0 Register(Below Gen 3) */
 #define XRFDC_ADC_TI_TISK_DAC1_OFFSET 0x16CU /**< ADC Time skew DAC cal code of subadc ch1 Register */
 #define XRFDC_ADC_TI_TISK_DAC2_OFFSET 0x170U /**< ADC Time skew DAC cal code of subadc ch2 Register */
 #define XRFDC_ADC_TI_TISK_DAC3_OFFSET 0x174U /**< ADC Time skew DAC cal code of subadc ch3 Register */
@@ -259,6 +253,8 @@ extern "C" {
 #define XRFDC_MTS_DAC_MARKER_CTRL 0x0048U
 #define XRFDC_MTS_DAC_MARKER_CNT (0x92U << 2U)
 #define XRFDC_MTS_DAC_MARKER_LOC (0x93U << 2U)
+#define XRFDC_MTS_DAC_FIFO_MARKER_CTRL (0x94U << 2U)
+#define XRFDC_MTS_DAC_FABRIC_OFFSET 0x0C
 
 #define XRFDC_RESET_OFFSET 0x00U /**< Tile reset register */
 #define XRFDC_RESTART_OFFSET 0x04U /**< Tile restart register */
@@ -341,8 +337,33 @@ extern "C" {
 #define XRFDC_CAL_TSCB_OFFSET_COEFF6_ALT 0x180 /**< Background time skew correction block (below Gen 3) */
 #define XRFDC_CAL_TSCB_OFFSET_COEFF7_ALT 0x184 /**< Background time skew correction block (below Gen 3) */
 
+#define XRFDC_HSCOM_FIFO_START_OFFSET 0x0C0U /**< FIFO Start register tommon along tile */
+
 /* @} */
 
+/** @name IP Register Map
+ *
+ * Register offsets from the base address of the IP.
+ * @{
+ */
+
+#define XRFDC_TILES_ENABLED_OFFSET 0x00A0U /**< The tiles enabled in the design */
+#define XRFDC_ADC_PATHS_ENABLED_OFFSET 0x00A4U /**< The ADC analogue/digital paths enabled in the design */
+#define XRFDC_DAC_PATHS_ENABLED_OFFSET 0x00A8U /**< The DAC analogue/digital paths enabled in the design */
+#define XRFDC_PATH_ENABLED_TILE_SHIFT 4U /**< A shift to get to the correct tile for the path */
+
+/* @} */
+
+/** @name Calibration Mode - Calibration mode registers
+ *
+ * This register contains bits for calibration modes
+ * for ADC.
+ * @{
+ */
+
+#define XRFDC_CAL_MODES_MASK 0x0003 /**< Calibration modes for Gen 3 mask*/
+
+/* @} */
 /** @name Calibration Coefficients - Calibration coefficients and disable registers
  *
  * This register contains bits for calibration coefficients
@@ -360,11 +381,11 @@ extern "C" {
 #define XRFDC_CAL_GCB_ENFL_MASK 0x1800U /**< GCB accumulator enable mask*/
 
 #define XRFDC_CAL_OCB_EN_MASK 0x0001U /**< offsets coeff override enable mask*/
-#define XRFDC_CAL_GCB_EN_MASK 0x0080U /**< gain coeff override enable mask*/
+#define XRFDC_CAL_GCB_EN_MASK 0x2000U /**< gain coeff override enable mask*/
 #define XRFDC_CAL_TSCB_EN_MASK 0x8000U /**< time skew coeff override enable mask*/
 
 #define XRFDC_CAL_OCB_EN_SHIFT 0U /**< offsets coeff shift*/
-#define XRFDC_CAL_GCB_EN_SHIFT 7U /**< gain coeff shift*/
+#define XRFDC_CAL_GCB_EN_SHIFT 13U /**< gain coeff shift*/
 #define XRFDC_CAL_TSCB_EN_SHIFT 15U /**< time skew coeff shift*/
 #define XRFDC_CAL_GCB_FLSH_SHIFT 12U /**< GCB accumulator flush shift*/
 #define XRFDC_CAL_GCB_ACEN_SHIFT 11U /**< GCB accumulator enable shift*/
@@ -565,6 +586,8 @@ extern "C" {
 #define XRFDC_DATAPATH_MODE_MASK 0x00000003U /**< DataPath Mode */
 #define XRFDC_DATAPATH_IMR_MASK 0x00000004U /**< IMR Mode */
 #define XRFDC_DATAPATH_LATENCY_MASK 0x00000008U /**< DataPath Latency */
+
+#define XRFDC_DATAPATH_IMR_SHIFT 2U /**< IMR Mode shift */
 
 /* @} */
 
@@ -1678,6 +1701,28 @@ extern "C" {
 
 /* @} */
 
+/** @name Tile enables register
+ *
+ * This register contains the bits that indicate
+ * whether or not a tile is enabled (Read Only).
+ * @{
+ */
+
+#define XRFDC_DAC_TILES_ENABLED_SHIFT 4U /**< Shift to the DAC tile bits */
+
+/* @} */
+
+/** @name Path enables register
+ *
+ * This register contains the bits that indicate
+ * whether or not an analogue/digital is enabled (Read Only).
+ * @{
+ */
+
+#define XRFDC_DIGITAL_PATH_ENABLED_SHIFT 16U /**< Shift to the digital path bits */
+
+/* @} */
+
 /** @name Tile Reset
  *
  * This register contains Tile reset bit.
@@ -1775,8 +1820,10 @@ extern "C" {
 
 #define XRFDC_EN_MB_MASK 0x00000008U /**< multi-band adder mask */
 #define XRFDC_EN_MB_SHIFT 3U /** <Enable Multiband shift */
-#define XRFDC_ALT_BOND_MASK 0x0100 /** <Alt bondout mask */
-#define XRFDC_ALT_BOND_SHIFT 8U /** <Alt bondout shift */
+#define XRFDC_ALT_BOND_MASK 0x0200 /** <Alt bondout mask */
+#define XRFDC_ALT_BOND_SHIFT 9U /** <Alt bondout shift */
+#define XRFDC_ALT_BOND_CLKDP_MASK 0x4U /** <Alt bondout shift */
+#define XRFDC_ALT_BOND_CLKDP_SHIFT 2U /** <Alt bondout shift */
 
 /* @} */
 
@@ -1797,7 +1844,8 @@ extern "C" {
  * @{
  */
 #define XRFDC_ADC_SIG_DETECT_MASK 0xFF /**< signal detector mask */
-#define XRFDC_ADC_SIG_DETECT_THRESH_MASK 0xFF /**< signal detector thresholds mask */
+#define XRFDC_ADC_SIG_DETECT_THRESH_MASK 0xFFFF /**< signal detector thresholds mask */
+#define XRFDC_ADC_SIG_DETECT_THRESH_CNT_MASK 0xFFFF /**< signal detector thresholds counter mask */
 #define XRFDC_ADC_SIG_DETECT_INTG_MASK 0x01 /**< leaky integrator enable mask */
 #define XRFDC_ADC_SIG_DETECT_FLUSH_MASK 0x02 /**< leaky integrator flush mask */
 #define XRFDC_ADC_SIG_DETECT_TCONST_MASK 0x1C /**< time constant mask */
@@ -1876,6 +1924,8 @@ extern "C" {
  * @{
  */
 #define XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK 0x1U /**< PLL clock mask */
+#define XRFDC_CLK_NETWORK_CTRL1_USE_RX_MASK 0x2U /**< PLL clock mask */
+#define XRFDC_CLK_NETWORK_CTRL1_REGS_MASK 0x3U /**< PLL clock mask */
 
 /* @} */
 
@@ -1897,6 +1947,18 @@ extern "C" {
 #define XRFDC_DIGI_ANALOG_SHIFT4 4U
 #define XRFDC_DIGI_ANALOG_SHIFT8 8U
 #define XRFDC_DIGI_ANALOG_SHIFT12 12U
+
+/* @} */
+
+/** @name FIFO Delays
+ *
+ * This register contains bits for delaying the FIFOs.,
+ * @{
+ */
+
+#define XRFDC_DAC_FIFO_DELAY_MASK 0x000000FFFU /**< DAC FIFO ReadPtr Delay */
+#define XRFDC_ADC_FIFO_DELAY_MASK 0x0000001C0U /**< ADC FIFO ReadPtr Delay */
+#define XRFDC_ADC_FIFO_DELAY_SHIFT 6U /**< ADC FIFO ReadPtr Shift */
 
 /* @} */
 

@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 - 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xwdttb_hw.h
-* @addtogroup wdttb_v4_5
+* @addtogroup wdttb_v5_0
 * @{
 *
 * This header file contains identifiers and register-level core functions (or
@@ -79,6 +59,7 @@
 *		    Added following macros for WWDT
 *		    XWT_TSR0_WWDT_OFFSET,XWT_TSR1_WWDT_OFFSET,
 *		    XWT_STR_WWDT_OFFSET.
+* 5.0 sne  03/11/20 Added XWT_GWDT and XWT_WWDT macros.
 *
 * </pre>
 *
@@ -250,6 +231,8 @@ extern "C" {
 #define XWT_ZERO                0U                  /* Flag for 0 value*/
 #define XWT_ONE                 1U                  /* Flag for 1 value */
 #define XWT_MAX_BYTE_SEGMENT    4U                  /* Max Byte segment value */
+#define XWT_GWDT		0U		    /* Flag for GWDT */
+#define XWT_WWDT		1U		    /* Flag for WWDT */
 /**************************** Type Definitions *******************************/
 
 

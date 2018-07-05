@@ -1,33 +1,13 @@
 /******************************************************************************
- *
- * Copyright (C) 2017 - 2018 Xilinx, Inc. All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
  *****************************************************************************/
+
 /*****************************************************************************/
 /**
  *
  * @file xi2stx.c
- * @addtogroup i2stx_v1_1
+ * @addtogroup i2stx_v2_1
  * @{
  *
  * Contains a minimal set of functions for the i2s_transmitter driver
@@ -45,6 +25,8 @@
  * 1.1   kar    04/02/18 Changed channel status clear API to clear all regs.
  * 2.0   kar    09/28/18 Added new API to enable justification.
  *                       Added new API to select left/right justification.
+ * 2.1   pg     01/30/20 Added 32bit_LR support is added to calculate i2s clock
+ *                       for 32bit mode.
  * </pre>
  *
  *****************************************************************************/
@@ -279,8 +261,17 @@ u32 XI2s_Tx_SetSclkOutDiv(XI2s_Tx *InstancePtr, u32 MClk, u32 Fs)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((MClk > 0) && (MClk > Fs));
 	Xil_AssertNonvoid((Fs > 0) && (Fs < MClk));
-	u32 SClk = (2 * InstancePtr->Config.DWidth) * Fs;
+	u32 SClk;
 	u8 SClkOut_Div;
+
+	/* Sclk should be multiplied by 32, when 32BitLR parameter is enabled */
+	if (InstancePtr->Config.Is32BitLR)
+	{
+		SClk = (2 * Fs * 32);
+	} else {
+		SClk = (2 * Fs * InstancePtr->Config.DWidth);
+	}
+
 	SClkOut_Div = (MClk/SClk);
 	SClkOut_Div /= 2;
 

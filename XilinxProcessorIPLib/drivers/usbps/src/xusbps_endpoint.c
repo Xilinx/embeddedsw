@@ -1,32 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /******************************************************************************/
 /**
  * @file xusbps_endpoint.c
-* @addtogroup usbps_v2_4
+* @addtogroup usbps_v2_5
 * @{
  *
  * Endpoint specific function implementations.
@@ -48,6 +28,7 @@
  * 2.3   bss 01/19/16 Modified XUsbPs_EpQueueRequest function to fix CR#873972
  *            (moving of dTD Head/Tail Pointers)and CR#873974(invalidate
  *            Caches After Buffer Receive in Endpoint Buffer Handler...)
+ * 2.5   pm  02/20/20 Added ISO endpoint support.
  * </pre>
  ******************************************************************************/
 
@@ -260,6 +241,8 @@ static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
 	XUsbPs_EpIn	*Ep;
 	XUsbPs_dTD	*DescPtr;
 	u32 		Length;
+	u32 		EpType;
+	u32 		Multo = 0;
 	u32		PipeEmpty = 1;
 	u32		Mask = 0x00010000;
 	u32		BitMask = Mask << EpNum;
@@ -272,6 +255,7 @@ static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
 	 * if its descriptor is not active.
 	 */
 	Ep = &InstancePtr->DeviceConfig.Ep[EpNum].In;
+	EpType = InstancePtr->DeviceConfig.EpCfg[EpNum].In.Type;
 
 	Xil_DCacheFlushRange((unsigned int)BufferPtr, BufferLen);
 
@@ -288,6 +272,10 @@ static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
 	/* Remember the current head. */
 	DescPtr = Ep->dTDHead;
 
+	Ep->RequestedBytes = BufferLen;
+	Ep->BytesTxed = 0;
+	Ep->BufferPtr = (u8 *)BufferPtr;
+
 	do {
 
 		/* Tell the caller if we do not have any descriptors available. */
@@ -303,6 +291,21 @@ static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
 		}
 		BufferLen -= Length;
 		BufferPtr += Length;
+		Ep->BytesTxed += Length;
+
+		if (EpType == XUSBPS_EP_TYPE_ISOCHRONOUS) {
+			Multo = BufferLen /
+				InstancePtr->
+				DeviceConfig.EpCfg[EpNum].Out.MaxPacketSize;
+			if (BufferLen == 0 ||
+					(BufferLen %
+					InstancePtr->
+					DeviceConfig.EpCfg[EpNum].
+					Out.MaxPacketSize))
+				Multo++;
+
+			XUsbPs_dTDSetMultO(Ep->dTDHead, (Multo << 10));
+		}
 
 		XUsbPs_dTDSetActive(Ep->dTDHead);
 		if (BufferLen == 0 && (ReqZero == FALSE)) {
@@ -369,6 +372,106 @@ static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
 	Status = XUsbPs_EpPrime(InstancePtr, EpNum, XUSBPS_EP_DIRECTION_IN);
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function receives a data buffer from the endpoint of the given endpoint
+ * number and pass it to the application.
+ *
+ * @param	InstancePtr is a pointer to the XUsbPs instance of the
+ *		controller.
+ * @param	EpNum is the number of the endpoint to receive data from.
+ * @param	BufferLen is holding the buffer length.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+void XUsbPs_EpGetData(XUsbPs *InstancePtr, u8 EpNum, u32 BufferLen)
+{
+	XUsbPs_EpOut	*Ep;
+	XUsbPs_EpSetup	*EpSetup;
+	u8 *DataBuff;
+	u32 Handle;
+	u32 length = 0;
+	u32 InavalidateLen = 0;
+
+	/* The buffer is not active which means that it has been processed by
+	 * the DMA engine and contains valid data.
+	 */
+	Ep = &InstancePtr->DeviceConfig.Ep[EpNum].Out;
+	EpSetup = &InstancePtr->DeviceConfig.EpCfg[EpNum].Out;
+
+	/* Use the buffer pointer stored in the "user data" field of the
+	 * Transfer Descriptor.
+	*/
+
+	do {
+		XUsbPs_dTDInvalidateCache(Ep->dTDCurr);
+
+		DataBuff = (u8 *) XUsbPs_ReaddTD(Ep->dTDCurr,
+				XUSBPS_dTDUSERDATA);
+
+		length = EpSetup->BufSize -
+				XUsbPs_dTDGetTransferLen(Ep->dTDCurr);
+
+		if (length > 0) {
+			BufferLen = length;
+		} else {
+			BufferLen = 0;
+		}
+
+		/* Invalidate the Buffer Pointer */
+		InavalidateLen =  BufferLen;
+		if (BufferLen % 32) {
+			InavalidateLen = (BufferLen/32) * 32 + 32;
+		}
+
+		Xil_DCacheInvalidateRange((unsigned int)DataBuff,
+				InavalidateLen);
+
+		memcpy(Ep->BufferPtr, DataBuff,  BufferLen);
+
+		Ep->BytesTxed += BufferLen;
+		Ep->BufferPtr += BufferLen;
+
+		Handle	= (u32) Ep->dTDCurr;
+
+		/* Reset the descriptor's BufferPointer0 and Transfer Length
+		 * fields to their original value. Note that we can not yet
+		 * re-activate the descriptor as the caller will be using the
+		 * attached buffer. Once the caller releases the buffer by
+		 * calling XUsbPs_EpBufferRelease(),
+		 * we can re-activate the descriptor.
+		 */
+		XUsbPs_WritedTD(Ep->dTDCurr, XUSBPS_dTDBPTR0, DataBuff);
+		XUsbPs_dTDSetTransferLen(Ep->dTDCurr, EpSetup->BufSize);
+
+		XUsbPs_dTDFlushCache(Ep->dTDCurr);
+
+		XUsbPs_EpBufferRelease(Handle);
+
+		Ep->dTDCurr = XUsbPs_dTDGetNLP(Ep->dTDCurr);
+		XUsbPs_dTDInvalidateCache(Ep->dTDCurr);
+
+		/* Either Host sent exact requested length or more than that
+		 * or lesser data.
+		 */
+		if ((Ep->RequestedBytes <= Ep->BytesTxed) ||
+				(Ep->BytesTxed % EpSetup->MaxPacketSize)) {
+			Ep->MemAlloted  = 0;
+			if (Ep->HandlerIsoFunc) {
+				Ep->HandlerIsoFunc(Ep->HandlerRef,
+						Ep->RequestedBytes,
+						Ep->BytesTxed);
+			}
+
+			break;
+		}
+	} while (!XUsbPs_dTDIsActive(Ep->dTDCurr));
+
 }
 
 /*****************************************************************************/
@@ -491,6 +594,55 @@ void XUsbPs_EpBufferRelease(u32 Handle)
 
 }
 
+/*****************************************************************************/
+/**
+ * This function receives a data buffer from the endpoint of the given endpoint
+ * number.
+ *
+ * @param	InstancePtr is a pointer to the XUsbPs instance of the
+ *		controller.
+ * @param	EpNum is the number of the endpoint to receive data from.
+ * @param	BufferPtr (OUT param) is a pointer to the buffer pointer to hold
+ *		the reference of the data buffer.
+ * @param	BufferLen (OUT param) is a pointer to the integer that will
+ *		hold the buffer length.
+ *
+ * @return
+ *		- XST_SUCCESS: The operation completed successfully.
+ *		- XST_FAILURE: An error occurred.
+ *		- XST_USB_NO_BUF: No buffer available.
+ *
+ * @note
+ *
+ ******************************************************************************/
+s32 XUsbPs_EpDataBufferReceive(XUsbPs *InstancePtr, u8 EpNum,
+			u8 *BufferPtr, u32 BufferLen)
+{
+	XUsbPs_EpOut	*Ep;
+
+	Xil_AssertNonvoid(InstancePtr  != NULL);
+	Xil_AssertNonvoid(BufferPtr    != NULL);
+	Xil_AssertNonvoid(EpNum < InstancePtr->DeviceConfig.NumEndpoints);
+
+	Ep = &InstancePtr->DeviceConfig.Ep[EpNum].Out;
+
+	Ep->RequestedBytes = BufferLen;
+	Ep->BytesTxed = 0;
+	Ep->BufferPtr = BufferPtr;
+	Ep->MemAlloted = 1;
+
+	XUsbPs_dTDInvalidateCache(Ep->dTDCurr);
+
+	/* Locate the next available buffer in the ring. A buffer is available
+	 * if its descriptor is not active.
+	 */
+	if (XUsbPs_dTDIsActive(Ep->dTDCurr)) {
+		return XST_USB_NO_BUF;
+	}
+	XUsbPs_EpGetData(InstancePtr, EpNum, BufferLen);
+
+	return XST_SUCCESS;
+}
 
 /*****************************************************************************/
 /**
@@ -542,6 +694,53 @@ int XUsbPs_EpSetHandler(XUsbPs *InstancePtr, u8 EpNum, u8 Direction,
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+ * This function sets the handler for ISO endpoint events.
+ *
+ * @param	InstancePtr is a pointer to the XUsbPs instance of the
+ *		controller.
+ * @param	EpNum is the number of the endpoint to receive data from.
+ * @param	Direction is the direction of the endpoint (bitfield):
+ * 			- XUSBPS_EP_DIRECTION_OUT
+ * 			- XUSBPS_EP_DIRECTION_IN
+ * @param	CallBackFunc is the Handler callback function.
+ *		Can be NULL if the user wants to disable the handler entry.
+ *
+ * @return
+ *		- XST_SUCCESS: The operation completed successfully.
+ *		- XST_FAILURE: An error occurred.
+ *		- XST_INVALID_PARAM: Invalid parameter passed.
+ *
+ * @note
+ * 		The user can disable a handler by setting the callback function
+ * 		pointer to NULL.
+ *
+ ******************************************************************************/
+s32 XUsbPs_EpSetIsoHandler(XUsbPs *InstancePtr, u8 EpNum, u8 Direction,
+					XUsbPs_EpIsoHandlerFunc CallBackFunc)
+{
+	XUsbPs_Endpoint	*Ep;
+	void *CallBackRef = (void *) InstancePtr->AppData;
+
+	Xil_AssertNonvoid(InstancePtr  != NULL);
+	Xil_AssertNonvoid(CallBackFunc != NULL);
+	Xil_AssertNonvoid(EpNum < InstancePtr->DeviceConfig.NumEndpoints);
+
+	Ep = &InstancePtr->DeviceConfig.Ep[EpNum];
+
+	if (Direction & XUSBPS_EP_DIRECTION_OUT) {
+		Ep->Out.HandlerIsoFunc	= CallBackFunc;
+		Ep->Out.HandlerRef	= CallBackRef;
+	}
+
+	if (Direction & XUSBPS_EP_DIRECTION_IN) {
+		Ep->In.HandlerIsoFunc	= CallBackFunc;
+		Ep->In.HandlerRef	= CallBackRef;
+	}
+
+	return XST_SUCCESS;
+}
 
 /*****************************************************************************/
 /**
@@ -814,6 +1013,8 @@ static void XUsbPs_EpListInit(XUsbPs_DeviceConfig *DevCfgPtr)
 	for (EpNum = 0; EpNum < DevCfgPtr->NumEndpoints; ++EpNum) {
 		Ep[EpNum].Out.HandlerFunc = NULL;
 		Ep[EpNum].In.HandlerFunc  = NULL;
+		Ep[EpNum].Out.HandlerIsoFunc = NULL;
+		Ep[EpNum].In.HandlerIsoFunc  = NULL;
 	}
 }
 

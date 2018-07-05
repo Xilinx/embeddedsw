@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2002 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xuartns550_l.h
-* @addtogroup uartns550_v3_5
+* @addtogroup uartns550_v3_6
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or
@@ -49,6 +29,7 @@
 * 3.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototypes of XUartNs550_SendByte,
 *                     XUartNs550_RecvByte, XUartNs550_SetBaud APIs.
+* 3.6   sd   02/03/20 Updated the register macros for DRL and DRM registers.
 * </pre>
 *
 ******************************************************************************/
@@ -87,6 +68,8 @@ extern "C" {
 #define XUN_MCR_OFFSET	(XUN_REG_OFFSET + 0x10) /**< Modem Control Register */
 #define XUN_LSR_OFFSET	(XUN_REG_OFFSET + 0x14) /**< Line Status Register */
 #define XUN_MSR_OFFSET	(XUN_REG_OFFSET + 0x18) /**< Modem Status Register */
+#define XUN_DLL_OFFSET	(XUN_REG_OFFSET + 0x00) /**< Divisor Register LSB */
+#define XUN_DLM_OFFSET	(XUN_REG_OFFSET + 0x04) /**< Divisor Register MSB */
 #define XUN_DRLS_OFFSET	(XUN_REG_OFFSET + 0x00) /**< Divisor Register LSB */
 #define XUN_DRLM_OFFSET	(XUN_REG_OFFSET + 0x04) /**< Divisor Register MSB */
 /* @} */

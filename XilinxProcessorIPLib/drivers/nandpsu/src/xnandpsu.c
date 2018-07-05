@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2018 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xnandpsu.c
-* @addtogroup nandpsu_v1_3
+* @addtogroup nandpsu_v1_6
 * @{
 *
 * This file contains the implementation of the interface functions for
@@ -101,6 +81,8 @@
 * 1.5   mus    11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
 * 1.5   mus    11/05/18 Updated XNandPsu_ChangeClockFreq to fix compilation
 *                       warnings.
+* 1.6	sd     06/02/20    Added Clock support
+* 1.6	sd     20/03/20    Added compilation flag
 *
 * </pre>
 *
@@ -242,6 +224,9 @@ s32 XNandPsu_CfgInitialize(XNandPsu *InstancePtr, XNandPsu_Config *ConfigPtr,
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
+#if defined  (XCLOCKING)
+	InstancePtr->Config.RefClk = ConfigPtr->RefClk;
+#endif
 	/* Operate in Polling Mode */
 	InstancePtr->Mode = XNANDPSU_POLLING;
 	/* Enable MDMA mode by default */
@@ -282,7 +267,6 @@ s32 XNandPsu_CfgInitialize(XNandPsu *InstancePtr, XNandPsu_Config *ConfigPtr,
 #endif
 		goto Out;
 	}
-
 Out:
 	return Status;
 }
@@ -1012,6 +996,9 @@ static void XNandPsu_SetEccSpareCmd(XNandPsu *InstancePtr, u16 SpareCmd,
 ******************************************************************************/
 static void XNandPsu_SelectChip(XNandPsu *InstancePtr, u32 Target)
 {
+#if defined  (XCLOCKING)
+	Xil_ClockEnable(InstancePtr->Config.RefClk);
+#endif
 	/* Update Memory Address2 register with chip select */
 	XNandPsu_ReadModifyWrite(InstancePtr, XNANDPSU_MEM_ADDR2_OFFSET,
 			XNANDPSU_MEM_ADDR2_CHIP_SEL_MASK,
@@ -2849,6 +2836,9 @@ s32 Status = XST_FAILURE;
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 			XNANDPSU_INTR_STS_OFFSET,
 			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
+#if defined  (XCLOCKING)
+	Xil_ClockDisable(InstancePtr->Config.RefClk);
+#endif
 Out:
 	return Status;
 }

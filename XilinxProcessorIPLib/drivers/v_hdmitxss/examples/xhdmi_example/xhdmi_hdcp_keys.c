@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -50,9 +30,13 @@
 
 /************************** Constant Definitions *****************************/
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
-#define XHDCP_UART_BASEADDR       XPAR_UARTLITE_0_BASEADDR
+#ifndef versal
+#define UART_BASE_ADDRESS XPAR_MB_SS_0_AXI_UARTLITE_BASEADDR
 #else
-#define XHDCP_UART_BASEADDR       XPAR_XUARTPS_0_BASEADDR
+#define UART_BASE_ADDRESS XPAR_XUARTPSV_0_BASEADDR
+#endif
+#else
+#define UART_BASE_ADDRESS XPAR_XUARTPS_0_BASEADDR
 #endif
 
 #define XHDCP_IIC_BASEADDR		  XPAR_IIC_0_BASEADDR
@@ -70,6 +54,48 @@ static void Decrypt(u8 *CipherBufferPtr, u8 *PlainBufferPtr, u8 *Key, u16 Length
 static u16 EepromGet(u16 Address, u8 *BufferPtr, u16 Length);
 static u8 EepromReadByte(u16 Address, u8 *BufferPtr, u16 ByteCount);
 static u8 EnterPassword (u8 *Password);
+
+static u32 XHdcp_KeyMgmtBlk_ReadReg(u32 BaseAddress, u32 RegOffset);
+static void XHdcp_KeyMgmtBlk_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data);
+
+/*****************************************************************************/
+/**
+*
+* This function reads a value from a Key Management block register.
+* A 32 bit read is performed.
+*
+* @param    BaseAddress is the base address of the HDMI RX core instance.
+* @param    RegOffset is the register offset of the register (defined at
+*       the top of this file).
+*
+* @return   The 32-bit value of the register.
+*
+******************************************************************************/
+static u32 XHdcp_KeyMgmtBlk_ReadReg(u32 BaseAddress, u32 RegOffset)
+{
+	usleep(10);
+	return XHdcp_KeyMgmtBlk_In32((BaseAddress) + (RegOffset));
+}
+
+/*****************************************************************************/
+/**
+*
+* This function writes a value to a Key Management block register.
+* A 32 bit write is performed.
+*
+* @param    BaseAddress is the base address of the HDMI RX core instance.
+* @param    RegOffset is the register offset of the register (defined at
+*       the top of this file) to be written.
+* @param    Data is the 32-bit value to write into the register.
+*
+* @return   None.
+*
+******************************************************************************/
+static void XHdcp_KeyMgmtBlk_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+{
+	XHdcp_KeyMgmtBlk_Out32((BaseAddress) + (RegOffset), (u32)(Data));
+	usleep(10);
+}
 
 /*****************************************************************************/
 /**
@@ -190,13 +216,13 @@ int XHdcp_KeyManagerInit(u32 BaseAddress, u8 *Hdcp14Key)
 	KeyPtr = Hdcp14Key;
 
 	/* Reset */
-	Xil_Out32((BaseAddress + 0x0c), (1<<31));
+	XHdcp_KeyMgmtBlk_WriteReg(BaseAddress, 0x0c, (1<<31));
 
 	// There are 41 rows
 	for (Row=0; Row<41; Row++)
 	{
 		/* Set write enable */
-		Xil_Out32((BaseAddress + 0x20), 1);
+		XHdcp_KeyMgmtBlk_WriteReg(BaseAddress, 0x20, 1);
 
 		/* High data */
 		RegValue = 0;
@@ -208,7 +234,7 @@ int XHdcp_KeyManagerInit(u32 BaseAddress, u8 *Hdcp14Key)
 		}
 
 		/* Write high data */
-		Xil_Out32((BaseAddress + 0x2c), RegValue);
+		XHdcp_KeyMgmtBlk_WriteReg(BaseAddress, 0x2c, RegValue);
 
 		/* Low data */
 		RegValue = 0;
@@ -220,15 +246,15 @@ int XHdcp_KeyManagerInit(u32 BaseAddress, u8 *Hdcp14Key)
 		}
 
 		/* Write low data */
-		Xil_Out32((BaseAddress + 0x30), RegValue);
+		XHdcp_KeyMgmtBlk_WriteReg(BaseAddress, 0x30, RegValue);
 
 		/* Table / Row Address */
-		Xil_Out32((BaseAddress + 0x28), Row);
+		XHdcp_KeyMgmtBlk_WriteReg(BaseAddress, 0x28, Row);
 
 		// Write in progress
 		do
 		{
-			RegValue = Xil_In32(BaseAddress + 0x24);
+			RegValue = XHdcp_KeyMgmtBlk_ReadReg(BaseAddress, 0x24);
 			RegValue &= 1;
 		} while (RegValue != 0);
 	}
@@ -247,15 +273,15 @@ int XHdcp_KeyManagerInit(u32 BaseAddress, u8 *Hdcp14Key)
 	do
 	{
 		/* Set read enable */
-		Xil_Out32((BaseAddress + 0x20), (1<<1));
+		XHdcp_KeyMgmtBlk_WriteReg(BaseAddress, 0x20, (1<<1));
 
 		/* Table / Row Address */
-		Xil_Out32((BaseAddress + 0x28), Row);
+		XHdcp_KeyMgmtBlk_WriteReg(BaseAddress, 0x28, Row);
 
 		// Read in progress
 		do
 		{
-			RegValue = Xil_In32(BaseAddress + 0x24);
+			RegValue = XHdcp_KeyMgmtBlk_ReadReg(BaseAddress, 0x24);
 			RegValue &= 1;
 		} while (RegValue != 0);
 
@@ -268,7 +294,7 @@ int XHdcp_KeyManagerInit(u32 BaseAddress, u8 *Hdcp14Key)
 			KeyPtr++;
 		}
 
-		if (RegValue != Xil_In32(BaseAddress + 0x2c))
+		if (RegValue != XHdcp_KeyMgmtBlk_ReadReg(BaseAddress, 0x2c))
 			Status = XST_FAILURE;
 
 		/* Low data */
@@ -280,7 +306,7 @@ int XHdcp_KeyManagerInit(u32 BaseAddress, u8 *Hdcp14Key)
 			KeyPtr++;
 		}
 
-		if (RegValue != Xil_In32(BaseAddress + 0x30))
+		if (RegValue != XHdcp_KeyMgmtBlk_ReadReg(BaseAddress, 0x30))
 			Status = XST_FAILURE;
 
 		/* Increment row */
@@ -291,10 +317,10 @@ int XHdcp_KeyManagerInit(u32 BaseAddress, u8 *Hdcp14Key)
 	if (Status == XST_SUCCESS)
 	{
 		/* Set read lockout */
-		Xil_Out32((BaseAddress + 0x20), (1<<31));
+		XHdcp_KeyMgmtBlk_WriteReg(BaseAddress, 0x20, (1<<31));
 
 		/* Start AXI-Stream */
-		Xil_Out32((BaseAddress + 0x0c), (1));
+		XHdcp_KeyMgmtBlk_WriteReg(BaseAddress, 0x0c, (1));
 	}
 
 	return Status;
@@ -327,22 +353,30 @@ static u8 EnterPassword(u8 *Password)
 	i = 0;
 	while (1) {
 		/* Check if the UART has any data */
+#ifndef versal
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
-		if (!XUartLite_IsReceiveEmpty(XHDCP_UART_BASEADDR)) {
+		if (!XUartLite_IsReceiveEmpty(UART_BASE_ADDRESS)) {
 			/* Read data from uart */
-			Data = XUartLite_RecvByte(XHDCP_UART_BASEADDR);
+			Data = XUartLite_RecvByte(UART_BASE_ADDRESS);
 
 			/* Send response to user */
-			XUartLite_SendByte(XHDCP_UART_BASEADDR, '.');
+			XUartLite_SendByte(UART_BASE_ADDRESS, '.');
 #else
-			if (XUartPs_IsReceiveData(XHDCP_UART_BASEADDR)) {
+			if (XUartPs_IsReceiveData(UART_BASE_ADDRESS)) {
 				/* Read data from uart */
-				Data = XUartPs_RecvByte(XHDCP_UART_BASEADDR);
+				Data = XUartPs_RecvByte(UART_BASE_ADDRESS);
 
 				/* Send response to user */
-				XUartPs_SendByte(XHDCP_UART_BASEADDR, '.');
+				XUartPs_SendByte(UART_BASE_ADDRESS, '.');
 #endif
+#else
+		if (XUartPsv_IsReceiveData(UART_BASE_ADDRESS)) {
+			/* Read data from uart */
+			Data = XUartPsv_RecvByte(UART_BASE_ADDRESS);
 
+			/* Send response to user */
+			XUartPsv_SendByte(UART_BASE_ADDRESS, '.');
+#endif
 			/* Execute */
 			if ((Data == '\n') || (Data == '\r')) {
 				return TRUE;

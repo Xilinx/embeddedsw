@@ -1,33 +1,13 @@
 /******************************************************************************
- *
- * Copyright (C) 1986-2018 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 1986 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xv_mix_l2.h
-* @addtogroup v_mix_v3_0
+* @addtogroup v_mix_v6_0
 * @{
 * @details
 *
@@ -125,6 +105,7 @@
 * 3.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
 * 4.00  vyc   04/04/18   Add 8th overlayer
 *                        Move logo layer enable from bit 8 to bit 15
+* 6.00  pg    01/10/20   Add Colorimetry Feature
 * </pre>
 *
 ******************************************************************************/
@@ -145,6 +126,13 @@ extern "C" {
 
 #define XVMIX_IRQ_DONE_MASK              (0x01)
 #define XVMIX_IRQ_READY_MASK             (0x02)
+
+#define XVMIX_CSC_COEFF_FRACTIONAL_BITS	(12)
+#define XVMIX_CSC_COEFF_DIVISOR	(10000)
+#define XVMIX_CSC_MAX_ROWS		(3)
+#define XVMIX_CSC_MAX_COLS		(3)
+#define XVMIX_CSC_MATRIX_SIZE	(XVMIX_CSC_MAX_ROWS * XVMIX_CSC_MAX_COLS)
+#define XVMIX_CSC_COEFF_SIZE		(12)
 
 /**************************** Type Definitions *******************************/
 /**
@@ -169,6 +157,59 @@ typedef enum
     XVMIX_SCALE_FACTOR_4X,
     XVMIX_SCALE_FACTOR_NUM_SUPPORTED
 }XVMix_Scalefactor;
+
+
+/*
+* These are CSC coefficient tables for Colorimetry with magic numbers
+* and range are derived from the following references:
+* [1] Rec. ITU-R BT.601-6
+* [2] Rec. ITU-R BT.709-5
+* [3] Rec. ITU-R BT.2020
+* [4] http://en.wikipedia.org/wiki/YCbCr
+* Coefficient table supports BT601 / BT709 / BT2020 encoding schemes
+* and 16-235 / 16-240 / 0-255 range.
+* These are defined in signed interger format and divided with 10000
+* to get fractional values.
+*/
+
+static const s32
+xv_mix_yuv2rgb_coeffs[XVMIX_CSC_MAX_ROWS][XVMIX_CSC_MAX_COLS][XVMIX_CSC_COEFF_SIZE] = {
+
+	{
+	 { 10000, 0, 14426, 10000, -1609, -5589, 10000, 18406, 0, -185, 92, -236 },
+	 { 10233, 0, 14754, 10233, -1646, -5716, 10233, 18824, 0, -189, 94, -241 },
+	 { 11644, 0, 16787, 11644, -1873, -6504, 11644, 21418, 0, -234, 89, -293 } },
+
+	{
+	 { 10000, 0, 15406, 10000, -1832, -4579, 10000, 18153, 0, -197, 82, -232 },
+	 { 10233, 0, 15756, 10233, -1873, -4683, 10233, 18566, 0, -202, 84, -238 },
+	 { 11644, 0, 17927, 11644, -2132, -5329, 11644, 21124, 0, -248, 77, -289 } },
+
+	{
+	 { 10000, 0, 13669, 10000, -3367, -6986, 10000, 17335, 0, -175, 132, -222 },
+	 { 10479, 0, 13979, 10479, -3443, -7145, 10479, 17729, 0, -179, 136, -227 },
+	 { 11644, 0, 15906, 11644, -3918, -8130, 11644, 20172, 0, -223, 136, -277 } }
+};
+
+
+static const s32
+xv_mix_rgb2yuv_coeffs[XVMIX_CSC_MAX_ROWS][XVMIX_CSC_MAX_COLS][XVMIX_CSC_COEFF_SIZE] = {
+
+	{
+	 { 2625, 6775, 592, -1427, -3684, 5110, 5110, -4699, -410,  0, 128, 128 },
+	 { 2566, 6625, 579, -1396, -3602, 4997, 4997, -4595, -401,  0, 128, 128 },
+	 { 2256, 5823, 509, -1227, -3166, 4392, 4392, -4039, -353, 16, 128, 128 } },
+
+	{
+	 { 2120, 7150, 720, -1170, -3940, 5110, 5110, -4640, -470,  0, 128, 128 },
+	 { 2077, 6988, 705, -1144, -3582, 4997, 4997, -4538, -458,  0, 128, 128 },
+	 { 1826, 6142, 620, -1006, -3386, 4392, 4392, -3989, -403, 16, 128, 128 } },
+
+	{
+	 { 2990, 5870, 1440, -1720, -3390, 5110, 5110, -4280, -830,  0, 128, 128 },
+	 { 2921, 5735, 1113, -1686, -3310, 4393, 4393, -4184, -812,  0, 128, 128 },
+	 { 2568, 5041,  979, -1482, -2910, 4393, 4393, -3678, -714, 16, 128, 128 } }
+};
 
 /**
  * This typedef enumerates layer index
@@ -367,6 +408,22 @@ typedef struct {
 
 /*****************************************************************************/
 /**
+ *
+ * This macro returns if CSC Coefficient Registers is enabled
+ *
+ * @param    InstancePtr is a pointer to the core instance.
+ *
+ * @return   Enabled(1)/Disabled(0)
+ *
+ * @note     None.
+ *
+ ******************************************************************************/
+#define XVMix_IsCscCoeffsRegsEnabled(InstancePtr) \
+	((InstancePtr)->Mix.Config.CscCoeffsRegsEn)
+
+
+/*****************************************************************************/
+/**
 *
 * This macro returns if alpha feature of specified layer is available
 *
@@ -484,6 +541,18 @@ void XVMix_InterruptHandler(void *InstancePtr);
 int XVMix_SetCallback(XV_Mix_l2 *InstancePtr, void *CallbackFunc, void *CallbackRef);
 void XVMix_InterruptEnable(XV_Mix_l2 *InstancePtr);
 void XVMix_InterruptDisable(XV_Mix_l2 *InstancePtr);
+static void XVMix_SetCoeffForYuvToRgb(XV_Mix_l2 *InstancePtr,
+		XVidC_ColorStd colorStandard,
+		XVidC_ColorRange colorRange,
+		u8 colorDepth);
+static void XVMix_SetCoeffForRgbToYuv(XV_Mix_l2 *InstancePtr,
+		XVidC_ColorStd ColorStd,
+		XVidC_ColorRange colorRange,
+		u8 colorDepth);
+u32 XVMix_SetCscCoeffs(XV_Mix_l2 *InstancePtr,
+		XVidC_ColorStd ColorStd,
+		XVidC_ColorRange colorRange,
+		u8 colorDepth);
 
 #ifdef __cplusplus
 }

@@ -1,32 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *  @file xclk_wiz_hw.h
- * @addtogroup clk_wiz_v1_2
+ * @addtogroup clk_wiz_v1_3
  * @{
  *
  * Hardware definition file. It defines the register interface.
@@ -37,6 +17,7 @@
  * Ver Who Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0 ram 02/12/16 Initial version for Clock Wizard
+ * 1.3 sd  4/09/20 Added versal support.
  * </pre>
  *
  *****************************************************************************/
@@ -63,7 +44,33 @@ extern "C" {
 
 #define XCLK_WIZ_ISR_OFFSET	0x0000000C  /**< Interrupt Status Register */
 #define XCLK_WIZ_IER_OFFSET	0x00000010  /**< Interrupt Enable Register */
+#define XCLK_WIZ_REG1_OFFSET	0x00000330
+#define XCLK_WIZ_REG2_OFFSET	0x00000334
+#define XCLK_WIZ_REG3_OFFSET	0x00000338
+#define XCLK_WIZ_REG4_OFFSET	0x0000033C
+#define XCLK_WIZ_REG12_OFFSET	0x00000380
+#define XCLK_WIZ_REG13_OFFSET	0x00000384
+#define XCLK_WIZ_REG11_OFFSET	0x00000378
+#define XCLK_WIZ_REG14_OFFSET	0x00000398
+#define XCLK_WIZ_REG15_OFFSET	0x0000039C
+#define XCLK_WIZ_REG16_OFFSET	0x000003A0
+#define XCLK_WIZ_REG17_OFFSET	0x000003A8
+#define XCLK_WIZ_REG25_OFFSET	0x000003F0
+#define XCLK_WIZ_REG26_OFFSET	0x000003FC
 
+#define XCLK_WIZ_REG3_PREDIV2			(1 << 11)    /**< Prediv2  3*/
+#define XCLK_WIZ_REG3_USED			(1 << 12)    /**< Prediv2  3*/
+#define XCLK_WIZ_REG3_MX			(1 << 9)    /**< MX*/
+#define XCLK_WIZ_REG1_PREDIV2			(1 << 12)    /**< Prediv2  3*/
+#define XCLK_WIZ_REG1_EN			(1 << 9)    /**< FBout enable*/
+#define XCLK_WIZ_REG1_MX			(1 << 10)    /**< MX  3*/
+
+#define XCLK_WIZ_CLKOUT0_PREDIV2_SHIFT		11   /**< Shift bits for Prediv2 */
+#define XCLK_WIZ_CLKOUT0_MX_SHIFT		9   /**< Shift bits for MUX */
+#define XCLK_WIZ_CLKOUT0_P5EN_SHIFT		13   /**< Shift bits for P5EN */
+#define XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT		15  /**< Shift bits for P5EDGE */
+#define XCLK_WIZ_REG12_EDGE_SHIFT		10  /**< Shift bits for Edge */
+#define XCLK_WIZ_REG1_EDGE_SHIFT		8  /**< Shift bits for Edge */
 /*@}*/
 
 /** @name Bitmasks and offsets of XCLK_WIZ_ISR_OFFSET register

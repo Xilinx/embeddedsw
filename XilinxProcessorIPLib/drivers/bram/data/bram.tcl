@@ -1,26 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2004 - 2019 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-#
+# Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 ###############################################################################
 #
@@ -31,7 +11,7 @@
 # 4.2     ms     04/18/17 Modified tcl file to add suffix U for all macros
 #                         definitions of bram in xparameters.h
 # 4.3	  aru    03/23/19 Added default CTRL_BASEADDRESS and CTRL_HIGHADDRESS
-#			  if it is not present for any instance 
+#			  if it is not present for any instance
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_P
@@ -60,7 +40,7 @@ proc generate {drv_handle} {
 # and sort them in the following order: *BASE* *HIGH* *CTRL*BASE* *CTRL*HIGH*
 #
 proc find_addr_params {periph} {
-    set addr_params [::hsi::utils::find_addr_params $periph]    
+    set addr_params [::hsi::utils::find_addr_params $periph]
     global flag
     set flag 0
     set sorted_addr_params {}
@@ -366,7 +346,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                 puts $file_handle "#define $lvalue $rvalue$uSuffix"
             }
 	   if {$flag == 1} {
-        	puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "CTRL_BASEADDR" ] 0xFFFFFFFF$uSuffix  "
+		puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "CTRL_BASEADDR" ] 0xFFFFFFFF$uSuffix  "
 	        puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "CTRL_HIGHADDR" ] 0xFFFFFFFE$uSuffix  "
                 }
             puts $file_handle ""

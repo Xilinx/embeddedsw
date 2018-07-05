@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2002 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xintc_l.c
-* @addtogroup intc_v3_9
+* @addtogroup intc_v3_11
 * @{
 *
 * This file contains low-level driver functions that can be used to access the
@@ -397,6 +377,9 @@ void XIntc_RegisterHandler(UINTPTR BaseAddress, int InterruptId,
 
 		if (InterruptId > 31) {
 			CfgPtr = XIntc_LookupConfig(InterruptId/32);
+			if (CfgPtr == NULL) {
+				return;
+			}
 			CfgPtr->HandlerTable[InterruptId%32].Handler = Handler;
 			CfgPtr->HandlerTable[InterruptId%32].CallBackRef =
 								CallBackRef;
@@ -434,6 +417,9 @@ static XIntc_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress)
 	for (Index = 0; Index < XPAR_XINTC_NUM_INSTANCES; Index++) {
 		if (XIntc_ConfigTable[Index].BaseAddress == BaseAddress) {
 			CfgPtr = &XIntc_ConfigTable[Index];
+			if (CfgPtr == NULL) {
+				return NULL;
+			}
 			break;
 		}
 	}
@@ -475,6 +461,9 @@ void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 	if (Id > 31) {
 		/* Enable user required Id in Slave controller */
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return;
+		}
 
 		/* Get the Enabled Interrupts */
 		CurrentIER = XIntc_In32(CfgPtr->BaseAddress + XIN_IER_OFFSET);
@@ -495,7 +484,7 @@ void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 				((Id%32) * 8), (UINTPTR) FastHandler);
 		} else {
 			XIntc_Out32(CfgPtr->BaseAddress + XIN_IVAR_OFFSET +
-					((Id%32) * 4), (u32) FastHandler);
+					((Id%32) * 4), (UINTPTR) FastHandler);
 		}
 
 		/* Slave controllers in Cascade Mode should have all as Fast
@@ -527,13 +516,16 @@ void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 		}
 
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return;
+		}
 		if (CfgPtr->VectorAddrWidth >
 			XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
 			XIntc_Out64(BaseAddress + XIN_IVEAR_OFFSET +
 				(Id * 8), (UINTPTR) FastHandler);
 		} else {
 			XIntc_Out32(BaseAddress + XIN_IVAR_OFFSET + (Id * 4),
-						(u32) FastHandler);
+						(UINTPTR) FastHandler);
 		}
 
 		Imr = XIntc_In32(BaseAddress + XIN_IMR_OFFSET);
@@ -586,6 +578,9 @@ static void XIntc_CascadeHandler(void *DeviceId)
 
 	/* Get the configuration data using the device ID */
 	CfgPtr = &XIntc_ConfigTable[(u32)DeviceId];
+	if (CfgPtr == NULL) {
+		return;
+	}
 
 	/* Get the interrupts that are waiting to be serviced */
 	IntrStatus = XIntc_GetIntrStatus(CfgPtr->BaseAddress);

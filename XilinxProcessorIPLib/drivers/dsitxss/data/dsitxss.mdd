@@ -1,33 +1,15 @@
 ##############################################################################
-#
-# Copyright (C) 2016 Xilinx, Inc. All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-#
-###############################################################################
+# Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+# SPDX-License-Identifier: MIT
+##
+#############################################################################
 #
 # MODIFICATION HISTORY:
 # Ver Who Date    Changes
 # --- --- ------- -------------------------------------------------------
 # 1.0 ram 11/02/16 Initial Release for MIPI DSI TX subsystem
 # 1.1 sss 08/17/16 Added 64 bit support
+# 2.0 gv  04/10/20 Updated dsitxss_activate API
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -36,6 +18,6 @@ BEGIN driver dsitxss
 	OPTION supported_peripherals = (mipi_dsi_tx_subsystem);
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.2;
+	OPTION VERSION = 2.0;
 	OPTION NAME = dsitxss;
 END driver

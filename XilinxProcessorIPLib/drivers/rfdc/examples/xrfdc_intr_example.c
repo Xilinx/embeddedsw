@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017-2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
@@ -70,6 +50,8 @@
 *                       set clock to incompatible rate
 *       cog    06/08/19 Linux platform compatibility fixes.
 * 7.0   cog    07/25/19 Updated example for new metal register API.
+* 7.1   cog    01/24/20 Updated example for Gen3 and libmetal 2.0.
+* 8.0   cog    04/09/20 Fixed baremetal compilation bug.
 *
 * </pre>
 *
@@ -108,8 +90,8 @@
 #define I2CBUS	12
 #endif
 
-#define STIM_DEV_NAME    "a8000000.stimulus_gen_axi_s"
-#define CAP_DEV_NAME    "a4000000.data_capture_axi_s"
+#define STIM_DEV_NAME    "a0000000.exdes_rfdac_data_bram_stim"
+#define CAP_DEV_NAME    "a0400000.exdes_rfadc_data_bram_capture"
 
 /**************************** Type Definitions ******************************/
 
@@ -151,6 +133,12 @@ struct metal_io_region *io_cap;
 
 #ifdef __BAREMETAL__
 XScuGic InterruptController;
+
+const metal_phys_addr_t metal_phys[] = {
+		XRFDC_BASE_ADDR,
+		STIM_BASE_ADDR,
+		CAP_BASE_ADDR
+};
 
 static struct metal_device metal_dev_rfdc = {
 	/* RFdc device */
@@ -331,8 +319,12 @@ printf("\n Configuring the Clock \r\n");
 	XRFdc_SetStatusHandler(RFdcInstPtr, RFdcInstPtr,
 				 (XRFdc_StatusHandler) RFdcHandler);
 
-	XRFdc_IntrEnable(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block,
+	Status = XRFdc_IntrEnable(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block,
 						XRFDC_IXR_FIFOUSRDAT_MASK);
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
+	}
+
 	GetFabricRate = 0;
 	SetFabricRate = 0x1;
 	Status = XRFdc_SetFabRdVldWords(RFdcInstPtr, Tile, Block,
@@ -363,6 +355,20 @@ printf("\n Configuring the Clock \r\n");
 	if (ret) {
 		printf("\n failed to initialise interrupt handler \r\n");
 	}
+
+   ret = metal_register_generic_device(&metal_dev_stim);
+   if (ret) {
+      printf("\n failed to register stim block \r\n");
+   } else {
+      printf("registered stim block.\r\n");
+   }
+
+   ret = metal_register_generic_device(&metal_dev_cap);
+   if (ret) {
+      printf("\n failed to register cap block \r\n");
+   } else {
+      printf("registered cap block.\r\n");
+   }
 #endif
 	ret =  metal_irq_register(irq,
 				(metal_irq_handler)XRFdc_IntrHandler,
@@ -373,12 +379,7 @@ printf("\n Configuring the Clock \r\n");
 		printf("registered IPI interrupt.\r\n");
 	}
 
-	ret = metal_register_generic_device(&metal_dev_stim);
-	if (ret) {
-		printf("\n failed to register stim block \r\n");
-	} else {
-		printf("registered stim block.\r\n");
-	}
+	metal_irq_enable(irq);
 
 	device_stim = &metal_dev_stim;
 	ret = metal_device_open(BUS_NAME, STIM_DEV_NAME, &device_stim);
@@ -393,13 +394,6 @@ printf("\n Configuring the Clock \r\n");
 		printf("ERROR: Failed to map Stimulus regio for %s.\r\n",
 			  device_stim->name);
 		return XRFDC_FAILURE;
-	}
-
-	ret = metal_register_generic_device(&metal_dev_cap);
-	if (ret) {
-		printf("\n failed to register cap block \r\n");
-	} else {
-		printf("registered cap block.\r\n");
 	}
 
 	device_cap = &metal_dev_cap;
@@ -435,11 +429,6 @@ printf("\n Configuring the Clock \r\n");
 	}
 #endif
 
-	if (XRFdc_DynamicPLLConfig(RFdcInstPtr, XRFDC_ADC_TILE, Tile,
-					XRFDC_EXTERNAL_CLK,250,2000) != XRFDC_SUCCESS) {
-		printf("Could not set PLL");
-		return XRFDC_FAILURE;
-	}
 	printf("Waiting for Interrupt\r\n");
 	/* Wait till interrupt occurs */
 	while (InterruptOccured == 0);

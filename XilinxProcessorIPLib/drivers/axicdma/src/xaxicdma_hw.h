@@ -1,32 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *  @file xaxicdma_hw.h
-* @addtogroup axicdma_v4_6
+* @addtogroup axicdma_v4_7
 * @{
  *
  * Hardware definition file. It defines the register interface and Buffer
@@ -39,6 +19,8 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00a jz   04/08/10 First release
  * 2.02a srt  01/18/13 Added support for Key Hole feature (CR: 687217).
+ * 4.7   rsp  11/29/19 Remove hard-coded XAXICDMA_MAX_TRANSFER_LEN. In driver tcl
+ *                     derive it based on IP version.
  * </pre>
  *
  *****************************************************************************/
@@ -63,13 +45,6 @@ extern "C" {
                                                requirement for descriptors to
                                                satisfy both hardware/software
                                                needs */
-/*@}*/
-
-/** @name Maximum transfer length
- *    This is determined by hardware
- * @{
- */
-#define XAXICDMA_MAX_TRANSFER_LEN	0x7FFFFF  /**< Max length hw supports */
 /*@}*/
 
 /** @name Register offset definitions

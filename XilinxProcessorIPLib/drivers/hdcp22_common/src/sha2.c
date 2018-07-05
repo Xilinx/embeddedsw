@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file sha2.c
@@ -35,6 +15,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00  MH   10/30/15 First Release
+* 1.10  GM   10/14/19 Added "volatile" attribute to all "i" variables
 *</pre>
 *
 *****************************************************************************/
@@ -124,7 +105,8 @@ void XHdcp22Cmn_Sha256Hash(const u8 *Data, u32 DataSize, u8 *HashedData)
 ******************************************************************************/
 static void Sha256Transform(Sha256Type *Ctx, u8 *Data)
 {
-   u32 a,b,c,d,e,f,g,h,i,j,t1,t2,m[64];
+  volatile u32 i;
+  u32 a,b,c,d,e,f,g,h,j,t1,t2,m[64];
 
    for (i=0,j=0; i < 16; ++i, j += 4)
       m[i] = (Data[j] << 24) | (Data[j+1] << 16) | (Data[j+2] << 8) | (Data[j+3]);
@@ -205,7 +187,7 @@ static void Sha256Init(Sha256Type *Ctx)
 ******************************************************************************/
 static void Sha256Update(Sha256Type *Ctx, const u8 *Data, u32 Len)
 {
-   u32 i;
+   volatile u32 i;
 
    for (i=0; i < Len; ++i) {
       Ctx->data[Ctx->datalen] = Data[i];
@@ -233,7 +215,7 @@ static void Sha256Update(Sha256Type *Ctx, const u8 *Data, u32 Len)
 ******************************************************************************/
 static void Sha256Final(Sha256Type *Ctx, u8 *Hash)
 {
-   u32 i;
+   volatile u32 i;
 
    i = Ctx->datalen;
 

@@ -1,34 +1,13 @@
-/*******************************************************************
-* Copyright (C) 2017-2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
-
+/******************************************************************************
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
 * @file xrfdc_g.c
-* @addtogroup rfdc_v7_0
+* @addtogroup rfdc_v8_0
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
@@ -42,6 +21,8 @@
 * 1.0   sk     05/16/17 Initial release
 * 5.1   cog    01/29/19 Added FSMax, NumSlice & IP_Type.
 * 7.0   cog    05/13/19 Formatting changes.
+* 8.0   cog    02/10/20 Updated addtogroup.
+*       cog    02/10/20 Added Silicon_Revision.
 *
 * </pre>
 *
@@ -70,6 +51,7 @@ XRFdc_Config XRFdc_ConfigTable[XPAR_XRFDC_NUM_INSTANCES] = {
 	  XPAR_USP_RF_DATA_CONVERTER_0_SYSREF_SOURCE,
 	  XPAR_USP_RF_DATA_CONVERTER_0_SYSREF_SOURCE,
 	  XPAR_USP_RF_DATA_CONVERTER_0_IP_TYPE,
+	  XPAR_USP_RF_DATA_CONVERTER_0_SILICON_REVISION,
 	  {
 		  {
 			  XPAR_USP_RF_DATA_CONVERTER_0_DAC0_ENABLE,

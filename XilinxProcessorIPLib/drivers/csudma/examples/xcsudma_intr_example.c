@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -50,6 +30,7 @@
 *	adk    18/01/18 Remove unnecessary column in XIntc_Connect() API.
 * 1.5   adk    09/05/19 Added volatile keyword for DstDone variable to disable
 *			optimizations.
+* 1.6   hk     11/18/19 Correct Versal INTR definition.
 * </pre>
 *
 ******************************************************************************/
@@ -81,7 +62,7 @@
 #define INTC		XScuGic
 #define INTG_INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #if defined (versal)
-#define INTG_CSUDMA_INTR_DEVICE_ID	XPAR_PSU_PMCDMA_0_INTR /**< Interrupt device ID
+#define INTG_CSUDMA_INTR_DEVICE_ID	XPAR_PSV_PMC_DMA_0_INTR /**< Interrupt device ID
 						 *  of PMC DMA 0 device ID */
 #else
 #define INTG_CSUDMA_INTR_DEVICE_ID 	XPAR_XCSUDMA_INTR /**< Interrupt device ID

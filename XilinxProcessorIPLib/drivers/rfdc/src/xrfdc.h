@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xrfdc.h
-* @addtogroup rfdc_v7_0
+* @addtogroup rfdc_v8_0
 * @{
 * @details
 *
@@ -253,6 +233,18 @@
 *       cog    10/02/19 Added macros for the clock divider.
 *       cog    10/02/19 Added macro for fabric rate of 16.
 *       cog    10/02/19 Added macros for new VCO ranges.
+* 7.1   cog    11/14/19 Increased ADC fabric read rate to 12 words per cycle for Gen 3 devices.
+*       cog    11/15/19 Added macros for calibration mode support for Gen 3 devices.
+*       cog    11/28/19 Datapath mode macros have been changed to reflect the new functionality.
+*       cog    01/08/20 Added programmable hysteresis counters for ADC signal detector.
+*       cog    01/23/20 Calibration modes for Gen 3 were inverted.
+* 8.0   cog    02/10/20 Updated addtogroup and added s16 typedef.
+*       cog    02/10/20 Added Silicon revison to dirver structures to allow discrimation
+*                       between engineering sample & production silicon.
+*       cog    02/17/20 Driver now gets tile/path enables from the bitfile.
+*       cog    02/20/20 Added macros for Clock Gater handling.
+*       cog    03/05/20 IMR datapath modes require the frequency word to be doubled.
+*       cog    03/20/20 Updated PowerState masks for Gen 3 Devices.
 *
 * </pre>
 *
@@ -292,6 +284,7 @@ typedef __u32 u32;
 typedef __u16 u16;
 typedef __u8 u8;
 typedef __s32 s32;
+typedef __s16 s16;
 typedef __u64 u64;
 typedef __s64 s64;
 typedef __s8 s8;
@@ -374,6 +367,10 @@ typedef struct {
 	u8 EnableIntegrator;
 	u16 HighThreshold;
 	u16 LowThreshold;
+	u16 HighThreshOnTriggerCnt; /* the number of times value must exceed HighThreshold before turning on*/
+	u16 HighThreshOffTriggerCnt; /* the number of times value must be less than HighThreshold before turning off*/
+	u16 LowThreshOnTriggerCnt; /* the number of times value must exceed LowThreshold before turning on*/
+	u16 LowThreshOffTriggerCnt; /* the number of times value must be less than LowThreshold before turning off*/
 	u8 HysteresisEnable;
 } XRFdc_Signal_Detector_Settings;
 /**
@@ -580,6 +577,7 @@ typedef struct {
 	u32 ADCSysRefSource;
 	u32 DACSysRefSource;
 	u32 IPType;
+	u32 SiRevision;
 	XRFdc_DACTile_Config DACTile_Config[4];
 	XRFdc_ADCTile_Config ADCTile_Config[4];
 } XRFdc_Config;
@@ -864,6 +862,8 @@ typedef struct {
 
 #define XRFDC_CALIB_MODE1 0x1U
 #define XRFDC_CALIB_MODE2 0x2U
+#define XRFDC_CALIB_MODE_ABS_DIFF 0x1U
+#define XRFDC_CALIB_MODE_NEG_ABS_SUM 0x2U
 #define XRFDC_TI_DCB_MODE1_4GSPS 0x00007800U
 #define XRFDC_TI_DCB_MODE1_2GSPS 0x00005000U
 
@@ -929,7 +929,7 @@ typedef struct {
 #define XRFDC_ADC_2G_SAMPLING_MIN 500
 #define XRFDC_ADC_2G_SAMPLING_MAX 2058
 #define XRFDC_REFFREQ_MIN 102.40625
-#define XRFDC_REFFREQ_MAX 614
+#define XRFDC_REFFREQ_MAX 614.0
 
 #define XRFDC_DIGITALPATH_ENABLE 0x1U
 #define XRFDC_ANALOGPATH_ENABLE 0x1U
@@ -970,7 +970,7 @@ typedef struct {
 #define XRFDC_DECIM_2G_IQ_DATA_TYPE 0x2U
 
 #define XRFDC_DAC_MAX_WR_FAB_RATE 16U
-#define XRFDC_ADC_MAX_RD_FAB_RATE 8U
+#define XRFDC_ADC_MAX_RD_FAB_RATE(X) ((X < XRFDC_GEN3) ? 8U : 12U)
 
 #define XRFDC_MIN_PHASE_CORR_FACTOR -26.5
 #define XRFDC_MAX_PHASE_CORR_FACTOR 26.5
@@ -985,6 +985,14 @@ typedef struct {
 
 #define XRFDC_HSCOM_PWR_STATS_PLL 0xFFC0U
 #define XRFDC_HSCOM_PWR_STATS_EXTERNAL 0xF240U
+#define XRFDC_HSCOM_PWR_STATS_RX_EXT 0xF2FCU
+#define XRFDC_HSCOM_PWR_STATS_DIST_EXT 0xF0FEU
+#define XRFDC_HSCOM_PWR_STATS_RX_PLL 0xFFFCU
+#define XRFDC_HSCOM_PWR_STATS_DIST_PLL 0xFDFEU
+#define XRFDC_HSCOM_PWR_STATS_RX_EXT_DIV 0xF2FCU
+#define XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV 0xF0FE
+#define XRFDC_HSCOM_PWR_STATS_DIST_EXT_SRC 0xF2FCU
+#define XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV_SRC 0xF2FCU
 
 #define XRFDC_CLK_DST_TILE_231 0
 #define XRFDC_CLK_DST_TILE_230 1
@@ -1100,11 +1108,17 @@ typedef struct {
 #define XRFDC_EXPORTCTRL_VOP 0x2000
 #define XRFDC_EXPORTCTRL_DSA 0x0400
 
-#define XRFDC_DAC_MODE_7G_NQ1 0U
-#define XRFDC_DAC_MODE_7G_NQ2 1U
-#define XRFDC_DAC_MODE_10G_IMR 2U
-#define XRFDC_DAC_MODE_10G_BYPASS 3U
-#define XRFDC_DAC_MODE_MAX XRFDC_DAC_MODE_10G_BYPASS
+#define XRFDC_DATAPATH_MODE_DUC_0_FSDIVTWO 1U
+#define XRFDC_DATAPATH_MODE_DUC_0_FSDIVFOUR 2U
+#define XRFDC_DATAPATH_MODE_FSDIVFOUR_FSDIVTWO 3U
+#define XRFDC_DATAPATH_MODE_NODUC_0_FSDIVTWO 4U
+#define XRFDC_DAC_INT_MODE_FULL_BW 0U
+#define XRFDC_DAC_INT_MODE_HALF_BW_IMR 2U
+#define XRFDC_DAC_INT_MODE_FULL_BW_BYPASS 3U
+#define XRFDC_DAC_MODE_MAX XRFDC_DATAPATH_MODE_NODUC_0_FSDIVTWO
+
+#define XRFDC_FULL_BW_DIVISOR 1U
+#define XRFDC_HALF_BW_DIVISOR 2U
 
 #define XRFDC_DAC_IMR_MODE_LOWPASS 0U
 #define XRFDC_DAC_IMR_MODE_HIGHPASS 1U
@@ -1143,6 +1157,30 @@ typedef struct {
 #define XRFDC_CLK_DIV_DP_OTHER_MODES 0x20U
 
 #define XRFDC_TILE_STARTED XRFDC_SM_STATE15
+
+#define XRFDC_SI_REV_ES 0U
+#define XRFDC_SI_REV_PROD 1U
+
+#define XRFDC_CG_WAIT_CYCLES 3U
+#define XRFDC_ADC_CG_WAIT_CYCLES 1U
+
+#define XRFDC_CG_CYCLES_TOTAL_X1_X2_X4_X8 0U
+#define XRFDC_CG_CYCLES_KEPT_X1_X2_X4_X8 1U
+#define XRFDC_CG_CYCLES_TOTAL_X3_X6_X12 3U
+#define XRFDC_CG_CYCLES_KEPT_X3_X6_X12 2U
+#define XRFDC_CG_CYCLES_TOTAL_X5_X10 5U
+#define XRFDC_CG_CYCLES_KEPT_X5_X10 4U
+#define XRFDC_CG_CYCLES_TOTAL_X16 2U
+#define XRFDC_CG_CYCLES_KEPT_X16 1U
+#define XRFDC_CG_CYCLES_TOTAL_X20 5U
+#define XRFDC_CG_CYCLES_KEPT_X20 2U
+#define XRFDC_CG_CYCLES_TOTAL_X24 3U
+#define XRFDC_CG_CYCLES_KEPT_X24 1U
+#define XRFDC_CG_CYCLES_TOTAL_X40 5U
+#define XRFDC_CG_CYCLES_KEPT_X40 1U
+
+#define XRFDC_CG_FIXED_OFS 2U
+
 /*****************************************************************************/
 /**
 *
@@ -1251,7 +1289,15 @@ static inline u32 XRFdc_IsHighSpeedADC(XRFdc *InstancePtr, int Tile)
 ******************************************************************************/
 static inline u32 XRFdc_IsDACBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 {
-	return InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].DACBlock_Analog_Config[Block_Id].BlockAvailable;
+	u32 IsBlockAvail;
+	u32 BlockShift;
+	u32 BlockEnableReg;
+
+	BlockShift = Block_Id + (XRFDC_PATH_ENABLED_TILE_SHIFT * Tile_Id);
+	BlockEnableReg = XRFdc_ReadReg(InstancePtr, XRFDC_IP_BASE, XRFDC_DAC_PATHS_ENABLED_OFFSET);
+	BlockEnableReg &= (XRFDC_ENABLED << BlockShift);
+	IsBlockAvail = BlockEnableReg >> BlockShift;
+	return IsBlockAvail;
 }
 
 /*****************************************************************************/
@@ -1271,6 +1317,8 @@ static inline u32 XRFdc_IsDACBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 B
 static inline u32 XRFdc_IsADCBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 {
 	u32 IsBlockAvail;
+	u32 BlockShift;
+	u32 BlockEnableReg;
 
 	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_ENABLED) {
 		if ((Block_Id == 2U) || (Block_Id == 3U)) {
@@ -1281,7 +1329,12 @@ static inline u32 XRFdc_IsADCBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 B
 			Block_Id = 2U;
 		}
 	}
-	IsBlockAvail = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].ADCBlock_Analog_Config[Block_Id].BlockAvailable;
+
+	BlockShift = Block_Id + (XRFDC_PATH_ENABLED_TILE_SHIFT * Tile_Id);
+	BlockEnableReg = XRFdc_ReadReg(InstancePtr, XRFDC_IP_BASE, XRFDC_ADC_PATHS_ENABLED_OFFSET);
+	BlockEnableReg &= (XRFDC_ENABLED << BlockShift);
+	IsBlockAvail = BlockEnableReg >> BlockShift;
+
 RETURN_PATH:
 	return IsBlockAvail;
 }
@@ -1302,16 +1355,15 @@ RETURN_PATH:
 ******************************************************************************/
 static inline u32 XRFdc_IsDACDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 {
-	u32 Status;
+	u32 IsDigitalPathAvail;
+	u32 DigitalPathShift;
+	u32 DigitalPathEnableReg;
 
-	if (InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].Mixer_Settings.MixerType ==
-	    XRFDC_MIXER_TYPE_DISABLED) {
-		Status = 0U;
-	} else {
-		Status = 1U;
-	}
-
-	return Status;
+	DigitalPathShift = Block_Id + XRFDC_DIGITAL_PATH_ENABLED_SHIFT + (XRFDC_PATH_ENABLED_TILE_SHIFT * Tile_Id);
+	DigitalPathEnableReg = XRFdc_ReadReg(InstancePtr, XRFDC_IP_BASE, XRFDC_DAC_PATHS_ENABLED_OFFSET);
+	DigitalPathEnableReg &= (XRFDC_ENABLED << DigitalPathShift);
+	IsDigitalPathAvail = DigitalPathEnableReg >> DigitalPathShift;
+	return IsDigitalPathAvail;
 }
 
 /*****************************************************************************/
@@ -1330,11 +1382,13 @@ static inline u32 XRFdc_IsDACDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id,
 ******************************************************************************/
 static inline u32 XRFdc_IsADCDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 {
-	u32 IsBlockAvail;
+	u32 IsDigitalPathAvail;
+	u32 DigitalPathShift;
+	u32 DigitalPathEnableReg;
 
 	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_ENABLED) {
 		if ((Block_Id == 2U) || (Block_Id == 3U)) {
-			IsBlockAvail = 0;
+			IsDigitalPathAvail = 0;
 			goto RETURN_PATH;
 		}
 		if (Block_Id == 1U) {
@@ -1342,15 +1396,13 @@ static inline u32 XRFdc_IsADCDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id,
 		}
 	}
 
-	if (InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].Mixer_Settings.MixerType ==
-	    XRFDC_MIXER_TYPE_DISABLED) {
-		IsBlockAvail = 0;
-	} else {
-		IsBlockAvail = 1;
-	}
+	DigitalPathShift = Block_Id + XRFDC_DIGITAL_PATH_ENABLED_SHIFT + (XRFDC_PATH_ENABLED_TILE_SHIFT * Tile_Id);
+	DigitalPathEnableReg = XRFdc_ReadReg(InstancePtr, XRFDC_IP_BASE, XRFDC_ADC_PATHS_ENABLED_OFFSET);
+	DigitalPathEnableReg &= (XRFDC_ENABLED << DigitalPathShift);
+	IsDigitalPathAvail = DigitalPathEnableReg >> DigitalPathShift;
 
 RETURN_PATH:
-	return IsBlockAvail;
+	return IsDigitalPathAvail;
 }
 
 /*****************************************************************************/
@@ -1878,8 +1930,9 @@ RETURN_PATH:
 ******************************************************************************/
 static inline u32 XRFdc_CheckTileEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
 {
-	u32 IsTileAvail;
 	u32 Status;
+	u32 TileMask;
+	u32 TileEnableReg;
 
 	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE)) {
 		Status = XRFDC_FAILURE;
@@ -1889,12 +1942,15 @@ static inline u32 XRFdc_CheckTileEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
-	if (Type == XRFDC_ADC_TILE) {
-		IsTileAvail = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].Enable;
-	} else {
-		IsTileAvail = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].Enable;
+
+	TileEnableReg = XRFdc_ReadReg(InstancePtr, XRFDC_IP_BASE, XRFDC_TILES_ENABLED_OFFSET);
+
+	TileMask = XRFDC_ENABLED << Tile_Id;
+	if (Type == XRFDC_DAC_TILE) {
+		TileMask <<= XRFDC_DAC_TILES_ENABLED_SHIFT;
 	}
-	if (IsTileAvail == 0U) {
+
+	if ((TileEnableReg & TileMask) == 0U) {
 		Status = XRFDC_FAILURE;
 	} else {
 		Status = XRFDC_SUCCESS;
@@ -2000,7 +2056,7 @@ RETURN_PATH:
 ******************************************************************************/
 static inline double XRFdc_GetDriverVersion(void)
 {
-	return 7.0;
+	return 8.0;
 }
 
 /************************** Function Prototypes ******************************/

@@ -1,26 +1,21 @@
 /******************************************************************************
+* Copyright (C) 2005 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
+/*****************************************************************************/
+/**
 *
-* Copyright (C) 2005 - 2014 Xilinx, Inc.  All rights reserved.
+* @file tmrctr_intr_header.h
 *
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
+* <pre>
+* MODIFICATION HISTORY:
 *
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
+* Ver   Who  Date     Changes
+* ----- ---- -------- -----------------------------------------------
+* 4.6   mus  02/06/20 Add header files specific to the interrupt controller.
+*                     It fixes CR#1053672.
+* </pre>
 *
 ******************************************************************************/
 #ifndef TMRCTR_INTR_HEADER_H		/* prevent circular inclusions */
@@ -31,12 +26,16 @@
 #include "xstatus.h"
 
 #ifdef XPAR_INTC_0_DEVICE_ID
+#include "xintc.h"
+
 int TmrCtrIntrExample(XIntc* IntcInstancePtr,
                           XTmrCtr* InstancePtr,
                           u16 DeviceId,
                           u16 IntrId,
                           u8 TmrCtrNumber);
 #else
+#include "xscugic.h"
+
 int TmrCtrIntrExample(XScuGic* IntcInstancePtr,
                           XTmrCtr* InstancePtr,
                           u16 DeviceId,

@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
 * @file xclockps.h
-* @addtogroup xclock_v1_0
+* @addtogroup xclock_v1_2
 * @{
 *
 * The Xilinx Clock controller driver provides APIs to control clock parameters.
@@ -51,6 +31,7 @@
 * 1.00  sd     07/26/18 Fix Doxygen warnings
 * 1.1   aru    03/20/19 Fix IAR issue by changing "XCLOCK_ABS_DIFF" to a
 *                       function named "XClock_Absolute_Difference".
+* 1.2   sd     02/13/20 Rename ARRAY_SIZE
 * </pre>
 *
 ******************************************************************************/
@@ -107,7 +88,7 @@ extern "C" {
 #define BIT(n)		             (1 << (n))
 
 /* Calculates array size */
-#define ARRAY_SIZE(x)	             (sizeof(x) / sizeof((x)[0]))
+#define CLK_ARRAY_SIZE(x)	             (sizeof(x) / sizeof((x)[0]))
 
 /* Division rounded to closest integer */
 #define XCLOCK_ROUND_DIV(a, b)       ((a + (b / 2)) / b)
@@ -554,7 +535,7 @@ typedef enum {
 * @return       XST_SUCCESS if successful
 * 		XST_FAILURE if unsuccessful
 *
-* @note         Read from  register may fail in case driver doesnot have proper
+* @note         Read from  register may fail in case driver doesn't have proper
 * 		access at EL1 NONSECURE
 *
 ******************************************************************************/
@@ -587,7 +568,7 @@ static inline XStatus XClock_ReadReg(u32 RegAddr, u32 *Value)
 * @return       XST_SUCCESS if successful
 * 		XST_FAILURE if unsuccessful
 *
-* @note         Write to register may fail in case driver doesnot have proper
+* @note         Write to register may fail in case driver doesn't have proper
 * 		access at EL1 NONSECURE.
 *
 ******************************************************************************/

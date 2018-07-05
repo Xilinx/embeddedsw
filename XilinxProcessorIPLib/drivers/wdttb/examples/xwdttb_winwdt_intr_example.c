@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 - 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -44,6 +24,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 4.0   sha  02/04/16 First release
+* 5.0	sne  03/26/20 Updated example to support versal platform.
 * </pre>
 *
 ******************************************************************************/
@@ -70,14 +51,19 @@
  * change all the needed parameters in one place.
  */
 #ifndef TESTAPP_GEN
-#define WDTTB_DEVICE_ID		XPAR_WDTTB_0_DEVICE_ID
-#define WDTTB_IRPT_INTR		XPAR_INTC_0_WDTTB_0_VEC_ID
+#define WDTTB_DEVICE_ID         XPAR_WDTTB_0_DEVICE_ID
 #endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+ #define INTC_DEVICE_ID         XPAR_INTC_0_DEVICE_ID
+ #define WDTTB_IRPT_INTR         XPAR_INTC_0_WDTTB_0_VEC_ID
 #else
-#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+ #define INTC_DEVICE_ID         XPAR_SCUGIC_SINGLE_DEVICE_ID
+ #ifdef versal
+  #define WDTTB_IRPT_INTR       XPAR_XWWDT_0_INTR
+ #else
+  #define WDTTB_IRPT_INTR       XPAR_FABRIC_WDTTB_0_VEC_ID
+ #endif
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 #define WIN_WDT_SW_COUNT	0xF00000	/**< Number of clock cycles for
@@ -152,7 +138,7 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	xil_printf("Window WDT interrupt example ran successfully.\n\r");
+	xil_printf("Successfully ran Window WDT interrupt example.\n\r");
 	return XST_SUCCESS;
 }
 #endif
@@ -196,13 +182,30 @@ int WinWdtIntrExample(INTC *IntcInstancePtr,
 			u16 WdtTbIntrId)
 {
 	int Status;
+	XWdtTb_Config *Config;
 
 	/*
-	 * Initialize the WdtTb driver
+	 * Initialize the WDTTB driver so that it's ready to use look up
+	 * configuration in the config table, then initialize it.
 	 */
-	Status = XWdtTb_Initialize(WdtTbInstancePtr, WdtTbDeviceId);
+	Config = XWdtTb_LookupConfig(WdtTbDeviceId);
+	if (NULL == Config) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Initialize the watchdog timer and timebase driver so that
+	 * it is ready to use.
+	 */
+	Status = XWdtTb_CfgInitialize(WdtTbInstancePtr, Config,
+				      Config->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
+
+	if(!WdtTbInstancePtr->Config.IsPl) {
+		/*Enable Window Watchdog Feature in WWDT */
+		XWdtTb_ConfigureWDTMode(WdtTbInstancePtr, XWT_WWDT);
 	}
 
 	/*
@@ -249,13 +252,14 @@ int WinWdtIntrExample(INTC *IntcInstancePtr,
 	XWdtTb_Start(WdtTbInstancePtr);
 	WdtExpired = FALSE;
 
+	/* Set register space to writable */
+	XWdtTb_SetRegSpaceAccessMode(WdtTbInstancePtr, 1);
+
 	/*
 	 * Wait for the first occurrence of interrupt programmed point.
 	 */
 	while (WdtExpired != TRUE);
 
-	/* Set register space to writable */
-	XWdtTb_SetRegSpaceAccessMode(WdtTbInstancePtr, 1);
 
 	/* Clear interrupt point */
 	XWdtTb_IntrClear(WdtTbInstancePtr);

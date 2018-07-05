@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2002 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /******************************************************************************/
 /**
 *
@@ -53,6 +33,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 3.6   rna  01/06/20 Clean up options at end to get Success/Failure strings
 * </pre>
 ******************************************************************************/
 
@@ -323,6 +304,14 @@ int UartNs550IntrExample(INTC *IntcInstancePtr,
 	TotalErrorCount = 0;
 	TotalReceivedCount = 0;
 	TotalSentCount = 0;
+
+	/*
+	 * Clean up the options
+	 */
+	Options = XUartNs550_GetOptions(UartInstancePtr);
+	Options = Options & ~(XUN_OPTION_DATA_INTR | XUN_OPTION_LOOPBACK |
+			XUN_OPTION_FIFOS_ENABLE);
+	XUartNs550_SetOptions(UartInstancePtr, Options);
 
 	return XST_SUCCESS;
 }

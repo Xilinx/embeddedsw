@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
@@ -45,6 +25,7 @@
 * 1.0   sd     04/11/18 First release
 * 4.0   sd     05/22/18 Updated lmx configuration
 * 5.0   sd     09/05/18 Updated lmx reset sequence
+* 8.0   cog    04/09/20 Fixed error in PLL B for 1474.56 MHz
 *
 * </pre>
 *
@@ -133,11 +114,11 @@ XClockingLmx ClockingLmx[MAX_FREQ] = {
 	4917376, 4849664, 4784191, 4718593, 4653185, 4637520, 4521984, 4457448,
 	4390912, 4325876, 4259840, 4199304, 4128768, 4064034, 3997864, 3932160,
 	3866625, 3833857, 3735584, 3670016, 3604480, 3538944, 3473408, 3409952,
-	3342464, 3276800, 3228032, 3146496, 3080960, 3016700, 2998476, 2886819,
+	3342464, 3276800, 3228032, 3146496, 3080960, 3016700, 2998476, 2886691,
 	2818048, 2752512, 2686976, 2621440, 2555905, 2490368, 2425604, 2359368,
 	2293764, 2228224, 2170401, 2098067, 2049004, 1978764, 1913228, 1836168,
 	1769474, 1707440, 1639972, 1574682, 1507452, 1441793, 1377281, 1368136,
-	1255351, 1179748, 1114412, 1048704, 984655, 925264, 868352, 806913,
+	1255351, 1179748, 1114412, 1048704, 984655, 925296, 868352, 806913,
 	720920, 659672, 591364, 532480, 475314, 444418, 327880, 264771, 198210,
 	132352, 67592, 9372 }},
 	{4915200, {7340032, 7274496, 7208960, 7143424, 7077888, 7012352, 6946816,

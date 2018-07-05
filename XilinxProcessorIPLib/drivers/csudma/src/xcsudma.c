@@ -1,34 +1,14 @@
 /******************************************************************************
-*
-* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
 *
 * @file xcsudma.c
-* @addtogroup csudma_v1_5
+* @addtogroup csudma_v1_6
 * @{
 *
 * This file contains the implementation of the interface functions for CSU_DMA
@@ -49,6 +29,9 @@
 *						 "XCsuDma_WaitForDoneTimeout" to function
 *       arc     03/26/19 Fixed MISRA-C violations.
 * 1.5   aru     07/05/19 Fixed coverity warning.
+* 1.6   aru     08/29/19 Added assert check in XCsuDma_WaitForDoneTimeout().
+* 1.6   rm      11/05/19 Modified usleep waitloop and timeout value in
+*				XCsuDma_WaitForDoneTimeout().
 * </pre>
 *
 ******************************************************************************/
@@ -608,6 +591,10 @@ u32 XCsuDma_WaitForDoneTimeout(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 	u32 Addr;
 	u32 TimeoutFlag = (u32)XST_FAILURE;
 
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
+                                        (Channel == (XCSUDMA_DST_CHANNEL)));
+
 	Addr = InstancePtr->Config.BaseAddress +
 			(u32)XCSUDMA_I_STS_OFFSET +
 			 ((u32)Channel * (u32)XCSUDMA_OFFSET_DIFF);
@@ -619,7 +606,7 @@ u32 XCsuDma_WaitForDoneTimeout(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 			TimeoutFlag = (u32)XST_SUCCESS;
 			goto done;
 		}
-		usleep(100U);
+		usleep(1U);
 		Timeout--;
 	}
 

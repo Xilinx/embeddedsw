@@ -1,28 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  *****************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -914,7 +894,7 @@ void InitVprocSs_Scaler(int count)
 					FALSE);
 
 	if (resIdOut != XVIDC_VM_1920x1200_60_P) {
-		xil_printf("resIdOut %d doesn't match XVIDC_VM_1920x1200_60_P \r\n", resIdOut);
+	xil_printf("resIdOut %d doesn't match XVIDC_VM_1920x1200_60_P \r\n", resIdOut);
 	}
 
 	StreamOut.VmId = resIdOut;
@@ -965,7 +945,10 @@ void ResetVprocSs_Scaler(void)
  *****************************************************************************/
 void EnableDSI(void)
 {
-	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_ENABLE);
+	int Status;
+//	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_ENABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_ENABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_ENABLE);
 }
 
 /*****************************************************************************/
@@ -980,12 +963,11 @@ void EnableDSI(void)
 void DisableDSI(void)
 {
 	u32 Status;
-
-	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DISABLE);
-	do {
-		Status = XDsiTxSs_IsControllerReady(&DsiTxSs);
-	} while (!Status);
-
+	u8 Flag = 1;
+//	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DISABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_DISABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_DISABLE);
+	usleep(100000);
 }
 
 /*****************************************************************************/
@@ -999,17 +981,27 @@ void DisableDSI(void)
  *****************************************************************************/
 void InitDSI(void)
 {
+	u32 Status;
 	XDsi_VideoTiming Timing = { 0 };
 
 	/* Disable DSI core only. So removed DPHY register interface in design*/
-	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DISABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_DISABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_DISABLE);
+
 
 	XDsiTxSs_Reset(&DsiTxSs);
 
-	if (!XDsiTxSs_IsControllerReady(&DsiTxSs)) {
+usleep(100000);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_ENABLE);
+//	XDphy_Activate(DsiTxSs.DphyPtr, XDSITXSS_ENABLE);
+
+/*	if (!XDsiTxSs_IsControllerReady(&DsiTxSs)) {
 		xil_printf("DSI Controller NOT Ready!!!!\r\n");
 		return;
-	}
+	}*/
+	do {
+		Status = XDsiTxSs_IsControllerReady(&DsiTxSs);
+	} while (!Status);
 
 	/* Set the DSI Timing registers */
 	Timing.HActive = DSI_DISPLAY_HORI_VAL;

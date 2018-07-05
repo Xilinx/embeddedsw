@@ -1,32 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2011 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xbram_selftest.c
-* @addtogroup bram_v4_2
+* @addtogroup bram_v4_4
 * @{
 *
 * The implementation of the XBram driver's self test function. This SelfTest
@@ -60,6 +40,7 @@
 * 3.03a bss 05/22/13   Added Xil_DCacheFlushRange in InjectErrors API to
 *		       flush the Cache after writing to BRAM (CR #719011)
 * 4.3   aru 04/09/19   Used UINTPTR instead of u32 for Addr in XBram_SelfTest()
+* 4.5    mn 04/12/20   Resolve build warnings for ARMCC toolchain
 *
 * </pre>
 *****************************************************************************/
@@ -85,9 +66,9 @@
 static u32 PrngResult;
 
 /************************** Function Prototypes *****************************/
-static inline u32 PrngData(u32 *PrngResult);
+static INLINE u32 PrngData(u32 *PrngResult);
 
-static inline u32 CalculateEcc(u32 Data);
+static INLINE u32 CalculateEcc(u32 Data);
 
 static void InjectErrors(XBram * InstancePtr, UINTPTR Addr,
 			 int Index1, int Index2, int Width,
@@ -107,7 +88,7 @@ static void InjectErrors(XBram * InstancePtr, UINTPTR Addr,
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 PrngData(u32 *PrngResult)
+static INLINE u32 PrngData(u32 *PrngResult)
 {
 	*PrngResult = *PrngResult * 0x77D15E25 + 0x3617C161;
 	return *PrngResult;
@@ -125,7 +106,7 @@ static inline u32 PrngData(u32 *PrngResult)
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 CalculateEcc(u32 Data)
+static INLINE u32 CalculateEcc(u32 Data)
 {
 	unsigned char c[7], d[32];
 	u32 Result = 0;
@@ -172,46 +153,6 @@ static inline u32 CalculateEcc(u32 Data)
 
 /*****************************************************************************/
 /**
-* Get the expected actual data read in case of uncorrectable errors.
-*
-* @param	The injected data value including errors (if any)
-* @param	The syndrome (calculated ecc ^ actual ecc read)
-*
-* @return 	The actual data value read
-*
-* @note		None.
-*
-******************************************************************************/
-static inline u32 UncorrectableData(u32 Data, u8 Syndrome)
-{
-	switch (Syndrome) {
-		case 0x03: return Data ^ 0x00000034;
-		case 0x05: return Data ^ 0x001a2000;
-		case 0x09: return Data ^ 0x0d000000;
-		case 0x0d: return Data ^ 0x00001a00;
-
-		case 0x11: return Data ^ 0x60000000;
-		case 0x13: return Data ^ 0x00000003;
-		case 0x15: return Data ^ 0x00018000;
-		case 0x19: return Data ^ 0x00c00000;
-		case 0x1d: return Data ^ 0x00000180;
-
-		case 0x21: return Data ^ 0x80000000;
-		case 0x23: return Data ^ 0x00000008;
-		case 0x25: return Data ^ 0x00040000;
-		case 0x29: return Data ^ 0x02000000;
-		case 0x2d: return Data ^ 0x00000400;
-
-		case 0x31: return Data ^ 0x10000000;
-		case 0x35: return Data ^ 0x00004000;
-		case 0x39: return Data ^ 0x00200000;
-		case 0x3d: return Data ^ 0x00000040;
-	}
-	return Data;
-}
-
-/*****************************************************************************/
-/**
 * Inject errors using the hardware fault injection functionality, and write
 * random data and read it back using the indicated location.
 *
@@ -229,7 +170,7 @@ static inline u32 UncorrectableData(u32 Data, u8 Syndrome)
 * @note		None.
 *
 ******************************************************************************/
-static void InjectErrors(XBram * InstancePtr, UINTPTR Addr,
+static void InjectErrors(XBram * InstancePtr, const UINTPTR Addr,
 			 int Index1, int Index2, int Width,
 			 u32 *ActualData, u32 *ActualEcc)
 {
@@ -379,10 +320,7 @@ int XBram_SelfTest(XBram *InstancePtr, u8 IntMask)
 	if (InstancePtr->Config.FaultInjectionPresent &&
 	    InstancePtr->Config.WriteAccess != 0) {
 
-	     const UINTPTR Addr[2] = {InstancePtr->Config.MemBaseAddress &
-						(UINTPTR)0xfffffffffffffffc,
-					 InstancePtr->Config.MemHighAddress &
-					(UINTPTR)0xfffffffffffffffc};
+		static u32 Addr[2];
 	    u32 SavedWords[2];
 	    u32 ActualData;
 	    u32 ActualEcc;
@@ -394,6 +332,10 @@ int XBram_SelfTest(XBram *InstancePtr, u8 IntMask)
 	    int Index2;
 	    int Width;
 
+	    Addr[0] = InstancePtr->Config.MemBaseAddress &
+						(UINTPTR)0xfffffffffffffffc;
+	    Addr[1] = InstancePtr->Config.MemHighAddress &
+					(UINTPTR)0xfffffffffffffffc;
 	    PrngResult = 42; /* Random seed */
 
 	    /* Save two words in BRAM used for test */

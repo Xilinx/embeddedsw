@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
 * @file xuartps.h
-* @addtogroup uartps_v3_8
+* @addtogroup uartps_v3_9
 * @{
 * @details
 *
@@ -57,7 +37,7 @@
 * <b>Baud Rate</b>
 *
 * The UART has an internal baud rate generator, which furnishes the baud rate
-* clock for both the receiver and the transmitter. Ther input clock frequency
+* clock for both the receiver and the transmitter. The input clock frequency
 * can be either the master clock or the master clock divided by 8, configured
 * through the mode register.
 *
@@ -165,6 +145,8 @@
 * 3.6   ms     02/16/18 Updates the flow control mode offset value in modem
 *                       control register.
 * 3.7   aru    08/17/18 Resolved MISRA-C:2012 compliance mandatory violations.
+* 3.9   rna    12/03/19 Modified the XUARTPS_MAX_RATE macro.
+* 3.9   sd     02/06/20 Added clock support
 *
 * </pre>
 *
@@ -184,6 +166,9 @@ extern "C" {
 #include "xstatus.h"
 #include "xuartps_hw.h"
 #include "xplatform_info.h"
+#if defined  (XCLOCKING)
+#include "xil_clocking.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 
@@ -192,7 +177,7 @@ extern "C" {
  * numbers are based only on the testing that has been done. The hardware
  * is capable of other baud rates.
  */
-#define XUARTPS_MAX_RATE	 921600U
+#define XUARTPS_MAX_RATE	 6240000U
 #define XUARTPS_MIN_RATE	 110U
 
 #define XUARTPS_DFT_BAUDRATE  115200U   /* Default baud rate */
@@ -273,6 +258,7 @@ extern "C" {
 #define XUARTPS_EVENT_PARE_FRAME_BRKE	6U /**< A receive parity, frame, break
 											 *	error detected */
 #define XUARTPS_EVENT_RECV_ORERR		7U /**< A receive overrun error detected */
+
 /*@}*/
 
 
@@ -287,6 +273,9 @@ typedef struct {
 	u32 InputClockHz;/**< Input clock frequency */
 	s32 ModemPinsConnected; /** Specifies whether modem pins are connected
 				 *  to MIO or FMIO */
+#if defined  (XCLOCKING)
+	u32 RefClk;		/**< Input clock frequency */
+#endif
 } XUartPs_Config;
 
 /* Keep track of state information about a data buffer in the interrupt mode. */

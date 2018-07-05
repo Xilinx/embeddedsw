@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -144,7 +124,7 @@ typedef enum {
 */
 typedef enum {
 	XV_SDIRX_FR_NONE    = 0,
-	XV_SDIRX_FR_UNKNOWN,
+	XV_SDIRX_FR_96HZ,
 	XV_SDIRX_FR_23_98HZ,
 	XV_SDIRX_FR_24HZ,
 	XV_SDIRX_FR_47_95HZ,
@@ -155,6 +135,10 @@ typedef enum {
 	XV_SDIRX_FR_50HZ,
 	XV_SDIRX_FR_59_94HZ,
 	XV_SDIRX_FR_60HZ,
+	XV_SDIRX_FR_96_F_HZ,
+	XV_SDIRX_FR_100HZ,
+	XV_SDIRX_FR_120HZ,
+	XV_SDIRX_FR_120_F_HZ,
 	XV_SDIRX_FR_NUM_SUPPORTED
 } XV_SdiRx_FrameRate;
 
@@ -222,6 +206,7 @@ typedef struct {
 	XSdiVid_Transport	Transport;
 	u8					SupportedModes;
 	u8					VideoStreamNum;
+	XVidC_ColorDepth	BitDepth;
 } XV_SdiRx;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -304,6 +289,8 @@ int XV_SdiRx_SetCallback(XV_SdiRx *InstancePtr,
 	void *CallbackRef);
 void XV_SdiRx_IntrDisable(XV_SdiRx *InstancePtr, u32 Mask);
 void XV_SdiRx_IntrEnable(XV_SdiRx *InstancePtr, u32 Mask);
+
+void XV_SdiRx_SetBitDepth(XV_SdiRx *InstancePtr, XVidC_ColorDepth BitDepth);
 
 /************************** Variable Declarations ****************************/
 /************************** Variable Declarations ****************************/
