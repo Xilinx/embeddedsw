@@ -84,7 +84,6 @@ XV_SdiTxSs_SubCores XV_SdiTxSs_SubCoreRepo[XPAR_XV_SDITXSS_NUM_INSTANCES];
 /************************** Function Prototypes ******************************/
 static int XV_SdiTxSs_VtcSetup(XVtc *XVtcPtr, XV_SdiTx *SdiTxPtr);
 static void XV_SdiTxSs_ReportCoreInfo(XV_SdiTxSs *InstancePtr);
-static void XV_SdiTxSs_ReportSubcoreVersion(XV_SdiTxSs *InstancePtr);
 static void XV_SdiTxSs_ReportTiming(XV_SdiTxSs *InstancePtr);
 static void XV_SdiTxSs_GtReadyCallback(void *CallbackRef);
 static void XV_SdiTxSs_OverFlowCallback(void *CallbackRef);
@@ -923,35 +922,6 @@ void XV_SdiTxSs_ReportDetectedError(XV_SdiTxSs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function prints the SDI TX SS subcore versions
-*
-* @param  InstancePtr pointer to XV_SdiTxSs instance
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-static void XV_SdiTxSs_ReportSubcoreVersion(XV_SdiTxSs *InstancePtr)
-{
-	u32 Data;
-
-	if (InstancePtr->SdiTxPtr) {
-		Data = XV_SdiTx_GetVersion(InstancePtr->SdiTxPtr);
-		xil_printf("  SDI TX version : %02d.%02d (%04x)\n\r",
-		((Data >> 24) & 0xFF), ((Data >> 16) & 0xFF), (Data & 0xFFFF));
-	}
-
-	if (InstancePtr->VtcPtr) {
-		Data = XVtc_GetVersion(InstancePtr->VtcPtr);
-		xil_printf("  VTC version     : %02d.%02d (%04x)\n\r",
-		((Data >> 24) & 0xFF), ((Data >> 16) & 0xFF), (Data & 0xFFFF));
-	}
-}
-
-/*****************************************************************************/
-/**
-*
 * This function prints the SDI TX SS information.
 *
 * @param  InstancePtr pointer to XV_SdiTxSs instance
@@ -969,7 +939,6 @@ void XV_SdiTxSs_ReportInfo(XV_SdiTxSs *InstancePtr)
 	xil_printf("SDI TX SubSystem\n\r");
 	xil_printf("------------\n\r");
 	XV_SdiTxSs_ReportCoreInfo(InstancePtr);
-	/* XV_SdiTxSs_ReportSubcoreVersion(InstancePtr); */
 	xil_printf("\n\r");
 	xil_printf("SDI stream info\n\r");
 	xil_printf("------------\n\r");
