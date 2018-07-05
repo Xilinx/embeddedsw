@@ -167,6 +167,10 @@
 *       sk     08/16/16 Used UINTPTR instead of u32 for Baseaddress as part of
 *                       adding 64 bit support. CR# 867425.
 *                       Changed the prototype of XVtc_CfgInitialize API.
+* 8.0   jsr    07/03/18	Added a new register XVTC_GASIZE_F1_OFFSET for interlaced
+*       		modes FIELD1 vactive size. This value is same as FILED0
+*       		vactive size for all interlaced modes except for SDI NTSC
+*       		mode
 * </pre>
 *
 ******************************************************************************/
@@ -1345,6 +1349,18 @@ void XVtc_SetGenerator(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 							XVTC_ASIZE_VERT_MASK;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
 						XVTC_GASIZE_OFFSET, RegValue);
+		/* Only for XVIDC_VM_720x486_60_I (SDI NTSC), the FIELD1 vactive
+		 * size is different from FIELD0. As there is no vactive FIELD1
+		 * entry in the video common library, program it separately as below */
+		if(r_vactive != 243)
+			RegValue = ((r_vactive) << XVTC_ASIZE_VERT_SHIFT) &
+					XVTC_ASIZE_VERT_MASK;
+		else
+			RegValue = ((r_vactive+1) << XVTC_ASIZE_VERT_SHIFT) &
+					XVTC_ASIZE_VERT_MASK;
+
+		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
+						XVTC_GASIZE_F1_OFFSET, RegValue);
 
 		/* Update the Generator Horizontal 1 Register */
 		RegValue = (SCPtr->HSyncStart + r_hactive) &
@@ -1424,6 +1440,18 @@ void XVtc_SetGenerator(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 							XVTC_ASIZE_VERT_MASK;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
 						XVTC_GASIZE_OFFSET, RegValue);
+		/* Only for XVIDC_VM_720x486_60_I (SDI NTSC), the FIELD1 vactive
+		 * size is different from FIELD0. As there is no vactive FIELD1
+		 * entry in the video common library, program it separately as below */
+		if(r_vactive != 243)
+			RegValue = ((r_vactive) << XVTC_ASIZE_VERT_SHIFT) &
+					XVTC_ASIZE_VERT_MASK;
+		else
+			RegValue = ((r_vactive+1) << XVTC_ASIZE_VERT_SHIFT) &
+					XVTC_ASIZE_VERT_MASK;
+
+		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
+						XVTC_GASIZE_F1_OFFSET, RegValue);
 
 		/* Update the Generator Horizontal 1 Register */
 		RegValue = (SCPtr->HSyncStart) & XVTC_SB_START_MASK;
