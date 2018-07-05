@@ -39,6 +39,8 @@
 * Ver	Who	   Date		Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.0	jsr    07/17/17 Initial release.
+* 1.3   jsr    07/03/18 corrected XVIDC_VM_720x480_60_I as XVIDC_VM_720x486_60_I
+*
 * </pre>
 *
 ******************************************************************************/
@@ -526,7 +528,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 		switch (InstancePtr->Transport.TMode) {
 		case XV_SDIRX_MODE_SD:
 			if (InstancePtr->Transport.TFamily == XV_SDIRX_NTSC) {
-				SdiStream->VmId =  XVIDC_VM_720x480_60_I;
+				SdiStream->VmId =  XVIDC_VM_720x486_60_I;
 				FrameRate = XVIDC_FR_60HZ;
 
 			} else {
