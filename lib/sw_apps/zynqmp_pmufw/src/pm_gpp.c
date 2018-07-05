@@ -1,26 +1,8 @@
 /*
- * Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -37,7 +19,7 @@
 #define PM_GPP_SLAVE_STATE_OFF	0U
 #define PM_GPP_SLAVE_STATE_ON	1U
 
-static const u32 pmGppStates[] = {
+static const u8 pmGppStates[] = {
 	[PM_GPP_SLAVE_STATE_OFF] = 0U,
 	[PM_GPP_SLAVE_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_POWER,
 };
@@ -101,7 +83,7 @@ static const PmSlaveFsm pmSlaveGppFsm = {
 	.enterState = PmGppFsmHandler,
 };
 
-static u32 pmGppSlavePowers[] = {
+static u8 pmGppSlavePowers[] = {
 	DEFAULT_POWER_OFF,
 	DEFAULT_POWER_ON,
 };

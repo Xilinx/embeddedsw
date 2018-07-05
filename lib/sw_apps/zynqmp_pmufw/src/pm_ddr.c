@@ -1,26 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -369,7 +351,7 @@
 #define ADDR_LO(ADDR)	((u32)((u64)(ADDR) & 0x00000000FFFFFFFFULL))
 
 /* DDR states */
-static const u32 pmDdrStates[PM_DDR_STATE_MAX] = {
+static const u8 pmDdrStates[PM_DDR_STATE_MAX] = {
 	[PM_DDR_STATE_OFF] = 0U,
 	[PM_DDR_STATE_SR] = PM_CAP_CONTEXT,
 	[PM_DDR_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_POWER |
@@ -712,6 +694,7 @@ static void ddr_disable_wr_drift(void)
 static void ddr_disable_rd_drift(void)
 {
 	u32 r;
+	u32 i;
 
 	r = Xil_In32(DDRPHY_DQSDR(0U));
 	r &= ~DDRPHY_DQSDR0_DFTDTEN;
@@ -737,41 +720,11 @@ static void ddr_disable_rd_drift(void)
 	r &= ~DDRPHY_DQSDR0_DFTDLY;
 	Xil_Out32(DDRPHY_DQSDR(0U), r);
 
-	r = Xil_In32(DDRPHY_DXGCR(0U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(0U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(1U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(1U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(2U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(2U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(3U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(3U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(4U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(4U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(5U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(5U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(6U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(6U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(7U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(7U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(8U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(8U, 3U), r);
+	for (i = 0U; i < 9U; i++) {
+		r = Xil_In32(DDRPHY_DXGCR(i, 3U));
+		r |= DDRPHY_DXGCR3_RGLVT;
+		Xil_Out32(DDRPHY_DXGCR(i, 3U), r);
+	}
 
 	r = Xil_In32(DDRPHY_DQSDR(1U));
 	r &= ~DDRPHY_DQSDR1_DFTRDIDLC;
@@ -820,6 +773,7 @@ static void ddr_enable_wr_drift(void)
 static void ddr_enable_rd_drift(void)
 {
 	u32 r;
+	u32 i;
 
 	r = Xil_In32(DDRPHY_DQSDR(0U));
 	r &= ~DDRPHY_DQSDR0_DFTDTMODE;
@@ -844,41 +798,11 @@ static void ddr_enable_rd_drift(void)
 	r |= (2U << DDRPHY_DQSDR0_DFTDLY_SHIFT);
 	Xil_Out32(DDRPHY_DQSDR(0U), r);
 
-	r = Xil_In32(DDRPHY_DXGCR(0U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(0U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(1U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(1U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(2U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(2U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(3U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(3U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(4U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(4U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(5U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(5U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(6U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(6U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(7U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(7U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(8U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(8U, 3U), r);
+	for (i = 0U; i < 9U; i++) {
+		r = Xil_In32(DDRPHY_DXGCR(i, 3U));
+		r &= ~DDRPHY_DXGCR3_RGLVT;
+		Xil_Out32(DDRPHY_DXGCR(i, 3U), r);
+	}
 
 	r = Xil_In32(DDRPHY_DQSDR(1U));
 	r &= ~DDRPHY_DQSDR1_DFTRDIDLC;
@@ -1892,11 +1816,17 @@ err:
 	return status;
 }
 
-void PmDdrExitSr(void)
+s32 PmDdrExitSr(void)
 {
+	s32 Status;
+
 	/* Wait until FSBL initialize DDR controller */
-	(void)XPfw_UtilPollForMask(XPFW_DDR_STATUS_REGISTER_OFFSET,
-			     DDRC_INIT_FLAG_MASK, DDR_FLAG_POLL_PERIOD);
+	Status = XPfw_UtilPollForMask(XPFW_DDR_STATUS_REGISTER_OFFSET,
+				      DDRC_INIT_FLAG_MASK,
+				      DDR_FLAG_POLL_PERIOD);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Read DDRC & DDR PHY register values and modify some bitfields */
 	store_state(ctx_ddrc);
@@ -1921,6 +1851,9 @@ void PmDdrExitSr(void)
 	/* Indication to FSBL that DDR is out of self refresh mode */
 	XPfw_RMW32(XPFW_DDR_STATUS_REGISTER_OFFSET, DDR_STATUS_FLAG_MASK,
 		   ~DDR_STATUS_FLAG_MASK);
+
+done:
+	return Status;
 }
 #endif
 
@@ -2031,7 +1964,7 @@ static const PmSlaveFsm pmSlaveDdrFsm = {
 #endif
 };
 
-static u32 PmDdrPowerConsumptions[] = {
+static u8 PmDdrPowerConsumptions[] = {
 	DEFAULT_DDR_POWER_OFF,
 	DEFAULT_DDR_POWER_SR,
 	DEFAULT_DDR_POWER_ON,

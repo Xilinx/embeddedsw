@@ -1,28 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
- ******************************************************************************/
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -57,12 +37,15 @@
  * 5.1 Nava  27/06/19  Updated documentation for readback API's.
  * 5.1 Nava  16/07/19  Initialize empty status (or) status success to status failure
  *                     to avoid security violations.
+ * 5.2 Nava  05/12/19  Added Versal platform support.
+ * 5.2 Nava  14/02/20  Added Bitstream loading support by using IPI services
+ *                     for ZynqMP platform.
+ *
  *</pre>
  *
  *@note
  *****************************************************************************/
 /***************************** Include Files *********************************/
-#include "xfpga_config.h"
 #include "xilfpga.h"
 
 /************************** Variable Definitions *****************************/
@@ -125,7 +108,8 @@ u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 
 	/* Prepare the FPGA to receive configuration Data */
 	Status = XFpga_PL_Preconfig(InstancePtr);
-	if (Status != XFPGA_SUCCESS) {
+	if (Status != XFPGA_SUCCESS &&
+	    Status != XFPGA_OPS_NOT_IMPLEMENTED) {
 		goto END;
 	}
 
@@ -140,6 +124,9 @@ u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 
 	/* set FPGA to operating state after writing */
 	Status = XFpga_PL_PostConfig(InstancePtr);
+	if (Status == XFPGA_OPS_NOT_IMPLEMENTED) {
+		Status = XFPGA_SUCCESS;
+	}
 
 END:
 	return Status;
@@ -314,6 +301,7 @@ u32 XFpga_PL_PostConfig(XFpga *InstancePtr)
 	return Status;
 }
 
+#ifndef versal
 /*****************************************************************************/
 /**
  * This function provides functionality to read back the PL configuration data
@@ -395,22 +383,22 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
  *
  * @param InstancePtr Pointer to the XFgpa structure
  *
- * @return Status of the PL programming interface.
+ * @return Status of the PL programming interface
  *
  *****************************************************************************/
 u32 XFpga_InterfaceStatus(XFpga *InstancePtr)
 {
-	u32 Status = XFPGA_FAILURE;
+	u32 RegVal = XFPGA_INVALID_INTERFACE_STATUS;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	if (InstancePtr->XFpga_GetInterfaceStatus == NULL) {
-		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 		"%s Implementation not exists..\r\n", __FUNCTION__);
 	} else {
-		Status = InstancePtr->XFpga_GetInterfaceStatus();
+		RegVal = InstancePtr->XFpga_GetInterfaceStatus();
 	}
 
-	return Status;
+	return RegVal;
 }
+#endif

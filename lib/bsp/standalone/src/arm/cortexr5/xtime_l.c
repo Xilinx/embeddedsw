@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xtime_l.c
@@ -50,6 +30,9 @@
 *                        TTC counter value register is read only.
 * 6.6   srm    10/18/17 Removed XTime_StartTimer API and made XTime_GetTime,
 *                       XTime_SetTime applicable for all the instances of TTC
+* 7.2   mus    01/29/20 Updated XTime_GetTime to use CortexR5 PMU cycle
+*                       counter, in case sleep timer (ttc3/ttc2) is not
+*                       present in the HW design. It fixes CR#1051591.
 *
 * </pre>
 *
@@ -63,10 +46,8 @@
 #include "xil_assert.h"
 #include "xil_io.h"
 #include "xdebug.h"
-
-#if defined SLEEP_TIMER_BASEADDR
+#include "xpm_counter.h"
 #include "xil_sleeptimer.h"
-#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -78,8 +59,6 @@
 
 /************************** Function Prototypes ******************************/
 
-/* Function definitions are applicable only when TTC is present*/
-#ifdef SLEEP_TIMER_BASEADDR
 
 /****************************************************************************/
 /**
@@ -116,7 +95,14 @@ void XTime_SetTime(XTime Xtime_Global)
 ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)
 {
+#if defined (SLEEP_TIMER_BASEADDR)
 	*Xtime_Global = Xil_In32(SLEEP_TIMER_BASEADDR +
 				      XSLEEP_TIMER_TTC_COUNT_VALUE_OFFSET);
-}
+#elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
+	#if defined (__GNUC__)
+	*Xtime_Global = Xpm_ReadCycleCounterVal();
+	#elif defined (__ICCARM__)
+	Xpm_ReadCycleCounterVal(*Xtime_Global);
+	#endif
 #endif
+}

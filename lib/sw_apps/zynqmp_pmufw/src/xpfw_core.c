@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #include "xpfw_default.h"
 #include "xpfw_core.h"
@@ -30,9 +10,17 @@
 #include "xpfw_interrupts.h"
 #include "xpfw_ipi_manager.h"
 #include "pmu_lmb_bram.h"
+#include "xsysmonpsu_hw.h"
+#include "csu.h"
+#include "rsa.h"
+#include "crf_apb.h"
+#include "afi.h"
+#include "pm_node_idle.h"
+#include "pm_csudma.h"
+#include "pm_qspi.h"
 
-#define CORE_IS_READY	((u32)0x5AFEC0DEU)
-#define CORE_IS_DEAD	((u32)0xDEADBEAFU)
+#define CORE_IS_READY	((u16)0x5AFEU)
+#define CORE_IS_DEAD	((u16)0xDEADU)
 
 static XPfw_Core_t XPfwCore = { .IsReady = CORE_IS_DEAD };
 
@@ -96,6 +84,10 @@ XStatus XPfw_CoreConfigure(void)
 		/* Clear IPI0 status and Enable IPI0 */
 		XPfw_Write32(IPI_PMU_0_ISR, MASK32_ALL_HIGH);
 		XPfw_InterruptEnable(PMU_IOMODULE_IRQ_ENABLE_IPI0_MASK);
+
+		/* Enable slave error for peripherals used by PMU */
+		XPfw_EnableSlvErr();
+
 		/* Clear PMU LMB BRAM ECC status and Enable this interrupt */
 		XPfw_Write32(PMU_LMB_BRAM_ECC_STATUS_REG, PMU_LMB_BRAM_CE_MASK);
 		XPfw_Write32(PMU_LMB_BRAM_ECC_IRQ_EN_REG, PMU_LMB_BRAM_CE_MASK);
@@ -110,6 +102,86 @@ XStatus XPfw_CoreConfigure(void)
 		Status = XST_FAILURE;
 	}
 	return Status;
+}
+
+void XPfw_EnableSlvErr(void)
+{
+#ifdef ENABLE_NODE_IDLING
+#if defined XPAR_PSU_GDMA_0_DEVICE_ID || \
+	defined XPAR_PSU_ADMA_0_DEVICE_ID
+	u32 XZdma_BaseAddr;
+	u8 Channel;
+#endif
+#endif
+	/* Enable SLVERR for IPI */
+	XPfw_Write32(IPI_CTRL, SLVERR_MASK);
+	/*Enable SLVERR for IOU SLCR */
+	XPfw_Write32(IOU_SLCR_CTRL, SLVERR_MASK);
+	/* Enable SLVERR for PMU GLOBAL registers */
+	XPfw_RMW32(PMU_GLOBAL_GLOBAL_CNTRL, PMU_GLOBAL_GLOBAL_CNTRL_SLVERR_ENABLE_MASK,
+			PMU_GLOBAL_GLOBAL_CNTRL_SLVERR_ENABLE_MASK);
+	/* Enable SLVERR for AMS */
+	XPfw_RMW32(XSYSMONPSU_BASEADDR, XSYSMONPSU_MISC_SLVERR_EN_MASK,
+			XSYSMONPSU_MISC_SLVERR_EN_MASK);
+	/* Enable SLVERR for CRL_APB */
+	XPfw_Write32(CRL_APB_BASEADDR, CRL_APB_ERR_CTRL_SLVERR_ENABLE_MASK);
+	/* Enable SLVERR for CSU_CTRL */
+	XPfw_RMW32(CSU_CTRL, CSU_CTRL_SLVERR_ENABLE_MASK,
+			CSU_CTRL_SLVERR_ENABLE_MASK);
+	/* Enable SLVERR for LPD_SLCR */
+	XPfw_Write32(LPD_SLCR_CTRL, LPD_SLCR_CTRL_SLVERR_ENABLE_MASK);
+	/* Enable SLVERR for RSA */
+	XPfw_RMW32(RSA_RSA_CFG, RSA_RSA_CFG_SLVERR_EN_MASK,
+			RSA_RSA_CFG_SLVERR_EN_MASK);
+	/* Enable SLVERR for CRF_APB */
+	XPfw_Write32(CRF_APB_ERR_CTRL, CRF_APB_ERR_CTRL_SLVERR_ENABLE_MASK);
+	/* Enable SLVERR for FPD SLCR */
+	XPfw_Write32(FPD_SLCR_CTRL, SLVERR_MASK);
+	/* Enable SLVERR for XPPU_SINK */
+	XPfw_Write32(XPPU_SINK_ERR_CTRL, SLVERR_MASK);
+	/* Enable SLVERR for BBRAM */
+	XPfw_Write32(BBRAM_SLVERR_REG, SLVERR_MASK);
+
+#ifdef ENABLE_NODE_IDLING
+#ifdef XPAR_XDPPSU_0_DEVICE_ID
+#ifdef XPAR_XDPDMA_0_DEVICE_ID
+	/* Enable SLVERR */
+	XPfw_Write32(XPAR_XDPPSU_0_BASEADDR, SLVERR_MASK);
+#endif
+#endif
+
+#ifdef XPAR_PSU_GDMA_0_DEVICE_ID
+	XZdma_BaseAddr = XPAR_PSU_GDMA_0_BASEADDR;
+	for (Channel = 0; Channel < XZDMA_NUM_CHANNEL; Channel++) {
+		/* Enable SLVERR */
+		XPfw_Write32(XZdma_BaseAddr, SLVERR_MASK);
+		XZdma_BaseAddr += XZDMA_CH_OFFSET;
+
+	}
+#endif
+
+#ifdef XPAR_PSU_ADMA_0_DEVICE_ID
+	XZdma_BaseAddr = XPAR_PSU_ADMA_0_BASEADDR;
+	for (Channel = 0; Channel < XZDMA_NUM_CHANNEL; Channel++) {
+		/* Enable SLVERR */
+		XPfw_Write32(XZdma_BaseAddr, SLVERR_MASK);
+		XZdma_BaseAddr += XZDMA_CH_OFFSET;
+	}
+#endif
+#endif
+
+	/* Enable SLVERR for CSUDMA */
+	XPfw_RMW32(CSUDMA_SRC_CTRL, CSUDMA_APB_ERR_RESP_MASK,
+			CSUDMA_APB_ERR_RESP_MASK);
+	XPfw_RMW32(CSUDMA_DEST_CTRL, CSUDMA_APB_ERR_RESP_MASK,
+			CSUDMA_APB_ERR_RESP_MASK);
+
+#if defined ENABLE_POS_QSPI || \
+	defined XPAR_PSU_QSPI_0_DEVICE_ID
+	/* Enable SLVERR */
+	XPfw_RMW32(QSPIDMA_DST_CTRL, XQSPIPSU_QSPIDMA_DST_CTRL_APB_ERR_RESP_MASK,
+			XQSPIPSU_QSPIDMA_DST_CTRL_APB_ERR_RESP_MASK);
+#endif
 }
 
 XStatus XPfw_CoreDispatchEvent(u32 EventId)
@@ -290,7 +362,7 @@ XStatus XPfw_CoreLoop(void)
 
 		#ifdef ENABLE_SCHEDULER
 			if(TRUE == CorePtr->Scheduler.Enabled){
-				(void)XPfw_SchedulerProcess(&CorePtr->Scheduler);
+				XPfw_SchedulerProcess(&CorePtr->Scheduler);
 			}
 		#endif
 
@@ -407,4 +479,19 @@ XStatus XPfw_CoreSetIpiHandler(const XPfw_Module_t *ModPtr, XPfwModIpiHandler_t 
 	}
 
 	return Status;
+}
+
+void XPfw_Exception_Handler(void)
+{
+	XPfw_Printf(DEBUG_PRINT_ALWAYS, "Received exception\r\n"
+				"MSR: 0x%x, EAR: 0x%x, EDR: 0x%x, ESR: 0x%x\r\n",
+				mfmsr(), mfear(), mfedr(), mfesr());
+	/* Write error occurrence to PERS register and trigger FW Error1 */
+	XPfw_RMW32(PMU_GLOBAL_PERS_GLOB_GEN_STORAGE5, HW_EXCEPTION_RECEIVED,
+			HW_EXCEPTION_RECEIVED);
+	XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
+			PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK);
+	XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
+			0x0U);
+	while(1);
 }

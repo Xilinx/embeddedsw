@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -43,6 +23,8 @@
 * 5.00 	pkp  	 05/29/14 First release
 * 6.00  mus      08/19/16 Remove checking of __LITTLE_ENDIAN__ flag for
 *                         ARM processors
+* 7.20  har      01/03/20 Added Xil_SecureOut32 for avoiding blindwrite for
+*                         CR-1049218
 * </pre>
 ******************************************************************************/
 
@@ -57,6 +39,7 @@ extern "C" {
 
 #include "xil_types.h"
 #include "xil_printf.h"
+#include "xstatus.h"
 
 #if defined (__MICROBLAZE__)
 #include "mb_interface.h"
@@ -240,6 +223,39 @@ static INLINE void Xil_Out64(UINTPTR Addr, u64 Value)
 {
 	volatile u64 *LocalAddr = (volatile u64 *)Addr;
 	*LocalAddr = Value;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	Performs an output operation for a memory location by writing the
+ *       	32 bit Value to the the specified address and then reading it
+ *       	back to verify the value written in the register.
+ *
+ * @param	Addr contains the address to perform the output operation
+ * @param	Value contains 32 bit Value to be written at the specified address
+ *
+ * @return	Returns Status
+ *        	- XST_SUCCESS on success
+ *        	- XST_FAILURE on failure
+ *
+ *****************************************************************************/
+static INLINE u32 Xil_SecureOut32(UINTPTR Addr, u32 Value)
+{
+	u32 ReadReg;
+	u32 ReadRegTemp;
+	u32 Status = (u32)XST_FAILURE;
+
+	Xil_Out32(Addr, Value);
+
+	ReadReg = Xil_In32(Addr);
+	ReadRegTemp = Xil_In32(Addr);
+
+	if( (ReadReg == Value) && (ReadRegTemp == Value) ) {
+		Status = (u32)XST_SUCCESS;
+	}
+
+	return Status;
 }
 
 #if defined (__MICROBLAZE__)

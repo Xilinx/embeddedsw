@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -83,7 +63,7 @@ u32 XFsbl_SdInit(u32 DeviceFlags)
 	static FATFS fatfs;
 	u32 Status;
 	FRESULT rc;
-	char buffer[32];
+	char buffer[32U]={0U};
 	char *boot_file = buffer;
 	u32 MultiBootOffset;
 	u32 DrvNum;
@@ -117,7 +97,7 @@ u32 XFsbl_SdInit(u32 DeviceFlags)
 	 */
 	XFsbl_MakeSdFileName(boot_file, MultiBootOffset, DrvNum);
 
-	if(boot_file!=NULL) {
+	if(boot_file[0U]!=0U) {
 		rc = f_open(&fil, boot_file, (BYTE)FA_READ);
 		if (rc!=FR_OK) {
 		XFsbl_Printf(DEBUG_INFO,
@@ -130,6 +110,7 @@ u32 XFsbl_SdInit(u32 DeviceFlags)
 	else
 	{
 		Status = XFSBL_ERROR_SD_F_OPEN;
+		goto END;
 	}
 
 	Status = XFSBL_SUCCESS;

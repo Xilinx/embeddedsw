@@ -1,26 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
+* Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  * @file xilskey_utils.c
@@ -74,6 +56,9 @@
 *       psl     07/29/19 Fixed MISRA-C violation.
 *       vns     08/29/19 Initialized Status variables
 *       mmd     07/31/19 Avoided reconfiguration of sysmon, if it is in use
+* 6.9   kpt     02/16/20 Fixed coverity warnings
+*               02/27/20 Replaced XSYSMON_DEVICE_ID with XSYSMON_PSU_DEVICE_ID
+*       vns     03/18/20 Fixed Armcc compilation errors
 *
  *****************************************************************************/
 
@@ -110,9 +95,9 @@ extern void Jtag_Read_Sysmon(u8 Row, u32 *Row_Data);
 #endif
 u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
+static INLINE void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 					XSKEfusePs_XAdc *XAdcInstancePtr);
-static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
+static INLINE void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 					XSKEfusePs_XAdc *XAdcInstancePtr);
 #ifndef XSK_OVERRIDE_SYSMON_CFG
 static u32 XilSKey_Is_Valid_SysMon_Cfg(XSysMonPsu *InstancePtr);
@@ -135,6 +120,7 @@ static u32 XilSKey_Is_Valid_SysMon_Cfg(XSysMonPsu *InstancePtr);
 u32 XilSKey_EfusePs_XAdcInit (void)
 {
 	u32 Status = (u32)XST_FAILURE;
+
 #if defined(XSK_ZYNQ_PLATFORM)
 	XAdcPs_Config *ConfigPtr;
 	XAdcPs *XAdcInstPtr = &XAdcInst;
@@ -177,8 +163,6 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 
 	Status = (u32)XST_SUCCESS;
 
-
-
 #elif defined(XSK_ZYNQ_ULTRA_MP_PLATFORM)
 	XSysMonPsu_Config *ConfigPtr;
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
@@ -187,7 +171,7 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 	 * specify the Device ID that is
 	 * generated in xparameters.h
 	 */
-	XSysmonDevId = (u16)XSYSMON_DEVICE_ID;
+	XSysmonDevId = (u16)XSYSMON_PSU_DEVICE_ID;
 
 	/**
 	 * Initialize the XAdc driver.
@@ -243,7 +227,7 @@ END:
 *
 ****************************************************************************/
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
+static INLINE void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 					XSKEfusePs_XAdc *XAdcInstancePtr)
 {
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
@@ -251,9 +235,6 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 		goto END;
 	}
 
-	if (NULL == XSysmonInstPtr) {
-		goto END;
-	}
 	/**
 	 * Read the on-chip Temperature Data (Current)
 	 * from the Sysmon PSU data registers.
@@ -285,7 +266,7 @@ END:
 *		voltage
 *
 ****************************************************************************/
-static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
+static INLINE void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 				XSKEfusePs_XAdc *XAdcInstancePtr)
 {
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
@@ -294,9 +275,6 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 		goto END;
 	}
 
-	if (NULL == XSysmonInstPtr) {
-		goto END;
-	}
 	/**
 	 * Read the VccPint/PAUX Voltage Data (Current/Maximum/Minimum) from
 	 * Sysmon data registers.
@@ -345,6 +323,12 @@ END:
 
 void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstancePtr)
 {
+
+#ifdef XSK_ZYNQ_PLATFORM
+	XAdcPs *XAdcInstPtr = &XAdcInst;
+	u8 V, VMin, VMax;
+#endif
+
 	if (NULL == XAdcInstancePtr) {
 		goto END;
 	}
@@ -357,13 +341,6 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 	Jtag_Read_Sysmon(XSK_SYSMON_VOL_ROW, &(XAdcInstancePtr->V));
 #endif
 #ifdef XSK_ZYNQ_PLATFORM
-	XAdcPs *XAdcInstPtr = &XAdcInst;
-	u8 V, VMin, VMax;
-
-
-	if (NULL == XAdcInstPtr) {
-		goto END;
-	}
 
 	/**
 	 * Read the on-chip Temperature Data (Current/Maximum/Minimum)
@@ -1046,21 +1023,6 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 			  (Len == XSK_STRING_SIZE_96));
 
 	/**
-	* Make sure passed key is not NULL
-	*/
-	if(Key == NULL) {
-		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION |
-			(u32)XSK_EFUSEPL_ERROR_NULL_KEY);
-		goto END;
-	}
-
-	if(Len == 0U) {
-		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION |
-			(u32)XSK_EFUSEPL_ERROR_ZERO_KEY_LENGTH);
-		goto END;
-	}
-
-	/**
 	 * Make sure the key has valid length
 	 */
 	if (strlen(Key) != Len) {
@@ -1079,7 +1041,7 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 			goto END;
 		}
 	}
-
+	
 	Status = (u32)XSK_EFUSEPL_ERROR_NONE;
 END:
 	return Status;
@@ -1127,13 +1089,12 @@ END:
  ****************************************************************************/
 u32 XilSKey_Timer_Intialise(void)
 {
-
 	u32 RefClk;
 
 #if defined(XSK_ZYNQ_PLATFORM)
-	TimerTicksfor100ns = 0U;
 	u32 ArmPllFdiv;
 	u32 ArmClkDivisor;
+	TimerTicksfor100ns = 0U;
 		/**
 		 *  Extract PLL FDIV value from ARM PLL Control Register
 		 */
@@ -1458,6 +1419,7 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 #else
 	/* Not supported for other than above platforms */
 	MaxIndex = 0U;
+	(void) Key;
 #endif
 
 	for (Index = 0U; Index < MaxIndex; Index++) {
@@ -1478,12 +1440,10 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 	defined XSK_ZYNQ_ULTRA_MP_PLATFORM
 	Key_32 = ((u32)Key[Index1 + 3U] << 24U) | ((u32)Key[Index1 + 2U] << 16U) |
 			((u32)Key[Index1 + 1U] << 8U) | ((u32)Key[Index1 + 0U]);
-#elif defined(XSK_MICROBLAZE_ULTRA_PLUS)
-	Key_32 = ((u32)Key[Index1 + 1U] << 8U) | (u32)Key[Index1];
-#else
-	Crc = Index1;
-	break;
+#endif
 
+#if defined(XSK_MICROBLAZE_ULTRA_PLUS)
+	Key_32 = ((u32)Key[Index1 + 1U] << 8U) | (u32)Key[Index1];
 #endif
 
 #ifdef XSK_MICROBLAZE_PLATFORM
@@ -1492,11 +1452,6 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, (u32)8U - Index);
-#endif
-
-#ifdef XSK_ZYNQ_PLATFORM
-		(void) Key;
-		break;
 #endif
 	}
 
@@ -1529,7 +1484,7 @@ u32 XilSKey_EfusePs_XAdcCfgValidate (void)
 	 * specify the Device ID that is
 	 * generated in xparameters.h
 	 */
-	XSysmonDevId = (u16)XSYSMON_DEVICE_ID;
+	XSysmonDevId = (u16)XSYSMON_PSU_DEVICE_ID;
 
 	/**
 	 * Initialize the XAdc driver.
@@ -1630,7 +1585,7 @@ END:
 *
 * @note	If master SLR of target device is SLR0 then both config order index
 * 		and SLR number are same in order.
-* 		If master SLR of target device is SLR1 then config oder and SLR
+* 		If master SLR of target device is SLR1 then config order and SLR
 * 		numbers are as below.
 * 		SLR 1 = config order index 0
 * 		SLR 0 = config order index 1

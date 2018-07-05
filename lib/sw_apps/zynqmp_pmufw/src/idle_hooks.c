@@ -1,26 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 
 /**
  * Implementation for the custom idling of of individual peripheral node.
@@ -207,6 +189,9 @@ void NodeI2cIdle(u32 BaseAddress)
 	defined(XPAR_PSU_ETHERNET_2_DEVICE_ID) || \
 	defined(XPAR_PSU_ETHERNET_3_DEVICE_ID)
 
+#define DMA_STOP_TIMEOUT		(500)
+#define REG_POLL_STATUS_DELAY		(3000) /* in us */
+
 /**
  * NodeGemIdle() - Custom code to idle the GEM
  *
@@ -227,17 +212,56 @@ void NodeGemIdle(u32 BaseAddress)
 		PmWarn("gem not idle\r\n");
 	}
 
-	/* stop all transactions of the Ethernet */
 	/* Disable all interrupts */
-	XEmacPs_WriteReg(BaseAddress, XEMACPS_IDR_OFFSET,
-			   XEMACPS_IXR_ALL_MASK);
+	XEmacPs_WriteReg(BaseAddress, XEMACPS_IDR_OFFSET, XEMACPS_IXR_ALL_MASK);
+
+	/* Halt the TX traffic */
+	Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_NWCTRL_OFFSET);
+	Reg |= XEMACPS_NWCTRL_HALTTX_MASK;
+	XEmacPs_WriteReg(BaseAddress, XEMACPS_NWCTRL_OFFSET, Reg);
+
+	/* Do not accept RX frames addressed to broadcast address */
+	Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_NWCFG_OFFSET);
+	Reg |= XEMACPS_NWCFG_BCASTDI_MASK;	/* No Broadcast bit */
+	XEmacPs_WriteReg(BaseAddress, XEMACPS_NWCFG_OFFSET, Reg);
+
+	/* Disable specific address filtering and thereby stop accept other RX frames */
+	XEmacPs_WriteReg(BaseAddress, XEMACPS_LADDR1L_OFFSET, 0x0);
+	XEmacPs_WriteReg(BaseAddress, XEMACPS_LADDR2L_OFFSET, 0x0);
+	XEmacPs_WriteReg(BaseAddress, XEMACPS_LADDR3L_OFFSET, 0x0);
+	XEmacPs_WriteReg(BaseAddress, XEMACPS_LADDR4L_OFFSET, 0x0);
+
+	/*
+	 * Check for the DMA stop. Poll on the current bd ptr and make sure it
+	 * doesn't move for considerable time.
+	 */
+	/* Wait for TX DMA to stop */
+	Timeout = DMA_STOP_TIMEOUT; /* Worst case timeout */
+	do {
+		Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_TXQBASE_OFFSET);
+		usleep(REG_POLL_STATUS_DELAY);
+	} while ((Reg != XEmacPs_ReadReg(BaseAddress, XEMACPS_TXQBASE_OFFSET)) && --Timeout);
+
+	if (0 == Timeout) {
+		PmWarn("GEM TX Not Idled\r\n");
+	}
+
+	/* Wait for RX DMA to stop */
+	Timeout = DMA_STOP_TIMEOUT; /* Worst case timeout */
+	do {
+		Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_RXQBASE_OFFSET);
+		usleep(REG_POLL_STATUS_DELAY);
+	} while ((Reg != XEmacPs_ReadReg(BaseAddress, XEMACPS_RXQBASE_OFFSET)) && --Timeout);
+
+	if (0 == Timeout) {
+		PmWarn("GEM RX Not Idled\r\n");
+	}
 
 	/* Disable the receiver & transmitter */
 	Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_NWCTRL_OFFSET);
 	Reg &= (u32)(~XEMACPS_NWCTRL_RXEN_MASK);
 	Reg &= (u32)(~XEMACPS_NWCTRL_TXEN_MASK);
 	XEmacPs_WriteReg(BaseAddress, XEMACPS_NWCTRL_OFFSET, Reg);
-
 }
 #endif
 
@@ -505,4 +529,130 @@ void NodeSataIdle(u32 BaseAddress)
 }
 #endif
 
+#if defined(XPAR_PSU_GDMA_0_DEVICE_ID) || \
+	defined(XPAR_PSU_ADMA_0_DEVICE_ID)
+
+/**
+ * NodeZdmaIdle() - Custom code to idle the ZDMA (GDMA and ADMA)
+ *
+ * @BaseAddress: ZDMA base address of the first channel
+ */
+
+void NodeZdmaIdle(u32 BaseAddress)
+{
+	u8 channel = 0;
+	volatile u32 regVal = 0;
+	u32 LocalTimeout;
+
+	for (channel = 0; channel < XZDMA_NUM_CHANNEL; channel++) {
+		/*
+		 * Idle each of the 8 channels
+		 */
+
+		/* Disable / stop the channel the channel */
+		XZDma_WriteReg(BaseAddress, (XZDMA_CH_CTRL2_OFFSET),
+				(XZDMA_CH_CTRL2_DIS_MASK));
+
+		/*
+		 * wait till transfers are not completed or halted
+		 */
+		LocalTimeout = MAX_TIMEOUT; /* todo: not right to use max timeout. do calibrate*/
+
+		do {
+			regVal = XZDma_ReadReg(BaseAddress, XZDMA_CH_STS_OFFSET) & XZDMA_STS_BUSY_MASK;
+		}while (regVal && LocalTimeout --);
+
+		/* Disables and clear all interrupts */
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_IDS_OFFSET, XZDMA_IXR_ALL_INTR_MASK);
+
+		XZDma_WriteReg( BaseAddress, XZDMA_CH_ISR_OFFSET,
+				(XZDma_ReadReg(BaseAddress, XZDMA_CH_ISR_OFFSET) & XZDMA_IXR_ALL_INTR_MASK));
+
+		/* Reset all the configurations */
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_CTRL0_OFFSET, XZDMA_CTRL0_RESET_VALUE);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_CTRL1_OFFSET, XZDMA_CTRL1_RESET_VALUE);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_DATA_ATTR_OFFSET, XZDMA_DATA_ATTR_RESET_VALUE);
+		XZDma_WriteReg(BaseAddress,	XZDMA_CH_DSCR_ATTR_OFFSET, XZDMA_DSCR_ATTR_RESET_VALUE);
+
+		/* Clears total byte transferred */
+		XZDma_WriteReg(BaseAddress,	XZDMA_CH_TOTAL_BYTE_OFFSET,
+					XZDma_ReadReg(BaseAddress, XZDMA_CH_TOTAL_BYTE_OFFSET));
+
+		/* Read interrupt counts to clear it on both source and destination channels*/
+		XZDma_ReadReg(BaseAddress, XZDMA_CH_IRQ_SRC_ACCT_OFFSET);
+		XZDma_ReadReg(BaseAddress, XZDMA_CH_IRQ_DST_ACCT_OFFSET);
+
+		/*
+		 * Reset the channel's coherent attributes.
+		 */
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_DSCR_ATTR_OFFSET, 0x0);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_SRC_DSCR_WORD3_OFFSET, 0x0);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_DST_DSCR_WORD3_OFFSET, 0x0);
+
+		BaseAddress += XZDMA_CH_OFFSET;
+	}
+}
+#endif /* ZDMA */
+
+#if defined(XPAR_PSU_CAN_0_DEVICE_ID) || \
+	defined(XPAR_PSU_CAN_1_DEVICE_ID)
+void NodeCanIdle(u32 BaseAddress)
+{
+	volatile u32 StatusReg;
+	u32 LocalTimeout = MAX_TIMEOUT;
+
+	/*Disable CAN */
+	XCanPs_WriteReg(BaseAddress, XCANPS_SRR_OFFSET, 0U);
+	do {
+		StatusReg = XCanPs_ReadReg(BaseAddress, XCANPS_SR_OFFSET);
+	} while (!(StatusReg & XCANPS_SR_CONFIG_MASK) && LocalTimeout--);
+}
+#endif /* CAN */
+
+#if defined(XPAR_PSU_NAND_0_DEVICE_ID)
+void NodeNandIdle(u32 BaseAddress)
+{
+	volatile u32 StatusReg;
+	u32 LocalTimeout = MAX_TIMEOUT;
+
+	/* Wait for transfer to complete if any */
+	do {
+		StatusReg =  XNandPsu_ReadReg(BaseAddress,
+				XNANDPSU_INTR_STS_OFFSET);
+	} while ((StatusReg & XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK) && LocalTimeout--);
+
+	/* Disable the Interrupts */
+	XNandPsu_WriteReg(BaseAddress,
+			  XNANDPSU_INTR_STS_EN_OFFSET, 0U);
+}
+#endif /* NAND */
+
+#ifdef XPAR_PSU_GPU_S_AXI_BASEADDR
+#define XGPU_PP_CTRL_MGMT_REG_OFFSET		0x100C
+#define XGPU_PP_SOFT_RESET_MASK			(1U << 7)
+#define XGPU_PP_INT_RAWSTAT_REG_OFFSET		0x1020
+#define XGPU_PP_RESET_COMPLETED_MASK		(1U << 12)
+
+void NodeGpuPPIdle(u32 BaseAddress)
+{
+	volatile u32 StatusReg;
+	u32 LocalTimeout = MAX_TIMEOUT;
+
+	XPfw_RMW32(BaseAddress + XGPU_PP_CTRL_MGMT_REG_OFFSET,
+		   XGPU_PP_SOFT_RESET_MASK,
+		   XGPU_PP_SOFT_RESET_MASK);
+
+	do {
+		StatusReg = Xil_In32(BaseAddress +
+				     XGPU_PP_INT_RAWSTAT_REG_OFFSET);
+	} while (!(StatusReg & XGPU_PP_RESET_COMPLETED_MASK) &&
+		 LocalTimeout--);
+}
+
+void NodeGpuIdle(u32 BaseAddress)
+{
+	NodeGpuPPIdle(BaseAddress + GPU_PP_0_OFFSET);
+	NodeGpuPPIdle(BaseAddress + GPU_PP_1_OFFSET);
+}
+#endif /* GPU */
 #endif /* ENABLE_NODE_IDLING */

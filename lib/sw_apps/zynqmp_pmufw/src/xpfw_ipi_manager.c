@@ -1,26 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 
 #include "xpfw_ipi_manager.h"
@@ -184,6 +166,13 @@ s32 XPfw_IpiReadMessage(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen)
 	 * This is only for safety applications.
 	 */
 	if (MsgPtr[7] != XPfw_CalculateCRC((u32)MsgPtr, XPFW_IPI_W0_TO_W6_SIZE)) {
+		/* Write error occurrence to PERS register and trigger FW Error1 */
+		XPfw_RMW32(PMU_GLOBAL_PERS_GLOB_GEN_STORAGE5, IPI_CRC_ERROR_OCCURRED,
+					IPI_CRC_ERROR_OCCURRED);
+		XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
+					PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK);
+		XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
+					0x0U);
 		XPfw_Printf(DEBUG_ERROR, "ERROR: IPI buffer CRC mismatch\r\n");
 		Status = XST_FAILURE;
 		goto Done;
@@ -197,7 +186,7 @@ Done:
 #ifdef ENABLE_IPI_CRC
 		RespBuf[7] = XPfw_CalculateCRC((u32)RespBuf, XPFW_IPI_W0_TO_W6_SIZE);
 #endif
-		(void)XIpiPsu_WriteMessage(Ipi0InstPtr, SrcCpuMask, RespBuf,
+		Status = XIpiPsu_WriteMessage(Ipi0InstPtr, SrcCpuMask, RespBuf,
 				XPFW_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_RESP);
 	}
 	return Status;
@@ -241,6 +230,13 @@ s32 XPfw_IpiReadResponse(const XPfw_Module_t *ModPtr, u32 SrcCpuMask, u32 *MsgPt
 	 * This is only for safety applications.
 	 */
 	if (MsgPtr[7] != XPfw_CalculateCRC((u32)MsgPtr, XPFW_IPI_W0_TO_W6_SIZE)) {
+		/* Write error occurrence to PERS register and trigger FW Error1 */
+		XPfw_RMW32(PMU_GLOBAL_PERS_GLOB_GEN_STORAGE5, IPI_CRC_ERROR_OCCURRED,
+					IPI_CRC_ERROR_OCCURRED);
+		XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
+					PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK);
+		XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
+					0x0U);
 		XPfw_Printf(DEBUG_ERROR, "ERROR: IPI buffer CRC mismatch\r\n");
 		Status = XST_FAILURE;
 		goto Done;

@@ -1,26 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -53,6 +35,7 @@
 #include "rpu.h"
 #include "pm_system.h"
 #include "pm_clock.h"
+#include "xpfw_aib.h"
 
 /* Enable/disable macros for processor's wfi event in GPI2 register */
 #define ENABLE_WFI(mask)    XPfw_RMW32(PMU_LOCAL_GPI2_ENABLE, (mask), (mask));
@@ -219,6 +202,9 @@ static s32 PmProcApu3Sleep(void)
  */
 static s32 PmProcRpu0Sleep(void)
 {
+	XPfw_AibEnable(XPFW_AIB_RPU0_TO_LPD);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU0);
+
 	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
 		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
 		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
@@ -229,6 +215,9 @@ static s32 PmProcRpu0Sleep(void)
 		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
 		  ~CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
 
+	XPfw_AibDisable(XPFW_AIB_RPU0_TO_LPD);
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU0);
+
 	return XST_SUCCESS;
 }
 
@@ -238,6 +227,9 @@ static s32 PmProcRpu0Sleep(void)
  */
 static s32 PmProcRpu1Sleep(void)
 {
+	XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU1);
+
 	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
 		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
 		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
@@ -247,6 +239,9 @@ static s32 PmProcRpu1Sleep(void)
 	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
 		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
 		  ~CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
+
+	XPfw_AibDisable(XPFW_AIB_RPU1_TO_LPD);
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU1);
 
 	return XST_SUCCESS;
 }
@@ -369,7 +364,10 @@ static s32 PmProcWake(PmProc* const proc)
 		}
 	}
 	if (NULL != proc->node.clocks) {
-		(void)PmClockRequest(&proc->node);
+		status = PmClockRequest(&proc->node);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
 	}
 
 	proc->restoreResumeAddr(proc);
@@ -884,7 +882,7 @@ static u32 PmProcGetPerms(const PmNode* const node)
 }
 
 /* Power consumptions for the APU for specific states */
-static u32 PmProcPowerAPU_X[] = {
+static u8 PmProcPowerAPU_X[] = {
 	DEFAULT_APU_POWER_OFF,
 	DEFAULT_APU_POWER_ACTIVE,
 	DEFAULT_APU_POWER_SLEEP,
@@ -892,7 +890,7 @@ static u32 PmProcPowerAPU_X[] = {
 };
 
 /* Power consumptions for the RPU for specific states */
-static u32 PmProcPowerRPU_X[] = {
+static u8 PmProcPowerRPU_X[] = {
 	DEFAULT_RPU_POWER_OFF,
 	DEFAULT_RPU_POWER_ACTIVE,
 	DEFAULT_RPU_POWER_SLEEP,

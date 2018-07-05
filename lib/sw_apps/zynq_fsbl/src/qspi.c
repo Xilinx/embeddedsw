@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2012 - 2016 Xilinx, Inc.  All rights reserved.
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal 
-* in the Software without restriction, including without limitation the rights 
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell  
-* copies of the Software, and to permit persons to whom the Software is 
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in 
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -493,7 +473,7 @@ u32 FlashReadID(void)
 	} else if(ReadBuffer[1] == MACRONIX_ID) {
 		QspiFlashMake = MACRONIX_ID;
 		fsbl_printf(DEBUG_INFO, "MACRONIX ");
-	} else if(ReadBuffer[0] == ISSI_ID) {
+	} else if(ReadBuffer[1] == ISSI_ID) {
 		QspiFlashMake = ISSI_ID;
 		fsbl_printf(DEBUG_INFO, "ISSI ");
 	}
@@ -501,16 +481,16 @@ u32 FlashReadID(void)
 	/*
 	 * Deduce flash Size
 	 */
-	if (ReadBuffer[2] == FLASH_SIZE_ID_8M) {
+	if (ReadBuffer[3] == FLASH_SIZE_ID_8M) {
 		QspiFlashSize = FLASH_SIZE_8M;
 		fsbl_printf(DEBUG_INFO, "8M Bits\r\n");
-	} else if (ReadBuffer[2] == FLASH_SIZE_ID_16M) {
+	} else if (ReadBuffer[3] == FLASH_SIZE_ID_16M) {
 		QspiFlashSize = FLASH_SIZE_16M;
 		fsbl_printf(DEBUG_INFO, "16M Bits\r\n");
-	} else if (ReadBuffer[2] == FLASH_SIZE_ID_32M) {
+	} else if (ReadBuffer[3] == FLASH_SIZE_ID_32M) {
 		QspiFlashSize = FLASH_SIZE_32M;
 		fsbl_printf(DEBUG_INFO, "32M Bits\r\n");
-	} else if (ReadBuffer[2] == FLASH_SIZE_ID_64M) {
+	} else if (ReadBuffer[3] == FLASH_SIZE_ID_64M) {
 		QspiFlashSize = FLASH_SIZE_64M;
 		fsbl_printf(DEBUG_INFO, "64M Bits\r\n");
 	} else if (ReadBuffer[3] == FLASH_SIZE_ID_128M) {
@@ -520,6 +500,7 @@ u32 FlashReadID(void)
 		QspiFlashSize = FLASH_SIZE_256M;
 		fsbl_printf(DEBUG_INFO, "256M Bits\r\n");
 	} else if ((ReadBuffer[3] == FLASH_SIZE_ID_512M)
+			|| (ReadBuffer[3] == MACRONIX_FLASH_1_8_V_MX66_ID_512)
 			|| (ReadBuffer[3] == MACRONIX_FLASH_SIZE_ID_512M)) {
 		QspiFlashSize = FLASH_SIZE_512M;
 		fsbl_printf(DEBUG_INFO, "512M Bits\r\n");
@@ -528,7 +509,6 @@ u32 FlashReadID(void)
 		QspiFlashSize = FLASH_SIZE_1G;
 		fsbl_printf(DEBUG_INFO, "1G Bits\r\n");
 	}
-
 	return XST_SUCCESS;
 }
 

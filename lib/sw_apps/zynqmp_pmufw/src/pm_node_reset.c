@@ -1,26 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -637,6 +619,179 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.SoftRstArgs = 0U,
 		.IdleHook = NULL,
 		.IdleHookArgs = 0U
+#endif
+	},
+	{
+		.NodeId = NODE_GDMA,
+		.RstActionList= {
+			{	.ResetId = PM_RESET_GDMA,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10,
+			},
+			{0,0,0}
+		},
+#ifdef XPAR_PSU_GDMA_0_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeZdmaIdle,
+		.IdleHookArgs = XPAR_PSU_GDMA_0_BASEADDR
+#else
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U
+#endif
+	},
+	{
+		.NodeId = NODE_ADMA,
+		.RstActionList= {
+			{	.ResetId = PM_RESET_ADMA,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10,
+			},
+			{0,0,0}
+		},
+#ifdef XPAR_PSU_ADMA_0_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeZdmaIdle,
+		.IdleHookArgs = XPAR_PSU_ADMA_0_BASEADDR
+#else
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U
+#endif
+	},
+	{
+		.NodeId = NODE_CAN_0,
+		.RstActionList= {
+			{	.ResetId = PM_RESET_CAN0,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10U,
+			},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
+		},
+#ifdef XPAR_PSU_CAN_0_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeCanIdle,
+		.IdleHookArgs = XPAR_PSU_CAN_0_BASEADDR
+#else
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U
+#endif
+	},
+	{
+		.NodeId = NODE_CAN_1,
+		.RstActionList= {
+			{	.ResetId = PM_RESET_CAN1,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10U,
+			},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
+		},
+#ifdef XPAR_PSU_CAN_1_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeCanIdle,
+		.IdleHookArgs = XPAR_PSU_CAN_1_BASEADDR,
+#else
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U
+#endif
+	},
+	{
+		.NodeId = NODE_NAND,
+		.RstActionList= {
+			{	.ResetId = PM_RESET_NAND,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10U,
+			},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
+		},
+#ifdef XPAR_PSU_NAND_0_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeNandIdle,
+		.IdleHookArgs = XPAR_PSU_NAND_0_BASEADDR,
+#else
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U
+#endif
+	},
+	{
+		.NodeId = NODE_GPU,
+		.RstActionList = {
+			{
+				.ResetId = PM_RESET_GPU,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10U,
+			},
+		},
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+#ifdef XPAR_PSU_GPU_S_AXI_BASEADDR
+		.IdleHook = NodeGpuIdle,
+		.IdleHookArgs = XPAR_PSU_GPU_S_AXI_BASEADDR,
+#else
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U,
+#endif
+	},
+	{
+		.NodeId = NODE_GPU_PP_0,
+		.RstActionList = {
+			{
+				.ResetId = PM_RESET_GPU_PP0,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10U,
+			},
+		},
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+#ifdef XPAR_PSU_GPU_S_AXI_BASEADDR
+		.IdleHook = NodeGpuPPIdle,
+		.IdleHookArgs = XPAR_PSU_GPU_S_AXI_BASEADDR +
+				GPU_PP_0_OFFSET,
+#else
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U,
+#endif
+	},
+	{
+		.NodeId = NODE_GPU_PP_1,
+		.RstActionList = {
+			{
+				.ResetId = PM_RESET_GPU_PP1,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10U,
+			},
+		},
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+#ifdef XPAR_PSU_GPU_S_AXI_BASEADDR
+		.IdleHook = NodeGpuPPIdle,
+		.IdleHookArgs = XPAR_PSU_GPU_S_AXI_BASEADDR +
+				GPU_PP_1_OFFSET,
+#else
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U,
 #endif
 	},
 };

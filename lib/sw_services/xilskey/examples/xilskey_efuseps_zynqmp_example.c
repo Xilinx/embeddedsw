@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -295,10 +275,6 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 	/* Variable for Timer Initialization */
 	PsInstancePtr->IntialisedTimer = 0;
 
-	/* Copying PPK hash types */
-	PsInstancePtr->IsPpk0Sha3Hash = XSK_EFUSEPS_PPK0_IS_SHA3;
-	PsInstancePtr->IsPpk1Sha3Hash = XSK_EFUSEPS_PPK1_IS_SHA3;
-
 	/* Copy the fuses to be programmed */
 
 	/* Copy all the user fuses to be programmed */
@@ -433,40 +409,34 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 
 	/* Is PPK0 hash programming is enabled */
 	if (PsInstancePtr->PrgrmPpk0Hash == TRUE) {
-		/* If Sha3 hash is programming into Efuse PPK0 */
-		if (PsInstancePtr->IsPpk0Sha3Hash == TRUE) {
-			/* Validation of PPK0 sha3 hash */
-			PsStatus = XilSKey_Efuse_ValidateKey(
-				(char *)XSK_EFUSEPS_PPK0_HASH,
-				XSK_EFUSEPS_PPK_SHA3_HASH_STRING_LEN_96);
-			if(PsStatus != XST_SUCCESS) {
-				goto ERROR;
-			}
-			/* Assign the PPK0 sha3 hash */
-			XilSKey_Efuse_ConvertStringToHexBE(
-				(char *)XSK_EFUSEPS_PPK0_HASH,
-				&PsInstancePtr->Ppk0Hash[0],
-				XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384);
+		/* Validation of PPK0 sha3 hash */
+		PsStatus = XilSKey_Efuse_ValidateKey(
+			(char *)XSK_EFUSEPS_PPK0_HASH,
+			XSK_EFUSEPS_PPK_SHA3_HASH_STRING_LEN_96);
+		if(PsStatus != XST_SUCCESS) {
+			goto ERROR;
 		}
+		/* Assign the PPK0 sha3 hash */
+		XilSKey_Efuse_ConvertStringToHexBE(
+			(char *)XSK_EFUSEPS_PPK0_HASH,
+			&PsInstancePtr->Ppk0Hash[0],
+			XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384);
 	}
 
 	/* Is PPK1 hash programming is enabled */
 	if (PsInstancePtr->PrgrmPpk1Hash == TRUE) {
-		/* If Sha3 hash is programming into Efuse PPK1 */
-		if (PsInstancePtr->IsPpk1Sha3Hash == TRUE) {
-			/* Validation of PPK1 sha3 hash */
-			PsStatus = XilSKey_Efuse_ValidateKey(
-				(char *)XSK_EFUSEPS_PPK1_HASH,
-				XSK_EFUSEPS_PPK_SHA3_HASH_STRING_LEN_96);
-			if(PsStatus != XST_SUCCESS) {
-				goto ERROR;
-			}
-			/* Assign the PPK1 sha3 hash */
-			XilSKey_Efuse_ConvertStringToHexBE(
-				(char *)XSK_EFUSEPS_PPK1_HASH,
-				&PsInstancePtr->Ppk1Hash[0],
-				XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384);
+		/* Validation of PPK1 sha3 hash */
+		PsStatus = XilSKey_Efuse_ValidateKey(
+			(char *)XSK_EFUSEPS_PPK1_HASH,
+			XSK_EFUSEPS_PPK_SHA3_HASH_STRING_LEN_96);
+		if(PsStatus != XST_SUCCESS) {
+			goto ERROR;
 		}
+		/* Assign the PPK1 sha3 hash */
+		XilSKey_Efuse_ConvertStringToHexBE(
+			(char *)XSK_EFUSEPS_PPK1_HASH,
+			&PsInstancePtr->Ppk1Hash[0],
+			XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384);
 	}
 
 	if (PsInstancePtr->PrgrmSpkID == TRUE) {

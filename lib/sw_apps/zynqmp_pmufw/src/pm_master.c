@@ -1,26 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -976,18 +958,38 @@ s32 PmMasterRestart(PmMaster* const master)
 	s32 status;
 	u64 address = 0xFFFC0000ULL;
 
-	u32 FsblProcInfo = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5) &
-							FSBL_STATE_PROC_INFO_MASK;
+	u32 FsblProcInfo = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
 
-	if ((FSBL_RUNNING_ON_A53 == FsblProcInfo) && master == &pmMasterApu_g) {
-#ifdef ENABLE_SECURE
-		status = XPfw_RestoreFsblToOCM();
-		if (XST_SUCCESS != status) {
+	if ((FSBL_RUNNING_ON_A53 == (FsblProcInfo & FSBL_STATE_PROC_INFO_MASK)) &&
+			(master == &pmMasterApu_g)) {
+#if defined(USE_DDR_FOR_APU_RESTART) && defined(ENABLE_SECURE)
+		if (0x0U != (FsblProcInfo & FSBL_ENCRYPTION_STS_MASK)) {
+			if (FSBL_Store_Restore_Info.IsOCM_Used == TRUE) {
+				/* If FSBL is encrypted, it is not copied to DDR */
+				PmWarn("OCM is used by XilFPGA. APU-restart will not work\r\n");
+				status = XST_FAILURE;
+				goto done;
+			} else {
+				/* Do nothing */
+			}
+		} else {
+			status = XPfw_RestoreFsblToOCM();
+			if (XST_SUCCESS != status) {
+				goto done;
+			}
+		}
+#else
+		if (FSBL_Store_Restore_Info.IsOCM_Used == TRUE) {
+			/* If OCM is used by XilFPGA, APU restart will not work */
+			PmWarn("OCM is used by XilFPGA. APU-restart will not work\r\n");
+			status = XST_FAILURE;
 			goto done;
 		}
 #endif
-	} else if (((FSBL_RUNNING_ON_R5_0 == FsblProcInfo) && (master == &pmMasterRpu0_g)) ||
-			((FSBL_RUNNING_ON_R5_L == FsblProcInfo) && (master == &pmMasterRpu_g))) {
+	} else if (((FSBL_RUNNING_ON_R5_0 == (FsblProcInfo & FSBL_STATE_PROC_INFO_MASK)) &&
+					(master == &pmMasterRpu0_g)) ||
+			((FSBL_RUNNING_ON_R5_L == (FsblProcInfo & FSBL_STATE_PROC_INFO_MASK)) &&
+					(master == &pmMasterRpu_g))) {
 		/* Do nothing */
 	} else {
 		status = XST_NO_FEATURE;

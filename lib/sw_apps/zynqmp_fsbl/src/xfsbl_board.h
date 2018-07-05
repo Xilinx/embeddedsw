@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -39,8 +19,8 @@
 * 1.0   ssc  01/20/16 Initial release
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines
 *                     Added ZCU106 support
-* 3.0	bkm	 18/4/18  Added Board specific code w.r.t VADJ
-*
+* 3.0	bkm  18/4/18  Added Board specific code w.r.t VADJ
+* 4.0   bsv  03/02/20 Added support for ZCU208 board
 *
 * </pre>
 *
@@ -58,7 +38,8 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
 #if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)		\
-		|| defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111)
+		|| defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111) \
+		|| defined(XPS_BOARD_ZCU216) || defined(XPS_BOARD_ZCU208)
 #include "xiicps.h"
 /************************** Constant Definitions *****************************/
 #define GPIO_MIO31_MASK	0x00000020U

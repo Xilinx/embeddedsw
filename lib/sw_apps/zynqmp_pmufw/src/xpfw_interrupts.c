@@ -1,26 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #include "xpfw_interrupts.h"
 #include "xpfw_events.h"
@@ -34,94 +16,6 @@
  * @note IRQ_ENABLE register is write-only, So its state is stored here
  */
 static u32 InterruptRegsiter;
-
-/**
- * This list of IDs enables re-ordering of Events for GPI1 as per user's priority
- */
-static u32 Gpi1EventIdList[] = {
-	XPFW_EV_APB_AIB_ERROR,
-	XPFW_EV_AXI_AIB_ERROR,
-	XPFW_EV_ERROR_2,
-	XPFW_EV_ERROR_1,
-	XPFW_EV_ACPU_3_DBG_PWRUP,
-	XPFW_EV_ACPU_2_DBG_PWRUP,
-	XPFW_EV_ACPU_1_DBG_PWRUP,
-	XPFW_EV_ACPU_0_DBG_PWRUP,
-	XPFW_EV_FPD_WAKE_GIC_PROXY,
-	XPFW_EV_MIO_WAKE_5,
-	XPFW_EV_MIO_WAKE_4,
-	XPFW_EV_MIO_WAKE_3,
-	XPFW_EV_MIO_WAKE_2,
-	XPFW_EV_MIO_WAKE_1,
-	XPFW_EV_MIO_WAKE_0,
-	XPFW_EV_DAP_RPU_WAKE,
-	XPFW_EV_DAP_FPD_WAKE,
-	XPFW_EV_USB_1_WAKE,
-	XPFW_EV_USB_0_WAKE,
-	XPFW_EV_R5_1_WAKE,
-	XPFW_EV_R5_0_WAKE,
-	XPFW_EV_ACPU_3_WAKE,
-	XPFW_EV_ACPU_2_WAKE,
-	XPFW_EV_ACPU_1_WAKE,
-	XPFW_EV_ACPU_0_WAKE
-};
-
-static u32 Gpi2EventIdList[] = {
-	XPFW_EV_VCC_INT_FP_DISCONNECT,
-	XPFW_EV_VCC_INT_DISCONNECT,
-	XPFW_EV_VCC_AUX_DISCONNECT,
-	XPFW_EV_DBG_ACPU3_RST_REQ,
-	XPFW_EV_DBG_ACPU2_RST_REQ,
-	XPFW_EV_DBG_ACPU1_RST_REQ,
-	XPFW_EV_DBG_ACPU0_RST_REQ,
-	XPFW_EV_CP_ACPU3_RST_REQ,
-	XPFW_EV_CP_ACPU2_RST_REQ,
-	XPFW_EV_CP_ACPU1_RST_REQ,
-	XPFW_EV_CP_ACPU0_RST_REQ,
-	XPFW_EV_DBG_RCPU1_RST_REQ,
-	XPFW_EV_DBG_RCPU0_RST_REQ,
-	XPFW_EV_R5_1_SLEEP,
-	XPFW_EV_R5_0_SLEEP,
-	XPFW_EV_ACPU_3_SLEEP,
-	XPFW_EV_ACPU_2_SLEEP,
-	XPFW_EV_ACPU_1_SLEEP,
-	XPFW_EV_ACPU_0_SLEEP
-};
-
-static u32 Gpi3EventIdList[] = {
-	XPFW_EV_PL_GPI_31,
-	XPFW_EV_PL_GPI_30,
-	XPFW_EV_PL_GPI_29,
-	XPFW_EV_PL_GPI_28,
-	XPFW_EV_PL_GPI_27,
-	XPFW_EV_PL_GPI_26,
-	XPFW_EV_PL_GPI_25,
-	XPFW_EV_PL_GPI_24,
-	XPFW_EV_PL_GPI_23,
-	XPFW_EV_PL_GPI_22,
-	XPFW_EV_PL_GPI_21,
-	XPFW_EV_PL_GPI_20,
-	XPFW_EV_PL_GPI_19,
-	XPFW_EV_PL_GPI_18,
-	XPFW_EV_PL_GPI_17,
-	XPFW_EV_PL_GPI_16,
-	XPFW_EV_PL_GPI_15,
-	XPFW_EV_PL_GPI_14,
-	XPFW_EV_PL_GPI_13,
-	XPFW_EV_PL_GPI_12,
-	XPFW_EV_PL_GPI_11,
-	XPFW_EV_PL_GPI_10,
-	XPFW_EV_PL_GPI_9,
-	XPFW_EV_PL_GPI_8,
-	XPFW_EV_PL_GPI_7,
-	XPFW_EV_PL_GPI_6,
-	XPFW_EV_PL_GPI_5,
-	XPFW_EV_PL_GPI_4,
-	XPFW_EV_PL_GPI_3,
-	XPFW_EV_PL_GPI_2,
-	XPFW_EV_PL_GPI_1,
-	XPFW_EV_PL_GPI_0,
-};
 
 static void XPfw_NullHandler(void)
 {
@@ -181,20 +75,20 @@ static void XPfw_InterruptGpi0Handler(void)
 
 static void XPfw_InterruptGpi1Handler(void)
 {
-	u32 Index;
+	u32 EventId;
 
-	for (Index = 0U; Index < ARRAYSIZE(Gpi1EventIdList); Index++) {
-		u32 RegMask = XPfw_EventGetRegMask(Gpi1EventIdList[Index]);
+	for (EventId = XPFW_EV_APB_AIB_ERROR; EventId <= XPFW_EV_ACPU_0_WAKE;
+			++EventId) {
+		u32 RegMask = XPfw_EventGetRegMask(EventId);
 		u32 GpiRegVal = XPfw_Read32(PMU_IOMODULE_GPI1);
 
 		if ((GpiRegVal & RegMask) == RegMask) {
 			/* Dispatch the event to Registered Modules */
-			XStatus Status = XPfw_CoreDispatchEvent(Gpi1EventIdList[Index]);
+			XStatus Status = XPfw_CoreDispatchEvent(EventId);
 
 			if (XST_SUCCESS != Status) {
 				XPfw_Printf(DEBUG_DETAILED,"Warning: "
-						"Failed to dispatch Event ID: %lu\r\n",
-						Gpi1EventIdList[Index]);
+						"Failed to dispatch Event ID: %lu\r\n", EventId);
 			}
 		}
 	}
@@ -202,20 +96,20 @@ static void XPfw_InterruptGpi1Handler(void)
 
 static void XPfw_InterruptGpi2Handler(void)
 {
-	u32 Index;
+	u32 EventId;
 
-	for (Index = 0U; Index < ARRAYSIZE(Gpi2EventIdList); Index++) {
-		u32 RegMask = XPfw_EventGetRegMask(Gpi2EventIdList[Index]);
+	for (EventId = XPFW_EV_VCC_INT_FP_DISCONNECT;
+			EventId <= XPFW_EV_ACPU_0_SLEEP; ++EventId) {
+		u32 RegMask = XPfw_EventGetRegMask(EventId);
 		u32 GpiRegVal = XPfw_Read32(PMU_IOMODULE_GPI2);
 
 		if ((GpiRegVal & RegMask) == RegMask) {
 			/* Dispatch the event to Registered Modules */
-			XStatus Status = XPfw_CoreDispatchEvent(Gpi2EventIdList[Index]);
+			XStatus Status = XPfw_CoreDispatchEvent(EventId);
 
 			if (XST_SUCCESS != Status) {
 				XPfw_Printf(DEBUG_DETAILED,"Warning: "
-						"Failed to dispatch Event ID: %lu\r\n",
-						Gpi2EventIdList[Index]);
+						"Failed to dispatch Event ID: %lu\r\n", EventId);
 			}
 		}
 	}
@@ -223,20 +117,20 @@ static void XPfw_InterruptGpi2Handler(void)
 
 static void XPfw_InterruptGpi3Handler(void)
 {
-	u32 Index;
+	u32 EventId;
 
-	for (Index = 0U; Index < ARRAYSIZE(Gpi3EventIdList); Index++) {
-		u32 RegMask = XPfw_EventGetRegMask(Gpi3EventIdList[Index]);
+	for (EventId = XPFW_EV_PL_GPI_31;
+			EventId <= XPFW_EV_PL_GPI_0; ++EventId) {
+		u32 RegMask = XPfw_EventGetRegMask(EventId);
 		u32 GpiRegVal = XPfw_Read32(PMU_IOMODULE_GPI3);
 
 		if ((GpiRegVal & RegMask) == RegMask) {
 			/* Dispatch the event to Registered Modules */
-			XStatus Status = XPfw_CoreDispatchEvent(Gpi3EventIdList[Index]);
+			XStatus Status = XPfw_CoreDispatchEvent(EventId);
 
 			if (XST_SUCCESS != Status) {
 				XPfw_Printf(DEBUG_DETAILED,"Warning: "
-						"Failed to dispatch Event ID: %lu\r\n",
-						Gpi3EventIdList[Index]);
+						"Failed to dispatch Event ID: %lu\r\n", EventId);
 			}
 		}
 	}
@@ -244,17 +138,23 @@ static void XPfw_InterruptGpi3Handler(void)
 
 static void XPfw_InterruptRtcAlaramHandler(void)
 {
-	(void)XPfw_CoreDispatchEvent(XPFW_EV_RTC_ALARM);
+	if (XST_SUCCESS != XPfw_CoreDispatchEvent(XPFW_EV_RTC_ALARM)) {
+		XPfw_Printf(DEBUG_DETAILED,"Warning: Failed to dispatch "
+				"Event ID: %d\r\n", XPFW_EV_RTC_ALARM);
+	}
 }
 
 static void XPfw_InterruptRtcSecondsmHandler(void)
 {
-	(void)XPfw_CoreDispatchEvent(XPFW_EV_RTC_SECONDS);
+	if (XST_SUCCESS != XPfw_CoreDispatchEvent(XPFW_EV_RTC_SECONDS)) {
+		XPfw_Printf(DEBUG_DETAILED,"Warning: Failed to dispatch "
+				"Event ID: %d\r\n", XPFW_EV_RTC_SECONDS);
+	}
 }
 
 static void XPfw_Pit1Handler(void)
 {
-	(void)XPfw_CoreTickHandler();
+	XPfw_CoreTickHandler();
 }
 
 static void XPfw_Ipi0Handler(void)

@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 
 #ifndef XPFW_DEFAULT_H_
@@ -58,6 +38,18 @@ extern "C" {
 #define IOU_SLCR_MIO_PIN_35_OFFSET	0x0000008CU
 #define IOU_SLCR_MIO_PIN_36_OFFSET	0x00000090U
 #define IOU_SLCR_MIO_PIN_37_OFFSET	0x00000094U
+
+#define IOU_SLCR_CTRL		( IOU_SLCR_BASE + (u32)(0x600U) )
+
+#define SLVERR_MASK				(u32)(0x1U)
+
+/* XPPU SINK Registers */
+#define XPPU_SINK_BASE_ADDR		0xFF9CFF00U
+#define XPPU_SINK_ERR_CTRL		(XPPU_SINK_BASE_ADDR + 0xECU)
+
+/* BBRAM registers */
+#define BBRAM_BASE_ADDR			0xFFCD0000U
+#define BBRAM_SLVERR_REG		(BBRAM_BASE_ADDR + 0x34U)
 
 /* RAM address used for scrubbing */
 #define PARAM_RAM_LOW_ADDRESS		0Xffdc0000U
@@ -99,6 +91,12 @@ extern "C" {
 #define CHECK_FSBL_COMPLETION	100U
 
 #define FSBL_COMPLETION			1U
+
+#define IPI_CRC_ERROR_OCCURRED	0x1U
+#define HW_EXCEPTION_RECEIVED	0x2U
+
+/* Error code to be written for RPU_run mode error */
+#define RPU_RUN_MODE_ERROR 		0x04U
 
 /* Handler Table Structure */
 typedef void (*VoidFunction_t)(void);

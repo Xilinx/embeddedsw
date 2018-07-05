@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 - 18 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -65,7 +45,7 @@
 *                        XSecure_RsaPublicEncrypt, as XSecure_RsaDecrypt is
 *                        deprecated, also calls to secure stream switch
 *                        are modified
-*
+* 4.1   har     01/03/20 Added checks to verify the value of XSecure_SssAes
 * </pre>
 *
 ******************************************************************************/
@@ -363,7 +343,7 @@ static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
 				Len = HashDataLen;
 			}
 			Offset = (UINTPTR)Address +
-				(u64)(PartitionParams->ChunkSize * Index);
+				(u64)((u64)PartitionParams->ChunkSize * (u64)Index);
 
 			/* Copy from DDR or flash to Buffer */
 			Status = XFsbl_CopyData(PartitionParams,
@@ -498,7 +478,7 @@ static u32 XFsbl_PlSignVer(XFsblPs_PlPartition *PartitionParams,
 			Len = HashDataLen;
 		}
 		Offset = (u64)BlockAdrs +
-			(u64)(PartitionParams->ChunkSize * Index);
+			(u64)((u64)PartitionParams->ChunkSize * (u64)Index);
 
 		Status = XFsbl_CopyData(PartitionParams,
 			PartitionParams->ChunkBuffer, (u8 *)(UINTPTR)Offset, Len);
@@ -757,8 +737,11 @@ static u32 XFsbl_DecrptSetUpNextBlk(XFsblPs_PlPartition *PartitionParams,
 			(UINTPTR)XSECURE_CSU_AES_IV_0_OFFSET);
 
 	/* Configure the SSS for AES. */
-	XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0,
+	Status = XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0,
 					XSECURE_SSS_PCAP);
+	if(Status != XFSBL_SUCCESS) {
+		goto END;
+	}
 
 	/* Start the message. */
 	XSecure_WriteReg(PartitionParams->PlEncrypt.SecureAes->BaseAddress,
@@ -776,7 +759,7 @@ static u32 XFsbl_DecrptSetUpNextBlk(XFsblPs_PlPartition *PartitionParams,
 	XSecure_WriteReg(PartitionParams->PlEncrypt.SecureAes->BaseAddress,
 					XSECURE_CSU_AES_KUP_WR_OFFSET, 0x0);
 
-
+END:
 	return Status;
 
 }
@@ -819,8 +802,11 @@ static u32 XFsbl_DecrptPl(XFsblPs_PlPartition *PartitionParams,
 				XCSUDMA_SRC_CHANNEL, &ConfigurValues);
 
 		/* Configure AES engine */
-		XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0,
+		Status = XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0,
 					XSECURE_SSS_PCAP);
+		if(Status != XFSBL_SUCCESS) {
+			goto END;
+		}
 
 		/* Send whole chunk of data to AES */
 		if ((Size <=
@@ -922,6 +908,7 @@ static u32 XFsbl_DecrptPl(XFsblPs_PlPartition *PartitionParams,
 
 	} while (Size != 0x00);
 
+END:
 	return Status;
 
 }
@@ -1021,8 +1008,12 @@ static u32 XFsbl_DecrptPlChunks(XFsblPs_PlPartition *PartitionParams,
 	else  if (PartitionParams->Hdr != 0x00) {
 
 		/* Configure AES engine */
-		XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0,
+		Status = XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0,
 					XSECURE_SSS_PCAP);
+		if(Status != XFSBL_SUCCESS) {
+			goto END;
+		}
+
 
 		XFsbl_CopyData(PartitionParams,
 		(u8 *)(PartitionParams->SecureHdr + PartitionParams->Hdr),

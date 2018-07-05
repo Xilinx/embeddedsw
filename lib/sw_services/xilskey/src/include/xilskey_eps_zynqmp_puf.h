@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xilskey_eps_zynqmp_puf.h
@@ -44,6 +24,7 @@
 * 6.6   vns  06/06/18 Added doxygen tags
 * 6.7	arc  01/05/19 Fixed MISRA-C violations.
 *       mmd  03/17/19 Added PUF syndrome data length in bytes for 4K mode
+* 6.9   kpt  02/27/20 Removed prototype XilSKey_Puf_Debug2
 * </pre>
 *
 *****************************************************************************/
@@ -153,7 +134,6 @@ u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits);
 u32 XilSKey_Read_Puf_EfusePs_SecureBits(
 		XilSKey_Puf_Secure *SecureBitsRead, u8 ReadOption);
 
-u32 XilSKey_Puf_Debug2(XilSKey_Puf *InstancePtr);
 u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr);
 
 u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr);

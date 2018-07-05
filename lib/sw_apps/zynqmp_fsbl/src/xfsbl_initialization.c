@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -144,7 +124,7 @@ u8 *ImageHdr = ReadBuffer;
 extern u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE];
 extern u32 Iv[XIH_BH_IV_LENGTH / 4U];
 #endif
-
+u32 SdCdnRegVal;
 /****************************************************************************/
 /**
  * This function is used to save the data section into duplicate data section
@@ -639,15 +619,17 @@ static u32 XFsbl_ResetValidation(void)
 {
 	u32 Status;
 	u32 FsblErrorStatus;
+#ifdef XFSBL_WDT_PRESENT
 	u32 ResetReasonValue;
 	u32 ErrStatusRegValue;
-
+#endif
 	/**
 	 *  Read the Error Status register
 	 *  If WDT reset, do fallback
 	 */
 	FsblErrorStatus = XFsbl_In32(XFSBL_ERROR_STATUS_REGISTER_OFFSET);
 
+#ifdef XFSBL_WDT_PRESENT
 	ResetReasonValue = XFsbl_In32(CRL_APB_RESET_REASON);
 
 	/**
@@ -657,13 +639,10 @@ static u32 XFsbl_ResetValidation(void)
 	if ((ResetReasonValue & CRL_APB_RESET_REASON_PMU_SYS_RESET_MASK)
 			== CRL_APB_RESET_REASON_PMU_SYS_RESET_MASK) {
 		ErrStatusRegValue = XFsbl_In32(PMU_GLOBAL_ERROR_STATUS_1);
-		if(((ErrStatusRegValue& PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK)
-			== PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK) &&
+		if(((ErrStatusRegValue & XFSBL_WDT_MASK) == XFSBL_WDT_MASK) &&
 			(FsblErrorStatus == XFSBL_RUNNING)) {
-#ifdef XFSBL_WDT_PRESENT
 			/* Clear the SWDT0/1 reset error */
 			XFsbl_Out32(PMU_GLOBAL_ERROR_STATUS_1, XFSBL_WDT_MASK);
-#endif
 		/**
 		 * reset is due to System WDT.
 		 * Do a fallback
@@ -673,7 +652,7 @@ static u32 XFsbl_ResetValidation(void)
 		goto END;
 		}
 	}
-
+#endif
 	/**
 	 * Mark FSBL running in error status register to
 	 * detect the WDT reset while FSBL execution
@@ -689,7 +668,9 @@ static u32 XFsbl_ResetValidation(void)
 	 */
 
 	Status = XFSBL_SUCCESS;
+#ifdef XFSBL_WDT_PRESENT
 END:
+#endif
 	return Status;
 }
 
@@ -804,6 +785,7 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	 * This will ensure that SD controller doesn't end up waiting for long,
 	 * fixed durations for card to be stable.
 	 */
+	SdCdnRegVal = XFsbl_In32(IOU_SLCR_SD_CDN_CTRL);
 	XFsbl_Out32(IOU_SLCR_SD_CDN_CTRL,
 			(IOU_SLCR_SD_CDN_CTRL_SD1_CDN_CTRL_MASK |
 					IOU_SLCR_SD_CDN_CTRL_SD0_CDN_CTRL_MASK));
@@ -1125,6 +1107,7 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	u32 FlashImageOffsetAddress;
 	u32 EfuseCtrl;
 	u32 ImageHeaderTableAddressOffset=0U;
+	u32 FsblEncSts = 0U;
 #ifdef XFSBL_SECURE
 	u32 Size;
 	u32 AcOffset=0U;
@@ -1180,6 +1163,27 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	BootHdrAttrb = Xil_In32((UINTPTR)ReadBuffer +
 					XIH_BH_IMAGE_ATTRB_OFFSET);
 	FsblInstancePtr->BootHdrAttributes = BootHdrAttrb;
+
+	/*
+	 * Update PMU Global general storage register5 bit 3 with FSBL encryption
+	 * status if either FSBL encryption status in boot header is true or
+	 * ENC_ONLY eFuse bit is programmed.
+	 *
+	 * FSBL encryption information in boot header:
+	 * If authenticate only bits 5:4 are set, boot image is only RSA signed
+	 * though encryption status in BH is non-zero.
+	 * Boot image is decrypted only when BH encryption status is not 0x0 and
+	 * authenticate only bits value is other than 0x3
+	 */
+	if (((Xil_In32((UINTPTR)ReadBuffer + XIH_BH_ENC_STS_OFFSET) != 0x0U) &&
+			((BootHdrAttrb & XIH_BH_IMAGE_ATTRB_AUTH_ONLY_MASK) !=
+					XIH_BH_IMAGE_ATTRB_AUTH_ONLY_MASK)) ||
+			((XFsbl_In32(EFUSE_SEC_CTRL) & EFUSE_SEC_CTRL_ENC_ONLY_MASK) !=
+					0x0U)) {
+		FsblEncSts = XFsbl_In32(PMU_GLOBAL_GLOB_GEN_STORAGE5) |
+				XFSBL_FSBL_ENCRYPTED_MASK;
+		XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, FsblEncSts);
+	}
 
 	/**
 	 * Read the Image Header Table offset from

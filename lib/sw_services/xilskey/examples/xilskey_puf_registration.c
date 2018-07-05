@@ -1,28 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2016 - 19 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  *****************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -46,6 +26,8 @@
  *            03/10/17 Added Support for programming and reading PUF reserved
  *                     bit
  * 6.7   mmd  03/17/19 Ignored PUF data on overflow
+ * 6.9   kpt  02/27/20 Removed XilSKey_Puf_Fetch_Dbg_Mode2_result
+ *                     which is used only for debug purpose
  * </pre>
  *
  * @note
@@ -98,9 +80,6 @@ static u32 XilSkey_Program_Black_Key();
 static u32 XilSKey_Puf_ConvertStringToHexBE(const char * Str,
 					u8 * Buf, u32 Len);
 static u32 XilSKey_Puf_Encrypt_Key();
-#if defined XPUF_INFO_ON_UART
-static u32 XilSKey_Puf_Fetch_Dbg_Mode2_result(XilSKey_Puf *InstancePtr);
-#endif
 
 /************************** Function Definitions *****************************/
 
@@ -179,10 +158,6 @@ int main() {
 	xPuf_printf(XPUF_DEBUG_GENERAL, "App: AUX-%08x\r\n", PufInstance.Aux);
 	xPuf_printf(XPUF_DEBUG_GENERAL, "App: CHASH -%08x\r\n",
 					PufInstance.Chash);
-
-	if (SiliconVer > XPS_VERSION_1) {
-		XilSKey_Puf_Fetch_Dbg_Mode2_result(&PufInstance);
-	}
 
 #endif /*XPUF_INFO_ON_UART*/
 
@@ -270,20 +245,6 @@ int main() {
 					"App: Aux write successful\r\n");
 		}
 
-		Status = XilSKey_ZynqMp_EfusePs_ReadPufAux(&Aux,
-					XSK_EFUSEPS_READ_FROM_EFUSE);
-		if (Status != XST_SUCCESS) {
-			xPuf_printf(XPUF_DEBUG_GENERAL,
-				"App: Reading Aux value is failed\r\n");
-			goto ENDF;
-		}
-		/* Comparing Aux value */
-		if (PufInstance.Aux != Aux) {
-			xPuf_printf(XPUF_DEBUG_GENERAL,
-				"App: Aux read not matched W:%08x,R:%08x\r\n",
-					PufInstance.Aux, Aux);
-			goto ENDF;
-		}
 		/* programming CHash into eFUSE */
 		Status = XilSKey_ZynqMp_EfusePs_WritePufChash(&PufInstance);
 		if (Status != XST_SUCCESS)	{
@@ -296,8 +257,31 @@ int main() {
 					"App: CHASH write successful\r\n");
 		}
 
+		/* Programs and verifies the black key */
+		Status = XilSkey_Program_Black_Key();
+		if (Status != XST_SUCCESS) {
+			xPuf_printf(XPUF_DEBUG_GENERAL,
+				"App: Writing Black key is failed\r\n");
+			goto ENDF;
+		}
+
+		Status = XilSKey_ZynqMp_EfusePs_ReadPufAux(&Aux,
+					XSK_EFUSEPS_READ_FROM_CACHE);
+		if (Status != XST_SUCCESS) {
+			xPuf_printf(XPUF_DEBUG_GENERAL,
+				"App: Reading Aux value is failed\r\n");
+			goto ENDF;
+		}
+
+		/* Comparing Aux value */
+		if (PufInstance.Aux != Aux) {
+			xPuf_printf(XPUF_DEBUG_GENERAL,
+				"App: Aux read not matched W:%08x,R:%08x\r\n",
+					PufInstance.Aux, Aux);
+			goto ENDF;
+		}
 		Status = XilSKey_ZynqMp_EfusePs_ReadPufChash(&Chash,
-						XSK_EFUSEPS_READ_FROM_EFUSE);
+						XSK_EFUSEPS_READ_FROM_CACHE);
 		if (Status != XST_SUCCESS) {
 			xPuf_printf(XPUF_DEBUG_GENERAL,
 				"App: Reading Aux value is failed\r\n");
@@ -308,13 +292,6 @@ int main() {
 			xPuf_printf(XPUF_DEBUG_GENERAL,
 				"App: Chash read not matched W:%08x,R:%08x\r\n",
 					PufInstance.Chash, Chash);
-			goto ENDF;
-		}
-		/* Programs and verifies the black key */
-		Status = XilSkey_Program_Black_Key();
-		if (Status != XST_SUCCESS) {
-			xPuf_printf(XPUF_DEBUG_GENERAL,
-				"App: Writing Black key is failed\r\n");
 			goto ENDF;
 		}
 	}
@@ -348,7 +325,7 @@ int main() {
 	XilSKey_Puf_Secure	PufSecureBits;
 
 	Status = XilSKey_Read_Puf_EfusePs_SecureBits(
-			&(PufSecureBits), XSK_EFUSEPS_READ_FROM_EFUSE);
+			&(PufSecureBits), XSK_EFUSEPS_READ_FROM_CACHE);
 	if (Status != XST_SUCCESS) {
 		xPuf_printf(XPUF_DEBUG_GENERAL,
 		"App: Failed while reading PUF secure bits\r\n");
@@ -493,9 +470,10 @@ static void XilSKey_Generate_FuseFormat(XilSKey_Puf *InstancePtr)
 					((SynData[SIndex] << 24) |
 					(SynData[SIndex+1] &
 						XSK_PUF_EFUSE_TRIM_MASK) >> 8);
-				InstancePtr->EfuseSynData[DIndex] |=
+				if (DIndex < (XSK_PUF_FORMATTED_SYN_SIZE_WORDS - 1)) {
+					InstancePtr->EfuseSynData[DIndex] |=
 						(SynData[SIndex+2] >> 28);
-
+				}
 			}
 			else {
 				InstancePtr->EfuseSynData[DIndex]=
@@ -906,44 +884,3 @@ ENDENCRYPT:
 
 }
 
-#if defined XPUF_INFO_ON_UART
-/*****************************************************************************/
-/**
- * Fetches the debug mode 2 result after generation.
- *
- * @param	InstancePtr is an PUF instance
- *
- * @return
- *		- XST_SUCCESS if debug 2 mode was successful.
- *		- ERROR if registration was unsuccessful.
- *
- * @note	Debug Mode results on serial port (if enabled)
- *
- ******************************************************************************/
-static u32 XilSKey_Puf_Fetch_Dbg_Mode2_result(XilSKey_Puf *InstancePtr)
-{
-
-	u32 Status;
-	u32 Index;
-
-	Status = XilSKey_Puf_Debug2(&PufInstance);
-	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_GENERAL,
-			"App: Debug 2 failed:%08x\r\n",Status);
-	}
-	else {
-		xPuf_printf(XPUF_DEBUG_GENERAL,
-					"App: Debug 2 result start!!\r\n");
-		for(Index = 0; Index < XSK_ZYNQMP_PUF_DBG2_DATA_LEN_IN_BYTES;
-								Index++) {
-			xPuf_printf(XPUF_DEBUG_GENERAL,
-			"App: Raw Data[%d]:%08x\r\n",
-			Index, PufInstance.Debug2Data[Index]);
-		}
-		xPuf_printf(XPUF_DEBUG_GENERAL,
-			"App: Debug 2 result end!!\r\n");
-	}
-
-	return Status;
-}
-#endif

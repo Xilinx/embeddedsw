@@ -1,26 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -59,6 +41,7 @@
 #endif
 #include "pmu_iomodule.h"
 #include "xpfw_ipi_manager.h"
+#include "xpfw_restart.h"
 
 #ifdef ENABLE_WDT
 #include "xpfw_mod_wdt.h"
@@ -365,6 +348,11 @@ static void PmForcePowerdown(const PmMaster *const master,
 	} else if (NODE_IS_PROC(nodePtr)) {
 		PmProc* proc = (PmProc*)nodePtr->derived;
 		power = (PmPower*)proc->node.parent;
+		/* Master can't force off its proc. */
+		if (proc->master->nid == master->nid) {
+			status = XST_PM_NO_ACCESS;
+			goto done;
+		}
 	} else {
 		/* Slaves and PLLs can not be force power down */
 		status = XST_INVALID_PARAM;
@@ -811,7 +799,10 @@ static void PmNotifyR5AndModifyWdtTimeout(u32 Timeout,
 		PmR5StlNoOpNotification Notification)
 {
 	IPI_REQUEST2(IPI_PMU_0_IER_RPU_0_MASK, PM_NOTIFY_STL_NO_OP, Notification);
-	(void)XPfw_IpiTrigger(IPI_PMU_0_IER_RPU_0_MASK);
+	if (XST_SUCCESS != XPfw_IpiTrigger(IPI_PMU_0_IER_RPU_0_MASK)) {
+		PmWarn("Error in IPI trigger\r\n");
+	}
+
 	XPfw_WdtSetVal(Timeout);
 }
 
@@ -835,7 +826,7 @@ static void PmNotifyR5AndModifyWdtTimeout(u32 Timeout,
  */
 static void PmFpgaLoad(const PmMaster *const master,
 			const u32 AddrHigh, const u32 AddrLow,
-			const u32 KeyAddr, const u32 flags)
+			const u32 KeyAddr, const u32 Flags)
 {
 	u32 Status;
 	XFpga XFpgaInstance = {0U};
@@ -852,7 +843,12 @@ static void PmFpgaLoad(const PmMaster *const master,
 		goto done;
 	}
     Status = XFpga_PL_BitStream_Load(&XFpgaInstance, BitStreamAddr,
-				     KeyAddr, flags);
+				     KeyAddr, Flags);
+
+    if ((XST_SUCCESS == Status) && ((Flags & XFPGA_AUTHENTICATION_OCM_EN) ==
+		XFPGA_AUTHENTICATION_OCM_EN)) {
+	FSBL_Store_Restore_Info.IsOCM_Used = TRUE;
+    }
 #if defined (ENABLE_WDT) &&	\
 	(XPFW_CFG_PMU_FPGA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
 	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT,
@@ -878,6 +874,9 @@ static void PmFpgaGetStatus(const PmMaster *const master)
 	}
 
 	Value = XFpga_InterfaceStatus(&XFpgaInstance);
+	if (Value == XFPGA_INVALID_INTERFACE_STATUS) {
+		Status = XST_FAILURE;
+	}
 
  done:
 	IPI_RESPONSE2(master->ipiMask, Status, Value);
@@ -921,7 +920,6 @@ static void PmFpgaRead(const PmMaster *const master,
 	if (Readback_Type != 0U) {
 #if defined(ENABLE_FPGA_READ_CONFIG_DATA)
 		Status = XFpga_GetPlConfigData(&XFpgaInstance, Address, Reg_Numframes);
-		Value = CFGDATA_DSTDMA_OFFSET/4U;
 #else
 		PmWarn("Unsupported EEMI API\r\n");
 		Status = XST_NO_ACCESS;

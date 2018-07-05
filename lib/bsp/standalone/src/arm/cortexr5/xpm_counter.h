@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -32,14 +12,11 @@
 *
 * Cortex R5 event counter functions can be utilized to configure and control
 * the Cortex-R5 performance monitor events.
-* Cortex-R5 Performance Monitor has 6 event counters which can be used to
+* Cortex-R5 Performance Monitor has 3 event counters which can be used to
 * count a variety of events described in Coretx-R5 TRM. The xpm_counter.h file
 * defines configurations XPM_CNTRCFGx which can be used to program the event
 * counters to count a set of events.
 *
-* @note
-* It doesn't handle the Cortex-R5 cycle counter, as the cycle counter is
-* being used for time keeping.
 *
 * @{
 * <pre>
@@ -49,6 +26,10 @@
 * ----- ---- -------- -----------------------------------------------
 * 5.00  pkp  02/10/14 Initial version
 * 7.1   aru  04/15/19 Updated the events correctly
+* 7.2   mus  01/29/20 Added new macro Xpm_ReadCycleCounterVal, to
+*                     read PMU cycle counter value
+* 7.2   asa  03/18/20 Add prototypes for new APIs. Deprecate older
+*                     APIs. Add new macros being used in the new APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -507,17 +488,41 @@ extern "C" {
 #define XPM_CNTRCFG16   15
 #endif
 
+#define XPM_NO_COUNTERS_AVAILABLE 	0xFFU
+#define XPM_MAX_EVENTHANDLER_ID		0x2U
+#define XPM_EVENT_CNTRS_BIT_MASK	0x7U
+#define XPM_ALL_EVENT_CNTRS_IN_USE	0x7U
+#define XPM_EVENT_CNTRS_MASK		0x3U
+
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
-
+#if defined(__GNUC__)
+#define Xpm_ReadCycleCounterVal()	mfcp(XREG_CP15_PERF_CYCLE_COUNTER)
+#elif defined (__ICCARM__)
+#define Xpm_ReadCycleCounterVal(val)       mfcp(XREG_CP15_PERF_CYCLE_COUNTER,val)
+#endif
 /************************** Variable Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
 
 /* Interface functions to access performance counters from abstraction layer */
+#if defined(__GNUC__)
+void Xpm_SetEvents(s32 PmcrCfg) __attribute__ ((deprecated));
+void Xpm_GetEventCounters(u32 *PmCtrValue) __attribute__ ((deprecated));
+#else
 void Xpm_SetEvents(s32 PmcrCfg);
 void Xpm_GetEventCounters(u32 *PmCtrValue);
+#endif
+u32 Xpm_DisableEvent(u32 EventHandlerId);
+u32 Xpm_SetUpAnEvent(u32 EventID);
+u32 Xpm_GetEventCounter(u32 EventHandlerId, u32 *CntVal);
+void Xpm_DisableEventCounters(void);
+void Xpm_EnableEventCounters (void);
+void Xpm_ResetEventCounters (void);
+
+/* This is helper function for sleep/usleep APIs */
+void Xpm_SleepPerfCounter(u32 delay, u64 frequency);
 
 #ifdef __cplusplus
 }

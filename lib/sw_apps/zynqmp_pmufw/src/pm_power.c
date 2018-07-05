@@ -1,26 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -238,7 +220,8 @@ static u32 PmFpdPowerSupplyCheck(XpbrServHndlr_t RomHandler)
 	u32 var = 0U;
 
 	/* Cheat compiler to not optimize timeout based on counting */
-	(void)XPfw_UtilPollForMask((u32)&var, ~var, PM_FPD_POWER_SUPPLYCHECK_TIMEOUT);
+	(void)XPfw_UtilPollForMask((u32)&var, ~var,
+				   PM_FPD_POWER_SUPPLYCHECK_TIMEOUT);
 
 	status = RomHandler();
 
@@ -261,7 +244,8 @@ static u32 PmPldPowerSupplyCheck(XpbrServHndlr_t RomHandler)
 	u32 var = 0U;
 
 	/* Cheat compiler to not optimize timeout based on counting */
-	(void)XPfw_UtilPollForMask((u32)&var, ~var, PM_PLD_POWER_SUPPLYCHECK_TIMEOUT);
+	(void)XPfw_UtilPollForMask((u32)&var, ~var,
+				   PM_PLD_POWER_SUPPLYCHECK_TIMEOUT);
 
 	status = RomHandler();
 
@@ -339,7 +323,10 @@ static s32 PmPowerDownFpd(void)
 
 	ddr_io_prepare();
 
-	(void)PmResetAssertInt(PM_RESET_FPD, PM_RESET_ACTION_ASSERT);
+	status = PmResetAssertInt(PM_RESET_FPD, PM_RESET_ACTION_ASSERT);
+	if (XST_SUCCESS != status) {
+		goto err;
+	}
 
 	XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR);
 	XPfw_AibEnable(XPFW_AIB_LPD_TO_FPD);
@@ -393,10 +380,10 @@ static s32 PmPowerUpRpu(void)
 		goto done;
 	}
 
-	(void)XPfw_AibDisable(XPFW_AIB_RPU0_TO_LPD);
-	(void)XPfw_AibDisable(XPFW_AIB_RPU1_TO_LPD);
-	(void)XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU0);
-	(void)XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU1);
+	XPfw_AibDisable(XPFW_AIB_RPU0_TO_LPD);
+	XPfw_AibDisable(XPFW_AIB_RPU1_TO_LPD);
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU0);
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU1);
 
 done:
 	return status;
@@ -425,8 +412,8 @@ static s32 PmPowerUpFpd(void)
 		goto err;
 	}
 
-	(void)XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
-	(void)XPfw_AibDisable(XPFW_AIB_LPD_TO_FPD);
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_FPD);
 
 	PmFpdRestoreContext();
 
@@ -442,10 +429,10 @@ err:
  */
 static s32 PmPowerDownRpu(void)
 {
-	(void)XPfw_AibEnable(XPFW_AIB_RPU0_TO_LPD);
-	(void)XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD);
-	(void)XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU0);
-	(void)XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU1);
+	XPfw_AibEnable(XPFW_AIB_RPU0_TO_LPD);
+	XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU0);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU1);
 
 	return XpbrPwrDnRpuHandler();
 }
@@ -465,6 +452,9 @@ static void PmPowerForceDownRpu(PmPower* const power)
 	PmNodeForceDown(&pmSlaveTcm0B_g.sram.slv.node);
 	PmNodeForceDown(&pmSlaveTcm1A_g.sram.slv.node);
 	PmNodeForceDown(&pmSlaveTcm1B_g.sram.slv.node);
+
+	/* Reset RPU AMBA */
+	PmResetAssertInt(PM_RESET_RPU_AMBA, PM_RESET_ACTION_ASSERT);
 }
 
 /**
@@ -473,9 +463,9 @@ static void PmPowerForceDownRpu(PmPower* const power)
  */
 static s32 PmPowerDownPld(void)
 {
-	(void)XPfw_AibEnable(XPFW_AIB_LPD_TO_AFI_FS2);
-	(void)XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS0);
-	(void)XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS1);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_AFI_FS2);
+	XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS0);
+	XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS1);
 
 	return XpbrPwrDnPldHandler();
 }
@@ -492,9 +482,9 @@ static s32 PmPowerUpPld(void)
 		goto done;
 	}
 
-	(void)XPfw_AibDisable(XPFW_AIB_LPD_TO_AFI_FS2);
-	(void)XPfw_AibDisable(XPFW_AIB_FPD_TO_AFI_FS0);
-	(void)XPfw_AibDisable(XPFW_AIB_FPD_TO_AFI_FS1);
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_AFI_FS2);
+	XPfw_AibDisable(XPFW_AIB_FPD_TO_AFI_FS0);
+	XPfw_AibDisable(XPFW_AIB_FPD_TO_AFI_FS1);
 done:
 	return status;
 }
@@ -563,7 +553,10 @@ s32 PmPowerDown(PmPower* const power)
 #elif (STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR)
 		req = PmRequirementGetNoMaster(&pmSlaveUart1_g);
 #endif
-		(void)PmRequirementUpdate(req, 0U);
+		status = PmRequirementUpdate(req, 0U);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
 	}
 #endif
 
@@ -603,7 +596,10 @@ static s32 PmPowerUp(PmPower* const power)
 #elif (STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR)
 	req = PmRequirementGetNoMaster(&pmSlaveUart1_g);
 #endif
-	(void)PmRequirementUpdate(req, PM_CAP_ACCESS);
+	status = PmRequirementUpdate(req, PM_CAP_ACCESS);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
 #endif
 
 	PmInfo("%s 0->1\r\n", power->node.name);
@@ -712,12 +708,12 @@ static PmNode* pmPldChildren[] = {
 };
 
 /* Dummy consumption for the power domains/islands */
-static u32 PmDomainPowers[] = {
+static u8 PmDomainPowers[] = {
 	DEFAULT_POWER_OFF,
 	DEFAULT_POWER_ON,
 };
 
-static u32 PmApuDomainPowers[] = {
+static u8 PmApuDomainPowers[] = {
 	DEFAULT_POWER_OFF,
 	DEFAULT_POWER_OFF,
 };
@@ -904,7 +900,9 @@ static void PmPowerDownCond(PmPower* const power)
 	if (0U == power->useCount) {
 		PmPowerUpdateLatencyMargin(power);
 		if (power->node.latencyMarg > 0U) {
-			(void)PmPowerDown(power);
+			if (XST_SUCCESS != PmPowerDown(power)) {
+				PmWarn("Error in power down for %s\r\n", power->node.name);
+			}
 		}
 	}
 }

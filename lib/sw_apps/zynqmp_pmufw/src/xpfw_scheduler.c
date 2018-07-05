@@ -1,26 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #include "xpfw_scheduler.h"
 
@@ -147,10 +129,9 @@ void XPfw_SchedulerTickHandler(XPfw_Scheduler_t *SchedPtr)
 	}
 }
 
-XStatus XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr)
+void XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr)
 {
 	u32 Idx;
-	XStatus Status;
 	u32 CallCount = 0U;
 
 	for (Idx = 0U; Idx < XPFW_SCHED_MAX_TASK; Idx++) {
@@ -168,15 +149,6 @@ XStatus XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr)
 			}
 		}
 	}
-
-	if (CallCount > 0U) {
-		Status = XST_SUCCESS;
-	} else {
-		/* Failed because none of the tasks were triggered */
-		Status = XST_FAILURE;
-	}
-
-	return Status;
 }
 
 XStatus XPfw_SchedulerAddTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId,u32 MilliSeconds, XPfw_Callback_t CallbackFn)

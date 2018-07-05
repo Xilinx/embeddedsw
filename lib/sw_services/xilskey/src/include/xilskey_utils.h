@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  * @file xilskey_utils.h
@@ -80,6 +60,14 @@
 * 6.8   psl     06/07/19 Added doxygen tags
 *       psl     08/12/19 Fixed MISRA-C violation
 *       psl     08/23/19 Added Debug define to avoid writing of eFuse.
+* 6.9   kpt     02/27/20 Added Error code XSK_EFUSEPS_ERROR_PGM_NOT_DONE.
+*               02/27/20 Replaced XSYSMON_DEVICE_ID with
+*                        XSYSMON_PSU_DEVICE_ID.
+*       kpt     03/31/20 Added Error Codes
+*                        XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED
+*                        XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED
+*                        XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED
+*
  *****************************************************************************/
 
 #ifndef XILSKEY_UTILS_H
@@ -147,7 +135,7 @@ extern "C" {
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-#define XSYSMON_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID
+#define XSYSMON_PSU_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID
 
 /* ZynqMp efusePs ps Ref Clk frequency */
 #define XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ	XPAR_PSU_PSS_REF_CLK_FREQ_HZ
@@ -757,6 +745,7 @@ typedef enum {
 
 	XSK_EFUSEPS_ERROR_PROGRAMMING = 0x00A0U,/**< 0x00A0<br>Error in
 						 *  programming eFUSE.*/
+	XSK_EFUSEPS_ERROR_PGM_NOT_DONE = 0X00A1,/**< 0x00A1<br>Program not done */
 	XSK_EFUSEPS_ERROR_READ = 0x00B0U,/**< 0x00B0<br>Error in reading. */
 	XSK_EFUSEPS_ERROR_BYTES_REQUEST = 0x00C0U, /**< 0x00C0<br>Error in
 						* requested byte count. */
@@ -958,12 +947,21 @@ typedef enum {
 					*  when an PUF generation timedout. */
 	XSK_EFUSEPS_ERROR_PUF_ACCESS = 0xE900,/**< 0xE900<br>Error
 					*  when an PUF Access violation. */
+	XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED = 0XEA00,/** 0xEA00<br>Error
+					*  When PUF Chash already programmed
+					*  in eFuse. */
+	XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED = 0XEB00,/** 0xEB00<br>Error
+					*  When PUF AUX already programmed
+					* in eFuse. */
 	XSK_EFUSEPS_ERROR_CMPLTD_EFUSE_PRGRM_WITH_ERR = 0x10000U,/**< 0x10000<br>
 					*  eFUSE programming is completed with
 					*  temp and vol read errors. */
 
 	XSK_EFUSEPS_ERROR_CACHE_LOAD = 0x20000U,/**< 0x20000U<br>Error in
 						*  re-loading CACHE. */
+	XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED = 0x30000U,/**< 0x30000U<br>Read
+								* from eFuse is
+								* not allowed. */
 	/* If requested FUSE is write protected */
 	XSK_EFUSEPS_ERROR_FUSE_PROTECTED = 0x00080000U,/**< 0x00080000
 					*  <br>Requested eFUSE is write
@@ -975,7 +973,6 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING = 0x08000000U,/**< 0x08000000U<br>Error
 								*  occurred before
 								*  programming. */
-
 }XSKEfusePs_ErrorCodes;
  /** @} */
 

@@ -1,26 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
+* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 #include "xpfw_default.h"
 #include "pm_master.h"
 #include "xpfw_ipi_manager.h"
@@ -34,9 +16,12 @@
 #include "xpfw_restart.h"
 #include "pm_csudma.h"
 #include "xpfw_aib.h"
+#if defined(USE_DDR_FOR_APU_RESTART) && defined(ENABLE_SECURE)
 #include "xsecure_sha.h"
 
 static XSecure_Sha3 Sha3Instance;
+#endif
+FSBL_Store_Restore_Info_Struct FSBL_Store_Restore_Info = {0U};
 
 #ifdef ENABLE_RECOVERY
 
@@ -440,8 +425,11 @@ s32 XPfw_RecoveryInit(void)
 	 */
 
 	if (NULL != RstTracker->TtcPtr) {
-		(void)PmResetAssertInt(RstTracker->TtcResetId,
+		Status = PmResetAssertInt(RstTracker->TtcResetId,
 							PM_RESET_ACTION_PULSE);
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
 	}
 
 	WdtConfigPtr = GetWdtCfgPtr(RstTracker->WdtBaseAddress);
@@ -456,7 +444,10 @@ s32 XPfw_RecoveryInit(void)
 	}
 
 	/* Reset the WDT */
-	(void)PmResetAssertInt(RstTracker->WdtResetId, PM_RESET_ACTION_PULSE);
+	Status = PmResetAssertInt(RstTracker->WdtResetId, PM_RESET_ACTION_PULSE);
+	if (XST_SUCCESS != Status) {
+		goto END;
+	}
 
 	WdtRestart(RstTracker->WdtPtr, RstTracker->WdtTimeout);
 
@@ -554,7 +545,9 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 							RstTracker->RestartScope) {
 
 					XPfw_Printf(DEBUG_DETAILED, "Restarting RPU from WDT\n\r");
-					(void)PmMasterRestart(RstTracker->Master);
+					if (XST_SUCCESS != PmMasterRestart(RstTracker->Master)) {
+						XPfw_Printf(DEBUG_DETAILED, "Master restart failed");
+					}
 
 				} else if (PMF_SHUTDOWN_SUBTYPE_PS_ONLY ==
 							RstTracker->RestartScope) {
@@ -577,7 +570,9 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 			/*
 			 * Fixme: reset as per the restartScope, don't assume subsystem only.
 			 */
-			(void)PmMasterRestart(RstTracker->Master);
+			if (XST_SUCCESS != PmMasterRestart(RstTracker->Master)) {
+				XPfw_Printf(DEBUG_DETAILED, "Master restart failed\r\n");
+			}
 #endif /* ENABLE_ESCALATION */
 		}
 END:
@@ -627,6 +622,7 @@ void XPfw_RecoveryStop(PmMaster *Master) { }
 void XPfw_RecoveryRestart(PmMaster *Master) { }
 #endif /* ENABLE_RECOVERY */
 
+#if defined(USE_DDR_FOR_APU_RESTART) && defined(ENABLE_SECURE)
 /**
  *
  * This function is used to store the FSBL image from OCM to
@@ -654,20 +650,24 @@ s32 XPfw_StoreFsblToDDR(void)
 
 	FsblStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
 
-	/* Check if FSBL is running on A53 and store it to DDR */
+	/* Check if FSBL is running on A53 and not encrypted, store it to DDR */
 	if (FSBL_RUNNING_ON_A53 == (FsblStatus & FSBL_STATE_PROC_INFO_MASK)) {
-		(void)memcpy((u32 *)FSBL_STORE_ADDR, (u32 *)FSBL_LOAD_ADDR,
-				FSBL_IMAGE_SIZE);
+		if (0x0U == (FsblStatus & FSBL_ENCRYPTION_STS_MASK)) {
+			(void)memcpy((u32 *)FSBL_STORE_ADDR, (u32 *)FSBL_LOAD_ADDR,
+					FSBL_IMAGE_SIZE);
 
-		XSecure_Sha3Digest(&Sha3Instance, (u8 *)FSBL_STORE_ADDR,
-				FSBL_IMAGE_SIZE, (u8 *)FSBL_IMAGE_HASH_ADDR);
-		XPfw_Printf(DEBUG_DETAILED, "Copied FSBL image to DDR and "
-				"image hash checksum calculation successful\r\n");
+			XSecure_Sha3Digest(&Sha3Instance, (u8 *)FSBL_STORE_ADDR,
+					FSBL_IMAGE_SIZE, (u8 *)FSBL_Store_Restore_Info.FSBLImageHash);
+			XPfw_Printf(DEBUG_DETAILED, "Copied FSBL image to DDR\r\n");
+		} else {
+			XPfw_Printf(DEBUG_DETAILED, "FSBL copy to DDR is skipped.\r\n"
+					"Note: APU-only restart will not work if XilFPGA uses OCM "
+					"for secure bit-stream loading.\r\n");
+		}
 	} else {
-		XPfw_Printf(DEBUG_DETAILED, "FSBL is running on RPU. \r\n"
-				"Note: APU-only restart is supported only "
-				"if FSBL boots on APU.\r\n");
-		Status = XST_FAILURE;
+		XPfw_Printf(DEBUG_PRINT_ALWAYS, "FSBL is running on RPU. \r\n"
+				"Warning: APU-only restart is not supported "
+				"if FSBL boots on RPU.\r\n");
 	}
 END:
 	return Status;
@@ -686,15 +686,15 @@ END:
 s32 XPfw_RestoreFsblToOCM(void)
 {
 	u32 Index;
-	u32 *HashExpected = (u32 *)FSBL_IMAGE_HASH_ADDR;
-	u32 *HashCalculated = (u32 *)FSBL_IMAGE_HASH_VERIFY_ADDR;
+	u32 HashCalculated[SHA3_HASH_LENGTH_IN_WORDS] = {0U};
 	u32 Status = XST_SUCCESS;
 
 	XSecure_Sha3Digest(&Sha3Instance, (u8 *)FSBL_STORE_ADDR,
-				FSBL_IMAGE_SIZE, (u8 *)FSBL_IMAGE_HASH_VERIFY_ADDR);
+				FSBL_IMAGE_SIZE, (u8 *)HashCalculated);
 
-	for (Index = 0U; Index < 12U; Index++) {
-		if (HashExpected[Index] != HashCalculated[Index]) {
+	for (Index = 0U; Index < SHA3_HASH_LENGTH_IN_WORDS; Index++) {
+		if (FSBL_Store_Restore_Info.FSBLImageHash[Index] !=
+				HashCalculated[Index]) {
 			Status = XST_FAILURE;
 			break;
 		} else {
@@ -714,3 +714,4 @@ s32 XPfw_RestoreFsblToOCM(void)
 
 	return Status;
 }
+#endif

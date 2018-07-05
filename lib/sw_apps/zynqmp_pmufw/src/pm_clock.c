@@ -1,26 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 #include "pm_common.h"
@@ -45,6 +27,7 @@
 	.nextNode = NULL, \
 }
 
+#define IOU_SLCR_WDT_CLK_SEL		(IOU_SLCR_BASE + 0x300U)
 #define IOU_SLCR_CAN_MIO_CTRL		(IOU_SLCR_BASE + 0x304U)
 #define IOU_SLCR_GEM_CLK_CTRL		(IOU_SLCR_BASE + 0x308U)
 
@@ -2420,7 +2403,7 @@ static PmClockGen pmClockGem3Rx = {
 	.useCount = 0U,
 };
 
-static const PmClockSel2ClkIn fpdWdtSel2ClkIn[] = {
+static const PmClockSel2ClkIn wdtSel2ClkIn[] = {
 	{
 		.clkIn = &pmClockTopSwLsBus.base,
 		.select = 0U,
@@ -2429,9 +2412,9 @@ static const PmClockSel2ClkIn fpdWdtSel2ClkIn[] = {
 		.select = 1U,
 	},
 };
-static PmClockMux fpdWdtMux = {
-	.inputs = fpdWdtSel2ClkIn,
-	.size = ARRAY_SIZE(fpdWdtSel2ClkIn),
+static PmClockMux wdtMux = {
+	.inputs = wdtSel2ClkIn,
+	.size = ARRAY_SIZE(wdtSel2ClkIn),
 	.bits = 1U,
 	.shift = 0U,
 };
@@ -2443,8 +2426,23 @@ static PmClockGen pmClockFpdWdt = {
 	},
 	.parent = NULL,
 	.users = NULL,
-	.mux = &fpdWdtMux,
+	.mux = &wdtMux,
 	.ctrlAddr = FPD_SLCR_WDT_CLK_SEL,
+	.ctrlVal = 0U,
+	.type = 0U,
+	.useCount = 0U,
+};
+
+static PmClockGen pmClockLpdWdt = {
+	.base = {
+		.derived = &pmClockLpdWdt,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_LPD_WDT,
+	},
+	.parent = NULL,
+	.users = NULL,
+	.mux = &wdtMux,
+	.ctrlAddr = IOU_SLCR_WDT_CLK_SEL,
 	.ctrlVal = 0U,
 	.type = 0U,
 	.useCount = 0U,
@@ -2541,6 +2539,7 @@ static PmClock* pmClocks[] = {
 	&pmClockGem2Rx.base,
 	&pmClockGem3Rx.base,
 	&pmClockFpdWdt.base,
+	&pmClockLpdWdt.base,
 };
 
 static PmClockHandle pmClockHandles[] = {

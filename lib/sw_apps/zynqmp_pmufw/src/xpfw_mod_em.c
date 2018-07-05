@@ -1,26 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #include "xpfw_default.h"
 #include "xpfw_module.h"
@@ -61,7 +43,10 @@ static void EmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 						"to set action. Please check permissions \r\n");
 			}
 			Buf[0] = RetVal;
-			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1U);
+			if (XST_SUCCESS !=
+					XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1U)) {
+				XPfw_Printf(DEBUG_DETAILED,"EM: IPI write resp failed\r\n");
+			}
 			break;
 
 		case REMOVE_EM_ACTION:
@@ -78,7 +63,10 @@ static void EmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 						" to remove action. Please check permissions\r\n");
 			}
 			Buf[0] = RetVal;
-			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1U);
+			if (XST_SUCCESS !=
+					XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1U)) {
+				XPfw_Printf(DEBUG_DETAILED,"EM: IPI write resp failed\r\n");
+			}
 			break;
 
 		case SEND_ERRORS_OCCURRED:
@@ -86,13 +74,20 @@ static void EmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 			for(ErrorId = 0U; ErrorId < EM_ERROR_LOG_MAX; ErrorId++) {
 				Buf[ErrorId] = ErrorLog[ErrorId];
 			}
-			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], EM_ERROR_LOG_MAX);
+			if (XST_SUCCESS !=
+					XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0],
+							EM_ERROR_LOG_MAX)) {
+				XPfw_Printf(DEBUG_DETAILED,"EM: IPI write resp failed\r\n");
+			}
 			break;
 
 		default:
 			XPfw_Printf(DEBUG_ERROR,"EM: Unsupported API ID received\r\n");
 			Buf[0] = XST_FAILURE;
-			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1U);
+			if (XST_SUCCESS !=
+					XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1U)) {
+				XPfw_Printf(DEBUG_DETAILED,"EM: IPI write resp failed\r\n");
+			}
 			break;
 		}
 	}
@@ -109,7 +104,9 @@ void RpuLsHandler(u8 ErrorId)
 	XPfw_Printf(DEBUG_ERROR,"EM: RPU Lock-Step Error Occurred "
 			"(Error ID: %d)\r\n", ErrorId);
 	XPfw_Printf(DEBUG_ERROR,"EM: Initiating RPU Reset \r\n");
-	(void)XPfw_ResetRpu();
+	if (XST_SUCCESS != XPfw_ResetRpu()) {
+		XPfw_Printf(DEBUG_ERROR,"EM: Error in Reset RPU\r\n");
+	}
 }
 
 /**
@@ -142,8 +139,14 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 	u32 ErrId = 0U;
 
 	/* Register for Error events from Core */
-	(void) XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ERROR_1);
-	(void) XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ERROR_2);
+	if (XST_SUCCESS != XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ERROR_1)) {
+		XPfw_Printf(DEBUG_DETAILED,"EM: Failed to register event ID: %d\r\n",
+				XPFW_EV_ERROR_1);
+	}
+	if (XST_SUCCESS != XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ERROR_2)) {
+		XPfw_Printf(DEBUG_DETAILED,"EM: Failed to register event ID: %d\r\n",
+				XPFW_EV_ERROR_2);
+	}
 
 	/* Init the Error Manager */
 	XPfw_EmInit();
@@ -152,8 +155,10 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 	for (ErrId = 1U; ErrId < EM_ERR_ID_MAX; ErrId++)
 	{
 		if (ErrorTable[ErrId].Action != EM_ACTION_NONE) {
-			(void)XPfw_EmSetAction((u8)ErrId, ErrorTable[ErrId].Action,
-					ErrorTable[ErrId].Handler);
+			if (XST_SUCCESS != XPfw_EmSetAction((u8)ErrId,
+					ErrorTable[ErrId].Action, ErrorTable[ErrId].Handler)) {
+				XPfw_Printf(DEBUG_DETAILED,"EM: Set action failed\r\n");
+			}
 		}
 	}
 
@@ -199,9 +204,16 @@ void ModEmInit(void)
 {
 	EmModPtr = XPfw_CoreCreateMod();
 
-	(void) XPfw_CoreSetCfgHandler(EmModPtr, EmCfgInit);
-	(void) XPfw_CoreSetEventHandler(EmModPtr, EmEventHandler);
-	(void)XPfw_CoreSetIpiHandler(EmModPtr, EmIpiHandler, (u16)EM_IPI_HANDLER_ID);
+	if (XST_SUCCESS != XPfw_CoreSetCfgHandler(EmModPtr, EmCfgInit)) {
+		XPfw_Printf(DEBUG_DETAILED,"EM: Set Cfg handler failed\r\n");
+	} else if (XST_SUCCESS !=
+			XPfw_CoreSetEventHandler(EmModPtr, EmEventHandler)) {
+		XPfw_Printf(DEBUG_DETAILED,"EM: Set Event handler failed\r\n");
+	} else if (XST_SUCCESS !=
+			XPfw_CoreSetIpiHandler(EmModPtr, EmIpiHandler,
+					(u16)EM_IPI_HANDLER_ID)) {
+		XPfw_Printf(DEBUG_DETAILED,"EM: Set IPI handler failed\r\n");
+	}
 }
 
 #else /* ENABLE_EM */

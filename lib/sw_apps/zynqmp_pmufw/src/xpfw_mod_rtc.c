@@ -1,26 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
+* Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #include "xpfw_default.h"
 #include "xpfw_config.h"
@@ -52,6 +34,10 @@ static void RtcCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 						" %d\r\n", XPFW_EV_RTC_SECONDS)
 	}
 
+	/* Enable SLVERR for RTC */
+	XPfw_RMW32(RTC_CONTROL, RTC_CONTROL_SLVERR_ENABLE_MASK,
+			RTC_CONTROL_SLVERR_ENABLE_MASK);
+
 	/* Enable Seconds Alarm */
 	Xil_Out32(RTC_RTC_INT_EN, 1U);
 	Xil_Out32(RTC_RTC_INT_STATUS, 1U);
@@ -61,8 +47,12 @@ void ModRtcInit(void)
 {
 	const XPfw_Module_t *RtcModPtr = XPfw_CoreCreateMod();
 
-	(void)XPfw_CoreSetCfgHandler(RtcModPtr, RtcCfgInit);
-	(void)XPfw_CoreSetEventHandler(RtcModPtr, RtcEventHandler);
+	if (XST_SUCCESS != XPfw_CoreSetCfgHandler(RtcModPtr, RtcCfgInit)) {
+		XPfw_Printf(DEBUG_DETAILED,"RTC: Set Cfg handler failed\r\n");
+	} else if (XST_SUCCESS !=
+			XPfw_CoreSetEventHandler(RtcModPtr, RtcEventHandler)) {
+		XPfw_Printf(DEBUG_DETAILED,"RTC: Set Event handler failed\r\n");
+	}
 }
 #else /* ENABLE_RTC_TEST */
 void ModRtcInit(void) { }

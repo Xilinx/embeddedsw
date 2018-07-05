@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************
 *
 * @file sleep.c
@@ -48,6 +28,13 @@
 * 6.6	srm      10/18/17 Updated sleep routines to support user configurable
 *			  implementation. Now sleep routines will use TTC
 *                         instance specified by user.
+* 7.2   mus      01/29/20 Updated sleep routines to use CortexR5 PMU for delay
+*                         generation, in case TTC3/TTC2 instances are not
+*                         present in HW design. If user dont want to use PMU
+*                         counter for sleep routines, BSP needs to be compiled
+*                         with "DONT_USE_PMU_FOR_SLEEP_ROUTINES" flag. It fixes
+*                         CR#1051591.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -56,10 +43,8 @@
 #include "sleep.h"
 #include "xtime_l.h"
 #include "xparameters.h"
-
-#if defined (SLEEP_TIMER_BASEADDR)
 #include "xil_sleeptimer.h"
-#endif
+#include "xpm_counter.h"
 
 /*****************************************************************************/
 /*
@@ -89,12 +74,15 @@ unsigned sleep_R5(unsigned int seconds)
 {
 #if defined (SLEEP_TIMER_BASEADDR)
 	Xil_SleepTTCCommon(seconds, COUNTS_PER_SECOND);
+#elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
+	Xpm_SleepPerfCounter(seconds, COUNTS_PER_SECOND);
 #else
 #if defined (__GNUC__)
 	__asm__ __volatile__ (
 #elif defined (__ICCARM__)
 	__asm volatile (
 #endif
+
 		"push {r0,r1,r3} \n"
 		"mov r0, %[sec] \n"
 		"mov r1, %[iter] \n"

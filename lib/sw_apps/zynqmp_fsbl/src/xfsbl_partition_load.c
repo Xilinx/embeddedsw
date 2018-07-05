@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -56,6 +36,7 @@
 *                     internal memory), using same way for non authenticated
 *                     case as well.
 *       mus  02/26/19 Added support for armclang compiler.
+*       skd  02/2/20  Added register writes to PMU GLOBAL to indicate PL configuration
 *
 * </pre>
 *
@@ -83,6 +64,13 @@
 #define XFSBL_R5_LOVEC		(u32)(0x0U)
 #define XFSBL_SET_R5_SCTLR_VECTOR_BIT   (u32)(1<<13)
 #define XFSBL_PARTITION_IV_MASK  (0xFFU)
+#ifdef XFSBL_BS
+#define XFSBL_STATE_MASK	0x00FF0000U
+#define XFSBL_STATE_SHIFT	16U
+#define XFSBL_FIRMWARE_STATE_UNKNOWN	0U
+#define XFSBL_FIRMWARE_STATE_SECURE	1U
+#define XFSBL_FIRMWARE_STATE_NONSECURE	2U
+#endif
 
 /************************** Function Prototypes ******************************/
 static u32 XFsbl_PartitionHeaderValidation(XFsblPs * FsblInstancePtr,
@@ -97,6 +85,10 @@ static u32 XFsbl_ConfigureMemory(XFsblPs * FsblInstancePtr, u32 RunningCpu,
 static u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr,
 		u32 Length);
 static void XFsbl_CheckPmuFw(const XFsblPs * FsblInstancePtr, u32 PartitionNum);
+
+#ifdef XFSBL_BS
+static void XFsbl_SetBSSecureState(u32 State);
+#endif
 
 #ifdef XFSBL_ENABLE_DDR_SR
 static void XFsbl_PollForDDRReady(void);
@@ -1110,7 +1102,7 @@ END:
 static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 						u32 PartitionNum)
 {
-	u32 Status;
+	u32 Status = XFSBL_FAILURE;
 	u32 IsEncryptionEnabled;
 	u32 IsAuthenticationEnabled;
 	u32 IsChecksumEnabled;
@@ -1603,6 +1595,18 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		/* Reset PL, if configured for */
 		(void)psu_ps_pl_reset_config_data();
 
+		/* Update PMU_GLOBAL_GEN_STORE Register */
+#ifdef XFSBL_SECURE
+		if ((IsAuthenticationEnabled == TRUE) || (IsEncryptionEnabled == TRUE) ||
+				(IsChecksumEnabled == TRUE))
+		{
+			XFsbl_SetBSSecureState(XFSBL_FIRMWARE_STATE_SECURE);
+		} else
+#endif
+		{
+			XFsbl_SetBSSecureState(XFSBL_FIRMWARE_STATE_NONSECURE);
+		}
+
 		/**
 		 * Fsbl hook after bit stream download
 		 */
@@ -1637,7 +1641,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		}
 	}
 
-	Status = XFSBL_SUCCESS;
 END:
 	return Status;
 }
@@ -1709,6 +1712,26 @@ static void XFsbl_CheckPmuFw(const XFsblPs* FsblInstancePtr, u32 PartitionNum)
 	}
 
 }
+
+#ifdef XFSBL_BS
+/*****************************************************************************/
+/** Sets the library firmware state
+ *
+ * @param	State BS firmware state
+ *
+ * @return	None
+ *****************************************************************************/
+static void XFsbl_SetBSSecureState(u32 State)
+{
+	u32 RegVal;
+
+	/* Set Firmware State in PMU GLOBAL GEN STORAGE Register */
+	RegVal = Xil_In32(PMU_GLOBAL_GLOB_GEN_STORAGE5);
+	RegVal &= ~XFSBL_STATE_MASK;
+	RegVal |= State << XFSBL_STATE_SHIFT;
+	Xil_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, RegVal);
+}
+#endif
 
 #ifdef XFSBL_SECURE
 /*****************************************************************************/

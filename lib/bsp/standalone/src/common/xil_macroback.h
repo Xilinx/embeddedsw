@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2015 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*********************************************************************/
 /**
@@ -1047,6 +1027,77 @@ extern "C" {
 #define XUsb_mWriteReg XUsb_WriteReg
 #endif
 
+/*********************************************************************/
+/**
+ * Macros for Driver XPmonPsv
+ *
+ *********************************************************************/
+#ifndef XpsvPmon_CfgInitialize
+#define XpsvPmon_CfgInitialize  XPmonPsv_CfgInitialize
+#endif
+
+#ifndef XpsvPmon_LookupConfig
+#define XpsvPmon_LookupConfig  XPmonPsv_LookupConfig
+#endif
+
+#ifndef XpsvPmon_WriteReg
+#define XpsvPmon_WriteReg  XPmonPsv_WriteReg
+#endif
+
+#ifndef XpsvPmon_SetMetrics
+#define XpsvPmon_SetMetrics  XPmonPsv_SetMetrics
+#endif
+
+#ifndef XpsvPmon_GetMetrics
+#define XpsvPmon_GetMetrics  XPmonPsv_GetMetrics
+#endif
+
+#ifndef XpsvPmon_ResetCounter
+#define XpsvPmon_ResetCounter  XPmonPsv_ResetCounter
+#endif
+
+#ifndef XpsvPmon_GetWriteCounter
+#define XpsvPmon_GetWriteCounter  XPmonPsv_GetWriteCounter
+#endif
+
+#ifndef XpsvPmon_GetReadCounter
+#define XpsvPmon_GetReadCounter  XPmonPsv_GetReadCounter
+#endif
+
+#ifndef XpsvPmon_EnableCounters
+#define XpsvPmon_EnableCounters  XPmonPsv_EnableCounters
+#endif
+
+#ifndef XpsvPmon_StopCounter
+#define XpsvPmon_StopCounter  XPmonPsv_StopCounter
+#endif
+
+#ifndef XpsvPmon_SetPort
+#define XpsvPmon_SetPort  XPmonPsv_SetPort
+#endif
+
+#ifndef XpsvPmon_SetSrc
+#define XpsvPmon_SetSrc  XPmonPsv_SetSrc
+#endif
+
+#ifndef XpsvPmon_Unlock
+#define XpsvPmon_Unlock  XPmonPsv_Unlock
+#endif
+
+#ifndef XpsvPmon_Lock
+#define XpsvPmon_Lock  XPmonPsv_Lock
+#endif
+
+
+#ifndef XpsvPmon_RequestCounter
+#define XpsvPmon_RequestCounter  XPmonPsv_RequestCounter
+#endif
+
+#ifndef XPmonpsv_Config
+#define XPmonpsv_Config  XPmonPsv_Config
+#endif
+
+typedef  XPmonPsv XpsvPmon;
 #ifdef __cplusplus
 }
 #endif

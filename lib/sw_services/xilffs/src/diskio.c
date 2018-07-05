@@ -58,6 +58,8 @@
 *       mn   07/06/18 Fix Cppcheck and Doxygen warnings
 * 4.2   mn   08/16/19 Initialize Status variables with failure values
 *       mn   09/25/19 Check if the SD is powered on or not in disk_status()
+* 4.3   mn   02/24/20 Remove unused macro defines
+*       mn   04/08/20 Set IsReady to '0' before calling XSdPs_CfgInitialize
 *
 * </pre>
 *
@@ -74,15 +76,6 @@
 #include "sleep.h"
 #include "xil_printf.h"
 
-#define HIGH_SPEED_SUPPORT	0x01U
-#define WIDTH_4_BIT_SUPPORT	0x4U
-#define SD_CLK_25_MHZ		25000000U
-#define SD_CLK_26_MHZ		26000000U
-#define SD_CLK_52_MHZ		52000000U
-#define EXT_CSD_DEVICE_TYPE_BYTE	196
-#define EXT_CSD_4_BIT_WIDTH_BYTE	183
-#define EXT_CSD_HIGH_SPEED_BYTE		185
-#define EXT_CSD_DEVICE_TYPE_HIGH_SPEED	0x3
 #define SD_CD_DELAY		10000U
 
 #ifdef FILE_SYSTEM_INTERFACE_RAM
@@ -147,19 +140,18 @@ DSTATUS disk_status (
 	u32 DelayCount = 0;
 
 		if (SdInstance[pdrv].Config.BaseAddress == (u32)0) {
-#ifdef XPAR_XSDPS_1_DEVICE_ID
-				if(pdrv == 1) {
-						BaseAddress = XPAR_XSDPS_1_BASEADDR;
-						CardDetect = XPAR_XSDPS_1_HAS_CD;
-						WriteProtect = XPAR_XSDPS_1_HAS_WP;
-				} else {
-#endif
-						BaseAddress = XPAR_XSDPS_0_BASEADDR;
-						CardDetect = XPAR_XSDPS_0_HAS_CD;
-						WriteProtect = XPAR_XSDPS_0_HAS_WP;
-#ifdef XPAR_XSDPS_1_DEVICE_ID
+				XSdPs_Config *SdConfig;
+
+				SdConfig = XSdPs_LookupConfig((u16)pdrv);
+				if (NULL == SdConfig) {
+					s |= STA_NOINIT;
+					return s;
 				}
-#endif
+
+				BaseAddress = SdConfig->BaseAddress;
+				CardDetect = SdConfig->CardDetect;
+				WriteProtect = SdConfig->WriteProtect;
+
 				HostCntrlrVer[pdrv] = (u8)(XSdPs_ReadReg16(BaseAddress,
 						XSDPS_HOST_CTRL_VER_OFFSET) & XSDPS_HC_SPEC_VER_MASK);
 				if (HostCntrlrVer[pdrv] == XSDPS_HC_SPEC_V3) {
@@ -277,6 +269,8 @@ DSTATUS disk_initialize (
 		return s;
 	}
 
+	SdInstance[pdrv].IsReady = 0U;
+
 	Status = XSdPs_CfgInitialize(&SdInstance[pdrv], SdConfig,
 					SdConfig->BaseAddress);
 	if (Status != XST_SUCCESS) {
@@ -373,6 +367,11 @@ DRESULT disk_read (
 	memcpy(buff, dataramfs + (sector * SECTORSIZE), count * SECTORSIZE);
 #endif
 
+#if !defined(FILE_SYSTEM_INTERFACE_SD) && !defined(FILE_SYSTEM_INTERFACE_RAM)
+	(void)buff;
+	(void)sector;
+#endif
+
     return RES_OK;
 }
 
@@ -436,6 +435,12 @@ DRESULT disk_ioctl (
 		res = RES_PARERR;
 		break;
 	}
+#endif
+
+#if !defined(FILE_SYSTEM_INTERFACE_SD) && !defined(FILE_SYSTEM_INTERFACE_RAM)
+	(void)pdrv;
+	(void)cmd;
+	(void)buff;
 #endif
 
 	return res;
@@ -517,6 +522,11 @@ DRESULT disk_write (
 
 #ifdef FILE_SYSTEM_INTERFACE_RAM
 	memcpy(dataramfs + (sector * SECTORSIZE), buff, count * SECTORSIZE);
+#endif
+
+#if !defined(FILE_SYSTEM_INTERFACE_SD) && !defined(FILE_SYSTEM_INTERFACE_RAM)
+	(void)buff;
+	(void)sector;
 #endif
 
 	return RES_OK;

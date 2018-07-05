@@ -1,26 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -37,7 +19,7 @@
 /* Always-on slave has only one state */
 #define PM_AON_SLAVE_STATE	0U
 
-static const u32 pmAonFsmStates[] = {
+static const u8 pmAonFsmStates[] = {
 	[PM_AON_SLAVE_STATE] = PM_CAP_WAKEUP | PM_CAP_ACCESS | PM_CAP_CONTEXT,
 };
 
@@ -48,7 +30,7 @@ static const PmSlaveFsm pmSlaveAonFsm = {
 	.enterState = NULL,
 };
 
-static u32 pmSlaveAonPowers[] = {
+static u8 pmSlaveAonPowers[] = {
 	DEFAULT_POWER_ON,
 };
 
@@ -58,7 +40,7 @@ static u32 pmSlaveAonPowers[] = {
 /* Generic slaves state transition latency values */
 #define PM_GENERIC_SLAVE_UNUSED_TO_RUNNING_LATENCY	304U
 #define PM_GENERIC_SLAVE_RUNNING_TO_UNUSED_LATENCY	6U
-static const u32 pmGenericSlaveStates[] = {
+static const u8 pmGenericSlaveStates[] = {
 	[PM_GENERIC_SLAVE_STATE_UNUSED] = 0U,
 	[PM_GENERIC_SLAVE_STATE_RUNNING] = PM_CAP_CONTEXT | PM_CAP_WAKEUP |
 			PM_CAP_ACCESS | PM_CAP_CLOCK | PM_CAP_POWER,
@@ -76,7 +58,7 @@ static const PmStateTran pmGenericSlaveTransitions[] = {
 	},
 };
 
-static u32 pmGenericSlavePowers[] = {
+static u8 pmGenericSlavePowers[] = {
 	DEFAULT_POWER_OFF,
 	DEFAULT_POWER_ON,
 };
@@ -594,7 +576,10 @@ static void PmWakeEventEthConfig(PmWakeEvent* const wake, const u32 ipiMask,
 			   ETH_RECV_ENABLE_MASK);
 
 		/* Change OCM Bank3 requirement to default */
-		(void)PmRequirementUpdate(req, req->defaultReq);
+		if (XST_SUCCESS != PmRequirementUpdate(req, req->defaultReq)) {
+			PmWarn("Error in update OCM Bank3 requirement to default\r\n");
+		}
+
 		ethWake->wakeEnabled = false;
 	}
 }
@@ -619,7 +604,9 @@ static void PmWakeEventEthSet(PmWakeEvent* const wake, const u32 ipiMask,
 
 	if (enable != 0U) {
 		/* Keep OCM Bank3 ON while suspend */
-		(void)PmRequirementUpdate(req, PM_CAP_ACCESS);
+		if (XST_SUCCESS != PmRequirementUpdate(req, PM_CAP_ACCESS)) {
+			PmWarn("Error in requirement update for OCM Bank3\r\n");
+		}
 
 		if (0U == ocmStored) {
 			/*

@@ -1,28 +1,8 @@
 /******************************************************************************
- * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
- *
- ******************************************************************************/
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -81,6 +61,10 @@
  *                      done by PLM based on the CDO's data exists in the PDI
  *                      images. So there is no need of xilfpga API's for versal
  *                      platform to configure the PL.
+ * 5.2 Nava  05/12/19   Added Versal platform support.
+ * 5.2 Nava  14/02/20   Added Bitstream loading support by using IPI services
+ *                      for ZynqMP platform.
+ *
  * </pre>
  *
  * @note
@@ -100,9 +84,6 @@ extern "C" {
 #include "xil_printf.h"
 #include "xparameters.h"
 #include "xfpga_config.h"
-#include "xilfpga_pcap.h"
-#include "xsecure.h"
-
 /**************************** Type Definitions *******************************/
 /**
  * @XFpga_ValidateBitstream:	validate the Bitstream header before
@@ -127,12 +108,16 @@ typedef struct XFpgatag{
 	u32 (*XFpga_PreConfig)(struct XFpgatag *InstancePtr);
 	u32 (*XFpga_WriteToPl)(struct XFpgatag *InstancePtr);
 	u32 (*XFpga_PostConfig)(struct XFpgatag *InstancePtr);
+#ifndef versal
 	u32 (*XFpga_GetInterfaceStatus)(void);
 	u32 (*XFpga_GetConfigReg)(const struct XFpgatag *InstancePtr);
 	u32 (*XFpga_GetConfigData)(const struct XFpgatag *InstancePtr);
+#ifndef XFPGA_SECURE_IPI_MODE_EN
 	XFpga_Info	PLInfo;
-	XFpga_Write	WriteInfo;
+#endif
 	XFpga_Read	ReadInfo;
+#endif
+	XFpga_Write	WriteInfo;
 }XFpga;
 /************************** Variable Definitions *****************************/
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -153,17 +138,10 @@ typedef struct XFpgatag{
 #define XFPGA_ENCRYPTION_DEVKEY_EN		(0x00000010U)
 #define XFPGA_ONLY_BIN_EN			(0x00000020U)
 
-#define XFPGA_CONFIG_INIT			(0x0U)
-#define XFPGA_VALIDATE_INIT			(0x1U)
-#define XFPGA_PRE_CONFIG			(0x2U)
-#define XFPGA_WRITE_INIT			(0x3U)
-#define	XFPGA_POST_CONFIG			(0x4U)
-#define	XFPGA_CONFIG_COMPLETE		(0x5U)
+/* FPGA invalid interface status */
+#define XFPGA_INVALID_INTERFACE_STATUS		(0xFFFFFFFFU)
 
-#define XFPGA_CONFIG_INPROG			(0x0U)
-#define XFPGA_CONFIG_DONE			(0x80000000U)
-#define XFPGA_CONFIG_MASK			(0x07FFFFFFU)
-
+#ifndef versal
 #define XFPGA_SECURE_FLAGS	(				\
 				XFPGA_AUTHENTICATION_DDR_EN	\
 				| XFPGA_AUTHENTICATION_OCM_EN	\
@@ -190,6 +168,7 @@ typedef struct XFpgatag{
 					XFPGA_AUTHENTICATION_OCM_EN	\
 					| XFPGA_ENCRYPTION_DEVKEY_EN	\
 					)
+#endif
 
 #define Xfpga_Printf(DebugType, ...) \
 	if ((DebugType) != 0U) \
@@ -214,11 +193,13 @@ u32 XFpga_PL_PostConfig(XFpga *InstancePtr);
 u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
 			   UINTPTR BitstreamImageAddr,
 			   UINTPTR AddrPtr_Size, u32 Flags);
+#ifndef versal
 u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 			  u32 ConfigReg_NumFrames);
 u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 			 u32 ConfigReg_NumFrames);
 u32 XFpga_InterfaceStatus(XFpga *InstancePtr);
+#endif
 
 #ifdef __cplusplus
 }

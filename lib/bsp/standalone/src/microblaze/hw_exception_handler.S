@@ -1,27 +1,6 @@
 /******************************************************************************
-*
-* Copyright (C) 2004 - 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
 /******************************************************************************
  * Microblaze HW Exception Handler
@@ -146,6 +125,7 @@
 #define ESR_LW_SW_MASK          0x00000400
 #define ESR_WORD_MASK           0x00000800
 #define ESR_DS_MASK             0x00001000
+#define ESR_LONG_MASK           0x00002000
 
 /* Extern declarations */
 .extern XNullHandler
@@ -234,7 +214,11 @@ ex_handler_no_ds:
         BNEI    r6, handle_ex_regular;
 
         ADDIK   r4, r0, MB_ExceptionVectorTable;        /* Check if user has registered an unaligned exception handler */
+#if defined (__arch64__)
+        LI      r4, r4, 16;
+#else
         LI      r4, r4, 8;
+#endif
         ADDIK   r6, r0, XNullHandler;                   /* If exceptionvectortable entry is still XNullHandler, use */
         XOR     r6, r4, r6;                             /* the default exception handler */
         BEQI    r6, handle_unaligned_ex ;
@@ -304,6 +288,29 @@ handle_unaligned_ex:
         mfs     r4, rear;
         andi    r6, r3, ESR_LW_SW_MASK;                 /* Extract ESR[S]               */
         BNEI    r6, ex_sw;
+#if defined (__arch64__)
+ex_ll:
+        andi    r6, r3, ESR_LONG_MASK;                  /* Extract ESR[L]               */
+        BEQI    r6, ex_lw;
+        lbui    r5, r4, 0;                              /* Exception address in r4      */
+        sbi     r5, r0, ex_tmp_data_loc_0;              /* Load a long, byte-by-byte from destination address and save it in tmp space  */
+        lbui    r5, r4, 1;
+        sbi     r5, r0, ex_tmp_data_loc_1;
+        lbui    r5, r4, 2;
+        sbi     r5, r0, ex_tmp_data_loc_2;
+        lbui    r5, r4, 3;
+        sbi     r5, r0, ex_tmp_data_loc_3;
+        lbui    r5, r4, 4;
+        sbi     r5, r0, ex_tmp_data_loc_4;
+        lbui    r5, r4, 5;
+        sbi     r5, r0, ex_tmp_data_loc_5;
+        lbui    r5, r4, 6;
+        sbi     r5, r0, ex_tmp_data_loc_6;
+        lbui    r5, r4, 7;
+        sbi     r5, r0, ex_tmp_data_loc_7;
+        lli     r3, r0, ex_tmp_data_loc_0;              /* Get the destination register value into r3   */
+        BRI     ex_lw_tail;
+#endif
 ex_lw:
         andi    r6, r3, ESR_WORD_MASK;                  /* Extract ESR[W]               */
         BEQI    r6, ex_lhw;
@@ -341,6 +348,31 @@ ex_sw:
         ADDK    r5, r5, r6;
         bra     r5;
 ex_sw_tail:
+#if defined (__arch64__)
+ex_sl:
+        mfs     r6, resr;
+        andi    r6, r6, ESR_LONG_MASK;                  /* Extract ESR[L]       */
+        BEQI    r6, ex_not_sl;
+        sli     r3, r0, ex_tmp_data_loc_0;
+        lbui    r3, r0, ex_tmp_data_loc_0;              /* Store the long, byte-by-byte into destination address                */
+        sbi     r3, r4, 0;
+        lbui    r3, r0, ex_tmp_data_loc_1;
+        sbi     r3, r4, 1;
+        lbui    r3, r0, ex_tmp_data_loc_2;
+        sbi     r3, r4, 2;
+        lbui    r3, r0, ex_tmp_data_loc_3;
+        sbi     r3, r4, 3;
+        lbui    r3, r0, ex_tmp_data_loc_4;
+        sbi     r3, r4, 4;
+        lbui    r3, r0, ex_tmp_data_loc_5;
+        sbi     r3, r4, 5;
+        lbui    r3, r0, ex_tmp_data_loc_6;
+        sbi     r3, r4, 6;
+        lbui    r3, r0, ex_tmp_data_loc_7;
+        sbi     r3, r4, 7;
+        BRI     ex_handler_done;
+ex_not_sl:
+#endif
         mfs     r6, resr;
         andi    r6, r6, ESR_WORD_MASK;                  /* Extract ESR[W]       */
         BEQI    r6, ex_shw;
@@ -529,6 +561,16 @@ ex_tmp_data_loc_2:
         .byte 0
 ex_tmp_data_loc_3:
         .byte 0
+#if defined (__arch64__)
+ex_tmp_data_loc_4:
+        .byte 0
+ex_tmp_data_loc_5:
+        .byte 0
+ex_tmp_data_loc_6:
+        .byte 0
+ex_tmp_data_loc_7:
+        .byte 0
+#endif
 ex_reg_op:
         .byte 0
 

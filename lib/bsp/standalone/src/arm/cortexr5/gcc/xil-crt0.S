@@ -1,27 +1,6 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
 /**
@@ -42,6 +21,8 @@
 * 6.6   srm  10/18/17 Updated the timer configuration with XTime_StartTTCTimer.
 *                     Now the timer instance as specified by the user will be
 *		      started.
+* 7.2   mus  10/22/19 Defined RPU_TZ_MASK as #define instead of variable.
+* 7.2   sd   03/20/20 Add clocking support.
 * </pre>
 *
 * @note
@@ -50,6 +31,7 @@
 *
 ******************************************************************************/
 #include "xparameters.h"
+#include "bspconfig.h"
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
 	.align	2
@@ -57,7 +39,7 @@
  * 0th bit of PROCESSOR_ACCESS_VALUE macro signifies trustzone
  * setting for RPU address space
  */
-.set RPU_TZ_MASK,	0x1
+#define RPU_TZ_MASK	0x1
 	.text
 .Lsbss_start:
 	.long	__sbss_start
@@ -140,6 +122,9 @@ test_boot_status:
 	mov	r0, #0
 	mov	r1, #0
 
+#ifdef XCLOCKING
+	bl	Xil_ClockInit
+#endif
 	bl	main			/* Jump to main C code */
 
 	/* Cleanup global constructors */

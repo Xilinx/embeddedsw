@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -111,6 +91,7 @@ extern u8 R5LovecBuffer[32];
 extern u32 TcmSkipLength;
 extern PTRSIZE TcmSkipAddress;
 #endif
+extern u32 SdCdnRegVal;
 
 static u32 XFsbl_Is32BitCpu(u32 CpuSettings)
 {
@@ -738,7 +719,7 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	static u32 CpuIndexEarlyHandoff = 0;
 
 	/* Restoring the SD card detection signal */
-	XFsbl_Out32(IOU_SLCR_SD_CDN_CTRL, 0X0U);
+	XFsbl_Out32(IOU_SLCR_SD_CDN_CTRL, SdCdnRegVal);
 	PartitionHeader =
 			&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum];
 

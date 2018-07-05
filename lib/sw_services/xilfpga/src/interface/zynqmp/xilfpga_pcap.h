@@ -1,74 +1,16 @@
 /******************************************************************************
- *
- * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
- *
- *****************************************************************************/
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
  * @file xilfpga_pcap.h
- * @addtogroup xfpga_apis XilFPGA APIs
- * @{
  *
  * The XILFPGA library provides the interface to the application to configure
  * the programmable logic (PL) though the PS.
  *
- * - Supported Features:
- *    - Full Bitstream loading.
- *    - Partial Bitstream loading.
- *    - Encrypted Bitstream loading.
- *    - Authenticated Bitstream loading.
- *    - Authenticated and Encrypted Bitstream loading.
- *    - Partial Bitstream loading.
- *
- * #  Xilfpga_PL library Interface modules	{#xilfpgapllib}
- *	Xilfpga_PL library uses the below major components to configure the PL
- *	through PS.
- *  - CSU DMA driver is used to transfer the actual Bit stream file for the
- *    PS to PL after PCAP initialization
- *
- *  - Xilsecure_library provides APIs to access secure hardware on the Zynq&reg
- *    UltraScale+&tm MPSoC devices. This library includes:
- *	 - SHA-3 engine hash functions
- *	 - AES for symmetric key encryption
- *	 - RSA for authentication
- *
- * These algorithms are needed to support to load the Encrypted and
- * Authenticated Bitstreams into PL.
- *
- * @note XilFPGA library is capable of loading only .bin format files into PL.
- * The library does not support other file formats.
- *
- *
- * ##   Initialization & Writing Bitstream	{#xilinit}
- *
- * Use the u32 XFpga_PL_BitSream_Load(); function to initialize the driver
- * and load the Bitstream.
- *
- * @{
- * @cond xilfpga_internal
- * <pre>
  * MODIFICATION HISTORY:
  *
  * Ver   Who  Date        Changes
@@ -116,6 +58,8 @@
  *		       address return error.
  * 5.0 sne   27/03/19  Fixed misra-c violations.
  * 5.0 Nava  23/04/19  Optimize the API's logic to avoid code duplication.
+ * 5.2 Nava  18/12/19  Fix for security violation in the readback path.
+ * 5.2 Nava  14/02/20  Added Bitstream loading support by using IPI services.
  * </pre>
  *
  * @note
@@ -133,7 +77,6 @@ extern "C" {
 
 #include "xcsudma.h"
 #include "xsecure.h"
-#include "xilfpga.h"
 #include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
@@ -207,6 +150,7 @@ extern "C" {
 #define PMU_GLOBAL_ISO_INT_EN		(PMU_GLOBAL_BASE + 0X318U)
 #define PMU_GLOBAL_ISO_TRIG		(PMU_GLOBAL_BASE + 0X320U)
 #define PMU_GLOBAL_ISO_STATUS		(PMU_GLOBAL_BASE + 0X310U)
+#define PMU_GLOBAL_ISO_NONPCAP_MASK	0X00000004U
 
 #define GPIO_DIRM_5_EMIO		0xFF0A0344U
 #define GPIO_MASK_DATA_5_MSW	0xFF0A002CU
@@ -255,6 +199,7 @@ extern "C" {
 #define XFPGA_ERROR_BITSTREAM_FORMAT		(0x1AU)
 #define XFPGA_ERROR_UNALIGN_ADDR		(0x1BU)
 #define XFPGA_ERROR_AES_INIT			(0x1CU)
+#define XFPGA_ERROR_EFUSE_CHECK 		(0x1DU)
 
 /* PCAP Error Update Macro */
 #define XFPGA_PCAP_ERR_MASK			(0xFF00U)
@@ -265,29 +210,6 @@ extern "C" {
 
 #define XFPGA_STATE_MASK	0x00FF0000U
 #define XFPGA_STATE_SHIFT	16U
-#define CFGREG_SRCDMA_OFFSET	0x8U
-#define CFGDATA_DSTDMA_OFFSET	0x1FCU
-
-/* FPGA Configuration Registers Offsets */
-#define CRC		0U  /* Status Register */
-#define FAR1		1U  /* Frame Address Register */
-#define FDRI		2U  /* FDRI Register */
-#define FDRO		3U  /* FDRO Register */
-#define CMD		4U  /* Command Register */
-#define CTL0		5U  /* Control Register 0 */
-#define MASK		6U  /* MASK Register */
-#define STAT		7U  /* Status Register */
-#define LOUT		8U  /* LOUT Register */
-#define COR0		9U  /* Configuration Options Register 0 */
-#define MFWR		10U /* MFWR Register */
-#define CBC		11U /* CBC Register */
-#define IDCODE		12U /* IDCODE Register */
-#define AXSS		13U /* AXSS Register */
-#define COR1		14U /* Configuration Options Register 1 */
-#define WBSTAR		16U /* Warm Boot Start Address Register */
-#define TIMER		17U /* Watchdog Timer Register */
-#define BOOTSTS		22U /* Boot History Status Register */
-#define CTL1		24U /* Control Register 1 */
 
 /**************************** Type Definitions *******************************/
  typedef struct {
@@ -313,8 +235,6 @@ extern "C" {
  * @TotalBitPartCount Used to store the number of Authenticated partitions info.
  * @SecureOcmState Used to Preserve the initialization states for the OCM
  *                 use cases.
- * @ConfigStatus Used to preserve the software PL configuration status
- * @State Used to Preserve the software state machine.
  * @RemaningBytes used to preserve the remaining byte to process Authenticated
  *                bitstream Images.
  * @AcPtr Used to Access the authenticate certificate buffer address
@@ -326,55 +246,10 @@ typedef struct {
 	XSecure_Aes Secure_Aes;
 	u32 TotalBitPartCount;
 	u32 SecureOcmState;
-	u32 ConfigStatus;
-	u32 State;
 	u32 RemaningBytes;
 	UINTPTR AcPtr;
 	UINTPTR BitAddr;
 } XFpga_Info;
-
-/**
- * Structure to store the PL Write Image details.
- *
- * @BitstreamAddr	Bitstream image base address.
- * @AddrPtr_Size	Aes key address which is used for Decryption (or)
- *			In none Secure Bitstream used it is used store size
- *			of Bitstream Image.
- * @Flags		Flags are used to specify the type of Bitstream file.
- *			* BIT(0) - Bitstream type
- *                                     * 0 - Full Bitstream
- *                                     * 1 - Partial Bitstream
- *			* BIT(1) - Authentication using DDR
- *                                     * 1 - Enable
- *                                     * 0 - Disable
- *			* BIT(2) - Authentication using OCM
- *                                     * 1 - Enable
- *                                     * 0 - Disable
- *			* BIT(3) - User-key Encryption
- *                                     * 1 - Enable
- *                                     * 0 - Disable
- *			* BIT(4) - Device-key Encryption
- *                                     * 1 - Enable
- *                                     * 0 - Disable
- *
- */
-typedef struct {
-		UINTPTR BitstreamAddr;
-		UINTPTR	AddrPtr_Size;
-		u32 Flags;
-}XFpga_Write;
-
-/**
- * Structure to store the PL Image details.
- *
- * @ReadbackAddr	Address which is used to store the PL readback data.
- * @ConfigReg		Configuration register value to be returned (or)
- * 			The number of Fpga configuration frames to read
- */
-typedef struct {
-		UINTPTR ReadbackAddr;
-		u32 ConfigReg_NumFrames;
-}XFpga_Read;
 
 /************************** Variable Definitions *****************************/
 

@@ -1,28 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2016-2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
- ******************************************************************************/
+* Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -44,13 +24,12 @@
  * 5.0   Nava	 06/02/19  Updated the example to sync with 5.0 version API's
  * 5.0	 Nava 	 16/03/19  Typical bitstram size of zcu102 board is 26MB.So
  *			   updated the bitstream size macro value for the same.
+ * 5.2   Nava	 14/02/20  Removed unwanted header file inclusion.
  * </pre>
  *
  ******************************************************************************/
 
-#include "xil_printf.h"
 #include "xilfpga.h"
-#include "xfpga_config.h"
 
 /**************************** Type Definitions *******************************/
 /* Xilfpga library supports vivado generated Bitstream(*.bit, *.bin) and bootgen

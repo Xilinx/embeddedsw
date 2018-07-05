@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -53,6 +33,9 @@
 * 6.7   psl     03/21/19 Fixed MISRA-C violation.
 * 6.8   psl     08/13/19 Fixed MISRA-C violation.
 *       vns     08/29/19 Initialized Status variables
+* 6.9   kal     01/31/20 Disable BBRAM programming after AES key programming.
+*       vns     03/18/20 Fixed Armcc compilation errors
+*
 * </pre>
 *
 ******************************************************************************/
@@ -69,8 +52,9 @@
 
 /************************** Function Prototypes ******************************/
 
-static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void);
-static inline u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey);
+static INLINE u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void);
+static INLINE u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey);
+static INLINE void XilSKey_ZynqMp_Bbram_PrgrmDisable(void);
 extern u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 
 /************************** Variable Definitions *****************************/
@@ -151,8 +135,9 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 		goto END;
 	}
 END:
-	return Status;
+	XilSKey_ZynqMp_Bbram_PrgrmDisable();
 
+	return Status;
 }
 
 /*****************************************************************************/
@@ -228,7 +213,7 @@ END:
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
+static INLINE u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
 {
 
 	u32 StatusRead = 0U;
@@ -281,7 +266,19 @@ END:
 	return Status;
 
 }
+/*****************************************************************************/
+/**
+*
+* This function disables bbram programming.
+*
+******************************************************************************/
+static INLINE void XilSKey_ZynqMp_Bbram_PrgrmDisable(void)
+{
+	XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR,
+			 XSK_ZYNQMP_BBRAM_PGM_MODE_OFFSET,
+			 XSK_ZYNQMP_BBRAM_PGM_MODE_RSTVAL);
 
+}
 /*****************************************************************************/
 /**
 *
@@ -295,7 +292,7 @@ END:
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey)
+static INLINE u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey)
 {
 	u32 Crc = 0U;
 	u32 Index;
