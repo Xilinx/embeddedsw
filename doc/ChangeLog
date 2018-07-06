@@ -654,6 +654,13 @@ CR#1006251.
 Fixed several checkpatch errors/warnings in
 interrupt examples.
 
+tmrctr_v4_6:
+Updated driver examples to call TmrCtrDisableIntr
+API with the correct arguments. It fixes
+CR#1006251.
+Fixed several checkpatch errors/warnings in
+interrupt examples.
+
 xilisf_v5_12:
 Added support for IS25LP064A and IS25WP064A.
 Removed the check for address to be non zero and
