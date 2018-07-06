@@ -107,6 +107,7 @@
 *       sk     06/25/18 Add XRFdc_GetFabClkOutDiv() API to read fabric clk div.
 *                       Add Inline APIs XRFdc_CheckBlockEnabled(),
 *                       XRFdc_CheckTileEnabled().
+*       sk     07/06/18 Add support to dump HSCOM regs in XRFdc_DumpRegs() API
 * </pre>
 *
 ******************************************************************************/
@@ -5514,6 +5515,57 @@ void XRFdc_DumpRegs(XRFdc* InstancePtr, u32 Type, int Tile_Id)
 					Offset, ReadReg);
 #endif
 				}
+			}
+		}
+		if (Type == XRFDC_ADC_TILE) {
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_GENERAL, "\n ADC%d HSCOM:: \r\n", Tile_Id);
+			xdbg_printf(XDBG_DEBUG_GENERAL, "\n Offset\tValue \r\n");
+#else
+			metal_log(METAL_LOG_DEBUG, "\n ADC%d HSCOM:: \r\n", Tile_Id);
+			metal_log(METAL_LOG_DEBUG, "\n Offset\tValue \r\n");
+#endif
+			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) + XRFDC_HSCOM_ADDR;
+			for (Offset = 0x0; Offset <= 0x148; Offset += 0x4) {
+				if ((Offset >= 0x60 && Offset <= 0x88) ||
+					(Offset == 0xBC) ||
+					(Offset >= 0xC4 && Offset <= 0xFC) ||
+					(Offset >= 0x110 && Offset <= 0x11C) ||
+					(Offset >= 0x12C && Offset <= 0x13C))
+					continue;
+				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, Offset);
+#ifdef __MICROBLAZE__
+				xdbg_printf(XDBG_DEBUG_GENERAL, "\n 0x%x \t 0x%x \t",
+							Offset, ReadReg);
+#else
+				metal_log(METAL_LOG_DEBUG, "\n 0x%x \t 0x%x \t",
+							Offset, ReadReg);
+#endif
+			}
+		} else {
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_GENERAL, "\n DAC%d HSCOM:: \r\n", Tile_Id);
+			xdbg_printf(XDBG_DEBUG_GENERAL, "\n Offset\tValue \r\n");
+#else
+			metal_log(METAL_LOG_DEBUG, "\n DAC%d HSCOM:: \r\n", Tile_Id);
+			metal_log(METAL_LOG_DEBUG, "\n Offset\tValue \r\n");
+#endif
+			BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) + XRFDC_HSCOM_ADDR;
+			for (Offset = 0x0; Offset <= 0x148; Offset += 0x4) {
+				if ((Offset >= 0x60 && Offset <= 0x88) ||
+					(Offset == 0xBC) ||
+					(Offset >= 0xC4 && Offset <= 0xFC) ||
+					(Offset >= 0x110 && Offset <= 0x11C) ||
+					(Offset >= 0x12C && Offset <= 0x13C))
+					continue;
+				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, Offset);
+#ifdef __MICROBLAZE__
+				xdbg_printf(XDBG_DEBUG_GENERAL, "\n 0x%x \t 0x%x \t",
+							Offset, ReadReg);
+#else
+				metal_log(METAL_LOG_DEBUG, "\n 0x%x \t 0x%x \t",
+							Offset, ReadReg);
+#endif
 			}
 		}
 	}

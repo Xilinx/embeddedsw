@@ -158,6 +158,7 @@
 *       sk     06/25/18 Add XRFdc_GetFabClkOutDiv() API to read fabric clk div.
 *                       Add Inline APIs XRFdc_CheckBlockEnabled(),
 *                       XRFdc_CheckTileEnabled().
+*       sk     07/06/18 Add support to dump HSCOM regs in XRFdc_DumpRegs() API
 *
 * </pre>
 *
