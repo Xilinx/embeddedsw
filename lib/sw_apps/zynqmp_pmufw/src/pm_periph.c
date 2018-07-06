@@ -528,6 +528,7 @@ PmSlave pmSlaveCan1_g = {
 #define ETH_RECV_ENABLE_MASK		0x4
 #define ETH_RECV_Q_PTR_OFFSET		0x018
 #define ETH_RECV_Q1_PTR_OFFSET		0x480
+#define ETH_RECV_HIGH_PTR_OFFSET	0x4D4
 
 static u32 ocmData[ETH_OCM_REQ_SIZE];
 static bool ocmStored;
@@ -560,6 +561,8 @@ static void PmWakeEventEthConfig(PmWakeEvent* const wake, const u32 ipiMask,
 			     ethWake->receiveQptr);
 		XPfw_Write32(ethWake->baseAddr + ETH_RECV_Q1_PTR_OFFSET,
 			     ethWake->receiveQ1ptr);
+		XPfw_Write32(ethWake->baseAddr + ETH_RECV_HIGH_PTR_OFFSET,
+			     ethWake->receiveHighptr);
 
 		if (ocmStored) {
 			/*
@@ -622,6 +625,8 @@ static void PmWakeEventEthSet(PmWakeEvent* const wake, const u32 ipiMask,
 						   ETH_RECV_Q_PTR_OFFSET);
 		ethWake->receiveQ1ptr = XPfw_Read32(ethWake->baseAddr +
 						    ETH_RECV_Q1_PTR_OFFSET);
+		ethWake->receiveHighptr = XPfw_Read32(ethWake->baseAddr +
+						    ETH_RECV_HIGH_PTR_OFFSET);
 
 		/* Disable GEM Rx in network contorl register */
 		XPfw_RMW32(ethWake->baseAddr, ETH_RECV_ENABLE_MASK,
@@ -640,6 +645,7 @@ static void PmWakeEventEthSet(PmWakeEvent* const wake, const u32 ipiMask,
 			     RECV_Q_OCM_ADDR);
 		XPfw_Write32(ethWake->baseAddr + ETH_RECV_Q1_PTR_OFFSET,
 			     RECV_Q_OCM_ADDR);
+		XPfw_Write32(ethWake->baseAddr + ETH_RECV_HIGH_PTR_OFFSET, 0);
 
 		/* Enable GEM Rx in network control register */
 		XPfw_RMW32(ethWake->baseAddr, ETH_RECV_ENABLE_MASK,

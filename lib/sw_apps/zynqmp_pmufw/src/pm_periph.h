@@ -84,6 +84,7 @@ typedef struct PmWakeEventEth {
 	const u32 baseAddr;
 	u32 receiveQptr;
 	u32 receiveQ1ptr;
+	u32 receiveHighptr;
 	bool wakeEnabled;
 	PmWakeEventClass* const subClass;
 	PmWakeEvent* const subWake;
