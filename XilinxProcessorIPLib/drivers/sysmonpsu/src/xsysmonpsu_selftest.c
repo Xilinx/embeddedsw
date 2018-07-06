@@ -28,7 +28,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsysmon_selftest.c
+* @file xsysmonpsu_selftest.c
 * @addtogroup sysmonpsu_v2_5
 *
 * This file contains a diagnostic self test function for the XSysMon driver.
@@ -46,6 +46,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   kvn   12/15/15  First release
+* 2.5   mn     07/06/18 Fixed Doxygen warnings
 *
 * </pre>
 *
