@@ -29,7 +29,7 @@
 /**
 *
 * @file xsysmon.c
-* @addtogroup sysmon_v7_4
+* @addtogroup sysmon_v7_5
 * @{
 *
 * This file contains the driver API functions that can be used to access
