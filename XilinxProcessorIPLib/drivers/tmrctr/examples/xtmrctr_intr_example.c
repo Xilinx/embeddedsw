@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -55,6 +55,10 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 4.6   mus  07/05/18 Updated example to call TmrCtrDisableIntr function
+*                     with correct arguments. Presently device id is
+*                     being passed instead of interrupt id. It fixes
+*                     CR#1006251.
 *</pre>
 ******************************************************************************/
 
@@ -307,7 +311,7 @@ int TmrCtrIntrExample(INTC* IntcInstancePtr,
 		}
 	}
 
-	TmrCtrDisableIntr(IntcInstancePtr, DeviceId);
+	TmrCtrDisableIntr(IntcInstancePtr, IntrId);
 	return XST_SUCCESS;
 }
 
