@@ -38,8 +38,8 @@
 * axi_timer IP. Please check the HW Datasheet to see whether this feature
 * is present in the version of the IP that you are using.
 *
-* This example assumes that the interrupt controller is also present as a part of
-* the system.
+* This example assumes that the interrupt controller is also present
+*  as a part of the system.
 *
 *
 *
@@ -57,6 +57,7 @@
 *                     with correct arguments. Presently device id is
 *                     being passed instead of interrupt id. It fixes
 *                     CR#1006251.
+* 4.6   mus  07/05/18 Fixed checkpatch errors and warnings.
 *
 *</pre>
 ******************************************************************************/
@@ -105,19 +106,19 @@
 
 /************************** Function Prototypes ******************************/
 
-int TmrCtrCascadeIntrExample(XIntc* IntcInstancePtr,
-			XTmrCtr* InstancePtr,
+int TmrCtrCascadeIntrExample(XIntc *IntcInstancePtr,
+			XTmrCtr *InstancePtr,
 			u16 DeviceId,
 			u16 IntrId);
 
-static int TmrCtrSetupIntrSystem(XIntc* IntcInstancePtr,
-				XTmrCtr* InstancePtr,
+static int TmrCtrSetupIntrSystem(XIntc *IntcInstancePtr,
+				XTmrCtr *InstancePtr,
 				u16 DeviceId,
 				u16 IntrId);
 
-void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber);
+static void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber);
 
-void TmrCtrDisableIntr(XIntc* IntcInstancePtr, u16 IntrId);
+static void TmrCtrDisableIntr(XIntc *IntcInstancePtr, u16 IntrId);
 
 /************************** Variable Definitions *****************************/
 
@@ -245,8 +246,8 @@ int TmrCtrCascadeIntrExample(XIntc *IntcInstancePtr,
 	/*
 	 * Setup the handler for the timer counter that will be called from the
 	 * interrupt context when the timer expires, specify a pointer to the
-	 * timer counter driver instance as the callback reference so the handler
-	 * is able to access the instance data
+	 * timer counter driver instance as the callback reference so
+	 * the handler is able to access the instance data
 	 */
 	XTmrCtr_SetHandler(TmrCtrInstancePtr, TimerCounterHandler,
 					   TmrCtrInstancePtr);
@@ -289,16 +290,16 @@ int TmrCtrCascadeIntrExample(XIntc *IntcInstancePtr,
 
 	while (1) {
 		/*
-		 * Wait for the first timer counter to expire as indicated by the
-		 * shared variable which the handler will increment
+		 * Wait for the first timer counter to expire as indicated
+		 * by the shared variable which the handler will increment
 		 */
 		while (TimerExpired == LastTimerExpired) {
 		}
 		LastTimerExpired = TimerExpired;
 
 		/*
-		 * If it has expired a number of times, then stop the timer counter
-		 * and stop this example
+		 * If it has expired a number of times, then stop the timer
+		 * counter and stop this example
 		 */
 		if (TimerExpired == 3) {
 
@@ -373,8 +374,8 @@ void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber)
 *		are not working it may never return.
 *
 ******************************************************************************/
-static int TmrCtrSetupIntrSystem(XIntc* IntcInstancePtr,
-				 XTmrCtr* TmrCtrInstancePtr,
+static int TmrCtrSetupIntrSystem(XIntc *IntcInstancePtr,
+				 XTmrCtr *TmrCtrInstancePtr,
 				 u16 DeviceId,
 				 u16 IntrId)
 {
@@ -393,8 +394,8 @@ static int TmrCtrSetupIntrSystem(XIntc* IntcInstancePtr,
 
 	/*
 	 * Connect a device driver handler that will be called when an interrupt
-	 * for the device occurs, the device driver handler performs the specific
-	 * interrupt processing for the device
+	 * for the device occurs, the device driver handler performs the
+	 * specific interrupt processing for the device
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, IntrId,
 				(XInterruptHandler)XTmrCtr_InterruptHandler,
@@ -459,13 +460,11 @@ static int TmrCtrSetupIntrSystem(XIntc* IntcInstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-void TmrCtrDisableIntr(XIntc* IntcInstancePtr, u16 IntrId)
+void TmrCtrDisableIntr(XIntc *IntcInstancePtr, u16 IntrId)
 {
 	/*
 	 * Disable the interrupt for the timer counter
 	 */
 	XIntc_Disable(IntcInstancePtr, IntrId);
-
-	return;
 }
 

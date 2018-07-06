@@ -59,6 +59,7 @@
 *                     with correct arguments. Presently device id is
 *                     being passed instead of interrupt id. It fixes
 *                     CR#1006251.
+* 4.6   mus  07/05/18 Fixed checkpatch errors and warnings.
 *</pre>
 ******************************************************************************/
 
@@ -129,21 +130,21 @@
 
 /************************** Function Prototypes ******************************/
 
-int TmrCtrIntrExample(INTC* IntcInstancePtr,
-			XTmrCtr* InstancePtr,
+int TmrCtrIntrExample(INTC *IntcInstancePtr,
+			XTmrCtr *InstancePtr,
 			u16 DeviceId,
 			u16 IntrId,
 			u8 TmrCtrNumber);
 
-static int TmrCtrSetupIntrSystem(INTC* IntcInstancePtr,
-				XTmrCtr* InstancePtr,
+static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
+				XTmrCtr *InstancePtr,
 				u16 DeviceId,
 				u16 IntrId,
 				u8 TmrCtrNumber);
 
-void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber);
+static void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber);
 
-void TmrCtrDisableIntr(INTC* IntcInstancePtr, u16 IntrId);
+static void TmrCtrDisableIntr(INTC *IntcInstancePtr, u16 IntrId);
 
 /************************** Variable Definitions *****************************/
 #ifndef TESTAPP_GEN
@@ -220,8 +221,8 @@ int main(void)
 *		are not working it may never return.
 *
 *****************************************************************************/
-int TmrCtrIntrExample(INTC* IntcInstancePtr,
-			XTmrCtr* TmrCtrInstancePtr,
+int TmrCtrIntrExample(INTC *IntcInstancePtr,
+			XTmrCtr *TmrCtrInstancePtr,
 			u16 DeviceId,
 			u16 IntrId,
 			u8 TmrCtrNumber)
@@ -263,8 +264,8 @@ int TmrCtrIntrExample(INTC* IntcInstancePtr,
 	/*
 	 * Setup the handler for the timer counter that will be called from the
 	 * interrupt context when the timer expires, specify a pointer to the
-	 * timer counter driver instance as the callback reference so the handler
-	 * is able to access the instance data
+	 * timer counter driver instance as the callback reference so the
+	 * handler is able to access the instance data
 	 */
 	XTmrCtr_SetHandler(TmrCtrInstancePtr, TimerCounterHandler,
 					   TmrCtrInstancePtr);
@@ -293,16 +294,16 @@ int TmrCtrIntrExample(INTC* IntcInstancePtr,
 
 	while (1) {
 		/*
-		 * Wait for the first timer counter to expire as indicated by the
-		 * shared variable which the handler will increment
+		 * Wait for the first timer counter to expire as indicated
+		 * by the shared variable which the handler will increment
 		 */
 		while (TimerExpired == LastTimerExpired) {
 		}
 		LastTimerExpired = TimerExpired;
 
 		/*
-		 * If it has expired a number of times, then stop the timer counter
-		 * and stop this example
+		 * If it has expired a number of times, then stop the
+		 * timer counter and stop this example
 		 */
 		if (TimerExpired == 3) {
 
@@ -347,7 +348,7 @@ void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber)
 	 */
 	if (XTmrCtr_IsExpired(InstancePtr, TmrCtrNumber)) {
 		TimerExpired++;
-		if(TimerExpired == 3) {
+		if (TimerExpired == 3) {
 			XTmrCtr_SetOptions(InstancePtr, TmrCtrNumber, 0);
 		}
 	}
@@ -377,8 +378,8 @@ void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber)
 *		are not working it may never return.
 *
 ******************************************************************************/
-static int TmrCtrSetupIntrSystem(INTC* IntcInstancePtr,
-				 XTmrCtr* TmrCtrInstancePtr,
+static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
+				 XTmrCtr *TmrCtrInstancePtr,
 				 u16 DeviceId,
 				 u16 IntrId,
 				 u8 TmrCtrNumber)
@@ -393,14 +394,13 @@ static int TmrCtrSetupIntrSystem(INTC* IntcInstancePtr,
 	 * xparameters.h
 	 */
 	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 #endif
 	/*
 	 * Connect a device driver handler that will be called when an interrupt
-	 * for the device occurs, the device driver handler performs the specific
-	 * interrupt processing for the device
+	 * for the device occurs, the device driver handler performs the
+	 * specific interrupt processing for the device
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, IntrId,
 				(XInterruptHandler)XTmrCtr_InterruptHandler,
@@ -507,7 +507,7 @@ static int TmrCtrSetupIntrSystem(INTC* IntcInstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-void TmrCtrDisableIntr(INTC* IntcInstancePtr, u16 IntrId)
+void TmrCtrDisableIntr(INTC *IntcInstancePtr, u16 IntrId)
 {
 	/*
 	 * Disable the interrupt for the timer counter
@@ -519,7 +519,5 @@ void TmrCtrDisableIntr(INTC* IntcInstancePtr, u16 IntrId)
 	XScuGic_Disable(IntcInstancePtr, IntrId);
 	XScuGic_Disconnect(IntcInstancePtr, IntrId);
 #endif
-
-	return;
 }
 
