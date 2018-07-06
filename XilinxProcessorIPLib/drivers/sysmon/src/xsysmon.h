@@ -29,7 +29,7 @@
 /**
 *
 * @file xsysmon.h
-* @addtogroup sysmon_v7_4
+* @addtogroup sysmon_v7_5
 * @{
 * @details
 *

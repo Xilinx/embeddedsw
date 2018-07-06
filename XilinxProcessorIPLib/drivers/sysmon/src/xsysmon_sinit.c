@@ -29,7 +29,7 @@
 /**
 *
 * @file xsysmon_sinit.c
-* @addtogroup sysmon_v7_4
+* @addtogroup sysmon_v7_5
 * @{
 *
 * This file contains the implementation of the XSysMon driver's static
