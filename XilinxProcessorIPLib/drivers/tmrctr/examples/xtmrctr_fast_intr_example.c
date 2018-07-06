@@ -48,6 +48,7 @@
 *                     with correct arguments. Presently device id is
 *                     being passed instead of interrupt id. It fixes
 *                     CR#1006251.
+* 4.6   mus  07/05/18 Fixed checkpatch errors and warnings.
 *
 *</pre>
 ******************************************************************************/
@@ -94,23 +95,23 @@
 
 /************************** Function Prototypes ******************************/
 
-int TmrCtrFastIntrExample(XIntc* IntcInstancePtr,
-			XTmrCtr* InstancePtr,
+int TmrCtrFastIntrExample(XIntc *IntcInstancePtr,
+			XTmrCtr *InstancePtr,
 			u16 DeviceId,
 			u16 IntrId,
 			u8 TmrCtrNumber);
 
-static int TmrCtrSetupIntrSystem(XIntc* IntcInstancePtr,
-				XTmrCtr* InstancePtr,
+static int TmrCtrSetupIntrSystem(XIntc *IntcInstancePtr,
+				XTmrCtr *InstancePtr,
 				u16 DeviceId,
 				u16 IntrId,
 				u8 TmrCtrNumber);
 
-void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber);
+static void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber);
 
-void TmrCtrDisableIntr(XIntc* IntcInstancePtr, u16 IntrId);
+static void TmrCtrDisableIntr(XIntc *IntcInstancePtr, u16 IntrId);
 
-void TmrCtr_FastHandler(void) __attribute__ ((fast_interrupt));
+static void TmrCtr_FastHandler(void) __attribute__ ((fast_interrupt));
 
 /************************** Variable Definitions *****************************/
 
@@ -190,8 +191,8 @@ int main(void)
 *		are not working it may never return.
 *
 *****************************************************************************/
-int TmrCtrFastIntrExample(XIntc* IntcInstancePtr,
-			XTmrCtr* TmrCtrInstancePtr,
+int TmrCtrFastIntrExample(XIntc *IntcInstancePtr,
+			XTmrCtr *TmrCtrInstancePtr,
 			u16 DeviceId,
 			u16 IntrId,
 			u8 TmrCtrNumber)
@@ -349,8 +350,8 @@ void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber)
 *
 *
 ******************************************************************************/
-static int TmrCtrSetupIntrSystem(XIntc* IntcInstancePtr,
-				 XTmrCtr* TmrCtrInstancePtr,
+static int TmrCtrSetupIntrSystem(XIntc *IntcInstancePtr,
+				 XTmrCtr *TmrCtrInstancePtr,
 				 u16 DeviceId,
 				 u16 IntrId,
 				 u8 TmrCtrNumber)
@@ -429,14 +430,12 @@ static int TmrCtrSetupIntrSystem(XIntc* IntcInstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-void TmrCtrDisableIntr(XIntc* IntcInstancePtr, u16 IntrId)
+void TmrCtrDisableIntr(XIntc *IntcInstancePtr, u16 IntrId)
 {
 	/*
 	 * Disable the interrupt for the timer counter
 	 */
 	XIntc_Disable(IntcInstancePtr, IntrId);
-
-	return;
 }
 
 
@@ -454,5 +453,5 @@ void TmrCtr_FastHandler(void)
 {
 
 	/* Call the TmrCtr Interrupt handler */
- 	XTmrCtr_InterruptHandler(&TimerCounterInst);
+	XTmrCtr_InterruptHandler(&TimerCounterInst);
 }
