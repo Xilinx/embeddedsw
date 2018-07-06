@@ -28,7 +28,7 @@
 /*****************************************************************************/
 /**
 * @file xsysmonpsu.h
-* @addtogroup sysmonpsu_v2_4
+* @addtogroup sysmonpsu_v2_5
 *
 * The XSysMon driver supports the Xilinx System Monitor device.
 *

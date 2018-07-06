@@ -29,7 +29,7 @@
 /**
 *
 * @file xsysmonpsu_g.c
-* @addtogroup sysmonpsu_v2_4
+* @addtogroup sysmonpsu_v2_5
 *
 * This file contains a configuration table that specifies the configuration
 * of SYSMON devices in the system.

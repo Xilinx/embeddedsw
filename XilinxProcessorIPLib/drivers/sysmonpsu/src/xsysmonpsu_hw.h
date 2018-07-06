@@ -29,7 +29,7 @@
 /**
 *
 * @file xsysmonpsu_hw.h
-* @addtogroup sysmonpsu_v2_4
+* @addtogroup sysmonpsu_v2_5
 *
 * This header file contains the identifiers and basic driver functions (or
 * macros) that can be used to access the device. Other driver functions
