@@ -62,6 +62,7 @@
 * 2.3   mn     12/13/17 Correct the AMS block channel numbers
 *       mn     03/08/18 Update Clock Divisor to the proper value
 * 2.4   mn     04/20/18 Remove looping check for PL accessible bit
+* 2.5   mn     07/06/18 Fixed Cppcheck warnings
 *
 * </pre>
 *
@@ -1179,7 +1180,7 @@ u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	u16 Divisor;
 	u32 EffectiveBaseAddress;
 	u32 RegValue;
-	u32 InputFreq = InstancePtr->Config.InputClockMHz;
+	u32 InputFreq;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1190,6 +1191,7 @@ u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 			XSysMonPsu_GetEffBaseAddress(InstancePtr->Config.BaseAddress,
 					SysmonBlk);
 
+	InputFreq = InstancePtr->Config.InputClockMHz;
 	/* Read the divisor value from the Configuration Register 2. */
 	Divisor = (u16) XSysmonPsu_ReadReg(EffectiveBaseAddress +
 							XSYSMONPSU_CFG_REG2_OFFSET);
@@ -1851,7 +1853,7 @@ void XSysMonPsu_SetPSAutoConversion(XSysMonPsu *InstancePtr)
 * 		definations present in xsysmonpsu_hw.h for knowing the status.
 *
 * @note		None
-* .
+*
 *****************************************************************************/
 u32 XSysMonPsu_GetMonitorStatus(XSysMonPsu *InstancePtr)
 {
