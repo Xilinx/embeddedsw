@@ -28,6 +28,7 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- ----------------------------------------------------
 #  3.0     adk    12/10/13 Updated as per the New Tcl API's
+#  4.5     rsp    07/06/18 Remove space b/w backslash and newline
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_I_SP1
@@ -283,7 +284,7 @@ proc gen_testfunc_call {swproj mhsinst} {
    
       print(\"\\r\\n Running XAxiCdma_SimpleIntrExample  for ${ipname}...\\r\\n\");
          
-      status = XAxiCdma_SimpleIntrExample(&${intcvar}, &${ipname}, \\   
+      status = XAxiCdma_SimpleIntrExample(&${intcvar}, &${ipname}, \\
 				${deviceid},
 				${intr_id});
    	
@@ -331,7 +332,7 @@ proc gen_testfunc_call {swproj mhsinst} {
    
       print(\"\\r\\n Running XAxiCdma_SgIntrExample  for ${ipname}...\\r\\n\");
          
-      status = XAxiCdma_SgIntrExample(&${intcvar}, &${ipname}, \\   
+      status = XAxiCdma_SgIntrExample(&${intcvar}, &${ipname}, \\
 				${deviceid},
 				${intr_id});
    	
