@@ -29,7 +29,7 @@
 /**
 *
 * @file xtmrctr.h
-* @addtogroup tmrctr_v4_5
+* @addtogroup tmrctr_v4_6
 * @{
 * @details
 *
