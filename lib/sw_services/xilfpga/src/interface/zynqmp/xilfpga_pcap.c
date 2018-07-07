@@ -66,8 +66,7 @@
  *
  ******************************************************************************/
 /***************************** Include Files *********************************/
-#include "xilfpga_pcap.h"
-#include "xfpga_config.h"
+#include "xilfpga.h"
 
 /************************** Constant Definitions *****************************/
 #ifdef __MICROBLAZE__
@@ -112,43 +111,8 @@
 #define XFPGA_PART_IS_ENC		(0x00000080U)
 #define XFPGA_PART_IS_AUTH		(0x00008000U)
 
-#define XFPGA_PARTIAL_EN		(0x00000001U)
-#define XFPGA_AUTHENTICATION_DDR_EN	(0x00000002U)
-#define XFPGA_AUTHENTICATION_OCM_EN	(0x00000004U)
-#define XFPGA_ENCRYPTION_USERKEY_EN	(0x00000008U)
-#define XFPGA_ENCRYPTION_DEVKEY_EN	(0x00000010U)
-#define XFPGA_ONLY_BIN_EN		(0x00000020U)
-
 #define XFPGA_AES_TAG_SIZE	(XSECURE_SECURE_HDR_SIZE + \
 		XSECURE_SECURE_GCM_TAG_SIZE) /* AES block decryption tag size */
-
-
-#define XFPGA_SECURE_FLAGS	(				\
-				XFPGA_AUTHENTICATION_DDR_EN	\
-				| XFPGA_AUTHENTICATION_OCM_EN	\
-				| XFPGA_ENCRYPTION_USERKEY_EN	\
-				| XFPGA_ENCRYPTION_DEVKEY_EN	\
-				)
-
-#define XFPGA_AUTH_ENC_USERKEY_DDR	(				\
-					XFPGA_AUTHENTICATION_DDR_EN	\
-					| XFPGA_ENCRYPTION_USERKEY_EN	\
-					)
-
-#define XFPGA_AUTH_ENC_DEVKEY_DDR	(				\
-					XFPGA_AUTHENTICATION_DDR_EN	\
-					| XFPGA_ENCRYPTION_DEVKEY_EN	\
-					)
-
-#define XFPGA_AUTH_ENC_USERKEY_OCM	(				\
-					XFPGA_AUTHENTICATION_OCM_EN	\
-					| XFPGA_ENCRYPTION_USERKEY_EN	\
-					)
-
-#define XFPGA_AUTH_ENC_DEVKEY_OCM	(				\
-					XFPGA_AUTHENTICATION_OCM_EN	\
-					| XFPGA_ENCRYPTION_DEVKEY_EN	\
-					)
 
 /**************************** Type Definitions *******************************/
 #ifdef __MICROBLAZE__

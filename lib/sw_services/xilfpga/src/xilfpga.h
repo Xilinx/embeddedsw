@@ -88,6 +88,7 @@
 #include "xil_types.h"
 #include "xil_printf.h"
 #include "xparameters.h"
+#include "xfpga_config.h"
 #if defined(PLATFORM_ZYNQMP) || (PSU_PMU)
 #include "xilfpga_pcap.h"
 #include "xsecure.h"
@@ -101,6 +102,42 @@
 #define XFPGA_PRE_CONFIG_ERROR          (0x3U)
 #define XFPGA_WRITE_BITSTREAM_ERROR     (0x4U)
 #define XFPGA_POST_CONFIG_ERROR         (0x5U)
+
+#define XFPGA_FULLBIT_EN			(0x00000000U)
+#define XFPGA_PARTIAL_EN			(0x00000001U)
+#define XFPGA_AUTHENTICATION_DDR_EN		(0x00000002U)
+#define XFPGA_AUTHENTICATION_OCM_EN		(0x00000004U)
+#define XFPGA_ENCRYPTION_USERKEY_EN		(0x00000008U)
+#define XFPGA_ENCRYPTION_DEVKEY_EN		(0x00000010U)
+#define XFPGA_ONLY_BIN_EN			(0x00000020U)
+
+#define XFPGA_SECURE_FLAGS	(				\
+				XFPGA_AUTHENTICATION_DDR_EN	\
+				| XFPGA_AUTHENTICATION_OCM_EN	\
+				| XFPGA_ENCRYPTION_USERKEY_EN	\
+				| XFPGA_ENCRYPTION_DEVKEY_EN	\
+				)
+
+#define XFPGA_AUTH_ENC_USERKEY_DDR	(				\
+					XFPGA_AUTHENTICATION_DDR_EN	\
+					| XFPGA_ENCRYPTION_USERKEY_EN	\
+					)
+
+#define XFPGA_AUTH_ENC_DEVKEY_DDR	(				\
+					XFPGA_AUTHENTICATION_DDR_EN	\
+					| XFPGA_ENCRYPTION_DEVKEY_EN	\
+					)
+
+#define XFPGA_AUTH_ENC_USERKEY_OCM	(				\
+					XFPGA_AUTHENTICATION_OCM_EN	\
+					| XFPGA_ENCRYPTION_USERKEY_EN	\
+					)
+
+#define XFPGA_AUTH_ENC_DEVKEY_OCM	(				\
+					XFPGA_AUTHENTICATION_OCM_EN	\
+					| XFPGA_ENCRYPTION_DEVKEY_EN	\
+					)
+
 /** @endcond*/
 /************************** Function Prototypes ******************************/
 u32 XFpga_PL_BitStream_Load(UINTPTR BitstreamImageAddr,
