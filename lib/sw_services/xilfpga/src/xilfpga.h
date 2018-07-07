@@ -138,6 +138,17 @@
 					| XFPGA_ENCRYPTION_DEVKEY_EN	\
 					)
 
+#define Xfpga_Printf(DebugType, ...) \
+	if (DebugType) \
+	{xil_printf (__VA_ARGS__); }
+
+#define XFPGA_ERR_MASK				(0xFFU)
+#define XFPGA_ERR_INTERFACE_MASK	(0xFFFFFF00U)
+#define XFPGA_UPDATE_ERR(XfpgaErr, InterfaceErr) \
+		((InterfaceErr&XFPGA_ERR_INTERFACE_MASK) + \
+		 (XfpgaErr&XFPGA_ERR_MASK))
+
+
 /** @endcond*/
 /************************** Function Prototypes ******************************/
 u32 XFpga_PL_BitStream_Load(UINTPTR BitstreamImageAddr,

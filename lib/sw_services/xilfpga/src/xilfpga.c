@@ -99,30 +99,34 @@ u32 XFpga_PL_BitStream_Load(UINTPTR BitstreamImageAddr,
 	Status = Fpga_Ops.XFpga_ValidateBitstream(BitstreamImageAddr,
 						&ImageHdrInfo, flags);
 	if (Status != XFPGA_SUCCESS) {
-		Status = XFPGA_VALIDATE_ERROR;
-		xil_printf("XFPGA Fail to validate the Bitstream Image\r\n");
+		Status = XFPGA_UPDATE_ERR(XFPGA_VALIDATE_ERROR, Status);
+		xil_printf("XFPGA Fail to validate the Bitstream Image "
+				"with Error Code: 0x%08x\r\n", Status);
 		return Status;
 	}
 
 	Status = Fpga_Ops.XFpga_PreConfig(flags);
 	if (Status != XFPGA_SUCCESS) {
-		Status = XFPGA_PRE_CONFIG_ERROR;
-		xil_printf("XFPGA Fail to PreConfigure the PL Interface\r\n");
+		Status = XFPGA_UPDATE_ERR(XFPGA_PRE_CONFIG_ERROR, Status);
+		xil_printf("XFPGA Fail to PreConfigure the PL Interface "
+				"with Error Code: 0x%08x\r\n", Status);
 		return Status;
 	}
 
 	Status = Fpga_Ops.XFpga_writeToPl(BitstreamImageAddr, AddrPtr,
 					&ImageHdrInfo, flags);
 	if (Status != XFPGA_SUCCESS) {
-		Status = XFPGA_WRITE_BITSTREAM_ERROR;
-		xil_printf("FPGA fail to write Bitstream into PL\n");
+		Status = XFPGA_UPDATE_ERR(XFPGA_WRITE_BITSTREAM_ERROR, Status);
+		xil_printf("FPGA fail to write Bitstream into PL "
+				"with Error Code: 0x%08x\r\n", Status);
 		return Status;
 	}
 
 	Status = Fpga_Ops.XFpga_PostConfig(AddrPtr, flags);
 	if (Status != XFPGA_SUCCESS) {
-		Status = XFPGA_POST_CONFIG_ERROR;
-		xil_printf("XFPGA Fail to PostConfigure the PL Interface\r\n");
+		Status = XFPGA_UPDATE_ERR(XFPGA_POST_CONFIG_ERROR, Status);
+		xil_printf("XFPGA Fail to PostConfigure the PL Interface "
+				"with Error Code: 0x%08x\r\n", Status);
 	}
 
 	return Status;

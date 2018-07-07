@@ -240,14 +240,19 @@ u32 XFpga_ValidateBitstreamImage(UINTPTR BitStreamAddr,
 
 	if (!(XFPGA_SECURE_MODE_EN) &&
 		(flags & XFPGA_SECURE_FLAGS)) {
-		xil_printf("Fail to load: Enable secure mode and try...\r\n");
-		return XFPGA_ERROR_SECURE_CRYPTO_FLAGS;
+		Status = XFPGA_PCAP_UPDATE_ERR(XFPGA_ERROR_SECURE_MODE_EN, 0);
+		Xfpga_Printf(XFPGA_DEBUG, "Fail to load: Enable secure mode "
+			"and try Error Code: 0x%08x\r\n", Status);
+		return Status;
 	}
 
 	/* Initialize CSU DMA driver */
 	Status = XFpga_CsuDmaInit();
-	if (Status != XFPGA_SUCCESS)
+	if (Status != XFPGA_SUCCESS) {
+		Status = XFPGA_PCAP_UPDATE_ERR(XFPGA_ERROR_CSUDMA_INIT_FAIL,
+								Status);
 		return Status;
+	}
 
 	if (flags & XFPGA_ONLY_BIN_EN) {
 		Status = XFPGA_SUCCESS;
@@ -256,17 +261,17 @@ u32 XFpga_ValidateBitstreamImage(UINTPTR BitStreamAddr,
 
 	Status = XSecure_AuthenticationHeaders((u8 *)BitStreamAddr,
 						ImageHdrData);
-	if (Status != XST_SUCCESS) {
-	/* Error other than XSECURE_AUTH_NOT_ENABLED error will be an error */
-		if (Status != XSECURE_AUTH_NOT_ENABLED)
-			Status = XFPGA_ERROR_HDR_AUTH;
-		else
+	if (Status != XFPGA_SUCCESS) {
+		if (Status == XSECURE_AUTH_NOT_ENABLED)
 		/* Here Buffer still contains Boot header */
 			NoAuth = 1;
 	}
 
-	if (Status == XFPGA_ERROR_HDR_AUTH)
+	/* Error other than XSECURE_AUTH_NOT_ENABLED error will be an error */
+	if ((Status != XFPGA_SUCCESS) && (!NoAuth)) {
+		Status = XFPGA_PCAP_UPDATE_ERR(XFPGA_ERROR_HDR_AUTH, Status);
 		return Status;
+	}
 
 	if (NoAuth != 0x00) {
 		XSecure_PartitionHeader *Ph =
@@ -276,7 +281,8 @@ u32 XFpga_ValidateBitstreamImage(UINTPTR BitStreamAddr,
 		ImageHdrData->PartitionHdr = Ph;
 		if ((ImageHdrData->PartitionHdr->PartitionAttributes &
 				XSECURE_PH_ATTR_AUTH_ENABLE) != 0x00U) {
-			Status = XFPGA_ERROR_CRYPTO_FLAGS;
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					XFPGA_HDR_NOAUTH_PART_AUTH, 0);
 			return Status;
 		}
 	}
@@ -288,7 +294,8 @@ u32 XFpga_ValidateBitstreamImage(UINTPTR BitStreamAddr,
 	if (EncOnly) {
 
 		if (!IsEncrypted) {
-			Status = XFPGA_ENC_ISCOMPULSORY;
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					XFPGA_ENC_ISCOMPULSORY, 0);
 			return Status;
 		}
 	}
@@ -313,7 +320,8 @@ u32 XFpga_ValidateBitstreamImage(UINTPTR BitStreamAddr,
 		if ((ImageHdrData->KeySrc == XSECURE_KEY_SRC_BBRAM) ||
 			(ImageHdrData->KeySrc == XSECURE_KEY_SRC_GREY_BH) ||
 			(ImageHdrData->KeySrc == XSECURE_KEY_SRC_BLACK_BH)) {
-			Status = XSECURE_DEC_WRONG_KEY_SOURCE;
+			Status = XFPGA_PCAP_UPDATE_ERR(
+						XFPGA_DEC_WRONG_KEY_SOURCE, 0);
 			return Status;
 		}
 	}
@@ -321,9 +329,10 @@ u32 XFpga_ValidateBitstreamImage(UINTPTR BitStreamAddr,
 	/* Validate the User Flags for the Image Crypto operation */
 	Status = XFpga_ValidateCryptoFlags(ImageHdrData, flags);
 	if (Status != XFPGA_SUCCESS) {
-		xil_printf(
-		"Crypto flags not matched with Image crypto operation\r\n");
-		Status = XFPGA_ERROR_SECURE_CRYPTO_FLAGS;
+		Status = XFPGA_PCAP_UPDATE_ERR(XFPGA_ERROR_CRYPTO_FLAGS, 0);
+		Xfpga_Printf(XFPGA_DEBUG,
+		"Crypto flags not matched with Image crypto operation "
+		"with Error Code:0x%08x\r\n", Status);
 	}
 
 	return Status;
@@ -356,23 +365,27 @@ u32 XFpga_PreConfigPcap(u32 flags)
 		/* Power-Up PL */
 		Status = XFpga_PowerUpPl();
 		if (Status != XFPGA_SUCCESS) {
-			xil_printf("XFPGA_ERROR_PL_POWER_UP\r\n");
-			Status = XFPGA_ERROR_PL_POWER_UP;
+			Xfpga_Printf(XFPGA_DEBUG,
+				"XFPGA_ERROR_PL_POWER_UP\r\n");
+			Status = XFPGA_PCAP_UPDATE_ERR(
+						XFPGA_ERROR_PL_POWER_UP, 0);
 			return Status;
 		}
 
 		/* PS PL Isolation Restore */
 		Status = XFpga_IsolationRestore();
 		if (Status != XFPGA_SUCCESS) {
-			xil_printf("XFPGA_ERROR_PL_ISOLATION\r\n");
-			Status = XFPGA_ERROR_PL_ISOLATION;
+			Xfpga_Printf(XFPGA_DEBUG,
+				"XFPGA_ERROR_PL_ISOLATION\r\n");
+			Status = XFPGA_PCAP_UPDATE_ERR(
+						XFPGA_ERROR_PL_ISOLATION, 0);
 			return Status;
 		}
 	}
 
 	Status = XFpga_PcapInit(flags);
 	if (Status != XFPGA_SUCCESS)
-		Status = XPFGA_ERROR_PCAP_INIT;
+		Status = XFPGA_PCAP_UPDATE_ERR(XPFGA_ERROR_PCAP_INIT, 0);
 
 	return Status;
 }
@@ -414,7 +427,7 @@ u32 XFpga_writeToPlPcap(UINTPTR BitStreamAddr, UINTPTR AddrPtr,
 	}
 #else
 	{
-		Status = XFPGA_ERROR_BITSTREAM_LOAD_FAIL;
+		Status = XFPGA_PCAP_UPDATE_ERR(XFPGA_ERROR_SECURE_MODE_EN, 0);
 		return Status;
 	}
 #endif
@@ -432,15 +445,22 @@ u32 XFpga_writeToPlPcap(UINTPTR BitStreamAddr, UINTPTR AddrPtr,
 
 		Status = XFpga_WriteToPcap(BitstreamSize/WORD_LEN,
 						BitstreamAddress);
+		if (Status != XFPGA_SUCCESS)
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					XFPGA_ERROR_BITSTREAM_LOAD_FAIL, 0);
 	}
 	if (Status != XFPGA_SUCCESS) {
-		xil_printf("FPGA fail to write Bitstream into PL\n");
-		Status = XFPGA_ERROR_BITSTREAM_LOAD_FAIL;
+		Xfpga_Printf(XFPGA_DEBUG,
+		"FPGA fail to write Bitstream into PL Error Code: 0x%08x\r\n",
+		Status);
 		return Status;
 	}
 	Status = XFpga_PLWaitForDone();
 	if (Status != XFPGA_SUCCESS)
-		xil_printf("FPGA fail to get the done status\n");
+		Status = XFPGA_PCAP_UPDATE_ERR(Status, 0);
+		Xfpga_Printf(XFPGA_DEBUG,
+		"FPGA fail to get the PCAP Done status Error Code:0x%08x\r\n",
+		Status);
 
 	return Status;
 }
@@ -468,8 +488,10 @@ u32 XFpga_PostConfigPcap(UINTPTR AddrPtr, u32 flags)
 		/* Power-Up PL */
 		Status = XFpga_PowerUpPl();
 		if (Status != XFPGA_SUCCESS) {
-			xil_printf("XFPGA_ERROR_PL_POWER_UP\r\n");
-			Status = XFPGA_ERROR_PL_POWER_UP;
+			Xfpga_Printf(XFPGA_DEBUG,
+				"XFPGA_ERROR_PL_POWER_UP\r\n");
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					XFPGA_ERROR_PL_POWER_UP, 0);
 		}
 		/* PS-PL reset high*/
 		if (Status == XFPGA_SUCCESS)
@@ -560,7 +582,7 @@ static u32 XFpga_PcapWaitForDone(void)
 		PollCount--;
 	}
 	if (!PollCount)
-		return XFPGA_FAILURE;
+		return XFPGA_ERROR_CSU_PCAP_TRANSFER;
 
 	return Status;
 }
@@ -720,7 +742,7 @@ static u32 XFpga_SecureLoadToPl(UINTPTR BitStreamAddr, UINTPTR KeyAddr,
 
 	default:
 
-		xil_printf("Invalid Option\r\n");
+		Xfpga_Printf(XFPGA_DEBUG, "Invalid Option\r\n");
 
 
 	}
@@ -773,7 +795,9 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitStreamAddr, UINTPTR KeyAddr,
 		/*Verify Spk */
 		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
 		if (Status != XST_SUCCESS) {
-			Status = XFPGA_PARTITION_AUTH_FAILURE;
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					XFPGA_ERROR_DDR_AUTH_VERIFY_SPK,
+					Status);
 			return Status;
 		}
 
@@ -782,7 +806,9 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitStreamAddr, UINTPTR KeyAddr,
 							 PL_PARTATION_SIZE,
 							(u8 *)(UINTPTR)AcBuf);
 		if (Status != XST_SUCCESS) {
-			Status = XFPGA_PARTITION_AUTH_FAILURE;
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					XFPGA_ERROR_DDR_AUTH_PARTITION,
+					Status);
 			return Status;
 		}
 		if ((flags & XFPGA_ENCRYPTION_USERKEY_EN)
@@ -794,7 +820,8 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitStreamAddr, UINTPTR KeyAddr,
 								BitAddr);
 
 		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_ERROR_BITSTREAM_LOAD_FAIL;
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					XFPGA_ERROR_DDR_AUTH_WRITE_PL, 0);
 			return Status;
 		}
 
@@ -810,7 +837,9 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitStreamAddr, UINTPTR KeyAddr,
 		/*Verify Spk */
 		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
 		if (Status != XST_SUCCESS) {
-			Status = XFPGA_PARTITION_AUTH_FAILURE;
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					XFPGA_ERROR_DDR_AUTH_VERIFY_SPK,
+					Status);
 			return Status;
 		}
 
@@ -819,7 +848,9 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitStreamAddr, UINTPTR KeyAddr,
 							 RemaningBytes,
 							(u8 *)(UINTPTR)AcBuf);
 		if (Status != XST_SUCCESS) {
-			Status = XFPGA_PARTITION_AUTH_FAILURE;
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					XFPGA_ERROR_DDR_AUTH_PARTITION,
+					Status);
 			return Status;
 		}
 
@@ -832,7 +863,8 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitStreamAddr, UINTPTR KeyAddr,
 								BitAddr);
 
 		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_ERROR_BITSTREAM_LOAD_FAIL;
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					XFPGA_ERROR_DDR_AUTH_WRITE_PL, 0);
 			return Status;
 		}
 	}
@@ -887,21 +919,25 @@ static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitStreamAddr, UINTPTR KeyAddr,
 		/*Verify Spk */
 		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
 		if (Status != XST_SUCCESS) {
-			Status = XFPGA_PARTITION_AUTH_FAILURE;
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					XFPGA_ERROR_OCM_AUTH_VERIFY_SPK,
+					Status);
 			return Status;
 		}
 
 		Status = XFpga_AuthPlChunks((UINTPTR)BitAddr,
 				PL_PARTATION_SIZE, (UINTPTR)AcBuf);
 		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_PARTITION_AUTH_FAILURE;
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					XFPGA_ERROR_OCM_AUTH_PARTITION, Status);
 			return Status;
 		}
 
 		Status = XFpga_ReAuthPlChunksWriteToPl((UINTPTR)BitAddr,
 						PL_PARTATION_SIZE, flags);
 		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_PARTITION_AUTH_FAILURE;
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					XFPGA_ERROR_OCM_REAUTH_WRITE_PL, 0);
 			return Status;
 		}
 
@@ -916,20 +952,25 @@ static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitStreamAddr, UINTPTR KeyAddr,
 		/*Verify Spk */
 		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
 		if (Status != XST_SUCCESS) {
-			Status = XFPGA_PARTITION_AUTH_FAILURE;
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					XFPGA_ERROR_OCM_AUTH_VERIFY_SPK,
+					Status);
 			return Status;
 		}
 
 		Status = XFpga_AuthPlChunks((UINTPTR)BitAddr,
 				RemaningBytes, (UINTPTR)AcBuf);
 		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_PARTITION_AUTH_FAILURE;
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					XFPGA_ERROR_OCM_AUTH_PARTITION,
+					Status);
 			return Status;
 		}
 		Status = XFpga_ReAuthPlChunksWriteToPl((UINTPTR)BitAddr,
 						RemaningBytes, flags);
 		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_PARTITION_AUTH_FAILURE;
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					XFPGA_ERROR_OCM_REAUTH_WRITE_PL, 0);
 			return Status;
 		}
 
@@ -1163,7 +1204,14 @@ static u32 XFpga_WriteEncryptToPcap(UINTPTR BitStreamAddr, UINTPTR KeyAddr,
 			ImageHdrInfo->PartitionHdr->UnEncryptedDataWordLength *
 							XSECURE_WORD_LEN);
 
+	if (Status != XFPGA_SUCCESS) {
+		Status = XFPGA_PCAP_UPDATE_ERR(
+				XFPGA_ERROR_AES_DECRYPT_PL, Status);
+		return Status;
+	}
 	Status = XFpga_PcapWaitForDone();
+	if (Status != XFPGA_SUCCESS)
+		Status = XFPGA_PCAP_UPDATE_ERR(Status, 0);
 
 	return Status;
 }
@@ -1675,7 +1723,7 @@ static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, u64 SrcAddr)
 				XSECURE_CSU_AES_STS_GCM_TAG_OK;
 
 	if (GcmStatus == 0) {
-		xil_printf("GCM TAG NOT Matched\r\n");
+		Xfpga_Printf(XFPGA_DEBUG, "GCM TAG NOT Matched\r\n");
 		return XFPGA_FAILURE;
 	}
 
@@ -1711,7 +1759,7 @@ static u32 XFpga_PLWaitForDone(void)
 	}
 
 	if (RegVal != CSU_PCAP_STATUS_PL_DONE_MASK) {
-		Status = XFPGA_ERROR_BITSTREAM_LOAD_FAIL;
+		Status = XFPGA_ERROR_PCAP_PL_DONE;
 		return Status;
 	}
 
@@ -1749,17 +1797,13 @@ static u32 XFpga_CsuDmaInit(void)
 	XCsuDma_Config *CsuDmaConfig;
 
 	CsuDmaConfig = XCsuDma_LookupConfig(0);
-	if (CsuDmaConfig == NULL) {
-		Status = XFPGA_ERROR_CSUDMA_INIT_FAIL;
+	if (CsuDmaConfig == NULL)
 		return Status;
-	}
 
 	Status = XCsuDma_CfgInitialize(&CsuDma, CsuDmaConfig,
 			CsuDmaConfig->BaseAddress);
-	if (Status != XFPGA_SUCCESS) {
-		Status = XFPGA_ERROR_CSUDMA_INIT_FAIL;
+	if (Status != XFPGA_SUCCESS)
 		return Status;
-	}
 
 	return Status;
 }

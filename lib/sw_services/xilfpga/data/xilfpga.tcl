@@ -103,6 +103,14 @@ proc generate {lib_handle} {
 	puts $conffile "#define XFPGA_SECURE_MODE"
     }
 
+   set value  [common::get_property CONFIG.debug_mode $lib_handle]
+
+   if {$value == true} {
+        puts $conffile "#define XFPGA_DEBUG	(1U)"
+    } else {
+	puts $conffile "#define XFPGA_DEBUG     (0U)"
+    }
+
     puts $conffile "#endif"
     close $conffile
 }
