@@ -193,7 +193,6 @@ void XUsb_IntrHandler(void *InstancePtr)
 	u32 IntrStatus;
 	u32 IntrEnable;
 	u32 PendingIntr;
-	XUsb_EpConfig *Ep;
 	u8 Index;
 
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -248,6 +247,7 @@ void XUsb_IntrHandler(void *InstancePtr)
 	 * Check the buffer completion interrupts .
 	 */
 	if (PendingIntr & XUSB_STATUS_INTR_BUFF_COMP_ALL_MASK) {
+		XUsb_EpConfig *Ep;
 
 		if (PendingIntr & XUSB_STATUS_EP0_BUFF1_COMP_MASK) {
 
