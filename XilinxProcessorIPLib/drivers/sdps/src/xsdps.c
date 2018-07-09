@@ -87,7 +87,7 @@
 *                       transfers
 *       mn     03/02/18 Move UHS macro check to SD card initialization routine
 * 3.5   mn     04/18/18 Resolve compilation warnings for sdps driver
-* 3.6   mn     07/06/18 Fix Cppcheck warnings for sdps driver
+* 3.6   mn     07/06/18 Fix Cppcheck and Doxygen warnings for sdps driver
 * </pre>
 *
 ******************************************************************************/
@@ -1196,7 +1196,8 @@ RETURN_PATH:
 * This value is already shifted to be upper 16 bits and can be directly
 * OR'ed with transfer mode register value.
 *
-* @param	Command to be sent.
+* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	Cmd is the Command to be sent.
 *
 * @return	Command register value complete with response type and
 * 		data, CRC and index related flags.
