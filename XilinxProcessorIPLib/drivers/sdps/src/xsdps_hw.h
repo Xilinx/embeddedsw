@@ -56,6 +56,7 @@
 * 3.3   mn     08/22/17 Updated for Word Access System support
 *       mn     09/06/17 Added support for ARMCC toolchain
 * 3.4   mn     01/22/18 Separated out SDR104 and HS200 clock defines
+* 3.6   mn     07/06/18 Fix Doxygen warnings for sdps driver
 *
 * </pre>
 *
@@ -1087,7 +1088,7 @@ extern "C" {
 /**
 * Read a register.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param	InstancePtr is the pointer to the sdps instance.
 * @param	RegOffset contains the offset from the 1st register of the
 *		device to the target register.
 *
@@ -1104,7 +1105,7 @@ extern "C" {
 /**
 * Write to a register.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param	InstancePtr is the pointer to the sdps instance.
 * @param	RegOffset contains the offset from the 1st register of the
 *		device to target register.
 * @param	RegisterValue is the value to be written to the register.
