@@ -78,6 +78,7 @@
 * 3.8   mj   07/31/17 Added support for RAM based FATfs.
 *       mn   12/04/17 Resolve errors in XilFFS for ARMCC compiler
 * 3.9   mn   04/18/18 Resolve build warnings for xilffs library
+*       mn   07/06/18 Fix Cppcheck warnings
 *
 * </pre>
 *
@@ -162,10 +163,10 @@ DSTATUS disk_status (
 )
 {
 	DSTATUS s = Stat[pdrv];
+#ifdef FILE_SYSTEM_INTERFACE_SD
 	u32 StatusReg;
 	u32 DelayCount = 0;
 
-#ifdef FILE_SYSTEM_INTERFACE_SD
 		if (SdInstance[pdrv].Config.BaseAddress == (u32)0) {
 #ifdef XPAR_XSDPS_1_DEVICE_ID
 				if(pdrv == 1) {
@@ -251,8 +252,8 @@ DSTATUS disk_initialize (
 )
 {
 	DSTATUS s;
-	s32 Status;
 #ifdef FILE_SYSTEM_INTERFACE_SD
+	s32 Status;
 	XSdPs_Config *SdConfig;
 #endif
 
