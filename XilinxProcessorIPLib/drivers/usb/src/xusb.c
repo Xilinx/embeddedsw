@@ -338,7 +338,6 @@ int XUsb_SetDeviceAddress(XUsb *InstancePtr, u8 Address)
 void XUsb_SetTestMode(XUsb *InstancePtr, u8 TestMode, u8 *BufPtr)
 {
 
-	volatile u32 *Src, *Dst;
 	u32 Count;
 
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -353,6 +352,8 @@ void XUsb_SetTestMode(XUsb *InstancePtr, u8 TestMode, u8 *BufPtr)
 	XUsb_Stop(InstancePtr);
 
 	if (TestMode == TEST_PKT) {
+
+		volatile u32 *Src, *Dst;
 
 		if (BufPtr == NULL) {
 			/*

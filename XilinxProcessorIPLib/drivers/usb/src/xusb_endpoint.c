@@ -268,10 +268,6 @@ void XUsb_EpConfigure(XUsb *InstancePtr, u8 EpNum, XUsb_EpConfig *EpCfgPtr)
 						(EpNum +
 						XUSB_STATUS_EP_BUFF2_SHIFT)));
 	}
-
-	EpCfgReg = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-				 InstancePtr->EndPointOffset[EpNum]);
-
 }
 
 /****************************************************************************/
