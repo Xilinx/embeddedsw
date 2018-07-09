@@ -175,6 +175,7 @@
 *       ms     04/05/17 Modified Comment lines in functions of xadcps
 *                       examples to recognize it as documentation block
 *                       for doxygen generation.
+* 2.3   mn     07/09/18 Fix Doxygen warning
 *
 * </pre>
 *
@@ -451,6 +452,7 @@ typedef struct {
 * command FIFO.
 *
 * @param	InstancePtr is a pointer to the XAdcPs instance.
+* @param	Data is the value to be written to XADC register.
 *
 * @return	None.
 *
