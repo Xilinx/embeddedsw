@@ -87,6 +87,7 @@
 *                       transfers
 *       mn     03/02/18 Move UHS macro check to SD card initialization routine
 * 3.5   mn     04/18/18 Resolve compilation warnings for sdps driver
+* 3.6   mn     07/06/18 Fix Cppcheck warnings for sdps driver
 * </pre>
 *
 ******************************************************************************/
@@ -1384,9 +1385,6 @@ s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 	/* Write to clear bit */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
-	Status = (s32)XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDPS_RESP0_OFFSET);
-
 	Status = XST_SUCCESS;
 
 RETURN_PATH:
@@ -1551,8 +1549,8 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 
 	/* Setup ADMA2 - Write descriptor table and point ADMA SAR to it */
 	BlkSize = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-					XSDPS_BLK_SIZE_OFFSET);
-	BlkSize = BlkSize & XSDPS_BLK_SIZE_MASK;
+					XSDPS_BLK_SIZE_OFFSET) &
+					XSDPS_BLK_SIZE_MASK;
 
 	if((BlkCnt*BlkSize) < XSDPS_DESC_MAX_LENGTH) {
 
