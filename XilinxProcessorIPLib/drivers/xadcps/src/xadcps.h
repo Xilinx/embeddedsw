@@ -29,7 +29,7 @@
 /**
 *
 * @file xadcps.h
-* @addtogroup xadcps_v2_2
+* @addtogroup xadcps_v2_3
 * @{
 * @details
 *

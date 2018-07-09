@@ -29,7 +29,7 @@
 /**
 *
 * @file xadcps_selftest.c
-* @addtogroup xadcps_v2_2
+* @addtogroup xadcps_v2_3
 * @{
 *
 * This file contains a diagnostic self test function for the XAdcPs driver.
