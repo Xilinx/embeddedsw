@@ -53,6 +53,7 @@
 *			CR #807563.
 * 2.2	bss	   04/27/14 Modified to use correct Device Config base address
 *						(CR#854437).
+* 2.3   mn     07/09/18 Fix Doxygen warning
 * </pre>
 *
 *****************************************************************************/
@@ -548,6 +549,8 @@ u8 XAdcPs_GetAvg(XAdcPs *InstancePtr)
 *		increased to 10 ADCCLK cycles (specify TRUE) or remain at the
 *		default 4 ADCCLK cycles (specify FALSE). This parameter is
 *		only valid for the external channels.
+* @param 	IsEventMode specifies whether the operation of the ADC is Event
+* 		driven or Continuous mode.
 * @param 	IsDifferentialMode is a boolean parameter which specifies
 *		unipolar(specify FALSE) or differential mode (specify TRUE) for
 *		the analog inputs. The 	input mode is only valid for the
