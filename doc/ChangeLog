@@ -1,5 +1,8 @@
 Changes for 2018.3
 ===============================
+xilffs_v3_10:
+Fix Cppcheck and Doxygen warnings
+
 clockps_v1_0:
 First release of clocksPS drivers.
 
