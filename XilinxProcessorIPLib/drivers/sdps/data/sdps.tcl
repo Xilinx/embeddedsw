@@ -37,6 +37,7 @@
 # 3.0   sk   07/16/16 Added BUS WIDTH, MIO BANK and HAS EMIO parameters.
 # 3.3   mn   08/17/17 Enabled CCI support for A53 by adding cache coherency
 #                     information.
+# 3.6   mn   07/06/18 Generate canonical entry for IS_CACHE_COHERENT
 #
 ##############################################################################
 
@@ -48,7 +49,7 @@ proc generate {drv_handle} {
 
     ::hsi::utils::define_zynq_config_file $drv_handle "xsdps_g.c" "XSdPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP" "C_BUS_WIDTH" "C_MIO_BANK" "C_HAS_EMIO" "IS_CACHE_COHERENT"
 
-    ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XSdPs" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP" "C_BUS_WIDTH" "C_MIO_BANK" "C_HAS_EMIO"
+    ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XSdPs" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP" "C_BUS_WIDTH" "C_MIO_BANK" "C_HAS_EMIO" "IS_CACHE_COHERENT"
 
 }
 
