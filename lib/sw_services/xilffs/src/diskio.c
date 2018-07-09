@@ -78,7 +78,7 @@
 * 3.8   mj   07/31/17 Added support for RAM based FATfs.
 *       mn   12/04/17 Resolve errors in XilFFS for ARMCC compiler
 * 3.9   mn   04/18/18 Resolve build warnings for xilffs library
-*       mn   07/06/18 Fix Cppcheck warnings
+*       mn   07/06/18 Fix Cppcheck and Doxygen warnings
 *
 * </pre>
 *
@@ -456,8 +456,6 @@ DRESULT disk_ioctl (
 /**
 *
 * This function is User Provided Timer Function for FatFs module
-*
-* @param	None
 *
 * @return	DWORD
 *
