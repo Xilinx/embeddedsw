@@ -625,12 +625,6 @@ Update XRFdc_SetPLLConfig() API to support range of REF_CLK_DIV values(1 to 4).
 Corrects the Block_Id used for QMC event in IQ datatype in XRFdc_UpdateEvent() API.
 Add XRFDC_MIXER_MODE_R2R option to support BYPASS mode for Real input.
 
-rfdc_v5_0:
-Update DAC min sampling rate to 500MHz and also update VCO Range, PLL_DIVIDER and PLL_FPDIV ranges.
-Add XRFdc_GetFabClkOutDiv() API to read fabric clk div.
-Add Inline APIs XRFdc_CheckBlockEnabled(), XRFdc_CheckTileEnabled().
-Add support to dump HSCOM regs in XRFdc_DumpRegs() API.
-
 scugic_v3_10:
 Updated get_psu_interrupt_id to generate correct
 interrupt id's, when output of utility reduced logic
