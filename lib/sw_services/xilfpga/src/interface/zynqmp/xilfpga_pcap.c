@@ -736,6 +736,10 @@ static u32 XFpga_SecureLoadToPl(UINTPTR BitStreamAddr, UINTPTR KeyAddr,
 		break;
 
 	case XFPGA_ENCRYPTION_USERKEY_EN:
+
+#ifdef XSECURE_TRUSTED_ENVIRONMENT
+	case XFPGA_ENCRYPTION_DEVKEY_EN:
+#endif
 		Status = XFpga_WriteEncryptToPcap(BitStreamAddr,
 					KeyAddr, ImageInfo, flags);
 		break;
