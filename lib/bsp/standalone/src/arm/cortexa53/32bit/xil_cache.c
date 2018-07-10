@@ -42,6 +42,7 @@
 *					  Xil_DCacheInvalidateLine and Xil_DCacheInvalidateRange
 *					  functions description for proper explaination
 * 6.8   aru  06/15/18 Removed unused variables.
+* 6.8	aru  07/04/18 Optimized code in Xil_DCacheInvalidate and Xil_DCacheFlush
 *
 ******************************************************************************/
 
@@ -63,6 +64,7 @@
 
 extern s32  _stack_end;
 extern s32  __undef_stack;
+#define SELECT_D_CACHE 0
 
 /****************************************************************************/
 /**
@@ -135,105 +137,78 @@ void Xil_DCacheDisable(void)
 ****************************************************************************/
 void Xil_DCacheInvalidate(void)
 {
-	register u32 CsidReg, C7Reg;
-	u32 LineSize, NumWays;
-	u32 Way, WayIndex, WayAdjust, Set, SetIndex, NumSet;
-	u32 NumCacheLevel, CacheLevel;
+	register u32 CsidReg;
+	register u32 C7Reg;
+	u32 LineSize;
+	u32 NumWays;
+	u32 Way;
+	u32 WayIndex;
+	u32 WayAdjust;
+	u32 Set;
+	u32 SetIndex;
+	u32 NumSet;
+	u32 NumCacheLevel;
+	u32 CacheLevel;
 	u32 currmask;
+	u32 stack_start;
+	u32 stack_end;
+	u32 stack_size;
 
-	u32 stack_start,stack_end,stack_size;
+	stack_end = (u32) & _stack_end;
+	stack_start = (u32) & __undef_stack;
+	stack_size = stack_start - stack_end;
+
+	/*Flush stack memory to save return address */
+	Xil_DCacheFlushRange (stack_end, stack_size);
+
+	currmask = mfcpsr ();
+	mtcpsr (currmask | IRQ_FIQ_MASK);
 
 
-	stack_end = (u32)&_stack_end;
-	stack_start = (u32)&__undef_stack;
-	stack_size=stack_start-stack_end;
+	/* Number of level of cache */
+	NumCacheLevel = (mfcp (XREG_CP15_CACHE_LEVEL_ID) >> 24U) & 0x00000007U;
 
-	/*Flush stack memory to save return address*/
-	Xil_DCacheFlushRange(stack_end, stack_size);
+	for (CacheLevel = 0U, WayAdjust = 0x1E; CacheLevel < NumCacheLevel;
+		CacheLevel++, WayAdjust = WayAdjust << 1)
+	{
 
-	currmask = mfcpsr();
-	mtcpsr(currmask | IRQ_FIQ_MASK);
+		mtcp (XREG_CP15_CACHE_SIZE_SEL, (CacheLevel < 1) | SELECT_D_CACHE);
+		isb ();
 
+		CsidReg = mfcp (XREG_CP15_CACHE_SIZE_ID);
 
-	/* Number of level of cache*/
-	NumCacheLevel = (mfcp(XREG_CP15_CACHE_LEVEL_ID)>>24U) & 0x00000007U;
+		/* Get the cacheline size, way size, index size from csidr */
+		LineSize = (CsidReg & 0x00000007U) + 0x00000004U;
 
-	CacheLevel=0U;
-	/* Select cache level 0 and D cache in CSSR */
-	mtcp(XREG_CP15_CACHE_SIZE_SEL,CacheLevel);
-	isb();
+		/* Number of Ways */
+		NumWays = (CsidReg & 0x00001FFFU) >> 3U;
+		NumWays += 0X00000001U;
 
-	CsidReg = mfcp(XREG_CP15_CACHE_SIZE_ID);
+		/*Number of Set */
+		NumSet = (CsidReg >> 13U) & 0x00007FFFU;
+		NumSet += 0X00000001U;
 
-	/* Get the cacheline size, way size, index size from csidr */
-	LineSize = (CsidReg & 0x00000007U) + 0x00000004U;
+		Way = 0U;
+		Set = 0U;
 
-	/* Number of Ways */
-	NumWays = (CsidReg & 0x00001FFFU) >> 3U;
-	NumWays += 0X00000001U;
-
-	/*Number of Set*/
-	NumSet = (CsidReg >> 13U) & 0x00007FFFU;
-	NumSet += 0X00000001U;
-
-	WayAdjust = 0x1E;
-
-	Way = 0U;
-	Set = 0U;
-
-	/* Invalidate all the cachelines */
-	for (WayIndex =0U; WayIndex < NumWays; WayIndex++) {
-		for (SetIndex =0U; SetIndex < NumSet; SetIndex++) {
-			C7Reg = Way | Set | CacheLevel;
-			mtcp(XREG_CP15_INVAL_DC_LINE_SW,C7Reg);
-			Set += (0x00000001U << LineSize);
-		}
+		/* Invalidate all the cachelines */
+		for (WayIndex = 0U; WayIndex < NumWays; WayIndex++)
+		{
+			for (SetIndex = 0U; SetIndex < NumSet; SetIndex++)
+			{
+				C7Reg = Way | Set | CacheLevel;
+				mtcp (XREG_CP15_INVAL_DC_LINE_SW, C7Reg);
+				Set += (0x00000001U << LineSize);
+			}
 		Set = 0U;
 		Way += (0x00000001U << WayAdjust);
-	}
-
-	/* Wait for invalidate to complete */
-	dsb();
-
-	/* Select cache level 1 and D cache in CSSR */
-	CacheLevel += (0x00000001U<<1U) ;
-	mtcp(XREG_CP15_CACHE_SIZE_SEL,CacheLevel);
-	isb();
-
-	CsidReg = mfcp(XREG_CP15_CACHE_SIZE_ID);
-
-	/* Get the cacheline size, way size, index size from csidr */
-	LineSize = (CsidReg & 0x00000007U) + 0x00000004U;
-
-	/* Number of Ways */
-	NumWays = (CsidReg & 0x00001FFFU) >> 3U;
-	NumWays += 0x00000001U;
-
-	/* Number of Sets */
-	NumSet = (CsidReg >> 13U) & 0x00007FFFU;
-	NumSet += 0x00000001U;
-
-	WayAdjust = 0x1C;
-
-	Way = 0U;
-	Set = 0U;
-
-	/* Invalidate all the cachelines */
-	for (WayIndex = 0U; WayIndex < NumWays; WayIndex++) {
-		for (SetIndex = 0U; SetIndex < NumSet; SetIndex++) {
-			C7Reg = Way | Set | CacheLevel;
-			mtcp(XREG_CP15_INVAL_DC_LINE_SW,C7Reg);
-			Set += (0x00000001U << LineSize);
 		}
-		Set = 0U;
-		Way += (0x00000001U << WayAdjust);
-	}
-	/* Wait for invalidate to complete */
-	dsb();
 
-	mtcpsr(currmask);
+		/* Wait for invalidate to complete */
+		dsb ();
+	}
+	mtcpsr (currmask);
 }
-
 /****************************************************************************/
 /**
 * @brief	Invalidate a Data cache line. The cacheline is cleaned and
@@ -349,10 +324,18 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 ****************************************************************************/
 void Xil_DCacheFlush(void)
 {
-	register u32 CsidReg, C7Reg;
-	u32 LineSize, NumWays;
-	u32 Way, WayIndex, WayAdjust, Set, SetIndex, NumSet;
-	u32 NumCacheLevel, CacheLevel;
+	register u32 CsidReg;
+	register u32 C7Reg;
+	u32 LineSize;
+	u32 NumWays;
+	u32 Way;
+	u32 WayIndex;
+	u32 WayAdjust;
+	u32 Set;
+	u32 SetIndex;
+	u32 NumSet;
+	u32 NumCacheLevel;
+	u32 CacheLevel;
 	u32 currmask;
 
 	currmask = mfcpsr();
@@ -362,79 +345,41 @@ void Xil_DCacheFlush(void)
 	/* Number of level of cache*/
 	NumCacheLevel = (mfcp(XREG_CP15_CACHE_LEVEL_ID)>>24U) & 0x00000007U;
 
-	CacheLevel=0U;
-	/* Select cache level 0 and D cache in CSSR */
-	mtcp(XREG_CP15_CACHE_SIZE_SEL,CacheLevel);
-	isb();
+	for (CacheLevel=0U, WayAdjust=0x1E; CacheLevel < NumCacheLevel; CacheLevel++, WayAdjust = WayAdjust << 1) {
+		/* Select cache level  and D cache in CSSELR */
+		mtcp(XREG_CP15_CACHE_SIZE_SEL,(CacheLevel < 1) | SELECT_D_CACHE);
+		isb();
 
-	CsidReg = mfcp(XREG_CP15_CACHE_SIZE_ID);
+		CsidReg = mfcp(XREG_CP15_CACHE_SIZE_ID);
 
-	/* Get the cacheline size, way size, index size from csidr */
-	LineSize = (CsidReg & 0x00000007U) + 0x00000004U;
+		/* Get the cacheline size, way size, index size from csidr */
+		LineSize = (CsidReg & 0x00000007U) + 0x00000004U;
 
-	/* Number of Ways */
-	NumWays = (CsidReg & 0x00001FFFU) >> 3U;
-	NumWays += 0X00000001U;
+		/* Number of Ways */
+		NumWays = (CsidReg & 0x00001FFFU) >> 3U;
+		NumWays += 0X00000001U;
 
-	/*Number of Set*/
-	NumSet = (CsidReg >> 13U) & 0x00007FFFU;
-	NumSet += 0X00000001U;
+		/*Number of Set*/
+		NumSet = (CsidReg >> 13U) & 0x00007FFFU;
+		NumSet += 0X00000001U;
 
-	WayAdjust = 0x1E;
-
-	Way = 0U;
-	Set = 0U;
-
-	/* Invalidate all the cachelines */
-	for (WayIndex =0U; WayIndex < NumWays; WayIndex++) {
-		for (SetIndex =0U; SetIndex < NumSet; SetIndex++) {
-			C7Reg = Way | Set | CacheLevel;
-			mtcp(XREG_CP15_CLEAN_INVAL_DC_LINE_SW,C7Reg);
-			Set += (0x00000001U << LineSize);
-		}
+		Way = 0U;
 		Set = 0U;
-		Way += (0x00000001U << WayAdjust);
-	}
 
-	/* Wait for invalidate to complete */
-	dsb();
-
-	/* Select cache level 1 and D cache in CSSR */
-	CacheLevel += (0x00000001U<<1U) ;
-	mtcp(XREG_CP15_CACHE_SIZE_SEL,CacheLevel);
-	isb();
-
-	CsidReg = mfcp(XREG_CP15_CACHE_SIZE_ID);
-
-	/* Get the cacheline size, way size, index size from csidr */
-	LineSize = (CsidReg & 0x00000007U) + 0x00000004U;
-
-	/* Number of Ways */
-	NumWays = (CsidReg & 0x00001FFFU) >> 3U;
-	NumWays += 0x00000001U;
-
-	/* Number of Sets */
-	NumSet = (CsidReg >> 13U) & 0x00007FFFU;
-	NumSet += 0x00000001U;
-
-	WayAdjust = 0x1C;
-
-	Way = 0U;
-	Set = 0U;
-
-	/* Invalidate all the cachelines */
-	for (WayIndex = 0U; WayIndex < NumWays; WayIndex++) {
-		for (SetIndex = 0U; SetIndex < NumSet; SetIndex++) {
-			C7Reg = Way | Set | CacheLevel;
-			mtcp(XREG_CP15_CLEAN_INVAL_DC_LINE_SW,C7Reg);
-			Set += (0x00000001U << LineSize);
+		/* Invalidate all the cachelines */
+		for (WayIndex =0U; WayIndex < NumWays; WayIndex++) {
+			for (SetIndex =0U; SetIndex < NumSet; SetIndex++) {
+				C7Reg = Way | Set | CacheLevel;
+				mtcp(XREG_CP15_CLEAN_INVAL_DC_LINE_SW,C7Reg);
+				Set += (0x00000001U << LineSize);
+			}
+			Set = 0U;
+			Way += (0x00000001U << WayAdjust);
 		}
-		Set = 0U;
-		Way += (0x00000001U << WayAdjust);
-	}
-	/* Wait for invalidate to complete */
-	dsb();
 
+		/* Wait for invalidate to complete */
+		dsb();
+	}
 	mtcpsr(currmask);
 }
 
