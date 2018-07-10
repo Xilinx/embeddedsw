@@ -63,6 +63,8 @@
  *      ms   08/03/17 Added tags and updated comment lines style for doxygen.
  * 5.12 tjs	05/21/18 Removed the check for address to be non zero CR#1002769
  * 5.12 tjs	 06/18/18 Removed checkpatch and gcc warnings.
+ * 5.12 tjs	07/05/18 Removed the mentions of Spansion flash from
+ *			 BlockErase API CR#1006247
  *
  * </pre>
  *
@@ -251,8 +253,8 @@ static int PageErase(XIsf *InstancePtr, u32 Address)
  *
  * @note
  *		- The erased bytes will read as 0xFF.
- *		- This operation is supported for Atmel, Intel, Winbond,
- *		  Numonyx (N25QXX), and Spansion Serial Flash.
+ *		- This operation is supported for Atmel, Intel, Winbond and
+ *		  Numonyx (N25QXX) Serial Flash.
  *
  ******************************************************************************/
 #if ((XPAR_XISF_FLASH_FAMILY == ATMEL) || \
