@@ -17,6 +17,7 @@ qspipsu_v1_8:
 Added support for IS25LP064 and IS25WP064.
 Added an example for accessing 64bit dma within 32 bit application.(CR#1004701)
 Removed checkpatch warnings for xqspipsu.c and xqspipsu.h
+Removed the mentions of Spansion flash from BlockErase API. (CR#1006247)
 
 rfdc_v5_0:
 Update DAC min sampling rate to 500MHz and also update VCO Range, PLL_DIVIDER and PLL_FPDIV ranges.
