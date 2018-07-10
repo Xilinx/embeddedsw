@@ -888,9 +888,6 @@ Added support for PUF regeneration
 Fixed compilation warnings
 Added doxygen tags
 
-axipmon_v6_7:
-Fix Doxygen reported warnings.
-
 Changes for 2018.2
 ===============================
 freertos10_xilinx_v1_1:
