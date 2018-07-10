@@ -1,69 +1,72 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
-******************************************************************************/
+ *
+ * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+ * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * Except as contained in this notice, the name of the Xilinx shall not be used
+ * in advertising or otherwise to promote the sale, use or other dealings in
+ * this Software without prior written authorization from Xilinx.
+ *
+ ******************************************************************************/
 /*****************************************************************************/
 /**
-*
-* @file xqspipsu.c
-* @addtogroup qspipsu_v1_8
-* @{
-*
-* This file implements the functions required to use the QSPIPSU hardware to
-* perform a transfer. These are accessible to the user via xqspipsu.h.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who Date     Changes
-* ----- --- -------- -----------------------------------------------
-* 1.0   hk  08/21/14 First release
-*       sk  03/13/15 Added IO mode support.
-*       hk  03/18/15 Switch to I/O mode before clearing RX FIFO.
-*                    Clear and disbale DMA interrupts/status in abort.
-*                    Use DMA DONE bit instead of BUSY as recommended.
-*       sk  04/24/15 Modified the code according to MISRAC-2012.
-*       sk  06/17/15 Removed NULL checks for Rx/Tx buffers. As
-*                    writing/reading from 0x0 location is permitted.
-* 1.1   sk  04/12/16 Added debug message prints.
-* 1.2	nsk 07/01/16 Changed XQspiPsu_Select to support GQSPI and LQSPI
-*		     selection.
-*       rk  07/15/16 Added support for TapDelays at different frequencies.
-*	nsk 08/05/16 Added example support PollData and PollTimeout
-* 1.3	nsk 09/16/16 Update PollData and PollTimeout support for dual
-*	             parallel configurations, modified XQspiPsu_PollData()
-*	             and XQspiPsu_Create_PollConfigData()
-* 1,5	nsk 08/14/17 Added CCI support
-* 1.7	tjs	01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
-* 1.7	tjs 01/17/18 Added a support to toggle WP pin of the flash.
-* 1.7	tjs	03/14/18 Added support in EL1 NS mode (CR#974882)
-*
-* </pre>
-*
-******************************************************************************/
+ *
+ * @file xqspipsu.c
+ * @addtogroup qspipsu_v1_8
+ * @{
+ *
+ * This file implements the functions required to use the QSPIPSU hardware to
+ * perform a transfer. These are accessible to the user via xqspipsu.h.
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who Date     Changes
+ * ----- --- -------- -----------------------------------------------
+ * 1.0   hk  08/21/14 First release
+ *       sk  03/13/15 Added IO mode support.
+ *       hk  03/18/15 Switch to I/O mode before clearing RX FIFO.
+ *                    Clear and disbale DMA interrupts/status in abort.
+ *                    Use DMA DONE bit instead of BUSY as recommended.
+ *       sk  04/24/15 Modified the code according to MISRAC-2012.
+ *       sk  06/17/15 Removed NULL checks for Rx/Tx buffers. As
+ *                    writing/reading from 0x0 location is permitted.
+ * 1.1   sk  04/12/16 Added debug message prints.
+ * 1.2	nsk 07/01/16 Changed XQspiPsu_Select to support GQSPI and LQSPI
+ *		     selection.
+ *       rk  07/15/16 Added support for TapDelays at different frequencies.
+ *	nsk 08/05/16 Added example support PollData and PollTimeout
+ * 1.3	nsk 09/16/16 Update PollData and PollTimeout support for dual
+ *	             parallel configurations, modified XQspiPsu_PollData()
+ *	             and XQspiPsu_Create_PollConfigData()
+ * 1,5	nsk 08/14/17 Added CCI support
+ * 1.7	tjs 01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
+ * 1.7	tjs 01/17/18 Added a support to toggle WP pin of the flash.
+ * 1.7	tjs 03/14/18 Added support in EL1 NS mode (CR#974882)
+ * 1.8	tjs 06/26/18 Added an example for accessing 64bit dma within
+ *		     32 bit application. CR#1004701
+ * 1.8	tjs 06/26/18 Removed checkpatch warnings.
+ *
+ * </pre>
+ *
+ ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
@@ -101,31 +104,31 @@ static inline void XQspiPsu_Setup64BRxDma(XQspiPsu *InstancePtr,
 
 /*****************************************************************************/
 /**
-*
-* Initializes a specific XQspiPsu instance such that the driver is ready to use.
-*
-*
-* @param	InstancePtr is a pointer to the XQspiPsu instance.
-* @param	ConfigPtr is a reference to a structure containing information
-*		about a specific QSPIPSU device. This function initializes an
-*		InstancePtr object for a specific device specified by the
-*		contents of Config.
-* @param	EffectiveAddr is the device base address in the virtual memory
-*		address space. The caller is responsible for keeping the address
-*		mapping from EffectiveAddr to the device physical base address
-*		unchanged once this function is invoked. Unexpected errors may
-*		occur if the address mapping changes after this function is
-*		called. If address translation is not used, use
-*		ConfigPtr->Config.BaseAddress for this device.
-*
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_DEVICE_IS_STARTED if the device is already started.
-*		It must be stopped to re-initialize.
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * Initializes a specific XQspiPsu instance as such the driver is ready to use.
+ *
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ * @param	ConfigPtr is a reference to a structure containing information
+ *		about a specific QSPIPSU device. This function initializes an
+ *		InstancePtr object for a specific device specified by the
+ *		contents of Config.
+ * @param	EffectiveAddr is the device base address in the virtual memory
+ *		address space. The caller is responsible for keeping the address
+ *		mapping from EffectiveAddr to the device physical base address
+ *		unchanged once this function is invoked. Unexpected errors may
+ *		occur if the address mapping changes after this function is
+ *		called. If address translation is not used, use
+ *		ConfigPtr->Config.BaseAddress for this device.
+ *
+ * @return
+ *		- XST_SUCCESS if successful.
+ *		- XST_DEVICE_IS_STARTED if the device is already started.
+ *		It must be stopped to re-initialize.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
 				u32 EffectiveAddr)
 {
@@ -146,12 +149,14 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
 		/* Set some default values. */
 		InstancePtr->IsBusy = FALSE;
 
-		InstancePtr->Config.BaseAddress = EffectiveAddr + XQSPIPSU_OFFSET;
+		InstancePtr->Config.BaseAddress =
+			EffectiveAddr + XQSPIPSU_OFFSET;
 		InstancePtr->Config.ConnectionMode = ConfigPtr->ConnectionMode;
 		InstancePtr->StatusHandler = StubStatusHandler;
 		InstancePtr->Config.BusWidth = ConfigPtr->BusWidth;
 		InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
-		InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
+		InstancePtr->Config.IsCacheCoherent =
+			ConfigPtr->IsCacheCoherent;
 		/* Other instance variable initializations */
 		InstancePtr->SendBufferPtr = NULL;
 		InstancePtr->RecvBufferPtr = NULL;
@@ -169,9 +174,10 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
 		XQspiPsu_Select(InstancePtr, XQSPIPSU_SEL_GQSPI_MASK);
 
 		/*
-		 * Reset the QSPIPSU device to get it into its initial state. It is
-		 * expected that device configuration will take place after this
-		 * initialization is done, but before the device is started.
+		 * Reset the QSPIPSU device to get it into its initial state.
+		 * It is expected that device configuration will take place
+		 * after this initialization is done, but before the device
+		 * is started.
 		 */
 		XQspiPsu_Reset(InstancePtr);
 
@@ -185,20 +191,20 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
 
 /*****************************************************************************/
 /**
-*
-* Resets the QSPIPSU device. Reset must only be called after the driver has
-* been initialized. Any data transfer that is in progress is aborted.
-*
-* The upper layer software is responsible for re-configuring (if necessary)
-* and restarting the QSPIPSU device after the reset.
-*
-* @param	InstancePtr is a pointer to the XQspiPsu instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * Resets the QSPIPSU device. Reset must only be called after the driver has
+ * been initialized. Any data transfer that is in progress is aborted.
+ *
+ * The upper layer software is responsible for re-configuring (if necessary)
+ * and restarting the QSPIPSU device after the reset.
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 void XQspiPsu_Reset(XQspiPsu *InstancePtr)
 {
 	u32 ConfigReg;
@@ -259,16 +265,16 @@ void XQspiPsu_Reset(XQspiPsu *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
-* Aborts a transfer in progress by
-*
-* @param	InstancePtr is a pointer to the XQspiPsu instance.
-*
-* @return	None.
-*
-* @note
-*
-******************************************************************************/
+ *
+ * Aborts a transfer in progress by
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ *
+ * @return	None.
+ *
+ * @note
+ *
+ ******************************************************************************/
 void XQspiPsu_Abort(XQspiPsu *InstancePtr)
 {
 
@@ -296,8 +302,9 @@ void XQspiPsu_Abort(XQspiPsu *InstancePtr)
 			XQSPIPSU_QSPIDMA_DST_INTR_ALL_MASK);
 
 	/* Clear FIFO */
-	if((XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-			XQSPIPSU_ISR_OFFSET) & XQSPIPSU_ISR_RXEMPTY_MASK) != FALSE) {
+	if ((XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+		XQSPIPSU_ISR_OFFSET) &
+		XQSPIPSU_ISR_RXEMPTY_MASK) != FALSE) {
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_FIFO_CTRL_OFFSET,
 			XQSPIPSU_FIFO_CTRL_RST_TX_FIFO_MASK |
@@ -338,22 +345,22 @@ void XQspiPsu_Abort(XQspiPsu *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
-* This function performs a transfer on the bus in polled mode. The messages
-* passed are all transferred on the bus between one CS assert and de-assert.
-*
-* @param	InstancePtr is a pointer to the XQspiPsu instance.
-* @param	Msg is a pointer to the structure containing transfer data.
-* @param	NumMsg is the number of messages to be transferred.
-*
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if transfer fails.
-*		- XST_DEVICE_BUSY if a transfer is already in progress.
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * This function performs a transfer on the bus in polled mode. The messages
+ * passed are all transferred on the bus between one CS assert and de-assert.
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ * @param	Msg is a pointer to the structure containing transfer data.
+ * @param	NumMsg is the number of messages to be transferred.
+ *
+ * @return
+ *		- XST_SUCCESS if successful.
+ *		- XST_FAILURE if transfer fails.
+ *		- XST_DEVICE_BUSY if a transfer is already in progress.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 				u32 NumMsg)
 {
@@ -370,7 +377,10 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		Xil_AssertNonvoid(Msg[Index].ByteCount > 0U);
 	}
 
-	/* Check whether there is another transfer in progress. Not thread-safe */
+	/*
+	 * Check whether there is another transfer in progress.
+	 * Not thread-safe
+	 */
 	if (InstancePtr->IsBusy == TRUE) {
 		return (s32)XST_DEVICE_BUSY;
 	}
@@ -378,7 +388,8 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	/* Check for ByteCount upper limit - 2^28 for DMA */
 	for (Index = 0; Index < (s32)NumMsg; Index++) {
 		if ((Msg[Index].ByteCount > XQSPIPSU_DMA_BYTES_MAX) &&
-				((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
+				((Msg[Index].Flags &
+					XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
 			return (s32)XST_FAILURE;
 		}
 	}
@@ -404,7 +415,7 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 		if (InstancePtr->IsManualstart == TRUE) {
 #ifdef DEBUG
-	xil_printf("\nManual Start\r\n");
+			xil_printf("\nManual Start\r\n");
 #endif
 			XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_CFG_OFFSET,
 				XQspiPsu_ReadReg(BaseAddress,
@@ -419,8 +430,10 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 						XQSPIPSU_ISR_OFFSET);
 
 			/* Transmit more data if left */
-			if (((QspiPsuStatusReg & XQSPIPSU_ISR_TXNOT_FULL_MASK) != FALSE) &&
-				((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_TX) != FALSE) &&
+			if (((QspiPsuStatusReg &
+				XQSPIPSU_ISR_TXNOT_FULL_MASK) != FALSE) &&
+				((Msg[Index].Flags &
+					XQSPIPSU_MSG_FLAG_TX) != FALSE) &&
 				(InstancePtr->TxBytes > 0)) {
 				XQspiPsu_FillTxFifo(InstancePtr, &Msg[Index],
 						XQSPIPSU_TXD_DEPTH);
@@ -428,26 +441,34 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 			/* Check if DMA RX is complete and update RxBytes */
 			if ((InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) &&
-				((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
+				((Msg[Index].Flags &
+					XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
 				u32 DmaIntrSts;
+
 				DmaIntrSts = XQspiPsu_ReadReg(BaseAddress,
-								XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET);
-				if ((DmaIntrSts & XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK) != FALSE) {
+					XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET);
+				if ((DmaIntrSts &
+					XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK)
+					!= FALSE) {
 					XQspiPsu_WriteReg(BaseAddress,
-						XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET,
-						DmaIntrSts);
+					XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET,
+					DmaIntrSts);
 					/* Read remaining bytes using IO mode */
-					if((InstancePtr->RxBytes % 4) != 0 ) {
+					if ((InstancePtr->RxBytes % 4) != 0) {
 						XQspiPsu_WriteReg(BaseAddress,
-							XQSPIPSU_CFG_OFFSET,
-							(XQspiPsu_ReadReg(BaseAddress,
-							XQSPIPSU_CFG_OFFSET) &
-							~XQSPIPSU_CFG_MODE_EN_MASK));
-						InstancePtr->ReadMode = XQSPIPSU_READMODE_IO;
+						XQSPIPSU_CFG_OFFSET,
+						(XQspiPsu_ReadReg(BaseAddress,
+						XQSPIPSU_CFG_OFFSET) &
+						~XQSPIPSU_CFG_MODE_EN_MASK));
+						InstancePtr->ReadMode =
+							XQSPIPSU_READMODE_IO;
 						Msg[Index].ByteCount =
-							(InstancePtr->RxBytes % 4);
-						Msg[Index].RxBfrPtr += (InstancePtr->RxBytes -
-								(InstancePtr->RxBytes % 4));
+							(InstancePtr->RxBytes %
+								4);
+						Msg[Index].RxBfrPtr +=
+							(InstancePtr->RxBytes -
+							(InstancePtr->RxBytes %
+								4));
 						InstancePtr->IsUnaligned = 1;
 						IOPending = (u32)TRUE;
 						break;
@@ -455,30 +476,42 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 					InstancePtr->RxBytes = 0;
 				}
 			} else {
-				if ((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != FALSE) {
-					/* Check if PIO RX is complete and update RxBytes */
-					RxThr = (s32)XQspiPsu_ReadReg(BaseAddress,
-							XQSPIPSU_RX_THRESHOLD_OFFSET);
-					if ((QspiPsuStatusReg & XQSPIPSU_ISR_RXNEMPTY_MASK)
-									!= 0U) {
+				if ((Msg[Index].Flags &
+					XQSPIPSU_MSG_FLAG_RX) != FALSE) {
+					/*
+					 * Check if PIO RX is complete and
+					 * update RxBytes
+					 */
+					RxThr = (s32)XQspiPsu_ReadReg(
+						BaseAddress,
+						XQSPIPSU_RX_THRESHOLD_OFFSET);
+					if ((QspiPsuStatusReg &
+						XQSPIPSU_ISR_RXNEMPTY_MASK)
+						!= 0U) {
 						XQspiPsu_ReadRxFifo(InstancePtr,
-								&Msg[Index], RxThr*4);
+							&Msg[Index], RxThr*4);
 
 					} else {
 						if ((QspiPsuStatusReg &
-							XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != 0U) {
-								XQspiPsu_ReadRxFifo(InstancePtr,
-									&Msg[Index], InstancePtr->RxBytes);
+						XQSPIPSU_ISR_GENFIFOEMPTY_MASK)
+							!= 0U) {
+							XQspiPsu_ReadRxFifo(
+							InstancePtr,
+							&Msg[Index],
+							InstancePtr->RxBytes);
 						}
 					}
 				}
 			}
-		} while (((QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) == FALSE) ||
+		} while (((QspiPsuStatusReg &
+			XQSPIPSU_ISR_GENFIFOEMPTY_MASK) == FALSE) ||
 			(InstancePtr->TxBytes != 0) ||
-			((QspiPsuStatusReg & XQSPIPSU_ISR_TXEMPTY_MASK) == FALSE) ||
+			((QspiPsuStatusReg &
+				XQSPIPSU_ISR_TXEMPTY_MASK) == FALSE) ||
 			(InstancePtr->RxBytes != 0));
 
-		if((InstancePtr->IsUnaligned != 0) && (IOPending == (u32)FALSE)) {
+		if ((InstancePtr->IsUnaligned != 0) &&
+			(IOPending == (u32)FALSE)) {
 			InstancePtr->IsUnaligned = 0;
 			XQspiPsu_WriteReg(BaseAddress,
 				XQSPIPSU_CFG_OFFSET, (XQspiPsu_ReadReg(
@@ -500,7 +533,7 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 	if (InstancePtr->IsManualstart == TRUE) {
 #ifdef DEBUG
-	xil_printf("\nManual Start\r\n");
+		xil_printf("\nManual Start\r\n");
 #endif
 		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_CFG_OFFSET,
 			XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_CFG_OFFSET) |
@@ -524,23 +557,23 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 /*****************************************************************************/
 /**
-*
-* This function initiates a transfer on the bus and enables interrupts.
-* The transfer is completed by the interrupt handler. The messages passed are
-* all transferred on the bus between one CS assert and de-assert.
-*
-* @param	InstancePtr is a pointer to the XQspiPsu instance.
-* @param	Msg is a pointer to the structure containing transfer data.
-* @param	NumMsg is the number of messages to be transferred.
-*
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if transfer fails.
-*		- XST_DEVICE_BUSY if a transfer is already in progress.
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * This function initiates a transfer on the bus and enables interrupts.
+ * The transfer is completed by the interrupt handler. The messages passed are
+ * all transferred on the bus between one CS assert and de-assert.
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ * @param	Msg is a pointer to the structure containing transfer data.
+ * @param	NumMsg is the number of messages to be transferred.
+ *
+ * @return
+ *		- XST_SUCCESS if successful.
+ *		- XST_FAILURE if transfer fails.
+ *		- XST_DEVICE_BUSY if a transfer is already in progress.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 				u32 NumMsg)
 {
@@ -554,7 +587,10 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		Xil_AssertNonvoid(Msg[Index].ByteCount > 0U);
 	}
 
-	/* Check whether there is another transfer in progress. Not thread-safe */
+	/*
+	 * Check whether there is another transfer in progress.
+	 * Not thread-safe
+	 */
 	if (InstancePtr->IsBusy == TRUE) {
 		return (s32)XST_DEVICE_BUSY;
 	}
@@ -566,10 +602,11 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		/* Check for ByteCount upper limit - 2^28 for DMA */
 		for (Index = 0; Index < (s32)NumMsg; Index++) {
 			if ((Msg[Index].ByteCount > XQSPIPSU_DMA_BYTES_MAX) &&
-					((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
-			return (s32)XST_FAILURE;
+				((Msg[Index].Flags &
+					XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
+				return (s32)XST_FAILURE;
+			}
 		}
-	}
 
 	/*
 	 * Set the busy flag, which will be cleared when the transfer is
@@ -595,7 +632,7 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 	if (InstancePtr->IsManualstart == TRUE) {
 #ifdef DEBUG
-	xil_printf("\nManual Start\r\n");
+		xil_printf("\nManual Start\r\n");
 #endif
 		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_CFG_OFFSET,
 			XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_CFG_OFFSET) |
@@ -604,8 +641,10 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 	/* Enable interrupts */
 	XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_IER_OFFSET,
-		(u32)XQSPIPSU_IER_TXNOT_FULL_MASK | (u32)XQSPIPSU_IER_TXEMPTY_MASK |
-		(u32)XQSPIPSU_IER_RXNEMPTY_MASK | (u32)XQSPIPSU_IER_GENFIFOEMPTY_MASK |
+		(u32)XQSPIPSU_IER_TXNOT_FULL_MASK |
+		(u32)XQSPIPSU_IER_TXEMPTY_MASK |
+		(u32)XQSPIPSU_IER_RXNEMPTY_MASK |
+		(u32)XQSPIPSU_IER_GENFIFOEMPTY_MASK |
 		(u32)XQSPIPSU_IER_RXEMPTY_MASK);
 
 	if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
@@ -618,18 +657,18 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 /*****************************************************************************/
 /**
-*
-* Handles interrupt based transfers by acting on GENFIFO and DMA interurpts.
-*
-* @param	InstancePtr is a pointer to the XQspiPsu instance.
-*
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if transfer fails.
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * Handles interrupt based transfers by acting on GENFIFO and DMA interurpts.
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ *
+ * @return
+ *		- XST_SUCCESS if successful.
+ *		- XST_FAILURE if transfer fails.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 {
 	u32 QspiPsuStatusReg, DmaIntrStatusReg = 0;
@@ -659,7 +698,8 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 		XQspiPsu_WriteReg(BaseAddress,
 			XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET, DmaIntrStatusReg);
 	}
-	if (((DmaIntrStatusReg & XQSPIPSU_QSPIDMA_DST_INTR_ERR_MASK) != FALSE)) {
+	if (((DmaIntrStatusReg &
+		XQSPIPSU_QSPIDMA_DST_INTR_ERR_MASK) != FALSE)) {
 		/* Call status handler to indicate error */
 		InstancePtr->StatusHandler(InstancePtr->StatusRef,
 					XST_SPI_COMMAND_ERROR, 0);
@@ -679,7 +719,8 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	 */
 	if ((MsgCnt < NumMsg) && ((TxRxFlag & XQSPIPSU_MSG_FLAG_TX) != FALSE) &&
 		((QspiPsuStatusReg & XQSPIPSU_ISR_TXEMPTY_MASK) != FALSE) &&
-		((QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != FALSE) &&
+		((QspiPsuStatusReg &
+			XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != FALSE) &&
 		(InstancePtr->TxBytes == 0) &&
 		((TxRxFlag & XQSPIPSU_MSG_FLAG_RX) == FALSE)) {
 		MsgCnt += 1;
@@ -687,51 +728,63 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	}
 
 	if ((InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) &&
-		(MsgCnt < NumMsg) && ((TxRxFlag & XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
-		if ((DmaIntrStatusReg & XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK) != FALSE) {
+		(MsgCnt < NumMsg) && ((TxRxFlag &
+			XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
+		if ((DmaIntrStatusReg &
+			XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK) != FALSE) {
 				/* Read remaining bytes using IO mode */
-			if((InstancePtr->RxBytes % 4) != 0 ) {
+			if ((InstancePtr->RxBytes % 4) != 0) {
 				XQspiPsu_WriteReg(BaseAddress,
-					XQSPIPSU_CFG_OFFSET, (XQspiPsu_ReadReg(
-					BaseAddress, XQSPIPSU_CFG_OFFSET) &
+					XQSPIPSU_CFG_OFFSET, (
+					XQspiPsu_ReadReg(BaseAddress,
+					XQSPIPSU_CFG_OFFSET) &
 					~XQSPIPSU_CFG_MODE_EN_MASK));
 				InstancePtr->ReadMode = XQSPIPSU_READMODE_IO;
-				Msg[MsgCnt].ByteCount = (InstancePtr->RxBytes % 4);
-				Msg[MsgCnt].RxBfrPtr += (InstancePtr->RxBytes -
+				Msg[MsgCnt].ByteCount =
+					(InstancePtr->RxBytes % 4);
+				Msg[MsgCnt].RxBfrPtr +=
+					(InstancePtr->RxBytes -
 						(InstancePtr->RxBytes % 4));
 				InstancePtr->IsUnaligned = 1;
 				XQspiPsu_GenFifoEntryData(InstancePtr, Msg,
 						MsgCnt);
-				if(InstancePtr->IsManualstart == TRUE) {
+				if (InstancePtr->IsManualstart == TRUE) {
 #ifdef DEBUG
-	xil_printf("\nManual Start\r\n");
+					xil_printf("\nManual Start\r\n");
 #endif
 					XQspiPsu_WriteReg(BaseAddress,
-						XQSPIPSU_CFG_OFFSET,
-						XQspiPsu_ReadReg(BaseAddress,
-						XQSPIPSU_CFG_OFFSET) |
-						XQSPIPSU_CFG_START_GEN_FIFO_MASK);
+					XQSPIPSU_CFG_OFFSET,
+					XQspiPsu_ReadReg(BaseAddress,
+					XQSPIPSU_CFG_OFFSET) |
+					XQSPIPSU_CFG_START_GEN_FIFO_MASK);
 				}
-			}
-			else {
+			} else {
 				InstancePtr->RxBytes = 0;
 				MsgCnt += 1;
 				DeltaMsgCnt = 1U;
 			}
 		}
 	} else {
-		if ((MsgCnt < NumMsg) && ((TxRxFlag & XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
+		if ((MsgCnt < NumMsg) && ((TxRxFlag &
+			XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
 			if (InstancePtr->RxBytes != 0) {
-				if ((QspiPsuStatusReg & XQSPIPSU_ISR_RXNEMPTY_MASK)
-								!= FALSE) {
-					RxThr = (s32)XQspiPsu_ReadReg(BaseAddress,
-								XQSPIPSU_RX_THRESHOLD_OFFSET);
-					XQspiPsu_ReadRxFifo(InstancePtr, &Msg[MsgCnt],
+				if ((QspiPsuStatusReg &
+					XQSPIPSU_ISR_RXNEMPTY_MASK) != FALSE) {
+					RxThr =
+					(s32)XQspiPsu_ReadReg(BaseAddress,
+						XQSPIPSU_RX_THRESHOLD_OFFSET);
+					XQspiPsu_ReadRxFifo(InstancePtr,
+						&Msg[MsgCnt],
 						RxThr*4);
 				} else {
-					if (((QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != FALSE) &&
-						((QspiPsuStatusReg & XQSPIPSU_ISR_RXEMPTY_MASK) == FALSE)) {
-						XQspiPsu_ReadRxFifo(InstancePtr, &Msg[MsgCnt],
+					if (((QspiPsuStatusReg &
+						XQSPIPSU_ISR_GENFIFOEMPTY_MASK)
+						!= FALSE) &&
+						((QspiPsuStatusReg &
+						XQSPIPSU_ISR_RXEMPTY_MASK)
+						== FALSE)) {
+						XQspiPsu_ReadRxFifo(InstancePtr,
+							&Msg[MsgCnt],
 							InstancePtr->RxBytes);
 					}
 				}
@@ -753,7 +806,8 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 		((TxRxFlag & XQSPIPSU_MSG_FLAG_RX) == FALSE) &&
 		((TxRxFlag & XQSPIPSU_MSG_FLAG_TX) == FALSE) &&
 		((TxRxFlag & XQSPIPSU_MSG_FLAG_POLL) == FALSE) &&
-		((QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != FALSE)) {
+		((QspiPsuStatusReg &
+			XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != FALSE)) {
 		MsgCnt += 1;
 		DeltaMsgCnt = 1U;
 	}
@@ -767,12 +821,14 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	if (((QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != FALSE) &&
 		((DeltaMsgCnt != FALSE) || (MsgCnt > NumMsg))) {
 		if (MsgCnt < NumMsg) {
-			if(InstancePtr->IsUnaligned != 0) {
+			if (InstancePtr->IsUnaligned != 0) {
 				InstancePtr->IsUnaligned = 0;
-				XQspiPsu_WriteReg(InstancePtr->Config.
-					BaseAddress, XQSPIPSU_CFG_OFFSET,
-					(XQspiPsu_ReadReg(InstancePtr->Config.
-					BaseAddress, XQSPIPSU_CFG_OFFSET) |
+				XQspiPsu_WriteReg(
+					InstancePtr->Config.BaseAddress,
+					XQSPIPSU_CFG_OFFSET,
+					(XQspiPsu_ReadReg(
+					InstancePtr->Config.BaseAddress,
+					XQSPIPSU_CFG_OFFSET) |
 					XQSPIPSU_CFG_MODE_EN_DMA_MASK));
 				InstancePtr->ReadMode = XQSPIPSU_READMODE_DMA;
 			}
@@ -781,13 +837,13 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 
 			if (InstancePtr->IsManualstart == TRUE) {
 #ifdef DEBUG
-	xil_printf("\nManual Start\r\n");
+				xil_printf("\nManual Start\r\n");
 #endif
 				XQspiPsu_WriteReg(BaseAddress,
-					XQSPIPSU_CFG_OFFSET,
-					XQspiPsu_ReadReg(BaseAddress,
-						XQSPIPSU_CFG_OFFSET) |
-						XQSPIPSU_CFG_START_GEN_FIFO_MASK);
+				XQSPIPSU_CFG_OFFSET,
+				XQspiPsu_ReadReg(BaseAddress,
+					XQSPIPSU_CFG_OFFSET) |
+					XQSPIPSU_CFG_START_GEN_FIFO_MASK);
 			}
 		} else if (MsgCnt == NumMsg) {
 			/* This is just to keep track of the de-assert entry */
@@ -799,13 +855,13 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 
 			if (InstancePtr->IsManualstart == TRUE) {
 #ifdef DEBUG
-	xil_printf("\nManual Start\r\n");
+				xil_printf("\nManual Start\r\n");
 #endif
 				XQspiPsu_WriteReg(BaseAddress,
-					XQSPIPSU_CFG_OFFSET,
-					XQspiPsu_ReadReg(BaseAddress,
-						XQSPIPSU_CFG_OFFSET) |
-						XQSPIPSU_CFG_START_GEN_FIFO_MASK);
+				XQSPIPSU_CFG_OFFSET,
+				XQspiPsu_ReadReg(BaseAddress,
+					XQSPIPSU_CFG_OFFSET) |
+					XQSPIPSU_CFG_START_GEN_FIFO_MASK);
 			}
 		} else {
 			/* Disable interrupts */
@@ -832,74 +888,77 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 						XST_SPI_TRANSFER_DONE, 0);
 		}
 	}
-	if ((TxRxFlag & XQSPIPSU_MSG_FLAG_POLL) != FALSE){
-		 if (QspiPsuStatusReg & XQSPIPSU_ISR_RXNEMPTY_MASK){
-			 /*
-			  * Read data from RXFIFO, since when data from the flash device
-			  * (status data) matched with configured value in poll_cfg, then
-			  * controller writes the matched data into RXFIFO.
-			  */
-			XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_RXD_OFFSET);
+	if ((TxRxFlag & XQSPIPSU_MSG_FLAG_POLL) != FALSE) {
+		if (QspiPsuStatusReg & XQSPIPSU_ISR_RXNEMPTY_MASK) {
+			/*
+			 * Read data from RXFIFO, since when data from the
+			 * flash device (status data) matched with configured
+			 * value in poll_cfg, then controller writes the
+			 * matched data into RXFIFO.
+			 */
+			XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+				XQSPIPSU_RXD_OFFSET);
 
 			XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_IDR_OFFSET,
-					(u32)XQSPIPSU_IER_TXNOT_FULL_MASK |
-					(u32)XQSPIPSU_IER_TXEMPTY_MASK |
-					(u32)XQSPIPSU_IER_RXNEMPTY_MASK |
-					(u32)XQSPIPSU_IER_GENFIFOEMPTY_MASK |
-					(u32)XQSPIPSU_IER_RXEMPTY_MASK |
-					(u32)XQSPIPSU_IER_POLL_TIME_EXPIRE_MASK);
-			InstancePtr->StatusHandler(InstancePtr->StatusRef, XST_SPI_POLL_DONE, 0);
+				(u32)XQSPIPSU_IER_TXNOT_FULL_MASK |
+				(u32)XQSPIPSU_IER_TXEMPTY_MASK |
+				(u32)XQSPIPSU_IER_RXNEMPTY_MASK |
+				(u32)XQSPIPSU_IER_GENFIFOEMPTY_MASK |
+				(u32)XQSPIPSU_IER_RXEMPTY_MASK |
+				(u32)XQSPIPSU_IER_POLL_TIME_EXPIRE_MASK);
+			InstancePtr->StatusHandler(InstancePtr->StatusRef,
+				XST_SPI_POLL_DONE, 0);
 
 			InstancePtr->IsBusy = FALSE;
 			/* Disable the device. */
 			XQspiPsu_Disable(InstancePtr);
 
-		 }
-		 if (QspiPsuStatusReg & XQSPIPSU_ISR_POLL_TIME_EXPIRE_MASK){
+		}
+		if (QspiPsuStatusReg & XQSPIPSU_ISR_POLL_TIME_EXPIRE_MASK) {
 			InstancePtr->StatusHandler(InstancePtr->StatusRef,
 					XST_FLASH_TIMEOUT_ERROR, 0);
-		 }
+		}
 	}
 	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
 /**
-*
-* Sets the status callback function, the status handler, which the driver
-* calls when it encounters conditions that should be reported to upper
-* layer software. The handler executes in an interrupt context, so it must
-* minimize the amount of processing performed. One of the following status
-* events is passed to the status handler.
-*
-* <pre>
-*
-* XST_SPI_TRANSFER_DONE		The requested data transfer is done
-*
-* XST_SPI_TRANSMIT_UNDERRUN	As a slave device, the master clocked data
-*				but there were none available in the transmit
-*				register/FIFO. This typically means the slave
-*				application did not issue a transfer request
-*				fast enough, or the processor/driver could not
-*				fill the transmit register/FIFO fast enough.
-*
-* XST_SPI_RECEIVE_OVERRUN	The QSPIPSU device lost data. Data was received
-*				but the receive data register/FIFO was full.
-*
-* </pre>
-* @param	InstancePtr is a pointer to the XQspiPsu instance.
-* @param	CallBackRef is the upper layer callback reference passed back
-*		when the callback function is invoked.
-* @param	FuncPointer is the pointer to the callback function.
-*
-* @return	None.
-*
-* @note
-*
-* The handler is called within interrupt context, so it should do its work
-* quickly and queue potentially time-consuming work to a task-level thread.
-*
-******************************************************************************/
+ *
+ * Sets the status callback function, the status handler, which the driver
+ * calls when it encounters conditions that should be reported to upper
+ * layer software. The handler executes in an interrupt context, so it must
+ * minimize the amount of processing performed. One of the following status
+ * events is passed to the status handler.
+ *
+ * <pre>
+ *
+ * XST_SPI_TRANSFER_DONE		The requested data transfer is done
+ *
+ * XST_SPI_TRANSMIT_UNDERRUN	As a slave device, the master clocked data
+ *				but there were none available in the transmit
+ *				register/FIFO. This typically means the slave
+ *				application did not issue a transfer request
+ *				fast enough, or the processor/driver could not
+ *				fill the transmit register/FIFO fast enough.
+ *
+ * XST_SPI_RECEIVE_OVERRUN	The QSPIPSU device lost data. Data was received
+ *				but the receive data register/FIFO was full.
+ *
+ * </pre>
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ * @param	CallBackRef is the upper layer callback reference passed back
+ *		when the callback function is invoked.
+ * @param	FuncPointer is the pointer to the callback function.
+ *
+ * @return	None.
+ *
+ * @note
+ *
+ * The handler is called within interrupt context, so it should do its work
+ * quickly and queue potentially time-consuming work to a task-level thread.
+ *
+ ******************************************************************************/
 void XQspiPsu_SetStatusHandler(XQspiPsu *InstancePtr, void *CallBackRef,
 				XQspiPsu_StatusHandler FuncPointer)
 {
@@ -913,20 +972,20 @@ void XQspiPsu_SetStatusHandler(XQspiPsu *InstancePtr, void *CallBackRef,
 
 /*****************************************************************************/
 /**
-*
-* This is a stub for the status callback. The stub is here in case the upper
-* layers forget to set the handler.
-*
-* @param	CallBackRef is a pointer to the upper layer callback reference
-* @param	StatusEvent is the event that just occurred.
-* @param	ByteCount is the number of bytes transferred up until the event
-*		occurred.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * This is a stub for the status callback. The stub is here in case the upper
+ * layers forget to set the handler.
+ *
+ * @param	CallBackRef is a pointer to the upper layer callback reference
+ * @param	StatusEvent is the event that just occurred.
+ * @param	ByteCount is the number of bytes transferred up until the event
+ *		occurred.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 				u32 ByteCount)
 {
@@ -939,15 +998,15 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 
 /*****************************************************************************/
 /**
-*
-* Selects SPI mode - x1 or x2 or x4.
-*
-* @param	SpiMode - spi or dual or quad.
-* @return	Mask to set desired SPI mode in GENFIFO entry.
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * Selects SPI mode - x1 or x2 or x4.
+ *
+ * @param	SpiMode - spi or dual or quad.
+ * @return	Mask to set desired SPI mode in GENFIFO entry.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 static inline u32 XQspiPsu_SelectSpiMode(u8 SpiMode)
 {
 	u32 Mask;
@@ -957,18 +1016,18 @@ static inline u32 XQspiPsu_SelectSpiMode(u8 SpiMode)
 #endif
 
 	switch (SpiMode) {
-		case XQSPIPSU_SELECT_MODE_DUALSPI:
-			Mask = XQSPIPSU_GENFIFO_MODE_DUALSPI;
-			break;
-		case XQSPIPSU_SELECT_MODE_QUADSPI:
-			Mask = XQSPIPSU_GENFIFO_MODE_QUADSPI;
-			break;
-		case XQSPIPSU_SELECT_MODE_SPI:
-			Mask = XQSPIPSU_GENFIFO_MODE_SPI;
-			break;
-		default:
-			Mask = XQSPIPSU_GENFIFO_MODE_SPI;
-			break;
+	case XQSPIPSU_SELECT_MODE_DUALSPI:
+		Mask = XQSPIPSU_GENFIFO_MODE_DUALSPI;
+		break;
+	case XQSPIPSU_SELECT_MODE_QUADSPI:
+		Mask = XQSPIPSU_GENFIFO_MODE_QUADSPI;
+		break;
+	case XQSPIPSU_SELECT_MODE_SPI:
+		Mask = XQSPIPSU_GENFIFO_MODE_SPI;
+		break;
+	default:
+		Mask = XQSPIPSU_GENFIFO_MODE_SPI;
+		break;
 	}
 #ifdef DEBUG
 	xil_printf("\nSPIMode is %08x\r\n", SpiMode);
@@ -979,20 +1038,20 @@ static inline u32 XQspiPsu_SelectSpiMode(u8 SpiMode)
 
 /*****************************************************************************/
 /**
-*
-* This function checks the TX/RX buffers in the message and setups up the
-* GENFIFO entries, TX FIFO or RX DMA as required.
-*
-* @param	InstancePtr is a pointer to the XQspiPsu instance.
-* @param	Msg is a pointer to the structure containing transfer data.
-* @param	GenFifoEntry is pointer to the variable in which GENFIFO mask
-*		is returned to calling function
-*
-* @return	None
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * This function checks the TX/RX buffers in the message and setups up the
+ * GENFIFO entries, TX FIFO or RX DMA as required.
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ * @param	Msg is a pointer to the structure containing transfer data.
+ * @param	GenFifoEntry is pointer to the variable in which GENFIFO mask
+ *		is returned to calling function
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 					u32 *GenFifoEntry)
 {
@@ -1074,19 +1133,19 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 /*****************************************************************************/
 /**
-*
-* Fills the TX FIFO as long as there is room in the FIFO or the bytes required
-* to be transmitted.
-*
-* @param	InstancePtr is a pointer to the XQspiPsu instance.
-* @param	Msg is a pointer to the structure containing transfer data.
-* @param	Size is the number of bytes to be transmitted.
-*
-* @return	None
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * Fills the TX FIFO as long as there is room in the FIFO or the bytes required
+ * to be transmitted.
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ * @param	Msg is a pointer to the structure containing transfer data.
+ * @param	Size is the number of bytes to be transmitted.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
 					XQspiPsu_Msg *Msg, s32 Size)
 {
@@ -1106,7 +1165,8 @@ static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
 			InstancePtr->TxBytes -= 4;
 			Count += 4;
 		} else {
-			(void)memcpy(&Data, Msg->TxBfrPtr, InstancePtr->TxBytes);
+			(void)memcpy(&Data, Msg->TxBfrPtr,
+				InstancePtr->TxBytes);
 			Msg->TxBfrPtr += InstancePtr->TxBytes;
 			Count += InstancePtr->TxBytes;
 			InstancePtr->TxBytes = 0;
@@ -1125,17 +1185,17 @@ static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
 
 /*****************************************************************************/
 /**
-*
-* This function sets up the RX DMA operation.
-*
-* @param	InstancePtr is a pointer to the XQspiPsu instance.
-* @param	Msg is a pointer to the structure containing transfer data.
-*
-* @return	None
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * This function sets up the RX DMA operation.
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ * @param	Msg is a pointer to the structure containing transfer data.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 					XQspiPsu_Msg *Msg)
 {
@@ -1180,18 +1240,18 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 
 /*****************************************************************************/
 /**
-*
-* This function sets up the RX DMA operation on a 32bit Machine
-* For 64bit Dma transfers..
-*
-* @param	InstancePtr is a pointer to the XQspiPsu instance.
-* @param	Msg is a pointer to the structure containing transfer data.
-*
-* @return	None
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * This function sets up the RX DMA operation on a 32bit Machine
+ * For 64bit Dma transfers..
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ * @param	Msg is a pointer to the structure containing transfer data.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 static inline void XQspiPsu_Setup64BRxDma(XQspiPsu *InstancePtr,
 					XQspiPsu_Msg *Msg)
 {
@@ -1228,16 +1288,16 @@ static inline void XQspiPsu_Setup64BRxDma(XQspiPsu *InstancePtr,
 
 /*****************************************************************************/
 /**
-*
-* This function writes the GENFIFO entry to assert CS.
-*
-* @param	InstancePtr is a pointer to the XQspiPsu instance.
-*
-* @return	None
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * This function writes the GENFIFO entry to assert CS.
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 static inline void XQspiPsu_GenFifoEntryCSAssert(XQspiPsu *InstancePtr)
 {
 	u32 GenFifoEntry;
@@ -1247,7 +1307,8 @@ static inline void XQspiPsu_GenFifoEntryCSAssert(XQspiPsu *InstancePtr)
 #endif
 
 	GenFifoEntry = 0x0U;
-	GenFifoEntry &= ~((u32)XQSPIPSU_GENFIFO_DATA_XFER | (u32)XQSPIPSU_GENFIFO_EXP);
+	GenFifoEntry &= ~((u32)XQSPIPSU_GENFIFO_DATA_XFER |
+		(u32)XQSPIPSU_GENFIFO_EXP);
 	GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_MODE_MASK);
 	GenFifoEntry |= XQSPIPSU_GENFIFO_MODE_SPI;
 	GenFifoEntry |= InstancePtr->GenFifoCS;
@@ -1257,7 +1318,7 @@ static inline void XQspiPsu_GenFifoEntryCSAssert(XQspiPsu *InstancePtr)
 			XQSPIPSU_GENFIFO_STRIPE | XQSPIPSU_GENFIFO_POLL);
 	GenFifoEntry |= XQSPIPSU_GENFIFO_CS_SETUP;
 #ifdef DEBUG
-	xil_printf("\nFifoEntry=%08x\r\n",GenFifoEntry);
+	xil_printf("\nFifoEntry=%08x\r\n", GenFifoEntry);
 #endif
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
@@ -1265,21 +1326,21 @@ static inline void XQspiPsu_GenFifoEntryCSAssert(XQspiPsu *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
-* This function writes the GENFIFO entries to transmit the messages requested.
-*
-* @param	InstancePtr is a pointer to the XQspiPsu instance.
-* @param	Msg is a pointer to the structure containing transfer data.
-* @param	Index of the current message to be handled.
-*
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if transfer fails.
-*		- XST_DEVICE_BUSY if a transfer is already in progress.
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * This function writes the GENFIFO entries to transmit the messages requested.
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ * @param	Msg is a pointer to the structure containing transfer data.
+ * @param	Index of the current message to be handled.
+ *
+ * @return
+ *		- XST_SUCCESS if successful.
+ *		- XST_FAILURE if transfer fails.
+ *		- XST_DEVICE_BUSY if a transfer is already in progress.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 						XQspiPsu_Msg *Msg, s32 Index)
 {
@@ -1313,11 +1374,12 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 	/* If Byte Count is less than 8 bytes do the transfer in IO mode */
 	if ((Msg[Index].ByteCount < 8U) &&
 		(InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA)) {
-			InstancePtr->ReadMode = XQSPIPSU_READMODE_IO;
-			XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_CFG_OFFSET,
-				(XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_CFG_OFFSET) &
-						~XQSPIPSU_CFG_MODE_EN_MASK));
-			InstancePtr->IsUnaligned = 1;
+		InstancePtr->ReadMode = XQSPIPSU_READMODE_IO;
+		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_CFG_OFFSET,
+			(XQspiPsu_ReadReg(BaseAddress,
+				XQSPIPSU_CFG_OFFSET) &
+					~XQSPIPSU_CFG_MODE_EN_MASK));
+		InstancePtr->IsUnaligned = 1;
 	}
 
 	XQspiPsu_TXRXSetup(InstancePtr, &Msg[Index], &GenFifoEntry);
@@ -1326,7 +1388,7 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 		GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_IMM_DATA_MASK);
 		GenFifoEntry |= Msg[Index].ByteCount;
 #ifdef DEBUG
-	xil_printf("\nFifoEntry=%08x\r\n",GenFifoEntry);
+	xil_printf("\nFifoEntry=%08x\r\n", GenFifoEntry);
 #endif
 		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_GEN_FIFO_OFFSET,
 				GenFifoEntry);
@@ -1338,11 +1400,14 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 		/* Exponent entries */
 		GenFifoEntry |= XQSPIPSU_GENFIFO_EXP;
 		while (TempCount != 0U) {
-			if ((TempCount & XQSPIPSU_GENFIFO_EXP_START) != FALSE) {
-				GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_IMM_DATA_MASK);
+			if ((TempCount &
+				XQSPIPSU_GENFIFO_EXP_START) != FALSE) {
+				GenFifoEntry &=
+					(u32)(~XQSPIPSU_GENFIFO_IMM_DATA_MASK);
 				GenFifoEntry |= Exponent;
 #ifdef DEBUG
-	xil_printf("\nFifoEntry=%08x\r\n",GenFifoEntry);
+				xil_printf("\nFifoEntry=%08x\r\n",
+					GenFifoEntry);
 #endif
 				XQspiPsu_WriteReg(BaseAddress,
 					XQSPIPSU_GEN_FIFO_OFFSET,
@@ -1358,7 +1423,7 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 			GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_IMM_DATA_MASK);
 			GenFifoEntry |= ImmData & 0xFFU;
 #ifdef DEBUG
-	xil_printf("\nFifoEntry=%08x\r\n",GenFifoEntry);
+			xil_printf("\nFifoEntry=%08x\r\n", GenFifoEntry);
 #endif
 			XQspiPsu_WriteReg(BaseAddress,
 				XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
@@ -1370,7 +1435,7 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 			((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
 		GenFifoEntry = 0x0U;
 #ifdef DEBUG
-	xil_printf("\nDummy FifoEntry=%08x\r\n",GenFifoEntry);
+		xil_printf("\nDummy FifoEntry=%08x\r\n", GenFifoEntry);
 #endif
 		XQspiPsu_WriteReg(BaseAddress,
 				XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
@@ -1379,16 +1444,16 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 
 /*****************************************************************************/
 /**
-*
-* This function writes the GENFIFO entry to de-assert CS.
-*
-* @param	InstancePtr is a pointer to the XQspiPsu instance.
-*
-* @return	None
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * This function writes the GENFIFO entry to de-assert CS.
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 static inline void XQspiPsu_GenFifoEntryCSDeAssert(XQspiPsu *InstancePtr)
 {
 	u32 GenFifoEntry;
@@ -1398,7 +1463,8 @@ static inline void XQspiPsu_GenFifoEntryCSDeAssert(XQspiPsu *InstancePtr)
 #endif
 
 	GenFifoEntry = 0x0U;
-	GenFifoEntry &= ~((u32)XQSPIPSU_GENFIFO_DATA_XFER | (u32)XQSPIPSU_GENFIFO_EXP);
+	GenFifoEntry &= ~((u32)XQSPIPSU_GENFIFO_DATA_XFER |
+		(u32)XQSPIPSU_GENFIFO_EXP);
 	GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_MODE_MASK);
 	GenFifoEntry |= XQSPIPSU_GENFIFO_MODE_SPI;
 	GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_BUS_MASK);
@@ -1407,7 +1473,7 @@ static inline void XQspiPsu_GenFifoEntryCSDeAssert(XQspiPsu *InstancePtr)
 			XQSPIPSU_GENFIFO_STRIPE | XQSPIPSU_GENFIFO_POLL);
 	GenFifoEntry |= XQSPIPSU_GENFIFO_CS_HOLD;
 #ifdef DEBUG
-	xil_printf("\nFifoEntry=%08x\r\n",GenFifoEntry);
+	xil_printf("\nFifoEntry=%08x\r\n", GenFifoEntry);
 #endif
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
@@ -1415,18 +1481,18 @@ static inline void XQspiPsu_GenFifoEntryCSDeAssert(XQspiPsu *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
-* Read the specified number of bytes from RX FIFO
-*
-* @param	InstancePtr is a pointer to the XQspiPsu instance.
-* @param	Msg is a pointer to the structure containing transfer data.
-* @param	Size is the number of bytes to be read.
-*
-* @return	None
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * Read the specified number of bytes from RX FIFO
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ * @param	Msg is a pointer to the structure containing transfer data.
+ * @param	Size is the number of bytes to be read.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
 					XQspiPsu_Msg *Msg, s32 Size)
 {
@@ -1441,10 +1507,10 @@ static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
 	Xil_AssertVoid(Msg != NULL);
 
 	while ((InstancePtr->RxBytes != 0) && (Count < Size)) {
-		Data = XQspiPsu_ReadReg(InstancePtr->
-				Config.BaseAddress, XQSPIPSU_RXD_OFFSET);
+		Data = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_RXD_OFFSET);
 #ifdef DEBUG
-	xil_printf("\nData is %08x\r\n", Data);
+		xil_printf("\nData is %08x\r\n", Data);
 #endif
 		if (InstancePtr->RxBytes >= 4) {
 			(void)memcpy(Msg->RxBfrPtr, &Data, 4);
@@ -1453,7 +1519,8 @@ static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
 			Count += 4;
 		} else {
 			/* Read unaligned bytes (< 4 bytes) */
-			(void)memcpy(Msg->RxBfrPtr, &Data, InstancePtr->RxBytes);
+			(void)memcpy(Msg->RxBfrPtr, &Data,
+				InstancePtr->RxBytes);
 			Msg->RxBfrPtr += InstancePtr->RxBytes;
 			Count += InstancePtr->RxBytes;
 			InstancePtr->RxBytes = 0;
@@ -1463,28 +1530,28 @@ static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
 
 /*****************************************************************************/
 /**
-*
-* This function enables the polling functionality of controller
-*
-* @param	QspiPsuPtr is a pointer to the XQspiPsu instance.
-*
-* @param	Statuscommand is the status command which send by controller.
-*
-* @param	FlashMsg is a pointer to the structure containing transfer data
-*
-* @return	None
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * This function enables the polling functionality of controller
+ *
+ * @param	QspiPsuPtr is a pointer to the XQspiPsu instance.
+ *
+ * @param	Statuscommand is the status command which send by controller.
+ *
+ * @param	FlashMsg is a pointer to the structure containing transfer data
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMsg)
 {
 
-	u32 GenFifoEntry ;
+	u32 GenFifoEntry;
 	u32 Value;
 
 	Xil_AssertVoid(QspiPsuPtr != NULL);
-	Xil_AssertVoid(FlashMsg != NULL );
+	Xil_AssertVoid(FlashMsg != NULL);
 
 	Value = XQspiPsu_Create_PollConfigData(QspiPsuPtr, FlashMsg);
 	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
@@ -1546,20 +1613,20 @@ void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMsg)
 
 /*****************************************************************************/
 /**
-*
-* This function creates Poll config register data to write
-*
-* @param	BusMask is mask to enable/disable upper/lower data bus masks.
-*
-* @param	DataBusMask is Data bus mask value during poll operation.
-*
-* @param	Data is the poll data value to write into config regsiter.
-*
-* @return	None
-*
-* @note		None.
-*
-******************************************************************************/
+ *
+ * This function creates Poll config register data to write
+ *
+ * @param	BusMask is mask to enable/disable upper/lower data bus masks.
+ *
+ * @param	DataBusMask is Data bus mask value during poll operation.
+ *
+ * @param	Data is the poll data value to write into config register.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
 		XQspiPsu_Msg *FlashMsg)
 {
@@ -1567,47 +1634,53 @@ static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
 
 	if (QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_UPPER)
 		ConfigData = XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
-			           XQSPIPSU_POLL_CFG_EN_MASK_UPPER_SHIFT;
+				XQSPIPSU_POLL_CFG_EN_MASK_UPPER_SHIFT;
 	if (QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_LOWER)
 		ConfigData |= XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
-			           XQSPIPSU_POLL_CFG_EN_MASK_LOWER_SHIFT;
-	ConfigData |= ((FlashMsg->PollBusMask << XQSPIPSU_POLL_CFG_MASK_EN_SHIFT)
+				XQSPIPSU_POLL_CFG_EN_MASK_LOWER_SHIFT;
+	ConfigData |= ((FlashMsg->PollBusMask <<
+			XQSPIPSU_POLL_CFG_MASK_EN_SHIFT)
 			& XQSPIPSU_POLL_CFG_MASK_EN_MASK);
-	ConfigData |= ((FlashMsg->PollData << XQSPIPSU_POLL_CFG_DATA_VALUE_SHIFT)
-		          & XQSPIPSU_POLL_CFG_DATA_VALUE_MASK);
+	ConfigData |= ((FlashMsg->PollData <<
+			XQSPIPSU_POLL_CFG_DATA_VALUE_SHIFT)
+			& XQSPIPSU_POLL_CFG_DATA_VALUE_MASK);
 	return ConfigData;
 }
 
 /*****************************************************************************/
 /**
-* @brief
-* This API enables/ disables Write Protect pin on the flash parts.
-*
-* @param	QspiPtr is a pointer to the QSPIPSU driver component to use.
-*
-* @return	None
-*
-* @note	By default WP pin as per the QSPI controller is driven High
-* 		which means no write protection. Calling this function once
-* 		will enable the protection.
-*
-******************************************************************************/
+ * @brief
+ * This API enables/ disables Write Protect pin on the flash parts.
+ *
+ * @param	QspiPtr is a pointer to the QSPIPSU driver component to use.
+ *
+ * @return	None
+ *
+ * @note	By default WP pin as per the QSPI controller is driven High
+ *		which means no write protection. Calling this function once
+ *		will enable the protection.
+ *
+ ******************************************************************************/
 void XQspiPsu_WriteProtectToggle(XQspiPsu *QspiPsuPtr, u32 Toggle)
 {
 	/* For Single and Stacked flash configuration with x1 or x2 mode*/
-	if (QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_SINGLE) {
+	if (QspiPsuPtr->Config.ConnectionMode ==
+		XQSPIPSU_CONNECTION_MODE_SINGLE) {
 		/* Enable */
 		XQspiPsu_Enable(QspiPsuPtr);
 
 		/* Select slave */
 		XQspiPsu_GenFifoEntryCSAssert(QspiPsuPtr);
 
-		XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress, XQSPIPSU_GPIO_OFFSET,
-				Toggle);
+		XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
+			XQSPIPSU_GPIO_OFFSET, Toggle);
 
-	} else if (QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL ||
-			QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_STACKED) {
-		xil_printf("Dual Parallel/Stacked configuration is not supported by this API\r\n");
+	} else if ((QspiPsuPtr->Config.ConnectionMode ==
+			XQSPIPSU_CONNECTION_MODE_PARALLEL) ||
+			(QspiPsuPtr->Config.ConnectionMode ==
+					XQSPIPSU_CONNECTION_MODE_STACKED)) {
+		xil_printf("Dual Parallel/Stacked configuration ");
+		xil_printf("is not supported by this API\r\n");
 	}
 }
 /** @} */
