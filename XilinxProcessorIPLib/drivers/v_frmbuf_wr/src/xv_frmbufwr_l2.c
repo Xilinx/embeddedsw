@@ -54,13 +54,15 @@
 
 /***************************** Include Files *********************************/
 #include <string.h>
+#include "sleep.h"
 #include "xv_frmbufwr_l2.h"
 
 /************************** Constant Definitions *****************************/
 #define XVFRMBUFWR_MIN_STRM_WIDTH            (64u)
 #define XVFRMBUFWR_MIN_STRM_HEIGHT           (64u)
 #define XVFRMBUFWR_IDLE_TIMEOUT              (1000000)
-
+#define XV_WAIT_FOR_FLUSH_DONE		         (25)
+#define XV_WAIT_FOR_FLUSH_DONE_TIMEOUT		 (2000)
 /************************** Function Prototypes ******************************/
 static void SetPowerOnDefaultState(XV_FrmbufWr_l2 *InstancePtr);
 XVidC_ColorFormat WrMemory2Live(XVidC_ColorFormat MemFmt);
@@ -275,8 +277,23 @@ int XVFrmbufWr_Stop(XV_FrmbufWr_l2 *InstancePtr)
   int Status = XST_FAILURE;
   u32 isIdle = 0;
   u32 cnt = 0;
+  u32 Data = 0;
 
   Xil_AssertNonvoid(InstancePtr != NULL);
+
+  /* Flush the core bit */
+  XV_frmbufwr_SetFlushbit(&InstancePtr->FrmbufWr);
+
+  do {
+    Data = XV_frmbufwr_Get_FlushDone(&InstancePtr->FrmbufWr);
+    usleep(XV_WAIT_FOR_FLUSH_DONE_TIMEOUT);
+    cnt++;
+  } while((Data == 0) && (cnt < XV_WAIT_FOR_FLUSH_DONE));
+
+  if (Data == 0)
+        return XST_FAILURE;
+
+  cnt = 0;
 
   /* Clear autostart bit */
   XV_frmbufwr_DisableAutoRestart(&InstancePtr->FrmbufWr);

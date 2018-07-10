@@ -83,6 +83,30 @@ void XV_frmbufwr_DisableAutoRestart(XV_frmbufwr *InstancePtr) {
     XV_frmbufwr_WriteReg(InstancePtr->Config.BaseAddress, XV_FRMBUFWR_CTRL_ADDR_AP_CTRL, 0);
 }
 
+void XV_frmbufwr_SetFlushbit(XV_frmbufwr *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_frmbufwr_ReadReg(InstancePtr->Config.BaseAddress,
+			       XV_FRMBUFWR_CTRL_ADDR_AP_CTRL);
+    Data |= XV_FRMBUFWR_CTRL_BITS_FLUSH_BIT;
+    XV_frmbufwr_WriteReg(InstancePtr->Config.BaseAddress,
+			 XV_FRMBUFWR_CTRL_ADDR_AP_CTRL, Data);
+}
+
+u32 XV_frmbufwr_Get_FlushDone(XV_frmbufwr *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_frmbufwr_ReadReg(InstancePtr->Config.BaseAddress, XV_FRMBUFWR_CTRL_ADDR_AP_CTRL)
+			       & XV_FRMBUFWR_CTRL_BITS_FLUSH_STATUSBIT;
+    return Data;
+}
+
 void XV_frmbufwr_Set_HwReg_width(XV_frmbufwr *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);

@@ -119,7 +119,8 @@ u32 XV_frmbufwr_IsIdle(XV_frmbufwr *InstancePtr);
 u32 XV_frmbufwr_IsReady(XV_frmbufwr *InstancePtr);
 void XV_frmbufwr_EnableAutoRestart(XV_frmbufwr *InstancePtr);
 void XV_frmbufwr_DisableAutoRestart(XV_frmbufwr *InstancePtr);
-
+void XV_frmbufwr_SetFlushbit(XV_frmbufwr *InstancePtr);
+u32 XV_frmbufwr_Get_FlushDone(XV_frmbufwr *InstancePtr);
 void XV_frmbufwr_Set_HwReg_width(XV_frmbufwr *InstancePtr, u32 Data);
 u32 XV_frmbufwr_Get_HwReg_width(XV_frmbufwr *InstancePtr);
 void XV_frmbufwr_Set_HwReg_height(XV_frmbufwr *InstancePtr, u32 Data);
