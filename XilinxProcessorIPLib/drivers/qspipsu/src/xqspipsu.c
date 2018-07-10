@@ -95,7 +95,8 @@ static inline void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr,
 		XQspiPsu_Msg *FlashMsg);
 static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
 		XQspiPsu_Msg *FlashMsg);
-
+static inline void XQspiPsu_Setup64BRxDma(XQspiPsu *InstancePtr,
+			XQspiPsu_Msg *Msg);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
@@ -1023,9 +1024,16 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_RX;
 		InstancePtr->RxBytes = (s32)Msg->ByteCount;
 		InstancePtr->SendBufferPtr = NULL;
-		InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
-		if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
-			XQspiPsu_SetupRxDma(InstancePtr, Msg);
+		if (Msg->RxAddr != -1) {
+			InstancePtr->RecvBuffer = Msg->RxAddr;
+			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
+				XQspiPsu_Setup64BRxDma(InstancePtr, Msg);
+			}
+		} else {
+			InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
+			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
+				XQspiPsu_SetupRxDma(InstancePtr, Msg);
+			}
 		}
 	}
 
@@ -1048,11 +1056,18 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		InstancePtr->TxBytes = (s32)Msg->ByteCount;
 		InstancePtr->RxBytes = (s32)Msg->ByteCount;
 		InstancePtr->SendBufferPtr = Msg->TxBfrPtr;
-		InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
 		XQspiPsu_FillTxFifo(InstancePtr, Msg, XQSPIPSU_TXD_DEPTH);
 		/* Add check for DMA or PIO here */
-		if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
-			XQspiPsu_SetupRxDma(InstancePtr, Msg);
+		if (Msg->RxAddr != -1) {
+			InstancePtr->RecvBuffer = Msg->RxAddr;
+			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
+				XQspiPsu_Setup64BRxDma(InstancePtr, Msg);
+			}
+		} else {
+			InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
+			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
+				XQspiPsu_SetupRxDma(InstancePtr, Msg);
+			}
 		}
 	}
 }
@@ -1155,6 +1170,54 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 	if (InstancePtr->Config.IsCacheCoherent == 0) {
 		Xil_DCacheInvalidateRange((INTPTR)InstancePtr->RecvBufferPtr,
 			Msg->ByteCount);
+	}
+
+	/* Write no. of words to DMA DST SIZE */
+	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_QSPIDMA_DST_SIZE_OFFSET, (u32)DmaRxBytes);
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets up the RX DMA operation on a 32bit Machine
+* For 64bit Dma transfers..
+*
+* @param	InstancePtr is a pointer to the XQspiPsu instance.
+* @param	Msg is a pointer to the structure containing transfer data.
+*
+* @return	None
+*
+* @note		None.
+*
+******************************************************************************/
+static inline void XQspiPsu_Setup64BRxDma(XQspiPsu *InstancePtr,
+					XQspiPsu_Msg *Msg)
+{
+	s32 Remainder;
+	s32 DmaRxBytes;
+	u32 AddrTemp;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	AddrTemp = Msg->RxAddr & XQSPIPSU_QSPIDMA_DST_ADDR_MASK;
+
+	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_QSPIDMA_DST_ADDR_OFFSET,
+			(u32)AddrTemp);
+
+	AddrTemp = (Msg->RxAddr >> 32);
+	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,
+			(u32)AddrTemp &
+			XQSPIPSU_QSPIDMA_DST_ADDR_MSB_MASK);
+
+	Remainder = InstancePtr->RxBytes % 4;
+	DmaRxBytes = InstancePtr->RxBytes;
+	if (Remainder != 0) {
+		/* This is done to make Dma bytes aligned */
+		DmaRxBytes = InstancePtr->RxBytes - Remainder;
+		Msg->ByteCount = (u32)DmaRxBytes;
 	}
 
 	/* Write no. of words to DMA DST SIZE */
