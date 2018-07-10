@@ -1,144 +1,148 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
-******************************************************************************/
+ *
+ * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+ * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * Except as contained in this notice, the name of the Xilinx shall not be used
+ * in advertising or otherwise to promote the sale, use or other dealings in
+ * this Software without prior written authorization from Xilinx.
+ *
+ ******************************************************************************/
 /*****************************************************************************/
 /**
-*
-* @file xqspipsu.h
-* @addtogroup qspipsu_v1_8
-* @{
-* @details
-*
-* This is the header file for the implementation of QSPIPSU driver.
-* Generic QSPI interface allows for communication to any QSPI slave device.
-* GQSPI contains a GENFIFO into which the bus transfers required are to be
-* pushed with appropriate configuration. The controller provides TX and RX
-* FIFO's and a DMA to be used for RX transfers. The controller executes each
-* GENFIFO entry noting the configuration and places data on the bus as required
-*
-* The different options in GENFIFO are as follows:
-* IMM_DATA : Can be one byte of data to be transmitted, number of clocks or
-*            number of bytes in transfer.
-* DATA_XFER : Indicates that data/clocks need to be transmitted or received.
-* EXPONENT : e when 2^e bytes are involved in transfer.
-* SPI_MODE : SPI/Dual SPI/Quad SPI
-* CS : Lower or Upper CS or Both
-* Bus : Lower or Upper Bus or Both
-* TX : When selected, controller transmits data in IMM or fetches number of
-*      bytes mentioned form TX FIFO. If not selected, dummies are pumped.
-* RX : When selected, controller receives and fills the RX FIFO/allows RX DMA
-*      of requested number of bytes. If not selected, RX data is discarded.
-* Stripe : Byte stripe over lower and upper bus or not.
-* Poll : Polls response to match for to a set value (used along with POLL_CFG
-*        registers) and then proceeds to next GENFIFO entry.
-*        This feature is not currently used in the driver.
-*
-* GENFIFO has manual and auto start options.
-* All DMA requests need a 4-byte aligned destination address buffer and
-* size of transfer should also be a multiple of 4.
-* This driver supports DMA RX and IO RX.
-*
-* Initialization:
-* This driver uses the GQSPI controller with RX DMA. It supports both
-* interrupt and polled transfers. Manual start of GENFIFO is used.
-* XQspiPsu_CfgInitialize() initializes the instance variables.
-* Additional setting can be done using SetOptions/ClearOptions functions
-* and SelectSlave function.
-*
-* Transfer:
-* Polled or Interrupt transfers can be done. The transfer function needs the
-* message(s) to be transmitted in the form of an array of type XQspiPsu_Msg.
-* This is supposed to contain the byte count and any TX/RX buffers as required.
-* Flags can be used indicate further information such as whether the message
-* should be striped. The transfer functions form and write GENFIFO entries,
-* check the status of the transfer and report back to the application
-* when done.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who Date     Changes
-* ----- --- -------- -----------------------------------------------.
-* 1.0   hk  08/21/14 First release
-*       sk  03/13/15 Added IO mode support.
-*       hk  03/18/15 Switch to I/O mode before clearing RX FIFO.
-*                    Clear and disbale DMA interrupts/status in abort.
-*                    Use DMA DONE bit instead of BUSY as recommended.
-*       sk  04/24/15 Modified the code according to MISRAC-2012.
-*       sk  06/17/15 Removed NULL checks for Rx/Tx buffers. As
-*                    writing/reading from 0x0 location is permitted.
-* 1.1   sk  04/12/16 Added debug message prints.
-* 1.2	nsk 07/01/16 Added LQSPI support
-*		     Modified XQspiPsu_Select() macro in xqspipsu.h
-*		     Added XQspiPsu_GetLqspiConfigReg() in xqspipsu.h
-*		     Added required macros in xqspipsu_hw.h
-*		     Modified XQspiPsu_SetOptions() to support
-*		     LQSPI options and updated OptionsTable in
-*		     xqspipsu_options.c
-*       rk  07/15/16 Added support for TapDelays at different frequencies.
-*	nsk 08/05/16 Added example support PollData and PollTimeout
-*		     Added  XQSPIPSU_MSG_FLAG_POLL macro in xqspipsu.h
-*		     Added XQspiPsu_Create_PollConfigData and
-*		     XQspiPsu_PollData() functions in xqspipsu.c
-* 1.3	nsk 09/16/16 Update PollData and Polltimeout support for dual parallel
-*	             configuration. Updated XQspiPsu_PollData() and
-*	             XQspiPsu_Create_PollConfigData() functions in xqspipsu.c
-*                    and also modified the polldata example
-*       ms  03/17/17 Added readme.txt file in examples folder for doxygen
-*                    generation.
-*       ms  04/05/17 Modified Comment lines in functions of qspipsu
-*                    examples to recognize it as documentation block
-*                    and modified filename tag to include them in
-*                    doxygen examples.
-* 1.4	tjs 05/26/17 Added support for accessing upper DDR (0x800000000)
-*		     while booting images from QSPI
-* 1.5	tjs	08/08/17 Added index.html file for importing examples from system.mss
-* 1.5	nsk 08/14/17 Added CCI support
-* 1.5	tjs 09/14/17 Modified the checks for 4 byte addressing and commands.
-* 1.6	tjs 10/16/17 Flow for accessing flash is made similar to u-boot and linux
-* 					 For CR-984966
-* 1.6   tjs 11/02/17 Resolved the compilation errors for ICCARM. CR-988625
-* 1.7   tjs 11/16/17 Removed the unsupported 4 Byte write and sector erase
-*                    commands.
-* 1.7	tjs	12/01/17 Added support for MT25QL02G Flash from Micron. CR-990642
-* 1.7	tjs 12/19/17 Added support for S25FL064L from Spansion. CR-990724
-* 1.7	tjs 01/11/18 Added support for MX66L1G45G flash from Macronix CR-992367
-* 1.7	tjs	01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
-* 1.7	tjs	01/17/18 Added support to toggle the WP pin of flash. (PR#2448)
-*                    Added XQspiPsu_SetWP() in xqspipsu_options.c
-*                    Added XQspiPsu_WriteProtectToggle() in xqspipsu.c and
-*                    also added write protect example.
-* 1.7	tjs	03/14/18 Added support in EL1 NS mode (CR#974882)
-* 1.7	tjs 26/03/18 In dual parallel mode enable both CS when issuing Write
-*		     		 enable command. CR-998478
-* 1.8	tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
-* </pre>
-*
-******************************************************************************/
+ *
+ * @file xqspipsu.h
+ * @addtogroup qspipsu_v1_8
+ * @{
+ * @details
+ *
+ * This is the header file for the implementation of QSPIPSU driver.
+ * Generic QSPI interface allows for communication to any QSPI slave device.
+ * GQSPI contains a GENFIFO into which the bus transfers required are to be
+ * pushed with appropriate configuration. The controller provides TX and RX
+ * FIFO's and a DMA to be used for RX transfers. The controller executes each
+ * GENFIFO entry noting the configuration and places data on the bus as required
+ *
+ * The different options in GENFIFO are as follows:
+ * IMM_DATA : Can be one byte of data to be transmitted, number of clocks or
+ *            number of bytes in transfer.
+ * DATA_XFER : Indicates that data/clocks need to be transmitted or received.
+ * EXPONENT : e when 2^e bytes are involved in transfer.
+ * SPI_MODE : SPI/Dual SPI/Quad SPI
+ * CS : Lower or Upper CS or Both
+ * Bus : Lower or Upper Bus or Both
+ * TX : When selected, controller transmits data in IMM or fetches number of
+ *      bytes mentioned form TX FIFO. If not selected, dummies are pumped.
+ * RX : When selected, controller receives and fills the RX FIFO/allows RX DMA
+ *      of requested number of bytes. If not selected, RX data is discarded.
+ * Stripe : Byte stripe over lower and upper bus or not.
+ * Poll : Polls response to match for to a set value (used along with POLL_CFG
+ *        registers) and then proceeds to next GENFIFO entry.
+ *        This feature is not currently used in the driver.
+ *
+ * GENFIFO has manual and auto start options.
+ * All DMA requests need a 4-byte aligned destination address buffer and
+ * size of transfer should also be a multiple of 4.
+ * This driver supports DMA RX and IO RX.
+ *
+ * Initialization:
+ * This driver uses the GQSPI controller with RX DMA. It supports both
+ * interrupt and polled transfers. Manual start of GENFIFO is used.
+ * XQspiPsu_CfgInitialize() initializes the instance variables.
+ * Additional setting can be done using SetOptions/ClearOptions functions
+ * and SelectSlave function.
+ *
+ * Transfer:
+ * Polled or Interrupt transfers can be done. The transfer function needs the
+ * message(s) to be transmitted in the form of an array of type XQspiPsu_Msg.
+ * This is supposed to contain the byte count and any TX/RX buffers as required.
+ * Flags can be used indicate further information such as whether the message
+ * should be striped. The transfer functions form and write GENFIFO entries,
+ * check the status of the transfer and report back to the application
+ * when done.
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who Date     Changes
+ * ----- --- -------- -----------------------------------------------.
+ * 1.0   hk  08/21/14 First release
+ *       sk  03/13/15 Added IO mode support.
+ *       hk  03/18/15 Switch to I/O mode before clearing RX FIFO.
+ *                    Clear and disbale DMA interrupts/status in abort.
+ *                    Use DMA DONE bit instead of BUSY as recommended.
+ *       sk  04/24/15 Modified the code according to MISRAC-2012.
+ *       sk  06/17/15 Removed NULL checks for Rx/Tx buffers. As
+ *                    writing/reading from 0x0 location is permitted.
+ * 1.1   sk  04/12/16 Added debug message prints.
+ * 1.2	nsk 07/01/16 Added LQSPI support
+ *		     Modified XQspiPsu_Select() macro in xqspipsu.h
+ *		     Added XQspiPsu_GetLqspiConfigReg() in xqspipsu.h
+ *		     Added required macros in xqspipsu_hw.h
+ *		     Modified XQspiPsu_SetOptions() to support
+ *		     LQSPI options and updated OptionsTable in
+ *		     xqspipsu_options.c
+ *       rk  07/15/16 Added support for TapDelays at different frequencies.
+ *	nsk 08/05/16 Added example support PollData and PollTimeout
+ *		     Added  XQSPIPSU_MSG_FLAG_POLL macro in xqspipsu.h
+ *		     Added XQspiPsu_Create_PollConfigData and
+ *		     XQspiPsu_PollData() functions in xqspipsu.c
+ * 1.3	nsk 09/16/16 Update PollData and Polltimeout support for dual parallel
+ *	             configuration. Updated XQspiPsu_PollData() and
+ *	             XQspiPsu_Create_PollConfigData() functions in xqspipsu.c
+ *                    and also modified the polldata example
+ *       ms  03/17/17 Added readme.txt file in examples folder for doxygen
+ *                    generation.
+ *       ms  04/05/17 Modified Comment lines in functions of qspipsu
+ *                    examples to recognize it as documentation block
+ *                    and modified filename tag to include them in
+ *                    doxygen examples.
+ * 1.4	tjs 05/26/17 Added support for accessing upper DDR (0x800000000)
+ *		     while booting images from QSPI
+ * 1.5	tjs 08/08/17 Added index.html file for importing examples
+ *		     from system.mss
+ * 1.5	nsk 08/14/17 Added CCI support
+ * 1.5	tjs 09/14/17 Modified the checks for 4 byte addressing and commands.
+ * 1.6	tjs 10/16/17 Flow for accessing flash is made similar to u-boot
+ *		     and linux For CR-984966
+ * 1.6   tjs 11/02/17 Resolved the compilation errors for ICCARM. CR-988625
+ * 1.7   tjs 11/16/17 Removed the unsupported 4 Byte write and sector erase
+ *                    commands.
+ * 1.7	tjs 12/01/17 Added support for MT25QL02G Flash from Micron. CR-990642
+ * 1.7	tjs 12/19/17 Added support for S25FL064L from Spansion. CR-990724
+ * 1.7	tjs 01/11/18 Added support for MX66L1G45G flash from Macronix CR-992367
+ * 1.7	tjs 01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
+ * 1.7	tjs 01/17/18 Added support to toggle the WP pin of flash. (PR#2448)
+ *                    Added XQspiPsu_SetWP() in xqspipsu_options.c
+ *                    Added XQspiPsu_WriteProtectToggle() in xqspipsu.c and
+ *                    also added write protect example.
+ * 1.7	tjs 03/14/18 Added support in EL1 NS mode (CR#974882)
+ * 1.7	tjs 26/03/18 In dual parallel mode enable both CS when issuing Write
+ *			enable command. CR-998478
+ * 1.8	tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
+ * 1.8	tjs 06/26/18 Added an example for accessing 64bit dma within
+ *		     32 bit application. CR#1004701
+ * 1.8	tjs 06/26/18 Removed checkpatch warnings
+ * </pre>
+ *
+ ******************************************************************************/
 #ifndef XQSPIPSU_H_		/* prevent circular inclusions */
 #define XQSPIPSU_H_		/* by using protection macros */
 
@@ -164,7 +168,7 @@ extern "C" {
  *		layer when setting the callback functions, and passed back to
  *		the upper layer when the callback is invoked. Its type is
  *		not important to the driver, so it is a void pointer.
- * @param 	StatusEvent holds one or more status events that have occurred.
+ * @param	StatusEvent holds one or more status events that have occurred.
  *		See the XQspiPsu_SetStatusHandler() for details on the status
  *		events that can be passed in the callback.
  * @param	ByteCount indicates how many bytes of data were successfully
@@ -197,9 +201,9 @@ typedef struct {
 	u16 DeviceId;		/**< Unique ID  of device */
 	u32 BaseAddress;	/**< Base address of the device */
 	u32 InputClockHz;	/**< Input clock frequency */
-	u8  ConnectionMode; /**< Single, Stacked and Parallel mode */
-	u8  BusWidth; 	/**< Bus width available on board */
-	u8 IsCacheCoherent; /**< Describes whether Cache Coherent or not */
+	u8  ConnectionMode;	/**< Single, Stacked and Parallel mode */
+	u8  BusWidth;		/**< Bus width available on board */
+	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
 } XQspiPsu_Config;
 
 /**
@@ -228,7 +232,7 @@ typedef struct {
 	u8 IsManualstart;
 	XQspiPsu_Msg *Msg;
 	XQspiPsu_StatusHandler StatusHandler;
-	void *StatusRef;  	 /**< Callback reference for status handler */
+	void *StatusRef;	/**< Callback reference for status handler */
 } XQspiPsu;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -290,13 +294,21 @@ typedef struct {
 /* GQSPI configuration to toggle WP of flash*/
 #define XQSPIPSU_SET_WP					1
 
-#define XQspiPsu_Select(InstancePtr, Mask)	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + XQSPIPSU_SEL_OFFSET, Mask)
+#define XQspiPsu_Select(InstancePtr, Mask)	\
+	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + \
+			XQSPIPSU_SEL_OFFSET, Mask)
 
-#define XQspiPsu_Enable(InstancePtr)	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + XQSPIPSU_EN_OFFSET, XQSPIPSU_EN_MASK)
+#define XQspiPsu_Enable(InstancePtr)	\
+	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + \
+			XQSPIPSU_EN_OFFSET, XQSPIPSU_EN_MASK)
 
-#define XQspiPsu_Disable(InstancePtr)	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + XQSPIPSU_EN_OFFSET, 0x0U)
+#define XQspiPsu_Disable(InstancePtr)	\
+	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + \
+			XQSPIPSU_EN_OFFSET, 0x0U)
 
-#define XQspiPsu_GetLqspiConfigReg(InstancePtr)   XQspiPsu_In32((XQSPIPS_BASEADDR) + XQSPIPSU_LQSPI_CR_OFFSET)
+#define XQspiPsu_GetLqspiConfigReg(InstancePtr)	\
+	XQspiPsu_In32((XQSPIPS_BASEADDR) + \
+			XQSPIPSU_LQSPI_CR_OFFSET)
 
 
 /************************** Function Prototypes ******************************/
