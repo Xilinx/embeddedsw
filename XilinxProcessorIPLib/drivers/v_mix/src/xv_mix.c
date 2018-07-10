@@ -83,6 +83,30 @@ void XV_mix_DisableAutoRestart(XV_mix *InstancePtr) {
     XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_AP_CTRL, 0);
 }
 
+void XV_mix_SetFlushbit(XV_mix *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress,
+		XV_MIX_CTRL_ADDR_AP_CTRL);
+    Data |= XV_MIX_CTRL_BITS_FLUSH_BIT;
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress,
+		XV_MIX_CTRL_ADDR_AP_CTRL, Data);
+}
+
+u32 XV_mix_Get_FlushDone(XV_mix *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_AP_CTRL)
+			       & XV_MIX_CTRL_BITS_FLUSH_STATUSBIT;
+    return Data;
+}
+
 void XV_mix_Set_HwReg_width(XV_mix *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
