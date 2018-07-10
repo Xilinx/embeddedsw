@@ -409,6 +409,8 @@ typedef struct {
 /**************************** Function Prototypes *****************************/
 int XVMix_Initialize(XV_Mix_l2 *InstancePtr, u16 DeviceId);
 void XVMix_Start(XV_Mix_l2 *InstancePtr);
+void XV_mix_SetFlushbit(XV_mix *InstancePtr);
+u32 XV_mix_Get_FlushDone(XV_mix *InstancePtr);
 void XVMix_Stop(XV_Mix_l2 *InstancePtr);
 void XVMix_SetVidStream(XV_Mix_l2 *InstancePtr,
                         const XVidC_VideoStream *StrmIn);

@@ -68,6 +68,7 @@
 
 /***************************** Include Files *********************************/
 #include <string.h>
+#include <sleep.h>
 #include "xv_mix_l2.h"
 
 /************************** Constant Definitions *****************************/
@@ -78,6 +79,8 @@
 #define XVMIX_MIN_STRM_HEIGHT           (64u)
 #define XVMIX_MIN_LOGO_WIDTH            (32u)
 #define XVMIX_MIN_LOGO_HEIGHT           (32u)
+#define XV_WAIT_FOR_FLUSH_DONE		    (25)
+#define XV_WAIT_FOR_FLUSH_DONE_TIMEOUT	(2000)
 
 /* Pixel values in 8 bit resolution in YUV color space*/
 static const u8 bkgndColorYUV[XVMIX_BKGND_LAST][3] =
@@ -260,7 +263,22 @@ void XVMix_Start(XV_Mix_l2 *InstancePtr)
 ******************************************************************************/
 void XVMix_Stop(XV_Mix_l2 *InstancePtr)
 {
+  u32 Data = 0;
+  u32 cnt = 0;
+
   Xil_AssertVoid(InstancePtr != NULL);
+
+  /* Flush the core bit */
+  XV_mix_SetFlushbit(&InstancePtr->Mix);
+
+  do {
+    Data = XV_mix_Get_FlushDone(&InstancePtr->Mix);
+    usleep(XV_WAIT_FOR_FLUSH_DONE_TIMEOUT);
+    cnt++;
+  } while((Data == 0) && (cnt < XV_WAIT_FOR_FLUSH_DONE));
+
+  if (Data == 0)
+        return;
 
   /* Clear autostart bit */
   XV_mix_DisableAutoRestart(&InstancePtr->Mix);
