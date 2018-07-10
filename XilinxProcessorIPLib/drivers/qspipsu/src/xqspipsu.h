@@ -187,6 +187,7 @@ typedef struct {
 	u32 PollTimeout;
 	u8 PollStatusCmd;
 	u8 PollBusMask;
+	s64 RxAddr;
 } XQspiPsu_Msg;
 
 /**
@@ -212,6 +213,7 @@ typedef struct {
 
 	u8 *SendBufferPtr;	 /**< Buffer to send (state) */
 	u8 *RecvBufferPtr;	 /**< Buffer to receive (state) */
+	u64 RecvBuffer;		 /**< Buffer Address to receive (state) */
 	u8 *GenFifoBufferPtr;	 /**< Gen FIFO entries */
 	s32 TxBytes;	 /**< Number of bytes to transfer (state) */
 	s32 RxBytes;	 /**< Number of bytes left to transfer(state) */
