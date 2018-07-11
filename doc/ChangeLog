@@ -74,6 +74,9 @@ Fix gcc warning in peripheral test application.
 zynqmp_pmufw:
 Fix GEM RXQ high pointer in case of WOL
 
+axipmon_v6_7:
+Fix Doxygen reported warnings.
+
 Changes for 2018.2
 ===============================
 freertos10_xilinx_v1_1:
