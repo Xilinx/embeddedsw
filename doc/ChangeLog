@@ -3049,6 +3049,11 @@ Changed line comments from // to /* */
 Added N2=8 divider for CPLL for US & US+ devices
 Added maximum userclk checking in PLL parameter computation
 
+vphy_v1_8:
+Corrected the GTYE4 CDR settings for DP in xvphy_gtye4.c
+Removed the expired deprecated APIs XVphy_DrpWrite and XVphy_DrpRead
+Corrected a bug in XVphy_HdmiQpllParam API
+
 vprocss_v2_1:
 Added new version 2.1
 Added optional color format conversion handling in scaler only topology

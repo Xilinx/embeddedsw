@@ -82,6 +82,8 @@
  *                     Added userclk freq checking in XVphy_HdmiCpllParam &
  *                        XVphy_HdmiQpllParam API
  *                     Removed XVphy_DruSetGain API
+ * 1.8   gm   05/14/18 Fixed a bug in XVphy_HdmiQpllParam where linerate is
+ *                        obtained from CH1 instead of QPLL0/1
  *
  * </pre>
  *
@@ -1931,7 +1933,7 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
             /* (297 MHz + 0.5%) + 10 KHz (Clkdet accuracy) */
 			if (298495000 <
 					(XVphy_GetLineRateHz(InstancePtr, QuadId,
-							XVPHY_CHANNEL_ID_CH1) /
+							ActiveCmnId) /
 					(InstancePtr->Config.TransceiverWidth * 10))) {
 				XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_USRCLK_ERR, 1);
 				XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_USRCLK, 1);

@@ -92,6 +92,8 @@
  * 1.7   gm   13/09/17 Added GTYE4 support
  *                     Added XVphy_SetPolarity, XVphy_SetPrbsSel and
  *                        XVphy_TxPrbsForceError APIs
+ * 1.8   gm   05/14/18 Updated CDR values for DP in xvphy_gtye4.c
+ *                     Removed XVphy_DrpWrite and XVphy_DrpRead APIs
  * </pre>
  *
 *******************************************************************************/
@@ -873,10 +875,6 @@ u32 XVphy_TxPrbsForceError(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId, u8 ForceErr);
 
 /* xvphy.c: GT/MMCM DRP access. */
-u32 XVphy_DrpWrite(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		u16 Addr, u16 Val) __attribute__ ((deprecated));
-u16 XVphy_DrpRead(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		u16 Addr) __attribute__ ((deprecated));
 u32 XVphy_DrpWr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		u16 Addr, u16 Val);
 u16 XVphy_DrpRd(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,

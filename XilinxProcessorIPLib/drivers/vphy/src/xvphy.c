@@ -73,6 +73,7 @@
  *                     Moved XVphy_MmcmWriteParameters to xvphy_mmcme2/3/4.c
  *                     Added XVphy_SetPolarity, XVphy_SetPrbsSel and
  *                        XVphy_TxPrbsForceError APIs
+ * 1.8   gm   05/14/18 Removed XVphy_DrpWrite and XVphy_DrpRead APIs
  * </pre>
  *
 *******************************************************************************/
@@ -952,75 +953,6 @@ u32 XVphy_TxPrbsForceError(XVphy *InstancePtr, u8 QuadId,
 					XVPHY_TX_CONTROL_REG, RegVal);
 
 	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
-* This function will initiate a write DRP transaction. It is a wrapper around
-* XVphy_DrpAccess.
-*
-* @param	InstancePtr is a pointer to the XVphy core instance.
-* @param	QuadId is the GT quad ID to operate on.
-* @param	ChId is the channel ID on which to direct the DRP access.
-* @param	Dir is an indicator for write (TX) or read (RX).
-* @param	Addr is the DRP address to issue the DRP access to.
-* @param	Val is the value to write to the DRP address.
-*
-* @return
-*		- XST_SUCCESS if the DRP access was successful.
-*		- XST_FAILURE otherwise, if the busy bit did not go low, or if
-*		  the ready bit did not go high.
-*
-* @note		None.
-*
-* @deprecated   XVphy_DrpWrite will be deprecated in 2018.3 and replaced by
-*                XVphy_DrpWr to align with new naming of XVphy_DrpRd API.
-*                No functional change between XVphy_DrpWrite & XVphy_DrpWr.
-*
-******************************************************************************/
-u32 XVphy_DrpWrite(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		u16 Addr, u16 Val)
-{
-	return XVphy_DrpAccess(InstancePtr, QuadId, ChId,
-			XVPHY_DIR_TX, /* Write. */
-			Addr, &Val);
-}
-
-/*****************************************************************************/
-/**
-* This function will initiate a read DRP transaction. It is a wrapper around
-* XVphy_DrpAccess.
-*
-* @param	InstancePtr is a pointer to the XVphy core instance.
-* @param	QuadId is the GT quad ID to operate on.
-* @param	ChId is the channel ID on which to direct the DRP access.
-* @param	Dir is an indicator for write (TX) or read (RX).
-* @param	Addr is the DRP address to issue the DRP access to.
-*
-* @return
-*		- XST_SUCCESS if the DRP access was successful.
-*		- XST_FAILURE otherwise, if the busy bit did not go low, or if
-*		  the ready bit did not go high.
-*
-* @note		None.
-*
-* @deprecated   XVphy_DrpRead will be deprecated in 2018.3 and replaced by
-*                XVphy_DrpRd to separate the return value of DRP register
-*                content and XST_SUCCESS/XST_FAILURE.
-*               A new argument (*RetVal) was added in XVphy_DrpRd to hold the
-*                DRP register content
-*
-******************************************************************************/
-u16 XVphy_DrpRead(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId, u16 Addr)
-{
-	u32 Status;
-	u16 Val;
-
-	Status = XVphy_DrpAccess(InstancePtr, QuadId, ChId,
-			XVPHY_DIR_RX, /* Read. */
-			Addr, &Val);
-
-	return (Status == XST_SUCCESS) ? Val : 0xDEAD;
 }
 
 /*****************************************************************************/

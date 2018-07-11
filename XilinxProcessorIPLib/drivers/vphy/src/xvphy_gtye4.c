@@ -42,6 +42,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.7   gm   09/13/17 Initial release.
+ * 1.8   gm   05/14/18 Updated CDR values for DP
  * </pre>
  *
 *******************************************************************************/
@@ -191,13 +192,13 @@ u32 XVphy_Gtye4CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		LineRateHz = XVphy_GetLineRateHz(InstancePtr, QuadId, ChId);
 
 		if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_810GBPS) {
-		  ChPtr->PllParams.Cdr[2] = 0x01C4;
+		  ChPtr->PllParams.Cdr[2] = 0x0269;
 		} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_540GBPS) {
-			ChPtr->PllParams.Cdr[2] = 0x01C4;
+			ChPtr->PllParams.Cdr[2] = 0x0263;
 		} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_270GBPS) {
-			ChPtr->PllParams.Cdr[2] = 0x01B4;
+			ChPtr->PllParams.Cdr[2] = 0x0253;
 		} else {
-			ChPtr->PllParams.Cdr[2] = 0x01A3;
+			ChPtr->PllParams.Cdr[2] = 0x0242;
 		}
 	}
 	else if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
