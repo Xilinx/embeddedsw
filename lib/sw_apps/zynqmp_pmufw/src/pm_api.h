@@ -96,7 +96,6 @@ typedef enum {
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-bool PmIsApiIdValid(const u32 api);
 u32 PmRequestAcknowledge(const u32 *args);
 PmPayloadStatus PmCheckPayload(const u32 *args);
 

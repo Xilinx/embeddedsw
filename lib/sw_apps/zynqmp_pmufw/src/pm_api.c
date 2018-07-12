@@ -160,17 +160,6 @@ static const PmApiEntry pmApiTable[] = {
 };
 
 /**
- * PmIsApiIdValid() - Check whether the given api id is within regular range
- * @api     PM API call id
- *
- * @return  True if api id is within supported api ids range, false otherwise
- */
-bool PmIsApiIdValid(const u32 api)
-{
-	return (api >= PM_API_MIN) && (api <= PM_API_MAX);
-}
-
-/**
  * PmCheckArgument() - API argument checking
  * @argType     Argument type
  * @arg         Argument to be checked
