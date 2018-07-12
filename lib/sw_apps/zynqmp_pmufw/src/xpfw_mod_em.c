@@ -138,6 +138,7 @@ static void CheckPsuInitCompletion(void)
 	s32 Status;
 	u32 PsuInitStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
 
+	PsuInitStatus &= PSU_INIT_MASK;
 	if (PsuInitStatus == PSU_INIT_COMPLETION) {
 
 		/* Clear previous PLL lock errors if any */

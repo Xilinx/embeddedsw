@@ -92,6 +92,7 @@
 #define CHECK_PSU_INIT_CONFIG	100U
 
 #define PSU_INIT_COMPLETION		1U
+#define PSU_INIT_MASK			0xFU
 
 /* Handler Table Structure */
 typedef void (*VoidFunction_t)(void);
