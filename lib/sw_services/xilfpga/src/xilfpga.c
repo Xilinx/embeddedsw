@@ -151,8 +151,7 @@ u32 XFpga_InterfaceStatus(void)
  *
  * @param        ConfigReg  is a constant which represents the configuration
  *                       register value to be returned.
- * @param        RegData is the value of the specified configuration
- *                       register.
+ * @param        Address is the DMA buffer address.
  *
  * @return
  *               - XFPGA_SUCCESS if successful
@@ -160,11 +159,11 @@ u32 XFpga_InterfaceStatus(void)
  *
  *
  ****************************************************************************/
-u32 XFpga_GetPlConfigReg(u32 ConfigReg, u32 *RegData)
+u32 XFpga_GetPlConfigReg(u32 ConfigReg, UINTPTR Address)
 {
 	u32 Status = XFPGA_SUCCESS;
 
-	Status = Fpga_Ops.XFpga_GetConfigReg(ConfigReg, RegData);
+	Status = Fpga_Ops.XFpga_GetConfigReg(ConfigReg, Address);
 	if (Status != XFPGA_SUCCESS)
 		Status = XFPGA_FAILURE;
 
