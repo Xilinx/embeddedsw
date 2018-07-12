@@ -159,6 +159,7 @@
 *                       Add Inline APIs XRFdc_CheckBlockEnabled(),
 *                       XRFdc_CheckTileEnabled().
 *       sk     07/06/18 Add support to dump HSCOM regs in XRFdc_DumpRegs() API
+*       sk     07/12/18 Fixed Multiband crossbar settings in C2C mode.
 *
 * </pre>
 *
