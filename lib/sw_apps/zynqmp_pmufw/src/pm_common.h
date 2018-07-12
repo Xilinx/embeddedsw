@@ -176,8 +176,4 @@ typedef struct PmMemorySection {
  * Function declarations
  ********************************************************************/
 
-#ifdef DEBUG_PM
-const char* PmStrReason(const u32 reason);
-#endif
-
 #endif /* PM_COMMON_H_ */

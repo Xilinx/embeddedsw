@@ -296,7 +296,7 @@ static void PmAbortSuspend(const PmMaster *const master,
 	int status;
 	PmProc* proc = PmGetProcOfThisMaster(master, node);
 
-	PmDbg(DEBUG_DETAILED,"(%lu, %s)\r\n", node, PmStrReason(reason));
+	PmDbg(DEBUG_DETAILED,"(%lu, %lu)\r\n", node, reason);
 
 	if (NULL == proc) {
 		PmDbg(DEBUG_DETAILED,"ERROR processor access for node %lu "
