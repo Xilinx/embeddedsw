@@ -6095,8 +6095,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		Status = XRFDC_SUCCESS;
 		goto RETURN_PATH;
 	} else {
-		if((((SamplingRate <= XRFDC_DAC_SAMPLING_MIN) ||
-				(SamplingRate >= XRFDC_DAC_SAMPLING_MAX)) &&
+		if((((SamplingRate < XRFDC_DAC_SAMPLING_MIN) ||
+				(SamplingRate > XRFDC_DAC_SAMPLING_MAX)) &&
 				(Type == XRFDC_DAC_TILE))) {
 #ifdef __MICROBLAZE__
 			xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid sampling "
@@ -6107,8 +6107,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 #endif
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
-		} else if((((SamplingRate <= XRFDC_ADC_4G_SAMPLING_MIN) ||
-				(SamplingRate >= XRFDC_ADC_4G_SAMPLING_MAX)) &&
+		} else if((((SamplingRate < XRFDC_ADC_4G_SAMPLING_MIN) ||
+				(SamplingRate > XRFDC_ADC_4G_SAMPLING_MAX)) &&
 			((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)))) {
 #ifdef __MICROBLAZE__
 			xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid sampling "
@@ -6119,8 +6119,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 #endif
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
-		} else if((((SamplingRate <= XRFDC_ADC_2G_SAMPLING_MIN) ||
-				(SamplingRate >= XRFDC_ADC_2G_SAMPLING_MAX)) &&
+		} else if((((SamplingRate < XRFDC_ADC_2G_SAMPLING_MIN) ||
+				(SamplingRate > XRFDC_ADC_2G_SAMPLING_MAX)) &&
 			((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS)))) {
 #ifdef __MICROBLAZE__
 			xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid sampling "
@@ -6180,8 +6180,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 
 		if (Source == XRFDC_INTERNAL_PLL_CLK) {
 
-			if((RefClkFreq <= XRFDC_REFFREQ_MIN) ||
-					(RefClkFreq >= XRFDC_REFFREQ_MAX)) {
+			if((RefClkFreq < XRFDC_REFFREQ_MIN) ||
+					(RefClkFreq > XRFDC_REFFREQ_MAX)) {
 		#ifdef __MICROBLAZE__
 				xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid Reference "
 							"clock value in %s\r\n", __func__);
