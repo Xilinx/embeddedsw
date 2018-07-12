@@ -110,6 +110,7 @@
  *			 the last day of month cotrrecly.(CR#1004282)
  * 1.6   aru    06/25/18 Remove the checkpatch warnings.
  * 1.6   aru    07/11/18 Resolved cppcheck warnings.
+ * 1.6   aru    07/11/18 Resolved doxygen warnings.
  * </pre>
  *
  ******************************************************************************/
@@ -324,8 +325,8 @@ typedef struct {
 /**
  *
  * This macro sets the safety check register value of RTC device
-
- * @param	Insta ncePtr is a pointer to the XRtcPsu instance.
+ *
+ * @param	InstancePtr is a pointer to the XRtcPsu instance.
  * @param	Value is a safety check value to be written in register.
  *
  * @return	None.

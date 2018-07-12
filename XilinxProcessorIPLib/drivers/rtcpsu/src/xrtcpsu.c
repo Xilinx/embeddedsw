@@ -55,6 +55,7 @@
  *			 the last day of month cotrrecly.(CR#1004282)
  * 1.6	 aru	06/25/18 Remove the checkpatch warnings.
  * 1.6   aru    07/11/18 Resolved cppcheck warnings.
+ * 1.6   aru    07/11/18 Resolved doxygen warnings.
  * </pre>
  *
  ******************************************************************************/
@@ -526,7 +527,7 @@ u32 XRtcPsu_IsSecondsEventGenerated(XRtcPsu *InstancePtr)
  *
  * @return	Returns 1 if the alarm event is generated.Else 0.
  *
- * @notice	This API is used in polled mode operation of RTC.
+ * @note	This API is used in polled mode operation of RTC.
  *		This also clears interrupt status alarm bit.
  *
  *****************************************************************************/
