@@ -351,10 +351,10 @@ static void PmProcRpu1Init(PmProc* const proc)
 static void PmProcDisableEvents(const PmProc* const proc)
 {
 	/* Disable wake event in GPI1 */
-	DISABLE_WAKE(proc->wakeEnableMask);
+	DISABLE_WAKE(proc->mask);
 
 	/* Disable wfi event in GPI2 */
-	DISABLE_WFI(proc->wfiEnableMask);
+	DISABLE_WFI(proc->mask);
 }
 
 /**
@@ -430,7 +430,7 @@ static int PmProcTrActiveToSuspend(PmProc* const proc)
 	PmDbg(DEBUG_DETAILED,"ACTIVE->SUSPENDING %s\r\n",
 			PmStrNode(proc->node.nodeId));
 
-	ENABLE_WFI(proc->wfiEnableMask);
+	ENABLE_WFI(proc->mask);
 	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_SUSPENDING);
 	status = PmMasterFsm(proc->master, PM_MASTER_EVENT_SELF_SUSPEND);
 
@@ -507,7 +507,7 @@ static int PmProcTrSuspendToActive(PmProc* const proc)
 	PmDbg(DEBUG_DETAILED,"SUSPENDING->ACTIVE %s\r\n",
 			PmStrNode(proc->node.nodeId));
 
-	DISABLE_WFI(proc->wfiEnableMask);
+	DISABLE_WFI(proc->mask);
 
 	/* Notify master to cancel scheduled requests */
 	status = PmMasterFsm(proc->master, PM_MASTER_EVENT_ABORT_SUSPEND);
@@ -546,8 +546,8 @@ static int PmProcTrSuspendToSleep(PmProc* const proc)
 			proc->master->wakeProc = proc;
 		}
 	}
-	DISABLE_WFI(proc->wfiEnableMask);
-	ENABLE_WAKE(proc->wakeEnableMask);
+	DISABLE_WFI(proc->mask);
+	ENABLE_WAKE(proc->mask);
 
 	return status;
 }
@@ -570,7 +570,7 @@ static int PmProcTrSleepToActive(PmProc* const proc)
 	PmDbg(DEBUG_DETAILED,"SLEEP->ACTIVE %s\r\n",
 			PmStrNode(proc->node.nodeId));
 	status = PmProcWake(proc);
-	DISABLE_WAKE(proc->wakeEnableMask);
+	DISABLE_WAKE(proc->mask);
 
 	return status;
 }
@@ -621,7 +621,7 @@ int PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		break;
 	case PM_PROC_EVENT_FORCE_PWRDN:
 		if (PM_PROC_STATE_SUSPENDING == currState) {
-			DISABLE_WFI(proc->wfiEnableMask);
+			DISABLE_WFI(proc->mask);
 		}
 		status = PmProcTrToForcedOff(proc);
 
@@ -690,7 +690,7 @@ PmProc* PmProcGetByWakeMask(const u32 wake)
 	for (i = 0U; i < pmNodeClassProc_g.bucketSize; i++) {
 		PmProc* proc = pmNodeClassProc_g.bucket[i]->derived;
 
-		if (0U != (proc->wakeStatusMask & wake)) {
+		if (0U != (proc->mask & wake)) {
 			found = proc;
 			break;
 		}
@@ -867,10 +867,7 @@ PmProc pmProcApu0_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
 	},
 	.master = NULL,
-	.wfiStatusMask = PMU_IOMODULE_GPI2_ACPU_0_SLEEP_MASK,
-	.wakeStatusMask = PMU_IOMODULE_GPI1_ACPU_0_WAKE_MASK,
-	.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_ACPU0_PWRDWN_REQ_MASK,
-	.wakeEnableMask = PMU_LOCAL_GPI1_ENABLE_ACPU0_WAKE_MASK,
+	.mask = PMU_IOMODULE_GPI2_ACPU_0_SLEEP_MASK,
 	.resumeCfg = APU_RVBARADDR0L,
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = APUSaveResumeAddr,
@@ -898,10 +895,7 @@ PmProc pmProcApu1_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
 	},
 	.master = NULL,
-	.wfiStatusMask = PMU_IOMODULE_GPI2_ACPU_1_SLEEP_MASK,
-	.wakeStatusMask = PMU_IOMODULE_GPI1_ACPU_1_WAKE_MASK,
-	.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_ACPU1_PWRDWN_REQ_MASK,
-	.wakeEnableMask = PMU_LOCAL_GPI1_ENABLE_ACPU1_WAKE_MASK,
+	.mask = PMU_IOMODULE_GPI2_ACPU_1_SLEEP_MASK,
 	.resumeCfg = APU_RVBARADDR1L,
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = APUSaveResumeAddr,
@@ -929,10 +923,7 @@ PmProc pmProcApu2_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
 	},
 	.master = NULL,
-	.wfiStatusMask = PMU_IOMODULE_GPI2_ACPU_2_SLEEP_MASK,
-	.wakeStatusMask = PMU_IOMODULE_GPI1_ACPU_2_WAKE_MASK,
-	.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_ACPU2_PWRDWN_REQ_MASK,
-	.wakeEnableMask = PMU_LOCAL_GPI1_ENABLE_ACPU2_WAKE_MASK,
+	.mask = PMU_IOMODULE_GPI2_ACPU_2_SLEEP_MASK,
 	.resumeCfg = APU_RVBARADDR2L,
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = APUSaveResumeAddr,
@@ -960,10 +951,7 @@ PmProc pmProcApu3_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
 	},
 	.master = NULL,
-	.wfiStatusMask = PMU_IOMODULE_GPI2_ACPU_3_SLEEP_MASK,
-	.wakeStatusMask = PMU_IOMODULE_GPI1_ACPU_3_WAKE_MASK,
-	.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_ACPU3_PWRDWN_REQ_MASK,
-	.wakeEnableMask = PMU_LOCAL_GPI1_ENABLE_ACPU3_WAKE_MASK,
+	.mask = PMU_IOMODULE_GPI2_ACPU_3_SLEEP_MASK,
 	.resumeCfg = APU_RVBARADDR3L,
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = APUSaveResumeAddr,
@@ -992,10 +980,7 @@ PmProc pmProcRpu0_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerRPU_X),
 	},
 	.master = NULL,
-	.wfiStatusMask = PMU_IOMODULE_GPI2_R5_0_SLEEP_MASK,
-	.wakeStatusMask = PMU_IOMODULE_GPI1_R5_0_WAKE_MASK,
-	.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_R5_0_PWRDWN_REQ_MASK,
-	.wakeEnableMask = PMU_LOCAL_GPI1_ENABLE_R5_0_WAKE_MASK,
+	.mask = PMU_IOMODULE_GPI2_R5_0_SLEEP_MASK,
 	.resumeCfg = RPU_RPU_0_CFG,
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = RPUSaveResumeAddr,
@@ -1023,10 +1008,7 @@ PmProc pmProcRpu1_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerRPU_X),
 	},
 	.master = NULL,
-	.wfiStatusMask = PMU_IOMODULE_GPI2_R5_1_SLEEP_MASK,
-	.wakeStatusMask = PMU_IOMODULE_GPI1_R5_1_WAKE_MASK,
-	.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_R5_1_PWRDWN_REQ_MASK,
-	.wakeEnableMask = PMU_LOCAL_GPI1_ENABLE_R5_1_WAKE_MASK,
+	.mask = PMU_IOMODULE_GPI2_R5_1_SLEEP_MASK,
 	.resumeCfg = RPU_RPU_1_CFG,
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = RPUSaveResumeAddr,
