@@ -105,6 +105,5 @@ void PmClockConstructList(void);
 void PmClockRestore(PmNode* const node);
 void PmClockSave(PmNode* const node);
 s32 PmClockIsActive(PmNode* const node);
-void PmClockRestoreDdr();
 
 #endif
