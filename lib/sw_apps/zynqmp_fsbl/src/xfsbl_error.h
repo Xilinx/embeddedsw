@@ -93,6 +93,7 @@ extern "C" {
 
 #define XFSBL_PSU_INIT_FAILED				(0x0800U)
 #define XFSBL_PSU_INIT_COMPLETED			(0x1U)
+#define XFSBL_PSU_INIT_MASK				(0xFU)
 #define XFSBL_PSU_POSTCONFIG_FAILED			(0x1000U)
 
 #define XFSBL_SUCCESS					(u32)(0x0U)

@@ -135,6 +135,7 @@ u32 XFsbl_HookBeforeFallback(void)
 u32 XFsbl_HookPsuInit(void)
 {
 	u32 Status;
+	u32 RegVal;
 
 	/* Add the code here */
 
@@ -153,7 +154,10 @@ u32 XFsbl_HookPsuInit(void)
 	 * Write 1U to PMU GLOBAL general storage register 5 to indicate
 	 * PMU Firmware that psu init is completed
 	 */
-	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, XFSBL_PSU_INIT_COMPLETED);
+	RegVal = XFsbl_In32(PMU_GLOBAL_GLOB_GEN_STORAGE5);
+	RegVal &= ~XFSBL_PSU_INIT_MASK;
+	RegVal |= XFSBL_PSU_INIT_COMPLETED;
+	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, RegVal);
 
 	/**
 	 * PS_SYSMON_ANALOG_BUS register determines mapping between SysMon supply
