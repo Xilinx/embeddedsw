@@ -345,13 +345,13 @@ static int PmPowerDownFpd(void)
 
 	PmResetAssertInt(PM_RESET_FPD, PM_RESET_ACTION_ASSERT);
 
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_FPD);
+
 	status = XpbrPwrDnFpdHandler();
 	if (XST_SUCCESS != status) {
 		goto err;
 	}
-
-	XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR);
-	XPfw_AibEnable(XPFW_AIB_LPD_TO_FPD);
 
 	/*
 	 * When FPD is powered off, the APU-GIC will be affected too.
