@@ -75,10 +75,10 @@
 #define IDCODE		12	/* IDCODE Register */
 #define AXSS		13	/* AXSS Register */
 #define COR1		14	/* Configuration Options Register 1 */
-#define WBSTAR		15	/* Warm Boot Start Address Register */
-#define TIMER		16	/* Watchdog Timer Register */
-#define BOOTSTS		17	/* Boot History Status Register */
-#define CTL1		18	/* Control Register 1 */
+#define WBSTAR		16	/* Warm Boot Start Address Register */
+#define TIMER		17	/* Watchdog Timer Register */
+#define BOOTSTS		22	/* Boot History Status Register */
+#define CTL1		24	/* Control Register 1 */
 
 /*
  * Mask For IDCODE
@@ -115,9 +115,6 @@ int main(void)
 
 	xil_printf("Register Read back example\r\n");
 
-	Xil_DCacheDisable();
-	Xil_ICacheDisable();
-
 	/*
 	 * Call the example , specify the device ID that is generated in
 	 * xparameters.h.
@@ -149,125 +146,111 @@ int main(void)
  *****************************************************************************/
 static int Xfpga_RegReadExample(void)
 {
-	unsigned int ValueBack;
-
+	u32 CfgReg[64];
 
 	xil_printf("Value of the Configuration Registers. \r\n\n");
 
-	if (XFpga_GetPlConfigReg(CRC, (u32 *)&ValueBack) !=
+	if (XFpga_GetPlConfigReg(CRC, (UINTPTR)CfgReg) != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	xil_printf(" CRC -> \t %x \t\r\n", CfgReg[0]);
+
+	if (XFpga_GetPlConfigReg(FAR, (UINTPTR)CfgReg) != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	xil_printf(" FAR -> \t %x \t\r\n", CfgReg[0]);
+
+	if (XFpga_GetPlConfigReg(FDRI, (UINTPTR)CfgReg) !=
 		XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" CRC -> \t %x \t\r\n", ValueBack);
+	xil_printf(" FDRI -> \t %x \t\r\n", CfgReg[0]);
 
-
-	if (XFpga_GetPlConfigReg(FAR, (u32 *)&ValueBack) !=
+	if (XFpga_GetPlConfigReg(FDRO, (UINTPTR)CfgReg) !=
 		XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" FAR -> \t %x \t\r\n", ValueBack);
+	xil_printf(" FDRO -> \t %x \t\r\n",  CfgReg[0]);
 
-	if (XFpga_GetPlConfigReg(FDRI, (u32 *)&ValueBack) !=
+	if (XFpga_GetPlConfigReg(CMD, (UINTPTR)CfgReg) !=
 		XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" FDRI -> \t %x \t\r\n", ValueBack);
+	xil_printf(" CMD -> \t %x \t\r\n",  CfgReg[0]);
 
-	if (XFpga_GetPlConfigReg(FDRO, (u32 *)&ValueBack) !=
+	if (XFpga_GetPlConfigReg(CTL0, (UINTPTR)CfgReg) !=
 		XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" FDRO -> \t %x \t\r\n", ValueBack);
+	xil_printf(" CTL0 -> \t %x \t\r\n",  CfgReg[0]);
 
-	if (XFpga_GetPlConfigReg(CMD, (u32 *)&ValueBack) !=
+	if (XFpga_GetPlConfigReg(MASK, (UINTPTR)CfgReg) !=
 		XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" CMD -> \t %x \t\r\n", ValueBack);
+	xil_printf(" MASK -> \t %x \t\r\n",  CfgReg[0]);
 
-	if (XFpga_GetPlConfigReg(CTL0, (u32 *)&ValueBack) !=
-		XST_SUCCESS) {
+	if (XFpga_GetPlConfigReg(STAT, (UINTPTR)CfgReg) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" CTL0 -> \t %x \t\r\n", ValueBack);
+	xil_printf(" STAT -> \t %x \t\r\n",  CfgReg[0]);
 
-	if (XFpga_GetPlConfigReg(MASK, (u32 *)&ValueBack) !=
-		XST_SUCCESS) {
+	if (XFpga_GetPlConfigReg(LOUT, (UINTPTR)CfgReg) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" MASK -> \t %x \t\r\n", ValueBack);
+	xil_printf(" LOUT -> \t %x \t\r\n",  CfgReg[0]);
 
-	if (XFpga_GetPlConfigReg(STAT, (u32 *)&ValueBack) !=
-		XST_SUCCESS) {
+	if (XFpga_GetPlConfigReg(COR0, (UINTPTR)CfgReg) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" STAT -> \t %x \t\r\n", ValueBack);
+	xil_printf(" COR0 -> \t %x \t\r\n",  CfgReg[0]);
 
-	if (XFpga_GetPlConfigReg(LOUT, (u32 *)&ValueBack) !=
-		XST_SUCCESS) {
+	if (XFpga_GetPlConfigReg(MFWR, (UINTPTR)CfgReg) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" LOUT -> \t %x \t\r\n", ValueBack);
+	xil_printf(" MFWR -> \t %x \t\r\n",  CfgReg[0]);
 
-	if (XFpga_GetPlConfigReg(COR0, (u32 *)&ValueBack) !=
-		XST_SUCCESS) {
+	if (XFpga_GetPlConfigReg(CBC, (UINTPTR)CfgReg) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" COR0 -> \t %x \t\r\n", ValueBack);
+	xil_printf(" CBC -> \t %x \t\r\n",  CfgReg[0]);
 
-	if (XFpga_GetPlConfigReg(MFWR, (u32 *)&ValueBack) !=
-		XST_SUCCESS) {
+
+	if (XFpga_GetPlConfigReg(IDCODE, (UINTPTR)CfgReg) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" MFWR -> \t %x \t\r\n", ValueBack);
+	xil_printf(" IDCODE -> \t %x \t\r\n",  CfgReg[0] & IDCODE_MASK);
 
-	if (XFpga_GetPlConfigReg(CBC, (u32 *)&ValueBack) !=
-		XST_SUCCESS) {
+
+	if (XFpga_GetPlConfigReg(AXSS, (UINTPTR)CfgReg) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" CBC -> \t %x \t\r\n", ValueBack);
+	xil_printf(" AXSS -> \t %x \t\r\n",  CfgReg[0]);
 
-	if (XFpga_GetPlConfigReg(IDCODE, (u32 *)&ValueBack) !=
-		XST_SUCCESS) {
+	if (XFpga_GetPlConfigReg(COR1, (UINTPTR)CfgReg) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" IDCODE -> \t %x \t\r\n", ValueBack & IDCODE_MASK);
+	xil_printf(" COR1 -> \t %x \t\r\n",  CfgReg[0]);
 
-	if (XFpga_GetPlConfigReg(AXSS, (u32 *)&ValueBack) !=
-		XST_SUCCESS) {
+	if (XFpga_GetPlConfigReg(WBSTAR, (UINTPTR)CfgReg) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" AXSS -> \t %x \t\r\n", ValueBack);
+	xil_printf(" WBSTAR -> \t %x \t\r\n",  CfgReg[0]);
 
-	if (XFpga_GetPlConfigReg(COR1, (u32 *)&ValueBack) !=
-		XST_SUCCESS) {
+	if (XFpga_GetPlConfigReg(TIMER, (UINTPTR)CfgReg) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" COR1 -> \t %x \t\r\n", ValueBack);
+	xil_printf(" TIMER -> \t %x \t\r\n",  CfgReg[0]);
 
-	if (XFpga_GetPlConfigReg(WBSTAR, (u32 *)&ValueBack) !=
-		XST_SUCCESS) {
+	if (XFpga_GetPlConfigReg(BOOTSTS, (UINTPTR)CfgReg) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" WBSTAR -> \t %x \t\r\n", ValueBack);
+	xil_printf(" BOOTSTS -> \t %x \t\r\n",  CfgReg[0]);
 
-	if (XFpga_GetPlConfigReg(TIMER, (u32 *)&ValueBack) !=
-		XST_SUCCESS) {
+	if (XFpga_GetPlConfigReg(CTL1, (UINTPTR)CfgReg) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	xil_printf(" TIMER -> \t %x \t\r\n", ValueBack);
-
-	if (XFpga_GetPlConfigReg(BOOTSTS, (u32 *)&ValueBack) !=
-		XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-	xil_printf(" BOOTSTS -> \t %x \t\r\n", ValueBack);
-
-	if (XFpga_GetPlConfigReg(CTL1, (u32 *)&ValueBack) !=
-		XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-	xil_printf(" CTL1 -> \t %x \t\r\n", ValueBack);
+	xil_printf(" CTL1 -> \t %x \t\r\n",  CfgReg[0]);
 
 	return XST_SUCCESS;
 }

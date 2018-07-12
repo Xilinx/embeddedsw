@@ -176,6 +176,7 @@
 #define PMU_GLOBAL_PWRUP_EN		(PMU_GLOBAL_BASE + 0x118U)
 #define PMU_GLOBAL_PWRUP_TRIG		(PMU_GLOBAL_BASE + 0x120U)
 #define PMU_GLOBAL_PWR_PL_MASK		0x800000
+#define PMU_GLOBAL_GEN_STORAGE5		(PMU_GLOBAL_BASE + 0x44U)
 
 #define PMU_GLOBAL_ISO_INT_EN		(PMU_GLOBAL_BASE + 0X318U)
 #define PMU_GLOBAL_ISO_TRIG		(PMU_GLOBAL_BASE + 0X320U)
@@ -231,6 +232,10 @@
 		((ModuleErr << 16) & XFPGA_ERR_MODULE_MASK) + \
 		((XfpgaPcapErr << 8) & XFPGA_PCAP_ERR_MASK)
 
+#define XFPGA_STATE_MASK	0x00FF0000U
+#define XFPGA_STATE_SHIFT	16
+#define CFGREG_SRCDMA_OFFSET	0x8
+
 /**************************** Type Definitions *******************************/
 /**
  * struct xilfpga__ops - ops for low level fpga interface drivers
@@ -253,7 +258,7 @@ typedef struct {
 		XSecure_ImageInfo *ImageInfo, u32 flags);
 	u32 (*XFpga_PostConfig)(UINTPTR AddrPtr, u32 flags);
 	u32 (*XFpga_InterfaceStatus)(void);
-	u32 (*XFpga_GetConfigReg)(u32 ConfigReg, u32 *RegData);
+	u32 (*XFpga_GetConfigReg)(u32 ConfigReg, UINTPTR Address);
 } Xilfpga_Ops;
 
 /************************** Variable Definitions *****************************/

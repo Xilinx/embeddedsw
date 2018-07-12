@@ -154,6 +154,6 @@
 u32 XFpga_PL_BitStream_Load(UINTPTR BitstreamImageAddr,
 			UINTPTR KeyAddr, u32 flags);
 u32 XFpga_InterfaceStatus(void);
-u32 XFpga_GetPlConfigReg(u32 ConfigReg, u32 *RegData);
+u32 XFpga_GetPlConfigReg(u32 ConfigReg, UINTPTR Address);
 
 #endif  /* XILFPGA_H */

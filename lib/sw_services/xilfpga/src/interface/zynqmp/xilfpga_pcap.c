@@ -114,6 +114,10 @@
 #define XFPGA_AES_TAG_SIZE	(XSECURE_SECURE_HDR_SIZE + \
 		XSECURE_SECURE_GCM_TAG_SIZE) /* AES block decryption tag size */
 
+/* Firmware State Definitions */
+#define XFPGA_FIRMWARE_STATE_SECURE	0
+#define XFPGA_FIRMWARE_STATE_NONSECURE	1
+
 /**************************** Type Definitions *******************************/
 #ifdef __MICROBLAZE__
 typedef u32 (*XpbrServHndlr_t) (void);
@@ -163,7 +167,9 @@ static u32 XFpga_writeToPlPcap(UINTPTR RdAddr, UINTPTR AddrPtr,
 		XSecure_ImageInfo *ImageInfo, u32 flags);
 static u32 XFpga_PostConfigPcap(UINTPTR AddrPtr, u32 flags);
 static u32 XFpga_PcapStatus(void);
-static u32 XFpga_GetConfigRegPcap(u32 ConfigReg, u32 *RegData);
+static u32 XFpga_GetConfigRegPcap(u32 ConfigReg,UINTPTR Address);
+static void XFpga_SetFirmwareState(u8 State);
+static u8 XFpga_GetFirmwareState(void);
 #ifdef XFPGA_SECURE_MODE
 static u32 XFpga_SecureLoadToPl(UINTPTR BitStreamAddr,	UINTPTR KeyAddr,
 				XSecure_ImageInfo *ImageInfo, u32 flags);
@@ -505,6 +511,11 @@ u32 XFpga_PostConfigPcap(UINTPTR AddrPtr, u32 flags)
 	if ((u8 *)AddrPtr != NULL)
 		memset((u8 *)AddrPtr, 0, KEY_LEN);
 #endif
+	if ((Status == XFPGA_SUCCESS) && (flags & XFPGA_SECURE_FLAGS))
+		XFpga_SetFirmwareState(XFPGA_FIRMWARE_STATE_SECURE);
+	else
+		XFpga_SetFirmwareState(XFPGA_FIRMWARE_STATE_NONSECURE);
+
 	return Status;
 }
 
@@ -604,6 +615,7 @@ static u32 XFpga_WriteToPcap(u32 Size, UINTPTR BitStreamAddr)
 	 * Setup the  SSS, setup the PCAP to receive from DMA source
 	 */
 	Xil_Out32(CSU_CSU_SSS_CFG, XFPGA_CSU_SSS_SRC_SRC_DMA);
+	Xil_Out32(CSU_PCAP_RDWR, 0x0);
 
 	/* Setup the source DMA channel */
 	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, BitStreamAddr, Size, 0);
@@ -2063,61 +2075,69 @@ static u32 Xilfpga_ConvertStringToHex(const char *Str, u32 *buf, u8 Len)
  *
  *
  ****************************************************************************/
-u32 XFpga_GetConfigRegPcap(u32 ConfigReg, u32 *RegData)
+u32 XFpga_GetConfigRegPcap(u32 ConfigReg, UINTPTR Address)
 {
 	u32 Status;
 	u32 RegVal;
 	unsigned int CmdIndex;
-	unsigned int CmdBuf[18];
+	u32 *CmdBuf;
+
+	CmdBuf = (void *)(UINTPTR)Address;
+
+	Status = XFpga_GetFirmwareState();
+	if (Status == XFPGA_FIRMWARE_STATE_SECURE) {
+		xil_printf("Secure Bit-stream Loaded Read-back is not allowed\n\r");
+		return XFPGA_FAILURE;
+	}
 
 	/* Initialize the CSU DMA */
 	Status = XFpga_CsuDmaInit();
 	if (Status != XFPGA_SUCCESS)
 		return Status;
+
+	/* Enable the PCAP clk */
+	RegVal = Xil_In32(PCAP_CLK_CTRL);
+	Xil_Out32(PCAP_CLK_CTRL, RegVal | PCAP_CLK_EN_MASK);
+
 	/*
 	 * Register Readback in non secure mode
 	 * Create the data to be written to read back the
 	 * Configuration Registers from PL Region.
 	 */
-
-	CmdIndex = 0;
-	CmdBuf[CmdIndex++] = 0xFFFFFFFF;	/* Dummy Word */
-	CmdBuf[CmdIndex++] = 0xFFFFFFFF;	/* Dummy Word */
-	CmdBuf[CmdIndex++] = 0xFFFFFFFF;	/* Dummy Word */
-	CmdBuf[CmdIndex++] = 0xFFFFFFFF;	/* Dummy Word */
-	CmdBuf[CmdIndex++] = 0xFFFFFFFF;	/* Dummy Word */
-	CmdBuf[CmdIndex++] = 0xFFFFFFFF;	/* Dummy Word */
-	CmdBuf[CmdIndex++] = 0xFFFFFFFF;	/* Dummy Word */
-	CmdBuf[CmdIndex++] = 0xFFFFFFFF;	/* Dummy Word */
-	CmdBuf[CmdIndex++] = 0x000000BB;	/* Bus Width Sync Word */
-	CmdBuf[CmdIndex++] = 0x11220044;	/* Bus Width Detect */
-	CmdBuf[CmdIndex++] = 0xFFFFFFFF;	/* Dummy Word */
-	CmdBuf[CmdIndex++] = 0xAA995566;	/* Sync Word */
-	CmdBuf[CmdIndex++] = 0x20000000;	/* Type 1 NOOP Word 0 */
+	CmdIndex = 2;
+	CmdBuf[CmdIndex++] = 0xFFFFFFFF; /* Dummy Word */
+	CmdBuf[CmdIndex++] = 0x000000BB; /* Bus Width Sync Word */
+	CmdBuf[CmdIndex++] = 0x11220044; /* Bus Width Detect */
+	CmdBuf[CmdIndex++] = 0xFFFFFFFF; /* Dummy Word */
+	CmdBuf[CmdIndex++] = 0xAA995566; /* Sync Word */
+	CmdBuf[CmdIndex++] = 0x20000000; /* Type 1 NOOP Word 0 */
 	CmdBuf[CmdIndex++] = Xfpga_RegAddr(ConfigReg, OPCODE_READ, 0x1);
-	CmdBuf[CmdIndex++] = 0x20000000;	/* Type 1 NOOP Word 0 */
-	CmdBuf[CmdIndex++] = 0x20000000;	/* Type 1 NOOP Word 0 */
+	CmdBuf[CmdIndex++] = 0x20000000; /* Type 1 NOOP Word 0 */
+	CmdBuf[CmdIndex++] = 0x20000000; /* Type 1 NOOP Word 0 */
 
 	/* Take PCAP out of Reset */
 	RegVal = Xil_In32(CSU_PCAP_RESET);
 	RegVal &= (~CSU_PCAP_RESET_RESET_MASK);
 	Xil_Out32(CSU_PCAP_RESET, RegVal);
 
-	/*
-	 * Setup the  SSS, setup the PCAP to receive from DMA source
-	 */
-	Xil_Out32(CSU_CSU_SSS_CFG, XFPGA_CSU_SSS_SRC_SRC_DMA);
-	Xil_Out32(CSU_PCAP_RDWR, 0x0);
+	/* Flush the DMA buffer */
+	Xil_DCacheFlushRange(Address, 256);
 
 	/* Set up the Destination DMA Channel*/
-	XCsuDma_Transfer(&CsuDma, XCSUDMA_DST_CHANNEL, (UINTPTR)RegData, 1, 0);
+	XCsuDma_Transfer(&CsuDma, XCSUDMA_DST_CHANNEL, Address, 1, 0);
 
 	/* Setup the source DMA channel */
-	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, (UINTPTR)CmdBuf,
-								CmdIndex, 0);
+	Status = XFpga_PcapWaitForDone();
+	if (Status != XFPGA_SUCCESS) {
+		xil_printf("Write to PCAP Failed\n\r");
+		return XFPGA_FAILURE;
+	}
 
-	/* wait for the SRC_DMA to complete and the pcap to be IDLE */
-	XCsuDma_WaitForDone(&CsuDma, XCSUDMA_SRC_CHANNEL);
+	Status = XFpga_WriteToPcap(CmdIndex, Address + CFGREG_SRCDMA_OFFSET);
+	if (Status != XFPGA_SUCCESS) {
+		xil_printf("Write to PCAP Failed\n\r");
+		return XFPGA_FAILURE;
+	}
 
 	/*
 	 * Setup the  SSS, setup the DMA to receive from PCAP source
@@ -2129,31 +2149,23 @@ u32 XFpga_GetConfigRegPcap(u32 ConfigReg, u32 *RegData)
 	XCsuDma_WaitForDone(&CsuDma, XCSUDMA_DST_CHANNEL);
 
 	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 
-	CmdIndex = 0;
-	CmdBuf[CmdIndex++] = 0x30008001;	/* Dummy Word */
-	CmdBuf[CmdIndex++] = 0x0000000D;	/* Bus Width Sync Word */
-	CmdBuf[CmdIndex++] = 0x20000000;	/* Bus Width Detect */
-	CmdBuf[CmdIndex++] = 0x20000000;	/* Dummy Word */
-	CmdBuf[CmdIndex++] = 0x20000000;	/* Bus Width Detect */
-	CmdBuf[CmdIndex++] = 0x20000000;	/* Dummy Word */
+	CmdIndex = 2;
+	CmdBuf[CmdIndex++] = 0x30008001; /* Type 1 Write 1 word to CMD */
+	CmdBuf[CmdIndex++] = 0x0000000D; /* DESYNC command */
+	CmdBuf[CmdIndex++] = 0x20000000; /* NOOP Word*/
+	CmdBuf[CmdIndex++] = 0x20000000; /* NOOP Word */
 
-	/*
-	 * Setup the  SSS, setup the PCAP to receive from DMA source
-	 */
-	Xil_Out32(CSU_CSU_SSS_CFG, XFPGA_CSU_SSS_SRC_SRC_DMA);
-	Xil_Out32(CSU_PCAP_RDWR, 0x0);
+	Status = XFpga_WriteToPcap(CmdIndex, Address + CFGREG_SRCDMA_OFFSET);
+	if (Status != XFPGA_SUCCESS) {
+		xil_printf("Write to PCAP Failed\n\r");
+		return XFPGA_FAILURE;
+	}
 
-	/* Setup the source DMA channel */
-	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL,
-				(UINTPTR)CmdBuf, CmdIndex, 0);
-
-	/* wait for the SRC_DMA to complete and the pcap to be IDLE */
-	XCsuDma_WaitForDone(&CsuDma, XCSUDMA_SRC_CHANNEL);
-	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+	/* Disable the PCAP clk */
+	RegVal = Xil_In32(PCAP_CLK_CTRL);
+	Xil_Out32(PCAP_CLK_CTRL, RegVal & ~(PCAP_CLK_EN_MASK));
 
 	return XST_SUCCESS;
 }
@@ -2196,4 +2208,35 @@ static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u8 Size)
 	return (((XDC_TYPE_1 << XDC_TYPE_SHIFT) |
 		(Register << XDC_REGISTER_SHIFT) |
 		(OpCode << XDC_OP_SHIFT)) | Size);
+}
+
+/*****************************************************************************/
+/** Sets the library firmware state
+ *
+ * @param	State xilfpga firmware state
+ *
+ * @return	None
+ *****************************************************************************/
+static void XFpga_SetFirmwareState(u8 State)
+{
+	u32 RegVal;
+
+	/* Set Firmware State in PMU GLOBAL GEN STORAGE1 Register */
+	RegVal = Xil_In32(PMU_GLOBAL_GEN_STORAGE5);
+	RegVal &= ~XFPGA_STATE_MASK;
+	RegVal |= (State << XFPGA_STATE_SHIFT);
+	Xil_Out32(PMU_GLOBAL_GEN_STORAGE5, RegVal);
+}
+
+/*****************************************************************************/
+/** Returns the library firmware state
+ *
+ * @param	None
+ *
+ * @return	library firmware state
+ *****************************************************************************/
+static u8 XFpga_GetFirmwareState(void)
+{
+	return (Xil_In32(PMU_GLOBAL_GEN_STORAGE5) & XFPGA_STATE_MASK) >>
+		XFPGA_STATE_SHIFT;
 }
