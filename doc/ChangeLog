@@ -195,6 +195,11 @@ Fix interrupt ID generation for ZynqMP designs.
 wdtps_v3_1:
 Fix interrupt ID conflict issue in example.
 
+ipipsu_v2_4:
+Fix Doxygen reported warnings.
+Fix Gcc warnings.
+
+
 Changes for 2018.2
 ===============================
 freertos10_xilinx_v1_1:
