@@ -152,29 +152,6 @@ Done:
 }
 
 /**
- * Check if an AIB isolation is enabled
- * @param AibId is ID of the AIB instance that needs to be checked
- * @return XST_SUCCESS if the specified AIB is enabled
- *         XST_FAILURE in case of errors or invalid inputs
- */
-s32 XPfw_AibIsEnabled(enum XPfwAib AibId)
-{
-	s32 Status;
-	if(AibId >= XPFW_AIB_ID_MAX) {
-		Status = XST_FAILURE;
-		goto Done;
-	}
-	if((XPfw_Read32(AibList[AibId].StsRegAddr) & AibList[AibId].Mask) != 0U) {
-		Status = XST_SUCCESS;
-	} else {
-		Status = XST_FAILURE;
-	}
-
-	Done:
-	return Status;
-}
-
-/**
  * Check if an AIB isolation is enabled by polling for acknowledgment
  * @param AibId is ID of the AIB instance that needs to be checked
  * @param TimeOutCount is loop count value
