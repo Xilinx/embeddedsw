@@ -548,5 +548,7 @@
 *                      fixes CR1005118.
 * 6.8 aru    07/02/18  Returned the pointer instead of address of that pointer in xil_mpu.c
 *                      for R5 processor.It Fixes CR#1005119.
+* 6.8 mus    07/12/18  Updated Cortexa9 translation table to mark DDR memory as inner cacheable,
+*                      if BSP is built with the USE_AMP flag. It fixes CR#1006745.
 *
  *****************************************************************************************/
