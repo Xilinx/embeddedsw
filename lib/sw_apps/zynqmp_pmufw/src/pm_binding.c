@@ -214,7 +214,6 @@ XPfw_PmIpiStatus XPfw_PmCheckIpiRequest(const u32 isrVal,
 					const u32* apiId)
 {
 	XPfw_PmIpiStatus status;
-	bool isValid;
 	const PmMaster *master = PmGetMasterByIpiMask(isrVal);
 
 	if (NULL == master) {
@@ -224,8 +223,7 @@ XPfw_PmIpiStatus XPfw_PmCheckIpiRequest(const u32 isrVal,
 	}
 
 	/* Api id is first argument in payload */
-	isValid = PmIsApiIdValid(*apiId);
-	if (true == isValid) {
+	if ((*apiId >= PM_API_MIN) && (*apiId <= PM_API_MAX)) {
 		/* Api id is within valid range */
 		status = XPFW_PM_IPI_IS_PM_CALL;
 	} else {
