@@ -44,6 +44,8 @@
 ; 4.2	pkp  09/11/14 modified translation table entries to resolve compilation
 ;		      error for solving CR#822897
 ; 6.1	pkp  07/11/16 Corrected comments for memory attributes
+; 6.8   mus  07/12/2018 Mark DDR memory as inner cacheable, if BSP is built
+;			with the USE_AMP flag.
 ; </pre>
 ;
 ; @note
@@ -67,7 +69,11 @@ MMUTable
 count   SETA  0
 sect    SETA  0
   REPT  0x400
+  #ifndef USE_AMP
   DCD	sect + 0x15de6		; S=1, TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1
+  #else
+  DCD	sect + 0x14de6		; S=1, TEX=b100 AP=b11, Domain=b1111, C=b0, B=b1
+  #endif
 sect    SETA  sect+0x100000
 count   SETA  count+1
   ENDR
