@@ -108,6 +108,7 @@
 *                       Add Inline APIs XRFdc_CheckBlockEnabled(),
 *                       XRFdc_CheckTileEnabled().
 *       sk     07/06/18 Add support to dump HSCOM regs in XRFdc_DumpRegs() API
+*       sk     07/12/18 Fixed Multiband crossbar settings in C2C mode.
 * </pre>
 *
 ******************************************************************************/
@@ -4286,6 +4287,18 @@ u32 XRFdc_MultiBand(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		}
 	}
 
+	if (BlockIndex[0] != DataPathIndex[0]) {
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Not a valid MB/SB "
+				"combination in %s\r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Not a valid MB/SB "
+					"combination in %s\r\n", __func__);
+#endif
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+
 	if (NoOfDataPaths == 1U)
 		Mode = XRFDC_SINGLEBAND_MODE;
 	else if (NoOfDataPaths == 2U)
@@ -4309,9 +4322,9 @@ u32 XRFdc_MultiBand(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			if (DataPathIndex[0] == 1U)
 				DataPathIndex[0] = 2U;
 			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
-					DataType, BlockIndex[0U], BlockIndex[0U]+2);
+					DataType, BlockIndex[0U], BlockIndex[0U]+1);
 			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+1,
-					DataType, BlockIndex[1U], BlockIndex[1U]+2);
+					DataType, BlockIndex[1U]+1, BlockIndex[1U]+2);
 			Block_Id = (DataPathIndex[0] == 2U ? 0U : 2U);
 			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, Block_Id,
 					DataType, -1, -1);
@@ -4348,16 +4361,6 @@ u32 XRFdc_MultiBand(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		}
 	} else if (((DataType == XRFDC_MB_DATATYPE_R2C) ||
 			(DataType == XRFDC_MB_DATATYPE_C2R)) && (Mode == XRFDC_SINGLEBAND_MODE)) {
-		if ((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
-			if (DataPathIndex[0] == 1U)
-				DataPathIndex[0] = 2U;
-			if (BlockIndex[0] == 1U)
-				BlockIndex[0] = 2U;
-			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+1,
-					DataType, BlockIndex[0U]+1, -1);
-		}
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
-				DataType, BlockIndex[0U], -1);
 		if (Type == XRFDC_ADC_TILE) {
 			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
 							ConnectedIData = BlockIndex[0U];
@@ -4369,19 +4372,29 @@ u32 XRFdc_MultiBand(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
 							ConnectedQData = -1;
 		}
+		if ((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
+			if (DataPathIndex[0] == 1U)
+				DataPathIndex[0] = 2U;
+			if (BlockIndex[0] == 1U)
+				BlockIndex[0] = 2U;
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+1,
+					DataType, BlockIndex[0U]+1, -1);
+		}
+		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
+				DataType, BlockIndex[0U], -1);
 	}
 
 	if ((DataType == XRFDC_MB_DATATYPE_C2C) &&
 			((Mode == XRFDC_MULTIBAND_MODE_2X) || (Mode == XRFDC_MULTIBAND_MODE_4X))) {
 		if ((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
 			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
-					DataType, BlockIndex[0U], BlockIndex[0U]+2);
+					DataType, BlockIndex[0U], BlockIndex[0U]+1);
 			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+1,
-					DataType, BlockIndex[0U]+1, BlockIndex[0U]+3);
+					DataType, BlockIndex[0U]+2, BlockIndex[0U]+3);
 			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+2,
-					DataType, BlockIndex[0U], BlockIndex[0U]+2);
+					DataType, BlockIndex[0U], BlockIndex[0U]+1);
 			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+3,
-					DataType, BlockIndex[0U]+1, BlockIndex[0U]+3);
+					DataType, BlockIndex[0U]+2, BlockIndex[0U]+3);
 			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
 							ConnectedIData = BlockIndex[0U];
 			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
