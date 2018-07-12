@@ -1173,7 +1173,7 @@ void PmClockDump(const PmClock* const clk)
 			if (clk->users != ch) {
 				XPfw_Printf(DEBUG_DETAILED,", ");
 			}
-			XPfw_Printf(DEBUG_DETAILED,"%s", PmStrNode(ch->node->nodeId));
+			XPfw_Printf(DEBUG_DETAILED,"%s", ch->node->name);
 		}
 
 		ch = ch->nextNode;
@@ -1185,7 +1185,7 @@ void PmClockDumpChildren(const PmPll* const pll)
 {
 	u32 i;
 
-	XPfw_Printf(DEBUG_DETAILED,"%s #%ld:\r\n", PmStrNode(pll->node.nodeId),
+	XPfw_Printf(DEBUG_DETAILED,"%s #%ld:\r\n", pll->node.name,
 			pll->useCount);
 
 	for (i = 0U; i < ARRAY_SIZE(pmClocks); i++) {
@@ -1259,7 +1259,7 @@ s32 PmClockIsActive(PmNode* const node)
 {
 	s32 Status = XST_SUCCESS;
 	PmClockHandle* ch = node->clocks;
-	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(node->nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", node->name);
 
 	while (NULL != ch) {
 		if(ch->IsActiveClk) {
@@ -1334,7 +1334,7 @@ void PmClockSave(PmNode* const node)
 {
 	PmClockHandle* ch = node->clocks;
 #ifdef DEBUG_CLK
-	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(node->nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", node->name);
 #endif
 
 	while (NULL != ch) {
@@ -1352,7 +1352,7 @@ void PmClockRestore(PmNode* const node)
 	PmClockHandle* ch = node->clocks;
 
 #ifdef DEBUG_CLK
-	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(node->nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", node->name);
 #endif
 	while (NULL != ch) {
 		/* Restore the clock configuration if needed */
@@ -1377,11 +1377,11 @@ int PmClockRequest(PmNode* const node)
 
 	if (0U != (NODE_LOCKED_CLOCK_FLAG & node->flags)) {
 		PmDbg(DEBUG_DETAILED,"Warning %s double request\r\n",
-				PmStrNode(node->nodeId));
+				node->name);
 		goto done;
 	}
 #ifdef DEBUG_CLK
-	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(node->nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", node->name);
 #endif
 	while (NULL != ch) {
 		const u32 val = XPfw_Read32(ch->clock->ctrlAddr);
@@ -1420,12 +1420,12 @@ void PmClockRelease(PmNode* const node)
 	PmClockHandle* ch = node->clocks;
 
 	if (0U == (NODE_LOCKED_CLOCK_FLAG & node->flags)) {
-		PmDbg(DEBUG_DETAILED,"Warning %s double release\r\n",
-				PmStrNode(node->nodeId));
+		PmDbg(DEBUG_DETAILED, "Warning %s double release\r\n",
+				node->name);
 		goto done;
 	}
 #ifdef DEBUG_CLK
-	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(node->nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", node->name);
 #endif
 	while (NULL != ch) {
 		if (NULL != ch->clock->pll) {

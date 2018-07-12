@@ -238,10 +238,10 @@ done:
 	}
 #ifdef DEBUG_PM
 	if (XST_SUCCESS == status) {
-		PmDbg(DEBUG_DETAILED,"%s %d->%d\r\n", PmStrNode(slave->node.nodeId),
+		PmDbg(DEBUG_DETAILED,"%s %d->%d\r\n", slave->node.name,
 				oldState, slave->node.currState);
 	} else {
-		PmDbg(DEBUG_DETAILED,"%s ERROR #%d\r\n", PmStrNode(slave->node.nodeId),
+		PmDbg(DEBUG_DETAILED,"%s ERROR #%d\r\n", slave->node.name,
 				status);
 	}
 #endif

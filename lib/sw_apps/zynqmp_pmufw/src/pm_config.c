@@ -207,8 +207,8 @@ static int PmConfigMasterSectionHandler(u32* const addr)
 		nodeId = PmConfigReadNext(addr);
 		master = PmMasterGetPlaceholder(nodeId);
 		if (NULL == master) {
-			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown master (%s=%lu)\r\n",
-				 PmStrNode(nodeId), nodeId);
+			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown master #%lu\r\n",
+				 nodeId);
 			status = XST_FAILURE;
 			goto done;
 		}
@@ -245,8 +245,8 @@ static int PmConfigSlaveSectionHandler(u32* const addr)
 		nodeId = PmConfigReadNext(addr);
 		slave = PmNodeGetSlave(nodeId);
 		if (NULL == slave) {
-			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown slave (%s=%lu)\r\n",
-				 PmStrNode(nodeId), nodeId);
+			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown slave #%lu)\r\n",
+				 nodeId);
 			status = XST_FAILURE;
 			goto done;
 		}
@@ -256,7 +256,7 @@ static int PmConfigSlaveSectionHandler(u32* const addr)
 		status = PmSlaveSetConfig(slave, usagePolicy, usagePerms);
 		if (XST_SUCCESS != status) {
 			PmDbgCfg(DEBUG_DETAILED,"ERROR configuring %s\r\n",
-					PmStrNode(nodeId));
+				 slave->node.name);
 			goto done;
 		}
 	}
@@ -289,8 +289,8 @@ static int PmConfigPreallocForMaster(const PmMaster* const master,
 		nodeId = PmConfigReadNext(addr);
 		slave = PmNodeGetSlave(nodeId);
 		if (NULL == slave) {
-			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown slave (%s=%lu)\r\n",
-				 PmStrNode(nodeId), nodeId);
+			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown slave #%lu\r\n",
+				 nodeId);
 			status = XST_FAILURE;
 			goto done;
 		}
@@ -299,7 +299,7 @@ static int PmConfigPreallocForMaster(const PmMaster* const master,
 		req = PmRequirementGet(master, slave);
 		if (NULL == req) {
 			PmDbgCfg(DEBUG_DETAILED,"ERROR: Invalid master=%s slave=%s "
-					"pair\r\n", PmStrNode(master->nid), PmStrNode(nodeId));
+				 "pair\r\n", master->name, slave->node.name);
 			status = XST_FAILURE;
 			goto done;
 		}
@@ -379,8 +379,8 @@ static int PmConfigPowerSectionHandler(u32* const addr)
 
 		power = PmNodeGetPower(powerId);
 		if (NULL == power) {
-			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown power (%s=%lu)\r\n",
-				 PmStrNode(powerId), powerId);
+			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown power #%lu\r\n",
+				 powerId);
 			status = XST_FAILURE;
 			goto done;
 		}

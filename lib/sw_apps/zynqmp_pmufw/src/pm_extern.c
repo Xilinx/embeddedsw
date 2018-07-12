@@ -170,6 +170,7 @@ PmSlave pmSlaveExternDevice_g = {
 		.flags = 0U,
 		.powerInfo = NULL,
 		.powerInfoCnt = 0U,
+		DEFINE_NODE_NAME("extern"),
 	},
 	.class = NULL,
 	.reqs = NULL,

@@ -54,6 +54,9 @@
 #define DEFINE_PM_PROCS(c)	.procs = (c), \
 				.procsCnt = ARRAY_SIZE(c)
 
+#define DEFINE_MASTER_NAME(n)		\
+	.name = n
+
 static PmMaster* pmMasterHead = NULL;
 
 static const PmSlave* pmApuMemories[] = {
@@ -219,6 +222,7 @@ PmMaster pmMasterApu_g = {
 	.memories = pmApuMemories,
 	.evalState = PmApuEvaluateState,
 	.remapAddr = NULL,
+	DEFINE_MASTER_NAME("APU")
 };
 
 static PmProc* pmMasterRpuProcs[] = {
@@ -245,6 +249,7 @@ PmMaster pmMasterRpu_g = {
 	.memories = NULL,
 	.evalState = NULL,
 	.remapAddr = PmMasterRpuRemapAddr,
+	DEFINE_MASTER_NAME("RPU")
 };
 
 static PmProc* pmMasterRpu0Procs[] = {
@@ -271,6 +276,7 @@ PmMaster pmMasterRpu0_g = {
 	.memories = NULL,
 	.evalState = NULL,
 	.remapAddr = PmMasterRpu0RemapAddr,
+	DEFINE_MASTER_NAME("RPU0"),
 };
 
 static PmProc* pmMasterRpu1Procs[] = {
@@ -296,6 +302,7 @@ PmMaster pmMasterRpu1_g = {
 	.memories = NULL,
 	.evalState = NULL,
 	.remapAddr = PmMasterRpu1RemapAddr,
+	DEFINE_MASTER_NAME("RPU1"),
 };
 
 /* Array of all possible masters supported by the PFW */
@@ -789,7 +796,7 @@ static void PmMasterIdleSlaves(PmMaster* const master)
 	PmRequirement* req = master->reqs;
 	PmNode* Node;
 
-	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(master->nid));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", master->name);
 
 	while (NULL != req) {
 		u32 usage = PmSlaveGetUsageStatus(req->slave, master);
