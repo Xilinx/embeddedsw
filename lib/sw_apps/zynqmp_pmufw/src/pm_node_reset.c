@@ -29,7 +29,7 @@
 /**
  * Implementation for the reset of individual node.
  */
-
+#ifdef ENABLE_NODE_IDLING
 #include <sleep.h>
 #include "pm_defs.h"
 #include "pm_common.h"
@@ -659,3 +659,4 @@ void PmNodeReset(const PmMaster *const Master, const u32 NodeId, const u32 IdleR
 }
 
 #endif
+#endif /* ENABLE_NODE_IDLING */
