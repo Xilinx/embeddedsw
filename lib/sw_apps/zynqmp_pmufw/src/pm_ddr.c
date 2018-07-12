@@ -1847,6 +1847,7 @@ PmSlave pmSlaveDdr_g __attribute__((__section__(".srdata"))) = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmDdrPowerConsumptions),
+		DEFINE_NODE_NAME("ddr"),
 	},
 	.class = NULL,
 	.reqs = NULL,

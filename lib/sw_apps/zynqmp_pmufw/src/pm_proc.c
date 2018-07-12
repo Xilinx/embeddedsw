@@ -427,8 +427,7 @@ static int PmProcTrActiveToSuspend(PmProc* const proc)
 {
 	int status;
 
-	PmDbg(DEBUG_DETAILED,"ACTIVE->SUSPENDING %s\r\n",
-			PmStrNode(proc->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"ACTIVE->SUSPENDING %s\r\n", proc->node.name);
 
 	ENABLE_WFI(proc->mask);
 	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_SUSPENDING);
@@ -463,8 +462,7 @@ static int PmProcTrToForcedOff(PmProc* const proc)
 	bool killed;
 	u32 pwrReq;
 
-	PmDbg(DEBUG_DETAILED,"ACTIVE->FORCED_PWRDN %s\r\n",
-			PmStrNode(proc->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"ACTIVE->FORCED_PWRDN %s\r\n", proc->node.name);
 
 	proc->node.latencyMarg = MAX_LATENCY;
 	proc->resumeAddress = 0ULL;
@@ -504,8 +502,7 @@ static int PmProcTrSuspendToActive(PmProc* const proc)
 {
 	int status;
 
-	PmDbg(DEBUG_DETAILED,"SUSPENDING->ACTIVE %s\r\n",
-			PmStrNode(proc->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"SUSPENDING->ACTIVE %s\r\n", proc->node.name);
 
 	DISABLE_WFI(proc->mask);
 
@@ -530,8 +527,7 @@ static int PmProcTrSuspendToSleep(PmProc* const proc)
 	int status;
 	u32 worstCaseLatency = proc->pwrDnLatency + proc->pwrUpLatency;
 
-	PmDbg(DEBUG_DETAILED,"SUSPENDING->SLEEP %s\r\n",
-			PmStrNode(proc->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"SUSPENDING->SLEEP %s\r\n", proc->node.name);
 	proc->node.latencyMarg = proc->latencyReq - worstCaseLatency;
 
 	status = PmProcSleep(proc);
@@ -567,8 +563,7 @@ static int PmProcTrSleepToActive(PmProc* const proc)
 {
 	int status;
 
-	PmDbg(DEBUG_DETAILED,"SLEEP->ACTIVE %s\r\n",
-			PmStrNode(proc->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"SLEEP->ACTIVE %s\r\n", proc->node.name);
 	status = PmProcWake(proc);
 	DISABLE_WAKE(proc->mask);
 
@@ -591,8 +586,7 @@ static int PmProcTrForcePwrdnToActive(PmProc* const proc)
 {
 	int status;
 
-	PmDbg(DEBUG_DETAILED,"FORCED_PWRDN->ACTIVE %s\r\n",
-			PmStrNode(proc->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"FORCED_PWRDN->ACTIVE %s\r\n", proc->node.name);
 	status = PmProcWake(proc);
 
 	return status;
@@ -865,6 +859,7 @@ PmProc pmProcApu0_g = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
+		DEFINE_NODE_NAME("apu0"),
 	},
 	.master = NULL,
 	.mask = PMU_IOMODULE_GPI2_ACPU_0_SLEEP_MASK,
@@ -893,6 +888,7 @@ PmProc pmProcApu1_g = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
+		DEFINE_NODE_NAME("apu1"),
 	},
 	.master = NULL,
 	.mask = PMU_IOMODULE_GPI2_ACPU_1_SLEEP_MASK,
@@ -921,6 +917,7 @@ PmProc pmProcApu2_g = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
+		DEFINE_NODE_NAME("apu2"),
 	},
 	.master = NULL,
 	.mask = PMU_IOMODULE_GPI2_ACPU_2_SLEEP_MASK,
@@ -949,6 +946,7 @@ PmProc pmProcApu3_g = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
+		DEFINE_NODE_NAME("apu3"),
 	},
 	.master = NULL,
 	.mask = PMU_IOMODULE_GPI2_ACPU_3_SLEEP_MASK,
@@ -978,6 +976,7 @@ PmProc pmProcRpu0_g = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmProcPowerRPU_X),
+		DEFINE_NODE_NAME("rpu0"),
 	},
 	.master = NULL,
 	.mask = PMU_IOMODULE_GPI2_R5_0_SLEEP_MASK,
@@ -1006,6 +1005,7 @@ PmProc pmProcRpu1_g = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmProcPowerRPU_X),
+		DEFINE_NODE_NAME("rpu1"),
 	},
 	.master = NULL,
 	.mask = PMU_IOMODULE_GPI2_R5_1_SLEEP_MASK,

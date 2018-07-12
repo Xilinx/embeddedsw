@@ -113,7 +113,7 @@ static void PmPllRestoreContext(PmPll* const pll)
  */
 static void PmPllSuspend(PmPll* const pll)
 {
-	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(pll->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", pll->node.name);
 
 	PmPllSaveContext(pll);
 
@@ -140,7 +140,7 @@ static int PmPllResume(PmPll* const pll)
 {
 	int status = XST_SUCCESS;
 
-	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(pll->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", pll->node.name);
 
 	if (true == pll->context.saved) {
 		PmPllRestoreContext(pll);
@@ -321,6 +321,7 @@ PmPll pmApll_g = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmStdPllPowers),
+		DEFINE_NODE_NAME("apll"),
 	},
 	.context = {
 		.saved = false,
@@ -343,6 +344,7 @@ PmPll pmVpll_g = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmStdPllPowers),
+		DEFINE_NODE_NAME("vpll"),
 	},
 	.context = {
 		.saved = false,
@@ -365,6 +367,7 @@ PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmStdPllPowers),
+		DEFINE_NODE_NAME("dpll"),
 	},
 	.context = {
 		.saved = false,
@@ -387,6 +390,7 @@ PmPll pmRpll_g = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmStdPllPowers),
+		DEFINE_NODE_NAME("rpll"),
 	},
 	.context = {
 		.saved = false,
@@ -409,6 +413,7 @@ PmPll pmIOpll_g = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmStdPllPowers),
+		DEFINE_NODE_NAME("iopll"),
 	},
 	.context = {
 		.saved = false,
@@ -435,8 +440,7 @@ int PmPllRequest(PmPll* const pll)
 	int status = XST_SUCCESS;
 
 #ifdef DEBUG_CLK
-	PmDbg(DEBUG_DETAILED,"%s #%lu\r\n", PmStrNode(pll->node.nodeId),
-			1 + pll->useCount);
+	PmDbg(DEBUG_DETAILED,"%s #%lu\r\n", pll->node.name, 1 + pll->useCount);
 #endif
 	/* If the PLL is suspended it needs to be resumed first */
 	if (true == pll->context.saved) {
@@ -457,8 +461,8 @@ void PmPllRelease(PmPll* const pll)
 	if (pll->useCount > 0U) {
 		pll->useCount--;
 #ifdef DEBUG_CLK
-		PmDbg(DEBUG_DETAILED,"%s #%lu\r\n", PmStrNode(pll->node.nodeId),
-				pll->useCount);
+		PmDbg(DEBUG_DETAILED,"%s #%lu\r\n", pll->node.name,
+		      pll->useCount);
 #endif
 		if (0U == pll->useCount) {
 			PmPllSuspend(pll);

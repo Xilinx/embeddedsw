@@ -553,7 +553,7 @@ int PmPowerDown(PmPower* const power)
 	if (NULL != power->node.clocks) {
 		PmClockRelease(&power->node);
 	}
-	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(power->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", power->node.name);
 #ifdef DEBUG_MODE
 	PmRequirement* req;
 	if ((pmPowerIslandRpu_g.power.node.currState == PM_PWR_STATE_OFF) &&
@@ -608,7 +608,7 @@ static int PmPowerUp(PmPower* const power)
 	PmRequirementUpdate(req, PM_CAP_ACCESS);
 #endif
 
-	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(power->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", power->node.name);
 
 	if (PM_PWR_STATE_ON == power->node.currState) {
 		goto done;
@@ -749,6 +749,7 @@ PmPowerIslandRpu pmPowerIslandRpu_g = {
 			.latencyMarg = MAX_LATENCY,
 			.flags = 0U,
 			DEFINE_PM_POWER_INFO(PmDomainPowers),
+			DEFINE_NODE_NAME("rpu"),
 		},
 		DEFINE_PM_POWER_CHILDREN(pmRpuChildren),
 		.class = &pmPowerClassRpuIsland_g,
@@ -778,6 +779,7 @@ PmPower pmPowerIslandApu_g = {
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmApuDomainPowers),
+		DEFINE_NODE_NAME("apu"),
 	},
 	DEFINE_PM_POWER_CHILDREN(pmApuChildren),
 	.class = NULL,
@@ -800,6 +802,7 @@ PmPowerDomain pmPowerDomainFpd_g = {
 			.latencyMarg = MAX_LATENCY,
 			.flags = 0U,
 			DEFINE_PM_POWER_INFO(PmDomainPowers),
+			DEFINE_NODE_NAME("fpd"),
 		},
 		DEFINE_PM_POWER_CHILDREN(pmFpdChildren),
 		.class = &pmPowerClassDomain_g,
@@ -826,6 +829,7 @@ PmPowerDomain pmPowerDomainLpd_g = {
 			.latencyMarg = MAX_LATENCY,
 			.flags = 0U,
 			DEFINE_PM_POWER_INFO(PmDomainPowers),
+			DEFINE_NODE_NAME("lpd"),
 		},
 		DEFINE_PM_POWER_CHILDREN(pmLpdChildren),
 		.class = &pmPowerClassDomain_g,
@@ -852,6 +856,7 @@ PmPowerDomain pmPowerDomainPld_g = {
 			.latencyMarg = MAX_LATENCY,
 			.flags = 0U,
 			DEFINE_PM_POWER_INFO(PmDomainPowers),
+			DEFINE_NODE_NAME("pld"),
 		},
 		DEFINE_PM_POWER_CHILDREN(pmPldChildren),
 		.class = &pmPowerClassDomain_g,
@@ -1034,8 +1039,8 @@ int PmPowerRequestParent(PmNode* const node)
 
 	if (0U == (NODE_LOCKED_POWER_FLAG & node->flags)) {
 #ifdef DEBUG_PWR
-		PmDbg(DEBUG_DETAILED,"%s->%s\r\n", PmStrNode(node->nodeId),
-			PmStrNode(node->parent->node.nodeId));
+		PmDbg(DEBUG_DETAILED,"%s->%s\r\n", node->name,
+		      node->parent->node.name));
 #endif
 		status = PmPowerRequest(node->parent);
 		if (XST_SUCCESS == status) {
@@ -1054,8 +1059,8 @@ void PmPowerReleaseParent(PmNode* const node)
 {
 	if (0U != (NODE_LOCKED_POWER_FLAG & node->flags)) {
 #ifdef DEBUG_PWR
-		PmDbg(DEBUG_DETAILED,"%s->%s\r\n", PmStrNode(node->nodeId),
-			PmStrNode(node->parent->node.nodeId));
+		PmDbg(DEBUG_DETAILED,"%s->%s\r\n", node->name,
+		      node->parent->node.name);
 #endif
 		node->flags &= ~NODE_LOCKED_POWER_FLAG;
 		PmPowerRelease(node->parent);

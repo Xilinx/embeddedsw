@@ -129,6 +129,7 @@ typedef struct {
  * @state       State of the master which is a combination of the states of its
  *              processors and also depends on the order in which processors
  *              enter their states.
+ * @name	Master name
  */
 typedef struct PmMaster {
 	PmSuspendRequest suspendRequest;
@@ -140,6 +141,7 @@ typedef struct PmMaster {
 	int (*const evalState)(const u32 state);
 	u32 (*const remapAddr)(const u32 address);
 	const PmSlave** const memories;
+	const char* const name;
 	u32 ipiMask;
 	u32 wakePerms;
 	u32 suspendPerms;

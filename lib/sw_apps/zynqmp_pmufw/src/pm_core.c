@@ -124,12 +124,12 @@ static void PmSelfSuspend(const PmMaster *const master,
 	/* the node ID must refer to a processor belonging to this master */
 	PmProc* proc = PmGetProcOfThisMaster(master, node);
 
-	PmDbg(DEBUG_DETAILED,"(%s, %lu, %lu, 0x%llx)\r\n", PmStrNode(node),
-			latency, state, address);
+	PmDbg(DEBUG_DETAILED,"(%lu, %lu, %lu, 0x%llx)\r\n", node,
+	      latency, state, address);
 
 	if (NULL == proc) {
-		PmDbg(DEBUG_DETAILED,"ERROR node ID %s(=%lu) does not refer to a "
-				"processor of this master channel\r\n", PmStrNode(node), node);
+		PmDbg(DEBUG_DETAILED,"ERROR node ID %lu does not refer to a "
+				"processor of this master channel\r\n", node);
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -186,7 +186,7 @@ static void PmRequestSuspend(const PmMaster *const master,
 	int status = XST_SUCCESS;
 	PmMaster* target = NULL;
 
-	PmDbg(DEBUG_DETAILED,"(%s, %s, %lu, %lu)\r\n", PmStrNode(node),
+	PmDbg(DEBUG_DETAILED,"(%d, %s, %lu, %lu)\r\n", node,
 			PmStrAck(ack), latency, state);
 
 	/* Only these two acknowledges are allowed for request suspend */
@@ -206,8 +206,8 @@ static void PmRequestSuspend(const PmMaster *const master,
 	}
 
 	if (false == PmCanRequestSuspend(master, target)) {
-		PmDbg(DEBUG_DETAILED,"ERROR: not allowed to request suspend of %s\r\n",
-		      PmStrNode(node));
+		PmDbg(DEBUG_DETAILED,"ERROR: not allowed to request suspend of node %s\r\n",
+		      target->name);
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
@@ -296,11 +296,11 @@ static void PmAbortSuspend(const PmMaster *const master,
 	int status;
 	PmProc* proc = PmGetProcOfThisMaster(master, node);
 
-	PmDbg(DEBUG_DETAILED,"(%s, %s)\r\n", PmStrNode(node), PmStrReason(reason));
+	PmDbg(DEBUG_DETAILED,"(%lu, %s)\r\n", node, PmStrReason(reason));
 
 	if (NULL == proc) {
-		PmDbg(DEBUG_DETAILED,"ERROR processor access for node %s "
-				"not allowed\r\n", PmStrNode(node));
+		PmDbg(DEBUG_DETAILED,"ERROR processor access for node %lu "
+				"not allowed\r\n", node);
 		status = XST_PM_INVALID_NODE;
 		goto done;
 	}
@@ -325,12 +325,12 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 	u32 oppoint = 0U;
 	PmProc* proc = PmNodeGetProc(node);
 
-	PmDbg(DEBUG_DETAILED,"(%s, %s, %lu, %llu, %lu)\r\n", PmStrNode(node),
+	PmDbg(DEBUG_DETAILED,"(%lu, %s, %lu, %llu, %lu)\r\n", node,
 			PmStrAck(ack), setAddress, address, ack);
 
 	if ((NULL == proc) || (NULL == proc->master)) {
-		PmDbg(DEBUG_DETAILED,"ERROR: Invalid node argument %s\r\n",
-				PmStrNode(node));
+		PmDbg(DEBUG_DETAILED,"ERROR: Invalid node argument %lu\r\n",
+				node);
 		status = XST_PM_INVALID_NODE;
 		goto done;
 	}
@@ -343,7 +343,7 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 	if ((false == PmMasterCanRequestWake(master, proc->master)) &&
 	    (master != proc->master)) {
 		PmDbg(DEBUG_DETAILED,"ERROR: No permission to wake-up %s\r\n",
-				PmStrNode(node));
+				proc->master->name);
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
@@ -393,14 +393,14 @@ static void PmReleaseNode(const PmMaster *master,
 	if (NULL == masterReq) {
 		status = XST_PM_NO_ACCESS;
 		PmDbg(DEBUG_DETAILED,"ERROR Can't find requirement for slave %s of "
-				"master %s\r\n", PmStrNode(node), PmStrNode(master->nid));
+		      "master %s\r\n", slave->node.name, master->name);
 		goto done;
 	}
 
 	if (!MASTER_REQUESTED_SLAVE(masterReq)) {
 		status = XST_FAILURE;
 		PmDbg(DEBUG_DETAILED,"WARNING %s attempt to release %s without "
-			"previous request\r\n", PmStrNode(master->nid), PmStrNode(node));
+			"previous request\r\n", master->name, slave->node.name);
 		goto done;
 	}
 
@@ -418,7 +418,7 @@ static void PmReleaseNode(const PmMaster *master,
 	}
 
 done:
-	PmDbg(DEBUG_DETAILED,"(%s)\r\n", PmStrNode(node));
+	PmDbg(DEBUG_DETAILED,"(%lu)\r\n", node);
 	IPI_RESPONSE1(master->ipiMask, status);
 }
 
@@ -441,7 +441,7 @@ static void PmRequestNode(const PmMaster *master,
 	PmRequirement* masterReq;
 	PmSlave* slave;
 
-	PmDbg(DEBUG_DETAILED,"(%s, %lu, %lu, %s)\r\n", PmStrNode(node),
+	PmDbg(DEBUG_DETAILED,"(%lu, %lu, %lu, %s)\r\n", node,
 			capabilities, qos, PmStrAck(ack));
 
 	/* Check if node is slave. If it is, handle request via requirements */
@@ -509,7 +509,7 @@ static void PmSetRequirement(const PmMaster *master,
 	PmRequirement* masterReq;
 	PmSlave* slave = PmNodeGetSlave(node);
 
-	PmDbg(DEBUG_DETAILED,"(%s, %lu, %lu, %s)\r\n", PmStrNode(node),
+	PmDbg(DEBUG_DETAILED,"(%lu, %lu, %lu, %s)\r\n", node,
 			capabilities, qos, PmStrAck(ack));
 
 	/* Set requirement call applies only to slaves */
@@ -582,7 +582,7 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
 
 #ifdef DEBUG_MMIO
 	PmDbg(DEBUG_DETAILED,"(%s) addr=0x%lx, mask=0x%lx, value=0x%lx\r\n",
-	      PmStrNode(master->nid), address, mask, value);
+	      master->name, address, mask, value);
 #endif
 	/* no bits to be updated */
 	if (0U == mask) {
@@ -598,7 +598,7 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
 	/* Check access permissions */
 	if (false == PmGetMmioAccessWrite(master, address)) {
 		PmDbg(DEBUG_DETAILED,"(%s) ERROR: access denied for address 0x%lx\r\n",
-		      PmStrNode(master->nid), address);
+		      master->name, address);
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
@@ -638,7 +638,7 @@ static void PmMmioRead(const PmMaster *const master, const u32 address)
 	/* Check access permissions */
 	if (false == PmGetMmioAccessRead(master, address)) {
 		PmDbg(DEBUG_DETAILED,"(%s) ERROR: access denied for address 0x%lx\r\n",
-		      PmStrNode(master->nid), address);
+		      master->name, address);
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
@@ -647,7 +647,7 @@ static void PmMmioRead(const PmMaster *const master, const u32 address)
 	status = XST_SUCCESS;
 #ifdef DEBUG_MMIO
 	PmDbg(DEBUG_DETAILED,"(%s) addr=0x%lx, value=0x%lx\r\n",
-			PmStrNode(master->nid), address, value);
+	      master->name, address, value);
 #endif
 
 done:
@@ -953,8 +953,8 @@ static void PmSetWakeupSource(const PmMaster *const master,
 	}
 
 done:
-	PmDbg(DEBUG_DETAILED,"(%s, %s, %lu)\r\n", PmStrNode(master->nid),
-			PmStrNode(sourceNode), enable);
+	PmDbg(DEBUG_DETAILED,"(%s, %lu, %lu)\r\n", master->name, sourceNode,
+	      enable);
 
 	IPI_RESPONSE1(master->ipiMask, status);
 }
@@ -1024,7 +1024,7 @@ static void PmSetMaxLatency(const PmMaster *const master, const u32 node,
 	PmRequirement* masterReq;
 	PmSlave* slave = PmNodeGetSlave(node);
 
-	PmDbg(DEBUG_DETAILED,"(%s, %lu)\r\n", PmStrNode(node), latency);
+	PmDbg(DEBUG_DETAILED,"(%lu, %lu)\r\n", node, latency);
 
 	if (NULL == slave) {
 		status = XST_INVALID_PARAM;
@@ -1063,7 +1063,7 @@ static void PmSetConfiguration(const PmMaster *const master, const u32 address)
 	u32 configAddr = address;
 	u32 callerIpiMask = master->ipiMask;
 
-	PmDbg(DEBUG_DETAILED,"(0x%lx) %s\r\n", address, PmStrNode(master->nid));
+	PmDbg(DEBUG_DETAILED,"(0x%lx) %s\r\n", address, master->name);
 
 	if (NULL != master->remapAddr) {
 		configAddr = master->remapAddr(address);
@@ -1162,7 +1162,7 @@ static void PmGetNodeStatus(const PmMaster *const master, const u32 node)
 	int status = XST_SUCCESS;
 	PmNode* nodePtr = PmGetNodeById(node);
 
-	PmDbg(DEBUG_DETAILED,"(%s)\r\n", PmStrNode(node));
+	PmDbg(DEBUG_DETAILED,"(%lu)\r\n", node);
 
 	if (NULL == nodePtr) {
 		status = XST_INVALID_PARAM;
@@ -1213,8 +1213,8 @@ static void PmGetOpCharacteristics(const PmMaster *const master, const u32 node,
 		status = nodePtr->class->getPowerData(nodePtr, &result);
 		break;
 	case PM_OPCHAR_TYPE_TEMP:
-		PmDbg(DEBUG_DETAILED,"(%s) WARNING: Temperature unsupported\r\n",
-				PmStrNode(node));
+		PmDbg(DEBUG_DETAILED,"(%lu) WARNING: Temperature unsupported\r\n",
+		      node);
 		status = XST_NO_FEATURE;
 		break;
 	case PM_OPCHAR_TYPE_LATENCY:
@@ -1225,14 +1225,14 @@ static void PmGetOpCharacteristics(const PmMaster *const master, const u32 node,
 		status = nodePtr->class->getWakeUpLatency(nodePtr, &result);
 		break;
 	default:
-		PmDbg(DEBUG_DETAILED,"(%s) ERROR: Invalid type: %lu\r\n",
-				PmStrNode(node), type);
+		PmDbg(DEBUG_DETAILED,"(%lu) ERROR: Invalid type: %lu\r\n",
+		      node, type);
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 done:
-	PmDbg(DEBUG_DETAILED,"(%s, %lu, %lu)\r\n", PmStrNode(node), type, result);
+	PmDbg(DEBUG_DETAILED,"(%lu, %lu, %lu)\r\n", node, type, result);
 	IPI_RESPONSE2(master->ipiMask, status, result);
 }
 
@@ -1251,7 +1251,7 @@ static void PmRegisterNotifier(const PmMaster *const master, const u32 node,
 	int status;
 	PmNode* nodePtr = PmGetNodeById(node);
 
-	PmDbg(DEBUG_DETAILED,"(%s, %lu, %lu, %lu)\r\n", PmStrNode(node), event,
+	PmDbg(DEBUG_DETAILED,"(%lu, %lu, %lu, %lu)\r\n", node, event,
 			wake, enable);
 
 	if (NULL == nodePtr) {
@@ -1282,7 +1282,7 @@ void PmInitFinalize(PmMaster* const master)
 {
 	int status;
 
-	PmDbg(DEBUG_DETAILED, "(%s)\r\n", PmStrNode(master->nid));
+	PmDbg(DEBUG_DETAILED, "(%s)\r\n", master->name);
 	status = PmMasterInitFinalize(master);
 	IPI_RESPONSE1(master->ipiMask, status);
 }

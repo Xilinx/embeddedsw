@@ -74,6 +74,8 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
 #define DEFINE_PM_POWER_INFO(i)	.powerInfo = (i), \
 				.powerInfoCnt = ARRAY_SIZE(i)
 
+#define DEFINE_NODE_NAME(n)		\
+	.name = n
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
@@ -94,6 +96,7 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
  * @powerInfoCnt  Number of power consumptions in powerInfo array based on
  *                number of states
  * @flags       Node flags
+ * @name	Node name
  */
 typedef struct PmNode {
 	void* const derived;
@@ -103,6 +106,7 @@ typedef struct PmNode {
 	const u32 *const powerInfo;
 	const u32 powerInfoCnt;
 	u32 latencyMarg;
+	const char* const name;
 	const PmNodeId nodeId;
 	PmStateId currState;
 	u8 flags;
