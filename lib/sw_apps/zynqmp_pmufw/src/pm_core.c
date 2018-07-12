@@ -58,6 +58,8 @@
 
 #define AMS_REF_CTRL_REG_OFFSET	0x108
 
+#define INVALID_ACK_ARG(a)	((a < REQUEST_ACK_MIN) || (a > REQUEST_ACK_MAX))
+
 /**
  * PmKillBoardPower() - Power-off board by sending KILL signal to power chip
  */
@@ -185,9 +187,9 @@ static void PmRequestSuspend(const PmMaster *const master,
 	PmDbg(DEBUG_DETAILED,"(%s, %s, %lu, %lu)\r\n", PmStrNode(node),
 			PmStrAck(ack), latency, state);
 
-	if (REQUEST_ACK_BLOCKING == ack) {
-		PmDbg(DEBUG_DETAILED,"ERROR: invalid acknowledge "
-				"REQUEST_ACK_BLOCKING\r\n");
+	/* Only these two acknowledges are allowed for request suspend */
+	if (REQUEST_ACK_NO != ack && REQUEST_ACK_NON_BLOCKING != ack) {
+		PmDbg(DEBUG_DETAILED,"ERROR: invalid ack argument\r\n");
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -251,7 +253,7 @@ static void PmForcePowerdown(const PmMaster *const master,
 	int status;
 	PmNode* nodePtr = PmGetNodeById(node);
 
-	if (NULL == nodePtr) {
+	if (NULL == nodePtr || INVALID_ACK_ARG(ack)) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -328,6 +330,11 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 		PmDbg(DEBUG_DETAILED,"ERROR: Invalid node argument %s\r\n",
 				PmStrNode(node));
 		status = XST_PM_INVALID_NODE;
+		goto done;
+	}
+
+	if (INVALID_ACK_ARG(ack)) {
+		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -437,7 +444,7 @@ static void PmRequestNode(const PmMaster *master,
 
 	/* Check if node is slave. If it is, handle request via requirements */
 	slave = PmNodeGetSlave(node);
-	if (NULL == slave) {
+	if (NULL == slave || INVALID_ACK_ARG(ack)) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -504,7 +511,7 @@ static void PmSetRequirement(const PmMaster *master,
 			capabilities, qos, PmStrAck(ack));
 
 	/* Set requirement call applies only to slaves */
-	if (NULL == slave) {
+	if (NULL == slave || INVALID_ACK_ARG(ack)) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
