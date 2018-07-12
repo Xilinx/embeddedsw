@@ -1419,19 +1419,23 @@ void PmClockRelease(PmNode* const node)
 {
 	PmClockHandle* ch = node->clocks;
 
-	if (0U != (NODE_LOCKED_CLOCK_FLAG & node->flags)) {
-#ifdef DEBUG_CLK
-		PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(node->nodeId));
-#endif
-		while (NULL != ch) {
-			if (NULL != ch->clock->pll) {
-				PmPllRelease(ch->clock->pll);
-			}
-			ch = ch->nextClock;
-		}
-		node->flags &= ~NODE_LOCKED_CLOCK_FLAG;
+	if (0U == (NODE_LOCKED_CLOCK_FLAG & node->flags)) {
+		PmDbg(DEBUG_DETAILED,"Warning %s double release\r\n",
+				PmStrNode(node->nodeId));
+		goto done;
 	}
+#ifdef DEBUG_CLK
+	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(node->nodeId));
+#endif
+	while (NULL != ch) {
+		if (NULL != ch->clock->pll) {
+			PmPllRelease(ch->clock->pll);
+		}
+		ch = ch->nextClock;
+	}
+	node->flags &= ~NODE_LOCKED_CLOCK_FLAG;
 
+done:
 	return;
 }
 
