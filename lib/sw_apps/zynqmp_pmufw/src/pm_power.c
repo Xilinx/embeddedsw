@@ -1038,10 +1038,6 @@ int PmPowerRequestParent(PmNode* const node)
 	int status = XST_SUCCESS;
 
 	if (0U == (NODE_LOCKED_POWER_FLAG & node->flags)) {
-#ifdef DEBUG_PWR
-		PmDbg(DEBUG_DETAILED,"%s->%s\r\n", node->name,
-		      node->parent->node.name));
-#endif
 		status = PmPowerRequest(node->parent);
 		if (XST_SUCCESS == status) {
 			node->flags |= NODE_LOCKED_POWER_FLAG;
@@ -1058,10 +1054,6 @@ int PmPowerRequestParent(PmNode* const node)
 void PmPowerReleaseParent(PmNode* const node)
 {
 	if (0U != (NODE_LOCKED_POWER_FLAG & node->flags)) {
-#ifdef DEBUG_PWR
-		PmDbg(DEBUG_DETAILED,"%s->%s\r\n", node->name,
-		      node->parent->node.name);
-#endif
 		node->flags &= ~NODE_LOCKED_POWER_FLAG;
 		PmPowerRelease(node->parent);
 	}
