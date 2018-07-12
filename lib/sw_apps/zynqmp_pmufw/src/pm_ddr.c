@@ -1786,7 +1786,8 @@ int PmDdrPowerOffSuspendResume()
 {
 	int status;
 
-	PmClockRestoreDdr();
+	PmClockRequest(&pmSlaveDdr_g.node);
+	PmClockRestore(&pmSlaveDdr_g.node);
 
 	status = PmDdrFsmHandler(&pmSlaveDdr_g, PM_DDR_STATE_ON);
 	if (XST_SUCCESS != status) {
