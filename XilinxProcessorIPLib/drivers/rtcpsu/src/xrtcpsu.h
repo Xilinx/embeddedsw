@@ -109,6 +109,7 @@
  * 1.6   aru    06/25/18 Modified logic to handle
  *			 the last day of month cotrrecly.(CR#1004282)
  * 1.6   aru    06/25/18 Remove the checkpatch warnings.
+ * 1.6   aru    07/11/18 Resolved cppcheck warnings.
  * </pre>
  *
  ******************************************************************************/
@@ -400,6 +401,9 @@ s32 XRtcPsu_SelfTest(XRtcPsu *InstancePtr);
 /* Functions in xrtcpsu_sinit.c */
 XRtcPsu_Config *XRtcPsu_LookupConfig(u16 DeviceId);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XRTC_H_ */
 /** @} */

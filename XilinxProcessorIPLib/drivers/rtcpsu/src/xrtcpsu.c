@@ -54,6 +54,7 @@
  * 1.6	 aru	06/25/18 Modified logic to handle
  *			 the last day of month cotrrecly.(CR#1004282)
  * 1.6	 aru	06/25/18 Remove the checkpatch warnings.
+ * 1.6   aru    07/11/18 Resolved cppcheck warnings.
  * </pre>
  *
  ******************************************************************************/
@@ -446,7 +447,6 @@ void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr, u32 TimeReal,
 	u32 Cnew;
 	u32 Fnew;
 	u32 Calibration;
-	float Xf;
 
 	Xil_AssertVoid(TimeReal != 0U);
 
@@ -468,6 +468,7 @@ void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr, u32 TimeReal,
 		Cnew = CrystalOscFreq - (u32)1;
 		Fnew = 0U;
 	} else {
+		float Xf;
 		Cprev = Calibration & XRTC_CALIB_RD_MAX_TCK_MASK;
 		Fprev = Calibration & XRTC_CALIB_RD_FRACTN_DATA_MASK;
 
