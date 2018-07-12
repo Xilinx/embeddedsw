@@ -102,16 +102,15 @@ typedef struct PmProc PmProc;
  * @init            Init handler specific to the processor
  * @sleep           Pointer to the processor's sleep handler
  * @wake            Pointer to the processor's wake handler
- * @wfiStatusMask   Mask in PM_IOMODULE_GPI2 register (WFI interrupt)
- * @wakeStatusMask  Mask in PM_IOMODULE_GPI1 register (GIC wake interrupt)
- * @wfiEnableMask   Mask in PM_LOCAL_GPI2_ENABLE register (WFI interrupt)
- * @wakeEnableMask  mask in PM_LOCAL_GPI1_ENABLE register (GIC wake interrupt)
  * @resumeCfg       Address of register configuring processor's resume address
  * @pwrDnReqAddr    Address of the power down request register
  * @pwrDnReqMask    Mask in the power down request register
  * @latencyReq      Latenct requirement as passed in by self_suspend argument
  * @pwrDnLatency    Latency (in us) for transition to OFF state
  * @pwrUpLatency    Latency (in us) for transition to ON state
+ * @mask            Unique mask of the processor in PM_IOMODULE_GPI2,
+ *                  PM_IOMODULE_GPI1, PM_LOCAL_GPI2_ENABLE, and
+ *                  PM_LOCAL_GPI1_ENABLE registers
  */
 typedef struct PmProc {
 	PmNode node;
@@ -122,10 +121,7 @@ typedef struct PmProc {
 	void (*const init)(PmProc* const proc);
 	int (*const sleep)(void);
 	int (*const wake)(void);
-	const u32 wfiStatusMask;
-	const u32 wakeStatusMask;
-	const u32 wfiEnableMask;
-	const u32 wakeEnableMask;
+	const u32 mask;
 	const u32 resumeCfg;
 	const u32 pwrDnReqAddr;
 	const u32 pwrDnReqMask;

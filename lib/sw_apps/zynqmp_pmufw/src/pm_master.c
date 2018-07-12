@@ -505,7 +505,7 @@ PmProc* PmGetProcByWfiStatus(const u32 mask)
 		u32 p;
 
 		for (p = 0U; p < mst->procsCnt; p++) {
-			if (0U != (mask & mst->procs[p]->wfiStatusMask)) {
+			if (0U != (mask & mst->procs[p]->mask)) {
 				proc = mst->procs[p];
 				goto done;
 			}
