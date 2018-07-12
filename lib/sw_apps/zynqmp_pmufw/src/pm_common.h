@@ -141,6 +141,13 @@ typedef u32 (*const PmTranHandler)(void);
 #define PM_COLD_BOOT	1U
 #define PM_WARM_BOOT	2U
 
+/* One (first) u32 is used for API call id coding */
+#define PAYLOAD_API_ID			1U
+/* Each API can have up to 5 arguments */
+#define PAYLOAD_API_ARGS_CNT	5U
+/* Number of payload elements (api id and api's arguments) */
+#define PAYLOAD_ELEM_CNT		(PAYLOAD_API_ID + PAYLOAD_API_ARGS_CNT)
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/

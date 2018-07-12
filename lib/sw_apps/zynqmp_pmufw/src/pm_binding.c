@@ -32,7 +32,6 @@
  *********************************************************************/
 
 #include "pm_binding.h"
-#include "pm_api.h"
 #include "pm_defs.h"
 #include "pm_common.h"
 #include "pm_proc.h"

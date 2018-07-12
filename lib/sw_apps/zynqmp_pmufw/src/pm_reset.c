@@ -38,7 +38,6 @@
 #include "xpfw_default.h"
 #include "xpfw_rom_interface.h"
 #include "xpfw_resets.h"
-#include "pm_api.h"
 #include "pm_reset.h"
 #include "pm_defs.h"
 #include "pm_common.h"
