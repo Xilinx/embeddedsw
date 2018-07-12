@@ -1652,7 +1652,7 @@ err:
 	return ret;
 }
 
-static int pm_ddr_sr_exit(bool ddrss_is_reset)
+static void pm_ddr_sr_exit(bool ddrss_is_reset)
 {
 	if (true == ddrss_is_reset) {
 		u32 readVal;
@@ -1673,8 +1673,6 @@ static int pm_ddr_sr_exit(bool ddrss_is_reset)
 	DDR_reinit(ddrss_is_reset);
 
 	restore_training_data();
-
-	return XST_SUCCESS;
 }
 
 /**
@@ -1710,11 +1708,8 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		if (PM_DDR_STATE_ON == nextState) {
 			bool ddrss_is_reset = !Xil_In32(DDRC_STAT);
 
-			if (pm_ddr_sr_exit(ddrss_is_reset) == XST_SUCCESS) {
-				(void)XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
-			} else {
-				status = XST_FAILURE;
-			}
+			pm_ddr_sr_exit(ddrss_is_reset);
+			(void)XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
 		} else {
 			status = XST_NO_FEATURE;
 		}
