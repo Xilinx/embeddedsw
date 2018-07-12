@@ -80,7 +80,6 @@
  * 	- ENABLE_SECURE : Enables security features
  * 	- XPU_INTR_DEBUG_PRINT_ENABLE : Enables debug for XMPU/XPPU functionality
  *
- * 	- DEBUG_CLK : Enables dumping clock and PLL state functions
  * 	- DEBUG_PM : Enables debug functions for PM
  * 	- IDLE_PERIPHERALS : Enables idling peripherals before PS or System reset
  * 	- ENABLE_NODE_IDLING : Enables idling and reset of nodes before force
@@ -112,7 +111,6 @@
 #define	ENABLE_SECURE_VAL				(1U)
 #define	XPU_INTR_DEBUG_PRINT_ENABLE_VAL	(0U)
 
-#define	DEBUG_CLK_VAL					(0U)
 #define	DEBUG_PM_VAL					(0U)
 #define	IDLE_PERIPHERALS_VAL			(0U)
 #define	ENABLE_NODE_IDLING_VAL			(0U)
@@ -168,10 +166,6 @@
 
 #if XPU_INTR_DEBUG_PRINT_ENABLE_VAL
 #define XPU_INTR_DEBUG_PRINT_ENABLE
-#endif
-
-#if DEBUG_CLK_VAL
-#define DEBUG_CLK
 #endif
 
 #if DEBUG_PM_VAL

@@ -439,9 +439,6 @@ int PmPllRequest(PmPll* const pll)
 {
 	int status = XST_SUCCESS;
 
-#ifdef DEBUG_CLK
-	PmDbg(DEBUG_DETAILED,"%s #%lu\r\n", pll->node.name, 1 + pll->useCount);
-#endif
 	/* If the PLL is suspended it needs to be resumed first */
 	if (true == pll->context.saved) {
 		status = PmPllResume(pll);
@@ -460,10 +457,6 @@ void PmPllRelease(PmPll* const pll)
 {
 	if (pll->useCount > 0U) {
 		pll->useCount--;
-#ifdef DEBUG_CLK
-		PmDbg(DEBUG_DETAILED,"%s #%lu\r\n", pll->node.name,
-		      pll->useCount);
-#endif
 		if (0U == pll->useCount) {
 			PmPllSuspend(pll);
 		}
