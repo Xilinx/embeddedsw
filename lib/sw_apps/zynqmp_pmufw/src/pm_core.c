@@ -1377,8 +1377,7 @@ static void PmProcessApiCall(PmMaster *const master, const u32 *pload)
 #endif
 	default:
 		PmDbg(DEBUG_DETAILED,"ERROR unsupported PM API #%lu\r\n", pload[0]);
-		PmProcessAckRequest(PmRequestAcknowledge(pload), master,
-				    NODE_UNKNOWN, XST_INVALID_VERSION, 0);
+		IPI_RESPONSE1(master->ipiMask, XST_INVALID_VERSION);
 		break;
 	}
 done:
