@@ -1690,16 +1690,15 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	if ((PM_DDR_STATE_OFF != slave->node.currState) &&
 	    (PM_DDR_STATE_OFF == nextState)) {
 		/* Here, user can put the DDR controller in reset */
-		status = XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR);
+		XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR);
 		goto done;
 	}
 
 	switch (slave->node.currState) {
 	case PM_DDR_STATE_ON:
 		if (PM_DDR_STATE_SR == nextState) {
-			if (XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR) == XST_SUCCESS) {
-				status = pm_ddr_sr_enter();
-			}
+			XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR);
+			status = pm_ddr_sr_enter();
 		} else {
 			status = XST_NO_FEATURE;
 		}
@@ -1709,7 +1708,7 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 			bool ddrss_is_reset = !Xil_In32(DDRC_STAT);
 
 			pm_ddr_sr_exit(ddrss_is_reset);
-			(void)XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
+			XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
 		} else {
 			status = XST_NO_FEATURE;
 		}
@@ -1720,7 +1719,7 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 			 * Bring DDR controller out of reset if it was in reset
 			 * during DDR OFF state
 			 * */
-			status = XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
+			XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
 		} else {
 			status = XST_NO_FEATURE;
 		}
