@@ -107,6 +107,7 @@ static int PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		if ((PM_USB_STATE_OFF == nextState) ||
 		    (PM_USB_STATE_UNUSED == nextState)) {
 			/* ON -> OFF*/
+			XPfw_AibEnable(usb->aibId);
 			status = usb->PwrDn();
 		} else {
 			status = XST_NO_FEATURE;
@@ -117,6 +118,7 @@ static int PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		if (PM_USB_STATE_ON == nextState) {
 			/* OFF -> ON */
 			status = usb->PwrUp();
+			XPfw_AibDisable(usb->aibId);
 			if (XST_SUCCESS == status) {
 				status = PmResetAssertInt(usb->rstId,
 						PM_RESET_ACTION_PULSE);
@@ -186,6 +188,7 @@ PmSlaveUsb pmSlaveUsb0_g = {
 	.PwrDn = XpbrPwrDnUsb0Handler,
 	.PwrUp = XpbrPwrUpUsb0Handler,
 	.rstId = PM_RESET_USB0_CORERESET,
+	.aibId = XPFW_AIB_LPD_TO_USB0,
 };
 
 static PmWakeEventGicProxy pmUsb1Wake = {
@@ -224,6 +227,7 @@ PmSlaveUsb pmSlaveUsb1_g = {
 	.PwrDn = XpbrPwrDnUsb1Handler,
 	.PwrUp = XpbrPwrUpUsb1Handler,
 	.rstId = PM_RESET_USB1_CORERESET,
+	.aibId = XPFW_AIB_LPD_TO_USB1,
 };
 
 #endif

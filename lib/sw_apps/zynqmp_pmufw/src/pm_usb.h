@@ -32,6 +32,7 @@
 #define PM_USB_H_
 
 #include "pm_slave.h"
+#include "xpfw_aib.h"
 
 /*********************************************************************
  * Structure definitions
@@ -48,6 +49,7 @@ typedef struct PmSlaveUsb {
 	PmTranHandler PwrDn;
 	PmTranHandler PwrUp;
 	const u32 rstId;
+	const enum XPfwAib aibId;
 } PmSlaveUsb;
 
 /*********************************************************************
