@@ -32,6 +32,8 @@
 #include "pm_node_idle.h"
 #include "pm_common.h"
 
+#ifdef ENABLE_NODE_IDLING
+
 #define MAX_TIMEOUT 0x1FFFFFFF
 
 #if defined(XPAR_PSU_TTC_0_DEVICE_ID) || \
@@ -496,3 +498,5 @@ void NodeSataIdle(u32 BaseAddress)
 	Xil_In32(BaseAddress + SATA_HOST_CTL); /* flush */
 }
 #endif
+
+#endif /* ENABLE_NODE_IDLING */
