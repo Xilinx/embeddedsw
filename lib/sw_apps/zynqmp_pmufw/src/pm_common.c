@@ -39,26 +39,6 @@
 #ifdef DEBUG_PM
 
 /**
- * PmStrAck() - Converts integer acknowledge into matching string
- * @ack        Acknowlegde integer id to be converted to string
- *
- * @return     String name of given acknowledge id
- */
-const char* PmStrAck(const u32 ack)
-{
-	switch (ack) {
-	case REQUEST_ACK_NO:
-		return "REQUEST_ACK_NO";
-	case REQUEST_ACK_BLOCKING:
-		return "REQUEST_ACK_BLOCKING";
-	case REQUEST_ACK_NON_BLOCKING:
-		return "REQUEST_ACK_NON_BLOCKING";
-	default:
-		return "ERROR_ACK";
-	}
-}
-
-/**
  * PmStrReason() - Converts integer reason id into matching string
  * @reason      Integer reason id to be converted
  *

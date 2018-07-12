@@ -186,8 +186,8 @@ static void PmRequestSuspend(const PmMaster *const master,
 	int status = XST_SUCCESS;
 	PmMaster* target = NULL;
 
-	PmDbg(DEBUG_DETAILED,"(%d, %s, %lu, %lu)\r\n", node,
-			PmStrAck(ack), latency, state);
+	PmDbg(DEBUG_DETAILED,"(%d, %lu, %lu, %lu)\r\n", node,
+	      ack, latency, state);
 
 	/* Only these two acknowledges are allowed for request suspend */
 	if (REQUEST_ACK_NO != ack && REQUEST_ACK_NON_BLOCKING != ack) {
@@ -325,8 +325,8 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 	u32 oppoint = 0U;
 	PmProc* proc = PmNodeGetProc(node);
 
-	PmDbg(DEBUG_DETAILED,"(%lu, %s, %lu, %llu, %lu)\r\n", node,
-			PmStrAck(ack), setAddress, address, ack);
+	PmDbg(DEBUG_DETAILED,"(%lu, %lu, %lu, %llu, %lu)\r\n", node,
+	      ack, setAddress, address, ack);
 
 	if ((NULL == proc) || (NULL == proc->master)) {
 		PmDbg(DEBUG_DETAILED,"ERROR: Invalid node argument %lu\r\n",
@@ -441,8 +441,8 @@ static void PmRequestNode(const PmMaster *master,
 	PmRequirement* masterReq;
 	PmSlave* slave;
 
-	PmDbg(DEBUG_DETAILED,"(%lu, %lu, %lu, %s)\r\n", node,
-			capabilities, qos, PmStrAck(ack));
+	PmDbg(DEBUG_DETAILED,"(%lu, %lu, %lu, %lu)\r\n", node,
+			capabilities, qos, ack);
 
 	/* Check if node is slave. If it is, handle request via requirements */
 	slave = PmNodeGetSlave(node);
@@ -509,8 +509,8 @@ static void PmSetRequirement(const PmMaster *master,
 	PmRequirement* masterReq;
 	PmSlave* slave = PmNodeGetSlave(node);
 
-	PmDbg(DEBUG_DETAILED,"(%lu, %lu, %lu, %s)\r\n", node,
-			capabilities, qos, PmStrAck(ack));
+	PmDbg(DEBUG_DETAILED,"(%lu, %lu, %lu, %lu)\r\n", node,
+			capabilities, qos, ack);
 
 	/* Set requirement call applies only to slaves */
 	if (NULL == slave || INVALID_ACK_ARG(ack)) {
