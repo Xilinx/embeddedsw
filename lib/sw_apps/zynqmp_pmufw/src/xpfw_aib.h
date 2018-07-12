@@ -55,8 +55,7 @@ enum XPfwAib {
  */
 #define AIB_ACK_TIMEOUT	(0xFU)
 
-s32 XPfw_AibEnable(enum XPfwAib AibId);
-s32 XPfw_AibDisable(enum XPfwAib AibId);
-s32 XPfw_AibPollForAck(enum XPfwAib AibId, u32 TimeOutCount);
+void XPfw_AibEnable(enum XPfwAib AibId);
+void XPfw_AibDisable(enum XPfwAib AibId);
 
 #endif /* XPFW_AIB_H_ */

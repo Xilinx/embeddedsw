@@ -116,71 +116,48 @@ static struct Aib AibList[XPFW_AIB_ID_MAX] = {
 /**
  * Enable AIB isolation
  * @param AibId is ID of the AIB instance that needs to be enabled
- * @return XST_SUCCESS if the operation is successful
- *         XST_FAILURE in case of errors or invalid inputs
  */
-s32 XPfw_AibEnable(enum XPfwAib AibId)
+void XPfw_AibEnable(enum XPfwAib AibId)
 {
-	s32 Status;
-	if(AibId >= XPFW_AIB_ID_MAX) {
-		Status = XST_FAILURE;
+	u32 Status;
+	u32 TimeOutCount = AIB_ACK_TIMEOUT;
+
+	if (AibId >= XPFW_AIB_ID_MAX) {
+		XPfw_Printf(DEBUG_DETAILED, "Err: invalid AIB#%d\r\n", AibId);
 		goto Done;
 	}
-	XPfw_RMW32(AibList[AibId].ReqRegAddr, AibList[AibId].Mask, AibList[AibId].Mask);
-	Status = XST_SUCCESS;
+	XPfw_RMW32(AibList[AibId].ReqRegAddr, AibList[AibId].Mask,
+		   AibList[AibId].Mask);
+
+	/* Loop until the AIB isolation ack is not received or we timeout */
+	do {
+		Status = XPfw_Read32(AibList[AibId].StsRegAddr) & AibList[AibId].Mask;
+		if (Status != 0U) {
+			break;
+		}
+		--TimeOutCount;
+		usleep(10U);
+	} while (TimeOutCount > 0U);
+
+	if (Status == 0U) {
+		XPfw_Printf(DEBUG_DETAILED, "No AIB#%d ack\r\n", AibId);
+	}
+
 Done:
-	return Status;
+	return;
 }
 
 /**
  * Disable AIB isolation
  * @param AibId is ID of the AIB instance that needs to be disabled
- * @return XST_SUCCESS if the operation is successful
- *         XST_FAILURE in case of errors or invalid inputs
  */
-s32 XPfw_AibDisable(enum XPfwAib AibId)
+void XPfw_AibDisable(enum XPfwAib AibId)
 {
-	s32 Status;
-	if(AibId >= XPFW_AIB_ID_MAX) {
-		Status = XST_FAILURE;
+	if (AibId >= XPFW_AIB_ID_MAX) {
+		XPfw_Printf(DEBUG_DETAILED, "Err: invalid AIB#%d\r\n", AibId);
 		goto Done;
 	}
 	XPfw_RMW32(AibList[AibId].ReqRegAddr, AibList[AibId].Mask, 0U);
-	Status = XST_SUCCESS;
 Done:
-	return Status;
-}
-
-/**
- * Check if an AIB isolation is enabled by polling for acknowledgment
- * @param AibId is ID of the AIB instance that needs to be checked
- * @param TimeOutCount is loop count value
- * @return XST_SUCCESS if the specified AIB is enabled
- *         XST_FAILURE in case of errors or invalid inputs
- */
-s32 XPfw_AibPollForAck(enum XPfwAib AibId, u32 TimeOutCount)
-{
-	s32 Status = XST_FAILURE;
-	if(AibId >= XPFW_AIB_ID_MAX) {
-		Status = XST_FAILURE;
-		goto Done;
-	}
-
-	/* Check for AIB isolation ack */
-	Status = ((XPfw_Read32(AibList[AibId].StsRegAddr) & AibList[AibId].Mask) != 0U) ? XST_SUCCESS : XST_FAILURE;
-	/**
-	 * Loop while the AIB isolation ack is not received or we timeout
-	 */
-	while((Status != XST_SUCCESS) && (TimeOutCount > 0U)) {
-		Status = ((XPfw_Read32(AibList[AibId].StsRegAddr) & AibList[AibId].Mask) != 0U) ? XST_SUCCESS : XST_FAILURE;
-		/**
-		 * Decrement the TimeOutCount count
-		 */
-		--TimeOutCount;
-		usleep(10U);
-	}
-	XPfw_Printf(DEBUG_DETAILED,"AIB ack status: 0x%x\r\n",Status);
-
-Done:
-	return Status;
+	return;
 }
