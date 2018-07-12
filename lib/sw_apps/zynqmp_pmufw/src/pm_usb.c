@@ -36,7 +36,6 @@
 #include "pm_reset.h"
 #include "xpfw_rom_interface.h"
 #include "lpd_slcr.h"
-#include "xpfw_aib.h"
 
 /* Power states of USB */
 #define PM_USB_STATE_UNUSED	0U
@@ -165,40 +164,6 @@ static u32 PmUsbPowers[] = {
 	[PM_USB_STATE_ON] = DEFAULT_USB_POWER_ON,
 };
 
-/*
- * PmPowerUpUsb0() - USB0 power up handler, powers up USB0 power island
- * 					 and disables AIBs
- * @return		   - Return value of PMU-ROM handler
- */
-
-static u32 PmPowerUpUsb0(void)
-{
-	u32 status;
-
-	status = XpbrPwrUpUsb0Handler();
-
-	if (XST_SUCCESS != status) {
-		goto done;
-	}
-	XPfw_AibDisable(XPFW_AIB_LPD_TO_USB0);
-
-done:
-	return status;
-}
-
-/**
- * PmPowerDownUsb0() - USB0 power down handler, powers down USB0 power island
- * 					   and enables AIBs at USB0 interfaces to respond
- * 					   gracefully to the incoming AXI transactions to
- * 					   powered down USB0 power island.
- * @return			 - Return value of PMU-ROM handler
- */
-static u32 PmPowerDownUsb0(void)
-{
-	XPfw_AibEnable(XPFW_AIB_LPD_TO_USB0);
-	return XpbrPwrDnUsb0Handler();
-}
-
 PmSlaveUsb pmSlaveUsb0_g = {
 	.slv = {
 		.node = {
@@ -218,8 +183,8 @@ PmSlaveUsb pmSlaveUsb0_g = {
 		.slvFsm = &slaveUsbFsm,
 		.flags = 0U,
 	},
-	.PwrDn = PmPowerDownUsb0,
-	.PwrUp = PmPowerUpUsb0,
+	.PwrDn = XpbrPwrDnUsb0Handler,
+	.PwrUp = XpbrPwrUpUsb0Handler,
 	.rstId = PM_RESET_USB0_CORERESET,
 };
 
@@ -236,40 +201,6 @@ static PmWakeEventGicProxy pmUsb1Wake = {
 		LPD_SLCR_GICP2_IRQ_MASK_SRC6_MASK,
 	.group = 2U,
 };
-
-/*
- * PmPowerUpUsb1() - USB1 power up handler, powers up USB1 power island
- * 					 and disables AIBs
- * @return		   - Return value of PMU-ROM handler
- */
-
-static u32 PmPowerUpUsb1(void)
-{
-	u32 status;
-
-	status = XpbrPwrUpUsb1Handler();
-
-	if (XST_SUCCESS != status) {
-		goto done;
-	}
-	XPfw_AibDisable(XPFW_AIB_LPD_TO_USB1);
-
-done:
-	return status;
-}
-
-/**
- * PmPowerDownUsb1() - USB1 power down handler, powers down USB1 power island
- * 					   and enables AIBs at USB1 interfaces to respond
- * 					   gracefully to the incoming AXI transactions to
- * 					   powered down USB1 power island.
- * @return			 - Return value of PMU-ROM handler
- */
-static u32 PmPowerDownUsb1(void)
-{
-	XPfw_AibEnable(XPFW_AIB_LPD_TO_USB1);
-	return XpbrPwrDnUsb1Handler();
-}
 
 PmSlaveUsb pmSlaveUsb1_g = {
 	.slv = {
@@ -290,8 +221,8 @@ PmSlaveUsb pmSlaveUsb1_g = {
 		.slvFsm = &slaveUsbFsm,
 		.flags = 0U,
 	},
-	.PwrDn = PmPowerDownUsb1,
-	.PwrUp = PmPowerUpUsb1,
+	.PwrDn = XpbrPwrDnUsb1Handler,
+	.PwrUp = XpbrPwrUpUsb1Handler,
 	.rstId = PM_RESET_USB1_CORERESET,
 };
 
