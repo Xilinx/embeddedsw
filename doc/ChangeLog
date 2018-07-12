@@ -52,6 +52,7 @@ Fixed compilation warnings in resetps driver
 rtcpsu_v1_6
 Modified logic to get the last day of month correctly.(CR#1004282)
 Removed Checkpatch warnings.
+Resolved cppcheck and doxygen warnings.
 
 usbpsu_v1_4
 Fixed the errors which occur when tested with IAR compiler
