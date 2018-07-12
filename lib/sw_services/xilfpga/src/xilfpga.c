@@ -39,6 +39,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 4.2  Nava  08/06/16  Refactor the xilfpga library to support
  *			different PL programming Interfaces.
+ * 4.2  adk   11/07/18  Added support for readback of PL configuration data.
  *
  *</pre>
  *
@@ -164,6 +165,28 @@ u32 XFpga_GetPlConfigReg(u32 ConfigReg, UINTPTR Address)
 	u32 Status = XFPGA_SUCCESS;
 
 	Status = Fpga_Ops.XFpga_GetConfigReg(ConfigReg, Address);
+	if (Status != XFPGA_SUCCESS)
+		Status = XFPGA_FAILURE;
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function provides functionality to read back the PL configuration data
+ *
+ * @param        Address is the DMA buffer address.
+ * @param	NumFrames is the number fpga configuration frames to read.
+ *
+ * @return
+ *               - XFPGA_SUCCESS if successful
+ *               - XFPGA_FAILURE if unsuccessful
+ ****************************************************************************/
+u32 XFpga_GetPlConfigData(UINTPTR Address, u32 NumFrames)
+{
+	u32 Status = XFPGA_SUCCESS;
+
+	Status = Fpga_Ops.XFpga_GetConfigData(Address, NumFrames);
 	if (Status != XFPGA_SUCCESS)
 		Status = XFPGA_FAILURE;
 

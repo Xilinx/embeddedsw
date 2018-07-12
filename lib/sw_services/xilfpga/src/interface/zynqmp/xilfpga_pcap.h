@@ -97,6 +97,7 @@
  * 4.1 Nava   16/04/18  Added partial bitstream loading support.
  * 4.2 Nava   08/06/16  Refactor the xilfpga library to support
  *                      different PL programming Interfaces.
+ * 4.2 adk    11/07/18  Added support for readback of PL configuration data.
  *
  * </pre>
  *
@@ -149,6 +150,8 @@
 #define CSU_PCAP_STATUS_PL_INIT_SHIFT   2U
 #define CSU_PCAP_STATUS_PL_INIT_MASK    0X00000004U
 #define CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK    0X00000001U
+#define CSU_PCAP_STATUS_PCAP_RD_IDLE_MASK    0X00000002U
+#define CSU_PCAP_STATUS_PCAP_RD_SHIFT	1U
 #define CSU_PCAP_STATUS_PL_DONE_MASK    0X00000008U
 
 /* Register: CSU_PCAP_RESET */
@@ -235,6 +238,28 @@
 #define XFPGA_STATE_MASK	0x00FF0000U
 #define XFPGA_STATE_SHIFT	16
 #define CFGREG_SRCDMA_OFFSET	0x8
+#define CFGDATA_DSTDMA_OFFSET	0x1FC
+
+/* FPGA Configuration Registers Offsets */
+#define CRC		0  /* Status Register */
+#define FAR		1  /* Frame Address Register */
+#define FDRI		2  /* FDRI Register */
+#define FDRO		3  /* FDRO Register */
+#define CMD		4  /* Command Register */
+#define CTL0		5  /* Control Register 0 */
+#define MASK		6  /* MASK Register */
+#define STAT		7  /* Status Register */
+#define LOUT		8  /* LOUT Register */
+#define COR0		9  /* Configuration Options Register 0 */
+#define MFWR		10 /* MFWR Register */
+#define CBC		11 /* CBC Register */
+#define IDCODE		12 /* IDCODE Register */
+#define AXSS		13 /* AXSS Register */
+#define COR1		14 /* Configuration Options Register 1 */
+#define WBSTAR		16 /* Warm Boot Start Address Register */
+#define TIMER		17 /* Watchdog Timer Register */
+#define BOOTSTS		22 /* Boot History Status Register */
+#define CTL1		24 /* Control Register 1 */
 
 /**************************** Type Definitions *******************************/
 /**
@@ -259,6 +284,7 @@ typedef struct {
 	u32 (*XFpga_PostConfig)(UINTPTR AddrPtr, u32 flags);
 	u32 (*XFpga_InterfaceStatus)(void);
 	u32 (*XFpga_GetConfigReg)(u32 ConfigReg, UINTPTR Address);
+	u32 (*XFpga_GetConfigData)(UINTPTR Address, u32 NumFrames);
 } Xilfpga_Ops;
 
 /************************** Variable Definitions *****************************/

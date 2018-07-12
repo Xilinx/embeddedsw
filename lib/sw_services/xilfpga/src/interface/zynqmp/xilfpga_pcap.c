@@ -59,6 +59,7 @@
  * 4.1   Nava  16/04/18 Added partial bitstream loading support.
  * 4.2   Nava  08/06/16 Refactor the xilfpga library to support
  *			different PL programming Interfaces.
+ * 4.2   adk   11/07/18 Added support for readback of PL configuration data.
  *
  * </pre>
  *
@@ -105,7 +106,10 @@
 #define XDC_REGISTER_SHIFT              13
 #define XDC_OP_SHIFT                    27
 #define XDC_TYPE_1                      1
+#define XDC_TYPE_2			2
+#define OPCODE_NOOP			0
 #define OPCODE_READ                     1
+#define OPCODE_WRITE			2
 
 #define XFPGA_DESTINATION_PCAP_ADDR	(0XFFFFFFFFU)
 #define XFPGA_PART_IS_ENC		(0x00000080U)
@@ -148,6 +152,7 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 static u32 XFpga_PcapWaitForDone(void);
+static u32 XFpga_PcapWaitForidle(void);
 static u32 XFpga_WriteToPcap(u32 Size, UINTPTR BitStreamAddrLow);
 static u32 XFpga_PcapInit(u32 flags);
 static u32 XFpga_CsuDmaInit(void);
@@ -156,7 +161,8 @@ static u32 XFpga_PowerUpPl(void);
 static u32 XFpga_IsolationRestore(void);
 static u32 XFpga_PsPlGpioResetsLow(u32 TotalResets);
 static u32 XFpga_PsPlGpioResetsHigh(u32 TotalResets);
-static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u8 Size);
+static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u16 Size);
+static u32 Xfpga_Type2Pkt(u8 OpCode, u32 Size);
 static u32 XFpga_GetBitstreamInfo(UINTPTR BitStreamAddr,
 				u32 *BitstreamAddress, u32 *BitstreamSize);
 static u32 XFpga_ValidateCryptoFlags(XSecure_ImageInfo *ImageInfo, u32 flags);
@@ -168,6 +174,7 @@ static u32 XFpga_writeToPlPcap(UINTPTR RdAddr, UINTPTR AddrPtr,
 static u32 XFpga_PostConfigPcap(UINTPTR AddrPtr, u32 flags);
 static u32 XFpga_PcapStatus(void);
 static u32 XFpga_GetConfigRegPcap(u32 ConfigReg,UINTPTR Address);
+static u32 XFpga_GetPLConfigData(UINTPTR Address, u32 NumFrames);
 static void XFpga_SetFirmwareState(u8 State);
 static u8 XFpga_GetFirmwareState(void);
 #ifdef XFPGA_SECURE_MODE
@@ -214,6 +221,7 @@ Xilfpga_Ops Fpga_Ops = {
 		.XFpga_PostConfig = XFpga_PostConfigPcap,
 		.XFpga_InterfaceStatus = XFpga_PcapStatus,
 		.XFpga_GetConfigReg = XFpga_GetConfigRegPcap,
+		.XFpga_GetConfigData = XFpga_GetPLConfigData,
 
 };
 /*****************************************************************************/
@@ -627,6 +635,33 @@ static u32 XFpga_WriteToPcap(u32 Size, UINTPTR BitStreamAddr)
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 
 	Status = XFpga_PcapWaitForDone();
+	return Status;
+}
+
+/*****************************************************************************/
+/** This function waits for PCAP to come to idle state.
+ *
+ * @param	None
+ *
+ * @return	error status based on implemented functionality
+ * 		(SUCCESS by default)
+ *****************************************************************************/
+static u32 XFpga_PcapWaitForidle() {
+	u32 RegVal = 0U;
+	u32 PollCount;
+	u32 Status = XFPGA_SUCCESS;
+
+	PollCount = (PL_DONE_POLL_COUNT);
+	while(PollCount) {
+		RegVal = Xil_In32(CSU_PCAP_STATUS);
+		RegVal = RegVal & CSU_PCAP_STATUS_PCAP_RD_IDLE_MASK;
+		if (RegVal == CSU_PCAP_STATUS_PCAP_RD_IDLE_MASK)
+			break;
+		PollCount--;
+	}
+	if (!PollCount)
+		return XFPGA_FAILURE;
+
 	return Status;
 }
 
@@ -2170,6 +2205,184 @@ u32 XFpga_GetConfigRegPcap(u32 ConfigReg, UINTPTR Address)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+*
+* This function performs the readback of fpga configuration data.
+*
+* @param        Data  is a constant which represents the
+*		fpga configuration data to be returned.
+* @param        Wordlength is the number fpga configuration frames to read.
+*
+* @return
+*               - XST_SUCCESS if successful
+*               - XST_FAILURE if unsuccessful
+*
+* @note None.
+****************************************************************************/
+u32 XFpga_GetPLConfigData(UINTPTR Address, u32 NumFrames)
+{
+	u32 Status = XFPGA_SUCCESS;
+	u32 RegVal;
+	unsigned int cmdindex;
+	u32 *CmdBuf;
+	int i;
+
+	Status = XFpga_GetFirmwareState();
+	if (Status == XFPGA_FIRMWARE_STATE_SECURE) {
+		xil_printf("Secure Bit-stream Loaded Read-back is not allowed\n\r");
+		return XFPGA_FAILURE;
+	}
+
+	CmdBuf = (void *)(UINTPTR)Address;
+
+	/* Enable the PCAP clk */
+	RegVal = Xil_In32(PCAP_CLK_CTRL);
+
+	/*
+	 * There is no h/w flow control for pcap read
+	 * to prevent the FIFO from over flowing, reduce
+	 * the PCAP operating frequency.
+	 */
+	RegVal |= 0x3F00;
+	Xil_Out32(PCAP_CLK_CTRL, RegVal | PCAP_CLK_EN_MASK);
+
+	/* Initialize the CSU DMA */
+	Status = XFpga_CsuDmaInit();
+	if (Status != XFPGA_SUCCESS) {
+		xil_printf("CUSDMA init failed\n\r");
+		return Status;
+	}
+
+	/* Take PCAP out of Reset */
+	Status = XFpga_PcapInit(1);
+	if(Status != XFPGA_SUCCESS) {
+		Status = XPFGA_ERROR_PCAP_INIT;
+		xil_printf("PCAP init failed\n\r");
+		return Status;
+	}
+
+	cmdindex = 0;
+
+	/* Step 1 */
+	CmdBuf[cmdindex++] = 0xFFFFFFFF; /* Dummy Word */
+	CmdBuf[cmdindex++] = 0x000000BB; /* Bus Width Sync Word */
+	CmdBuf[cmdindex++] = 0x11220044; /* Bus Width Detect */
+	CmdBuf[cmdindex++] = 0xFFFFFFFF; /* Dummy Word */
+	CmdBuf[cmdindex++] = 0xAA995566; /* Sync Word */
+
+	/* Step 2 */
+	CmdBuf[cmdindex++] = 0x02000000; /* Type 1 NOOP Word 0 */
+
+	/* Step 3 */         /* Type 1 Write 1 Word to CMD */
+	CmdBuf[cmdindex++] = Xfpga_RegAddr(CMD, OPCODE_WRITE,0x1);
+	CmdBuf[cmdindex++] = 0x0000000B; /* SHUTDOWN Command */
+	CmdBuf[cmdindex++] = 0x02000000; /* Type 1 NOOP Word 0 */
+
+	/* Step 4 */         /* Type 1 Write 1 Word to CMD */
+	CmdBuf[cmdindex++] = Xfpga_RegAddr(CMD,OPCODE_WRITE,0x1);
+	CmdBuf[cmdindex++] = 0x00000007; /* RCRC Command */
+	CmdBuf[cmdindex++] = 0x20000000; /* Type 1 NOOP Word 0 */
+
+	/* Step 5 --- 5 NOOPS Words */
+	for (i = 0 ; i < 5 ; i++) {
+		CmdBuf[cmdindex++] = 0x20000000;
+	}
+
+	/* Step 6 */         /* Type 1 Write 1 Word to CMD */
+	CmdBuf[cmdindex++] = Xfpga_RegAddr(CMD, OPCODE_WRITE, 0x1);
+	CmdBuf[cmdindex++] = 0x00000004; /* RCFG Command */
+	CmdBuf[cmdindex++] = 0x20000000; /* Type 1 NOOP Word 0 */
+
+	/* Step 7 */         /* Type 1 Write 1 Word to FAR */
+	CmdBuf[cmdindex++] = Xfpga_RegAddr(FAR, OPCODE_WRITE, 0x1);
+	CmdBuf[cmdindex++] = 0x00000000; /* FAR Address = 00000000 */
+
+	/* Step 8 */          /* Type 1 Read 0 Words from FDRO */
+	CmdBuf[cmdindex++] =  Xfpga_RegAddr(FDRO, OPCODE_READ, 0);
+			      /* Type 2 Read Wordlenght Words from FDRO */
+	CmdBuf[cmdindex++] = Xfpga_Type2Pkt(OPCODE_READ, NumFrames);
+
+	/* Step 9 --- 64 NOOPS Words */
+	for (i = 0 ; i < 64 ; i++) {
+		CmdBuf[cmdindex++] = 0x20000000;
+	}
+
+	XCsuDma_EnableIntr(&CsuDma, XCSUDMA_DST_CHANNEL,
+			   XCSUDMA_IXR_DST_MASK);
+
+	/* Flush the DMA buffer */
+	Xil_DCacheFlushRange(Address, NumFrames * 4);
+
+	/* Set up the Destination DMA Channel*/
+	XCsuDma_Transfer(&CsuDma, XCSUDMA_DST_CHANNEL,
+			 Address + CFGREG_SRCDMA_OFFSET, NumFrames, 0);
+
+	Status = XFpga_PcapWaitForDone();
+	if (Status != XFPGA_SUCCESS) {
+		xil_printf("Write to PCAP Failed\n\r");
+		return XFPGA_FAILURE;
+	}
+
+	Status = XFpga_WriteToPcap(cmdindex, Address);
+	if (Status != XFPGA_SUCCESS) {
+		xil_printf("Write to PCAP Failed\n\r");
+		return XFPGA_FAILURE;
+	}
+
+	/*
+	 * Setup the  SSS, setup the DMA to receive from PCAP source
+	 */
+	Xil_Out32(CSU_CSU_SSS_CFG, XFPGA_CSU_SSS_SRC_DST_DMA);
+	Xil_Out32(CSU_PCAP_RDWR, 0x1);
+
+
+	/* wait for the SRC_DMA to complete and the pcap to be IDLE */
+	XCsuDma_WaitForDone(&CsuDma, XCSUDMA_DST_CHANNEL);
+
+	/* Acknowledge the transfer has completed */
+	XCsuDma_IntrClear(&CsuDma, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+
+	Status = XFpga_PcapWaitForidle();
+	if (Status != XFPGA_SUCCESS) {
+		xil_printf("Reading data from PL through PCAP Failed\n\r");
+		return XFPGA_FAILURE;
+	}
+
+	cmdindex = 0;
+	/* Step 11 */
+	CmdBuf[cmdindex++] = 0x20000000; /* Type 1 NOOP Word 0 */
+
+	/* Step 12 */
+	CmdBuf[cmdindex++] = 0x30008001; /* Type 1 Write 1 Word to CMD */
+	CmdBuf[cmdindex++] = 0x00000005; /* START Command */
+	CmdBuf[cmdindex++] = 0x20000000; /* Type 1 NOOP Word 0 */
+
+	/* Step 13 */
+	CmdBuf[cmdindex++] = 0x30008001; /* Type 1 Write 1 Word to CMD */
+	CmdBuf[cmdindex++] = 0x00000007; /* RCRC Command */
+	CmdBuf[cmdindex++] = 0x20000000; /* Type 1 NOOP Word 0 */
+
+	/* Step 14 */
+	CmdBuf[cmdindex++] = 0x30008001; /* Type 1 Write 1 Word to CMD */
+	CmdBuf[cmdindex++] = 0x0000000D; /* DESYNC Command */
+
+	/* Step 15 */
+	CmdBuf[cmdindex++] = 0x20000000; /* Type 1 NOOP Word 0 */
+	CmdBuf[cmdindex++] = 0x20000000; /* Type 1 NOOP Word 0 */
+
+	Status = XFpga_WriteToPcap(cmdindex, (UINTPTR)Address);
+	if (Status != XFPGA_SUCCESS) {
+		xil_printf("Write to PCAP 1 Failed\n\r");
+		return XFPGA_FAILURE;
+	}
+
+	/* Disable the PCAP clk */
+	Xil_Out32(PCAP_CLK_CTRL, RegVal & ~(PCAP_CLK_EN_MASK));
+
+	return Status;
+}
+
 /****************************************************************************/
 /*
  *
@@ -2185,7 +2398,7 @@ u32 XFpga_GetConfigRegPcap(u32 ConfigReg, UINTPTR Address)
  * @note         None.
  *
  *****************************************************************************/
-static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u8 Size)
+static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u16 Size)
 {
 
 	/*
@@ -2207,6 +2420,42 @@ static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u8 Size)
 	 */
 	return (((XDC_TYPE_1 << XDC_TYPE_SHIFT) |
 		(Register << XDC_REGISTER_SHIFT) |
+		(OpCode << XDC_OP_SHIFT)) | Size);
+}
+
+/****************************************************************************/
+/**
+*
+* Generates a Type 2 packet header that reads back the requested Configuration
+* register.
+*
+* @param        OpCode is the read/write operation code.
+* @param        Size is the size of the word to be read.
+*
+* @return       Type 2 packet header to read the specified register
+*
+* @note         None.
+*****************************************************************************/
+static u32 Xfpga_Type2Pkt(u8 OpCode, u32 Size)
+{
+
+        /*
+         * Type 2 Packet Header Format
+         * The header section is always a 32-bit word.
+         *
+         * HeaderType | Opcode |  Word Count
+         * [31:29]      [28:27]         [26:0]
+         * --------------------------------------------------------------
+         *   010          xx      xxxxxxxxxxxxx
+         *
+         * �R� means the bit is not used and reserved for future use.
+         * The reserved bits should be written as 0s.
+         *
+         * Generating the Type 2 packet header which involves sifting of Type 2
+         * Header Mask, OpCode and then performing OR
+         * operation with the Word Length.
+         */
+        return (((XDC_TYPE_2 << XDC_TYPE_SHIFT) |
 		(OpCode << XDC_OP_SHIFT)) | Size);
 }
 
