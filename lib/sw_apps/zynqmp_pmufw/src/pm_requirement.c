@@ -77,7 +77,7 @@ static PmRequirement* PmRequirementMalloc(void)
 		newReq = &pmReqData[pmReqTop];
 		pmReqTop++;
 	} else {
-		PmDbgCfg(DEBUG_DETAILED,"ERROR: out of memory!\r\n");
+		PmDbg(DEBUG_DETAILED,"ERROR: out of memory!\r\n");
 	}
 
 	return newReq;
@@ -458,7 +458,7 @@ int PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
 	goto done;
 
 error:
-	PmDbgCfg(DEBUG_DETAILED,"ERROR: Slave %s has no state with caps 0x%lx\r\n",
+	PmDbg(DEBUG_DETAILED,"ERROR: Slave %s has no state with caps 0x%lx\r\n",
 		 req->slave->node.name, currReq);
 
 done:

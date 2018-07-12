@@ -62,7 +62,6 @@ typedef u32 (*const PmTranHandler)(void);
  */
 #ifdef DEBUG_MODE
 	#define DEBUG_PM
-	#define DEBUG_SET_CONFIG
 #endif
 /*
  * Conditional debugging prints used for PM. PM prints should never
@@ -74,13 +73,6 @@ typedef u32 (*const PmTranHandler)(void);
 		XPfw_Printf(DebugType, "PMUFW: %s: " MSG, __func__, ##__VA_ARGS__)
 #else
 	#define PmDbg(DebugType, MSG, ...) {}
-#endif
-
-#ifdef DEBUG_SET_CONFIG
-	#define PmDbgCfg(DebugType, MSG, ...) \
-		XPfw_Printf(DebugType, "PMWFW: %s: " MSG, __func__, ##__VA_ARGS__)
-#else
-	#define PmDbgCfg(DebugType, MSG, ...) {}
 #endif
 
 #define ARRAY_SIZE(x)   (sizeof(x) / sizeof((x)[0]))
