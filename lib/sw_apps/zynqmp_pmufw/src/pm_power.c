@@ -350,29 +350,8 @@ static int PmPowerDownFpd(void)
 		goto err;
 	}
 
-	if (XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR) != XST_SUCCESS) {
-		PmDbg(DEBUG_DETAILED,
-				"Warning: Failed to Enable AIB isolation LPD to DDR\r\n");
-	} else {
-		/* Check if AIB isolation is enabled */
-		if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_DDR, AIB_ACK_TIMEOUT)
-				!= XST_SUCCESS) {
-			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
-					"for LPD to DDR isolation \r\n");
-		}
-	}
-
-	if (XPfw_AibEnable(XPFW_AIB_LPD_TO_FPD) != XST_SUCCESS) {
-		PmDbg(DEBUG_DETAILED,
-				"Warning: Failed to Enable AIB isolation LPD to FPD\r\n");
-	} else {
-		/* Check if AIB isolation is enabled */
-		if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_FPD, AIB_ACK_TIMEOUT)
-				!= XST_SUCCESS) {
-			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
-					"for LPD to FPD isolation");
-		}
-	}
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_FPD);
 
 	/*
 	 * When FPD is powered off, the APU-GIC will be affected too.
@@ -467,54 +446,10 @@ err:
  */
 static int PmPowerDownRpu(void)
 {
-	if (XPfw_AibEnable(XPFW_AIB_RPU0_TO_LPD) != XST_SUCCESS) {
-		PmDbg(DEBUG_DETAILED,
-				"Warning: Failed to Enable AIB isolation RPU0 to LPD\r\n");
-	} else {
-		/* Check if AIB isolation is enabled */
-		if (XPfw_AibPollForAck(XPFW_AIB_RPU0_TO_LPD, AIB_ACK_TIMEOUT)
-				!= XST_SUCCESS) {
-			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
-					"for RPU0 to LPD isolation");
-		}
-	}
-
-	if (XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD) != XST_SUCCESS) {
-		PmDbg(DEBUG_DETAILED,
-				"Warning: Failed to Enable AIB isolation RPU1 to LPD\r\n");
-	} else {
-		/* Check if AIB isolation is enabled */
-		if (XPfw_AibPollForAck(XPFW_AIB_RPU1_TO_LPD, AIB_ACK_TIMEOUT)
-				!= XST_SUCCESS) {
-			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
-					"for RPU1 to LPD isolation");
-		}
-	}
-
-	if (XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU0) != XST_SUCCESS) {
-		PmDbg(DEBUG_DETAILED,
-				"Warning: Failed to Enable AIB isolation LPD to RPU0\r\n");
-	} else {
-		/* Check if AIB isolation is enabled */
-		if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_RPU0, AIB_ACK_TIMEOUT)
-				!= XST_SUCCESS) {
-			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
-					"for LPD to RPU0 isolation");
-		}
-	}
-
-	if (XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU1) != XST_SUCCESS) {
-		PmDbg(DEBUG_DETAILED,
-				"Warning: Failed to Enable AIB isolation LPD to RPU1\r\n");
-	} else {
-		/* Check if AIB isolation is enabled */
-		if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_RPU1, AIB_ACK_TIMEOUT)
-				!= XST_SUCCESS) {
-			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
-					"for LPD to RPU1 isolation");
-		}
-	}
-
+	XPfw_AibEnable(XPFW_AIB_RPU0_TO_LPD);
+	XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU0);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU1);
 	PmDbg(DEBUG_DETAILED,"Enabled AIB\r\n");
 
 	return XpbrPwrDnRpuHandler();
@@ -538,41 +473,9 @@ static void PmPowerForceDownRpu(PmPower* const power)
  */
 static int PmPowerDownPld(void)
 {
-	if (XPfw_AibEnable(XPFW_AIB_LPD_TO_AFI_FS2) != XST_SUCCESS) {
-		PmDbg(DEBUG_DETAILED,
-				"Warning: Failed to Enable AIB isolation LPD to AFI FS2\r\n");
-	} else {
-		/* Check if AIB isolation is enabled */
-		if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_AFI_FS2, AIB_ACK_TIMEOUT)
-				!= XST_SUCCESS) {
-			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
-					"for LPD to AFI FS2 isolation");
-		}
-	}
-
-	if (XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS0) != XST_SUCCESS) {
-		PmDbg(DEBUG_DETAILED,
-				"Warning: Failed to Enable AIB isolation LPD to AFI FS0\r\n");
-	} else {
-		/* Check if AIB isolation is enabled */
-		if (XPfw_AibPollForAck(XPFW_AIB_FPD_TO_AFI_FS0, AIB_ACK_TIMEOUT)
-				!= XST_SUCCESS) {
-			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
-					"for LPD to AFI FS0 isolation");
-		}
-	}
-
-	if (XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS1) != XST_SUCCESS) {
-		PmDbg(DEBUG_DETAILED,
-				"Warning: Failed to Enable AIB isolation LPD to AFI FS1\r\n");
-	} else {
-		/* Check if AIB isolation is enabled */
-		if (XPfw_AibPollForAck(XPFW_AIB_FPD_TO_AFI_FS1, AIB_ACK_TIMEOUT)
-				!= XST_SUCCESS) {
-			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
-					"for LPD to AFI FS1 isolation");
-		}
-	}
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_AFI_FS2);
+	XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS0);
+	XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS1);
 
 	return XpbrPwrDnPldHandler();
 }
