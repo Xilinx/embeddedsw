@@ -874,10 +874,12 @@ static void PmSetWakeupSource(const PmMaster *const master,
 	/* Set/clear request info according to the enable flag */
 	if (0U == enable) {
 		req->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
-	} else {
+	} else if (1U == enable) {
 		req->info |= PM_MASTER_WAKEUP_REQ_MASK;
+	} else {
+		status = XST_INVALID_PARAM;
+		goto done;
 	}
-
 	if (NULL != slave->wake) {
 		slave->wake->class->set(slave->wake, master->ipiMask, enable);
 	}
@@ -1213,7 +1215,11 @@ static void PmRegisterNotifier(const PmMaster *const master, const u32 node,
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
-
+	if ((0U != wake && 1U != wake) || (0U != enable && 1U != enable) ||
+	    (EVENT_STATE_CHANGE != event && EVENT_ZERO_USERS != event)) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
 	if (0U == enable) {
 		PmNotifierUnregister(master, nodePtr, event);
 		status = XST_SUCCESS;
