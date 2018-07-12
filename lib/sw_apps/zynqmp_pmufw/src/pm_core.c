@@ -580,10 +580,6 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
 	u32 data;
 	int status = XST_SUCCESS;
 
-#ifdef DEBUG_MMIO
-	PmDbg(DEBUG_DETAILED,"(%s) addr=0x%lx, mask=0x%lx, value=0x%lx\r\n",
-	      master->name, address, mask, value);
-#endif
 	/* no bits to be updated */
 	if (0U == mask) {
 		goto done;
@@ -645,10 +641,6 @@ static void PmMmioRead(const PmMaster *const master, const u32 address)
 
 	value = XPfw_Read32(address);
 	status = XST_SUCCESS;
-#ifdef DEBUG_MMIO
-	PmDbg(DEBUG_DETAILED,"(%s) addr=0x%lx, value=0x%lx\r\n",
-	      master->name, address, value);
-#endif
 
 done:
 	IPI_RESPONSE2(master->ipiMask, status, value);
