@@ -1701,8 +1701,6 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		if (PM_DDR_STATE_SR == nextState) {
 			if (XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR) == XST_SUCCESS) {
 				status = pm_ddr_sr_enter();
-			} else {
-				status = XST_FAILURE;
 			}
 		} else {
 			status = XST_NO_FEATURE;
@@ -1713,7 +1711,7 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 			bool ddrss_is_reset = !Xil_In32(DDRC_STAT);
 
 			if (pm_ddr_sr_exit(ddrss_is_reset) == XST_SUCCESS) {
-				status = XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
+				(void)XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
 			} else {
 				status = XST_FAILURE;
 			}
