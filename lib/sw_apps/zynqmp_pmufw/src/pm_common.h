@@ -177,7 +177,6 @@ typedef struct PmMemorySection {
  ********************************************************************/
 
 #ifdef DEBUG_PM
-const char* PmStrAck(const u32 ack);
 const char* PmStrReason(const u32 reason);
 #endif
 
