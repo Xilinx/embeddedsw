@@ -34,7 +34,6 @@
 
 #include "pm_callbacks.h"
 #include "pm_defs.h"
-#include "pm_api.h"
 
 #include "xpfw_ipi_manager.h"
 #include "xpfw_mod_pm.h"

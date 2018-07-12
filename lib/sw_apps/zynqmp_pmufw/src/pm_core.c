@@ -32,7 +32,6 @@
  *********************************************************************/
 
 #include "csu.h"
-#include "pm_api.h"
 #include "pm_core.h"
 #include "pm_node.h"
 #include "pm_proc.h"
@@ -1267,9 +1266,10 @@ done:
  * @pload   Pointer to array of integers with the information about the pm call
  *          (api id + arguments of the api)
  *
- * @note    Payload arguments are checked and validated before calling this.
+ * @note    Called to process PM API call. If specific PM API receives less
+ *          than 4 arguments, extra arguments are ignored.
  */
-static void PmProcessApiCall(PmMaster *const master, const u32 *pload)
+void PmProcessRequest(PmMaster *const master, const u32 *pload)
 {
 	u32 setAddress;
 	u64 address;
@@ -1382,33 +1382,6 @@ static void PmProcessApiCall(PmMaster *const master, const u32 *pload)
 	}
 done:
 	return;
-}
-
-/**
- * PmProcessRequest() - Process PM API call
- * @master  Pointer to a requesting master structure
- * @pload   Pointer to array of integers with the information about the pm call
- *          (api id + arguments of the api)
- *
- * @note    Called to process PM API call. If specific PM API receives less
- *          than 4 arguments, extra arguments are ignored.
- */
-void PmProcessRequest(PmMaster *const master, const u32 *pload)
-{
-	PmPayloadStatus status = PmCheckPayload(pload);
-
-	if (PM_PAYLOAD_OK == status) {
-		PmProcessApiCall(master, pload);
-	} else {
-		PmDbg(DEBUG_DETAILED,"ERROR invalid payload, status #%d\r\n", status);
-		/* Acknowledge if possible */
-		if (PM_PAYLOAD_ERR_API_ID != status) {
-			u32 ack = PmRequestAcknowledge(pload);
-
-			PmProcessAckRequest(ack, master, NODE_UNKNOWN,
-					    XST_INVALID_PARAM, 0);
-		}
-	}
 }
 
 /**

@@ -30,7 +30,6 @@
 #include "xpfw_module.h"
 
 #include "pm_binding.h"
-#include "pm_api.h"
 #include "pm_defs.h"
 
 #include "xpfw_ipi_manager.h"
