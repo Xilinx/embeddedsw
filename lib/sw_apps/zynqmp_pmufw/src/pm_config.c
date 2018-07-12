@@ -207,7 +207,7 @@ static int PmConfigMasterSectionHandler(u32* const addr)
 		nodeId = PmConfigReadNext(addr);
 		master = PmMasterGetPlaceholder(nodeId);
 		if (NULL == master) {
-			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown master #%lu\r\n",
+			PmDbg(DEBUG_DETAILED,"ERROR: Unknown master #%lu\r\n",
 				 nodeId);
 			status = XST_FAILURE;
 			goto done;
@@ -245,7 +245,7 @@ static int PmConfigSlaveSectionHandler(u32* const addr)
 		nodeId = PmConfigReadNext(addr);
 		slave = PmNodeGetSlave(nodeId);
 		if (NULL == slave) {
-			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown slave #%lu)\r\n",
+			PmDbg(DEBUG_DETAILED,"ERROR: Unknown slave #%lu)\r\n",
 				 nodeId);
 			status = XST_FAILURE;
 			goto done;
@@ -255,7 +255,7 @@ static int PmConfigSlaveSectionHandler(u32* const addr)
 		usagePerms = PmConfigReadNext(addr);
 		status = PmSlaveSetConfig(slave, usagePolicy, usagePerms);
 		if (XST_SUCCESS != status) {
-			PmDbgCfg(DEBUG_DETAILED,"ERROR configuring %s\r\n",
+			PmDbg(DEBUG_DETAILED,"ERROR configuring %s\r\n",
 				 slave->node.name);
 			goto done;
 		}
@@ -289,7 +289,7 @@ static int PmConfigPreallocForMaster(const PmMaster* const master,
 		nodeId = PmConfigReadNext(addr);
 		slave = PmNodeGetSlave(nodeId);
 		if (NULL == slave) {
-			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown slave #%lu\r\n",
+			PmDbg(DEBUG_DETAILED,"ERROR: Unknown slave #%lu\r\n",
 				 nodeId);
 			status = XST_FAILURE;
 			goto done;
@@ -298,7 +298,7 @@ static int PmConfigPreallocForMaster(const PmMaster* const master,
 		/* Get the requirement structure for master/slave pair */
 		req = PmRequirementGet(master, slave);
 		if (NULL == req) {
-			PmDbgCfg(DEBUG_DETAILED,"ERROR: Invalid master=%s slave=%s "
+			PmDbg(DEBUG_DETAILED,"ERROR: Invalid master=%s slave=%s "
 				 "pair\r\n", master->name, slave->node.name);
 			status = XST_FAILURE;
 			goto done;
@@ -341,7 +341,7 @@ static int PmConfigPreallocSectionHandler(u32* const addr)
 		ipiMask = PmConfigReadNext(addr);
 		master = PmGetMasterByIpiMask(ipiMask);
 		if (NULL == master) {
-			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown master "
+			PmDbg(DEBUG_DETAILED,"ERROR: Unknown master "
 					"(IPI mask=0x%lx)\r\n", ipiMask);
 			status = XST_FAILURE;
 			goto done;
@@ -379,7 +379,7 @@ static int PmConfigPowerSectionHandler(u32* const addr)
 
 		power = PmNodeGetPower(powerId);
 		if (NULL == power) {
-			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown power #%lu\r\n",
+			PmDbg(DEBUG_DETAILED,"ERROR: Unknown power #%lu\r\n",
 				 powerId);
 			status = XST_FAILURE;
 			goto done;
@@ -413,7 +413,7 @@ static int PmConfigResetSectionHandler(u32* const addr)
 
 		status = PmResetSetConfig(resetId, permissions);
 		if (XST_SUCCESS != status) {
-			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown reset (ID=%lu)\r\n",
+			PmDbg(DEBUG_DETAILED,"ERROR: Unknown reset (ID=%lu)\r\n",
 					resetId);
 			goto done;
 		}
@@ -562,7 +562,7 @@ int PmConfigLoadObject(const u32 address, const u32 callerIpi)
 
 	/* Check for permissions to load the configuration object */
 	if (0U == (callerIpi & pmConfig.configPerms)) {
-		PmDbgCfg(DEBUG_DETAILED,"No permission to load the object\r\n");
+		PmDbg(DEBUG_DETAILED,"No permission to load the object\r\n");
 		status = XST_PM_NO_ACCESS;
 		goto ret;
 	}
@@ -585,7 +585,7 @@ int PmConfigLoadObject(const u32 address, const u32 callerIpi)
 		section = PmConfigGetSectionById(sectionId);
 
 		if ((NULL == section) || (NULL == section->handler)) {
-			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown section (ID=%lu)\r\n",
+			PmDbg(DEBUG_DETAILED,"ERROR: Unknown section (ID=%lu)\r\n",
 				 sectionId);
 			status = XST_FAILURE;
 			goto done;
