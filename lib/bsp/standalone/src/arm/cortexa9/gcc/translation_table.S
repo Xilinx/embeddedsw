@@ -85,6 +85,8 @@
 *			if DDR is present or not and accordingly generate the
 *			translation table
 * 6.1	pkp  07/11/2016 Corrected comments for memory attributes
+* 6.8   mus  07/12/2018 Mark DDR memory as inner cacheable, if BSP is built
+*			with the USE_AMP flag.
 * </pre>
 *
 *
@@ -112,8 +114,13 @@ MMUTable:
 
 .set UNDEF_REG, 0x3FF - DDR_REG
 
-				/*0x00000000 - 0x00100000 (cacheable )*/
-.word	SECT + 0x15de6		/* S=b1 TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1 */
+#ifndef USE_AMP
+                                /*0x00000000 - 0x00100000 (inner and outer cacheable )*/
+.word   SECT + 0x15de6          /* S=b1 TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1 */
+#else
+				/*0x00000000 - 0x00100000 (inner cacheable )*/
+.word	SECT + 0x14de6		/* S=b1 TEX=b100 AP=b11, Domain=b1111, C=b0, B=b1 */
+#endif
 .set	SECT, SECT+0x100000
 
 .rept	DDR_REG			/*  (DDR Cacheable) */
