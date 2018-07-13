@@ -1098,6 +1098,7 @@ to support hard flaoting point for cortex-r5 standalone BSP.
 gpiops_v3_3:
 Added notes about gpio pin description for zcu102 and zc702
 boards. Fix for cr-955076
+Resolved doxygen warnings.CR#1006331
 
 ipipsu_v2_3:
 Added suffix U for all macros of ipipsu in xparameters.h
