@@ -35,6 +35,74 @@
 proc generate {drv_handle} {
     ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XDdrcPsu" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_HAS_ECC" "C_DDRC_CLK_FREQ_HZ"
 
+    get_ddr_config_info $drv_handle "xparameters.h"
+
     ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "DdrcPsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_DDRC_CLK_FREQ_HZ"
 
+    get_ddr_config_info_canonical $drv_handle "xparameters.h"
+
+}
+
+proc get_ddr_config_info {drv_handle file_name} {
+	set file_handle [::hsi::utils::open_include_file $file_name]
+	set periph_list [get_cells -hier]
+	foreach periph $periph_list {
+		set zynq_ultra_ps [get_property IP_NAME $periph]
+		if {[string match -nocase $zynq_ultra_ps "zynq_ultra_ps_e"] } {
+			set avail_param [list_property [get_cells -hier $periph]]
+			if {[lsearch -nocase $avail_param "CONFIG.PSU__DDRC__DDR4_ADDR_MAPPING"] >= 0} {
+				set nr_addrmap [get_property CONFIG.PSU__DDRC__DDR4_ADDR_MAPPING [get_cells -hier $periph]]
+				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR4_ADDR_MAPPING $nr_addrmap"
+			}
+			if {[lsearch -nocase $avail_param "CONFIG.PSU__ACT_DDR_FREQ_MHZ"] >= 0} {
+				set nr_freq [get_property CONFIG.PSU__ACT_DDR_FREQ_MHZ [get_cells -hier $periph]]
+				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_FREQ_MHZ $nr_freq"
+			}
+			if {[lsearch -nocase $avail_param "CONFIG.PSU__DDRC__VIDEO_BUFFER_SIZE"] >= 0} {
+				set nr_vbs [get_property CONFIG.PSU__DDRC__VIDEO_BUFFER_SIZE [get_cells -hier $periph]]
+				puts $file_handle "#define XPAR_PSU_DDRC_0_VIDEO_BUFFER_SIZE $nr_vbs"
+			}
+			if {[lsearch -nocase $avail_param "CONFIG.PSU__DDRC__BRC_MAPPING"] >= 0} {
+				set nr_brc [get_property CONFIG.PSU__DDRC__BRC_MAPPING [get_cells -hier $periph]]
+				if { [string compare -nocase $nr_brc "ROW_BANK_COL"] == 0 } {
+					puts $file_handle "#define XPAR_PSU_DDRC_0_BRC_MAPPING 0"
+				} else {
+					puts $file_handle "#define XPAR_PSU_DDRC_0_BRC_MAPPING 1"
+				}
+			}
+		}
+	}
+	close $file_handle
+}
+
+proc get_ddr_config_info_canonical {drv_handle file_name} {
+	set file_handle [::hsi::utils::open_include_file $file_name]
+	set periph_list [get_cells -hier]
+	foreach periph $periph_list {
+		set zynq_ultra_ps [get_property IP_NAME $periph]
+		if {[string match -nocase $zynq_ultra_ps "zynq_ultra_ps_e"] } {
+			set avail_param [list_property [get_cells -hier $periph]]
+			if {[lsearch -nocase $avail_param "CONFIG.PSU__DDRC__DDR4_ADDR_MAPPING"] >= 0} {
+				set nr_addrmap [get_property CONFIG.PSU__DDRC__DDR4_ADDR_MAPPING [get_cells -hier $periph]]
+				puts $file_handle "#define XPAR_DDRCPSU_0_DDR4_ADDR_MAPPING $nr_addrmap"
+			}
+			if {[lsearch -nocase $avail_param "CONFIG.PSU__ACT_DDR_FREQ_MHZ"] >= 0} {
+				set nr_freq [get_property CONFIG.PSU__ACT_DDR_FREQ_MHZ [get_cells -hier $periph]]
+				puts $file_handle "#define XPAR_DDRCPSU_0_DDR_FREQ_MHZ $nr_freq"
+			}
+			if {[lsearch -nocase $avail_param "CONFIG.PSU__DDRC__VIDEO_BUFFER_SIZE"] >= 0} {
+				set nr_vbs [get_property CONFIG.PSU__DDRC__VIDEO_BUFFER_SIZE [get_cells -hier $periph]]
+				puts $file_handle "#define XPAR_DDRCPSU_0_VIDEO_BUFFER_SIZE $nr_vbs"
+			}
+			if {[lsearch -nocase $avail_param "CONFIG.PSU__DDRC__BRC_MAPPING"] >= 0} {
+				set nr_brc [get_property CONFIG.PSU__DDRC__BRC_MAPPING [get_cells -hier $periph]]
+				if { [string compare -nocase $nr_brc "ROW_BANK_COL"] == 0 } {
+					puts $file_handle "#define XPAR_DDRCPSU_0_BRC_MAPPING 0"
+				} else {
+					puts $file_handle "#define XPAR_DDRCPSU_0_BRC_MAPPING 1"
+				}
+			}
+		}
+	}
+	close $file_handle
 }
