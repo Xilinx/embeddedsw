@@ -105,6 +105,8 @@ extern "C" {
 /* @} */
 
 #define DFU_STATUS_SIZE				6U
+#define XFSBL_USB_ENDPOINT_NUMBER_MASK	0xFU
+#define XFSBL_USB_ENDPOINT_DIR_MASK		0x80U
 /************************** Function Prototypes **************************/
 void XFsbl_DfuInit(void);
 void XFsbl_DfuSetIntf(SetupPacket *SetupData);
