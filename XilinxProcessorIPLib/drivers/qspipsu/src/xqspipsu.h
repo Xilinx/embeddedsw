@@ -140,6 +140,7 @@
  * 1.8	tjs 06/26/18 Added an example for accessing 64bit dma within
  *		     32 bit application. CR#1004701
  * 1.8	tjs 06/26/18 Removed checkpatch warnings
+ * 1.8	tjs 07/09/19 Fixed cppcheck, doxygen and gcc warnings.
  * </pre>
  *
  ******************************************************************************/
