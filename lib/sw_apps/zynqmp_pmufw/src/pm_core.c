@@ -74,13 +74,15 @@
 #define PM_ERRNO_NO_PERMISSION		3U
 #define PM_ERRNO_NO_WR_PERMISSION	4U
 #define PM_ERRNO_NO_RD_PERMISSION	5U
-#define PM_ERRNO_NO_ADDRESS		6U
-#define PM_ERRNO_NO_REQUEST		7U
-#define PM_ERRNO_DOUBLE_REQUEST		8U
-#define PM_ERRNO_INVALID_LATENCY	9U
-#define PM_ERRNO_INVALID_TYPE		10U
-#define PM_ERRNO_INVALID_SUBTYPE	11U
-#define PM_ERRNO_NO_TEMP_SUPPORT	12U
+#define PM_ERRNO_NO_RESET_PERMISSION	6U
+#define PM_ERRNO_NO_ADDRESS		7U
+#define PM_ERRNO_NO_REQUEST		8U
+#define PM_ERRNO_DOUBLE_REQUEST		9U
+#define PM_ERRNO_INVALID_LATENCY	10U
+#define PM_ERRNO_INVALID_TYPE		11U
+#define PM_ERRNO_INVALID_SUBTYPE	12U
+#define PM_ERRNO_INVALID_RESET		13U
+#define PM_ERRNO_NO_TEMP_SUPPORT	14U
 
 #if defined(PM_LOG_LEVEL) && (PM_LOG_LEVEL >= PM_WARNING)
 #define PmLog(errno, value, mst)	\
@@ -114,6 +116,9 @@ static void PmLogInt(const u32 line, const u32 errno, const u32 value,
 	case PM_ERRNO_NO_RD_PERMISSION:
 		PmWarn("No read permission to 0x%lx\r\n", value);
 		break;
+	case PM_ERRNO_NO_RESET_PERMISSION:
+		PmWarn("No reset %lu permission\r\n", value);
+		break;
 	case PM_ERRNO_NO_ADDRESS:
 		PmWarn("Address not provided\r\n");
 		break;
@@ -131,6 +136,9 @@ static void PmLogInt(const u32 line, const u32 errno, const u32 value,
 		break;
 	case PM_ERRNO_INVALID_TYPE:
 		PmWarn("Invalid type %lu\r\n", value);
+		break;
+	case PM_ERRNO_INVALID_RESET:
+		PmWarn("Invalid reset %lu\r\n", value);
 		break;
 	case PM_ERRNO_NO_TEMP_SUPPORT:
 		PmWarn("Temperature not supported\r\n");
@@ -630,6 +638,64 @@ static void PmGetApiVersion(const PmMaster *const master)
 	       PM_VERSION_MINOR);
 
 	IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, version);
+}
+
+/**
+ * PmResetAssert() - Configure reset line
+ * @master      Initiator of the request
+ * @reset       ID of reset to be configured
+ * @action      Specifies the action (assert, release, pulse)
+ */
+void PmResetAssert(const PmMaster *const master, const u32 reset,
+		   const u32 action)
+{
+	int status;
+	const PmReset *resetPtr = PmGetResetById(reset);
+
+	PmInfo("%s> ResetAssert(%lu, %lu)\r\n", master->name, reset, action);
+
+	if (NULL == resetPtr) {
+		PmLog(PM_ERRNO_INVALID_RESET, reset, master->name);
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Check whether the master has access to this reset line */
+	if (false == PmResetMasterHasAccess(master, resetPtr)) {
+		PmLog(PM_ERRNO_NO_RESET_PERMISSION, reset, master->name);
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+
+	status = PmResetDoAssert(resetPtr, action);
+
+done:
+	IPI_RESPONSE1(master->ipiMask, status);
+}
+
+/**
+ * PmResetGetStatus() - Get status of the reset
+ * @master  Initiator of the request
+ * @reset   Reset whose status should be returned
+ */
+void PmResetGetStatus(const PmMaster *const master, const u32 reset)
+{
+	u32 resetStatus = 0U;
+	int status = XST_SUCCESS;
+	const PmReset *resetPtr = PmGetResetById(reset);
+
+	PmInfo("%s> ResetGetStatus(%lu)\r\n", master->name, reset);
+
+	if (NULL == resetPtr) {
+		PmLog(PM_ERRNO_INVALID_RESET, reset, master->name);
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	resetStatus = PmResetGetStatusInt(resetPtr);
+
+done:
+	IPI_RESPONSE2(master->ipiMask, status, resetStatus);
 }
 
 /**
