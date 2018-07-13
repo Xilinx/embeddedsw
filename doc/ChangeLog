@@ -1,5 +1,9 @@
 Changes for 2018.3
 ===============================
+sdps_v3_6
+Fixed Cppcheck, Doxygen and gcc warnings (CR#1006375)
+Add initializer macro for HasEMIO
+
 xilffs_v3_10:
 Fix Cppcheck and Doxygen warnings
 
