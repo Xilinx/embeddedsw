@@ -42,6 +42,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.00a hk/sg  10/17/13 Initial release
 * 3.6   mn     07/06/18 Add initialization macros in sdps
+*       mn     07/13/18 Add initializer macro for HasEMIO
 *
 * </pre>
 *
@@ -66,6 +67,7 @@ XSdPs_Config XSdPs_ConfigTable[] =
 		XPAR_XSDPS_0_HAS_WP,
 		XPAR_XSDPS_0_BUS_WIDTH,
 		XPAR_XSDPS_0_MIO_BANK,
+		XPAR_XSDPS_0_HAS_EMIO,
 		XPAR_XSDPS_0_IS_CACHE_COHERENT
 	}
 };
