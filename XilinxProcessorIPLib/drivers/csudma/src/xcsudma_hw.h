@@ -29,7 +29,7 @@
 /**
 *
 * @file xcsudma_hw.h
-* @addtogroup csudma_v1_2
+* @addtogroup csudma_v1_3
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or
