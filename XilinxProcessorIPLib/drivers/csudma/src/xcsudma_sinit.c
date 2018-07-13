@@ -30,7 +30,7 @@
 /**
 *
 * @file xcsudma_sinit.c
-* @addtogroup csudma_v1_2
+* @addtogroup csudma_v1_3
 * @{
 *
 * This file contains static initialization methods for Xilinx CSU_DMA core.

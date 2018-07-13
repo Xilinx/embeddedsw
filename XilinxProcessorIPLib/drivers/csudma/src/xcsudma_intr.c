@@ -30,7 +30,7 @@
 /**
 *
 * @file xcsudma_intr.c
-* @addtogroup csudma_v1_2
+* @addtogroup csudma_v1_3
 * @{
 *
 * This file contains interrupt related functions of Xilinx CSU_DMA core.
