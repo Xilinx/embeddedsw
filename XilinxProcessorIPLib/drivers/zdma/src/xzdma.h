@@ -125,6 +125,7 @@
 * 1.5   adk     11/22/17 Added peripheral test app support for ZDMA driver.
 *		12/11/17 Fixed peripheral test app generation issues when dma
 *			 buffers are configured on OCM memory(CR#990806).
+* 1.6   adk     13/07/18 Fixed doxygen warnings in the driver(CR#1006353).
 * </pre>
 *
 ******************************************************************************/
@@ -148,8 +149,8 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 
-/** @name ZDMA Handler Types
- * @{
+/**
+ * This typedef contains ZDMA Handler Types.
  */
 typedef enum {
 	XZDMA_HANDLER_DONE,	/**< For Done Handler */
@@ -157,8 +158,8 @@ typedef enum {
 } XZDma_Handler;
 /*@}*/
 
-/** @name ZDMA Descriptors Types
- * @{
+/**
+ * This typedef contains ZDMA Descriptors Types.
  */
 typedef enum {
 	XZDMA_LINEAR,		/**< Linear descriptor */
@@ -166,8 +167,8 @@ typedef enum {
 } XZDma_DscrType;
 /*@}*/
 
-/** @name ZDMA Operation modes
- * @{
+/**
+ * This typedef contains ZDMA Operation modes.
  */
 typedef enum {
 	XZDMA_NORMAL_MODE,	/**< Normal transfer from source to
@@ -177,8 +178,8 @@ typedef enum {
 } XZDma_Mode;
 /*@}*/
 
-/** @name ZDMA state
- * @{
+/**
+ * This typedef contains ZDMA state.
  */
 typedef enum {
 	XZDMA_IDLE,		/**< ZDMA is in Idle state */
@@ -187,8 +188,8 @@ typedef enum {
 } XZDmaState;
 /*@}*/
 
-/** @name ZDMA AXI Burst type
- * @{
+/**
+ * This typedef contains ZDMA AXI Burst type definitions.
  */
 typedef enum {
 	XZDMA_FIXED_BURST = 0,	/**< Fixed burst type */
@@ -198,8 +199,8 @@ typedef enum {
 
 /******************************************************************************/
 /**
-* This typedef contains scatter gather descriptor fields for ZDMA core.
-*/
+ * This typedef contains scatter gather descriptor fields for ZDMA core.
+ */
 typedef struct {
 	void *SrcDscrPtr;	/**< Source Descriptor pointer */
 	void *DstDscrPtr;	/**< Destination Descriptor pointer */
