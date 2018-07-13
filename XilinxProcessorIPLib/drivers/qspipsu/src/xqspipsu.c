@@ -63,6 +63,7 @@
  * 1.8	tjs 06/26/18 Added an example for accessing 64bit dma within
  *		     32 bit application. CR#1004701
  * 1.8	tjs 06/26/18 Removed checkpatch warnings.
+ * 1.8	tjs 07/09/18 Fixed cppcheck and doxygen warnings. (CR#1006336)
  *
  * </pre>
  *
@@ -1575,7 +1576,7 @@ void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMsg)
 				| XQSPIPSU_CFG_GEN_FIFO_START_MODE_MASK));
 
 	GenFifoEntry = (u32)0;
-	GenFifoEntry = (u32)XQSPIPSU_GENFIFO_POLL;
+	GenFifoEntry |= (u32)XQSPIPSU_GENFIFO_POLL;
 	GenFifoEntry |= (u32)XQSPIPSU_GENFIFO_RX;
 	GenFifoEntry |= QspiPsuPtr->GenFifoBus;
 	GenFifoEntry |= QspiPsuPtr->GenFifoCS;
@@ -1652,7 +1653,9 @@ static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
  * @brief
  * This API enables/ disables Write Protect pin on the flash parts.
  *
- * @param	QspiPtr is a pointer to the QSPIPSU driver component to use.
+ * @param	QspiPsuPtr is a pointer to the QSPIPSU driver component to use.
+ *
+ * @param	Toggle is a value of the GPIO pin
  *
  * @return	None
  *
