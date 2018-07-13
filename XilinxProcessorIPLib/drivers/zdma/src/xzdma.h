@@ -125,7 +125,9 @@
 * 1.5   adk     11/22/17 Added peripheral test app support for ZDMA driver.
 *		12/11/17 Fixed peripheral test app generation issues when dma
 *			 buffers are configured on OCM memory(CR#990806).
-* 1.6   adk     13/07/18 Fixed doxygen warnings in the driver(CR#1006353).
+* 1.6   adk     13/07/18 Fixed doxygen warnings in the driver(CR#1006353)
+*			 Fixed cppcheck warnings and coverity tool reported
+*			 errors in the driver(CR#1006353).
 * </pre>
 *
 ******************************************************************************/

@@ -190,10 +190,6 @@ s32 XZDma_SetCallBack(XZDma *InstancePtr, XZDma_Handler HandlerType,
 			InstancePtr->ErrorRef = CallBackRef;
 			Status = (XST_SUCCESS);
 			break;
-
-		default:
-			Status = (XST_INVALID_PARAM);
-			break;
 	}
 
 	return Status;
