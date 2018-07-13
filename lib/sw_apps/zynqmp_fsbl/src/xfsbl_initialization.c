@@ -57,6 +57,7 @@
 * 4.0   vns  03/07/18 Added boot header authentication, attributes reading
 *                     from boot header local buffer, copying IV to global
 *                     variable for using during decryption of partition.
+* 5.0   mn   07/06/18 Add DDR initialization support for new DDR DIMM part
 * </pre>
 *
 * @note
@@ -76,6 +77,7 @@
 #include "xfsbl_bs.h"
 #include "xfsbl_usb.h"
 #include "xfsbl_authentication.h"
+#include "xfsbl_ddr_init.h"
 
 /************************** Constant Definitions *****************************/
 #define PART_NAME_LEN_MAX		20U
@@ -677,6 +679,22 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
+
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
+	/*
+	 * This function is used only for ZCU102 and ZCU106 boards. The DDR part
+	 * (MTA8ATF51264HZ) on these boards have changed to a newer DDR part
+	 * (MTA4ATF51264HZ) which has different configuration used than the
+	 * earlier one.
+	 * This function will reinitialize the DDR if it detects the DDR used is
+	 * newer part (MTA4ATF51264HZ).
+	 */
+	Status = XFsbl_DdrInit();
+	if (XFSBL_SUCCESS != Status) {
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_DDR_INIT_FAILED\n\r");
+		goto END;
+	}
+#endif
 
 #ifdef XFSBL_PERF
 	XTime_GetTime(&(FsblInstancePtr->PerfTime.tFsblStart));
