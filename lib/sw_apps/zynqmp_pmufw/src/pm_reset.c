@@ -124,7 +124,7 @@ typedef struct PmResetGpioBankIOs {
 	const u32 rstLine;
 } PmResetGpioBankIOs;
 
-static bool master_has_access(const PmMaster *m, const PmReset *r)
+bool PmResetMasterHasAccess(const PmMaster* const m, const PmReset* const r)
 {
 	return !!(r->access & m->ipiMask);
 }
@@ -1853,7 +1853,7 @@ static PmReset* const pmAllResets[] = {
  *
  * @return       Pointer to PmReset structure (or NULL if not found)
  */
-static PmReset* PmGetResetById(const u32 resetId)
+PmReset* PmGetResetById(const u32 resetId)
 {
 	PmReset* resetPtr = NULL;
 
@@ -1873,7 +1873,7 @@ done:
 	return resetPtr;
 }
 
-static int ResetDoAssert(const PmReset *reset, u32 action)
+int PmResetDoAssert(const PmReset *reset, u32 action)
 {
 	int status = XST_SUCCESS;
 
@@ -1890,7 +1890,7 @@ static int ResetDoAssert(const PmReset *reset, u32 action)
 		reset->ops->pulse(reset);
 		break;
 	default:
-		PmDbg(DEBUG_DETAILED,"ERROR invalid assert flag %lu\r\n", action);
+		PmWarn("invalid assert %lu\r\n", action);
 		status = XST_INVALID_PARAM;
 		break;
 	};
@@ -1909,73 +1909,20 @@ int PmResetAssertInt(u32 reset, u32 action)
 	const PmReset *resetPtr = PmGetResetById(reset);
 
 	if (NULL == resetPtr) {
-		PmDbg(DEBUG_DETAILED,"ERROR invalid reset %lu\r\n", reset);
+		PmWarn("Invalid reset %lu\r\n", reset);
 		status = XST_INVALID_PARAM;
 		goto err;
 	}
 
-	status = ResetDoAssert(resetPtr, action);
+	status = PmResetDoAssert(resetPtr, action);
 
 err:
 	return status;
 }
 
-/**
- * PmResetAssert() - Configure reset line
- * @master      Initiator of the request
- * @reset       ID of reset to be configured
- * @action      Specifies the action (assert, release, pulse)
- */
-void PmResetAssert(const PmMaster *const master, const u32 reset,
-			  const u32 action)
+inline u32 PmResetGetStatusInt(const PmReset* const resetPtr)
 {
-	int status;
-	const PmReset *resetPtr = PmGetResetById(reset);
-
-	PmDbg(DEBUG_DETAILED,"(%lu, %lu)\r\n", reset, action);
-
-	if (NULL == resetPtr) {
-		PmDbg(DEBUG_DETAILED,"ERROR invalid reset %lu\r\n", reset);
-		status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	/* Check whether the master has access to this reset line */
-	if (false == master_has_access(master, resetPtr)) {
-		PmDbg(DEBUG_DETAILED,"ERROR no access\r\n");
-		status = XST_PM_NO_ACCESS;
-		goto done;
-	}
-
-	status = ResetDoAssert(resetPtr, action);
-
-done:
-	IPI_RESPONSE1(master->ipiMask, status);
-}
-
-/**
- * PmResetGetStatus() - Get status of the reset
- * @master  Initiator of the request
- * @reset   Reset whose status should be returned
- */
-void PmResetGetStatus(const PmMaster *const master, const u32 reset)
-{
-	u32 resetStatus = 0U;
-	int status = XST_SUCCESS;
-	const PmReset *resetPtr = PmGetResetById(reset);
-
-	PmDbg(DEBUG_DETAILED,"(%lu)\r\n", reset);
-
-	if (NULL == resetPtr) {
-		PmDbg(DEBUG_DETAILED,"ERROR invalid reset %lu\r\n", reset);
-		status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	resetStatus = resetPtr->ops->getStatus(resetPtr);
-
-done:
-	IPI_RESPONSE2(master->ipiMask, status, resetStatus);
+	return resetPtr->ops->getStatus(resetPtr);
 }
 
 /**

@@ -34,7 +34,7 @@
 
 #include "xil_types.h"
 #include "gpio.h"
-
+#include "pm_common.h"
 
 /*********************************************************************
  * Structure definitions
@@ -46,10 +46,14 @@ typedef struct PmMaster PmMaster;
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-void PmResetAssert(const PmMaster *const master, const u32 reset, const u32 action);
-void PmResetGetStatus(const PmMaster *const master, const u32 reset);
+u32 PmResetGetStatusInt(const PmReset* const resetPtr);
+
+int PmResetDoAssert(const PmReset *reset, u32 action);
 int PmResetAssertInt(u32 reset, u32 action);
 int PmResetSetConfig(const u32 resetId, const u32 permissions);
 void PmResetClearConfig(void);
+
+bool PmResetMasterHasAccess(const PmMaster* const m, const PmReset* const r);
+PmReset* PmGetResetById(const u32 resetId);
 
 #endif
