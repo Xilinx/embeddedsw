@@ -42,6 +42,7 @@
 * ----- --- -------- -----------------------------------------------
 * 1.0   hk  08/21/14 First release
 *       sk  04/24/15 Modified the code according to MISRAC-2012.
+* 1.8	tjs 07/09/18 Fixed gcc warnigs. (CR#1006336).
 * </pre>
 *
 ******************************************************************************/
@@ -75,7 +76,8 @@ XQspiPsu_Config XQspiPsu_ConfigTable[XPAR_XQSPIPSU_NUM_INSTANCES] = {
 		XPAR_XQSPIPSU_0_BASEADDR,  /* Device base address */
 		XPAR_XQSPIPSU_0_QSPI_CLK_FREQ_HZ,
 		XPAR_XQSPIPSU_0_QSPI_MODE,
-		XPAR_XQSPIPSU_0_QSPI_BUS_WIDTH
+		XPAR_XQSPIPSU_0_QSPI_BUS_WIDTH,
+		XPAR_XQSPIPSU_0_IS_CACHE_COHERENT
 	},
 };
 /** @} */
