@@ -50,7 +50,6 @@
 #include "xfsbl_dfu_util.h"
 #include "xparameters.h"	/* XPAR parameters */
 #include "xusbpsu.h"		/* USB controller driver */
-#include "xusb_wrapper.h"
 #include "xfsbl_usb.h"
 
 /************************** Constant Definitions *****************************/
@@ -314,7 +313,7 @@ u32 XFsbl_Ch9SetupStrDescReply(u8 *BufPtr, u32 BufferLen, u8 Index)
 		goto END;
 	}
 
-	SStatus = IsSuperSpeed(UsbInstance.AppData);
+	SStatus = XUsbPsu_IsSuperSpeed(&UsbInstance);
 	if(SStatus != XST_SUCCESS) {
 		/* USB 2.0 */
 		String = StringList[0][Index];
@@ -395,7 +394,7 @@ u32 XFsbl_Ch9SetupDevDescReply(u8 *BufPtr, u32 BufferLen)
 
 	DevDescLength = sizeof(XFsblPs_UsbStdDevDesc);
 
-	SStatus = IsSuperSpeed(UsbInstance.AppData);
+	SStatus = XUsbPsu_IsSuperSpeed(&UsbInstance);
 	if(SStatus != XST_SUCCESS) {
 		/* USB 2.0 */
 		(void)memcpy(BufPtr, &DDesc[0], DevDescLength);
@@ -439,7 +438,7 @@ u32 XFsbl_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufferLen)
 		goto END;
 	}
 
-	SStatus = IsSuperSpeed(UsbInstance.AppData);
+	SStatus = XUsbPsu_IsSuperSpeed(&UsbInstance);
 	if(SStatus != XST_SUCCESS) {
 		/* USB 2.0 */
 		Config = (u8 *)&Config2;
