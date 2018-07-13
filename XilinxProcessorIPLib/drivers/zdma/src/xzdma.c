@@ -277,7 +277,8 @@ u32 XZDma_CreateBDList(XZDma *InstancePtr, XZDma_DscrType TypeOfDscr,
 						(NoOfBytes >> 1) / Size;
 	InstancePtr->Descriptor.SrcDscrPtr = (void *)Dscr_MemPtr;
 	InstancePtr->Descriptor.DstDscrPtr =
-			(void *)(Dscr_MemPtr + (Size * InstancePtr->Descriptor.DscrCount));
+			(void *)(Dscr_MemPtr +
+			(UINTPTR)(Size * InstancePtr->Descriptor.DscrCount));
 
 	if (!InstancePtr->Config.IsCacheCoherent)
 	Xil_DCacheInvalidateRange((INTPTR)Dscr_MemPtr, NoOfBytes);
@@ -915,6 +916,12 @@ static void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
 {
 	u32 Count = 0x00U;
 	u8 Last;
+
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Data != NULL);
+	Xil_AssertVoid(Num != 0x00U);
+
 	XZDma_Transfer *LocalData = Data;
 	XZDma_LiDscr *LiSrcDscr =
 		(XZDma_LiDscr *)(void *)(InstancePtr->Descriptor.SrcDscrPtr);
@@ -924,11 +931,6 @@ static void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
 		(XZDma_LlDscr *)(void *)(InstancePtr->Descriptor.SrcDscrPtr);
 	XZDma_LlDscr *LlDstDscr =
 		(XZDma_LlDscr *)(void *)(InstancePtr->Descriptor.DstDscrPtr);
-
-	/* Verify arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Data != NULL);
-	Xil_AssertVoid(Num != 0x00U);
 
 	if (InstancePtr->Descriptor.DscrType == XZDMA_LINEAR) {
 		Last = FALSE;
