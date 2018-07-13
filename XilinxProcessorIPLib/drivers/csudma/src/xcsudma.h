@@ -102,6 +102,7 @@
 * 1.2   adk     11/22/17 Added peripheral test app support for CSUDMA driver.
 *	adk	09/03/18 Added new API XCsuDma_64BitTransfer() useful for 64-bit
 *			 dma transfers through PMU processor(CR#996201).
+* 1.3   adk     13/07/18 Fixed doxygen warnings in the driver(CR#1006262).
 * </pre>
 *
 ******************************************************************************/
@@ -124,8 +125,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-/** @name CSU_DMA Channels
- * @{
+/**
+ * This typedef contains CSU_DMA Channel Types.
  */
 typedef enum {
 	XCSUDMA_SRC_CHANNEL = 0U,	/**< Source Channel of CSU_DMA */
@@ -133,8 +134,8 @@ typedef enum {
 }XCsuDma_Channel;
 /*@}*/
 
-/** @name CSU_DMA pause types
- * @{
+/**
+ * This typedef contains CSU_DMA Pause Types.
  */
 typedef enum {
 	XCSUDMA_PAUSE_MEMORY,		/**< Pauses memory data transfer
@@ -159,8 +160,6 @@ typedef enum {
 /**
 *
 * This function resets the CSU_DMA core.
-*
-* @param	None.
 *
 * @return	None.
 *
