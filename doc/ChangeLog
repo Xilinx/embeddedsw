@@ -69,6 +69,7 @@ Refactor the xilfpga library to support different PL programming Interfaces.
 
 standalone_v6_8:
 Fixed compilation warnings in xil_cache.c.(CR#1005118)
+Optimized the code in Xil_DCacheFlush() and Xil_DCacheFlush() in xil_cache.c for A53-32.
 Modified the return value of Xil_MemMap() as pointer instead of address of pointer in xil_mpu.c(CR#1005119)
 Updated Cortexa9 translation table to mark DDR memory as inner cacheable,
 if BSP is built with the USE_AMP flag. It fixes CR#1006745.
