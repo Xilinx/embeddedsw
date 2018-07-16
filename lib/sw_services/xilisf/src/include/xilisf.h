@@ -38,7 +38,8 @@
  * In-system Flash and, external Serial Flash Memories from Atmel (AT45XXXD),
  * Intel (S33), ST Microelectronics (STM) (M25PXX), Winbond (W25QXX/W25XX),
  * Numonyx (N25QXX) devices. Intel (S33) and STM (M25PXX) Serial Flash devices
- * are now a part of Serial Flash devices provided by Numonyx.
+ * are now a part of Serial Flash devices provided by Numonyx. Flash parts
+ * N25QXX are now known as Micron MT25QXX keeping all the functionality same.
  *
  * <b>This library also supports the Spansion (S25FLXX) devices, but this family
  * hasn't been tested. The support for this family of devices is limited to the
@@ -521,6 +522,7 @@
  *                    to quad mode read CR#1002769
  * 5.12  tjs  06/05/18 Added support for Macronix 1G flash parts. CR#978447
  * 5.12 tjs	 06/18/18 Removed checkpatch and gcc warnings.
+ * 5.12 tjs	 07/16/18 Updated notes for Micron flash parts. CR#973229
  *
  * </pre>
  *
