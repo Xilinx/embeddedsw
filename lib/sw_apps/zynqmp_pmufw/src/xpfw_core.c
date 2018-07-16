@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -123,10 +123,10 @@ XStatus XPfw_CoreDispatchEvent(u32 EventId)
 
 		for (Idx = 0U; Idx < CorePtr->ModCount; Idx++) {
 			/**
-			 * Check if Mod[Idx] is registered for this event
+			 * Check if Mod[Idx] and event handler are registered for this event
 			 */
-			if ((XPfw_EventGetModMask(EventId) & ((u32) 1U << Idx))
-					== ((u32) 1U << Idx)) {
+			if (((XPfw_EventGetModMask(EventId) & ((u32) 1U << Idx))
+					== ((u32) 1U << Idx)) && CorePtr->ModList[Idx].EventHandler != NULL) {
 				CorePtr->ModList[Idx].EventHandler(&CorePtr->ModList[Idx],
 						EventId);
 				CallCount++;
