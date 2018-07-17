@@ -370,7 +370,7 @@ void eth_link_detect(struct netif *netif)
 	XAxiEthernet *xemacp = &xemacs->axi_ethernet;
 #elif defined(XLWIP_CONFIG_INCLUDE_EMACLITE)
 	xemacliteif_s *xemacs = (xemacliteif_s *)(xemac->state);
-	XEmacLite *xemacp = &xemacs->instance;
+	XEmacLite *xemacp = xemacs->instance;
 #endif
 
 	if ((xemacp->IsReady != (u32)XIL_COMPONENT_IS_READY) ||
