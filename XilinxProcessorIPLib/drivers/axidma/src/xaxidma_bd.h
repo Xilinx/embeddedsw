@@ -97,6 +97,7 @@
  *			clear the field first and set it.
  * 8.0   srt  01/29/14 Added support for Micro DMA Mode.
  * 9.2   vak  15/04/16 Fixed compilation warnings in axidma driver
+ * 9.8   rsp  07/11/18 Fix cppcheck portability warnings. CR #1006164
  *
  * </pre>
  *****************************************************************************/
@@ -165,7 +166,7 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 *
 ******************************************************************************/
 #define XAxiDma_BdRead(BaseAddress, Offset)				\
-	(*(u32 *)(((void *)(UINTPTR)(BaseAddress)) + (u32)(Offset)))
+	(*(u32 *)((UINTPTR)(BaseAddress) + (u32)(Offset)))
 
 /*****************************************************************************/
 /**
