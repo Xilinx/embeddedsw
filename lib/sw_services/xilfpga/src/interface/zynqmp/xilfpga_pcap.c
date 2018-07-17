@@ -119,8 +119,9 @@
 		XSECURE_SECURE_GCM_TAG_SIZE) /* AES block decryption tag size */
 
 /* Firmware State Definitions */
-#define XFPGA_FIRMWARE_STATE_SECURE	0
-#define XFPGA_FIRMWARE_STATE_NONSECURE	1
+#define XFPGA_FIRMWARE_STATE_UNKNOWN	0
+#define XFPGA_FIRMWARE_STATE_SECURE	1
+#define XFPGA_FIRMWARE_STATE_NONSECURE	2
 
 /**************************** Type Definitions *******************************/
 #ifdef __MICROBLAZE__
@@ -521,8 +522,10 @@ u32 XFpga_PostConfigPcap(UINTPTR AddrPtr, u32 flags)
 #endif
 	if ((Status == XFPGA_SUCCESS) && (flags & XFPGA_SECURE_FLAGS))
 		XFpga_SetFirmwareState(XFPGA_FIRMWARE_STATE_SECURE);
-	else
+	else if((Status == XFPGA_SUCCESS))
 		XFpga_SetFirmwareState(XFPGA_FIRMWARE_STATE_NONSECURE);
+	else
+		XFpga_SetFirmwareState(XFPGA_FIRMWARE_STATE_UNKNOWN);
 
 	return Status;
 }
@@ -2229,6 +2232,12 @@ u32 XFpga_GetPLConfigData(UINTPTR Address, u32 NumFrames)
 	int i;
 
 	Status = XFpga_GetFirmwareState();
+
+	if (Status == XFPGA_FIRMWARE_STATE_UNKNOWN) {
+		xil_printf("Bit-Stream Not loaded to Fabric Read-back is not allowed\n\r");
+		return XFPGA_ERROR_PLSTATE_UNKNOWN;
+	}
+
 	if (Status == XFPGA_FIRMWARE_STATE_SECURE) {
 		xil_printf("Secure Bit-stream Loaded Read-back is not allowed\n\r");
 		return XFPGA_FAILURE;
@@ -2316,7 +2325,7 @@ u32 XFpga_GetPLConfigData(UINTPTR Address, u32 NumFrames)
 
 	/* Set up the Destination DMA Channel*/
 	XCsuDma_Transfer(&CsuDma, XCSUDMA_DST_CHANNEL,
-			 Address + CFGREG_SRCDMA_OFFSET, NumFrames, 0);
+			 Address + CFGDATA_DSTDMA_OFFSET, NumFrames, 0);
 
 	Status = XFpga_PcapWaitForDone();
 	if (Status != XFPGA_SUCCESS) {
