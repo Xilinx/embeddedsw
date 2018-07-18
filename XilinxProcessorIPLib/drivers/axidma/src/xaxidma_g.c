@@ -50,6 +50,7 @@
 * 7.02a srt  01/23/13 Replaced *_TDATA_WIDTH parameters to *_DATA_WIDTH
 *		      (CR 691867)
 * 9.7   rsp  04/25/18 In XAxiDma_Config add SG length width.
+* 9.8   rsp  07/18/18 Sync XAxiDma_Config initializer fields
 *
 * </pre>
 *
@@ -78,6 +79,10 @@ XAxiDma_Config XAxiDma_ConfigTable[] =
 		XPAR_AXIDMA_0_INCLUDE_SG,
 		XPAR_AXIDMA_0_NUM_MM2S_CHANNELS,
 		XPAR_AXIDMA_0_NUM_S2MM_CHANNELS,
+		XPAR_AXI_DMA_0_MM2S_BURST_SIZE,
+		XPAR_AXI_DMA_0_S2MM_BURST_SIZE,
+		XPAR_AXI_DMA_0_MICRO_DMA,
+		XPAR_AXI_DMA_0_ADDR_WIDTH,
 		XPAR_AXIDMA_0_SG_LENGTH_WIDTH
 	}
 };
