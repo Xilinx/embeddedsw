@@ -58,11 +58,8 @@
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.10  mus  07/17/18 Updated XScuGic_InterruptHandler to fix array overrun
 *                     reported by coverity tool. It fixes CR#1006344.
-<<<<<<< HEAD
 * 3.10  mus  07/17/18 Updated file to fix the various coding style issues
 *                     reported by checkpatch. It fixes CR#1006344.
-=======
->>>>>>> scugic: Fix HandlerTable array overrun
 *
 * </pre>
 *
@@ -137,11 +134,7 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr)
 #else
 	    IntIDFull = XScuGic_CPUReadReg(InstancePtr, XSCUGIC_INT_ACK_OFFSET);
 	    InterruptID = IntIDFull & XSCUGIC_ACK_INTID_MASK;
-<<<<<<< HEAD
 #endif
-=======
-
->>>>>>> scugic: Fix HandlerTable array overrun
 	    if (XSCUGIC_MAX_NUM_INTR_INPUTS <= InterruptID) {
 		goto IntrExit;
 	    }
