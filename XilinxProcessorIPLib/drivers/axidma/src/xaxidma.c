@@ -751,7 +751,7 @@ u32 XAxiDma_Busy(XAxiDma *InstancePtr, int Direction)
  * @param	Direction is DMA transfer direction, valid values are
  *			- XAXIDMA_DMA_TO_DEVICE.
  *			- XAXIDMA_DEVICE_TO_DMA.
- * @Select	Select is the option to enable (TRUE) or disable (FALSE).
+ * @param	Select is the option to enable (TRUE) or disable (FALSE).
  *
  * @return	- XST_SUCCESS for success
  *
@@ -788,7 +788,7 @@ int XAxiDma_SelectKeyHole(XAxiDma *InstancePtr, int Direction, int Select)
  * @param	Direction is DMA transfer direction, valid values are
  *			- XAXIDMA_DMA_TO_DEVICE.
  *			- XAXIDMA_DEVICE_TO_DMA.
- * @Select	Select is the option to enable (TRUE) or disable (FALSE).
+ * @param	Select is the option to enable (TRUE) or disable (FALSE).
  *
  * @return	- XST_SUCCESS for success
  *

@@ -278,6 +278,7 @@ extern "C" {
 #define XAXIDMA_BD_TUSER_FIELD_SHIFT	16
 #define XAXIDMA_BD_ARCACHE_FIELD_SHIFT	24
 #define XAXIDMA_BD_ARUSER_FIELD_SHIFT	28
+/*@}*/
 
 /** @name Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register
  *  @{
@@ -287,6 +288,7 @@ extern "C" {
 
 #define XAXIDMA_BD_STRIDE_FIELD_SHIFT	0
 #define XAXIDMA_BD_VSIZE_FIELD_SHIFT   	19
+/*@}*/
 
 /**************************** Type Definitions *******************************/
 
