@@ -36,6 +36,9 @@ Updated get_psu_interrupt_id to generate correct
 interrupt id's, when output of utility reduced logic
 is connected to pl-ps interrupt as well as ILA probe.
 Fix for CR#999732.
+Updated source files to fix warings reported by 
+coverity, checkpatch and doxygen. It fixes
+CR#1006344.
 
 tmrctr_v4_6:
 Updated driver examples to call TmrCtrDisableIntr
