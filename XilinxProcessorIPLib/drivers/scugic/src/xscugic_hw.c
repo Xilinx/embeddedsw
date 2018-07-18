@@ -251,23 +251,13 @@ static void CPUInit(XScuGic_Config *Config)
 /*****************************************************************************/
 /**
 *
-* CfgInitialize a specific interrupt controller instance/driver. The
+* Initialize the GIC based on the device id. The
 * initialization entails:
 *
-* - Initialize fields of the XScuGic structure
-* - Initial vector table with stub function calls
-* - All interrupt sources are disabled
+* - Initialize distributor interface
+* - Initialize cpu interface
 *
-* @param InstancePtr is a pointer to the XScuGic instance to be worked on.
-* @param ConfigPtr is a pointer to a config table for the particular device
-*        this driver is associated with.
-* @param EffectiveAddr is the device base address in the virtual memory address
-*        space. The caller is responsible for keeping the address mapping
-*        from EffectiveAddr to the device physical base address unchanged
-*        once this function is invoked. Unexpected errors may occur if the
-*        address mapping changes after this function is called. If address
-*        translation is not used, use Config->BaseAddress for this parameters,
-*        passing the physical address instead.
+* @param DeviceId is device id to be worked on.
 *
 * @return
 *
@@ -379,7 +369,7 @@ IntrExit:
 *
 * @param	BaseAddress is the CPU Interface Register base address of the
 *		interrupt controller whose vector table will be modified.
-* @param	InterruptId is the interrupt ID to be associated with the input
+* @param	InterruptID is the interrupt ID to be associated with the input
 *		handler.
 * @param	Handler is the function pointer that will be added to
 *		the vector table for the given interrupt ID.
@@ -444,7 +434,7 @@ static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress)
 /**
 * Sets the interrupt priority and trigger type for the specificd IRQ source.
 *
-* @param	BaseAddr is the device base address
+* @param	DistBaseAddress is the distributor base address
 * @param	Int_Id is the IRQ source number to modify
 * @param	Priority is the new priority for the IRQ source. 0 is highest
 * 			priority, 0xF8 (248) is lowest. There are 32 priority levels
@@ -525,7 +515,7 @@ void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 /**
 * Gets the interrupt priority and trigger type for the specificd IRQ source.
 *
-* @param	BaseAddr is the device base address
+* @param	DistBaseAddress is the distributor  base address
 * @param	Int_Id is the IRQ source number to modify
 * @param	Priority is a pointer to the value of the priority of the IRQ
 *		source. This is a return value.

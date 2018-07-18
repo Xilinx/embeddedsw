@@ -1002,8 +1002,6 @@ void XScuGic_SetCpuID(u32 CpuCoreId)
 /**
 * This function returns the CpuId variable.
 *
-* @param	None.
-*
 * @return	The CPU core number.
 *
 * @note        None.
