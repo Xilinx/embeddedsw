@@ -48,26 +48,30 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.01a sdm  07/18/11 First release
 * 1.03a srt  02/27/13 Moved Offset calculation macros from *_hw.c (CR
-*		      702687).
-*					  Added support to direct interrupts to the appropriate CPU.
-*			  Earlier interrupts were directed to CPU1 (hard coded). Now
-*			  depending upon the CPU selected by the user (xparameters.h),
-*			  interrupts will be directed to the relevant CPU.
-*			  This fixes CR 699688.
+*                     702687).
+*                     Added support to direct interrupts to the appropriate
+*                     CPU. Earlier interrupts were directed to CPU1
+*                     (hard coded). Now depending upon the CPU selected by
+*                     the user (xparameters.h), interrupts will be directed
+*                     to the relevant CPU.This fixes CR 699688.
 * 1.04a hk   05/04/13 Fix for CR#705621. Moved functions
-*			  XScuGic_SetPriTrigTypeByDistAddr and
-*             XScuGic_GetPriTrigTypeByDistAddr here from xscugic.c
+*                     XScuGic_SetPriTrigTypeByDistAddr and
+*                     XScuGic_GetPriTrigTypeByDistAddr here from xscugic.c
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.6   kvn  02/17/17 Add support for changing GIC CPU master at run time.
 *       kvn  02/28/17 Make the CpuId as static variable and Added new
 *                     XScugiC_GetCpuId to access CpuId.
-* 3.9   mus  02/21/18 Added new API's XScuGic_InterruptUnmapFromCpuByDistAddr
-*					  and XScuGic_UnmapAllInterruptsFromCpuByDistAddr, These
-*					  API's can be used by applications to unmap specific/all
-*					  interrupts from target CPU. It fixes CR#992490.
+* 3.9   mus  02/21/18 Added new API's 
+*                     XScuGic_InterruptUnmapFromCpuByDistAddr and 
+*                     XScuGic_UnmapAllInterruptsFromCpuByDistAddr, These
+*                     API's can be used by applications to unmap 
+*                     specific/all interrupts from target CPU. It fixes
+*                     CR#992490.
 * 3.10  mus  07/17/18 Updated XScuGic_DeviceInterruptHandler to fix array
 *                     overrun reported by coverity tool. It fixes 
 *                     CR#1006344.
+* 3.10  mus  07/17/18 Updated file to fix the various coding style issues       
+*                     reported by checkpatch. It fixes CR#1006344.
 *
 * </pre>
 *
@@ -121,7 +125,7 @@ static void DistInit(XScuGic_Config *Config, u32 CpuID)
 	u32 Int_Id;
 	u32 LocalCpuID = CpuID;
 
-#if USE_AMP==1
+#if USE_AMP == 1
 	#warning "Building GIC for AMP"
 
 	/*
@@ -149,18 +153,20 @@ static void DistInit(XScuGic_Config *Config, u32 CpuID)
 	 * 1. The trigger mode in the int_config register
 	 * Only write to the SPI interrupts, so start at 32
 	 */
-	for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+16U) {
-	/*
-	 * Each INT_ID uses two bits, or 16 INT_ID per register
-	 * Set them all to be level sensitive, active HIGH.
-	 */
+	for (Int_Id = 32U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+		Int_Id = Int_Id+16U) {
+		/*
+		 * Each INT_ID uses two bits, or 16 INT_ID per register
+		 * Set them all to be level sensitive, active HIGH.
+		 */
 		XScuGic_WriteReg(Config->DistBaseAddress,
 			XSCUGIC_INT_CFG_OFFSET_CALC(Int_Id), 0U);
 	}
 
 
 #define DEFAULT_PRIORITY	0xa0a0a0a0U
-	for (Int_Id = 0U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+4U) {
+	for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+			Int_Id = Int_Id+4U) {
 		/*
 		 * 2. The priority using int the priority_level register
 		 * The priority_level and spi_target registers use one byte per
@@ -172,7 +178,8 @@ static void DistInit(XScuGic_Config *Config, u32 CpuID)
 				DEFAULT_PRIORITY);
 	}
 
-	for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+4U) {
+	for (Int_Id = 32U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+			Int_Id = Int_Id+4U) {
 		/*
 		 * 3. The CPU interface in the spi_target register
 		 * Only write to the SPI interrupts, so start at 32
@@ -181,14 +188,15 @@ static void DistInit(XScuGic_Config *Config, u32 CpuID)
 		LocalCpuID |= LocalCpuID << 16U;
 
 		XScuGic_WriteReg(Config->DistBaseAddress,
-				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), LocalCpuID);
+			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), LocalCpuID);
 	}
 
-	for (Int_Id = 0U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+32U) {
-	/*
-	 * 4. Enable the SPI using the enable_set register. Leave all disabled
-	 * for now.
-	 */
+	for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+			Int_Id = Int_Id+32U) {
+		/*
+		 * 4. Enable the SPI using the enable_set register.
+		 * Leave all disabled for now.
+		 */
 		XScuGic_WriteReg(Config->DistBaseAddress,
 		XSCUGIC_EN_DIS_OFFSET_CALC(XSCUGIC_DISABLE_OFFSET,
 		Int_Id),
@@ -273,7 +281,7 @@ s32 XScuGic_DeviceInitialize(u32 DeviceId)
 	XScuGic_Config *Config;
 	u32 Cpu_Id = XScuGic_GetCpuID() + (u32)1;
 
-	Config = &XScuGic_ConfigTable[(u32 )DeviceId];
+	Config = &XScuGic_ConfigTable[(u32)DeviceId];
 
 	DistInit(Config, Cpu_Id);
 
@@ -310,14 +318,15 @@ void XScuGic_DeviceInterruptHandler(void *DeviceId)
 	XScuGic_VectorTableEntry *TablePtr;
 	XScuGic_Config *CfgPtr;
 
-	CfgPtr = &XScuGic_ConfigTable[(INTPTR )DeviceId];
+	CfgPtr = &XScuGic_ConfigTable[(INTPTR)DeviceId];
 
 	/*
 	 * Read the int_ack register to identify the highest priority
 	 * interrupt ID and make sure it is valid. Reading Int_Ack will
 	 * clear the interrupt in the GIC.
 	 */
-	IntIDFull = XScuGic_ReadReg(CfgPtr->CpuBaseAddress, XSCUGIC_INT_ACK_OFFSET);
+	IntIDFull = XScuGic_ReadReg(CfgPtr->CpuBaseAddress,
+					XSCUGIC_INT_ACK_OFFSET);
 	InterruptID = IntIDFull & XSCUGIC_ACK_INTID_MASK;
 	if (XSCUGIC_MAX_NUM_INTR_INPUTS <= InterruptID) {
 		goto IntrExit;
@@ -342,7 +351,7 @@ void XScuGic_DeviceInterruptHandler(void *DeviceId)
 	 * the IRQSource. A software trigger is cleared by the ACK.
 	 */
 	TablePtr = &(CfgPtr->HandlerTable[InterruptID]);
-	if(TablePtr != NULL) {
+	if (TablePtr != NULL) {
 		TablePtr->Handler(TablePtr->CallBackRef);
 	}
 
@@ -384,17 +393,18 @@ IntrExit:
 *
 ******************************************************************************/
 void XScuGic_RegisterHandler(u32 BaseAddress, s32 InterruptID,
-			     Xil_InterruptHandler IntrHandler, void *CallBackRef)
+		Xil_InterruptHandler IntrHandler, void *CallBackRef)
 {
 	XScuGic_Config *CfgPtr;
 	CfgPtr = LookupConfigByBaseAddress(BaseAddress);
 
-	if(CfgPtr != NULL) {
-		if( IntrHandler != NULL) {
+	if (CfgPtr != NULL) {
+		if (IntrHandler != NULL) {
 			CfgPtr->HandlerTable[InterruptID].Handler = IntrHandler;
 		}
-		if( CallBackRef != NULL) {
-			CfgPtr->HandlerTable[InterruptID].CallBackRef = CallBackRef;
+		if (CallBackRef != NULL) {
+			CfgPtr->HandlerTable[InterruptID].CallBackRef =
+				CallBackRef;
 		}
 	}
 }
@@ -408,7 +418,7 @@ void XScuGic_RegisterHandler(u32 BaseAddress, s32 InterruptID,
 *
 * @param	CpuBaseAddress is the CPU Interface Register base address.
 *
-* @return 	A pointer to the configuration structure for the specified
+* @return	A pointer to the configuration structure for the specified
 *		device, or NULL if the device was not found.
 *
 * @note		None.
@@ -437,9 +447,9 @@ static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress)
 * @param	DistBaseAddress is the distributor base address
 * @param	Int_Id is the IRQ source number to modify
 * @param	Priority is the new priority for the IRQ source. 0 is highest
-* 			priority, 0xF8 (248) is lowest. There are 32 priority levels
-*			supported with a step of 8. Hence the supported priorities are
-*			0, 8, 16, 32, 40 ..., 248.
+*			priority, 0xF8(248) is lowest. There are 32 priority
+*			levels supported with a step of 8. Hence the supported
+*			priorities are 0, 8, 16, 32, 40 ..., 248.
 * @param	Trigger is the new trigger type for the IRQ source.
 * Each bit pair describes the configuration for an INT_ID.
 * SFI    Read Only    b10 always
@@ -495,7 +505,7 @@ void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 	 * Determine the register to write to using the Int_Id.
 	 */
 	RegValue = XScuGic_ReadReg(DistBaseAddress,
-			XSCUGIC_INT_CFG_OFFSET_CALC (Int_Id));
+			XSCUGIC_INT_CFG_OFFSET_CALC(Int_Id));
 
 	/*
 	 * Shift and Mask the correct bits for the priority and trigger in the
@@ -554,7 +564,7 @@ void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 	 * Determine the register to read to using the Int_Id.
 	 */
 	RegValue = XScuGic_ReadReg(DistBaseAddress,
-	    XSCUGIC_INT_CFG_OFFSET_CALC (Int_Id));
+	    XSCUGIC_INT_CFG_OFFSET_CALC(Int_Id));
 
 	/*
 	 * Shift and Mask the correct bits for the priority and trigger in the
@@ -580,7 +590,7 @@ void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 *
 *****************************************************************************/
 void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
-											 u8 Cpu_Id, u32 Int_Id)
+			u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
 	u8 BitPos;
@@ -595,7 +605,7 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 	 * in interrupt target register and clear it
 	 */
 	BitPos = ((Int_Id % 4U) * 8U) + Cpu_Id;
-	RegValue &= (~ ( 1U << BitPos ));
+	RegValue &= (~(1U << BitPos));
 	XScuGic_WriteReg(DistBaseAddress,
 			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), RegValue);
 }
@@ -614,7 +624,7 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 *
 *****************************************************************************/
 void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
-												 u8 Cpu_Id)
+			u8 Cpu_Id)
 {
 	u32 Int_Id;
 	u32 Target_Cpu;
@@ -623,8 +633,8 @@ void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
 	LocalCpuID |= LocalCpuID << 8U;
 	LocalCpuID |= LocalCpuID << 16U;
 
-	for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+4U)
-	{
+	for (Int_Id = 32U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+			Int_Id = Int_Id+4U) {
 
 		Target_Cpu = XScuGic_ReadReg(DistBaseAddress,
 				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));

@@ -42,6 +42,8 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a drg  01/19/10 First release
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.10  mus  07/17/18 Updated file to fix the various coding style issues       
+*                     reported by checkpatch. It fixes CR#1006344.
 *
 * </pre>
 *
@@ -81,12 +83,11 @@
  * Refer to the XScuGic_Config data structure in xscugic.h for details on how
  * this table should be initialized.
  */
-XScuGic_Config XScuGic_ConfigTable[XPAR_XSCUGIC_NUM_INSTANCES] =
-{
-    {
-        (u16)XPAR_SCUGIC_0_DEVICE_ID,	/* Unique ID  of device */
-        (u32)XPAR_SCUGIC_0_CPU_BASEADDR,	/* CPU Interface base address */
-        (u32)XPAR_SCUGIC_0_DIST_BASEADDR	/* Distributor base address */
-    }
+XScuGic_Config XScuGic_ConfigTable[XPAR_XSCUGIC_NUM_INSTANCES] = {
+	{
+		(u16)XPAR_SCUGIC_0_DEVICE_ID,  /* Unique ID  of device */
+		(u32)XPAR_SCUGIC_0_CPU_BASEADDR,  /* CPU Interface base address */
+		(u32)XPAR_SCUGIC_0_DIST_BASEADDR  /* Distributor base address */
+	}
 };
 /** @} */

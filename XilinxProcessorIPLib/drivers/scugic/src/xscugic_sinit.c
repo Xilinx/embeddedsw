@@ -42,6 +42,8 @@
 * ----- ---- -------- --------------------------------------------------------
 * 1.00a drg  01/19/10 First release
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.10  mus  07/17/18 Updated file to fix the various coding style issues
+*                     reported by checkpatch. It fixes CR#1006344.
 *
 * </pre>
 *
@@ -87,7 +89,7 @@ XScuGic_Config *XScuGic_LookupConfig(u16 DeviceId)
 	XScuGic_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index=0U; Index < (u32)XPAR_SCUGIC_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < (u32)XPAR_SCUGIC_NUM_INSTANCES; Index++) {
 		if (XScuGic_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XScuGic_ConfigTable[Index];
 			break;

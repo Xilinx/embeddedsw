@@ -60,6 +60,8 @@
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.10  mus  07/17/18 Updated XScuGic_InterruptHandler to fix array overrun
 *                     reported by coverity tool. It fixes CR#1006344.
+* 3.10  mus  07/17/18 Updated file to fix the various coding style issues       
+*                     reported by checkpatch. It fixes CR#1006344.
 *
 * </pre>
 *
@@ -123,9 +125,9 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr)
 	    Xil_AssertVoid(InstancePtr != NULL);
 
 	    /*
-	     * Read the int_ack register to identify the highest priority interrupt ID
-	     * and make sure it is valid. Reading Int_Ack will clear the interrupt
-	     * in the GIC.
+	     * Read the int_ack register to identify the highest priority
+	     * interrupt ID and make sure it is valid. Reading Int_Ack will
+	     * clear the interrupt in the GIC.
 	     */
 	    IntIDFull = XScuGic_CPUReadReg(InstancePtr, XSCUGIC_INT_ACK_OFFSET);
 	    InterruptID = IntIDFull & XSCUGIC_ACK_INTID_MASK;
@@ -135,8 +137,8 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr)
 	    }
 
 	    /*
-	     * If the interrupt is shared, do some locking here if there are multiple
-	     * processors.
+	     * If the interrupt is shared, do some locking here if
+	     * there are multiple processors.
 	     */
 	    /*
 	     * If pre-eption is required:
@@ -145,19 +147,21 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr)
 	     */
 
 	    /*
-	     * If we need to change security domains, issue a SMC instruction here.
+	     * If we need to change security domains, issue a SMC
+		 * instruction here.
 	     */
 
 	    /*
-	     * Execute the ISR. Jump into the Interrupt service routine based on the
-	     * IRQSource. A software trigger is cleared by the ACK.
+	     * Execute the ISR. Jump into the Interrupt service routine
+	     * based on the IRQSource. A software trigger is cleared by 
+	     *.the ACK.
 	     */
 	    TablePtr = &(InstancePtr->Config->HandlerTable[InterruptID]);
-		if(TablePtr != NULL) {
-	        TablePtr->Handler(TablePtr->CallBackRef);
+		if (TablePtr != NULL) {
+			TablePtr->Handler(TablePtr->CallBackRef);
 		}
 
-	IntrExit:
+IntrExit:
 	    /*
 	     * Write to the EOI register, we are all done here.
 	     * Let this function return, the boot code will restore the stack.
@@ -165,7 +169,8 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr)
 	    XScuGic_CPUWriteReg(InstancePtr, XSCUGIC_EOI_OFFSET, IntIDFull);
 
 	    /*
-	     * Return from the interrupt. Change security domains could happen here.
-     */
+	     * Return from the interrupt. Change security domains
+	     * could happen here.
+	     */
 }
 /** @} */

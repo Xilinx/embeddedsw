@@ -40,6 +40,8 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a drg  01/19/10 First release
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.10  mus  07/17/18 Updated file to fix the various coding style issues
+*                     reported by checkpatch. It fixes CR#1006344.
 *
 * </pre>
 *
@@ -75,8 +77,8 @@
 *
 * @return
 *
-* 		- XST_SUCCESS if self-test is successful.
-* 		- XST_FAILURE if the self-test is not successful.
+*		-XST_SUCCESS if self-test is successful.
+*		-XST_FAILURE if the self-test is not successful.
 *
 * @note		None.
 *
@@ -96,12 +98,13 @@ s32  XScuGic_SelfTest(XScuGic *InstancePtr)
 	/*
 	 * Read the ID registers.
 	 */
-	for(Index=0U; Index<=3U; Index++) {
+	for (Index = 0U; Index <= 3U; Index++) {
 		RegValue1 |= XScuGic_DistReadReg(InstancePtr,
-			((u32)XSCUGIC_PCELLID_OFFSET + (Index * 4U))) << (Index * 8U);
+			((u32)XSCUGIC_PCELLID_OFFSET + (Index * 4U))) << 
+			(Index * 8U);
 	}
 
-	if(XSCUGIC_PCELL_ID != RegValue1){
+	if (XSCUGIC_PCELL_ID != RegValue1) {
 		Status = XST_FAILURE;
 	} else {
 		Status = XST_SUCCESS;
