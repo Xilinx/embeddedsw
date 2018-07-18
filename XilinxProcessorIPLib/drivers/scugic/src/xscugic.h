@@ -29,7 +29,7 @@
 /**
 *
 * @file xscugic.h
-* @addtogroup scugic_v3_8
+* @addtogroup scugic_v3_10
 * @{
 * @details
 *
