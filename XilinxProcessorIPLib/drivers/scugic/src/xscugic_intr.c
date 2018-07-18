@@ -58,6 +58,8 @@
 * 1.01a sdm  11/09/11 XScuGic_InterruptHandler has changed correspondingly
 *		      since the HandlerTable has now moved to XScuGic_Config.
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.10  mus  07/17/18 Updated XScuGic_InterruptHandler to fix array overrun
+*                     reported by coverity tool. It fixes CR#1006344.
 *
 * </pre>
 *
@@ -128,7 +130,7 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr)
 	    IntIDFull = XScuGic_CPUReadReg(InstancePtr, XSCUGIC_INT_ACK_OFFSET);
 	    InterruptID = IntIDFull & XSCUGIC_ACK_INTID_MASK;
 
-	    if(XSCUGIC_MAX_NUM_INTR_INPUTS < InterruptID){
+	    if (XSCUGIC_MAX_NUM_INTR_INPUTS <= InterruptID) {
 		goto IntrExit;
 	    }
 

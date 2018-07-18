@@ -65,6 +65,9 @@
 *					  and XScuGic_UnmapAllInterruptsFromCpuByDistAddr, These
 *					  API's can be used by applications to unmap specific/all
 *					  interrupts from target CPU. It fixes CR#992490.
+* 3.10  mus  07/17/18 Updated XScuGic_DeviceInterruptHandler to fix array
+*                     overrun reported by coverity tool. It fixes 
+*                     CR#1006344.
 *
 * </pre>
 *
@@ -326,7 +329,7 @@ void XScuGic_DeviceInterruptHandler(void *DeviceId)
 	 */
 	IntIDFull = XScuGic_ReadReg(CfgPtr->CpuBaseAddress, XSCUGIC_INT_ACK_OFFSET);
 	InterruptID = IntIDFull & XSCUGIC_ACK_INTID_MASK;
-	if(XSCUGIC_MAX_NUM_INTR_INPUTS < InterruptID){
+	if (XSCUGIC_MAX_NUM_INTR_INPUTS <= InterruptID) {
 		goto IntrExit;
 	}
 
