@@ -95,7 +95,7 @@ extern "C" {
 /*
  * The maximum number of interrupts supported by the hardware.
  */
-#ifdef __ARM_NEON__
+#ifdef PLATFORM_ZYNQ
 #define XSCUGIC_MAX_NUM_INTR_INPUTS    	95U /* Maximum number of interrupt defined by Zynq */
 #else
 #define XSCUGIC_MAX_NUM_INTR_INPUTS    	195U /* Maximum number of interrupt defined by Zynq Ultrascale Mp */
