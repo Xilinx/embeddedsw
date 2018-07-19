@@ -52,9 +52,9 @@
 extern "C" {
 #endif
 /***************************** Include Files *********************************/
-#include <psu_init.h>
-
 #if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
+#include "psu_init.h"
+
 /************************** Constant Definitions *****************************/
 /* Maximum number of Rows in DDR */
 #define XFSBL_MAX_ROWS				18

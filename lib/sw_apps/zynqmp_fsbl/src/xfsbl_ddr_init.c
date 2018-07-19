@@ -51,6 +51,8 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   mn   07/06/18 Add DDR initialization support for new DDR DIMM part
+ *       mn   07/18/18 Move iicps.h inclusion under ZCU102 and ZCU106 macro
+ *                     checks
  * </pre>
  *
  * @note
@@ -59,11 +61,10 @@
 
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
-#include "psu_init.h"
-#include "xiicps.h"
-#include "xfsbl_ddr_init.h"
 
 #if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
+#include "xiicps.h"
+#include "xfsbl_ddr_init.h"
 
 /************************** Constant Definitions *****************************/
 
