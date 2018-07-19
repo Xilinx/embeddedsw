@@ -40,6 +40,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   mn   07/06/18 Add DDR initialization support for new DDR DIMM part
+ *       mn   07/19/18 Define DDR PHY GPR0 address if not defined already
  * </pre>
  *
  * @note
@@ -69,6 +70,10 @@ extern "C" {
 /* Total number of DDR PHY registers */
 #define XFSBL_DDR_PHY_REG_COUNT			127
 
+/* In some older designs, this register is not used in psu_init flow */
+#ifndef DDR_PHY_GPR0_OFFSET
+#define DDR_PHY_GPR0_OFFSET			0XFD0800C0
+#endif
 
 /************************** Variable Definitions *****************************/
 u32 XFsbl_DdrInit(void);
