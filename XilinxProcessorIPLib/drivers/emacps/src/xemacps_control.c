@@ -874,7 +874,6 @@ u16 XEmacPs_GetOperatingSpeed(XEmacPs *InstancePtr)
 void XEmacPs_SetOperatingSpeed(XEmacPs *InstancePtr, u16 Speed)
 {
         u32 Reg;
-	u16 Status;
         Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
     Xil_AssertVoid((Speed == (u16)10) || (Speed == (u16)100) || (Speed == (u16)1000));
@@ -885,26 +884,16 @@ void XEmacPs_SetOperatingSpeed(XEmacPs *InstancePtr, u16 Speed)
 
 	switch (Speed) {
 		case (u16)10:
-				Status = 0U;
                 break;
 
         case (u16)100:
-			Status = 0U;
                 Reg |= XEMACPS_NWCFG_100_MASK;
                 break;
 
         case (u16)1000:
-			Status = 0U;
                 Reg |= XEMACPS_NWCFG_1000_MASK;
                 break;
-
-        default:
-			Status = 1U;
-                break;
     }
-	if(Status == (u16)1){
-                return;
-        }
 
         /* Set register and return */
         XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
@@ -1130,7 +1119,7 @@ LONG XEmacPs_PhyWrite(XEmacPs *InstancePtr, u32 PhyAddress,
 void XEmacPs_DMABLengthUpdate(XEmacPs *InstancePtr, s32 BLength)
 {
 	u32 Reg;
-	u32 RegUpdateVal;
+	u32 RegUpdateVal = 0;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((BLength == XEMACPS_SINGLE_BURST) ||
@@ -1153,10 +1142,6 @@ void XEmacPs_DMABLengthUpdate(XEmacPs *InstancePtr, s32 BLength)
 
 		case XEMACPS_16BYTE_BURST:
 			RegUpdateVal = XEMACPS_DMACR_INCR16_AHB_BURST;
-			break;
-
-		default:
-			RegUpdateVal = 0x00000000U;
 			break;
 	}
 	Reg = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
