@@ -47,6 +47,7 @@
 # 3.5   hk   08/14/17 Export cache coherency information
 # 3.6   hk   09/14/17 Export PL PCS PMA information for ETH1/2/3 as well.
 # 3.7   hk   12/01/17 Export TSU clock frequency to xparameters.h
+# 3.8   hk   07/19/18 Added canonical property is cache coherency.
 #
 ##############################################################################
 
@@ -234,6 +235,7 @@ proc is_gige_pcs_pma_ip_present {slave} {
 }
 
 proc generate_cci_params {drv_handle file_name} {
+	set device_id 0
 	set file_handle [::hsi::utils::open_include_file $file_name]
 	# Get all peripherals connected to this driver
 	set ips [::hsi::utils::get_common_driver_ips $drv_handle]
@@ -251,6 +253,10 @@ proc generate_cci_params {drv_handle file_name} {
 			}
 		}
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_CACHE_COHERENT"] $is_cc"
+		set canonical_tag [string toupper [format "XEMACPS_%d" $device_id ]]
+		set canonical_name [format "XPAR_%s_IS_CACHE_COHERENT" $canonical_tag]
+		puts $file_handle "\#define $canonical_name $is_cc"
+		incr device_id
 	}
 	close $file_handle
 }
