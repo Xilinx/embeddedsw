@@ -163,6 +163,8 @@
 *       sk     07/19/18 Add MixerType member to MixerSettings structure and 
 *                       Update Mixer Settings APIs to consider the MixerType
 *                       variable.
+*       sk     07/19/18 Add XRFdc_GetMultibandConfig() API to read Multiband
+*                       configuration.
 *
 * </pre>
 *
@@ -371,6 +373,7 @@ typedef struct {
 	double FabClkFreq;
 	u32 FeedbackDiv;
 	u32 OutputDiv;
+	u32 MultibandConfig;
 	XRFdc_DACBlock_AnalogDataPath_Config DACBlock_Analog_Config[4];
 	XRFdc_DACBlock_DigitalDataPath_Config DACBlock_Digital_Config[4];
 } XRFdc_DACTile_Config;
@@ -386,6 +389,7 @@ typedef struct {
 	double FabClkFreq;
 	u32 FeedbackDiv;
 	u32 OutputDiv;
+	u32 MultibandConfig;
 	XRFdc_ADCBlock_AnalogDataPath_Config ADCBlock_Analog_Config[4];
 	XRFdc_ADCBlock_DigitalDataPath_Config ADCBlock_Digital_Config[4];
 } XRFdc_ADCTile_Config;
@@ -476,6 +480,7 @@ typedef struct {
 	u32 TileBaseAddr;	/* Tile  BaseAddress*/
 	u32 NumOfDACBlocks;	/* Number of DAC block enabled */
 	XRFdc_PLL_Settings PLL_Settings;
+	u8 MultibandConfig;
 	XRFdc_DACBlock_AnalogDataPath DACBlock_Analog_Datapath[4];
 	XRFdc_DACBlock_DigitalDataPath DACBlock_Digital_Datapath[4];
 } XRFdc_DAC_Tile;
@@ -487,6 +492,7 @@ typedef struct {
 	u32 TileBaseAddr;
 	u32 NumOfADCBlocks;	/* Number of ADC block enabled */
 	XRFdc_PLL_Settings PLL_Settings;
+	u8 MultibandConfig;
 	XRFdc_ADCBlock_AnalogDataPath ADCBlock_Analog_Datapath[4];
 	XRFdc_ADCBlock_DigitalDataPath ADCBlock_Digital_Datapath[4];
 } XRFdc_ADC_Tile;
@@ -677,6 +683,12 @@ typedef struct {
 #define XRFDC_LINK_COUPLING_DC	0x0
 #define XRFDC_LINK_COUPLING_AC	0x1
 
+#define XRFDC_MB_MODE_SB				0x0
+#define XRFDC_MB_MODE_2X_BLK01			0x1
+#define XRFDC_MB_MODE_2X_BLK23			0x2
+#define XRFDC_MB_MODE_2X_BLK01_BLK23	0x3
+#define XRFDC_MB_MODE_4X				0x4
+
 #define XRFDC_MILLI		1000U
 #define XRFDC_DAC_SAMPLING_MIN	500
 #define XRFDC_DAC_SAMPLING_MAX	6554
@@ -689,6 +701,11 @@ typedef struct {
 
 #define XRFDC_DIGITALPATH_ENABLE	0x1
 #define XRFDC_ANALOGPATH_ENABLE		0x1
+
+#define XRFDC_BLK_ID0	0x0
+#define XRFDC_BLK_ID1	0x1
+#define XRFDC_BLK_ID2	0x2
+#define XRFDC_BLK_ID3	0x3
 
 /*****************************************************************************/
 /**
@@ -1200,6 +1217,29 @@ static inline int XRFdc_GetConnectedQData(XRFdc* InstancePtr, u32 Type,
 	} else {
 		return InstancePtr->DAC_Tile[Tile_Id].
 				DACBlock_Digital_Datapath[Block_Id].ConnectedQData;
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* Get Multiband Config data
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param	Tile_Id Valid values are 0-3.
+*
+* @return
+*		- Return Multiband Configuration.
+*
+******************************************************************************/
+static inline u32 XRFdc_GetMultibandConfig(XRFdc *InstancePtr, u32 Type,
+				 u32 Tile_Id)
+{
+	if (Type == XRFDC_ADC_TILE) {
+		return InstancePtr->ADC_Tile[Tile_Id].MultibandConfig;
+	} else {
+		return InstancePtr->DAC_Tile[Tile_Id].MultibandConfig;
 	}
 }
 
