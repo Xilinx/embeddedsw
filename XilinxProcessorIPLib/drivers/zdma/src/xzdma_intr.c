@@ -90,8 +90,7 @@ void XZDma_IntrHandler(void *Instance)
 {
 	u32 PendingIntr;
 	u32 ErrorStatus;
-	XZDma *InstancePtr = NULL;
-	InstancePtr = (XZDma *)((void *)Instance);
+	XZDma *InstancePtr = (XZDma *)((void *)Instance);
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);

@@ -128,6 +128,7 @@
 * 1.6   adk     13/07/18 Fixed doxygen warnings in the driver(CR#1006353)
 *			 Fixed cppcheck warnings and coverity tool reported
 *			 errors in the driver(CR#1006353).
+*		19/07/18 Fixed cppcheck warning in the driver.
 * </pre>
 *
 ******************************************************************************/
