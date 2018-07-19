@@ -112,6 +112,8 @@
 *       sk     07/19/18 Add MixerType member to MixerSettings structure and 
 *                       Update Mixer Settings APIs to consider the MixerType
 *                       variable.
+*       sk     07/19/18 Add XRFdc_GetMultibandConfig() API to read Multiband
+*                       configuration.
 * </pre>
 *
 ******************************************************************************/
@@ -230,6 +232,10 @@ int XRFdc_CfgInitialize(XRFdc* InstancePtr, XRFdc_Config *Config)
 						XRFDC_DATA_TYPE_IQ;
 		}
 
+		InstancePtr->ADC_Tile[Tile_Id].MultibandConfig =
+				InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].MultibandConfig;
+		InstancePtr->DAC_Tile[Tile_Id].MultibandConfig =
+				InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].MultibandConfig;
 		/* Update PLL structure */
 		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate =
 				InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].SamplingRate;
@@ -4293,41 +4299,74 @@ u32 XRFdc_MultiBand(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 {
 	u32 Status;
 	u32 Block_Id;
-	u32 IsBlockAvail;
 	u8 NoOfDataPaths = 0U;
 	u32 BlockIndex[4];
 	u32 DataPathIndex[4];
 	u32 NoOfDataConverters = 0U;
 	u32 Mode = 0x0;
 	u32 NoOfBlocks = 4;
+	u32 MultibandConfig;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 #endif
+
+	if (DigitalDataPathMask == 0U) {
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid DigitalDataPathMask "
+					"value in %s\r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Invalid DigitalDataPathMask "
+					"value in %s\r\n", __func__);
+#endif
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	if (DataConverterMask == 0U) {
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid DataConverterMask "
+					"value in %s\r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Invalid DataConverterMask "
+					"value in %s\r\n", __func__);
+#endif
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	if ((DataType != XRFDC_MB_DATATYPE_C2C) &&
+			(DataType != XRFDC_MB_DATATYPE_R2C) &&
+			(DataType != XRFDC_MB_DATATYPE_C2R)) {
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid DataType "
+					"value in %s\r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Invalid DataType "
+				"value in %s\r\n", __func__);
+#endif
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+
 	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
 				(Type == XRFDC_ADC_TILE))
 		NoOfBlocks = 2;
 	for (Block_Id = 0; Block_Id < NoOfBlocks; Block_Id++) {
-		if (DigitalDataPathMask & (1 << Block_Id)) {
-			DataPathIndex[NoOfDataPaths++] = Block_Id;
-			IsBlockAvail = (Type == XRFDC_ADC_TILE ?
-					XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id) :
-					XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id, Block_Id));
-			if (IsBlockAvail == 0U) {
-				Status = XRFDC_FAILURE;
-#ifdef __MICROBLAZE__
-				xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block not "
-									"available in %s\r\n", __func__);
-#else
-				metal_log(METAL_LOG_ERROR, "\n Requested block not "
-								"available in %s\r\n", __func__);
-#endif
-				goto RETURN_PATH;
-			}
-		}
 		if (DataConverterMask & (1 << Block_Id)) {
 			BlockIndex[NoOfDataConverters++] = Block_Id;
+			Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id,
+					Block_Id);
+			if (Status != XRFDC_SUCCESS)
+				goto RETURN_PATH;
+		}
+		if (DigitalDataPathMask & (1 << Block_Id)) {
+			DataPathIndex[NoOfDataPaths++] = Block_Id;
+			Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, Type, Tile_Id,
+					Block_Id);
+			if (Status != XRFDC_SUCCESS)
+				goto RETURN_PATH;
 		}
 	}
 
@@ -4343,12 +4382,49 @@ u32 XRFdc_MultiBand(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		goto RETURN_PATH;
 	}
 
-	if (NoOfDataPaths == 1U)
+	if (Type == XRFDC_ADC_TILE)
+		MultibandConfig = InstancePtr->ADC_Tile[Tile_Id].MultibandConfig;
+	else
+		MultibandConfig = InstancePtr->DAC_Tile[Tile_Id].MultibandConfig;
+
+	if (NoOfDataPaths == 1U) {
 		Mode = XRFDC_SINGLEBAND_MODE;
-	else if (NoOfDataPaths == 2U)
+		if (((DataPathIndex[0] == XRFDC_BLK_ID2) || (DataPathIndex[0] == XRFDC_BLK_ID3)) &&
+				((MultibandConfig == XRFDC_MB_MODE_2X_BLK01_BLK23) ||
+						(MultibandConfig == XRFDC_MB_MODE_4X)))
+			MultibandConfig = XRFDC_MB_MODE_2X_BLK01;
+		else if (((DataPathIndex[0] == XRFDC_BLK_ID0) || (DataPathIndex[0] == XRFDC_BLK_ID1)) &&
+				((MultibandConfig == XRFDC_MB_MODE_2X_BLK01_BLK23) ||
+						(MultibandConfig == XRFDC_MB_MODE_4X)))
+			MultibandConfig = XRFDC_MB_MODE_2X_BLK23;
+		else if ((MultibandConfig == XRFDC_MB_MODE_2X_BLK01) &&
+				((DataPathIndex[0] == XRFDC_BLK_ID0) || (DataPathIndex[0] == XRFDC_BLK_ID1)))
+			MultibandConfig = XRFDC_MB_MODE_SB;
+		else if ((MultibandConfig == XRFDC_MB_MODE_2X_BLK23) &&
+				((DataPathIndex[0] == XRFDC_BLK_ID2) || (DataPathIndex[0] == XRFDC_BLK_ID3)))
+			MultibandConfig = XRFDC_MB_MODE_SB;
+	} else if (NoOfDataPaths == 2U) {
 		Mode = XRFDC_MULTIBAND_MODE_2X;
-	else if (NoOfDataPaths == 4U)
+		if (((MultibandConfig == XRFDC_MB_MODE_2X_BLK01) &&
+				(DataPathIndex[0] == XRFDC_BLK_ID2) && (DataPathIndex[1] == XRFDC_BLK_ID3)) ||
+				((MultibandConfig == XRFDC_MB_MODE_2X_BLK23) && (DataPathIndex[0] == XRFDC_BLK_ID0) &&
+				(DataPathIndex[1] == XRFDC_BLK_ID1)) || (MultibandConfig == XRFDC_MB_MODE_4X))
+			MultibandConfig = XRFDC_MB_MODE_2X_BLK01_BLK23;
+		else if (((DataPathIndex[0] == XRFDC_BLK_ID2) && (DataPathIndex[1] == XRFDC_BLK_ID3)) &&
+				(MultibandConfig == XRFDC_MB_MODE_SB))
+			MultibandConfig = XRFDC_MB_MODE_2X_BLK23;
+		else if (((DataPathIndex[0] == XRFDC_BLK_ID0) && (DataPathIndex[1] == XRFDC_BLK_ID1)) &&
+				(MultibandConfig == XRFDC_MB_MODE_SB))
+			MultibandConfig = XRFDC_MB_MODE_2X_BLK01;
+	} else if (NoOfDataPaths == 4U) {
 		Mode = XRFDC_MULTIBAND_MODE_4X;
+		MultibandConfig = XRFDC_MB_MODE_4X;
+	}
+
+	if (Type == XRFDC_ADC_TILE)
+		InstancePtr->ADC_Tile[Tile_Id].MultibandConfig = MultibandConfig;
+	else
+		InstancePtr->DAC_Tile[Tile_Id].MultibandConfig = MultibandConfig;
 
 	if ((DataType == XRFDC_MB_DATATYPE_C2C) && (Mode == XRFDC_SINGLEBAND_MODE)) {
 		if ((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
@@ -4673,10 +4749,9 @@ static void XRFdc_SetSignalFlow(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 	Xil_AssertVoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 #endif
 
+	BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, DigitalDataPathId);
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
-		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
-							XRFDC_BLOCK_ADDR_OFFSET(DigitalDataPathId);
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 						XRFDC_ADC_SWITCH_MATRX_OFFSET);
 		ReadReg &= ~XRFDC_SWITCH_MTRX_MASK;
@@ -4694,8 +4769,6 @@ static void XRFdc_SetSignalFlow(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 						XRFDC_ADC_SWITCH_MATRX_OFFSET, ReadReg);
 	} else {
 		/* DAC */
-		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) +
-							XRFDC_BLOCK_ADDR_OFFSET(DigitalDataPathId);
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 					XRFDC_DAC_MB_CFG_OFFSET);
 		ReadReg &= ~XRFDC_MB_CFG_MASK;
