@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
  *
  * @file xemacps_bd.h
-* @addtogroup emacps_v3_7
+* @addtogroup emacps_v3_8
 * @{
  *
  * This header provides operations to manage buffer descriptors in support
@@ -335,6 +335,8 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
  *
  * The returned value is the size of the received packet.
  * This API supports jumbo frame sizes if enabled.
+ *
+ * @param  InstancePtr is the pointer to XEmacps instance
  *
  * @param  BdPtr is the BD pointer to operate on
  *

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xemacps_bdring.c
-* @addtogroup emacps_v3_7
+* @addtogroup emacps_v3_8
 * @{
 *
 * This file implements buffer descriptor ring related functions.
@@ -1076,7 +1076,7 @@ static void XEmacPs_BdSetTxWrap(UINTPTR BdPtr)
  * Reset BD ring head and tail pointers.
  *
  * @param RingPtr is the instance to be worked on.
- * @param VirtAddr is the virtual base address of the user memory region.
+ * @param virtaddrloc is the virtual base address of the user memory region.
  *
  * @note
  * Should be called after XEmacPs_Stop()

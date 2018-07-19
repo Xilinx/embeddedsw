@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xemacps_hw.c
-* @addtogroup emacps_v3_7
+* @addtogroup emacps_v3_8
 * @{
 *
 * This file contains the implementation of the ethernet interface reset sequence
@@ -72,7 +72,7 @@
 *	Update the Tx and Rx descriptor queue registers with reset values
 *	Update the other relevant control registers with reset value
 *
-* @param   BaseAddress of the interface
+* @param   BaseAddr of the interface
 *
 * @return N/A
 *
