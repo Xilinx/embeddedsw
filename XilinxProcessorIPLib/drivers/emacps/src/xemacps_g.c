@@ -78,11 +78,13 @@ XEmacPs_Config XEmacPs_ConfigTable[XPAR_XEMACPS_NUM_INSTANCES] = {
 	{
 		(u16)XPAR_XEMACPS_0_DEVICE_ID,  /* Device ID */
 		(UINTPTR)XPAR_XEMACPS_0_BASEADDR    /* Device base address */
+		(u16)XPAR_XEMACPS_0_IS_CACHE_COHERENT,  /* Device ID */
 	},
 #ifdef XPAR_XEMACPS_1_DEVICE_ID
 	{
 		(u16)XPAR_XEMACPS_1_DEVICE_ID,  /* Device ID */
 		(UINTPTR)XPAR_XEMACPS_1_BASEADDR    /* Device base address */
+		(u16)XPAR_XEMACPS_1_IS_CACHE_COHERENT,  /* Device ID */
 	}
 #endif
 };
