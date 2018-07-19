@@ -160,6 +160,9 @@
 *                       XRFdc_CheckTileEnabled().
 *       sk     07/06/18 Add support to dump HSCOM regs in XRFdc_DumpRegs() API
 *       sk     07/12/18 Fixed Multiband crossbar settings in C2C mode.
+*       sk     07/19/18 Add MixerType member to MixerSettings structure and 
+*                       Update Mixer Settings APIs to consider the MixerType
+*                       variable.
 *
 * </pre>
 *
@@ -264,10 +267,10 @@ typedef struct {
 	double Freq;
 	double PhaseOffset;
 	u32 EventSource;
-	u32 FineMixerMode;
 	u32 CoarseMixFreq;
-	u32 CoarseMixMode;
+	u32 MixerMode;
 	u8 FineMixerScale;	/* NCO output scale, valid values 0,1 and 2 */
+	u8 MixerType;
 } XRFdc_Mixer_Settings;
 
 /**
@@ -335,6 +338,7 @@ typedef struct {
 	u32 InterploationMode;
 	u32 FifoEnable;
 	u32 AdderEnable;
+	u32 MixerType;
 } XRFdc_DACBlock_DigitalDataPath_Config;
 
 /**
@@ -353,6 +357,7 @@ typedef struct {
 	u32 DataWidth;
 	u32 DecimationMode;
 	u32 FifoEnable;
+	u32 MixerType;
 } XRFdc_ADCBlock_DigitalDataPath_Config;
 
 /**
@@ -416,6 +421,8 @@ typedef struct {
 	u32 DecoderMode;
 	void * FuncHandler;
 	u32 NyquistZone;
+	u8 AnalogPathEnabled;
+	u8 AnalogPathAvailable;
 	XRFdc_QMC_Settings QMC_Settings;
 	XRFdc_CoarseDelay_Settings CoarseDelay_Settings;
 } XRFdc_DACBlock_AnalogDataPath;
@@ -429,6 +436,8 @@ typedef struct {
 	int ConnectedIData;
 	int ConnectedQData;
 	u32 InterpolationFactor;
+	u8 DigitalPathEnabled;
+	u8 DigitalPathAvailable;
 	XRFdc_Mixer_Settings Mixer_Settings;
 } XRFdc_DACBlock_DigitalDataPath;
 
@@ -442,6 +451,8 @@ typedef struct {
 	XRFdc_Threshold_Settings Threshold_Settings;
 	u32 NyquistZone;
 	u8 CalibrationMode;
+	u8 AnalogPathEnabled;
+	u8 AnalogPathAvailable;
 } XRFdc_ADCBlock_AnalogDataPath;
 
 /**
@@ -453,6 +464,8 @@ typedef struct {
 	u32 DecimationFactor;
 	int ConnectedIData;
 	int ConnectedQData;
+	u8 DigitalPathEnabled;
+	u8 DigitalPathAvailable;
 	XRFdc_Mixer_Settings Mixer_Settings;
 } XRFdc_ADCBlock_DigitalDataPath;
 
@@ -508,6 +521,14 @@ typedef struct {
 #define XRFDC_DRP_BASE(type,tile) (type == XRFDC_ADC_TILE ?		\
 			XRFDC_ADC_TILE_DRP_ADDR(tile) : XRFDC_DAC_TILE_DRP_ADDR(tile))
 
+#define XRFDC_CTRL_STS_BASE(Type, Tile) (Type == XRFDC_ADC_TILE ?	\
+	XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile) :		\
+	XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile))
+
+#define XRFDC_BLOCK_BASE(Type, Tile, Block) (Type == XRFDC_ADC_TILE ?	\
+	XRFDC_ADC_TILE_DRP_ADDR(Tile) + XRFDC_BLOCK_ADDR_OFFSET(Block) : \
+	XRFDC_DAC_TILE_DRP_ADDR(Tile) + XRFDC_BLOCK_ADDR_OFFSET(Block))
+
 #define XRFDC_ADC_TILE				0U
 #define XRFDC_DAC_TILE				1U
 #define XRFDC_TILE_ID_MAX			0x3
@@ -539,16 +560,20 @@ typedef struct {
 #define XRFDC_TRSHD_HYSTERISIS		0x00000003U
 
 /* Mixer modes */
-#define XRFDC_FINE_MIXER_MOD_OFF				0x0U
-#define XRFDC_FINE_MIXER_MOD_COMPLX_TO_COMPLX	0x1U
-#define XRFDC_FINE_MIXER_MOD_COMPLX_TO_REAL		0x2U
-#define XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX		0x3U
-#define XRFDC_MIXER_MAX_SUPP_MIXER_MODE			0x3U
+#define XRFDC_MIXER_MODE_OFF				0x0U
+#define XRFDC_MIXER_MODE_C2C				0x1U
+#define XRFDC_MIXER_MODE_C2R				0x2U
+#define XRFDC_MIXER_MODE_R2C				0x3U
 
 #define XRFDC_I_IQ_COS_MINSIN	0x00000C00U
 #define XRFDC_Q_IQ_SIN_COS		0x00001000U
 #define XRFDC_EN_I_IQ			0x00000001U
 #define XRFDC_EN_Q_IQ			0x00000004U
+
+#define XRFDC_MIXER_TYPE_COARSE		0x1
+#define XRFDC_MIXER_TYPE_FINE		0x2
+
+#define XRFDC_MIXER_TYPE_OFF	0x3
 
 #define XRFDC_COARSE_MIX_OFF						0x0U
 #define XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO			0x2U
@@ -662,6 +687,9 @@ typedef struct {
 #define XRFDC_REFFREQ_MIN	102.40625
 #define XRFDC_REFFREQ_MAX	614
 
+#define XRFDC_DIGITALPATH_ENABLE	0x1
+#define XRFDC_ANALOGPATH_ENABLE		0x1
+
 /*****************************************************************************/
 /**
 *
@@ -714,6 +742,107 @@ static inline u32 XRFdc_IsADCBlockEnabled(XRFdc* InstancePtr, int Tile_Id,
 		return 0;
 	else
 		return 1;
+}
+
+/*****************************************************************************/
+/**
+*
+* Checks whether DAC Digital path is enabled or not.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id Valid values are 0-3.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+*
+* @return
+*		- Return 1 if DAC digital path is enabled, otherwise 0.
+*
+******************************************************************************/
+static inline u32 XRFdc_IsDACDigitalPathEnabled(XRFdc *InstancePtr,
+				u32 Tile_Id, u32 Block_Id)
+{
+	if (InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].
+				Mixer_Settings.MixerType == XRFDC_MIXER_TYPE_OFF)
+		return 0;
+	else
+		return 1;
+}
+
+/*****************************************************************************/
+/**
+*
+* Checks whether ADC digital path is enabled or not.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id Valid values are 0-3.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3 in DAC/ADC-2GSPS and 0-1 in ADC-4GSPS.
+*
+* @return
+*		- Return 1 if ADC digital path is enabled, otherwise 0.
+*
+******************************************************************************/
+static inline u32 XRFdc_IsADCDigitalPathEnabled(XRFdc *InstancePtr,
+							u32 Tile_Id, u32 Block_Id)
+{
+	if (InstancePtr->RFdc_Config.ADCType == XRFDC_ADC_4GSPS) {
+		if ((Block_Id == 2U) || (Block_Id == 3U))
+			return 0;
+		if (Block_Id == 1U)
+			Block_Id = 2U;
+	}
+	if (InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].
+				Mixer_Settings.MixerType == XRFDC_MIXER_TYPE_OFF)
+		return 0;
+	else
+		return 1;
+}
+
+/*****************************************************************************/
+/**
+*
+* Checks whether ADC/DAC Digital path is enabled or not.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
+* @param	Tile_Id Valid values are 0-3.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+*
+* @return
+*		- XRFDC_SUCCESS if Digital path is enabled.
+*       - XRFDC_FAILURE if Digital path is not enabled.
+*
+******************************************************************************/
+static inline u32 XRFdc_CheckDigitalPathEnabled(XRFdc *InstancePtr, u32 Type,
+			u32 Tile_Id, u32 Block_Id)
+{
+	u8 IsBlockAvail;
+
+	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE))
+		return XRFDC_FAILURE;
+
+	if ((Tile_Id > XRFDC_TILE_ID_MAX) || (Block_Id > XRFDC_BLOCK_ID_MAX))
+			return XRFDC_FAILURE;
+
+	if (Type == XRFDC_ADC_TILE) {
+		IsBlockAvail = XRFdc_IsADCDigitalPathEnabled(InstancePtr, Tile_Id,
+						Block_Id);
+	} else {
+		IsBlockAvail = XRFdc_IsDACDigitalPathEnabled(InstancePtr, Tile_Id,
+						Block_Id);
+	}
+	if (IsBlockAvail == 0U) {
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block digital path not "
+						"enabled in %s\r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not "
+						"enabled in %s\r\n", __func__);
+#endif
+		return XRFDC_FAILURE;
+	} else
+		return XRFDC_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -1236,11 +1365,11 @@ int XRFdc_Reset(XRFdc* InstancePtr, u32 Type, int Tile_Id);
 int XRFdc_GetIPStatus(XRFdc* InstancePtr, XRFdc_IPStatus* IPStatus);
 int XRFdc_GetBlockStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				u32 Block_Id, XRFdc_BlockStatus* BlockStatus);
-int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
-				u32 Block_Id, XRFdc_Mixer_Settings * Mixer_Settings);
-int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type,
-				int Tile_Id, u32 Block_Id,
-				XRFdc_Mixer_Settings * Mixer_Settings);
+u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
+			u32 Block_Id, XRFdc_Mixer_Settings *Mixer_Settings);
+u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type,
+				u32 Tile_Id, u32 Block_Id,
+				XRFdc_Mixer_Settings *Mixer_Settings);
 int XRFdc_SetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				u32 Block_Id, XRFdc_QMC_Settings * QMC_Settings);
 int XRFdc_GetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
