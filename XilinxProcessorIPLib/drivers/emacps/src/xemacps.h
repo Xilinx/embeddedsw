@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
  *
  * @file xemacps.h
-* @addtogroup emacps_v3_7
+* @addtogroup emacps_v3_8
 * @{
 * @details
  *
@@ -326,6 +326,7 @@
  * 3.6   rb   09/08/17 HwCnt variable (in XEmacPs_BdRing structure) is
  *		       changed to volatile.
  *		       Add API XEmacPs_BdRingPtrReset() to reset pointers
+ * 3.8   hk   07/19/18 Fixed CPP, GCC and doxygen warnings - CR-1006327
  *
  * </pre>
  *
