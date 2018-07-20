@@ -128,9 +128,10 @@
 #define PM_CLOCK_GETPARENT		44U
 
 #define PM_SECURE_IMAGE			45U
+#define PM_FPGA_READ			46U
 
 #define PM_API_MIN	PM_GET_API_VERSION
-#define PM_API_MAX	PM_SECURE_IMAGE
+#define PM_API_MAX	PM_FPGA_READ
 
 /* PM API callback ids */
 #define PM_INIT_SUSPEND_CB      30U
