@@ -87,6 +87,7 @@ Fix gcc warning in peripheral test application.
 zynqmp_pmufw:
 Fix GEM RXQ high pointer in case of WOL
 Fix read of pmu global gen storage reg5
+Added support for PL configuration readback
 
 axipmon_v6_7:
 Fix Doxygen reported warnings.
