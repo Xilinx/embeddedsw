@@ -51,6 +51,7 @@
  * ----- ---- --------  -------------------------------------------------------
  * 1.0	 adk  18/07/17	Initial Version.
  * 1.2	 rsp  07/19/18  Read channel count from IP config.
+ *			Fix gcc 'pointer from integer without a cast' warning.
  * </pre>
  *
  * ***************************************************************************
@@ -601,7 +602,7 @@ static void DoneHandler(void *CallBackRef, u32 Chan_id)
         FreeBdPtr = BdPtr1;
 
         for (i = 0; i < ProcessedBdCount; i++) {
-                if (CheckData(XMcdma_BdRead64(FreeBdPtr, XMCDMA_BD_BUFA_OFFSET),
+                if (CheckData((void *)XMcdma_BdRead64(FreeBdPtr, XMCDMA_BD_BUFA_OFFSET),
 			      XMcDma_BdGetActualLength(FreeBdPtr, 0x00FFFFFF)) != XST_SUCCESS) {
                         xil_printf("Data check failied for the Chan %x\n\r", Chan_id);
                 }
