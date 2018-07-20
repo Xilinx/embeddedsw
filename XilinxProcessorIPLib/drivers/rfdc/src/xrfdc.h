@@ -165,6 +165,8 @@
 *                       variable.
 *       sk     07/19/18 Add XRFdc_GetMultibandConfig() API to read Multiband
 *                       configuration.
+*       sk     07/20/18 Update the APIs to check the corresponding section
+*                       (Digital/Analog)enable/disable.
 *
 * </pre>
 *
