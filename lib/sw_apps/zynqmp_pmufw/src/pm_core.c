@@ -691,6 +691,39 @@ static void PmFpgaGetStatus(const PmMaster *const master)
 
        IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, value);
 }
+
+/**
+ * PmFpgaRead() - Perform the FPGA configuration Read back
+ *
+ * Reg_Numframes: Configuration register offset (or) Number of frames to read
+ * AddrHigh: Higher 32-bit Linear memory space from where CSUDMA
+ *         will read/write the data to the PCAP interface
+ * AddrLow: Lower 32-bit Linear memory space from where CSUDMA
+ *         will read/write the data to the PCAP interface
+ * Readback_Type: Type of FPGA Read back operation
+ *		0 - Configuration Register Read back
+ *		1 - Configuration Data Read back
+ *
+ * @return error status based on implemented functionality(SUCCESS by default)
+ */
+static void PmFpgaRead(const PmMaster *const master,
+		       const u32 Reg_Numframes, const u32 AddrLow,
+		       const u32 AddrHigh, u32 Readback_Type)
+{
+	u32 Status;
+	UINTPTR Address = ((u64)AddrHigh << 32)|AddrLow;
+	u32 Value;
+
+	if (Readback_Type) {
+		Status = XFpga_GetPlConfigData(Address, Reg_Numframes);
+		Value = CFGDATA_DSTDMA_OFFSET/4;
+		IPI_RESPONSE2(master->ipiMask, Status, Value);
+	} else {
+		Status = XFpga_GetPlConfigReg(Reg_Numframes, Address);
+		Value = *(UINTPTR *)Address;
+		IPI_RESPONSE2(master->ipiMask, Status, Value);
+	}
+}
 #endif
 
 #ifdef ENABLE_SECURE
@@ -1369,6 +1402,9 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		break;
 	case PM_FPGA_GET_STATUS:
 		PmFpgaGetStatus(master);
+		break;
+	case PM_FPGA_READ:
+		PmFpgaRead(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
 #endif
 	case PM_GET_CHIPID:
