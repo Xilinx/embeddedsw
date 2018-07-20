@@ -50,6 +50,7 @@
  * Ver   Who  Date      Changes
  * ----- ---- --------  -------------------------------------------------------
  * 1.0	 adk  18/07/17	Initial Version.
+ * 1.2	 rsp  07/19/18  Read channel count from IP config.
  * </pre>
  *
  * ***************************************************************************
@@ -132,8 +133,6 @@
 #define MAX_PKT_LEN		1024
 #define BLOCK_SIZE_2MB 0x200000U
 
-#define NUM_CHANNELS	8
-
 #define TEST_START_VALUE	0xC
 #ifdef __aarch64__
 // #define HPC_DESIGN
@@ -177,6 +176,7 @@ volatile int TxChanDone;
 volatile int RxDone;
 volatile int TxDone;
 volatile int Error;
+int num_channels;
 
 
 /*
@@ -240,6 +240,9 @@ int main(void)
 		return XST_FAILURE;
 	}
 
+	/* Read numbers of channels from IP config */
+	num_channels = Mcdma_Config->RxNumChannels;
+
 	Status = TxSetup(&AxiMcdma);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -265,7 +268,7 @@ int main(void)
 	}
 
 	 while (1) {
-	        if ((RxDone >= NUMBER_OF_BDS_TO_TRANSFER * NUM_CHANNELS) && !Error)
+	        if ((RxDone >= NUMBER_OF_BDS_TO_TRANSFER * num_channels) && !Error)
 	              break;
 	 }
 
@@ -309,7 +312,7 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 	RxBdSpacePtr = RX_BD_SPACE_BASE;
 
 
-	for (ChanId = 1; ChanId <= NUM_CHANNELS; ChanId++) {
+	for (ChanId = 1; ChanId <= num_channels; ChanId++) {
 		Rx_Chan = XMcdma_GetMcdmaRxChan(McDmaInstPtr, ChanId);
 
 		/* Disable all interrupts */
@@ -416,7 +419,7 @@ static int TxSetup(XMcdma *McDmaInstPtr)
 	TxBufferPtr = TX_BUFFER_BASE;
 	TxBdSpacePtr = TX_BD_SPACE_BASE;
 
-	for (ChanId = 1; ChanId <= NUM_CHANNELS; ChanId++) {
+	for (ChanId = 1; ChanId <= num_channels; ChanId++) {
 		Tx_Chan = XMcdma_GetMcdmaTxChan(McDmaInstPtr, ChanId);
 
 		/* Disable all interrupts */
@@ -541,7 +544,7 @@ static int SendPacket(XMcdma *McDmaInstPtr)
 	u32 ChanId;
 
 	BdCurPtr = (XMcdma_Bd *)TX_BD_SPACE_BASE;
-	for (ChanId = 1; ChanId <= NUM_CHANNELS; ChanId++) {
+	for (ChanId = 1; ChanId <= num_channels; ChanId++) {
 		Tx_Chan = XMcdma_GetMcdmaTxChan(McDmaInstPtr, ChanId);
 
 		for(Index = 0; Index < NUMBER_OF_PKTS_TO_TRANSFER; Index++) {
