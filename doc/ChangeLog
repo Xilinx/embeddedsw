@@ -42,7 +42,8 @@ mcdma_v1_2:
 Add API XMcdma_LookupConfigBaseAddr() to lookup config by base address.
 Add XMcdma_BdSetSwId() and XMcdma_BdGetSwId() macro to access SW ID field in BD.
 Export XMcdma_BdChainFree() and XMcDma_BdSetAppWord() APIS to use from LwIP contrib source.
-
+Read num channels from IP configuration.
+Fix gcc warning.
 
 cpu_v2_8:
 Added Os and LTO settings in extra compiler flags for PMU BSP
