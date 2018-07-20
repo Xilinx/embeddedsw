@@ -38,6 +38,10 @@ Add XRFdc_GetFabClkOutDiv() API to read fabric clk div.
 Add Inline APIs XRFdc_CheckBlockEnabled(), XRFdc_CheckTileEnabled().
 Add support to dump HSCOM regs in XRFdc_DumpRegs() API.
 Fixed Multiband crossbar settings in C2C mode.
+Add MixerType member to MixerSettings structure and Update Mixer Settings APIs to consider the MixerType variable.
+Add inline APIs XRFdc_CheckDigitalPathEnabled(), XRFdc_IsADCDigitalPathEnabled() and XRFdc_IsDACDigitalPathEnabled().
+Add XRFdc_GetMultibandConfig() API to read Multiband configuration.
+Update the APIs to check the corresponding section(Digital or Analog)enable.
 
 scugic_v3_10:
 Updated get_psu_interrupt_id to generate correct
