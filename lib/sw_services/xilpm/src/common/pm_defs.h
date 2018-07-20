@@ -153,6 +153,7 @@ enum XPmApiId {
 	PM_CLOCK_GETPARENT,
 	/* Secure image */
 	PM_SECURE_IMAGE,
+	PM_FPGA_READ,
 	PM_API_MAX
 };
 
