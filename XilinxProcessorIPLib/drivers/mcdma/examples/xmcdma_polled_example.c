@@ -112,6 +112,7 @@
  * Ver   Who  Date       Changes
  * ----- ---- --------   -------------------------------------------------------
  * 1.0	 adk  18/07/2017 Initial Version.
+ * 1.2	 rsp  07/19/2018 Read channel count from IP config.
  * </pre>
  *
  * ***************************************************************************
@@ -174,7 +175,7 @@
 #define MAX_PKT_LEN		1024
 #define BLOCK_SIZE_2MB 0x200000U
 
-#define NUM_CHANNELS	16
+#define NUM_MAX_CHANNELS	16
 
 #define TEST_START_VALUE	0xC
 
@@ -182,8 +183,8 @@
 // #define HPC_DESIGN
 #endif
 
-int TxPattern[NUM_CHANNELS + 1];
-int RxPattern[NUM_CHANNELS + 1];
+int TxPattern[NUM_MAX_CHANNELS + 1];
+int RxPattern[NUM_MAX_CHANNELS + 1];
 int TestStartValue[] = {0xC, 0xB, 0x3, 0x55, 0x33, 0x20, 0x80, 0x66, 0x88};
 
 /**************************** Type Definitions *******************************/
@@ -208,6 +209,7 @@ XMcdma AxiMcdma;
 
 volatile int TxDone;
 volatile int RxDone;
+int num_channels;
 
 /*
  * Buffer for transmit packet. Must be 32-bit aligned to be used by DMA.
@@ -273,6 +275,8 @@ int main(void)
 		return XST_FAILURE;
 	}
 
+	/* Read numbers of channels from IP config */
+	num_channels = Mcdma_Config->RxNumChannels;
 
 	Status = TxSetup(&AxiMcdma);
 	if (Status != XST_SUCCESS) {
@@ -295,7 +299,7 @@ int main(void)
 	/* Check DMA transfer result */
     while (1) {
         Mcdma_Poll(&AxiMcdma);
-        if (RxDone >= NUMBER_OF_BDS_TO_TRANSFER * NUM_CHANNELS)
+        if (RxDone >= NUMBER_OF_BDS_TO_TRANSFER * num_channels)
               break;
    }
 
@@ -339,7 +343,7 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 	RxBufferPtr = RX_BUFFER_BASE;
 	RxBdSpacePtr = RX_BD_SPACE_BASE;
 
-	for (ChanId = 1; ChanId <= NUM_CHANNELS; ChanId++) {
+	for (ChanId = 1; ChanId <= num_channels; ChanId++) {
 		Rx_Chan = XMcdma_GetMcdmaRxChan(McDmaInstPtr, ChanId);
 
 		/* Disable all interrupts */
@@ -423,7 +427,7 @@ static int TxSetup(XMcdma *McDmaInstPtr)
 	TxBufferPtr = TX_BUFFER_BASE;
 	TxBdSpacePtr = TX_BD_SPACE_BASE;
 
-	for (ChanId = 1; ChanId <= NUM_CHANNELS; ChanId++) {
+	for (ChanId = 1; ChanId <= num_channels; ChanId++) {
 		Tx_Chan = XMcdma_GetMcdmaTxChan(McDmaInstPtr, ChanId);
 
 		/* Disable all interrupts */
@@ -593,7 +597,7 @@ static int SendPacket(XMcdma *McDmaInstPtr)
 	u8 Value;
 	u32 ChanId;
 
-	for (ChanId = 1; ChanId <= NUM_CHANNELS; ChanId++) {
+	for (ChanId = 1; ChanId <= num_channels; ChanId++) {
 		Tx_Chan = XMcdma_GetMcdmaTxChan(McDmaInstPtr, ChanId);
 
 		BdCurPtr = XMcdma_GetChanCurBd(Tx_Chan);
