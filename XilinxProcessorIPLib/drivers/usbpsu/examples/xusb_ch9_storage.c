@@ -62,6 +62,7 @@
 
 /************************** Variable Definitions *****************************/
 extern USB_CBW CBW;
+extern u8 Phase;
 
 /*
  * Device Descriptors
@@ -562,6 +563,7 @@ s32 Usb_SetConfiguration(struct Usb_DevData *InstancePtr, SetupPacket *Ctrl)
 *		except control endpoints when this command is received.
 *
 *****************************************************************************/
+
 s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
 								 SetupPacket *SetupData)
 {
@@ -596,6 +598,10 @@ s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
 		}
 
 		SetConfigDone(InstancePtr->PrivateData, 1U);
+
+		/* Reset the Phase to default COMMAND STATE */
+		Phase = USB_EP_STATE_COMMAND;
+
 		/*
 		 * As per Mass storage specification we receive 31 byte length
 		 * Command Block Wrapper first. So lets make OUT Endpoint ready
@@ -620,6 +626,9 @@ s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
 		}
 
 		SetConfigDone(InstancePtr->PrivateData, 0U);
+
+		/* Reset the Phase to default COMMAND STATE */
+		Phase = USB_EP_STATE_COMMAND;
 	}
 
 	return XST_SUCCESS;
