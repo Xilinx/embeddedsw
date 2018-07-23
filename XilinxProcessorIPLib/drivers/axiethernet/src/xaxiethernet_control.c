@@ -49,6 +49,7 @@
 * 1.00a asa  6/30/10 First release based on the ll temac driver
 * 5.7   rsp 01/09/18 Instead of #define XAE_MULTI_MAT_ENTRIES derive multicast table
 *                    entries max count from ethernet config structure.
+* 5.8   rsp 07/20/18 Fix cppcheck warning in Aptr assignment.
 * </pre>
 *****************************************************************************/
 
@@ -118,14 +119,13 @@ int XAxiEthernet_MulticastAdd(XAxiEthernet *InstancePtr, void *AddressPtr,
 	u32 Af0Reg;
 	u32 Af1Reg;
 	u32 FmiReg;
-	u8 *Aptr = (u8 *) AddressPtr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(AddressPtr != NULL);
 	Xil_AssertNonvoid(Entry < InstancePtr->Config.NumTableEntries);
 
-
+	u8 *Aptr = (u8 *) AddressPtr;
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XAxiEthernet_MulticastAdd\n");
 
 	/* The device must be stopped before clearing the multicast hash
@@ -200,13 +200,13 @@ void XAxiEthernet_MulticastGet(XAxiEthernet *InstancePtr, void *AddressPtr,
 	u32 Af0Reg;
 	u32 Af1Reg;
 	u32 FmiReg;
-	u8 *Aptr = (u8 *) AddressPtr;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(AddressPtr != NULL);
 	Xil_AssertVoid(Entry < InstancePtr->Config.NumTableEntries);
 
+	u8 *Aptr = (u8 *) AddressPtr;
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XAxiEthernet_MulticastGet\n");
 
 
@@ -327,12 +327,12 @@ int XAxiEthernet_SetMacPauseAddress(XAxiEthernet *InstancePtr,
 							void *AddressPtr)
 {
 	u32 MacAddr;
-	u8 *Aptr = (u8 *) AddressPtr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(AddressPtr != NULL);
 
+	u8 *Aptr = (u8 *) AddressPtr;
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XAxiEthernet_SetMacPauseAddress\n");
 
 	/* Be sure device has been stopped */
@@ -388,13 +388,13 @@ void XAxiEthernet_GetMacPauseAddress(XAxiEthernet *InstancePtr,
 							void *AddressPtr)
 {
 	u32 MacAddr;
-	u8 *Aptr = (u8 *) AddressPtr;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(AddressPtr != NULL);
 
 
+	u8 *Aptr = (u8 *) AddressPtr;
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XAxiEthernet_SetMacPauseAddress\n");
 
 	/* Read MAC bits [31:0] in ERXC0 */
@@ -1433,13 +1433,13 @@ void XAxiEthernet_GetVidTable(XAxiEthernet *InstancePtr, u32 Entry,
 int XAxiEthernet_AddExtMulticastGroup(XAxiEthernet *InstancePtr,
 							void *AddressPtr)
 {
-	u8 *Aptr = (u8 *) AddressPtr;
 	u32 Loc;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(AddressPtr != NULL);
 
+	u8 *Aptr = (u8 *) AddressPtr;
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XAxiEthernet_AddExtMulticastGroup\n");
 
 	/*
@@ -1536,13 +1536,13 @@ int XAxiEthernet_AddExtMulticastGroup(XAxiEthernet *InstancePtr,
 int XAxiEthernet_ClearExtMulticastGroup(XAxiEthernet *InstancePtr,
 							void *AddressPtr)
 {
-	u8 *Aptr = (u8 *) AddressPtr;
 	u32 Loc;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(AddressPtr != NULL);
 
+	u8 *Aptr = (u8 *) AddressPtr;
 	xdbg_printf(XDBG_DEBUG_GENERAL,
 				"XAxiEthernet_ClearExtMulticastGroup\n");
 
@@ -1614,7 +1614,6 @@ int XAxiEthernet_ClearExtMulticastGroup(XAxiEthernet *InstancePtr,
 int XAxiEthernet_GetExtMulticastGroup(XAxiEthernet *InstancePtr,
 							void *AddressPtr)
 {
-	u8 *Aptr = (u8 *) AddressPtr;
 	u32 Loc;
 	u8 Bit;
 
@@ -1622,6 +1621,7 @@ int XAxiEthernet_GetExtMulticastGroup(XAxiEthernet *InstancePtr,
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(AddressPtr != NULL);
 
+	u8 *Aptr = (u8 *) AddressPtr;
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XAxiEthernet_GetExtMulticastGroup\n");
 
 	/*

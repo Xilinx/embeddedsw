@@ -52,6 +52,7 @@
 *                     Changed the prototype of XAxiEthernet_CfgInitialize API.
 * 5.7   srm  01/16/18 Implemented poll timeout API which replaces while loops
 *                     to ensure a deterministic time delay.
+* 5.8   rsp  07/20/18 Fix cppcheck warning in Aptr assignment.
 *
 * </pre>
 ******************************************************************************/
@@ -459,12 +460,12 @@ static void InitHw(XAxiEthernet *InstancePtr)
 int XAxiEthernet_SetMacAddress(XAxiEthernet *InstancePtr, void *AddressPtr)
 {
 	u32 MacAddr;
-	u8 *Aptr = (u8 *) AddressPtr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(AddressPtr != NULL);
 
+	u8 *Aptr = (u8 *) AddressPtr;
 
 	/* Be sure device has been stopped */
 	if (InstancePtr->IsStarted == XIL_COMPONENT_IS_STARTED) {
