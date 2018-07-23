@@ -83,6 +83,7 @@
 *                     available in all examples. This is a fix for CR-965028.
 *       ms   04/05/17 Added tabspace for return statements in functions
 *                     for proper documentation while generating doxygen.
+* 5.8   rsp  07/23/18 Fix gcc '[-Wint-conversion]' warning.
 * </pre>
 *
 ******************************************************************************/
@@ -488,8 +489,8 @@ int AxiEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 	}
 
 #if defined(__aarch64__)
-	Xil_SetTlbAttributes(TxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
-	Xil_SetTlbAttributes(RxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes((UINTPTR) TxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes((UINTPTR) RxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
 #endif
 	/*
 	 * Setup RxBD space.
