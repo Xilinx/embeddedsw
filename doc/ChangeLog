@@ -118,6 +118,9 @@ Fix Doxygen reported warnings
 zdma_v1_6:
 Fix Doxygen, cppcheck and coverity reported warnings.
 
+axiethernet_v5_8:
+Fix cppcheck and gcc warnings.
+
 Changes for 2018.2
 ===============================
 freertos10_xilinx_v1_1:
