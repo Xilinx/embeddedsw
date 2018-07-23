@@ -31,8 +31,8 @@
 # Return latest "ACTIVE" standalone BSP version
 # -----------------------------------------------
 proc get_standalone_version {} {
-	set standalone_version [hsi::get_sw_cores standalone_* -filter {CORE_STATE == "ACTIVE"}]
-	return [lindex $standalone_version end]
+	set standalone_path [glob -directory "../" standalone_v*]
+	return [lindex [split $standalone_path /] end]
 }
 
 proc FreeRTOS_drc {os_handle} {
