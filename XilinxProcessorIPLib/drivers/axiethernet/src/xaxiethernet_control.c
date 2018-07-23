@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@
 /**
 *
 * @file xaxiethernet_control.c
-* @addtogroup axiethernet_v5_7
+* @addtogroup axiethernet_v5_8
 * @{
 *
 * This file has driver APIs related to the controlling of the extended
