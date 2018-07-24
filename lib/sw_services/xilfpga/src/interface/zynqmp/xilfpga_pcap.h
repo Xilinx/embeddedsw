@@ -98,7 +98,8 @@
  * 4.2 Nava   08/06/16  Refactor the xilfpga library to support
  *                      different PL programming Interfaces.
  * 4.2 adk    11/07/18  Added support for readback of PL configuration data.
- *
+ * 4.2 Nava   22/07/18 Added XFpga_SelectEndianess() new API to Support
+ *                      programming the vivado generated .bit and .bin files
  * </pre>
  *
  * @note
@@ -228,6 +229,7 @@
 #define XFPGA_ERROR_AES_DECRYPT_PL		(0x17U)
 #define XFPGA_ERROR_CSU_PCAP_TRANSFER		(0x18U)
 #define XFPGA_ERROR_PLSTATE_UNKNOWN		(0x19U)
+#define XFPGA_ERROR_BITSTREAM_FORMAT		(0x1AU)
 
 /* PCAP Error Update Macro */
 #define XFPGA_PCAP_ERR_MASK			(0xFF00U)
