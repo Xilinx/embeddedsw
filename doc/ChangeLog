@@ -65,6 +65,7 @@ Updated the library notes for Micron flash parts. (cr#973229)
 
 Resetps_v1_2
 Fixed compilation warnings in resetps driver
+Fixed Doxygen reported warnings
 
 rtcpsu_v1_6
 Modified logic to get the last day of month correctly.(CR#1004282)
