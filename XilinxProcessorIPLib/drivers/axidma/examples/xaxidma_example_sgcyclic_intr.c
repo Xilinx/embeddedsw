@@ -60,6 +60,8 @@
  * 9.4   adk  25/07/17 Initial version.
  * 9.6   rsp  02/14/18 Support data buffers above 4GB.Use UINTPTR for storing
  *                     and typecasting buffer address(CR-992638).
+ * 9.8   rsp  07/24/18 Set TX DMACR[Cyclic BD enable] before starting DMA
+ *                     operation i.e. in TxSetup.
  * </pre>
  *
  * ***************************************************************************
@@ -972,6 +974,10 @@ static int TxSetup(XAxiDma * AxiDmaInstPtr)
 		return XST_FAILURE;
 	}
 
+	/* Enable Cyclic DMA mode */
+	XAxiDma_BdRingEnableCyclicDMA(TxRingPtr);
+	XAxiDma_SelectCyclicMode(AxiDmaInstPtr, XAXIDMA_DMA_TO_DEVICE, 1);
+
 	/* Enable all TX interrupts */
 	XAxiDma_BdRingIntEnable(TxRingPtr, XAXIDMA_IRQ_ALL_MASK);
 
@@ -1120,9 +1126,6 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 		}
 	}
 
-	/* Enable Cyclic DMA mode */
-	XAxiDma_BdRingEnableCyclicDMA(TxRingPtr);
-	XAxiDma_SelectCyclicMode(AxiDmaInstPtr, XAXIDMA_DMA_TO_DEVICE, 1);
 	/* Give the BD to hardware */
 	Status = XAxiDma_BdRingToHw(TxRingPtr, NUMBER_OF_BDS_TO_TRANSFER,
 						BdPtr);
