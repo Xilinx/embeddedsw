@@ -43,6 +43,7 @@
 * 1.1   Nava   04/20/18 Fixed compilation warnings.
 * 1.2   cjp    04/27/18 Updated for clockps interdependency
 * 1.2   Nava   05/21/18 Fixed compilation warnings on R5.
+* 1.2   sd     07/20/18 Fixed Doxygen Reported warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -436,9 +437,6 @@ static const XResetPs_Lookup ResetMap[] = {
 *
 * @param	InstancePtr is a pointer to the XResetPs instance.
 * @param	ConfigPtr is the config structure.
-* @param	EffectiveAddress is the base address for the device. It could be
-*		a virtual address if address translation is supported in the
-*		system, otherwise it is the physical address.
 *
 * @return
 *		- XST_SUCCESS if initialization was successful.

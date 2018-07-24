@@ -43,6 +43,7 @@
 * ----- ------ -------- ---------------------------------------------
 * 1.00  cjp    09/05/17 First release
 * 1.2   cjp    04/27/18 Updated for clockps interdependency
+* 1.2   sd     07/20/18 Fixed Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -70,7 +71,7 @@
  * This table contains configuration information for each reset controller
  * device in the system.
  *
- * @Note:
+ * Note:
  * This is a dummy instance since reset system doesnot have a dedicated
  * controller
  */
