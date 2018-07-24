@@ -60,6 +60,8 @@
  * 4.2   Nava  08/06/16 Refactor the xilfpga library to support
  *			different PL programming Interfaces.
  * 4.2   adk   11/07/18 Added support for readback of PL configuration data.
+ * 4.2   Nava  22/07/18 Added XFpga_SelectEndianess() new API to Support
+ *                      programming the vivado generated .bit and .bin files.
  *
  * </pre>
  *
@@ -114,6 +116,8 @@
 #define XFPGA_DESTINATION_PCAP_ADDR	(0XFFFFFFFFU)
 #define XFPGA_PART_IS_ENC		(0x00000080U)
 #define XFPGA_PART_IS_AUTH		(0x00008000U)
+#define DUMMY_WORD			(0xFFFFFFFFU)
+#define SYNC_WORD_POSITION		16
 
 #define XFPGA_AES_TAG_SIZE	(XSECURE_SECURE_HDR_SIZE + \
 		XSECURE_SECURE_GCM_TAG_SIZE) /* AES block decryption tag size */
@@ -164,8 +168,6 @@ static u32 XFpga_PsPlGpioResetsLow(u32 TotalResets);
 static u32 XFpga_PsPlGpioResetsHigh(u32 TotalResets);
 static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u16 Size);
 static u32 Xfpga_Type2Pkt(u8 OpCode, u32 Size);
-static u32 XFpga_GetBitstreamInfo(UINTPTR BitStreamAddr,
-				u32 *BitstreamAddress, u32 *BitstreamSize);
 static u32 XFpga_ValidateCryptoFlags(XSecure_ImageInfo *ImageInfo, u32 flags);
 static u32 XFpga_ValidateBitstreamImage(UINTPTR RdAddr,
 		XSecure_ImageInfo *ImageHdrData, u32 flags);
@@ -178,6 +180,7 @@ static u32 XFpga_GetConfigRegPcap(u32 ConfigReg,UINTPTR Address);
 static u32 XFpga_GetPLConfigData(UINTPTR Address, u32 NumFrames);
 static void XFpga_SetFirmwareState(u8 State);
 static u8 XFpga_GetFirmwareState(void);
+static u32 XFpga_SelectEndianess(u32 *Buf, u32 Size, u32 *Pos);
 #ifdef XFPGA_SECURE_MODE
 static u32 XFpga_SecureLoadToPl(UINTPTR BitStreamAddr,	UINTPTR KeyAddr,
 				XSecure_ImageInfo *ImageInfo, u32 flags);
@@ -208,6 +211,24 @@ extern const XpbrServHndlr_t XpbrServHndlrTbl[XPBR_SERV_EXT_TBL_MAX];
 #endif
 /************************** Variable Definitions *****************************/
 XCsuDma CsuDma;
+
+/* Xilinx ZynqMp Bootgen generated Bitstream header format */
+static const u32 BootgenBinFormat[] = {
+	0x000000BB, /* Bus Width Sync Word */
+	0x11220044, /* Bus Width Detect Pattern */
+	DUMMY_WORD,
+	DUMMY_WORD,
+	0xAA995566, /* Sync Word */
+};
+/* Xilinx ZynqMp Vivado generated Bitstream header format */
+static const u32 VivadoBinFormat[] = {
+	0xBB000000, /* Bus Width Sync Word */
+	0x44002211, /* Bus Width Detect Pattern */
+	DUMMY_WORD,
+	DUMMY_WORD,
+	0x665599AA, /* Sync Word */
+};
+
 #ifdef XFPGA_SECURE_MODE
 XSecure_Aes Secure_Aes;
 u32 key[XSECURE_KEY_LEN];
@@ -269,7 +290,7 @@ u32 XFpga_ValidateBitstreamImage(UINTPTR BitStreamAddr,
 		return Status;
 	}
 
-	if (flags & XFPGA_ONLY_BIN_EN) {
+	if (!(flags & XFPGA_SECURE_FLAGS)) {
 		Status = XFPGA_SUCCESS;
 		return Status;
 	}
@@ -423,8 +444,8 @@ u32 XFpga_writeToPlPcap(UINTPTR BitStreamAddr, UINTPTR AddrPtr,
 		XSecure_ImageInfo *ImageInfo, u32 flags)
 {
 	u32 Status = XFPGA_SUCCESS;
-	u32 BitstreamAddress;
-	u32 BitstreamSize;
+	u32 BitStreamSize;
+	u32 BitStreamPos;
 
 	if (flags & XFPGA_SECURE_FLAGS)
 #ifdef XFPGA_SECURE_MODE
@@ -447,19 +468,18 @@ u32 XFpga_writeToPlPcap(UINTPTR BitStreamAddr, UINTPTR AddrPtr,
 	}
 #endif
 	else {
-		if (!(flags & XFPGA_ONLY_BIN_EN))
-			XFpga_GetBitstreamInfo(BitStreamAddr,
-				&BitstreamAddress, &BitstreamSize);
-		else {
-			/* It provides the legacy full Bitstream
-			 * loading support (Bit file without Headers).
-			 */
-			BitstreamAddress = BitStreamAddr;
-			BitstreamSize	= *((UINTPTR *)(AddrPtr));
+		BitStreamSize	= (u32)AddrPtr;
+		Status = XFpga_SelectEndianess((u32 *)BitStreamAddr,
+					BitStreamSize/WORD_LEN, &BitStreamPos);
+		if (Status != XFPGA_SUCCESS) {
+			Status = XFPGA_PCAP_UPDATE_ERR(Status, 0);
+			return Status;
 		}
+		BitStreamAddr += BitStreamPos * WORD_LEN;
+		BitStreamSize -= BitStreamPos * WORD_LEN;
 
-		Status = XFpga_WriteToPcap(BitstreamSize/WORD_LEN,
-						BitstreamAddress);
+		Status = XFpga_WriteToPcap(BitStreamSize/WORD_LEN,
+						BitStreamAddr);
 		if (Status != XFPGA_SUCCESS)
 			Status = XFPGA_PCAP_UPDATE_ERR(
 					XFPGA_ERROR_BITSTREAM_LOAD_FAIL, 0);
@@ -664,35 +684,6 @@ static u32 XFpga_PcapWaitForidle() {
 	}
 	if (!PollCount)
 		return XFPGA_FAILURE;
-
-	return Status;
-}
-
-/*****************************************************************************/
-/** Used to Bit-stream info from the Image.
- *
- * @param BitStreamAddr Linear memory secure image base address
- * @param BitstreamAddress: Bit-stream Base address.
- * @param BitstreamSize: Bit-stream Size.
- *
- * @return Error status based on implemented functionality (SUCCESS by default)
- *
- *****************************************************************************/
-static u32 XFpga_GetBitstreamInfo(UINTPTR BitStreamAddr,
-				u32 *BitstreamAddress,
-				u32 *BitstreamSize)
-{
-	u32 Status = XFPGA_SUCCESS;
-	u32 PartHeaderOffset;
-	u32 BitstreamOffset;
-
-	PartHeaderOffset = *((UINTPTR *)(BitStreamAddr
-					+ PARTATION_HEADER_OFFSET));
-	BitstreamOffset = *((UINTPTR *)(BitStreamAddr + PartHeaderOffset
-					+ BITSTREAM_PARTATION_OFFSET));
-	*BitstreamAddress = (BitstreamOffset * WORD_LEN) + BitStreamAddr;
-	*BitstreamSize = *((UINTPTR *)(BitStreamAddr
-					+ PartHeaderOffset)) * WORD_LEN;
 
 	return Status;
 }
@@ -2497,4 +2488,60 @@ static u8 XFpga_GetFirmwareState(void)
 {
 	return (Xil_In32(PMU_GLOBAL_GEN_STORAGE5) & XFPGA_STATE_MASK) >>
 		XFPGA_STATE_SHIFT;
+}
+
+/*****************************************************************************/
+/* This function is responsible for  identifying the Bitstream Endianess,
+ * and set the required csudma configurations before transfer the data
+ * into the PL.
+ *
+ * @param Buf  Linear memory image base address
+ * @param Size Size of the Bitstream Image(Number of bytes).
+ * @Param Pos Bistream First Dummy Word position.
+ *
+ * @return
+ *	- XFPGA_SUCCESS if successful
+ *	- XFPGA_ERROR_BITSTREAM_FORMAT if unsuccessful
+ *
+ *****************************************************************************/
+static u32 XFpga_SelectEndianess(u32 *Buf, u32 Size, u32 *Pos)
+{
+	u32 Index;
+	u32 RegVal;
+	u32 Status = XFPGA_ERROR_BITSTREAM_FORMAT;
+	u8 EndianType;
+
+	for (Index = 0; Index < Size; Index++) {
+	/* Find the First Dummy Word */
+		if (Buf[Index] == DUMMY_WORD) {
+			if (!(memcmp(&Buf[Index + SYNC_WORD_POSITION], BootgenBinFormat,
+					ARRAY_LENGTH(BootgenBinFormat) * WORD_LEN ))) {
+				EndianType = 0U;
+				Status = XFPGA_SUCCESS;
+				break;
+			}
+			else if (!(memcmp(&Buf[Index + SYNC_WORD_POSITION], VivadoBinFormat,
+					ARRAY_LENGTH(VivadoBinFormat) * WORD_LEN ))) {
+				EndianType = 1U;
+				Status = XFPGA_SUCCESS;
+				break;
+			}
+		}
+	}
+
+	if(Status == XFPGA_SUCCESS) {
+		RegVal = XCsuDma_ReadReg(CsuDma.Config.BaseAddress,
+					((u32)(XCSUDMA_CTRL_OFFSET) +
+					((u32)XCSUDMA_SRC_CHANNEL *
+					(u32)(XCSUDMA_OFFSET_DIFF))));
+		RegVal |= (EndianType <<(u32)(XCSUDMA_CTRL_ENDIAN_SHIFT)) &
+					(u32)(XCSUDMA_CTRL_ENDIAN_MASK);
+		XCsuDma_WriteReg(CsuDma.Config.BaseAddress,
+				((u32)(XCSUDMA_CTRL_OFFSET) +
+				((u32)XCSUDMA_SRC_CHANNEL *
+				(u32)(XCSUDMA_OFFSET_DIFF))), RegVal);
+		*Pos = Index;
+	}
+
+	return Status;
 }
