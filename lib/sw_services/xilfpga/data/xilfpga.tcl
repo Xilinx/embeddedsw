@@ -46,6 +46,8 @@
 # 4.1	Nava   16/04/18  Added partial bitstream loading support.
 # 4.2	Nava  30/05/18 Refactor the xilfpga library to support
 #                      different PL programming Interfaces.
+# 4.2	adk   24/07/18 Added proper error message if xilsecure is not enabled
+#			in the bsp.
 #
 ##############################################################################
 
@@ -73,6 +75,11 @@ proc xfpga_open_include_file {file_name} {
 }
 
 proc generate {lib_handle} {
+
+    set librarylist [hsi::get_libs -filter "NAME==xilsecure"];
+    if { [llength $librarylist] == 0 } {
+        error "This library requires xilsecure library in the Board Support Package.";
+    }
 
     file copy "src/xilfpga.h"  "../../include/xilfpga.h"
 
