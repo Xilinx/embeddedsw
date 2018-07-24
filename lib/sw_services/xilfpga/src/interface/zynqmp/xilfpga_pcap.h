@@ -270,7 +270,7 @@
  * @XFpga_ValidateBitstream:	validate the Bitstream header beafore
  *				programming the PL
  * @xilfpga_PreConfig:		prepare the FPGA to receive confuration data
- * @xilfpga_writeToPl:		write count bytes of configuration data to
+ * @xilfpga_WriteToPl:		write count bytes of configuration data to
  *				the FPGA
  * @xilfpga_PostConfig:		set FPGA to operating state after writing
  *				is done
@@ -282,7 +282,7 @@ typedef struct {
 	u32 (*XFpga_ValidateBitstream)(UINTPTR RdAddr,
 		XSecure_ImageInfo *ImageHdrData, u32 flags);
 	u32 (*XFpga_PreConfig)(u32 Flags);
-	u32 (*XFpga_writeToPl)(UINTPTR RdAddr, UINTPTR AddrPtr,
+	u32 (*XFpga_WriteToPl)(UINTPTR RdAddr, UINTPTR AddrPtr,
 		XSecure_ImageInfo *ImageInfo, u32 flags);
 	u32 (*XFpga_PostConfig)(UINTPTR AddrPtr, u32 flags);
 	u32 (*XFpga_InterfaceStatus)(void);
