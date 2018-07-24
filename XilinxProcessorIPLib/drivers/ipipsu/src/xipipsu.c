@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,7 @@
 *                               calculation. CR# 932582.
 * 2.1	kvn	05/05/16	Modified code for MISRA-C:2012 Compliance
 * 2.2	kvn	02/17/17	Add support for updating ConfigTable at run time
+* 2.4	sd	07/11/18	Fix a doxygen reported warning
 * </pre>
 *
 *****************************************************************************/
@@ -359,6 +360,8 @@ XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, u32 *MsgPtr,
 *
 * @param	DeviceId contains the ID of the device to set up the
 *			configuration for.
+ * @param	ConfigTblPtr is the device configuration structure containing required
+ *		  	hardware build data
 *
 * @return	A pointer to the device configuration for the specified
 *			device ID. See xipipsu.h for the definition of
