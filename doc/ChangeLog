@@ -1,5 +1,12 @@
 Changes for 2018.3
 ===============================
+
+axidma_v9_8:
+Fix cppcheck, gcc and doxygen warnings.
+
+emacps_v3_8:
+Fix cppcheck, GCC and doxygen warnings.
+
 sdps_v3_6
 Fixed Cppcheck, Doxygen and gcc warnings (CR#1006375)
 Add initializer macro for HasEMIO
