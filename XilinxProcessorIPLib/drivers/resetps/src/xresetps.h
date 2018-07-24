@@ -51,6 +51,7 @@
 * 1.00  cjp    09/05/17 First release
 * 1.1   Nava   04/20/18 Fixed compilation warnings.
 * 1.2   cjp    04/27/18 Updated for clockps interdependency
+* 1.2   sd     07/20/18 Fixed Doxygen Reported warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -265,7 +266,7 @@ typedef enum {
 *
 * Set supported reset action.
 *
-* @param        StatusSupport indicates if reset status check is supported
+* @param        ResetSupport indicates if reset status check is supported
 * @param        PulseSupport indicates if pulse reset action is supported
 * @param        AssertSupport indicates if reset assert/deassert is supported
 *
