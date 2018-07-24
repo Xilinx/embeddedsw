@@ -172,7 +172,7 @@ static u32 XFpga_ValidateCryptoFlags(XSecure_ImageInfo *ImageInfo, u32 flags);
 static u32 XFpga_ValidateBitstreamImage(UINTPTR RdAddr,
 		XSecure_ImageInfo *ImageHdrData, u32 flags);
 static u32 XFpga_PreConfigPcap(u32 flags);
-static u32 XFpga_writeToPlPcap(UINTPTR RdAddr, UINTPTR AddrPtr,
+static u32 XFpga_WriteToPlPcap(UINTPTR RdAddr, UINTPTR AddrPtr,
 		XSecure_ImageInfo *ImageInfo, u32 flags);
 static u32 XFpga_PostConfigPcap(UINTPTR AddrPtr, u32 flags);
 static u32 XFpga_PcapStatus(void);
@@ -191,8 +191,8 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitStreamAddr, UINTPTR KeyAddr,
 static u32 XFpga_AesInit(UINTPTR KeyAddr, u32 *AesIv, u32 flags);
 static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitStreamAddr, UINTPTR KeyAddr,
 				XSecure_ImageInfo *ImageInfo, u32 flags);
-static u32 Xilfpga_ConvertCharToNibble(char InChar, u8 *Num);
-static u32 Xilfpga_ConvertStringToHex(const char *Str, u32 *buf, u8 Len);
+static u32 XFpga_ConvertCharToNibble(char InChar, u8 *Num);
+static u32 XFpga_ConvertStringToHex(const char *Str, u32 *buf, u8 Len);
 static u32 XFpga_CopyToOcm(UINTPTR Src, UINTPTR Dst, u32 Size);
 static u32 XFpga_AuthPlChunks(UINTPTR BitStreamAddr, u32 Size, UINTPTR AcAddr);
 static u32 XFpga_ReAuthPlChunksWriteToPl(UINTPTR BitStreamAddr,
@@ -239,7 +239,7 @@ XSecure_Rsa Secure_Rsa;
 Xilfpga_Ops Fpga_Ops = {
 		.XFpga_ValidateBitstream = XFpga_ValidateBitstreamImage,
 		.XFpga_PreConfig = XFpga_PreConfigPcap,
-		.XFpga_writeToPl = XFpga_writeToPlPcap,
+		.XFpga_WriteToPl = XFpga_WriteToPlPcap,
 		.XFpga_PostConfig = XFpga_PostConfigPcap,
 		.XFpga_InterfaceStatus = XFpga_PcapStatus,
 		.XFpga_GetConfigReg = XFpga_GetConfigRegPcap,
@@ -440,7 +440,7 @@ u32 XFpga_PreConfigPcap(u32 flags)
  *		- XFPGA_ERROR_BITSTREAM_LOAD_FAIL
  *
  *****************************************************************************/
-u32 XFpga_writeToPlPcap(UINTPTR BitStreamAddr, UINTPTR AddrPtr,
+u32 XFpga_WriteToPlPcap(UINTPTR BitStreamAddr, UINTPTR AddrPtr,
 		XSecure_ImageInfo *ImageInfo, u32 flags)
 {
 	u32 Status = XFPGA_SUCCESS;
@@ -1224,7 +1224,7 @@ static u32 XFpga_WriteEncryptToPcap(UINTPTR BitStreamAddr, UINTPTR KeyAddr,
 	u8 *EncSrc;
 
 	if (flags & XFPGA_ENCRYPTION_USERKEY_EN) {
-		Xilfpga_ConvertStringToHex((char *)(UINTPTR)(KeyAddr),
+		XFpga_ConvertStringToHex((char *)(UINTPTR)(KeyAddr),
 							key, KEY_LEN);
 		/* Xilsecure expects Key in big endian form */
 		for (u8 i = 0; i < ARRAY_LENGTH(key); i++)
@@ -1281,7 +1281,7 @@ static u32 XFpga_AesInit(UINTPTR KeyAddr, u32 *AesIv, u32 flags)
 			XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE);
 
 	if (flags & XFPGA_ENCRYPTION_USERKEY_EN) {
-		Xilfpga_ConvertStringToHex((char *)(UINTPTR)(KeyAddr),
+		XFpga_ConvertStringToHex((char *)(UINTPTR)(KeyAddr),
 							key, KEY_LEN);
 		/* Xilsecure expects Key in big endian form */
 		for (u8 i = 0; i < ARRAY_LENGTH(key); i++)
@@ -2026,7 +2026,7 @@ u32 XFpga_PcapStatus(void)
  * @note	None.
  *
  *****************************************************************************/
-static u32 Xilfpga_ConvertCharToNibble(char InChar, u8 *Num)
+static u32 XFpga_ConvertCharToNibble(char InChar, u8 *Num)
 {
 	/* Convert the char to nibble */
 	if ((InChar >= '0') && (InChar <= '9'))
@@ -2060,7 +2060,7 @@ static u32 Xilfpga_ConvertCharToNibble(char InChar, u8 *Num)
  * @note	None.
  *
  *****************************************************************************/
-static u32 Xilfpga_ConvertStringToHex(const char *Str, u32 *buf, u8 Len)
+static u32 XFpga_ConvertStringToHex(const char *Str, u32 *buf, u8 Len)
 {
 	u32 Status = XFPGA_SUCCESS;
 	u8 ConvertedLen = 0, index = 0;
@@ -2069,7 +2069,7 @@ static u32 Xilfpga_ConvertStringToHex(const char *Str, u32 *buf, u8 Len)
 	while (ConvertedLen < Len) {
 		/* Convert char to nibble */
 		for (u8 i = 0; i < ARRAY_LENGTH(Nibble); i++) {
-			Status = Xilfpga_ConvertCharToNibble(
+			Status = XFpga_ConvertCharToNibble(
 					Str[ConvertedLen++], &Nibble[i]);
 
 			if (Status != XFPGA_SUCCESS)

@@ -114,7 +114,7 @@ u32 XFpga_PL_BitStream_Load(UINTPTR BitstreamImageAddr,
 		return Status;
 	}
 
-	Status = Fpga_Ops.XFpga_writeToPl(BitstreamImageAddr, AddrPtr,
+	Status = Fpga_Ops.XFpga_WriteToPl(BitstreamImageAddr, AddrPtr,
 					&ImageHdrInfo, flags);
 	if (Status != XFPGA_SUCCESS) {
 		Status = XFPGA_UPDATE_ERR(XFPGA_WRITE_BITSTREAM_ERROR, Status);
