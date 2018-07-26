@@ -16,6 +16,7 @@ Fix Cppcheck and Doxygen warnings
 
 clockps_v1_0:
 First release of clocksPS drivers.
+Fix Doxygen and coverity reported issues.
 
 cpu_v2_8:
 Added Os and LTO settings in extra compiler flags for PMU BSP
