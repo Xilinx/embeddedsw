@@ -1512,7 +1512,7 @@ s32 XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 ******************************************************************************/
 s32 XSdPs_Select_Card (XSdPs *InstancePtr)
 {
-	s32 Status = 0;
+	s32 Status;
 
 	/* Send CMD7 - Select card */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD7,
@@ -1544,9 +1544,9 @@ RETURN_PATH:
 ******************************************************************************/
 void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 {
-	u32 TotalDescLines = 0U;
-	u32 DescNum = 0U;
-	u32 BlkSize = 0U;
+	u32 TotalDescLines;
+	u32 DescNum;
+	u32 BlkSize;
 
 	/* Setup ADMA2 - Write descriptor table and point ADMA SAR to it */
 	BlkSize = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
