@@ -38,7 +38,7 @@
  *
  * Ver   Who  Date       Changes
  * ---- ---- ---------- --------------------------------------------------
- * 1.0	ssh	 07/05/2018 Initial release
+ * 1.0	ssh  07/05/2018 Initial release
  * </pre>
  *
  ******************************************************************************/
@@ -48,7 +48,6 @@
 #include "xgpio.h"
 
 /************************** Constant Definitions *****************************/
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -60,7 +59,6 @@ typedef XSdi_MenuType XSdi_MenuFuncType(XSdi_Menu *InstancePtr, u8 Input);
 
 /************************** Function Prototypes ******************************/
 static XSdi_MenuType XSdi_MainMenu(XSdi_Menu *InstancePtr, u8 Input);
-static XSdi_MenuType XSdi_SubcoreMenu(XSdi_Menu *InstancePtr, u8 Input);
 static void XSdi_DisplayMainMenu(void);
 
 extern void Info(void);
@@ -75,7 +73,6 @@ extern void DebugInfo(void);
 static XSdi_MenuFuncType* const XSdi_MenuTable[XSDI_NUM_MENUS] =
 {
 	XSdi_MainMenu,
-	XSdi_SubcoreMenu
 };
 
 extern XGpio Gpio_AxisFifo_resetn;
@@ -157,22 +154,22 @@ static XSdi_MenuType XSdi_MainMenu(XSdi_Menu *InstancePtr, u8 Input)
 	Menu = XSDI_MAIN_MENU;
 
 	switch (Input) {
-		/* Info */
 		case ('i') :
 		case ('I') :
+			/* Info */
 			Info();
 			Menu = XSDI_MAIN_MENU;
 			break;
-			/* GT & SDI TX/RX log */
 		case ('z') :
 		case ('Z') :
+			/* GT & SDI TX/RX log */
 			XV_SdiTxSs_LogDisplay(&SdiTxSs);
 			XV_SdiRxSs_LogDisplay(&SdiRxSs);
 			Menu = XSDI_MAIN_MENU;
 			break;
-			/* Debug */
 		case ('d') :
 		case ('D') :
+			/* Debug */
 			DebugInfo();
 			Menu = XSDI_MAIN_MENU;
 			break;
@@ -181,110 +178,6 @@ static XSdi_MenuType XSdi_MainMenu(XSdi_Menu *InstancePtr, u8 Input)
 			Menu = XSDI_MAIN_MENU;
 			break;
 	}
-
-	return Menu;
-}
-
-/*****************************************************************************/
-/**
- *
- * This function implements the SDI subcores menu state.
- *
- * @param	input is the value used for the next menu state decoder.
- *
- * @return	The next menu state.
- *
- ******************************************************************************/
-static XSdi_MenuType XSdi_SubcoreMenu(XSdi_Menu *InstancePtr, u8 Input)
-{
-	/* Variables */
-	XSdi_MenuType Menu;
-
-	/* Default */
-	Menu = XSDI_SUBCORE_MENU;
-
-	xil_printf("\r\n");
-
-	switch (Input) {
-		/* Enable RX Video Bridge */
-		case 1:
-			xil_printf("Enable RX Video Bridge\r\n");
-			XV_SdiRx_VidBridgeEnable(SdiRxSs.SdiRxPtr);
-			Menu = XSDI_MAIN_MENU;
-			break;
-			/* Enable RX AXIS Bridge */
-		case 2 :
-			xil_printf("Enable RX AXIS Bridge\r\n");
-			XV_SdiRx_Axi4sBridgeEnable(SdiRxSs.SdiRxPtr);
-			Menu = XSDI_MAIN_MENU;
-			break;
-			/* Enable TX Video Bridge */
-		case 3 :
-			xil_printf("Enable TX Video Bridge\r\n");
-			XV_SdiTx_VidBridgeEnable(SdiTxSs.SdiTxPtr);
-			Menu = XSDI_MAIN_MENU;
-			break;
-			/* Enable TX AXIS Bridge */
-		case 4 :
-			xil_printf("Enable TX AXIS Bridge\r\n");
-			XV_SdiTx_Axi4sBridgeVtcEnable(SdiTxSs.SdiTxPtr);
-			Menu = XSDI_MAIN_MENU;
-			break;
-			/* Enable TX Core */
-		case 5 :
-			xil_printf("Enable TX Core\r\n");
-			XV_SdiTx_StreamStart(SdiTxSs.SdiTxPtr);
-			Menu = XSDI_MAIN_MENU;
-			break;
-			/* Enable AXIS FIFO */
-		case 6 :
-			xil_printf("Enable AXIS FIFO\r\n");
-			Xil_Out32((UINTPTR)(Gpio_AxisFifo_resetn.BaseAddress),
-					(u32)(0x00000001B));
-			Menu = XSDI_MAIN_MENU;
-			break;
-			/* Disable RX Video Bridge */
-		case 7:
-			xil_printf("Disable RX Video Bridge\r\n");
-			XV_SdiRx_VidBridgeDisable(SdiRxSs.SdiRxPtr);
-			Menu = XSDI_MAIN_MENU;
-			break;
-			/* Disable RX AXIS Bridge */
-		case 8 :
-			xil_printf("Disable RX AXIS Bridge\r\n");
-			XV_SdiRx_Axi4sBridgeDisable(SdiRxSs.SdiRxPtr);
-			Menu = XSDI_MAIN_MENU;
-			break;
-			/* Disable TX Video Bridge */
-		case 9 :
-			xil_printf("Disable TX Video Bridge\r\n");
-			XV_SdiTx_VidBridgeDisable(SdiTxSs.SdiTxPtr);
-			Menu = XSDI_MAIN_MENU;
-			break;
-			/* Disable TX AXIS Bridge */
-		case 10 :
-			xil_printf("Disable TX AXIS Bridge\r\n");
-			XV_SdiTx_Axi4sBridgeVtcDisable(SdiTxSs.SdiTxPtr);
-			Menu = XSDI_MAIN_MENU;
-			break;
-			/* Disable TX Core */
-		case 11 :
-			xil_printf("Disable TX Core\r\n");
-			XV_SdiTx_StopSdi(SdiTxSs.SdiTxPtr);
-			Menu = XSDI_MAIN_MENU;
-			break;
-			/* Disable AXIS FIFO */
-		case 12 :
-			xil_printf("Disable AXIS FIFO\r\n");
-			Xil_Out32((UINTPTR)(Gpio_AxisFifo_resetn.BaseAddress),
-					(u32)(0x00000000));
-			Menu = XSDI_MAIN_MENU;
-			break;
-		case 99 :
-			Menu = XSDI_MAIN_MENU;
-			break;
-	}
-
 	return Menu;
 }
 
@@ -308,41 +201,12 @@ void XSdi_MenuProcess(XSdi_Menu *InstancePtr)
 	/* Check if the uart has any data */
 	if (XUartPs_IsReceiveData(InstancePtr->UartBaseAddress)) {
 
-		/* Read data from uart */
-		Data = XUartPs_RecvByte(InstancePtr->UartBaseAddress);
-		/* Main menu */
-		if (InstancePtr->CurrentMenu == XSDI_MAIN_MENU) {
-			InstancePtr->CurrentMenu = XSdi_MenuTable[InstancePtr->CurrentMenu]
-													  (InstancePtr, Data);
-			InstancePtr->Value = 0;
-		}
+	/* Read data from uart */
+	Data = XUartPs_RecvByte(InstancePtr->UartBaseAddress);
 
-		/* Sub menu */
-		else {
-			/* Send response to user */
-			XUartPs_SendByte(InstancePtr->UartBaseAddress, Data);
-			/* Alpha numeric data */
-			if (isalpha(Data)) {
-				xil_printf("\r\nInvalid input. Valid entry is only digits 0-9. Try again\r\n\r\n");
-				xil_printf("Enter Selection -> ");
-				InstancePtr->Value = 0;
-			}
-
-			/* Numeric data */
-			else if ((Data >= '0') && (Data <= '9')) {
-				InstancePtr->Value = InstancePtr->Value * 10 + (Data-'0');
-			}
-
-			/* Backspace */
-			else if (Data == '\b') {
-				InstancePtr->Value = InstancePtr->Value / 10; /* discard previous input */
-			}
-
-			/* Execute */
-			else if ((Data == '\n') || (Data == '\r')) {
-				InstancePtr->CurrentMenu = XSdi_MenuTable[InstancePtr->CurrentMenu](InstancePtr, InstancePtr->Value);
-				InstancePtr->Value = 0;
-			}
-		}
+	/* Main Menu */
+	InstancePtr->CurrentMenu = XSdi_MenuTable[InstancePtr->CurrentMenu]
+				   (InstancePtr, Data);
+	InstancePtr->Value = 0;
 	}
 }

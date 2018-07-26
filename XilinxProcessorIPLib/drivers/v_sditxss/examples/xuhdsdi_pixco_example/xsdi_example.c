@@ -37,7 +37,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00  ssh	   07/05/18 Initial release.
+* 1.00  ssh    07/05/18 Initial release.
 * </pre>
 *
 ******************************************************************************/
@@ -46,11 +46,7 @@
 #include <stdio.h>
 #include "platform.h"
 #include "xparameters.h"
-#define ARMR5 1
-#define __aarch64__ 1
-#if defined (ARMR5) || (__aarch64__)
 #include "xiicps.h"
-#endif
 #include "xiic.h"
 #include "si570drv.h"
 #include "xil_printf.h"
@@ -68,7 +64,6 @@
 #include "xsdiaud.h"
 #include "xsdiaud_hw.h"
 #endif
-#include "xscugic.h"
 
 /************************** Constant Definitions *****************************/
 #ifdef XPAR_XSDIAUD_NUM_INSTANCES
@@ -97,7 +92,7 @@ typedef u8 AddressType;
 #define RX_GPIO_OFFSET	1
 #define TX_GPIO_OFFSET	1
 #define PICXO_GPIO_OFFSET 1
-#define GT_GPIO_OFFSET 	1
+#define GT_GPIO_OFFSET	1
 #define SI570_GPIO_OFFSET 1
 
 #define DISABLE_GPIO	0
@@ -108,10 +103,11 @@ typedef u8 AddressType;
 #define DISABLE			0
 #define ENABLE			1
 
-#define SLEEP_ONE		1
-#define SLEEP_TEN		10
-#define SLEEP_HUNDERED	100
-#define SLEEP_HUNDERED_THOUSAND	100000
+#define ONE_US			1
+#define TEN_US			10
+#define HUNDERED_MS		100000
+
+#define MAX_STREAMS		8
 
 #ifdef XPAR_XSDIAUD_NUM_INSTANCES
 #define SDIAUD_0_DEVICE_ID	XPAR_V_UHDSDI_AUDIO_EXTRACT_0_DEVICE_ID
@@ -138,7 +134,7 @@ static void GtReadyCallback(void *CallbackRef);
 void RxStreamUpCallback(void *CallbackRef);
 void RxStreamUp(void);
 void RxStreamDownCallback(void *CallbackRef);
-void Xil_AssertCallbackRoutine(u8 *File, s32 Line);
+static void Xil_AssertCallbackRoutine(u8 *File, s32 Line);
 void StartTxAfterRx(void);
 static int I2cMux(void);
 int Si570_SetClock(u32 IICBaseAddress, u8 IICAddress1, u32 RxRefClk);
@@ -169,11 +165,7 @@ unsigned int IntrReceived;
 /************************** Variable Definitions *****************************/
 
 static XScuGic Intc;
-
-#if defined (ARMR5) || (__aarch64__)
 XIicPs Iic;
-#endif
-
 XGpio Gpio_AxisFifo_resetn;
 XGpio_Config *Gpio_AxisFifo_resetn_ConfigPtr;
 XGpio Gpio_Rx_resetn;
@@ -238,8 +230,8 @@ void ClearScreen(void)
  *		- A specific error code defined in "xstatus.h" if an error
  *		occurs.
  *
- * @note	This function assumes a Microblaze or ARM system and no operating
- *		system is used.
+ * @note	This function assumes a Microblaze or ARM system and no
+ *		operating system is used.
  *
  ******************************************************************************/
 static int SetupInterruptSystem(void)
@@ -281,7 +273,7 @@ static int SetupInterruptSystem(void)
 /*****************************************************************************/
 /**
  *
- * This function setup SI5324 clock generator over IIC.
+ * This function setup SI570 clock generator over IIC.
  *
  * @return	The number of bytes sent.
  *
@@ -323,7 +315,8 @@ static void GtReadyCallback(void *CallbackRef)
 {
 
 	/* Disable AXISFIFO */
-	XGpio_DiscreteWrite(&Gpio_AxisFifo_resetn, GT_GPIO_OFFSET, DISABLE_FIFO);
+	XGpio_DiscreteWrite(&Gpio_AxisFifo_resetn, GT_GPIO_OFFSET,
+			    DISABLE_FIFO);
 
 	/* Start SDI TX Subsystem */
 	XV_SdiTxSs_StreamStart(&SdiTxSs);
@@ -355,21 +348,25 @@ void RxStreamUpCallback(void *CallbackRef)
 	u8 IsFractional;
 
 	IsFractional = XV_SdiRxSs_GetTransportBitRate(&SdiRxSs);
-
 	RxTransMode =  XV_SdiRxSs_GetTransportMode(&SdiRxSs);
 
 	if (IsFractional) {
-		Si570_SetClock(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR_570, FREQ_SI570_148_35_MHz);
+		Si570_SetClock(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR_570,
+			       FREQ_SI570_148_35_MHz);
 	} else {
 		if (RxTransMode != XSDIVID_MODE_SD) {
-			Si570_SetClock(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR_570, FREQ_SI570_148_5_MHz);
+			Si570_SetClock(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR_570,
+				       FREQ_SI570_148_5_MHz);
+		}
+		if (RxTransMode == XSDIVID_MODE_SD) {
+			printf ("Error: Please check the generated resolution\r\n");
 		}
 	}
 
 	xil_printf("INFO>> SDI Rx: Input Locked\r\n");
 
 	XGpio_DiscreteWrite(&Gpio_Rx_resetn, RX_GPIO_OFFSET, DISABLE_GPIO);
-	usleep(SLEEP_ONE);
+	usleep(ONE_US);
 	XGpio_DiscreteWrite(&Gpio_Rx_resetn, RX_GPIO_OFFSET, ENABLE_GPIO);
 
 #ifdef XPAR_XSDIAUD_NUM_INSTANCES
@@ -380,11 +377,12 @@ void RxStreamUpCallback(void *CallbackRef)
 	XSdiAud_Enable(&SdiExtract, ENABLE);
 #endif
 
-	usleep(SLEEP_HUNDERED_THOUSAND);
+	usleep(HUNDERED_MS);
 
 	XGpio_DiscreteWrite(&Gpio_Picxo_resetn, PICXO_GPIO_OFFSET, ENABLE_GPIO);
-	usleep(SLEEP_TEN);
-	XGpio_DiscreteWrite(&Gpio_Picxo_resetn, PICXO_GPIO_OFFSET, DISABLE_GPIO);
+	usleep(TEN_US);
+	XGpio_DiscreteWrite(&Gpio_Picxo_resetn, PICXO_GPIO_OFFSET,
+			    DISABLE_GPIO);
 
 	StartTxAfterRxFlag = (TRUE);
 	XV_SdiRxSs_StreamFlowEnable(&SdiRxSs);
@@ -393,7 +391,7 @@ void RxStreamUpCallback(void *CallbackRef)
 /*****************************************************************************/
 /**
  *
- * This function is called when the RX looses lock, and it stops SDI Tx
+ * This function is called when the RX loses lock, and it stops SDI Tx
  * Subsystem.
  *
  * @param	CallbackRef is a callback function reference.
@@ -406,7 +404,6 @@ void RxStreamUpCallback(void *CallbackRef)
 void RxStreamDownCallback(void *CallbackRef)
 {
 	xil_printf("INFO>> SDI Rx: Lock Lost\r\n");
-	usleep(SLEEP_HUNDERED);
 
 	XV_SdiTxSs_Stop(&SdiTxSs);
 
@@ -416,7 +413,6 @@ void RxStreamDownCallback(void *CallbackRef)
 
 	XSdiAud_ResetCoreEn(&SdiExtract, ENABLE);
 	XSdiAud_ResetCoreEn(&SdiEmbed, ENABLE);
-
 #endif
 }
 
@@ -481,11 +477,11 @@ void DebugInfo(void)
 
 
 	/* Reports Tx Debug information.
-	 * A known issue on the VTC which requires both axilite and video clock to
-	 * be stable. As a workaround, the clock's status is passed over to prevent
-	 * accesses of the VTC when the clock is unstable.
-	 * Inverts the LOL as a clock stable flag so VTC outputs info only when the
-	 * clock is stable.
+	 * A known issue on the VTC which requires both axilite and video clock
+	 * to be stable. As a workaround, the clock's status is passed over to
+	 * prevent accesses of the VTC when the clock is unstable.
+	 * Inverts the LOL as a clock stable flag so VTC outputs info only when
+	 * the clock is stable.
 	 */
 	XV_SdiTxSs_ReportDebugInfo(&SdiTxSs, VtcClkStable);
 
@@ -521,9 +517,11 @@ void StartTxAfterRx(void)
 	SdiTxSsTransportPtr = XV_SdiTxSs_GetTransport(&SdiTxSs);
 	*SdiTxSsTransportPtr = *SdiRxSsTransportPtr;
 
-	for (int StreamId = 0; StreamId < 8; StreamId++) {
-		SdiRxSsPayloadIdPtr = XV_SdiRxSs_GetPayloadId(&SdiRxSs, StreamId);
-		SdiTxSsPayloadIdPtr = XV_SdiTxSs_GetPayloadId(&SdiTxSs, StreamId);
+	for (int StreamId = 0; StreamId < MAX_STREAMS; StreamId++) {
+		SdiRxSsPayloadIdPtr = XV_SdiRxSs_GetPayloadId(&SdiRxSs,
+							      StreamId);
+		SdiTxSsPayloadIdPtr = XV_SdiTxSs_GetPayloadId(&SdiTxSs,
+							      StreamId);
 		*SdiTxSsPayloadIdPtr = *SdiRxSsPayloadIdPtr;
 	}
 
@@ -603,7 +601,11 @@ static void SdiAudGrpChangeDetHandler(void *CallBackRef)
 			break;
 
 		case XSDIAUD_GROUP_1_3:
-			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP1, XSDIAUD_QUAD_GROUP);
+		case XSDIAUD_GROUP_1_4:
+		case XSDIAUD_GROUP_1_2_4:
+		case XSDIAUD_GROUP_1_3_4:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP1,
+				      XSDIAUD_QUAD_GROUP);
 			xil_printf("Only Group 1 is configured\r\n");
 			xil_printf("Non-Sequential Groups are not Supported\r\n");
 			break;
@@ -613,33 +615,17 @@ static void SdiAudGrpChangeDetHandler(void *CallBackRef)
 			XSdiAud_SetCh(&SdiEmbed, XSDIAUD_GROUP4, AudNumOfCh);
 			break;
 
-		case XSDIAUD_GROUP_1_4:
-			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP1, XSDIAUD_QUAD_GROUP);
-			xil_printf("Only Group 1 is configured\r\n");
-			xil_printf("Non-Sequential Groups are not Supported\r\n");
-			break;
-
 		case XSDIAUD_GROUP_2_4:
-			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP2, XSDIAUD_QUAD_GROUP);
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP2,
+				      XSDIAUD_QUAD_GROUP);
 			xil_printf("Only Group 2 is configured\r\n");
-			xil_printf("Non-Sequential Groups are not Supported\r\n");
-			break;
-
-		case XSDIAUD_GROUP_1_2_4:
-			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP1, XSDIAUD_QUAD_GROUP);
-			xil_printf("Only Group 1 is configured\r\n");
-			xil_printf("Non-Sequential Groups are not Supported\r\n");
-			break;
-
-		case XSDIAUD_GROUP_1_3_4:
-			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP1, XSDIAUD_QUAD_GROUP);
-			xil_printf("Only Group 1 is configured\r\n");
 			xil_printf("Non-Sequential Groups are not Supported\r\n");
 			break;
 
 		default:
 			xil_printf("Invalid case: Groups are not configured\r\n");
-			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP3, XSDIAUD_QUAD_GROUP);
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP3,
+				      XSDIAUD_QUAD_GROUP);
 			break;
 	}
 
@@ -656,7 +642,8 @@ static void SdiAudGrpChangeDetHandler(void *CallBackRef)
 	}
 	else {
 		XSdiAud_Emb_SetSmpSize(&SdiEmbed, XSDIAUD_SAMPSIZE0);
-		XSdiAud_Emb_SetLineStd(&SdiEmbed, XSDIAUD_SMPTE_274M_1080p_30Hz);
+		XSdiAud_Emb_SetLineStd(&SdiEmbed,
+				       XSDIAUD_SMPTE_274M_1080p_30Hz);
 	}
 
 	XSdiAud_ResetCoreEn(&SdiExtract, DISABLE);
@@ -664,8 +651,7 @@ static void SdiAudGrpChangeDetHandler(void *CallBackRef)
 
 	XSdiAud_Enable(&SdiExtract, ENABLE);
 	XSdiAud_Enable(&SdiEmbed, ENABLE);
-
-	}
+}
 #endif
 
 /*****************************************************************************/
@@ -688,11 +674,12 @@ int main(void)
 	I2cMux();
 
 	/* si570 configuration of 148.5MHz */
-	Si570_SetClock(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR_570, FREQ_SI570_148_35_MHz);
+	Si570_SetClock(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR_570,
+		       FREQ_SI570_148_35_MHz);
 
 	/* Initialize axis_rx_gpio */
 	Gpio_Rx_resetn_ConfigPtr =
-			XGpio_LookupConfig(XPAR_AXI_GPIO_1_DEVICE_ID);
+		XGpio_LookupConfig(XPAR_ZYNQ_US_SS_FMC_INIT_DONE_GPIO_DEVICE_ID);
 
 	if (!Gpio_Rx_resetn_ConfigPtr) {
 		Gpio_Rx_resetn.IsReady = 0;
@@ -700,8 +687,8 @@ int main(void)
 	}
 
 	Status = XGpio_CfgInitialize(&Gpio_Rx_resetn,
-			Gpio_Rx_resetn_ConfigPtr,
-			Gpio_Rx_resetn_ConfigPtr->BaseAddress);
+				     Gpio_Rx_resetn_ConfigPtr,
+				     Gpio_Rx_resetn_ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR:: GPIO for Rx Reset ");
 		xil_printf("Initialization failed %d\r\n", Status);
@@ -713,7 +700,7 @@ int main(void)
 
 	/* Initialize axis_tx_gpio */
 	Gpio_Tx_resetn_ConfigPtr =
-			XGpio_LookupConfig(XPAR_AXI_GPIO_2_DEVICE_ID);
+		XGpio_LookupConfig(XPAR_ZYNQ_US_SS_SDI_TX_RESET_GPIO_DEVICE_ID);
 
 	if (!Gpio_Tx_resetn_ConfigPtr) {
 		Gpio_Tx_resetn.IsReady = 0;
@@ -721,8 +708,8 @@ int main(void)
 	}
 
 	Status = XGpio_CfgInitialize(&Gpio_Tx_resetn,
-			Gpio_Tx_resetn_ConfigPtr,
-			Gpio_Tx_resetn_ConfigPtr->BaseAddress);
+				     Gpio_Tx_resetn_ConfigPtr,
+				     Gpio_Tx_resetn_ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR:: GPIO for Tx Reset ");
 		xil_printf("Initialization failed %d\r\n", Status);
@@ -734,7 +721,7 @@ int main(void)
 
 	/* Initialize axis_picxo_gpio */
 	Gpio_Picxo_resetn_ConfigPtr =
-			XGpio_LookupConfig(XPAR_AXI_GPIO_2_DEVICE_ID);
+		XGpio_LookupConfig(XPAR_ZYNQ_US_SS_SDI_TX_RESET_GPIO_DEVICE_ID);
 
 	if (!Gpio_Picxo_resetn_ConfigPtr) {
 		Gpio_Picxo_resetn.IsReady = 0;
@@ -742,8 +729,8 @@ int main(void)
 	}
 
 	Status = XGpio_CfgInitialize(&Gpio_Picxo_resetn,
-			Gpio_Picxo_resetn_ConfigPtr,
-			Gpio_Picxo_resetn_ConfigPtr->BaseAddress);
+				     Gpio_Picxo_resetn_ConfigPtr,
+				     Gpio_Picxo_resetn_ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR:: GPIO for Tx Reset ");
 		xil_printf("Initialization failed %d\r\n", Status);
@@ -751,11 +738,12 @@ int main(void)
 	}
 
 	/* Setting it as output */
-	XGpio_SetDataDirection(&Gpio_Picxo_resetn, PICXO_GPIO_OFFSET, DISABLE_GPIO);
+	XGpio_SetDataDirection(&Gpio_Picxo_resetn, PICXO_GPIO_OFFSET,
+			       DISABLE_GPIO);
 
 	/* Rx Reset Sequence */
 	XGpio_DiscreteWrite(&Gpio_Rx_resetn, RX_GPIO_OFFSET, DISABLE_GPIO);
-	usleep(SLEEP_TEN);
+	usleep(TEN_US);
 	XGpio_DiscreteWrite(&Gpio_Rx_resetn, RX_GPIO_OFFSET, ENABLE_GPIO);
 
 	StartTxAfterRxFlag = (FALSE);
@@ -767,7 +755,7 @@ int main(void)
 
 	xil_printf("\n\r");
 	xil_printf("----------------------------------------\r\n");
-	xil_printf("---      SDI Tx Standalone v1.0      ---\r\n");
+	xil_printf("---    SDI PIXCO Example Design v1.0 ---\r\n");
 	xil_printf("---     (c) 2018 by Xilinx, Inc.     ---\r\n");
 	xil_printf("----------------------------------------\r\n");
 	xil_printf("      Build %s - %s      \r\n", __DATE__, __TIME__);
@@ -781,7 +769,8 @@ int main(void)
 	}
 
 	/* Initialize SDI TX Subsystem */
-	XV_SdiTxSs_ConfigPtr = XV_SdiTxSs_LookupConfig(XPAR_XV_SDITXSS_0_DEVICE_ID);
+	XV_SdiTxSs_ConfigPtr =
+		XV_SdiTxSs_LookupConfig(XPAR_XV_SDITXSS_0_DEVICE_ID);
 
 	XV_SdiTxSs_ConfigPtr->BaseAddress = XPAR_V_SMPTE_UHDSDI_TX_SS_BASEADDR;
 	if (!XV_SdiTxSs_ConfigPtr) {
@@ -791,8 +780,8 @@ int main(void)
 
 	/* Initialize top level and all included sub-cores */
 	Status = XV_SdiTxSs_CfgInitialize(&SdiTxSs,
-					XV_SdiTxSs_ConfigPtr,
-					XV_SdiTxSs_ConfigPtr->BaseAddress);
+					  XV_SdiTxSs_ConfigPtr,
+					  XV_SdiTxSs_ConfigPtr->BaseAddress);
 #ifdef XPAR_XSDIAUD_NUM_INSTANCES
 	XV_SdiTxSs_SetCoreSettings(&SdiTxSs, XV_SDITXSS_CORESELID_USEANCIN, 1);
 #endif
@@ -807,16 +796,16 @@ int main(void)
 
 
 	XV_SdiTxSs_SetCallback(&SdiTxSs,
-				XV_SDITXSS_HANDLER_GTREADY,
-				GtReadyCallback,
-				(void *)&SdiTxSs);
+			       XV_SDITXSS_HANDLER_GTREADY,
+			       GtReadyCallback,
+			       (void *)&SdiTxSs);
 
 	/* Enable SDI Tx GT reset done Interrupts */
 	XV_SdiTxSs_IntrEnable(&SdiTxSs, XV_SDITXSS_IER_GTTX_RSTDONE_MASK);
 
 	/* Initialize axis_fifo_gpio */
 	Gpio_AxisFifo_resetn_ConfigPtr =
-		XGpio_LookupConfig(XPAR_GPIO_REGISTER_AXIS_FIFO_GPIO_DEVICE_ID);
+		XGpio_LookupConfig(XPAR_ZYNQ_US_SS_GPIO_REGISTER_AXIS_FIFO_GPIO_DEVICE_ID);
 
 	if (!Gpio_AxisFifo_resetn_ConfigPtr) {
 		Gpio_AxisFifo_resetn.IsReady = 0;
@@ -824,8 +813,8 @@ int main(void)
 	}
 
 	Status = XGpio_CfgInitialize(&Gpio_AxisFifo_resetn,
-					Gpio_AxisFifo_resetn_ConfigPtr,
-					Gpio_AxisFifo_resetn_ConfigPtr->BaseAddress);
+				     Gpio_AxisFifo_resetn_ConfigPtr,
+				     Gpio_AxisFifo_resetn_ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR:: GPIO for AxisFifo Reset ");
 		xil_printf("Initialization failed %d\r\n", Status);
@@ -833,11 +822,12 @@ int main(void)
 	}
 
 	/* Setting it as output */
-	XGpio_SetDataDirection(&Gpio_AxisFifo_resetn, GT_GPIO_OFFSET, DISABLE_FIFO);
+	XGpio_SetDataDirection(&Gpio_AxisFifo_resetn, GT_GPIO_OFFSET,
+			       DISABLE_FIFO);
 
-	/* Initialize SI570_lol_gpio */
+	/* Initialize SI570_gpio */
 	Gpio_si570_ConfigPtr =
-		XGpio_LookupConfig(XPAR_GPIO_REGISTER_SI5324_LOL_GPIO_DEVICE_ID);
+		XGpio_LookupConfig(XPAR_ZYNQ_US_SS_GPIO_REGISTER_SI5324_LOL_GPIO_DEVICE_ID);
 
 	if (!Gpio_si570_ConfigPtr) {
 		Gpio_si570.IsReady = 0;
@@ -845,10 +835,10 @@ int main(void)
 	}
 
 	Status = XGpio_CfgInitialize(&Gpio_si570,
-					Gpio_si570_ConfigPtr,
-					Gpio_si570_ConfigPtr->BaseAddress);
+				     Gpio_si570_ConfigPtr,
+				     Gpio_si570_ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ERR:: GPIO for SI5324 LOL");
+		xil_printf("ERR:: GPIO for SI570");
 		xil_printf("Initialization failed %d\r\n", Status);
 		return XST_FAILURE;
 	}
@@ -857,7 +847,8 @@ int main(void)
 	XGpio_SetDataDirection(&Gpio_si570, SI570_GPIO_OFFSET, ENABLE_GPIO);
 
 	/* Initialize SDI RX Subsystem */
-	XV_SdiRxSs_ConfigPtr = XV_SdiRxSs_LookupConfig(XPAR_XV_SDIRX_0_DEVICE_ID);
+	XV_SdiRxSs_ConfigPtr =
+		XV_SdiRxSs_LookupConfig(XPAR_XV_SDIRX_0_DEVICE_ID);
 
 	XV_SdiRxSs_ConfigPtr->BaseAddress = XPAR_V_SMPTE_UHDSDI_RX_SS_BASEADDR;
 	if (!XV_SdiRxSs_ConfigPtr) {
@@ -867,8 +858,8 @@ int main(void)
 
 	/* Initialize top level and all included sub-cores */
 	Status = XV_SdiRxSs_CfgInitialize(&SdiRxSs,
-					XV_SdiRxSs_ConfigPtr,
-					XV_SdiRxSs_ConfigPtr->BaseAddress);
+					  XV_SdiRxSs_ConfigPtr,
+					  XV_SdiRxSs_ConfigPtr->BaseAddress);
 
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR:: SDI RX Initialization failed %d\r\n", Status);
@@ -879,27 +870,30 @@ int main(void)
 	XV_SdiRxSs_IntrDisable(&SdiRxSs, XV_SDIRXSS_IER_ALLINTR_MASK);
 
 	XV_SdiRxSs_SetCallback(&SdiRxSs,
-				XV_SDIRXSS_HANDLER_STREAM_UP,
-				RxStreamUpCallback,
-				(void *)&SdiRxSs);
+			       XV_SDIRXSS_HANDLER_STREAM_UP,
+			       RxStreamUpCallback,
+			       (void *)&SdiRxSs);
 
 	XV_SdiRxSs_SetCallback(&SdiRxSs,
-				XV_SDIRXSS_HANDLER_STREAM_DOWN,
-				RxStreamDownCallback,
-				(void *)&SdiRxSs);
+			       XV_SDIRXSS_HANDLER_STREAM_DOWN,
+			       RxStreamDownCallback,
+			       (void *)&SdiRxSs);
 
 	/* Enable SDI Rx video lock and unlock Interrupts */
 	XV_SdiRxSs_IntrEnable(&SdiRxSs,
-			XV_SDIRXSS_IER_VIDEO_LOCK_MASK | XV_SDIRXSS_IER_VIDEO_UNLOCK_MASK);
+			      XV_SDIRXSS_IER_VIDEO_LOCK_MASK |
+			      XV_SDIRXSS_IER_VIDEO_UNLOCK_MASK);
 
 #ifdef XPAR_XSDIAUD_NUM_INSTANCES
-	Status = XSdiAud_Initialize(&SdiEmbed, XPAR_V_UHDSDI_AUDIO_EMBED_1_DEVICE_ID);
+	Status = XSdiAud_Initialize(&SdiEmbed,
+				    XPAR_V_UHDSDI_AUDIO_EMBED_1_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR:: SDI Embed IP Initialization failed %d\r\n", Status);
 		return XST_FAILURE;
 	}
 
-	Status = XSdiAud_Initialize(&SdiExtract, XPAR_V_UHDSDI_AUDIO_EXTRACT_0_DEVICE_ID);
+	Status = XSdiAud_Initialize(&SdiExtract,
+				    XPAR_V_UHDSDI_AUDIO_EXTRACT_0_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR:: SDI Extract IP Initialization failed %d\r\n", Status);
 		return XST_FAILURE;
@@ -917,24 +911,24 @@ int main(void)
 	XSdiAud_ResetCoreEn(&SdiEmbed, DISABLE);
 	XSdiAud_ResetReg(&SdiEmbed);
 
-	XSdiAud_IntrEnable(&SdiExtract,XSDIAUD_INT_EN_GRP_CHG_MASK);
-	XSdiAud_IntrEnable(&SdiExtract,XSDIAUD_EXT_INT_EN_PKT_CHG_MASK);
-	XSdiAud_IntrEnable(&SdiExtract,XSDIAUD_EXT_INT_EN_STS_CHG_MASK);
-	XSdiAud_IntrEnable(&SdiExtract,XSDIAUD_EXT_INT_EN_FIFO_OF_MASK);
-	XSdiAud_IntrEnable(&SdiExtract,XSDIAUD_EXT_INT_EN_PERR_MASK);
-	XSdiAud_IntrEnable(&SdiExtract,XSDIAUD_EXT_INT_EN_CERR_MASK);
+	XSdiAud_IntrEnable(&SdiExtract, XSDIAUD_INT_EN_GRP_CHG_MASK);
+	XSdiAud_IntrEnable(&SdiExtract, XSDIAUD_EXT_INT_EN_PKT_CHG_MASK);
+	XSdiAud_IntrEnable(&SdiExtract, XSDIAUD_EXT_INT_EN_STS_CHG_MASK);
+	XSdiAud_IntrEnable(&SdiExtract, XSDIAUD_EXT_INT_EN_FIFO_OF_MASK);
+	XSdiAud_IntrEnable(&SdiExtract, XSDIAUD_EXT_INT_EN_PERR_MASK);
+	XSdiAud_IntrEnable(&SdiExtract, XSDIAUD_EXT_INT_EN_CERR_MASK);
 
-	XSdiAud_IntrEnable(&SdiEmbed,XSDIAUD_INT_EN_GRP_CHG_MASK);
+	XSdiAud_IntrEnable(&SdiEmbed, XSDIAUD_INT_EN_GRP_CHG_MASK);
 
 	XSdiAud_SetHandler(&SdiExtract, XSDIAUD_HANDLER_AUD_GRP_CHNG_DET,
-	                                             SdiAudGrpChangeDetHandler,
-	                                             (void *)&SdiExtract);
+			  SdiAudGrpChangeDetHandler,
+			  (void *)&SdiExtract);
 #endif
 	Status = 0;
 	Status |= XScuGic_Connect(&Intc,
-				SDI_RX_SS_INTR_ID,
-				(XInterruptHandler)XV_SdiRxSS_SdiRxIntrHandler,
-				(void *)&SdiRxSs);
+				  SDI_RX_SS_INTR_ID,
+				  (XInterruptHandler)XV_SdiRxSS_SdiRxIntrHandler,
+				  (void *)&SdiRxSs);
 	if (Status == XST_SUCCESS) {
 		XScuGic_Enable(&Intc, SDI_RX_SS_INTR_ID);
 	} else {
@@ -946,9 +940,9 @@ int main(void)
 	/*Register SDI TX SS Interrupt Handler with Interrupt Controller */
 	Status = 0;
 	Status |= XScuGic_Connect(&Intc,
-			SDI_TX_SS_INTR_ID,
-			(XInterruptHandler)XV_SdiTxSS_SdiTxIntrHandler,
-			(void *)&SdiTxSs);
+			          SDI_TX_SS_INTR_ID,
+				  (XInterruptHandler)XV_SdiTxSS_SdiTxIntrHandler,
+				  (void *)&SdiTxSs);
 	if (Status == XST_SUCCESS) {
 		XScuGic_Enable(&Intc, SDI_TX_SS_INTR_ID);
 	} else {
@@ -961,9 +955,9 @@ int main(void)
 	/* Register SDI AUdio Extract Interrupt Handler with Interrupt Controller */
 	Status = 0;
 	Status |= XScuGic_Connect(&Intc,
-			SDIAUD_0_INTERRUPT_ID,
-			(XInterruptHandler)XSdiAud_IntrHandler,
-			(void *)&SdiExtract);
+				  SDIAUD_0_INTERRUPT_ID,
+				  (XInterruptHandler)XSdiAud_IntrHandler,
+				  (void *)&SdiExtract);
 	if (Status == XST_SUCCESS) {
 		XScuGic_Enable(&Intc, SDIAUD_0_INTERRUPT_ID);
 		xil_printf("Successfully registered SDI AUdio Extract interrupt handler");
@@ -993,10 +987,10 @@ int main(void)
 * This function detects the number of active channels in the incoming SDI stream
 * and returns the number of active channels.
 *
-* @param  InstancePtr is a pointer to the XSdiAud instance.
+* @param	InstancePtr is a pointer to the XSdiAud instance.
 *
-* @return Return type is enum XSdiAud_NumOfCh, by this we can know the
-*         number of channels which are present.
+* @return	Return type is enum XSdiAud_NumOfCh, by this we can know the
+*		number of channels which are present.
 *
 ******************************************************************************/
 static int XSdiAud_NumOfCh XSdiAud_Ext_DetActCh(XSdiAud *InstancePtr)
@@ -1006,12 +1000,12 @@ static int XSdiAud_NumOfCh XSdiAud_Ext_DetActCh(XSdiAud *InstancePtr)
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	XSdiAud_ActReg = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDIAUD_EXT_CNTRL_PKTSTAT_REG_OFFSET);
+					 XSDIAUD_EXT_CNTRL_PKTSTAT_REG_OFFSET);
 
 	XSdiAud_ActReg = (XSdiAud_ActReg & XSDIAUD_EXT_PKTST_AC_MASK) >>
-			XSDIAUD_EXT_PKTST_AC_SHIFT;
+			  XSDIAUD_EXT_PKTST_AC_SHIFT;
 
-	switch(XSdiAud_ActReg)
+	switch (XSdiAud_ActReg)
 	{
 		case 0x0000:
 			XSdiAud_ActCh = 0;
