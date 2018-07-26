@@ -46,7 +46,6 @@
  ****************************************************************************/
 
 #include "si570drv.h"
-
 #include <stdlib.h>
 #include "xil_types.h"
 #include "xiic.h"
@@ -55,6 +54,10 @@
 /******************************************************************************
  * Definitions independent on the specific board design. Should not be changed.
  *****************************************************************************/
+#define PHASE_WORD_BYTE_6	7
+#define PHASE_WORD_BYTE_8	9
+#define PHASE_WORD_BYTE_10	11
+#define MAX_REGISTERS		18
 
 /*****************************************************************************/
 /**
@@ -68,28 +71,33 @@
  *		must be at least 2*NumRegs.
  * @param	NumRegs contains the number of registers to write.
  *
- * @return	SI570_SUCCESS for success, SI570_ERR_IIC for IIC access failure, SI570_ERR_PARM when the number of registers to write is less than
- *		SI570_ERR_PARM when the number of registers to write is less than
+ * @return	SI570_SUCCESS for success
+ *
+ * @return	SI570_ERR_IIC for IIC access failure,
+ *
+ * @return	SI570_ERR_FREQ when the requested frequency cannot be generated
+ *
+ * @return  SI570_ERR_PARM when the ClkSrc or ClkDest parameters are invalid
+ *		or the ClkInFreq or ClkOutFreq are out of range.
  *
  * @note	Private function. Does not modify the contents of the buffer
  *		pointed to by BufPtr.
  *****************************************************************************/
-int Si570_DoSettings(u32 IICBaseAddress, u8 IICAddress1,
-		u8 *BufPtr, int NumRegs) {
+int Si570_DoSettings(u32 IICBaseAddress, u8 IICAddress1, u8 *BufPtr,
+		     int NumRegs) {
 	int result;
 	int i;
 
 	/* Check the number of registers to write. It must be at least one. */
 	if (NumRegs < 1) {
 		if (SI570_DEBUG) {
-			xil_printf("Si570: ERROR: Illegal number of registers to write.");
+			xil_printf("Si570: ERROR: Illegal number of registers write.");
 		}
 		return SI570_ERR_PARM;
 	}
 	for (i = 0; i < NumRegs; i++) {
 		result = XIic_Send(IICBaseAddress, IICAddress1,
-					BufPtr + (i << 1), 2,
-					XIIC_STOP);
+				   BufPtr + (i << 1), 2, XIIC_STOP);
 		if (result != 2) {
 			if (SI570_DEBUG) {
 				xil_printf("Si570: ERROR: IIC write request error.");
@@ -108,106 +116,69 @@ int Si570_DoSettings(u32 IICBaseAddress, u8 IICAddress1,
  *		device.
  * @param	IICAddress1 contains the 7 bit IIC address of the Si570 device.
  *
- * @param   RxRefClk contains the value to be written in Si570 register for
- * 		that particular clock frequency.
+ * @param	RxRefClk contains the value to be written in Si570 register for
+ *		that particular clock frequency.
  *
- * @return	SI570_SUCCESS for success, SI570_ERR_IIC for IIC access failure,
- *		SI570_ERR_FREQ when the requested frequency cannot be generated,
- *		SI570_ERR_PARM when the ClkSrc or ClkDest parameters are invalid
+ * @return	SI570_SUCCESS for success
+ *
+ * @return	SI570_ERR_IIC for IIC access failure,
+ *
+ * @return	SI570_ERR_FREQ when the requested frequency cannot be generated
+ *
+ * @return	SI570_ERR_PARM when the ClkSrc or ClkDest parameters are invalid
  *		or the ClkInFreq or ClkOutFreq are out of range.
  *****************************************************************************/
-int Si570_SetClock(u32 IICBaseAddress, u8 IICAddress1, u32 RxRefClk) {
+int Si570_SetClock(u32 IICBaseAddress, u8 IICAddress1, u32 RxRefClk)
+{
 
 	int result;
-	u8  buf[9*2]; /* Need to set 9 registers */
-	int i;
+	u8 buf[] = {137, 0x10, 7, 0x01, 8, 0xC2, 9, 0x99, 10, 0x46, 11, 0xFF,
+		    12, 0xC4, 137, 0x00, 135, 0x40};
 
-	/*
-	 * Set the clock settings
-	 */
+	/* Set the clock settings */
 	if (SI570_DEBUG) {
 		xil_printf("Si570: Programming frequency settings.\n");
 	}
-	i = 0;
 
 	/* Free running mode or use a reference clock */
-	buf[i] = 137;
-	buf[i+1] = 0x10;
-
-	i += 2;
-
-	buf[i] = 7;
-	buf[i+1] = 0x01;
-
-	i += 2;
-
-	buf[i] = 8;
-	buf[i+1] = 0xC2;
-
-	i += 2;
-
-	buf[i] = 9;
-
-	switch(RxRefClk) {
+	switch (RxRefClk) {
 	case FREQ_SI570_148_5_MHz:
-		buf[i+1] = 0x99;
+		buf[PHASE_WORD_BYTE_6] = 0x99;
 		break;
 	case FREQ_SI570_148_35_MHz:
-		buf[i+1] = 0x98;
+		buf[PHASE_WORD_BYTE_6] = 0x98;
 		break;
 	default:
-		buf[i+1] = 0x00;
+		buf[PHASE_WORD_BYTE_6] = 0x00;
 		break;
 	}
 
-	i += 2;
-
-	buf[i] = 10;
-
-	switch(RxRefClk) {
+	switch (RxRefClk) {
 	case FREQ_SI570_148_5_MHz:
-		buf[i+1] = 0x46;
+		buf[PHASE_WORD_BYTE_8] = 0x46;
 		break;
 	case FREQ_SI570_148_35_MHz:
-		buf[i+1] = 0x9A;
+		buf[PHASE_WORD_BYTE_8] = 0x9A;
 		break;
 	default:
-		buf[i+1] = 0x00;
-		break;
-	}
-	i += 2;
-
-	buf[i] = 11;
-	switch(RxRefClk) {
-	case FREQ_SI570_148_5_MHz:
-		buf[i+1] = 0xFF;
-		break;
-	case FREQ_SI570_148_35_MHz:
-		buf[i+1] = 0xFF;
-		break;
-	default:
-		buf[i+1] = 0xFF;
+		buf[PHASE_WORD_BYTE_8] = 0x00;
 		break;
 	}
 
-	i += 2;
+	switch (RxRefClk) {
+	case FREQ_SI570_148_5_MHz:
+		buf[PHASE_WORD_BYTE_10] = 0xFF;
+		break;
+	case FREQ_SI570_148_35_MHz:
+		buf[PHASE_WORD_BYTE_10] = 0xFF;
+		break;
+	default:
+		buf[PHASE_WORD_BYTE_10] = 0xFF;
+		break;
+	}
 
-	buf[i] = 12;
-	buf[i+1] = 0xC4;
-
-	i += 2;
-
-	buf[i] = 137;
-	buf[i+1] = 0x00;
-
-	i +=2;
-
-	buf[i] = 135;
-	buf[i+1] = 0x40;
-
-	i += 2;
-
-	/* Send all register settings to the Si5324 */
-	result = Si570_DoSettings(IICBaseAddress, IICAddress1, buf, i / 2);
+	/* Send all register settings to the Si570 */
+	result = Si570_DoSettings(IICBaseAddress, IICAddress1,
+				  buf, MAX_REGISTERS / 2);
 	return result;
 }
