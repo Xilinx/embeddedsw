@@ -40,6 +40,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- ---------------------------------------------
 * 1.00  cjp    02/09/18 First release
+* 1.00  sd     07/26/18 Fix coverity warnings
 * </pre>
 *
 ******************************************************************************/
@@ -221,7 +222,7 @@ static void XClock_SetupClockModules(void)
 ******************************************************************************/
 XStatus XClock_EnableClkNode(XClock_Types NodeType, u8 NodeIdx)
 {
-	XStatus Status;
+	XStatus Status = XST_SUCCESS;
 
 	if (XCLOCK_TYPE_IP == NodeType) {
 		/* No need to enable fixed clocks, validating node index */
@@ -251,7 +252,7 @@ XStatus XClock_EnableClkNode(XClock_Types NodeType, u8 NodeIdx)
 ******************************************************************************/
 XStatus XClock_DisableClkNode(XClock_Types NodeType, u8 NodeIdx)
 {
-	XStatus Status;
+	XStatus Status = XST_SUCCESS;
 
 	if (XCLOCK_TYPE_IP == NodeType) {
 		/* No need to disable fixed clocks, validating node index */
@@ -331,7 +332,6 @@ static XStatus XClock_GetConfigNodeInfo(XClock_OutputClks ClockId,
 	u8           FetchDivRate = FALSE;
 	u8           FetchPllRate = FALSE;
 	u8           DivIdx = 0;
-	u8           PllIdx = 0;
 	XStatus      Status;
 	XClock_Types NodeType;
 
@@ -380,10 +380,6 @@ static XStatus XClock_GetConfigNodeInfo(XClock_OutputClks ClockId,
 		}
 
 		if (TRUE == FetchPllRate) {
-			if (PllIdx > 1) {
-				/* Max 1 pll supported */
-				return XST_FAILURE;
-			}
 
 			*PllParentRate = XClock_FetchRate(NodeType, NodeIdx);
 			FetchPllRate = FALSE;
