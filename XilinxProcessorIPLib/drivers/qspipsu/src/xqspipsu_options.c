@@ -50,6 +50,7 @@
 * 1.7	tjs 01/17/18 Added support to toggle the WP pin of flash. (PR#2448)
 * 1.7	tjs	03/14/18 Added support in EL1 NS mode. (CR#974882)
 * 1.8	tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
+* 1.8	tjs 07/26/18 Resolved cppcheck errors. (CR#1006336)
 *
 * </pre>
 *
@@ -69,12 +70,12 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #if defined (ARMR5) || (__aarch64__)
-#define TAPDLY_BYPASS_VALVE_40MHZ 0x01
-#define TAPDLY_BYPASS_VALVE_100MHZ 0x01
-#define USE_DLY_LPBK  0x01
-#define USE_DATA_DLY_ADJ 0x01
-#define DATA_DLY_ADJ_DLY 0X02
-#define LPBK_DLY_ADJ_DLY0 0X02
+#define TAPDLY_BYPASS_VALVE_40MHZ 0x01U
+#define TAPDLY_BYPASS_VALVE_100MHZ 0x01U
+#define USE_DLY_LPBK  0x01U
+#define USE_DATA_DLY_ADJ 0x01U
+#define DATA_DLY_ADJ_DLY 0X02U
+#define LPBK_DLY_ADJ_DLY0 0X02U
 #endif
 
 /************************** Function Prototypes ******************************/
