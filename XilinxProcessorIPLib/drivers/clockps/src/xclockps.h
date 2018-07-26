@@ -28,7 +28,7 @@
 /****************************************************************************/
 /**
 *
-* @file xclock.h
+* @file xclockps.h
 * @addtogroup xclock_v1_0
 * @{
 *
@@ -50,6 +50,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- ---------------------------------------------
 * 1.00  cjp    02/09/18 First release
+* 1.00  sd     07/26/18 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -116,7 +117,7 @@ extern "C" {
 
 /**
  * Gives the max value for unsigned type
- * @Note:
+ * Note:
  * Not to be used with signed types
  */
 #define XCLOCK_MAX_VALUE_UNSIGNED_TYPE(type) \
