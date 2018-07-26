@@ -507,7 +507,7 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
 		.IdleHook = NodeQspiIdle,
-		.IdleHookArgs = XPAR_PSU_QSPI_0_BASEADDR
+		.IdleHookArgs = XQSPIPSU_BASEADDR
 #else
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
