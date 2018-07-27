@@ -111,7 +111,6 @@ static void outnum( const s32 n, const s32 base, struct params_s *par)
         num = n;
         negative = 0;
     }
-
     /* Build number (backwards) in outbuf            */
     i = 0;
     do {
@@ -146,17 +145,17 @@ static void outnum( const s32 n, const s32 base, struct params_s *par)
 /* buffer as directed by the padding and positioning */
 /* flags. 											 */
 /*                                                   */
-#if defined (__aarch64__)
+
 static void outnum1( const s64 n, const s32 base, params_t *par)
 {
     s32 negative;
 	s32 i;
     char8 outbuf[64];
-    const char8 digits[] = "0123456789ABCDEF";
-    u64 num;
-    for(i = 0; i<64; i++) {
-	outbuf[i] = '0';
-    }
+	const char8 digits[] = "0123456789ABCDEF";
+	u64 num;
+	for(i = 0; i<64; i++) {
+		outbuf[i] = '0';
+	}
 
     /* Check if number is negative                   */
     if ((par->unsigned_flag == 0) && (base == 10) && (n < 0L)) {
@@ -188,13 +187,12 @@ static void outnum1( const s64 n, const s32 base, params_t *par)
     /* add in the padding where needed.              */
     par->len = (s32)strlen(outbuf);
     padding( !(par->left_flag), par);
-    while (&outbuf[i] >= outbuf) {
+     while (&outbuf[i] >= outbuf) {
 	outbyte( outbuf[i] );
 		i--;
 }
     padding( par->left_flag, par);
 }
-#endif
 /*---------------------------------------------------*/
 /*                                                   */
 /* This routine gets a number from the format        */
@@ -247,11 +245,8 @@ void xil_printf( const char8 *ctrl1, ...){
 void xil_printf( const char8 *ctrl1, ...)
 {
 	s32 Check;
-#if defined (__aarch64__)
-    s32 long_flag;
-#endif
     s32 dot_flag;
-
+    s32 long_flag;
     params_t par;
 
     char8 ch;
@@ -274,9 +269,7 @@ void xil_printf( const char8 *ctrl1, ...)
 
         /* initialize all the flags for this format.   */
         dot_flag = 0;
-#if defined (__aarch64__)
 		long_flag = 0;
-#endif
         par.unsigned_flag = 0;
 		par.left_flag = 0;
 		par.do_padding = 0;
@@ -335,7 +328,9 @@ void xil_printf( const char8 *ctrl1, ...)
 
             case 'l':
             #if defined (__aarch64__)
-                long_flag = 1;
+		long_flag=1;
+            #else
+		long_flag++;
             #endif
                 Check = 0;
                 break;
@@ -353,29 +348,38 @@ void xil_printf( const char8 *ctrl1, ...)
                     outnum( va_arg(argp, s32), 10L, &par);
                 }
                 #else
+                if(long_flag >=2)
+			outnum1((s64)va_arg(argp, s64), 10L, &par);
+                else
                     outnum( va_arg(argp, s32), 10L, &par);
                 #endif
 				Check = 1;
                 break;
             case 'p':
-                #if defined (__aarch64__)
+		#if defined (__aarch64__)
                 par.unsigned_flag = 1;
 			    outnum1((s64)va_arg(argp, s64), 16L, &par);
 			    Check = 1;
                 break;
+                #else
+                long_flag=0;
                 #endif
             case 'X':
             case 'x':
                 par.unsigned_flag = 1;
                 #if defined (__aarch64__)
                 if (long_flag != 0) {
-				    outnum1((s64)va_arg(argp, s64), 16L, &par);
+			outnum1((s64)va_arg(argp, s64), 16L, &par);
 				}
 				else {
 				    outnum((s32)va_arg(argp, s32), 16L, &par);
                 }
                 #else
-                outnum((s32)va_arg(argp, s32), 16L, &par);
+                if (long_flag >= 2)
+			outnum1((s64)va_arg(argp, s64), 16L, &par);
+                else
+			outnum((s32)va_arg(argp, s32), 16L, &par);
+
                 #endif
                 Check = 1;
                 break;
