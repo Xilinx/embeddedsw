@@ -116,6 +116,7 @@
 *                       configuration.
 *       sk     07/20/18 Update the APIs to check the corresponding section
 *                       (Digital/Analog)enable/disable.
+*       sk     07/26/18 Fixed Doxygen, coverity warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -283,7 +284,8 @@ int XRFdc_CfgInitialize(XRFdc* InstancePtr, XRFdc_Config *Config)
 						ADCBlock_Analog_Config[Block_Id].MixMode == 1U) {
 					InstancePtr->ADC_Tile[Tile_Id].
 						ADCBlock_Digital_Datapath[Block_Id].ConnectedIData = Block_Id;
-					Block_Id++;
+					if (Block_Id < XRFDC_BLOCK_ID_MAX)
+						Block_Id++;
 					InstancePtr->ADC_Tile[Tile_Id].
 						ADCBlock_Digital_Datapath[Block_Id].ConnectedQData = Block_Id;
 				} else {
@@ -321,7 +323,8 @@ int XRFdc_CfgInitialize(XRFdc* InstancePtr, XRFdc_Config *Config)
 						DACBlock_Analog_Config[Block_Id].MixMode == 1U) {
 					InstancePtr->DAC_Tile[Tile_Id].
 						DACBlock_Digital_Datapath[Block_Id].ConnectedIData = Block_Id;
-					Block_Id++;
+					if (Block_Id < XRFDC_BLOCK_ID_MAX)
+						Block_Id++;
 					InstancePtr->DAC_Tile[Tile_Id].
 						DACBlock_Digital_Datapath[Block_Id].ConnectedQData = Block_Id;
 				} else {
@@ -3516,16 +3519,26 @@ int XRFdc_SetThresholdClrMode(XRFdc* InstancePtr, int Tile_Id,
 	if ((ThresholdToUpdate != XRFDC_UPDATE_THRESHOLD_0) &&
 			(ThresholdToUpdate != XRFDC_UPDATE_THRESHOLD_1) &&
 			(ThresholdToUpdate != XRFDC_UPDATE_THRESHOLD_BOTH)) {
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid ThresholdToUpdate "
+					"value in %s\r\n", __func__);
+#else
 		metal_log(METAL_LOG_ERROR, "\n Invalid ThresholdToUpdate "
 					"value in %s\r\n", __func__);
+#endif
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 
 	if ((ClrMode != XRFDC_THRESHOLD_CLRMD_MANUAL_CLR) &&
 			(ClrMode != XRFDC_THRESHOLD_CLRMD_AUTO_CLR)) {
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid Clear mode "
+				"value in %s\r\n", __func__);
+#else
 		metal_log(METAL_LOG_ERROR, "\n Invalid Clear mode "
 				"value in %s\r\n", __func__);
+#endif
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -4111,7 +4124,7 @@ u32 XRFdc_MultiBand(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 #endif
 
-	if (DigitalDataPathMask == 0U) {
+	if ((DigitalDataPathMask == 0U) || (DigitalDataPathMask > 0xF)) {
 #ifdef __MICROBLAZE__
 		xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid DigitalDataPathMask "
 					"value in %s\r\n", __func__);
@@ -4123,7 +4136,7 @@ u32 XRFdc_MultiBand(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		goto RETURN_PATH;
 	}
 
-	if (DataConverterMask == 0U) {
+	if ((DataConverterMask == 0U) || (DataConverterMask > 0xF)) {
 #ifdef __MICROBLAZE__
 		xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid DataConverterMask "
 					"value in %s\r\n", __func__);
@@ -5463,7 +5476,7 @@ static void StubHandler(void *CallBackRef, u32 Type, int Tile_Id,
 *
 * This function gets Clock source
 *
-* @param	CallBackRef is a pointer to the upper layer callback reference.
+* @param	InstancePtr is a pointer to the XRfdc instance.
 * @param	Type indicates ADC/DAC.
 * @param	Tile_Id indicates Tile number (0-3).
 * @param	ClockSource Pointer to return the clock source
@@ -5505,7 +5518,7 @@ RETURN_PATH:
 *
 * This function gets PLL lock status
 *
-* @param	CallBackRef is a pointer to the upper layer callback reference.
+* @param	InstancePtr is a pointer to the XRfdc instance.
 * @param	Type indicates ADC/DAC.
 * @param	Tile_Id indicates Tile number (0-3).
 * @param	LockStatus Pointer to return the PLL lock status
@@ -5576,7 +5589,7 @@ RETURN_PATH:
 * This function used for configuring the internal PLL registers
 * based on reference clock and sampling rate
 *
-* @param	CallBackRef is a pointer to the upper layer callback reference.
+* @param	InstancePtr is a pointer to the XRfdc instance.
 * @param	Type indicates ADC/DAC.
 * @param	Tile_Id indicates Tile number (0-3).
 * @param	RefClkFreq Reference Clock Frequency MHz(50MHz - 1.2GHz)
@@ -5857,7 +5870,7 @@ static u32 XRFdc_SetPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 * This function used for dynamically switch between internal PLL and
 * external clcok source and configuring the internal PLL
 *
-* @param	CallBackRef is a pointer to the upper layer callback reference
+* @param	InstancePtr is a pointer to the XRfdc instance.
 * @param	Type indicates ADC/DAC
 * @param	Tile_Id indicates Tile number (0-3)
 * @param	Source Clock source internal PLL or external clock source

@@ -167,6 +167,7 @@
 *                       configuration.
 *       sk     07/20/18 Update the APIs to check the corresponding section
 *                       (Digital/Analog)enable/disable.
+*       sk     07/26/18 Fixed Doxygen, coverity warnings.
 *
 * </pre>
 *

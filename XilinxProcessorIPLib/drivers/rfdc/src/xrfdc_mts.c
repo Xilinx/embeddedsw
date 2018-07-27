@@ -1093,8 +1093,6 @@ u32 XRFdc_MTS_Sysref_Config(XRFdc* InstancePtr,
 * Optionally allows target codes to be provided for the Pll/T1
 * analog sysref capture
 *
-*
-* @param	InstancePtr is a pointer to the XRfdc instance.
 * @param	Config Multi-tile sync config structure.
 * @param	PLL_Codes PLL analog sysref capture.
 * @param	T1_Codes T1 analog sysref capture.
@@ -1245,3 +1243,5 @@ u32 XRFdc_MultiConverter_Sync (XRFdc* InstancePtr, u32 Type,
 
 	return Status;
 }
+
+/** @} */
