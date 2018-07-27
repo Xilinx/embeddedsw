@@ -554,4 +554,6 @@
  * 6.8 aru    07/04/18	Optimized the code to use a loop and to remove redundant code
  *			in Xil_DCacheFlush() and Xil_DCacheInvalidate()
  *			of xil_cache.c for A53-32.
+ * 6.8 aru    07/26/18  added support in xil_printf.c to print u64 variabbles
+ *                      correctly in 32 bit processor.It fixes CR#1007207.
  *****************************************************************************************/
