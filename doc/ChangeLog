@@ -97,6 +97,8 @@ Optimized the code in Xil_DCacheFlush() and Xil_DCacheFlush() in xil_cache.c for
 Modified the return value of Xil_MemMap() as pointer instead of address of pointer in xil_mpu.c(CR#1005119)
 Updated Cortexa9 translation table to mark DDR memory as inner cacheable,
 if BSP is built with the USE_AMP flag. It fixes CR#1006745.
+Modified code in xil_printf.c to print u64 varibales in
+32 bit processor.It fixes CR#1007207
 
 axivdma_v6_6:
 Added support for vertical flip programming.
