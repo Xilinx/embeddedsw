@@ -65,6 +65,8 @@
  * ----- --- -------- -----------------------------------------------
  * 1.8	 tjs 06/26/16 Added an example for accessing 64bit dma within
  *		      32 bit application. CR#1004701
+ * 1.8	tjs 07/18/18 For 32 bit application RxAddress can be in the range of
+ *		     64 bit address space. (CR#1006862)
  *</pre>
  *
  ******************************************************************************/
@@ -747,14 +749,12 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	TxBfrPtr = READ_ID;
 	FlashMsg[0].TxBfrPtr = &TxBfrPtr;
 	FlashMsg[0].RxBfrPtr = NULL;
-	FlashMsg[0].RxAddr = -1;
 	FlashMsg[0].ByteCount = 1;
 	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 	FlashMsg[1].TxBfrPtr = NULL;
 	FlashMsg[1].RxBfrPtr = ReadBfrPtr;
-	FlashMsg[1].RxAddr = -1;
 	FlashMsg[1].ByteCount = 3;
 	FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 	FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
@@ -1401,7 +1401,6 @@ int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 
 	FlashMsg[0].TxBfrPtr = WriteBfrPtr;
 	FlashMsg[0].RxBfrPtr = NULL;
-	FlashMsg[0].RxAddr = -1;
 	FlashMsg[0].ByteCount = DiscardByteCnt;
 	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
@@ -1432,7 +1431,6 @@ int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 
 		FlashMsg[1].TxBfrPtr = NULL;
 		FlashMsg[1].RxBfrPtr = NULL;
-		FlashMsg[1].RxAddr = -1;
 		FlashMsg[1].ByteCount = DUMMY_CLOCKS;
 		FlashMsg[1].Flags = 0;
 
@@ -1449,7 +1447,7 @@ int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		FlashMsg[FlashMsgCnt].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
 
 	FlashMsg[FlashMsgCnt].TxBfrPtr = NULL;
-	FlashMsg[FlashMsgCnt].RxAddr = READ_ADDRESS;
+	FlashMsg[FlashMsgCnt].RxAddr64bit = READ_ADDRESS;
 	FlashMsg[FlashMsgCnt].ByteCount = ByteCount;
 	FlashMsg[FlashMsgCnt].Flags = XQSPIPSU_MSG_FLAG_RX;
 
@@ -2066,8 +2064,7 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 {
 	int Status;
 	u8 WriteEnableCmd;
-	u8 WriteBuffer[2] = {0};
-	u8 FlashStatus[2] = {0};
+	u8 WriteBuffer[3] = {0};
 
 	switch (FlashMake) {
 	case SPANSION_ID_BYTE0:

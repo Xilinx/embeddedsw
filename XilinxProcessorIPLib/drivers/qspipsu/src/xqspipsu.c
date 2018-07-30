@@ -64,6 +64,8 @@
  *		     32 bit application. CR#1004701
  * 1.8	tjs 06/26/18 Removed checkpatch warnings.
  * 1.8	tjs 07/09/18 Fixed cppcheck and doxygen warnings. (CR#1006336)
+ * 1.8	tjs 07/18/18 Setup64BRxDma() should be called only if the RxAddress is
+ *		     greater than 32 bit address space. (CR#1006862)
  *
  * </pre>
  *
@@ -1084,13 +1086,11 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_RX;
 		InstancePtr->RxBytes = (s32)Msg->ByteCount;
 		InstancePtr->SendBufferPtr = NULL;
-		if (Msg->RxAddr != -1) {
-			InstancePtr->RecvBuffer = Msg->RxAddr;
+		if (Msg->RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) {
 			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
 				XQspiPsu_Setup64BRxDma(InstancePtr, Msg);
 			}
 		} else {
-			InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
 			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
 				XQspiPsu_SetupRxDma(InstancePtr, Msg);
 			}
@@ -1118,13 +1118,11 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		InstancePtr->SendBufferPtr = Msg->TxBfrPtr;
 		XQspiPsu_FillTxFifo(InstancePtr, Msg, XQSPIPSU_TXD_DEPTH);
 		/* Add check for DMA or PIO here */
-		if (Msg->RxAddr != -1) {
-			InstancePtr->RecvBuffer = Msg->RxAddr;
+		if (Msg->RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) {
 			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
 				XQspiPsu_Setup64BRxDma(InstancePtr, Msg);
 			}
 		} else {
-			InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
 			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
 				XQspiPsu_SetupRxDma(InstancePtr, Msg);
 			}
@@ -1229,7 +1227,7 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 		Msg->ByteCount = (u32)DmaRxBytes;
 	}
 	if (InstancePtr->Config.IsCacheCoherent == 0) {
-		Xil_DCacheInvalidateRange((INTPTR)InstancePtr->RecvBufferPtr,
+		Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr,
 			Msg->ByteCount);
 	}
 
@@ -1261,13 +1259,13 @@ static inline void XQspiPsu_Setup64BRxDma(XQspiPsu *InstancePtr,
 	u32 AddrTemp;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	AddrTemp = Msg->RxAddr & XQSPIPSU_QSPIDMA_DST_ADDR_MASK;
+	AddrTemp = Msg->RxAddr64bit & XQSPIPSU_QSPIDMA_DST_ADDR_MASK;
 
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_QSPIDMA_DST_ADDR_OFFSET,
 			(u32)AddrTemp);
 
-	AddrTemp = (Msg->RxAddr >> 32);
+	AddrTemp = (Msg->RxAddr64bit >> 32);
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,
 			(u32)AddrTemp &

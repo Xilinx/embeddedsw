@@ -141,6 +141,8 @@
  *		     32 bit application. CR#1004701
  * 1.8	tjs 06/26/18 Removed checkpatch warnings
  * 1.8	tjs 07/09/19 Fixed cppcheck, doxygen and gcc warnings.
+ * 1.8	tjs 07/18/18 Setup64BRxDma() should be called only if the RxAddress is
+ *		     greater than 32 bit address space. (CR#1006862)
  * </pre>
  *
  ******************************************************************************/
@@ -192,7 +194,7 @@ typedef struct {
 	u32 PollTimeout;
 	u8 PollStatusCmd;
 	u8 PollBusMask;
-	s64 RxAddr;
+	u64 RxAddr64bit;
 } XQspiPsu_Msg;
 
 /**
@@ -291,6 +293,8 @@ typedef struct {
 #define XQSPIPSU_MSG_FLAG_RX		0x2U
 #define XQSPIPSU_MSG_FLAG_TX		0x4U
 #define XQSPIPSU_MSG_FLAG_POLL		0x8U
+
+#define XQSPIPSU_RXADDR_OVER_32BIT	0x100000000U
 
 /* GQSPI configuration to toggle WP of flash*/
 #define XQSPIPSU_SET_WP					1
