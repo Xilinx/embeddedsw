@@ -960,35 +960,10 @@ static void PmSystemShutdown(PmMaster* const master, const u32 type,
 		status = PmMasterRestart(master);
 		break;
 	case PMF_SHUTDOWN_SUBTYPE_PS_ONLY:
-#ifdef IDLE_PERIPHERALS
-		PmMasterIdleSystem();
-#endif
-		/*
-		 * Reset states of Slave devices before shutdown. This ensures
-		 * that devices are in on state after reboot.
-		 */
-		PmResetSlaveStates();
-
 		XPfw_ResetPsOnly();
 		break;
 	case PMF_SHUTDOWN_SUBTYPE_SYSTEM:
-		/* Bypass RPLL before SRST : Workaround for a bug in 1.0 Silicon */
-		if (XPfw_PlatformGetPsVersion() == XPFW_PLATFORM_PS_V1) {
-			XPfw_UtilRMW(CRL_APB_RPLL_CTRL, CRL_APB_RPLL_CTRL_BYPASS_MASK,
-					 CRL_APB_RPLL_CTRL_BYPASS_MASK);
-		}
-#ifdef IDLE_PERIPHERALS
-		PmMasterIdleSystem();
-#endif
-		/*
-		 * Reset states of Slave devices before shutdown. This ensures
-		 * that devices are in on state after reboot.
-		 */
-		PmResetSlaveStates();
-
-		XPfw_RMW32(CRL_APB_RESET_CTRL,
-			   CRL_APB_RESET_CTRL_SOFT_RESET_MASK,
-			   CRL_APB_RESET_CTRL_SOFT_RESET_MASK);
+		XPfw_ResetSystem();
 		break;
 	default:
 		PmDbg(DEBUG_DETAILED,"invalid subtype (%lx)\n", subtype);

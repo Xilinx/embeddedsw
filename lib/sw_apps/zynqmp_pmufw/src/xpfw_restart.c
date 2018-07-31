@@ -288,14 +288,7 @@ static void XPfw_RestartSystemLevel(void)
 	}
 	else {
 		RestartDebug(DEBUG_DETAILED,"SRST\r\n");
-		/* Bypass RPLL before SRST : Workaround for a bug in 1.0 Silicon */
-		if (XPfw_PlatformGetPsVersion() == XPFW_PLATFORM_PS_V1) {
-			XPfw_UtilRMW(CRL_APB_RPLL_CTRL, CRL_APB_RPLL_CTRL_BYPASS_MASK,
-					 CRL_APB_RPLL_CTRL_BYPASS_MASK);
-		}
-		XPfw_RMW32(CRL_APB_RESET_CTRL,
-			   CRL_APB_RESET_CTRL_SOFT_RESET_MASK,
-			   CRL_APB_RESET_CTRL_SOFT_RESET_MASK);
+		XPfw_ResetSystem();
 	}
 }
 
