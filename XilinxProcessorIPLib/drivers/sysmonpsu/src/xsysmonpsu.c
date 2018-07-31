@@ -63,6 +63,7 @@
 *       mn     03/08/18 Update Clock Divisor to the proper value
 * 2.4   mn     04/20/18 Remove looping check for PL accessible bit
 * 2.5   mn     07/06/18 Fixed Cppcheck warnings
+*       mn     07/31/18 Modified code for MISRA-C:2012 Compliance.
 *
 * </pre>
 *
@@ -122,7 +123,7 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 	InstancePtr->Config.InputClockMHz = ConfigPtr->InputClockMHz;
 
 	/* Set all handlers to stub values, let user configure this data later. */
-	InstancePtr->Handler = XSysMonPsu_StubHandler;
+	InstancePtr->Handler = (XSysMonPsu_Handler)XSysMonPsu_StubHandler;
 
 	XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PS);
 	XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PL);
