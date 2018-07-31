@@ -1249,11 +1249,11 @@ void PmClockConstructList(void)
 }
 
 /**
- * @PmClockIsActive() Check if all clocks for a given node are active
+ * @PmClockIsActive() Check if any clock for a given node is active
  * @node	Node whose clocks need to be checked
  *
- * @return XST_SUCCESS if all clocks are active
- *         XST_FAILURE if any one of the clocks is not active
+ * @return XST_SUCCESS if any one clock for given node is active
+ *         XST_FAILURE if all clocks for given node are inactive
  */
 s32 PmClockIsActive(PmNode* const node)
 {
@@ -1268,7 +1268,7 @@ s32 PmClockIsActive(PmNode* const node)
 				PM_CLOCK_ACTIVE_MASK_DEFAULT) {
 			Status = XST_FAILURE;
 		}
-		if (Status == XST_FAILURE) {
+		if (Status == XST_SUCCESS) {
 			break;
 		}
 		ch = ch->nextClock;
