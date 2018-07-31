@@ -1,5 +1,8 @@
 Changes for 2018.3
 ===============================
+sysmonpsu_v2_5:
+Fixed Cppcheck warnings
+Modified code for MISRA-C:2012 Compliance.
 
 axidma_v9_8:
 Fix cppcheck, gcc and doxygen warnings.
