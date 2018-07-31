@@ -31,6 +31,8 @@
 #include "xpfw_resets.h"
 #include "xpfw_platform.h"
 #include "xpfw_aib.h"
+#include "pm_master.h"
+#include "pm_slave.h"
 
 
 
@@ -61,10 +63,39 @@
 #define RPU_AIB_SLAVE_MASK	(LPD_SLCR_ISO_AIBAXI_ACK_RPUS0_MASK |\
 			LPD_SLCR_ISO_AIBAXI_ACK_RPUS1_MASK )
 
+void XPfw_ResetSystem(void)
+{
+	/* Bypass RPLL before SRST : Workaround for a bug in 1.0 Silicon */
+	if (XPfw_PlatformGetPsVersion() == XPFW_PLATFORM_PS_V1) {
+		XPfw_UtilRMW(CRL_APB_RPLL_CTRL, CRL_APB_RPLL_CTRL_BYPASS_MASK,
+				 CRL_APB_RPLL_CTRL_BYPASS_MASK);
+	}
+#ifdef IDLE_PERIPHERALS
+		PmMasterIdleSystem();
+#endif
+	/*
+	 * Reset states of Slave devices before shutdown. This ensures
+	 * that devices are in on state after reboot.
+	 */
+	PmResetSlaveStates();
+
+	XPfw_RMW32(CRL_APB_RESET_CTRL,
+		   CRL_APB_RESET_CTRL_SOFT_RESET_MASK,
+		   CRL_APB_RESET_CTRL_SOFT_RESET_MASK);
+}
 
 void XPfw_ResetPsOnly(void)
 {
 	XStatus l_Status;
+
+#ifdef IDLE_PERIPHERALS
+	PmMasterIdleSystem();
+#endif
+	/*
+	 * Reset states of Slave devices before shutdown. This ensures
+	 * that devices are in on state after reboot.
+	 */
+	PmResetSlaveStates();
 
 	XPfw_Printf(DEBUG_DETAILED,"Isolating Interfaces.....");
 	/*
