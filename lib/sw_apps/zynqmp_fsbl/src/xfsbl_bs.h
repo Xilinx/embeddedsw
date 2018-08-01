@@ -67,7 +67,6 @@ extern "C" {
 #define PL_DONE_POLL_COUNT  (u32)(10000U)
 #define PL_RESET_PERIOD_IN_US  1U
 #define XFSBL_PL_PWRUP_WAIT_MICROSEC    0U
-#define XFSBL_BITSTREAM_NOT_LOADED		1U
 
 /* Dummy address to indicate that destination is PCAP */
 #define XFSBL_DESTINATION_PCAP_ADDR    (0XFFFFFFFFU)

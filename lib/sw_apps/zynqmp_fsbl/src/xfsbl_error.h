@@ -207,6 +207,7 @@ extern "C" {
 #define XFSBL_ERROR_INVALID_EFUSE_SELECT			(0x74U)
 #define XSFBL_ERROR_FMC_ENABLE						(0x75U)
 #define XSFBL_EEPROM_PRESENT						(0x76U)
+#define XFSBL_BITSTREAM_NOT_LOADED				(0x77U)
 #define XFSBL_FAILURE					(0x3FFFFFFFU)
 
 /**************************** Type Definitions *******************************/
