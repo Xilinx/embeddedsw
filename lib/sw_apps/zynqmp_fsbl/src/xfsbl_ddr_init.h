@@ -40,7 +40,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   mn   07/06/18 Add DDR initialization support for new DDR DIMM part
- *       mn   07/19/18 Define DDR PHY GPR0 address if not defined already
+ *       mn   07/30/18 Define some DDR registers addresses if not defined
  * </pre>
  *
  * @note
@@ -74,6 +74,52 @@ extern "C" {
 #ifndef DDR_PHY_GPR0_OFFSET
 #define DDR_PHY_GPR0_OFFSET			0XFD0800C0
 #endif
+#ifndef DDRC_RFSHCTL1_OFFSET
+#define DDRC_RFSHCTL1_OFFSET			0XFD070054
+#endif
+#ifndef DDRC_DFIUPD0_OFFSET
+#define DDRC_DFIUPD0_OFFSET			0XFD0701A0
+#endif
+#ifndef DDRC_DQMAP0_OFFSET
+#define DDRC_DQMAP0_OFFSET			0XFD070280
+#endif
+#ifndef DDRC_DQMAP1_OFFSET
+#define DDRC_DQMAP1_OFFSET			0XFD070284
+#endif
+#ifndef DDRC_DQMAP2_OFFSET
+#define DDRC_DQMAP2_OFFSET			0XFD070288
+#endif
+#ifndef DDRC_DQMAP3_OFFSET
+#define DDRC_DQMAP3_OFFSET			0XFD07028C
+#endif
+#ifndef DDRC_DQMAP4_OFFSET
+#define DDRC_DQMAP4_OFFSET			0XFD070290
+#endif
+#ifndef DDR_PHY_PLLCR0_OFFSET
+#define DDR_PHY_PLLCR0_OFFSET			0XFD080068
+#endif
+#ifndef DDR_PHY_DQSDR0_OFFSET
+#define DDR_PHY_DQSDR0_OFFSET			0XFD080250
+#endif
+#ifndef DDR_PHY_DX8SL0PLLCR0_OFFSET
+#define DDR_PHY_DX8SL0PLLCR0_OFFSET		0XFD081404
+#endif
+#ifndef DDR_PHY_DX8SL1PLLCR0_OFFSET
+#define DDR_PHY_DX8SL1PLLCR0_OFFSET		0XFD081444
+#endif
+#ifndef DDR_PHY_DX8SL2PLLCR0_OFFSET
+#define DDR_PHY_DX8SL2PLLCR0_OFFSET		0XFD081484
+#endif
+#ifndef DDR_PHY_DX8SL3PLLCR0_OFFSET
+#define DDR_PHY_DX8SL3PLLCR0_OFFSET		0XFD0814C4
+#endif
+#ifndef DDR_PHY_DX8SL4PLLCR0_OFFSET
+#define DDR_PHY_DX8SL4PLLCR0_OFFSET		0XFD081504
+#endif
+#ifndef DDR_PHY_DX8SLBPLLCR0_OFFSET
+#define DDR_PHY_DX8SLBPLLCR0_OFFSET		0XFD0817C4
+#endif
+
 
 /************************** Variable Definitions *****************************/
 u32 XFsbl_DdrInit(void);
