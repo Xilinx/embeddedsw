@@ -158,7 +158,16 @@ static u32 FlashReadID(XQspiPsu *QspiPsuPtr)
 	/*
 	 * Deduce flash Size
 	 */
-	if (ReadBuffer[2] == FLASH_SIZE_ID_64M) {
+	if (ReadBuffer[2] == FLASH_SIZE_ID_8M) {
+		QspiFlashSize = FLASH_SIZE_8M;
+		XFsbl_Printf(DEBUG_INFO, "8M Bits\r\n");
+	} else if (ReadBuffer[2] == FLASH_SIZE_ID_16M) {
+		QspiFlashSize = FLASH_SIZE_16M;
+		XFsbl_Printf(DEBUG_INFO, "16M Bits\r\n");
+	} else if (ReadBuffer[2] == FLASH_SIZE_ID_32M) {
+		QspiFlashSize = FLASH_SIZE_32M;
+		XFsbl_Printf(DEBUG_INFO, "32M Bits\r\n");
+	} else if (ReadBuffer[2] == FLASH_SIZE_ID_64M) {
 		QspiFlashSize = FLASH_SIZE_64M;
 		XFsbl_Printf(DEBUG_INFO, "64M Bits\r\n");
 	} else if (ReadBuffer[2] == FLASH_SIZE_ID_128M) {
