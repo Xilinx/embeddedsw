@@ -193,6 +193,9 @@ iicps_v3_8:
 Fix for Cppcheck and Doxygen warnings.
 Add timeout interrupt in master mode.
 
+iicps_v3_8:
+Fix for Cppcheck and Doxygen warnings.
+
 intc_v3_8:
 Updated check_cascade proc, to add check
 for irq_in pin.It fixes CR#1005371
