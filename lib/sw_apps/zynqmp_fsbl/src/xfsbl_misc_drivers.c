@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,7 @@
 *       jr   01/24/17 Updated XFsbl_PmInit function, to process only
 *                     SYSCFG is enabled and sending PM_SET_CONFIGURATION API
 *                     to the PMU
+* 3.0  bv    08/04/18 Call XWdts_Stop only when WDT timer is in ready state
 *
 * </pre>
 *
@@ -262,7 +263,10 @@ void XFsbl_StopWdt(void)
 {
 	u32 RegValue;
 
-	XWdtPs_Stop(&Watchdog);
+	if(Watchdog.IsReady)
+	{
+		XWdtPs_Stop(&Watchdog);
+	}
 
 	/* Disable LPD System Watchdog Timer Error */
 	RegValue = XFsbl_In32(PMU_GLOBAL_ERROR_EN_1);
