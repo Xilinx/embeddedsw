@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -61,6 +61,8 @@
 * 2.2   sk     10/18/17 Check for FIFO intr to return success.
 * 4.0   sd     04/28/18 Add Clock configuration support for ZCU111.
 *       sd     05/15/18 Updated Clock configuration for lmk.
+* 5.0   sk     08/03/18 For baremetal, add metal device structure for rfdc
+*                       device and register the device to libmetal generic bus.
 *
 * </pre>
 *
@@ -86,12 +88,16 @@
 #define RFDC_IRQ_VECT_ID                XPS_FPGA0_INT_ID
 #ifdef __BAREMETAL__
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
+#define XRFDC_BASE_ADDR		XPAR_XRFDC_0_BASEADDR
+#define STIM_BASE_ADDR	XPAR_STIMULUS_GEN_AXI_S_0_BASEADDR
+#define CAP_BASE_ADDR	XPAR_DATA_CAPTURE_AXI_S_0_BASEADDR
+#define BUS_NAME        "generic"
 #else
 #define BUS_NAME        "platform"
+#endif
 #define RFDC_DEV_NAME    XPAR_XRFDC_0_DEV_NAME
 #define STIM_DEV_NAME    "a8000000.stimulus_gen_axi_s"
 #define CAP_DEV_NAME    "a4000000.data_capture_axi_s"
-#endif
 
 /**************************** Type Definitions ******************************/
 
@@ -106,6 +112,7 @@ static int RFdcFabricRateExample(u16 SysMonDeviceId);
 static int CompareFabricRate(u32 SetDecoderMode, u32 GetDecoderMode);
 #ifdef __BAREMETAL__
 int init_irq();
+int register_metal_device(void);
 #endif
 int sys_init();
 void RFdcHandler(void *CallBackRef, u32 Type, int Tile_Id,
@@ -123,8 +130,86 @@ unsigned int LMK04208_CKin[1][26] = {
 		0x8000800F,0xC1550410,0x00000058,0x02C9C419,0x8FA8001A,0x10001E1B,
 		0x0021201C,0x0180033D,0x0200033E,0x003F001F }};
 #endif
+
+struct metal_device *device;
+struct metal_io_region *io;
+struct metal_device *device_stim;
+struct metal_io_region *io_stim;
+struct metal_device *device_cap;
+struct metal_io_region *io_cap;
+
 #ifdef __BAREMETAL__
 XScuGic InterruptController;
+
+const metal_phys_addr_t metal_phys[] = {
+		XRFDC_BASE_ADDR,
+		STIM_BASE_ADDR,
+		CAP_BASE_ADDR
+};
+
+static struct metal_device metal_dev_table[] = {
+	{
+		/* RFdc device */
+		.name = RFDC_DEV_NAME,
+		.bus = NULL,
+		.num_regions = 1,
+		.regions = {
+			{
+				.virt = (void *)XRFDC_BASE_ADDR,
+				.physmap = &metal_phys[0],
+				.size = 0x40000,
+				.page_shift = (unsigned)(-1),
+				.page_mask = (unsigned)(-1),
+				.mem_flags = 0x0,
+				.ops = {NULL},
+			}
+		},
+		.node = {NULL},
+		.irq_num = 1,
+		.irq_info = (void *)RFDC_IRQ_VECT_ID,
+	},
+	{
+		/* Stimulus device */
+		.name = STIM_DEV_NAME,
+		.bus = NULL,
+		.num_regions = 1,
+		.regions = {
+			{
+				.virt = (void *)STIM_BASE_ADDR,
+				.physmap = &metal_phys[1],
+				.size = 0x10000,
+				.page_shift = (unsigned)(-1),
+				.page_mask = (unsigned)(-1),
+				.mem_flags = 0x0,
+				.ops = {NULL},
+			}
+		},
+		.node = {NULL},
+		.irq_num = 0,
+		.irq_info = NULL,
+	},
+	{
+		/* Capture device */
+		.name = CAP_DEV_NAME,
+		.bus = NULL,
+		.num_regions = 1,
+		.regions = {
+			{
+				.virt = (void *)CAP_BASE_ADDR,
+				.physmap = &metal_phys[2],
+				.size = 0x10000,
+				.page_shift = (unsigned)(-1),
+				.page_mask = (unsigned)(-1),
+				.mem_flags = 0x0,
+				.ops = {NULL},
+			}
+		},
+		.node = {NULL},
+		.irq_num = 0,
+		.irq_info = NULL,
+	}
+};
+
 #endif
 
 /****************************************************************************/
@@ -161,6 +246,39 @@ int main(void)
 	return XRFDC_SUCCESS;
 }
 
+#ifdef __BAREMETAL__
+/****************************************************************************/
+/**
+*
+* This function registers devices to the libmetal generic bus.
+* Before accessing the device with libmetal device operation,
+* register the device to a libmetal supported bus. For non-Linux system,
+* libmetal only supports "generic" bus to manage memory mapped devices.
+*
+* @param	None.
+*
+* @return
+*		0 - succeeded, non-zero for failures.
+*
+* @note		None.
+*
+*****************************************************************************/
+int register_metal_device(void)
+{
+	unsigned int i;
+	int ret;
+
+	for (i = 0; i < sizeof(metal_dev_table)/sizeof(struct metal_device);
+					i++) {
+		device = &metal_dev_table[i];
+		xil_printf("registering: %d, name=%s\n", i, device->name);
+		ret = metal_register_generic_device(device);
+		if (ret)
+			return ret;
+	}
+	return 0;
+}
+#endif
 
 /****************************************************************************/
 /**
@@ -194,14 +312,6 @@ int RFdcFabricRateExample(u16 RFdcDeviceId)
 	XRFdc *RFdcInstPtr = &RFdcInst;
 	u32 SetFabricRate;
 	u32 GetFabricRate;
-#ifndef __BAREMETAL__
-	struct metal_device *device;
-	struct metal_io_region *io;
-	struct metal_device *device_stim;
-	struct metal_io_region *io_stim;
-	struct metal_device *device_cap;
-	struct metal_io_region *io_cap;
-#endif
 	int irq = RFDC_IRQ_VECT_ID;
 	int ret = 0;
 	InterruptOccured = 0;
@@ -234,10 +344,16 @@ printf("\n Configuring the Clock \r\n");
 #endif
 #endif
 
-#ifndef __BAREMETAL__
+#ifdef __BAREMETAL__
+	ret = register_metal_device();
+	if (ret) {
+		printf("%s: failed to register devices: %d\n", __func__, ret);
+		return ret;
+	}
+#endif
 	ret = metal_device_open(BUS_NAME, RFDC_DEV_NAME, &device);
 	if (ret) {
-		printf("ERROR: Failed to open device a0000000.usp_rf_data_converter.\n");
+		printf("ERROR: Failed to open device usp_rf_data_converter.\n");
 		return XRFDC_FAILURE;
 	}
 
@@ -250,7 +366,6 @@ printf("\n Configuring the Clock \r\n");
 	}
 	RFdcInstPtr->device = device;
 	RFdcInstPtr->io = io;
-#endif
 
 	/*
 	 * Setup the handler for the RFdc that will be called from the
@@ -280,7 +395,6 @@ printf("\n Configuring the Clock \r\n");
 		return XRFDC_FAILURE;
 	}
 
-#ifndef __BAREMETAL__
 	/* Get interrupt ID from RFDC metal device */
 	irq = (intptr_t)RFdcInstPtr->device->irq_info;
 	if (irq < 0) {
@@ -288,7 +402,7 @@ printf("\n Configuring the Clock \r\n");
 			  device->name);
 		return XRFDC_FAILURE;
 	}
-#endif
+
 	ret =  metal_irq_register(irq,
 				(metal_irq_handler)XRFdc_IntrHandler, RFdcInstPtr->device,
 						RFdcInstPtr);
@@ -297,10 +411,9 @@ printf("\n Configuring the Clock \r\n");
 		printf("\n failed to register interrupt handler \r\n");
 	}
 
-#ifndef __BAREMETAL__
 	ret = metal_device_open(BUS_NAME, STIM_DEV_NAME, &device_stim);
 	if (ret) {
-		printf("ERROR: Failed to open device a8000000.stimulus_gen_axi_s.\n");
+		printf("ERROR: Failed to open device stimulus_gen_axi_s.\n");
 		return XRFDC_FAILURE;
 	}
 
@@ -314,7 +427,7 @@ printf("\n Configuring the Clock \r\n");
 
 	ret = metal_device_open(BUS_NAME, CAP_DEV_NAME, &device_cap);
 	if (ret) {
-		printf("ERROR: Failed to open device a4000000.data_capture_axi_s.\n");
+		printf("ERROR: Failed to open device data_capture_axi_s.\n");
 		return XRFDC_FAILURE;
 	}
 
@@ -325,7 +438,6 @@ printf("\n Configuring the Clock \r\n");
 			  device_cap->name);
 		return XRFDC_FAILURE;
 	}
-#endif
 
 	/*
 	 * Below writes are not generic, they are design specific.
@@ -336,13 +448,8 @@ printf("\n Configuring the Clock \r\n");
 	 * Following register writes will be used for Configuring
 	 * to start FIFO on DAC/Stim gen and ADC/Capture
 	 */
-#ifdef __BAREMETAL__
-	Xil_Out32(0xA4000050, 0x8000);
-	Xil_Out32(0xA8000050, 0x8000);
-#else
 	XRFdc_Out32(io_stim, 0x50, 0x8000);
 	XRFdc_Out32(io_cap, 0x50, 0x8000);
-#endif
 
 #ifdef __BAREMETAL__
 	if (init_irq()) {
