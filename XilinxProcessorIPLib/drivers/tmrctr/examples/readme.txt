@@ -43,4 +43,13 @@ Contains an example on how to use the XTmrctr driver directly.
 This example performs the selftest using the timer counter driver.
 
 For details, see xtmrctr_selftest_example.c.
+
+@section ex7 xtmrctr_pwm_example.c
+Contains an example on how to use the XTmrctr driver directly.
+This example shows the usage of tmrctr PWM APIs to generate PWM output.
+The example configures PWM to operate at specific duty cycle. After
+every certain number of cycles the duty cycle is incremented until maximum
+duty cycle is achieved.
+
+For details, see xtmrctr_pwm_example.c.
 */
