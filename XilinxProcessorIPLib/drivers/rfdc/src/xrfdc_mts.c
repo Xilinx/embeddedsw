@@ -46,6 +46,8 @@
 * 4.0   sk     04/09/18 Added API to enable/disable the sysref.
 *       rk     04/17/18 Adjust calculated latency by sysref period, where doing
 *                       so results in closer alignment to the target latency.
+* 5.0   sk     08/03/18 Fixed MISRAC warnings.
+*       sk     08/03/18 Check for Block0 enable for tiles participating in MTS.
 *
 * </pre>
 *
@@ -106,7 +108,7 @@ static u32 XRFdc_MTS_Sysref_TRx(XRFdc* InstancePtr, u32 Enable)
 	u32 Data;
 
 	BaseAddr = XRFDC_DRP_BASE(XRFDC_DAC_TILE, 0) + XRFDC_HSCOM_ADDR;
-	Data = (Enable) ? 0xFFFF : 0;
+	Data = (Enable != 0U) ? 0xFFFFU : 0U;
 
 	XRFdc_MTS_RMW_DRP(InstancePtr, BaseAddr, XRFDC_MTS_SRCAP_T1,
 				XRFDC_MTS_SRCAP_EN_TRX_M, Data);
@@ -139,30 +141,30 @@ static u32 XRFdc_MTS_Sysref_Ctrl(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 	u32 BaseAddr;
 	u16 RegData;
 
-	RegData = 0;
+	RegData = 0U;
 	BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_HSCOM_ADDR;
 
 	/* Write some bits to ensure sysref is in the right mode */
 	XRFdc_MTS_RMW_DRP(InstancePtr, BaseAddr, XRFDC_MTS_SRCAP_T1,
-			XRFDC_MTS_SRCAP_INIT_M, 0);
+			XRFDC_MTS_SRCAP_INIT_M, 0U);
 
-	if (Is_PLL) {
+	if (Is_PLL != 0U) {
 		/* PLL Cap */
-		RegData = (Enable_Cap) ? XRFDC_MTS_SRCAP_PLL_M : 0;
+		RegData = (Enable_Cap != 0U) ? XRFDC_MTS_SRCAP_PLL_M : 0U;
 		XRFdc_MTS_RMW_DRP(InstancePtr, BaseAddr, XRFDC_MTS_SRCAP_PLL,
 				XRFDC_MTS_SRCAP_PLL_M, RegData);
 	} else {
 		/* Analog Cap disable */
 		XRFdc_MTS_RMW_DRP(InstancePtr, BaseAddr, XRFDC_MTS_SRCAP_T1,
-				XRFDC_MTS_SRCAP_T1_EN, 0);
+				XRFDC_MTS_SRCAP_T1_EN, 0U);
 
 		/* Analog Divider */
-		RegData  = (Enable_Div_Reset) ? 0 : XRFDC_MTS_SRCAP_T1_RST;
+		RegData  = (Enable_Div_Reset != 0U) ? 0U : XRFDC_MTS_SRCAP_T1_RST;
 		XRFdc_MTS_RMW_DRP(InstancePtr, BaseAddr, XRFDC_MTS_SRCAP_T1,
 				XRFDC_MTS_SRCAP_T1_RST, RegData);
 
 		/* Digital Divider */
-		RegData  = (Enable_Div_Reset) ? 0 : XRFDC_MTS_SRCAP_DIG_M;
+		RegData  = (Enable_Div_Reset != 0U) ? 0U : XRFDC_MTS_SRCAP_DIG_M;
 		XRFdc_MTS_RMW_DRP(InstancePtr, BaseAddr, XRFDC_MTS_SRCAP_DIG,
 				XRFDC_MTS_SRCAP_DIG_M, RegData);
 
@@ -171,13 +173,13 @@ static u32 XRFdc_MTS_Sysref_Ctrl(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 		XRFDC_MTS_SRCLR_T1_M, XRFDC_MTS_SRCLR_T1_M);
 
 		/* Analog Cap enable */
-		RegData  = (Enable_Cap) ? XRFDC_MTS_SRCAP_T1_EN : 0;
+		RegData  = (Enable_Cap != 0U) ? XRFDC_MTS_SRCAP_T1_EN : 0U;
 		XRFdc_MTS_RMW_DRP(InstancePtr, BaseAddr, XRFDC_MTS_SRCAP_T1,
 				XRFDC_MTS_SRCAP_T1_EN, RegData);
 
 		/* Unset SysRef Cap Clear */
 		XRFdc_MTS_RMW_DRP(InstancePtr, BaseAddr, XRFDC_MTS_SRCAP_T1,
-		XRFDC_MTS_SRCLR_T1_M, 0);
+		XRFDC_MTS_SRCLR_T1_M, 0U);
 	}
 
 	return XRFDC_MTS_OK;
@@ -204,42 +206,43 @@ static u32 XRFdc_MTS_Sysref_Dist(XRFdc* InstancePtr, int Num_DAC)
 
 	if (Num_DAC < 0) {
 		/* Auto-detect. Only 2 types Supported - 2GSPS ADCs, 4GSPS ADCs */
-		if (XRFdc_IsADC4GSPS(InstancePtr))
+		if (XRFdc_IsADC4GSPS(InstancePtr) != 0U) {
 			Num_DAC = 2;
-		else
+		} else {
 			Num_DAC = 4;
+		}
 	}
 
 	if (Num_DAC == 2) {
 		/* 2 DACs, 4ADCs */
-		XRFdc_WriteReg16(InstancePtr, XRFDC_DAC_TILE_DRP_ADDR(0),
-								XRFDC_MTS_SRDIST, 0xC980);
-		XRFdc_WriteReg16(InstancePtr, XRFDC_DAC_TILE_DRP_ADDR(1),
-								XRFDC_MTS_SRDIST, 0x0100);
-		XRFdc_WriteReg16(InstancePtr, XRFDC_ADC_TILE_DRP_ADDR(3),
-								XRFDC_MTS_SRDIST, 0x1700);
+		XRFdc_WriteReg16(InstancePtr, XRFDC_DAC_TILE_DRP_ADDR(0U),
+								XRFDC_MTS_SRDIST, 0xC980U);
+		XRFdc_WriteReg16(InstancePtr, XRFDC_DAC_TILE_DRP_ADDR(1U),
+								XRFDC_MTS_SRDIST, 0x0100U);
+		XRFdc_WriteReg16(InstancePtr, XRFDC_ADC_TILE_DRP_ADDR(3U),
+								XRFDC_MTS_SRDIST, 0x1700U);
 	} else if (Num_DAC == 4) {
 		/* 4 DACs, 4ADCs */
-		XRFdc_WriteReg16(InstancePtr, XRFDC_DAC_TILE_DRP_ADDR(0),
-								XRFDC_MTS_SRDIST, 0xCA80);
-		XRFdc_WriteReg16(InstancePtr, XRFDC_DAC_TILE_DRP_ADDR(1),
-								XRFDC_MTS_SRDIST, 0x2400);
-		XRFdc_WriteReg16(InstancePtr, XRFDC_DAC_TILE_DRP_ADDR(2),
-								XRFDC_MTS_SRDIST, 0x0980);
-		XRFdc_WriteReg16(InstancePtr, XRFDC_DAC_TILE_DRP_ADDR(3),
-								XRFDC_MTS_SRDIST, 0x0100);
-		XRFdc_WriteReg16(InstancePtr, XRFDC_ADC_TILE_DRP_ADDR(3),
-								XRFDC_MTS_SRDIST, 0x0700);
+		XRFdc_WriteReg16(InstancePtr, XRFDC_DAC_TILE_DRP_ADDR(0U),
+								XRFDC_MTS_SRDIST, 0xCA80U);
+		XRFdc_WriteReg16(InstancePtr, XRFDC_DAC_TILE_DRP_ADDR(1U),
+								XRFDC_MTS_SRDIST, 0x2400U);
+		XRFdc_WriteReg16(InstancePtr, XRFDC_DAC_TILE_DRP_ADDR(2U),
+								XRFDC_MTS_SRDIST, 0x0980U);
+		XRFdc_WriteReg16(InstancePtr, XRFDC_DAC_TILE_DRP_ADDR(3U),
+								XRFDC_MTS_SRDIST, 0x0100U);
+		XRFdc_WriteReg16(InstancePtr, XRFDC_ADC_TILE_DRP_ADDR(3U),
+								XRFDC_MTS_SRDIST, 0x0700U);
 	} else {
 		return XRFDC_MTS_NOT_SUPPORTED;
 	}
 
-	XRFdc_WriteReg16(InstancePtr, XRFDC_ADC_TILE_DRP_ADDR(0),
-								XRFDC_MTS_SRDIST, 0x0280);
-	XRFdc_WriteReg16(InstancePtr, XRFDC_ADC_TILE_DRP_ADDR(1),
-								XRFDC_MTS_SRDIST, 0x0600);
-	XRFdc_WriteReg16(InstancePtr, XRFDC_ADC_TILE_DRP_ADDR(2),
-								XRFDC_MTS_SRDIST, 0x8880);
+	XRFdc_WriteReg16(InstancePtr, XRFDC_ADC_TILE_DRP_ADDR(0U),
+								XRFDC_MTS_SRDIST, 0x0280U);
+	XRFdc_WriteReg16(InstancePtr, XRFDC_ADC_TILE_DRP_ADDR(1U),
+								XRFDC_MTS_SRDIST, 0x0600U);
+	XRFdc_WriteReg16(InstancePtr, XRFDC_ADC_TILE_DRP_ADDR(2U),
+								XRFDC_MTS_SRDIST, 0x8880U);
 
 	return XRFDC_MTS_OK;
 }
@@ -267,16 +270,16 @@ static u32 XRFdc_MTS_Sysref_Count(XRFdc* InstancePtr, u32 Type, u32 Count_Val)
 	u32 Timeout;
 	u32 Shift;
 
-	RegData = (Type == XRFDC_DAC_TILE) ? 0x2 : 0x1;
-	Shift   = (Type == XRFDC_DAC_TILE) ? 8 : 0;
+	RegData = (Type == XRFDC_DAC_TILE) ? 0x2U : 0x1U;
+	Shift   = (Type == XRFDC_DAC_TILE) ? 8U : 0U;
 
 	/* Start counter */
-	XRFdc_WriteReg(InstancePtr, 0, XRFDC_MTS_SRCOUNT_CTRL, RegData);
+	XRFdc_WriteReg(InstancePtr, 0U, XRFDC_MTS_SRCOUNT_CTRL, RegData);
 
 	/* Check counter with timeout in case sysref is not active */
-	Timeout = 0;
+	Timeout = 0U;
 	while (Timeout < XRFDC_MTS_SRCOUNT_TIMEOUT) {
-		RegData = XRFdc_ReadReg(InstancePtr, 0, XRFDC_MTS_SRCOUNT_VAL);
+		RegData = XRFdc_ReadReg(InstancePtr, 0U, XRFDC_MTS_SRCOUNT_VAL);
 		RegData = ((RegData >> Shift) & XRFDC_MTS_SRCOUNT_M);
 		if (RegData >= Count_Val) {
 			break;
@@ -317,7 +320,7 @@ static void XRFdc_MTS_Dtc_Flag_Debug(u8 *Flags, u32 Type, u32 Tile_Id,
 	u32 i;
 	char buf[XRFDC_MTS_NUM_DTC+1];
 
-	for (i = 0; i < XRFDC_MTS_NUM_DTC; i++) {
+	for (i = 0U; i < XRFDC_MTS_NUM_DTC; i++) {
 		if (i == Picked) {
 			buf[i] = '*';
 		} else if (i == Target) {
@@ -370,42 +373,45 @@ static u32 XRFdc_MTS_Dtc_Calc (u32 Type, u32 Tile_Id,
 	int Target;
 	int Max_Overlap;
 	int Overlap_Cnt;
-	int Min_Gap_Allowed;
+	u8 Min_Gap_Allowed;
 	int Codes[XRFDC_MTS_MAX_CODE];
-	int Status;
+	u32 Status;
 
-	Min_Gap_Allowed = (Settings->IsPLL) ? XRFDC_MTS_MIN_GAP_PLL :
+	Min_Gap_Allowed = (Settings->IsPLL != 0U) ? XRFDC_MTS_MIN_GAP_PLL :
 							XRFDC_MTS_MIN_GAP_T1;
 	Status = XRFDC_MTS_OK;
 
 	/* Scan the flags and find candidate DTC codes */
-	Num_Found = 0;
+	Num_Found = 0U;
 	Max_Gap = 0;
 	Min_Gap = XRFDC_MTS_NUM_DTC;
 	Max_Overlap = 0;
 	Overlap_Cnt = 0;
 	Last = -1;
 	Flags[XRFDC_MTS_NUM_DTC] = 1;
-	for (i = 0; i <= XRFDC_MTS_NUM_DTC; i++) {
+	for (i = 0U; i <= XRFDC_MTS_NUM_DTC; i++) {
 		Current_Gap = i-Last;
 		if (Flags[i] != 0) {
 			if (Current_Gap > Min_Gap_Allowed) {
-				Codes[Num_Found] = Last + Current_Gap / 2;
+				Codes[Num_Found] = Last + (Current_Gap / 2);
 				Num_Found++;
 				/* Record max/min gaps */
 				Current_Gap--;
-				if(Current_Gap > Max_Gap)
+				if(Current_Gap > Max_Gap) {
 					Max_Gap = Current_Gap;
-				if(Current_Gap < Min_Gap)
+				}
+				if(Current_Gap < Min_Gap) {
 					Min_Gap = Current_Gap;
+				}
 			}
 			Last = i;
 		}
 		/* check for the longest run of overlapping codes */
-		if (Flags[i] == 3) {
+		if (Flags[i] == 3U) {
 			Overlap_Cnt++;
-			if (Overlap_Cnt > Max_Overlap)
+			if (Overlap_Cnt > Max_Overlap) {
 				Max_Overlap = Overlap_Cnt;
+			}
 		} else {
 			Overlap_Cnt=0;
 		}
@@ -426,7 +432,7 @@ static u32 XRFdc_MTS_Dtc_Calc (u32 Type, u32 Tile_Id,
 			Settings->Target[Tile_Id] = XRFDC_MTS_REF_TARGET;
 			Min_Diff = XRFDC_MTS_NUM_DTC;
 			/* scan all codes to find the closest */
-			for (i = 0; i < Num_Found; i++) {
+			for (i = 0U; i < Num_Found; i++) {
 				Diff = XRFDC_MTS_ABS(Target - Codes[i]);
 				if (Diff < Min_Diff ) {
 					Min_Diff = Diff;
@@ -437,9 +443,10 @@ static u32 XRFdc_MTS_Dtc_Calc (u32 Type, u32 Tile_Id,
 					Codes[i], Diff, Min_Diff);
 			}
 			/* set the reference code as the target for the other tiles */
-			for (i = 0; i < 4; i++) {
-				if (i != Tile_Id)
+			for (i = 0U; i < 4U; i++) {
+				if (i != Tile_Id) {
 					Settings->Target[i] = Settings->DTC_Code[Tile_Id];
+				}
 			}
 			metal_log(METAL_LOG_DEBUG,
 					"RefTile (%d): DTC Code Target %d, Picked %d\n", Tile_Id,
@@ -452,24 +459,28 @@ static u32 XRFdc_MTS_Dtc_Calc (u32 Type, u32 Tile_Id,
 			 */
 			Max_Gap = 0;
 			Min_Gap = XRFDC_MTS_NUM_DTC;
-			for (i = 0; i < 4; i++) {
+			for (i = 0U; i < 4U; i++) {
 				Val = Settings->DTC_Code[i];
-				if ((Val != -1) && (Val > Max_Gap))
+				if ((Val != -1) && (Val > Max_Gap)) {
 					Max_Gap = Val;
-				if ((Val != -1) && (Val < Min_Gap))
+				}
+				if ((Val != -1) && (Val < Min_Gap)) {
 					Min_Gap = Val;
+				}
 			}
 			metal_log(METAL_LOG_DEBUG,
 					"Tile (%d): Max/Min %d/%d, Range %d\n", Tile_Id, Max_Gap,
 					Min_Gap, Max_Gap-Min_Gap);
 			Min_Range = XRFDC_MTS_NUM_DTC;
-			for (i = 0; i < Num_Found; i++) {
+			for (i = 0U; i < Num_Found; i++) {
 				Val = Codes[i];
 				Diff = Max_Gap - Min_Gap;
-				if (Val < Min_Gap)
+				if (Val < Min_Gap) {
 					Diff = Max_Gap - Val;
-				if (Val > Max_Gap)
+				}
+				if (Val > Max_Gap) {
 					Diff = Val - Min_Gap;
+				}
 				if (Diff <= Min_Range) {
 					Min_Range = Diff;
 					Settings->DTC_Code[Tile_Id] = Val;
@@ -493,7 +504,7 @@ static u32 XRFdc_MTS_Dtc_Calc (u32 Type, u32 Tile_Id,
 		}
 		Min_Diff = XRFDC_MTS_NUM_DTC;
 		/* scan all codes to find the closest */
-		for (i = 0; i < Num_Found; i++) {
+		for (i = 0U; i < Num_Found; i++) {
 			Diff = XRFDC_MTS_ABS(Target - Codes[i]);
 			if (Diff < Min_Diff ) {
 				Min_Diff = Diff;
@@ -590,26 +601,27 @@ static u32 XRFdc_MTS_Dtc_Scan (XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
     Status = XRFDC_MTS_OK;
 
 	/*  Enable SysRef Capture and Disable Divide Reset */
-    XRFdc_MTS_Sysref_Ctrl(InstancePtr, Type, Tile_Id, Settings->IsPLL, 1, 0);
+    (void)XRFdc_MTS_Sysref_Ctrl(InstancePtr, Type, Tile_Id, Settings->IsPLL, 1, 0);
 
-    SRCtrlAddr = (Settings->IsPLL) ? XRFDC_MTS_SRCAP_PLL : XRFDC_MTS_SRCAP_T1;
-    DTCAddr = (Settings->IsPLL) ? XRFDC_MTS_SRDTC_PLL : XRFDC_MTS_SRDTC_T1;
-    SRclr_m = (Settings->IsPLL) ? XRFDC_MTS_SRCLR_PLL_M : XRFDC_MTS_SRCLR_T1_M;
-    Flag_s = (Settings->IsPLL) ? XRFDC_MTS_SRFLAG_PLL : XRFDC_MTS_SRFLAG_T1;
+    SRCtrlAddr = (Settings->IsPLL != 0U) ? XRFDC_MTS_SRCAP_PLL : XRFDC_MTS_SRCAP_T1;
+    DTCAddr = (Settings->IsPLL != 0U) ? XRFDC_MTS_SRDTC_PLL : XRFDC_MTS_SRDTC_T1;
+    SRclr_m = (Settings->IsPLL != 0U) ? XRFDC_MTS_SRCLR_PLL_M : XRFDC_MTS_SRCLR_T1_M;
+    Flag_s = (Settings->IsPLL != 0U) ? XRFDC_MTS_SRFLAG_PLL : XRFDC_MTS_SRFLAG_T1;
 
     SRctl = XRFdc_ReadReg16(InstancePtr, BaseAddr, SRCtrlAddr) & ~SRclr_m;
 
-    for (i = 0; i < XRFDC_MTS_NUM_DTC; i++)
-	Flags[i] = 0;
-    for (i = 0; (i < XRFDC_MTS_NUM_DTC) && (Status == XRFDC_MTS_OK); i++) {
+    for (i = 0U; i < XRFDC_MTS_NUM_DTC; i++) {
+	Flags[i] = 0U;
+    }
+    for (i = 0U; (i < XRFDC_MTS_NUM_DTC) && (Status == XRFDC_MTS_OK); i++) {
 	Status  |= XRFdc_MTS_Dtc_Code(InstancePtr, Type, BaseAddr,
 					SRCtrlAddr, DTCAddr, SRctl, SRclr_m, i);
 	Flags[i] = (XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_MTS_SRFLAG) >>
-					Flag_s) & 0x3;
+					Flag_s) & 0x3U;
     }
 
 	/* Calculate the best DTC code */
-    XRFdc_MTS_Dtc_Calc(Type, Tile_Id, Settings, Flags);
+    (void)XRFdc_MTS_Dtc_Calc(Type, Tile_Id, Settings, Flags);
 
 	/* Program the calculated code */
     if ( Settings->DTC_Code[Tile_Id] == - 1 ) {
@@ -618,19 +630,19 @@ static u32 XRFdc_MTS_Dtc_Scan (XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
            , (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id);
        Status |= XRFDC_MTS_DTC_INVALID;
     } else {
-       XRFdc_MTS_Dtc_Code(InstancePtr, Type, BaseAddr, SRCtrlAddr, DTCAddr,
+	(void)XRFdc_MTS_Dtc_Code(InstancePtr, Type, BaseAddr, SRCtrlAddr, DTCAddr,
                           SRctl, SRclr_m, Settings->DTC_Code[Tile_Id]);
     }
 
-    if (Settings->IsPLL) {
+    if (Settings->IsPLL != 0U) {
 		/* PLL - Disable SysRef Capture */
-	XRFdc_MTS_Sysref_Ctrl(InstancePtr, Type, Tile_Id, 1, 0, 0);
+	(void)XRFdc_MTS_Sysref_Ctrl(InstancePtr, Type, Tile_Id, 1, 0, 0);
     } else {
 	/* T1 - Reset Dividers */
-	XRFdc_MTS_Sysref_Ctrl(InstancePtr, Type, Tile_Id, 0, 1, 1);
+    (void)XRFdc_MTS_Sysref_Ctrl(InstancePtr, Type, Tile_Id, 0, 1, 1);
 	Status |= XRFdc_MTS_Sysref_Count(InstancePtr, Type,
 						XRFDC_MTS_DTC_COUNT);
-	XRFdc_MTS_Sysref_Ctrl(InstancePtr, Type, Tile_Id, 0, 1, 0);
+	(void)XRFdc_MTS_Sysref_Ctrl(InstancePtr, Type, Tile_Id, 0, 1, 0);
     }
 
     return Status;
@@ -658,15 +670,15 @@ static void XRFdc_MTS_FIFOCtrl (XRFdc* InstancePtr, u32 Type, u32 FIFO_Mode,
 {
 	u32 RegAddr;
 	u32 BaseAddr;
-	int i;
-	int j;
+	u32 i;
+	u32 j;
 
 	/* Clear the FIFO Flags */
 	RegAddr = (Type == XRFDC_ADC_TILE) ? XRFDC_ADC_FABRIC_ISR_OFFSET :
 						XRFDC_DAC_FABRIC_ISR_OFFSET;
-	for (i = 0; i < 4; i++) {
-		if ((1 << i) & Tiles_To_Clear) {
-			for (j = 0; j < 4; j++) {
+	for (i = 0U; i < 4U; i++) {
+		if (((1U << i) & Tiles_To_Clear) != 0U) {
+			for (j = 0U; j < 4U; j++) {
 				BaseAddr = XRFDC_DRP_BASE(Type, i) +
 								XRFDC_BLOCK_ADDR_OFFSET(j);
 				XRFdc_WriteReg16(InstancePtr, BaseAddr,	RegAddr,
@@ -760,8 +772,8 @@ static u32 XRFdc_MTS_GetMarker(XRFdc* InstancePtr, u32 Type, u32 Tiles,
 	u32 Done;
 	u32 Count;
 	u32 Loc;
-	int i;
-	int j;
+	u32 i;
+	u32 j;
 	u32 Status;
 
 	Status = XRFDC_MTS_OK;
@@ -774,10 +786,11 @@ static u32 XRFdc_MTS_GetMarker(XRFdc* InstancePtr, u32 Type, u32 Tiles,
 		 * SysRef Capture should be still active from the DTC Scan
 		 * but set it anyway to be sure
 		 */
-		for (i = 0; i < 4; i++) {
-			if ((1 << i) & Tiles)
-				XRFdc_MTS_Sysref_Ctrl(InstancePtr, XRFDC_DAC_TILE,
+		for (i = 0U; i < 4U; i++) {
+			if (((1U << i) & Tiles) != 0U) {
+				(void)XRFdc_MTS_Sysref_Ctrl(InstancePtr, XRFDC_DAC_TILE,
 						i, 0, 1, 0);
+			}
 		}
 
 		/* Set marker delay */
@@ -790,17 +803,17 @@ static u32 XRFdc_MTS_GetMarker(XRFdc* InstancePtr, u32 Type, u32 Tiles,
 							XRFDC_MTS_MARKER_COUNT);
 
 	/* Read master FIFO (FIFO0 in each Tile) */
-	for (i = 0; i < 4; i++) {
-		if ((1 << i) & Tiles) {
+	for (i = 0U; i < 4U; i++) {
+		if (((1U << i) & Tiles) != 0U) {
 			if (Type == XRFDC_DAC_TILE) {
 				/* Disable SysRef Capture before reading it */
-				XRFdc_MTS_Sysref_Ctrl(InstancePtr, XRFDC_DAC_TILE,
+				(void)XRFdc_MTS_Sysref_Ctrl(InstancePtr, XRFDC_DAC_TILE,
 									i, 0, 0, 0);
 				Status |= XRFdc_MTS_Sysref_Count(InstancePtr, Type,
 								XRFDC_MTS_MARKER_COUNT);
 			}
 
-			XRFdc_MTS_Marker_Read(InstancePtr, Type, i, 0, &Count,
+			(void)XRFdc_MTS_Marker_Read(InstancePtr, Type, i, 0, &Count,
 								&Loc, &Done);
 			Markers->Count[i] = Count;
 			Markers->Loc[i]   = Loc;
@@ -808,7 +821,7 @@ static u32 XRFdc_MTS_GetMarker(XRFdc* InstancePtr, u32 Type, u32 Tiles,
 				"%s%d: Marker: - %d, %d\n", (Type==XRFDC_DAC_TILE)?
 				"DAC":"ADC", i, Markers->Count[i], Markers->Loc[i]);
 
-			if (!Done) {
+			if ((!Done) != 0U) {
                metal_log(METAL_LOG_ERROR,
                "Analog SysRef timeout, SysRef not detected on %s tile %d\n"
                , (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", i);
@@ -819,9 +832,9 @@ static u32 XRFdc_MTS_GetMarker(XRFdc* InstancePtr, u32 Type, u32 Tiles,
 			 * Check all enabled FIFOs agree with the master FIFO.
 			 * This is optional.
 			 */
-			for (j = 0; j < 4; j++) {
-				if (XRFdc_IsFifoEnabled(InstancePtr, Type, i, j)) {
-					XRFdc_MTS_Marker_Read(InstancePtr, Type, i, j,
+			for (j = 0U; j < 4U; j++) {
+				if (XRFdc_IsFifoEnabled(InstancePtr, Type, i, j) != 0U) {
+					(void)XRFdc_MTS_Marker_Read(InstancePtr, Type, i, j,
 								&Count, &Loc, &Done);
 					if ((Markers->Count[i] != Count) ||
 								(Markers->Loc[i] != Loc)) {
@@ -872,8 +885,8 @@ static u32 XRFdc_MTS_Latency(XRFdc* InstancePtr, u32 Type,
 	u32 Status;
 	int Count_w;
 	int Loc_w;
-	int i;
-	int Fifo;
+	u32 i;
+	u32 Fifo;
 	int Latency;
 	int Offset;
 	int Max_Latency;
@@ -896,12 +909,12 @@ static u32 XRFdc_MTS_Latency(XRFdc* InstancePtr, u32 Type,
 
 	Status = XRFDC_MTS_OK;
 	if (Type == XRFDC_ADC_TILE) {
-		XRFdc_GetDecimationFactor(InstancePtr, Config->RefTile, 0, &Factor);
+		(void)XRFdc_GetDecimationFactor(InstancePtr, Config->RefTile, 0, &Factor);
 	} else {
-		XRFdc_GetInterpolationFactor(InstancePtr, Config->RefTile, 0, &Factor);
-		XRFdc_GetFabWrVldWords(InstancePtr, Type, Config->RefTile, 0, &Write_Words);
+		(void)XRFdc_GetInterpolationFactor(InstancePtr, Config->RefTile, 0, &Factor);
+		(void)XRFdc_GetFabWrVldWords(InstancePtr, Type, Config->RefTile, 0, &Write_Words);
 	}
-    XRFdc_GetFabRdVldWords(InstancePtr, Type, Config->RefTile, 0, &Read_Words);
+	(void)XRFdc_GetFabRdVldWords(InstancePtr, Type, Config->RefTile, 0, &Read_Words);
     Count_w = Read_Words * Factor;
     Loc_w   = Factor;
 
@@ -915,10 +928,10 @@ static u32 XRFdc_MTS_Latency(XRFdc* InstancePtr, u32 Type,
     RegData = XRFdc_ReadReg(InstancePtr, 0, XRFDC_MTS_SRFREQ_VAL);
     if (Type == XRFDC_ADC_TILE) {
 		/* ADC SysRef frequency information contained in lower 16 bits */
-		RegData = RegData & 0XFFFF;
+		RegData = RegData & 0XFFFFU;
     } else {
 		/* DAC SysRef frequency information contained in upper 16 bits */
-		RegData = (RegData >> 16) & 0XFFFF;
+		RegData = (RegData >> 16U) & 0XFFFFU;
     }
 
     /* 
@@ -926,7 +939,7 @@ static u32 XRFdc_MTS_Latency(XRFdc* InstancePtr, u32 Type,
      * Sysref frequency counters logic will work with IP version
      * 2.0.1 and above.
      */
-    SysRefFreqCntrDone = RegData & 0x1;
+    SysRefFreqCntrDone = RegData & 0x1U;
     if (SysRefFreqCntrDone == 0U) {
 		metal_log(METAL_LOG_ERROR, "Error : %s SysRef frequency counter not yet done\n",
 			(Type == XRFDC_ADC_TILE) ? "ADC" : "DAC");
@@ -947,14 +960,15 @@ static u32 XRFdc_MTS_Latency(XRFdc* InstancePtr, u32 Type,
     }
 
     /* Work out the latencies */
-    for (i = 0; i < 4; i++) {
-		if ((1 << i) & Config->Tiles ) {
+    for (i = 0U; i < 4U; i++) {
+		if (((1U << i) & Config->Tiles) != 0U) {
 			Latency = (Markers->Count[i] * Count_w) + (Markers->Loc[i] * Loc_w);
 			/* Set marker counter target on first tile */
 			if (Target_Latency < 0) {
 				Target_Latency = Config->Target_Latency;
-				if (Target_Latency < 0)
+				if (Target_Latency < 0) {
 					Target_Latency = Latency;
+				}
 				metal_log(METAL_LOG_INFO, "%s target latency = %d\n",
 					(Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Target_Latency);
 			}
@@ -973,8 +987,9 @@ static u32 XRFdc_MTS_Latency(XRFdc* InstancePtr, u32 Type,
 					(Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", i, Latency);
 			}
 			Config->Latency[i] = Latency;
-			if (Latency > Max_Latency)
+			if (Latency > Max_Latency) {
 				Max_Latency = Latency;
+			}
 			metal_log(METAL_LOG_DEBUG, "Tile %d, latency %d, max %d\n",
 					i, Latency, Max_Latency);
 		}
@@ -995,16 +1010,18 @@ static u32 XRFdc_MTS_Latency(XRFdc* InstancePtr, u32 Type,
 		Status |= XRFDC_MTS_TARGET_LOW;
 	}
 
-	for (i = 0; i < 4; i++) {
-		if ((1 << i) & Config->Tiles) {
+	for (i = 0U; i < 4U; i++) {
+		if (((1U << i) & Config->Tiles) != 0U) {
 			Delta = Target - Config->Latency[i];
-			if (Delta < 0)
+			if (Delta < 0) {
 				Delta=0;
+			}
 			i_part = Delta / Factor;
 			f_part = Delta % Factor;
 			Offset = i_part;
-			if (f_part > (int)(Factor / 2))
+			if (f_part > (int)(Factor / 2U)) {
 				Offset++;
+			}
 			metal_log(METAL_LOG_DEBUG,
 				"Target %d, Tile %d, delta %d, i/f_part %d/%d, offset %d\n",
 				Target, i, Delta, i_part, f_part, Offset*Factor);
@@ -1022,7 +1039,7 @@ static u32 XRFdc_MTS_Latency(XRFdc* InstancePtr, u32 Type,
 
 			/* Adjust the latency, write the same value to each FIFO */
 			BaseAddr = XRFDC_DRP_BASE(Type, i) - 0x2000;
-			for (Fifo = 0; Fifo < 4; Fifo++) {
+			for (Fifo = 0U; Fifo < 4U; Fifo++) {
 				RegAddr  = XRFDC_MTS_DELAY_CTRL + (Fifo << 2);
 				RegData  = XRFdc_ReadReg(InstancePtr, BaseAddr, RegAddr);
 				RegData  = XRFDC_MTS_RMW(RegData, XRFDC_MTS_DELAY_VAL_M,
@@ -1035,7 +1052,7 @@ static u32 XRFdc_MTS_Latency(XRFdc* InstancePtr, u32 Type,
 			Config->Offset[i]  = Offset;
 
 			/* Set the Final SysRef Capture Enable state */
-			XRFdc_MTS_Sysref_Ctrl(InstancePtr, Type, i, 0, Config->SysRef_Enable, 0);
+			(void)XRFdc_MTS_Sysref_Ctrl(InstancePtr, Type, i, 0, Config->SysRef_Enable, 0);
 		}
 	}
 
@@ -1064,20 +1081,22 @@ u32 XRFdc_MTS_Sysref_Config(XRFdc* InstancePtr,
 			XRFdc_MultiConverter_Sync_Config* ADCSyncConfig, u32 SysRefEnable)
 {
 	u32 Status;
-	int Tile;
+	u32 Tile;
 
 	/* Enable/disable SysRef Capture on all DACs participating in MTS */
-	for (Tile = 0; Tile < 4; Tile++) {
-		if((1 << Tile) & DACSyncConfig->Tiles)
-			XRFdc_MTS_Sysref_Ctrl(InstancePtr, XRFDC_DAC_TILE, Tile, 0,
+	for (Tile = 0U; Tile < 4U; Tile++) {
+		if(((1U << Tile) & DACSyncConfig->Tiles) != 0U) {
+			(void)XRFdc_MTS_Sysref_Ctrl(InstancePtr, XRFDC_DAC_TILE, Tile, 0,
 								SysRefEnable, 0);
+		}
 	}
 
 	/* Enable/Disable SysRef Capture on all ADCs participating in MTS */
-	for (Tile = 0; Tile < 4; Tile++) {
-		if((1 << Tile) & ADCSyncConfig->Tiles)
-			XRFdc_MTS_Sysref_Ctrl(InstancePtr, XRFDC_ADC_TILE, Tile, 0,
+	for (Tile = 0U; Tile < 4U; Tile++) {
+		if(((1U << Tile) & ADCSyncConfig->Tiles) != 0U) {
+			(void)XRFdc_MTS_Sysref_Ctrl(InstancePtr, XRFDC_ADC_TILE, Tile, 0,
 								SysRefEnable, 0);
+		}
 	}
 
 	/* Enable/Disable SysRef TRX */
@@ -1107,27 +1126,29 @@ void XRFdc_MultiConverter_Init (XRFdc_MultiConverter_Sync_Config* Config,
 {
 	u32 i;
 
-	Config->RefTile = 0;
-	Config->DTC_Set_PLL.Scan_Mode = (PLL_Codes == 0) ? XRFDC_MTS_SCAN_INIT :
+	Config->RefTile = 0U;
+	Config->DTC_Set_PLL.Scan_Mode = (PLL_Codes == NULL) ? XRFDC_MTS_SCAN_INIT :
 										XRFDC_MTS_SCAN_RELOAD;
-	Config->DTC_Set_T1.Scan_Mode = (T1_Codes == 0) ? XRFDC_MTS_SCAN_INIT :
+	Config->DTC_Set_T1.Scan_Mode = (T1_Codes == NULL) ? XRFDC_MTS_SCAN_INIT :
 										XRFDC_MTS_SCAN_RELOAD;
-	Config->DTC_Set_PLL.IsPLL = 1;
-	Config->DTC_Set_T1 .IsPLL = 0;
+	Config->DTC_Set_PLL.IsPLL = 1U;
+	Config->DTC_Set_T1 .IsPLL = 0U;
 	Config->Target_Latency = -1;
 	Config->Marker_Delay = 15;
 	Config->SysRef_Enable = 1; /* By default enable Sysref capture after MTS */
 
 	/* Initialize variables per tile */
-	for (i = 0; i < 4; i++) {
-		if (PLL_Codes != 0)
+	for (i = 0U; i < 4U; i++) {
+		if (PLL_Codes != NULL) {
 			Config->DTC_Set_PLL.Target[i] = PLL_Codes[i];
-		else
+		} else {
 			Config->DTC_Set_PLL.Target[i] = 0;
-		if (T1_Codes  != 0)
+		}
+		if (T1_Codes  != NULL) {
 			Config->DTC_Set_T1.Target[i] = T1_Codes[i];
-		else
+		} else {
 			Config->DTC_Set_T1.Target[i] = 0;
+		}
 
 		Config->DTC_Set_PLL.DTC_Code[i] = -1;
 		Config->DTC_Set_T1.DTC_Code[i] = -1;
@@ -1166,16 +1187,17 @@ u32 XRFdc_MultiConverter_Sync (XRFdc* InstancePtr, u32 Type,
 	XRFdc_MTS_Marker Markers;
 	u32 BaseAddr;
 	u32 TileState;
+	u32 BlockStatus;
 
 	Status = XRFDC_MTS_OK;
 
-	XRFdc_GetIPStatus(InstancePtr, &IPStatus);
-	for (i = 0; i < 4; i++) {
-		if (Config->Tiles & (1 << i)) {
+	(void)XRFdc_GetIPStatus(InstancePtr, &IPStatus);
+	for (i = 0U; i < 4U; i++) {
+		if ((Config->Tiles & (1U << i)) != 0U) {
 			TileState = (Type == XRFDC_DAC_TILE) ?
 							 IPStatus.DACTileStatus[i].TileState :
 							 IPStatus.ADCTileStatus[i].TileState ;
-			if(TileState != 0xF) {
+			if(TileState != 0xFU) {
 				metal_log(METAL_LOG_ERROR,
 				    "%s tile %d in Multi-Tile group not started\n",
                     (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", i);
@@ -1188,9 +1210,19 @@ u32 XRFdc_MultiConverter_Sync (XRFdc* InstancePtr, u32 Type,
 					(Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", i);
 				Status |= XRFDC_MTS_NOT_ENABLED;
 			}
+
+			BlockStatus = XRFdc_CheckBlockEnabled(InstancePtr, Type, i, 0x0U);
+			if(BlockStatus != 0U) {
+				metal_log(METAL_LOG_ERROR,"%s%d block0 is not enabled, check IP configuration\n",
+					(Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", i);
+				Status |= XRFDC_MTS_NOT_SUPPORTED;
+			}
 		}
 	}
-	if(Status != XRFDC_MTS_OK) return Status;
+
+	if(Status != XRFDC_MTS_OK) {
+		return Status;
+	}
 
 	/* Disable the FIFOs */
 	XRFdc_MTS_FIFOCtrl(InstancePtr, Type, XRFDC_MTS_FIFO_DISABLE, 0);
@@ -1202,15 +1234,15 @@ u32 XRFdc_MultiConverter_Sync (XRFdc* InstancePtr, u32 Type,
 	Status |= XRFdc_MTS_Sysref_Dist(InstancePtr, -1);
 
 	/* Scan DTCs for each tile */
-	for (i = 0; i < 4; i++) {
-		if (Config->Tiles & (1 << i)) {
+	for (i = 0U; i < 4U; i++) {
+		if ((Config->Tiles & (1U << i)) != 0U) {
 			/* Run DTC Scan for T1/PLL */
 			BaseAddr = XRFDC_DRP_BASE(Type, i) + XRFDC_HSCOM_ADDR;
 			RegData  = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_MTS_CLKSTAT);
-			if (RegData & XRFDC_MTS_PLLEN_M) {
+			if ((RegData & XRFDC_MTS_PLLEN_M) != 0U) {
 				/* DTC Scan PLL */
-				if(i==0) {
+				if(i == 0U) {
 					metal_log(METAL_LOG_INFO, "\nDTC Scan PLL\n", 0);
 				}
 				Config->DTC_Set_PLL.RefTile = Config->RefTile;
@@ -1222,8 +1254,8 @@ u32 XRFdc_MultiConverter_Sync (XRFdc* InstancePtr, u32 Type,
 
 	/* Scan DTCs for each tile T1 */
 	metal_log(METAL_LOG_INFO, "\nDTC Scan T1\n", 0);
-	for (i = 0; i < 4; i++) {
-		if (Config->Tiles & (1 << i)) {
+	for (i = 0U; i < 4U; i++) {
+		if ((Config->Tiles & (1U << i)) != 0U) {
 			Config->DTC_Set_T1 .RefTile = Config->RefTile;
 			Status |= XRFdc_MTS_Dtc_Scan(InstancePtr, Type, i,
 									&Config->DTC_Set_T1);

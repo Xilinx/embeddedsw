@@ -168,6 +168,7 @@
 *       sk     07/20/18 Update the APIs to check the corresponding section
 *                       (Digital/Analog)enable/disable.
 *       sk     07/26/18 Fixed Doxygen, coverity warnings.
+*       sk     08/03/18 Fixed MISRAC warnings.
 *
 * </pre>
 *
@@ -227,7 +228,7 @@ typedef __s64 s64;
 * @param	Block_Id indicates Block number (0-3).
 * @param	StatusEvent indicates one or more interrupt occurred.
 */
-typedef void (*XRFdc_StatusHandler) (void *CallBackRef, u32 Type, int Tile_Id,
+typedef void (*XRFdc_StatusHandler) (void *CallBackRef, u32 Type, u32 Tile_Id,
 				u32 Block_Id, u32 StatusEvent);
 
 /**
@@ -523,25 +524,25 @@ typedef struct {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XRFDC_SUCCESS                     0L
-#define XRFDC_FAILURE                     1L
+#define XRFDC_SUCCESS                     0U
+#define XRFDC_FAILURE                     1U
 #define XRFDC_COMPONENT_IS_READY     	0x11111111U
 
-#define XRFDC_DRP_BASE(type,tile) (type == XRFDC_ADC_TILE ?		\
+#define XRFDC_DRP_BASE(type,tile) ((type) == XRFDC_ADC_TILE ?		\
 			XRFDC_ADC_TILE_DRP_ADDR(tile) : XRFDC_DAC_TILE_DRP_ADDR(tile))
 
-#define XRFDC_CTRL_STS_BASE(Type, Tile) (Type == XRFDC_ADC_TILE ?	\
+#define XRFDC_CTRL_STS_BASE(Type, Tile) ((Type) == XRFDC_ADC_TILE ?	\
 	XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile) :		\
 	XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile))
 
-#define XRFDC_BLOCK_BASE(Type, Tile, Block) (Type == XRFDC_ADC_TILE ?	\
-	XRFDC_ADC_TILE_DRP_ADDR(Tile) + XRFDC_BLOCK_ADDR_OFFSET(Block) : \
-	XRFDC_DAC_TILE_DRP_ADDR(Tile) + XRFDC_BLOCK_ADDR_OFFSET(Block))
+#define XRFDC_BLOCK_BASE(Type, Tile, Block) ((Type) == XRFDC_ADC_TILE ?	\
+	(XRFDC_ADC_TILE_DRP_ADDR(Tile) + XRFDC_BLOCK_ADDR_OFFSET(Block)) : \
+	(XRFDC_DAC_TILE_DRP_ADDR(Tile) + XRFDC_BLOCK_ADDR_OFFSET(Block)))
 
 #define XRFDC_ADC_TILE				0U
 #define XRFDC_DAC_TILE				1U
-#define XRFDC_TILE_ID_MAX			0x3
-#define XRFDC_BLOCK_ID_MAX			0x3
+#define XRFDC_TILE_ID_MAX			0x3U
+#define XRFDC_BLOCK_ID_MAX			0x3U
 #define XRFDC_EVNT_SRC_IMMEDIATE	0x00000000U
 #define XRFDC_EVNT_SRC_SLICE		0x00000001U
 #define XRFDC_EVNT_SRC_TILE			0x00000002U
@@ -554,11 +555,11 @@ typedef struct {
 #define XRFDC_SELECT_ALL_TILES		-1
 #define XRFDC_ADC_4GSPS				1U
 
-#define XRFDC_NCO_FREQ_MULTIPLIER		((0x1LL << 48U) - 2) /* 2^48 -2 */
-#define XRFDC_NCO_FREQ_MIN_MULTIPLIER	(0x1LL << 48U) /* 2^48 */
-#define XRFDC_NCO_PHASE_MULTIPLIER		(0x1U << 17U) /* 2^17 */
-#define XRFDC_QMC_PHASE_MULT			(0x1U << 11U) /* 2^11 */
-#define XRFDC_QMC_GAIN_MULT				(0x1U << 14U) /* 2^14 */
+#define XRFDC_NCO_FREQ_MULTIPLIER		((0x1LLU << 48U) - 2) /* 2^48 -2 */
+#define XRFDC_NCO_FREQ_MIN_MULTIPLIER	(0x1LLU << 48U) /* 2^48 */
+#define XRFDC_NCO_PHASE_MULTIPLIER		(1U << 17U) /* 2^17 */
+#define XRFDC_QMC_PHASE_MULT			(1U << 11U) /* 2^11 */
+#define XRFDC_QMC_GAIN_MULT				(1U << 14U) /* 2^14 */
 
 #define XRFDC_DATA_TYPE_IQ			0x00000001U
 #define XRFDC_DATA_TYPE_REAL		0x00000000U
@@ -579,10 +580,10 @@ typedef struct {
 #define XRFDC_EN_I_IQ			0x00000001U
 #define XRFDC_EN_Q_IQ			0x00000004U
 
-#define XRFDC_MIXER_TYPE_COARSE		0x1
-#define XRFDC_MIXER_TYPE_FINE		0x2
+#define XRFDC_MIXER_TYPE_COARSE		0x1U
+#define XRFDC_MIXER_TYPE_FINE		0x2U
 
-#define XRFDC_MIXER_TYPE_OFF	0x3
+#define XRFDC_MIXER_TYPE_OFF	0x3U
 
 #define XRFDC_COARSE_MIX_OFF						0x0U
 #define XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO			0x2U
@@ -590,8 +591,8 @@ typedef struct {
 #define XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR	0x8U
 #define XRFDC_COARSE_MIX_BYPASS							0x10U
 
-#define XRFDC_COARSE_MIX_MODE_C2C_C2R	0x1
-#define XRFDC_COARSE_MIX_MODE_R2C	0x2
+#define XRFDC_COARSE_MIX_MODE_C2C_C2R	0x1U
+#define XRFDC_COARSE_MIX_MODE_R2C	0x2U
 
 #define XRFDC_CRSE_MIX_OFF					0x924U
 #define XRFDC_CRSE_MIX_BYPASS				0x0U
@@ -614,21 +615,21 @@ typedef struct {
 
 #define XRFDC_MIXER_PHASE_OFFSET_UP_LIMIT	180
 #define XRFDC_MIXER_PHASE_OFFSET_LOW_LIMIT	(-180)
-#define XRFDC_UPDATE_THRESHOLD_0			0x1
-#define XRFDC_UPDATE_THRESHOLD_1			0x2
-#define XRFDC_UPDATE_THRESHOLD_BOTH			0x4
-#define XRFDC_THRESHOLD_CLRMD_MANUAL_CLR	0x1
-#define XRFDC_THRESHOLD_CLRMD_AUTO_CLR		0x2
-#define XRFDC_DECODER_MAX_SNR_MODE			0x1
-#define XRFDC_DECODER_MAX_LINEARITY_MODE	0x2
-#define XRFDC_OUTPUT_CURRENT_32MA			32
-#define XRFDC_OUTPUT_CURRENT_20MA			20
+#define XRFDC_UPDATE_THRESHOLD_0			0x1U
+#define XRFDC_UPDATE_THRESHOLD_1			0x2U
+#define XRFDC_UPDATE_THRESHOLD_BOTH			0x4U
+#define XRFDC_THRESHOLD_CLRMD_MANUAL_CLR	0x1U
+#define XRFDC_THRESHOLD_CLRMD_AUTO_CLR		0x2U
+#define XRFDC_DECODER_MAX_SNR_MODE			0x1U
+#define XRFDC_DECODER_MAX_LINEARITY_MODE	0x2U
+#define XRFDC_OUTPUT_CURRENT_32MA			32U
+#define XRFDC_OUTPUT_CURRENT_20MA			20U
 
 #define XRFDC_ADC_MIXER_MODE_IQ		0x1U
 #define XRFDC_DAC_MIXER_MODE_REAL	0x2U
 
-#define XRFDC_ODD_NYQUIST_ZONE		0x1
-#define XRFDC_EVEN_NYQUIST_ZONE		0x2
+#define XRFDC_ODD_NYQUIST_ZONE		0x1U
+#define XRFDC_EVEN_NYQUIST_ZONE		0x2U
 
 #define XRFDC_INTERP_DECIM_OFF		0x0U
 #define XRFDC_INTERP_DECIM_1X		0x1U
@@ -636,14 +637,14 @@ typedef struct {
 #define XRFDC_INTERP_DECIM_4X		0x4U
 #define XRFDC_INTERP_DECIM_8X		0x8U
 
-#define XRFDC_FAB_CLK_DIV1		0x1
-#define XRFDC_FAB_CLK_DIV2		0x2
-#define XRFDC_FAB_CLK_DIV4		0x3
-#define XRFDC_FAB_CLK_DIV8		0x4
-#define XRFDC_FAB_CLK_DIV16		0x5
+#define XRFDC_FAB_CLK_DIV1		0x1U
+#define XRFDC_FAB_CLK_DIV2		0x2U
+#define XRFDC_FAB_CLK_DIV4		0x3U
+#define XRFDC_FAB_CLK_DIV8		0x4U
+#define XRFDC_FAB_CLK_DIV16		0x5U
 
-#define XRFDC_CALIB_MODE1		0x1
-#define XRFDC_CALIB_MODE2		0x2
+#define XRFDC_CALIB_MODE1		0x1U
+#define XRFDC_CALIB_MODE2		0x2U
 #define XRFDC_TI_DCB_MODE1_4GSPS		0x00007800U
 #define XRFDC_TI_DCB_MODE1_2GSPS		0x00005000U
 
@@ -665,32 +666,32 @@ typedef struct {
 #define XRFDC_VCO_UPPER_BAND	0x0U
 #define XRFDC_VCO_LOWER_BAND	0x1U
 
-#define XRFDC_SINGLEBAND_MODE		0x1
-#define XRFDC_MULTIBAND_MODE_2X		0x2
-#define XRFDC_MULTIBAND_MODE_4X		0x4
+#define XRFDC_SINGLEBAND_MODE		0x1U
+#define XRFDC_MULTIBAND_MODE_2X		0x2U
+#define XRFDC_MULTIBAND_MODE_4X		0x4U
 
-#define XRFDC_MB_DATATYPE_C2C		0x1
-#define XRFDC_MB_DATATYPE_R2C		0x2
-#define XRFDC_MB_DATATYPE_C2R		0x4
+#define XRFDC_MB_DATATYPE_C2C		0x1U
+#define XRFDC_MB_DATATYPE_R2C		0x2U
+#define XRFDC_MB_DATATYPE_C2R		0x4U
 
-#define XRFDC_SB_C2C_BLK0	0x82
-#define XRFDC_SB_C2C_BLK1	0x64
-#define XRFDC_SB_C2R		0x40
-#define XRFDC_MB_C2C_BLK0	0x5E
-#define XRFDC_MB_C2C_BLK1	0x5D
-#define XRFDC_MB_C2R_BLK0	0x5C
-#define XRFDC_MB_C2R_BLK1	0x0
+#define XRFDC_SB_C2C_BLK0	0x82U
+#define XRFDC_SB_C2C_BLK1	0x64U
+#define XRFDC_SB_C2R		0x40U
+#define XRFDC_MB_C2C_BLK0	0x5EU
+#define XRFDC_MB_C2C_BLK1	0x5DU
+#define XRFDC_MB_C2R_BLK0	0x5CU
+#define XRFDC_MB_C2R_BLK1	0x0U
 
-#define XRFDC_MIXER_MODE_BYPASS		0x2
+#define XRFDC_MIXER_MODE_BYPASS		0x2U
 
-#define XRFDC_LINK_COUPLING_DC	0x0
-#define XRFDC_LINK_COUPLING_AC	0x1
+#define XRFDC_LINK_COUPLING_DC	0x0U
+#define XRFDC_LINK_COUPLING_AC	0x1U
 
-#define XRFDC_MB_MODE_SB				0x0
-#define XRFDC_MB_MODE_2X_BLK01			0x1
-#define XRFDC_MB_MODE_2X_BLK23			0x2
-#define XRFDC_MB_MODE_2X_BLK01_BLK23	0x3
-#define XRFDC_MB_MODE_4X				0x4
+#define XRFDC_MB_MODE_SB				0x0U
+#define XRFDC_MB_MODE_2X_BLK01			0x1U
+#define XRFDC_MB_MODE_2X_BLK23			0x2U
+#define XRFDC_MB_MODE_2X_BLK01_BLK23	0x3U
+#define XRFDC_MB_MODE_4X				0x4U
 
 #define XRFDC_MILLI		1000U
 #define XRFDC_DAC_SAMPLING_MIN	500
@@ -702,13 +703,13 @@ typedef struct {
 #define XRFDC_REFFREQ_MIN	102.40625
 #define XRFDC_REFFREQ_MAX	614
 
-#define XRFDC_DIGITALPATH_ENABLE	0x1
-#define XRFDC_ANALOGPATH_ENABLE		0x1
+#define XRFDC_DIGITALPATH_ENABLE	0x1U
+#define XRFDC_ANALOGPATH_ENABLE		0x1U
 
-#define XRFDC_BLK_ID0	0x0
-#define XRFDC_BLK_ID1	0x1
-#define XRFDC_BLK_ID2	0x2
-#define XRFDC_BLK_ID3	0x3
+#define XRFDC_BLK_ID0	0x0U
+#define XRFDC_BLK_ID1	0x1U
+#define XRFDC_BLK_ID2	0x2U
+#define XRFDC_BLK_ID3	0x3U
 
 /*****************************************************************************/
 /**
@@ -724,14 +725,15 @@ typedef struct {
 *		- Return 1 if DAC block is available, otherwise 0.
 *
 ******************************************************************************/
-static inline u32 XRFdc_IsDACBlockEnabled(XRFdc* InstancePtr, int Tile_Id,
+static inline u32 XRFdc_IsDACBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id,
 												u32 Block_Id)
 {
 	if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
-			DACBlock_Analog_Config[Block_Id].BlockAvailable == 0U)
+			DACBlock_Analog_Config[Block_Id].BlockAvailable == 0U) {
 		return 0;
-	else
+	} else {
 		return 1;
+	}
 }
 
 /*****************************************************************************/
@@ -748,20 +750,23 @@ static inline u32 XRFdc_IsDACBlockEnabled(XRFdc* InstancePtr, int Tile_Id,
 *		- Return 1 if ADC block is available, otherwise 0.
 *
 ******************************************************************************/
-static inline u32 XRFdc_IsADCBlockEnabled(XRFdc* InstancePtr, int Tile_Id,
+static inline u32 XRFdc_IsADCBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id,
 												u32 Block_Id)
 {
 	if (InstancePtr->RFdc_Config.ADCType == XRFDC_ADC_4GSPS) {
-		if ((Block_Id == 2U) || (Block_Id == 3U))
+		if ((Block_Id == 2U) || (Block_Id == 3U)) {
 			return 0;
-		if (Block_Id == 1U)
+		}
+		if (Block_Id == 1U) {
 			Block_Id = 2U;
+		}
 	}
 	if (InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
-			ADCBlock_Analog_Config[Block_Id].BlockAvailable == 0U)
+			ADCBlock_Analog_Config[Block_Id].BlockAvailable == 0U) {
 		return 0;
-	else
+	} else {
 		return 1;
+	}
 }
 
 /*****************************************************************************/
@@ -782,10 +787,11 @@ static inline u32 XRFdc_IsDACDigitalPathEnabled(XRFdc *InstancePtr,
 				u32 Tile_Id, u32 Block_Id)
 {
 	if (InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].
-				Mixer_Settings.MixerType == XRFDC_MIXER_TYPE_OFF)
+				Mixer_Settings.MixerType == XRFDC_MIXER_TYPE_OFF) {
 		return 0;
-	else
+	} else {
 		return 1;
+	}
 }
 
 /*****************************************************************************/
@@ -806,16 +812,19 @@ static inline u32 XRFdc_IsADCDigitalPathEnabled(XRFdc *InstancePtr,
 							u32 Tile_Id, u32 Block_Id)
 {
 	if (InstancePtr->RFdc_Config.ADCType == XRFDC_ADC_4GSPS) {
-		if ((Block_Id == 2U) || (Block_Id == 3U))
+		if ((Block_Id == 2U) || (Block_Id == 3U)) {
 			return 0;
-		if (Block_Id == 1U)
+		}
+		if (Block_Id == 1U) {
 			Block_Id = 2U;
+		}
 	}
 	if (InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].
-				Mixer_Settings.MixerType == XRFDC_MIXER_TYPE_OFF)
+				Mixer_Settings.MixerType == XRFDC_MIXER_TYPE_OFF) {
 		return 0;
-	else
+	} else {
 		return 1;
+	}
 }
 
 /*****************************************************************************/
@@ -837,14 +846,14 @@ static inline u32 XRFdc_IsADCDigitalPathEnabled(XRFdc *InstancePtr,
 static inline u32 XRFdc_CheckDigitalPathEnabled(XRFdc *InstancePtr, u32 Type,
 			u32 Tile_Id, u32 Block_Id)
 {
-	u8 IsBlockAvail;
+	u32 IsBlockAvail;
 
-	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE))
+	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE)) {
 		return XRFDC_FAILURE;
-
-	if ((Tile_Id > XRFDC_TILE_ID_MAX) || (Block_Id > XRFDC_BLOCK_ID_MAX))
+	}
+	if ((Tile_Id > XRFDC_TILE_ID_MAX) || (Block_Id > XRFDC_BLOCK_ID_MAX)) {
 			return XRFDC_FAILURE;
-
+	}
 	if (Type == XRFDC_ADC_TILE) {
 		IsBlockAvail = XRFdc_IsADCDigitalPathEnabled(InstancePtr, Tile_Id,
 						Block_Id);
@@ -861,8 +870,9 @@ static inline u32 XRFdc_CheckDigitalPathEnabled(XRFdc *InstancePtr, u32 Type,
 						"enabled in %s\r\n", __func__);
 #endif
 		return XRFDC_FAILURE;
-	} else
+	} else {
 		return XRFDC_SUCCESS;
+	}
 }
 
 /*****************************************************************************/
@@ -876,9 +886,9 @@ static inline u32 XRFdc_CheckDigitalPathEnabled(XRFdc *InstancePtr, u32 Type,
 *		- Return IP BaseAddress.
 *
 ******************************************************************************/
-static inline u32 XRFdc_Get_IPBaseAddr(XRFdc* InstancePtr)
+static inline u32 XRFdc_Get_IPBaseAddr(XRFdc *InstancePtr)
 {
-	return InstancePtr->BaseAddr;
+	return (u32)InstancePtr->BaseAddr;
 }
 
 /*****************************************************************************/
@@ -894,13 +904,14 @@ static inline u32 XRFdc_Get_IPBaseAddr(XRFdc* InstancePtr)
 *		- Return Tile BaseAddress.
 *
 ******************************************************************************/
-static inline u32 XRFdc_Get_TileBaseAddr(XRFdc* InstancePtr, u32 Type,
-								int Tile_Id)
+static inline u32 XRFdc_Get_TileBaseAddr(XRFdc *InstancePtr, u32 Type,
+								u32 Tile_Id)
 {
-	if(Type == XRFDC_ADC_TILE)
+	if(Type == XRFDC_ADC_TILE) {
 		return InstancePtr->BaseAddr + XRFDC_ADC_TILE_DRP_ADDR(Tile_Id);
-	else
+	} else {
 		return InstancePtr->BaseAddr + XRFDC_DAC_TILE_DRP_ADDR(Tile_Id);
+	}
 }
 
 /*****************************************************************************/
@@ -918,13 +929,15 @@ static inline u32 XRFdc_Get_TileBaseAddr(XRFdc* InstancePtr, u32 Type,
 *		- Return Block BaseAddress.
 *
 ******************************************************************************/
-static inline u32 XRFdc_Get_BlockBaseAddr(XRFdc* InstancePtr, u32 Type,
-								int Tile_Id, u32 Block_Id)
+static inline u32 XRFdc_Get_BlockBaseAddr(XRFdc *InstancePtr, u32 Type,
+								u32 Tile_Id, u32 Block_Id)
 {
 	if(Type == XRFDC_ADC_TILE) {
-		if (InstancePtr->RFdc_Config.ADCType == XRFDC_ADC_4GSPS)
-			if (Block_Id == 1U)
+		if (InstancePtr->RFdc_Config.ADCType == XRFDC_ADC_4GSPS) {
+			if (Block_Id == 1U) {
 				Block_Id = 2U;
+			}
+		}
 		return InstancePtr->BaseAddr + XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	} else {
@@ -945,7 +958,7 @@ static inline u32 XRFdc_Get_BlockBaseAddr(XRFdc* InstancePtr, u32 Type,
 *		- Return number of DAC blocks enabled.
 *
 ******************************************************************************/
-static inline u32 XRFdc_GetNoOfDACBlock(XRFdc* InstancePtr, int Tile_Id)
+static inline u32 XRFdc_GetNoOfDACBlock(XRFdc *InstancePtr, u32 Tile_Id)
 {
 	return InstancePtr->DAC_Tile[Tile_Id].NumOfDACBlocks;
 }
@@ -962,7 +975,7 @@ static inline u32 XRFdc_GetNoOfDACBlock(XRFdc* InstancePtr, int Tile_Id)
 *		- Return number of ADC blocks enabled.
 *
 ******************************************************************************/
-static inline u32 XRFdc_GetNoOfADCBlocks(XRFdc* InstancePtr, int Tile_Id)
+static inline u32 XRFdc_GetNoOfADCBlocks(XRFdc *InstancePtr, u32 Tile_Id)
 {
 	return InstancePtr->ADC_Tile[Tile_Id].NumOfADCBlocks;
 }
@@ -978,12 +991,13 @@ static inline u32 XRFdc_GetNoOfADCBlocks(XRFdc* InstancePtr, int Tile_Id)
 *		- Return 1 if ADC type is 4GSPS, otherwise 0.
 *
 ******************************************************************************/
-static inline u32 XRFdc_IsADC4GSPS(XRFdc* InstancePtr)
+static inline u32 XRFdc_IsADC4GSPS(XRFdc *InstancePtr)
 {
-	if (InstancePtr->RFdc_Config.ADCType == XRFDC_ADC_4GSPS)
+	if (InstancePtr->RFdc_Config.ADCType == XRFDC_ADC_4GSPS) {
 		return 1;
-	else
+	} else {
 		return 0;
+	}
 }
 
 /*****************************************************************************/
@@ -1001,7 +1015,7 @@ static inline u32 XRFdc_IsADC4GSPS(XRFdc* InstancePtr)
 *		- Return DataType of ADC/DAC block.
 *
 ******************************************************************************/
-static inline u32 XRFdc_GetDataType(XRFdc* InstancePtr, u32 Type, int Tile_Id,
+static inline u32 XRFdc_GetDataType(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u32 Block_Id)
 {
 	if (Type == XRFDC_ADC_TILE) {
@@ -1028,7 +1042,7 @@ static inline u32 XRFdc_GetDataType(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 *		- Return DataWidth of ADC/DAC block.
 *
 ******************************************************************************/
-static inline u32 XRFdc_GetDataWidth(XRFdc* InstancePtr, u32 Type, int Tile_Id,
+static inline u32 XRFdc_GetDataWidth(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u32 Block_Id)
 {
 	if (Type == XRFDC_ADC_TILE) {
@@ -1054,7 +1068,7 @@ static inline u32 XRFdc_GetDataWidth(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 *		- Return Inversesync filter for DAC block
 *
 ******************************************************************************/
-static inline u32 XRFdc_GetInverseSincFilter(XRFdc* InstancePtr, int Tile_Id,
+static inline u32 XRFdc_GetInverseSincFilter(XRFdc *InstancePtr, u32 Tile_Id,
 								u32 Block_Id)
 {
 	return InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
@@ -1075,7 +1089,7 @@ static inline u32 XRFdc_GetInverseSincFilter(XRFdc* InstancePtr, int Tile_Id,
 *		- Return mixed mode for DAC block
 *
 ******************************************************************************/
-static inline u32 XRFdc_GetMixedMode(XRFdc* InstancePtr, int Tile_Id,
+static inline u32 XRFdc_GetMixedMode(XRFdc *InstancePtr, u32 Tile_Id,
 								u32 Block_Id)
 {
 	return InstancePtr->DAC_Tile[Tile_Id].
@@ -1094,12 +1108,13 @@ static inline u32 XRFdc_GetMixedMode(XRFdc* InstancePtr, int Tile_Id,
 *		- Return Master Tile for ADC/DAC tiles
 *
 ******************************************************************************/
-static inline u32 XRFdc_GetMasterTile(XRFdc* InstancePtr, u32 Type)
+static inline u32 XRFdc_GetMasterTile(XRFdc *InstancePtr, u32 Type)
 {
-	if (Type == XRFDC_ADC_TILE)
+	if (Type == XRFDC_ADC_TILE) {
 		return InstancePtr->RFdc_Config.MasterADCTile;
-	else
+	} else {
 		return InstancePtr->RFdc_Config.MasterDACTile;
+	}
 }
 
 /*****************************************************************************/
@@ -1114,12 +1129,13 @@ static inline u32 XRFdc_GetMasterTile(XRFdc* InstancePtr, u32 Type)
 *		- Return Sysref source for ADC/DAC tile
 *
 ******************************************************************************/
-static inline u32 XRFdc_GetSysRefSource(XRFdc* InstancePtr, u32 Type)
+static inline u32 XRFdc_GetSysRefSource(XRFdc *InstancePtr, u32 Type)
 {
-	if (Type == XRFDC_ADC_TILE)
+	if (Type == XRFDC_ADC_TILE) {
 		return InstancePtr->RFdc_Config.ADCSysRefSource;
-	else
+	} else {
 		return InstancePtr->RFdc_Config.DACSysRefSource;
+	}
 }
 
 /*****************************************************************************/
@@ -1136,12 +1152,13 @@ static inline u32 XRFdc_GetSysRefSource(XRFdc* InstancePtr, u32 Type)
 *
 ******************************************************************************/
 static inline double XRFdc_GetFabClkFreq(XRFdc *InstancePtr, u32 Type,
-								int Tile_Id)
+								u32 Tile_Id)
 {
-	if (Type == XRFDC_ADC_TILE)
+	if (Type == XRFDC_ADC_TILE) {
 		return InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].FabClkFreq;
-	else
+	} else {
 		return InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].FabClkFreq;
+	}
 }
 
 /*****************************************************************************/
@@ -1159,7 +1176,7 @@ static inline double XRFdc_GetFabClkFreq(XRFdc *InstancePtr, u32 Type,
 *		- Return 1 if FIFO is enabled, otherwise 0.
 *
 ******************************************************************************/
-static inline u32 XRFdc_IsFifoEnabled(XRFdc* InstancePtr, u32 Type, int Tile_Id,
+static inline u32 XRFdc_IsFifoEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u32 Block_Id)
 {
 	if (Type == XRFDC_ADC_TILE) {
@@ -1185,8 +1202,8 @@ static inline u32 XRFdc_IsFifoEnabled(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 *		- Return Data converter Id.
 *
 ******************************************************************************/
-static inline int XRFdc_GetConnectedIData(XRFdc* InstancePtr, u32 Type,
-				 int Tile_Id, u32 Block_Id)
+static inline int XRFdc_GetConnectedIData(XRFdc *InstancePtr, u32 Type,
+				 u32 Tile_Id, u32 Block_Id)
 {
 	if (Type == XRFDC_ADC_TILE) {
 		return InstancePtr->ADC_Tile[Tile_Id].
@@ -1211,8 +1228,8 @@ static inline int XRFdc_GetConnectedIData(XRFdc* InstancePtr, u32 Type,
 *		- Return Data converter Id.
 *
 ******************************************************************************/
-static inline int XRFdc_GetConnectedQData(XRFdc* InstancePtr, u32 Type,
-				 int Tile_Id, u32 Block_Id)
+static inline int XRFdc_GetConnectedQData(XRFdc *InstancePtr, u32 Type,
+				 u32 Tile_Id, u32 Block_Id)
 {
 	if (Type == XRFDC_ADC_TILE) {
 		return InstancePtr->ADC_Tile[Tile_Id].
@@ -1260,7 +1277,7 @@ static inline u32 XRFdc_GetMultibandConfig(XRFdc *InstancePtr, u32 Type,
 * @return   None
 *
 ******************************************************************************/
-static inline void XRFdc_GetPLLConfig(XRFdc* InstancePtr, u32 Type,
+static inline void XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type,
 					u32 Tile_Id, XRFdc_PLL_Settings *PLLSettings)
 {
 	if (Type == XRFDC_ADC_TILE) {
@@ -1308,17 +1325,17 @@ static inline void XRFdc_GetPLLConfig(XRFdc* InstancePtr, u32 Type,
 *       - XRFDC_FAILURE if Block not enabled.
 *
 ******************************************************************************/
-static inline u32 XRFdc_CheckBlockEnabled(XRFdc* InstancePtr, u32 Type,
+static inline u32 XRFdc_CheckBlockEnabled(XRFdc *InstancePtr, u32 Type,
 			u32 Tile_Id, u32 Block_Id)
 {
-	u8 IsBlockAvail;
+	u32 IsBlockAvail;
 
-	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE))
+	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE)) {
 		return XRFDC_FAILURE;
-
-	if ((Tile_Id > XRFDC_TILE_ID_MAX) || (Block_Id > XRFDC_BLOCK_ID_MAX))
+	}
+	if ((Tile_Id > XRFDC_TILE_ID_MAX) || (Block_Id > XRFDC_BLOCK_ID_MAX)) {
 			return XRFDC_FAILURE;
-
+	}
 	if (Type == XRFDC_ADC_TILE) {
 		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
 	} else {
@@ -1333,8 +1350,9 @@ static inline u32 XRFdc_CheckBlockEnabled(XRFdc* InstancePtr, u32 Type,
 						"available in %s\r\n", __func__);
 #endif
 		return XRFDC_FAILURE;
-	} else
+	} else {
 		return XRFDC_SUCCESS;
+	}
 }
 
 /*****************************************************************************/
@@ -1351,17 +1369,17 @@ static inline u32 XRFdc_CheckBlockEnabled(XRFdc* InstancePtr, u32 Type,
 *       - XRFDC_FAILURE if tile not enabled.
 *
 ******************************************************************************/
-static inline u32 XRFdc_CheckTileEnabled(XRFdc* InstancePtr, u32 Type,
+static inline u32 XRFdc_CheckTileEnabled(XRFdc *InstancePtr, u32 Type,
 								u32 Tile_Id)
 {
-	u8 IsTileAvail;
+	u32 IsTileAvail;
 
-	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE))
+	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE)) {
 		return XRFDC_FAILURE;
-
-	if (Tile_Id > XRFDC_TILE_ID_MAX)
+	}
+	if (Tile_Id > XRFDC_TILE_ID_MAX) {
 		return XRFDC_FAILURE;
-
+	}
 	if (Type == XRFDC_ADC_TILE) {
 		IsTileAvail = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].Enable;
 	} else {
@@ -1376,8 +1394,9 @@ static inline u32 XRFdc_CheckTileEnabled(XRFdc* InstancePtr, u32 Type,
 						"available in %s\r\n", __func__);
 #endif
 		return XRFDC_FAILURE;
-	} else
+	} else {
 		return XRFDC_SUCCESS;
+	}
 }
 
 /*****************************************************************************/
@@ -1393,7 +1412,7 @@ static inline u32 XRFdc_CheckTileEnabled(XRFdc* InstancePtr, u32 Type,
 * @note		None
 *
 ******************************************************************************/
-static inline double XRFdc_GetDriverVersion()
+static inline double XRFdc_GetDriverVersion(void)
 {
 	return 5.0;
 }
@@ -1401,101 +1420,101 @@ static inline double XRFdc_GetDriverVersion()
 /************************** Function Prototypes ******************************/
 
 XRFdc_Config *XRFdc_LookupConfig(u16 DeviceId);
-int XRFdc_CfgInitialize(XRFdc* InstancePtr, XRFdc_Config *Config);
-int XRFdc_StartUp(XRFdc* InstancePtr, u32 Type, int Tile_Id);
-int XRFdc_Shutdown(XRFdc* InstancePtr, u32 Type, int Tile_Id);
-int XRFdc_Reset(XRFdc* InstancePtr, u32 Type, int Tile_Id);
-int XRFdc_GetIPStatus(XRFdc* InstancePtr, XRFdc_IPStatus* IPStatus);
-int XRFdc_GetBlockStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
-				u32 Block_Id, XRFdc_BlockStatus* BlockStatus);
+u32 XRFdc_CfgInitialize(XRFdc *InstancePtr, XRFdc_Config *Config);
+u32 XRFdc_StartUp(XRFdc *InstancePtr, u32 Type, int Tile_Id);
+u32 XRFdc_Shutdown(XRFdc *InstancePtr, u32 Type, int Tile_Id);
+u32 XRFdc_Reset(XRFdc *InstancePtr, u32 Type, int Tile_Id);
+u32 XRFdc_GetIPStatus(XRFdc *InstancePtr, XRFdc_IPStatus* IPStatus);
+u32 XRFdc_GetBlockStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
+				u32 Block_Id, XRFdc_BlockStatus *BlockStatus);
 u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 			u32 Block_Id, XRFdc_Mixer_Settings *Mixer_Settings);
 u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type,
 				u32 Tile_Id, u32 Block_Id,
 				XRFdc_Mixer_Settings *Mixer_Settings);
-int XRFdc_SetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
-				u32 Block_Id, XRFdc_QMC_Settings * QMC_Settings);
-int XRFdc_GetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
-				u32 Block_Id, XRFdc_QMC_Settings * QMC_Settings);
-int XRFdc_GetCoarseDelaySettings(XRFdc* InstancePtr, u32 Type,
-				int Tile_Id, u32 Block_Id,
-				XRFdc_CoarseDelay_Settings * CoarseDelay_Settings);
-int XRFdc_SetCoarseDelaySettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
+u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
+				u32 Block_Id, XRFdc_QMC_Settings *QMC_Settings);
+u32 XRFdc_GetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
+				u32 Block_Id, XRFdc_QMC_Settings *QMC_Settings);
+u32 XRFdc_GetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type,
+				u32 Tile_Id, u32 Block_Id,
+				XRFdc_CoarseDelay_Settings *CoarseDelay_Settings);
+u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 				u32 Block_Id,
-				XRFdc_CoarseDelay_Settings * CoarseDelay_Settings);
-int XRFdc_GetInterpolationFactor(XRFdc* InstancePtr, int Tile_Id,
-				u32 Block_Id, u32 * InterpolationFactor);
-int XRFdc_GetDecimationFactor(XRFdc* InstancePtr, int Tile_Id,
-				u32 Block_Id, u32 * DecimationFactor);
-int XRFdc_GetFabWrVldWords(XRFdc* InstancePtr, u32 Type,
-				int Tile_Id, u32 Block_Id, u32 * FabricDataRate);
-int XRFdc_GetFabRdVldWords(XRFdc* InstancePtr, u32 Type,
-				int Tile_Id, u32 Block_Id, u32 * FabricDataRate);
-int XRFdc_SetFabRdVldWords(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
-								u32 FabricDataRate);
-int XRFdc_SetFabWrVldWords(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
-								u32 FabricDataRate);
-int XRFdc_GetThresholdSettings(XRFdc* InstancePtr, int Tile_Id,
-				u32 Block_Id, XRFdc_Threshold_Settings * Threshold_Settings);
-int XRFdc_SetThresholdSettings(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
-				XRFdc_Threshold_Settings * Threshold_Settings);
-int XRFdc_SetDecoderMode(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
+				XRFdc_CoarseDelay_Settings *CoarseDelay_Settings);
+u32 XRFdc_GetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id,
+				u32 Block_Id, u32 *InterpolationFactor);
+u32 XRFdc_GetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id,
+				u32 Block_Id, u32 *DecimationFactor);
+u32 XRFdc_GetFabWrVldWords(XRFdc *InstancePtr, u32 Type,
+				u32 Tile_Id, u32 Block_Id, u32 *FabricDataRate);
+u32 XRFdc_GetFabRdVldWords(XRFdc *InstancePtr, u32 Type,
+				u32 Tile_Id, u32 Block_Id, u32 *FabricDataRate);
+u32 XRFdc_SetFabRdVldWords(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+								u32 FabricRdVldWords);
+u32 XRFdc_SetFabWrVldWords(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+								u32 FabricWrVldWords);
+u32 XRFdc_GetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id,
+				u32 Block_Id, XRFdc_Threshold_Settings *Threshold_Settings);
+u32 XRFdc_SetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+				XRFdc_Threshold_Settings *Threshold_Settings);
+u32 XRFdc_SetDecoderMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 				u32 DecoderMode);
-int XRFdc_UpdateEvent(XRFdc* InstancePtr, u32 Type, int Tile_Id, u32 Block_Id,
+u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
 				u32 Event);
-int XRFdc_GetDecoderMode(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
+u32 XRFdc_GetDecoderMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 				u32 *DecoderMode);
-int XRFdc_ResetNCOPhase(XRFdc* InstancePtr, u32 Type, int Tile_Id,
+u32 XRFdc_ResetNCOPhase(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 				u32 Block_Id);
-void XRFdc_DumpRegs(XRFdc* InstancePtr, u32 Type, int Tile_Id);
-u32 XRFdc_MultiBand(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
+void XRFdc_DumpRegs(XRFdc *InstancePtr, u32 Type, int Tile_Id);
+u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		u8 DigitalDataPathMask, u32 DataType, u32 DataConverterMask);
-int XRFdc_IntrHandler(int Vector, void * XRFdcPtr);
-void XRFdc_IntrClr(XRFdc* InstancePtr, u32 Type, int Tile_Id,
+u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr);
+void XRFdc_IntrClr(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
 								u32 Block_Id, u32 IntrMask);
-u32 XRFdc_GetIntrStatus (XRFdc* InstancePtr, u32 Type, int Tile_Id,
+u32 XRFdc_GetIntrStatus (XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u32 Block_Id);
-void XRFdc_IntrDisable (XRFdc* InstancePtr, u32 Type, int Tile_Id,
+void XRFdc_IntrDisable (XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u32 Block_Id, u32 IntrMask);
-void XRFdc_IntrEnable (XRFdc* InstancePtr, u32 Type, int Tile_Id,
+void XRFdc_IntrEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u32 Block_Id, u32 IntrMask);
-int XRFdc_SetThresholdClrMode(XRFdc *InstancePtr, int Tile_Id,
+u32 XRFdc_SetThresholdClrMode(XRFdc *InstancePtr, u32 Tile_Id,
 			u32 Block_Id, u32 ThresholdToUpdate, u32 ClrMode);
-int XRFdc_ThresholdStickyClear(XRFdc *InstancePtr, int Tile_Id,
+u32 XRFdc_ThresholdStickyClear(XRFdc *InstancePtr, u32 Tile_Id,
 					u32 Block_Id, u32 ThresholdToUpdate);
 void XRFdc_SetStatusHandler(XRFdc *InstancePtr, void *CallBackRef,
 				XRFdc_StatusHandler FunctionPtr);
-int XRFdc_SetupFIFO(XRFdc* InstancePtr, u32 Type, int Tile_Id, u8 Enable);
-int XRFdc_GetFIFOStatus(XRFdc *InstancePtr, u32 Type,
-				int Tile_Id, u8 *Enable);
-int XRFdc_SetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,
+u32 XRFdc_SetupFIFO(XRFdc *InstancePtr, u32 Type, int Tile_Id, u8 Enable);
+u32 XRFdc_GetFIFOStatus(XRFdc *InstancePtr, u32 Type,
+				u32 Tile_Id, u8 *Enable);
+u32 XRFdc_SetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u32 Block_Id, u32 NyquistZone);
-int XRFdc_GetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,
+u32 XRFdc_GetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u32 Block_Id, u32 *NyquistZone);
-int XRFdc_GetOutputCurr(XRFdc* InstancePtr, int Tile_Id,
-								u32 Block_Id, int *OutputCurr);
-u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
+u32 XRFdc_GetOutputCurr(XRFdc *InstancePtr, u32 Tile_Id,
+								u32 Block_Id, u32 *OutputCurr);
+u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 						u32 DecimationFactor);
-u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
+u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 						u32 InterpolationFactor);
-u32 XRFdc_SetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, int Tile_Id,
+u32 XRFdc_SetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u16 FabClkDiv);
-u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
+u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 						u8 CalibrationMode);
-u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
+u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 						u8 *CalibrationMode);
-u32 XRFdc_GetClockSource(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
+u32 XRFdc_GetClockSource(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u32 *ClockSource);
-u32 XRFdc_GetPLLLockStatus(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
+u32 XRFdc_GetPLLLockStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 							u32 *LockStatus);
 
-u32 XRFdc_DynamicPLLConfig(XRFdc* InstancePtr, u32 Type, u32 Tile_Id,
+u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		u8 Source, double RefClkFreq, double SamplingRate);
 u32 XRFdc_SetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 								u16 Enable);
 u32 XRFdc_GetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 								u16 *Enable);
-u32 XRFdc_GetLinkCoupling(XRFdc* InstancePtr, u32 Tile_Id, u32 Block_Id,
+u32 XRFdc_GetLinkCoupling(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 								u32 *Mode);
 u32 XRFdc_GetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u16 *FabClkDiv);

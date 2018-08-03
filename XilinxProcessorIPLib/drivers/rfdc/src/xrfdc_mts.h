@@ -46,6 +46,8 @@
 * 4.0   sk     04/09/18 Added API to enable/disable the sysref.
 *       rk     04/17/18 Adjust calculated latency by sysref period, where doing
 *                       so results in closer alignment to the target latency.
+* 5.0   sk     08/03/18 Fixed MISRAC warnings.
+*       sk     08/03/18 Check for Block0 enable for tiles participating in MTS.
 *
 * </pre>
 *
@@ -63,8 +65,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define XRFDC_MTS_RMW(read, mask, data)    ((read & ~mask) | (data & mask))
-#define XRFDC_MTS_FIELD(data, mask, shift) ((data & mask) >> shift)
+#define XRFDC_MTS_RMW(read, mask, data)    (((read) & ~(mask)) | ((data) & (mask)))
+#define XRFDC_MTS_FIELD(data, mask, shift) (((data) & (mask)) >> (shift))
 
 #define XRFDC_MTS_ABS(val)               ( ((val) < 0) ? -(val) : (val) )
 
@@ -137,18 +139,18 @@ typedef struct {
 #define XRFDC_MTS_DLY_ALIGNER		0x28U
 
 /* Error Codes */
-#define XRFDC_MTS_OK				0L
-#define XRFDC_MTS_NOT_SUPPORTED		1L
-#define XRFDC_MTS_TIMEOUT			2L
-#define XRFDC_MTS_MARKER_RUN		4L
-#define XRFDC_MTS_MARKER_MISM		8L
-#define XRFDC_MTS_DELAY_OVER		16L
-#define XRFDC_MTS_TARGET_LOW		32L
-#define XRFDC_MTS_IP_NOT_READY      64L
-#define XRFDC_MTS_DTC_INVALID       128L
-#define XRFDC_MTS_NOT_ENABLED       512L
-#define XRFDC_MTS_SYSREF_GATE_ERROR 2048L
-#define XRFDC_MTS_SYSREF_FREQ_NDONE 4096L
+#define XRFDC_MTS_OK				0U
+#define XRFDC_MTS_NOT_SUPPORTED		1U
+#define XRFDC_MTS_TIMEOUT			2U
+#define XRFDC_MTS_MARKER_RUN		4U
+#define XRFDC_MTS_MARKER_MISM		8U
+#define XRFDC_MTS_DELAY_OVER		16U
+#define XRFDC_MTS_TARGET_LOW		32U
+#define XRFDC_MTS_IP_NOT_READY      64U
+#define XRFDC_MTS_DTC_INVALID       128U
+#define XRFDC_MTS_NOT_ENABLED       512U
+#define XRFDC_MTS_SYSREF_GATE_ERROR 2048U
+#define XRFDC_MTS_SYSREF_FREQ_NDONE 4096U
 
 
 /*****************************************************************************/
