@@ -29,7 +29,7 @@
 /**
 *
 * @file xiicps.h
-* @addtogroup iicps_v3_7
+* @addtogroup iicps_v3_8
 * @{
 * @details
 *
@@ -61,11 +61,11 @@
 *      setup by the tools. For some operating systems the config structure
 *      will be initialized by the software and this call is not needed.
 *
-*   - XIicPs_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
-*     configuration structure provided by the caller. If running in a
-*     system with address translation, the provided virtual memory base
-*     address replaces the physical address in the configuration
-*     structure.
+*    - XIicPs_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
+*      configuration structure provided by the caller. If running in a
+*      system with address translation, the provided virtual memory base
+*      address replaces the physical address in the configuration
+*      structure.
 *
 * <b>Multiple Masters</b>
 *
@@ -184,6 +184,7 @@
 *                    generation.
 * 3.7   ask  04/17/18 Updated the Eeprom scanning mechanism
 *                     as per the other examples (CR#997545)
+* 3.8   ask  08/01/18   Fix for Cppcheck and Doxygen warnings
 *
 * </pre>
 *
@@ -248,8 +249,8 @@ extern "C" {
 #define SENDING_ROLE		1  /**< Transfer direction is sending */
 #define RECVING_ROLE		0  /**< Transfer direction is receiving */
 
-/* Maximum transfer size */
-#define XIICPS_MAX_TRANSFER_SIZE	(u32)(255U - 3U)
+
+#define XIICPS_MAX_TRANSFER_SIZE	(u32)(255U - 3U) /**< Max transfer size */
 
 /**************************** Type Definitions *******************************/
 
@@ -301,7 +302,7 @@ typedef struct {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /****************************************************************************/
-/*
+/**
 *
 * Place one byte into the transmit FIFO.
 *
@@ -325,7 +326,7 @@ typedef struct {
 }
 
 /****************************************************************************/
-/*
+/**
 *
 * Receive one byte from FIFO.
 *
