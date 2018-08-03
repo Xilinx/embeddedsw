@@ -88,6 +88,7 @@
 *       mn     03/02/18 Move UHS macro check to SD card initialization routine
 * 3.5   mn     04/18/18 Resolve compilation warnings for sdps driver
 * 3.6   mn     07/06/18 Fix Cppcheck and Doxygen warnings for sdps driver
+*       mn     08/01/18 Add support for using 64Bit DMA with 32-Bit Processor
 * </pre>
 *
 ******************************************************************************/
@@ -121,6 +122,7 @@
 #define EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200		0x20U
 #define CSD_SPEC_VER_3		0x3U
 #define SCR_SPEC_VER_3		0x80U
+#define ADDRESS_BEYOND_32BIT	0x100000000U
 
 /**************************** Type Definitions *******************************/
 
@@ -130,6 +132,7 @@
 u32 XSdPs_FrameCmd(XSdPs *InstancePtr, u32 Cmd);
 s32 XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt);
 void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff);
+void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt);
 extern s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
 static s32 XSdPs_IdentifyCard(XSdPs *InstancePtr);
 static s32 XSdPs_Switch_Voltage(XSdPs *InstancePtr);
@@ -191,6 +194,7 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->SectorCount = 0;
 	InstancePtr->Mode = XSDPS_DEFAULT_SPEED_MODE;
 	InstancePtr->Config_TapDelay = NULL;
+	InstancePtr->Dma64BitAddr = 0U;
 
 	/* Disable bus power and issue emmc hw reset */
 	if ((XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
@@ -267,17 +271,17 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 			XSDPS_POWER_CTRL_OFFSET,
 			PowerLevel | XSDPS_PC_BUS_PWR_MASK);
 
-#ifdef __aarch64__
-	/* Enable ADMA2 in 64bit mode. */
-	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
-			XSDPS_HOST_CTRL1_OFFSET,
-			XSDPS_HC_DMA_ADMA2_64_MASK);
-#else
-	/* Enable ADMA2 in 32bit mode. */
-	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
-			XSDPS_HOST_CTRL1_OFFSET,
-			XSDPS_HC_DMA_ADMA2_32_MASK);
-#endif
+	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
+		/* Enable ADMA2 in 64bit mode. */
+		XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
+				XSDPS_HOST_CTRL1_OFFSET,
+				XSDPS_HC_DMA_ADMA2_64_MASK);
+	} else {
+		/* Enable ADMA2 in 32bit mode. */
+		XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
+				XSDPS_HOST_CTRL1_OFFSET,
+				XSDPS_HC_DMA_ADMA2_32_MASK);
+	}
 
 	/* Enable all interrupt status except card interrupt initially */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
@@ -1340,10 +1344,14 @@ s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 		}
 	}
 
-	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, Buff);
-	if (InstancePtr->Config.IsCacheCoherent == 0) {
-		Xil_DCacheInvalidateRange((INTPTR)Buff,
-			BlkCnt * XSDPS_BLK_SIZE_512_MASK);
+	if (InstancePtr->Dma64BitAddr >= ADDRESS_BEYOND_32BIT) {
+		XSdPs_SetupADMA2DescTbl64Bit(InstancePtr, BlkCnt);
+	} else {
+		XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, Buff);
+		if (InstancePtr->Config.IsCacheCoherent == 0) {
+			Xil_DCacheInvalidateRange((INTPTR)Buff,
+				BlkCnt * XSDPS_BLK_SIZE_512_MASK);
+		}
 	}
 
 	if (BlkCnt == 1U) {
@@ -1440,10 +1448,14 @@ s32 XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 
 	}
 
-	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, Buff);
-	if (InstancePtr->Config.IsCacheCoherent == 0) {
-		Xil_DCacheFlushRange((INTPTR)Buff,
-			BlkCnt * XSDPS_BLK_SIZE_512_MASK);
+	if (InstancePtr->Dma64BitAddr >= ADDRESS_BEYOND_32BIT) {
+		XSdPs_SetupADMA2DescTbl64Bit(InstancePtr, BlkCnt);
+	} else {
+		XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, Buff);
+		if (InstancePtr->Config.IsCacheCoherent == 0) {
+			Xil_DCacheFlushRange((INTPTR)Buff,
+				BlkCnt * XSDPS_BLK_SIZE_512_MASK);
+		}
 	}
 
 	if (BlkCnt == 1U) {
@@ -1524,6 +1536,78 @@ s32 XSdPs_Select_Card (XSdPs *InstancePtr)
 
 RETURN_PATH:
 		return Status;
+
+}
+
+/*****************************************************************************/
+/**
+*
+* API to setup ADMA2 descriptor table for 64 Bit DMA
+*
+*
+* @param	InstancePtr is a pointer to the XSdPs instance.
+* @param	BlkCnt - block count.
+*
+* @return	None
+*
+* @note		None.
+*
+******************************************************************************/
+void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
+{
+	u32 TotalDescLines;
+	u32 DescNum;
+	u32 BlkSize;
+
+	/* Setup ADMA2 - Write descriptor table and point ADMA SAR to it */
+	BlkSize = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_BLK_SIZE_OFFSET) &
+					XSDPS_BLK_SIZE_MASK;
+
+	if((BlkCnt*BlkSize) < XSDPS_DESC_MAX_LENGTH) {
+
+		TotalDescLines = 1U;
+
+	} else {
+
+		TotalDescLines = ((BlkCnt*BlkSize) / XSDPS_DESC_MAX_LENGTH);
+		if (((BlkCnt * BlkSize) % XSDPS_DESC_MAX_LENGTH) != 0U) {
+			TotalDescLines += 1U;
+		}
+
+	}
+
+	for (DescNum = 0U; DescNum < (TotalDescLines-1); DescNum++) {
+		InstancePtr->Adma2_DescrTbl[DescNum].Address =
+				InstancePtr->Dma64BitAddr +
+				(DescNum*XSDPS_DESC_MAX_LENGTH);
+		InstancePtr->Adma2_DescrTbl[DescNum].Attribute =
+				XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
+		/* This will write '0' to length field which indicates 65536 */
+		InstancePtr->Adma2_DescrTbl[DescNum].Length =
+				(u16)XSDPS_DESC_MAX_LENGTH;
+	}
+
+	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Address =
+				InstancePtr->Dma64BitAddr +
+				(DescNum*XSDPS_DESC_MAX_LENGTH);
+
+	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Attribute =
+			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
+
+	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Length =
+			(u16)((BlkCnt*BlkSize) - (DescNum*XSDPS_DESC_MAX_LENGTH));
+
+	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
+			(u32)(UINTPTR)&(InstancePtr->Adma2_DescrTbl[0]));
+
+	if (InstancePtr->Config.IsCacheCoherent == 0) {
+		Xil_DCacheFlushRange((INTPTR)&(InstancePtr->Adma2_DescrTbl[0]),
+			sizeof(XSdPs_Adma2Descriptor) * 32U);
+	}
+
+	/* Clear the 64-Bit Address variable */
+	InstancePtr->Dma64BitAddr = 0U;
 
 }
 
