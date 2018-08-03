@@ -7,6 +7,9 @@ Modified code for MISRA-C:2012 Compliance.
 axidma_v9_8:
 Fix cppcheck, gcc and doxygen warnings.
 
+can_v3_3:
+Fix cppcheck and GCC warnings.
+
 emacps_v3_8:
 Fix cppcheck, GCC and doxygen warnings.
 
