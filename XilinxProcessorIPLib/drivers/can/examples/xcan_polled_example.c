@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2005 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2005 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -53,6 +53,7 @@
 * 3.2   ms     01/23/17 Added xil_printf statement in main function to
 *               ensure that "Successfully ran" and "Failed" strings are
 *               available in all examples. This is a fix for CR-965028.
+* 3.3   ask  08/01/18 Fixed Cppcheck and GCC warnings in can driver
 * </pre>
 *
 ******************************************************************************/
@@ -81,7 +82,7 @@
 /*
  * Message Id Constant.
  */
-#define TEST_MESSAGE_ID			2650
+#define TEST_MESSAGE_ID			1024
 
 /*
  * The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR)
