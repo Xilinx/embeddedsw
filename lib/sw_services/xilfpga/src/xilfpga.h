@@ -77,6 +77,7 @@
  * 4.2   Nava  08/06/16 Refactor the xilfpga library to support
  *                      different PL programming Interfaces.
  * 4.2   adk   11/07/18 Added support for readback of PL configuration data.
+ * 4.2	 adk   03/08/18 Added example for partial reconfiguration.
  *
  * </pre>
  *
