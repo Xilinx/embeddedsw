@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2005 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2005 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcan_selftest.c
-* @addtogroup can_v3_2
+* @addtogroup can_v3_3
 * @{
 *
 * This file contains a diagnostic self-test function for the XCan driver.
@@ -45,6 +45,7 @@
 * 1.10a mta  05/13/07 Updated to new coding style
 * 2.00a ktn  10/22/09 Updated to use the HAL APIs/macros.
 *		      The macros have been renamed to remove _m from the name.
+* 3.3   ask  08/01/18 Fixed Cppcheck and GCC warnings in can driver
 * </pre>
 *
 *****************************************************************************/
@@ -69,6 +70,12 @@ static u32 TxFrame[XCAN_MAX_FRAME_SIZE_IN_WORDS];
 static u32 RxFrame[XCAN_MAX_FRAME_SIZE_IN_WORDS];
 
 /************************** Function Prototypes *****************************/
+
+/* Message Id Constant. */
+#define TEST_MESSAGE_ID	1024
+
+/* CAN Dlc Value */
+#define TEST_CAN_DLC	8
 
 /*****************************************************************************/
 /**
@@ -136,8 +143,8 @@ int XCan_SelfTest(XCan *InstancePtr)
 	 * Create a frame to send with known values so we can verify them
 	 * on receive.
 	 */
-	TxFrame[0] = XCan_CreateIdValue(2650, 0, 0, 0, 0);
-	TxFrame[1] = XCan_CreateDlcValue(8);
+	TxFrame[0] = XCan_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0);
+	TxFrame[1] = XCan_CreateDlcValue(TEST_CAN_DLC);
 	FramePtr = (u8 *) (&TxFrame[2]);
 	for (Index = 0; Index < 8; Index++) {
 		*FramePtr++ = (u8) Index;
