@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2005 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2005 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcan_config.c
-* @addtogroup can_v3_2
+* @addtogroup can_v3_3
 * @{
 *
 * Functions in this file are CAN Configuration Register access related.
