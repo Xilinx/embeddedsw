@@ -580,6 +580,9 @@ static u32 XFsbl_ResetValidation(void)
 		if(((ErrStatusRegValue& PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK)
 			== PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK) &&
 			(FsblErrorStatus == XFSBL_RUNNING)) {
+		/* Clear the LPD SWDT reset error */
+		XFsbl_Out32(PMU_GLOBAL_ERROR_STATUS_1,
+			PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK);
 		/**
 		 * reset is due to System WDT.
 		 * Do a fallback
