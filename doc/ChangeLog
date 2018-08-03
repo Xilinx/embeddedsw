@@ -500,6 +500,9 @@ canfd_v2_0:
 Added support for canfd 2.0 spec regarding PL
 SoftIP.
 
+can_v3_3:
+Fix cppcheck and GCC warnings.
+
 emacps_v3_8:
 Fix cppcheck, GCC and doxygen warnings.
 Remove duplicate code in xemacps_bd.h
