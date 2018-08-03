@@ -51,6 +51,7 @@
 * 3.1   jm     01/24/18 Add Multi-tile sync support.
 *       sk     02/27/18 Add API's to configure Multiband.
 * 4.0   sk     04/09/18 Removed redundant inclusion of xparameters.h file.
+* 5.0   sk     08/03/18 Fixed MISRAC warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -323,8 +324,8 @@ extern "C" {
 #define XRFDC_COMMON_INTR_ENABLE	0x104U	/**< Common Intr enable register */
 #define XRFDC_INTR_STS				0x200U	/**< Intr status register */
 #define XRFDC_INTR_ENABLE			0x204U	/**< Intr enable register */
-#define XRFDC_CONV_INTR_STS(X)		(0x208U + (X * 0x08))
-#define XRFDC_CONV_INTR_EN(X)		(0x20CU + (X * 0x08))
+#define XRFDC_CONV_INTR_STS(X)		(0x208U + (X * 0x08U))
+#define XRFDC_CONV_INTR_EN(X)		(0x20CU + (X * 0x08U))
 #define XRFDC_FIFO_ENABLE			0x230U	/**< FIFO Enable and Disable */
 #define XRFDC_PLL_SDM_CFG0			0x00U	/**< PLL Configuration bits for sdm */
 #define XRFDC_PLL_SDM_SEED0			0x18U	/**< PLL Bits for sdm LSB */
@@ -607,6 +608,7 @@ extern "C" {
 
 #define XRFDC_DEC_CFG_MASK	0x00000003U /**< ChannelA (2GSPS real
 							data from Mixer I output) */
+#define XRFDC_DEC_CFG_CHA_MASK	0x00000000U /**< ChannelA(I) */
 #define XRFDC_DEC_CFG_CHB_MASK	0x00000001U /**< ChannelB (2GSPS real
 							data from Mixer Q output) */
 #define XRFDC_DEC_CFG_IQ_MASK	0x00000002U /**< IQ-2GSPS */
@@ -1980,14 +1982,14 @@ extern "C" {
 #define XRFDC_DAC_MC_CFG2_OPCSCAS_32MA		0x0000A0D8U
 #define XRFDC_DAC_MC_CFG3_CSGAIN_32MA		0x0000FFC0U
 
-#define XRFDC_DAC_TILE_DRP_ADDR(X)			(0x6000 + (X * 0x4000))
-#define XRFDC_DAC_TILE_CTRL_STATS_ADDR(X)	(0x4000 + (X * 0x4000))
-#define XRFDC_ADC_TILE_DRP_ADDR(X)			(0x16000 + (X * 0x4000))
-#define XRFDC_ADC_TILE_CTRL_STATS_ADDR(X)	(0x14000 + (X * 0x4000))
-#define XRFDC_CTRL_STATS_OFFSET		0x0
-#define XRFDC_HSCOM_ADDR	0x1C00
-#define XRFDC_BLOCK_ADDR_OFFSET(X)	(X * 0x400)
-#define XRFDC_TILE_DRP_OFFSET		0x2000
+#define XRFDC_DAC_TILE_DRP_ADDR(X)			(0x6000U + (X * 0x4000U))
+#define XRFDC_DAC_TILE_CTRL_STATS_ADDR(X)	(0x4000U + (X * 0x4000U))
+#define XRFDC_ADC_TILE_DRP_ADDR(X)			(0x16000U + (X * 0x4000U))
+#define XRFDC_ADC_TILE_CTRL_STATS_ADDR(X)	(0x14000U + (X * 0x4000U))
+#define XRFDC_CTRL_STATS_OFFSET		0x0U
+#define XRFDC_HSCOM_ADDR	0x1C00U
+#define XRFDC_BLOCK_ADDR_OFFSET(X)	(X * 0x400U)
+#define XRFDC_TILE_DRP_OFFSET		0x2000U
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifdef __MICROBLAZE__
@@ -2036,7 +2038,7 @@ extern "C" {
 	XRFdc_In64(InstancePtr->BaseAddr + BaseAddress + RegOffset)
 #else
 #define XRFdc_ReadReg64(InstancePtr, BaseAddress, RegOffset) \
-	XRFdc_In64(InstancePtr->io, (RegOffset + BaseAddress))
+	XRFdc_In64(InstancePtr->io, ((u32)RegOffset + (u32)BaseAddress))
 #endif
 
 /***************************************************************************/
@@ -2062,8 +2064,8 @@ extern "C" {
 		(RegisterValue))
 #else
 #define XRFdc_WriteReg64(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
-	XRFdc_Out64((InstancePtr->io), (RegOffset + BaseAddress), \
-		(RegisterValue))
+	XRFdc_Out64((InstancePtr->io), ((u32)RegOffset + (u32)BaseAddress), \
+		(u32)(RegisterValue))
 #endif
 
 /****************************************************************************/
@@ -2086,7 +2088,7 @@ extern "C" {
 	XRFdc_In32((InstancePtr->BaseAddr + BaseAddress) + (RegOffset))
 #else
 #define XRFdc_ReadReg(InstancePtr, BaseAddress, RegOffset) \
-	XRFdc_In32((InstancePtr->io), (BaseAddress + RegOffset))
+	XRFdc_In32((InstancePtr->io), ((u32)BaseAddress + (u32)RegOffset))
 #endif
 
 /***************************************************************************/
@@ -2111,7 +2113,8 @@ extern "C" {
 	XRFdc_Out32((InstancePtr->BaseAddr + BaseAddress) + (RegOffset), (RegisterValue))
 #else
 #define XRFdc_WriteReg(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
-	XRFdc_Out32((InstancePtr->io), (RegOffset + BaseAddress), (RegisterValue))
+	XRFdc_Out32((InstancePtr->io), ((u32)RegOffset + (u32)BaseAddress), \
+			(u32)(RegisterValue))
 #endif
 
 /****************************************************************************/
@@ -2134,7 +2137,7 @@ extern "C" {
 	XRFdc_In16((InstancePtr->BaseAddr + BaseAddress) + (RegOffset))
 #else
 #define XRFdc_ReadReg16(InstancePtr, BaseAddress, RegOffset) \
-	XRFdc_In16((InstancePtr->io), (RegOffset + BaseAddress))
+	XRFdc_In16((InstancePtr->io), ((u32)RegOffset + (u32)BaseAddress))
 #endif
 
 /***************************************************************************/
@@ -2159,7 +2162,8 @@ extern "C" {
 	XRFdc_Out16((InstancePtr->BaseAddr + BaseAddress) + (RegOffset), (RegisterValue))
 #else
 #define XRFdc_WriteReg16(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
-	XRFdc_Out16((InstancePtr->io), (RegOffset + BaseAddress), (RegisterValue))
+	XRFdc_Out16((InstancePtr->io), ((u32)RegOffset + (u32)BaseAddress), \
+			(u32)(RegisterValue))
 #endif
 
 /****************************************************************************/
@@ -2182,7 +2186,7 @@ extern "C" {
 	XRFdc_In8((InstancePtr->BaseAddr + BaseAddress) + (RegOffset))
 #else
 #define XRFdc_ReadReg8(InstancePtr, BaseAddress, RegOffset) \
-	XRFdc_In8((InstancePtr->io), (RegOffset + BaseAddress))
+	XRFdc_In8((InstancePtr->io), ((u32)RegOffset + (u32)BaseAddress))
 #endif
 
 /***************************************************************************/
@@ -2207,7 +2211,8 @@ extern "C" {
 	XRFdc_Out8((InstancePtr->BaseAddr + BaseAddress) + (RegOffset), (RegisterValue))
 #else
 #define XRFdc_WriteReg8(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
-	XRFdc_Out8((InstancePtr->io), (RegOffset + BaseAddress), (RegisterValue))
+	XRFdc_Out8((InstancePtr->io), ((u32)RegOffset + (u32)BaseAddress), \
+			(u32)(RegisterValue))
 #endif
 
 #ifdef __cplusplus
