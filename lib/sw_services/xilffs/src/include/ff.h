@@ -109,7 +109,11 @@ typedef struct {
 	BYTE	win[_MAX_SS];
 #pragma data_alignment = 4
 #else
+#ifdef __aarch64__
+	BYTE	win[_MAX_SS] __attribute__ ((aligned(64)));	/* Disk access window for Directory, FAT (and Data on tiny cfg) */
+#else
 	BYTE	win[_MAX_SS] __attribute__ ((aligned(32)));	/* Disk access window for Directory, FAT (and Data on tiny cfg) */
+#endif
 #endif
 } FATFS;
 
@@ -143,7 +147,11 @@ typedef struct {
 	BYTE	buf[_MAX_SS];	/* File data read/write buffer */
 #pragma data_alignment = 4
 #else
+#ifdef __aarch64__
+	BYTE	buf[_MAX_SS] __attribute__ ((aligned(64)));	/* File data read/write buffer */
+#else
 	BYTE	buf[_MAX_SS] __attribute__ ((aligned(32)));	/* File data read/write buffer */
+#endif
 #endif
 #endif
 } FIL;
