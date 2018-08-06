@@ -17,9 +17,11 @@ sdps_v3_6
 Fixed Cppcheck, Doxygen and gcc warnings (CR#1006375)
 Add initializer macro for HasEMIO
 Add support for using 64Bit DMA in 32Bit Processor
+Add cache invalidation call before returning from ReadPolled API
 
 xilffs_v3_10:
 Fix Cppcheck and Doxygen warnings
+Modify sector buffer alignment to that of cache line supported
 
 clockps_v1_0:
 First release of clocksPS drivers.
