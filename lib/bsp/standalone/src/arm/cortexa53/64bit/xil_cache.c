@@ -69,6 +69,7 @@
 *					  level. Updated Xil_ConfigureL1Prefetch function to access
 *					  CPUACTLR_EL1 only for EL3.
 <<<<<<< HEAD
+<<<<<<< HEAD
 * 6.8  mn   08/01/18  Optimize the Xil_DCacheInvalidateRange() function to remove
 *                     redundant operations
 * 6.8  asa  09/15/18  Fix bug in the Xil_DCacheInvalidateRange API introduced while
@@ -76,6 +77,10 @@
 *                     CR-1008926.
 =======
 >>>>>>> BSP:Cortexa53:64bit: Update Xil_ConfigureL1Prefetch
+=======
+*      mn   08/01/18  Optimize the Xil_DCacheInvalidateRange() function to remove
+*                     redundant operations
+>>>>>>> bsp: Modify code to optimize Cache Invalidation
 *
 * </pre>
 *
@@ -428,6 +433,7 @@ void Xil_DCacheInvalidateLine(INTPTR adr)
 void Xil_DCacheInvalidateRange(INTPTR  adr, INTPTR len)
 {
 	const INTPTR cacheline = 64U;
+<<<<<<< HEAD
 	INTPTR end = adr + len;
 	adr = adr & (~0x3F);
 	u32 currmask = mfcpsr();
@@ -435,6 +441,15 @@ void Xil_DCacheInvalidateRange(INTPTR  adr, INTPTR len)
 	if (len != 0U) {
 		while (adr < end) {
 			mtcpdc(IVAC,adr);
+=======
+	INTPTR end;
+	u32 currmask = mfcpsr();
+	mtcpsr(currmask | IRQ_FIQ_MASK);
+	if (len != 0U) {
+		end = adr + len;
+		while (adr < end) {
+			mtcpdc(IVAC,(adr & (~0x3F)));
+>>>>>>> bsp: Modify code to optimize Cache Invalidation
 			/* Wait for invalidate to complete */
 			dsb();
 			adr += cacheline;
