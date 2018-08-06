@@ -89,6 +89,8 @@
 * 3.5   mn     04/18/18 Resolve compilation warnings for sdps driver
 * 3.6   mn     07/06/18 Fix Cppcheck and Doxygen warnings for sdps driver
 *       mn     08/01/18 Add support for using 64Bit DMA with 32-Bit Processor
+*       mn     08/01/18 Add cache invalidation call before returning from
+*                       ReadPolled API
 * </pre>
 *
 ******************************************************************************/
@@ -1394,6 +1396,12 @@ s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 	/* Write to clear bit */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
+
+	if (InstancePtr->Config.IsCacheCoherent == 0) {
+		Xil_DCacheInvalidateRange((INTPTR)Buff,
+				BlkCnt * XSDPS_BLK_SIZE_512_MASK);
+	}
+
 	Status = XST_SUCCESS;
 
 RETURN_PATH:
