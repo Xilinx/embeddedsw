@@ -65,6 +65,7 @@
  * 5.12 tjs  06/18/18 Added support for MT25QL01G and MT25QL02G 3V
  *					  flash.CR#1004264
  * 5.12 tjs  06/18/18 Removed warnings reported by checkpatch.
+ * 5.12 tjs  06/18/18 Added support for low density ISSI flash parts. PR#9237
  * </pre>
  *
  ******************************************************************************/
@@ -163,6 +164,12 @@ extern "C" {
  * The following definitions specify the Device Id for the different
  * ISSI Serial Flash device.
  */
+#define XISF_ISSI_DEV_IS25WP080D	0x7014	/**< Device ID for IS25WP080D */
+#define XISF_ISSI_DEV_IS25LP080D	0x6014	/**< Device ID for IS25LP080D */
+#define XISF_ISSI_DEV_IS25WP016D	0x7015	/**< Device ID for IS25WP016D */
+#define XISF_ISSI_DEV_IS25LP016D	0x6015	/**< Device ID for IS25LP016D */
+#define XISF_ISSI_DEV_IS25WP032D	0x7016	/**< Device ID for IS25WP032D */
+#define XISF_ISSI_DEV_IS25LP032D	0x6016	/**< Device ID for IS25LP032D */
 #define XISF_ISSI_DEV_IS25WP064A	0x7017	/**< Device ID for IS25WP064A */
 #define XISF_ISSI_DEV_IS25LP064A	0x6017	/**< Device ID for IS25LP064A */
 #define XISF_ISSI_DEV_IS25WP256D	0x7019	/**< Device ID for IS25WP256D */
