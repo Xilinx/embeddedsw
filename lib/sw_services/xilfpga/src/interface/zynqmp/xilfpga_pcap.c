@@ -652,7 +652,8 @@ static u32 XFpga_WriteToPcap(u32 Size, UINTPTR BitStreamAddr)
 	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, BitStreamAddr, Size, 0);
 
 	/* wait for the SRC_DMA to complete and the pcap to be IDLE */
-	XCsuDma_WaitForDone(&CsuDma, XCSUDMA_SRC_CHANNEL);
+	Status = XCsuDma_WaitForDoneTimeout(&CsuDma, XCSUDMA_SRC_CHANNEL);
+	return Status;
 
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
@@ -1330,7 +1331,8 @@ static u32 XFpga_CopyToOcm(UINTPTR Src, UINTPTR Dst, u32 Size)
 	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, Src, Size, 0);
 
 	/* Polling for transfer to be done */
-	XCsuDma_WaitForDone(&CsuDma, XCSUDMA_DST_CHANNEL);
+	Status = XCsuDma_WaitForDoneTimeout(&CsuDma, XCSUDMA_DST_CHANNEL);
+	return Status;
 
 	/* To acknowledge the transfer has completed */
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
@@ -2175,7 +2177,11 @@ u32 XFpga_GetConfigRegPcap(u32 ConfigReg, UINTPTR Address)
 	Xil_Out32(CSU_PCAP_RDWR, 0x1);
 
 	/* wait for the DST_DMA to complete and the pcap to be IDLE */
-	XCsuDma_WaitForDone(&CsuDma, XCSUDMA_DST_CHANNEL);
+	Status = XCsuDma_WaitForDoneTimeout(&CsuDma, XCSUDMA_DST_CHANNEL);
+	if (Status != XFPGA_SUCCESS) {
+		xil_printf("Read from PCAP Failed\n\r");
+		return XFPGA_FAILURE;
+	}
 
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
@@ -2337,8 +2343,12 @@ u32 XFpga_GetPLConfigData(UINTPTR Address, u32 NumFrames)
 	Xil_Out32(CSU_PCAP_RDWR, 0x1);
 
 
-	/* wait for the SRC_DMA to complete and the pcap to be IDLE */
-	XCsuDma_WaitForDone(&CsuDma, XCSUDMA_DST_CHANNEL);
+	/* wait for the DST_DMA to complete and the pcap to be IDLE */
+	Status = XCsuDma_WaitForDoneTimeout(&CsuDma, XCSUDMA_DST_CHANNEL);
+	if (Status != XFPGA_SUCCESS) {
+		xil_printf("Read from PCAP Failed\n\r");
+		return XFPGA_FAILURE;
+	}
 
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
