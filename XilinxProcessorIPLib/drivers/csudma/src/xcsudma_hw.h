@@ -256,6 +256,8 @@ extern "C" {
 						  *  address */
 /*@}*/
 
+#define XCSUDMA_DONE_TIMEOUT_VAL 3000000U
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #define XCsuDma_In32		Xil_In32	/**< Input operation */
