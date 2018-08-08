@@ -134,9 +134,6 @@ gpiops_v3_4:
 Resolved cppcheck warnings.(CR#1006331)
 Resolved MISRA-C mandatory violations.(CR#1007751)
 
-gpiops_v3_4:
-Resolved cppcheck warnings.(CR#1006331)
-
 sdps_v3_6
 Fixed Cppcheck, Doxygen and gcc warnings (CR#1006375)
 Add initializer macro for HasEMIO
@@ -195,9 +192,6 @@ Add support for 64 bit variant of microblaze processor.
 iicps_v3_8:
 Fix for Cppcheck and Doxygen warnings.
 Add timeout interrupt in master mode.
-
-iicps_v3_8:
-Fix for Cppcheck and Doxygen warnings.
 
 intc_v3_8:
 Updated check_cascade proc, to add check
