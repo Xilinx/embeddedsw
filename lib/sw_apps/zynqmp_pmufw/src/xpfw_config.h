@@ -80,7 +80,11 @@
  * 	- ENABLE_SECURE : Enables security features
  * 	- XPU_INTR_DEBUG_PRINT_ENABLE : Enables debug for XMPU/XPPU functionality
  *
- * 	- DEBUG_PM : Enables debug functions for PM
+ * 	- PM_LOG_LEVEL : Enables print based debug functions for PM. Possible
+ *			values are: 1 (alerts), 2 (errors), 3 (warnings),
+ *			4 (info). Higher numbers include the debug scope of
+ *			lower number, i.e. enabling 3 (warnings) also enables
+ *			1 (alerts) and 2 (errors).
  * 	- IDLE_PERIPHERALS : Enables idling peripherals before PS or System reset
  * 	- ENABLE_NODE_IDLING : Enables idling and reset of nodes before force
  * 	                       of a sub-system
@@ -111,7 +115,7 @@
 #define	ENABLE_SECURE_VAL				(1U)
 #define	XPU_INTR_DEBUG_PRINT_ENABLE_VAL	(0U)
 
-#define	DEBUG_PM_VAL					(0U)
+#define	PM_LOG_LEVEL_VAL				(0U)
 #define	IDLE_PERIPHERALS_VAL			(0U)
 #define	ENABLE_NODE_IDLING_VAL			(0U)
 #define	DEBUG_MODE_VAL					(0U)
@@ -168,8 +172,8 @@
 #define XPU_INTR_DEBUG_PRINT_ENABLE
 #endif
 
-#if DEBUG_PM_VAL
-#define DEBUG_PM
+#if PM_LOG_LEVEL_VAL > 0
+#define PM_LOG_LEVEL	PM_LOG_LEVEL_VAL
 #endif
 
 #if IDLE_PERIPHERALS_VAL
