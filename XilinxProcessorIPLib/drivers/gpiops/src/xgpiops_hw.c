@@ -29,7 +29,7 @@
 /**
 *
 * @file xgpiops_hw.c
-* @addtogroup gpiops_v3_3
+* @addtogroup gpiops_v3_4
 * @{
 *
 * This file contains low level GPIO functions.
