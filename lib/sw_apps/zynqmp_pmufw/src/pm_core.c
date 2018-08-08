@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -589,6 +589,7 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
 
 	/* Do not update AMS_REF_CLOCK register */
 	if ((CRL_APB_BASEADDR + AMS_REF_CTRL_REG_OFFSET) == address) {
+		status = XST_FAILURE;
 		goto done;
 	}
 
