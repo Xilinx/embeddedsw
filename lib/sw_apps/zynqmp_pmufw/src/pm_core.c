@@ -53,10 +53,12 @@
 #include "rpu.h"
 #ifdef ENABLE_SECURE
 #include "xsecure.h"
+#include "xilskey_eps_zynqmp_puf.h"
 #endif
 #include "pmu_iomodule.h"
 
 #define AMS_REF_CTRL_REG_OFFSET	0x108
+#define AES_PUF_KEY_SEL_MASK	0x2
 
 #define INVALID_ACK_ARG(a)	((a < REQUEST_ACK_MIN) || (a > REQUEST_ACK_MAX))
 
@@ -811,6 +813,34 @@ static void PmSecureRsa(const PmMaster *const master,
 }
 
 /**
+ * PmSecureAes() - To encrypt or decrypt the data with the provided
+ *  key (Device/KUP/PUF keys).
+ *
+ * @SrcAddrHigh: Higher 32-bit address of the XSecure_AesParams structure
+ *         	from where data addresses will be read.
+ *
+ * @SrcAddrLow: Lower 32-bit address of the XSecure_AesParams structure
+ *         	from where data addresses will be read.
+ *
+ * @return  error status based on implemented functionality(SUCCESS by default)
+ */
+static void PmSecureAes(const PmMaster *const master,
+			const u32 SrcAddrHigh, const u32 SrcAddrLow)
+{
+	u32 Status = XST_SUCCESS;
+	XilSKey_Puf InstancePtr;
+	u64 WrAddr = ((u64)SrcAddrHigh << 32) | SrcAddrLow;
+	XSecure_AesParams *Aes = (XSecure_AesParams *)(UINTPTR)WrAddr;
+
+	if (Aes->KeySrc == AES_PUF_KEY_SEL_MASK) {
+		XilSKey_Puf_Regeneration(&InstancePtr);
+	}
+
+	Status = XSecure_AesOperation(SrcAddrHigh, SrcAddrLow);
+	IPI_RESPONSE1(master->ipiMask, Status);
+}
+
+/**
  * PmSecureImage() - To process secure image
  *
  * @SrcAddrHigh: Higher 32-bit Linear memory space from where data
@@ -1398,6 +1428,9 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		break;
 	case PM_SECURE_IMAGE:
 		PmSecureImage(master, pload[1], pload[2], pload[3], pload[4]);
+		break;
+	case PM_SECURE_AES:
+		PmSecureAes(master, pload[1], pload[2]);
 		break;
 #endif
 	default:
