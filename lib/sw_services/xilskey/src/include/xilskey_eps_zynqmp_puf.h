@@ -74,6 +74,8 @@ extern "C" {
 #define		XSK_ZYNQMP_PUF_SYN_LEN			(386)
 
 #define		XSK_ZYNQMP_PUF_REGISTRATION		(1U)
+#define 	XSK_ZYNQMP_PUF_REGENERATION		(4U)
+#define 	XSK_ZYNQMP_PUF_STATUS_READ		(5U)
 
 #define 	XSK_ZYNQMP_PUF_CFG0_INIT_VAL		(2U)
 #define 	XSK_ZYNQMP_PUF_CFG1_INIT_VAL_4K		(0x0c230090U)
@@ -152,6 +154,7 @@ u32 XilSKey_Read_Puf_EfusePs_SecureBits(
 u32 XilSKey_Puf_Debug2(XilSKey_Puf *InstancePtr);
 u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr);
 
+u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr);
 #ifdef __cplusplus
 }
 #endif

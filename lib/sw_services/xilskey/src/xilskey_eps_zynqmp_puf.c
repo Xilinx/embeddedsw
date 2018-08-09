@@ -49,7 +49,7 @@
 
 #include "xilskey_eps_zynqmp_puf.h"
 #include "xilskey_eps_zynqmp_hw.h"
-
+#include "sleep.h"
 /************************** Constant Definitions *****************************/
 
 
@@ -626,6 +626,44 @@ ENDF:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * PUF Re-generation
+ *
+ * @param       InstancePtr is a pointer to the XilSKey_Puf instance.
+ *
+ * @return
+ *              - XST_SUCCESS if regeneration was successful.
+ *              - ERROR if regeneration was unsuccessful
+ *
+ ******************************************************************************/
+u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr)
+{
+	u32 PufStatus;
+	u32 Debug = XSK_PUF_DEBUG_GENERAL;
+
+        /* Assert validates the input arguments */
+        Xil_AssertNonvoid(InstancePtr != NULL);
+
+	 xPuf_printf(Debug,"API: PUF Regeneration\r\n");
+
+	/* PUF key to device key */
+	XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR, XSK_ZYNQMP_CSU_PUF_CMD,
+					XSK_ZYNQMP_PUF_REGENERATION);
+	XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR, XSK_ZYNQMP_CSU_PUF_CMD,
+			XSK_ZYNQMP_PUF_STATUS_READ);
+
+	/* Wait till the data word ready */
+        PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
+                                XSK_ZYNQMP_CSU_PUF_STATUS);
+	usleep(500000);
+
+	PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
+					XSK_ZYNQMP_CSU_ISR);
+	xPuf_printf(Debug,"PufStatus : 0x%x \r\n", PufStatus);
+
+	return XST_SUCCESS;
+}
 /*****************************************************************************/
 /**
  * PUF Debug 2 operation

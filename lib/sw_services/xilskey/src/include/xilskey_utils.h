@@ -79,7 +79,7 @@ extern "C" {
 #include "xsysmon.h"
 #include "xtmrctr.h"
 #else
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (PSU_PMU)
 #include "xsysmonpsu.h"
 #include "xplatform_info.h"
 #else
@@ -95,7 +95,7 @@ extern "C" {
 #define XSK_MICROBLAZE_PLATFORM
 #else
 #define XSK_ARM_PLATFORM
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (PSU_PMU)
 #define XSK_ZYNQ_ULTRA_MP_PLATFORM
 #else
 #define XSK_ZYNQ_PLATFORM
