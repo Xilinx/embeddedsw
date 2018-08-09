@@ -55,6 +55,7 @@
 *                    Gcm-Tag mismatch
 * 3.2   ka  04/04/18 Added support for Sha3_Update, if the payload is not
 *        	     4 bytes aligned.
+*	ka  08/03/18 Added XSecure_Aes Api's to encrypt or decrypt data-blobs.
 *
 * </pre>
 *
@@ -380,6 +381,190 @@ u32 XSecure_RsaCore(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize,
 	}
 
 END:
+	return Status;
+}
+
+/*****************************************************************************/
+/*
+ * @brief
+ * This function initializes the AES-GCM engine with Key and Iv
+ *
+ * @param	AddrHigh	Higher 32 bit address of the XSecure_AesParams
+ * 				structure.
+ * @param	AddrLow		Lower 32 bit address of the XSecure_AesParams
+ * 				structure.
+ *
+ * @return	Returns Status
+ * 		- XST_SUCCESS on success
+ * 		- Error code on failure
+ *
+ *****************************************************************************/
+static u32 XSecure_InitAes(u32 AddrHigh, u32 AddrLow)
+{
+	u64 WrAddr = ((u64)AddrHigh << 32) | AddrLow;
+	XSecure_AesParams *AesParams = (XSecure_AesParams *)(UINTPTR)WrAddr;
+	u32 Status = XST_SUCCESS;
+	u8 Index;
+	u64 IvAddr;
+	u64 KeyAddr;
+	u32 *IvPtr;
+	u32 *KeyPtr;
+
+
+	IvAddr = AesParams->Iv;
+	KeyAddr = AesParams->Key;
+
+	IvPtr = (u32 *)(UINTPTR)IvAddr;
+	KeyPtr =(u32 *)(UINTPTR)KeyAddr;
+
+	Status = XSecure_CsuDmaInit();
+	if (Status != XST_SUCCESS) {
+		return XSECURE_ERROR_CSUDMA_INIT_FAIL;
+	}
+	for (Index = 0; Index < XSECURE_IV_LEN; Index++, IvPtr++) {
+		Iv[Index] = *IvPtr;
+	}
+	/* Initialize the Aes driver so that it's ready to use */
+	if (AesParams->KeySrc == XSECURE_AES_KUP_KEY) {
+		for (Index = 0; Index < XSECURE_KEY_LEN; Index++, KeyPtr++) {
+			Key[Index] = *KeyPtr;
+		}
+		XSecure_AesInitialize(&SecureAes, &CsuDma,
+				XSECURE_CSU_AES_KEY_SRC_KUP,
+				(u32 *)Iv, (u32 *)Key);
+	}
+	else {
+		XSecure_AesInitialize(&SecureAes, &CsuDma,
+				XSECURE_CSU_AES_KEY_SRC_DEV,
+				(u32 *)Iv, NULL);
+	}
+	return Status;
+
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function performs the AES decryption of the data-blob.
+ *
+ * @param	AddrHigh	Higher 32 bit address of the XSecure_AesParams
+ * 				structure.
+ * @param	AddrLow		Lower 32 bit address of the XSecure_AesParams
+ * 				structure.
+ *
+ * @return	Returns Status
+ *		- XST_SUCCESS on success
+ *		- Error code on failure
+ *
+ *****************************************************************************/
+static u32 XSecure_DecryptData(u32 AddrHigh, u32 AddrLow)
+{
+	u64 WrAddr = ((u64)AddrHigh << 32) | AddrLow;
+	XSecure_AesParams *AesParams = (XSecure_AesParams *)(UINTPTR)WrAddr;
+	u32 Status = XST_SUCCESS;
+	u64 SrcAddr;
+	u64 DstAddr;
+	u64 GcmTagAddr;
+
+	Status = XSecure_InitAes(AddrHigh,AddrLow);
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
+	SrcAddr = AesParams->Src;
+	DstAddr = AesParams->Dst;
+
+	GcmTagAddr = (u64)(UINTPTR)((u32 *)(UINTPTR)SrcAddr +
+			(AesParams->Size)/4);
+
+	Status = XSecure_AesDecryptData(&SecureAes,
+			(u8 *)(UINTPTR)DstAddr,
+			(u8 *)(UINTPTR)SrcAddr,
+			AesParams->Size,
+			(u8 *)(UINTPTR)GcmTagAddr);
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function performs the AES encryption of the data-blob.
+ *
+ * @param	AddrHigh	Higher 32 bit address of the XSecure_AesParams
+ * 				structure.
+ * @param	AddrLow		Lower 32 bit address of the XSecure_AesParams
+ * 				structure.
+ *
+ * @return	Returns Status
+ * 		- XST_SUCCESS on success
+ * 		- Error code on failure
+ *
+ *****************************************************************************/
+static u32 XSecure_EncryptData(u32 AddrHigh, u32 AddrLow)
+{
+	u64 WrAddr = ((u64)AddrHigh << 32) | AddrLow;
+	XSecure_AesParams *AesParams = (XSecure_AesParams *)(UINTPTR)WrAddr;
+	u32 Status = XST_SUCCESS;
+	u64 SrcAddr;
+	u64 DstAddr;
+
+	Status = XSecure_InitAes(AddrHigh,AddrLow);
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
+	SrcAddr = AesParams->Src;
+	DstAddr = AesParams->Dst;
+
+	XSecure_AesEncryptData(&SecureAes,
+			(u8 *)(UINTPTR)DstAddr,
+			(u8 *)(UINTPTR)SrcAddr,
+			AesParams->Size);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/*
+ * @brief
+ * This function checks for flags field of the XSecure_AesParams struct
+ * and resolves weather the request is encryption or decryption.
+ *
+ * @param	AddrHigh	Higher 32 bit address of the XSecure_AesParams
+ * 				structure.
+ * @param	AddrLow		Lower 32 bit address of the XSecure_AesParams
+ * 				structure.
+ *
+ * @return      Returns Status
+ * 		- XST_SUCCESS on success
+ * 		- Error code on failure
+ *
+ ******************************************************************************/
+u32 XSecure_AesOperation(u32 AddrHigh, u32 AddrLow)
+{
+	u64 WrAddr = ((u64)AddrHigh << 32) | AddrLow;
+	XSecure_AesParams *AesParams = (XSecure_AesParams *)(UINTPTR)WrAddr;
+	u32 Status = XST_SUCCESS;
+	u32 Flags = AesParams->AesOp;
+
+#ifndef XSECURE_TRUSTED_ENVIRONMENT
+	if (AesParams->KeySrc != XSECURE_AES_KUP_KEY) {
+		Status = XSECURE_DEC_WRONG_KEY_SOURCE;
+		return Status;
+	}
+#endif
+	if ((AesParams->Size % XSECURE_WORD_LEN) != 0x00) {
+		return XSECURE_SIZE_ERR;
+	}
+	switch (Flags) {
+		case XSECURE_DEC:
+			Status = XSecure_DecryptData(AddrHigh, AddrLow);
+			break;
+		case XSECURE_ENC:
+			Status = XSecure_EncryptData(AddrHigh, AddrLow);
+			break;
+		default:
+			Status = XSECURE_INVALID_FLAG;
+			break;
+	}
 	return Status;
 }
 
