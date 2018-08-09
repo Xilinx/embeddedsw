@@ -512,6 +512,9 @@ gpiops_v3_4:
 Resolved cppcheck warnings.(CR#1006331)
 Resolved MISRA-C mandatory violations.(CR#1007751)
 
+gpiops_v3_4:
+Resolved cppcheck warnings.(CR#1006331)
+
 sdps_v3_6
 Fixed Cppcheck, Doxygen and gcc warnings (CR#1006375)
 Add initializer macro for HasEMIO
