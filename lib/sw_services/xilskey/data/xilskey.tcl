@@ -73,7 +73,7 @@ proc xgen_opts_file {libhandle} {
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 
 	puts $file_handle "\n/* Xilinx processor macro for Secure Library (Xilskey) */ "
-	if {$proc_type == "ps7_cortexa9" || $proc_type == "psu_cortexa53" || $proc_type == "psu_cortexr5"} {
+	if {$proc_type == "ps7_cortexa9" || $proc_type == "psu_cortexa53" || $proc_type == "psu_cortexr5" || $proc_type == "psu_pmu"} {
 		puts $file_handle "\n#define XPAR_XSK_ARM_PLATFORM 1"
 	}
 	if {$proc_type == "microblaze"} {
@@ -87,6 +87,22 @@ proc xgen_opts_file {libhandle} {
 		}
 	}
 
+	if {$proc_type == "psu_pmu"} {
+		file delete -force ./src/xilskey_epl.c
+		file delete -force ./src/xilskey_eps.c
+		file delete -force ./src/xilskey_epshw.h
+		file delete -force ./src/xilskey_js.h
+		file delete -force ./src/xilskey_jscmd.c
+		file delete -force ./src/xilskey_jscmd.h
+		file delete -force ./src/xilskey_jslib.c
+		file delete -force ./src/xilskey_jslib.h
+		file delete -force ./src/xilskey_jtag.h
+		file delete -force ./src/xilskey_bbram.c
+		file delete -force ./src/xilskey_bbramps_zynqmp.c
+		file delete -force ./src/include/xilskey_bbram.h
+		file delete -force ./src/include/xilskey_epl.h
+		file delete -force ./src/include/xilskey_eps.h
+        }
 	puts $file_handle ""
 	close $file_handle
 

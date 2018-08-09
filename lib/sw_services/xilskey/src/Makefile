@@ -44,12 +44,7 @@ OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 SKEY_SRCS := $(wildcard *.c)
 SKEY_OBJS = $(addprefix $(SKEY_DIR)/, $(SKEY_SRCS:%.c=%.o))
 
-INCLUDEFILES=$(SKEY_DIR)/include/xilskey_eps.h \
-			$(SKEY_DIR)/include/xilskey_epl.h \
-			$(SKEY_DIR)/include/xilskey_utils.h \
-			$(SKEY_DIR)/include/xilskey_bbram.h \
-			$(SKEY_DIR)/include/xilskey_eps_zynqmp.h \
-			$(SKEY_DIR)/include/xilskey_eps_zynqmp_puf.h
+INCLUDEFILES=$(wildcard *.h)
 
 libs: libxilskey.a
 
