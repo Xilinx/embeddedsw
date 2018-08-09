@@ -154,6 +154,7 @@ enum XPmApiId {
 	/* Secure image */
 	PM_SECURE_IMAGE,
 	PM_FPGA_READ,
+	PM_SECURE_AES,
 	PM_API_MAX
 };
 
