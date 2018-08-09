@@ -47,6 +47,7 @@
 * 3.1   ka   04/10/18 Added support for user-efuse revocation
 *       ka   04/18/18 Added support for Zeroization of the memory in case of
 *                     Gcm-Tag mismatch
+* 3.2   ka   08/03/18 Added XSecure_Aes Api's to encrypt or decrypt data-blobs.
 * </pre>
 *
 * @note
@@ -80,9 +81,9 @@
 #define XSECURE_USER_EFUSE_MIN_VALUE	1U
 #define XSECURE_USER_EFUSE_MAX_VALUE	256U
 
-/* 0th bit of flag tells about encryption or decryption */
 #define XSECURE_ENC		1
 #define XSECURE_DEC		0
+#define XSECURE_AES_KUP_KEY	0
 
 #define XSECURE_RSA_OPERATION	1
 #define XSECURE_RSA_KEY_SELECT  2
@@ -261,6 +262,16 @@ typedef struct {
 	u8 *Exponent;		/**< Exponent */
 }XSecure_RsaKey;
 
+/* AES Params*/
+typedef struct {
+	u64 Src;
+	u64 Iv;
+	u64 Key;
+	u64 Dst;
+	u64 Size;
+	u64 AesOp;
+	u64 KeySrc;
+}XSecure_AesParams;
 /**
  * Structure to store the partition header details.
  * It contains all the information of partition header in order.
@@ -315,6 +326,7 @@ u32 XSecure_RsaAes(u32 SrcAddrHigh, u32 SrcAddrLow, u32 WrSize, u32 flags);
 u32 XSecure_Sha3Hash(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize, u32 Flags);
 u32 XSecure_RsaCore(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize, u32 Flags);
 u32 XSecure_DataAuth(u8 *Signature, XSecure_RsaKey *Key, u8 *Hash);
+u32 XSecure_AesOperation(u32 AddrHigh, u32 AddrLow);
 
 /* Memory copy */
 u32 XSecure_MemCopy(void * DestPtr, void * SrcPtr, u32 Size);
