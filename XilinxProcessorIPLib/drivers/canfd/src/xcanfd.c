@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcanfd.c
-* @addtogroup canfd_v1_2
+* @addtogroup canfd_v1_3
 * @{
 *
 * The XCanFd driver. Functions in this file are the minimum required functions
@@ -51,6 +51,7 @@
 * 1.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XCanFd_CfgInitialize API.
 * 1.2   mi   09/22/16 Fixed compilation warnings.
+* 1.3   ask  08/08/18 Fixed Cppcheck warnings.
 *		      .
 *
 * </pre>
@@ -70,6 +71,9 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
+#define TRR_POS_MASK    0x1
+#define MAX_BUFFER_VAL   32
 
 /************************** Variable Definitions *****************************/
 
@@ -706,8 +710,6 @@ u32 XCanFd_Recv_Sequential(XCanFd *InstancePtr, u32 *FramePtr)
 		Result |= XCANFD_FSR_IRI_MASK;
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_FSR_OFFSET,Result);
-		Result = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
-				XCANFD_FSR_OFFSET);
 
 		return XST_SUCCESS;
 	}
@@ -1153,7 +1155,7 @@ int XCanFd_AcceptFilterSet(XCanFd *InstancePtr, u32 FilterIndex,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	Xil_AssertNonvoid((FilterIndex > 0) ||(FilterIndex <= 32));
+	Xil_AssertNonvoid((FilterIndex > 0) && (FilterIndex <= 32));
 
 	/*
 	 * Check if the given filter is currently enabled. If yes, return error
@@ -1204,7 +1206,7 @@ void XCanFd_AcceptFilterGet(XCanFd *InstancePtr, u32 FilterIndex,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(FilterIndex < XCANFD_NOOF_AFR);
-	Xil_AssertVoid((FilterIndex > 0) ||(FilterIndex <= 32));
+	Xil_AssertVoid((FilterIndex > 0) && (FilterIndex <= 32));
 
 	FilterIndex--;
 	*MaskValue = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
@@ -1477,8 +1479,8 @@ void XCanFd_PollQueue_Buffer(XCanFd *InstancePtr)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (InstancePtr->MultiBuffTrr!=0) {
-		for (BufferNumber = 0;BufferNumber < 32;BufferNumber++) {
-			if (InstancePtr->MultiBuffTrr & (1 << BufferNumber))
+		for (BufferNumber = 0;BufferNumber < MAX_BUFFER_VAL;BufferNumber++) {
+			if (InstancePtr->MultiBuffTrr & ((u32)TRR_POS_MASK << BufferNumber))
 				while (XCanFd_IsBufferTransmitted(InstancePtr,
 					BufferNumber) == FALSE);
 		}

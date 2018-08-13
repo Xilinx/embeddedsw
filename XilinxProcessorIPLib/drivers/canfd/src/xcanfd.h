@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcanfd.h
-* @addtogroup canfd_v1_2
+* @addtogroup canfd_v1_3
 * @{
 * @details
 *
@@ -210,6 +210,13 @@ exclusion
 *       ms   04/05/17 Added tabspace for return statements in functions
 *                     of canfd examples for proper documentation while
 *                     generating doxygen.
+* 1.3   ask  08/08/18 Fixed Gcc, Cppcheck and doxygen warnings in api's :
+*					  XCanFd_PollQueue_Buffer, XCanFd_AcceptFilterSet,
+*					  XCanFd_Recv_Sequential, XCanFd_SetBitTiming,
+*					  XCanFd_SetBitRateSwitch_EnableNominal.
+*					  Changed value of Canfd Id to 11 bit value to comply
+*					  with standard Can ID.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -258,7 +265,6 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
- * @struct
  * This typedef contains configuration information for a device.
  */
 typedef struct {
@@ -308,7 +314,6 @@ typedef void (*XCanFd_EventHandler) (void *CallBackRef, u32 Mask);
 
 /*****************************************************************************/
 /**
- * @struct
  * The XCanFd driver instance data. The user is required to allocate a
  * variable of this type for every CAN device in the system. A pointer
  * to a variable of this type is then passed to the driver API functions.
@@ -378,7 +383,7 @@ typedef struct {
 *****************************************************************************/
 #define XCanFd_CreateIdValue(StandardId, SubRemoteTransReq, IdExtension, \
 		ExtendedId, RemoteTransReq) \
-	(((((u64)StandardId) << XCANFD_IDR_ID1_SHIFT) & XCANFD_IDR_ID1_MASK) | \
+	((((StandardId) << XCANFD_IDR_ID1_SHIFT) & XCANFD_IDR_ID1_MASK) | \
 	(((SubRemoteTransReq) << XCANFD_IDR_SRR_SHIFT) & XCANFD_IDR_SRR_MASK) | \
 	(((IdExtension) << XCANFD_IDR_IDE_SHIFT) & XCANFD_IDR_IDE_MASK) | \
 	(((ExtendedId) << XCANFD_IDR_ID2_SHIFT) & XCANFD_IDR_ID2_MASK) | \

@@ -1,6 +1,6 @@
 /*******************************************************************
  *
- * Copyright (C) 2010-2015 Xilinx, Inc. All rights reserved.
+ * Copyright (C) 2015-2018 Xilinx, Inc. All rights reserved.
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -37,9 +37,10 @@
 XCanFd_Config XCanFd_ConfigTable[] =
 {
 	{
-		XPAR_CAN_0_DEVICE_ID,
-		XPAR_CAN_0_BASEADDR,
-		XPAR_CAN_0_RX_MODE,
-		XPAR_CAN_0_NUM_OF_RX_MB_BUF
+		XPAR_CANFD_0_DEVICE_ID,
+		XPAR_CANFD_0_BASEADDR,
+		XPAR_CANFD_0_RX_MODE,
+		XPAR_CANFD_0_NUM_OF_RX_MB_BUF,
+		XPAR_CANFD_0_NUM_OF_TX_BUF
 	}
 };
