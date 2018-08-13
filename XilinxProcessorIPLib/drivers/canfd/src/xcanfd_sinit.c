@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* (c) Copyright 2015 Xilinx, Inc. All rights reserved.
+* (c) Copyright 2015-2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -28,8 +28,8 @@
 /*****************************************************************************/
 /**
 *
-* @file xcanFd_sinit.c
-* @addtogroup canfd_v1_2
+* @file xcanfd_sinit.c
+* @addtogroup canfd_v1_3
 * @{
 *
 * This file contains the implementation of the XCanFd driver's static
@@ -44,7 +44,7 @@
 * Ver   Who    Date	Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.0   nsk    06/03/15 First release
-*
+* 1.3   ask    08/08/18 Fixed doxygen warnings
 *
 * </pre>
 *

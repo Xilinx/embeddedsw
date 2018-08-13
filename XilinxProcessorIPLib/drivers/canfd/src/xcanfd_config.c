@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcanfd_config.c
-* @addtogroup canfd_v1_2
+* @addtogroup canfd_v1_3
 * @{
 *
 * Functions in this file are CAN Configuration Register access related.
@@ -40,6 +40,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   nsk  06/04/15 First release
+* 1.3   ask  08/08/18 Fixed Cppcheck warnings.
 *
 * </pre>
 ******************************************************************************/
@@ -182,9 +183,6 @@ int XCanFd_SetBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
 
 	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_BTR_OFFSET, Value);
-	Value = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
-			XCANFD_BTR_OFFSET);
-
 
 	return XST_SUCCESS;
 }
@@ -428,8 +426,7 @@ void XCanFd_SetBitRateSwitch_EnableNominal(XCanFd *InstancePtr)
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_MSR_OFFSET,Result);
 	}
-	Result = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
-			XCANFD_MSR_OFFSET);
+
 }
 
 /*****************************************************************************/
@@ -463,7 +460,5 @@ void XCanFd_SetBitRateSwitch_DisableNominal(XCanFd *InstancePtr)
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_MSR_OFFSET,Result);
 	}
-	Result = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
-			XCANFD_MSR_OFFSET);
 }
 /** @} */
