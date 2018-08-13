@@ -86,7 +86,12 @@ extern "C" {
 #define SPANSION_ID		0x01
 #define WINBOND_ID		0xEF
 #define MACRONIX_ID		0xC2
+#define ISSI_ID			0x9D
 
+#define FLASH_SIZE_ID_8M		0x14
+#define FLASH_SIZE_ID_16M		0x15
+#define FLASH_SIZE_ID_32M		0x16
+#define FLASH_SIZE_ID_64M		0x17
 #define FLASH_SIZE_ID_128M		0x18
 #define FLASH_SIZE_ID_256M		0x19
 #define FLASH_SIZE_ID_512M		0x20
@@ -98,6 +103,10 @@ extern "C" {
 /*
  * Size in bytes
  */
+#define FLASH_SIZE_8M			0x0100000
+#define FLASH_SIZE_16M			0x0200000
+#define FLASH_SIZE_32M			0x0400000
+#define FLASH_SIZE_64M			0x0800000
 #define FLASH_SIZE_128M			0x1000000
 #define FLASH_SIZE_256M			0x2000000
 #define FLASH_SIZE_512M			0x4000000
