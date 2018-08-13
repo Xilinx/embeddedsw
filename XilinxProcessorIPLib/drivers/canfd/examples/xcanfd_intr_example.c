@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C)  2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -56,6 +56,8 @@
 *                       available in all examples. This is a fix for CR-965028.
 *       ms     04/05/17 Added tabspace for return statements in functions
 *                       for proper documentation while generating doxygen.
+* 1.3   ask    08/08/18 Changed the Can ID to 11 bit value as standard Can ID
+*						is 11 bit.
 *
 * </pre>
 *
@@ -99,7 +101,7 @@
 #define FRAME_DATA_LENGTH	64
 
 /* Message Id Constant */
-#define TEST_MESSAGE_ID		2650
+#define TEST_MESSAGE_ID		1024
 
 /* Data length code */
 #define TEST_CANFD_DLC 15
