@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -214,6 +214,7 @@
 *                     _example.c to canonical name (CR 808007)
 * 4.3   ms   01/17/17 Fixed compilation warnings.
 * 4.4   ms   08/03/17 Added doxygen tags.
+* 4.5	tjs  08/13/18 Fixed compilation errors for ARMCC (CR#1008306)
 *
 * </pre>
 *
