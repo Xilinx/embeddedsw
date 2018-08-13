@@ -495,12 +495,27 @@ u32 FlashReadID(void)
 	} else if(ReadBuffer[1] == MACRONIX_ID) {
 		QspiFlashMake = MACRONIX_ID;
 		fsbl_printf(DEBUG_INFO, "MACRONIX ");
+	} else if(ReadBuffer[0] == ISSI_ID) {
+		QspiFlashMake = ISSI_ID;
+		fsbl_printf(DEBUG_INFO, "ISSI ");
 	}
 
 	/*
 	 * Deduce flash Size
 	 */
-	if (ReadBuffer[3] == FLASH_SIZE_ID_128M) {
+	if (ReadBuffer[2] == FLASH_SIZE_ID_8M) {
+		QspiFlashSize = FLASH_SIZE_8M;
+		fsbl_printf(DEBUG_INFO, "8M Bits\r\n");
+	} else if (ReadBuffer[2] == FLASH_SIZE_ID_16M) {
+		QspiFlashSize = FLASH_SIZE_16M;
+		fsbl_printf(DEBUG_INFO, "16M Bits\r\n");
+	} else if (ReadBuffer[2] == FLASH_SIZE_ID_32M) {
+		QspiFlashSize = FLASH_SIZE_32M;
+		fsbl_printf(DEBUG_INFO, "32M Bits\r\n");
+	} else if (ReadBuffer[2] == FLASH_SIZE_ID_64M) {
+		QspiFlashSize = FLASH_SIZE_64M;
+		fsbl_printf(DEBUG_INFO, "64M Bits\r\n");
+	} else if (ReadBuffer[3] == FLASH_SIZE_ID_128M) {
 		QspiFlashSize = FLASH_SIZE_128M;
 		fsbl_printf(DEBUG_INFO, "128M Bits\r\n");
 	} else if (ReadBuffer[3] == FLASH_SIZE_ID_256M) {
