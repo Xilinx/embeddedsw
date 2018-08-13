@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal 
@@ -29,7 +29,7 @@
 /**
 *
 * @file xdmaps_hw.c
-* @addtogroup dmaps_v2_3
+* @addtogroup dmaps_v2_4
 * @{
 *
 * This file contains the implementation of the interface reset functionality 
