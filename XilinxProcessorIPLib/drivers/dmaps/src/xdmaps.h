@@ -79,6 +79,7 @@
 *                       for CR-965028.
 *       ms     03/17/17 Added readme.txt file in examples folder for doxygen
 *                       generation.
+* 2.4   adk    13/08/18 Fixed armcc compiler warnings in the driver CR-1008310.
 * </pre>
 *
 *****************************************************************************/
@@ -284,6 +285,8 @@ int XDmaPs_SetFaultHandler(XDmaPs *InstPtr,
 			    void *CallbackRef);
 
 void XDmaPs_Print_DmaProg(XDmaPs_Cmd *Cmd);
+int XDmaPs_Instr_DMARMB(char *DmaProg);
+int XDmaPs_Instr_DMAWMB(char *DmaProg);
 
 /**
  * To avoid linking error,Declare all inline functions as extern for
@@ -300,10 +303,8 @@ extern INLINE int XDmaPs_Instr_DMALP(char *DmaProg, unsigned Lc,
 extern INLINE int XDmaPs_Instr_DMALPEND(char *DmaProg, char *BodyStart, unsigned Lc);
 extern INLINE int XDmaPs_Instr_DMAMOV(char *DmaProg, unsigned Rd, u32 Imm);
 extern INLINE int XDmaPs_Instr_DMANOP(char *DmaProg);
-extern INLINE int XDmaPs_Instr_DMARMB(char *DmaProg);
 extern INLINE int XDmaPs_Instr_DMASEV(char *DmaProg, unsigned int EventNumber);
 extern INLINE int XDmaPs_Instr_DMAST(char *DmaProg);
-extern INLINE int XDmaPs_Instr_DMAWMB(char *DmaProg);
 extern INLINE unsigned XDmaPs_ToEndianSwapSizeBits(unsigned int EndianSwapSize);
 extern INLINE unsigned XDmaPs_ToBurstSizeBits(unsigned BurstSize);
 #endif

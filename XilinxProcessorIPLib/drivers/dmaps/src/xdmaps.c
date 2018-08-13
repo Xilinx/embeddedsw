@@ -651,7 +651,7 @@ static INLINE int XDmaPs_Instr_DMANOP(char *DmaProg)
 * @note		None.
 *
 *****************************************************************************/
-static INLINE int XDmaPs_Instr_DMARMB(char *DmaProg)
+int XDmaPs_Instr_DMARMB(char *DmaProg)
 {
 	/*
 	 * DMARMB encoding
@@ -734,7 +734,7 @@ static INLINE int XDmaPs_Instr_DMAST(char *DmaProg)
 * @note		None.
 *
 *****************************************************************************/
-static INLINE int XDmaPs_Instr_DMAWMB(char *DmaProg)
+int XDmaPs_Instr_DMAWMB(char *DmaProg)
 {
 	/*
 	 * DMAWMB encoding
