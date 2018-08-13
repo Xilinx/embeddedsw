@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -80,6 +80,7 @@
 *		      CR 662317 Description - Xilinx Platform Flash on ML605
 *		      fails to work.
 * 3.04a srt  02/18/13 Fixed CR 700553.
+* 4.5	tjs  08/13/18 Fixed compilation errors for ARMCC (CR#1008306)
 * </pre>
 *
 *
@@ -805,8 +806,8 @@ int XFlashCFI_Read8(u8 *Ptr, u8 Interleave, u8 Mode)
 *****************************************************************************/
 int XFlashCFI_Read16(u8 *Ptr, u8 Interleave, u8 Mode)
 {
-	(void) Mode;
 	int Data = 0;
+	(void) Mode;
 
 	(Data) = (u8)READ_FLASH_8((u8*)(Ptr) + Interleave);
 	(Data) <<= 8;
