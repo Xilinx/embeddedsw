@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2017, Linaro Limited. and Contributors. All rights reserved.
+ * Copyright (c) 2018, Linaro Limited. and Contributors. All rights reserved.
+ * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,48 +30,23 @@
  */
 
 /*
- * @file	zephyr/sys.h
- * @brief	Zephyr system primitives for libmetal.
+ * @file	linux/log.h
+ * @brief	Linux libmetal log handler definition.
  */
 
-#ifndef __METAL_SYS__H__
-#error "Include metal/sys.h instead of metal/zephyr/sys.h"
+#ifndef __METAL_METAL_LOG__H__
+#error "Include metal/log.h instead of metal/linux/log.h"
 #endif
 
-#ifndef __METAL_ZEPHYR_SYS__H__
-#define __METAL_ZEPHYR_SYS__H__
-
-#include <stdlib.h>
-
-#include "./@PROJECT_MACHINE@/sys.h"
+#ifndef __METAL_LINUX_LOG__H__
+#define __METAL_LINUX_LOG__H__
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#ifndef METAL_MAX_DEVICE_REGIONS
-#define METAL_MAX_DEVICE_REGIONS 1
-#endif
-
-/** Structure of zephyr libmetal runtime state. */
-struct metal_state {
-
-	/** Common (system independent) data. */
-	struct metal_common_state common;
-};
-
-#ifdef METAL_INTERNAL
-
-/**
- * @brief memory mapping
- */
-void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
-			       size_t size, unsigned int flags);
-
-#endif /* METAL_INTERNAL */
-
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __METAL_ZEPHYR_SYS__H__ */
+#endif /* __METAL_LINUX_LOG__H__ */

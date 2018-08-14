@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2017, Linaro Limited. and Contributors. All rights reserved.
+ * Copyright (c) 2018, Linaro Limited. and Contributors. All rights reserved.
+ * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,40 +30,23 @@
  */
 
 /*
- * @file	zephyr/io.h
- * @brief	Zephyr specific io definitions.
+ * @file	freertos/log.h
+ * @brief	FreeRTOS libmetal log handler definition.
  */
 
-#ifndef __METAL_IO__H__
-#error "Include metal/io.h instead of metal/zephyr/io.h"
+#ifndef __METAL_METAL_LOG__H__
+#error "Include metal/log.h instead of metal/freertos/log.h"
 #endif
 
-#ifndef __METAL_ZEPHYR_IO__H__
-#define __METAL_ZEPHYR_IO__H__
-
-#include <stdlib.h>
+#ifndef __METAL_FREERTOS_LOG__H__
+#define __METAL_FREERTOS_LOG__H__
 
 #ifdef __cplusplus
 extern "C" {
-#endif
-
-#ifdef METAL_INTERNAL
-
-/**
- * @brief memory mapping for an I/O region
- */
-void metal_sys_io_mem_map(struct metal_io_region *io);
-
-/**
- * @brief memory mapping
- */
-void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
-			       size_t size, unsigned int flags);
-
 #endif
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __METAL_ZEPHYR_IO__H__ */
+#endif /* __METAL_FREERTOS_LOG__H__ */

@@ -1,31 +1,7 @@
 /*
  * Copyright (c) 2015 - 2017, Xilinx Inc. and Contributors. All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. Neither the name of Xilinx nor the names of its contributors may be used
- *    to endorse or promote products derived from this software without
- *    specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * SPDX-License-Identifier: BSD-3-Clause
  */
 
 /*
@@ -36,10 +12,11 @@
 #ifndef __METAL_IO__H__
 #define __METAL_IO__H__
 
-#include <assert.h>
+#include <limits.h>
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
+#include <metal/assert.h>
 #include <metal/compiler.h>
 #include <metal/atomic.h>
 #include <metal/sys.h>
@@ -177,9 +154,10 @@ metal_io_virt_to_offset(struct metal_io_region *io, void *virt)
 static inline metal_phys_addr_t
 metal_io_phys(struct metal_io_region *io, unsigned long offset)
 {
-	unsigned long page = offset >> io->page_shift;
+	unsigned long page = (io->page_shift >=
+			     sizeof(offset) * CHAR_BIT ?
+			     0 : offset >> io->page_shift);
 	return (io->physmap != NULL && offset <= io->size
-		&& io->physmap[page] != METAL_BAD_PHYS
 		? io->physmap[page] + (offset & io->page_mask)
 		: METAL_BAD_PHYS);
 }
@@ -255,14 +233,11 @@ metal_io_read(struct metal_io_region *io, unsigned long offset,
 		return atomic_load_explicit((atomic_uint *)ptr, order);
 	else if (ptr && sizeof(atomic_ulong) == width)
 		return atomic_load_explicit((atomic_ulong *)ptr, order);
-	else if (ptr && sizeof(atomic_ullong) == width)
 #ifndef NO_ATOMIC_64_SUPPORT
+	else if (ptr && sizeof(atomic_ullong) == width)
 		return atomic_load_explicit((atomic_ullong *)ptr, order);
-
-#else
-		return metal_processor_io_read64((atomic_ullong *)ptr, order);
 #endif
-	assert(0);
+	metal_assert(0);
 	return 0; /* quiet compiler */
 }
 
@@ -291,14 +266,12 @@ metal_io_write(struct metal_io_region *io, unsigned long offset,
 		atomic_store_explicit((atomic_uint *)ptr, value, order);
 	else if (ptr && sizeof(atomic_ulong) == width)
 		atomic_store_explicit((atomic_ulong *)ptr, value, order);
-	else if (ptr && sizeof(atomic_ullong) == width)
 #ifndef NO_ATOMIC_64_SUPPORT
+	else if (ptr && sizeof(atomic_ullong) == width)
 		atomic_store_explicit((atomic_ullong *)ptr, value, order);
-#else
-		metal_processor_io_write64((atomic_ullong *)ptr, value, order);
 #endif
 	else
-		assert (0);
+		metal_assert (0);
 }
 
 #define metal_io_read8_explicit(_io, _ofs, _order)			\

@@ -1,5 +1,8 @@
 Change Log for libmetal
 =================================
+2018.3
+	* sync from upstream development (10a0d5b)
+	* bug fixes.
 2018.1
 	* sync from upstream development (18048c4)
 2017.3
