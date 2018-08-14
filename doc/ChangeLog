@@ -795,9 +795,6 @@ Fixed misra-c required standard violations.
 xilflash_v4_5:
 Fixed compilation errors for ARMCC compiler(CR#1008306)
 
-xilflash_v4_5:
-Fixed compilation errors for ARMCC compiler(CR#1008306)
-
 zdma_v1_6:
 Fix Doxygen, cppcheck and coverity reported warnings.
 Fixed MISRA-C mandatory violations.(CR#1007757)
