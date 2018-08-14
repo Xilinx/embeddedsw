@@ -86,6 +86,7 @@ Removed checkpatch and GCC warnings.
 Added support for MT25QL01G flash from Micron (CR#1004264)
 Updated the library notes for Micron flash parts. (cr#973229)
 Added support for the low density ISSI flash parts. (PR#9237)
+Fixed the compilation warnings for ARMCC compiler. (CR#1008307)
 
 Resetps_v1_2
 Fixed compilation warnings in resetps driver
