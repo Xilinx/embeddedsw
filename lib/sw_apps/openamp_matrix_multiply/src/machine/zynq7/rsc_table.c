@@ -3,36 +3,15 @@
  * All rights reserved.
  * Copyright (c) 2015 Xilinx, Inc. All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- * 3. Neither the name of Mentor Graphics Corporation nor the names of its
- *    contributors may be used to endorse or promote products derived from this
- *    software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * SPDX-License-Identifier: BSD-3-Clause
  */
 
 /* This file populates resource table for BM remote
  * for use by the Linux Master */
 
-#include "openamp/open_amp.h"
+#include <openamp/open_amp.h>
 #include "rsc_table.h"
+#include "platform_info.h"
 
 /* Place resource table in special ELF section */
 /* Redefine __section for section name with token */
@@ -50,8 +29,8 @@
 /* Resource table entries */
 #define NUM_VRINGS                  0x02
 #define VRING_ALIGN                 0x1000
-#define RING_TX                     0x3e400000
-#define RING_RX                     0x3e404000
+#define RING_TX                     0x08000000
+#define RING_RX                     0x08004000
 #define VRING_SIZE                  256
 
 #define NUM_TABLE_ENTRIES           2
@@ -72,7 +51,7 @@ struct remote_resource_table __resource resources = {
 	 offsetof(struct remote_resource_table, rpmsg_vdev),
 	 },
 
-	{RSC_RPROC_MEM, 0x3e400000, 0x3e400000, 0x100000, 0},
+	{RSC_RPROC_MEM, SHARED_MEM_PA, SHARED_MEM_PA, SHARED_MEM_SIZE, 0},
 
 	/* Virtio device entry */
 	{
