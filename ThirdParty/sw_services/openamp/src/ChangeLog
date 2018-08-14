@@ -1,5 +1,12 @@
 Change Log for OpenAMP
 =================================
+2018.3
+	* sync from upstream development (b4aaf58)
+	  - Update openamp API to be able to use remoteproc, virtio and
+	    rpmsg independently.
+	  - Remove rpmsg channel and use rpmsg endpoint for communication.
+	* In openamp applications, move remoteproc operations from
+	  library to application.
 2018.1
 	* in matrix multiply application, do not create rpmsg endpoint
 	* in echo test application, do not create rpmsg endpoint

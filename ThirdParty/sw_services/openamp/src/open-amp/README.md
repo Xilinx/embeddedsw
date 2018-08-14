@@ -122,7 +122,19 @@ The OpenAMP library will be generated to `build/usr/local/lib` directory,
 headers will be generated to `build/usr/local/include` directory, and the
 applications executable will be generated to `build/usr/local/bin`
 directory.
+
 * cmake option `-DWITH_APPS=ON` is to build the demonstration applications.
+* If you have used `-DWITH_APPS=ON` to build the demos, you can try them on
+  your Linux host as follows:
+
+    ```
+    # Start echo test server to wait for message to echo
+    $ sudo LD_LIBRARY_PATH=<openamp_built>/usr/local/lib:<libmetal_built>/usr/local/lib \
+       build/usr/local/bin/rpmsg-echo-shared
+    # Run echo test to send message to echo test server
+    $ sudo LD_LIBRARY_PATH=<openamp_built>/usr/local/lib:<libmetal_built>/usr/local/lib \
+       build/usr/local/bin/rpmsg-echo-ping-shared 1
+    ```
 
 ###  Example to compile Zynq UltraScale+ MPSoC R5 generic(baremetal) remote:
 * build libmetal library on your host as follows:
@@ -195,18 +207,6 @@ headers will be generated to `build/usr/local/include` directory, and the
 applications executable will be generated to `build/usr/local/bin`
 directory.
 
-* `-DWITH_APPS=ON` is to build the demonstration applications.
-  If you have used `-DWITH_APPS=ON` to build the demos, you can try them on
-  your Linux host as follows:
-
-    ```
-    # Start echo test server to wait for message to echo
-    $ sudo LD_LIBRARY_PATH=<openamp_built>/usr/local/lib:<libmetal_built>/usr/local/lib \
-       build/usr/local/bin/echo_testd-shared
-    # Run echo test to send message to echo test server
-    $ sudo LD_LIBRARY_PATH=<openamp_built>/usr/local/lib:<libmetal_built>/usr/local/lib \
-       build/usr/local/bin/echo_test-shared 1
-    ```
 
 ### Example to compile OpenAMP Linux Userspace for Zynq UltraScale+ MPSoC
 We can use yocto to build the OpenAMP Linux userspace library and application.

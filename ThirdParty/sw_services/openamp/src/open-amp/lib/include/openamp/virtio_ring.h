@@ -1,37 +1,17 @@
-/*-
+/*
  * Copyright Rusty Russell IBM Corporation 2007.
  *
- * This header is BSD licensed so anyone can use the definitions to implement
- * compatible drivers/servers.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 3. Neither the name of IBM nor the names of its contributors
- *    may be used to endorse or promote products derived from this software
- *    without specific prior written permission.
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL IBM OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
+ * SPDX-License-Identifier: BSD-3-Clause
  *
  * $FreeBSD$
  */
 
 #ifndef VIRTIO_RING_H
 #define	VIRTIO_RING_H
+
+#if defined __cplusplus
+extern "C" {
+#endif
 
 /* This marks a buffer as continuing via the next field. */
 #define VRING_DESC_F_NEXT       1
@@ -42,15 +22,18 @@
 
 /* The Host uses this in used->flags to advise the Guest: don't kick me
  * when you add a buffer.  It's unreliable, so it's simply an
- * optimization.  Guest will still kick if it's out of buffers. */
+ * optimization.  Guest will still kick if it's out of buffers.
+ */
 #define VRING_USED_F_NO_NOTIFY  1
 /* The Guest uses this in avail->flags to advise the Host: don't
  * interrupt me when you consume a buffer.  It's unreliable, so it's
- * simply an optimization.  */
+ * simply an optimization.
+ */
 #define VRING_AVAIL_F_NO_INTERRUPT      1
 
 /* VirtIO ring descriptors: 16 bytes.
- * These can chain together via "next". */
+ * These can chain together via "next".
+ */
 struct vring_desc {
 	/* Address (guest-physical). */
 	uint64_t addr;
@@ -133,11 +116,12 @@ static inline int vring_size(unsigned int num, unsigned long align)
 	size = (size + align - 1) & ~(align - 1);
 	size += sizeof(struct vring_used) +
 	    (num * sizeof(struct vring_used_elem)) + sizeof(uint16_t);
-	return (size);
+
+	return size;
 }
 
 static inline void
-vring_init(struct vring *vr, unsigned int num, uint8_t * p, unsigned long align)
+vring_init(struct vring *vr, unsigned int num, uint8_t *p, unsigned long align)
 {
 	vr->num = num;
 	vr->desc = (struct vring_desc *)p;
@@ -156,8 +140,12 @@ vring_init(struct vring *vr, unsigned int num, uint8_t * p, unsigned long align)
 static inline int
 vring_need_event(uint16_t event_idx, uint16_t new_idx, uint16_t old)
 {
-
-	return (uint16_t) (new_idx - event_idx - 1) <
-	    (uint16_t) (new_idx - old);
+	return (uint16_t)(new_idx - event_idx - 1) <
+	    (uint16_t)(new_idx - old);
 }
+
+#if defined __cplusplus
+}
+#endif
+
 #endif				/* VIRTIO_RING_H */

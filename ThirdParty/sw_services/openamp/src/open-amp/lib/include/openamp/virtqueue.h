@@ -5,37 +5,23 @@
  * Copyright (c) 2011, Bryan Venteicher <bryanv@FreeBSD.org>
  * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice unmodified, this list of conditions, and the following
- *    disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
- * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * SPDX-License-Identifier: BSD-2-Clause
  *
  * $FreeBSD$
  */
 
+#include <stdbool.h>
 #include <stdint.h>
+
+#if defined __cplusplus
+extern "C" {
+#endif
+
 typedef uint8_t boolean;
 
-#include "openamp/virtio_ring.h"
-#include "openamp/env.h"
-#include "metal/dma.h"
-#include "metal/io.h"
+#include <openamp/virtio_ring.h>
+#include <metal/alloc.h>
+#include <metal/io.h>
 
 /*Error Codes*/
 #define VQ_ERROR_BASE                                 -3000
@@ -48,16 +34,7 @@ typedef uint8_t boolean;
 #define ERROR_VRING_NO_BUFF                           (VQ_ERROR_BASE - 7)
 #define ERROR_VQUEUE_INVLD_PARAM                      (VQ_ERROR_BASE - 8)
 
-#define true                                          1
-#define false                                         0
 #define VQUEUE_SUCCESS                                0
-#define VQUEUE_DEBUG                                  false
-
-//TODO:
-/* This is temporary macro to replace C NULL support.
- * At the moment all the RTL specific functions are present in env.
- * */
-#define VQ_NULL                                       0
 
 /* The maximum virtqueue size is 2^15. Use that value as the end of
  * descriptor chain terminator since it will never be a valid index
@@ -75,38 +52,23 @@ typedef uint8_t boolean;
 /* Support to suppress interrupt until specific index is reached. */
 #define VIRTIO_RING_F_EVENT_IDX        (1 << 29)
 
-/*
- * Hint on how long the next interrupt should be postponed. This is
- * only used when the EVENT_IDX feature is negotiated.
- */
-typedef enum {
-	VQ_POSTPONE_SHORT,
-	VQ_POSTPONE_LONG,
-	VQ_POSTPONE_EMPTIED	/* Until all available desc are used. */
-} vq_postpone_t;
+struct virtqueue_buf {
+	void *buf;
+	int len;
+};
 
 struct virtqueue {
-	//TODO: Need to define proper structure for
-	//        virtio device with RPmsg and paravirtualization.
-
 	struct virtio_device *vq_dev;
-	char vq_name[VIRTQUEUE_MAX_NAME_SZ];
+	const char *vq_name;
 	uint16_t vq_queue_index;
 	uint16_t vq_nentries;
 	uint32_t vq_flags;
-	int vq_alignment;
-	int vq_ring_size;
-	boolean vq_inuse;
-	void *vq_ring_mem;
-	void (*callback) (struct virtqueue * vq);
-	void (*notify) (struct virtqueue * vq);
-	int vq_max_indirect_size;
-	int vq_indirect_mem_size;
+	void (*callback)(struct virtqueue *vq);
+	void (*notify)(struct virtqueue *vq);
 	struct vring vq_ring;
 	uint16_t vq_free_cnt;
 	uint16_t vq_queued_cnt;
-	/** Shared memory I/O region */
-	struct metal_io_region *shm_io;
+	void *shm_io; /* opaque pointer to data needed to allow v2p & p2v */
 
 	/*
 	 * Head of the free chain in the descriptor table. If
@@ -127,7 +89,9 @@ struct virtqueue {
 	 */
 	uint16_t vq_available_idx;
 
-	uint8_t padd;
+#ifdef VQUEUE_DEBUG
+	boolean vq_inuse;
+#endif
 
 	/*
 	 * Used by the host side during callback. Cookie
@@ -137,8 +101,6 @@ struct virtqueue {
 
 	struct vq_desc_extra {
 		void *cookie;
-		struct vring_desc *indirect;
-		uint32_t indirect_paddr;
 		uint16_t ndescs;
 	} vq_descx[0];
 };
@@ -154,31 +116,42 @@ struct vring_alloc_info {
 typedef void vq_callback(struct virtqueue *);
 typedef void vq_notify(struct virtqueue *);
 
-#if (VQUEUE_DEBUG == true)
+#ifdef VQUEUE_DEBUG
+#include <metal/log.h>
+#include <metal/assert.h>
 
-#define VQASSERT(_vq, _exp, _msg) do{ \
-    if (!(_exp)){ openamp_print("%s: %s - "_msg, __func__, (_vq)->vq_name); while(1);} \
-    } while(0)
+#define VQASSERT(_vq, _exp, _msg) \
+	do { \
+		if (!(_exp)) { \
+			metal_log(METAL_LOG_EMERGENCY, \
+				  "%s: %s - _msg", __func__, (_vq)->vq_name); \
+			metal_assert(_exp); \
+		} \
+	} while (0)
 
 #define VQ_RING_ASSERT_VALID_IDX(_vq, _idx)            \
-    VQASSERT((_vq), (_idx) < (_vq)->vq_nentries,        \
-    "invalid ring index")
+	VQASSERT((_vq), (_idx) < (_vq)->vq_nentries, "invalid ring index")
 
 #define VQ_RING_ASSERT_CHAIN_TERM(_vq)                \
-    VQASSERT((_vq), (_vq)->vq_desc_head_idx ==            \
-    VQ_RING_DESC_CHAIN_END,    "full ring terminated incorrectly: invalid head")
+	VQASSERT((_vq), (_vq)->vq_desc_head_idx ==            \
+	VQ_RING_DESC_CHAIN_END, \
+	"full ring terminated incorrectly: invalid head")
 
-#define VQ_PARAM_CHK(condition, status_var, status_err)                 \
-                       if ((status_var == 0) && (condition))            \
-                       {                                                \
-                           status_var = status_err;                     \
-                       }
+#define VQ_PARAM_CHK(condition, status_var, status_err) \
+	do {						\
+		if (((status_var) == 0) && (condition)) { \
+			status_var = status_err;        \
+		}					\
+	} while (0)
 
-#define VQUEUE_BUSY(vq)         if ((vq)->vq_inuse == false)                 \
-                                    (vq)->vq_inuse = true;                   \
-                                else                                         \
-                                    VQASSERT(vq, (vq)->vq_inuse == false,    \
-                                        "VirtQueue already in use")
+#define VQUEUE_BUSY(vq) \
+	do {						     \
+		if (!(vq)->vq_inuse)                 \
+			(vq)->vq_inuse = true;               \
+		else                                         \
+			VQASSERT(vq, !(vq)->vq_inuse,\
+				"VirtQueue already in use")  \
+	} while (0)
 
 #define VQUEUE_IDLE(vq)            ((vq)->vq_inuse = false)
 
@@ -195,23 +168,32 @@ typedef void vq_notify(struct virtqueue *);
 #endif
 
 int virtqueue_create(struct virtio_device *device, unsigned short id,
-		     char *name, struct vring_alloc_info *ring,
-		     void (*callback) (struct virtqueue * vq),
-		     void (*notify) (struct virtqueue * vq),
-		     struct metal_io_region *shm_io,
-		     struct virtqueue **v_queue);
+		     const char *name, struct vring_alloc_info *ring,
+		     void (*callback)(struct virtqueue *vq),
+		     void (*notify)(struct virtqueue *vq),
+		     struct virtqueue *v_queue);
 
-int virtqueue_add_buffer(struct virtqueue *vq, struct metal_sg *sg,
+/*
+ * virtqueue_set_shmem_io
+ *
+ * set virtqueue shared memory I/O region
+ *
+ * @vq - virt queue
+ * @io - pointer to the shared memory I/O region
+ */
+static inline void virtqueue_set_shmem_io(struct virtqueue *vq,
+					  struct metal_io_region *io)
+{
+	vq->shm_io = io;
+}
+
+int virtqueue_add_buffer(struct virtqueue *vq, struct virtqueue_buf *buf_list,
 			 int readable, int writable, void *cookie);
 
-int virtqueue_add_single_buffer(struct virtqueue *vq, void *cookie,
-				struct metal_sg *sg, int writable,
-				boolean has_next);
+void *virtqueue_get_buffer(struct virtqueue *vq, uint32_t *len, uint16_t *idx);
 
-void *virtqueue_get_buffer(struct virtqueue *vq, uint32_t * len, uint16_t *idx);
-
-void *virtqueue_get_available_buffer(struct virtqueue *vq, uint16_t * avail_idx,
-				     uint32_t * len);
+void *virtqueue_get_available_buffer(struct virtqueue *vq, uint16_t *avail_idx,
+				     uint32_t *len);
 
 int virtqueue_add_consumed_buffer(struct virtqueue *vq, uint16_t head_idx,
 				  uint32_t len);
@@ -222,6 +204,21 @@ int virtqueue_enable_cb(struct virtqueue *vq);
 
 void virtqueue_kick(struct virtqueue *vq);
 
+static inline struct virtqueue *virtqueue_allocate(unsigned int num_desc_extra)
+{
+	struct virtqueue *vqs;
+	uint32_t vq_size = sizeof(struct virtqueue) +
+		 num_desc_extra * sizeof(struct vq_desc_extra);
+
+	vqs = (struct virtqueue *)metal_allocate_memory(vq_size);
+
+	if (vqs) {
+		memset(vqs, 0x00, vq_size);
+	}
+
+	return vqs;
+}
+
 void virtqueue_free(struct virtqueue *vq);
 
 void virtqueue_dump(struct virtqueue *vq);
@@ -231,5 +228,9 @@ void virtqueue_notification(struct virtqueue *vq);
 uint32_t virtqueue_get_desc_size(struct virtqueue *vq);
 
 uint32_t virtqueue_get_buffer_length(struct virtqueue *vq, uint16_t idx);
+
+#if defined __cplusplus
+}
+#endif
 
 #endif				/* VIRTQUEUE_H_ */
