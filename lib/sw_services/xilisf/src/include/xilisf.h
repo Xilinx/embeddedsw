@@ -525,6 +525,7 @@
  * 5.12 tjs	 07/16/18 Updated notes for Micron flash parts. CR#973229
  * 5.12 tjs	 06/18/18 Added support for low density ISSI
  *			  flash parts. PR#9237
+ * 5.12 tjs	 08/13/18 Fixed the compilation warnings for ARMCC (CR#1008307)
  *
  * </pre>
  *
@@ -1064,7 +1065,7 @@ unsigned int XIsf_ByteCountInfo;
  *		polling mode.  User needs to call this API to set in interrupt
  *		mode, if operating in Interrupt Mode.
  ******************************************************************************/
-static inline void XIsf_SetTransferMode(XIsf *InstancePtr, u8 Mode)
+static INLINE void XIsf_SetTransferMode(XIsf *InstancePtr, u8 Mode)
 {
 	InstancePtr->IntrMode = Mode;
 }
@@ -1078,7 +1079,7 @@ static inline void XIsf_SetTransferMode(XIsf *InstancePtr, u8 Mode)
  *
  * @note		(shakti)
  ******************************************************************************/
-static inline u8 XIsf_GetTransferMode(XIsf *InstancePtr)
+static INLINE u8 XIsf_GetTransferMode(XIsf *InstancePtr)
 {
 	return InstancePtr->IntrMode;
 }
