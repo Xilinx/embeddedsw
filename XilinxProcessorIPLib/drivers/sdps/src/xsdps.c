@@ -91,6 +91,7 @@
 *       mn     08/01/18 Add support for using 64Bit DMA with 32-Bit Processor
 *       mn     08/01/18 Add cache invalidation call before returning from
 *                       ReadPolled API
+*       mn     08/14/18 Resolve compilation warnings for ARMCC toolchain
 * </pre>
 *
 ******************************************************************************/
@@ -569,7 +570,7 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 #pragma data_alignment = 4
 #else
 	static u8 ExtCsd[512] __attribute__ ((aligned(32)));
-	u8 SCR[8] __attribute__ ((aligned(32))) = { 0U };
+	static u8 SCR[8] __attribute__ ((aligned(32))) = { 0U };
 #endif
 	u8 ReadBuff[64] = { 0U };
 	s32 Status;
