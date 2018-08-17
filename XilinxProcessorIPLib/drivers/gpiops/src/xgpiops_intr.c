@@ -46,6 +46,7 @@
 * 3.1	kvn  04/13/15 Add support for Zynq Ultrascale+ MP. CR# 856980.
 * 3.1   aru  07/13/18 Ressolved doxygen reported warnings. CR# 1006331.
 * 3.4   aru  08/09/18 Ressolved cppcheck warnings.
+* 3.4   aru  08/17/18 Resolved MISRA-C mandatory violations. CR# 1007751
 * </pre>
 *
 ******************************************************************************/
@@ -659,7 +660,7 @@ void XGpioPs_SetCallbackHandler(XGpioPs *InstancePtr, void *CallBackRef,
 	Xil_AssertVoid(FuncPointer != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->Handler = FuncPointer;
+	InstancePtr->Handler = (XGpioPs_Handler)FuncPointer;
 	InstancePtr->CallBackRef = CallBackRef;
 }
 
