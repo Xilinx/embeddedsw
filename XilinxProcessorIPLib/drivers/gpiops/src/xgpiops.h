@@ -103,6 +103,7 @@
 *                     for zcu102 and zc702 boards in polled and interrupt
 *                     example, configured Interrupt pin to input pin for
 *                     proper functioning of interrupt example.
+* 3.4   aru  08/17/18 Resolved MISRA-C mandatory violations. CR# 1007751
 * </pre>
 *
 ******************************************************************************/

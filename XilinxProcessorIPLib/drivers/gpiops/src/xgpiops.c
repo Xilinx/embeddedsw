@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -49,6 +49,7 @@
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.1	kvn  04/13/15 Add support for Zynq Ultrascale+ MP. CR# 856980.
 * 3.1   aru  07/13/18 Resolved doxygen reported warnings. CR# 1006331.
+* 3.4   aru  08/17/18 Resolved MISRA-C mandatory violations. CR# 1007751
 *
 * </pre>
 *
@@ -106,7 +107,7 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, XGpioPs_Config *ConfigPtr,
 	InstancePtr->IsReady = 0U;
 	InstancePtr->GpioConfig.BaseAddr = EffectiveAddr;
 	InstancePtr->GpioConfig.DeviceId = ConfigPtr->DeviceId;
-	InstancePtr->Handler = StubHandler;
+	InstancePtr->Handler = (XGpioPs_Handler)StubHandler;
 	InstancePtr->Platform = XGetPlatform_Info();
 
 	/* Initialize the Bank data based on platform */
