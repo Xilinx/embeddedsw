@@ -31,7 +31,7 @@
  * @file xfpga_load_bitstream_example.c
  *
  * This file contains the example using Xilfpga library to transfer the user
- * provided Bit-stream into zynqmp pl region.
+ * provided Bitstream into zynqmp pl region.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -55,7 +55,7 @@ int main(void)
 	u64 addr = XFPGA_BASE_ADDRESS;
 	s32 Status;
 
-	xil_printf("Loading Bit-stream for DDR location :0x%x\n\r",
+	xil_printf("Loading Bitstream for DDR location :0x%x\n\r",
 				XFPGA_BASE_ADDRESS);
 	xil_printf("Trying to configure the PL ......\n\r");
 

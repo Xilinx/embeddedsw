@@ -37,12 +37,12 @@
  * the programmable logic (PL) though the PS.
  *
  * - Supported Features:
- *    - Full Bit-stream loading.
- *    - Partial Bit-stream loading.
- *    - Encrypted Bit-stream loading.
- *    - Authenticated Bit-stream loading.
- *    - Authenticated and Encrypted Bit-stream loading.
- *    - Partial Bit-stream loading.
+ *    - Full Bitstream loading.
+ *    - Partial Bitstream loading.
+ *    - Encrypted Bitstream loading.
+ *    - Authenticated Bitstream loading.
+ *    - Authenticated and Encrypted Bitstream loading.
+ *    - Partial Bitstream loading.
  *
  * #  Xilfpga_PL library Interface modules	{#xilfpgapllib}
  *	Xilfpga_PL library uses the below major components to configure the PL
@@ -57,16 +57,16 @@
  *	 - RSA for authentication
  *
  * These algorithms are needed to support to load the Encrypted and
- * Authenticated bit-streams into PL.
+ * Authenticated Bitstreams into PL.
  *
  * @note XilFPGA library is capable of loading only .bin format files into PL.
  * The library does not support other file formats.
  *
  *
- * ##   Initialization & Writing Bit-Stream	{#xilinit}
+ * ##   Initialization & Writing Bitstream	{#xilinit}
  *
  * Use the u32 XFpga_PL_BitSream_Load(); function to initialize the driver
- * and load the bit-stream.
+ * and load the Bitstream.
  *
  * @{
  * @cond xilfpga_internal
