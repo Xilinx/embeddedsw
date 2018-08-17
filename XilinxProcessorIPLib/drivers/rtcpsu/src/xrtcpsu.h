@@ -111,6 +111,7 @@
  * 1.6   aru    06/25/18 Remove the checkpatch warnings.
  * 1.6   aru    07/11/18 Resolved cppcheck warnings.
  * 1.6   aru    07/11/18 Resolved doxygen warnings.
+ * 1.6   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007752)
  * </pre>
  *
  ******************************************************************************/

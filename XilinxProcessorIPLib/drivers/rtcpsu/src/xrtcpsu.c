@@ -56,6 +56,7 @@
  * 1.6	 aru	06/25/18 Remove the checkpatch warnings.
  * 1.6   aru    07/11/18 Resolved cppcheck warnings.
  * 1.6   aru    07/11/18 Resolved doxygen warnings.
+ * 1.6   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007752)
  * </pre>
  *
  ******************************************************************************/
@@ -127,7 +128,7 @@ s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr,
 	/* Set all handlers to stub values, let user configure this
 	 * data later.
 	 */
-	InstancePtr->Handler = XRtcPsu_StubHandler;
+	InstancePtr->Handler = (XRtcPsu_Handler)XRtcPsu_StubHandler;
 
 	InstancePtr->IsPeriodicAlarm = 0U;
 

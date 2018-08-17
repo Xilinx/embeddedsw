@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@
 * 1.00  kvn    04/21/15 First release
 * 1.3   vak    04/25/16 Changed the XRtcPsu_InterruptHandler() for updating RTC
 *                       read and write time logic(cr#948833).
+* 1.6   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007752)
 * </pre>
 *
 ******************************************************************************/
@@ -154,7 +155,7 @@ void XRtcPsu_SetHandler(XRtcPsu *InstancePtr, XRtcPsu_Handler FuncPtr,
 	Xil_AssertVoid(FuncPtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->Handler = FuncPtr;
+	InstancePtr->Handler = (XRtcPsu_Handler)FuncPtr;
 	InstancePtr->CallBackRef = CallBackRef;
 }
 
