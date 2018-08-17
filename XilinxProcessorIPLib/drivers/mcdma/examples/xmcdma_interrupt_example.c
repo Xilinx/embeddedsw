@@ -33,15 +33,14 @@
  * This file demonstrates how to use the mcdma driver on the Xilinx AXI
  * MCDMA core (AXI MCDMA) to transfer packets in interrupt mode.
  *
- * This examples shows how to do multiple packets transfers,
- * as well as how to do multiple show how to do multiple packets transfers,
- * as well as how to do multiple BD's per packet transfers.
+ * This examples shows how to do multiple packets and multiple BD's
+ * Per packet transfers.
  *
- * H/W Requirments:
+ * H/W Requirements:
  * In order to test this example at the h/w level AXI MCDMA MM2S should
  * connect with the S2MM.
  *
- * System level Considerations for ZynqUltrascale+ designs:
+ * System level Considerations for Zynq UltraScale+ designs:
  * Please refer xmcdma_polled_example.c file.
  *
  * <pre>
@@ -52,6 +51,7 @@
  * 1.0	 adk  18/07/17	Initial Version.
  * 1.2	 rsp  07/19/18  Read channel count from IP config.
  *			Fix gcc 'pointer from integer without a cast' warning.
+ *	 rsp  08/17/18	Fix typos and rephrase comments.
  * </pre>
  *
  * ***************************************************************************
@@ -255,7 +255,7 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	/* Initalize flgas */
+	/* Initialize flags */
 	RxChanDone = 0;
 	TxChanDone  = 0;
 	RxDone = 0;
@@ -604,7 +604,7 @@ static void DoneHandler(void *CallBackRef, u32 Chan_id)
         for (i = 0; i < ProcessedBdCount; i++) {
                 if (CheckData((void *)XMcdma_BdRead64(FreeBdPtr, XMCDMA_BD_BUFA_OFFSET),
 			      XMcDma_BdGetActualLength(FreeBdPtr, 0x00FFFFFF)) != XST_SUCCESS) {
-                        xil_printf("Data check failied for the Chan %x\n\r", Chan_id);
+                        xil_printf("Data check failed for the Chan %x\n\r", Chan_id);
                 }
                 FreeBdPtr = (XMcdma_Bd *) XMcdma_BdRead64(FreeBdPtr, XMCDMA_BD_NDESC_OFFSET);
         }

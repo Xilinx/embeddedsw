@@ -33,22 +33,21 @@
  * This file demonstrates how to use the mcdma driver on the Xilinx AXI
  * MCDMA core (AXI MCDMA) to transfer packets in polling mode.
  *
- * This examples shows how to do multiple packets transfers,
- * as well as how to do multiple show how to do multiple packets transfers,
- * as well as how to do multiple BD's per packet transfers.
+ * This examples shows how to do multiple packets and multiple BD's
+ * per packet transfers.
  *
- * H/W Requirments:
+ * H/W Requirements:
  * In order to test this example at the h/w level AXI MCDMA MM2S should
  * connect with the S2MM.
  *
- * System level Considerations for ZynqUltrascale+ designs:
- * On ZU+ MPSOC for PL IP's 3 differnet ports are availble HP, HPC and ACP.
+ * System level Considerations for Zynq UltraScale+ designs:
+ * On ZU+ MPSOC for PL IP's 3 different ports are available HP, HPC and ACP.
  *
  * The explanation below talks about HPC and HP port.
  *
  * HPC design considerations:
  * ZU+ MPSOC has in-built cache coherent interconnect(CCI) to take care of
- * coherency through HPC port.
+ * Coherency through HPC port.
  * Following needs to be done by the users before running the examples.
  * 1) Snooping should be enabled in the S3 (0xFD6E4000)
  * 2) Mark the DDR memory being used for buffers as outer sharable.
@@ -58,8 +57,8 @@
  * to
  * .set Memory,	0x405 | (2 << 8) | (0x0).
  *
- * Please uncomment below define for HPC design so that applicaiton won't do
- * Any Cache flush/invalidation.
+ * Please uncomment below define for HPC design so that application won't do
+ * Any cache flush/invalidation.
  *
  * //#define HPC_DESIGN
  *
@@ -69,18 +68,20 @@
  * The example uses un-cached memory for buffer descriptors and uses
  * Normal memory for buffers..
  *
- * A53 does not provide seperate instruction for cache invalidation.
+ * A53 does not provide separate instruction for cache invalidation.
  * It supports flush (clean + invalidation). Before a DMA starts,
  * Application is expected to do a cache flush for the relevant memory.
  * Once DMA ends, the data can simply be read from memory.
- * However, there will be occasions when A53 L1 cache system can prefetch memory locations
- * Which were earlier flushed. On such scenarios there is high probablity that CPU reads
- * Memory from cache and DMA is still not complete for this memory. This leads lost
- * Coherency between cache and memory. Subsequent data verification(after DMA is complete) thus fails.
+ * However, there will be occasions when A53 L1 cache system can prefetch
+ * Memory locations which were earlier flushed. On such scenarios there is
+ * High probability that CPU reads memory from cache and DMA is still not
+ * Complete for this memory. This leads lost coherency between cache and
+ * Memory. Subsequent data verification(after DMA is complete) thus fails.
  *
- * It is generally an unpredictable behavior. It is highly unlikely to happen for a single buffer usecase.
- * But for multiple buffers staying in adjacent cache locations,
- * There is a high probability that users can get into such failures.
+ * It is generally an unpredictable behavior. It is highly unlikely to happen
+ * For a single buffer usecase. But for multiple buffers staying in adjacent
+ * Cache locations,There is a high probability that users can get into such
+ * Failures.
  *
  *  The L1 prefetch is a feature of the L1 cache system for improving performance.
  *  The L1 cache has its own algorithm to prefetch. The prefetch stops when:
@@ -91,15 +92,19 @@
  * Accordingly the solution for the above problem is:
  *
  * 1) Use dsb
- *     The location of the dsb is crucial. The programmer needs to predict the maximum probabilty
- *     When the L1 prefetch will happen for relevant DMA addresses.
- *     It will be typically in the DMA done interrupt (where the data verification happens for a buffer).
- *     The cache line size is 64 bytes. The prefetch obviously will happen in chunks of 64 bytes.
- *     However, because of the unpredictability nature of the prefetch, it is difficult to find out the exact point of dsb.
- *     To be at a safer side, the dsb can be put for every memory location fetched.
+ *     The location of the dsb is crucial. The programmer needs to predict the
+ *     Maximum probability when the L1 prefetch will happen for relevant DMA
+ *     Addresses.It will be typically in the DMA done interrupt (where the
+ *     Data verification happens for a buffer).The cache line size is 64 bytes.
+ *     The prefetch obviously will happen in chunks of 64 bytes.
  *
- *     There will be heavy performance penalty. Every dsb clears the store buffers.
- *     Executing dsbs very frequently will degrade the performance significantly.
+ *     However, because of the unpredictability nature of the prefetch, it is
+ *     Difficult to find out the exact point of dsb.To be at a safer side,
+ *     The dsb can be put for every memory location fetched.
+ *
+ *     There will be heavy performance penalty. Every dsb clears the store
+ *     Buffers. Executing dsbs very frequently will degrade the performance
+ *     Significantly.
  *
  *    2) Disable Prefetch of L1 Cahe
  *       This can be done by setting the CPUACTLR_EL1 register.
@@ -113,6 +118,7 @@
  * ----- ---- --------   -------------------------------------------------------
  * 1.0	 adk  18/07/2017 Initial Version.
  * 1.2	 rsp  07/19/2018 Read channel count from IP config.
+ *       rsp  08/17/2018 Fix typos and rephrase comments.
  * </pre>
  *
  * ***************************************************************************
@@ -563,7 +569,7 @@ static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id)
         for (i = 0; i < ProcessedBdCount; i++) {
                 if (CheckData((u8 *)XMcdma_BdRead64(BdPtr1, XMCDMA_BD_BUFA_OFFSET),
                                           XMcDma_BdGetActualLength(BdPtr1, 0x00FFFFFF), Chan_id) != XST_SUCCESS) {
-                        xil_printf("Data check failied for the Chan %x\n\r", Chan_id);
+                        xil_printf("Data check failed for the Chan %x\n\r", Chan_id);
                         return XST_FAILURE;
                 }
                 BdPtr1 = (XMcdma_Bd *) XMcdma_BdRead64(BdPtr1, XMCDMA_BD_NDESC_OFFSET);
