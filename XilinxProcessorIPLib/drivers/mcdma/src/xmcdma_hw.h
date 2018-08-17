@@ -33,6 +33,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   adk 	18/07/17 Initial version.
 * 1.2   mj      05/03/18 Defined XMCDMA_BD_SW_ID_OFFSET
+* 1.2   rsp     08/17/18 Remove unused XMCDMA_BD_LEN_MASK
 ******************************************************************************/
 #ifndef XMCDMA_HW_H_
 #define XMCDMA_HW_H_		/**< Prevent circular inclusions
@@ -168,7 +169,6 @@ extern "C" {
 
 /*@}*/
 #define XMCDMA_BD_CTRL_SBAND_OFFSET	0x18  /**< Status */
-#define XMCDMA_BD_LEN_MASK		0x007FFFFF
 
 #define XMCDMA_BD_CTRL_SOF_MASK		0x80000000
 #define XMCDMA_BD_CTRL_EOF_MASK		0x40000000
