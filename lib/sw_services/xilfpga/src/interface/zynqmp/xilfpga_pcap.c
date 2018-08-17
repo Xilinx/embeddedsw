@@ -796,7 +796,7 @@ static u32 XFpga_SecureLoadToPl(UINTPTR BitStreamAddr, UINTPTR KeyAddr,
 return Status;
 }
 /*****************************************************************************/
-/* Authenticates the bit-stream by using external memory.
+/* Authenticates the Bitstream by using external memory.
  * Sends the data to PCAP via AES engine if encryption exists or directly
  * to PCAP by CSUDMA if an encryption is not enabled.
  *
@@ -919,7 +919,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitStreamAddr, UINTPTR KeyAddr,
 }
 
 /*****************************************************************************/
-/* This function authenticates the bit-stream by using on-chip memory.
+/* This function authenticates the Bitstream by using on-chip memory.
  * Sends the data to PCAP in blocks via AES engine if encryption
  * exists or directly to PCAP by CSUDMA if an encryption is not enabled.
  *
@@ -1107,7 +1107,7 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitStreamAddr, u32 Size, UINTPTR AcAddr)
 	return Status;
 }
 /*****************************************************************************/
-/* This function Re-authenticates the bit-stream by using on-chip memory.
+/* This function Re-authenticates the Bitstream by using on-chip memory.
  * Sends the data to PCAP in blocks via AES engine if encryption
  * exists or directly to PCAP by CSUDMA if an encryption is not enabled.
  *
@@ -2117,7 +2117,7 @@ u32 XFpga_GetConfigRegPcap(u32 ConfigReg, UINTPTR Address)
 
 	Status = XFpga_GetFirmwareState();
 	if (Status == XFPGA_FIRMWARE_STATE_SECURE) {
-		xil_printf("Secure Bit-stream Loaded Read-back is not allowed\n\r");
+		xil_printf("Operation not permitted\n\r");
 		return XFPGA_FAILURE;
 	}
 
@@ -2231,12 +2231,13 @@ u32 XFpga_GetPLConfigData(UINTPTR Address, u32 NumFrames)
 	Status = XFpga_GetFirmwareState();
 
 	if (Status == XFPGA_FIRMWARE_STATE_UNKNOWN) {
-		xil_printf("Bit-Stream Not loaded to Fabric Read-back is not allowed\n\r");
+		xil_printf("Error while reading configuration "
+			   "data from FPGA\n\r");
 		return XFPGA_ERROR_PLSTATE_UNKNOWN;
 	}
 
 	if (Status == XFPGA_FIRMWARE_STATE_SECURE) {
-		xil_printf("Secure Bit-stream Loaded Read-back is not allowed\n\r");
+		xil_printf("Operation not permitted\n\r");
 		return XFPGA_FAILURE;
 	}
 
@@ -2507,7 +2508,7 @@ static u8 XFpga_GetFirmwareState(void)
  *
  * @param Buf  Linear memory image base address
  * @param Size Size of the Bitstream Image(Number of bytes).
- * @Param Pos Bistream First Dummy Word position.
+ * @Param Pos Bitstream First Dummy Word position.
  *
  * @return
  *	- XFPGA_SUCCESS if successful
