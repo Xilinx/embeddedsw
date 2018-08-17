@@ -1364,11 +1364,6 @@ CR#979636 lwip stop's working as soon as something is plugged to it's
 AXI stream bus.
 CR#979023 Intr fifo example failed to compile.
 
-axiethernet_v5_6:
-CR#979636 lwip stop's working as soon as something is plugged to it's
-AXI stream bus.
-CR#979023 Intr fifo example failed to compile.
-
 standalone_v6_4:
 Updated arm/common/xil_exception.c to fix warnings in C level exception handlers
 of ARM 32 bit processors.
