@@ -44,6 +44,9 @@ Add XMcdma_BdSetSwId() and XMcdma_BdGetSwId() macro to access SW ID field in BD.
 Export XMcdma_BdChainFree() and XMcDma_BdSetAppWord() APIS to use from LwIP contrib source.
 Read num channels from IP configuration.
 Fix gcc warning.
+Remove unused define for buffer length mask(XMCDMA_BD_LEN_MASK).
+Fix typos and rephrase comment description.
+Read buffer length register width from IP config.
 
 cpu_v2_8:
 Added Os and LTO settings in extra compiler flags for PMU BSP
