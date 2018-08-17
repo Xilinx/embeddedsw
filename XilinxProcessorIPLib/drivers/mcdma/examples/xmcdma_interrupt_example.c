@@ -52,6 +52,7 @@
  * 1.2	 rsp  07/19/18  Read channel count from IP config.
  *			Fix gcc 'pointer from integer without a cast' warning.
  *	 rsp  08/17/18	Fix typos and rephrase comments.
+ *	 rsp  08/17/18  Read Length register value from IP config.
  * </pre>
  *
  * ***************************************************************************
@@ -594,16 +595,18 @@ static void DoneHandler(void *CallBackRef, u32 Chan_id)
         XMcdma_ChanCtrl *Rx_Chan = 0;
         XMcdma_Bd *BdPtr1, *FreeBdPtr;
         int ProcessedBdCount, i;
+        int MaxTransferBytes;
 
         Rx_Chan = XMcdma_GetMcdmaRxChan(InstancePtr, Chan_id);
         ProcessedBdCount = XMcdma_BdChainFromHW(Rx_Chan, NUMBER_OF_BDS_TO_TRANSFER, &BdPtr1);
         RxDone += ProcessedBdCount;
 
         FreeBdPtr = BdPtr1;
+        MaxTransferBytes = MAX_TRANSFER_LEN(InstancePtr->Config.MaxTransferlen - 1);
 
         for (i = 0; i < ProcessedBdCount; i++) {
                 if (CheckData((void *)XMcdma_BdRead64(FreeBdPtr, XMCDMA_BD_BUFA_OFFSET),
-			      XMcDma_BdGetActualLength(FreeBdPtr, 0x00FFFFFF)) != XST_SUCCESS) {
+			      XMcDma_BdGetActualLength(FreeBdPtr, MaxTransferBytes)) != XST_SUCCESS) {
                         xil_printf("Data check failed for the Chan %x\n\r", Chan_id);
                 }
                 FreeBdPtr = (XMcdma_Bd *) XMcdma_BdRead64(FreeBdPtr, XMCDMA_BD_NDESC_OFFSET);

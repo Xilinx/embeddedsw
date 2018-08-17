@@ -119,6 +119,7 @@
  * 1.0	 adk  18/07/2017 Initial Version.
  * 1.2	 rsp  07/19/2018 Read channel count from IP config.
  *       rsp  08/17/2018 Fix typos and rephrase comments.
+ *	 rsp  08/17/2018 Read Length register value from IP config.
  * </pre>
  *
  * ***************************************************************************
@@ -552,6 +553,7 @@ static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id)
         XMcdma_ChanCtrl *Rx_Chan = 0, *Tx_Chan = 0;
         XMcdma_Bd *BdPtr1;
         int ProcessedBdCount, i;
+        int MaxTransferBytes;
 
         Tx_Chan = XMcdma_GetMcdmaTxChan(McDmaInstPtr, Chan_id);
         ProcessedBdCount = XMcdma_BdChainFromHW(Tx_Chan,
@@ -564,11 +566,12 @@ static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id)
                                                         0xFFFF,
                                                         &BdPtr1);
         RxDone += ProcessedBdCount;
+        MaxTransferBytes = MAX_TRANSFER_LEN(McDmaInstPtr->Config.MaxTransferlen - 1);
 
         /* Check received data */
         for (i = 0; i < ProcessedBdCount; i++) {
                 if (CheckData((u8 *)XMcdma_BdRead64(BdPtr1, XMCDMA_BD_BUFA_OFFSET),
-                                          XMcDma_BdGetActualLength(BdPtr1, 0x00FFFFFF), Chan_id) != XST_SUCCESS) {
+                                          XMcDma_BdGetActualLength(BdPtr1, MaxTransferBytes), Chan_id) != XST_SUCCESS) {
                         xil_printf("Data check failed for the Chan %x\n\r", Chan_id);
                         return XST_FAILURE;
                 }
