@@ -28,6 +28,7 @@ Resolve compilation warnings for ARMCC toolchain
 xilffs_v3_10:
 Fix Cppcheck and Doxygen warnings
 Modify sector buffer alignment to that of cache line supported
+SD Example - Change file size to 8MB from 8KB for ZynqMP platform
 
 clockps_v1_0:
 First release of clocksPS drivers.
