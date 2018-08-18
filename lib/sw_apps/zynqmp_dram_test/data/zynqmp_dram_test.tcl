@@ -7,38 +7,6 @@ proc swapp_get_description {} {
     For more information about the test, refer to ZYNQMP_DRAM_DIAGNOSTICS_TEST.docx, in the src directory of the application";
 }
 
-proc generate_stdout_config { fid } {
-    set stdout [get_stdout];
-
-    # if stdout is not uartns550, we don't have to generate anything
-    set stdout_type [common::get_property IP_NAME [hsi::get_cells -hier $stdout]];
-
-    if { [regexp -nocase "uartlite" $stdout_type] || 
-	 [string match -nocase "mdm" $stdout_type] ||
-	 [regexp -nocase "psu_uart" $stdout_type] ||
-	 [regexp -nocase "iomodule" $stdout_type] } {
-        return;
-    } elseif { [regexp -nocase "uart16550" $stdout_type] } {
-	# mention that we have a 16550
-        puts $fid "#define STDOUT_IS_16550";
-
-        # and note down its base address
-	set prefix "XPAR_";
-	set postfix "_BASEADDR";
-	set stdout_baseaddr_macro $prefix$stdout$postfix;
-	set stdout_baseaddr_macro [string toupper $stdout_baseaddr_macro];
-	puts $fid "#define STDOUT_BASEADDR $stdout_baseaddr_macro";
-    }
-}
-
-proc generate_pss_ref_clk { fid } {
-	set pss_ref_clk [common::get_property CONFIG.PSU__PSS_REF_CLK__FREQMHZ [::hsi::get_cells -filter "IP_NAME == zynq_ultra_ps_e" -hierarchical]]
-	if { $pss_ref_clk == "" } {
-		set pss_ref_clk "33.33"
-	}
-	puts $fid "#define REF_FREQ $pss_ref_clk"
-}
-
 proc get_stdout {} {
     set os [hsi::get_os];
     if { $os == "" } {
@@ -228,18 +196,6 @@ proc swapp_is_supported_sw {} {
 }
 
 proc swapp_generate {} {
-    # cleanup this file for writing
-    set fid [open "platform_config.h" "w+"];
-    puts $fid "#ifndef __PLATFORM_CONFIG_H_";
-    puts $fid "#define __PLATFORM_CONFIG_H_";
-
-    # if we have a uart16550 as stdout, then generate some config for that
-    puts $fid "";
-    generate_stdout_config $fid;
-	generate_pss_ref_clk $fid;
-
-    puts $fid "#endif";
-    close $fid;
 }
 
 proc swapp_get_linker_constraints {} {
