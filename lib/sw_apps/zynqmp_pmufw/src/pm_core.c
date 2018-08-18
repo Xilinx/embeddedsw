@@ -841,7 +841,7 @@ static void PmSecureAes(const PmMaster *const master,
 	}
 
 	Status = XSecure_AesOperation(SrcAddrHigh, SrcAddrLow);
-	IPI_RESPONSE1(master->ipiMask, Status);
+	IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, Status);
 }
 
 /**
