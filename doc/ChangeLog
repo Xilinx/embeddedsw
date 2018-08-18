@@ -12,6 +12,7 @@ Fix cppcheck and GCC warnings.
 
 emacps_v3_8:
 Fix cppcheck, GCC and doxygen warnings.
+Remove duplicate code in xemacps_bd.h
 
 gpiops_v3_4:
 Resolved cppcheck warnings.(CR#1006331)

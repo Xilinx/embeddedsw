@@ -65,6 +65,7 @@
  *                     Disable extended mode. Perform all 64 bit changes under
  *                     check for arch64.
  * 3.2   hk   11/18/15 Change BD typedef and number of words.
+ * 3.8   hk   08/18/18 Remove duplicate definition of XEmacPs_BdSetLength
  *
  * </pre>
  *
@@ -265,26 +266,6 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 #define XEmacPs_BdGetBufAddr(BdPtr)                               \
     (XEmacPs_BdRead((BdPtr), XEMACPS_BD_ADDR_OFFSET))
 #endif
-
-/*****************************************************************************/
-/**
- * Set transfer length in bytes for the given BD. The length must be set each
- * time a BD is submitted to hardware.
- *
- * @param  BdPtr is the BD pointer to operate on
- * @param  LenBytes is the number of bytes to transfer.
- *
- * @note
- * C-style signature:
- *    void XEmacPs_BdSetLength(XEmacPs_Bd* BdPtr, u32 LenBytes)
- *
- *****************************************************************************/
-#define XEmacPs_BdSetLength(BdPtr, LenBytes)                       \
-    XEmacPs_BdWrite((BdPtr), XEMACPS_BD_STAT_OFFSET,              \
-    ((XEmacPs_BdRead((BdPtr), XEMACPS_BD_STAT_OFFSET) &           \
-    ~XEMACPS_TXBUF_LEN_MASK) | (LenBytes)))
-
-
 
 /*****************************************************************************/
 /**
