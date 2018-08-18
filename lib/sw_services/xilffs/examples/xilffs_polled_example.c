@@ -57,6 +57,7 @@
 * 2.2   hk  07/28/14 Make changes to enable use of data cache.
 * 2.5   sk  07/15/15 Used File size as 8KB to test on emulation platform.
 * 2.9   sk  06/09/16 Added support for mkfs.
+* 3.10  mn  08/18/18 Change file size to 8MB from 8KB for ZynqMP platform
 *
 *</pre>
 *
@@ -90,12 +91,11 @@ static FATFS fatfs;
  */
 static char FileName[32] = "Test.bin";
 static char *SD_File;
-u32 Platform;
 
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-u8 DestinationAddress[10*1024*1024];
-u8 SourceAddress[10*1024*1024];
+u8 DestinationAddress[10*1024];
+u8 SourceAddress[10*1024];
 #pragma data_alignment = 4
 #else
 u8 DestinationAddress[10*1024*1024] __attribute__ ((aligned(32)));
@@ -155,21 +155,17 @@ int FfsSdPolledExample(void)
 	UINT NumBytesRead;
 	UINT NumBytesWritten;
 	u32 BuffCnt;
+#ifdef __ICCARM__
+	u32 FileSize = (8*1024);
+#else
 	u32 FileSize = (8*1024*1024);
+#endif
+
 	/*
 	 * To test logical drive 0, Path should be "0:/"
 	 * For logical drive 1, Path should be "1:/"
 	 */
 	TCHAR *Path = "0:/";
-
-	Platform = XGetPlatform_Info();
-	if (Platform == XPLAT_ZYNQ_ULTRA_MP) {
-		/*
-		 * Since 8MB in Emulation Platform taking long time, reduced
-		 * file size to 8KB.
-		 */
-		FileSize = 8*1024;
-	}
 
 	for(BuffCnt = 0; BuffCnt < FileSize; BuffCnt++){
 		SourceAddress[BuffCnt] = TEST + BuffCnt;
