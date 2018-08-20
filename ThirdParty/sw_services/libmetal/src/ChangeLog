@@ -1,6 +1,7 @@
 Change Log for libmetal
 =================================
 2018.3
+	* Add API to read device tree property
 	* Change the log level from error log to info when
 	  the device is already bound to other driver.
 	* Add support for the UIO dmem driver
