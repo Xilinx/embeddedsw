@@ -350,6 +350,11 @@ extern "C" {
  */
 #define PMU_GLOBAL_PERS_GLOB_GEN_STORAGE5    ( ( PMU_GLOBAL_BASEADDR ) + 0X00000064U )
 
+/*
+ * Register: PMU_GLOBAL_PERS_GLOB_GEN_STORAGE7
+ */
+#define PMU_GLOBAL_PERS_GLOB_GEN_STORAGE7    ( ( PMU_GLOBAL_BASEADDR ) + 0X0000006CU )
+
 /**
  * PMU_GLOBAL Base Address
  */
@@ -913,6 +918,30 @@ extern "C" {
 #endif
 
 #define XFSBL_PS_DDR_END_ADDRESS		(0x80000000U - 1U)  //2GB of DDR
+
+#ifdef XFSBL_ENABLE_DDR_SR
+/*
+ * For DDR status PMU_GLOBAL_PERS_GLOB_GEN_STORAGE7 is used
+ */
+#define XFSBL_DDR_STATUS_REGISTER_OFFSET	(PMU_GLOBAL_PERS_GLOB_GEN_STORAGE7)
+/*
+ * DDR controller initialization flag mask
+ *
+ * This flag signals whether DDR controller have been initialized or not. It is
+ * used by FSBL to inform PMU that DDR controller is initialized. When booting
+ * with DDR in self refresh mode, PMU must wait until DDR controller have been
+ * initialized by the FSBL before it can bring the DDR out of self refresh mode.
+ */
+#define DDRC_INIT_FLAG_MASK			(1U << 4)
+/*
+ * DDR self refresh mode indication flag mask
+ *
+ * This flag indicates whether DDR is in self refresh mode or not. It is used
+ * by PMU to signal FSBL in order to skip over DDR phy and ECC initialization
+ * at boot time.
+ */
+#define DDR_STATUS_FLAG_MASK			(1U << 3)
+#endif
 
 /* The number of bytes transferred per cycle of DMA should be
  * 64 bit aligned to avoid any ECC errors. Hence, even though the maximum
