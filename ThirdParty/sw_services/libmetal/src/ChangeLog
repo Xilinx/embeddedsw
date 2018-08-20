@@ -1,6 +1,8 @@
 Change Log for libmetal
 =================================
 2018.3
+	* Correct the max characters of the device name to
+	  copy to the device name array of a Linux device
 	* sync from upstream development (10a0d5b)
 	* bug fixes.
 2018.1
