@@ -310,11 +310,6 @@
 #define DEFAULT_DDR_POWER_SR		50U
 #define DEFAULT_DDR_POWER_OFF		0U
 
-/* Memory for backup of locations used during ddr data training */
-#define NUM_TRAIN_BYTES 0x400U
-#define NUM_TRAIN_WORDS NUM_TRAIN_BYTES >> 2
-static u32 training_data[NUM_TRAIN_WORDS] __attribute__((__section__(".srdata")));
-
 /* Number of memory locations used for ddr data training */
 #define DDR3_SIZE	0X100U >> 2
 #define DDR4_SIZE	0x200U >> 2
@@ -325,6 +320,9 @@ static u32 training_data[NUM_TRAIN_WORDS] __attribute__((__section__(".srdata"))
 /* DDR4 old mapping ddr data training location offset */
 #define OLD_MAP_OFFSET	0x2000U
 #define LPDDR4_OLD_MAP_OFFSET	0x4000U
+
+/* DDR reserved address to store training data */
+#define RESERVED_ADDRESS	XPAR_MICROBLAZE_DDR_RESERVE_SA
 
 /* If it is required to enable drift */
 static u8 drift_enable_req __attribute__((__section__(".srdata")));
@@ -1553,6 +1551,7 @@ static void store_training_data()
 {
 	u32 axi_cs, size, i, j, step, old_map_offset;
 	bool old_mapping;
+	u32 *training_data = (u32 *)RESERVED_ADDRESS;
 
 	axi_cs = ddr_axi_cs();
 	size = ddr_training_size();
@@ -1591,6 +1590,7 @@ static void restore_training_data()
 {
 	u32 axi_cs, size, i, j, step, old_map_offset;
 	bool old_mapping;
+	u32 *training_data = (u32 *)RESERVED_ADDRESS;
 
 	axi_cs = ddr_axi_cs();
 	size = ddr_training_size();
