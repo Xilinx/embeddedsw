@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,7 @@
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.1	kvn    04/10/15 Modified code for latest RTL changes.
 * 3.5	NK     09/26/17 Fix the RX Buffer Overflow issue.
+* 3.7   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007755)
 * </pre>
 *
 *****************************************************************************/
@@ -141,7 +142,7 @@ s32 XUartPs_CfgInitialize(XUartPs *InstancePtr,
 	InstancePtr->Config.ModemPinsConnected = Config->ModemPinsConnected;
 
 	/* Initialize other instance data to default values */
-	InstancePtr->Handler = XUartPs_StubHandler;
+	InstancePtr->Handler = (XUartPs_Handler)XUartPs_StubHandler;
 
 	InstancePtr->SendBuffer.NextBytePtr = NULL;
 	InstancePtr->SendBuffer.RemainingBytes = 0U;

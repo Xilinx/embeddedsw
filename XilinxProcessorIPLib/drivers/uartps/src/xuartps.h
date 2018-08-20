@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -166,6 +166,7 @@
 *                       generation.
 * 3.6   ms     02/16/18 Updates the flow control mode offset value in modem
 *                       control register.
+* 3.7   aru    08/17/18 Resolved MISRA-C:2012 compliance mandatory violations.
 *
 * </pre>
 *
