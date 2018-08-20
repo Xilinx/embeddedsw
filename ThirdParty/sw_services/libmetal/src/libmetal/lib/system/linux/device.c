@@ -368,6 +368,16 @@ static struct linux_bus linux_bus[] = {
 				.dev_dma_map = metal_uio_dev_dma_map,
 				.dev_dma_unmap = metal_uio_dev_dma_unmap,
 			},
+			{
+				.drv_name  = "uio_dmem_genirq",
+				.mod_name  = "uio_dmem_genirq",
+				.cls_name  = "uio",
+				.dev_open  = metal_uio_dev_open,
+				.dev_close = metal_uio_dev_close,
+				.dev_irq_ack  = metal_uio_dev_irq_ack,
+				.dev_dma_map = metal_uio_dev_dma_map,
+				.dev_dma_unmap = metal_uio_dev_dma_unmap,
+			},
 			{ 0 /* sentinel */ }
 		}
 	},
