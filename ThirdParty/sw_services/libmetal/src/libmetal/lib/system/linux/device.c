@@ -102,7 +102,7 @@ static int metal_uio_dev_bind(struct linux_device *ldev,
 		return 0;
 
 	if (strcmp(ldev->sdev->driver_name, SYSFS_UNKNOWN) != 0) {
-		metal_log(METAL_LOG_ERROR, "device %s in use by driver %s\n",
+		metal_log(METAL_LOG_INFO, "device %s in use by driver %s\n",
 			  ldev->dev_name, ldev->sdev->driver_name);
 		return -EBUSY;
 	}
