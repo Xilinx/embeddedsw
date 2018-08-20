@@ -32,6 +32,9 @@
 #include "pm_qspi.h"
 #include "pm_system.h"
 #include "pmu_global.h"
+#ifdef ENABLE_DDR_SR_WR
+#include "pm_ddr.h"
+#endif
 
 #ifdef ENABLE_POS
 #define IOU_SLCR_BASE		0XFF180000U
@@ -131,6 +134,15 @@ void PmHookPowerDownLpd(void)
 	reg &= ~PMU_IOMODULE_GPO1_MIO_2_MASK;
 	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
 }
+
+#ifdef ENABLE_DDR_SR_WR
+void PmHookSystemStart(void)
+{
+	if (Xil_In32(XPFW_DDR_STATUS_REGISTER_OFFSET) & DDR_STATUS_FLAG_MASK) {
+		PmDdrExitSr();
+	}
+}
+#endif
 
 #ifdef ENABLE_POS
 /**

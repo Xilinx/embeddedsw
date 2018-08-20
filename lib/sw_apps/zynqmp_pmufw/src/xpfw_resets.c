@@ -33,6 +33,9 @@
 #include "xpfw_aib.h"
 #include "pm_master.h"
 #include "pm_slave.h"
+#ifdef ENABLE_DDR_SR_WR
+#include "pm_ddr.h"
+#endif
 
 
 
@@ -63,6 +66,23 @@
 #define RPU_AIB_SLAVE_MASK	(LPD_SLCR_ISO_AIBAXI_ACK_RPUS0_MASK |\
 			LPD_SLCR_ISO_AIBAXI_ACK_RPUS1_MASK )
 
+#ifdef ENABLE_DDR_SR_WR
+static void XPfw_PrepareDDRForWR()
+{
+	/* Reset RPU if it is still running */
+	XPfw_AibEnable(XPFW_AIB_RPU0_TO_LPD);
+	XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD);
+	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
+		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK |
+		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
+		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK |
+		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
+
+	/* Put DDR in self refresh mode */
+	PmDdrEnterSr();
+}
+#endif
+
 void XPfw_ResetSystem(void)
 {
 	/* Bypass RPLL before SRST : Workaround for a bug in 1.0 Silicon */
@@ -78,6 +98,10 @@ void XPfw_ResetSystem(void)
 	 * that devices are in on state after reboot.
 	 */
 	PmResetSlaveStates();
+
+#ifdef ENABLE_DDR_SR_WR
+	XPfw_PrepareDDRForWR();
+#endif
 
 	XPfw_RMW32(CRL_APB_RESET_CTRL,
 		   CRL_APB_RESET_CTRL_SOFT_RESET_MASK,
@@ -151,6 +175,10 @@ void XPfw_ResetPsOnly(void)
 
 	XPfw_UtilRMW(PMU_GLOBAL_PS_CNTRL, PMU_GLOBAL_PS_CNTRL_PROG_GATE_MASK,
 		     PMU_GLOBAL_PS_CNTRL_PROG_GATE_MASK);
+
+#ifdef ENABLE_DDR_SR_WR
+	XPfw_PrepareDDRForWR();
+#endif
 
 	/**
 	 *  Initiate PS-only reset by writing to PMU-local register

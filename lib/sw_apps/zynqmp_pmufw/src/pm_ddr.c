@@ -59,6 +59,8 @@
 #define DDRC_RFSHTMG		(DDRC_BASE + 0x64U)
 #define DDRC_ECCCFG0		(DDRC_BASE + 0X70U)
 #define DDRC_ECCCFG1		(DDRC_BASE + 0X74U)
+#define DDRC_ERRCLR		(DDRC_BASE + 0x7CU)
+#define DDRC_ERRCNT		(DDRC_BASE + 0x80U)
 #define DDRC_CRCPARCTL1		(DDRC_BASE + 0XC4U)
 #define DDRC_CRCPARCTL2		(DDRC_BASE + 0XC8U)
 #define DDRC_INIT(n)		(DDRC_BASE + 0xD0U + (4U * (n)))
@@ -293,6 +295,11 @@
 #define DDRQOS_DDR_CLK_CTRL_CLKACT	BIT(0U)
 
 #define PM_DDR_POLL_PERIOD		32000U	/* ~1ms @220MHz */
+
+#ifdef ENABLE_DDR_SR_WR
+/* Timeout period of arround 1 second to poll for DDR flags */
+#define DDR_FLAG_POLL_PERIOD		XPAR_MICROBLAZE_FREQ
+#endif
 
 #define REPORT_IF_ERROR(status) \
 		if (XST_SUCCESS != status) { \
@@ -1623,6 +1630,19 @@ static void restore_training_data()
 		} else {
 		}
 	}
+#ifdef ENABLE_DDR_SR_WR
+	/*
+	 * Clear ECC error counts.
+	 * If ECC is enabled, the act of restoring the corrupted memory locations
+	 * will cause ECC errors. That is because the Xil_Out32() function first
+	 * reads 8 bytes, then modifies the 4 bytes to be updated, before writing
+	 * out all 8 bytes. Since the memory has already been corrupted by
+	 * calibration, the inital read will cause ECC errors.
+	 */
+	if (0 != Xil_In32(DDRC_ERRCNT)) {
+		Xil_Out32(DDRC_ERRCLR, 0xfU);
+	}
+#endif
 }
 
 static int pm_ddr_sr_enter(void)
@@ -1648,6 +1668,14 @@ static int pm_ddr_sr_enter(void)
 		goto err;
 	}
 
+#ifdef ENABLE_DDR_SR_WR
+	/* Set self refresh mode indication flag */
+	XPfw_RMW32(XPFW_DDR_STATUS_REGISTER_OFFSET, DDR_STATUS_FLAG_MASK,
+		   DDR_STATUS_FLAG_MASK);
+	/* Clear DDR controller initialization flag */
+	XPfw_RMW32(XPFW_DDR_STATUS_REGISTER_OFFSET, DDRC_INIT_FLAG_MASK,
+		   ~DDRC_INIT_FLAG_MASK);
+#endif
 err:
 	return ret;
 }
@@ -1674,6 +1702,64 @@ static void pm_ddr_sr_exit(bool ddrss_is_reset)
 
 	restore_training_data();
 }
+
+#ifdef ENABLE_DDR_SR_WR
+int PmDdrEnterSr(void)
+{
+	int status = XST_FAILURE;
+
+	if (pmSlaveDdr_g.node.currState == PM_DDR_STATE_OFF) {
+		/* DDR is OFF, do not enter into self refresh mode */
+		goto err;
+	} else if (pmSlaveDdr_g.node.currState == PM_DDR_STATE_SR) {
+		/* DDR is already in self refresh mode */
+		status = XST_SUCCESS;
+		goto err;
+	}
+
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR);
+	status = pm_ddr_sr_enter();
+	if (XST_SUCCESS != status) {
+		goto err;
+	}
+
+	ddr_io_retention_set(true);
+
+err:
+	return status;
+}
+
+void PmDdrExitSr(void)
+{
+	/* Wait until FSBL initialize DDR controller */
+	XPfw_UtilPollForMask(XPFW_DDR_STATUS_REGISTER_OFFSET,
+			     DDRC_INIT_FLAG_MASK, DDR_FLAG_POLL_PERIOD);
+
+	/* Read DDRC & DDR PHY register values and modify some bitfields */
+	store_state(ctx_ddrc);
+	store_state(ctx_ddrphy);
+
+	XPfw_RMW32(CRF_APB_RST_DDR_SS, CRF_APB_RST_DDR_SS_DDR_RESET_MASK,
+		   CRF_APB_RST_DDR_SS_DDR_RESET_MASK);
+
+	/* Write modified values to DDRC registers */
+	restore_state(ctx_ddrc);
+
+	XPfw_RMW32(CRF_APB_RST_DDR_SS, CRF_APB_RST_DDR_SS_DDR_RESET_MASK,
+		   ~CRF_APB_RST_DDR_SS_DDR_RESET_MASK);
+
+	/* Write modified values to DDR PHY registers */
+	restore_state(ctx_ddrphy);
+
+	DDR_reinit(true);
+
+	restore_training_data();
+
+	/* Indication to FSBL that DDR is out of self refresh mode */
+	XPfw_RMW32(XPFW_DDR_STATUS_REGISTER_OFFSET, DDR_STATUS_FLAG_MASK,
+		   ~DDR_STATUS_FLAG_MASK);
+}
+#endif
 
 /**
  * PmDdrFsmHandler() - DDR FSM handler, performs transition actions
