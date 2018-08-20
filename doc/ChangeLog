@@ -692,6 +692,9 @@ Add support for connecting to host in high-speed
 uartps_v3_7:
 Resolved MISRA-C mandatory violations.(CR#1007755)
 
+uartps_v3_7:
+Resolved MISRA-C mandatory violations.(CR#1007755)
+
 xilfpga_v4_2
 Refactor the xilfpga library to support different PL programming Interfaces.
 Added support for readback of PL configuration data.
