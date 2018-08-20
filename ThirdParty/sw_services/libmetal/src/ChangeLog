@@ -1,6 +1,7 @@
 Change Log for libmetal
 =================================
 2018.3
+	* Add support for the UIO dmem driver
 	* Correct the max characters of the device name to
 	  copy to the device name array of a Linux device
 	* sync from upstream development (10a0d5b)
