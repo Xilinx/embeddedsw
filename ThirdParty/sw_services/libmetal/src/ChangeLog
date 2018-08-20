@@ -1,6 +1,8 @@
 Change Log for libmetal
 =================================
 2018.3
+	* Change the log level from error log to info when
+	  the device is already bound to other driver.
 	* Add support for the UIO dmem driver
 	* Correct the max characters of the device name to
 	  copy to the device name array of a Linux device
