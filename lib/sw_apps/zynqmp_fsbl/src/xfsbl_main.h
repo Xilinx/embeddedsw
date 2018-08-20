@@ -192,6 +192,7 @@ void XFsbl_MeasurePerfTime(XTime tCur);
 u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr);
 u32 XFsbl_BootDeviceInitAndValidate(XFsblPs * FsblInstancePtr);
 u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr, u32 CpuId);
+void XFsbl_MarkDdrAsReserved(u8 Cond);
 
 /**
  * Functions defined in xfsbl_partition_load.c

@@ -139,7 +139,18 @@ u32 XFsbl_HookPsuInit(void)
 
 	/* Add the code here */
 
+#ifdef XFSBL_ENABLE_DDR_SR
+	/* Check if DDR is in self refresh mode */
+	RegVal = Xil_In32(XFSBL_DDR_STATUS_REGISTER_OFFSET) &
+		DDR_STATUS_FLAG_MASK;
+	if (RegVal) {
+		Status = (u32)psu_init_ddr_self_refresh();
+	} else {
+		Status = (u32)psu_init();
+	}
+#else
 	Status = (u32)psu_init();
+#endif
 
 	if (XFSBL_SUCCESS != Status) {
 			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_PSU_INIT_FAILED\n\r");

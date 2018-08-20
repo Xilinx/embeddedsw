@@ -232,6 +232,9 @@ static u32 XFsbl_GetResetReason (void)
 u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 {
 	u32 Status;
+#ifdef XFSBL_ENABLE_DDR_SR
+	u32 RegValue;
+#endif
 
 	FsblInstancePtr->ResetReason = XFsbl_GetResetReason();
 
@@ -280,11 +283,31 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 			goto END;
 		}
 
+#ifdef XFSBL_ENABLE_DDR_SR
+		/*
+		 * Read PMU register bit value that indicates DDR is in self
+		 * refresh mode.
+		 */
+		RegValue = Xil_In32(XFSBL_DDR_STATUS_REGISTER_OFFSET) &
+			   DDR_STATUS_FLAG_MASK;
+		if (!RegValue) {
+			/*
+			 * Skip ECC initialization if DDR is in self refresh
+			 * mode.
+			 */
+			Status = XFsbl_DdrEccInit();
+			if (XFSBL_SUCCESS != Status) {
+				goto END;
+			}
+		}
+#else
 	/* Do ECC Initialization of DDR if required */
 	Status = XFsbl_DdrEccInit();
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
+#endif
+
 #if defined(XFSBL_PL_CLEAR) && defined(XFSBL_BS)
 		/* In case of PS only reset and APU only reset skipping PCAP initialization*/
 		if ((FsblInstancePtr->ResetReason != XFSBL_PS_ONLY_RESET)&&
@@ -625,8 +648,8 @@ END:
 static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 {
 	u32 Status;
-#if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
-	u64 BlockNum;
+#ifdef XFSBL_ENABLE_DDR_SR
+	u32 RegValue;
 #endif
 
 	if (FsblInstancePtr->ResetReason != XFSBL_PS_ONLY_RESET) {
@@ -703,35 +726,23 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	XTime_GetTime(&(FsblInstancePtr->PerfTime.tFsblStart));
 #endif
 
-#if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
-	/* For A53, mark DDR region as "Memory" as DDR initialization is done */
-
-#ifdef ARMA53_64
-	/* For A53 64bit*/
-	for(BlockNum = 0; BlockNum < NUM_BLOCKS_A53_64; BlockNum++)
-	{
-		XFsbl_SetTlbAttributes(BlockNum * BLOCK_SIZE_A53_64, ATTRIB_MEMORY_A53_64);
+#ifdef XFSBL_ENABLE_DDR_SR
+	/*
+	 * Read PMU register bit value that indicates DDR is in self refresh
+	 * mode.
+	 */
+	RegValue = Xil_In32(XFSBL_DDR_STATUS_REGISTER_OFFSET) &
+		DDR_STATUS_FLAG_MASK;
+	/* If DDR is in self refresh mode, mark DDR as reserved for now */
+	if (!RegValue) {
+		XFsbl_MarkDdrAsReserved(FALSE);
+	} else {
+		XFsbl_MarkDdrAsReserved(TRUE);
 	}
-
-#ifdef XFSBL_PS_HI_DDR_START_ADDRESS
-	for(BlockNum = 0; BlockNum < NUM_BLOCKS_A53_64_HIGH; BlockNum++)
-	{
-		XFsbl_SetTlbAttributes(
-			XFSBL_PS_HI_DDR_START_ADDRESS + BlockNum * BLOCK_SIZE_A53_64_HIGH,
-			ATTRIB_MEMORY_A53_64);
-	}
-#endif
-	Xil_DCacheFlush();
 #else
-	/* For A53 32bit*/
-	for(BlockNum = 0U; BlockNum < NUM_BLOCKS_A53_32; BlockNum++)
-	{
-		XFsbl_SetTlbAttributes(BlockNum * BLOCK_SIZE_A53_32, ATTRIB_MEMORY_A53_32);
-	}
-	Xil_DCacheFlush();
+	/* Mark DDR region as "Memory" as DDR initialization is done */
+	XFsbl_MarkDdrAsReserved(FALSE);
 #endif
-#endif
-
 
 	/**
 	 * Forcing the SD card detection signal to bypass the debouncing logic.
@@ -1863,4 +1874,52 @@ static void XFsbl_ClearPendingInterrupts(void)
 	XFsbl_Out32 (ACPU_GIC_GICD_CPENDSGIR2, InterruptClearVal);
 	XFsbl_Out32 (ACPU_GIC_GICD_CPENDSGIR3, InterruptClearVal);
 
+}
+
+/*****************************************************************************/
+/**
+ * This function marks DDR region as "Reserved" or mark as "Memory".
+ *
+ * @param Cond is the condition to mark DDR region as Reserved or Memory. If
+ *	  this parameter is TRUE it marks DDR region as Reserved and if it is
+ *	  FALSE it marks DDR as Memory.
+ *
+ * @return
+ *
+ *
+ *****************************************************************************/
+void XFsbl_MarkDdrAsReserved(u8 Cond)
+{
+#if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
+	u32 Attrib = ATTRIB_MEMORY_A53_64;
+	u64 BlockNum;
+
+	if (TRUE == Cond) {
+		Attrib = ATTRIB_RESERVED_A53;
+	}
+
+#ifdef ARMA53_64
+	/* For A53 64bit*/
+	for (BlockNum = 0; BlockNum < NUM_BLOCKS_A53_64; BlockNum++) {
+		XFsbl_SetTlbAttributes(BlockNum * BLOCK_SIZE_A53_64, Attrib);
+	}
+#ifdef XFSBL_PS_HI_DDR_START_ADDRESS
+	for (BlockNum = 0; BlockNum < NUM_BLOCKS_A53_64_HIGH; BlockNum++) {
+		XFsbl_SetTlbAttributes(XFSBL_PS_HI_DDR_START_ADDRESS +
+				       BlockNum * BLOCK_SIZE_A53_64_HIGH,
+				       Attrib);
+	}
+#endif
+	Xil_DCacheFlush();
+#else
+	if (FALSE == Cond) {
+		Attrib = ATTRIB_MEMORY_A53_32;
+	}
+	/* For A53 32bit*/
+	for (BlockNum = 0U; BlockNum < NUM_BLOCKS_A53_32; BlockNum++) {
+		XFsbl_SetTlbAttributes(BlockNum * BLOCK_SIZE_A53_32, Attrib);
+	}
+	Xil_DCacheFlush();
+#endif
+#endif
 }
