@@ -129,6 +129,7 @@
 *			 Fixed cppcheck warnings and coverity tool reported
 *			 errors in the driver(CR#1006353).
 *		19/07/18 Fixed cppcheck warning in the driver.
+* 1.6   aru     08/18/18 Resolved MISRA-C mandatory violations.
 * </pre>
 *
 ******************************************************************************/
