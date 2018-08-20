@@ -41,6 +41,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   vns     2/27/15  First release
+* 1.6   aru     08/18/18 Resolved MISRA-C mandatory violations.(CR#1007757)
 * </pre>
 *
 ******************************************************************************/
@@ -188,6 +189,9 @@ s32 XZDma_SetCallBack(XZDma *InstancePtr, XZDma_Handler HandlerType,
 				(XZDma_ErrorHandler)((void *)CallBackFunc);
 			InstancePtr->ErrorRef = CallBackRef;
 			Status = (XST_SUCCESS);
+			break;
+		default:
+			Status = (XST_INVALID_PARAM);
 			break;
 	}
 
