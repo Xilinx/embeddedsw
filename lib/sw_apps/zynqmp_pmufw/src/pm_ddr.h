@@ -46,5 +46,9 @@ extern PmSlave pmSlaveDdr_g;
  ********************************************************************/
 void ddr_io_prepare(void);
 int PmDdrPowerOffSuspendResume();
+#ifdef ENABLE_DDR_SR_WR
+int PmDdrEnterSr(void);
+void PmDdrExitSr(void);
+#endif
 
 #endif

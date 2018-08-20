@@ -37,6 +37,9 @@
 #include "xpfw_user_startup.h"
 #include "xpfw_platform.h"
 #include "pm_system.h"
+#ifdef ENABLE_DDR_SR_WR
+#include "pm_hooks.h"
+#endif
 
 XStatus XPfw_Main(void)
 {
@@ -68,6 +71,11 @@ XStatus XPfw_Main(void)
 		XPfw_Printf(DEBUG_ERROR,"%s: Error! Core Cfg failed\r\n", __func__);
 		goto Done;
 	}
+
+#ifdef ENABLE_DDR_SR_WR
+	if (PM_SUSPEND_TYPE_POWER_OFF != PmSystemSuspendType())
+		PmHookSystemStart();
+#endif
 
 	/* Restore system state in case of resume from Power Off Suspend */
 #ifdef ENABLE_POS
