@@ -42,6 +42,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ---------------------------------------------
  * 4.2   adk  11/07/18 First Release
+ * 4.2   Nava 16/08/18 Modified the PL data handling Logic to support
+ *                     different PL programming interfaces.
  *</pre>
  ******************************************************************************/
 
@@ -120,16 +122,17 @@ int main(void)
 static int XFpga_ReadExample(void)
 {
 	u32 Status = XST_SUCCESS;
-	u32 NumFrames;
+	XFpga_Info PLInfo = {0};
 
-	NumFrames = WORDS_PER_FRAME * FRAMES + PAD_FRAMES;
-	Status = XFpga_GetPlConfigData((UINTPTR)readback_buffer, NumFrames);
+	PLInfo.NumFrames = WORDS_PER_FRAME * FRAMES + PAD_FRAMES;
+	PLInfo.ReadbackAddr = (UINTPTR)readback_buffer;
+	Status = XFpga_GetPlConfigData(&PLInfo);
 	if (Status != XST_SUCCESS) {
 		xil_printf("FPGA Configuration Read back Failed\r\n");
 		return Status;
 	}
 
-	PrintBitStream(NumFrames);
+	PrintBitStream(PLInfo.NumFrames);
 	return Status;
 }
 

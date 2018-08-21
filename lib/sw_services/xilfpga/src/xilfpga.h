@@ -77,8 +77,8 @@
  * 4.2   Nava  08/06/16 Refactor the xilfpga library to support
  *                      different PL programming Interfaces.
  * 4.2   adk   11/07/18 Added support for readback of PL configuration data.
- * 4.2	 adk   03/08/18 Added example for partial reconfiguration.
- *
+ * 4.2   Nava  16/08/18 Modified the PL data handling Logic to support
+ *                      different PL programming interfaces.
  * </pre>
  *
  * @note
@@ -97,13 +97,40 @@
 #endif
 
 /**************************** Type Definitions *******************************/
+/**
+ * struct xilfpga__ops - ops for low level fpga interface drivers
+ * @XFpga_ValidateBitstream:	validate the Bitstream header before
+ *				programming the PL
+ * @xilfpga_PreConfig:		prepare the FPGA to receive confuration data
+ * @xilfpga_WriteToPl:		write count bytes of configuration data to
+ *				the FPGA
+ * @xilfpga_PostConfig:		set FPGA to operating state after writing
+ *				is done
+ * @XFpga_InterfaceStatus:	Provides the STATUS of PL programming interface
+ * @Xfpga_GetConfigReg:		Returns the value of the specified configuration
+ *				register
+ * @XFpga_GetConfigData:	Provides the FPGA readback data.
+ */
+typedef struct {
+	u32 (*XFpga_ValidateBitstream)(XFpga_Info *PLInfoPtr);
+	u32 (*XFpga_PreConfig)(XFpga_Info *PLInfoPtr);
+	u32 (*XFpga_WriteToPl)(XFpga_Info *PLInfoPtr);
+	u32 (*XFpga_PostConfig)(XFpga_Info *PLInfoPtr);
+	u32 (*XFpga_InterfaceStatus)(void);
+	u32 (*XFpga_GetConfigReg)(XFpga_Info *PLInfoPtr);
+	u32 (*XFpga_GetConfigData)(XFpga_Info *PLInfoPtr);
+} Xilfpga_Ops;
+
+
+/************************** Variable Definitions *****************************/
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XFPGA_SUCCESS                   (0x0U)
-#define XFPGA_FAILURE                   (0x1U)
-#define XFPGA_VALIDATE_ERROR            (0x2U)
-#define XFPGA_PRE_CONFIG_ERROR          (0x3U)
-#define XFPGA_WRITE_BITSTREAM_ERROR     (0x4U)
-#define XFPGA_POST_CONFIG_ERROR         (0x5U)
+#define XFPGA_SUCCESS			(0x0U)
+#define XFPGA_FAILURE			(0x1U)
+#define XFPGA_VALIDATE_ERROR		(0x2U)
+#define XFPGA_PRE_CONFIG_ERROR		(0x3U)
+#define XFPGA_WRITE_BITSTREAM_ERROR	(0x4U)
+#define XFPGA_POST_CONFIG_ERROR		(0x5U)
+#define XFPGA_OPS_NOT_IMPLEMENTED	(0x6U)
 
 #define XFPGA_FULLBIT_EN			(0x00000000U)
 #define XFPGA_PARTIAL_EN			(0x00000001U)
@@ -154,9 +181,14 @@
 /** @endcond*/
 /************************** Function Prototypes ******************************/
 u32 XFpga_PL_BitStream_Load(UINTPTR BitstreamImageAddr,
-			UINTPTR KeyAddr, u32 flags);
+							UINTPTR KeyAddr, u32 flags);
 u32 XFpga_InterfaceStatus(void);
+u32 XFpga_PL_Preconfig(XFpga_Info *PLInfoPtr);
+u32 XFpga_PL_WriteToPl(XFpga_Info *PLInfoPtr);
+u32 XFpga_PL_PostConfig(XFpga_Info *PLInfoPtr);
+u32 XFpga_PL_ReadFabricData(XFpga_Info *PLInfoPtr);
+u32 XFpga_PL_ValidateImage(XFpga_Info *PLInfoPtr);
 u32 XFpga_GetPlConfigReg(u32 ConfigReg, UINTPTR Address);
-u32 XFpga_GetPlConfigData(UINTPTR Address, u32 NumFrames);
+u32 XFpga_GetPlConfigData(XFpga_Info *PLInfoPtr);
 
 #endif  /* XILFPGA_H */

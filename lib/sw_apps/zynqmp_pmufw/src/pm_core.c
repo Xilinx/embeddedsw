@@ -714,11 +714,15 @@ static void PmFpgaRead(const PmMaster *const master,
 		       const u32 AddrHigh, u32 Readback_Type)
 {
 	u32 Status;
-	UINTPTR Address = ((u64)AddrHigh << 32)|AddrLow;
 	u32 Value;
+	XFpga_Info PLInfo;
+	UINTPTR Address = ((u64)AddrHigh << 32)|AddrLow;
+
+	PLInfo.ReadbackAddr = Address;
+	PLInfo.NumFrames = Reg_Numframes;
 
 	if (Readback_Type) {
-		Status = XFpga_GetPlConfigData(Address, Reg_Numframes);
+		Status = XFpga_GetPlConfigData(&PLInfo);
 		Value = CFGDATA_DSTDMA_OFFSET/4;
 		IPI_RESPONSE2(master->ipiMask, Status, Value);
 	} else {

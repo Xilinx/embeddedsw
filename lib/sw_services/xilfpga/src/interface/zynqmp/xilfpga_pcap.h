@@ -100,6 +100,9 @@
  * 4.2 adk    11/07/18  Added support for readback of PL configuration data.
  * 4.2 Nava   22/07/18 Added XFpga_SelectEndianess() new API to Support
  *                      programming the vivado generated .bit and .bin files
+ * 4.2 adk   03/08/18 Added example for partial reconfiguration.
+ * 4.2 Nava   16/08/18  Modified the PL data handling Logic to support
+ *                      different PL programming interfaces.
  * </pre>
  *
  * @note
@@ -266,32 +269,43 @@
 
 /**************************** Type Definitions *******************************/
 /**
- * struct xilfpga__ops - ops for low level fpga interface drivers
- * @XFpga_ValidateBitstream:	validate the Bitstream header beafore
- *				programming the PL
- * @xilfpga_PreConfig:		prepare the FPGA to receive confuration data
- * @xilfpga_WriteToPl:		write count bytes of configuration data to
- *				the FPGA
- * @xilfpga_PostConfig:		set FPGA to operating state after writing
- *				is done
- * @XFpga_InterfaceStatus:	Provides the STATUS of PL programming interface
- * @Xfpga_GetConfigReg:		Returns the value of the specified configuration
- *				register
+ * Structure to store the PL Image details.
+ * @BitstreamAddr	Linear memory Bitstream image base address.
+ * @AddrPtr		Aes key address which is used for Decryption.
+ * @ReadbackAddr	Address is the DMA buffer address to store the
+ *			readback data.
+ * @ConfigReg		Configuration register value to be returned
+ * @NumFrames		The number of fpga configuration frames to read
+ * @XSecure_ImageInfo	Used to store the secure image data.
+ * @Flags		Flags are used to specify the type of Bitstream file.
+ *			* BIT(0) - Bitstream type
+ *                                     * 0 - Full Bitstream
+ *                                     * 1 - Partial Bitstream
+ *			* BIT(1) - Authentication using DDR
+ *                                     * 1 - Enable
+ *                                     * 0 - Disable
+ *			* BIT(2) - Authentication using OCM
+ *                                     * 1 - Enable
+ *                                     * 0 - Disable
+ *			* BIT(3) - User-key Encryption
+ *                                     * 1 - Enable
+ *                                     * 0 - Disable
+ *			* BIT(4) - Device-key Encryption
+ *                                     * 1 - Enable
+ *                                     * 0 - Disable
+ *
  */
 typedef struct {
-	u32 (*XFpga_ValidateBitstream)(UINTPTR RdAddr,
-		XSecure_ImageInfo *ImageHdrData, u32 flags);
-	u32 (*XFpga_PreConfig)(u32 Flags);
-	u32 (*XFpga_WriteToPl)(UINTPTR RdAddr, UINTPTR AddrPtr,
-		XSecure_ImageInfo *ImageInfo, u32 flags);
-	u32 (*XFpga_PostConfig)(UINTPTR AddrPtr, u32 flags);
-	u32 (*XFpga_InterfaceStatus)(void);
-	u32 (*XFpga_GetConfigReg)(u32 ConfigReg, UINTPTR Address);
-	u32 (*XFpga_GetConfigData)(UINTPTR Address, u32 NumFrames);
-} Xilfpga_Ops;
+	UINTPTR BitstreamAddr;
+	UINTPTR	AddrPtr;
+	UINTPTR ReadbackAddr;
+	u32 ConfigReg;
+	u32 NumFrames;
+	XSecure_ImageInfo SecureImageInfo;
+	u32 Flags;
+} XFpga_Info;
 
 /************************** Variable Definitions *****************************/
-extern Xilfpga_Ops Fpga_Ops;
 extern XCsuDma CsuDma;  /* CSU DMA instance */
 
 /***************** Macros (Inline Functions) Definitions *********************/
