@@ -40,7 +40,8 @@
  * 4.2  Nava  08/06/16  Refactor the xilfpga library to support
  *			different PL programming Interfaces.
  * 4.2  adk   11/07/18  Added support for readback of PL configuration data.
- *
+ * 4.2  Nava  16/08/18	Modified the PL data handling Logic to support
+ *			different PL programming interfaces.
  *</pre>
  *
  *@note
@@ -49,7 +50,9 @@
 #include "xfpga_config.h"
 #include "xilfpga.h"
 
+/************************** Variable Definitions *****************************/
 Xilfpga_Ops Fpga_Ops;
+
 /*****************************************************************************/
 /**The API is used to load the user provided Bitstream file into the
  * PL region.
@@ -94,56 +97,134 @@ Xilfpga_Ops Fpga_Ops;
 u32 XFpga_PL_BitStream_Load(UINTPTR BitstreamImageAddr,
 		UINTPTR AddrPtr, u32 flags)
 {
-	u32 Status = XFPGA_SUCCESS;
-	XSecure_ImageInfo ImageHdrInfo = {0};
+	u32 Status;
+	XFpga_Info PLInfo = {0};
 
-	Status = Fpga_Ops.XFpga_ValidateBitstream(BitstreamImageAddr,
-						&ImageHdrInfo, flags);
-	if (Status != XFPGA_SUCCESS) {
-		Status = XFPGA_UPDATE_ERR(XFPGA_VALIDATE_ERROR, Status);
-		xil_printf("XFPGA Fail to validate the Bitstream Image "
-				"with Error Code: 0x%08x\r\n", Status);
-		return Status;
+	PLInfo.BitstreamAddr = BitstreamImageAddr;
+	PLInfo.AddrPtr = AddrPtr;
+	PLInfo.Flags = flags;
+
+
+	/* Validate Bitstream Image */
+	Status = XFpga_PL_ValidateImage(&PLInfo);
+	if ((Status != XFPGA_OPS_NOT_IMPLEMENTED) &&
+			(Status != XFPGA_SUCCESS)) {
+		goto END;
 	}
 
-	Status = Fpga_Ops.XFpga_PreConfig(flags);
+	/* Prepare the FPGA to receive configuration Data */
+	Status = XFpga_PL_Preconfig(&PLInfo);
 	if (Status != XFPGA_SUCCESS) {
-		Status = XFPGA_UPDATE_ERR(XFPGA_PRE_CONFIG_ERROR, Status);
-		xil_printf("XFPGA Fail to PreConfigure the PL Interface "
-				"with Error Code: 0x%08x\r\n", Status);
-		return Status;
+		goto END;
 	}
 
-	Status = Fpga_Ops.XFpga_WriteToPl(BitstreamImageAddr, AddrPtr,
-					&ImageHdrInfo, flags);
+	/* write count bytes of configuration data into the PL */
+	Status = XFpga_PL_WriteToPl(&PLInfo);
 	if (Status != XFPGA_SUCCESS) {
-		Status = XFPGA_UPDATE_ERR(XFPGA_WRITE_BITSTREAM_ERROR, Status);
-		xil_printf("FPGA fail to write Bitstream into PL "
-				"with Error Code: 0x%08x\r\n", Status);
-		return Status;
+		goto END;
 	}
 
-	Status = Fpga_Ops.XFpga_PostConfig(AddrPtr, flags);
-	if (Status != XFPGA_SUCCESS) {
-		Status = XFPGA_UPDATE_ERR(XFPGA_POST_CONFIG_ERROR, Status);
-		xil_printf("XFPGA Fail to PostConfigure the PL Interface "
-				"with Error Code: 0x%08x\r\n", Status);
+	/* set FPGA to operating state after writing */
+	Status = XFpga_PL_PostConfig(&PLInfo);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to validate the Bitstream Image
+ * @param PLInfoPtr Pointer to XFgpa_Info structure
+ *
+ * @return Codes as mentioned in xilfpga.h
+ ******************************************************************************/
+u32 XFpga_PL_ValidateImage(XFpga_Info *PLInfoPtr)
+{
+	u32 Status;
+
+	if (!Fpga_Ops.XFpga_ValidateBitstream) {
+		Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		Xfpga_Printf(XFPGA_DEBUG,
+		"%s Implementation not exists..\r\n", __FUNCTION__);
+	} else {
+		Status = Fpga_Ops.XFpga_ValidateBitstream(PLInfoPtr);
+		if (Status != XFPGA_SUCCESS) {
+			Status = XFPGA_UPDATE_ERR(XFPGA_VALIDATE_ERROR, Status);
+		}
 	}
 
 	return Status;
 }
 
 /*****************************************************************************/
-/** This function provides the STATUS of PL programming interface
+/* This function prepare the FPGA to receive configuration data.
+ * @param PLInfoPtr Pointer to XFgpa_Info structure
  *
- * @param	None
- *
- * @return	Status of the PL programming interface.
- *
+ * @return Codes as mentioned in xilfpga_cfi.h
  *****************************************************************************/
-u32 XFpga_InterfaceStatus(void)
-{
-	return Fpga_Ops.XFpga_InterfaceStatus();
+u32 XFpga_PL_Preconfig(XFpga_Info *PLInfoPtr) {
+	u32 Status;
+
+	if (!Fpga_Ops.XFpga_PreConfig) {
+		Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		Xfpga_Printf(XFPGA_DEBUG,
+		"%s Implementation not exists..\r\n", __FUNCTION__);
+	} else {
+		Status = Fpga_Ops.XFpga_PreConfig(PLInfoPtr);
+		if (Status != XFPGA_SUCCESS) {
+			Status = XFPGA_UPDATE_ERR(XFPGA_PRE_CONFIG_ERROR,
+						  Status);
+		}
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/* This function write count bytes of configuration data into the PL.
+ * @param PLInfoPtr Pointer to XFgpa_Info structure
+ *
+ * @return Codes as mentioned in xilfpga_cfi.h
+ *****************************************************************************/
+u32 XFpga_PL_WriteToPl(XFpga_Info *PLInfoPtr) {
+	 u32 Status;
+
+	if (!Fpga_Ops.XFpga_WriteToPl) {
+		Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		Xfpga_Printf(XFPGA_DEBUG,
+		"%s Implementation not exists..\r\n", __FUNCTION__);
+	} else {
+		Status = Fpga_Ops.XFpga_WriteToPl(PLInfoPtr);
+		if (Status != XFPGA_SUCCESS) {
+			Status = XFPGA_UPDATE_ERR(XFPGA_WRITE_BITSTREAM_ERROR,
+						  Status);
+		}
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/** This function set FPGA to operating state after writing.
+ * @param ImageInfo Pointer to XFgpa_Info structure
+ *
+ * @return Codes as mentioned in xilfpga_cfi.h
+ *****************************************************************************/
+u32 XFpga_PL_PostConfig(XFpga_Info *PLInfoPtr) {
+	u32 Status;
+
+	if (!Fpga_Ops.XFpga_PostConfig) {
+		Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		Xfpga_Printf(XFPGA_DEBUG,
+		"%s Implementation not exists..\r\n", __FUNCTION__);
+	} else {
+		Status = Fpga_Ops.XFpga_PostConfig(PLInfoPtr);
+		if (Status != XFPGA_SUCCESS) {
+			Status = XFPGA_UPDATE_ERR(XFPGA_POST_CONFIG_ERROR,
+						  Status);
+		}
+	}
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -155,18 +236,25 @@ u32 XFpga_InterfaceStatus(void)
  * @param        Address is the DMA buffer address.
  *
  * @return
- *               - XFPGA_SUCCESS if successful
- *               - XFPGA_FAILURE if unsuccessful
- *
+ *	- XFPGA_SUCCESS if successful
+ *	- XFPGA_FAILURE if unsuccessful
+ *	- XFPGA_OPS_NOT_IMPLEMENTED if implementation not exists.
  *
  ****************************************************************************/
 u32 XFpga_GetPlConfigReg(u32 ConfigReg, UINTPTR Address)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
+	XFpga_Info PLInfo = {0};
 
-	Status = Fpga_Ops.XFpga_GetConfigReg(ConfigReg, Address);
-	if (Status != XFPGA_SUCCESS)
-		Status = XFPGA_FAILURE;
+	PLInfo.ReadbackAddr = Address;
+	PLInfo.ConfigReg = ConfigReg;
+	if (!Fpga_Ops.XFpga_GetConfigReg) {
+		Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		Xfpga_Printf(XFPGA_DEBUG,
+		"%s Implementation not exists..\r\n", __FUNCTION__);
+	} else {
+		Status = Fpga_Ops.XFpga_GetConfigReg(&PLInfo);
+	}
 
 	return Status;
 }
@@ -175,20 +263,48 @@ u32 XFpga_GetPlConfigReg(u32 ConfigReg, UINTPTR Address)
 /**
  * This function provides functionality to read back the PL configuration data
  *
- * @param        Address is the DMA buffer address.
- * @param	NumFrames is the number fpga configuration frames to read.
+ * @param Address is the DMA buffer address.
+ * @param NumFrames is the number fpga configuration frames to read.
  *
  * @return
- *               - XFPGA_SUCCESS if successful
- *               - XFPGA_FAILURE if unsuccessful
+ *	- XFPGA_SUCCESS if successful
+ *	- XFPGA_FAILURE if unsuccessful
+ *	- XFPGA_OPS_NOT_IMPLEMENTED if implementation not exists.
+ *
  ****************************************************************************/
-u32 XFpga_GetPlConfigData(UINTPTR Address, u32 NumFrames)
+u32 XFpga_GetPlConfigData(XFpga_Info *PLInfoPtr)
+{
+	u32 Status;
+
+	if (!Fpga_Ops.XFpga_GetConfigData) {
+		Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		Xfpga_Printf(XFPGA_DEBUG,
+		"%s Implementation not exists..\r\n", __FUNCTION__);
+	} else {
+		Status = Fpga_Ops.XFpga_GetConfigData(PLInfoPtr);
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/** This function provides the STATUS of PL programming interface
+ *
+ * @param None
+ *
+ * @return Status of the PL programming interface.
+ *
+ *****************************************************************************/
+u32 XFpga_InterfaceStatus(void)
 {
 	u32 Status = XFPGA_SUCCESS;
-
-	Status = Fpga_Ops.XFpga_GetConfigData(Address, NumFrames);
-	if (Status != XFPGA_SUCCESS)
-		Status = XFPGA_FAILURE;
+	if (!Fpga_Ops.XFpga_InterfaceStatus) {
+		Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		Xfpga_Printf(XFPGA_DEBUG,
+		"%s Implementation not exists..\r\n", __FUNCTION__);
+	} else {
+		Status = Fpga_Ops.XFpga_InterfaceStatus();
+	}
 
 	return Status;
 }
