@@ -505,8 +505,8 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 		 * Check for WRSR instruction which has different size for
 		 * Spansion (3 bytes) and Micron (2 bytes)
 		 */
-		if( (CurrInst->OpCode == XQSPIPS_FLASH_OPCODE_WRSR) &&
-			(ByteCount == 3) ) {
+		if ((CurrInst->OpCode == XQSPIPS_FLASH_OPCODE_WRSR) &&
+			(ByteCount == 3)) {
 			CurrInst->InstSize = 3;
 			CurrInst->TxOffset = XQSPIPS_TXD_11_OFFSET;
 		}
@@ -524,37 +524,36 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 		 * The remaining bytes of the instruction will be transmitted
 		 * through TXD0 below.
 		 */
-		switch(ByteCount%4)
-		{
-			case XQSPIPS_SIZE_ONE:
-				CurrInst->OpCode = Instruction;
-				CurrInst->InstSize = XQSPIPS_SIZE_ONE;
-				CurrInst->TxOffset = XQSPIPS_TXD_01_OFFSET;
-				if(ByteCount > 4) {
-					SwitchFlag = 1;
-				}
-				break;
-			case XQSPIPS_SIZE_TWO:
-				CurrInst->OpCode = Instruction;
-				CurrInst->InstSize = XQSPIPS_SIZE_TWO;
-				CurrInst->TxOffset = XQSPIPS_TXD_10_OFFSET;
-				if(ByteCount > 4) {
-					SwitchFlag = 1;
-				}
-				break;
-			case XQSPIPS_SIZE_THREE:
-				CurrInst->OpCode = Instruction;
-				CurrInst->InstSize = XQSPIPS_SIZE_THREE;
-				CurrInst->TxOffset = XQSPIPS_TXD_11_OFFSET;
-				if(ByteCount > 4) {
-					SwitchFlag = 1;
-				}
-				break;
-			default:
-				CurrInst->OpCode = Instruction;
-				CurrInst->InstSize = XQSPIPS_SIZE_FOUR;
-				CurrInst->TxOffset = XQSPIPS_TXD_00_OFFSET;
-				break;
+		switch (ByteCount%4) {
+		case XQSPIPS_SIZE_ONE:
+			CurrInst->OpCode = Instruction;
+			CurrInst->InstSize = XQSPIPS_SIZE_ONE;
+			CurrInst->TxOffset = XQSPIPS_TXD_01_OFFSET;
+			if (ByteCount > 4) {
+				SwitchFlag = 1;
+			}
+			break;
+		case XQSPIPS_SIZE_TWO:
+			CurrInst->OpCode = Instruction;
+			CurrInst->InstSize = XQSPIPS_SIZE_TWO;
+			CurrInst->TxOffset = XQSPIPS_TXD_10_OFFSET;
+			if (ByteCount > 4) {
+				SwitchFlag = 1;
+			}
+			break;
+		case XQSPIPS_SIZE_THREE:
+			CurrInst->OpCode = Instruction;
+			CurrInst->InstSize = XQSPIPS_SIZE_THREE;
+			CurrInst->TxOffset = XQSPIPS_TXD_11_OFFSET;
+			if (ByteCount > 4) {
+				SwitchFlag = 1;
+			}
+			break;
+		default:
+			CurrInst->OpCode = Instruction;
+			CurrInst->InstSize = XQSPIPS_SIZE_FOUR;
+			CurrInst->TxOffset = XQSPIPS_TXD_00_OFFSET;
+			break;
 		}
 	}
 
@@ -562,7 +561,7 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 	 * If the instruction size in not 4 bytes then the data received needs
 	 * to be shifted
 	 */
-	if( CurrInst->InstSize != 4 ) {
+	if (CurrInst->InstSize != 4) {
 		InstancePtr->ShiftReadData = 1;
 	} else {
 		InstancePtr->ShiftReadData = 0;
@@ -585,7 +584,7 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 	 * If switching from TXD1/2/3 to TXD0, then start transfer and
 	 * check for FIFO empty
 	 */
-	if(SwitchFlag == 1) {
+	if (SwitchFlag == 1) {
 		SwitchFlag = 0;
 		/*
 		 * If, in Manual Start mode, start the transfer.
@@ -791,8 +790,8 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 		 * Check for WRSR instruction which has different size for
 		 * Spansion (3 bytes) and Micron (2 bytes)
 		 */
-		if( (CurrInst->OpCode == XQSPIPS_FLASH_OPCODE_WRSR) &&
-			(ByteCount == 3) ) {
+		if ((CurrInst->OpCode == XQSPIPS_FLASH_OPCODE_WRSR) &&
+			(ByteCount == 3)) {
 			CurrInst->InstSize = 3;
 			CurrInst->TxOffset = XQSPIPS_TXD_11_OFFSET;
 		}
@@ -809,37 +808,36 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 		 * The remaining bytes of the instruction will be transmitted
 		 * through TXD0 below.
 		 */
-		switch(ByteCount%4)
-		{
-			case XQSPIPS_SIZE_ONE:
-				CurrInst->OpCode = Instruction;
-				CurrInst->InstSize = XQSPIPS_SIZE_ONE;
-				CurrInst->TxOffset = XQSPIPS_TXD_01_OFFSET;
-				if(ByteCount > 4) {
-					SwitchFlag = 1;
-				}
-				break;
-			case XQSPIPS_SIZE_TWO:
-				CurrInst->OpCode = Instruction;
-				CurrInst->InstSize = XQSPIPS_SIZE_TWO;
-				CurrInst->TxOffset = XQSPIPS_TXD_10_OFFSET;
-				if(ByteCount > 4) {
-					SwitchFlag = 1;
-				}
-				break;
-			case XQSPIPS_SIZE_THREE:
-				CurrInst->OpCode = Instruction;
-				CurrInst->InstSize = XQSPIPS_SIZE_THREE;
-				CurrInst->TxOffset = XQSPIPS_TXD_11_OFFSET;
-				if(ByteCount > 4) {
-					SwitchFlag = 1;
-				}
-				break;
-			default:
-				CurrInst->OpCode = Instruction;
-				CurrInst->InstSize = XQSPIPS_SIZE_FOUR;
-				CurrInst->TxOffset = XQSPIPS_TXD_00_OFFSET;
-				break;
+		switch (ByteCount % 4) {
+		case XQSPIPS_SIZE_ONE:
+			CurrInst->OpCode = Instruction;
+			CurrInst->InstSize = XQSPIPS_SIZE_ONE;
+			CurrInst->TxOffset = XQSPIPS_TXD_01_OFFSET;
+			if (ByteCount > 4) {
+				SwitchFlag = 1;
+			}
+			break;
+		case XQSPIPS_SIZE_TWO:
+			CurrInst->OpCode = Instruction;
+			CurrInst->InstSize = XQSPIPS_SIZE_TWO;
+			CurrInst->TxOffset = XQSPIPS_TXD_10_OFFSET;
+			if (ByteCount > 4) {
+				SwitchFlag = 1;
+			}
+			break;
+		case XQSPIPS_SIZE_THREE:
+			CurrInst->OpCode = Instruction;
+			CurrInst->InstSize = XQSPIPS_SIZE_THREE;
+			CurrInst->TxOffset = XQSPIPS_TXD_11_OFFSET;
+			if (ByteCount > 4) {
+				SwitchFlag = 1;
+			}
+			break;
+		default:
+			CurrInst->OpCode = Instruction;
+			CurrInst->InstSize = XQSPIPS_SIZE_FOUR;
+			CurrInst->TxOffset = XQSPIPS_TXD_00_OFFSET;
+			break;
 		}
 	}
 
@@ -847,7 +845,7 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 	 * If the instruction size in not 4 bytes then the data received needs
 	 * to be shifted
 	 */
-	if( CurrInst->InstSize != 4 ) {
+	if (CurrInst->InstSize != 4) {
 		InstancePtr->ShiftReadData = 1;
 	} else {
 		InstancePtr->ShiftReadData = 0;
@@ -870,7 +868,7 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 	 * If switching from TXD1/2/3 to TXD0, then start transfer and
 	 * check for FIFO empty
 	 */
-	if(SwitchFlag == 1) {
+	if (SwitchFlag == 1) {
 		SwitchFlag = 0;
 		/*
 		 * If, in Manual Start mode, start the transfer.
@@ -918,7 +916,7 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 		++TransCount;
 	}
 
-	while((InstancePtr->RemainingBytes > 0) ||
+	while ((InstancePtr->RemainingBytes > 0) ||
 	      (InstancePtr->RequestedBytes > 0)) {
 
 		/*
@@ -969,8 +967,8 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 			StatusReg = XQspiPs_ReadReg(
 					InstancePtr->Config.BaseAddress,
 					XQSPIPS_SR_OFFSET);
-		} while ( ((StatusReg & XQSPIPS_IXR_TXOW_MASK) == 0) &&
-			((StatusReg & XQSPIPS_IXR_RXNEMPTY_MASK) == 0) );
+		} while (((StatusReg & XQSPIPS_IXR_TXOW_MASK) == 0) &&
+			((StatusReg & XQSPIPS_IXR_RXNEMPTY_MASK) == 0));
 
 		/*
 		 * A transmit has just completed. Process received data
@@ -983,7 +981,7 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 		 * software may not care to receive data).
 		 */
 		while ((InstancePtr->RequestedBytes > 0) &&
-			(RxCount < XQSPIPS_RXFIFO_THRESHOLD_OPT )) {
+			(RxCount < XQSPIPS_RXFIFO_THRESHOLD_OPT)) {
 			u32 Data;
 
 			RxCount++;
@@ -1082,8 +1080,8 @@ int XQspiPs_LqspiRead(XQspiPs *InstancePtr, u8 *RecvBufPtr,
 
 	if (XQspiPs_GetLqspiConfigReg(InstancePtr) &
 		XQSPIPS_LQSPI_CR_LINEAR_MASK) {
-		memcpy((void*)RecvBufPtr,
-		      (const void*)(XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR +
+		memcpy((void *)RecvBufPtr,
+		      (const void *)(XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR +
 		       Address),
 		      (size_t)ByteCount);
 		Status = (int)XST_SUCCESS;
