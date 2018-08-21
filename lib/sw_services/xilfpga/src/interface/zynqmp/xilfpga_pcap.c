@@ -644,7 +644,7 @@ static u32 XFpga_PcapWaitForDone(void)
  *****************************************************************************/
 static u32 XFpga_WriteToPcap(u32 Size, UINTPTR BitstreamAddr)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
 
 	/*
 	 * Setup the  SSS, setup the PCAP to receive from DMA source
@@ -957,7 +957,7 @@ static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 	u8  TotalBitPartCount;
 	u32 RemaningBytes;
 	UINTPTR AcPtr;
-	UINTPTR BitAddr = BitstreamAddr;
+	UINTPTR BitAddr;
 
 	/* Authenticate the PL Partation's */
 	PartationOffset = ImageInfo->PartitionHdr->DataWordOffset
@@ -1055,7 +1055,7 @@ END:
  ******************************************************************************/
 static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
 	u64 OcmAddr = OCM_PL_ADDR;
 	u32 NumChunks = NUM_OF_PL_CHUNKS(Size);
 	u32 ChunkSize = PL_CHUNK_SIZE_BYTES;
@@ -1108,6 +1108,9 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 	/* Copy AC into the OCM */
 	Status = XFpga_CopyToOcm((UINTPTR)AcAddr,
 				(UINTPTR)OcmAddr, AC_LEN/WORD_LEN);
+	if (Status != XFPGA_SUCCESS) {
+		goto END;
+	}
 	XSecure_Sha3Update(&Secure_Sha3, (u8 *)(UINTPTR)OcmAddr,
 				AC_LEN - XSECURE_PARTITION_SIG_SIZE);
 	XSecure_Sha3Finish(&Secure_Sha3, Sha3Hash);
@@ -1345,7 +1348,7 @@ static u32 XFpga_AesInit(UINTPTR KeyAddr, u32 *AesIv, u32 flags)
  *****************************************************************************/
 static u32 XFpga_CopyToOcm(UINTPTR Src, UINTPTR Dst, u32 Size)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
 
 	/*
 	 * Setup the  SSS, To copy the contains from DDR to OCM
@@ -1904,7 +1907,7 @@ END:
 static u32 XFpga_PowerUpPl(void)
 {
 
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
 
 #ifdef __MICROBLAZE__
 	Status = XpbrServHndlrTbl[XPBR_SERV_EXT_PWRUPPLD]();
@@ -1925,6 +1928,8 @@ static u32 XFpga_PowerUpPl(void)
 
 	if (PollCount == 0) {
 		Status = XFPGA_ERROR_PL_POWER_UP;
+	} else {
+		Status = XFPGA_SUCCESS;
 	}
 #endif
 	return Status;
@@ -1942,7 +1947,7 @@ static u32 XFpga_PowerUpPl(void)
  **************************************************************************/
 static u32 XFpga_IsolationRestore(void)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
 
 #ifdef __MICROBLAZE__
 	Status = XpbrServHndlrTbl[XPBR_SERV_EXT_PLNONPCAPISO]();
@@ -1968,6 +1973,8 @@ static u32 XFpga_IsolationRestore(void)
 
 	if (PollCount == 0) {
 		Status = XFPGA_ERROR_PL_ISOLATION;
+	} else {
+		Status = XFPGA_SUCCESS;
 	}
 #endif
 	return Status;
@@ -2269,7 +2276,7 @@ END:
  ****************************************************************************/
 static u32 XFpga_GetPLConfigData(XFpga_Info *PLInfoPtr)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
 	UINTPTR Address = PLInfoPtr->ReadbackAddr;
 	u32 NumFrames = PLInfoPtr->NumFrames;
 	u32 RegVal;
@@ -2577,19 +2584,18 @@ static u32 XFpga_SelectEndianess(u32 *Buf, u32 Size, u32 *Pos)
 	u32 RegVal;
 	u32 Status = XFPGA_ERROR_BITSTREAM_FORMAT;
 	u8 EndianType;
+	u8 BitHdrSize = ARRAY_LENGTH(BootgenBinFormat) * WORD_LEN;
 
 	for (Index = 0; Index < Size; Index++) {
 	/* Find the First Dummy Word */
 		if (Buf[Index] == DUMMY_WORD) {
 			if (!(memcmp(&Buf[Index + SYNC_WORD_POSITION],
-			    BootgenBinFormat,
-			    ARRAY_LENGTH(BootgenBinFormat) * WORD_LEN))) {
+			    BootgenBinFormat, BitHdrSize))) {
 				EndianType = 0U;
 				Status = XFPGA_SUCCESS;
 				break;
 			} else if (!(memcmp(&Buf[Index + SYNC_WORD_POSITION],
-				 VivadoBinFormat,
-				 ARRAY_LENGTH(VivadoBinFormat) * WORD_LEN))) {
+				   VivadoBinFormat, BitHdrSize))) {
 				EndianType = 1U;
 				Status = XFPGA_SUCCESS;
 				break;
