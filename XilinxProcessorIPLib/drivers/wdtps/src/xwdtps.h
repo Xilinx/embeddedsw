@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xwdtps.h
-* @addtogroup wdtps_v3_0
+* @addtogroup wdtps_v3_1
 * @{
 * @details
 *
@@ -86,6 +86,9 @@
 *			modified code for MISRA-C:2012 compliance.
 *       ms     03/17/17 Added readme.txt file in examples folder for doxygen
 *                       generation.
+* 3.1   sg     08/17/18 Updated interrupt example to fix interrupt ID conflict
+*			issue
+*
 * </pre>
 *
 ******************************************************************************/
