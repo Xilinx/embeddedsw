@@ -43,6 +43,9 @@ intc_v3_8:
 Updated check_cascade proc, to add check
 for irq_in pin.It fixes CR#1005371
 
+qspips_v3_5:
+Fixed compilation warnings for ARMCC.
+
 qspipsu_v1_8:
 Added support for IS25LP064 and IS25WP064.
 Added an example for accessing 64bit dma within 32 bit application.(CR#1004701)
