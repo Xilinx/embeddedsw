@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,9 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- ---------------------------------------------
 * 1.00a ecm/jz 01/15/10 First release
+* 3.1	sg	   08/20/18 Updated interrupt example to fix interrupt ID
+* 						conflict issue
+*
 * </pre>
 *
 ******************************************************************************/
@@ -65,9 +68,24 @@
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifdef XPAR_PS7_WDT_0_DEVICE_ID
+#define WDT_IRPT_INTR		XPS_WDT_INT_ID
+#endif
+
+#ifdef XPAR_PSU_CSU_WDT_DEVICE_ID
+	#define WDT_IRPT_INTR		XPS_CSU_WDT_INT_ID
+#else
+	#ifdef XPAR_PSU_WDT_0_DEVICE_ID
+		#define WDT_IRPT_INTR		XPS_LPD_SWDT_INT_ID
+	#else
+		#ifdef XPAR_PSU_WDT_1_DEVICE_ID
+			#define WDT_IRPT_INTR		XPS_FPD_SWDT_INT_ID
+		#endif
+	#endif
+#endif
+
 #define WDT_DEVICE_ID		XPAR_XWDTPS_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define WDT_IRPT_INTR		XPAR_XWDTPS_0_INTR
 
 /**************************** Type Definitions *******************************/
 #define HANDLER_CALLED  0xFFFFFFFF
