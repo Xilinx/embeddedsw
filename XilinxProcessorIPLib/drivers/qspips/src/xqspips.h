@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xqspips.h
-* @addtogroup qspips_v3_4
+* @addtogroup qspips_v3_5
 * @{
 * @details
 *
@@ -277,6 +277,7 @@
 *                    xqspips_dual_flash_stack_lqspi_example.c to include it in
 *                    doxygen examples.
 * 3.4   nsk 31/07/17 Added QSPI_BUS_WIDTH parameter in xparameters.h file
+* 3.5	tjs 08/21/18 Fixed compilation warnings for the ARMCC.
 *
 * </pre>
 *

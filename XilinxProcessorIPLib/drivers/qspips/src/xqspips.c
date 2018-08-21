@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xqspips.c
-* @addtogroup qspips_v3_4
+* @addtogroup qspips_v3_5
 * @{
 *
 * Contains implements the interface functions of the XQspiPs driver.
@@ -98,6 +98,7 @@
 * 					 when thresholds are used.
 * 3.3   sk  11/07/15 Modified the API prototypes according to MISRAC standards
 *                    to remove compilation warnings. CR# 868893.
+* 3.5	tjs 13/08/18 Fixed compilation warnings for ARMCC.
 *
 * </pre>
 *
@@ -1065,6 +1066,7 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 int XQspiPs_LqspiRead(XQspiPs *InstancePtr, u8 *RecvBufPtr,
 			u32 Address, unsigned ByteCount)
 {
+	int Status = (int)XST_SUCCESS;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(RecvBufPtr != NULL);
 	Xil_AssertNonvoid(ByteCount > 0);
@@ -1084,9 +1086,9 @@ int XQspiPs_LqspiRead(XQspiPs *InstancePtr, u8 *RecvBufPtr,
 		      (const void*)(XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR +
 		       Address),
 		      (size_t)ByteCount);
-		return XST_SUCCESS;
+		Status = (int)XST_SUCCESS;
 	} else {
-		return XST_FAILURE;
+		Status = (int)XST_FAILURE;
 	}
 
 	/*
@@ -1094,6 +1096,7 @@ int XQspiPs_LqspiRead(XQspiPs *InstancePtr, u8 *RecvBufPtr,
 	 */
 	XQspiPs_Disable(InstancePtr);
 
+	return Status;
 }
 
 /*****************************************************************************/
