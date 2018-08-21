@@ -888,6 +888,9 @@ Added support for PUF regeneration
 Fixed compilation warnings
 Added doxygen tags
 
+wdtps_v3_1:
+Fix interrupt ID conflict issue in example.
+
 Changes for 2018.2
 ===============================
 freertos10_xilinx_v1_1:
