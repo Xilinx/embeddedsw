@@ -161,7 +161,8 @@ u32 XFpga_PL_ValidateImage(XFpga_Info *PLInfoPtr)
  *
  * @return Codes as mentioned in xilfpga_cfi.h
  *****************************************************************************/
-u32 XFpga_PL_Preconfig(XFpga_Info *PLInfoPtr) {
+u32 XFpga_PL_Preconfig(XFpga_Info *PLInfoPtr)
+{
 	u32 Status;
 
 	if (!Fpga_Ops.XFpga_PreConfig) {
@@ -185,7 +186,8 @@ u32 XFpga_PL_Preconfig(XFpga_Info *PLInfoPtr) {
  *
  * @return Codes as mentioned in xilfpga_cfi.h
  *****************************************************************************/
-u32 XFpga_PL_WriteToPl(XFpga_Info *PLInfoPtr) {
+u32 XFpga_PL_WriteToPl(XFpga_Info *PLInfoPtr)
+{
 	 u32 Status;
 
 	if (!Fpga_Ops.XFpga_WriteToPl) {
@@ -209,7 +211,8 @@ u32 XFpga_PL_WriteToPl(XFpga_Info *PLInfoPtr) {
  *
  * @return Codes as mentioned in xilfpga_cfi.h
  *****************************************************************************/
-u32 XFpga_PL_PostConfig(XFpga_Info *PLInfoPtr) {
+u32 XFpga_PL_PostConfig(XFpga_Info *PLInfoPtr)
+{
 	u32 Status;
 
 	if (!Fpga_Ops.XFpga_PostConfig) {
