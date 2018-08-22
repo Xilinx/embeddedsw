@@ -93,7 +93,7 @@ XIicPs Iic; /* Instance of the IIC Device */
 #include "xrfdc_clk.h"
 
 #define LMK04208_count 26
-#define LMX2594_A_count 113
+#define LMX2594_A_count 112
 typedef struct {
 	int XFrequency;
 	unsigned int LMX2594_A[LMX2594_A_count];
@@ -515,33 +515,34 @@ static void Lmx2594Updatei2c(int XIicDevFile,unsigned int  r[LMX2594_A_count])
  */
 	val = 0x2;
 	tx_array[2] = (unsigned char) val & (0xFF);
-	tx_array[1] = (unsigned char) val & (0xFF);
+	tx_array[1] = (unsigned char) (val >> 8) & (0xFF);
 	tx_array[0] = (unsigned char) (val >> 16) & (0xFF);
-	val = tx_array[0] | (tx_array[1] << 8) | (tx_array[2] << 16 ) ;
 	IicWriteData(XIicDevFile, 0xd, 3, tx_array);
 	usleep(100000);
 	val = 0x0;
 	tx_array[2] = (unsigned char) val & (0xFF);
-	tx_array[1] = (unsigned char) val & (0xFF);
+	tx_array[1] = (unsigned char) (val >> 8) & (0xFF);
 	tx_array[0] = (unsigned char) (val >> 16) & (0xFF);
-	val = tx_array[0] | (tx_array[1] << 8) | (tx_array[2] << 16 ) ;
 	IicWriteData(XIicDevFile, 0xd, 3, tx_array);
 	usleep(100000);
 	for (Index = 0; Index < LMX2594_A_count; Index++) {
 		tx_array[2] = (unsigned char) (r[Index]) & (0xFF);
 		tx_array[1] = (unsigned char) (r[Index] >> 8) & (0xFF);
 		tx_array[0] = (unsigned char) (r[Index] >> 16) & (0xFF);
-		val = tx_array[0] | (tx_array[1] << 8) | (tx_array[2] << 16 ) ;
+	        val = tx_array[0] | (tx_array[1] << 8) | (tx_array[2] << 16 ) ;
 		IicWriteData(XIicDevFile, 0xd, 3, tx_array);
 		usleep(100000);
 	}
 	/* FCAL_EN = 1 */
-	tx_array[2] = (unsigned char) (r[112]) & (0xFF);
-	tx_array[1] = (unsigned char) (r[112] >> 8) & (0xFF);
-	tx_array[0] = (unsigned char) (r[112] >> 16) & (0xFF);
-	val = tx_array[0] | (tx_array[1] << 8) | (tx_array[2] << 16 ) ;
+	val = 0x00249C;
+	for (Index = 0; Index < 2; Index++) {
+		tx_array[2] = (unsigned char) (val) & (0xFF);
+		tx_array[1] = (unsigned char) (val >> 8) & (0xFF);
+		tx_array[0] = (unsigned char) (val >> 16) & (0xFF);
+		IicWriteData(XIicDevFile, 0xd, 3, tx_array);
+		usleep(100000);
+	}
 	printf("LMX configured \n");
-	IicWriteData(XIicDevFile, 0xd, 3, tx_array);
 }
 static int Lmx2594UpdateFreq(int XIicDevFile,int  XFrequency)
 {
