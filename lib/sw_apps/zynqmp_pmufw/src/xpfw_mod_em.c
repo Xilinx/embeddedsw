@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -123,8 +123,8 @@ void FpdSwdtHandler(u8 ErrorId)
 
 /****************************************************************************/
 /**
- * @brief  This scheduler task checks for psu init completion and sets
- *         error action for PLL lock errors
+ * @brief  This scheduler task checks for FSBL execution completion and sets
+ *         error action for PLL lock errors and FPD WDT error
  *
  * @param  None.
  *
@@ -133,13 +133,12 @@ void FpdSwdtHandler(u8 ErrorId)
  * @note   None.
  *
  ****************************************************************************/
-static void CheckPsuInitCompletion(void)
+static void CheckFsblCompletion(void)
 {
 	s32 Status;
-	u32 PsuInitStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
+	u32 FsblCompletionStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
 
-	PsuInitStatus &= PSU_INIT_MASK;
-	if (PsuInitStatus == PSU_INIT_COMPLETION) {
+	if ((FsblCompletionStatus & FSBL_COMPLETION) == FSBL_COMPLETION) {
 
 		/* Clear previous PLL lock errors if any */
 		XPfw_Write32(PMU_GLOBAL_ERROR_STATUS_2, PMU_GLOBAL_ERROR_STATUS_2_PLL_LOCK_MASK);
@@ -147,8 +146,20 @@ static void CheckPsuInitCompletion(void)
 		/* Set PS Error Out action for PLL lock errors */
 		XPfw_EmSetAction(EM_ERR_ID_PLL_LOCK, EM_ACTION_PSERR, NULL);
 
-		Status = XPfw_CoreRemoveTask(EmModPtr, CHECK_PSU_INIT_CONFIG,
-				CheckPsuInitCompletion);
+		/* If ENABLE_RECOVERY is defined, PMU need to call this function and
+		 * set FPD WDT error action to APU only restart after FSBL execution
+		 * is completed
+		 */
+		XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, FPD_WDT_EM_ACTION,
+				ErrorTable[EM_ERR_ID_FPD_SWDT].Handler);
+		if (XPfw_RecoveryInit() == XST_SUCCESS) {
+			/* This is to enable FPD WDT and enable recovery mechanism when
+			* ENABLE_RECOVERY flag is defined.
+			*/
+		}
+
+		Status = XPfw_CoreRemoveTask(EmModPtr, CHECK_FSBL_COMPLETION,
+				CheckFsblCompletion);
 		if (XST_FAILURE == Status) {
 			XPfw_Printf(DEBUG_ERROR,"EM (MOD-%d):Removing EM config task "
 					"failed.", EmModPtr->ModId);
@@ -180,21 +191,14 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 	}
 
 	/*
-	 * Schedule a task to check for psu_init completion to enable
-	 * PLL lock errors
+	 * Schedule a task to check for FSBL completion to enable
+	 * PLL lock errors and FPD WDT error
 	 */
-	Status = XPfw_CoreScheduleTask(EmModPtr, CHECK_PSU_INIT_CONFIG,
-			CheckPsuInitCompletion);
+	Status = XPfw_CoreScheduleTask(EmModPtr, CHECK_FSBL_COMPLETION,
+			CheckFsblCompletion);
 	if (XST_FAILURE == Status) {
 		XPfw_Printf(DEBUG_ERROR,"EM (MOD-%d):Scheduling EM Cfg task failed.",
 				ModPtr->ModId);
-	}
-
-
-	if (XPfw_RecoveryInit() == XST_SUCCESS) {
-		/* This is to enable FPD WDT and enable recovery mechanism when
-		* ENABLE_RECOVERY flag is defined.
-		*/
 	}
 
 	/* Enable the interrupts at XMPU/XPPU block level */
