@@ -143,6 +143,7 @@
  * 1.8	tjs 07/09/19 Fixed cppcheck, doxygen and gcc warnings.
  * 1.8	tjs 07/18/18 Setup64BRxDma() should be called only if the RxAddress is
  *		     greater than 32 bit address space. (CR#1006862)
+ * 1.8	tjs 07/18/18 Added support for the low density ISSI flash parts.
  * </pre>
  *
  ******************************************************************************/
@@ -239,6 +240,37 @@ typedef struct {
 } XQspiPsu;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
+/**
+ * Definitions for Intel, STM, Winbond and Spansion Serial Flash Device
+ * geometry.
+ */
+#define BYTES256_PER_PAGE	256U		/**< 256 Bytes per Page */
+#define BYTES512_PER_PAGE	512U		/**< 512 Bytes per Page */
+#define BYTES1024_PER_PAGE	1024U		/**< 1024 Bytes per Page */
+#define PAGES16_PER_SECTOR	16U		/**< 16 Pages per Sector */
+#define PAGES128_PER_SECTOR	128U		/**< 128 Pages per Sector */
+#define PAGES256_PER_SECTOR	256U		/**< 256 Pages per Sector */
+#define PAGES512_PER_SECTOR	512U		/**< 512 Pages per Sector */
+#define PAGES1024_PER_SECTOR	1024U		/**< 1024 Pages per Sector */
+#define NUM_OF_SECTORS2		2U		/**< 2 Sectors */
+#define NUM_OF_SECTORS4		4U		/**< 4 Sectors */
+#define NUM_OF_SECTORS8		8U		/**< 8 Sector */
+#define NUM_OF_SECTORS16	16U		/**< 16 Sectors */
+#define NUM_OF_SECTORS32	32U		/**< 32 Sectors */
+#define NUM_OF_SECTORS64	64U		/**< 64 Sectors */
+#define NUM_OF_SECTORS128	128U		/**< 128 Sectors */
+#define NUM_OF_SECTORS256	256U		/**< 256 Sectors */
+#define NUM_OF_SECTORS512	512U		/**< 512 Sectors */
+#define NUM_OF_SECTORS1024	1024U		/**< 1024 Sectors */
+#define NUM_OF_SECTORS2048	2048U		/**< 2048 Sectors */
+#define NUM_OF_SECTORS4096	4096U		/**< 4096 Sectors */
+#define NUM_OF_SECTORS8192	8192U		/**< 8192 Sectors */
+#define SECTOR_SIZE_64K		0X10000U	/**< 64K Sector */
+#define SECTOR_SIZE_128K	0X20000U	/**< 128K Sector */
+#define SECTOR_SIZE_256K	0X40000U	/**< 256K Sector */
+#define SECTOR_SIZE_512K	0X80000U	/**< 512K Sector */
+
 
 #define XQSPIPSU_READMODE_DMA	0x0U
 #define XQSPIPSU_READMODE_IO	0x1U
