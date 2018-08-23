@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -89,10 +89,9 @@
 /*
  * time in ms for checking psu init completion by FSBL
  */
-#define CHECK_PSU_INIT_CONFIG	100U
+#define CHECK_FSBL_COMPLETION	100U
 
-#define PSU_INIT_COMPLETION		1U
-#define PSU_INIT_MASK			0xFU
+#define FSBL_COMPLETION			1U
 
 /* Handler Table Structure */
 typedef void (*VoidFunction_t)(void);

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -165,11 +165,11 @@ Done:
 static void CheckPsuInitConfig(void)
 {
 	s32 Status;
-	u32 PsuInitStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
+	u32 FsblCompletionStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
 
-	if (PsuInitStatus == PSU_INIT_COMPLETION) {
+	if ((FsblCompletionStatus & FSBL_COMPLETION) == FSBL_COMPLETION) {
 		InitCsuPmuWdt();
-		Status = XPfw_CoreRemoveTask(WdtModPtr, CHECK_PSU_INIT_CONFIG,
+		Status = XPfw_CoreRemoveTask(WdtModPtr, CHECK_FSBL_COMPLETION,
 				CheckPsuInitConfig);
 		if(XST_FAILURE == Status) {
 			XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d):Removing WDT Cfg task failed.",
@@ -193,7 +193,7 @@ static void WdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 {
 	s32 Status;
 
-	Status = XPfw_CoreScheduleTask(ModPtr, CHECK_PSU_INIT_CONFIG, CheckPsuInitConfig);
+	Status = XPfw_CoreScheduleTask(ModPtr, CHECK_FSBL_COMPLETION, CheckPsuInitConfig);
 	if (XST_FAILURE == Status) {
 		XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d):Scheduling WDT Cfg task failed.",
 				ModPtr->ModId);
