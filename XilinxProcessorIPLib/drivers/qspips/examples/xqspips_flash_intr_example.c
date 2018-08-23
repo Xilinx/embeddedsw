@@ -158,7 +158,7 @@
  * the buffer required to hold the data and overhead to transfer the data to
  * and from the FLASH.
  */
-#define MAX_DATA		PAGE_COUNT * PAGE_SIZE
+#define MAX_DATA		(PAGE_COUNT * PAGE_SIZE)
 
 /**************************** Type Definitions *******************************/
 
@@ -283,7 +283,7 @@ int QspiFlashIntrExample(XScuGic *IntcInstancePtr, XQspiPs *QspiInstancePtr,
 
 	/* Initialize the QSPI driver so that it's ready to use*/
 	QspiConfig = XQspiPs_LookupConfig(QspiDeviceId);
-	if (NULL == QspiConfig) {
+	if (QspiConfig == NULL) {
 		return XST_FAILURE;
 	}
 
