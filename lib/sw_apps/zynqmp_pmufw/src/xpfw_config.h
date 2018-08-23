@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -107,6 +107,7 @@
 #define	ENABLE_SCHEDULER_VAL			(0U)
 #define	ENABLE_RECOVERY_VAL				(0U)
 #define	ENABLE_ESCALATION_VAL			(0U)
+#define CHECK_HEALTHY_BOOT_VAL			(0U)
 #define	ENABLE_WDT_VAL					(0U)
 #define	ENABLE_STL_VAL					(0U)
 #define	ENABLE_RTC_TEST_VAL				(0U)
@@ -144,6 +145,10 @@
 
 #if ENABLE_ESCALATION_VAL
 #define ENABLE_ESCALATION
+#endif
+
+#if CHECK_HEALTHY_BOOT_VAL
+#define CHECK_HEALTHY_BOOT
 #endif
 
 #if ENABLE_WDT_VAL

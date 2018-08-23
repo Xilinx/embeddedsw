@@ -35,15 +35,6 @@
 #include "xpfw_resets.h"
 #include "xpfw_restart.h"
 
-#define CSU_PCAP_STATUS	(CSU_BASE + 0x00003010U)
-#define CSU_PCAP_STATUS_PL_DONE_MASK (1U<<3)
-
-#define LPD_XPPU_CTRL_ADDRESS	0xFF980000U
-#define LPD_XPPU_CTRL_EN_MASK	BIT(0U)
-
-#define RestartDebug(DebugType, MSG, ...)	\
-	XPfw_Printf((DebugType), "%s" MSG, __func__, ##__VA_ARGS__)
-
 #ifdef ENABLE_RECOVERY
 
 #ifdef CHECK_HEALTHY_BOOT
@@ -72,14 +63,7 @@
 	#error "ENABLE_RECOVERY is defined but psu_tcc_9 is not assigned to PMU"
 #endif
 
-/* Enable APU restart only if PMU has access to FPD WDT(psu_wdt_1) and TTC9 */
-#if defined(XPAR_PSU_WDT_1_DEVICE_ID) && defined(XPAR_PSU_TTC_9_DEVICE_ID)
-	#define ENABLE_APU_RESTART
-#endif
-
-#ifdef ENABLE_APU_RESTART
-
-/* Check if a timeout value was provided in build flags else default to 60 secs */
+/* Check if a timeout value was provided in build flags else default to 120 secs */
 #if (RECOVERY_TIMEOUT > 0U)
 #define WDT_DEFAULT_TIMEOUT_SEC	RECOVERY_TIMEOUT
 #else
@@ -87,13 +71,10 @@
 #endif
 
 /* Assign default values for WDT params assuming default config */
-#define APU_WDT_BASE XPAR_PSU_WDT_1_BASEADDR
-#define APU_WDT_CLOCK_FREQ_HZ	XPAR_PSU_WDT_1_WDT_CLK_FREQ_HZ
-
 #define WDT_CRV_SHIFT 12U
 #define WDT_PRESCALER 4096U
 
-#define WDT_CLK_PER_SEC ((APU_WDT_CLOCK_FREQ_HZ) / (WDT_PRESCALER))
+#define WDT_CLK_PER_SEC ((XPAR_PSU_WDT_1_WDT_CLK_FREQ_HZ) / (WDT_PRESCALER))
 
 #define TTC_PRESCALER			15
 #define TTC_COUNT_PER_SEC		(XPAR_XTTCPS_0_TTC_CLK_FREQ_HZ / 65535)
@@ -108,7 +89,6 @@ static XTtcPs FpdTtcInstance;
 /* Data strcuture to track restart phases for a Master */
 typedef struct XPfwRestartTracker {
 	PmMaster *Master; /* Master whose restart cycle is being tracked */
-	u32 RestartCount; /* Number of times a master has been restarted */
 	u8 RestartState; /* Track different phases in restart cycle */
 	u32 WdtBaseAddress; /* Base address for WDT assigend to this master */
 	u8 WdtTimeout; /* Timeout value for WDT */
@@ -123,9 +103,8 @@ typedef struct XPfwRestartTracker {
 static XPfwRestartTracker RstTrackerList[] ={
 		{
 			.Master = &pmMasterApu_g,
-			.RestartCount = 0U,
 			.RestartState = XPFW_RESTART_STATE_BOOT,
-			.WdtBaseAddress = APU_WDT_BASE,
+			.WdtBaseAddress = XPAR_PSU_WDT_1_BASEADDR,
 			.WdtTimeout= WDT_DEFAULT_TIMEOUT_SEC,
 			.WdtPtr = &FpdWdtInstance,
 			.TtcDeviceId = XPAR_PSU_TTC_9_DEVICE_ID,
@@ -146,7 +125,7 @@ static XWdtPs_Config* GetWdtCfgPtr(u32 BaseAddress)
 		if(WdtConfigPtr == NULL) {
 			goto Done;
 		}
-		if(WdtConfigPtr->BaseAddress == APU_WDT_BASE) {
+		if(WdtConfigPtr->BaseAddress == XPAR_PSU_WDT_1_BASEADDR) {
 			break;
 		}
 	}
@@ -172,15 +151,6 @@ static void WdtRestart(XWdtPs* WdtInstptr, u32 Timeout)
 	XWdtPs_RestartWdt(WdtInstptr);
 	/* Enable reset output */
 	XWdtPs_EnableOutput(WdtInstptr, XWDTPS_RESET_SIGNAL);
-}
-
-static void WdtStop(XWdtPs* WdtInstPtr)
-{
-	/* Disable WDT restart output and stop WDT */
-	XWdtPs_DisableOutput(WdtInstPtr, XWDTPS_RESET_SIGNAL);
-
-	/* Stop the timer */
-	XWdtPs_Stop(WdtInstPtr);
 }
 
 /**
@@ -261,8 +231,8 @@ void XPfw_ClearBootHealthStatus(void)
  */
 static bool XPfw_RestartIsPlDone(void)
 {
-	return ((XPfw_Read32(CSU_PCAP_STATUS) & CSU_PCAP_STATUS_PL_DONE_MASK) ==
-							CSU_PCAP_STATUS_PL_DONE_MASK);
+	return ((XPfw_Read32(CSU_PCAP_STATUS_REG) &
+		CSU_PCAP_STATUS_PL_DONE_MASK_VAL) == CSU_PCAP_STATUS_PL_DONE_MASK_VAL);
 }
 
 /**
@@ -283,11 +253,11 @@ static void XPfw_RestartSystemLevel(void)
 {
 	bool IsPlUp = XPfw_RestartIsPlDone();
 	if(IsPlUp) {
-		RestartDebug(DEBUG_DETAILED,"Ps Only Reset\r\n");
+		XPfw_Printf(DEBUG_DETAILED,"Ps Only Reset\r\n");
 		XPfw_ResetPsOnly();
 	}
 	else {
-		RestartDebug(DEBUG_DETAILED,"SRST\r\n");
+		XPfw_Printf(DEBUG_DETAILED,"SRST\r\n");
 		XPfw_ResetSystem();
 	}
 }
@@ -401,15 +371,14 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 #else
 			if(RstTrackerList[RstIdx].RestartState != XPFW_RESTART_STATE_INPROGRESS ) {
 #endif
-				RestartDebug(DEBUG_DETAILED,"Initiating APU sub-system restart\r\n");
+				XPfw_Printf(DEBUG_DETAILED,"Initiating APU sub-system restart\r\n");
 				RstTrackerList[RstIdx].RestartState = XPFW_RESTART_STATE_INPROGRESS;
-				RstTrackerList[RstIdx].RestartCount++;
 				WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
 				MasterIdle(RstTrackerList[RstIdx].TtcPtr,
 					RstTrackerList[RstIdx].TtcTimeout);
 			}
 			else{
-				RestartDebug(DEBUG_DETAILED,"Escalating to system level reset\r\n");
+				XPfw_Printf(DEBUG_DETAILED,"Escalating to system level reset\r\n");
 				#ifdef ENABLE_ESCALATION
 					XPfw_RestartSystemLevel();
 				#else
@@ -447,57 +416,10 @@ void XPfw_RecoveryAck(PmMaster *Master)
 	}
 }
 
-/**
- * XPfw_RecoveryStop() - Disable recovery logic
- * @Master: PM master who wants to stop WDT recovery
- *
- * Stop recovery logic by stopping WDT timer and stopping
- * TTC timer in case it is running.
- */
-void XPfw_RecoveryStop(PmMaster *Master)
-{
-	u32 RstIdx;
-
-	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
-		if (RstTrackerList[RstIdx].Master == Master) {
-			WdtStop(RstTrackerList[RstIdx].WdtPtr);
-			XPfw_TTCStop(RstTrackerList[RstIdx].TtcPtr);
-		}
-	}
-}
-
-/**
- * XPfw_RecoveryRestart() - Restart recovery logic
- * @Master: PM master who wants to enable WDT recovery
- *
- * Restart recovery logic by restarting WDT timer and stopping
- * TTC timer in case it is running.
- */
-void XPfw_RecoveryRestart(PmMaster *Master)
-{
-	u32 RstIdx;
-
-	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
-		if (RstTrackerList[RstIdx].Master == Master) {
-			WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
-			XPfw_TTCStop(RstTrackerList[RstIdx].TtcPtr);
-		}
-	}
-}
-
-
-#endif /* ENABLE_APU_RESTART */
-
 #else /* ENABLE_RECOVERY */
-void XPfw_RecoveryAck(PmMaster *Master)
-{
+void XPfw_RecoveryAck(PmMaster *Master) { }
 
-}
-
-void XPfw_RecoveryHandler(u8 ErrorId)
-{
-
-}
+void XPfw_RecoveryHandler(u8 ErrorId) { }
 
 int XPfw_RecoveryInit(void)
 {
@@ -505,13 +427,7 @@ int XPfw_RecoveryInit(void)
 	return XST_FAILURE;
 }
 
-void XPfw_RecoveryStop(PmMaster *Master)
-{
+void XPfw_RecoveryStop(PmMaster *Master) { }
 
-}
-
-void XPfw_RecoveryRestart(PmMaster *Master)
-{
-
-}
+void XPfw_RecoveryRestart(PmMaster *Master) { }
 #endif /* ENABLE_RECOVERY */

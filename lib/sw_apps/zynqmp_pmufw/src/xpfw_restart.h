@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,8 +32,5 @@
 int XPfw_RecoveryInit(void);
 void XPfw_RecoveryHandler(u8 ErrorId);
 void XPfw_RecoveryAck(PmMaster *Master);
-void XPfw_RecoveryStop(PmMaster *Master);
-void XPfw_RecoveryRestart(PmMaster *Master);
-
 
 #endif /* XPFW_RESTART_H_ */
