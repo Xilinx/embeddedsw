@@ -603,9 +603,10 @@ static u32 XFsbl_ResetValidation(void)
 		if(((ErrStatusRegValue& PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK)
 			== PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK) &&
 			(FsblErrorStatus == XFSBL_RUNNING)) {
-		/* Clear the LPD SWDT reset error */
-		XFsbl_Out32(PMU_GLOBAL_ERROR_STATUS_1,
-			PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK);
+#ifdef XFSBL_WDT_PRESENT
+			/* Clear the SWDT0/1 reset error */
+			XFsbl_Out32(PMU_GLOBAL_ERROR_STATUS_1, XFSBL_WDT_MASK);
+#endif
 		/**
 		 * reset is due to System WDT.
 		 * Do a fallback
@@ -805,10 +806,16 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		 * Initialize the WDT and CSU drivers
 		 */
 #ifdef XFSBL_WDT_PRESENT
-		Status = XFsbl_InitWdt();
-		if (XFSBL_SUCCESS != Status) {
-			XFsbl_Printf(DEBUG_GENERAL,"WDT initialization failed \n\r");
-			goto END;
+		/*
+		 * Skip watching over APU using WDT during APU only restart
+		 * as PMU will watchover APU
+		 */
+		if (FsblInstance.ResetReason != XFSBL_APU_ONLY_RESET) {
+			Status = XFsbl_InitWdt();
+			if (XFSBL_SUCCESS != Status) {
+				XFsbl_Printf(DEBUG_GENERAL,"WDT initialization failed \n\r");
+				goto END;
+			}
 		}
 #endif
 
