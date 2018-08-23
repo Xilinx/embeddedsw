@@ -75,6 +75,8 @@ Fix for CR#999732.
 Updated source files to fix warings reported by 
 coverity, checkpatch and doxygen. It fixes
 CR#1006344.
+Resolves MISRA-C:2012 mandatory violations.
+It fixes CR#1007753.
 
 tmrctr_v4_6:
 Updated driver examples to call TmrCtrDisableIntr
