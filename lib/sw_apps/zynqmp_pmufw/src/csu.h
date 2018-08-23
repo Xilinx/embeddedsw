@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 -2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,8 @@ extern "C" {
 #define	CSU_PCAP_STATUS_REG					( ( CSU_BASE ) + ((u32)0x00003010U) )
 #define	CSU_PCAP_STATUS_PL_INIT_SHIFT_VAL	2
 #define	CSU_PCAP_STATUS_PL_INIT_MASK_VAL	0x4U
+
+#define	CSU_PCAP_STATUS_PL_DONE_MASK_VAL	0x8U
 
 #define	CSU_VERSION_EMPTY_SHIFT				20
 #define	CSU_VERSION_PL_STATE_SHIFT			29
