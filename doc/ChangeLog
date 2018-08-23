@@ -63,6 +63,7 @@ for irq_in pin.It fixes CR#1005371
 
 qspips_v3_5:
 Fixed compilation warnings for ARMCC.
+Added support for the low density ISSI flash parts.
 
 qspipsu_v1_8:
 Added support for IS25LP064 and IS25WP064.
@@ -71,6 +72,7 @@ Removed checkpatch warnings for xqspipsu.c and xqspipsu.h
 Removed the mentions of Spansion flash from BlockErase API. (CR#1006247)
 Fixed cppcheck, doxygen and gcc warnings. (CR#1006336)
 Setup64BRxDma() should be called if the RxAddress is greater than 32 bit address space. (CR#1006862)
+Added support for low density ISSI flash parts
 
 rfdc_v5_0:
 Update DAC min sampling rate to 500MHz and also update VCO Range, PLL_DIVIDER and PLL_FPDIV ranges.
