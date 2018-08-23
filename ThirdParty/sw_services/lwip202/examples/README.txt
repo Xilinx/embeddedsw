@@ -271,7 +271,7 @@ freertos_lwip_example_tftp_platform_fs.c
 freertos_lwip_example_tftp_platform_fs.h
 freertos_lwip_example_tftp_server.c
 freertos_lwip_example_tftpserver_common.h
-freertos_lwip_example_tftpsever_main.c
+freertos_lwip_example_tftpserver_main.c
 
 The FreeRTOS lwIP tftp server application starts a tftp server at port 69.
 
