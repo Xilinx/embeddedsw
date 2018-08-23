@@ -119,7 +119,8 @@
 *                     target CPU. It fixes CR#992490.
 * 3.10  mus  07/17/18 Updated file to fix the various coding style issues
 *                     reported by checkpatch. It fixes CR#1006344. 
-*
+* 3.10  aru  08/23/18 Resolved MISRA-C:2012 compliance mandatory violations
+*                     It fixes CR#1007753.
 * </pre>
 *
 ******************************************************************************/
@@ -405,9 +406,9 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 			* unhandled interrupts can be tracked.
 			*/
 			if ((InstancePtr->Config->HandlerTable[Int_Id].Handler
-					== NULL)) {
+					== (Xil_InterruptHandler)NULL)) {
 				InstancePtr->Config->HandlerTable[Int_Id].Handler 
-						= StubHandler;
+						= (Xil_InterruptHandler)StubHandler;
 			}
 			InstancePtr->Config->HandlerTable[Int_Id].CallBackRef =
 								InstancePtr;
@@ -462,7 +463,7 @@ s32  XScuGic_Connect(XScuGic *InstancePtr, u32 Int_Id,
 	 * The Int_Id is used as an index into the table to select the proper
 	 * handler
 	 */
-	InstancePtr->Config->HandlerTable[Int_Id].Handler = Handler;
+	InstancePtr->Config->HandlerTable[Int_Id].Handler = (Xil_InterruptHandler)Handler;
 	InstancePtr->Config->HandlerTable[Int_Id].CallBackRef = CallBackRef;
 
 	return XST_SUCCESS;
@@ -514,7 +515,7 @@ void XScuGic_Disconnect(XScuGic *InstancePtr, u32 Int_Id)
 	 * must be set to this instance to allow unhandled interrupts to be
 	 * tracked
 	 */
-	InstancePtr->Config->HandlerTable[Int_Id].Handler = StubHandler;
+	InstancePtr->Config->HandlerTable[Int_Id].Handler = (Xil_InterruptHandler)StubHandler;
 	InstancePtr->Config->HandlerTable[Int_Id].CallBackRef = InstancePtr;
 }
 

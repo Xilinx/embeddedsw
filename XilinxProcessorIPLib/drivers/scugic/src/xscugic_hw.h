@@ -72,6 +72,8 @@
 *					  and XScuGic_UnmapAllInterruptsFromCpuByDistAddr, These
 *					  API's can be used by applications to unmap specific/all
 *					  interrupts from target CPU. It fixes CR#992490.
+* 3.10  aru  08/23/18 Resolved MISRA-C:2012 compliance mandatory violations
+*
 * </pre>
 *
 ******************************************************************************/
