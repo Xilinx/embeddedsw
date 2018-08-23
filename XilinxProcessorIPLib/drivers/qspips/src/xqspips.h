@@ -385,7 +385,8 @@ extern "C" {
 #define XQSPIPS_EVENT_TRANSFER_DONE	2 /**< Transfer done */
 #define XQSPIPS_EVENT_TRANSMIT_UNDERRUN 3 /**< TX FIFO empty */
 #define XQSPIPS_EVENT_RECEIVE_OVERRUN	4 /**< Receive data loss because
-						RX FIFO full */
+					    *  RX FIFO full
+					    */
 /*@}*/
 
 /** @name Flash commands
@@ -423,8 +424,8 @@ extern "C" {
 #define XQSPIPS_FLASH_OPCODE_DIE_ERASE	0xC4
 #define XQSPIPS_FLASH_OPCODE_READ_FLAG_SR	0x70
 #define XQSPIPS_FLASH_OPCODE_CLEAR_FLAG_SR	0x50
-#define XQSPIPS_FLASH_OPCODE_READ_LOCK_REG	0xE8	/* Lock register Read */
-#define XQSPIPS_FLASH_OPCODE_WRITE_LOCK_REG	0xE5	/* Lock Register Write */
+#define XQSPIPS_FLASH_OPCODE_READ_LOCK_REG	0xE8	/* Lock Reg Read */
+#define XQSPIPS_FLASH_OPCODE_WRITE_LOCK_REG	0xE5	/* Lock Reg Write */
 
 /*@}*/
 
@@ -435,10 +436,10 @@ extern "C" {
  *
  * @{
  */
-#define XQSPIPS_SIZE_ONE 	1
-#define XQSPIPS_SIZE_TWO 	2
-#define XQSPIPS_SIZE_THREE 	3
-#define XQSPIPS_SIZE_FOUR 	4
+#define XQSPIPS_SIZE_ONE	1
+#define XQSPIPS_SIZE_TWO	2
+#define XQSPIPS_SIZE_THREE	3
+#define XQSPIPS_SIZE_FOUR	4
 
 /*@}*/
 
@@ -478,7 +479,7 @@ extern "C" {
  *		layer when setting the callback functions, and passed back to
  *		the upper layer when the callback is invoked. Its type is
  *		not important to the driver, so it is a void pointer.
- * @param 	StatusEvent holds one or more status events that have occurred.
+ * @param	StatusEvent holds one or more status events that have occurred.
  *		See the XQspiPs_SetStatusHandler() for details on the status
  *		events that can be passed in the callback.
  * @param	ByteCount indicates how many bytes of data were successfully
@@ -513,7 +514,7 @@ typedef struct {
 	int RemainingBytes;	 /**< Number of bytes left to transfer(state) */
 	u32 IsBusy;		 /**< A transfer is in progress (state) */
 	XQspiPs_StatusHandler StatusHandler;
-	void *StatusRef;  	 /**< Callback reference for status handler */
+	void *StatusRef;	 /**< Callback reference for status handler */
 	u32 ShiftReadData;	 /**<  Flag to indicate whether the data
 				   *   read from the Rx FIFO needs to be shifted
 				   *   in cases where the data is less than 4
@@ -572,13 +573,13 @@ typedef struct {
 *
 * @return	None
 *
-* @note
-* C-Style signature:
-*	void XQspiPs_SetSlaveIdle(XQspiPs *InstancePtr, u32 RegisterValue)
+* @note		C-Style signature:
+*		void XQspiPs_SetSlaveIdle(XQspiPs *InstancePtr,
+*			u32 RegisterValue)
 *
 *****************************************************************************/
 #define XQspiPs_SetSlaveIdle(InstancePtr, RegisterValue)	\
-	XQspiPs_Out32(((InstancePtr)->Config.BaseAddress) + 	\
+	XQspiPs_Out32(((InstancePtr)->Config.BaseAddress) +	\
 			XQSPIPS_SICR_OFFSET, (RegisterValue))
 
 /****************************************************************************/
@@ -596,7 +597,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XQspiPs_GetSlaveIdle(InstancePtr)				\
-	XQspiPs_In32(((InstancePtr)->Config.BaseAddress) + 		\
+	XQspiPs_In32(((InstancePtr)->Config.BaseAddress) +		\
 	XQSPIPS_SICR_OFFSET)
 
 /****************************************************************************/
@@ -609,13 +610,13 @@ typedef struct {
 *
 * @return	None.
 *
-* @note
-* C-Style signature:
-*	void XQspiPs_SetTXWatermark(XQspiPs *InstancePtr, u32 RegisterValue)
+* @note		C-Style signature:
+*		void XQspiPs_SetTXWatermark(XQspiPs *InstancePtr,
+*			u32 RegisterValue)
 *
 *****************************************************************************/
 #define XQspiPs_SetTXWatermark(InstancePtr, RegisterValue)		\
-	XQspiPs_Out32(((InstancePtr)->Config.BaseAddress) + 		\
+	XQspiPs_Out32(((InstancePtr)->Config.BaseAddress) +		\
 			XQSPIPS_TXWR_OFFSET, (RegisterValue))
 
 /****************************************************************************/
@@ -645,13 +646,13 @@ typedef struct {
 *
 * @return	None.
 *
-* @note
-* C-Style signature:
-*	void XQspiPs_SetRXWatermark(XQspiPs *InstancePtr, u32 RegisterValue)
+* @note		C-Style signature:
+*		void XQspiPs_SetRXWatermark(XQspiPs *InstancePtr,
+*			u32 RegisterValue)
 *
 *****************************************************************************/
 #define XQspiPs_SetRXWatermark(InstancePtr, RegisterValue)		\
-	XQspiPs_Out32(((InstancePtr)->Config.BaseAddress) + 		\
+	XQspiPs_Out32(((InstancePtr)->Config.BaseAddress) +		\
 			XQSPIPS_RXWR_OFFSET, (RegisterValue))
 
 /****************************************************************************/
@@ -715,10 +716,9 @@ typedef struct {
 *
 * @return	None.
 *
-* @note
-* C-Style signature:
-*	void XQspiPs_SetLqspiConfigReg(XQspiPs *InstancePtr,
-*					u32 RegisterValue)
+* @note		C-Style signature:
+*		void XQspiPs_SetLqspiConfigReg(XQspiPs *InstancePtr,
+*			u32 RegisterValue)
 *
 *****************************************************************************/
 #define XQspiPs_SetLqspiConfigReg(InstancePtr, RegisterValue)		\
@@ -753,7 +753,7 @@ XQspiPs_Config *XQspiPs_LookupConfig(u16 DeviceId);
 /*
  * Functions implemented in xqspips.c
  */
-int XQspiPs_CfgInitialize(XQspiPs *InstancePtr, XQspiPs_Config * Config,
+int XQspiPs_CfgInitialize(XQspiPs *InstancePtr, XQspiPs_Config *Config,
 			   u32 EffectiveAddr);
 void XQspiPs_Reset(XQspiPs *InstancePtr);
 void XQspiPs_Abort(XQspiPs *InstancePtr);

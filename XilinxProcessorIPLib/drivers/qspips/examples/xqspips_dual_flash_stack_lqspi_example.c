@@ -82,8 +82,8 @@
  * device.
  */
 #define WRITE_STATUS_CMD	0x01
-#define WRITE_CMD			0x02
-#define READ_CMD			0x03
+#define WRITE_CMD		0x02
+#define READ_CMD		0x03
 #define WRITE_DISABLE_CMD	0x04
 #define READ_STATUS_CMD		0x05
 #define WRITE_ENABLE_CMD	0x06
@@ -92,7 +92,7 @@
 #define QUAD_READ_CMD		0x6B
 #define BULK_ERASE_CMD		0xC7
 #define	SEC_ERASE_CMD		0xD8
-#define READ_ID				0x9F
+#define READ_ID			0x9F
 #define READ_CONFIG_CMD		0x35
 #define WRITE_CONFIG_CMD	0x01
 
@@ -109,14 +109,20 @@
 #define ADDRESS_3_OFFSET	3 /* LSB byte of address to read or write */
 #define DATA_OFFSET		4 /* Start of Data for Read/Write */
 #define DUMMY_OFFSET		4 /* Dummy byte offset for fast, dual and quad
-				     reads */
+				   * reads
+				   */
 #define DUMMY_SIZE		1 /* Number of dummy bytes for fast, dual and
-				     quad reads */
+				   * quad reads
+				   */
 #define RD_ID_SIZE		4 /* Read ID command + 3 bytes ID response */
 #define BULK_ERASE_SIZE		1 /* Bulk Erase command size */
 #define SEC_ERASE_SIZE		4 /* Sector Erase command + Sector address */
-#define RD_CFG_SIZE		2 /* 1 byte Configuration register + RD CFG command*/
-#define WR_CFG_SIZE		3 /* WRR command + 1 byte each Status and Config Reg*/
+#define RD_CFG_SIZE		2 /* 1 byte Configuration register + RD CFG
+				   * command
+				   */
+#define WR_CFG_SIZE		3 /* WRR command + 1 byte each Status and
+				   * Config Reg
+				   */
 
 /*
  * The following constants specify the extra bytes which are sent to the
@@ -167,7 +173,7 @@
  * the buffer required to hold the data and overhead to transfer the data to
  * and from the Flash.
  */
-#define MAX_DATA		PAGE_COUNT * PAGE_SIZE
+#define MAX_DATA		(PAGE_COUNT * PAGE_SIZE)
 
 /* Base address of Flash1 and Flash2*/
 #define FLASH1BASE 0x0000000
@@ -273,7 +279,7 @@ int DualStackExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 
 	/* Initialize the QSPI driver so that it's ready to use*/
 	QspiConfig = XQspiPs_LookupConfig(QspiDeviceId);
-	if (NULL == QspiConfig) {
+	if (QspiConfig == NULL) {
 		return XST_FAILURE;
 	}
 
@@ -292,7 +298,7 @@ int DualStackExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 	}
 
 	/* Check if two flash devices are connected in stacked mode*/
-	if(QspiConfig->ConnectionMode != XQSPIPS_CONNECTION_MODE_STACKED) {
+	if (QspiConfig->ConnectionMode != XQSPIPS_CONNECTION_MODE_STACKED) {
 		xil_printf("QSPI not connected in Stacked Configuration \n");
 		return XST_FAILURE;
 	}
@@ -355,7 +361,7 @@ int DualStackExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 	 * the lower or upper memory based on address bit 25.
 	 */
 	XQspiPs_SetOptions(QspiInstancePtr, XQSPIPS_LQSPI_MODE_OPTION |
-										XQSPIPS_HOLD_B_DRIVE_OPTION);
+			XQSPIPS_HOLD_B_DRIVE_OPTION);
 
 	XQspiPs_SetLqspiConfigReg(QspiInstancePtr, DUAL_STACK_CONFIG_QUAD_READ);
 
@@ -385,7 +391,7 @@ int DualStackExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 	 * and flash interface mode options and drive HOLD_B pin high.
 	 */
 	XQspiPs_SetOptions(QspiInstancePtr,  XQSPIPS_FORCE_SSELECT_OPTION |
-					    XQSPIPS_HOLD_B_DRIVE_OPTION);
+			XQSPIPS_HOLD_B_DRIVE_OPTION);
 
 	/*
 	 * Initialize the write buffer for a pattern to write to the Flash
@@ -419,7 +425,7 @@ int DualStackExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 	 * the lower or upper memory based on address bit 25.
 	 */
 	XQspiPs_SetOptions(QspiInstancePtr, XQSPIPS_LQSPI_MODE_OPTION |
-										XQSPIPS_HOLD_B_DRIVE_OPTION);
+			XQSPIPS_HOLD_B_DRIVE_OPTION);
 
 	XQspiPs_SetLqspiConfigReg(QspiInstancePtr, DUAL_STACK_CONFIG_QUAD_READ);
 
@@ -479,7 +485,7 @@ void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command)
 	/* Get the current LQSPI configuration register value*/
 	LqspiCr = XQspiPs_GetLqspiConfigReg(QspiPtr);
 	/* Select lower or upper Flash based on address */
-	if(Address & FLASH2BASE) {
+	if (Address & FLASH2BASE) {
 		/* Set selection to U_PAGE*/
 		XQspiPs_SetLqspiConfigReg(QspiPtr,
 				LqspiCr | XQSPIPS_LQSPI_CR_U_PAGE_MASK);
@@ -487,7 +493,7 @@ void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command)
 		/* Subtract 16MB when accessing second flash*/
 		RealAddr = Address & (~FLASH2BASE);
 
-	}else{
+	} else {
 
 		/* Set selection to L_PAGE*/
 		XQspiPs_SetLqspiConfigReg(QspiPtr,
@@ -764,8 +770,8 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 	 * but the address range spans from N to N+k+1 sectors, then
 	 * increment no. of sectors to be erased
 	 */
-	if( ((Address + ByteCount) & SECTORMASK) ==
-			((Address + (NumSect*SECTOR_SIZE)) & SECTORMASK) ) {
+	if (((Address + ByteCount) & SECTORMASK) ==
+			((Address + (NumSect*SECTOR_SIZE)) & SECTORMASK)) {
 		NumSect++;
 	}
 
@@ -779,14 +785,14 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 		LqspiCr = XQspiPs_GetLqspiConfigReg(QspiPtr);
 
 		/* Select lower or upper Flash based on sector address */
-		if(Address & FLASH2BASE) {
+		if (Address & FLASH2BASE) {
 			/* Set selection to U_PAGE*/
 			XQspiPs_SetLqspiConfigReg(QspiPtr,
 					LqspiCr | XQSPIPS_LQSPI_CR_U_PAGE_MASK);
 
 			/* Subtract 16MB when accessing second flash*/
 			RealAddr = Address & (~FLASH2BASE);
-		}else{
+		} else {
 
 			/* Set selection to L_PAGE*/
 			XQspiPs_SetLqspiConfigReg(QspiPtr,

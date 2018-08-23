@@ -121,9 +121,11 @@
 #define ADDRESS_3_OFFSET	3 /* LSB byte of address to read or write */
 #define DATA_OFFSET		4 /* Start of Data for Read/Write */
 #define DUMMY_OFFSET		4 /* Dummy byte offset for fast, dual and quad
-				     reads */
+				   * reads
+				   */
 #define DUMMY_SIZE		1 /* Number of dummy bytes for fast, dual and
-				     quad reads */
+				   * quad reads
+				   */
 #define RD_ID_SIZE		4 /* Read ID command + 3 bytes ID response */
 #define BULK_ERASE_SIZE		1 /* Bulk Erase command size */
 #define SEC_ERASE_SIZE		4 /* Sector Erase command + Sector address */
@@ -156,7 +158,7 @@
  * the buffer required to hold the data and overhead to transfer the data to
  * and from the FLASH.
  */
-#define MAX_DATA		PAGE_COUNT * PAGE_SIZE
+#define MAX_DATA		(PAGE_COUNT * PAGE_SIZE)
 
 /**************************** Type Definitions *******************************/
 
@@ -253,7 +255,7 @@ int QspiFlashPolledExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 
 	/* Initialize the QSPI driver so that it's ready to use*/
 	QspiConfig = XQspiPs_LookupConfig(QspiDeviceId);
-	if (NULL == QspiConfig) {
+	if (QspiConfig == NULL) {
 		return XST_FAILURE;
 	}
 
