@@ -953,8 +953,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 
 	if (FlashMake == ISSI_ID_BYTE0) {
 		if (ReadBfrPtr[2] == ISSI_ID_BYTE2_08) {
-			switch (QspiPsuPtr->Config.ConnectionMode)
-			{
+			switch (QspiPsuPtr->Config.ConnectionMode) {
 			case XQSPIPSU_CONNECTION_MODE_SINGLE:
 				FCTIndex = FLASH_CFG_TBL_SINGLE_08_ISSI;
 				break;
@@ -969,8 +968,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 				break;
 			}
 		} else if (ReadBfrPtr[2] == ISSI_ID_BYTE2_16) {
-			switch (QspiPsuPtr->Config.ConnectionMode)
-			{
+			switch (QspiPsuPtr->Config.ConnectionMode) {
 			case XQSPIPSU_CONNECTION_MODE_SINGLE:
 				FCTIndex = FLASH_CFG_TBL_SINGLE_16_ISSI;
 				break;
@@ -985,8 +983,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 				break;
 			}
 		} else if (ReadBfrPtr[2] == ISSI_ID_BYTE2_32) {
-			switch (QspiPsuPtr->Config.ConnectionMode)
-			{
+			switch (QspiPsuPtr->Config.ConnectionMode) {
 			case XQSPIPSU_CONNECTION_MODE_SINGLE:
 				FCTIndex = FLASH_CFG_TBL_SINGLE_32_ISSI;
 				break;
@@ -1001,8 +998,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 				break;
 			}
 		} else if (ReadBfrPtr[2] == ISSI_ID_BYTE2_64) {
-			switch (QspiPsuPtr->Config.ConnectionMode)
-			{
+			switch (QspiPsuPtr->Config.ConnectionMode) {
 			case XQSPIPSU_CONNECTION_MODE_SINGLE:
 				FCTIndex = FLASH_CFG_TBL_SINGLE_64_ISSI;
 				break;
