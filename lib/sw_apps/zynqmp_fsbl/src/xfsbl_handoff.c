@@ -556,6 +556,16 @@ END:
  *****************************************************************************/
 void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags)
 {
+	u32 RegVal;
+
+	/*
+	 * Write 1U to PMU GLOBAL general storage register 5 to indicate
+	 * PMU Firmware that FSBL completed execution
+	 */
+	RegVal = XFsbl_In32(PMU_GLOBAL_GLOB_GEN_STORAGE5);
+	RegVal &= ~XFSBL_EXEC_COMPLETED;
+	RegVal |= XFSBL_EXEC_COMPLETED;
+	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, RegVal);
 
 	/**
 	 * Flush the L1 data cache and L2 cache, Disable Data Cache
