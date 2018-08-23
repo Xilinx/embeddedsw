@@ -155,8 +155,10 @@ u32 XFsbl_PartitionLoad(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 #endif
 
 #ifdef XFSBL_WDT_PRESENT
-	/* Restart WDT as partition copy can take more time */
-	XFsbl_RestartWdt();
+	if (FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET) {
+		/* Restart WDT as partition copy can take more time */
+		XFsbl_RestartWdt();
+	}
 #endif
 
 #ifdef XFSBL_ENABLE_DDR_SR

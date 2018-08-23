@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -1030,8 +1030,10 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	XFsbl_Out32(XFSBL_ERROR_STATUS_REGISTER_OFFSET, XFSBL_COMPLETED);
 
 #ifdef XFSBL_WDT_PRESENT
-	/* Stop WDT as we are exiting FSBL */
-	XFsbl_StopWdt();
+	if (FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET) {
+		/* Stop WDT as we are exiting FSBL */
+		XFsbl_StopWdt();
+	}
 #endif
 
 	/**

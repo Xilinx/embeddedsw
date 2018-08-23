@@ -130,7 +130,7 @@ u32 XFsbl_InitWdt(void)
 	 */
 	ConfigPtr = XWdtPs_LookupConfig(XFSBL_WDT_DEVICE_ID);
 
-	if(ConfigPtr==NULL) {
+	if (NULL==ConfigPtr) {
 		UStatus = XFSBL_WDT_INIT_FAILED;
 		goto END;
 	}
@@ -166,14 +166,14 @@ u32 XFsbl_InitWdt(void)
 	 */
 	XWdtPs_EnableOutput(&Watchdog, XWDTPS_RESET_SIGNAL);
 
-	/* Enable generation of system reset by PMU due to LPD SWDT */
+	/* Enable generation of system reset by PMU due to SWDT0/1 */
 	RegValue = XFsbl_In32(PMU_GLOBAL_ERROR_SRST_EN_1);
-	RegValue |= PMU_GLOBAL_ERROR_SRST_EN_1_LPD_SWDT_MASK;
+	RegValue |= XFSBL_WDT_MASK;
 	XFsbl_Out32(PMU_GLOBAL_ERROR_SRST_EN_1, RegValue);
 
-	/* Enable LPD System Watchdog Timer Error */
+	/* Enable SWDT0/1 System Watchdog Timer Error */
 	RegValue = XFsbl_In32(PMU_GLOBAL_ERROR_EN_1);
-	RegValue |= PMU_GLOBAL_ERROR_EN_1_LPD_SWDT_MASK;
+	RegValue |= XFSBL_WDT_MASK;
 	XFsbl_Out32(PMU_GLOBAL_ERROR_EN_1, RegValue);
 
 	/**
@@ -263,19 +263,18 @@ void XFsbl_StopWdt(void)
 {
 	u32 RegValue;
 
-	if(Watchdog.IsReady)
-	{
+	if (Watchdog.IsReady) {
 		XWdtPs_Stop(&Watchdog);
 	}
 
-	/* Disable LPD System Watchdog Timer Error */
+	/* Disable SWDT0/1 System Watchdog Timer Error */
 	RegValue = XFsbl_In32(PMU_GLOBAL_ERROR_EN_1);
-	RegValue &= ~(PMU_GLOBAL_ERROR_EN_1_LPD_SWDT_MASK);
+	RegValue &= ~(XFSBL_WDT_MASK);
 	XFsbl_Out32(PMU_GLOBAL_ERROR_EN_1, RegValue);
 
-	/* Disable generation of system reset by PMU due to LPD SWDT */
+	/* Disable generation of system reset by PMU due to SWDT0/1 */
 	RegValue = XFsbl_In32(PMU_GLOBAL_ERROR_SRST_DIS_1);
-	RegValue |= PMU_GLOBAL_ERROR_SRST_DIS_1_LPD_SWDT_MASK;
+	RegValue |= XFSBL_WDT_MASK;
 	XFsbl_Out32(PMU_GLOBAL_ERROR_SRST_DIS_1, RegValue);
 }
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -61,7 +61,6 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 #ifdef XFSBL_WDT_PRESENT
-#define XFSBL_WDT_DEVICE_ID			(XPAR_XWDTPS_0_DEVICE_ID)
 #define XFSBL_WDT_EXPIRE_TIME			(100U)
 #define XFSBL_WDT_CRV_SHIFT			(12U)
 #endif

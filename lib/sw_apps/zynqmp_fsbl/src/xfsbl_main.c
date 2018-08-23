@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -469,8 +469,10 @@ static void XFsbl_FallBack(void)
 	u32 RegValue;
 
 #ifdef XFSBL_WDT_PRESENT
-	/* Stop WDT as we are restarting */
-	XFsbl_StopWdt();
+	if (FsblInstance.ResetReason != XFSBL_APU_ONLY_RESET) {
+		/* Stop WDT as we are restarting */
+		XFsbl_StopWdt();
+	}
 #endif
 
 	/* Hook before FSBL Fallback */
