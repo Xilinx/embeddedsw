@@ -278,6 +278,7 @@
 *                    doxygen examples.
 * 3.4   nsk 31/07/17 Added QSPI_BUS_WIDTH parameter in xparameters.h file
 * 3.5	tjs 08/21/18 Fixed compilation warnings for the ARMCC.
+* 3.5	tjs 07/16/18 Added support for low density ISSI flash parts.
 *
 * </pre>
 *
