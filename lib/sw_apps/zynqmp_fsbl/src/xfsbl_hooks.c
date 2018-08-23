@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 -17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 -18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -135,7 +135,9 @@ u32 XFsbl_HookBeforeFallback(void)
 u32 XFsbl_HookPsuInit(void)
 {
 	u32 Status;
+#ifdef XFSBL_ENABLE_DDR_SR
 	u32 RegVal;
+#endif
 
 	/* Add the code here */
 
@@ -160,15 +162,6 @@ u32 XFsbl_HookPsuInit(void)
 			 */
 			Status = XFSBL_PSU_INIT_FAILED + Status;
 	}
-
-	/*
-	 * Write 1U to PMU GLOBAL general storage register 5 to indicate
-	 * PMU Firmware that psu init is completed
-	 */
-	RegVal = XFsbl_In32(PMU_GLOBAL_GLOB_GEN_STORAGE5);
-	RegVal &= ~XFSBL_PSU_INIT_MASK;
-	RegVal |= XFSBL_PSU_INIT_COMPLETED;
-	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, RegVal);
 
 	/**
 	 * PS_SYSMON_ANALOG_BUS register determines mapping between SysMon supply

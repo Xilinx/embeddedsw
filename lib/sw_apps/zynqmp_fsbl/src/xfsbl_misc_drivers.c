@@ -311,12 +311,6 @@ u32 XFsbl_PmInit(void)
 #endif
 
 	/**
-	 * Mark to the PMU that FSBL has completed with system initialization
-	 * This is needed for the JTAG boot mode
-	 */
-	Xil_Out32(PMU_GLOBAL_PERS_GLOB_GEN_STORAGE5, PM_INIT_COMPLETED_KEY);
-
-	/**
 	 * Check if PMU FW is present
 	 * If PMU FW is present, but IPI device does not exist, report an error
 	 * If IPI device exists, but PMU FW is not present, do not issue IPI
