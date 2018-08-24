@@ -2557,6 +2557,13 @@ int PmClockGateSetState(PmClock* const clock, const u8 enable)
 		goto done;
 	}
 #endif
+	/*
+	 * This is added because equivalent functionality added in commit
+	 * 2a1b15d8b2 has been removed from PmMmioWrite in pm_core.c
+	 */
+	if (&pmClockAms.base == clock) {
+		goto done;
+	}
 	status = clock->class->ctrl->setGate(clock, enable);
 done:
 	return status;
