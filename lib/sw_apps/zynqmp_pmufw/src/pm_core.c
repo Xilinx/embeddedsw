@@ -1563,6 +1563,10 @@ void PmPllSetParam(PmMaster* const master, const u32 pllId, const u32 paramId,
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
+	if (0U == (master->ipiMask & PmPllGetPermissions(pll))) {
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
 	status = PmPllSetParameterInt(pll, paramId, value);
 
 done:
@@ -1607,6 +1611,10 @@ void PmPllSetMode(PmMaster* const master, const u32 pllId, const u32 mode)
 
 	if (NULL == pll) {
 		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	if (0U == (master->ipiMask & PmPllGetPermissions(pll))) {
+		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
 	status = PmPllSetModeInt(pll, mode);
