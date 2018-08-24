@@ -68,6 +68,7 @@ extern PmSlave pmSlavePcie_g;
 extern PmSlave pmSlavePcap_g;
 extern PmSlave pmSlaveRtc_g;
 extern PmSlave pmSlavePl_g;
+extern PmSlave pmSlaveFpdWdt_g;
 
 /**
  * PmWakeEventEth - Ethernet wake event, derived from PmWakeEvent
