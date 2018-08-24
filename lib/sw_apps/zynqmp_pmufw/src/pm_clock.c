@@ -34,14 +34,6 @@
 #include "crf_apb.h"
 #include "crl_apb.h"
 
-#define PM_CLOCK_ACTIVE_MASK_DEFAULT BIT(24)
-#define PM_CLOCK_ACTIVE_MASK_GEM BIT(25)
-#define PM_CLOCK_ACTIVE_MASK_USB BIT(25)
-
-static s32 PmClockIsActiveDllSD(PmClockHandle* const ch);
-static s32 PmClockIsActiveGem(PmClockHandle* const ch);
-static s32 PmClockIsActiveUsb(PmClockHandle* const ch);
-
 static const PmClockSel2Pll advSel2Pll[] = {
 	{
 		.pll = &pmApll_g,
@@ -734,301 +726,251 @@ static PmClockHandle pmClockHandles[] = {
 		.node = &pmPowerIslandApu_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockDpVideo,
 		.node = &pmSlaveDP_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockDpAudio,
 		.node = &pmSlaveDP_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockDpStc,
 		.node = &pmSlaveDP_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockDdr,
 		.node = &pmSlaveDdr_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockGpu,
 		.node = &pmSlaveGpu_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockSata,
 		.node = &pmSlaveSata_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockPcie,
 		.node = &pmSlavePcie_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockGdma,
 		.node = &pmSlaveGdma_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockDpDma,
 		.node = &pmSlaveDP_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockTopSwMain,
 		.node = &pmSlaveDdr_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockTopSwLsBus,
 		.node = &pmSlaveDdr_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockGem0,
 		.node = &pmSlaveEth0_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = PmClockIsActiveGem,
 	}, {
 		.clock = &pmClockGem1,
 		.node = &pmSlaveEth1_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = PmClockIsActiveGem,
 	}, {
 		.clock = &pmClockGem2,
 		.node = &pmSlaveEth2_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = PmClockIsActiveGem,
 	}, {
 		.clock = &pmClockGem3,
 		.node = &pmSlaveEth3_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = PmClockIsActiveGem,
 	}, {
 		.clock = &pmClockUsb3Dual,
 		.node = &pmSlaveUsb0_g.slv.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = PmClockIsActiveUsb,
 	}, {
 		.clock = &pmClockUsb3Dual,
 		.node = &pmSlaveUsb1_g.slv.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = PmClockIsActiveUsb,
 	}, {
 		.clock = &pmClockUsb0Bus,
 		.node = &pmSlaveUsb0_g.slv.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = PmClockIsActiveUsb,
 	}, {
 		.clock = &pmClockUsb1Bus,
 		.node = &pmSlaveUsb1_g.slv.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = PmClockIsActiveUsb,
 	}, {
 		.clock = &pmClockQSpi,
 		.node = &pmSlaveQSpi_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockSdio0,
 		.node = &pmSlaveSD0_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockSdio1,
 		.node = &pmSlaveSD1_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockUart0,
 		.node = &pmSlaveUart0_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockUart1,
 		.node = &pmSlaveUart1_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockSpi0,
 		.node = &pmSlaveSpi0_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockSpi1,
 		.node = &pmSlaveSpi1_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockCan0,
 		.node = &pmSlaveCan0_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockCan1,
 		.node = &pmSlaveCan1_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockCpuR5,
 		.node = &pmPowerIslandRpu_g.power.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockCsuPll,
 		.node = &pmSlavePcap_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockPcap,
 		.node = &pmSlavePcap_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockLpdLsBus,
 		.node = &pmSlaveTtc0_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockLpdLsBus,
 		.node = &pmSlaveTtc1_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockLpdLsBus,
 		.node = &pmSlaveTtc2_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockLpdLsBus,
 		.node = &pmSlaveTtc3_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockNand,
 		.node = &pmSlaveNand_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockAdma,
 		.node = &pmSlaveAdma_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockPl0,
 		.node = &pmPowerDomainPld_g.power.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockPl1,
 		.node = &pmPowerDomainPld_g.power.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockPl2,
 		.node = &pmPowerDomainPld_g.power.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockPl3,
 		.node = &pmPowerDomainPld_g.power.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockGemTsu,
 		.node = &pmSlaveEth0_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockGemTsu,
 		.node = &pmSlaveEth1_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockGemTsu,
 		.node = &pmSlaveEth2_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockGemTsu,
 		.node = &pmSlaveEth3_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockDll,
 		.node = &pmSlaveSD0_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = PmClockIsActiveDllSD,
 	}, {
 		.clock = &pmClockDll,
 		.node = &pmSlaveSD1_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = PmClockIsActiveDllSD,
 	}, {
 		.clock = &pmClockI2C0,
 		.node = &pmSlaveI2C0_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	}, {
 		.clock = &pmClockI2C1,
 		.node = &pmSlaveI2C1_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
-		.IsActiveClk = NULL,
 	},
 };
 
@@ -1081,74 +1023,18 @@ void PmClockConstructList(void)
  * @return XST_SUCCESS if any one clock for given node is active
  *         XST_FAILURE if all clocks for given node are inactive
  */
-s32 PmClockIsActive(PmNode* const node)
+int PmClockIsActive(PmNode* const node)
 {
-	s32 Status = XST_SUCCESS;
 	PmClockHandle* ch = node->clocks;
+	int status = XST_FAILURE;
 
-	while (NULL != ch) {
-		if(ch->IsActiveClk) {
-			Status = ch->IsActiveClk(ch);
-		} else if ((XPfw_Read32(ch->clock->ctrlAddr) & PM_CLOCK_ACTIVE_MASK_DEFAULT) !=
-				PM_CLOCK_ACTIVE_MASK_DEFAULT) {
-			Status = XST_FAILURE;
-		}
-		if (Status == XST_SUCCESS) {
-			break;
-		}
+        while (NULL != ch) {
+		/* FIXME */
 		ch = ch->nextClock;
 	}
 
-	return Status;
-}
-
-/**
- * @PmClockIsActiveGem() Check if Gem clock is active
- * @ch		Clock handle of the given clock
- *
- * @return XST_SUCCESS if clock is active
- *         XST_FAILURE if clock is not active
- */
-static s32 PmClockIsActiveGem(PmClockHandle* const ch)
-{
-	s32 Status = XST_SUCCESS;
-
-	if ((XPfw_Read32(ch->clock->ctrlAddr) & PM_CLOCK_ACTIVE_MASK_GEM) !=
-			PM_CLOCK_ACTIVE_MASK_GEM) {
-		Status = XST_FAILURE;
-	}
-
-	return Status;
-}
-
-/**
- * @PmClockIsActiveUsb() Check if Usb clock is active
- * @ch		Clock handle of the given clock
- *
- * @return XST_SUCCESS if clock is active
- *         XST_FAILURE if clock is not active
- */
-static s32 PmClockIsActiveUsb(PmClockHandle* const ch)
-{
-	s32 Status = XST_SUCCESS;
-
-	if ((XPfw_Read32(ch->clock->ctrlAddr) & PM_CLOCK_ACTIVE_MASK_USB) !=
-			PM_CLOCK_ACTIVE_MASK_USB) {
-		Status = XST_FAILURE;
-	}
-
-	return Status;
-}
-
-/**
- * @PmClockIsActiveDllSD() Check if DLL clock is active for SD
- * @ch		Clock handle of the given clock
- *
- * @return XST_SUCCESS, as there is no dependancy on DLL clock for SD registers
- */
-static s32 PmClockIsActiveDllSD(PmClockHandle* const ch)
-{
-	return XST_SUCCESS;
+done:
+	return status;
 }
 
 /**

@@ -91,18 +91,17 @@ typedef struct PmClockHandle {
 	PmNode* node;
 	PmClockHandle* nextClock;
 	PmClockHandle* nextNode;
-	s32 (*IsActiveClk)(PmClockHandle* const ch);
 } PmClockHandle;
 
 /*********************************************************************
  * Function declarations
  ********************************************************************/
 int PmClockRequest(PmNode* const node);
+int PmClockIsActive(PmNode* const node);
 
 void PmClockRelease(PmNode* const node);
 void PmClockConstructList(void);
 void PmClockRestore(PmNode* const node);
 void PmClockSave(PmNode* const node);
-s32 PmClockIsActive(PmNode* const node);
 
 #endif
