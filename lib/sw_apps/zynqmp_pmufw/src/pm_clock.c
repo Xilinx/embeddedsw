@@ -33,968 +33,1930 @@
 #include "pm_ddr.h"
 #include "crf_apb.h"
 #include "crl_apb.h"
+#include "afi.h"
 
-static const PmClockSel2Pll advSel2Pll[] = {
+/*********************************************************************
+ * Macros
+ ********************************************************************/
+#define CONNECT(clk, nd)	\
+{ \
+	.clock = &(clk), \
+	.node = &(nd), \
+	.nextClock = NULL, \
+	.nextNode = NULL, \
+}
+
+#define IOU_SLCR_BASE			0xFF180000U
+#define IOU_SLCR_CAN_MIO_CTRL		(IOU_SLCR_BASE + 0x304U)
+#define IOU_SLCR_GEM_CLK_CTRL		(IOU_SLCR_BASE + 0x308U)
+
+#define FPD_SLCR_WDT_CLK_SEL		(FPD_SLCR_BASEADDR + 0x100U)
+
+#define PM_CLOCK_TYPE_DIV0	(1 << 1)	/* bits 13:8 */
+#define PM_CLOCK_TYPE_DIV1	(1 << 2)	/* bits 21:16 */
+#define PM_CLOCK_TYPE_GATE24	(1 << 3)	/* bit 24 */
+#define PM_CLOCK_TYPE_GATE25	(1 << 4)	/* bit 25 */
+#define PM_CLOCK_TYPE_GATE26	(1 << 5)	/* bit 26 */
+
+/*********************************************************************
+ * Structure definitions
+ ********************************************************************/
+
+/**
+ * PmClockClass - Structure that encapsulates essential clock methods
+ * @request	Pointer to the function that is used to request clock
+ * @release	Pointer to the function that is used to release clock
+ *
+ * @note	A class of clocks for which the maintenance of use count is
+ * important must implement request/release methods. Other clock control
+ * methods are optional and depend on a particular clock class. If none of this
+ * is relevant for certain clock, e.g. oscillator, the class doesn't have to
+ * be defined.
+ */
+typedef struct PmClockClass {
+	PmClock* (*const request)(PmClock* const clock);
+	PmClock* (*const release)(PmClock* const clock);
+} PmClockClass;
+
+/*
+ * PmClockPll - Structure for PLL-output clock
+ * @base	Base clock structure
+ * @pll		Pointer to the PLL that generates this clock
+ * @useCount	Number of requests towards this clock
+ */
+typedef struct PmClockPll {
+	PmClock base;
+	PmPll* const pll;
+	u8 useCount;
+} PmClockPll;
+
+/**
+ * PmClockSel2ClkIn - Pair of multiplexer select value and selected clock input
+ * @clkIn	Pointer to input clock that is selected with the 'select' value
+ * @select	Select value of the clock multiplexer
+ */
+typedef struct {
+	PmClock* const clkIn;
+	const u8 select;
+} PmClockSel2ClkIn;
+
+/**
+ * PmClockMux - Structure encapsulates MUX select values to clock input mapping
+ * @inputs	Mux select to pll mapping at the input of the multiplexer
+ * @size	Size of the inputs array
+ * @bits	Number of bits of mux select
+ * @shift	Number of bits to shift 'bits' in order to get mux select mask
+ */
+typedef struct {
+	const PmClockSel2ClkIn* const inputs;
+	const u8 size;
+	const u8 bits;
+	const u8 shift;
+} PmClockMux;
+
+/**
+ * PmClockGen - Generic on-chip clock structure
+ * @base	Base clock structure
+ * @parent	Pointer to the current parent that drives this clock
+ * @users	Pointer to the list of nodes that use this clock
+ * @mux		Mux model for this clock (models possible parents and selects)
+ * @ctrlAddr	Address of the control register of the clock
+ * @ctrlVal	Value of control register found at boot
+ * @type	Type of the clock (specifies available dividers and gate)
+ * @useCount	Number of requests towards this clock
+ */
+typedef struct PmClockGen {
+	PmClock base;
+	PmClock* parent;
+	PmClockHandle* users;
+	PmClockMux* const mux;
+	const u32 ctrlAddr;
+	u32 ctrlVal;
+	const u8 type;
+	u8 useCount;
+} PmClockGen;
+
+/**
+ * PmClockHandle - Models a clock/node pair (node using the clock)
+ * @clock	Pointer to the clock used by the node
+ * @node	Pointer to the node that uses the clock
+ * @nextClock	Pointer to the next clock used by the node
+ * @nextNode	Pointer to the next node that uses the clock
+ */
+typedef struct PmClockHandle {
+	PmClockGen* clock;
+	PmNode* node;
+	PmClockHandle* nextClock;
+	PmClockHandle* nextNode;
+} PmClockHandle;
+
+/**
+ * PmClockRequestInt() - Wrapper function for a chained requesting of a clock
+ * @clock	Pointer to the clock to be requested
+ *
+ * @note	This function implements non-recursive chained requesting of
+ *		a clock and all its parents. Such an approach is required
+ *		because recursion is not allowed due to the MISRA.
+ */
+static void PmClockRequestInt(PmClock* const clock)
+{
+	PmClock* clk = clock;
+
+	while (NULL != clk) {
+		if (clk->class && clk->class->request) {
+			clk = clk->class->request(clk);
+		} else {
+			clk = NULL;
+		}
+	}
+}
+
+/**
+ * PmClockReleaseInt() - Wrapper function for a chained releasing of a clock
+ * @clock	Pointer to the clock to be released
+ *
+ * @note	This function implements non-recursive chained releasing of
+ *		a clock and all its parents. Such an approach is required
+ *		because recursion is not allowed due to the MISRA.
+ */
+static void PmClockReleaseInt(PmClock* const clock)
+{
+	PmClock* clk = clock;
+
+	while (NULL != clk) {
+		if (clk->class && clk->class->release) {
+			clk = clk->class->release(clk);
+		} else {
+			clk = NULL;
+		}
+	}
+}
+
+/******************************************************************************/
+/* Pll output clock models */
+
+/**
+ * PmClockRequestPll() - PLL specific request clock method
+ * @clock	Pointer to a PLL clock
+ *
+ * @return	This function always returns NULL because the PLL has no clock
+ *		parent (its parent is a PLL which is not modeled as a clock)
+ */
+static PmClock* PmClockRequestPll(PmClock* const clock)
+{
+	PmClockPll* pclk = (PmClockPll*)clock->derived;
+
+	if (0U == pclk->useCount++) {
+		PmPllRequest(pclk->pll);
+	}
+
+	return NULL;
+}
+
+/**
+ * PmClockReleasePll() - PLL specific release clock method
+ * @clock	Pointer to a PLL clock
+ *
+ * @return	This function always returns NULL because the PLL has no clock
+ *		parent (its parent is a PLL which is not modeled as a clock)
+ */
+static PmClock* PmClockReleasePll(PmClock* const clock)
+{
+	PmClockPll* pclk = (PmClockPll*)clock->derived;
+
+	if (0U == --pclk->useCount) {
+		PmPllRelease(pclk->pll);
+	}
+
+	return NULL;
+}
+
+static PmClockClass pmClockClassPll = {
+	.request = PmClockRequestPll,
+	.release = PmClockReleasePll,
+};
+
+static PmClockPll pmClockApll = {
+	.base = {
+		.derived = &pmClockApll,
+		.class = &pmClockClassPll,
+		.id = PM_CLOCK_APLL,
+	},
+	.pll = &pmApll_g,
+	.useCount = 0,
+};
+
+static PmClockPll pmClockDpll = {
+	.base = {
+		.derived = &pmClockDpll,
+		.class = &pmClockClassPll,
+		.id = PM_CLOCK_DPLL,
+	},
+	.pll = &pmDpll_g,
+	.useCount = 0,
+};
+
+static PmClockPll pmClockVpll = {
+	.base = {
+		.derived = &pmClockVpll,
+		.class = &pmClockClassPll,
+		.id = PM_CLOCK_VPLL,
+	},
+	.pll = &pmVpll_g,
+	.useCount = 0,
+};
+
+static PmClockPll pmClockRpll = {
+	.base = {
+		.derived = &pmClockRpll,
+		.class = &pmClockClassPll,
+		.id = PM_CLOCK_RPLL,
+	},
+	.pll = &pmRpll_g,
+	.useCount = 0,
+};
+
+static PmClockPll pmClockIOpll = {
+	.base = {
+		.derived = &pmClockIOpll,
+		.class = &pmClockClassPll,
+		.id = PM_CLOCK_IOPLL,
+	},
+	.pll = &pmIOpll_g,
+	.useCount = 0,
+};
+
+/******************************************************************************/
+/* On-chip/generic clocks that can drive PM nodes */
+
+/**
+ * PmClockRequestGen() - Request clock method for generic clocks
+ * @clock	Pointer to a generic clock
+ *
+ * @return	Pointer to the parent clock
+ */
+static PmClock* PmClockRequestGen(PmClock* const clock)
+{
+	PmClockGen* clk = (PmClockGen*)clock->derived;
+	PmClock* parent = NULL;
+
+	if (0U == clk->useCount++) {
+		parent = clk->parent;
+	}
+
+	return parent;
+}
+
+/**
+ * PmClockReleaseGen() - Release clock method for generic clocks
+ * @clock	Pointer to a generic clock
+ *
+ * @return	Pointer to the parent clock
+ */
+static PmClock* PmClockReleaseGen(PmClock* const clock)
+{
+	PmClockGen* clk = (PmClockGen*)clock->derived;
+	PmClock* parent = NULL;
+
+	if (0U == --clk->useCount) {
+		parent = clk->parent;
+	}
+
+	return parent;
+}
+
+static PmClockClass pmClockClassGen = {
+	.request = PmClockRequestGen,
+	.release = PmClockReleaseGen,
+};
+
+static PmClockGen pmClockIOpllToFpd = {
+	.base = {
+		.derived = &pmClockIOpllToFpd,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_IOPLL_TO_FPD,
+	},
+	.parent = &pmClockIOpll.base,
+	.users = NULL,
+	.mux = NULL,
+	.ctrlAddr = CRL_APB_IOPLL_TO_FPD_CTRL,
+	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0,
+	.useCount = 0U,
+};
+
+static PmClockGen pmClockRpllToFpd = {
+	.base = {
+		.derived = &pmClockRpllToFpd,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_RPLL_TO_FPD,
+	},
+	.parent = &pmClockRpll.base,
+	.users = NULL,
+	.mux = NULL,
+	.ctrlAddr = CRL_APB_RPLL_TO_FPD_CTRL,
+	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0,
+	.useCount = 0U,
+};
+
+static PmClockGen pmClockDpllToLpd = {
+	.base = {
+		.derived = &pmClockDpllToLpd,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_DPLL_TO_LPD,
+	},
+	.parent = &pmClockDpll.base,
+	.users = NULL,
+	.mux = NULL,
+	.ctrlAddr = CRF_APB_DPLL_TO_LPD_CTRL,
+	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0,
+	.useCount = 0U,
+};
+
+static PmClockGen pmClockVpllToLpd = {
+	.base = {
+		.derived = &pmClockVpllToLpd,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_VPLL_TO_LPD,
+	},
+	.parent = &pmClockVpll.base,
+	.users = NULL,
+	.mux = NULL,
+	.ctrlAddr = CRF_APB_VPLL_TO_LPD_CTRL,
+	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0,
+	.useCount = 0U,
+};
+
+static const PmClockSel2ClkIn advSel2ClkIn[] = {
 	{
-		.pll = &pmApll_g,
+		.clkIn = &pmClockApll.base,
 		.select = 0U,
 	}, {
-		.pll = &pmDpll_g,
+		.clkIn = &pmClockDpll.base,
 		.select = 2U,
 	}, {
-		.pll = &pmVpll_g,
+		.clkIn = &pmClockVpll.base,
 		.select = 3U,
 	},
 };
 
 static PmClockMux advMux = {
-	.inputs = advSel2Pll,
-	.size = ARRAY_SIZE(advSel2Pll),
+	.inputs = advSel2ClkIn,
+	.size = ARRAY_SIZE(advSel2ClkIn),
+	.bits = 2U,
+	.shift = 0U,
 };
 
-static const PmClockSel2Pll avdSel2Pll[] = {
+static const PmClockSel2ClkIn avdSel2ClkIn[] = {
 	{
-		.pll = &pmApll_g,
+		.clkIn = &pmClockApll.base,
 		.select = 0U,
 	}, {
-		.pll = &pmVpll_g,
+		.clkIn = &pmClockVpll.base,
 		.select = 2U,
 	}, {
-		.pll = &pmDpll_g,
+		.clkIn = &pmClockDpll.base,
 		.select = 3U,
 	},
 };
 
 static PmClockMux avdMux = {
-	.inputs = avdSel2Pll,
-	.size = ARRAY_SIZE(avdSel2Pll),
+	.inputs = avdSel2ClkIn,
+	.size = ARRAY_SIZE(avdSel2ClkIn),
+	.bits = 2U,
+	.shift = 0U,
 };
 
-static const PmClockSel2Pll aiodSel2Pll[] = {
+static const PmClockSel2ClkIn aiodSel2ClkIn[] = {
 	{
-		.pll = &pmApll_g,
+		.clkIn = &pmClockApll.base,
 		.select = 0U,
 	}, {
-		.pll = &pmIOpll_g,
+		.clkIn = &pmClockIOpllToFpd.base,
 		.select = 2U,
 	}, {
-		.pll = &pmDpll_g,
+		.clkIn = &pmClockDpll.base,
 		.select = 3U,
 	},
 };
 
 static PmClockMux aiodMux = {
-	.inputs = aiodSel2Pll,
-	.size = ARRAY_SIZE(aiodSel2Pll),
+	.inputs = aiodSel2ClkIn,
+	.size = ARRAY_SIZE(aiodSel2ClkIn),
+	.bits = 2U,
+	.shift = 0U,
 };
 
-static const PmClockSel2Pll vdrSel2Pll[] = {
+static const PmClockSel2ClkIn vdrSel2ClkIn[] = {
 	{
-		.pll = &pmVpll_g,
+		.clkIn = &pmClockVpll.base,
 		.select = 0U,
 	}, {
-		.pll = &pmDpll_g,
+		.clkIn = &pmClockDpll.base,
 		.select = 2U,
 	}, {
-		.pll = &pmRpll_g,
+		.clkIn = &pmClockRpllToFpd.base,
 		.select = 3U,
 	},
 };
 
 static PmClockMux vdrMux = {
-	.inputs = vdrSel2Pll,
-	.size = ARRAY_SIZE(vdrSel2Pll),
+	.inputs = vdrSel2ClkIn,
+	.size = ARRAY_SIZE(vdrSel2ClkIn),
+	.bits = 2U,
+	.shift = 0U,
 };
 
-static const PmClockSel2Pll dvSel2Pll[] = {
+static const PmClockSel2ClkIn dvSel2ClkIn[] = {
 	{
-		.pll = &pmDpll_g,
+		.clkIn = &pmClockDpll.base,
 		.select = 0U,
 	}, {
-		.pll = &pmVpll_g,
+		.clkIn = &pmClockVpll.base,
 		.select = 1U,
 	},
 };
 
 static PmClockMux dvMux = {
-	.inputs = dvSel2Pll,
-	.size = ARRAY_SIZE(dvSel2Pll),
+	.inputs = dvSel2ClkIn,
+	.size = ARRAY_SIZE(dvSel2ClkIn),
+	.bits = 2U,
+	.shift = 0U,
 };
 
-static const PmClockSel2Pll iovdSel2Pll[] = {
+static const PmClockSel2ClkIn iovdSel2ClkIn[] = {
 	{
-		.pll = &pmIOpll_g,
+		.clkIn = &pmClockIOpllToFpd.base,
 		.select = 0U,
 	}, {
-		.pll = &pmVpll_g,
+		.clkIn = &pmClockVpll.base,
 		.select = 2U,
 	}, {
-		.pll = &pmDpll_g,
+		.clkIn = &pmClockDpll.base,
 		.select = 3U,
 	},
 };
 
 static PmClockMux iovdMux = {
-	.inputs = iovdSel2Pll,
-	.size = ARRAY_SIZE(iovdSel2Pll),
+	.inputs = iovdSel2ClkIn,
+	.size = ARRAY_SIZE(iovdSel2ClkIn),
+	.bits = 2U,
+	.shift = 0U,
 };
 
-static const PmClockSel2Pll ioadSel2Pll[] = {
+static const PmClockSel2ClkIn ioadSel2ClkIn[] = {
 	{
-		.pll = &pmIOpll_g,
+		.clkIn = &pmClockIOpllToFpd.base,
 		.select = 0U,
 	}, {
-		.pll = &pmApll_g,
+		.clkIn = &pmClockApll.base,
 		.select = 2U,
 	}, {
-		.pll = &pmDpll_g,
+		.clkIn = &pmClockDpll.base,
 		.select = 3U,
 	},
 };
 
 static PmClockMux ioadMux = {
-	.inputs = ioadSel2Pll,
-	.size = ARRAY_SIZE(ioadSel2Pll),
+	.inputs = ioadSel2ClkIn,
+	.size = ARRAY_SIZE(ioadSel2ClkIn),
+	.bits = 2U,
+	.shift = 0U,
 };
 
-static const PmClockSel2Pll iodaSel2Pll[] = {
+static const PmClockSel2ClkIn iodaSel2ClkIn[] = {
 	{
-		.pll = &pmIOpll_g,
+		.clkIn = &pmClockIOpllToFpd.base,
 		.select = 0U,
 	}, {
-		.pll = &pmDpll_g,
+		.clkIn = &pmClockDpll.base,
 		.select = 2U,
 	}, {
-		.pll = &pmApll_g,
+		.clkIn = &pmClockApll.base,
 		.select = 3U,
 	},
 };
 
 static PmClockMux iodaMux = {
-	.inputs = iodaSel2Pll,
-	.size = ARRAY_SIZE(iodaSel2Pll),
+	.inputs = iodaSel2ClkIn,
+	.size = ARRAY_SIZE(iodaSel2ClkIn),
+	.bits = 2U,
+	.shift = 0U,
 };
 
-static const PmClockSel2Pll iorSel2Pll[] = {
+static const PmClockSel2ClkIn iorSel2ClkIn[] = {
 	{
-		.pll = &pmIOpll_g,
+		.clkIn = &pmClockIOpll.base,
 		.select = 0U,
 	}, {
-		.pll = &pmRpll_g,
+		.clkIn = &pmClockRpll.base,
 		.select = 2U,
 	},
 };
 
 static PmClockMux iorMux = {
-	.inputs = iorSel2Pll,
-	.size = ARRAY_SIZE(iorSel2Pll),
+	.inputs = iorSel2ClkIn,
+	.size = ARRAY_SIZE(iorSel2ClkIn),
+	.bits = 2U,
+	.shift = 0U,
 };
 
-static const PmClockSel2Pll iordSel2Pll[] = {
+static const PmClockSel2ClkIn iordFpdSel2ClkIn[] = {
 	{
-		.pll = &pmIOpll_g,
+		.clkIn = &pmClockIOpllToFpd.base,
 		.select = 0U,
 	}, {
-		.pll = &pmRpll_g,
+		.clkIn = &pmClockRpllToFpd.base,
 		.select = 2U,
 	}, {
-		.pll = &pmDpll_g,
+		.clkIn = &pmClockDpll.base,
+		.select = 3U,
+	},
+};
+
+static PmClockMux iordFpdMux = {
+	.inputs = iordFpdSel2ClkIn,
+	.size = ARRAY_SIZE(iordFpdSel2ClkIn),
+	.bits = 2U,
+	.shift = 0U,
+};
+
+static const PmClockSel2ClkIn iordSel2ClkIn[] = {
+	{
+		.clkIn = &pmClockIOpll.base,
+		.select = 0U,
+	}, {
+		.clkIn = &pmClockRpll.base,
+		.select = 2U,
+	}, {
+		.clkIn = &pmClockDpllToLpd.base,
 		.select = 3U,
 	},
 };
 
 static PmClockMux iordMux = {
-	.inputs = iordSel2Pll,
-	.size = ARRAY_SIZE(iordSel2Pll),
+	.inputs = iordSel2ClkIn,
+	.size = ARRAY_SIZE(iordSel2ClkIn),
+	.bits = 2U,
+	.shift = 0U,
 };
 
-static const PmClockSel2Pll iorvSel2Pll[] = {
+static const PmClockSel2ClkIn iorvSel2ClkIn[] = {
 	{
-		.pll = &pmIOpll_g,
+		.clkIn = &pmClockIOpll.base,
 		.select = 0U,
 	}, {
-		.pll = &pmRpll_g,
+		.clkIn = &pmClockRpll.base,
 		.select = 2U,
 	}, {
-		.pll = &pmVpll_g,
+		.clkIn = &pmClockVpllToLpd.base,
 		.select = 3U,
 	},
 };
 
 static PmClockMux iorvMux = {
-	.inputs = iorvSel2Pll,
-	.size = ARRAY_SIZE(iorvSel2Pll),
+	.inputs = iorvSel2ClkIn,
+	.size = ARRAY_SIZE(iorvSel2ClkIn),
+	.bits = 2U,
+	.shift = 0U,
 };
 
-static const PmClockSel2Pll riodSel2Pll[] = {
+static const PmClockSel2ClkIn riodSel2ClkIn[] = {
 	{
-		.pll = &pmRpll_g,
+		.clkIn = &pmClockRpll.base,
 		.select = 0U,
 	}, {
-		.pll = &pmIOpll_g,
+		.clkIn = &pmClockIOpll.base,
 		.select = 2U,
 	}, {
-		.pll = &pmDpll_g,
+		.clkIn = &pmClockDpllToLpd.base,
 		.select = 3U,
 	},
 };
 
 static PmClockMux riodMux = {
-	.inputs = riodSel2Pll,
-	.size = ARRAY_SIZE(riodSel2Pll),
+	.inputs = riodSel2ClkIn,
+	.size = ARRAY_SIZE(riodSel2ClkIn),
+	.bits = 2U,
+	.shift = 0U,
 };
 
 /* CRF_APB clocks */
-
-static PmClock pmClockAcpu = {
+static PmClockGen pmClockAcpu = {
+	.base = {
+		.derived = &pmClockAcpu,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_ACPU,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &advMux,
 	.ctrlAddr = CRF_APB_ACPU_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0,
+	.useCount = 0U,
 };
 
-/* Floating clock */
-static PmClock pmClockDbgTrace = {
+static PmClockGen pmClockAcpuFull = {
+	.base = {
+		.derived = &pmClockAcpuFull,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_ACPU_FULL,
+	},
+	.parent = &pmClockAcpu.base,
+	.users = NULL,
+	.mux = NULL,
+	.ctrlAddr = CRF_APB_ACPU_CTRL,
+	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
+};
+
+static PmClockGen pmClockAcpuHalf = {
+	.base = {
+		.derived = &pmClockAcpuHalf,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_ACPU_HALF,
+	},
+	.parent = &pmClockAcpu.base,
+	.users = NULL,
+	.mux = NULL,
+	.ctrlAddr = CRF_APB_ACPU_CTRL,
+	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_GATE25,
+	.useCount = 0U,
+};
+
+static PmClockGen pmClockDbgTrace = {
+	.base = {
+		.derived = &pmClockDbgTrace,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_DBG_TRACE,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iodaMux,
 	.ctrlAddr = CRF_APB_DBG_TRACE_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-/* Floating clock */
-static PmClock pmClockDbgFpd = {
+static PmClockGen pmClockDbgFpd = {
+	.base = {
+		.derived = &pmClockDbgFpd,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_DBG_FPD,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iodaMux,
 	.ctrlAddr = CRF_APB_DBG_FPD_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockDpVideo = {
+static PmClockGen pmClockDpVideo = {
+	.base = {
+		.derived = &pmClockDpVideo,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_DP_VIDEO_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &vdrMux,
 	.ctrlAddr = CRF_APB_DP_VIDEO_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockDpAudio = {
+static PmClockGen pmClockDpAudio = {
+	.base = {
+		.derived = &pmClockDpAudio,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_DP_AUDIO_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &vdrMux,
 	.ctrlAddr = CRF_APB_DP_AUDIO_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockDpStc = {
+static PmClockGen pmClockDpStc = {
+	.base = {
+		.derived = &pmClockDpStc,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_DP_STC_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &vdrMux,
 	.ctrlAddr = CRF_APB_DP_STC_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockDdr __attribute__((__section__(".srdata"))) = {
+static PmClockGen pmClockDdr __attribute__((__section__(".srdata"))) = {
+	.base = {
+		.derived = &pmClockDdr,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_DDR_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &dvMux,
 	.ctrlAddr = CRF_APB_DDR_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0,
+	.useCount = 0U,
 };
 
-static PmClock pmClockGpu = {
+static PmClockGen pmClockGpu = {
+	.base = {
+		.derived = &pmClockGpu,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_GPU_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iovdMux,
 	.ctrlAddr = CRF_APB_GPU_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockSata = {
+static PmClockGen pmClockGpuPp0 = {
+	.base = {
+		.derived = &pmClockGpuPp0,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_GPU_PP0_REF,
+	},
+	.parent = &pmClockGpu.base,
+	.users = NULL,
+	.mux = NULL,
+	.ctrlAddr = CRF_APB_GPU_REF_CTRL,
+	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_GATE25,
+	.useCount = 0U,
+};
+
+static PmClockGen pmClockGpuPp1 = {
+	.base = {
+		.derived = &pmClockGpuPp1,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_GPU_PP1_REF,
+	},
+	.parent = &pmClockGpu.base,
+	.users = NULL,
+	.mux = NULL,
+	.ctrlAddr = CRF_APB_GPU_REF_CTRL,
+	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_GATE26,
+	.useCount = 0U,
+};
+
+static PmClockGen pmClockSata = {
+	.base = {
+		.derived = &pmClockSata,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_SATA_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &ioadMux,
 	.ctrlAddr = CRF_APB_SATA_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockPcie = {
-	.mux = &iordMux,
-	.pll = NULL,
+static PmClockGen pmClockPcie = {
+	.base = {
+		.derived = &pmClockPcie,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_PCIE_REF,
+	},
+	.parent = NULL,
 	.users = NULL,
+	.mux = &iordFpdMux,
 	.ctrlAddr = CRF_APB_PCIE_REF_CTRL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockGdma = {
+static PmClockGen pmClockGdma = {
+	.base = {
+		.derived = &pmClockGdma,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_GDMA_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &avdMux,
 	.ctrlAddr = CRF_APB_GDMA_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockDpDma = {
+static PmClockGen pmClockDpDma = {
+	.base = {
+		.derived = &pmClockDpDma,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_DPDMA_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &avdMux,
 	.ctrlAddr = CRF_APB_DPDMA_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockTopSwMain __attribute__((__section__(".srdata"))) = {
+static PmClockGen pmClockTopSwMain __attribute__((__section__(".srdata"))) = {
+	.base = {
+		.derived = &pmClockTopSwMain,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_TOPSW_MAIN,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &avdMux,
 	.ctrlAddr = CRF_APB_TOPSW_MAIN_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockTopSwLsBus __attribute__((__section__(".srdata"))) = {
+static PmClockGen pmClockTopSwLsBus __attribute__((__section__(".srdata"))) = {
+	.base = {
+		.derived = &pmClockTopSwLsBus,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_TOPSW_LSBUS,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &aiodMux,
 	.ctrlAddr = CRF_APB_TOPSW_LSBUS_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-/* Floating clock */
-static PmClock pmClockGtgRef0 = {
-	.mux = &ioadMux,
-	.ctrlAddr = CRF_APB_GTGREF0_REF_CTRL,
-	.pll = NULL,
+static PmClockGen pmClockDbgTstmp = {
+	.base = {
+		.derived = &pmClockDbgTstmp,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_DBG_TSTMP,
+	},
+	.parent = NULL,
 	.users = NULL,
-	.ctrlVal = 0U,
-};
-
-/* Floating clock */
-static PmClock pmClockDbgTstmp = {
-	.mux = &advMux,
+	.mux = &iodaMux,
 	.ctrlAddr = CRF_APB_DBG_TSTMP_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0,
+	.useCount = 0U,
 };
 
 /* CRL_APB clocks */
-
-/* Floating clock */
-static PmClock pmClockUsb3Dual = {
+static PmClockGen pmClockUsb3Dual = {
+	.base = {
+		.derived = &pmClockUsb3Dual,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_USB3_DUAL_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_USB3_DUAL_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE25,
+	.useCount = 0U,
 };
 
-static PmClock pmClockGem0 = {
+static PmClockGen pmClockGem0Ref = {
+	.base = {
+		.derived = &pmClockGem0Ref,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_GEM0_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_GEM0_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE25,
+	.useCount = 0U,
 };
 
-static PmClock pmClockGem1 = {
+static PmClockGen pmClockGem1Ref = {
+	.base = {
+		.derived = &pmClockGem1Ref,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_GEM1_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_GEM1_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE25,
+	.useCount = 0U,
 };
 
-static PmClock pmClockGem2 = {
+static PmClockGen pmClockGem2Ref = {
+	.base = {
+		.derived = &pmClockGem2Ref,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_GEM2_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_GEM2_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE25,
+	.useCount = 0U,
 };
 
-static PmClock pmClockGem3 = {
+static PmClockGen pmClockGem3Ref = {
+	.base = {
+		.derived = &pmClockGem3Ref,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_GEM3_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_GEM3_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE25,
+	.useCount = 0U,
 };
 
-static PmClock pmClockUsb0Bus = {
+static PmClockGen pmClockUsb0Bus = {
+	.base = {
+		.derived = &pmClockUsb0Bus,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_USB0_BUS_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_USB0_BUS_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE25,
+	.useCount = 0U,
 };
 
-static PmClock pmClockUsb1Bus = {
+static PmClockGen pmClockUsb1Bus = {
+	.base = {
+		.derived = &pmClockUsb1Bus,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_USB1_BUS_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_USB1_BUS_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE25,
+	.useCount = 0U,
 };
 
-static PmClock pmClockQSpi = {
+static PmClockGen pmClockQSpi = {
+	.base = {
+		.derived = &pmClockQSpi,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_QSPI_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_QSPI_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockSdio0 = {
+static PmClockGen pmClockSdio0 = {
+	.base = {
+		.derived = &pmClockSdio0,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_SDIO0_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iorvMux,
 	.ctrlAddr = CRL_APB_SDIO0_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockSdio1 = {
+static PmClockGen pmClockSdio1 = {
+	.base = {
+		.derived = &pmClockSdio1,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_SDIO1_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iorvMux,
 	.ctrlAddr = CRL_APB_SDIO1_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockUart0 = {
+static PmClockGen pmClockUart0 = {
+	.base = {
+		.derived = &pmClockUart0,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_UART0_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_UART0_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockUart1 = {
+static PmClockGen pmClockUart1 = {
+	.base = {
+		.derived = &pmClockUart1,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_UART1_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_UART1_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockSpi0 = {
+static PmClockGen pmClockSpi0 = {
+	.base = {
+		.derived = &pmClockSpi0,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_SPI0_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_SPI0_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockSpi1 = {
+static PmClockGen pmClockSpi1 = {
+	.base = {
+		.derived = &pmClockSpi1,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_SPI1_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_SPI1_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockCan0 = {
+static PmClockGen pmClockCan0Ref = {
+	.base = {
+		.derived = &pmClockCan0Ref,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_CAN0_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_CAN0_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockCan1 = {
+static PmClockGen pmClockCan1Ref = {
+	.base = {
+		.derived = &pmClockCan1Ref,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_CAN1_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_CAN1_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockCpuR5 = {
-	.mux = &riodMux,
+static PmClockGen pmClockCpuR5 = {
+	.base = {
+		.derived = &pmClockCpuR5,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_CPU_R5,
+	},
+	.parent = NULL,
+	.users = NULL,
+	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_CPU_R5_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1,
+	.useCount = 0U,
 };
 
-/* Floating clock */
-static PmClock pmClockIouSwitch = {
+static PmClockGen pmClockCpuR5Core = {
+	.base = {
+		.derived = &pmClockCpuR5Core,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_CPU_R5_CORE,
+	},
+	.parent = &pmClockCpuR5.base,
+	.users = NULL,
+	.mux = NULL,
+	.ctrlAddr = CRL_APB_CPU_R5_CTRL,
+	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_GATE25,
+	.useCount = 0U,
+};
+
+static PmClockGen pmClockIouSwitch = {
+	.base = {
+		.derived = &pmClockIouSwitch,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_IOU_SWITCH,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &riodMux,
 	.ctrlAddr = CRL_APB_IOU_SWITCH_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockCsuPll = {
+static PmClockGen pmClockCsuPll = {
+	.base = {
+		.derived = &pmClockCsuPll,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_CSU_PLL,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_CSU_PLL_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockPcap = {
+static PmClockGen pmClockPcap = {
+	.base = {
+		.derived = &pmClockPcap,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_PCAP,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_PCAP_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-/* Floating clock */
-static PmClock pmClockLpdSwitch = {
+static PmClockGen pmClockLpdSwitch = {
+	.base = {
+		.derived = &pmClockLpdSwitch,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_LPD_SWITCH,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &riodMux,
 	.ctrlAddr = CRL_APB_LPD_SWITCH_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockLpdLsBus = {
+static PmClockGen pmClockLpdLsBus = {
+	.base = {
+		.derived = &pmClockLpdLsBus,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_LPD_LSBUS,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &riodMux,
 	.ctrlAddr = CRL_APB_LPD_LSBUS_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-/* Floating clock */
-static PmClock pmClockDbgLpd = {
+static PmClockGen pmClockDbgLpd = {
+	.base = {
+		.derived = &pmClockDbgLpd,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_DBG_LPD,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &riodMux,
 	.ctrlAddr = CRL_APB_DBG_LPD_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockNand = {
+static PmClockGen pmClockNand = {
+	.base = {
+		.derived = &pmClockNand,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_NAND_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_NAND_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockAdma = {
+static PmClockGen pmClockAdma = {
+	.base = {
+		.derived = &pmClockAdma,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_ADMA_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &riodMux,
 	.ctrlAddr = CRL_APB_ADMA_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockPl0 = {
+static PmClockGen pmClockPl0 = {
+	.base = {
+		.derived = &pmClockPl0,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_PL0_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_PL0_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockPl1 = {
+static PmClockGen pmClockPl1 = {
+	.base = {
+		.derived = &pmClockPl1,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_PL1_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_PL1_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockPl2 = {
+static PmClockGen pmClockPl2 = {
+	.base = {
+		.derived = &pmClockPl2,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_PL2_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_PL2_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockPl3 = {
+static PmClockGen pmClockPl3 = {
+	.base = {
+		.derived = &pmClockPl3,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_PL3_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_PL3_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockGemTsu = {
+static PmClockGen pmClockGemTsuRef = {
+	.base = {
+		.derived = &pmClockGemTsuRef,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_GEM_TSU_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_GEM_TSU_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockDll = {
+static PmClockGen pmClockDll = {
+	.base = {
+		.derived = &pmClockDll,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_DLL_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iorMux,
 	.ctrlAddr = CRL_APB_DLL_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = 0U,
+	.useCount = 0U,
 };
 
-/* Floating clock */
-static PmClock pmClockAms = {
+static PmClockGen pmClockAms = {
+	.base = {
+		.derived = &pmClockAms,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_AMS_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &riodMux,
 	.ctrlAddr = CRL_APB_AMS_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockI2C0 = {
+static PmClockGen pmClockI2C0 = {
+	.base = {
+		.derived = &pmClockI2C0,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_I2C0_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_I2C0_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-static PmClock pmClockI2C1 = {
+static PmClockGen pmClockI2C1 = {
+	.base = {
+		.derived = &pmClockI2C1,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_I2C1_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
 	.mux = &iordMux,
 	.ctrlAddr = CRL_APB_I2C1_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
 	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
 };
 
-/* Floating clock */
-static PmClock pmClockTimeStamp = {
-	.mux = &riodMux,
-	.ctrlAddr = CRL_APB_TIMESTAMP_REF_CTRL,
-	.pll = NULL,
-	.users = NULL,
-	.ctrlVal = 0U,
-};
-
-static PmClock* pmClocks[] = {
-	&pmClockAcpu,
-	&pmClockDbgTrace,
-	&pmClockDbgFpd,
-	&pmClockDpVideo,
-	&pmClockDpAudio,
-	&pmClockDpStc,
-	&pmClockDdr,
-	&pmClockGpu,
-	&pmClockSata,
-	&pmClockPcie,
-	&pmClockGdma,
-	&pmClockDpDma,
-	&pmClockTopSwMain,
-	&pmClockTopSwLsBus,
-	&pmClockGtgRef0,
-	&pmClockDbgTstmp,
-	&pmClockUsb3Dual,
-	&pmClockGem0,
-	&pmClockGem1,
-	&pmClockGem2,
-	&pmClockGem3,
-	&pmClockUsb0Bus,
-	&pmClockUsb1Bus,
-	&pmClockQSpi,
-	&pmClockSdio0,
-	&pmClockSdio1,
-	&pmClockUart0,
-	&pmClockUart1,
-	&pmClockSpi0,
-	&pmClockSpi1,
-	&pmClockCan0,
-	&pmClockCan1,
-	&pmClockCpuR5,
-	&pmClockIouSwitch,
-	&pmClockCsuPll,
-	&pmClockPcap,
-	&pmClockLpdSwitch,
-	&pmClockLpdLsBus,
-	&pmClockDbgLpd,
-	&pmClockNand,
-	&pmClockAdma,
-	&pmClockPl0,
-	&pmClockPl1,
-	&pmClockPl2,
-	&pmClockPl3,
-	&pmClockGemTsu,
-	&pmClockDll,
-	&pmClockAms,
-	&pmClockI2C0,
-	&pmClockI2C1,
-	&pmClockTimeStamp,
-};
-
-static PmClockHandle pmClockHandles[] = {
+static const PmClockSel2ClkIn iordPsRefSel2ClkIn[] = {
 	{
-		.clock = &pmClockAcpu,
-		.node = &pmPowerIslandApu_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
+		.clkIn = &pmClockIOpll.base,
+		.select = 0U,
 	}, {
-		.clock = &pmClockDpVideo,
-		.node = &pmSlaveDP_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
+		.clkIn = &pmClockRpll.base,
+		.select = 2U,
 	}, {
-		.clock = &pmClockDpAudio,
-		.node = &pmSlaveDP_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
+		.clkIn = &pmClockDpllToLpd.base,
+		.select = 3U,
 	}, {
-		.clock = &pmClockDpStc,
-		.node = &pmSlaveDP_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
+		.clkIn = NULL,	/* oscillator */
+		.select = 4U,
 	}, {
-		.clock = &pmClockDdr,
-		.node = &pmSlaveDdr_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
+		.clkIn = NULL,	/* oscillator */
+		.select = 5U,
 	}, {
-		.clock = &pmClockGpu,
-		.node = &pmSlaveGpu_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
+		.clkIn = NULL,	/* oscillator */
+		.select = 6U,
 	}, {
-		.clock = &pmClockSata,
-		.node = &pmSlaveSata_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockPcie,
-		.node = &pmSlavePcie_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockGdma,
-		.node = &pmSlaveGdma_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockDpDma,
-		.node = &pmSlaveDP_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockTopSwMain,
-		.node = &pmSlaveDdr_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockTopSwLsBus,
-		.node = &pmSlaveDdr_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockGem0,
-		.node = &pmSlaveEth0_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockGem1,
-		.node = &pmSlaveEth1_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockGem2,
-		.node = &pmSlaveEth2_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockGem3,
-		.node = &pmSlaveEth3_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockUsb3Dual,
-		.node = &pmSlaveUsb0_g.slv.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockUsb3Dual,
-		.node = &pmSlaveUsb1_g.slv.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockUsb0Bus,
-		.node = &pmSlaveUsb0_g.slv.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockUsb1Bus,
-		.node = &pmSlaveUsb1_g.slv.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockQSpi,
-		.node = &pmSlaveQSpi_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockSdio0,
-		.node = &pmSlaveSD0_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockSdio1,
-		.node = &pmSlaveSD1_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockUart0,
-		.node = &pmSlaveUart0_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockUart1,
-		.node = &pmSlaveUart1_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockSpi0,
-		.node = &pmSlaveSpi0_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockSpi1,
-		.node = &pmSlaveSpi1_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockCan0,
-		.node = &pmSlaveCan0_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockCan1,
-		.node = &pmSlaveCan1_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockCpuR5,
-		.node = &pmPowerIslandRpu_g.power.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockCsuPll,
-		.node = &pmSlavePcap_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockPcap,
-		.node = &pmSlavePcap_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockLpdLsBus,
-		.node = &pmSlaveTtc0_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockLpdLsBus,
-		.node = &pmSlaveTtc1_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockLpdLsBus,
-		.node = &pmSlaveTtc2_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockLpdLsBus,
-		.node = &pmSlaveTtc3_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockNand,
-		.node = &pmSlaveNand_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockAdma,
-		.node = &pmSlaveAdma_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockPl0,
-		.node = &pmPowerDomainPld_g.power.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockPl1,
-		.node = &pmPowerDomainPld_g.power.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockPl2,
-		.node = &pmPowerDomainPld_g.power.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockPl3,
-		.node = &pmPowerDomainPld_g.power.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockGemTsu,
-		.node = &pmSlaveEth0_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockGemTsu,
-		.node = &pmSlaveEth1_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockGemTsu,
-		.node = &pmSlaveEth2_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockGemTsu,
-		.node = &pmSlaveEth3_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockDll,
-		.node = &pmSlaveSD0_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockDll,
-		.node = &pmSlaveSD1_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockI2C0,
-		.node = &pmSlaveI2C0_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
-	}, {
-		.clock = &pmClockI2C1,
-		.node = &pmSlaveI2C1_g.node,
-		.nextClock = NULL,
-		.nextNode = NULL,
+		.clkIn = NULL,	/* oscillator */
+		.select = 7U,
 	},
 };
 
-/**
- * PmClockGetParent() - Get PLL parent of the clock based on MUX select value
- * @clock	Pointer to the clock whose PLL parent shall be find
- * @muxSel	Multiplexer select value
- *
- * @return	Pointer to the PLL parent of the clock
- */
-static PmPll* PmClockGetParent(PmClock* const clock, const u32 sel)
-{
-	u32 i;
-	PmPll* parent = NULL;
+static PmClockMux iordPsRefMux = {
+	.inputs = iordPsRefSel2ClkIn,
+	.size = ARRAY_SIZE(iordPsRefSel2ClkIn),
+	.bits = 3U,
+	.shift = 0U,
+};
 
-	for (i = 0U; i < clock->mux->size; i++) {
-		if (sel == clock->mux->inputs[i].select) {
-			parent = clock->mux->inputs[i].pll;
-			break;
-		}
-	}
+static PmClockGen pmClockTimeStamp = {
+	.base = {
+		.derived = &pmClockTimeStamp,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_TIMESTAMP_REF,
+	},
+	.parent = NULL,
+	.users = NULL,
+	.mux = &iordPsRefMux,
+	.ctrlAddr = CRL_APB_TIMESTAMP_REF_CTRL,
+	.ctrlVal = 0U,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.useCount = 0U,
+};
 
-	return parent;
-}
+static PmClockMux can0MioMux = {
+	.inputs = NULL,
+	.size = 0U,
+	.bits = 7U,
+	.shift = 0U,
+};
+static PmClockGen pmClockCan0Mio = {
+	.base = {
+		.derived = &pmClockCan0Mio,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_CAN0_MIO,
+	},
+	.parent = NULL,
+	.users = NULL,
+	.mux = &can0MioMux,
+	.ctrlAddr = IOU_SLCR_CAN_MIO_CTRL,
+	.ctrlVal = 0U,
+	.type = 0U,
+	.useCount = 0U,
+};
+
+static const PmClockSel2ClkIn can0Sel2ClkIn[] = {
+	{
+		.clkIn = &pmClockCan0Ref.base,
+		.select = 0U,
+	}, {
+		.clkIn = &pmClockCan0Mio.base,
+		.select = 1U,
+	},
+};
+
+static PmClockMux can0Mux = {
+	.inputs = can0Sel2ClkIn,
+	.size = ARRAY_SIZE(can0Sel2ClkIn),
+	.bits = 1U,
+	.shift = 7U,
+};
+
+static PmClockGen pmClockCan0 = {
+	.base = {
+		.derived = &pmClockCan0,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_CAN0,
+	},
+	.parent = NULL,
+	.users = NULL,
+	.mux = &can0Mux,
+	.ctrlAddr = IOU_SLCR_CAN_MIO_CTRL,
+	.ctrlVal = 0U,
+	.type = 0U,
+	.useCount = 0U,
+};
+
+static PmClockMux can1MioMux = {
+	.inputs = NULL,
+	.size = 0U,
+	.bits = 7U,
+	.shift = 15U,
+};
+static PmClockGen pmClockCan1Mio = {
+	.base = {
+		.derived = &pmClockCan1Mio,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_CAN1_MIO,
+	},
+	.parent = NULL,
+	.users = NULL,
+	.mux = &can1MioMux,
+	.ctrlAddr = IOU_SLCR_CAN_MIO_CTRL,
+	.ctrlVal = 0U,
+	.type = 0U,
+	.useCount = 0U,
+};
+
+static const PmClockSel2ClkIn can1Sel2ClkIn[] = {
+	{
+		.clkIn = &pmClockCan1Ref.base,
+		.select = 0U,
+	}, {
+		.clkIn = &pmClockCan1Mio.base,
+		.select = 1U,
+	},
+};
+
+static PmClockMux can1Mux = {
+	.inputs = can1Sel2ClkIn,
+	.size = ARRAY_SIZE(can1Sel2ClkIn),
+	.bits = 1U,
+	.shift = 22U,
+};
+
+static PmClockGen pmClockCan1 = {
+	.base = {
+		.derived = &pmClockCan1,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_CAN1,
+	},
+	.parent = NULL,
+	.users = NULL,
+	.mux = &can1Mux,
+	.ctrlAddr = IOU_SLCR_CAN_MIO_CTRL,
+	.ctrlVal = 0U,
+	.type = 0U,
+	.useCount = 0U,
+};
+
+static const PmClockSel2ClkIn gemTsuSel2ClkIn[] = {
+	{
+		.clkIn = &pmClockGemTsuRef.base,
+		.select = 0U,
+	}, {
+		.clkIn = NULL,
+		.select = 1U,
+	}, {
+		.clkIn = &pmClockGemTsuRef.base,
+		.select = 2U,
+	}, {
+		.clkIn = NULL,
+		.select = 3U,
+	},
+};
+
+static PmClockMux gemTsuMux = {
+	.inputs = gemTsuSel2ClkIn,
+	.size = ARRAY_SIZE(gemTsuSel2ClkIn),
+	.bits = 2U,
+	.shift = 20U,
+};
+
+static PmClockGen pmClockGemTsu = {
+	.base = {
+		.derived = &pmClockGemTsu,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_GEM_TSU,
+	},
+	.parent = NULL,
+	.users = NULL,
+	.mux = &gemTsuMux,
+	.ctrlAddr = IOU_SLCR_GEM_CLK_CTRL,
+	.ctrlVal = 0U,
+	.type = 0U,
+	.useCount = 0U,
+};
+
+static const PmClockSel2ClkIn gem0TxSel2ClkIn[] = {
+	{
+		.clkIn = &pmClockGem0Ref.base,
+		.select = 0U,
+	}, {
+		.clkIn = NULL,
+		.select = 1U,
+	},
+};
+static PmClockMux gem0TxMux = {
+	.inputs = gem0TxSel2ClkIn,
+	.size = ARRAY_SIZE(gem0TxSel2ClkIn),
+	.bits = 1U,
+	.shift = 1U,
+};
+static PmClockGen pmClockGem0Tx = {
+	.base = {
+		.derived = &pmClockGem0Tx,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_GEM0_TX,
+	},
+	.parent = NULL,
+	.users = NULL,
+	.mux = &gem0TxMux,
+	.ctrlAddr = IOU_SLCR_GEM_CLK_CTRL,
+	.ctrlVal = 0U,
+	.type = 0U,
+	.useCount = 0U,
+};
+
+static const PmClockSel2ClkIn gem1TxSel2ClkIn[] = {
+	{
+		.clkIn = &pmClockGem1Ref.base,
+		.select = 0U,
+	}, {
+		.clkIn = NULL,
+		.select = 1U,
+	},
+};
+static PmClockMux gem1TxMux = {
+	.inputs = gem1TxSel2ClkIn,
+	.size = ARRAY_SIZE(gem1TxSel2ClkIn),
+	.bits = 1U,
+	.shift = 6U,
+};
+static PmClockGen pmClockGem1Tx = {
+	.base = {
+		.derived = &pmClockGem1Tx,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_GEM1_TX,
+	},
+	.parent = NULL,
+	.users = NULL,
+	.mux = &gem1TxMux,
+	.ctrlAddr = IOU_SLCR_GEM_CLK_CTRL,
+	.ctrlVal = 0U,
+	.type = 0U,
+	.useCount = 0U,
+};
+
+static const PmClockSel2ClkIn gem2TxSel2ClkIn[] = {
+	{
+		.clkIn = &pmClockGem2Ref.base,
+		.select = 0U,
+	}, {
+		.clkIn = NULL,
+		.select = 1U,
+	},
+};
+static PmClockMux gem2TxMux = {
+	.inputs = gem2TxSel2ClkIn,
+	.size = ARRAY_SIZE(gem2TxSel2ClkIn),
+	.bits = 1U,
+	.shift = 11U,
+};
+static PmClockGen pmClockGem2Tx = {
+	.base = {
+		.derived = &pmClockGem2Tx,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_GEM2_TX,
+	},
+	.parent = NULL,
+	.users = NULL,
+	.mux = &gem2TxMux,
+	.ctrlAddr = IOU_SLCR_GEM_CLK_CTRL,
+	.ctrlVal = 0U,
+	.type = 0U,
+	.useCount = 0U,
+};
+
+static const PmClockSel2ClkIn gem3TxSel2ClkIn[] = {
+	{
+		.clkIn = &pmClockGem3Ref.base,
+		.select = 0U,
+	}, {
+		.clkIn = NULL,
+		.select = 1U,
+	},
+};
+static PmClockMux gem3TxMux = {
+	.inputs = gem3TxSel2ClkIn,
+	.size = ARRAY_SIZE(gem3TxSel2ClkIn),
+	.bits = 1U,
+	.shift = 16U,
+};
+static PmClockGen pmClockGem3Tx = {
+	.base = {
+		.derived = &pmClockGem3Tx,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_GEM3_TX,
+	},
+	.parent = NULL,
+	.users = NULL,
+	.mux = &gem3TxMux,
+	.ctrlAddr = IOU_SLCR_GEM_CLK_CTRL,
+	.ctrlVal = 0U,
+	.type = 0U,
+	.useCount = 0U,
+};
+
+static const PmClockSel2ClkIn fpdWdtSel2ClkIn[] = {
+	{
+		.clkIn = &pmClockTopSwLsBus.base,
+		.select = 0U,
+	}, {
+		.clkIn = NULL,
+		.select = 1U,
+	},
+};
+static PmClockMux fpdWdtMux = {
+	.inputs = fpdWdtSel2ClkIn,
+	.size = ARRAY_SIZE(fpdWdtSel2ClkIn),
+	.bits = 1U,
+	.shift = 0,
+};
+static PmClockGen pmClockFpdWdt = {
+	.base = {
+		.derived = &pmClockFpdWdt,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_WDT,
+	},
+	.parent = NULL,
+	.users = NULL,
+	.mux = &fpdWdtMux,
+	.ctrlAddr = FPD_SLCR_WDT_CLK_SEL,
+	.ctrlVal = 0U,
+	.type = 0U,
+	.useCount = 0U,
+};
+
+static PmClock* pmClocks[] = {
+	&pmClockIOpll.base,
+	&pmClockRpll.base,
+	&pmClockApll.base,
+	&pmClockDpll.base,
+	&pmClockVpll.base,
+	&pmClockIOpllToFpd.base,
+	&pmClockRpllToFpd.base,
+	&pmClockDpllToLpd.base,
+	&pmClockVpllToLpd.base,
+	&pmClockAcpu.base,
+	&pmClockAcpuFull.base,
+	&pmClockAcpuHalf.base,
+	&pmClockDbgTrace.base,
+	&pmClockDbgFpd.base,
+	&pmClockDpVideo.base,
+	&pmClockDpAudio.base,
+	&pmClockDpStc.base,
+	&pmClockDdr.base,
+	&pmClockGpu.base,
+	&pmClockGpuPp0.base,
+	&pmClockGpuPp1.base,
+	&pmClockSata.base,
+	&pmClockPcie.base,
+	&pmClockGdma.base,
+	&pmClockDpDma.base,
+	&pmClockTopSwMain.base,
+	&pmClockTopSwLsBus.base,
+	&pmClockDbgTstmp.base,
+	&pmClockUsb3Dual.base,
+	&pmClockGem0Ref.base,
+	&pmClockGem1Ref.base,
+	&pmClockGem2Ref.base,
+	&pmClockGem3Ref.base,
+	&pmClockUsb0Bus.base,
+	&pmClockUsb1Bus.base,
+	&pmClockQSpi.base,
+	&pmClockSdio0.base,
+	&pmClockSdio1.base,
+	&pmClockUart0.base,
+	&pmClockUart1.base,
+	&pmClockSpi0.base,
+	&pmClockSpi1.base,
+	&pmClockCan0Ref.base,
+	&pmClockCan1Ref.base,
+	&pmClockCpuR5.base,
+	&pmClockCpuR5Core.base,
+	&pmClockIouSwitch.base,
+	&pmClockCsuPll.base,
+	&pmClockPcap.base,
+	&pmClockLpdSwitch.base,
+	&pmClockLpdLsBus.base,
+	&pmClockDbgLpd.base,
+	&pmClockNand.base,
+	&pmClockAdma.base,
+	&pmClockPl0.base,
+	&pmClockPl1.base,
+	&pmClockPl2.base,
+	&pmClockPl3.base,
+	&pmClockGemTsuRef.base,
+	&pmClockDll.base,
+	&pmClockAms.base,
+	&pmClockI2C0.base,
+	&pmClockI2C1.base,
+	&pmClockTimeStamp.base,
+	&pmClockCan0.base,
+	&pmClockCan1.base,
+	&pmClockCan0Mio.base,
+	&pmClockCan1Mio.base,
+	&pmClockGemTsu.base,
+	&pmClockGem0Tx.base,
+	&pmClockGem1Tx.base,
+	&pmClockGem2Tx.base,
+	&pmClockGem3Tx.base,
+	&pmClockFpdWdt.base,
+};
+
+static PmClockHandle pmClockHandles[] = {
+	CONNECT(pmClockAcpu,		pmPowerIslandApu_g.node),
+	CONNECT(pmClockAcpuHalf,	pmPowerIslandApu_g.node),
+	CONNECT(pmClockAcpuFull,	pmPowerIslandApu_g.node),
+	CONNECT(pmClockDpVideo,		pmSlaveDP_g.node),
+	CONNECT(pmClockDpAudio,		pmSlaveDP_g.node),
+	CONNECT(pmClockDpStc,		pmSlaveDP_g.node),
+	CONNECT(pmClockDpDma,		pmSlaveDP_g.node),
+	CONNECT(pmClockDdr,		pmSlaveDdr_g.node),
+	CONNECT(pmClockTopSwMain,	pmSlaveDdr_g.node),
+	CONNECT(pmClockTopSwLsBus,	pmSlaveDdr_g.node),
+	CONNECT(pmClockGpu,		pmSlaveGpu_g.node),
+	CONNECT(pmClockGpuPp0,		pmSlaveGpu_g.node),
+	CONNECT(pmClockGpuPp1,		pmSlaveGpu_g.node),
+	CONNECT(pmClockSata,		pmSlaveSata_g.node),
+	CONNECT(pmClockPcie,		pmSlavePcie_g.node),
+	CONNECT(pmClockGdma,		pmSlaveGdma_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveGdma_g.node),
+	CONNECT(pmClockGem0Ref,		pmSlaveEth0_g.node),
+	CONNECT(pmClockGem0Tx,		pmSlaveEth0_g.node),
+	CONNECT(pmClockGemTsu,		pmSlaveEth0_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveEth0_g.node),
+	CONNECT(pmClockGem1Ref,		pmSlaveEth1_g.node),
+	CONNECT(pmClockGem1Tx,		pmSlaveEth1_g.node),
+	CONNECT(pmClockGemTsu,		pmSlaveEth1_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveEth1_g.node),
+	CONNECT(pmClockGem2Ref,		pmSlaveEth2_g.node),
+	CONNECT(pmClockGem2Tx,		pmSlaveEth2_g.node),
+	CONNECT(pmClockGemTsu,		pmSlaveEth2_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveEth2_g.node),
+	CONNECT(pmClockGem3Ref,		pmSlaveEth3_g.node),
+	CONNECT(pmClockGem3Tx,		pmSlaveEth3_g.node),
+	CONNECT(pmClockGemTsu,		pmSlaveEth3_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveEth3_g.node),
+	CONNECT(pmClockUsb3Dual,	pmSlaveUsb0_g.slv.node),
+	CONNECT(pmClockUsb0Bus,		pmSlaveUsb0_g.slv.node),
+	CONNECT(pmClockUsb3Dual,	pmSlaveUsb1_g.slv.node),
+	CONNECT(pmClockUsb1Bus,		pmSlaveUsb1_g.slv.node),
+	CONNECT(pmClockQSpi,		pmSlaveQSpi_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveQSpi_g.node),
+	CONNECT(pmClockSdio0,		pmSlaveSD0_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveSD0_g.node),
+	CONNECT(pmClockDll,		pmSlaveSD0_g.node),
+	CONNECT(pmClockSdio1,		pmSlaveSD1_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveSD1_g.node),
+	CONNECT(pmClockDll,		pmSlaveSD1_g.node),
+	CONNECT(pmClockUart0,		pmSlaveUart0_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveUart0_g.node),
+	CONNECT(pmClockUart1,		pmSlaveUart1_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveUart1_g.node),
+	CONNECT(pmClockSpi0,		pmSlaveSpi0_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveSpi0_g.node),
+	CONNECT(pmClockSpi1,		pmSlaveSpi1_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveSpi1_g.node),
+	CONNECT(pmClockCan0,		pmSlaveCan0_g.node),
+	CONNECT(pmClockCan0Ref,		pmSlaveCan0_g.node),
+	CONNECT(pmClockCan0Mio,		pmSlaveCan0_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveCan0_g.node),
+	CONNECT(pmClockCan1,		pmSlaveCan1_g.node),
+	CONNECT(pmClockCan1Ref,		pmSlaveCan1_g.node),
+	CONNECT(pmClockCan1Mio,		pmSlaveCan1_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveCan1_g.node),
+	CONNECT(pmClockCpuR5,		pmPowerIslandRpu_g.power.node),
+	CONNECT(pmClockCpuR5Core,	pmPowerIslandRpu_g.power.node),
+	CONNECT(pmClockCsuPll,		pmSlavePcap_g.node),
+	CONNECT(pmClockPcap,		pmSlavePcap_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveTtc0_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveTtc1_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveTtc2_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveTtc3_g.node),
+	CONNECT(pmClockNand,		pmSlaveNand_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveNand_g.node),
+	CONNECT(pmClockAdma,		pmSlaveAdma_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveAdma_g.node),
+	CONNECT(pmClockPl0,		pmPowerDomainPld_g.power.node),
+	CONNECT(pmClockPl1,		pmPowerDomainPld_g.power.node),
+	CONNECT(pmClockPl2,		pmPowerDomainPld_g.power.node),
+	CONNECT(pmClockPl3,		pmPowerDomainPld_g.power.node),
+	CONNECT(pmClockI2C0,		pmSlaveI2C0_g.node),
+	CONNECT(pmClockI2C1,		pmSlaveI2C1_g.node),
+	CONNECT(pmClockFpdWdt,		pmSlaveFpdWdt_g.node),
+	CONNECT(pmClockLpdLsBus,	pmSlaveGpio_g.node),
+};
 
 /**
  * PmClockConstructList() - Link clock handles into clock's/node's lists
@@ -1085,22 +2047,7 @@ int PmClockRequest(PmNode* const node)
 		goto done;
 	}
 	while (NULL != ch) {
-		const u32 val = XPfw_Read32(ch->clock->ctrlAddr);
-		const u32 sel = val & PM_CLOCK_MUX_SELECT_MASK;
-
-		ch->clock->pll = PmClockGetParent(ch->clock, sel);
-
-		/* If parent is not a known pll it's the oscillator clock */
-		if (NULL == ch->clock->pll) {
-			ch = ch->nextClock;
-			continue;
-		}
-
-		status = PmPllRequest(ch->clock->pll);
-		if (XST_SUCCESS != status) {
-			goto done;
-		}
-
+		PmClockRequestInt(&ch->clock->base);
 		ch = ch->nextClock;
 	}
 	node->flags |= NODE_LOCKED_CLOCK_FLAG;
@@ -1125,9 +2072,7 @@ void PmClockRelease(PmNode* const node)
 		goto done;
 	}
 	while (NULL != ch) {
-		if (NULL != ch->clock->pll) {
-			PmPllRelease(ch->clock->pll);
-		}
+		PmClockReleaseInt(&ch->clock->base);
 		ch = ch->nextClock;
 	}
 	node->flags &= ~NODE_LOCKED_CLOCK_FLAG;
