@@ -57,6 +57,9 @@
 /* Period of time needed to lock the PLL (to measure) */
 #define PM_PLL_LOCKING_TIME	1U
 
+/* PLL flags */
+#define PM_PLL_REQUESTED	(1 << 0U)
+
 /**
  * PmPllBypassAndReset() - Bypass and reset/power down a PLL
  * @pll Pointer to a Pll to be bypassed/reset
@@ -190,7 +193,7 @@ static void PmPllClearConfig(PmNode* const node)
 {
 	PmPll* pll = (PmPll*)node->derived;
 
-	pll->useCount = 0U;
+	pll->flags = 0U;
 }
 
 /**
@@ -240,7 +243,7 @@ static int PmPllForceDown(PmNode* const node)
 	PmPll* pll = (PmPll*)node->derived;
 
 	if (PM_PLL_STATE_LOCKED == node->currState) {
-		pll->useCount = 0U;
+		pll->flags = 0U;
 		PmPllSuspend(pll);
 	}
 
@@ -281,7 +284,7 @@ static bool PmPllIsUsable(PmNode* const node)
 {
 	PmPll* pll = (PmPll*)node->derived;
 
-	return 0U != pll->useCount;
+	return 0U != (PM_PLL_REQUESTED & pll->flags);
 }
 
 /* Collection of PLL nodes */
@@ -330,7 +333,7 @@ PmPll pmApll_g = {
 	.toCtrlAddr = CRF_APB_APLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
 	.lockMask = CRF_APB_PLL_STATUS_APLL_LOCK_MASK,
-	.useCount = 0U,
+	.flags = 0U,
 };
 
 PmPll pmVpll_g = {
@@ -353,7 +356,7 @@ PmPll pmVpll_g = {
 	.toCtrlAddr = CRF_APB_VPLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
 	.lockMask = CRF_APB_PLL_STATUS_VPLL_LOCK_MASK,
-	.useCount = 0U,
+	.flags = 0U,
 };
 
 PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
@@ -376,7 +379,7 @@ PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
 	.toCtrlAddr = CRF_APB_DPLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
 	.lockMask = CRF_APB_PLL_STATUS_DPLL_LOCK_MASK,
-	.useCount = 0U,
+	.flags = 0U,
 };
 
 PmPll pmRpll_g = {
@@ -399,7 +402,7 @@ PmPll pmRpll_g = {
 	.toCtrlAddr = CRL_APB_RPLL_TO_FPD_CTRL,
 	.statusAddr = CRL_APB_PLL_STATUS,
 	.lockMask = CRL_APB_PLL_STATUS_RPLL_LOCK_MASK,
-	.useCount = 0U,
+	.flags = 0U,
 };
 
 PmPll pmIOpll_g = {
@@ -422,7 +425,7 @@ PmPll pmIOpll_g = {
 	.toCtrlAddr = CRL_APB_IOPLL_TO_FPD_CTRL,
 	.statusAddr = CRL_APB_PLL_STATUS,
 	.lockMask = CRL_APB_PLL_STATUS_IOPLL_LOCK_MASK,
-	.useCount = 0U,
+	.flags = 0U,
 };
 
 /**
@@ -442,8 +445,7 @@ void PmPllRequest(PmPll* const pll)
 			PmErr("Failed to lock %s", pll->node.name);
 		}
 	}
-
-	pll->useCount++;
+	pll->flags |= PM_PLL_REQUESTED;
 }
 
 /**
@@ -452,12 +454,8 @@ void PmPllRequest(PmPll* const pll)
  */
 void PmPllRelease(PmPll* const pll)
 {
-	if (pll->useCount > 0U) {
-		pll->useCount--;
-		if (0U == pll->useCount) {
-			PmPllSuspend(pll);
-		}
-	}
+	pll->flags &= ~PM_PLL_REQUESTED;
+	PmPllSuspend(pll);
 }
 
 #endif

@@ -82,7 +82,7 @@ typedef struct PmPllContext {
  * @toCtrlAddr  Absolute address of cross-domain control register
  * @statusAddr  Address of the PLL's status register
  * @lockMask    Mask of the lock in status register
- * @useCount    The number of clocks currently driven by this PLL
+ * @flags	PLL flags
  */
 typedef struct PmPll {
 	PmNode node;
@@ -91,7 +91,7 @@ typedef struct PmPll {
 	const u32 toCtrlAddr;
 	const u32 statusAddr;
 	const u32 lockMask;
-	u32 useCount;
+	u8 flags;
 } PmPll;
 
 /*********************************************************************
