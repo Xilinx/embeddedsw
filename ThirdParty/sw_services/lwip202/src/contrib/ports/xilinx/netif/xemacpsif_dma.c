@@ -496,6 +496,9 @@ void emacps_recv_handler(void *arg)
 #endif
 			pbuf_realloc(p, rx_bytes);
 
+			/* cache invalidate packet to prevent incoherencies later on */
+			Xil_DCacheInvalidateRange((UINTPTR)p->payload, rx_bytes);
+
 			/* store it in the receive queue,
 			 * where it'll be processed by a different handler
 			 */
