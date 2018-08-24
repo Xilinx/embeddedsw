@@ -131,8 +131,11 @@
 #define PM_FPGA_READ			46U
 #define PM_SECURE_AES			47U
 
+#define PM_PLL_SET_PARAM		48U
+#define PM_PLL_GET_PARAM		49U
+
 #define PM_API_MIN	PM_GET_API_VERSION
-#define PM_API_MAX	PM_SECURE_AES
+#define PM_API_MAX	PM_PLL_GET_PARAM
 
 /* PM API callback ids */
 #define PM_INIT_SUSPEND_CB      30U
@@ -589,5 +592,17 @@
 
 #define PM_CLOCK_DIV0_ID		0U
 #define PM_CLOCK_DIV1_ID		1U
+
+/* PLL parameters */
+#define PM_PLL_PARAM_DIV2		0U
+#define PM_PLL_PARAM_FBDIV		1U
+#define PM_PLL_PARAM_DATA		2U
+#define PM_PLL_PARAM_PRE_SRC		3U
+#define PM_PLL_PARAM_POST_SRC		4U
+#define PM_PLL_PARAM_LOCK_DLY		5U
+#define PM_PLL_PARAM_LOCK_CNT		6U
+#define PM_PLL_PARAM_LFHF		7U
+#define PM_PLL_PARAM_CP			8U
+#define PM_PLL_PARAM_RES		9U
 
 #endif

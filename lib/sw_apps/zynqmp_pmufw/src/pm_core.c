@@ -1539,6 +1539,55 @@ done:
 }
 
 /**
+ * PmPllSetParam() - Set PLL parameter
+ * @master	Master that initiated the call
+ * @pllId	PLL node ID
+ * @paramId	PLL parameter ID
+ * @value	PLL parameter value to set
+ */
+void PmPllSetParam(PmMaster* const master, const u32 pllId, const u32 paramId,
+		   const u32 value)
+{
+	int status = XST_SUCCESS;
+	PmPll* pll = PmNodeGetPll(pllId);
+
+	PmInfo("%s> PllSetParam(%lu, %lu, %lu)\r\n", master->name, pllId,
+	       paramId, value);
+
+	if (NULL == pll) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	status = PmPllSetParameterInt(pll, paramId, value);
+
+done:
+	IPI_RESPONSE1(master->ipiMask, status);
+}
+
+/**
+ * PmPllGetParam() - Get PLL parameter
+ * @master	Master that initiated the call
+ * @pllId	PLL node ID
+ * @paramId	PLL parameter ID
+ */
+void PmPllGetParam(PmMaster* const master, const u32 pllId, const u32 paramId)
+{
+	int status = XST_SUCCESS;
+	PmPll* pll = PmNodeGetPll(pllId);
+	u32 value;
+
+	PmInfo("%s> PllGetParam(%lu, %lu)\r\n", master->name, pllId, paramId);
+	if (NULL == pll) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	status = PmPllGetParameterInt(pll, paramId, &value);
+
+done:
+	IPI_RESPONSE2(master->ipiMask, status, value);
+}
+
+/**
  * PmApiApprovalCheck() - Check if the API ID can be processed at the moment
  * @apiId	PM API ID
  *
@@ -1708,6 +1757,12 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		break;
 	case PM_CLOCK_GETDIVIDER:
 		PmClockGetDivider(master, pload[1], pload[2]);
+		break;
+	case PM_PLL_SET_PARAM:
+		PmPllSetParam(master, pload[1], pload[2], pload[3]);
+		break;
+	case PM_PLL_GET_PARAM:
+		PmPllGetParam(master, pload[1], pload[2]);
 		break;
 	default:
 		PmWarn("Unsupported EEMI API #%lu\r\n", pload[0]);

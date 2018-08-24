@@ -156,6 +156,9 @@ static inline void* PmNodeGetPower(const u32 nodeId) {
 static inline void* PmNodeGetProc(const u32 nodeId) {
 	return PmNodeGetDerived(NODE_CLASS_PROC, nodeId);
 }
+static inline void* PmNodeGetPll(const u32 nodeId) {
+	return PmNodeGetDerived(NODE_CLASS_PLL, nodeId);
+}
 
 void PmNodeUpdateCurrState(PmNode* const node, const PmStateId newState);
 void PmNodeClearConfig(void);
