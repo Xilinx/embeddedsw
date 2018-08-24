@@ -995,7 +995,7 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
 			from processor $proc_name" "" "mdt_error"
 	}
     } else {
-	set intc_periph_type [lindex $intc_periph_type 1]
+	set intc_periph_type [lindex $intc_periph_type [lsearch $intc_periph_type "psu_acpu_gic"]]
     }
 
 	if { [llength $intc_handle] != 1 && $intc_periph_type != [format "psu_acpu_gic"]} {

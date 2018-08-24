@@ -1,5 +1,9 @@
 Change Log for lwip
 =================================
+2018-08-24
+	* Modify update_axi_ethernet_topology func(lwip202.tcl) to derive
+	  interrupt source order programmatically. It fixes build error
+	  due to change in HSI get_connected_intr_cntrl API output.
 2018-03-30
 	* Add AXI 2.5G Ethernet support
 2018-03-29
