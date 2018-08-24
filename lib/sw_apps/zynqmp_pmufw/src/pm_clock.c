@@ -58,6 +58,10 @@
 #define PM_CLOCK_TYPE_GATE25	(1 << 4)	/* bit 25 */
 #define PM_CLOCK_TYPE_GATE26	(1 << 5)	/* bit 26 */
 
+#define PM_CLOCK_TYPE_GATES    (PM_CLOCK_TYPE_GATE24 | \
+				PM_CLOCK_TYPE_GATE25 | \
+				PM_CLOCK_TYPE_GATE26)
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
@@ -67,11 +71,15 @@
  * @initParent	Called during the boot to discover initial mux configuration
  * @getParent	Get mux select of the current clock parent
  * @setParent	Set clock parent (configure clock's mux)
+ * @getGate	Get state of the clock gate
+ * @setGate	Configure gate of this clock (activate or gate the clock)
  */
 typedef struct PmClockCtrlMethods {
 	void (*const initParent)(PmClock* const clock);
 	int (*const getParent)(PmClock* const clock, u32 *const select);
 	int (*const setParent)(PmClock* const clock, const u32 select);
+	int (*const getGate)(PmClock* const clock, u8* const enable);
+	int (*const setGate)(PmClock* const clock, const u8 enable);
 } PmClockCtrlMethods;
 
 /**
@@ -463,10 +471,85 @@ done:
 	return status;
 }
 
+/**
+ * PmClockGateGetShift() - Get gate shift from gate flag
+ * @clk		Generic clock
+ * @shift	Location where the shift should be stored
+ *
+ * @return	Status of getting the gate
+ */
+static int PmClockGateGetShift(const PmClockGen* const clk, u8* const shift)
+{
+	int status = XST_SUCCESS;
+
+	switch (clk->type & PM_CLOCK_TYPE_GATES) {
+	case PM_CLOCK_TYPE_GATE24:
+		*shift = 24;
+		break;
+	case PM_CLOCK_TYPE_GATE25:
+		*shift = 25;
+		break;
+	case PM_CLOCK_TYPE_GATE26:
+		*shift = 26;
+		break;
+	default:
+		status = XST_NO_FEATURE;
+		break;
+	}
+
+	return status;
+}
+
+/**
+ * PmClockGenSetGateState() - Set state of generic clock gate
+ * @clock	Generic clock
+ * @enable	Gate flag to set: 0=disable, 1=enable
+ *
+ * @return	Status of setting the gate state:
+ *		XST_SUCCESS if state is set
+ *		XST_NO_FEATURE if the given clock has no gate
+ */
+static int PmClockGenSetGateState(PmClock* const clock, const u8 enable)
+{
+	u8 shift;
+	PmClockGen* clk = (PmClockGen*)clock->derived;
+	int status = PmClockGateGetShift(clk, &shift);
+
+	if (XST_SUCCESS == status) {
+		XPfw_RMW32(clk->ctrlAddr, 1 << shift, enable << shift);
+	}
+
+	return status;
+}
+
+/**
+ * PmClockGenGetGateState() - Get state of generic clock gate
+ * @clock	Generic clock
+ * @enable	Location where the state should be stored
+ *
+ * @return	Status of getting the gate state:
+ *		XST_SUCCESS if enable location is updated
+ *		XST_NO_FEATURE if the given clock has no gate
+ */
+static int PmClockGenGetGateState(PmClock* const clock, u8* const enable)
+{
+	u8 shift;
+	PmClockGen* clk = (PmClockGen*)clock->derived;
+	int status = PmClockGateGetShift(clk, &shift);
+
+	if (XST_SUCCESS == status) {
+		*enable = (XPfw_Read32(clk->ctrlAddr) >> shift) & 1U;
+	}
+
+	return status;
+}
+
 static PmClockCtrlMethods pmClockGenCtrlMethods = {
 	.initParent = PmClockGenInitParent,
 	.getParent = PmClockGenGetParent,
 	.setParent = PmClockGenSetParent,
+	.getGate = PmClockGenGetGateState,
+	.setGate = PmClockGenSetGateState,
 };
 
 static PmClockClass pmClockClassGen = {
@@ -2330,6 +2413,48 @@ int PmClockMuxGetParent(PmClock* const clock, u32 *const select)
 	}
 
 	status = clock->class->ctrl->getParent(clock, select);
+done:
+	return status;
+}
+
+/**
+ * PmClockGateSetState() - Activate/gate the clock
+ * @clock	Pointer to the clock structure
+ * @enable	1=enable the clock, 0=disable the clock
+ *
+ * @return	XST_SUCCESS if the clock is configured
+ * 		XST_NO_FEATURE if the clock has no gate
+ */
+int PmClockGateSetState(PmClock* const clock, const u8 enable)
+{
+	int status = PmClockCheckForCtrl(clock);
+
+	if (XST_SUCCESS != status || NULL == clock->class->ctrl->setGate) {
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+	status = clock->class->ctrl->setGate(clock, enable);
+done:
+	return status;
+}
+
+/**
+ * PmClockGateGetState() - Get state of the clock gate
+ * @clock	Pointer to the target clock
+ * @enable	Location where the state will be returned
+ *
+ * @return	XST_SUCCESS if the clock state is get/enable location is updated
+ *		XST_NO_FEATURE if the clock has no gate
+ */
+int PmClockGateGetState(PmClock* const clock, u8* const enable)
+{
+	int status = PmClockCheckForCtrl(clock);
+
+	if (XST_SUCCESS != status || NULL == clock->class->ctrl->getGate) {
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+	status = clock->class->ctrl->getGate(clock, enable);
 done:
 	return status;
 }
