@@ -78,7 +78,7 @@ extern INTPTR MMUTableL2;
 /************************** Function Prototypes ******************************/
 /*****************************************************************************/
 /**
-* brief		It sets the memory attributes for a section, in the translation
+* @brief	It sets the memory attributes for a section, in the translation
 * 			table. If the address (defined by Addr) is less than 4GB, the
 *			memory attribute(attrib) is set for a section of 2MB memory. If the
 *			address (defined by Addr) is greater than 4GB, the memory attribute
