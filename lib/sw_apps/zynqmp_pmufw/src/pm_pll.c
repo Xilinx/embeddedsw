@@ -95,12 +95,8 @@ static void PmPllSaveContext(PmPll* const pll)
  */
 static void PmPllRestoreContext(PmPll* const pll)
 {
-	/* Bypass PLL */
-	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_BYPASS_MASK,
-			PM_PLL_CTRL_BYPASS_MASK);
-	/* Assert PLL reset */
-	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
-			PM_PLL_CTRL_RESET_MASK);
+	/* Bypass and reset PLL */
+	PmPllBypassAndReset(pll);
 	/* Restore register values with reset and bypass asserted */
 	XPfw_Write32(pll->addr + PM_PLL_CTRL_OFFSET, pll->context.ctrl |
 			PM_PLL_CTRL_RESET_MASK | PM_PLL_CTRL_BYPASS_MASK);
