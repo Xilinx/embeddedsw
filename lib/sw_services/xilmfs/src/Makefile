@@ -61,6 +61,8 @@ libxil.a: print_msg_fatfs $(MFS_OBJS)
 
 print_msg_fatfs:
 	@echo "Compiling XilMFS Library"
+	@echo ""; echo "XilMFS library is being deprecated from 2019.1. In the subsequent releases, it will be made obsolete."
+	@echo "We recommend you to use XilFFS instead, which is available in Xilinx SDK."; echo ""
 
 .PHONY: include
 include: libxilmfs_includes
