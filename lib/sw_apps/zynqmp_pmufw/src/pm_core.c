@@ -57,7 +57,6 @@
 #endif
 #include "pmu_iomodule.h"
 
-#define AMS_REF_CTRL_REG_OFFSET	0x108
 #define AES_PUF_KEY_SEL_MASK	0x2
 
 #define INVALID_ACK_ARG(a)	((a < REQUEST_ACK_MIN) || (a > REQUEST_ACK_MAX))
@@ -715,12 +714,6 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
 
 	/* no bits to be updated */
 	if (0U == mask) {
-		goto done;
-	}
-
-	/* Do not update AMS_REF_CLOCK register */
-	if ((CRL_APB_BASEADDR + AMS_REF_CTRL_REG_OFFSET) == address) {
-		status = XST_FAILURE;
 		goto done;
 	}
 
