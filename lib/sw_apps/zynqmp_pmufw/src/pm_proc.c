@@ -828,6 +828,24 @@ static bool PmProcIsUsable(PmNode* const node)
 	return usable;
 }
 
+/**
+ * PmProcGetPerms() - Get permissions of masters to control processor clocks
+ * @node	Target processor node
+ *
+ * @return	IPI masks of the processor's master
+ */
+static u32 PmProcGetPerms(const PmNode* const node)
+{
+	const PmProc* proc = (PmProc*)node->derived;
+	u32 perms = 0U;
+
+	if (NULL != proc->master) {
+		perms = proc->master->ipiMask;
+	}
+
+	return perms;
+}
+
 /* Power consumptions for the APU for specific states */
 static u32 PmProcPowerAPU_X[] = {
 	DEFAULT_APU_POWER_OFF,
@@ -1040,6 +1058,7 @@ PmNodeClass pmNodeClassProc_g = {
 	.forceDown = PmProcForceDown,
 	.init = PmProcInit,
 	.isUsable = PmProcIsUsable,
+	.getPerms = PmProcGetPerms,
 };
 
 #endif

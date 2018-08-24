@@ -725,6 +725,36 @@ static bool PmSlaveIsUsable(PmNode* const node)
 	return usable;
 }
 
+/**
+ * PmSlaveGetPerms() - Get permissions of masters to control slave's clocks
+ * @node	Slave node
+ *
+ * @return	ORed masks of permissible masters' IPI masks
+ *
+ * @note	Only masters that have requested the slave are accounted to have
+ *		permissions
+ */
+static u32 PmSlaveGetPerms(const PmNode* const node)
+{
+	PmSlave* slave = (PmSlave*)node->derived;
+	PmRequirement* req = slave->reqs;
+	u32 perms = 0U;
+
+	while (NULL != req) {
+		/* Check if system requirement (used by PMU) */
+		if (NULL == req->master) {
+			perms |= IPI_PMU_0_IER_PMU_0_MASK;
+		} else {
+			if (MASTER_REQUESTED_SLAVE(req)) {
+				perms |= req->master->ipiMask;
+			}
+		}
+		req = req->nextMaster;
+	}
+
+	return perms;
+}
+
 /* Collection of slave nodes */
 static PmNode* pmNodeSlaveBucket[] = {
 	&pmSlaveL2_g.slv.node,
@@ -793,6 +823,7 @@ PmNodeClass pmNodeClassSlave_g = {
 	.forceDown = PmSlaveForceDown,
 	.init = PmSlaveInit,
 	.isUsable = PmSlaveIsUsable,
+	.getPerms = PmSlaveGetPerms,
 };
 
 void PmResetSlaveStates(void)

@@ -124,6 +124,8 @@ typedef struct PmNode {
  * @forceDown		Put node in the lowest power state
  * @init		Initialize the node
  * @isUsable		Check if the node is usable by current configuration
+ * @getPerms		Get permissions (ORed masks of masters allowed to
+ *			control node's clocks)
  * @bucket		Pointer to the array of nodes from the class
  * @bucketSize		Number of nodes in the bucket
  * @id			Nodes' class/type ID
@@ -136,6 +138,7 @@ typedef struct PmNodeClass {
 	int (*const forceDown)(PmNode* const node);
 	int (*const init)(PmNode* const node);
 	bool (*const isUsable)(PmNode* const node);
+	u32 (*const getPerms)(const PmNode* const node);
 	PmNode** const bucket;
 	const u32 bucketSize;
 	const u8 id;
@@ -169,5 +172,7 @@ void PmNodeLogUnknownState(const PmNode* const node, const PmStateId state);
 int PmNodeGetPowerInfo(const PmNode* const node, u32* const data);
 int PmNodeForceDown(PmNode* const node);
 int PmNodeInit(void);
+
+u32 PmNodeGetPermissions(PmNode* const node);
 
 #endif /* PM_NODE_H_ */
