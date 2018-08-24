@@ -1405,6 +1405,10 @@ void PmClockSetParent(PmMaster* const master, const u32 clockId,
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
+	status = PmClockCheckPermission(clock, master->ipiMask);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
 	status = PmClockMuxSetParent(clock, select);
 
 done:
@@ -1449,6 +1453,10 @@ void PmClockGateConfig(PmMaster* const master, const u32 clkId, const u8 enable)
 	clock = PmClockGetById(clkId);
 	if (NULL == clock) {
 		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	status = PmClockCheckPermission(clock, master->ipiMask);
+	if (XST_SUCCESS != status) {
 		goto done;
 	}
 	status = PmClockGateSetState(clock, enable);
@@ -1498,6 +1506,10 @@ void PmClockSetDivider(PmMaster* const master, const u32 clockId,
 	clock = PmClockGetById(clockId);
 	if (NULL == clock || 0U == val || INVALID_DIV_ID(divId)) {
 		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	status = PmClockCheckPermission(clock, master->ipiMask);
+	if (XST_SUCCESS != status) {
 		goto done;
 	}
 	status = PmClockDividerSetVal(clock, divId, val);

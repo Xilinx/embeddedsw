@@ -2835,4 +2835,37 @@ done:
 	return status;
 }
 
+/**
+ * PmClockCheckPermission() - Check permission for master to control the clock
+ * @clock	Pointer to the target clock
+ * @ipiMask	Master's IPI mask
+ *
+ * @return	Status of performing the check:
+ *		XST_SUCCESS the permission is granted
+ *		XST_PM_NO_ACCESS if control is not allowed
+ */
+int PmClockCheckPermission(const PmClock* const clock, const u32 ipiMask)
+{
+	int status = XST_SUCCESS;
+	u32 perms;
+
+	if (NULL == clock || NULL == clock->class ||
+	    NULL == clock->class->getPerms) {
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+	perms = clock->class->getPerms(clock);
+	/*
+	 * Access is not allowed if master is not permissible or the resource
+	 * is shared (multiple masters are permissible)
+	 */
+	if (0U == (perms & ipiMask) || __builtin_popcount(perms) > 1) {
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+
+done:
+	return status;
+}
+
 #endif

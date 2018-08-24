@@ -63,6 +63,7 @@ int PmClockGateSetState(PmClock* const clock, const u8 enable);
 int PmClockGateGetState(PmClock* const clock, u8* const enable);
 int PmClockDividerSetVal(PmClock* const clock, const u32 divId, const u32 val);
 int PmClockDividerGetVal(PmClock* const clock, const u32 divId, u32* const val);
+int PmClockCheckPermission(const PmClock* const clock, const u32 ipiMask);
 
 void PmClockInit(void);
 void PmClockRelease(PmNode* const node);
