@@ -154,60 +154,27 @@ static PmNode* PmNodeGetFromClass(const PmNodeClass* const class, const u8 nid)
 }
 
 /**
- * PmNodeGetSlave() - Get pointer to the slave by node ID
- * @nodeId      ID of the slave node
+ * PmNodeGetDerived() - Get pointer to the derived structure of the node
+ * @nodeClass	Node class
+ * @nodeId      ID of the node
  *
- * @return      Pointer to the slave if found, NULL otherwise
+ * @return      Pointer to the derived node object if found, NULL otherwise
  */
-PmSlave* PmNodeGetSlave(const u32 nodeId)
+void* PmNodeGetDerived(const u8 nodeClass, const u32 nodeId)
 {
-	PmSlave* slave = NULL;
-	PmNodeClass* class = PmNodeGetClassById(NODE_CLASS_SLAVE);
-	PmNode* node = PmNodeGetFromClass(class, nodeId);
+	void* ptr = NULL;
+	PmNode* node;
+	PmNodeClass* class = PmNodeGetClassById(nodeClass);
 
-	if (NULL != node) {
-		slave = (PmSlave*)node->derived;
+	if (NULL != class) {
+		node = PmNodeGetFromClass(class, nodeId);
 	}
 
-	return slave;
-}
-
-/**
- * PmNodeGetPower() - Get pointer to the power by node ID
- * @nodeId      ID of the power node
- *
- * @return      Pointer to the power if found, NULL otherwise
- */
-PmPower* PmNodeGetPower(const u32 nodeId)
-{
-	PmPower* power = NULL;
-	PmNodeClass* class = PmNodeGetClassById(NODE_CLASS_POWER);
-	PmNode* node = PmNodeGetFromClass(class, nodeId);
-
 	if (NULL != node) {
-		power = (PmPower*)node->derived;
+		ptr = node->derived;
 	}
 
-	return power;
-}
-
-/**
- * PmNodeGetProc() - Get pointer to the processor structure by node ID
- * @nodeId      ID of the processor node
- *
- * @return      Pointer to the processor if found, NULL otherwise
- */
-PmProc* PmNodeGetProc(const u32 nodeId)
-{
-	PmProc* proc = NULL;
-	PmNodeClass* class = PmNodeGetClassById(NODE_CLASS_PROC);
-	PmNode* node = PmNodeGetFromClass(class, nodeId);
-
-	if (NULL != node) {
-		proc = (PmProc*)node->derived;
-	}
-
-	return proc;
+	return ptr;
 }
 
 /**

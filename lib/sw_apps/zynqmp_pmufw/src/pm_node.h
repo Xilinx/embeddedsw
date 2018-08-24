@@ -145,9 +145,17 @@ typedef struct PmNodeClass {
  * Function declarations
  ********************************************************************/
 PmNode* PmGetNodeById(const u32 nodeId);
-PmSlave* PmNodeGetSlave(const u32 nodeId);
-PmPower* PmNodeGetPower(const u32 nodeId);
-PmProc* PmNodeGetProc(const u32 nodeId);
+void* PmNodeGetDerived(const u8 nodeClass, const u32 nodeId);
+
+static inline void* PmNodeGetSlave(const u32 nodeId) {
+	return PmNodeGetDerived(NODE_CLASS_SLAVE, nodeId);
+}
+static inline void* PmNodeGetPower(const u32 nodeId) {
+	return PmNodeGetDerived(NODE_CLASS_POWER, nodeId);
+}
+static inline void* PmNodeGetProc(const u32 nodeId) {
+	return PmNodeGetDerived(NODE_CLASS_PROC, nodeId);
+}
 
 void PmNodeUpdateCurrState(PmNode* const node, const PmStateId newState);
 void PmNodeClearConfig(void);
