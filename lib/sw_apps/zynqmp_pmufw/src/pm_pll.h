@@ -53,7 +53,6 @@
  * @ctrl        Control register
  * @cfg         Configuration register
  * @frac        Fractional control register
- * @toCtrl      Control for a cross domain (a divisor)
  *
  * Note: context of the PLL is saved when PM framework suspends a PLL (when
  * no node requires PLL to be locked). It is assumed that all used PLLs get
@@ -64,7 +63,6 @@ typedef struct PmPllContext {
 	u32 ctrl;
 	u32 cfg;
 	u32 frac;
-	u32 toCtrl;
 } PmPllContext;
 
 /**
@@ -76,7 +74,6 @@ typedef struct PmPllContext {
  *              field should be initialized with the PM_PLL_CTRL_RESET_MASK
  *              set, statically or through PCW.
  * @addr        Base address of the PLL's control registers
- * @toCtrlAddr  Absolute address of cross-domain control register
  * @statusAddr  Address of the PLL's status register
  * @lockMask    Mask of the lock in status register
  * @flags	PLL flags
@@ -85,7 +82,6 @@ typedef struct PmPll {
 	PmNode node;
 	PmPllContext context;
 	const u32 addr;
-	const u32 toCtrlAddr;
 	const u32 statusAddr;
 	const u32 lockMask;
 	u8 flags;

@@ -86,7 +86,6 @@ static void PmPllSaveContext(PmPll* const pll)
 	pll->context.ctrl = XPfw_Read32(pll->addr + PM_PLL_CTRL_OFFSET);
 	pll->context.cfg = XPfw_Read32(pll->addr + PM_PLL_CFG_OFFSET);
 	pll->context.frac = XPfw_Read32(pll->addr + PM_PLL_FRAC_OFFSET);
-	pll->context.toCtrl = XPfw_Read32(pll->toCtrlAddr);
 	pll->flags |= PM_PLL_CONTEXT_SAVED;
 }
 
@@ -107,7 +106,6 @@ static void PmPllRestoreContext(PmPll* const pll)
 			PM_PLL_CTRL_RESET_MASK | PM_PLL_CTRL_BYPASS_MASK);
 	XPfw_Write32(pll->addr + PM_PLL_CFG_OFFSET, pll->context.cfg);
 	XPfw_Write32(pll->addr + PM_PLL_FRAC_OFFSET, pll->context.frac);
-	XPfw_Write32(pll->toCtrlAddr, pll->context.toCtrl);
 	pll->flags &= ~PM_PLL_CONTEXT_SAVED;
 }
 
@@ -329,7 +327,6 @@ PmPll pmApll_g = {
 	},
 	.context = { 0U },
 	.addr = CRF_APB_APLL_CTRL,
-	.toCtrlAddr = CRF_APB_APLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
 	.lockMask = CRF_APB_PLL_STATUS_APLL_LOCK_MASK,
 	.flags = 0U,
@@ -350,7 +347,6 @@ PmPll pmVpll_g = {
 	},
 	.context = { 0U },
 	.addr = CRF_APB_VPLL_CTRL,
-	.toCtrlAddr = CRF_APB_VPLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
 	.lockMask = CRF_APB_PLL_STATUS_VPLL_LOCK_MASK,
 	.flags = 0U,
@@ -371,7 +367,6 @@ PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
 	},
 	.context = { 0U },
 	.addr = CRF_APB_DPLL_CTRL,
-	.toCtrlAddr = CRF_APB_DPLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
 	.lockMask = CRF_APB_PLL_STATUS_DPLL_LOCK_MASK,
 	.flags = 0U,
@@ -392,7 +387,6 @@ PmPll pmRpll_g = {
 	},
 	.context = { 0U },
 	.addr = CRL_APB_RPLL_CTRL,
-	.toCtrlAddr = CRL_APB_RPLL_TO_FPD_CTRL,
 	.statusAddr = CRL_APB_PLL_STATUS,
 	.lockMask = CRL_APB_PLL_STATUS_RPLL_LOCK_MASK,
 	.flags = 0U,
@@ -413,7 +407,6 @@ PmPll pmIOpll_g = {
 	},
 	.context = { 0U },
 	.addr = CRL_APB_IOPLL_CTRL,
-	.toCtrlAddr = CRL_APB_IOPLL_TO_FPD_CTRL,
 	.statusAddr = CRL_APB_PLL_STATUS,
 	.lockMask = CRL_APB_PLL_STATUS_IOPLL_LOCK_MASK,
 	.flags = 0U,
