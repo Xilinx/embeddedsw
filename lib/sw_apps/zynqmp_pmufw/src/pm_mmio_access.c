@@ -92,26 +92,6 @@ static const PmAccessRegion pmAccessTable[] = {
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
-
-#if !((STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR) && defined(DEBUG_MODE))
-	{
-		.startAddr = CRL_APB_BASEADDR + 0x74,
-		.endAddr = CRL_APB_BASEADDR + 0x77,
-		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
-					 IPI_PMU_0_IER_RPU_0_MASK |
-					 IPI_PMU_0_IER_RPU_1_MASK),
-	},
-#endif
-
-#if !((STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR) && defined(DEBUG_MODE))
-	{
-		.startAddr = CRL_APB_BASEADDR + 0x78,
-		.endAddr = CRL_APB_BASEADDR + 0x7B,
-		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
-					 IPI_PMU_0_IER_RPU_0_MASK |
-					 IPI_PMU_0_IER_RPU_1_MASK),
-	},
-#endif
 	{
 		.startAddr = CRL_APB_BASEADDR + 0x7C,
 		.endAddr = CRL_APB_BASEADDR + 0x8C,

@@ -2547,6 +2547,16 @@ int PmClockGateSetState(PmClock* const clock, const u8 enable)
 		status = XST_NO_FEATURE;
 		goto done;
 	}
+#if ((STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR) && defined(DEBUG_MODE))
+	if (&pmClockUart0.base == clock) {
+		goto done;
+	}
+#endif
+#if ((STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR) && defined(DEBUG_MODE))
+	if (&pmClockUart1.base == clock) {
+		goto done;
+	}
+#endif
 	status = clock->class->ctrl->setGate(clock, enable);
 done:
 	return status;
