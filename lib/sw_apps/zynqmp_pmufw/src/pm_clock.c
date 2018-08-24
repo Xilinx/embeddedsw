@@ -674,6 +674,34 @@ done:
 	return status;
 }
 
+/**
+ * PmClockGenGetPerms() - Get permissions (which master can control this clock)
+ * @clock	Pointer to a PLL clock
+ *
+ * @return	This function ORed ipi masks of masters that are allowed to
+ *		control this clock
+ */
+static u32 PmClockGenGetPerms(PmClock* const clock)
+{
+	PmClockHandle* ch;
+	PmClockGen* clk = (PmClockGen*)clock->derived;
+	u32 permissions = 0U;
+
+	/* If this is a system clock no one has permission to control it */
+	if (0U != (PM_CLOCK_TYPE_SYSTEM & clk->type)) {
+		goto done;
+	}
+
+	ch = clk->users;
+	while (NULL != ch) {
+		permissions |= PmNodeGetPermissions(ch->node);
+		ch = ch->nextNode;
+	}
+
+done:
+	return permissions;
+}
+
 static PmClockCtrlMethods pmClockGenCtrlMethods = {
 	.initParent = PmClockGenInitParent,
 	.getParent = PmClockGenGetParent,
@@ -687,6 +715,7 @@ static PmClockCtrlMethods pmClockGenCtrlMethods = {
 static PmClockClass pmClockClassGen = {
 	.request = PmClockRequestGen,
 	.release = PmClockReleaseGen,
+	.getPerms = PmClockGenGetPerms,
 	.ctrl = &pmClockGenCtrlMethods,
 };
 
