@@ -347,6 +347,22 @@ static int PmPllInit(PmNode* const node)
 }
 
 /**
+ * PmPllGetPerms() - Get permissions of masters to control clocks of PLLs
+ * @node	Target PLL node
+ *
+ * @return	ORed IPI masks of masters allowed to directly control the PLL
+ *
+ * @note	Permissions to control clocks of PLLs is equivalent to
+ *		permissions to directly configure the PLL.
+ */
+static u32 PmPllGetPerms(const PmNode* const node)
+{
+	const PmPll* pll = (PmPll*)node->derived;
+
+	return pll->perms;
+}
+
+/**
  * PmPllIsUsable() - Check if the PLL is used according to the set configuration
  * @node	PLL node
  *
@@ -378,6 +394,7 @@ PmNodeClass pmNodeClassPll_g = {
 	.forceDown = PmPllForceDown,
 	.init = PmPllInit,
 	.isUsable = PmPllIsUsable,
+	.getPerms = PmPllGetPerms,
 };
 
 static u32 PmStdPllPowers[] = {
@@ -401,6 +418,7 @@ PmPll pmApll_g = {
 	.context = { 0U },
 	.addr = CRF_APB_APLL_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
+	.perms = 0U,
 	.lockShift = CRF_APB_PLL_STATUS_APLL_LOCK_SHIFT,
 	.flags = 0U,
 };
@@ -421,6 +439,7 @@ PmPll pmVpll_g = {
 	.context = { 0U },
 	.addr = CRF_APB_VPLL_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
+	.perms = 0U,
 	.lockShift = CRF_APB_PLL_STATUS_VPLL_LOCK_SHIFT,
 	.flags = 0U,
 };
@@ -441,6 +460,7 @@ PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
 	.context = { 0U },
 	.addr = CRF_APB_DPLL_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
+	.perms = 0U,
 	.lockShift = CRF_APB_PLL_STATUS_DPLL_LOCK_SHIFT,
 	.flags = 0U,
 };
@@ -461,6 +481,7 @@ PmPll pmRpll_g = {
 	.context = { 0U },
 	.addr = CRL_APB_RPLL_CTRL,
 	.statusAddr = CRL_APB_PLL_STATUS,
+	.perms = 0U,
 	.lockShift = CRL_APB_PLL_STATUS_RPLL_LOCK_SHIFT,
 	.flags = 0U,
 };
@@ -481,6 +502,7 @@ PmPll pmIOpll_g = {
 	.context = { 0U },
 	.addr = CRL_APB_IOPLL_CTRL,
 	.statusAddr = CRL_APB_PLL_STATUS,
+	.perms = 0U,
 	.lockShift = CRL_APB_PLL_STATUS_IOPLL_LOCK_SHIFT,
 	.flags = 0U,
 };

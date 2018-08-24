@@ -75,6 +75,7 @@ typedef struct PmPllContext {
  *              set, statically or through PCW.
  * @addr        Base address of the PLL's control registers
  * @statusAddr  Address of the PLL's status register
+ * @perms	Permissions to directly control the PLL
  * @lockShift	Shift of the lock status bit in status register
  * @flags	PLL flags
  */
@@ -83,6 +84,7 @@ typedef struct PmPll {
 	PmPllContext context;
 	const u32 addr;
 	const u32 statusAddr;
+	u32 perms;
 	const u8 lockShift;
 	u8 flags;
 } PmPll;

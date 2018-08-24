@@ -1313,6 +1313,45 @@ done:
 	return usable;
 }
 
+/**
+ * PmPowerGetPerms() - Get permissions to control node's clocks
+ * @powerNode	Power node
+ *
+ * @return	ORed IPI masks of permissible masters
+ *
+ * @note	Permissions are determined based on permissions to do the same
+ *		for non-power children nodes of the target power node. If at
+ *		least one child's clocks no one has permission to control, this
+ *		stands for the power parent (this node) as well.
+ */
+static u32 PmPowerGetPerms(const PmNode* const powerNode)
+{
+	const PmNode* node;
+	u32 perms = 0U;
+	u32 node_perms;
+
+	PmPowerDfsBegin((PmPower*)powerNode->derived);
+	node = PmPowerDfsGetNext();
+	while (NULL != node) {
+		if (!NODE_IS_POWER(node)) {
+			if (NULL == node->class->getPerms) {
+				perms = 0U;
+				goto done;
+			}
+			node_perms = node->class->getPerms(node);
+			if (0U == node_perms) {
+				perms = 0U;
+				goto done;
+			}
+			perms |= node_perms;
+		}
+		node = PmPowerDfsGetNext();
+	}
+
+done:
+	return perms;
+}
+
 /* Collection of power nodes */
 static PmNode* pmNodePowerBucket[] = {
 	&pmPowerIslandApu_g.node,
@@ -1332,6 +1371,7 @@ PmNodeClass pmNodeClassPower_g = {
 	.forceDown = PmPowerForceDown,
 	.init = PmPowerInit,
 	.isUsable = PmPowerIsUsable,
+	.getPerms = PmPowerGetPerms,
 };
 
 #endif

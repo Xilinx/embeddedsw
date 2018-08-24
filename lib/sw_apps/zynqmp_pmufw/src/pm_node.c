@@ -302,4 +302,24 @@ void PmNodeLogUnknownState(const PmNode* const node, const PmStateId state)
 {
 	PmErr("Unknown %s state #%u\r\n", node->name, state);
 }
+
+/**
+ * PmNodeGetPermissions() - Get permissions of masters to control node's clocks
+ * @node	Target node
+ *
+ * @return	Zero if no master has permission or node class does not
+ *		implement get permissions method. ORed ipi masks of masters
+ *		that have permissions otherwise.
+ */
+u32 PmNodeGetPermissions(PmNode* const node)
+{
+	u32 perms = 0U;
+
+	if (NULL != node->class->getPerms) {
+		perms = node->class->getPerms(node);
+	}
+
+	return perms;
+}
+
 #endif

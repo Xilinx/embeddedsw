@@ -57,6 +57,12 @@ extern u32 IpiMaskList[XPFW_IPI_MASK_COUNT];
 #define IPI_PMU_0_IER_RPU_1_MASK 0U
 #endif
 
+#ifdef XPAR_XIPIPS_TARGET_PSU_PMU_0_CH0_MASK
+#define IPI_PMU_0_IER_PMU_0_MASK XPAR_XIPIPS_TARGET_PSU_PMU_0_CH0_MASK
+#else
+#define IPI_PMU_0_IER_PMU_0_MASK 0U
+#endif
+
 /**
  * Initialize the IPI driver instance
  * This should be called in the core init
