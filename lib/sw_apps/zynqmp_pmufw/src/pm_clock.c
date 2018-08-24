@@ -126,6 +126,20 @@ typedef struct PmClockPll {
 } PmClockPll;
 
 /**
+ * PmClockCrossDom - Clock structure for PLL cross-domain clocks
+ * @base	Base clock structure
+ * @parent	Pointer to the parent that drives this clock
+ * @ctrlAddr	Address of the control register of the clock
+ * @useCount	Number of requests towards this clock
+ */
+typedef struct PmClockCrossDom {
+	PmClock base;
+	PmClockPll* parent;
+	const u32 ctrlAddr;
+	u8 useCount;
+} PmClockCrossDom;
+
+/**
  * PmClockSel2ClkIn - Pair of multiplexer select value and selected clock input
  * @clkIn	Pointer to input clock that is selected with the 'select' value
  * @select	Select value of the clock multiplexer
@@ -656,63 +670,164 @@ static PmClockClass pmClockClassGen = {
 	.ctrl = &pmClockGenCtrlMethods,
 };
 
-static PmClockGen pmClockIOpllToFpd = {
+
+/******************************************************************************/
+/* Pll output cross domain clock models */
+/**
+ * PmClockRequestCrossDom() - Request clock method for cross-domain clocks
+ * @clock	Pointer to a cross-domain clock
+ *
+ * @return	Pointer to the parent clock
+ */
+static PmClock* PmClockRequestCrossDom(PmClock* const clock)
+{
+	PmClockCrossDom* clk = (PmClockCrossDom*)clock->derived;
+	PmClock* parent = NULL;
+
+	if (0U == clk->useCount++) {
+		parent = &clk->parent->base;
+	}
+
+	return parent;
+}
+
+/**
+ * PmClockReleaseCrossDom() - Release clock method for cross-domain clocks
+ * @clock	Pointer to a cross-domain clock
+ *
+ * @return	Pointer to the parent clock
+ */
+static PmClock* PmClockReleaseCrossDom(PmClock* const clock)
+{
+	PmClockCrossDom* clk = (PmClockCrossDom*)clock->derived;
+	PmClock* parent = NULL;
+
+	if (0U == --clk->useCount) {
+		parent = &clk->parent->base;
+	}
+
+	return parent;
+}
+
+/**
+ * PmClockCrossDomSetDivider() - Cross-domain clock method to set clock divider
+ * @clock	Target clock
+ * @divId	Identifier of the divider to be set
+ * @val		Divider value to be set
+ *
+ * @return	Status of setting the divider:
+ *		XST_SUCCESS the divider is configured as requested
+ *		XST_NO_FEATURE if clock has no divider
+ *		XST_INVALID_PARAM the requested value is out of physically
+ *		configurable divider's scope
+ */
+static int PmClockCrossDomSetDivider(PmClock* const clock, const u32 divId,
+				     const u32 val)
+{
+	int status = XST_SUCCESS;
+	PmClockCrossDom* clk = (PmClockCrossDom*)clock->derived;
+
+	if (PM_CLOCK_DIV0_ID != divId) {
+		/* Cross-domain clocks have only one divisor */
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+	if (val > PM_DIV_MASK) {
+		/* Given div value is out of scope */
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	XPfw_RMW32(clk->ctrlAddr, PM_DIV_MASK << PM_DIV0_SHIFT,
+		   val << PM_DIV0_SHIFT);
+
+done:
+	return status;
+}
+
+/**
+ * PmClockCrossDomGetDivider() - Cross-domain clock method to get clock divider
+ * @clock	Target clock
+ * @divId	Identifier of the divider whose value should be get
+ * @val		Location where the divider value needs to be stored
+ *
+ * @return	Status of getting the divider:
+ *		XST_SUCCESS the divider value is stored in 'div' location
+ *		XST_NO_FEATURE if clock has no divider
+ */
+static int PmClockCrossDomGetDivider(PmClock* const clock, const u32 divId,
+				     u32* const val)
+{
+	int status = XST_SUCCESS;
+	PmClockCrossDom* clk = (PmClockCrossDom*)clock->derived;
+
+	if (PM_CLOCK_DIV0_ID != divId) {
+		/* Cross-domain clocks have only one divisor */
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+	*val = (XPfw_Read32(clk->ctrlAddr) >> PM_DIV0_SHIFT) & PM_DIV_MASK;
+
+done:
+	return status;
+}
+
+static PmClockCtrlMethods pmClockCrossDomCtrlMethods = {
+	.initParent = NULL,
+	.getParent = NULL,
+	.setParent = NULL,
+	.getGate = NULL,
+	.setGate = NULL,
+	.getDivider = PmClockCrossDomGetDivider,
+	.setDivider = PmClockCrossDomSetDivider,
+};
+
+static PmClockClass pmClockClassCrossDom = {
+	.request = PmClockRequestCrossDom,
+	.release = PmClockReleaseCrossDom,
+	.ctrl = &pmClockCrossDomCtrlMethods,
+};
+
+static PmClockCrossDom pmClockIOpllToFpd = {
 	.base = {
 		.derived = &pmClockIOpllToFpd,
-		.class = &pmClockClassGen,
+		.class = &pmClockClassCrossDom,
 		.id = PM_CLOCK_IOPLL_TO_FPD,
 	},
-	.parent = &pmClockIOpll.base,
-	.users = NULL,
-	.mux = NULL,
+	.parent = &pmClockIOpll,
 	.ctrlAddr = CRL_APB_IOPLL_TO_FPD_CTRL,
-	.ctrlVal = 0U,
-	.type = PM_CLOCK_TYPE_DIV0,
 	.useCount = 0U,
 };
 
-static PmClockGen pmClockRpllToFpd = {
+static PmClockCrossDom pmClockRpllToFpd = {
 	.base = {
 		.derived = &pmClockRpllToFpd,
-		.class = &pmClockClassGen,
+		.class = &pmClockClassCrossDom,
 		.id = PM_CLOCK_RPLL_TO_FPD,
 	},
-	.parent = &pmClockRpll.base,
-	.users = NULL,
-	.mux = NULL,
+	.parent = &pmClockRpll,
 	.ctrlAddr = CRL_APB_RPLL_TO_FPD_CTRL,
-	.ctrlVal = 0U,
-	.type = PM_CLOCK_TYPE_DIV0,
 	.useCount = 0U,
 };
 
-static PmClockGen pmClockDpllToLpd = {
+static PmClockCrossDom pmClockDpllToLpd = {
 	.base = {
 		.derived = &pmClockDpllToLpd,
-		.class = &pmClockClassGen,
+		.class = &pmClockClassCrossDom,
 		.id = PM_CLOCK_DPLL_TO_LPD,
 	},
-	.parent = &pmClockDpll.base,
-	.users = NULL,
-	.mux = NULL,
+	.parent = &pmClockDpll,
 	.ctrlAddr = CRF_APB_DPLL_TO_LPD_CTRL,
-	.ctrlVal = 0U,
-	.type = PM_CLOCK_TYPE_DIV0,
 	.useCount = 0U,
 };
 
-static PmClockGen pmClockVpllToLpd = {
+static PmClockCrossDom pmClockVpllToLpd = {
 	.base = {
 		.derived = &pmClockVpllToLpd,
-		.class = &pmClockClassGen,
+		.class = &pmClockClassCrossDom,
 		.id = PM_CLOCK_VPLL_TO_LPD,
 	},
-	.parent = &pmClockVpll.base,
-	.users = NULL,
-	.mux = NULL,
+	.parent = &pmClockVpll,
 	.ctrlAddr = CRF_APB_VPLL_TO_LPD_CTRL,
-	.ctrlVal = 0U,
-	.type = PM_CLOCK_TYPE_DIV0,
 	.useCount = 0U,
 };
 
