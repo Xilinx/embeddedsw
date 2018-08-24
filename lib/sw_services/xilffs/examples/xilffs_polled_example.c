@@ -155,6 +155,7 @@ int FfsSdPolledExample(void)
 	UINT NumBytesRead;
 	UINT NumBytesWritten;
 	u32 BuffCnt;
+	BYTE work[FF_MAX_SS];
 #ifdef __ICCARM__
 	u32 FileSize = (8*1024);
 #else
@@ -184,7 +185,7 @@ int FfsSdPolledExample(void)
 	 * Path - Path to logical driver, 0 - FDISK format.
 	 * 0 - Cluster size is automatically determined based on Vol size.
 	 */
-	Res = f_mkfs(Path, 0, 0);
+	Res = f_mkfs(Path, FM_FAT32, 0, work, sizeof work);
 	if (Res != FR_OK) {
 		return XST_FAILURE;
 	}
