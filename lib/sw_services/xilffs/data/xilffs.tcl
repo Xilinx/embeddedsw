@@ -107,6 +107,7 @@ proc xgen_opts_file {libhandle} {
 	puts $file_handle "/* Xilinx FAT File System Library (XilFFs) User Settings */"
 	set fs_interface [common::get_property CONFIG.fs_interface $libhandle]
 	set read_only [common::get_property CONFIG.read_only $libhandle]
+	set enable_exfat [common::get_property CONFIG.enable_exfat $libhandle]
 	set use_lfn [common::get_property CONFIG.use_lfn $libhandle]
 	set use_mkfs [common::get_property CONFIG.use_mkfs $libhandle]
 	set enable_multi_partition [common::get_property CONFIG.enable_multi_partition $libhandle]
@@ -158,6 +159,10 @@ proc xgen_opts_file {libhandle} {
 	if {$fs_interface == 1 || $fs_interface == 2} {
 		if {$read_only == true} {
 			puts $file_handle "\#define FILE_SYSTEM_READ_ONLY"
+		}
+		if {$enable_exfat == true} {
+			puts $file_handle "\#define FILE_SYSTEM_FS_EXFAT"
+			set use_lfn true
 		}
 		if {$use_lfn == true} {
 			puts $file_handle "\#define FILE_SYSTEM_USE_LFN"
