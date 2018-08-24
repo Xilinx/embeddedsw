@@ -92,6 +92,9 @@
  * 	               macro is also defined
  *	- ENABLE_POS : Enables Power Off Suspend feature
  *	- ENABLE_DDR_SR_WR : Enables DDR self refresh over warm restart feature
+ *	- DISABLE_CLK_PERMS : Disable clock permission checking (it is not safe
+ *			to ever disable clock permission checking). Do this at
+ *			your own responsibility.
  *
  * 	These macros are specific to ZCU100 design where it uses GPO1[2] as a
  * 	board power line and
@@ -122,6 +125,7 @@
 #define	DEBUG_MODE_VAL					(0U)
 #define	ENABLE_POS_VAL					(0U)
 #define	ENABLE_DDR_SR_WR_VAL				(0U)
+#define DISABLE_CLK_PERMS_VAL				(0U)
 
 #define	PMU_MIO_INPUT_PIN_VAL			(0U)
 #define	BOARD_SHUTDOWN_PIN_VAL			(0U)
@@ -201,6 +205,10 @@
 
 #if ENABLE_DDR_SR_WR_VAL
 #define ENABLE_DDR_SR_WR
+#endif
+
+#if DISABLE_CLK_PERMS_VAL
+#define DISABLE_CLK_PERMS
 #endif
 
 #if PMU_MIO_INPUT_PIN_VAL

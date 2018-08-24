@@ -1405,10 +1405,12 @@ void PmClockSetParent(PmMaster* const master, const u32 clockId,
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
+#ifndef DISABLE_CLK_PERMS
 	status = PmClockCheckPermission(clock, master->ipiMask);
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+#endif
 	status = PmClockMuxSetParent(clock, select);
 
 done:
@@ -1455,10 +1457,12 @@ void PmClockGateConfig(PmMaster* const master, const u32 clkId, const u8 enable)
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
+#ifndef DISABLE_CLK_PERMS
 	status = PmClockCheckPermission(clock, master->ipiMask);
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+#endif
 	status = PmClockGateSetState(clock, enable);
 
 done:
@@ -1508,10 +1512,12 @@ void PmClockSetDivider(PmMaster* const master, const u32 clockId,
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
+#ifndef DISABLE_CLK_PERMS
 	status = PmClockCheckPermission(clock, master->ipiMask);
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+#endif
 	status = PmClockDividerSetVal(clock, divId, val);
 
 done:
@@ -1563,10 +1569,12 @@ void PmPllSetParam(PmMaster* const master, const u32 pllId, const u32 paramId,
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
+#ifndef DISABLE_CLK_PERMS
 	if (0U == (master->ipiMask & PmPllGetPermissions(pll))) {
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
+#endif
 	status = PmPllSetParameterInt(pll, paramId, value);
 
 done:
@@ -1613,10 +1621,12 @@ void PmPllSetMode(PmMaster* const master, const u32 pllId, const u32 mode)
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
+#ifndef DISABLE_CLK_PERMS
 	if (0U == (master->ipiMask & PmPllGetPermissions(pll))) {
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
+#endif
 	status = PmPllSetModeInt(pll, mode);
 
 done:
