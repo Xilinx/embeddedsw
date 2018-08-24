@@ -428,29 +428,26 @@ PmPll pmIOpll_g = {
 /**
  * PmPllRequest() - Request the PLL
  * @pll		The requested PLL
- * @return	XST_SUCCESS if the request is processed ok, else XST_FAILURE
- *
  * @note	If the requested PLL is not locked and if it was never locked
  *		before, the PM framework will not lock it because the frequency
  *		related aspects are not handled by the PM framework. The PM
  *		framework only saves/restores the context of PLLs.
  */
-int PmPllRequest(PmPll* const pll)
+void PmPllRequest(PmPll* const pll)
 {
-	int status = XST_SUCCESS;
-
 	/* If the PLL is suspended it needs to be resumed first */
 	if (true == pll->context.saved) {
-		status = PmPllResume(pll);
+		int status = PmPllResume(pll);
+		if (XST_SUCCESS != status) {
+			PmErr("Failed to lock %s", pll->node.name);
+		}
 	}
 
 	pll->useCount++;
-
-	return status;
 }
 
 /**
- * PmPllRequest() - Release the PLL (if PLL becomes unused, it will be reset)
+ * PmPllRelease() - Release the PLL (PLL will be suspended)
  * @pll		The released PLL
  */
 void PmPllRelease(PmPll* const pll)
