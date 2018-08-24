@@ -1588,6 +1588,53 @@ done:
 }
 
 /**
+ * PmPllSetMode() - Set PLL mode
+ * @master	Master that initiated the call
+ * @pllId	PLL node ID
+ * @mode	PLL mode to set
+ */
+void PmPllSetMode(PmMaster* const master, const u32 pllId, const u32 mode)
+{
+	int status = XST_SUCCESS;
+	PmPll* pll = PmNodeGetPll(pllId);
+
+	PmInfo("%s> PllSetMode(%lu, %lu, %lu)\r\n", master->name, pllId, mode);
+
+	if (NULL == pll) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	status = PmPllSetModeInt(pll, mode);
+
+done:
+	IPI_RESPONSE1(master->ipiMask, status);
+}
+
+/**
+ * PmPllGetMode() - Get PLL mode
+ * @master	Master that initiated the call
+ * @pllId	PLL node ID
+ * @mode	PLL mode
+ */
+void PmPllGetMode(PmMaster* const master, const u32 pllId)
+{
+	int status = XST_SUCCESS;
+	PmPll* pll = PmNodeGetPll(pllId);
+	u32 mode;
+
+	PmInfo("%s> PllGetMode(%lu)\r\n", master->name, pllId);
+	if (NULL == pll) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	mode = PmPllGetModeInt(pll);
+
+done:
+	IPI_RESPONSE2(master->ipiMask, status, mode);
+}
+
+
+/**
  * PmApiApprovalCheck() - Check if the API ID can be processed at the moment
  * @apiId	PM API ID
  *
@@ -1763,6 +1810,12 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		break;
 	case PM_PLL_GET_PARAM:
 		PmPllGetParam(master, pload[1], pload[2]);
+		break;
+	case PM_PLL_SET_MODE:
+		PmPllSetMode(master, pload[1], pload[2]);
+		break;
+	case PM_PLL_GET_MODE:
+		PmPllGetMode(master, pload[1]);
 		break;
 	default:
 		PmWarn("Unsupported EEMI API #%lu\r\n", pload[0]);
