@@ -711,7 +711,6 @@ done:
 static void PmMmioWrite(const PmMaster *const master, const u32 address,
 			const u32 mask, u32 value)
 {
-	u32 data;
 	int status = XST_SUCCESS;
 
 	/* no bits to be updated */
@@ -732,19 +731,7 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
 		goto done;
 	}
 
-	/* replace whole word */
-	if (0xffffffffU == mask) {
-		goto do_write;
-	}
-
-	/* read-modify-write */
-	data = XPfw_Read32(address);
-	data &= ~mask;
-	value &= mask;
-	value |= data;
-
-do_write:
-	XPfw_Write32(address, value);
+	XPfw_RMW32(address, mask, value);
 
 done:
 	IPI_RESPONSE1(master->ipiMask, status);
