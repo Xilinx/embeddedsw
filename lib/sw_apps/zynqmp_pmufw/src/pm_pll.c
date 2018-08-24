@@ -678,4 +678,14 @@ u32 PmPllGetModeInt(PmPll* const pll)
 	return mode;
 }
 
+/**
+ * PmPllOpenAccess() - Allow direct access to the master with given IPI mask
+ * @pll		Target PLL
+ * @ipiMask	IPI mask of the master that will be allowed to directly control
+ *		the target PLL
+ */
+void PmPllOpenAccess(PmPll* const pll, u32 ipiMask) {
+	pll->perms = ipiMask;
+};
+
 #endif

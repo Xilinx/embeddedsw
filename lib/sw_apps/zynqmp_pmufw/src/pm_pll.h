@@ -105,6 +105,7 @@ extern PmNodeClass pmNodeClassPll_g;
  ********************************************************************/
 void PmPllRequest(PmPll* const pll);
 void PmPllRelease(PmPll* const pll);
+void PmPllOpenAccess(PmPll* const pll, u32 ipiMask);
 
 int PmPllSetModeInt(PmPll* const pll, const u32 mode);
 int PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val);
