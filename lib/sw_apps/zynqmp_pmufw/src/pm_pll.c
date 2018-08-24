@@ -61,6 +61,65 @@
 #define PM_PLL_REQUESTED	(1 << 0U)
 #define PM_PLL_CONTEXT_SAVED	(1 << 1U)
 
+typedef struct PmPllParam {
+	u8 regOffset;
+	u8 shift;
+	u8 bits;
+} PmPllParam;
+
+static PmPllParam pllParams[] = {
+	[PM_PLL_PARAM_DIV2] = {
+		.regOffset = PM_PLL_CTRL_OFFSET,
+		.shift = 16U,
+		.bits = 1U,
+	},
+	[PM_PLL_PARAM_FBDIV] = {
+		.regOffset = PM_PLL_CTRL_OFFSET,
+		.shift = 8U,
+		.bits = 7U,
+	},
+	[PM_PLL_PARAM_DATA] = {
+		.regOffset = PM_PLL_FRAC_OFFSET,
+		.shift = 0U,
+		.bits = 16U,
+	},
+	[PM_PLL_PARAM_PRE_SRC] = {
+		.regOffset = PM_PLL_CTRL_OFFSET,
+		.shift = 20U,
+		.bits = 3U,
+	},
+	[PM_PLL_PARAM_POST_SRC] = {
+		.regOffset = PM_PLL_CTRL_OFFSET,
+		.shift = 24U,
+		.bits = 3U,
+	},
+	[PM_PLL_PARAM_LOCK_DLY] = {
+		.regOffset = PM_PLL_CFG_OFFSET,
+		.shift = 25U,
+		.bits = 7U,
+	},
+	[PM_PLL_PARAM_LOCK_CNT] = {
+		.regOffset = PM_PLL_CFG_OFFSET,
+		.shift = 13U,
+		.bits = 10U,
+	},
+	[PM_PLL_PARAM_LFHF] = {
+		.regOffset = PM_PLL_CFG_OFFSET,
+		.shift = 10U,
+		.bits = 3U,
+	},
+	[PM_PLL_PARAM_CP] = {
+		.regOffset = PM_PLL_CFG_OFFSET,
+		.shift = 5U,
+		.bits = 4U,
+	},
+	[PM_PLL_PARAM_RES] = {
+		.regOffset = PM_PLL_CFG_OFFSET,
+		.shift = 0U,
+		.bits = 4U,
+	},
+};
+
 /**
  * PmPllBypassAndReset() - Bypass and reset/power down a PLL
  * @pll Pointer to a Pll to be bypassed/reset
@@ -436,6 +495,66 @@ void PmPllRelease(PmPll* const pll)
 {
 	pll->flags &= ~PM_PLL_REQUESTED;
 	PmPllSuspend(pll);
+}
+
+/**
+ * PmPllSetParameterInt() - Set PLL parameter
+ * @pll		PLL whose parameter should be set
+ * @paramId	Parameter ID
+ * @val		Parameter value to be set
+ *
+ * @return	Status of setting the parameter:
+ *		XST_INVALID_PARAM if one of the given arguments is invalid
+ *		XST_SUCCESS if parameter is set
+ */
+int PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val)
+{
+	int status = XST_INVALID_PARAM;
+	PmPllParam* p;
+
+	if (paramId >= ARRAY_SIZE(pllParams)) {
+		goto done;
+	}
+
+	p = &pllParams[paramId];
+	if (val > MASK_OF_BITS(p->bits)) {
+		goto done;
+	}
+
+	XPfw_RMW32(pll->addr + p->regOffset, MASK_OF_BITS(p->bits) << p->shift,
+		   val << p->shift);
+	status = XST_SUCCESS;
+
+done:
+	return status;
+}
+
+/**
+ * PmPllGetParameterInt() - Get the PLL parameter value
+ * @pll		PLL whose parameter should be get
+ * @paramId	Parameter ID
+ * @val		Location to store parameter value
+ *
+ * @return	Status of setting the parameter:
+ *		XST_INVALID_PARAM if one of the given arguments is invalid
+ *		XST_SUCCESS if parameter is set
+ */
+int PmPllGetParameterInt(PmPll* const pll, const u32 paramId, u32* const val)
+{
+	int status = XST_SUCCESS;
+	PmPllParam* p;
+
+	if (paramId >= ARRAY_SIZE(pllParams)) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	p = &pllParams[paramId];
+	*val = XPfw_Read32(pll->addr + p->regOffset) >> p->shift;
+	*val &= MASK_OF_BITS(p->bits);
+
+done:
+	return status;
 }
 
 #endif
