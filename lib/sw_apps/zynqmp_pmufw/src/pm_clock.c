@@ -31,6 +31,7 @@
 #include "pm_usb.h"
 #include "pm_periph.h"
 #include "pm_ddr.h"
+#include "pm_pll.h"
 #include "crf_apb.h"
 #include "crl_apb.h"
 #include "afi.h"
@@ -101,6 +102,7 @@ typedef struct PmClockCtrlMethods {
  * @request	Pointer to the function that is used to request clock
  * @release	Pointer to the function that is used to release clock
  * @ctrl	Pointer to struct that encapsulates other clock specific methods
+ * @getPerms	Get permissions (which master can control this clock)
  *
  * @note	A class of clocks for which the maintenance of use count is
  * important must implement request/release methods. Other clock control
@@ -111,6 +113,7 @@ typedef struct PmClockCtrlMethods {
 typedef struct PmClockClass {
 	PmClock* (*const request)(PmClock* const clock);
 	PmClock* (*const release)(PmClock* const clock);
+	u32 (*const getPerms)(PmClock* const clock);
 	const PmClockCtrlMethods* const ctrl;
 } PmClockClass;
 
@@ -282,9 +285,24 @@ static PmClock* PmClockReleasePll(PmClock* const clock)
 	return NULL;
 }
 
+/**
+ * PmClockGetPllPerms() - Get permissions (which master can control this clock)
+ * @clock	Pointer to a PLL clock
+ *
+ * @return	This function ORed ipi masks of masters that are allowed to
+ *		control this clock
+ */
+static u32 PmClockGetPllPerms(PmClock* const clock)
+{
+	PmClockPll* pclk = (PmClockPll*)clock->derived;
+
+	return PmPllGetPermissions(pclk->pll);
+}
+
 static PmClockClass pmClockClassPll = {
 	.request = PmClockRequestPll,
 	.release = PmClockReleasePll,
+	.getPerms = PmClockGetPllPerms,
 	.ctrl = NULL,
 };
 
@@ -773,6 +791,28 @@ done:
 	return status;
 }
 
+/**
+ * PmClockCrossDomGetPerms() - Get permissions (which master can control clock)
+ * @clock	Pointer to a cross-domain clock
+ *
+ * @return	This function ORed ipi masks of masters that are allowed to
+ *		control this clock
+ */
+static u32 PmClockCrossDomGetPerms(PmClock* const clock)
+{
+	PmClockCrossDom* clk = (PmClockCrossDom*)clock->derived;
+	u32 permissions = 0U;
+
+	/* Inherit permissions from PLL output clock (parent) */
+	if (NULL != clk->parent->base.class &&
+	    NULL != clk->parent->base.class->getPerms) {
+		permissions =
+		clk->parent->base.class->getPerms(&clk->parent->base);
+	}
+
+	return permissions;
+}
+
 static PmClockCtrlMethods pmClockCrossDomCtrlMethods = {
 	.initParent = NULL,
 	.getParent = NULL,
@@ -786,6 +826,7 @@ static PmClockCtrlMethods pmClockCrossDomCtrlMethods = {
 static PmClockClass pmClockClassCrossDom = {
 	.request = PmClockRequestCrossDom,
 	.release = PmClockReleaseCrossDom,
+	.getPerms = PmClockCrossDomGetPerms,
 	.ctrl = &pmClockCrossDomCtrlMethods,
 };
 
