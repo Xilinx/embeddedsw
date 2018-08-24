@@ -57,6 +57,7 @@
 #define PM_CLOCK_TYPE_GATE24	(1 << 3)	/* bit 24 */
 #define PM_CLOCK_TYPE_GATE25	(1 << 4)	/* bit 25 */
 #define PM_CLOCK_TYPE_GATE26	(1 << 5)	/* bit 26 */
+#define PM_CLOCK_TYPE_SYSTEM	(1 << 6)	/* system level clock */
 
 #define PM_CLOCK_TYPE_GATES    (PM_CLOCK_TYPE_GATE24 | \
 				PM_CLOCK_TYPE_GATE25 | \
@@ -171,7 +172,8 @@ typedef struct {
  * @mux		Mux model for this clock (models possible parents and selects)
  * @ctrlAddr	Address of the control register of the clock
  * @ctrlVal	Value of control register found at boot
- * @type	Type of the clock (specifies available dividers and gate)
+ * @type	Type of the clock (specifies available dividers and gate, and
+ *		whether it's the system clock)
  * @useCount	Number of requests towards this clock
  */
 typedef struct PmClockGen {
@@ -1142,7 +1144,8 @@ static PmClockGen pmClockDbgTrace = {
 	.mux = &iodaMux,
 	.ctrlAddr = CRF_APB_DBG_TRACE_CTRL,
 	.ctrlVal = 0U,
-	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24 |
+		PM_CLOCK_TYPE_SYSTEM,
 	.useCount = 0U,
 };
 
@@ -1157,7 +1160,8 @@ static PmClockGen pmClockDbgFpd = {
 	.mux = &iodaMux,
 	.ctrlAddr = CRF_APB_DBG_FPD_CTRL,
 	.ctrlVal = 0U,
-	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24 |
+		PM_CLOCK_TYPE_SYSTEM,
 	.useCount = 0U,
 };
 
@@ -1337,7 +1341,8 @@ static PmClockGen pmClockTopSwMain __attribute__((__section__(".srdata"))) = {
 	.mux = &avdMux,
 	.ctrlAddr = CRF_APB_TOPSW_MAIN_CTRL,
 	.ctrlVal = 0U,
-	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24 |
+		PM_CLOCK_TYPE_SYSTEM,
 	.useCount = 0U,
 };
 
@@ -1352,7 +1357,8 @@ static PmClockGen pmClockTopSwLsBus __attribute__((__section__(".srdata"))) = {
 	.mux = &aiodMux,
 	.ctrlAddr = CRF_APB_TOPSW_LSBUS_CTRL,
 	.ctrlVal = 0U,
-	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24 |
+		PM_CLOCK_TYPE_SYSTEM,
 	.useCount = 0U,
 };
 
@@ -1367,7 +1373,7 @@ static PmClockGen pmClockDbgTstmp = {
 	.mux = &iodaMux,
 	.ctrlAddr = CRF_APB_DBG_TSTMP_CTRL,
 	.ctrlVal = 0U,
-	.type = PM_CLOCK_TYPE_DIV0,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_SYSTEM,
 	.useCount = 0U,
 };
 
@@ -1653,7 +1659,8 @@ static PmClockGen pmClockIouSwitch = {
 	.mux = &riodMux,
 	.ctrlAddr = CRL_APB_IOU_SWITCH_CTRL,
 	.ctrlVal = 0U,
-	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24 |
+		PM_CLOCK_TYPE_SYSTEM,
 	.useCount = 0U,
 };
 
@@ -1698,7 +1705,8 @@ static PmClockGen pmClockLpdSwitch = {
 	.mux = &riodMux,
 	.ctrlAddr = CRL_APB_LPD_SWITCH_CTRL,
 	.ctrlVal = 0U,
-	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24 |
+		PM_CLOCK_TYPE_SYSTEM,
 	.useCount = 0U,
 };
 
@@ -1713,7 +1721,8 @@ static PmClockGen pmClockLpdLsBus = {
 	.mux = &riodMux,
 	.ctrlAddr = CRL_APB_LPD_LSBUS_CTRL,
 	.ctrlVal = 0U,
-	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24 |
+		PM_CLOCK_TYPE_SYSTEM,
 	.useCount = 0U,
 };
 
@@ -1728,7 +1737,8 @@ static PmClockGen pmClockDbgLpd = {
 	.mux = &riodMux,
 	.ctrlAddr = CRL_APB_DBG_LPD_CTRL,
 	.ctrlVal = 0U,
-	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24 |
+		PM_CLOCK_TYPE_SYSTEM,
 	.useCount = 0U,
 };
 
@@ -1863,7 +1873,8 @@ static PmClockGen pmClockAms = {
 	.mux = &riodMux,
 	.ctrlAddr = CRL_APB_AMS_REF_CTRL,
 	.ctrlVal = 0U,
-	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1 | PM_CLOCK_TYPE_GATE24 |
+		PM_CLOCK_TYPE_SYSTEM,	/* because of the commit 7611b2fc18 */
 	.useCount = 0U,
 };
 
@@ -1940,7 +1951,8 @@ static PmClockGen pmClockTimeStamp = {
 	.mux = &iordPsRefMux,
 	.ctrlAddr = CRL_APB_TIMESTAMP_REF_CTRL,
 	.ctrlVal = 0U,
-	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24,
+	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_GATE24 |
+		PM_CLOCK_TYPE_SYSTEM,
 	.useCount = 0U,
 };
 
