@@ -162,7 +162,7 @@ static int PmPllResume(PmPll* const pll)
 	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
 		   ~PM_PLL_CTRL_RESET_MASK);
 	/* Poll status register for the lock */
-	status = XPfw_UtilPollForMask(pll->statusAddr, pll->lockMask,
+	status = XPfw_UtilPollForMask(pll->statusAddr, 1 << pll->lockShift,
 				      PM_PLL_LOCK_TIMEOUT);
 	if (XST_SUCCESS != status) {
 		/* Failed to lock PLL - assert reset and return */
@@ -328,7 +328,7 @@ PmPll pmApll_g = {
 	.context = { 0U },
 	.addr = CRF_APB_APLL_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
-	.lockMask = CRF_APB_PLL_STATUS_APLL_LOCK_MASK,
+	.lockShift = CRF_APB_PLL_STATUS_APLL_LOCK_SHIFT,
 	.flags = 0U,
 };
 
@@ -348,7 +348,7 @@ PmPll pmVpll_g = {
 	.context = { 0U },
 	.addr = CRF_APB_VPLL_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
-	.lockMask = CRF_APB_PLL_STATUS_VPLL_LOCK_MASK,
+	.lockShift = CRF_APB_PLL_STATUS_VPLL_LOCK_SHIFT,
 	.flags = 0U,
 };
 
@@ -368,7 +368,7 @@ PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
 	.context = { 0U },
 	.addr = CRF_APB_DPLL_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
-	.lockMask = CRF_APB_PLL_STATUS_DPLL_LOCK_MASK,
+	.lockShift = CRF_APB_PLL_STATUS_DPLL_LOCK_SHIFT,
 	.flags = 0U,
 };
 
@@ -388,7 +388,7 @@ PmPll pmRpll_g = {
 	.context = { 0U },
 	.addr = CRL_APB_RPLL_CTRL,
 	.statusAddr = CRL_APB_PLL_STATUS,
-	.lockMask = CRL_APB_PLL_STATUS_RPLL_LOCK_MASK,
+	.lockShift = CRL_APB_PLL_STATUS_RPLL_LOCK_SHIFT,
 	.flags = 0U,
 };
 
@@ -408,7 +408,7 @@ PmPll pmIOpll_g = {
 	.context = { 0U },
 	.addr = CRL_APB_IOPLL_CTRL,
 	.statusAddr = CRL_APB_PLL_STATUS,
-	.lockMask = CRL_APB_PLL_STATUS_IOPLL_LOCK_MASK,
+	.lockShift = CRL_APB_PLL_STATUS_IOPLL_LOCK_SHIFT,
 	.flags = 0U,
 };
 
