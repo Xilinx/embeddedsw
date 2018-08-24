@@ -29,69 +29,23 @@
 
 #include "pm_pll.h"
 
-typedef struct PmClock PmClock;
+typedef struct PmClockClass PmClockClass;
 typedef struct PmNode PmNode;
-typedef struct PmClockDeps PmClockDeps;
-
-/*********************************************************************
- * Macros
- ********************************************************************/
-#define PM_CLOCK_MUX_SELECT_MASK	0x3U
 
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
-
 /**
- * PmClockSel2Pll - Pair of multiplexer select value and selected PLL
- * @select	Select value of the clock multiplexer
- * @pll		Pointer to the PLL that is selected with the 'select' value
- */
-typedef struct {
-	PmPll* const pll;
-	const u8 select;
-} PmClockSel2Pll;
-
-/**
- * PmClockMux - Structure to encapsulate MUX select values to pll mapping
- * @inputs	Mux select to pll mapping at the input of the multiplexer
- * @size	Size of the array to which the sel2Pll points
- */
-typedef struct {
-	const PmClockSel2Pll* const inputs;
-	const u8 size;
-} PmClockMux;
-
-/**
- * PmClock - Clock configuration data
- * @mux		Mux select to pll mapping associated with a slave's clocks
- * @pll		Pointer to the PLL that currently drives the clock
- * @users	Pointer to the list of nodes that use this clock
- * @ctrlAddr	Address of the control register of the clock
+ * PmClock - Basic clock structure
+ * @derived	Pointer to the derived clock structure
+ * @class	Pointer to the clock class
+ * @id		Clock identifier
  */
 typedef struct PmClock {
-	const PmClockMux* const mux;
-	PmPll* pll;
-	PmClockHandle* users;
-	const u32 ctrlAddr;
-	u32 ctrlVal;
+	void* const derived;
+	const PmClockClass* const class;
+	const u8 id;
 } PmClock;
-
-/**
- * PmClockHandle - Models a clock/node pair (node using the clock)
- * @clock	Pointer to the clock used by the node
- * @node	Pointer to the node that uses a clock
- * @nextClock	Pointer to the next structure for another clock used by the same
- *		node
- * @nextNode	Pointer to the next structure for the same clock used by some
- *		other node
- */
-typedef struct PmClockHandle {
-	PmClock* clock;
-	PmNode* node;
-	PmClockHandle* nextClock;
-	PmClockHandle* nextNode;
-} PmClockHandle;
 
 /*********************************************************************
  * Function declarations
