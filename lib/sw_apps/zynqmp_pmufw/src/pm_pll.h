@@ -54,8 +54,6 @@
  * @cfg         Configuration register
  * @frac        Fractional control register
  * @toCtrl      Control for a cross domain (a divisor)
- * @saved       Flag stating are variables of this structure containing values
- *              to be restored or not
  *
  * Note: context of the PLL is saved when PM framework suspends a PLL (when
  * no node requires PLL to be locked). It is assumed that all used PLLs get
@@ -67,7 +65,6 @@ typedef struct PmPllContext {
 	u32 cfg;
 	u32 frac;
 	u32 toCtrl;
-	bool saved;
 } PmPllContext;
 
 /**

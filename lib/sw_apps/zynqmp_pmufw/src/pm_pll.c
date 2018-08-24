@@ -59,6 +59,7 @@
 
 /* PLL flags */
 #define PM_PLL_REQUESTED	(1 << 0U)
+#define PM_PLL_CONTEXT_SAVED	(1 << 1U)
 
 /**
  * PmPllBypassAndReset() - Bypass and reset/power down a PLL
@@ -86,7 +87,7 @@ static void PmPllSaveContext(PmPll* const pll)
 	pll->context.cfg = XPfw_Read32(pll->addr + PM_PLL_CFG_OFFSET);
 	pll->context.frac = XPfw_Read32(pll->addr + PM_PLL_FRAC_OFFSET);
 	pll->context.toCtrl = XPfw_Read32(pll->toCtrlAddr);
-	pll->context.saved = true;
+	pll->flags |= PM_PLL_CONTEXT_SAVED;
 }
 
 /**
@@ -107,7 +108,7 @@ static void PmPllRestoreContext(PmPll* const pll)
 	XPfw_Write32(pll->addr + PM_PLL_CFG_OFFSET, pll->context.cfg);
 	XPfw_Write32(pll->addr + PM_PLL_FRAC_OFFSET, pll->context.frac);
 	XPfw_Write32(pll->toCtrlAddr, pll->context.toCtrl);
-	pll->context.saved = false;
+	pll->flags &= ~PM_PLL_CONTEXT_SAVED;
 }
 
 /**
@@ -145,7 +146,7 @@ static int PmPllResume(PmPll* const pll)
 
 	PmInfo("%s 0->1\r\n", pll->node.name);
 
-	if (true == pll->context.saved) {
+	if (0U != (pll->flags & PM_PLL_CONTEXT_SAVED)) {
 		PmPllRestoreContext(pll);
 	}
 
@@ -326,9 +327,7 @@ PmPll pmApll_g = {
 		DEFINE_PM_POWER_INFO(PmStdPllPowers),
 		DEFINE_NODE_NAME("apll"),
 	},
-	.context = {
-		.saved = false,
-	},
+	.context = { 0U },
 	.addr = CRF_APB_APLL_CTRL,
 	.toCtrlAddr = CRF_APB_APLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
@@ -349,9 +348,7 @@ PmPll pmVpll_g = {
 		DEFINE_PM_POWER_INFO(PmStdPllPowers),
 		DEFINE_NODE_NAME("vpll"),
 	},
-	.context = {
-		.saved = false,
-	},
+	.context = { 0U },
 	.addr = CRF_APB_VPLL_CTRL,
 	.toCtrlAddr = CRF_APB_VPLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
@@ -372,9 +369,7 @@ PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
 		DEFINE_PM_POWER_INFO(PmStdPllPowers),
 		DEFINE_NODE_NAME("dpll"),
 	},
-	.context = {
-		.saved = false,
-	},
+	.context = { 0U },
 	.addr = CRF_APB_DPLL_CTRL,
 	.toCtrlAddr = CRF_APB_DPLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
@@ -395,9 +390,7 @@ PmPll pmRpll_g = {
 		DEFINE_PM_POWER_INFO(PmStdPllPowers),
 		DEFINE_NODE_NAME("rpll"),
 	},
-	.context = {
-		.saved = false,
-	},
+	.context = { 0U },
 	.addr = CRL_APB_RPLL_CTRL,
 	.toCtrlAddr = CRL_APB_RPLL_TO_FPD_CTRL,
 	.statusAddr = CRL_APB_PLL_STATUS,
@@ -418,9 +411,7 @@ PmPll pmIOpll_g = {
 		DEFINE_PM_POWER_INFO(PmStdPllPowers),
 		DEFINE_NODE_NAME("iopll"),
 	},
-	.context = {
-		.saved = false,
-	},
+	.context = { 0U },
 	.addr = CRL_APB_IOPLL_CTRL,
 	.toCtrlAddr = CRL_APB_IOPLL_TO_FPD_CTRL,
 	.statusAddr = CRL_APB_PLL_STATUS,
@@ -439,7 +430,7 @@ PmPll pmIOpll_g = {
 void PmPllRequest(PmPll* const pll)
 {
 	/* If the PLL is suspended it needs to be resumed first */
-	if (true == pll->context.saved) {
+	if (0U != (PM_PLL_CONTEXT_SAVED & pll->flags)) {
 		int status = PmPllResume(pll);
 		if (XST_SUCCESS != status) {
 			PmErr("Failed to lock %s", pll->node.name);
