@@ -1394,6 +1394,54 @@ void PmInitFinalize(PmMaster* const master)
 }
 
 /**
+ * PmClockSetParent() - Set the clock parent (configure clock's mux)
+ * @master		The caller
+ * @clockId		ID of the target clock
+ * @select		Mux select value
+ */
+void PmClockSetParent(PmMaster* const master, const u32 clockId,
+		      const u32 select)
+{
+	PmClock* clock;
+	int status = XST_SUCCESS;
+
+	PmInfo("%s> ClockSetParent(%lu, %lu)\r\n", master->name, clockId,
+	       select);
+	clock = PmClockGetById(clockId);
+	if (NULL == clock) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	status = PmClockMuxSetParent(clock, select);
+
+done:
+	IPI_RESPONSE1(master->ipiMask, status);
+}
+
+/**
+ * PmClockGetParent() - Get the mux select value of the current clock parent
+ * @master		The caller
+ * @clockId		ID of the target clock
+ */
+void PmClockGetParent(PmMaster* const master, const u32 clockId)
+{
+	PmClock* clock;
+	u32 select;
+	int status = XST_SUCCESS;
+
+	PmInfo("%s> ClockGetParent(%lu)\r\n", master->name, clockId);
+	clock = PmClockGetById(clockId);
+	if (NULL == clock) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	status = PmClockMuxGetParent(clock, &select);
+
+done:
+	IPI_RESPONSE2(master->ipiMask, status, select);
+}
+
+/**
  * PmApiApprovalCheck() - Check if the API ID can be processed at the moment
  * @apiId	PM API ID
  *
@@ -1543,6 +1591,12 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		PmSecureAes(master, pload[1], pload[2]);
 		break;
 #endif
+	case PM_CLOCK_SETPARENT:
+		PmClockSetParent(master, pload[1], pload[2]);
+		break;
+	case PM_CLOCK_GETPARENT:
+		PmClockGetParent(master, pload[1]);
+		break;
 	default:
 		PmWarn("Unsupported EEMI API #%lu\r\n", pload[0]);
 		IPI_RESPONSE1(master->ipiMask, XST_INVALID_VERSION);

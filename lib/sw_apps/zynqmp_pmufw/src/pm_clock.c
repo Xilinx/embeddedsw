@@ -63,9 +63,22 @@
  ********************************************************************/
 
 /**
+ * PmClockCtrlMethods - Structure that encapsulates clock control methods
+ * @initParent	Called during the boot to discover initial mux configuration
+ * @getParent	Get mux select of the current clock parent
+ * @setParent	Set clock parent (configure clock's mux)
+ */
+typedef struct PmClockCtrlMethods {
+	void (*const initParent)(PmClock* const clock);
+	int (*const getParent)(PmClock* const clock, u32 *const select);
+	int (*const setParent)(PmClock* const clock, const u32 select);
+} PmClockCtrlMethods;
+
+/**
  * PmClockClass - Structure that encapsulates essential clock methods
  * @request	Pointer to the function that is used to request clock
  * @release	Pointer to the function that is used to release clock
+ * @ctrl	Pointer to struct that encapsulates other clock specific methods
  *
  * @note	A class of clocks for which the maintenance of use count is
  * important must implement request/release methods. Other clock control
@@ -76,6 +89,7 @@
 typedef struct PmClockClass {
 	PmClock* (*const request)(PmClock* const clock);
 	PmClock* (*const release)(PmClock* const clock);
+	const PmClockCtrlMethods* const ctrl;
 } PmClockClass;
 
 /*
@@ -234,6 +248,7 @@ static PmClock* PmClockReleasePll(PmClock* const clock)
 static PmClockClass pmClockClassPll = {
 	.request = PmClockRequestPll,
 	.release = PmClockReleasePll,
+	.ctrl = NULL,
 };
 
 static PmClockPll pmClockApll = {
@@ -325,9 +340,139 @@ static PmClock* PmClockReleaseGen(PmClock* const clock)
 	return parent;
 }
 
+/**
+ * PmClockGenInitParent() - Initialize parent method for generic clocks
+ * @clock	Pointer to the target clock
+ *
+ * @note	After the the PMU-FW is loaded the only way to change the
+ *		parent is using set parent method, which updates the parent
+ *		pointer. Therefore this function just returns the parent
+ *		pointer. The get parent function should not be called before the
+ *		clocks are initialized.
+ */
+static void PmClockGenInitParent(PmClock* const clock)
+{
+	PmClockGen* clk = (PmClockGen*)clock->derived;
+	u32 select, i;
+
+	if (NULL == clk->mux) {
+		if (NULL == clk->parent) {
+			PmErr("Unknown parent for clk#%d\n", clock->id);
+		}
+		goto done;
+	}
+	select = XPfw_Read32(clk->ctrlAddr);
+	select = (select >> clk->mux->shift) & MASK_OF_BITS(clk->mux->bits);
+	for (i = 0U; i < clk->mux->size; i++) {
+		if (select == clk->mux->inputs[i].select) {
+			clk->parent = clk->mux->inputs[i].clkIn;
+			break;
+		}
+	}
+
+done:
+	return;
+}
+
+/**
+ * PmClockGenSetParent() - Set parent method for generic clocks
+ * @clock	Pointer to the target clock
+ * @select	Mux select value
+ *
+ * @return	Status of performing the operation:
+ *		XST_SUCCESS if parent is set
+ *		XST_NO_FEATURE if clock has no multiplexer
+ *		XST_INVALID_PARAM if given parent is invalid/cannot be set
+ */
+static int PmClockGenSetParent(PmClock* const clock, const u32 select)
+{
+	int status;
+	u32 i;
+	PmClockGen* clk = (PmClockGen*)clock->derived;
+	PmClock* new_parent = NULL;
+
+	if (NULL == clk->mux) {
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+	if (select > MASK_OF_BITS(clk->mux->bits)) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	/* Check if mux inputs are modeled (if not just configure the select) */
+	if (NULL == clk->mux->inputs) {
+		XPfw_RMW32(clk->ctrlAddr,
+			   MASK_OF_BITS(clk->mux->bits) << clk->mux->shift,
+			   select << clk->mux->shift);
+		status = XST_SUCCESS;
+		goto done;
+	}
+	/* Figure out what is the newly selected parent (if select is valid) */
+	status = XST_INVALID_PARAM;
+	for (i = 0U; i < clk->mux->size; i++) {
+		if (select == clk->mux->inputs[i].select) {
+			new_parent = clk->mux->inputs[i].clkIn;
+			status = XST_SUCCESS;
+			break;
+		}
+	}
+	if (XST_SUCCESS != status) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	if (new_parent == clk->parent) {
+		goto done;
+	}
+	if (NULL != new_parent) {
+		PmClockRequestInt(new_parent);
+	}
+	XPfw_RMW32(clk->ctrlAddr,
+		   MASK_OF_BITS(clk->mux->bits) << clk->mux->shift,
+		   select << clk->mux->shift);
+	if (NULL != clk->parent) {
+		PmClockReleaseInt(clk->parent);
+	}
+	clk->parent = new_parent;
+
+done:
+	return status;
+}
+
+/**
+ * PmClockGenGetParent() - Get parent method for generic clocks
+ * @clock	Pointer to the target clock
+ * @select	Location to store clock select value
+ *
+ * @return	Status of getting the mux select value
+ */
+static int PmClockGenGetParent(PmClock* const clock, u32 *const select)
+{
+	PmClockGen* clk = (PmClockGen*)clock->derived;
+	int status = XST_NO_FEATURE;
+	u32 val;
+
+	if (NULL == clk->mux) {
+		goto done;
+	}
+	val = XPfw_Read32(clk->ctrlAddr);
+	val = (val >> clk->mux->shift) & MASK_OF_BITS(clk->mux->bits);
+	*select = val;
+	status = XST_SUCCESS;
+
+done:
+	return status;
+}
+
+static PmClockCtrlMethods pmClockGenCtrlMethods = {
+	.initParent = PmClockGenInitParent,
+	.getParent = PmClockGenGetParent,
+	.setParent = PmClockGenSetParent,
+};
+
 static PmClockClass pmClockClassGen = {
 	.request = PmClockRequestGen,
 	.release = PmClockReleaseGen,
+	.ctrl = &pmClockGenCtrlMethods,
 };
 
 static PmClockGen pmClockIOpllToFpd = {
@@ -1979,6 +2124,24 @@ void PmClockConstructList(void)
 }
 
 /**
+ * PmClockInit() - Initialize clock parent pointers according to hardware config
+ */
+void PmClockInit(void)
+{
+	u32 i;
+
+	/* Initialize parents if possible for a particular clock */
+	for (i = 0U; i < ARRAY_SIZE(pmClocks); i++) {
+		PmClock* clk = pmClocks[i];
+
+		if (NULL != clk->class && NULL != clk->class->ctrl &&
+		    NULL != clk->class->ctrl->initParent) {
+			clk->class->ctrl->initParent(clk);
+		}
+	}
+}
+
+/**
  * @PmClockIsActive() Check if any clock for a given node is active
  * @node	Node whose clocks need to be checked
  *
@@ -2079,6 +2242,96 @@ void PmClockRelease(PmNode* const node)
 
 done:
 	return;
+}
+
+/**
+ * PmClockGetById() - Get clock structure based on clock ID
+ * @clockId	ID of the clock to get
+ *
+ * @return	Pointer to the clock structure if found, otherwise NULL
+ */
+PmClock* PmClockGetById(const u32 clockId)
+{
+	u32 i;
+	PmClock* clock = NULL;
+
+	for (i = 0U; i < ARRAY_SIZE(pmClocks); i++) {
+		if (clockId == pmClocks[i]->id) {
+			clock = pmClocks[i];
+			break;
+		}
+	}
+
+	return clock;
+}
+
+/**
+ * PmClockCheckForCtrl() - Common function for checking validity
+ * @clock	Clock to be checked
+ *
+ * @return	XST_INVALID_PARAM if clock argument in NULL
+ *		XST_SUCCESS if clock is valid, has class and control methods
+ *		XST_NO_FEATURE otherwise
+ */
+static int PmClockCheckForCtrl(const PmClock* const clock)
+{
+	int status = XST_SUCCESS;
+
+	if (NULL == clock) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	if (NULL == clock->class || NULL == clock->class->ctrl) {
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+
+done:
+	return status;
+}
+
+/**
+ * PmClockMuxSetParent() - Configure clock mux
+ * @clock	Pointer to the clock structure
+ * @select	Mux select value
+ *
+ * @return	XST_SUCCESS if the mux is configured
+ * 		XST_NO_FEATURE if the clock has no mux
+ * 		XST_INVALID_PARAM if select value is invalid
+ */
+int PmClockMuxSetParent(PmClock* const clock, const u32 select)
+{
+	int status = PmClockCheckForCtrl(clock);
+
+	if (XST_SUCCESS != status || NULL == clock->class->ctrl->setParent) {
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+	status = clock->class->ctrl->setParent(clock, select);
+done:
+	return status;
+}
+
+/**
+ * PmClockMuxGetParent() - Get clock parent (mux select value)
+ * @clock	Pointer to the target clock
+ * @select	Location to store mux select value of the current parent
+ *
+ * @return	Status of getting the parent: XST_SUCCESS if the parent pointer
+ *		is stored into 'parent' or error code
+ */
+int PmClockMuxGetParent(PmClock* const clock, u32 *const select)
+{
+	int status = PmClockCheckForCtrl(clock);
+
+	if (XST_SUCCESS != status || NULL == clock->class->ctrl->getParent) {
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+
+	status = clock->class->ctrl->getParent(clock, select);
+done:
+	return status;
 }
 
 #endif

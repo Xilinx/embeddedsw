@@ -52,10 +52,15 @@ typedef struct PmClock {
  ********************************************************************/
 int PmClockRequest(PmNode* const node);
 int PmClockIsActive(PmNode* const node);
+int PmClockMuxSetParent(PmClock* const clock, const u32 select);
+int PmClockMuxGetParent(PmClock* const clock, u32 *const select);
 
+void PmClockInit(void);
 void PmClockRelease(PmNode* const node);
 void PmClockConstructList(void);
 void PmClockRestore(PmNode* const node);
 void PmClockSave(PmNode* const node);
+
+PmClock* PmClockGetById(const u32 clockId);
 
 #endif
