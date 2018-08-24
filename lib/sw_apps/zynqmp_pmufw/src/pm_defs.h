@@ -210,9 +210,10 @@
 #define NODE_IPI_PL_2   67U
 #define NODE_IPI_PL_3   68U
 #define NODE_PL         69U
+#define NODE_SWDT_1	72U
 
 #define NODE_MIN        NODE_APU
-#define NODE_MAX        NODE_PL
+#define NODE_MAX        NODE_SWDT_1
 
 /* Request acknowledge argument values */
 #define REQUEST_ACK_NO          1U
