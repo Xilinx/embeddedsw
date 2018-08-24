@@ -41,6 +41,7 @@
  * 1.01  eb  13-04-2018   Fixed XV_VidC_parse_edid API and
  *                            xvidc_edid_extension_handler struct to enhance
  *                            system stability
+ * 1.10  eb  03-08-2018   Updated XV_VidC_parse_edid
  * </pre>
  *
  ******************************************************************************/
@@ -887,6 +888,8 @@ xvidc_disp_cea861_vendor_data(
     }
 #endif
     if (!memcmp(oui, HDMI_OUI, sizeof(oui))) {
+       /* HDMI Sink should have the HDMI Vendor Specific Block */
+       EdidCtrlParam->IsHdmi = XVIDC_ISHDMI;
        const struct xvidc_cea861_hdmi_vendor_specific_data_block * const hdmi =
             (struct xvidc_cea861_hdmi_vendor_specific_data_block *) vsdb;
 #if XVIDC_EDID_VERBOSITY > 0
@@ -1340,7 +1343,7 @@ XV_VidC_parse_edid(const u8 * const data,
         const struct xvidc_edid_extension_handler * const handler =
             &xvidc_edid_extension_handlers[extension->tag];
 
-        if (!handler) {
+        if (!handler->inf_disp) {
 #if XVIDC_EDID_VERBOSITY > 0
             if (VerboseEn) {
                 xil_printf("WARNING: block %u contains unknown extension "
@@ -1348,13 +1351,8 @@ XV_VidC_parse_edid(const u8 * const data,
             }
 #endif
             continue;
-        }
-
-        /* Workaround: Check if the function to be executed is defined
-         * Note: This currently handles cea861 parsing only.
-         */
-        if (handler->inf_disp == &xvidc_disp_cea861) {
-            (*handler->inf_disp)(extension,EdidCtrlParam,VerboseEn);
+        } else {
+		(*handler->inf_disp)(extension,EdidCtrlParam,VerboseEn);
         }
     }
 }
