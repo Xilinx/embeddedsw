@@ -37,6 +37,7 @@
 #include "pm_requirement.h"
 #include "pm_node.h"
 #include "pm_system.h"
+#include "pm_pll.h"
 
 typedef int (*const PmConfigSectionHandler)(u32* const addr);
 
@@ -541,6 +542,39 @@ static PmConfigSection* PmConfigGetSectionById(const u32 sid)
 }
 
 /**
+ * PmConfigPllPermsWorkaround() - Workaround for configuring PLL permissions
+ *
+ * @note	This is a workaround for PMU-FW not knowing who should be given
+ * permission to control a PLL, and also which PLLs. Currently, the DP driver in
+ * linux requires direct control to VPLL (for video) and RPLL (for audio). This
+ * information should be provided in configuration object. Since that's not
+ * possible, the information has to be hard-coded here. Hopefully this
+ * workaround will be removed in future. Thereby, it is required here to assume
+ * that if APU has permission to use the DP it should be automatically given
+ * permissions to directly control VPLL and RPLL.
+ */
+static void PmConfigPllPermsWorkaround(void)
+{
+	PmMaster* apu = PmMasterGetPlaceholder(NODE_APU);
+	PmSlave* dp = PmNodeGetSlave(NODE_DP);
+	PmRequirement* req;
+
+	if (NULL == apu || NULL == dp) {
+		goto done;
+	}
+
+	req = PmRequirementGet(apu, dp);
+	if (NULL == req) {
+		goto done;
+	}
+	PmPllOpenAccess(&pmVpll_g, apu->ipiMask);
+	PmPllOpenAccess(&pmRpll_g, apu->ipiMask);
+
+done:
+	return;
+}
+
+/**
  * PmConfigLoadObject() - Load information provided in configuration object
  * @address     Start address of the configuration object
  * @callerIpi   IPI mask of the master who called set configuration API
@@ -592,6 +626,7 @@ int PmConfigLoadObject(const u32 address, const u32 callerIpi)
 done:
 	if (XST_SUCCESS == status) {
 		pmConfig.flags |= PM_CONFIG_OBJECT_LOADED;
+		PmConfigPllPermsWorkaround();
 		status = PmNodeInit();
 		PmNodeForceDownUnusable();
 	} else {
