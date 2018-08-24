@@ -15,7 +15,7 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -74,6 +74,9 @@
  *                     Added XVphy_SetPolarity, XVphy_SetPrbsSel and
  *                        XVphy_TxPrbsForceError APIs
  * 1.8   gm   05/14/18 Removed XVphy_DrpWrite and XVphy_DrpRead APIs
+ *            23/07/18 Added APIs XVphy_SetTxVoltageSwing and
+ *                       XVphy_SetTxPreEmphasis from xvphy_i.c/h
+ *                     Added XVphy_SetTxPostCursor API
  * </pre>
  *
 *******************************************************************************/
@@ -953,6 +956,120 @@ u32 XVphy_TxPrbsForceError(XVphy *InstancePtr, u8 QuadId,
 					XVPHY_TX_CONTROL_REG, RegVal);
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* This function will set the TX voltage swing value for a given channel.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Vs is the voltage swing value to write.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_SetTxVoltageSwing(XVphy *InstancePtr, u8 QuadId,
+		XVphy_ChannelId ChId, u8 Vs)
+{
+	u32 RegVal;
+	u32 MaskVal;
+	u32 RegOffset;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
+	if ((ChId == XVPHY_CHANNEL_ID_CH1) || (ChId == XVPHY_CHANNEL_ID_CH2)) {
+		RegOffset = XVPHY_TX_DRIVER_CH12_REG;
+	}
+	else {
+		RegOffset = XVPHY_TX_DRIVER_CH34_REG;
+	}
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
+
+	MaskVal = XVPHY_TX_DRIVER_TXDIFFCTRL_MASK(ChId);
+	RegVal &= ~MaskVal;
+	RegVal |= (Vs << XVPHY_TX_DRIVER_TXDIFFCTRL_SHIFT(ChId));
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
+}
+
+/*****************************************************************************/
+/**
+* This function will set the TX pre-emphasis value for a given channel.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Pe is the pre-emphasis value to write.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_SetTxPreEmphasis(XVphy *InstancePtr, u8 QuadId,
+        XVphy_ChannelId ChId, u8 Pe)
+{
+	u32 RegVal;
+	u32 MaskVal;
+	u32 RegOffset;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
+	if ((ChId == XVPHY_CHANNEL_ID_CH1) || (ChId == XVPHY_CHANNEL_ID_CH2)) {
+		RegOffset = XVPHY_TX_DRIVER_CH12_REG;
+	}
+	else {
+		RegOffset = XVPHY_TX_DRIVER_CH34_REG;
+	}
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
+
+	MaskVal = XVPHY_TX_DRIVER_TXPRECURSOR_MASK(ChId);
+	RegVal &= ~MaskVal;
+	RegVal |= (Pe << XVPHY_TX_DRIVER_TXPRECURSOR_SHIFT(ChId));
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
+}
+
+/*****************************************************************************/
+/**
+* This function will set the TX post-curosr value for a given channel.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Pe is the pre-emphasis value to write.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_SetTxPostCursor(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		u8 Pc)
+{
+	u32 RegVal;
+	u32 MaskVal;
+	u32 RegOffset;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
+	if ((ChId == XVPHY_CHANNEL_ID_CH1) || (ChId == XVPHY_CHANNEL_ID_CH2)) {
+		RegOffset = XVPHY_TX_DRIVER_CH12_REG;
+	}
+	else {
+		RegOffset = XVPHY_TX_DRIVER_CH34_REG;
+	}
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
+
+	MaskVal = XVPHY_TX_DRIVER_TXPOSTCURSOR_MASK(ChId);
+	RegVal &= ~MaskVal;
+	RegVal |= (Pc << XVPHY_TX_DRIVER_TXPOSTCURSOR_SHIFT(ChId));
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
 }
 
 /*****************************************************************************/

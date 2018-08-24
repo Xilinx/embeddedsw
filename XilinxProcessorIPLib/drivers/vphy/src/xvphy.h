@@ -15,7 +15,7 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -94,6 +94,9 @@
  *                        XVphy_TxPrbsForceError APIs
  * 1.8   gm   05/14/18 Updated CDR values for DP in xvphy_gtye4.c
  *                     Removed XVphy_DrpWrite and XVphy_DrpRead APIs
+ *            23/07/18 Added APIs XVphy_SetTxVoltageSwing and
+ *                       XVphy_SetTxPreEmphasis from xvphy_i.c/h
+ *                     Added XVphy_SetTxPostCursor API
  * </pre>
  *
 *******************************************************************************/
@@ -873,6 +876,12 @@ u32 XVphy_SetPrbsSel(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir, XVphy_PrbsPattern Pattern);
 u32 XVphy_TxPrbsForceError(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId, u8 ForceErr);
+void XVphy_SetTxVoltageSwing(XVphy *InstancePtr, u8 QuadId,
+		XVphy_ChannelId ChId, u8 Vs);
+void XVphy_SetTxPreEmphasis(XVphy *InstancePtr, u8 QuadId,
+        XVphy_ChannelId ChId, u8 Pe);
+void XVphy_SetTxPostCursor(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		u8 Pc);
 
 /* xvphy.c: GT/MMCM DRP access. */
 u32 XVphy_DrpWr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
