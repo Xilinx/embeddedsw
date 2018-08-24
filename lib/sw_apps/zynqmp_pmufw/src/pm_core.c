@@ -1442,6 +1442,52 @@ done:
 }
 
 /**
+ * PmClockGateConfig() - Configure clock gate if master has privileges to do so
+ * @master	The caller
+ * @clkId	ID of the target clock
+ * @enable	1=enable the clock, 0=disable the clock
+ */
+void PmClockGateConfig(PmMaster* const master, const u32 clkId, const u8 enable)
+{
+	PmClock* clock;
+	int status = XST_SUCCESS;
+
+	PmInfo("%s> ClockGate(%lu, %lu)\r\n", master->name, clkId, enable);
+	clock = PmClockGetById(clkId);
+	if (NULL == clock) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	status = PmClockGateSetState(clock, enable);
+
+done:
+	IPI_RESPONSE1(master->ipiMask, status);
+}
+
+/**
+ * PmClockGetStatus() - Get clock gate status
+ * @master	Master that initiated the call
+ * @clockId	ID of the clock in question
+ */
+void PmClockGetStatus(PmMaster* const master, const u32 clockId)
+{
+	PmClock* clock;
+	int status = XST_SUCCESS;
+	u8 enable;
+
+	PmInfo("%s> ClockGetStatus(%lu)\r\n", master->name, clockId);
+	clock = PmClockGetById(clockId);
+	if (NULL == clock) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	status = PmClockGateGetState(clock, &enable);
+
+done:
+	IPI_RESPONSE2(master->ipiMask, status, enable);
+}
+
+/**
  * PmApiApprovalCheck() - Check if the API ID can be processed at the moment
  * @apiId	PM API ID
  *
@@ -1596,6 +1642,15 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		break;
 	case PM_CLOCK_GETPARENT:
 		PmClockGetParent(master, pload[1]);
+		break;
+	case PM_CLOCK_ENABLE:
+		PmClockGateConfig(master, pload[1], 1);
+		break;
+	case PM_CLOCK_DISABLE:
+		PmClockGateConfig(master, pload[1], 0);
+		break;
+	case PM_CLOCK_GETSTATE:
+		PmClockGetStatus(master, pload[1]);
 		break;
 	default:
 		PmWarn("Unsupported EEMI API #%lu\r\n", pload[0]);

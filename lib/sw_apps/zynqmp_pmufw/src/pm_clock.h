@@ -54,6 +54,8 @@ int PmClockRequest(PmNode* const node);
 int PmClockIsActive(PmNode* const node);
 int PmClockMuxSetParent(PmClock* const clock, const u32 select);
 int PmClockMuxGetParent(PmClock* const clock, u32 *const select);
+int PmClockGateSetState(PmClock* const clock, const u8 enable);
+int PmClockGateGetState(PmClock* const clock, u8* const enable);
 
 void PmClockInit(void);
 void PmClockRelease(PmNode* const node);
