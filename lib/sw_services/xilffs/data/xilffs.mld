@@ -42,7 +42,7 @@ BEGIN LIBRARY xilffs
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilffs,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Generic Fat File System Library";
-  OPTION VERSION = 3.10;
+  OPTION VERSION = 4.0;
   OPTION NAME = xilffs;
   PARAM name = fs_interface, desc = "Enables file system with selected interface. Enter 1 for SD. Enter 2 for RAM", type = int, default = 1;
   PARAM name = read_only, desc = "Enables the file system in Read_Only mode if true. ZynqMP fsbl will set this to true", type = bool, default = false;
