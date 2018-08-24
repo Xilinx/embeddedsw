@@ -2334,8 +2334,24 @@ int PmClockIsActive(PmNode* const node)
 	PmClockHandle* ch = node->clocks;
 	int status = XST_FAILURE;
 
-        while (NULL != ch) {
-		/* FIXME */
+	while (NULL != ch) {
+		PmClock* clk = &ch->clock->base;
+
+		if ((NULL != clk->class) &&
+		    (NULL != clk->class->ctrl) &&
+		    (NULL != clk->class->ctrl->getGate)) {
+			u8 enable;
+			int ret = clk->class->ctrl->getGate(clk, &enable);
+
+			if (XST_SUCCESS == ret) {
+				if (1U == enable) {
+					status = XST_SUCCESS;
+					goto done;
+				}
+			} else {
+				PmErr("Clock #%lu model\r\n", clk->id);
+			}
+		}
 		ch = ch->nextClock;
 	}
 
