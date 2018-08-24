@@ -587,4 +587,7 @@
 #define PM_CLOCK_EXT_MIO76		192U
 #define PM_CLOCK_EXT_MIO77		193U
 
+#define PM_CLOCK_DIV0_ID		0U
+#define PM_CLOCK_DIV1_ID		1U
+
 #endif

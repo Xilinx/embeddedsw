@@ -1488,6 +1488,57 @@ done:
 }
 
 /**
+ * PmClockSetDivider() - Set divider of the clock
+ * @master	Master that initiated the call
+ * @clockId	ID of the clock in question
+ * @divId	Identifier of the divider value to be set
+ * @val		Divider value to be set
+ */
+void PmClockSetDivider(PmMaster* const master, const u32 clockId,
+		       const u32 divId, const u32 val)
+{
+	PmClock* clock;
+	int status = XST_SUCCESS;
+
+	PmInfo("%s> ClockSetDivider(%lu, %lu, %lu)\r\n", master->name, clockId,
+	       divId, val);
+	clock = PmClockGetById(clockId);
+	if (NULL == clock || 0U == val || INVALID_DIV_ID(divId)) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	status = PmClockDividerSetVal(clock, divId, val);
+
+done:
+	IPI_RESPONSE1(master->ipiMask, status);
+}
+
+/**
+ * PmClockGetDivider() - Get currently configured divider value of the clock
+ * @master	Master that initiated the call
+ * @clockId	ID of the clock in question
+ * @divId	ID of the divider
+ */
+void PmClockGetDivider(PmMaster* const master, const u32 clockId,
+		       const u32 divId)
+{
+	PmClock* clock;
+	int status = XST_SUCCESS;
+	u32 div = 0U;
+
+	PmInfo("%s> ClockGetDivider(%lu)\r\n", master->name, clockId);
+	clock = PmClockGetById(clockId);
+	if (NULL == clock) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	status = PmClockDividerGetVal(clock, divId, &div);
+
+done:
+	IPI_RESPONSE2(master->ipiMask, status, div);
+}
+
+/**
  * PmApiApprovalCheck() - Check if the API ID can be processed at the moment
  * @apiId	PM API ID
  *
@@ -1651,6 +1702,12 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		break;
 	case PM_CLOCK_GETSTATE:
 		PmClockGetStatus(master, pload[1]);
+		break;
+	case PM_CLOCK_SETDIVIDER:
+		PmClockSetDivider(master, pload[1], pload[2], pload[3]);
+		break;
+	case PM_CLOCK_GETDIVIDER:
+		PmClockGetDivider(master, pload[1], pload[2]);
 		break;
 	default:
 		PmWarn("Unsupported EEMI API #%lu\r\n", pload[0]);

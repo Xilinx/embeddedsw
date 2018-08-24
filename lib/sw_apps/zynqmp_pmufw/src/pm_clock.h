@@ -33,6 +33,11 @@ typedef struct PmClockClass PmClockClass;
 typedef struct PmNode PmNode;
 
 /*********************************************************************
+ * Macros
+ ********************************************************************/
+#define INVALID_DIV_ID(divId)	\
+		((divId != PM_CLOCK_DIV0_ID) && (divId != PM_CLOCK_DIV1_ID))
+/*********************************************************************
  * Structure definitions
  ********************************************************************/
 /**
@@ -56,6 +61,8 @@ int PmClockMuxSetParent(PmClock* const clock, const u32 select);
 int PmClockMuxGetParent(PmClock* const clock, u32 *const select);
 int PmClockGateSetState(PmClock* const clock, const u8 enable);
 int PmClockGateGetState(PmClock* const clock, u8* const enable);
+int PmClockDividerSetVal(PmClock* const clock, const u32 divId, const u32 val);
+int PmClockDividerGetVal(PmClock* const clock, const u32 divId, u32* const val);
 
 void PmClockInit(void);
 void PmClockRelease(PmNode* const node);

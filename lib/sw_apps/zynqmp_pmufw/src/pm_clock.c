@@ -62,6 +62,13 @@
 				PM_CLOCK_TYPE_GATE25 | \
 				PM_CLOCK_TYPE_GATE26)
 
+#define PM_CLOCK_HAS_DIV0(clk)	(0U != ((clk)->type & PM_CLOCK_TYPE_DIV0))
+#define PM_CLOCK_HAS_DIV1(clk)	(0U != ((clk)->type & PM_CLOCK_TYPE_DIV1))
+
+#define PM_DIV0_SHIFT	8U
+#define PM_DIV1_SHIFT	16U
+#define PM_DIV_MASK	0x3FU
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
@@ -73,6 +80,8 @@
  * @setParent	Set clock parent (configure clock's mux)
  * @getGate	Get state of the clock gate
  * @setGate	Configure gate of this clock (activate or gate the clock)
+ * @getDivider	Get currently configured divider of the clock
+ * @setDivider	Set clock divider value
  */
 typedef struct PmClockCtrlMethods {
 	void (*const initParent)(PmClock* const clock);
@@ -80,6 +89,10 @@ typedef struct PmClockCtrlMethods {
 	int (*const setParent)(PmClock* const clock, const u32 select);
 	int (*const getGate)(PmClock* const clock, u8* const enable);
 	int (*const setGate)(PmClock* const clock, const u8 enable);
+	int (*const getDivider)(PmClock* const clock, const u32 divId,
+				u32* const val);
+	int (*const setDivider)(PmClock* const clock, const u32 divId,
+				const u32 val);
 } PmClockCtrlMethods;
 
 /**
@@ -544,12 +557,97 @@ static int PmClockGenGetGateState(PmClock* const clock, u8* const enable)
 	return status;
 }
 
+/**
+ * PmClockGenSetDivider() - Generic clock method to set clock divider
+ * @clock	Target clock
+ * @divId	Identifier of the divider to be set
+ * @val		Divider value to be set
+ *
+ * @return	Status of setting the divider:
+ *		XST_SUCCESS the divider is configured as requested
+ *		XST_NO_FEATURE if clock has no divider
+ *		XST_INVALID_PARAM the requested value is out of physically
+ *		configurable divider's scope
+ */
+static int PmClockGenSetDivider(PmClock* const clock, const u32 divId,
+				const u32 val)
+{
+	int status = XST_SUCCESS;
+	PmClockGen* clk = (PmClockGen*)clock->derived;
+	u8 shift;
+
+	if (((PM_CLOCK_DIV0_ID == divId) && !PM_CLOCK_HAS_DIV0(clk)) ||
+	    ((PM_CLOCK_DIV1_ID == divId) && !PM_CLOCK_HAS_DIV1(clk))) {
+		/* Clock has no divider with specified ID */
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+	if (val > PM_DIV_MASK) {
+		/* Given div value is out of scope */
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	if (PM_CLOCK_DIV0_ID == divId) {
+		shift = PM_DIV0_SHIFT;
+	} else if (PM_CLOCK_DIV1_ID == divId) {
+		shift = PM_DIV1_SHIFT;
+	} else {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	XPfw_RMW32(clk->ctrlAddr, PM_DIV_MASK << shift, val << shift);
+
+done:
+	return status;
+}
+
+/**
+ * PmClockGenGetDivider() - Generic clock method to get clock divider
+ * @clock	Target clock
+ * @divId	Identifier of the divider whose value should be get
+ * @val		Location where the divider value needs to be stored
+ *
+ * @return	Status of getting the divider:
+ *		XST_SUCCESS the divider value is stored in 'div' location
+ *		XST_NO_FEATURE if clock has no divider
+ */
+static int PmClockGenGetDivider(PmClock* const clock, const u32 divId,
+				u32* const val)
+{
+	int status = XST_SUCCESS;
+	PmClockGen* clk = (PmClockGen*)clock->derived;
+	u32 reg;
+	u8 shift;
+
+	if (((PM_CLOCK_DIV0_ID == divId) && !PM_CLOCK_HAS_DIV0(clk)) ||
+	    ((PM_CLOCK_DIV1_ID == divId) && !PM_CLOCK_HAS_DIV1(clk))) {
+		/* Clock has no divider with specified ID */
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+	if (PM_CLOCK_DIV0_ID == divId) {
+		shift = PM_DIV0_SHIFT;
+	} else if (PM_CLOCK_DIV1_ID == divId) {
+		shift = PM_DIV1_SHIFT;
+	} else {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	reg = XPfw_Read32(clk->ctrlAddr);
+	*val = (reg >> shift) & PM_DIV_MASK;
+
+done:
+	return status;
+}
+
 static PmClockCtrlMethods pmClockGenCtrlMethods = {
 	.initParent = PmClockGenInitParent,
 	.getParent = PmClockGenGetParent,
 	.setParent = PmClockGenSetParent,
 	.getGate = PmClockGenGetGateState,
 	.setGate = PmClockGenSetGateState,
+	.getDivider = PmClockGenGetDivider,
+	.setDivider = PmClockGenSetDivider,
 };
 
 static PmClockClass pmClockClassGen = {
@@ -2455,6 +2553,54 @@ int PmClockGateGetState(PmClock* const clock, u8* const enable)
 		goto done;
 	}
 	status = clock->class->ctrl->getGate(clock, enable);
+done:
+	return status;
+}
+
+/**
+ * PmClockDividerSetVal() - Set divider of the clock
+ * @clock	Pointer to the target clock
+ * @divId	Identifier for the divider to be set
+ * @val		Divider value to be set
+ *
+ * @return	Status of performing the operation:
+ *		XST_SUCCESS the divider is set as requested
+ *		XST_NO_FEATURE the target clock has no divider
+ *		XST_INVALID_PARAM if given clock is NULL
+ */
+int PmClockDividerSetVal(PmClock* const clock, const u32 divId, const u32 val)
+{
+	int status = PmClockCheckForCtrl(clock);
+
+	if (XST_SUCCESS != status || NULL == clock->class->ctrl->setDivider) {
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+	status = clock->class->ctrl->setDivider(clock, divId, val);
+done:
+	return status;
+}
+
+/**
+ * PmClockDividerGetVal() - Get divider of the clock
+ * @clock	Pointer to the target clock
+ * @divId	Identifier of the clock's divider
+ * @val		Location where the divider value needs to be stored
+ *
+ * @return	Status of performing the operation:
+ *		XST_SUCCESS the divider location is updated (got divider)
+ *		XST_NO_FEATURE the target clock has no divider
+ *		XST_INVALID_PARAM if given clock is NULL
+ */
+int PmClockDividerGetVal(PmClock* const clock, const u32 divId, u32* const val)
+{
+	int status = PmClockCheckForCtrl(clock);
+
+	if (XST_SUCCESS != status || NULL == clock->class->ctrl->getDivider) {
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+	status = clock->class->ctrl->getDivider(clock, divId, val);
 done:
 	return status;
 }
