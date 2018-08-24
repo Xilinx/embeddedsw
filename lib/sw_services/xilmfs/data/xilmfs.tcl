@@ -43,6 +43,7 @@ proc mfs_open_include_file {file_name} {
 
 proc generate {lib_handle} {
 
+    puts "WARNING: XilMFS library is being deprecated from 2019.1. In the subsequent releases, it will be made obsolete. Please select XilFFS."
     puts "MFS generate ..."
     file copy "src/xilmfs.h"  "../../include/xilmfs.h" 
 
