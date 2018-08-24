@@ -104,7 +104,10 @@ extern PmNodeClass pmNodeClassPll_g;
 void PmPllRequest(PmPll* const pll);
 void PmPllRelease(PmPll* const pll);
 
+int PmPllSetModeInt(PmPll* const pll, const u32 mode);
 int PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val);
 int PmPllGetParameterInt(PmPll* const pll, const u32 paramId, u32* const val);
+
+u32 PmPllGetModeInt(PmPll* const pll);
 
 #endif

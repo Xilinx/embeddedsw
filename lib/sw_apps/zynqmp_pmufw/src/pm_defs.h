@@ -133,9 +133,11 @@
 
 #define PM_PLL_SET_PARAM		48U
 #define PM_PLL_GET_PARAM		49U
+#define PM_PLL_SET_MODE			50U
+#define PM_PLL_GET_MODE			51U
 
 #define PM_API_MIN	PM_GET_API_VERSION
-#define PM_API_MAX	PM_PLL_GET_PARAM
+#define PM_API_MAX	PM_PLL_GET_MODE
 
 /* PM API callback ids */
 #define PM_INIT_SUSPEND_CB      30U
@@ -604,5 +606,10 @@
 #define PM_PLL_PARAM_LFHF		7U
 #define PM_PLL_PARAM_CP			8U
 #define PM_PLL_PARAM_RES		9U
+
+/* PLL modes */
+#define PM_PLL_MODE_RESET		0U
+#define PM_PLL_MODE_INTEGER		1U
+#define PM_PLL_MODE_FRACTIONAL		2U
 
 #endif

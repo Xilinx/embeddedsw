@@ -47,6 +47,8 @@
 #define PM_PLL_CTRL_RESET_MASK	0x1U
 #define PM_PLL_CTRL_BYPASS_MASK	0x8U
 
+#define PLL_FRAC_CFG_ENABLED_MASK	CRF_APB_VPLL_FRAC_CFG_ENABLED_MASK
+
 /* Configurable: timeout period when waiting for PLL to lock */
 #define PM_PLL_LOCK_TIMEOUT	0x10000U
 
@@ -136,6 +138,27 @@ static void PmPllBypassAndReset(PmPll* const pll)
 }
 
 /**
+ * PmPllLock() - Trigger locking of the PLL and wait for it to lock
+ * @pll		Target PLL
+ *
+ * @status	Status of polling for the lock status as returned by
+ *		XPfw_UtilPollForMask
+ */
+static int PmPllLock(const PmPll* const pll)
+{
+	int status;
+
+	/* Deassert reset to trigger the PLL locking */
+	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
+		   ~PM_PLL_CTRL_RESET_MASK);
+	/* Poll status register for the lock */
+	status = XPfw_UtilPollForMask(pll->statusAddr, 1 << pll->lockShift,
+				      PM_PLL_LOCK_TIMEOUT);
+
+	return status;
+}
+
+/**
  * PmPllSaveContext() - Save the context of the PLL
  * @pll		PLL whose context should be saved
  */
@@ -213,12 +236,7 @@ static int PmPllResume(PmPll* const pll)
 			goto done;
 		}
 	}
-	/* Release reset */
-	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
-		   ~PM_PLL_CTRL_RESET_MASK);
-	/* Poll status register for the lock */
-	status = XPfw_UtilPollForMask(pll->statusAddr, 1 << pll->lockShift,
-				      PM_PLL_LOCK_TIMEOUT);
+	status = PmPllLock(pll);
 	if (XST_SUCCESS != status) {
 		/* Failed to lock PLL - assert reset and return */
 		XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET,
@@ -555,6 +573,87 @@ int PmPllGetParameterInt(PmPll* const pll, const u32 paramId, u32* const val)
 
 done:
 	return status;
+}
+
+/**
+ * PmPllSetModeInt() - Set the mode for PLL
+ * @pll		Target PLL
+ * @mode	Identifier of the mode to be set
+ *
+ * @return	XST_SUCCESS if the mode is set
+ *		XST_NO_DATA if the fractional mode is requested and configured
+ *		fractional divider is zero
+ */
+int PmPllSetModeInt(PmPll* const pll, const u32 mode)
+{
+	int status = XST_SUCCESS;
+	u32 val;
+
+	/* Check whether all config parameters are known for frac/int mode */
+	if (PM_PLL_MODE_FRACTIONAL == mode) {
+		PmPllParam* p = &pllParams[PM_PLL_PARAM_DATA];
+
+		val = XPfw_Read32(pll->addr + p->regOffset);
+		val = (val >> p->shift) & MASK_OF_BITS(p->bits);
+		/* Check if fractional divider has been set (data parameter) */
+		if (0U == val) {
+			status = XST_NO_DATA;
+			goto done;
+		}
+	}
+
+	PmPllBypassAndReset(pll);
+	if (PM_PLL_MODE_RESET == mode) {
+		goto done;
+	}
+
+	if (PM_PLL_MODE_FRACTIONAL == mode) {
+		val = PLL_FRAC_CFG_ENABLED_MASK;
+	} else {
+		val = ~PLL_FRAC_CFG_ENABLED_MASK;
+	}
+	/* Enable/disable fractional mode */
+	XPfw_RMW32(pll->addr + PM_PLL_FRAC_OFFSET, PLL_FRAC_CFG_ENABLED_MASK,
+		   val);
+
+	PmPllLock(pll);
+
+	/* Deassert bypass if the PLL has locked */
+	if (XST_SUCCESS == status) {
+		XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET,
+			   PM_PLL_CTRL_BYPASS_MASK, ~PM_PLL_CTRL_BYPASS_MASK);
+	}
+
+done:
+	return status;
+}
+
+/**
+ * PmPllGetModeInt() - Get current PLL mode
+ * @pll		Target PLL
+ *
+ * @return	Current mode of the PLL, i.e. one of the following:
+ *		PM_PLL_MODE_FRACTIONAL
+ *		PM_PLL_MODE_INTEGER
+ *		PM_PLL_MODE_RESET
+ */
+u32 PmPllGetModeInt(PmPll* const pll)
+{
+	u32 val, mode;
+
+	val = XPfw_Read32(pll->addr + PM_PLL_CTRL_OFFSET);
+	if (0U != (val & PM_PLL_CTRL_RESET_MASK)) {
+		mode = PM_PLL_MODE_RESET;
+	} else {
+		val = XPfw_Read32(pll->addr + PM_PLL_FRAC_OFFSET);
+		if (0U != (val & PLL_FRAC_CFG_ENABLED_MASK)) {
+			mode = PM_PLL_MODE_FRACTIONAL;
+		} else {
+			mode = PM_PLL_MODE_INTEGER;
+		}
+	}
+
+	return mode;
 }
 
 #endif
