@@ -261,6 +261,7 @@ int PmNodeInit(void)
 	int status;
 	int ret = XST_SUCCESS;
 
+	PmClockInit();
 	for (i = 0U; i < ARRAY_SIZE(pmNodeClasses); i++) {
 		for (n = 0U; n < pmNodeClasses[i]->bucketSize; n++) {
 			PmNode* node = pmNodeClasses[i]->bucket[n];
