@@ -26,7 +26,8 @@ Add support for using 64Bit DMA in 32Bit Processor
 Add cache invalidation call before returning from ReadPolled API
 Resolve compilation warnings for ARMCC toolchain
 
-xilffs_v3_10:
+xilffs_v4_0:
+Upgraded the FatFS version to 0.13b
 Fix Cppcheck and Doxygen warnings
 Modify sector buffer alignment to that of cache line supported
 SD Example - Change file size to 8MB from 8KB for ZynqMP platform
