@@ -121,6 +121,7 @@
 #define XFPGA_PART_IS_AUTH		(0x00008000U)
 #define DUMMY_BYTE			(0xFFU)
 #define SYNC_BYTE_POSITION		64
+#define BOOTGEN_DATA_OFFSET		0x2800U
 
 #define XFPGA_AES_TAG_SIZE	(XSECURE_SECURE_HDR_SIZE + \
 		XSECURE_SECURE_GCM_TAG_SIZE) /* AES block decryption tag size */
@@ -272,6 +273,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga_Info *PLInfoPtr)
 	u8 IsEncrypted = 0;
 	u8 NoAuth = 0;
 	u8 *IvPtr = (u8 *)(UINTPTR)Iv;
+	u32 BitstreamPos = 0;
 
 	if (!(XFPGA_SECURE_MODE_EN) &&
 		(PLInfoPtr->Flags & XFPGA_SECURE_FLAGS)) {
@@ -290,8 +292,15 @@ static u32 XFpga_ValidateBitstreamImage(XFpga_Info *PLInfoPtr)
 	}
 
 	if (!(PLInfoPtr->Flags & XFPGA_SECURE_FLAGS)) {
-		Status = XFPGA_SUCCESS;
-		goto END;
+		Status = XFpga_SelectEndianess((u8 *)PLInfoPtr->BitstreamAddr,
+						(u32)PLInfoPtr->AddrPtr, &BitstreamPos);
+		if (Status != XFPGA_SUCCESS) {
+			Status = XFPGA_PCAP_UPDATE_ERR(Status, 0);
+			goto END;
+		} else if (BitstreamPos != BOOTGEN_DATA_OFFSET) {
+			Status = XFPGA_SUCCESS;
+			goto END;
+		}
 	}
 
 	Status = XSecure_AuthenticationHeaders((u8 *)PLInfoPtr->BitstreamAddr,
@@ -374,6 +383,10 @@ static u32 XFpga_ValidateBitstreamImage(XFpga_Info *PLInfoPtr)
 	}
 
 END:
+	if (!(PLInfoPtr->Flags & XFPGA_SECURE_FLAGS)) {
+		PLInfoPtr->BitstreamAddr += BitstreamPos;
+		PLInfoPtr->AddrPtr -= BitstreamPos;
+	}
 	return Status;
 
 }
@@ -444,7 +457,6 @@ static u32 XFpga_WriteToPlPcap(XFpga_Info *PLInfoPtr)
 	u32 Status = XFPGA_SUCCESS;
 	XSecure_ImageInfo *ImageInfo = &PLInfoPtr->SecureImageInfo;
 	u32 BitstreamSize;
-	u32 BitstreamPos;
 
 	if (PLInfoPtr->Flags & XFPGA_SECURE_FLAGS)
 #ifdef XFPGA_SECURE_MODE
@@ -469,15 +481,6 @@ static u32 XFpga_WriteToPlPcap(XFpga_Info *PLInfoPtr)
 #endif
 	else {
 		BitstreamSize	= (u32)PLInfoPtr->AddrPtr;
-		Status = XFpga_SelectEndianess((u8 *)PLInfoPtr->BitstreamAddr,
-					       BitstreamSize, &BitstreamPos);
-		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_PCAP_UPDATE_ERR(Status, 0);
-			goto END;
-		}
-		PLInfoPtr->BitstreamAddr += BitstreamPos;
-		BitstreamSize -= BitstreamPos;
-
 		Status = XFpga_WriteToPcap(BitstreamSize/WORD_LEN,
 				PLInfoPtr->BitstreamAddr);
 		if (Status != XFPGA_SUCCESS) {
