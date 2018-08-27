@@ -141,6 +141,8 @@ Added support for readback of PL configuration data.
 Added Support to load the vivado generated .bit and .bin files.
 Added example for loading partial reconfiguration bitstreams.
 Modified the PL data handling Logic to support different PL programming interfaces.
+Added support for unaligned bitstream programming.
+Fixed issues with secure partial bitstream loading.
 
 standalone_v6_8:
 Fixed compilation warnings in xil_cache.c.(CR#1005118)
