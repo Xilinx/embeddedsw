@@ -116,7 +116,7 @@ xxvethernet_v1_1:
 Update tcl to find mcdma from design and add cannonical macro in xparameters.h and update topology in xxxvethernet_g.c accordingly.
 Add API XXxvEthernet_LookupConfigBaseAddr(UINTPTR Baseaddr) to lookup config by base address.
 Add Macro XXxvEthernet_IsMcDma(InstancePtr) to check Mcdma is connected or not.
-
+Fix error generating bsp sources for xxv+axidma design.
 
 Resetps_v1_2
 Fixed compilation warnings in resetps driver
