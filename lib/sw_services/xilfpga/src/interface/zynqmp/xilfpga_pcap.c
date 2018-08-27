@@ -64,6 +64,7 @@
  *                      programming the vivado generated .bit and .bin files.
  * 4.2   Nava  16/08/18 Modified the PL data handling Logic to support
  *                      different PL programming interfaces.
+ * 4.2	 adk   23/08/18 Added support for unaligned bitstream programming.
  *
  * </pre>
  *
@@ -118,8 +119,8 @@
 #define XFPGA_DESTINATION_PCAP_ADDR	(0XFFFFFFFFU)
 #define XFPGA_PART_IS_ENC		(0x00000080U)
 #define XFPGA_PART_IS_AUTH		(0x00008000U)
-#define DUMMY_WORD			(0xFFFFFFFFU)
-#define SYNC_WORD_POSITION		16
+#define DUMMY_BYTE			(0xFFU)
+#define SYNC_BYTE_POSITION		64
 
 #define XFPGA_AES_TAG_SIZE	(XSECURE_SECURE_HDR_SIZE + \
 		XSECURE_SECURE_GCM_TAG_SIZE) /* AES block decryption tag size */
@@ -180,7 +181,7 @@ static u32 XFpga_GetConfigRegPcap(XFpga_Info *PLInfoPtr);
 static u32 XFpga_GetPLConfigData(XFpga_Info *PLInfoPtr);
 static void XFpga_SetFirmwareState(u8 State);
 static u8 XFpga_GetFirmwareState(void);
-static u32 XFpga_SelectEndianess(u32 *Buf, u32 Size, u32 *Pos);
+static u32 XFpga_SelectEndianess(u8 *Buf, u32 Size, u32 *Pos);
 #ifdef XFPGA_SECURE_MODE
 static u32 XFpga_SecureLoadToPl(UINTPTR BitstreamAddr,	UINTPTR KeyAddr,
 				XSecure_ImageInfo *ImageInfo, u32 flags);
@@ -212,21 +213,22 @@ extern const XpbrServHndlr_t XpbrServHndlrTbl[XPBR_SERV_EXT_TBL_MAX];
 /************************** Variable Definitions *****************************/
 XCsuDma CsuDma;
 
-/* Xilinx ZynqMp Bootgen generated Bitstream header format */
-static const u32 BootgenBinFormat[] = {
-	0x000000BB, /* Bus Width Sync Word */
-	0x11220044, /* Bus Width Detect Pattern */
-	DUMMY_WORD,
-	DUMMY_WORD,
-	0xAA995566, /* Sync Word */
-};
 /* Xilinx ZynqMp Vivado generated Bitstream header format */
-static const u32 VivadoBinFormat[] = {
-	0xBB000000, /* Bus Width Sync Word */
-	0x44002211, /* Bus Width Detect Pattern */
-	DUMMY_WORD,
-	DUMMY_WORD,
-	0x665599AA, /* Sync Word */
+static const u8 VivadoBinFormat[] = {
+        0x00, 0x00, 0x00, 0xBB, /* Bus Width Sync Word */
+        0x11, 0x22, 0x00, 0x44, /* Bus Width Detect Pattern */
+        0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF,
+        0xAA, 0x99, 0x55, 0x66, /* Sync Word */
+};
+
+/* Xilinx ZynqMp Bootgen generated Bitstream header format */
+static const u8 BootgenBinFormat[] = {
+        0xBB, 0x00, 0x00, 0x00, /* Bus Width Sync Word */
+        0x44, 0x00, 0x22, 0x11, /* Bus Width Detect Pattern */
+        0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF,
+        0x66, 0x55, 0x99, 0xAA, /* Sync Word */
 };
 
 #ifdef XFPGA_SECURE_MODE
@@ -467,14 +469,14 @@ static u32 XFpga_WriteToPlPcap(XFpga_Info *PLInfoPtr)
 #endif
 	else {
 		BitstreamSize	= (u32)PLInfoPtr->AddrPtr;
-		Status = XFpga_SelectEndianess((u32 *)PLInfoPtr->BitstreamAddr,
-					BitstreamSize/WORD_LEN, &BitstreamPos);
+		Status = XFpga_SelectEndianess((u8 *)PLInfoPtr->BitstreamAddr,
+					       BitstreamSize, &BitstreamPos);
 		if (Status != XFPGA_SUCCESS) {
 			Status = XFPGA_PCAP_UPDATE_ERR(Status, 0);
 			goto END;
 		}
-		PLInfoPtr->BitstreamAddr += BitstreamPos * WORD_LEN;
-		BitstreamSize -= BitstreamPos * WORD_LEN;
+		PLInfoPtr->BitstreamAddr += BitstreamPos;
+		BitstreamSize -= BitstreamPos;
 
 		Status = XFpga_WriteToPcap(BitstreamSize/WORD_LEN,
 				PLInfoPtr->BitstreamAddr);
@@ -2578,23 +2580,24 @@ static u8 XFpga_GetFirmwareState(void)
  *	- XFPGA_ERROR_BITSTREAM_FORMAT if unsuccessful
  *
  *****************************************************************************/
-static u32 XFpga_SelectEndianess(u32 *Buf, u32 Size, u32 *Pos)
+static u32 XFpga_SelectEndianess(u8 *Buf, u32 Size, u32 *Pos)
 {
 	u32 Index;
 	u32 RegVal;
 	u32 Status = XFPGA_ERROR_BITSTREAM_FORMAT;
 	u8 EndianType;
-	u8 BitHdrSize = ARRAY_LENGTH(BootgenBinFormat) * WORD_LEN;
+	u8 BitHdrSize = ARRAY_LENGTH(BootgenBinFormat);
+	u32 IsBitNonAligned;
 
 	for (Index = 0; Index < Size; Index++) {
-	/* Find the First Dummy Word */
-		if (Buf[Index] == DUMMY_WORD) {
-			if (!(memcmp(&Buf[Index + SYNC_WORD_POSITION],
+	/* Find the First Dummy Byte */
+		if (Buf[Index] == DUMMY_BYTE) {
+			if (!(memcmp(&Buf[Index + SYNC_BYTE_POSITION],
 			    BootgenBinFormat, BitHdrSize))) {
 				EndianType = 0U;
 				Status = XFPGA_SUCCESS;
 				break;
-			} else if (!(memcmp(&Buf[Index + SYNC_WORD_POSITION],
+			} else if (!(memcmp(&Buf[Index + SYNC_BYTE_POSITION],
 				   VivadoBinFormat, BitHdrSize))) {
 				EndianType = 1U;
 				Status = XFPGA_SUCCESS;
@@ -2604,6 +2607,12 @@ static u32 XFpga_SelectEndianess(u32 *Buf, u32 Size, u32 *Pos)
 	}
 
 	if (Status == XFPGA_SUCCESS) {
+		IsBitNonAligned = Index % 4;
+		if (IsBitNonAligned) {
+			memcpy(Buf, Buf + IsBitNonAligned, Size - IsBitNonAligned);
+			Index -= IsBitNonAligned;
+		}
+
 		RegVal = XCsuDma_ReadReg(CsuDma.Config.BaseAddress,
 					((u32)(XCSUDMA_CTRL_OFFSET) +
 					((u32)XCSUDMA_SRC_CHANNEL *
