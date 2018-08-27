@@ -780,7 +780,7 @@ static u32 XFpga_SecureLoadToPl(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 {
 	u32 Status = XFPGA_FAILURE;
 
-	switch (flags) {
+	switch (flags & XFPGA_SECURE_FLAGS) {
 
 	case XFPGA_AUTHENTICATION_DDR_EN:
 	case XFPGA_AUTH_ENC_USERKEY_DDR:
