@@ -274,6 +274,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga_Info *PLInfoPtr)
 	u8 NoAuth = 0;
 	u8 *IvPtr = (u8 *)(UINTPTR)Iv;
 	u32 BitstreamPos = 0;
+	u32 PartHeaderOffset;
 
 	if (!(XFPGA_SECURE_MODE_EN) &&
 		(PLInfoPtr->Flags & XFPGA_SECURE_FLAGS)) {
@@ -384,8 +385,15 @@ static u32 XFpga_ValidateBitstreamImage(XFpga_Info *PLInfoPtr)
 
 END:
 	if (!(PLInfoPtr->Flags & XFPGA_SECURE_FLAGS)) {
+		if (BitstreamPos == BOOTGEN_DATA_OFFSET) {
+			PartHeaderOffset = *((UINTPTR *)(PLInfoPtr->BitstreamAddr +
+						PARTATION_HEADER_OFFSET));
+			PLInfoPtr->AddrPtr = *((UINTPTR *)(PLInfoPtr->BitstreamAddr +
+					      PartHeaderOffset)) * WORD_LEN;
+		} else {
+			PLInfoPtr->AddrPtr -= BitstreamPos;
+		}
 		PLInfoPtr->BitstreamAddr += BitstreamPos;
-		PLInfoPtr->AddrPtr -= BitstreamPos;
 	}
 	return Status;
 

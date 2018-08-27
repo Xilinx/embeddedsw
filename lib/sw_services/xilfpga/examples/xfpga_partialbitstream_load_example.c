@@ -46,6 +46,7 @@
  * Ver   Who     Date     Changes
  * ----- ------  -------- ------------------------------------------------------
  * 4.2   adk     03/08/18  Initial Release.
+ * 4.2	 adk	 23/08/18  Added bitstream size define.
  * </pre>
  *
  ******************************************************************************/
@@ -54,6 +55,18 @@
 #include "xilfpga.h"
 #include "xfpga_config.h"
 
+/**************************** Type Definitions *******************************/
+/* Xilfpga library supports vivado generated Partial Bitstream(*.bit) and
+ * bootgen generated Partial Bitstream(*.bin), Passing below definition is
+ * mandatory for vivado generated Partial Bitstream, For bootgen generated
+ * Partial Bitstream Xilfpga will take Bitstream size from the Bitstream Header.
+ *
+ * Below definition is for typical Partial Bitstream size of zcu102 board
+ * User should replace the below definition value with the actual
+ * Partial Bitstream size.
+ */
+#define BITSTREAM_SIZE	0x1000000
+/*****************************************************************************/
 int main(void)
 {
 	u64 addr = XFPGA_BASE_ADDRESS;
@@ -63,7 +76,7 @@ int main(void)
 		   XFPGA_BASE_ADDRESS);
 	xil_printf("Trying to configure Partial Reconfiguration Bitstream into the PL ......\n\r");
 
-	Status = XFpga_PL_BitStream_Load(addr, 0, XFPGA_PARTIAL_EN);
+	Status = XFpga_PL_BitStream_Load(addr, BITSTREAM_SIZE, XFPGA_PARTIAL_EN);
 	if (Status == XFPGA_SUCCESS)
 		xil_printf("Partial Reconfiguration Bitstream loaded into the PL successfully");
 	else

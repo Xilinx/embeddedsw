@@ -42,6 +42,7 @@
  * 4.0   Nava	21/02/18  Updated the example relevant to src code changes.
  * 4.2   Nava    30/05/18  Refactor the xilfpga library to support
  *                         different PL programming Interfaces.
+ * 4.2	 adk	 23/08/18  Added bitstream size define.
  * </pre>
  *
  ******************************************************************************/
@@ -50,6 +51,17 @@
 #include "xilfpga.h"
 #include "xfpga_config.h"
 
+/**************************** Type Definitions *******************************/
+/* Xilfpga library supports vivado generated Bitstream(*.bit, *.bin) and bootgen
+ * generated Bitstream(*.bin), Passing below definition is mandatory for vivado
+ * generated Bitstream, For bootgen generated Bitstreams Xilfpga will take
+ * Bitstream size from Bitstream Header.
+ *
+ * Below definition is for typical bitstream size of zcu102 board
+ * User should replace the below definition value with the actual bitstream size.
+ */
+#define BITSTREAM_SIZE	0x1A000000
+/*****************************************************************************/
 int main(void)
 {
 	u64 addr = XFPGA_BASE_ADDRESS;
@@ -59,7 +71,7 @@ int main(void)
 				XFPGA_BASE_ADDRESS);
 	xil_printf("Trying to configure the PL ......\n\r");
 
-	Status = XFpga_PL_BitStream_Load(addr, 0, 0);
+	Status = XFpga_PL_BitStream_Load(addr, BITSTREAM_SIZE, 0);
 
 	if (Status == XFPGA_SUCCESS)
 		xil_printf("PL Configuration done successfully");
