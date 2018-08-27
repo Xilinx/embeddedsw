@@ -25,7 +25,10 @@
 # this Software without prior written authorization from Xilinx.
 #
 # MODIFICATION HISTORY:
-# 06/16/17 hk First Release
+# 06/16/17 hk  First Release
+# 08/27/18 rsp Fix error generating bsp sources for non-supported designs.
+#              In get_targetip and is_ethsupported_target functions avoid
+#              calling get_cells/get_property API's with NULL handle.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -588,7 +591,14 @@ proc is_property_set {value} {
 }
 
 proc is_ethsupported_target {connected_ip} {
-   set connected_ipname [get_property IP_NAME [get_cells -hier $connected_ip]]
+   set connected_ipname ""
+   if {$connected_ip == ""} {
+      return "false"
+   }
+   set ipname [get_cells -hier $connected_ip]
+   if {$ipname != ""} {
+      set connected_ipname [get_property IP_NAME $ipname]
+   }
    if {$connected_ipname == "axi_mcdma"} {
       return "true"
    } else {
@@ -597,11 +607,17 @@ proc is_ethsupported_target {connected_ip} {
 }
 
 proc get_targetip {ip} {
+   set target_periph ""
+   if {$ip == ""} {
+      return $target_periph
+   }
    set p2p_busifs_i [get_intf_pins -of_objects $ip -filter "TYPE==INITIATOR || TYPE==MASTER"]
    foreach p2p_busif $p2p_busifs_i {
       set busif_name [string toupper [get_property NAME  $p2p_busif]]
       set conn_busif_handle [::hsi::utils::get_connected_intf $ip $busif_name]
-      set target_periph [get_cells -of_objects $conn_busif_handle]
+      if { $conn_busif_handle != ""} {
+         set target_periph [get_cells -of_objects $conn_busif_handle]
+      }
    }
    return $target_periph
 }
