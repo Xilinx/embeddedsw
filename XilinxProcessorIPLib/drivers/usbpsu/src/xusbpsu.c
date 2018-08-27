@@ -895,7 +895,7 @@ s32 XUsbPsu_U2SleepDisable(struct XUsbPsu *InstancePtr)
 
 /****************************************************************************/
 /**
-* Gets speed of the Core for connecting to Host
+* Checks if the current speed is Super Speed or not
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
 *
