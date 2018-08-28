@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2016 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 *******************************************************************************/
 
@@ -52,6 +50,7 @@
  *                        the PLL settings.
  * 1.3   RHe 2017/07/31   Updated ACR CTS generation for HDMI 2.0 formats.
  * 1.4   MMO 2017/09/05   Replace U32 with UINTPTR for 64 Bit Addressing Support
+ * 1.5   Yas 2019/03/08   Updated the ACR_N_Table values
  * </pre>
  *
  ******************************************************************************/
@@ -101,7 +100,7 @@ const XHDMI_SamplingFreq_PLLSettings SampleRatePllSettingsTbl[] = {
 // Recommend N values for Audio Clock Regeneration
 const ACR_N_Table_t ACR_N_Table[] =
 {
-	// TMDSClk    32k   44k1   48k   88k2    96k  176k4   192k
+	// TMDSClk    32k   44k1    48k   88k2    96k  176k4   192k
 	{        0, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
 	{ 25200000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
 	{ 27000000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
@@ -120,10 +119,10 @@ const ACR_N_Table_t ACR_N_Table[] =
 	{148500000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
 	{185625000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
 	{222750000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
-	{297000000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
-	{371250000, { 6144, 4704,  5120,  9408, 10240, 18816, 20480}},
-	{445500000, { 4096, 4704,  5120,  9408, 10240, 18816, 20480}},
-	{594000000, { 3072, 4704,  5120,  9408, 10240, 18816, 20480}}
+	{297000000, { 3072, 4704,  5120,  9408, 10240, 18816, 20480}},
+	{371250000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{445500000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{594000000, { 3072, 9408,  6144, 18816, 12288, 37632, 24576}}
 };
 
 
