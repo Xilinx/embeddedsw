@@ -12,6 +12,10 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -72,8 +76,6 @@
 *       EB   23-01-2018 Reset the counter tagged to the events logged whenever
 *                               log is displayed
 * 1.12  EB   09-04-2018 Fixed messages printing issue
-* 3.03  YB   08-14-2018 Updating the Hdcp Menu to remove Repeater options if
-*                       'ENABLE_HDCP_REPEATER' macro is not selected.
 * </pre>
 *
 ******************************************************************************/
@@ -215,7 +217,7 @@ static XHdmi_MenuFuncType* const XHdmi_MenuTable[XHDMI_NUM_MENUS] = {
 #endif
 };
 
-extern XVphy Vphy;               /* VPhy structure */
+extern XVphy Vphy;                 /* VPhy structure */
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 extern XV_HdmiTxSs HdmiTxSs;       /* HDMI TX SS structure */
 extern XhdmiAudioGen_t AudioGen;
@@ -225,10 +227,13 @@ extern u8 TxCableConnect;
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 extern XV_HdmiRxSs HdmiRxSs;       /* HDMI RX SS structure */
 #endif
-extern u8 IsPassThrough;         /**< Demo mode 0-colorbar 1-pass through */
-extern u8 TxBusy;                // TX busy flag. This flag is set while the TX is initialized
+extern u8 IsPassThrough;           /**< Demo mode 0-colorbar 1-pass through */
+extern u8 TxBusy;                  /* TX busy flag.
+                                    * This flag is set while the TX
+                                    * is initialized
+                                    */
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-extern XV_tpg Tpg;				/* TPG structure */
+extern XV_tpg Tpg;                 /* TPG structure */
 extern XTpg_PatternId Pattern;
 #endif
 extern XHdcp_Repeater HdcpRepeater;
@@ -269,13 +274,15 @@ void XHdmi_MenuInitialize(XHdmi_Menu *InstancePtr, u32 UartBaseAddress)
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #if(CUSTOM_RESOLUTION_ENABLE == 1)
-	//Initialize and Add Custom Resolution in to the Video Table
-	//Added for the resolution menu
-	/* Example : User registers custom timing table */
+	/* Initialize and Add Custom Resolution in to the Video Table
+	 * Added for the resolution menu
+	 * Example : User registers custom timing table
+	 */
 	Status = XVidC_RegisterCustomTimingModes(XVidC_MyVideoTimingMode,
 			 (XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
 	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: Unable to register custom timing table\r\n\r\n");
+		xil_printf("ERR: Unable to register custom timing"
+			" table\r\n\r\n");
 	}
 #endif
 #endif
@@ -1759,7 +1766,10 @@ void XHdmi_DisplayAudioMenu(void) {
 	xil_printf("----------------------\r\n");
 	xil_printf("  1 - Mute audio.\r\n");
 	xil_printf("  2 - Unmute audio.\r\n");
+#ifdef XPAR_XI2SRX_NUM_INSTANCES
+#else
 	xil_printf("  3 - Configure audio channels.\r\n");
+#endif
 	xil_printf(" 99 - Exit\r\n");
 	xil_printf("Enter Selection -> ");
 }
@@ -1797,14 +1807,15 @@ static XHdmi_MenuType XHdmi_AudioMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			// Display the prompt for the next input
 			xil_printf("Enter Selection -> ");
 			break;
-
+#ifdef XPAR_XI2SRX_NUM_INSTANCES
+#else
 			// Audio channels
 		case 3 :
 			xil_printf("Display Audio Channels menu.\r\n");
 			XHdmi_DisplayAudioChannelMenu();
 			Menu = XHDMI_AUDIO_CHANNEL_MENU;
 			break;
-
+#endif
 			// Exit
 		case 99 :
 			xil_printf("Returning to main menu.\r\n");
@@ -1931,25 +1942,14 @@ void XHdmi_DisplayHdcpMainMenu(void) {
 	xil_printf("---   HDCP Main Menu   ---\r\n");
 	xil_printf("--------------------------\r\n");
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if ENABLE_HDCP_REPEATER
 	xil_printf(" 1 - Enable repeater\r\n");
 	xil_printf(" 2 - Disable repeater\r\n");
 	xil_printf(" 3 - Enable detailed logging\r\n");
 	xil_printf(" 4 - Disable detailed logging\r\n");
 	xil_printf(" 5 - Display log\r\n");
 	xil_printf(" 6 - Display repeater info\r\n");
-#else
-	xil_printf(" 1 - Enable detailed logging\r\n");
-	xil_printf(" 2 - Disable detailed logging\r\n");
-	xil_printf(" 3 - Display log\r\n");
-	xil_printf(" 4 - Display info\r\n");
-#endif
 #if (HDCP_DEBUG_MENU_EN == 1)
-#if ENABLE_HDCP_REPEATER
 	xil_printf(" 7 - Display HDCP Debug menu\r\n");
-#else
-	xil_printf(" 5 - Display HDCP Debug menu\r\n");
-#endif
 #endif
 #else
 	xil_printf(" 1 - Enable detailed logging\r\n");
@@ -1989,7 +1989,6 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	switch (Input) {
 
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if ENABLE_HDCP_REPEATER
 			/* 1 - Enable repeater*/
 		case 1:
 			xil_printf("Enable repeater.\r\n");
@@ -2002,16 +2001,10 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			XHdcp_SetRepeater(&HdcpRepeater, FALSE);
 			break;
 #endif
-#endif
 
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if ENABLE_HDCP_REPEATER
 			/* 3 - Enable detailed logging */
 		case 3 :
-#else
-			/* 1 - Enable detailed logging [no repeater] */
-		case 1 :
-#endif
 #else
 			/* 1 - Enable detailed logging */
 		case 1 :
@@ -2026,13 +2019,8 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			break;
 
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if ENABLE_HDCP_REPEATER
 			/* 4 - Disable detailed logging */
 		case 4 :
-#else
-			/* 2 - Disabled detailed logging [no repeater] */
-		case 2 :
-#endif
 #else
 			/* 2 - Disable detailed logging */
 		case 2 :
@@ -2047,13 +2035,8 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			break;
 
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if ENABLE_HDCP_REPEATER
 			/* 5 - Display log */
 		case 5 :
-#else
-			/* 3 - Display log [no repeater] */
-		case 3 :
-#endif
 #else
 			/* 3 - Display log */
 		case 3 :
@@ -2068,15 +2051,9 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			break;
 
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if ENABLE_HDCP_REPEATER
 			/* 6 - Display repeater info */
 		case 6 :
 			xil_printf("Display repeater info.\r\n");
-#else
-			/* 4 - Display Info [no repeater] */
-		case 4 :
-			xil_printf("Display Info [no repeater].\r\n");
-#endif
 #else
 			/* 4 - Display repeater info */
 		case 4 :
@@ -2087,13 +2064,8 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 #if (HDCP_DEBUG_MENU_EN == 1)
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if ENABLE_HDCP_REPEATER
 			/* 7 - HDCP Debug Menu */
 		case 7 :
-#else
-			/* 5 - HDCP Debug Menu [no repeater] */
-		case 5 :
-#endif
 #else
 			/* 5 - HDCP Debug Menu */
 		case 5 :

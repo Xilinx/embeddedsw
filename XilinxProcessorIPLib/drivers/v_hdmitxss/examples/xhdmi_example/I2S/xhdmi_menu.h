@@ -12,6 +12,10 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -80,7 +84,7 @@
 extern "C" {
 #endif
 
-	/***************************** Include Files *********************************/
+/***************************** Include Files *********************************/
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
@@ -98,6 +102,9 @@ extern "C" {
 
 #include "xvphy.h"
 #include "xhdmi_edid.h"
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
+#include "xv_hdmirxss.h"
+#endif
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #include "xv_hdmitxss.h"
 #include "xv_tpg.h"
@@ -160,15 +167,18 @@ typedef enum {
 	* The HDMI menu instance data.
 	*/
 	typedef struct {
-		XHdmi_MenuConfig 	Config;    				/**< HDMI menu configuration data */
-		XHdmi_MenuType 		CurrentMenu; 			/**< Current menu */
-		u32			 		UartBaseAddress;		// Uart base address
-		u8					Value;					// Sub menu value
-		u8					WaitForColorbar;
+		XHdmi_MenuConfig 	Config; /**< HDMI menu configuration
+						 * data */
+		XHdmi_MenuType 		CurrentMenu; /**< Current menu */
+		u32			UartBaseAddress; /**< Uart base
+							 * address */
+		u8			Value; /**< Sub menu value */
+		u8			WaitForColorbar;
 	} XHdmi_Menu;
 
-	/************************** Function Prototypes ******************************/
-	void XHdmi_MenuInitialize(XHdmi_Menu *InstancePtr, u32 UartBaseAddress);
+	/********************** Function Prototypes **************************/
+	void XHdmi_MenuInitialize(XHdmi_Menu *InstancePtr,
+				u32 UartBaseAddress);
 	void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr);
 	void XHdmi_MenuReset(XHdmi_Menu *InstancePtr);
 

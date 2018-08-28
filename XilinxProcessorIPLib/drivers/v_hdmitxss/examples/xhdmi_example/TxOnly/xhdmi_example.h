@@ -14,8 +14,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -38,6 +38,8 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00         12/02/18 Initial release.
+* 3.03  YB     08/14/18 Adding macro 'ENABLE_HDCP_REPEATER' to allow application
+*                       to select/deselect the Repeater specific code.
 * </pre>
 *
 ******************************************************************************/
@@ -144,10 +146,20 @@ extern "C" {
 #define CUSTOM_RESOLUTION_ENABLE 1
 
 #if defined (XPAR_XHDCP_NUM_INSTANCES) || \
-		defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || \
+	defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || \
 	defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
-/* If HDCP 1.4 or HDCP 2.2 is in the system then use the HDCP abstraction layer */
+
+/* If HDCP 1.4 or HDCP 2.2 is in the system
+ * then use the HDCP abstraction layer */
 #define USE_HDCP
+
+#if defined XPAR_XV_HDMITXSS_NUM_INSTANCES && \
+	defined XPAR_XV_HDMIRXSS_NUM_INSTANCES
+/* Option to enable or disable HDCP Repeater , if
+ * HDCP 1.4 or HDCP 2.2 is in the system */
+#define ENABLE_HDCP_REPEATER		0
+#endif
+
 #endif
 
 /* Enabling this will enable HDCP Debug menu */

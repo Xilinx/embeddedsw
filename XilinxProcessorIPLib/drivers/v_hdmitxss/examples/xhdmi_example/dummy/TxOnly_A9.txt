@@ -1,0 +1,75 @@
+BLOCK ATTRIBUTES
+----------------
+
+CONTENTS OF THIS FILE
+---------------------
+
+ * Introduction
+ * Features
+ * System illustration
+ * UART menu illustration
+
+
+1. INTRODUCTION
+------------
+
+This example application is built to demonstrate the functionality of Xilinx HDMI Transmitter only.
+
+For details, see xhdmi_example.c.
+
+
+2. FEATURES
+------------
+* A test pattern generator IP will generate video stream according to user selection (via UART), then HDMI TX will transmit HDMI stream to the downstream SINK.
+* If the HDCP (1.4, 2.2 or both) is enabled by the hardware, the application will supports HDCP handling in HDMI TX.
+
+For details, please refer to PG235 and PG230.
+
+
+3. SYSTEM ILLUSTRATION
+---------------------
+
+A system illustration is shown as below.
+
+         -----------     --------
+         |         |     |      |
+         |    TX   |---->| SINK |
+         |         |     |      |
+         -----------     --------
+
+
+4. UART MENU ILLUSTRATION
+------------------------
+
+
+---------------------
+---   MAIN MENU   ---
+---------------------
+i - Info
+       => Shows information about the HDMI RX stream, HDMI TX stream,
+          GT transceivers and PLL settings.
+c - Colorbar
+       => Displays the colorbar on the source output.
+r - Resolution
+       => Change the video resolution of the colorbar.
+f - Frame rate
+       => Change the frame rate of the colorbar.
+d - Color depth
+       => Change the color depth of the colorbar.
+s - Color space
+       => Change the color space of the colorbar.
+l - GT PLL layout
+       => Select GT tranceiver PLL layout.
+z - GT & HDMI TX/RX log
+       => Shows log information for GT & HDMI TX/RX.
+e - Edid
+       => Display and set edid.
+a - Audio
+       => Audio options.
+v - Video
+       => Video pattern options.
+m - Set HDMI Mode
+n - Set DVI Mode
+h - HDCP
+       => Goto HDCP menu.
+

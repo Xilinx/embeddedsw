@@ -12,6 +12,10 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -107,8 +111,6 @@
 *                       Disable HDMI RX Video Stream when EnableColorBar API
 *                              is called.
 *                       Added TX Bridge Overflow and TX Bridge Underflow
-* 3.03  YB     08/14/18 Clubbing Repeater specific code under the
-*                       'ENABLE_HDCP_REPEATER' macro.
 * </pre>
 *
 ******************************************************************************/
@@ -248,6 +250,18 @@ XV_HdmiRxSs_Config *XV_HdmiRxSs_ConfigPtr;
 #ifdef XPAR_XGPIO_NUM_INSTANCES
 XGpio              Gpio_Tpg_resetn;
 XGpio_Config       *Gpio_Tpg_resetn_ConfigPtr;
+#endif
+
+#ifdef XPAR_XI2SRX_NUM_INSTANCES
+
+u8 tx_is_up = 0;
+u8 rx_is_up = 0;
+void i2s_init (void);
+void aud_clk_reset(void);
+void i2s_audio(u32 tmds, u8 ratio_tmds, u8 tx_up, u8 rx_up,
+		       XV_HdmiTxSs *HdmiTxSsPtr, XV_HdmiRxSs *HdmiRxSsPtr,
+			   XhdmiAudioGen_t *AudioGen);
+#define TX_ACR_ADDR XPAR_AUDIO_SS_0_HDMI_ACR_CTRL_BASEADDR
 #endif
 
 #ifdef VIDEO_FRAME_CRC_EN
@@ -683,7 +697,7 @@ void TxInfoFrameReset(void)
 	AviInfoFramePtr->ColorSpace = XHDMIC_COLORSPACE_RGB;
 	AviInfoFramePtr->VIC = 16;
 	AviInfoFramePtr->PicAspectRatio = XHDMIC_PIC_ASPECT_RATIO_16_9;
-    /* AudioInfoFramePtr->ChannelCount = XHDMIC_AUDIO_CHANNEL_COUNT_3; */
+	/* AudioInfoFramePtr->ChannelCount = XHDMIC_AUDIO_CHANNEL_COUNT_3; */
 }
 #endif
 #if (!defined XPS_BOARD_ZCU104)
@@ -829,10 +843,10 @@ int I2cClk_Ps(u32 InFreq, u32 OutFreq)
 	if (InFreq == 0) {
 
 		Status = Si5324_SetClock_Ps(&Ps_Iic1,
-		                            (0x69),
-					    (SI5324_CLKSRC_XTAL),
-					    (SI5324_XTAL_FREQ),
-					    OutFreq);
+						(SI5328_I2C_ADDR),
+						(SI5324_CLKSRC_XTAL),
+						(SI5324_XTAL_FREQ),
+						OutFreq);
 
 		if (Status != (SI5324_SUCCESS)) {
 			print("Error programming SI5324\r\n");
@@ -843,10 +857,10 @@ int I2cClk_Ps(u32 InFreq, u32 OutFreq)
 	/* Locked mode */
 	else {
 		Status = Si5324_SetClock_Ps(&Ps_Iic1,
-		                            (0x69),
-					    (SI5324_CLKSRC_CLK1),
-					    InFreq,
-					    OutFreq);
+						(SI5328_I2C_ADDR),
+						(SI5324_CLKSRC_CLK1),
+						InFreq,
+						OutFreq);
 
 		if (Status != (SI5324_SUCCESS)) {
 			print("Error programming SI5324\r\n");
@@ -998,12 +1012,14 @@ void Info(void)
 #endif
 	XVphy_HdmiDebugInfo(&Vphy, 0, XVPHY_CHANNEL_ID_CH1);
 
-#if(defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES))
+#if(defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
+		defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES))
 	xil_printf("------------\r\n");
 	xil_printf("Debugging\r\n");
 	xil_printf("------------\r\n");
 #endif
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
+		defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
 	xil_printf("AuxFifo Overflow Count: %d\r\n", AuxFifoOvrFlowCnt);
 #endif
 }
@@ -1462,8 +1478,17 @@ void RxAuxCallback(void *CallbackRef) {
 ******************************************************************************/
 void RxAudCallback(void *CallbackRef) {
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+#ifndef XPAR_XI2SRX_NUM_INSTANCES
 	XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
+#endif
 
+#ifdef XPAR_XI2SRX_NUM_INSTANCES
+
+	/* With I2S, it is always a PCM data
+	 * The TX audio is handled separately after the I2S IP are setup
+     */
+
+#else
 	if (IsPassThrough) {
 		/* Set TX Audio params:
 		 * Audio Channels:
@@ -1484,6 +1509,7 @@ void RxAudCallback(void *CallbackRef) {
 		}
 
 	}
+#endif
 #endif
 }
 
@@ -1588,6 +1614,11 @@ void RxStreamDownCallback(void *CallbackRef) {
 	/* Call HDCP stream-down callback */
 	XHdcp_StreamDownCallback(&HdcpRepeater);
 #endif
+
+#ifdef XPAR_XI2SRX_NUM_INSTANCES
+	rx_is_up = 0;
+#endif
+
 
 }
 
@@ -1763,6 +1794,10 @@ void RxStreamUpCallback(void *CallbackRef) {
 	/* Reset Video Frame CRC */
 	XVidFrameCrc_Reset();
 #endif
+
+#ifdef XPAR_XI2SRX_NUM_INSTANCES
+	rx_is_up = 1;
+#endif
 }
 
 /*****************************************************************************/
@@ -1801,7 +1836,9 @@ void RxBrdgOverflowCallback(void *CallbackRef) {
 void TxStreamUpCallback(void *CallbackRef) {
 
 #if defined(XPAR_XV_HDMITXSS_NUM_INSTANCES)
+#ifndef XPAR_XI2SRX_NUM_INSTANCES
 	XHdmiC_AudioInfoFrame *AudioInfoFramePtr;
+#endif
 	XHdmiC_AVI_InfoFrame  *AVIInfoFramePtr;
 #endif
 	IsStreamUp = TRUE;
@@ -1929,6 +1966,11 @@ void TxStreamUpCallback(void *CallbackRef) {
 	XV_ConfigTpg(&Tpg);
 
 #if defined(XPAR_XV_HDMITXSS_NUM_INSTANCES)
+#if defined(XPAR_XI2SRX_NUM_INSTANCES)
+	/* Do not start the Audio path here
+	 * Audio path is handled separately with I2S
+	 */
+#else
 #if defined(USE_HDMI_AUDGEN)
 	XhdmiACRCtrl_TMDSClkRatio(&AudioGen,
 				HdmiTxSsPtr->HdmiTxPtr->Stream.TMDSClockRatio);
@@ -1979,6 +2021,7 @@ void TxStreamUpCallback(void *CallbackRef) {
 	}
 #endif
 #endif
+#endif
 
 	ReportStreamMode(HdmiTxSsPtr, IsPassThrough);
 
@@ -2009,6 +2052,10 @@ void TxStreamUpCallback(void *CallbackRef) {
 	/* Clear TX busy flag */
 	TxBusy = (FALSE);
 
+#ifdef XPAR_XI2SRX_NUM_INSTANCES
+	tx_is_up = 1;
+#endif
+
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 	/* Release RX Video Bridge Reset */
 	if (IsPassThrough) {
@@ -2030,7 +2077,9 @@ void TxStreamUpCallback(void *CallbackRef) {
 *
 ******************************************************************************/
 void TxStreamDownCallback(void *CallbackRef) {
-
+#ifdef XPAR_XI2SRX_NUM_INSTANCES
+	tx_is_up = 0;
+#endif
 	/* If the system in the Pass-through
 	 * reset the AUX FIFO
 	 */
@@ -2569,6 +2618,10 @@ int main() {
 	xil_printf("---  (c) 2018 by Xilinx, Inc.      ---\r\n");
 	xil_printf("--------------------------------------\r\n");
 	xil_printf("Build %s - %s\r\n", __DATE__, __TIME__);
+#ifdef XPAR_XI2SRX_NUM_INSTANCES
+	xil_printf("This showcases the I2S Capture/Playback\r\n");
+	xil_printf("capability for 2 Channel PCM Audio\r\n");
+#endif
 	xil_printf("--------------------------------------\r\n");
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 	StartTxAfterRxFlag = (FALSE);
@@ -2629,6 +2682,21 @@ int main() {
 	 */
 	XIicPs_SetSClk(&Ps_Iic1, PS_IIC_CLK);
 
+#ifdef XPAR_XI2SRX_NUM_INSTANCES
+	i2s_init();
+	/* On Board SI5328 chip for Audio Clock */
+	/* Initialize external clock generator  */
+	/* Mux programmed to select Si5328      */
+	I2cMux_Ps();
+	/* Initialize external clock generator  */
+	Si5324_Init_Ps(&Ps_Iic1, SI5328_I2C_ADDR);
+	/* Generating a 18.432Mhz clock */
+	I2cClk_Ps(0, 18432000);
+	/* Delay 50ms to allow SI chip to lock  */
+	usleep (50000);
+	aud_clk_reset();
+#else
+
 	/* On Board SI5328 chip for DRU reference clock */
 	I2cMux_Ps();
 	/* Initialize external clock generator */
@@ -2638,6 +2706,7 @@ int main() {
 
 	/* Delay 50ms to allow SI chip to lock */
 	usleep (50000);
+#endif
 
 #endif
 
@@ -2779,11 +2848,18 @@ int main() {
 
 #if defined(XPAR_XV_HDMITXSS_NUM_INSTANCES)
 #if defined(USE_HDMI_AUDGEN)
+#ifdef XPAR_XI2SRX_NUM_INSTANCES
+	/* Initialize the Audio Generator */
+	XhdmiAudGen_Init(&AudioGen,
+		XPAR_AUDIO_I2S_SS_0_HDMI_ACR_CTRL_BASEADDR);
+
+#else
 	/* Initialize the Audio Generator */
 	XhdmiAudGen_Init(&AudioGen,
 			XPAR_AUDIO_SS_0_AUD_PAT_GEN_BASEADDR,
 			XPAR_AUDIO_SS_0_HDMI_ACR_CTRL_BASEADDR,
 			XPAR_AUDIO_SS_0_CLK_WIZ_BASEADDR);
+#endif
 #endif
 #endif
 
@@ -2832,7 +2908,7 @@ int main() {
 	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
 #if defined(__arm__) || (__aarch64__)
 	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_IRQ_VEC_ID,
+			XPAR_FABRIC_V_HDMI_TX_SS_IRQ_INTR,
 			(XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
 			(void *)&HdmiTxSs);
 
@@ -2840,13 +2916,13 @@ int main() {
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 	/* HDCP 1.4 Cipher interrupt */
 	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_HDCP14_IRQ_VEC_ID,
+			XPAR_FABRIC_V_HDMI_TX_SS_HDCP14_IRQ_INTR,
 			(XInterruptHandler)XV_HdmiTxSS_HdcpIntrHandler,
 			(void *)&HdmiTxSs);
 
 	/* HDCP 1.4 Timer interrupt */
 	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
+			XPAR_FABRIC_V_HDMI_TX_SS_HDCP14_TIMER_IRQ_INTR,
 			(XInterruptHandler)XV_HdmiTxSS_HdcpTimerIntrHandler,
 			(void *)&HdmiTxSs);
 #endif
@@ -2854,7 +2930,7 @@ int main() {
 /* HDCP 2.2 */
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES)
 	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
+			XPAR_FABRIC_V_HDMI_TX_SS_HDCP22_TIMER_IRQ_INTR,
 			(XInterruptHandler)XV_HdmiTxSS_Hdcp22TimerIntrHandler,
 			(void *)&HdmiTxSs);
 #endif
@@ -2898,22 +2974,22 @@ int main() {
 	if (Status == XST_SUCCESS) {
 #if defined(__arm__) || (__aarch64__)
 		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_IRQ_VEC_ID);
+			XPAR_FABRIC_V_HDMI_TX_SS_IRQ_INTR);
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 		/* HDCP 1.4 Cipher interrupt */
 		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_HDCP14_IRQ_VEC_ID);
+			XPAR_FABRIC_V_HDMI_TX_SS_HDCP14_IRQ_INTR);
 
 		/* HDCP 1.4 Timer interrupt */
 		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
+			XPAR_FABRIC_V_HDMI_TX_SS_HDCP14_TIMER_IRQ_INTR);
 #endif
 
 /* HDCP 2.2 */
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES)
 		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
+			XPAR_FABRIC_V_HDMI_TX_SS_HDCP22_TIMER_IRQ_INTR);
 #endif
 
 #else
@@ -3033,19 +3109,19 @@ int main() {
 	/* Register HDMI RX SS Interrupt Handler with Interrupt Controller */
 #if defined(__arm__) || (__aarch64__)
 	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_IRQ_VEC_ID,
+			XPAR_FABRIC_V_HDMI_RX_SS_IRQ_INTR,
 			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
 			(void *)&HdmiRxSs);
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 	/* HDCP 1.4 Cipher interrupt */
 	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID,
+			XPAR_FABRIC_V_HDMI_RX_SS_HDCP14_IRQ_INTR,
 			(XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
 			(void *)&HdmiRxSs);
 
 	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
+			XPAR_FABRIC_V_HDMI_RX_SS_HDCP14_TIMER_IRQ_INTR,
 			(XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
 			(void *)&HdmiRxSs);
 #endif
@@ -3053,7 +3129,7 @@ int main() {
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
 	/* HDCP 2.2 Timer interrupt */
 	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
+			XPAR_FABRIC_V_HDMI_RX_SS_HDCP22_TIMER_IRQ_INTR,
 			(XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
 			(void *)&HdmiRxSs);
 #endif
@@ -3095,16 +3171,16 @@ int main() {
 	if (Status == XST_SUCCESS) {
 #if defined(__arm__) || (__aarch64__)
 		XScuGic_Enable(&Intc,
-				XPAR_FABRIC_V_HDMIRXSS_0_IRQ_VEC_ID);
+				XPAR_FABRIC_V_HDMI_RX_SS_IRQ_INTR);
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 		XScuGic_Enable(&Intc,
-				XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID);
+				XPAR_FABRIC_V_HDMI_RX_SS_HDCP14_IRQ_INTR);
 		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
+			XPAR_FABRIC_V_HDMI_RX_SS_HDCP14_TIMER_IRQ_INTR);
 #endif
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
 		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
+			XPAR_FABRIC_V_HDMI_RX_SS_HDCP22_TIMER_IRQ_INTR);
 #endif
 
 #else
@@ -3322,14 +3398,13 @@ int main() {
 		NULL);
 #endif
 
-#if defined (USE_HDCP) && defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if ENABLE_HDCP_REPEATER
+#if defined (USE_HDCP) && defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
+				defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
 	if (XV_HdmiRxSs_HdcpIsReady(&HdmiRxSs) &&
 					XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
 		/* Set HDCP upstream interface */
 		XHdcp_SetRepeater(&HdcpRepeater, FALSE);
 	}
-#endif
 #endif
 
 	/* Enable Scrambling Override
@@ -3344,7 +3419,8 @@ int main() {
 	do {
 
 #ifdef USE_HDCP
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
+		defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
 		if (XV_HdmiRxSs_HdcpIsReady(&HdmiRxSs) &&
 					XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
 #elif defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
@@ -3400,6 +3476,15 @@ int main() {
 		/* VPHY error */
 		VphyProcessError();
 
+#ifdef XPAR_XI2SRX_NUM_INSTANCES
+
+		i2s_audio(XVphy_ClkDetGetRefClkFreqHz(&Vphy, XVPHY_DIR_RX),
+				(&Vphy)->HdmiRxTmdsClockRatio,
+				tx_is_up,
+				rx_is_up, (&HdmiTxSs),
+				(&HdmiRxSs),
+				(&AudioGen));
+#endif
 	}
 	while (1);
 

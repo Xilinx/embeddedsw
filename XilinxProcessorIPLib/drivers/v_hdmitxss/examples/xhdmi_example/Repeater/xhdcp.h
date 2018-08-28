@@ -12,6 +12,10 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -38,6 +42,10 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00  MH   05/24/16 First Release
 * 1.01  MH   06/16/17 Removed authentication request flag.
+* 3.03  YB   08/14/18 Initial release of Repeater ExDes.
+*                     Added macro 'XHDCP_MAX_DEVICE_CNT_CTS_HDCP14',
+*                     for maximum devices supported for HDCP1.4 CTS.
+*                     Added flag 'UpstreamAuthRequestCount'.
 *</pre>
 *
 *****************************************************************************/
@@ -66,6 +74,7 @@ extern "C" {
 #define XHDCP_DEVICE_ID_SIZE               5    /*< Size in bytes of ReceiverID for HDCP 2.2 or KSV for HDCP 1.4 */
 #define XHDCP_MAX_DOWNSTREAM_INTERFACES    32   /*< Maximum number of HDCP downstream interfaces allowed */
 #define XHDCP_MAX_DEVICE_CNT_HDCP14        127  /*< Maximum repeater topology device count for HDCP 1.4 */
+#define XHDCP_MAX_DEVICE_CNT_CTS_HDCP14    32   /*< Maximum repeater topology device count for HDCP 1.4 CTS tests */
 #define XHDCP_MAX_DEPTH_HDCP14             7    /*< Maximum repeater topology depth for HDCP 1.4 */
 #define XHDCP_MAX_DEVICE_CNT_HDCP22        31   /*< Maximum repeater topology device count for HDCP 2.2 */
 #define XHDCP_MAX_DEPTH_HDCP22             4    /*< Maximum repeater topology depth for HDCP 2.2 */
@@ -95,6 +104,8 @@ typedef struct
   u8 UpstreamInstanceConnected;
   /** Flag indicates upstream interface stream is up */
   u8 UpstreamInstanceStreamUp;
+  /** Authentication Request count on the upstream interface */
+  u32 UpstreamAuthRequestCount;
 #endif
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
   /** Array of pointers to each HDMI repeater downstream interface */

@@ -12,6 +12,10 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -38,8 +42,6 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00         12/02/18 Initial release.
-* 3.03  YB     08/14/18 Adding macro 'ENABLE_HDCP_REPEATER' to allow application
-*                       to select/deselect the Repeater specific code.
 * </pre>
 *
 ******************************************************************************/
@@ -88,6 +90,10 @@ extern "C" {
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #include "xv_hdmitxss.h"
 #include "audiogen_drv.h"
+#ifdef XPAR_XI2SRX_NUM_INSTANCES
+/* This is only required for the I2S audio over HDMI */
+#define USE_HDMI_AUDGEN
+#endif
 #ifdef XPAR_AUDIO_SS_0_AUD_PAT_GEN_BASEADDR
 /* This is only required for the audio over HDMI */
 #define USE_HDMI_AUDGEN
@@ -122,6 +128,7 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 #define I2C_MUX_ADDR    0x74  /**< I2C Mux Address */
+#define SI5328_I2C_ADDR 0x69
 #if (defined XPS_BOARD_ZCU104)
 #define I2C_CLK_ADDR    0x6C  /**< I2C Clk Address IDT_8T49N241*/
 #else
@@ -149,20 +156,10 @@ extern "C" {
 #define CUSTOM_RESOLUTION_ENABLE 1
 
 #if defined (XPAR_XHDCP_NUM_INSTANCES) || \
-	defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || \
+		defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || \
 	defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
-
-/* If HDCP 1.4 or HDCP 2.2 is in the system
- * then use the HDCP abstraction layer */
+/* If HDCP 1.4 or HDCP 2.2 is in the system then use the HDCP abstraction layer */
 #define USE_HDCP
-
-#if defined XPAR_XV_HDMITXSS_NUM_INSTANCES && \
-	defined XPAR_XV_HDMIRXSS_NUM_INSTANCES
-/* Option to enable or disable HDCP Repeater , if
- * HDCP 1.4 or HDCP 2.2 is in the system */
-#define ENABLE_HDCP_REPEATER		0
-#endif
-
 #endif
 
 /* Enabling this will enable HDCP Debug menu */

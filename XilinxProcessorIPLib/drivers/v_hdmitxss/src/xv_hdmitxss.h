@@ -100,6 +100,7 @@
 *                             XV_HdmiTxSs_Config
 *       SM     28/02/18 Added XV_HdmiTxSS_SetAppVersion API and AppMajVer and
 *                           AppMinVer version number in XV_HdmiTxSs structure
+*       MMO    11/08/18 Added Bridge Overflow and Bridge Underflow Interrupt
 * </pre>
 *
 ******************************************************************************/
@@ -192,6 +193,7 @@ typedef enum {
 											 Repetition. */
 	XV_HDMITXSS_LOG_EVT_VTC_RES_ERR,	/**< Log event Resolution Unsupported
 											 by VTC. */
+	XV_HDMITXSS_LOG_EVT_BRDG_UNLOCKED,	/**< VID-OUT bridge unlocked. */
 	XV_HDMITXSS_LOG_EVT_DUMMY		/**< Dummy Event should be last */
 } XV_HdmiTxSs_LogEvent;
 
@@ -283,7 +285,13 @@ typedef enum {
                                                             toggle event */
     XV_HDMITXSS_HANDLER_BRDGUNLOCK,                        /**< Handler for
                                                             bridge unlocked
-															event */
+                                                            event */
+    XV_HDMITXSS_HANDLER_BRDGOVERFLOW,                      /**< Handler for
+                                                            bridge overflow
+                                                            event */
+    XV_HDMITXSS_HANDLER_BRDGUNDERFLOW,                     /**< Handler for
+                                                            bridge underflow
+                                                            event */
     XV_HDMITXSS_HANDLER_VS,                                /**< Handler for
                                                             vsync event */
     XV_HDMITXSS_HANDLER_STREAM_DOWN,                       /**< Handler for
@@ -389,10 +397,20 @@ typedef struct
     void *ToggleRef;                     /**< To be passed to the toggle
                                               callback */
 
-    XV_HdmiTxSs_Callback BrdgUnlockedCallback; /**< Callback for Bridge UnLocked
-                                                  event interrupt */
+    XV_HdmiTxSs_Callback BrdgUnlockedCallback; /**< Callback for Bridge
+                                                 * UnLocked event interrupt */
     void *BrdgUnlockedRef;                  /**< To be passed to the Bridge
                                               Unlocked interrupt callback */
+
+    XV_HdmiTxSs_Callback BrdgOverflowCallback; /**< Callback for Bridge
+                                                 * Overflow event interrupt */
+    void *BrdgOverflowRef;                  /**< To be passed to the Bridge
+                                              Overflow interrupt callback */
+
+    XV_HdmiTxSs_Callback BrdgUnderflowCallback; /**< Callback for Bridge
+                                                 * Underflow event interrupt */
+    void *BrdgUnderflowRef;                  /**< To be passed to the Bridge
+                                              Underflow interrupt callback */
 
     XV_HdmiTxSs_Callback VsCallback; /**< Callback for Vsync event */
     void *VsRef;                   /**< To be passed to the Vsync callback */
