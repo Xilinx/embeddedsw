@@ -15,7 +15,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -25,6 +25,24 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
+
+/*
+	DP159
+
+	Written by Marco Groeneveld
+	Copyright (c) 2014 -2016 Xilinx, Inc. All rights reserved.
+
+	History
+	-------
+	v1.0 - Initial release
+	v1.1 - Updated DP159 setting to automatic redriver to retimer
+	       for HDMI 1.4 data rates
+	v1.2 - Added Reset to I2C controller before issuing new transaction
+	v1.3 - Changed printf usage to xil_printf
+	v1.4 - Update vswing setting to recommened values to pass compliance
+	v1.5 - Update the register setting sequence to write 0x0A the last
+           to set APPLY_RXTX_CHANGES
+*/
 
 #include "dp159.h"
 #include "sleep.h"
