@@ -69,6 +69,11 @@
 *                       Increase timeout for topology propagation.
 * 4.1   yas    08/03/17 Updated the XHdcp1x_TxIsInProgress to track any
 *                       pending authentication requests.
+* 4.2   yas    08/14/18 Updated the XHdcp1x_TxPollForWaitForReady function to
+*                       ready topology in case of a topology error, and make
+*                       it available in XHdcp1x_TxGetTopology().
+*                       Updating the XHdcp1x_TxReset() to clear the
+*                       Authentication Request flag.
 * </pre>
 *
 *****************************************************************************/
@@ -376,6 +381,9 @@ int XHdcp1x_TxReset(XHdcp1x *InstancePtr)
 	/* Reset it */
 	XHdcp1x_TxPostEvent(InstancePtr, XHDCP1X_EVENT_DISABLE);
 	XHdcp1x_TxPostEvent(InstancePtr, XHDCP1X_EVENT_ENABLE);
+
+	/* Reset the Authentication In Progress Flag. */
+	InstancePtr->Tx.IsAuthReqPending = (FALSE);
 
 	return (Status);
 }
@@ -1777,7 +1785,9 @@ static void XHdcp1x_TxPollForWaitForReady(XHdcp1x *InstancePtr,
 	Status = XHdcp1x_PortGetRepeaterInfo(InstancePtr, &RepeaterInfo);
 	if (Status == XST_SUCCESS) {
 		/* Check that neither cascade or device numbers exceeded */
-		if ((RepeaterInfo & 0x0880u) == 0) {
+		if ((!XHdcp1x_TxGetTopologyMaxCascadeExceeded(InstancePtr)) &&
+		    (!XHdcp1x_TxGetTopologyMaxDevsExceeded(InstancePtr))) {
+
 			/* Check for at least one attached device */
 			if ((RepeaterInfo & 0x007Fu) != 0) {
 				/* Update InstancePtr */
@@ -1786,14 +1796,30 @@ static void XHdcp1x_TxPollForWaitForReady(XHdcp1x *InstancePtr,
 				/* Update NextStatePtr */
 				*NextStatePtr = XHDCP1X_STATE_READKSVLIST;
 
+				/* No topology errors. */
+				InstancePtr->RepeaterValues.hdcp14_PropagateTopoErrUpstream = FALSE;
+
 				/* Log */
 				XHdcp1x_TxDebugLog(InstancePtr,
 					"devices attached: ksv list ready");
 			}
 			/* Otherwise */
 			else {
+				/*
+				 * Check if Repeater. If repeater, goto
+				 * unauthenticated state and wait for the
+				 * Repeater RX interface to trigger
+				 * authentication after timing out of
+				 * WaitForDownstream state.
+				 * Otherwise, restart authentication on the TX.
+				 */
+				if (InstancePtr->IsRepeater) {
+				/* Update NextStatePtr */
+				*NextStatePtr = XHDCP1X_STATE_UNAUTHENTICATED;
+				} else {
 				/* Update NextStatePtr */
 				*NextStatePtr = XHDCP1X_STATE_DETERMINERXCAPABLE;
+				}
 
 				/* Log */
 				XHdcp1x_TxDebugLog(InstancePtr,
@@ -1806,6 +1832,46 @@ static void XHdcp1x_TxPollForWaitForReady(XHdcp1x *InstancePtr,
 			/* Disable the hdcp encryption for both HDMI and DP.
 			 * But currently only doing it for HDMI. */
 			XHdcp1x_TxDisableEncryptionState(InstancePtr);
+
+			/* Propagate the failure upstream */
+			InstancePtr->RepeaterValues.Depth =
+					((RepeaterInfo & 0x0700u) >>
+					 XHDCP1X_PORT_BSTATUS_DEPTH_SHIFT);
+			InstancePtr->RepeaterValues.DeviceCount =
+					(RepeaterInfo &
+					 XHDCP1X_PORT_BSTATUS_DEV_CNT_MASK);
+			/* Set the KSV List to include the downstream
+			 * device's BKSV. Do not Validate or assemble the KSV
+			 * List from downstream.*/
+			u8 Bksv[8];
+
+			XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BKSV,
+					Bksv, 5);
+
+			u64 RemoteKsv = 0;
+
+			/* Determine theRemoteKsv */
+			XHDCP1X_PORT_BUF_TO_UINT(RemoteKsv, Bksv,
+					XHDCP1X_PORT_SIZE_BKSV * 8);
+
+			/* Check for invalid */
+			if (!XHdcp1x_TxIsKsvValid(RemoteKsv)) {
+				InstancePtr->RepeaterValues.KsvList[0] =
+					RemoteKsv;
+			} else {
+				InstancePtr->RepeaterValues.KsvList[0] = 0x0;
+			}
+
+			/* Set V' to 0x0. */
+			memset(InstancePtr->RepeaterValues.V, 0x0,
+			       sizeof(u32)*5);
+
+			InstancePtr->RepeaterValues.hdcp14_PropagateTopoErrUpstream = TRUE;
+
+			if (InstancePtr->Tx.IsRepeaterExchangeCallbackSet) {
+				InstancePtr->Tx.RepeaterExchangeCallback(
+					InstancePtr->Tx.RepeaterExchangeRef);
+			}
 #endif
 
 			/* Update NextStatePtr */
@@ -2332,7 +2398,9 @@ XHdcp1x_RepeaterExchange *XHdcp1x_TxGetTopology(XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	if (InstancePtr->IsRepeater) {
-		if (InstancePtr->Rx.CurrentState == XHDCP1X_STATE_AUTHENTICATED) {
+		if (InstancePtr->Tx.CurrentState == XHDCP1X_STATE_AUTHENTICATED) {
+			return &InstancePtr->RepeaterValues;
+		} else if (InstancePtr->RepeaterValues.hdcp14_PropagateTopoErrUpstream == TRUE) {
 			return &InstancePtr->RepeaterValues;
 		}
 	}
@@ -3135,11 +3203,14 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 	switch (State) {
 		/* For the disabled state */
 		case XHDCP1X_STATE_DISABLED:
+			/* Clear auth request pending flag */
+			InstancePtr->Tx.IsAuthReqPending = FALSE;
 			XHdcp1x_TxDisableState(InstancePtr);
 			break;
 
 		/* For determine rx capable */
 		case XHDCP1X_STATE_DETERMINERXCAPABLE:
+			InstancePtr->RepeaterValues.hdcp14_PropagateTopoErrUpstream = FALSE;
 			InstancePtr->Tx.Flags |= XVPHY_FLAG_PHY_UP;
 			XHdcp1x_TxSetCheckLinkState(InstancePtr, FALSE);
 			XHdcp1x_TxDisableEncryptionState(InstancePtr);

@@ -717,6 +717,9 @@
 * 4.1   yas    11/10/16 Added function XHdcp1x_SetHdmiMode.
 * 4.1   yas    08/03/17 Added flag IsAuthReqPending to the XHdcp1x_Tx data
 *                       structure to track any pending authentication requests.
+* 4.2   yas    08/13/18 Addded hdcp14_PropagateTopoErrUpstream flag to track
+*                       topology failures and ready the topology for the
+*                       repeater application to read.
 * </pre>
 *
 ******************************************************************************/
@@ -951,6 +954,7 @@ typedef struct {
 	u8 Depth;	/**< Depth of the Repeater's downstream topology*/
 	u8 DeviceCount;		/**< Number of downstream devices attached
 				  *  to the Repeater*/
+	u8 hdcp14_PropagateTopoErrUpstream;
 } XHdcp1x_RepeaterExchange;
 
 /**
@@ -1087,9 +1091,9 @@ typedef struct {
 						   *  second part of
 						   *  authentication" callback
 						   *  set flag*/
-	XHdcp1x_Callback AuthenticatedCallback; /**< Unauthenticated callback*/
-	void *AuthenticatedCallbackRef;	/**< Unauthenticated reference */
-	u32 IsAuthenticatedCallbackSet;	/**< Unauthenticated config flag */
+	XHdcp1x_Callback AuthenticatedCallback; /**< Authenticated callback*/
+	void *AuthenticatedCallbackRef;	/**< Authenticated reference */
+	u32 IsAuthenticatedCallbackSet;	/**< Authenticated config flag */
 	XHdcp1x_Callback UnauthenticatedCallback; /**< Unauthenticated
 						    *  callback */
 	void *UnauthenticatedCallbackRef;	/**< Unauthenticated
