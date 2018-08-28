@@ -1,34 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*
 	DP159
 
 	Written by Marco Groeneveld
-	Copyright (c) 2014 -2016 Xilinx, Inc. All rights reserved.
 
 	History
 	-------
@@ -61,10 +40,10 @@ u8 i2c_dp159_chk(u8 dev) {
 
 	// DP159 ES
 	if (dev == DP159_ES) {
-		r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf, 1, XIIC_STOP);
+		r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)buf, 1, XIIC_STOP);
 	}
 	else
-		r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ZOMBIE_ADDR, (u8 *)&buf, 1, XIIC_STOP);
+		r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ZOMBIE_ADDR, (u8 *)buf, 1, XIIC_STOP);
 
 	// When a device is found, it returns one byte
 	if (r == 1)
@@ -84,12 +63,12 @@ u32 i2c_dp159_write(u8 dev, u8 addr, u8 dat)
 
   // DP159 ES
   if (dev == DP159_ES) {
-	  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf, 2, XIIC_STOP);
+	  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)buf, 2, XIIC_STOP);
   }
 
   // Zombie
   else {
-	  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ZOMBIE_ADDR, (u8 *)&buf, 2, XIIC_STOP);
+	  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ZOMBIE_ADDR, (u8 *)buf, 2, XIIC_STOP);
   }
 
   if (r == 2)
@@ -108,14 +87,14 @@ u8 i2c_dp159_read(u8 dev, u8 addr)
 
   // DP159 ES
   if (dev == DP159_ES) {
-	  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf, 1, XII_REPEATED_START_OPTION);
-	  r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf, 1, XIIC_STOP);
+	  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)buf, 1, XII_REPEATED_START_OPTION);
+	  r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)buf, 1, XIIC_STOP);
   }
 
   // Zombie
   else {
-	  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ZOMBIE_ADDR, (u8 *)&buf, 1, XII_REPEATED_START_OPTION);
-	  r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ZOMBIE_ADDR, (u8 *)&buf, 1, XIIC_STOP);
+	  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ZOMBIE_ADDR, (u8 *)buf, 1, XII_REPEATED_START_OPTION);
+	  r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ZOMBIE_ADDR, (u8 *)buf, 1, XIIC_STOP);
   }
 
   if (r == 1)
@@ -134,16 +113,20 @@ void i2c_dp159_dump(void)
 
   buf[0] = 0x0;
   xil_printf("DP159 register dump\r\n");
-  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf, 1, XII_REPEATED_START_OPTION);
+  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)buf, 1, XII_REPEATED_START_OPTION);
 
-  r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf, 32, XIIC_STOP);
+  r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)buf, 32, XIIC_STOP);
   for (i = 0; i< 0x20; i++) {
 	  xil_printf("(%d) ADDR: %0x DATA: %0x\r\n", r, i, buf[i]);
   }
  }
 
 // DP159
+#ifndef versal
 u32 i2c_dp159(XVphy *VphyPtr, u8 QuadId, u64 TxLineRate)
+#else
+u32 i2c_dp159(XHdmiphy1 *Hdmiphy1Ptr, u8 QuadId, u64 TxLineRate)
+#endif
 {
   u32 r;
   u8 mode;
@@ -447,24 +430,49 @@ u32 i2c_dp159(XVphy *VphyPtr, u8 QuadId, u64 TxLineRate)
 				  xil_printf("DP159 HDMI 2.0\r\n");
 			  r = i2c_dp159_write(DP159_ES, 0x0B, 0x9a);    // SLEW_CTL = Reg0Bh[7:6] = 10
 			                                                // TX_TERM_CTL = Reg0Bh[4:3] = 11
+#ifndef versal
 			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x49);    // VSWING_DATA & VSWING_CLK to +14% = Reg0Ch[7:2] = 100100
 			                                                // PRE_SEL = Reg0Ch[1:0] = 01 (labeled HDMI_TWPST)
+
+#else
+			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x1C); //44);    // VSWING_DATA to +14% & VSWING_CLK to +7% = Reg0Ch[7:2] = 010001
+			                                                // PRE_SEL = Reg0Ch[1:0] = 00 (labeled HDMI_TWPST)
+#endif
 			  r = i2c_dp159_write(DP159_ES, 0x0D, 0x00);
 			  r = i2c_dp159_write(DP159_ES, 0x0A, 0x36);	// Automatic retimer for HDMI 2.0
 		  }
 
-		  // HDMI 1.4
-		  else {
+		  // HDMI 1.4 (> 2 Gbps)
+		  else if ((TxLineRate / (1000000)) > 2000) {
 			  if (DP159_VERBOSE)
-				  xil_printf("DP159 HDMI 1.4\r\n");
-			  r = i2c_dp159_write(DP159_ES, 0x0B, 0x80);    // SLEW_CTL = Reg0Bh[7:6] = 10
-			                                                // TX_TERM_CTL = Reg0Bh[4:3] = 00
-			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x48);	// VSWING_DATA & VSWING_CLK to +14% = Reg0Ch[7:2] = 100100
+				  xil_printf("DP159 HDMI 1.4 (> 2 Gbps)\r\n");
+			  r = i2c_dp159_write(DP159_ES, 0x0B, 0x88);    // SLEW_CTL = Reg0Bh[7:6] = 10
+			                                                // TX_TERM_CTL = Reg0Bh[4:3] = 01
+#ifndef versal
+			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x48);	// VSWING_DATA & VSWING_CLK to +14% = Reg0Ch[7:2] = 010010
 			                                                // PRE_SEL = Reg0Ch[1:0] = 00 (labeled HDMI_TWPST)
+#else
+			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x00);	// VSWING_DATA & VSWING_CLK to +00% = Reg0Ch[7:2] = 000000
+			                                                // PRE_SEL = Reg0Ch[1:0] = 00 (labeled HDMI_TWPST)
+#endif
 			  r = i2c_dp159_write(DP159_ES, 0x0D, 0x00);
 			  r = i2c_dp159_write(DP159_ES, 0x0A, 0x35);	// Automatic redriver to retimer crossover at 1.0 Gbps
-			  //r = i2c_dp159_write(DP159_ES, 0x0A, 0x34);	// The redriver mode must be selected to support low video rates
-
+		  }
+		  // HDMI 1.4 (< 2 Gbps)
+		  else {
+			  if (DP159_VERBOSE)
+				  xil_printf("DP159 HDMI 1.4 (< 2 Gbps)\r\n");
+			  r = i2c_dp159_write(DP159_ES, 0x0B, 0x80);    // SLEW_CTL = Reg0Bh[7:6] = 10
+			                                                // TX_TERM_CTL = Reg0Bh[4:3] = 00
+#ifndef versal
+			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x48);	// VSWING_DATA & VSWING_CLK to +14% = Reg0Ch[7:2] = 010010
+			                                                // PRE_SEL = Reg0Ch[1:0] = 00 (labeled HDMI_TWPST)
+#else
+			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x00);	// VSWING_DATA & VSWING_CLK to +00% = Reg0Ch[7:2] = 000000
+			                                                // PRE_SEL = Reg0Ch[1:0] = 00 (labeled HDMI_TWPST)
+#endif
+			  r = i2c_dp159_write(DP159_ES, 0x0D, 0x00);
+			  r = i2c_dp159_write(DP159_ES, 0x0A, 0x35);	// Automatic redriver to retimer crossover at 1.0 Gbps
 		}
 		return XST_SUCCESS;
 	  }
