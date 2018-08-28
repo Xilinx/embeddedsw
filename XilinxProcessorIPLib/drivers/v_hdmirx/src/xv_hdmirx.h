@@ -141,6 +141,12 @@
 *       MMO    08/02/18 Added XV_HdmiRx_SyncStatus enumaration, and as
 *                           an element in XV_HdmiRx_Stream for Sync Loss
 *                           handling
+* 2.20  EB     16/08/18 Replaced TIME_10MS, TIME_16MS, TIME_200MS with
+*                           XV_HdmiRx_GetTime10Ms, XV_HdmiRx_GetTime16Ms
+*                           XV_HdmiRx_GetTime200Ms
+*       YB     08/15/18	Added new callbacks for HDCP 1.4 & 2.2 protocol events.
+*                       Enumerated new entries for HDCP 1.4 & 2.2 protocol
+*                           events in XV_HdmiRx_HandlerType enum.
 * </pre>
 *
 ******************************************************************************/
@@ -183,6 +189,8 @@ typedef enum {
 	XV_HDMIRX_HANDLER_STREAM_INIT,	/**< Interrupt type for stream init */
 	XV_HDMIRX_HANDLER_STREAM_UP,	/**< Interrupt type for stream up */
 	XV_HDMIRX_HANDLER_HDCP,			/**< Interrupt type for hdcp */
+	XV_HDMIRX_HANDLER_DDC_HDCP_14_PROT,  /**< Interrupt type for HDCP14PROT event */
+	XV_HDMIRX_HANDLER_DDC_HDCP_22_PROT,  /**< Interrupt type for HDCP22PROT event */
 	XV_HDMIRX_HANDLER_LINK_ERROR,		/**< Interrupt type for link error */
 	XV_HDMIRX_HANDLER_SYNC_LOSS,       /**< Interrupt type for sync loss */
 	XV_HDMIRX_HANDLER_MODE             /**< Interrupt type for mode */
@@ -321,6 +329,15 @@ typedef struct {
 	XV_HdmiRx_HdcpCallback HdcpCallback;	/**< Callback for hdcp callback */
 	void *HdcpRef;							/**< To be passed to the hdcp callback */
 	u32	IsHdcpCallbackSet;					/**< Set flag. This flag is set to true when the callback has been registered */
+
+	XV_HdmiRx_Callback Hdcp14ProtEvtCallback; /**< Callback for hdcp 1.4 protocol event written on the ddc. */
+	void *Hdcp14ProtEvtRef;					  /**< To be passed to the hdcp 1.4 protocol event callback */
+	u32 IsHdcp14ProtEvtCallbackSet;			  /**< Set flag. This flag is set to true when the callback has been registered */
+
+	XV_HdmiRx_Callback Hdcp22ProtEvtCallback; /**< Callback for hdcp 2.2 protocol event written on the ddc. */
+	void *Hdcp22ProtEvtRef;					  /**< To be passed to the hdcp 2.2 protocol event callback */
+	u32 IsHdcp22ProtEvtCallbackSet;			  /**< Set flag. This flag is set to true when the callback has been registered */
+
 	XV_HdmiRx_Callback LinkErrorCallback;	/**< Callback for link error callback */
 	void *LinkErrorRef;						/**< To be passed to the link error callback */
 	u32 IsLinkErrorCallbackSet;				/**< Set flag. This flag is set to true when the callback has been registered */
@@ -350,10 +367,51 @@ typedef struct {
 } XV_HdmiRx;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define TIME_10MS	(XPAR_XV_HDMIRX_0_AXI_LITE_FREQ_HZ/100)
-#define TIME_200MS	(XPAR_XV_HDMIRX_0_AXI_LITE_FREQ_HZ/5)
-#define TIME_16MS	((XPAR_XV_HDMIRX_0_AXI_LITE_FREQ_HZ*10)/625)
 
+/*****************************************************************************/
+/**
+*
+* This macro returns the clock cycles required to count up to 10MS with respect
+* to AXI Lite Frequency
+*
+* @param  InstancePtr is a pointer to the XV_HdmiRX core instance.
+*
+* @return None.
+*
+*
+******************************************************************************/
+#define XV_HdmiRx_GetTime10Ms(InstancePtr) \
+  (InstancePtr)->Config.AxiLiteClkFreq/100
+
+/*****************************************************************************/
+/**
+*
+* This macro returns the clock cycles required to count up to 16MS with
+* respect to AXI Lite Frequency
+*
+* @param  InstancePtr is a pointer to the XV_HdmiRX core instance.
+*
+* @return None.
+*
+*
+******************************************************************************/
+#define XV_HdmiRx_GetTime16Ms(InstancePtr) \
+  ((InstancePtr)->Config.AxiLiteClkFreq*10)/625
+
+/*****************************************************************************/
+/**
+*
+* This macro returns the clock cycles required to count up to 200MS with
+* respect to AXI Lite Frequency
+*
+* @param  InstancePtr is a pointer to the XV_HdmiRX core instance.
+*
+* @return None.
+*
+*
+******************************************************************************/
+#define XV_HdmiRx_GetTime200Ms(InstancePtr) \
+  (InstancePtr)->Config.AxiLiteClkFreq/5
 
 /*****************************************************************************/
 /**
@@ -457,7 +515,7 @@ typedef struct {
 *
 * This macro controls the HDMI RX Scrambler.
 *
-* @param	InstancePtr is a pointer to the XHdmi_Tx core instance.
+* @param	InstancePtr is a pointer to the XHdmi_Rx core instance.
 * @param	SetClr specifies TRUE/FALSE value to either enable or disable the
 *		scrambler.
 *

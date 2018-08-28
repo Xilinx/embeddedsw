@@ -58,6 +58,9 @@
 *       EB     18/01/18 Moved VicTable to Hdmi Common library
 *       EB     26/01/18 Updated XV_HdmiRx_GetVideoTiming to use
 *                          XVidC_GetVideoModeIdExtensive
+* 2.20  EB     16/08/18 Replaced TIME_10MS, TIME_16MS, TIME_200MS with
+*                          XV_HdmiRx_GetTime10Ms, XV_HdmiRx_GetTime16Ms
+*                          XV_HdmiRx_GetTime200Ms
 * </pre>
 *
 ******************************************************************************/
@@ -233,8 +236,8 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
         Video Timing detector peripheral
     */
 
-    // Set timebase
-    XV_HdmiRx_VtdSetTimebase(InstancePtr, TIME_16MS);  // 16 ms
+    // Set timebase - 16 ms
+    XV_HdmiRx_VtdSetTimebase(InstancePtr, XV_HdmiRx_GetTime16Ms(InstancePtr));
 
     // The VTD run flag is set in the armed state
 
