@@ -1101,6 +1101,7 @@
 #define XPAR_XSYSMONPSU_0_BASEADDR 0xFFA50000
 #define XPAR_XSYSMONPSU_0_HIGHADDR 0xFFA5FFFF
 
+#define XPAR_XSYSMONPSU_0_REF_FREQMHZ 49.995
 
 /******************************************************************/
 
