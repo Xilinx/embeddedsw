@@ -127,6 +127,8 @@
 #define	BOARD_SHUTDOWN_PIN_VAL			(0U)
 #define	BOARD_SHUTDOWN_PIN_STATE_VAL	(0U)
 
+#define SECURE_ACCESS_VAL		(0U)
+
 #if ENABLE_PM_VAL
 #define ENABLE_PM
 #endif
@@ -211,6 +213,10 @@
 
 #if BOARD_SHUTDOWN_PIN_STATE_VAL
 #define BOARD_SHUTDOWN_PIN_STATE	0U
+#endif
+
+#if SECURE_ACCESS_VAL
+#define SECURE_ACCESS
 #endif
 
 /* FPD WDT recovery action */
