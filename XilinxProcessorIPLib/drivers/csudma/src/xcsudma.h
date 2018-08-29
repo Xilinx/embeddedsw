@@ -105,6 +105,7 @@
 * 1.3   adk     13/07/18 Fixed doxygen warnings in the driver(CR#1006262).
 *	adk	08/08/18 Added new API XCsuDma_WaitForDoneTimeout() useful for
 *			 polling dma transfer done.
+* 1.4   adk     28/08/18 Fixed misra-c required standard violations..
 * </pre>
 *
 ******************************************************************************/
@@ -152,7 +153,7 @@ typedef enum {
 /** @name Ranges of Size
  * @{
  */
-#define XCSUDMA_SIZE_MAX 0x07FFFFFF	/**< Maximum allowed no of words */
+#define XCSUDMA_SIZE_MAX 0x07FFFFFFU	/**< Maximum allowed no of words */
 
 /*@}*/
 

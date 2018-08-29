@@ -166,7 +166,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 		((u32)(XCSUDMA_ADDR_MSB_OFFSET) +
 			((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))),
-		(((u64)Addr >> (u32)(XCSUDMA_MSB_ADDR_SHIFT)) &
+			((u32)((Addr & ULONG64_HI_MASK) >> XCSUDMA_MSB_ADDR_SHIFT) &
 					(u32)(XCSUDMA_MSB_ADDR_MASK)));
 
 	if (EnDataLast == (u8)(XCSUDMA_LAST_WORD_MASK)) {
@@ -505,8 +505,7 @@ void XCsuDma_Resume(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 		((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))),
 		(Data &
 				(~(XCSUDMA_CTRL_PAUSE_MEM_MASK))));
-	}
-	if (Type == (XCSUDMA_PAUSE_STREAM)) {
+	} else {
 		XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 		((u32)(XCSUDMA_CTRL_OFFSET) +
 		(((u32)Channel) * (u32)(XCSUDMA_OFFSET_DIFF))),
