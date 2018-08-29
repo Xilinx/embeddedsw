@@ -49,6 +49,9 @@ cp -r $SERVICES_DIR/xilfpga/src/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilfpga/src/interface/zynqmp/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilsecure/ $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilsecure/src/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilskey/ $BSP_DIR/libsrc/
+cp -r $SERVICES_DIR/xilskey/src/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilskey/src/include/*.h $BSP_DIR/include/
 
 # copy bsp standalone code
 cp  $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
