@@ -33,7 +33,7 @@
 *                     Updated XHdcp_Authenticate,
 *                     XHdcp_StreamUpCallback,
 *                     XHdcp_AuthenticationRequestCallback,
-*                     XHdcp_AssembleTopolgy.
+*                     XHdcp_AssembleTopology.
 *                     Updating UpstreamAuthRequestCount flag in
 *                     StreamConnect, StreamDisconnect and
 *                     AuthenticateCallback flow.
@@ -1396,9 +1396,9 @@ static void XHdcp_AssembleTopology(XHdcp_Repeater *InstancePtr)
       Topology.MaxCascadeExceeded |=
         XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[i],
           XV_HDMITXSS_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED);
-      Topology.Hdcp20RepeaterDownstream |=
+      Topology.Hdcp2LegacyDeviceDownstream |=
         XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[i],
-          XV_HDMITXSS_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM);
+          XV_HDMITXSS_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM);
       Topology.Hdcp1DeviceDownstream |=
         XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[i],
           XV_HDMITXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM);
@@ -1463,7 +1463,7 @@ static void XHdcp_AssembleTopology(XHdcp_Repeater *InstancePtr)
         XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
           XV_HDMIRXSS_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED, Topology.MaxCascadeExceeded);
         XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
-          XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM, Topology.Hdcp20RepeaterDownstream);
+          XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM, Topology.Hdcp2LegacyDeviceDownstream);
         XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
           XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM, Topology.Hdcp1DeviceDownstream);
         if (!(Topology.MaxDevsExceeded)) {
@@ -1539,8 +1539,8 @@ static void XHdcp_DisplayTopology(XHdcp_Repeater *InstancePtr, u8 Verbose)
       xil_printf("MaxDevsExceeded, ");
     if (InstancePtr->Topology.MaxCascadeExceeded)
       xil_printf("MaxCascadeExceeded, ");
-    if (InstancePtr->Topology.Hdcp20RepeaterDownstream)
-      xil_printf("Hdcp20RepeaterDownstream, ");
+    if (InstancePtr->Topology.Hdcp2LegacyDeviceDownstream)
+      xil_printf("Hdcp2LegacyDeviceDownstream, ");
     if (InstancePtr->Topology.Hdcp1DeviceDownstream)
       xil_printf("Hdcp1DeviceDownstream, ");
     xil_printf("Depth=%d, ", InstancePtr->Topology.Depth);
@@ -1607,11 +1607,11 @@ static void XHdcp_EnforceBlank(XHdcp_Repeater *InstancePtr)
              Allow content under the following conditons:
              - Stream type is 0
              - Stream type is 1, and no HDCP 1.x devices are downstream,
-               and no HDCP 2.0 repeaters are downstream. */
+               and no HDCP2 legacy devices are downstream. */
           case XV_HDMITXSS_HDCP_22:
             Status = XV_HdmiTxSs_HdcpGetTopologyField(
                        InstancePtr->DownstreamInstancePtr[i],
-                       XV_HDMITXSS_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM);
+                       XV_HDMITXSS_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM);
             Status |= XV_HdmiTxSs_HdcpGetTopologyField(
                         InstancePtr->DownstreamInstancePtr[i],
                         XV_HDMITXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM);
