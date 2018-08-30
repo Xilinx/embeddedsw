@@ -43,6 +43,13 @@ OPTION DESC = "FreeRTOS is a market leading open source RTOS";
 PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (ps7_uart, psu_uart, ps7_coresight_comp, psu_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm);
 PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, requires_interface = stdout, default=none, range = (ps7_uart, psu_uart, ps7_coresight_comp, psu_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm);
 
+BEGIN CATEGORY memory_management
+	PARAM name = memory_management, type = bool, default = true, desc = "Dynamic and/or static memory allocation", permit = none;
+	PARAM name = support_dynamic_allocation, type = bool, default = true, desc = "Support dynamic memory allocation";
+	PARAM name = support_static_allocation, type = bool, default = false, desc = "Support static memory allocation";
+	PARAM name = heap_allocator, type = int, default = 4, desc = "Heap allocator to use (heap_[1-5].c)";
+END CATEGORY
+
 BEGIN CATEGORY kernel_behavior
 	PARAM name = kernel_behavior, type = bool, default = true, desc = "Parameters relating to the kernel behavior", permit = none;
 	PARAM name = max_api_call_interrupt_priority, type = int, default = 18, desc = "The maximum interrupt priority from which interrupt safe FreeRTOS API calls can be made.";

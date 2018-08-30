@@ -231,7 +231,32 @@ proc generate {os_handle} {
 	file copy -force [file join src Source list.c] ./src
 	file copy -force [file join src Source timers.c] ./src
 	file copy -force [file join src Source event_groups.c] ./src
-	file copy -force [file join src Source portable MemMang heap_4.c] ./src
+
+	# Copy selected heap allocator if dynamic memory allocation is supported
+	set support_dynamic [common::get_property CONFIG.support_dynamic_allocation $os_handle]
+	if { $support_dynamic == "true" } {
+		set heap [get_property CONFIG.heap_allocator $os_handle]
+		switch $heap {
+			"1" {
+				file copy -force [file join src Source portable MemMang heap_1.c] ./src
+			}
+			"2" {
+				file copy -force [file join src Source portable MemMang heap_2.c] ./src
+			}
+			"3" {
+				file copy -force [file join src Source portable MemMang heap_3.c] ./src
+			}
+			"4" {
+				file copy -force [file join src Source portable MemMang heap_4.c] ./src
+			}
+			"5" {
+				file copy -force [file join src Source portable MemMang heap_5.c] ./src
+			}
+			default {
+				error "ERROR: Heap allocator number must be 1-5"
+			}
+		}
+	}
 
 	if { $proctype == "psu_cortexr5" } {
 		file copy -force [file join src Source portable GCC ARM_CR5 port.c] ./src
@@ -402,6 +427,19 @@ proc generate {os_handle} {
 
 	set config_file [xopen_new_include_file "./src/FreeRTOSConfig.h" "FreeRTOS Configuration parameters"]
 	puts $config_file "\#include \"xparameters.h\" \n"
+
+	if {$support_dynamic == "false"} {
+		xput_define $config_file "configSUPPORT_DYNAMIC_ALLOCATION" "0"
+	} else {
+		xput_define $config_file "configSUPPORT_DYNAMIC_ALLOCATION" "1"
+	}
+
+	set val [common::get_property CONFIG.support_static_allocation $os_handle]
+	if {$val == "false"} {
+		xput_define $config_file "configSUPPORT_STATIC_ALLOCATION" "0"
+	} else {
+		xput_define $config_file "configSUPPORT_STATIC_ALLOCATION" "1"
+	}
 
 	set val [common::get_property CONFIG.use_preemption $os_handle]
 	if {$val == "false"} {
