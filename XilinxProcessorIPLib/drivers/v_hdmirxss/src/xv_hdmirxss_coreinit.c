@@ -69,6 +69,8 @@
 *                       Add compiler option(XV_HDMIRXSS_LOG_ENABLE) to enable Log
 * 3.2   MH     04/07/17 Fixed issue to prevent HDCP protocol switching when only
 *                       one protocol is in the design.
+* 5.2   YB     13/08/18 Added XV_HdmiRxSs_DdcHdcp14ProtocolEvtCallback() and
+*                       XV_HdmiRxSs_DdcHdcp22ProtocolEvtCallback() functions.
 * </pre>
 *
 ******************************************************************************/
@@ -84,6 +86,8 @@ static void XV_HdmiRxSs_DdcSetRegAddrHandler(void *RefPtr, u32 Data);
 static void XV_HdmiRxSs_DdcSetRegDataHandler(void *RefPtr, u32 Data);
 static u32 XV_HdmiRxSs_DdcGetRegDataHandler(void *RefPtr);
 static void XV_HdmiRxSs_DdcHdcpCallback(void *RefPtr, int Type);
+static void XV_HdmiRxSs_DdcHdcp14ProtocolEvtCallback(void *RefPtr);
+static void XV_HdmiRxSs_DdcHdcp22ProtocolEvtCallback(void *RefPtr);
 #endif
 #ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
 static u32 XV_HdmiRxSs_DdcGetWriteMessageBufferWordsHandler(void *RefPtr);
@@ -280,6 +284,12 @@ int XV_HdmiRxSs_SubcoreInitHdcp14(XV_HdmiRxSs *HdmiRxSsPtr)
 				(void *)XV_HdmiRxSs_DdcHdcpCallback,
                 (void *)HdmiRxSsPtr);
 
+      /* Set-up the HDMI RX HDCP 1.4 Protocol Event Callback Handler */
+	  XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
+			    XV_HDMIRX_HANDLER_DDC_HDCP_14_PROT,
+				(void *)XV_HdmiRxSs_DdcHdcp14ProtocolEvtCallback,
+				(void *)HdmiRxSsPtr);
+
       /* Enable HDMI-RX DDC interrupts */
       XV_HdmiRx_DdcIntrEnable(HdmiRxSsPtr->HdmiRxPtr);
 
@@ -391,6 +401,12 @@ int XV_HdmiRxSs_SubcoreInitHdcp22(XV_HdmiRxSs *HdmiRxSsPtr)
                 XV_HDMIRX_HANDLER_HDCP,
 				(void *)XV_HdmiRxSs_DdcHdcpCallback,
                 (void *)HdmiRxSsPtr);
+
+      /* Set-up the HDMI RX HDCP 2.2 Protocol Event Callback Handler */
+	  XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
+				XV_HDMIRX_HANDLER_DDC_HDCP_22_PROT,
+				(void *)XV_HdmiRxSs_DdcHdcp22ProtocolEvtCallback,
+				(void *)HdmiRxSsPtr);
 
       /* Set-up the HDMI RX Link error Callback Handler */
       XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
@@ -649,7 +665,9 @@ static void XV_HdmiRxSs_DdcHdcpCallback(void *RefPtr, int Type)
     case XV_HDMIRX_DDC_STA_HDCP_1_PROT_EVT_MASK:
 #if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
       if (HdmiRxSsPtr->Hdcp14Ptr && HdmiRxSsPtr->Hdcp22Ptr) {
+#ifdef USE_HDCP_14_PROT_EVT_ENUM
         XV_HdmiRxSs_HdcpPushEvent(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_1_PROT_EVT);
+#endif
       }
 #endif
       break;
@@ -658,7 +676,9 @@ static void XV_HdmiRxSs_DdcHdcpCallback(void *RefPtr, int Type)
     case XV_HDMIRX_DDC_STA_HDCP_2_PROT_EVT_MASK:
 #if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
       if (HdmiRxSsPtr->Hdcp14Ptr && HdmiRxSsPtr->Hdcp22Ptr) {
+#ifdef USE_HDCP_22_PROT_EVT_ENUM
         XV_HdmiRxSs_HdcpPushEvent(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_2_PROT_EVT);
+#endif
       }
 #endif
       break;
@@ -666,6 +686,33 @@ static void XV_HdmiRxSs_DdcHdcpCallback(void *RefPtr, int Type)
     default:
       break;
   }
+}
+
+/*****************************************************************************/
+/**
+* This function is called when the HDMI-RX DDC HDCP 1.4 Protocol Event
+* interrupt has occurred.
+*
+* @param RefPtr is a callback reference to the HDCP22 RX instance.
+*
+* @return None.
+*
+* @note   None.
+******************************************************************************/
+static void XV_HdmiRxSs_DdcHdcp14ProtocolEvtCallback(void *RefPtr)
+{
+  XV_HdmiRxSs *HdmiRxSsPtr;
+  HdmiRxSsPtr = (XV_HdmiRxSs*) RefPtr;
+
+  /* Enable HDCP 1.4 */
+#if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
+  if (HdmiRxSsPtr->Hdcp14Ptr && HdmiRxSsPtr->Hdcp22Ptr) {
+	if (XV_HdmiRxSs_HdcpSetProtocol(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_14) !=
+	    XST_SUCCESS) {
+	  XV_HdmiRxSs_HdcpSetProtocol(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_22);
+	}
+  }
+#endif
 }
 #endif
 
@@ -691,6 +738,33 @@ static void XV_HdmiRxSs_LinkErrorCallback(void *RefPtr)
       XHdcp22Rx_SetLinkError(HdmiRxSsPtr->Hdcp22Ptr);
     }
   }
+}
+
+/*****************************************************************************/
+/**
+* This function is called when the HDMI-RX DDC HDCP 2.2 Protocol Event
+* interrupt has occurred.
+*
+* @param RefPtr is a callback reference to the HDCP22 RX instance.
+*
+* @return None.
+*
+* @note   None.
+******************************************************************************/
+static void XV_HdmiRxSs_DdcHdcp22ProtocolEvtCallback(void *RefPtr)
+{
+  XV_HdmiRxSs *HdmiRxSsPtr;
+  HdmiRxSsPtr = (XV_HdmiRxSs*) RefPtr;
+
+  /* Enable HDCP 2.2 */
+#if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
+  if (HdmiRxSsPtr->Hdcp14Ptr && HdmiRxSsPtr->Hdcp22Ptr) {
+	if (XV_HdmiRxSs_HdcpSetProtocol(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_22) !=
+		XST_SUCCESS) {
+	  XV_HdmiRxSs_HdcpSetProtocol(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_14);
+	}
+  }
+#endif
 }
 #endif
 

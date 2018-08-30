@@ -1,0 +1,60 @@
+BLOCK ATTRIBUTES
+----------------
+
+CONTENTS OF THIS FILE
+---------------------
+
+ * Introduction
+ * Features
+ * System illustration
+ * UART menu illustration
+
+
+1. INTRODUCTION
+------------
+
+This example application is built to demonstrate the functionality of Xilinx HDMI Receiver only.
+
+For details, see xhdmi_example.c.
+
+
+2. FEATURES
+------------
+* HDMI RX is to receive and lock to the incoming HDMI stream from the SOURCE.
+
+For details, please refer to PG236 and PG230.
+
+
+3. SYSTEM ILLUSTRATION
+---------------------
+
+A system illustration is shown as below.
+
+         ----------     -----------
+         |        |     |         |
+         | SOURCE |---->|    RX   |
+         |        |     |         |
+         ----------     -----------
+
+
+4. UART MENU ILLUSTRATION
+------------------------
+
+
+---------------------
+---   MAIN MENU   ---
+---------------------
+i - Info
+       => Shows information about the HDMI RX stream, HDMI TX stream,
+          GT transceivers and PLL settings.
+p - Toggle HPD
+       => Toggles the HPD of HDMI RX.
+l - GT PLL layout
+       => Select GT transceiver PLL layout.
+z - GT & HDMI TX/RX log
+       => Shows log information for GT & HDMI TX/RX.
+h - HDCP
+       => Goto HDCP menu.
+
+
+
