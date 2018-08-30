@@ -114,6 +114,7 @@
 *                           for cleaner HPD flow during transition from HDMI2.0
 *                           to HDMI1.4
 *       YH     13/04/18 Fixed a bug in XV_HdmiRxSs_BrdgOverflowCallback
+* 5.20	EB     03/08/18 Added function XV_HdmiRxSs_AudioMute
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -2135,4 +2136,27 @@ void XV_HdmiRxSS_SetAppVersion(XV_HdmiRxSs *InstancePtr, u8 maj, u8 min)
 {
 	InstancePtr->AppMajVer = maj;
 	InstancePtr->AppMinVer = min;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function set HDMI RX audio parameters
+*
+* @param  Enable 0: Unmute the audio 1: Mute the audio.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiRxSs_AudioMute(XV_HdmiRxSs *InstancePtr, u8 Enable)
+{
+  //Audio Mute Mode
+  if (Enable){
+	XV_HdmiRx_AudioDisable(InstancePtr->HdmiRxPtr);
+  }
+  else{
+	XV_HdmiRx_AudioEnable(InstancePtr->HdmiRxPtr);
+  }
 }

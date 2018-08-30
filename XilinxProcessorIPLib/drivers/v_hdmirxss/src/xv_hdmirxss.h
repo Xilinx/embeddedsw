@@ -89,6 +89,11 @@
 *                           XV_HdmiRxSs_GetVSIF
 *       SM     28/02/18 Added XV_HdmiRxSS_SetAppVersion API and AppMajVer and
 *                           AppMinVer version number in XV_HdmiRxSs structure
+* 5.2   YB     08/14/18 Added dedicated callbacks for HDCP 1.4 and HDCP 2.2
+*                           protocol events.
+*       EB     03/08/18 Added function XV_HdmiRxSs_AudioMute
+*       YB     08/17/18 Marked XV_HDMIRXSS_HDCP_1_PROT_EVT and
+*                       XV_HDMIRXSS_HDCP_2_PROT_EVT as deprecated.
 * </pre>
 *
 ******************************************************************************/
@@ -112,6 +117,10 @@ extern "C" {
 
 #if defined(XPAR_XHDCP_NUM_INSTANCES) || defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
 #define USE_HDCP_RX
+#define USE_HDCP_14_PROT_EVT_ENUM
+#pragma message ("'XV_HDMIRXSS_HDCP_1_PROT_EVT' event is deprecated")
+#define USE_HDCP_22_PROT_EVT_ENUM
+#pragma message ("'XV_HDMIRXSS_HDCP_2_PROT_EVT' event is deprecated")
 #define XV_HDMIRXSS_HDCP_KEYSEL 0x00u
 #define XV_HDMIRXSS_HDCP_MAX_QUEUE_SIZE 16
 #endif
@@ -199,8 +208,12 @@ typedef enum
   XV_HDMIRXSS_HDCP_STREAMDOWN_EVT,
   XV_HDMIRXSS_HDCP_CONNECT_EVT,
   XV_HDMIRXSS_HDCP_DISCONNECT_EVT,
+#ifdef USE_HDCP_14_PROT_EVT_ENUM
   XV_HDMIRXSS_HDCP_1_PROT_EVT,
+#endif
+#ifdef USE_HDCP_22_PROT_EVT_ENUM
   XV_HDMIRXSS_HDCP_2_PROT_EVT,
+#endif
   XV_HDMIRXSS_HDCP_DVI_MODE_EVT,
   XV_HDMIRXSS_HDCP_HDMI_MODE_EVT,
   XV_HDMIRXSS_HDCP_SYNC_LOSS_EVT,
@@ -484,6 +497,7 @@ int  XV_HdmiRxSs_IsStreamConnected(XV_HdmiRxSs *InstancePtr);
 
 void XV_HdmiRxSs_SetDefaultPpc(XV_HdmiRxSs *InstancePtr, u8 Id);
 void XV_HdmiRxSs_SetPpc(XV_HdmiRxSs *InstancePtr, u8 Id, u8 Ppc);
+void XV_HdmiRxSs_AudioMute(XV_HdmiRxSs *InstancePtr, u8 Enable);
 
 #ifdef XV_HDMIRXSS_LOG_ENABLE
 void XV_HdmiRxSs_LogReset(XV_HdmiRxSs *InstancePtr);

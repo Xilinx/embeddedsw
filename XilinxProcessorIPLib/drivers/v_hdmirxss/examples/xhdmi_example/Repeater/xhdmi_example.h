@@ -12,6 +12,10 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -38,6 +42,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00         12/02/18 Initial release.
+* 3.03  YB     08/14/18 Initial release of Repeater ExDes.
 * 3.03  YB     08/14/18 Adding macro 'ENABLE_HDCP_REPEATER' to allow application
 *                       to select/deselect the Repeater specific code.
 * </pre>
@@ -85,7 +90,20 @@ extern "C" {
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 #include "xv_hdmirxss.h"
 #endif
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+#include "xv_hdmitxss.h"
+#include "audiogen_drv.h"
+#ifdef XPAR_AUDIO_SS_0_AUD_PAT_GEN_BASEADDR
+/* This is only required for the audio over HDMI */
+#define USE_HDMI_AUDGEN
+#endif
+#endif
 #include "xvphy.h"
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+#ifdef XPAR_XV_TPG_NUM_INSTANCES
+#include "xv_tpg.h"
+#endif
+#endif
 #ifdef XPAR_XGPIO_NUM_INSTANCES
 #include "xgpio.h"
 #endif
@@ -117,8 +135,13 @@ extern "C" {
 
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_WHITE   "\x1b[37m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
+#define ANSI_COLOR_BG_MAGENTA   "\x1b[45m"
+#define ANSI_COLOR_BG_HIGH_CYAN "\x1b[46;1m"
+#define ANSI_COLOR_BG_RED       "\x1b[41m"
+#define ANSI_COLOR_BG_RESET     "\x1b[0m"
 
 /************************** Constant Definitions *****************************/
 
@@ -143,6 +166,13 @@ extern "C" {
  * then use the HDCP abstraction layer */
 #define USE_HDCP
 
+#if defined XPAR_XV_HDMITXSS_NUM_INSTANCES && \
+	defined XPAR_XV_HDMIRXSS_NUM_INSTANCES
+/* Option to enable or disable HDCP Repeater , if
+ * HDCP 1.4 or HDCP 2.2 is in the system */
+#define ENABLE_HDCP_REPEATER		1
+#define ENABLE_REPEATER_COLORBARSTOP	0
+#endif
 
 #endif
 
@@ -156,6 +186,22 @@ extern "C" {
 /* VPhy structure */
 extern XVphy     Vphy;
 
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+/* HDMI TX SS structure */
+extern XV_HdmiTxSs HdmiTxSs;
+
+#ifdef USE_HDMI_AUDGEN
+extern XhdmiAudioGen_t AudioGen;
+#endif
+
+#ifdef XPAR_XV_TPG_NUM_INSTANCES
+/* TPG structure */
+extern XV_tpg Tpg;
+extern XTpg_PatternId Pattern;
+#endif
+
+extern u8 TxCableConnect;
+#endif
 
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 /* HDMI RX SS structure */

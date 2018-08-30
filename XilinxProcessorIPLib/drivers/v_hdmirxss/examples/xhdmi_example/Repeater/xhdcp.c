@@ -12,6 +12,10 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -51,6 +55,14 @@
 *       MH   08/04/17 Added ability to change HDCP capability
 * 3.03  YB   08/14/18 Clubbing Repeater specific code under the
 *                     'ENABLE_HDCP_REPEATER' macro.
+*                     Initial release of Repeater ExDes.
+*                     Updated XHdcp_Authenticate,
+*                     XHdcp_StreamUpCallback,
+*                     XHdcp_AuthenticationRequestCallback,
+*                     XHdcp_AssembleTopolgy.
+*                     Updating UpstreamAuthRequestCount flag in
+*                     StreamConnect, StreamDisconnect and
+*                     AuthenticateCallback flow.
 *</pre>
 *
 *****************************************************************************/
@@ -427,14 +439,46 @@ void XHdcp_Authenticate(XHdcp_Repeater *InstancePtr)
         /* Trigger authentication on Idle */
         if (!(XV_HdmiTxSs_HdcpIsAuthenticated(InstancePtr->DownstreamInstancePtr[i])) &&
             !(XV_HdmiTxSs_HdcpIsInProgress(InstancePtr->DownstreamInstancePtr[i]))) {
-
-          XV_HdmiTxSs_HdcpPushEvent(InstancePtr->DownstreamInstancePtr[i], XV_HDMITXSS_HDCP_AUTHENTICATE_EVT);
+          XV_HdmiTxSs_HdcpPushEvent(InstancePtr->DownstreamInstancePtr[i],
+				    XV_HDMITXSS_HDCP_AUTHENTICATE_EVT);
         }
 
         /* Trigger authentication on Toggle */
         else if(XV_HdmiTxSs_IsStreamToggled(InstancePtr->DownstreamInstancePtr[i])) {
-          XV_HdmiTxSs_HdcpPushEvent(InstancePtr->DownstreamInstancePtr[i], XV_HDMITXSS_HDCP_AUTHENTICATE_EVT);
+          XV_HdmiTxSs_HdcpPushEvent(InstancePtr->DownstreamInstancePtr[i],
+				    XV_HDMITXSS_HDCP_AUTHENTICATE_EVT);
         }
+
+#if ENABLE_HDCP_REPEATER
+        /* Check for Repeater. */
+        else if (XV_HdmiTxSs_HdcpIsRepeater(InstancePtr->DownstreamInstancePtr[i]) &&
+			 InstancePtr->UpstreamAuthRequestCount) {
+          if (!XV_HdmiTxSs_HdcpIsEnabled(InstancePtr->DownstreamInstancePtr[i])) {
+            XV_HdmiTxSs_HdcpEnable(InstancePtr->DownstreamInstancePtr[i]);
+			XV_HdmiTxSs_HdcpPushEvent(InstancePtr->DownstreamInstancePtr[i],
+				XV_HDMITXSS_HDCP_AUTHENTICATE_EVT);
+          }
+        }
+#endif
+      } else {
+#if ENABLE_HDCP_REPEATER
+	/* Check if the RX stream is up, and TX is connected.
+	 * (but TX stream is not up) */
+	if (InstancePtr->UpstreamInstanceStreamUp &&
+	    (XV_HdmiRxSs_HdcpIsInWaitforready(InstancePtr->UpstreamInstancePtr) ||
+	     XV_HdmiRxSs_HdcpIsAuthenticated(InstancePtr->UpstreamInstancePtr)) &&
+	        (InstancePtr->DownstreamInstanceConnected & (u32)(0x1 << i))) {
+	  /* Check if Idle */
+	  if (!(XV_HdmiTxSs_HdcpIsAuthenticated(InstancePtr->DownstreamInstancePtr[i])) &&
+	          !(XV_HdmiTxSs_HdcpIsInProgress(InstancePtr->DownstreamInstancePtr[i]))) {
+		if (!XV_HdmiTxSs_HdcpIsEnabled(InstancePtr->DownstreamInstancePtr[i])) {
+	          XV_HdmiTxSs_HdcpEnable(InstancePtr->DownstreamInstancePtr[i]);
+	        }
+	        XV_HdmiTxSs_HdcpPushEvent(InstancePtr->DownstreamInstancePtr[i],
+				      XV_HDMITXSS_HDCP_AUTHENTICATE_EVT);
+	  }
+	}
+#endif
       }
     }
   }
@@ -670,15 +714,25 @@ void XHdcp_StreamUpCallback(void *HdcpInstancePtr)
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
   /* Downstream interface stream up */
   for (int i = 0; i < InstancePtr->DownstreamInstanceBinded; i++) {
-	  if (XV_HdmiTxSs_IsStreamUp(InstancePtr->DownstreamInstancePtr[i])) {
 
-      /* Trigger authentication */
-      if (!(InstancePtr->DownstreamInstanceStreamUp & (0x1 << i))) {
-        XV_HdmiTxSs_HdcpPushEvent(InstancePtr->DownstreamInstancePtr[i],
-			XV_HDMITXSS_HDCP_AUTHENTICATE_EVT);
+    if (XV_HdmiTxSs_IsStreamUp(InstancePtr->DownstreamInstancePtr[i])) {
+#if ENABLE_HDCP_REPEATER
+      if (!XV_HdmiRxSs_HdcpIsRepeater(InstancePtr->UpstreamInstancePtr)) {
+        /* Do nothing.
+         * Repeater authentication on the downstream
+		 * should be driven by AuthenticationRequest.*/
+      } else
+#endif
+      {
+        /* Trigger authentication if not a repeater. */
+	if (!(InstancePtr->DownstreamInstanceStreamUp & (0x1 << i))) {
+	  XV_HdmiTxSs_HdcpPushEvent(InstancePtr->DownstreamInstancePtr[i],
+				    XV_HDMITXSS_HDCP_AUTHENTICATE_EVT);
+	}
       }
 
       InstancePtr->DownstreamInstanceStreamUp |= (0x1 << i);
+
     }
   }
 
@@ -763,6 +817,7 @@ void XHdcp_StreamConnectCallback(void *HdcpInstancePtr)
       InstancePtr->UpstreamInstanceStreamUp = FALSE;
     }
     InstancePtr->UpstreamInstanceConnected = TRUE;
+    InstancePtr->UpstreamAuthRequestCount = 0;
   }
 #endif
 
@@ -838,6 +893,7 @@ void XHdcp_StreamDisconnectCallback(void *HdcpInstancePtr)
 #endif
     InstancePtr->UpstreamInstanceStreamUp = FALSE;
     InstancePtr->UpstreamInstanceConnected = FALSE;
+    InstancePtr->UpstreamAuthRequestCount = 0;
   }
 #endif
 
@@ -919,6 +975,13 @@ static void XHdcp_UpstreamAuthenticatedCallback(void *HdcpInstancePtr)
 
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
+
+  /* Authentication Request has been processed. */
+  if (XV_HdmiRxSs_HdcpIsRepeater(InstancePtr->UpstreamInstancePtr)) {
+    if (XV_HdmiTxSs_HdcpIsAuthenticated(InstancePtr->DownstreamInstancePtr[0])) {
+      InstancePtr->UpstreamAuthRequestCount = 0;
+    }
+  }
 
   /* xil_printf message */
   HdcpProtocol = XV_HdmiRxSs_HdcpGetProtocol(InstancePtr->UpstreamInstancePtr);
@@ -1100,12 +1163,89 @@ static void XHdcp_UpstreamEncryptionUpdateCallback(void *HdcpInstancePtr)
 static void XHdcp_AuthenticationRequestCallback(void *HdcpInstancePtr)
 {
   XHdcp_Repeater *InstancePtr =  (XHdcp_Repeater *)HdcpInstancePtr;
+  XVidC_VideoStream *HdmiTxSsVidStreamPtr;
 
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
   /* Clear topology */
   memset(&InstancePtr->Topology, 0, sizeof(XHdcp_Topology));
+
+  if (XV_HdmiRxSs_HdcpIsRepeater(InstancePtr->UpstreamInstancePtr)) {
+    /* Initialize the Authentication Request count.
+     * Clear all previous requests. */
+    InstancePtr->UpstreamAuthRequestCount = 0;
+
+    /* Go through the Downstream interfaces */
+    for (int i = 0; i < InstancePtr->DownstreamInstanceBinded; i++) {
+
+      /* Check if the RX Stream is Up. */
+      if (XV_HdmiRxSs_IsStreamUp(InstancePtr->UpstreamInstancePtr)) {
+
+        /* Check if TX Stream is up */
+        if (XV_HdmiTxSs_IsStreamUp(InstancePtr->DownstreamInstancePtr[i])) {
+          /* Enable HDCP TX if it is not enabled. */
+          if (!XV_HdmiTxSs_HdcpIsEnabled(InstancePtr->DownstreamInstancePtr[i])) {
+            XV_HdmiTxSs_HdcpEnable(InstancePtr->DownstreamInstancePtr[i]);
+          }
+
+          /* Check if the TX Stream is valid. */
+          HdmiTxSsVidStreamPtr = XV_HdmiTxSs_GetVideoStream(InstancePtr->DownstreamInstancePtr[i]);
+
+          if (HdmiTxSsVidStreamPtr->VmId == XVIDC_VM_NO_INPUT ||
+              HdmiTxSsVidStreamPtr->VmId == XVIDC_VM_NOT_SUPPORTED ||
+              HdmiTxSsVidStreamPtr->VmId == XVIDC_VM_CUSTOM) {
+		 /* HDCP Repeater authentication has started before the
+		  * TX stream is stable;
+		  * we pass this downstream and cannot be deterministic with
+		  * regards to how long it takes the TX stream to have a valid
+		  * resolution. Here we expect the upstream to time out and
+		  * restart HDCP when HDCP fails.
+		  */
+              xil_printf("HDCP Repeater AuthRequest :: TX Stream %d VmIs is not ",
+			  "valid! (DwnStrmInstStreamUp = 0x%x) \r\n", i,
+				  InstancePtr->DownstreamInstanceStreamUp);
+		 XV_HdmiTxSs_HdcpAuthRequest(InstancePtr->DownstreamInstancePtr[i]);
+          }
+
+        } else {
+          xil_printf("HDCP Repeater AuthRequest :: TX Stream %d is not "
+			  "up! (DwnStrmInstStreamUp = 0x%x) \r\n", i,
+				  InstancePtr->DownstreamInstanceStreamUp);
+          /* Check if the downstream instance "HDCP" stream is not Up. */
+          if (!(InstancePtr->DownstreamInstanceStreamUp & (u32)(0x1 << i))) {
+              /* TX HDCP Stream [i] is not up on the TX side.*/
+		InstancePtr->DownstreamInstanceStreamUp |= (0x1 << i);
+          }
+        }
+      } else {
+		/* Here we shouldn't care for stream, if the RX stream is not up and
+		 * we have received an authentication request, we should push it
+		 * downstream.
+		 */
+		XV_HdmiTxSs_HdcpEnable(InstancePtr->DownstreamInstancePtr[i]);
+		XV_HdmiTxSs_HdcpAuthRequest(InstancePtr->DownstreamInstancePtr[i]);
+      }
+
+      /* Pass the HDCP authentication request to the HDCP downstream
+       * as we are a Repeater and can start authenticating regardless
+       * of whether the downstream HDMI is up or not.
+       */
+      InstancePtr->UpstreamAuthRequestCount = 1;
+    }
+
+    /* Check if all the downstream interfaces are down. If so, the toggle Hpd. */
+    if (InstancePtr->DownstreamInstanceStreamUp == 0x0) {
+	  xil_printf("HDCP Repeater AuthRequest :: Downstream is all down !\r\n");
+      if (XV_HdmiRxSs_GetVideoStreamType(InstancePtr->UpstreamInstancePtr)) {
+	xil_printf("HDCP Repeater AuthRequest :: Downstream is not Hdmi ;"
+			" still pushing down AuthRequest \r\n");
+      }
+      InstancePtr->UpstreamAuthRequestCount = 1;
+    }
+
+  }
+
 }
 #endif /* end of #if ENABLE_HDCP_REPEATER */
 #endif
@@ -1319,9 +1459,15 @@ static void XHdcp_AssembleTopology(XHdcp_Repeater *InstancePtr)
         case XV_HDMIRXSS_HDCP_14:
           if (Topology.DeviceCnt > XHDCP_MAX_DEVICE_CNT_HDCP14) {
             Topology.MaxDevsExceeded = TRUE;
+            XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
+				XV_HDMIRXSS_HDCP_TOPOLOGY_MAXDEVSEXCEEDED,
+				Topology.MaxDevsExceeded);
           }
           if (Topology.Depth > (XHDCP_MAX_DEPTH_HDCP14-1)) {
             Topology.MaxCascadeExceeded = TRUE;
+            XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
+				XV_HDMIRXSS_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED,
+				Topology.MaxCascadeExceeded);
           }
           break;
       }
@@ -1363,6 +1509,12 @@ static void XHdcp_AssembleTopology(XHdcp_Repeater *InstancePtr)
           XV_HdmiRxSs_HdcpSetTopologyReceiverIdList(InstancePtr->UpstreamInstancePtr,
             Topology.DeviceList[0], Topology.DeviceCnt);
         }
+		if (Topology.DeviceCnt > XHDCP_MAX_DEVICE_CNT_CTS_HDCP14) {
+			/* Propagate the MAX_DEV_EXCEEDED error to upstream. */
+			Topology.MaxDevsExceeded = TRUE;
+			XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
+			  XV_HDMIRXSS_HDCP_TOPOLOGY_MAXDEVSEXCEEDED, Topology.MaxDevsExceeded);
+		}
 
         /* Trigger topology update only when the topology has changed */
         if (memcmp(&InstancePtr->Topology, &Topology, sizeof(XHdcp_Topology)) != 0) {
@@ -1558,4 +1710,4 @@ static int XHdcp_Flag2Count(u32 Flag)
 #endif /* end of #if ENABLE_HDCP_REPEATER */
 #endif
 
-#endif /* USE_HDCP */
+#endif // USE_HDCP

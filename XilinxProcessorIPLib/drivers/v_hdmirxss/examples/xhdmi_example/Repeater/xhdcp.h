@@ -12,6 +12,10 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -38,6 +42,10 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00  MH   05/24/16 First Release
 * 1.01  MH   06/16/17 Removed authentication request flag.
+* 3.03  YB   08/14/18 Initial release of Repeater ExDes.
+*                     Added macro 'XHDCP_MAX_DEVICE_CNT_CTS_HDCP14',
+*                     for maximum devices supported for HDCP1.4 CTS.
+*                     Added flag 'UpstreamAuthRequestCount'.
 *</pre>
 *
 *****************************************************************************/
@@ -55,6 +63,9 @@ extern "C" {
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xparameters.h"
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+#include "xv_hdmitxss.h"
+#endif
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 #include "xv_hdmirxss.h"
 #endif
@@ -63,6 +74,7 @@ extern "C" {
 #define XHDCP_DEVICE_ID_SIZE               5    /*< Size in bytes of ReceiverID for HDCP 2.2 or KSV for HDCP 1.4 */
 #define XHDCP_MAX_DOWNSTREAM_INTERFACES    32   /*< Maximum number of HDCP downstream interfaces allowed */
 #define XHDCP_MAX_DEVICE_CNT_HDCP14        127  /*< Maximum repeater topology device count for HDCP 1.4 */
+#define XHDCP_MAX_DEVICE_CNT_CTS_HDCP14    32   /*< Maximum repeater topology device count for HDCP 1.4 CTS tests */
 #define XHDCP_MAX_DEPTH_HDCP14             7    /*< Maximum repeater topology depth for HDCP 1.4 */
 #define XHDCP_MAX_DEVICE_CNT_HDCP22        31   /*< Maximum repeater topology device count for HDCP 2.2 */
 #define XHDCP_MAX_DEPTH_HDCP22             4    /*< Maximum repeater topology depth for HDCP 2.2 */
@@ -92,6 +104,28 @@ typedef struct
   u8 UpstreamInstanceConnected;
   /** Flag indicates upstream interface stream is up */
   u8 UpstreamInstanceStreamUp;
+  /** Authentication Request count on the upstream interface */
+  u32 UpstreamAuthRequestCount;
+#endif
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+  /** Array of pointers to each HDMI repeater downstream interface */
+  XV_HdmiTxSs *DownstreamInstancePtr[XHDCP_MAX_DOWNSTREAM_INTERFACES];
+  /** Count of HDMI repeater downstream interfaces binded */
+  u8 DownstreamInstanceBinded;
+  /** Flag indicates downstream interface is connected */
+  u32 DownstreamInstanceConnected;
+  /** Flag indicates downstream interface stream is up */
+  u32 DownstreamInstanceStreamUp;
+#endif
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+  /** HDCP topology */
+  XHdcp_Topology Topology;
+  /** Content stream type */
+#endif
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+  /** Enforce content blocking */
+  u8 EnforceBlocking;
+  u8 StreamType;
 #endif
   /** Flag indicates that HDCP repeater is ready */
   u32 IsReady;
@@ -107,6 +141,13 @@ int  XHdcp_Initialize(XHdcp_Repeater *InstancePtr);
 int  XHdcp_SetUpstream(XHdcp_Repeater *InstancePtr,
        XV_HdmiRxSs *UpstreamInstancePtr);
 #endif
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+int  XHdcp_SetDownstream(XHdcp_Repeater *InstancePtr,
+       XV_HdmiTxSs *DownstreamInstancePtr);
+#endif
+#if defined XPAR_XV_HDMITXSS_NUM_INSTANCES && defined XPAR_XV_HDMIRXSS_NUM_INSTANCES
+void XHdcp_SetRepeater(XHdcp_Repeater *InstancePtr, u8 Set);
+#endif
 
 // Functions used to process callback events
 void XHdcp_StreamUpCallback(void *HdcpInstancePtr);
@@ -117,6 +158,11 @@ void XHdcp_StreamDisconnectCallback(void *HdcpInstancePtr);
 // Other functions
 void XHdcp_Poll(XHdcp_Repeater *InstancePtr);
 void XHdcp_DisplayInfo(XHdcp_Repeater *InstancePtr, u8 Verbose);
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+void XHdcp_Authenticate(XHdcp_Repeater *InstancePtr);
+void XHdcp_EnableEncryption(XHdcp_Repeater *InstancePtr, u8 Set);
+void XHdcp_SetDownstreamCapability(XHdcp_Repeater *InstancePtr, int Protocol);
+#endif
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 void XHdcp_SetUpstreamCapability(XHdcp_Repeater *InstancePtr, int Protocol);
 #endif

@@ -14,8 +14,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -49,6 +49,8 @@
 *       GM   07/12/17 Changed printf usage to xil_printf
 *                     Changed "\n\r" in xil_printf calls to "\r\n"
 *       MH   08/04/17 Added ability to change HDCP capability
+* 3.03  YB   08/14/18 Clubbing Repeater specific code under the
+*                     'ENABLE_HDCP_REPEATER' macro.
 *</pre>
 *
 *****************************************************************************/
@@ -57,12 +59,9 @@
 #include <string.h>
 #include "xhdcp.h"
 #include "xparameters.h"
+#include "xhdmi_example.h"
 
 /************************** Constant Definitions ****************************/
-#if defined (XPAR_XHDCP_NUM_INSTANCES) || defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
-/* If HDCP 1.4 or HDCP 2.2 is in the system then use the HDCP abstraction layer */
-#define USE_HDCP
-#endif
 
 /**************************** Type Definitions ******************************/
 
@@ -483,4 +482,9 @@ static void XHdcp_UpstreamEncryptionUpdateCallback(void *HdcpInstancePtr)
 
 
 
-#endif // USE_HDCP
+
+
+
+
+
+#endif /* USE_HDCP */
