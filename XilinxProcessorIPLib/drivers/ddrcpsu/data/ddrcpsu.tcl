@@ -52,7 +52,11 @@ proc get_ddr_config_info {drv_handle file_name} {
 			set avail_param [list_property [get_cells -hier $periph]]
 			if {[lsearch -nocase $avail_param "CONFIG.PSU__DDRC__DDR4_ADDR_MAPPING"] >= 0} {
 				set nr_addrmap [get_property CONFIG.PSU__DDRC__DDR4_ADDR_MAPPING [get_cells -hier $periph]]
-				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR4_ADDR_MAPPING $nr_addrmap"
+				if {$nr_addrmap == 1} {
+					puts $file_handle "#define XPAR_PSU_DDRC_0_DDR4_ADDR_MAPPING 1"
+				} else {
+					puts $file_handle "#define XPAR_PSU_DDRC_0_DDR4_ADDR_MAPPING 0"
+				}
 			}
 			if {[lsearch -nocase $avail_param "CONFIG.PSU__ACT_DDR_FREQ_MHZ"] >= 0} {
 				set nr_freq [get_property CONFIG.PSU__ACT_DDR_FREQ_MHZ [get_cells -hier $periph]]
@@ -84,7 +88,11 @@ proc get_ddr_config_info_canonical {drv_handle file_name} {
 			set avail_param [list_property [get_cells -hier $periph]]
 			if {[lsearch -nocase $avail_param "CONFIG.PSU__DDRC__DDR4_ADDR_MAPPING"] >= 0} {
 				set nr_addrmap [get_property CONFIG.PSU__DDRC__DDR4_ADDR_MAPPING [get_cells -hier $periph]]
-				puts $file_handle "#define XPAR_DDRCPSU_0_DDR4_ADDR_MAPPING $nr_addrmap"
+				if {$nr_addrmap == 1} {
+					puts $file_handle "#define XPAR_DDRCPSU_0_DDR4_ADDR_MAPPING 1"
+				} else {
+					puts $file_handle "#define XPAR_DDRCPSU_0_DDR4_ADDR_MAPPING 0"
+				}
 			}
 			if {[lsearch -nocase $avail_param "CONFIG.PSU__ACT_DDR_FREQ_MHZ"] >= 0} {
 				set nr_freq [get_property CONFIG.PSU__ACT_DDR_FREQ_MHZ [get_cells -hier $periph]]
