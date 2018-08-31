@@ -411,9 +411,6 @@ static void PmClockGenInitParent(PmClock* const clock)
 	u32 select, i;
 
 	if (NULL == clk->mux) {
-		if (NULL == clk->parent) {
-			PmErr("Unknown parent for clk#%d\n", clock->id);
-		}
 		goto done;
 	}
 	select = XPfw_Read32(clk->ctrlAddr);
