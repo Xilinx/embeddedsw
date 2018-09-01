@@ -65,6 +65,7 @@
  * 4.2   Nava  16/08/18 Modified the PL data handling Logic to support
  *                      different PL programming interfaces.
  * 4.2	 adk   23/08/18 Added support for unaligned bitstream programming.
+ * 4.2   adk   28/08/18 Fixed misra-c required standard violations.
  *
  * </pre>
  *
@@ -244,7 +245,7 @@ Xilfpga_Ops Fpga_Ops = {
 		.XFpga_PreConfig = XFpga_PreConfigPcap,
 		.XFpga_WriteToPl = XFpga_WriteToPlPcap,
 		.XFpga_PostConfig = XFpga_PostConfigPcap,
-		.XFpga_InterfaceStatus = XFpga_PcapStatus,
+		.XFpga_GetInterfaceStatus = XFpga_PcapStatus,
 		.XFpga_GetConfigReg = XFpga_GetConfigRegPcap,
 		.XFpga_GetConfigData = XFpga_GetPLConfigData,
 

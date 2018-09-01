@@ -206,8 +206,6 @@
 #define XFPGA_KEY_SRC_KUP		0xA3A5C3C5
 
 /* Error Codes */
-#define XFPGA_SUCCESS				(0x0U)
-#define XFPGA_FAILURE				(0x1U)
 #define XFPGA_ERROR_CSUDMA_INIT_FAIL		(0x2U)
 #define XFPGA_ERROR_PL_POWER_UP			(0x3U)
 #define XFPGA_ERROR_PL_ISOLATION		(0x4U)
