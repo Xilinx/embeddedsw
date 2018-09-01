@@ -50,6 +50,7 @@
 # 01/09/18 rsp Added support for C_Number_of_Table_Entries parameter.
 # 08/31/18 rsp Improve error message when ethernet AXI4-Stream is connected
 #              to non-supported IP.
+# 09/01/18 rsp Fixed interrupt ID generation for ZynqMP designs.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -626,7 +627,7 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
             set intc_periph_type [get_property IP_NAME $pname_type]
             set intc_name [string toupper [get_property NAME $pname_type]]
 	    if { [llength $intc_periph_type] > 1 } {
-                set intc_periph_type [lindex $intc_periph_type 1]
+                set intc_periph_type [lindex $intc_periph_type [lsearch $intc_periph_type "psu_acpu_gic"]]
             }
         } else {
             puts "Info: $target_periph_name interrupt signal $interrupt_signal_name not connected"
@@ -734,7 +735,7 @@ proc xdefine_mcdma_rx_interrupts {file_handle target_periph deviceid canonical_t
             set intc_periph_type [get_property IP_NAME $pname_type]
             set intc_name [string toupper [get_property NAME $pname_type]]
 	    if { [llength $intc_periph_type] > 1 } {
-                set intc_periph_type [lindex $intc_periph_type 1]
+                set intc_periph_type [lindex $intc_periph_type [lsearch $intc_periph_type "psu_acpu_gic"]]
             }
         } else {
             puts "Info: $target_periph_name interrupt signal $interrupt_signal_name not connected"
@@ -835,7 +836,7 @@ proc xdefine_mcdma_tx_interrupts {file_handle target_periph deviceid canonical_t
             set intc_periph_type [get_property IP_NAME $pname_type]
             set intc_name [string toupper [get_property NAME $pname_type]]
 	    if { [llength $intc_periph_type] > 1 } {
-                set intc_periph_type [lindex $intc_periph_type 1]
+                set intc_periph_type [lindex $intc_periph_type [lsearch $intc_periph_type "psu_acpu_gic"]]
             }
         } else {
             puts "Info: $target_periph_name interrupt signal $interrupt_signal_name not connected"
@@ -931,7 +932,7 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
         set intc_name [string toupper [get_property NAME $intc_periph]]
 	#Handling for ZYNQMP
 	if { [llength $intc_periph_type] > 1 } {
-		set intc_periph_type [lindex $intc_periph_type 1]
+		set intc_periph_type [lindex $intc_periph_type [lsearch $intc_periph_type "psu_acpu_gic"]]
 	}
     } else {
          puts "Info: $periph_name interrupt signal $interrupt_signal_name not connected"
