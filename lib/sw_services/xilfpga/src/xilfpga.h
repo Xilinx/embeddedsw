@@ -79,6 +79,7 @@
  * 4.2   adk   11/07/18 Added support for readback of PL configuration data.
  * 4.2   Nava  16/08/18 Modified the PL data handling Logic to support
  *                      different PL programming interfaces.
+ * 4.2   adk   28/08/18 Fixed misra-c required standard violations.
  * </pre>
  *
  * @note
@@ -106,7 +107,7 @@
  *				the FPGA
  * @xilfpga_PostConfig:		set FPGA to operating state after writing
  *				is done
- * @XFpga_InterfaceStatus:	Provides the STATUS of PL programming interface
+ * @XFpga_GetInterfaceStatus:	Provides the STATUS of PL programming interface
  * @Xfpga_GetConfigReg:		Returns the value of the specified configuration
  *				register
  * @XFpga_GetConfigData:	Provides the FPGA readback data.
@@ -116,7 +117,7 @@ typedef struct {
 	u32 (*XFpga_PreConfig)(XFpga_Info *PLInfoPtr);
 	u32 (*XFpga_WriteToPl)(XFpga_Info *PLInfoPtr);
 	u32 (*XFpga_PostConfig)(XFpga_Info *PLInfoPtr);
-	u32 (*XFpga_InterfaceStatus)(void);
+	u32 (*XFpga_GetInterfaceStatus)(void);
 	u32 (*XFpga_GetConfigReg)(XFpga_Info *PLInfoPtr);
 	u32 (*XFpga_GetConfigData)(XFpga_Info *PLInfoPtr);
 } Xilfpga_Ops;
@@ -174,14 +175,14 @@ typedef struct {
 #define XFPGA_ERR_MASK				(0xFFU)
 #define XFPGA_ERR_INTERFACE_MASK	(0xFFFFFF00U)
 #define XFPGA_UPDATE_ERR(XfpgaErr, InterfaceErr) \
-		((InterfaceErr&XFPGA_ERR_INTERFACE_MASK) + \
-		 (XfpgaErr&XFPGA_ERR_MASK))
+		(((InterfaceErr)&XFPGA_ERR_INTERFACE_MASK) + \
+		 ((XfpgaErr)&XFPGA_ERR_MASK))
 
 
 /** @endcond*/
 /************************** Function Prototypes ******************************/
 u32 XFpga_PL_BitStream_Load(UINTPTR BitstreamImageAddr,
-							UINTPTR KeyAddr, u32 flags);
+			    UINTPTR AddrPtr, u32 flags);
 u32 XFpga_InterfaceStatus(void);
 u32 XFpga_PL_Preconfig(XFpga_Info *PLInfoPtr);
 u32 XFpga_PL_WriteToPl(XFpga_Info *PLInfoPtr);

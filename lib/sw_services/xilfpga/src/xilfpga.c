@@ -301,12 +301,12 @@ u32 XFpga_GetPlConfigData(XFpga_Info *PLInfoPtr)
 u32 XFpga_InterfaceStatus(void)
 {
 	u32 Status = XFPGA_SUCCESS;
-	if (!Fpga_Ops.XFpga_InterfaceStatus) {
+	if (!Fpga_Ops.XFpga_GetInterfaceStatus) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 		"%s Implementation not exists..\r\n", __FUNCTION__);
 	} else {
-		Status = Fpga_Ops.XFpga_InterfaceStatus();
+		Status = Fpga_Ops.XFpga_GetInterfaceStatus();
 	}
 
 	return Status;
