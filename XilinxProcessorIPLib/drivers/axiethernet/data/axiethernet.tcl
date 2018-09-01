@@ -48,6 +48,8 @@
 # 03/07/17 adk Fixed issue lwip stops working as soon as something is plugged
 #	       to it's AXI stream buf(CR#979634).
 # 01/09/18 rsp Added support for C_Number_of_Table_Entries parameter.
+# 08/31/18 rsp Improve error message when ethernet AXI4-Stream is connected
+#              to non-supported IP.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -303,7 +305,7 @@ proc xdefine_axi_target_params {periphs file_handle} {
 
        if {$validentry !=1} {
 		 puts "*******************************************************************************\r\n"
-		 puts "The target Peripheral(Axi DMA or AXI MCDMA or AXI FIFO) is not connected properly to the AXI Ethernet core."
+		 puts "ERROR: The target Peripheral(Axi DMA or AXI MCDMA or AXI FIFO) is not connected properly to the AXI Ethernet core."
 		 puts "*******************************************************************************\r\n"
       }
    }
@@ -1047,7 +1049,14 @@ proc get_mactype {value} {
 }
 
 proc is_ethsupported_target {connected_ip} {
-   set connected_ipname [get_property IP_NAME [get_cells -hier $connected_ip]]
+   set connected_ipname ""
+   if {$connected_ip == ""} {
+      return "false"
+   }
+   set ipname [get_cells -hier $connected_ip]
+   if {$ipname != ""} {
+      set connected_ipname [get_property IP_NAME $ipname]
+   }
    if {$connected_ipname == "axi_dma" || $connected_ipname == "axi_fifo_mm_s" || $connected_ipname == "axi_mcdma"} {
       return "true"
    } else {
@@ -1056,11 +1065,17 @@ proc is_ethsupported_target {connected_ip} {
 }
 
 proc get_targetip {ip} {
+   set target_periph ""
+   if {$ip == ""} {
+      return $target_periph
+   }
    set p2p_busifs_i [get_intf_pins -of_objects $ip -filter "TYPE==INITIATOR || TYPE==MASTER"]
    foreach p2p_busif $p2p_busifs_i {
       set busif_name [string toupper [get_property NAME  $p2p_busif]]
       set conn_busif_handle [::hsi::utils::get_connected_intf $ip $busif_name]
-      set target_periph [get_cells -of_objects $conn_busif_handle]
+      if {$conn_busif_handle != ""} {
+         set target_periph [get_cells -of_objects $conn_busif_handle]
+      }
    }
    return $target_periph
 }
