@@ -188,6 +188,8 @@ Fixed MISRA-C mandatory violations.(CR#1007757)
 
 axiethernet_v5_8:
 Fix cppcheck and gcc warnings.
+Update tcl to improve error message for non-supported designs.
+Fix interrupt ID generation for ZynqMP designs.
 
 wdtps_v3_1:
 Fix interrupt ID conflict issue in example.
