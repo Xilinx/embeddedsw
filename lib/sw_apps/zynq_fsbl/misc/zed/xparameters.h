@@ -108,6 +108,7 @@
 /******************************************************************/
 
 #define XPAR_PS7_ETHERNET_0_IS_CACHE_COHERENT 0
+#define XPAR_XEMACPS_0_IS_CACHE_COHERENT 0
 /* Canonical definitions for peripheral PS7_ETHERNET_0 */
 #define XPAR_XEMACPS_0_DEVICE_ID XPAR_PS7_ETHERNET_0_DEVICE_ID
 #define XPAR_XEMACPS_0_BASEADDR 0xE000B000
@@ -350,6 +351,7 @@
 #define XPAR_XSDPS_0_BUS_WIDTH 0
 #define XPAR_XSDPS_0_MIO_BANK 0
 #define XPAR_XSDPS_0_HAS_EMIO 0
+#define XPAR_XSDPS_0_IS_CACHE_COHERENT 0
 
 
 /******************************************************************/
