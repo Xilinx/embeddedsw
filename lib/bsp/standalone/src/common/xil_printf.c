@@ -31,6 +31,7 @@ static void padding(const s32 l_flag, const struct params_s *par);
 static void outs(const charptr lp, struct params_s *par);
 static s32 getnum(charptr *linep);
 
+
 typedef struct params_s {
 	s32 len;
 	s32 num1;
@@ -107,13 +108,17 @@ static void outs(const charptr lp, struct params_s *par)
 /* as directed by the padding and positioning flags. */
 /*                                                   */
 
-static void outnum(const s32 n, const s32 base, struct params_s *par)
+static void outnum(s64 n, const s32 base, struct params_s *par, int printlong)
 {
 	s32 negative;
 	s32 i;
 	char8 outbuf[32];
 	const char8 digits[] = "0123456789ABCDEF";
-	u32 num;
+	u64 num;
+
+
+	if (!printlong && par->unsigned_flag)
+		n &= 0x00000000FFFFFFFF;
 
 	for (i = 0; i < 32; i++)
 		outbuf[i] = '0';
@@ -126,6 +131,7 @@ static void outnum(const s32 n, const s32 base, struct params_s *par)
 		num = n;
 		negative = 0;
 	}
+
 	/* Build number (backwards) in outbuf            */
 	i = 0;
 	do {
@@ -154,59 +160,7 @@ static void outnum(const s32 n, const s32 base, struct params_s *par)
 	}
 	padding(par->left_flag, par);
 }
-/*---------------------------------------------------*/
-/*                                                   */
-/* This routine moves a 64-bit number to the output  */
-/* buffer as directed by the padding and positioning */
-/* flags.                                            */
-/*                                                   */
 
-static void outnum1(const s64 n, const s32 base, params_t *par)
-{
-	s32 negative;
-	s32 i;
-	char8 outbuf[64];
-	const char8 digits[] = "0123456789ABCDEF";
-	u64 num;
-
-	for (i = 0; i < 64; i++)
-		outbuf[i] = '0';
-
-	/* Check if number is negative                   */
-	if ((par->unsigned_flag == 0) && (base == 10) && (n < 0L)) {
-		negative = 1;
-		num = (-(n));
-	} else {
-		num = (n);
-		negative = 0;
-	}
-
-	/* Build number (backwards) in outbuf            */
-	i = 0;
-	do {
-		outbuf[i] = digits[(num % base)];
-		i++;
-		num /= base;
-	} while (num > 0);
-
-	if (negative != 0) {
-		outbuf[i] = '-';
-		i++;
-	}
-
-	outbuf[i] = 0;
-	i--;
-
-	/* Move the converted number to the buffer and   */
-	/* add in the padding where needed.              */
-	par->len = (s32)strlen(outbuf);
-	padding(!(par->left_flag), par);
-	while (&outbuf[i] >= outbuf) {
-		outbyte(outbuf[i]);
-		i--;
-	}
-	padding(par->left_flag, par);
-}
 /*---------------------------------------------------*/
 /*                                                   */
 /* This routine gets a number from the format        */
@@ -295,10 +249,10 @@ void xil_printf(const char8 *ctrl1, ...)
 try_next:
 	if (ctrl != NULL)
 		ctrl += 1;
-	if (ctrl != NULL)
-		ch = *ctrl;
 	else
-		ch = *ctrl;
+		break;
+
+	ch = *ctrl;
 
 	if (isdigit((s32)ch) != 0) {
 		if (dot_flag != 0) {
@@ -348,41 +302,48 @@ try_next:
 	case 'i':
 	case 'd':
 #if defined(__aarch64__)
-		if (long_flag != 0)
-			outnum1((s64)va_arg(argp, s64), 10L, &par);
-		else
-			outnum(va_arg(argp, s32), 10L, &par);
+		if (long_flag != 0) {
+			outnum((s64)va_arg(argp, s64), 10L, &par, 1);
+		} else
+			outnum((s64)va_arg(argp, s32), 10L, &par, 0);
 #else
-		if (long_flag >= 2)
-			outnum1((s64)va_arg(argp, s64), 10L, &par);
-		else
-			outnum(va_arg(argp, s32), 10L, &par);
+		if (long_flag >= 2) {
+			outnum((s64)va_arg(argp, s64), 10L, &par, 1);
+		} else
+			outnum((s64)va_arg(argp, s32), 10L, &par, 0);
+
 #endif
 		Check = 1;
 		break;
 	case 'p':
 #if defined(__aarch64__)
 		par.unsigned_flag = 1;
-		outnum1((s64)va_arg(argp, s64), 16L, &par);
+		outnum((s64)va_arg(argp, s64), 16L, &par, 1);
 		Check = 1;
 		break;
 #else
 		long_flag = 0;
+		par.unsigned_flag = 1;
+		outnum((s64)va_arg(argp, s32), 16L, &par, 0);
+		Check = 1;
+		break;
 #endif
 	case 'X':
 	case 'x':
 		par.unsigned_flag = 1;
 
 #if defined(__aarch64__)
-		if (long_flag != 0)
-			outnum1((s64)va_arg(argp, s64), 16L, &par);
+		if (long_flag != 0) {
+			outnum((s64)va_arg(argp, s64), 16L, &par , 1);
+		}
 		else
-			outnum((s32)va_arg(argp, s32), 16L, &par);
+			outnum((s64)va_arg(argp, s32), 16L, &par, 0);
+
 #else
-		if (long_flag >= 2)
-			outnum1((s64)va_arg(argp, s64), 16L, &par);
-		else
-			outnum((s32)va_arg(argp, s32), 16L, &par);
+		if (long_flag >= 2) {
+			outnum((s64)va_arg(argp, s64), 16L, &par, 1);
+		} else
+			outnum((s64)va_arg(argp, s32), 16L, &par, 0);
 #endif
 		Check = 1;
 		break;
@@ -399,38 +360,6 @@ try_next:
 		Check = 1;
 		break;
 
-	case '\\':
-		switch (*ctrl) {
-		case 'a':
-#ifdef STDOUT_BASEADDRESS
-			outbyte(((char8)0x07));
-#endif
-			break;
-		case 'h':
-#ifdef STDOUT_BASEADDRESS
-			outbyte(((char8)0x08));
-#endif
-			break;
-		case 'r':
-#ifdef STDOUT_BASEADDRESS
-			outbyte(((char8)0x0D));
-#endif
-			break;
-		case 'n':
-#ifdef STDOUT_BASEADDRESS
-			outbyte(((char8)0x0D));
-			outbyte(((char8)0x0A));
-#endif
-			break;
-		default:
-#ifdef STDOUT_BASEADDRESS
-			outbyte(*ctrl);
-#endif
-			break;
-		}
-		ctrl += 1;
-		Check = 0;
-		break;
 	default:
 		Check = 1;
 		break;
