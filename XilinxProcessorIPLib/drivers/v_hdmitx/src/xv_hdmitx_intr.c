@@ -41,6 +41,7 @@
 * 1.00         10/07/15 Initial release.
 * 1.1   YH     18/08/16 squash unused variable compiler warning
 * 1.2   YH     16/01/18 Added bridge unlock interrupt
+* 1.3   MMO    11/08/18 Added bridge overflow and underflow interrupt
 * </pre>
 *
 ******************************************************************************/
@@ -186,6 +187,20 @@ int XV_HdmiTx_SetCallback(XV_HdmiTx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
+        case (XV_HDMITX_HANDLER_BRDGOVERFLOW):
+            InstancePtr->BrdgOverflowCallback = (XV_HdmiTx_Callback)CallbackFunc;
+            InstancePtr->BrdgOverflowRef = CallbackRef;
+            InstancePtr->IsBrdgOverflowCallbackSet = (TRUE);
+            Status = (XST_SUCCESS);
+            break;
+
+        case (XV_HDMITX_HANDLER_BRDGUNDERFLOW):
+            InstancePtr->BrdgUnderflowCallback = (XV_HdmiTx_Callback)CallbackFunc;
+            InstancePtr->BrdgUnderflowRef = CallbackRef;
+            InstancePtr->IsBrdgUnderflowCallbackSet = (TRUE);
+            Status = (XST_SUCCESS);
+            break;
+
         case (XV_HDMITX_HANDLER_VS):
             InstancePtr->VsCallback = (XV_HdmiTx_Callback)CallbackFunc;
             InstancePtr->VsRef = CallbackRef;
@@ -281,6 +296,24 @@ static void HdmiTx_PioIntrHandler(XV_HdmiTx *InstancePtr)
         // Check if user callback has been registered
         if (InstancePtr->IsBrdgUnlockedCallbackSet) {
             InstancePtr->BrdgUnlockedCallback(InstancePtr->BrdgUnlockedRef);
+        }
+    }
+
+    /* Bridge Overflow event has occurred */
+    if ((Event) & (XV_HDMITX_PIO_IN_BRDG_OVERFLOW_MASK)) {
+
+        // Check if user callback has been registered
+        if (InstancePtr->IsBrdgOverflowCallbackSet) {
+            InstancePtr->BrdgOverflowCallback(InstancePtr->BrdgOverflowRef);
+        }
+    }
+
+    /* Bridge Underflow event has occurred */
+    if ((Event) & (XV_HDMITX_PIO_IN_BRDG_UNDERFLOW_MASK)) {
+
+        // Check if user callback has been registered
+        if (InstancePtr->IsBrdgUnderflowCallbackSet) {
+            InstancePtr->BrdgUnderflowCallback(InstancePtr->BrdgUnderflowRef);
         }
     }
 
