@@ -33,8 +33,6 @@
 # 4.0      als    09/30/15 Updated initialization API.
 # 4.5      cjp    03/22/18 Driver version updated as PWM feature is
 #                          added.
-# 4.6      mus    07/05/18 Driver examples are updated to call
-#                          TmrCtrDisableIntr API with correct arguments.
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_M
 ##
@@ -55,7 +53,7 @@ BEGIN driver tmrctr
   OPTION supported_peripherals = (axi_timer);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.6;
+  OPTION VERSION = 4.5;
   OPTION NAME = tmrctr;
 
 END driver

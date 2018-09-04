@@ -29,7 +29,7 @@
 /**
 *
 * @file xtmrctr_intr.c
-* @addtogroup tmrctr_v4_6
+* @addtogroup tmrctr_v4_5
 * @{
 *
 * Contains interrupt-related functions for the XTmrCtr component.

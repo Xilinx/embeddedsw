@@ -53,11 +53,11 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
-* 4.6   mus  07/05/18 Updated example to call TmrCtrDisableIntr function
+* 4.5   mus  07/05/18 Updated example to call TmrCtrDisableIntr function
 *                     with correct arguments. Presently device id is
 *                     being passed instead of interrupt id. It fixes
 *                     CR#1006251.
-* 4.6   mus  07/05/18 Fixed checkpatch errors and warnings.
+* 4.5   mus  07/05/18 Fixed checkpatch errors and warnings.
 *
 *</pre>
 ******************************************************************************/
