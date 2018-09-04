@@ -153,6 +153,8 @@ Updated Cortexa9 translation table to mark DDR memory as inner cacheable,
 if BSP is built with the USE_AMP flag. It fixes CR#1006745.
 Modified code in xil_printf.c to print u64 varibales in
 32 bit processor.It fixes CR#1007207
+Optimized the code to use a single function and removed
+code redundancy in xil_printf.c . It Fixes CR#1009654.
 
 axivdma_v6_6:
 Added support for vertical flip programming.
