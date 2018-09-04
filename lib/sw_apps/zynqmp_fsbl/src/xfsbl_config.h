@@ -147,6 +147,7 @@ extern "C" {
 #define FSBL_PROT_BYPASS_EXCLUDE_VAL	(1U)
 #define FSBL_PARTITION_LOAD_EXCLUDE_VAL (0U)
 #define FSBL_FORCE_ENC_EXCLUDE_VAL		(0U)
+#define FSBL_DDR_SR_EXCLUDE_VAL			(1U)
 
 #if FSBL_NAND_EXCLUDE_VAL
 #define FSBL_NAND_EXCLUDE
@@ -206,6 +207,10 @@ extern "C" {
 
 #if FSBL_FORCE_ENC_EXCLUDE_VAL
 #define FSBL_FORCE_ENC_EXCLUDE
+#endif
+
+#if (FSBL_DDR_SR_EXCLUDE_VAL == 0U)
+#define XFSBL_ENABLE_DDR_SR
 #endif
 /************************** Function Prototypes ******************************/
 
