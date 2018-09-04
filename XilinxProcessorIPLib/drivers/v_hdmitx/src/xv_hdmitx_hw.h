@@ -48,13 +48,17 @@
 * 1.02  YH     14/11/16 Added BRIDGE_YUV420 and BRIDGE_PIXEL mask to PIO Out
 * 1.03  MG     06/03/17 Added XV_HDMITX_AUX_STA_PKT_RDY_MASK
 * 1.04  MMO    03/05/17 Updated the comments for XV_HdmiTx_ReadReg and
-*                            XV_HdmiTx_WriteReg
+*                       	XV_HdmiTx_WriteReg
 * 1.1   MG     03/05/17 Introduced video mask peripheral
 * 1.2   YH     22/08/17 Added XV_HDMITX_AUD_CTRL_AUDFMT_MASK (Audio Format)
 * 1.3   YH     06/10/17 Added XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT (Audio Format)
 * 1.4   YH     16/01/18 Added PIO_OUT for dedicated reset for each clock domain
 *                       Added PIO_IN to bridge unlock interrupt
 *                       Added PIO_OUT to set GCP_AVMUTE
+* 1.5   MMO    11/08/18 Added PIO_IN to bridge overflow and underflow interrupt
+*       EB     14/08/18 Added XV_HDMITX_HPD_TIMEGRID_OFFSET,
+*                       	XV_HDMITX_TOGGLE_CONF_OFFSET and
+*                       	XV_HDMITX_CONNECT_CONF_OFFSET
 * </pre>
 *
 ******************************************************************************/
@@ -106,9 +110,17 @@ extern "C" {
 #define XV_HDMITX_PIO_IN_EVT_OFFSET     ((XV_HDMITX_PIO_BASE)+(10*4))/**< PIO
                                         * In Event Register *  offset */
 #define XV_HDMITX_PIO_IN_EVT_RE_OFFSET  ((XV_HDMITX_PIO_BASE)+(11*4))/**< PIO
-                                    * In Event Rising Edge *  Register offset */
+                                        * In Event Rising Edge
+					*  Register offset */
 #define XV_HDMITX_PIO_IN_EVT_FE_OFFSET  ((XV_HDMITX_PIO_BASE)+(12*4))/**< PIO
-                                * In Event Falling Edge *  Register offset */
+                                        * In Event Falling Edge
+					*  Register offset */
+#define XV_HDMITX_HPD_TIMEGRID_OFFSET   ((XV_HDMITX_PIO_BASE)+(13*4))/**< PIO
+                                        * HPD Config. *  offset */
+#define XV_HDMITX_TOGGLE_CONF_OFFSET    ((XV_HDMITX_PIO_BASE)+(14*4))/**< PIO
+                                        * HPD Config. *  Register offset */
+#define XV_HDMITX_CONNECT_CONF_OFFSET   ((XV_HDMITX_PIO_BASE)+(15*4))/**< PIO
+                                        * HPD Config. *  Register offset */
 
 // PIO peripheral Control register masks
 #define XV_HDMITX_PIO_CTRL_RUN_MASK     (1<<0)  /**< PIO Control Run mask */
@@ -141,7 +153,7 @@ extern "C" {
 #define XV_HDMITX_PIO_OUT_COLOR_SPACE_SHIFT 10  /**< PIO Out Color Space
                                                     * shift */
 #define XV_HDMITX_PIO_OUT_GCP_CLEARAVMUTE_MASK    (1<<28) /**< PIO Out
-												* GCP_CLEARAVMUTE mask */
+							  * GCP_CLEARAVMUTE mask */
 #define XV_HDMITX_PIO_OUT_BRIDGE_YUV420_MASK (1<<29) /**< PIO Out Bridge_YUV420
                                                          * mask */
 #define XV_HDMITX_PIO_OUT_BRIDGE_PIXEL_MASK  (1<<30) /**< PIO Out Bridge_Pixel
@@ -167,11 +179,16 @@ extern "C" {
 #define XV_HDMITX_PIO_IN_VS_MASK            (1<<3)  /**< PIO In Vsync mask */
 #define XV_HDMITX_PIO_IN_PPP_MASK           0x07    /**< PIO In Pixel packing
                                                     * phase mask */
-#define XV_HDMITX_PIO_IN_HPD_TOGGLE_MASK    (1<<8)  /**< PIO In HPD toggle mask */
+#define XV_HDMITX_PIO_IN_HPD_TOGGLE_MASK    (1<<8)  /**< PIO In HPD toggle
+                                                     * mask */
 #define XV_HDMITX_PIO_IN_PPP_SHIFT          5       /**< PIO In Pixel packing
                                                     * phase shift */
 #define XV_HDMITX_PIO_IN_BRDG_LOCKED_MASK   (1<<9) /**< PIO In Bridge Locked
                                                     * mask */
+#define XV_HDMITX_PIO_IN_BRDG_OVERFLOW_MASK (1<<10) /**< PIO In Bridge Overflow
+                                                    * mask */
+#define XV_HDMITX_PIO_IN_BRDG_UNDERFLOW_MASK (1<<11) /**< PIO In Bridge
+                                                    * Underflow mask */
 
 /**< DDC (Display Data Channel) peripheral register offsets */
 /**< The DDC is the second peripheral on the local bus */
