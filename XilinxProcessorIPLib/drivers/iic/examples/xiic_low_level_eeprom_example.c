@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -100,6 +100,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 3.5   sd   08/29/18 Update the fifo flush.
 * </pre>
 *
 ******************************************************************************/
@@ -377,7 +378,7 @@ unsigned EepromWriteByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 	volatile unsigned AckByteCount;
 	u8 WriteBuffer[sizeof(Address) + PAGE_SIZE];
 	int Index;
-
+	u32 CntlReg;
 
 	/*
 	 * A temporary write buffer must be used which contains both the address
@@ -413,8 +414,10 @@ unsigned EepromWriteByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 		if (SentByteCount != sizeof(Address)) {
 
 			/* Send is aborted so reset Tx FIFO */
-			XIic_WriteReg(IIC_BASE_ADDRESS,  XIIC_CR_REG_OFFSET,
-					XIIC_CR_TX_FIFO_RESET_MASK);
+			CntlReg = XIic_ReadReg(IIC_BASE_ADDRESS,
+						XIIC_CR_REG_OFFSET);
+			XIic_WriteReg(IIC_BASE_ADDRESS, XIIC_CR_REG_OFFSET,
+					CntlReg | XIIC_CR_TX_FIFO_RESET_MASK);
 			XIic_WriteReg(IIC_BASE_ADDRESS, XIIC_CR_REG_OFFSET,
 					XIIC_CR_ENABLE_DEVICE_MASK);
 		}
@@ -439,8 +442,10 @@ unsigned EepromWriteByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 		if (AckByteCount != sizeof(Address)) {
 
 			/* Send is aborted so reset Tx FIFO */
-			XIic_WriteReg(IIC_BASE_ADDRESS,  XIIC_CR_REG_OFFSET,
-					XIIC_CR_TX_FIFO_RESET_MASK);
+			CntlReg = XIic_ReadReg(IIC_BASE_ADDRESS,
+					XIIC_CR_REG_OFFSET);
+			XIic_WriteReg(IIC_BASE_ADDRESS, XIIC_CR_REG_OFFSET,
+					CntlReg | XIIC_CR_TX_FIFO_RESET_MASK);
 			XIic_WriteReg(IIC_BASE_ADDRESS, XIIC_CR_REG_OFFSET,
 					XIIC_CR_ENABLE_DEVICE_MASK);
 		}
@@ -475,6 +480,7 @@ unsigned EepromReadByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 {
 	volatile unsigned ReceivedByteCount;
 	u16 StatusReg;
+	u32 CntlReg;
 
 	/*
 	 * Set the address register to the specified address by writing
@@ -494,9 +500,10 @@ unsigned EepromReadByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 			if (ReceivedByteCount != sizeof(Address)) {
 
 				/* Send is aborted so reset Tx FIFO */
-				XIic_WriteReg(IIC_BASE_ADDRESS,
-						XIIC_CR_REG_OFFSET,
-						XIIC_CR_TX_FIFO_RESET_MASK);
+				CntlReg = XIic_ReadReg(IIC_BASE_ADDRESS,
+							XIIC_CR_REG_OFFSET);
+				XIic_WriteReg(IIC_BASE_ADDRESS, XIIC_CR_REG_OFFSET,
+						CntlReg | XIIC_CR_TX_FIFO_RESET_MASK);
 				XIic_WriteReg(IIC_BASE_ADDRESS,
 						XIIC_CR_REG_OFFSET,
 						XIIC_CR_ENABLE_DEVICE_MASK);
