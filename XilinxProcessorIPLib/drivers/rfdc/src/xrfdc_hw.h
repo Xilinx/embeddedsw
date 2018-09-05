@@ -52,6 +52,8 @@
 *       sk     02/27/18 Add API's to configure Multiband.
 * 4.0   sk     04/09/18 Removed redundant inclusion of xparameters.h file.
 * 5.0   sk     08/03/18 Fixed MISRAC warnings.
+*       sk     08/24/18 Reorganize the code to improve readability and
+*                       optimization.
 * </pre>
 *
 ******************************************************************************/
@@ -68,9 +70,7 @@ extern "C" {
 #ifdef __BAREMETAL__
 #include "xil_io.h"
 #endif
-#ifndef __MICROBLAZE__
 #include "metal/io.h"
-#endif
 /************************** Constant Definitions *****************************/
 
 /** @name Register Map
@@ -358,6 +358,7 @@ extern "C" {
  */
 
 #define XRFDC_FIFO_EN_MASK	0x00000001U /**< FIFO enable/disable */
+#define XRFDC_RESTART_MASK	0x00000001U	/**< Restart bit mask */
 
 /* @} */
 
@@ -416,6 +417,7 @@ extern "C" {
 							of Words per clock */
 #define XRFDC_FAB_RATE_RD_MASK	0x00000F00U /**< FIFO Read Number
 							of words per clock */
+#define XRFDC_FAB_RATE_RD_SHIFT		8U /**< Fabric Read shift */
 
 /* @} */
 
@@ -554,6 +556,7 @@ extern "C" {
 							underflow range */
 #define XRFDC_DEC_IMR_SUBADC3_OVR_MASK	0x00000080U /**< subadc3 decoder
 							overflow range */
+#define XRFDC_DEC_IMR_MASK				0x000000FFU
 
 /* @} */
 
@@ -596,6 +599,8 @@ extern "C" {
 							overflow */
 #define XRFDC_DAT_IMR_QMC_OFFST_MASK	0x00000080U /**< QMC offset
 							overflow */
+#define XRFDC_ADC_DAT_IMR_MASK	0x000000FFU	/**< ADC DataPath mask */
+#define XRFDC_DAC_DAT_IMR_MASK	0x00000FFFU	/**< DAC DataPath mask */
 
 /* @} */
 
@@ -693,7 +698,10 @@ extern "C" {
 							for I output */
 #define XRFDC_Q_IQ_SIN_COS		0x00001000U	/**< Select NCO phases
 							for Q output */
-
+#define XRFDC_MIXER_MODE_C2C_MASK	0x0000000FU	/**< Mixer mode C2C Mask */
+#define XRFDC_MIXER_MODE_R2C_MASK	0x00000005U	/**< Mixer mode R2C Mask */
+#define XRFDC_MIXER_MODE_C2R_MASK	0x00000003U	/**< Mixer mode C2R Mask */
+#define XRFDC_MIXER_MODE_OFF_MASK	0x00000000U	/**< Mixer mode OFF Mask */
 /* @} */
 
 /** @name NCO update - NCO update mode
@@ -755,6 +763,7 @@ extern "C" {
 
 #define XRFDC_NCO_FQWD_UPP_MASK		0x0000FFFFU	/**< NCO Phase
 							increment[47:32] */
+#define XRFDC_NCO_FQWD_UPP_SHIFT	32U	/**< Freq Word upper shift */
 
 /* @} */
 
@@ -767,6 +776,7 @@ extern "C" {
 
 #define XRFDC_NCO_FQWD_MID_MASK		0x0000FFFFU	/**< NCO Phase
 							increment[31:16] */
+#define XRFDC_NCO_FQWD_MID_SHIFT	16U	/**< Freq Word Mid shift */
 
 /* @} */
 
@@ -793,6 +803,7 @@ extern "C" {
 
 #define XRFDC_NCO_PHASE_UPP_MASK		0x00000003U	/**< NCO Phase
 							offset[17:16] */
+#define XRFDC_NCO_PHASE_UPP_SHIFT		16U	/**< NCO phase upper shift */
 
 /* @} */
 
@@ -864,6 +875,7 @@ extern "C" {
 							correction mask */
 #define XRFDC_QMC_CFG_EN_PHASE_MASK	0x00000002U	/**< enable QMC Phase
 							correction mask */
+#define XRFDC_QMC_CFG_PHASE_SHIFT	1U	/**< QMC config phase shift */
 
 /* @} */
 
@@ -978,6 +990,7 @@ extern "C" {
 							switch that select the data to QMC */
 #define XRFDC_SEL_CB_TO_DECI_MASK		0x00000020U	/**< Control crossbar
 							switch that select the data to decimation filter */
+#define XRFDC_SEL_CB_TO_MIX0_SHIFT		2U	/**< Crossbar Mixer0 shift */
 
 /* @} */
 
@@ -1004,7 +1017,7 @@ extern "C" {
 
 #define XRFDC_TRSHD0_AVG_UPP_MASK		0x0000FFFFU	/**< Threshold0 under
 							Averaging[31:16] */
-
+#define XRFDC_TRSHD0_AVG_UPP_SHIFT	16U	/**< Threshold0 Avg upper shift */
 /* @} */
 
 /** @name Threshold0 Average[15:0]
@@ -1066,6 +1079,7 @@ extern "C" {
 
 #define XRFDC_TRSHD1_AVG_UPP_MASK		0x0000FFFFU	/**< Threshold1 under
 							Averaging[31:16] */
+#define XRFDC_TRSHD1_AVG_UPP_SHIFT	16U	/**< Threshold1 Avg upper shift */
 
 /* @} */
 
@@ -1173,6 +1187,7 @@ extern "C" {
 #define XRFDC_TI_TISK_DBG_UPDT_RT_MASK	0x00001000U	/**< Debug update rate */
 #define XRFDC_TI_TISK_DITH_DLY_MASK	0x0000E000U	/**< Programmable delay on
 							dither path to match data path */
+#define XRFDC_TISK_ZONE_SHIFT		2U	/**< Nyquist zone shift */
 
 /* @} */
 
@@ -1185,7 +1200,7 @@ extern "C" {
 
 #define XRFDC_MC_CFG0_MIX_MODE_MASK		0x00000002U	/**< Enable
 								Mixing mode */
-
+#define XRFDC_MC_CFG0_MIX_MODE_SHIFT	1U	/**< Mix mode shift */
 
 /* @} */
 
@@ -1754,6 +1769,7 @@ extern "C" {
 
 #define XRFDC_INTERP_MODE_MASK	0x00000077U	/**< Interp filter mask */
 #define XRFDC_INTERP_MODE_I_MASK	0x00000007U	/**< Interp filter I */
+#define XRFDC_INTERP_MODE_Q_SHIFT	4U	/**< Interp mode Q shift */
 
 /* @} */
 
@@ -1774,7 +1790,9 @@ extern "C" {
  */
 
 #define XRFDC_PWR_UP_STAT_MASK		0x00000004U	/**< Power Up state mask */
+#define XRFDC_PWR_UP_STAT_SHIFT		2U	/**< PowerUp status shift */
 #define XRFDC_PLL_LOCKED_MASK		0x00000008U	/**< PLL Locked mask */
+#define XRFDC_PLL_LOCKED_SHIFT		3U	/**< PLL locked shift */
 
 /* @} */
 
@@ -1785,6 +1803,8 @@ extern "C" {
  */
 
 #define XRFDC_PWR_STATE_MASK		0x0000FFFFU	/**< State mask */
+#define XRFDC_RSR_START_SHIFT		8U	/**< Start state shift */
+
 
 /* @} */
 
@@ -1820,6 +1840,7 @@ extern "C" {
  * @{
  */
 
+#define XRFDC_EN_INTR_SLICE_MASK	0x0000000FU /**< Slice intr mask */
 #define XRFDC_EN_INTR_SLICE0_MASK		0x00000001U	/**< slice0
 								interrupt enable mask */
 #define XRFDC_EN_INTR_SLICE1_MASK		0x00000002U	/**< slice1
@@ -1851,6 +1872,7 @@ extern "C" {
  */
 
 #define XRFDC_EN_MB_MASK	0x00000008U	/**< multi-band adder mask */
+#define XRFDC_EN_MB_SHIFT	3U	/* Enable Multiband shift */
 
 /* @} */
 
@@ -1938,6 +1960,16 @@ extern "C" {
 
 /* @} */
 
+/** Register bits Shift, Width Masks
+ *
+ * @{
+ */
+#define XRFDC_DIGI_ANALOG_SHIFT4	4U
+#define XRFDC_DIGI_ANALOG_SHIFT8	8U
+#define XRFDC_DIGI_ANALOG_SHIFT12	12U
+
+/* @} */
+
 #define XRFDC_IXR_FIFOUSRDAT_MASK			0x0000000FU
 #define XRFDC_IXR_FIFOUSRDAT_OF_MASK		0x00000001U
 #define XRFDC_IXR_FIFOUSRDAT_UF_MASK 		0x00000002U
@@ -1982,6 +2014,11 @@ extern "C" {
 #define XRFDC_DAC_MC_CFG2_OPCSCAS_32MA		0x0000A0D8U
 #define XRFDC_DAC_MC_CFG3_CSGAIN_32MA		0x0000FFC0U
 
+#define XRFDC_ADC_OVR_VOL_RANGE_SHIFT		24U
+#define XRFDC_ADC_DAT_FIFO_OVR_SHIFT		16U
+#define XRFDC_ADC_SUBADC_DCDR_SHIFT			16U
+#define XRFDC_DATA_PATH_SHIFT			4U
+
 #define XRFDC_DAC_TILE_DRP_ADDR(X)			(0x6000U + (X * 0x4000U))
 #define XRFDC_DAC_TILE_CTRL_STATS_ADDR(X)	(0x4000U + (X * 0x4000U))
 #define XRFDC_ADC_TILE_DRP_ADDR(X)			(0x16000U + (X * 0x4000U))
@@ -1992,19 +2029,6 @@ extern "C" {
 #define XRFDC_TILE_DRP_OFFSET		0x2000U
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#ifdef __MICROBLAZE__
-#define XRFdc_In64 Xil_In64
-#define XRFdc_Out64 Xil_Out64
-
-#define XRFdc_In32 Xil_In32
-#define XRFdc_Out32 Xil_Out32
-
-#define XRFdc_In16 Xil_In16
-#define XRFdc_Out16 Xil_Out16
-
-#define XRFdc_In8 Xil_In8
-#define XRFdc_Out8 Xil_Out8
-#else
 #define XRFdc_In64 metal_io_read64
 #define XRFdc_Out64 metal_io_write64
 
@@ -2016,7 +2040,6 @@ extern "C" {
 
 #define XRFdc_In8 metal_io_read8
 #define XRFdc_Out8 metal_io_write8
-#endif
 
 /****************************************************************************/
 /**
@@ -2030,16 +2053,11 @@ extern "C" {
 * @return	The value read from the register.
 *
 * @note		C-Style signature:
-*		u32 XRFdc_ReadReg(XRFdc *InstancePtr. u32 BaseAddress, s32 RegOffset)
+*		u32 XRFdc_ReadReg64(XRFdc *InstancePtr. u32 BaseAddress, s32 RegOffset)
 *
 ******************************************************************************/
-#ifdef __MICROBLAZE__
-#define XRFdc_ReadReg64(InstancePtr, BaseAddress, RegOffset) \
-	XRFdc_In64(InstancePtr->BaseAddr + BaseAddress + RegOffset)
-#else
 #define XRFdc_ReadReg64(InstancePtr, BaseAddress, RegOffset) \
 	XRFdc_In64(InstancePtr->io, ((u32)RegOffset + (u32)BaseAddress))
-#endif
 
 /***************************************************************************/
 /**
@@ -2054,19 +2072,13 @@ extern "C" {
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XRFdc_WriteReg(XRFdc *InstancePtr, u32 BaseAddress, s32 RegOffset,
-*		u64 RegisterValue)
+*	void XRFdc_WriteReg64(XRFdc *InstancePtr, u32 BaseAddress, s32 RegOffset,
+*	u64 RegisterValue)
 *
 ******************************************************************************/
-#ifdef __MICROBLAZE__
-#define XRFdc_WriteReg64(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
-	XRFdc_Out64((InstancePtr->BaseAddr + BaseAddress) + (RegOffset), \
-		(RegisterValue))
-#else
 #define XRFdc_WriteReg64(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
 	XRFdc_Out64((InstancePtr->io), ((u32)RegOffset + (u32)BaseAddress), \
 		(u32)(RegisterValue))
-#endif
 
 /****************************************************************************/
 /**
@@ -2083,13 +2095,8 @@ extern "C" {
 *		u32 XRFdc_ReadReg(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
 *
 ******************************************************************************/
-#ifdef __MICROBLAZE__
-#define XRFdc_ReadReg(InstancePtr, BaseAddress, RegOffset) \
-	XRFdc_In32((InstancePtr->BaseAddr + BaseAddress) + (RegOffset))
-#else
 #define XRFdc_ReadReg(InstancePtr, BaseAddress, RegOffset) \
 	XRFdc_In32((InstancePtr->io), ((u32)BaseAddress + (u32)RegOffset))
-#endif
 
 /***************************************************************************/
 /**
@@ -2108,14 +2115,9 @@ extern "C" {
 *		u32 RegisterValue)
 *
 ******************************************************************************/
-#ifdef __MICROBLAZE__
-#define XRFdc_WriteReg(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
-	XRFdc_Out32((InstancePtr->BaseAddr + BaseAddress) + (RegOffset), (RegisterValue))
-#else
 #define XRFdc_WriteReg(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
 	XRFdc_Out32((InstancePtr->io), ((u32)RegOffset + (u32)BaseAddress), \
 			(u32)(RegisterValue))
-#endif
 
 /****************************************************************************/
 /**
@@ -2129,16 +2131,11 @@ extern "C" {
 * @return	The value read from the register.
 *
 * @note		C-Style signature:
-*		u16 XRFdc_ReadReg(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
+*		u16 XRFdc_ReadReg16(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
 *
 ******************************************************************************/
-#ifdef __MICROBLAZE__
-#define XRFdc_ReadReg16(InstancePtr, BaseAddress, RegOffset) \
-	XRFdc_In16((InstancePtr->BaseAddr + BaseAddress) + (RegOffset))
-#else
 #define XRFdc_ReadReg16(InstancePtr, BaseAddress, RegOffset) \
 	XRFdc_In16((InstancePtr->io), ((u32)RegOffset + (u32)BaseAddress))
-#endif
 
 /***************************************************************************/
 /**
@@ -2153,18 +2150,13 @@ extern "C" {
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XRFdc_WriteReg(XRFdc *InstancePtr, u32 BaseAddress, int RegOffset,
-*		u16 RegisterValue)
+*	void XRFdc_WriteReg16(XRFdc *InstancePtr, u32 BaseAddress, int RegOffset,
+*	u16 RegisterValue)
 *
 ******************************************************************************/
-#ifdef __MICROBLAZE__
-#define XRFdc_WriteReg16(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
-	XRFdc_Out16((InstancePtr->BaseAddr + BaseAddress) + (RegOffset), (RegisterValue))
-#else
 #define XRFdc_WriteReg16(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
 	XRFdc_Out16((InstancePtr->io), ((u32)RegOffset + (u32)BaseAddress), \
 			(u32)(RegisterValue))
-#endif
 
 /****************************************************************************/
 /**
@@ -2178,16 +2170,11 @@ extern "C" {
 * @return	The value read from the register.
 *
 * @note		C-Style signature:
-*		u8 XRFdc_ReadReg(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
+*		u8 XRFdc_ReadReg8(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
 *
 ******************************************************************************/
-#ifdef __MICROBLAZE__
-#define XRFdc_ReadReg8(InstancePtr, BaseAddress, RegOffset) \
-	XRFdc_In8((InstancePtr->BaseAddr + BaseAddress) + (RegOffset))
-#else
 #define XRFdc_ReadReg8(InstancePtr, BaseAddress, RegOffset) \
 	XRFdc_In8((InstancePtr->io), ((u32)RegOffset + (u32)BaseAddress))
-#endif
 
 /***************************************************************************/
 /**
@@ -2202,18 +2189,13 @@ extern "C" {
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XRFdc_WriteReg(XRFdc *InstancePtr, u32 BaseAddress, int RegOffset,
-*		u8 RegisterValue)
+*	void XRFdc_WriteReg8(XRFdc *InstancePtr, u32 BaseAddress, int RegOffset,
+*	u8 RegisterValue)
 *
 ******************************************************************************/
-#ifdef __MICROBLAZE__
-#define XRFdc_WriteReg8(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
-	XRFdc_Out8((InstancePtr->BaseAddr + BaseAddress) + (RegOffset), (RegisterValue))
-#else
 #define XRFdc_WriteReg8(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
 	XRFdc_Out8((InstancePtr->io), ((u32)RegOffset + (u32)BaseAddress), \
 			(u32)(RegisterValue))
-#endif
 
 #ifdef __cplusplus
 }
