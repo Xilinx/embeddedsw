@@ -45,6 +45,8 @@
 *       sk     09/21/17 Add support for Over voltage and Over
 *                       Range interrupts.
 * 2.2   sk     10/18/17 Add support for FIFO and DATA overflow interrupt
+* 5.0   sk     08/24/18 Reorganize the code to improve readability and
+*                       optimization.
 * </pre>
 *
 ******************************************************************************/
@@ -54,9 +56,6 @@
 #include "xrfdc.h"
 
 /************************** Constant Definitions *****************************/
-#ifdef __MICROBLAZE__
-#define IRQ_HANDLED		1U
-#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -95,23 +94,23 @@ void XRFdc_IntrEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	u32 NoOfBlocks;
 	u32 Status;
 
-#ifdef __BAREMETAL__
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
-#endif
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+								"available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	Index = Block_Id;
 	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
 			(Type == XRFDC_ADC_TILE)) {
-		NoOfBlocks = 2U;
-		if (Block_Id == 1U) {
-			Index = 2U;
-			NoOfBlocks = 4U;
+		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Index = XRFDC_BLK_ID2;
+			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
 		}
 	} else {
 		NoOfBlocks = Block_Id + 1U;
@@ -125,26 +124,26 @@ void XRFdc_IntrEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 			XRFdc_WriteReg16(InstancePtr, 0x0,
 						XRFDC_COMMON_INTR_ENABLE, ReadReg);
 			BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
-			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-							XRFDC_INTR_ENABLE);
-			ReadReg |= (1U << Index);
-			XRFdc_WriteReg16(InstancePtr, BaseAddr,
-							XRFDC_INTR_ENABLE, ReadReg);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_INTR_ENABLE,
+					(1U << Index), (1U << Index));
+			/* Enable Converter interrupts */
 			ReadReg = XRFdc_ReadReg(InstancePtr, BaseAddr,
 							XRFDC_CONV_INTR_EN(Index));
 			if ((IntrMask & XRFDC_ADC_OVR_VOLTAGE_MASK) != 0U) {
-				ReadReg |= (XRFDC_ADC_OVR_VOLTAGE_MASK >> 24);
+				ReadReg |= (XRFDC_ADC_OVR_VOLTAGE_MASK >>
+						XRFDC_ADC_OVR_VOL_RANGE_SHIFT);
 			}
 			if ((IntrMask & XRFDC_ADC_OVR_RANGE_MASK) != 0U) {
-				ReadReg |= (XRFDC_ADC_OVR_RANGE_MASK >> 24);
+				ReadReg |= (XRFDC_ADC_OVR_RANGE_MASK >>
+						XRFDC_ADC_OVR_VOL_RANGE_SHIFT);
 			}
 			if ((IntrMask & XRFDC_ADC_FIFO_OVR_MASK) != 0U) {
 				ReadReg |=
-				(XRFDC_ADC_FIFO_OVR_MASK >> 16);
+				(XRFDC_ADC_FIFO_OVR_MASK >> XRFDC_ADC_DAT_FIFO_OVR_SHIFT);
 			}
 			if ((IntrMask & XRFDC_ADC_DAT_OVR_MASK) != 0U) {
 				ReadReg |=
-				(XRFDC_ADC_DAT_OVR_MASK >> 16);
+				(XRFDC_ADC_DAT_OVR_MASK >> XRFDC_ADC_DAT_FIFO_OVR_SHIFT);
 			}
 
 			XRFdc_WriteReg(InstancePtr, BaseAddr,
@@ -155,52 +154,45 @@ void XRFdc_IntrEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 
 			/* Check for FIFO interface interrupts */
 			if ((IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_FABRIC_IMR_OFFSET);
-				ReadReg |= (IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK);
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_FABRIC_IMR_OFFSET, ReadReg);
+				ReadReg = (IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_IMR_OFFSET,
+						XRFDC_IXR_FIFOUSRDAT_MASK, ReadReg);
 			}
+			/* Check for SUBADC interrupts */
 			if ((IntrMask & XRFDC_SUBADC_IXR_DCDR_MASK) != 0U) {
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_DEC_IMR_OFFSET);
-				ReadReg |= (IntrMask & XRFDC_SUBADC_IXR_DCDR_MASK) >> 16;
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_DEC_IMR_OFFSET, ReadReg);
+				ReadReg = (IntrMask & XRFDC_SUBADC_IXR_DCDR_MASK) >>
+						XRFDC_ADC_SUBADC_DCDR_SHIFT;
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DEC_IMR_OFFSET,
+						XRFDC_DEC_IMR_MASK, ReadReg);
 			}
+			/* Check for DataPath interrupts */
 			if ((IntrMask & XRFDC_ADC_IXR_DATAPATH_MASK) != 0U) {
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_DATPATH_IMR_OFFSET);
-				ReadReg |= (IntrMask & XRFDC_ADC_IXR_DATAPATH_MASK) >> 4;
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_DATPATH_IMR_OFFSET, ReadReg);
+				ReadReg = (IntrMask & XRFDC_ADC_IXR_DATAPATH_MASK) >>
+						XRFDC_DATA_PATH_SHIFT;
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DATPATH_IMR_OFFSET,
+							XRFDC_ADC_DAT_IMR_MASK, ReadReg);
 			}
 		} else {
 			ReadReg |= (1U << Tile_Id);
 			XRFdc_WriteReg16(InstancePtr, 0x0,
 								XRFDC_COMMON_INTR_ENABLE, ReadReg);
 			BaseAddr = XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile_Id);
-			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-							XRFDC_INTR_ENABLE);
-			ReadReg |= (1U << Index);
-			XRFdc_WriteReg16(InstancePtr, BaseAddr,
-							XRFDC_INTR_ENABLE, ReadReg);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr,
+				XRFDC_INTR_ENABLE, (1U << Index), (1U << Index));
 			BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) +
 					XRFDC_BLOCK_ADDR_OFFSET(Index);
-
+			/* Check for FIFO interface interrupts */
 			if ((IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_DAC_FABRIC_IMR_OFFSET);
-				ReadReg |= (IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK);
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_DAC_FABRIC_IMR_OFFSET, ReadReg);
+				ReadReg = (IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_FABRIC_IMR_OFFSET,
+										XRFDC_IXR_FIFOUSRDAT_MASK, ReadReg);
 			}
+
 			if ((IntrMask & XRFDC_DAC_IXR_DATAPATH_MASK) != 0U) {
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-										XRFDC_DATPATH_IMR_OFFSET);
-				ReadReg |= (IntrMask & XRFDC_DAC_IXR_DATAPATH_MASK) >> 4;
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-								XRFDC_DATPATH_IMR_OFFSET, ReadReg);
+				ReadReg = (IntrMask & XRFDC_DAC_IXR_DATAPATH_MASK) >>
+						XRFDC_DATA_PATH_SHIFT;
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DATPATH_IMR_OFFSET,
+						XRFDC_DAC_DAT_IMR_MASK, ReadReg);
 			}
 		}
 	}
@@ -235,23 +227,23 @@ void XRFdc_IntrDisable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	u32 Index;
 	u32 NoOfBlocks;
 
-#ifdef __BAREMETAL__
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
-#endif
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+							"available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	Index = Block_Id;
 	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
 			(Type == XRFDC_ADC_TILE)) {
-		NoOfBlocks = 2U;
-		if (Block_Id == 1U) {
-			Index = 2U;
-			NoOfBlocks = 4U;
+		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Index = XRFDC_BLK_ID2;
+			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
 		}
 	} else {
 		NoOfBlocks = Block_Id + 1U;
@@ -264,18 +256,21 @@ void XRFdc_IntrDisable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 			ReadReg = XRFdc_ReadReg(InstancePtr, BaseAddr,
 							XRFDC_CONV_INTR_EN(Index));
 			if ((IntrMask & XRFDC_ADC_OVR_VOLTAGE_MASK) != 0U) {
-				ReadReg &= ~(XRFDC_ADC_OVR_VOLTAGE_MASK >> 24);
+				ReadReg &= ~(XRFDC_ADC_OVR_VOLTAGE_MASK >>
+						XRFDC_ADC_OVR_VOL_RANGE_SHIFT);
 			}
 			if ((IntrMask & XRFDC_ADC_OVR_RANGE_MASK) != 0U) {
-				ReadReg &= ~(XRFDC_ADC_OVR_RANGE_MASK >> 24);
+				ReadReg &= ~(XRFDC_ADC_OVR_RANGE_MASK >>
+						XRFDC_ADC_OVR_VOL_RANGE_SHIFT);
 			}
+			/* Disable Converter interrupts */
 			if ((IntrMask & XRFDC_ADC_FIFO_OVR_MASK) != 0U) {
 				ReadReg &=
-				~(XRFDC_ADC_FIFO_OVR_MASK >> 16);
+				~(XRFDC_ADC_FIFO_OVR_MASK >> XRFDC_ADC_DAT_FIFO_OVR_SHIFT);
 			}
 			if ((IntrMask & XRFDC_ADC_DAT_OVR_MASK) != 0U) {
 				ReadReg &=
-				~(XRFDC_ADC_DAT_OVR_MASK >> 16);
+				~(XRFDC_ADC_DAT_OVR_MASK >> XRFDC_ADC_DAT_FIFO_OVR_SHIFT);
 			}
 			XRFdc_WriteReg(InstancePtr, BaseAddr,
 							XRFDC_CONV_INTR_EN(Index), ReadReg);
@@ -283,45 +278,39 @@ void XRFdc_IntrDisable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 									XRFDC_BLOCK_ADDR_OFFSET(Index);
 			/* Check for FIFO interface interrupts */
 			if ((IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-											XRFDC_ADC_FABRIC_IMR_OFFSET);
-				ReadReg &= ~(IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK);
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_FABRIC_IMR_OFFSET, ReadReg);
+				ReadReg = IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK;
+				XRFdc_ClrReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_IMR_OFFSET,
+										ReadReg);
 			}
+			/* Check for SUBADC interrupts */
 			if ((IntrMask & XRFDC_SUBADC_IXR_DCDR_MASK) != 0U) {
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_DEC_IMR_OFFSET);
-				ReadReg &= ~((IntrMask &
-							XRFDC_SUBADC_IXR_DCDR_MASK) >> 16);
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_DEC_IMR_OFFSET, ReadReg);
+				ReadReg = ((IntrMask & XRFDC_SUBADC_IXR_DCDR_MASK) >>
+						XRFDC_ADC_SUBADC_DCDR_SHIFT);
+				XRFdc_ClrReg(InstancePtr, BaseAddr, XRFDC_ADC_DEC_IMR_OFFSET,
+										ReadReg);
 			}
+			/* Check for DataPath interrupts */
 			if ((IntrMask & XRFDC_ADC_IXR_DATAPATH_MASK) != 0U) {
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_DATPATH_IMR_OFFSET);
-				ReadReg &= ~((IntrMask &
-							XRFDC_ADC_IXR_DATAPATH_MASK) >> 4);
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_DATPATH_IMR_OFFSET, ReadReg);
+				ReadReg = ((IntrMask &
+					XRFDC_ADC_IXR_DATAPATH_MASK) >> XRFDC_DATA_PATH_SHIFT);
+				XRFdc_ClrReg(InstancePtr, BaseAddr, XRFDC_DATPATH_IMR_OFFSET,
+											ReadReg);
 			}
 		} else {
 			BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) +
 									XRFDC_BLOCK_ADDR_OFFSET(Index);
+			/* Check for FIFO interface interrupts */
 			if ((IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_DAC_FABRIC_IMR_OFFSET);
-				ReadReg &= ~(IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK);
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_DAC_FABRIC_IMR_OFFSET, ReadReg);
+				ReadReg = (IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK);
+				XRFdc_ClrReg(InstancePtr, BaseAddr, XRFDC_DAC_FABRIC_IMR_OFFSET,
+									ReadReg);
 			}
+			/* Check for FIFO DataPath interrupts */
 			if ((IntrMask & XRFDC_DAC_IXR_DATAPATH_MASK) != 0U) {
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_DATPATH_IMR_OFFSET);
-				ReadReg &= ~((IntrMask &
-							XRFDC_DAC_IXR_DATAPATH_MASK) >> 4);
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_DATPATH_IMR_OFFSET, ReadReg);
+				ReadReg = ((IntrMask &
+					XRFDC_DAC_IXR_DATAPATH_MASK) >> XRFDC_DATA_PATH_SHIFT);
+				XRFdc_ClrReg(InstancePtr, BaseAddr, XRFDC_DATPATH_IMR_OFFSET,
+										ReadReg);
 			}
 		}
 	}
@@ -356,23 +345,24 @@ u32 XRFdc_GetIntrStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	u32 Status;
 	u32 Block;
 
-#ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
-#endif
 
 	Block = Block_Id;
 	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
 					(Type == XRFDC_ADC_TILE)) {
-		if ((Block_Id == 2U) || (Block_Id == 3U)) {
-			Block = 1U;
+		if ((Block_Id == XRFDC_BLK_ID2) || (Block_Id == XRFDC_BLK_ID3)) {
+			Block = XRFDC_BLK_ID1;
 		}
-		if (Block_Id == 1U) {
-			Block = 0U;
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Block = XRFDC_BLK_ID0;
 		}
 	}
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block);
 	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+									"available in %s\r\n", __func__);
+		Intrsts = Status;
 		goto RETURN_PATH;
 	}
 
@@ -381,10 +371,14 @@ u32 XRFdc_GetIntrStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		/* Check for Over Voltage and Over Range */
 		ReadReg = XRFdc_ReadReg(InstancePtr, BaseAddr,
 						XRFDC_CONV_INTR_STS(Block_Id));
-		Intrsts |= ((ReadReg & XRFDC_INTR_OVR_VOLTAGE_MASK) << 24);
-		Intrsts |= ((ReadReg & XRFDC_INTR_OVR_RANGE_MASK) << 24);
-		Intrsts |= ((ReadReg & XRFDC_INTR_FIFO_OVR_MASK) << 16);
-		Intrsts |= ((ReadReg & XRFDC_INTR_DAT_OVR_MASK) << 16);
+		Intrsts |= ((ReadReg & XRFDC_INTR_OVR_VOLTAGE_MASK) <<
+				XRFDC_ADC_OVR_VOL_RANGE_SHIFT);
+		Intrsts |= ((ReadReg & XRFDC_INTR_OVR_RANGE_MASK) <<
+				XRFDC_ADC_OVR_VOL_RANGE_SHIFT);
+		Intrsts |= ((ReadReg & XRFDC_INTR_FIFO_OVR_MASK) <<
+				XRFDC_ADC_DAT_FIFO_OVR_SHIFT);
+		Intrsts |= ((ReadReg & XRFDC_INTR_DAT_OVR_MASK) <<
+				XRFDC_ADC_DAT_FIFO_OVR_SHIFT);
 
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
@@ -392,24 +386,28 @@ u32 XRFdc_GetIntrStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_ADC_FABRIC_ISR_OFFSET);
 		Intrsts |= (ReadReg & XRFDC_IXR_FIFOUSRDAT_MASK);
-
+		/* Check for SUBADC interrupts */
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_ADC_DEC_ISR_OFFSET);
-		Intrsts |= ((ReadReg & XRFDC_DEC_ISR_SUBADC_MASK) << 16);
-
+		Intrsts |= ((ReadReg & XRFDC_DEC_ISR_SUBADC_MASK) <<
+				XRFDC_ADC_SUBADC_DCDR_SHIFT);
+		/* Check for DataPath interrupts */
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_DATPATH_ISR_OFFSET);
-		Intrsts |= ((ReadReg & XRFDC_ADC_DAT_PATH_ISR_MASK) << 4);
+		Intrsts |= ((ReadReg & XRFDC_ADC_DAT_PATH_ISR_MASK) <<
+				XRFDC_DATA_PATH_SHIFT);
 	} else {
 		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) +
 							XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
+		/* Check for FIFO interface interrupts */
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_DAC_FABRIC_ISR_OFFSET);
 		Intrsts |= (ReadReg & XRFDC_IXR_FIFOUSRDAT_MASK);
-
+		/* Check for DataPath interrupts */
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_DATPATH_ISR_OFFSET);
-		Intrsts |= (ReadReg & XRFDC_DAC_DAT_PATH_ISR_MASK) << 4;
+		Intrsts |= ((ReadReg & XRFDC_DAC_DAT_PATH_ISR_MASK) <<
+				XRFDC_DATA_PATH_SHIFT);
 	}
 RETURN_PATH:
 	return Intrsts;
@@ -440,80 +438,86 @@ void XRFdc_IntrClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	u32 Status;
 	u32 Block;
 
-#ifdef __BAREMETAL__
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
-#endif
 
 	Block = Block_Id;
 	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
 					(Type == XRFDC_ADC_TILE)) {
-		if ((Block_Id == 2U) || (Block_Id == 3U)) {
-			Block = 1U;
+		if ((Block_Id == XRFDC_BLK_ID2) || (Block_Id == XRFDC_BLK_ID3)) {
+			Block = XRFDC_BLK_ID1;
 		}
-		if (Block_Id == 1U) {
-			Block = 0U;
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Block = XRFDC_BLK_ID0;
 		}
 	}
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block);
 	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+								"available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
 		BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
+		/* Check for Converter interrupts */
 		if ((IntrMask & XRFDC_ADC_OVR_VOLTAGE_MASK) != 0U) {
 			XRFdc_WriteReg(InstancePtr, BaseAddr,
-							XRFDC_CONV_INTR_STS(Block_Id),
-							(IntrMask & XRFDC_ADC_OVR_VOLTAGE_MASK) >> 24U);
+				XRFDC_CONV_INTR_STS(Block_Id), (IntrMask &
+				XRFDC_ADC_OVR_VOLTAGE_MASK) >> XRFDC_ADC_OVR_VOL_RANGE_SHIFT);
 		}
 		if ((IntrMask & XRFDC_ADC_OVR_RANGE_MASK) != 0U) {
 			XRFdc_WriteReg(InstancePtr, BaseAddr,
-							XRFDC_CONV_INTR_STS(Block_Id),
-							(IntrMask & XRFDC_ADC_OVR_RANGE_MASK) >> 24U);
+				XRFDC_CONV_INTR_STS(Block_Id), (IntrMask &
+				XRFDC_ADC_OVR_RANGE_MASK) >> XRFDC_ADC_OVR_VOL_RANGE_SHIFT);
 		}
 		if ((IntrMask & XRFDC_ADC_FIFO_OVR_MASK) != 0U) {
 			XRFdc_WriteReg(InstancePtr, BaseAddr,
-				XRFDC_CONV_INTR_STS(Block_Id),
-			(IntrMask & XRFDC_ADC_FIFO_OVR_MASK) >> 16U);
+				XRFDC_CONV_INTR_STS(Block_Id), (IntrMask &
+				XRFDC_ADC_FIFO_OVR_MASK) >> XRFDC_ADC_DAT_FIFO_OVR_SHIFT);
 		}
 		if ((IntrMask & XRFDC_ADC_DAT_OVR_MASK) != 0U) {
 			XRFdc_WriteReg(InstancePtr, BaseAddr,
-				XRFDC_CONV_INTR_STS(Block_Id),
-			(IntrMask & XRFDC_ADC_DAT_OVR_MASK) >> 16U);
+				XRFDC_CONV_INTR_STS(Block_Id), (IntrMask &
+				XRFDC_ADC_DAT_OVR_MASK) >> XRFDC_ADC_DAT_FIFO_OVR_SHIFT);
 		}
 
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
+		/* Check for FIFO interface interrupts */
 		if ((IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
 					XRFDC_ADC_FABRIC_ISR_OFFSET,
 					(IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK));
 		}
+		/* Check for SUBADC interrupts */
 		if ((IntrMask & XRFDC_SUBADC_IXR_DCDR_MASK) != 0U) {
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
-					XRFDC_ADC_DEC_ISR_OFFSET,
-					(u16)(IntrMask & XRFDC_SUBADC_IXR_DCDR_MASK) >> 16U);
+				XRFDC_ADC_DEC_ISR_OFFSET, (u16)(IntrMask &
+				XRFDC_SUBADC_IXR_DCDR_MASK) >> XRFDC_ADC_SUBADC_DCDR_SHIFT);
 		}
+		/* Check for DataPath interrupts */
 		if ((IntrMask & XRFDC_ADC_IXR_DATAPATH_MASK) != 0U) {
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
-					XRFDC_DATPATH_ISR_OFFSET,
-					(u16)(IntrMask & XRFDC_ADC_IXR_DATAPATH_MASK) >> 4U);
+				XRFDC_DATPATH_ISR_OFFSET, (u16)(IntrMask &
+				XRFDC_ADC_IXR_DATAPATH_MASK) >> XRFDC_DATA_PATH_SHIFT);
 		}
 	} else {
 		/* DAC */
 		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) +
 							XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
+		/* Check for FIFO interface interrupts */
 		if ((IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
 					XRFDC_DAC_FABRIC_ISR_OFFSET,
 					(u16)(IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK));
 		}
+		/* Check for DataPath interrupts */
 		if ((IntrMask & XRFDC_DAC_IXR_DATAPATH_MASK) != 0U) {
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
-					XRFDC_DATPATH_ISR_OFFSET,
-					(u16)(IntrMask & XRFDC_DAC_IXR_DATAPATH_MASK) >> 4U);
+				XRFDC_DATPATH_ISR_OFFSET, (u16)(IntrMask &
+				XRFDC_DAC_IXR_DATAPATH_MASK) >> XRFDC_DATA_PATH_SHIFT);
 		}
 	}
 
@@ -544,17 +548,15 @@ u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr)
 {
 	XRFdc *InstancePtr = (XRFdc *)XRFdcPtr;
 	u32 Intrsts;
-	u32 Tile_Id = 0U;
-	u32 Block_Id = 0U;
+	u32 Tile_Id = XRFDC_TILE_ID4;
+	u32 Block_Id = XRFDC_BLK_ID4;
 	u32 ReadReg;
 	u16 Type = 0U;
 	u32 BaseAddr;
 	u32 IntrMask = 0x0U;
 	u32 Block;
 
-#ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
-#endif
 
 	(void)Vector;
 	/*
@@ -564,163 +566,98 @@ u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr)
 	ReadReg = XRFdc_ReadReg16(InstancePtr, 0x0,
 								XRFDC_COMMON_INTR_STS);
 	if ((ReadReg & XRFDC_EN_INTR_DAC_TILE0_MASK) != 0U) {
-		Type = 1U;
-		Tile_Id = 0U;
+		Type = XRFDC_DAC_TILE;
+		Tile_Id = XRFDC_TILE_ID0;
 	} else if ((ReadReg & XRFDC_EN_INTR_DAC_TILE1_MASK) != 0U) {
-		Type = 1U;
-		Tile_Id = 1U;
+		Type = XRFDC_DAC_TILE;
+		Tile_Id = XRFDC_TILE_ID1;
 	} else if ((ReadReg & XRFDC_EN_INTR_DAC_TILE2_MASK) != 0U) {
-		Type = 1U;
-		Tile_Id = 2U;
+		Type = XRFDC_DAC_TILE;
+		Tile_Id = XRFDC_TILE_ID2;
 	} else if ((ReadReg & XRFDC_EN_INTR_DAC_TILE3_MASK) != 0U) {
-		Type = 1U;
-		Tile_Id = 3U;
+		Type = XRFDC_DAC_TILE;
+		Tile_Id = XRFDC_TILE_ID3;
 	} else if ((ReadReg & XRFDC_EN_INTR_ADC_TILE0_MASK) != 0U) {
-		Type = 0U;
-		Tile_Id = 0U;
+		Type = XRFDC_ADC_TILE;
+		Tile_Id = XRFDC_TILE_ID0;
 	} else if ((ReadReg & XRFDC_EN_INTR_ADC_TILE1_MASK) != 0U) {
-		Type = 0U;
-		Tile_Id = 1U;
+		Type = XRFDC_ADC_TILE;
+		Tile_Id = XRFDC_TILE_ID1;
 	} else if ((ReadReg & XRFDC_EN_INTR_ADC_TILE2_MASK) != 0U) {
-		Type = 0U;
-		Tile_Id = 2U;
+		Type = XRFDC_ADC_TILE;
+		Tile_Id = XRFDC_TILE_ID2;
 	} else if ((ReadReg & XRFDC_EN_INTR_ADC_TILE3_MASK) != 0U) {
-		Type = 0U;
-		Tile_Id = 3U;
+		Type = XRFDC_ADC_TILE;
+		Tile_Id = XRFDC_TILE_ID3;
 	} else {
-#ifdef __MICROBLAZE__
-		xdbg_printf(XDBG_DEBUG_GENERAL, "\n Invalid Tile_Id \r\n");
-#else
 		metal_log(METAL_LOG_DEBUG, "\n Invalid Tile_Id \r\n");
-#endif
 	}
 
+	BaseAddr = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
+	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_INTR_STS);
+	if ((ReadReg & XRFDC_EN_INTR_SLICE0_MASK) != 0U) {
+			Block_Id = XRFDC_BLK_ID0;
+		} else if ((ReadReg & XRFDC_EN_INTR_SLICE1_MASK) != 0U) {
+			Block_Id = XRFDC_BLK_ID1;
+		} else if ((ReadReg & XRFDC_EN_INTR_SLICE2_MASK) != 0U) {
+			Block_Id = XRFDC_BLK_ID2;
+		} else if ((ReadReg & XRFDC_EN_INTR_SLICE3_MASK) != 0U){
+			Block_Id = XRFDC_BLK_ID3;
+		} else {
+			metal_log(METAL_LOG_DEBUG, "\n Invalid ADC Block_Id \r\n");
+		}
+	Intrsts = XRFdc_GetIntrStatus(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
-		BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
-		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_INTR_STS);
-		if ((ReadReg & XRFDC_EN_INTR_SLICE0_MASK) != 0U) {
-			Block_Id = 0U;
-		} else if ((ReadReg & XRFDC_EN_INTR_SLICE1_MASK) != 0U) {
-			Block_Id = 1U;
-		} else if ((ReadReg & XRFDC_EN_INTR_SLICE2_MASK) != 0U) {
-			Block_Id = 2U;
-		} else if ((ReadReg & XRFDC_EN_INTR_SLICE3_MASK) != 0U){
-			Block_Id = 3U;
-		} else {
-#ifdef __MICROBLAZE__
-			xdbg_printf(XDBG_DEBUG_GENERAL, "\n Invalid ADC Block_Id \r\n");
-#else
-			metal_log(METAL_LOG_DEBUG, "\n Invalid ADC Block_Id \r\n");
-#endif
-		}
-
-		Intrsts = XRFdc_GetIntrStatus(InstancePtr, 0U, Tile_Id, Block_Id);
 		if ((Intrsts & XRFDC_ADC_OVR_VOLTAGE_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_ADC_OVR_VOLTAGE_MASK;
-#ifdef __MICROBLAZE__
-			xdbg_printf(XDBG_DEBUG_GENERAL, "\n ADC Over Voltage interrupt \r\n");
-#else
 			metal_log(METAL_LOG_DEBUG, "\n ADC Over Voltage interrupt \r\n");
-#endif
 		}
 		if ((Intrsts & XRFDC_ADC_OVR_RANGE_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_ADC_OVR_RANGE_MASK;
-#ifdef __MICROBLAZE__
-			xdbg_printf(XDBG_DEBUG_GENERAL, "\n ADC Over Range interrupt \r\n");
-#else
 			metal_log(METAL_LOG_DEBUG, "\n ADC Over Range interrupt \r\n");
-#endif
 		}
 		if ((Intrsts & XRFDC_ADC_FIFO_OVR_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_ADC_FIFO_OVR_MASK;
-#ifdef __MICROBLAZE__
-			xdbg_printf(XDBG_DEBUG_GENERAL,
-				"\n ADC FIFO OF interrupt \r\n");
-#else
-			metal_log(METAL_LOG_DEBUG,
-				"\n ADC FIFO OF interrupt \r\n");
-#endif
+			metal_log(METAL_LOG_DEBUG, "\n ADC FIFO OF interrupt \r\n");
 		}
 		if ((Intrsts & XRFDC_ADC_DAT_OVR_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_ADC_DAT_OVR_MASK;
-#ifdef __MICROBLAZE__
-			xdbg_printf(XDBG_DEBUG_GENERAL,
-				"\n ADC DATA OF interrupt \r\n");
-#else
-			metal_log(METAL_LOG_DEBUG,
-				"\n ADC DATA OF interrupt \r\n");
-#endif
+			metal_log(METAL_LOG_DEBUG, "\n ADC DATA OF interrupt \r\n");
 				}
 		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK;
-#ifdef __MICROBLAZE__
-			xdbg_printf(XDBG_DEBUG_GENERAL, "\n ADC FIFO interface interrupt \r\n");
-#else
 			metal_log(METAL_LOG_DEBUG, "\n ADC FIFO interface interrupt \r\n");
-#endif
 		}
 		if ((Intrsts & XRFDC_SUBADC_IXR_DCDR_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_SUBADC_IXR_DCDR_MASK;
-#ifdef __MICROBLAZE__
-			xdbg_printf(XDBG_DEBUG_GENERAL, "\n ADC Decoder interface interrupt \r\n");
-#else
-			metal_log(METAL_LOG_DEBUG, "\n ADC Decoder interface interrupt \r\n");
-#endif
+			metal_log(METAL_LOG_DEBUG,
+					"\n ADC Decoder interface interrupt \r\n");
 		}
 		if ((Intrsts & XRFDC_ADC_IXR_DATAPATH_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_ADC_IXR_DATAPATH_MASK;
-#ifdef __MICROBLAZE__
-			xdbg_printf(XDBG_DEBUG_GENERAL, "\n ADC Data Path interface interrupt \r\n");
-#else
-			metal_log(METAL_LOG_DEBUG, "\n ADC Data Path interface interrupt \r\n");
-#endif
+			metal_log(METAL_LOG_DEBUG,
+					"\n ADC Data Path interface interrupt \r\n");
 		}
 	} else {
 		/* DAC */
-		BaseAddr = XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile_Id);
-		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_INTR_STS);
-		if ((ReadReg & XRFDC_EN_INTR_SLICE0_MASK) != 0U) {
-			Block_Id = 0U;
-		} else if ((ReadReg & XRFDC_EN_INTR_SLICE1_MASK) != 0U) {
-			Block_Id = 1U;
-		} else if ((ReadReg & XRFDC_EN_INTR_SLICE2_MASK) != 0U) {
-			Block_Id = 2U;
-		} else if ((ReadReg & XRFDC_EN_INTR_SLICE3_MASK) != 0U) {
-			Block_Id = 3U;
-		} else {
-#ifdef __MICROBLAZE__
-			xdbg_printf(XDBG_DEBUG_GENERAL, "\n Invalid DAC Block_Id \r\n");
-#else
-			metal_log(METAL_LOG_DEBUG, "\n Invalid DAC Block_Id \r\n");
-#endif
-		}
-		Intrsts = XRFdc_GetIntrStatus(InstancePtr, 1U, Tile_Id, Block_Id);
 		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK;
-#ifdef __MICROBLAZE__
-			xdbg_printf(XDBG_DEBUG_GENERAL, "\n DAC FIFO interface interrupt \r\n");
-#else
 			metal_log(METAL_LOG_DEBUG, "\n DAC FIFO interface interrupt \r\n");
-#endif
 		}
 		if ((Intrsts & XRFDC_DAC_IXR_DATAPATH_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_DAC_IXR_DATAPATH_MASK;
-#ifdef __MICROBLAZE__
-			xdbg_printf(XDBG_DEBUG_GENERAL, "\n DAC Data Path interface interrupt \r\n");
-#else
 			metal_log(METAL_LOG_DEBUG, "\n DAC Data Path interface interrupt \r\n");
-#endif
 		}
 	}
 	Block = Block_Id;
 
 	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
 			(Type == XRFDC_ADC_TILE)) {
-		if ((Block_Id == 0U) || (Block_Id == 1U)) {
-			Block = 0U;
+		if ((Block_Id == XRFDC_BLK_ID0) || (Block_Id == XRFDC_BLK_ID1)) {
+			Block = XRFDC_BLK_ID0;
 		} else {
-			Block = 1U;
+			Block = XRFDC_BLK_ID1;
 		}
 	}
 	InstancePtr->StatusHandler(InstancePtr->CallBackRef, Type, Tile_Id,
@@ -729,19 +666,14 @@ u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr)
 	/* Clear the interrupt */
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
-		Intrsts = XRFdc_GetIntrStatus(InstancePtr, 0U, Tile_Id, Block_Id);
 		XRFdc_IntrClr(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, Intrsts);
 
 	} else {
 		/* DAC */
-		Intrsts = XRFdc_GetIntrStatus(InstancePtr, 1U, Tile_Id, Block_Id);
 		XRFdc_IntrClr(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, Intrsts);
 	}
-#ifdef __MICROBLAZE__
-	return IRQ_HANDLED;
-#else
+
 	return (u32)METAL_IRQ_HANDLED;
-#endif
 }
 
 /*****************************************************************************/
@@ -769,11 +701,9 @@ u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr)
 void XRFdc_SetStatusHandler(XRFdc *InstancePtr, void *CallBackRef,
 				XRFdc_StatusHandler FunctionPtr)
 {
-#ifdef __BAREMETAL__
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(FunctionPtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XRFDC_COMPONENT_IS_READY);
-#endif
 
 	InstancePtr->StatusHandler = FunctionPtr;
 	InstancePtr->CallBackRef = CallBackRef;
