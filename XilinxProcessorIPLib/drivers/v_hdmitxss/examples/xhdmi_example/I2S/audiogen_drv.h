@@ -136,6 +136,7 @@ int XhdmiACRCtrl_Enab(XhdmiAudioGen_t *AudioGen, u8 setclr);
 int XhdmiACRCtrl_Sel(XhdmiAudioGen_t *AudioGen, u8 sel);
 int XhdmiACRCtrl_TMDSClkRatio (XhdmiAudioGen_t *AudioGen, u8 setclr);
 int XhdmiACRCtrl_SetNVal(XhdmiAudioGen_t *AudioGen, u32 NVal);
+u32 XHdmi_ACR_GetNVal(u32 TMDSCharRate, AudioRate_t SRate);
 
 #define XAudGen_In32   Xil_In32  /**< Input Operations */
 #define XAudGen_Out32  Xil_Out32 /**< Output Operations */

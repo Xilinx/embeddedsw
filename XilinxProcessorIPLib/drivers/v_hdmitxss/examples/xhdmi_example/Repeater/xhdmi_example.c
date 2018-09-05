@@ -12,10 +12,6 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -110,6 +106,7 @@
 *                       Improve audio configuration during Pass-through mode.
 *                       Disable HDMI RX Video Stream when EnableColorBar API
 *                              is called.
+*                       Added TX Bridge Overflow and TX Bridge Underflow
 * 3.03  YB     08/14/18 Clubbing Repeater specific code under the
 *                       'ENABLE_HDCP_REPEATER' macro.
 * 3.03  YB     08/14/18 Initial release of Repeater ExDes.
@@ -339,6 +336,9 @@ void CloneTxEdid(void)
     if (Status == (XST_SUCCESS)) {
         /* Load new EDID */
         XV_HdmiRxSs_LoadEdid(&HdmiRxSs, (u8*)&Buffer, sizeof(Buffer));
+
+        /* Toggle HPD after loading new HPD */
+        XV_HdmiRxSs_ToggleHpd(&HdmiRxSs);
 
         xil_printf("\r\n");
         xil_printf("Successfully cloned EDID.\r\n");
@@ -1895,8 +1895,8 @@ void RxStreamUpCallback(void *CallbackRef) {
 ******************************************************************************/
 void RxBrdgOverflowCallback(void *CallbackRef) {
 
-	xil_printf(ANSI_COLOR_YELLOW "RX Video Bridge Overflow"
-			ANSI_COLOR_RESET "\r\n");
+	/* xil_printf(ANSI_COLOR_YELLOW "RX Video Bridge Overflow"
+			ANSI_COLOR_RESET "\r\n"); */
 }
 #endif
 

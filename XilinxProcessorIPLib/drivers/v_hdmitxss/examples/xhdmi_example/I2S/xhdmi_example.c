@@ -12,10 +12,6 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -339,6 +335,9 @@ void CloneTxEdid(void)
     if (Status == (XST_SUCCESS)) {
         /* Load new EDID */
         XV_HdmiRxSs_LoadEdid(&HdmiRxSs, (u8*)&Buffer, sizeof(Buffer));
+
+        /* Toggle HPD after loading new HPD */
+        XV_HdmiRxSs_ToggleHpd(&HdmiRxSs);
 
         xil_printf("\r\n");
         xil_printf("Successfully cloned EDID.\r\n");
@@ -1815,8 +1814,8 @@ void RxStreamUpCallback(void *CallbackRef) {
 ******************************************************************************/
 void RxBrdgOverflowCallback(void *CallbackRef) {
 
-	xil_printf(ANSI_COLOR_YELLOW "RX Video Bridge Overflow"
-			ANSI_COLOR_RESET "\r\n");
+	/* xil_printf(ANSI_COLOR_YELLOW "RX Video Bridge Overflow"
+			ANSI_COLOR_RESET "\r\n"); */
 }
 #endif
 
@@ -2117,8 +2116,8 @@ void TxStreamDownCallback(void *CallbackRef) {
 ******************************************************************************/
 void TxBrdgOverflowCallback(void *CallbackRef) {
 
-	xil_printf(ANSI_COLOR_YELLOW "TX Video Bridge Overflow"
-			ANSI_COLOR_RESET "\r\n");
+	/* xil_printf(ANSI_COLOR_YELLOW "TX Video Bridge Overflow"
+			ANSI_COLOR_RESET "\r\n"); */
 }
 
 /*****************************************************************************/
@@ -2136,8 +2135,8 @@ void TxBrdgOverflowCallback(void *CallbackRef) {
 ******************************************************************************/
 void TxBrdgUnderflowCallback(void *CallbackRef) {
 
-	xil_printf(ANSI_COLOR_YELLOW "TX Video Bridge Underflow"
-			ANSI_COLOR_RESET "\r\n");
+	/* xil_printf(ANSI_COLOR_YELLOW "TX Video Bridge Underflow"
+			ANSI_COLOR_RESET "\r\n"); */
 }
 
 /*****************************************************************************/

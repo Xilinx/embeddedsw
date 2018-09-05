@@ -131,7 +131,7 @@ const ACR_N_Table_t ACR_N_Table[] =
 };
 
 
-const u32 XHdmi_ACR_GetNVal(u32 TMDSCharRate, AudioRate_t SRate)
+u32 XHdmi_ACR_GetNVal(u32 TMDSCharRate, AudioRate_t SRate)
 {
   ACR_N_Table_t const *item;
   int i = 0;
@@ -158,6 +158,7 @@ u32 BitReverse(u32 x)
   return((x >> 16) | (x << 16));
 }
 
+#if XPAR_AUDIO_SS_0_AUD_PAT_GEN_BASEADDR
 static const u32 AudClkFrq[XAUD_NUM_SUPPORTED_SRATE] =
 {
   16384000, //512 x 32kHz
@@ -168,6 +169,7 @@ static const u32 AudClkFrq[XAUD_NUM_SUPPORTED_SRATE] =
   90316800, //512 x 176.4kHz
   98304000  //512 x 192kHz
 };
+#endif
 
 #if XPAR_AUDIO_SS_0_AUD_PAT_GEN_BASEADDR
 
