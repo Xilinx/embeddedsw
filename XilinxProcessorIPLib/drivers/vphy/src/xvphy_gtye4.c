@@ -41,8 +41,10 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
- * 1.7   gm   09/13/17 Initial release.
- * 1.8   gm   05/14/18 Updated CDR values for DP
+ * 1.7   gm   13/09/17 Initial release.
+ * 1.8   gm   14/05/18 Updated CDR values for DP
+ *            05/09/18 Enable IPS only when XVphy_GetRefClkSourcesCount
+ *                       returns more than 1.
  * </pre>
  *
 *******************************************************************************/
@@ -411,7 +413,9 @@ u32 XVphy_Gtye4ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 	/* Mask out QPLLx_REFCLK_DIV. */
 	DrpVal &= ~(0xF80);
 	/* Disable Intelligent Reference Clock Selection */
-	DrpVal |= (1 << 6);
+	if (XVphy_GetRefClkSourcesCount(InstancePtr) > 1) {
+		DrpVal |= (1 << 6);
+	}
 	/* Set QPLLx_REFCLK_DIV. */
 	WriteVal = (XVphy_MToDrpEncoding(InstancePtr, QuadId, CmnId) & 0x1F);
 	DrpVal |= (WriteVal << 7);

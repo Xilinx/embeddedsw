@@ -48,6 +48,7 @@
  * 1.7   gm   13/09/17 Added GTYE4 support
  * 1.8   gm   23/07/18 Moved APIs XVphy_SetTxVoltageSwing and
  *                       XVphy_SetTxPreEmphasis to xvphy.c/h
+ *            05/09/18 Added XVphy_GetRefClkSourcesCount API
  * </pre>
  *
 *******************************************************************************/
@@ -1278,6 +1279,67 @@ u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
 								PllParams.MRefClkDiv;
 
 	return PllxVcoRateHz;
+}
+
+/*****************************************************************************/
+/**
+* This function returns the number of active reference clock sources
+* based in the CFG
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+*
+* @return	No of active REFCLK sources
+*
+* @note		None.
+*
+******************************************************************************/
+u8 XVphy_GetRefClkSourcesCount(XVphy *InstancePtr)
+{
+	u8 RefClkNum = 0;
+	u8 RefClkNumMax = 3;
+	XVphy_PllRefClkSelType RefClkSel[RefClkNumMax];
+	XVphy_PllRefClkSelType RefClkSelTemp[RefClkNumMax];
+	u8 i, j, Match;
+
+	/* TxRefClkSel */
+	RefClkSel[0] = (InstancePtr->Config.TxProtocol != XVPHY_PROTOCOL_NONE) ?
+						InstancePtr->Config.TxRefClkSel : 99;
+	/* RxRefClkSel */
+	RefClkSel[1] = (InstancePtr->Config.RxProtocol != XVPHY_PROTOCOL_NONE) ?
+						InstancePtr->Config.RxRefClkSel : 99;
+	/* DruRefClkSel */
+	RefClkSel[2] = (InstancePtr->Config.DruIsPresent) ?
+						InstancePtr->Config.DruRefClkSel : 99;
+
+	/* Initialize Unique RefClk holder */
+	for (u8 i=0; i<RefClkNumMax; i++) {
+		RefClkSelTemp[i] = 99;
+	}
+
+	i = 0;
+	do {
+		if (RefClkSel[i] != 99) {
+			Match = 0;
+			j = 0;
+			/* Check if RefClkSel is already in Unique Holder array */
+			do {
+				if (RefClkSelTemp[j] == RefClkSel[i]) {
+					Match |= 1;
+				}
+				j++;
+			} while (j<RefClkNum);
+
+			/* Register in Unique Holder if new RefClk is detected */
+			if (Match == 0) {
+				RefClkSelTemp[RefClkNum] = RefClkSel[i];
+				/* Increment RefClk counter */
+				RefClkNum++;
+			}
+		}
+		i++;
+	} while (i<RefClkNumMax);
+
+	return RefClkNum;
 }
 
 #ifdef __cplusplus

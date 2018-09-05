@@ -50,6 +50,7 @@
  * 1.7   gm   13/09/17 Removed XVphy_MmcmWriteParameters API
  * 1.8   gm   23/07/18 Moved APIs XVphy_SetTxVoltageSwing and
  *                       XVphy_SetTxPreEmphasis to xvphy.c/h
+ *            05/09/18 Added XVphy_GetRefClkSourcesCount API
  * </pre>
  *
  * @addtogroup xvphy_v1_7
@@ -141,6 +142,7 @@ void XVphy_CfgErrIntr(XVphy *InstancePtr, XVphy_ErrType ErrIrq, u8 Set);
 
 u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId, XVphy_DirectionType Dir);
+u8 XVphy_GetRefClkSourcesCount(XVphy *InstancePtr);
 
 void XVphy_ErrorHandler(XVphy *InstancePtr);
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)

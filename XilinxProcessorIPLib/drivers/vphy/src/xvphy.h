@@ -135,8 +135,8 @@ typedef enum {
  */
 typedef enum {
 	XVPHY_PROTOCOL_DP = 0,
-	XVPHY_PROTOCOL_HDMI,
-	XVPHY_PROTOCOL_NONE
+	XVPHY_PROTOCOL_HDMI = 1,
+	XVPHY_PROTOCOL_NONE = 3
 } XVphy_ProtocolType;
 
 /* This typedef enumerates is used to specify RX/TX direction information. */
