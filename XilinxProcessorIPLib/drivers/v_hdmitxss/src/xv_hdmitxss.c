@@ -1186,6 +1186,9 @@ static void XV_HdmiTxSs_BrdgOverflowCallback(void *CallbackRef)
 {
   XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
 
+  xdbg_printf(XDBG_DEBUG_GENERAL,
+              "\r\nWarning: TX Bridge Overflow\r\n");
+
   /* Check if user callback has been registered */
   if (HdmiTxSsPtr->BrdgOverflowCallback) {
       HdmiTxSsPtr->BrdgOverflowCallback(HdmiTxSsPtr->BrdgOverflowRef);
@@ -1208,6 +1211,9 @@ static void XV_HdmiTxSs_BrdgOverflowCallback(void *CallbackRef)
 static void XV_HdmiTxSs_BrdgUnderflowCallback(void *CallbackRef)
 {
   XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
+
+  xdbg_printf(XDBG_DEBUG_GENERAL,
+              "\r\nWarning: TX Bridge Underflow\r\n");
 
   /* Check if user callback has been registered */
   if (HdmiTxSsPtr->BrdgUnderflowCallback) {

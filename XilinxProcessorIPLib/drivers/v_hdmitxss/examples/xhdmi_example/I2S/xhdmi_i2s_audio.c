@@ -68,6 +68,8 @@
 #include "xi2srx.h"
 #include "xgpio.h"
 
+#include "xhdmi_example.h"
+
 u32 data;
 u32 appx_fs = 0;
 u32 appx_fs_track = 0;

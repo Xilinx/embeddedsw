@@ -766,6 +766,9 @@ static void XV_HdmiRxSs_BrdgOverflowCallback(void *CallbackRef)
 {
   XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
 
+  xdbg_printf(XDBG_DEBUG_GENERAL,
+              "\r\nWarning: RX Bridge Overflow\r\n");
+
   // Check if user callback has been registered
   if (HdmiRxSsPtr->BrdgOverflowCallback) {
     HdmiRxSsPtr->BrdgOverflowCallback(HdmiRxSsPtr->BrdgOverflowRef);

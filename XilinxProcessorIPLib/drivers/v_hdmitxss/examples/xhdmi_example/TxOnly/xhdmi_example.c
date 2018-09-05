@@ -1411,8 +1411,8 @@ void TxStreamDownCallback(void *CallbackRef) {
 ******************************************************************************/
 void TxBrdgOverflowCallback(void *CallbackRef) {
 
-	xil_printf(ANSI_COLOR_YELLOW "TX Video Bridge Overflow"
-			ANSI_COLOR_RESET "\r\n");
+	/* xil_printf(ANSI_COLOR_YELLOW "TX Video Bridge Overflow"
+			ANSI_COLOR_RESET "\r\n"); */
 }
 
 /*****************************************************************************/
@@ -1430,8 +1430,8 @@ void TxBrdgOverflowCallback(void *CallbackRef) {
 ******************************************************************************/
 void TxBrdgUnderflowCallback(void *CallbackRef) {
 
-	xil_printf(ANSI_COLOR_YELLOW "TX Video Bridge Underflow"
-			ANSI_COLOR_RESET "\r\n");
+	/* xil_printf(ANSI_COLOR_YELLOW "TX Video Bridge Underflow"
+			ANSI_COLOR_RESET "\r\n"); */
 }
 
 /*****************************************************************************/

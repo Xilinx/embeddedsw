@@ -326,6 +326,9 @@ void CloneTxEdid(void)
         /* Load new EDID */
         XV_HdmiRxSs_LoadEdid(&HdmiRxSs, (u8*)&Buffer, sizeof(Buffer));
 
+        /* Toggle HPD after loading new HPD */
+        XV_HdmiRxSs_ToggleHpd(&HdmiRxSs);
+
         xil_printf("\r\n");
         xil_printf("Successfully cloned EDID.\r\n");
     }
@@ -1780,8 +1783,8 @@ void RxStreamUpCallback(void *CallbackRef) {
 ******************************************************************************/
 void RxBrdgOverflowCallback(void *CallbackRef) {
 
-	xil_printf(ANSI_COLOR_YELLOW "RX Video Bridge Overflow"
-			ANSI_COLOR_RESET "\r\n");
+	/* xil_printf(ANSI_COLOR_YELLOW "RX Video Bridge Overflow"
+			ANSI_COLOR_RESET "\r\n"); */
 }
 #endif
 
@@ -2068,8 +2071,8 @@ void TxStreamDownCallback(void *CallbackRef) {
 ******************************************************************************/
 void TxBrdgOverflowCallback(void *CallbackRef) {
 
-	xil_printf(ANSI_COLOR_YELLOW "TX Video Bridge Overflow"
-			ANSI_COLOR_RESET "\r\n");
+	/* xil_printf(ANSI_COLOR_YELLOW "TX Video Bridge Overflow"
+			ANSI_COLOR_RESET "\r\n"); */
 }
 
 /*****************************************************************************/
@@ -2087,8 +2090,8 @@ void TxBrdgOverflowCallback(void *CallbackRef) {
 ******************************************************************************/
 void TxBrdgUnderflowCallback(void *CallbackRef) {
 
-	xil_printf(ANSI_COLOR_YELLOW "TX Video Bridge Underflow"
-			ANSI_COLOR_RESET "\r\n");
+	/* xil_printf(ANSI_COLOR_YELLOW "TX Video Bridge Underflow"
+			ANSI_COLOR_RESET "\r\n"); */
 }
 
 /*****************************************************************************/

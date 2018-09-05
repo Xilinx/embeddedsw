@@ -906,8 +906,8 @@ void RxStreamUpCallback(void *CallbackRef) {
 ******************************************************************************/
 void RxBrdgOverflowCallback(void *CallbackRef) {
 
-	xil_printf(ANSI_COLOR_YELLOW "RX Video Bridge Overflow"
-			ANSI_COLOR_RESET "\r\n");
+	/* xil_printf(ANSI_COLOR_YELLOW "RX Video Bridge Overflow"
+			ANSI_COLOR_RESET "\r\n"); */
 }
 #endif
 
