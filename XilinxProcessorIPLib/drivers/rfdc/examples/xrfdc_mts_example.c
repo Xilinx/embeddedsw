@@ -42,6 +42,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 3.1   jm     01/24/18 First release
+* 5.0   sk     09/05/18 Rename XRFdc_MTS_RMW_DRP as XRFdc_ClrSetReg.
 *
 * </pre>
 *
@@ -190,8 +191,8 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
     /* Run MTS for the ADC & DAC */
     printf("\n=== Run DAC Sync ===\n");
 
-    XRFdc_MTS_RMW_DRP(RFdcInstPtr, XRFDC_ADC_TILE_DRP_ADDR(1) + XRFDC_HSCOM_ADDR,  0xB0, 0x0F, 0x01);
-    XRFdc_MTS_RMW_DRP(RFdcInstPtr, XRFDC_ADC_TILE_DRP_ADDR(3) + XRFDC_HSCOM_ADDR,  0xB0, 0x0F, 0x01);
+    XRFdc_ClrSetReg(RFdcInstPtr, XRFDC_ADC_TILE_DRP_ADDR(1) + XRFDC_HSCOM_ADDR,  0xB0, 0x0F, 0x01);
+    XRFdc_ClrSetReg(RFdcInstPtr, XRFDC_ADC_TILE_DRP_ADDR(3) + XRFDC_HSCOM_ADDR,  0xB0, 0x0F, 0x01);
 
     /* Initialize DAC MTS Settings */
     XRFdc_MultiConverter_Init (&DAC_Sync_Config, 0, 0);
