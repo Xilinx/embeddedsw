@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,8 @@
 * 3.11a  asa 09/23/13 Modified Xil_SetTlbAttributes to flush the complete
 *			 D cache after the translation table update. Removed the
 *			 redundant TLB invalidation in the same API at the beginning.
+* 6.8   aru  09/06/18 Removed compilation warnings for ARMCC toolchain.
+*                     It fixes CR#1008309.
 * </pre>
 *
 * @note
@@ -206,7 +208,7 @@ void* Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags)
    u32 Ttbaddr;
 
    if (!flags)
-       return (void*)&PhysAddr;
+       return (void*)PhysAddr;
 
    /* Ensure alignement on a section boundary */
    PhysAddr &= ARM_AR_MEM_TTB_SECT_SIZE_MASK;
@@ -221,5 +223,5 @@ void* Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags)
        /* Write translation table entry value to entry address */
        Xil_SetTlbAttributes(Ttbaddr, flags);
    }
-   return (void*)&PhysAddr;
+   return (void*)PhysAddr;
 }

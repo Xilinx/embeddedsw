@@ -83,7 +83,7 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
-u32 XGetPlatform_Info();
+u32 XGetPlatform_Info(void);
 
 #if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
 u32 XGetPSVersion_Info();

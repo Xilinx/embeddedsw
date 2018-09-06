@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,7 @@
 * 1.00a sdm  07/11/11 First release
 * 3.07a asa  08/30/12 Updated for CR 675636 to provide the L2 Base Address
 *		      inside the APIs
+* 6.8   aru  09/06/18 Removed compilation warnings for ARMCC toolchain.
 * </pre>
 *
 ******************************************************************************/
