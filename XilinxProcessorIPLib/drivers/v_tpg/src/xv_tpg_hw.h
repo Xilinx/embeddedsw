@@ -127,6 +127,18 @@ extern "C" {
 //        bit 7~0 - dpYUVCoef[7:0] (Read/Write)
 //        others  - reserved
 // 0xcc : reserved
+// 0xd0 : Data signal of FieldId
+//        bit 0  - progressive/interlaced (Read/Write)
+//        bit 1  - polarity bit (Read/Write)
+//        bit 2  - fid value passthrough enalbe (Read/Write)
+//        others  - reserved
+//        bit [2:0] -
+//		0x0 - Progressive mode
+//		0x1 - Interlaced mode
+//		0x2 - Progressive mode with reverse polarity
+//		0x3 - Interlaced mode with reverse polarity
+//		0x4 - Passthrough mode
+//		Others - Progressive mode
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
 #define XV_TPG_CTRL_ADDR_AP_CTRL                 0x00
@@ -181,6 +193,14 @@ extern "C" {
 #define XV_TPG_CTRL_BITS_DPDYNAMICRANGE_DATA     8
 #define XV_TPG_CTRL_ADDR_DPYUVCOEF_DATA          0xc8
 #define XV_TPG_CTRL_BITS_DPYUVCOEF_DATA          8
+#define XV_TPG_CTRL_ADDR_FIELDID_DATA            0xd0
+#define XV_TPG_CTRL_BITS_FIELDID_DATA		 16
+#define XV_TPG_CTRL_ADDR_FIELDID_INTERLACED_MASK (1<<0)
+#define XV_TPG_CTRL_ADDR_FIELDID_INTERLACED_SHIFT 0
+#define XV_TPG_CTRL_ADDR_FIELDID_POLARITY_MASK	 (1<<1)
+#define XV_TPG_CTRL_ADDR_FIELDID_POLARITY_SHIFT	 1
+#define XV_TPG_CTRL_ADDR_FIELDID_PASSTHR_MASK	 (1<<2)
+#define XV_TPG_CTRL_ADDR_FIELDID_PASSTHR_SHIFT	 2
 
 #ifdef __cplusplus
 }

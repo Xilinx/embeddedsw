@@ -373,8 +373,17 @@ u32 XV_tpg_Get_boxColorB(XV_tpg *InstancePtr) {
 }
 
 void XV_tpg_Set_enableInput(XV_tpg *InstancePtr, u32 Data) {
+    u32 Reg;
+
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Reg = XV_tpg_Get_fieldId(InstancePtr);
+    Reg &= ~(XV_TPG_CTRL_ADDR_FIELDID_PASSTHR_MASK);
+    Reg |= (1) << XV_TPG_CTRL_ADDR_FIELDID_PASSTHR_SHIFT;
+
+    XV_tpg_WriteReg(InstancePtr->Config.BaseAddress,
+			XV_TPG_CTRL_ADDR_FIELDID_DATA, Reg);
 
     XV_tpg_WriteReg(InstancePtr->Config.BaseAddress, XV_TPG_CTRL_ADDR_ENABLEINPUT_DATA, Data);
 }
@@ -490,6 +499,45 @@ u32 XV_tpg_Get_dpYUVCoef(XV_tpg *InstancePtr) {
     Data = XV_tpg_ReadReg(InstancePtr->Config.BaseAddress, XV_TPG_CTRL_ADDR_DPYUVCOEF_DATA);
     return Data;
 }
+
+void XV_tpg_Set_Interlaced(XV_tpg *InstancePtr, _Bool Data) {
+    u32 Reg;
+
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Reg = XV_tpg_Get_fieldId(InstancePtr);
+    Reg &= ~(XV_TPG_CTRL_ADDR_FIELDID_INTERLACED_MASK);
+    Reg |= (Data) << XV_TPG_CTRL_ADDR_FIELDID_INTERLACED_SHIFT;
+
+    XV_tpg_WriteReg(InstancePtr->Config.BaseAddress, XV_TPG_CTRL_ADDR_FIELDID_DATA, Reg);
+}
+
+void XV_tpg_Set_Polarity(XV_tpg *InstancePtr, _Bool Data) {
+    u32 Reg;
+
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Reg = XV_tpg_Get_fieldId(InstancePtr);
+    Reg &= ~(XV_TPG_CTRL_ADDR_FIELDID_POLARITY_MASK);
+    Reg |= (Data) << XV_TPG_CTRL_ADDR_FIELDID_POLARITY_SHIFT;
+
+    XV_tpg_WriteReg(InstancePtr->Config.BaseAddress,
+			XV_TPG_CTRL_ADDR_FIELDID_DATA, Reg);
+}
+
+u32 XV_tpg_Get_fieldId(XV_tpg *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_tpg_ReadReg(InstancePtr->Config.BaseAddress,
+				XV_TPG_CTRL_ADDR_FIELDID_DATA);
+    return Data;
+}
+
 
 void XV_tpg_InterruptGlobalEnable(XV_tpg *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
