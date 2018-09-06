@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,7 @@
 * 4.2	pkp	 07/21/14 Included xil_types.h file which contains definition for
 *					  u32 which resolves issue of CR#805869
 * 5.4	pkp	 23/11/15 Added attribute definitions for Xil_SetTlbAttributes API
+* 6.8   aru  09/06/18 Removed compilation warnings for ARMCC toolchain.
 * </pre>
 *
 *
