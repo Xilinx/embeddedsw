@@ -1302,7 +1302,7 @@ u32 XilSKey_EfusePs_ControllerConfig(u8 CtrlMode, u32 RefClk, u8 ReadMode)
 #endif
 	/**
 	 * Program the Strobe width values for read and write
-	 * 12ms is required for write and 150ns is required for read
+	 * 12us is required for write and 150ns is required for read
 	 * PGM_STBW = ceiling(12us/ref_clk period)
 	 * RD_STBW = ceiling(150ns/ref_clk period)
 	 */
