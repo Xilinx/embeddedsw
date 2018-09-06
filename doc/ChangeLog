@@ -86,6 +86,7 @@ Add XRFdc_GetMultibandConfig() API to read Multiband configuration.
 Update the APIs to check the corresponding section(Digital or Analog)enable.
 Fixed MISRAC, Doxygen and coverity warnings.
 Check for Block0 enable for tiles participating in MTS.
+Update the clock reset sequence.
 
 scugic_v3_10:
 Updated get_psu_interrupt_id to generate correct
