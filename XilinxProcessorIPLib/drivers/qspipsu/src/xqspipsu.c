@@ -66,6 +66,8 @@
  * 1.8	tjs 07/09/18 Fixed cppcheck and doxygen warnings. (CR#1006336)
  * 1.8	tjs 07/18/18 Setup64BRxDma() should be called only if the RxAddress is
  *		     greater than 32 bit address space. (CR#1006862)
+ * 1.8	tjs 09/06/18 Fixed the code in XQspiPsu_GenFifoEntryData() for data
+ *		     transfer length up to 255 for reducing the extra loop.
  *
  * </pre>
  *
@@ -1383,7 +1385,7 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 
 	XQspiPsu_TXRXSetup(InstancePtr, &Msg[Index], &GenFifoEntry);
 
-	if (Msg[Index].ByteCount < XQSPIPSU_GENFIFO_IMM_DATA_MASK) {
+	if (Msg[Index].ByteCount <= XQSPIPSU_GENFIFO_IMM_DATA_MASK) {
 		GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_IMM_DATA_MASK);
 		GenFifoEntry |= Msg[Index].ByteCount;
 #ifdef DEBUG
