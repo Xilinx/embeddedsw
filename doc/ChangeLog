@@ -73,6 +73,7 @@ Removed the mentions of Spansion flash from BlockErase API. (CR#1006247)
 Fixed cppcheck, doxygen and gcc warnings. (CR#1006336)
 Setup64BRxDma() should be called if the RxAddress is greater than 32 bit address space. (CR#1006862)
 Added support for low density ISSI flash parts
+Fixed the code in XQspiPsu_GenFifoEntryData() for data transfer length up to 255 for reducing the extra loop.
 
 rfdc_v5_0:
 Update DAC min sampling rate to 500MHz and also update VCO Range, PLL_DIVIDER and PLL_FPDIV ranges.
