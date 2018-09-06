@@ -144,6 +144,8 @@
  * 1.8	tjs 07/18/18 Setup64BRxDma() should be called only if the RxAddress is
  *		     greater than 32 bit address space. (CR#1006862)
  * 1.8	tjs 07/18/18 Added support for the low density ISSI flash parts.
+ * 1.8	tjs 09/06/18 Fixed the code in XQspiPsu_GenFifoEntryData() for data
+ *		     transfer length up to 255 for reducing the extra loop.
  * </pre>
  *
  ******************************************************************************/
