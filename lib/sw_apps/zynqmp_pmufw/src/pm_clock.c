@@ -113,7 +113,7 @@ typedef struct PmClockCtrlMethods {
 typedef struct PmClockClass {
 	PmClock* (*const request)(PmClock* const clock);
 	PmClock* (*const release)(PmClock* const clock);
-	u32 (*const getPerms)(PmClock* const clock);
+	u32 (*const getPerms)(const PmClock* const clock);
 	const PmClockCtrlMethods* const ctrl;
 } PmClockClass;
 
@@ -292,9 +292,9 @@ static PmClock* PmClockReleasePll(PmClock* const clock)
  * @return	This function ORed ipi masks of masters that are allowed to
  *		control this clock
  */
-static u32 PmClockGetPllPerms(PmClock* const clock)
+static u32 PmClockGetPllPerms(const PmClock* const clock)
 {
-	PmClockPll* pclk = (PmClockPll*)clock->derived;
+	const PmClockPll* pclk = (PmClockPll*)clock->derived;
 
 	return PmPllGetPermissions(pclk->pll);
 }
@@ -678,10 +678,10 @@ done:
  * @return	This function ORed ipi masks of masters that are allowed to
  *		control this clock
  */
-static u32 PmClockGenGetPerms(PmClock* const clock)
+static u32 PmClockGenGetPerms(const PmClock* const clock)
 {
 	PmClockHandle* ch;
-	PmClockGen* clk = (PmClockGen*)clock->derived;
+	const PmClockGen* clk = (PmClockGen*)clock->derived;
 	u32 permissions = 0U;
 
 	/* If this is a system clock no one has permission to control it */
@@ -824,9 +824,9 @@ done:
  * @return	This function ORed ipi masks of masters that are allowed to
  *		control this clock
  */
-static u32 PmClockCrossDomGetPerms(PmClock* const clock)
+static u32 PmClockCrossDomGetPerms(const PmClock* const clock)
 {
-	PmClockCrossDom* clk = (PmClockCrossDom*)clock->derived;
+	const PmClockCrossDom* clk = (PmClockCrossDom*)clock->derived;
 	u32 permissions = 0U;
 
 	/* Inherit permissions from PLL output clock (parent) */
