@@ -37,6 +37,7 @@
 #			single axi4 data interface.
 #			Added failure checks in the tcl to avoid bsp compilation
 #			errors incase stream interface is unconnected.
+# 1.2   rsp   09/07/18  Pass "hier" argument to get_cells API to support hierarchical designs.
 #
 ##############################################################################
 
@@ -63,11 +64,11 @@ proc generate_cci_params {drv_handle file_name} {
 
 	#set is_hpcdesign 0
 	foreach ip $ips {
-		set iptype [common::get_property IP_NAME [get_cells $ip]]
+		set iptype [common::get_property IP_NAME [get_cells -hier $ip]]
 		if {$processor_type == "psu_cortexa53"} {
 			set is_hpcdesign 0
-			set has_signleintf [common::get_property CONFIG.c_single_interface [get_cells $ip]]
-			set has_mm2s [common::get_property CONFIG.c_include_mm2s [get_cells $ip]]
+			set has_signleintf [common::get_property CONFIG.c_single_interface [get_cells -hier $ip]]
+			set has_mm2s [common::get_property CONFIG.c_include_mm2s [get_cells -hier $ip]]
 			if {$has_mm2s == 1} {
 				set is_hpcdesign [get_connected_if $ip "M_AXI_MM2S"]
 			}
@@ -80,7 +81,7 @@ proc generate_cci_params {drv_handle file_name} {
 				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_MM2S_CACHE_COHERENT"] 0"
 			}
 			set is_hpcdesign 0
-			set has_s2mm [common::get_property CONFIG.c_include_s2mm [get_cells $ip]]
+			set has_s2mm [common::get_property CONFIG.c_include_s2mm [get_cells -hier $ip]]
 			if {$has_s2mm == 1} {
 				set is_hpcdesign [get_connected_if $ip "M_AXI_S2MM"]
 			}
