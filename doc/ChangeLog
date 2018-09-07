@@ -52,6 +52,7 @@ Fix gcc warning.
 Remove unused define for buffer length mask(XMCDMA_BD_LEN_MASK).
 Fix typos and rephrase comment description.
 Read buffer length register width from IP config.
+In driver tcl update get_cells API to support hierarchical designs.
 
 cpu_v2_8:
 Added Os and LTO settings in extra compiler flags for PMU BSP
