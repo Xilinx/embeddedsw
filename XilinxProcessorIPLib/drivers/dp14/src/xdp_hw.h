@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -474,6 +472,9 @@
 #define XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK \
 				0x0000000F	/**< Reset video logic for all
 							streams. */
+#define XDP_TX_SOFT_RESET_HDCP_MASK \
+				0x00000100	/**< Reset HDCP logic. */
+
 /* 0x0D0: TX_MST_CONFIG */
 #define XDP_TX_MST_CONFIG_MST_EN_MASK \
 				0x00000001	/**< Enable MST. */
@@ -1523,6 +1524,9 @@
 #define XDP_RX_INTERRUPT_MASK_HDCP22_PAIRING_INFO_READ_MASK \
 	0x00000080 /**< Mask the interrupt for a write of the HDCP22
 		     Ake_Send_Pairing_Info message*/
+#define XDP_RX_INTERRUPT_MASK_HDCP22_STREAM_TYPE_MASK \
+	0x00000100 /**< Mask the interrupt for a write of the HDCP22
+		     Stream/content type message*/
 #endif
 #define XDP_RX_INTERRUPT_MASK_AUDIO_OVER_MASK \
 					0x08000000 /**< Mask the interrupt
@@ -1571,6 +1575,8 @@
 /* 0x01C: SOFT_RESET */
 #define XDP_RX_SOFT_RESET_VIDEO_MASK	0x01	/**< Reset the video logic. */
 #define XDP_RX_SOFT_RESET_AUX_MASK	0x80	/**< Reset the AUX logic. */
+#define XDP_RX_SOFT_RESET_HDCP_MASK	0x100	/**< Reset the HDCP logic. */
+#define XDP_RX_SOFT_RESET_HDCP22_MASK	0x200	/**< Reset the HDCP22 logic. */
 /* 0x02C: HPD_INTERRUPT */
 #define XDP_RX_HPD_INTERRUPT_ASSERT_MASK \
 				0x00000001	/**< Instructs the RX core to
@@ -2216,10 +2222,10 @@
 				0x1		/**< Hold adjust request to
 							SET_PE. */
 #define XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_PE_TABLE \
-				0x2		/**< Pick pre-emphasis values
+				0x3		/**< Pick pre-emphasis values
 							from PE_TABLE. */
 #define XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_VS_NA \
-				0x3		/**< Not applicable. */
+				0x2		/**< Not applicable. */
 #define XDP_RX_MIN_VOLTAGE_SWING_SET_PE_MASK \
 				0x003000	/**< Set pre-emphasis level. */
 #define XDP_RX_MIN_VOLTAGE_SWING_SET_PE_SHIFT 12 /**< Shift bits for
@@ -2760,7 +2766,7 @@
 /* 0x00111: MSTM_CTRL */
 #define XDP_DPCD_MST_EN_MASK					0x01
 #define XDP_DPCD_UP_REQ_EN_MASK					0x02
-#define XDP_DPCD_UP_IS_SRC_MASK					0x03
+#define XDP_DPCD_UP_IS_SRC_MASK					0x04
 /* @} */
 
 /** @name DisplayPort Configuration Data: Link/sink status field masks, shifts,

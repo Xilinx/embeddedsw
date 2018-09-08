@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -114,7 +112,7 @@ static void DpTxSs_TimerCallback(void *InstancePtr, u8 TmrCtrNumber);
 #endif
 
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
-static void DpTxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber);
+static void DpTxSs_TimerHdcp22Callback(void *InstancePtr, u8 TmrCtrNumber);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -262,13 +260,6 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 			InstancePtr->Config.BaseAddress;
 		InstancePtr->TmrCtrPtr->BaseAddress +=
 			InstancePtr->Config.BaseAddress;
-
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
-		/* Configure the callback */
-		XTmrCtr_SetHandler(InstancePtr->TmrCtrPtr,
-				(XTmrCtr_Handler)DpTxSs_TimeOutCallback,
-				InstancePtr);
-#endif /*XPAR_XHDCP22_TX_NUM_INSTANCES*/
 	}
 #endif /*(XPAR_DPTXSS_0_HDCP_ENABLE > 0)||(XPAR_XHDCP22_TX_NUM_INSTANCES > 0)*/
 
@@ -450,7 +441,9 @@ void XDpTxSs_Reset(XDpTxSs *InstancePtr)
 
 	/* Reset the DisplayPort. */
 	XDpTxSs_WriteReg(InstancePtr->Config.DpSubCore.DpConfig.BaseAddr,
-		XDP_TX_SOFT_RESET, XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK);
+			XDP_TX_SOFT_RESET,
+			(XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK |
+			 XDP_TX_SOFT_RESET_HDCP_MASK));
 	XDpTxSs_WriteReg(InstancePtr->Config.DpSubCore.DpConfig.BaseAddr,
 		XDP_TX_SOFT_RESET, 0x0);
 
@@ -1463,7 +1456,9 @@ u32 XDpTxSs_IsHdcpCapable(XDpTxSs *InstancePtr)
 
 	return HdcpCapable;
 }
+#endif
 
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -1476,21 +1471,89 @@ u32 XDpTxSs_IsHdcpCapable(XDpTxSs *InstancePtr)
 *		- XST_FAILURE, if authentication initiated failed.
 *
 * @note		The transmitter initiates authentication by first sending its
-*		An and Aksv value to the HDCP Receiver.
+*		An and Aksv for HDCP1x or Ake_Init for HDCP22
+*		to the HDCP Receiver.
 *
 ******************************************************************************/
 u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XST_FAILURE;
 
 	/* Verify arguments.*/
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+	Xil_AssertNonvoid(InstancePtr);
+#if (XPAR_DPTXSS_0_HDCP_ENABLE)
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
+	Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
+#endif
+	/* Always disable encryption */
+	if (XDpTxSs_DisableEncryption(InstancePtr, 0x01)) {
+		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_NONE);
+		return XST_FAILURE;
+	}
 
-	/* Initiate authentication process */
-	Status = XHdcp1x_Authenticate(InstancePtr->Hdcp1xPtr);
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
+	/* Authenticate HDCP 2.2, takes priority*/
+	if ((InstancePtr->Hdcp22Ptr) &&
+			(InstancePtr->HdcpCapability == XDPTXSS_HDCP_22 ||
+			 InstancePtr->HdcpCapability == XDPTXSS_HDCP_BOTH)) {
+		if (XDpTxSs_IsSinkHdcp22Capable(InstancePtr)) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"Starting HDCP 2.2 authentication\r\n");
+			Status = XDpTxSs_HdcpSetProtocol(InstancePtr,
+					XDPTXSS_HDCP_22);
+			Status |= XDpTxSs_HdcpEnable(InstancePtr);
 
-	return Status;
+			/*
+			 * As the timer is same for both hdcp1x and hdcp22,
+			 * re-attach and set the callback for hdcp22 timeout
+			 */
+			XHdcp22Tx_timer_attach(InstancePtr->Hdcp22Ptr,
+					InstancePtr->TmrCtrPtr);
+			XTmrCtr_SetHandler(InstancePtr->TmrCtrPtr,
+					(XTmrCtr_Handler)DpTxSs_TimerHdcp22Callback,
+					(void *)InstancePtr);
+
+			/* Set lane count in HDCP */
+			XHdcp22_TxSetLaneCount(InstancePtr->Hdcp22Ptr,
+					InstancePtr->DpPtr->TxInstance.
+					LinkConfig.LaneCount);
+			Status |= XHdcp22Tx_Authenticate(
+					InstancePtr->Hdcp22Ptr);
+		} else {
+			Status = XST_FAILURE;
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"Sink is not HDCP 2.2 capable\r\n");
+		}
+	}
+#endif
+
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+	/*Authenticate HDCP1x*/
+	if ((InstancePtr->Hdcp1xPtr) && (Status == XST_FAILURE) &&
+			(InstancePtr->HdcpCapability == XDPTXSS_HDCP_1X ||
+			 InstancePtr->HdcpCapability == XDPTXSS_HDCP_BOTH)) {
+		if (XHdcp1x_IsDwnstrmCapable(InstancePtr->Hdcp1xPtr)) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"Starting HDCP 1X authentication\r\n");
+			Status = XDpTxSs_HdcpSetProtocol(InstancePtr,
+					XDPTXSS_HDCP_1X);
+			Status |= XDpTxSs_HdcpEnable(InstancePtr);
+			Status |= XHdcp1x_Authenticate(InstancePtr->Hdcp1xPtr);
+		} else {
+			Status = XST_FAILURE;
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"Sink is not HDCP 1x capable\r\n");
+		}
+	}
+#endif
+	/* Set protocol to None */
+	if (Status == XST_FAILURE) {
+		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_NONE);
+	}
+
+	return (Status == XST_SUCCESS) ? XST_SUCCESS : XST_FAILURE;
 }
 
 /*****************************************************************************/
@@ -1514,17 +1577,32 @@ u32 XDpTxSs_IsAuthenticated(XDpTxSs *InstancePtr)
 	u32 Authenticate;
 
 	/* Verify arguments.*/
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
-
-	/* Check authentication has completed successfully */
-	Authenticate = XHdcp1x_IsAuthenticated(InstancePtr->Hdcp1xPtr);
-
-	return Authenticate;
-}
+	Xil_AssertNonvoid(InstancePtr);
+#if (XPAR_DPTXSS_0_HDCP_ENABLE)
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
+	Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE)
+	if (InstancePtr->Hdcp1xPtr &&
+			(InstancePtr->HdcpProtocol == XDPTXSS_HDCP_1X)) {
+		/* Check authentication has completed successfully */
+		Authenticate = XHdcp1x_IsAuthenticated(InstancePtr->Hdcp1xPtr);
+	}
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
+	if (InstancePtr->Hdcp22Ptr &&
+			(InstancePtr->HdcpProtocol == XDPTXSS_HDCP_22)) {
+		/* Check authentication has completed successfully */
+		Authenticate = XHdcp22Tx_IsAuthenticated(
+				InstancePtr->Hdcp22Ptr);
+	}
+#endif
+	return Authenticate;
+}
+
 /*****************************************************************************/
 /**
 *
@@ -2491,7 +2569,7 @@ int XDpTxSs_HdcpSetProtocol(XDpTxSs *InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-static void DpTxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber)
+static void DpTxSs_TimerHdcp22Callback(void *InstancePtr, u8 TmrCtrNumber)
 {
 	XDpTxSs *XDpTxSsPtr = (XDpTxSs *)InstancePtr;
 

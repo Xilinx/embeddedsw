@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -249,9 +247,21 @@ typedef enum {
 	XDPRXSS_HANDLER_ACCESS_LINK_QUAL_EVENT,    /**< Drv Access link qual
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT   /**< Drv Access error counter
-						  *  interrupt type for
-						  *  DisplayPort core */
+	XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT,  /**< Drv Access error
+						      *	counter interrupt type
+						      *	for DisplayPort core */
+	XDPRXSS_HANDLER_DP_VBLANK_STREAM_2_EVENT,    /**< Vertical blanking
+						      *	event for stream 2
+						      *	interrupt type for
+						      *	DisplayPort core */
+	XDPRXSS_HANDLER_DP_VBLANK_STREAM_3_EVENT,    /**< Vertical blanking
+						      *	event for stream 3
+						      *	interrupt type for
+						      *	DisplayPort core */
+	XDPRXSS_HANDLER_DP_VBLANK_STREAM_4_EVENT     /**< Vertical blanking
+						      *	event for stream 4
+						      *	interrupt type for
+						      *	DisplayPort core */
 } XDpRxSs_HandlerType;
 
 /**
@@ -441,8 +451,8 @@ typedef struct {
 	u8 *Hdcp22Lc128Ptr;		/**< Pointer to HDCP 2.2 LC128 */
 	u8 *Hdcp22PrivateKeyPtr;	/**< Pointer to HDCP 2.2 Private key */
 #endif
-	u8 *EdidDataPtr;		/**< Pointer to EDID Data */
-	u16 EdidSize;			/**< Size of EDID Data */
+	u8 *EdidDataPtr[XDP_MAX_NPORTS];/**< Pointer to EDID Data */
+	u16 EdidSize[XDP_MAX_NPORTS];	/**< Size of EDID Data */
 } XDpRxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -610,6 +620,8 @@ int XDpRxSs_HdcpSetProtocol(XDpRxSs *InstancePtr,
 u32 XDpRxSs_HdcpEnable(XDpRxSs *InstancePtr);
 u32 XDpRxSs_HdcpDisable(XDpRxSs *InstancePtr);
 u32 XDpRxSs_SetLane(XDpRxSs *InstancePtr, u32 Lane);
+void XDpRxSs_StartTimer(XDpRxSs *InstancePtr);
+void XDpRxSs_StopTimer(XDpRxSs *InstancePtr);
 #endif
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 /* Optional HDCP related functions */
@@ -620,8 +632,6 @@ u32 XDpRxSs_IsAuthenticated(XDpRxSs *InstancePtr);
 u64 XDpRxSs_GetEncryption(XDpRxSs *InstancePtr);
 void XDpRxSs_SetDebugPrintf(XDpRxSs *InstancePtr, XDpRxSs_Printf PrintfFunc);
 void XDpRxSs_SetDebugLogMsg(XDpRxSs *InstancePtr, XDpRxSs_LogMsg LogFunc);
-void XDpRxSs_StartTimer(XDpRxSs *InstancePtr);
-void XDpRxSs_StopTimer(XDpRxSs *InstancePtr);
 u32 XDpRxSs_DownstreamReady(XDpRxSs *InstancePtr);
 void XDpRxSs_HandleTimeout(XDpRxSs *InstancePtr);
 #endif

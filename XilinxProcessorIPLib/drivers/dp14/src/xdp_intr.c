@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -398,8 +396,26 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 		break;
 
 	case XDP_RX_HANDLER_VBLANK:
-		InstancePtr->RxInstance.IntrVBlankHandler = CallbackFunc;
-		InstancePtr->RxInstance.IntrVBlankCallbackRef = CallbackRef;
+		InstancePtr->RxInstance.IntrVBlankHandler[0] = CallbackFunc;
+		InstancePtr->RxInstance.IntrVBlankCallbackRef[0] = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_VBLANK_STREAM_2:
+		InstancePtr->RxInstance.IntrVBlankHandler[1] = CallbackFunc;
+		InstancePtr->RxInstance.IntrVBlankCallbackRef[1] = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_VBLANK_STREAM_3:
+		InstancePtr->RxInstance.IntrVBlankHandler[2] = CallbackFunc;
+		InstancePtr->RxInstance.IntrVBlankCallbackRef[2] = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_VBLANK_STREAM_4:
+		InstancePtr->RxInstance.IntrVBlankHandler[3] = CallbackFunc;
+		InstancePtr->RxInstance.IntrVBlankCallbackRef[3] = CallbackRef;
 		Status = XST_SUCCESS;
 		break;
 
@@ -588,6 +604,13 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 		InstancePtr->RxInstance.IntrHdcp22PairingReadDoneHandler =
 			CallbackFunc;
 		InstancePtr->RxInstance.IntrHdcp22PairingReadDoneCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+	case XDP_RX_HANDLER_HDCP22_STREAM_TYPE:
+		InstancePtr->RxInstance.IntrHdcp22StreamTypeWrHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22StreamTypeWrCallbackRef =
 			CallbackRef;
 		Status = XST_SUCCESS;
 		break;
@@ -807,9 +830,9 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	/* The VerticalBlanking_Flag in the VB-ID field of the received stream
 	 * indicates the start of the vertical blanking interval. */
 	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_VBLANK_MASK) &&
-			InstancePtr->RxInstance.IntrVBlankHandler) {
-		InstancePtr->RxInstance.IntrVBlankHandler(
-			InstancePtr->RxInstance.IntrVBlankCallbackRef);
+			InstancePtr->RxInstance.IntrVBlankHandler[0]) {
+		InstancePtr->RxInstance.IntrVBlankHandler[0](
+			InstancePtr->RxInstance.IntrVBlankCallbackRef[0]);
 	}
 	/* The receiver has detected the no-video flags in the VB-ID field after
 	 * active video has been received. */
@@ -1016,6 +1039,15 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 				IntrHdcp22PairingReadDoneCallbackRef);
 	}
 
+	/* A write to the HDCP22 TYPE register has been performed. */
+	if ((IntrStatusHdcp22 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_STREAM_TYPE_MASK)
+			&& InstancePtr->RxInstance.
+			IntrHdcp22StreamTypeWrHandler) {
+		InstancePtr->RxInstance.IntrHdcp22StreamTypeWrHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22StreamTypeWrCallbackRef);
+	}
 #endif /*XPAR_XHDCP22_RX_NUM_INSTANCES*/
 
 	/* An unplug event has occurred. */
@@ -1036,6 +1068,42 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 		/* Mask out required interrupts. */
 		IntrStatus1 &= ~XDp_ReadReg(InstancePtr->Config.BaseAddr,
 					    XDP_RX_INTERRUPT_MASK_1);
+
+		/* The VerticalBlanking_Flag in the VB-ID field of the received
+		 * stream 2 indicates the start of the vertical blanking
+		 * interval. */
+		if ((IntrStatus1 &
+			XDP_RX_INTERRUPT_MASK_1_VBLANK_STREAM234_MASK(
+				XDP_RX_STREAM_ID2)) &&
+			InstancePtr->RxInstance.IntrVBlankHandler[1]) {
+			InstancePtr->RxInstance.IntrVBlankHandler[1](
+					InstancePtr->RxInstance.
+					IntrVBlankCallbackRef[1]);
+		}
+
+		/* The VerticalBlanking_Flag in the VB-ID field of the received
+		 * stream 3 indicates the start of the vertical blanking
+		 * interval. */
+		if ((IntrStatus1 &
+			XDP_RX_INTERRUPT_MASK_1_VBLANK_STREAM234_MASK(
+				XDP_RX_STREAM_ID3)) &&
+			InstancePtr->RxInstance.IntrVBlankHandler[2]) {
+			InstancePtr->RxInstance.IntrVBlankHandler[2](
+					InstancePtr->RxInstance.
+					IntrVBlankCallbackRef[2]);
+		}
+
+		/* The VerticalBlanking_Flag in the VB-ID field of the received
+		 * stream 4 indicates the start of the vertical blanking
+		 * interval. */
+		if ((IntrStatus1 &
+			XDP_RX_INTERRUPT_MASK_1_VBLANK_STREAM234_MASK(
+				XDP_RX_STREAM_ID4)) &&
+			InstancePtr->RxInstance.IntrVBlankHandler[3]) {
+			InstancePtr->RxInstance.IntrVBlankHandler[3](
+					InstancePtr->RxInstance.
+					IntrVBlankCallbackRef[3]);
+		}
 
 		/* Training pattern 4 has started. */
 		if ((IntrStatus1 & XDP_RX_INTERRUPT_MASK_TP4_MASK) &&

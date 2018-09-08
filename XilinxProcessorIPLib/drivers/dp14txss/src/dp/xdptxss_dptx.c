@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -159,6 +157,20 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		InstancePtr->TxInstance.AuxDelayUs = 30000;
 		InstancePtr->TxInstance.SbMsgDelayUs = 30000;
 
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Discovering "
+				"topology.\n\r");
+		/* Get list of sinks */
+		Status = Dp_GetTopology(InstancePtr);
+		if (Status)
+			return Status;
+
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Topology "
+				"discovery done, # of sinks found = %d.\n\r",
+				InstancePtr->TxInstance.Topology.SinkTotal);
+
+		/* Total number of streams equal to number of sinks found */
+		NumOfStreams = InstancePtr->TxInstance.Topology.SinkTotal;
+
 		/* Enable downshifting during link training */
 		XDp_TxEnableTrainAdaptive(InstancePtr, 1);
 
@@ -183,20 +195,12 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 			}
 		}
 
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Discovering "
-				"topology.\n\r");
-
-		/* Get list of sinks */
-		Status = Dp_GetTopology(InstancePtr);
-		if (Status != XST_SUCCESS) {
-			return Status;
+		Status = XDp_TxCheckLinkStatus(InstancePtr,
+				InstancePtr->TxInstance.LinkConfig.LaneCount);
+		if (Status == XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Link "
+					"is up !\n\r\n\r");
 		}
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Topology "
-			"discovery done, # of sinks found = %d.\n\r",
-			InstancePtr->TxInstance.Topology.SinkTotal);
-
-		/* Total number of streams equal to number of sinks found */
-		NumOfStreams = InstancePtr->TxInstance.Topology.SinkTotal;
 
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Reading (MST) Sink "
 			"EDID...\n\r");
@@ -605,7 +609,8 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 		/* Reset the transmitter. */
 		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET,
-				XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK);
+				XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK |
+				XDP_TX_SOFT_RESET_HDCP_MASK);
 		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET,
 				0x0);
 	}
@@ -985,13 +990,6 @@ static u32 Dp_GetTopology(XDp *InstancePtr)
 
 	if (NumStreams > InstancePtr->Config.NumMstStreams) {
 		NumStreams = InstancePtr->Config.NumMstStreams;
-	}
-
-	Status = XDp_TxCheckLinkStatus(InstancePtr,
-				InstancePtr->TxInstance.LinkConfig.LaneCount);
-	if (Status == XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Link "
-			"is up after topology discovery!\n\r\n\r");
 	}
 
 	return XST_SUCCESS;

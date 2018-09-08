@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /*****************************************************************************/
@@ -97,7 +95,7 @@ void pt_help_menu();
 void select_rx_quad(void);
 void DpPt_LaneLinkRateHelpMenu(void);
 
-void start_audio_passThrough(u8 LineRate_init_tx);
+void start_audio_passThrough();
 
 u8 edid_page;
 u8 tx_after_rx = 0;
@@ -131,6 +129,7 @@ extern u8 training_lost;
 u8 audio_info_avail = 0;
 int track_color = 0;
 u32 aud_start_delay = 0;
+u32 line_rst = 0;
 
 void DpPt_Main(void){
 	u32 Status;
@@ -174,6 +173,7 @@ void DpPt_Main(void){
 	//reading the first block of EDID
 	if (XDpTxSs_IsConnected(&DpTxSsInst)) {
 		XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid_org, 0);
+
 		u8 Sum = 0;
 		for (int i = 0; i < 128; i++) {
 			Sum += Edid_org[i];
@@ -189,7 +189,6 @@ void DpPt_Main(void){
 			XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid2_org, 2);
 
 		xil_printf("Reading EDID contents of the DP Monitor..\r\n");
-
 
 		int i, j;
 
@@ -468,30 +467,30 @@ void DpPt_Main(void){
 					xil_printf ("Rxd Hactive =  %d\r\n",
 							((XDp_ReadReg(VidFrameCRC_rx.Base_Addr,
 								0xC)&0xFFFF) + 1) *
-								(XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x0)));
+								((XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x0)) & 0x7));
 
 					xil_printf ("Rxd Vactive =  %d\r\n",
 							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0xC)>>16);
 					xil_printf ("CRC Cfg     =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x0));
-					xil_printf ("CRC - R/Y   =  0x%x\r\n",
+					xil_printf ("CRC - R/Cr   =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x4)&0xFFFF);
-					xil_printf ("CRC - G/Cr  =  0x%x\r\n",
+					xil_printf ("CRC - G/Y  =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x4)>>16);
 					xil_printf ("CRC - B/Cb  =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x8)&0xFFFF);
 					xil_printf ("========== Tx CRC===========\r\n");
 					xil_printf ("Txd Hactive =  %d\r\n",
 						((XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0xC)&0xFFFF)+ 1)
-						  * (XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x0)));
+						  * ((XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x0)) & 0x7));
 
 					xil_printf ("Txd Vactive =  %d\r\n",
 							XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0xC)>>16);
 					xil_printf ("CRC Cfg     =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x0));
-					xil_printf ("CRC - R/Y   =  0x%x\r\n",
+					xil_printf ("CRC - R/Cr   =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x4)&0xFFFF);
-					xil_printf ("CRC - G/Cr  =  0x%x\r\n",
+					xil_printf ("CRC - G/Y  =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x4)>>16);
 					xil_printf ("CRC - B/Cb  =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x8)&0xFFFF);
@@ -560,12 +559,80 @@ void DpPt_Main(void){
 					break;
 
 				case 'n':
-					if(edid_page == 6){
-						edid_page = 2;
-					}else{
-						edid_page++;
+                                        // This can be used to clone the edid when monitor is changed
+                                        // Ensure to unplug/plug RX cable for changes to take effect
+
+					for (int i = 0; i < 128; i++) {
+						Edid_org[i] = 0;
+						Edid1_org[i] = 0;
+						Edid2_org[i] = 0;
 					}
-					edid_change(edid_page);
+
+					//Waking up the monitor
+					sink_power_cycle();
+
+					//reading the first block of EDID
+					if (XDpTxSs_IsConnected(&DpTxSsInst)) {
+						XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid_org, 0);
+
+						u8 Sum = 0;
+						for (int i = 0; i < 128; i++) {
+							Sum += Edid_org[i];
+						}
+						if(Sum != 0){
+							xil_printf("Wrong EDID was read\r\n");
+						}
+
+						//reading the second block of EDID
+						if(Edid_org[126] > 0)
+							XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid1_org, 1);
+						if(Edid_org[126] > 1)
+							XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid2_org, 2);
+
+						xil_printf("Reading EDID contents of the DP Monitor..\r\n");
+
+						int i, j;
+
+						switch (Edid_org[126]){
+						case 0:
+							for(i=0; i<128; i++)
+								edid_monitor[i] = Edid_org[i];
+							for(i=0; i<128; i++)
+								edid_monitor[i+128] = 0;
+							for(i=0; i<128; i++)
+								edid_monitor[i+256] = 0;
+							break;
+						case 1:
+							for(i=0; i<128; i++)
+								edid_monitor[i] = Edid_org[i];
+							for(i=0; i<128; i++)
+								edid_monitor[i+128] = Edid1_org[i];
+							for(i=0; i<128; i++)
+								edid_monitor[i+256] = 0;
+							break;
+						case 2:
+							for(i=0; i<128; i++)
+								edid_monitor[i] = Edid_org[i];
+							for(i=0; i<128; i++)
+								edid_monitor[i+128] = Edid1_org[i];
+							for(i=0; i<128; i++)
+								edid_monitor[i+256] = Edid2_org[i];
+							break;
+						}
+
+						for(i=0;i<(384*4);i=i+(16*4)){
+							for(j=i;j<(i+(16*4));j=j+4){
+								XDp_WriteReg (VID_EDID_BASEADDR,
+								j, edid_monitor[(i/4)+1]);
+							}
+						}
+						for(i=0;i<(384*4);i=i+4){
+							XDp_WriteReg (VID_EDID_BASEADDR,
+								i, edid_monitor[i/4]);
+						}
+					}
+
+					xil_printf ("Please unplug/plug DP RX cable for changes to take effect\r\n");
 
 					break;
 
@@ -630,32 +697,18 @@ void DpPt_Main(void){
 							XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x0604));
 				break;
 
-//				case 'q' :
-//					if(use_monitor_edid == 1){
-//						// change the mode to none-pass-through mdoe
-//						use_monitor_edid = 0;
-//						xil_printf(
-//						"Set as EDID non-pass-through mode\r\n");
-//					}else{
-//						// This is EDID pass-through mode
-//						use_monitor_edid = 1;
-//						for(int i=0;i<(384*4);i=i+(16*4)){
-//							for(int j=i;j<(i+(16*4));j=j+4){
-//								XDp_WriteReg (
-//										VID_EDID_BASEADDR,
-//								j,edid_monitor[(i/4)+1]);
-//							}
-//						}
-//						for(int i=0;i<(384*4);i=i+4){
-//							XDp_WriteReg (
-//									VID_EDID_BASEADDR,
-//								i, edid_monitor[i/4]);
-//						}
-//
-//						xil_printf(
-//							"Set as EDID pass-thorugh mode\r\n");
-//					}
-//					break;
+				case 'q' :
+                                        line_rst = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_LINE_RESET_DISABLE);
+                                        xil_printf ("Line reset was %d\r\n",line_rst & 0x1);
+                                        if (line_rst & 0x1) {
+                                            line_rst &= 0xFFFFFFFE;
+                                        } else {
+                                            line_rst |= 0xFFFFFFFF;
+                                        }
+                                        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_LINE_RESET_DISABLE, line_rst);
+
+					break;
+
 				case 's':
 					xil_printf("DP Link Status --->\r\n");
 					XDpRxSs_ReportLinkInfo(&DpRxSsInst);
@@ -908,7 +961,6 @@ void DpPt_Main(void){
 				DpRxSsInst.link_up_trigger == 1) {
 		    tx_after_rx = 0;
 		    if (track_msa == 1) {
-//				usleep(20000);
 				start_tx_after_rx();
 				// It is observed that some monitors do not give HPD
 				// pulse. Hence checking the link to re-trigger
@@ -936,22 +988,12 @@ void DpPt_Main(void){
 
 
 /* Audio passThrough setting */
-void start_audio_passThrough(u8 LineRate_init_tx){
+void start_audio_passThrough(){
 
-	// Copy the Audi Infoframe data from RX to TX
+	// Program the Infoframe data into TX
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CONTROL, 0x0);
-	xilInfoFrame->audio_channel_count = AudioinfoFrame.audio_channel_count;
-	xilInfoFrame->audio_coding_type = AudioinfoFrame.audio_coding_type;
-	xilInfoFrame->channel_allocation = AudioinfoFrame.channel_allocation;
-	xilInfoFrame->downmix_inhibit = AudioinfoFrame.downmix_inhibit;
-	xilInfoFrame->info_length = AudioinfoFrame.info_length;
-	xilInfoFrame->level_shift = AudioinfoFrame.level_shift;
-	xilInfoFrame->sample_size = AudioinfoFrame.sample_size;
-	xilInfoFrame->sampling_frequency = AudioinfoFrame.sampling_frequency;
-	xilInfoFrame->type = AudioinfoFrame.type;
-	xilInfoFrame->version = AudioinfoFrame.version;
 	usleep(30000);
-	sendAudioInfoFrame(xilInfoFrame);
+	XDpTxSs_SendAudioInfoFrame(&DpTxSsInst,xilInfoFrame);
 	usleep(30000);
 
 }
@@ -1100,8 +1142,6 @@ void start_tx_after_rx (void) {
 	set_vphy(LineRate_init_tx);
 	LaneCount_init_tx = LaneCount_init_tx & 0x7;
 
-//	frameBuffer_stop_rd();
-
 	if(downshift4K == 0){
 		start_tx (LineRate_init_tx, LaneCount_init_tx,user_config, Msa);
 
@@ -1128,6 +1168,7 @@ void unplug_proc (void) {
     DpRxSsInst.VBlankCount = 0;
     audio_info_avail = 0;
     AudioinfoFrame.frame_count = 0;
+    AudioinfoFrame.all_count = 0;
     appx_fs_dup = 0;
     XDp_RxDtgDis(DpRxSsInst.DpPtr);
 	frameBuffer_stop();
@@ -1158,7 +1199,7 @@ void unplug_proc (void) {
 		XVPHY_GTHE4_PREEMP_DP_L0);
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CONTROL, 0x0);
-	XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x0);// 1);
+	XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x0);
 
 
 #if ENABLE_AUDIO
@@ -1260,8 +1301,29 @@ void audio_start_rx (void) {
 			//Disable Infoframe Intr
 			XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
 			            XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
+			xilInfoFrame->audio_channel_count = AudioinfoFrame.audio_channel_count;
+			xilInfoFrame->audio_coding_type = AudioinfoFrame.audio_coding_type;
+			xilInfoFrame->channel_allocation = AudioinfoFrame.channel_allocation;
+			xilInfoFrame->downmix_inhibit = AudioinfoFrame.downmix_inhibit;
+			xilInfoFrame->info_length = AudioinfoFrame.info_length;
+			xilInfoFrame->level_shift = AudioinfoFrame.level_shift;
+			xilInfoFrame->sample_size = AudioinfoFrame.sample_size;
+			xilInfoFrame->sampling_frequency = AudioinfoFrame.sampling_frequency;
+			xilInfoFrame->type = AudioinfoFrame.type;
+			xilInfoFrame->version = AudioinfoFrame.version;
 			audio_info_avail = 1;
 			AudioinfoFrame.frame_count = 0;
+			AudioinfoFrame.all_count = 0;
+		} else {
+			if (AudioinfoFrame.all_count > 100) {
+				//An audio infoframe was not received
+				//disabling the interrupt to avoid repeated calls
+				xil_printf ("*!*!\r\n");
+				XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
+				            XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
+				AudioinfoFrame.all_count = 0;
+
+			}
 		}
 #else
 		audio_info_avail = 1;
@@ -1273,12 +1335,13 @@ void audio_start_tx (void) {
 
 	// Audio on TX will be started only when RX receives Audio Infoframes
 	// and after a delay
-	if (tx_done == 1 && i2s_tx_started == 1 && i2s_started == 0 && audio_info_avail == 1 && aud_start_delay == AUD_START_DELAY) {
+	if (tx_done == 1 && i2s_tx_started == 1 && i2s_started == 0 && audio_info_avail == 1
+			&& aud_start_delay == AUD_START_DELAY) {
 	filter_count_b++;
 	if (filter_count_b == 50) {
 
 #if WAIT_ON_AUD_INFO
-		start_audio_passThrough(LineRate_init_tx);
+	start_audio_passThrough();
 #endif
 
 	} else if (filter_count_b > 200) {
@@ -1336,6 +1399,7 @@ void dprx_tracking (void) {
 		start_i2s_clk = 0;
 	    audio_info_avail = 0;
 	    AudioinfoFrame.frame_count = 0;
+	    AudioinfoFrame.all_count = 0;
 		xil_printf(
 		"> Rx Training done !!! (BW: 0x%x, Lanes: 0x%x, Status: "
 		"0x%x;0x%x).\n\r",
@@ -1382,6 +1446,7 @@ void dprx_tracking (void) {
 		XDpRxSs_AudioEnable(&DpRxSsInst);
 	    audio_info_avail = 0;
 	    AudioinfoFrame.frame_count = 0;
+	    AudioinfoFrame.all_count = 0;
 
 
 		//move to DPPT resolution function
@@ -1429,6 +1494,14 @@ void dptx_tracking (void) {
 		i2s_started = 0;
 		aud_start_delay = 0;
 		tx_done = 0;
+		AudioinfoFrame.all_count = 0;
+		//reading the Infoframe buffer to enable it for
+		//next interrupt
+		int info_rd = 0;
+		for(info_rd = 1 ; info_rd < 9 ; info_rd++) {
+				XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+						XDP_RX_AUDIO_INFO_DATA(info_rd));
+			}
 		XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
 		            XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
 

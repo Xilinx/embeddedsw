@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -55,6 +53,7 @@
  * 6.0	 tu   05/14/17 Added AUX defer to 6
  * 6.0   jb   02/19/19 Added HDCP22 functions.
  *            02/21/19 Added returning AUX defers for HDCP22 DPCD offsets
+ * 6.0	 jb   08/22/19 Removed returning AUX defers for HDCP22 DPCD offsets
  * </pre>
  *
 *******************************************************************************/
@@ -81,11 +80,6 @@
 #define XDP_AUX_MAX_TIMEOUT_COUNT 50
 /* Error out if checking for a connected device times out more than 50 times. */
 #define XDP_IS_CONNECTED_MAX_TIMEOUT_COUNT 50
-
-/*Hdcp22 DPCD port lower address*/
-#define XDP_HDCP22_DPCD_LOWER_OFFSET	0x69000
-/*Hdcp22 DPCD port higher address*/
-#define XDP_HDCP22_DPCD_HIGHER_OFFSET	0x69558
 
 /****************************** Type Definitions ******************************/
 
@@ -2071,7 +2065,8 @@ static u32 XDp_TxInitialize(XDp *InstancePtr)
 	/* Reset the video streams and AUX logic. */
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_SOFT_RESET,
 		XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK |
-		XDP_TX_SOFT_RESET_AUX_MASK);
+		XDP_TX_SOFT_RESET_AUX_MASK |
+		XDP_TX_SOFT_RESET_HDCP_MASK);
 
 	/* Disable the DisplayPort TX core. */
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_ENABLE, 0);
@@ -2128,6 +2123,51 @@ static u32 XDp_TxInitialize(XDp *InstancePtr)
 #if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
+ * This function sets the filter value for AUC_CLOCK_DIVIDER.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static void XDp_RxSetAuxClkFilterValue(XDp *InstancePtr)
+{
+	u32 filter_value = 0;
+	u32 Regval;
+	/*
+	 * As per the DP spec the minimum AUX pulse width is 0.4us
+	 * so the half clk is 2.5MHz
+	 */
+	filter_value = InstancePtr->Config.SAxiClkHz / 2500000;
+
+	/*
+	 * This is to set the allowable filter values as per the DpRx PG
+	 * These are the allowable values
+	 * 0(default), 8, 16, 24, 32, 40 and 48
+	 */
+	filter_value &= ~0x7;
+
+	/*
+	 * If filter value is more than the maximum allowable value(48),
+	 * set it to max value (48)
+	 */
+	if (filter_value > 48)
+		filter_value = 48;
+
+	/* Set the AUX clock filter value */
+	Regval = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+			XDP_RX_AUX_CLK_DIVIDER);
+	Regval &= ~XDP_RX_AUX_CLK_DIVIDER_AUX_SIG_WIDTH_FILT_MASK;
+	Regval |= (filter_value <<
+			XDP_RX_AUX_CLK_DIVIDER_AUX_SIG_WIDTH_FILT_SHIFT);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_AUX_CLK_DIVIDER,
+			Regval);
+}
+
+/******************************************************************************/
+/**
  * This function prepares the DisplayPort RX core for use.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
@@ -2149,6 +2189,8 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 	/* Set the AUX clock divider. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_AUX_CLK_DIVIDER,
 				(InstancePtr->Config.SAxiClkHz / 1000000));
+
+	XDp_RxSetAuxClkFilterValue(InstancePtr);
 
 	/* Put both GT RX/TX and CPLL into reset. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_PHY_CONFIG,
@@ -3418,11 +3460,6 @@ static u32 XDp_TxAuxRequest(XDp *InstancePtr, XDp_AuxTransaction *Request)
 		if (Status == XST_SEND_ERROR) {
 			/* The request was deferred. */
 			DeferCount++;
-			if (Request->CmdCode == XDP_TX_AUX_CMD_READ) {
-				if ((Request->Address >= XDP_HDCP22_DPCD_LOWER_OFFSET) &&
-						(Request->Address <= XDP_HDCP22_DPCD_HIGHER_OFFSET))
-					return Status;
-			}
 		}
 		else if (Status == XST_ERROR_COUNT_MAX) {
 			/* Waiting for a reply timed out. */
@@ -3733,6 +3770,64 @@ void XDp_TxAudioDis(XDp *InstancePtr)
         Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
         XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x0);
+}
+
+/****************************************************************************/
+/**
+ * This function sends audio InfoFrame packets on the main link.
+ *
+ * @param       InstancePtr is a pointer to the XDp instance.
+ * @param	xilInfoFrame is a pointer to the InfoFrame buffer.
+ *
+ * @return      None.
+ *
+ * @note        None.
+ *
+ ****************************************************************************/
+void XDp_TxSendAudioInfoFrame(XDp *InstancePtr,
+		XDp_TxAudioInfoFrame *xilInfoFrame)
+{
+	u8 db1, db2, db3, db4;
+	u32 data;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+
+	/* Write first 4 bytes (0 to 3)*/
+	/* second packet ID fixed to 0 - SST Mode */
+	db1 = 0x00;
+	db2 = xilInfoFrame->type;
+	db3 = xilInfoFrame->info_length & 0xFF;
+	db4 = (xilInfoFrame->version << 2) | (xilInfoFrame->info_length >> 8);
+	data = (db4 << 24) | (db3 << 16) | (db2 << 8) | db1;
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XDP_TX_AUDIO_INFO_DATA(1), data);
+
+	/* Write next 4 bytes (4 to 7)*/
+	db1 = xilInfoFrame->audio_channel_count
+		| (xilInfoFrame->audio_coding_type << 4);
+	db2 = (xilInfoFrame->sampling_frequency << 2)
+		| xilInfoFrame->sample_size;
+	db3 = 0;
+	db4 = xilInfoFrame->channel_allocation;
+	data = (db4 << 24) | (db3 << 16) | (db2 << 8) | db1;
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XDP_TX_AUDIO_INFO_DATA(1), data);
+
+	/* Write next 4 bytes (8 to 11)*/
+	data = (xilInfoFrame->level_shift << 3)
+			| (xilInfoFrame->downmix_inhibit << 7);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XDP_TX_AUDIO_INFO_DATA(1), data);
+
+	/* Write next 20 bytes (12 to 31)*/
+	data = 0;
+	for (db1 = 4; db1 <= 8; db1++) {
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				XDP_TX_AUDIO_INFO_DATA(1), data);
+	}
 }
 
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */

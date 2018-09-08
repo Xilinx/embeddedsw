@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -1081,8 +1079,7 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	/*
 	 * Initialize CRC
 	 */
-	/* Reset CRC*/
-	XVidFrameCrc_Reset();
+
 	/* Set Pixel width in CRC engine*/
 	if (format == XVIDC_CSF_YCRCB_422){
 	XDp_WriteReg(XPAR_TX_SUBSYSTEM_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
@@ -1094,6 +1091,10 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 						XDP_TX_USER_PIXEL_WIDTH));
 
 	}
+	/* Reset CRC*/
+	XVidFrameCrc_Reset();
+
+
 	xil_printf ("..done !\r\n");
 		return XST_SUCCESS;
 }

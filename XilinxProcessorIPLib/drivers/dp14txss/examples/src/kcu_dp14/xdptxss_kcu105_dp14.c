@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -178,9 +176,8 @@ typedef struct
 	u8 frame_count;
 } XilAudioInfoFrame;
 
-XilAudioInfoFrame *xilInfoFrame;
+XDp_TxAudioInfoFrame *xilInfoFrame;
 
-void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
 
 /*The structure defines Generic Frame Packet fields*/
 typedef struct
@@ -811,7 +808,7 @@ int main(void)
 						xilInfoFrame->version = 0x12;
 						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 								XDP_TX_AUDIO_CONTROL, 0x0);
-						sendAudioInfoFrame(xilInfoFrame);
+						XDpTxSs_SendAudioInfoFrame(&DpTxSsInst,xilInfoFrame);
 						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 								XDP_TX_AUDIO_CHANNELS, 0x2);
 						switch(dp_conf.LineRate){
@@ -1535,10 +1532,14 @@ int main(void)
 						select_rx_link_lane();
 						CommandKey = GetInbyte();
 						Command = (int)CommandKey;
-						Command = Command -48;
+//						Command = Command -48;
+						if(Command>47 && Command<58)
+							Command = Command - 48;
+						else if(Command>96 && Command<123)
+							Command = Command - 87;
 						xil_printf("You have selected command=%d \n\r",
 							   Command);
-						if ((Command >= 0) && (Command < 9)) {
+						if ((Command >= 0) && (Command < 12)) {
 							user_lane_count =
 								lane_link_table[Command].lane_count;
 							user_link_rate =
@@ -3865,74 +3866,6 @@ void start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
 	xil_printf("..done !\r\n");
 }
 
-#if ENABLE_AUDIO
-void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame)
-{
-	u8 db1, db2, db3, db4;
-	u32 temp;
-	u8 RSVD=0;
-
-	/* Fixed paramaters */
-	u8 dp_version = xilInfoFrame->version;
-
-	/* Write #1 */
-	db1 = 0x00; //sec packet ID fixed to 0 - SST Mode
-	db2 = xilInfoFrame->type;
-	db3 = xilInfoFrame->info_length&0xFF;
-	db4 = (dp_version<<2)|(xilInfoFrame->info_length>>8);
-	temp = db4<<24|db3<<16|db2<<8|db1;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-					XDP_TX_AUDIO_INFO_DATA(1), temp);
-//	dbg_printf("\n[AUDIO_INFOFRAME] Word1=0x%x\r",temp);
-
-	/* Write #2 */
-	db1 = xilInfoFrame->audio_channel_count
-		| (xilInfoFrame->audio_coding_type<<4) | (RSVD<<3);
-	db2 = (RSVD<<5)| (xilInfoFrame->sampling_frequency<<2)
-		| xilInfoFrame->sample_size;
-	db3 = RSVD;
-	db4 = xilInfoFrame->channel_allocation;
-	temp = db4<<24|db3<<16|db2<<8|db1;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-		XDP_TX_AUDIO_INFO_DATA(1), temp);
-//	dbg_printf("\n[AUDIO_INFOFRAME] Word2=0x%x\r",temp);
-
-	/* Write #3 */
-	db1 = (xilInfoFrame->level_shift<<3) | RSVD
-			| (xilInfoFrame->downmix_inhibit <<7);
-	db2 = RSVD;
-	db3 = RSVD;
-	db4 = RSVD;
-	temp = db4<<24|db3<<16|db2<<8|db1;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-					XDP_TX_AUDIO_INFO_DATA(1), temp);
-//	dbg_printf("\n[AUDIO_INFOFRAME] Word3=0x%x\r",temp);
-
-	/* Write #4 */
-	db1 = RSVD;
-	db2 = RSVD;
-	db3 = RSVD;
-	db4 = RSVD;
-	temp = 0x00000000;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				XDP_TX_AUDIO_INFO_DATA(1), temp);
-//	dbg_printf("\n[AUDIO_INFOFRAME] Word4-Word8=0x%x\r",temp);
-	//Write #5
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				XDP_TX_AUDIO_INFO_DATA(1), temp);
-
-	//Write #6
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				XDP_TX_AUDIO_INFO_DATA(1), temp);
-	//Write #7
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				XDP_TX_AUDIO_INFO_DATA(1), temp);
-	//Write #8
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				XDP_TX_AUDIO_INFO_DATA(1), temp);
-}
-#endif
-
 /* Buffer Bypass is to be used when TX operates on stable clock.
  * To use this, the TX should be configured 
  * with buffer bypass option.(hw change)
@@ -4502,7 +4435,7 @@ void start_audio_passThrough(){
 		xilInfoFrame->version = 0x12;
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 							XDP_TX_AUDIO_CONTROL, 0x0);
-		sendAudioInfoFrame(xilInfoFrame);
+		XDpTxSs_SendAudioInfoFrame (&DpTxSsInst,xilInfoFrame);
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 							XDP_TX_AUDIO_CHANNELS, 0x2);
 		switch(dp_conf.LineRate){

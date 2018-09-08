@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /*****************************************************************************/
@@ -490,14 +488,6 @@ void DpRxSs_LinkBandwidthHandler(void *InstancePtr)
 				XVPHY_PLL_TYPE_QPLL1, XVPHY_PLL_TYPE_CPLL);
 	Status = XVphy_ClkInitialize(&VPhyInst, 0,
 									XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX);
-/*Enable for PHY tests*/
-#if 0
-	/*Overriding MC programming to work in DP mode always:
-	 * Paranoid operation to ensure MC is in good state*/
-
-        Status = XDpRxSs_MCDP6000_SetRegister(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR,
-                                                      0x0504, 0x0000705E);
-#endif
 	if(Status != XST_SUCCESS)
 		xil_printf("XVphy_ClkInitialize failed\r\n");
 
@@ -988,6 +978,12 @@ void DpRxSs_InfoPacketHandler(void *InstancePtr)
 				XDP_RX_AUDIO_INFO_DATA(i));
 	}
 
+	AudioinfoFrame.all_count++;
+
+	AudioinfoFrame.type = (InfoFrame[1]>>8)&0xFF;
+//	xil_printf ("%x\r\n",AudioinfoFrame.type);
+
+	if (AudioinfoFrame.type == 0x84) {
 	//storing the info frame here
 			AudioinfoFrame.frame_count++;
 
@@ -1004,6 +1000,8 @@ void DpRxSs_InfoPacketHandler(void *InstancePtr)
 
 			AudioinfoFrame.level_shift = (InfoFrame[3]>>3)&0xF;
 			AudioinfoFrame.downmix_inhibit = (InfoFrame[3]>>7)&0x1;
+
+	}
 
 }
 

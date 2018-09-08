@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -39,6 +37,8 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 vk 10/04/17 Initial release.
+* 1.01 ku 06/04/19 Minor updates to CRC reporting to follow VESA
+*                  recommendation
 * </pre>
 *
 ******************************************************************************/
@@ -327,6 +327,8 @@ int VideoFMC_Init(void);
 
 void Print_InfoPkt();
 void Print_ExtPkt();
+u32 overflow_count = 0;
+u32 missed_count = 0;
 /************************** Variable Definitions *****************************/
 
 XDpRxSs DpRxSsInst;    /* The DPRX Subsystem instance.*/
@@ -626,7 +628,6 @@ u32 DpRxSs_Main(u16 DeviceId)
 				break;
 
 			case 'e':
-				XDpRxSs_ReportDp159BitErrCount(&DpRxSsInst);
 				ReadVal = XVphy_ReadReg(VIDPHY_BASEADDR,
 							XVPHY_RX_SYM_ERR_CNTR_CH1_2_REG);
 				xil_printf("Video PHY(8B10B): Error Counts [Lane1, Lane0] "
@@ -1274,6 +1275,14 @@ void DpRxSs_LinkBandwidthHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_PllResetHandler(void *InstancePtr)
 {
+	/* Reset CRC Test Counter in DP DPCD Space */
+	XVidFrameCrc_Reset();
+	VidFrameCRC.TEST_CRC_CNT = 0;
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+		     XDP_RX_CRC_CONFIG,
+		     (VidFrameCRC.TEST_CRC_SUPPORTED << 5 |
+		      VidFrameCRC.TEST_CRC_CNT));
+
 
 	/* Issue resets to Video PHY - This API
 	 * called after line rate is programmed */
@@ -1761,6 +1770,9 @@ void CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 ******************************************************************************/
 void CalculateCRC(void)
 {
+	u32 overflow;
+	u32 loop = 0;
+	u32 misses = 0;
 	/* Reset CRC Test Counter in DP DPCD Space */
 	VidFrameCRC.TEST_CRC_CNT = 0;
 
@@ -1782,20 +1794,42 @@ void CalculateCRC(void)
 	CustomWaitUs(DpRxSsInst.DpPtr, 100000);
 	VidFrameCRC.Mode_422 =
 			(XVidFrameCrc_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-					      XDP_RX_MSA_MISC0) >> 1) & 0x3 ; //  & 0x3 - value before change
+					      XDP_RX_MSA_MISC0) >> 1) & 0x3 ;
 
-        if(VidFrameCRC.Mode_422 != 0x1 ) {
-	    XVidFrameCrc_WriteReg(VIDEO_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
-				      DpRxSsInst.UsrOpt.LaneCount);
-        }
-        else{
-	    XVidFrameCrc_WriteReg(VIDEO_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
-			      DpRxSsInst.UsrOpt.LaneCount | 0x80000000);
-        }
+	if(VidFrameCRC.Mode_422 != 0x1 ) {
+	XVidFrameCrc_WriteReg(VIDEO_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
+				  DpRxSsInst.UsrOpt.LaneCount);
+	}
+	else{
+	XVidFrameCrc_WriteReg(VIDEO_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
+			  DpRxSsInst.UsrOpt.LaneCount | 0x80000000);
+	}
 
+	XVidFrameCrc_Reset();
 	
 	/* Add delay (~40 ms) for Frame CRC to compute on couple of frames */
 	CustomWaitUs(DpRxSsInst.DpPtr, 400000);
+	CustomWaitUs(DpRxSsInst.DpPtr, 400000);
+//	CustomWaitUs(DpRxSsInst.DpPtr, 400000);
+	// reading the overflow twice to clear the bit set
+	overflow = (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+						    XDP_RX_USER_FIFO_OVERFLOW)) & 0x00000111;
+	overflow = (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+						    XDP_RX_USER_FIFO_OVERFLOW)) & 0x00000111;
+	overflow = 0;
+
+	//reading overflow in loop of 500
+	//in ideal scenario it should never be set
+	while (loop < 500) {
+		loop++;
+		overflow |= (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+							    XDP_RX_USER_FIFO_OVERFLOW)) & 0x00000111;
+		CustomWaitUs(DpRxSsInst.DpPtr, 800);
+	}
+
+	misses = (XVidFrameCrc_ReadReg(VIDEO_CRC_BASEADDR,
+			VIDEO_FRAME_CRC_MISSES)) & 0x00000FFF;
+
 	
 	/* Read computed values from Frame CRC
 	 * module and MISC0 for colorimetry */
@@ -1811,22 +1845,48 @@ void CalculateCRC(void)
 
 	/* Write CRC values to DPCD TEST CRC space */
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
-		     (VidFrameCRC.Mode_422 == 0x1) ? 0 : VidFrameCRC.Pixel_r);
+					VidFrameCRC.Pixel_r);
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
-		     (VidFrameCRC.Mode_422 == 0x1) ?
-		      VidFrameCRC.Pixel_b : VidFrameCRC.Pixel_g);
-	/* Check for 422 format and move CR/CB calculated CRC
-	 * to G component place as tester needs this way
-	 * */
+					VidFrameCRC.Pixel_g);
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
-		     (VidFrameCRC.Mode_422==0x1) ?
-		      VidFrameCRC.Pixel_r : VidFrameCRC.Pixel_b);
-	
+					VidFrameCRC.Pixel_b);
+
+
+	if (overflow == 0 && misses == 0) {
+    // Set CRC only when overflow is not there and no b2b CRC mismatch
 	VidFrameCRC.TEST_CRC_CNT = 1;
+	} else {
+		//not setting CRC available bit
+		// for overflow CRC forced to 0x0
+		//for b2b miss CRC forced to 0x1
+		// helps in identifying at TX report
+		if (overflow) {
+			overflow_count++;
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
+					 0x0);
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
+					0x0);
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
+					0x0);
+
+		}
+		if (misses) {
+			missed_count++;
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
+				     0x1);
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
+					0x1);
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
+					0x1);
+		}
+	VidFrameCRC.TEST_CRC_CNT = 0;
+
+	}
+
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_CONFIG,
-		     (VidFrameCRC.TEST_CRC_SUPPORTED << 5 |
-		      VidFrameCRC.TEST_CRC_CNT));
-	
+			 (VidFrameCRC.TEST_CRC_SUPPORTED << 5 |
+			  VidFrameCRC.TEST_CRC_CNT));
+
 	xil_printf("[Video CRC] R/Cr: 0x%x, G/Y: 0x%x, B/Cb: 0x%x\r\n\n",
 		   VidFrameCRC.Pixel_r, VidFrameCRC.Pixel_g,
 		   VidFrameCRC.Pixel_b);

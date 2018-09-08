@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -451,6 +449,8 @@ void XDpTxSs_SetUserPixelWidth(XDpTxSs *InstancePtr, u8 UserPixelWidth,
 
 #if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 /* Optional HDCP related functions */
+u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr);
+u32 XDpTxSs_IsAuthenticated(XDpTxSs *InstancePtr);
 u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr);
 u32 XDpTxSs_HdcpDisable(XDpTxSs *InstancePtr);
 int XDpTxSs_HdcpSetCapability(XDpTxSs *InstancePtr,
@@ -464,8 +464,6 @@ u32 XDpTxSs_DisableEncryption(XDpTxSs *InstancePtr, u64 StreamMap);
 #if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 u32 XDpTxSs_Poll(XDpTxSs *InstancePtr);
 u32 XDpTxSs_IsHdcpCapable(XDpTxSs *InstancePtr);
-u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr);
-u32 XDpTxSs_IsAuthenticated(XDpTxSs *InstancePtr);
 u64 XDpTxSs_GetEncryption(XDpTxSs *InstancePtr);
 u32 XDpTxSs_SetPhysicalState(XDpTxSs *InstancePtr, u32 PhyState);
 u32 XDpTxSs_SetLane(XDpTxSs *InstancePtr, u32 Lane);
@@ -561,6 +559,24 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr);
  ******************************************************************************/
 #define XDpTxSs_Mst_AudioDisable(InstancePtr) \
         XDp_TxAudioDis((InstancePtr)->DpPtr)
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro sends audio infoframe packets on the main link.
+ *
+ * @param        InstancePtr is a pointer to the XDpTxSs core instance.
+ * @param		xilInfoFrame is a pointer to the InfoFrame buffer.
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void XDpTxSs_SendAudioInfoFrame(XDpTxSs *InstancePtr,
+ *               			XDp_TxAudioInfoFrame *xilInfoFrame)
+ *
+ ******************************************************************************/
+#define XDpTxSs_SendAudioInfoFrame(InstancePtr, xilInfoFrame) \
+	XDp_TxSendAudioInfoFrame((InstancePtr)->DpPtr, xilInfoFrame)
 
 #ifdef __cplusplus
 }

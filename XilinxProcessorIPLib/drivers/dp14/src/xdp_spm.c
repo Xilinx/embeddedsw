@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -1192,7 +1190,7 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 	 * RB2 Video bandwidth : Set Line Reset Disable for Load >95%*/
 	RegVal = XDp_ReadReg(BaseAddr, XDP_RX_LINE_RESET_DISABLE);
 	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-		if((StreamLoad>80) && (HBlank == 80)) {
+		if ((StreamLoad > 80) || (HBlank == 80) || (HBlank == 60)) {
 			RegVal |= XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
 		} else {
 			RegVal &= ~XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
@@ -1354,7 +1352,8 @@ static void XDp_TxSetLineReset(XDp *InstancePtr, u8 Stream,
 
 	/* CVT spec. states HBlank is either 80 or 160 for reduced blanking. */
 	RegVal = XDp_ReadReg(ConfigPtr->BaseAddr, XDP_TX_LINE_RESET_DISABLE);
-	if ((HBlank < HReducedBlank) && ((HBlank == 80) || (HBlank == 160))) {
+	if ((HBlank < HReducedBlank) &&
+			((HBlank == 60) || (HBlank == 80) || (HBlank == 160))) {
 		RegVal |= XDP_TX_LINE_RESET_DISABLE_MASK(Stream);
 	}
 	else {

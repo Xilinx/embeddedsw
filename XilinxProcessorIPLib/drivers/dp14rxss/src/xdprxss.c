@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -82,6 +80,7 @@ extern u32 MCDP6000_IC_Rev;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#define EDID_IIC_ADDRESS	0x50
 
 /**************************** Type Definitions *******************************/
 
@@ -440,32 +439,34 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 	InstancePtr->HdcpIsReady = FALSE;
 #endif
 
-	/*Set default HDCP protocol*/
 #if ((XPAR_DPRXSS_0_HDCP_ENABLE > 0) && (XPAR_XHDCP22_RX_NUM_INSTANCES > 0))
-	/* Setting HDCP22 as default if both HDCP1x and HDCP22 are
-	 * capable & enabled*/
+	/*
+	 * Set default HDCP protocol.
+	 * Setting HDCP1x as default if both HDCP1x
+	 * and HDCP22 are capable & enabled
+	 */
 
-	/* HDCP is ready when only the HDCP 2.2 core is
-	 * instantiated and the keys are loaded */
-	if (InstancePtr->Hdcp22Ptr &&
-			InstancePtr->Hdcp22Lc128Ptr &&
-			InstancePtr->Hdcp22PrivateKeyPtr) {
+	/*
+	 * HDCP is ready when only the HDCP 1.4 core is
+	 * instantiated and the keys are loaded
+	 */
+	if (InstancePtr->Hdcp1xPtr) {
 		InstancePtr->HdcpIsReady = TRUE;
 
 		/* Set default HDCP content protection scheme */
-		if (XDpRxSs_HdcpSetProtocol(InstancePtr, XDPRXSS_HDCP_22)
-				!= XST_SUCCESS)
-		{
+		if (XDpRxSs_HdcpSetProtocol(InstancePtr, XDPRXSS_HDCP_14)) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,
-				"DPRXSS ERR:: setting HDCP22 as default"
-				"protocol\n\r");
+					"DPRXSS ERR:: setting HDCP14 as default"
+					"protocol\n\r");
 			return XST_FAILURE;
 		}
 	}
 #elif (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
-	/*HDCP1x*/
-	/* HDCP is ready when only the HDCP 1.4 core is
-	 * instantiated and the key is loaded */
+	/*
+	 * HDCP1X.
+	 * HDCP is ready when only the HDCP 1.4 core is
+	 * instantiated and the key is loaded
+	 */
 	if (InstancePtr->Hdcp1xPtr) {
 		InstancePtr->HdcpIsReady = TRUE;
 
@@ -847,7 +848,7 @@ u32 XDpRxSs_HdcpEnable(XDpRxSs *InstancePtr)
 
 	/* Verify arguments.*/
 	Xil_AssertNonvoid(InstancePtr);
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
 #endif
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
@@ -1219,61 +1220,6 @@ void XDpRxSs_SetDebugLogMsg(XDpRxSs *InstancePtr, XDpRxSs_LogMsg LogFunc)
 /*****************************************************************************/
 /**
 *
-* This function starts the Timer Counter in count down, interrupt mode.
-*
-* @param	InstancePtr is a pointer to the XDpRxSs core instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void XDpRxSs_StartTimer(XDpRxSs *InstancePtr)
-{
-	/* Verify arguments.*/
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->Config.HdcpEnable == 0x1);
-
-	/* Enable the specified options for Timer Counter zero */
-	XTmrCtr_SetOptions(InstancePtr->TmrCtrPtr, 0,
-		XTC_DOWN_COUNT_OPTION | XTC_INT_MODE_OPTION);
-
-	/* Set the reset value to Timer Counter zero */
-	XTmrCtr_SetResetValue(InstancePtr->TmrCtrPtr, 0,
-				XDPRXSS_TMRCTR_RST_VAL);
-
-	/* Start Timer Counter 0 in count down mode */
-	XTmrCtr_Start(InstancePtr->TmrCtrPtr, 0);
-}
-
-/*****************************************************************************/
-/**
-*
-* This function stops the Timer Counter.
-*
-* @param	InstancePtr is a pointer to the XDpRxSs core instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void XDpRxSs_StopTimer(XDpRxSs *InstancePtr)
-{
-	/* Verify arguments.*/
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->Config.HdcpEnable == 0x1);
-
-	/* Stop Timer Counter 0 in count down mode */
-	XTmrCtr_Stop(InstancePtr->TmrCtrPtr, 0);
-
-	/* Reset Timer Counter reset done */
-	InstancePtr->TmrCtrResetDone = 0;
-}
-
-/*****************************************************************************/
-/**
-*
 * This function informs the HDCP state machine that the downstream interfaces
 * of the Repeater are ready (enabled or authenticated).
 *
@@ -1304,6 +1250,59 @@ u32 XDpRxSs_DownstreamReady(XDpRxSs *InstancePtr)
 #if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || \
 	(XPAR_XHDCP22_RX_NUM_INSTANCES > 0)) \
 		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
+/*****************************************************************************/
+/**
+*
+* This function starts the Timer Counter in count down, interrupt mode.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpRxSs_StartTimer(XDpRxSs *InstancePtr)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr);
+
+	/* Enable the specified options for Timer Counter zero */
+	XTmrCtr_SetOptions(InstancePtr->TmrCtrPtr, 0,
+		XTC_DOWN_COUNT_OPTION | XTC_INT_MODE_OPTION);
+
+	/* Set the reset value to Timer Counter zero */
+	XTmrCtr_SetResetValue(InstancePtr->TmrCtrPtr, 0,
+				XDPRXSS_TMRCTR_RST_VAL);
+
+	/* Start Timer Counter 0 in count down mode */
+	XTmrCtr_Start(InstancePtr->TmrCtrPtr, 0);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function stops the Timer Counter.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpRxSs_StopTimer(XDpRxSs *InstancePtr)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr);
+
+	/* Stop Timer Counter 0 in count down mode */
+	XTmrCtr_Stop(InstancePtr->TmrCtrPtr, 0);
+
+	/* Reset Timer Counter reset done */
+	InstancePtr->TmrCtrResetDone = 0;
+}
+
 /*****************************************************************************/
 /**
 *
@@ -1686,14 +1685,16 @@ static void DpRxSs_PopulateDpRxPorts(XDpRxSs *InstancePtr)
 			StreamIndex < InstancePtr->Config.NumMstStreams;
 							StreamIndex++) {
 			/* Set I2C maps. */
-			if (InstancePtr->EdidSize == 0)
-                                XDp_RxSetIicMapEntry(InstancePtr->DpPtr,
-                                        StreamIndex + 1, 0x50, 128, GenEdid);
-                        else
-                                XDp_RxSetIicMapEntry(InstancePtr->DpPtr,
-                                        StreamIndex + 1, 0x50,
-                                        InstancePtr->EdidSize,
-                                        InstancePtr->EdidDataPtr);
+			if (!InstancePtr->EdidSize[StreamIndex]) {
+				XDp_RxSetIicMapEntry(InstancePtr->DpPtr,
+					StreamIndex + 1, EDID_IIC_ADDRESS,
+					sizeof(GenEdid), GenEdid);
+			} else {
+				XDp_RxSetIicMapEntry(InstancePtr->DpPtr,
+					StreamIndex + 1, EDID_IIC_ADDRESS,
+					InstancePtr->EdidSize[StreamIndex],
+					InstancePtr->EdidDataPtr[StreamIndex]);
+			}
 
 			/* Set DPCD maps. */
 			XDp_RxSetDpcdMap(InstancePtr->DpPtr, StreamIndex + 1,
@@ -1821,6 +1822,15 @@ static void StubTp2Callback(void *InstancePtr)
 	u8 Index;
 	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
 
+	/*Reset HDCP FIFOs*/
+	for(Index = 0; Index < 2; Index++) {
+		XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
+				XDP_RX_SOFT_RESET,
+				XDP_RX_SOFT_RESET_HDCP_MASK);
+		XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
+				XDP_RX_SOFT_RESET, 0);
+	}
+
 	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 		DpRxSsPtr->ltState = 2;
 		return;
@@ -1830,13 +1840,6 @@ static void StubTp2Callback(void *InstancePtr)
 	XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_TP2,
 			DpRxSsPtr->UsrOpt.LinkRate,
 				DpRxSsPtr->UsrOpt.LaneCount);
-	/*Reset HDCP FIFOs*/
-	for(Index = 0; Index < 2; Index++) {
-		XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
-			     XDP_RX_SOFT_RESET, 0x100);
-		XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
-			     XDP_RX_SOFT_RESET, 0x000);
-	}
 }
 
 /*****************************************************************************/
@@ -1878,6 +1881,10 @@ static void StubUnplugCallback(void *InstancePtr)
 					DpRxSsPtr->UsrOpt.LinkRate,
 					DpRxSsPtr->UsrOpt.LaneCount);
 	}
+
+	XDpRxSs_MCDP6000_ModifyRegister(DpRxSsPtr->IicPtr->BaseAddress,
+			XDPRXSS_MCDP6000_IIC_SLAVE, 0x0A00,
+			0x55000000, 0x55000000);
 
 	/* Disable unplug interrupt so that no unplug event when RX is
 	 * disconnected

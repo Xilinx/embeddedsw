@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /*****************************************************************************/
@@ -225,7 +223,7 @@
 /* Some Monitors require audio to be started after some delay
  * This param adds a delay to start the audio
  */
-#define AUD_START_DELAY 200000
+#define AUD_START_DELAY 500000
 
 /* VPHY Specific Defines
  */
@@ -280,20 +278,6 @@ typedef struct
         unsigned char link_rate;
 } lane_link_rate_struct;
 
-typedef struct
-{
-        u8 type;
-        u8 version;
-        u8 length;
-        u8 audio_coding_type;
-        u8 audio_channel_count;
-        u8 sampling_frequency;
-        u8 sample_size;
-        u8 level_shift;
-        u8 downmix_inhibit;
-        u8 channel_allocation;
-        u16 info_length;
-} XilAudioInfoFrame;
 /************************** Function Prototypes ******************************/
 
 u32 DpSs_Main();
@@ -326,28 +310,21 @@ void Dplb_Main(void);
 char xil_getc(u32 timeout_ms);
 void power_down_HLSIPs(void);
 void power_up_HLSIPs(void);
-//void remap_start(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+
 void remap_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 void remap_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 int IDT_8T49N24x_Configure(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 
 void operationMenu(void);
-//void frameBuffer_start_wr(XVidC_VideoMode VmId,
-//		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 
 void frameBuffer_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
-
-//void frameBuffer_start(XVidC_VideoMode VmId,
-//		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
-
-//void frameBuffer_start_rd(XVidC_VideoMode VmId,
-//		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 
 void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 
 
 u32 xil_gethex(u8 num_chars);
-void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
+
+//void sendAudioInfoFrame(XDp_TxAudioInfoFrame *xilInfoFrame);
 /************************** Variable Definitions *****************************/
 
 //XDpRxSs DpRxSsInst; 	/* The DPRX Subsystem instance.*/
@@ -366,19 +343,12 @@ u64 XVFRMBUFWR_BUFFER_BASEADDR;
 u64 XVFRMBUFRD_BUFFER_BASEADDR_Y;
 u64 XVFRMBUFWR_BUFFER_BASEADDR_Y;
 
-//u64 BUF1 =  0x10000000;
-//u64 BUF2 =  0x18000000;
-//u64 BUF3 =  0x20000000;
-//u64 BUF4 =  0x28000000;
-
-
 XV_axi4s_remap_Config   *rx_remap_Config;
 XV_axi4s_remap          rx_remap;
 XV_axi4s_remap_Config   *tx_remap_Config;
 XV_axi4s_remap          tx_remap;
 
-
-XilAudioInfoFrame *xilInfoFrame;
+XDp_TxAudioInfoFrame *xilInfoFrame;
 XIicPs_Config *XIic0Ps_ConfigPtr;
 XIicPs_Config *XIic1Ps_ConfigPtr;
 

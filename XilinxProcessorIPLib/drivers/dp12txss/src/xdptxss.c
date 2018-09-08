@@ -27,7 +27,7 @@
 /**
 *
 * @file xdptxss.c
-* @addtogroup dptxss_v5_1
+* @addtogroup dptxss_v5_0
 * @{
 *
 * This is the main file for Xilinx DisplayPort Transmitter Subsystem driver.
@@ -806,8 +806,7 @@ u32 XDpTxSs_SetLinkRate(XDpTxSs *InstancePtr, u8 LinkRate)
 	/* Verify arguments. */
 	Xil_AssertNonvoid((LinkRate == XDPTXSS_LINK_BW_SET_162GBPS) ||
 			(LinkRate == XDPTXSS_LINK_BW_SET_270GBPS) ||
-			(LinkRate == XDPTXSS_LINK_BW_SET_540GBPS) ||
-			(LinkRate == XDPTXSS_LINK_BW_SET_810GBPS));
+			(LinkRate == XDPTXSS_LINK_BW_SET_540GBPS));
 
 
 	/* Set link rate */

@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -462,7 +460,11 @@ typedef enum {
 	XDP_RX_HANDLER_HDCP22_SKE_SEND_EKS,
 	XDP_RX_HANDLER_HDCP22_HPRIME_READ_DONE,
 	XDP_RX_HANDLER_HDCP22_PAIRING_READ_DONE,
+	XDP_RX_HANDLER_HDCP22_STREAM_TYPE,
 #endif
+	XDP_RX_HANDLER_VBLANK_STREAM_2,
+	XDP_RX_HANDLER_VBLANK_STREAM_3,
+	XDP_RX_HANDLER_VBLANK_STREAM_4,
 	XDP_RX_NUM_HANDLERS
 } Dp_Rx_HandlerType;
 
@@ -702,6 +704,24 @@ typedef struct {
 						point to the sinks in the
 						NodeTable. */
 } XDp_TxTopology;
+
+/**
+ * This typedef describes Audio InfoFrame packet.
+ */
+typedef struct
+{
+	u16 info_length;
+	u8 type;
+	u8 version;
+	u8 length;
+	u8 audio_coding_type;
+	u8 audio_channel_count;
+	u8 sampling_frequency;
+	u8 sample_size;
+	u8 level_shift;
+	u8 downmix_inhibit;
+	u8 channel_allocation;
+} XDp_TxAudioInfoFrame;
 
 /**
  * This typedef describes a port that is connected to a DisplayPort branch
@@ -1000,13 +1020,16 @@ typedef struct {
 	void *IntrNoVideoCallbackRef;		/**< A pointer to the user data
 							passed to the no video
 							callback function. */
-	XDp_IntrHandler IntrVBlankHandler;	/**< Callback function for
-							vertical blanking
-							interrupts. */
-	void *IntrVBlankCallbackRef;		/**< A pointer to the user data
-							passed to the vertical
-							blanking callback
-							function. */
+	XDp_IntrHandler IntrVBlankHandler[XDP_RX_STREAM_ID4];	/**< Array of
+							callback functions
+							for vertical blanking
+							interrupts for all
+							streams*/
+	void *IntrVBlankCallbackRef[XDP_RX_STREAM_ID4];	/**< An array of pointer
+							  to the user data
+							  passed to the vertical
+							  blanking callback
+							  functions. */
 	XDp_IntrHandler IntrTrainingLostHandler;/**< Callback function for
 							training lost
 							interrupts. */
@@ -1227,6 +1250,15 @@ typedef struct {
 							  the HDCP22
 							  PairingReadDone
 							  callback function. */
+	XDp_IntrHandler IntrHdcp22StreamTypeWrHandler;	/**< Callback function
+							  for HDCP22 stream
+							  Type write
+							  interrupts. */
+	void *IntrHdcp22StreamTypeWrCallbackRef;	/**< A pointer to the
+							  user data passed to
+							  the HDCP22
+							  stream Type write
+							  callback function. */
 #endif
 
 	XDp_IntrHandler IntrUnplugHandler;	/**< Callback function for
@@ -1416,6 +1448,8 @@ u32 XDp_TxMstEnable(XDp *InstancePtr);
 u32 XDp_TxMstDisable(XDp *InstancePtr);
 void XDp_TxAudioDis(XDp *InstancePtr);
 void XDp_Tx_Mst_AudioEn(XDp *InstancePtr, u8 StreamId);
+void XDp_TxSendAudioInfoFrame(XDp *InstancePtr,
+		XDp_TxAudioInfoFrame *xilInfoFrame);
 
 /* xdp_mst.c: Multi-stream transport (MST) functions for enabling or disabling
  * MST streams and selecting their associated target sinks. */
