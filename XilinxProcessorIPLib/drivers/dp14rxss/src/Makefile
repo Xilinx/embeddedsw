@@ -1,3 +1,4 @@
+DRIVER_LIB_VERSION = 1.0
 COMPILER=
 ARCHIVER=
 CP=cp
@@ -8,33 +9,57 @@ LIB=libxil.a
 CC_FLAGS = $(COMPILER_FLAGS)
 ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
-RELEASEDIR=../../../lib
-INCLUDEDIR=../../../include
-INCLUDES=-I./. -I${INCLUDEDIR}
+RELEASEDIR=../../../lib/
+INCLUDEDIR=../../../include/
+INCLUDES=-I./. -I$(INCLUDEDIR)
 
-OUTS = *.o
+INCLUDEFILES:=$(wildcard *.h) $(wildcard ./dp/*.h) $(wildcard ./iic/*.h) $(wildcard ./hdcp1x/*.h) $(wildcard ./hdcp22/*.h)
 
-INCLUDEFILES=$(wildcard *.h) ./dp/*.h ./iic/*.h ./hdcp1x/*.h ./hdcp22/*.h
-LIBSOURCES=$(wildcard *.c) ./dp/*.c ./iic/*.c ./hdcp1x/*.c ./hdcp22/*.c
+SRCFILES:=$(wildcard *.c) $(notdir $(wildcard ./dp/*.c)) $(notdir $(wildcard ./iic/*.c)) $(notdir $(wildcard ./hdcp1x/*.c)) $(notdir $(wildcard ./hdcp22/*.c))
 
-OBJECTS = $(addsuffix .o, $(basename ./dp/xdprxss_dprx.c ./iic/xdprxss_iic.c ./hdcp1x/xdprxss_hdcp1x.c ./hdcp22/xdprxss_hdcp22.c $(wildcard *.c)))
+OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c)) $(basename $(notdir $(wildcard ./dp/*.c))) $(basename $(notdir $(wildcard ./iic/*.c))) $(basename $(notdir $(wildcard ./hdcp1x/*.c))) $(basename $(notdir $(wildcard ./hdcp22/*.c)))))
 
-libs: banner xdprxss_libs clean
+libs: $(OBJECTS)
 
-%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
+DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
 
-banner:
-	echo "Compiling DisplayPort Receiver Subsystem"
+include $(wildcard $(DEPFILES))
 
-xdprxss_libs: ${OBJECTS}
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+include $(wildcard ../../../../dep.mk)
+
+$(RELEASEDIR)%.o: ./dp/%.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $< -o $@
+
+$(RELEASEDIR)%.o: ./iic/%.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $< -o $@
+
+$(RELEASEDIR)%.o: ./hdcp1x/%.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $< -o $@
+
+$(RELEASEDIR)%.o: ./hdcp22/%.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $< -o $@
+
+$(RELEASEDIR)%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $< -o $@
 
 .PHONY: include
-include: xdprxss_includes
+include: $(addprefix $(INCLUDEDIR),$(wildcard *.h)) $(addprefix $(INCLUDEDIR), $(subst dp/,,$(wildcard dp/*.h))) $(addprefix $(INCLUDEDIR), $(subst iic/,,$(wildcard iic/*.h))) $(addprefix $(INCLUDEDIR), $(subst hdcp1x/,,$(wildcard hdcp1x/*.h))) $(addprefix $(INCLUDEDIR), $(subst hdcp22/,,$(wildcard hdcp22/*.h)))
 
-xdprxss_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+$(INCLUDEDIR)%.h: dp/%.h
+	$(CP) $< $@
+
+$(INCLUDEDIR)%.h: iic/%.h
+	$(CP) $< $@
+
+$(INCLUDEDIR)%.h: hdcp1x/%.h
+	$(CP) $< $@
+
+$(INCLUDEDIR)%.h: hdcp22/%.h
+	$(CP) $< $@
+
+$(INCLUDEDIR)%.h: %.h
+	$(CP) $< $@
 
 clean:
 	rm -rf ${OBJECTS}
+	rm -rf $(DEPFILES)
