@@ -64,6 +64,7 @@
 #include <xvphy_dp.h>
 #include <xvphy_hw.h>
 #include "sleep.h"
+#include <xil_cache.h>
 
 #include "xvidframe_crc.h"
 
@@ -105,7 +106,8 @@
 	XPAR_FABRIC_DP14TXSS_0_VEC_ID
 
 #define XINTC_DPRXSS_DP_INTERRUPT_ID \
-    XPAR_FABRIC_DPRXSS_0_VEC_ID
+    XPAR_FABRIC_DP14RXSS_0_VEC_ID
+
 #define XINTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define XINTC                    XScuGic
 #define XINTC_HANDLER            XScuGic_InterruptHandler
@@ -138,8 +140,6 @@
 			XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQ_HZ
 /* DP Specific Defines
  */
-#define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_540GBPS
-#define DPRXSS_LANE_COUNT        XDPRXSS_LANE_COUNT_SET_4
 #define SET_TX_TO_2BYTE            \
     (XPAR_XDP_0_GT_DATAWIDTH/2)
 #define SET_RX_TO_2BYTE            \
@@ -193,6 +193,11 @@
  */
 #define DP_BS_IDLE_TIMEOUT      (0x047868C0*PHY_COMP)+(0x0091FFFF*!PHY_COMP)
 #define VBLANK_WAIT_COUNT       (20+(180*PHY_COMP))
+//Wait for Following number of infoframes before asserting info
+//frame captured
+#define AUD_INFO_COUNT          20
+//Set this to start the audio only after receiving infoframes
+#define WAIT_ON_AUD_INFO          1
 
 /*For compliance, please set AUX_DEFER_COUNT to be 8
  * (Only for ZCU102-ARM R5 based Rx system).
@@ -216,6 +221,11 @@
  * Set to 0 to bypass I2S and route the Audio internally
   */
 #define I2S_AUDIO 0
+
+/* Some Monitors require audio to be started after some delay
+ * This param adds a delay to start the audio
+ */
+#define AUD_START_DELAY 200000
 
 /* VPHY Specific Defines
  */
@@ -322,14 +332,18 @@ void remap_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 int IDT_8T49N24x_Configure(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 
 void operationMenu(void);
-void frameBuffer_start_wr(XVidC_VideoMode VmId,
-		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+//void frameBuffer_start_wr(XVidC_VideoMode VmId,
+//		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+
+void frameBuffer_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 
 //void frameBuffer_start(XVidC_VideoMode VmId,
 //		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 
-void frameBuffer_start_rd(XVidC_VideoMode VmId,
-		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+//void frameBuffer_start_rd(XVidC_VideoMode VmId,
+//		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+
+void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 
 
 u32 xil_gethex(u8 num_chars);
@@ -348,6 +362,10 @@ XV_FrmbufRd_l2     frmbufrd;
 XV_FrmbufWr_l2     frmbufwr;
 u64 XVFRMBUFRD_BUFFER_BASEADDR;
 u64 XVFRMBUFWR_BUFFER_BASEADDR;
+
+u64 XVFRMBUFRD_BUFFER_BASEADDR_Y;
+u64 XVFRMBUFWR_BUFFER_BASEADDR_Y;
+
 //u64 BUF1 =  0x10000000;
 //u64 BUF2 =  0x18000000;
 //u64 BUF3 =  0x20000000;

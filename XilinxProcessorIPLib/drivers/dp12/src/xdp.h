@@ -424,7 +424,6 @@ typedef enum {
 	XDP_RX_HANDLER_TP1,
 	XDP_RX_HANDLER_TP2,
 	XDP_RX_HANDLER_TP3,
-	XDP_RX_HANDLER_TP4,
 	XDP_RX_HANDLER_DOWNREQ,
 	XDP_RX_HANDLER_DOWNREPLY,
 	XDP_RX_HANDLER_AUD_PKTOVERFLOW,
@@ -438,9 +437,6 @@ typedef enum {
 	XDP_RX_HANDLER_HDCP_RO,
 	XDP_RX_HANDLER_HDCP_BINFO,
 	XDP_RX_HANDLER_UNPLUG,
-	XDP_RX_HANDLER_ACCESS_LANE_SET,
-	XDP_RX_HANDLER_ACCESS_LINK_QUAL,
-	XDP_RX_HANDLER_ACCESS_ERR_COUNTER,
 	XDP_RX_HANDLER_DRV_PWRSTATE,
 	XDP_RX_HANDLER_DRV_NOVIDEO,
 	XDP_RX_HANDLER_DRV_VIDEO,
@@ -496,7 +492,7 @@ typedef struct {
 					by this core instance. */
 	u8 DpProtocol;		/**< The DisplayPort protocol version that this
 					core instance is configured for.
-					0 = v1.1a, 1 = v1.2, 2 = v1.4. */
+					0 = v1.1a, 1 = v1.2. */
 	u8 IsRx;		/**< The type of DisplayPort core.
 					0 = TX, 1 = RX. */
 } XDp_Config;
@@ -857,8 +853,6 @@ typedef struct {
 	u8 TrainAdaptive;			/**< Downshift lane count and
 							link rate if necessary
 							during training. */
-	u8 IsTps4Supported;		/**< Is TPS4 supported by the
-							downstream sink */
 	XDp_TxSinkConfig RxConfig;		/**< Configuration structure for
 							the RX device. */
 	XDp_TxLinkConfig LinkConfig;		/**< Configuration structure for
@@ -1046,15 +1040,6 @@ typedef struct {
 							passed to the training
 							pattern 3 callback
 							function. */
-	/* Interrupt callback(s) defined for DP 1.4 */
-	XDp_IntrHandler IntrTp4Handler;		/**< Callback function for
-							training pattern 4
-							interrupts. */
-	void *IntrTp4CallbackRef;		/**< A pointer to the user data
-							passed to the training
-							pattern 4 callback
-							function. */
-	/* End of definitions for DP 1.4 interrupt callback(s) */
 	XDp_IntrHandler IntrDownReqHandler;	/**< Callback function for down
 							request interrupts. */
 	void *IntrDownReqCallbackRef;		/**< A pointer to the user data
@@ -1160,28 +1145,6 @@ typedef struct {
 	void *IntrDrvVideoCallbackRef;		/**< A pointer to the user data
 						  passed to the video
 						  drv function */
-	/* Interrupt callback(s) defined for DP 1.4 */
-	XDp_IntrHandler IntrAccessLaneSetHandler; /**< Callback function for
-						  access lane set
-						  interrupts. */
-	void *IntrAccessLaneSetCallbackRef; 	  /**< A pointer to the user
-						  data passed to the access
-						  lane set callback */
-	XDp_IntrHandler IntrAccessLinkQualHandler; /**< Callback function for
-						   access link qual
-						   interrupts. */
-	void *IntrAccessLinkQualCallbackRef; 	   /**< A pointer to the user
-						   data passed to the access
-						   lane set callback
-						   function. */
-	XDp_IntrHandler IntrAccessErrorCounterHandler;  /**< Callback function
-							for access error counter
-							interrupts. */
-	void *IntrAccessErrorCounterCallbackRef;    /**< A pointer to the user
-						    data passed to the access
-						    lane set callback
-						    function. */
-	/* End of definitions for DP 1.4 interrupt callback(s) */
 } XDp_Rx;
 
 /**
@@ -1216,8 +1179,6 @@ void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
 							UINTPTR EffectiveAddr);
 u32 XDp_Initialize(XDp *InstancePtr);
 u32 XDp_TxGetRxCapabilities(XDp *InstancePtr);
-/* Defined for DP 1.4 */
-u32 XDp_TxTp4Capable(XDp *InstancePtr);
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
 /* xdp.c: TX link policy maker functions. */
@@ -1278,8 +1239,6 @@ u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate);
 void XDp_RxAudioEn(XDp *InstancePtr);
 void XDp_RxAudioDis(XDp *InstancePtr);
 void XDp_RxAudioReset(XDp *InstancePtr);
-void XDp_RxVSCEn(XDp *InstancePtr);
-void XDp_RxVSCDis(XDp *InstancePtr);
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 #if XPAR_XDPTXSS_NUM_INSTANCES

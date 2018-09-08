@@ -116,6 +116,7 @@ static void tx_main_loop(void);
 int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time);
 void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern);
 void ReportVideoCRC(void);
+void mask_intr(void);
 
 void bpc_help_menu(int DPTXSS_BPC_int);
 void sub_help_menu(void);
@@ -126,6 +127,10 @@ void format_help_menu(void);
 void operationMenu(void);
 char inbyte_local(void);
 extern u8 tx_after_rx;
+extern u8 tx_done;
+extern u8 i2s_started;
+u8 linkrate_tx_run;
+u8 lanecount_tx_run;
 
 /************************** Variable Definitions *****************************/
 #define DPCD_TEST_CRC_R_Cr   0x240
@@ -353,6 +358,8 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 	}
 	else
 	{
+		tx_done = 0;
+		i2s_started = 0;
         xil_printf ("TX Cable Disconnected !!\r\n");
 		//DpTxSs_DisableAudio
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
@@ -453,13 +460,15 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 			&& bw_set != XDP_TX_LINK_BW_SET_540GBPS
 			&& bw_set != XDP_TX_LINK_BW_SET_810GBPS
 			){
-		bw_set = InstancePtr->DpPtr->Config.MaxLinkRate;
+		//Not all MOnitors are capable of 1E
+		bw_set = linkrate_tx_run;
 		retrain_link = 1;
 	}
 	if(lane_set != XDP_TX_LANE_COUNT_SET_1
 			&& lane_set != XDP_TX_LANE_COUNT_SET_2
 			&& lane_set != XDP_TX_LANE_COUNT_SET_4){
-		lane_set = InstancePtr->DpPtr->Config.MaxLaneCount;
+		//Not all links are trained at 4
+		lane_set = lanecount_tx_run;
 		retrain_link = 1;
 	}
 
@@ -511,6 +520,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 		XDpTxSs_SetLaneCount(&DpTxSsInst, lane_set);
 //		XDpTxSs_Start(&DpTxSsInst);
 		DpTxSubsystem_Start(&DpTxSsInst, Msa);
+		i2s_started = 0;
 	}
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK, 0x0);
@@ -760,6 +770,8 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 
 
 	u32 Status;
+	lanecount_tx_run = lane_count;
+	linkrate_tx_run = line_rate;
 	//Disabling TX interrupts
     tx_started = 0;
 
@@ -784,6 +796,9 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	XDpTxSs_SetLaneCount(&DpTxSsInst, lane_count);
 	xil_printf (".");
 
+	// SetVidMode and SetBPC are not required in PassThrough
+	// In Passthrough these values are captured when
+	// DpTxSubsystem_Start is called with Msa values
 	if (res_table !=0) {
 		Status = XDpTxSs_SetVidMode(&DpTxSsInst, res_table);
 		if (Status != XST_SUCCESS) {
@@ -808,6 +823,10 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	// VTC requires linkup(video clk) before setting values.
 	// This is why we need to linkup once to get proper CLK on VTC.
 	Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
+			"DP SS Start setup failed!\n\r");
+	}
 
 	xil_printf (".");
 	//updates required timing values in Video Pattern Generator
@@ -828,20 +847,17 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 		DpTxSsInst.UsrOpt.VtcAdjustBs);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
-				"VTC%d setup failed!\n\r", Index);
+				"VTC setup failed!\n\r");
 		}
 	}
 
-// No longer needed to start twice
-//	Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
-//	xil_printf (".");
-
-//	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 500000);
-	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 100000);
+//	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 100000);
 
 	Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
 	if (Status != (XST_SUCCESS)) {
 		xil_printf ("*");
+		XDpTxSs_SetLinkRate(&DpTxSsInst, line_rate);
+		XDpTxSs_SetLaneCount(&DpTxSsInst, lane_count);
 		Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
 		if (Status != XST_SUCCESS) {
 			xil_printf("ERR:DPTX SS start failed\r\n");
@@ -942,11 +958,11 @@ void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame)
 	u8 RSVD=0;
 	
 	//Fixed paramaters
-	u8  dp_version   = 0x11;
+	u8  dp_version   = xilInfoFrame->version;
 	
 	//Write #1
 	db1 = 0x00; //sec packet ID fixed to 0 - SST Mode
-	db2 = 0x80 + xilInfoFrame->type;
+	db2 = xilInfoFrame->type;
 	db3 = xilInfoFrame->info_length&0xFF;
 	db4 = (dp_version<<2)|(xilInfoFrame->info_length>>8);
 	temp = db4<<24|db3<<16|db2<<8|db1;
@@ -1373,3 +1389,23 @@ void sink_power_cycle(void){
 //	usleep(40000);
 }
 
+/*****************************************************************************/
+/**
+*
+* This function masks the TX interrupts
+*
+* @param	user_config_struct.
+*
+* @return	Status.
+*
+* @note		None.
+*
+******************************************************************************/
+
+
+void mask_intr (void) {
+
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+			XDP_TX_INTERRUPT_MASK, 0xFFF);
+
+}

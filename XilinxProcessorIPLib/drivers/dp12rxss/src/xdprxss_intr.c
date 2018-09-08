@@ -247,13 +247,9 @@ void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr)
        if (Rdata == PowerDownMode) {
                XDp_RxInterruptDisable(XDpRxSsPtr->DpPtr,
                                XDP_RX_INTERRUPT_MASK_UNPLUG_MASK);
-               if (XDpRxSsPtr->DpPtr->Config.DpProtocol != 
-						XDP_PROTOCOL_DP_1_4) {
-                       XDpRxSs_Dp159Config(XDpRxSsPtr->IicPtr,
-					   XDPRXSS_DP159_CT_UNPLUG,
-					   XDpRxSsPtr->UsrOpt.LinkRate,
-					   XDpRxSsPtr->UsrOpt.LaneCount);
-               }
+               XDpRxSs_Dp159Config(XDpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
+                               XDpRxSsPtr->UsrOpt.LinkRate,
+                               XDpRxSsPtr->UsrOpt.LaneCount);
        }
 }
 
@@ -485,44 +481,6 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			InstancePtr->PllResetRef = CallbackRef;
 			Status = XST_SUCCESS;
 			break;
-
-		/* DP 1.4 callback(s) */
-		case XDPRXSS_HANDLER_ACCESS_LANE_SET_EVENT:
-			if (InstancePtr->DpPtr->Config.DpProtocol ==
-			    XDP_PROTOCOL_DP_1_4) {
-				XDp_RxSetCallback(InstancePtr->DpPtr,
-					XDP_RX_HANDLER_ACCESS_LANE_SET,
-					CallbackFunc, CallbackRef);
-				Status = XST_SUCCESS;
-			} else {
-				Status = XST_FAILURE;
-			}
-			break;
-
-		case XDPRXSS_HANDLER_ACCESS_LINK_QUAL_EVENT:
-			if (InstancePtr->DpPtr->Config.DpProtocol ==
-			    XDP_PROTOCOL_DP_1_4) {
-				XDp_RxSetCallback(InstancePtr->DpPtr,
-					XDP_RX_HANDLER_ACCESS_LINK_QUAL,
-					CallbackFunc, CallbackRef);
-				Status = XST_SUCCESS;
-			} else {
-				Status = XST_FAILURE;
-			}
-			break;
-
-		case XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT:
-			if (InstancePtr->DpPtr->Config.DpProtocol ==
-			    XDP_PROTOCOL_DP_1_4) {
-				XDp_RxSetCallback(InstancePtr->DpPtr,
-					XDP_RX_HANDLER_ACCESS_ERR_COUNTER,
-					CallbackFunc, CallbackRef);
-				Status = XST_SUCCESS;
-			} else {
-				Status = XST_FAILURE;
-			}
-			break;
-		/* End of setting DP 1.4 callback(s) */
 
 		default:
 			Status = XST_INVALID_PARAM;

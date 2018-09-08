@@ -48,7 +48,8 @@ u16 DrpVal_lower_lane0=0;
 u16 DrpVal_lower_lane1=0;
 u16 DrpVal_lower_lane2=0;
 u16 DrpVal_lower_lane3=0;
-
+extern u8 tx_after_rx;
+//extern u8 audio_info_avail;
 
 /*****************************************************************************/
 /**
@@ -182,6 +183,8 @@ u32 DpRxSs_SetupIntrSystem(void)
 			    &DpRxSs_PowerChangeHandler, &DpRxSsInst);
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_NO_VID_EVENT,
 			    &DpRxSs_NoVideoHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_VM_CHG_EVENT,
+			    &DpRxSs_VmChangeHandler, &DpRxSsInst);
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_VBLANK_EVENT,
 			    &DpRxSs_VerticalBlankHandler, &DpRxSsInst);
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_TLOST_EVENT,
@@ -239,6 +242,25 @@ void DpRxSs_PowerChangeHandler(void *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* This function is the callback function for when a video mode change
+* interrupt occurs.
+*
+* @param    InstancePtr is a pointer to the XDpRxSs instance.
+*
+* @return    None.
+*
+* @note        None.
+*
+******************************************************************************/
+void DpRxSs_VmChangeHandler(void *InstancePtr)
+{
+//	tx_after_rx = 1;
+}
+
+
+/*****************************************************************************/
+/**
+*
 * This function is the callback function for when a no video interrupt occurs.
 *
 * @param    InstancePtr is a pointer to the XDpRxSs instance.
@@ -271,6 +293,7 @@ void DpRxSs_NoVideoHandler(void *InstancePtr)
 	AudioinfoFrame.frame_count=0;
 	XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
 			XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
+
 }
 
 /*****************************************************************************/
@@ -310,21 +333,28 @@ extern u8 start_i2s_clk;
 extern u8 i2s_tx_started;
 extern u8 rx_aud;
 extern u8 tx_after_rx;
+extern u8 tx_done;
+extern void mask_intr (void);
 
 void DpRxSs_TrainingLostHandler(void *InstancePtr)
 {
 	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 750);
 	XDpRxSs_AudioDisable(&DpRxSsInst);
-//	frameBuffer_stop_wr();
+	XDp_RxDtgDis(DpRxSsInst.DpPtr);
+	// mask the TX interrupts to avoid spurious HPDs
+	mask_intr();
 	DpRxSsInst.link_up_trigger = 0;
 	DpRxSsInst.VBlankCount = 0;
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x80);
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x0);
 	appx_fs_dup = 0;
+	tx_done = 0;
 	start_i2s_clk = 0;
 	i2s_tx_started = 0;
 	rx_aud = 0;
 	tx_after_rx = 0;
+//	audio_info_avail = 0;
+    AudioinfoFrame.frame_count = 0;
 	if (rx_trained == 1) {
 		xil_printf ("Training Lost !!\r\n");
 	}
@@ -395,13 +425,17 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
 {
 	/* Disable & Enable Audio */
 	rx_unplugged = 1;
-	appx_fs_dup = 0;
+//	appx_fs_dup = 0;
 //	XDpRxSs_AudioDisable(&DpRxSsInst);
-	AudioinfoFrame.frame_count = 0;
+//    audio_info_avail = 0;
+    AudioinfoFrame.frame_count = 0;
 	SdpExtFrame.Header[1] = 0;
 	SdpExtFrame_q.Header[1] = 0;
 	SdpExtFrame.frame_count = 0;
 	SdpExtFrame.frame_count = 0;
+
+	// mask the TX interrupts to avoid spurious HPDs
+	mask_intr();
 
 	/*Enable Training related interrupts*/
 	XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
@@ -970,6 +1004,7 @@ void DpRxSs_InfoPacketHandler(void *InstancePtr)
 
 			AudioinfoFrame.level_shift = (InfoFrame[3]>>3)&0xF;
 			AudioinfoFrame.downmix_inhibit = (InfoFrame[3]>>7)&0x1;
+
 }
 
 /*****************************************************************************/
