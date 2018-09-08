@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -261,6 +241,7 @@ XVphy VPhyInst;    /* The DPRX Subsystem instance.*/
 XTmrCtr TmrCtr; /* Timer instance.*/
 Video_CRC_Config VidFrameCRC; /* Video Frame CRC instance */
 DP_Rx_Training_Algo_Config RxTrainConfig;
+volatile u8 Vblank_mask_int_flag = 0;
 
 /************************** Function Definitions *****************************/
 
@@ -512,9 +493,11 @@ u32 DpRxSs_Main(u16 DeviceId)
 
             XDp_RxDtgDis(DpRxSsInst.DpPtr);
             XDp_RxDtgEn(DpRxSsInst.DpPtr);
-            XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
+            if(!Vblank_mask_int_flag)
+            {
+		XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
                                             XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
-
+            }
             /*
              * Disable & Enable Audio
              */
@@ -818,6 +801,7 @@ void DpRxSs_PowerChangeHandler(void *InstancePtr)
 void DpRxSs_NoVideoHandler(void *InstancePtr)
 {
     DpRxSsInst.VBlankCount = 0;
+    Vblank_mask_int_flag = 1;
     XDp_RxInterruptEnable(DpRxSsInst.DpPtr,XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
 
     XDp_RxDtgDis(DpRxSsInst.DpPtr);
@@ -849,6 +833,11 @@ void DpRxSs_NoVideoHandler(void *InstancePtr)
 void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 {
     DpRxSsInst.VBlankCount++;
+	if(DpRxSsInst.VBlankCount == 1)
+	{
+		Vblank_mask_int_flag = 0;
+	}
+
 }
 
 /*****************************************************************************/
@@ -866,6 +855,7 @@ void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_TrainingLostHandler(void *InstancePtr)
 {
+	Vblank_mask_int_flag = 0;
     XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 750);
     XDpRxSs_AudioDisable(&DpRxSsInst);
 }
@@ -918,6 +908,8 @@ void DpRxSs_TrainingDoneHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_UnplugHandler(void *InstancePtr)
 {
+	Vblank_mask_int_flag = 0;
+
     /*Enable Training related interrupts*/
     XDp_RxInterruptDisable(DpRxSsInst.DpPtr,XDP_RX_INTERRUPT_MASK_ALL_MASK);
     XDp_RxInterruptEnable(DpRxSsInst.DpPtr,

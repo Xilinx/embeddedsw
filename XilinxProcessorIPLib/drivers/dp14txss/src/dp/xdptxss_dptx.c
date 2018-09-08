@@ -15,12 +15,14 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
 *
-*
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -157,20 +159,6 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		InstancePtr->TxInstance.AuxDelayUs = 30000;
 		InstancePtr->TxInstance.SbMsgDelayUs = 30000;
 
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Discovering "
-				"topology.\n\r");
-		/* Get list of sinks */
-		Status = Dp_GetTopology(InstancePtr);
-		if (Status)
-			return Status;
-
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Topology "
-				"discovery done, # of sinks found = %d.\n\r",
-				InstancePtr->TxInstance.Topology.SinkTotal);
-
-		/* Total number of streams equal to number of sinks found */
-		NumOfStreams = InstancePtr->TxInstance.Topology.SinkTotal;
-
 		/* Enable downshifting during link training */
 		XDp_TxEnableTrainAdaptive(InstancePtr, 1);
 
@@ -195,12 +183,20 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 			}
 		}
 
-		Status = XDp_TxCheckLinkStatus(InstancePtr,
-				InstancePtr->TxInstance.LinkConfig.LaneCount);
-		if (Status == XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Link "
-					"is up !\n\r\n\r");
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Discovering "
+				"topology.\n\r");
+
+		/* Get list of sinks */
+		Status = Dp_GetTopology(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			return Status;
 		}
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Topology "
+			"discovery done, # of sinks found = %d.\n\r",
+			InstancePtr->TxInstance.Topology.SinkTotal);
+
+		/* Total number of streams equal to number of sinks found */
+		NumOfStreams = InstancePtr->TxInstance.Topology.SinkTotal;
 
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Reading (MST) Sink "
 			"EDID...\n\r");
@@ -256,6 +252,18 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		else if (VidMode != XVIDC_VM_CUSTOM) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Using "
 				"user set resolution.\n\r");
+
+			/* Check whether VidMode ID is supported */
+			Status = XVidC_EdidIsVideoTimingSupported(Edid,
+			(XVidC_VideoTimingMode *)XVidC_GetVideoModeData(
+				VidMode));
+			if (Status != XST_SUCCESS) {
+				xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:"
+				"MST:%s is not supported.\n\rSetting to "
+				"640x480 resolution."
+				"\n\r", XVidC_GetVideoModeStr(VidMode));
+				VidMode = XVIDC_VM_640x480_60_P;
+			}
 
 			if ((InstancePtr->TxInstance.Topology.SinkTotal ==
 				4) && (VidMode == XVIDC_VM_UHD2_60_P)){
@@ -591,6 +599,18 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 					0].UserPixelWidth = 4;
 			}
 		}
+		else {
+			/* Set user pixel width if video mode is 1920 x 2160 */
+			if ((InstancePtr->TxInstance.MsaConfig[
+				0].Vtm.Timing.HActive == 1920) &&
+				(InstancePtr->TxInstance.MsaConfig[
+					0].Vtm.Timing.VActive == 2160) &&
+				(InstancePtr->TxInstance.MsaConfig[
+					0].OverrideUserPixelWidth == 0)) {
+				InstancePtr->TxInstance.MsaConfig[
+					0].UserPixelWidth = 4;
+			}
+		}
 
 		 if((InstancePtr->TxInstance.MsaConfig[0].PixelClockHz <=
 		     75000000) &&
@@ -609,8 +629,7 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 		/* Reset the transmitter. */
 		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET,
-				XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK |
-				XDP_TX_SOFT_RESET_HDCP_MASK);
+				XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK);
 		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET,
 				0x0);
 	}
@@ -990,6 +1009,13 @@ static u32 Dp_GetTopology(XDp *InstancePtr)
 
 	if (NumStreams > InstancePtr->Config.NumMstStreams) {
 		NumStreams = InstancePtr->Config.NumMstStreams;
+	}
+
+	Status = XDp_TxCheckLinkStatus(InstancePtr,
+				InstancePtr->TxInstance.LinkConfig.LaneCount);
+	if (Status == XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Link "
+			"is up after topology discovery!\n\r\n\r");
 	}
 
 	return XST_SUCCESS;

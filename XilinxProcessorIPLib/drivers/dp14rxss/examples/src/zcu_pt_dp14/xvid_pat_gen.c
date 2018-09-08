@@ -15,12 +15,14 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+ * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  *
- *
+ * Except as contained in this notice, the name of the Xilinx shall not be used
+ * in advertising or otherwise to promote the sale, use or other dealings in
+ * this Software without prior written authorization from Xilinx.
  *
 *******************************************************************************/
 /*****************************************************************************/
@@ -351,11 +353,11 @@ void Vpg_Audio_start(void){
 
 	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		StreamOffset[0], AudioPatternCH1,0x0);
+		StreamOffset[0], AudioPatternCH1,0x2);
 
 	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		StreamOffset[0], AudioPatternCH2,0x0);
+		StreamOffset[0], AudioPatternCH2,0x2);
 
 	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
@@ -416,8 +418,6 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 
 	VmId = MsaConfig->Vtm.VmId;
 
-//	xil_printf ("MSA pixel width is %d\r\n",MsaConfig->UserPixelWidth);
-//	xil_printf ("MSA pixel clock is %d\r\n",MsaConfig->PixelClockHz);
 	ComputeMandD_vidGen(((MsaConfig->PixelClockHz / 1000) /
 			     MsaConfig->UserPixelWidth));
 
@@ -768,7 +768,7 @@ void ComputeMandD_vidGen(u32 VidFreq)
 	u32 DVal = 0;
 	u32 DivVal = 0;
 	u32 rdata=0;
-//    xil_printf ("Vid freq needed is %d\r\n",VidFreq);
+
 //	RefFreq = XPAR_CLK_WIZ_0_REF_CLK_FREQ * 1000;
 	RefFreq = 300000;
 	RefFreq = 100000;

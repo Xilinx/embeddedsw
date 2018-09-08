@@ -15,12 +15,14 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+ * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  *
- *
+ * Except as contained in this notice, the name of the Xilinx shall not be used
+ * in advertising or otherwise to promote the sale, use or other dealings in
+ * this Software without prior written authorization from Xilinx.
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -3159,11 +3161,10 @@ void DpPt_TxSetMsaValuesImmediate(void *InstancePtr)
 		     XDP_TX_MAIN_STREAM_VSTART + StreamOffsetAddr[0],
 		     XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 				 XDP_RX_MSA_VSTART));
-        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-                     XDP_TX_MAIN_STREAM_MISC0 + StreamOffset[0],
-                    ((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-                                        XDP_RX_MSA_MISC0)) & 0xFFFFFFFE));
-
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+		     XDP_TX_MAIN_STREAM_MISC0 + StreamOffsetAddr[0],
+		     XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+				 XDP_RX_MSA_MISC0));
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 		     XDP_TX_MAIN_STREAM_MISC1 + StreamOffsetAddr[0],
 		     XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,

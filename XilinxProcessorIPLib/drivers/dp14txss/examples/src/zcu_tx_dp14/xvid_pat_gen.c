@@ -15,12 +15,14 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
 *
-*
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -64,22 +66,6 @@ u8 StreamPattern_vpg[5] = {0x11, 0x13, 0x15, 0x16, 0x10};
 
 #define CLK_WIZ_BASE      				XPAR_CLK_WIZ_0_BASEADDR
 #define CLK_LOCK                        1
-
-//Following limits are for ZCU102 US+ device
-//User to refer to DS and Switching char and update for
-//their design
-#define VCO_MAX 1600000
-#define VCO_MIN 800000
-
-#define M_MAX 128
-#define M_MIN 2
-
-#define D_MAX 106
-#define D_MIN 1
-
-#define DIV_MAX 128
-#define DIV_MIN 1
-
 /************************** Constant Definitions *****************************/
 
 
@@ -430,7 +416,6 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 	XVidC_VideoMode VmId;
 
 	VmId = MsaConfig->Vtm.VmId;
-//	xil_printf ("pixel clock is %d\r\n",MsaConfig->PixelClockHz);
 
 	ComputeMandD(((MsaConfig->PixelClockHz/1000)/MsaConfig->UserPixelWidth) );
 
@@ -789,12 +774,12 @@ void ComputeMandD(u32 VidFreq){
 
 	RefFreq = 100000;
 
-	for (m = M_MIN; m <= M_MAX; m++) {
-		for (d = D_MIN; d <= D_MAX; d++) {
+	for (m = 20; m <= 64; m++) {
+		for (d = 1; d <= 80; d++) {
 			Fvco = RefFreq * m / d;
 
-			if ( Fvco >= VCO_MIN && Fvco <= VCO_MAX ) {
-				for (Div = DIV_MIN; Div <= DIV_MAX; Div++ ) {
+			if ( Fvco >= 600000 && Fvco <= 900000 ) {
+				for (Div = 1; Div <= 128; Div++ ) {
 					Freq = Fvco/Div;
 
 					if (Freq >= VidFreq) {

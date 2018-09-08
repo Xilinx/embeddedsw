@@ -1,28 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -609,6 +589,7 @@ int main(void)
      DPPtIntrInitialize();
 
 #if ENABLE_HDCP_IN_DESIGN
+    volatile u8 TmrCntrRstDone=0;
     u32 TxAuthAttempts = 0;
     u8 auxValues_org[9];
     XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x068028, 1, auxValues_org);
@@ -1653,7 +1634,8 @@ xil_printf ("+++++++ TX GT configuration encountered a failure +++++++\r\n");
 			   //Bogus interrupts typically when training is on or
 			   //  when cable is being unplugged
 #if ENABLE_HDCP_IN_DESIGN
-				if (prog_tx == 1 && DpRxSsInst.TmrCtrResetDone == 1 &&
+				TmrCntrRstDone = DpRxSsInst.TmrCtrResetDone;
+				if (prog_tx == 1 && TmrCntrRstDone == 1 &&
 						training_done == 1 && need_to_retrain_rx == 0)
 #else
 				if (prog_tx == 1 && training_done == 1
@@ -1723,7 +1705,7 @@ xil_printf ("+++++++ TX GT configuration encountered a failure +++++++\r\n");
 						}
 					} else {
 #if ENABLE_HDCP_IN_DESIGN
-						if(DpRxSsInst.TmrCtrResetDone == 1){
+						if(TmrCntrRstDone == 1){
 							prog_tx =0;
 						}
 #else
@@ -2481,7 +2463,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 						XDP_RX_MSA_VTOTAL));
 		GetResCount++;
 	}
-	XDp_RxSetLineReset(DpRxSsInst.DpPtr, 1);
+
 	Msa[0].Vtm.Timing.HTotal = DpHres_total;
 	Msa[0].Vtm.Timing.F0PVTotal = DpVres_total;
 	GetResCount = 0;
@@ -2546,6 +2528,8 @@ static void Dprx_DetectResolution(void *InstancePtr)
 		pixel = 0x1;
 		Msa[0].UserPixelWidth = 0x1;
 	}
+
+	XDp_RxSetLineReset(DpRxSsInst.DpPtr, 1);
 
 	rxMsamisc0 = ((XDp_ReadReg(
 		DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_MSA_MISC0) >> 5) & 0x00000007);
@@ -4555,34 +4539,27 @@ void prog_bb (u8 bw, u8 is_tx) {
 	// 0xA -> 135Mhz, 67.5Mhz
 	// 0x6 -> 81Mhz, 40.5Mhz
 
-	XVphy_MmcmReset(&VPhy_Instance, 0, XVPHY_DIR_TX, FALSE);
-	xil_printf ("^^^");
-	while (!((XVphy_ReadReg(VPhy_Instance.Config.BaseAddr, 0x120)) & 0x200)) {
-	}
-
 #if SET_TX_TO_2BYTE == 1
+	VPhy_Instance.Quads[0].TxMmcm.ClkFbOutFrac = 0;
+	VPhy_Instance.Quads[0].TxMmcm.ClkOut0Frac  = 0;
   if (is_tx == 1) { // TX only path using refclk0 of 135Mhz
 	if (bw == 0x14) { //270Mhz
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				(0x0 << 16 | 0x8 << 8 | 0x1));
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				(0x0 << 16 | 0x4));
+        VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 8;
+        VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+        VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 4;
 	} else if (bw == 0xA) { //135Mhz
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				(0x0 << 16 | 0x8 << 8 | 0x1));
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				(0x0 << 16 | 0x8));
+        VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 8;
+        VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+        VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 8;
 	} else { //81Mhz
 		if (is_TX_CPLL == 1) { // operates on 135Mhz refclk0
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-					(0x0 << 16 | 0x24 << 8 | 0x5));
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-					(0x0 << 16 | 0xC));
+            VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 36;
+            VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 5;
+            VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 12;
 		} else { // operating on QPLL with 162Mhz refclk0
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-					(0x0 << 16 | 0xC << 8 | 0x2));
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-					(0x0 << 16 | 0xC));
+            VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 12;
+            VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 2;
+            VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 12;
 		}
 	}
   } else { // TX is using CPLL but refclk1 of 270/135/81
@@ -4592,46 +4569,40 @@ void prog_bb (u8 bw, u8 is_tx) {
 		// 0xA -> 135Mhz, 67.5Mhz
 		// 0x6 -> 81Mhz, 40.5Mhz
 	if (bw == 0x14) { //270Mhz
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				(0x0 << 16 | 0x4 << 8 | 0x1));
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				(0x0 << 16 | 0x4));
+        VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 4;
+        VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+        VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 4;
 	} else if (bw == 0xA) { //135Mhz
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				(0x0 << 16 | 0x8 << 8 | 0x1));
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				(0x0 << 16 | 0x8));
+        VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 8;
+        VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+        VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 8;
 	} else { //81Mhz
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				(0x0 << 16 | 0xB << 8 | 0x1));
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				(0x0 << 16 | 0xB));
+        VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 11;
+        VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+        VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 11;
 	}
   }
 
 #else // for 4B the clocks to be genrated are half of 2B
       if (is_tx == 1) { // TX only path using refclk0 of 135Mhz
 		if (bw == 0x14) { //135Mhz
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-					(0x0 << 16 | 0x8 << 8 | 0x1));
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-					(0x0 << 16 | 0x8));
+            VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 8;
+            VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+            VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 8;
+
 		} else if (bw == 0xA) { //67.5Mhz
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-					(0x0 << 16 | 0x8 << 8 | 0x1));
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-					(0x0 << 16 | 0x10));
+            VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 8;
+            VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+            VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 16;
 		} else { //40.5Mhz
 			if (is_TX_CPLL == 1) { // operates on 135Mhz refclk0
-				XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-						(0x0 << 16 | 0x24 << 8 | 0x5));
-				XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-						(0x0 << 16 | 0x18));
+				VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 36;
+				VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 5;
+				VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 24;
 			} else { // operating on QPLL with 162Mhz refclk0
-				XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-						(0x0 << 16 | 0xC << 8 | 0x2));
-				XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-						(0x0 << 16 | 0x18));
+				VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 12;
+				VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 2;
+				VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 24;
 			}
 		}
       } else { // TX is using CPLL but refclk1 of 270/135/81
@@ -4641,34 +4612,28 @@ void prog_bb (u8 bw, u8 is_tx) {
 		// 0xA -> 135Mhz, 67.5Mhz
 		// 0x6 -> 81Mhz, 40.5Mhz
 		if (bw == 0x14) { //135Mhz
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-					(0x0 << 16 | 0x4 << 8 | 0x1));
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-					(0x0 << 16 | 0x8));
+			VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 4;
+			VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+			VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 8;
 		} else if (bw == 0xA) { //67.5Mhz
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-					(0x0 << 16 | 0x8 << 8 | 0x1));
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-					(0x0 << 16 | 0x10));
+			VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 8;
+			VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+			VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 16;
 		} else { //40.5Mhz
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-					(0x0 << 16 | 0xB << 8 | 0x1));
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-					(0x0 << 16 | 0x16));
+			VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 11;
+			VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+			VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 22;
 		}
       }
 #endif
 
-	XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x120, 0x1);
-		while (!((XVphy_ReadReg(VPhy_Instance.Config.BaseAddr, 0x120))
-																	& 0x100)) {
-		}
-		xil_printf ("*");
-		XVphy_MmcmReset(&VPhy_Instance, 0, XVPHY_DIR_TX, FALSE);
-		while (!((XVphy_ReadReg(VPhy_Instance.Config.BaseAddr, 0x120))
-																	& 0x200)) {
-        }
-		xil_printf ("^^^\r\n");
+    XVphy_MmcmStart(&VPhy_Instance, 0, XVPHY_DIR_TX);
+	xil_printf ("*");
+	while (!(XVphy_MmcmLocked(&VPhy_Instance, 0, XVPHY_DIR_TX))) {
+
+	}
+	xil_printf ("*~~~");
+	xil_printf("\r\n");
 #endif
 }
 

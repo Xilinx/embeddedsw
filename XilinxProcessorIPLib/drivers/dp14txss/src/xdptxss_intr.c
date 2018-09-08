@@ -15,12 +15,14 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
 *
-*
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -50,9 +52,6 @@
 * 5.0  tu  09/08/17 Added two interrupt handler that addresses driver's
 *                   internal callback function of application
 *                   DrvHpdEventHandler and DrvHpdPulseHandler
-* 5.0  jb  02/21/19 Added HDCP22 callback handles.
-* 					Made the Timer counter interrupt handler available
-* 					for both HDCP1x and 22.
 * </pre>
 *
 ******************************************************************************/
@@ -109,7 +108,7 @@ void XDpTxSs_DpIntrHandler(void *InstancePtr)
 	XDp_InterruptHandler(XDpTxSsPtr->DpPtr);
 }
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -137,9 +136,7 @@ void XDpTxSs_HdcpIntrHandler(void *InstancePtr)
 	/* HDCP Cipher interrupt handler */
 	XHdcp1x_CipherIntrHandler(XDpTxSsPtr->Hdcp1xPtr);
 }
-#endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -185,9 +182,6 @@ void XDpTxSs_TmrCtrIntrHandler(void *InstancePtr)
 void XDpTxSs_HpdEventProcess(void *InstancePtr)
 {
 	u32 Status = XST_SUCCESS;
-	u8 ext_cap = 0;
-	u8 ext_dpcd_rd = 0;
-	u8 Dpcd_ext [16];
 	XDpTxSs *XDpTxSsPtr = (XDpTxSs *)InstancePtr;
 
 	/* Verify arguments. */
@@ -195,78 +189,35 @@ void XDpTxSs_HpdEventProcess(void *InstancePtr)
 	Xil_AssertVoid(XDpTxSsPtr->IsReady == XIL_COMPONENT_IS_READY);
 	XDpTxSs_UsrHpdEventData *UsrHpdEventData = &XDpTxSsPtr->UsrHpdEventData;
 
-	if (XDp_TxIsConnected(XDpTxSsPtr->DpPtr)) {
-		/* From here is the requirement per DP spec */
-		Status = XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_DPCD_MAX_LINK_RATE, 1,
-				&UsrHpdEventData->MaxCapNew);
-		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_DPCD_MAX_LANE_COUNT, 1,
-				&UsrHpdEventData->MaxCapLanesNew);
-		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_DPCD_TRAIN_AUX_RD_INTERVAL, 1, &ext_cap);
+	// From here is the requirement per DP spec
+	Status = XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_MAX_LINK_RATE, 1,
+			&UsrHpdEventData->MaxCapNew);
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_MAX_LANE_COUNT, 1,
+			&UsrHpdEventData->MaxCapLanesNew);
 
-		if(ext_cap & 0x80) {
-			/* if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled */
-			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_EDID_DPCD_MAX_LINK_RATE, 1, &ext_cap);
-			if(ext_cap == XDP_DPCD_LINK_BW_SET_810GBPS){
-				UsrHpdEventData->MaxCapNew = 0x1E;
-			}
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_REV, 12,
+				UsrHpdEventData->Tmp);
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT, 6,
+				UsrHpdEventData->Tmp);
 
-			/* UCD400 required reading these extended registers */
-			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,XDP_DPCD_SINK_COUNT_ESI,
-					1, &ext_dpcd_rd);
-			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0,
-				1, &ext_dpcd_rd);
-			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_DPCD_SINK_LANE0_1_STATUS, 1, &ext_dpcd_rd);
-			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_DPCD_SINK_LANE2_3_STATUS, 1, &ext_dpcd_rd);
-			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_DPCD_SINK_ALIGN_STATUS_UPDATED_ESI,
-				1, &ext_dpcd_rd);
-			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_DPCD_SINK_STATUS_ESI, 1, &ext_dpcd_rd);
-			XDp_TxAuxRead(XDpTxSsPtr->DpPtr, 0x2200, 16, &Dpcd_ext);
 
-			if ((Dpcd_ext[5] & 0x1)) {
-				Status = XDp_TxAuxRead(XDpTxSsPtr->DpPtr, 0x0080,
-						16, &Dpcd_ext);
-			}
-		}
-
-		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_DPCD_REV, 12, UsrHpdEventData->Tmp);
-		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_DPCD_SINK_COUNT, 6,	UsrHpdEventData->Tmp);
-		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_REV, 11,
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_REV, 11,
 				&UsrHpdEventData->Dpcd);
-		Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr,
-				UsrHpdEventData->EdidOrg, 0);
+	Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr,
+				     UsrHpdEventData->EdidOrg, 0);
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT, 1,
+				&UsrHpdEventData->Rd200);
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_STATUS_LANE_0_1, 1,
+			&UsrHpdEventData->Lane0Sts);
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_STATUS_LANE_2_3, 1,
+			&UsrHpdEventData->Lane2Sts);
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_MAX_LINK_RATE, 1,
+			&UsrHpdEventData->MaxCapNew);
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_MAX_LANE_COUNT, 1,
+			&UsrHpdEventData->MaxCapLanesNew);
 
-		if (UsrHpdEventData->EdidOrg[XDP_EDID_EXT_BLOCK_COUNT] > 0)
-                       Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr,
-                                                    UsrHpdEventData->EdidOrg_1,
-                                                    1);
-		if (UsrHpdEventData->EdidOrg_1[XDP_EDID_EXT_BLOCK_COUNT] > 1)
-                        Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr,
-                                                     UsrHpdEventData->EdidOrg_2,
-                                                     2);
-
-		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT,
-				1, &UsrHpdEventData->Rd200);
-		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_DPCD_STATUS_LANE_0_1, 1,
-				&UsrHpdEventData->Lane0Sts);
-		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_DPCD_STATUS_LANE_2_3, 1,
-				&UsrHpdEventData->Lane2Sts);
-
-		if(Status != XST_SUCCESS){
-			xdbg_printf(XDBG_DEBUG_GENERAL, "AUX access had trouble!\r\n");
-		}
+	if(Status != XST_SUCCESS){
+		xdbg_printf(XDBG_DEBUG_GENERAL, "AUX access had trouble!\r\n");
 	}
 }
 
@@ -287,24 +238,15 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr)
 {
 	u32 Status = XST_SUCCESS;
 	XDpTxSs *XDpTxSsPtr = (XDpTxSs *)InstancePtr;
-	u8 ext_cap = 0;
-	u8 ext_dpcd_rd = 0;
-
 
 	/* Verify arguments. */
 	Xil_AssertVoid(XDpTxSsPtr != NULL);
 	Xil_AssertVoid(XDpTxSsPtr->IsReady == XIL_COMPONENT_IS_READY);
 	XDpTxSs_UsrHpdPulseData *UsrHpdPulseData = &XDpTxSsPtr->UsrHpdPulseData;
 
-	if (XDp_TxIsConnected(XDpTxSsPtr->DpPtr)) {
-
+	//reading the first block of EDID
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
 			 XDP_DPCD_SINK_COUNT, 6, UsrHpdPulseData->AuxValues);
-
-	if ((UsrHpdPulseData->AuxValues[4] & 0x40)) {
-		XDp_TxDisableMainLink(XDpTxSsPtr->DpPtr);
-	}
-
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
 			 XDP_DPCD_STATUS_LANE_0_1, 1,
 			 &UsrHpdPulseData->Lane0Sts);
@@ -323,35 +265,10 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr)
 			XDP_DPCD_LINK_BW_SET, 1, &UsrHpdPulseData->BwSet);
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
 			XDP_DPCD_LANE_COUNT_SET, 1, &UsrHpdPulseData->LaneSet);
-
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_TRAIN_AUX_RD_INTERVAL, 1,
-			&ext_cap);
-
-	/* UCD400 required reading these extended registers */
-	if(ext_cap & 0x80){
-		/* if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled */
-		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_EDID_DPCD_MAX_LINK_RATE,
-			1, &ext_cap);
-		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT_ESI,
-			1, &ext_dpcd_rd);
-		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0,
-			1, &ext_dpcd_rd);
-		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_LANE0_1_STATUS,
-			1, &ext_dpcd_rd);
-		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_LANE2_3_STATUS,
-			1, &ext_dpcd_rd);
-		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_ALIGN_STATUS_UPDATED_ESI,
-			1, &ext_dpcd_rd);
-		XDp_TxAuxRead(XDpTxSsPtr->DpPtr,XDP_DPCD_SINK_STATUS_ESI,
-			1, &ext_dpcd_rd);
-	}
-
-	Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr,
-			UsrHpdPulseData->Edid, 0);
-
+	Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr, UsrHpdPulseData->Edid,
+		  0);
 	if(Status != XST_SUCCESS){
 		xdbg_printf(XDBG_DEBUG_GENERAL, "AUX access had trouble!\r\n");
-	}
 	}
 }
 
@@ -450,29 +367,11 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 		case XDPTXSS_HANDLER_HDCP_RPTR_EXCHG:
 			XHdcp1x_SetCallBack(InstancePtr->Hdcp1xPtr,
 				XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE,
 					CallbackFunc, CallbackRef);
-			Status = XST_SUCCESS;
-			break;
-#endif
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
-		case XDPTXSS_HANDLER_HDCP22_AUTHENTICATED:
-			/* Register HDCP 2.2 callbacks */
-			XHdcp22Tx_SetCallback(InstancePtr->Hdcp22Ptr,
-				XHDCP22_TX_HANDLER_AUTHENTICATED,
-				(void *)(XHdcp22_Tx_Callback)CallbackFunc,
-				(void *)CallbackRef);
-			Status = XST_SUCCESS;
-			break;
-		case XDPTXSS_HANDLER_HDCP22_UNAUTHENTICATED:
-			/** Register HDCP 2.2 callbacks */
-			XHdcp22Tx_SetCallback(InstancePtr->Hdcp22Ptr,
-				XHDCP22_TX_HANDLER_UNAUTHENTICATED,
-				(void *)(XHdcp22_Tx_Callback)CallbackFunc,
-				(void *)CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 #endif

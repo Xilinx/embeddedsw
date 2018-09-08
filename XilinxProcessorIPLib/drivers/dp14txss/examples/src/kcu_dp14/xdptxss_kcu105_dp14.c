@@ -15,12 +15,14 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+ * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  *
- *
+ * Except as contained in this notice, the name of the Xilinx shall not be used
+ * in advertising or otherwise to promote the sale, use or other dealings in
+ * this Software without prior written authorization from Xilinx.
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -176,8 +178,9 @@ typedef struct
 	u8 frame_count;
 } XilAudioInfoFrame;
 
-XDp_TxAudioInfoFrame *xilInfoFrame;
+XilAudioInfoFrame *xilInfoFrame;
 
+void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
 
 /*The structure defines Generic Frame Packet fields*/
 typedef struct
@@ -281,9 +284,9 @@ typedef enum {
 	XVIDC_VM_1920x1080_60_P_RB = (XVIDC_VM_CUSTOM + 1),
 	XVIDC_B_TIMING3_60_P_RB ,
 	XVIDC_VM_3840x2160_120_P_RB,
-	XVIDC_VM_7680x4320_DP_24_P,
-	XVIDC_VM_7680x4320_DP_25_P,
-	XVIDC_VM_7680x4320_DP_30_P,
+	XVIDC_VM_7680x4320_24_P,
+	XVIDC_VM_7680x4320_25_P,
+	XVIDC_VM_7680x4320_30_P,
 	XVIDC_VM_3840x2160_100_P_RB2,
 	XVIDC_VM_7680x4320_30_DELL,
 	XVIDC_VM_5120x2880_60_P_RB2,
@@ -309,13 +312,13 @@ const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
 	{ XVIDC_VM_3840x2160_120_P_RB, "3840x2160@120Hz (RB)", XVIDC_FR_120HZ,
 		{3840, 8, 32, 40, 3920, 1,
 		2160, 113, 8, 6, 2287, 0, 0, 0, 0, 1} },
-	{ XVIDC_VM_7680x4320_DP_24_P, "7680x4320@24Hz", XVIDC_FR_24HZ,
+	{ XVIDC_VM_7680x4320_24_P, "7680x4320@24Hz", XVIDC_FR_24HZ,
 		{7680, 352, 176, 592, 8800, 1,
 		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_DP_25_P, "7680x4320@25Hz", XVIDC_FR_25HZ,
+	{ XVIDC_VM_7680x4320_25_P, "7680x4320@25Hz", XVIDC_FR_25HZ,
 		{7680, 352, 176, 592, 8800, 1,
 		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_DP_30_P, "7680x4320@30Hz", XVIDC_FR_30HZ,
+	{ XVIDC_VM_7680x4320_30_P, "7680x4320@30Hz", XVIDC_FR_30HZ,
 		{7680, 8, 32, 40, 7760, 0,
 		4320, 47, 8, 6, 4381, 0, 0, 0, 0, 1}},
 	{ XVIDC_VM_3840x2160_100_P_RB2, "3840x2160@100Hz (RB2)", XVIDC_FR_100HZ,
@@ -361,8 +364,8 @@ XVidC_VideoMode resolution_table[] =
 	XVIDC_VM_1920x1080_60_P_RB,
 	XVIDC_VM_3840x2160_60_P_RB,
 	XVIDC_VM_3840x2160_120_P_RB,
-	XVIDC_VM_7680x4320_DP_24_P,
-	XVIDC_VM_7680x4320_DP_30_P,
+	XVIDC_VM_7680x4320_24_P,
+	XVIDC_VM_7680x4320_30_P,
 	XVIDC_VM_3840x2160_100_P_RB2,
 	XVIDC_VM_7680x4320_30_DELL,
 	XVIDC_VM_5120x2880_60_P_RB2,
@@ -636,7 +639,6 @@ int main(void)
 //	tmp_rd |= tmp_rd | 0x06000000;
 //	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x4, tmp_rd);
 
-
 	/* Setting RX link to disabled state. This is to ensure
 	 * that Source gets enough time to authenticate and do the 
 	 * HDCP stuff (such as writing AKSVs)
@@ -808,7 +810,7 @@ int main(void)
 						xilInfoFrame->version = 0x12;
 						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 								XDP_TX_AUDIO_CONTROL, 0x0);
-						XDpTxSs_SendAudioInfoFrame(&DpTxSsInst,xilInfoFrame);
+						sendAudioInfoFrame(xilInfoFrame);
 						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 								XDP_TX_AUDIO_CHANNELS, 0x2);
 						switch(dp_conf.LineRate){
@@ -1532,14 +1534,10 @@ int main(void)
 						select_rx_link_lane();
 						CommandKey = GetInbyte();
 						Command = (int)CommandKey;
-//						Command = Command -48;
-						if(Command>47 && Command<58)
-							Command = Command - 48;
-						else if(Command>96 && Command<123)
-							Command = Command - 87;
+						Command = Command -48;
 						xil_printf("You have selected command=%d \n\r",
 							   Command);
-						if ((Command >= 0) && (Command < 12)) {
+						if ((Command >= 0) && (Command < 9)) {
 							user_lane_count =
 								lane_link_table[Command].lane_count;
 							user_link_rate =
@@ -3163,11 +3161,10 @@ void DpPt_TxSetMsaValuesImmediate(void *InstancePtr)
 		     XDP_TX_MAIN_STREAM_VSTART + StreamOffsetAddr[0],
 		     XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 				 XDP_RX_MSA_VSTART));
-        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-                     XDP_TX_MAIN_STREAM_MISC0 + StreamOffsetAddr[0],
-                     ((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-                                        XDP_RX_MSA_MISC0)) & 0xFFFFFFFE));
-
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+		     XDP_TX_MAIN_STREAM_MISC0 + StreamOffsetAddr[0],
+		     XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+				 XDP_RX_MSA_MISC0));
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 		     XDP_TX_MAIN_STREAM_MISC1 + StreamOffsetAddr[0],
 		     XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
@@ -3866,6 +3863,74 @@ void start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
 	xil_printf("..done !\r\n");
 }
 
+#if ENABLE_AUDIO
+void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame)
+{
+	u8 db1, db2, db3, db4;
+	u32 temp;
+	u8 RSVD=0;
+
+	/* Fixed paramaters */
+	u8 dp_version = 0x11;
+
+	/* Write #1 */
+	db1 = 0x00; //sec packet ID fixed to 0 - SST Mode
+	db2 = 0x80 + xilInfoFrame->type;
+	db3 = xilInfoFrame->info_length&0xFF;
+	db4 = (dp_version<<2)|(xilInfoFrame->info_length>>8);
+	temp = db4<<24|db3<<16|db2<<8|db1;
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+					XDP_TX_AUDIO_INFO_DATA(1), temp);
+//	dbg_printf("\n[AUDIO_INFOFRAME] Word1=0x%x\r",temp);
+
+	/* Write #2 */
+	db1 = xilInfoFrame->audio_channel_count
+		| (xilInfoFrame->audio_coding_type<<4) | (RSVD<<3);
+	db2 = (RSVD<<5)| (xilInfoFrame->sampling_frequency<<2)
+		| xilInfoFrame->sample_size;
+	db3 = RSVD;
+	db4 = xilInfoFrame->channel_allocation;
+	temp = db4<<24|db3<<16|db2<<8|db1;
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+		XDP_TX_AUDIO_INFO_DATA(1), temp);
+//	dbg_printf("\n[AUDIO_INFOFRAME] Word2=0x%x\r",temp);
+
+	/* Write #3 */
+	db1 = (xilInfoFrame->level_shift<<3) | RSVD
+			| (xilInfoFrame->downmix_inhibit <<7);
+	db2 = RSVD;
+	db3 = RSVD;
+	db4 = RSVD;
+	temp = db4<<24|db3<<16|db2<<8|db1;
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+					XDP_TX_AUDIO_INFO_DATA(1), temp);
+//	dbg_printf("\n[AUDIO_INFOFRAME] Word3=0x%x\r",temp);
+
+	/* Write #4 */
+	db1 = RSVD;
+	db2 = RSVD;
+	db3 = RSVD;
+	db4 = RSVD;
+	temp = 0x00000000;
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+				XDP_TX_AUDIO_INFO_DATA(1), temp);
+//	dbg_printf("\n[AUDIO_INFOFRAME] Word4-Word8=0x%x\r",temp);
+	//Write #5
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+				XDP_TX_AUDIO_INFO_DATA(1), temp);
+
+	//Write #6
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+				XDP_TX_AUDIO_INFO_DATA(1), temp);
+	//Write #7
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+				XDP_TX_AUDIO_INFO_DATA(1), temp);
+	//Write #8
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+				XDP_TX_AUDIO_INFO_DATA(1), temp);
+}
+#endif
+
 /* Buffer Bypass is to be used when TX operates on stable clock.
  * To use this, the TX should be configured 
  * with buffer bypass option.(hw change)
@@ -4435,7 +4500,7 @@ void start_audio_passThrough(){
 		xilInfoFrame->version = 0x12;
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 							XDP_TX_AUDIO_CONTROL, 0x0);
-		XDpTxSs_SendAudioInfoFrame (&DpTxSsInst,xilInfoFrame);
+		sendAudioInfoFrame(xilInfoFrame);
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 							XDP_TX_AUDIO_CHANNELS, 0x2);
 		switch(dp_conf.LineRate){

@@ -15,12 +15,14 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+ * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  *
- *
+ * Except as contained in this notice, the name of the Xilinx shall not be used
+ * in advertising or otherwise to promote the sale, use or other dealings in
+ * this Software without prior written authorization from Xilinx.
  *
 *******************************************************************************/
 /*****************************************************************************/
@@ -62,7 +64,6 @@
 #include "xiicps.h"
 //#include "videofmc_defs.h"
 #include "xvphy_i.h"
-
 
 /************************** Constant Definitions *****************************/
 
@@ -119,10 +120,10 @@
 #define CLK135MHz_DIVIDER 	18
 #define CLK270MHz_DIVIDER 	9
 #define CLK162MHz_DIVIDER 	15
-//#define ENABLE_AUDIO 		1
-//#if (ENABLE_AUDIO == 1)
-//	#define AV_PAT_GEN_BASE  XPAR_TX_SUBSYSTEM_AV_PAT_GEN_0_BASEADDR
-//#endif
+#define ENABLE_AUDIO 		0
+#if (ENABLE_AUDIO == 1)
+	#define AV_PAT_GEN_BASE  XPAR_TX_SUBSYSTEM_AV_PAT_GEN_0_BASEADDR
+#endif
 
 #define CLK_WIZ_BASE 		XPAR_CLK_WIZ_0_BASEADDR
 
@@ -151,6 +152,26 @@ typedef struct
 	unsigned int mst_check_flag;
 } user_config_struct;
 
+typedef struct
+{
+        unsigned char lane_count;
+        unsigned char link_rate;
+} lane_link_rate_struct;
+
+typedef struct
+{
+        u8 type;
+        u8 version;
+        u8 length;
+        u8 audio_coding_type;
+        u8 audio_channel_count;
+        u8 sampling_frequency;
+        u8 sample_size;
+        u8 level_shift;
+        u8 downmix_inhibit;
+        u8 channel_allocation;
+        u16 info_length;
+} XilAudioInfoFrame;
 
 /************************** Function Prototypes ******************************/
 /* Interrupt helper functions */
@@ -161,11 +182,9 @@ void DpPt_pe_vs_adjustHandler(void *InstancePtr);
 
 void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 			u8 Edid1_org[128], u16 res_update);
-void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4]);
-u32 DpTxSubsystem_Start(XDpTxSs *InstancePtr,
-			XDpTxSs_MainStreamAttributes Msa[4]);
+void hpd_pulse_con(XDpTxSs *InstancePtr);
 char xil_getc(u32 timeout_ms);
-//void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
+void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
 void Vpg_Audio_start(void);
 void Vpg_Audio_stop(void);
 u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
@@ -190,7 +209,6 @@ int IDT_8T49N24x_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 int TI_LMK03318_PowerDown(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
 			u8 Edid_org[128], u8 Edid1_org[128]);
-u32 DpTxSs_SetupIntrSystem(void);
 /************************** Variable Definitions *****************************/
 
 XDpTxSs DpTxSsInst; 		/* The DPTX Subsystem instance.*/
@@ -201,7 +219,6 @@ XVphy VPhyInst;			/* The DPRX Subsystem instance.*/
 XTmrCtr TmrCtr; 		/* Timer instance.*/
 Video_CRC_Config VidFrameCRC_tx;
 
-int tx_started;
 int tx_is_reconnected; 		/* This variable to keep track 
 				 * of the status of Tx link*/
 u8 prev_line_rate; 		/* This previous line rate to keep 

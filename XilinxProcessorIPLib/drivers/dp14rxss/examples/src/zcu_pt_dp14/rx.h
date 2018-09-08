@@ -15,12 +15,14 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+ * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  *
- *
+ * Except as contained in this notice, the name of the Xilinx shall not be used
+ * in advertising or otherwise to promote the sale, use or other dealings in
+ * this Software without prior written authorization from Xilinx.
  *
 *******************************************************************************/
 /*****************************************************************************/
@@ -108,21 +110,21 @@
 /*Max timeout tuned as per tester - AXI Clock=100 MHz
  *Some GPUs may need larger value, So user may tune if needed
  */
-//#define DP_BS_IDLE_TIMEOUT      0x047868C0//0x0091FFFF
-//#define VBLANK_WAIT_COUNT       20
+#define DP_BS_IDLE_TIMEOUT      0x047868C0//0x0091FFFF
+#define VBLANK_WAIT_COUNT       200
 
 /*For compliance, please set AUX_DEFER_COUNT to be 8
  * (Only for ZCU102-ARM R5 based Rx system).
   For Interop, set this to 6.
 */
-//#define AUX_DEFER_COUNT         8
+#define AUX_DEFER_COUNT         6
 /* DEFAULT VALUE=0. Enabled programming of
  *Rx Training Algo Register for Debugging Purpose
  */
-//#define LINK_TRAINING_DEBUG     0
+#define LINK_TRAINING_DEBUG     0
 
 /*EDID Selection*/
-//#define DP12_EDID_ENABLED 0
+#define DP12_EDID_ENABLED 0
 
 /* VPHY Specific Defines
  */
@@ -235,15 +237,3 @@ Video_CRC_Config VidFrameCRC_rx; /* Video Frame CRC instance */
 DP_Rx_Training_Algo_Config RxTrainConfig;
 XIic IicInstance;	/* I2C bus for MC6000 and IDT */
 
-#define XACR_WriteReg(BaseAddress, RegOffset, Data)   \
-    Xil_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
-
-#define XACR_ReadReg(BaseAddress, RegOffset)   \
-    Xil_In32((BaseAddress) + ((u32)RegOffset))
-
-
-#define RXACR_MODE   0x20
-#define RXACR_MAUD   0x50
-#define RXACR_NAUD   0x54
-#define RXACR_DIV    0x70
-#define RXACR_ENABLE 0x8

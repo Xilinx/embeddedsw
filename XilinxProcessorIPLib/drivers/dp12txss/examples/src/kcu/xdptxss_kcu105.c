@@ -1,28 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -212,13 +192,13 @@ int ceil_func(double x);
 int write_si570();
 u8 XVphy_MmcmLocked(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir);
 
-u8 is_TX_CPLL=0;
+volatile u8 is_TX_CPLL=0;
 u8 hdcp_capable = 0;
 u8 hdcp_capable_org = 0;
 u8 hdcp_repeater_org = 0;
 u8 hdcp_repeater = 0;
-u32 training_done_lane01;
-u32 training_done_lane23;
+volatile u32 training_done_lane01;
+volatile u32 training_done_lane23;
 u32 training_done_lanecnt;
 u32 dp_msa_hres;
 u32 dp_msa_vres;
@@ -228,17 +208,17 @@ u32 rxMsaMVid_track;
 u32 rxMsaNVid_track;
 u32 rxMsamisc0_track;
 u32 bpc_track =0;
-u8 LaneCount;
-u8 LineRate;
+volatile u8 LaneCount;
+volatile u8 LineRate;
 u32 rxMsamisc0;
 u32 DpHres_total, DpVres_total;
 u32 recv_clk_freq=0;
 float recv_frame_clk=0.0;
-u8 pixel = 0;
+volatile u8 pixel = 0;
 u32 bpc = 0;
 u8 comp = 0;
 u8 comp_track = 0;
-u8 prog_tx =0;
+volatile u8 prog_tx =0;
 u32 usr_data_cnt_lane = 0;
 u32 words_per_line = 0;
 u32 recv_clk_see = 0;
@@ -247,60 +227,58 @@ float recv_frame_clk_track=0.0;
 u32 recv_frame_clk_int_track =0;
 u32 recv_frame_clk_int =0;
 u8 vdma_start_read = 0;
-u8 tx_pat_source = 0;
+volatile u8 tx_pat_source = 0;
 volatile u32 vblank_done =0;
-u8 rx_ran_once = 0;
+volatile u8 rx_ran_once = 0;
 u32 tx_bw;
 u8 bw_change_flag = 0;
-u8 internal_rx_tx = 0;
+volatile u8 internal_rx_tx = 0;
 u8 manual_sel = 0;
-u32 IsRxTrained = 0;
-u32 training_done = 0;
+volatile u32 IsRxTrained = 0;
+volatile u32 training_done = 0;
 u8 ooo = 0;
-u32 IsResChange = 0;
-u32 vblank_count =0;
+volatile u32 IsResChange = 0;
+volatile u32 vblank_count =0;
 u8 vdma_start_write = 0;
-u32 training_done_lane01;
-u32 training_done_lane23;
-u8 start_tracking = 0;
-u8 change_detected = 0;
-u32 IsTxEncrypted = 0;
-u32 IsTxAuthenticated = 0;
+volatile u8 start_tracking = 0;
+volatile u8 change_detected = 0;
+volatile u32 IsTxEncrypted = 0;
+volatile u32 IsTxAuthenticated = 0;
 u32 bw_tp1;
 u32 lane_tp1;
-u32 initial_value;
-u8 only_tx_active = 0;
+volatile u32 initial_value;
+volatile u8 only_tx_active = 0;
 u8 coming_from_rx = 0;
 u8 coming_from_tx = 0;
 u8 switch_to_rx = 0;
-u8 rx_link_change_requested = 0;
+volatile u8 rx_link_change_requested = 0;
 u8 tp1_received = 0;
 u32 linkrate_set = 0x14;
 u32 linkrate_set2 = 0;
-u8 switch_to_tx = 0;
-u8 switch_to_patgen = 0;
+volatile u8 switch_to_tx = 0;
+volatile u8 switch_to_patgen = 0;
 u8 hpd_issued = 0;
-u8 need_to_retrain_rx = 0;
+volatile u8 need_to_retrain_rx = 0;
 u8 count = 0;
 u8 Edid_org[128];
 u8 Edid1_org[128];
 u8 max_cap_lanes;
 u8 max_cap_org;
 u8 tx_disconnected = 0;
-u8 tx_is_reconnected = 0;
+volatile u8 tx_is_reconnected = 0;
 u32 clk_reg0;
 u32 clk_reg1;
 u32 clk_reg2;
-u32 wait_count = 0;
-u8 enabled = 0;
-u8 audio_on = 0;
+volatile u32 wait_count = 0;
+volatile u8 enabled = 0;
+volatile u8 audio_on = 0;
 u8 prog_clk = 0;
 u8 hpd_pulse = 0;
 u8 done = 0;
 u8 pwr_dwn_x = 0;
 u8 pat_update = 1;
 u8 hdcp_on = 0;
-u8 gt_stable = 0;
+volatile u8 gt_stable = 0;
 typedef struct
 {
         u8 type;
@@ -2534,7 +2512,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 			DpRxSsInst.Config.DpSubCore.DpConfig.BaseAddr, XDP_RX_MSA_VTOTAL));
 		GetResCount++;
 	}
-	XDp_RxSetLineReset(DpRxSsInst.DpPtr, 1);
+
 	Msa[0].Vtm.Timing.HTotal = DpHres_total;
 	Msa[0].Vtm.Timing.F0PVTotal = DpVres_total;
 	GetResCount = 0;
@@ -2600,6 +2578,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 		Msa[0].UserPixelWidth = 0x1;
 	}
 
+	XDp_RxSetLineReset(DpRxSsInst.DpPtr, 1);
 	rxMsamisc0 = ((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 							XDP_RX_MSA_MISC0) >> 5) & 0x00000007);
 
@@ -3225,7 +3204,7 @@ void Dprx_InterruptHandlerUplug(void *InstancePtr)
 
 void Dprx_InterruptHandlerPwr(void *InstancePtr)
 {
-// This is handeled in drivers. Disabling from application
+// This is handled in driver. Disabling from application
 #if 0
 #if !COMPLIANCE
 	u32 rdata;

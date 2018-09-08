@@ -15,12 +15,14 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+ * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  *
- *
+ * Except as contained in this notice, the name of the Xilinx shall not be used
+ * in advertising or otherwise to promote the sale, use or other dealings in
+ * this Software without prior written authorization from Xilinx.
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -50,7 +52,6 @@
  * 6.0   tu   05/14/17 Added AUX defer shift mask
  * 6.0   tu   08/03/17 Enabled video packing for bpc > 10
  * 6.0   tu   08/24/17 Modify #define for YCBCR422 and YCBCR444
- * 6.0	 jb	  02/19/19 Added HDCP22 registers.
  * </pre>
  *
 *******************************************************************************/
@@ -121,10 +122,10 @@
 				0x0		/**< Stream's component format
 							is RGB. */
 #define XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422 \
-				0x1		/**< Stream's component format
+				0x5		/**< Stream's component format
 							is YcbCr 4:2:2. */
 #define XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444 \
-				0x2		/**< Stream's component format
+				0x6		/**< Stream's component format
 							is YcbCr 4:4:4. */
 /* @} */
 
@@ -381,12 +382,6 @@
 #define XDP_TX_HDCP_ENABLE		0x400	/**< Enables HDCP core. */
 /* @} */
 
-/** @name DPTX core registers: HDCP22.
- * @{
- */
-#define XDP_TX_HDCP22_ENABLE	0x404	/**< Enables HDCP22 core. */
-/* @} */
-
 /** @name DPTX core registers: Main stream attributes for MST STREAM2, 3, and 4.
   * @{
   */
@@ -472,9 +467,6 @@
 #define XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK \
 				0x0000000F	/**< Reset video logic for all
 							streams. */
-#define XDP_TX_SOFT_RESET_HDCP_MASK \
-				0x00000100	/**< Reset HDCP logic. */
-
 /* 0x0D0: TX_MST_CONFIG */
 #define XDP_TX_MST_CONFIG_MST_EN_MASK \
 				0x00000001	/**< Enable MST. */
@@ -889,20 +881,7 @@
 #define XDP_TX_HDCP_ENABLE_BYPASS_DISABLE_MASK \
 				0x0001		/**< Disables bypass of the
 							HDCP core. */
-/* 0x404: XDP_TX_HDCP22_ENABLE */
-#define XDP_TX_HDCP22_ENABLE_BYPASS_DISABLE_MASK \
-	1		/**< Disables bypass of the
-			  HDCP22 core. */
-/* @} */
 
-/** @name DPTX status registers: Lanes done with Clock Recovery.
-  * @{
-  */
-#define XDP_LANE_0_CR_DONE		0x0
-#define XDP_LANE_1_CR_DONE		0x1
-#define XDP_LANE_2_CR_DONE		0x2
-#define XDP_LANE_3_CR_DONE		0x3
-#define XDP_LANE_ALL_CR_DONE		0x4
 /* @} */
 
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
@@ -980,11 +959,6 @@
 #define XDP_RX_INTERRUPT_CAUSE_1	0x048	/**< Indicates the cause of a
 							pending host interrupts
 							for streams 2, 3, 4. */
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
-#define XDP_RX_INTERRUPT_CAUSE_2	0x070	/**< Indicates the cause of
-						  pending host interrupts
-						  for DP RX HDCP22 */
-#endif
 /* @} */
 
 #define XDP_RX_HSYNC_WIDTH		0x050	/**< Controls the timing of the
@@ -1080,9 +1054,6 @@
 							field in the DPCD with
 							what is stored in
 							XDP_RX_GUID[0-3]. */
-#define XDP_RX_EXT_OVER_LINK_BW_SET	0x7F0   /**< Used to override the main
-                                                        link bandwidth setting
-                                                        in the DPCD. */
 /* @} */
 
 /** @name DPRX core registers: Core ID.
@@ -1315,15 +1286,6 @@
 							(0x100 bytes). */
 /* @} */
 
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
-/** @name DPRX core registers: DPCD registers for HDCP22.
- * @{
- */
-#define XDP_RX_DPCD_HDCP22_TABLE	0x1000	/**< HDCP22 register table
-						  (0x558 bytes). */
-/* @} */
-#endif
-
 /** @name DPRX core registers: MST field for sideband message buffers and the
   *	  virtual channel payload table.
   * @{
@@ -1499,35 +1461,6 @@
 					0x01000000 /**< Mask the interrupt
 							for a read of the HDCP
 							BInfo register. */
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
-#define XDP_RX_INTERRUPT_MASK_HDCP22_AKE_INIT_MASK \
-	0x00000001 /**< Mask the interrupt for a write of the HDCP22
-		     Ake_Init message*/
-#define XDP_RX_INTERRUPT_MASK_HDCP22_AKE_NO_STORED_KM_MASK \
-	0x00000002 /**< Mask the interrupt for a write of the HDCP22
-		     Ake_No_Stored_Km message*/
-#define XDP_RX_INTERRUPT_MASK_HDCP22_AKE_STORED_KM_MASK \
-	0x00000004 /**< Mask the interrupt for a write of the HDCP22
-		     Ake_Stored_Km message*/
-#define XDP_RX_INTERRUPT_MASK_HDCP22_LC_INIT_MASK \
-	0x00000008 /**< Mask the interrupt for a write of the HDCP22
-		     Lc_init message*/
-#define XDP_RX_INTERRUPT_MASK_HDCP22_SKE_SEND_EKS_MASK \
-	0x00000010 /**< Mask the interrupt for a write of the HDCP22
-		     Ske_Send_Eks message*/
-#define XDP_RX_INTERRUPT_MASK_HDCP22_DBG_WRITE_MASK \
-	0x00000020 /**< Mask the interrupt for a write to any HDCP22
-		     debug register. */
-#define XDP_RX_INTERRUPT_MASK_HDCP22_HPRIME_READ_MASK \
-	0x00000040 /**< Mask the interrupt for a read of the HDCP22
-		     H' message*/
-#define XDP_RX_INTERRUPT_MASK_HDCP22_PAIRING_INFO_READ_MASK \
-	0x00000080 /**< Mask the interrupt for a write of the HDCP22
-		     Ake_Send_Pairing_Info message*/
-#define XDP_RX_INTERRUPT_MASK_HDCP22_STREAM_TYPE_MASK \
-	0x00000100 /**< Mask the interrupt for a write of the HDCP22
-		     Stream/content type message*/
-#endif
 #define XDP_RX_INTERRUPT_MASK_AUDIO_OVER_MASK \
 					0x08000000 /**< Mask the interrupt
 							assertion caused for an
@@ -1575,8 +1508,6 @@
 /* 0x01C: SOFT_RESET */
 #define XDP_RX_SOFT_RESET_VIDEO_MASK	0x01	/**< Reset the video logic. */
 #define XDP_RX_SOFT_RESET_AUX_MASK	0x80	/**< Reset the AUX logic. */
-#define XDP_RX_SOFT_RESET_HDCP_MASK	0x100	/**< Reset the HDCP logic. */
-#define XDP_RX_SOFT_RESET_HDCP22_MASK	0x200	/**< Reset the HDCP22 logic. */
 /* 0x02C: HPD_INTERRUPT */
 #define XDP_RX_HPD_INTERRUPT_ASSERT_MASK \
 				0x00000001	/**< Instructs the RX core to
@@ -2222,10 +2153,10 @@
 				0x1		/**< Hold adjust request to
 							SET_PE. */
 #define XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_PE_TABLE \
-				0x3		/**< Pick pre-emphasis values
+				0x2		/**< Pick pre-emphasis values
 							from PE_TABLE. */
 #define XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_VS_NA \
-				0x2		/**< Not applicable. */
+				0x3		/**< Not applicable. */
 #define XDP_RX_MIN_VOLTAGE_SWING_SET_PE_MASK \
 				0x003000	/**< Set pre-emphasis level. */
 #define XDP_RX_MIN_VOLTAGE_SWING_SET_PE_SHIFT 12 /**< Shift bits for
@@ -2249,10 +2180,6 @@
 				0x80000000	/**< Use DFE control. */
 #define XDP_RX_CDR_CONTROL_CONFIG_DISABLE_TIMEOUT \
 				0X40000000	/**< Timeout for MST mode. */
-
-/* 0x300: AUDIO CONTROL */
-#define XDP_RX_AUDIO_CONTROL_LANEX_SET_SHIFT   4
-
 /* Definitions for DP 1.4. */
 /* 0x43C: Link training status reg*/
 #define XDP_RX_DPCD_OVERWRITE_ADJREQUEST 0x80000000
@@ -2422,14 +2349,6 @@
 #define XDP_DPCD_SINK_LANE2_3_STATUS				0x0200D
 #define XDP_DPCD_SINK_ALIGN_STATUS_UPDATED_ESI			0x0200E
 #define XDP_DPCD_SINK_STATUS_ESI				0x0200F
-/* @} */
-
-/** @name DisplayPort Extended Configuration Data Registers.
-  * @{
-  */
-#define XDP_DPCD_EXT_DPCD_REV					0x02200
-#define XDP_DPCD_EXT_DPCD_MAX_LINK_RATE				0x02201
-
 /* @} */
 
 /** @name DisplayPort Configuration Data: Field addresses and sizes.
@@ -2766,7 +2685,7 @@
 /* 0x00111: MSTM_CTRL */
 #define XDP_DPCD_MST_EN_MASK					0x01
 #define XDP_DPCD_UP_REQ_EN_MASK					0x02
-#define XDP_DPCD_UP_IS_SRC_MASK					0x04
+#define XDP_DPCD_UP_IS_SRC_MASK					0x03
 /* @} */
 
 /** @name DisplayPort Configuration Data: Link/sink status field masks, shifts,
@@ -2968,13 +2887,6 @@
 #define XDP_TX_STREAM_ID2			2
 #define XDP_TX_STREAM_ID3			3
 #define XDP_TX_STREAM_ID4			4
-
-#define XDP_TX_AUDIO_CONTROL_LANEX_SET_SHIFT   4
-
-#define XDP_RX_STREAM_ID1                       1
-#define XDP_RX_STREAM_ID2                       2
-#define XDP_RX_STREAM_ID3                       3
-#define XDP_RX_STREAM_ID4                       4
 /* @} */
 
 /** @name Sideband message codes when the driver is in MST mode.
