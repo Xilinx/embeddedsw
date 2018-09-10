@@ -158,6 +158,8 @@ enum XPmApiId {
 	/* PLL direct control API functions */
 	PM_PLL_SET_PARAMETER,
 	PM_PLL_GET_PARAMETER,
+	PM_PLL_SET_MODE,
+	PM_PLL_GET_MODE,
 	PM_API_MAX
 };
 
@@ -706,6 +708,12 @@ enum XPmPllParam {
 	PM_PLL_PARAM_ID_LFHF,
 	PM_PLL_PARAM_ID_CP,
 	PM_PLL_PARAM_ID_RES,
+};
+
+enum XPmPllMode {
+	PM_PLL_MODE_RESET,
+	PM_PLL_MODE_INTEGER,
+	PM_PLL_MODE_FRACTIONAL,
 };
 
  /** @} */

@@ -238,5 +238,8 @@ XStatus XPm_PllGetParameter(const enum XPmNodeId node,
 			    const enum XPmPllParam parameter,
 			    u32 *const value);
 
+XStatus XPm_PllSetMode(const enum XPmNodeId node, const enum XPmPllMode mode);
+XStatus XPm_PllGetMode(const enum XPmNodeId node, enum XPmPllMode* const mode);
+
 /** @} */
 #endif /* _PM_API_SYS_H_ */
