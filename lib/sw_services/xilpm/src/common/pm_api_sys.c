@@ -30,6 +30,7 @@
 #include "pm_common.h"
 #include "pm_api_sys.h"
 #include "pm_callbacks.h"
+#include "pm_clock.h"
 
 /** @name Payload Packets
  *
@@ -1219,4 +1220,80 @@ XStatus XPm_MmioRead(const u32 address, u32 *const value)
 
 	/* Return result from IPI return buffer */
 	return pm_ipi_buff_read32(primary_master, value, NULL, NULL);
+}
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to set parent for a clock
+ *
+ * @param  clock  Identifier of the target clock
+ * @param  parent Identifier of the target parent clock
+ *
+ * @return XST_INVALID_PARAM or status of performing the operation as returned
+ * by the PMU-FW.
+ *
+ * @note   If the access isn't permitted this function returns an error code.
+ *
+ ****************************************************************************/
+XStatus XPm_ClockSetParent(const enum XPmClock clock,
+			   const enum XPmClock parent)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+	u32 select;
+
+	status = XPm_GetSelectByClockParent(clock, parent, &select);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD2(payload, PM_CLOCK_SETPARENT, clock, select);
+	status = pm_ipi_send(primary_master, payload);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to get parent of a clock
+ *
+ * @param  clock  Identifier of the target clock
+ * @param  parent Location to store clock parent ID
+ *
+ * @return XST_INVALID_PARAM or status of performing the operation as returned
+ * by the PMU-FW.
+
+ ****************************************************************************/
+XStatus XPm_ClockGetParent(const enum XPmClock clock,
+			   enum XPmClock* const parent)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+	u32 select;
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD1(payload, PM_CLOCK_GETPARENT, clock);
+	status = pm_ipi_send(primary_master, payload);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	status = pm_ipi_buff_read32(primary_master, &select, NULL, NULL);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+	status = XPm_GetClockParentBySelect(clock, select, parent);
+
+done:
+	return status;
 }
