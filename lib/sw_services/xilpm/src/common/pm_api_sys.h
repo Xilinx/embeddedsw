@@ -227,5 +227,8 @@ XStatus XPm_ClockSetParent(const enum XPmClock clock,
 XStatus XPm_ClockGetParent(const enum XPmClock clock,
 			   enum XPmClock *const parent);
 
+XStatus XPm_ClockSetRate(const enum XPmClock clock, const u32 rate);
+XStatus XPm_ClockGetRate(const enum XPmClock clock, u32 *const rate);
+
 /** @} */
 #endif /* _PM_API_SYS_H_ */
