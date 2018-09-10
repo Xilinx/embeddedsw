@@ -1224,6 +1224,89 @@ XStatus XPm_MmioRead(const u32 address, u32 *const value)
 
 /****************************************************************************/
 /**
+ * @brief  Call this function to enable (activate) a clock
+ *
+ * @param  clock Identifier of the target clock to be enabled
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ * @note   If the access isn't permitted this function returns an error code.
+ *
+ ****************************************************************************/
+XStatus XPm_ClockEnable(const enum XPmClock clock)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD1(payload, PM_CLOCK_ENABLE, clock);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status) {
+		return status;
+	}
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+}
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to disable (gate) a clock
+ *
+ * @param  clock Identifier of the target clock to be disabled
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ * @note   If the access isn't permitted this function returns an error code.
+ *
+ ****************************************************************************/
+XStatus XPm_ClockDisable(const enum XPmClock clock)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD1(payload, PM_CLOCK_DISABLE, clock);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status) {
+		return status;
+	}
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+}
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to get status of a clock gate state
+ *
+ * @param  clock  Identifier of the target clock
+ * @param  status Location to store clock gate state (1=enabled, 0=disabled)
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ ****************************************************************************/
+XStatus XPm_ClockGetStatus(const enum XPmClock clock, u32 *const status)
+{
+	XStatus ret;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD1(payload, PM_CLOCK_GETSTATE, clock);
+	ret = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != ret) {
+		return ret;
+	}
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, status, NULL, NULL);
+}
+
+/****************************************************************************/
+/**
  * @brief  Call this function to set parent for a clock
  *
  * @param  clock  Identifier of the target clock

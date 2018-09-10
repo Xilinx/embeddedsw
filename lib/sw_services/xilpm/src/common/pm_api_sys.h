@@ -215,6 +215,10 @@ XStatus XPm_MmioWrite(const u32 address, const u32 mask, const u32 value);
 XStatus XPm_MmioRead(const u32 address, u32 *const value);
 
 /* Clock API */
+XStatus XPm_ClockEnable(const enum XPmClock clock);
+XStatus XPm_ClockDisable(const enum XPmClock clock);
+XStatus XPm_ClockGetStatus(const enum XPmClock clock, u32 *const status);
+
 XStatus XPm_ClockSetParent(const enum XPmClock clock,
 			   const enum XPmClock parent);
 XStatus XPm_ClockGetParent(const enum XPmClock clock,
