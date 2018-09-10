@@ -46,7 +46,7 @@
 * </pre>
 *
 ******************************************************************************/
-
+#ifdef __BAREMETAL__
 /***************************** Include Files ********************************/
 #include "xparameters.h"
 #include "xrfdc.h"
@@ -589,4 +589,5 @@ XRFdc_Config XRFdc_ConfigTable[XPAR_XRFDC_NUM_INSTANCES] =
 		}
 	}
 };
+#endif
 /** @} */

@@ -174,6 +174,10 @@
 *                       XRFdc_CfgInitialize() and XRFdc_MultiBand()  APIs.
 *                       Reorganize the code to improve readability and
 *                       optimization.
+*       mus    08/17/18 Removed structure paddings from XRFdc_Config structure.
+*                       It has been done to have 1:1 mapping between
+*                       XRFdc_Config structure and device tree property
+*                       "param-list", over linux platform.
 *
 * </pre>
 *
@@ -328,6 +332,9 @@ typedef struct {
 				 1 if all flags asserted, 0 otherwise */
 } XRFdc_BlockStatus;
 
+#ifndef __BAREMETAL__
+#pragma pack(1)
+#endif
 /**
  * DAC block Analog DataPath Config settings.
  */
@@ -415,7 +422,9 @@ typedef struct {
 	XRFdc_DACTile_Config DACTile_Config[4];
 	XRFdc_ADCTile_Config ADCTile_Config[4];
 } XRFdc_Config;
-
+#ifndef __BAREMETAL__
+#pragma pack()
+#endif
 /**
  * DAC Block Analog DataPath Structure.
  */
@@ -541,6 +550,18 @@ typedef struct {
 #define XRFDC_SUCCESS                     0U
 #define XRFDC_FAILURE                     1U
 #define XRFDC_COMPONENT_IS_READY     	0x11111111U
+#ifndef __BAREMETAL__
+#define XRFDC_PLATFORM_DEVICE_DIR		"/sys/bus/platform/devices/"
+#define XRFDC_BUS_NAME					"platform"
+#define XRFDC_SIGNATURE	"usp_rf_data_converter" /* String in RFDC node name */
+#define XRFDC_CONFIG_DATA_PROPERTY		"param-list" /* device tree property */
+#define XRFDC_COMPATIBLE_PROPERTY		"compatible" /* device tree property */
+#define XRFDC_NUM_INSTANCES_PROPERTY	"num-insts" /* device tree property */
+#define XRFDC_COMPATIBLE_STRING			"xlnx,usp-rf-data-converter-"
+#define XRFDC_DEVICE_ID_SIZE			4U
+#define XRFDC_NUM_INST_SIZE				4U
+#define XRFDC_CONFIG_DATA_SIZE			sizeof(XRFdc_Config)
+#endif
 #define XRFDC_REGION_SIZE	0x40000U
 #define XRFDC_DRP_BASE(type, tile) ((type) == XRFDC_ADC_TILE ?		\
 			XRFDC_ADC_TILE_DRP_ADDR(tile) : XRFDC_DAC_TILE_DRP_ADDR(tile))
@@ -1727,6 +1748,9 @@ u32 XRFdc_GetLinkCoupling(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 								u32 *ModePtr);
 u32 XRFdc_GetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u16 *FabClkDivPtr);
+#ifndef __BAREMETAL__
+s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId);
+#endif
 
 #ifdef __cplusplus
 }
