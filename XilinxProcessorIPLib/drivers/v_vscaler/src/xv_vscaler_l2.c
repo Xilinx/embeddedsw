@@ -47,6 +47,7 @@
 * 2.00  rco   11/05/15   Integrate layer-1 with layer-2
 * 3.0   mpe   04/28/16   Added optional color format conversion handling
 *       rco   02/09/17   Fix c++ compilation warnings
+*	jsr   09/07/18 Fix for 64-bit driver support
 * </pre>
 *
 ******************************************************************************/
@@ -330,7 +331,7 @@ static void XV_VScalerSetCoeff(XV_Vscaler_l2 *VscPtr)
   int num_phases = 1<<VscPtr->Vsc.Config.PhaseShift;
   int num_taps   = VscPtr->Vsc.Config.NumTaps/2;
   int val,i,j,offset,rdIndx;
-  u32 baseAddr;
+  UINTPTR baseAddr;
 
   offset = (XV_VSCALER_MAX_V_TAPS - VscPtr->Vsc.Config.NumTaps)/2;
   baseAddr = XV_vscaler_Get_HwReg_vfltCoeff_BaseAddress(&VscPtr->Vsc);
@@ -419,7 +420,8 @@ void XV_VScalerDbgReportStatus(XV_Vscaler_l2 *InstancePtr)
   XV_vscaler *VscPtr = &InstancePtr->Vsc;
   u32 done, idle, ready, ctrl;
   u32 widthin, heightin, heightout, linerate, cformat;
-  u32 baseAddr, taps, phases, i, j;
+  u32 taps, phases, i, j;
+  UINTPTR baseAddr;
   u16 allow420;
   int val;
   const char *ScalerTypeStr[] = {"Bilinear", "Bicubic", "Polyphase"};

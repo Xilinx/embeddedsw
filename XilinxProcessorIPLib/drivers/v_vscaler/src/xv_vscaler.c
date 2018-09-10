@@ -168,14 +168,14 @@ u32 XV_vscaler_Get_HwReg_ColorMode(XV_vscaler *InstancePtr) {
     return Data;
 }
 
-u32 XV_vscaler_Get_HwReg_vfltCoeff_BaseAddress(XV_vscaler *InstancePtr) {
+UINTPTR XV_vscaler_Get_HwReg_vfltCoeff_BaseAddress(XV_vscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
     return (InstancePtr->Config.BaseAddress + XV_VSCALER_CTRL_ADDR_HWREG_VFLTCOEFF_BASE);
 }
 
-u32 XV_vscaler_Get_HwReg_vfltCoeff_HighAddress(XV_vscaler *InstancePtr) {
+UINTPTR XV_vscaler_Get_HwReg_vfltCoeff_HighAddress(XV_vscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
