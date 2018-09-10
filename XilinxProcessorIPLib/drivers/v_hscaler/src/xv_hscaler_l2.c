@@ -50,6 +50,7 @@
 * 3.1   rco   11/01/16   Fixed bug in config validation API, wherein hi/lo
 *                        check should be made only if input is not RGB
 *       rco   02/09/17   Fix c++ compilation warnings
+*	jsr   09/07/18 Fix for 64-bit driver support
 * </pre>
 *
 ******************************************************************************/
@@ -422,8 +423,8 @@ static void CalculatePhases(XV_Hscaler_l2 *HscPtr,
 ******************************************************************************/
 static void XV_HScalerSetPhase(XV_Hscaler_l2 *HscPtr)
 {
-  u32 baseAddr, loopWidth;
-
+  u32 loopWidth;
+  UINTPTR baseAddr;
   //program phases
   baseAddr = XV_hscaler_Get_HwReg_phasesH_V_BaseAddress(&HscPtr->Hsc);
   loopWidth = HscPtr->Hsc.Config.MaxWidth/HscPtr->Hsc.Config.PixPerClk;
@@ -513,7 +514,7 @@ static void XV_HScalerSetCoeff(XV_Hscaler_l2 *HscPtr)
   int num_phases = 1<<HscPtr->Hsc.Config.PhaseShift;
   int num_taps   = HscPtr->Hsc.Config.NumTaps/2;
   int val,i,j,offset,rdIndx;
-  u32 baseAddr;
+  UINTPTR baseAddr;
 
   offset = (XV_HSCALER_MAX_H_TAPS - HscPtr->Hsc.Config.NumTaps)/2;
   baseAddr = XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress(&HscPtr->Hsc);
@@ -614,7 +615,8 @@ void XV_HScalerDbgReportStatus(XV_Hscaler_l2 *InstancePtr)
   u32 done, idle, ready, ctrl;
   u32 widthin, widthout, height, pixrate, cformatin, cformatOut;
   u16 allow422, allow420, allowCsc;
-  u32 baseAddr, taps, phases, i, j;
+  u32 taps, phases, i, j;
+  UINTPTR baseAddr;
   int val;
   const char *ScalerTypeStr[] = {"Bilinear", "Bicubic", "Polyphase"};
 
