@@ -1622,3 +1622,59 @@ XStatus XPm_PllGetParameter(const enum XPmNodeId node,
 	/* Return result from IPI return buffer */
 	return pm_ipi_buff_read32(primary_master, value, NULL, NULL);
 }
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to set a PLL mode
+ *
+ * @param  node  PLL node identifier
+ * @param  mode  PLL mode to be set
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ * @note   If the access isn't permitted this function returns an error code.
+ *
+ ****************************************************************************/
+XStatus XPm_PllSetMode(const enum XPmNodeId node, const enum XPmPllMode mode)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD2(payload, PM_PLL_SET_MODE, node, mode);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status) {
+		return status;
+	}
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+}
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to get a PLL mode
+ *
+ * @param  node  PLL node identifier
+ * @param  mode  Location to store the PLL mode
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ ****************************************************************************/
+XStatus XPm_PllGetMode(const enum XPmNodeId node, enum XPmPllMode* const mode)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD1(payload, PM_PLL_GET_MODE, node);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status) {
+		return status;
+	}
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, (void*)mode, NULL, NULL);
+}
