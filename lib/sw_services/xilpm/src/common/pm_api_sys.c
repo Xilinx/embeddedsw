@@ -1307,6 +1307,150 @@ XStatus XPm_ClockGetStatus(const enum XPmClock clock, u32 *const status)
 
 /****************************************************************************/
 /**
+ * @brief  Call this function to set divider for a clock
+ *
+ * @param  clock   Identifier of the target clock
+ * @param  divider Divider value to be set
+ * @param  divId ID of the divider to be set
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ * @note   If the access isn't permitted this function returns an error code.
+ *
+ ****************************************************************************/
+static XStatus XPm_ClockSetOneDivider(const enum XPmClock clock,
+				      const u32 divider,
+				      const enum XPmClockDivId divId)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD3(payload, PM_CLOCK_SETDIVIDER, clock, divId, divider);
+	status = pm_ipi_send(primary_master, payload);
+	if (XST_SUCCESS != status) {
+		return status;
+	}
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+}
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to set divider for a clock
+ *
+ * @param  clock   Identifier of the target clock
+ * @param  divider Divider value to be set
+ *
+ * @return XST_INVALID_PARAM or status of performing the operation as returned
+ * by the PMU-FW
+ *
+ * @note   If the access isn't permitted this function returns an error code.
+ *
+ ****************************************************************************/
+XStatus XPm_ClockSetDivider(const enum XPmClock clock, const u32 divider)
+{
+	XStatus status = XST_INVALID_PARAM;
+	u8 mapping = XPm_GetClockDivType(clock);
+	u32 div0, div1;
+
+	mapping = XPm_MapDivider(clock, divider, &div0, &div1);
+	if (!mapping) {
+		goto done;
+	}
+
+	if (mapping & (1 << PM_CLOCK_DIV0_ID)) {
+		status = XPm_ClockSetOneDivider(clock, div0, PM_CLOCK_DIV0_ID);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+	}
+
+	if (mapping & (1 << PM_CLOCK_DIV1_ID)) {
+		status = XPm_ClockSetOneDivider(clock, div1, PM_CLOCK_DIV1_ID);
+	}
+
+done:
+	return status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Local function to get one divider (DIV0 or DIV1) of a clock
+ *
+ * @param  clock   Identifier of the target clock
+ * @param  divider Location to store the divider value
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ ****************************************************************************/
+static XStatus XPm_ClockGetOneDivider(const enum XPmClock clock,
+				      u32 *const divider,
+				      const enum XPmClockDivId divId)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD2(payload, PM_CLOCK_GETDIVIDER, clock, divId);
+	status = pm_ipi_send(primary_master, payload);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	status = pm_ipi_buff_read32(primary_master, divider, NULL, NULL);
+
+done:
+	return status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to get divider of a clock
+ *
+ * @param  clock   Identifier of the target clock
+ * @param  divider Location to store the divider value
+ *
+ * @return XST_INVALID_PARAM or status of performing the operation as returned
+ * by the PMU-FW
+ *
+ ****************************************************************************/
+XStatus XPm_ClockGetDivider(const enum XPmClock clock, u32 *const divider)
+{
+	XStatus status;
+	u8 type = XPm_GetClockDivType(clock);
+	u32 div;
+
+	if (!divider || !type) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	*divider = 1U;
+	if (type & (1 << PM_CLOCK_DIV0_ID)) {
+		status = XPm_ClockGetOneDivider(clock, &div, PM_CLOCK_DIV0_ID);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+		*divider *= div;
+	}
+
+	if (type & (1 << PM_CLOCK_DIV1_ID)) {
+		status = XPm_ClockGetOneDivider(clock, &div, PM_CLOCK_DIV1_ID);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+		*divider *= div;
+	}
+
+done:
+	return status;
+}
+
+/****************************************************************************/
+/**
  * @brief  Call this function to set parent for a clock
  *
  * @param  clock  Identifier of the target clock

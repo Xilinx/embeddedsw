@@ -219,6 +219,9 @@ XStatus XPm_ClockEnable(const enum XPmClock clock);
 XStatus XPm_ClockDisable(const enum XPmClock clock);
 XStatus XPm_ClockGetStatus(const enum XPmClock clock, u32 *const status);
 
+XStatus XPm_ClockSetDivider(const enum XPmClock clock, const u32 divider);
+XStatus XPm_ClockGetDivider(const enum XPmClock clock, u32 *const divider);
+
 XStatus XPm_ClockSetParent(const enum XPmClock clock,
 			   const enum XPmClock parent);
 XStatus XPm_ClockGetParent(const enum XPmClock clock,
