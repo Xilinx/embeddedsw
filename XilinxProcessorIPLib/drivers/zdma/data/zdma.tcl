@@ -33,6 +33,8 @@
 # ----- ----  -------- -----------------------------------------------
 # 1.0   vnsld   2/24/15  First release
 # 1.3   mus     08/14/17 Export cache coherency information
+# 1.6	adk	07/09/18 Use -hier option while using get_cells command to
+#			 support hierarchical designs.
 #
 ##############################################################################
 
@@ -59,7 +61,7 @@ proc generate_cci_params {drv_handle file_name} {
 
 	foreach ip $ips {
                 set is_cc 0
-		set iptype [common::get_property IP_NAME [get_cells $ip]]
+		set iptype [common::get_property IP_NAME [get_cells -hier $ip]]
 		if {$processor_type == "psu_cortexa53" && $iptype == "psu_adma"} {
                         set is_xen [common::get_property CONFIG.hypervisor_guest [hsi::get_os]]
                         if {$is_xen == "true"} {
