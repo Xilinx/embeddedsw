@@ -63,14 +63,18 @@
 *       sd     05/15/18 Updated Clock configuration for lmk.
 * 5.0   sk     08/03/18 For baremetal, add metal device structure for rfdc
 *                       device and register the device to libmetal generic bus.
+*       mus    08/18/18 Updated to remove xparameters.h dependency for linux
+*                       platform.
+*
 *
 * </pre>
 *
 *****************************************************************************/
 
 /***************************** Include Files ********************************/
-
+#ifdef __BAREMETAL__
 #include "xparameters.h"
+#endif
 #include "xrfdc.h"
 #include <metal/irq.h>
 #ifdef XPS_BOARD_ZCU111
@@ -84,18 +88,20 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifdef __BAREMETAL__
 #define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID
 #define RFDC_IRQ_VECT_ID                XPS_FPGA0_INT_ID
-#ifdef __BAREMETAL__
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 #define XRFDC_BASE_ADDR		XPAR_XRFDC_0_BASEADDR
 #define STIM_BASE_ADDR	XPAR_STIMULUS_GEN_AXI_S_0_BASEADDR
 #define CAP_BASE_ADDR	XPAR_DATA_CAPTURE_AXI_S_0_BASEADDR
 #define BUS_NAME        "generic"
+#define RFDC_DEV_NAME    XPAR_XRFDC_0_DEV_NAME
 #else
+#define RFDC_DEVICE_ID  0
 #define BUS_NAME        "platform"
 #endif
-#define RFDC_DEV_NAME    XPAR_XRFDC_0_DEV_NAME
+
 #define STIM_DEV_NAME    "a8000000.stimulus_gen_axi_s"
 #define CAP_DEV_NAME    "a4000000.data_capture_axi_s"
 
@@ -312,9 +318,14 @@ int RFdcFabricRateExample(u16 RFdcDeviceId)
 	XRFdc *RFdcInstPtr = &RFdcInst;
 	u32 SetFabricRate;
 	u32 GetFabricRate;
-	int irq = RFDC_IRQ_VECT_ID;
 	int ret = 0;
 	InterruptOccured = 0;
+#ifndef __BAREMETAL__
+	char DeviceName[NAME_MAX];
+	int irq;
+#else
+	int irq = RFDC_IRQ_VECT_ID;
+#endif
 
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 
@@ -350,12 +361,24 @@ printf("\n Configuring the Clock \r\n");
 		printf("%s: failed to register devices: %d\n", __func__, ret);
 		return ret;
 	}
-#endif
 	ret = metal_device_open(BUS_NAME, RFDC_DEV_NAME, &device);
 	if (ret) {
 		printf("ERROR: Failed to open device usp_rf_data_converter.\n");
 		return XRFDC_FAILURE;
 	}
+#else
+	Status = XRFdc_GetDeviceNameByDeviceId(DeviceName, RFDC_DEVICE_ID);
+	if (Status < 0) {
+		printf("ERROR: Failed to find rfdc device with device id %d\n",
+				RFDC_DEVICE_ID);
+		return XRFDC_FAILURE;
+	}
+	ret = metal_device_open(BUS_NAME, DeviceName, &device);
+	if (ret) {
+		printf("ERROR: Failed to open device %s.\n",DeviceName);
+		return XRFDC_FAILURE;
+	}
+#endif
 
 	/* Map RFDC device IO region */
 	io = metal_device_io_region(device, 0);

@@ -43,6 +43,8 @@
 * ----- -----  -------- -----------------------------------------------------
 * 3.1   jm     01/24/18 First release
 * 5.0   sk     09/05/18 Rename XRFdc_MTS_RMW_DRP as XRFdc_ClrSetReg.
+* 5 0   mus    08/18/18 Updated to remove xparameters.h dependency for linux
+*                       platform.
 *
 * </pre>
 *
@@ -50,7 +52,9 @@
 
 /***************************** Include Files ********************************/
 
+#ifdef __BAREMETAL__
 #include "xparameters.h"
+#endif
 #include "xrfdc.h"
 #include "xrfdc_mts.h"
 /************************** Constant Definitions ****************************/
@@ -60,10 +64,12 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID
+
 #ifndef __BAREMETAL__
 #define BUS_NAME        "platform"
-#define RFDC_DEV_NAME    XPAR_XRFDC_0_DEV_NAME
+#define RFDC_DEVICE_ID	0U
+#else
+#define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID
 #endif
 
 /**************************** Type Definitions ******************************/
@@ -143,6 +149,7 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
 	struct metal_device *device;
 	struct metal_io_region *io;
 	int ret = 0;
+	char DeviceName[NAME_MAX];
 #endif
 
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
@@ -163,9 +170,15 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
     }
 
 #ifndef __BAREMETAL__
-	ret = metal_device_open(BUS_NAME, RFDC_DEV_NAME, &device);
+	status = XRFdc_GetDeviceNameByDeviceId(DeviceName, RFDC_DEVICE_ID);
+	if (status < 0) {
+		printf("ERROR: Failed to find rfdc device with device id %d\n",
+				RFDC_DEVICE_ID);
+		return XRFDC_FAILURE;
+	}
+	ret = metal_device_open(BUS_NAME, DeviceName, &device);
 	if (ret) {
-		printf("ERROR: Failed to open device a0000000.usp_rf_data_converter.\n");
+		printf("ERROR: Failed to open device %s.\n", DeviceName);
 		return XRFDC_FAILURE;
 	}
 
