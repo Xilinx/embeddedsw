@@ -87,6 +87,10 @@ Update the APIs to check the corresponding section(Digital or Analog)enable.
 Fixed MISRAC, Doxygen and coverity warnings.
 Check for Block0 enable for tiles participating in MTS.
 Update the clock reset sequence.
+Updated driver and examples, to remove the xparameters.h
+dependency for Linux platform.
+Modified phasecorrection factor as per  QMC Phase
+correction factor range in driver.
 
 scugic_v3_10:
 Updated get_psu_interrupt_id to generate correct
