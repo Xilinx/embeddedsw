@@ -213,5 +213,12 @@ XStatus XPm_ResetGetStatus(const enum XPmReset reset, u32 *status);
 XStatus XPm_MmioWrite(const u32 address, const u32 mask, const u32 value);
 
 XStatus XPm_MmioRead(const u32 address, u32 *const value);
+
+/* Clock API */
+XStatus XPm_ClockSetParent(const enum XPmClock clock,
+			   const enum XPmClock parent);
+XStatus XPm_ClockGetParent(const enum XPmClock clock,
+			   enum XPmClock *const parent);
+
 /** @} */
 #endif /* _PM_API_SYS_H_ */
