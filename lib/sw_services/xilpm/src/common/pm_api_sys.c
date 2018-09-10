@@ -1560,3 +1560,65 @@ XStatus XPm_ClockGetRate(const enum XPmClock clock, u32 *const rate)
 
 	return XST_NO_FEATURE;
 }
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to set a PLL parameter
+ *
+ * @param  node      PLL node identifier
+ * @param  parameter PLL parameter identifier
+ * @param  value     Value of the PLL parameter
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ * @note   If the access isn't permitted this function returns an error code.
+ *
+ ****************************************************************************/
+XStatus XPm_PllSetParameter(const enum XPmNodeId node,
+			    const enum XPmPllParam parameter,
+			    const u32 value)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD3(payload, PM_PLL_SET_PARAMETER, node, parameter, value);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status) {
+		return status;
+	}
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+}
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to get a PLL parameter
+ *
+ * @param  node      PLL node identifier
+ * @param  parameter PLL parameter identifier
+ * @param  value     Location to store value of the PLL parameter
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ ****************************************************************************/
+XStatus XPm_PllGetParameter(const enum XPmNodeId node,
+			    const enum XPmPllParam parameter,
+			    u32 *const value)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD2(payload, PM_PLL_GET_PARAMETER, node, parameter);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status) {
+		return status;
+	}
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, value, NULL, NULL);
+}
