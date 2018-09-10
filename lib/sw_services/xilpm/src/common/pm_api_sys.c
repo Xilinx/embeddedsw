@@ -1524,3 +1524,39 @@ XStatus XPm_ClockGetParent(const enum XPmClock clock,
 done:
 	return status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to set rate of a clock
+ *
+ * @param  clock  Identifier of the target clock
+ * @param  rate   Clock frequency (rate) to be set
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ * @note   If the action isn't permitted this function returns an error code.
+ *
+ ****************************************************************************/
+XStatus XPm_ClockSetRate(const enum XPmClock clock, const u32 rate)
+{
+	pm_dbg("%s(%u, %u) not supported\n", __func__, clock, rate);
+
+	return XST_NO_FEATURE;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to get rate of a clock
+ *
+ * @param  clock  Identifier of the target clock
+ * @param  rate   Location where the rate should be stored
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ ****************************************************************************/
+XStatus XPm_ClockGetRate(const enum XPmClock clock, u32 *const rate)
+{
+	pm_dbg("%s(%u, %u) not supported\n", __func__, clock, rate);
+
+	return XST_NO_FEATURE;
+}
