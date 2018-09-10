@@ -70,6 +70,8 @@
 *                       device and register the device to libmetal generic bus.
 *       mus    08/18/18 Updated to remove xparameters.h dependency for linux
 *                       platform.
+*       sk     09/07/18 Modified phasecorrection factor as per  QMC Phase
+*                       correction factor range in driver
 *
 * </pre>
 *
@@ -438,7 +440,7 @@ printf("\n Configuring the Clock \r\n");
 				SetQMCSettings.EnableGain = 0;
 				SetQMCSettings.EnablePhase = 0;
 				SetQMCSettings.OffsetCorrectionFactor = -4;
-				SetQMCSettings.PhaseCorrectionFactor = 26.5;
+				SetQMCSettings.PhaseCorrectionFactor = 26.499;
 				SetQMCSettings.EventSource = XRFDC_EVNT_SRC_SYSREF;
 				/* Set QMC settings */
 				Status = XRFdc_SetQMCSettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &SetQMCSettings);
