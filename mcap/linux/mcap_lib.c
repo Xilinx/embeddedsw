@@ -583,7 +583,7 @@ void MCapDumpRegs(struct mcap_dev *mdev)
 			MCapRegRead(mdev, MCAP_VEND_SPEC_HEADER));
 	pr_info("FPGA JTAG ID:\t\t0x%08x\n",
 			MCapRegRead(mdev, MCAP_FPGA_JTAG_ID));
-	pr_info("FPGA Bit-Stream Version:0x%08x\n",
+	pr_info("FPGA Bitstream Version:0x%08x\n",
 			MCapRegRead(mdev, MCAP_FPGA_BIT_VERSION));
 	pr_info("Status:\t\t\t0x%08x\n",
 			MCapRegRead(mdev, MCAP_STATUS));
