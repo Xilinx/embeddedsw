@@ -68,6 +68,8 @@
 #                     interrupt id's, when output of utility reduced logic is
 #                     connected to pl-ps interrupt as well as ILA probe. Fix
 #                     for CR#999732.
+# 3.10  mus  09/10/18 Added -hier option while using get_cells command to
+#                     support hierarchical designs.
 #
 ##############################################################################
 
@@ -863,7 +865,7 @@ proc get_psu_interrupt_id { ip_name port_name } {
         if {[llength $sink_periph] == 0} {
             continue
         }
-        set connected_ip [get_property IP_NAME [get_cells $sink_periph]]
+        set connected_ip [get_property IP_NAME [get_cells -hier $sink_periph]]
 	# check for direct connection or concat block connected
         if { [string compare -nocase "$connected_ip" "xlconcat"] == 0 } {
             set number [regexp -all -inline -- {[0-9]+} $sink_pin]
