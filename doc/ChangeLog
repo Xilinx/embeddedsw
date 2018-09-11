@@ -60,6 +60,7 @@ Added Os and LTO settings in extra compiler flags for PMU BSP
 
 iicps_v3_8:
 Fix for Cppcheck and Doxygen warnings.
+Add timeout interrupt in master mode.
 
 intc_v3_8:
 Updated check_cascade proc, to add check
