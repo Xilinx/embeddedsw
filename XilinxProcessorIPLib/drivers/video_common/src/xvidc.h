@@ -541,7 +541,7 @@ typedef struct {
  */
 typedef struct {
 	XVidC_VideoMode		VmId;
-	const char		    Name[21];
+	char		        Name[21];
 	XVidC_FrameRate		FrameRate;
 	XVidC_VideoTiming	Timing;
 } XVidC_VideoTimingMode;
