@@ -152,6 +152,7 @@ proc xgen_opts_file {libhandle} {
 		if {$periph == "ps7_sdio" || $periph == "psu_sd"} {
 			if {$fs_interface == 1} {
 				puts $file_handle "\#define FILE_SYSTEM_INTERFACE_SD"
+				break
 			}
 		}
 	}
