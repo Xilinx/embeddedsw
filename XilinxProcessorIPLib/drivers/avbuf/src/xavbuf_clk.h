@@ -58,6 +58,10 @@
 #include "xstatus.h"
 #include "sleep.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /****************************** Type Definitions ******************************/
 /**
  * This enum enumerates various PLL
@@ -94,4 +98,9 @@ typedef struct {
 /**************************** Function Prototypes *****************************/
 int XAVBuf_SetPixelClock(u64 FreqHz);
 int XAVBuf_SetAudioClock(u64 FreqHz);
+
+#ifdef __cplusplus
+}
+#endif
+	
 #endif /* XAVBUF_CLK_H_ */
