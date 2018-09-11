@@ -551,7 +551,8 @@ static u32 XFpga_PostConfigPcap(XFpga_Info *PLInfoPtr)
 	RegVal = Xil_In32(PCAP_CLK_CTRL);
 	Xil_Out32(PCAP_CLK_CTRL, RegVal & ~(PCAP_CLK_EN_MASK));
 #ifdef XFPGA_SECURE_MODE
-	if ((u8 *)PLInfoPtr->AddrPtr != NULL)
+	if (((u8 *)PLInfoPtr->AddrPtr != NULL) &&
+	    (PLInfoPtr->Flags & XFPGA_ENCRYPTION_USERKEY_EN))
 		memset((u8 *)PLInfoPtr->AddrPtr, 0, KEY_LEN);
 #endif
 	if ((Status == XFPGA_SUCCESS) &&
