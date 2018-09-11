@@ -656,6 +656,13 @@ static void mem_cpy (void* dst, const void* src, UINT cnt)
 	BYTE *d = (BYTE*)dst;
 	const BYTE *s = (const BYTE*)src;
 
+#if FF_WORD_ACCESS == 1
+	while (cnt >= sizeof (int)) {
+		*(int*)d = *(int*)s;
+		d += sizeof (int); s += sizeof (int);
+		cnt -= sizeof (int);
+	}
+#endif
 	if (cnt != 0) {
 		do {
 			*d++ = *s++;
