@@ -33,6 +33,7 @@ Modify sector buffer alignment to that of cache line supported
 SD Example - Change file size to 8MB from 8KB for ZynqMP platform
 Modify tcl file to create FILE_SYSTEM_INTERFACE_SD in xparameters.h only once
 if there are multiple instances of SD
+Add Word Access support in latest FatFS source
 
 clockps_v1_0:
 First release of clocksPS drivers.
