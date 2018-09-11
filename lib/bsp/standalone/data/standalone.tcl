@@ -50,6 +50,8 @@
 # 6.8   mus  04/27/18 Updated tcl to export definition for
 #                     FPU_HARD_FLOAT_ABI_ENABLED flag to bspconfig.h,based
 #                     on -mfpu-abi option in extra compiler flags.
+# 6.8   mus  09/10/18 Updated tcl to add -hier option while using
+#                     get_cells command.
 #
 ##############################################################################
 
@@ -80,7 +82,7 @@ proc lpd_is_coherent {} {
 	foreach master_name $lpd_master_names {
 		# Get all the enabled instances of each IP
 		set filter_txt [list IP_NAME == $master_name]
-		set mlist [hsi::get_cells -filter $filter_txt]
+		set mlist [hsi::get_cells -hier -filter $filter_txt]
 		# Iterate through each instance and check for CONFIG.IS_CACHE_COHERENT
 		foreach master $mlist {
 			if { [common::get_property CONFIG.IS_CACHE_COHERENT $master] == "1" } {
@@ -103,7 +105,7 @@ proc fpd_is_coherent {} {
     foreach master_name $fpd_master_names {
         # Get all the enabled instances of each IP
         set filter_txt [list IP_NAME == $master_name]
-        set mlist [hsi::get_cells -filter $filter_txt]
+        set mlist [hsi::get_cells -hier -filter $filter_txt]
         # Iterate through each instance and check for CONFIG.IS_CACHE_COHERENT
         foreach master $mlist {
             if { [common::get_property CONFIG.IS_CACHE_COHERENT $master] == "1" } {
@@ -122,7 +124,7 @@ proc fpd_is_coherent {} {
 # connected to a DMA capable peripheral
 #----------------------------------------------------------------------
 proc is_pl_coherent {} {
-     set periphs [hsi::get_cells]
+     set periphs [hsi::get_cells -hier]
      foreach periph $periphs {
 	set ipname [common::get_property IP_NAME $periph]
 	if {$ipname == "zynq_ultra_ps_e"} {
@@ -599,7 +601,7 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 		}
     } elseif { $sleep_timer == "none" } {
 		if { $proctype == "psu_cortexr5" } {
-			set periphs [hsi::get_cells]
+			set periphs [hsi::get_cells -hier]
 			foreach periph $periphs {
 				if {[string compare -nocase "psu_ttc_3" $periph] == 0} {
 					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
@@ -637,7 +639,7 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 # Tcl procedure get_psu_config
 # --------------------------------------
 proc get_psu_config {name} {
-    set ps_periph [hsi::get_cells zynq_ultra_ps_e_0]
+    set ps_periph [hsi::get_cells -hier zynq_ultra_ps_e_0]
     if { [llength $ps_periph] == 1} {
         return [common::get_property [format %s%s "CONFIG." $name] $ps_periph]
     } else {
@@ -1090,14 +1092,14 @@ proc handle_profile_opbtimer { config_file timer_inst } {
 	set intc_handle [hsi::get_cells -of_object $intr_port]
 
 	# Check if the Sink is a Concat IP
-	if {[common::get_property IP_NAME [hsi::get_cells $intc_handle]] == "xlconcat"} {
-		set dout [hsi::get_pins -of_object [hsi::get_cells $intc_handle] -filter DIRECTION=="O"]
+	if {[common::get_property IP_NAME [hsi::get_cells -hier $intc_handle]] == "xlconcat"} {
+		set dout [hsi::get_pins -of_object [hsi::get_cells -hier $intc_handle] -filter DIRECTION=="O"]
 		set intr_pins [::hsi::utils::get_sink_pins [hsi::get_pins $dout]]
 		for {set intr_pins_index 0} {$intr_pins_index < [llength $intr_pins]} {incr intr_pins_index} {
 			set intr_ip [hsi::get_cells -of_object [lindex $intr_pins $intr_pins_index]]
 			for {set intr_ip_index 0} {$intr_ip_index < [llength $intr_ip]} {incr intr_ip_index} {
-				if {[common::get_property IP_TYPE [hsi::get_cells [lindex $intr_ip $intr_ip_index]]] == "INTERRUPT_CNTLR"} {
-					set intc_handle [hsi::get_cells [lindex $intr_ip $intr_ip_index]]
+				if {[common::get_property IP_TYPE [hsi::get_cells -hier [lindex $intr_ip $intr_ip_index]]] == "INTERRUPT_CNTLR"} {
+					set intc_handle [hsi::get_cells -hier [lindex $intr_ip $intr_ip_index]]
 					break;
 				}
 			}
