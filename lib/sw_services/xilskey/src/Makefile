@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,12 @@ COMPILER_FLAGS=
 EXTRA_COMPILER_FLAGS=
 LIB= libxilskey.a
 
+ifeq ($(notdir $(COMPILER)) , armcc)
+EXTRA_ARCHIVE_FLAGS=--create
+else
 EXTRA_ARCHIVE_FLAGS=rc
+endif
+
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
