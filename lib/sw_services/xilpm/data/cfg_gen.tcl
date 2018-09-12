@@ -13,7 +13,7 @@ set cfg_template [get_template [file join [file dirname [info script]] cfg_data.
 proc is_rpu_lockstep {} {
 
 	# Get the property that describes sub-system in design
-	set zusp [get_cells -filter "IP_NAME == zynq_ultra_ps_e"]
+	set zusp [get_cells -hier -filter "IP_NAME == zynq_ultra_ps_e"]
 	#if we dont find a valid ZU+ IP
 	if { [llength $zusp] == 0 } {
 		#defualt to split mode
@@ -53,7 +53,7 @@ dict set master_map psu_cortexr5_1 { label psu_cortexr5_1 name RPU1 }
 
 proc is_master_defined { master } {
 	# Get the property that describes sub-system in design
-	set zusp [get_cells -filter "IP_NAME == zynq_ultra_ps_e"]
+	set zusp [get_cells -hier -filter "IP_NAME == zynq_ultra_ps_e"]
 
 	#if we dont find a valid ZU+ IP
 	if { [llength $zusp] == 0 } {
@@ -78,7 +78,7 @@ proc is_master_defined { master } {
 
 proc is_ipi_defined { master } {
 	#Get the slave list for this master
-	set slave_list [get_mem_ranges -of_objects [get_cells $master]];
+	set slave_list [get_mem_ranges -of_objects [get_cells -hier $master]];
 	#Find the first IPI slave in the list
 	set ipi [lsearch -inline $slave_list psu_ipi_*];
 	if { $ipi != "" } {
@@ -109,11 +109,11 @@ if { $master_list == "" } {
 #=============================================================================#
 proc get_ipi_mask { master } {
 	#Get the slave list for this master
-	set slave_list [get_mem_ranges -of_objects [get_cells $master]];
+	set slave_list [get_mem_ranges -of_objects [get_cells -hier $master]];
 	#Find the first IPI slave in the list
 	set ipi [lsearch -inline $slave_list psu_ipi_* ];
 	#Get the bit position property for the IPI instance
-	set bit_pos [get_property CONFIG.C_BIT_POSITION -object [get_cells $ipi]];
+	set bit_pos [get_property CONFIG.C_BIT_POSITION -object [get_cells -hier $ipi]];
 	#Convert the bit position into MASK and return it
 	return [format 0x%08X [expr 1<<$bit_pos]];
 }
@@ -187,7 +187,7 @@ proc get_tcm_perm_mask { tcm } {
 		#for others it same as any other slave
 		default {
 			#Get the slave list for this master
-			set slave_list [get_mem_ranges -of_objects [get_cells $master]];
+			set slave_list [get_mem_ranges -of_objects [get_cells -hier $master]];
 			#Search for the slave in list
 			set slave_index [lsearch $slave_list $tcm]
 			#if found, OR the master IPI mask to PERM mask
@@ -219,7 +219,7 @@ proc get_ocm_perm_mask { ocm } {
 	set island_high [dict get [dict get $pmufw::ocm_map $ocm] high]
 
 	foreach master $pmufw::master_list {
-		set plist [get_mem_ranges -of_objects [get_cells $master] psu_ocm_ram_0]
+		set plist [get_mem_ranges -of_objects [get_cells -hier $master] psu_ocm_ram_0]
 		if { [llength $plist] > 0} {
 			foreach ocm_instance $plist {
 				set base_val [get_property -object $ocm_instance -name BASE_VALUE]
@@ -329,7 +329,7 @@ proc get_slave_perm_mask_txt { slave } {
 	set macro_list {}
 	foreach master $pmufw::master_list {
 		#Get the slave list for this master
-		set slave_list [get_mem_ranges -of_objects [get_cells $master]];
+		set slave_list [get_mem_ranges -of_objects [get_cells -hier $master]];
 		#Search for the slave in list
 		set slave_index [lsearch $slave_list $slave]
 		#if found, add the macro to list
@@ -828,29 +828,29 @@ proc get_gpo_section {} {
 
 	append gpo_text "\tPM_CONFIG_GPO_SECTION_ID,\t\t/* GPO Section ID */\n"
 
-	if { "1" == [get_property CONFIG.C_GPO2_POLARITY [get_cells psu_pmu_iomodule]] } {
+	if { "1" == [get_property CONFIG.C_GPO2_POLARITY [get_cells -hier psu_pmu_iomodule]] } {
 		append gpo_text "\tPM_CONFIG_GPO1_BIT_2_MASK |\n"
 	}
-	if { "1" == [get_property CONFIG.C_GPO3_POLARITY [get_cells psu_pmu_iomodule]] } {
+	if { "1" == [get_property CONFIG.C_GPO3_POLARITY [get_cells -hier psu_pmu_iomodule]] } {
 		append gpo_text "\tPM_CONFIG_GPO1_BIT_3_MASK |\n"
 	}
-	if { "1" == [get_property CONFIG.C_GPO4_POLARITY [get_cells psu_pmu_iomodule]] } {
+	if { "1" == [get_property CONFIG.C_GPO4_POLARITY [get_cells -hier psu_pmu_iomodule]] } {
 		append gpo_text "\tPM_CONFIG_GPO1_BIT_4_MASK |\n"
 	}
-	if { "1" == [get_property CONFIG.C_GPO5_POLARITY [get_cells psu_pmu_iomodule]] } {
+	if { "1" == [get_property CONFIG.C_GPO5_POLARITY [get_cells -hier psu_pmu_iomodule]] } {
 		append gpo_text "\tPM_CONFIG_GPO1_BIT_5_MASK |\n"
 	}
 
-	if { "1" == [get_property CONFIG.C_GPO2_ENABLE [get_cells psu_pmu_iomodule]] } {
+	if { "1" == [get_property CONFIG.C_GPO2_ENABLE [get_cells -hier psu_pmu_iomodule]] } {
 		append gpo_text "\tPM_CONFIG_GPO1_MIO_PIN_34_MAP |\n"
 	}
-	if { "1" == [get_property CONFIG.C_GPO3_ENABLE [get_cells psu_pmu_iomodule]] } {
+	if { "1" == [get_property CONFIG.C_GPO3_ENABLE [get_cells -hier psu_pmu_iomodule]] } {
 		append gpo_text "\tPM_CONFIG_GPO1_MIO_PIN_35_MAP |\n"
 	}
-	if { "1" == [get_property CONFIG.C_GPO4_ENABLE [get_cells psu_pmu_iomodule]] } {
+	if { "1" == [get_property CONFIG.C_GPO4_ENABLE [get_cells -hier psu_pmu_iomodule]] } {
 		append gpo_text "\tPM_CONFIG_GPO1_MIO_PIN_36_MAP |\n"
 	}
-	if { "1" == [get_property CONFIG.C_GPO5_ENABLE [get_cells psu_pmu_iomodule]] } {
+	if { "1" == [get_property CONFIG.C_GPO5_ENABLE [get_cells -hier psu_pmu_iomodule]] } {
 		append gpo_text "\tPM_CONFIG_GPO1_MIO_PIN_37_MAP |\n"
 	}
 	append gpo_text "\t0,\t\t\t\t\t/* State of GPO pins */"
