@@ -5,6 +5,9 @@ sysmonpsu_v2_5:
 Fixed Cppcheck warnings
 Modified code for MISRA-C:2012 Compliance.
 
+sysmon_v7_5:
+Added Example for Vaux external channels
+
 axidma_v9_8:
 Fix cppcheck, gcc and doxygen warnings.
 
