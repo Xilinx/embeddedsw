@@ -90,8 +90,6 @@
 #endif
 
 typedef long ssize_t;
-#else
-#include <unistd.h>
 #endif
 #include "xilskey_utils.h"
 #include "xilskey_jslib.h"
