@@ -49,7 +49,7 @@ proc get_stdout {} {
 }
 
 proc get_ipname { instance } {
-	set ipname [common::get_property IP_NAME [get_cells $instance]];
+	set ipname [common::get_property IP_NAME [get_cells -hier $instance]];
 	return $ipname;
 }
 
@@ -109,16 +109,16 @@ proc get_eram_config { fp } {
 		"mig" -
 		"mig_7series" {
 			set eram_start [common::get_property CONFIG.C_BASEADDR \
-					[hsi::get_cells $mem]];
+					[hsi::get_cells -hier $mem]];
 			set eram_end [format 0x%x [expr [common::get_property CONFIG.C_HIGHADDR \
-					[hsi::get_cells $mem ]] + 1]];
+					[hsi::get_cells -hier $mem ]] + 1]];
 			}
 		"axi_7series_ddrx" -
 		"axi_v6_ddrx" {
 			set eram_start [common::get_property CONFIG.C_S_AXI_BASEADDR \
-					[hsi::get_cells $mem]]
+					[hsi::get_cells -hier $mem]]
 			set eram_end [format 0x%x [expr [common::get_property CONFIG.C_S_AXI_HIGHADDR \
-					[hsi::get_cells $mem ]] + 1]];
+					[hsi::get_cells -hier $mem ]] + 1]];
 			}
 		default {
 			return 1
@@ -139,19 +139,19 @@ proc get_flash_config { fp } {
 	}
 	switch -exact $ipname {
 		"axi_quad_spi"  {
-			set flash_start [common::get_property CONFIG.C_BASEADDR [get_cells $flash]];
+			set flash_start [common::get_property CONFIG.C_BASEADDR [get_cells -hier $flash]];
 			puts $fp "#define CONFIG_PRIMARY_FLASH_SPI_BASEADDR      $flash_start";
 			puts $fp "#define CONFIG_PRIMARY_FLASH_SPI";
-			set spi_mode [common::get_property CONFIG.C_SPI_MODE [get_cells $flash]];
-			set spi_fifo_depth [common::get_property CONFIG.C_FIFO_DEPTH [get_cells $flash]];
+			set spi_mode [common::get_property CONFIG.C_SPI_MODE [get_cells -hier $flash]];
+			set spi_fifo_depth [common::get_property CONFIG.C_FIFO_DEPTH [get_cells -hier $flash]];
 			puts $fp "#define CONFIG_FLASH_SPI_MODE         $spi_mode";
 			puts $fp "#define CONFIG_FLASH_SPI_FIFO_DEPTH   $spi_fifo_depth";
 			}
 		"axi_emc" {
-			set flash_start [common::get_property CONFIG.C_S_AXI_MEM0_BASEADDR [get_cells $flash]];
+			set flash_start [common::get_property CONFIG.C_S_AXI_MEM0_BASEADDR [get_cells -hier $flash]];
 			set flash_end [format 0x%x [expr \
 			[common::get_property CONFIG.C_S_AXI_MEM0_HIGHADDR \
-			[hsi::get_cells $flash]] + 1]];
+			[hsi::get_cells -hier $flash]] + 1]];
 			set flash_size [ format 0x%x [expr $flash_end - $flash_start ] ];
 			puts $fp "#define CONFIG_XILINX_FLASH_START     $flash_start";
 			puts $fp "#define CONFIG_XILINX_FLASH_END       $flash_end";
@@ -167,7 +167,7 @@ proc get_uart_config { fp } {
 	}
 	if {$ip_name eq "mdm"} {
 		if {[common::get_property CONFIG.C_USE_UART \
-			[hsi::get_cells $stdout ]] > 0 } {
+			[hsi::get_cells -hier $stdout ]] > 0 } {
 			#DO NOTHING
 		} else {
 			return;
@@ -175,7 +175,7 @@ proc get_uart_config { fp } {
 	}
 	if {$ip_name ne ""} {
 		set uart_baseaddr [common::get_property CONFIG.C_BASEADDR \
-			[hsi::get_cells $stdout ]];
+			[hsi::get_cells -hier $stdout ]];
 		switch -exact $ip_name {
 			"axi_uart16550" {
 					set uart_type "UART16550";
@@ -195,7 +195,7 @@ proc get_mem_name { memlist } {
 }
 
 proc get_mem_type { mem } {
-	set mem_type [::hsi::utils::get_ip_sub_type [hsi::get_cells $mem]];
+	set mem_type [::hsi::utils::get_ip_sub_type [hsi::get_cells -hier $mem]];
 	if { $mem_type == "BRAM_CTRL" } {
 		return "BRAM";
 	}
@@ -206,10 +206,10 @@ proc get_program_code_memory {} {
     # obtain a unique list if "I", and "ID" memories
     set proc_instance [hsi::get_sw_processor];
     set imemlist [hsi::get_mem_ranges -of_objects \
-	[hsi::get_cells $proc_instance] -filter \
+	[hsi::get_cells -hier $proc_instance] -filter \
 	{ IS_INSTRUCTION == true && MEM_TYPE == "MEMORY"}];
     set idmemlist [hsi::get_mem_ranges -of_objects \
-	[hsi::get_cells $proc_instance] -filter \
+	[hsi::get_cells -hier $proc_instance] -filter \
 	{ IS_INSTRUCTION == true && IS_DATA == true && MEM_TYPE == "MEMORY" }];
 
     # concatenate "I", and "ID" memories
@@ -243,10 +243,10 @@ proc get_program_data_memory {} {
     # obtain a unique list if "D", and "ID" memories
     set proc_instance [hsi::get_sw_processor];
     set dmemlist [hsi::get_mem_ranges -of_objects \
-	[hsi::get_cells $proc_instance] -filter \
+	[hsi::get_cells -hier $proc_instance] -filter \
 	{ IS_DATA == true && MEM_TYPE == "MEMORY"}];
     set idmemlist [hsi::get_mem_ranges -of_objects \
-	[hsi::get_cells $proc_instance] -filter \
+	[hsi::get_cells -hier $proc_instance] -filter \
 	{ IS_INSTRUCTION == true && IS_DATA == true && MEM_TYPE == "MEMORY" }];
 
     # concatenate "D", and "ID" memories
