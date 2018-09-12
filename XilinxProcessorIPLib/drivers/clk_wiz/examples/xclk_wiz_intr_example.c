@@ -294,7 +294,7 @@ int Clk_Wiz_Reconfig(XClk_Wiz_Config *CfgPtr_Dynamic)
     }
 
     /* Calculation of Input Freq and Divide factors*/
-    Freq = (CLK_WIZ_VCO_FACTOR/DYNAMIC_INPUT_FREQ_FACTOR);
+    Freq = ((float) CLK_WIZ_VCO_FACTOR/ DYNAMIC_INPUT_FREQ_FACTOR);
 
     Divide = Freq;
     Freq = (float)(Freq - Divide);
@@ -325,7 +325,7 @@ int Clk_Wiz_Reconfig(XClk_Wiz_Config *CfgPtr_Dynamic)
     *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x204) = 0x00;
 
     /* Calculation of Output Freq and Divide factors*/
-    Freq = (CLK_WIZ_VCO_FACTOR / DYNAMIC_OUTPUT_FREQFACTOR);
+    Freq = ((float) CLK_WIZ_VCO_FACTOR / DYNAMIC_OUTPUT_FREQFACTOR);
 
     Divide = Freq;
     Freq = (float)(Freq - Divide);
