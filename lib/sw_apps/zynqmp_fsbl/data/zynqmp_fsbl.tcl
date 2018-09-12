@@ -93,7 +93,7 @@ proc get_ip_sub_type { ip_inst_object} {
 }
 
 proc get_mem_type { mem } {
-    set mem_type [get_ip_sub_type [hsi::get_cells $mem]]
+    set mem_type [get_ip_sub_type [hsi::get_cells -hier $mem]]
     if { $mem_type == "BRAM_CTRL" } {
         return "BRAM"
     }
@@ -106,7 +106,7 @@ proc get_mem_type { mem } {
 proc check_program_memory {} {
     # Obtain a list of "ID" memories
     set proc_instance [hsi::get_sw_processor]
-    set idmemlist [hsi::get_mem_ranges -of_objects [hsi::get_cells $proc_instance] -filter { IS_INSTRUCTION == true && IS_DATA == true && MEM_TYPE == "MEMORY" }]
+    set idmemlist [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $proc_instance] -filter { IS_INSTRUCTION == true && IS_DATA == true && MEM_TYPE == "MEMORY" }]
     set security [common::get_property CONFIG.security_state [::hsi::get_os]]
 
     set required_mem_size 0x2A000
