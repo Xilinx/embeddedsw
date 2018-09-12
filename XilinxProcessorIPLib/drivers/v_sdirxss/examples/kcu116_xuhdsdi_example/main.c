@@ -511,6 +511,7 @@ void reset_audio_generator(void)
 {
 	/* Audio test pattern Generator Reset */
 	Xil_Out32((UINTPTR) (AUD_ATPG), (u32) (0x00000000));
+	sleep(1);
 	Xil_Out32((UINTPTR) (AUD_ATPG), (u32) (0x00000003));
 }
 
