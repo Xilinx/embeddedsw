@@ -3450,6 +3450,9 @@ int main() {
 					XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
 		/* Set HDCP upstream interface */
 		XHdcp_SetRepeater(&HdcpRepeater, TRUE);
+#if ENABLE_HDCP_PRO
+		XHdcp_SetProRepeater(&HdcpRepeater, TRUE);
+#endif
 	}
 #endif
 #endif

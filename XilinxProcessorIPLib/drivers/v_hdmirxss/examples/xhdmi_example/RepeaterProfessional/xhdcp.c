@@ -65,17 +65,62 @@
 
 /***************************** Include Files *********************************/
 #include <string.h>
+#include <time.h>
+#include <sys/time.h>
 #include "xhdcp.h"
 #include "xparameters.h"
 #include "xhdmi_example.h"
 
 /************************** Constant Definitions ****************************/
+#define ENABLE_SYS_TIME	                          0
+#define DISPLAY_HDCP_PRO_TOPOLOGY_ASSEMBLY        0
+#define HDCP_REPEATER_AUTH_FLOW	                  0
 
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Variable Definitions ****************************/
+#if ENABLE_HDCP_PRO
+XHdcpPro_Timestamp HdcpProRepeaterTimeStamp = {
+	{0x00, 0x00},
+	{0x0000,
+	 0x00,
+	 0x00},
+	{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+};
+#endif /* end of #if ENABLE_HDCP_PRO */
 
 /************************** Function Prototypes *****************************/
 #ifdef USE_HDCP
@@ -87,6 +132,10 @@ static void XHdcp_DisplayTopology(XHdcp_Repeater *InstancePtr, u8 Verbose);
 static void XHdcp_AuthenticationRequestCallback(void *HdcpInstancePtr);
 static void XHdcp_TopologyUpdateCallback(void *HdcpInstancePtr);
 static int  XHdcp_Flag2Count(u32 Flag);
+#if ENABLE_HDCP_PRO
+static int XHdcpPro_VerifyTimestamp(XHdcp_Repeater *InstancePtr);
+static void XHdcpPro_Get_MostRecentDateOfPub(void *InstancePtr, void *Buf);
+#endif
 #endif
 static void XHdcp_SetContentStreamType(XHdcp_Repeater *InstancePtr,
               XV_HdmiTxSs_HdcpContentStreamType StreamType);
@@ -137,6 +186,11 @@ int XHdcp_Initialize(XHdcp_Repeater *InstancePtr)
 #endif
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
   memset(&InstancePtr->Topology, 0, sizeof(XHdcp_Topology));
+#if ENABLE_HDCP_PRO
+  memcpy(&InstancePtr->HdcpProTimestamp,
+         &HdcpProRepeaterTimeStamp,
+         sizeof(XHdcpPro_Timestamp));
+#endif /* end of #if ENABLE_HDCP_PRO. */
 #endif
 
   /* Instance is ready only after upstream and at least one downstream
@@ -666,7 +720,52 @@ void XHdcp_SetRepeater(XHdcp_Repeater *InstancePtr, u8 Set)
 
   }
 }
+#endif /* end of #if ENABLE_HDCP_REPEATER */
 #endif
+
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+#if ENABLE_HDCP_REPEATER
+#if ENABLE_HDCP_PRO
+/*****************************************************************************/
+/**
+*
+* This function sets the repeater professional mode for repeater system.
+* HPD is toggled after the repeater mode is changed.
+*
+* @param    InstancePtr is a pointer to the XHdcp_Repeater instance.
+* @param    Set is TRUE to enable or FALSE to disable repeater.
+*
+* @return   None.
+*
+* @note	    None.
+*
+******************************************************************************/
+void XHdcp_SetProRepeater(XHdcp_Repeater *InstancePtr, u8 Set)
+{
+  /* Verify arguments */
+  Xil_AssertVoid(InstancePtr != NULL);
+
+  if (InstancePtr->IsReady) {
+
+	/* Check for validity of HDCP Professional Timestamp. */
+	if (XHdcpPro_VerifyTimestamp(InstancePtr) != XST_SUCCESS) {
+	  Set = FALSE;
+	}
+
+	/* Set HDCP Pro flag. */
+	InstancePtr->IsHdcpProRepeater = Set;
+
+	/* Set Upstream. */
+	XV_HdmiRxSs_HdcpSetProRepeater(InstancePtr->UpstreamInstancePtr, Set);
+
+    /* Toggle HPD if upstream is connected */
+    if (InstancePtr->UpstreamInstanceConnected) {
+      XV_HdmiRxSs_ToggleHpd(InstancePtr->UpstreamInstancePtr);
+    }
+  }
+}
+#endif /* end of #if ENABLE_HDCP_PRO. */
+#endif /* end of #if ENABLE_HDCP_REPEATER. */
 #endif
 
 /*****************************************************************************/
@@ -1198,16 +1297,20 @@ static void XHdcp_AuthenticationRequestCallback(void *HdcpInstancePtr)
 		  * resolution. Here we expect the upstream to time out and
 		  * restart HDCP when HDCP fails.
 		  */
+#if HDCP_REPEATER_AUTH_FLOW
               xil_printf("HDCP Repeater AuthRequest :: TX Stream %d VmIs is not ",
 			  "valid! (DwnStrmInstStreamUp = 0x%x) \r\n", i,
 				  InstancePtr->DownstreamInstanceStreamUp);
+#endif
 		 XV_HdmiTxSs_HdcpAuthRequest(InstancePtr->DownstreamInstancePtr[i]);
           }
 
         } else {
+#if HDCP_REPEATER_AUTH_FLOW
           xil_printf("HDCP Repeater AuthRequest :: TX Stream %d is not "
 			  "up! (DwnStrmInstStreamUp = 0x%x) \r\n", i,
 				  InstancePtr->DownstreamInstanceStreamUp);
+#endif
           /* Check if the downstream instance "HDCP" stream is not Up. */
           if (!(InstancePtr->DownstreamInstanceStreamUp & (u32)(0x1 << i))) {
               /* TX HDCP Stream [i] is not up on the TX side.*/
@@ -1234,8 +1337,10 @@ static void XHdcp_AuthenticationRequestCallback(void *HdcpInstancePtr)
     if (InstancePtr->DownstreamInstanceStreamUp == 0x0) {
 	  xil_printf("HDCP Repeater AuthRequest :: Downstream is all down !\r\n");
       if (XV_HdmiRxSs_GetVideoStreamType(InstancePtr->UpstreamInstancePtr)) {
+#if HDCP_REPEATER_AUTH_FLOW
 	xil_printf("HDCP Repeater AuthRequest :: Downstream is not Hdmi ;"
 			" still pushing down AuthRequest \r\n");
+#endif
       }
       InstancePtr->UpstreamAuthRequestCount = 1;
     }
@@ -1393,118 +1498,194 @@ static void XHdcp_AssembleTopology(XHdcp_Repeater *InstancePtr)
   if (InstancePtr->IsReady) {
     HdcpProtocol = XV_HdmiRxSs_HdcpGetProtocol(InstancePtr->UpstreamInstancePtr);
 
-    for (int i = 0; i < InstancePtr->DownstreamInstanceBinded; i++) {
-      /* Check if downstream interface is active.
-         If not then skip downstream interface */
-      Status = XV_HdmiTxSs_HdcpIsEnabled(InstancePtr->DownstreamInstancePtr[i]);
-      if (Status == FALSE) {
-        continue;
-      }
+#if ENABLE_HDCP_PRO
+    if (XV_HdmiRxSs_HdcpIsProRepeater(InstancePtr->UpstreamInstancePtr)) {
 
-      /* Increment downstream inferface connected count */
-      DownstreamCnt++;
+#if DISPLAY_HDCP_PRO_TOPOLOGY_ASSEMBLY
+	xil_printf(ANSI_COLOR_YELLOW ANSI_COLOR_BG_HIGH_CYAN
+	           "[Pro Repeater] Assembling topology for Upstream HDCP"
+	           "Protocol - %d (0=None; 1=1.4; 2=2.2; "
+	           "3=Both" ANSI_COLOR_BG_RESET "\r\n", HdcpProtocol);
+#endif
 
-      /* Check if downstream interface has topology information available.
-         If not then downstream topology cannot be assembled. */
-      TopologyPtr = XV_HdmiTxSs_HdcpGetTopology(InstancePtr->DownstreamInstancePtr[i]);
-      if (TopologyPtr == NULL) {
-        break;
-      }
+	Topology.MaxCascadeExceeded = (FALSE);
+	Topology.MaxDevsExceeded = (FALSE);
 
-      /* Check for flags */
-      Topology.MaxDevsExceeded |=
-        XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[i],
-          XV_HDMITXSS_HDCP_TOPOLOGY_MAXDEVSEXCEEDED);
-      Topology.MaxCascadeExceeded |=
-        XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[i],
-          XV_HDMITXSS_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED);
-      Topology.Hdcp20RepeaterDownstream |=
-        XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[i],
-          XV_HDMITXSS_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM);
-      Topology.Hdcp1DeviceDownstream |=
-        XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[i],
-          XV_HDMITXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM);
+	switch (HdcpProtocol) {
+	case XV_HDMIRXSS_HDCP_22 :
+           Topology.Depth = 1;
+           Topology.DeviceCnt = 1;
 
-      /* Get the downstream interface device count and depth */
-      DeviceCnt = XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[i],
-                    XV_HDMITXSS_HDCP_TOPOLOGY_DEVICECNT);
-      Depth = XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[i],
-                XV_HDMITXSS_HDCP_TOPOLOGY_DEPTH);
+           Topology.MaxDevsExceeded = 0;
+           Topology.MaxCascadeExceeded = 0;
+           Topology.Hdcp20RepeaterDownstream |=
+		XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[0],
+						 XV_HDMITXSS_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM);
+           Topology.Hdcp1DeviceDownstream |=
+		XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[0],
+						 XV_HDMITXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM);
 
-      /* Calculate device count by taking sum of all downstream interface device counts.
-         Calculate depth by finding the maximum downstream depth and then adding one. */
-      Topology.DeviceCnt += DeviceCnt;
-      if (Depth > Topology.Depth) {
-        Topology.Depth = Depth;
-      }
+           /* Set topology field. */
+           XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
+					 XV_HDMIRXSS_HDCP_TOPOLOGY_DEPTH,
+					 Topology.Depth);
+           XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
+					 XV_HDMIRXSS_HDCP_TOPOLOGY_DEVICECNT,
+					 Topology.DeviceCnt);
+           XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
+					 XV_HDMIRXSS_HDCP_TOPOLOGY_MAXDEVSEXCEEDED,
+					 Topology.MaxDevsExceeded);
+           XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
+					 XV_HDMIRXSS_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED,
+					 Topology.MaxCascadeExceeded);
+           XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
+					 XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM,
+					 Topology.Hdcp20RepeaterDownstream);
+           XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
+					 XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM,
+					 Topology.Hdcp1DeviceDownstream);
 
-      /* Check for topology maximums */
-      switch (HdcpProtocol) {
+           /* Add the first KSV from the downstream device ID list. */
+           memcpy(&Topology.DeviceList[0],
+                  XV_HdmiTxSs_HdcpGetTopologyReceiverIdList(InstancePtr->DownstreamInstancePtr[0]),
+                  XHDCP_DEVICE_ID_SIZE*1);
+           /* Set the KSV list for the upstream. */
+           XV_HdmiRxSs_HdcpSetTopologyReceiverIdList(InstancePtr->UpstreamInstancePtr,
+						  Topology.DeviceList[0],
+						  Topology.DeviceCnt);
 
-        /* HDCP 2.2 */
-        case XV_HDMIRXSS_HDCP_22:
-          if (Topology.DeviceCnt > XHDCP_MAX_DEVICE_CNT_HDCP22) {
-            Topology.MaxDevsExceeded = TRUE;
-          }
-          if (Topology.Depth > (XHDCP_MAX_DEPTH_HDCP22-1)) {
-            Topology.MaxCascadeExceeded = TRUE;
-          }
+           /* Trigger topology update. */
+           memcpy(&InstancePtr->Topology, &Topology, sizeof(XHdcp_Topology));
+           XV_HdmiRxSs_HdcpSetTopologyUpdate(InstancePtr->UpstreamInstancePtr);
+
+           XHdcp_DisplayTopology(InstancePtr, TRUE);
+           break;
+
+	case XV_HDMIRXSS_HDCP_14 :
+           Topology.Depth = 0;
+           Topology.DeviceCnt = 0;
+           /* Do nothing. Don't expose the Repeater system to the upstream.
+            * HDCP 1.4 interface is expected to be in Authenticated
+            * state by this point.*/
+           break;
+	}
+
+    } else /* not a HDCP Professional Repeater. */
+#endif /* end if #if ENABLE_HDCP_PRO */
+    {
+
+        for (int i = 0; i < InstancePtr->DownstreamInstanceBinded; i++) {
+        /* Check if downstream interface is active.
+           If not then skip downstream interface */
+        Status = XV_HdmiTxSs_HdcpIsEnabled(InstancePtr->DownstreamInstancePtr[i]);
+        if (Status == FALSE) {
+           continue;
+        }
+
+        /* Increment downstream inferface connected count */
+        DownstreamCnt++;
+
+        /* Check if downstream interface has topology information available.
+           If not then downstream topology cannot be assembled. */
+        TopologyPtr = XV_HdmiTxSs_HdcpGetTopology(InstancePtr->DownstreamInstancePtr[i]);
+        if (TopologyPtr == NULL) {
           break;
+        }
 
-        /* HDCP 1.4 */
-        case XV_HDMIRXSS_HDCP_14:
-          if (Topology.DeviceCnt > XHDCP_MAX_DEVICE_CNT_HDCP14) {
-            Topology.MaxDevsExceeded = TRUE;
-            XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
+        /* Check for flags */
+        Topology.MaxDevsExceeded |=
+          XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[i],
+            XV_HDMITXSS_HDCP_TOPOLOGY_MAXDEVSEXCEEDED);
+        Topology.MaxCascadeExceeded |=
+          XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[i],
+            XV_HDMITXSS_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED);
+        Topology.Hdcp20RepeaterDownstream |=
+          XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[i],
+            XV_HDMITXSS_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM);
+        Topology.Hdcp1DeviceDownstream |=
+          XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[i],
+            XV_HDMITXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM);
+
+        /* Get the downstream interface device count and depth */
+        DeviceCnt = XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[i],
+                      XV_HDMITXSS_HDCP_TOPOLOGY_DEVICECNT);
+        Depth = XV_HdmiTxSs_HdcpGetTopologyField(InstancePtr->DownstreamInstancePtr[i],
+                  XV_HDMITXSS_HDCP_TOPOLOGY_DEPTH);
+
+        /* Calculate device count by taking sum of all downstream interface device counts.
+           Calculate depth by finding the maximum downstream depth and then adding one. */
+        Topology.DeviceCnt += DeviceCnt;
+        if (Depth > Topology.Depth) {
+          Topology.Depth = Depth;
+        }
+
+        /* Check for topology maximums */
+        switch (HdcpProtocol) {
+
+          /* HDCP 2.2 */
+          case XV_HDMIRXSS_HDCP_22:
+            if (Topology.DeviceCnt > XHDCP_MAX_DEVICE_CNT_HDCP22) {
+              Topology.MaxDevsExceeded = TRUE;
+            }
+            if (Topology.Depth > (XHDCP_MAX_DEPTH_HDCP22-1)) {
+              Topology.MaxCascadeExceeded = TRUE;
+            }
+            break;
+
+          /* HDCP 1.4 */
+          case XV_HDMIRXSS_HDCP_14:
+            if (Topology.DeviceCnt > XHDCP_MAX_DEVICE_CNT_HDCP14) {
+              Topology.MaxDevsExceeded = TRUE;
+              XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
 				XV_HDMIRXSS_HDCP_TOPOLOGY_MAXDEVSEXCEEDED,
 				Topology.MaxDevsExceeded);
-          }
-          if (Topology.Depth > (XHDCP_MAX_DEPTH_HDCP14-1)) {
-            Topology.MaxCascadeExceeded = TRUE;
-            XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
+            }
+            if (Topology.Depth > (XHDCP_MAX_DEPTH_HDCP14-1)) {
+              Topology.MaxCascadeExceeded = TRUE;
+              XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
 				XV_HDMIRXSS_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED,
 				Topology.MaxCascadeExceeded);
-          }
-          break;
-      }
-
-      /* Append to the device list */
-      if (!(Topology.MaxDevsExceeded)) {
-        memcpy(&Topology.DeviceList[Topology.DeviceCnt - DeviceCnt],
-          XV_HdmiTxSs_HdcpGetTopologyReceiverIdList(InstancePtr->DownstreamInstancePtr[i]),
-          5*DeviceCnt);
-      }
-
-      /* Propagate topology upstream on final call */
-      if (DownstreamCnt == XHdcp_Flag2Count(InstancePtr->DownstreamInstanceConnected)) {
-        Topology.Depth++;
-
-        /* Set upstream topology information */
-        XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
-          XV_HDMIRXSS_HDCP_TOPOLOGY_MAXDEVSEXCEEDED, Topology.MaxDevsExceeded);
-        XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
-          XV_HDMIRXSS_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED, Topology.MaxCascadeExceeded);
-        XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
-          XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM, Topology.Hdcp20RepeaterDownstream);
-        XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
-          XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM, Topology.Hdcp1DeviceDownstream);
-        if (!(Topology.MaxDevsExceeded)) {
-          if (Topology.DeviceCnt > 0) {
-            XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
-              XV_HDMIRXSS_HDCP_TOPOLOGY_DEVICECNT, Topology.DeviceCnt);
-          } else {
-            xdbg_printf(XDBG_DEBUG_GENERAL, "Error: Attempted to trigger topology update with device count of zero.\r\n");
+            }
             break;
-          }
         }
-        if (!(Topology.MaxCascadeExceeded)) {
+
+        /* Append to the device list */
+        if (!(Topology.MaxDevsExceeded)) {
+          memcpy(&Topology.DeviceList[Topology.DeviceCnt - DeviceCnt],
+            XV_HdmiTxSs_HdcpGetTopologyReceiverIdList(InstancePtr->DownstreamInstancePtr[i]),
+            5*DeviceCnt);
+        }
+
+        /* Propagate topology upstream on final call */
+        if (DownstreamCnt == XHdcp_Flag2Count(InstancePtr->DownstreamInstanceConnected)) {
+          Topology.Depth++;
+
+          /* Set upstream topology information */
           XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
-            XV_HDMIRXSS_HDCP_TOPOLOGY_DEPTH, Topology.Depth);
-        }
-        if (!(Topology.MaxDevsExceeded) && !(Topology.MaxCascadeExceeded)) {
-          XV_HdmiRxSs_HdcpSetTopologyReceiverIdList(InstancePtr->UpstreamInstancePtr,
-            Topology.DeviceList[0], Topology.DeviceCnt);
-        }
+            XV_HDMIRXSS_HDCP_TOPOLOGY_MAXDEVSEXCEEDED, Topology.MaxDevsExceeded);
+          XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
+            XV_HDMIRXSS_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED, Topology.MaxCascadeExceeded);
+          XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
+            XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM, Topology.Hdcp20RepeaterDownstream);
+          XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
+            XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM, Topology.Hdcp1DeviceDownstream);
+          if (!(Topology.MaxDevsExceeded)) {
+            if (Topology.DeviceCnt > 0) {
+              XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
+                XV_HDMIRXSS_HDCP_TOPOLOGY_DEVICECNT, Topology.DeviceCnt);
+            } else {
+              xdbg_printf(XDBG_DEBUG_GENERAL, "Error: Attempted to trigger topology update with device count of zero.\r\n");
+              break;
+            }
+          }
+          if (!(Topology.MaxCascadeExceeded)) {
+            XV_HdmiRxSs_HdcpSetTopologyField(InstancePtr->UpstreamInstancePtr,
+              XV_HDMIRXSS_HDCP_TOPOLOGY_DEPTH, Topology.Depth);
+          }
+          if (!(Topology.MaxDevsExceeded) && !(Topology.MaxCascadeExceeded)) {
+            XV_HdmiRxSs_HdcpSetTopologyReceiverIdList(InstancePtr->UpstreamInstancePtr,
+              Topology.DeviceList[0], Topology.DeviceCnt);
+          }
 		if (Topology.DeviceCnt > XHDCP_MAX_DEVICE_CNT_CTS_HDCP14) {
 			/* Propagate the MAX_DEV_EXCEEDED error to upstream. */
 			Topology.MaxDevsExceeded = TRUE;
@@ -1512,17 +1693,19 @@ static void XHdcp_AssembleTopology(XHdcp_Repeater *InstancePtr)
 			  XV_HDMIRXSS_HDCP_TOPOLOGY_MAXDEVSEXCEEDED, Topology.MaxDevsExceeded);
 		}
 
-        /* Trigger topology update only when the topology has changed */
-        if (memcmp(&InstancePtr->Topology, &Topology, sizeof(XHdcp_Topology)) != 0) {
-          memcpy(&InstancePtr->Topology, &Topology, sizeof(XHdcp_Topology));
-          XV_HdmiRxSs_HdcpSetTopologyUpdate(InstancePtr->UpstreamInstancePtr);
+          /* Trigger topology update only when the topology has changed */
+          if (memcmp(&InstancePtr->Topology, &Topology, sizeof(XHdcp_Topology)) != 0) {
+            memcpy(&InstancePtr->Topology, &Topology, sizeof(XHdcp_Topology));
+            XV_HdmiRxSs_HdcpSetTopologyUpdate(InstancePtr->UpstreamInstancePtr);
 #ifdef DEBUG
-          /* Display topology */
-          XHdcp_DisplayTopology(InstancePtr, TRUE);
+            /* Display topology */
+            XHdcp_DisplayTopology(InstancePtr, TRUE);
 #endif
+          }
         }
       }
-    }
+
+    } /* end of checking for HDCP Professional Repeater. */
 
     /* When the upstream protocol is HDCP 1.4 set the default stream
        type to zero for all downstream interfaces */
@@ -1703,6 +1886,109 @@ static int XHdcp_Flag2Count(u32 Flag)
 
   return Count;
 }
+#endif /* end of #if ENABLE_HDCP_REPEATER */
+#endif
+
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+#if ENABLE_HDCP_REPEATER
+#if ENABLE_HDCP_PRO
+/*****************************************************************************/
+/**
+*
+* This function populates the Buffer argument with the system date in the
+* 32-bit Date Time binary representation as defined on Page 6 of "Amendment
+* of IIA for HDCP Professional, Revision 2.2".
+*
+* @param    InstancePtr is pointer to the XHdcp_Repeater instance.
+* @param    Buf is the input buffer.
+*
+* @return   None.
+*
+* @note	    None.
+*
+******************************************************************************/
+static int XHdcpPro_VerifyTimestamp(XHdcp_Repeater *InstancePtr)
+{
+	XHdcpPro_DateTime m_r_d;
+	/* Cannot get system time in baremetal application.
+	 * This implementation is just a place holder and
+	 * should be updated by the user, base on the OS.
+	 */
+#if ENABLE_SYS_TIME
+	time_t current_time = time(NULL);
+	struct tm system_tm = *localtime(&current_time);
+#endif
+	/* Get latest date */
+	XHdcpPro_Get_MostRecentDateOfPub(InstancePtr, &m_r_d);
+
+	/* Check if the Timestamp year preceeds the most recent timestamp
+	 * and the system time and date. */
+	if (InstancePtr->HdcpProTimestamp.DateTime.Year < m_r_d.Year
+#if ENABLE_SYS_TIME
+	    &&
+		InstancePtr->HdcpProTimestamp.DateTime.Year < system_tm.tm_year
+#endif
+	   )
+	{
+		return XST_FAILURE;
+	}
+
+	/* Check if the Timestamp month preceeds the most recent timestamp
+	 * and the system date month. */
+	if ((InstancePtr->HdcpProTimestamp.DateTime.Month < m_r_d.Month ||
+	     (InstancePtr->HdcpProTimestamp.DateTime.Month == m_r_d.Month &&
+	      InstancePtr->HdcpProTimestamp.DateTime.Day < m_r_d.Day))
+#if ENABLE_SYS_TIME
+	    &&
+		(InstancePtr->HdcpProTimestamp.DateTime.Month < (system_tm.tm_mon + 1) ||
+		 (InstancePtr->HdcpProTimestamp.DateTime.Month == (system_tm.tm_mon + 1) &&
+		  InstancePtr->HdcpProTimestamp.DateTime.Day < system_tm.tm_mday))
+#endif
+	   )
+	{
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
+#endif /* end of #if ENABLE_HDCP_PRO */
+#endif /* end of #if ENABLE_HDCP_REPEATER */
+#endif
+
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+#if ENABLE_HDCP_REPEATER
+#if ENABLE_HDCP_PRO
+/*****************************************************************************/
+/**
+*
+* This function populates the Buffer argument with the system date in the
+* 32-bit Date Time binary representation as defined on Page 6 of "Amendment
+* of IIA for HDCP Professional, Revision 2.2".
+*
+* @param    InstancePtr is pointer to the XHdcp_Repeater instance.
+* @param    Buf is the input buffer.
+*
+* @return   None.
+*
+* @note	    None.
+*
+******************************************************************************/
+static void XHdcpPro_Get_MostRecentDateOfPub(void *InstancePtr, void *Buf)
+{
+	XHdcpPro_DateTime m_r_d;
+
+	/* Since this is a Bare-metal implementation, here the current date
+	 * is being set to 0.
+	 * The user needs to ensure that in the HDCP Pro Repeater the
+	 * system date is obtained and translated into a 32-bit Date Time
+	 * binary representation as defined on Page 6 of "Amendment of IIA
+	 * for HDCP Professional, Revision 2.2".
+	 */
+	memset(&m_r_d, 0x0, sizeof(XHdcpPro_DateTime));
+
+	memcpy(Buf, &m_r_d, sizeof(XHdcpPro_DateTime));
+}
+#endif /* end of #if ENABLE_HDCP_PRO */
 #endif /* end of #if ENABLE_HDCP_REPEATER */
 #endif
 
