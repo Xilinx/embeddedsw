@@ -898,6 +898,8 @@ remoteproc_create_virtio(struct remoteproc *rproc,
 					vdev_rsc, vdev_rsc_io, rproc,
 					remoteproc_virtio_notify,
 					rst_cb);
+	rpvdev = metal_container_of(vdev, struct remoteproc_virtio, vdev);
+	metal_list_add_tail(&rproc->vdevs, &rpvdev->node);
 	num_vrings = vdev_rsc->num_of_vrings;
 	/* set the notification id for vrings */
 	for (i = 0; i < num_vrings; i++) {
@@ -923,9 +925,6 @@ remoteproc_create_virtio(struct remoteproc *rproc,
 		if (ret)
 			goto err1;
 	}
-	rpvdev = metal_container_of(vdev, struct remoteproc_virtio, vdev);
-	metal_list_add_tail(&rproc->vdevs, &rpvdev->node);
-
 	metal_mutex_release(&rproc->lock);
 	return vdev;
 
