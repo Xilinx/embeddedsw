@@ -65,6 +65,7 @@ extern "C" {
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 #include "xv_hdmirxss.h"
 #endif
+#include "xhdmi_example.h"
 
 /************************** Constant Definitions ****************************/
 #define XHDCP_DEVICE_ID_SIZE               5    /*< Size in bytes of ReceiverID for HDCP 2.2 or KSV for HDCP 1.4 */
@@ -88,6 +89,20 @@ typedef struct
   u8  Hdcp20RepeaterDownstream;
   u8  Hdcp1DeviceDownstream;
 } XHdcp_Topology;
+
+#if ENABLE_HDCP_PRO
+typedef struct {
+  u16 Year;
+  u8  Month;
+  u8  Day;
+} XHdcpPro_DateTime;
+
+typedef struct {
+  u8 hdcp_2_srm_ver[2];
+  XHdcpPro_DateTime DateTime;
+  u8 DcpLlcSign[384];
+} XHdcpPro_Timestamp;
+#endif
 
 typedef struct
 {
@@ -117,6 +132,12 @@ typedef struct
   /** HDCP topology */
   XHdcp_Topology Topology;
   /** Content stream type */
+#if ENABLE_HDCP_PRO
+  /** Flag to track if the system is a HDCP Professional Repeater. */
+  u8 IsHdcpProRepeater;
+  /** HDCP Professional Repeater variables. */
+  XHdcpPro_Timestamp HdcpProTimestamp;
+#endif
 #endif
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
   /** Enforce content blocking */
@@ -143,6 +164,9 @@ int  XHdcp_SetDownstream(XHdcp_Repeater *InstancePtr,
 #endif
 #if defined XPAR_XV_HDMITXSS_NUM_INSTANCES && defined XPAR_XV_HDMIRXSS_NUM_INSTANCES
 void XHdcp_SetRepeater(XHdcp_Repeater *InstancePtr, u8 Set);
+#if ENABLE_HDCP_PRO
+void XHdcp_SetProRepeater(XHdcp_Repeater *InstancePtr, u8 Set);
+#endif
 #endif
 
 // Functions used to process callback events
