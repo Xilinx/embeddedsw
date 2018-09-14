@@ -195,6 +195,7 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.IdleHookArgs = 0U
 #endif
 	},
+#ifndef ENABLE_RECOVERY
 	{
 		.NodeId = NODE_TTC_3,
 		.RstActionList= {
@@ -216,6 +217,7 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.IdleHookArgs = 0U
 #endif
 	},
+#endif
 	{
 		.NodeId = NODE_SATA,
 		.RstActionList= {
