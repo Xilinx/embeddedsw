@@ -43,6 +43,7 @@ lwip202_v1_2:
 Add mcdma support and handle IEEE_1588 for AXI Phy in ethernet header.
 Add AXI 2.5G Ethernet support.
 Fix axiethernet apps build error by removing dependency on HSI get_connected_intr_cntrl API output.
+Fix copyrights.
 
 mcdma_v1_2:
 Add API XMcdma_LookupConfigBaseAddr() to lookup config by base address.
