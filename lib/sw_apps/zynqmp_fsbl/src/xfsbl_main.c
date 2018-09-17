@@ -63,6 +63,7 @@
 /************************** Function Prototypes ******************************/
 static void XFsbl_UpdateMultiBoot(u32 MultiBootValue);
 static void XFsbl_FallBack(void);
+static void XFsbl_MarkUsedRPUCores(XFsblPs *FsblInstPtr, u32 PartitionNum);
 
 /************************** Variable Definitions *****************************/
 XFsblPs FsblInstance={0x3U, XFSBL_SUCCESS, 0U, 0U, 0U};
@@ -158,6 +159,15 @@ int main(void )
 					FsblStatus += XFSBL_ERROR_STAGE_2;
 					FsblStage = XFSBL_STAGE_ERR;
 				} else if (XFSBL_STATUS_JTAG == FsblStatus) {
+
+					/*
+					 * Mark RPU cores as usable in JTAG boot
+					 * mode.
+					 */
+					Xil_Out32(XFSBL_R5_USAGE_STATUS_REG,
+						  XFSBL_R5_0_STATUS_MASK |
+						  XFSBL_R5_1_STATUS_MASK);
+
 					/**
 					 * This is JTAG boot mode, go to the handoff stage
 					 */
@@ -170,6 +180,12 @@ int main(void )
 					 * 0th partition will be FSBL
 					 */
 					PartitionNum = 0x1U;
+
+					/* Clear RPU status register */
+					Xil_Out32(XFSBL_R5_USAGE_STATUS_REG,
+						  (Xil_In32(XFSBL_R5_USAGE_STATUS_REG) &
+						  ~(XFSBL_R5_0_STATUS_MASK |
+						    XFSBL_R5_1_STATUS_MASK)));
 
 					FsblStage = XFSBL_STAGE3;
 				}
@@ -206,6 +222,9 @@ int main(void )
 				} else {
 					XFsbl_Printf(DEBUG_INFO,"Partition %d Load Success \n\r",
 									PartitionNum);
+
+					XFsbl_MarkUsedRPUCores(&FsblInstance,
+							       PartitionNum);
 					/**
 					 * Check loading all partitions is completed
 					 */
@@ -586,3 +605,36 @@ void XFsbl_MeasurePerfTime(XTime tCur)
 }
 
 #endif
+
+static void XFsbl_MarkUsedRPUCores(XFsblPs *FsblInstPtr, u32 PartitionNum)
+{
+	u32 DestCpu, RegValue;
+
+	DestCpu = XFsbl_GetDestinationCpu(&FsblInstPtr->ImageHeader.
+					  PartitionHeader[PartitionNum]);
+
+	RegValue = Xil_In32(XFSBL_R5_USAGE_STATUS_REG);
+
+	/*
+	 * Check if any RPU core is used. If it is used set particular bit of
+	 * that core to indicate PMU that it is used and it is not need to
+	 * power down.
+	 */
+	switch (DestCpu) {
+	case XIH_PH_ATTRB_DEST_CPU_R5_0:
+	case XIH_PH_ATTRB_DEST_CPU_R5_L:
+		Xil_Out32(XFSBL_R5_USAGE_STATUS_REG, RegValue |
+			  XFSBL_R5_0_STATUS_MASK);
+		break;
+	case XIH_PH_ATTRB_DEST_CPU_R5_1:
+		Xil_Out32(XFSBL_R5_USAGE_STATUS_REG, RegValue |
+			  XFSBL_R5_1_STATUS_MASK);
+		break;
+	case XIH_PH_ATTRB_DEST_CPU_NONE:
+		if ((FsblInstance.ProcessorID == XIH_PH_ATTRB_DEST_CPU_R5_0) ||
+		    (FsblInstance.ProcessorID == XIH_PH_ATTRB_DEST_CPU_R5_L)) {
+			Xil_Out32(XFSBL_R5_USAGE_STATUS_REG, RegValue |
+				  XFSBL_R5_0_STATUS_MASK);
+		}
+	}
+}
