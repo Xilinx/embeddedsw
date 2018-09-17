@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,7 +15,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -25,11 +25,53 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
+/*****************************************************************************/
+/**
+*
+* @file xhdcp_debug.h
+*
+* This file provides the interface of the HDCP debug commands
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who    Date     Changes
+* ----- ------ -------- --------------------------------------------------
+* 1.00         07/16/15 Initial release.
+* </pre>
+*
+******************************************************************************/
+#ifndef XHDCP1X_DEBUG_H
+/**< Prevent circular inclusions by using protection macros */
+#define XHDCP1X_DEBUG_H
 
-#ifndef SRC_CLK_SET_H_
-#define SRC_CLK_SET_H_
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-int PLL_init_Seting(XSpi *SPI_LMK04906, u32 div_value);
-u32 clk_set(u8 i2c_mux_addr, u8 i2c_dev_addr, double set_freq);
 
-#endif /* SRC_CLK_SET_H_ */
+/***************************** Include Files *********************************/
+
+
+/************************** Constant Definitions *****************************/
+
+
+/***************** Macros (Inline Functions) Definitions *********************/
+
+
+/**************************** Type Definitions *******************************/
+
+
+/****************************** Local Globals ********************************/
+
+
+/************************** Function Prototypes ******************************/
+int XHdcp1xDebug_ProcessKey(char CmdKey);
+
+
+#ifdef __cplusplus
+}
+#endif
+
+
+#endif  /* XHDCP1X_DEBUG_H */

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -25,20 +25,22 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-/*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver  Who Date     Changes
-* ---- --- -------- --------------------------------------------------
-* 1.00 KI  07/13/17 Initial release.
-*
-* </pre>
-*/
+/******************************************************************************/
+/**
+ *
+ * @file clk_set.c
+ *
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who  Date     Changes
+ * ----- ---- -------- -----------------------------------------------
+ * 1.0   Kei  07/13/17 Initial release.
+ *
+*******************************************************************************/
 
 #include "xparameters.h"
 #include "xiicps.h"
-#include "xspi.h"
+//#include "xspi.h"
 #include "sleep.h"
 #include "clk_set.h"
 
@@ -65,14 +67,15 @@ XIicPs  IicPtr;
 
 static void si570_read_cal(XIicPs *Iic, u8 Addr, u8 *RFreq_Cal);
 static void si570_rfreq_calc(double Freq, u8 *RFreq_Cal, u8 *RFreq_Set,
-											u8 *HSDIV_Set, u8 *N1_Set);
+					u8 *HSDIV_Set, u8 *N1_Set);
 static void si570_write_rfreq(XIicPs *Iic, u8 Addr, u8 *RFreq_Set,
-										u8 HSDIV_Set,  u8 N1_Set);
+					u8 HSDIV_Set,  u8 N1_Set);
 static void double2hex(double dnum, u8 *hnum);
-extern int LMK04906_RegWrite(XSpi *SPI_LMK04906 , u32 RegData ,u32 RegAddr);
+//extern int LMK04906_RegWrite(XSpi *SPI_LMK04906 , u32 RegData ,u32 RegAddr);
 
 
-u32 clk_set(u8 i2c_mux_addr, u8 i2c_dev_addr, double set_freq){
+u32 clk_set(u8 i2c_mux_addr, u8 i2c_dev_addr, double set_freq)
+{
 
 	XIicPs_Config *IicCfgPtr;
 	u32 Status;
@@ -295,69 +298,3 @@ static void double2hex(double dnum, u8 *hnum)
 
 
 
-int PLL_init_Seting(XSpi *SPI_LMK04906, u32 div_value) {
-
-    const u32 init_Setting_num [27][2] =
-    {     //{ Data      , Addr }
-		/* 00 */
-		{ 0x0000000, 31 },
-            { 0x0001000,  0 }, // Reset
-			// CLKOut0_PD   = 0   ,Divider = 18   (2430/18=135)
-		{ div_value,  0 },
-		{ div_value,  1 }, // CLKOut1_PD   = 0
-		{ 0x4000000,  2 }, //    ***
-
-		/* 05 */
-		{ 0x4000001,  3 }, //    ***
-            { 0x4000000,  4 }, //    ***
-		{ 0x4000000,  5 }, // CLKOut5_PD   = 1 (Disable)
-			// CLKOut0_TYPE = 0x01 (LVDS) , CLKOut0_ADLY = 0x00 (Analog Dealy 0)
-		{ 0x0888000,  6 },
-		{ 0x0888000,  7 }, //    ***
-
-	    /* 10 */
-			// CLKOut5_TYPE = 0x01 (LVDS) , CLKOut5_ADLY = 0x00 (Analog Dealy 0)
-		{ 0x0888000,  8 },
-		{ 0x2AAAAAA,  9 }, // === Defaulte ===
-		{ 0x08A0200, 10 }, // EN_OSCout0 = 1 (Enable)
-		{ 0x02C0881, 11 }, // xxxx MODE = 5'b00000 Dual PLL, Internal VCO
-			// LD_MUX = 3(PLL1 & 2 DLD) , LD_TYPE = 3(Output (Push-Pull)) ,
-			// SYNC_PLL2_DLD = 0(Nomal),SYNC_PLL1_DLD = 0(Nomal),
-			// EN_TRACK = 1 (Enable) HOLDOVER_MODE = 2(Enable)
-		{ 0x0D8600B, 12 },
-
-		/* 15 */
-			// HOLDOVER_MUX = 7(uWire Readback) ,
-			// HOLDOVER_TYPE = Output(Push-Pull) ,
-			// CLKin_SELECT_MODE = 0 (CLKin0 Manual)
-		{ 0x1D80003, 13 },
-			// CLKin1_BUF_TYPE = 1 (CMOS) , CLKin0_BUF_TYPE = 1 (CMOS)
-		{ 0x0918000, 14 },
-			// HOLDOVER_DLD_CNT = 512 , FORCE_HOLDOVER = 0(Disable)
-		{ 0x0000000, 15 },
-		{ 0x00AA820, 16 }, // XTAL_LVL = 0 (1.65 Vpp)
-		{ 0x0000006, 24 }, // PLL1_WIND_SIZE = 3
-
-		/* 20 */
-		{ 0x0080030, 25 },
-		{ 0x07D4000, 26 },
-		{ 0x0800002, 27 }, // PLL1_R = 1
-		{ 0x0008002, 28 }, // PLL2_R = 1 , PLL1_N = 1
-		{ 0x000002D, 29 },
-
-		/* 25 */
-		{ 0x010002D, 30 }, // PLL2_N = 45
-		{ 0x0000001, 31 }
-
-    };
-    int i;
-    for(i = 0;i < 26 /*NIT_CMD_NUM*/;i++){
-        LMK04906_RegWrite(
-			SPI_LMK04906,init_Setting_num[i][0],init_Setting_num[i][1]);
-    }
-    // wait long enough for SPI write operation to be done
-    //  as well as the LMK to finish their operations
-    usleep(1000000);
-
-    return XST_SUCCESS;
-}

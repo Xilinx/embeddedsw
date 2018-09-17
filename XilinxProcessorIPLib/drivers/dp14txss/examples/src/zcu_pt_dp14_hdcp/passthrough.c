@@ -299,7 +299,6 @@ void DpPt_Main(void){
 	 * based on the "I2S_AUDIO" param in main.h
 	 * The Audio Clock Recovery Module is programmed in fixed mode
 	 */
-	audio_init();
 	//resetting AUX logic. Needed for some Type based connectors
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x80);
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x0);
@@ -958,13 +957,13 @@ void DpPt_Main(void){
 							}
 #endif
 				// It is observed that some monitors do not give HPD
-		    	// pulse. Hence checking the link to re-trigger
-		    	Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
-		    	if (Status != XST_SUCCESS) {
-		    		xil_printf ("^*^");
-		    		hpd_pulse_con(&DpTxSsInst, Msa);
-		    	}
-		    		tx_done = 1;
+			// pulse. Hence checking the link to re-trigger
+			Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
+			if (Status != XST_SUCCESS) {
+				xil_printf ("^*^");
+				hpd_pulse_con(&DpTxSsInst, Msa);
+			}
+				tx_done = 1;
 
 		    } else {
 			tx_done = 0;
@@ -1267,7 +1266,6 @@ void unplug_proc (void) {
 		XVPHY_GTHE4_PREEMP_DP_L0);
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CONTROL, 0x0);
-	XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x1);
 
 
 #if ENABLE_AUDIO
@@ -1282,23 +1280,8 @@ void i2s_stop_proc (void) {
     i2s_started = 0;
     tx_aud_started = 0;
 //    XI2s_Rx_Enable(&I2s_rx, 0);
-	XACR_WriteReg (RX_ACR_ADDR, RXACR_ENABLE, 0x0);
 }
 
-void audio_init (void) {
-
-	//Enabling the I2S TX to capture the channel Status
-    XACR_WriteReg (RX_ACR_ADDR, 0x30, 256); // set to half of I2S TX FIFO Depth
-    XACR_WriteReg (RX_ACR_ADDR, 0x34, 60);  // Max limit of +/-
-    XACR_WriteReg (RX_ACR_ADDR, 0x38, 20);  // incr, decr granularity
-    XACR_WriteReg (RX_ACR_ADDR, 0x3C, 8*384);
-    XACR_WriteReg (RX_ACR_ADDR, 0x40, 0x6); // Averaging time
-	XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x1); // 5 - ctrl loop, 1- no loop
-	XACR_WriteReg (RX_ACR_ADDR, RXACR_DIV, 0x40); // divider
-//	XI2s_Tx_SetSclkOutDiv (&I2s_tx, 48000*I2S_CLK_MULT, 48000);
-//	XI2s_Tx_Enable(&I2s_tx, 1);
-//	XI2s_Rx_Enable(&I2s_rx, 0);
-}
 
 void audio_start_rx (void) {
 
@@ -1328,12 +1311,12 @@ void audio_start_tx (void) {
 	//Audio may not work properly on some monitors if this is started too early
 	//hence the delay here
 
-	if (filter_count_b == 190000) {
+	if (filter_count_b == 190) {
 		start_audio_passThrough(LineRate_init_tx);
 
 	}
 
-	else if (filter_count_b > 200000) {
+	else if (filter_count_b > 200) {
 		XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x2);
 		xil_printf ("Starting audio on DP TX..\r\n");
 		i2s_started = 1;
@@ -1352,6 +1335,9 @@ void dprx_tracking (void) {
     } else if (DpRxSsInst.link_up_trigger == 0) { // Link Not trained
 		if (rx_trained == 1) {             		// If it was previously trained
 			xil_printf ("Training Lost !!\r\n");
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+					XDP_TX_INTERRUPT_MASK, 0xFFF);
+
 			frameBuffer_stop_wr(Msa);
 			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 			XDpTxSs_Stop(&DpTxSsInst);
@@ -1377,6 +1363,9 @@ void dprx_tracking (void) {
 		XDpRxSs_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 				XDP_RX_DPCD_LANE23_STATUS));
 		DpRxSsInst.VBlankCount++;
+		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+				XDP_TX_INTERRUPT_MASK, 0xFFF);
+
 //			DpRxSsInst.link_up_trigger = 0;
 		appx_fs_dup = 0;
 		rx_trained = 1;
@@ -1388,6 +1377,9 @@ void dprx_tracking (void) {
 	}
 
 	if(DpRxSsInst.no_video_trigger == 1){
+		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+				XDP_TX_INTERRUPT_MASK, 0xFFF);
+
 		frameBuffer_stop(Msa);
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 		XDpTxSs_Stop(&DpTxSsInst);
@@ -1458,17 +1450,17 @@ void dptx_tracking (void) {
 	}
 
 	if(hpd_pulse_con_event == 1 && rx_trained == 1 &&
-			DpRxSsInst.link_up_trigger == 1) {
+			DpRxSsInst.link_up_trigger == 1 && tx_done == 1) {
 		//if short HPD pulse detected
 		//run a loop for 3000 times to filter HPD pulses on cable unplug
 		//this time should be more that the BS IDLE time
-		filter_count++;
-		if (filter_count > 30000) {
+//		filter_count++;
+//		if (filter_count > 30000) {
 			xil_printf ("HPD Pulse detected !!\r\n");
-			filter_count = 0;
+//			filter_count = 0;
 			hpd_pulse_con_event = 0;
 			hpd_pulse_con(&DpTxSsInst, Msa);
-		}
+//		}
 	} else {
 		hpd_pulse_con_event = 0;
 		filter_count = 0;

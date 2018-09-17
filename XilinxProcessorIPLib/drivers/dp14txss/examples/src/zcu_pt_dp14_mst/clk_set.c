@@ -89,7 +89,6 @@ u32 clk_set(u8 i2c_mux_addr, u8 i2c_dev_addr, double set_freq)
 	if (Status != XST_SUCCESS)
 		xil_printf("XIicPs_SetSClk failed.\r\n");
 
-	xil_printf("Select I2C channel.\r\n");
 	WriteBuffer[0] = 1 << 2;
 	Status = XIicPs_MasterSendPolled(&IicPtr, WriteBuffer, 1, i2c_mux_addr);
 	if (Status != XST_SUCCESS)

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -28,106 +28,70 @@
 /*****************************************************************************/
 /**
 *
-* @file xvid_pat_gen.h
-*
-* This is the main header file for Xilinx Video Pattern Generator.
+* @file ti_lmk03318.h
+* @addtogroup TI_LMK03318
+* @{
 *
 * <pre>
+*
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00  shad   01/29/15 Initial release.
+* X.XX  XX     YY/MM/DD
+* 1.00  RHe    16/06/20 Initial release.
 * </pre>
 *
 ******************************************************************************/
 
-
-#ifndef XVID_PAT_GEN_H_
-#define XVID_PAT_GEN_H_		/**< Prevent circular inclusions
-				  *  by using protection macros */
+#ifndef TI_LMK03318_H
+#define TI_LMK03318_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xdptxss.h"
-#include "xclk_wiz.h"
+#include "xil_types.h"
+
 /************************** Constant Definitions *****************************/
 
-#ifdef __MICROBLAZE__
-#define XILINX_DISPLAYPORT_VID_BASE_ADDRESS		XPAR_AV_PAT_GEN_0_BASEADDR
-#define XILINX_DISPLAYPORT_VID2_BASE_ADDRESS		XPAR_AV_PAT_GEN_0_BASEADDR
-#define XILINX_DISPLAYPORT_VID3_BASE_ADDRESS		XPAR_AV_PAT_GEN_0_BASEADDR
-#define XILINX_DISPLAYPORT_VID4_BASE_ADDRESS		XPAR_AV_PAT_GEN_0_BASEADDR
+#define TI_LMK03318_FVCO_MAX 5400000000 //!< Maximum VCO Operating Frequency in Hz
+#define TI_LMK03318_FVCO_MIN 4800000000 //!< Minimum VCO Operating Frequency in Hz
 
-#define XILINX_CLK_WIZ_BASE_ADDRESS			XPAR_CLK_WIZ_0_BASEADDR
+#define TI_LMK03318_FOUT_MAX 800000000  //!< Maximum Output Frequency in Hz
+#define TI_LMK03318_FOUT_MIN   1000000  //!< Minimum Output Frequency in Hz
 
-#define XILINX_DISPLAYPORT_VID2_BASE_ADDRESS_OFFSET	0x20000
-#define XILINX_DISPLAYPORT_VID3_BASE_ADDRESS_OFFSET	0x30000
-#define XILINX_DISPLAYPORT_VID4_BASE_ADDRESS_OFFSET	0x40000
-#else
-#define XILINX_DISPLAYPORT_VID_BASE_ADDRESS		0x43C10000
-#define XILINX_DISPLAYPORT_VID2_BASE_ADDRESS		0x43C20000
-#define XILINX_DISPLAYPORT_VID3_BASE_ADDRESS		0x43C30000
-#define XILINX_DISPLAYPORT_VID4_BASE_ADDRESS		0x43C40000
+#define TI_LMK03318_FIN_MAX 300000000  //!< Maximum Input Frequency in Hz
+#define TI_LMK03318_FIN_MIN   1000000  //!< Minimum Input Frequency in Hz
 
-#define XILINX_DISPLAYPORT_VID2_BASE_ADDRESS_OFFSET	0x10000
-#define XILINX_DISPLAYPORT_VID3_BASE_ADDRESS_OFFSET	0x20000
-#define XILINX_DISPLAYPORT_VID4_BASE_ADDRESS_OFFSET	0x30000
-#endif
+#define TI_LMK03318_FPD_MAX 150000000  //!< Maximum Phase Detector Frequency in Hz
+#define TI_LMK03318_FPD_MIN   1000000  //!< Minimum Phase Detector Frequency in Hz
 
 /**************************** Type Definitions *******************************/
 
-/* This typedef specifies video pattern generator parameter information. */
-typedef struct {
-	XVidC_VideoTiming Timing;
-
-	u32 DePolarity;
-	u32 FrameLock0;
-	u32 FrameLock1;
-	u32 HdColorBarMode;
-
-	u32 TcHsBlnk;
-	u32 TcHsSync;
-	u32 TcHeSync;
-	u32 TcHeBlnk;
-	u32 TcVsBlnk;
-	u32 TcVsSync;
-	u32 TcVeSync;
-	u32 TcVeBlnk;
-
-	u32 VidClkSel;
-	u32 MVid;
-	u32 VidClkD;
-
-	u32 DSMode;
-	u32 MvidBy2;
-	u32 VidClkDBy2;
-
-	u32 Misc0;
-	u32 Misc1;
-} Vpg_VidgenConfig;
-
-
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /************************** Function Prototypes ******************************/
-
-int Vpg_StreamSrcSetup(XDp *InstancePtr);
-int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time);
-int Vpg_StreamSrcSync(XDp *InstancePtr);
-void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream);
-void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern);
-
+int TI_LMK03318_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress);
+int TI_LMK03318_PowerDown(u32 I2CBaseAddress, u8 I2CSlaveAddress);
+int TI_LMK03318_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+				int FIn, int FOut, u8 FreeRun);
+int TI_LMK03318_EnableBypass(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+				u8 InPort, u8 OutPort);
+void TI_LMK03318_RegisterDump(u32 I2CBaseAddress, u8 I2CSlaveAddress);
+//static int TI_LMK03318_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+//				u8 RegisterAddress, u8 Value);
+//static u8 TI_LMK03318_GetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+//				u8 RegisterAddress);
+//static int TI_LMK03318_ModifyRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+//				u16 RegisterAddress, u8 Value, u8 Mask);
 
 /************************** Variable Declarations ****************************/
-extern u8 StreamPattern[5];
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* End of protection macro */
+#endif /* TI_LMK03318_H */
+/** @} */

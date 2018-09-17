@@ -39,7 +39,8 @@
 * </pre>
 *
 ******************************************************************************/
-#include "xdptxss_zcu102_tx.h"
+#include "xdptxss_vcu118_tx.h"
+#include "xuartlite_l.h"
 
 
 lane_link_rate_struct lane_link_table[]=
@@ -53,14 +54,133 @@ lane_link_rate_struct lane_link_table[]=
 	{XDP_TX_LANE_COUNT_SET_1,XDP_TX_LINK_BW_SET_540GBPS},
 	{XDP_TX_LANE_COUNT_SET_2,XDP_TX_LINK_BW_SET_540GBPS},
 	{XDP_TX_LANE_COUNT_SET_4,XDP_TX_LINK_BW_SET_540GBPS},
+	{XDP_TX_LANE_COUNT_SET_1,XDP_TX_LINK_BW_SET_810GBPS},
+	{XDP_TX_LANE_COUNT_SET_2,XDP_TX_LINK_BW_SET_810GBPS},
+	{XDP_TX_LANE_COUNT_SET_4,XDP_TX_LINK_BW_SET_810GBPS},
 
 };
 
-extern XVidC_VideoMode resolution_table[];
+//extern XVidC_VideoMode resolution_table[];
+// adding new resolution definition example
+// XVIDC_VM_3840x2160_30_P_SB, XVIDC_B_TIMING3_60_P_RB
+// and XVIDC_VM_3840x2160_60_P_RB has added
+typedef enum {
+    XVIDC_VM_1920x1080_60_P_RB = (XVIDC_VM_CUSTOM + 1),
+	XVIDC_B_TIMING3_60_P_RB ,
+	XVIDC_VM_3840x2160_120_P_RB,
+	XVIDC_VM_7680x4320_24_P,
+	XVIDC_VM_7680x4320_25_P,
+	XVIDC_VM_7680x4320_30_P,
+	XVIDC_VM_3840x2160_100_P_RB2,
+	XVIDC_VM_7680x4320_30_DELL,
+	XVIDC_VM_5120x2880_60_P_RB2,
 
-static char inbyte_local(void);
+	XVIDC_VM_7680x4320_30_MSTR,
+	XVIDC_VM_5120x2880_60_MSTR,
+	XVIDC_VM_3840x2160_120_MSTR,
+    XVIDC_CM_NUM_SUPPORTED
+} XVIDC_CUSTOM_MODES;
+
+// CUSTOM_TIMING: Here is the detailed timing for each custom resolutions.
+const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
+					(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1))] =
+{
+    { XVIDC_VM_1920x1080_60_P_RB, "1920x1080@60Hz (RB)", XVIDC_FR_60HZ,
+        {1920, 48, 32, 80, 2080, 1,
+		1080, 3, 5, 23, 1111, 0, 0, 0, 0, 0}},
+    { XVIDC_B_TIMING3_60_P_RB, "2560x1440@60Hz (RB)", XVIDC_FR_60HZ,
+         {2560, 48, 32, 80, 2720, 1,
+		1440, 3, 5, 33, 1481, 0, 0, 0, 0, 0}},
+	{ XVIDC_VM_3840x2160_120_P_RB, "3840x2160@120Hz (RB)", XVIDC_FR_120HZ,
+		{3840, 8, 32, 40, 3920, 1,
+		2160, 113, 8, 6, 2287, 0, 0, 0, 0, 1} },
+
+	{ XVIDC_VM_7680x4320_24_P, "7680x4320@24Hz", XVIDC_FR_24HZ,
+		{7680, 352, 176, 592, 8800, 1,
+		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
+	{ XVIDC_VM_7680x4320_25_P, "7680x4320@25Hz", XVIDC_FR_25HZ,
+		{7680, 352, 176, 592, 8800, 1,
+		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
+	{ XVIDC_VM_7680x4320_30_P, "7680x4320@30Hz", XVIDC_FR_30HZ,
+		{7680, 8, 32, 40, 7760, 0,
+		4320, 47, 8, 6, 4381, 0, 0, 0, 0, 1}},
+	{ XVIDC_VM_3840x2160_100_P_RB2, "3840x2160@100Hz (RB2)", XVIDC_FR_100HZ,
+		{3840, 8, 32, 40, 3920, 0,
+		2160, 91, 8, 6, 2265, 0, 0, 0, 0, 1}},
+	{ XVIDC_VM_7680x4320_30_DELL, "7680x4320_DELL@30Hz", XVIDC_FR_30HZ,
+		{7680, 48, 32, 80, 7840, 0,
+		4320, 3, 5, 53, 4381, 0, 0, 0, 0, 1}},
+	{ XVIDC_VM_5120x2880_60_P_RB2, "5120x2880@60Hz (RB2)", XVIDC_FR_60HZ,
+		{5120, 8, 32, 40, 5200, 0,
+		2880, 68, 8, 6, 2962, 0, 0, 0, 0, 1}},
+	{ XVIDC_VM_7680x4320_30_MSTR, "7680x4320_MSTR@30Hz", XVIDC_FR_30HZ,
+		{7680, 25, 97, 239, 8041, 0,
+		4320, 48, 9, 5, 4382, 0, 0, 0, 0, 1}},
+	{ XVIDC_VM_5120x2880_60_MSTR, "5120x2880@60Hz_MSTR", XVIDC_FR_60HZ,
+		{5120, 25, 97, 239, 5481, 0,
+		2880, 48, 9, 5, 2942, 0, 0, 0, 0, 1}},
+	{ XVIDC_VM_3840x2160_120_MSTR, "3840x2160@120Hz_MSTR", XVIDC_FR_120HZ,
+		{3840, 48, 34, 79, 4001, 1,
+		2160, 4, 6, 53, 2223, 0, 0, 0, 0, 1}},
+};
+
+XVidC_VideoMode resolution_table[] =
+{
+                XVIDC_VM_640x480_60_P,
+                XVIDC_VM_480_60_P,
+                XVIDC_VM_800x600_60_P,
+                XVIDC_VM_1024x768_60_P,
+                XVIDC_VM_720_60_P,
+                XVIDC_VM_1600x1200_60_P,
+                XVIDC_VM_1366x768_60_P,
+                XVIDC_VM_1080_60_P,
+                XVIDC_VM_UHD_30_P,
+                XVIDC_VM_UHD_60_P,
+                XVIDC_VM_2560x1600_60_P,
+                XVIDC_VM_1280x1024_60_P,
+                XVIDC_VM_1792x1344_60_P,
+                XVIDC_VM_848x480_60_P,
+                XVIDC_VM_1280x960_60_P,
+                XVIDC_VM_1920x1440_60_P,
+                XVIDC_VM_USE_EDID_PREFERRED,
+
+				XVIDC_VM_1920x1080_60_P_RB,
+				XVIDC_VM_3840x2160_60_P_RB,
+				XVIDC_VM_3840x2160_120_P_RB,
+	XVIDC_VM_7680x4320_24_P,
+				XVIDC_VM_7680x4320_30_P,
+	XVIDC_VM_3840x2160_100_P_RB2,
+	XVIDC_VM_7680x4320_30_DELL,
+	XVIDC_VM_5120x2880_60_P_RB2,
+	XVIDC_VM_7680x4320_30_MSTR,
+	XVIDC_VM_5120x2880_60_MSTR,
+	XVIDC_VM_3840x2160_120_MSTR
+
+};
+
+
+char inbyte_local(void);
 static u32 xil_gethex(u8 num_chars);
-static char XUartPs_RecvByte_NonBlocking(void);
+static char XUart_RecvByte_NonBlocking(void);
+
+/*****************************************************************************/
+/**
+*
+* This function is a non-blocking UART return byte
+*
+* @param    None.
+*
+* @return    None.
+*
+* @note        None.
+*
+******************************************************************************/
+static char XUart_RecvByte_NonBlocking(){
+    u32 RecievedByte;
+    RecievedByte = XUartLite_ReadReg(STDIN_BASEADDRESS, 0);
+    /* Return the byte received */
+    return (u8)RecievedByte;
+}
 
 
 void DpPt_LaneLinkRateHelpMenu(void)
@@ -75,6 +195,9 @@ void DpPt_LaneLinkRateHelpMenu(void)
 	"6 --> train link @  5.4G 1 lane\r\n"
 	"7 --> train link @  5.4G 2 lanes\r\n"
 	"8 --> train link @  5.4G 4 lanes\r\n"
+	"9 --> train link @  8.1G 1 lane\r\n"
+	"a --> train link @  8.1G 2 lanes\r\n"
+	"b --> train link @  8.1G 4 lanes\r\n"
 	"\r\n"
 	"Press 'x' to return to main menu\r\n"
 	"Press any key to display this menu again\r\n"
@@ -128,8 +251,12 @@ xil_printf("- - - - -  -  - - - - - - - - - - - - - - - - - - -  -  - - - - -"
 "6 1366x768_60_P   |   7 1920x1080_60_P    |   8 3840x2160_30_P\r\n"
 "9 3840x2160_60_P  |   a 2560x1600_60_P    |   b 1280x1024_60_P\r\n"
 "c 1792x1344_60_P  |   d 848x480_60_P      |   e 1280x960\r\n"
-"f 1920x1440_60_P  |   i 3840x2160_60_P_RB \r\n"
+"f 1920x1440_60_P  |   i 3840x2160_60_P_RB |   j 3840x2160_120_P_RB\r\n"
+	"k 7680x4320_24_P  |   l 7680x4320_30_P    |   m 3840x2160_100_P\r\n"
+	"n 7680x4320_30DELL|   o 5120x2880_30      |   p 7680x4320_30_MSTR\r\n"
+	"q 5120x2880_MSTR  |   r 3840x2160_120_MSTR\r\n"
 "- - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+	"- - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 		" - - - - - -\r\n"
 
 "Press 'x' to return to main menu \r\n"
@@ -203,7 +330,10 @@ void select_link_lane(void)
 	   "5 --> Set TX capability @  2.7G 4 lanes\r\n"
 	   "6 --> Set TX capability @  5.4G 1 lane\r\n"
 	   "7 --> Set TX capability @  5.4G 2 lanes\r\n"
-	   "8 --> Set TX capability @  5.4G 4 lanes\r\n");
+	   "8 --> Set TX capability @  5.4G 4 lanes\r\n"
+	   "9 --> Set TX capability @  8.1G 1 lane\r\n"
+	   "a --> Set TX capability @  8.1G 2 lanes\r\n"
+	   "b --> Set TX capability @  8.1G 4 lanes\r\n");
 	  xil_printf("\r\n");
 	  xil_printf("Press 'x' to return to main menu\r\n");
 	  xil_printf("Press any key to display this menu\r\n");
@@ -248,6 +378,16 @@ void main_loop(){
 	xilInfoFrame = 0; // initialize
 
 
+	// Adding custom resolutions at here.
+	xil_printf("INFO> Registering Custom Timing Table with %d entries \r\n",
+							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
+	Status = XVidC_RegisterCustomTimingModes(XVidC_MyVideoTimingMode,
+							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: Unable to register custom timing table\r\r\n\n");
+	}
+
+
 
 	sub_help_menu ();
 
@@ -256,6 +396,7 @@ void main_loop(){
 			hpd_con(&DpTxSsInst, Edid_org, Edid1_org,
 					user_config.VideoMode_local);
 			tx_is_reconnected = 0;
+			xil_printf ("HPD connected\r\n");
 		}
 
 		if(hpd_pulse_con_event == 1){
@@ -326,16 +467,16 @@ void main_loop(){
 					DpTxSsInst.DpPtr->Config.BaseAddr,
 					XDP_TX_AUDIO_CONTROL);
 			if (audio_on == 0) {
-				xilInfoFrame->audio_channel_count = 0;
-				xilInfoFrame->audio_coding_type = 0;
-				xilInfoFrame->channel_allocation = 0;
-				xilInfoFrame->downmix_inhibit = 0;
-				xilInfoFrame->info_length = 27;
-				xilInfoFrame->level_shift = 0;
-				xilInfoFrame->sample_size = 1;//16 bits
-				xilInfoFrame->sampling_frequency = 3; //48 Hz
-				xilInfoFrame->type = 4;
-				xilInfoFrame->version = 1;
+                xilInfoFrame->audio_channel_count = 1;
+                xilInfoFrame->audio_coding_type = 0;
+                xilInfoFrame->channel_allocation = 0;
+                xilInfoFrame->downmix_inhibit = 0;
+                xilInfoFrame->info_length = 27;
+                xilInfoFrame->level_shift = 0;
+                xilInfoFrame->sample_size = 0;//16 bits
+                xilInfoFrame->sampling_frequency = 0; //48 Hz
+                xilInfoFrame->type = 0x84;
+                xilInfoFrame->version = 0x12;
 				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 						XDP_TX_AUDIO_CONTROL, 0x0);
 				sendAudioInfoFrame(xilInfoFrame);
@@ -343,9 +484,10 @@ void main_loop(){
 						XDP_TX_AUDIO_CHANNELS, 0x1);
 				switch(LineRate)
 				{
-					case  6:m_aud = 24576; n_aud = 162000; break;
-					case 10:m_aud = 24576; n_aud = 270000; break;
-					case 20:m_aud = 24576; n_aud = 540000; break;
+                    case  6:m_aud = 512; n_aud = 3375; break;
+                    case 10:m_aud = 512; n_aud = 5625; break;
+                    case 20:m_aud = 512; n_aud = 11250; break;
+                    case 30:m_aud = 512; n_aud = 16875; break;
 				}
 				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 						XDP_TX_AUDIO_MAUD,  m_aud );
@@ -494,7 +636,11 @@ void main_loop(){
 					   default :
 						xil_printf("You have selected command %c\r\n",
 															CmdKey[0]);
-						if((Command>=0)&&(Command<9))
+						if(CmdKey[0] >= 'a' && CmdKey[0] <= 'z'){
+							Command = CmdKey[0] -'a' + 10;
+						}
+
+						if((Command>=0)&&(Command<12))
 						{
 							user_tx_LaneCount =
 									lane_link_table[Command].lane_count;
@@ -794,11 +940,21 @@ void main_loop(){
 	}
 }
 
+u8 XUartLite_RecvByte_local(u32 BaseAddress)
+{
+        do
+        {
 
-static char inbyte_local(void){
-	char c=0;
-	c = XUartPs_RecvByte_NonBlocking();
-	return c;
+        } while(XUartLite_IsReceiveEmpty(BaseAddress));
+        return (u8)XUartLite_ReadReg(BaseAddress, XUL_RX_FIFO_OFFSET);
+}
+
+
+char inbyte_local(void){
+//	char c=0;
+	return XUartLite_RecvByte_local(STDIN_BASEADDRESS);
+//	c = XUart_RecvByte_NonBlocking();
+//	return c;
 }
 
 
@@ -837,26 +993,36 @@ static u32 xil_gethex(u8 num_chars){
 }
 
 
-/*****************************************************************************/
+
+/****************************************************************************/
 /**
 *
-* This function is a non-blocking UART return byte
+* This functions receives a single byte using the UART. It is non-blocking in
+* that it returns if there is no data received.
 *
-* @param    None.
+* @param           Data will have the received data after this function returns
+*                                           XST_SUCCESS
 *
-* @return    None.
+* @return            XST_SUCCESS if received a byte, XST_FAILURE otherwise
 *
-* @note        None.
+* @note                             None.
 *
 ******************************************************************************/
-static char XUartPs_RecvByte_NonBlocking(){
-    u32 RecievedByte;
-    RecievedByte = XUartPs_ReadReg(STDIN_BASEADDRESS, XUARTPS_FIFO_OFFSET);
-    /* Return the byte received */
-    return (u8)RecievedByte;
+int UART_RecvByte(u8 *Data)
+{
+
+ /* If it is a UartLite device */
+
+   if(XUartLite_IsReceiveEmpty(STDIN_BASEADDRESS)) {
+		xil_printf("\n\r 1 ... Is uart empty ::::::: 0x%x\n\r",XUartLite_IsReceiveEmpty(STDIN_BASEADDRESS));
+		return XST_FAILURE;
+  } else {
+		*Data = (u8)Xil_In32(STDIN_BASEADDRESS + XUL_RX_FIFO_OFFSET);
+		xil_printf("\n\r 2 ... Is uart empty ::::::: 0x%x\n\r",XUartLite_IsReceiveEmpty(STDIN_BASEADDRESS));
+		return XST_SUCCESS;
+   }
+
 }
-
-
 
 /*****************************************************************************/
 /**
@@ -883,14 +1049,14 @@ char xil_getc(u32 timeout_ms){
 	}
 
 
-	while((!XUartPs_IsReceiveData(STDIN_BASEADDRESS)) && (timeout == 0)){
+	while(XUartLite_IsReceiveEmpty(STDIN_BASEADDRESS) && (timeout == 0)){
 		if ( timeout_ms == 0 ){ // no timeout - wait for ever
 		   timeout = 0;
 		} else if ( timeout_ms == 0xff ) { // no wait - special case
 		   timeout = 1;
 		} else if(timeout_ms > 0){
-			if(XTmrCtr_GetValue(&TmrCtr, 0)
-										> ( timeout_ms * (100000000 / 1000) )){
+			if(XTmrCtr_GetValue(&TmrCtr, 0) >
+			  (timeout_ms * (XPAR_MICROBLAZE_CORE_CLOCK_FREQ_HZ / 1000))){
 				timeout = 1;
 			}
 		}
@@ -898,7 +1064,7 @@ char xil_getc(u32 timeout_ms){
 	if(timeout == 1){
 		c = 0;
 	} else {
-		c = XUartPs_RecvByte_NonBlocking();
+		c = XUartLite_RecvByte(STDIN_BASEADDRESS);
 	}
 	return c;
 }

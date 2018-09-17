@@ -12,6 +12,13 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
+<<<<<<< HEAD
+=======
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
+>>>>>>> Adding new application examples for display port 1.4
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -80,10 +87,17 @@
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
 #define XINTC_DPTXSS_DP_INTERRUPT_ID \
+<<<<<<< HEAD
 	XPAR_FABRIC_DP14TXSS_0_VEC_ID
 
 #define XINTC_DPRXSS_DP_INTERRUPT_ID \
 	XPAR_FABRIC_DP14RXSS_0_VEC_ID
+=======
+	XPAR_FABRIC_DPTXSS_0_VEC_ID
+
+#define XINTC_DPRXSS_DP_INTERRUPT_ID \
+	XPAR_FABRIC_DPRXSS_0_VEC_ID
+>>>>>>> Adding new application examples for display port 1.4
 
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)

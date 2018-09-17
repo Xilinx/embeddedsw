@@ -34,12 +34,12 @@
 *
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
-* 1.00 KI  07/13/17 Initial release.
+* 1.00 KU  02/05/19 Initial release.
 *
 * </pre>
 *
 ******************************************************************************/
-#include "xdptxss_zcu102_tx.h"
+#include "xdptxss_zcu102_mst_pt.h"
 
 
 lane_link_rate_struct lane_link_table[]=
@@ -59,70 +59,6 @@ lane_link_rate_struct lane_link_table[]=
 
 };
 
-//extern XVidC_VideoMode resolution_table[];
-// adding new resolution definition example
-// XVIDC_VM_3840x2160_30_P_SB, XVIDC_B_TIMING3_60_P_RB
-// and XVIDC_VM_3840x2160_60_P_RB has added
-typedef enum {
-    XVIDC_VM_1920x1080_60_P_RB = (XVIDC_VM_CUSTOM + 1),
-	XVIDC_B_TIMING3_60_P_RB ,
-	XVIDC_VM_3840x2160_120_P_RB,
-	XVIDC_VM_7680x4320_24_P,
-	XVIDC_VM_7680x4320_25_P,
-	XVIDC_VM_7680x4320_30_P,
-	XVIDC_VM_3840x2160_100_P_RB2,
-	XVIDC_VM_7680x4320_30_DELL,
-	XVIDC_VM_5120x2880_60_P_RB2,
-
-	XVIDC_VM_7680x4320_30_MSTR,
-	XVIDC_VM_5120x2880_60_MSTR,
-	XVIDC_VM_3840x2160_120_MSTR,
-    XVIDC_CM_NUM_SUPPORTED
-} XVIDC_CUSTOM_MODES;
-
-// CUSTOM_TIMING: Here is the detailed timing for each custom resolutions.
-const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
-					(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1))] =
-{
-    { XVIDC_VM_1920x1080_60_P_RB, "1920x1080@60Hz (RB)", XVIDC_FR_60HZ,
-        {1920, 48, 32, 80, 2080, 1,
-		1080, 3, 5, 23, 1111, 0, 0, 0, 0, 0}},
-    { XVIDC_B_TIMING3_60_P_RB, "2560x1440@60Hz (RB)", XVIDC_FR_60HZ,
-         {2560, 48, 32, 80, 2720, 1,
-		1440, 3, 5, 33, 1481, 0, 0, 0, 0, 0}},
-	{ XVIDC_VM_3840x2160_120_P_RB, "3840x2160@120Hz (RB)", XVIDC_FR_120HZ,
-		{3840, 8, 32, 40, 3920, 1,
-		2160, 113, 8, 6, 2287, 0, 0, 0, 0, 1} },
-
-	{ XVIDC_VM_7680x4320_24_P, "7680x4320@24Hz", XVIDC_FR_24HZ,
-		{7680, 352, 176, 592, 8800, 1,
-		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_25_P, "7680x4320@25Hz", XVIDC_FR_25HZ,
-		{7680, 352, 176, 592, 8800, 1,
-		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_30_P, "7680x4320@30Hz", XVIDC_FR_30HZ,
-		{7680, 8, 32, 40, 7760, 0,
-		4320, 47, 8, 6, 4381, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_3840x2160_100_P_RB2, "3840x2160@100Hz (RB2)", XVIDC_FR_100HZ,
-		{3840, 8, 32, 40, 3920, 0,
-		2160, 91, 8, 6, 2265, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_30_DELL, "7680x4320_DELL@30Hz", XVIDC_FR_30HZ,
-		{7680, 48, 32, 80, 7840, 0,
-		4320, 3, 5, 53, 4381, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_5120x2880_60_P_RB2, "5120x2880@60Hz (RB2)", XVIDC_FR_60HZ,
-		{5120, 8, 32, 40, 5200, 0,
-		2880, 68, 8, 6, 2962, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_30_MSTR, "7680x4320_MSTR@30Hz", XVIDC_FR_30HZ,
-		{7680, 25, 97, 239, 8041, 0,
-		4320, 48, 9, 5, 4382, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_5120x2880_60_MSTR, "5120x2880@60Hz_MSTR", XVIDC_FR_60HZ,
-		{5120, 25, 97, 239, 5481, 0,
-		2880, 48, 9, 5, 2942, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_3840x2160_120_MSTR, "3840x2160@120Hz_MSTR", XVIDC_FR_120HZ,
-		{3840, 48, 34, 79, 4001, 1,
-		2160, 4, 6, 53, 2223, 0, 0, 0, 0, 1}},
-};
-
 XVidC_VideoMode resolution_table[] =
 {
                 XVIDC_VM_640x480_60_P,
@@ -132,31 +68,8 @@ XVidC_VideoMode resolution_table[] =
                 XVIDC_VM_720_60_P,
                 XVIDC_VM_1600x1200_60_P,
                 XVIDC_VM_1366x768_60_P,
-                XVIDC_VM_1080_60_P,
-                XVIDC_VM_UHD_30_P,
-                XVIDC_VM_UHD_60_P,
-                XVIDC_VM_2560x1600_60_P,
-                XVIDC_VM_1280x1024_60_P,
-                XVIDC_VM_1792x1344_60_P,
-                XVIDC_VM_848x480_60_P,
-                XVIDC_VM_1280x960_60_P,
-                XVIDC_VM_1920x1440_60_P,
-                XVIDC_VM_USE_EDID_PREFERRED,
-
-				XVIDC_VM_1920x1080_60_P_RB,
-				XVIDC_VM_3840x2160_60_P_RB,
-				XVIDC_VM_3840x2160_120_P_RB,
-	XVIDC_VM_7680x4320_24_P,
-				XVIDC_VM_7680x4320_30_P,
-	XVIDC_VM_3840x2160_100_P_RB2,
-	XVIDC_VM_7680x4320_30_DELL,
-	XVIDC_VM_5120x2880_60_P_RB2,
-	XVIDC_VM_7680x4320_30_MSTR,
-	XVIDC_VM_5120x2880_60_MSTR,
-	XVIDC_VM_3840x2160_120_MSTR
-
+                XVIDC_VM_1080_60_P
 };
-
 
 static char inbyte_local(void);
 
@@ -166,9 +79,12 @@ extern void Dprx_ResetVideoOutput(void *InstancePtr);
 extern XDpTxSs_MainStreamAttributes Msa[4];
 extern void DpPt_TxSetMsaValuesImmediate(void *InstancePtr);
 
-void start_tx_after_rx( u8 stream_id);
+//void start_tx_after_rx( u8 stream_id, u8 only_tx);
 void start_audio_passThrough(u8 LineRate_init_tx);
 XilAudioInfoFrame *xilInfoFrame;
+
+u8 tx_is_up = 0;
+u8 aud_started = 0;
 
 void DpPt_LaneLinkRateHelpMenu(void)
 {
@@ -195,8 +111,10 @@ void DpPt_LaneLinkRateHelpMenu(void)
 void audio_stream_help()
 {
               xil_printf("Choose Audio Stream\n\r"
-                                         "1 -->  Send Audio in Stream 1 \n\r"
-                                         "2 -->  Send Audio in Stream 2 \n\r"
+				"1 -->  Send Audio in Stream 1 \n\r"
+				"2 -->  Send Audio in Stream 2 \n\r"
+				"3 -->  Send Audio in Stream 3 \n\r"
+				"4 -->  Send Audio in Stream 4 \n\r"
                                          );
 }
 
@@ -234,30 +152,6 @@ void format_help_menu(void)
 
 void resolution_help_menu(void)
 {
-#if 0
-xil_printf("- - - - -  -  - - - - - - - - - - - - - - - - - - -  -  - - - - -"
-		" - - - - - - - - - -\r\n"
-"-                            Select an Option for Resolutio"
-		"n                                      -\r\n"
-"- - - - - - - - - - - - - - - - - - - - - - - - - -  -  - - - - - - - - - - "
-		"- - - - - \r\n"
-"0 640x480_60_P    |   1 720x480_60_P      |   2 800x600_60_P  \r\n"
-"3 1024x768_60_P   |   4 1280x720_60_P     |   5 1600x1200_60_P        \r\n"
-"6 1366x768_60_P   |   7 1920x1080_60_P    |   8 3840x2160_30_P\r\n"
-"9 3840x2160_60_P  |   a 2560x1600_60_P    |   b 1280x1024_60_P\r\n"
-"c 1792x1344_60_P  |   d 848x480_60_P      |   e 1280x960\r\n"
-"f 1920x1440_60_P  |   i 3840x2160_60_P_RB |   j 3840x2160_120_P_RB\r\n"
-	"k 7680x4320_24_P  |   l 7680x4320_30_P    |   m 3840x2160_100_P\r\n"
-	"n 7680x4320_30DELL|   o 5120x2880_30      |   p 7680x4320_30_MSTR\r\n"
-	"q 5120x2880_MSTR  |   r 3840x2160_120_MSTR\r\n"
-"- - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-	"- - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-		" - - - - - -\r\n"
-
-"Press 'x' to return to main menu \r\n"
-"Press any key to show this menu again\r\n");
-#endif
-
 xil_printf("- - - - -  -  - - - - - - - - - - - - - - - - - - -  -  - - - - -"
 		" - - - - - - - - - -\r\n"
 "-                            Select an Option for Resolutio"
@@ -291,42 +185,8 @@ void test_pattern_gen_help()
 			   "Press any key to show this menu again\r\n");
 }
 
-void app_help()
- {
-	xil_printf("\n\n-----------------------------------------------------\r\n");
-	xil_printf("--                       Menu                      --\r\n");
-	xil_printf("-----------------------------------------------------\r\n");
-	xil_printf("\r\n");
-	xil_printf(" Select option\r\n");
-	xil_printf(" t = Activate Tx Only path (TX uses QPLL) \r\n");
-	xil_printf("\r\n");
-	xil_printf("-----------------------------------------------------\r\n");
- }
-
 void sub_help_menu(void)
 {
-#if 0
-  xil_printf(
-"- - - - -  -  - - - - - - - - - - - - - - - - - -\r\n"
-"-          DisplayPort TX Only Demo Menu        -\r\n"
-"- Press 'z' to get this main menu at any point  -\r\n"
-"- - - - - - - - - - - - - - - - - - - - - - - - -\r\n"
-"1 - Change Resolution \r\n"
-"2 - Change Bits Per Color \r\n"
-"3 - Change Number of Lanes, Link Rate \r\n"
-"4 - Change Pattern \r\n"
-"5 - Display MSA Values for Tx\r\n"
-"6 - Change Format \r\n"
-"7 - Display Link Configuration Status and user selected resolution, BPC\r\n"
-"8 - Display DPCD register Configurations\r\n"
-"9 - Read Auxiliary registers \r\n"
-"a - Enable/Disable Audio\r\n"
-"d - Power Up/Down sink\r\n"
-"e - Read EDID from sink\r\n"
-"m - Read CRC checker value\r\n"
-"z - Display this Menu again\r\n"
-"- - - - - - - - - - - - - - - - - - - - - - - - - \r\n");
-#endif
 
   xil_printf(
 "- - - - -  -  - - - - - - - - - - - - - - - - - -\r\n"
@@ -342,6 +202,7 @@ void sub_help_menu(void)
    "5 - Display Link Configuration Status and user selected resolution, BPC\n\r"
    "6 - Display DPCD register Configurations\n\r"
    "7 - Read Auxiliary registers \n\r"
+   "a - Enable/Disable Audio \n\r"
    "e - Display EDID values\n\r"
    "z - Display this Menu again\r\n"
 		  "- - - - - - - - - - - - - - - - - - - - - - - - - \r\n");
@@ -437,10 +298,11 @@ void operationMenu(void){
 
 void unplug_proc (void);
 
+// This is for TX only mode
+
 void main_loop(){
 	int i;
 	u32 Status;
-//	XDpTxSs_Config *ConfigPtr;
 	u8 exit = 0;
 	char CommandKey;
 	char CmdKey[2];
@@ -455,15 +317,14 @@ void main_loop(){
 	u8 Data[8];
 	u8 audio_on=0;
 	u32 data;
+	int it = 0;
+	u8 stream;
 
-	int m_aud, n_aud;
+//	int m_aud, n_aud;
 	u8 in_pwr_save = 0;
 	u16 DrpVal =0;
 	u8 C_VideoUserStreamPattern[8] = {0x10, 0x11, 0x12, 0x13, 0x14,
 												0x15, 0x16, 0x17}; //Duplicate
-
-	unsigned char bpc_table[] = {6,8,10,12,16};
-
 
 	user_config_struct user_config;
 	user_config.user_bpc=8;
@@ -474,44 +335,31 @@ void main_loop(){
 
 	xilInfoFrame = 0; // initialize
 
-
-	// Adding custom resolutions at here.
-	xil_printf("INFO> Registering Custom Timing Table with %d entries \r\n",
-							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
-	Status = XVidC_RegisterCustomTimingModes(XVidC_MyVideoTimingMode,
-							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: Unable to register custom timing table\r\r\n\n");
-	}
-
 	XScuGic_Enable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
-    set_vphy(0x14);
+    set_vphy(DPTXSS_LINK_RATE);
 
-    start_tx_only (0x14, 0x4,user_config);
+    start_tx_only (DPTXSS_LINK_RATE, DPTXSS_LANE_COUNT,user_config);
 	sub_help_menu ();
 
 	while (1) { // for menu loop
 		if (tx_is_reconnected == 1) {
-//			hpd_con(&DpTxSsInst, Edid_org, Edid1_org,
-//					user_config.VideoMode_local);
+			start_tx_only (DPTXSS_LINK_RATE, DPTXSS_LANE_COUNT, user_config);
 			tx_is_reconnected = 0;
 		}
 
 		if(hpd_pulse_con_event == 1){
 			hpd_pulse_con_event = 0;
-//			hpd_pulse_con(&DpTxSsInst);
-//			Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
-//			if (Status != XST_SUCCESS) {
-//				//KAPIL Why needed??
-//				xil_printf ("Link is bad\r\n");
-//				sink_power_cycle();
-//			}
+			hpd_pulse_con(&DpTxSsInst, 1);
+			Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
+			if (Status != XST_SUCCESS) {
+				xil_printf ("Link is bad..re initiating training\r\n");
+				sink_power_cycle();
+				tx_is_reconnected = 1;
+			}
 		}
-
 
 		CmdKey[0] = 0;
 		CommandKey = 0;
-
 
 		CommandKey = xil_getc(0xff);
 		Command = atoi(&CommandKey);
@@ -567,6 +415,7 @@ void main_loop(){
 			   if (audio_on == 0) {
 
 				  audio_stream_help();
+				  exit = 0;
 
 				  while (exit == 0) {
 
@@ -577,127 +426,82 @@ void main_loop(){
 
 					  switch  (CmdKey[0])
 					  {
+						 case '4' :
+								   exit = 1;
+										stream = 0x4;
+										break;
+
+						 case '3' :
+								   exit = 1;
+										stream = 0x3;
+										break;
+
 						 case '2' :
 								   exit = 1;
-								   /*Mute unused streams*/
-										XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-															XDP_TX_AUDIO_CONTROL, 0x00010);
-										xil_printf ("Configured Audio in Stream 2\r\n");
+										stream = 0x2;
 										break;
 
 						 case '1' :
 								   exit = 1;
-								   /*Mute unused streams*/
-										XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-															XDP_TX_AUDIO_CONTROL, 0x00000);
-										xil_printf ("Configured Audio in Stream 1\r\n");
+										stream = 0x1;
 								   break;
 					  }
 
 				  }
-							  exit=0;
-//                           xil_printf ("\n\r Infoframe %x\r\n",xilInfoFrame);
-xilInfoFrame->audio_channel_count = 1;
-xilInfoFrame->audio_coding_type = 0;
-xilInfoFrame->channel_allocation = 0;
-xilInfoFrame->downmix_inhibit = 0;
-xilInfoFrame->info_length = 27;
-xilInfoFrame->level_shift = 0;
-xilInfoFrame->sample_size = 0;//16 bits
-xilInfoFrame->sampling_frequency = 0; //48 Hz
-xilInfoFrame->type = 0x4;
-xilInfoFrame->version = 0x12;
+				  if (exit == 1) {
+					exit=0;
+					CmdKey[0] = 0;
+					Command = 0;
+					xilInfoFrame->audio_channel_count = 1;
+					xilInfoFrame->audio_coding_type = 0;
+					xilInfoFrame->channel_allocation = 0;
+					xilInfoFrame->downmix_inhibit = 0;
+					xilInfoFrame->info_length = 27;
+					xilInfoFrame->level_shift = 0;
+					xilInfoFrame->sample_size = 0;//16 bits
+					xilInfoFrame->sampling_frequency = 0; //48 Hz
+					xilInfoFrame->type = 0x84;
+					xilInfoFrame->version = 0x11;
+#if SEND_AIF
+					sendAudioInfoFrame(xilInfoFrame);
+#endif
+					XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+					 XDP_TX_AUDIO_CHANNELS, 0x1);
 
-sendAudioInfoFrame(xilInfoFrame);
-XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
- XDP_TX_AUDIO_CHANNELS, 0x1);
-xil_printf ("kapil\r\n");
-				  switch(LineRate)
-				  {
-								case  6:m_aud = 512; n_aud = 3375; break;
-								case 10:m_aud = 512; n_aud = 5625; break;
-								case 20:m_aud = 512; n_aud = 11250; break;
-								case 30:m_aud = 512; n_aud = 16875; break;
-				  }
-				 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_MAUD,  m_aud );
-				 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_NAUD,  n_aud );
-				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x1);
-				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x2);
-				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x10, 0x0);//0x0: Sine tone, 0x2: Ping tone
-				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x20, 0x0);//0x0: Sine tone, 0x2: Ping tone
-				 xil_printf ("kapil\r\n");
-				  //0x04120002 channel status    16.4 release
-				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0xA0, 0x10000244);
+					usleep(10000);
+					XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x1);
+					usleep(10000);
+					XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x2);
+					usleep(10000);
+					XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x10, 0x0);//0x0: Sine tone, 0x2: Ping tone
+					usleep(10000);
+					XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x20, 0x0);//0x0: Sine tone, 0x2: Ping tone
+					usleep(10000);
 
-				  //channel statu    16.4 release
-				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0xA4, 0x40000000);
-				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x4, 0x202);
+					//0x04120002 channel status    16.4 release
+					XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0xA0, 0x10000244);
+					usleep(10000);
+					//channel statu    16.4 release
+					XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0xA4, 0x40000000);
+					usleep(10000);
 
-				  /*Override Maud/Naud with fixed values - Sync mode*/
-//                                                                                                 data = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//                                                                                                                              XDP_TX_MAIN_STREAM_MISC0);
-//                                                                                                 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//                                                                                                                              XDP_TX_MAIN_STREAM_MISC0, data|0x300);
+					XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x4, 0x202);
+					usleep(10000);
 
-				  data = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,  XDP_TX_AUDIO_CONTROL);
-
-				 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, data|0x1);
-				  xil_printf ("Audio enabled\r\n");
-				  audio_on = 1;
-   } else {
+					XDpTxSs_Mst_AudioEnable (&DpTxSsInst , stream);
+					xil_printf ("Audio enabled\r\n");
+					audio_on = 1;
+			   }
+			   } else {
 				   XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x0);
-				 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0xF0000);//Mute & Disable
-				  xil_printf ("Audio disabled\r\n");
-				  audio_on = 0;
-   }
+				   XDpTxSs_Mst_AudioDisable (&DpTxSsInst);
+				   xil_printf ("Audio disabled\r\n");
+				   audio_on = 0;
+			   }
+
  break;
 
 
-
-//		case 'a' :
-//			audio_on = XDp_ReadReg(
-//					DpTxSsInst.DpPtr->Config.BaseAddr,
-//					XDP_TX_AUDIO_CONTROL);
-//			if (audio_on == 0) {
-//				xilInfoFrame->audio_channel_count = 0;
-//				xilInfoFrame->audio_coding_type = 0;
-//				xilInfoFrame->channel_allocation = 0;
-//				xilInfoFrame->downmix_inhibit = 0;
-//				xilInfoFrame->info_length = 27;
-//				xilInfoFrame->level_shift = 0;
-//				xilInfoFrame->sample_size = 1;//16 bits
-//				xilInfoFrame->sampling_frequency = 3; //48 Hz
-//				xilInfoFrame->type = 4;
-//				xilInfoFrame->version = 1;
-//				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//						XDP_TX_AUDIO_CONTROL, 0x0);
-//				sendAudioInfoFrame(xilInfoFrame);
-//				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//						XDP_TX_AUDIO_CHANNELS, 0x1);
-//				switch(LineRate)
-//				{
-//					case  6:m_aud = 24576; n_aud = 162000; break;
-//					case 10:m_aud = 24576; n_aud = 270000; break;
-//					case 20:m_aud = 24576; n_aud = 540000; break;
-//				}
-//				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//						XDP_TX_AUDIO_MAUD,  m_aud );
-//				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//						XDP_TX_AUDIO_NAUD,  n_aud );
-//
-//				Vpg_Audio_start();
-//				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//						XDP_TX_AUDIO_CONTROL, 0x1);
-//				xil_printf ("Audio enabled\r\n");
-//				audio_on = 1;
-//			} else {
-//				Vpg_Audio_stop();
-//				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//						XDP_TX_AUDIO_CONTROL, 0x0);
-//				xil_printf ("Audio disabled\r\n");
-//				audio_on = 0;
-//			}
-//			break;
 #endif
 		case '1' :
 			//resolution menu
@@ -745,8 +549,22 @@ xil_printf ("kapil\r\n");
 						LineRate = get_LineRate();
 						LaneCount = get_Lanecounts();
 
-						start_tx_only (LineRate,LaneCount,user_config);
+						XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x0);
+						usleep(10000);
+						XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x0);
+						usleep(10000);
+						XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x10, 0x0);//0x0: Sine tone, 0x2: Ping tone
+						usleep(10000);
+						XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x20, 0x0);//0x0: Sine tone, 0x2: Ping tone
+						usleep(10000);
+						XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0xA0, 0x0);
+						usleep(10000);
+						XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0xA4, 0x0000000);
+						usleep(10000);
+						XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x4, 0x0);
+						usleep(10000);
 
+						start_tx_only (LineRate,LaneCount,user_config);
 						exit = done;
 						break;
 					}
@@ -879,8 +697,11 @@ xil_printf ("kapil\r\n");
 										=XVIDC_VM_800x600_60_P;
 						user_config.user_pattern=1;
 						user_config.user_format = XVIDC_CSF_RGB;
-//						start_tx (user_tx_LineRate, user_tx_LaneCount,
-//												user_config);
+						   XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x0);
+//						 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0xF0000);//Mute & Disable
+
+						start_tx_only (user_tx_LineRate, user_tx_LaneCount,
+												user_config);
 						LineRate = get_LineRate();
 						LaneCount = get_Lanecounts();
 						exit = done;
@@ -944,6 +765,7 @@ xil_printf ("kapil\r\n");
 		case '4' :
 			//MSA;
 			XDpTxSs_ReportMsaInfo(&DpTxSsInst);
+//			XDpTxSs_ReportVtcInfo(&DpTxSsInst);
 			break;
 
 			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
@@ -1012,7 +834,6 @@ xil_printf ("kapil\r\n");
 		case '5' :
 			//Link config and status
 			XDpTxSs_ReportLinkInfo(&DpTxSsInst);
-//			XDpRxSs_ReportLinkInfo(&DpRxSsInst);
 			break;
 
 			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
@@ -1117,15 +938,12 @@ xil_printf ("kapil\r\n");
 
 			break;
 
-
-			// CRC read
-		case 'm' :
-//			XVidFrameCrc_Report();
-			break;
-
 			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
 		case 'z' :
 			sub_help_menu ();
+			break;
+
+		default:
 			break;
 
 		} //end of switch (CmdKey[0])
@@ -1135,38 +953,29 @@ xil_printf ("kapil\r\n");
 
 u8 rx_unplugged = 0;
 u8 rx_trained = 0;
+extern u8 aud_info_rcvd;
+u8 strm_start = 1;
+u8 AudioStream;
 
 void pt_loop(){
 	int i;
 	u32 Status;
-	XVidC_VideoMode VmId;
-//	XDpTxSs_Config *ConfigPtr;
 	u8 exit = 0;
 	u32 user_lane_count;
 	u32 user_link_rate;
 	u32 data, addr;
 
+	int count;
+
+
 	char CommandKey;
 	char CmdKey[2];
 	unsigned int Command;
-	u8 LaneCount;
-	u8 LineRate;
-	u8 LineRate_init_tx = 0;
 	u8 Edid_org[128], Edid1_org[128];
-	u8 done=0;
-	u32 user_tx_LaneCount , user_tx_LineRate;
-	u32 aux_reg_address, num_of_aux_registers;
-	u8 Data[8];
-	u8 audio_on=0;
-	XilAudioInfoFrame *xilInfoFrame;
-	int m_aud, n_aud;
-	u8 in_pwr_save = 0;
-	u16 DrpVal =0;
+
+
 	u8 C_VideoUserStreamPattern[8] = {0x10, 0x11, 0x12, 0x13, 0x14,
 												0x15, 0x16, 0x17}; //Duplicate
-
-	unsigned char bpc_table[] = {6,8,10,12,16};
-
 
 	user_config_struct user_config;
 	user_config.user_bpc=8;
@@ -1177,22 +986,10 @@ void pt_loop(){
 
 	xilInfoFrame = 0; // initialize
 
-
-	// Adding custom resolutions at here.
-	xil_printf("INFO> Registering Custom Timing Table with %d entries \r\n",
-							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
-	Status = XVidC_RegisterCustomTimingModes(XVidC_MyVideoTimingMode,
-							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: Unable to register custom timing table\r\r\n\n");
-	}
-
     XAxisScr_MiPortEnable (&axis_switch, 0, 0);
     XAxisScr_RegUpdateEnable (&axis_switch);
 
-//     XAxisScr_MiPortEnable (&axis_switch_tx, 0, 0);
-//      XAxisScr_RegUpdateEnable (&axis_switch_tx);
-
+    XScuGic_Enable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
     XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_LINK_ENABLE, 0x1);
 
       //Clearing the interrupt before starting
@@ -1200,39 +997,65 @@ void pt_loop(){
 	XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x140);
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x144, 0xFFF);
 
-	XScuGic_Enable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
+
 	XScuGic_Enable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
 
 	sub_help_menu_pt ();
 
 	while (1) { // for menu loop
 		if (tx_is_reconnected == 1 && DpRxSsInst.link_up_trigger == 1) {
+			aud_started = 0;
 			hpd_con(&DpTxSsInst, Edid_org, Edid1_org,
 					user_config.VideoMode_local);
-			start_tx_after_rx(1);
+			start_tx_after_rx(strm_start, 0);
 			tx_is_reconnected = 0;
 		}
 
-		if(hpd_pulse_con_event == 1 && DpRxSsInst.link_up_trigger == 1){
+		if(hpd_pulse_con_event == 1 && DpRxSsInst.link_up_trigger == 1 && tx_is_up == 1){
+			tx_is_up = 0;
+			aud_started = 0;
 			hpd_pulse_con_event = 0;
-			hpd_pulse_con(&DpTxSsInst);
+			hpd_pulse_con(&DpTxSsInst, 0);
 			Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
 			if (Status != XST_SUCCESS) {
-				xil_printf ("Link is bad\r\n");
-				start_tx_after_rx (1);
+				tx_is_up = 0;
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_INTERRUPT_MASK, 0xFFF);
+
+				DpTxSubsystem_Start(&DpTxSsInst, Msa);
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_INTERRUPT_MASK, 0x0);
+				tx_is_up = 1;
 			}
+		} else {
+			hpd_pulse_con_event = 0;
+		}
+
+		if (tx_is_up == 1 && aud_started == 0 && aud_info_rcvd == 1) {
+			count++;
+			if (count == 100) {
+				// get TX SS Aud out of reset
+				Xil_Out32(TX_AUD_RST_BASE, 0x1);
+			} else if (count > 200) {
+				start_audio_passThrough(DpRxSsInst.UsrOpt.LinkRate);
+				usleep(100000);
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x1);
+				usleep(100000);
+				Xil_Out32(TX_AUD_RST_BASE, 0x3);
+				xil_printf ("Audio Started %d...\r\n",AudioStream);
+				aud_started = 1;
+
+			}
+		} else {
+			count = 0;
 		}
 
         if (rx_unplugged == 1) {
                  xil_printf ("Training Lost !! Cable Unplugged !!!\r\n");
                  unplug_proc ();
         } else if (DpRxSsInst.link_up_trigger == 0) {       // Link Not trained
-            if (rx_trained == 1) {                                  // If it was previously trained
-                    xil_printf ("Training Lost !!\r\n");
-//                    unplug_proc ();
-            }
-            rx_trained = 0;
         } else if(DpRxSsInst.VBlankCount >= 2 && DpRxSsInst.link_up_trigger ==1 && rx_trained == 0){
+		tx_is_up = 0;
 			xil_printf(
 			"> Rx Training done !!! (BW: 0x%x, Lanes: 0x%x, Status: "
 			"0x%x;0x%x).\n\r",
@@ -1246,19 +1069,14 @@ void pt_loop(){
 					XDP_RX_DPCD_LANE23_STATUS));
 			DpRxSsInst.VBlankCount++;
 			rx_trained = 1;
-//			DpRxSsInst.link_up_trigger = 0;
-
 			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 											XDP_TX_ENABLE, 0x0);
-
 			XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_SET_MSA),
 					&DpPt_TxSetMsaValuesImmediate, &DpTxSsInst);
-
 		}
 
 		if(DpRxSsInst.no_video_trigger == 1){
 			frameBuffer_stop(Msa);
-//			XI2s_Tx_Enable(&I2s_tx, 0);
 			DpRxSsInst.no_video_trigger = 0;
 		}
 
@@ -1268,26 +1086,20 @@ void pt_loop(){
 			//VBLANK Management
 			DpRxSsInst.VBlankCount = 0;
 			XDp_RxDtgDis(DpRxSsInst.DpPtr);
-//			XDp_RxDtgEn(DpRxSsInst.DpPtr);
 			XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
 					XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
 			XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
 					XDP_RX_INTERRUPT_MASK_NO_VIDEO_MASK |
 					XDP_RX_INTERRUPT_MASK_TRAINING_LOST_MASK);
-
-            XDpRxSs_AudioDisable(&DpRxSsInst);
-            XDp_RxDtgEn(DpRxSsInst.DpPtr);
-//            XDpRxSs_AudioEnable(&DpRxSsInst);
-
-
-			start_tx_after_rx (1);
-//			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x144, 0xFFF);
-
+			XDpRxSs_Mst_AudioDisable (&DpRxSsInst);
+			//RX is always in 4 PPC mode
+			XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, 0x4);
+                        XDp_RxDtgEn(DpRxSsInst.DpPtr);
+			start_tx_after_rx (strm_start, 0);
 		}
 
 		CmdKey[0] = 0;
 		CommandKey = 0;
-
 
 		CommandKey = xil_getc(0xff);
 		Command = atoi(&CommandKey);
@@ -1298,17 +1110,20 @@ void pt_loop(){
 		switch (CommandKey){
 		case '1':
 			select_rx_link_lane();
+			exit = 0;
+			while (exit == 0) {
 			CmdKey[0] = 0;
 			Command = 0;
 			CmdKey[0] = inbyte_local();
 			if(CmdKey[0]!=0){
 				Command = (int)CmdKey[0];
 				Command = Command -48;
+				xil_printf ("Command is %d\r\n", Command);
 				switch  (CmdKey[0])
 					{
 					   case 'x' :
 					   exit = 1;
-					   sub_help_menu ();
+//					   sub_help_menu ();
 					   break;
 
 					   default :
@@ -1333,15 +1148,34 @@ void pt_loop(){
 						}
 						xil_printf("RX Link & Lane Capability is set to %x, %x\r\n", user_link_rate, user_lane_count);
 						xil_printf ("\r\n **Important: Please ensure to unplug & plug the cable after the capabilities have been changed **\r\n");
-						XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0x7FF8FFFF);
+
+				        XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
+				                        XDP_RX_INTERRUPT_MASK_TP1_MASK |
+				                        XDP_RX_INTERRUPT_MASK_TP2_MASK |
+				                        XDP_RX_INTERRUPT_MASK_TP3_MASK|
+				                        XDP_RX_INTERRUPT_MASK_POWER_STATE_MASK|
+				                        XDP_RX_INTERRUPT_MASK_CRC_TEST_MASK|
+				                        XDP_RX_INTERRUPT_MASK_BW_CHANGE_MASK |
+										XDP_RX_INTERRUPT_MASK_VCP_ALLOC_MASK |
+										XDP_RX_INTERRUPT_MASK_VCP_DEALLOC_MASK |
+										XDP_RX_INTERRUPT_MASK_DOWN_REPLY_MASK |
+										XDP_RX_INTERRUPT_MASK_DOWN_REQUEST_MASK);
+
+				        XDp_RxInterruptEnable1(DpRxSsInst.DpPtr,
+				                        XDP_RX_INTERRUPT_MASK_TP4_MASK|
+				                        XDP_RX_INTERRUPT_MASK_ACCESS_LANE_SET_MASK|
+				                        XDP_RX_INTERRUPT_MASK_ACCESS_LINK_QUAL_MASK|
+				                        XDP_RX_INTERRUPT_MASK_ACCESS_ERROR_COUNTER_MASK);
+
 						// Disabling TX interrupts
 						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x144, 0xFFF);
 						XDpTxSs_Stop(&DpTxSsInst);
 						XDpRxSs_SetLinkRate(&DpRxSsInst, user_link_rate);
 						XDpRxSs_SetLaneCount(&DpRxSsInst, user_lane_count);
-
+						exit = 1;
 					}
 					}
+			}
 			}
              break;
 
@@ -1368,7 +1202,6 @@ void pt_loop(){
 			xil_printf("\r\n- HPD Toggled for 3ms! -\n\r");
 			break;
 
-
 		case 'w':
 			xil_printf("\n\rEnter 4 hex characters: Sink Write address 0x");
 			addr = xil_gethex(4);
@@ -1385,189 +1218,47 @@ void pt_loop(){
 			break;
 
 		case 'a' :
-			// ask for which TX stream
-			start_tx_after_rx (1);
-//            XDpRxSs_AudioDisable(&DpRxSsInst);
-//			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x300, 0x01);
-//			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x0);
-//			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CHANNELS, 0x1);
-//			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x1);
-//            XDpRxSs_AudioEnable(&DpRxSsInst);
 
-
+			tx_is_up = 0;
+			strm_start = 1;
+			Xil_Out32(TX_AUD_RST_BASE, 0x0);
+			start_tx_after_rx (strm_start, 0);
+			aud_started = 0;
 
 			break;
 
 		case 'b' :
-			start_tx_after_rx (2);
-//            XDpRxSs_AudioDisable(&DpRxSsInst);
-//			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x300, 0x11);
 
-//            XDpRxSs_AudioEnable(&DpRxSsInst);
+			tx_is_up = 0;
+			strm_start = 2;
+			Xil_Out32(TX_AUD_RST_BASE, 0x0);
+			start_tx_after_rx (strm_start, 0);
+			aud_started = 0;
 
 			break;
 
 		case 'c' :
-//			start_tx_after_rx (3);
-            XDpRxSs_AudioDisable(&DpRxSsInst);
 
-			start_audio_passThrough(0x14);
-
-			usleep(50000);
-			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x300, 0x21);
-			xil_printf ("Audio Started...\r\n");
-//            XDpRxSs_AudioEnable(&DpRxSsInst);
+			tx_is_up = 0;
+			strm_start = 3;
+			Xil_Out32(TX_AUD_RST_BASE, 0x0);
+			start_tx_after_rx (strm_start, 0);
+			aud_started = 0;
 
 			break;
 
 		case 'd' :
-			start_tx_after_rx (4);
-//            XDpRxSs_AudioDisable(&DpRxSsInst);
-//			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x300, 0x31);
 
-//            XDpRxSs_AudioEnable(&DpRxSsInst);
-
+			tx_is_up = 0;
+			strm_start = 4;
+			Xil_Out32(TX_AUD_RST_BASE, 0x0);
+			start_tx_after_rx (strm_start, 0);
+			aud_started = 0;
 			break;
-//
-#if ENABLE_AUDIO
-        case 'e' :
-			   if (audio_on == 0) {
 
-				  audio_stream_help();
-
-				  while (exit == 0) {
-
-								CmdKey[0] = 0;
-								Command = 0;
-								CmdKey[0] = inbyte_local();
-								Command = (int)CmdKey[0];
-
-					  switch  (CmdKey[0])
-					  {
-						 case '2' :
-								   exit = 1;
-								   /*Mute unused streams*/
-										XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-															XDP_TX_AUDIO_CONTROL, 0x00010);
-										xil_printf ("Configured Audio in Stream 2\r\n");
-										break;
-
-						 case '1' :
-								   exit = 1;
-								   /*Mute unused streams*/
-										XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-															XDP_TX_AUDIO_CONTROL, 0x00000);
-										xil_printf ("Configured Audio in Stream 1\r\n");
-								   break;
-					  }
-
-				  }
-							  exit=0;
-//                           xil_printf ("\n\r Infoframe %x\r\n",xilInfoFrame);
-xilInfoFrame->audio_channel_count = 1;
-xilInfoFrame->audio_coding_type = 0;
-xilInfoFrame->channel_allocation = 0;
-xilInfoFrame->downmix_inhibit = 0;
-xilInfoFrame->info_length = 27;
-xilInfoFrame->level_shift = 0;
-xilInfoFrame->sample_size = 0;//16 bits
-xilInfoFrame->sampling_frequency = 0; //48 Hz
-xilInfoFrame->type = 0x4;
-xilInfoFrame->version = 0x12;
-
-sendAudioInfoFrame(xilInfoFrame);
-XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
- XDP_TX_AUDIO_CHANNELS, 0x1);
-xil_printf ("kapil\r\n");
-				  switch(LineRate)
-				  {
-								case  6:m_aud = 512; n_aud = 3375; break;
-								case 10:m_aud = 512; n_aud = 5625; break;
-								case 20:m_aud = 512; n_aud = 11250; break;
-								case 30:m_aud = 512; n_aud = 16875; break;
-				  }
-				 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_MAUD,  m_aud );
-				 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_NAUD,  n_aud );
-//				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x0);
-//				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x1);
-//				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x2);
-//				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x10, 0x0);//0x0: Sine tone, 0x2: Ping tone
-//				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x20, 0x0);//0x0: Sine tone, 0x2: Ping tone
-//				 xil_printf ("kapil\r\n");
-//				  //0x04120002 channel status    16.4 release
-//				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0xA0, 0x10000244);
-//
-//				  //channel statu    16.4 release
-//				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0xA4, 0x40000000);
-//				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x4, 0x202);
-
-//				  /*Override Maud/Naud with fixed values - Sync mode*/
-//				 data = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_MISC0);
-//				 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_MISC0, data|0x300);
-
-				  data = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,  XDP_TX_AUDIO_CONTROL);
-
-				 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, data|0x1);
-				  xil_printf ("Audio enabled\r\n");
-				  audio_on = 1;
-   } else {
-				   XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x0);
-				 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0xF0000);//Mute & Disable
-				  xil_printf ("Audio disabled\r\n");
-				  audio_on = 0;
-   }
- break;
-
-
-
-//		case 'a' :
-//			audio_on = XDp_ReadReg(
-//					DpTxSsInst.DpPtr->Config.BaseAddr,
-//					XDP_TX_AUDIO_CONTROL);
-//			if (audio_on == 0) {
-//				xilInfoFrame->audio_channel_count = 0;
-//				xilInfoFrame->audio_coding_type = 0;
-//				xilInfoFrame->channel_allocation = 0;
-//				xilInfoFrame->downmix_inhibit = 0;
-//				xilInfoFrame->info_length = 27;
-//				xilInfoFrame->level_shift = 0;
-//				xilInfoFrame->sample_size = 1;//16 bits
-//				xilInfoFrame->sampling_frequency = 3; //48 Hz
-//				xilInfoFrame->type = 4;
-//				xilInfoFrame->version = 1;
-//				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//						XDP_TX_AUDIO_CONTROL, 0x0);
-//				sendAudioInfoFrame(xilInfoFrame);
-//				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//						XDP_TX_AUDIO_CHANNELS, 0x1);
-//				switch(LineRate)
-//				{
-//					case  6:m_aud = 24576; n_aud = 162000; break;
-//					case 10:m_aud = 24576; n_aud = 270000; break;
-//					case 20:m_aud = 24576; n_aud = 540000; break;
-//				}
-//				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//						XDP_TX_AUDIO_MAUD,  m_aud );
-//				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//						XDP_TX_AUDIO_NAUD,  n_aud );
-//
-//				Vpg_Audio_start();
-//				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//						XDP_TX_AUDIO_CONTROL, 0x1);
-//				xil_printf ("Audio enabled\r\n");
-//				audio_on = 1;
-//			} else {
-//				Vpg_Audio_stop();
-//				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//						XDP_TX_AUDIO_CONTROL, 0x0);
-//				xil_printf ("Audio disabled\r\n");
-//				audio_on = 0;
-//			}
-//			break;
-#endif
-
-
+		default :
 			break;
+
 		} //end of switch (CmdKey[0])
 
 	}
@@ -1682,62 +1373,21 @@ char xil_getc(u32 timeout_ms){
 	return c;
 }
 
-void start_tx_after_rx(u8 stream_id) {
+void start_tx_after_rx(u8 stream_id, u8 only_tx) {
 	u32 mvid_rx;
 	u32 nvid_rx;
 	u32 Status;
-
 	// Get incoming pixel frequency at here
 	u32 recv_clk_freq;
-
 	// Re-calculating Mvid/Nvid based on 5.4Gbps
 	u32 nvid_tx;
 	u32 mvid_tx;
-	XVidC_VideoMode VmId;
 	user_config_struct user_config;
-
-	XDpTxSs_Stop(&DpTxSsInst);
-	XDpTxSs_Reset(&DpTxSsInst);
-	XAxisScr_MiPortEnable (&axis_switch, 0, stream_id-1);
-	XAxisScr_RegUpdateEnable (&axis_switch);
-
-//Dppt_DetectResolution(DpRxSsInst.DpPtr, 1, Msa);
-//Dppt_DetectResolution(DpRxSsInst.DpPtr, 2, Msa);
-//Dppt_DetectResolution(DpRxSsInst.DpPtr, 3, Msa);
-//Dppt_DetectResolution(DpRxSsInst.DpPtr, 4, Msa);
-
-	Dppt_DetectResolution(DpRxSsInst.DpPtr, stream_id, Msa);
-
-	VmId = XVidC_GetVideoModeId(
-						Msa[0].Vtm.Timing.HActive,
-						Msa[0].Vtm.Timing.VActive,
-						Msa[0].Vtm.FrameRate,0);
-	user_config.user_bpc = Msa[0].BitsPerColor;
-	user_config.user_pattern = 0; /*pass-through (Default)*/
-	user_config.VideoMode_local = VmId;
-	/*Check component Format*/
-	if(Msa[0].ComponentFormat ==
-			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422){
-		user_config.user_format = XVIDC_CSF_YCRCB_422 + 1;
-	}else if(Msa[0].ComponentFormat ==
-			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444){
-		user_config.user_format = XVIDC_CSF_YCRCB_444 + 1;
-	}else
-		user_config.user_format = XVIDC_CSF_RGB + 1;
-
-
-	Dprx_ResetVideoOutput(DpRxSsInst.DpPtr);
-	frameBuffer_stop(Msa);
-
-// check monitor capability
-//Waking up the monitor
-    sink_power_cycle();
-
-
-	u8 max_cap_org=0;
-	u8 max_cap_lanes=0;
+	u8 max_cap_org = 0;
+	u8 max_cap_lanes = 0;
 	u8 monitor_8K=0;
-	u8 downshift4K = 0;
+	u8 AudioStream_a;
+	int aud_timeout = 0;
 	Status = XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x1, 1, &max_cap_org);
 	Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x2, 1, &max_cap_lanes);
 	u8 rData = 0;
@@ -1745,6 +1395,7 @@ void start_tx_after_rx(u8 stream_id) {
 	XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_TRAIN_AUX_RD_INTERVAL,
 					1, &rData);
 
+	if (DpRxSsInst.UsrOpt.LinkRate == XDP_TX_LINK_BW_SET_810GBPS) {
 	// if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled
 	if(rData & 0x80){
 			// read maxLineRate
@@ -1752,10 +1403,12 @@ void start_tx_after_rx(u8 stream_id) {
 			if(rData == XDP_DPCD_LINK_BW_SET_810GBPS){
 					monitor_8K = 1;
 					max_cap_org = 0x1E;
-					xil_printf ("Monitor is 8.1 capable\r\n");
+//					xil_printf ("Monitor is 8.1 capable\r\n");
 			} else {
-					xil_printf ("Monitor is not 8.1 capable\r\n");
+				    max_cap_org = 0x14;
+//					xil_printf ("Monitor is not 8.1 capable\r\n");
 			}
+	}
 	}
 
 
@@ -1782,116 +1435,104 @@ void start_tx_after_rx(u8 stream_id) {
 		}
 	}
 
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+			XDP_TX_INTERRUPT_MASK, 0xFFF);
+	frameBuffer_stop_rd();
 
-XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_TX,(FALSE));
-// This configures the vid_phy for line rate to start with
-//Even though CPLL can be used in limited case,
-//using QPLL is recommended for more coverage.
-//frameBuffer_stop(Msa);
-set_vphy(0x14);
-start_tx(0x14, 0x4, user_config, Msa);
-//start_audio_passThrough(0x14);
-frameBuffer_start(VmId, Msa, 0);
+	if (only_tx == 0) {
+		XAxisScr_MiPortDisableAll(&axis_switch);
+		frameBuffer_stop_wr();
+		usleep(10000);
+		Dppt_DetectResolution(DpRxSsInst.DpPtr, 1, Msa, 1);
+		Dppt_DetectResolution(DpRxSsInst.DpPtr, 2, Msa, 2);
+		Dppt_DetectResolution(DpRxSsInst.DpPtr, 3, Msa, 3);
+		Dppt_DetectResolution(DpRxSsInst.DpPtr, 4, Msa, 4);
+		Dppt_DetectResolution(DpRxSsInst.DpPtr, stream_id, Msa, 1);
+		XDpRxSs_Mst_AudioDisable (&DpRxSsInst);
+		frameBuffer_start_wr(Msa, 0);
+		XAxisScr_MiPortEnable (&axis_switch, 0, stream_id-1);
+		XAxisScr_RegUpdateEnable (&axis_switch);
+	}
+
+	//Selecting the Audio Stream
+#if (DEFAULT_STREAM == 0)
+		xil_printf ("Choose the RX stream that has valid audio (1,2,3 or 4?)\r\n");
+		while (1) {
+			AudioStream_a = XUartPs_RecvByte_NonBlocking();
+			AudioStream = AudioStream_a - 48;
+			if (((AudioStream) > 0) && ((AudioStream) < 5)) {
+				xil_printf ("You selected stream %d\r\n",AudioStream);
+				break;
+			}
+		}
+#else
+		AudioStream = stream_id;
+#endif
+
+
+	user_config.user_bpc = Msa[0].BitsPerColor;
+	user_config.user_pattern = 0; /*pass-through (Default)*/
+	user_config.VideoMode_local = 0;//VmId;
+	/*Check component Format*/
+	if(Msa[0].ComponentFormat ==
+			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422){
+		user_config.user_format = XVIDC_CSF_YCRCB_422 + 1;
+	}else if(Msa[0].ComponentFormat ==
+			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444){
+		user_config.user_format = XVIDC_CSF_YCRCB_444 + 1;
+	}else
+		user_config.user_format = XVIDC_CSF_RGB + 1;
+
+
+	sink_power_cycle();
+
+	//Setting to 0x6 improves the perfomance on some
+	//Dell monitors, which otherwise give multiple HPD pulse
+	XDpTxSs_SetLinkRate(&DpTxSsInst, XDPTXSS_LINK_BW_SET_162GBPS);
+	set_vphy(max_cap_org);
+	start_tx(max_cap_org, DpRxSsInst.UsrOpt.LaneCount, user_config, Msa);
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+			XDP_TX_INTERRUPT_MASK, 0x0);
+	frameBuffer_start_rd(Msa, 0);
+	tx_is_up = 1;
+	aud_started = 0;
+	XDpRxSs_Mst_AudioDisable (&DpRxSsInst);
+	AudioinfoFrame.frame_count = 0;
+	aud_timeout = 0;
+	aud_info_rcvd = 0;
+	Xil_Out32(TX_AUD_RST_BASE, 0x0); //all in reset
+	usleep(100000);
+	XDpRxSs_Mst_AudioEnable (&DpRxSsInst, AudioStream);
+	//giving some time to for AudioInfoframe to be available
+	while (aud_timeout < 100) {
+		//wait till info packet is received
+		aud_timeout++;
+		usleep(10000);
+	}
 }
 
 
 /* Audio passThrough setting */
 void start_audio_passThrough(u8 LineRate_init_tx){
-        int m_aud;
-        int n_aud;
-        u16 data;
 
-        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CONTROL, 0x00000);
-
-        xilInfoFrame->audio_channel_count = 1;
-        xilInfoFrame->audio_coding_type = 0;
-        xilInfoFrame->channel_allocation = 0;
-        xilInfoFrame->downmix_inhibit = 0;
-        xilInfoFrame->info_length = 27;
-        xilInfoFrame->level_shift = 0;
-        xilInfoFrame->sample_size = 0;//16 bits
-        xilInfoFrame->sampling_frequency = 0; //48 Hz
-        xilInfoFrame->type = 0x4;
-        xilInfoFrame->version = 0x12;
-
-        sendAudioInfoFrame(xilInfoFrame);
-        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-         XDP_TX_AUDIO_CHANNELS, 0x1);
-        xil_printf ("kapil\r\n");
-					  switch(LineRate_init_tx)
-					  {
-									case  6:m_aud = 512; n_aud = 3375; break;
-									case 10:m_aud = 512; n_aud = 5625; break;
-									case 20:m_aud = 512; n_aud = 11250; break;
-									case 30:m_aud = 512; n_aud = 16875; break;
-					  }
-					 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_MAUD,  m_aud );
-					 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_NAUD,  n_aud );
-//        				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x1);
-//        				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x2);
-//        				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x10, 0x0);//0x0: Sine tone, 0x2: Ping tone
-//        				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x20, 0x0);//0x0: Sine tone, 0x2: Ping tone
-//        				 xil_printf ("kapil\r\n");
-//        				  //0x04120002 channel status    16.4 release
-//        				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0xA0, 0x10000244);
-//
-//        				  //channel statu    16.4 release
-//        				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0xA4, 0x40000000);
-//        				 XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x4, 0x202);
-
-					  /*Override Maud/Naud with fixed values - Sync mode*/
-        //                                                                                                 data = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-        //                                                                                                                              XDP_TX_MAIN_STREAM_MISC0);
-        //                                                                                                 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-        //                                                                                                                              XDP_TX_MAIN_STREAM_MISC0, data|0x300);
-
-//        				  data = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,  XDP_TX_AUDIO_CONTROL);
-
-					 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x1);
-//        		            XDpRxSs_AudioDisable(&DpRxSsInst);
-//        		            XDpRxSs_AudioEnable(&DpRxSsInst);
-//        					XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x300, 0x21);
-					  xil_printf ("Audio enabled\r\n");
-
-#if 0
-
-        // stable video is there and ready to start Audio pass-through
-        xilInfoFrame->audio_channel_count = 1;
-        xilInfoFrame->audio_coding_type = 0;
-        xilInfoFrame->channel_allocation = 0;
-        xilInfoFrame->downmix_inhibit = 0;
-        xilInfoFrame->info_length = 27;
-        xilInfoFrame->level_shift = 0;
-        xilInfoFrame->sample_size = 0;//16 bits
-        xilInfoFrame->sampling_frequency = 0; //48 Hz
-        xilInfoFrame->type = 0x84;
-        xilInfoFrame->version = 0x12;
-        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-                                                XDP_TX_AUDIO_CONTROL, 0x0);
-        sendAudioInfoFrame(xilInfoFrame);
-        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-                                                XDP_TX_AUDIO_CHANNELS, 0x1);
-        //switch(dp_conf.LineRate){
-        switch(LineRate_init_tx){
-                case  6:m_aud = 512; n_aud = 3375; break;
-                case 10:m_aud = 512; n_aud = 5625; break;
-                case 20:m_aud = 512; n_aud = 11250; break;
-                case 30:m_aud = 512; n_aud = 16875; break;
-        }
-        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-                                        XDP_TX_AUDIO_MAUD,  m_aud );
-        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-                                        XDP_TX_AUDIO_NAUD,  n_aud );
-        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-                        XDP_TX_AUDIO_CONTROL, 0x0);
-        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-                        XDP_TX_AUDIO_CONTROL, 0x1);
-//      XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-//                      XDP_RX_AUDIO_CONTROL, 0x0);
-//      XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-//                      XDP_RX_AUDIO_CONTROL, 0x1);
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CONTROL, 0x00000);
+	xilInfoFrame->audio_channel_count = AudioinfoFrame.audio_channel_count;
+	xilInfoFrame->audio_coding_type = AudioinfoFrame.audio_coding_type;
+	xilInfoFrame->channel_allocation = AudioinfoFrame.channel_allocation;
+	xilInfoFrame->downmix_inhibit = AudioinfoFrame.downmix_inhibit;
+	xilInfoFrame->info_length = AudioinfoFrame.info_length;
+	xilInfoFrame->level_shift = AudioinfoFrame.level_shift;
+	xilInfoFrame->sample_size = AudioinfoFrame.sample_size;
+	xilInfoFrame->sampling_frequency = AudioinfoFrame.sampling_frequency;
+	xilInfoFrame->type = AudioinfoFrame.type;
+	xilInfoFrame->version = AudioinfoFrame.version;
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x0);
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CHANNELS, 0x1);
+#if SEND_AIF
+	usleep(10000);
+	sendAudioInfoFrame(xilInfoFrame);
+	usleep(30000);
 #endif
-        xil_printf ("Starting audio on TX..\r\n");
 }
 
 void unplug_proc (void) {
