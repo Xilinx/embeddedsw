@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -12,10 +12,14 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -40,6 +44,8 @@
 *</pre>
 *
 *****************************************************************************/
+
+#if 0
 
 #include <string.h>
 #include "xparameters.h"
@@ -77,13 +83,15 @@ int XVidFrameCrc_Initialize(Video_CRC_Config *VidFrameCRC)
 	VidFrameCRC->TEST_CRC_SUPPORTED = 1;
 
 	XVidFrameCrc_WriteReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
-			VIDEO_FRAME_CRC_CONFIG,
-			VIDEO_FRAME_CRC_CLEAR | XPAR_VPHY_0_INPUT_PIXELS_PER_CLOCK);
+			      VIDEO_FRAME_CRC_CONFIG,
+			      (VIDEO_FRAME_CRC_CLEAR |
+			       XPAR_VPHY_0_INPUT_PIXELS_PER_CLOCK));
 
 
-  return (XST_SUCCESS);
+	return (XST_SUCCESS);
 }
 
+/*****************************************************************************/
 /**
 *
 * This function is used to initialize the Video Frame CRC instance.
@@ -130,21 +138,23 @@ void XVidFrameCrc_Report(void)
 	xil_printf("------------\r\n");
 	xil_printf("Video Frame CRC\n\r");
 	xil_printf("------------\r\n\r\n");
-	xil_printf ("CRC PPC     =  %d\r\n",
-			XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
-				VIDEO_FRAME_CRC_CONFIG)
-				& VIDEO_FRAME_CRC_PXLMODE_MASK);
-	xil_printf ("CRC - R/Cr   =  0x%x\r\n",
-			XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
-				VIDEO_FRAME_CRC_VALUE_G_R)
-				& VIDEO_FRAME_CRC_R_Y_COMP_MASK);
-	xil_printf ("CRC - G/Y  =  0x%x\r\n",
-			(XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
-				VIDEO_FRAME_CRC_VALUE_G_R)
-				& VIDEO_FRAME_CRC_G_CR_COMP_MASK)
-				>> VIDEO_FRAME_CRC_G_CR_COMP_SHIFT);
-	xil_printf ("CRC - B/Cb  =  0x%x\r\n\r\n",
-			XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
-				VIDEO_FRAME_CRC_VALUE_B)
-				& VIDEO_FRAME_CRC_B_CB_COMP_MASK);
+	xil_printf("CRC PPC     =  %d\r\n",
+		   XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
+					VIDEO_FRAME_CRC_CONFIG)
+		   & VIDEO_FRAME_CRC_PXLMODE_MASK);
+	xil_printf("CRC - R/Cr   =  0x%x\r\n",
+		   XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
+					VIDEO_FRAME_CRC_VALUE_G_R)
+		   & VIDEO_FRAME_CRC_R_Y_COMP_MASK);
+	xil_printf("CRC - G/Y  =  0x%x\r\n",
+		   (XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
+					 VIDEO_FRAME_CRC_VALUE_G_R)
+		    & VIDEO_FRAME_CRC_G_CR_COMP_MASK) >>
+		   VIDEO_FRAME_CRC_G_CR_COMP_SHIFT);
+	xil_printf("CRC - B/Cb  =  0x%x\r\n\r\n",
+		   XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
+					VIDEO_FRAME_CRC_VALUE_B)
+		   & VIDEO_FRAME_CRC_B_CB_COMP_MASK);
  }
+
+#endif

@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -229,7 +209,7 @@ void sub_help_menu_pt(void)
 	  print(" b = Display RX MST stream 2\r\n");
 	  print(" c = Display RX MST stream 3\r\n");
 	  print(" d = Display RX MST stream 4\r\n");
-	  print(" z = Display this menu again\r\n");
+ 	  print(" z = Display this menu again\r\n");
 	  print(" x = Return to Main menu\r\n");
 	  print("\n\r");
 	  print("-----------------------------------------------------\n\r");}
@@ -491,7 +471,7 @@ void main_loop(){
 					audio_on = 1;
 			   }
 			   } else {
-				   XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x0);
+	   	   	   	   XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x0);
 				   XDpTxSs_Mst_AudioDisable (&DpTxSsInst);
 				   xil_printf ("Audio disabled\r\n");
 				   audio_on = 0;
@@ -695,7 +675,7 @@ void main_loop(){
 										=XVIDC_VM_800x600_60_P;
 						user_config.user_pattern=1;
 						user_config.user_format = XVIDC_CSF_RGB;
-						   XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x0);
+			   	   	   	   XDp_WriteReg (XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR + 0x400,  0x0, 0x0);
 //						 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0xF0000);//Mute & Disable
 
 						start_tx_only (user_tx_LineRate, user_tx_LaneCount,
@@ -992,7 +972,7 @@ void pt_loop(){
     XScuGic_Enable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
       //Clearing the interrupt before starting
 //    XDpTxSs_Stop(&DpTxSsInst);
-	XScuGic_Enable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
+  	XScuGic_Enable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
 	sub_help_menu_pt ();
 
 	while (exit == 0) { // for menu loop
@@ -1047,7 +1027,7 @@ void pt_loop(){
                  xil_printf ("Training Lost !! Cable Unplugged !!!\r\n");
                  unplug_proc ();
         } else if(DpRxSsInst.VBlankCount >= 2 && DpRxSsInst.link_up_trigger ==1 && rx_trained == 0){
-		tx_is_up = 0;
+        	tx_is_up = 0;
 			xil_printf(
 			"> Rx Training done !!! (BW: 0x%x, Lanes: 0x%x, Status: "
 			"0x%x;0x%x).\n\r",

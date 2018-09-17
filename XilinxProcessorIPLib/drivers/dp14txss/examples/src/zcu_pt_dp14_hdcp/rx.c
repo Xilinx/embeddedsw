@@ -1,28 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -41,7 +21,7 @@
 #include "rx.h"
 #include "tx.h"
 
-u8 rx_unplugged = 0;
+volatile u8 rx_unplugged = 0;
 
 #if ENABLE_HDCP_IN_DESIGN
 extern u8 hdcp_capable_org ;
@@ -777,9 +757,9 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 			       XVPHY_RX_CONTROL_REG, DrpVal);
 
 		/*Set PRBS mode in Retimer*/
-		XDpRxSs_MCDP6000_EnablePrbs7_Rx(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_EnablePrbs7_Rx(&DpRxSsInst,
 					I2C_MCDP6000_ADDR);
-		XDpRxSs_MCDP6000_ClearCounter(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst,
 				      I2C_MCDP6000_ADDR);
 	//    	MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
 	} else {
@@ -791,9 +771,9 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 			       XVPHY_RX_CONTROL_REG, DrpVal);
 
 		/*Disable PRBS mode in Retimer*/
-		XDpRxSs_MCDP6000_DisablePrbs7_Rx(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_DisablePrbs7_Rx(&DpRxSsInst,
 											I2C_MCDP6000_ADDR);
-		XDpRxSs_MCDP6000_ClearCounter(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst,
 				      I2C_MCDP6000_ADDR);
 	//    	MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
 	}
@@ -864,18 +844,18 @@ void DpRxSs_AccessErrorCounterHandler(void *InstancePtr)
 		     (0x8000 | DrpVal_lower_lane2) |
 		     ((0x8000 | DrpVal_lower_lane3) << 16));
 
-	XDpRxSs_MCDP6000_Read_ErrorCounters(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
+	XDpRxSs_MCDP6000_Read_ErrorCounters(&DpRxSsInst, I2C_MCDP6000_ADDR);
 
 	xil_printf("0x061C: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-			XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x061C));
+			&DpRxSsInst, I2C_MCDP6000_ADDR, 0x061C));
 	xil_printf("0x0504: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-			XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x0504));
+			&DpRxSsInst, I2C_MCDP6000_ADDR, 0x0504));
 	xil_printf("0x0604: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-			XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x0604));
+			&DpRxSsInst, I2C_MCDP6000_ADDR, 0x0604));
 	xil_printf("0x12BC: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-			XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x12BC));
+			&DpRxSsInst, I2C_MCDP6000_ADDR, 0x12BC));
 	xil_printf("0x12E4: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-			XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x12E4));
+			&DpRxSsInst, I2C_MCDP6000_ADDR, 0x12E4));
 
 	/* Reset PRBS7 Counters */
 	DrpVal1 = XVphy_ReadReg(VPhyInst.Config.BaseAddr,

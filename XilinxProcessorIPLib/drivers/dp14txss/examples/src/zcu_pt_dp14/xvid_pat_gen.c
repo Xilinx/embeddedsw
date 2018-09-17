@@ -1,30 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -65,7 +43,20 @@ u8 StreamPattern_vpg[5] = {0x11, 0x13, 0x15, 0x16, 0x10};
 #define CLK_WIZ_BASE      				XPAR_CLK_WIZ_0_BASEADDR
 #define CLK_LOCK                        1
 
-#define mmcm_refclk  XPAR_CLK_WIZ_0_REF_CLK_FREQ * 1000
+//Following limits are for ZCU102 US+ device
+//User to refer to DS and Switching char and update for
+//their design
+#define VCO_MAX 1600000
+#define VCO_MIN 800000
+
+#define M_MAX 128
+#define M_MIN 2
+
+#define D_MAX 106
+#define D_MIN 1
+
+#define DIV_MAX 128
+#define DIV_MIN 1
 
 /************************** Constant Definitions *****************************/
 
@@ -353,11 +344,11 @@ void Vpg_Audio_start(void){
 
 	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		StreamOffset[0], AudioPatternCH1,0x2);
+		StreamOffset[0], AudioPatternCH1,0x0);
 
 	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
-		StreamOffset[0], AudioPatternCH2,0x2);
+		StreamOffset[0], AudioPatternCH2,0x0);
 
 	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
@@ -418,6 +409,8 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 
 	VmId = MsaConfig->Vtm.VmId;
 
+//	xil_printf ("MSA pixel width is %d\r\n",MsaConfig->UserPixelWidth);
+//	xil_printf ("MSA pixel clock is %d\r\n",MsaConfig->PixelClockHz);
 	ComputeMandD_vidGen(((MsaConfig->PixelClockHz / 1000) /
 			     MsaConfig->UserPixelWidth));
 
@@ -768,17 +761,17 @@ void ComputeMandD_vidGen(u32 VidFreq)
 	u32 DVal = 0;
 	u32 DivVal = 0;
 	u32 rdata=0;
-
+//    xil_printf ("Vid freq needed is %d\r\n",VidFreq);
 //	RefFreq = XPAR_CLK_WIZ_0_REF_CLK_FREQ * 1000;
 	RefFreq = 300000;
 	RefFreq = 100000;
 
-	for (m = 20; m <= 64; m++) {
-		for (d = 1; d <= 80; d++) {
+	for (m = M_MIN; m <= M_MAX; m++) {
+		for (d = D_MIN; d <= D_MAX; d++) {
 			Fvco = RefFreq * m / d;
 
-			if ( Fvco >= 600000 && Fvco <= 900000 ) {
-				for (Div = 1; Div <= 128; Div++ ) {
+			if ( Fvco >= VCO_MIN && Fvco <= VCO_MAX ) {
+				for (Div = DIV_MIN; Div <= DIV_MAX; Div++ ) {
 					Freq = Fvco/Div;
 
 					if (Freq >= VidFreq) {

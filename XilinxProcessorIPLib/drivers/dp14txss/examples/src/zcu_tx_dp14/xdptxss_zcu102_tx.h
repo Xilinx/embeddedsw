@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  * @file xdptxss_zcu102_tx.h
@@ -47,6 +25,7 @@
 
 #include "xdptxss.h"
 #include "xvphy.h"
+#include "xvphy_i.h"
 #include "xil_printf.h"
 #include "xil_types.h"
 #include "xparameters.h"
@@ -75,7 +54,7 @@
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
 #define XINTC_DPTXSS_DP_INTERRUPT_ID \
-	XPAR_FABRIC_DPTXSS_0_VEC_ID
+	XPAR_FABRIC_DP14TXSS_0_VEC_ID
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #define XINTC_DPTXSS_HDCP_INTERRUPT_ID \
 	XPAR_INTC_0_DPTXSS_0_DPTXSS_HDCP_IRQ_VEC_ID
@@ -128,7 +107,7 @@
 #define CLK_WIZ_BASE      				XPAR_CLK_WIZ_0_BASEADDR
 
 #define PE_VS_ADJUST 1
-#define DP141_ADJUST 0
+
 
 #define XVPHY_DRP_CPLL_FBDIV		0x28
 #define XVPHY_DRP_CPLL_REFCLK_DIV	0x2A
@@ -136,6 +115,48 @@
 #define XVPHY_DRP_RXCLK25			0x6D
 #define XVPHY_DRP_TXCLK25			0x7A
 #define XVPHY_DRP_TXOUT_DIV			0x7C
+#define XVPHY_DRP_PROGDIV           0x3E
+
+// The following are the PROGDIVCLK divider values when BufferBypass is
+// enabled
+#define DIVIDER_162                 57423
+#define DIVIDER_270                 57415
+#define DIVIDER_540                 57442
+#define DIVIDER_810                 57440
+
+// Following values of VSwing and Pre-emphasis have been identified
+// for GTHE4. These have been tweaked for ZCU102 and VFMC card & have been
+// found to be passing the PHY compliance requirements
+// It is not necessary that these values would work across any design
+// Users should update these values to get the PHY compliance working
+// on custom setups.
+
+#define	XVPHY_GTHE4_PREEMP_DP_L0    0x3
+#define	XVPHY_GTHE4_PREEMP_DP_L1    0xD
+#define	XVPHY_GTHE4_PREEMP_DP_L2    0x16
+#define	XVPHY_GTHE4_PREEMP_DP_L3    0x1D
+
+#define XVPHY_GTHE4_DIFF_SWING_DP_V0P0 0x1
+#define XVPHY_GTHE4_DIFF_SWING_DP_V0P1 0x2
+#define XVPHY_GTHE4_DIFF_SWING_DP_V0P2 0x5
+#define XVPHY_GTHE4_DIFF_SWING_DP_V0P3 0xB
+
+#define XVPHY_GTHE4_DIFF_SWING_DP_V1P0 0x2
+#define XVPHY_GTHE4_DIFF_SWING_DP_V1P1 0x5
+#define XVPHY_GTHE4_DIFF_SWING_DP_V1P2 0x7
+
+#define XVPHY_GTHE4_DIFF_SWING_DP_V2P0 0x4
+#define XVPHY_GTHE4_DIFF_SWING_DP_V2P1 0x7
+
+#define XVPHY_GTHE4_DIFF_SWING_DP_V3P0 0x8
+
+#define TX_BUFFER_BYPASS            XPAR_VID_PHY_CONTROLLER_0_TX_BUFFER_BYPASS
+
+
+/* This switch is used to enable PHY complaince mode. */
+
+#define PHY_COMP 0
+
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -180,27 +201,11 @@ typedef struct
         unsigned char link_rate;
 }lane_link_rate_struct;
 
-
-typedef struct
-{
-        u8 type;
-        u8 version;
-        u8 length;
-        u8 audio_coding_type;
-        u8 audio_channel_count;
-        u8 sampling_frequency;
-        u8 sample_size;
-        u8 level_shift;
-        u8 downmix_inhibit;
-        u8 channel_allocation;
-        u16 info_length;
-} XilAudioInfoFrame;
-
 /************************** Function Prototypes ******************************/
-void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128], u8 Edid1_org[128], u16 res_update);
+void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128], u8 Edid1_org[128],
+		u16 res_update);
 void hpd_pulse_con(XDpTxSs *InstancePtr);
 char xil_getc(u32 timeout_ms);
-void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
 void Vpg_Audio_start(void);
 void Vpg_Audio_stop(void);
 u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config);
@@ -214,10 +219,12 @@ void sink_power_up(void);
 u8 get_LineRate(void);
 u8 get_Lanecounts(void);
 void sink_power_cycle(void);
-int i2c_write_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress, u8 Value);
+int i2c_write_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress,
+		u8 Value);
 void DpPt_pe_vs_adjustHandler(void *InstancePtr);
 int VideoFMC_Init(void);
-int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn, int FOut, u8 FreeRun);
+int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn,
+		int FOut, u8 FreeRun);
 int IDT_8T49N24x_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 int TI_LMK03318_PowerDown(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 
@@ -230,9 +237,11 @@ XVphy VPhyInst;	/* The DPRX Subsystem instance.*/
 XTmrCtr TmrCtr; /* Timer instance.*/
 Video_CRC_Config VidFrameCRC;
 
-int tx_is_reconnected; /*This variable to keep track of the status of Tx link*/
-u8 prev_line_rate; /*This previous line rate to keep previous info to compare
+//int tx_is_reconnected; /*This variable to keep track of the status of Tx link*/
+volatile u8 prev_line_rate; /*This previous line rate to keep previous info to compare
 						with new line rate request*/
-u8 hpd_pulse_con_event; /*This variable triggers hpd_pulse_con*/
+volatile u8 hpd_pulse_con_event; /*This variable triggers hpd_pulse_con*/
+
+
 
 #endif /* SRC_XDPTXSS_ZCU102_TX_H_ */

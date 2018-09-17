@@ -1,35 +1,15 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file ti_lmk03318.c
 * @addtogroup TI_LMK03318
 * @{
-*
+* 
 * <pre>
 *
 * MODIFICATION HISTORY:
@@ -37,7 +17,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * X.XX  XX     YY/MM/DD
-* 1.00  RHe    16/06/20 Initial release.
+* 1.00  RHe    16/06/20 Initial release. 
 * </pre>
 *
 ******************************************************************************/
@@ -48,7 +28,7 @@
 /*****************************************************************************/
 /**
 *
-* This function send a single byte to the TI LMK03318
+* This function send a single byte to the TI LMK03318  
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
@@ -65,12 +45,12 @@ static int TI_LMK03318_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 {
 	u32 ByteCount = 0;
 	u8 Buffer[2];
-
-	Buffer[0] = RegisterAddress;
-	Buffer[1] = Value;
+	
+	Buffer[0] = RegisterAddress; 
+	Buffer[1] = Value; 
 	ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress,
 			      (u8*)Buffer, 2, XIIC_STOP);
-
+	
 	if (ByteCount != 2) {
 		return XST_FAILURE;
 	}
@@ -81,7 +61,7 @@ static int TI_LMK03318_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 /*****************************************************************************/
 /**
 *
-* This function send a single byte to the TI LMK03318
+* This function send a single byte to the TI LMK03318  
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
@@ -97,8 +77,8 @@ static u8 TI_LMK03318_GetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 				u8 RegisterAddress)
 {
 	u8 Buffer[2];
-
-	Buffer[0] = RegisterAddress;
+	
+	Buffer[0] = RegisterAddress; 
 	XIic_Send(I2CBaseAddress, I2CSlaveAddress,
 			      (u8*)Buffer, 1, XIIC_REPEATED_START);
 	XIic_Recv(I2CBaseAddress, I2CSlaveAddress,
@@ -110,7 +90,7 @@ static u8 TI_LMK03318_GetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 /*****************************************************************************/
 /**
 *
-* This function modifies a single byte to the TI LMK03318
+* This function modifies a single byte to the TI LMK03318  
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
@@ -133,7 +113,7 @@ static int TI_LMK03318_ModifyRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 				       RegisterAddress);
 
 	/* Clear masked bits */
-	Data &= ~Mask;
+	Data &= ~Mask; 
 
 	/* Update */
 	Data |= (Value & Mask);
@@ -166,7 +146,7 @@ int TI_LMK03318_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 *    - XST_SUCCESS Initialization was successful.
 *    - XST_FAILURE I2C write error or incorrect parameters detected.
 *
-* @note
+* @note 
 *
 ******************************************************************************/
 int TI_LMK03318_EnableBypass(u32 I2CBaseAddress, u8 I2CSlaveAddress,
@@ -176,18 +156,18 @@ int TI_LMK03318_EnableBypass(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 		print("Invalid input port ID\n\r");
 		return XST_FAILURE;
 	}
-
+	
 	if (OutPortID < 4 || OutPortID > 7) {
 		print("Invalid output port ID\n\r");
 		return XST_FAILURE;
 	}
-
+	
 	u32 ByteCount = 0;
 	u8 Data = 0;
 	u8 Buffer[32];
 	u8 RegisterAddress = 37 + (OutPortID - 4) * 2; // OUTCTL_x register address
-
-	Buffer[0] = RegisterAddress;
+	
+	Buffer[0] = RegisterAddress; 
 	ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress,
 			      (u8*)Buffer, 1, XIIC_REPEATED_START);
 	if (ByteCount != 1) {
@@ -203,19 +183,19 @@ int TI_LMK03318_EnableBypass(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 	Data = Buffer[0];
 	/* Clear the Clock Source Mux Control field */
 	Data &= ~(0x3<<6);
-
+	
 	/* Set the Clock Source Mux Control field */
 	Data |= ((InPortID+2)<<6);
-
-	Buffer[0] = RegisterAddress;
-	Buffer[1] = Data;
+	
+	Buffer[0] = RegisterAddress; 
+	Buffer[1] = Data; 
 	ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress,
 			      (u8*)Buffer, 2, XIIC_STOP);
 	if (ByteCount != 2) {
 		xil_printf("I2C write error: %d\n\r", ByteCount);
 		return XST_FAILURE;
 	}
-
+	
 	return XST_SUCCESS;
 }
 
@@ -278,7 +258,7 @@ int TI_LMK03318_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 	if (ByteCount != 2) {
 		return XST_FAILURE;
 	}
-
+	
 	// Release Software Reset.
 	Buffer[0] = 12; // DEV_CTL register address
 	Buffer[1] = 0xD9; // R12 -> RESETN_SW = 1, the rest is default.
@@ -287,7 +267,7 @@ int TI_LMK03318_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 	if (ByteCount != 2) {
 		return XST_FAILURE;
 	}
-
+	
 	// Set the default output modes
 	// CK_OUT0/1 are not connected on the VFMC, so disable these outputs.
 	// CK_OUT2/3 are configured as AC LVDS.
@@ -321,7 +301,7 @@ int TI_LMK03318_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 	if (ByteCount != 2) {
 		return XST_FAILURE;
 	}
-
+	
 	// PRIREF and SECREF are configured as differential input.
 	Buffer[0] = 50; // IPCLKSEL register address
 	Buffer[1] = 0x50; // R50 -> PRIREF/SECREF Dif input, input mode -> automatic
@@ -330,7 +310,7 @@ int TI_LMK03318_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 	if (ByteCount != 2) {
 		return XST_FAILURE;
 	}
-
+	
 	// Disable the Secondary Reference Doubler
 	Buffer[0] = 72; // SEC_CTRL register address
 	Buffer[1] = 0x08; // R72 -> Secondary Reference Doubler disabled.
@@ -350,7 +330,7 @@ int TI_LMK03318_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 /*****************************************************************************/
 /**
 *
-* This function puts the TI LMK03318 into sleep
+* This function puts the TI LMK03318 into sleep 
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
@@ -446,13 +426,13 @@ void TI_LMK03318_RegisterDump(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 	xil_printf("\n\r      ");
 	for (i = 0 ; i < 10 ; i++)
 		xil_printf("---");
-
+	
 	for (i = 0 ; i < ByteCount ; i++) {
 		if ((i % 10) == 0) {
 			xil_printf("\n\r%02d : ", i);
 		}
 		xil_printf("%02x ", Buffer[i]);
 	}
-
+	
 	print("\n\r");
 }
