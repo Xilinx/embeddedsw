@@ -50,6 +50,7 @@
 * 3.1  hk   08/10/15 Update upper 32 bit tx and rx queue ptr registers
 * 3.5  hk   08/14/17 Update cache coherency information of the interface in
 *                    its config structure.
+* 3.8  hk   09/17/18 Cleanup stale comments.
 *
 * </pre>
 ******************************************************************************/
@@ -352,8 +353,6 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 				(u32)XEMACPS_DMACR_TXSIZE_MASK);
 
 
-	/* Single bursts */
-	/* FIXME: Why Single bursts? */
 	if (InstancePtr->Version > 2) {
 		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET,
 			(XEmacPs_ReadReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET) |
