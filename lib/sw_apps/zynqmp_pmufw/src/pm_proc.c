@@ -340,7 +340,16 @@ static void PmProcRpu1Init(PmProc* const proc)
 
 	/* For RPU lockstep mode RPU_1 is assumed to be always down */
 	if (0U == (mode & RPU_RPU_GLBL_CNTL_SLSPLIT_MASK)) {
-		proc->node.currState = PM_PROC_STATE_FORCEDOFF;
+		if (NULL != proc->node.parent) {
+			PmPowerReleaseParent(&proc->node);
+		}
+		if (NULL != proc->node.clocks) {
+			PmClockRelease(&proc->node);
+		}
+		PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_FORCEDOFF);
+		if (NULL != proc->master) {
+			PmMasterFsm(proc->master, PM_MASTER_EVENT_FORCED_PROC);
+		}
 	}
 }
 
