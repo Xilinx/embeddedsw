@@ -12,6 +12,10 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
+ * Use of the Software is limited solely to applications:
+ * (a) running on a Xilinx device, or
+ * (b) that interact with a Xilinx device through a bus or interconnect.
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -63,6 +67,7 @@
 #include <xvphy.h>
 #include <xvphy_dp.h>
 #include <xvphy_hw.h>
+#include "sleep.h"
 
 #include "xvidframe_crc.h"
 
@@ -81,7 +86,16 @@
 #include "xv_frmbufrd_l2.h"
 #include "xv_frmbufwr_l2.h"
 #include "xv_axi4s_remap.h"
+#include "xi2stx.h"
+#include "xi2srx.h"
+#include "xgpio.h"
+#include "xaxis_switch.h"
 
+
+#define Tx
+#define Rx
+#define PT
+#define LB
 /************************** Constant Definitions *****************************/
 
 /*
@@ -122,12 +136,13 @@
 #define REMAP_TX_BASEADDR  XPAR_DP_TX_HIER_0_REMAP_TX_S_AXI_CTRL_BASEADDR
 #define REMAP_RX_DEVICE_ID  XPAR_DP_RX_HIER_0_REMAP_RX_DEVICE_ID
 #define REMAP_TX_DEVICE_ID  XPAR_DP_TX_HIER_0_REMAP_TX_DEVICE_ID
+#define RX_ACR_ADDR XPAR_DP_RX_HIER_0_RX_ACR_BASEADDR
 
 #define AXI_SYSTEM_CLOCK_FREQ_HZ \
 			XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQ_HZ
 /* DP Specific Defines
  */
-#define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_810GBPS
+#define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_540GBPS
 #define DPRXSS_LANE_COUNT        XDPRXSS_LANE_COUNT_SET_4
 #define SET_TX_TO_2BYTE            \
     (XPAR_XDP_0_GT_DATAWIDTH/2)
@@ -142,21 +157,54 @@
 #define XDP_RX_DPC_L23_PRBS_CNTR    0x460
 #define XDP_RX_DPCD_LINK_QUAL_PRBS  0x3
 
+#define TX_BUFFER_BYPASS XPAR_VID_PHY_CONTROLLER_0_TX_BUFFER_BYPASS
+#define XVPHY_DRP_PROGDIV           0x3E
+#define DIVIDER_162                 57423
+#define DIVIDER_270                 57415
+#define DIVIDER_540                 57442
+#define DIVIDER_810                 57440
+
+#define XVPHY_GTHE4_PREEMP_DP_L0    0x3
+#define XVPHY_GTHE4_PREEMP_DP_L1    0xD
+#define XVPHY_GTHE4_PREEMP_DP_L2    0x16
+#define XVPHY_GTHE4_PREEMP_DP_L3    0x1D
+
+#define XVPHY_GTHE4_DIFF_SWING_DP_V0P0 0x1
+#define XVPHY_GTHE4_DIFF_SWING_DP_V0P1 0x2
+#define XVPHY_GTHE4_DIFF_SWING_DP_V0P2 0x5
+#define XVPHY_GTHE4_DIFF_SWING_DP_V0P3 0xB
+
+#define XVPHY_GTHE4_DIFF_SWING_DP_V1P0 0x2
+#define XVPHY_GTHE4_DIFF_SWING_DP_V1P1 0x5
+#define XVPHY_GTHE4_DIFF_SWING_DP_V1P2 0x7
+
+#define XVPHY_GTHE4_DIFF_SWING_DP_V2P0 0x4
+#define XVPHY_GTHE4_DIFF_SWING_DP_V2P1 0x7
+
+#define XVPHY_GTHE4_DIFF_SWING_DP_V3P0 0x8
+
+
 /*
  * User can tune these variables as per their system
  */
+// Set PHY_COMP to 1 when doing the PHY and LL compliance
+// For normal operation, this needs to be set to 0
+#define PHY_COMP 1
+#define EDID_1_ENABLED PHY_COMP
 
 /*Max timeout tuned as per tester - AXI Clock=100 MHz
  *Some GPUs may need larger value, So user may tune if needed
  */
-#define DP_BS_IDLE_TIMEOUT      0x047868C0//0x0091FFFF
-#define VBLANK_WAIT_COUNT       200
+#define DP_BS_IDLE_TIMEOUT      (0x047868C0*PHY_COMP)+(0x0091FFFF*!PHY_COMP) //0xFFFFFFFF //0x0091FFFF
+#define VBLANK_WAIT_COUNT       (20+(180*PHY_COMP))
 
 /*For compliance, please set AUX_DEFER_COUNT to be 8
  * (Only for ZCU102-ARM R5 based Rx system).
   For Interop, set this to 6.
 */
-#define AUX_DEFER_COUNT         6
+#define AUX_DEFER_COUNT         (6+(2*PHY_COMP))
+#define AUX_DEFER_COUNT_PHY     1
+#define PRBS_ERRCNTR_CLEAR_ON_READ 1
 /* DEFAULT VALUE=0. Enabled programming of
  *Rx Training Algo Register for Debugging Purpose
  */
@@ -164,6 +212,14 @@
 
 /*EDID Selection*/
 #define DP12_EDID_ENABLED 0
+
+#define I2S_CLK_MULT 768
+
+/* Set this to 1 to enabled I2S Playback, Capture
+ * with Audio clock recovery
+ * Set to 0 to bypass I2S and route the Audio internally
+  */
+#define I2S_AUDIO 0
 
 /* VPHY Specific Defines
  */
@@ -186,6 +242,8 @@
 /* Timer Specific Defines
  */
 #define TIMER_RESET_VALUE        1000
+
+#define ENABLE_AUDIO XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_AUDIO_ENABLE
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -210,7 +268,26 @@ typedef struct {
         u64 CPLLRefClkFreqHz;
 } XVphy_User_Config;
 
+typedef struct
+{
+        unsigned char lane_count;
+        unsigned char link_rate;
+} lane_link_rate_struct;
 
+typedef struct
+{
+        u8 type;
+        u8 version;
+        u8 length;
+        u8 audio_coding_type;
+        u8 audio_channel_count;
+        u8 sampling_frequency;
+        u8 sample_size;
+        u8 level_shift;
+        u8 downmix_inhibit;
+        u8 channel_allocation;
+        u16 info_length;
+} XilAudioInfoFrame;
 /************************** Function Prototypes ******************************/
 
 u32 DpSs_Main();
@@ -232,10 +309,32 @@ int i2c_write_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 int VideoFMC_Init(void);
 u32 DpSs_SetupIntrSystem(void);
 void bufferWr_callback(void *InstancePtr);
+void bufferRd_callback(void *InstancePtr);
 int TI_LMK03318_PowerDown(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 int TI_LMK03318_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 			u8 RegisterAddress, u8 Value);
 void Dplb_Main(void);
+char xil_getc(u32 timeout_ms);
+void power_down_HLSIPs(void);
+void power_up_HLSIPs(void);
+//void remap_start(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+void remap_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+void remap_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+int IDT_8T49N24x_Configure(u32 I2CBaseAddress, u8 I2CSlaveAddress);
+
+void operationMenu(void);
+void frameBuffer_start_wr(XVidC_VideoMode VmId,
+		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+
+//void frameBuffer_start(XVidC_VideoMode VmId,
+//		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+
+void frameBuffer_start_rd(XVidC_VideoMode VmId,
+		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+
+
+u32 xil_gethex(u8 num_chars);
+void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
 /************************** Variable Definitions *****************************/
 
 //XDpRxSs DpRxSsInst; 	/* The DPRX Subsystem instance.*/
@@ -248,9 +347,34 @@ XIic IicInstance; 	/* I2C bus for MC6000 and IDT */
 
 XV_FrmbufRd_l2     frmbufrd;
 XV_FrmbufWr_l2     frmbufwr;
-u32 XVFRMBUFRD_BUFFER_BASEADDR;
-u32 XVFRMBUFWR_BUFFER_BASEADDR;
+u64 XVFRMBUFRD_BUFFER_BASEADDR;
+u64 XVFRMBUFWR_BUFFER_BASEADDR;
+//u64 BUF1 =  0x10000000;
+//u64 BUF2 =  0x18000000;
+//u64 BUF3 =  0x20000000;
+//u64 BUF4 =  0x28000000;
+
+
 XV_axi4s_remap_Config   *rx_remap_Config;
 XV_axi4s_remap          rx_remap;
 XV_axi4s_remap_Config   *tx_remap_Config;
 XV_axi4s_remap          tx_remap;
+
+
+XilAudioInfoFrame *xilInfoFrame;
+XIicPs_Config *XIic0Ps_ConfigPtr;
+XIicPs_Config *XIic1Ps_ConfigPtr;
+
+#if ENABLE_AUDIO
+XI2s_Tx I2s_tx;
+XI2s_Rx I2s_rx;
+XGpio   aud_gpio;
+
+XI2stx_Config *Config;
+XI2srx_Config *Config_rx;
+XGpio_Config  *aud_gpio_ConfigPtr;
+XAxis_Switch axis_switch_rx;
+XAxis_Switch axis_switch_tx;
+
+
+#endif

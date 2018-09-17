@@ -12,6 +12,10 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
+ * Use of the Software is limited solely to applications:
+ * (a) running on a Xilinx device, or
+ * (b) that interact with a Xilinx device through a bus or interconnect.
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -110,21 +114,21 @@
 /*Max timeout tuned as per tester - AXI Clock=100 MHz
  *Some GPUs may need larger value, So user may tune if needed
  */
-#define DP_BS_IDLE_TIMEOUT      0x047868C0//0x0091FFFF
-#define VBLANK_WAIT_COUNT       200
+//#define DP_BS_IDLE_TIMEOUT      0x047868C0//0x0091FFFF
+//#define VBLANK_WAIT_COUNT       20
 
 /*For compliance, please set AUX_DEFER_COUNT to be 8
  * (Only for ZCU102-ARM R5 based Rx system).
   For Interop, set this to 6.
 */
-#define AUX_DEFER_COUNT         6
+//#define AUX_DEFER_COUNT         8
 /* DEFAULT VALUE=0. Enabled programming of
  *Rx Training Algo Register for Debugging Purpose
  */
-#define LINK_TRAINING_DEBUG     0
+//#define LINK_TRAINING_DEBUG     0
 
 /*EDID Selection*/
-#define DP12_EDID_ENABLED 0
+//#define DP12_EDID_ENABLED 0
 
 /* VPHY Specific Defines
  */
@@ -237,3 +241,15 @@ Video_CRC_Config VidFrameCRC_rx; /* Video Frame CRC instance */
 DP_Rx_Training_Algo_Config RxTrainConfig;
 XIic IicInstance;	/* I2C bus for MC6000 and IDT */
 
+#define XACR_WriteReg(BaseAddress, RegOffset, Data)   \
+    Xil_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
+
+#define XACR_ReadReg(BaseAddress, RegOffset)   \
+    Xil_In32((BaseAddress) + ((u32)RegOffset))
+
+
+#define RXACR_MODE   0x20
+#define RXACR_MAUD   0x50
+#define RXACR_NAUD   0x54
+#define RXACR_DIV    0x70
+#define RXACR_ENABLE 0x8
