@@ -458,10 +458,15 @@ static int PmPowerDownRpu(void)
  */
 static void PmPowerForceDownRpu(PmPower* const power)
 {
-	PmPowerIslandRpu* const rpu = (PmPowerIslandRpu*)power->node.derived;
-
-	/* Clear the dependency flags */
-	rpu->deps = 0U;
+	/*
+	 * To access TCM, RPU island needs to be on. If RPU island if getting
+	 * turned off, TCM also needs to be turned off. Otherwise, user may not
+	 * get correct state of TCM whether TCM can be accessed or not.
+	 */
+	PmNodeForceDown(&pmSlaveTcm0A_g.sram.slv.node);
+	PmNodeForceDown(&pmSlaveTcm0B_g.sram.slv.node);
+	PmNodeForceDown(&pmSlaveTcm1A_g.sram.slv.node);
+	PmNodeForceDown(&pmSlaveTcm1B_g.sram.slv.node);
 }
 
 /**
