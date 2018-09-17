@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -110,6 +110,8 @@ int IicPhyReset(void)
 	while (XIicPs_BusIsBusy(&I2c0InstancePtr));
 
 	xil_printf("IIC PHY reset on ZCU102 successful \n\r");
+
+	return XST_SUCCESS;
 }
 #endif
 #endif
