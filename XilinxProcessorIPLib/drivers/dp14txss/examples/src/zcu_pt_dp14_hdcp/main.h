@@ -59,7 +59,11 @@
 
 #include "xv_frmbufrd_l2.h"
 #include "xv_frmbufwr_l2.h"
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 #include "xv_axi4s_remap.h"
+#endif
+
 //#include "xi2stx.h"
 //#include "xi2srx.h"
 #include "xgpio.h"
@@ -136,10 +140,13 @@ extern XHdcp22_Repeater     Hdcp22Repeater;
 
 #define FRMBUF_RD_DEVICE_ID  XPAR_XV_FRMBUFRD_0_DEVICE_ID
 #define FRMBUF_WR_DEVICE_ID  XPAR_XV_FRMBUFWR_0_DEVICE_ID
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 #define VIDEO_FRAME_CRC_TX_BASEADDR \
 			XPAR_DP_TX_HIER_0_VIDEO_FRAME_CRC_TX_BASEADDR
 #define VIDEO_FRAME_CRC_RX_BASEADDR \
 			XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR
+#endif
+
 #define REMAP_RX_BASEADDR  XPAR_DP_RX_HIER_0_REMAP_RX_S_AXI_CTRL_BASEADDR
 #define REMAP_TX_BASEADDR  XPAR_DP_TX_HIER_0_REMAP_TX_S_AXI_CTRL_BASEADDR
 #define REMAP_RX_DEVICE_ID  XPAR_DP_RX_HIER_0_REMAP_RX_DEVICE_ID
@@ -243,6 +250,20 @@ extern XHdcp22_Repeater     Hdcp22Repeater;
 
 #define ENABLE_AUDIO XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_AUDIO_ENABLE
 
+/*Offset address for APB register to enable RX VSC Capability in DPCD*/
+#define VSC_CAP_APB_REG_OFFSET 		0X000C
+
+/*APB register bit[2] enable*/
+#define RX_VSC_CAP_ENABLE			0x4
+
+/*Register for Rx colorimetery info from VSC SDP*/
+#define RX_COLORIMETRY_INFO_SDP_REG 	0x644
+
+/*Enable VSC Extended packet on every VSYC*/
+#define VSC_EXT_PKT_VSYNC_ENABLE		0x1000
+
+#define AUXFIFOSIZE 4
+#define XDP_DPCD_EXT_DPCD_FEATURE 0x2210
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
@@ -324,11 +345,14 @@ void frameBuffer_start_rd(XVidC_VideoMode VmId,
 u32 xil_gethex(u8 num_chars);
 /************************** Variable Definitions *****************************/
 
-//XDpRxSs DpRxSsInst; 	/* The DPRX Subsystem instance.*/
-//XINTC IntcInst; 	/* The interrupt controller instance. */
-XVphy VPhyInst; 	/* The DPRX Subsystem instance.*/
-XTmrCtr TmrCtr; 	/* Timer instance.*/
-XIic IicInstance; 	/* I2C bus for MC6000 and IDT */
+//XDpRxSs DpRxSsInst; 		/* The DPRX Subsystem instance.*/
+//XINTC IntcInst; 			/* The interrupt controller instance. */
+XVphy VPhyInst; 			/* The DPRX Subsystem instance.*/
+XTmrCtr TmrCtr; 			/* Timer instance.*/
+XIic IicInstance; 			/* I2C bus for MC6000 and IDT */
+XDp_TxVscExtPacket VscPkt;	/* VSC Packet to populate the vsc data received by
+								rx */
+u8 enable_tx_vsc_mode;		/* Flag to enable vsc for tx */
 
 /************************** Function Definitions *****************************/
 
@@ -343,11 +367,12 @@ u64 XVFRMBUFWR_BUFFER_BASEADDR;
 //u64 BUF3 =  0x20000000;
 //u64 BUF4 =  0x28000000;
 
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 XV_axi4s_remap_Config   *rx_remap_Config;
 XV_axi4s_remap          rx_remap;
 XV_axi4s_remap_Config   *tx_remap_Config;
 XV_axi4s_remap          tx_remap;
+#endif
 
 XDp_TxAudioInfoFrame *xilInfoFrame;
 XIicPs_Config *XIic0Ps_ConfigPtr;

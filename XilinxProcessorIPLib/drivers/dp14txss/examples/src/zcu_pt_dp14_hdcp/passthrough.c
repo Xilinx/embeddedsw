@@ -83,8 +83,10 @@ void frameBuffer_stop_rd(XDpTxSs_MainStreamAttributes Msa[4]);
 void resetIp_rd(void);
 void resetIp_wr(void);
 
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 void remap_set(XV_axi4s_remap *remap, u8 in_ppc, u8 out_ppc, u16 width,
 		u16 height, u8 color_format);
+#endif
 
 void DpPt_TxSetMsaValuesImmediate(void *InstancePtr);
 void edid_change(int page);
@@ -92,8 +94,6 @@ char inbyte_local(void);
 void pt_help_menu();
 void select_rx_quad(void);
 void DpPt_LaneLinkRateHelpMenu(void);
-
-void start_audio_passThrough(u8 LineRate_init_tx);
 
 u8 edid_page;
 u8 tx_after_rx = 0;
@@ -127,6 +127,12 @@ int filter_count = 0;
 int mon_is_hdcp22_cap = 0;	//0-hdcp1.3 cap 	1-hdcp2.2 cap
 #endif
 
+extern u8 onetime;
+extern u16 vsync_counter;
+extern u16 ektpkt_counter;
+extern u16 fb_wr_count;
+extern u16 fb_rd_count;
+
 void DpPt_Main(void){
 	u32 Status;
 	u8 UserInput;
@@ -159,7 +165,14 @@ void DpPt_Main(void){
 	LoadEDID();
 #endif
 
-
+	/*Check if Sink supports Colorimetry through VSC*/
+	if(XDpTxSs_CheckVscColorimetrySupport(&DpTxSsInst) == XST_SUCCESS){
+		u32 result=0;
+		result=XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,VSC_CAP_APB_REG_OFFSET);
+		result=result | RX_VSC_CAP_ENABLE; 			//setting APB register bit[2] for DPCD 0X2210 address
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,VSC_CAP_APB_REG_OFFSET,result);
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,	XDP_RX_AUDIO_CONTROL, 0x1); //enabling vsc
+	}
 
 	// disabling this when compliance is enabled
 #if !PHY_COMP
@@ -596,9 +609,9 @@ void DpPt_Main(void){
 					break;
 
 			case 'n':
-				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_LINE_RESET_DISABLE,
-						~((XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-						XDP_TX_LINE_RESET_DISABLE)) & 0x1));
+				XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_LINE_RESET_DISABLE,
+						~((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+						XDP_RX_LINE_RESET_DISABLE)) & 0x1));
 
 
 
@@ -954,7 +967,9 @@ void DpPt_Main(void){
 				XScuGic_Disable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
 				XScuGic_Disable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
 
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 				Vpg_Audio_stop();
+#endif
 				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE,
 						0x0);
 				XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x140);
@@ -1211,8 +1226,10 @@ void DpPt_Main(void){
 				{
 					xil_printf(">>>> HDCPTX Authentication "
 							"failed , stopping passthrough video and starting ColorBar on TX \r\n");
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 					Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
 									 0x11);
+#endif
 					TxAuthAttempts = 0;
 					break;
 				}
@@ -1253,30 +1270,6 @@ void DpPt_Main(void){
 
 }
 
-/* Audio passThrough setting */
-void start_audio_passThrough(u8 LineRate_init_tx){
-
-	// Copy the Audi Infoframe data from RX to TX
-//	xil_printf("Sending Audio Info frame\r\n");
-	xilInfoFrame->audio_channel_count = AudioinfoFrame.audio_channel_count;
-	xilInfoFrame->audio_coding_type = AudioinfoFrame.audio_coding_type;
-	xilInfoFrame->channel_allocation = AudioinfoFrame.channel_allocation;
-	xilInfoFrame->downmix_inhibit = AudioinfoFrame.downmix_inhibit;
-	xilInfoFrame->info_length = AudioinfoFrame.info_length;
-	xilInfoFrame->level_shift = AudioinfoFrame.level_shift;
-	xilInfoFrame->sample_size = AudioinfoFrame.sample_size;
-	xilInfoFrame->sampling_frequency = AudioinfoFrame.sampling_frequency;
-	xilInfoFrame->type = AudioinfoFrame.type;
-	xilInfoFrame->version = AudioinfoFrame.version;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x0);
-//	usleep(10000);
-	XDpTxSs_SendAudioInfoFrame(&(DpTxSsInst),xilInfoFrame);
-//	usleep(30000);
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CHANNELS, 0x1);
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x1);
-}
-
-
 /*This function starts the TX after RX. It checks for Monitor capability
  * and based on that it will modify the video.
  * For example, if the RX is trained at 8K, but the monitor is not capable of
@@ -1284,10 +1277,11 @@ void start_audio_passThrough(u8 LineRate_init_tx){
  * It is expected that the Monitor would support 4K@30
  * Similarly, is the received video is 4K@120, then it would modified to 4k@60
  */
-
+extern u8 tx_pass;
 void start_tx_after_rx (void) {
 	u32 Status;
-
+	u8 aux_data[0];
+	tx_pass = 0;
 	rx_all_detect = 1;
 	VmId = XVidC_GetVideoModeId(Msa[0].Vtm.Timing.HActive,
 			Msa[0].Vtm.Timing.VActive, Msa[0].Vtm.FrameRate, 0);
@@ -1328,8 +1322,12 @@ void start_tx_after_rx (void) {
 	}else if(Msa[0].ComponentFormat ==
 			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444){
 		user_config.user_format = XVIDC_CSF_YCRCB_444 + 1;
-	}else
+	}else if(Msa[0].ComponentFormat ==
+			XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420){
+		user_config.user_format = XVIDC_CSF_YCRCB_420 + 1;
+	} else {
 		user_config.user_format = XVIDC_CSF_RGB + 1;
+	}
 
 	// This block is to use with 4K30 monitor.
 	if(max_cap_org <= 0x14 || monitor_8K == 0){
@@ -1501,16 +1499,11 @@ void audio_start_rx (void) {
 }
 
 void audio_start_tx(void) {
-	if (tx_done == 1 && i2s_tx_started == 1 && i2s_started == 0 && AudioinfoFrame.frame_count > 50) {
+	if (tx_done == 1 && i2s_tx_started == 1 && i2s_started == 0)  {
 		filter_count_b++;
 		//Audio may not work properly on some monitors if this is started too early
 		//hence the delay here
-		if (filter_count_b == 190) {
-			start_audio_passThrough(LineRate_init_tx);
-
-		}
-
-		else if (filter_count_b > 200) {
+		if (filter_count_b > 200) {
 			XGpio_WriteReg(aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x2);
 			xil_printf("Starting audio on DP TX..\r\n");
 			i2s_started = 1;

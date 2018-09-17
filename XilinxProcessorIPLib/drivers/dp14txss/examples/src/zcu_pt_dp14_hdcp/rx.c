@@ -22,6 +22,8 @@
 #include "tx.h"
 
 volatile u8 rx_unplugged = 0;
+extern u32 vblank_init;
+extern u8 vblank_captured;
 
 #if ENABLE_HDCP_IN_DESIGN
 extern u8 hdcp_capable_org ;
@@ -31,7 +33,14 @@ extern u8 hdcp_repeater ;
 extern u8 internal_rx_tx ;
 #endif
 
-
+//extern u8 audio_info_avail;
+u32 infofifo[64]; //RX and TX can store upto 4 infoframes each. fifo of 8
+u8 endindex = 0;
+u8 fifocount = 0;
+u32 hdrframe[9];
+u16 fifoOverflow=0;
+extern u8 tx_pass;
+extern u8 startindex;
 /*****************************************************************************/
 /**
 *
@@ -219,11 +228,11 @@ u32 DpRxSs_SetupIntrSystem(void)
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_EXT_PKT_EVENT,
 			&DpRxSs_ExtPacketHandler, &DpRxSsInst);
 
-#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
+#if ((XPAR_DPRXSS_0_HDCP_ENABLE > 0) && ENABLE_HDCP_IN_DESIGN)
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_HDCP_AUTHENTICATED,
 							&Dprx_HdcpAuthCallback, &DpRxSsInst);
 #endif
-#if (XPAR_DPRXSS_0_HDCP22_ENABLE > 0)
+#if ((XPAR_DPRXSS_0_HDCP22_ENABLE > 0) && ENABLE_HDCP_IN_DESIGN)
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_HDCP22_AUTHENTICATED,
 							&Dprx_HdcpAuthCallback, &DpRxSsInst);
 #endif
@@ -395,6 +404,10 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 	DpRxSsInst.VBlankCount = 0;
 	appx_fs_dup = 0;
 	rx_trained = 0;
+	vblank_captured = 0;
+	endindex = 0;
+	fifocount = 0;
+	startindex = 0;
 }
 
 /*****************************************************************************/
@@ -1009,30 +1022,32 @@ void LoadEDID(void)
 void DpRxSs_InfoPacketHandler(void *InstancePtr)
 {
 	u32 InfoFrame[9];
-	int i=1;
-	for(i = 1 ; i < 9 ; i++) {
-		InfoFrame[i] = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-				XDP_RX_AUDIO_INFO_DATA(i));
+	int i=0;
+	for(i = 0 ; i < 8 ; i++) {
+		if (tx_pass) {
+			//Start putting into FIFO. These will be programmed into TX
+			infofifo[(endindex*8)+i] = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_AUDIO_INFO_DATA(1));
+		} else {
+			// Read of Ignore until TX is up and running
+			XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+								XDP_RX_AUDIO_INFO_DATA(1));
+		}
 	}
+	if (tx_pass) {
+		if(endindex < (AUXFIFOSIZE - 1)) {
+			endindex++;
+		} else {
+			endindex = 0;
+		}
 
-	//storing the info frame here
-	        if (AudioinfoFrame.frame_count < 51) {
-			AudioinfoFrame.frame_count++;
-	        }
+		if (fifocount >= AUXFIFOSIZE) {
+	//		xil_printf ("Aux fifo overflow\r\n");
+			fifoOverflow++;
+		}
 
-			AudioinfoFrame.version = InfoFrame[1]>>26;
-			AudioinfoFrame.type = (InfoFrame[1]>>8)&0xFF;
-			AudioinfoFrame.sec_id = InfoFrame[1]&0xFF;
-			AudioinfoFrame.info_length = (InfoFrame[1]>>16)&0x3FF;
-
-			AudioinfoFrame.audio_channel_count = InfoFrame[2]&0x7;
-			AudioinfoFrame.audio_coding_type = (InfoFrame[2]>>4)&0xF;
-			AudioinfoFrame.sample_size = (InfoFrame[2]>>8)&0x3;
-			AudioinfoFrame.sampling_frequency = (InfoFrame[2]>>10)&0x7;
-			AudioinfoFrame.channel_allocation = (InfoFrame[2]>>24)&0xFF;
-
-			AudioinfoFrame.level_shift = (InfoFrame[3]>>3)&0xF;
-			AudioinfoFrame.downmix_inhibit = (InfoFrame[3]>>7)&0x1;
+		fifocount++;
+	}
 }
 
 /*****************************************************************************/
@@ -1063,6 +1078,9 @@ void DpRxSs_ExtPacketHandler(void *InstancePtr)
 	SdpExtFrame.Header[2] = (ExtFrame[0]&0xFF0000)>>16;
 	SdpExtFrame.Header[3] = (ExtFrame[0]&0xFF000000)>>24;
 
+	/*Populating Vsc header*/
+	VscPkt.Header=ExtFrame[0];
+
 	/*Payload Information*/
 	for (i = 0 ; i < 8 ; i++)
 	{
@@ -1072,6 +1090,9 @@ void DpRxSs_ExtPacketHandler(void *InstancePtr)
 		SdpExtFrame.Payload[(i*4)+1] = (ExtFrame[i+1]&0xFF00)>>8;
 		SdpExtFrame.Payload[(i*4)+2] = (ExtFrame[i+1]&0xFF0000)>>16;
 		SdpExtFrame.Payload[(i*4)+3] = (ExtFrame[i+1]&0xFF000000)>>24;
+
+		/*Populating Vsc payload*/
+		VscPkt.Payload[i]=ExtFrame[i+1] ;
 	}
 
 }

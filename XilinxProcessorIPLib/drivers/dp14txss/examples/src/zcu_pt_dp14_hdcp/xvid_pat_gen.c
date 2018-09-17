@@ -28,8 +28,10 @@
 #include "xdptxss.h"
 #include "xclk_wiz.h"
 
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 #define XILINX_DISPLAYPORT_VID_BASE_ADDRESS		\
 	XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
+#endif
 #define XILINX_DISPLAYPORT_VID2_BASE_ADDRESS_OFFSET	0x10000
 #define XILINX_DISPLAYPORT_VID3_BASE_ADDRESS_OFFSET	0x20000
 #define XILINX_DISPLAYPORT_VID4_BASE_ADDRESS_OFFSET	0x30000
@@ -169,7 +171,7 @@ void ComputeMandD_vidGen(u32 VidFreq);
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
-
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 /*****************************************************************************/
 /**
 *
@@ -854,3 +856,4 @@ void ComputeMandD_vidGen(u32 VidFreq)
 	}
 
 }
+#endif

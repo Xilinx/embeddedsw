@@ -97,6 +97,7 @@ u32 DpTxSs_Main(void);
 static u8 CalculateChecksum(u8 *Data, u8 Size);
 static XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane);
 static void clk_wiz_locked(void);
+void Gen_vid_clk(XDp *InstancePtr, u8 Stream);
 //static void tx_main_loop(void);
 
 
@@ -159,8 +160,78 @@ u32 DpTxSs_SetupIntrSystem(void)
 						&DpPt_LinkrateChgHandler, &DpTxSsInst);
 	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_PE_VS_ADJUST),
 						&DpPt_pe_vs_adjustHandler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_EXT_PKT_EVENT),
+						&DpTxSs_ExtPacketHandler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_VSYNC),
+						&DpTxSs_VsyncHandler, &DpTxSsInst);
 
 	return (XST_SUCCESS);
+}
+
+extern u32 infofifo[32];
+extern u8 endindex;
+extern u8 fifocount;
+u8 startindex = 0;
+u16 vsync_counter = 0;
+u16 ektpkt_counter = 0;
+u8 tx_pass = 0;
+u8 onetime = 0;
+
+void DpTxSs_VsyncHandler(void *InstancePtr)
+{
+	tx_pass = 1;
+	u8 i = 0;
+	u32 fifosts = 0;
+
+	if(fifocount > AUXFIFOSIZE-1) {
+		startindex = endindex;
+	}
+
+	while (startindex != endindex) {
+		fifosts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						 0x6A0);
+		fifosts &= 0x00000003;
+		i = 0;
+		if (fifosts == 0) {
+			for (i = 0; i < 8; i++) {
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_AUDIO_INFO_DATA(1), infofifo[(startindex*8+i)]);
+			}
+		} else {
+//			xil_printf(ANSI_COLOR_RED"TX InfoFrame Fifo is full!!"ANSI_COLOR_RESET"\r\n");
+		}
+		if(startindex < (AUXFIFOSIZE - 1)) {
+			startindex++;
+		} else {
+			startindex = 0;
+		}
+
+	}
+
+	fifocount = 0;
+	vsync_counter++;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the callback function for Generic Packet Handling of
+* 32-Bytes payload.
+*
+* @param    InstancePtr is a pointer to the XDpTxSs instance.
+*
+* @return    None.
+*
+* @note        None.
+*
+******************************************************************************/
+void DpTxSs_ExtPacketHandler(void *InstancePtr)
+{
+	/* This handler can be used to modify the extended pkt
+	 * The packet is written in the DP TX drivers
+	 */
+	ektpkt_counter++;
+
 }
 
 /*****************************************************************************/
@@ -337,6 +408,7 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 //		sink_power_down();
 		sink_power_up();
 		tx_is_reconnected++;
+		onetime = 0;
 //		usleep(50000);
 //		 This part has added to give HDCP a proper handle when hdp even happens
 //		 HDCP block will disable Tx side encryption when hpd detected
@@ -956,6 +1028,16 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	XDpTxSs_SetLaneCount(&DpTxSsInst, lane_count);
 	xil_printf (".");
 
+	if(enable_tx_vsc_mode){
+		//Enable Colorimetry through VSC for Tx
+		XDpTxss_EnableVscColorimetry(&DpTxSsInst, 1);
+		//copy the Vsc data recieved from Rx to Tx
+		XDpTxSs_SetVscExtendedPacket(&DpTxSsInst, VscPkt);
+	}
+	else{
+		XDpTxss_EnableVscColorimetry(&DpTxSsInst, 0);
+	}
+
 	if (res_table !=0) {
 		Status = XDpTxSs_SetVidMode(&DpTxSsInst, res_table);
 		if (Status != XST_SUCCESS) {
@@ -982,18 +1064,23 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	XHdcp1xExample_Poll();
 #endif
 #endif
+
 	// VTC requires linkup(video clk) before setting values.
 	// This is why we need to linkup once to get proper CLK on VTC.
 	Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
 
 	xil_printf (".");
+#if XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 	//updates required timing values in Video Pattern Generator
 	Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 1);
+#endif
+	Gen_vid_clk(DpTxSsInst.DpPtr,(XDP_TX_STREAM_ID1));
 	xil_printf (".");
+#if XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 	// setting video pattern
 	Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
 				 C_VideoUserStreamPattern[pat]);
-
+#endif
 
 	xil_printf (".");
 	clk_wiz_locked();
@@ -1009,11 +1096,6 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 		}
 	}
 
-// No longer needed to start twice
-//	Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
-//	xil_printf (".");
-
-//	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 500000);
 	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 100000);
 
 	Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
@@ -1028,17 +1110,21 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 			XDP_TX_INTERRUPT_MASK, 0x0);
 
-
+	vsync_counter = 0;
 	/*
 	 * Initialize CRC
 	 */
 	/* Reset CRC*/
 	XVidFrameCrc_Reset(&VidFrameCRC_tx);
 	/* Set Pixel width in CRC engine*/
-	XVidFrameCrc_WriteReg(VidFrameCRC_tx.Base_Addr,
-				  VIDEO_FRAME_CRC_CONFIG,
-				  XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-					  XDP_TX_USER_PIXEL_WIDTH));
+	if (format != 2) {
+		XVidFrameCrc_WriteReg(VidFrameCRC_tx.Base_Addr,
+				  VIDEO_FRAME_CRC_CONFIG,4);
+
+	} else { // 422
+		XVidFrameCrc_WriteReg(VidFrameCRC_tx.Base_Addr,
+				  VIDEO_FRAME_CRC_CONFIG,4);
+	}
 
 //	start_audio_passThrough(line_rate);
 	xil_printf ("..done !\r\n");
@@ -1063,6 +1149,7 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	}
 #endif
 	tx_started = 1;
+	tx_pass = 0;
 	return XST_SUCCESS;
 }
 
