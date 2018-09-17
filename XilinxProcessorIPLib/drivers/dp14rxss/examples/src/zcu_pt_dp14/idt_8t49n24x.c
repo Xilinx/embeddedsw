@@ -12,6 +12,10 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
+ * Use of the Software is limited solely to applications:
+ * (a) running on a Xilinx device, or
+ * (b) that interact with a Xilinx device through a bus or interconnect.
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -102,6 +106,7 @@ static int IDT_8T49N24x_Enable(u32 I2CBaseAddress,
 static int IDT_8T49N24x_ReferenceInput(u32 I2CBaseAddress,
 				u8 I2CSlaveAddress, u8 Input, u8 Enable);
 static int IDT_8T49N24x_Configure_JA(u32 I2CBaseAddress, u8 I2CSlaveAddress);
+
 
 /************************** Variable Definitions *****************************/
 
@@ -1730,25 +1735,27 @@ int IDT_8T49N24x_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 * @note None.
 *
 ******************************************************************************/
-//static int IDT_8T49N24x_Configure(u32 I2CBaseAddress, u8 I2CSlaveAddress)
-//{
-//	int Result;
-//	u32 Index;
-//	xil_printf("freerun\n\r");
-//
-//	// The configuration is started from address 0x08
-//	for (Index=8; Index<sizeof(IDT_8T49N24x_Config_Syn); Index++) {
-//		// Skip address 0x70
-//		// Address 0x70 enables the DPLL and APLL calibration
-//		if (Index != 0x070) {
-//			Result = IDT_8T49N24x_SetRegister(I2CBaseAddress,
-//							  I2CSlaveAddress,
-//							  Index,
-//					IDT_8T49N24x_Config_Syn[Index]);
-//		}
-//	}
-//	return Result;
-//}
+int IDT_8T49N24x_Configure(u32 I2CBaseAddress, u8 I2CSlaveAddress)
+{
+	int Result;
+	u32 Index;
+//	xil_printf("freerun %d\n\r",sizeof(IDT_8T49N24x_Config_Syn));
+
+	// The configuration is started from address 0x08
+	for (Index=8; Index<sizeof(IDT_8T49N24x_Config_Syn); Index++) {
+		// Skip address 0x70
+		// Address 0x70 enables the DPLL and APLL calibration
+		if (Index != 0x070) {
+			Result = IDT_8T49N24x_SetRegister(I2CBaseAddress,
+							  I2CSlaveAddress,
+							  Index,
+					IDT_8T49N24x_Config_Syn[Index]);
+			usleep(20000);
+		}
+//		xil_printf ("Index %d", Index);
+	}
+	return Result;
+}
 
 static int IDT_8T49N24x_Configure_JA(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 {

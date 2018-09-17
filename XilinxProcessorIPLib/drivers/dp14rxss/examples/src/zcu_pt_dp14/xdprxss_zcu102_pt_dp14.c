@@ -12,6 +12,10 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
+ * Use of the Software is limited solely to applications:
+ * (a) running on a Xilinx device, or
+ * (b) that interact with a Xilinx device through a bus or interconnect.
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -30,8 +34,8 @@
 *
 * @file dptxss_zcu102_pt_dp14.c
 *
-* This file contains a design example using the XDpRxSs driver in single stream
-* (SST) transport mode.
+* This file contains a design example using the XDpSs driver in single stream
+* (SST) transport mode to demonstrate Pass-through design.
 *
 *
 * <pre>
@@ -39,7 +43,7 @@
 *
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
-* 1.00 vk 10/04/17 Initial release.
+* 1.00 KI 04/01/18 Initial release.
 * </pre>
 *
 ******************************************************************************/
@@ -48,16 +52,41 @@
 
 #include "main.h"
 
+#include "si5328drv.h"
+//
+#define PS_IIC_CLK 400000
+//
+XIicPs Ps_Iic0, Ps_Iic1;
+//
+
+
+#ifdef Tx
 #include "tx.h"
+#endif
+#ifdef Rx
 #include "rx.h"
+#endif
 
 void operationMenu();
-void resetIp();
+//void resetIp();
+void resetIp_wr();
+void resetIp_rd();
 void DpTxSs_Main();
 void DpRxSs_Main();
 void DpPt_Main();
+int I2cMux_Ps(u8 mux);
+int I2cClk_Ps(u32 InFreq, u32 OutFreq);
+u32 DpSs_VideoPhyInit(u16 DeviceId);
+u32 CalcStride(XVidC_ColorFormat Cfmt,
+					  u16 AXIMMDataWidth,
+					  XVidC_VideoStream *StreamPtr);
 
-
+u32 frame_array[4] = {0x10000000, 0x20000000, 0x30000000, 0x40000000};
+u8 frame_pointer = 1;
+u8 frame_pointer_rd = 3;
+u8 not_to_read = 1;
+u8 not_to_write = 3;
+u8 fb_rd_start = 0;
 //extern XVidC_VideoMode resolution_table[];
 // adding new resolution definition example
 // XVIDC_VM_3840x2160_30_P_SB, XVIDC_B_TIMING3_60_P_RB
@@ -156,6 +185,37 @@ XVidC_VideoMode resolution_table[] =
 
 };
 
+
+typedef struct {
+	XVidC_ColorFormat MemFormat;
+	XVidC_ColorFormat StreamFormat;
+	u16 FormatBits;
+} VideoFormats;
+
+#define NUM_TEST_FORMATS 15
+VideoFormats ColorFormats[NUM_TEST_FORMATS] =
+{
+	//memory format            stream format        bits per component
+	{XVIDC_CSF_MEM_RGBX8,      XVIDC_CSF_RGB,       8},
+	{XVIDC_CSF_MEM_YUVX8,      XVIDC_CSF_YCRCB_444, 8},
+	{XVIDC_CSF_MEM_YUYV8,      XVIDC_CSF_YCRCB_422, 8},
+	{XVIDC_CSF_MEM_RGBX10,     XVIDC_CSF_RGB,       10},
+	{XVIDC_CSF_MEM_YUVX10,     XVIDC_CSF_YCRCB_444, 10},
+	{XVIDC_CSF_MEM_Y_UV8,      XVIDC_CSF_YCRCB_422, 8},
+	{XVIDC_CSF_MEM_Y_UV8_420,  XVIDC_CSF_YCRCB_420, 8},
+	{XVIDC_CSF_MEM_RGB8,       XVIDC_CSF_RGB,       8},
+	{XVIDC_CSF_MEM_YUV8,       XVIDC_CSF_YCRCB_444, 8},
+	{XVIDC_CSF_MEM_Y_UV10,     XVIDC_CSF_YCRCB_422, 10},
+	{XVIDC_CSF_MEM_Y_UV10_420, XVIDC_CSF_YCRCB_420, 10},
+	{XVIDC_CSF_MEM_Y8,         XVIDC_CSF_YCRCB_444, 8},
+	{XVIDC_CSF_MEM_Y10,        XVIDC_CSF_YCRCB_444, 10},
+	{XVIDC_CSF_MEM_BGRX8,      XVIDC_CSF_RGB,       8},
+	{XVIDC_CSF_MEM_UYVY8,      XVIDC_CSF_YCRCB_422, 8}
+};
+
+
+extern u32 StreamOffset[4];
+
 /*****************************************************************************/
 /**
 *
@@ -182,17 +242,17 @@ int VideoFMC_Init(void)
 	if (ConfigPtr_IIC == NULL) {
 	        return XST_FAILURE;
 	}
-	
+
 	Status = XIic_CfgInitialize(&IicInstance, ConfigPtr_IIC,
 			ConfigPtr_IIC->BaseAddress);
 	if (Status != XST_SUCCESS) {
 	        return XST_FAILURE;
 	}
-	
+
 	XIic_Reset(&IicInstance);
 
 	/* Set the I2C Mux to select the HPC FMC */
-	Buffer[0] = 0x07;
+	Buffer[0] = 0x01;
 	ByteCount = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_MUX_ADDR,
 			(u8*)Buffer, 1, XIIC_STOP);
 	if (ByteCount != 1) {
@@ -228,7 +288,7 @@ int VideoFMC_Init(void)
 		return XST_FAILURE;
 	}
 
-	xil_printf(" done!\n\r");
+//	xil_printf(" done!\n\r");
 
 	Status = IDT_8T49N24x_Init(XPAR_IIC_0_BASEADDR, I2C_IDT8N49_ADDR);
 	if (Status != XST_SUCCESS) {
@@ -266,23 +326,24 @@ int main()
 {
 	u32 Status;
 	
-//	xil_printf("------------------------------------------\n\r");
-//	xil_printf("DisplayPort1.4 Example\n\r");
-//	xil_printf("(c) 2018 by Xilinx\n\r");
-//	xil_printf("-------------------------------------------\n\r\n\r");
-	
+
 	xil_printf("\n******************************************************"
 				"**********\n\r");
-	xil_printf("            DisplayPort Pass Through Demonstratio"
-			"n                \n\r");
+	xil_printf("            DisplayPort Pass Through Demonstration"
+			"                \n\r");
 	xil_printf("                   (c) by Xilinx   ");
 	xil_printf("%s %s\n\r\r\n", __DATE__  ,__TIME__ );
 	xil_printf("                   System Configuration:\r\n");
 	xil_printf("                      DP SS : %d byte\r\n",
 					2 * SET_TX_TO_2BYTE);
+	xil_printf("                      Use I2S and ACR : %d \r\n",
+					1 * I2S_AUDIO);
 	xil_printf("\n********************************************************"
 				"********\n\r");
-	
+#if PHY_COMP
+	xil_printf ("*****   Application is in Compliance Mode  *****\r\n");
+	xil_printf ("***** Press 't' to start the TX video path *****\r\n");
+#endif
 	
 	Status = DpSs_Main();
 	if (Status != XST_SUCCESS) {
@@ -313,13 +374,97 @@ int main()
 *        Refer xdprxss.h file for more info.
 *
 ******************************************************************************/
+
+int I2cMux_Ps(u8 mux)
+{
+  u8 Buffer;
+  int Status;
+
+  if (mux == 0) {
+	  /* Close other mux */
+	  Buffer = 0x0;
+	  Status = XIicPs_MasterSendPolled(&Ps_Iic1, (u8 *)&Buffer, 1,
+			  I2C_MUX_ADDR);
+
+	  /* open the othe rmux for Si5328 */
+	  Buffer = 0x10;
+	  Status = XIicPs_MasterSendPolled(&Ps_Iic1, (u8 *)&Buffer, 1,
+			  I2C_MUX_ADDR_SI);
+  } else {
+
+	  Buffer = 0x0;
+	  Status = XIicPs_MasterSendPolled(&Ps_Iic1, (u8 *)&Buffer, 1,
+			  I2C_MUX_ADDR_SI);
+
+	  /* open the other Mux */
+	  Buffer = 0x1;
+	  Status = XIicPs_MasterSendPolled(&Ps_Iic1, (u8 *)&Buffer, 1,
+			  I2C_MUX_ADDR);
+
+  }
+
+  return Status;
+}
+
+
+int I2cClk_Ps(u32 InFreq, u32 OutFreq)
+{
+  int Status;
+
+  I2cMux_Ps(0);
+
+  /* Free running mode */
+  if (InFreq == 0) {
+     Status = Si5328_SetClock_Ps(&Ps_Iic1, (I2C_ADDR_SI5328),
+                            (SI5328_CLKSRC_XTAL), (SI5328_XTAL_FREQ), OutFreq);
+
+     if (Status != (SI5328_SUCCESS)) {
+          print("Error programming SI5328\r\n");
+          return 0;
+     }
+  }
+  /* Locked mode */
+  else {
+     Status = Si5328_SetClock_Ps(&Ps_Iic1, (I2C_ADDR_SI5328),
+                                (SI5328_CLKSRC_CLK1), InFreq, OutFreq);
+
+     if (Status != (SI5328_SUCCESS)) {
+        print("Error programming SI5328\r\n");
+        return 0;
+     }
+  }
+
+  I2cMux_Ps(1);
+
+  usleep(10000);
+  usleep(10000);
+  usleep(10000);
+  usleep(10000);
+#if ENABLE_AUDIO
+  //resetting the MMCM after Si5328 programming
+  XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x1);
+  XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x0);
+  //MRst is still in reset
+#endif
+  usleep(10000);
+  usleep(10000);
+  usleep(10000);
+
+  return 1;
+}
+
+
+
 u32 DpSs_Main(void)
 {
 	u32 Status;
 	u8 UserInput;
-	
+#ifdef Rx
 	XDpRxSs_Config *ConfigPtr_rx;
+#endif
+#ifdef Tx
 	XDpTxSs_Config *ConfigPtr_tx;
+#endif
 //	u32 ReadVal=0;
 //	u16 DrpVal;
 
@@ -334,8 +479,11 @@ u32 DpSs_Main(void)
 	xil_printf("Platform initialization done.\n\r");
 	
 	/* Setup Video Phy, left to the user for implementation */
-	DpRxSs_VideoPhyInit(XVPHY_DEVICE_ID);
 
+	DpSs_VideoPhyInit(XVPHY_DEVICE_ID);
+	set_vphy(0x14);
+
+#ifdef Rx
 	/* Obtain the device configuration
 	 * for the DisplayPort RX Subsystem */
 	ConfigPtr_rx = XDpRxSs_LookupConfig(XDPRXSS_DEVICE_ID);
@@ -360,7 +508,17 @@ u32 DpSs_Main(void)
 			"only in SST mode.\n\r");
 	}
 
+	/*Megachips Retimer Initialization*/
+	XDpRxSs_McDp6000_init(&DpRxSsInst, DpRxSsInst.IicPtr->BaseAddress);
 
+	/* issue HPD at here to inform DP source */
+	XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFF8FFFF);
+	XDp_RxInterruptEnable(DpRxSsInst.DpPtr, 0x80000000);
+	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 50000);
+
+#endif
+
+#ifdef Tx
 /* Obtain the device configuration for the DisplayPort TX Subsystem */
 	ConfigPtr_tx = XDpTxSs_LookupConfig(XPAR_DPTXSS_0_DEVICE_ID);
 	if (!ConfigPtr_tx) {
@@ -385,24 +543,15 @@ u32 DpSs_Main(void)
 	}
 
 	/* Set DP141 Tx driver here. */
-	i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x02, 0x78);
-	i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x05, 0x78);
-	i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x08, 0x78);
-	i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x0B, 0x78);
+    //Keeping 0db gain on RX
+    //Adding 6db gain on TX
+	//Adding some Eq gain
+    i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x02, 0x3C);
+    i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x05, 0x3C);
+    i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x08, 0x3C);
+    i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x0B, 0x3C);
 
-	/*Megachips Retimer Initialization*/
-	XDpRxSs_McDp6000_init(&DpRxSsInst, XPAR_IIC_0_BASEADDR);
-
-
-	/* issue HPD at here to inform DP source */
-	XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFF8FFFF);
-	XDp_RxInterruptEnable(DpRxSsInst.DpPtr, 0x80000000);
-	// Disabling TX interrupts
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-						XDP_TX_INTERRUPT_MASK, 0xFFF);
-	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 50000);
-
-
+#endif
 
 	/* FrameBuffer initialization. */
 	Status = XVFrmbufRd_Initialize(&frmbufrd, FRMBUF_RD_DEVICE_ID);
@@ -419,11 +568,18 @@ u32 DpSs_Main(void)
 		return (XST_FAILURE);
 	}
 
-	resetIp();
-//	XVFrmbufWr_SetCallback(&frmbufwr, &bufferWr_callback,&frmbufwr);
+	resetIp_rd();
+	resetIp_wr();
+
+
+	// programming Si5328 for 512*Fs for Audio clock
+#if ENABLE_AUDIO
+	I2cMux_Ps(0);
+    Si5328_Init_Ps(&Ps_Iic1, I2C_ADDR_SI5328);
+    I2cClk_Ps(0, 36864000);
+#endif
 
 	DpSs_SetupIntrSystem();
-
 
 	// Adding custom resolutions at here.
 	xil_printf("INFO> Registering Custom Timing Table with %d entries \r\n",
@@ -434,7 +590,6 @@ u32 DpSs_Main(void)
 		xil_printf("ERR: Unable to register custom timing table\r\r\n\n");
 	}
 
-
     operationMenu();
 	while (1) {
 		UserInput = XUartPs_RecvByte_NonBlocking();
@@ -442,18 +597,11 @@ u32 DpSs_Main(void)
 		if (UserInput!=0) {
 			xil_printf("UserInput: %c\r\n",UserInput);
 			switch (UserInput) {
-			case 't':
-				DpTxSs_Main();
-				break;
-			case 'r':
-				DpRxSs_Main();
-				break;
+#ifdef PT
 			case 'p':
 				DpPt_Main();
 				break;
-			case 'l':
-				Dplb_Main();
-				break;
+#endif
 			}
 		}
 	}
@@ -679,75 +827,96 @@ void CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 * @note        None.
 *
 ******************************************************************************/
+#ifdef Rx
 void CalculateCRC(void)
 {
-     /* Reset CRC Test Counter in DP DPCD Space. */
-	VidFrameCRC_rx.TEST_CRC_CNT = 0;
-	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-		     XDP_RX_CRC_CONFIG,
-		     (VidFrameCRC_rx.TEST_CRC_SUPPORTED << 5 |
-		      VidFrameCRC_rx.TEST_CRC_CNT));
 
-	/*Set pixel mode as per lane count - it is default behavior
-	  User has to adjust this accordingly if there is change in pixel
-	  width programming
-	 */
+    u32 RegVal;
+ /* Reset CRC Test Counter in DP DPCD Space. */
+    /* Read Config Register */
+    RegVal = XVidFrameCrc_ReadReg(VidFrameCRC_rx.Base_Addr,
+                            VIDEO_FRAME_CRC_CONFIG);
+
+    /* Toggle CRC Clear Bit */
+    XVidFrameCrc_WriteReg(VidFrameCRC_rx.Base_Addr,
+                    VIDEO_FRAME_CRC_CONFIG,
+                    (RegVal | VIDEO_FRAME_CRC_CLEAR));
+    XVidFrameCrc_WriteReg(VidFrameCRC_rx.Base_Addr,
+                    VIDEO_FRAME_CRC_CONFIG,
+                    (RegVal & ~VIDEO_FRAME_CRC_CLEAR));
+
+    VidFrameCRC_rx.TEST_CRC_CNT = 0;
+
+    XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+                 XDP_RX_CRC_CONFIG,
+                 (VidFrameCRC_rx.TEST_CRC_SUPPORTED << 5 |
+                  VidFrameCRC_rx.TEST_CRC_CNT));
+
+    /*Set pixel mode as per lane count - it is default behavior
+      User has to adjust this accordingly if there is change in pixel
+      width programming
+     */
+
+    VidFrameCRC_rx.Mode_422 =
+                    (XVidFrameCrc_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+                                          XDP_RX_MSA_MISC0) >> 1) & 0x3;
+
+    if (VidFrameCRC_rx.Mode_422 != 0x1) {
 	XVidFrameCrc_WriteReg(VidFrameCRC_rx.Base_Addr,
-			      VIDEO_FRAME_CRC_CONFIG,
-			      DpRxSsInst.UsrOpt.LaneCount);
-	
-	/* Set pixel mode as per lane count - it
-	 * is default behavior Reset DTG. */
-	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr,
-			XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-								XDP_RX_USER_PIXEL_WIDTH));
+                          VIDEO_FRAME_CRC_CONFIG,
+                            DpRxSsInst.UsrOpt.LaneCount);
+    } else { // 422
+        XVidFrameCrc_WriteReg(VidFrameCRC_rx.Base_Addr,
+                              VIDEO_FRAME_CRC_CONFIG,
+                                (DpRxSsInst.UsrOpt.LaneCount | 0x80000000));
 
-	XDp_RxDtgDis(DpRxSsInst.DpPtr);
-	XDp_RxDtgEn(DpRxSsInst.DpPtr);
+    }
+
+    /* Add delay (~40 ms) for Frame CRC
+     * to compute on couple of frames. */
+    CustomWaitUs(DpRxSsInst.DpPtr, 400000);
+    /* Read computed values from Frame
+     * CRC module and MISC0 for colorimetry */
+    VidFrameCRC_rx.Pixel_r  = XVidFrameCrc_ReadReg(VidFrameCRC_rx.Base_Addr,
+                                    VIDEO_FRAME_CRC_VALUE_G_R) & 0xFFFF;
+    VidFrameCRC_rx.Pixel_g  = XVidFrameCrc_ReadReg(VidFrameCRC_rx.Base_Addr,
+                                    VIDEO_FRAME_CRC_VALUE_G_R) >> 16;
+    VidFrameCRC_rx.Pixel_b  = XVidFrameCrc_ReadReg(VidFrameCRC_rx.Base_Addr,
+                                    VIDEO_FRAME_CRC_VALUE_B) & 0xFFFF;
+//    VidFrameCRC_rx.Mode_422 =
+//                    (XVidFrameCrc_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+//                                          XDP_RX_MSA_MISC0) >> 1) & 0x3;
+
+    /* Write CRC values to DPCD TEST CRC space. */
+    XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+                 XDP_RX_CRC_COMP0,
+                 (VidFrameCRC_rx.Mode_422 == 0x1) ? 0 : VidFrameCRC_rx.Pixel_r);
+    XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+                 XDP_RX_CRC_COMP1,
+                 (VidFrameCRC_rx.Mode_422==0x1) ? VidFrameCRC_rx.Pixel_b :
+                                                  VidFrameCRC_rx.Pixel_g);
+    /* Check for 422 format and move CR/CB
+     * calculated CRC to G component.
+     * Place as tester needs this way
+     * */
+    XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+                 XDP_RX_CRC_COMP2,
+                 (VidFrameCRC_rx.Mode_422 == 0x1) ? VidFrameCRC_rx.Pixel_r :
+                                                    VidFrameCRC_rx.Pixel_b);
+
+    VidFrameCRC_rx.TEST_CRC_CNT = 1;
+    XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_CONFIG,
+                 (VidFrameCRC_rx.TEST_CRC_SUPPORTED << 5 |
+                  VidFrameCRC_rx.TEST_CRC_CNT));
+
+    xil_printf("[Video CRC] R/Cr: 0x%x, G/Y: 0x%x, B/Cb: 0x%x\r\n\n",
+               VidFrameCRC_rx.Pixel_r, VidFrameCRC_rx.Pixel_g,
+               VidFrameCRC_rx.Pixel_b);
+
 	
-	/* Add delay (~40 ms) for Frame CRC
-	 * to compute on couple of frames. */
-	CustomWaitUs(DpRxSsInst.DpPtr, 400000);
 	
-	/* Read computed values from Frame
-	 * CRC module and MISC0 for colorimetry */
-	VidFrameCRC_rx.Pixel_r  = XVidFrameCrc_ReadReg(VidFrameCRC_rx.Base_Addr,
-					VIDEO_FRAME_CRC_VALUE_G_R) & 0xFFFF;
-	VidFrameCRC_rx.Pixel_g  = XVidFrameCrc_ReadReg(VidFrameCRC_rx.Base_Addr,
-					VIDEO_FRAME_CRC_VALUE_G_R) >> 16;
-	VidFrameCRC_rx.Pixel_b  = XVidFrameCrc_ReadReg(VidFrameCRC_rx.Base_Addr,
-					VIDEO_FRAME_CRC_VALUE_B) & 0xFFFF;
-	VidFrameCRC_rx.Mode_422 =
-			(XVidFrameCrc_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-					      XDP_RX_MSA_MISC0) >> 1) & 0x3;
-	
-	/* Write CRC values to DPCD TEST CRC space. */
-	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-		     XDP_RX_CRC_COMP0,
-		     (VidFrameCRC_rx.Mode_422 == 0x1) ? 0 : VidFrameCRC_rx.Pixel_r);
-	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-		     XDP_RX_CRC_COMP1,
-		     (VidFrameCRC_rx.Mode_422==0x1) ? VidFrameCRC_rx.Pixel_b :
-						      VidFrameCRC_rx.Pixel_g);
-	/* Check for 422 format and move CR/CB
-	 * calculated CRC to G component.
-	 * Place as tester needs this way
-	 * */
-	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-		     XDP_RX_CRC_COMP2,
-		     (VidFrameCRC_rx.Mode_422 == 0x1) ? VidFrameCRC_rx.Pixel_r :
-							VidFrameCRC_rx.Pixel_b);
-	
-	VidFrameCRC_rx.TEST_CRC_CNT = 1;
-	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_CONFIG,
-		     (VidFrameCRC_rx.TEST_CRC_SUPPORTED << 5 |
-		      VidFrameCRC_rx.TEST_CRC_CNT));
-	
-	xil_printf("[Video CRC] R/Cr: 0x%x, G/Y: 0x%x, B/Cb: 0x%x\r\n\n",
-		   VidFrameCRC_rx.Pixel_r, VidFrameCRC_rx.Pixel_g,
-		   VidFrameCRC_rx.Pixel_b);
 }
-
+#endif
 /*****************************************************************************/
 /**
 *
@@ -899,10 +1068,14 @@ u32 DpSs_PlatformInit(void)
 	u32 Status;
 	
 	/* Initialize CRC & Set default Pixel Mode to 1. */
+#ifdef Rx
 	VidFrameCRC_rx.Base_Addr = VIDEO_FRAME_CRC_RX_BASEADDR;
 	XVidFrameCrc_Initialize(&VidFrameCRC_rx);
+#endif
+#ifdef Tx
 	VidFrameCRC_tx.Base_Addr = VIDEO_FRAME_CRC_TX_BASEADDR;
 	XVidFrameCrc_Initialize(&VidFrameCRC_tx);
+#endif
 	
 	/* Initialize Timer */
 	Status = XTmrCtr_Initialize(&TmrCtr, XTIMER0_DEVICE_ID);
@@ -914,13 +1087,10 @@ u32 DpSs_PlatformInit(void)
 	XTmrCtr_Start(&TmrCtr, XTIMER0_DEVICE_ID);
 	
 	VideoFMC_Init();
-	IDT_8T49N24x_SetClock(XPAR_IIC_0_BASEADDR, I2C_IDT8N49_ADDR,
-			      0, 270000000, TRUE);
 
-//	rx_remap_Config->BaseAddress = REMAP_RX_BASEADDR;
-//	rx_remap.Config.BaseAddress = REMAP_RX_BASEADDR;
-//	tx_remap_Config->BaseAddress = REMAP_TX_BASEADDR;
-//	tx_remap.Config.BaseAddress = REMAP_TX_BASEADDR;
+	IDT_8T49N24x_Configure(XPAR_IIC_0_BASEADDR, I2C_IDT8N49_ADDR);
+
+	usleep(300000);
 
 	rx_remap_Config = XV_axi4s_remap_LookupConfig(REMAP_RX_DEVICE_ID);
 	Status = XV_axi4s_remap_CfgInitialize(&rx_remap, rx_remap_Config,
@@ -953,7 +1123,111 @@ u32 DpSs_PlatformInit(void)
 	XV_axi4s_remap_Set_ColorFormat(&tx_remap, 0);
 	XV_axi4s_remap_Set_inPixClk(&tx_remap, 4);
 	XV_axi4s_remap_Set_outPixClk(&tx_remap, 4);
-	
+
+    XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
+    if (NULL == XIic0Ps_ConfigPtr) {
+            return XST_FAILURE;
+    }
+
+    Status = XIicPs_CfgInitialize(&Ps_Iic0, XIic0Ps_ConfigPtr,
+								XIic0Ps_ConfigPtr->BaseAddress);
+    if (Status != XST_SUCCESS) {
+            return XST_FAILURE;
+    }
+
+    XIicPs_Reset(&Ps_Iic0);
+    /*
+     * Set the IIC serial clock rate.
+     */
+    XIicPs_SetSClk(&Ps_Iic0, PS_IIC_CLK);
+
+    /* Initialize PS IIC1 */
+    XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
+    if (NULL == XIic1Ps_ConfigPtr) {
+            return XST_FAILURE;
+    }
+
+    Status = XIicPs_CfgInitialize(&Ps_Iic1, XIic1Ps_ConfigPtr,
+								XIic1Ps_ConfigPtr->BaseAddress);
+    if (Status != XST_SUCCESS) {
+            return XST_FAILURE;
+    }
+
+    XIicPs_Reset(&Ps_Iic1);
+    /*
+     * Set the IIC serial clock rate.
+     */
+    XIicPs_SetSClk(&Ps_Iic1, PS_IIC_CLK);
+
+
+#if ENABLE_AUDIO
+
+    XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH_RX =
+		XAxisScr_LookupConfig(XPAR_DP_RX_HIER_0_AXIS_SWITCH_0_DEVICE_ID);
+     if (ConfigPtr_AXIS_SWITCH_RX == NULL) {
+             return XST_FAILURE;
+     }
+
+     Status = XAxisScr_CfgInitialize(&axis_switch_rx,
+		 ConfigPtr_AXIS_SWITCH_RX, ConfigPtr_AXIS_SWITCH_RX->BaseAddress);
+     if (Status != XST_SUCCESS) {
+             return XST_FAILURE;
+     }
+
+     XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH_TX =
+		 XAxisScr_LookupConfig(XPAR_DP_TX_HIER_0_AXIS_SWITCH_0_DEVICE_ID);
+      if (ConfigPtr_AXIS_SWITCH_TX == NULL) {
+              return XST_FAILURE;
+      }
+
+      Status = XAxisScr_CfgInitialize(&axis_switch_tx,
+		  ConfigPtr_AXIS_SWITCH_TX, ConfigPtr_AXIS_SWITCH_TX->BaseAddress);
+      if (Status != XST_SUCCESS) {
+              return XST_FAILURE;
+      }
+
+
+    Config = XI2s_Tx_LookupConfig(
+			XPAR_DP_RX_HIER_0_I2S_TRANSMITTER_0_DEVICE_ID);
+    if (Config == NULL) {
+         return XST_FAILURE;
+    }
+
+    Status = XI2s_Tx_CfgInitialize(&I2s_tx, Config, Config->BaseAddress);
+    if (Status != XST_SUCCESS) {
+         return XST_FAILURE;
+    }
+
+    Config_rx = XI2s_Rx_LookupConfig(
+			XPAR_DP_TX_HIER_0_I2S_RECEIVER_0_DEVICE_ID);
+    if (Config == NULL) {
+          return XST_FAILURE;
+    }
+
+    Status = XI2s_Rx_CfgInitialize(&I2s_rx, Config_rx, Config_rx->BaseAddress);
+    if (Status != XST_SUCCESS) {
+          return XST_FAILURE;
+    }
+
+    aud_gpio_ConfigPtr =
+            XGpio_LookupConfig(XPAR_DP_RX_HIER_0_AXI_GPIO_0_DEVICE_ID);
+
+    if(aud_gpio_ConfigPtr == NULL) {
+	aud_gpio.IsReady = 0;
+            return (XST_DEVICE_NOT_FOUND);
+    }
+
+    Status = XGpio_CfgInitialize(&aud_gpio,
+		aud_gpio_ConfigPtr,
+			aud_gpio_ConfigPtr->BaseAddress);
+    if(Status != XST_SUCCESS) {
+            xil_printf("ERR:: GPIO for TPG Reset ");
+            xil_printf("Initialization failed %d\r\n", Status);
+            return(XST_FAILURE);
+    }
+
+#endif
+
 	return Status;
 }
 
@@ -984,53 +1258,16 @@ u32 DpSs_SetupIntrSystem(void)
 	XINTC *IntcInstPtr = &IntcInst;
 
 	// Tx side
-	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_HPD_EVENT),
-				&DpPt_HpdEventHandler, &DpTxSsInst);
-	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_HPD_PULSE),
-				&DpPt_HpdPulseHandler, &DpTxSsInst);
-	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_LINK_RATE_CHG),
-				&DpPt_LinkrateChgHandler, &DpTxSsInst);
-	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_PE_VS_ADJUST),
-				&DpPt_pe_vs_adjustHandler, &DpTxSsInst);
-
+#ifdef Tx
+	DpTxSs_SetupIntrSystem();
+#endif
 	// Rx side
-/* Set callbacks for all the interrupts */
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_PWR_CHG_EVENT,
-			DpRxSs_PowerChangeHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_NO_VID_EVENT,
-			DpRxSs_NoVideoHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_VBLANK_EVENT,
-			DpRxSs_VerticalBlankHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_TLOST_EVENT,
-			DpRxSs_TrainingLostHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_VID_EVENT,
-			DpRxSs_VideoHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_TDONE_EVENT,
-			DpRxSs_TrainingDoneHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_UNPLUG_EVENT,
-			DpRxSs_UnplugHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_LINKBW_EVENT,
-			DpRxSs_LinkBandwidthHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_PLL_RESET_EVENT,
-			DpRxSs_PllResetHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_BW_CHG_EVENT,
-			DpRxSs_BWChangeHandler, &DpRxSsInst);
-//	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_ACCESS_LANE_SET_EVENT,
-//			DpRxSs_AccessLaneSetHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_ACCESS_LINK_QUAL_EVENT,
-			DpRxSs_AccessLinkQualHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT,
-			DpRxSs_AccessErrorCounterHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_CRC_TEST_EVENT,
-			DpRxSs_CRCTestEventHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_INFO_PKT_EVENT,
-			&DpRxSs_InfoPacketHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_EXT_PKT_EVENT,
-			&DpRxSs_ExtPacketHandler, &DpRxSsInst);
-	/* Set custom timer wait */
-	XDpRxSs_SetUserTimerHandler(&DpRxSsInst, &CustomWaitUs, &TmrCtr);
+#ifdef Rx
+	DpRxSs_SetupIntrSystem();
+#endif
 
-	XVFrmbufWr_SetCallback(&frmbufwr, &bufferWr_callback,&frmbufwr);
+	XVFrmbufWr_SetCallback(&frmbufwr, XVFRMBUFWR_HANDLER_DONE,
+								&bufferWr_callback,&frmbufwr);
 
 	/* The configuration parameters of the interrupt controller */
 	XScuGic_Config *IntcConfig;
@@ -1052,6 +1289,7 @@ u32 DpSs_SetupIntrSystem(void)
 	 * interrupt for the device occurs, the handler defined 
 	 * above performs the specific interrupt processing for the device.
 	 * */
+#ifdef Rx
 	Status = XScuGic_Connect(IntcInstPtr, XINTC_DPRXSS_DP_INTERRUPT_ID,
 				(Xil_InterruptHandler)XDpRxSs_DpIntrHandler,
 				&DpRxSsInst);
@@ -1061,21 +1299,6 @@ u32 DpSs_SetupIntrSystem(void)
 	}
 	/* Enable the interrupt for the DP device */
 	XScuGic_Enable(IntcInstPtr, XINTC_DPRXSS_DP_INTERRUPT_ID);
-
-	/* Connect the device driver handler that will be called when an
-	 * interrupt for the device occurs, the handler defined above performs
-	 * the specific interrupt processing for the device
-	 */
-	Status = XScuGic_Connect(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID,
-				(Xil_InterruptHandler)XDpTxSs_DpIntrHandler,
-				&DpTxSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
-		return XST_FAILURE;
-	}
-
-	/* Enable the interrupt */
-	XScuGic_Enable(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID);
 
 	Status = XScuGic_Connect(IntcInstPtr,
 				 XPAR_FABRIC_V_FRMBUF_WR_0_VEC_ID,
@@ -1087,6 +1310,39 @@ u32 DpSs_SetupIntrSystem(void)
 	}
 	/* Enable the interrupt vector at the interrupt controller */
 	XScuGic_Enable(IntcInstPtr, XPAR_FABRIC_V_FRMBUF_WR_0_VEC_ID);
+
+#endif
+	/* Connect the device driver handler that will be called when an
+	 * interrupt for the device occurs, the handler defined above performs
+	 * the specific interrupt processing for the device
+	 */
+#ifdef Tx
+	Status = XScuGic_Connect(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID,
+				(Xil_InterruptHandler)XDpTxSs_DpIntrHandler,
+				&DpTxSsInst);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+
+	/* Enable the interrupt */
+	XScuGic_Enable(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID);
+
+
+	Status = XScuGic_Connect(IntcInstPtr,
+				 XPAR_FABRIC_V_FRMBUF_RD_0_VEC_ID,
+				 (Xil_InterruptHandler)XVFrmbufRd_InterruptHandler,
+				 &frmbufrd);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERROR:: FRMBUF WR interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+
+	/* Disable the interrupt vector at the interrupt controller */
+	XScuGic_Disable(IntcInstPtr, XPAR_FABRIC_V_FRMBUF_RD_0_VEC_ID);
+
+
+#endif
 
 	/* Initialize the exception table. */
 	Xil_ExceptionInit();
@@ -1191,3 +1447,858 @@ int TI_LMK03318_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 		return XST_SUCCESS;
 	}
 }
+
+
+
+/*****************************************************************************/
+/**
+*
+* This function configures Video Phy.
+*
+* @param    None.
+*
+* @return
+*        - XST_SUCCESS if Video Phy configured successfully.
+*        - XST_FAILURE, otherwise.
+*
+* @note        None.
+*
+******************************************************************************/
+u32 DpSs_VideoPhyInit(u16 DeviceId)
+{
+
+	XVphy_Config *ConfigPtr;
+
+	/* Obtain the device configuration for the DisplayPort RX Subsystem */
+	ConfigPtr = XVphy_LookupConfig(DeviceId);
+	if (!ConfigPtr) {
+		return XST_FAILURE;
+	}
+
+
+	PLLRefClkSel (&VPhyInst, 0x14);
+
+	XVphy_DpInitialize(&VPhyInst, ConfigPtr, 0,
+			ONBOARD_REF_CLK,
+			ONBOARD_REF_CLK,
+			XVPHY_PLL_TYPE_QPLL1,
+			XVPHY_PLL_TYPE_CPLL,
+			0x14);
+	//set the default vswing and pe for v0po
+
+    //setting vswing
+    XVphy_SetTxVoltageSwing(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1,
+		XVPHY_GTHE4_DIFF_SWING_DP_V0P0);
+    XVphy_SetTxVoltageSwing(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2,
+		XVPHY_GTHE4_DIFF_SWING_DP_V0P0);
+    XVphy_SetTxVoltageSwing(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3,
+		XVPHY_GTHE4_DIFF_SWING_DP_V0P0);
+    XVphy_SetTxVoltageSwing(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4,
+		XVPHY_GTHE4_DIFF_SWING_DP_V0P0);
+
+    //setting postcursor
+    XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1,
+		XVPHY_GTHE4_PREEMP_DP_L0);
+    XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2,
+		XVPHY_GTHE4_PREEMP_DP_L0);
+    XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3,
+		XVPHY_GTHE4_PREEMP_DP_L0);
+    XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4,
+		XVPHY_GTHE4_PREEMP_DP_L0);
+
+
+#if TX_BUFFER_BYPASS
+    XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1, 0x3E, DIVIDER_540);
+    XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2, 0x3E, DIVIDER_540);
+    XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3, 0x3E, DIVIDER_540);
+    XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, 0x3E, DIVIDER_540);
+#endif
+
+	PHY_Two_byte_set (&VPhyInst, SET_RX_TO_2BYTE, SET_TX_TO_2BYTE);
+
+     XVphy_ResetGtPll(&VPhyInst, 0, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_TX,(TRUE));
+     XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_TX,(TRUE));
+
+     XVphy_ResetGtPll(&VPhyInst, 0, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_TX,(FALSE));
+     XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_TX,(FALSE));
+
+
+     XVphy_ResetGtPll(&VPhyInst, 0, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX,(TRUE));
+     XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_RX,(TRUE));
+
+     XVphy_ResetGtPll(&VPhyInst, 0, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX,(FALSE));
+     XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_RX,(FALSE));
+
+	return XST_SUCCESS;
+}
+/*****************************************************************************/
+/**
+ * This function configures Frame BufferWr for defined mode
+ *
+ * @return XST_SUCCESS if init is OK else XST_FAILURE
+ *
+ *****************************************************************************/
+int ConfigFrmbuf_wr(u32 StrideInBytes,
+						XVidC_ColorFormat Cfmt,
+						XVidC_VideoStream *StreamPtr){
+	int Status;
+
+	/* Stop Frame Buffers */
+//	Status = XVFrmbufWr_Stop(&frmbufwr);
+//	if(Status != XST_SUCCESS) {
+//		xil_printf("Failed to stop XVFrmbufWr\r\n");
+//	}
+//
+//	resetIp_wr();
+
+	XVFRMBUFWR_BUFFER_BASEADDR = frame_array[frame_pointer];
+
+	Status = XVFrmbufWr_SetMemFormat(&frmbufwr, StrideInBytes, Cfmt, StreamPtr);
+	if(Status != XST_SUCCESS) {
+		xil_printf("ERROR:: Unable to configure Frame Buffer Write\r\n");
+		return(XST_FAILURE);
+	}
+
+	Status = XVFrmbufWr_SetBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR);
+	if(Status != XST_SUCCESS) {
+		xil_printf("ERROR:: Unable to configure Frame Buffer Write "
+			"buffer address\r\n");
+		return(XST_FAILURE);
+	}
+
+	/* Enable Interrupt */
+	XVFrmbufWr_InterruptEnable(&frmbufwr,
+			XVFRMBUFWR_HANDLER_READY | XVFRMBUFWR_HANDLER_DONE);
+
+	XV_frmbufwr_EnableAutoRestart(&frmbufwr.FrmbufWr);
+	/* Start Frame Buffers */
+	XVFrmbufWr_Start(&frmbufwr);
+
+	//xil_printf("INFO: FRMBUFwr configured\r\n");
+	return(Status);
+}
+
+
+/*****************************************************************************/
+/**
+ * This function configures Frame Buffer for defined mode
+ *
+ * @return XST_SUCCESS if init is OK else XST_FAILURE
+ *
+ *****************************************************************************/
+int ConfigFrmbuf_rd(u32 StrideInBytes,
+						XVidC_ColorFormat Cfmt,
+						XVidC_VideoStream *StreamPtr)
+	{
+
+	int Status;
+
+	/* Stop Frame Buffers */
+//	Status = XVFrmbufRd_Stop(&frmbufrd);
+//	if(Status != XST_SUCCESS) {
+//		xil_printf("Failed to stop XVFrmbufRd\r\n");
+//	}
+//
+//	resetIp_rd();
+
+	XVFRMBUFRD_BUFFER_BASEADDR = frame_array[frame_pointer_rd];
+
+	/* Configure  Frame Buffers */
+	Status = XVFrmbufRd_SetMemFormat(&frmbufrd, StrideInBytes, Cfmt, StreamPtr);
+	if(Status != XST_SUCCESS) {
+		xil_printf("ERROR:: Unable to configure Frame Buffer Read\r\n");
+		return(XST_FAILURE);
+	}
+
+	Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
+	if(Status != XST_SUCCESS) {
+		xil_printf("ERROR:: Unable to configure Frame Buffer "
+				"Read buffer address\r\n");
+		return(XST_FAILURE);
+	}
+
+	/* Enable Interrupt */
+//	XVFrmbufRd_InterruptEnable(&frmbufrd,
+//			XVFRMBUFRD_HANDLER_READY | XVFRMBUFRD_HANDLER_DONE);
+
+
+	XV_frmbufrd_EnableAutoRestart(&frmbufrd.FrmbufRd);
+	/* Start Frame Buffers */
+	XVFrmbufRd_Start(&frmbufrd);
+
+	//xil_printf("INFO: FRMBUFrd configured\r\n");
+	return(Status);
+}
+
+
+/*****************************************************************************/
+/**
+ * This function configures Frame Buffer for defined mode
+ *
+ * @return XST_SUCCESS if init is OK else XST_FAILURE
+ *
+ *****************************************************************************/
+u32 offset_rd = 0;
+
+int ConfigFrmbuf_rd_trunc(u32 offset){
+
+	int Status;
+
+	/* Stop Frame Buffers */
+//	Status = XVFrmbufRd_Stop(&frmbufrd);
+//	if(Status != XST_SUCCESS) {
+//		xil_printf("Failed to stop XVFrmbufRd\r\n");
+//	}
+//
+//	resetIp_rd();
+	XVFRMBUFRD_BUFFER_BASEADDR = (0 + (0x10000000)) + offset;
+
+	offset_rd = offset;
+	/* Configure  Frame Buffers */
+	Status = XVFrmbufRd_SetMemFormat(&frmbufrd,
+				XV_frmbufrd_Get_HwReg_stride(&frmbufrd.FrmbufRd),
+				XV_frmbufrd_Get_HwReg_video_format(&frmbufrd.FrmbufRd),
+				XVFrmbufRd_GetVideoStream(&frmbufrd)
+			);
+
+	if(Status != XST_SUCCESS) {
+		xil_printf("ERROR:: Unable to configure Frame Buffer Read\r\n");
+		return(XST_FAILURE);
+	}
+
+	Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
+	if(Status != XST_SUCCESS) {
+		xil_printf("ERROR:: Unable to configure Frame Buffer "
+				"Read buffer address\r\n");
+		return(XST_FAILURE);
+	}
+
+	/* Enable Interrupt */
+//	XVFrmbufRd_InterruptEnable(&frmbufrd, 0);
+
+	XV_frmbufrd_EnableAutoRestart(&frmbufrd.FrmbufRd);
+	/* Start Frame Buffers */
+	XVFrmbufRd_Start(&frmbufrd);
+
+	xil_printf("INFO: FRMBUFrd configured\r\n");
+	return(Status);
+}
+
+
+void frameBuffer_stop(XDpTxSs_MainStreamAttributes Msa[4]) {
+//    xil_printf ("FB stop start..\r\n");
+	fb_rd_start = 0;
+	XVFrmbufRd_Stop(&frmbufrd);
+	XVFrmbufWr_Stop(&frmbufwr);
+
+	resetIp_wr();
+	resetIp_rd();
+//	xil_printf ("FB stop end..\r\n");
+}
+
+
+void frameBuffer_stop_rd(XDpTxSs_MainStreamAttributes Msa[4]) {
+//    xil_printf ("FB stop start..\r\n");
+	fb_rd_start = 0;
+	XVFrmbufRd_Stop(&frmbufrd);
+	resetIp_rd();
+}
+
+
+void frameBuffer_stop_wr(XDpTxSs_MainStreamAttributes Msa[4]) {
+	XVFrmbufWr_Stop(&frmbufwr);
+	resetIp_wr();
+}
+
+
+void frameBuffer_start_wr(XVidC_VideoMode VmId,
+		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
+
+	XVidC_ColorFormat Cfmt;
+	XVidC_VideoTiming const *TimingPtr;
+	XVidC_VideoStream VidStream;
+
+	resetIp_wr();
+
+	/* Get video format to test */
+	if(Msa[0].BitsPerColor <= 8){
+		Cfmt = ColorFormats[7].MemFormat;
+		VidStream.ColorFormatId = ColorFormats[7].StreamFormat;
+		VidStream.ColorDepth = XVIDC_BPC_8;
+	}else if(Msa[0].BitsPerColor == 10){
+		Cfmt = ColorFormats[3].MemFormat;
+		VidStream.ColorFormatId = ColorFormats[3].StreamFormat;
+		VidStream.ColorDepth = XVIDC_BPC_10;
+	}else if(Msa[0].BitsPerColor == 6){ // FrameBuufer can't use 6bpc.
+		Cfmt = ColorFormats[7].MemFormat; // instead, use 8bpc setting
+		VidStream.ColorFormatId = ColorFormats[7].StreamFormat;
+		VidStream.ColorDepth = XVIDC_BPC_8;
+	}
+
+	VidStream.PixPerClk  = (int)DpRxSsInst.UsrOpt.LaneCount;
+//	VidStream.VmId = VmId;
+//	TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
+	VidStream.Timing = Msa[0].Vtm.Timing;
+	VidStream.FrameRate = Msa[0].Vtm.FrameRate;
+
+	remap_start_wr(Msa, downshift4K);
+
+	/* Configure Frame Buffer */
+	// Rx side
+	u32 stride = CalcStride(Cfmt,
+					256,
+					&VidStream);
+	ConfigFrmbuf_wr(stride, Cfmt, &VidStream);
+}
+
+
+void frameBuffer_start_rd(XVidC_VideoMode VmId,
+		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
+
+	XVidC_ColorFormat Cfmt;
+	XVidC_VideoTiming const *TimingPtr;
+	XVidC_VideoStream VidStream;
+
+	resetIp_rd();
+
+	/* Get video format to test */
+	if(Msa[0].BitsPerColor <= 8){
+		Cfmt = ColorFormats[7].MemFormat;
+		VidStream.ColorFormatId = ColorFormats[7].StreamFormat;
+		VidStream.ColorDepth = XVIDC_BPC_8;
+	}else if(Msa[0].BitsPerColor == 10){
+		Cfmt = ColorFormats[3].MemFormat;
+		VidStream.ColorFormatId = ColorFormats[3].StreamFormat;
+		VidStream.ColorDepth = XVIDC_BPC_10;
+	}else if(Msa[0].BitsPerColor == 6){ // FrameBuufer can't use 6bpc.
+		Cfmt = ColorFormats[7].MemFormat; // instead, use 8bpc setting
+		VidStream.ColorFormatId = ColorFormats[7].StreamFormat;
+		VidStream.ColorDepth = XVIDC_BPC_8;
+	}
+
+	VidStream.PixPerClk  = Msa[0].UserPixelWidth;
+//	VidStream.VmId = VmId;
+//	TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
+	VidStream.Timing = Msa[0].Vtm.Timing;
+	VidStream.FrameRate = Msa[0].Vtm.FrameRate;
+
+
+	remap_start_rd(Msa, downshift4K);
+
+	/* Configure Frame Buffer */
+	// Rx side
+	u32 stride = CalcStride(Cfmt,
+					256,
+					&VidStream);
+
+	// Tx side may change due to sink monitor capability
+	if(downshift4K == 1){ // if sink is 4K monitor,
+		VidStream.VmId = VmId; // This will be set as 4K60
+		TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
+		VidStream.Timing = *TimingPtr;
+		VidStream.FrameRate = XVidC_GetFrameRate(VidStream.VmId);
+	}
+
+	ConfigFrmbuf_rd(stride, Cfmt, &VidStream);
+
+	fb_rd_start = 1;
+
+}
+
+
+void resetIp_rd()
+{
+
+	//xil_printf("\r\nReset HLS IP \r\n");
+//	power_down_HLSIPs();
+	Xil_Out32(XPAR_PROCESSOR_HIER_0_HLS_RST_BASEADDR, 0x1);
+	usleep(10000);          //hold reset line
+//	power_up_HLSIPs();
+	Xil_Out32(XPAR_PROCESSOR_HIER_0_HLS_RST_BASEADDR, 0x3);
+	usleep(10000);          //hold reset line
+//	power_down_HLSIPs();
+	Xil_Out32(XPAR_PROCESSOR_HIER_0_HLS_RST_BASEADDR, 0x1);
+	usleep(10000);          //hold reset line
+//	power_up_HLSIPs();
+	Xil_Out32(XPAR_PROCESSOR_HIER_0_HLS_RST_BASEADDR, 0x3);
+	usleep(10000);          //hold reset line
+
+}
+
+
+void resetIp_wr()
+{
+	//xil_printf("\r\nReset HLS IP \r\n");
+//	power_down_HLSIPs();
+	Xil_Out32(XPAR_PROCESSOR_HIER_0_HLS_RST_BASEADDR, 0x2);
+	usleep(10000);          //hold reset line
+//	power_up_HLSIPs();
+	Xil_Out32(XPAR_PROCESSOR_HIER_0_HLS_RST_BASEADDR, 0x3);
+	usleep(10000);          //hold reset line
+//	power_down_HLSIPs();
+	Xil_Out32(XPAR_PROCESSOR_HIER_0_HLS_RST_BASEADDR, 0x2);
+	usleep(10000);          //hold reset line
+//	power_up_HLSIPs();
+	Xil_Out32(XPAR_PROCESSOR_HIER_0_HLS_RST_BASEADDR, 0x3);
+	usleep(10000);          //hold reset line
+}
+
+
+void remap_set(XV_axi4s_remap *remap, u8 in_ppc, u8 out_ppc, u16 width,
+		u16 height, u8 color_format){
+	XV_axi4s_remap_Set_width(remap, width);
+	XV_axi4s_remap_Set_height(remap, height);
+	XV_axi4s_remap_Set_ColorFormat(remap, color_format);
+	XV_axi4s_remap_Set_inPixClk(remap, in_ppc);
+	XV_axi4s_remap_Set_outPixClk(remap, out_ppc);
+}
+
+void remap_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
+{
+
+	//Remap on RX side only converts to 4 PPC
+
+	remap_set(&rx_remap, (int)DpRxSsInst.UsrOpt.LaneCount, 4,
+				Msa[0].Vtm.Timing.HActive,  Msa[0].Vtm.Timing.VActive
+				, 0);
+
+	XV_axi4s_remap_EnableAutoRestart(&rx_remap);
+	XV_axi4s_remap_Start(&rx_remap);
+}
+
+
+void remap_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
+{
+
+	u8 tx_ppc = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+			XDP_TX_USER_PIXEL_WIDTH);
+
+	if(downshift4K == 1 && (Msa[0].Vtm.Timing.HActive >= 7680 &&
+			Msa[0].Vtm.Timing.VActive >= 4320)){
+		remap_set(&tx_remap, 4, tx_ppc, //Msa[0].UserPixelWidth,
+			3840,
+			2160
+			, 0);
+	}
+	// 4K120 will be changed to 4K60
+	else if(downshift4K == 1 &&
+			(Msa[0].Vtm.FrameRate * Msa[0].Vtm.Timing.HActive
+			* Msa[0].Vtm.Timing.VActive > 4096*2160*60)){
+
+		remap_set(&tx_remap, 4, tx_ppc, //Msa[0].UserPixelWidth,
+			3840,
+			2160
+			, 0);
+
+	}else{
+		remap_set(&tx_remap, 4, tx_ppc, //Msa[0].UserPixelWidth,
+				Msa[0].Vtm.Timing.HActive,
+				Msa[0].Vtm.Timing.VActive,
+			0);
+
+	}
+
+	XV_axi4s_remap_EnableAutoRestart(&tx_remap);
+
+	XV_axi4s_remap_Start(&tx_remap);
+}
+
+u8 write_stop = 0;
+
+
+void bufferWr_callback(void *InstancePtr){
+	u32 Status;
+
+	if(XVFRMBUFWR_BUFFER_BASEADDR >= (0 + (0x10000000) + (0x10000000 * 3))){
+		XVFRMBUFRD_BUFFER_BASEADDR = (0 + (0x10000000) + (0x10000000 * 2) +
+										offset_rd);
+		XVFRMBUFWR_BUFFER_BASEADDR = 0 + (0x10000000);
+	}else{
+		XVFRMBUFRD_BUFFER_BASEADDR = XVFRMBUFWR_BUFFER_BASEADDR + offset_rd;
+		XVFRMBUFWR_BUFFER_BASEADDR = XVFRMBUFWR_BUFFER_BASEADDR + 0x10000000;
+	}
+
+	Status = XVFrmbufWr_SetBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR);
+	if(Status != XST_SUCCESS) {
+		xil_printf("ERROR:: Unable to configure Frame Buffer "
+				"Write buffer address\r\n");
+	}
+
+	if (fb_rd_start) {
+	Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
+	if(Status != XST_SUCCESS) {
+		xil_printf("ERROR:: Unable to configure Frame Buffer "
+				"Read buffer address\r\n");
+	}
+	}
+}
+
+
+void bufferRd_callback(void *InstancePtr){
+
+}
+
+
+/*****************************************************************************/
+/**
+ * This function calculates the stride
+ *
+ * @returns stride in bytes
+ *
+ *****************************************************************************/
+u32 CalcStride(XVidC_ColorFormat Cfmt,
+					  u16 AXIMMDataWidth,
+					  XVidC_VideoStream *StreamPtr)
+{
+	u32 stride;
+	int width = StreamPtr->Timing.HActive;
+	u16 MMWidthBytes = AXIMMDataWidth/8;
+
+	if ((Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)
+	  || (Cfmt == XVIDC_CSF_MEM_Y10)) {
+	// 4 bytes per 3 pixels (Y_UV10, Y_UV10_420, Y10)
+	stride = ((((width*4)/3)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
+
+	}
+	else if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420)
+		   || (Cfmt == XVIDC_CSF_MEM_Y8)) {
+	// 1 byte per pixel (Y_UV8, Y_UV8_420, Y8)
+	stride = ((width+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
+
+	}
+	else if ((Cfmt == XVIDC_CSF_MEM_RGB8) || (Cfmt == XVIDC_CSF_MEM_YUV8)) {
+	// 3 bytes per pixel (RGB8, YUV8)
+	stride = (((width*3)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
+
+	}
+	else {
+	// 4 bytes per pixel
+	stride = (((width*4)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
+
+	}
+
+	return(stride);
+}
+
+#ifdef Rx
+
+u32 rx_maud_dup = 0;
+u32 rx_naud_dup = 0;
+u8 start_i2s_clk = 0;
+u8 lock = 0;
+u32 appx_fs_dup = 0;
+u32 maud_dup = 0;
+u32 naud_dup = 0;
+
+
+
+void Dppt_DetectAudio (void) {
+
+#if ENABLE_AUDIO
+	u32 rx_maud = 0;
+	u32 rx_naud = 0;
+	u32 appx_fs = 0;
+	u8 i2s_invalid = 0;
+
+	rx_maud = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_AUDIO_MAUD);
+	rx_naud = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_AUDIO_NAUD);
+	appx_fs = DpRxSsInst.UsrOpt.LinkRate;
+	appx_fs = (appx_fs*270);
+
+	appx_fs = appx_fs * rx_maud;
+	appx_fs = (appx_fs / rx_naud) * 100;
+	appx_fs = (appx_fs * 1000) / 512;
+	appx_fs = appx_fs / 1000;
+
+    if (appx_fs >= 31 && appx_fs <= 33) {
+	appx_fs = 32000;
+	lock = 0;
+
+	} else if (appx_fs >= 43 && appx_fs <= 45) {
+		appx_fs = 44100;
+		lock = 0;
+
+	} else if (appx_fs >= 47 && appx_fs <= 49) {
+		appx_fs = 48000;
+		lock = 0;
+
+	} else {
+		//invalid
+		i2s_invalid = 1;
+		if (lock == 0) {
+			xil_printf ("This Audio Sampling Fs is not supported by "
+					"this design\r\n");
+			lock = 1;
+		}
+	}
+
+    if ((rx_maud != maud_dup)) {
+	XACR_WriteReg (RX_ACR_ADDR, RXACR_MAUD, rx_maud); // divider
+	maud_dup = rx_maud;
+
+    }
+    if ((rx_naud != naud_dup)) {
+	XACR_WriteReg (RX_ACR_ADDR, RXACR_NAUD, rx_naud); // divider
+	naud_dup = rx_naud;
+    }
+
+	if ((appx_fs_dup != appx_fs) && (i2s_invalid == 0)) {
+		XACR_WriteReg (RX_ACR_ADDR, RXACR_ENABLE, 0x1);
+	} else {
+
+	}
+
+	if ((appx_fs_dup != appx_fs) && (i2s_invalid == 0)) {
+		XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x1);
+		start_i2s_clk = 1;
+		appx_fs_dup = appx_fs;
+	}
+#endif
+
+}
+
+
+// This process takes in all the MSA values and find out resolution, BPC,
+// refresh rate. Further this sets the pixel_width based on the pixel_clock and
+// lane set. This is to ensure that it matches the values in TX driver. Else
+// video cannot be passthrough. Approximation is implemented for refresh rates.
+// Sometimes a refresh rate of 60 is detected as 59
+// and vice-versa. Approximation is done for single digit.
+
+/*
+ * This function is a call back to write the MSA values to Tx as they are
+ * read from the Rx, instead of reading them from the Video common library
+ */
+
+u8 tx_ppc_set = 0;
+
+int Dppt_DetectResolution(void *InstancePtr,
+							XDpTxSs_MainStreamAttributes Msa[4]){
+
+	u32 DpHres = 0;
+	u32 DpVres = 0;
+	int i = 0;
+	XVidC_VideoMode VmId_1;
+
+	frameBuffer_stop_wr(Msa);
+
+	while ((DpHres == 0 || i < 300) && DpRxSsInst.link_up_trigger == 1) {
+		DpHres = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			XDP_RX_MSA_HRES);
+		i++;
+	}
+	while ((DpVres == 0 || i < 300) && DpRxSsInst.link_up_trigger == 1) {
+		DpVres = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			XDP_RX_MSA_VHEIGHT);
+		i++;
+	}
+
+	// Assuming other MSAs would be stable by this time
+	u32 DpHres_total = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			XDP_RX_MSA_HTOTAL);
+	u32 DpVres_total = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			XDP_RX_MSA_VTOTAL);
+	u32 rxMsamisc0 = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			XDP_RX_MSA_MISC0);
+	u32 rxMsamisc1 = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			XDP_RX_MSA_MISC1);
+	u32 rxMsaMVid = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			XDP_RX_MSA_MVID);
+	u32 rxMsaNVid = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			XDP_RX_MSA_NVID);
+
+
+	Msa[0].Misc0 = rxMsamisc0;
+	Msa[0].Misc1 = rxMsamisc1;
+	rxMsamisc0 = ((rxMsamisc0 >> 5) & 0x00000007);
+//	u8 comp = ((rxMsamisc0 >> 1) & 0x00000003);
+
+	u8 Bpc[] = {6, 8, 10, 12, 16};
+
+
+	Msa[0].Vtm.Timing.HActive = DpHres;
+	Msa[0].Vtm.Timing.VActive = DpVres;
+	Msa[0].Vtm.Timing.HTotal = DpHres_total;
+	Msa[0].Vtm.Timing.F0PVTotal = DpVres_total;
+	Msa[0].MVid = rxMsaMVid;
+	Msa[0].NVid = rxMsaNVid;
+	Msa[0].HStart =
+			XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_MSA_HSTART);
+	Msa[0].VStart =
+			XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_MSA_VSTART);
+
+	Msa[0].Vtm.Timing.HSyncWidth =
+			XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_MSA_HSWIDTH);
+	Msa[0].Vtm.Timing.F0PVSyncWidth =
+			XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_MSA_VSWIDTH);
+
+	Msa[0].Vtm.Timing.HSyncPolarity =
+			XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_MSA_HSPOL);
+	Msa[0].Vtm.Timing.VSyncPolarity =
+			XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_MSA_VSPOL);
+
+
+	Msa[0].SynchronousClockMode = rxMsamisc0 & 1;
+	u8 bpc = Bpc[rxMsamisc0];
+	Msa[0].BitsPerColor = bpc;
+
+	/* Check for YUV422, BPP has to be set using component value to 2 */
+	if( (Msa[0].Misc0 & 0x6 ) == 0x2  ) {
+	//YUV422
+		Msa[0].ComponentFormat =
+				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+	}
+	else if( (Msa[0].Misc0 & 0x6 ) == 0x4  ) {
+	//RGB or YUV444
+		Msa[0].ComponentFormat =
+				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+	}else
+		Msa[0].ComponentFormat =
+				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+
+
+	u32 recv_clk_freq =
+		(((int)DpRxSsInst.UsrOpt.LinkRate*27)*rxMsaMVid)/rxMsaNVid;
+//	xil_printf ("Rec clock is %d\r\n",recv_clk_freq);
+
+	float recv_frame_clk =
+		(int)( (recv_clk_freq*1000000.0)/(DpHres_total * DpVres_total) < 0.0 ?
+				(recv_clk_freq*1000000.0)/(DpHres_total * DpVres_total) :
+				(recv_clk_freq*1000000.0)/(DpHres_total * DpVres_total)+0.9
+				);
+
+	XVidC_FrameRate recv_frame_clk_int = recv_frame_clk;
+	//Doing Approximation here
+	if (recv_frame_clk_int == 49 || recv_frame_clk_int == 51) {
+		recv_frame_clk_int = 50;
+	} else if (recv_frame_clk_int == 59 || recv_frame_clk_int == 61) {
+		recv_frame_clk_int = 60;
+	} else if (recv_frame_clk_int == 29 || recv_frame_clk_int == 31) {
+		recv_frame_clk_int = 30;
+	} else if (recv_frame_clk_int == 76 || recv_frame_clk_int == 74) {
+		recv_frame_clk_int = 75;
+	} else if (recv_frame_clk_int == 121 || recv_frame_clk_int == 119) {
+		recv_frame_clk_int = 120;
+	}
+
+
+	Msa[0].Vtm.FrameRate = recv_frame_clk_int;
+
+
+	Msa[0].PixelClockHz = DpHres_total * DpVres_total * recv_frame_clk_int;
+	Msa[0].DynamicRange = XDP_DR_CEA;
+	Msa[0].YCbCrColorimetry = XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT601;
+
+	if((recv_clk_freq*1000000)>540000000
+			&& (int)DpRxSsInst.UsrOpt.LaneCount==4){
+		tx_ppc_set = 0x4;
+		Msa[0].UserPixelWidth = 0x4; //(int)DpRxSsInst.UsrOpt.LaneCount;
+
+	}
+	else if((recv_clk_freq*1000000)>270000000
+			&& (int)DpRxSsInst.UsrOpt.LaneCount!=1){
+		tx_ppc_set = 0x2;
+		Msa[0].UserPixelWidth = 0x2; //(int)DpRxSsInst.UsrOpt.LaneCount;
+
+	}
+	else{
+		tx_ppc_set = 0x1;
+		Msa[0].UserPixelWidth = 0x1; //(int)DpRxSsInst.UsrOpt.LaneCount;
+
+	}
+
+	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, (int)DpRxSsInst.UsrOpt.LaneCount);
+	Msa[0].OverrideUserPixelWidth = 1;
+
+	XDp_RxSetLineReset(DpRxSsInst.DpPtr,XDP_TX_STREAM_ID1);
+	XDp_RxDtgDis(DpRxSsInst.DpPtr);
+	XDp_RxDtgEn(DpRxSsInst.DpPtr);
+
+	xil_printf(
+		"*** Detected resolution: "
+			"%lu x %lu @ %luHz, BPC = %lu, PPC = %d***\n\r",
+		DpHres, DpVres,recv_frame_clk_int,bpc,(int)DpRxSsInst.UsrOpt.LaneCount
+	);
+
+	VmId_1 = XVidC_GetVideoModeId(
+			Msa[0].Vtm.Timing.HActive,
+			Msa[0].Vtm.Timing.VActive,
+			Msa[0].Vtm.FrameRate,0);
+
+	frameBuffer_start_wr(VmId_1, Msa, 0);
+
+#if PHY_COMP
+		CalculateCRC();
+#endif
+
+		return 1;
+
+}
+#endif
+
+
+#if defined(PT) || defined(LB)
+void DpPt_TxSetMsaValuesImmediate(void *InstancePtr){
+
+	/* Set the main stream attributes to the associated DisplayPort TX core
+	 * registers. */
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_HTOTAL +
+			StreamOffset[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+						XDP_RX_MSA_HTOTAL));
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_VTOTAL +
+			StreamOffset[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+						XDP_RX_MSA_VTOTAL));
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_MAIN_STREAM_POLARITY+
+			StreamOffset[0],
+			XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_MSA_HSPOL)|
+			(XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_MSA_VSPOL) <<
+			XDP_TX_MAIN_STREAMX_POLARITY_VSYNC_POL_SHIFT));
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_HSWIDTH+
+			StreamOffset[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_MSA_HSWIDTH));
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_VSWIDTH +
+			StreamOffset[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_MSA_VSWIDTH));
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_HRES +
+			StreamOffset[0],
+			XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_MSA_HRES));
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_VRES +
+			StreamOffset[0],
+			XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_MSA_VHEIGHT));
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_HSTART +
+			StreamOffset[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_MSA_HSTART));
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_VSTART +
+			StreamOffset[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_MSA_VSTART));
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_MISC0 +
+			StreamOffset[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_MSA_MISC0));
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_MISC1 +
+			StreamOffset[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_MSA_MISC1));
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_USER_PIXEL_WIDTH +
+		StreamOffset[0], tx_ppc_set);
+//		XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_USER_PIXEL_WIDTH)
+//			);
+
+
+
+	/* Check for YUV422, BPP has to be set using component value to 2 */
+	if( ( (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_MSA_MISC0))
+			 & 0x6 ) == 0x2  ) {
+	//YUV422
+		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
+				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+	}
+	else if(( (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_MSA_MISC0))
+			 & 0x6 ) == 0x4){
+	// YUV444
+		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
+				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+	}else
+	// RGB
+		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
+				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+}
+#endif

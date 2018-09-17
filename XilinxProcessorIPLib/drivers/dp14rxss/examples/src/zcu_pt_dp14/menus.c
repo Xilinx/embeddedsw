@@ -12,6 +12,10 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -42,7 +46,6 @@
 *
 ******************************************************************************/
 #include "main.h"
-#include "tx.h"
 
 lane_link_rate_struct lane_link_table[]=
 {
@@ -68,15 +71,22 @@ u32 xil_gethex(u8 num_chars);
 
 void operationMenu(void){
 	xil_printf(
+	"\n\n****************************************************\n\r"
+	"This system is purely a PassThrough system designed to  \r\n"
+	"display the video that is received on the RX.\r\n"
+	"The TX is non functional in absence of active RX link\r\n"
+	"Do not change the Monitor once the application is in run mode\r\n"
+	"This system can be used for DisplayPort Sink Compliance\r\n"
+	"****************************************************\n\r"
+			);
+
+	xil_printf(
 	"\n\n-----------------------------------------------------\n\r"
 	"--                       Menu                      --\n\r"
 	"-----------------------------------------------------\n\r"
 	"\n\r"
 	" Select option\n\r"
-	"t - Tx Only design\r\n"
-	"r - Rx Only design\r\n"
 	"p - Pass-through design\r\n"
-	"l - LoopBack design\r\n"
 	);
 
 }
@@ -103,140 +113,6 @@ void DpPt_LaneLinkRateHelpMenu(void)
 	);
 }
 
-
-
-void bpc_help_menu(int DPTXSS_BPC_int)
-{
-	xil_printf("Choose Video Bits per color option\r\n"
-			"1 -->  8 bpc (24bpp)\r\n");
-	if (DPTXSS_BPC_int >= 10){
-		xil_printf("2 --> 10 bpc (30bpp)\r\n");
-
-		if (DPTXSS_BPC_int >= 12){
-			xil_printf("3 --> 12 bpc (36bpp)\r\n");
-
-			if (DPTXSS_BPC_int >= 16)
-				xil_printf("4 --> 16 bpc (48bpp)\r\n");
-		}
-	}
-	xil_printf("\r\n"
-		   "Press 'x' to return to main menu\r\n"
-		   "Press any key to display this menu again\r\n");
-}
-
-void format_help_menu(void)
-{
-	xil_printf("Choose Video Format \r\n"
-		   "For YCbCr - Only Color Square Pattern is Supported \r\n"
-		   "1 -->  RGB 			\r\n"
-		   "2 -->  YCbCR444		\r\n"
-		   "3 -->  YCbCr422		\r\n"
-		   "\r\n"
-		   "Press 'x' to return to main menu\r\n"
-		   "Press any key to show this menu again\r\n");
-}
-
-void resolution_help_menu(void)
-{
-xil_printf("- - - - -  -  - - - - - - - - - - - - - - - - - - -  -  - - - - -"
-		" - - - - - - - - - -\r\n"
-"-                            Select an Option for Resolutio"
-		"n                                      -\r\n"
-"- - - - - - - - - - - - - - - - - - - - - - - - - -  -  - - - - - - - - - - "
-		"- - - - - \r\n"
-"0 640x480_60_P    |   1 720x480_60_P      |   2 800x600_60_P  \r\n"
-"3 1024x768_60_P   |   4 1280x720_60_P     |   5 1600x1200_60_P        \r\n"
-"6 1366x768_60_P   |   7 1920x1080_60_P    |   8 3840x2160_30_P\r\n"
-"9 3840x2160_60_P  |   a 2560x1600_60_P    |   b 1280x1024_60_P\r\n"
-"c 1792x1344_60_P  |   d 848x480_60_P      |   e 1280x960\r\n"
-"f 1920x1440_60_P  |   i 3840x2160_60_P_RB |   j 3840x2160_120_P_RB\r\n"
-	"k 7680x4320_24_P  |   l 7680x4320_30_P    |   m 3840x2160_100_P\r\n"
-	"n 7680x4320_30DELL|   o 5120x2880_30      |   p 7680x4320_30_MSTR\r\n"
-	"q 5120x2880_MSTR  |   r 3840x2160_120_MSTR\r\n"
-"- - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-"- - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-" - - - - - -\r\n"
-
-"Press 'x' to return to main menu \r\n"
-"Press any key to show this menu again\r\n");
-}
-
-void test_pattern_gen_help()
-{
-	xil_printf("Choose Video pattern\r\n"
-		   "1 -->  Vesa LLC pattern 			\r\n"
-		   "3 -->  Vesa Color Squares			\r\n"
-		   "4 -->  Flat Red  screen 			\r\n"
-		   "5 -->  Flat Blue screen 			\r\n"
-		   "6 -->  Flat Green screen 			\r\n"
-		   "7 -->  Flat Purple screen 			\r\n"
-		   "\r\n"
-		   "Press 'x' to return to main menu\r\n"
-		   "Press any key to show this menu again\r\n");
-}
-
-void app_help()
-{
-	xil_printf("\n\n-----------------------------------------------------\r\n");
-	xil_printf("--                       Menu                      --\r\n");
-	xil_printf("-----------------------------------------------------\r\n");
-	xil_printf("\r\n");
-	xil_printf(" Select option\r\n");
-	xil_printf(" t = Activate Tx Only path (TX uses QPLL) \r\n");
-	xil_printf("\r\n");
-	xil_printf("-----------------------------------------------------\r\n");
-}
-
-void sub_help_menu(void)
-{
-	xil_printf (
-	"- - - - -  -  - - - - - - - - - - - - - - - - - -\r\n"
-	"-          DisplayPort TX Only Demo Menu        -\r\n"
-	"- Press 'z' to get this main menu at any point  -\r\n"
-	"- - - - - - - - - - - - - - - - - - - - - - - - -\r\n"
-	"1 - Change Resolution \r\n"
-	"2 - Change Bits Per Color \r\n"
-	"3 - Change Number of Lanes, Link Rate \r\n"
-	"4 - Change Pattern \r\n"
-	"5 - Display MSA Values for Tx\r\n"
-	"6 - Change Format \r\n"
-	"7 - Display Link Configuration Status and user selected resolution\r\n"
-	"8 - Display DPCD register Configurations\r\n"
-	"9 - Read Auxiliary registers \r\n"
-	"a - Enable/Disable Audio\r\n"
-	"d - Power Up/Down sink\r\n"
-	"e - Read EDID from sink\r\n"
-	"m - Read CRC checker value\r\n"
-	"z - Display this Menu again\r\n"
-	"- - - - - - - - - - - - - - - - - - - - - - - - - \r\n");
-}
-
-
-
-void select_link_lane(void)
-{
-	xil_printf("-----------------------------------------------------\r\n");
-	xil_printf("--    Select the Link and Line Capabilities        --\r\n");
-	xil_printf("-----------------------------------------------------\r\n");
-	xil_printf("Choose TX capability for Lane count and Link rate\r\n"
-		   "0 --> Set TX capability @ 1.62G 1 lane\r\n"
-		   "1 --> Set TX capability @ 1.62G 2 lanes\r\n"
-		   "2 --> Set TX capability @ 1.62G 4 lanes\r\n"
-		   "3 --> Set TX capability @  2.7G 1 lane\r\n"
-		   "4 --> Set TX capability @  2.7G 2 lanes\r\n"
-		   "5 --> Set TX capability @  2.7G 4 lanes\r\n"
-		   "6 --> Set TX capability @  5.4G 1 lane\r\n"
-		   "7 --> Set TX capability @  5.4G 2 lanes\r\n"
-		   "8 --> Set TX capability @  5.4G 4 lanes\r\n"
-		   "9 --> Set TX capability @  8.1G 1 lane\r\n"
-		   "a --> Set TX capability @  8.1G 2 lanes\r\n"
-		   "b --> Set TX capability @  8.1G 4 lanes\r\n");
-	xil_printf("\r\n");
-	xil_printf("Press 'x' to return to main menu\r\n");
-	xil_printf("Press any key to display this menu\r\n");
-	xil_printf("-----------------------------------------------------\r\n");
-}
-
 void pt_help_menu()
 {
 	print("\n\r");
@@ -253,7 +129,7 @@ void pt_help_menu()
 	//print(" 6 = Switch TX back to RX video data\n\r");
 	//print(" 9 = Report RX, TX Frame stats\n\r");
 	print(" c = Check SUM on Rx and Tx\n\r");
-	print(" d = Quad selection    ONLY FOR 8K demo\n\r");
+	print(" d = Quad selection ONLY FOR 8K --> 4K demo\n\r");
 	print(" w = Sink register write\n\r");
 	print(" r = Sink register read\n\r");
 	print(" n = toggle EDID setting between 8K to 4K120\r\n");
@@ -267,10 +143,9 @@ void pt_help_menu()
 	print("-----------------------------------------------------\n\r");
 }
 
-
-
 void select_rx_quad(void)
  {
+	  print("****  Ensure that the Monitor supports 4K@30  *******\n\r");
 	  print("-----------------------------------------------------\n\r");
 	  print("--    Select the Quad        --\n\r");
 	  print("-----------------------------------------------------\n\r");
@@ -278,7 +153,8 @@ void select_rx_quad(void)
            "0 --> Set left upper\n\r"
            "1 --> Set right upper\n\r"
            "2 --> Set left bottom\n\r"
-           "3 --> Set right bottom\n\r");
+           "3 --> Set right bottom\n\r"
+	       "x --> Exit\r\n");
 	  print("\n\r");
 	  print("-----------------------------------------------------\n\r");
  }
