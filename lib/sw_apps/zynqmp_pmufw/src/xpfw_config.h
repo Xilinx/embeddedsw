@@ -92,6 +92,7 @@
  * 	               macro is also defined
  *	- ENABLE_POS : Enables Power Off Suspend feature
  *	- ENABLE_DDR_SR_WR : Enables DDR self refresh over warm restart feature
+ *	- ENABLE_UNUSED_RPU_PWR_DWN : Enables unused RPU power down feature
  *	- DISABLE_CLK_PERMS : Disable clock permission checking (it is not safe
  *			to ever disable clock permission checking). Do this at
  *			your own responsibility.
@@ -126,6 +127,7 @@
 #define	ENABLE_POS_VAL					(0U)
 #define	ENABLE_DDR_SR_WR_VAL				(0U)
 #define DISABLE_CLK_PERMS_VAL				(0U)
+#define ENABLE_UNUSED_RPU_PWR_DWN_VAL				(0U)
 
 #define	PMU_MIO_INPUT_PIN_VAL			(0U)
 #define	BOARD_SHUTDOWN_PIN_VAL			(0U)
@@ -211,6 +213,10 @@
 #define DISABLE_CLK_PERMS
 #endif
 
+#if ENABLE_UNUSED_RPU_PWR_DWN_VAL
+#define ENABLE_UNUSED_RPU_PWR_DWN
+#endif
+
 #if PMU_MIO_INPUT_PIN_VAL
 #define PMU_MIO_INPUT_PIN			0U
 #endif
@@ -236,6 +242,10 @@
 
 #ifdef ENABLE_POS
 #define ENABLE_POS_QSPI
+#endif
+
+#ifdef ENABLE_UNUSED_RPU_PWR_DWN
+#define ENABLE_SCHEDULER
 #endif
 
 #endif /* XPFW_CONFIG_H_ */

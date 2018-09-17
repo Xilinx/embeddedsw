@@ -85,6 +85,9 @@ typedef u8 PmProcEvent;
 /* Triggered when PMU receives wake interrupt targeted to the processor */
 #define PM_PROC_EVENT_WAKE          5U
 
+#define RPU0_STATUS_MASK		BIT(0)
+#define RPU1_STATUS_MASK		BIT(1)
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
@@ -176,5 +179,9 @@ static inline bool PmProcIsSuspending(const PmProc* const procPtr)
 }
 
 int PmProcSleep(PmProc* const proc);
+
+#ifdef ENABLE_UNUSED_RPU_PWR_DWN
+void PmForceDownUnusableRpuCores(void);
+#endif
 
 #endif

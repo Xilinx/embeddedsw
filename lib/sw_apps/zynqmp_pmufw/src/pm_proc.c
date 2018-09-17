@@ -785,6 +785,26 @@ static int PmProcForceDown(PmNode* const node)
 	return status;
 }
 
+#ifdef ENABLE_UNUSED_RPU_PWR_DWN
+void PmForceDownUnusableRpuCores(void)
+{
+	u32 value;
+
+	value = Xil_In32(PMU_GLOBAL_GLOBAL_GEN_STORAGE7);
+
+	/*
+	 * If RPU core is not used then bit of PMU_GLOBAL_GLOBAL_GEN_STORAGE7
+	 * for that core is cleared. So check that bit and force down that core.
+	 */
+	if (!(value & RPU0_STATUS_MASK)) {
+		PmProcForceDown(&pmProcRpu0_g.node);
+	}
+	if (!(value & RPU1_STATUS_MASK)) {
+		PmProcForceDown(&pmProcRpu1_g.node);
+	}
+}
+#endif
+
 /**
  * PmProcInit() - Startup initialization of the processor node
  * @node	Node to initialize
