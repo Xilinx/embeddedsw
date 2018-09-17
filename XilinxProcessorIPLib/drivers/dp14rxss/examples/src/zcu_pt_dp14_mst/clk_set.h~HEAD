@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -25,55 +25,22 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-/*****************************************************************************/
+/******************************************************************************/
 /**
-*
-* @file xdebug.h
-*
-* This file contains functions to configure Video Pattern Generator core.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who    Date     Changes
-* ----- ------ -------- --------------------------------------------------
-* 1.00  KI    07/13/17 Initial release.
-* </pre>
-*
-******************************************************************************/
+ *
+ * @file clk_set.h
+ *
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who  Date     Changes
+ * ----- ---- -------- -----------------------------------------------
+ * 1.0   Kei  08/09/17 Initial release.
+ *
+*******************************************************************************/
 
-#ifndef XDEBUG  /* prevent circular inclusions */
-#define XDEBUG  /* by using protection macros */
+#ifndef SRC_CLK_SET_H_
+#define SRC_CLK_SET_H_
 
-#define DEBUG 1
+u32 clk_set(u8 i2c_mux_addr, u8 i2c_dev_addr, double set_freq);
 
-#if defined(DEBUG) && !defined(NDEBUG)
-
-#ifndef XDEBUG_WARNING
-#define XDEBUG_WARNING
-//#warning DEBUG is enabled
-#endif
-
-int printf(const char *format, ...);
-
-#define XDBG_DEBUG_ERROR             0x00000001U /* error  condition messages */
-#define XDBG_DEBUG_GENERAL           0x00000002U /* general debug  messages */
-#define XDBG_DEBUG_ALL               0xFFFFFFFFU /* all debugging data */
-
-#define xdbg_current_types (XDBG_DEBUG_GENERAL)
-
-#define xdbg_stmnt(x)  x
-
-#define xdbg_printf(type, ...) \
-			(((type) & xdbg_current_types) ? printf (__VA_ARGS__) : 0)
-
-
-#else /* defined(DEBUG) && !defined(NDEBUG) */
-
-#define xdbg_stmnt(x)
-
-#define xdbg_printf(...)
-
-#endif /* defined(DEBUG) && !defined(NDEBUG) */
-
-#endif /* XDEBUG */
+#endif /* SRC_CLK_SET_H_ */

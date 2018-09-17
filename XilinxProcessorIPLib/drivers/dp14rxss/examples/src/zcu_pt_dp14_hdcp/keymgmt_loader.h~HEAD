@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,7 +15,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -26,10 +26,41 @@
 *
 ******************************************************************************/
 
-#ifndef SRC_CLK_SET_H_
-#define SRC_CLK_SET_H_
+/*****************************************************************************/
+/**
+* @file keymgmt_loader.h
+*
+* This file contains the interface for the key management loader module.
+*
+******************************************************************************/
 
-int PLL_init_Seting(XSpi *SPI_LMK04906, u32 div_value);
-u32 clk_set(u8 i2c_mux_addr, u8 i2c_dev_addr, double set_freq);
 
-#endif /* SRC_CLK_SET_H_ */
+#ifndef KEYMGMT_LOADER_H
+#define KEYMGMT_LOADER_H
+
+
+/* Include Files */
+#include "keymgmt.h"
+#include <stdint.h>
+
+
+/* Constant Definitions */
+
+
+/* Type Definitions */
+
+
+/* Function Prototypes */
+KEYMGMT_tError
+KEYMGMTLDR_Init(void);
+
+
+void
+KEYMGMTLDR_Poll(uint32_t theUpTime);
+
+
+int
+KEYMGMTLDR_Debug(int argc, const char* argv[]);
+
+
+#endif /* KEYMGMT_LOADER_H */

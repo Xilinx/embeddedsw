@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -61,8 +61,8 @@ extern "C" {
 #define VIDEO_FRAME_CRC_EN
 #endif
 
-#define XPAR_VIDEO_FRAME_CRC_BASEADDR \
-	XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR
+//#define XPAR_VIDEO_FRAME_CRC_BASEADDR \
+//		XPAR_TX_SUBSYSTEM_CRC_BASEADDR
 
 /* Register Offsets */
 #define VIDEO_FRAME_CRC_CONFIG			0x00
