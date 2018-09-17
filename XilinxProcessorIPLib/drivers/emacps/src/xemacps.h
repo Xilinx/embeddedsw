@@ -327,6 +327,7 @@
  *		       changed to volatile.
  *		       Add API XEmacPs_BdRingPtrReset() to reset pointers
  * 3.8   hk   07/19/18 Fixed CPP, GCC and doxygen warnings - CR-1006327
+ *	 hk   09/17/18 Fix PTP interrupt masks and cleanup comments.
  *
  * </pre>
  *
