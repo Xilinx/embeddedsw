@@ -31,6 +31,9 @@
 
 #include "pm_binding.h"
 #include "pm_defs.h"
+#ifdef ENABLE_UNUSED_RPU_PWR_DWN
+#include "pm_proc.h"
+#endif
 
 #include "xpfw_ipi_manager.h"
 #include "xpfw_mod_pm.h"
@@ -79,6 +82,26 @@ static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 		break;
 	}
 }
+
+#ifdef ENABLE_UNUSED_RPU_PWR_DWN
+static void PmCheckFsblCompletion(void)
+{
+	s32 Status;
+	u32 RegValue;
+
+	RegValue = Xil_In32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
+
+	if (RegValue & FSBL_COMPLETION) {
+		PmForceDownUnusableRpuCores();
+		Status = XPfw_CoreRemoveTask(PmModPtr, CHECK_FSBL_COMPLETION,
+					     PmCheckFsblCompletion);
+		if (XST_SUCCESS != Status) {
+			XPfw_Printf(DEBUG_DETAILED,
+				    "Warning: Removing PM Cfg task failed\r\n");
+		}
+	}
+}
+#endif
 
 static void PmEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 {
@@ -220,6 +243,14 @@ static void PmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 	}
 
 	XPfw_PmInit();
+
+#ifdef ENABLE_UNUSED_RPU_PWR_DWN
+	if (XPfw_CoreScheduleTask(PmModPtr, CHECK_FSBL_COMPLETION,
+				  PmCheckFsblCompletion) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+			    "Warning: Scheduling PM Cfg task failed\r\n");
+	}
+#endif
 }
 void ModPmInit(void)
 {
