@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -1513,83 +1511,6 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
         }
 	}
 }
-
-
-
-/*****************************************************************************/
-/**
-*
-* This function to send Audio Information Frame
-*
-* @param	XilAudioInfoFrame
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame)
-{
-    u8 db1, db2, db3, db4;
-    u32 temp;
-    u8 RSVD=0;
-
-    //Fixed paramaters
-    u8  dp_version   = xilInfoFrame->version;
-
-        //Write #1
-    db1 = 0x00; //sec packet ID fixed to 0 - SST Mode
-    db2 = xilInfoFrame->type;
-    db3 = xilInfoFrame->info_length&0xFF;
-    db4 = (dp_version<<2)|(xilInfoFrame->info_length>>8);
-	temp = db4<<24|db3<<16|db2<<8|db1;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-										XDP_TX_AUDIO_INFO_DATA(1), temp);
-
-	//Write #2
-	db1 = xilInfoFrame->audio_channel_count
-					| (xilInfoFrame->audio_coding_type<<4) | (RSVD<<3);
-	db2 = (RSVD<<5)| (xilInfoFrame->sampling_frequency<<2)
-					| xilInfoFrame->sample_size;
-	db3 = RSVD;
-	db4 = xilInfoFrame->channel_allocation;
-	temp = db4<<24|db3<<16|db2<<8|db1;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-										XDP_TX_AUDIO_INFO_DATA(1), temp);
-
-	//Write #3
-	db1 = (xilInfoFrame->level_shift<<3) | RSVD
-								| (xilInfoFrame->downmix_inhibit <<7);
-	db2 = RSVD;
-	db3 = RSVD;
-	db4 = RSVD;
-	temp = db4<<24|db3<<16|db2<<8|db1;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-										XDP_TX_AUDIO_INFO_DATA(1), temp);
-
-	//Write #4
-	db1 = RSVD;
-	db2 = RSVD;
-	db3 = RSVD;
-	db4 = RSVD;
-	temp = 0x00000000;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-										XDP_TX_AUDIO_INFO_DATA(1), temp);
-	//Write #5
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-										XDP_TX_AUDIO_INFO_DATA(1), temp);
-
-	//Write #6
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-										XDP_TX_AUDIO_INFO_DATA(1), temp);
-	//Write #7
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-										XDP_TX_AUDIO_INFO_DATA(1), temp);
-	//Write #8
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-										XDP_TX_AUDIO_INFO_DATA(1), temp);
-}
-
 
 /*****************************************************************************/
 /**

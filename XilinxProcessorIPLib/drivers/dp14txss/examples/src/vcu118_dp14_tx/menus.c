@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -60,6 +58,9 @@ lane_link_rate_struct lane_link_table[]=
 
 };
 
+#define XVIDC_FR_82HZ 82
+#define XVIDC_FR_98HZ 98
+
 //extern XVidC_VideoMode resolution_table[];
 // adding new resolution definition example
 // XVIDC_VM_3840x2160_30_P_SB, XVIDC_B_TIMING3_60_P_RB
@@ -78,6 +79,9 @@ typedef enum {
 	XVIDC_VM_7680x4320_30_MSTR,
 	XVIDC_VM_5120x2880_60_MSTR,
 	XVIDC_VM_3840x2160_120_MSTR,
+	XVIDC_VM_3840x2160_82_ASUS,
+	XVIDC_VM_3840x2160_98_ASUS,
+	XVIDC_VM_3840x2160_120_ASUS,
     XVIDC_CM_NUM_SUPPORTED
 } XVIDC_CUSTOM_MODES;
 
@@ -122,6 +126,23 @@ const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
 	{ XVIDC_VM_3840x2160_120_MSTR, "3840x2160@120Hz_MSTR", XVIDC_FR_120HZ,
 		{3840, 48, 34, 79, 4001, 1,
 		2160, 4, 6, 53, 2223, 0, 0, 0, 0, 1}},
+
+		//Asus 4k@82
+	{ XVIDC_VM_3840x2160_82_ASUS, "3840x2160@82Hz_ASUS", XVIDC_FR_82HZ,
+			{3840, 8, 32, 20, 3900, 1,
+			2160, 3, 6, 48, 2217, 0, 0, 0, 0, 1}},
+
+		//Asus 4k@98
+	{ XVIDC_VM_3840x2160_98_ASUS, "3840x2160@98Hz_ASUS", XVIDC_FR_98HZ,
+			{3840, 8, 32, 20, 3900, 1,
+			2160, 3, 6, 56, 2225, 0, 0, 0, 0, 1}},
+
+		//Asus 4k@120
+	{ XVIDC_VM_3840x2160_120_ASUS, "3840x2160@120Hz_ASUS", XVIDC_FR_120HZ,
+			{3840, 8, 32, 40, 3920, 1,
+			2160, 3, 5, 70, 2238, 0, 0, 0, 0, 1}},
+
+
 };
 
 XVidC_VideoMode resolution_table[] =
@@ -154,7 +175,10 @@ XVidC_VideoMode resolution_table[] =
 	XVIDC_VM_5120x2880_60_P_RB2,
 	XVIDC_VM_7680x4320_30_MSTR,
 	XVIDC_VM_5120x2880_60_MSTR,
-	XVIDC_VM_3840x2160_120_MSTR
+	XVIDC_VM_3840x2160_120_MSTR,
+	XVIDC_VM_3840x2160_82_ASUS,
+	XVIDC_VM_3840x2160_98_ASUS,
+	XVIDC_VM_3840x2160_120_ASUS
 
 };
 
@@ -252,9 +276,10 @@ xil_printf("- - - - -  -  - - - - - - - - - - - - - - - - - - -  -  - - - - -"
 "9 3840x2160_60_P  |   a 2560x1600_60_P    |   b 1280x1024_60_P\r\n"
 "c 1792x1344_60_P  |   d 848x480_60_P      |   e 1280x960\r\n"
 "f 1920x1440_60_P  |   i 3840x2160_60_P_RB |   j 3840x2160_120_P_RB\r\n"
-	"k 7680x4320_24_P  |   l 7680x4320_30_P    |   m 3840x2160_100_P\r\n"
-	"n 7680x4320_30DELL|   o 5120x2880_30      |   p 7680x4320_30_MSTR\r\n"
-	"q 5120x2880_MSTR  |   r 3840x2160_120_MSTR\r\n"
+"k 7680x4320_24_P  |   l 7680x4320_30_P    |   m 3840x2160_100_P\r\n"
+"n 7680x4320_30DELL|   o 5120x2880_30      |   p 7680x4320_30_MSTR\r\n"
+"q 5120x2880_MSTR  |   r 3840x2160_120_MSTR\r\n"
+"s 3840x2160_82_ASUS|  t 3840x2160_98_ASUS|    u 3840x2160_120_ASUS\r\n"
 "- - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 	"- - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 		" - - - - - -\r\n"
@@ -269,9 +294,9 @@ void test_pattern_gen_help()
 			   "1 -->  Vesa LLC pattern 			\r\n"
 			   "3 -->  Vesa Color Squares			\r\n"
 			   "4 -->  Flat Red  screen 			\r\n"
-			   "5 -->  Flat Blue screen 			\r\n"
-			   "6 -->  Flat Green screen 			\r\n"
-			   "7 -->  Flat Purple screen 			\r\n"
+			   "5 -->  Flat Green screen 			\r\n"
+			   "6 -->  Flat Blue screen 			\r\n"
+			   "7 -->  Flat Yellow screen 			\r\n"
 			   "\r\n"
 			   "Press 'x' to return to main menu\r\n"
 			   "Press any key to show this menu again\r\n");
@@ -358,7 +383,7 @@ void main_loop(){
 	u32 aux_reg_address, num_of_aux_registers;
 	u8 Data[8];
 	u8 audio_on=0;
-	XilAudioInfoFrame *xilInfoFrame;
+	XDp_TxAudioInfoFrame *xilInfoFrame;
 	int m_aud, n_aud;
 	u8 in_pwr_save = 0;
 	u16 DrpVal =0;
@@ -479,7 +504,7 @@ void main_loop(){
                 xilInfoFrame->version = 0x11;
 				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 						XDP_TX_AUDIO_CONTROL, 0x0);
-				sendAudioInfoFrame(xilInfoFrame);
+				XDpTxSs_SendAudioInfoFrame(&DpTxSsInst,xilInfoFrame);
 				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 						XDP_TX_AUDIO_CHANNELS, 0x1);
 				switch(LineRate)

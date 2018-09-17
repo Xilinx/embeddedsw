@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /*****************************************************************************/
@@ -84,7 +82,9 @@ u32 DpRxSs_Setup(void)
 #if ENABLE_HDCP_IN_DESIGN
         XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 					XDP_RX_INTERRUPT_MASK, 0xFE00FFFD);
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
+#endif
 #else
         XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 					XDP_RX_INTERRUPT_MASK, 0xFFF87FFD);
@@ -116,7 +116,9 @@ u32 DpRxSs_Setup(void)
 			XDP_RX_INTERRUPT_MASK_ACCESS_ERROR_COUNTER_MASK);
 
 #if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
+#endif
 #endif
 
 	/* Setting AUX Defer Count of Link Status Reads to 8 during Link
@@ -237,8 +239,12 @@ u32 DpRxSs_SetupIntrSystem(void)
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_EXT_PKT_EVENT,
 			&DpRxSs_ExtPacketHandler, &DpRxSsInst);
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0 && ENABLE_HDCP_IN_DESIGN == 1 )
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_HDCP_AUTHENTICATED,
+							&Dprx_HdcpAuthCallback, &DpRxSsInst);
+#endif
+#if (XPAR_DPRXSS_0_HDCP22_ENABLE > 0)
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_HDCP22_AUTHENTICATED,
 							&Dprx_HdcpAuthCallback, &DpRxSsInst);
 #endif
 
@@ -339,12 +345,22 @@ void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 #if ENABLE_HDCP_IN_DESIGN
 		XDp_RxInterruptEnable(DpRxSsInst.DpPtr, 0x01F80000);
 //		XDpRxSs_SetLane(&DpRxSsInst, DpRxSsInst.UsrOpt.LaneCount);
-	    XDpRxSs_SetPhysicalState(&DpRxSsInst, hdcp_capable_org); //TRUE);
+#if ENABLE_HDCP1x_IN_RX
+	    XDpRxSs_SetPhysicalState(&DpRxSsInst, hdcp_capable_org); //TRUE)
+#endif
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	    XHdcp1xExample_Poll();
+#endif
+
+#if ENABLE_HDCP1x_IN_TX
 	    XDpTxSs_SetPhysicalState(&DpTxSsInst, hdcp_capable_org);
+#endif
+
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	    XHdcp1xExample_Poll();
 		XHdcp1xExample_Enable();
 		XHdcp1xExample_Poll();
+#endif
 #endif
 
 	}
@@ -371,11 +387,22 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 {
 
 #if ENABLE_HDCP_IN_DESIGN
+#if ENABLE_HDCP1x_IN_RX
 	XDpRxSs_SetPhysicalState(&DpRxSsInst, FALSE);
+#endif
+#if ENABLE_HDCP1x_IN_TX
 	XDpTxSs_SetPhysicalState(&DpTxSsInst, TRUE);
+#endif
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
+#endif
+#if ENABLE_HDCP1x_IN_TX
 	XDpTxSs_SetPhysicalState(&DpTxSsInst, FALSE);
+#endif
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
+#endif
+//#if ENABLE_HDCP1x_IN_RX
 	XDpRxSs_StopTimer(&DpRxSsInst);
 
 	// This function will over write timer function pointer to be the right one.
@@ -427,10 +454,17 @@ void DpRxSs_TrainingDoneHandler(void *InstancePtr)
 	DpRxSsInst.VBlankCount = 0;
 	rx_unplugged = 0;
 #if ENABLE_HDCP_IN_DESIGN
-//    XDpRxSs_SetLane(&DpRxSsInst, DpRxSsInst.UsrOpt.LaneCount);
+    XDpRxSs_SetLane(&DpRxSsInst, DpRxSsInst.UsrOpt.LaneCount);
+#if ENABLE_HDCP1x_IN_RX
     XDpRxSs_SetPhysicalState(&DpRxSsInst, hdcp_capable_org); //TRUE);
+#endif
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
     XHdcp1xExample_Poll();
 #endif
+#endif
+
+    XDpRxSs_HdcpSetProtocol(&DpRxSsInst, XDPRXSS_HDCP_14);
+	XDpRxSs_HdcpEnable(&DpRxSsInst);
 }
 
 /*****************************************************************************/
@@ -488,19 +522,42 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
 	DpRxSsInst.link_up_trigger = 0;
 	DpRxSsInst.VBlankCount = 0;
 	DpRxSsInst.no_video_trigger = 1;
-	xil_printf("Cable unplugged2 %d %d %d\r\n", DpRxSsInst.link_up_trigger,
-			                              DpRxSsInst.VBlankCount, rx_unplugged);
+#if ENABLE_HDCP22_IN_RX
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+						XDP_RX_SOFT_RESET,
+						XDP_RX_SOFT_RESET_HDCP22_MASK);
+				XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+						XDP_RX_SOFT_RESET, 0);
+#endif
+
 #if ENABLE_HDCP_IN_DESIGN
 #if ENABLE_HDCP_FLOW_GUIDE
 	XDpRxSs_HdcpDisable(&DpRxSsInst);
 	XDpTxSs_HdcpDisable(&DpTxSsInst);
 	XHdcp1xExample_Poll();
 #endif
+
+#if ENABLE_HDCP1x_IN_RX
 	XDpRxSs_SetPhysicalState(&DpRxSsInst, FALSE);
+#endif
+
+#if ENABLE_HDCP1x_IN_TX
 	XDpTxSs_SetPhysicalState(&DpTxSsInst, TRUE);
+#endif
+
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
+#endif
+
+#if ENABLE_HDCP1x_IN_TX
 	XDpTxSs_SetPhysicalState(&DpTxSsInst, FALSE);
+#endif
+
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
+#endif
+
+//#if ENABLE_HDCP1x_IN_RX
 	XDpRxSs_StopTimer(&DpRxSsInst);
 //	IsTxEncrypted = 0;
 //	IsTxAuthenticated = 0;
@@ -979,7 +1036,9 @@ void DpRxSs_InfoPacketHandler(void *InstancePtr)
 	}
 
 	//storing the info frame here
+	        if (AudioinfoFrame.frame_count < 51) {
 			AudioinfoFrame.frame_count++;
+	        }
 
 			AudioinfoFrame.version = InfoFrame[1]>>26;
 			AudioinfoFrame.type = (InfoFrame[1]>>8)&0xFF;
@@ -1140,10 +1199,16 @@ void Dprx_HdcpAuthCallback(void *InstancePtr) {
 	XDpRxSsInst->TmrCtrResetDone = 1;
 	if (XDpTxSs_IsConnected(&DpTxSsInst)) {
 		XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
+#if ENABLE_HDCP1x_IN_TX
 		XDpTxSs_SetPhysicalState(&DpTxSsInst, TRUE);
+#endif
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 		XHdcp1xExample_Poll();
+#endif
 		XDpTxSs_HdcpEnable(&DpTxSsInst);
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 		XHdcp1xExample_Poll();
+#endif
 	}
 }
 

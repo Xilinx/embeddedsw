@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /*****************************************************************************/
@@ -87,17 +85,39 @@
 #include "xgpio.h"
 //#include "xaxis_switch.h"
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #define ENABLE_HDCP_IN_DESIGN			1
+
+#if (ENABLE_HDCP_IN_DESIGN && XPAR_DPRXSS_0_HDCP22_ENABLE)
+#define ENABLE_HDCP22_IN_RX				1
 #else
-#define ENABLE_HDCP_IN_DESIGN			0
+#define ENABLE_HDCP22_IN_RX				0
 #endif
 
-#if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP_IN_DESIGN && XPAR_DPTXSS_0_HDCP22_ENABLE)
+#define ENABLE_HDCP22_IN_TX				1
+#else
+#define ENABLE_HDCP22_IN_TX				0
+#endif
+
+#if (ENABLE_HDCP_IN_DESIGN && XPAR_DPRXSS_0_HDCP_ENABLE)
+#define ENABLE_HDCP1x_IN_RX				1
+#else
+#define ENABLE_HDCP1x_IN_RX				0
+#endif
+
+#if (ENABLE_HDCP_IN_DESIGN && XPAR_DPTXSS_0_HDCP_ENABLE)
+#define ENABLE_HDCP1x_IN_TX				1
+#else
+#define ENABLE_HDCP1x_IN_TX				0
+#endif
+
 #include "xhdcp1x_debug.h"
 #include "xhdcp1x_example.h"
+
 #include "keymgmt.h"
-#endif
+#include "xhdcp22_example.h"
+extern XHdcp22_Repeater     Hdcp22Repeater;
+
 
 #define TxOnly
 #define RxOnly
@@ -149,7 +169,7 @@
 			XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQ_HZ
 /* DP Specific Defines
  */
-#define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_540GBPS
+#define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_810GBPS
 #define DPRXSS_LANE_COUNT        XDPRXSS_LANE_COUNT_SET_4
 #define SET_TX_TO_2BYTE            \
     (XPAR_XDP_0_GT_DATAWIDTH/2)
@@ -272,20 +292,6 @@ typedef struct
         unsigned char link_rate;
 } lane_link_rate_struct;
 
-typedef struct
-{
-        u8 type;
-        u8 version;
-        u8 length;
-        u8 audio_coding_type;
-        u8 audio_channel_count;
-        u8 sampling_frequency;
-        u8 sample_size;
-        u8 level_shift;
-        u8 downmix_inhibit;
-        u8 channel_allocation;
-        u16 info_length;
-} XilAudioInfoFrame;
 /************************** Function Prototypes ******************************/
 void Dprx_HdcpAuthCallback(void *InstancePtr);
 void Dprx_HdcpUnAuthCallback(void *InstancePtr);
@@ -336,7 +342,6 @@ void frameBuffer_start_rd(XVidC_VideoMode VmId,
 
 
 u32 xil_gethex(u8 num_chars);
-void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
 /************************** Variable Definitions *****************************/
 
 //XDpRxSs DpRxSsInst; 	/* The DPRX Subsystem instance.*/
@@ -364,8 +369,7 @@ XV_axi4s_remap          rx_remap;
 XV_axi4s_remap_Config   *tx_remap_Config;
 XV_axi4s_remap          tx_remap;
 
-
-XilAudioInfoFrame *xilInfoFrame;
+XDp_TxAudioInfoFrame *xilInfoFrame;
 XIicPs_Config *XIic0Ps_ConfigPtr;
 XIicPs_Config *XIic1Ps_ConfigPtr;
 

@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -101,6 +99,7 @@ extern const uint64_t  KEYMGMT_TESTKEYS_B2[41];
 *   None.
 *
 ******************************************************************************/
+extern u8 keymgmt[2];
 static KEYMGMT_tError
 doLoadTable(
   tHandler*        theHandler,
@@ -121,14 +120,29 @@ doLoadTable(
 		!= KEYMGMT_ERROR_NONE)
     {
       /* Update theError */
-      theError = -2;
+	if(keymgmt[theHandler->fDevID])
+	{
+		theError = -2;
+	}else
+	{
+      theError = 0;
+	}
     }
   }
   /* Otherwise */
   else
   {
     /* Update theError */
-    theError = -1;
+	  if(keymgmt[theHandler->fDevID])
+	  {
+		  theError = -1;
+	  }
+	  else
+	  {
+		    theError = 0;
+	  }
+
+
   }
 
   /* Return */
@@ -289,7 +303,7 @@ KEYMGMTLDR_Init(
 	xil_printf("\t\t\t[Inside fn KEYMGMTLDR_Init]: do-while;; iterate through");
 	xil_printf("keymgmt handlers - doInit(theHandler) \r\n");
 #endif
-	xil_printf("Loading the keys for Key management module %d \r\n",theNumLeft);
+	xil_printf("\r\nLoading the keys for Key management module %d \r\n",theNumLeft);
 		/* Initialize it */
       if (doInit(theHandler) != KEYMGMT_ERROR_NONE)
         theError = -1;

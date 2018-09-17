@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /*****************************************************************************/
@@ -55,10 +53,21 @@
 XIicPs Ps_Iic0, Ps_Iic1;
 //
 
-#if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 unsigned int gKeyMGMTBaseAddress[2] = {
-		XPAR_DP_RX_HIER_0_HDCP_KEYMNGMT_BLK_0_BASEADDR,
-		XPAR_DP_TX_HIER_0_HDCP_KEYMNGMT_BLK_0_BASEADDR};
+#if ENABLE_HDCP1x_IN_RX
+		XPAR_DP_RX_HIER_0_HDCP_KEYMNGMT_BLK_0_BASEADDR
+#else
+		0
+#endif
+		,
+
+#if ENABLE_HDCP1x_IN_TX
+		XPAR_DP_TX_HIER_0_HDCP_KEYMNGMT_BLK_0_BASEADDR
+#else
+		0
+#endif
+		};
 #else
 unsigned int gKeyMGMTBaseAddress[2] = {0, 0};
 #endif
@@ -490,6 +499,25 @@ u32 DpSs_Main(void)
 	DpSs_VideoPhyInit(XVPHY_DEVICE_ID);
 	set_vphy(0x14);
 
+	 /*Load HDCP22 Keys*/
+	 extern uint8_t Hdcp22Lc128[];
+	 extern uint32_t Hdcp22Lc128_Sz;
+	 extern uint8_t Hdcp22RxPrivateKey[];
+	 extern uint32_t Hdcp22RxPrivateKey_Sz;
+	 XHdcp22_LoadKeys_rx(Hdcp22Lc128,
+	                  Hdcp22Lc128_Sz,
+	                  Hdcp22RxPrivateKey,
+					  Hdcp22RxPrivateKey_Sz);
+
+        /*Set pointers to HDCP 2.2 Keys*/
+        XV_DpRxSs_Hdcp22SetKey(&DpRxSsInst,
+                        XV_DPRXSS_KEY_HDCP22_LC128,
+                        Hdcp22Lc128);
+
+        XV_DpRxSs_Hdcp22SetKey(&DpRxSsInst,
+                        XV_DPRXSS_KEY_HDCP22_PRIVATE,
+                        Hdcp22RxPrivateKey);
+
 #ifdef RxOnly
 	/* Obtain the device configuration
 	 * for the DisplayPort RX Subsystem */
@@ -505,6 +533,14 @@ u32 DpSs_Main(void)
 		xil_printf("DPRXSS config initialization failed.\n\r");
 		return XST_FAILURE;
 	}
+#if (ENABLE_HDCP22_IN_RX | ENABLE_HDCP22_IN_TX)
+        /*Set HDCP upstream interface*/
+        if (XHdcp22_SetUpstream(&Hdcp22Repeater, &DpRxSsInst) != XST_SUCCESS) {
+                xdbg_printf(XDBG_DEBUG_GENERAL,
+                                "DPRXSS ERR: XHdcp22_SetUpstream failed\n\r");
+                return XST_FAILURE;
+        }
+#endif
 
 	/* Check for SST/MST support */
 	if (DpRxSsInst.UsrOpt.MstSupport) {
@@ -524,6 +560,21 @@ u32 DpSs_Main(void)
 	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 50000);
 
 #endif
+
+	/*Load HDCP22 Keys*/
+	extern uint8_t Hdcp22Lc128[];
+	extern uint32_t Hdcp22Lc128_Sz;
+	XHdcp22_LoadKeys_tx(Hdcp22Lc128,
+			Hdcp22Lc128_Sz);
+
+	extern uint8_t Hdcp22Srm[];
+	/*Set pointers to HDCP 2.2 Keys*/
+	XV_DpTxSs_Hdcp22SetKey(&DpTxSsInst,
+			XV_DPTXSS_KEY_HDCP22_LC128,
+			Hdcp22Lc128);
+	XV_DpTxSs_Hdcp22SetKey(&DpTxSsInst,
+			XV_DPTXSS_KEY_HDCP22_SRM,
+			Hdcp22Srm);
 
 #ifdef TxOnly
 /* Obtain the device configuration for the DisplayPort TX Subsystem */
@@ -548,6 +599,19 @@ u32 DpSs_Main(void)
 		xil_printf("INFO:DPTXSS is SST enabled. DPTXSS works "
 			"only in SST mode.\r\n");
 	}
+
+
+#if (ENABLE_HDCP22_IN_RX | ENABLE_HDCP22_IN_TX)
+	extern XHdcp22_Repeater     Hdcp22Repeater;
+	if (XDpTxSs_HdcpIsReady(&DpTxSsInst)) {
+		/* Initialize the HDCP instance */
+
+		XHdcp_Initialize(&Hdcp22Repeater);
+
+		/* Set HDCP downstream interface(s) */
+		XHdcp_SetDownstream(&Hdcp22Repeater, &DpTxSsInst);
+	}
+#endif
 
 	/* Set DP141 Tx driver here. */
     //Keeping 0db gain on RX
@@ -587,7 +651,6 @@ u32 DpSs_Main(void)
 #endif
 
 	DpSs_SetupIntrSystem();
-
 	// Adding custom resolutions at here.
 	xil_printf("INFO> Registering Custom Timing Table with %d entries \r\n",
 							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
@@ -600,7 +663,7 @@ u32 DpSs_Main(void)
     operationMenu();
 	while (1) {
 
-#if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
 #endif
 		UserInput = XUartPs_RecvByte_NonBlocking();
@@ -1355,6 +1418,12 @@ u32 DpSs_SetupIntrSystem(void)
 
 #endif
 #if ENABLE_HDCP_IN_DESIGN
+
+	XScuGic_Connect(IntcInstPtr, XPAR_FABRIC_DP14TXSS_0_DPTXSS_TIMER_IRQ_VEC_ID,
+			(Xil_InterruptHandler)XTmrCtr_InterruptHandler,
+			DpTxSsInst.TmrCtrPtr);
+	XScuGic_Enable(IntcInstPtr, XPAR_FABRIC_DP14TXSS_0_DPTXSS_TIMER_IRQ_VEC_ID);
+
 	/* Hook up Rx interrupt service routine */
 	Status = XScuGic_Connect(IntcInstPtr,
 			XPAR_FABRIC_DP14RXSS_0_DPRXSS_TIMER_IRQ_VEC_ID,
@@ -1844,12 +1913,17 @@ void frameBuffer_start_rd(XVidC_VideoMode VmId,
 					&VidStream);
 
 	// Tx side may change due to sink monitor capability
-//	if(downshift4K == 1){ // if sink is 4K monitor,
+	if(downshift4K == 1){ // if sink is 4K monitor,
 //		VidStream.VmId = VmId; // This will be set as 4K60
 //		TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
 //		VidStream.Timing = *TimingPtr;
 //		VidStream.FrameRate = XVidC_GetFrameRate(VidStream.VmId);
-//	}
+		VidStream.VmId = XVIDC_VM_3840x2160_30_P; //VmId; // This will be set as 4K30
+		                TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
+		                VidStream.Timing = *TimingPtr;
+		                VidStream.FrameRate = XVidC_GetFrameRate(VidStream.VmId);
+
+	}
 
 	ConfigFrmbuf_rd(stride, Cfmt, &VidStream);
 
@@ -2088,15 +2162,7 @@ void Dppt_DetectAudio (void) {
 	appx_fs = (appx_fs * 1000) / 512;
 	appx_fs = appx_fs / 1000;
 
-    if (appx_fs >= 31 && appx_fs <= 33) {
-	appx_fs = 32000;
-	lock = 0;
-
-	} else if (appx_fs >= 43 && appx_fs <= 45) {
-		appx_fs = 44100;
-		lock = 0;
-
-	} else if (appx_fs >= 47 && appx_fs <= 49) {
+     if (appx_fs >= 47 && appx_fs <= 49) {
 		appx_fs = 48000;
 		lock = 0;
 
