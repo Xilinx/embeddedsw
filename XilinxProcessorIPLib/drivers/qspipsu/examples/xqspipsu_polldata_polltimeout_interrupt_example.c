@@ -76,6 +76,7 @@
 * 1.7	tjs 26/03/18 In dual parallel mode enable both CS when issuing Write
 *		     		 enable command. CR-998478
 * 1.8	tjs 16/07/18 Added support for the low density ISSI flash parts.
+* 1.8	tjs 09/14/18 Fixed compilation warnings.
 *</pre>
 *
 ******************************************************************************/
@@ -2182,9 +2183,7 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 	u8 WriteEnableCmd;
 	u8 Cmd;
 	u8 WriteDisableCmd;
-	u8 ReadStatusCmd;
 	u8 WriteBuffer[2] = {0};
-	u8 FlashStatus[2] = {0};
 
 	if (Enable) {
 		Cmd = ENTER_4B_ADDR_MODE;

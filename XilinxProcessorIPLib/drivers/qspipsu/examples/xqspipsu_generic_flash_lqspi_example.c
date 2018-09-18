@@ -78,6 +78,7 @@
 *		     		 enable command. CR-998478
 * 1.8	tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
 * 1.8	tjs 16/07/18 Added support for the low density ISSI flash parts.
+* 1.8	tjs 09/14/18 Fixed compilation warnings.
 *</pre>
 *
 ******************************************************************************/
@@ -660,6 +661,8 @@ int main(void)
 int XQspiPsu_LqspiRead(XQspiPsu *InstancePtr, u8 *RecvBufPtr, u32 Address,
 			unsigned ByteCount)
 {
+	void *ReadAddress = NULL;
+
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(RecvBufPtr != NULL);
 	Xil_AssertNonvoid(ByteCount > 0);
@@ -671,9 +674,9 @@ int XQspiPsu_LqspiRead(XQspiPsu *InstancePtr, u8 *RecvBufPtr, u32 Address,
 
 	if (XQspiPsu_GetLqspiConfigReg(InstancePtr) &
 			XQSPIPSU_LQSPI_CR_LINEAR_MASK) {
-		memcpy(ReadBuffer,
-			(const void *)(XPAR_PSU_QSPI_LINEAR_0_S_AXI_BASEADDR +
-					Address), ByteCount);
+		ReadAddress +=
+			(XPAR_PSU_QSPI_LINEAR_0_S_AXI_BASEADDR + Address);
+		memcpy(ReadBuffer, ReadAddress, ByteCount);
 		return XST_SUCCESS;
 	} else {
 		return XST_FAILURE;
