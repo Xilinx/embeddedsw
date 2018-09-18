@@ -1733,3 +1733,59 @@ XStatus XPm_PinCtrlRelease(const u32 pin)
 {
 	return XPm_PinCtrlAction(pin, PM_PINCTRL_RELEASE);
 }
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to set a pin function
+ *
+ * @param  pin  Pin identifier
+ * @param  fn   Pin function to be set
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ * @note   If the access isn't permitted this function returns an error code.
+ *
+ ****************************************************************************/
+XStatus XPm_PinCtrlSetFunction(const u32 pin, const enum XPmPinFn fn)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD2(payload, PM_PINCTRL_SET_FUNCTION, pin, fn);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status) {
+		return status;
+	}
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+}
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to get currently configured pin function
+ *
+ * @param  pin  PLL node identifier
+ * @param  fn   Location to store the pin function
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ ****************************************************************************/
+XStatus XPm_PinCtrlGetFunction(const u32 pin, enum XPmPinFn* const fn)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD1(payload, PM_PINCTRL_GET_FUNCTION, pin);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status) {
+		return status;
+	}
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, (void*)fn, NULL, NULL);
+}
