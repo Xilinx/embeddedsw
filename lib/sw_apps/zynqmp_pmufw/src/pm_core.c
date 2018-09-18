@@ -1643,7 +1643,7 @@ void PmPllGetMode(PmMaster* const master, const u32 pllId)
 {
 	int status = XST_SUCCESS;
 	PmPll* pll = PmNodeGetPll(pllId);
-	u32 mode;
+	u32 mode = 0;
 
 	PmInfo("%s> PllGetMode(%lu)\r\n", master->name, pllId);
 	if (NULL == pll) {
