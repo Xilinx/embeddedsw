@@ -241,5 +241,9 @@ XStatus XPm_PllGetParameter(const enum XPmNodeId node,
 XStatus XPm_PllSetMode(const enum XPmNodeId node, const enum XPmPllMode mode);
 XStatus XPm_PllGetMode(const enum XPmNodeId node, enum XPmPllMode* const mode);
 
+/* PIN Mux control API */
+XStatus XPm_PinCtrlRequest(const u32 pin);
+XStatus XPm_PinCtrlRelease(const u32 pin);
+
 /** @} */
 #endif /* _PM_API_SYS_H_ */

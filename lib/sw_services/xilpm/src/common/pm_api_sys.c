@@ -1678,3 +1678,58 @@ XStatus XPm_PllGetMode(const enum XPmNodeId node, enum XPmPllMode* const mode)
 	/* Return result from IPI return buffer */
 	return pm_ipi_buff_read32(primary_master, (void*)mode, NULL, NULL);
 }
+
+/****************************************************************************/
+/**
+ * @brief  Locally used function to request or release a pin control
+ *
+ * @param  pin  PIN identifier (index from range 0-77)
+ * @api    API identifier (request or release pin control)
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ ****************************************************************************/
+static XStatus XPm_PinCtrlAction(const u32 pin, const enum XPmApiId api)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD1(payload, api, pin);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status) {
+		return status;
+	}
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+}
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to request a pin control
+ *
+ * @param  pin  PIN identifier (index from range 0-77)
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ ****************************************************************************/
+XStatus XPm_PinCtrlRequest(const u32 pin)
+{
+	return XPm_PinCtrlAction(pin, PM_PINCTRL_REQUEST);
+}
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to release a pin control
+ *
+ * @param  pin  PIN identifier (index from range 0-77)
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ ****************************************************************************/
+XStatus XPm_PinCtrlRelease(const u32 pin)
+{
+	return XPm_PinCtrlAction(pin, PM_PINCTRL_RELEASE);
+}
