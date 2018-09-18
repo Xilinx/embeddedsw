@@ -1789,3 +1789,65 @@ XStatus XPm_PinCtrlGetFunction(const u32 pin, enum XPmPinFn* const fn)
 	/* Return result from IPI return buffer */
 	return pm_ipi_buff_read32(primary_master, (void*)fn, NULL, NULL);
 }
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to set a pin parameter
+ *
+ * @param  pin   Pin identifier
+ * @param  param Pin parameter identifier
+ * @param  value Value of the pin parameter to set
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ * @note   If the access isn't permitted this function returns an error code.
+ *
+ ****************************************************************************/
+XStatus XPm_PinCtrlSetParameter(const u32 pin,
+				const enum XPmPinParam param,
+				const u32 value)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD3(payload, PM_PINCTRL_CONFIG_PARAM_SET, pin, param, value);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status) {
+		return status;
+	}
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+}
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to get currently configured value of pin parameter
+ *
+ * @param  pin   Pin identifier
+ * @param  param Pin parameter identifier
+ * @param  value Location to store value of the pin parameter
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ ****************************************************************************/
+XStatus XPm_PinCtrlGetParameter(const u32 pin,
+				const enum XPmPinParam param,
+				u32* const value)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD2(payload, PM_PINCTRL_CONFIG_PARAM_GET, pin, param);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status) {
+		return status;
+	}
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, value, NULL, NULL);
+}
