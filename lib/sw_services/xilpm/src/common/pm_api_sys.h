@@ -248,5 +248,12 @@ XStatus XPm_PinCtrlRelease(const u32 pin);
 XStatus XPm_PinCtrlSetFunction(const u32 pin, const enum XPmPinFn fn);
 XStatus XPm_PinCtrlGetFunction(const u32 pin, enum XPmPinFn* const fn);
 
+XStatus XPm_PinCtrlSetParameter(const u32 pin,
+				const enum XPmPinParam param,
+				const u32 value);
+XStatus XPm_PinCtrlGetParameter(const u32 pin,
+				const enum XPmPinParam param,
+				u32* const value);
+
 /** @} */
 #endif /* _PM_API_SYS_H_ */
