@@ -163,7 +163,7 @@ static PmNode* PmNodeGetFromClass(const PmNodeClass* const class, const u8 nid)
 void* PmNodeGetDerived(const u8 nodeClass, const u32 nodeId)
 {
 	void* ptr = NULL;
-	PmNode* node;
+	PmNode* node = NULL;
 	PmNodeClass* class = PmNodeGetClassById(nodeClass);
 
 	if (NULL != class) {
