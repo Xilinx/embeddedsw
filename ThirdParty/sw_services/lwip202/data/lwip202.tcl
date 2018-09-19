@@ -1030,7 +1030,7 @@ proc update_emaclite_topology {emac processor topologyvar} {
 proc update_axi_ethernet_topology {emac processor topologyvar} {
 	upvar $topologyvar topology
 	set sw_processor [hsi::get_sw_processor]
-	set proc_type [common::get_property IP_NAME [get_cells $sw_processor]]
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $sw_processor]]
 	set topology(emac_baseaddr) [common::get_property CONFIG.C_BASEADDR $emac]
 	set topology(emac_type) "xemac_type_axi_ethernet"
 
