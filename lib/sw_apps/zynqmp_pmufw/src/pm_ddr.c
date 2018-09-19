@@ -1558,7 +1558,6 @@ static void store_training_data()
 {
 	u32 axi_cs, size, i, j, step, old_map_offset;
 	bool old_mapping;
-	u32 *training_data = (u32 *)RESERVED_ADDRESS;
 
 	axi_cs = ddr_axi_cs();
 	size = ddr_training_size();
@@ -1574,20 +1573,21 @@ static void store_training_data()
 	}
 
 	for (i = 0U, j = 0U; i < size; i++, j += step) {
-		training_data[j] = Xil_In32(i << 2U);
+		Xil_Out32(RESERVED_ADDRESS + (j << 2U), Xil_In32(i << 2U));
 		if ((0 != old_mapping) && (0 != axi_cs)) {
-			training_data[j + 1U] = Xil_In32(old_map_offset +
-							(i << 2U));
-			training_data[j + 2U] = Xil_In32((1U << axi_cs) +
-							(i << 2U));
-			training_data[j + 3U] = Xil_In32(old_map_offset +
-						(1U << axi_cs) + (i << 2U));
+			Xil_Out32(RESERVED_ADDRESS + ((j + 1U) << 2U),
+				  Xil_In32(old_map_offset + (i << 2U)));
+			Xil_Out32(RESERVED_ADDRESS + ((j + 2U) << 2U),
+				  Xil_In32((1U << axi_cs) + (i << 2U)));
+			Xil_Out32(RESERVED_ADDRESS + ((j + 3U) << 2U),
+				  Xil_In32(old_map_offset + (1U << axi_cs) +
+					   (i << 2U)));
 		} else if (0 != old_mapping) {
-			training_data[j + 1U] = Xil_In32(old_map_offset +
-							(i << 2U));
+			Xil_Out32(RESERVED_ADDRESS + ((j + 1U) << 2U),
+				  Xil_In32(old_map_offset + (i << 2U)));
 		} else if (0 != axi_cs) {
-			training_data[j + 1U] = Xil_In32((1U << axi_cs) +
-							(i << 2U));
+			Xil_Out32(RESERVED_ADDRESS + ((j + 1U) << 2U),
+				  Xil_In32((1U << axi_cs) + (i << 2U)));
 		} else {
 		}
 	}
@@ -1597,7 +1597,6 @@ static void restore_training_data()
 {
 	u32 axi_cs, size, i, j, step, old_map_offset;
 	bool old_mapping;
-	u32 *training_data = (u32 *)RESERVED_ADDRESS;
 
 	axi_cs = ddr_axi_cs();
 	size = ddr_training_size();
@@ -1613,20 +1612,20 @@ static void restore_training_data()
 	}
 
 	for (i = 0U, j = 0U; i < size; i++, j += step) {
-		Xil_Out32((i << 2U), training_data[j]);
+		Xil_Out32((i << 2U), Xil_In32(RESERVED_ADDRESS + (j << 2)));
 		if ((0 != old_mapping) && (0 != axi_cs)) {
 			Xil_Out32(old_map_offset + (i << 2U),
-				  training_data[j + 1U]);
+				  Xil_In32(RESERVED_ADDRESS + ((j + 1U) << 2U)));
 			Xil_Out32((1U << axi_cs) + (i << 2U),
-				  training_data[j + 2U]);
+				  Xil_In32(RESERVED_ADDRESS + ((j + 2U) << 2U)));
 			Xil_Out32(old_map_offset + (1U << axi_cs) + (i << 2U),
-				  training_data[j + 3U]);
+				  Xil_In32(RESERVED_ADDRESS + ((j + 3U) << 2U)));
 		} else if (0 != old_mapping) {
 			Xil_Out32(old_map_offset + (i << 2U),
-				  training_data[j + 1U]);
+				  Xil_In32(RESERVED_ADDRESS + ((j + 1U) << 2U)));
 		} else if (0 != axi_cs) {
 			Xil_Out32((1U << axi_cs) + (i << 2U),
-				  training_data[j + 1U]);
+				  Xil_In32(RESERVED_ADDRESS + ((j + 1U) << 2U)));
 		} else {
 		}
 	}
