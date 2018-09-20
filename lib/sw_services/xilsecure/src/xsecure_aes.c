@@ -56,8 +56,6 @@
 *       vns 02/19/18 Modified XSecure_AesKeyZero() to clear KUP and AES key
 *                    Added XSecure_AesKeyZero() call in XSecure_AesDecrypt()
 *                    API to clear keys.
-* 3.2 	ka  08/03/18 Added XSecure_AesKeyZero() call in XSecure_AesEncryptUpdate()
-* 		     API and XSecure_AesDecryptUpdate() API to clear keys.
 *
 * </pre>
 *
@@ -74,8 +72,6 @@
 /* Aes Decrypt zeroization in case of Gcm Tag Mismatch*/
 static u32 XSecure_Zeroize(u8 *DataPtr,u32 Length);
 
-/* Zeroize Aes key */
-static u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr);
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -291,8 +287,6 @@ void XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size
 		/* Wait for AES encryption completion.*/
 		XSecure_AesWaitForDone(InstancePtr);
 
-		/* Zeroize the AES key after use*/
-		XSecure_AesKeyZero(InstancePtr);
 	}
 	/* Update the size of instance */
 	InstancePtr->SizeofData = InstancePtr->SizeofData - Size;
@@ -469,7 +463,6 @@ void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 {
 	u32 GcmStatus;
-	u32 KeyClearStatus;
 	XCsuDma_Configure ConfigurValues = {0};
 	u8 IsFinalUpdate = FALSE;
 
@@ -548,10 +541,6 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 				return GcmStatus;
 			}
 			return XSECURE_CSU_AES_GCM_TAG_MISMATCH;
-		}
-		KeyClearStatus = XSecure_AesKeyZero(InstancePtr);
-		if (KeyClearStatus != XST_SUCCESS) {
-			return KeyClearStatus;
 		}
 	}
 
