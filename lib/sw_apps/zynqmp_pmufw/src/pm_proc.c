@@ -790,10 +790,10 @@ void PmForceDownUnusableRpuCores(void)
 {
 	u32 value;
 
-	value = Xil_In32(PMU_GLOBAL_GLOBAL_GEN_STORAGE7);
+	value = Xil_In32(PMU_GLOBAL_GLOBAL_GEN_STORAGE4);
 
 	/*
-	 * If RPU core is not used then bit of PMU_GLOBAL_GLOBAL_GEN_STORAGE7
+	 * If RPU core is not used then bit of PMU_GLOBAL_GLOBAL_GEN_STORAGE4
 	 * for that core is cleared. So check that bit and force down that core.
 	 */
 	if (!(value & RPU0_STATUS_MASK)) {
