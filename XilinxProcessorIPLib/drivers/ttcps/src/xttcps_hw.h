@@ -29,7 +29,7 @@
 /**
 *
 * @file xttcps_hw.h
-* @addtogroup ttcps_v3_5
+* @addtogroup ttcps_v3_7
 * @{
 *
 * This file defines the hardware interface to one of the three timer counters
