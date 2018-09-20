@@ -29,7 +29,7 @@
 /**
 *
 * @file xttcps.h
-* @addtogroup ttcps_v3_5
+* @addtogroup ttcps_v3_7
 * @{
 * @details
 *

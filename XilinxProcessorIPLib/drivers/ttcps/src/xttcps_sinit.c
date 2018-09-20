@@ -29,7 +29,7 @@
 /**
 *
 * @file xttcps_sinit.c
-* @addtogroup ttcps_v3_5
+* @addtogroup ttcps_v3_7
 * @{
 *
 * The implementation of the XTtcPs driver's static initialization functionality.
