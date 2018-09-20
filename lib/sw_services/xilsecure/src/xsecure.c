@@ -462,6 +462,7 @@ static u32 XSecure_DecryptData(u32 AddrHigh, u32 AddrLow)
 	u64 WrAddr = ((u64)AddrHigh << 32) | AddrLow;
 	XSecure_AesParams *AesParams = (XSecure_AesParams *)(UINTPTR)WrAddr;
 	u32 Status = XST_SUCCESS;
+	u32 KeyClearStatus;
 	u64 SrcAddr;
 	u64 DstAddr;
 	u64 GcmTagAddr;
@@ -481,6 +482,12 @@ static u32 XSecure_DecryptData(u32 AddrHigh, u32 AddrLow)
 			(u8 *)(UINTPTR)SrcAddr,
 			AesParams->Size,
 			(u8 *)(UINTPTR)GcmTagAddr);
+
+	KeyClearStatus = XSecure_AesKeyZero(&SecureAes);
+	if (KeyClearStatus != XST_SUCCESS) {
+		return KeyClearStatus;
+	}
+
 	return Status;
 }
 
@@ -504,6 +511,7 @@ static u32 XSecure_EncryptData(u32 AddrHigh, u32 AddrLow)
 	u64 WrAddr = ((u64)AddrHigh << 32) | AddrLow;
 	XSecure_AesParams *AesParams = (XSecure_AesParams *)(UINTPTR)WrAddr;
 	u32 Status = XST_SUCCESS;
+	u32 KeyClearStatus;
 	u64 SrcAddr;
 	u64 DstAddr;
 
@@ -518,6 +526,11 @@ static u32 XSecure_EncryptData(u32 AddrHigh, u32 AddrLow)
 			(u8 *)(UINTPTR)DstAddr,
 			(u8 *)(UINTPTR)SrcAddr,
 			AesParams->Size);
+
+	KeyClearStatus = XSecure_AesKeyZero(&SecureAes);
+        if (KeyClearStatus != XST_SUCCESS) {
+                return KeyClearStatus;
+        }
 
 	return Status;
 }

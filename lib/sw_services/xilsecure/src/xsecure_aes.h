@@ -244,6 +244,10 @@ void XSecure_AesSetChunking(XSecure_Aes *InstancePtr, u8 Chunking);
 /* Configuring Data chunking settings */
 void XSecure_AesSetChunkConfig(XSecure_Aes *InstancePtr, u8 *ReadBuffer,
 		u32 ChunkSize, u32(*DeviceCopy)(u32, UINTPTR, u32));
+
+/* Zerioze the Aes key */
+u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr);
+
 /** @}
 @endcond */
 
