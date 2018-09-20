@@ -86,7 +86,6 @@ extern "C" {
 #include "xstatus.h"
 #include "xil_io.h"
 #include "xpciepsu_hw.h"
-#include "xpciepsu_ht.h"
 
 /**************************** Constant Definitions ****************************/
 
