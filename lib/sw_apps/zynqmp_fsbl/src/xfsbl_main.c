@@ -165,8 +165,9 @@ int main(void )
 					 * mode.
 					 */
 					Xil_Out32(XFSBL_R5_USAGE_STATUS_REG,
-						  XFSBL_R5_0_STATUS_MASK |
-						  XFSBL_R5_1_STATUS_MASK);
+						  (Xil_In32(XFSBL_R5_USAGE_STATUS_REG) |
+						   (XFSBL_R5_0_STATUS_MASK |
+						    XFSBL_R5_1_STATUS_MASK)));
 
 					/**
 					 * This is JTAG boot mode, go to the handoff stage

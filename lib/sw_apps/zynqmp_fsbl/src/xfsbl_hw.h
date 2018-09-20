@@ -339,7 +339,6 @@ extern "C" {
 #define PMU_GLOBAL_GLOB_GEN_STORAGE4 	( ( PMU_GLOBAL_BASEADDR ) + 0X40U )
 #define PMU_GLOBAL_GLOB_GEN_STORAGE1    ( ( PMU_GLOBAL_BASEADDR ) + 0X34U )
 #define PMU_GLOBAL_GLOB_GEN_STORAGE2    ( ( PMU_GLOBAL_BASEADDR ) + 0X38U )
-#define PMU_GLOBAL_GLOB_GEN_STORAGE7    ( ( PMU_GLOBAL_BASEADDR ) + 0X4CU )
 
 /**
  * Register: PMU_GLOBAL_PERS_GLOB_GEN_STORAGE4
@@ -786,13 +785,13 @@ extern "C" {
 #define XFSBL_R5_L				(0x2U)
 
 /**
- * To indicate usage of RPU cores to PMU, PMU_GLOBAL_GLOB_GEN_STORAGE7 is used
+ * To indicate usage of RPU cores to PMU, PMU_GLOBAL_GLOB_GEN_STORAGE4 is used
  */
-#define XFSBL_R5_USAGE_STATUS_REG		(PMU_GLOBAL_GLOB_GEN_STORAGE7)
-/* Bit 0 of rpu uasge status register is used for R50 status */
-#define XFSBL_R5_0_STATUS_MASK			(1U << 0)
-/* Bit 1 of rpu usage status register is used for R51 status */
-#define XFSBL_R5_1_STATUS_MASK			(1U << 1)
+#define XFSBL_R5_USAGE_STATUS_REG		(PMU_GLOBAL_GLOB_GEN_STORAGE4)
+/* Bit 1 of rpu uasge status register is used for R50 status */
+#define XFSBL_R5_0_STATUS_MASK			(1U << 1)
+/* Bit 2 of rpu usage status register is used for R51 status */
+#define XFSBL_R5_1_STATUS_MASK			(1U << 2)
 
 /**
  * TCM address for R5
