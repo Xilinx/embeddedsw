@@ -1,6 +1,6 @@
 ;******************************************************************************
 ;
-; Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
+; Copyright (C) 2014 - 2018 Xilinx, Inc. All rights reserved.
 ;
 ; Permission is hereby granted, free of charge, to any person obtaining a copy
 ; of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,9 @@
 ; 6.6  mus   02/23/17 Disable the debug logic in non-JTAG boot mode(when
 ;		      processor is in lockstep configuration), based
 ;		      on the mld parameter "lockstep_mode_debug".
+* 6.8  mus   09/20/18 Clear VINITHI field in RPU_0_CFG/RPU_1_CFG
+*		      registers to initialize CortexR5 core with LOVEC
+*		      on reset. It fixes CR#1010656.
 ;
 ;  </pre>
 ;
@@ -75,6 +78,8 @@
 vector_base     EQU     _vector_table
 RPU_GLBL_CNTL   EQU     0xFF9A0000
 RPU_ERR_INJ     EQU	0xFF9A0020
+RPU_0_CFG       EQU     0xFF9A0100
+RPU_1_CFG       EQU     0xFF9A0200
 RST_LPD_DBG     EQU	0xFF5E0240
 BOOT_MODE_USER  EQU	0xFF5E0200
 fault_log_enable EQU     0x101
@@ -280,6 +285,16 @@ init
 	mvn	r1, #0x2000
 	and	r0, r0, r1
 	mcr	p15, 0, r0, c1, c0, 0
+
+ ; Clear VINITHI to enable LOVEC on reset
+#if XPAR_CPU_ID == 0
+	ldr	r0, =RPU_0_CFG
+#else
+	ldr	r0, =RPU_1_CFG
+#endif
+	ldr	r1, [r0]
+	bic	r1, r1, #(0x1 << 2)
+	str	r1, [r0]
 #endif
 
  ; enable asynchronous abort exception
