@@ -62,7 +62,6 @@
 /******************************** Include Files *******************************/
 
 #include "xpciepsu.h"
-#include "xpciepsu_ht.h"
 #include "stdio.h"
 #include "xil_printf.h"
 #include "xparameters.h" /* Defines for XPAR constants */
@@ -109,9 +108,6 @@ int main(void)
 	XPciePsuEnumerate_Fabric(&PciePsuInstance);
 
 	xil_printf("\r\nSuccessfully ran PSU PCIe rc enumerate Example\r\n");
-
-	/* de-init Bar address values saved. */
-	ht_deinit();
 
 	return XST_SUCCESS;
 }

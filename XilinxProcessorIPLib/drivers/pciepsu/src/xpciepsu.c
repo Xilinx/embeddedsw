@@ -43,7 +43,6 @@
 *******************************************************************************/
 /******************************** Include Files *******************************/
 #include "xpciepsu.h"
-#include "xpciepsu_ht.h"
 #include "xpciepsu_common.h"
 #include "sleep.h"
 /**************************** Constant Definitions ****************************/
@@ -510,7 +509,6 @@ static int alloc_bar_space(XPciePsu *InstancePtr, u32 headertype, u8 Bus,
 
 	u32 ConfigData;
 	u8 max_bars = 0;
-	u64 bars[MAX_BARS] = {};
 
 	if (headertype == PCIE_CFG_HEADER_O_TYPE) {
 		/* For endpoints */
@@ -621,19 +619,12 @@ static int alloc_bar_space(XPciePsu *InstancePtr, u32 headertype, u8 Bus,
 				Bus, Device, Function, bar_no, bar_addr,
 				((2 << (TestWrite - 1)) / 1024));
 		}
-		bars[bar_no] = (u64)bar_addr;
-
 		/* no need to probe next bar if present BAR requires 64 bit AS
 		 */
 		if ((size & 0x6) == 0x4)
 			bar_no = bar_no + 1;
 	}
 
-	/* write BAR address to hash table */
-	XPciePsu_ReadRemoteConfigSpace(InstancePtr, Bus, Device,
-				       Function, PCIE_CFG_ID_REG,
-				       &ConfigData);
-	ht_set(ConfigData, bars, Bus, Device, Function);
 	return XST_SUCCESS;
 }
 
