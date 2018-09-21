@@ -40,6 +40,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   mn   08/17/18 Initial release
+ *       mn   09/21/18 Modify code manually enter the DDR memory test size
  *
  * </pre>
  *
@@ -627,6 +628,7 @@ int main(void)
 	u32 Index;
 	u32 BusWidth;
 	s8 Ch;
+	s8 SizeChar;
 
 	/* By Default, the Verbose Mode is Disabled */
 	Verbose = 0U;
@@ -676,8 +678,32 @@ int main(void)
 		}
 		outbyte(Ch);
 
-		if (Ch >= '0' && Ch <= '9') {
-			TestSize = 0x10 << (Ch - '0');
+		if (((Ch >= '0') && (Ch <= '9')) ||
+			((Ch == 'm') || (Ch == 'M')) ||
+			((Ch == 'g') || (Ch == 'G'))) {
+			if ((Ch >= '0') && (Ch <= '9')) {
+				TestSize = 0x10 << (Ch - '0');
+			} else {
+				xil_printf("\r\n Enter the size in %s : ",
+						((Ch == 'm') || (Ch == 'M')) ? "MB" : "GB");
+				TestSize = 0;
+				do {
+					SizeChar = inbyte();
+					xil_printf("%c", SizeChar);
+					if (SizeChar >= '0' && SizeChar <= '9') {
+						TestSize = (TestSize * 10) + (SizeChar - '0');
+					} else if (SizeChar != '\n') {
+						TestSize = 0;
+						xil_printf("\r\nPlease enter numeric value : ");
+					} else {
+						outbyte('\n');
+					}
+				} while (SizeChar != '\n');
+
+				TestSize = ((Ch == 'g') || (Ch == 'G')) ?
+							(TestSize * XMT_KB2BYTE) : TestSize;
+			}
+
 			if (((StartAddr + TestSize) * XMT_MB2BYTE) <=
 					XMT_DDR_MAX_SIZE) {
 				xil_printf("\r\nStarting Memory Test...\r\n");
