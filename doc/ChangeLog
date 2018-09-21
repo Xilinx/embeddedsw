@@ -14,6 +14,11 @@ Fix cppcheck, gcc and doxygen warnings.
 can_v3_3:
 Fix cppcheck and GCC warnings.
 
+canfd_v1_3:
+Fix cppcheck, gcc and doxygen warnings.
+Changed the Canfd ID with 11 bit value.
+Fixed Selftest Hang issue (CR#1009802)
+
 emacps_v3_8:
 Fix cppcheck, GCC and doxygen warnings.
 Remove duplicate code in xemacps_bd.h
