@@ -39,6 +39,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   mn   08/17/18 Initial release
+ *       mn   09/21/18 Modify code manually enter the DDR memory test size
  *
  * </pre>
  *
@@ -398,6 +399,8 @@ void XMt_PrintHelp(void)
 	xil_printf("   | '7' | Test first 2GB region of DDR                                 |\r\n");
 	xil_printf("   | '8' | Test first 4GB region of DDR                                 |\r\n");
 	xil_printf("   | '9' | Test first 8GB region of DDR                                 |\r\n");
+	xil_printf("   | 'm' | Test user specified size in MB of DDR                        |\r\n");
+	xil_printf("   | 'g' | Test user specified size in GB of DDR                        |\r\n");
 	xil_printf("   +-----+--------------------------------------------------------------+\r\n");
 	xil_printf("   |  Eye Tests                                                         |\r\n");
 	xil_printf("   +-----+--------------------------------------------------------------+\r\n");
