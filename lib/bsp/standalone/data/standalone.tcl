@@ -1089,14 +1089,14 @@ proc handle_profile_opbtimer { config_file timer_inst } {
     set intr_port_list [::hsi::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells -hier $timer_handle] INTERRUPT]]
     set timer_connection 0
     foreach intr_port $intr_port_list {
-	set intc_handle [hsi::get_cells -of_object $intr_port]
+	set intc_handle [hsi::get_cells -of_objects $intr_port]
 
 	# Check if the Sink is a Concat IP
 	if {[common::get_property IP_NAME [hsi::get_cells -hier $intc_handle]] == "xlconcat"} {
 		set dout [hsi::get_pins -of_object [hsi::get_cells -hier $intc_handle] -filter DIRECTION=="O"]
 		set intr_pins [::hsi::utils::get_sink_pins [hsi::get_pins $dout]]
 		for {set intr_pins_index 0} {$intr_pins_index < [llength $intr_pins]} {incr intr_pins_index} {
-			set intr_ip [hsi::get_cells -of_object [lindex $intr_pins $intr_pins_index]]
+			set intr_ip [hsi::get_cells -of_objects [lindex $intr_pins $intr_pins_index]]
 			for {set intr_ip_index 0} {$intr_ip_index < [llength $intr_ip]} {incr intr_ip_index} {
 				if {[common::get_property IP_TYPE [hsi::get_cells -hier [lindex $intr_ip $intr_ip_index]]] == "INTERRUPT_CNTLR"} {
 					set intc_handle [hsi::get_cells -hier [lindex $intr_ip $intr_ip_index]]
