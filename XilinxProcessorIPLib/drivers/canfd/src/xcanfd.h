@@ -216,6 +216,9 @@ exclusion
 *					  XCanFd_SetBitRateSwitch_EnableNominal.
 *					  Changed value of Canfd Id to 11 bit value to comply
 *					  with standard Can ID.
+*	ask  09/21/18 Fixed CanFD hang issue in selftest by correcting the
+*  	   	      Configuration regarding the Baud Rate and bit timing
+*		      for both Arbitration and Data Phase.
 *
 * </pre>
 *
