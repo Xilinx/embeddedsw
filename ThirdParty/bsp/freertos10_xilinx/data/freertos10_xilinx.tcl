@@ -48,6 +48,28 @@ proc FreeRTOS_drc {os_handle} {
 	}
 }
 
+proc Check_ttc_ip {instance_name} {
+	set cortexa53cpu [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa53"]
+	if {[llength $cortexa53cpu] > 0} {
+		set ttc_ips [get_cell -hier -filter {IP_NAME== "psu_ttc"}]
+	} else {
+		set ttc_ips [get_cell -hier -filter {IP_NAME== "ps7_ttc"}]
+	}
+
+	if { [llength $ttc_ips] != 0 } {
+		foreach ttc_ip $ttc_ips {
+			if {[string compare -nocase $ttc_ip $instance_name] == 0} {
+				set isintr [::hsm::utils::is_ip_interrupting_current_proc $ttc_ip]
+				if {$isintr == 1} {
+					return
+				} else {
+					error "FreeRTOS requires timer with interrupt enabled. $ttc_ip is not connected to interrupt controller."
+				}
+			}
+		}
+	}
+	error "FreeRTOS requires valid ticker timer. The HW platform doesn't have a specified ticker timer $instance_name."
+}
 proc generate {os_handle} {
 
 	set standalone_version [get_standalone_version]
@@ -625,6 +647,7 @@ proc generate {os_handle} {
 		set val [common::get_property CONFIG.PSU_TTC0_Select $os_handle]
 		if {$val == "true"} {
 			set have_tick_timer 1
+			Check_ttc_ip "psu_ttc_0"
 			set val1 [common::get_property CONFIG.PSU_TTC0_Select_Cntr $os_handle]
 			if {$val1 == "0"} {
 				xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_0_DEVICE_ID"
@@ -653,6 +676,7 @@ proc generate {os_handle} {
 				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 			} else {
 				set have_tick_timer 1
+				Check_ttc_ip "psu_ttc_1"
 				set val1 [common::get_property CONFIG.PSU_TTC1_Select_Cntr $os_handle]
 				if {$val1 == "0"} {
 					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_3_DEVICE_ID"
@@ -682,6 +706,7 @@ proc generate {os_handle} {
 				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 			} else {
 				set have_tick_timer 1
+				Check_ttc_ip "psu_ttc_2"
 				set val1 [common::get_property CONFIG.PSU_TTC2_Select_Cntr $os_handle]
 				if {$val1 == "0"} {
 					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_6_DEVICE_ID"
@@ -711,6 +736,7 @@ proc generate {os_handle} {
 				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 			} else {
 				set have_tick_timer 1
+				Check_ttc_ip "psu_ttc_3"
 				set val1 [common::get_property CONFIG.PSU_TTC3_Select_Cntr $os_handle]
 				if {$val1 == "0"} {
 					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_9_DEVICE_ID"
@@ -777,6 +803,7 @@ proc generate {os_handle} {
 		set val [common::get_property CONFIG.PSU_TTC0_Select $os_handle]
 		if {$val == "true"} {
 			set have_tick_timer 1
+			Check_ttc_ip "psu_ttc_0"
 			set val1 [common::get_property CONFIG.PSU_TTC0_Select_Cntr $os_handle]
 			if {$val1 == "0"} {
 				xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_0_DEVICE_ID"
@@ -805,6 +832,7 @@ proc generate {os_handle} {
 				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 			} else {
 				set have_tick_timer 1
+				Check_ttc_ip "psu_ttc_1"
 				set val1 [common::get_property CONFIG.PSU_TTC1_Select_Cntr $os_handle]
 				if {$val1 == "0"} {
 					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_3_DEVICE_ID"
@@ -834,6 +862,7 @@ proc generate {os_handle} {
 				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 			} else {
 				set have_tick_timer 1
+				Check_ttc_ip "psu_ttc_2"
 				set val1 [common::get_property CONFIG.PSU_TTC2_Select_Cntr $os_handle]
 				if {$val1 == "0"} {
 					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_6_DEVICE_ID"
@@ -863,6 +892,7 @@ proc generate {os_handle} {
 				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 			} else {
 				set have_tick_timer 1
+				Check_ttc_ip "psu_ttc_3"
 				set val1 [common::get_property CONFIG.PSU_TTC3_Select_Cntr $os_handle]
 				if {$val1 == "0"} {
 					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_9_DEVICE_ID"
@@ -932,6 +962,7 @@ proc generate {os_handle} {
 				set val [common::get_property CONFIG.PSU_TTC0_Select $os_handle]
 				if {$val == "true"} {
 					set have_tick_timer 1
+					Check_ttc_ip "psu_ttc_0"
 					set val1 [common::get_property CONFIG.PSU_TTC0_Select_Cntr $os_handle]
 					set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ttc_ip] [format "ps_pl_irq_ttc0_%d" $val1] ]
 					set intcname [::hsi::utils::get_connected_intr_cntrl $ttc_ip  $intr_pin_name]
@@ -950,6 +981,7 @@ proc generate {os_handle} {
 						error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 					} else {
 						set have_tick_timer 1
+						Check_ttc_ip "psu_ttc_1"
 						set val1 [common::get_property CONFIG.PSU_TTC1_Select_Cntr $os_handle]
 						set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ttc_ip] [format "ps_pl_irq_ttc1_%d" $val1] ]
 						set intcname [::hsi::utils::get_connected_intr_cntrl $ttc_ip  $intr_pin_name]
@@ -969,6 +1001,7 @@ proc generate {os_handle} {
 						error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 					} else {
 						set have_tick_timer 1
+						Check_ttc_ip "psu_ttc_2"
 						set val1 [common::get_property CONFIG.PSU_TTC2_Select_Cntr $os_handle]
 						set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ttc_ip] [format "ps_pl_irq_ttc2_%d" $val1] ]
 						set intcname [::hsi::utils::get_connected_intr_cntrl $ttc_ip  $intr_pin_name]
@@ -988,6 +1021,7 @@ proc generate {os_handle} {
 						error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 					} else {
 						set have_tick_timer 1
+						Check_ttc_ip "psu_ttc_3"
 						set val1 [common::get_property CONFIG.PSU_TTC3_Select_Cntr $os_handle]
 						set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ttc_ip] [format "ps_pl_irq_ttc2_%d" $val1] ]
 						set intcname [::hsi::utils::get_connected_intr_cntrl $ttc_ip  $intr_pin_name]
