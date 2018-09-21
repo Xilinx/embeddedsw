@@ -40,7 +40,7 @@ proc FreeRTOS_drc {os_handle} {
 	global env
 
 	set sw_proc_handle [hsi::get_sw_processor]
-	set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
 	set proctype [common::get_property IP_NAME $hw_proc_handle]
 
 	if { $proctype == "microblaze" } {
@@ -53,7 +53,7 @@ proc generate {os_handle} {
 	set standalone_version [get_standalone_version]
 	set have_tick_timer 0
 	set sw_proc_handle [hsi::get_sw_processor]
-	set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
 	set proctype [common::get_property IP_NAME $hw_proc_handle]
 	set need_config_file "false"
 	set enable_sw_profile [common::get_property CONFIG.enable_sw_intrusive_profiling $os_handle]
@@ -1086,7 +1086,7 @@ proc xhandle_mb_interrupts {} {
 
 	# Handle the interrupt pin
 	set sw_proc_handle [get_sw_processor]
-	set periph [get_cells $sw_proc_handle]
+	set periph [get_cells -hier $sw_proc_handle]
 	set source_ports [xget_interrupt_sources $periph]
 	if {[llength $source_ports] > 1} {
 		error "Too many interrupting ports on the MicroBlaze.  Should only find 1" "" "error"
@@ -1217,7 +1217,7 @@ proc xcreate_mb_exc_config_file { } {
     puts $hconfig_file "\n"
 
     set sw_proc_handle [get_sw_processor]
-    set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
+    set hw_proc_handle [get_cells -hier [get_property HW_INSTANCE $sw_proc_handle] ]
     set proctype [get_property IP_NAME $hw_proc_handle]
     set procver [get_ip_version $hw_proc_handle]
 
