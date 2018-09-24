@@ -47,6 +47,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 1.00a drg  01/30/10 First release
+* 3.10  mus  09/19/18 Update prototype of LowInterruptHandler to fix the GCC
+*                     warning
 * </pre>
 ******************************************************************************/
 
@@ -84,7 +86,7 @@ static int ScuGicLowLevelExample(u32 CpuBaseAddress, u32 DistBaseAddress);
 
 void SetupInterruptSystem();
 
-void LowInterruptHandler(void *CallbackRef);
+void LowInterruptHandler(u32 CallbackRef);
 
 static void GicDistInit(u32 BaseAddress);
 
@@ -220,7 +222,7 @@ void SetupInterruptSystem(void)
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
 			(Xil_ExceptionHandler) LowInterruptHandler,
-			(void *)CPU_BASEADDR);
+			CPU_BASEADDR);
 
 	/*
 	 * Enable interrupts in the ARM
@@ -242,26 +244,21 @@ void SetupInterruptSystem(void)
 *           by the XScuGic driver.  It was given to the XScuGic driver in the
 *           XScuGic_Connect() function call.  It is typically a pointer to the
 *           device driver instance variable if using the Xilinx Level 1 device
-*           drivers.  In this example, we do not care about the callback
-*           reference, so we passed it a 0 when connecting the handler to the
-*           XScuGic driver and we make no use of it here.
+*           drivers.  In this example, we are passing it as scugic cpu
+*           interface base address to access ack and EOI registers.
 *
 * @return   None.
 *
 * @note     None.
 *
 ******************************************************************************/
-void LowInterruptHandler(void *CallbackRef)
+void LowInterruptHandler(u32 CallbackRef)
 {
 	u32 BaseAddress;
 	u32 IntID;
 
 
-	if (NULL == CallbackRef) {
-		return;
-	}
-
-	BaseAddress = (u32)CallbackRef;
+	BaseAddress = CallbackRef;
 
 	/*
 	 * Read the int_ack register to identify the interrupt and
