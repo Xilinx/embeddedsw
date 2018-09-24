@@ -888,7 +888,7 @@ proc get_psu_interrupt_id { ip_name port_name } {
 	        set sink_pin $pin
 
 	        set sink_periph [::hsi::get_cells -of_objects $sink_pin]
-	        set connected_ip [get_property IP_NAME [get_cells $sink_periph]]
+	        set connected_ip [get_property IP_NAME [get_cells -hier $sink_periph]]
 	        if { [string compare -nocase "$connected_ip" "xlconcat"] == 0 } {
 	            set number [regexp -all -inline -- {[0-9]+} $sink_pin]
 	            set dout "dout"
