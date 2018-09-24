@@ -123,7 +123,7 @@ static s32 XRFdc_Strrncmp(const char *Str1Ptr, const char *Str2Ptr, size_t Count
 *
 * @param	DevNamePtr is base address of char array, where device name
 *			will be stored
-* @param	DeviceId contains the ID of the device to look up the
+* @param	DevId contains the ID of the device to look up the
 *			RFDC device name entry in "/sys/bus/platform/device"
 *
 * @return
