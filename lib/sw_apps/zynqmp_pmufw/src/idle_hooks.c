@@ -246,17 +246,16 @@ void NodeGemIdle(u32 BaseAddress)
 
 void NodeQspiIdle(u32 BaseAddress)
 {
-	u32 StatusReg;
-	u32 Timeout = MAX_TIMEOUT;
+	volatile u32 StatusReg;
 	/*
-	 * Wait for the transfer to finish by polling Tx fifo status.
+	 * If QSPI is enabled, pause Tx and Rx DMA.
 	 */
-	do {
-		StatusReg = XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_XFER_STS_OFFSET);
-	} while ((StatusReg != 0) && --Timeout);
-
-	if (Timeout == 0) {
-		PmWarn("qspi not idle\r\n");
+	StatusReg = XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_EN_OFFSET);
+	if (StatusReg & XQSPIPSU_EN_MASK) {
+		StatusReg = XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_QSPIDMA_DST_CTRL_OFFSET);
+		StatusReg |= (XQSPIPSU_QSPIDMA_DST_CTRL_PAUSE_STRM_MASK |
+			      XQSPIPSU_QSPIDMA_DST_CTRL_PAUSE_MEM_MASK);
+		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_QSPIDMA_DST_CTRL_OFFSET, StatusReg);
 	}
 }
 
