@@ -119,6 +119,10 @@ coverity, checkpatch and doxygen. It fixes
 CR#1006344.
 Resolves MISRA-C:2012 mandatory violations.
 It fixes CR#1007753.
+Fix GCC,cppcheck and doxygen warnings in driver
+and example. It fixes CR#1006344 and CR#1010947.
+Update scugic tcl to add -hier option while
+using get_cells command. It fixes CR#1011395.
 
 tmrctr_v4_6:
 Updated driver examples to call TmrCtrDisableIntr
