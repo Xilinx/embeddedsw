@@ -44,6 +44,7 @@
 *		       for all USB IPs.
 *	myk   12/01/18 Added hibernation support for device mode
 * 1.4	vak   30/05/18 Removed xusb_wrapper files
+*	vak   24/09/18 Add support for connecting to host in high-speed
 * </pre>
 *
 *****************************************************************************/
@@ -452,6 +453,7 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 {
 	s32 Status;
 	u32 RegVal;
+	u32 Speed;
 
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -481,9 +483,15 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 	XUsbPsu_SetMode(InstancePtr, XUSBPSU_GCTL_PRTCAP_DEVICE);
 
 	/*
+	 * Set connection speed based on EnableSuperSpeed parameter
+	 */
+	Speed = (ConfigPtr->EnableSuperSpeed) ?
+			XUSBPSU_DCFG_SUPERSPEED : XUSBPSU_DCFG_HIGHSPEED;
+
+	/*
 	 * Setting to max speed to support SS and HS
 	 */
-	XUsbPsu_SetSpeed(InstancePtr, XUSBPSU_DCFG_SUPERSPEED);
+	XUsbPsu_SetSpeed(InstancePtr, Speed);
 
 	(void)XUsbPsu_SetDeviceAddress(InstancePtr, 0U);
 

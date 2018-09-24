@@ -58,6 +58,8 @@
 *	vak   22/01/18 Added changes for supporting microblaze platform
 *	vak   13/03/18 Moved the setup interrupt system calls from driver to
 *		       example.
+*	vak   24/09/18 Added EnableSuperSpeed in XUsbPsu_Config for speed
+*	               negotation at the time of connection to Host
 *
 * </pre>
 *
@@ -381,6 +383,7 @@ typedef struct {
         u16 DeviceId;		/**< Unique ID of controller */
         u32 BaseAddress;	/**< Core register base address */
 		u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
+	u8 EnableSuperSpeed;	/**< Set to enable super speed support */
 } XUsbPsu_Config;
 
 typedef XUsbPsu_Config Usb_Config;
