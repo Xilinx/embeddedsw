@@ -296,6 +296,9 @@ void NodeUsbIdle(u32 BaseAddress)
 			/* Issue EndTransfer command */
 			RscIdx = XUSBPSU_DEPCMD_GET_RSC_IDX(Xil_In32(BaseAddress
 						+ XUSBPSU_DEPCMD(PhyEpNum)));
+			if (RscIdx == 0) {
+				continue;
+			}
 
 			Cmd = XUSBPSU_DEPCMD_ENDTRANSFER;
 			Cmd |= XUSBPSU_DEPCMD_CMDIOC;
