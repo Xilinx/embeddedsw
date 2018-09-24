@@ -168,6 +168,7 @@ Fixed compilation warnings.
 usbpsu_v1_4
 Fixed the errors which occur when tested with IAR compiler
 Added the new examples into mss file
+Add support for connecting to host in high-speed
 
 uartps_v3_7:
 Resolved MISRA-C mandatory violations.(CR#1007755)
