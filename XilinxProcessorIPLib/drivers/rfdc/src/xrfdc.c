@@ -123,6 +123,8 @@
 *                       XRFdc_CfgInitialize() and XRFdc_MultiBand()  APIs.
 *                       Reorganize the code to improve readability and
 *                       optimization.
+*       sk     09/24/18 Update powerup-state value based on PLL mode in
+*                       XRFdc_DynamicPLLConfig() API.
 * </pre>
 *
 ******************************************************************************/
@@ -5189,9 +5191,13 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr,
 			XRFDC_CLK_NETWORK_CTRL1, XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK,
 			XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK);
+		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+				XRFDC_HSCOM_PWR_STATS_PLL);
 	} else {
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1,
 				XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK, 0x0);
+		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+				XRFDC_HSCOM_PWR_STATS_EXTERNAL);
 		SamplingRate /= XRFDC_MILLI;
 
 		if (Type == XRFDC_ADC_TILE) {

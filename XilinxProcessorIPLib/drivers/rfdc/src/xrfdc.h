@@ -178,6 +178,8 @@
 *                       It has been done to have 1:1 mapping between
 *                       XRFdc_Config structure and device tree property
 *                       "param-list", over linux platform.
+*       sk     09/24/18 Update powerup-state value based on PLL mode in
+*                       XRFdc_DynamicPLLConfig() API.
 *
 * </pre>
 *
@@ -784,6 +786,9 @@ typedef struct {
 #define XRFDC_FAB_RATE_4	4
 #define XRFDC_FAB_RATE_2	2
 #define XRFDC_FAB_RATE_1	1
+
+#define XRFDC_HSCOM_PWR_STATS_PLL		0xFFC0U
+#define XRFDC_HSCOM_PWR_STATS_EXTERNAL	0xF240U
 
 /*****************************************************************************/
 /**
