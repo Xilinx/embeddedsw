@@ -121,6 +121,7 @@
 *                     reported by checkpatch. It fixes CR#1006344. 
 * 3.10  aru  08/23/18 Resolved MISRA-C:2012 compliance mandatory violations
 *                     It fixes CR#1007753.
+* 3.10  mus  09/19/18 Fix cppcheck warnings
 * </pre>
 *
 ******************************************************************************/
@@ -270,9 +271,9 @@ static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 	return;
 #endif
 
+	Xil_AssertVoid(InstancePtr != NULL);
 	RegValue = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
 	if ((RegValue & XSCUGIC_EN_INT_MASK) == 0U) {
-		Xil_AssertVoid(InstancePtr != NULL);
 		DoDistributorInit(InstancePtr, CpuID);
 		return;
 	}
