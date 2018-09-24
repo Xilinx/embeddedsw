@@ -74,6 +74,8 @@
 *                     reported by checkpatch. It fixes CR#1006344.
 * 3.10  aru  08/23/18 Resolved MISRA-C:2012 compliance mandatory violations
 *                     It fixes CR#1007753
+* 3.10  mus  09/19/18 Update documentation for XScuGic_RegisterHandler to
+*                     fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -381,7 +383,7 @@ IntrExit:
 *		interrupt controller whose vector table will be modified.
 * @param	InterruptID is the interrupt ID to be associated with the input
 *		handler.
-* @param	Handler is the function pointer that will be added to
+* @param	IntrHandler is the function pointer that will be added to
 *		the vector table for the given interrupt ID.
 * @param	CallBackRef is the argument that will be passed to the new
 *		handler function when it is called. This is user-specific.
