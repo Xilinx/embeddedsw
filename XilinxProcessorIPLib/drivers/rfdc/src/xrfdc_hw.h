@@ -291,6 +291,7 @@ extern "C" {
 #define XRFDC_HSCOM_PWR_OFFSET		0x094	/**< Control register during
 							power-up sequence */
 #define XRFDC_HSCOM_CLK_DIV_OFFSET	0xB0	/**< Fabric clk out divider */
+#define XRFDC_HSCOM_PWR_STATE_OFFSET	0xB4	/**< Check powerup state */
 #define XRFDC_HSCOM_UPDT_DYN_OFFSET		0x0B8	/**< Trigger the update
 							dynamic event */
 #define XRFDC_DAC_INVSINC_OFFSET		0x0C0U	/**< Invsinc control */
