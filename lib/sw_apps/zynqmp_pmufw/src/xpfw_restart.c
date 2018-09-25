@@ -37,6 +37,10 @@
 
 #ifdef ENABLE_RECOVERY
 
+#define XPFW_RESTART_SCOPE_REG		PMU_GLOBAL_GLOBAL_GEN_STORAGE4
+#define XPFW_RESTART_SCOPE_SHIFT	(3)
+#define XPFW_RESTART_SCOPE_MASK		(0x3U << XPFW_RESTART_SCOPE_SHIFT)
+
 #ifdef CHECK_HEALTHY_BOOT
 
 #define XPFW_BOOT_HEALTH_STS		PMU_GLOBAL_GLOBAL_GEN_STORAGE4
@@ -90,6 +94,7 @@ static XTtcPs FpdTtcInstance;
 typedef struct XPfwRestartTracker {
 	PmMaster *Master; /* Master whose restart cycle is being tracked */
 	u8 RestartState; /* Track different phases in restart cycle */
+	u8 RestartScope; /* Restart scope upon WDT */
 	u32 WdtBaseAddress; /* Base address for WDT assigend to this master */
 	u8 WdtTimeout; /* Timeout value for WDT */
 	u8 ErrorId; /* Error Id corresponding to the WDT */
@@ -111,6 +116,13 @@ static XPfwRestartTracker RstTrackerList[] ={
 			.TtcTimeout = TTC_DEFAULT_NOTIFY_TIMEOUT_SEC,
 			.TtcPtr = &FpdTtcInstance,
 			.TtcResetId = PM_RESET_TTC3,
+#ifdef ENABLE_RECOVERY_RESET_SYSTEM
+			.RestartScope = PMF_SHUTDOWN_SUBTYPE_SYSTEM,
+#elif defined(ENABLE_RECOVERY_RESET_PS_ONLY)
+			.RestartScope = PMF_SHUTDOWN_SUBTYPE_PS_ONLY,
+#else
+			.RestartScope = PMF_SHUTDOWN_SUBTYPE_SUBSYSTEM,
+#endif
 		},
 };
 
@@ -133,7 +145,6 @@ static XWdtPs_Config* GetWdtCfgPtr(u32 BaseAddress)
 Done:
 	return WdtConfigPtr;
 }
-
 
 static void WdtRestart(XWdtPs* WdtInstptr, u32 Timeout)
 {
@@ -233,6 +244,14 @@ static bool XPfw_RestartIsPlDone(void)
 {
 	return ((XPfw_Read32(CSU_PCAP_STATUS_REG) &
 		CSU_PCAP_STATUS_PL_DONE_MASK_VAL) == CSU_PCAP_STATUS_PL_DONE_MASK_VAL);
+}
+
+/* Set up the restart scope */
+static void SetRestartScope(XPfwRestartTracker *RestartTracker)
+{
+	/* Set up for master to read and send back the proper restart command */
+	XPfw_RMW32(XPFW_RESTART_SCOPE_REG, XPFW_RESTART_SCOPE_MASK,
+			   ((u32)RestartTracker->RestartScope << XPFW_RESTART_SCOPE_SHIFT));
 }
 
 /**
@@ -371,9 +390,10 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 #else
 			if(RstTrackerList[RstIdx].RestartState != XPFW_RESTART_STATE_INPROGRESS ) {
 #endif
-				XPfw_Printf(DEBUG_DETAILED,"Initiating APU sub-system restart\r\n");
+				XPfw_Printf(DEBUG_DETAILED,"Request Master to idle its cores\r\n");
 				RstTrackerList[RstIdx].RestartState = XPFW_RESTART_STATE_INPROGRESS;
 				WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
+				SetRestartScope(&RstTrackerList[RstIdx]);
 				MasterIdle(RstTrackerList[RstIdx].TtcPtr,
 					RstTrackerList[RstIdx].TtcTimeout);
 			}
