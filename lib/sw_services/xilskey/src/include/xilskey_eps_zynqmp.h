@@ -60,6 +60,7 @@
 *                        bits UseAESOnly -> EncOnly, PMUError->ErrorDisable,
 *                        PPK0Revoke->PPK0InVld and PPK1Revoke->PPK1InVld
 * 6.6   vns     06/06/18 Added doxygen tags
+*       vns     09/18/18 Added APIs to support eFUSE programming from linux
 * </pre>
 *
 *****************************************************************************/
@@ -181,6 +182,9 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_SECTRL_BIT_SHIFT	0x1
 								/**< Shift macro for SEC_CTRL
 								 *   if it has 2 bits */
+#define XSK_EFUSEPS_OFFSET_MASK			(0xFFU)
+#define XSK_EFUSEPS_ONE_WORD			(1U)
+#define XSK_EFUSEPS_BYTES_IN_WORD		(4U)
 
 /** @name efuse types
  * @{
@@ -353,6 +357,17 @@ typedef struct {
 
 }XilSKey_ZynqMpEPs;
 
+/**
+ * XilSKey_Efuse is the eFUSE access structure. Using this
+ * structure, user can request the eFUSE access.
+ */
+typedef struct {
+	u64 Src;	/**< Address of Data buffer */
+	u32 Size;	/**< Size in words */
+	u32 Offset;	/**< offset */
+	u32 Flag;	/**< Flag - 0 : to read efuse and Flag - 1 : to write efuse */
+}XilSKey_Efuse;
+
 /***************** Macros (Inline Functions) Definitions *******************/
 /***************************************************************************/
 /**
@@ -459,6 +474,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 		XilSKey_SecCtrlBits *ReadBackSecCtrlBits, u8 ReadOption);
 u32 XilSKey_ZynqMp_EfusePs_CacheLoad();
 u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr);
+u32 XilSkey_ZynqMpEfuseAccess(const u32 AddrHigh, const u32 AddrLow);
 
 #ifdef __cplusplus
 }

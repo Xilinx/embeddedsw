@@ -129,5 +129,7 @@
 * 6.5    vns  03/16/18 Fixed hanging issue when program/zeroise is requested
 *                      while programming mode in enabled state.
 * 6.6    vns  06/06/18 Added doxygen tags
+*        vns  09/18/18 Added support API for programming zynqmp efuseps from
+*		       Linux
 *
  ********************************************************************************/
