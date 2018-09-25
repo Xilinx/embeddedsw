@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -----------------------------------------------
 * 1.00  kvn 05/12/15 First Release
+* 1.6	tjs 09/17/18 Fixed compilation warnings
 *
 * </pre>
 ******************************************************************************/
@@ -161,7 +162,13 @@ int RtcPsuSetTimeExample(u16 DeviceId)
 			dt2.Year,dt2.Month,dt2.Day,dt2.Hour,dt2.Min,dt2.Sec,dt2.WeekDay);
 
 	xil_printf("Enter Desired Current Time YEAR:MM:DD HR:MM:SS : ");
-	scanf("%d %d %d %d %d %d",&dt3.Year,&dt3.Month,&dt3.Day,&dt3.Hour,&dt3.Min,&dt3.Sec);
+#if defined(__aarch64__)
+	scanf("%d %d %d %d %d %d", &dt3.Year, &dt3.Month, &dt3.Day,
+			&dt3.Hour, &dt3.Min, &dt3.Sec);
+#else
+	scanf("%ld %ld %ld %ld %ld %ld", &dt3.Year, &dt3.Month, &dt3.Day,
+			&dt3.Hour, &dt3.Min, &dt3.Sec);
+#endif
 	xil_printf("%d %d %d %d %d %d\n\r",dt3.Year,dt3.Month,dt3.Day,dt3.Hour,dt3.Min,dt3.Sec);
 
 	DesiredTime = XRtcPsu_DateTimeToSec(&dt3);
