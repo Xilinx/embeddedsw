@@ -54,6 +54,7 @@
 #ifdef ENABLE_SECURE
 #include "xsecure.h"
 #include "xilskey_eps_zynqmp_puf.h"
+#include "xilskey_eps_zynqmp.h"
 #endif
 #include "pmu_iomodule.h"
 
@@ -944,6 +945,24 @@ static void PmSecureAes(const PmMaster *const master,
 	}
 
 	Status = XSecure_AesOperation(SrcAddrHigh, SrcAddrLow);
+	IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, Status);
+}
+
+/**
+ * This function provides access to efuse memory
+ *
+ * @AddrHigh: Higher 32-bit address of the XilSKey_Efuse structure.
+ * @AddrLow: Lower 32-bit address of the XilSKey_Efuse structure.
+ *
+ * @return  error status based on implemented functionality(SUCCESS by default)
+ */
+static void PmEfuseAccess(const PmMaster *const master,
+			const u32 AddrHigh, const u32 AddrLow)
+{
+	u32 Status = XST_SUCCESS;
+
+	Status = XilSkey_ZynqMpEfuseAccess(AddrHigh, AddrLow);
+
 	IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, Status);
 }
 
@@ -1840,6 +1859,11 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 	case PM_PLL_GET_MODE:
 		PmPllGetMode(master, pload[1]);
 		break;
+#ifdef ENABLE_SECURE
+	case PM_EFUSE_ACCESS:
+		PmEfuseAccess(master, pload[1], pload[2]);
+		break;
+#endif
 	default:
 		PmWarn("Unsupported EEMI API #%lu\r\n", pload[0]);
 		IPI_RESPONSE1(master->ipiMask, XST_INVALID_VERSION);

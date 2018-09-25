@@ -136,8 +136,10 @@
 #define PM_PLL_SET_MODE			50U
 #define PM_PLL_GET_MODE			51U
 
+#define PM_EFUSE_ACCESS			53U
+
 #define PM_API_MIN	PM_GET_API_VERSION
-#define PM_API_MAX	PM_PLL_GET_MODE
+#define PM_API_MAX	PM_EFUSE_ACCESS
 
 /* PM API callback ids */
 #define PM_INIT_SUSPEND_CB      30U
