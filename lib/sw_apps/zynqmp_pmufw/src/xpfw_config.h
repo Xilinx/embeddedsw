@@ -70,6 +70,8 @@
  * 	- ENABLE_EM : Enables Error Management Module
  * 	- ENABLE_SCHEDULER : Enables the scheduler
  * 	- ENABLE_RECOVERY : Enables WDT based restart of APU sub-system
+ *	- ENABLE_RECOVERY_RESET_SYSTEM : Enables WDT based restart of system
+ *	- ENABLE_RECOVERY_RESET_PS_ONLY : Enables WDT based restart of PS
  * 	- ENABLE_ESCALATION : Enables escalation of sub-system restart to
  * 	                      SRST/PS-only if the first restart attempt fails
  * 	- ENABLE_WDT : Enables WDT based restart functionality for PMU
@@ -110,6 +112,8 @@
 #define	ENABLE_EM_VAL					(0U)
 #define	ENABLE_SCHEDULER_VAL			(0U)
 #define	ENABLE_RECOVERY_VAL				(0U)
+#define	ENABLE_RECOVERY_RESET_SYSTEM_VAL		(0U)
+#define	ENABLE_RECOVERY_RESET_PS_ONLY_VAL		(0U)
 #define	ENABLE_ESCALATION_VAL			(0U)
 #define CHECK_HEALTHY_BOOT_VAL			(0U)
 #define	ENABLE_WDT_VAL					(0U)
@@ -149,6 +153,14 @@
 
 #if ENABLE_RECOVERY_VAL
 #define ENABLE_RECOVERY
+#endif
+
+#if ENABLE_RECOVERY_RESET_SYSTEM_VAL
+#define ENABLE_RECOVERY_RESET_SYSTEM
+#endif
+
+#if ENABLE_RECOVERY_RESET_PS_ONLY_VAL
+#define ENABLE_RECOVERY_RESET_PS_ONLY
 #endif
 
 #if ENABLE_ESCALATION_VAL
