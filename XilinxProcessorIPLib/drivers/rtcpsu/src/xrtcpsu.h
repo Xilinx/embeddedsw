@@ -28,7 +28,7 @@
 /*****************************************************************************/
 /**
  * @file xrtcpsu.h
- * @addtogroup rtcpsu_v1_5
+ * @addtogroup rtcpsu_v1_6
  * @{
  * @details
  *
@@ -112,6 +112,7 @@
  * 1.6   aru    07/11/18 Resolved cppcheck warnings.
  * 1.6   aru    07/11/18 Resolved doxygen warnings.
  * 1.6   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007752)
+ * 1.6   tjs    09/17/18 Fixed compilation warnings.
  * </pre>
  *
  ******************************************************************************/
