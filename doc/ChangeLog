@@ -163,6 +163,7 @@ Modified logic to get the last day of month correctly.(CR#1004282)
 Removed Checkpatch warnings.
 Resolved cppcheck and doxygen warnings.
 Resolved MISRA-C mandatory violations.(CR#1007752)
+Fixed compilation warnings.
 
 usbpsu_v1_4
 Fixed the errors which occur when tested with IAR compiler
