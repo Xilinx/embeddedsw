@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
  ******************************************************************************/
 
@@ -78,7 +76,7 @@ XStatus IpiConfigure(XScuGic *const GicInst, XIpiPsu *const IpiInst)
 	IpiCfgPtr = XIpiPsu_LookupConfig(PMU_IPI_CHANNEL_ID);
 	if (NULL == IpiCfgPtr) {
 		status = XST_FAILURE;
-		pm_print("%s ERROR in getting CfgPtr\n", __func__);
+		xil_printf("%s ERROR in getting CfgPtr\n", __func__);
 		return status;
 	}
 
@@ -86,7 +84,7 @@ XStatus IpiConfigure(XScuGic *const GicInst, XIpiPsu *const IpiInst)
 	status = XIpiPsu_CfgInitialize(IpiInst, IpiCfgPtr,
 				       IpiCfgPtr->BaseAddress);
 	if (XST_SUCCESS != status) {
-		pm_print("%s ERROR #%d in configuring IPI\n", __func__, status);
+		xil_printf("%s ERROR #%d in configuring IPI\n", __func__, status);
 		return status;
 	}
 
@@ -147,25 +145,25 @@ static XStatus PmInit(XScuGic *const GicInst, XIpiPsu *const IpiInst)
 
 	status = GicSetupInterruptSystem(GicInst);
 	if (XST_SUCCESS != status) {
-		pm_print("GIC setup failed.\n");
+		xil_printf("GIC setup failed.\n");
 		return status;
 	}
 
 	status  = IpiConfigure(GicInst, IpiInst);
 	if (XST_SUCCESS != status) {
-		pm_print("IPI configuration failed.\n");
+		xil_printf("IPI configuration failed.\n");
 		return status;
 	}
 
 	status = XPm_InitXilpm(IpiInst);
 	if (XST_SUCCESS != status) {
-		pm_print("Xilpm library initialization failed.\n");
+		xil_printf("Xilpm library initialization failed.\n");
 		return status;
 	}
 
 	status = XPm_InitFinalize();
 	if (XST_SUCCESS != status) {
-		pm_print("Failed to finalize init\n");
+		xil_printf("Failed to finalize init\n");
 		return status;
 	}
 
@@ -181,14 +179,14 @@ int main(void)
 	/* Initialize GIC, IPIs, and Xilpm */
 	status = PmInit(&GicInst, &IpiInst);
 	if (XST_SUCCESS != status) {
-		pm_print("PM initialization failed\n");
+		xil_printf("PM initialization failed\n");
 		return status;
 	}
 
 	/* Request DDR */
 	status = XPm_RequestNode(NODE_DDR,PM_CAP_ACCESS, 100, 1);
 	if (XST_SUCCESS != status) {
-		pm_print("Failed to request DDR node\n");
+		xil_printf("Failed to request DDR node\n");
 		return status;
 	}
 
@@ -205,45 +203,45 @@ int main(void)
 
 	Xil_DCacheDisable();
 
-	pm_print("Put DDR in retention mode.\r\n");
+	xil_printf("Put DDR in retention mode.\r\n");
 	status = XPm_SetRequirement(NODE_DDR, PM_CAP_CONTEXT, 0,
 				    REQUEST_ACK_NO);
 	if (XST_SUCCESS != status) {
-		pm_print("Failed to set DDR requirement\n");
+		xil_printf("Failed to set DDR requirement\n");
 	} else {
 		status = XPm_GetNodeStatus(NODE_DDR, &nodestatus);
 		if (XST_SUCCESS != status) {
-			pm_print("Get Node status failed\n");
+			xil_printf("Get Node status failed\n");
 			return status;
 		} else if (nodestatus.status != DDR_STATE_RET &&
 			   nodestatus.usage > 1) {
-			pm_print("Warning: DDR is being used by other master, Can't be put in Self-Refresh mode\n");
+			xil_printf("Warning: DDR is being used by other master, Can't be put in Self-Refresh mode\n");
 			return status;
 		} else if (nodestatus.status == DDR_STATE_RET) {
-			pm_print("DDR is in self-refresh mode\n");
+			xil_printf("DDR is in self-refresh mode\n");
 		} else {
-			pm_print("Unknown state\n");
+			xil_printf("Unexpect state %d\n", nodestatus.status);
 		}
 	}
 
 	sleep(10);
 
-	pm_print("Bring DDR out of retention mode.\r\n");
+	xil_printf("Bring DDR out of retention mode.\r\n");
 	status = XPm_SetRequirement(NODE_DDR, PM_CAP_ACCESS, 0, REQUEST_ACK_NO);
 	if (XST_SUCCESS != status) {
-		pm_print("Failed to set DDR requirement\n");
+		xil_printf("Failed to set DDR requirement\n");
 	} else {
 		status = XPm_GetNodeStatus(NODE_DDR, &nodestatus);
 		if (XST_SUCCESS != status) {
-			pm_print("Get Node status failed\n");
+			xil_printf("Get Node status failed\n");
 			return status;
 		} else if (nodestatus.status == DDR_STATE_RET) {
-			pm_print("Failed to get DDR out of self-refresh mode\n");
+			xil_printf("Failed to get DDR out of self-refresh mode\n");
 			return status;
 		} else if (nodestatus.status == DDR_STATE_ON) {
-			pm_print("DDR is out of self-refresh mode\n");
+			xil_printf("DDR is out of self-refresh mode\n");
 		} else {
-			pm_print("Unknown state\n");
+			xil_printf("Unknown state\n");
 		}
 	}
 
@@ -251,7 +249,7 @@ int main(void)
 
 	status = XPm_ReleaseNode(NODE_DDR);
 	if (XST_SUCCESS != status) {
-		pm_print("Failed to release DDR node\n");
+		xil_printf("Failed to release DDR node\n");
 		return status;
 	}
 
