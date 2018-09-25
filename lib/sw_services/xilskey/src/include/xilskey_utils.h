@@ -63,6 +63,7 @@
 *                        programming.
 * 6.4   vns     02/27/18 Added support for virtex and virtex ultrascale plus
 * 6.6   vns     06/06/18 Added doxygen tags
+*       vns     09/18/18 Added error code for zynqmp efuseps
 *
  *****************************************************************************/
 
@@ -716,6 +717,12 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_PROGRAMMING = 0x00A0,/**< 0x00A0<br>Error in
 						 *  programming eFUSE.*/
 	XSK_EFUSEPS_ERROR_READ = 0x00B0,/**< 0x00B0<br>Error in reading. */
+	XSK_EFUSEPS_ERROR_BYTES_REQUEST = 0x00C0, /**< 0x00C0<br>Error in
+						* requested byte count. */
+	XSK_EFUSEPS_ERROR_RESRVD_BITS_PRGRMG = 0x00D0, /**< 0x00D0<br>Error in
+						* programming reserved bits. */
+	XSK_EFUSEPS_ERROR_ADDR_ACCESS = 0x00E0, /**< 0x00E0<br>Error in
+							* accessing requested address. */
 	/**
 	 * XSKEfuse_Write/Read()common error codes
 	 */
