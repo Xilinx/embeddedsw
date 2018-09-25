@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -----------------------------------------------
 * 1.00  kvn 05/12/15 First Release
+* 1.6	tjs 09/17/18 Fixed compilation warnings
 *
 * </pre>
 ******************************************************************************/
@@ -149,10 +150,20 @@ int RtcPsuSetCalibrationExample(u16 DeviceId)
 	}
 
 	xil_printf("Enter Crystal oscillator frequency : ");
-	scanf("%d",&OscillatorFreq);
+#if defined(__aarch64__)
+	scanf("%d", &OscillatorFreq);
+#else
+	scanf("%ld", &OscillatorFreq);
+#endif
 
 	xil_printf("\n\rEnter Internet / Network Time YEAR:MM:DD HR:MM:SS : ");
-	scanf("%d %d %d %d %d %d",&dt1.Year,&dt1.Month,&dt1.Day,&dt1.Hour,&dt1.Min,&dt1.Sec);
+#if defined(__aarch64__)
+	scanf("%d %d %d %d %d %d", &dt1.Year, &dt1.Month, &dt1.Day,
+			&dt1.Hour, &dt1.Min, &dt1.Sec);
+#else
+	scanf("%ld %ld %ld %ld %ld %ld", &dt1.Year, &dt1.Month, &dt1.Day,
+			&dt1.Hour, &dt1.Min, &dt1.Sec);
+#endif
 	xil_printf("%d %d %d %d %d %d\n\r",dt1.Year,dt1.Month,dt1.Day,dt1.Hour,dt1.Min,dt1.Sec);
 
 	NetworkTime = XRtcPsu_DateTimeToSec(&dt1);
