@@ -105,7 +105,7 @@ int main(void)
 	}
 
 	/* Scan PCIe Fabric */
-	XPciePsuEnumerate_Fabric(&PciePsuInstance);
+	XPciePsu_EnumerateFabric(&PciePsuInstance);
 
 	xil_printf("\r\nSuccessfully ran PSU PCIe rc enumerate Example\r\n");
 

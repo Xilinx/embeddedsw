@@ -67,7 +67,7 @@
 /**
 * This function returns capability pointer at doubleword 0xD of bdf.
 *
-* @param   InstancePtr pointer to XPciePsu Instance
+* @param   InstancePtr pointer to XPciePsu Instance Pointer
 * @param   Bus
 * @param   Device
 * @param   Function
@@ -75,7 +75,7 @@
 * @return  u32 address available in capability pointer location
 *
 *******************************************************************************/
-u32 XPciePsu_getBaseCapabilityPtr(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+static u32 XPciePsu_GetBaseCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 	u8 Function)
 {
 	u32 CapBase = 0x0;
@@ -89,7 +89,7 @@ u32 XPciePsu_getBaseCapabilityPtr(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 /**
 * This function returns whether capability is available with cap id in bdf.
 *
-* @param   InstancePtr pointer to XPciePsu Instance
+* @param   InstancePtr pointer to XPciePsu Instance Pointer
 * @param   Bus
 * @param   Device
 * @param   Function
@@ -99,17 +99,17 @@ u32 XPciePsu_getBaseCapabilityPtr(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 * 1 if capability is available
 *
 *******************************************************************************/
-u32 XPciePsu_hasCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
-		u8 Function, u8 capId)
+u32 XPciePsu_HasCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+		u8 Function, u8 CapId)
 {
 
-	u32 CapBase = XPciePsu_getBaseCapabilityPtr(InstancePtr, Bus, Device,
+	u32 CapBase = XPciePsu_GetBaseCapability(InstancePtr, Bus, Device,
 			Function);
 
 	while (CapBase) {
 		XPciePsu_ReadRemoteConfigSpace(InstancePtr, Bus, Device,
 					       Function, DOUBLEWORD(CapBase), &CapBase);
-		if (capId == (LAST_TWO_NIBBLES(CapBase)))
+		if (CapId == (LAST_TWO_NIBBLES(CapBase)))
 			return CAP_PRESENT;
 
 		CapBase = NEXT_CAPPTR(CapBase);
@@ -122,7 +122,7 @@ u32 XPciePsu_hasCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 /**
 * This function returns address of the capability pointer with the cap id.
 *
-* @param   InstancePtr pointer to XPciePsu Instance
+* @param   InstancePtr pointer to XPciePsu Instance Pointer
 * @param   Bus
 * @param   Device
 * @param   Function
@@ -132,10 +132,10 @@ u32 XPciePsu_hasCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 * 0 if not available.
 *
 *******************************************************************************/
-u32 XPciePsu_getCapabilityFor(XPciePsu *InstancePtr, u8 Bus, u8 Device,
-		u8 Function, u8 capId)
+u32 XPciePsu_GetCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+		u8 Function, u8 CapId)
 {
-	u32 CapBase = XPciePsu_getBaseCapabilityPtr(InstancePtr, Bus, Device,
+	u32 CapBase = XPciePsu_GetBaseCapability(InstancePtr, Bus, Device,
 			Function);
 	u32 adr = 0;
 	u32 Location;
@@ -144,7 +144,7 @@ u32 XPciePsu_getCapabilityFor(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		adr = CapBase;
 		XPciePsu_ReadRemoteConfigSpace(InstancePtr, Bus, Device,
 				Function, DOUBLEWORD(CapBase), &CapBase);
-		if (capId == (LAST_TWO_NIBBLES(CapBase))) {
+		if (CapId == (LAST_TWO_NIBBLES(CapBase))) {
 			Location = XPciePsu_ComposeExternalConfigAddress(
 					Bus, Device, Function, DOUBLEWORD(adr));
 			return Location;
@@ -158,7 +158,7 @@ u32 XPciePsu_getCapabilityFor(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 /**
 * This function prints all the available capabilities in the bdf.
 *
-* @param   InstancePtr pointer to XPciePsu Instance
+* @param   InstancePtr pointer to XPciePsu Instance Pointer
 * @param   Bus
 * @param   Device
 * @param   Function
@@ -166,19 +166,19 @@ u32 XPciePsu_getCapabilityFor(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 * @return  none
 *
 *******************************************************************************/
-void XPciePsu_listAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+void XPciePsu_ListAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		u8 Function)
 {
 
-	u32 CapBase = XPciePsu_getBaseCapabilityPtr(InstancePtr, Bus, Device,
+	u32 CapBase = XPciePsu_GetBaseCapability(InstancePtr, Bus, Device,
 			Function);
 
-	pciepsu_dbg("CAP-IDs:");
+	XPciePsu_Dbg("CAP-IDs:");
 	while (CapBase) {
 		XPciePsu_ReadRemoteConfigSpace(InstancePtr, Bus, Device,
 				Function, DOUBLEWORD(CapBase), &CapBase);
-		pciepsu_dbg("0x%X ", LAST_TWO_NIBBLES(CapBase));
+		XPciePsu_Dbg("0x%X ", LAST_TWO_NIBBLES(CapBase));
 		CapBase = NEXT_CAPPTR(CapBase);
 	}
-	pciepsu_dbg("\r\n");
+	XPciePsu_Dbg("\r\n");
 }
