@@ -155,7 +155,7 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 		   & BREG_PRESENT;
 	if (!BRegVal) {
 		XPciePsu_Err("BREG is not present\r\n");
-		Status = BRegVal;
+		Status = XST_FAILURE;
 		goto End;
 	}
 
@@ -186,16 +186,15 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 	/* Check for linkup */
 	Err = XPciePsu_PcieLinkUpTimeout(CfgPtr);
 	if (Err != XPCIEPSU_LINKUP_SUCCESS){
-		Status = Err;
+		Status = XST_FAILURE;
 		goto End;
 	}
 
-
-        ECamVal = XPciePsu_ReadReg(CfgPtr->BrigReg,
+	ECamVal = XPciePsu_ReadReg(CfgPtr->BrigReg,
 				XPCIEPSU_E_ECAM_CAPABILITIES) & E_ECAM_PRESENT;
 	if (!ECamVal) {
 		XPciePsu_Err("ECAM is not present\r\n");
-		Status = ECamVal;
+		Status = XST_FAILURE;
 		goto End;
 	}
 
