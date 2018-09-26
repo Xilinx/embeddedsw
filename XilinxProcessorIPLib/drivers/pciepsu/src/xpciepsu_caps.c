@@ -175,12 +175,12 @@ void XPciePsu_PrintAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 	u32 CapBase = XPciePsu_GetBaseCapability(InstancePtr, Bus, Device,
 			Function);
 
-	XPciePsu_Dbg("CAP-IDs:");
+	xil_printf("CAP-IDs:");
 	while (CapBase) {
 		XPciePsu_ReadRemoteConfigSpace(InstancePtr, Bus, Device,
 				Function, XPCIEPSU_DOUBLEWORD(CapBase), &CapBase);
-		XPciePsu_Dbg("0x%X ", CapBase & XPCIEPSU_CFG_CAP_ID_LOC);
+		xil_printf("0x%X ", CapBase & XPCIEPSU_CFG_CAP_ID_LOC);
 		CapBase = (CapBase >> XPCIEPSU_CAP_SHIFT) & XPCIEPSU_CAP_PTR_LOC;
 	}
-	XPciePsu_Dbg("\r\n");
+	xil_printf("\r\n");
 }
