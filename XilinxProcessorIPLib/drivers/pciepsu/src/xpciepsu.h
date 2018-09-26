@@ -125,9 +125,9 @@ u32 XPciePsu_ComposeExternalConfigAddress(u8 Bus, u8 Device, u8 Function,
 
 u32 XPciePsu_HasCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		u8 Function, u8 CapId);
-u32 XPciePsu_GetCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+u64 XPciePsu_GetCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		u8 Function, u8 CapId);
-void XPciePsu_ListAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+void XPciePsu_PrintAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		u8 Function);
 
 #ifdef __cplusplus

@@ -133,25 +133,28 @@ End:
 * @param   Function
 * @param   cap id to get capability pointer
 *
-* @return  u32 capability pointer if available
+* @return  u64 capability pointer if available
 * 0 if not available.
 *
 *******************************************************************************/
-u32 XPciePsu_GetCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+u64 XPciePsu_GetCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		u8 Function, u8 CapId)
 {
 	u32 CapBase = XPciePsu_GetBaseCapability(InstancePtr, Bus, Device,
 			Function);
-	u32 adr = 0;
-	u32 Location = CAP_NOT_PRESENT;
+	u32 Adr = 0;
+	u64 Location = CAP_NOT_PRESENT;
+	u32 Offset;
+
 
 	while (CapBase) {
-		adr = CapBase;
+		Adr = CapBase;
 		XPciePsu_ReadRemoteConfigSpace(InstancePtr, Bus, Device,
 				Function, DOUBLEWORD(CapBase), &CapBase);
 		if (CapId == (LAST_TWO_NIBBLES(CapBase))) {
-			Location = XPciePsu_ComposeExternalConfigAddress(
-					Bus, Device, Function, DOUBLEWORD(adr));
+			Offset = XPciePsu_ComposeExternalConfigAddress(
+					Bus, Device, Function, DOUBLEWORD(Adr));
+			Location = (InstancePtr->Config.Ecam) + (Offset);
 			goto End;
 		}
 		CapBase = NEXT_CAPPTR(CapBase);
@@ -172,7 +175,7 @@ End:
 * @return  none
 *
 *******************************************************************************/
-void XPciePsu_ListAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+void XPciePsu_PrintAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		u8 Function)
 {
 
