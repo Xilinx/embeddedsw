@@ -102,20 +102,25 @@ static u32 XPciePsu_GetBaseCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 u32 XPciePsu_HasCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		u8 Function, u8 CapId)
 {
-
+	u8 CapStatus = CAP_NOT_PRESENT;
 	u32 CapBase = XPciePsu_GetBaseCapability(InstancePtr, Bus, Device,
 			Function);
 
 	while (CapBase) {
 		XPciePsu_ReadRemoteConfigSpace(InstancePtr, Bus, Device,
 					       Function, DOUBLEWORD(CapBase), &CapBase);
-		if (CapId == (LAST_TWO_NIBBLES(CapBase)))
-			return CAP_PRESENT;
+		if (CapId == (LAST_TWO_NIBBLES(CapBase))){
+			CapStatus =  CAP_PRESENT;
+			goto End;
+		}
+
 
 		CapBase = NEXT_CAPPTR(CapBase);
 	}
 
-	return CAP_NOT_PRESENT;
+End:
+	return CapStatus;
+
 }
 
 /******************************************************************************/
@@ -138,7 +143,7 @@ u32 XPciePsu_GetCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 	u32 CapBase = XPciePsu_GetBaseCapability(InstancePtr, Bus, Device,
 			Function);
 	u32 adr = 0;
-	u32 Location;
+	u32 Location = CAP_NOT_PRESENT;
 
 	while (CapBase) {
 		adr = CapBase;
@@ -147,11 +152,12 @@ u32 XPciePsu_GetCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		if (CapId == (LAST_TWO_NIBBLES(CapBase))) {
 			Location = XPciePsu_ComposeExternalConfigAddress(
 					Bus, Device, Function, DOUBLEWORD(adr));
-			return Location;
+			goto End;
 		}
 		CapBase = NEXT_CAPPTR(CapBase);
 	}
-	return CAP_NOT_PRESENT;
+End:
+	return Location;
 }
 
 /******************************************************************************/
