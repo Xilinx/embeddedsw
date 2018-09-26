@@ -69,7 +69,7 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
-* 0.1	bs	08/21/2018	First release
+* 1.0	bs	08/21/2018	First release
 * </pre>
 *
 *******************************************************************************/
@@ -89,6 +89,10 @@ extern "C" {
 /**************************** Constant Definitions ****************************/
 
 /******************** Macros (Inline Functions) Definitions *******************/
+#define XPciePsu_ReadReg(BaseAddr, RegOffset) Xil_In32((BaseAddr) + (RegOffset))
+
+#define XPciePsu_WriteReg(BaseAddr, RegOffset, Val)                            \
+	Xil_Out32((BaseAddr) + (RegOffset), (Val))
 
 /****************************** Type Definitions ******************************/
 
