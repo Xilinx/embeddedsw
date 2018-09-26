@@ -226,17 +226,32 @@ int XIntc_Initialize(XIntc * InstancePtr, u16 DeviceId)
 		XIntc_Out32(InstancePtr->BaseAddress + XIN_IMR_OFFSET, 0);
 
 #ifdef XPAR_MICROBLAZE_BASE_VECTORS
-		for (Id = 0; Id < 32 ; Id++)
-		{
-			XIntc_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET
-				+ (Id * 4), XPAR_MICROBLAZE_BASE_VECTORS
+		if (InstancePtr->CfgPtr->VectorAddrWidth >
+				XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
+			for (Id = 0; Id < 32 ; Id++) {
+				XIntc_Out64(InstancePtr->BaseAddress + XIN_IVEAR_OFFSET
+				+ (Id * 8), XPAR_MICROBLAZE_BASE_VECTORS
 				+ 0x10);
+			}
+		} else {
+			for (Id = 0; Id < 32 ; Id++) {
+				XIntc_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET
+					+ (Id * 4), XPAR_MICROBLAZE_BASE_VECTORS
+					+ 0x10);
+			}
 		}
 #else
-		for (Id = 0; Id < 32 ; Id++)
-		{
-			XIntc_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET
-							+ (Id * 4), 0x10);
+		if (InstancePtr->CfgPtr->VectorAddrWidth >
+			XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
+			for (Id = 0; Id < 32 ; Id++) {
+				XIntc_Out64(InstancePtr->BaseAddress + XIN_IVEAR_OFFSET
+				+ (Id * 8), 0x10);
+			}
+		} else {
+			for (Id = 0; Id < 32 ; Id++) {
+				XIntc_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET
+								+ (Id * 4), 0x10);
+			}
 		}
 #endif
 	}

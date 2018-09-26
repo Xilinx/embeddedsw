@@ -491,9 +491,14 @@ void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 			XIntc_Out32(CfgPtr->BaseAddress + XIN_IER_OFFSET,
 							(CurrentIER & ~Mask));
 		}
-
-		XIntc_Out32(CfgPtr->BaseAddress + XIN_IVAR_OFFSET +
+		if (CfgPtr->VectorAddrWidth >
+			XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
+			XIntc_Out64(CfgPtr->BaseAddress + XIN_IVEAR_OFFSET +
+				((Id%32) * 8), (UINTPTR) FastHandler);
+		} else {
+			XIntc_Out32(CfgPtr->BaseAddress + XIN_IVAR_OFFSET +
 					((Id%32) * 4), (u32) FastHandler);
+		}
 
 		/* Slave controllers in Cascade Mode should have all as Fast
 		 * interrupts or Normal interrupts, mixed interrupts are not
@@ -523,8 +528,15 @@ void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 							(CurrentIER & ~Mask));
 		}
 
-		XIntc_Out32(BaseAddress + XIN_IVAR_OFFSET + (Id * 4),
+		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr->VectorAddrWidth >
+			XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
+			XIntc_Out64(BaseAddress + XIN_IVEAR_OFFSET +
+				(Id * 8), (UINTPTR) FastHandler);
+		} else {
+			XIntc_Out32(BaseAddress + XIN_IVAR_OFFSET + (Id * 4),
 						(u32) FastHandler);
+		}
 
 		Imr = XIntc_In32(BaseAddress + XIN_IMR_OFFSET);
 		XIntc_Out32(BaseAddress + XIN_IMR_OFFSET, Imr | Mask);

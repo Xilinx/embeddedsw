@@ -141,7 +141,8 @@ extern "C" {
 #define XIN_IVAR_OFFSET     0x100 /* Interrupt Vector Address Register
 				   * Interrupt 0 Offest, this is present
 				   * only for Fast Interrupt */
-
+#define XIN_IVEAR_OFFSET     0x200 /* Interrupt Vector Extended Address
+					Register */
 
 
 #endif /* ((XPAR_XINTC_USE_DCR != 0) || (XPAR_XINTC_USE_DCR_BRIDGE != 0)) */
@@ -179,6 +180,7 @@ typedef void (*XFastInterruptHandler) (void);
 
 #define XIntc_In32  Xil_In32
 #define XIntc_Out32 Xil_Out32
+#define XIntc_Out64 Xil_Out64
 
 #endif
 

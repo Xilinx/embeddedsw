@@ -278,6 +278,8 @@ extern "C" {
  */
 #define XIN_CONTROLLER_MAX_INTRS	32  /* Each Controller has 32
 					       interrupt pins */
+
+#define XINTC_STANDARD_VECTOR_ADDRESS_WIDTH	32U
 /*@}*/
 
 /**************************** Type Definitions *******************************/
@@ -292,6 +294,7 @@ typedef struct {
 	int FastIntr;		/**< Fast Interrupt enabled */
 	u32 IntVectorAddr;	/**< Interrupt Vector Address */
 	int NumberofIntrs;      /**< Number of Interrupt sources */
+	u8 VectorAddrWidth;		/**< Width of vector address */
 	u32 Options;		/**< Device options */
 	int IntcType;		/**< Intc type 0 - No Cascade Mode
 				               1 - primary instance
