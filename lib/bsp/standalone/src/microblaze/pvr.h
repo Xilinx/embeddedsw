@@ -163,6 +163,20 @@ typedef struct pvr_s {
 #define MICROBLAZE_PVR5_DCACHE_FORCE_TAG_LUTRAM_MASK 0x00000080
 #define MICROBLAZE_PVR5_DCACHE_DATA_WIDTH_MASK       0x00000040
 
+#if defined(__arch64__)
+/* ICache base address PVR mask */
+#define MICROBLAZE_PVR6_ICACHE_BASEADDR_MASK        0xFFFFFFFFFFFFFFFF
+
+/* ICache high address PVR mask */
+#define MICROBLAZE_PVR7_ICACHE_HIGHADDR_MASK        0xFFFFFFFFFFFFFFFF
+
+/* DCache base address PVR mask */
+#define MICROBLAZE_PVR8_DCACHE_BASEADDR_MASK        0xFFFFFFFFFFFFFFFF
+
+/* DCache high address PVR mask */
+#define MICROBLAZE_PVR9_DCACHE_HIGHADDR_MASK        0xFFFFFFFFFFFFFFFF
+
+#else
 /* ICache base address PVR mask */
 #define MICROBLAZE_PVR6_ICACHE_BASEADDR_MASK        0xFFFFFFFF
 
@@ -174,6 +188,7 @@ typedef struct pvr_s {
 
 /* DCache high address PVR mask */
 #define MICROBLAZE_PVR9_DCACHE_HIGHADDR_MASK        0xFFFFFFFF
+#endif
 
 /* Target family PVR mask */
 #define MICROBLAZE_PVR10_TARGET_FAMILY_MASK         0xFF000000

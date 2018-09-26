@@ -146,7 +146,7 @@ static void outnum( const s32 n, const s32 base, struct params_s *par)
 /* buffer as directed by the padding and positioning */
 /* flags. 											 */
 /*                                                   */
-#if defined (__aarch64__)
+#if defined (__aarch64__) || defined (__arch64__)
 static void outnum1( const s64 n, const s32 base, params_t *par)
 {
     s32 negative;
@@ -247,7 +247,7 @@ void xil_printf( const char8 *ctrl1, ...){
 void xil_printf( const char8 *ctrl1, ...)
 {
 	s32 Check;
-#if defined (__aarch64__)
+#if defined (__aarch64__) || defined (__arch64__)
     s32 long_flag;
 #endif
     s32 dot_flag;
@@ -274,7 +274,7 @@ void xil_printf( const char8 *ctrl1, ...)
 
         /* initialize all the flags for this format.   */
         dot_flag = 0;
-#if defined (__aarch64__)
+#if defined (__aarch64__) || defined (__arch64__)
 		long_flag = 0;
 #endif
         par.unsigned_flag = 0;
@@ -334,7 +334,7 @@ void xil_printf( const char8 *ctrl1, ...)
                 break;
 
             case 'l':
-            #if defined (__aarch64__)
+            #if defined (__aarch64__) || defined (__arch64__)
                 long_flag = 1;
             #endif
                 Check = 0;
@@ -345,7 +345,7 @@ void xil_printf( const char8 *ctrl1, ...)
                 /* fall through */
             case 'i':
             case 'd':
-                #if defined (__aarch64__)
+                #if defined (__aarch64__) || defined (__arch64__)
                 if (long_flag != 0){
 			        outnum1((s64)va_arg(argp, s64), 10L, &par);
                 }
@@ -358,7 +358,7 @@ void xil_printf( const char8 *ctrl1, ...)
 				Check = 1;
                 break;
             case 'p':
-                #if defined (__aarch64__)
+                #if defined (__aarch64__) || defined (__arch64__)
                 par.unsigned_flag = 1;
 			    outnum1((s64)va_arg(argp, s64), 16L, &par);
 			    Check = 1;
@@ -367,7 +367,7 @@ void xil_printf( const char8 *ctrl1, ...)
             case 'X':
             case 'x':
                 par.unsigned_flag = 1;
-                #if defined (__aarch64__)
+                #if defined (__aarch64__) || defined (__arch64__)
                 if (long_flag != 0) {
 				    outnum1((s64)va_arg(argp, s64), 16L, &par);
 				}

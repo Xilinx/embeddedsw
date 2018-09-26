@@ -66,15 +66,15 @@ extern void microblaze_register_exception_handler(u32 ExceptionId, Xil_Exception
 extern void microblaze_invalidate_icache(void);         /* Invalidate the entire icache */
 extern void microblaze_invalidate_dcache(void);         /* Invalidate the entire dcache */
 extern void microblaze_flush_dcache(void);              /* Flush the whole dcache */
-extern void microblaze_invalidate_icache_range(u32 cacheaddr, u32 len);   /* Invalidate a part of the icache */
-extern void microblaze_invalidate_dcache_range(u32 cacheaddr, u32 len);   /* Invalidate a part of the dcache */
-extern void microblaze_flush_dcache_range(u32 cacheaddr, u32 len);        /* Flush a part of the dcache */
+extern void microblaze_invalidate_icache_range(UINTPTR cacheaddr, u32 len);   /* Invalidate a part of the icache */
+extern void microblaze_invalidate_dcache_range(UINTPTR cacheaddr, u32 len);   /* Invalidate a part of the dcache */
+extern void microblaze_flush_dcache_range(UINTPTR cacheaddr, u32 len);        /* Flush a part of the dcache */
 extern void microblaze_scrub(void);                     /* Scrub LMB and internal BRAM */
 extern void microblaze_invalidate_cache_ext(void);         /* Invalidate cache ext */
 extern void microblaze_flush_cache_ext(void);         /* Flush cache ext */
-extern void microblaze_flush_cache_ext_range(u32 cacheaddr,
+extern void microblaze_flush_cache_ext_range(UINTPTR cacheaddr,
 			u32 len); /* Flush cache ext range */
-extern void microblaze_invalidate_cache_ext_range(u32 cacheaddr,
+extern void microblaze_invalidate_cache_ext_range(UINTPTR cacheaddr,
 			u32 len); /* Invalidate cache ext range */
 
 /* Deprecated */
