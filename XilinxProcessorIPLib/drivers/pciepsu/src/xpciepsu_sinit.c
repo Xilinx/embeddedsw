@@ -29,8 +29,7 @@
 /**
 * @file xpciepsu_sinit.c
 *
-* This file contains the implementation of PSU PCIe driver's static
-* initialization functionality.
+* This file contains PSU PCIe driver's static initialization.
 *
 * <pre>
 * MODIFICATION HISTORY:

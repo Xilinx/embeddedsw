@@ -119,7 +119,7 @@ XPciePsu_Config *XPciePsu_LookupConfig(u16 DeviceId);
 
 u32 XPciePsu_CfgInitialize(XPciePsu *InstancePtr, XPciePsu_Config *CfgPtr,
 			   UINTPTR EffectiveBrgAddress);
-void XPciePsu_EnumerateFabric(XPciePsu *InstancePtr);
+u8 XPciePsu_EnumerateBus(XPciePsu *InstancePtr);
 void XPciePsu_ReadRemoteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 				    u8 Function, u16 Offset, u32 *DataPtr);
 void XPciePsu_WriteRemoteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
