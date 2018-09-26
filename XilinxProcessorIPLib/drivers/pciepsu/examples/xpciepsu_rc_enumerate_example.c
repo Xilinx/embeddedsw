@@ -100,14 +100,15 @@ int main(void)
 	/* Initialize Root Complex */
 	Status = PcieInitRootComplex(&PciePsuInstance, XPAR_PSU_PCIE_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Psu pcie rc enumerate Example Failed\r\n");
+		xil_printf("Psu pcie Root Complex Enumerate Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	/* Scan PCIe Fabric */
-	XPciePsu_EnumerateFabric(&PciePsuInstance);
+	/* Scan PCIe Bus */
+	XPciePsu_EnumerateBus(&PciePsuInstance);
 
-	xil_printf("\r\nSuccessfully ran PSU PCIe rc enumerate Example\r\n");
+	xil_printf("\r\nSuccessfully ran PSU PCIe Root Complex "
+			"Enumerate Example\r\n");
 
 	return XST_SUCCESS;
 }
@@ -134,6 +135,7 @@ int PcieInitRootComplex(XPciePsu *PciePsuPtr, u16 DeviceId)
 	XPciePsu_Config *ConfigPtr;
 
 	ConfigPtr = XPciePsu_LookupConfig(DeviceId);
+	Xil_AssertNonvoid(ConfigPtr != NULL);
 
 	Status = XPciePsu_CfgInitialize(PciePsuPtr, ConfigPtr,
 					ConfigPtr->BrigReg);

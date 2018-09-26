@@ -51,83 +51,6 @@
 
 /******************** Macros (Inline Functions) Definitions *******************/
 
-
-/* Command register offsets */
-
-/* Memory access enable */
-#define XPCIEPSU_CFG_CMD_MEM_EN 		0x00000002
-
-/* Bus master enable */
-#define XPCIEPSU_CFG_CMD_BUSM_EN 		0x00000004
-
-/* PCIe Configuration registers offsets */
-
-/* Vendor ID/Device ID offset */
-#define XPCIEPSU_CFG_ID_REG 	0x0000
-
-/* Command/Status Register Offset */
-#define XPCIEPSU_CFG_CMD_STATUS_REG 	0x0001
-
-/* Primary/Sec.Bus Register Offset */
-#define XPCIEPSU_CFG_PRI_SEC_BUS_REG 	0x0006
-
-/* Cache Line/Latency Timer / Header Type / BIST Register Offset */
-#define XPCIEPSU_CFG_CAH_LAT_HD_REG 	0x0003
-
-#define XPCIEPSU_CFG_BAR_MEM_TYPE_MASK 	0x1
-
-/* PCIe Base Addr */
-#define XPCIEPSU_CFG_BAR_BASE_OFFSET 	0x0004
-
-/* PCIe Base Addr 0 */
-#define XPCIEPSU_CFG_BAR_0_REG 			0x0004
-
-/* PCIe Base Addr 1 */
-#define XPCIEPSU_CFG_BAR_1_REG 			0x0005
-
-/* PCIe Base Addr 2 */
-#define XPCIEPSU_CFG_BAR_2_REG 			0x0006
-
-/* PCIe Base Addr 3 */
-#define XPCIEPSU_CFG_BAR_3_REG 			0x0007
-
-/* PCIe Base Addr 4 */
-#define XPCIEPSU_CFG_BAR_4_REG 			0x0008
-
-#define XPCIEPSU_CFG_BUS_NUMS_T1_REG 	0X0006
-#define XPCIEPSU_CFG_NP_MEM_T1_REG 		0X0008
-#define XPCIEPSU_CFG_P_MEM_T1_REG 		0X0009
-#define XPCIEPSU_CFG_P_UPPER_MEM_T1_REG 0X000A
-#define XPCIEPSU_CFG_P_LIMIT_MEM_T1_REG 0X000B
-
-#define XPCIEPSU_CFG_FUN_NOT_IMP_MASK 	0xFFFF
-#define XPCIEPSU_CFG_HEADER_TYPE_MASK 	0x00EF0000
-#define XPCIEPSU_CFG_MUL_FUN_DEV_MASK 	0x00800000
-
-#define XPCIEPSU_CFG_MAX_NUM_OF_BUS 	256
-#define XPCIEPSU_CFG_MAX_NUM_OF_DEV 	32
-#define XPCIEPSU_CFG_MAX_NUM_OF_FUN 	8
-
-#define XPCIEPSU_CFG_HEADER_O_TYPE 		0x0000
-
-#define XPCIEPSU_BAR_IO_MEM 				1
-#define XPCIEPSU_BAR_ADDR_MEM 			0
-
-#define XPCIEPSU_BAR_MEM_TYPE_64 		1
-#define XPCIEPSU_BAR_MEM_TYPE_32 		0
-#define XPCIEPSU_PRIMARY_BUS   			0x18
-
-#define MB_SHIFT 					20
-#define HEX_NIBBLE 					4
-#define TWO_HEX_NIBBLES 			8
-#define FOUR_HEX_NIBBLES 			16
-#define EIGHT_HEX_NIBBLES 			32
-
-#define XPCIEPSU_LINKUP_SUCCESS				1
-#define XPCIEPSU_LINKUP_FAIL				0
-
-#define DATA_MASK_32				(0xFFFFFFFF)
-
 /**************************** Variable Definitions ****************************/
 
 
@@ -135,15 +58,15 @@
 
 /******************************************************************************/
 /**
-* This function looks for phy link is up or not
+* This function looks for phy is ready or not
 *
 * @param   InstancePtr pointer to XPciePsu_Config Instance Pointer
 *
-* @return  1 if link is up
-*          0 if link is down
+* @return  1 if phy is ready
+*          0 if phy is not ready
 *
 *******************************************************************************/
-static int XPciePsu_PhyLinkUp(XPciePsu_Config *InstancePtr)
+static int XPciePsu_PhyReady(XPciePsu_Config *InstancePtr)
 {
 	s32 Status;
 	if (XPciePsu_ReadReg(InstancePtr->PciReg, XPCIEPSU_PS_LINKUP_OFFSET)
@@ -184,24 +107,24 @@ static int XPciePsu_PcieLinkUp(XPciePsu_Config *InstancePtr)
 *
 * @param   InstancePtr pointer to XPciePsu_Config Instance Pointer
 *
-* @return  0 if link is up
-*          -1 if link never came up
+* @return  1 if link is up
+*          0 if link up fail
 *
 *******************************************************************************/
-static int XPciePsu_WaitForLink(XPciePsu_Config *InstancePtr)
+static int XPciePsu_PcieLinkUpTimeout(XPciePsu_Config *InstancePtr)
 {
 	int Retries;
 	s32 Status = XPCIEPSU_LINKUP_FAIL;
 	/* check if the link is up or not */
 	for (Retries = 0; Retries < XPCIEPSU_LINK_WAIT_MAX_RETRIES; Retries++) {
-		if (XPciePsu_PhyLinkUp(InstancePtr)){
+		if (XPciePsu_PhyReady(InstancePtr)){
 			Status =  XPCIEPSU_LINKUP_SUCCESS;
 			goto End;
 		}
 		usleep(XPCIEPSU_LINK_WAIT_USLEEP_MIN);
 	}
 
-	XPciePsu_Err("PHY link never came up\r\n");
+	XPciePsu_Err("PHY never cames up\r\n");
 End:
 	return Status;
 }
@@ -261,7 +184,7 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 			  CFG_ENABLE_MSG_FILTER_MASK);
 
 	/* Check for linkup */
-	Err = XPciePsu_WaitForLink(CfgPtr);
+	Err = XPciePsu_PcieLinkUpTimeout(CfgPtr);
 	if (Err != XPCIEPSU_LINKUP_SUCCESS){
 		Status = Err;
 		goto End;
@@ -352,17 +275,17 @@ u32 XPciePsu_ComposeExternalConfigAddress(u8 Bus, u8 Device, u8 Function,
 {
 	u32 Location = 0;
 
-        Location |= ((((u32)Bus) << XPCIEPSU_ECAM_BUS_SHIFT) &
-                     XPCIEPSU_ECAM_BUS_MASK);
+	Location |= ((((u32)Bus) << XPCIEPSU_ECAM_BUS_SHIFT) &
+				 XPCIEPSU_ECAM_BUS_MASK);
 
-        Location |= ((((u32)Device) << XPCIEPSU_ECAM_DEV_SHIFT) &
-                     XPCIEPSU_ECAM_DEV_MASK);
+	Location |= ((((u32)Device) << XPCIEPSU_ECAM_DEV_SHIFT) &
+				 XPCIEPSU_ECAM_DEV_MASK);
 
-        Location |= ((((u32)Function) << XPCIEPSU_ECAM_FUN_SHIFT) &
-                     XPCIEPSU_ECAM_FUN_MASK);
+	Location |= ((((u32)Function) << XPCIEPSU_ECAM_FUN_SHIFT) &
+				 XPCIEPSU_ECAM_FUN_MASK);
 
-        Location |= ((((u32)Offset) << XPCIEPSU_ECAM_REG_SHIFT) &
-                     XPCIEPSU_ECAM_REG_MASK);
+	Location |= ((((u32)Offset) << XPCIEPSU_ECAM_REG_SHIFT) &
+				 XPCIEPSU_ECAM_REG_MASK);
 
 	Location &= XPCIEPSU_ECAM_MASK;
 
@@ -966,12 +889,15 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 *
 * @param    InstancePtr pointer to XPciePsu Instance Pointer
 *
-* @return 	none
+* @return 	1 if success
+* 0 if fails
 *
 *******************************************************************************/
-void XPciePsu_EnumerateFabric(XPciePsu *InstancePtr)
+u8 XPciePsu_EnumerateBus(XPciePsu *InstancePtr)
 {
+	Xil_AssertNonvoid(InstancePtr != NULL);
 	XPciePsu_FetchDevicesInBus(InstancePtr, 0);
+	return XST_SUCCESS;
 }
 
 /******************************************************************************/
@@ -1006,7 +932,7 @@ u32 XPciePsu_CfgInitialize(XPciePsu *InstancePtr, XPciePsu_Config *CfgPtr,
 	/* Initialize PCIe PSU bridge */
 	Status = XPciePsu_BridgeInit(InstancePtr);
 	if (Status != XST_SUCCESS) {
-		XPciePsu_Err("PciePsu rc enumeration failed\r\n");
+		XPciePsu_Err("Bridge init failed\r\n");
 	}
 
 	return Status;
