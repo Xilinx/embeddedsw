@@ -75,8 +75,10 @@ extern "C" {
 #define FAST_READ_CMD_32BIT		(0x0CU)
 #define DUAL_READ_CMD_32BIT		(0x3CU)
 #define QUAD_READ_CMD_32BIT		(0x6CU)
+#define QUAD_READ_CMD_32BIT2		(0xEBU)
 
 
+#define WRITE_STATUS_CMD	(0x01U)
 #define WRITE_ENABLE_CMD	(0x06U)
 #define BANK_REG_RD_CMD		(0x16U)
 #define BANK_REG_WR_CMD		(0x17U)
@@ -96,6 +98,8 @@ extern "C" {
 				     quad reads */
 #define DUMMY_CLOCKS		8 /* Number of dummy bytes for fast, dual and
 				     quad reads */
+#define DUMMY_CLOCKS_MACRONIX	6 /* For 4-4-4 mode in Macronix dummy cycles are
+					default to 6*/
 #define RD_ID_SIZE			(4U) /* Read ID command + 3 bytes ID response */
 #define BANK_SEL_SIZE		(2U) /* BRWR or EARWR command + 1 byte bank value */
 #define WRITE_ENABLE_CMD_SIZE	(1U) /* WE command */
