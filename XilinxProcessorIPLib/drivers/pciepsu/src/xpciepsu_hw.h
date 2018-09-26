@@ -41,8 +41,8 @@
 * </pre>
 *
 *******************************************************************************/
-#ifndef SRC_XPCIEPSU_HW_H /* prevent circular inclusions */
-#define SRC_XPCIEPSU_HW_H /* by using protection macros */
+#ifndef XPCIEPSU_HW_H /* prevent circular inclusions */
+#define XPCIEPSU_HW_H /* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -193,6 +193,6 @@ extern "C" {
 }
 #endif
 
-#endif /* SRC_XPCIEPSU_HW_H */
+#endif /* XPCIEPSU_HW_H */
 
 /** @} */

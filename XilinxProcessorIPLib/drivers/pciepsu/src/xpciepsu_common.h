@@ -40,8 +40,8 @@
 * </pre>
 *
 *******************************************************************************/
-#ifndef SRC_XPCIEPSU_COMMON_H_
-#define SRC_XPCIEPSU_COMMON_H_
+#ifndef XPCIEPSU_COMMON_H_
+#define XPCIEPSU_COMMON_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -63,7 +63,7 @@ extern "C" {
 #define CAP_NOT_PRESENT					(0)
 
 
-#define XPciePsu_Print(MSG, ...)	xil_printf(MSG,##__VA_ARGS__)
+#define XPciePsu_Print(MSG, ...)	xil_printf("pcie_psu: "MSG,##__VA_ARGS__)
 #define XPciePsu_Error(MSG, ...)	xil_printf("pcie_psu: "MSG,##__VA_ARGS__)
 
 /* Conditional debugging prints */
@@ -87,4 +87,4 @@ extern "C" {
 }
 #endif
 
-#endif /* SRC_XPCIEPSU_COMMON_H_ */
+#endif /* XPCIEPSU_COMMON_H_ */

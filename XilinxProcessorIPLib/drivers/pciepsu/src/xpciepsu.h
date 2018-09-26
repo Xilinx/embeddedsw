@@ -73,8 +73,8 @@
 * </pre>
 *
 *******************************************************************************/
-#ifndef SRC_XPCIEPSU_H_
-#define SRC_XPCIEPSU_H_
+#ifndef XPCIEPSU_H_
+#define XPCIEPSU_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -138,4 +138,4 @@ void XPciePsu_PrintAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 }
 #endif
 
-#endif /* SRC_XPCIEPSU_H_ */
+#endif /* XPCIEPSU_H_ */
