@@ -37,7 +37,7 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
-* 0.1	bs	08/21/2018	First release
+* 1.0	bs	08/21/2018	First release
 * </pre>
 *
 *******************************************************************************/
@@ -185,13 +185,7 @@ extern "C" {
 #define XPCIEPSU_ECAM_FUN_SHIFT 12 /**< Function Number Shift Value */
 #define XPCIEPSU_ECAM_REG_SHIFT 2  /**< Register Number Shift Value */
 /*@}*/
-
 /******************** Macros (Inline Functions) Definitions *******************/
-#define XPciePsu_ReadReg(BaseAddr, RegOffset) Xil_In32((BaseAddr) + (RegOffset))
-
-#define XPciePsu_WriteReg(BaseAddr, RegOffset, Val)                            \
-	Xil_Out32((BaseAddr) + (RegOffset), (Val))
-
 /**************************** Variable Definitions ****************************/
 
 /***************************** Function Prototypes ****************************/
