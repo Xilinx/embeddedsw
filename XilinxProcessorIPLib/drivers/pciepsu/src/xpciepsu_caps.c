@@ -50,14 +50,7 @@
 /****************************** Type Definitions ******************************/
 
 /******************** Macros (Inline Functions) Definitions *******************/
-#define BASE_CAPPTR_DW					0xD
 
-#define LAST_TWO_NIBBLES(x)				(x & 0xFF)
-#define SHIFT_RIGHT_TWO_NIBBLES(x)		(x >> 8)
-#define NEXT_CAPPTR(x)					((x >> 8) & 0xFF)
-#define DOUBLEWORD(x)					(x / 4)
-#define CAP_PRESENT						(1)
-#define CAP_NOT_PRESENT					(0)
 /**************************** Variable Definitions ****************************/
 
 /***************************** Function Prototypes ****************************/
@@ -81,8 +74,8 @@ static u32 XPciePsu_GetBaseCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 	u32 CapBase = 0x0;
 
 	XPciePsu_ReadRemoteConfigSpace(InstancePtr, Bus, Device, Function,
-			BASE_CAPPTR_DW, &CapBase);
-	return (LAST_TWO_NIBBLES(CapBase));
+			XPCIEPSU_CFG_P_CAP_PTR_T1_REG, &CapBase);
+	return (CapBase & XPCIEPSU_CAP_PTR_LOC);
 }
 
 /******************************************************************************/
@@ -108,14 +101,14 @@ u32 XPciePsu_HasCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 
 	while (CapBase) {
 		XPciePsu_ReadRemoteConfigSpace(InstancePtr, Bus, Device,
-					       Function, DOUBLEWORD(CapBase), &CapBase);
-		if (CapId == (LAST_TWO_NIBBLES(CapBase))){
+					       Function, XPCIEPSU_DOUBLEWORD(CapBase), &CapBase);
+		if (CapId == (CapBase & XPCIEPSU_CFG_CAP_ID_LOC)){
 			CapStatus =  CAP_PRESENT;
 			goto End;
 		}
 
 
-		CapBase = NEXT_CAPPTR(CapBase);
+		CapBase = (CapBase >> XPCIEPSU_CAP_SHIFT) & XPCIEPSU_CAP_PTR_LOC;
 	}
 
 End:
@@ -150,14 +143,14 @@ u64 XPciePsu_GetCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 	while (CapBase) {
 		Adr = CapBase;
 		XPciePsu_ReadRemoteConfigSpace(InstancePtr, Bus, Device,
-				Function, DOUBLEWORD(CapBase), &CapBase);
-		if (CapId == (LAST_TWO_NIBBLES(CapBase))) {
+				Function, XPCIEPSU_DOUBLEWORD(CapBase), &CapBase);
+		if (CapId == (CapBase & XPCIEPSU_CFG_CAP_ID_LOC)) {
 			Offset = XPciePsu_ComposeExternalConfigAddress(
-					Bus, Device, Function, DOUBLEWORD(Adr));
+					Bus, Device, Function, XPCIEPSU_DOUBLEWORD(Adr));
 			Location = (InstancePtr->Config.Ecam) + (Offset);
 			goto End;
 		}
-		CapBase = NEXT_CAPPTR(CapBase);
+		CapBase = (CapBase >> XPCIEPSU_CAP_SHIFT) & XPCIEPSU_CAP_PTR_LOC;
 	}
 End:
 	return Location;
@@ -185,9 +178,9 @@ void XPciePsu_PrintAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 	XPciePsu_Dbg("CAP-IDs:");
 	while (CapBase) {
 		XPciePsu_ReadRemoteConfigSpace(InstancePtr, Bus, Device,
-				Function, DOUBLEWORD(CapBase), &CapBase);
-		XPciePsu_Dbg("0x%X ", LAST_TWO_NIBBLES(CapBase));
-		CapBase = NEXT_CAPPTR(CapBase);
+				Function, XPCIEPSU_DOUBLEWORD(CapBase), &CapBase);
+		XPciePsu_Dbg("0x%X ", CapBase & XPCIEPSU_CFG_CAP_ID_LOC);
+		CapBase = (CapBase >> XPCIEPSU_CAP_SHIFT) & XPCIEPSU_CAP_PTR_LOC;
 	}
 	XPciePsu_Dbg("\r\n");
 }
