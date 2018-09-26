@@ -1003,7 +1003,7 @@ u32 XPciePsu_CfgInitialize(XPciePsu *InstancePtr, XPciePsu_Config *CfgPtr,
 
 	InstancePtr->Config.BrigReg = EffectiveBrgAddress;
 
-	/* Initialize AXI-PCIe bridge */
+	/* Initialize PCIe PSU bridge */
 	Status = XPciePsu_BridgeInit(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		XPciePsu_Err("PciePsu rc enumeration failed\r\n");

@@ -52,6 +52,17 @@ extern "C" {
 /******************************** Include Files *******************************/
 /****************************** Type Definitions ******************************/
 /******************** Macros (Inline Functions) Definitions *******************/
+
+#define XPCIEPSU_CFG_P_CAP_PTR_T1_REG 	0X000D
+#define XPCIEPSU_CFG_CAP_ID_LOC		 	GENMASK(7, 0)
+
+#define XPCIEPSU_CAP_PTR_LOC			GENMASK(7, 0)
+#define XPCIEPSU_CAP_SHIFT				8
+#define XPCIEPSU_DOUBLEWORD(x)			(x / 4)
+#define CAP_PRESENT						(1)
+#define CAP_NOT_PRESENT					(0)
+
+
 #define XPciePsu_Print(MSG, ...)	xil_printf(MSG,##__VA_ARGS__)
 #define XPciePsu_Error(MSG, ...)	xil_printf("pcie_psu: "MSG,##__VA_ARGS__)
 
