@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -49,6 +49,8 @@
 #          sk     11/09/15 Removed delete filename statement CR# 784758.
 # 2.5      ms     04/18/17 Modified tcl file to add suffix U for all macros
 #                          definitions of iomodule in xparameters.h
+# 2.6      mus    09/25/18 Updated tcl to replace "hsi::get_cells -of_object"
+#                          with the "hsi::get_cells -of_objects". CR#1011395.
 ##############################################################################
 
 
@@ -641,7 +643,7 @@ proc xfind_instance {drvhandle instname} {
 # (from external source).
 ##########################################################################
 proc xget_port_type {periph} {
-    set mhs [hsi::get_cells -of_object $periph]
+    set mhs [hsi::get_cells -of_objects $periph]
     if {[llength $mhs] == 0} {
         return "global"
     } else {
