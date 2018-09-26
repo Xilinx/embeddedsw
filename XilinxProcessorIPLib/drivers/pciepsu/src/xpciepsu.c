@@ -200,7 +200,7 @@ static int XPciePsu_WaitForLink(XPciePsu_Config *InstancePtr)
 		usleep(LINK_WAIT_USLEEP_MIN);
 	}
 
-	XPciePsu_Dbg("PHY link never came up\n");
+	XPciePsu_Err("PHY link never came up\r\n");
 End:
 	return Status;
 }
@@ -230,7 +230,7 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 	BRegVal = XPciepsu_ReadReg(CfgPtr->BrigReg, E_BREG_CAPABILITIES)
 		   & BREG_PRESENT;
 	if (!BRegVal) {
-		XPciePsu_Dbg("BREG is not present\n");
+		XPciePsu_Err("BREG is not present\r\n");
 		Status = BRegVal;
 		goto End;
 	}
@@ -269,7 +269,7 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
         ECamVal = XPciepsu_ReadReg(CfgPtr->BrigReg, E_ECAM_CAPABILITIES) &
                 E_ECAM_PRESENT;
 	if (!ECamVal) {
-		XPciePsu_Dbg("ECAM is not present\n");
+		XPciePsu_Err("ECAM is not present\r\n");
 		Status = ECamVal;
 		goto End;
 	}
@@ -310,9 +310,9 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 
 	/* check link up */
 	if (XPciePsu_PcieLinkUp(CfgPtr) == LINKUP_SUCCESS) {
-		XPciePsu_Dbg("Link is UP\n");
+		XPciePsu_Dbg("Link is UP\r\n");
 	} else {
-		XPciePsu_Dbg("Link is DOWN\n");
+		XPciePsu_Err("Link is DOWN\r\n");
 		Status = XST_FAILURE;
 		goto End;
 	}
@@ -1001,7 +1001,7 @@ u32 XPciePsu_CfgInitialize(XPciePsu *InstancePtr, XPciePsu_Config *CfgPtr,
 	/* Initialize AXI-PCIe bridge */
 	Status = XPciePsu_BridgeInit(InstancePtr);
 	if (Status != XST_SUCCESS) {
-		XPciePsu_Dbg("Pciepsu rc enumeration failed\n");
+		XPciePsu_Err("Pciepsu rc enumeration failed\r\n");
 	}
 
 	return Status;

@@ -53,8 +53,14 @@ extern "C" {
 /****************************** Type Definitions ******************************/
 /******************** Macros (Inline Functions) Definitions *******************/
 #define pciepsu_print(MSG, ...)	xil_printf(MSG,##__VA_ARGS__)
+#define pciepsu_error(MSG, ...)	xil_printf("pcie_psu: "MSG,##__VA_ARGS__)
 
 /* Conditional debugging prints */
+#define XPciePsu_Err(MSG, ...) \
+		do { \
+			pciepsu_error(MSG, ##__VA_ARGS__); \
+		} while (0)
+
 #ifdef DEBUG_MODE
 #define XPciePsu_Dbg(MSG, ...) \
 		do { \
