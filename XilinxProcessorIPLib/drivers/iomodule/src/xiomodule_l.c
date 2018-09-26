@@ -146,7 +146,6 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 	u32 IntrStatus;
 	u32 IntrMask = 1;
 	u32 IntrNumber;
-	volatile u32 Register;			/* used as bit bucket */
 	XIOModule_Config *CfgPtr;
 	XIOModule_VectorTableEntry *TablePtr;
 
@@ -189,7 +188,7 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 			 * Read the ISR again to handle architectures with
 			 * posted write bus access issues.
 			 */
-			Register = XIOModule_GetIntrStatus(CfgPtr->BaseAddress);
+			XIOModule_GetIntrStatus(CfgPtr->BaseAddress);
 
 			/*
 			 * If only the highest priority interrupt is to be
