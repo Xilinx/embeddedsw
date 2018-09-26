@@ -1,30 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -101,6 +79,9 @@ extern user_config_struct user_config;
 u8 support_640_480_60;
 u8 support_800_600_60;
 
+volatile u8 prev_line_rate; 		/* This previous line rate to keep
+				 * previous info to compare
+				 * with new line rate request*/
 
 typedef unsigned int    UINT32;
 
@@ -115,11 +96,11 @@ typedef unsigned int    UINT32;
 	XPAR_INTC_0_DPTXSS_0_DPTXSS_DP_IRQ_VEC_ID
 #else
 #define XINTC_DPTXSS_DP_INTERRUPT_ID  	\
-	XPAR_INTC_0_DPTXSS_0_VEC_ID
+	XPAR_INTC_0_DP14TXSS_0_VEC_ID
 #endif
 
 #define XINTC_DPRXSS_DP_INTERRUPT_ID  	\
-	XPAR_INTC_0_DPRXSS_0_DPRXSS_DP_IRQ_VEC_ID
+	XPAR_INTC_0_DP14RXSS_0_DPRXSS_DP_IRQ_VEC_ID
 #define XINTC_DPRXSS_IIC_INTERRUPT_ID  	\
 	XPAR_INTC_0_DPRXSS_0_DPRXSS_IIC_IRQ_VEC_ID
 #define XDPRXSS_DEVICE_ID 	XPAR_DPRXSS_0_DEVICE_ID
@@ -245,6 +226,7 @@ void Dprx_InterruptHandlerInfoPkt(void *InstancePtr);
 void Dprx_InterruptHandlerExtPkt(void *InstancePtr);
 void Dprx_InterruptHandlerUplug(void *InstancePtr);
 void Dprx_InterruptHandlerPwr(void *InstancePtr);
+u8 get_LineRate(void);
 
 void DpRxSs_AccessLaneSetHandler(void *InstancePtr);
 void DpRxSs_AccessLinkQualHandler(void *InstancePtr);
