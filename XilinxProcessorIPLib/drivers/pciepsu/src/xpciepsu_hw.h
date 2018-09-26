@@ -27,7 +27,7 @@
 *******************************************************************************/
 /******************************************************************************/
 /**
-* @file xpciepsu_hw.c
+* @file xpciepsu_hw.h
 *
 * This header file contains identifiers and basic driver functions for the
 * XPciePsu device driver.
