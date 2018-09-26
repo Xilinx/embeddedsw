@@ -153,6 +153,7 @@ Update tcl to find mcdma from design and add cannonical macro in xparameters.h a
 Add API XXxvEthernet_LookupConfigBaseAddr(UINTPTR Baseaddr) to lookup config by base address.
 Add Macro XXxvEthernet_IsMcDma(InstancePtr) to check Mcdma is connected or not.
 Fix error generating bsp sources for xxv+axidma design.
+Fix interrupt ID generation for ZynqMP designs.
 
 Resetps_v1_2
 Fixed compilation warnings in resetps driver
