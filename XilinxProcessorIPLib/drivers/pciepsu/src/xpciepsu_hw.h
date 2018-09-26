@@ -164,7 +164,7 @@ extern "C" {
 #define XPCIEPSU_LINK_WAIT_USLEEP_MIN 		90000
 
 #define XPciePsu_IsEcamBusy(InstancePtr)                                       \
-	((XPciepsu_ReadReg((InstancePtr)->Config.Ecam, PCIEPSU_BSC_OFFSET)     \
+	((XPciePsu_ReadReg((InstancePtr)->Config.Ecam, PCIEPSU_BSC_OFFSET)     \
 	  & PCIEPSU_BSC_ECAM_BUSY_MASK)                                        \
 		 ? TRUE                                                        \
 		 : FALSE)
@@ -187,9 +187,9 @@ extern "C" {
 /*@}*/
 
 /******************** Macros (Inline Functions) Definitions *******************/
-#define XPciepsu_ReadReg(BaseAddr, RegOffset) Xil_In32((BaseAddr) + (RegOffset))
+#define XPciePsu_ReadReg(BaseAddr, RegOffset) Xil_In32((BaseAddr) + (RegOffset))
 
-#define XPciepsu_WriteReg(BaseAddr, RegOffset, Val)                            \
+#define XPciePsu_WriteReg(BaseAddr, RegOffset, Val)                            \
 	Xil_Out32((BaseAddr) + (RegOffset), (Val))
 
 /**************************** Variable Definitions ****************************/

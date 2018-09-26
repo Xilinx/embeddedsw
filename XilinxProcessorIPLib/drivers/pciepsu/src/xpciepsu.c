@@ -146,7 +146,7 @@
 static int XPciePsu_PhyLinkUp(XPciePsu_Config *InstancePtr)
 {
 	s32 Status;
-	if (XPciepsu_ReadReg(InstancePtr->PciReg, XPCIEPSU_PS_LINKUP_OFFSET)
+	if (XPciePsu_ReadReg(InstancePtr->PciReg, XPCIEPSU_PS_LINKUP_OFFSET)
 	    & XPCIEPSU_XPHY_RDY_LINKUP_BIT){
 		Status = XPCIEPSU_LINKUP_SUCCESS;
 	} else {
@@ -168,7 +168,7 @@ static int XPciePsu_PhyLinkUp(XPciePsu_Config *InstancePtr)
 static int XPciePsu_PcieLinkUp(XPciePsu_Config *InstancePtr)
 {
 	s32 Status;
-	if (XPciepsu_ReadReg(InstancePtr->PciReg, XPCIEPSU_PS_LINKUP_OFFSET)
+	if (XPciePsu_ReadReg(InstancePtr->PciReg, XPCIEPSU_PS_LINKUP_OFFSET)
 	    & XPCIEPSU_PHY_LINKUP_BIT){
 		Status =  XPCIEPSU_LINKUP_SUCCESS;
 	} else {
@@ -228,7 +228,7 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 
 	Xil_AssertNonvoid(CfgPtr != NULL);
 
-	BRegVal = XPciepsu_ReadReg(CfgPtr->BrigReg, XPCIEPSU_E_BREG_CAPABILITIES)
+	BRegVal = XPciePsu_ReadReg(CfgPtr->BrigReg, XPCIEPSU_E_BREG_CAPABILITIES)
 		   & BREG_PRESENT;
 	if (!BRegVal) {
 		XPciePsu_Err("BREG is not present\r\n");
@@ -237,27 +237,27 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 	}
 
 	/* Write bridge_off to breg base */
-	XPciepsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_E_BREG_BASE_LO,
+	XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_E_BREG_BASE_LO,
 			  LOWER_32_BITS(CfgPtr->BrigReg));
 
-	XPciepsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_E_BREG_BASE_HI,
+	XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_E_BREG_BASE_HI,
 			  UPPER_32_BITS(CfgPtr->BrigReg));
 
 	/* Enable BREG */
-	XPciepsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_E_BREG_CONTROL,
+	XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_E_BREG_CONTROL,
 			  ((~BREG_ENABLE_FORCE) & BREG_ENABLE));
 
 	/* Disable DMA channel registers */
-	XPciepsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_BRCFG_RX0,
-			  (XPciepsu_ReadReg(CfgPtr->BrigReg, XPCIEPSU_BRCFG_RX0)
+	XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_BRCFG_RX0,
+			  (XPciePsu_ReadReg(CfgPtr->BrigReg, XPCIEPSU_BRCFG_RX0)
 			   | CFG_DMA_REG_BAR));
 
 	/* Enable Ingress subtractive decode translation */
-	XPciepsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_I_ISUB_CONTROL,
+	XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_I_ISUB_CONTROL,
 			SET_ISUB_CONTROL);
 
 	/* Enable msg filtering details */
-	XPciepsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_BRCFG_RX_MSG_FILTER,
+	XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_BRCFG_RX_MSG_FILTER,
 			  CFG_ENABLE_MSG_FILTER_MASK);
 
 	/* Check for linkup */
@@ -268,7 +268,7 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 	}
 
 
-        ECamVal = XPciepsu_ReadReg(CfgPtr->BrigReg,
+        ECamVal = XPciePsu_ReadReg(CfgPtr->BrigReg,
 				XPCIEPSU_E_ECAM_CAPABILITIES) & E_ECAM_PRESENT;
 	if (!ECamVal) {
 		XPciePsu_Err("ECAM is not present\r\n");
@@ -277,26 +277,26 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 	}
 
 	/* Enable ECAM */
-	XPciepsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_E_ECAM_CONTROL,
-			XPciepsu_ReadReg(CfgPtr->BrigReg,
+	XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_E_ECAM_CONTROL,
+			XPciePsu_ReadReg(CfgPtr->BrigReg,
 					XPCIEPSU_E_ECAM_CONTROL) |
 					E_ECAM_CR_ENABLE);
 
-	XPciepsu_WriteReg(
+	XPciePsu_WriteReg(
 		CfgPtr->BrigReg, XPCIEPSU_E_ECAM_CONTROL,
-				XPciepsu_ReadReg(CfgPtr->BrigReg,
+				XPciePsu_ReadReg(CfgPtr->BrigReg,
 					XPCIEPSU_E_ECAM_CONTROL) |
 					(PSU_ECAM_VALUE_DEFAULT << E_ECAM_SIZE_SHIFT));
 
-	XPciepsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_E_ECAM_BASE_LO,
+	XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_E_ECAM_BASE_LO,
 			  LOWER_32_BITS(CfgPtr->Ecam));
 
-	XPciepsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_E_ECAM_BASE_HI,
+	XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_E_ECAM_BASE_HI,
 			  UPPER_32_BITS(CfgPtr->Ecam));
 
 	/* Get bus range */
-	ECamVal = XPciepsu_ReadReg(CfgPtr->BrigReg, XPCIEPSU_E_ECAM_CONTROL);
-	ECamValMin = XPciepsu_ReadReg(CfgPtr->BrigReg,
+	ECamVal = XPciePsu_ReadReg(CfgPtr->BrigReg, XPCIEPSU_E_ECAM_CONTROL);
+	ECamValMin = XPciePsu_ReadReg(CfgPtr->BrigReg,
 			XPCIEPSU_E_ECAM_CAPABILITIES);
 
 	ECamSize = 0x1 << (((ECamVal & E_ECAM_SIZE_LOC) >> E_ECAM_SIZE_SHIFT) +
@@ -311,7 +311,7 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 	ECamVal |= (FirstBusNo + 1) << 8;
 	ECamVal |= (InstancePtr->LastBusNo << E_ECAM_SIZE_SHIFT);
 
-	XPciepsu_WriteReg(CfgPtr->Ecam, XPCIEPSU_PRIMARY_BUS, ECamVal);
+	XPciePsu_WriteReg(CfgPtr->Ecam, XPCIEPSU_PRIMARY_BUS, ECamVal);
 
 	/* check link up */
 	if (XPciePsu_PcieLinkUp(CfgPtr) == XPCIEPSU_LINKUP_SUCCESS) {
@@ -323,11 +323,11 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 	}
 
 	/* Disable all misc interrupts */
-	XPciepsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_MSGF_MISC_MASK,
+	XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_MSGF_MISC_MASK,
 			  (u32)~MSGF_MISC_SR_MASKALL);
 
 	/* Disable all legacy interrupts */
-	XPciepsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_MSGF_LEG_MASK,
+	XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_MSGF_LEG_MASK,
 			  (u32)~MSGF_LEG_SR_MASKALL);
 
 	Status = XST_SUCCESS;
@@ -404,7 +404,7 @@ void XPciePsu_ReadRemoteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 							 Offset);
 
 	/* Read data from that location */
-	Data = XPciepsu_ReadReg((InstancePtr->Config.Ecam), Location);
+	Data = XPciePsu_ReadReg((InstancePtr->Config.Ecam), Location);
 
 	*DataPtr = Data;
 }
@@ -441,12 +441,12 @@ void XPciePsu_WriteRemoteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
                                                          Offset);
 
 	/* Write data to that location */
-	XPciepsu_WriteReg((InstancePtr->Config.Ecam), Location, Data);
+	XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location, Data);
 
 	/* Read data from that location to verify write */
 	while (Count) {
 		TestWrite =
-			XPciepsu_ReadReg((InstancePtr->Config.Ecam), Location);
+			XPciePsu_ReadReg((InstancePtr->Config.Ecam), Location);
 
 		if (TestWrite == Data)
 			break;
@@ -552,9 +552,9 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 			XPCIEPSU_CFG_BAR_BASE_OFFSET + BarNo);
 
 		/* Write data to that location */
-		XPciepsu_WriteReg((InstancePtr->Config.Ecam), Location, Data);
+		XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location, Data);
 
-		Size = XPciepsu_ReadReg((InstancePtr->Config.Ecam), Location);
+		Size = XPciePsu_ReadReg((InstancePtr->Config.Ecam), Location);
 		if ((Size & (~(0xf))) == 0x00) {
 			/* return saying that BAR is not implemented */
 			XPciePsu_Dbg(
@@ -589,11 +589,11 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 				XPCIEPSU_CFG_BAR_BASE_OFFSET + (BarNo + 1));
 
 			/* Write data to that location */
-			XPciepsu_WriteReg((InstancePtr->Config.Ecam),
+			XPciePsu_WriteReg((InstancePtr->Config.Ecam),
 						Location_1, Data);
 
 			/* get next bar if 64 bit address is required */
-			Size_1 = XPciepsu_ReadReg((InstancePtr->Config.Ecam),
+			Size_1 = XPciePsu_ReadReg((InstancePtr->Config.Ecam),
 						Location_1);
 
 			/* Merge two bars for size */
@@ -611,13 +611,13 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 			Tmp = (u32)BarAddr;
 
 			/* Write actual bar address here */
-			XPciepsu_WriteReg((InstancePtr->Config.Ecam), Location,
+			XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location,
 					  Tmp);
 
 			Tmp = (u32)(BarAddr >> 32);
 
 			/* Write actual bar address here */
-			XPciepsu_WriteReg((InstancePtr->Config.Ecam),
+			XPciePsu_WriteReg((InstancePtr->Config.Ecam),
 						Location_1, Tmp);
 			XPciePsu_Dbg(
 				"bus: %d, device: %d, function: %d: BAR %d, "
@@ -638,7 +638,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 			Tmp = (u32)BarAddr;
 
 			/* Write actual bar address here */
-			XPciepsu_WriteReg((InstancePtr->Config.Ecam), Location,
+			XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location,
 					Tmp);
 			XPciePsu_Dbg(
 				"bus: %d, device: %d, function: %d: BAR %d, "
@@ -1006,7 +1006,7 @@ u32 XPciePsu_CfgInitialize(XPciePsu *InstancePtr, XPciePsu_Config *CfgPtr,
 	/* Initialize AXI-PCIe bridge */
 	Status = XPciePsu_BridgeInit(InstancePtr);
 	if (Status != XST_SUCCESS) {
-		XPciePsu_Err("Pciepsu rc enumeration failed\r\n");
+		XPciePsu_Err("PciePsu rc enumeration failed\r\n");
 	}
 
 	return Status;
