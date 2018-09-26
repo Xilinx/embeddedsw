@@ -145,10 +145,14 @@
 *******************************************************************************/
 static int XPciePsu_PhyLinkUp(XPciePsu_Config *InstancePtr)
 {
+	s32 Status;
 	if (XPciepsu_ReadReg(InstancePtr->PciReg, PS_LINKUP_OFFSET)
-	    & PHY_RDY_LINKUP_BIT)
-		return LINKUP_SUCCESS;
-	return LINKUP_FAIL;
+	    & PHY_RDY_LINKUP_BIT){
+		Status = LINKUP_SUCCESS;
+	} else {
+		Status = LINKUP_FAIL;
+	}
+	return Status;
 }
 
 /******************************************************************************/
@@ -163,10 +167,14 @@ static int XPciePsu_PhyLinkUp(XPciePsu_Config *InstancePtr)
 *******************************************************************************/
 static int XPciePsu_PcieLinkUp(XPciePsu_Config *InstancePtr)
 {
+	s32 Status;
 	if (XPciepsu_ReadReg(InstancePtr->PciReg, PS_LINKUP_OFFSET)
-	    & PCIE_PHY_LINKUP_BIT)
-		return LINKUP_SUCCESS;
-	return LINKUP_FAIL;
+	    & PCIE_PHY_LINKUP_BIT){
+		Status =  LINKUP_SUCCESS;
+	} else {
+		Status =  LINKUP_FAIL;
+	}
+	return Status;
 }
 
 /******************************************************************************/
@@ -182,18 +190,19 @@ static int XPciePsu_PcieLinkUp(XPciePsu_Config *InstancePtr)
 static int XPciePsu_WaitForLink(XPciePsu_Config *InstancePtr)
 {
 	int Retries;
-
+	s32 Status = LINKUP_FAIL;
 	/* check if the link is up or not */
 	for (Retries = 0; Retries < LINK_WAIT_MAX_RETRIES; Retries++) {
-		if (XPciePsu_PhyLinkUp(InstancePtr))
-			return LINKUP_SUCCESS;
-
+		if (XPciePsu_PhyLinkUp(InstancePtr)){
+			Status =  LINKUP_SUCCESS;
+			goto End;
+		}
 		usleep(LINK_WAIT_USLEEP_MIN);
 	}
 
 	XPciePsu_Dbg("PHY link never came up\n");
-
-	return LINKUP_FAIL;
+End:
+	return Status;
 }
 
 /******************************************************************************/
@@ -210,6 +219,7 @@ static int XPciePsu_WaitForLink(XPciePsu_Config *InstancePtr)
 static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 {
 	XPciePsu_Config *CfgPtr;
+	s32 Status;
 	u32 BRegVal, ECamVal, FirstBusNo = 0, ECamValMin, ECamSize;
 	int Err;
 
@@ -221,7 +231,8 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 		   & BREG_PRESENT;
 	if (!BRegVal) {
 		XPciePsu_Dbg("BREG is not present\n");
-		return BRegVal;
+		Status = BRegVal;
+		goto End;
 	}
 
 	/* Write bridge_off to breg base */
@@ -249,14 +260,18 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 
 	/* Check for linkup */
 	Err = XPciePsu_WaitForLink(CfgPtr);
-	if (Err != LINKUP_SUCCESS)
-		return Err;
+	if (Err != LINKUP_SUCCESS){
+		Status = Err;
+		goto End;
+	}
+
 
         ECamVal = XPciepsu_ReadReg(CfgPtr->BrigReg, E_ECAM_CAPABILITIES) &
                 E_ECAM_PRESENT;
 	if (!ECamVal) {
 		XPciePsu_Dbg("ECAM is not present\n");
-		return ECamVal;
+		Status = ECamVal;
+		goto End;
 	}
 
 	/* Enable ECAM */
@@ -298,7 +313,8 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 		XPciePsu_Dbg("Link is UP\n");
 	} else {
 		XPciePsu_Dbg("Link is DOWN\n");
-		return XST_FAILURE;
+		Status = XST_FAILURE;
+		goto End;
 	}
 
 	/* Disable all misc interrupts */
@@ -309,7 +325,9 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 	XPciepsu_WriteReg(CfgPtr->BrigReg, MSGF_LEG_MASK,
 			  (u32)~MSGF_LEG_SR_MASKALL);
 
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+End:
+	return Status;
 }
 
 /******************************************************************************/
@@ -464,8 +482,10 @@ static u64 XPciePsu_ReserveBarMem(XPciePsu *InstancePtr, u8 MemType, u8 MemBarAr
 {
 	u64 Ret = 0;
 
-	if (MemType == PCI_BAR_IO_MEM)
-		return XST_FAILURE;
+	if (MemType == PCI_BAR_IO_MEM){
+		Ret = XST_FAILURE;
+		goto End;
+	}
 
 	if (MemBarArdSize == PCI_BAR_MEM_TYPE_64) {
 		Ret = InstancePtr->Config.PMemBaseAddr;
@@ -481,6 +501,7 @@ static u64 XPciePsu_ReserveBarMem(XPciePsu *InstancePtr, u8 MemType, u8 MemBarAr
 				InstancePtr->Config.NpMemMaxAddr);
 	}
 
+End:
 	return Ret;
 }
 
@@ -963,7 +984,7 @@ void XPciePsu_EnumerateFabric(XPciePsu *InstancePtr)
 u32 XPciePsu_CfgInitialize(XPciePsu *InstancePtr, XPciePsu_Config *CfgPtr,
 			   UINTPTR EffectiveBrgAddress)
 {
-	u32 Ret;
+	s32 Status;
 
 	/* Assert arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -978,11 +999,10 @@ u32 XPciePsu_CfgInitialize(XPciePsu *InstancePtr, XPciePsu_Config *CfgPtr,
 	InstancePtr->Config.BrigReg = EffectiveBrgAddress;
 
 	/* Initialize AXI-PCIe bridge */
-	Ret = XPciePsu_BridgeInit(InstancePtr);
-	if (Ret != XST_SUCCESS) {
+	Status = XPciePsu_BridgeInit(InstancePtr);
+	if (Status != XST_SUCCESS) {
 		XPciePsu_Dbg("Pciepsu rc enumeration failed\n");
-		return Ret;
 	}
 
-	return XST_SUCCESS;
+	return Status;
 }
