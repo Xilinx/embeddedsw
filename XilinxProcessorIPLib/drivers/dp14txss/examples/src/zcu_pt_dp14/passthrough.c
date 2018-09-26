@@ -418,6 +418,9 @@ void DpPt_Main(void){
 					user_config.VideoMode_local = VmId;
 					user_config.user_pattern = 0; /*pass-through (Default)*/
 					user_config.user_format = XVIDC_CSF_RGB;
+#if !I2S_AUDIO
+					XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x0);
+#endif
 
 					//Waking up the monitor
 					sink_power_cycle();
@@ -1080,6 +1083,8 @@ void start_tx_after_rx (void) {
 
 	frameBuffer_stop_rd(Msa);
 	frameBuffer_start_rd(VmId, Msa, downshift4K);
+	start_audio_passThrough (LineRate_init_tx);
+
 }
 
 void unplug_proc (void) {
@@ -1218,9 +1223,10 @@ void audio_start_tx (void) {
 	filter_count_b++;
 	//Audio may not work properly on some monitors if this is started too early
 	//hence the delay here
-	if (filter_count_b < 3) {
+	if (filter_count_b < 100) {
 		start_audio_passThrough(LineRate_init_tx);
 	} else if (filter_count_b > 200000) {
+
 #if I2S_AUDIO
 		XI2s_Rx_SetSclkOutDiv (&I2s_rx, appx_fs_dup*I2S_CLK_MULT, appx_fs_dup);
 		XI2s_Rx_LatchAesChannelStatus (&I2s_rx);
@@ -1333,7 +1339,9 @@ void dptx_tracking (void) {
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 		XDpTxSs_Stop(&DpTxSsInst);
 		i2s_started = 0;
+#if !I2S_AUDIO
 		XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x0);
+#endif
 		tx_after_rx = 1;
 	} else {
 		tx_is_reconnected = 0;

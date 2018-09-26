@@ -113,10 +113,10 @@
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
 #define XINTC_DPTXSS_DP_INTERRUPT_ID \
-	XPAR_FABRIC_DPTXSS_0_DPTXSS_DP_IRQ_VEC_ID
+	XPAR_FABRIC_DP14TXSS_0_DPTXSS_DP_IRQ_VEC_ID
 
 #define XINTC_DPRXSS_DP_INTERRUPT_ID \
-    XPAR_FABRIC_DPRXSS_0_DPRXSS_DP_IRQ_VEC_ID
+    XPAR_FABRIC_DP14RXSS_0_DPRXSS_DP_IRQ_VEC_ID
 #define XINTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define XINTC                    XScuGic
 #define XINTC_HANDLER            XScuGic_InterruptHandler
