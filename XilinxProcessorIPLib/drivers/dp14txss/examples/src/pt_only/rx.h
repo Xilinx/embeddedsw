@@ -73,7 +73,11 @@
 
 /* DP Specific Defines
  */
-#define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_540GBPS
+#ifdef versal
+#define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_810GBPS
+#else
+#define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_810GBPS
+#endif
 #define DPRXSS_LANE_COUNT        XDPRXSS_LANE_COUNT_SET_4
 #define SET_TX_TO_2BYTE            \
     (XPAR_XDP_0_GT_DATAWIDTH/2)
@@ -172,6 +176,7 @@ typedef struct
 	u8 all_count;
 } XilAudioInfoFrame_rx;
 
+
 /*The structure defines Generic Frame Packet fields*/
 typedef struct
 {
@@ -188,7 +193,8 @@ XilAudioExtFrame  SdpExtFrame_q;
 
 void DpRxSs_Main(void);
 u32 DpRxSs_VideoPhyInit(u16 DeviceId);
-u32 DpRxSs_Setup(void);
+u32 DpRxSs_Setup(u8 freesync, u8 vsc);
+void DpRxSs_SetVsc (u8 vsc);
 
 /* Interrupt helper functions */
 u32 DpRxSs_SetupIntrSystem(void);
@@ -214,6 +220,8 @@ void XDp_RxInterruptDisable1(XDp *InstancePtr, u32 Mask);
 void XDp_RxInterruptEnable1(XDp *InstancePtr, u32 Mask);
 void DpRxSs_InfoPacketHandler(void *InstancePtr);
 void DpRxSs_ExtPacketHandler(void *InstancePtr);
+void DpRxSs_AdaptiveVblankHandler(void *InstancePtr);
+void DpRxSs_AdaptiveSDPHandler(void *InstancePtr);
 void Print_InfoPkt();
 void Print_ExtPkt();
 

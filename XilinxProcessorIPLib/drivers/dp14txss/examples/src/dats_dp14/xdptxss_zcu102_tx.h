@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #ifndef SRC_XDPTXSS_ZCU102_TX_H_
 #define SRC_XDPTXSS_ZCU102_TX_H_
@@ -65,7 +43,7 @@
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
 #define XINTC_DPTXSS_DP_INTERRUPT_ID \
-	XPAR_FABRIC_DPTXSS_0_VEC_ID
+	XPAR_FABRIC_DP14TXSS_0_VEC_ID
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #define XINTC_DPTXSS_HDCP_INTERRUPT_ID \
 	XPAR_INTC_0_DPTXSS_0_DPTXSS_HDCP_IRQ_VEC_ID
@@ -126,6 +104,14 @@
 #define XVPHY_DRP_RXCLK25			0x6D
 #define XVPHY_DRP_TXCLK25			0x7A
 #define XVPHY_DRP_TXOUT_DIV			0x7C
+
+#define DIVIDER_162                 57423
+#define DIVIDER_270                 57415
+#define DIVIDER_540                 57442
+#define DIVIDER_810                 57440
+
+#define TX_BUFFER_BYPASS            XPAR_VID_PHY_CONTROLLER_0_TX_BUFFER_BYPASS
+#define UCD400 1
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

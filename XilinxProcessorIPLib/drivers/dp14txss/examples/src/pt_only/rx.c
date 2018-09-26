@@ -26,8 +26,51 @@ volatile u16 DrpVal_lower_lane0=0;
 volatile u16 DrpVal_lower_lane1=0;
 volatile u16 DrpVal_lower_lane2=0;
 volatile u16 DrpVal_lower_lane3=0;
+extern XDpTxSs DpTxSsInst;
+extern u32 vblank_init;
+extern u8 vblank_captured;
+extern u32 appx_fs_dup;
+extern u8 rx_trained;
+extern u8 start_i2s_clk;
+extern u8 i2s_tx_started;
+extern u8 rx_aud;
 extern u8 tx_after_rx;
+extern u8 tx_done;
+extern void mask_intr (void);
+
+#ifdef versal
+#if (VERSAL_FABRIC_8B10B == 1)
+extern XClk_Wiz_Config *CfgPtr_Dynamic_rx;
+extern XClk_Wiz ClkWiz_Dynamic_rx;
+#endif
+#endif
+
+
 //extern u8 audio_info_avail;
+u32 infofifo[64]; //RX and TX can store upto 4 infoframes each. fifo of 8
+u8 endindex = 0;
+u8 fifocount = 0;
+u32 hdrframe[9];
+u16 fifoOverflow=0;
+extern u8 tx_pass;
+extern u8 startindex;
+
+
+void DpRxSs_SetVsc (u8 vsc) {
+	u32 VSC_MASK = 0x00000004;
+	u32 RegVal = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			XDP_RX_DTG_ENABLE);
+	if (vsc) {
+		RegVal |= VSC_MASK;
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_DTG_ENABLE, RegVal);
+		xil_printf (ANSI_COLOR_GREEN"DP RX enabled for VSC Colorimetry support"ANSI_COLOR_RESET" \r\n");
+	} else {
+		RegVal &= ~VSC_MASK;
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_DTG_ENABLE, RegVal);
+	}
+}
 
 /*****************************************************************************/
 /**
@@ -43,14 +86,13 @@ extern u8 tx_after_rx;
 * @note        None.
 *
 ******************************************************************************/
-u32 DpRxSs_Setup(void)
+u32 DpRxSs_Setup(u8 freesync, u8 vsc)
 {
 	u32 ReadVal;
 
 	/*Disable Rx*/
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 		     XDP_RX_LINK_ENABLE, 0x0);
-
 
 	/*Disable All Interrupts*/
 	XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFFFFFFF);
@@ -125,6 +167,34 @@ u32 DpRxSs_Setup(void)
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 					XDP_RX_LOCAL_EDID_VIDEO, 0x0);
 #endif
+
+#if ADAPTIVE
+	if (freesync) {
+		//Setting RX DPCD to be Adaptive-Sync capable
+		XDpRxSs_SetAdaptiveSyncCaps(&DpRxSsInst, 1);
+
+#if ADAPTIVE_TYPE
+		//Disabling Adaptive interrupt
+		XDpRxSs_MaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
+#else
+		//enabling Adaptive interrupt
+		XDpRxSs_UnMaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
+#endif
+		xil_printf (ANSI_COLOR_GREEN"DP RX enabled for Adaptive Sync"ANSI_COLOR_RESET" \r\n");
+	} else {
+		//Disabling Adaptive interrupt
+		XDpRxSs_MaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
+		XDpRxSs_SetAdaptiveSyncCaps(&DpRxSsInst, 0);
+		xil_printf (ANSI_COLOR_GREEN"DP RX not enabled for Adaptive Sync"ANSI_COLOR_RESET" \r\n");
+	}
+#else
+	XDpRxSs_MaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
+	XDpRxSs_SetAdaptiveSyncCaps(&DpRxSsInst, 0);
+#endif
+
+	//Setting VSC Colorimetry capability in RX
+	DpRxSs_SetVsc(vsc);
+
 	/*Enable Rx*/
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 		     XDP_RX_LINK_ENABLE, 0x1);
@@ -192,11 +262,69 @@ u32 DpRxSs_SetupIntrSystem(void)
 			&DpRxSs_InfoPacketHandler, &DpRxSsInst);
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_EXT_PKT_EVENT,
 			&DpRxSs_ExtPacketHandler, &DpRxSsInst);
+#if ADAPTIVE
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_EVENT,
+			&DpRxSs_AdaptiveVblankHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_EVENT,
+			&DpRxSs_AdaptiveSDPHandler, &DpRxSsInst);
+
+#endif
 
 	/* Set custom timer wait */
 	XDpRxSs_SetUserTimerHandler(&DpRxSsInst, &CustomWaitUs, &TmrCtr);
 
 	return (XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the callback function for when the Adaptive SDP interrupt
+* occurs.
+*
+* @param    InstancePtr is a pointer to the XDpRxSs instance.
+*
+* @return    None.
+*
+* @note        None.
+*
+******************************************************************************/
+void DpRxSs_AdaptiveSDPHandler(void *InstancePtr)
+{
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the callback function for when the Adaptive Vblank interrupt
+* occurs. Here the new value of Vblank is read. The difference in vblank is
+* then programmed into VTC
+*
+* @param    InstancePtr is a pointer to the XDpRxSs instance.
+*
+* @return    None.
+*
+* @note        None.
+*
+******************************************************************************/
+void DpRxSs_AdaptiveVblankHandler(void *InstancePtr)
+{
+	u32 vblank;
+	u32 delta;
+	vblank = XDpRxSs_GetVblank(&DpRxSsInst);
+
+	/* Calculate delta of Vtotal */
+	if (vblank_captured) {
+		delta = vblank - vblank_init;
+		/* Update the Stretch value in VTC */
+#if !ADAPTIVE_TYPE && ADAPTIVE
+		XDpTxSs_VtcAdaptiveSyncSetup(DpTxSsInst.VtcPtr[0], ADAPTIVE_TYPE, delta);
+		//xil_printf ("delta = %d\r\n",delta);
+#endif
+	}
+
+
 }
 
 /*****************************************************************************/
@@ -267,12 +395,13 @@ void DpRxSs_NoVideoHandler(void *InstancePtr)
 					 VidFrameCRC_rx.TEST_CRC_CNT));
 
 	DpRxSsInst.no_video_trigger = 1;
-
+	type_vsc = 0;
 	AudioinfoFrame.frame_count=0;
 	AudioinfoFrame.all_count=0;
 	XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
 			XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
-
+	XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
+			XDP_RX_INTERRUPT_MASK_EXT_PKT_MASK);
 }
 
 /*****************************************************************************/
@@ -306,14 +435,6 @@ void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 * @note        None.
 *
 ******************************************************************************/
-extern u32 appx_fs_dup;
-extern u8 rx_trained;
-extern u8 start_i2s_clk;
-extern u8 i2s_tx_started;
-extern u8 rx_aud;
-extern u8 tx_after_rx;
-extern u8 tx_done;
-extern void mask_intr (void);
 
 void DpRxSs_TrainingLostHandler(void *InstancePtr)
 {
@@ -339,7 +460,13 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 		xil_printf ("Training Lost !!\r\n");
 	}
 	rx_trained = 0;
+	vblank_captured = 0;
+	endindex = 0;
+	fifocount = 0;
+	startindex = 0;
+	type_vsc = 0;
 
+	XDpRxSs_MaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
 }
 
 /*****************************************************************************/
@@ -414,6 +541,7 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
 	SdpExtFrame_q.Header[1] = 0;
 	SdpExtFrame.frame_count = 0;
 	SdpExtFrame.frame_count = 0;
+	type_vsc = 0;
 
 	// mask the TX interrupts to avoid spurious HPDs
 	mask_intr();
@@ -479,31 +607,129 @@ void DpRxSs_LinkBandwidthHandler(void *InstancePtr)
 	u8 bridge;
 	u32 retry = 0;
 	u32 dprx_sts=0;
-	u32 lanes=0,rate=0;
+	u32 rate=0;
+	u32 HighTime;
+	u32 DivEdge;
+	u32 Reg;
+	u32 P5Enable;
+	u32 P5fEdge;
+	u16 Oval;
+	u16 Dval;
+	u16 Mval;
 
-    if (DpRxSsInst.UsrOpt.LinkRate == 0x1E) {
-                    bridge = 3;
-    } else if (DpRxSsInst.UsrOpt.LinkRate == 0x14) {
-                    bridge = 2;
-    } else if (DpRxSsInst.UsrOpt.LinkRate == 0xA) {
-                    bridge = 1;
+	/* For each line rate, the M, D, Div values for MMCM are chosen such that
+	 * MMCM gives a /20 clock output for /16 clk input.
+	 *
+	 * GT ch0outclk (/16) --> MMCM --> /20 clock
+	 *
+	 * Thus:
+	 * 8.1G  : Input MMCM clock is 506.25, output is 405
+	 * 5.4G  : Input MMCM clock is 337.5, output is 270
+	 * 2.7G  : Input MMCM clock is 168.75, output is 135
+	 * 1.62G : Input MMCM clock is 101.25, output is 81
+	 */
+
+    if (DpRxSsInst.UsrOpt.LinkRate == XDP_TX_LINK_BW_SET_810GBPS) {
+		bridge = VERSAL_810G;
+		Mval = 28;
+		Dval = 5;
+		Oval = 7;
+    } else if (DpRxSsInst.UsrOpt.LinkRate == XDP_TX_LINK_BW_SET_540GBPS) {
+		bridge = VERSAL_540G;
+		Mval = 44;
+		Dval = 5;
+		Oval = 11;
+    } else if (DpRxSsInst.UsrOpt.LinkRate == XDP_TX_LINK_BW_SET_270GBPS) {
+		bridge = VERSAL_270G;
+		Mval = 88;
+		Dval = 5;
+		Oval = 22;
     } else {
-                    bridge = 0;
+		bridge = VERSAL_162G;
+		Mval = 148;
+		Dval = 5;
+		Oval = 37;
     }
 
+#if (VERSAL_FABRIC_8B10B == 1)
+    /* MMCM is dynamically programmed for the respective rate
+     * using the M, D, Div values
+     */
+	HighTime = (Oval / 4);
+	Reg =  XCLK_WIZ_REG3_PREDIV2 | XCLK_WIZ_REG3_USED | XCLK_WIZ_REG3_MX;
+	if (Oval % 4 <= 1) {
+		DivEdge = 0;
+	} else {
+		DivEdge = 1;
+	}
+	Reg |= (DivEdge << 8);
+	P5fEdge = Oval % 2;
+	P5Enable = Oval % 2;
+	Reg = Reg | P5Enable << XCLK_WIZ_CLKOUT0_P5EN_SHIFT | P5fEdge << XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT;
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG3_OFFSET, Reg);
+	Reg = HighTime | HighTime << 8;
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG4_OFFSET, Reg);
+
+	/* Implement D */
+	HighTime = (Dval / 2);
+	Reg  = 0;
+	Reg = Reg & ~(1 << XCLK_WIZ_REG12_EDGE_SHIFT);
+	DivEdge = Dval % 2;
+	Reg = Reg | DivEdge << XCLK_WIZ_REG12_EDGE_SHIFT;
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG12_OFFSET, Reg);
+	Reg = HighTime | HighTime << 8;
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG13_OFFSET, Reg);
+
+	/* Implement M*/
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
+
+	DivEdge = Mval % 2;
+	HighTime = Mval / 2;
+	Reg = HighTime | HighTime << 8;
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG2_OFFSET, Reg);
+	Reg = XCLK_WIZ_REG1_PREDIV2 | XCLK_WIZ_REG1_EN | XCLK_WIZ_REG1_MX;
+
+	if (DivEdge) {
+		Reg = Reg | (1 << XCLK_WIZ_REG1_EDGE_SHIFT);
+	} else {
+		Reg = Reg & ~(1 << XCLK_WIZ_REG1_EDGE_SHIFT);
+	}
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG1_OFFSET, Reg);
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG11_OFFSET, 0x2e);
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG14_OFFSET, 0xe80);
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG15_OFFSET, 0x4271);
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG16_OFFSET, 0x43e9);
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG17_OFFSET, 0x001C);
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG26_OFFSET, 0x0001);
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_RECONFIG_OFFSET, 0x3);
+#endif
+
     rate = bridge << 1;
-    GtCtrl (GT_RATE_MASK, rate, 0); //bridge << 1); //rate
+    GtCtrl (GT_RATE_MASK, rate, 0);
     dprx_sts = 0;
-	while (dprx_sts != 0x00000011 && retry < 10000) {
+	while (dprx_sts != ALL_LANE && retry < 10000) {
 		 dprx_sts = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
-		 dprx_sts &= 0x00000011;
+		 dprx_sts &= ALL_LANE;
 		 retry++;
-	//        xil_printf ("tmp is %d\r\n", tmp);
 	}
 	if (retry == 10000) {
 		xil_printf ("+++ RX GT Configuration failure ++++\r\n");
 	}
-
+#if (VERSAL_FABRIC_8B10B == 1)
+	retry = 0;
+	/* MMCM issued a reset */
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, 0x0, 0xA);
+	while(!(XClk_Wiz_ReadReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_STATUS_OFFSET) & 1)) {
+		if(retry == 10000) {
+				break;
+		}
+//					usleep(100);
+		retry++;
+	}
+	if (retry == 10000) {
+		xil_printf ("Rx Clk_wizard failed to lock\r\n");
+	}
+#endif
 #endif
 
 	DpRxSsInst.link_up_trigger = 0;
@@ -990,37 +1216,32 @@ void LoadEDID(void)
 void DpRxSs_InfoPacketHandler(void *InstancePtr)
 {
 	u32 InfoFrame[9];
-	int i=1;
-	for(i = 1 ; i < 9 ; i++) {
-		InfoFrame[i] = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-				XDP_RX_AUDIO_INFO_DATA(i));
+	int i=0;
+	for(i = 0 ; i < 8 ; i++) {
+		if (tx_pass) {
+			//Start putting into FIFO. These will be programmed into TX
+			infofifo[(endindex*8)+i] = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_AUDIO_INFO_DATA(1));
+		} else {
+			// Read of Ignore until TX is up and running
+			XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+								XDP_RX_AUDIO_INFO_DATA(1));
+		}
 	}
+	if (tx_pass) {
+		if(endindex < (AUXFIFOSIZE - 1)) {
+			endindex++;
+		} else {
+			endindex = 0;
+		}
 
-	AudioinfoFrame.all_count++;
+		if (fifocount >= AUXFIFOSIZE) {
+	//		xil_printf ("Aux fifo overflow\r\n");
+			fifoOverflow++;
+		}
 
-	AudioinfoFrame.type = (InfoFrame[1]>>8)&0xFF;
-//	xil_printf ("%x\r\n",AudioinfoFrame.type);
-
-	if (AudioinfoFrame.type == 0x84) {
-	//storing the info frame here
-			AudioinfoFrame.frame_count++;
-
-			AudioinfoFrame.version = InfoFrame[1]>>26;
-			AudioinfoFrame.type = (InfoFrame[1]>>8)&0xFF;
-			AudioinfoFrame.sec_id = InfoFrame[1]&0xFF;
-			AudioinfoFrame.info_length = (InfoFrame[1]>>16)&0x3FF;
-
-			AudioinfoFrame.audio_channel_count = InfoFrame[2]&0x7;
-			AudioinfoFrame.audio_coding_type = (InfoFrame[2]>>4)&0xF;
-			AudioinfoFrame.sample_size = (InfoFrame[2]>>8)&0x3;
-			AudioinfoFrame.sampling_frequency = (InfoFrame[2]>>10)&0x7;
-			AudioinfoFrame.channel_allocation = (InfoFrame[2]>>24)&0xFF;
-
-			AudioinfoFrame.level_shift = (InfoFrame[3]>>3)&0xF;
-			AudioinfoFrame.downmix_inhibit = (InfoFrame[3]>>7)&0x1;
-
+		fifocount++;
 	}
-
 }
 
 /*****************************************************************************/
@@ -1036,10 +1257,13 @@ void DpRxSs_InfoPacketHandler(void *InstancePtr)
 * @note        None.
 *
 ******************************************************************************/
+
+
 void DpRxSs_ExtPacketHandler(void *InstancePtr)
 {
-	u32 ExtFrame[9];
+
 	int i=1;
+	u32 ExtFrame[9];
 
 	SdpExtFrame.frame_count++;
 
@@ -1051,6 +1275,18 @@ void DpRxSs_ExtPacketHandler(void *InstancePtr)
 	SdpExtFrame.Header[2] = (ExtFrame[0]&0xFF0000)>>16;
 	SdpExtFrame.Header[3] = (ExtFrame[0]&0xFF000000)>>24;
 
+	if (SdpExtFrame.Header[2] == 0x05) {
+		/* This example supports only colorimetry extended
+		 * packets
+		 */
+		ExtFrame_tx_vsc.Header = ExtFrame[0];
+		type_vsc = 0x13;
+	} else {
+		/* For future use
+		 *
+		 */
+	}
+
 	/*Payload Information*/
 	for (i = 0 ; i < 8 ; i++)
 	{
@@ -1060,8 +1296,14 @@ void DpRxSs_ExtPacketHandler(void *InstancePtr)
 		SdpExtFrame.Payload[(i*4)+1] = (ExtFrame[i+1]&0xFF00)>>8;
 		SdpExtFrame.Payload[(i*4)+2] = (ExtFrame[i+1]&0xFF0000)>>16;
 		SdpExtFrame.Payload[(i*4)+3] = (ExtFrame[i+1]&0xFF000000)>>24;
+		if (type_vsc == 0x13) {
+			ExtFrame_tx_vsc.Payload[i] = ExtFrame[i+1];
+		} else {
+			/* For future use
+			 *
+			 */
+		}
 	}
-
 }
 
 /*****************************************************************************/
