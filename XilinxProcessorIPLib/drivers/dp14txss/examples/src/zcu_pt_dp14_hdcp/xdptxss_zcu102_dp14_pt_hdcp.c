@@ -1357,14 +1357,14 @@ u32 DpSs_SetupIntrSystem(void)
 #endif
 #if ENABLE_HDCP_IN_DESIGN
 	/* Hook up Rx interrupt service routine */
-	Status = XScuGic_Connect(IntcInstPtr, XPAR_FABRIC_DPRXSS_0_DPRXSS_TIMER_IRQ_VEC_ID,
+	Status = XScuGic_Connect(IntcInstPtr, XPAR_FABRIC_DP14RXSS_0_DPRXSS_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XDpRxSs_TmrCtrIntrHandler,&DpRxSsInst);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: Timer interrupt connect failed!\n\r");
 		return XST_FAILURE;
 	}
 
-	XScuGic_Enable(IntcInstPtr, XPAR_FABRIC_DPRXSS_0_DPRXSS_TIMER_IRQ_VEC_ID);
+	XScuGic_Enable(IntcInstPtr, XPAR_FABRIC_DP14RXSS_0_DPRXSS_TIMER_IRQ_VEC_ID);
 #endif
 
 	/* Initialize the exception table. */

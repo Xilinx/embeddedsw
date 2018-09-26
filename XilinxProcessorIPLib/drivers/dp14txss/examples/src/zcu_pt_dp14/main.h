@@ -102,7 +102,7 @@
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
 #define XINTC_DPTXSS_DP_INTERRUPT_ID \
-	XPAR_FABRIC_DPTXSS_0_VEC_ID
+	XPAR_FABRIC_DP14TXSS_0_VEC_ID
 
 #define XINTC_DPRXSS_DP_INTERRUPT_ID \
     XPAR_FABRIC_DPRXSS_0_VEC_ID
@@ -185,7 +185,7 @@
  */
 // Set PHY_COMP to 1 when doing the PHY and LL compliance
 // For normal operation, this needs to be set to 0
-#define PHY_COMP 1
+#define PHY_COMP 0
 #define EDID_1_ENABLED PHY_COMP
 
 /*Max timeout tuned as per tester - AXI Clock=100 MHz
@@ -371,6 +371,5 @@ XI2srx_Config *Config_rx;
 XGpio_Config  *aud_gpio_ConfigPtr;
 XAxis_Switch axis_switch_rx;
 XAxis_Switch axis_switch_tx;
-
 
 #endif
