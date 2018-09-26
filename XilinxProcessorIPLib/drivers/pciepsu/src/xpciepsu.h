@@ -37,7 +37,6 @@
 * The driver provides its user with entry points
 *   - To initialize and configure itself and the hardware
 *   - To access PCIe configuration space locally
-*   - To enable/disable and to report errors (interrupts).
 *
 * <b>Driver Initialization & Configuration</b>
 *
@@ -98,16 +97,16 @@ typedef struct {
 	u64 BrigReg;  /**< Bridge Register base address */
 	u64 PciReg;		/**< pcie Register base address */
 	u64 Ecam;		/**< Ecam space base address */
-	u32 NP_mem;		/**< non prefetchable memory base address */
-	u64 P_mem;		/**< prefetchable memory base address */
-	u32 NP_mem_max;	/**< non prefetchable memory max base address*/
-	u64 P_mem_max;	/**< prefetchable memory max base address */
+	u32	NpMemBaseAddr;		/**< non prefetchable memory base address */
+	u64	PMemBaseAddr;		/**< prefetchable memory base address */
+	u32	NpMemMaxAddr;	/**< non prefetchable memory max base address*/
+	u64	PMemMaxAddr;	/**< prefetchable memory max base address */
 } XPciePsu_Config;
 
 typedef struct {
 	XPciePsu_Config Config; /**< Configuration data */
 	u32 IsReady;		/**< Is IP been initialized and ready */
-	u32 last_busno;		/**< If this is RC IP, Max Number of  Buses */
+	u32 LastBusNo;		/**< If this is RC IP, Max Number of  Buses */
 } XPciePsu;
 
 /***************************** Function Prototypes ****************************/
@@ -116,7 +115,7 @@ XPciePsu_Config *XPciePsu_LookupConfig(u16 DeviceId);
 
 u32 XPciePsu_CfgInitialize(XPciePsu *InstancePtr, XPciePsu_Config *CfgPtr,
 			   UINTPTR EffectiveBrgAddress);
-void XPciePsuEnumerate_Fabric(XPciePsu *InstancePtr);
+void XPciePsu_EnumerateFabric(XPciePsu *InstancePtr);
 void XPciePsu_ReadRemoteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 				    u8 Function, u16 Offset, u32 *DataPtr);
 void XPciePsu_WriteRemoteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
@@ -124,13 +123,11 @@ void XPciePsu_WriteRemoteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 u32 XPciePsu_ComposeExternalConfigAddress(u8 Bus, u8 Device, u8 Function,
 					  u16 Offset);
 
-u32 XPciePsu_getBaseCapabilityPtr(XPciePsu *InstancePtr, u8 Bus, u8 Device,
-		u8 Function);
-u32 XPciePsu_hasCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
-		u8 Function, u8 capId);
-u32 XPciePsu_getCapabilityFor(XPciePsu *InstancePtr, u8 Bus, u8 Device,
-		u8 Function, u8 capId);
-void XPciePsu_listAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+u32 XPciePsu_HasCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+		u8 Function, u8 CapId);
+u32 XPciePsu_GetCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+		u8 Function, u8 CapId);
+void XPciePsu_ListAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		u8 Function);
 
 #ifdef __cplusplus

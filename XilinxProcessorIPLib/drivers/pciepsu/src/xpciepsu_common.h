@@ -56,12 +56,12 @@ extern "C" {
 
 /* Conditional debugging prints */
 #ifdef DEBUG_MODE
-#define pciepsu_dbg(MSG, ...) \
+#define XPciePsu_Dbg(MSG, ...) \
 		do { \
 			pciepsu_print(MSG, ##__VA_ARGS__); \
 		} while (0)
 #else
-	#define pciepsu_dbg(MSG, ...)	{}
+	#define XPciePsu_Dbg(MSG, ...)	{}
 #endif
 
 /***************************** Function Prototypes ****************************/
