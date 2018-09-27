@@ -148,10 +148,10 @@
 				0x0		/**< Stream's component format
 							is RGB. */
 #define XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422 \
-				0x5		/**< Stream's component format
+				0x1		/**< Stream's component format
 							is YcbCr 4:2:2. */
 #define XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444 \
-				0x6		/**< Stream's component format
+				0x2		/**< Stream's component format
 							is YcbCr 4:4:4. */
 /* @} */
 
