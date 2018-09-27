@@ -297,6 +297,13 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 	LinkConfig->MaxLinkRate = (RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
 				ConfigPtr->MaxLinkRate : RxMaxLinkRate;
 
+	/* set MaxLinkRate to TX rate, if sink provides a non-standard value */
+	if ((RxMaxLinkRate != XDP_TX_LINK_BW_SET_810GBPS) &&
+		(RxMaxLinkRate != XDP_TX_LINK_BW_SET_540GBPS) &&
+		(RxMaxLinkRate != XDP_TX_LINK_BW_SET_270GBPS) &&
+		(RxMaxLinkRate != XDP_TX_LINK_BW_SET_162GBPS)) {
+                LinkConfig->MaxLinkRate = ConfigPtr->MaxLinkRate;
+        }
 	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 		/* Check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit */
 		if(Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL] &
