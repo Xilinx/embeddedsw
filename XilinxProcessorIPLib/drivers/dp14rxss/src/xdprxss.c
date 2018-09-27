@@ -77,6 +77,7 @@
 
 /************************** Constant Definitions *****************************/
 
+extern u32 MCDP6000_IC_Rev;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -1524,6 +1525,11 @@ static void StubTp1Callback(void *InstancePtr)
 					DpRxSsPtr->UsrOpt.LaneCount);
 	}
 
+	if (MCDP6000_IC_Rev == 0x2100) {
+		XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr->IicPtr->BaseAddress,
+				XDPRXSS_MCDP6000_IIC_SLAVE);
+	}
+
 	/* Link bandwidth callback */
 	if (DpRxSsPtr->LinkBwCallback) {
 		DpRxSsPtr->LinkBwCallback(DpRxSsPtr->LinkBwRef);
@@ -1624,6 +1630,11 @@ static void StubUnplugCallback(void *InstancePtr)
 		DpRxSsPtr->prevLaneCounts = 0;
 	}
  
+	if (MCDP6000_IC_Rev == 0x2100) {
+		XDpRxSs_MCDP6000_ResetDpPath(DpRxSsPtr->IicPtr->BaseAddress,
+				XDPRXSS_MCDP6000_IIC_SLAVE);
+	}
+
 	if (DpRxSsPtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
 		/* DP159 config for TP2 */
 		XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
@@ -1677,9 +1688,11 @@ static void StubAccessLaneSetCallback(void *InstancePtr)
 					   XDP_RX_DPCD_LANE01_STATUS);
 		read_val &= 0x0000FF00;
 
-		if (DpRxSsPtr->ceRequestValue != read_val) {
-		XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr->IicPtr->BaseAddress,
+		if (MCDP6000_IC_Rev==0x2100) {
+			if (DpRxSsPtr->ceRequestValue != read_val) {
+				XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr->IicPtr->BaseAddress,
 					       XDPRXSS_MCDP6000_IIC_SLAVE);
+			}
 		}
 
 		/* Update the value to be used in next round */
