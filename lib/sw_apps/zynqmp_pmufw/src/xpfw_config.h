@@ -256,8 +256,4 @@
 #define ENABLE_POS_QSPI
 #endif
 
-#ifdef ENABLE_UNUSED_RPU_PWR_DWN
-#define ENABLE_SCHEDULER
-#endif
-
 #endif /* XPFW_CONFIG_H_ */
