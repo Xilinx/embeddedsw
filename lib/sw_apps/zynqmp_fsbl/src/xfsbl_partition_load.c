@@ -1211,6 +1211,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		 */
 		if (FsblInstancePtr->ResetReason == XFSBL_PS_ONLY_RESET)
 		{
+			Status = XFSBL_SUCCESS;
 			XFsbl_Printf(DEBUG_INFO,
 			"PS Only Reset. Skipping PL configuration\r\n");
 			goto END;
