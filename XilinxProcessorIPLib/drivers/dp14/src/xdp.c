@@ -724,6 +724,21 @@ u32 XDp_TxIsConnected(XDp *InstancePtr)
 		XDp_WaitUs(InstancePtr, 1000);
 	} while (Status == 0);
 
+	Retries = 0;
+	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		do {
+			Status = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+					XDP_TX_INTERRUPT_SIG_STATE) &
+					XDP_TX_INTERRUPT_SIG_STATE_HPD_STATE_MASK;
+
+			if (Retries > XDP_IS_CONNECTED_MAX_TIMEOUT_COUNT)
+				return 0;
+
+			Retries++;
+			XDp_WaitUs(InstancePtr, 1000);
+		} while (Status == 0);
+        }
+
 	return 1;
 }
 
