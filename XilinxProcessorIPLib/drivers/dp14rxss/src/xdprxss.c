@@ -29,19 +29,7 @@
 /**
 *
 * @file xdprxss.c
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 * @addtogroup dprxss_v5_0
-=======
-* @addtogroup dprxss_v4_1
->>>>>>> Updated addtogroup to appropriate files
-=======
-* @addtogroup dprxss_v4_2
->>>>>>> Addtogroup version updated for dprxss
-=======
-* @addtogroup dprxss_v5_0
->>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
 * @{
 *
 * This is the main file for Xilinx DisplayPort Receiver Subsystem driver.
@@ -74,14 +62,7 @@
 *		    to solve compiler warnings
 * 4.1  tu  09/08/17 Set Driver side three interrupt handler callback in
 *                   XDpRxSs_CfgInitialize function
-<<<<<<< HEAD
-<<<<<<< HEAD
 * 5.0  yas 01/28/18 Added support for DP 1.4.
-=======
->>>>>>> DPRXSS Added interrupt handler for video and power
-=======
-* 5.0  yas 01/28/18 Added support for DP 1.4.
->>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
 * </pre>
 *
 ******************************************************************************/
@@ -96,6 +77,7 @@
 
 /************************** Constant Definitions *****************************/
 
+extern u32 MCDP6000_IC_Rev;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -316,21 +298,12 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 				StubTp2Callback, (void *)InstancePtr);
 		XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_UNPLUG,
 				StubUnplugCallback, (void *)InstancePtr);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
 		if (InstancePtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 			XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_TP4,
 					StubTp2Callback, (void *)InstancePtr);
 			XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_ACCESS_LANE_SET,
 					StubAccessLaneSetCallback, (void *)InstancePtr);
 		}
-<<<<<<< HEAD
-=======
->>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
-=======
->>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
 
 		/* Initialize configurable parameters */
 		InstancePtr->UsrOpt.Bpc = InstancePtr->Config.MaxBpc;
@@ -1552,6 +1525,11 @@ static void StubTp1Callback(void *InstancePtr)
 					DpRxSsPtr->UsrOpt.LaneCount);
 	}
 
+	if (MCDP6000_IC_Rev == 0x2100) {
+		XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr->IicPtr->BaseAddress,
+				XDPRXSS_MCDP6000_IIC_SLAVE);
+	}
+
 	/* Link bandwidth callback */
 	if (DpRxSsPtr->LinkBwCallback) {
 		DpRxSsPtr->LinkBwCallback(DpRxSsPtr->LinkBwRef);
@@ -1652,24 +1630,17 @@ static void StubUnplugCallback(void *InstancePtr)
 		DpRxSsPtr->prevLaneCounts = 0;
 	}
  
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> xdprxss : Adding functional updates for DP1.4.
+	if (MCDP6000_IC_Rev == 0x2100) {
+		XDpRxSs_MCDP6000_ResetDpPath(DpRxSsPtr->IicPtr->BaseAddress,
+				XDPRXSS_MCDP6000_IIC_SLAVE);
+	}
+
 	if (DpRxSsPtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
 		/* DP159 config for TP2 */
 		XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
 					DpRxSsPtr->UsrOpt.LinkRate,
 					DpRxSsPtr->UsrOpt.LaneCount);
 	}
-<<<<<<< HEAD
-=======
-	/* DP159 config for TP2 */
-	XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
-		DpRxSsPtr->UsrOpt.LinkRate, DpRxSsPtr->UsrOpt.LaneCount);
->>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
-=======
->>>>>>> xdprxss : Adding functional updates for DP1.4.
 
 	/* Disable unplug interrupt so that no unplug event when RX is
 	 * disconnected
@@ -1717,9 +1688,11 @@ static void StubAccessLaneSetCallback(void *InstancePtr)
 					   XDP_RX_DPCD_LANE01_STATUS);
 		read_val &= 0x0000FF00;
 
-		if (DpRxSsPtr->ceRequestValue != read_val) {
-		XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr->IicPtr->BaseAddress,
+		if (MCDP6000_IC_Rev==0x2100) {
+			if (DpRxSsPtr->ceRequestValue != read_val) {
+				XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr->IicPtr->BaseAddress,
 					       XDPRXSS_MCDP6000_IIC_SLAVE);
+			}
 		}
 
 		/* Update the value to be used in next round */
