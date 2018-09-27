@@ -309,3 +309,22 @@ int rproc_virtio_notified(struct virtio_device *vdev, uint32_t notifyid)
 	}
 	return 0;
 }
+
+void rproc_virtio_wait_remote_ready(struct virtio_device *vdev)
+{
+	uint8_t status;
+
+	/*
+	 * No status available for slave. As Master has not to wait
+	 * slave action, we can return. Behavior should be updated
+	 * in future if a slave status is added.
+	 */
+	if (vdev->role == VIRTIO_DEV_MASTER)
+		return;
+
+	while (1) {
+		status = rproc_virtio_get_status(vdev);
+		if (status & VIRTIO_CONFIG_STATUS_DRIVER_OK)
+			return;
+	}
+}
