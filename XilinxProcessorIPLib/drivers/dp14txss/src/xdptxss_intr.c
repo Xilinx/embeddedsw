@@ -29,15 +29,7 @@
 /**
 *
 * @file xdptxss_intr.c
-<<<<<<< HEAD
-<<<<<<< HEAD
 * @addtogroup dptxss_v5_1
-=======
-* @addtogroup dptxss_v4_4
->>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
-=======
-* @addtogroup dptxss_v5_1
->>>>>>> Addtogroup version updated for dptxss
 * @{
 *
 * This file contains interrupt related functions of Xilinx DisplayPort TX
@@ -57,11 +49,7 @@
 *                   XDPTXSS_HANDLER_HDCP_RPTR_EXCHG to register callback
 *                   with HDCP.
 * 4.1  als 08/08/16 Synchronize with new HDCP APIs.
-<<<<<<< HEAD
 * 5.0  tu  09/08/17 Added two interrupt handler that addresses driver's
-=======
-* 4.4  tu  09/08/17 Added two interrupt handler that addresses driver's
->>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
 *                   internal callback function of application
 *                   DrvHpdEventHandler and DrvHpdPulseHandler
 * </pre>
@@ -194,6 +182,9 @@ void XDpTxSs_TmrCtrIntrHandler(void *InstancePtr)
 void XDpTxSs_HpdEventProcess(void *InstancePtr)
 {
 	u32 Status = XST_SUCCESS;
+	u8 ext_cap = 0;
+	u8 ext_dpcd_rd = 0;
+	u8 Dpcd_ext [16];
 	XDpTxSs *XDpTxSsPtr = (XDpTxSs *)InstancePtr;
 
 	/* Verify arguments. */
@@ -201,49 +192,78 @@ void XDpTxSs_HpdEventProcess(void *InstancePtr)
 	Xil_AssertVoid(XDpTxSsPtr->IsReady == XIL_COMPONENT_IS_READY);
 	XDpTxSs_UsrHpdEventData *UsrHpdEventData = &XDpTxSsPtr->UsrHpdEventData;
 
-	// From here is the requirement per DP spec
-	Status = XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_MAX_LINK_RATE, 1,
-			&UsrHpdEventData->MaxCapNew);
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_MAX_LANE_COUNT, 1,
-			&UsrHpdEventData->MaxCapLanesNew);
+	if (XDp_TxIsConnected(XDpTxSsPtr->DpPtr)) {
+		/* From here is the requirement per DP spec */
+		Status = XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_MAX_LINK_RATE, 1,
+				&UsrHpdEventData->MaxCapNew);
+		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_MAX_LANE_COUNT, 1,
+				&UsrHpdEventData->MaxCapLanesNew);
+		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_TRAIN_AUX_RD_INTERVAL, 1, &ext_cap);
 
-<<<<<<< HEAD
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_REV, 12,
-				UsrHpdEventData->Tmp);
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT, 6,
-				UsrHpdEventData->Tmp);
+		if(ext_cap & 0x80) {
+			/* if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled */
+			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_EDID_DPCD_MAX_LINK_RATE, 1, &ext_cap);
+			if(ext_cap == XDP_DPCD_LINK_BW_SET_810GBPS){
+				UsrHpdEventData->MaxCapNew = 0x1E;
+			}
 
+			/* UCD400 required reading these extended registers */
+			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,XDP_DPCD_SINK_COUNT_ESI,
+					1, &ext_dpcd_rd);
+			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0,
+				1, &ext_dpcd_rd);
+			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_SINK_LANE0_1_STATUS, 1, &ext_dpcd_rd);
+			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_SINK_LANE2_3_STATUS, 1, &ext_dpcd_rd);
+			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_SINK_ALIGN_STATUS_UPDATED_ESI,
+				1, &ext_dpcd_rd);
+			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_SINK_STATUS_ESI, 1, &ext_dpcd_rd);
+			XDp_TxAuxRead(XDpTxSsPtr->DpPtr, 0x2200, 16, &Dpcd_ext);
 
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_REV, 11,
+			if ((Dpcd_ext[5] & 0x1)) {
+				Status = XDp_TxAuxRead(XDpTxSsPtr->DpPtr, 0x0080,
+						16, &Dpcd_ext);
+			}
+		}
+
+		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_REV, 12, UsrHpdEventData->Tmp);
+		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_SINK_COUNT, 6,	UsrHpdEventData->Tmp);
+		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_REV, 11,
 				&UsrHpdEventData->Dpcd);
-	Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr,
-				     UsrHpdEventData->EdidOrg, 0);
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT, 1,
-				&UsrHpdEventData->Rd200);
-=======
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_REV, 12, UsrHpdEventData->Tmp);
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT, 6, UsrHpdEventData->Tmp);
+		Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr,
+				UsrHpdEventData->EdidOrg, 0);
 
+		if (UsrHpdEventData->EdidOrg[XDP_EDID_EXT_BLOCK_COUNT] > 0)
+                       Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr,
+                                                    UsrHpdEventData->EdidOrg_1,
+                                                    1);
+		if (UsrHpdEventData->EdidOrg_1[XDP_EDID_EXT_BLOCK_COUNT] > 1)
+                        Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr,
+                                                     UsrHpdEventData->EdidOrg_2,
+                                                     2);
 
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_REV, 11, &UsrHpdEventData->Dpcd);
-	Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr, UsrHpdEventData->EdidOrg, 0);
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT, 1, &UsrHpdEventData->Rd200);
->>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_STATUS_LANE_0_1, 1,
-			&UsrHpdEventData->Lane0Sts);
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_STATUS_LANE_2_3, 1,
-			&UsrHpdEventData->Lane2Sts);
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_MAX_LINK_RATE, 1,
-			&UsrHpdEventData->MaxCapNew);
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_MAX_LANE_COUNT, 1,
-			&UsrHpdEventData->MaxCapLanesNew);
+		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT,
+				1, &UsrHpdEventData->Rd200);
+		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_STATUS_LANE_0_1, 1,
+				&UsrHpdEventData->Lane0Sts);
+		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_STATUS_LANE_2_3, 1,
+				&UsrHpdEventData->Lane2Sts);
 
-	if(Status != XST_SUCCESS){
-<<<<<<< HEAD
-		xdbg_printf(XDBG_DEBUG_GENERAL, "AUX access had trouble!\r\n");
-=======
-		xil_printf("AUX access had trouble!\r\n");
->>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
+		if(Status != XST_SUCCESS){
+			xdbg_printf(XDBG_DEBUG_GENERAL, "AUX access had trouble!\r\n");
+		}
 	}
 }
 
@@ -264,15 +284,24 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr)
 {
 	u32 Status = XST_SUCCESS;
 	XDpTxSs *XDpTxSsPtr = (XDpTxSs *)InstancePtr;
+	u8 ext_cap = 0;
+	u8 ext_dpcd_rd = 0;
+
 
 	/* Verify arguments. */
 	Xil_AssertVoid(XDpTxSsPtr != NULL);
 	Xil_AssertVoid(XDpTxSsPtr->IsReady == XIL_COMPONENT_IS_READY);
 	XDpTxSs_UsrHpdPulseData *UsrHpdPulseData = &XDpTxSsPtr->UsrHpdPulseData;
 
-	//reading the first block of EDID
+	if (XDp_TxIsConnected(XDpTxSsPtr->DpPtr)) {
+
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
 			 XDP_DPCD_SINK_COUNT, 6, UsrHpdPulseData->AuxValues);
+
+	if ((UsrHpdPulseData->AuxValues[4] & 0x40)) {
+		XDp_TxDisableMainLink(XDpTxSsPtr->DpPtr);
+	}
+
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
 			 XDP_DPCD_STATUS_LANE_0_1, 1,
 			 &UsrHpdPulseData->Lane0Sts);
@@ -291,14 +320,35 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr)
 			XDP_DPCD_LINK_BW_SET, 1, &UsrHpdPulseData->BwSet);
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
 			XDP_DPCD_LANE_COUNT_SET, 1, &UsrHpdPulseData->LaneSet);
-	Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr, UsrHpdPulseData->Edid,
-		  0);
+
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_TRAIN_AUX_RD_INTERVAL, 1,
+			&ext_cap);
+
+	/* UCD400 required reading these extended registers */
+	if(ext_cap & 0x80){
+		/* if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled */
+		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_EDID_DPCD_MAX_LINK_RATE,
+			1, &ext_cap);
+		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT_ESI,
+			1, &ext_dpcd_rd);
+		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0,
+			1, &ext_dpcd_rd);
+		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_LANE0_1_STATUS,
+			1, &ext_dpcd_rd);
+		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_LANE2_3_STATUS,
+			1, &ext_dpcd_rd);
+		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_ALIGN_STATUS_UPDATED_ESI,
+			1, &ext_dpcd_rd);
+		XDp_TxAuxRead(XDpTxSsPtr->DpPtr,XDP_DPCD_SINK_STATUS_ESI,
+			1, &ext_dpcd_rd);
+	}
+
+	Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr,
+			UsrHpdPulseData->Edid, 0);
+
 	if(Status != XST_SUCCESS){
-<<<<<<< HEAD
 		xdbg_printf(XDBG_DEBUG_GENERAL, "AUX access had trouble!\r\n");
-=======
-		xil_printf("AUX access had trouble!\r\n");
->>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
+	}
 	}
 }
 
@@ -352,16 +402,6 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 			XDp_TxSetCallback(InstancePtr->DpPtr,
 					XDP_TX_HANDLER_HPDEVENT,
 					CallbackFunc, CallbackRef);
-<<<<<<< HEAD
-			Status = XST_SUCCESS;
-			break;
-
-		case XDPTXSS_DRV_HANDLER_DP_HPD_EVENT:
-			XDp_TxSetCallback(InstancePtr->DpPtr,
-				XDP_TX_HANDLER_DRV_HPDEVENT,
-				CallbackFunc, CallbackRef);
-=======
->>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
 			Status = XST_SUCCESS;
 			break;
 
@@ -375,16 +415,6 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 		case XDPTXSS_HANDLER_DP_HPD_PULSE:
 			XDp_TxSetCallback(InstancePtr->DpPtr,
 				XDP_TX_HANDLER_HPDPULSE,
-<<<<<<< HEAD
-				CallbackFunc, CallbackRef);
-			Status = XST_SUCCESS;
-			break;
-
-		case XDPTXSS_DRV_HANDLER_DP_HPD_PULSE:
-			XDp_TxSetCallback(InstancePtr->DpPtr,
-				XDP_TX_HANDLER_DRV_HPDPULSE,
-=======
->>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
