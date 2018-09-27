@@ -1402,6 +1402,9 @@ void PmInitFinalize(PmMaster* const master)
 
 	PmInfo("%s> InitFinalize\r\n", master->name);
 	status = PmMasterInitFinalize(master);
+#ifdef ENABLE_UNUSED_RPU_PWR_DWN
+	PmForceDownUnusableRpuCores();
+#endif
 	IPI_RESPONSE1(master->ipiMask, status);
 }
 
