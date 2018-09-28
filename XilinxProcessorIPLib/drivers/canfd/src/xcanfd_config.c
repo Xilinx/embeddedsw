@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcanfd_config.c
-* @addtogroup canfd_v1_3
+* @addtogroup canfd_v2_0
 * @{
 *
 * Functions in this file are CAN Configuration Register access related.
@@ -41,6 +41,11 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   nsk  06/04/15 First release
 * 1.3   ask  08/08/18 Fixed Cppcheck warnings.
+* 2.0   ask  09/21/18 Added support for canfd 2.0 spec sequential mode.
+*				  	  Added Api: XCanFd_SetRxIntrWatermarkFifo1
+*								 XCanFd_SetTxEventIntrWatermark
+*								 XCanFd_SetRxFilterPartition
+*
 *
 * </pre>
 ******************************************************************************/
@@ -159,14 +164,16 @@ u8 XCanFd_GetBaudRatePrescaler(XCanFd *InstancePtr)
 *
 ******************************************************************************/
 int XCanFd_SetBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
-			  u8 TimeSegment2, u8 TimeSegment1)
+			  u8 TimeSegment2, u16 TimeSegment1)
 {
 	u32 Value;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (SyncJumpWidth > 16 || TimeSegment2 > 32 || TimeSegment1 > 64) {
+	if (SyncJumpWidth > XCANFD_MAX_SJW_VALUE ||
+	    TimeSegment2 > XCANFD_MAX_TS2_VALUE ||
+	    TimeSegment1 > XCANFD_MAX_TS1_VALUE) {
 		return XST_INVALID_PARAM;
 	}
 
@@ -335,7 +342,9 @@ int XCanFd_SetFBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	if (SyncJumpWidth > 3 || TimeSegment2 > 7 || TimeSegment1 > 15) {
+	if (SyncJumpWidth > XCANFD_MAX_F_SJW_VALUE ||
+	    TimeSegment2 > XCANFD_MAX_F_TS2_VALUE ||
+	    TimeSegment1 > XCANFD_MAX_F_TS1_VALUE) {
 		return XST_INVALID_PARAM;
 	}
 
@@ -461,4 +470,183 @@ void XCanFd_SetBitRateSwitch_DisableNominal(XCanFd *InstancePtr)
 				XCANFD_MSR_OFFSET,Result);
 	}
 }
+
+/****************************************************************************/
+/**
+*
+* This routine sets the Rx Full threshold in the Watermark Interrupt Register.
+*
+* @param	InstancePtr is a pointer to the XCanFd instance.
+* @param	Threshold is the threshold to be set. The valid values are
+*		from 1 to 63.
+*
+* @return	- XST_FAILURE - If the CAN device is not in Configuration Mode.
+*		- XST_SUCCESS - If the Rx Full threshold is set in Watermark
+*		Interrupt Register.
+*
+* @note		The threshold can only be set when the CAN device is in the
+*		configuration mode.
+*
+*****************************************************************************/
+u32 XCanFd_SetRxIntrWatermark(XCanFd *InstancePtr, s8 Threshold)
+{
+
+	s32 Status;
+	u32 Value;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid((Threshold >= 0) && (Threshold <= XCANFD_WM_FIFO0_THRESHOLD));
+
+	if (XCanFd_GetMode(InstancePtr) != (u8)XCANFD_MODE_CONFIG) {
+		Status = XST_FAILURE;
+	}
+	else {
+		Value = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
+					XCANFD_WIR_OFFSET);
+		Value &= (~XCANFD_WIR_MASK);
+		Value |= (( Threshold ) &
+				XCANFD_WIR_MASK);
+		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+				XCANFD_WIR_OFFSET,Value);
+		Status = XST_SUCCESS;
+	}
+	return Status;
+
+}
+
+/****************************************************************************/
+/**
+*
+* This routine sets the Rx Full threshold in the Watermark Interrupt Register.
+*
+* @param	InstancePtr is a pointer to the XCanFd instance.
+* @param	Threshold is the threshold to be set. The valid values are
+*		from 1 to 63.
+*
+* @return	- XST_FAILURE - If the CAN device is not in Configuration Mode.
+*		- XST_SUCCESS - If the Rx Full threshold is set in Watermark
+*		Interrupt Register.
+*
+* @note		The threshold can only be set when the CAN device is in the
+*			configuration mode.This API is meant to be used with IP with
+*			CanFD 2.0 spec support only.
+*
+*****************************************************************************/
+u32 XCanFd_SetRxIntrWatermarkFifo1(XCanFd *InstancePtr, s8 Threshold)
+{
+
+	s32 Status;
+	u32 Value;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid((Threshold >= 0) && (Threshold <= (u8)63));
+
+	if (XCanFd_GetMode(InstancePtr) != (u8)XCANFD_MODE_CONFIG) {
+		Status = XST_FAILURE;
+	}
+	else {
+		Value = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
+				XCANFD_WIR_OFFSET);
+		Value &= (~XCANFD_WMR_RXFWM_1_MASK);
+		Value |= (( Threshold << XCANFD_WMR_RXFWM_1_SHIFT ) &
+		                XCANFD_WMR_RXFWM_1_MASK);
+		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+				XCANFD_WIR_OFFSET,Value);
+		Status = XST_SUCCESS;
+	}
+	return Status;
+}
+
+/****************************************************************************/
+/**
+*
+* This routine sets the TX Events Full threshold in the Watermark Interrupt
+* Register.
+*
+* @param	InstancePtr is a pointer to the XCanFd instance.
+* @param	Threshold is the threshold to be set. The valid values are
+*		from 1 to 31.
+*
+* @return	- XST_FAILURE - If the CAN device is not in Configuration Mode.
+*		- XST_SUCCESS - If the Rx Full threshold is set in Watermark
+*		Interrupt Register.
+*
+* @note		The threshold can only be set when the CAN device is in the
+*			configuration mode, This API is meant to be used with IP with
+*			CanFD 2.0 spec support only.
+*
+*****************************************************************************/
+u32 XCanFd_SetTxEventIntrWatermark(XCanFd *InstancePtr, u8 Threshold)
+{
+
+	s32 Status;
+	u32 Value;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid((Threshold > 0) || (Threshold <= (u8)31));
+
+	if (XCanFd_GetMode(InstancePtr) != (u8)XCANFD_MODE_CONFIG) {
+		Status = XST_FAILURE;
+	}
+	else {
+		Value = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
+				XCANFD_TXEVENT_WIR_OFFSET);
+		Value &= (~XCANFD_TXEVENT_WIR_MASK);
+		Value |= ( Threshold  & XCANFD_TXEVENT_WIR_MASK);
+		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+				XCANFD_TXEVENT_WIR_OFFSET,Value);
+		Status = XST_SUCCESS;
+	}
+	return Status;
+}
+
+/****************************************************************************/
+/**
+*
+* This routine sets the Receive filter partition in the Watermark Interrupt
+* Register.
+*
+* @param	InstancePtr is a pointer to the XCanFd instance.
+* @param    FilterPartition is Filter Mask number, valid values are 0 to 31.
+*
+* @return	- XST_FAILURE - If the CAN device is not in Configuration Mode.
+*		- XST_SUCCESS - If the Rx Full threshold is set in Watermark
+*		Interrupt Register.
+*
+* @note		The RX filter partition can only be set when the CAN device is
+*			in the configuration mode, This API is meant to be used with IP
+*			with CanFD 2.0 spec support only.
+*
+*****************************************************************************/
+u32 XCanFd_SetRxFilterPartition(XCanFd *InstancePtr, u8 FilterPartition)
+{
+
+	s32 Status;
+	u32 Value;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid((FilterPartition > 0) || (FilterPartition <= (u8)31));
+
+	if (XCanFd_GetMode(InstancePtr) != (u8)XCANFD_MODE_CONFIG) {
+		Status = XST_FAILURE;
+	}
+	else {
+
+        Value = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
+				      XCANFD_WIR_OFFSET);
+		Value &= (~XCANFD_WMR_RXFP_MASK);
+		Value |= (( FilterPartition << XCANFD_WMR_RXFP_SHIFT) &
+		                XCANFD_WMR_RXFP_MASK );
+		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+				   XCANFD_WIR_OFFSET,Value);
+
+	    Status = XST_SUCCESS;
+	}
+	return Status;
+}
+
 /** @} */

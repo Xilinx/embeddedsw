@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcanfd.h
-* @addtogroup canfd_v1_3
+* @addtogroup canfd_v2_0
 * @{
 * @details
 *
@@ -220,6 +220,26 @@ exclusion
 *  	   	      Configuration regarding the Baud Rate and bit timing
 *		      for both Arbitration and Data Phase.
 *
+* 2.0  ask  09/12/18 Added support for canfd 2.0 spec sequential mode.
+*                                        API's added : XCanFd_Recv_Sequential
+*                                                                      XCanFd_SeqRecv_logic
+*                                                                      XCanFd_Recv_TXEvents_Sequential
+*                                                                      XCanFd_GetNofMessages_Stored_TXE_FIFO
+*                                                                      XCanFd_GetNofMessages_Stored_Rx_Fifo
+*                                                                      above apis added in xcanfd.c .
+*
+*                                                                      XCanFd_SetRxIntrWatermarkFifo1
+*                                                                      XCanFd_SetTxEventIntrWatermark
+*                                                                      XCanFd_SetRxFilterPartition
+*                                   above apis added in xcanfd_config.c
+*
+*                                                                      XCANFD_TXEID_OFFSET
+*                                                                      XCANFD_TXEDLC_OFFSET
+*                                                                      XCANFD_FIFO_1_RXID_OFFSET
+*                                                                      XCANFD_FIFO_1_RXDLC_OFFSET
+*                                                                      XCANFD_FIFO_1_RXDW_OFFSET
+*                                                                      above apis added in xcanfd.h
+*
 * </pre>
 *
 ******************************************************************************/
@@ -237,7 +257,31 @@ extern "C" {
 #include "xcanfd_hw.h"
 
 /************************** Constant Definitions *****************************/
+/** @name CAN normal Bit rate fields
+ *  @{
+ */
+#if defined (CANFD_v1_0)
+#define XCANFD_MAX_SJW_VALUE 0x10
+#define XCANFD_MAX_TS1_VALUE 0x40
+#define XCANFD_MAX_TS2_VALUE 0x20
+#else
+#define XCANFD_MAX_SJW_VALUE 0x80
+#define XCANFD_MAX_TS1_VALUE 0x100
+#define XCANFD_MAX_TS2_VALUE 0x80
+#endif
 
+/** @name CAN Fast Bit rate fields
+ *  @{
+ */
+#if defined (CANFD_v1_0)
+#define XCANFD_MAX_F_SJW_VALUE 0x03
+#define XCANFD_MAX_F_TS1_VALUE 0x0F
+#define XCANFD_MAX_F_TS2_VALUE 0x07
+#else
+#define XCANFD_MAX_F_SJW_VALUE 0x10
+#define XCANFD_MAX_F_TS1_VALUE 0x20
+#define XCANFD_MAX_F_TS2_VALUE 0x10
+#endif
 /** @name CAN operation modes
  *  @{
  */
@@ -249,9 +293,10 @@ extern "C" {
 #define XCANFD_MODE_ABR		0x00000020 /**< Auto Bus-Off Recovery */
 #define XCANFD_MODE_SBR		0x00000040 /**< Starut Bus-Off Recovery */
 #define XCANFD_MODE_PEE		0x00000080 /**< Protocol Exception mode */
-#define XCANFD_MODE_DAR		0x0000000A /**< Disable Auto Retransmission
-						mode */
+#define XCANFD_MODE_DAR		0x0000000A /**< Disable Auto Retransmission mode */
 #define XCANFD_MODE_BR		0x0000000B /**< Bus-Off Recovery Mode */
+#define XCANFD_RX_FIFO_0	         0 /**< Selection for RX Fifo 0 */
+#define XCANFD_RX_FIFO_1	         1 /**< Selection for RX Fifo 1 */
 /* @} */
 
 /** @name Callback identifiers used as parameters to XCanFd_SetHandler()
@@ -327,6 +372,7 @@ typedef struct {
 	u32 MultiBuffTrr;	/**< used in multibuffer send case
 							to update TRR Register */
 	u8 FreeBuffStatus[32];	/**< Buffer Status */
+
 	XCanFd_SendRecvHandler SendHandler;
 	void *SendRef;
 
@@ -533,11 +579,36 @@ typedef struct {
 
 /*****************************************************************************/
 /**
+* This macro Returns the TX Event Buffer ID Offset
+*
+* @param	TXEVENTIndex is the Buffer number to locate the TXE FIFO Index
+*
+* @note		This API is meant to be used with IP
+*			with CanFD 2.0 spec support only.
+*
+*****************************************************************************/
+#define XCANFD_TXEID_OFFSET(TXEVENTIndex) \
+	(XCANFD_TXEFIFO_0_BASE_ID_OFFSET+(TXEVENTIndex*XCANFD_TXE_MESSAGE_SIZE))
+
+/*****************************************************************************/
+/**
+* This macro Returns the TX Event Buffer DLC Offset
+*
+* @param	TXEVENTIndex is the Buffer number to locate the FIFO
+*
+* @note		This API is meant to be used with IP
+*			with CanFD 2.0 spec support only.
+*
+ *****************************************************************************/
+#define XCANFD_TXEDLC_OFFSET(TXEVENTIndex) \
+	(XCANFD_TXEFIFO_0_BASE_DLC_OFFSET+(TXEVENTIndex*XCANFD_TXE_MESSAGE_SIZE))
+/*****************************************************************************/
+/**
 * This macro Returns the RXBUFFER ID Offset
 *
 * @param	ReadIndex is the Buffer	number to locate the FIFO
 *
-* @note		none
+* @note		None
 *
 *****************************************************************************/
 #define XCANFD_RXID_OFFSET(ReadIndex) \
@@ -567,6 +638,44 @@ typedef struct {
 #define XCANFD_RXDW_OFFSET(ReadIndex) \
 	(XCANFD_RXFIFO_0_BASE_DW0_OFFSET+(ReadIndex*XCANFD_MAX_FRAME_SIZE))
 
+/*****************************************************************************/
+/**
+* This macro Returns the RXBUFFER ID Offset for FIFO 1
+*
+* @param	ReadIndex is the Buffer	number to locate the FIFO
+*
+* @note		This API is meant to be used with IP
+*			with CanFD 2.0 spec support only.
+*
+*****************************************************************************/
+#define XCANFD_FIFO_1_RXID_OFFSET(ReadIndex) \
+	(XCANFD_RXFIFO_1_BUFFER_0_BASE_ID_OFFSET+(ReadIndex*XCANFD_MAX_FRAME_SIZE))
+
+/*****************************************************************************/
+/**
+* This macro Returns the RXBUFFER DLC Offset for FIFO 1
+*
+* @param	ReadIndex is the Buffer	number to locate the FIFO
+*
+* @note		This API is meant to be used with IP
+*			with CanFD 2.0 spec support only.
+*
+*****************************************************************************/
+#define XCANFD_FIFO_1_RXDLC_OFFSET(ReadIndex) \
+	(XCANFD_RXFIFO_1_BUFFER_0_BASE_DLC_OFFSET+(ReadIndex*XCANFD_MAX_FRAME_SIZE))
+
+/*****************************************************************************/
+/**
+* This macro Returns the RXBUFFER DW Offset for FIFO 1
+*
+* @param	ReadIndex is the Buffer	number to locate the FIFO
+*
+* @note		This API is meant to be used with IP
+*			with CanFD 2.0 spec support only.
+*
+*****************************************************************************/
+#define XCANFD_FIFO_1_RXDW_OFFSET(ReadIndex) \
+	(XCANFD_RXFIFO_1_BUFFER_0_BASE_DW0_OFFSET+(ReadIndex*XCANFD_MAX_FRAME_SIZE))
 /*****************************************************************************/
 /**
 * This macro Returns the RCS Register Offset
@@ -887,24 +996,32 @@ void XCanFd_AcceptFilterGet(XCanFd *InstancePtr, u32 FilterIndex,
 						u32 *MaskValue, u32 *IdValue);
 XCanFd_Config *XCanFd_LookupConfig(u16 DeviceId);
 XCanFd_Config *XCanFd_GetConfig(unsigned int InstanceIndex);
-int XCanFd_GetNofMessages_Stored(XCanFd *InstancePtr);
 int XCanFd_GetDlc2len(u32 Dlc);
 u8 XCanFd_GetLen2Dlc(int len);
-int XCanFd_GetFreeBuffer(XCanFd *InstancePtr);
+u32 XCanFd_GetFreeBuffer(XCanFd *InstancePtr);
 int XCanFd_Send_Queue(XCanFd *InstancePtr);
-int XCanFd_GetNofMessages_Stored(XCanFd *InstancePtr);
 int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber);
+u32 XCanFd_RxBuff_MailBox_Active(XCanFd *InstancePtr, u32 RxBuffer);
+u32 XCanFd_RxBuff_MailBox_DeActive(XCanFd *InstancePtr, u32 RxBuffer);
+u32 XCanFd_Set_MailBox_IdMask(XCanFd *InstancePtr, u32 RxBuffer,
+						u32 MaskValue, u32 IdValue);
+u32 XCanFd_Recv_Sequential(XCanFd *InstancePtr, u32 *FramePtr);
+u32 XCanFd_Recv_Mailbox(XCanFd *InstancePtr, u32 *FramePtr);
+u32 XCanFd_Recv_TXEvents_Sequential(XCanFd *InstancePtr, u32 *FramePtr);
 void XCanFd_PollQueue_Buffer(XCanFd *InstancePtr);
-
-int XCanFd_TxBuffer_Cancel_Request(XCanFd *InstancePtr,u32 BufferNumber);
-int XCanFd_Get_Tranceiver_Delay_Compensation(XCanFd *InstancePtr);
+int XCanFd_GetNofMessages_Stored_Rx_Fifo(XCanFd *InstancePtr, u8 fifo_no);
+int XCanFd_GetNofMessages_Stored_TXE_FIFO(XCanFd *InstancePtr);
+int XCanFd_TxBuffer_Cancel_Request(XCanFd *InstancePtr, u32 BufferNumber);
+void XCanFd_Enable_Tranceiver_Delay_Compensation(XCanFd *InstancePtr);
+void XCanFd_Set_Tranceiver_Delay_Compensation(XCanFd *InstancePtr, u32 TdcOffset);
+void XCanFd_Disable_Tranceiver_Delay_Compensation(XCanFd *InstancePtr);
 
 /* Configuration functions in xcan_config.c */
 int XCanFd_SetBaudRatePrescaler(XCanFd *InstancePtr, u8 Prescaler);
 u8 XCanFd_GetBaudRatePrescaler(XCanFd *InstancePtr);
 u8 XCanFd_GetFBaudRatePrescaler(XCanFd *InstancePtr);
 int XCanFd_SetBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
-					u8 TimeSegment2, u8 TimeSegment1);
+					u8 TimeSegment2, u16 TimeSegment1);
 void XCanFd_GetBitTiming(XCanFd *InstancePtr, u8 *SyncJumpWidth,
 					u8 *TimeSegment2, u8 *TimeSegment1);
 void XCanFd_GetFBitTiming(XCanFd *InstancePtr, u8 *SyncJumpWidth,
@@ -914,6 +1031,10 @@ int XCanFd_SetFBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
 					u8 TimeSegment2, u8 TimeSegment1);
 void XCanFd_SetBitRateSwitch_DisableNominal(XCanFd *InstancePtr);
 void XCanFd_SetBitRateSwitch_EnableNominal(XCanFd *InstancePtr);
+u32 XCanFd_SetRxIntrWatermark(XCanFd *InstancePtr, s8 Threshold);
+u32 XCanFd_SetRxIntrWatermarkFifo1(XCanFd *InstancePtr, s8 Threshold);
+u32 XCanFd_SetTxEventIntrWatermark(XCanFd *InstancePtr, u8 Threshold);
+u32 XCanFd_SetRxFilterPartition(XCanFd *InstancePtr, u8 FilterPartition);
 
 /* Diagnostic functions in xcan_selftest.c */
 int XCanFd_SelfTest(XCanFd *InstancePtr);
@@ -933,14 +1054,6 @@ void XCanFd_InterruptEnable_RxBuffFull(XCanFd *InstancePtr, u32 Mask,
 						u32 RxBuffNumber);
 void XCanFd_InterruptDisable_RxBuffFull(XCanFd *InstancePtr, u32 Mask,
 						u32 RxBuffNumber);
-u32 XCanFd_SetRxIntrWatermark(XCanFd *InstancePtr, u8 Threshold);
-void XCanFd_PollTxBuffer(XCanFd *InstancePtr,u32 TxBuffer);
-u32 XCanFd_RxBuff_MailBox_Active(XCanFd *InstancePtr, u32 RxBuffer);
-u32 XCanFd_RxBuff_MailBox_DeActive(XCanFd *InstancePtr, u32 RxBuffer);
-u32 XCanFd_Set_MailBox_IdMask(XCanFd *InstancePtr, u32 RxBuffer,
-						u32 MaskValue, u32 IdValue);
-u32 XCanFd_Recv_Sequential(XCanFd *InstancePtr, u32 *FramePtr);
-u32 XCanFd_Recv_Mailbox(XCanFd *InstancePtr, u32 *FramePtr);
 
 /* Functions in xcanfd_sinit.c */
 XCanFd_Config *XCanFd_LookupConfig(u16 Deviceid);

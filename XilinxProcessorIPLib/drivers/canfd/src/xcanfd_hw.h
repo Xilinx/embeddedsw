@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcanfd_hw.h
-* @addtogroup canfd_v1_3
+* @addtogroup canfd_v2_0
 * @{
 *
 * This header file contains the identifiers and basic driver functions (or
@@ -48,6 +48,8 @@
 *			bits since RTL has changed.RTL Changes,Added
 *		        new bits to MSR,SR,ISR,IER,ICR Registers and modified
 *		        TS2 bits in BTR and F_SJW bits in F_BTR Registers.
+* 2.0   ask  07/03/18 Added support for canfd 2.0 spec sequential mode.
+*					  Added H/W #defines regarding CANFD V2.0
 *
 * </pre>
 *
@@ -129,68 +131,6 @@ extern "C" {
 							Mask */
 #define XCANFD_TXFIFO_0_BASE_ID_OFFSET  0x0100  /**< Tx Message Buffer Element
 							0 ID Register  */
-#define XCANFD_TXFIFO_1_BASE_ID_OFFSET  0x0148  /**< Tx Message Buffer Element
-							1 ID Register  */
-#define XCANFD_TXFIFO_2_BASE_ID_OFFSET  0x0190  /**< Tx Message Buffer Element
-							2 ID Register  */
-#define XCANFD_TXFIFO_3_BASE_ID_OFFSET  0x01d8  /**< Tx Message Buffer Element
-							3 ID Register  */
-#define XCANFD_TXFIFO_4_BASE_ID_OFFSET  0x0220  /**< Tx Message Buffer Element
-							4 ID Register  */
-#define XCANFD_TXFIFO_5_BASE_ID_OFFSET  0x0268  /**< Tx Message Buffer Element
-							5 ID Register  */
-#define XCANFD_TXFIFO_6_BASE_ID_OFFSET  0x02b0  /**< Tx Message Buffer Element
-							6 ID Register  */
-#define XCANFD_TXFIFO_7_BASE_ID_OFFSET  0x02f8  /**< Tx Message Buffer Element
-							7 ID Register  */
-#define XCANFD_TXFIFO_8_BASE_ID_OFFSET  0x0340  /**< Tx Message Buffer Element
-							8 ID Register  */
-#define XCANFD_TXFIFO_9_BASE_ID_OFFSET  0x0388  /**< Tx Message Buffer Element
-							9 ID Register  */
-#define XCANFD_TXFIFO_10_BASE_ID_OFFSET 0x03d0  /**< Tx Message Buffer Element
-							10 ID Register  */
-#define XCANFD_TXFIFO_11_BASE_ID_OFFSET 0x0418  /**< Tx Message Buffer Element
-							11 ID Register  */
-#define XCANFD_TXFIFO_12_BASE_ID_OFFSET 0x0460  /**< Tx Message Buffer Element
-							12 ID Register  */
-#define XCANFD_TXFIFO_13_BASE_ID_OFFSET 0x04a8  /**< Tx Message Buffer Element
-							13 ID Register  */
-#define XCANFD_TXFIFO_14_BASE_ID_OFFSET 0x04f0  /**< Tx Message Buffer Element
-							14 ID Register  */
-#define XCANFD_TXFIFO_15_BASE_ID_OFFSET 0x0538  /**< Tx Message Buffer Element
-							15 ID Register  */
-#define XCANFD_TXFIFO_16_BASE_ID_OFFSET 0x0580  /**< Tx Message Buffer Element
-							16 ID Register  */
-#define XCANFD_TXFIFO_17_BASE_ID_OFFSET 0x05c8  /**< Tx Message Buffer Element
-							17 ID Register  */
-#define XCANFD_TXFIFO_18_BASE_ID_OFFSET 0x0610  /**< Tx Message Buffer Element
-							18 ID Register  */
-#define XCANFD_TXFIFO_19_BASE_ID_OFFSET 0x0658  /**< Tx Message Buffer Element
-							19 ID Register  */
-#define XCANFD_TXFIFO_20_BASE_ID_OFFSET 0x06a0  /**< Tx Message Buffer Element
-							20 ID Register  */
-#define XCANFD_TXFIFO_21_BASE_ID_OFFSET 0x06e8  /**< Tx Message Buffer Element
-							21 ID Register  */
-#define XCANFD_TXFIFO_22_BASE_ID_OFFSET 0x0730  /**< Tx Message Buffer Element
-							22 ID Register  */
-#define XCANFD_TXFIFO_23_BASE_ID_OFFSET 0x0778  /**< Tx Message Buffer Element
-							23 ID Register  */
-#define XCANFD_TXFIFO_24_BASE_ID_OFFSET 0x07c0  /**< Tx Message Buffer Element
-							24 ID Register  */
-#define XCANFD_TXFIFO_25_BASE_ID_OFFSET 0x0808  /**< Tx Message Buffer Element
-							25 ID Register  */
-#define XCANFD_TXFIFO_26_BASE_ID_OFFSET 0x0850  /**< Tx Message Buffer Element
-							26 ID Register  */
-#define XCANFD_TXFIFO_27_BASE_ID_OFFSET 0x0898  /**< Tx Message Buffer Element
-							27 ID Register  */
-#define XCANFD_TXFIFO_28_BASE_ID_OFFSET 0x08e0  /**< Tx Message Buffer Element
-							28 ID Register  */
-#define XCANFD_TXFIFO_29_BASE_ID_OFFSET 0x0928  /**< Tx Message Buffer Element
-							29 ID Register  */
-#define XCANFD_TXFIFO_30_BASE_ID_OFFSET 0x0970  /**< Tx Message Buffer Element
-							30 ID Register  */
-#define XCANFD_TXFIFO_31_BASE_ID_OFFSET 0x09b8  /**< Tx Message Buffer Element
-							31 ID Register  */
 /* @} */
 
 /** @name TxBuffer Element DLC Registers
@@ -198,90 +138,6 @@ extern "C" {
 */
 #define XCANFD_TXFIFO_0_BASE_DLC_OFFSET 0x0104  /**< Tx Message Buffer Element
 							0 DLC Register  */
-#define XCANFD_TXFIFO_1_BASE_DLC_OFFSET 0x014c  /**< Tx Message Buffer Element
-							1 DLC Register  */
-#define XCANFD_TXFIFO_2_BASE_DLC_OFFSET 0x0194  /**< Tx Message Buffer Element
-							2 DLC Register  */
-#define XCANFD_TXFIFO_3_BASE_DLC_OFFSET 0x01dc  /**< Tx Message Buffer Element
-							3 DLC Register  */
-#define XCANFD_TXFIFO_4_BASE_DLC_OFFSET 0x0224  /**< Tx Message Buffer Element
-							4 DLC Register  */
-#define XCANFD_TXFIFO_5_BASE_DLC_OFFSET 0x026c  /**< Tx Message Buffer Element
-							5 DLC Register  */
-#define XCANFD_TXFIFO_6_BASE_DLC_OFFSET 0x02b4  /**< Tx Message Buffer Element
-							6 DLC Register  */
-#define XCANFD_TXFIFO_7_BASE_DLC_OFFSET 0x02fc  /**< Tx Message Buffer Element
-							7 DLC Register  */
-#define XCANFD_TXFIFO_8_BASE_DLC_OFFSET 0x0344  /**< Tx Message Buffer Element
-							8 DLC Register  */
-#define XCANFD_TXFIFO_9_BASE_DLC_OFFSET 0x038c  /**< Tx Message Buffer Element
-							9 DLC Register  */
-#define XCANFD_TXFIFO_10_BASE_DLC_OFFSET	0x03d4  /**< Tx Message Buffer
-								Element10 DLC
-								Register  */
-#define XCANFD_TXFIFO_11_BASE_DLC_OFFSET        0x041c  /**< Tx Message Buffer
-								Element11 DLC
-								Register  */
-#define XCANFD_TXFIFO_12_BASE_DLC_OFFSET        0x0464  /**< Tx Message Buffer
-								Element12 DLC
-								Register  */
-#define XCANFD_TXFIFO_13_BASE_DLC_OFFSET        0x04ac  /**< Tx Message Buffer
-								Element13 DLC
-								Register  */
-#define XCANFD_TXFIFO_14_BASE_DLC_OFFSET        0x04f4  /**< Tx Message Buffer
-								Element14 DLC
-								Register  */
-#define XCANFD_TXFIFO_15_BASE_DLC_OFFSET        0x053c  /**< Tx Message Buffer
-								Element15 DLC
-								Register  */
-#define XCANFD_TXFIFO_16_BASE_DLC_OFFSET        0x0584  /**< Tx Message Buffer
-								Element16 DLC
-								Register  */
-#define XCANFD_TXFIFO_17_BASE_DLC_OFFSET        0x05cc  /**< Tx Message Buffer
-								Element17 DLC
-								Register  */
-#define XCANFD_TXFIFO_18_BASE_DLC_OFFSET        0x0614  /**< Tx Message Buffer
-								Element18 DLC
-								Register  */
-#define XCANFD_TXFIFO_19_BASE_DLC_OFFSET        0x065c  /**< Tx Message Buffer
-								Element19 DLC
-								Register  */
-#define XCANFD_TXFIFO_20_BASE_DLC_OFFSET        0x06a4  /**< Tx Message Buffer
-								Element20 DLC
-								Register  */
-#define XCANFD_TXFIFO_21_BASE_DLC_OFFSET        0x06ec  /**< Tx Message Buffer
-								Element21 DLC
-								Register  */
-#define XCANFD_TXFIFO_22_BASE_DLC_OFFSET        0x0734  /**< Tx Message Buffer
-								Element22 DLC
-								Register  */
-#define XCANFD_TXFIFO_23_BASE_DLC_OFFSET        0x077c  /**< Tx Message Buffer
-								Element23 DLC
-								Register  */
-#define XCANFD_TXFIFO_24_BASE_DLC_OFFSET        0x07c4  /**< Tx Message Buffer
-								Element24 DLC
-								Register  */
-#define XCANFD_TXFIFO_25_BASE_DLC_OFFSET        0x080c  /**< Tx Message Buffer
-								Element25 DLC
-								Register  */
-#define XCANFD_TXFIFO_26_BASE_DLC_OFFSET        0x0854  /**< Tx Message Buffer
-								Element26 DLC
-								Register  */
-#define XCANFD_TXFIFO_27_BASE_DLC_OFFSET        0x089c  /**< Tx Message Buffer
-								Element27 DLC
-								Register  */
-#define XCANFD_TXFIFO_28_BASE_DLC_OFFSET        0x08e4  /**< Tx Message Buffer
-								Element28 DLC
-								Register  */
-#define XCANFD_TXFIFO_29_BASE_DLC_OFFSET        0x092c  /**< Tx Message Buffer
-								Element29 DLC
-								Register  */
-#define XCANFD_TXFIFO_30_BASE_DLC_OFFSET        0x0974  /**< Tx Message Buffer
-								Element30 DLC
-								Register  */
-#define XCANFD_TXFIFO_31_BASE_DLC_OFFSET        0x09bc  /**< Tx Message Buffer
-								Element31 DLC
-								Register  */
 /* @} */
 
 /** @name TxBuffer Element DW Registers
@@ -289,345 +145,84 @@ extern "C" {
 */
 #define XCANFD_TXFIFO_0_BASE_DW0_OFFSET 0x0108  /**< Tx Message Buffer Element
 							0 DW Register  */
-#define XCANFD_TXFIFO_1_BASE_DW0_OFFSET 0x0150  /**< Tx Message Buffer Element
-							1 DW Register  */
-#define XCANFD_TXFIFO_2_BASE_DW0_OFFSET 0x0198  /**< Tx Message Buffer Element
-							2 DW Register  */
-#define XCANFD_TXFIFO_3_BASE_DW0_OFFSET 0x01e0  /**< Tx Message Buffer Element
-							3 DW Register  */
-#define XCANFD_TXFIFO_4_BASE_DW0_OFFSET 0x0228  /**< Tx Message Buffer Element
-							4 DW Register  */
-#define XCANFD_TXFIFO_5_BASE_DW0_OFFSET 0x0270  /**< Tx Message Buffer Element
-							5 DW Register  */
-#define XCANFD_TXFIFO_6_BASE_DW0_OFFSET 0x02b8  /**< Tx Message Buffer Element
-							6 DW Register  */
-#define XCANFD_TXFIFO_7_BASE_DW0_OFFSET 0x0300  /**< Tx Message Buffer Element
-							7 DW Register  */
-#define XCANFD_TXFIFO_8_BASE_DW0_OFFSET 0x0348  /**< Tx Message Buffer Element
-							8 DW Register  */
-#define XCANFD_TXFIFO_9_BASE_DW0_OFFSET 0x0390  /**< Tx Message Buffer Element
-							9 DW Register  */
-#define XCANFD_TXFIFO_10_BASE_DW0_OFFSET	0x03d8  /**< Tx Message Buffer
-							 Element 10 DW Register
-							 */
-#define XCANFD_TXFIFO_11_BASE_DW0_OFFSET	0x0420  /**< Tx Message Buffer
-							 Element 11 DW Register
-							 */
-#define XCANFD_TXFIFO_12_BASE_DW0_OFFSET	0x0468  /**< Tx Message Buffer
-							 Element 12 DW Register
-							*/
-#define XCANFD_TXFIFO_13_BASE_DW0_OFFSET	0x04b0  /**< Tx Message Buffer
-							 Element 13 DW Register
-							 */
-#define XCANFD_TXFIFO_14_BASE_DW0_OFFSET	0x04f8  /**< Tx Message Buffer
-							 Element 14 DW Register
-							 */
-#define XCANFD_TXFIFO_15_BASE_DW0_OFFSET	0x0540  /**< Tx Message Buffer
-							 Element 15 DW Register
-							 */
-#define XCANFD_TXFIFO_16_BASE_DW0_OFFSET	0x0588  /**< Tx Message Buffer
-							 Element 16 DW Register
-							 */
-#define XCANFD_TXFIFO_17_BASE_DW0_OFFSET	0x05d0  /**< Tx Message Buffer
-							 Element 17 DW Register
-							 */
-#define XCANFD_TXFIFO_18_BASE_DW0_OFFSET	0x0618  /**< Tx Message Buffer
-							 Element 18 DW Register
-							 */
-#define XCANFD_TXFIFO_19_BASE_DW0_OFFSET	0x0660  /**< Tx Message Buffer
-							 Element 19 DW Register
-							 */
-#define XCANFD_TXFIFO_20_BASE_DW0_OFFSET	0x06a8  /**< Tx Message Buffer
-							 Element 20 DW Register
-							 */
-#define XCANFD_TXFIFO_21_BASE_DW0_OFFSET	0x06f0  /**< Tx Message Buffer
-							 Element 21 DW Register
-							 */
-#define XCANFD_TXFIFO_22_BASE_DW0_OFFSET	0x0738  /**< Tx Message Buffer
-							 Element 22 DW Register
-							 */
-#define XCANFD_TXFIFO_23_BASE_DW0_OFFSET	0x0780  /**< Tx Message Buffer
-							 Element 23 DW Register
-							 */
-#define XCANFD_TXFIFO_24_BASE_DW0_OFFSET	0x07c8  /**< Tx Message Buffer
-							 Element 24 DW Register
-							 */
-#define XCANFD_TXFIFO_25_BASE_DW0_OFFSET	0x0810  /**< Tx Message Buffer
-							 Element 25 DW Register
-							 */
-#define XCANFD_TXFIFO_26_BASE_DW0_OFFSET	0x0858  /**< Tx Message Buffer
-							 Element 26 DW Register
-							 */
-#define XCANFD_TXFIFO_27_BASE_DW0_OFFSET	0x08a0  /**< Tx Message Buffer
-							 Element 27 DW Register
-							 */
-#define XCANFD_TXFIFO_28_BASE_DW0_OFFSET	0x08e8  /**< Tx Message Buffer
-							 Element 28 DW Register
-							 */
-#define XCANFD_TXFIFO_29_BASE_DW0_OFFSET	0x0930  /**< Tx Message Buffer
-							 Element 29 DW Register
-							 */
-#define XCANFD_TXFIFO_30_BASE_DW0_OFFSET	0x0978  /**< Tx Message Buffer
-							 Element 30 DW Register
-							 */
-#define XCANFD_TXFIFO_31_BASE_DW0_OFFSET	0x09c0  /**< Tx Message Buffer
-							 Element 31 DW Register
-							 */
 /* @} */
 
+/** @name TXEVENT Buffer Element ID Registers
+* @{
+*/
+#define XCANFD_TXEFIFO_0_BASE_ID_OFFSET  0x2000  /**< Tx Event Message Buffer
+							Element 0 ID Register  */
+/* @} */
+
+/** @name TXEVENT Buffer Element DLC Registers
+* @{
+*/
+#define XCANFD_TXEFIFO_0_BASE_DLC_OFFSET  0x2004  /**< Tx Event Message Buffer
+                                                  Element 0 DLC Register  */
+/* @} */
 /** @name Rx Message Buffer Element ID Registers.
  * Start Address - 0x1100   (2304 Bytes)
 			     End Address   - 0x19FF
 * @{
 */
+#if defined (CANFD_v1_0)
 #define XCANFD_RXFIFO_0_BASE_ID_OFFSET  0x1100  /**< Rx Message Buffer Element
 							0 ID Register  */
-#define XCANFD_RXFIFO_1_BASE_ID_OFFSET  0x1148  /**< Rx Message Buffer Element
-							1 ID Register  */
-#define XCANFD_RXFIFO_2_BASE_ID_OFFSET  0x1190  /**< Rx Message Buffer Element
-							2 ID Register  */
-#define XCANFD_RXFIFO_3_BASE_ID_OFFSET  0x11d8  /**< Rx Message Buffer Element
-							3 ID Register  */
-#define XCANFD_RXFIFO_4_BASE_ID_OFFSET  0x1220  /**< Rx Message Buffer Element
-							4 ID Register  */
-#define XCANFD_RXFIFO_5_BASE_ID_OFFSET  0x1268  /**< Rx Message Buffer Element
-							5 ID Register  */
-#define XCANFD_RXFIFO_6_BASE_ID_OFFSET  0x12b0  /**< Rx Message Buffer Element
-							6 ID Register  */
-#define XCANFD_RXFIFO_7_BASE_ID_OFFSET  0x12f8  /**< Rx Message Buffer Element
-							7 ID Register  */
-#define XCANFD_RXFIFO_8_BASE_ID_OFFSET  0x1340  /**< Rx Message Buffer Element
-							8 ID Register  */
-#define XCANFD_RXFIFO_9_BASE_ID_OFFSET  0x1388  /**< Rx Message Buffer Element
-							9 ID Register  */
-#define XCANFD_RXFIFO_10_BASE_ID_OFFSET 0x13d0  /**< Rx Message Buffer Element
-							10 ID Register  */
-#define XCANFD_RXFIFO_11_BASE_ID_OFFSET 0x1418  /**< Rx Message Buffer Element
-							11 ID Register  */
-#define XCANFD_RXFIFO_12_BASE_ID_OFFSET 0x1460  /**< Rx Message Buffer Element
-							12 ID Register  */
-#define XCANFD_RXFIFO_13_BASE_ID_OFFSET 0x14a8  /**< Rx Message Buffer Element
-							13 ID Register  */
-#define XCANFD_RXFIFO_14_BASE_ID_OFFSET 0x14f0  /**< Rx Message Buffer Element
-							14 ID Register  */
-#define XCANFD_RXFIFO_15_BASE_ID_OFFSET 0x1538  /**< Rx Message Buffer Element
-							15 ID Register  */
-#define XCANFD_RXFIFO_16_BASE_ID_OFFSET 0x1580  /**< Rx Message Buffer Element
-							16 ID Register  */
-#define XCANFD_RXFIFO_17_BASE_ID_OFFSET 0x15c8  /**< Rx Message Buffer Element
-							17 ID Register  */
-#define XCANFD_RXFIFO_18_BASE_ID_OFFSET 0x1610  /**< Rx Message Buffer Element
-							18 ID Register  */
-#define XCANFD_RXFIFO_19_BASE_ID_OFFSET 0x1658  /**< Rx Message Buffer Element
-							19 ID Register  */
-#define XCANFD_RXFIFO_20_BASE_ID_OFFSET 0x16a0  /**< Rx Message Buffer Element
-							20 ID Register  */
-#define XCANFD_RXFIFO_21_BASE_ID_OFFSET 0x16e8  /**< Rx Message Buffer Element
-							21 ID Register  */
-#define XCANFD_RXFIFO_22_BASE_ID_OFFSET 0x1730  /**< Rx Message Buffer Element
-							22 ID Register  */
-#define XCANFD_RXFIFO_23_BASE_ID_OFFSET 0x1778  /**< Rx Message Buffer Element
-							23 ID Register  */
-#define XCANFD_RXFIFO_24_BASE_ID_OFFSET 0x17c0  /**< Rx Message Buffer Element
-							24 ID Register  */
-#define XCANFD_RXFIFO_25_BASE_ID_OFFSET 0x1808  /**< Rx Message Buffer Element
-							25 ID Register  */
-#define XCANFD_RXFIFO_26_BASE_ID_OFFSET 0x1850  /**< Rx Message Buffer Element
-							26 ID Register  */
-#define XCANFD_RXFIFO_27_BASE_ID_OFFSET 0x1898  /**< Rx Message Buffer Element
-							27 ID Register  */
-#define XCANFD_RXFIFO_28_BASE_ID_OFFSET 0x18e0  /**< Rx Message Buffer Element
-							28 ID Register  */
-#define XCANFD_RXFIFO_29_BASE_ID_OFFSET 0x1928  /**< Rx Message Buffer Element
-							29 ID Register  */
-#define XCANFD_RXFIFO_30_BASE_ID_OFFSET 0x1970  /**< Rx Message Buffer Element
-							30 ID Register  */
-#define XCANFD_RXFIFO_31_BASE_ID_OFFSET 0x19b8  /**< Rx Message Buffer Element
-							31 ID Register  */
+#else
+#define XCANFD_RXFIFO_0_BASE_ID_OFFSET  0x2100  /**< Rx Message Buffer Element
+							0 ID Register  */
+#endif
 /* @} */
 
 /** @name Rx Message Buffer Element DLC Registers.
 * @{
 */
+#if defined (CANFD_v1_0)
 #define XCANFD_RXFIFO_0_BASE_DLC_OFFSET 0x1104  /**< Rx Message Buffer Element
 							0 DLC Register  */
-#define XCANFD_RXFIFO_1_BASE_DLC_OFFSET 0x114c  /**< Rx Message Buffer Element
-							1 DLC Register  */
-#define XCANFD_RXFIFO_2_BASE_DLC_OFFSET 0x1194  /**< Rx Message Buffer Element
-							2 DLC Register  */
-#define XCANFD_RXFIFO_3_BASE_DLC_OFFSET 0x11dc  /**< Rx Message Buffer Element
-							3 DLC Register  */
-#define XCANFD_RXFIFO_4_BASE_DLC_OFFSET 0x1224  /**< Rx Message Buffer Element
-							4 DLC Register  */
-#define XCANFD_RXFIFO_5_BASE_DLC_OFFSET 0x126c  /**< Rx Message Buffer Element
-							5 DLC Register  */
-#define XCANFD_RXFIFO_6_BASE_DLC_OFFSET 0x12b4  /**< Rx Message Buffer Element
-							6 DLC Register  */
-#define XCANFD_RXFIFO_7_BASE_DLC_OFFSET 0x12fc  /**< Rx Message Buffer Element
-							7 DLC Register  */
-#define XCANFD_RXFIFO_8_BASE_DLC_OFFSET 0x1344  /**< Rx Message Buffer Element
-							8 DLC Register  */
-#define XCANFD_RXFIFO_9_BASE_DLC_OFFSET 0x138c  /**< Rx Message Buffer Element
-							9 DLC Register  */
-#define XCANFD_RXFIFO_10_BASE_DLC_OFFSET	0x13d4  /**< Rx Message Buffer
-							Element 10 DLC Register
-							*/
-#define XCANFD_RXFIFO_11_BASE_DLC_OFFSET	0x141c  /**< Rx Message Buffer
-							Element 11 DLC Register
-							*/
-#define XCANFD_RXFIFO_12_BASE_DLC_OFFSET	0x1464  /**< Rx Message Buffer
-							Element 12 DLC Register
-							*/
-#define XCANFD_RXFIFO_13_BASE_DLC_OFFSET	0x14ac  /**< Rx Message Buffer
-							Element 13 DLC Register
-							*/
-#define XCANFD_RXFIFO_14_BASE_DLC_OFFSET	0x14f4  /**< Rx Message Buffer
-							Element 14 DLC Register
-							*/
-#define XCANFD_RXFIFO_15_BASE_DLC_OFFSET	0x153c  /**< Rx Message Buffer
-							Element 15 DLC Register
-							*/
-#define XCANFD_RXFIFO_16_BASE_DLC_OFFSET	0x1584  /**< Rx Message Buffer
-							Element 16 DLC Register
-							*/
-#define XCANFD_RXFIFO_17_BASE_DLC_OFFSET	0x15cc  /**< Rx Message Buffer
-							Element 17 DLC Register
-							*/
-#define XCANFD_RXFIFO_18_BASE_DLC_OFFSET	0x1614  /**< Rx Message Buffer
-							Element 18 DLC Register
-							*/
-#define XCANFD_RXFIFO_19_BASE_DLC_OFFSET	0x165c  /**< Rx Message Buffer
-							Element 19 DLC Register
-							*/
-#define XCANFD_RXFIFO_20_BASE_DLC_OFFSET	0x16a4  /**< Rx Message Buffer
-							Element 20 DLC Register
-							  */
-#define XCANFD_RXFIFO_21_BASE_DLC_OFFSET	0x16ec  /**< Rx Message Buffer
-							Element 21 DLC Register
-							*/
-#define XCANFD_RXFIFO_22_BASE_DLC_OFFSET	0x1734  /**< Rx Message Buffer
-							Element 22 DLC Register
-							*/
-#define XCANFD_RXFIFO_23_BASE_DLC_OFFSET	0x177c  /**< Rx Message Buffer
-							Element 23 DLC Register
-							*/
-#define XCANFD_RXFIFO_24_BASE_DLC_OFFSET	0x17c4  /**< Rx Message Buffer
-							Element 24 DLC Register
-							*/
-#define XCANFD_RXFIFO_25_BASE_DLC_OFFSET	0x180c  /**< Rx Message Buffer
-							Element 25 DLC Register
-							*/
-#define XCANFD_RXFIFO_26_BASE_DLC_OFFSET	0x1854  /**< Rx Message Buffer
-							Element 26 DLC Register
-							*/
-#define XCANFD_RXFIFO_27_BASE_DLC_OFFSET	0x189c  /**< Rx Message Buffer
-							Element 27 DLC Register
-							*/
-#define XCANFD_RXFIFO_28_BASE_DLC_OFFSET	0x18e4  /**< Rx Message Buffer
-							Element 28 DLC Register
-							*/
-#define XCANFD_RXFIFO_29_BASE_DLC_OFFSET	0x192c  /**< Rx Message Buffer
-							Element 29 DLC Register
-							*/
-#define XCANFD_RXFIFO_30_BASE_DLC_OFFSET	0x1974  /**< Rx Message Buffer
-							Element 30 DLC Register
-							*/
-#define XCANFD_RXFIFO_31_BASE_DLC_OFFSET	0x19bc  /**< Rx Message Buffer
-							Element 31 DLC Register
-							*/
+#else
+#define XCANFD_RXFIFO_0_BASE_DLC_OFFSET 0x2104  /**< Rx Message Buffer Element
+							0 DLC Register  */
+#endif
 /* @} */
 
 /** @name Rx Message Buffer Element DW Registers.
 * @{
 */
+#if defined (CANFD_v1_0)
 #define XCANFD_RXFIFO_0_BASE_DW0_OFFSET 0x1108 /**< Rx Message Buffer Element
 							0 DW Register  */
-#define XCANFD_RXFIFO_1_BASE_DW0_OFFSET 0x1150 /**< Rx Message Buffer Element
-							1 DW Register  */
-#define XCANFD_RXFIFO_2_BASE_DW0_OFFSET 0x1198 /**< Rx Message Buffer Element
-							2 DW Register  */
-#define XCANFD_RXFIFO_3_BASE_DW0_OFFSET 0x11e0 /**< Rx Message Buffer Element
-							3 DW Register  */
-#define XCANFD_RXFIFO_4_BASE_DW0_OFFSET 0x1228 /**< Rx Message Buffer Element
-							4 DW Register  */
-#define XCANFD_RXFIFO_5_BASE_DW0_OFFSET 0x1270 /**< Rx Message Buffer Element
-							5 DW Register  */
-#define XCANFD_RXFIFO_6_BASE_DW0_OFFSET 0x12b8 /**< Rx Message Buffer Element
-							6 DW Register  */
-#define XCANFD_RXFIFO_7_BASE_DW0_OFFSET 0x1300 /**< Rx Message Buffer Element
-							7 DW Register  */
-#define XCANFD_RXFIFO_8_BASE_DW0_OFFSET 0x1348 /**< Rx Message Buffer Element
-							8 DW Register  */
-#define XCANFD_RXFIFO_9_BASE_DW0_OFFSET 0x1390 /**< Rx Message Buffer Element
-							9 DW Register  */
-#define XCANFD_RXFIFO_10_BASE_DW0_OFFSET	0x13d8 /**< Rx Message Buffer
-							Element 10 DW Register
-							*/
-#define XCANFD_RXFIFO_11_BASE_DW0_OFFSET	0x1420 /**< Rx Message Buffer
-							Element 11 DW Register
-							*/
-#define XCANFD_RXFIFO_12_BASE_DW0_OFFSET	0x1468 /**< Rx Message Buffer
-							Element 12 DW Register
-							*/
-#define XCANFD_RXFIFO_13_BASE_DW0_OFFSET	0x14b0 /**< Rx Message Buffer
-							Element 13 DW Register
-							*/
-#define XCANFD_RXFIFO_14_BASE_DW0_OFFSET	0x14f8 /**< Rx Message Buffer
-							Element 14 DW Register
-							*/
-#define XCANFD_RXFIFO_15_BASE_DW0_OFFSET	0x1540 /**< Rx Message Buffer
-							Element 15 DW Register
-							*/
-#define XCANFD_RXFIFO_16_BASE_DW0_OFFSET	0x1588 /**< Rx Message Buffer
-							Element 16 DW Register
-							*/
-#define XCANFD_RXFIFO_17_BASE_DW0_OFFSET	0x15d0 /**< Rx Message Buffer
-							Element 17 DW Register
-							*/
-#define XCANFD_RXFIFO_18_BASE_DW0_OFFSET	0x1618 /**< Rx Message Buffer
-							Element 18 DW Register
-							*/
-#define XCANFD_RXFIFO_19_BASE_DW0_OFFSET	0x1660 /**< Rx Message Buffer
-							Element 19 DW Register
-							*/
-#define XCANFD_RXFIFO_20_BASE_DW0_OFFSET	0x16a8 /**< Rx Message Buffer
-							Element 20 DW Register
-							*/
-#define XCANFD_RXFIFO_21_BASE_DW0_OFFSET	0x16f0 /**< Rx Message Buffer
-							Element 21 DW Register
-							*/
-#define XCANFD_RXFIFO_22_BASE_DW0_OFFSET	0x1738 /**< Rx Message Buffer
-							Element 22 DW Register
-							*/
-#define XCANFD_RXFIFO_23_BASE_DW0_OFFSET	0x1780 /**< Rx Message Buffer
-							Element 23 DW Register
-							*/
-#define XCANFD_RXFIFO_24_BASE_DW0_OFFSET	0x17c8 /**< Rx Message Buffer
-							Element 24 DW Register
-							*/
-#define XCANFD_RXFIFO_25_BASE_DW0_OFFSET	0x1810 /**< Rx Message Buffer
-							Element 25 DW Register
-							*/
-#define XCANFD_RXFIFO_26_BASE_DW0_OFFSET	0x1858 /**< Rx Message Buffer
-							Element 26 DW Register
-							*/
-#define XCANFD_RXFIFO_27_BASE_DW0_OFFSET	0x18a0 /**< Rx Message Buffer
-							Element 27 DW Register
-							*/
-#define XCANFD_RXFIFO_28_BASE_DW0_OFFSET	0x18e8 /**< Rx Message Buffer
-							Element 28 DW Register
-							*/
-#define XCANFD_RXFIFO_29_BASE_DW0_OFFSET	0x1930 /**< Rx Message Buffer
-							Element 29 DW Register
-							*/
-#define XCANFD_RXFIFO_30_BASE_DW0_OFFSET	0x1978 /**< Rx Message Buffer
-							Element 30 DW Register
-							*/
-#define XCANFD_RXFIFO_31_BASE_DW0_OFFSET	0x19c0 /**< Rx Message Buffer
-							Element 31 DW Register
-							*/
+#else
+#define XCANFD_RXFIFO_0_BASE_DW0_OFFSET 0x2108 /**< Rx Message Buffer Element
+							0 DW Register  */
+#endif
+/* @} */
+/** @name Rx Message Buffer Element FIFO 1 ID Registers.
+ * Start Address - 0x4100
+			     End Address   - 0x52b8
+* @{
+*/
+#define XCANFD_RXFIFO_1_BUFFER_0_BASE_ID_OFFSET  0x4100  /**< Rx Message Buffer Element
+							0 ID Register  */
 /* @} */
 
+/** @name Rx Message Buffer Element FIFO 1 DLC Registers.
+ * Start Address - 0x4104
+			     End Address   - 0x52bc
+* @{
+*/
+#define XCANFD_RXFIFO_1_BUFFER_0_BASE_DLC_OFFSET 0x4104  /**< Rx Message Buffer Element
+							0 DLC Register  */
+/* @} */
+
+/** @name Rx Message Buffer Element FIFO 1 SW Registers.
+ * Start Address - 0x4108
+			     End Address   - 0x52c0
+* @{
+*/
+#define XCANFD_RXFIFO_1_BUFFER_0_BASE_DW0_OFFSET 0x4108 /**< Rx Message Buffer Element
+
+/* @} */
 /** @name Rx Message Buffer Element ID,DLC,DW Sizes.
 * @{
 */
@@ -649,16 +244,38 @@ extern "C" {
 /** @name Acceptance Filter Mask Registers
  *  @{
  */
+#if defined (CANFD_v1_0)
 #define XCANFD_AFMR_BASE_OFFSET	0x1A00  /**<Acceptance Filter Mask Register */
-#define XCANFD_AFMR_NXT_OFFSET	8
 #define XCANFD_AFIDR_BASE_OFFSET 0x1A04  /**< Acceptance Filter ID Register */
+#else
+#define XCANFD_AFMR_BASE_OFFSET	0x0A00  /**<Acceptance Filter Mask Register */
+#define XCANFD_AFIDR_BASE_OFFSET 0x0A04  /**< Acceptance Filter ID Register */
+#endif
+#define XCANFD_AFMR_NXT_OFFSET	8
+
 #define XCANFD_AFIDR_NXT_OFFSET	 8
 #define XCANFD_AFR_OFFSET	0x0E0  /**< Acceptance Filter Register */
 #define XCANFD_FSR_OFFSET	0x0E8  /**< Receive FIFO Status Register */
 #define XCANFD_NOOF_AFR		32	/**< Number Of Acceptance FIlter
 						Registers */
 #define XCANFD_WIR_OFFSET	0x0EC  /**< Rx FIFO Water Mark Register */
+#if defined (CANFD_v1_0)
 #define XCANFD_WIR_MASK	0x0000001F  /**< Rx FIFO Full watermark Mask */
+#define XCANFD_WM_FIFO0_THRESHOLD  31
+#else
+#define XCANFD_WIR_MASK	0x0000003F  /**< Rx FIFO Full watermark Mask */
+#define XCANFD_WM_FIFO0_THRESHOLD  63
+#endif
+#define XCANFD_WMR_RXFWM_1_MASK 0x00003F00 /**< RX FIFO 1 Full Watermark
+                                               Mask */
+#define XCANFD_WMR_RXFWM_1_SHIFT 8 /**< RX FIFO 1 Full Watermark
+                                               Mask */
+#define XCANFD_WMR_RXFP_MASK 0x003F0000 /**< Receive filter partition
+                                               Mask */
+#define XCANFD_WMR_RXFP_SHIFT 16 /**< Receive filter partition
+                                               Mask */
+#define XCANFD_TXEVENT_WIR_OFFSET 0x000000A4
+#define XCANFD_TXEVENT_WIR_MASK   0x0F
 #define XCANFD_TIMESTAMPR_OFFSET	0x0028	/**< Time Stamp Register */
 #define XCANFD_CTS_MASK		0x00000001 /**< Time Stamp Counter Clear */
 #define XCANFD_DAR_MASK		0x00000010/**< Disable AutoRetransmission */
@@ -696,13 +313,21 @@ extern "C" {
 /** @name Bit Timing Register
  *  @{
  */
+#if defined (CANFD_v1_0)
 #define XCANFD_BTR_SJW_MASK	0x000F0000  /**< Sync Jump Width Mask */
-#define XCANFD_BTR_SJW_SHIFT	16	    /**< Sync Jump Width Shift */
 #define XCANFD_BTR_TS2_MASK	0x00000F00  /**< Time Segment 2 Mask */
-#define XCANFD_BTR_TS2_SHIFT	8	    /**< Time Segment 2 Shift */
 #define XCANFD_BTR_TS1_MASK	0x0000003F  /**< Time Segment 1 Mask */
 #define XCANFD_F_BRPR_TDCMASK	0x00001F00	/**< Tranceiver Delay
+                                        compensation Offset Mask */
+#else
+#define XCANFD_BTR_SJW_MASK	0x007F0000  /**< Sync Jump Width Mask */
+#define XCANFD_BTR_TS2_MASK	0x00007F00  /**< Time Segment 2 Mask */
+#define XCANFD_BTR_TS1_MASK	0x000000FF  /**< Time Segment 1 Mask */
+#define XCANFD_F_BRPR_TDCMASK	0x00003F00	/**< Tranceiver Delay
 						compensation Offset Mask */
+#endif
+#define XCANFD_BTR_TS2_SHIFT	8	    /**< Time Segment 2 Shift */
+#define XCANFD_BTR_SJW_SHIFT	16	    /**< Sync Jump Width Shift */
 #define XCANFD_F_BRPR_TDC_ENABLE_MASK	0x00010000	/**< Tranceiver Delay
 							compensation Enable
 							Maskk */
@@ -711,11 +336,17 @@ extern "C" {
 /** @name Fast Bit Timing Register
  *  @{
  */
+#if defined (CANFD_v1_0)
 #define XCANFD_F_BTR_SJW_MASK	0x00070000  /**< Sync Jump Width Mask */
-#define XCANFD_F_BTR_SJW_SHIFT	16	    /**< Sync Jump Width Shift */
 #define XCANFD_F_BTR_TS2_MASK	0x00000700  /**< Time Segment 2 Mask */
-#define XCANFD_F_BTR_TS2_SHIFT	8	    /**< Time Segment 2 Shift */
 #define XCANFD_F_BTR_TS1_MASK	0x0000000F  /**< Time Segment 1 Mask */
+#else
+#define XCANFD_F_BTR_SJW_MASK	0x000F0000  /**< Sync Jump Width Mask */
+#define XCANFD_F_BTR_TS2_MASK	0x00000F00  /**< Time Segment 2 Mask */
+#define XCANFD_F_BTR_TS1_MASK	0x0000001F  /**< Time Segment 1 Mask */
+#endif
+#define XCANFD_F_BTR_TS2_SHIFT	8	    /**< Time Segment 2 Shift */
+#define XCANFD_F_BTR_SJW_SHIFT	16	    /**< Sync Jump Width Shift */
 /* @} */
 
 /** @name Error Counter Register
@@ -797,6 +428,16 @@ extern "C" {
 #define XCANFD_IXR_PEE_MASK	0x00000004  /**< Protocol Exception Intr Mask */
 #define XCANFD_IXR_BSRD_MASK	0x00000008  /**< Bus-Off recovery done Intr
 						 Mask */
+#define XCANFD_IXR_TSCNT_OFLW_MASK	0x00000020  /**< Timestamp overflow
+                          Mask*/
+#define XCANFD_IXR_RXFOFLW_1_MASK	0x00008000 /**< RX FIFO 1 Overflow Intr
+                                               Mask */
+#define XCANFD_IXR_RXFWMFLL_1_MASK	0x00010000 /**< Rx  Watermark Full
+							interrupt Mask for FIFO 1 */
+#define XCANFD_IXR_TXEOFLW_MASK	    0x40000000 /**< TX Event FIFO Intr Mask */
+#define XCANFD_IXR_TXEWMFLL_MASK	0x80000000 /**< TX Event FIFO
+                                   Watermark Full Intr Mask */
+#if defined(CANFD_v1_0)
 #define XCANFD_IXR_ALL		(XCANFD_IXR_PEE_MASK	 	| \
 				XCANFD_IXR_BSRD_MASK		| \
 				XCANFD_IXR_RXMNF_MASK 		| \
@@ -813,6 +454,29 @@ extern "C" {
 				XCANFD_IXR_RXOK_MASK   		| \
 				XCANFD_IXR_TXOK_MASK   		| \
 				XCANFD_IXR_ARBLST_MASK)
+#else
+#define XCANFD_IXR_ALL		(XCANFD_IXR_PEE_MASK	 	| \
+				XCANFD_IXR_BSRD_MASK		| \
+				XCANFD_IXR_RXMNF_MASK 		| \
+				XCANFD_IXR_RXBOFLW_MASK 	| \
+				XCANFD_IXR_RXRBF_MASK 		| \
+				XCANFD_IXR_TXCRS_MASK 		| \
+				XCANFD_IXR_TXRRS_MASK 		| \
+				XCANFD_IXR_RXFWMFLL_MASK 	| \
+				XCANFD_IXR_WKUP_MASK	   	| \
+				XCANFD_IXR_SLP_MASK		| \
+				XCANFD_IXR_BSOFF_MASK  		| \
+				XCANFD_IXR_ERROR_MASK  		| \
+				XCANFD_IXR_RXFOFLW_MASK 	| \
+				XCANFD_IXR_RXOK_MASK   		| \
+				XCANFD_IXR_TXOK_MASK   		| \
+				XCANFD_IXR_ARBLST_MASK      | \
+				XCANFD_IXR_TSCNT_OFLW_MASK  | \
+				XCANFD_IXR_RXFOFLW_1_MASK   | \
+				XCANFD_IXR_RXFWMFLL_1_MASK  | \
+				XCANFD_IXR_TXEOFLW_MASK     | \
+				XCANFD_IXR_TXEWMFLL_MASK)
+#endif
 /* @} */
 
 /** @name Transmit Ready request All Mask
@@ -842,6 +506,10 @@ Mask/Acceptance Filter ID)
  */
 #define XCANFD_DLCR_DLC_MASK	0xF0000000  /**< Data Length Code Mask */
 #define XCANFD_DLCR_DLC_SHIFT	28  	    /**< Data Length Code Shift */
+#define XCANFD_DLCR_MM_MASK	0x00FF0000  /**< Message Marker Mask */
+#define XCANFD_DLCR_MM_SHIFT	16  /**< Message Marker Shift */
+#define XCANFD_DLCR_EFC_MASK	0x01000000  /**< Event FIFO Control Mask */
+#define XCANFD_DLCR_EFC_SHIFT	24  /**< Event FIFO Control Shift */
 #define XCANFD_DLC1 0x10000000	/**< Data Length Code 1 */
 #define XCANFD_DLC2 0x20000000	/**< Data Length Code 2 */
 #define XCANFD_DLC3 0x30000000	/**< Data Length Code 3 */
@@ -868,10 +536,56 @@ Mask/Acceptance Filter ID)
 /** @name CAN Recieve FIFO Status Register
  *  @{
  */
-#define XCANFD_FSR_FL_MASK	0x00003F00  /**< Fill Level Mask */
+#if defined (CANFD_v1_0)
+#define XCANFD_FSR_FL_MASK	0x00001F00  /**< Fill Level Mask */
 #define XCANFD_FSR_RI_MASK	0x0000001F  /**< Read Index Mask */
+#else
+#define XCANFD_FSR_FL_MASK	0x00007F00  /**< Fill Level Mask FIFO 0 */
+#define XCANFD_FSR_RI_MASK	0x0000003F  /**< Read Index Mask FIFO 0 */
+#endif
+#define XCANFD_FSR_FL_1_MASK	0x7F000000  /**< Fill Level Mask FIFO 1 */
+#define XCANFD_FSR_RI_1_MASK	0x003F0000  /**< Read Index Mask FIFO 1 */
+#define XCANFD_FSR_IRI_1_MASK	0x00800000  /**< Increment Read Index
+                                            Mask FIFO1 */
+#define XCANFD_FSR_FL_0_SHIFT	8   /**< Fill Level Mask FIFO 0 */
+#define XCANFD_FSR_FL_1_SHIFT	24  /**< Fill Level Mask FIFO 1 */
+#define XCANFD_FSR_RI_1_SHIFT	16  /**< Read Index Mask FIFO 1 */
 #define XCANFD_FSR_IRI_MASK	0x00000080  /**< Increment Read Index Mask */
 /* @} */
+/** @name CAN RX FIFO Watermark Register
+ *  @{
+ */
+ #if defined (CANFD_v1_0)
+ #define XCANFD_WMR_RXFWM_MASK 0x0000001F /**< RX FIFO Full Watermark
+                                               Mask */
+ #else
+ #define XCANFD_WMR_RXFWM_MASK 0x0000003F /**< RX FIFO 0 Full Watermark
+                                               Mask */
+ #endif
+ #define XCANFD_WMR_RXFWM_1_MASK 0x00003F00 /**< RX FIFO 1 Full Watermark
+                                               Mask */
+ #define XCANFD_WMR_RXFP_MASK 0x003F0000 /**< Receive filter partition
+                                               Mask */
+
+ /** @name TX Event FIFO Registers
+ *  @{
+ */
+ #define XCANFD_TXE_FWM_OFFSET   0x000000A4 /**< TX Event FIFO watermark
+                                               Offset */
+ #define XCANFD_TXE_FWM_MASK     0x0000001F /**< TX Event FIFO watermark
+                                               Mask */
+ #define XCANFD_TXE_FSR_OFFSET   0x000000A0 /**< TX Event FIFO Status
+                                               Register Offset */
+ #define XCANFD_TXE_RI_MASK      0x0000001F /**< TX Event FIFO Read
+                                               Index Mask */
+ #define XCANFD_TXE_IRI_MASK     0x00000080 /**< TX Event FIFO
+                                              Increment Read Index Mask */
+ #define XCANFD_TXE_FL_MASK      0x00001F00 /**< TX Event FIFO Fill
+                                               Level Mask */
+ #define XCANFD_TXE_FL_SHIFT    8 /**< TX Event FIFO Fill
+                                               Level Shift */
+ #define XCANFD_TXE_IRI_SHIFT  7 /**< TX Event FIFO
+                                    Increment Read Index SHIFT */
 
 /** @name CAN TxBuffer Ready Request Served Interrupt Enable Register Masks
  *  @{
@@ -1150,6 +864,7 @@ Mask/Acceptance Filter ID)
  */
 #define XCANFD_MAX_FRAME_SIZE 72	/**< Maximum CAN frame length in bytes
 					 */
+#define XCANFD_TXE_MESSAGE_SIZE 8
 #define XCANFD_DW_BYTES	4		/**< Data Word Bytes */
 #define XST_NOBUFFER	33L	/**< All Buffers (32) are filled */
 #define XST_BUFFER_ALREADY_FILLED	34L	/**< Given Buffer is Already

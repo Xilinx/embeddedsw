@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcanfd_selftest.c
-* @addtogroup canfd_v1_3
+* @addtogroup canfd_v2_0
 * @{
 *
 * This file contains a diagnostic self-test function for the XCanFd driver.
@@ -48,6 +48,7 @@
 *	ask  09/21/18 Fixed CanFD hang issue in selftest by correcting the
 *                     Configuration regarding the Baud Rate and bit timing
 *		      for both Arbitration and Data Phase.
+* 2.0  ask  9/12/18  Added support for canfd 2.0 spec sequential mode
 *
 * </pre>
 *

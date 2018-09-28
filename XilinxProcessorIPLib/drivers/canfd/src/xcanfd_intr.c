@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcanfd_intr.c
-* @addtogroup canfd_v1_3
+* @addtogroup canfd_v2_0
 * @{
 *
 * This file contains functions related to CAN interrupt handling.
@@ -45,6 +45,10 @@
 *		       IER,ICR Registers and modified TS2 bits in
 *		       BTR and F_SJW bits in F_BTR Registers.
 * 1.2   mi   09/22/16  Fixed compilation warnings.
+* 2.0   ask  09/21/18  Added support for canfd 2.0 spec sequential mode.
+*					   XCanFd_SetRxIntrWatermark : This function has been
+*					   moved to xcanfd_intr.c
+*
 * </pre>
 *
 ******************************************************************************/
@@ -98,46 +102,6 @@ void XCanFd_InterruptEnable(XCanFd *InstancePtr, u32 Mask)
 
 	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress, XCANFD_IER_OFFSET,
 			IntrValue);
-}
-
-/****************************************************************************/
-/**
-*
-* This routine sets the Rx Full threshold in the Watermark Interrupt Register.
-*
-* @param	InstancePtr is a pointer to the XCanFd instance.
-* @param	Threshold is the threshold to be set. The valid values are
-*		from 1 to 63.
-*
-* @return	- XST_FAILURE - If the CAN device is not in Configuration Mode.
-*		- XST_SUCCESS - If the Rx Full threshold is set in Watermark
-*		Interrupt Register.
-*
-* @note		The threshold can only be set when the CAN device is in the
-*		configuration mode.
-*
-*****************************************************************************/
-u32 XCanFd_SetRxIntrWatermark(XCanFd *InstancePtr, u8 Threshold)
-{
-
-	s32 Status;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid((Threshold > 0) || (Threshold <= (u8)31));
-
-	if (XCanFd_GetMode(InstancePtr) != (u8)XCANFD_MODE_CONFIG) {
-		Status = XST_FAILURE;
-	}
-	else {
-		XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
-				XCANFD_WIR_OFFSET);
-		Threshold &= XCANFD_WIR_MASK;
-		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
-				XCANFD_WIR_OFFSET,Threshold);
-		Status = XST_SUCCESS;
-	}
-	return Status;
 }
 
 /****************************************************************************/
@@ -484,8 +448,9 @@ void XCanFd_IntrHandler(void *InstancePtr)
 			XCANFD_IXR_SLP_MASK | XCANFD_IXR_BSOFF_MASK |
 			XCANFD_IXR_RXFOFLW_MASK | XCANFD_IXR_ARBLST_MASK |
 			XCANFD_IXR_RXRBF_MASK |
-			XCANFD_IXR_PEE_MASK |
-			XCANFD_IXR_BSRD_MASK);
+			XCANFD_IXR_PEE_MASK | XCANFD_IXR_TSCNT_OFLW_MASK |
+			XCANFD_IXR_BSRD_MASK |
+			XCANFD_IXR_TXEOFLW_MASK);
 	if (EventIntr) {
 
 		CanPtr->EventHandler(CanPtr->EventRef, EventIntr);
@@ -504,13 +469,13 @@ void XCanFd_IntrHandler(void *InstancePtr)
 	 * when a message is received and becomes FULL.
 	 */
 	if ((PendingIntr & (XCANFD_IXR_RXFWMFLL_MASK | XCANFD_IXR_RXOK_MASK \
-			| XCANFD_IXR_RXRBF_MASK ))) {
+			| XCANFD_IXR_RXRBF_MASK | XCANFD_IXR_RXFWMFLL_1_MASK ))) {
 
 		CanPtr->RecvHandler(CanPtr->RecvRef);
 	}
 
 	/* A frame was transmitted successfully */
-	if ((PendingIntr & XCANFD_IXR_TXOK_MASK)) {
+	if ((PendingIntr & ( XCANFD_IXR_TXOK_MASK | XCANFD_IXR_TXEWMFLL_MASK))) {
 		CanPtr->SendHandler(CanPtr->SendRef);
 	}
 

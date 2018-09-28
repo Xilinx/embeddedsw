@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* (c) Copyright 2015-2018 Xilinx, Inc. All rights reserved.
+* (c) Copyright 2015 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,7 @@
 * ----- -----  -------- -----------------------------------------------
 * 1.0   nsk    06/03/15 First release
 * 1.3   ask    08/08/18 Fixed doxygen warnings
+* 2.0	ask    09/12/18 Added support for canfd 2.0 spec sequential mode
 *
 * </pre>
 *
