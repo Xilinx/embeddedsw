@@ -1714,6 +1714,46 @@ done:
 }
 
 /**
+ * PmPinCtrlGetFunction() - Get configured PIN function
+ * @master	Master that initiated the call
+ * @pinId	ID of the pin
+ */
+void PmPinCtrlGetFunction(PmMaster* const master, const u32 pinId)
+{
+	int status;
+	u32 fnId;
+
+	PmInfo("%s> PmPinCtrlGetFunc(%lu)\r\n", master->name, pinId);
+
+	status = PmPinCtrlGetFunctionInt(pinId, &fnId);
+
+done:
+	IPI_RESPONSE2(master->ipiMask, status, fnId);
+}
+
+/**
+ * PmPinCtrlSetFunction() - Set the PIN function
+ * @master	Master that initiated the call
+ * @pinId	ID of the pin
+ * @fnId	Pin function ID
+ */
+void PmPinCtrlSetFunction(PmMaster* const master, const u32 pinId,
+			  const u32 fnId)
+{
+	int status = XST_SUCCESS;
+
+	PmInfo("%s> PmPinCtrlSetFunc(%lu, %lu)\r\n", master->name, pinId, fnId);
+	status = PmPinCtrlCheckPerms(master->ipiMask, pinId);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+	status = PmPinCtrlSetFunctionInt(master, pinId, fnId);
+
+done:
+	IPI_RESPONSE1(master->ipiMask, status);
+}
+
+/**
  * PmApiApprovalCheck() - Check if the API ID can be processed at the moment
  * @apiId	PM API ID
  *
@@ -1906,6 +1946,12 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		break;
 	case PM_PINCTRL_RELEASE:
 		PmPinCtrlRelease(master, pload[1]);
+		break;
+	case PM_PINCTRL_GET_FUNCTION:
+		PmPinCtrlGetFunction(master, pload[1]);
+		break;
+	case PM_PINCTRL_SET_FUNCTION:
+		PmPinCtrlSetFunction(master, pload[1], pload[2]);
 		break;
 	default:
 		PmWarn("Unsupported EEMI API #%lu\r\n", pload[0]);

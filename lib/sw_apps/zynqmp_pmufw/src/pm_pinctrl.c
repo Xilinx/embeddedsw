@@ -28,6 +28,7 @@
 #include "pm_slave.h"
 #include "pm_periph.h"
 #include "pm_usb.h"
+#include "pm_requirement.h"
 
 #define PINMUX_FN(name, fn, sel, do)	\
 static const PmPinMuxFn pinMux##name = \
@@ -740,6 +741,114 @@ int PmPinCtrlReleaseInt(const u32 ipiMask, const u32 pinId)
 	}
 
 	pmPinMuxCtrl[pinId].owner = 0U;
+
+done:
+	return status;
+}
+
+/**
+ * PmPinCtrlGetFunctionInt() - Get currently configured PIN function
+ * @pinId	ID of the PIN
+ * @fnId	Location to store function ID
+ *
+ * @return	XST_SUCCESS if function is get
+ *		XST_INVALID_PARAM if provided argument is invalid
+ *		XST_PM_INTERNAL if function cannot be mapped
+ */
+int PmPinCtrlGetFunctionInt(const u32 pinId, u32* const fnId)
+{
+	int status = XST_PM_INTERNAL;
+	u32 reg, i;
+
+	if (pinId >= ARRAY_SIZE(pmPinMuxCtrl)) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	reg = XPfw_Read32(IOU_SLCR_BASE + 4U * pinId);
+	for (i = 0U; NULL != pmPinMuxCtrl[pinId].pinMux[i]; i++) {
+		if (pmPinMuxCtrl[pinId].pinMux[i]->select == reg) {
+			*fnId = pmPinMuxCtrl[pinId].pinMux[i]->fid;
+			status = XST_SUCCESS;
+			break;
+		}
+	};
+
+done:
+	return status;
+}
+
+/**
+ * PmPinCtrlCheckPerms() - Check if master has permission to control the PIN
+ * @ipiMask	IPI mask of the target master
+ * @pinId	ID of the target PIN
+ *
+ * @return	XST_SUCCESS is master is allowed to control the PIN
+ *		XST_INVALID_PARAM if pinId is invalid
+ *		XST_PM_NO_ACCESS if master is no allowed to control the PIN
+ */
+int PmPinCtrlCheckPerms(const u32 ipiMask, const u32 pinId)
+{
+	int status = XST_SUCCESS;
+
+	if (pinId >= ARRAY_SIZE(pmPinMuxCtrl)) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	/* If the pin has not been previously requested return error */
+	if (ipiMask != pmPinMuxCtrl[pinId].owner) {
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+
+done:
+	return status;
+}
+
+/**
+ * PmPinCtrlSetFunctionInt() - Set PIN function
+ * @master	Master that attempts to set the PIN function
+ * @pinId	ID of the PIN
+ * @fnId	Function ID
+ *
+ * @return	XST_SUCCESS if function is get
+ *		XST_INVALID_PARAM if provided argument is invalid
+ *		XST_PM_INTERNAL if function cannot be mapped base on current
+ *		configuration
+ */
+int PmPinCtrlSetFunctionInt(const PmMaster* const master, const u32 pinId,
+			    const u32 fnId)
+{
+	int status = XST_INVALID_PARAM;
+	u32 val, i, s;
+
+	for (i = 0U; NULL != pmPinMuxCtrl[pinId].pinMux[i]; i++) {
+		const PmPinMuxFn* const fn = pmPinMuxCtrl[pinId].pinMux[i];
+
+		if (fn->fid != fnId) {
+			continue;
+		}
+
+		/* Found function, now check if the master can set it */
+		status = XST_SUCCESS;
+		val = fn->select;
+		for (s = 0U; s < fn->slavesCnt; s++) {
+			PmRequirement* req = PmRequirementGet(master,
+							      fn->slaves[s]);
+			/*
+			 * If there is not struct master is not allowed to use
+			 * the slave that is associated with the target pin fn.
+			 */
+			if (NULL == req) {
+				status = XST_PM_NO_ACCESS;
+				break;
+			}
+		}
+		break;
+	};
+	if (XST_SUCCESS == status) {
+		XPfw_Write32(IOU_SLCR_BASE + 4U * pinId, val);
+	}
 
 done:
 	return status;
