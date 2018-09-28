@@ -1754,6 +1754,51 @@ done:
 }
 
 /**
+ * PmPinCtrlConfigParamGet() - Get the PIN configuration parameter value
+ * @master	Master that initiated the call
+ * @pinId	ID of the pin
+ * @paramId	Parameter ID
+ */
+void PmPinCtrlConfigParamGet(PmMaster* const master, const u32 pinId,
+			     const u32 paramId)
+{
+	int status;
+	u32 value;
+
+	PmInfo("%s> PmPinCtrlParamGet(%lu, %lu)\r\n", master->name, pinId,
+		paramId);
+	status = PmPinCtrlGetParam(pinId, paramId, &value);
+
+done:
+	IPI_RESPONSE2(master->ipiMask, status, value);
+}
+
+/**
+ * PmPinCtrlConfigParamSet() - Set the PIN configuration parameter value
+ * @master	Master that initiated the call
+ * @pinId	ID of the pin
+ * @paramId	Parameter ID
+ * @val		Parameter value to be set
+ */
+void PmPinCtrlConfigParamSet(PmMaster* const master, const u32 pinId,
+			     const u32 paramId, const u32 val)
+{
+	int status;
+	u32 value;
+
+	PmInfo("%s> PmPinCtrlParamSet(%lu, %lu, %lu)\r\n", master->name, pinId,
+		paramId, val);
+	status = PmPinCtrlCheckPerms(master->ipiMask, pinId);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+	status = PmPinCtrlSetParam(pinId, paramId, val);
+
+done:
+	IPI_RESPONSE1(master->ipiMask, status);
+}
+
+/**
  * PmApiApprovalCheck() - Check if the API ID can be processed at the moment
  * @apiId	PM API ID
  *
@@ -1952,6 +1997,12 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		break;
 	case PM_PINCTRL_SET_FUNCTION:
 		PmPinCtrlSetFunction(master, pload[1], pload[2]);
+		break;
+	case PM_PINCTRL_CONFIG_PARAM_GET:
+		PmPinCtrlConfigParamGet(master, pload[1], pload[2]);
+		break;
+	case PM_PINCTRL_CONFIG_PARAM_SET:
+		PmPinCtrlConfigParamSet(master, pload[1], pload[2], pload[3]);
 		break;
 	default:
 		PmWarn("Unsupported EEMI API #%lu\r\n", pload[0]);
