@@ -41,6 +41,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   mn   08/17/18 Initial release
  *       mn   09/21/18 Modify code manually enter the DDR memory test size
+ *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
  *
  * </pre>
  *
@@ -728,6 +729,26 @@ int main(void)
 		} else if ((Ch == 'w') || (Ch == 'W')) {
 			for (Index = 0; Index < Iter; Index++) {
 				Status = XMt_MeasureWrEye(&XMt, StartAddr,
+							  XMT_DEFAULT_TEST_LEN);
+				if (Status != XST_SUCCESS) {
+					Status = XST_FAILURE;
+					goto RETURN_PATH;
+				}
+			}
+
+		} else if ((Ch == 'c') || (Ch == 'C')) {
+			for (Index = 0; Index < Iter; Index++) {
+				Status = XMt_MeasureRdEye2D(&XMt, StartAddr,
+							  XMT_DEFAULT_TEST_LEN);
+				if (Status != XST_SUCCESS) {
+					Status = XST_FAILURE;
+					goto RETURN_PATH;
+				}
+			}
+
+		} else if ((Ch == 'e') || (Ch == 'E')) {
+			for (Index = 0; Index < Iter; Index++) {
+				Status = XMt_MeasureWrEye2D(&XMt, StartAddr,
 							  XMT_DEFAULT_TEST_LEN);
 				if (Status != XST_SUCCESS) {
 					Status = XST_FAILURE;

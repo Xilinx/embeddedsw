@@ -41,6 +41,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   mn   08/17/18 Initial release
+ *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
  *
  * </pre>
  *
@@ -137,12 +138,18 @@ static u32 XMt_ResetRdCenter(XMt_CfgData *XMtPtr)
 {
 	s32 Index;
 
+	/* Disable the Refresh during training */
+	XMt_DisableRefresh();
+
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		Xil_Out32(XMT_LANE0LCDLR3_OFFSET + (XMT_LANE_OFFSET*Index),
 				XMtPtr->RdCenter[Index].Qsd);
 		Xil_Out32(XMT_LANE0LCDLR4_OFFSET + (XMT_LANE_OFFSET*Index),
 				XMtPtr->RdCenter[Index].Qsnd);
 	}
+
+	/* Enable the Refresh after training */
+	XMt_EnableRefresh();
 
 	return XST_SUCCESS;
 }
@@ -259,7 +266,7 @@ static u32 XMt_MeasureRdEyeEdge(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len, u8 M
 	Position = 0;
 
 	while (!Done) {
-		if (Mode == XMT_RIGHT_EYE_TEST) {
+		if (Mode & XMT_RIGHT_EYE_TEST) {
 			/* Move towards right edge */
 			Position++;
 		} else {
@@ -270,20 +277,21 @@ static u32 XMt_MeasureRdEyeEdge(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len, u8 M
 		/* Clear system registers */
 		XMt_ClearResults(XMtPtr, XMT_RESULTS_BASE);
 
-		xil_printf("%3d    |", Position);
-
 		/* Set the QSD and QSND register values based on position */
 		XMt_SetRdDqsDelay(XMtPtr, Position);
 
 		/* Do the Write/Read test on Address Range */
 		XMt_RunEyeMemtest(XMtPtr, TestAddr, Len);
 
-		/* Print the lane wise results for this Position */
-		XMt_PrintResults(XMtPtr);
+		if (!(Mode & XMT_2D_EYE_TEST)) {
+			/* Print the lane wise results for this Position */
+			xil_printf("%3d    |", Position);
+			XMt_PrintResults(XMtPtr);
+		}
 
 		/* Calculate the Eye Start/End position values */
 		for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
-			if (Mode == XMT_RIGHT_EYE_TEST) {
+			if (Mode & XMT_RIGHT_EYE_TEST) {
 				if ((Xil_In32(XMT_RESULTS_BASE +
 						(Index * 4)) > 0) &&
 						XMtPtr->EyeEnd[Index] == 0) {
@@ -301,19 +309,22 @@ static u32 XMt_MeasureRdEyeEdge(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len, u8 M
 		Done = 1;
 		/* Once all Eye Start/End values are non-zero, End the test */
 		for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
-			if (Mode == XMT_RIGHT_EYE_TEST) {
+			if (Mode & XMT_RIGHT_EYE_TEST) {
 				if (!XMtPtr->EyeEnd[Index] &&
 				    (((XMtPtr->RdCenter[Index].Qsd + Position) < 511) ||
 				((XMtPtr->RdCenter[Index].Qsnd + Position) < 511))) {
 					Done = 0;
 				}
 			} else {
-				if (!XMtPtr->EyeStart[Index] &&
-					((abs(Position) <
+				if (!XMtPtr->EyeStart[Index]) {
+					if ((abs(Position) <
 						XMtPtr->RdCenter[Index].Qsd) ||
 					(abs(Position) <
-						XMtPtr->RdCenter[Index].Qsnd))) {
-					Done = 0;
+						XMtPtr->RdCenter[Index].Qsnd)) {
+						Done = 0;
+					} else {
+						XMtPtr->EyeStart[Index] = Position + 1;
+					}
 				}
 			}
 		}
@@ -506,6 +517,118 @@ u32 XMt_MeasureRdEye(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 		Status = XST_FAILURE;
 		goto RETURN_PATH;
 	}
+
+	/* Give back Exception Handling to the system defined handlers */
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT,
+			SyncHandler, SyncData);
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SERROR_ABORT_INT,
+			SerrorHandler, SerrorData);
+
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to measure the Read Eye of the DDR.
+ *
+ * @param XMtPtr is the pointer to the Memtest Data Structure
+ * @param TestAddr is the Starting Address
+ * @param Len is the length of the memory to be tested
+ *
+ * @return none
+ *
+ * @note none
+ *****************************************************************************/
+u32 XMt_MeasureRdEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
+{
+	Xil_ExceptionHandler SyncHandler;
+	Xil_ExceptionHandler SerrorHandler;
+	void *SyncData;
+	void *SerrorData;
+	u32 Status;
+	u32 VRef;
+	u32 VRefMin;
+	u32 VRefMax;
+
+	xil_printf("\r\nRunning 2-D Read Eye Tests\r\n");
+
+	/* Get the system handlers for Sync and SError exceptions */
+	Xil_GetExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT,
+			&SyncHandler, &SyncData);
+	Xil_GetExceptionRegisterHandler(XIL_EXCEPTION_ID_SERROR_ABORT_INT,
+			&SerrorHandler, &SerrorData);
+
+	/* Register the Exception Handlers for Sync and SError exceptions */
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT,
+			(Xil_ExceptionHandler)XMt_RdEyeSyncAbortHandler,
+			(void *) 0);
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SERROR_ABORT_INT,
+			(Xil_ExceptionHandler)XMt_RdEyeSerrorAbortHandler,
+			(void *) 0);
+
+	XMt_Print2DEyeResultsHeader(XMtPtr);
+
+	/* Disable VT compensation */
+	XMt_DisableVtcomp();
+
+	/* Get the Read Eye Center values */
+	Status = XMt_GetRdCenter(XMtPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	Status = XMt_GetVRefAuto(XMtPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	/* Get the lowest value of VRef to be tested */
+	VRefMin = XMt_GetVRefAutoMin(XMtPtr);
+
+	/* Get the highest value of VRef to be tested */
+	VRefMax = XMt_GetVRefAutoMax(XMtPtr);
+
+	for (VRef = VRefMin; VRef < VRefMax; VRef++) {
+
+		XMt_SetVrefVal(XMtPtr, VRef);
+
+		/* Initialize Eye Parameters with zero */
+		XMt_ClearEye(XMtPtr, (u32 *)&XMtPtr->EyeStart[0]);
+		XMt_ClearEye(XMtPtr, (u32 *)&XMtPtr->EyeEnd[0]);
+
+		/* Measure the Right Edge of the Eye */
+		Status = XMt_MeasureRdEyeEdge(XMtPtr, TestAddr, Len,
+				XMT_RIGHT_EYE_TEST | XMT_2D_EYE_TEST);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+
+		/* Measure the Left Edge of the Eye */
+		Status = XMt_MeasureRdEyeEdge(XMtPtr, TestAddr, Len,
+				XMT_LEFT_EYE_TEST | XMT_2D_EYE_TEST);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+
+		/* Print the Read Eye Test Results */
+		XMt_Print2DEyeResults(XMtPtr, VRef);
+
+		/* Reset the Read Eye Center values to Registers */
+		Status = XMt_ResetRdCenter(XMtPtr);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+	}
+
+	XMt_PrintLine(XMtPtr, 5);
+
+	XMt_ResetVrefAuto(XMtPtr);
 
 	/* Give back Exception Handling to the system defined handlers */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT,

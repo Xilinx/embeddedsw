@@ -40,6 +40,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   mn   08/17/18 Initial release
  *       mn   09/21/18 Modify code manually enter the DDR memory test size
+ *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
  *
  * </pre>
  *
@@ -53,6 +54,7 @@
 
 /************************** Constant Definitions *****************************/
 
+#define XMT_LANE0GCR5_OFFSET	XMT_DDR_PHY_DX0GCR5
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -233,8 +235,6 @@ void XMt_DisableVtcomp(void)
 	u32 RdVal, WrVal;
 	s32 Index, done = 0;
 
-	xil_printf("Disabling VT compensation...");
-
 	RdVal = Xil_In32(XMT_DDR_PHY_PGCR6);
 	WrVal = RdVal | (1 << XMT_DDR_PHY_PGCR6_INHVT_SHIFT);
 	Xil_Out32(XMT_DDR_PHY_PGCR6, WrVal);
@@ -247,11 +247,8 @@ void XMt_DisableVtcomp(void)
 	}
 
 	if (!done) {
-		xil_printf("FAILED\r\n");
-	} else {
-		xil_printf(" DONE\r\n");
+		xil_printf("Disabling VT compensation... FAILED\r\n");
 	}
-
 }
 
 /*****************************************************************************/
@@ -269,13 +266,109 @@ void XMt_EnableVtcomp(void)
 	u32 RdVal;
 	u32 WrVal;
 
-	xil_printf("Enabling VT compensation...");
-
 	RdVal = Xil_In32(XMT_DDR_PHY_PGCR6);
 	WrVal = RdVal & (!XMT_DDR_PHY_PGCR6_INHVT_MASK);
 	Xil_Out32(XMT_DDR_PHY_PGCR6, WrVal);
+}
 
-	xil_printf(" DONE\r\n");
+/*****************************************************************************/
+/**
+ * This function is used to enable Refresh During Training
+ *
+ * @param none
+ *
+ * @return none
+ *
+ * @note none
+ *****************************************************************************/
+void XMt_EnableRefresh(void)
+{
+	XMT_UPDATE_REG(XMT_DDR_PHY_DTCR0, XMT_DDR_PHY_DTCR0_RFSHDT_MASK,
+			XMT_DDR_PHY_DTCR0_RFSHDT_SHIFT, 0x8);
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to disable Refresh During Training
+ *
+ * @param none
+ *
+ * @return none
+ *
+ * @note none
+ *****************************************************************************/
+void XMt_DisableRefresh(void)
+{
+	XMT_UPDATE_REG(XMT_DDR_PHY_DTCR0, XMT_DDR_PHY_DTCR0_RFSHDT_MASK,
+			XMT_DDR_PHY_DTCR0_RFSHDT_SHIFT, 0x0);
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to enable DFI
+ *
+ * @param none
+ *
+ * @return none
+ *
+ * @note none
+ *****************************************************************************/
+void XMt_DfiEnable(void)
+{
+	XMT_UPDATE_REG(XMT_DDRC_SWCTL, XMT_DDRC_SWCTL_SW_DONE_MASK,
+			XMT_DDRC_SWCTL_SW_DONE_SHIFT, 0x0);
+
+	XMT_UPDATE_REG(XMT_DDRC_DFIUPD0, XMT_DDRC_DFIUPD0_DIS_AUTO_CTRLUPD_MASK,
+			XMT_DDRC_DFIUPD0_DIS_AUTO_CTRLUPD_SHIFT, 0x0);
+
+	XMT_UPDATE_REG(XMT_DDRC_DERATEEN, XMT_DDRC_DERATEEN_DERATE_ENABLE_MASK,
+			XMT_DDRC_DERATEEN_DERATE_ENABLE_SHIFT, 0x0);
+
+	XMT_UPDATE_REG(XMT_DDRC_SWCTL, XMT_DDRC_SWCTL_SW_DONE_MASK,
+			XMT_DDRC_SWCTL_SW_DONE_SHIFT, 0x1);
+
+	XMT_UPDATE_REG(XMT_DDR_PHY_DSGCR, XMT_DDR_PHY_DSGCR_PUREN_MASK,
+			XMT_DDR_PHY_DSGCR_PUREN_SHIFT, 0x1);
+
+	XMT_UPDATE_REG(XMT_DDR_PHY_DQSDR0, XMT_DDR_PHY_DQSDR0_DFTDTEN_MASK,
+			XMT_DDR_PHY_DQSDR0_DFTDTEN_SHIFT, 0x0);
+
+	XMT_UPDATE_REG(XMT_DDR_PHY_DTCR0, XMT_DDR_PHY_DTCR0_INCWEYE_MASK,
+			XMT_DDR_PHY_DTCR0_INCWEYE_SHIFT, 0x0);
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to disable DFI
+ *
+ * @param none
+ *
+ * @return none
+ *
+ * @note none
+ *****************************************************************************/
+void XMt_DfiDisable(void)
+{
+	XMT_UPDATE_REG(XMT_DDRC_SWCTL, XMT_DDRC_SWCTL_SW_DONE_MASK,
+			XMT_DDRC_SWCTL_SW_DONE_SHIFT, 0x0);
+
+	XMT_UPDATE_REG(XMT_DDRC_DFIUPD0, XMT_DDRC_DFIUPD0_DIS_AUTO_CTRLUPD_MASK,
+			XMT_DDRC_DFIUPD0_DIS_AUTO_CTRLUPD_SHIFT, 0x1);
+
+	XMT_UPDATE_REG(XMT_DDRC_DERATEEN, XMT_DDRC_DERATEEN_DERATE_ENABLE_MASK,
+			XMT_DDRC_DERATEEN_DERATE_ENABLE_SHIFT, 0x0);
+
+	XMT_UPDATE_REG(XMT_DDRC_SWCTL, XMT_DDRC_SWCTL_SW_DONE_MASK,
+			XMT_DDRC_SWCTL_SW_DONE_SHIFT, 0x1);
+
+	XMT_UPDATE_REG(XMT_DDR_PHY_DSGCR, XMT_DDR_PHY_DSGCR_PUREN_MASK,
+			XMT_DDR_PHY_DSGCR_PUREN_SHIFT, 0x0);
+
+	XMT_UPDATE_REG(XMT_DDR_PHY_DQSDR0, XMT_DDR_PHY_DQSDR0_DFTDTEN_MASK,
+			XMT_DDR_PHY_DQSDR0_DFTDTEN_SHIFT, 0x0);
+
+	XMT_UPDATE_REG(XMT_DDR_PHY_DTCR0, XMT_DDR_PHY_DTCR0_INCWEYE_MASK,
+			XMT_DDR_PHY_DTCR0_INCWEYE_SHIFT, 0x0);
 }
 
 /*****************************************************************************/
@@ -371,6 +464,160 @@ void XMt_ClearEye(XMt_CfgData *XMtPtr, u32 *Addr)
 
 /*****************************************************************************/
 /**
+ * This function is used to get the VRef value
+ *
+ * @param Addr is the address of GCR5 register
+ *
+ * @return VRef Value value
+ *
+ * @note none
+ *****************************************************************************/
+static INLINE u32 XMt_GetVref(u32 Addr)
+{
+	return XMt_GetRegValue(Addr, XMT_DDR_PHY_DX0GCR5_DXREFISELR0_MASK,
+			XMT_DDR_PHY_DX0GCR5_DXREFISELR0_SHIFT);
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to get the Auto Trained VRef value
+ *
+ * @param XMtPtr is the pointer to the Memtest Data Structure
+ *
+ * @return XST_SUCCESS on success, XST_FAILURE on failure
+ *
+ * @note none
+ *****************************************************************************/
+u32 XMt_GetVRefAuto(XMt_CfgData *XMtPtr)
+{
+	s32 Index;
+
+	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
+		XMtPtr->VRefAuto[Index] = XMt_GetVref(XMT_LANE0GCR5_OFFSET +
+				(XMT_LANE_OFFSET * Index));
+	}
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to get the Auto Trained VRef minimum value
+ *
+ * @param XMtPtr is the pointer to the Memtest Data Structure
+ *
+ * @return VRef minimum value
+ *
+ * @note none
+ *****************************************************************************/
+u32 XMt_GetVRefAutoMin(XMt_CfgData *XMtPtr)
+{
+	s32 Index;
+	u32 VRefMin;
+
+	VRefMin = XMtPtr->VRefAuto[0];
+
+	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
+		VRefMin = VRefMin < XMtPtr->VRefAuto[Index] ? VRefMin :
+				XMtPtr->VRefAuto[Index];
+	}
+
+	return VRefMin - 25;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to get the Auto Trained VRef maximum value
+ *
+ * @param XMtPtr is the pointer to the Memtest Data Structure
+ *
+ * @return VRef maximum value
+ *
+ * @note none
+ *****************************************************************************/
+u32 XMt_GetVRefAutoMax(XMt_CfgData *XMtPtr)
+{
+	s32 Index;
+	u32 VRefMax;
+
+	VRefMax = XMtPtr->VRefAuto[0];
+
+	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
+		VRefMax = VRefMax > XMtPtr->VRefAuto[Index] ? VRefMax :
+				XMtPtr->VRefAuto[Index];
+	}
+
+	return VRefMax + 25;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to set the VRef value
+ *
+ * @param Addr is the address of GCR5 register
+ *
+ * @return none
+ *
+ * @note none
+ *****************************************************************************/
+void XMt_SetVrefVal(XMt_CfgData *XMtPtr, u32 VRef)
+{
+	s32 Index;
+
+	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
+		XMT_MASK_WRITE(XMT_LANE0GCR5_OFFSET + (XMT_LANE_OFFSET * Index),
+				XMT_DDR_PHY_DX0GCR5_DXREFISELR0_MASK, VRef);
+	}
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to set the VRef value
+ *
+ * @param Addr is the address of GCR5 register
+ *
+ * @return none
+ *
+ * @note none
+ *****************************************************************************/
+void XMt_ResetVrefAuto(XMt_CfgData *XMtPtr)
+{
+	s32 Index;
+
+	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
+		XMT_MASK_WRITE(XMT_LANE0GCR5_OFFSET + (XMT_LANE_OFFSET * Index),
+				XMT_DDR_PHY_DX0GCR5_DXREFISELR0_MASK,
+				XMtPtr->VRefAuto[Index]);
+	}
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to print the 2D Eye Test Results
+ *
+ * @param XMtPtr is the pointer to the Memtest Data Structure
+ * @param VRef is the Value selected to be tested
+ *
+ * @return none
+ *
+ * @note none
+ *****************************************************************************/
+void XMt_Print2DEyeResults(XMt_CfgData *XMtPtr, u32 VRef)
+{
+	s32 Index;
+
+	xil_printf(" %3d |", VRef);
+	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
+		xil_printf(" %3d |", 0 - XMtPtr->EyeStart[Index]);
+	}
+	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
+		xil_printf(" %3d |", XMtPtr->EyeEnd[Index]);
+	}
+	xil_printf("\r\n");
+}
+
+/*****************************************************************************/
+/**
  * This function is used to print the help menu
  *
  * @param none
@@ -406,6 +653,8 @@ void XMt_PrintHelp(void)
 	xil_printf("   +-----+--------------------------------------------------------------+\r\n");
 	xil_printf("   | 'r' | Perform a read eye analysis test                             |\r\n");
 	xil_printf("   | 'w' | Perform a write eye analysis test                            |\r\n");
+	xil_printf("   | 'c' | Perform a 2-D read eye analysis test                         |\r\n");
+	xil_printf("   | 'e' | Perform a 2-D write eye analysis test                        |\r\n");
 	xil_printf("   | 'a' | Print test start address                                     |\r\n");
 	xil_printf("   | 'l' | Select Number of Iterations for Read/Write Eye Test          |\r\n");
 	xil_printf("   | 't' | Specify test start address (default=0x0)                     |\r\n");
@@ -501,6 +750,30 @@ void XMt_PrintEyeResultsHeader(XMt_CfgData *XMtPtr)
 
 /*****************************************************************************/
 /**
+ * This function is used to print the 2D Eye Results Header
+ *
+ * @param XMtPtr is the pointer to the Memtest Data Structure
+ *
+ * @return none
+ *
+ * @note none
+ *****************************************************************************/
+void XMt_Print2DEyeResultsHeader(XMt_CfgData *XMtPtr)
+{
+	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_4_LANE) {
+		xil_printf("-----+-----+-----+-----+-----+-----+-----+-----+-----+\r\n");
+		xil_printf("VREF | LL0 | LL1 | LL2 | LL3 | RL0 | RL1 | RL2 | RL3 |\r\n");
+		xil_printf("-----+-----+-----+-----+-----+-----+-----+-----+-----+\r\n");
+	}
+
+	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_8_LANE) {
+		xil_printf("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+\r\n");
+		xil_printf("VREF | LL0 | LL1 | LL2 | LL3 | LL4 | LL5 | LL6 | LL7 | RL0 | RL1 | RL2 | RL3 | RL4 | RL5 | RL6 | RL7 |\r\n");
+		xil_printf("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+\r\n");
+	}
+}
+/*****************************************************************************/
+/**
  * This function is used to print the ASCII line
  *
  * @param XMtPtr is the pointer to the Memtest Data Structure
@@ -521,6 +794,8 @@ void XMt_PrintLine(XMt_CfgData *XMtPtr, u8 LineCode)
 			xil_printf("---------+---------+---------+---------+\r\n");
 		} else if (LineCode == 4U) {
 			xil_printf("---------+--------+-------------------------+-----------\r\n");
+		} else if (LineCode == 5U) {
+			xil_printf("-----+-----+-----+-----+-----+-----+-----+-----+-----+\r\n");
 		} else {
 			xil_printf("\r\n");
 		}
@@ -534,6 +809,8 @@ void XMt_PrintLine(XMt_CfgData *XMtPtr, u8 LineCode)
 			xil_printf("---------+---------+---------+---------+---------+---------+---------+----------\r\n");
 		} else if (LineCode == 4U) {
 			xil_printf("---------+--------+------------------------------------------------+-----------\r\n");
+		} else if (LineCode == 5U) {
+			xil_printf("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+\r\n");
 		} else {
 			xil_printf("\r\n");
 		}

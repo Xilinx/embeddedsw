@@ -40,6 +40,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   mn   08/17/18 Initial release
+ *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
  *
  * </pre>
  *
@@ -107,6 +108,18 @@ extern "C" {
 #define XMT_DDR_ECC_CONFIG0_ECC_MODE_MASK	0x7
 #define XMT_DDR_ECC_CONFIG0_ECC_MODE_SHIFT	0
 
+#define XMT_DDRC_DERATEEN			0xFD070020
+#define XMT_DDRC_DERATEEN_DERATE_ENABLE_SHIFT	0
+#define XMT_DDRC_DERATEEN_DERATE_ENABLE_MASK	0x00000001
+
+#define XMT_DDRC_DFIUPD0			0xFD0701A0
+#define XMT_DDRC_DFIUPD0_DIS_AUTO_CTRLUPD_SHIFT	31
+#define XMT_DDRC_DFIUPD0_DIS_AUTO_CTRLUPD_MASK	0x80000000
+
+#define XMT_DDRC_SWCTL				0xFD070320
+#define XMT_DDRC_SWCTL_SW_DONE_SHIFT		0
+#define XMT_DDRC_SWCTL_SW_DONE_MASK		0x00000001
+
 /* DDR PHY Register Definitions */
 #define XMT_DDR_PHY_PIR				0xFD080004
 #define XMT_DDR_PHY_PIR_INIT_SHIFT		0
@@ -122,11 +135,28 @@ extern "C" {
 #define XMT_DDR_PHY_PGSR1			0xFD080034
 #define XMT_DDR_PHY_PGSR1_VTSTOP_MASK		0x40000000
 
+#define XMT_DDR_PHY_DSGCR			0xFD080090
+#define XMT_DDR_PHY_DSGCR_PUREN_SHIFT		0
+#define XMT_DDR_PHY_DSGCR_PUREN_MASK		0x00000001
+
+#define XMT_DDR_PHY_DTCR0			0xFD080200
+#define XMT_DDR_PHY_DTCR0_RFSHDT_SHIFT		28
+#define XMT_DDR_PHY_DTCR0_RFSHDT_MASK		0xf0000000
+#define XMT_DDR_PHY_DTCR0_INCWEYE_SHIFT		4
+#define XMT_DDR_PHY_DTCR0_INCWEYE_MASK		0x00000010
+#define XMT_DDR_PHY_DQSDR0			0xFD080250
+#define XMT_DDR_PHY_DQSDR0_DFTDTEN_SHIFT	0
+#define XMT_DDR_PHY_DQSDR0_DFTDTEN_MASK		0x00000001
+
 #define XMT_DDR_PHY_RANKIDR			0xFD0804DC
 #define XMT_DDR_PHY_RANKIDR_RANKRID_SHIFT	16
 #define XMT_DDR_PHY_RANKIDR_RANKRID_MASK	0x000f0000
 #define XMT_DDR_PHY_RANKIDR_RANKWID_SHIFT	0
 #define XMT_DDR_PHY_RANKIDR_RANKWID_MASK	0x0000000f
+
+#define XMT_DDR_PHY_DX0GCR5			0xFD080714
+#define XMT_DDR_PHY_DX0GCR5_DXREFISELR0_SHIFT	0
+#define XMT_DDR_PHY_DX0GCR5_DXREFISELR0_MASK	0x7F
 
 #define XMT_DDR_PHY_DX0LCDLR0			0xFD080780
 #define XMT_DDR_PHY_DX0LCDLR0_WLD_SHIFT		0
@@ -167,8 +197,9 @@ extern "C" {
 /* Results register */
 #define XMT_RESULTS_BASE			0xFF410020
 
-#define XMT_RIGHT_EYE_TEST			0U
-#define XMT_LEFT_EYE_TEST			1U
+#define XMT_LEFT_EYE_TEST			0x0U
+#define XMT_RIGHT_EYE_TEST			0x1U
+#define XMT_2D_EYE_TEST			0x2U
 #define XMT_DDR_CONFIG_8_LANE			8U
 #define XMT_DDR_CONFIG_4_LANE			4U
 #define XMT_DDR_CONFIG_64BIT_WIDTH			64U
@@ -181,6 +212,22 @@ extern "C" {
 #define XMT_CHECK_BIT(var, pos) ((var) & (1<<(pos)))
 #define XMT_YLFSR(a) ((a << 1) + (((a >> 60) & 1) ^ ((a >> 54) & 1) ^ 1))
 #define XMT_RANDOM_VALUE(x) (0x12345678+19*(x)+0x017c1e2313567c9b)
+
+#define XMT_UPDATE_REG(Addr, Mask, Shift, Value) {\
+    u32 Rd = 0;\
+    Rd  = Xil_In32(Addr);\
+    Rd  = Rd & (~Mask);\
+    Rd  = Rd | (Value << Shift);\
+    Xil_Out32(Addr, Rd);\
+}
+
+#define XMT_MASK_WRITE(Offset, Mask, Value) {\
+	u32 RegVal = 0x0;\
+	RegVal = Xil_In32(Offset);\
+	RegVal &= ~(Mask);\
+	RegVal |= (Value & Mask);\
+	Xil_Out32(Offset, RegVal);\
+}
 
 /*****************************************************************************/
 /**
@@ -234,6 +281,7 @@ typedef struct {
 	u32 TapCount[8];
 	s32 EyeStart[8];
 	s32 EyeEnd[8];
+	u32 VRefAuto[8];
 	XMt_ReadCenter RdCenter[8];
 	XMt_WriteCenter WrCenter[8];
 	XMt_WriteDs WrDs[8];
@@ -249,6 +297,10 @@ void XMt_ClearEye(XMt_CfgData *XMtPtr, u32 *Addr);
 void XMt_ClearResults(XMt_CfgData *XMtPtr, u32 Addr);
 void XMt_DisableVtcomp(void);
 void XMt_EnableVtcomp(void);
+void XMt_EnableRefresh(void);
+void XMt_DisableRefresh(void);
+void XMt_DfiEnable(void);
+void XMt_DfiDisable(void);
 double XMt_GetDdrcFreq(void);
 void XMt_PrintHelp(void);
 void XMt_PrintMemTestHeader(XMt_CfgData *XMtPtr);
@@ -256,12 +308,21 @@ void XMt_PrintLine(XMt_CfgData *XMtPtr, u8 LineCode);
 void XMt_PrintResults(XMt_CfgData *XMtPtr);
 void XMt_PrintEyeHeader(XMt_CfgData *XMtPtr);
 void XMt_PrintEyeResultsHeader(XMt_CfgData *XMtPtr);
+void XMt_Print2DEyeResultsHeader(XMt_CfgData *XMtPtr);
 void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len);
 void XMt_PrintDdrConfigParams(XMt_CfgData *XMtPtr);
 u32 XMt_MeasureWrEye(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len);
 u32 XMt_MeasureRdEye(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len);
+u32 XMt_MeasureWrEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len);
+u32 XMt_MeasureRdEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len);
 u32 XMt_GetDdrConfigParams(XMt_CfgData *XMtPtr);
 double XMt_PllFreq(u32 Ddr);
+u32 XMt_GetVRefAuto(XMt_CfgData *XMtPtr);
+void XMt_SetVrefVal(XMt_CfgData *XMtPtr, u32 VRef);
+void XMt_ResetVrefAuto(XMt_CfgData *XMtPtr);
+void XMt_Print2DEyeResults(XMt_CfgData *XMtPtr, u32 VRef);
+u32 XMt_GetVRefAutoMin(XMt_CfgData *XMtPtr);
+u32 XMt_GetVRefAutoMax(XMt_CfgData *XMtPtr);
 
 #ifdef __cplusplus
 }
