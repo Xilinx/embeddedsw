@@ -29,5 +29,9 @@
 
 int PmPinCtrlRequestInt(const u32 ipiMask, const u32 pinId);
 int PmPinCtrlReleaseInt(const u32 ipiMask, const u32 pinId);
+int PmPinCtrlGetFunctionInt(const u32 pinId, u32* const fnId);
+int PmPinCtrlSetFunctionInt(const PmMaster* const master, const u32 pinId,
+			    const u32 fnId);
+int PmPinCtrlCheckPerms(const u32 ipiMask, const u32 pinId);
 
 #endif
