@@ -802,6 +802,11 @@ void PmForceDownUnusableRpuCores(void)
 	if (!(value & RPU1_STATUS_MASK)) {
 		PmProcForceDown(&pmProcRpu1_g.node);
 	}
+
+	/* Mark RPU0 and RPU1 status as power down in RPU usage status bits */
+	XPfw_RMW32(PMU_GLOBAL_GLOBAL_GEN_STORAGE4,
+		   RPU0_STATUS_MASK | RPU1_STATUS_MASK,
+		   RPU0_STATUS_MASK | RPU1_STATUS_MASK);
 }
 #endif
 
