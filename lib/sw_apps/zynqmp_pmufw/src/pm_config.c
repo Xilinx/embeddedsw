@@ -54,7 +54,6 @@ static int PmConfigGpoSectionHandler(u32* const addr);
  * Macros
  ********************************************************************/
 
-#define IOU_SLCR_BASE			0xFF180000
 #define IOU_SLCR_MIO_PIN_34_OFFSET	0x00000088
 #define IOU_SLCR_MIO_PIN_35_OFFSET	0x0000008C
 #define IOU_SLCR_MIO_PIN_36_OFFSET	0x00000090
