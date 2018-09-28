@@ -123,6 +123,14 @@ Fixed Selftest Hang issue (CR#1009802)
 Added support for canfd 2.0 spec regarding PL
 SoftIP.
 
+canfd_v1_3:
+Fix cppcheck, gcc and doxygen warnings.
+Changed the Canfd ID with 11 bit value.
+
+canfd_v2_0:
+Added support for canfd 2.0 spec regarding PL
+SoftIP.
+
 emacps_v3_8:
 Fix cppcheck, GCC and doxygen warnings.
 Remove duplicate code in xemacps_bd.h
