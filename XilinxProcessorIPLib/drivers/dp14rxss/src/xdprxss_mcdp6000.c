@@ -362,6 +362,18 @@ int XDpRxSs_MCDP6000_DpInit(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 		if (Result != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
+
+		/*AUX Swing Adjustment - For lower DP1.4 swing guidance of 400 mV*/
+		Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+					      0x1608, 0x00748404);
+		if (Result != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+					      0x2608, 0x00748404);
+		if (Result != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
 	} else if (MCDP6000_IC_Rev==0x3100) {
 		Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 					      0x0350, 0x0000001F);
@@ -520,6 +532,17 @@ int XDpRxSs_MCDP6000_DpInit(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 			if (Result != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
+		}
+		/*AUX Swing Adjustment - For lower DP1.4 swing guidance of 400 mV*/
+		Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+					      0x1608, 0x00748404);
+		if (Result != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+					      0x2608, 0x00748404);
+		if (Result != XST_SUCCESS) {
+			return XST_FAILURE;
 		}
 	} else {
 		Result = XST_SUCCESS;
