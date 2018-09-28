@@ -63,6 +63,19 @@ static const PmPinMuxFn pinMux##name = \
 		.owner = 0U,	\
 	}
 
+#define PM_PIN_PARAM_RO		(1 << 0U)
+#define PM_PIN_PARAM_2_BITS	(1 << 1U)
+
+#define PM_PIN_PARAM_PER_REG	26U
+
+#define IOU_SLCR_BANK0_CTRL0	(IOU_SLCR_BASE + 0x138U)
+#define IOU_SLCR_BANK0_CTRL1	(IOU_SLCR_BASE + 0x154U)
+#define PM_IOU_SLCR_BANK_OFFSET	(IOU_SLCR_BANK0_CTRL1 - IOU_SLCR_BANK0_CTRL0)
+
+#define PM_PIN_PARAM_GET_ADDR(pinId, regOffset)	\
+	(IOU_SLCR_BANK0_CTRL0 + \
+	PM_IOU_SLCR_BANK_OFFSET * (pinId / PM_PIN_PARAM_PER_REG) + regOffset)
+
 /**
  * PmPinMuxFn - PIN mux function model
  * @slaves	Pointer to the array of associated slaves
@@ -86,6 +99,16 @@ typedef struct PmMioPin {
 	const PmPinMuxFn* const* const pinMux;
 	u32 owner;
 } PmMioPin;
+
+/**
+ * PmPinParam - PIN parameter structure
+ * @offset	Register offset
+ * @flags	Parameter flags
+ */
+typedef struct PmPinParam {
+	const u8 offset;
+	const u8 flags;
+} PmPinParam;
 
 static const PmSlave* pmCan0Slaves[] = { &pmSlaveCan0_g };
 static const PmSlave* pmCan1Slaves[] = { &pmSlaveCan1_g };
@@ -684,6 +707,33 @@ static PmMioPin pmPinMuxCtrl[] = {
 	DEFINE_PIN(74), DEFINE_PIN(75), DEFINE_PIN(76), DEFINE_PIN(77),
 };
 
+static PmPinParam pmPinParams[] = {
+	[PINCTRL_CONFIG_SLEW_RATE] = {
+		.offset = 0x14U,
+		.flags = 0U,
+	},
+	[PINCTRL_CONFIG_BIAS_STATUS] = {
+		.offset = 0x10U,
+		.flags = 0U,
+	},
+	[PINCTRL_CONFIG_PULL_CTRL] = {
+		.offset = 0xCU,
+		.flags = 0U,
+	},
+	[PINCTRL_CONFIG_SCHMITT_CMOS] = {
+		.offset = 0x8U,
+		.flags = 0U,
+	},
+	[PINCTRL_CONFIG_DRIVE_STRENGTH] = {
+		.offset = 0x0U,
+		.flags = PM_PIN_PARAM_2_BITS,
+	},
+	[PINCTRL_CONFIG_VOLTAGE_STATUS] = {
+		.offset = 0x18U,
+		.flags = PM_PIN_PARAM_RO,
+	},
+};
+
 /**
  * PmPinCtrlRequestInt() - Request PIN control
  * @ipiMask	IPI mask of the master
@@ -848,6 +898,85 @@ int PmPinCtrlSetFunctionInt(const PmMaster* const master, const u32 pinId,
 	};
 	if (XST_SUCCESS == status) {
 		XPfw_Write32(IOU_SLCR_BASE + 4U * pinId, val);
+	}
+
+done:
+	return status;
+}
+
+/**
+ * PmPinCtrlGetParam() - Get PIN configuration parameter value
+ * @pinId	ID of the PIN
+ * @paramId	ID of the PIN parameter
+ * @value	Location to store the parameter value
+ *
+ * @return	XST_SUCCESS or
+ *		XST_INVALID_PARAM if provided argument is invalid
+ */
+int PmPinCtrlGetParam(const u32 pinId, const u32 paramId, u32* const value)
+{
+	int status = XST_SUCCESS;
+	u32 addr, val, shift;
+
+	if (paramId >= ARRAY_SIZE(pmPinParams)) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	shift = pinId % PM_PIN_PARAM_PER_REG;
+	addr = PM_PIN_PARAM_GET_ADDR(pinId, pmPinParams[paramId].offset);
+	val = XPfw_Read32(addr);
+	*value = (val >> shift) & 0x1U;
+
+	if (0U != (PM_PIN_PARAM_2_BITS & pmPinParams[paramId].flags)) {
+		addr += 4U;
+		val = XPfw_Read32(addr);
+		val = (val >> shift) & 0x1U;
+		*value = (*value << 1U) | val;
+	}
+
+done:
+	return status;
+}
+
+/**
+ * PmPinCtrlSetParam() - Set PIN configuration parameter value
+ * @ipiMask	IPI mask of the master that initiated the request
+ * @pinId	ID of the PIN
+ * @paramId	ID of the PIN parameter
+ * @value	Parameter value to be set
+ *
+ * @return	XST_INVALID_PARAM if an argument is not valid
+ *		XST_SUCCESS otherwise
+ */
+int PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
+{
+	int status = XST_INVALID_PARAM;
+	u32 addr, val, shift;
+
+	if (0U != (PM_PIN_PARAM_RO & pmPinParams[paramId].flags)) {
+		goto done;
+	}
+	if (0U != (PM_PIN_PARAM_2_BITS & pmPinParams[paramId].flags)) {
+		if (value > 3U) {
+			goto done;
+		}
+	} else {
+		if (value > 1U) {
+			goto done;
+		}
+	}
+
+	status = XST_SUCCESS;
+	shift = pinId % PM_PIN_PARAM_PER_REG;
+	addr = PM_PIN_PARAM_GET_ADDR(pinId, pmPinParams[paramId].offset);
+
+	if (0U == (PM_PIN_PARAM_2_BITS & pmPinParams[paramId].flags)) {
+		XPfw_RMW32(addr, 1 << shift, value << shift);
+	} else {
+		/* Write value[0] at address + 4 and value[1] at address */
+		XPfw_RMW32(addr + 4U, 1 << shift, (value & 0x1U) << shift);
+		XPfw_RMW32(addr, 1 << shift, ((value & 0x2U) >> 1U) << shift);
 	}
 
 done:

@@ -34,4 +34,7 @@ int PmPinCtrlSetFunctionInt(const PmMaster* const master, const u32 pinId,
 			    const u32 fnId);
 int PmPinCtrlCheckPerms(const u32 ipiMask, const u32 pinId);
 
+int PmPinCtrlGetParam(const u32 pinId, const u32 paramId, u32* const value);
+int PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value);
+
 #endif
