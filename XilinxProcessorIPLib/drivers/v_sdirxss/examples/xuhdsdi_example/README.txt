@@ -18,7 +18,7 @@ generator as mounted on the ZCU106 demo board
 This file contains definitions that are being used by low-level driver functions for
 controlling the SiliconLabs Si5324 clock generator as mounted on the ZCU106 demo board
 
-@section ex6 xsdi_example.c
+@section ex6 xuhdsdi_example.c
 This file demonstrates the Xilinx SDI Rx Subsystem and SDI Tx Subsystem
 
 @section ex7 xsdi_menu.c
