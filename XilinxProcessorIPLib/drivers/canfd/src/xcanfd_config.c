@@ -45,7 +45,8 @@
 *				  	  Added Api: XCanFd_SetRxIntrWatermarkFifo1
 *								 XCanFd_SetTxEventIntrWatermark
 *								 XCanFd_SetRxFilterPartition
-*
+*					  Modified Api: XCanFd_SetBitTiming
+*							XCanFd_SetFBitTiming
 *
 * </pre>
 ******************************************************************************/

@@ -160,6 +160,7 @@ extern "C" {
 #define XCANFD_TXEFIFO_0_BASE_DLC_OFFSET  0x2004  /**< Tx Event Message Buffer
                                                   Element 0 DLC Register  */
 /* @} */
+
 /** @name Rx Message Buffer Element ID Registers.
  * Start Address - 0x1100   (2304 Bytes)
 			     End Address   - 0x19FF
@@ -221,8 +222,9 @@ extern "C" {
 * @{
 */
 #define XCANFD_RXFIFO_1_BUFFER_0_BASE_DW0_OFFSET 0x4108 /**< Rx Message Buffer Element
-
+							0 DW Register	*/
 /* @} */
+
 /** @name Rx Message Buffer Element ID,DLC,DW Sizes.
 * @{
 */
@@ -870,6 +872,27 @@ Mask/Acceptance Filter ID)
 #define XST_BUFFER_ALREADY_FILLED	34L	/**< Given Buffer is Already
 						filled */
 #define XST_INVALID_DLC	16L	/**< Invalid Dlc code */
+#define TRR_POS_MASK            0x1
+#define MAX_BUFFER_VAL          32
+#define FAST_MATH_MASK1         0xDB6DB6DB
+#define FAST_MATH_MASK2         0x49249249
+#define FAST_MATH_MASK3         0xC71C71C7
+#define TRR_INIT_VAL            0x00000000
+#define TRR_MASK_INIT_VAL       0xFFFFFFFF
+#define DESIGN_RANGE_1          15
+#define DESIGN_RANGE_2          31
+#define CONTROL_STATUS_1        0
+#define CONTROL_STATUS_2        1
+#define CONTROL_STATUS_3        3
+#define EXTRACTION_MASK         63
+#define SHIFT1                          1
+#define SHIFT2                          2
+#define SHIFT3                          3
+#define TDC_MAX_OFFSET      32
+#define TDC_SHIFT                       8
+#define MAX_BUFFER_INDEX    32
+#define MIN_FILTER_INDEX        0
+#define MAX_FILTER_INDEX        32
 /* @} */
 
 /**************************** Type Definitions *******************************/
