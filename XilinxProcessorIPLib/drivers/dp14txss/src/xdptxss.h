@@ -320,7 +320,9 @@ typedef struct {
 	u8 Lane0Sts;
 	u8 Lane2Sts;
 	u8 Rd200;
-	u8 EdidOrg[128];
+	u8 EdidOrg[XDP_EDID_BLOCK_SIZE];
+	u8 EdidOrg_1[XDP_EDID_BLOCK_SIZE];
+	u8 EdidOrg_2[XDP_EDID_BLOCK_SIZE];
 	u8 Dpcd[88];
 	u8 Tmp[12];
 } XDpTxSs_UsrHpdEventData;
