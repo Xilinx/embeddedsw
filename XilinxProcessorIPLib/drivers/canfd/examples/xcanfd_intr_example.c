@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -58,6 +58,10 @@
 *                       for proper documentation while generating doxygen.
 * 1.3   ask    08/08/18 Changed the Can ID to 11 bit value as standard Can ID
 *						is 11 bit.
+*  	ask    09/12/18 Added timeout, and Code to handle Timestamp Counter
+*		                Overflow Interrupt. Made logic generic for both
+*						scugic and intc vectors.
+*
 *
 * </pre>
 *
@@ -69,6 +73,7 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xil_exception.h"
+#include "sleep.h"
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
@@ -86,12 +91,13 @@
  * change all the needed parameters in one place.
  */
 #define CANFD_DEVICE_ID		XPAR_CANFD_0_DEVICE_ID
-#define CAN_INTR_VEC_ID		XPAR_INTC_0_CANFD_0_VEC_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
  #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+ #define CAN_INTR_VEC_ID	XPAR_INTC_0_CANFD_0_VEC_ID
 #else
  #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+ #define CAN_INTR_VEC_ID	XPAR_FABRIC_CANFD_0_VEC_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 /* Maximum CAN frame length in Bytes */
@@ -127,6 +133,8 @@
 #define TEST_FBTR_SYNCJUMPWIDTH		3
 #define TEST_FBTR_SECOND_TIMESEGMENT	2
 #define TEST_FBTR_FIRST_TIMESEGMENT	15
+#define MAX_TIMEOUT 			100
+#define MAX_USLEEP_VAL                  10*1000
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
@@ -147,7 +155,6 @@
 
 static int XCanFdIntrExample(u16 DeviceId);
 static void Config(XCanFd  *InstancePtr);
-void Create_CanFD_Frame();
 static int SendFrame(XCanFd  *InstancePtr);
 
 static void SendHandler(void *CallBackRef);
@@ -219,6 +226,7 @@ int main()
 static int XCanFdIntrExample(u16 DeviceId)
 {
 	int Status;
+	int TimeOut;
 	XCanFd *CanFdInstPtr = &CanFd;
 	XCanFd_Config *ConfigPtr;
 
@@ -275,8 +283,24 @@ static int XCanFdIntrExample(u16 DeviceId)
 	if (Status != XST_SUCCESS)
 		return Status;
 
-	while ((SendDone != TRUE) || (RecvDone != TRUE));
+	/*Wait for a second*/
+	TimeOut = MAX_TIMEOUT;
 
+	while ((SendDone != TRUE) || (RecvDone != TRUE)) {
+
+			if(TimeOut)
+				usleep(MAX_USLEEP_VAL);
+			else
+				break;
+
+		TimeOut--;
+	}
+	if (!TimeOut) {
+		if(SendDone != TRUE)
+			return XST_SEND_ERROR;
+		else
+			return XST_RECV_ERROR;
+	}
 	/* Check for errors found in the callbacks */
 	if (LoopbackError == TRUE) {
 		return XST_LOOPBACK_ERROR;
@@ -576,6 +600,7 @@ static void ErrorHandler(void *CallBackRef, u32 ErrorMask)
 *   - XCANFD_IXR_WKUP_MASK:   Wake up Interrupt
 *   - XCANFD_IXR_SLP_MASK:    Sleep Interrupt
 *   - XCANFD_IXR_ARBLST_MASK: Arbitration Lost Interrupt
+*   - XCANFD_IXR_TSCNT_OFLW_MASK : Timestamp Counter Overflow Interrupt
 *
 * Please feel free to change this function to meet specific application needs.
 *
@@ -657,6 +682,14 @@ static void EventHandler(void *CallBackRef, u32 IntrMask)
 		 *  here.
 		 */
 	}
+
+	if (IntrMask & XCANFD_IXR_TSCNT_OFLW_MASK) {
+		/*
+		 * Code to handle Timestamp Counter Overflow Interrupt should be put
+		 *  here.
+		 */
+	}
+
 }
 
 /*****************************************************************************/
