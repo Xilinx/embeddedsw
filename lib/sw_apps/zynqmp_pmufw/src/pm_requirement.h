@@ -98,10 +98,10 @@ typedef struct PmRequirement {
 	PmMaster* master;
 	PmRequirement* nextSlave;
 	PmRequirement* nextMaster;
-	u32 preReq;
-	u32 defaultReq;
-	u32 currReq;
-	u32 nextReq;
+	u16 preReq;
+	u16 defaultReq;
+	u16 currReq;
+	u16 nextReq;
 	u32 latencyReq;
 	u8 info;
 } PmRequirement;
