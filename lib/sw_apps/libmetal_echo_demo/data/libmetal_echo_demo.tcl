@@ -12,6 +12,10 @@
 #* The above copyright notice and this permission notice shall be included in
 #* all copies or substantial portions of the Software.
 #*
+#* Use of the Software is limited solely to applications:
+#* (a) running on a Xilinx device, or
+#* (b) that interact with a Xilinx device through a bus or interconnect.
+#*
 #* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 #* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 #* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -134,7 +138,7 @@ proc generate_stdout_config { fid } {
 	# mention that we have a psu_uart
         puts $fid "#define STDOUT_IS_PSU_UART";
         # and get it device id
-        set p8_uarts [lsort [hsi::get_cells -filter { ip_name == "psu_uart"} ]];
+        set p8_uarts [lsort [hsi::get_cells -hier -filter { ip_name == "psu_uart"} ]];
         set id 0
         foreach uart $p8_uarts {
             if {[string compare -nocase $uart $stdout] == 0} {
