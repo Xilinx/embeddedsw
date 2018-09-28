@@ -599,18 +599,6 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 					0].UserPixelWidth = 4;
 			}
 		}
-		else {
-			/* Set user pixel width if video mode is 1920 x 2160 */
-			if ((InstancePtr->TxInstance.MsaConfig[
-				0].Vtm.Timing.HActive == 1920) &&
-				(InstancePtr->TxInstance.MsaConfig[
-					0].Vtm.Timing.VActive == 2160) &&
-				(InstancePtr->TxInstance.MsaConfig[
-					0].OverrideUserPixelWidth == 0)) {
-				InstancePtr->TxInstance.MsaConfig[
-					0].UserPixelWidth = 4;
-			}
-		}
 
 		 if((InstancePtr->TxInstance.MsaConfig[0].PixelClockHz <=
 		     75000000) &&
