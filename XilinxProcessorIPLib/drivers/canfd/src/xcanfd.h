@@ -239,6 +239,12 @@ exclusion
 *                                                                      XCANFD_FIFO_1_RXDLC_OFFSET
 *                                                                      XCANFD_FIFO_1_RXDW_OFFSET
 *                                                                      above apis added in xcanfd.h
+*			Fixed Message Queuing logic by modifying in functions
+*					  	XCanFd_Send_Queue, XCanFd_Addto_Queue, XCanFd_Send,
+*					  	and XCanFd_GetFreeBuffer.
+*			 Added an static function
+*					  	XCanfd_TrrVal_Get_SetBit_Position, added in xcanfd.c
+*						XCanFD_Check_TrrVal_Set_Bit, added in xcanfd.h
 *
 * </pre>
 *
@@ -371,7 +377,10 @@ typedef struct {
 	u32 IsReady;		/**< Device is initialized and ready */
 	u32 MultiBuffTrr;	/**< used in multibuffer send case
 							to update TRR Register */
-	u8 FreeBuffStatus[32];	/**< Buffer Status */
+	u32 GlobalTrrValue; /**< used in multibuffer send case
+							to update TRR Register */
+	u32 GlobalTrrMask;  /**< used in multibuffer send case
+							to update TRR Register */
 
 	XCanFd_SendRecvHandler SendHandler;
 	void *SendRef;
@@ -975,6 +984,21 @@ typedef struct {
 *****************************************************************************/
 #define XCanFd_Get_RxBuffers(InstancePtr)	\
 		InstancePtr->CanFdConfig.NumofRxMbBuf;
+
+/****************************************************************************/
+/**
+*
+* This routine returns Number with right most bit set
+* from the target input value.
+*
+* @param	Target value.
+*
+* @return	Number with right most bit set from the target value.
+*
+* @note		None.
+*
+*****************************************************************************/
+#define XCanFD_Check_TrrVal_Set_Bit(Var)      Var&(-Var)
 
 /* Functions in xcan.c */
 int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,

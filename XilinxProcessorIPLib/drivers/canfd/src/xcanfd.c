@@ -58,7 +58,12 @@
 *								XCanFd_Recv_TXEvents_Sequential
 *								XCanFd_GetNofMessages_Stored_TXE_FIFO
 *								XCanFd_GetNofMessages_Stored_Rx_Fifo
-*		      .
+*					  Fixed Message Queuing logic by modifying in functions
+*					  XCanFd_Send_Queue, XCanFd_Addto_Queue, XCanFd_Send,
+*					  and XCanFd_GetFreeBuffer. Added an static function
+*					  XCanfd_TrrVal_Get_SetBit_Position.
+*
+*
 *
 * </pre>
 ******************************************************************************/
@@ -88,6 +93,7 @@ extern XCanFd_Config XCanFd_ConfigTable[];
 /************************** Function Prototypes ******************************/
 
 static void StubHandler(void);
+static int XCanfd_TrrVal_Get_SetBit_Position(u32 u);
 static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex,
 	   u32 FsrVal, u32 *FramePtr, u8 fifo_no);
 
@@ -456,6 +462,7 @@ void XCanFd_GetBusErrorCounter(XCanFd *InstancePtr, u8 *RxErrorCount,
 int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 {
 	u32 FreeTxBuffer;
+	u32 TrrVal;
 	u32 DwIndex=0;
 	u32 Value;
 	u32 Dlc;
@@ -470,7 +477,12 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 	XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_TRR_OFFSET);
 
-	FreeTxBuffer = XCanFd_GetFreeBuffer(InstancePtr);
+	if(InstancePtr->GlobalTrrMask == 0)
+		InstancePtr->GlobalTrrMask = 0xFFFFFFFF;
+	TrrVal = XCanFd_GetFreeBuffer(InstancePtr);
+	Value = (~TrrVal) & InstancePtr->GlobalTrrMask;
+	Value = XCanFD_Check_TrrVal_Set_Bit(Value);
+	FreeTxBuffer =  XCanfd_TrrVal_Get_SetBit_Position(Value);
 
 	if (FreeTxBuffer == XST_NOBUFFER){
 		return XST_FIFO_NO_ROOM;
@@ -531,7 +543,6 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 	*TxBufferNumber = FreeTxBuffer;
 
 	/* Make That buffer as transmitted */
-	InstancePtr->FreeBuffStatus[FreeTxBuffer] = 0;
 
 	return XST_SUCCESS;
 }
@@ -560,6 +571,8 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 {
 	u32 FreeTxBuffer;
+	u32 TrrVal;
+	u32 MaskValue;
 	u32 DwIndex=0;
 	u32 Len;
 	u32 Dlc;
@@ -573,15 +586,20 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 	XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_TRR_OFFSET);
 
-	FreeTxBuffer = XCanFd_GetFreeBuffer(InstancePtr);
+	TrrVal = XCanFd_GetFreeBuffer(InstancePtr);
+	if(InstancePtr->GlobalTrrMask == 0)
+		InstancePtr->GlobalTrrMask = 0xFFFFFFFF;
+	MaskValue = (~TrrVal) & InstancePtr->GlobalTrrMask ;
+	InstancePtr->GlobalTrrValue = XCanFD_Check_TrrVal_Set_Bit(MaskValue);
+	FreeTxBuffer =  XCanfd_TrrVal_Get_SetBit_Position(InstancePtr->GlobalTrrValue);
+	InstancePtr->GlobalTrrMask ^= InstancePtr->GlobalTrrValue;
 
 	if (FreeTxBuffer == XST_NOBUFFER){
 		return XST_FIFO_NO_ROOM;
 	}
 	else {
-		if (InstancePtr->FreeBuffStatus[FreeTxBuffer] == 1)
-			return XST_BUFFER_ALREADY_FILLED;
-		InstancePtr->MultiBuffTrr |= 1 << FreeTxBuffer;
+
+		InstancePtr->MultiBuffTrr = ~(InstancePtr->GlobalTrrMask);
 
 		/* Write ID to ID Register*/
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
@@ -628,8 +646,6 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 		/* Assign  Buffer to user */
 		*TxBufferNumber = FreeTxBuffer;
 
-		/* Mark Current Buffer as Filled */
-		InstancePtr->FreeBuffStatus[FreeTxBuffer] = 1;
 
 		return XST_SUCCESS;
 	}
@@ -1441,23 +1457,26 @@ u8 XCanFd_GetLen2Dlc(int len)
 * @note		None.
 *
 ******************************************************************************/
-int XCanFd_GetFreeBuffer(XCanFd *InstancePtr)
+u32 XCanFd_GetFreeBuffer(XCanFd *InstancePtr)
 {
 
-	u32 AvailBuffer=0;
+	u32 RegVal;
+	u32 Index = 0;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	for (AvailBuffer = 0;AvailBuffer <= InstancePtr->CanFdConfig.NumofTxBuf;
-		AvailBuffer++) {
+	RegVal = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress, XCANFD_TRR_OFFSET);
+	while(RegVal & (1 << Index)) {
+		Index++;
+		if(Index == 32)
+			break;
 
-		if (InstancePtr->FreeBuffStatus[AvailBuffer]!= 1) {
-			return AvailBuffer;
-		}
 	}
-	return XST_NOBUFFER;
+	if(Index == 32)
+		return XST_NOBUFFER;
 
+	return RegVal;
 }
 
 /*****************************************************************************/
@@ -1477,7 +1496,6 @@ int XCanFd_GetFreeBuffer(XCanFd *InstancePtr)
 int XCanFd_Send_Queue(XCanFd *InstancePtr)
 {
 
-	u32 BufferNr;
 	u32 TrrVal;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1489,9 +1507,10 @@ int XCanFd_Send_Queue(XCanFd *InstancePtr)
 	 * XCanFd_Addto_Queue()
 	 */
 	TrrVal = InstancePtr->MultiBuffTrr;
-	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress, XCANFD_TRR_OFFSET,
-			TrrVal);
-	MAKE_CURRENTBUFFER_ZERO(InstancePtr);
+
+	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress, XCANFD_TRR_OFFSET, TrrVal);
+	InstancePtr->GlobalTrrValue = 0x00000000;
+	InstancePtr->GlobalTrrMask  = 0xFFFFFFFF;
 
 	return XST_SUCCESS;
 
@@ -1699,6 +1718,30 @@ void XCanFd_Disable_Tranceiver_Delay_Compensation(XCanFd *InstancePtr)
 	RegValue &= ~XCANFD_F_BRPR_TDC_ENABLE_MASK;
 	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_F_BRPR_OFFSET,RegValue);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function calcualtes the index position of the right most set bit.
+*
+* @param	GlobalTrrValue
+*
+* @return	Index location of right most set bit
+*
+* @note		log2 fast Math logic.
+*
+******************************************************************************/
+static int XCanfd_TrrVal_Get_SetBit_Position(u32 u) {
+
+	u32 uCount;
+	u32 lCount;
+
+	u -= 1;
+	uCount = u - ((u >> 1) & 0xDB6DB6DB) - ((u >> 2) & 0x49249249);
+	lCount = ((uCount + (uCount >> 3)) & 0xC71C71C7) % 63;
+	return lCount;
+
 }
 
 /*****************************************************************************/
