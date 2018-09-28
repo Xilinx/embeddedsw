@@ -205,6 +205,16 @@ void XDpTxSs_HpdEventProcess(void *InstancePtr)
 				&UsrHpdEventData->Dpcd);
 		Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr,
 				UsrHpdEventData->EdidOrg, 0);
+
+		if (UsrHpdEventData->EdidOrg[XDP_EDID_EXT_BLOCK_COUNT] > 0)
+                       Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr,
+                                                    UsrHpdEventData->EdidOrg_1,
+                                                    1);
+		if (UsrHpdEventData->EdidOrg_1[XDP_EDID_EXT_BLOCK_COUNT] > 1)
+                        Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr,
+                                                     UsrHpdEventData->EdidOrg_2,
+                                                     2);
+
 		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT,
 				1, &UsrHpdEventData->Rd200);
 		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
