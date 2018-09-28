@@ -245,6 +245,9 @@ exclusion
 *			 Added an static function
 *					  	XCanfd_TrrVal_Get_SetBit_Position, added in xcanfd.c
 *						XCanFD_Check_TrrVal_Set_Bit, added in xcanfd.h
+*			 Modified apis
+*						XCanFd_SetBitTiming
+*                                               XCanFd_SetFBitTiming in xcanfd.h
 *
 * </pre>
 *

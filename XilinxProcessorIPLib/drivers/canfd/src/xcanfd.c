@@ -62,7 +62,8 @@
 *					  XCanFd_Send_Queue, XCanFd_Addto_Queue, XCanFd_Send,
 *					  and XCanFd_GetFreeBuffer. Added an static function
 *					  XCanfd_TrrVal_Get_SetBit_Position.
-*
+*					  Added Macros regarding legacy API.
+*	ask 09/27/18 Removed unnecessary register read from XCanFd_Send
 *
 *
 * </pre>
@@ -83,8 +84,6 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define TRR_POS_MASK    0x1
-#define MAX_BUFFER_VAL   32
 
 /************************** Variable Definitions *****************************/
 
@@ -474,11 +473,9 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Poll TRR to check pending transmission requests */
-	XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
-			XCANFD_TRR_OFFSET);
 
 	if(InstancePtr->GlobalTrrMask == 0)
-		InstancePtr->GlobalTrrMask = 0xFFFFFFFF;
+		InstancePtr->GlobalTrrMask = TRR_MASK_INIT_VAL;
 	TrrVal = XCanFd_GetFreeBuffer(InstancePtr);
 	Value = (~TrrVal) & InstancePtr->GlobalTrrMask;
 	Value = XCanFD_Check_TrrVal_Set_Bit(Value);
@@ -588,7 +585,7 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 
 	TrrVal = XCanFd_GetFreeBuffer(InstancePtr);
 	if(InstancePtr->GlobalTrrMask == 0)
-		InstancePtr->GlobalTrrMask = 0xFFFFFFFF;
+		InstancePtr->GlobalTrrMask = TRR_MASK_INIT_VAL;
 	MaskValue = (~TrrVal) & InstancePtr->GlobalTrrMask ;
 	InstancePtr->GlobalTrrValue = XCanFD_Check_TrrVal_Set_Bit(MaskValue);
 	FreeTxBuffer =  XCanfd_TrrVal_Get_SetBit_Position(InstancePtr->GlobalTrrValue);
@@ -903,16 +900,16 @@ u32 XCanFd_RxBuff_MailBox_Active(XCanFd *InstancePtr, u32 RxBuffer)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(RxBuffer < InstancePtr->CanFdConfig.NumofRxMbBuf);
 
-	if (RxBuffer <=15) {
-		NoCtrlStatus = 0;
+	if (RxBuffer <=DESIGN_RANGE_1) {
+		NoCtrlStatus = CONTROL_STATUS_1;
 	}
-	else if (RxBuffer <=31) {
-		RxBuffer -= 16;
-		NoCtrlStatus = 1;
+	else if (RxBuffer <=DESIGN_RANGE_2) {
+		RxBuffer -= (DESIGN_RANGE_1+1);
+		NoCtrlStatus = CONTROL_STATUS_2;
 	}
 	else {
-		RxBuffer -= 32;
-		NoCtrlStatus = 2;
+		RxBuffer -= (DESIGN_RANGE_2+1);
+		NoCtrlStatus = CONTROL_STATUS_3;
 	}
 	Status = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_RCS_OFFSET(NoCtrlStatus));
@@ -954,16 +951,16 @@ u32 XCanFd_Set_MailBox_IdMask(XCanFd *InstancePtr, u32 RxBuffer,
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(RxBuffer < InstancePtr->CanFdConfig.NumofRxMbBuf);
 
-	if (RxBuffer <=15) {
-		NoCtrlStatus = 0;
+	if (RxBuffer <=DESIGN_RANGE_1) {
+		NoCtrlStatus = CONTROL_STATUS_1;
 	}
-	else if (RxBuffer <=31) {
-		RxBuffer -= 16;
-		NoCtrlStatus = 1;
+	else if (RxBuffer <=DESIGN_RANGE_2) {
+		RxBuffer -= (DESIGN_RANGE_1+1);
+		NoCtrlStatus = CONTROL_STATUS_2;
 	}
 	else {
-		RxBuffer -= 32;
-		NoCtrlStatus = 2;
+		RxBuffer -= (DESIGN_RANGE_2+1);
+		NoCtrlStatus = CONTROL_STATUS_3;
 	}
 
 	Status = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
@@ -1010,16 +1007,16 @@ u32 XCanFd_RxBuff_MailBox_DeActive(XCanFd *InstancePtr, u32 RxBuffer)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(RxBuffer < InstancePtr->CanFdConfig.NumofRxMbBuf);
 
-	if (RxBuffer <=15) {
-		NoCtrlStatus = 0;
+	if (RxBuffer <=DESIGN_RANGE_1) {
+		NoCtrlStatus = CONTROL_STATUS_1;
 	}
-	else if (RxBuffer <=31) {
-		RxBuffer -= 16;
-		NoCtrlStatus = 1;
+	else if (RxBuffer <=DESIGN_RANGE_2) {
+		RxBuffer -= (DESIGN_RANGE_1+1);
+		NoCtrlStatus = CONTROL_STATUS_2;
 	}
 	else {
-		RxBuffer -= 32;
-		NoCtrlStatus = 2;
+		RxBuffer -= (DESIGN_RANGE_2+1);
+		NoCtrlStatus = CONTROL_STATUS_3;
 	}
 
 	Status = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
@@ -1060,7 +1057,7 @@ int XCanFd_TxBuffer_Cancel_Request(XCanFd *InstancePtr,u32 BufferNumber)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (BufferNumber <32) {
+	if (BufferNumber <MAX_BUFFER_INDEX) {
 		if (XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_TRR_OFFSET) & (1<<BufferNumber)) {
 			if (XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
@@ -1212,7 +1209,7 @@ int XCanFd_AcceptFilterSet(XCanFd *InstancePtr, u32 FilterIndex,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	Xil_AssertNonvoid((FilterIndex > 0) && (FilterIndex <= 32));
+	Xil_AssertNonvoid((FilterIndex > MIN_FILTER_INDEX) && (FilterIndex <= MAX_FILTER_INDEX));
 
 	/*
 	 * Check if the given filter is currently enabled. If yes, return error
@@ -1263,7 +1260,7 @@ void XCanFd_AcceptFilterGet(XCanFd *InstancePtr, u32 FilterIndex,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(FilterIndex < XCANFD_NOOF_AFR);
-	Xil_AssertVoid((FilterIndex > 0) && (FilterIndex <= 32));
+	Xil_AssertVoid((FilterIndex > MIN_FILTER_INDEX) && (FilterIndex <= MAX_FILTER_INDEX));
 
 	FilterIndex--;
 	*MaskValue = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
@@ -1469,11 +1466,11 @@ u32 XCanFd_GetFreeBuffer(XCanFd *InstancePtr)
 	RegVal = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress, XCANFD_TRR_OFFSET);
 	while(RegVal & (1 << Index)) {
 		Index++;
-		if(Index == 32)
+		if(Index == MAX_BUFFER_INDEX)
 			break;
 
 	}
-	if(Index == 32)
+	if(Index == MAX_BUFFER_INDEX)
 		return XST_NOBUFFER;
 
 	return RegVal;
@@ -1509,8 +1506,8 @@ int XCanFd_Send_Queue(XCanFd *InstancePtr)
 	TrrVal = InstancePtr->MultiBuffTrr;
 
 	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress, XCANFD_TRR_OFFSET, TrrVal);
-	InstancePtr->GlobalTrrValue = 0x00000000;
-	InstancePtr->GlobalTrrMask  = 0xFFFFFFFF;
+	InstancePtr->GlobalTrrValue = TRR_INIT_VAL;
+	InstancePtr->GlobalTrrMask  = TRR_MASK_INIT_VAL;
 
 	return XST_SUCCESS;
 
@@ -1680,12 +1677,12 @@ void XCanFd_Set_Tranceiver_Delay_Compensation(XCanFd *InstancePtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (TdcOffset <= 32) {
+	if (TdcOffset <= TDC_MAX_OFFSET) {
 
 		RegValue = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 					XCANFD_F_BRPR_OFFSET);
 
-		TdcOffset <<= 8;
+		TdcOffset <<= TDC_SHIFT;
 		RegValue |= (TdcOffset & XCANFD_F_BRPR_TDCMASK);
 
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
@@ -1738,8 +1735,8 @@ static int XCanfd_TrrVal_Get_SetBit_Position(u32 u) {
 	u32 lCount;
 
 	u -= 1;
-	uCount = u - ((u >> 1) & 0xDB6DB6DB) - ((u >> 2) & 0x49249249);
-	lCount = ((uCount + (uCount >> 3)) & 0xC71C71C7) % 63;
+	uCount = u - ((u >> SHIFT1) & FAST_MATH_MASK1) - ((u >> SHIFT2) & FAST_MATH_MASK2);
+	lCount = ((uCount + (uCount >> SHIFT3)) & FAST_MATH_MASK3) % EXTRACTION_MASK;
 	return lCount;
 
 }
