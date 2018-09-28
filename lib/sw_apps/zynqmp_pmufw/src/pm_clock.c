@@ -47,7 +47,6 @@
 	.nextNode = NULL, \
 }
 
-#define IOU_SLCR_BASE			0xFF180000U
 #define IOU_SLCR_CAN_MIO_CTRL		(IOU_SLCR_BASE + 0x304U)
 #define IOU_SLCR_GEM_CLK_CTRL		(IOU_SLCR_BASE + 0x308U)
 

@@ -37,7 +37,6 @@
 	#error "ENABLE_POS_QSPI is defined but qspi device is not available"
 #endif
 
-#define IOU_SLCR_BASE		0XFF180000U
 #define IOU_SCLR_MIO_PIN_0	( ( IOU_SLCR_BASE )  + 0X00000000U )
 #define IOU_SCLR_MIO_PIN_1	( ( IOU_SLCR_BASE )  + 0X00000004U )
 #define IOU_SCLR_MIO_PIN_2	( ( IOU_SLCR_BASE )  + 0X00000008U )

@@ -84,7 +84,6 @@ void NodeTtcIdle(u32 BaseAddress)
 #if defined(XPAR_PSU_SD_0_DEVICE_ID) || \
 	defined(XPAR_PSU_SD_1_DEVICE_ID)
 
-#define IOU_SLCR_BASE  		0xFF180000
 #define IOU_SD_CTRL_OFFSET	0x00000310
 
 #define SD_SLEEP_TIME   1000		/* in ms */

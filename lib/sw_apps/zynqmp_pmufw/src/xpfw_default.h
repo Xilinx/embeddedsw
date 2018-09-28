@@ -51,6 +51,8 @@
 #include "lpd_slcr.h"
 #include "rtc.h"
 
+/* Base address of the IOU_SLCR module */
+#define IOU_SLCR_BASE			0xFF180000U
 
 /* RAM address used for scrubbing */
 #define PARAM_RAM_LOW_ADDRESS		0Xffdc0000U
