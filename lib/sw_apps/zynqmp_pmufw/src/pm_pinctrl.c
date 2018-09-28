@@ -973,6 +973,12 @@ int PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 
 	if (0U == (PM_PIN_PARAM_2_BITS & pmPinParams[paramId].flags)) {
 		XPfw_RMW32(addr, 1 << shift, value << shift);
+		/* When setting pull up/down we need to enable pull as well */
+		if (paramId == PINCTRL_CONFIG_PULL_CTRL) {
+			addr = PM_PIN_PARAM_GET_ADDR(pinId,
+				pmPinParams[PINCTRL_CONFIG_PULL_CTRL].offset);
+			XPfw_RMW32(addr, 1 << shift, value << shift);
+		}
 	} else {
 		/* Write value[0] at address + 4 and value[1] at address */
 		XPfw_RMW32(addr + 4U, 1 << shift, (value & 0x1U) << shift);
