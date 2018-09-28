@@ -42,6 +42,7 @@
 #include "pm_notifier.h"
 #include "pm_mmio_access.h"
 #include "pm_system.h"
+#include "pm_pinctrl.h"
 #ifdef ENABLE_FPGA_LOAD
 #include "xilfpga.h"
 #endif
@@ -1678,6 +1679,39 @@ done:
 	IPI_RESPONSE2(master->ipiMask, status, mode);
 }
 
+/**
+ * PmPinCtrlRequest() - Request PIN control
+ * @master	Master that initiated the call
+ * @pinId	ID of the pin
+ */
+void PmPinCtrlRequest(PmMaster* const master, const u32 pinId)
+{
+	int status = XST_SUCCESS;
+
+	PmInfo("%s> PmPinCtrlRequest(%lu)\r\n", master->name, pinId);
+
+	status = PmPinCtrlRequestInt(master->ipiMask, pinId);
+
+done:
+	IPI_RESPONSE1(master->ipiMask, status);
+}
+
+/**
+ * PmPinCtrlRelease() - Release PIN control
+ * @master	Master that initiated the call
+ * @pinId	ID of the pin
+ */
+void PmPinCtrlRelease(PmMaster* const master, const u32 pinId)
+{
+	int status = XST_SUCCESS;
+
+	PmInfo("%s> PmPinCtrlRelease(%lu)\r\n", master->name, pinId);
+
+	status = PmPinCtrlReleaseInt(master->ipiMask, pinId);
+
+done:
+	IPI_RESPONSE1(master->ipiMask, status);
+}
 
 /**
  * PmApiApprovalCheck() - Check if the API ID can be processed at the moment
@@ -1867,6 +1901,12 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		PmEfuseAccess(master, pload[1], pload[2]);
 		break;
 #endif
+	case PM_PINCTRL_REQUEST:
+		PmPinCtrlRequest(master, pload[1]);
+		break;
+	case PM_PINCTRL_RELEASE:
+		PmPinCtrlRelease(master, pload[1]);
+		break;
 	default:
 		PmWarn("Unsupported EEMI API #%lu\r\n", pload[0]);
 		IPI_RESPONSE1(master->ipiMask, XST_INVALID_VERSION);
