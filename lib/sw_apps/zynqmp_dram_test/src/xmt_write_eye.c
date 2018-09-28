@@ -41,6 +41,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   mn   08/17/18 Initial release
+ *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
  *
  * </pre>
  *
@@ -239,30 +240,6 @@ static void XMt_ClearTapCount(XMt_CfgData *XMtPtr)
 
 /*****************************************************************************/
 /**
- * This function is used to set the WDQD value
- *
- * @param XMtPtr is the pointer to the Memtest Data Structure
- * @param WdqdVal Initial WDQD value
- * @param WdqslVal Initial WDQSL value
- *
- * @return none
- *
- * @note none
- *****************************************************************************/
-static void XMt_SetInitWdqd(XMt_CfgData *XMtPtr, u32 WdqdVal, u32 WdqslVal)
-{
-	s32 Index;
-
-	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
-		XMt_SetWrWdqd(XMT_LCDLR1_BASE + (XMT_LANE_OFFSET*Index),
-				WdqdVal);
-		XMt_SetWrWdqsl(XMT_GTR0_BASE + (XMT_LANE_OFFSET*Index),
-				WdqslVal);
-	}
-}
-
-/*****************************************************************************/
-/**
  * This function is used to set the the Write Eye Center values
  *
  * @param XMtPtr is the pointer to the Memtest Data Structure
@@ -317,26 +294,6 @@ static u32 XMt_ResetWrCenter(XMt_CfgData *XMtPtr)
 
 /*****************************************************************************/
 /**
- * This function is used to force re-initialize the DDR-PHY
- *
- * @param none
- *
- * @return none
- *
- * @note none
- *****************************************************************************/
-static void XMt_ForceReinit(void)
-{
-	u32 RdVal;
-	u32 WrVal;
-
-	RdVal = Xil_In32(XMT_DDR_PHY_PIR);
-	WrVal = RdVal | (1 << XMT_DDR_PHY_PIR_INIT_SHIFT);
-	Xil_Out32(XMT_DDR_PHY_PIR, WrVal);
-}
-
-/*****************************************************************************/
-/**
  * This function is used to populate the Write Delays
  *
  * @param XMtPtr is the pointer to the Memtest Data Structure
@@ -384,33 +341,6 @@ static void XMt_PrintTapCounts(XMt_CfgData *XMtPtr)
 
 /*****************************************************************************/
 /**
- * This function is used to poll for the Training Done bits to set
- *
- * @param none
- *
- * @return none
- *
- * @note none
- *****************************************************************************/
-static void XMt_PollTrainingDone(void)
-{
-	u32 RdVal;
-	u32 IDone = 0;
-	u32 ReDone = 0;
-
-
-	while (!IDone && !ReDone) {
-		RdVal = Xil_In32(XMT_DDR_PHY_PGSR0);
-		IDone = RdVal & (1 << XMT_DDR_PHY_PGSR0_IDONE_SHIFT);
-		ReDone = RdVal & (1 << XMT_DDR_PHY_PGSR0_REDONE_SHIFT);
-	}
-#ifdef XMT_DEBUG
-	xil_printf("Training DONE\r\n");
-#endif
-}
-
-/*****************************************************************************/
-/**
  * This function is used to set the initial values in DDR-PHY registers
  *
  * @param XMtPtr is the pointer to the Memtest Data Structure
@@ -422,8 +352,6 @@ static void XMt_PollTrainingDone(void)
 static u32 XMt_SetWdqdSw(XMt_CfgData *XMtPtr)
 {
 	s32 Index;
-	u32 InitIprd;
-	u32 Iprd;
 
 	#ifdef XMT_DEBUG
 	xil_printf("\r\n");
@@ -435,16 +363,6 @@ static u32 XMt_SetWdqdSw(XMt_CfgData *XMtPtr)
 	#endif
 
 	XMt_ClearTapCount(XMtPtr);
-	Iprd = XMt_GetWrIprd(XMT_MDLR0_BASE);
-	InitIprd = Iprd + 20;
-	#ifdef XMT_DEBUG
-	xil_printf("Init IPRD: %u+20=%u\r\n\r\n", Iprd, InitIprd);
-	#endif
-
-	XMt_SetInitWdqd(XMtPtr, InitIprd, 0);
-	XMt_ForceReinit();
-	XMt_PollTrainingDone();
-
 	XMt_PopulateWrDs(XMtPtr);
 
 #ifdef XMT_DEBUG
@@ -456,11 +374,11 @@ static u32 XMt_SetWdqdSw(XMt_CfgData *XMtPtr)
 		xil_printf("L%d(%u/%u), ", Index, XMtPtr->WrDs[Index].Wdqd,
 				XMtPtr->WrDs[Index].Wdqsl);
 #endif
-		XMtPtr->TapCount[Index] = InitIprd - XMtPtr->WrDs[Index].Wdqd;
+		XMtPtr->TapCount[Index] = XMtPtr->WrCenter[Index].Iprd;
 		XMt_SetWrWdqd(XMT_LCDLR1_BASE + (XMT_LANE_OFFSET*Index),
-				XMtPtr->WrCenter[Index].Wdqd);
-		XMt_SetWrWdqsl(XMT_GTR0_BASE + (XMT_LANE_OFFSET*Index),
-				XMtPtr->WrCenter[Index].Wdqsl);
+				XMtPtr->WrCenter[Index].Wdqd +
+				(XMtPtr->WrCenter[Index].Wdqsl *
+						XMtPtr->TapCount[Index]));
 	}
 #ifdef XMT_DEBUG
 	xil_printf("\r\n");
@@ -531,9 +449,7 @@ static void XMt_SetWdqdWithIncr(XMt_CfgData *XMtPtr, s32 Position)
 			xil_printf("L%d(WDQD=%u,WDQSL=%u), ", Index, XFine, Xc);
 			#endif
 			XMt_SetWrWdqd(XMT_LCDLR1_BASE + (XMT_LANE_OFFSET*Index),
-					XFine);
-			XMt_SetWrWdqsl(XMT_GTR0_BASE + (XMT_LANE_OFFSET*Index),
-					Xc);
+					XFine + (Xc * Tc));
 		}
 	}
 	#ifdef XMT_DEBUG
@@ -564,7 +480,7 @@ static u32 XMt_MeasureWrEyeEdge(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len, u8 M
 	Position = 0;
 
 	while (!Done) {
-		if (Mode == XMT_RIGHT_EYE_TEST) {
+		if (Mode & XMT_RIGHT_EYE_TEST) {
 			/* Move towards right edge */
 			Position = Position + 1;
 		} else {
@@ -575,20 +491,21 @@ static u32 XMt_MeasureWrEyeEdge(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len, u8 M
 		/* Clear system registers */
 		XMt_ClearResults(XMtPtr, XMT_RESULTS_BASE);
 
-		xil_printf("%3d    |", Position);
-
 		/* Set the WDQD and WDQSL register values based on position */
 		XMt_SetWdqdWithIncr(XMtPtr, Position);
 
 		/* Do the Write/Read test on Address Range */
 		XMt_RunEyeMemtest(XMtPtr, TestAddr, Len);
 
-		/* Print the lane wise results for this Position */
-		XMt_PrintResults(XMtPtr);
+		if (!(Mode & XMT_2D_EYE_TEST)) {
+			/* Print the lane wise results for this Position */
+			xil_printf("%3d    |", Position);
+			XMt_PrintResults(XMtPtr);
+		}
 
 		/* Calculate the Eye Start/End position values */
 		for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
-			if (Mode == XMT_RIGHT_EYE_TEST) {
+			if (Mode & XMT_RIGHT_EYE_TEST) {
 				if (Xil_In32(XMT_RESULTS_BASE+(Index*4)) != 0 &&
 						XMtPtr->EyeEnd[Index] == 0) {
 					XMtPtr->EyeEnd[Index] = Position-1;
@@ -605,7 +522,7 @@ static u32 XMt_MeasureWrEyeEdge(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len, u8 M
 		/* Once all Eye Start/End values are non-zero, End the test */
 		Done = 1;
 		for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
-			if (Mode == XMT_RIGHT_EYE_TEST) {
+			if (Mode & XMT_RIGHT_EYE_TEST) {
 				if (XMtPtr->EyeEnd[Index] == 0)
 					Done = 0;
 			} else {
@@ -777,6 +694,9 @@ u32 XMt_MeasureWrEye(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 	/* Clear system registers */
 	XMt_ClearResults(XMtPtr, XMT_RESULTS_BASE);
 
+	/* Disable the DFI */
+	XMt_DfiDisable();
+
 	/* Disable VT compensation */
 	XMt_DisableVtcomp();
 
@@ -821,6 +741,136 @@ u32 XMt_MeasureWrEye(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 		Status = XST_FAILURE;
 		goto RETURN_PATH;
 	}
+
+	/* Enable the DFI */
+	XMt_DfiEnable();
+
+	/* Give back Exception Handling to the system defined handlers */
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT,
+			SyncHandler, SyncData);
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SERROR_ABORT_INT,
+			SerrorHandler, SerrorData);
+
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to measure the Write Eye of the DDR.
+ *
+ * @param XMtPtr is the pointer to the Memtest Data Structure
+ * @param TestAddr is the Starting Address
+ * @param Len is the length of the memory to be tested
+ *
+ * @return XST_SUCCESS on success, XST_FAILURE on failure
+ *
+ * @note none
+ *****************************************************************************/
+u32 XMt_MeasureWrEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
+{
+	Xil_ExceptionHandler SyncHandler;
+	Xil_ExceptionHandler SerrorHandler;
+	void *SyncData;
+	void *SerrorData;
+	u32 Status;
+	u32 VRef;
+	u32 VRefMin;
+	u32 VRefMax;
+
+	xil_printf("\r\nRunning 2-D Write Eye Tests\r\n");
+
+	/* Get the system handlers for Sync and SError exceptions */
+	Xil_GetExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT,
+			&SyncHandler, &SyncData);
+	Xil_GetExceptionRegisterHandler(XIL_EXCEPTION_ID_SERROR_ABORT_INT,
+			&SerrorHandler, &SerrorData);
+
+	/* Register the Exception Handlers for Sync and Serror exceptions */
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT,
+			(Xil_ExceptionHandler)XMt_WrEyeSyncAbortHandler,
+			(void *) 0);
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SERROR_ABORT_INT,
+			(Xil_ExceptionHandler)XMt_WrEyeSerrorAbortHandler,
+			(void *) 0);
+
+
+	/* Disable the DFI */
+	XMt_DfiDisable();
+
+	/* Disable VT compensation */
+	XMt_DisableVtcomp();
+
+	XMt_Print2DEyeResultsHeader(XMtPtr);
+
+	/* Get the Write Eye Center Values */
+	Status = XMt_GetWrCenter(XMtPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	/* Set the Initial WDQD via software method */
+	Status = XMt_SetWdqdSw(XMtPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	Status = XMt_GetVRefAuto(XMtPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	/* Get the lowest value of VRef to be tested */
+	VRefMin = XMt_GetVRefAutoMin(XMtPtr);
+
+	/* Get the highest value of VRef to be tested */
+	VRefMax = XMt_GetVRefAutoMax(XMtPtr);
+
+	for (VRef = VRefMin; VRef < VRefMax; VRef++) {
+
+		XMt_SetVrefVal(XMtPtr, VRef);
+
+		/* Initialize Eye Parameters with zero */
+		XMt_ClearEye(XMtPtr, (u32 *)&XMtPtr->EyeStart[0]);
+		XMt_ClearEye(XMtPtr, (u32 *)&XMtPtr->EyeEnd[0]);
+
+
+		/* Measure the Right Edge of the Eye */
+		Status = XMt_MeasureWrEyeEdge(XMtPtr, TestAddr, Len,
+				XMT_RIGHT_EYE_TEST | XMT_2D_EYE_TEST);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+
+		/* Measure the Left Edge of the Eye */
+		Status = XMt_MeasureWrEyeEdge(XMtPtr, TestAddr, Len,
+				XMT_LEFT_EYE_TEST | XMT_2D_EYE_TEST);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+
+		/* Print the Read Eye Test Results */
+		XMt_Print2DEyeResults(XMtPtr, VRef);
+
+		/* Reset the Write Eye Center values to Registers */
+		Status = XMt_ResetWrCenter(XMtPtr);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+	}
+
+	XMt_PrintLine(XMtPtr, 5);
+
+	XMt_ResetVrefAuto(XMtPtr);
+
+	/* Enable the DFI */
+	XMt_DfiEnable();
 
 	/* Give back Exception Handling to the system defined handlers */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT,
