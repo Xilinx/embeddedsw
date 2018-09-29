@@ -122,8 +122,6 @@ struct rpmsg_device {
  * one becomes available, or a timeout of 15 seconds elapses. When the latter
  * happens, -ERESTARTSYS is returned.
  *
- * Can only be called from process context (for now).
- *
  * Returns number of bytes it has sent or negative error value on failure.
  */
 int rpmsg_send_offchannel_raw(struct rpmsg_endpoint *ept, uint32_t src,
@@ -142,8 +140,6 @@ int rpmsg_send_offchannel_raw(struct rpmsg_endpoint *ept, uint32_t src,
  * In case there are no TX buffers available, the function will block until
  * one becomes available, or a timeout of 15 seconds elapses. When the latter
  * happens, -ERESTARTSYS is returned.
- *
- * Can only be called from process context (for now).
  *
  * Returns number of bytes it has sent or negative error value on failure.
  */
@@ -170,8 +166,6 @@ static inline int rpmsg_send(struct rpmsg_endpoint *ept, const void *data,
  * one becomes available, or a timeout of 15 seconds elapses. When the latter
  * happens, -ERESTARTSYS is returned.
  *
- * Can only be called from process context (for now).
- *
  * Returns number of bytes it has sent or negative error value on failure.
  */
 static inline int rpmsg_sendto(struct rpmsg_endpoint *ept, const void *data,
@@ -196,8 +190,6 @@ static inline int rpmsg_sendto(struct rpmsg_endpoint *ept, const void *data,
  * one becomes available, or a timeout of 15 seconds elapses. When the latter
  * happens, -ERESTARTSYS is returned.
  *
- * Can only be called from process context (for now).
- *
  * Returns number of bytes it has sent or negative error value on failure.
  */
 static inline int rpmsg_send_offchannel(struct rpmsg_endpoint *ept,
@@ -218,8 +210,6 @@ static inline int rpmsg_send_offchannel(struct rpmsg_endpoint *ept,
  * channel belongs to, using @ept's source and destination addresses.
  * In case there are no TX buffers available, the function will immediately
  * return -ENOMEM without waiting until one becomes available.
- *
- * Can only be called from process context (for now).
  *
  * Returns number of bytes it has sent or negative error value on failure.
  */
@@ -246,8 +236,6 @@ static inline int rpmsg_trysend(struct rpmsg_endpoint *ept, const void *data,
  * In case there are no TX buffers available, the function will immediately
  * return -ENOMEM without waiting until one becomes available.
  *
- * Can only be called from process context (for now).
- *
  * Returns number of bytes it has sent or negative error value on failure.
  */
 static inline int rpmsg_trysendto(struct rpmsg_endpoint *ept, const void *data,
@@ -270,8 +258,6 @@ static inline int rpmsg_trysendto(struct rpmsg_endpoint *ept, const void *data,
  * channel belongs to.
  * In case there are no TX buffers available, the function will immediately
  * return -ENOMEM without waiting until one becomes available.
- *
- * Can only be called from process context (for now).
  *
  * Returns number of bytes it has sent or negative error value on failure.
  */
