@@ -1,6 +1,11 @@
 Change Log for OpenAMP
 =================================
 2018.3
+	* sync from upstream development (d81ecde)
+	  - Do not return wrong buffer size if get buffer size returns 0
+	  - Clean up comments.
+	  - For elf loader, return success when there is no more segment
+	    to load.
 	* sync from upstream development (b4aaf58)
 	  - Update openamp API to be able to use remoteproc, virtio and
 	    rpmsg independently.
