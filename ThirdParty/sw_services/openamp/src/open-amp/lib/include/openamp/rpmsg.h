@@ -58,8 +58,8 @@ typedef void (*rpmsg_ns_bind_cb)(struct rpmsg_device *rdev,
  * @dest_addr: address of the default remote endpoint binded.
  * @cb: user rx callback, return value of this callback is reserved
  *      for future use, for now, only allow RPMSG_SUCCESS as return value.
- * @ns_unbind_cb: end point service service unbind callback, called when remote ept is
- *                destroyed.
+ * @ns_unbind_cb: end point service service unbind callback, called when remote
+ *                ept is destroyed.
  * @node: end point node.
  * @addr: local rpmsg address
  * @priv: private data for the driver's use
@@ -107,6 +107,25 @@ struct rpmsg_device {
 	struct rpmsg_device_ops ops;
 };
 
+/**
+ * rpmsg_send_offchannel_raw() - send a message across to the remote processor,
+ * specifying source and destination address.
+ * @ept: the rpmsg endpoint
+ * @data: payload of the message
+ * @len: length of the payload
+ *
+ * This function sends @data of length @len to the remote @dst address from
+ * the source @src address.
+ * The message will be sent to the remote processor which the channel belongs
+ * to.
+ * In case there are no TX buffers available, the function will block until
+ * one becomes available, or a timeout of 15 seconds elapses. When the latter
+ * happens, -ERESTARTSYS is returned.
+ *
+ * Can only be called from process context (for now).
+ *
+ * Returns number of bytes it has sent or negative error value on failure.
+ */
 int rpmsg_send_offchannel_raw(struct rpmsg_endpoint *ept, uint32_t src,
 			      uint32_t dst, const void *data, int size,
 			      int wait);
