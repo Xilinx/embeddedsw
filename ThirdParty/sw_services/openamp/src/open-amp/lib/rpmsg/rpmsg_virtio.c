@@ -298,7 +298,7 @@ static int rpmsg_virtio_send_offchannel_raw(struct rpmsg_device *rdev,
 {
 	struct rpmsg_virtio_device *rvdev;
 	struct rpmsg_hdr rp_hdr;
-	void *buffer;
+	void *buffer = NULL;
 	unsigned short idx;
 	int tick_count = 0;
 	unsigned long buff_len;
@@ -320,16 +320,19 @@ static int rpmsg_virtio_send_offchannel_raw(struct rpmsg_device *rdev,
 		tick_count = 0;
 
 	while (1) {
+		int avail_size;
+
 		/* Lock the device to enable exclusive access to virtqueues */
 		metal_mutex_acquire(&rdev->lock);
-		if (size > (_rpmsg_virtio_get_buffer_size(rvdev))) {
-			metal_mutex_release(&rdev->lock);
-			return RPMSG_ERR_BUFF_SIZE;
-		}
-		buffer = rpmsg_virtio_get_tx_buffer(rvdev, &buff_len, &idx);
+		avail_size = _rpmsg_virtio_get_buffer_size(rvdev);
+		if (size <= avail_size)
+			buffer = rpmsg_virtio_get_tx_buffer(rvdev, &buff_len,
+							    &idx);
 		metal_mutex_release(&rdev->lock);
 		if (buffer || !tick_count)
 			break;
+		if (avail_size != 0)
+			return RPMSG_ERR_BUFF_SIZE;
 		metal_sleep_usec(RPMSG_TICKS_PER_INTERVAL);
 		tick_count--;
 	}
