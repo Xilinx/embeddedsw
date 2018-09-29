@@ -576,8 +576,10 @@ int elf_load(struct remoteproc *rproc,
 		phdr = elf_next_load_segment(*img_info, &nsegment, da,
 					     noffset, &nsize, &nsegmsize);
 		if (phdr == NULL) {
-			metal_log(METAL_LOG_DEBUG, "cannot find segement\r\n");
-			return -RPROC_EINVAL;
+			metal_log(METAL_LOG_DEBUG, "cannot find more segement\r\n");
+			*load_state = (*load_state & (~ELF_NEXT_SEGMENT_MASK)) |
+				      (unsigned int)(nsegment & ELF_NEXT_SEGMENT_MASK);
+			return *load_state;
 		}
 		*nlen = nsize;
 		*nmemsize = nsegmsize;
