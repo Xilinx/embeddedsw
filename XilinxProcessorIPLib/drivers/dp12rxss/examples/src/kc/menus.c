@@ -67,8 +67,8 @@ void bpc_help_menu(void)
 xil_printf("Choose Video Bits per color option\n\r"
 			"1 -->  8 bpc \n\r"
 			"2 --> 10 bpc \n\r"
-			"3 --> 12 bpc \n\r"
-			"4 --> 16 bpc \n\r"
+//			"3 --> 12 bpc \n\r"
+//			"4 --> 16 bpc \n\r"
 			"\n\r"
 			"Press 'x' to return to main menu\n\r"
 			"Press any key to display this menu again\n\r"
@@ -110,7 +110,7 @@ void app_help()
 	  print("-----------------------------------------------------\n\r");
 	  print("\n\r");
 	  print(" Select option\n\r");
-	  print(" r = Activate Rx-Tx loopthrough (RX, TX use CPLL) \n\r");
+	  print(" r = Activate Rx-Tx pass-through (RX, TX use CPLL) \n\r");
 	  print(" s = Activate Rx-Tx loopthrough (RX uses CPLL, TX use QPLL)  \n\r");
 	  print(" t = Activate Tx Only path (TX uses CPLL)\n\r");
 	  print("\n\r");

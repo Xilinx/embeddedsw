@@ -56,6 +56,7 @@
 #include "xtmrctr.h"
 #include "xintc.h"
 #include "xvphy.h"
+#include "xvphy_i.h"
 #include "xvidc_edid.h"
 #include "xvidc.h"
 #include "xdptxss.h"
@@ -113,14 +114,14 @@ typedef unsigned int    UINT32;
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #define XINTC_DPTXSS_DP_INTERRUPT_ID  	\
-	XPAR_INTC_0_DPTXSS_0_DPTXSS_DP_IRQ_VEC_ID
+	XPAR_INTC_0_DP12TXSS_0_DPTXSS_DP_IRQ_VEC_ID
 #else
 #define XINTC_DPTXSS_DP_INTERRUPT_ID  	\
 	XPAR_INTC_0_DPTXSS_0_VEC_ID
 #endif
 
 #define XINTC_DPRXSS_DP_INTERRUPT_ID  	\
-	XPAR_INTC_0_DPRXSS_0_DPRXSS_DP_IRQ_VEC_ID
+	XPAR_INTC_0_DP12RXSS_0_DPRXSS_DP_IRQ_VEC_ID
 #define XINTC_DPRXSS_IIC_INTERRUPT_ID  	\
 	XPAR_INTC_0_DPRXSS_0_DPRXSS_IIC_IRQ_VEC_ID
 #define XDPRXSS_DEVICE_ID		      	\
@@ -135,7 +136,7 @@ typedef unsigned int    UINT32;
 #define XINTC_TIMER_0 					\
 	XPAR_INTC_0_TMRCTR_0_VEC_ID
 #define XINTC_HDCP_TIMER_ID				\
-	XPAR_INTC_0_DPRXSS_0_DPRXSS_TIMER_IRQ_VEC_ID
+	XPAR_INTC_0_DP12RXSS_0_DPRXSS_TIMER_IRQ_VEC_ID
 #define XINTC_IIC_ID					\
 	XPAR_INTC_0_IIC_0_VEC_ID
 

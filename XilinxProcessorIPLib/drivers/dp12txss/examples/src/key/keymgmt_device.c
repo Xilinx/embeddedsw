@@ -595,8 +595,9 @@ doInit(
   else
   {
     /* Log */
+#if DEBUG_HDCP_INIT
     KEYMGMT_DEBUG_LOG("KEYMGMT_Device: core not present");
-
+#endif
     /* Update theError */
     theError = -1;
   }
@@ -648,7 +649,7 @@ KEYMGMTDEV_Init(
 	xil_printf("Initializing Key Management device %d (%x) \r\n",
 			device_id,gKeyMGMTBaseAddress[device_id]);
 	theDevice->fBaseAddress = gKeyMGMTBaseAddress[device_id];
-	if(theDevice->fBaseAddress==NULL)
+	if(theDevice->fBaseAddress==0)
 	{
 	  xil_printf("Please initialize the base address for key_gen device=%d"
 				" in array gKeyMGMTBaseAddress\r\n",device_id);

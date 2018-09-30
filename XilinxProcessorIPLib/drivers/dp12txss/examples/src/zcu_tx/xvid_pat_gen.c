@@ -594,6 +594,7 @@ static void VidgenWriteConfig(XDp *InstancePtr,
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], FrameLock_AlignHsync_LineFrac,
 				VidgenConfig->FrameLock1);
+	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], HdColorBarCfg,
 				VidgenConfig->HdColorBarMode);
