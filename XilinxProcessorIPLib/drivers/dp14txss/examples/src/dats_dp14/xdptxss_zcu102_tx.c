@@ -436,6 +436,13 @@ u32 DpTxSs_VideoPhyInit(u16 DeviceId)
 	// initial line Rate setting
 	prev_line_rate = PHY_User_Config_Table[5].LineRate;
 
+#if TX_BUFFER_BYPASS
+        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1, 0x3E, DIVIDER_540);
+        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2, 0x3E, DIVIDER_540);
+        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3, 0x3E, DIVIDER_540);
+        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, 0x3E, DIVIDER_540);
+#endif
+
 	PHY_Two_byte_set (&VPhyInst, SET_TX_TO_2BYTE);
 
 	return XST_SUCCESS;
@@ -1077,10 +1084,16 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	/* Reset CRC*/
 	XVidFrameCrc_Reset();
 	/* Set Pixel width in CRC engine*/
+	if (format == XVIDC_CSF_YCRCB_422){
 	XDp_WriteReg(XPAR_TX_SUBSYSTEM_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
-			XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-					XDP_TX_USER_PIXEL_WIDTH));
+			(XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+					XDP_TX_USER_PIXEL_WIDTH)) | 0x80000000);
+	} else {
+		XDp_WriteReg(XPAR_TX_SUBSYSTEM_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
+				XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_USER_PIXEL_WIDTH));
 
+	}
 	xil_printf ("..done !\r\n");
 		return XST_SUCCESS;
 }
@@ -1634,6 +1647,47 @@ u8 get_Lanecounts(void){
 ******************************************************************************/
 u32 set_vphy(int LineRate_init_tx){
 	u32 Status=0;
+
+#if TX_BUFFER_BYPASS
+
+        switch(LineRate_init_tx){
+                case XDP_TX_LINK_BW_SET_162GBPS:
+                        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1, 0x3E, DIVIDER_162); //57423);
+                        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2, 0x3E, DIVIDER_162); //57423);
+                        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3, 0x3E, DIVIDER_162); //57423);
+                        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, 0x3E, DIVIDER_162); //57423);
+
+                        break;
+
+                case XDP_TX_LINK_BW_SET_270GBPS:
+                        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1, 0x3E, DIVIDER_270); //57415);
+                        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2, 0x3E, DIVIDER_270); //57415);
+                        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3, 0x3E, DIVIDER_270); //57415);
+                        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, 0x3E, DIVIDER_270); //57415);
+
+                        break;
+
+                case XDP_TX_LINK_BW_SET_540GBPS:
+                        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1, 0x3E, DIVIDER_540); //57442);
+                        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2, 0x3E, DIVIDER_540); //57442);
+                        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3, 0x3E, DIVIDER_540); //57442);
+                        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, 0x3E, DIVIDER_540); //57442);
+
+                        break;
+
+                case XDP_TX_LINK_BW_SET_810GBPS:
+                        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1, 0x3E, DIVIDER_810); //57440);
+                        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2, 0x3E, DIVIDER_810); //57440);
+                        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3, 0x3E, DIVIDER_810); //57440);
+                        XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, 0x3E, DIVIDER_810); //57440);
+
+                        break;
+        }
+
+#endif
+
+
+
 	switch(LineRate_init_tx){
 		case XDP_TX_LINK_BW_SET_162GBPS:
 			Status = PHY_Configuration_Tx(&VPhyInst,

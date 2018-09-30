@@ -416,6 +416,7 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 	XVidC_VideoMode VmId;
 
 	VmId = MsaConfig->Vtm.VmId;
+//	xil_printf ("pixel clock is %d\r\n",MsaConfig->PixelClockHz);
 
 	ComputeMandD(((MsaConfig->PixelClockHz/1000)/MsaConfig->UserPixelWidth) );
 

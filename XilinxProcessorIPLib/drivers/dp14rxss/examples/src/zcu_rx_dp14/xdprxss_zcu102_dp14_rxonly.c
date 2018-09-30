@@ -88,7 +88,7 @@
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
 #define XINTC_DPRXSS_DP_INTERRUPT_ID \
-	XPAR_FABRIC_DPRXSS_0_VEC_ID
+	XPAR_FABRIC_DP14RXSS_0_VEC_ID
 #define XINTC_DEVICE_ID 	XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define XINTC 			XScuGic
 #define XINTC_HANDLER 		XScuGic_InterruptHandler
@@ -1762,6 +1762,7 @@ void CalculateCRC(void)
 {
 	/* Reset CRC Test Counter in DP DPCD Space */
 	VidFrameCRC.TEST_CRC_CNT = 0;
+
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_CONFIG,
 		     (VidFrameCRC.TEST_CRC_SUPPORTED << 5 |
 		      VidFrameCRC.TEST_CRC_CNT));
@@ -1770,15 +1771,27 @@ void CalculateCRC(void)
 	 * User has to adjust this accordingly if there is change in pixel
 	 * width programming
 	 * */
-	XVidFrameCrc_WriteReg(VIDEO_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
-			      DpRxSsInst.UsrOpt.LaneCount);
-	
-	/* Set pixel mode as per lane count - it 
+
+	/* Set pixel mode as per lane count - it
 	 * is default behavior Reset DTG */
 	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr,
 				DpRxSsInst.UsrOpt.LaneCount);
 	XDp_RxDtgDis(DpRxSsInst.DpPtr);
 	XDp_RxDtgEn(DpRxSsInst.DpPtr);
+	CustomWaitUs(DpRxSsInst.DpPtr, 100000);
+	VidFrameCRC.Mode_422 =
+			(XVidFrameCrc_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					      XDP_RX_MSA_MISC0) >> 1) & 0x3 ; //  & 0x3 - value before change
+
+        if(VidFrameCRC.Mode_422 != 0x1 ) {
+	    XVidFrameCrc_WriteReg(VIDEO_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
+				      DpRxSsInst.UsrOpt.LaneCount);
+        }
+        else{
+	    XVidFrameCrc_WriteReg(VIDEO_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
+			      DpRxSsInst.UsrOpt.LaneCount | 0x80000000);
+        }
+
 	
 	/* Add delay (~40 ms) for Frame CRC to compute on couple of frames */
 	CustomWaitUs(DpRxSsInst.DpPtr, 400000);
@@ -1794,10 +1807,7 @@ void CalculateCRC(void)
 	VidFrameCRC.Pixel_b  = 
 		XVidFrameCrc_ReadReg(VIDEO_CRC_BASEADDR,
 				    VIDEO_FRAME_CRC_VALUE_B) & 0xFFFF;
-	VidFrameCRC.Mode_422 = 
-		(XVidFrameCrc_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-				      XDP_RX_MSA_MISC0) >> 1) & 0x3;
-	
+
 	/* Write CRC values to DPCD TEST CRC space */
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
 		     (VidFrameCRC.Mode_422 == 0x1) ? 0 : VidFrameCRC.Pixel_r);

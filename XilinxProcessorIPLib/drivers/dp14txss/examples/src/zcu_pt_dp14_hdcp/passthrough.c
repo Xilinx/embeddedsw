@@ -52,6 +52,14 @@ u16 tx_count_delay = 0;
 int tx_aud_started = 0;
 int i2s_started = 0;
 
+#if ENABLE_HDCP_IN_DESIGN
+u8 hdcp_capable_org = 0;
+u8 hdcp_capable = 0;
+u8 hdcp_repeater_org = 0;
+u8 hdcp_repeater = 0;
+u8 internal_rx_tx = 0;
+u8 do_not_train_tx = 0;
+#endif
 extern u8 start_i2s_clk;
 extern u32 appx_fs_dup;
 XV_frmbufrd_Config frmbufrd_cfg;
@@ -117,12 +125,6 @@ u8 rx_aud_start = 0;
 extern lane_link_rate_struct lane_link_table[];
 extern u32 StreamOffset[4];
 u8 tx_done = 0;
-#if ENABLE_HDCP_IN_DESIGN
-u8 hdcp_capable_org = 0;
-u8 hdcp_repeater_org = 0;
-u8 hdcp_repeater = 0;
-u8 internal_rx_tx = 0;
-#endif
 u8 i2s_tx_started = 0;
 u8 status_captured = 0;
 u8 aes_sts[24];
@@ -891,7 +893,7 @@ void DpPt_Main(void){
 			tx_done = 0;
 			i2s_started = 0;
 #if ENABLE_AUDIO
-			XI2s_Rx_Enable(&I2s_rx, 0);
+//			XI2s_Rx_Enable(&I2s_rx, 0);
 		} else {
 			audio_start_tx();
 #endif
@@ -899,7 +901,6 @@ void DpPt_Main(void){
 
 		// Check for HPD and HPD Pulse Interrupt triggers
 		dptx_tracking();
-
 
 #if ENABLE_AUDIO
 		// The I2S Audio is started once the RX is trained
@@ -910,12 +911,41 @@ void DpPt_Main(void){
 		dprx_tracking();
 
 		//Wait for few frames to ensure valid video is received
-		if (tx_after_rx == 1 && rx_trained == 1 &&
-				DpRxSsInst.link_up_trigger == 1) {
+		if (tx_after_rx == 1 && rx_trained == 1 && DpRxSsInst.link_up_trigger
+				                     == 1 && DpRxSsInst.TmrCtrResetDone == 1 ) {
 		    tx_after_rx = 0;
 		    if (track_msa == 1) {
 			usleep(20000);
+#if ENABLE_HDCP_IN_DESIGN
+							XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
+							XDpTxSs_HdcpDisable(&DpTxSsInst);
+							XDpTxSs_SetPhysicalState(&DpTxSsInst,
+											hdcp_capable_org);
+							XHdcp1xExample_Poll();
+#endif
 			start_tx_after_rx();
+#if ENABLE_HDCP_IN_DESIGN
+							if(hdcp_capable_org == 1)
+							{
+								xil_printf("$");
+								DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 2000000);
+								xil_printf (".");
+								XDpTxSs_SetLane(&DpTxSsInst,
+	                            DpTxSsInst.DpPtr->TxInstance.LinkConfig.
+								               LaneCount); //LaneCount_init_tx);
+								XDpTxSs_SetPhysicalState(&DpTxSsInst,
+										!hdcp_capable_org);
+								XHdcp1xExample_Poll();
+								XDpTxSs_SetPhysicalState(&DpTxSsInst,
+										hdcp_capable_org);
+								XHdcp1xExample_Poll();
+							}//hdcp_capable_org check
+							else {
+							    if(DpRxSsInst.TmrCtrResetDone == 1){
+								 tx_after_rx = 0;
+							    }
+#endif
+							}
 			// It is observed that some monitors do not give HPD
 			// pulse. Hence checking the link to re-trigger
 			Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
@@ -1237,28 +1267,11 @@ void unplug_proc (void) {
 void i2s_stop_proc (void) {
     i2s_started = 0;
     tx_aud_started = 0;
-    XI2s_Rx_Enable(&I2s_rx, 0);
+//    XI2s_Rx_Enable(&I2s_rx, 0);
 	XACR_WriteReg (RX_ACR_ADDR, RXACR_ENABLE, 0x0);
 }
 
 void audio_init (void) {
-
-#if I2S_AUDIO
-	// Programming the AXIS switch to route the Audio to I2S TX/RX
-	 XAxisScr_MiPortDisable (&axis_switch_rx, 0);
-     XAxisScr_MiPortEnable  (&axis_switch_rx, 1, 0);
-     XAxisScr_RegUpdateEnable (&axis_switch_rx);
-     XAxisScr_MiPortEnable  (&axis_switch_tx, 0, 1);
-     XAxisScr_RegUpdateEnable (&axis_switch_tx);
-
-#else
-	// Programming the AXIS switch to bypass the I2S TX/RX
-	 XAxisScr_MiPortDisable (&axis_switch_rx, 1);
-     XAxisScr_MiPortEnable  (&axis_switch_rx, 0, 0);
-     XAxisScr_RegUpdateEnable (&axis_switch_rx);
-     XAxisScr_MiPortEnable  (&axis_switch_tx, 0, 0);
-     XAxisScr_RegUpdateEnable (&axis_switch_tx);
-#endif
 
 	//Enabling the I2S TX to capture the channel Status
     XACR_WriteReg (RX_ACR_ADDR, 0x30, 256); // set to half of I2S TX FIFO Depth
@@ -1268,46 +1281,24 @@ void audio_init (void) {
     XACR_WriteReg (RX_ACR_ADDR, 0x40, 0x6); // Averaging time
 	XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x1); // 5 - ctrl loop, 1- no loop
 	XACR_WriteReg (RX_ACR_ADDR, RXACR_DIV, 0x40); // divider
-	XI2s_Tx_SetSclkOutDiv (&I2s_tx, 48000*I2S_CLK_MULT, 48000);
-	XI2s_Tx_Enable(&I2s_tx, 1);
-	XI2s_Rx_Enable(&I2s_rx, 0);
+//	XI2s_Tx_SetSclkOutDiv (&I2s_tx, 48000*I2S_CLK_MULT, 48000);
+//	XI2s_Tx_Enable(&I2s_tx, 1);
+//	XI2s_Rx_Enable(&I2s_rx, 0);
 }
 
 void audio_start_rx (void) {
 
 		if (rx_trained && start_i2s_clk) {
 			XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x0);
-			XI2s_Rx_Enable(&I2s_rx, 0);
-#if I2S_AUDIO
-		//Poll for no Block Sync Error and capture the STS
-		if ((XI2s_Tx_ReadReg(I2s_tx.Config.BaseAddress,0x14)) && 0x2) {
-			//clearing block sync until proper block is received
-			XI2s_Tx_WriteReg(I2s_tx.Config.BaseAddress,0x14, 0xFFFFFFFF);
-		} else {
-			if ((XI2s_Tx_ReadReg(I2s_tx.Config.BaseAddress,0x14)) && 0x5) {
-			//No block sync error, assuming Channel Status is updated
-				XI2s_Tx_GetAesChStatus(&I2s_tx, aes_sts);
-				XI2s_Rx_SetAesChStatus(&I2s_rx, aes_sts);
-				status_captured = 1;
-				XI2s_Tx_Enable(&I2s_tx, 0);
-				usleep(20000);
-//            xil_printf ("Channel Status captured from I2S TX to I2S RX\r\n");
-			}
-		}
-#else
+//			XI2s_Rx_Enable(&I2s_rx, 0);
 		status_captured = 1;
-#endif
 
 		// process to start Pass Through Audio and program the Audio pipe
-		if (status_captured) { // && rx_trained == 1 && DpRxSsInst.link_up_trigger == 1) { // && rx_all_detect) {
+		if (status_captured) {
+			// && rx_trained == 1 && DpRxSsInst.link_up_trigger == 1) {
+			// && rx_all_detect) {
 				I2cClk_Ps(appx_fs_dup, 768*appx_fs_dup);
 				xil_printf ("Audio Sampling rate is %d Hz\r\n",appx_fs_dup);
-#if I2S_AUDIO
-				XI2s_Tx_SetSclkOutDiv (&I2s_tx, appx_fs_dup*I2S_CLK_MULT, appx_fs_dup);
-				XI2s_Tx_Enable(&I2s_tx, 1);
-				XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x2);
-				XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x5); // 5 - ctrl loop, 0- no loop
-#endif
 				start_i2s_clk = 0;
 				i2s_tx_started = 1;
 				status_captured = 0;
@@ -1318,21 +1309,15 @@ void audio_start_rx (void) {
 }
 
 void audio_start_tx (void) {
-
 	if (tx_done == 1 && i2s_tx_started == 1 && i2s_started == 0) {
 	filter_count_b++;
 	//Audio may not work properly on some monitors if this is started too early
 	//hence the delay here
 	if (filter_count_b < 3) {
 		start_audio_passThrough(LineRate_init_tx);
+
 	} else if (filter_count_b > 200000) {
-#if I2S_AUDIO
-		XI2s_Rx_SetSclkOutDiv (&I2s_rx, appx_fs_dup*I2S_CLK_MULT, appx_fs_dup);
-		XI2s_Rx_LatchAesChannelStatus (&I2s_rx);
-		XI2s_Rx_Enable(&I2s_rx, 1);
-#else
 		XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x2);
-#endif
 		xil_printf ("Starting audio on DP TX..\r\n");
 		i2s_started = 1;
 		filter_count_b = 0;
@@ -1359,7 +1344,8 @@ void dprx_tracking (void) {
 		rx_trained = 0;
 		tx_after_rx = 0;
 		i2s_tx_started = 0;
-	} else if (DpRxSsInst.VBlankCount >= 2 && DpRxSsInst.link_up_trigger ==1 && rx_trained == 0){
+	} else if (DpRxSsInst.VBlankCount >= 2 && DpRxSsInst.link_up_trigger ==1 &&
+			                                                   rx_trained == 0){
 		xil_printf(
 		"> Rx Training done !!! (BW: 0x%x, Lanes: 0x%x, Status: "
 		"0x%x;0x%x).\n\r",
@@ -1419,6 +1405,7 @@ void dprx_tracking (void) {
 		rx_aud = 1;
 		track_msa = Dppt_DetectResolution(DpRxSsInst.DpPtr, Msa,
 				DpRxSsInst.link_up_trigger);
+
 	}
 
 }
@@ -1439,7 +1426,14 @@ void dptx_tracking (void) {
 		XDpTxSs_Stop(&DpTxSsInst);
 		i2s_started = 0;
 		XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x0);
-		tx_after_rx = 1;
+		if((do_not_train_tx == 1) && (XHdcp1x_IsEncrypted(DpRxSsInst.Hdcp1xPtr)))
+		{
+			xil_printf ("Monitor is not HDCP Capable !!\r\n");
+		}
+		else
+		{
+            tx_after_rx = 1;
+		}
 	} else {
 		tx_is_reconnected = 0;
 	}

@@ -103,7 +103,7 @@ extern XIntc INTC;
 #define HDCP_TIMER_ID			\
 		XPAR_DP_TX_HIER_0_V_DP_ZCU102_PT_TIMER_DEVICE_ID
 #define HDCP_TIMER_VEC_ID		\
-		XPAR_FABRIC_DPTXSS_0_DPTXSS_TIMER_IRQ_VEC_ID//(XPAR_INTC_0_TMRCTR_2_VEC_ID)
+		XPAR_FABRIC_DP14TXSS_0_DPTXSS_TIMER_IRQ_VEC_ID//(XPAR_INTC_0_TMRCTR_2_VEC_ID)
 #define HDCP_TIMER_FREQ			(XPAR_TMRCTR_2_CLOCK_FREQ_HZ)
 
 //#undef  HDCP_RX_DEV_ID
@@ -112,7 +112,7 @@ extern XIntc INTC;
 #define HDCP_TX_DEV_ID			\
 	(XPAR_DP_TX_HIER_0_V_DP_TXSS1_0_DP_TX_HDCP_DEVICE_ID)
 #define HDCP_TX_VEC_ID			\
-	(XPAR_FABRIC_DPTXSS_0_DPTXSS_HDCP_IRQ_VEC_ID)
+	(XPAR_FABRIC_DP14TXSS_0_DPTXSS_HDCP_IRQ_VEC_ID)
 
 //#define INTC				(IntcInstance)
 
@@ -133,7 +133,7 @@ extern XIntc INTC;
 #define HDCP_RX_DEV_ID			\
 	(XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_DP_RX_HDCP_DEVICE_ID)
 #define HDCP_RX_VEC_ID			\
-	(XPAR_FABRIC_DPRXSS_0_DPRXSS_HDCP_IRQ_VEC_ID)
+	(XPAR_FABRIC_DP14RXSS_0_DPRXSS_HDCP_IRQ_VEC_ID)
 
 //#undef  HDCP_TX_DEV_ID
 //#undef  HDCP_TX_VEC_ID
@@ -443,7 +443,8 @@ static int SetupInterrupts(void)
 	/* Connect and enable the hardware timer interrupt */
 //	XIntc_Connect(&INTC, HDCP_TIMER_VEC_ID, XTmrCtr_InterruptHandler,
 //			&HdcpTimer);
-	XScuGic_Connect(&INTC, HDCP_TIMER_VEC_ID, (XInterruptHandler)XTmrCtr_InterruptHandler,
+	XScuGic_Connect(&INTC, HDCP_TIMER_VEC_ID,
+			(Xil_InterruptHandler)XTmrCtr_InterruptHandler,
 			DpTxSsInst.TmrCtrPtr);
 	XScuGic_Enable(&INTC, HDCP_TIMER_VEC_ID);
 #endif
@@ -452,7 +453,8 @@ static int SetupInterrupts(void)
 	/* Connect and enable the receive cipher interrupt */
 //	XIntc_Connect(&INTC, HDCP_RX_VEC_ID, XHdcp1x_CipherIntrHandler,
 //			&HdcpIf[HDCP_RX_DEV_ID]);
-	XScuGic_Connect(&INTC, HDCP_RX_VEC_ID, (XInterruptHandler)XHdcp1x_CipherIntrHandler,
+	XScuGic_Connect(&INTC, HDCP_RX_VEC_ID,
+			(Xil_InterruptHandler)XHdcp1x_CipherIntrHandler,
 			DpRxSsInst.Hdcp1xPtr);
 	XScuGic_Enable(&INTC, HDCP_RX_VEC_ID);
 #endif
@@ -461,7 +463,8 @@ static int SetupInterrupts(void)
 	/* Connect and enable the transmit cipher interrupt */
 //	XIntc_Connect(&INTC, HDCP_TX_VEC_ID, XHdcp1x_CipherIntrHandler,
 //			&HdcpIf[HDCP_TX_DEV_ID]);
-	XScuGic_Connect(&INTC, HDCP_TX_VEC_ID, (XInterruptHandler)XHdcp1x_CipherIntrHandler,
+	XScuGic_Connect(&INTC, HDCP_TX_VEC_ID,
+			(Xil_InterruptHandler)XHdcp1x_CipherIntrHandler,
 			DpTxSsInst.Hdcp1xPtr);
 	XScuGic_Enable(&INTC, HDCP_TX_VEC_ID);
 #endif

@@ -45,11 +45,14 @@
 
 u8 rx_unplugged = 0;
 
-extern u8 hdcp_capable_org;
-extern u8 internal_rx_tx;
 #if ENABLE_HDCP_IN_DESIGN
-static void Dppt_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber);
+extern u8 hdcp_capable_org ;
+extern u8 hdcp_capable ;
+extern u8 hdcp_repeater_org ;
+extern u8 hdcp_repeater ;
+extern u8 internal_rx_tx ;
 #endif
+
 
 /*****************************************************************************/
 /**
@@ -173,66 +176,7 @@ u32 DpRxSs_Setup(void)
 	return XST_SUCCESS;
 }
 
-#if ENABLE_HDCP_IN_DESIGN
-/* *********************************************************
- *
- * This function is assigned to callback on completion
- * of HDCP RX authentication.
- *
- * @param InstancePtr - DP RX SS HDCP core instance
- *
- * @return None.
- *
- */
-void Dprx_HdcpAuthCallback(void *InstancePtr) {
-	XDpRxSs *XDpRxSsInst = (XDpRxSs *)InstancePtr;
 
-	xdbg_printf("\033[33m * \033[0m \r\n");
-	/* Set Timer Counter reset done */
-	XDpRxSsInst->TmrCtrResetDone = 1;
-
-	if (XDpTxSs_IsConnected(&DpTxSsInst)) {
-		XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
-		XDpTxSs_SetPhysicalState(&DpTxSsInst, TRUE);
-		XHdcp1xExample_Poll();
-		XDpTxSs_HdcpEnable(&DpTxSsInst);
-		XHdcp1xExample_Poll();
-	}
-}
-
-static void Dppt_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber)
-{
-	XDpRxSs *XDpRxSsPtr = (XDpRxSs *)InstancePtr;
-
-	/* Verify arguments.*/
-	Xil_AssertVoid(XDpRxSsPtr != NULL);
-	Xil_AssertVoid(TmrCtrNumber < XTC_DEVICE_TIMER_COUNT);
-
-	/* Set Timer Counter reset done */
-	XDpRxSsPtr->TmrCtrResetDone = 1;
-}
-
-/* *********************************************************
- *
- * This function is assigned to callback on
- * HDCP RX de- authentication.
- *
- * @param InstancePtr - DP RX SS HDCP core instance
- *
- * @return None.
- *
- */
-void Dprx_HdcpUnAuthCallback(void *InstancePtr) {
-	XDpRxSs *XDpRxSsInst = (XDpRxSs *)InstancePtr;
-
-
-	/* Configure the callback */
-	XTmrCtr_SetHandler(XDpRxSsInst->TmrCtrPtr,
-			(XTmrCtr_Handler)Dppt_TimeOutCallback,
-				InstancePtr);
-
-}
-#endif /* ENABLE_HDCP_IN_DESIGN */
 /*****************************************************************************/
 /**
 *
@@ -293,12 +237,14 @@ u32 DpRxSs_SetupIntrSystem(void)
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_EXT_PKT_EVENT,
 			&DpRxSs_ExtPacketHandler, &DpRxSsInst);
 
-	/* Set custom timer wait */
-	XDpRxSs_SetUserTimerHandler(&DpRxSsInst, &CustomWaitUs, &TmrCtr);
 #if (XPAR_XHDCP_NUM_INSTANCES > 0 && ENABLE_HDCP_IN_DESIGN == 1 )
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_HDCP_AUTHENTICATED,
 							&Dprx_HdcpAuthCallback, &DpRxSsInst);
 #endif
+
+	/* Set custom timer wait */
+	XDpRxSs_SetUserTimerHandler(&DpRxSsInst, &CustomWaitUs, &TmrCtr);
+
 
 	return (XST_SUCCESS);
 }
@@ -373,18 +319,17 @@ void DpRxSs_NoVideoHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 {
+//	xil_printf("inside DpRxSs_VerticalBlankHandler\n\r");
+
 	DpRxSsInst.VBlankCount++;
-	if (DpRxSsInst.VBlankCount >= 200) {
+	if (DpRxSsInst.VBlankCount > 200) {
 		//when Vblank is received, HDCP is put in enabled state and the
 		// timer is started. TX is not setup until the timer is done.
 		// This ensures that certain sources like MacBook gets
 		//  time to Authenticate.
 		#if ENABLE_HDCP_IN_DESIGN
-			if (internal_rx_tx == 0)
-			{
 				XDp_RxInterruptEnable(DpRxSsInst.DpPtr, 0x01F80000);
 				XDpRxSs_StartTimer(&DpRxSsInst);
-			}
 		#endif
 
 	} //end of (vblank_count >= 100)
@@ -423,11 +368,7 @@ u32 maud_dup = 0;
 u32 naud_dup = 0;
 void DpRxSs_TrainingLostHandler(void *InstancePtr)
 {
-	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 750);
-//	XDpRxSs_AudioDisable(&DpRxSsInst);
-	DpRxSsInst.link_up_trigger = 0;
-	DpRxSsInst.VBlankCount = 0;
-	appx_fs_dup = 0;
+
 #if ENABLE_HDCP_IN_DESIGN
 	XDpRxSs_SetPhysicalState(&DpRxSsInst, FALSE);
 	XDpRxSs_StopTimer(&DpRxSsInst);
@@ -438,6 +379,11 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 	Dprx_HdcpUnAuthCallback((void *)&DpRxSsInst); 	// Added from 16.4 release
 
 #endif
+	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 750);
+//	XDpRxSs_AudioDisable(&DpRxSsInst);
+	DpRxSsInst.link_up_trigger = 0;
+	DpRxSsInst.VBlankCount = 0;
+	appx_fs_dup = 0;
 }
 
 /*****************************************************************************/
@@ -517,6 +463,7 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
 #endif
 //	XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
 //			       XDP_RX_INTERRUPT_MASK_ALL_MASK);
+
 	XDp_RxInterruptDisable1(DpRxSsInst.DpPtr, 0xFFFFFFFF);
 
 	XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
@@ -537,7 +484,8 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
 	DpRxSsInst.link_up_trigger = 0;
 	DpRxSsInst.VBlankCount = 0;
 	DpRxSsInst.no_video_trigger = 1;
-	xil_printf("Cable unplugged2 %d %d %d\r\n", DpRxSsInst.link_up_trigger, DpRxSsInst.VBlankCount, rx_unplugged);
+	xil_printf("Cable unplugged2 %d %d %d\r\n", DpRxSsInst.link_up_trigger,
+			                              DpRxSsInst.VBlankCount, rx_unplugged);
 #if ENABLE_HDCP_IN_DESIGN
 #if ENABLE_HDCP_FLOW_GUIDE
 	XDpRxSs_HdcpDisable(&DpRxSsInst);
@@ -626,7 +574,7 @@ void DpRxSs_PllResetHandler(void *InstancePtr)
 #else
 	/*Enable all interrupts */
 #if ENABLE_HDCP_IN_DESIGN
-        XDp_RxInterruptEnable(DpRxSsInst.DpPtr,0x01FFFFFF);
+        XDp_RxInterruptEnable(DpRxSsInst.DpPtr,0x81FFFFFF/*0x81FFFFFF*/);
 #else
         XDp_RxInterruptEnable(DpRxSsInst.DpPtr,0xF9FFFFFF/*0x0007FFFF*/);
 #endif
@@ -1170,3 +1118,61 @@ void Print_ExtPkt()
 	}
 	xil_printf(" Frame Count : %d \r\n",SdpExtFrame.frame_count);
 }
+#if ENABLE_HDCP_IN_DESIGN
+/* *********************************************************
+ *
+ * This function is assigned to callback on completion
+ * of HDCP RX authentication.
+ *
+ * @param InstancePtr - DP RX SS HDCP core instance
+ *
+ * @return None.
+ *
+ */
+void Dprx_HdcpAuthCallback(void *InstancePtr) {
+	XDpRxSs *XDpRxSsInst = (XDpRxSs *)InstancePtr;
+
+	/* Set Timer Counter reset done */
+	XDpRxSsInst->TmrCtrResetDone = 1;
+	if (XDpTxSs_IsConnected(&DpTxSsInst)) {
+		XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
+		XDpTxSs_SetPhysicalState(&DpTxSsInst, TRUE);
+		XHdcp1xExample_Poll();
+		XDpTxSs_HdcpEnable(&DpTxSsInst);
+		XHdcp1xExample_Poll();
+	}
+}
+
+static void Dppt_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber)
+{
+	XDpRxSs *XDpRxSsPtr = (XDpRxSs *)InstancePtr;
+	/* Verify arguments.*/
+	Xil_AssertVoid(XDpRxSsPtr != NULL);
+	Xil_AssertVoid(TmrCtrNumber < XTC_DEVICE_TIMER_COUNT);
+
+	/* Set Timer Counter reset done */
+	XDpRxSsPtr->TmrCtrResetDone = 1;
+}
+
+/* *********************************************************
+ *
+ * This function is assigned to callback on
+ * HDCP RX de- authentication.
+ *
+ * @param InstancePtr - DP RX SS HDCP core instance
+ *
+ * @return None.
+ *
+ */
+void Dprx_HdcpUnAuthCallback(void *InstancePtr) {
+	XDpRxSs *XDpRxSsInst = (XDpRxSs *)InstancePtr;
+
+	/* Configure the callback */
+	XTmrCtr_SetHandler(XDpRxSsInst->TmrCtrPtr,
+			(XTmrCtr_Handler)Dppt_TimeOutCallback,
+				InstancePtr);
+
+}
+
+
+#endif /* ENABLE_HDCP_IN_DESIGN */

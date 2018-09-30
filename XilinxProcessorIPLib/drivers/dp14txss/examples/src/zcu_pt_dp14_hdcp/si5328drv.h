@@ -90,7 +90,8 @@
  */
 #define SI5328_FOSC_MIN 4850000000 /**< Minimum oscillator frequency */
 #define SI5328_FOSC_MAX 5670000000 /**< Maximum oscillator frequency */
-#define SI5328_F3_MIN        10000 // 2000 /**< Minimum phase detector frequency */
+#define SI5328_F3_MIN        10000
+// 2000 /**< Minimum phase detector frequency */
 #define SI5328_F3_MAX      2000000 /**< Maximum phase detector frequency */
 #define SI5328_FIN_MIN        2000 /**< Minimum input frequency */
 #define SI5328_FIN_MAX   710000000 /**< Maximum input frequency */
@@ -100,14 +101,19 @@
 /**
  * The following constants define the limits of the divider settings.
  */
-#define SI5328_N1_HS_MIN  6        /**< Minimum N1_HS setting (4 and 5 are for higher output frequencies than we support */
+#define SI5328_N1_HS_MIN  6        /**< Minimum N1_HS setting
+                  (4 and 5 are for higher output frequencies than we support */
 #define SI5328_N1_HS_MAX 11        /**< Maximum N1_HS setting */
-#define SI5328_NC_LS_MIN  1        /**< Minimum NCn_LS setting (1 and even values) */
-#define SI5328_NC_LS_MAX 0x100000  /**< Maximum NCn_LS setting (1 and even values) */
+#define SI5328_NC_LS_MIN  1        /**< Minimum NCn_LS setting
+										(1 and even values) */
+#define SI5328_NC_LS_MAX 0x100000  /**< Maximum NCn_LS setting
+										(1 and even values) */
 #define SI5328_N2_HS_MIN  4        /**< Minimum NC2_HS setting */
 #define SI5328_N2_HS_MAX 11        /**< Maximum NC2_HS setting */
-#define SI5328_N2_LS_MIN  2        /**< Minimum NC2_LS setting (even values only) */
-#define SI5328_N2_LS_MAX 0x100000  /**< Maximum NC2_LS setting (even values only) */
+#define SI5328_N2_LS_MIN  2        /**< Minimum NC2_LS setting
+										(even values only) */
+#define SI5328_N2_LS_MAX 0x100000  /**< Maximum NC2_LS setting
+										(even values only) */
 #define SI5328_N3_MIN     1        /**< Minimum N3n setting */
 #define SI5328_N3_MAX    0x080000  /**< Maximum N3n setting */
 

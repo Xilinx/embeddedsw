@@ -206,8 +206,6 @@ u32 DpRxSs_Setup(void);
 
 /* Interrupt helper functions */
 u32 DpRxSs_SetupIntrSystem(void);
-void Dprx_HdcpAuthCallback(void *InstancePtr);
-void Dprx_HdcpUnAuthCallback(void *InstancePtr);
 void DpRxSs_PowerChangeHandler(void *InstancePtr);
 void DpRxSs_NoVideoHandler(void *InstancePtr);
 void DpRxSs_VerticalBlankHandler(void *InstancePtr);

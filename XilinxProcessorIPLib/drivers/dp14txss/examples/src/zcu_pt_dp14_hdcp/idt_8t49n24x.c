@@ -1721,8 +1721,8 @@ int IDT_8T49N24x_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 /*****************************************************************************/
 /**
 *
-* This function the IDT 8TN49N24x device with the data from the configuration table.
-*
+* This function the IDT 8TN49N24x device with the data from the configuration
+* table.
 * @param I2CBaseAddress is the baseaddress of the I2C core.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
 *

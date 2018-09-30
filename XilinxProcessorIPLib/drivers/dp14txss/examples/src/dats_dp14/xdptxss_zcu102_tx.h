@@ -127,6 +127,13 @@
 #define XVPHY_DRP_TXCLK25			0x7A
 #define XVPHY_DRP_TXOUT_DIV			0x7C
 
+#define DIVIDER_162                 57423
+#define DIVIDER_270                 57415
+#define DIVIDER_540                 57442
+#define DIVIDER_810                 57440
+
+#define TX_BUFFER_BYPASS            XPAR_VID_PHY_CONTROLLER_0_TX_BUFFER_BYPASS
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
