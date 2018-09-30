@@ -340,8 +340,6 @@ int main()
 	xil_printf("                   System Configuration:\r\n");
 	xil_printf("                      DP SS : %d byte\r\n",
 					2 * SET_TX_TO_2BYTE);
-	xil_printf("                      Use I2S and ACR : %d \r\n",
-					1 * I2S_AUDIO);
 #if ENABLE_HDCP_IN_DESIGN
 	xil_printf("                      HDCP  : %d \r\n",ENABLE_HDCP_IN_DESIGN);
 #endif
@@ -1174,52 +1172,52 @@ u32 DpSs_PlatformInit(void)
 
 #if ENABLE_AUDIO
 
-    XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH_RX =
-		XAxisScr_LookupConfig(XPAR_DP_RX_HIER_0_AXIS_SWITCH_0_DEVICE_ID);
-     if (ConfigPtr_AXIS_SWITCH_RX == NULL) {
-             return XST_FAILURE;
-     }
-
-     Status = XAxisScr_CfgInitialize(&axis_switch_rx,
-		 ConfigPtr_AXIS_SWITCH_RX, ConfigPtr_AXIS_SWITCH_RX->BaseAddress);
-     if (Status != XST_SUCCESS) {
-             return XST_FAILURE;
-     }
-
-     XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH_TX =
-		 XAxisScr_LookupConfig(XPAR_DP_TX_HIER_0_AXIS_SWITCH_0_DEVICE_ID);
-      if (ConfigPtr_AXIS_SWITCH_TX == NULL) {
-              return XST_FAILURE;
-      }
-
-      Status = XAxisScr_CfgInitialize(&axis_switch_tx,
-		  ConfigPtr_AXIS_SWITCH_TX, ConfigPtr_AXIS_SWITCH_TX->BaseAddress);
-      if (Status != XST_SUCCESS) {
-              return XST_FAILURE;
-      }
-
-
-    Config = XI2s_Tx_LookupConfig(
-			XPAR_DP_RX_HIER_0_I2S_TRANSMITTER_0_DEVICE_ID);
-    if (Config == NULL) {
-         return XST_FAILURE;
-    }
-
-    Status = XI2s_Tx_CfgInitialize(&I2s_tx, Config, Config->BaseAddress);
-    if (Status != XST_SUCCESS) {
-         return XST_FAILURE;
-    }
-
-    Config_rx = XI2s_Rx_LookupConfig(
-			XPAR_DP_TX_HIER_0_I2S_RECEIVER_0_DEVICE_ID);
-    if (Config == NULL) {
-          return XST_FAILURE;
-    }
-
-    Status = XI2s_Rx_CfgInitialize(&I2s_rx, Config_rx, Config_rx->BaseAddress);
-    if (Status != XST_SUCCESS) {
-          return XST_FAILURE;
-    }
+//    XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH_RX =
+//    		XAxisScr_LookupConfig(XPAR_DP_RX_HIER_0_AXIS_SWITCH_0_DEVICE_ID);
+//     if (ConfigPtr_AXIS_SWITCH_RX == NULL) {
+//             return XST_FAILURE;
+//     }
+//
+//     Status = XAxisScr_CfgInitialize(&axis_switch_rx,
+//    		 ConfigPtr_AXIS_SWITCH_RX, ConfigPtr_AXIS_SWITCH_RX->BaseAddress);
+//     if (Status != XST_SUCCESS) {
+//             return XST_FAILURE;
+//     }
+//
+//     XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH_TX =
+//    		 XAxisScr_LookupConfig(XPAR_DP_TX_HIER_0_AXIS_SWITCH_0_DEVICE_ID);
+//      if (ConfigPtr_AXIS_SWITCH_TX == NULL) {
+//              return XST_FAILURE;
+//      }
+//
+//      Status = XAxisScr_CfgInitialize(&axis_switch_tx,
+//    		  ConfigPtr_AXIS_SWITCH_TX, ConfigPtr_AXIS_SWITCH_TX->BaseAddress);
+//      if (Status != XST_SUCCESS) {
+//              return XST_FAILURE;
+//      }
+//
+//
+//    Config = XI2s_Tx_LookupConfig(
+//    			XPAR_DP_RX_HIER_0_I2S_TRANSMITTER_0_DEVICE_ID);
+//    if (Config == NULL) {
+//         return XST_FAILURE;
+//    }
+//
+//    Status = XI2s_Tx_CfgInitialize(&I2s_tx, Config, Config->BaseAddress);
+//    if (Status != XST_SUCCESS) {
+//         return XST_FAILURE;
+//    }
+//
+//    Config_rx = XI2s_Rx_LookupConfig(
+//    			XPAR_DP_TX_HIER_0_I2S_RECEIVER_0_DEVICE_ID);
+//    if (Config == NULL) {
+//          return XST_FAILURE;
+//    }
+//
+//    Status = XI2s_Rx_CfgInitialize(&I2s_rx, Config_rx, Config_rx->BaseAddress);
+//    if (Status != XST_SUCCESS) {
+//          return XST_FAILURE;
+//    }
 
     aud_gpio_ConfigPtr =
             XGpio_LookupConfig(XPAR_DP_RX_HIER_0_AXI_GPIO_0_DEVICE_ID);
@@ -1357,8 +1355,9 @@ u32 DpSs_SetupIntrSystem(void)
 #endif
 #if ENABLE_HDCP_IN_DESIGN
 	/* Hook up Rx interrupt service routine */
-	Status = XScuGic_Connect(IntcInstPtr, XPAR_FABRIC_DP14RXSS_0_DPRXSS_TIMER_IRQ_VEC_ID,
-			(XInterruptHandler)XDpRxSs_TmrCtrIntrHandler,&DpRxSsInst);
+	Status = XScuGic_Connect(IntcInstPtr,
+			XPAR_FABRIC_DP14RXSS_0_DPRXSS_TIMER_IRQ_VEC_ID,
+			(Xil_InterruptHandler)XDpRxSs_TmrCtrIntrHandler,&DpRxSsInst);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: Timer interrupt connect failed!\n\r");
 		return XST_FAILURE;

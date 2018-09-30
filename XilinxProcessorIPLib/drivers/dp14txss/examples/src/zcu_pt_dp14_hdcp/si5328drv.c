@@ -279,7 +279,8 @@ s32 Si5328_SetClock_Ps(XIicPs *InstancePtr, u16 IICAddress, u8 ClkSrc,
                                      &BwSel);
     if (Status != SI5328_SUCCESS) {
         if (SI5328_DEBUG) {
-            xil_printf("Si5328: ERROR: Could not determine settings for requested frequency!\n");
+            xil_printf("Si5328: ERROR: Could not determine settings for"
+			                          " requested frequency!\n");
         }
         return Status;
     }
@@ -1188,7 +1189,8 @@ s32 Si5328_SetClock_Ps(XIicPs *InstancePtr, u16 IICAddress, u8 ClkSrc,
     // Sanity check
     if (i != sizeof(buf)) {
         if (SI5328_DEBUG) {
-            xil_printf("Si5328: FATAL ERROR: Incorrect buffer size while programming frequency settings!");
+            xil_printf("Si5328: FATAL ERROR: Incorrect buffer size while "
+			                     "programming frequency settings!");
         }
         exit(-1);
     }
@@ -1424,9 +1426,11 @@ int Si5328_FindN2ls(si5328_settings_t *settings) {
             settings->n2_ls, settings->n3);
     }
     // Check if N2_LS and N3 are within the required ranges
-    if ((settings->n2_ls < settings->n2_ls_min) || (settings->n2_ls > settings->n2_ls_max)) {
+    if ((settings->n2_ls < settings->n2_ls_min) ||
+		(settings->n2_ls > settings->n2_ls_max)) {
          xil_printf("\t\t\tN2_LS out of range.\n");
-    } else if ((settings->n3 < settings->n3_min) || (settings->n3 > settings->n3_max)) {
+    } else if ((settings->n3 < settings->n3_min) ||
+		(settings->n3 > settings->n3_max)) {
         xil_printf("\t\t\tN3 out of range.\n");
     }
     else {
@@ -1436,15 +1440,18 @@ int Si5328_FindN2ls(si5328_settings_t *settings) {
         fout_actual = fosc_actual / (settings->n1_hs * settings->nc_ls);
         delta_fout = fout_actual - settings->fout;
         // Check actual frequencies for validity
-        if ((f3_actual < ((u64)SI5328_F3_MIN) << 28) || (f3_actual > ((u64)SI5328_F3_MAX) << 28)) {
+        if ((f3_actual < ((u64)SI5328_F3_MIN) << 28) ||
+			(f3_actual > ((u64)SI5328_F3_MAX) << 28)) {
             if (SI5328_DEBUG) {
                 xil_printf("\t\t\tF3 frequency out of range.\n");
             }
-        } else if ((fosc_actual < ((u64)SI5328_FOSC_MIN) << 28) || (fosc_actual > ((u64)SI5328_FOSC_MAX) << 28)) {
+        } else if ((fosc_actual < ((u64)SI5328_FOSC_MIN) << 28) ||
+			(fosc_actual > ((u64)SI5328_FOSC_MAX) << 28)) {
             if (SI5328_DEBUG) {
                 xil_printf("\t\t\tFosc frequency out of range.\n");
             }
-        } else if ((fout_actual < ((u64)SI5328_FOUT_MIN) << 28) || (fout_actual >((u64)SI5328_FOUT_MAX) << 28)) {
+        } else if ((fout_actual < ((u64)SI5328_FOUT_MIN) << 28) ||
+			(fout_actual >((u64)SI5328_FOUT_MAX) << 28)) {
             if (SI5328_DEBUG) {
                 xil_printf("\t\t\tFout frequency out of range.\n");
             }
@@ -1468,7 +1475,7 @@ int Si5328_FindN2ls(si5328_settings_t *settings) {
                 settings->best_fout = fout_actual;
                 settings->best_delta_fout = llabs(delta_fout);
                 if (delta_fout == 0) {
-                    // Best possible result found. Skip the rest of the possibilities.
+              // Best possible result found. Skip the rest of the possibilities.
                     result = 1;
                 }
             }
@@ -1492,15 +1499,18 @@ int Si5328_FindN2ls(si5328_settings_t *settings) {
 int Si5328_FindN2(si5328_settings_t *settings) {
     u32 result;
 
-    for (settings->n2_hs = SI5328_N2_HS_MAX; settings->n2_hs >= SI5328_N2_HS_MIN; settings->n2_hs--) {
+    for (settings->n2_hs = SI5328_N2_HS_MAX; settings->n2_hs >=
+						SI5328_N2_HS_MIN; settings->n2_hs--) {
         if (SI5328_DEBUG) {
             xil_printf("\t\tTrying N2_HS = %d.\n", settings->n2_hs);
         }
-        settings->n2_ls_min = (u32)(settings->fosc / ((u64)(SI5328_F3_MAX * settings->n2_hs) << 28));
+        settings->n2_ls_min = (u32)(settings->fosc / ((u64)
+			          (SI5328_F3_MAX * settings->n2_hs) << 28));
         if (settings->n2_ls_min < SI5328_N2_LS_MIN) {
             settings->n2_ls_min = SI5328_N2_LS_MIN;
         }
-        settings->n2_ls_max = (u32)(settings->fosc / ((u64)(SI5328_F3_MIN * settings->n2_hs) << 28));
+        settings->n2_ls_max = (u32)(settings->fosc /
+			((u64)(SI5328_F3_MIN * settings->n2_hs) << 28));
         if (settings->n2_ls_max > SI5328_N2_LS_MAX) {
             settings->n2_ls_max = SI5328_N2_LS_MAX;
         }
@@ -1568,7 +1578,8 @@ int Si5328_FindNcls(si5328_settings_t *settings) {
     u32 result;
 
     fosc_1 = settings->fout * settings->n1_hs;
-    for (settings->nc_ls = settings->nc_ls_min; settings->nc_ls <= settings->nc_ls_max;) {
+    for (settings->nc_ls = settings->nc_ls_min;
+		settings->nc_ls <= settings->nc_ls_max;) {
         settings->fosc = fosc_1 * settings->nc_ls;
         if (SI5328_DEBUG) {
             xil_printf("\tTrying NCn_LS = %d: fosc = %dkHz.\n",
@@ -1615,7 +1626,8 @@ int Si5328_CalcFreqSettings(u32 ClkInFreq, u32 ClkOutFreq,
 
     settings.fin = (u64)ClkInFreq  << 28; // 32.28 fixed point
     settings.fout= (u64)ClkOutFreq << 28; // 32.28 fixed point
-    settings.best_delta_fout = settings.fout; // High frequency error to start with
+    settings.best_delta_fout = settings.fout;
+    //High frequency error to start with
 
     // Calculate some limits for N1_HS * NCn_LS and for N3 base on the input
     // and output frequencies.
@@ -1637,7 +1649,8 @@ int Si5328_CalcFreqSettings(u32 ClkInFreq, u32 ClkOutFreq,
     }
     // Find a valid oscillator frequency with the highest setting of N1_HS
     // possible (reduces power)
-    for (settings.n1_hs = SI5328_N1_HS_MAX; settings.n1_hs >= SI5328_N1_HS_MIN; settings.n1_hs--) {
+    for (settings.n1_hs = SI5328_N1_HS_MAX; settings.n1_hs >= SI5328_N1_HS_MIN;
+		settings.n1_hs--) {
         if (SI5328_DEBUG) {
             xil_printf("Trying N1_HS = %d.\n", settings.n1_hs);
         }
@@ -1738,7 +1751,8 @@ int Si5328_SetClock(u32 IICBaseAddress, u8 IICAddress, u8 ClkSrc,
                                      &BwSel);
     if (result != SI5328_SUCCESS) {
         if (SI5328_DEBUG) {
-            xil_printf("Si5328: ERROR: Could not determine settings for requested frequency!\n");
+            xil_printf("Si5328: ERROR: Could not determine settings for "
+											"requested frequency!\n");
         }
         return result;
     }
@@ -1837,7 +1851,8 @@ int Si5328_SetClock(u32 IICBaseAddress, u8 IICAddress, u8 ClkSrc,
     // Sanity check
     if (i != sizeof(buf)) {
         if (SI5328_DEBUG) {
-            xil_printf("Si5328: FATAL ERROR: Incorrect buffer size while programming frequency settings!");
+            xil_printf("Si5328: FATAL ERROR: Incorrect buffer size while "
+			"						programming frequency settings!");
         }
         exit(-1);
     }

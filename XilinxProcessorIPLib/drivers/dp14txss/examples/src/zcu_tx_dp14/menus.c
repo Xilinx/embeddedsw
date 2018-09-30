@@ -162,6 +162,8 @@ static char inbyte_local(void);
 static u32 xil_gethex(u8 num_chars);
 static char XUartPs_RecvByte_NonBlocking(void);
 
+extern int set_phy;
+extern u8 tx_is_reconnected;
 
 void DpPt_LaneLinkRateHelpMenu(void)
 {
@@ -190,6 +192,7 @@ void DpPt_LaneLinkRateHelpMenu(void)
 void bpc_help_menu(int DPTXSS_BPC_int)
 {
 xil_printf("Choose Video Bits per color option\r\n"
+		    "0 -->  6 bpc (18bpp)\r\n"
 			"1 -->  8 bpc (24bpp)\r\n");
 if (DPTXSS_BPC_int >= 10){
 xil_printf("2 --> 10 bpc (30bpp)\r\n");
@@ -289,6 +292,13 @@ void sub_help_menu(void)
 "d - Power Up/Down sink\r\n"
 "e - Read EDID from sink\r\n"
 "m - Read CRC checker value\r\n"
+#if PHY_COMP
+		     "f - Pattern Enable options (PHY)\r\n"
+		     "c - Change the voltage swing (PHY)\r\n"
+			 "v - Change the pre emphasis (PHY)\r\n"
+		     "t - AUX read transaction in loop (PHY)\r\n"
+#endif
+
 "z - Display this Menu again\r\n"
 "- - - - - - - - - - - - - - - - - - - - - - - - - \r\n");
 }
@@ -320,6 +330,18 @@ void select_link_lane(void)
 	  xil_printf("-----------------------------------------------------\r\n");
  }
 
+u8 aux_data_rd[0];
+u8 aux_data[0];
+#define COMPLIANCE_PAT1 0x3E0F83E0
+#define COMPLIANCE_PAT2 0x0F83E0F8
+#define COMPLIANCE_PAT3 0xF83E
+u8 term_key = 0;
+u8 tr_lane_set[4];
+//u8 LineRate_init_tx = 0x14;
+
+//u8 LaneCount_init_tx = 0x4;
+
+
 
 void main_loop(){
 	int i;
@@ -331,7 +353,8 @@ void main_loop(){
 	unsigned int Command;
 	u8 LaneCount;
 	u8 LineRate;
-	u8 LineRate_init_tx = 0;
+	u8 LineRate_init_tx = 0x14;
+	u8 LaneCount_init_tx = 0x4;
 	u8 Edid_org[128], Edid1_org[128];
 	u8 done=0;
 	u32 user_tx_LaneCount , user_tx_LineRate;
@@ -341,7 +364,8 @@ void main_loop(){
 	XilAudioInfoFrame *xilInfoFrame;
 	int m_aud, n_aud;
 	u8 in_pwr_save = 0;
-	u16 DrpVal =0;
+	u32 DrpVal =0;
+	u16 DrpVal1 =0;
 	u8 C_VideoUserStreamPattern[8] = {0x10, 0x11, 0x12, 0x13, 0x14,
 												0x15, 0x16, 0x17}; //Duplicate
 
@@ -372,18 +396,22 @@ void main_loop(){
 	sub_help_menu ();
 
 	while (1) { // for menu loop
-		if (tx_is_reconnected == 1) {
+
+		if (tx_is_reconnected != 0) {
 			hpd_con(&DpTxSsInst, Edid_org, Edid1_org,
 					user_config.VideoMode_local);
-			tx_is_reconnected = 0;
+//			tx_is_reconnected = 0;
 		}
 
 		if(hpd_pulse_con_event == 1){
 			hpd_pulse_con_event = 0;
-			hpd_pulse_con(&DpTxSsInst);
-			if(XDpTxSs_CheckLinkStatus(&DpTxSsInst)){
+//			hpd_pulse_con(&DpTxSsInst);
+#if !PHY_COMP
+			Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
+			if (Status != XST_SUCCESS) {
 				sink_power_cycle();
 			}
+#endif
 		}
 
 
@@ -433,9 +461,12 @@ void main_loop(){
 				in_pwr_save = 0;
 				xil_printf (
 					"\r\n==========power up===========\r\n");
-
+#if PHY_COMP
+				if (set_phy == 0) {
 				hpd_con(&DpTxSsInst, Edid1_org, Edid1_org,
 				user_config.VideoMode_local);
+				}
+#endif
 			}
 			break;
 
@@ -446,16 +477,17 @@ void main_loop(){
 					DpTxSsInst.DpPtr->Config.BaseAddr,
 					XDP_TX_AUDIO_CONTROL);
 			if (audio_on == 0) {
-				xilInfoFrame->audio_channel_count = 0;
+				xilInfoFrame->audio_channel_count = 1;
 				xilInfoFrame->audio_coding_type = 0;
 				xilInfoFrame->channel_allocation = 0;
 				xilInfoFrame->downmix_inhibit = 0;
 				xilInfoFrame->info_length = 27;
 				xilInfoFrame->level_shift = 0;
-				xilInfoFrame->sample_size = 1;//16 bits
-				xilInfoFrame->sampling_frequency = 3; //48 Hz
-				xilInfoFrame->type = 4;
-				xilInfoFrame->version = 1;
+				xilInfoFrame->sample_size = 0;//16 bits
+				xilInfoFrame->sampling_frequency = 0; //48 Hz
+				xilInfoFrame->type = 0x84;
+				xilInfoFrame->version = 0x12;
+
 				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 						XDP_TX_AUDIO_CONTROL, 0x0);
 				sendAudioInfoFrame(xilInfoFrame);
@@ -463,9 +495,10 @@ void main_loop(){
 						XDP_TX_AUDIO_CHANNELS, 0x1);
 				switch(LineRate)
 				{
-					case  6:m_aud = 24576; n_aud = 162000; break;
-					case 10:m_aud = 24576; n_aud = 270000; break;
-					case 20:m_aud = 24576; n_aud = 540000; break;
+					case  6:m_aud = 512; n_aud = 3375; break;
+					case 10:m_aud = 512; n_aud = 5625; break;
+					case 20:m_aud = 512; n_aud = 11250; break;
+					case 30:m_aud = 512; n_aud = 16875; break;
 				}
 				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 						XDP_TX_AUDIO_MAUD,  m_aud );
@@ -651,8 +684,9 @@ void main_loop(){
 						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 										XDP_TX_INTERRUPT_MASK, 0xFFF);
 						LineRate_init_tx = user_tx_LineRate;
-						Status = set_vphy(LineRate_init_tx);
+						LaneCount_init_tx = user_tx_LaneCount;
 
+						Status = set_vphy(LineRate_init_tx);
 						XDpTxSs_Stop(&DpTxSsInst);
 						audio_on = 0;
 						xil_printf(
@@ -902,7 +936,211 @@ void main_loop(){
 			);
 
 			break;
+#if PHY_COMP
 
+		case 't':
+			xil_printf ("Running AUX rd in loop\r\n");
+			term_key = 0;
+			term_key = xil_getc(0xff);
+			while (term_key == 0) {
+				term_key = xil_getc(0xff);
+				XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x100, 1, aux_data);
+				DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 1000000);
+				xil_printf ("RD done...%x",aux_data[0]);
+			}
+			break;
+
+
+		case 'c':
+		case 'v' :
+
+		phy_cmpl (CommandKey);
+		break;
+
+        case 'f':
+		xil_printf ("Press 'p' to put in PRBS mode\r\n");
+		xil_printf ("Press 'd' to put in D10.2 mode\r\n");
+		xil_printf ("Press 't' to put in TP3 mode\r\n");
+		xil_printf ("Press 'a' to put in TP1 mode\r\n");
+		xil_printf ("Press 'b' to put in TP2 mode\r\n");
+		xil_printf ("Press 'h' to put in hbr2pat mode\r\n");
+		xil_printf ("Press 'c' to put in pltpat mode\r\n");
+		xil_printf ("Press 'x' to put in no pat mode\r\n");
+		xil_printf ("Press '1' to write bw and lane\r\n");
+		term_key = xil_getc(0);
+//                    	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x0);
+		switch(term_key) {
+
+		case '1' :
+			aux_data[0] = LineRate_init_tx;
+					XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x100, 1, aux_data);
+					xil_printf ("\r\n==========BW set=============\r\n");
+					XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x101, 1, aux_data);
+			aux_data[0] = 0x80 | LaneCount_init_tx;
+					XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x101, 1, aux_data);
+					xil_printf ("\r\n==========Lanes set=============\r\n");
+
+			break;
+
+		case 'x' :
+//                        	aux_data[0] = 0x20;
+//                        	XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x102, 1, aux_data);
+			XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x00000000);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x0);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x0);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x0);
+			XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x01010101);
+			xil_printf ("\r\n==========Patterns cleared=============\r\n");
+
+			break;
+
+		case 'p' :
+                 xil_printf ("\r\n==========Enabling PRBS mode=============\r\n");
+                 DrpVal = XDp_ReadReg(XPAR_VPHY_0_BASEADDR, 0x70);
+                 DrpVal = DrpVal & 0xFEFEFEFE; //disabling 8b10b from GT
+                 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x0);
+				 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x1);
+				 XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, DrpVal);
+				 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x3);
+                 xil_printf ("\r\n=======================================\r\n");
+
+
+//PRBS from GT
+//                 DrpVal = XDp_ReadReg(XPAR_VPHY_0_BASEADDR, 0x70);
+//                 xil_printf ("Value read is %x\r\n",DrpVal);
+//                 DrpVal = DrpVal & 0xFEFEFEFE;
+//					DrpVal = DrpVal | 0x0; //0x04040404;
+//					DrpVal = 0x04040404; // kapil
+//
+//                 xil_printf ("Setting 0x70 is %x\r\n", DrpVal);
+//                 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x0);
+//					XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x1);
+//					XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, DrpVal);
+//					XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x3);
+//                 xil_printf ("\r\n=======================================\r\n");
+                 break;
+		case 'd' :
+			XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x01010101);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x0);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_PHY_TRANSMIT_PRBS7, 0x0);
+                if ((XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET) != 0)) {
+			xil_printf ("\r\n==========disabled D10.2 pattern=============\r\n");
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x0);
+                } else {
+//                            	XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x0);
+			xil_printf ("\r\n==========Enabling D10.2 pattern=============\r\n");
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x1);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x1);
+//                            	aux_data = 0x21;
+//                            	XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x102, 1, &aux_data);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x1);
+                }
+			break;
+
+		case 't' :
+			XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x01010101);
+                if ((XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET) != 0)) {
+			xil_printf ("\r\n==========TP3 disabled=============\r\n");
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x0);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x0);
+                } else {
+			xil_printf ("\r\n==========Enabling TP3 pattern=============\r\n");
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x1);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x3);
+
+			aux_data[0] = 0x23;
+			XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x102, 1, aux_data);
+
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x0);
+                }
+			break;
+		case 'a' :
+			XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x01010101);
+                if ((XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET) != 0)) {
+			xil_printf ("\r\n==========TP1 disabled=============\r\n");
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x0);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x0);
+                } else {
+			xil_printf ("\r\n==========Enabling TP1 pattern=============\r\n");
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x1);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x1);
+			aux_data[0] = 0x21;
+			XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x102, 1, aux_data);
+			aux_data[0] = 0x0;
+			XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x103, 1, aux_data);
+			XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x104, 1, aux_data);
+			XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x105, 1, aux_data);
+			XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x106, 1, aux_data);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x0);
+                }
+			break;
+
+		case 'b' :
+			XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x01010101);
+			xil_printf ("\r\n==========Enabling TP2 pattern=============\r\n");
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x1);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x2);
+			aux_data[0] = 0x22;
+			XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x102, 1, aux_data);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x0);
+			break;
+
+		case 'y' :
+			XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x01010101);
+			xil_printf ("\r\n==========Enabling TP2 pattern=============\r\n");
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x1);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x2);
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x0);
+			break;
+
+		case 'h' :
+//                    		XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x03030303);
+			XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x01010101);
+                if ((XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET) != 0)) {
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x0);
+                }
+                if ((XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_PHY_TRANSMIT_PRBS7) == 1)) {
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_PHY_TRANSMIT_PRBS7, 0x0);
+                }
+                XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x0);
+                XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x5);
+//							aux_data[0] = 0x00;
+//							XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x102, 1, aux_data);
+
+				xil_printf ("\r\n==========Enabled HBR2pat=============\r\n");
+
+			break;
+
+		case 'c' :
+
+                XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x102, 1, &aux_data_rd);
+                aux_data_rd[0] = (aux_data_rd[0] & 0xF0);
+                XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x102, 1, &aux_data_rd);
+                if ((XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET) != 0)) {
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x0);
+                }
+                if ((XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_PHY_TRANSMIT_PRBS7) == 1)) {
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_PHY_TRANSMIT_PRBS7, 0x0);
+                }
+                XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x20, COMPLIANCE_PAT1);
+                XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x24, COMPLIANCE_PAT2);
+                XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x28, COMPLIANCE_PAT3);
+                XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x1);
+                //disable 8b10b
+                XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x0);
+                XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x4);
+				xil_printf ("\r\n==========Enabled pltpat=============\r\n");
+
+			break;
+
+//        	default :
+//                  break;
+
+		}
+
+            break;
+
+#endif
 
 			// CRC read
 		case 'm' :
@@ -915,7 +1153,9 @@ void main_loop(){
 			break;
 
 		} //end of switch (CmdKey[0])
+
 	}
+
 }
 
 
@@ -1025,4 +1265,69 @@ char xil_getc(u32 timeout_ms){
 		c = XUartPs_RecvByte_NonBlocking();
 	}
 	return c;
+}
+
+u8 preemp = 0;
+u8 postemp = 0;
+u8 preemp_set = 0;
+u8 diff_swing = 0;
+
+
+void phy_cmpl (char CommandKey) {
+	switch (CommandKey)
+		{
+			case 'c' :
+			xil_printf("Please select a voltage swing setting\n\r"
+					   " 0 -  400 mV (level 0)\n\r"
+					   " 1 -  600 mV (level 1)\n\r"
+					   " 2 -  800 mV (level 2)\n\r"
+					   " 3 -  1200 mV (level 3)\n\r");
+
+			term_key = xil_getc(0);
+			switch(term_key){
+
+
+			case '0':
+				DpTxSsInst.DpPtr->TxInstance.LinkConfig.VsLevel = 0;
+				break;
+			case '1':
+				DpTxSsInst.DpPtr->TxInstance.LinkConfig.VsLevel = 1;
+				break;
+			case '2':
+				DpTxSsInst.DpPtr->TxInstance.LinkConfig.VsLevel = 2;
+				break;
+			case '3':
+				DpTxSsInst.DpPtr->TxInstance.LinkConfig.VsLevel = 3;
+				break;
+		}
+				break;
+
+				case 'v':
+		               // Set preemphasis to preset value
+		               xil_printf("Please select a preemphasis setting\n\r"
+		                          " 0 -   0 dB (1x, pre-emp 0)\n\r"
+		                          " 1 - 3.5 dB (1.5x, pre-emp 1)\n\r"
+		                          " 2 -   6 dB (2x, pre-emp 2)\n\r"
+		                          " 3 - 9.5 dB (3x, pre-emp 3)\n\r");
+		               term_key = xil_getc(0);
+//		               switch(term_key){
+
+				switch(term_key){
+					case '0':
+						DpTxSsInst.DpPtr->TxInstance.LinkConfig.PeLevel = 0;
+						break;
+					case '1':
+						DpTxSsInst.DpPtr->TxInstance.LinkConfig.PeLevel = 1;
+						break;
+					case '2':
+						DpTxSsInst.DpPtr->TxInstance.LinkConfig.PeLevel = 2;
+						break;
+					case '3':
+						DpTxSsInst.DpPtr->TxInstance.LinkConfig.PeLevel = 3;
+						break;
+				}
+
+				DpPt_pe_vs_adjustHandler (&VPhyInst);
+		               break;
+		}
 }

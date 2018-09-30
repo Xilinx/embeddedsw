@@ -189,6 +189,10 @@ const XVidC_VideoTimingMode XVidC_AdditionalTimingModes[
 const XVidC_VideoTimingMode XVidC_VideoTimingModes_Tests[XVIDC_VM_NUM_SUPPORTED] =
 {
 	/* Interlaced modes. */
+		{ XVIDC_VM_720x480_60_I, "720x480@60Hz (I)", XVIDC_FR_60HZ,
+			{720, 19, 62, 57, 858, 0,
+			240, 4, 3, 15, 262, 5, 3, 15, 263, 0} },
+
 	{ XVIDC_VM_720x480_60_I, "720x480@60Hz (I)", XVIDC_FR_60HZ,
 		{720, 19, 62, 57, 858, 0,
 		240, 4, 3, 15, 262, 5, 3, 15, 263, 0} },

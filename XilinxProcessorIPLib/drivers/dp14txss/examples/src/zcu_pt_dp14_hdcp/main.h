@@ -82,10 +82,10 @@
 #include "xv_frmbufrd_l2.h"
 #include "xv_frmbufwr_l2.h"
 #include "xv_axi4s_remap.h"
-#include "xi2stx.h"
-#include "xi2srx.h"
+//#include "xi2stx.h"
+//#include "xi2srx.h"
 #include "xgpio.h"
-#include "xaxis_switch.h"
+//#include "xaxis_switch.h"
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #define ENABLE_HDCP_IN_DESIGN			1
@@ -103,6 +103,7 @@
 #define RxOnly
 #define PT
 #define LB
+
 /************************** Constant Definitions *****************************/
 
 /*
@@ -116,7 +117,7 @@
 	XPAR_FABRIC_DP14TXSS_0_DPTXSS_DP_IRQ_VEC_ID
 
 #define XINTC_DPRXSS_DP_INTERRUPT_ID \
-    XPAR_FABRIC_DP14RXSS_0_DPRXSS_DP_IRQ_VEC_ID
+    XPAR_FABRIC_DPRXSS_0_DPRXSS_DP_IRQ_VEC_ID
 #define XINTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define XINTC                    XScuGic
 #define XINTC_HANDLER            XScuGic_InterruptHandler
@@ -200,8 +201,9 @@
 /*Max timeout tuned as per tester - AXI Clock=100 MHz
  *Some GPUs may need larger value, So user may tune if needed
  */
-#define DP_BS_IDLE_TIMEOUT      (0x047868C0*PHY_COMP)+(0x0091FFFF*!PHY_COMP) //0xFFFFFFFF //0x0091FFFF
-#define VBLANK_WAIT_COUNT       (20+(180*PHY_COMP))
+#define DP_BS_IDLE_TIMEOUT      (0x047868C0*PHY_COMP)+(0x0091FFFF*!PHY_COMP)
+//0xFFFFFFFF //0x0091FFFF
+#define VBLANK_WAIT_COUNT       (200+(180*PHY_COMP))//changed
 
 /*For compliance, please set AUX_DEFER_COUNT to be 8
  * (Only for ZCU102-ARM R5 based Rx system).
@@ -217,12 +219,6 @@
 #define DP12_EDID_ENABLED 0
 
 #define I2S_CLK_MULT 768
-
-/* Set this to 1 to enabled I2S Playback, Capture
- * with Audio clock recovery
- * Set to 0 to bypass I2S and route the Audio internally
-  */
-#define I2S_AUDIO 0
 
 /* VPHY Specific Defines
  */
@@ -292,7 +288,11 @@ typedef struct
         u16 info_length;
 } XilAudioInfoFrame;
 /************************** Function Prototypes ******************************/
-
+void Dprx_HdcpAuthCallback(void *InstancePtr);
+void Dprx_HdcpUnAuthCallback(void *InstancePtr);
+#if ENABLE_HDCP_IN_DESIGN
+static void Dppt_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber);
+#endif
 u32 DpSs_Main();
 u32 DpSs_PlatformInit(void);
 u32 DpRxSs_VideoPhyInit(u16 DeviceId);
@@ -341,7 +341,7 @@ void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
 /************************** Variable Definitions *****************************/
 
 //XDpRxSs DpRxSsInst; 	/* The DPRX Subsystem instance.*/
-XINTC IntcInst; 	/* The interrupt controller instance. */
+//XINTC IntcInst; 	/* The interrupt controller instance. */
 XVphy VPhyInst; 	/* The DPRX Subsystem instance.*/
 XTmrCtr TmrCtr; 	/* Timer instance.*/
 XIic IicInstance; 	/* I2C bus for MC6000 and IDT */
@@ -369,15 +369,15 @@ XIicPs_Config *XIic0Ps_ConfigPtr;
 XIicPs_Config *XIic1Ps_ConfigPtr;
 
 #if ENABLE_AUDIO
-XI2s_Tx I2s_tx;
-XI2s_Rx I2s_rx;
+//XI2s_Tx I2s_tx;
+//XI2s_Rx I2s_rx;
 XGpio   aud_gpio;
 
-XI2stx_Config *Config;
-XI2srx_Config *Config_rx;
+//XI2stx_Config *Config;
+//XI2srx_Config *Config_rx;
 XGpio_Config  *aud_gpio_ConfigPtr;
-XAxis_Switch axis_switch_rx;
-XAxis_Switch axis_switch_tx;
+//XAxis_Switch axis_switch_rx;
+//XAxis_Switch axis_switch_tx;
 
 
 #endif

@@ -50,7 +50,12 @@
 
 extern u8 rx_trained;
 #if ENABLE_HDCP_IN_DESIGN
-extern u8 hdcp_capable_org;
+extern u8 hdcp_capable_org ;
+extern u8 hdcp_capable ;
+extern u8 hdcp_repeater_org ;
+extern u8 hdcp_repeater ;
+extern u8 internal_rx_tx ;
+extern u8 do_not_train_tx ;
 #endif
 
 static XVphy_User_Config PHY_User_Config_Table[] =
@@ -446,6 +451,8 @@ void DpPt_HpdPulseHandler(void *InstancePtr)
 ******************************************************************************/
 void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 {
+    u32 Status;
+
 	//who populates this data ?
 	u8 lane0_sts = InstancePtr->UsrHpdPulseData.Lane0Sts;
 	u8 lane2_sts = InstancePtr->UsrHpdPulseData.Lane2Sts;
@@ -530,7 +537,90 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 			retrain_link = 1;
 		}
 	}
+#if ENABLE_HDCP_IN_DESIGN
+     u8 dev_serv_intr_vec;
+     u8 BStatus;
+     /* Check for the CP_IRQ interrupt. Check the CP_IRQ
+      * bit in the DEVICE_SERVICE_IRQ_VECTOR (0x0201) */
+     Status = XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x201, 1, &dev_serv_intr_vec);
+     if(dev_serv_intr_vec & 0x04) {
+	/* CP_IRQ is set, read the BStatus register */
+	XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x068029, 1, &BStatus);
+//    	xil_printf(" HPD_Pulse: CP_IRQ, (BStatus : %x) \n", BStatus);
 
+	/* Check if the Link Integrity Failure Bit is set */
+	if (BStatus & 0x04) {
+#if ENABLE_HDCP_FLOW_GUIDE
+		xdbg_printf("\033[1m\033[41m\033[37m (*<*)TxLink! \033[0m \n");
+#endif
+			/* State 5 : Authenticated,
+			 * State 6 : Link Integrity Check */
+			if(DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 6 ||
+					DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 5) {
+				/* Disable Encryption */
+				XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
+				XHdcp1xExample_Poll();
+
+				/* Re-start authentication (the expectation is
+				 * that HDCP is already in the authenticated state). */
+				xdbg_printf("\033[1m\033[43m\033[34m (*<*)Tx-> \033[0m \n");
+				XDpTxSs_Authenticate(&DpTxSsInst);
+				XHdcp1xExample_Poll();
+				XDpTxSs_EnableEncryption(&DpTxSsInst, 0x1);
+				XHdcp1xExample_Poll();
+			}
+	}
+
+	/* Check if the READY bit is set. */
+		if (BStatus & 0x01) {
+#if ENABLE_HDCP_FLOW_GUIDE
+			xdbg_printf("\033[1m\033[42m\033[37m (*<*)Ready! \033[0m \n");
+#endif
+			/* DP TX State 8 : Wait-for-Ready */
+			if(DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 8) {
+				/* Disable Encryption */
+				XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
+//				XHdcp1xExample_Poll();
+
+				/* Re-start authentication (the expectation is
+				 * that HDCP is already in the authetnicated state. )*/
+				// Post EVENT_DWNSTMREADY instead of authenticate
+//				XDpTxSs_ReadDownstream(&DpTxSsInst);
+//				XDpTxSs_Authenticate(&DpTxSsInst);
+//				XHdcp1xExample_Poll();
+			}
+
+		}
+
+	     /* Check if the Ro'_AVAILABLE bit is set. */
+		if (BStatus & 0x02) {
+#if ENABLE_HDCP_FLOW_GUIDE
+			xdbg_printf("\033[1m\033[42m\033[37m (*<*)Ro'_AVAILABLE!"
+							"\033[0m \n");
+#endif
+			if ((BStatus & 0x01) != 0x01) {
+				XHdcp1xExample_Poll();
+			}
+		}
+
+		/* Check if CP_IRQ is spurious */
+		if (BStatus == 0x00) {
+#if ENABLE_HDCP_FLOW_GUIDE
+			xdbg_printf("\033[1m\033[41m\033[37m (*<*)Spurious CP_IRQ!"
+						"\033[0m \n");
+#endif
+			/* Disable Hpd for a while (100ms) */
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x144, 0x013);
+
+			/* Wait */
+			DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 2000000);
+
+			/* Enable the all DP TX interrupts again */
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x144, 0x0);
+		}
+
+     }
+#endif
 	if (retrain_link == 1) {
 //		sink_power_cycle();
 		XDpTxSs_SetLinkRate(&DpTxSsInst, bw_set);
@@ -830,7 +920,10 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	 * */
 	XDp_TxCfgSetColorEncode(DpTxSsInst.DpPtr, XDP_TX_STREAM_ID1, \
 				format, XVIDC_BT_601, XDP_DR_CEA);
-
+#if ENABLE_HDCP_IN_DESIGN
+	XDpTxSs_HdcpDisable(&DpTxSsInst);
+	XHdcp1xExample_Poll();
+#endif
 	// VTC requires linkup(video clk) before setting values.
 	// This is why we need to linkup once to get proper CLK on VTC.
 	Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
@@ -891,7 +984,17 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 
 //	start_audio_passThrough(line_rate);
 	xil_printf ("..done !\r\n");
-
+#if ENABLE_HDCP_IN_DESIGN
+	if(hdcp_capable_org == 1)	{
+		XDpTxSs_SetLane(&DpTxSsInst,
+			DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount);
+		XDpTxSs_SetPhysicalState(&DpTxSsInst, !(hdcp_capable_org));
+		XHdcp1xExample_Poll();
+		XDpTxSs_SetPhysicalState(&DpTxSsInst, (hdcp_capable_org));
+		XHdcp1xExample_Poll();
+		DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 10000);
+	}
+#endif
 	tx_started = 1;
 	return XST_SUCCESS;
 }
@@ -941,11 +1044,23 @@ static void clk_wiz_locked(void) {
 void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 		u8 Edid1_org[128], u16 res_update)
 {
+    u32 Status;
 
 	/* This is a PassThrough System to display the Video received on RX
 	 * onto TX. There is nothing special done in the hpd_connect handler.
 	 * On a HPD the application simply tries to retrain the monitor
 	 */
+#if ENABLE_HDCP_IN_DESIGN
+	u8 auxValues[9];
+    XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x068028, 1, auxValues);
+
+    hdcp_capable = auxValues[0] & 0x1;
+    hdcp_repeater = auxValues[0] & 0x2;
+	if (hdcp_capable != hdcp_capable_org) {
+		do_not_train_tx = 0;
+		hdcp_capable_org = hdcp_capable;
+	}
+#endif
 
 }
 

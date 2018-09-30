@@ -47,6 +47,7 @@
 
 #include "xdptxss.h"
 #include "xvphy.h"
+#include "xvphy_i.h"
 #include "xil_printf.h"
 #include "xil_types.h"
 #include "xparameters.h"
@@ -128,7 +129,7 @@
 #define CLK_WIZ_BASE      				XPAR_CLK_WIZ_0_BASEADDR
 
 #define PE_VS_ADJUST 1
-#define DP141_ADJUST 0
+
 
 #define XVPHY_DRP_CPLL_FBDIV		0x28
 #define XVPHY_DRP_CPLL_REFCLK_DIV	0x2A
@@ -136,6 +137,46 @@
 #define XVPHY_DRP_RXCLK25			0x6D
 #define XVPHY_DRP_TXCLK25			0x7A
 #define XVPHY_DRP_TXOUT_DIV			0x7C
+#define XVPHY_DRP_PROGDIV           0x3E
+
+// The following are the PROGDIVCLK divider values when BufferBypass is
+// enabled
+#define DIVIDER_162                 57423
+#define DIVIDER_270                 57415
+#define DIVIDER_540                 57442
+#define DIVIDER_810                 57440
+
+// Following values of VSwing and Pre-emphasis have been identified
+// for GTHE4. These have been tweaked for ZCU102 and VFMC card & have been
+// found to be passing the PHY compliance requirements
+// It is not necessary that these values would work across any design
+// Users should update these values to get the PHY compliance working
+// on custom setups.
+
+#define	XVPHY_GTHE4_PREEMP_DP_L0    0x3
+#define	XVPHY_GTHE4_PREEMP_DP_L1    0xD
+#define	XVPHY_GTHE4_PREEMP_DP_L2    0x16
+#define	XVPHY_GTHE4_PREEMP_DP_L3    0x1D
+
+#define XVPHY_GTHE4_DIFF_SWING_DP_V0P0 0x1
+#define XVPHY_GTHE4_DIFF_SWING_DP_V0P1 0x2
+#define XVPHY_GTHE4_DIFF_SWING_DP_V0P2 0x5
+#define XVPHY_GTHE4_DIFF_SWING_DP_V0P3 0xB
+
+#define XVPHY_GTHE4_DIFF_SWING_DP_V1P0 0x2
+#define XVPHY_GTHE4_DIFF_SWING_DP_V1P1 0x5
+#define XVPHY_GTHE4_DIFF_SWING_DP_V1P2 0x7
+
+#define XVPHY_GTHE4_DIFF_SWING_DP_V2P0 0x4
+#define XVPHY_GTHE4_DIFF_SWING_DP_V2P1 0x7
+
+#define XVPHY_GTHE4_DIFF_SWING_DP_V3P0 0x8
+
+#define TX_BUFFER_BYPASS            XPAR_VID_PHY_CONTROLLER_0_TX_BUFFER_BYPASS
+
+
+#define PHY_COMP 1
+
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -197,7 +238,8 @@ typedef struct
 } XilAudioInfoFrame;
 
 /************************** Function Prototypes ******************************/
-void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128], u8 Edid1_org[128], u16 res_update);
+void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128], u8 Edid1_org[128],
+		u16 res_update);
 void hpd_pulse_con(XDpTxSs *InstancePtr);
 char xil_getc(u32 timeout_ms);
 void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
@@ -214,10 +256,12 @@ void sink_power_up(void);
 u8 get_LineRate(void);
 u8 get_Lanecounts(void);
 void sink_power_cycle(void);
-int i2c_write_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress, u8 Value);
+int i2c_write_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress,
+		u8 Value);
 void DpPt_pe_vs_adjustHandler(void *InstancePtr);
 int VideoFMC_Init(void);
-int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn, int FOut, u8 FreeRun);
+int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn,
+		int FOut, u8 FreeRun);
 int IDT_8T49N24x_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 int TI_LMK03318_PowerDown(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 
@@ -230,9 +274,11 @@ XVphy VPhyInst;	/* The DPRX Subsystem instance.*/
 XTmrCtr TmrCtr; /* Timer instance.*/
 Video_CRC_Config VidFrameCRC;
 
-int tx_is_reconnected; /*This variable to keep track of the status of Tx link*/
+//int tx_is_reconnected; /*This variable to keep track of the status of Tx link*/
 u8 prev_line_rate; /*This previous line rate to keep previous info to compare
 						with new line rate request*/
 u8 hpd_pulse_con_event; /*This variable triggers hpd_pulse_con*/
+
+
 
 #endif /* SRC_XDPTXSS_ZCU102_TX_H_ */
