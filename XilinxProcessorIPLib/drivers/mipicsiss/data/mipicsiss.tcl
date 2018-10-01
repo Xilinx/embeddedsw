@@ -32,12 +32,14 @@
 ###############################################################################
 
 proc generate {drv_handle} {
-	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XCsiSs" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES"
-	hier_ip_define_config_file $drv_handle "xcsiss_g.c" "XCsiSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES"
-	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "CsiSs" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES"
+	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XCsiSs" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES" "C_EN_CSI_V2_0" "C_EN_VCX"
+	hier_ip_define_config_file $drv_handle "xcsiss_g.c" "XCsiSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES" "C_EN_CSI_V2_0" "C_EN_VCX"
+	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "CsiSs" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES" "C_EN_CSI_V2_0" "C_EN_VCX"
 
 	set orig_dir [pwd]
 	cd ../../include/
+
+	set num_vc 4
 
 	set periphs [hsi::utils::get_common_driver_ips $drv_handle]
 	foreach periph $periphs {
@@ -66,18 +68,37 @@ proc generate {drv_handle} {
 					# using string map to replace true with 1 and false with 0
 					set line [string map {true 1 false 0} $line]
 				}
-
+				# if substring C_EN_CSI_V2_0 is present in the string
+				if {[regexp -nocase {CSI_V2_0} $line]} {
+					# using string map to replace true with 1 and false with 0
+					set line [string map {true 1 false 0} $line]
+				}
+				# if substring C_EN_VCX is present in the string
+				if {[regexp -nocase {VCX} $line]} {
+					# using string map to replace true with 1 and false with 0
+					set line [string map {true 1 false 0} $line]
+					set num_vc 16
+				}
 				# if substring DPY_EN_REG_IF is present in the string
 				if {[regexp -nocase {DPY_EN_REG_IF} $line]} {
 					# using string map to replace true with 1 and false with 0
 					set line [string map {true 1 false 0} $line]
 				}
-
 				# if substring CMN_PXL_FORMAT is present in the string
 				if {[regexp -nocase {CMN_PXL_FORMAT} $line]} {
 					# using string map to replace true with 1 and false with 0
-					set line [string map {RGB444 0x20 RGB555 0x21 RGB565 0x22 RGB666 0x23 RGB888 0x24 RAW6 0x28 RAW7 0x29 RAW8 0x2A RAW10 0x2B RAW12 0x2C RAW14 0x2D YUV422_8bit 0x1E} $line]
+					set line [string map {RGB444 0x20 RGB555 0x21 RGB565 0x22 RGB666 0x23 RGB888 0x24 RAW6 0x28 RAW7 0x29 RAW8 0x2A RAW10 0x2B RAW12 0x2C RAW14 0x2D YUV422_8bit 0x1E YUV422_10bit 0x1F RAW16 0x2E RAW20 0x2F} $line]
 				}
+
+				if {[regexp -nocase {CMN_VC} $line]} {
+					# using string map to replace true with 1 and false with 0
+					if {$num_vc == 16} {
+						set line [string map {All 16} $line]
+					} else {
+						set line [string map {All 4} $line]
+					}
+				}
+
 
 				# if substring C_CSI_EN_ACTIVELANES is present in the string
 				if {[regexp -nocase {CSI_EN_ACTIVELANES} $line]} {

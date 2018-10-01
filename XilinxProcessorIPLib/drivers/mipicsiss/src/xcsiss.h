@@ -187,6 +187,7 @@ extern "C" {
 #define XCSISS_HANDLER_SHORTPACKET	XCSI_HANDLER_SHORTPACKET
 #define XCSISS_HANDLER_FRAMERECVD	XCSI_HANDLER_FRAMERECVD
 #define XCSISS_HANDLER_OTHERERROR	XCSI_HANDLER_OTHERERROR
+#define XCSISS_HANDLER_VCX		XCSI_HANDLER_VCXFRAMEERROR
 /*@}*/
 
 /**
@@ -245,6 +246,8 @@ typedef struct {
 	u32 EnableCrc;		/**< CRC Calculation optimization enabled */
 	u32 EnableActiveLanes;	/**< Active Lanes programming optimization
 				  *  enabled */
+	u8 EnableCSIv20; /* csiv2.0 support*/
+	u8 EnableVCx;	/* vcx feature support*/
 	CsiRxSsSubCore IicInfo;	/**< IIC sub-core configuration */
 	CsiRxSsSubCore CsiInfo;	/**< CSI sub-core configuration */
 	CsiRxSsSubCore DphyInfo;	/**< DPHY sub-core configuration */
