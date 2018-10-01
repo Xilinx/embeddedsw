@@ -71,12 +71,7 @@
  * by your system, set this to 0 and include <sys/time.h> in cc.h */
 #define LWIP_TIMEVAL_PRIVATE 0
 #include <sys/time.h>
-
-#ifdef PROCESSOR_LITTLE_ENDIAN
-#define BYTE_ORDER LITTLE_ENDIAN
-#else
-#define BYTE_ORDER BIG_ENDIAN
-#endif
+#include "cpu.h"
 
 /* As per new design of lwip-2.0.2,
  * LWIP_NO_STDINT_H should be defined as 1 in cc.h */
