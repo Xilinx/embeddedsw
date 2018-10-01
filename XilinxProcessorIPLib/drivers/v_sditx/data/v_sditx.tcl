@@ -33,14 +33,16 @@ proc generate {drv_handle} {
     "AXI_CTRL_BASEADDR" \
     "AXI_CTRL_HIGHADDR" \
     "C_INCLUDE_EDH" \
-    "C_LINE_RATE"
+    "C_LINE_RATE" \
+    "C_TX_INSERT_C_STR_ST352"
 
     xdefine_config_file $drv_handle "xv_sditx_g.c" \
     "XV_SdiTx" \
     "DEVICE_ID" \
     "AXI_CTRL_BASEADDR" \
     "C_INCLUDE_EDH" \
-    "C_LINE_RATE"
+    "C_LINE_RATE" \
+    "C_TX_INSERT_C_STR_ST352"
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_SdiTx" \
     "NUM_INSTANCES" \
@@ -48,7 +50,8 @@ proc generate {drv_handle} {
     "AXI_CTRL_BASEADDR" \
     "AXI_CTRL_HIGHADDR" \
     "C_INCLUDE_EDH" \
-    "C_LINE_RATE"
+    "C_LINE_RATE" \
+    "C_TX_INSERT_C_STR_ST352"
 set orig_dir [pwd]
 cd ../../include/
 
