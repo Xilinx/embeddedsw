@@ -43,6 +43,7 @@
  *       jsr    02/23/2018 Added YUV420 color format support
  *       jsr	03/02/2018 Added core settings API
  * 2.1   jsr    07/03/2018 Corrected 720x480_60_I to be 720x486_60_I for SD mode
+ * 2.2   jsr    10/01/2018 Programming the Field register for 720x480_60_I SD mode
  * </pre>
  *
  ******************************************************************************/
@@ -66,6 +67,10 @@
 #define AXI4_STREAM	0
 #define NATIVE_VIDEO 1
 #define NATIVE_SDI 2
+#define XSDITXSS_XVTC_ASIZE_VERT_SHIFT 16
+#define XSDITXSS_XVTC_ASIZE_VERT_MASK	0x1FFF0000
+#define XSDITXSS_XVTC_GASIZE_F1_OFFSET	0x094
+#define XSDITXSS_SD_NTSC_F1_V_ACTIVE	244
 
 /**************************** Type Definitions *******************************/
 /**
@@ -581,6 +586,7 @@ static int XV_SdiTxSs_VtcSetup(XVtc *XVtcPtr, XV_SdiTx *SdiTxPtr)
 	XVtc_Timing VideoTiming;
 	u32 SdiTx_Hblank;
 	u32 Vtc_Hblank;
+	u32 RegValue;
 
 	/* Disable Generator */
 	XVtc_Reset(XVtcPtr);
@@ -717,6 +723,16 @@ static int XV_SdiTxSs_VtcSetup(XVtc *XVtcPtr, XV_SdiTx *SdiTxPtr)
 
 	XVtc_SetGeneratorTiming(XVtcPtr, &VideoTiming);
 
+	/* Only for XVIDC_VM_720x486_60_I (SDI NTSC), the FIELD1 vactive
+	 * size is different from FIELD0. As there is no vactive FIELD1
+	 * entry in the video common library, program it separately as below */
+	if (SdiTxPtr->Stream[0].Video.VmId == XVIDC_VM_720x486_60_I)
+	{
+		RegValue = (XSDITXSS_SD_NTSC_F1_V_ACTIVE << XSDITXSS_XVTC_ASIZE_VERT_SHIFT) &
+				XSDITXSS_XVTC_ASIZE_VERT_MASK;
+		XVtc_WriteReg(XVtcPtr->Config.BaseAddress,
+				XSDITXSS_XVTC_GASIZE_F1_OFFSET, RegValue);
+	}
 	/* Set up Polarity of all outputs */
 	memset((void *)&Polarity, 0, sizeof(XVtc_Polarity));
 	Polarity.ActiveChromaPol = 1;
