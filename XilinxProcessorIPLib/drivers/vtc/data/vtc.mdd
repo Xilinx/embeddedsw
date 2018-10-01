@@ -28,6 +28,8 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- --------------------------------------------------
 # 6.0     adk    10/12/13  Removed interrupt handler entry
+# 8.1     jsr    10/01/18  Removed hard coded programming of vactive size
+# 			   values from driver
 ###############################################################################
 OPTION psf_version = 2.1;
 
@@ -36,7 +38,7 @@ BEGIN driver vtc
   OPTION supported_peripherals = (v_tc);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 8.0;
+  OPTION VERSION = 8.1;
   OPTION NAME = vtc;
 
 END driver

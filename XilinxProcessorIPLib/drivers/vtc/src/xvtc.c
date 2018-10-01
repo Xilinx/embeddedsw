@@ -171,6 +171,10 @@
 *       		modes FIELD1 vactive size. This value is same as FILED0
 *       		vactive size for all interlaced modes except for SDI NTSC
 *       		mode
+* 8.1   jsr    10/01/18	Removed the hard coded programming of vactive size values
+* 			based on resolutions. Moved the hard coded values for SDI
+* 			NTSC resolution to SDI TXSS driver instead of in VTC
+* 			driver.
 * </pre>
 *
 ******************************************************************************/
@@ -1349,15 +1353,15 @@ void XVtc_SetGenerator(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 							XVTC_ASIZE_VERT_MASK;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
 						XVTC_GASIZE_OFFSET, RegValue);
-		/* Only for XVIDC_VM_720x486_60_I (SDI NTSC), the FIELD1 vactive
-		 * size is different from FIELD0. As there is no vactive FIELD1
-		 * entry in the video common library, program it separately as below */
-		if(r_vactive != 243)
-			RegValue = ((r_vactive) << XVTC_ASIZE_VERT_SHIFT) &
-					XVTC_ASIZE_VERT_MASK;
-		else
-			RegValue = ((r_vactive+1) << XVTC_ASIZE_VERT_SHIFT) &
-					XVTC_ASIZE_VERT_MASK;
+		/* For some resolutions, the FIELD1 vactive size is different
+		 * from FIELD0, e.g. XVIDC_VM_720x486_60_I (SDI NTSC),
+		 * As there is no vactive FIELD1 entry in the video common
+		 * library, program it separately. For resolutions where
+		 * vactive values are different, it should be taken care in
+		 * corrosponding driver. Otherwise program same values in
+		 * FIELD0 and FIELD1 registers */
+		RegValue = ((r_vactive) << XVTC_ASIZE_VERT_SHIFT) &
+				XVTC_ASIZE_VERT_MASK;
 
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
 						XVTC_GASIZE_F1_OFFSET, RegValue);
@@ -1440,15 +1444,15 @@ void XVtc_SetGenerator(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 							XVTC_ASIZE_VERT_MASK;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
 						XVTC_GASIZE_OFFSET, RegValue);
-		/* Only for XVIDC_VM_720x486_60_I (SDI NTSC), the FIELD1 vactive
-		 * size is different from FIELD0. As there is no vactive FIELD1
-		 * entry in the video common library, program it separately as below */
-		if(r_vactive != 243)
-			RegValue = ((r_vactive) << XVTC_ASIZE_VERT_SHIFT) &
-					XVTC_ASIZE_VERT_MASK;
-		else
-			RegValue = ((r_vactive+1) << XVTC_ASIZE_VERT_SHIFT) &
-					XVTC_ASIZE_VERT_MASK;
+		/* For some resolutions, the FIELD1 vactive size is different
+		 * from FIELD0, e.g. XVIDC_VM_720x486_60_I (SDI NTSC),
+		 * As there is no vactive FIELD1 entry in the video common
+		 * library, program it separately. For resolutions where
+		 * vactive values are different, it should be taken care in
+		 * corrosponding driver. Otherwise program same values in
+		 * FIELD0 and FIELD1 registers */
+		RegValue = ((r_vactive) << XVTC_ASIZE_VERT_SHIFT) &
+				XVTC_ASIZE_VERT_MASK;
 
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
 						XVTC_GASIZE_F1_OFFSET, RegValue);
