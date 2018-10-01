@@ -45,14 +45,16 @@ proc generate {drv_handle} {
 	"C_LINE_RATE" \
 	"C_INCLUDE_EDH" \
 	"C_VIDEO_INTF" \
-	"C_INCLUDE_AXILITE"
+	"C_INCLUDE_AXILITE" \
+	"C_TX_INSERT_C_STR_ST352"
 
     hier_ip_define_config_file $drv_handle "xv_sditxss_g.c" \
     "XV_SdiTxSs" \
     "DEVICE_ID" \
     "C_BASEADDR" \
 	"C_INCLUDE_ADV_FEATURES" \
-	"C_LINE_RATE"
+	"C_LINE_RATE" \
+	"C_TX_INSERT_C_STR_ST352"
 
 	hier_ip_define_canonical_xpars $drv_handle "xparameters.h" "XV_SdiTxSs" \
 	"DEVICE_ID" \
@@ -62,7 +64,8 @@ proc generate {drv_handle} {
 	"C_LINE_RATE" \
 	"C_INCLUDE_EDH" \
 	"C_VIDEO_INTF" \
-	"C_INCLUDE_AXILITE"
+	"C_INCLUDE_AXILITE" \
+	"C_TX_INSERT_C_STR_ST352"
 }
 
 #
@@ -102,6 +105,8 @@ proc hier_ip_define_include_file {drv_handle file_name drv_string args} {
 			} elseif {[string compare -nocase "C_INCLUDE_ADV_FEATURES" $arg] == 0} {
                 set value [string toupper [common::get_property CONFIG.$arg $periph]]
 	} elseif {[string compare -nocase "C_INCLUDE_EDH" $arg] ==0} {
+		set value [string toupper [common::get_property CONFIG.$arg $periph]]
+	} elseif {[string compare -nocase "C_TX_INSERT_C_STR_ST352" $arg] ==0} {
 		set value [string toupper [common::get_property CONFIG.$arg $periph]]
 	}  elseif {[string compare -nocase "C_VIDEO_INTF" $arg] ==0} {
 		set value [string toupper [common::get_property CONFIG.$arg $periph]]
@@ -200,6 +205,14 @@ proc hier_ip_define_canonical_xpars {drv_handle file_name drv_string args} {
 				 set rvalue 0
 			 }
 		} elseif {[string compare -nocase "C_INCLUDE_EDH" $arg] ==0} {
+			set value [string toupper [common::get_property CONFIG.$arg $periph]]
+			puts $value
+			if {[string compare -nocase "TRUE" $value] == 0} {
+				set rvalue 1
+			 } elseif {[string compare -nocase "FALSE" $value] == 0} {
+				 set rvalue 0
+			 }
+		} elseif {[string compare -nocase "C_TX_INSERT_C_STR_ST352" $arg] ==0} {
 			set value [string toupper [common::get_property CONFIG.$arg $periph]]
 			puts $value
 			if {[string compare -nocase "TRUE" $value] == 0} {
