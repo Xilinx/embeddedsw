@@ -506,6 +506,45 @@ void XV_SdiTxSs_Stop(XV_SdiTxSs *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* This function enables the ST352 value to be used from DS2 instead of DS3 register
+* in C stream of the SDI TX Ss core.
+*
+* @param	InstancePtr is a pointer to the XV_SdiTxSs core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XV_SdiTxSs_ST352CSwitch3GA(XV_SdiTxSs *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.InsertCSTRST352);
+	XV_SdiTx_ST352CSwitch3GA(InstancePtr->SdiTxPtr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables the insertion of ST352 in C stream of the SDI TX Ss core.
+*
+* @param	InstancePtr is a pointer to the XV_SdiTxSs core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XV_SdiTxSs_ST352CStreamEnable(XV_SdiTxSs *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.InsertCSTRST352);
+	XV_SdiTx_ST352CStreamEnable(InstancePtr->SdiTxPtr);
+}
+
+/*****************************************************************************/
+/**
+*
 * This function Set the video format of the SDI TX Ss core.
 *
 * @param	InstancePtr is a pointer to the XV_SdiTxSs core instance.

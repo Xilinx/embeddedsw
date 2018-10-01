@@ -155,6 +155,7 @@ typedef struct {
     UINTPTR BaseAddress;	/**< BaseAddress is the physical base address of the					subsystem address range */
     XVidC_PixelsPerClock Ppc;	/**< Supported Pixel per Clock */
     u8 MaxRateSupported;
+    u8 InsertCSTRST352;         /**< Insert ST352 in C stream */
     XV_SdiTxSs_SubCore SdiTx;	/**< Sub-core instance configuration */
 	XV_SdiTxSs_SubCore Vtc;	/**< Sub-core instance configuration */
 } XV_SdiTxSs_Config;
@@ -281,6 +282,8 @@ void XV_SdiTxSs_LogWrite(XV_SdiTxSs *InstancePtr,
 u16 XV_SdiTxSs_LogRead(XV_SdiTxSs *InstancePtr);
 void XV_SdiTxSs_LogDisplay(XV_SdiTxSs *InstancePtr);
 int XV_SdiTxSs_SetColorFormat(XV_SdiTxSs *InstancePtr, XVidC_ColorFormat ColorFormat);
+void XV_SdiTxSs_ST352CStreamEnable(XV_SdiTxSs *InstancePtr);
+void XV_SdiTxSs_ST352CSwitch3GA(XV_SdiTxSs *InstancePtr);
 void XV_SdiTxSs_SetCoreSettings(XV_SdiTxSs *InstancePtr,
 					XV_SdiTxSs_CoreSelId SelId, u8 Data);
 
