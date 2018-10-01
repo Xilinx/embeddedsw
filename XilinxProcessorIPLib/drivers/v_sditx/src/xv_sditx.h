@@ -168,6 +168,7 @@ typedef struct {
 			     * base address of the core's registers */
     u8 IsEdhIncluded;
     u8 MaxRateSupported;
+    u8 InsertCSTRST352;         /**< Insert ST352 in C stream */
 } XV_SdiTx_Config;
 
 /**
@@ -287,6 +288,8 @@ u8 XV_SdiTx_GetPayloadAspectRatio(XVidC_AspectRatio AspectRatio);
 u32 XV_SdiTx_GetPayloadByte1(u16 VActiveValid, XSdiVid_TransMode SdiMode, u8 *Data);
 u8 XV_SdiTx_GetPayloadColorFormat(XSdiVid_TransMode SdiMode, XVidC_ColorFormat ColorFormatId);
 int XV_SdiTx_SetColorFormat(XV_SdiTx *InstancePtr, XVidC_ColorFormat ColorFormat);
+void XV_SdiTx_ST352CStreamEnable(XV_SdiTx *InstancePtr);
+void XV_SdiTx_ST352CSwitch3GA(XV_SdiTx *InstancePtr);
 
 /* Bridge and reset specific functions */
 void XV_SdiTx_VidBridgeEnable(XV_SdiTx *InstancePtr);

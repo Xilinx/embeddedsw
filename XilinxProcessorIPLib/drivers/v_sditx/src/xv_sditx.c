@@ -66,6 +66,9 @@
 #define XSDITX_LINE_RATE_3G	0
 #define XSDITX_LINE_RATE_6G	1
 #define XSDITX_LINE_RATE_12G8DS	2
+#define CHROMA_ST352_REG_OFFSET \
+	(XV_SDITX_TX_ST352_DATA_CH0_C_OFFSET - \
+	 XV_SDITX_TX_ST352_DATA_CH0_OFFSET) / 4
 
 /**************************** Type Definitions *******************************/
 
@@ -853,6 +856,16 @@ void XV_SdiTx_StreamStart(XV_SdiTx *InstancePtr)
 		InstancePtr->Stream[StreamId].PayloadId);
 	}
 
+	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
+				XV_SDITX_MDL_CTRL_OFFSET);
+	if (Data & XV_SDITX_MDL_CTRL_C_ST352_MASK) {
+		for (int StreamId = 0; StreamId < XV_SDITX_MAX_DATASTREAM;
+			StreamId++) {
+			XV_SdiTx_SetPayloadId(InstancePtr,
+					      StreamId + CHROMA_ST352_REG_OFFSET,
+					      InstancePtr->Stream[StreamId].PayloadId);
+		}
+	}
 	switch (InstancePtr->Transport.TMode) {
 	case XSDIVID_MODE_SD:
 	case XSDIVID_MODE_HD:
@@ -1003,6 +1016,60 @@ int XV_SdiTx_StopSdi(XV_SdiTx *InstancePtr)
 				(Data));
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables the ST352 value to be used from DS2 instead of DS3 register
+* in C stream of the SDI TX Ss core.
+*
+* @param	InstancePtr is a pointer to the XV_SdiTx core instance.
+*
+* @return       None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XV_SdiTx_ST352CSwitch3GA(XV_SdiTx *InstancePtr)
+{
+	u32 Data;
+
+	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
+				XV_SDITX_MDL_CTRL_OFFSET);
+	Xil_AssertNonvoid(Data & XV_SDITX_MDL_CTRL_C_ST352_MASK);
+	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
+				XV_SDITX_MDL_CTRL_OFFSET);
+	Data |= XV_SDITX_MDL_CTRL_C_ST352_SWITCH_3GA_MASK;
+
+	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+			   XV_SDITX_MDL_CTRL_OFFSET,
+			   Data);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables the insertion of ST352 in C stream of the SDI TX Ss core.
+*
+* @param	InstancePtr is a pointer to the XV_SdiTx core instance.
+*
+* @return       None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XV_SdiTx_ST352CStreamEnable(XV_SdiTx *InstancePtr)
+{
+	u32 Data;
+
+	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
+				XV_SDITX_MDL_CTRL_OFFSET);
+	Data |= XV_SDITX_MDL_CTRL_C_ST352_MASK;
+
+	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+			   XV_SDITX_MDL_CTRL_OFFSET,
+			   Data);
 }
 
 /*****************************************************************************/
