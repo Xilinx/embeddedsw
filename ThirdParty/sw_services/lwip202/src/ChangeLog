@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2018-10-01
+	* Fix warning for redefining BYTE_ORDER
 2018-09-19
 	* In lwip tcl to support hierarchical designs pass -hier option to
 	  get_cells command.

@@ -55,6 +55,7 @@ Add AXI 2.5G Ethernet support.
 Fix axiethernet apps build error by removing dependency on HSI get_connected_intr_cntrl API output.
 Fix copyrights.
 In tcl update get_cells API argument to support hierarchical designs.
+Fix warning for redefining BYTE_ORDER
 
 lwip_echo_server:
 Fix warning in iic phy reset in lwip echo server.
