@@ -131,6 +131,10 @@ u32 XDphy_Configure(XDphy *InstancePtr, u8 Handle, u32 Value)
 			Value &= XDPHY_HSEXIT_IDELAY_REG_TAP_MASK;
 			XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
 					XDPHY_HSEXIT_IDELAY_REG_OFFSET, Value);
+			if (InstancePtr->Config.MaxLanesPresent >
+							XDPHY_MAX_LANES_V10)
+				XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
+					XDPHY_IDELAY58_REG_OFFSET, Value);
 			break;
 
 		case XDPHY_HANDLE_INIT_TIMER:
@@ -172,16 +176,103 @@ u32 XDphy_Configure(XDphy *InstancePtr, u8 Handle, u32 Value)
 		case XDPHY_HANDLE_DLANE1:
 		case XDPHY_HANDLE_DLANE2:
 		case XDPHY_HANDLE_DLANE3:
+		case XDPHY_HANDLE_DLANE4:
+		case XDPHY_HANDLE_DLANE5:
+		case XDPHY_HANDLE_DLANE6:
+		case XDPHY_HANDLE_DLANE7:
 			Status = XST_FAILURE;
 			break;
 		case XDPHY_HANDLE_HSSETTLE:
 			Xil_AssertNonvoid(Value <= XDPHY_HS_SETTLE_MAX_VALUE);
-			Xil_AssertNonvoid(InstancePtr->Config.IsRx == 0);
+			Xil_AssertNonvoid(!InstancePtr->Config.IsRx);
 
 			XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
 					XDPHY_HSSETTLE_REG_OFFSET,
 					Value);
 
+			break;
+		case XDPHY_HANDLE_HSSETTLE1:
+			Xil_AssertNonvoid(Value <= XDPHY_HS_SETTLE_MAX_VALUE);
+			Xil_AssertNonvoid(!InstancePtr->Config.IsRx);
+
+			XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
+					XDPHY_HSSETTLE1_REG_OFFSET,
+					Value);
+
+			break;
+		case XDPHY_HANDLE_HSSETTLE2:
+			Xil_AssertNonvoid(Value <= XDPHY_HS_SETTLE_MAX_VALUE);
+			Xil_AssertNonvoid(!InstancePtr->Config.IsRx);
+
+			XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
+					XDPHY_HSSETTLE2_REG_OFFSET,
+					Value);
+
+			break;
+		case XDPHY_HANDLE_HSSETTLE3:
+			Xil_AssertNonvoid(Value <= XDPHY_HS_SETTLE_MAX_VALUE);
+			Xil_AssertNonvoid(!InstancePtr->Config.IsRx);
+
+			XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
+					XDPHY_HSSETTLE3_REG_OFFSET,
+					Value);
+
+			break;
+		case XDPHY_HANDLE_HSSETTLE4:
+			if (InstancePtr->Config.MaxLanesPresent >
+							XDPHY_MAX_LANES_V10) {
+				Xil_AssertNonvoid(Value <=
+						  XDPHY_HS_SETTLE_MAX_VALUE);
+				Xil_AssertNonvoid(!InstancePtr->Config.IsRx);
+
+				XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
+						XDPHY_HSSETTLE4_REG_OFFSET,
+						Value);
+			} else {
+				Status = XST_FAILURE;
+			}
+			break;
+		case XDPHY_HANDLE_HSSETTLE5:
+			if (InstancePtr->Config.MaxLanesPresent >
+							XDPHY_MAX_LANES_V10) {
+				Xil_AssertNonvoid(Value <=
+						  XDPHY_HS_SETTLE_MAX_VALUE);
+				Xil_AssertNonvoid(!InstancePtr->Config.IsRx);
+
+				XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
+						XDPHY_HSSETTLE5_REG_OFFSET,
+						Value);
+			} else {
+				Status = XST_FAILURE;
+			}
+			break;
+		case XDPHY_HANDLE_HSSETTLE6:
+			if (InstancePtr->Config.MaxLanesPresent >
+							XDPHY_MAX_LANES_V10) {
+				Xil_AssertNonvoid(Value <=
+						  XDPHY_HS_SETTLE_MAX_VALUE);
+				Xil_AssertNonvoid(!InstancePtr->Config.IsRx);
+
+				XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
+						XDPHY_HSSETTLE6_REG_OFFSET,
+						Value);
+			} else {
+				Status = XST_FAILURE;
+			}
+			break;
+		case XDPHY_HANDLE_HSSETTLE7:
+			if (InstancePtr->Config.MaxLanesPresent >
+							XDPHY_MAX_LANES_V10) {
+				Xil_AssertNonvoid(Value <=
+						  XDPHY_HS_SETTLE_MAX_VALUE);
+				Xil_AssertNonvoid(!InstancePtr->Config.IsRx);
+
+				XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
+						XDPHY_HSSETTLE7_REG_OFFSET,
+						Value);
+			} else {
+				Status = XST_FAILURE;
+			}
 			break;
 		default:
 			break;
@@ -225,25 +316,30 @@ u8 XDphy_GetRegIntfcPresent(XDphy *InstancePtr)
 u32 XDphy_GetInfo(XDphy *InstancePtr, u8 Handle)
 {
 	u32 RegVal = 0;
+	UINTPTR RegAddr;
+	u32 MaxLanesPresent;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Handle <= XDPHY_HANDLE_MAX)
 	Xil_AssertNonvoid(InstancePtr->Config.IsRegisterPresent != 0);
 
+	RegAddr = (InstancePtr)->Config.BaseAddr;
+	MaxLanesPresent = InstancePtr->Config.MaxLanesPresent;
+
 	/* Based on Handle, return value from the corresponding registers */
 	switch (Handle) {
 		case XDPHY_HANDLE_IDELAY:
-			RegVal = XDphy_ReadReg((InstancePtr)->Config.BaseAddr,
-						 XDPHY_HSEXIT_IDELAY_REG_OFFSET);
+			RegVal = XDphy_ReadReg(RegAddr,
+					       XDPHY_HSEXIT_IDELAY_REG_OFFSET);
 			break;
 		case XDPHY_HANDLE_INIT_TIMER:
-			RegVal = XDphy_ReadReg((InstancePtr)->Config.BaseAddr,
-						 XDPHY_INIT_REG_OFFSET);
+			RegVal = XDphy_ReadReg(RegAddr,
+					       XDPHY_INIT_REG_OFFSET);
 			break;
 		case XDPHY_HANDLE_WAKEUP:
-			RegVal = XDphy_ReadReg((InstancePtr)->Config.BaseAddr,
-						 XDPHY_WAKEUP_REG_OFFSET);
+			RegVal = XDphy_ReadReg(RegAddr,
+					       XDPHY_WAKEUP_REG_OFFSET);
 			break;
 		case XDPHY_HANDLE_HSTIMEOUT:
 			/* If the Timeout Registers are disable */
@@ -251,8 +347,7 @@ u32 XDphy_GetInfo(XDphy *InstancePtr, u8 Handle)
 				RegVal = InstancePtr->Config.HSTimeOut;
 			}
 			else {
-				RegVal = XDphy_ReadReg((InstancePtr)->Config.\
-						BaseAddr,
+				RegVal = XDphy_ReadReg(RegAddr,
 						XDPHY_HSTIMEOUT_REG_OFFSET);
 			}
 			break;
@@ -262,36 +357,107 @@ u32 XDphy_GetInfo(XDphy *InstancePtr, u8 Handle)
 				RegVal = InstancePtr->Config.EscTimeout;
 			}
 			else {
-				RegVal = XDphy_ReadReg((InstancePtr)->Config.\
-						BaseAddr,
+				RegVal = XDphy_ReadReg(RegAddr,
 						XDPHY_ESCTIMEOUT_REG_OFFSET);
 			}
 			break;
 		case XDPHY_HANDLE_CLKLANE:
-			RegVal = XDphy_ReadReg((InstancePtr)->Config.BaseAddr,
-						 XDPHY_CLSTATUS_REG_OFFSET);
+			RegVal = XDphy_ReadReg(RegAddr,
+					       XDPHY_CLSTATUS_REG_OFFSET);
 			break;
 		case XDPHY_HANDLE_DLANE0:
-			RegVal = XDphy_ReadReg((InstancePtr)->Config.BaseAddr,
-						 XDPHY_DL0STATUS_REG_OFFSET);
+			RegVal = XDphy_ReadReg(RegAddr,
+					       XDPHY_DL0STATUS_REG_OFFSET);
 			break;
 		case XDPHY_HANDLE_DLANE1:
-			RegVal = XDphy_ReadReg((InstancePtr)->Config.BaseAddr,
-						 XDPHY_DL1STATUS_REG_OFFSET);
+			RegVal = XDphy_ReadReg(RegAddr,
+					       XDPHY_DL1STATUS_REG_OFFSET);
 			break;
 		case XDPHY_HANDLE_DLANE2:
-			RegVal = XDphy_ReadReg((InstancePtr)->Config.BaseAddr,
-						 XDPHY_DL2STATUS_REG_OFFSET);
+			RegVal = XDphy_ReadReg(RegAddr,
+					       XDPHY_DL2STATUS_REG_OFFSET);
 			break;
 		case XDPHY_HANDLE_DLANE3:
-			RegVal = XDphy_ReadReg((InstancePtr)->Config.BaseAddr,
-						 XDPHY_DL3STATUS_REG_OFFSET);
+			RegVal = XDphy_ReadReg(RegAddr,
+					       XDPHY_DL3STATUS_REG_OFFSET);
+			break;
+
+		case XDPHY_HANDLE_DLANE4:
+			if (MaxLanesPresent > XDPHY_MAX_LANES_V10)
+				RegVal = XDphy_ReadReg(RegAddr,
+						XDPHY_DL4STATUS_REG_OFFSET);
+
+			break;
+		case XDPHY_HANDLE_DLANE5:
+			if (MaxLanesPresent > XDPHY_MAX_LANES_V10)
+				RegVal = XDphy_ReadReg(RegAddr,
+						XDPHY_DL5STATUS_REG_OFFSET);
+			break;
+		case XDPHY_HANDLE_DLANE6:
+			if (MaxLanesPresent > XDPHY_MAX_LANES_V10)
+				RegVal = XDphy_ReadReg(RegAddr,
+						XDPHY_DL6STATUS_REG_OFFSET);
+			break;
+		case XDPHY_HANDLE_DLANE7:
+			if (MaxLanesPresent > XDPHY_MAX_LANES_V10)
+				RegVal = XDphy_ReadReg(RegAddr,
+						XDPHY_DL7STATUS_REG_OFFSET);
 			break;
 		case XDPHY_HANDLE_HSSETTLE:
-			Xil_AssertNonvoid(InstancePtr->Config.IsRx == 0);
+			Xil_AssertNonvoid(!InstancePtr->Config.IsRx);
 
-			RegVal = XDphy_ReadReg((InstancePtr)->Config.BaseAddr,
-						XDPHY_HSSETTLE_REG_OFFSET);
+			RegVal = XDphy_ReadReg(RegAddr,
+					       XDPHY_HSSETTLE_REG_OFFSET);
+			break;
+		case XDPHY_HANDLE_HSSETTLE1:
+			Xil_AssertNonvoid(!InstancePtr->Config.IsRx);
+
+			RegVal = XDphy_ReadReg(RegAddr,
+					       XDPHY_HSSETTLE1_REG_OFFSET);
+			break;
+		case XDPHY_HANDLE_HSSETTLE2:
+			Xil_AssertNonvoid(!InstancePtr->Config.IsRx);
+
+			RegVal = XDphy_ReadReg(RegAddr,
+					       XDPHY_HSSETTLE2_REG_OFFSET);
+			break;
+		case XDPHY_HANDLE_HSSETTLE3:
+			Xil_AssertNonvoid(!InstancePtr->Config.IsRx);
+
+			RegVal = XDphy_ReadReg(RegAddr,
+					       XDPHY_HSSETTLE3_REG_OFFSET);
+			break;
+
+		case XDPHY_HANDLE_HSSETTLE4:
+			if (MaxLanesPresent > XDPHY_MAX_LANES_V10) {
+				Xil_AssertNonvoid(!InstancePtr->Config.IsRx);
+
+				RegVal = XDphy_ReadReg(RegAddr,
+						XDPHY_HSSETTLE4_REG_OFFSET);
+			}
+			break;
+		case XDPHY_HANDLE_HSSETTLE5:
+			if (MaxLanesPresent > XDPHY_MAX_LANES_V10) {
+				Xil_AssertNonvoid(!InstancePtr->Config.IsRx);
+
+				RegVal = XDphy_ReadReg(RegAddr,
+						XDPHY_HSSETTLE5_REG_OFFSET);
+			}
+			break;
+		case XDPHY_HANDLE_HSSETTLE6:
+			if (MaxLanesPresent > XDPHY_MAX_LANES_V10) {
+				Xil_AssertNonvoid(!InstancePtr->Config.IsRx);
+
+				RegVal = XDphy_ReadReg(RegAddr,
+						XDPHY_HSSETTLE6_REG_OFFSET);
+			}
+			break;
+		case XDPHY_HANDLE_HSSETTLE7:
+			if (MaxLanesPresent > XDPHY_MAX_LANES_V10) {
+				Xil_AssertNonvoid(!InstancePtr->Config.IsRx);
+				RegVal = XDphy_ReadReg(RegAddr,
+						XDPHY_HSSETTLE7_REG_OFFSET);
+			}
 			break;
 		default:
 			break;

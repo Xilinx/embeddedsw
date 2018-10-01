@@ -151,6 +151,7 @@ extern "C" {
 #define XDPHY_HIGH_POWER_MODE	1 /**< Lane in High Power Mode */
 #define XDPHY_ESCAPE_MODE	2 /**< Lane in Escape Mode */
 #define XDPHY_MODE_MAX 		2 /**< Upper Limit for mode */
+#define XDPHY_MAX_LANES_V10	4 /**< V1.0 supports 4 Lanes */
 /*@}*/
 
 /** @name DPHY Info Handles
@@ -168,7 +169,18 @@ extern "C" {
 #define XDPHY_HANDLE_DLANE2	8 /**< Handle for Data Lane 2 */
 #define XDPHY_HANDLE_DLANE3	9 /**< Handle for Data Lane 3 */
 #define XDPHY_HANDLE_HSSETTLE	10 /**< Handle for HS SETTLE */
-#define XDPHY_HANDLE_MAX 	10 /**< Upper Bound for XDPHY_HANDLE */
+#define XDPHY_HANDLE_DLANE4	11 /**< Handle for Data Lane 4 */
+#define XDPHY_HANDLE_DLANE5	12 /**< Handle for Data Lane 5 */
+#define XDPHY_HANDLE_DLANE6	13 /**< Handle for Data Lane 6 */
+#define XDPHY_HANDLE_DLANE7	14 /**< Handle for Data Lane 7 */
+#define XDPHY_HANDLE_HSSETTLE1	15 /**< Handle for HS SETTLE L1 */
+#define XDPHY_HANDLE_HSSETTLE2	16 /**< Handle for HS SETTLE L2 */
+#define XDPHY_HANDLE_HSSETTLE3	17 /**< Handle for HS SETTLE L3 */
+#define XDPHY_HANDLE_HSSETTLE4	18 /**< Handle for HS SETTLE */
+#define XDPHY_HANDLE_HSSETTLE5	19 /**< Handle for HS SETTLE L1 */
+#define XDPHY_HANDLE_HSSETTLE6	20 /**< Handle for HS SETTLE L2 */
+#define XDPHY_HANDLE_HSSETTLE7	21 /**< Handle for HS SETTLE L3 */
+#define XDPHY_HANDLE_MAX 	21 /**< Upper Bound for XDPHY_HANDLE */
 /*@}*/
 
 /**************************** Macros Definitions *****************************/
