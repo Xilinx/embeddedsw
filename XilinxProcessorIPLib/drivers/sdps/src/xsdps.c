@@ -92,6 +92,7 @@
 *       mn     08/01/18 Add cache invalidation call before returning from
 *                       ReadPolled API
 *       mn     08/14/18 Resolve compilation warnings for ARMCC toolchain
+*       mn     10/01/18 Change Expected Response for CMD3 to R1 for MMC
 * </pre>
 *
 ******************************************************************************/
@@ -1227,7 +1228,11 @@ u32 XSdPs_FrameCmd(XSdPs *InstancePtr, u32 Cmd)
 			RetVal |= RESP_R2;
 		break;
 		case CMD3:
-			RetVal |= RESP_R6;
+			if (InstancePtr->CardType == XSDPS_CARD_SD) {
+				RetVal |= RESP_R6;
+			} else {
+				RetVal |= RESP_R1;
+			}
 		break;
 		case CMD4:
 			RetVal |= RESP_NONE;
