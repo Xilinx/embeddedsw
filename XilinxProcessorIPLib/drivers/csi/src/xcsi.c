@@ -114,7 +114,7 @@ u32 XCsi_CfgInitialize(XCsi *InstancePtr, XCsi_Config *CfgPtr,
 	InstancePtr->DPhyLvlErrCallBack = StubErrCallBack;
 	InstancePtr->ProtDecodeErrCallBack = StubErrCallBack;
 	InstancePtr->PktLvlErrCallBack = StubErrCallBack;
-
+	InstancePtr->VCXErrCallBack = StubErrCallBack;
 	InstancePtr->ErrorCallBack = StubErrCallBack;
 
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
@@ -431,26 +431,10 @@ void XCsi_GetVCInfo(XCsi *InstancePtr, u8 Vc, XCsi_VCInfo *VCInfo)
 	Xil_AssertVoid(Vc < XCSI_MAX_VC);
 
 	/* Read the Information Registers for each Virtual Channel */
-	switch (Vc) {
-		case 0:
-			Offset = XCSI_VC0INF1R_OFFSET;
-			break;
-
-		case 1:
-			Offset = XCSI_VC1INF1R_OFFSET;
-			break;
-
-		case 2:
-			Offset = XCSI_VC2INF1R_OFFSET;
-			break;
-
-		case 3:
-			Offset = XCSI_VC3INF1R_OFFSET;
-			break;
-
-		default:
-			break;
-	}
+	if (Vc & 0x1)
+		Offset = ((Vc * 0x10) + XCSI_VC1INF1R_OFFSET);
+	else
+		Offset = ((Vc * 0x10) + XCSI_VC0INF1R_OFFSET);
 
 	/* Read from Info Reg 1 and Info Reg 2 of particular VC */
 	Value1 = XCsi_ReadReg(InstancePtr->Config.BaseAddr, Offset);

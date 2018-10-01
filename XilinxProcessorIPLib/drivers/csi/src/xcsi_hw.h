@@ -80,6 +80,8 @@ extern "C" {
 						  *  Register */
 #define XCSI_SPKTR_OFFSET	0x00000030	/**< Generic Short Packet
 						  *  Register */
+#define XCSI_VCX_FE_OFFSET	0x00000034	/**< VCx Frame Error
+						  *  Register */
 #define XCSI_CLKINFR_OFFSET	0x0000003C	/**< Clock Lane Info
 						  *  Register */
 
@@ -105,6 +107,54 @@ extern "C" {
 #define XCSI_VC3INF1R_OFFSET	0x00000078	/**< Virtual Channel 3 Image
 						  *  Information 1 Register */
 #define XCSI_VC3INF2R_OFFSET	0x0000007C	/**< Virtual Channel 3 Image
+						  *  Information 2 Register */
+#define XCSI_VC4INF1R_OFFSET	0x00000080	/**< Virtual Channel 4 Image
+						  *  Information 1 Register */
+#define XCSI_VC4INF2R_OFFSET	0x00000084	/**< Virtual Channel 4 Image
+						  *  Information 2 Register */
+#define XCSI_VC5INF1R_OFFSET	0x00000088	/**< Virtual Channel 5 Image
+						  *  Information 1 Register */
+#define XCSI_VC5INF2R_OFFSET	0x0000008C	/**< Virtual Channel 5 Image
+						  *  Information 2 Register */
+#define XCSI_VC6INF1R_OFFSET	0x00000090	/**< Virtual Channel 6 Image
+						  *  Information 1 Register */
+#define XCSI_VC6INF2R_OFFSET	0x00000094	/**< Virtual Channel 6 Image
+						  *  Information 2 Register */
+#define XCSI_VC7INF1R_OFFSET	0x00000098	/**< Virtual Channel 7 Image
+						  *  Information 1 Register */
+#define XCSI_VC7INF2R_OFFSET	0x0000009C	/**< Virtual Channel 7 Image
+						  *  Information 2 Register */
+#define XCSI_VC8INF1R_OFFSET	0x000000A0	/**< Virtual Channel 8 Image
+						  *  Information 1 Register */
+#define XCSI_VC8INF2R_OFFSET	0x000000A4	/**< Virtual Channel 8 Image
+						  *  Information 2 Register */
+#define XCSI_VC9INF1R_OFFSET	0x000000A8	/**< Virtual Channel 9 Image
+						  *  Information 1 Register */
+#define XCSI_VC9INF2R_OFFSET	0x000000AC	/**< Virtual Channel 9 Image
+						  *  Information 2 Register */
+#define XCSI_VC10INF1R_OFFSET	0x000000B0	/**< Virtual Channel 10 Image
+						  *  Information 1 Register */
+#define XCSI_VC10INF2R_OFFSET	0x000000B4	/**< Virtual Channel 10 Image
+						  *  Information 2 Register */
+#define XCSI_VC11INF1R_OFFSET	0x000000B8	/**< Virtual Channel 11 Image
+						  *  Information 1 Register */
+#define XCSI_VC11INF2R_OFFSET	0x000000BC	/**< Virtual Channel 11 Image
+						  *  Information 2 Register */
+#define XCSI_VC12INF1R_OFFSET	0x000000C0	/**< Virtual Channel 12 Image
+						  *  Information 1 Register */
+#define XCSI_VC12INF2R_OFFSET	0x000000C4	/**< Virtual Channel 12 Image
+						  *  Information 2 Register */
+#define XCSI_VC13INF1R_OFFSET	0x000000C8	/**< Virtual Channel 13 Image
+						  *  Information 1 Register */
+#define XCSI_VC13INF2R_OFFSET	0x000000CC	/**< Virtual Channel 13 Image
+						  *  Information 2 Register */
+#define XCSI_VC14INF1R_OFFSET	0x000000D0	/**< Virtual Channel 14 Image
+						  *  Information 1 Register */
+#define XCSI_VC14INF2R_OFFSET	0x000000D4	/**< Virtual Channel 14 Image
+						  *  Information 2 Register */
+#define XCSI_VC15INF1R_OFFSET	0x000000D8	/**< Virtual Channel 15 Image
+						  *  Information 1 Register */
+#define XCSI_VC15INF2R_OFFSET	0x000000DC	/**< Virtual Channel 15 Image
 						  *  Information 2 Register */
 /*@}*/
 
@@ -187,6 +237,7 @@ extern "C" {
  * @{
  */
 #define XCSI_ISR_FR_MASK	0x80000000	/**< Frame Received */
+#define XCSI_ISR_VCXFE_MASK	0x40000000	/**< VCX Frame Error */
 #define XCSI_ISR_WC_MASK	0x00400000	/**< Word count corruption */
 #define XCSI_ISR_ILC_MASK	0x00200000	/**< Incorrect Lanes
 						  *  Configured */
@@ -228,11 +279,13 @@ extern "C" {
 							  *  on Virtual
 							  *  Channel 0 */
 
-#define XCSI_ISR_ALLINTR_MASK		0x807FFFFF	/**< All interrupts
+#define XCSI_ISR_ALLINTR_MASK		0xC07FFFFF	/**< All interrupts
 							  *  mask */
 
 #define XCSI_ISR_FR_SHIFT	31	/**< Shift bits for
 					  *  Frame received interrupt */
+#define XCSI_ISR_VCXFE_SHIFT	30	/**< Shift bits for
+					  *  VCx Frame Error interrupt */
 #define XCSI_ISR_WC_SHIFT	22	/**< Shift bits for Word Count
 					  *  corruption */
 #define XCSI_ISR_ILC_SHIFT	21	/**< Shift bits for Incorrect Lanes
@@ -287,14 +340,113 @@ extern "C" {
  * determine the particular callback
  * @{
  */
-#define XCSI_INTR_PROT_MASK 	(XCSI_ISR_VC3FSYNCERR_MASK |	\
-				 XCSI_ISR_VC3FLVLERR_MASK |	\
-				 XCSI_ISR_VC2FSYNCERR_MASK |	\
-				 XCSI_ISR_VC2FLVLERR_MASK |	\
-				 XCSI_ISR_VC1FSYNCERR_MASK |	\
-				 XCSI_ISR_VC1FLVLERR_MASK |	\
-				 XCSI_ISR_VC0FSYNCERR_MASK |	\
-				 XCSI_ISR_VC0FLVLERR_MASK)
+#define XCSI_INTR_PROT_MASK 	(XCSI_ISR_VC3FSYNCERR_MASK | \
+				 XCSI_ISR_VC3FLVLERR_MASK | \
+				 XCSI_ISR_VC2FSYNCERR_MASK | \
+				 XCSI_ISR_VC2FLVLERR_MASK | \
+				 XCSI_ISR_VC1FSYNCERR_MASK | \
+				 XCSI_ISR_VC1FLVLERR_MASK | \
+				 XCSI_ISR_VC0FSYNCERR_MASK | \
+				 XCSI_ISR_VC0FLVLERR_MASK | \
+				 XCSI_ISR_VCXFE_MASK)
+
+#define XCSI_ISR_VC15FSYNCERR_MASK	0x00800000	/**< Frame Sync Error
+							  *  on Virtual
+							  *  Channel 15 */
+#define XCSI_ISR_VC15FLVLERR_MASK	0x00400000	/**< Frame Level Error
+							  *  on Virtual
+							  *  Channel 15 */
+#define XCSI_ISR_VC14FSYNCERR_MASK	0x00200000	/**< Frame Sync Error
+							  *  on Virtual
+							  *  Channel 14 */
+#define XCSI_ISR_VC14FLVLERR_MASK	0x00100000	/**< Frame Level Error
+							  *  on Virtual
+							  *  Channel 14 */
+#define XCSI_ISR_VC13FSYNCERR_MASK	0x00080000	/**< Frame Sync Error
+							  *  on Virtual
+							  *  Channel 13 */
+#define XCSI_ISR_VC13FLVLERR_MASK	0x00040000	/**< Frame Level Error
+							  *  on Virtual
+							  *  Channel 13 */
+#define XCSI_ISR_VC12FSYNCERR_MASK	0x00020000	/**< Frame Sync Error
+							  *  on Virtual
+							  *  Channel 12 */
+#define XCSI_ISR_VC12FLVLERR_MASK	0x00010000	/**< Frame Level Error
+							  *  on Virtual
+							  *  Channel 12 */
+#define XCSI_ISR_VC11FSYNCERR_MASK	0x00008000	/**< Frame Sync Error
+							  *  on Virtual
+							  *  Channel 11 */
+#define XCSI_ISR_VC11FLVLERR_MASK	0x00004000	/**< Frame Level Error
+							  *  on Virtual
+							  *  Channel 11 */
+#define XCSI_ISR_VC10FSYNCERR_MASK	0x00002000	/**< Frame Sync Error
+							  *  on Virtual
+							  *  Channel 10 */
+#define XCSI_ISR_VC10FLVLERR_MASK	0x00001000	/**< Frame Level Error
+							  *  on Virtual
+							  *  Channel 10 */
+#define XCSI_ISR_VC9FSYNCERR_MASK	0x00000800	/**< Frame Sync Error
+							  *  on Virtual
+							  *  Channel 9 */
+#define XCSI_ISR_VC9FLVLERR_MASK	0x00000400	/**< Frame Level Error
+							  *  on Virtual
+							  *  Channel 9 */
+#define XCSI_ISR_VC8FSYNCERR_MASK	0x00000200	/**< Frame Sync Error
+							  *  on Virtual
+							  *  Channel 8 */
+#define XCSI_ISR_VC8FLVLERR_MASK	0x00000100	/**< Frame Level Error
+							  *  on Virtual
+							  *  Channel 8 */
+#define XCSI_ISR_VC7FSYNCERR_MASK	0x00000080	/**< Frame Sync Error
+							  *  on Virtual
+							  *  Channel 7 */
+#define XCSI_ISR_VC7FLVLERR_MASK	0x00000040	/**< Frame Level Error
+							  *  on Virtual
+							  *  Channel 7 */
+#define XCSI_ISR_VC6FSYNCERR_MASK	0x00000020	/**< Frame Sync Error
+							  *  on Virtual
+							  *  Channel 6 */
+#define XCSI_ISR_VC6FLVLERR_MASK	0x00000010	/**< Frame Level Error
+							  *  on Virtual
+							  *  Channel 6 */
+#define XCSI_ISR_VC5FSYNCERR_MASK	0x00000008	/**< Frame Sync Error
+							  *  on Virtual
+							  *  Channel 5 */
+#define XCSI_ISR_VC5FLVLERR_MASK	0x00000004	/**< Frame Level Error
+							  *  on Virtual
+							  *  Channel 5 */
+#define XCSI_ISR_VC4FSYNCERR_MASK	0x00000002	/**< Frame Sync Error
+							  *  on Virtual
+							  *  Channel 4 */
+#define XCSI_ISR_VC4FLVLERR_MASK	0x00000001	/**< Frame Level Error
+							  *  on Virtual
+							  *  Channel 4 */
+
+#define XCSI_INTR_VCFE_MASK 	(XCSI_ISR_VC4FSYNCERR_MASK | \
+				 XCSI_ISR_VC4FLVLERR_MASK | \
+				 XCSI_ISR_VC5FSYNCERR_MASK | \
+				 XCSI_ISR_VC5FLVLERR_MASK | \
+				 XCSI_ISR_VC6FSYNCERR_MASK | \
+				 XCSI_ISR_VC6FLVLERR_MASK | \
+				 XCSI_ISR_VC7FSYNCERR_MASK | \
+				 XCSI_ISR_VC7FLVLERR_MASK | \
+				 XCSI_ISR_VC8FSYNCERR_MASK | \
+				 XCSI_ISR_VC8FLVLERR_MASK | \
+				 XCSI_ISR_VC9FSYNCERR_MASK | \
+				 XCSI_ISR_VC9FLVLERR_MASK | \
+				 XCSI_ISR_VC10FSYNCERR_MASK | \
+				 XCSI_ISR_VC10FLVLERR_MASK | \
+				 XCSI_ISR_VC11FSYNCERR_MASK | \
+				 XCSI_ISR_VC11FLVLERR_MASK | \
+				 XCSI_ISR_VC12FSYNCERR_MASK | \
+				 XCSI_ISR_VC12FLVLERR_MASK | \
+				 XCSI_ISR_VC13FSYNCERR_MASK | \
+				 XCSI_ISR_VC13FLVLERR_MASK | \
+				 XCSI_ISR_VC14FSYNCERR_MASK | \
+				 XCSI_ISR_VC14FLVLERR_MASK | \
+				 XCSI_ISR_VC15FSYNCERR_MASK | \
+				 XCSI_ISR_VC15FLVLERR_MASK)
 
 #define XCSI_INTR_PKTLVL_MASK 	(XCSI_ISR_ECC2BERR_MASK |	\
 				 XCSI_ISR_ECC1BERR_MASK |	\
@@ -307,7 +459,9 @@ extern "C" {
 #define XCSI_INTR_SPKT_MASK 	(XCSI_ISR_SPFIFOF_MASK |	\
 				 XCSI_ISR_SPFIFONE_MASK)
 
-#define XCSI_INTR_FRAMERCVD_MASK 	(XCSI_ISR_FR_MASK)
+#define XCSI_INTR_FRAMERCVD_MASK	(XCSI_ISR_FR_MASK)
+
+#define XCSI_INTR_VCXFE_MASK		(XCSI_ISR_VCXFE_MASK)
 
 #define XCSI_INTR_ERR_MASK 	(XCSI_ISR_WC_MASK	|\
 				 XCSI_ISR_ILC_MASK 	|\
@@ -322,6 +476,7 @@ extern "C" {
  * @{
  */
 #define XCSI_IER_FR_MASK	0x80000000	/**< Frame Received */
+#define XCSI_IER_VCXFE_MASK	0x40000000	/**< VCX Frame Error */
 #define XCSI_IER_WC_MASK	0x00400000	/**< Word Count Corruption */
 #define XCSI_IER_ILC_MASK	0x00200000	/**< Incorrect Lanes
 						  *  Configured */
