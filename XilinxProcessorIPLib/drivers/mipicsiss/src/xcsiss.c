@@ -428,11 +428,17 @@ void XCsiSs_GetLaneInfo(XCsiSs *InstancePtr)
 void XCsiSs_GetVCInfo(XCsiSs *InstancePtr)
 {
 	u8 Index;
+	u8 MaxVC;
 
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	for (Index = 0; Index < XCSI_MAX_VC; Index++) {
+	if(InstancePtr->Config.EnableVCx)
+		MaxVC = XCSI_V20_MAX_VC;
+	else
+		MaxVC = XCSI_V10_MAX_VC;
+
+	for (Index = 0; Index < MaxVC; Index++) {
 		XCsi_GetVCInfo(InstancePtr->CsiPtr, Index,
 			&InstancePtr->VCInfo[Index]);
 	}
