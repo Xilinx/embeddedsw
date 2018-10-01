@@ -23,6 +23,7 @@ emacps_v3_8:
 Fix cppcheck, GCC and doxygen warnings.
 Remove duplicate code in xemacps_bd.h
 Fixed PTP interrupt masks and cleaned up comments.
+Fix warning in example for redefinition of interrupt number.
 
 gpiops_v3_4:
 Resolved cppcheck warnings.(CR#1006331)
