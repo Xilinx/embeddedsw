@@ -40,6 +40,7 @@
 * 1.00         12/02/18 Initial release.
 * 3.03  YB     08/14/18 Adding macro 'ENABLE_HDCP_REPEATER' to allow application
 *                       to select/deselect the Repeater specific code.
+*       EB     09/21/18 Added new API ToggleHdmiRxHpd
 * </pre>
 *
 ******************************************************************************/
@@ -202,6 +203,8 @@ extern u8 IsPassThrough;
 XIicPs Ps_Iic0, Ps_Iic1;
 #define PS_IIC_CLK 100000
 #endif
+
+/************************** Function Prototypes ******************************/
 
 #ifdef __cplusplus
 }

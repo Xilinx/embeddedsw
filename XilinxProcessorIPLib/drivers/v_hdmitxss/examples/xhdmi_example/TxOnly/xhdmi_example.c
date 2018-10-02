@@ -109,6 +109,8 @@
 *                       Added TX Bridge Overflow and TX Bridge Underflow
 * 3.03  YB     08/14/18 Clubbing Repeater specific code under the
 *                       'ENABLE_HDCP_REPEATER' macro.
+*       EB     09/21/18 Added new API ToggleHdmiRxHpd and SetHdmiRxHpd
+*                       Updated CloneTxEdid API
 * </pre>
 *
 ******************************************************************************/
@@ -122,8 +124,8 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /* These macro values need to changed whenever there is a change in version */
-#define APP_MAJ_VERSION 3
-#define APP_MIN_VERSION 1
+#define APP_MAJ_VERSION 5
+#define APP_MIN_VERSION 2
 
 /**************************** Type Definitions *******************************/
 
@@ -356,6 +358,7 @@ void XV_ConfigTpg(XV_tpg *InstancePtr)
 		XV_tpg_Set_bckgndId(pTpg, Pattern);
 		XV_tpg_Set_ovrlayId(pTpg, 0);
 
+		XV_tpg_Set_Interlaced(pTpg,HdmiTxSsVidStreamPtr->IsInterlaced);
 		XV_tpg_Set_enableInput(pTpg, IsPassThrough);
 
 		if (IsPassThrough) {
@@ -2102,10 +2105,18 @@ int main() {
 
 	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
 #if defined(__arm__) || (__aarch64__)
+#ifndef USE_HDCP
+	Status |= XScuGic_Connect(&Intc,
+			XPAR_FABRIC_V_HDMITXSS_0_VEC_ID,
+			(XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
+			(void *)&HdmiTxSs);
+#else
 	Status |= XScuGic_Connect(&Intc,
 			XPAR_FABRIC_V_HDMITXSS_0_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
 			(void *)&HdmiTxSs);
+#endif
+
 
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -2168,8 +2179,13 @@ int main() {
 
 	if (Status == XST_SUCCESS) {
 #if defined(__arm__) || (__aarch64__)
+#ifndef USE_HDCP
+		XScuGic_Enable(&Intc,
+			XPAR_FABRIC_V_HDMITXSS_0_VEC_ID);
+#else
 		XScuGic_Enable(&Intc,
 			XPAR_FABRIC_V_HDMITXSS_0_IRQ_VEC_ID);
+#endif
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 		/* HDCP 1.4 Cipher interrupt */

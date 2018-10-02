@@ -1311,6 +1311,7 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
 	u8 Buffer[256];
+	int Status = XST_FAILURE;
 
 	// Default
 	Menu = XHDMI_EDID_MENU;
@@ -1321,8 +1322,17 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			XV_HdmiTxSs_ShowEdid(&HdmiTxSs);
 			// Read TX edid
 			xil_printf("\r\n");
-			XV_HdmiTxSs_ReadEdid(&HdmiTxSs, (u8*)&Buffer);
-			XV_VidC_parse_edid((u8*)&Buffer, &EdidCtrlParam, XVIDC_VERBOSE_ENABLE);
+
+			Status = XV_HdmiTxSs_ReadEdid(&HdmiTxSs, (u8*)&Buffer);
+			/* Only Parse the EDID when the Read EDID success */
+			if (Status == XST_SUCCESS) {
+				XV_VidC_parse_edid((u8*)&Buffer,
+									&EdidCtrlParam,
+									XVIDC_VERBOSE_ENABLE);
+			} else {
+				xil_printf(ANSI_COLOR_YELLOW "EDID parsing has failed.\r\n"
+							ANSI_COLOR_RESET);
+			}
 			// Display the prompt for the next input
 			xil_printf("Enter Selection -> ");
 			break;

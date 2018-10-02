@@ -80,11 +80,15 @@ void EdidScdcCheck(XV_HdmiTxSs          *HdmiTxSsPtr,
 
     /*Below Check executed only when TX Cable Connect*/
     if (CheckHdmi20Param->EdidCableConnectRead) {
-        /*Read & Parse the EDID upon the Cable Connect to check
+	/*Read & Parse the EDID upon the Cable Connect to check
 		Sink's Capability*/
-        XV_HdmiTxSs_ReadEdid(HdmiTxSsPtr, (u8*)&Buffer);
-        XV_VidC_parse_edid((u8*)&Buffer, &CheckHdmi20Param->EdidCtrlParam,
-                            XVIDC_VERBOSE_DISABLE);
+	Status = XV_HdmiTxSs_ReadEdid(HdmiTxSsPtr, (u8*)&Buffer);
+	/* Only Parse the EDID when the Read EDID success */
+	if (Status == XST_SUCCESS) {
+		XV_VidC_parse_edid((u8*)&Buffer,
+				&CheckHdmi20Param->EdidCtrlParam,
+				XVIDC_VERBOSE_DISABLE);
+	}
 
         /*Check whether the Sink able to support HDMI 2.0 by checking the
         maximum supported video bandwidth*/
