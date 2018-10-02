@@ -72,6 +72,8 @@
 *       EB   23-01-2018 Reset the counter tagged to the events logged whenever
 *                               log is displayed
 * 1.12  EB   09-04-2018 Fixed messages printing issue
+* 3.03  YB   08-14-2018 Updating the Hdcp Menu to remove Repeater options if
+*                       'ENABLE_HDCP_REPEATER' macro is not selected.
 * </pre>
 *
 ******************************************************************************/
@@ -420,11 +422,7 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 #elif defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
 				xil_printf("Toggle HDMI RX HPD\r\n");
 #endif
-				XVphy_MmcmPowerDown(&Vphy, 0, XVPHY_DIR_RX, FALSE);
-				XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_RX, (FALSE));
-				XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (FALSE));
-				XV_HdmiRxSs_ToggleHpd(&HdmiRxSs);
-				XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (TRUE));
+				ToggleHdmiRxHpd(&Vphy, &HdmiRxSs);
 			}
 
 			// No source
@@ -1507,6 +1505,7 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	// Variables
 	XHdmi_MenuType 	Menu;
 	u8 Buffer[256];
+	int Status = XST_FAILURE;
 
 	// Default
 	Menu = XHDMI_EDID_MENU;
@@ -1517,8 +1516,17 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			XV_HdmiTxSs_ShowEdid(&HdmiTxSs);
 			// Read TX edid
 			xil_printf("\r\n");
-			XV_HdmiTxSs_ReadEdid(&HdmiTxSs, (u8*)&Buffer);
-			XV_VidC_parse_edid((u8*)&Buffer, &EdidCtrlParam, XVIDC_VERBOSE_ENABLE);
+
+			Status = XV_HdmiTxSs_ReadEdid(&HdmiTxSs, (u8*)&Buffer);
+			/* Only Parse the EDID when the Read EDID success */
+			if (Status == XST_SUCCESS) {
+				XV_VidC_parse_edid((u8*)&Buffer,
+									&EdidCtrlParam,
+									XVIDC_VERBOSE_ENABLE);
+			} else {
+				xil_printf(ANSI_COLOR_YELLOW "EDID parsing has failed.\r\n"
+							ANSI_COLOR_RESET);
+			}
 			// Display the prompt for the next input
 			xil_printf("Enter Selection -> ");
 			break;
@@ -1527,8 +1535,6 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			// Clone edid
 		case 2 :
 			CloneTxEdid();
-			// Display the prompt for the next input
-			xil_printf("Enter Selection -> ");
 			break;
 
 			// Load edid
@@ -1938,14 +1944,25 @@ void XHdmi_DisplayHdcpMainMenu(void) {
 	xil_printf("---   HDCP Main Menu   ---\r\n");
 	xil_printf("--------------------------\r\n");
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+#if ENABLE_HDCP_REPEATER
 	xil_printf(" 1 - Enable repeater\r\n");
 	xil_printf(" 2 - Disable repeater\r\n");
 	xil_printf(" 3 - Enable detailed logging\r\n");
 	xil_printf(" 4 - Disable detailed logging\r\n");
 	xil_printf(" 5 - Display log\r\n");
 	xil_printf(" 6 - Display repeater info\r\n");
+#else
+	xil_printf(" 1 - Enable detailed logging\r\n");
+	xil_printf(" 2 - Disable detailed logging\r\n");
+	xil_printf(" 3 - Display log\r\n");
+	xil_printf(" 4 - Display info\r\n");
+#endif
 #if (HDCP_DEBUG_MENU_EN == 1)
+#if ENABLE_HDCP_REPEATER
 	xil_printf(" 7 - Display HDCP Debug menu\r\n");
+#else
+	xil_printf(" 5 - Display HDCP Debug menu\r\n");
+#endif
 #endif
 #else
 	xil_printf(" 1 - Enable detailed logging\r\n");
@@ -1985,6 +2002,7 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	switch (Input) {
 
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+#if ENABLE_HDCP_REPEATER
 			/* 1 - Enable repeater*/
 		case 1:
 			xil_printf("Enable repeater.\r\n");
@@ -1997,10 +2015,16 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			XHdcp_SetRepeater(&HdcpRepeater, FALSE);
 			break;
 #endif
+#endif
 
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+#if ENABLE_HDCP_REPEATER
 			/* 3 - Enable detailed logging */
 		case 3 :
+#else
+			/* 1 - Enable detailed logging [no repeater] */
+		case 1 :
+#endif
 #else
 			/* 1 - Enable detailed logging */
 		case 1 :
@@ -2015,8 +2039,13 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			break;
 
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+#if ENABLE_HDCP_REPEATER
 			/* 4 - Disable detailed logging */
 		case 4 :
+#else
+			/* 2 - Disabled detailed logging [no repeater] */
+		case 2 :
+#endif
 #else
 			/* 2 - Disable detailed logging */
 		case 2 :
@@ -2031,8 +2060,13 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			break;
 
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+#if ENABLE_HDCP_REPEATER
 			/* 5 - Display log */
 		case 5 :
+#else
+			/* 3 - Display log [no repeater] */
+		case 3 :
+#endif
 #else
 			/* 3 - Display log */
 		case 3 :
@@ -2047,9 +2081,15 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			break;
 
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+#if ENABLE_HDCP_REPEATER
 			/* 6 - Display repeater info */
 		case 6 :
 			xil_printf("Display repeater info.\r\n");
+#else
+			/* 4 - Display Info [no repeater] */
+		case 4 :
+			xil_printf("Display Info [no repeater].\r\n");
+#endif
 #else
 			/* 4 - Display repeater info */
 		case 4 :
@@ -2060,8 +2100,13 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 #if (HDCP_DEBUG_MENU_EN == 1)
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+#if ENABLE_HDCP_REPEATER
 			/* 7 - HDCP Debug Menu */
 		case 7 :
+#else
+			/* 5 - HDCP Debug Menu [no repeater] */
+		case 5 :
+#endif
 #else
 			/* 5 - HDCP Debug Menu */
 		case 5 :

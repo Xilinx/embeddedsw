@@ -107,6 +107,10 @@
 *                       Disable HDMI RX Video Stream when EnableColorBar API
 *                              is called.
 *                       Added TX Bridge Overflow and TX Bridge Underflow
+* 3.03  YB     08/14/18 Clubbing Repeater specific code under the
+*                       'ENABLE_HDCP_REPEATER' macro.
+*       EB     09/21/18 Added new API ToggleHdmiRxHpd and SetHdmiRxHpd
+*                       Updated CloneTxEdid API
 * </pre>
 *
 ******************************************************************************/
@@ -120,8 +124,8 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /* These macro values need to changed whenever there is a change in version */
-#define APP_MAJ_VERSION 3
-#define APP_MIN_VERSION 1
+#define APP_MAJ_VERSION 5
+#define APP_MIN_VERSION 2
 
 /**************************** Type Definitions *******************************/
 
@@ -337,10 +341,10 @@ void CloneTxEdid(void)
         XV_HdmiRxSs_LoadEdid(&HdmiRxSs, (u8*)&Buffer, sizeof(Buffer));
 
         /* Toggle HPD after loading new HPD */
-        XV_HdmiRxSs_ToggleHpd(&HdmiRxSs);
+        ToggleHdmiRxHpd(&Vphy, &HdmiRxSs);
 
         xil_printf("\r\n");
-        xil_printf("Successfully cloned EDID.\r\n");
+        xil_printf("Successfully cloned EDID and toggled HPD.\r\n");
     }
 #else
     xil_printf("\r\nEdid Cloning no possible with HDMI RX SS.\r\n");
@@ -428,6 +432,7 @@ void XV_ConfigTpg(XV_tpg *InstancePtr)
 		XV_tpg_Set_bckgndId(pTpg, Pattern);
 		XV_tpg_Set_ovrlayId(pTpg, 0);
 
+		XV_tpg_Set_Interlaced(pTpg,HdmiTxSsVidStreamPtr->IsInterlaced);
 		XV_tpg_Set_enableInput(pTpg, IsPassThrough);
 
 		if (IsPassThrough) {
@@ -1173,6 +1178,54 @@ void VphyHdmiTxReadyCallback(void *CallbackRef) {
 #endif
 
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
+/*****************************************************************************/
+/**
+*
+* This function is used to toggle RX's HPD Line
+*
+* @param  VphyPtr is a pointer to the VPHY instance.
+* @param  HdmiRxSsPtr is a pointer to the HDMI RX Subsystem instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void ToggleHdmiRxHpd(XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr) {
+	SetHdmiRxHpd(VphyPtr, HdmiRxSsPtr, FALSE);
+	/* Wait 500 ms */
+	usleep(500000);
+	SetHdmiRxHpd(VphyPtr, HdmiRxSsPtr, TRUE);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the HPD on the HDMI RXSS.
+*
+* @param  VphyPtr is a pointer to the VPHY instance.
+* @param  HdmiRxSsPtr is a pointer to the HDMI RX Subsystem instance.
+* @param  Value is a flag used to set the HPD.
+*   - TRUE drives HPD high
+*   - FALSE drives HPD low
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void SetHdmiRxHpd(XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr, u8 Hpd) {
+	if (Hpd == TRUE) {
+		XV_HdmiRxSs_SetHpd(HdmiRxSsPtr, Hpd);
+		XVphy_IBufDsEnable(VphyPtr, 0, XVPHY_DIR_RX, (TRUE));
+	} else {
+		XVphy_MmcmPowerDown(VphyPtr, 0, XVPHY_DIR_RX, FALSE);
+		XVphy_Clkout1OBufTdsEnable(VphyPtr, XVPHY_DIR_RX, (FALSE));
+		XVphy_IBufDsEnable(VphyPtr, 0, XVPHY_DIR_RX, (FALSE));
+		XV_HdmiRxSs_SetHpd(HdmiRxSsPtr, Hpd);
+	}
+}
+
 /*****************************************************************************/
 /**
 *
@@ -2906,22 +2959,30 @@ int main() {
 
 	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
 #if defined(__arm__) || (__aarch64__)
+#ifndef USE_HDCP
 	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMI_TX_SS_IRQ_INTR,
+			XPAR_FABRIC_V_HDMITXSS_0_VEC_ID,
 			(XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
 			(void *)&HdmiTxSs);
+#else
+	Status |= XScuGic_Connect(&Intc,
+			XPAR_FABRIC_V_HDMITXSS_0_IRQ_VEC_ID,
+			(XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
+			(void *)&HdmiTxSs);
+#endif
+
 
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 	/* HDCP 1.4 Cipher interrupt */
 	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMI_TX_SS_HDCP14_IRQ_INTR,
+			XPAR_FABRIC_V_HDMITXSS_0_HDCP14_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiTxSS_HdcpIntrHandler,
 			(void *)&HdmiTxSs);
 
 	/* HDCP 1.4 Timer interrupt */
 	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMI_TX_SS_HDCP14_TIMER_IRQ_INTR,
+			XPAR_FABRIC_V_HDMITXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiTxSS_HdcpTimerIntrHandler,
 			(void *)&HdmiTxSs);
 #endif
@@ -2929,7 +2990,7 @@ int main() {
 /* HDCP 2.2 */
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES)
 	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMI_TX_SS_HDCP22_TIMER_IRQ_INTR,
+			XPAR_FABRIC_V_HDMITXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiTxSS_Hdcp22TimerIntrHandler,
 			(void *)&HdmiTxSs);
 #endif
@@ -2972,23 +3033,28 @@ int main() {
 
 	if (Status == XST_SUCCESS) {
 #if defined(__arm__) || (__aarch64__)
+#ifndef USE_HDCP
 		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMI_TX_SS_IRQ_INTR);
+			XPAR_FABRIC_V_HDMITXSS_0_VEC_ID);
+#else
+		XScuGic_Enable(&Intc,
+			XPAR_FABRIC_V_HDMITXSS_0_IRQ_VEC_ID);
+#endif
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 		/* HDCP 1.4 Cipher interrupt */
 		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMI_TX_SS_HDCP14_IRQ_INTR);
+			XPAR_FABRIC_V_HDMITXSS_0_HDCP14_IRQ_VEC_ID);
 
 		/* HDCP 1.4 Timer interrupt */
 		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMI_TX_SS_HDCP14_TIMER_IRQ_INTR);
+			XPAR_FABRIC_V_HDMITXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
 #endif
 
 /* HDCP 2.2 */
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES)
 		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMI_TX_SS_HDCP22_TIMER_IRQ_INTR);
+			XPAR_FABRIC_V_HDMITXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
 #endif
 
 #else
@@ -3107,20 +3173,28 @@ int main() {
 
 	/* Register HDMI RX SS Interrupt Handler with Interrupt Controller */
 #if defined(__arm__) || (__aarch64__)
+#ifndef USE_HDCP
 	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMI_RX_SS_IRQ_INTR,
+			XPAR_FABRIC_V_HDMIRXSS_0_VEC_ID,
 			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
 			(void *)&HdmiRxSs);
+#else
+	Status |= XScuGic_Connect(&Intc,
+			XPAR_FABRIC_V_HDMIRXSS_0_IRQ_VEC_ID,
+			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
+			(void *)&HdmiRxSs);
+#endif
+
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 	/* HDCP 1.4 Cipher interrupt */
 	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMI_RX_SS_HDCP14_IRQ_INTR,
+			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
 			(void *)&HdmiRxSs);
 
 	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMI_RX_SS_HDCP14_TIMER_IRQ_INTR,
+			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
 			(void *)&HdmiRxSs);
 #endif
@@ -3128,7 +3202,7 @@ int main() {
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
 	/* HDCP 2.2 Timer interrupt */
 	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMI_RX_SS_HDCP22_TIMER_IRQ_INTR,
+			XPAR_FABRIC_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
 			(void *)&HdmiRxSs);
 #endif
@@ -3169,17 +3243,22 @@ int main() {
 
 	if (Status == XST_SUCCESS) {
 #if defined(__arm__) || (__aarch64__)
+#ifndef USE_HDCP
 		XScuGic_Enable(&Intc,
-				XPAR_FABRIC_V_HDMI_RX_SS_IRQ_INTR);
+				XPAR_FABRIC_V_HDMIRXSS_0_VEC_ID);
+#else
+		XScuGic_Enable(&Intc,
+				XPAR_FABRIC_V_HDMIRXSS_0_IRQ_VEC_ID);
+#endif
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 		XScuGic_Enable(&Intc,
-				XPAR_FABRIC_V_HDMI_RX_SS_HDCP14_IRQ_INTR);
+				XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID);
 		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMI_RX_SS_HDCP14_TIMER_IRQ_INTR);
+			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
 #endif
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
 		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMI_RX_SS_HDCP22_TIMER_IRQ_INTR);
+			XPAR_FABRIC_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
 #endif
 
 #else
@@ -3399,11 +3478,13 @@ int main() {
 
 #if defined (USE_HDCP) && defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
 				defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+#if ENABLE_HDCP_REPEATER
 	if (XV_HdmiRxSs_HdcpIsReady(&HdmiRxSs) &&
 					XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
 		/* Set HDCP upstream interface */
 		XHdcp_SetRepeater(&HdcpRepeater, FALSE);
 	}
+#endif
 #endif
 
 	/* Enable Scrambling Override
