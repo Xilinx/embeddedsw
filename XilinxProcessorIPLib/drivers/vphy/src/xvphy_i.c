@@ -1312,7 +1312,7 @@ u8 XVphy_GetRefClkSourcesCount(XVphy *InstancePtr)
 						InstancePtr->Config.DruRefClkSel : 99;
 
 	/* Initialize Unique RefClk holder */
-	for (u8 i=0; i<RefClkNumMax; i++) {
+	for (i=0; i<RefClkNumMax; i++) {
 		RefClkSelTemp[i] = 99;
 	}
 
