@@ -109,6 +109,8 @@
 *                       Added TX Bridge Overflow and TX Bridge Underflow
 * 3.03  YB     08/14/18 Clubbing Repeater specific code under the
 *                       'ENABLE_HDCP_REPEATER' macro.
+*       EB     09/21/18 Added new API ToggleHdmiRxHpd and SetHdmiRxHpd
+*                       Updated CloneTxEdid API
 * </pre>
 *
 ******************************************************************************/
@@ -122,8 +124,8 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /* These macro values need to changed whenever there is a change in version */
-#define APP_MAJ_VERSION 3
-#define APP_MIN_VERSION 1
+#define APP_MAJ_VERSION 5
+#define APP_MIN_VERSION 2
 
 /**************************** Type Definitions *******************************/
 
@@ -510,6 +512,54 @@ void Info(void)
 
 
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
+/*****************************************************************************/
+/**
+*
+* This function is used to toggle RX's HPD Line
+*
+* @param  VphyPtr is a pointer to the VPHY instance.
+* @param  HdmiRxSsPtr is a pointer to the HDMI RX Subsystem instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void ToggleHdmiRxHpd(XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr) {
+	SetHdmiRxHpd(VphyPtr, HdmiRxSsPtr, FALSE);
+	/* Wait 500 ms */
+	usleep(500000);
+	SetHdmiRxHpd(VphyPtr, HdmiRxSsPtr, TRUE);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the HPD on the HDMI RXSS.
+*
+* @param  VphyPtr is a pointer to the VPHY instance.
+* @param  HdmiRxSsPtr is a pointer to the HDMI RX Subsystem instance.
+* @param  Hpd is a flag used to set the HPD.
+*   - TRUE drives HPD high
+*   - FALSE drives HPD low
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void SetHdmiRxHpd(XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr, u8 Hpd) {
+	if (Hpd == TRUE) {
+		XV_HdmiRxSs_SetHpd(HdmiRxSsPtr, Hpd);
+		XVphy_IBufDsEnable(VphyPtr, 0, XVPHY_DIR_RX, (TRUE));
+	} else {
+		XVphy_MmcmPowerDown(VphyPtr, 0, XVPHY_DIR_RX, FALSE);
+		XVphy_Clkout1OBufTdsEnable(VphyPtr, XVPHY_DIR_RX, (FALSE));
+		XVphy_IBufDsEnable(VphyPtr, 0, XVPHY_DIR_RX, (FALSE));
+		XV_HdmiRxSs_SetHpd(HdmiRxSsPtr, Hpd);
+	}
+}
+
 /*****************************************************************************/
 /**
 *
@@ -1224,10 +1274,18 @@ int main() {
 
 	/* Register HDMI RX SS Interrupt Handler with Interrupt Controller */
 #if defined(__arm__) || (__aarch64__)
+#ifndef USE_HDCP
+	Status |= XScuGic_Connect(&Intc,
+			XPAR_FABRIC_V_HDMIRXSS_0_VEC_ID,
+			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
+			(void *)&HdmiRxSs);
+#else
 	Status |= XScuGic_Connect(&Intc,
 			XPAR_FABRIC_V_HDMIRXSS_0_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
 			(void *)&HdmiRxSs);
+#endif
+
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 	/* HDCP 1.4 Cipher interrupt */
@@ -1286,8 +1344,13 @@ int main() {
 
 	if (Status == XST_SUCCESS) {
 #if defined(__arm__) || (__aarch64__)
+#ifndef USE_HDCP
+		XScuGic_Enable(&Intc,
+				XPAR_FABRIC_V_HDMIRXSS_0_VEC_ID);
+#else
 		XScuGic_Enable(&Intc,
 				XPAR_FABRIC_V_HDMIRXSS_0_IRQ_VEC_ID);
+#endif
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 		XScuGic_Enable(&Intc,
 				XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID);

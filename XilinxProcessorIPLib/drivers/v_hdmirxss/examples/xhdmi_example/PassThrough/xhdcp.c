@@ -783,14 +783,14 @@ void XHdcp_StreamConnectCallback(void *HdcpInstancePtr)
   if (DownstreamInstanceConnected && !(InstancePtr->DownstreamInstanceConnected)) {
     if (IsRepeater) {
       if (XV_HdmiRxSs_IsStreamConnected(InstancePtr->UpstreamInstancePtr)) {
-        XV_HdmiRxSs_SetHpd(InstancePtr->UpstreamInstancePtr, (TRUE));
+        SetHdmiRxHpd(&Vphy, InstancePtr->UpstreamInstancePtr, (TRUE));
       }
     }
   }
 
   /* Set HPD low when no active downstream devices are connected */
   if (!(DownstreamInstanceConnected) && IsRepeater) {
-    XV_HdmiRxSs_SetHpd(InstancePtr->UpstreamInstancePtr, (FALSE));
+    SetHdmiRxHpd(&Vphy, InstancePtr->UpstreamInstancePtr, (FALSE));
   }
 #endif
 
@@ -855,7 +855,7 @@ void XHdcp_StreamDisconnectCallback(void *HdcpInstancePtr)
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
   /* When no downstream interfaces are connected drive the HPD low */
   if (!(DownstreamInstanceConnected) && IsRepeater) {
-    XV_HdmiRxSs_SetHpd(InstancePtr->UpstreamInstancePtr, (FALSE));
+	  SetHdmiRxHpd(&Vphy, InstancePtr->UpstreamInstancePtr, (FALSE));
   }
 #endif
 

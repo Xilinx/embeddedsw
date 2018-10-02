@@ -284,11 +284,7 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			// Check if a source is connected
 			if (HdmiRxSs.IsStreamConnected == (TRUE)) {
 				xil_printf("Toggle HDMI RX HPD\r\n");
-				XVphy_MmcmPowerDown(&Vphy, 0, XVPHY_DIR_RX, FALSE);
-				XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_RX, (FALSE));
-				XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (FALSE));
-				XV_HdmiRxSs_ToggleHpd(&HdmiRxSs);
-				XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (TRUE));
+				ToggleHdmiRxHpd(&Vphy, &HdmiRxSs);
 			}
 
 			// No source
