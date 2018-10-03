@@ -33,6 +33,7 @@
 # 1.1   jsr  07/17/17 Created
 # 1.2   jsr  02/28/18 YUV420 support added
 # 1.3   jsr  07/03/18 corrected XVIDC_VM_720x480_60_I as XVIDC_VM_720x486_60_I
+#       vve  10/03/18 Add support for ST352 in C-Stream
 #
 ###############################################################################
 

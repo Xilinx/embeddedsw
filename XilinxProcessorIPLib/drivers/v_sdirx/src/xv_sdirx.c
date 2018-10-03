@@ -39,6 +39,7 @@
 * Ver	Who	   Date		Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.0	jsr    07/17/17 Initial release.
+#       vve    10/03/18 Add support for ST352 in C-Stream
 * </pre>
 *
 ******************************************************************************/
@@ -693,7 +694,12 @@ u32 XV_SdiRx_GetPayloadId(XV_SdiRx *InstancePtr, u8 DataStream)
 
 	RegValue = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
 					(XV_SDIRX_RX_ST352_VLD_OFFSET));
-	RegValue = (RegValue >> DataStream) & 0x00000001;
+	if (InstancePtr->Transport.TMode == XSDIVID_MODE_6G ||
+		InstancePtr->Transport.TMode == XSDIVID_MODE_12G) {
+		RegValue = (RegValue >> DataStream) & 0x00000101;
+	} else {
+		RegValue = (RegValue >> DataStream) & 0x00000001;
+	}
 
 	if (RegValue) {
 		RegValue = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
