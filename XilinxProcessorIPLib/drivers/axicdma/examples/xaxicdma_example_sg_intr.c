@@ -70,6 +70,7 @@
  *                     and typecasting buffer address(CR-995116).
  * 4.5   rsp  03/10/18 Fix compilation error in CheckData function when DEBUG
  *                     mode is enabled.
+ *                     Reset error and done states before starting the DMA.
  * </pre>
  *
  ****************************************************************************/
@@ -851,6 +852,9 @@ int XAxiCdma_SgIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 	/* Enable completion and error interrupts
 	 */
 	XAxiCdma_IntrEnable(InstancePtr, XAXICDMA_XR_IRQ_ALL_MASK);
+
+	Done = 0;
+	Error = 0;
 
 	/* Start the DMA transfer
 	 */
