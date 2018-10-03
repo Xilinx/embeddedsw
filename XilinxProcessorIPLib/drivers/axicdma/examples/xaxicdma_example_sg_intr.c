@@ -68,6 +68,8 @@
  *                     generation of examples.
  * 4.4   rsp  02/22/18 Support data buffers above 4GB.Use UINTPTR for storing
  *                     and typecasting buffer address(CR-995116).
+ * 4.5   rsp  03/10/18 Fix compilation error in CheckData function when DEBUG
+ *                     mode is enabled.
  * </pre>
  *
  ****************************************************************************/
@@ -758,8 +760,8 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 		if ( DestPtr[Index] != SrcPtr[Index]) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
 			    "Data check failure %d: %x/%x\r\n",
-			    Index, (unsigned int)DestPtr[i],
-			    (unsigned int)SrcPtr[i]);
+			    Index, (unsigned int)DestPtr[Index],
+			    (unsigned int)SrcPtr[Index]);
 
 			return XST_FAILURE;
 		}
