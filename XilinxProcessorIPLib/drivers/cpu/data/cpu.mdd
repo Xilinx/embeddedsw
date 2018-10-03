@@ -1,0 +1,62 @@
+###############################################################################
+#
+# Copyright (C) 2004 - 2018 Xilinx, Inc.  All rights reserved.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+# Except as contained in this notice, the name of the Xilinx shall not be used
+# in advertising or otherwise to promote the sale, use or other dealings in
+# this Software without prior written authorization from Xilinx.
+#
+###############################################################################
+#
+# MODIFICATION HISTORY:
+#
+# Ver   Who  Date	 Changes
+# ----- ---- -------- -------------------------------------------------------
+# 2.3   sk   12/15/14 Deleted �ffunction-sections & -fdata-sections
+#		      flags from extra compiler flags CR#838648
+#		      Changed default os to latest version.
+# 2.6   mus  12/20/16 Added "ffunction-sections" and "fdata-sections" to the
+#                     default extra compiler flags.Also, "-g" is removed from
+#                     the default extra compiler flags.
+# 2.6   mus  01/24/17 Added "-Wall -Wextra" to extra_compiler_flags
+#
+###############################################################################
+OPTION psf_version = 2.1;
+
+BEGIN driver cpu
+
+OPTION copyfiles = all;
+OPTION driver_state = ACTIVE;
+OPTION supported_peripherals = (microblaze psu_pmu psu_pmc psu_psm);
+OPTION default_os = "standalone_v5_0";
+OPTION VERSION = 3.0;
+OPTION NAME = cpu;
+
+PARAM name = compiler, desc = "Compiler used to compile both BSP/Libraries and Applications.", type = string, default = mb-gcc;
+PARAM name = archiver, desc = "Archiver used to archive libraries for both BSP generation as well as for applications", type = string, default = mb-ar;
+PARAM name = compiler_flags, desc = "Compiler flags used in BSP and library generation. '-c' flag stands for 'compile and assemble, but do not link'. Without this flag, gcc tries to link the code, which will fail bacause there is no application involved during libgen. '-O2' can be overwritten by extra compiler flags", type = string, default = "-O2 -c", permit = none;
+PARAM name = extra_compiler_flags, desc = "Extra compiler flags used in BSP and library generation.", type = string, default = "-ffunction-sections -fdata-sections -Wall -Wextra";
+PARAM name = multiplier, desc = "Is there a hard multiplier present ?", type = bool, default = false, state = "deprecated", state_desc = "Presence of hardware multiplier is now automatically detected based on the target FPGA architecture.";
+PARAM name = xmdstub_peripheral, desc = "Debug peripheral to be used with xmdstub", type = peripheral_instance, range = (none, opb_uartlite, opb_uart16550, opb_jtag_uart, opb_mdm, debugnotraceblaze, debugnotraceblazenode, debugtraceblazenode, debugtraceblaze, mdm, xps_uartlite), default = none;
+
+PARAM name = CORE_CLOCK_FREQ_HZ, desc = "Core Clock Frequency in Hz", type = int, default = 100000000, state = "deprecated";
+
+END driver

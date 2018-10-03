@@ -1,0 +1,6 @@
+add_subdirectory(common)
+if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53"))
+add_subdirectory(ARMv8)
+else()
+add_subdirectory(${CMAKE_SYSTEM_PROCESSOR})
+endif()

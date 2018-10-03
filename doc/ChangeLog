@@ -1,0 +1,34 @@
+Changes for Versal (Beta Version)
+=================================
+csudma_v2_0:
+Added support for Versal 
+
+zdma_v2_0:
+Added support for Versal 
+
+qspipsu_v2_0:
+Added support for Versal 
+
+spips_v4_0:
+Added support for Versal 
+
+ipipsu_v3_0:
+Added support for Versal 
+
+cpu_cortexa72_v1_0
+Created initial version of CPU driver to handle versal by providing support for Cortex-A72
+
+cpu_v3_0
+Added support for Versal 
+
+scugic_v4_0
+Added support for Versal 
+
+iomodule_v3_0
+Added support for Versal
+
+standalone_v7_0
+Added support for versal by providing support for Cortex-A72
+Removed code related to MMU/Cache handling from the BSP code base. They are now available through a new library called xilmem.
+Added support for CMAKE based makefile generation
+

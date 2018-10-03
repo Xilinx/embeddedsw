@@ -1,0 +1,61 @@
+##############################################################################
+#
+# Copyright (C) 2014 - 2018 Xilinx, Inc. All rights reserved.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+# Except as contained in this notice, the name of the Xilinx shall not be used
+# in advertising or otherwise to promote the sale, use or other dealings in
+# this Software without prior written authorization from Xilinx.
+#
+##############################################################################
+
+OPTION psf_version = 2.1;
+
+BEGIN OS standalone
+OPTION drc = standalone_drc;
+OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilstandalone,-lxil,-lgcc,-lc,--end-group";
+OPTION DESC = "Standalone is a simple, low-level software layer. It provides access to basic processor features such as caches, interrupts and exceptions as well as the basic features of a hosted environment, such as standard input and output, profiling, abort and exit.";
+OPTION copyfiles = all;
+OPTION OS_STATE = ACTIVE;
+OPTION VERSION = 7.0;
+OPTION NAME = standalone;
+
+PARAM name = zynqmp_fsbl_bsp, type = bool, default = false, desc = "Disable or Enable Optimization for FSBL's BSP. ZynqMP FSBL will set this to true";
+
+PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (ps7_uart, psu_uart, psu_sbsauart, ps7_coresight_comp, psu_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm);
+PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, requires_interface = stdout, default=none, range = (ps7_uart, psu_uart, psu_sbsauart, ps7_coresight_comp, psu_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm);
+
+BEGIN CATEGORY sw_intrusive_profiling
+    PARAM name = enable_sw_intrusive_profiling, type = bool, default = false, desc = "Enable S/W Intrusive Profiling on Hardware Targets", permit = user;
+    PARAM name = profile_timer, type = peripheral_instance, range = (opb_timer, xps_timer, axi_timer), default = none, desc = "Specify the Timer to use for Profiling. For PowerPC system, specify none to use PIT timer. For ARM system, specify none to use SCU timer";
+END CATEGORY
+
+BEGIN CATEGORY microblaze_exceptions
+    PARAM name = microblaze_exceptions, type = bool, default = false, desc = "Enable MicroBlaze Exceptions", permit = user;
+    PARAM name = predecode_fpu_exceptions, desc = "(MicroBlaze) Predecode FPU exceptions and save operand info before invoking user registered exception handler.", type = bool, default = false, permit = user;
+END CATEGORY
+
+PARAM name = hypervisor_guest, type = bool, default = false, desc = "Enable hypervisor guest support for A53 64bit EL1 Non-Secure. If hypervisor_guest is not selected, BSP will be built for EL3.", permit = user;
+
+PARAM name = sleep_timer, type = peripheral_instance, range = (ps7_ttc,psu_ttc,ps7_globaltimer,psu_iou_scntr,psu_iou_scntrs,axi_timer), default=none, desc = "This parameter is used to select specific timer for sleep functionality", permit = user;
+
+PARAM name = ttc_select_cntr, type = enum, default = 2, values = ("0" = 0, "1" = 1, "2" = 2), desc = "Selects the counter to be used in the repective module. Allowed range is 0-2", permit = user;
+
+END OS

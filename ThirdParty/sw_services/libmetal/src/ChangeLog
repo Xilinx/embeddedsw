@@ -1,0 +1,21 @@
+Change Log for libmetal
+=================================
+2018.3
+	* Add API to read device tree property
+	* Change the log level from error log to info when
+	  the device is already bound to other driver.
+	* Add support for the UIO dmem driver
+	* Correct the max characters of the device name to
+	  copy to the device name array of a Linux device
+	* sync from upstream development (10a0d5b)
+	* bug fixes.
+2018.1
+	* sync from upstream development (18048c4)
+2017.3
+	* sync from upstream 2017.10
+2017.1
+	* sync from upstream 2017.04
+2016.4
+	* sync from upstream 2016.10
+2016.3
+	* sync from upstream 2016.04

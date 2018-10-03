@@ -1,0 +1,411 @@
+Change Log for lwip
+=================================
+2018-03-05
+	* Add Hot plug detect support for EmacPS and AXI Ethernet
+2018-03-14
+	* Avoid axi ethernet config intialize in two places.
+2018-01-19
+	* Add support for Realtek RTL8211 phy.
+2018-01-11
+	* Use UINTPTR for axidma baseaddr.
+2018-01-10
+	* Update xInsideISR flag in emacps_error_handler.
+2017-12-06
+	* Fix jumbo frame checks to work on R5
+2017-11-01
+        * Perform AXI DMA lookup based on base address.
+2017-10-27
+	* Correct proper references of TX BD ring in init_dma() and
+	  emacps_error_handler().
+2017-10-04
+	* Include options to configure mbox in lwip202.mld and lwip202.tcl
+2017-10-13
+	* Add multicast MAC update for IPv6 in xemacpsif.c and xaxiemacif.c
+	* Add IPv6 source in lwip.makefile
+2017-09-20
+	* Disable L1 prefetch for ARMv8 in init_axi_dma function in xaxiemacif_dma.c.
+2017-09-12
+	* Disable L1 prefetch for ARMv8 in init_dma function in xemacpsif_dma.c.
+2017-09-09
+	* Add rx_reset_nodata workaround for Zynq GEM for freertos.
+2017-08-29
+	* Add support of IGMP in emacps
+2017-08-17
+	* Upgrade to LWIP2.0.2 version.
+	* Removed PPC References
+2017-08-14
+	* Dont perform data cache related operations when CCI is
+	  enabled.
+2017-08-11
+	* Fix for conflicting types for xInsideISR. Fixes CR-981909.
+	* Fix for warnings in lwip141 axiethernet adapter.
+2017-08-03
+	* Correct compiler used for A9.
+2017-07-18
+	* Add freertos support for axiethernet fifo configuration.
+	* SW workaround for TI DP83867 PHY Data integrity issues on KCU116/VCU118 Boards.
+2017-06-14
+        * Add support for EL1 non secure mode.
+2017-03-07
+	* SW workaround for unstable link with TI DP83867 PHY
+	  when RX CTRL is not strapped to MODE 3 or 4.
+2017-02-13
+	* Correct TI PHYCR register initialization
+2017-02-03
+	* Add jumbo frame support for ZynqMP ethernet
+2016-12-19
+	* Export options for user to change NO_SYS_NO_TIMERS and
+	  LWIP_TCP_KEEP_ALIVE.
+2016-12-07
+	* Add Support for TI PHY DP83867 SGMII Mode configuration.
+2016-11-22
+	* Add support in xemaps_physpeed.c for newer version of Xilinx
+	  PCS PMA core with phy address scanning.
+2016-11-09
+	* Fix compilation errors for microblaze based designs CR#963580
+	* dsb() is not availble for Microblaze added checks for the same
+	* in the xaxiemacif_dma.c file.
+2016-11-06
+	* Axi Ethernet Lwip Performance issue on ZynqMP Fix for CR#953533
+	* The uncached memory needed for BDs were not aligned properly to meet
+	* AR3/R5 MMU requirements. The performance was low because of that anomaly.
+	* Fixed the issue by properly aligning the memory allocated for BDs.
+	* (Changes are made in the xaxiemacif_dma.c file).
+2016-08-30
+	* Add support for freertos in the emaclite adapter. Fix for CR#957572.
+2016-08-17
+	* Update divisors in CRL_APB (for ZynqMP) based on speed negotiated.
+2016-07-29
+	* Dont set clk dividers in Zynq SLCR when EMIO clock source is used.
+2016-07-11
+	* Change Zynq BD space attributes to device memory.
+2016-04-07
+	* Correct return handling in xemacps phy negotiation.
+2016-02-11
+	* Add Support for Axi Etherent on ZyqnMP.
+	* Update lwip.tcl to export proper gic baseadress for r5
+	  to fix issues with AxiEthernet on ZynqMP R5.
+	* Fix compilation errors for Axi Ethernet on ZynqMP.
+2016-01-14
+	* Created a new version lwip141_v1_4
+	* Made changes for lwip to work with A53 with caches enabled.
+	* Corrected last tx and rx bd updation for corner scenarios.
+	* Make Zynq BD space normal non-cacheable instead of strongly ordered.
+	* Correct condition to select SLCR offset for emacps clk cfg(CR#930997).
+2015-10-12
+	* Created a new version lwip141_v1_3.
+	* Made changes in xemacpsif_dma.c to add required barriers.
+	* Remove repeated sysarch protect and unprotect calls.
+	* Replace printf with xil_printf.
+	* Add support for TI phy.
+2015-09-09
+	* Fix compilation issues with the non hier axi eth design
+2015-09-04
+	* Update makefile to allow incremental build.
+	* Add support for latest freertos (freertos821_xilinx)
+2015-08-19
+	* Fix bsp compilation errors when elite is configured
+	  with interrupts though a concat IP (CR#875527)
+2015-08-18
+	* Error out for A53 32 bit compiler
+2015-08-10
+	* Add support for A53
+2015-07-19
+	* Add support for Zynq Ultrascale MPSoC emacps
+2015-07-15
+	* Add Support for Axi ethernet with fifo on zynq.
+2015-06-15
+	* Update the lwip tcl for Hier IP(To support User parameters).
+2015-05-15
+	* Don't inline the functions with the Toolchain. Fix RGMII Ethernet
+	  Not working on Artix devices (CR#861391).
+2015-03-12
+	* Fix compilation Errors during generation of LWIP Echo server
+	  application (CR#853861).
+2015-02-09
+	* Removed support for lltemac.
+	* Made changes in axiethernet adapter files as part of general
+	cleanup.
+	* Added support for 2 GigEs for GEM.
+	* Added support for non-Marvell PHY reporting.
+	* Made changes for axiethernet checksum validation logic that resulted
+	in performance improvement.
+2015-01-23
+	* Added support for the lwip141 stack.
+	* Created a New version of lwip141_v1_0.
+2014-9-12
+	* Created a new version lwip140_v2_4.
+	* It has CR fixes for 827638, 830976, 828866.
+2014-12-11
+	* Fixed the bug in the emaclite on zynq. Added the parameter
+	  use_emaclite_on_zynq to the mld file.
+2014-11-11
+	* Fix for CR 835081 - lwip adapter for AxiEthernet does not
+	  work for SGMII mode.
+2014-29-10
+	* Fix for CR 827686 - Gem connected 1000BASE-X in PL
+	getting "PHY not connected" error.
+	* Fix for CR 828796 - 2014.3 - AXI Ethernet - 1000BASEX interface not
+	  working with echo server design on Zynq.
+	* Fix for CR 823736 - Fix typo error in xmaecliteif.c file.
+2014-13-06
+	* Fix for CR 802558 - LWIP library doesn't compile
+	with XilKernel/FreeRTOS BSP.
+	* Fix for CR 801076 - Few configurable options of
+	library are not propagated during compilation.
+2014-06-06
+	* Fix for CR 800240 - Removed the limitation of
+	supporting only Marvel PHY in AXI Ethernet adapter.
+2014-1-30
+	* Fix for CRs 771112 and 766087. The sys_arch.c
+	last made (related to freertos) are reverted back.
+2013-12-1
+	* A new version of lwip (v2_0) is created with tcl
+	changes releated to HSM and new versioing scheme.
+2013-11-08
+	* Fix for CR#759896.
+2013-11-02
+	* Made changes in the file
+	src/contrib/ports/xilinx/sys_arch.c to fix issues
+	in the freertos port.
+2013-10-24
+	* New version of lwip140(1_07_a) created. Support
+	for emaclite on zynq is added by making changes in the
+	files:
+	data/lwip140_v2_1_0.mld
+	data/lwip140_v2_1_0.tcl
+	src/contrib/ports/xilinx/netif/xemacliteif.c
+	* Support for gmii to sgmii converter PHY is added by
+	making changes in the file:
+	src/contrib/ports/xilinx/netif/xemacpsif_physpeed.c
+2013-09-07
+	* Fix for CR# 735656. Modified
+	  src/contrib/ports/xilinx/include/arch/cc.h
+	  to add a hash define for LWIP_RAND
+2013-08-06
+	* New version of lwIP library (lwip140_v1_06a) is
+	  created.
+	* Added support for AC701 board PHY and added
+	  AxiEthernetUtilPhyDelay() API (CR 725551).
+	  Files changed:
+	  src/contrib/ports/xilinx/netif/xaxiemacif_physpeed.c
+	* Fixed CR 727441 - AXI Ethernet design on Zynq with
+	  checksum configuration parameters disabled will fail
+	  to work.
+	  Files changed:
+	  data/lwip140_v2_1_0.tcl
+
+2013-05-06
+	* Added new parameter 'ip_reass_max_pbufs' to IP options of
+	  lwIP settings and removed unused parameter 'ip_reass_bufsize'.
+	  Files Changed:
+	  data/lwip140_v2_1_0.mld
+	  data/lwip140_v2_1_0.tcl
+	* Increased PBUF Queue Size to fix TSR #715250 - "UDP RX mode is
+	  not working for 64K datagram packets".
+	  Files Changed:
+	  src/contrib/ports/xilinx/netif/xpqueue.c
+	  src/contrib/ports/xilinx/include/netif/xpqueue.h
+
+2013-05-01
+	* Modified the handling of fragmented packets in the
+	  Zynq lwIP adapter (src/contrib/ports/xilinx/netif/xemacpsif_dma.c).
+	  This is done to fix the CR 716040. The Used bit of the 1st BD
+	  in the BD chain allocated for the packet fragments is cleared
+	  at the end after clearing out the Used bits of all other BDs in
+	  the chain.
+2013-04-26
+	* Modified parameter *_SGMII_PHYADDR to *_PHYADDR, the
+	  config parameter C_PHYADDR applies to SGMII/1000BaseX
+	  modes of operation (CR 704195).
+
+2013-04-19
+	* Created a new version of lwip140 (v1_05_a). The changes
+	  are made in src/contrib/ports/xilinx/netif/xemacpsif_physpeed.c
+	  to add support for the gmii2rgmii converter core.
+2013-02-18
+	* Added support for AXI Ethernet on Zynq. Changes
+	  done in lwip140_v2_1_0.mld, lwip140_v2_1_0.tcl for
+	  this support
+	  Changed the AXI-Ethernet adapter files:
+	  src/contrib/ports/xilinx/netif/xaxiemacif_physpeed.c,
+	  src/contrib/ports/xilinx/netif/xaxiemacif.c,
+	  src/contrib/ports/xilinx/netif/xaxiemacif_dma.c,
+	  src/contrib/ports/xilinx/netif/xaxiemacif_hw.c
+	* A new configuration parameter 'use_axieth_on_zynq'
+	  is added to lwIP software library.  This parameter
+	  should be selected if the AXI Ethernet adapter is
+	  being used for lwIP on Zynq.
+
+2013-01-24
+	* Added SW workaround support for the SI #692601.
+	  Description for the SI:
+	  Under heavy Rx traffic, there will be a large
+	  number of errors related to receive buffer not available
+	  and the Rx data path can become unresponsive. To reduce the
+	  probabilities for hitting this Silicon Issue, the SW writes
+	  to bit 18 to flush a packet from Rx DPRAM immediately.
+
+2013-01-21
+	* Created a new version of lwIP (v1_04_a).
+	* Changed the Emac adapter file:
+	src/contrib/ports/xilinx/netif/xaxiemacif_physpeed.c,
+	Added support for SGMII mode (CR:676793);
+
+2012-08-17
+	* Created a new version of lwIP (v1_03_a).
+	* Changed data/lwip140_v2_1_0.tcl to fix UDP isses in FreeRTOS and
+	fix compilation issues when Emac1 is used (instead of Emac0).
+	* Changed the EmacPs adpater files:
+	src/contrib/ports/xilinx/netif/xemacpsif_dma.c,
+	src/contrib/ports/xilinx/netif/xemacpsif_hw.c,
+	src/contrib/ports/xilinx/netif/xemacpsif_physpeed.c,
+	src/contrib/ports/xilinx/netif/xemacpsif.c
+	src/contrib/ports/xilinx/include/netif/xemacpsif.h
+	to do code cleanups, modify the BD handling on Rx path for error cases,
+	modify error handling.
+	Added fast interrupt support for microblaze/axiethernet. Made
+	changes in xaxiemacif_dma.c for this.
+	Made changes to src/contrib/ports/xilinx/netif/xemacpsif_physpeed.c
+	to simplify the handling of SLCR register update for Emac0 and Emac1.
+	Made changes in tcl amd mld file to add a new configuration entry
+	for Zynq to specify the Emac Interface number. If only one
+	interface is present, then this entry will have no effect. But
+	if both the interfaces are present in the hardware, then depending
+	on this configuration entry a particular Emac will be chosen.
+	lwIP does not support use of both the interfaces simultaneously.
+
+2012-07-06
+	* Made changes in src/contrib/ports/xilinx/netif/xaxiemacif_dma.c
+	to make changes in some of AxiDMA API calls which are changed in
+	the latest version of AxiDma driver.
+
+2012-06-04
+	* Added support for freertos. Changes are done in lwip140_v2_1_0.mld,
+	lwip140_v2_1_0.tcl, sys_arch.h, xadapter.h, xadapter.c, xemacpsif.c,
+	xemacpsif_dma.c, xemacpsif_hw.c, sys_arch.c.
+	* Modified error handling for EmacPs errors. Changes are done in
+	xemacpsif.c, xemacpsif_dma.c, xemacpsif_hw.c.
+
+2012-04-15
+	* In function init_dma in file xemacpsif_dma.c, the calls to
+	Xil_DisableMMU and Xil_EnableMMU are removed. Now for changing
+	attributes in the translation table, the only function called is
+	Xil_SetTlbAttributes.
+
+2012-03-12
+	* In file xaxiemacif_dma.c, the function alloc_bdspace is updated
+	so that the assert calls are under #if DEBUG statement. This is
+	done to remove compilation issues with the new microblaze
+	toolchain.
+	Similar changes are done in xlltemacif_dma.c.
+
+2012-03-12
+	* In file xemacliteif.c the function xemacif_recv_handler is
+	updated to free the pbufs upon error conditions (before returning
+	back from the function).
+
+2012-03-03
+	* The SLCR divisor settings for GEM Tx clock for Zynq is now used
+	from xparameters.h. Corresponding changes are made in
+	src/contrib/ports/xilinx/netif/xemacpsif_physpeed.c.
+	* Changes are made in src/contrib/ports/xilinx/sys_arch_raw.c for
+	functions sys_arch_protect and sys_arch_unprotect. Earlier for
+	Zynq/PEEP cases for sys_arch_protect we used to disable only the
+	Emac interrupt and enable back it in sys_arch_unprotect. Now
+	for Zynq all interrupts are disabled in CPSR (sys_arch_protect)
+	and enabled back in sys_arch_unprotect.
+	* Changes are made in src/contrib/ports/xilinx/netif/xemacpsif_dma.c
+	for proper interrupt disabling and enabling for Tx. Also some
+	optimizations are done to improve performance numbers.
+
+2012-01-25
+	* Following changes are made in file
+	src/contrib/ports/xilinx/netif/xemacpsif_dma.c :
+	Changes are made for Zynq/PEEP adapter so that the BDs are allocated
+	at fixed addresses 0xFF00000 (for Rx Bds) and 0xFF10000 (for Tx Bds).
+	The address range of 1 MB starting at 0xFF00000 is made uncached by
+	setting attributes in the MMU table (in function init_dma).
+	* Changes are made in
+	src/contrib/ports/xilinx/netif/xemacpsif_physpeed.c to have separate
+	PHY initializations for PEEP and Zynq boards.
+	* Changes are made in src/contrib/ports/xilinx/sys_arch_raw.c. In
+	function sys_arch_protect the EmacIntr is disabled instead of disabling
+	the IRQ in CPSR. This change needs to be revisited later and a better
+	solution needs to be adapted. Similar changes are done in
+	sys_arch_unprotect.
+	* DMA/GEM Error handling is added/changed for Zynq/PEEP. Hence changes
+	are made in src/contrib/ports/xilinx/netif/xemacpsif.c and
+	src/contrib/ports/xilinx/netif/xemacpsif_hw.c.
+	* The MDIO divisor is set as 224 in file
+	src/contrib/ports/xilinx/netif/xemacpsif_hw.c.
+2011-11-18
+	* Upgraded the to lwip140. Because of it there are lots of changes
+	throughout the lwip files.
+	* There was an existing bug because of which txperf used to hang
+	after a few minutes. It is fixed in src/lwip-1.4.0/src/core/tcp_out.c.
+	After entering into the function tcp_output, we disable interrupts
+	and just before existing the function, we enable back the interrupts.
+	This is done for microblaze and ppc platforms.
+	* For lwip140 the semaphore, mutex, mailbox and pthread interfaces
+	have changed. Corresponding changes are done in file sys_arch.c.
+	* The functions SYS_ARCH_PROTECT and SYS_ARCH_UNPROTECT are now
+	made as macros for better performance.
+	* The file src/include/lwip/def.h is changed so that for endian
+	swapping only macros are used instead of functions. This is done
+	to have better performance.
+	* Support for Zynq is added.
+2011-08-29
+	* src/makefile: Made changes not to echo files being compiled.
+	* src/contrib/ports/xilinx/include/netif/xaxiemacif.h: Added function
+	prototypes for PHY configuration.
+	* src/contrib/ports/xilinx/include/netif/xlltemacif.h: Added function
+	prototypes for PHY configuration.
+	* src/contrib/ports/xilinx/netif/xadapter.c: Made changes in function
+	xemacif_input to remove compilation warnings. The exact change is,
+	replacing "return;" statements with "return 0;".
+	* src/contrib/ports/xilinx/netif/xaxiemacif_dma.c: Removed the unused
+	variable "csum_in_packet" in the function "is_checksum_valid".
+	* src/contrib/ports/xilinx/netif/xaxiemacif_hw.c: Removed unused variables
+	"rdy" and "lock_message_printed" in function "init_axiemac".
+	The PHY configuration related code is removed from the function
+	"init_axiemac", since it is now being done in a separate function.
+	* src/contrib/ports/xilinx/netif/xaxiemacif_physpeed.c: The unused function
+	"get_marvel_phy_speed" is removed.
+	The function "get_IEEE_phy_speed" is changed to correctly advertise speeds
+	and restart autonegotiation.
+	A new function "configure_IEEE_phy_speed" is added to configure PHY speeds
+	when autonegotiation is not done.
+	A new function "Phy_Setup" is added to configure the PHY.
+	Hash defines for PHY registers and PHY bit settings are added.
+	* src/contrib/ports/xilinx/netif/xemacliteif: The function
+	"low_level_init" is changed to start PHY autonegotiation when required
+	and to set correct PHY speeds when autonegotiation is not being used.
+	A new function "detect_phy_emaclite" is added to detect the PHY address
+	connected.
+	A new function "get_IEEE_phy_speed_emaclite" is added to correctly
+	advertise relevant PHY speeds (1000 Mbps not advertised) and to restart
+	PHY autonegotiation. This function returns the autonegotiated PHY speed.
+	A new function "configure_IEEE_phy_speed_emaclite" is added to
+	configure the proper PHY speed when PHY autonegotiation is not
+	happenning.
+	Hash defines for PHY registers and PHY bit settings are added.
+	* src/contrib/ports/xilinx/netif/xlltemacif_hw.c:The PHY configuration
+	related code is removed from the function "init_lltemac", since it is now
+	being done in a separate function.
+	* src/contrib/ports/xilinx/netif/xlltemacif_physpeed.c:The unused function
+	"get_marvel_phy_speed" is removed.
+	The function "get_IEEE_phy_speed" is changed to correctly advertise speeds
+	and restart autonegotiation.
+	A new function "configure_IEEE_phy_speed" is added to configure PHY speeds
+	when autonegotiation is not done.
+	A new function "Phy_Setup" is added to configure the PHY.
+	Hash defines for PHY registers and PHY bit settings are added.
+2014-02-12
+	* Change makefile to remove -p option with mkdir. CR# 773090.
+2014-04-16
+	* Fixed the CR#788954 Changes are Made in the xemacliteif.c file
+2014-04-20
+	* Fixed teh CR#792040 Changes are Made in the lwip tcl file
+2014-04-23
+	* Fixed the CR#781147 Changes are made in the Makefile.

@@ -1,0 +1,22 @@
+Change Log for OpenAMP
+=================================
+2018.1
+	* in matrix multiply application, do not create rpmsg endpoint
+	* in echo test application, do not create rpmsg endpoint
+	* sync from upstream development (c90a8dd)
+	  - when creating metal I/O region, use value based on size of physical address
+	  - In RPMsg implementation, if memcpy/strcpy operations are small,
+	    do byte by byte operations.
+	  - If caller provides vring size, use this instead of default.
+	  - if vring is not mapped, created new I/O mapping.
+	  - always call rpmsg name service callback for name service message
+	  - if rpmsg endpoint already exists, do not create another endpoint.
+	  - remove uncessary endpoint creation from rpmsg
+2017.3
+	* sync with upstream github 2017.10
+2017.1
+	* sync with upstream github 2017.04
+2016.4
+	* sync with upstream github 2016.10
+2016.3
+	* sync with upstream github 2016.04
