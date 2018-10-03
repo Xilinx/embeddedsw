@@ -14,20 +14,20 @@ proc generate {drv_handle} {
 		"MEMORY_BASED" \
 		"MAX_NR_STREAMS" \
 		"HISTOGRAM_BITS" \
-		"HAS_Y10" \
 		"HAS_Y8" \
-		"MAX_ROWS" \
-		"MAX_COLS"
+		"HAS_Y10" \
+		"MAX_COLS" \
+		"MAX_ROWS"
 		xdefine_config_file $drv_handle "xv_scenechange_g.c" "XV_scenechange" \
 		"DEVICE_ID" \
 		"C_S_AXI_CTRL_BASEADDR" \
 		"MEMORY_BASED" \
 		"MAX_NR_STREAMS" \
 		"HISTOGRAM_BITS" \
-		"HAS_Y10" \
 		"HAS_Y8" \
-		"MAX_ROWS" \
-		"MAX_COLS"
+		"HAS_Y10" \
+		"MAX_COLS" \
+		"MAX_ROWS"
 
 		xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_scenechange" \
 		"DEVICE_ID" \
@@ -36,10 +36,10 @@ proc generate {drv_handle} {
 		"MEMORY_BASED" \
 		"MAX_NR_STREAMS" \
 		"HISTOGRAM_BITS" \
-		"HAS_Y10" \
 		"HAS_Y8" \
-		"MAX_ROWS" \
-		"MAX_COLS"
+		"HAS_Y10" \
+		"MAX_COLS" \
+		"MAX_ROWS"
 }
 #
 # Given a list of arguments, define them all in an include file.
