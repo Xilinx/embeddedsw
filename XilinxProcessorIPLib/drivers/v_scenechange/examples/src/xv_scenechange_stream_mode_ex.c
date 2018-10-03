@@ -24,15 +24,16 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  *
-******************************************************************************/
+ ******************************************************************************/
 /*
- * scd_memory_mode_ex.c: scenechange IP in memory mode test application.
+ * scd_stream_mode_ex.c: scenechange IP in stream mode test application.
  *
  * This application configures SceneChange IP to caluclate SAD values between
  * consecutive streams. The driver accepts the threshold values per stream and
  * calls the registered callback with SAD value and stream id.
  *
  */
+
 #include "xparameters.h"
 #include <stdio.h>
 #include "platform.h"
@@ -44,42 +45,54 @@
 #include "xvidc.h"
 #include "xv_scenechange.h"
 #include "xscugic.h"
+#include "xv_tpg.h"
+#include "xv_frmbufwr.h"
+#include "xv_frmbufwr_l2.h"
 
-/*Reset all IPs in pipeline */
+/* Reset IPs in pipeline using IP_RESET_MASK*/
 #define IP_RESET_MASK		0xF
+
 /************** User Configurable Data for testing*******************************/
+/* user can configure till 8 streams, each bit is designated for one stream
+ * in integer in IP register*/
 #define	SCD_STREAMS_ENABLE	1
-/* users is changing the data in Layer 0 */
-#define SCD_LAYER_0		0
+/* Test formats for the TPG */
 #define MAX_PATTERNS		8
+/*Please refer framebuffer PG278 to get number of bytes per color and
+ * color format representation. So, User can pass any format in
+ * FB_COLOR_FORMAT, FB_CLRFMT_BYTES */
+#define FB_COLOR_FORMAT		20
+#define FB_CLRFMT_BYTES		3
 
-/* Different patterns to write in the memory location for the streams */
-volatile u32 local_mem[8] = {0xFF00FF, 0xFFFF00, 0xFF0000, 0x00FFFF,
-	0xFFFF00, 0xFF00FF, 0x00FFFF, 0xFF0000};
-
-/* Different memory location for the streams */
-u64 memaddr[8] = {0x10000000, 0x20000000, 0x20400000, 0x20800000,
-	0x30000000, 0x30400000, 0x30800000, 0x40000000};
-
-/* below are the configurable parameters: user can give height and width
- * to 4320, 8192 and stride value, histbits, color format, threshold is
- * based on SceneChange IP PG*/
-u32 scd_height[XV_SCD_IP_MAX_STREAMS]	= {720, 0, 0, 0, 0, 0, 0, 0};
-u32 scd_width[XV_SCD_IP_MAX_STREAMS] 	= {1280, 0, 0, 0, 0, 0, 0, 0};
-u32 scd_stride[XV_SCD_IP_MAX_STREAMS]	= {1280, 0, 0, 0, 0, 0, 0, 0};
-u32 scd_histbits[XV_SCD_IP_MAX_STREAMS]	= {16, 0, 0, 0, 0, 0, 0, 0};
-u32 scd_clrfmt[XV_SCD_IP_MAX_STREAMS]	= {XV_SCD_HAS_Y8, 0, 0, 0, 0, 0, 0, 0};
-u32 scd_threshold[XV_SCD_IP_MAX_STREAMS] = {1, 0, 0, 0, 0, 0, 0, 0};
+/* User can pass any memory address */
+u64 memaddr		= 0x10000000;
+/* IP supports till 4320 as height*/
+u32 scd_height		= 720;
+/* IP supports till 8192 as width*/
+u32 scd_width		= 1280;
+u32 scd_stride		= 1280;
+/* user can configure hist bits : 2, 4, 8, 16, 32 and 64. Typical value is 16*/
+u32 scd_histbits	= 16;
+/* Two color formats are supported by IP: XV_SCD_HAS_Y8, XV_SCD_HAS_Y10 */
+u32 scd_clrfmt		= XV_SCD_HAS_Y8;
+u32 scd_threshold	= 1;
 
 /************************** Variable Definitions *****************************/
 
-volatile u8 is_detected, sc_detected;
-XScuGic Intc;
+XV_tpg Tpg;
+XV_tpg_Config *Tpg_ConfigPtr;
+XTpg_PatternId Pattern; /**< Video pattern */
+XV_FrmbufWr_l2     Frmbufwr;
+XV_frmbufwr_Config *FrmBufWr_ConfigPtr;
+XScuGic    Intc;
 XV_scenechange ScdPtr;
+volatile u8 is_detected, sc_detected;
 
 /************************** Function Prototypes ******************************/
 
 void SceneChangeDetectedCallback(void *CallbackRef);
+void XV_ConfigTpg(XV_tpg *InstancePtr);
+void ResetTpg(void);
 
 /************************** Function Definitions *****************************/
 
@@ -120,20 +133,19 @@ static int SetupInterruptSystem(void)
 
 void SceneChangeDetectedCallback(void *CallbackRef)
 {
-	xil_printf("IN CB: Layer:%d SAD:%X\r\n", ScdPtr.scddetlayerid,
-			ScdPtr.scdlayerdetSAD);
+	xil_printf("IN CB: Layer:%d SAD:%X\r\n", ScdPtr.ScdDetLayerId,
+			ScdPtr.ScdLayerDetSAD);
 	is_detected = 1;
 }
 
 int XV_SceneChange_init(u16 DeviceId)
 {
-
-	XV_scenechange_Config *scd_config;
+	XV_scenechange_Config *ScdConfig;
 	int Status;
-	u32 streams = 0;
+	u32 streams = SCD_STREAMS_ENABLE - 1;
 
-	scd_config = XV_scenechange_LookupConfig(DeviceId);
-	if (scd_config == NULL)
+	ScdConfig = XV_scenechange_LookupConfig(DeviceId);
+	if (ScdConfig == NULL)
 		return XST_FAILURE;
 
 	/* Initialize top level and all included sub-cores */
@@ -141,26 +153,25 @@ int XV_SceneChange_init(u16 DeviceId)
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
+	if (ScdPtr.ScdConfig->MemoryBased == XV_SCD_MEMORY_MODE) {
+		xil_printf("Application meant for stream mode\r\n");
+		return XST_FAILURE;
+	}
+
 	XV_scenechange_Layer_stream_enable(&ScdPtr, SCD_STREAMS_ENABLE);
 
-	for (streams = 0; streams < ScdPtr.scd_config->num_streams; streams++) {
-		if (SCD_STREAMS_ENABLE & (1 << streams)) {
-			xil_printf("(%d) stream configuring...\r\n", streams);
-			ScdPtr.glconfig[streams].height		= scd_height[streams];
-			ScdPtr.glconfig[streams].width		= scd_width[streams];
-			ScdPtr.glconfig[streams].stride		= scd_stride[streams];
-			ScdPtr.glconfig[streams].video_format	= scd_clrfmt[streams];
-			ScdPtr.glconfig[streams].subsample	= scd_histbits[streams];
-			ScdPtr.glconfig[streams].buffer		= memaddr[streams];
-			ScdPtr.glconfig[streams].threshold	= scd_threshold[streams];
-			Status = XV_scenechange_Layer_config(&ScdPtr, streams);
-			if(Status == XST_FAILURE) {
-				xil_printf("ERR:: Unable to configure SD Layer\r\n");
-				return XST_FAILURE;
-			}
-			memset((char *)memaddr[streams], local_mem[streams],
-					scd_height[streams] * scd_width[streams]);
-		}
+	ScdPtr.LayerConfig[streams].Height	= scd_height;
+	ScdPtr.LayerConfig[streams].Width	= scd_width;
+	ScdPtr.LayerConfig[streams].Stride	= scd_stride;
+	ScdPtr.LayerConfig[streams].VFormat	= scd_clrfmt;
+	ScdPtr.LayerConfig[streams].SubSample	= scd_histbits;
+	ScdPtr.LayerConfig[streams].BufferAddr	= memaddr;
+	ScdPtr.LayerConfig[streams].Threshold	= scd_threshold;
+
+	Status = XV_scenechange_Layer_config(&ScdPtr, streams);
+	if(Status == XST_FAILURE) {
+		xil_printf("ERR:: Unable to configure SD Layer\r\n");
+		return XST_FAILURE;
 	}
 
 	XV_scenechange_SetCallback(&ScdPtr, SceneChangeDetectedCallback,
@@ -197,6 +208,90 @@ void reset_pipe(void)
 	xil_printf("Reset SCD - Done.\r\n");
 }
 
+void XV_ConfigTpg(XV_tpg *InstancePtr) {
+	XV_tpg *pTpg = InstancePtr;
+
+	XV_tpg_DisableAutoRestart(pTpg);
+	XV_tpg_Set_height(pTpg, scd_height);
+	XV_tpg_Set_width(pTpg, scd_width);
+	XV_tpg_Set_colorFormat(pTpg, XVIDC_CSF_YONLY);
+	XV_tpg_Set_bckgndId(pTpg, Pattern);
+	XV_tpg_Set_ovrlayId(pTpg, 0);
+	XV_tpg_Set_enableInput(pTpg, 0);
+	XV_tpg_Set_passthruStartX(pTpg, 0);
+	XV_tpg_Set_passthruStartY(pTpg, 0);
+	XV_tpg_Set_passthruEndX(pTpg, scd_width);
+	XV_tpg_Set_passthruEndY(pTpg, scd_height);
+	XV_tpg_EnableAutoRestart(pTpg);
+	XV_tpg_Start(pTpg);
+}
+
+void FrameBuf_Config() {
+	XV_frmbufwr_Set_HwReg_width(&Frmbufwr.FrmbufWr,
+			scd_width);
+	XV_frmbufwr_Set_HwReg_height(&Frmbufwr.FrmbufWr,
+			scd_height);
+	XV_frmbufwr_Set_HwReg_stride(&Frmbufwr.FrmbufWr,
+			scd_width * FB_CLRFMT_BYTES);
+	XV_frmbufwr_Set_HwReg_video_format(&Frmbufwr.FrmbufWr, FB_COLOR_FORMAT);
+	XV_frmbufwr_Set_HwReg_frm_buffer_V(&Frmbufwr.FrmbufWr,
+			memaddr);
+	XV_frmbufwr_EnableAutoRestart(&Frmbufwr.FrmbufWr);
+	XV_frmbufwr_Start(&Frmbufwr.FrmbufWr);
+}
+
+u32 scd_stream_mode_pipe_init(void)
+{
+	u8 Status;
+
+	/* Initialize TPG IP */
+	Tpg_ConfigPtr = XV_tpg_LookupConfig(XPAR_XV_TPG_0_DEVICE_ID);
+
+	if (!Tpg_ConfigPtr) {
+		Tpg.IsReady = 0;
+		xil_printf("TPG - failed...\r\n");
+		return (XST_DEVICE_NOT_FOUND);
+	}
+
+	Status = XV_tpg_CfgInitialize(&Tpg, Tpg_ConfigPtr,
+			Tpg_ConfigPtr->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR:: TPG Initialization failed %d\r\n", Status);
+		return (XST_FAILURE);
+	}
+	/* Initialize FrameBufWr IP */
+	FrmBufWr_ConfigPtr = XV_frmbufwr_LookupConfig(XPAR_V_FRMBUF_WR_0_DEVICE_ID);
+
+	if (!FrmBufWr_ConfigPtr) {
+		xil_printf("FBWR - failed...\r\n");
+		return (XST_DEVICE_NOT_FOUND);
+	}
+
+	Status = XVFrmbufWr_Initialize(&Frmbufwr, XPAR_V_FRMBUF_WR_0_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR:: FrmBufWr Initialization failed %d\r\n", Status);
+		return (XST_FAILURE);
+	}
+
+	Status |= XScuGic_Connect(&Intc,
+			XPAR_FABRIC_V_FRMBUF_WR_0_VEC_ID,
+			(XInterruptHandler)XVFrmbufWr_InterruptHandler,
+			(void *)&Frmbufwr);
+	if (Status == XST_SUCCESS) {
+		XScuGic_Enable(&Intc, XPAR_FABRIC_V_FRMBUF_WR_0_VEC_ID);
+	} else {
+		xil_printf("ERR:: Unable to register SD interrupt handler");
+		return XST_FAILURE;
+	}
+
+	XV_frmbufwr_InterruptGlobalEnable(&Frmbufwr.FrmbufWr);
+	XV_frmbufwr_InterruptEnable(&Frmbufwr.FrmbufWr, XVFRMBUFWR_IRQ_DONE_MASK);
+
+	FrameBuf_Config();
+
+	return XST_SUCCESS;
+}
+
 int main()
 {
 	u8 state;
@@ -222,6 +317,12 @@ int main()
 
 	reset_pipe();
 
+	state = Pattern;
+	state = scd_stream_mode_pipe_init();
+	if (state != XST_SUCCESS) {
+		xil_printf("scd_ stream mode pipe Failed.\n");
+		return XST_FAILURE;
+	}
 	xil_printf("SceneChange initialization - Started\r\n");
 
 	state = XV_SceneChange_init(XPAR_XV_SCENECHANGE_0_DEVICE_ID);
@@ -231,6 +332,8 @@ int main()
 	}
 	Xil_ExceptionEnable();
 
+	state = XTPG_BKGND_H_RAMP;
+	XV_ConfigTpg(&Tpg);
 	do {
 		if(is_detected) {
 			is_detected = 0;
@@ -244,9 +347,8 @@ int main()
 				goto SCD_FAILED;
 		}
 
-		/* pattern is changing on Layer-0 to test - used can configure*/
-		memset((char *)memaddr[SCD_LAYER_0], local_mem[state],
-				scd_height[SCD_LAYER_0] * scd_width[SCD_LAYER_0]);
+		Pattern = state;
+		XV_tpg_Set_bckgndId(&Tpg, Pattern);
 		sleep(1);
 	} while(1);
 
