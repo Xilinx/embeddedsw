@@ -175,6 +175,8 @@
 * 			based on resolutions. Moved the hard coded values for SDI
 * 			NTSC resolution to SDI TXSS driver instead of in VTC
 * 			driver.
+* 	jsr    10/03/18	Corrected the VGA resoultion timing paramters w.r.t the
+* 			timing values given in the VTC GUI for 640x480p
 * </pre>
 *
 ******************************************************************************/
@@ -1937,17 +1939,17 @@ void XVtc_ConvVideoMode2Timing(XVtc *InstancePtr, u16 Mode,
 	case XVTC_VMODE_VGA: // 640x480 (VGA)
 	{
 		// Horizontal Timing
-		TimingPtr->HActiveVideo  = 656;
-		TimingPtr->HFrontPorch   = 8;
+		TimingPtr->HActiveVideo  = 640;
+		TimingPtr->HFrontPorch   = 16;
 		TimingPtr->HSyncWidth    = 96;
-		TimingPtr->HBackPorch    = 40;
+		TimingPtr->HBackPorch    = 48;
 		TimingPtr->HSyncPolarity = 0;
 
 		 // Vertical Timing
-		TimingPtr->VActiveVideo  = 496;
-		TimingPtr->V0FrontPorch   = 2;
+		TimingPtr->VActiveVideo  = 480;
+		TimingPtr->V0FrontPorch   = 10;
 		TimingPtr->V0SyncWidth    = 2;
-		TimingPtr->V0BackPorch    = 25;
+		TimingPtr->V0BackPorch    = 33;
 		TimingPtr->VSyncPolarity = 0;
 
 		break;
@@ -2365,8 +2367,8 @@ u16 XVtc_ConvTiming2VideoMode(XVtc *InstancePtr, XVtc_Timing *TimingPtr)
 				return XVTC_VMODE_576P;
 			}
 		}
-		else if((TimingPtr->HActiveVideo == 656) &&
-				(TimingPtr->VActiveVideo == 496)) {
+		else if((TimingPtr->HActiveVideo == 640) &&
+				(TimingPtr->VActiveVideo == 480)) {
 			return XVTC_VMODE_VGA;
 		}
 		else if((TimingPtr->HActiveVideo == 800) &&
