@@ -33,6 +33,7 @@
 # 1.1   jsr  07/17/17 Created
 # 2.0   kar  01/18/18 Second Release
 # 2.1   jsr  10/01/18 Fix for 486i SD mode
+# 3.0   vve  10/03/18 Add support for ST352 in C Stream
 #
 ###############################################################################
 
@@ -43,6 +44,6 @@ BEGIN driver v_sditxss
   OPTION driver_state = ACTIVE;
   OPTION DEPENDS = (v_sditx vtc);
   OPTION copyfiles = all;
-  OPTION VERSION = 2.2;
+  OPTION VERSION = 3.0;
   OPTION NAME = v_sditxss;
 END driver

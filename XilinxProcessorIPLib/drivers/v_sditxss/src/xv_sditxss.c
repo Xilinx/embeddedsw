@@ -44,6 +44,7 @@
  *       jsr	03/02/2018 Added core settings API
  * 2.1   jsr    07/03/2018 Corrected 720x480_60_I to be 720x486_60_I for SD mode
  * 2.2   jsr    10/01/2018 Programming the Field register for 720x480_60_I SD mode
+ * 3.0   vve    10/03/18 Add support for ST352 in C Stream
  * </pre>
  *
  ******************************************************************************/
