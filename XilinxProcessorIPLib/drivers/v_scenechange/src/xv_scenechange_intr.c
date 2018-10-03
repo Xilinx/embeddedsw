@@ -24,7 +24,7 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  *
-******************************************************************************/
+ ******************************************************************************/
 /*****************************************************************************/
 /**
  *
@@ -50,6 +50,45 @@
 #include "xv_scenechange_hw.h"
 #include "xv_scenechange.h"
 
+static u32 XV_scenechange_get_sad(XV_scenechange *InstancePtr, u8 streamid)
+{
+	u32 Data, RegAddr;
+
+	RegAddr = XV_SCENECHANGE_CTRL_ADDR_HWREG_SAD0_DATA;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	Data = XV_scenechange_ReadReg(InstancePtr->Ctrl_BaseAddress,
+			((streamid * XV_SCD_LAYER_OFFSET) + RegAddr));
+
+	return Data;
+}
+
+static void XV_scenechange_handler(XV_scenechange *ScdPtr)
+{
+	u32 index, Data, SADTF, SAD;
+
+	Data = XV_scenechange_Get_HwReg_stream_enable(ScdPtr);
+
+	for (index = 0; index < ScdPtr->ScdConfig->NumStreams; index++) {
+		if (Data & (1 << index)) {
+			SAD = XV_scenechange_get_sad(ScdPtr, index);
+			SADTF = ((SAD * ScdPtr->LayerConfig[index].SubSample) /
+					(ScdPtr->LayerConfig[index].Height *
+					 ScdPtr->LayerConfig[index].Width));
+
+			ScdPtr->LayerConfig[index].SAD = SAD;
+
+			if (SADTF >= ScdPtr->LayerConfig[index].Threshold) {
+				ScdPtr->ScdLayerDetSAD = SAD;
+				ScdPtr->ScdDetLayerId = index;
+				ScdPtr->FrameDoneCallback(ScdPtr);
+			}
+		}
+	}
+}
+
 /*****************************************************************************/
 /**
  *
@@ -67,7 +106,7 @@
  *
  ******************************************************************************/
 void XV_scenechange_SetCallback(XV_scenechange *InstancePtr,
-				       void *CallbackFunc, void *CallbackRef)
+		void *CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -102,7 +141,7 @@ void XV_scenechange_SetCallback(XV_scenechange *InstancePtr,
 void XV_scenechange_InterruptHandler(void *InstancePtr)
 {
 	XV_scenechange *SceneChangePtr = (XV_scenechange *)InstancePtr;
-	u32 Status, stream_id, Data, SADTF;
+	u32 Status;
 
 	/* Verify arguments */
 	Xil_AssertVoid(SceneChangePtr != NULL);
@@ -113,29 +152,9 @@ void XV_scenechange_InterruptHandler(void *InstancePtr)
 
 	/* Check for Done Signal */
 	if (Status & XV_SCENECHANGE_CTRL_ADDR_ISR_AP_DONE) {
-		Data = XV_scenechange_Get_HwReg_stream_enable(SceneChangePtr);
-		for (stream_id = 0;
-			stream_id < SceneChangePtr->scd_config->num_streams;
-								stream_id++) {
-			if(Data & (1 << stream_id)) {
-				SceneChangePtr->glconfig[stream_id].SAD =
-					XV_scenechange_ReadReg(SceneChangePtr->Ctrl_BaseAddress,
-					        ((stream_id * XV_SCD_LAYER_OFFSET) +
-						XV_SCENECHANGE_CTRL_ADDR_HWREG_SAD0_DATA));
 
-				SADTF = ((SceneChangePtr->glconfig[stream_id].SAD *
-					  SceneChangePtr->glconfig[stream_id].subsample) /
-					 (SceneChangePtr->glconfig[stream_id].height *
-					  SceneChangePtr->glconfig[stream_id].width));
+		XV_scenechange_handler(SceneChangePtr);
 
-				if(SADTF >= SceneChangePtr->glconfig[stream_id].threshold) {
-					SceneChangePtr->scdlayerdetSAD =
-						SceneChangePtr->glconfig[stream_id].SAD;
-					SceneChangePtr->scddetlayerid = stream_id;
-					SceneChangePtr->FrameDoneCallback(SceneChangePtr);
-				}
-			}
-		}
 		/* Clear the interrupt */
 		XV_scenechange_InterruptClear(SceneChangePtr,
 				XV_SCENECHANGE_CTRL_ADDR_ISR_AP_DONE);

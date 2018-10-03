@@ -38,14 +38,16 @@ extern "C" {
 #define XV_SCD_WAIT_FOR_FLUSH_DONE	(25)
 #define XV_SCD_WAIT_FOR_FLUSH_DELAY	(2000)
 #define XV_SCD_IDLE_TIMEOUT		(1000000)
+#define XV_SCD_MEMORY_MODE		1
+#define XV_SCD_STREAM_MODE		0
 
 /**************************** Type Definitions ******************************/
 
 /* Please check Xilinx SceneChange PG*/
-typedef enum xv_scd_clr_fmt {
+typedef enum {
 	XV_SCD_HAS_Y8  = 24,
 	XV_SCD_HAS_Y10 = 25
-}xv_scd_color_fmt;
+} XVScdClrFmt;
 
 #ifdef __linux__
 typedef uint8_t u8;
@@ -55,13 +57,13 @@ typedef uint32_t u32;
 typedef struct {
     u16 DeviceId;
     UINTPTR Ctrl_BaseAddress;
-    u8	memory_based;
-    u8	num_streams;
-    u32	histogram_bits;
-    u8  has_y8;
-    u8  has_y10;
-    u32 cols;
-    u32	rows;
+    u8	MemoryBased;
+    u8	NumStreams;
+    u32	HistogramBits;
+    u8  EnableY8;
+    u8  EnableY10;
+    u32 Cols;
+    u32	Rows;
 } XV_scenechange_Config;
 #endif
 
@@ -79,27 +81,27 @@ typedef struct {
 */
 
 typedef void (*XVSceneChange_Callback)(void *InstancePtr);
-struct xv_layer_config {
-    u8 layerid;
-    u32 width;
-    u32 height;
-    u32 stride;
-    xv_scd_color_fmt video_format;
-    u32 subsample;
-    u64 buffer;
-    u8  stream_enable;
+typedef struct {
+    u64 BufferAddr;
     u32 SAD;
-    u32 threshold;
-};
+    u32 Threshold;
+    u32 Width;
+    u32 Height;
+    u32 Stride;
+    u32 SubSample;
+    u8  LayerId;
+    u8  StreamEnable;
+    XVScdClrFmt VFormat;
+}XVScdLayerConfig;
 typedef struct {
     UINTPTR Ctrl_BaseAddress;
     u32 IsReady;
-    u32 scddetlayerid;
-    u32 scdlayerdetSAD;
-    struct xv_layer_config glconfig[XV_SCD_IP_MAX_STREAMS];
-    XV_scenechange_Config *scd_config;
-    XVSceneChange_Callback FrameDoneCallback;
+    u32 ScdDetLayerId;
+    u32 ScdLayerDetSAD;
     void *CallbackRef;
+    XV_scenechange_Config *ScdConfig;
+    XVScdLayerConfig LayerConfig[XV_SCD_IP_MAX_STREAMS];
+    XVSceneChange_Callback FrameDoneCallback;
 } XV_scenechange;
 
 /***************** Macros (Inline Functions) Definitions *********************/
