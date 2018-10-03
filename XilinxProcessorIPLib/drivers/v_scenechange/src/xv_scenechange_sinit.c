@@ -39,7 +39,7 @@ int XV_scenechange_Initialize(XV_scenechange *InstancePtr, u16 DeviceId) {
 		return (XST_DEVICE_NOT_FOUND);
 	}
 
-	InstancePtr->scd_config = ConfigPtr;
+	InstancePtr->ScdConfig = ConfigPtr;
 
 	return XV_scenechange_CfgInitialize(InstancePtr, ConfigPtr);
 }

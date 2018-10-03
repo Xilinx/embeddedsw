@@ -33,10 +33,11 @@
  * @{
  *
  * The SceneChange Layer-2 Driver.
- * The functions in this file provides an abstraction from the register peek/poke
- * methodology by implementing most common use-case provided by the core.
+ * The functions in this file provides an abstraction from the register
+ * peek/poke methodology by implementing most common use-case provided by
+ * the core.
  *
- * ******************************************************************************/
+ * ****************************************************************************/
 
 #include "xv_scenechange.h"
 #include "xv_scenechange_hw.h"
@@ -53,8 +54,8 @@ static void XV_scenechange_layer_height(XV_scenechange *InstancePtr, u32 Data,
 			Data);
 }
 
-static void XV_scenechange_layer_set_width(XV_scenechange *InstancePtr, u32 Data,
-		u8 streamid)
+static void XV_scenechange_layer_set_width(XV_scenechange *InstancePtr,
+					   u32 Data, u8 streamid)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -65,8 +66,8 @@ static void XV_scenechange_layer_set_width(XV_scenechange *InstancePtr, u32 Data
 			Data);
 }
 
-static void XV_scenechange_layer_set_stride(XV_scenechange *InstancePtr, u32 Data,
-		u8 streamid)
+static void XV_scenechange_layer_set_stride(XV_scenechange *InstancePtr,
+					    u32 Data, u8 streamid)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -77,8 +78,8 @@ static void XV_scenechange_layer_set_stride(XV_scenechange *InstancePtr, u32 Dat
 			Data);
 }
 
-static void XV_scenechange_layer_set_vfmt(XV_scenechange *InstancePtr, u32 Data,
-		u8 streamid)
+static void XV_scenechange_layer_set_vfmt(XV_scenechange *InstancePtr,
+					  u32 Data, u8 streamid)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -89,8 +90,8 @@ static void XV_scenechange_layer_set_vfmt(XV_scenechange *InstancePtr, u32 Data,
 			Data);
 }
 
-static void XV_scenechange_layer_set_subsample(XV_scenechange *InstancePtr, u32 Data,
-		u8 streamid)
+static void XV_scenechange_layer_set_subsample(XV_scenechange *InstancePtr,
+					       u32 Data, u8 streamid)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -101,8 +102,8 @@ static void XV_scenechange_layer_set_subsample(XV_scenechange *InstancePtr, u32 
 			Data);
 }
 
-static void XV_scenechange_layer_set_bufaddr(XV_scenechange *InstancePtr, u64 Data,
-		u8 streamid)
+static void XV_scenechange_layer_set_bufaddr(XV_scenechange *InstancePtr,
+					     u64 Data, u8 streamid)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -114,52 +115,47 @@ static void XV_scenechange_layer_set_bufaddr(XV_scenechange *InstancePtr, u64 Da
 
 	XV_scenechange_WriteReg(InstancePtr->Ctrl_BaseAddress,
 			(((streamid * XV_SCD_LAYER_OFFSET) +
-			 XV_SCENECHANGE_CTRL_ADDR_HWREG_FRM_BUFFER0_V_DATA) + 4),
+			XV_SCENECHANGE_CTRL_ADDR_HWREG_FRM_BUFFER0_V_DATA) + 4),
 			(u32) (Data >> 32));
 }
 
 int XV_scenechange_Layer_config(XV_scenechange *InstancePtr, u8 layerid)
 {
-	u16 subsample = (1 << InstancePtr->scd_config->histogram_bits);
-
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (InstancePtr->glconfig[layerid].layerid >
-			InstancePtr->scd_config->num_streams)
+	if (InstancePtr->LayerConfig[layerid].LayerId >
+			InstancePtr->ScdConfig->NumStreams)
 		return XST_FAILURE;
 
-	if (InstancePtr->glconfig[layerid].width >
-			InstancePtr->scd_config->cols)
+	if (InstancePtr->LayerConfig[layerid].Width >
+			InstancePtr->ScdConfig->Cols)
 		return XST_FAILURE;
 
-	if (InstancePtr->glconfig[layerid].height >
-			InstancePtr->scd_config->rows)
+	if (InstancePtr->LayerConfig[layerid].Height >
+			InstancePtr->ScdConfig->Rows)
 		return XST_FAILURE;
 
-	if (InstancePtr->glconfig[layerid].subsample > subsample)
-		return XST_FAILURE;
-
-	if (!((InstancePtr->scd_config->has_y8 &&
-			(InstancePtr->glconfig[layerid].
-			video_format == XV_SCD_HAS_Y8)) ||
-			(InstancePtr->scd_config->has_y10 &&
-			(InstancePtr->glconfig[layerid].
-			video_format == XV_SCD_HAS_Y10))))
+	if (!((InstancePtr->ScdConfig->EnableY8 &&
+			(InstancePtr->LayerConfig[layerid].
+			VFormat == XV_SCD_HAS_Y8)) ||
+			(InstancePtr->ScdConfig->EnableY10 &&
+			(InstancePtr->LayerConfig[layerid].
+			VFormat == XV_SCD_HAS_Y10))))
 		return XST_FAILURE;
 
 	XV_scenechange_layer_set_width(InstancePtr,
-			InstancePtr->glconfig[layerid].width, layerid);
+			InstancePtr->LayerConfig[layerid].Width, layerid);
 	XV_scenechange_layer_height(InstancePtr,
-			InstancePtr->glconfig[layerid].height, layerid);
+			InstancePtr->LayerConfig[layerid].Height, layerid);
 	XV_scenechange_layer_set_stride(InstancePtr,
-			InstancePtr->glconfig[layerid].stride, layerid);
+			InstancePtr->LayerConfig[layerid].Stride, layerid);
 	XV_scenechange_layer_set_vfmt(InstancePtr,
-			InstancePtr->glconfig[layerid].video_format, layerid);
+			InstancePtr->LayerConfig[layerid].VFormat, layerid);
 	XV_scenechange_layer_set_subsample(InstancePtr,
-			InstancePtr->glconfig[layerid].subsample, layerid);
+			InstancePtr->LayerConfig[layerid].SubSample, layerid);
 	XV_scenechange_layer_set_bufaddr(InstancePtr,
-			InstancePtr->glconfig[layerid].buffer, layerid);
+			InstancePtr->LayerConfig[layerid].BufferAddr, layerid);
 
 	return XST_SUCCESS;
 }
@@ -173,7 +169,8 @@ void XV_scenechange_Layer_stream_enable(XV_scenechange *InstancePtr,
 	XV_scenechange_Set_HwReg_stream_enable(InstancePtr, streams);
 }
 
-static void XV_scenechange_SetFlushbit(XV_scenechange *InstancePtr) {
+static void XV_scenechange_SetFlushbit(XV_scenechange *InstancePtr)
+{
 	u32 Data;
 
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -187,7 +184,8 @@ static void XV_scenechange_SetFlushbit(XV_scenechange *InstancePtr) {
 			XV_SCENECHANGE_CTRL_ADDR_AP_CTRL, Data);
 }
 
-static u32 XV_scenechange_Get_FlushDone(XV_scenechange *InstancePtr) {
+static u32 XV_scenechange_Get_FlushDone(XV_scenechange *InstancePtr)
+{
 	u32 Data;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -212,12 +210,12 @@ u32 XV_scenechange_Stop(XV_scenechange *InstancePtr)
 	XV_scenechange_DisableAutoRestart(InstancePtr);
 	XV_scenechange_SetFlushbit(InstancePtr);
 
-	if (InstancePtr->scd_config->memory_based) {
+	if (InstancePtr->ScdConfig->MemoryBased) {
 		do {
 			Data = XV_scenechange_Get_FlushDone(InstancePtr);
 			usleep(XV_SCD_WAIT_FOR_FLUSH_DELAY);
 			cnt++;
-		} while((Data == 0) && (cnt < XV_SCD_WAIT_FOR_FLUSH_DONE));
+		} while ((Data == 0) && (cnt < XV_SCD_WAIT_FOR_FLUSH_DONE));
 
 		if (Data == 0)
 			return XST_FAILURE;
@@ -226,11 +224,10 @@ u32 XV_scenechange_Stop(XV_scenechange *InstancePtr)
 	do {
 		isIdle = XV_scenechange_IsIdle(InstancePtr);
 		cnt++;
-	} while((isIdle!=1) && (cnt < XV_SCD_IDLE_TIMEOUT));
+	} while ((isIdle != 1) && (cnt < XV_SCD_IDLE_TIMEOUT));
 
-	if (isIdle == 1 ) {
+	if (isIdle == 1)
 		Status = XST_SUCCESS;
-	}
 
 	return Status;
 }
