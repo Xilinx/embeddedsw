@@ -29,6 +29,7 @@
 # -------- ------ -------- ----------------------------------------------------
 #  3.0     adk    12/10/13 Updated as per the New Tcl API's
 #  4.5     rsp    07/06/18 Remove space b/w backslash and newline
+#  4.5     rsp    10/03/18 Fix typos
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_I_SP1
@@ -256,7 +257,7 @@ proc gen_testfunc_call {swproj mhsinst} {
    {
       int status;
             
-      print(\"\\r\\n Runnning XAxiCdma_SimplePollExample() for ${ipname}...\\r\\n\");
+      print(\"\\r\\n Running XAxiCdma_SimplePollExample() for ${ipname}...\\r\\n\");
       
       status = XAxiCdma_SimplePollExample(${deviceid});
       
@@ -304,7 +305,7 @@ proc gen_testfunc_call {swproj mhsinst} {
    {
       int status;
 
-      print(\"\\r\\n Runnning XAxiCdma_SgPollExample() for ${ipname}...\\r\\n\");
+      print(\"\\r\\n Running XAxiCdma_SgPollExample() for ${ipname}...\\r\\n\");
 
       status = XAxiCdma_SgPollExample(${deviceid});
 
