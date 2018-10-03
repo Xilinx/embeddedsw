@@ -242,6 +242,9 @@ axicdma_v4_5:
 Include missing initializers for 'XAxiCdma_Config' fields.
 Fix cppcheck warning.
 Fix gcc warning in peripheral test application.
+Fix SG interrupt example compilation error when driver DEBUG mode is enabled.
+In SG interrupt example reset error and done states for each DMA transfer.
+Fix typos in peripheral app generation tcl.
 
 zynqmp_pmufw:
 Fix GEM RXQ high pointer in case of WOL
