@@ -42,6 +42,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.0   jsr    07/17/17 Initial release.
+#       vve    10/03/18 Add support for ST352 in C-Stream
 * </pre>
 *
 ******************************************************************************/
@@ -93,6 +94,14 @@ extern "C" {
 #define XV_SDIRX_VIDLCK_WINDOW_OFFSET				((XV_SDIRX_BASE)+(23*4))
 #define XV_SDIRX_STS_SB_RX_TDATA_OFFSET				((XV_SDIRX_BASE)+(24*4))
 
+#define XV_SDIRX_RX_ST352_0_C_OFFSET				((XV_SDITX_BASE)+(28*4))
+#define XV_SDIRX_RX_ST352_1_C_OFFSET				((XV_SDITX_BASE)+(29*4))
+#define XV_SDIRX_RX_ST352_2_C_OFFSET				((XV_SDITX_BASE)+(30*4))
+#define XV_SDIRX_RX_ST352_3_C_OFFSET				((XV_SDITX_BASE)+(31*4))
+#define XV_SDIRX_RX_ST352_4_C_OFFSET				((XV_SDITX_BASE)+(32*4))
+#define XV_SDIRX_RX_ST352_5_C_OFFSET				((XV_SDITX_BASE)+(33*4))
+#define XV_SDIRX_RX_ST352_6_C_OFFSET				((XV_SDITX_BASE)+(34*4))
+#define XV_SDIRX_RX_ST352_7_C_OFFSET				((XV_SDITX_BASE)+(35*4))
 
 /* RST_CTRL register masks */
 #define XV_SDIRX_RST_CTRL_SDIRX_SS_EN_MASK			(1<<0)
@@ -160,6 +169,14 @@ extern "C" {
 #define XV_SDIRX_RX_ST352_VLD_ST352_5				(1<<5)
 #define XV_SDIRX_RX_ST352_VLD_ST352_6				(1<<6)
 #define XV_SDIRX_RX_ST352_VLD_ST352_7				(1<<7)
+#define XV_SDIRX_RX_ST352_VLD_ST352_8				(1<<8)
+#define XV_SDIRX_RX_ST352_VLD_ST352_9				(1<<9)
+#define XV_SDIRX_RX_ST352_VLD_ST352_10				(1<<10)
+#define XV_SDIRX_RX_ST352_VLD_ST352_11				(1<<11)
+#define XV_SDIRX_RX_ST352_VLD_ST352_12				(1<<12)
+#define XV_SDIRX_RX_ST352_VLD_ST352_13				(1<<13)
+#define XV_SDIRX_RX_ST352_VLD_ST352_14				(1<<14)
+#define XV_SDIRX_RX_ST352_VLD_ST352_15				(1<<15)
 
 /* RX_ST352_ register masks */
 #define XV_SDIRX_RX_ST352_MASK					0x0
