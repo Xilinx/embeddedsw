@@ -56,6 +56,7 @@
 * 1.00  jsr  07/17/17 Initial release.
 * 2.00  kar  01/25/18 Second  release.
 *       jsr  03/02/2018 Added core settings API
+* 3.0   vve  10/03/18 Add support for ST352 in C Stream
 * </pre>
 *
 ******************************************************************************/
