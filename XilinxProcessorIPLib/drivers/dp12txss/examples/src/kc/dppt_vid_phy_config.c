@@ -205,7 +205,7 @@ void Two_byte_set (XVphy *InstancePtr, u8 Tx_to_two_byte, u8 Rx_to_two_byte)
         // Modifying TX data width to 2 byte
         if (Tx_to_two_byte == 1) {
 				Status = XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
-						0x6B, &DrpVal);
+					0x6B, &DrpVal);
                 DrpVal &= ~0x17;
                 WriteVal = 0x0;
                 WriteVal = DrpVal | 0x3;
