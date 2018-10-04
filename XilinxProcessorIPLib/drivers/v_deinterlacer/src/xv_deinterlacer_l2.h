@@ -101,6 +101,39 @@ extern "C" {
 #include "xv_deinterlacer.h"
 
 /************************** Constant Definitions *****************************/
+/**
+ * This typedef eumerates the deinterlacer non memory mode algo type
+ *
+ */
+typedef enum
+{
+	XV_DEINTERLACER_NON_MEMORY_BILINEAR = 0,
+	/**< Deinterlacer bilinear algorithm in non memory mode*/
+	XV_DEINTERLACER_NON_MEMORY_BOB,
+	/**< Deinterlacer bob algorithm in non memory mode*/
+	XV_DEINTERLACER_NON_MEMORY_PASSTHROUGH = 6
+	/**< Deinterlacer pass through in non memory mode*/
+} XV_DEINTERLACER_ALGO_NON_MEMORY_MODE;
+
+/**
+ * This typedef eumerates the deinterlacer memory mode algo type
+ *
+ */
+typedef enum
+{
+	XV_DEINTERLACER_MEMORY_MEDIAN = 0,
+	/**< Deinterlacer median algorithm in memory mode*/
+	XV_DEINTERLACER_MEMORY_BOB,
+	/**< Deinterlacer bob algorithm in memory mode*/
+	XV_DEINTERLACER_MEMORY_WEAVE,
+	/**< Deinterlacer weave algorithm in memory mode*/
+	XV_DEINTERLACER_MEMORY_VERTICAL_TEMPORAL_LINEAR_INTERPOLATION,
+	/**< Deinterlacer vertical temporal linear interpolation algorithm in memory mode*/
+	XV_DEINTERLACER_MEMORY_VERTICAL_TEMPORAL_MEDIAN,
+	/**< Deinterlacer vertical temporal median algorithm in memory mode*/
+	XV_DEINTERLACER_MEMORY_PASSTHROUGH = 6
+	/**< Deinterlacer pass through in memory mode*/
+} XV_DEINTERLACER_ALGO_MEMORY_MODE;
 
 /**************************** Type Definitions *******************************/
 
