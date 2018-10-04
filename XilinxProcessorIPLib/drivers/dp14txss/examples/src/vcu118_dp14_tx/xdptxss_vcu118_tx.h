@@ -119,10 +119,24 @@
 #define CLK135MHz_DIVIDER 18
 #define CLK270MHz_DIVIDER 9
 #define CLK162MHz_DIVIDER 15
-#define ENABLE_AUDIO 0
+
+#define ENABLE_AUDIO 1
 #if (ENABLE_AUDIO == 1)
 	#define AV_PAT_GEN_BASE  XPAR_TX_SUBSYSTEM_AV_PAT_GEN_0_BASEADDR
 #endif
+
+#define I2C_MUX_device_address 0x74
+//#define Si570_device_address 0x5D
+#define audio_clk_Hz 24.576
+#define IIC_SI570_ADDRESS               0x5D
+#define EEPROM_TEST_START_ADDRESS       0x80
+#define IIC_SWITCH_ADDRESS              0x74
+#define PAGE_SIZE                       16
+#define NUM_MODES                       7
+#define NUM_CLOCK_REGS                  6
+
+int write_si570();
+
 
 #define CLK_WIZ_BASE      				XPAR_CLK_WIZ_0_BASEADDR
 

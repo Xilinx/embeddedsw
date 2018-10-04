@@ -119,7 +119,7 @@ typedef unsigned int    UINT32;
 #endif
 
 #define XINTC_DPRXSS_DP_INTERRUPT_ID  	\
-	XPAR_INTC_0_DPRXSS_0_DPRXSS_DP_IRQ_VEC_ID
+	XPAR_INTC_0_DP14RXSS_0_DPRXSS_DP_IRQ_VEC_ID
 #define XINTC_DPRXSS_IIC_INTERRUPT_ID  	\
 	XPAR_INTC_0_DPRXSS_0_DPRXSS_IIC_IRQ_VEC_ID
 #define XDPRXSS_DEVICE_ID 	XPAR_DPRXSS_0_DEVICE_ID
@@ -159,6 +159,15 @@ typedef unsigned int    UINT32;
 #endif
 
 #define ENABLE_HDCP_FLOW_GUIDE		0
+
+/* Setting to 1 overrides the DP RX to
+ * to max speed of 5.4G
+ * This is done because the design does
+ * not meet timing at 8.1G
+  * */
+
+
+#define OVERRIDE_540G 1
 
 /* Setting to 1 enables the auto switchover 
  * from RX to TX when cable is unplugged
