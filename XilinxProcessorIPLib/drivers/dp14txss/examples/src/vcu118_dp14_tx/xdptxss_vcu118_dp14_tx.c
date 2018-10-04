@@ -43,9 +43,19 @@
 
 #include "xdptxss_vcu118_tx.h"
 
-#define I2C_MUX_device_address 0x74
-#define Si570_device_address 0x5D
-#define audio_clk_Hz 24.576
+
+typedef u8 AddressType;
+u8 si570_reg_value[NUM_MODES][NUM_CLOCK_REGS] = {
+        /* As per Si570 programmable oscillator calculator. */
+        // 7,     8,     9,    10,      11,      12,
+        {0x4C, 0x42, 0xB0, 0x21, 0xDE, 0x77 }, // = {32kHz * 512)
+        {0xA5, 0xC2, 0xAA, 0xCC, 0x9D, 0x51 }, // = (44.1kHz * 512)
+        {0xE4, 0xC2, 0xF4, 0xB9, 0x4A, 0xA7 }, // = (48kHz * 512)
+        {0xA2, 0XC2, 0XAA, 0XCC, 0X9D, 0X51 }, // = {88.2khZ * 512)
+        {0x24, 0xC2, 0xB0, 0x21, 0xDE, 0x77 }, // = {96kHz * 512)
+        {0xA1, 0x42, 0xAA, 0xCC, 0x9D, 0x51 }, // = (176.4kHz * 512)
+        {0x22, 0x42, 0xB0, 0x21, 0xDE, 0x77 }  // = {192kHz * 512)
+};
 
 
 /************************** Function Prototypes ******************************/
@@ -207,7 +217,7 @@ u32 DpTxSs_Main(u16 DeviceId)
 	u8 LaneCount_init_tx = XDP_TX_LANE_COUNT_SET_4;
 	u8 Edid_org[128], Edid1_org[128];
 	u8 connected = 0;
-
+	u8 UpdateBuffer[sizeof(AddressType) + PAGE_SIZE];
 
 	user_config_struct user_config;
 	user_config.user_bpc = 8;
@@ -226,13 +236,6 @@ u32 DpTxSs_Main(u16 DeviceId)
 	}
 	xil_printf("Platform initialization done.\r\n");
 
-#if ENABLE_AUDIO
-	// I2C MUX device address : 0x74
-	// Si570 device address : 0x5D
-	//setting Si570 on vcu118 to be 24.576MHz for audio
-	clk_set(I2C_MUX_device_address, Si570_device_address, audio_clk_Hz);
-#endif
-
 	VideoFMC_Init();
 	IDT_8T49N24x_SetClock(XPAR_IIC_0_BASEADDR, I2C_IDT8N49_ADDR, 0, 270000000, TRUE);
 
@@ -240,6 +243,22 @@ u32 DpTxSs_Main(u16 DeviceId)
 	i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x05, 0x78);
 	i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x08, 0x78);
 	i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x0B, 0x78);
+
+
+
+#if ENABLE_AUDIO
+	// I2C MUX device address : 0x74
+	// Si570 device address : 0x5D
+	//setting Si570 on vcu118 to be 24.576MHz for audio
+	u8 i = 0;
+    for( i = 0; i < 6; i++ ) {
+            UpdateBuffer[i] = si570_reg_value[2][i];
+    }
+    write_si570(UpdateBuffer);
+    xil_printf("SI570 Config done\n\r");
+
+//	clk_set(I2C_MUX_device_address, Si570_device_address, audio_clk_Hz);
+#endif
 
 	/* Obtain the device configuration for the DisplayPort TX Subsystem */
 	ConfigPtr = XDpTxSs_LookupConfig(DeviceId);
