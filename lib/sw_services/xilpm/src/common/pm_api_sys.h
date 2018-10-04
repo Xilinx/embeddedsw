@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -159,7 +159,7 @@ typedef struct XPm_NodeStatus {
 } XPm_NodeStatus;
 
 /********************************************************************/
-/**
+/*
  * Global data declarations
  ********************************************************************/
 extern struct pm_init_suspend pm_susp;

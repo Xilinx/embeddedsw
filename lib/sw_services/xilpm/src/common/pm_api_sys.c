@@ -25,7 +25,13 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-
+/**
+ * @file pm_api_sys.c
+ *
+ * PM Definitions implementation
+ * @addtogroup xpm_apis XilPM APIs
+ * @{
+ *****************************************************************************/
 #include "pm_client.h"
 #include "pm_common.h"
 #include "pm_api_sys.h"
@@ -60,7 +66,7 @@
 	PACK_PAYLOAD(pl, api_id, arg1, arg2, arg3, arg4, 0)
 #define PACK_PAYLOAD5(pl, api_id, arg1, arg2, arg3, arg4, arg5) \
 	PACK_PAYLOAD(pl, api_id, arg1, arg2, arg3, arg4, arg5)
-/*@}*/
+/**@}*/
 
 /****************************************************************************/
 /**
@@ -1851,3 +1857,4 @@ XStatus XPm_PinCtrlGetParameter(const u32 pin,
 	/* Return result from IPI return buffer */
 	return pm_ipi_buff_read32(primary_master, value, NULL, NULL);
 }
+ /** @} */

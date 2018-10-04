@@ -46,7 +46,7 @@
 #define PM_VERSION_MINOR	1
 
 #define PM_VERSION	((PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR)
-/*@}*/
+/**@}*/
 
 /** @name Capabilities for RAM
  *
@@ -55,7 +55,7 @@
 #define PM_CAP_ACCESS	0x1U
 #define PM_CAP_CONTEXT	0x2U
 #define PM_CAP_WAKEUP	0x4U
-/*@}*/
+/**@}*/
 
 /** @name Node default states macros
  *
@@ -63,7 +63,7 @@
  */
 #define NODE_STATE_OFF		0
 #define NODE_STATE_ON		1
-/*@}*/
+/**@}*/
 
 /** @name Processor's states macros
  *
@@ -73,7 +73,7 @@
 #define PROC_STATE_ACTIVE	1
 #define PROC_STATE_SLEEP	2
 #define PROC_STATE_SUSPENDING	3
-/*@}*/
+/**@}*/
 
 /** @name Maximum Latency/QOS macros
  *
@@ -81,7 +81,7 @@
  */
 #define MAX_LATENCY	(~0U)
 #define MAX_QOS		100U
-/*@}*/
+/**@}*/
 
 /** @name System shutdown/Restart macros
  *
@@ -93,19 +93,19 @@
 #define PMF_SHUTDOWN_SUBTYPE_SUBSYSTEM	0U
 #define PMF_SHUTDOWN_SUBTYPE_PS_ONLY	1U
 #define PMF_SHUTDOWN_SUBTYPE_SYSTEM	2U
-/*@}*/
+/**@}*/
 
 /**
- *  @name APIs for Miscellaneous functions, suspending of PUs, managing PM slaves and Direct control.
+ *  APIs for Miscellaneous functions, suspending of PUs, managing PM slaves and Direct control.
  */
 enum XPmApiId {
-	/** Miscellaneous API functions: */
-	PM_GET_API_VERSION = 1, /**< Do not change or move */
+	/* Miscellaneous API functions: */
+	PM_GET_API_VERSION = 1, /* Do not change or move */
 	PM_SET_CONFIGURATION,
 	PM_GET_NODE_STATUS,
 	PM_GET_OP_CHARACTERISTIC,
 	PM_REGISTER_NOTIFIER,
-	/** API for suspending of PUs: */
+	/*  API for suspending of PUs: */
 	PM_REQUEST_SUSPEND,
 	PM_SELF_SUSPEND,
 	PM_FORCE_POWERDOWN,
@@ -113,12 +113,12 @@ enum XPmApiId {
 	PM_REQUEST_WAKEUP,
 	PM_SET_WAKEUP_SOURCE,
 	PM_SYSTEM_SHUTDOWN,
-	/** API for managing PM slaves: */
+	/*API for managing PM slaves: */
 	PM_REQUEST_NODE,
 	PM_RELEASE_NODE,
 	PM_SET_REQUIREMENT,
 	PM_SET_MAX_LATENCY,
-	/** Direct control API functions: */
+	/* Direct control API functions: */
 	PM_RESET_ASSERT,
 	PM_RESET_GET_STATUS,
 	PM_MMIO_WRITE,
@@ -170,10 +170,10 @@ enum XPmApiId {
  * @{
  */
 #define PM_API_MIN	PM_GET_API_VERSION
-/*@}*/
+/**@}*/
 
 /**
- *  @name PM API Callback Id Enum
+ *  PM API Callback Id Enum
  */
 enum XPmApiCbId {
 	PM_INIT_SUSPEND_CB = 30,
@@ -182,7 +182,7 @@ enum XPmApiCbId {
 };
 
 /**
- *  @name PM Node ID Enum
+ * PM Node ID Enum
  */
 enum XPmNodeId {
 	NODE_UNKNOWN,
@@ -259,7 +259,7 @@ enum XPmNodeId {
 };
 
 /**
- *  @name PM Acknowledge Request Types
+ *  PM Acknowledge Request Types
  */
 enum XPmRequestAck {
 	REQUEST_ACK_NO = 1,
@@ -269,7 +269,7 @@ enum XPmRequestAck {
 };
 
 /**
- *  @name PM Abort Reasons Enum
+ *  PM Abort Reasons Enum
  */
 enum XPmAbortReason {
 	ABORT_REASON_WKUP_EVENT = 100,
@@ -279,7 +279,7 @@ enum XPmAbortReason {
 };
 
 /**
- *  @name PM Suspend Reasons Enum
+ *  PM Suspend Reasons Enum
  */
 enum XPmSuspendReason {
 	SUSPEND_REASON_PU_REQ = 201,
@@ -288,7 +288,7 @@ enum XPmSuspendReason {
 };
 
 /**
- *  @name PM RAM States Enum
+ *  PM RAM States Enum
  */
 enum XPmRamState {
 	PM_RAM_STATE_OFF = 0,
@@ -297,7 +297,7 @@ enum XPmRamState {
 };
 
 /**
- *  @name PM Operating Characteristic types Enum
+ *  PM Operating Characteristic types Enum
  */
 enum XPmOpCharType {
 	PM_OPCHAR_TYPE_POWER = 1,
@@ -331,16 +331,16 @@ enum XPmOpCharType {
 /**@}*/
 
 /**
- *  @name Boot Status Enum
+ *  Boot Status Enum
  */
 enum XPmBootStatus {
-	PM_INITIAL_BOOT,	/**< boot is a fresh system startup */
-	PM_RESUME,			/**< boot is a resume */
-	PM_BOOT_ERROR,		/**< error, boot cause cannot be identified */
+	PM_INITIAL_BOOT,	/* boot is a fresh system startup */
+	PM_RESUME,			/* boot is a resume */
+	PM_BOOT_ERROR,		/* error, boot cause cannot be identified */
 };
 
 /**
- *  @name PM Reset Action types
+ *  PM Reset Action types
  */
 enum XPmResetAction {
 	XILPM_RESET_ACTION_RELEASE,
@@ -349,7 +349,7 @@ enum XPmResetAction {
 };
 
 /**
- *  @name PM Reset Line IDs
+ *  PM Reset Line IDs
  */
 enum XPmReset {
 	XILPM_RESET_PCIE_CFG = 1000,
@@ -475,7 +475,7 @@ enum XPmReset {
 };
 
 /**
- *  @name PM Notify Events Enum
+ *  PM Notify Events Enum
  */
 enum XPmNotifyEvent {
 	EVENT_STATE_CHANGE = 1,
@@ -483,7 +483,7 @@ enum XPmNotifyEvent {
 };
 
 /**
- *  @name PM Clock IDs
+ *  PM Clock IDs
  */
 enum XPmClock {
 	PM_CLOCK_IOPLL,
