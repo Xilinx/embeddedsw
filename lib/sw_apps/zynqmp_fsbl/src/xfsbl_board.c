@@ -706,9 +706,7 @@ static u32 XFsbl_BoardConfig(void)
 
 	Status = XFsbl_FMCEnable(&I2c0Instance);
 	if (Status != XST_SUCCESS) {
-		UStatus = XSFBL_ERROR_FMC_ENABLE;
-		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_FMC_ENABLE\r\n");
-		goto END;
+		XFsbl_Printf(DEBUG_INFO, "FMC VADJ Configuration Not Successful");
 	}
 	XFsbl_Printf(DEBUG_INFO, "Board Configuration successful\n\r");
 	UStatus = XFSBL_SUCCESS;
