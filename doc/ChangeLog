@@ -1,5 +1,13 @@
 Changes for 2018.3
 ===============================
+i2stx_v2_0:
+This patch has 2 new APIs, one API is to enable the justification and 
+the other one is to set Left or Right justification.
+
+i2srx_v2_0:
+This patch has 2 new APIs, one API is to enable the justification and 
+the other one is to set Left or Right justification.
+
 
 v_hdmitxss_v5_2:
 Added I2S, Repeater and Repeater Professional applications.
