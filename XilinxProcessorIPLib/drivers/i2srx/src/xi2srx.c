@@ -39,6 +39,8 @@
  * ----- ------ -------- --------------------------------------------------
  * 1.0   kar    01/25/18  Initial release.
  * 1.1   kar    04/02/18  Changed Channel Status clear API to clear all regs.
+ * 2.0   kar    09/28/18  Added new API to enable justification.
+ *                        Added new API to select left/right justification.
  * </pre>
  *
  *****************************************************************************/
@@ -360,5 +362,59 @@ void XI2s_Rx_ClrAesChStatRegs(XI2s_Rx *InstancePtr)
 				(XI2S_RX_AES_CHSTS4_OFFSET), (u32)0);
 	XI2s_Rx_WriteReg((InstancePtr)->Config.BaseAddress,
 				(XI2S_RX_AES_CHSTS5_OFFSET), (u32)0);
+}
+/*****************************************************************************/
+/**
+ * This function enables/disables the justification.
+ *
+ * @param  InstancePtr is a pointer to the XI2s Receiver instance.
+ * @param  Enable specifies TRUE/FALSE value to either enable or disable
+ *         the justification.
+ *
+ * @return None.
+ *
+ *****************************************************************************/
+void XI2s_Rx_JustifyEnable(XI2s_Rx *InstancePtr, u8 Enable)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	u32 RegValue = XI2s_Rx_ReadReg(InstancePtr->Config.BaseAddress,
+			XI2S_RX_CORE_CTRL_OFFSET);
+
+	if (Enable)
+		RegValue |= XI2S_RX_REG_CTRL_JFE_MASK;
+	else
+		RegValue &= ~XI2S_RX_REG_CTRL_JFE_MASK;
+
+	XI2s_Rx_WriteReg(InstancePtr->Config.BaseAddress,
+			XI2S_RX_CORE_CTRL_OFFSET, RegValue);
+}
+
+/*****************************************************************************/
+/**
+ * This function is to enable right/left justification.
+ *
+ * @param  InstancePtr is a pointer to the XI2s Receiver instance.
+ * @param  Justify is a enum to select the left or right justfication.
+ *    - XI2S_RX_JUSTIFY_LEFT : Left justication
+ *    - XI2S_RX_JUSTIFY_RIGHT : Right justification
+ *
+ * @return None.
+ *
+ *****************************************************************************/
+void XI2s_Rx_Justify(XI2s_Rx *InstancePtr, XI2s_Rx_Justification Justify)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	u32 RegValue = XI2s_Rx_ReadReg(InstancePtr->Config.BaseAddress,
+			XI2S_RX_CORE_CTRL_OFFSET);
+
+	if (Justify)
+		RegValue |= XI2S_RX_REG_CTRL_LORJF_MASK;
+	else
+		RegValue &= ~XI2S_RX_REG_CTRL_LORJF_MASK;
+
+	XI2s_Rx_WriteReg(InstancePtr->Config.BaseAddress,
+			XI2S_RX_CORE_CTRL_OFFSET, RegValue);
 }
 /** @} */
