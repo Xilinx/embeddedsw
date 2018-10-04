@@ -473,36 +473,6 @@ Updated the XHdcp1x_TxPollForWaitForReady function to ready topology in case of 
 Updated the XHdcp1x_TxReset() to clear the Authentication Request flag.
 Updated XHdcp1x_PortHdmiRxDisable function to clear KSV_FIFO.
 
-v_hdmitxss_v5_2:
-Added I2S, Repeater and Repeater Professional applications.
-Repeater functionality is disabled in the applications by default.
-Added log for video bridge unlocked.
-Fixed Video Masking Feature.
-
-v_hdmitx_v2_2:
-Fixed HPD and toggle to support different AXI-Lite frequency
-Added Overflow and Underflow (Video Bridge) Interrupt
-
-v_hdmirxss_v5_2:
-Added I2S, Repeater and Repeater Professional applications.
-Repeater functionality is disabled in the applications by default.
-XV_HDMIRXSS_HDCP_1_PROT_EVT, XV_HDMIRXSS_HDCP_2_PROT_EVT events are deprecated.
-
-v_hdmirx_v2_2:
-Fixed SDK GCC warning message issue
-
-vphy_v1_8:
-Updated CDR values for DP in xvphy_gtye4.c
-Removed deprecated APIS: XVphy_DrpWrite and XVphy_DrpRead
-Added/Moved APIs XVphy_SetTxVoltageSwing and XVphy_SetTxPreEmphasis from xvphy_i.c/h
-Added XVphy_SetTxPostCursor API in xvphy.h
-
-hdcp1x_v4_2:
-Addded hdcp14_PropagateTopoErrUpstream flag to track topology failures and ready the topology for the repeater application to read.
-Updated the XHdcp1x_TxPollForWaitForReady function to ready topology in case of a topology error, and make it available in XHdcp1x_TxGetTopology().
-Updated the XHdcp1x_TxReset() to clear the Authentication Request flag.
-Updated XHdcp1x_PortHdmiRxDisable function to clear KSV_FIFO.
-
 sysmonpsu_v2_5:
 Fixed Cppcheck warnings
 Modified code for MISRA-C:2012 Compliance.
