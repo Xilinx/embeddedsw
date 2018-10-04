@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -136,6 +136,7 @@
 #define PM_PLL_SET_MODE			50U
 #define PM_PLL_GET_MODE			51U
 
+#define PM_REGISTER_ACCESS		52U
 #define PM_EFUSE_ACCESS			53U
 
 #define PM_API_MIN	PM_GET_API_VERSION
