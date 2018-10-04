@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -779,9 +779,8 @@ static int PmProcForceDown(PmNode* const node)
 #ifdef ENABLE_UNUSED_RPU_PWR_DWN
 void PmForceDownUnusableRpuCores(void)
 {
-	u32 value;
-
-	value = Xil_In32(PMU_GLOBAL_GLOBAL_GEN_STORAGE4);
+	u32 value = Xil_In32(PMU_GLOBAL_GLOBAL_GEN_STORAGE4);
+	u32 mode;
 
 	/*
 	 * If RPU core is not used then bit of PMU_GLOBAL_GLOBAL_GEN_STORAGE4
@@ -791,7 +790,25 @@ void PmForceDownUnusableRpuCores(void)
 		PmProcForceDown(&pmProcRpu0_g.node);
 	}
 	if (!(value & RPU1_STATUS_MASK)) {
-		PmProcForceDown(&pmProcRpu1_g.node);
+		mode = XPfw_Read32(RPU_RPU_GLBL_CNTL);
+
+		/* For RPU lockstep mode RPU_1 is assumed to be always down */
+		if (0U == (mode & RPU_RPU_GLBL_CNTL_SLSPLIT_MASK)) {
+			PmProc *proc = &pmProcRpu1_g;
+
+			if (NULL != proc->node.parent) {
+				PmPowerReleaseParent(&proc->node);
+			}
+			if (NULL != proc->node.clocks) {
+				PmClockRelease(&proc->node);
+			}
+			if (NULL != proc->master) {
+				PmMasterFsm(proc->master,
+					    PM_MASTER_EVENT_FORCED_PROC);
+			}
+		} else {
+			PmProcFsm(&pmProcRpu1_g, PM_PROC_EVENT_FORCE_PWRDN);
+		}
 	}
 
 	/* Mark RPU0 and RPU1 status as power down in RPU usage status bits */
