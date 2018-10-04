@@ -7,11 +7,12 @@ OPTION psf_version = 2.1;
 
 BEGIN driver v_multi_scaler
 
- OPTION supported_peripherals = (v_multi_scaler);
+ OPTION supported_peripherals = (v_multi_scaler_v[1]_[0-2]);
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
+ OPTION DEPENDS = (video_common);
  OPTION name = v_multi_scaler;
- OPTION version = 1.1;
+ OPTION version = 1.2;
 
 END driver
 
