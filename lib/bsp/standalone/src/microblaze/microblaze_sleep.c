@@ -42,6 +42,13 @@
 * 6.6   srm  10/18/17 Updated sleep routines to support user configurable
 *                     implementation. Now sleep routines will use Axi Timer
 *                     or machine cycles as specified by the user.
+* 6.8   mus  10/04/18 FreeRTOS BSP alway use default method for sleep
+*                     implementation, It does not have user configurable sleep
+*                     implementation support, that is why FreeRTOS tcl does not
+*                     export XSLEEP_TIMER_IS_DEFAULT_TIMER macro to
+*                     xparameters.h. Modified code to always use default timer
+*                     path for FreeRTOS BSP, based on the "FREERTOS_BSP" macro.
+*                     It fixes CR#1012363.
 *
 * </pre>
 *
@@ -63,14 +70,14 @@
 #define COUNTS_PER_MSECOND (COUNTS_PER_SECOND / 1000)
 #define COUNTS_PER_USECOND (COUNTS_PER_SECOND / 1000000)
 #warning "May wait for more than the specified delay"
-#elif defined (XSLEEP_TIMER_IS_DEFAULT_TIMER)
+#elif defined (XSLEEP_TIMER_IS_DEFAULT_TIMER) || defined (FREERTOS_BSP)
 #define ITERS_PER_SEC	(XPAR_CPU_CORE_CLOCK_FREQ_HZ / 4)
 #define ITERS_PER_MSEC	(ITERS_PER_SEC / 1000)
 #define ITERS_PER_USEC	(ITERS_PER_MSEC / 1000)
 #pragma message ("For the sleep routines, assembly instructions are used")
 #endif
 
-#if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER)
+#if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER) || defined (FREERTOS_BSP)
 static void sleep_common(u32 n, u32 iters)
 {
 	asm volatile (
@@ -101,7 +108,7 @@ static void sleep_common(u32 n, u32 iters)
 ******************************************************************************/
 int usleep_MB(unsigned long useconds)
 {
-#if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER)
+#if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER) || defined (FREERTOS_BSP)
 	sleep_common((u32)useconds, ITERS_PER_USEC);
 #elif defined (XSLEEP_TIMER_IS_AXI_TIMER)
 	/* Start Axi timer */
@@ -123,7 +130,7 @@ int usleep_MB(unsigned long useconds)
 ******************************************************************************/
 unsigned sleep_MB(unsigned int seconds)
 {
-#if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER)
+#if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER) || defined (FREERTOS_BSP)
 	 sleep_common(seconds, ITERS_PER_SEC);
 #elif defined (XSLEEP_TIMER_IS_AXI_TIMER)
 	/* Start Axi timer */
@@ -148,7 +155,7 @@ unsigned sleep_MB(unsigned int seconds)
 ******************************************************************************/
 void MB_Sleep(u32 MilliSeconds)
 {
-#if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER)
+#if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER) || defined (FREERTOS_BSP)
 	sleep_common(MilliSeconds, ITERS_PER_MSEC);
 
 #elif defined (XSLEEP_TIMER_IS_AXI_TIMER)
