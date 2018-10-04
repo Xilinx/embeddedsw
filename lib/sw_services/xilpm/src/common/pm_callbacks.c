@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,12 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-
+/**
+ * @file pm_callbacks.c
+ *
+ * @addtogroup xpm_apis XilPM APIs
+ * @{
+ *****************************************************************************/
 #include <stdlib.h>
 #include "pm_callbacks.h"
 #include "pm_client.h"
@@ -143,3 +148,4 @@ void XPm_NotifierProcessEvent(const enum XPmNodeId node,
 		notifier = notifier->next;
 	}
 }
+ /** @} */

@@ -25,7 +25,13 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-
+/**
+ * @file pm_clock.c
+ *
+ * PM Definitions implementation
+ * @addtogroup xpm_apis XilPM APIs
+ * @{
+ *****************************************************************************/
 #include "pm_clock.h"
 #include "pm_common.h"
 
@@ -40,40 +46,44 @@
 typedef struct XPmClockModel XPmClockModel;
 
 /**
- * XPmClockSel2ClkIn - Pair of multiplexer select value and selected clock input
- * @clkIn	ID of the clock that is selected with the 'select' value
- * @select	Select value of the clock multiplexer
+ * Pair of multiplexer select value and selected clock input
  */
 typedef struct {
+	/**
+	ID of the clock that is selected with the 'select' value
+	*/
 	const enum XPmClock clkIn;
+	/**
+	Select value of the clock multiplexer
+	*/
 	const u8 select;
 } XPmClockSel2ClkIn;
 
 /**
- * XPmClockMux - MUX select values to clock input mapping
- * @inputs	Mux select to pll mapping at the input of the multiplexer
- * @size	Size of the inputs array
- * @bits	Number of bits of mux select
- * @shift	Number of bits to shift 'bits' in order to get mux select mask
+ * MUX select values to clock input mapping
  */
 typedef struct {
+	/** Mux select to pll mapping at the input of the multiplexer */
 	const XPmClockSel2ClkIn* const inputs;
+	/** Size of the inputs array*/
 	const u8 size;
+	/** Number of bits of mux select*/
 	const u8 bits;
+	/** Number of bits to shift 'bits' in order to get mux select mask*/
 	const u8 shift;
 } XPmClockMux;
 
 /**
- * XPmClockModel - Clock model
- * @id		Clock ID
- * @mux		Pointer to the mux model
- * @type	Type specifying the available divisors
- * @next	Next clock in the list
+ * Clock model
  */
 typedef struct XPmClockModel {
+	/** Clock ID*/
 	const enum XPmClock id;
+	/** Pointer to the mux model*/
 	const XPmClockMux* const mux;
+	/** Type specifying the available divisors*/
 	const u8 type;
+	/** Next clock in the list*/
 	const XPmClockModel* const next;
 } XPmClockModel;
 
@@ -1165,3 +1175,4 @@ u8 XPm_MapDivider(const enum XPmClock clock,
 done:
 	return mapped;
 }
+ /** @} */
