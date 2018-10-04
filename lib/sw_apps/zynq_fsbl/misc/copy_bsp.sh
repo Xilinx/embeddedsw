@@ -46,9 +46,12 @@ else
 fi
 
 cp -rf $STANDALONE_DIR/profile  $BSP_DIR/libsrc/standalone/src/
-cp $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
-cp $STANDALONE_DIR/arm/cortexa9/*  $BSP_DIR/libsrc/standalone/src/
-cp $STANDALONE_DIR/arm/common/*	   $BSP_DIR/libsrc/standalone/src/
+cp $STANDALONE_DIR/common/*.h  $BSP_DIR/libsrc/standalone/src/
+cp $STANDALONE_DIR/common/*.c  $BSP_DIR/libsrc/standalone/src/
+cp $STANDALONE_DIR/arm/cortexa9/*.c  $BSP_DIR/libsrc/standalone/src/
+cp $STANDALONE_DIR/arm/cortexa9/*.h  $BSP_DIR/libsrc/standalone/src/
+cp $STANDALONE_DIR/arm/common/*.h   $BSP_DIR/libsrc/standalone/src/
+cp $STANDALONE_DIR/arm/common/*.c   $BSP_DIR/libsrc/standalone/src/
 cp $STANDALONE_DIR/arm/common/gcc/*  $BSP_DIR/libsrc/standalone/src/
 
 if [ $COMPILER == "arm-none-eabi-gcc" ]; then
