@@ -8,16 +8,18 @@ Added log for video bridge unlocked.
 Fixed Video Masking Feature.
 
 v_hdmitx_v2_2:
-Fixed HPD and toggle to support different AXI-Lite frequency
-Added Overflow and Underflow (Video Bridge) Interrupt
+Fixed HPD and toggle to support different AXI-Lite frequency.
+Added Overflow and Underflow (Video Bridge) Interrupt.
 
 v_hdmirxss_v5_2:
 Added I2S, Repeater and Repeater Professional applications.
 Repeater functionality is disabled in the applications by default.
 XV_HDMIRXSS_HDCP_1_PROT_EVT, XV_HDMIRXSS_HDCP_2_PROT_EVT events are deprecated.
+Added TMDS Clock Ratio callback support.
 
 v_hdmirx_v2_2:
-Fixed SDK GCC warning message issue
+Fixed SDK GCC warning message issue.
+Added TMDS Clock Ratio callback support.
 
 vphy_v1_8:
 Updated CDR values for DP in xvphy_gtye4.c

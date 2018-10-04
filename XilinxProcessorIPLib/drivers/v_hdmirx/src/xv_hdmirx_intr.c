@@ -62,7 +62,8 @@
 * 2.20  EB     16/08/18 Replaced TIME_10MS, TIME_16MS, TIME_200MS with
 *                           XV_HdmiRx_GetTime10Ms, XV_HdmiRx_GetTime16Ms
 *                           XV_HdmiRx_GetTime200Ms
-*       YB     08/15/18 Added new cases for HDCP 1.4 & 2.2 protocol events in
+*                       Added TMDS Clock Ratio callback support
+*       YB     15/08/18 Added new cases for HDCP 1.4 & 2.2 protocol events in
 *                           XV_HdmiRx_SetCallback function.
 *                       Updated the HdmiRx_DdcIntrHandler() function.
 * </pre>
@@ -348,6 +349,15 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr, u32 HandlerType, void *Callbac
             InstancePtr->ModeCallback = (XV_HdmiRx_Callback)CallbackFunc;
             InstancePtr->ModeRef = CallbackRef;
             InstancePtr->IsModeCallbackSet = (TRUE);
+            Status = (XST_SUCCESS);
+            break;
+
+        // TMDS clock ratio
+        case (XV_HDMIRX_HANDLER_TMDS_CLK_RATIO):
+            InstancePtr->TmdsClkRatioCallback =
+                                  (XV_HdmiRx_Callback)CallbackFunc;
+            InstancePtr->TmdsClkRatioRef = CallbackRef;
+            InstancePtr->IsTmdsClkRatioCallbackSet = (TRUE);
             Status = (XST_SUCCESS);
             break;
 
@@ -726,6 +736,14 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
         // Call mode callback
         if (InstancePtr->IsModeCallbackSet) {
             InstancePtr->ModeCallback(InstancePtr->ModeRef);
+        }
+    }
+
+    // TMDS clock ratio
+    if ((Event) & (XV_HDMIRX_PIO_IN_SCDC_TMDS_CLOCK_RATIO_MASK)) {
+        // Call TMDS Ratio callback
+        if (InstancePtr->IsTmdsClkRatioCallbackSet) {
+            InstancePtr->TmdsClkRatioCallback(InstancePtr->TmdsClkRatioRef);
         }
     }
 

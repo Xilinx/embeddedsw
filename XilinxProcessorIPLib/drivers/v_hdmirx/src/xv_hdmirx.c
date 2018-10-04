@@ -61,6 +61,7 @@
 * 2.20  EB     16/08/18 Replaced TIME_10MS, TIME_16MS, TIME_200MS with
 *                          XV_HdmiRx_GetTime10Ms, XV_HdmiRx_GetTime16Ms
 *                          XV_HdmiRx_GetTime200Ms
+*                       Added TMDS Clock Ratio callback support
 * </pre>
 *
 ******************************************************************************/
@@ -171,6 +172,10 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
 
     InstancePtr->ModeCallback = (XV_HdmiRx_Callback)((void *)StubCallback);
     InstancePtr->IsModeCallbackSet = (FALSE);
+
+    InstancePtr->TmdsClkRatioCallback =
+				(XV_HdmiRx_Callback)((void *)StubCallback);
+    InstancePtr->IsTmdsClkRatioCallbackSet = (FALSE);
 
     /* Clear HDMI variables */
     XV_HdmiRx_Clear(InstancePtr);

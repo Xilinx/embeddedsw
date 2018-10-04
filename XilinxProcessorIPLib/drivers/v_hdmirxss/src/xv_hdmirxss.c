@@ -115,6 +115,7 @@
 *                           to HDMI1.4
 *       YH     13/04/18 Fixed a bug in XV_HdmiRxSs_BrdgOverflowCallback
 * 5.20	EB     03/08/18 Added function XV_HdmiRxSs_AudioMute
+*                       Added TMDS Clock Ratio callback support
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -161,6 +162,7 @@ static void XV_HdmiRxSs_StreamInitCallback(void *CallbackRef);
 static void XV_HdmiRxSs_StreamUpCallback(void *CallbackRef);
 static void XV_HdmiRxSs_SyncLossCallback(void *CallbackRef);
 static void XV_HdmiRxSs_ModeCallback(void *CallbackRef);
+static void XV_HdmiRxSs_TmdsClkRatioCallback(void *CallbackRef);
 
 static void XV_HdmiRxSs_ReportCoreInfo(XV_HdmiRxSs *InstancePtr);
 static void XV_HdmiRxSs_ReportTiming(XV_HdmiRxSs *InstancePtr);
@@ -420,6 +422,11 @@ static int XV_HdmiRxSs_RegisterSubsysCallbacks(XV_HdmiRxSs *InstancePtr)
     XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
                           XV_HDMIRX_HANDLER_MODE,
                           (void *)XV_HdmiRxSs_ModeCallback,
+                          (void *)InstancePtr);
+
+    XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
+                          XV_HDMIRX_HANDLER_TMDS_CLK_RATIO,
+                          (void *)XV_HdmiRxSs_TmdsClkRatioCallback,
                           (void *)InstancePtr);
   }
 
@@ -976,6 +983,29 @@ static void XV_HdmiRxSs_ModeCallback(void *CallbackRef)
 /*****************************************************************************/
 /**
 *
+* This function is called when the TMDS CLK ratio changes.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_HdmiRxSs_TmdsClkRatioCallback(void *CallbackRef)
+{
+  XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
+
+  // Check if user callback has been registered
+  if (HdmiRxSsPtr->TmdsClkRatioCallback) {
+      HdmiRxSsPtr->TmdsClkRatioCallback(HdmiRxSsPtr->TmdsClkRatioRef);
+  }
+
+}
+
+/*****************************************************************************/
+/**
+*
 * This function retrieves the Vendor Specific Info Frame.
 *
 * @param  None.
@@ -1316,6 +1346,14 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
         case (XV_HDMIRXSS_HANDLER_STREAM_UP):
             InstancePtr->StreamUpCallback = (XV_HdmiRxSs_Callback)CallbackFunc;
             InstancePtr->StreamUpRef = CallbackRef;
+            Status = (XST_SUCCESS);
+            break;
+
+        // TMDS_CLK_RATIO
+        case (XV_HDMIRXSS_HANDLER_TMDS_CLK_RATIO):
+            InstancePtr->TmdsClkRatioCallback =
+                                  (XV_HdmiRxSs_Callback)CallbackFunc;
+            InstancePtr->TmdsClkRatioRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
 
