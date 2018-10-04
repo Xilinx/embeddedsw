@@ -144,7 +144,8 @@
 * 2.20  EB     16/08/18 Replaced TIME_10MS, TIME_16MS, TIME_200MS with
 *                           XV_HdmiRx_GetTime10Ms, XV_HdmiRx_GetTime16Ms
 *                           XV_HdmiRx_GetTime200Ms
-*       YB     08/15/18	Added new callbacks for HDCP 1.4 & 2.2 protocol events.
+*                       Added TMDS Clock Ratio callback support
+*       YB     15/08/18	Added new callbacks for HDCP 1.4 & 2.2 protocol events.
 *                       Enumerated new entries for HDCP 1.4 & 2.2 protocol
 *                           events in XV_HdmiRx_HandlerType enum.
 * </pre>
@@ -193,7 +194,8 @@ typedef enum {
 	XV_HDMIRX_HANDLER_DDC_HDCP_22_PROT,  /**< Interrupt type for HDCP22PROT event */
 	XV_HDMIRX_HANDLER_LINK_ERROR,		/**< Interrupt type for link error */
 	XV_HDMIRX_HANDLER_SYNC_LOSS,       /**< Interrupt type for sync loss */
-	XV_HDMIRX_HANDLER_MODE             /**< Interrupt type for mode */
+	XV_HDMIRX_HANDLER_MODE,            /**< Interrupt type for mode */
+    XV_HDMIRX_HANDLER_TMDS_CLK_RATIO /**< Interrupt type for TMDS clock ratio */
 } XV_HdmiRx_HandlerType;
 /*@}*/
 
@@ -353,6 +355,10 @@ typedef struct {
 	XV_HdmiRx_Callback ModeCallback;			/**< Callback for sync loss callback */
 	void *ModeRef;							/**< To be passed to the link error callback */
 	u32 IsModeCallbackSet;					/**< Set flag. This flag is set to true when the callback has been registered */
+
+	XV_HdmiRx_Callback TmdsClkRatioCallback;    /**< Callback for TMDS clock ratio change */
+	void *TmdsClkRatioRef;                  /**< To be passed to the TMDS callback */
+	u32 IsTmdsClkRatioCallbackSet;          /**< Set flag. This flag is set to true when the callback has been registered */
 
 	/* HDMI RX stream */
 	XV_HdmiRx_Stream Stream;				/**< HDMI RX stream information */
