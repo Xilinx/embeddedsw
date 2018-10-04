@@ -45,13 +45,15 @@
  * Ver   Who    Date     Changes
  * ----- ------ -------- --------------------------------------------------
  * 1.0   kar    11/16/17 Initial release.
+ * 2.0   kar    10/01/18 included xil_types and xil_assert header files.
  * </pre>
  *
  *****************************************************************************/
 
 /***************************** Include Files *********************************/
 #include "xi2stx.h"
-#include "xbasic_types.h"
+#include "xil_types.h"
+#include "xil_assert.h"
 
 /************************** Constant Definitions *****************************/
 
