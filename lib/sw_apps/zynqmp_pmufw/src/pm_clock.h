@@ -70,7 +70,6 @@ void PmClockRelease(PmNode* const node);
 void PmClockConstructList(void);
 void PmClockRestore(PmNode* const node);
 void PmClockSave(PmNode* const node);
-void PmClockRestoreDdr(void);
 
 PmClock* PmClockGetById(const u32 clockId);
 
