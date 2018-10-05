@@ -107,6 +107,7 @@ u32 XAudioFormatter_CfgInitialize(XAudioFormatter *InstancePtr,
 
 	/* Setup the instance */
 	InstancePtr->Config = *CfgPtr;
+	InstancePtr->BaseAddress = CfgPtr->BaseAddress;
 	val = XAudioFormatter_ReadReg(CfgPtr->BaseAddress,
 		XAUD_FORMATTER_CORE_CONFIG);
 	if (val & XAUD_CFG_MM2S_MASK) {
@@ -119,7 +120,6 @@ u32 XAudioFormatter_CfgInitialize(XAudioFormatter *InstancePtr,
 		InstancePtr->ChannelId = XAudioFormatter_S2MM;
 		XAudioFormatterDMAReset(InstancePtr);
 	}
-	InstancePtr->BaseAddress = CfgPtr->BaseAddress;
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
 	return XST_SUCCESS;
@@ -391,7 +391,7 @@ u32 XAudioFormatterGetDMATransferCount(XAudioFormatter *InstancePtr)
 	u32 val;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (InstancePtr->ChannelId == XAudioFormatter_S2MM) {
 		offset = XAUD_FORMATTER_S2MM_OFFSET;
@@ -417,7 +417,7 @@ u32 XAudioFormatterGetDMATransferCount(XAudioFormatter *InstancePtr)
  ******************************************************************************/
 void XAudioFormatterSetS2MMTimeOut(XAudioFormatter *InstancePtr, u32 TimeOut)
 {
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	XAudioFormatter_WriteReg(InstancePtr->BaseAddress,

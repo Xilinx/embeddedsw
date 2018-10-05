@@ -518,6 +518,8 @@ u32 InitializeAudioFormatter(XAudioFormatter *AFInstancePtr)
 int main(void)
 {
 	u32 Status;
+	u32 RxStatus;
+	u32 TxStatus;
 	u32 IntrCount = 0;
 	XI2s_Rx *I2sRxInstancePtr = &I2sRxInstance;
 	XI2s_Tx *I2sTxInstancePtr = &I2sTxInstance;
@@ -559,23 +561,24 @@ int main(void)
 		xil_printf("\nI2STx Init failed\n");
 		return XST_FAILURE;
 	}
-	Status =  XST_FAILURE;
+	RxStatus =  XST_FAILURE;
 	while (IntrCount < I2S_RX_TIME_OUT) {
 		if (I2sRxIntrReceived == 1 && S2MMAFIntrReceived == 1) {
-			Status =  XST_SUCCESS;
+			RxStatus =  XST_SUCCESS;
 			break;
 		}
 		IntrCount++;
 	}
 	IntrCount = 0;
+	TxStatus =  XST_FAILURE;
 	while (IntrCount < I2S_TX_TIME_OUT) {
 		if (I2sTxIntrReceived == 1 && MM2SAFIntrReceived == 1) {
-			Status =  XST_SUCCESS;
+			TxStatus =  XST_SUCCESS;
 			break;
 		}
 		IntrCount++;
 	}
-	if (Status == XST_SUCCESS)
+	if (RxStatus == XST_SUCCESS && TxStatus == XST_SUCCESS)
 		xil_printf("\nAudio Formatter Test successfull\n");
 	else
 		xil_printf("\nAudio Formatter Test Failed\n");
