@@ -524,8 +524,8 @@ void XV_SdiTxSs_Stop(XV_SdiTxSs *InstancePtr)
 ******************************************************************************/
 void XV_SdiTxSs_ST352CSwitch3GA(XV_SdiTxSs *InstancePtr)
 {
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.InsertCSTRST352);
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->Config.InsertCSTRST352);
 	XV_SdiTx_ST352CSwitch3GA(InstancePtr->SdiTxPtr);
 }
 
@@ -543,8 +543,8 @@ void XV_SdiTxSs_ST352CSwitch3GA(XV_SdiTxSs *InstancePtr)
 ******************************************************************************/
 void XV_SdiTxSs_ST352CStreamEnable(XV_SdiTxSs *InstancePtr)
 {
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.InsertCSTRST352);
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->Config.InsertCSTRST352);
 	XV_SdiTx_ST352CStreamEnable(InstancePtr->SdiTxPtr);
 }
 
