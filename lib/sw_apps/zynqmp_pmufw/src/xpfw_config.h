@@ -98,6 +98,7 @@
  *	- DISABLE_CLK_PERMS : Disable clock permission checking (it is not safe
  *			to ever disable clock permission checking). Do this at
  *			your own responsibility.
+ *	- ENABLE_EFUSE_ACCESS : Enables efuse access feature
  *
  * 	These macros are specific to ZCU100 design where it uses GPO1[2] as a
  * 	board power line and
@@ -122,6 +123,7 @@
 #define	ENABLE_SAFETY_VAL				(0U)
 #define	ENABLE_FPGA_LOAD_VAL			(1U)
 #define	ENABLE_SECURE_VAL				(1U)
+#define ENABLE_EFUSE_ACCESS				(0U)
 #define	XPU_INTR_DEBUG_PRINT_ENABLE_VAL	(0U)
 
 #define	PM_LOG_LEVEL_VAL				(0U)
@@ -243,6 +245,10 @@
 
 #if SECURE_ACCESS_VAL
 #define SECURE_ACCESS
+#endif
+
+#if ENABLE_EFUSE_ACCESS
+#define EFUSE_ACCESS
 #endif
 
 /* FPD WDT recovery action */

@@ -55,6 +55,8 @@
 #ifdef ENABLE_SECURE
 #include "xsecure.h"
 #include "xilskey_eps_zynqmp_puf.h"
+#endif
+#ifdef EFUSE_ACCESS
 #include "xilskey_eps_zynqmp.h"
 #endif
 #include "pmu_iomodule.h"
@@ -950,24 +952,6 @@ static void PmSecureAes(const PmMaster *const master,
 }
 
 /**
- * This function provides access to efuse memory
- *
- * @AddrHigh: Higher 32-bit address of the XilSKey_Efuse structure.
- * @AddrLow: Lower 32-bit address of the XilSKey_Efuse structure.
- *
- * @return  error status based on implemented functionality(SUCCESS by default)
- */
-static void PmEfuseAccess(const PmMaster *const master,
-			const u32 AddrHigh, const u32 AddrLow)
-{
-	u32 Status = XST_SUCCESS;
-
-	Status = XilSkey_ZynqMpEfuseAccess(AddrHigh, AddrLow);
-
-	IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, Status);
-}
-
-/**
  * PmSecureImage() - To process secure image
  *
  * @SrcAddrHigh: Higher 32-bit Linear memory space from where data
@@ -996,6 +980,28 @@ static void PmSecureImage(const PmMaster *const master,
 	IPI_RESPONSE3(master->ipiMask, Status, Addr.AddrHigh, Addr.AddrLow);
 }
 #endif
+
+/**
+ * This function provides access to efuse memory
+ *
+ * @AddrHigh: Higher 32-bit address of the XilSKey_Efuse structure.
+ * @AddrLow: Lower 32-bit address of the XilSKey_Efuse structure.
+ *
+ * @return  error status based on implemented functionality(SUCCESS by default)
+ */
+static void PmEfuseAccess(const PmMaster *const master,
+			const u32 AddrHigh, const u32 AddrLow)
+{
+	u32 Status = XST_SUCCESS;
+
+#ifdef EFUSE_ACCESS
+	Status = XilSkey_ZynqMpEfuseAccess(AddrHigh, AddrLow);
+#else
+	Status = XST_NOT_ENABLED;
+#endif
+
+	IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, Status);
+}
 
 /**
  * PmGetChipid() - Get silicon version register
@@ -1981,11 +1987,9 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 	case PM_PLL_GET_MODE:
 		PmPllGetMode(master, pload[1]);
 		break;
-#ifdef ENABLE_SECURE
 	case PM_EFUSE_ACCESS:
 		PmEfuseAccess(master, pload[1], pload[2]);
 		break;
-#endif
 	case PM_PINCTRL_REQUEST:
 		PmPinCtrlRequest(master, pload[1]);
 		break;
