@@ -32,40 +32,6 @@
  * @addtogroup xfpga_apis XilFPGA APIs
  * @{
  *
- * The XILFPGA library provides the interface to the application to configure
- * the programmable logic (PL) though the PS.
- *
- * The below Features are supported in ZynqMP platform.
- * - Supported Features:
- *    - Full Bitstream loading.
- *    - Partial Bitstream loading.
- *    - Encrypted Bitstream loading.
- *    - Authenticated Bitstream loading.
- *    - Authenticated and Encrypted Bitstream loading.
- *    - Partial Bitstream loading.
- *
- * #  Xilfpga_PL library Interface modules	{#xilfpgapllib}
- *	Xilfpga_PL library uses the below major components to configure
- * the PL through PS.
- *
- *  - Xilsecure_library provides APIs to access secure hardware on the
- * ZynqMP devices. This library includes:
- *	 - SHA-3 engine hash functions
- *	 - AES for symmetric key encryption
- *	 - RSA for authentication
- *
- * These algorithms are needed to support to load the Encrypted and
- * Authenticated Bitstream into PL.
- *
- * @note XilFPGA library is capable of loading only .bin format files into PL On
- * ZynqMP platform.
- * The library does not support other file formats.
- *
- *
- * ##   Initialization & Writing Bitstream	{#xilinit}
- *
- * Use the u32 XFpga_PL_BitSream_Load(); function to initialize the PL
- * and load the Bitstream.
  *
  * @{
  * @cond xilfpga_internal
