@@ -70,7 +70,6 @@
 #define PM_DIV1_SHIFT	16U
 #define PM_DIV_MASK	0x3FU
 
-#define PM_CLOCK_MUX_SELECT_MASK	0x3U
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
@@ -3000,27 +2999,5 @@ int PmClockCheckPermission(const PmClock* const clock, const u32 ipiMask)
 done:
 	return status;
 }
-
-#ifdef ENABLE_POS
-/**
- * PmClockRestoreDdr() - Restore state of clocks related to DDR node
- */
-void PmClockRestoreDdr(void)
-{
-	PmClockHandle* ch = pmSlaveDdr_g.node.clocks;
-
-	while (NULL != ch) {
-		u32 sel = ch->clock->ctrlVal & PM_CLOCK_MUX_SELECT_MASK;
-		PmPll* pll = PmClockGetParent(ch->clock, sel);
-
-		if (&pmDpll_g == pll) {
-			PmPllRequest(pll);
-		}
-		XPfw_Write32(ch->clock->ctrlAddr, ch->clock->ctrlVal);
-
-		ch = ch->nextClock;
-	}
-}
-#endif
 
 #endif
