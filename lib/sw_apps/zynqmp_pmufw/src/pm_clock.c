@@ -2436,6 +2436,14 @@ static PmClockGen pmClockFpdWdt = {
 	.useCount = 0U,
 };
 
+#ifdef ENABLE_POS
+static PmClockGen* pmDdrClocks [] = {
+	&pmClockDdr,
+	&pmClockTopSwMain,
+	&pmClockTopSwLsBus,
+};
+#endif
+
 static PmClock* pmClocks[] = {
 	&pmClockIOpll.base,
 	&pmClockRpll.base,
@@ -2999,5 +3007,21 @@ int PmClockCheckPermission(const PmClock* const clock, const u32 ipiMask)
 done:
 	return status;
 }
+
+#ifdef ENABLE_POS
+/**
+ * PmClockRestoreDdr() - Restore state of clocks related to DDR node
+ */
+void PmClockRestoreDdr()
+{
+	u32 i;
+
+	for (i = 0U; i < ARRAY_SIZE(pmDdrClocks); i++) {
+		PmClockRequestInt(&pmDdrClocks[i]->base);
+
+		XPfw_Write32(pmDdrClocks[i]->ctrlAddr, pmDdrClocks[i]->ctrlVal);
+	}
+}
+#endif
 
 #endif
