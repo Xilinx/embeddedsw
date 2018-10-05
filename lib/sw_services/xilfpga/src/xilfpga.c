@@ -54,9 +54,8 @@
 Xilfpga_Ops Fpga_Ops;
 
 /*****************************************************************************/
-/**The API is used to load the user provided Bitstream file into the
- * PL region.
- * This function does the following jobs:
+/**The API is used to load the bitstream file into the PL region.
+ * This function performs:
  *		- Power-up the PL fabric.
  *		- Performs PL-PS Isolation.
  *		- Initialize PL configuration Interface
@@ -68,7 +67,7 @@ Xilfpga_Ops Fpga_Ops;
  *
  *@param AddrPtr Aes key address which is used for Decryption.
  *
- *@param flags: Flags are used to specify the type of Bitstream file.
+ *@param flags Flags are used to specify the type of Bitstream file.
  *			* BIT(0) - Bitstream type
  *					* 0 - Full Bitstream
  *					* 1 - Partial Bitstream
@@ -85,7 +84,7 @@ Xilfpga_Ops Fpga_Ops;
  *					* 1 - Enable
  *					* 0 - Disable
  *
- *@return Returns Status
+ *@return
  *	- XFPGA_SUCCESS on success
  *	- Error code on failure.
  *	- XFPGA_VALIDATE_ERROR.
@@ -159,7 +158,7 @@ u32 XFpga_PL_ValidateImage(XFpga_Info *PLInfoPtr)
 /* This function prepare the FPGA to receive configuration data.
  * @param PLInfoPtr Pointer to XFgpa_Info structure
  *
- * @return Codes as mentioned in xilfpga_cfi.h
+ * @return Codes as mentioned in xilfpga.h
  *****************************************************************************/
 u32 XFpga_PL_Preconfig(XFpga_Info *PLInfoPtr)
 {
@@ -184,7 +183,7 @@ u32 XFpga_PL_Preconfig(XFpga_Info *PLInfoPtr)
 /* This function write count bytes of configuration data into the PL.
  * @param PLInfoPtr Pointer to XFgpa_Info structure
  *
- * @return Codes as mentioned in xilfpga_cfi.h
+ * @return Codes as mentioned in xilfpga.h
  *****************************************************************************/
 u32 XFpga_PL_WriteToPl(XFpga_Info *PLInfoPtr)
 {
@@ -207,9 +206,9 @@ u32 XFpga_PL_WriteToPl(XFpga_Info *PLInfoPtr)
 
 /*****************************************************************************/
 /** This function set FPGA to operating state after writing.
- * @param ImageInfo Pointer to XFgpa_Info structure
+ * @param PLInfoPtr Pointer to XFgpa_Info structure
  *
- * @return Codes as mentioned in xilfpga_cfi.h
+ * @return Codes as mentioned in xilfpga.h
  *****************************************************************************/
 u32 XFpga_PL_PostConfig(XFpga_Info *PLInfoPtr)
 {
@@ -234,9 +233,9 @@ u32 XFpga_PL_PostConfig(XFpga_Info *PLInfoPtr)
 /**
  * This function provides PL specific configuration register values
  *
- * @param        ConfigReg  is a constant which represents the configuration
+ * @param        ConfigReg  Constant which represents the configuration
  *                       register value to be returned.
- * @param        Address is the DMA buffer address.
+ * @param        Address DMA linear buffer address.
  *
  * @return
  *	- XFPGA_SUCCESS if successful
@@ -266,8 +265,7 @@ u32 XFpga_GetPlConfigReg(u32 ConfigReg, UINTPTR Address)
 /**
  * This function provides functionality to read back the PL configuration data
  *
- * @param Address is the DMA buffer address.
- * @param NumFrames is the number fpga configuration frames to read.
+ * @param PLInfoPtr Pointer to XFgpa_Info structure
  *
  * @return
  *	- XFPGA_SUCCESS if successful
