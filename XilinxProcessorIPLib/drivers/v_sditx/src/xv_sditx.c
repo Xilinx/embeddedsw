@@ -1038,7 +1038,7 @@ void XV_SdiTx_ST352CSwitch3GA(XV_SdiTx *InstancePtr)
 
 	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
 				XV_SDITX_MDL_CTRL_OFFSET);
-	Xil_AssertNonvoid(Data & XV_SDITX_MDL_CTRL_C_ST352_MASK);
+	Xil_AssertVoid(Data & XV_SDITX_MDL_CTRL_C_ST352_MASK);
 	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
 				XV_SDITX_MDL_CTRL_OFFSET);
 	Data |= XV_SDITX_MDL_CTRL_C_ST352_SWITCH_3GA_MASK;
