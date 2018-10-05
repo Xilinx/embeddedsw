@@ -47,7 +47,7 @@
 *	Black key.
 *	FALSE will not program data into eFUSE.
 *
-*	#define XSK_PUF_IF_CONTRACT_MANUFATURER		FALSE
+*	#define XSK_PUF_IF_CONTRACT_MANUFACTURER	FALSE
 *	This should be enabled when application is hand over to contract
 *	manufacturer.
 *	TRUE will allow only authenticated application.
@@ -97,7 +97,7 @@
 *	To avoid programming eFUSE results can be displayed on UART com port
 *	by making XSK_PUF_INFO_ON_UART to TRUE.
 *
-*	#define		XSK_PUF_IV	"000000000000000000000000"
+*	#define		XSK_PUF_BLACK_KEY_IV	"000000000000000000000000"
 *	The value mentioned here will be converted to hex buffer.
 *	This is Initialization vector(IV) which is used to generated black key
 *	with provided AES key and generated PUF key.
@@ -113,6 +113,10 @@
 * 6.1   rp   17/10/16 First release.
 * 6.2   vns  03/10/17 Added support for programming and reading one reserved
 *                     bit
+* 6.3   vns  10/05/18 Corrected the following macro
+*                     XSK_PUF_IV  to XSK_PUF_BLACK_KEY_IV and
+*                     XSK_PUF_IF_CONTRACT_MANUFATURER to
+*                     XSK_PUF_IF_CONTRACT_MANUFACTURER
 * </pre>
 *
 *
@@ -145,7 +149,7 @@ extern "C" {
 
 #define XSK_PUF_INFO_ON_UART			FALSE
 #define XSK_PUF_PROGRAM_EFUSE			FALSE
-#define XSK_PUF_IF_CONTRACT_MANUFATURER		FALSE
+#define XSK_PUF_IF_CONTRACT_MANUFACTURER	FALSE
 
 /* For programming/reading secure bits of PUF */
 #define XSK_PUF_READ_SECUREBITS			FALSE
@@ -159,7 +163,7 @@ extern "C" {
 #endif
 
 #define	XSK_PUF_AES_KEY		"0000000000000000000000000000000000000000000000000000000000000000"
-#define	XSK_PUF_IV		"000000000000000000000000"
+#define	XSK_PUF_BLACK_KEY_IV	"000000000000000000000000"
 
 #define XSK_PUF_REG_MODE			XSK_PUF_MODE4K
 						/**< Registration Mode
@@ -182,7 +186,7 @@ extern "C" {
 					  *  values into eFUSE */
 #endif
 
-#if (XSK_PUF_IF_CONTRACT_MANUFATURER == TRUE)
+#if (XSK_PUF_IF_CONTRACT_MANUFACTURER == TRUE)
 #define	XPUF_CONTRACT_MANUFACTURER	/**< If defined, additional checks
 					  *  will be made to verify that app
 					  *  is authenticated before running*/

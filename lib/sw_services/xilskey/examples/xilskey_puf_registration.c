@@ -799,7 +799,8 @@ static u32 XilSKey_Puf_Encrypt_Key()
 	 * Convert the IV from string to hex format. This is the IV used to
 	 * encrypt the AES key using PUF key
 	 */
-	Status = XilSKey_Puf_ConvertStringToHexBE((const char *) (XSK_PUF_IV),
+	Status = XilSKey_Puf_ConvertStringToHexBE(
+				(const char *)(XSK_PUF_BLACK_KEY_IV),
 			PufInstance.BlackKeyIV, XSK_IV_LENGTH);
 	if (Status != XST_SUCCESS) {
 		Status = XPUF_STRING_INVALID_ERROR;
