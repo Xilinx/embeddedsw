@@ -40,6 +40,9 @@
 * ----- ------ -------- --------------------------------------------------
 * 1.0	jsr    07/17/17 Initial release.
 * 1.3   jsr    07/03/18 corrected XVIDC_VM_720x480_60_I as XVIDC_VM_720x486_60_I
+*	jsr    10/05/18 Moved 3GB specific video modes timing
+*			parameters from video common library
+*			to SDI common driver
 *
 * </pre>
 *
@@ -53,6 +56,7 @@
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XSDIRX_VIDMODE_SHIFT 3
 
 
 /**************************** Type Definitions *******************************/
@@ -751,7 +755,24 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 		}
 
 		if (SdiStream->VmId < XVIDC_VM_NUM_SUPPORTED) {
-			Timing = XVidC_GetTimingInfo(SdiStream->VmId);
+			if((SdiStream->VmId == XVIDC_VM_1920x1080_96_I) ||
+				(SdiStream->VmId == XVIDC_VM_1920x1080_100_I) ||
+				(SdiStream->VmId == XVIDC_VM_1920x1080_120_I) ) {
+				u32 index;
+
+				index = (SdiStream->VmId) - XVIDC_VM_1920x1080_96_I;
+				Timing = &(XVidC_SdiVidTimingModes[index].Timing);
+			} else if ((SdiStream->VmId == XVIDC_VM_2048x1080_96_I) ||
+				(SdiStream->VmId == XVIDC_VM_2048x1080_100_I) ||
+				(SdiStream->VmId == XVIDC_VM_2048x1080_120_I)) {
+				u32 index;
+
+				index = (SdiStream->VmId) - XVIDC_VM_2048x1080_96_I +
+					XSDIRX_VIDMODE_SHIFT;
+				Timing = &(XVidC_SdiVidTimingModes[index].Timing);
+			} else {
+				Timing = XVidC_GetTimingInfo(SdiStream->VmId);
+			}
 			SdiStream->Timing = *Timing;
 		}
 
