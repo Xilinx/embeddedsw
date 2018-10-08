@@ -154,7 +154,7 @@ extern "C" {
 
 #define CFG_DMA_REG_BAR 			GENMASK(2, 0)
 
-/* Readin the PS_LINKUP */
+/* Reading the PS_LINKUP */
 #define XPCIEPSU_PS_LINKUP_OFFSET 			0x00000238
 #define XPCIEPSU_PHY_LINKUP_BIT 		BIT(0)
 #define XPCIEPSU_XPHY_RDY_LINKUP_BIT 			BIT(1)
