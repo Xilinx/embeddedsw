@@ -44,6 +44,9 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   jsr  07/17/17 Initial release.
+ * 1.1   jsr  10/05/18 Moved 3GB specific video modes timing
+ * 			parameters from video common library
+ *			to SDI common driver
  * </pre>
  *
 *******************************************************************************/
@@ -116,6 +119,9 @@ typedef enum {
 	XSDIVID_CA_UNKNOWN
 } XSdiVid_ChannelAssignment;
 
+/***************** Macros (Inline Functions) Definitions *********************/
+#define XVIDC_SDICUSTOM_NUM_SUPPORTED 6
+
 /****************************** Type Definitions ******************************/
 
 //typedef struct {
@@ -133,6 +139,7 @@ typedef struct {
   u8	IsLevelB3G;
 } XSdiVid_Transport;
 
+extern const XVidC_VideoTimingMode XVidC_SdiVidTimingModes[XVIDC_SDICUSTOM_NUM_SUPPORTED];
 /*************************** Variable Declarations ****************************/
 
 u8 GetPayloadColorFormat(XVidC_ColorFormat ColorFormat);

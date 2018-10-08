@@ -43,6 +43,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   jsr  07/17/17 Initial release.
+ * 1.1   jsr  10/08/18 Removed redundant declarations
+ *                     Added SDI specific timing modes
  * </pre>
  *
 *******************************************************************************/
@@ -59,73 +61,39 @@ extern "C" {
 
 #include "xil_types.h"
 #include "xvidc.h"
+#include "xv_sdivid.h"
+
+/***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Constant Definitions ******************************/
 
-//TODO: Incomplete list of video mode
 /**
- * Payload and digital interface standards.
+ * SDI Specific 3GB timing modes.
  */
-typedef enum {
-	XSDIVID_VM_483_576_SD = 0x81,
-	XSDIVID_VM_720_HD = 0x84,
-	XSDIVID_VM_1080_HD = 0x85,
-	XSDIVID_VM_2X720_3GB = 0x88,
-	XSDIVID_VM_1080_3GA = 0x89,
-	XSDIVID_VM_2X720_3GB1 = 0x8B,
-	XSDIVID_VM_1080_3GB = 0x8C,
-	XSDIVID_VM_2160_6G = 0xC0,
-	XSDIVID_VM_1080_6G = 0xC0,
-	XSDIVID_VM_2160_12G = 0xCE
-} XSdiVid_Standard;
-
-/**
-* SDI Modes
-*/
-typedef enum {
-	XSDIVID_MODE_HD = 0,
-	XSDIVID_MODE_SD,
-	XSDIVID_MODE_3GA,
-	XSDIVID_MODE_3GB,
-	XSDIVID_MODE_6G,
-	XSDIVID_MODE_12G
-} XSdiVid_TransMode;
-
-/**
- * Channel Assignment.
- */
-typedef enum {
-	XSDIVID_BR_INTEGER = 0x0,
-	XSDIVID_BR_FRACTIONAL,
-	XSDIVID_BR_UNKNOWN
-} XSdiVid_BitRate;
-
-/**
- * Channel Assignment.
- */
-typedef enum {
-	XSDIVID_CA_CH1 = 0x0,
-	XSDIVID_CA_CH2,
-	XSDIVID_CA_CH3,
-	XSDIVID_CA_CH4,
-	XSDIVID_CA_CH5,
-	XSDIVID_CA_CH6,
-	XSDIVID_CA_CH7,
-	XSDIVID_CA_CH8,
-	XSDIVID_CA_UNKNOWN
-} XSdiVid_ChannelAssignment;
+const XVidC_VideoTimingMode XVidC_SdiVidTimingModes[XVIDC_SDICUSTOM_NUM_SUPPORTED] =
+{
+	/* Interlaced modes. */
+	{ XVIDC_VM_1920x1080_96_I, "1920x1080@96Hz (I)", XVIDC_FR_96HZ,
+		{1920, 371, 88, 371, 2750, 1,
+		1080, 4, 10, 30, 1124, 6, 10, 30, 1126, 1} },
+	{ XVIDC_VM_1920x1080_100_I, "1920x1080@100Hz (I)", XVIDC_FR_100HZ,
+		{1920, 528, 44, 148, 2640, 1,
+		1080, 4, 10, 30, 1124, 6, 10, 30, 1126, 1} },
+	{ XVIDC_VM_1920x1080_120_I, "1920x1080@120Hz (I)", XVIDC_FR_120HZ,
+		{1920, 88, 44, 148, 2200, 1,
+		1080, 4, 10, 30, 1124, 6, 10, 30, 1126, 1} },
+	{ XVIDC_VM_2048x1080_96_I, "2048x1080@96Hz (I)", XVIDC_FR_96HZ,
+		{2048, 329, 44, 329, 2750, 1,
+		1080, 4, 10, 30, 1124, 6, 10, 30, 1126, 1} },
+	{ XVIDC_VM_2048x1080_100_I, "2048x1080@100Hz (I)", XVIDC_FR_100HZ,
+		{2048, 274, 44, 274, 2640, 1,
+		1080, 4, 10, 30, 1124, 6, 10, 30, 1126, 1} },
+	{ XVIDC_VM_2048x1080_120_I, "2048x1080@120Hz (I)", XVIDC_FR_120HZ,
+		{2048, 66, 20, 66, 2200, 1,
+		1080, 4, 10, 30, 1124, 6, 10, 30, 1126, 1} },
+};
 
 /****************************** Type Definitions ******************************/
-
-typedef struct {
-	XSdiVid_TransMode	TMode;
-	u8					ActiveStreams;
-	u8					TScan;
-	u8					TFamily;
-	u8					TRate;
-	u8					IsFractional;
-	u8					IsLevelB3G;
-} XSdiVid_Transport;
 
 /*************************** Variable Declarations ****************************/
 
