@@ -29,7 +29,7 @@
 /**
  *
  * @file xsdiaud_intr.c
- * @addtogroup sdiaud_v1_0
+ * @addtogroup sdiaud_v2_0
  * @{
  * ...
  *
@@ -40,6 +40,11 @@
  * Ver   Who   Date        Changes
  * ----- ----- ---------- -----------------------------------------------
  * 1.0   kar   02/14/18    Initial release.
+ * 2.0   vve   09/27/18    Add 32 channel support
+ *                         Add support for channel status extraction logic both
+ *                         on embed and extract side.
+ *                         Add APIs to detect group change, sample rate change,
+ *                         active channel change
  * </pre>
  *
  ******************************************************************************/
@@ -98,33 +103,91 @@ void XSdiAud_IntrHandler(void *InstancePtr)
 
 	Data = Data & EnableMask;
 	/* Group change detected */
-	if (Data & XSDIAUD_INT_ST_GRP_CHG_MASK) {
+	if (Data & XSDIAUD_INT_ST_GRP_CHANGE_MASK) {
 		/* Clear the group change detect */
-		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_INT_ST_GRP_CHG_MASK);
+		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_INT_ST_GRP_CHANGE_MASK);
 
 		/* Call the group change detected handler */
 		if (SdiAudPtr->GrpChangeDetHandler)
-		SdiAudPtr->GrpChangeDetHandler(SdiAudPtr->GrpChangeDetHandlerRef);
+			SdiAudPtr->GrpChangeDetHandler
+				(SdiAudPtr->GrpChangeDetHandlerRef);
 	}
 
-	/* Control packet detected */
-	if (Data & XSDIAUD_EXT_INT_ST_PKT_CHG_MASK) {
-		/* Clear control packet detected event */
-		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_EXT_INT_ST_PKT_CHG_MASK);
+	/* Active channel change detected */
+	if (Data & XSDIAUD_INT_ST_CH_CHANGE_MASK) {
+		/* Clear active channel change detected event */
+		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_INT_ST_CH_CHANGE_MASK);
 
-		/* Call the control packet detected Handler */
-		if (SdiAudPtr->CntrlPktDetHandler)
-		SdiAudPtr->CntrlPktDetHandler(SdiAudPtr->CntrlPktDetHandlerRef);
+		/* Call the active channel change detected Handler */
+		if (SdiAudPtr->ActiveChannelChangeDetHandler)
+			SdiAudPtr->ActiveChannelChangeDetHandler
+				(SdiAudPtr->ActiveChannelChangeDetHandlerRef);
+	}
+
+	/* sample rate change detected */
+	if (Data & XSDIAUD_INT_ST_SMP_RATE_CHANGE_MASK) {
+		/* Clear sample rate change detected event */
+		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_INT_ST_SMP_RATE_CHANGE_MASK);
+
+		/* Call the sample rate change detected Handler */
+		if (SdiAudPtr->SampleRateChangeDetHandler)
+			SdiAudPtr->SampleRateChangeDetHandler
+				(SdiAudPtr->SampleRateChangeDetHandlerRef);
+	}
+
+	/* asynchronous data flag value change detected */
+	if (Data & XSDIAUD_INT_ST_ASX_CHANGE_MASK) {
+		/* Clear asynchronous data flag value change detected event */
+		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_INT_ST_ASX_CHANGE_MASK);
+
+		/* Call the asynchronous data flag change detected Handler */
+		if (SdiAudPtr->AsxChangeDetHandler)
+			SdiAudPtr->AsxChangeDetHandler
+				(SdiAudPtr->AsxChangeDetHandlerRef);
 	}
 
 	/* Status Change Detected */
-	if (Data & XSDIAUD_EXT_INT_ST_STS_CHG_MASK) {
+	if (Data & XSDIAUD_INT_ST_AUD_STAT_UPDATE_MASK) {
 		/* Clear the status change event */
-		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_EXT_INT_ST_STS_CHG_MASK);
+		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_INT_ST_AUD_STAT_UPDATE_MASK);
 
 		/* Call the status change Detected Handler */
 		if (SdiAudPtr->StatChangeDetHandlerRef)
-			SdiAudPtr->StatChangeDetHandler(SdiAudPtr->StatChangeDetHandlerRef);
+			SdiAudPtr->StatChangeDetHandler
+				(SdiAudPtr->StatChangeDetHandlerRef);
+	}
+
+	/* AES channel status value update Detected */
+	if (Data & XSDIAUD_INT_ST_AES_CS_UPDATE_MASK) {
+		/* AES channel status value update event */
+		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_INT_ST_AES_CS_UPDATE_MASK);
+
+		/* AES channel status value update Detected Handler */
+		if (SdiAudPtr->AesCsUpdateDetHandler)
+			SdiAudPtr->AesCsUpdateDetHandler
+				(SdiAudPtr->AesCsUpdateDetHandlerRef);
+	}
+
+	/* AES channel status value change Detected */
+	if (Data & XSDIAUD_INT_ST_AES_CS_CHANGE_MASK) {
+		/* AES channel status value change event */
+		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_INT_ST_AES_CS_CHANGE_MASK);
+
+		/* AES channel status value change Detected Handler */
+		if (SdiAudPtr->AesCsChangeDetHandler)
+			SdiAudPtr->AesCsChangeDetHandler
+				(SdiAudPtr->AesCsChangeDetHandlerRef);
+	}
+
+	/* video properties change Detected */
+	if (Data & XSDIAUD_EXT_INT_ST_VID_PROP_CHANGE_MASK) {
+		/* video properties change event */
+		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_EXT_INT_ST_VID_PROP_CHANGE_MASK);
+
+		/* Call the video properties change Detected Handler */
+		if (SdiAudPtr->VidPropChangeDetHandler)
+			SdiAudPtr->VidPropChangeDetHandler
+				(SdiAudPtr->VidPropChangeDetHandlerRef);
 	}
 
 	/* FIFO overflow detected */
@@ -207,14 +270,39 @@ int XSdiAud_SetHandler(XSdiAud *InstancePtr, XSdiAud_HandlerType HandlerType,
 		InstancePtr->GrpChangeDetHandlerRef = CallbackRef;
 		break;
 
-	case (XSDIAUD_HANDLER_CNTRL_PKT_CHNG_DET):
-		InstancePtr->CntrlPktDetHandler = FuncPtr;
-		InstancePtr->CntrlPktDetHandlerRef = CallbackRef;
+	case (XSDIAUD_HANDLER_ACT_CH_CHNG_DET):
+		InstancePtr->ActiveChannelChangeDetHandler = FuncPtr;
+		InstancePtr->ActiveChannelChangeDetHandlerRef = CallbackRef;
+		break;
+
+	case (XSDIAUD_HANDLER_SAMPLE_RATE_CHNG_DET):
+		InstancePtr->SampleRateChangeDetHandler = FuncPtr;
+		InstancePtr->SampleRateChangeDetHandlerRef = CallbackRef;
+		break;
+
+	case (XSDIAUD_HANDLER_ASX_CHNG_DET):
+		InstancePtr->AsxChangeDetHandler = FuncPtr;
+		InstancePtr->AsxChangeDetHandlerRef = CallbackRef;
 		break;
 
 	case (XSDIAUD_HANDLER_CHSTAT_CHNG_DET):
 		InstancePtr->StatChangeDetHandler = FuncPtr;
 		InstancePtr->StatChangeDetHandlerRef = CallbackRef;
+		break;
+
+	case (XSDIAUD_HANDLER_AES_CS_UPDATE_DET):
+		InstancePtr->AesCsUpdateDetHandler = FuncPtr;
+		InstancePtr->AesCsUpdateDetHandlerRef = CallbackRef;
+		break;
+
+	case (XSDIAUD_HANDLER_AES_CS_CHANGE_DET):
+		InstancePtr->AesCsChangeDetHandler = FuncPtr;
+		InstancePtr->AesCsChangeDetHandlerRef = CallbackRef;
+		break;
+
+	case (XSDIAUD_HANDLER_VIDEO_PROP_CHNG_DET):
+		InstancePtr->VidPropChangeDetHandler = FuncPtr;
+		InstancePtr->VidPropChangeDetHandlerRef = CallbackRef;
 		break;
 
 	case (XSDIAUD_HANDLER_FIFO_OVRFLW_DET):

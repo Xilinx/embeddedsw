@@ -46,7 +46,9 @@
 /***************************** Include Files *********************************/
 #include "xsdi_menu.h"
 #include "xgpio.h"
-
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+#include "xsdiaud.h"
+#endif
 /************************** Constant Definitions *****************************/
 
 
@@ -155,6 +157,11 @@ void XSdi_DisplayMainMenu(void)
 	xil_printf("       => Shows log information for SDI TX & RX.\n\r");
 	xil_printf("d - Debug Info\n\r");
 	xil_printf("       => Registers Dump.\n\r");
+	xil_printf("s - SDI Audio Pass-Through\n\r");
+	xil_printf("       => Audio extracted from SDI RX is embedded back to SDI TX.\n\r");
+	xil_printf("a - AES3 Audio Capture and Playback\n\r");
+	xil_printf("       => Audio extracted from SDI RX is played back on AES Output.\n\r");
+	xil_printf("       => Audio captured from AES Input is embedded on to SDI TX.\n\r");
 	xil_printf("\n\r\n\r");
 }
 
@@ -197,7 +204,50 @@ static XSdi_MenuType XSdi_MainMenu(XSdi_Menu *InstancePtr, u8 Input)
 			DebugInfo();
 			Menu = XSDI_MAIN_MENU;
 			break;
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+			/* SDI Audio Pass-Through */
+		case ('s') :
+		case ('S') :
+			if (XSDIAudioMode == XSDI_AES_CAPTURE_PLAYBACK)
+			{
+				/* Switch the mode */
+				XSDIAudioMode = XSDI_SDI_PASS_THROUGH;
 
+				/* Disable AES Audio Capture & Playback */
+				XSdiDisableAESAudioCapture();
+				XSdiDisableAESAudioPlayback();
+
+				/* Enable SDI Audio Pass-Through (from this ISR) */
+				XSdiAud_IntrEnable(&SdiExtract, XSDIAUD_INT_EN_AUD_STAT_UPDATE_MASK);
+
+				Menu = XSDI_MAIN_MENU;
+			}
+			break;
+
+			/* AES Audio Capture & Playback */
+		case ('a') :
+		case ('A') :
+			if (XSDIAudioMode == XSDI_SDI_PASS_THROUGH)
+			{
+				/* Switch the mode */
+				XSDIAudioMode = XSDI_AES_CAPTURE_PLAYBACK;
+
+				/* Disable SDI Audio Pass-Through */
+				XSdiDisableSDIAudioPassThrough();
+
+				/* Enable AES Audio Playback (from this ISR) */
+				XSdiAud_IntrEnable(&SdiExtract, XSDIAUD_INT_EN_AUD_STAT_UPDATE_MASK);
+
+				/* Enable AES Capture */
+				if (XSDIAudioMode == XSDI_AES_CAPTURE_PLAYBACK)
+				{
+					XSdiEnableAESAudioCapture();
+				}
+
+				Menu = XSDI_MAIN_MENU;
+			}
+			break;
+#endif
 		default :
 			XSdi_DisplayMainMenu();
 			Menu = XSDI_MAIN_MENU;

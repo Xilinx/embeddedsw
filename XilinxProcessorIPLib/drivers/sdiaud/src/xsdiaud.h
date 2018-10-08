@@ -28,7 +28,7 @@
 /******************************************************************************/
 /**
  * @file xsdiaud.h
- * @addtogroup sdiaud_v1_1
+ * @addtogroup sdiaud_v2_0
  * @{
  *
  * <pre>
@@ -41,6 +41,11 @@
  * 1.1   kar    04/25/18  Added new line standards.
  *                        Added new API to enable rate control.
  *                        Removed inline function which reads the IP version.
+ * 2.0   vve    09/27/18  Add 32 channel support
+ *                        Add support for channel status extraction logic both
+ *                        on embed and extract side.
+ *                        Add APIs to detect group change, sample rate change,
+ *                        active channel change
  *
  * </pre>
  *
@@ -60,7 +65,8 @@ extern "C" {
 #include "xstatus.h"
 #include "xil_types.h"
 /************************** Constant Definitions *****************************/
-
+#define MAX_AUDIO_CHANNELS 32
+#define MAX_AUDIO_GROUPS (MAX_AUDIO_CHANNELS / 4)
 /**************************** Type Definitions *******************************/
 /** @name Handler Types
  * @{
@@ -72,10 +78,20 @@ extern "C" {
 typedef enum {
 	XSDIAUD_HANDLER_AUD_GRP_CHNG_DET = 0,
 	//!< Audio group change detect handler
-	XSDIAUD_HANDLER_CNTRL_PKT_CHNG_DET,
-	//!< Control packet change detect handler
+	XSDIAUD_HANDLER_ACT_CH_CHNG_DET,
+	//!< Active channel change detect handler
+	XSDIAUD_HANDLER_SAMPLE_RATE_CHNG_DET,
+	//!< Sample rate change detect handler
+	XSDIAUD_HANDLER_ASX_CHNG_DET,
+	//!< Asynchronous data flag change detect handler
+	XSDIAUD_HANDLER_AES_CS_UPDATE_DET,
+	//!< Aes cs update detect handler
+	XSDIAUD_HANDLER_AES_CS_CHANGE_DET,
+	//!< Aes cs change detect handler
 	XSDIAUD_HANDLER_CHSTAT_CHNG_DET,
 	//!< Channel status change detect handler
+	XSDIAUD_HANDLER_VIDEO_PROP_CHNG_DET,
+	//!< Video properties change detect handler
 	XSDIAUD_HANDLER_FIFO_OVRFLW_DET,
 	//!< FIFO Overflow detect handler
 	XSDIAUD_HANDLER_PARITY_ERR_DET,
@@ -105,9 +121,9 @@ typedef enum {
  * These constants specify different audio Sampling Rates
  */
 typedef enum {
-	XSDIAUD_SAMPRATE0,  //!< 000 - 48 KHz
-	XSDIAUD_SAMPRATE1,  //!< 001 - 44.1 KHz
-	XSDIAUD_SAMPRATE2   //!< 010 - 32 KHz
+	XSDIAUD_SMPLRATE_48, //!< 000 - 48 KHz
+	XSDIAUD_SMPLRATE_44, //!< 001 - 44.1 KHz
+	XSDIAUD_SMPLRATE_32  //!< 010 - 32 KHz
 	} XSdiAud_SampRate;
 
 /** Sample Size
@@ -120,6 +136,43 @@ typedef enum {
 	XSDIAUD_SAMPSIZE0,  //!< 0 - 20 Bit Audio Sample
 	XSDIAUD_SAMPSIZE1   //!< 1 - 24 Bit Audio Sample
 	} XSdiAud_SampSize;
+
+/** AES channel pair
+ * @{
+ */
+/**
+ * These constants specify different aes channel pairs
+ */
+typedef enum {
+	XSDIAUD_AES_CHANNEL_PAIR_1 = 0,
+	XSDIAUD_AES_CHANNEL_PAIR_2,
+	XSDIAUD_AES_CHANNEL_PAIR_3,
+	XSDIAUD_AES_CHANNEL_PAIR_4,
+	XSDIAUD_AES_CHANNEL_PAIR_5,
+	XSDIAUD_AES_CHANNEL_PAIR_6,
+	XSDIAUD_AES_CHANNEL_PAIR_7,
+	XSDIAUD_AES_CHANNEL_PAIR_8,
+	XSDIAUD_AES_CHANNEL_PAIR_9,
+	XSDIAUD_AES_CHANNEL_PAIR_10,
+	XSDIAUD_AES_CHANNEL_PAIR_11,
+	XSDIAUD_AES_CHANNEL_PAIR_12,
+	XSDIAUD_AES_CHANNEL_PAIR_13,
+	XSDIAUD_AES_CHANNEL_PAIR_14,
+	XSDIAUD_AES_CHANNEL_PAIR_15,
+	XSDIAUD_AES_CHANNEL_PAIR_16
+} XSdiAud_AesChPair;
+
+/** Asynchronous data flag
+ * @{
+ */
+/**
+ * These constants specify different asynchronous data flag
+ */
+typedef enum {
+	XSDIAUD_SYNCHRONOUS_AUDIO = 0,
+	XSDIAUD_ASYNCHRONOUS_AUDIO
+} XSdiAud_Asx;
+
 /*@}**/
 
 /** Channel number in any Group
@@ -135,44 +188,49 @@ typedef enum {
 	XSDIAUD_GROUPX_CHANNEL4 //!< Channel 4 of Group 1/2/3/4
 	} XSdiAud_GrpXChNum;
 
-/** Line standard
+/** Video Rate
  * @{
  */
 /**
- * These constants specify different line standards
+ * These constants specify different video rates
  */
 typedef enum {
-	XSDIAUD_SMPTE_260M_1035i_30Hz = 0,
-	XSDIAUD_SMPTE_295M_1080i_25Hz = 1,
-	XSDIAUD_SMPTE_274M_1080i_or_1080sF_30Hz_or_29p97Hz = 2,
-	XSDIAUD_SMPTE_274M_1080i_or_1080sF_25Hz = 3,
-	XSDIAUD_SMPTE_274M_1080p_30Hz = 4,
-	XSDIAUD_SMPTE_274M_1080p_25Hz = 5,
-	XSDIAUD_SMPTE_274M_1080p_24Hz_or_23p98Hz = 6,
-	XSDIAUD_SMPTE_296M_720p_60Hz_or_59p94Hz = 7,
-	XSDIAUD_SMPTE_274M_1080sF_24Hz_or_23p98Hz = 8,
-	XSDIAUD_SMPTE_296M_720p_50Hz = 9,
-	XSDIAUD_SMPTE_296M_720p_30Hz_or_29p97Hz = 10,
-	XSDIAUD_SMPTE_296M_720p_25Hz = 11,
-	XSDIAUD_SMPTE_296M_720p_24Hz_or_23p98Hz = 12,
-	XSDIAUD_SMPTE_274M_1080p_60Hz_or_59p94Hz = 13,
-	XSDIAUD_SMPTE_274M_1080p_50Hz = 14,
-	XSDIAUD_NTSC = 16,
-	XSDIAUD_PAL = 17,
-	XSDIAUD_2160p_23p98Hz = 18,
-	XSDIAUD_2160p_24Hz = 19,
-	XSDIAUD_2160p_25Hz = 20,
-	XSDIAUD_2160p_29p97Hz = 21,
-        XSDIAUD_2160p_30Hz = 22,
-	XSDIAUD_2160p_47p95Hz_or_48Hz = 23,
-	XSDIAUD_2160p_50Hz = 24,
-	XSDIAUD_2160p_59p94Hz_or_60Hz = 25,
-	XSDIAUD_2048X1080I_29p97Hz_or_30Hz = 26,
-	XSDIAUD_2048X1080I_25Hz = 27,
-	XSDIAUD_SMPTE_2048_2_1080p_29p97Hz_or_30Hz = 28,
-	XSDIAUD_SMPTE_2048_2_1080p_23p98Hz_or_24Hz_or_25Hz = 29,
-	XSDIAUD_SMPTE_2048_2_1080p_47p95Hz_or_48Hz_50Hz_59p94Hz_60Hz = 30
-} XSdiAud_LineStnd;
+	XSDIAUD_VID_RATE_23_98_HZ = 2,
+	XSDIAUD_VID_RATE_24_HZ,
+	XSDIAUD_VID_RATE_47_95_HZ2,
+	XSDIAUD_VID_RATE_25_HZ,
+	XSDIAUD_VID_RATE_29_97_HZ,
+	XSDIAUD_VID_RATE_30_HZ,
+	XSDIAUD_VID_RATE_48_HZ,
+	XSDIAUD_VID_RATE_50_HZ,
+	XSDIAUD_VID_RATE_59_94_HZ,
+	XSDIAUD_VID_RATE_60_HZ,
+} XSdiAud_VidRate;
+
+/** Video Scan
+ * @{
+ */
+/**
+ * These constants specify different video scans
+ */
+typedef enum {
+	XSDIAUD_VID_SCAN_INTERLACED = 0,
+	XSDIAUD_VID_SCAN_PROGRESSIVE,
+} XSdiAud_VidScan;
+
+/** Video Family
+ * @{
+ */
+/**
+ * These constants specify different video families
+ */
+typedef enum {
+	XSDIAUD_VID_FAMILY_1920_1080 = 0,
+	XSDIAUD_VID_FAMILY_1280_720 = 1,
+	XSDIAUD_VID_FAMILY_2048_1080 = 2,
+	XSDIAUD_VID_FAMILY_720_486 = 8,
+	XSDIAUD_VID_FAMILY_720_576 = 9
+} XSdiAud_VidFam;
 
 /** Number of Channels
  * @{
@@ -196,7 +254,8 @@ typedef enum {
 	XSDIAUD_13_CHANNELS,//!< 13 channels
 	XSDIAUD_14_CHANNELS,//!< 14 channels
 	XSDIAUD_15_CHANNELS,//!< 15 channels
-	XSDIAUD_16_CHANNELS //!< 16 channels
+	XSDIAUD_16_CHANNELS, //!< 16 channels
+	XSDIAUD_32_CHANNELS = 32//!< 32 channels
 	} XSdiAud_NumOfCh;
 
 /** Channel Number
@@ -221,34 +280,24 @@ typedef enum {
 	XSDIAUD_CHANNEL13,//!< channel 13
 	XSDIAUD_CHANNEL14,//!< channel 14
 	XSDIAUD_CHANNEL15,//!< channel 15
-	XSDIAUD_CHANNEL16 //!< channel 16
+	XSDIAUD_CHANNEL16,//!< channel 16
+	XSDIAUD_CHANNEL17,//!< channel 17
+	XSDIAUD_CHANNEL18,//!< channel 18
+	XSDIAUD_CHANNEL19,//!< channel 19
+	XSDIAUD_CHANNEL20,//!< channel 20
+	XSDIAUD_CHANNEL21,//!< channel 21
+	XSDIAUD_CHANNEL22,//!< channel 22
+	XSDIAUD_CHANNEL23,//!< channel 23
+	XSDIAUD_CHANNEL24,//!< channel 24
+	XSDIAUD_CHANNEL25,//!< channel 25
+	XSDIAUD_CHANNEL26,//!< channel 26
+	XSDIAUD_CHANNEL27,//!< channel 27
+	XSDIAUD_CHANNEL28,//!< channel 28
+	XSDIAUD_CHANNEL29,//!< channel 29
+	XSDIAUD_CHANNEL30,//!< channel 30
+	XSDIAUD_CHANNEL31,//!< channel 31
+	XSDIAUD_CHANNEL32 //!< channel 32
 	} XSdiAud_ChNum;
-
-/** Groups that are present (i.e. all the combinations)
- * @{
- */
-/**
- * These constants specify different Group combinations
- */
-typedef enum {
-	XSDIAUD_GROUP_0 = 0,  //!< All Groups are absent
-	XSDIAUD_GROUP_1,      //!< Group 1 is present
-	XSDIAUD_GROUP_2, //!< Group 2 is present
-	XSDIAUD_GROUP_1_2, //!< Group 1 and 2 are present
-	XSDIAUD_GROUP_3,//!< Group 3 is present
-	XSDIAUD_GROUP_1_3,//!< Group 1 and 3 are present
-	XSDIAUD_GROUP_2_3,//!< Group 2 and 3 are present
-	XSDIAUD_GROUP_1_2_3,//!< Group 1, 2 and 3 are present
-	XSDIAUD_GROUP_4,//!< Group 4 is present
-	XSDIAUD_GROUP_1_4,//!< Group 1 and 4 are present
-	XSDIAUD_GROUP_2_4,//!< Group 2 and 4 are present
-	XSDIAUD_GROUP_1_2_4,//!< Group 1, 2 and 4 are present
-	XSDIAUD_GROUP_3_4,//!< Group 3 and 4 are present
-	XSDIAUD_GROUP_1_3_4,//!< Group 1, 3 and 4 are present
-	XSDIAUD_GROUP_2_3_4,//!< Group 2, 3 and 4 are present
-	XSDIAUD_GROUP_ALL,//!< All Groups are present
-	XSDIAUD_NUM_CHANNELS //!<Number of Group combinations
-	} XSdiAud_GrpsPrsnt;
 
 typedef void (*XSdiAud_Callback)(void *CallbackRef);
 /*@}*/
@@ -282,14 +331,34 @@ typedef struct {
 	//!< Start of group change detected handler
 	void *GrpChangeDetHandlerRef;
 	//!< Callback reference for group change detected handler
-	XSdiAud_Callback CntrlPktDetHandler;
-	//!< Start of control packet detected handler
-	void *CntrlPktDetHandlerRef;
-	//!< Callback reference for control packet detected handler
+	XSdiAud_Callback ActiveChannelChangeDetHandler;
+	//!< Start of active channel change detected handler
+	void *ActiveChannelChangeDetHandlerRef;
+	//!< Callback reference for active channel change detected handler
+	XSdiAud_Callback SampleRateChangeDetHandler;
+	//!< Start of sample rate change detected handler
+	void *SampleRateChangeDetHandlerRef;
+	//!< Callback reference for sample rate change detected handler
+	XSdiAud_Callback AsxChangeDetHandler;
+	//!< Start of asynchronous data flag value change detected handler
+	void *AsxChangeDetHandlerRef;
+	//!< Callback reference for asynchronous data flag change handler
 	XSdiAud_Callback StatChangeDetHandler;
 	//!< Start of status change detected handler
 	void *StatChangeDetHandlerRef;
 	//!< Callback reference for status change detected handler
+	XSdiAud_Callback AesCsUpdateDetHandler;
+	//!< Start of AES channel status value update detected handler
+	void *AesCsUpdateDetHandlerRef;
+	//!< Callback reference for AES channel status value updated handler
+	XSdiAud_Callback AesCsChangeDetHandler;
+	//!< Start of AES channel status value change detected handler
+	void *AesCsChangeDetHandlerRef;
+	//!< Callback reference for AES channel status value change handler
+	XSdiAud_Callback VidPropChangeDetHandler;
+	//!< Start of video properties change detected handler
+	void *VidPropChangeDetHandlerRef;
+	//!< Callback reference for video properties change detected handler
 	XSdiAud_Callback FifoOvrflwDetHandler;
 	//!< Start of fifo overflow detected handler
 	void *FifoOvrflwDetHandlerRef;
@@ -307,6 +376,38 @@ typedef struct {
 	XSdiAud_NumOfCh NumOfCh;
 	//!< Total Number of channels that are configured
 	} XSdiAud;
+
+/**
+ * @brief This structure contains the video properties.
+ *
+ */
+
+typedef struct {
+	XSdiAud_VidFam XSdiAud_TFamily;
+	//!< Transport video family, it is enum XSdiAud_VidFam
+	XSdiAud_VidRate XSdiAud_TRate;
+	//!< Transport video rate, it is enum XSdiAud_VidRate
+	XSdiAud_VidScan XSdiAud_TScan;
+	//!< Transport video scan, it is enum XSdiAud_VidScan
+} XSdiAud_Emb_Vid_Props;
+
+typedef struct {
+	u8 NumGroups;
+	u8 GrpActive[MAX_AUDIO_GROUPS];
+} XSdiAud_ActGrpSt;
+
+typedef struct {
+	u8 NumChannels;
+	u8 GrpActCh[MAX_AUDIO_GROUPS];
+} XSdiAud_ActChSt;
+
+typedef struct {
+	u8 SRChPair[MAX_AUDIO_CHANNELS / 2];
+} XSdiAud_SRSt;
+
+typedef struct {
+	u8 AsxPair[MAX_AUDIO_CHANNELS / 2];
+} XSdiAud_AsxSt;
 
 /* Interrupt related functions */
 /*****************************************************************************
@@ -351,6 +452,29 @@ static inline void XSdiAud_IntrEnable(XSdiAud *InstancePtr, u32 Mask)
 			RegValue);
 }
 
+/*****************************************************************************
+ **
+ * This function disables the specified interrupt of the XSdiAud.
+ *
+ * @param  InstancePtr is a pointer to the XSdiAud instance.
+ * @param  Mask is a bit mask of the interrupts to be disabled.
+ *
+ * @return None.
+ *
+ * @see xsdiaud_hw.h file for the available interrupt masks.
+ *
+ ******************************************************************************/
+static inline void XSdiAud_IntrDisable(XSdiAud *InstancePtr, u32 Mask)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	u32 RegValue = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_INT_EN_REG_OFFSET);
+	RegValue &= ~Mask;
+	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_INT_EN_REG_OFFSET,
+			RegValue);
+}
+
 /************************* Function Prototypes ******************************/
 
 /* Initialization function in xsdiAud_sinit.c */
@@ -367,15 +491,17 @@ void XSdiAud_Enable(XSdiAud *InstancePtr, u8 Enable);
 int XSdiAud_SelfTest(XSdiAud *InstancePtr);
 
 /* Function to soft reset the XSdiaud core*/
-void XSdiAud_ResetCoreEn(XSdiAud *InstancePtr, u8 RstCoreEnable);
+void XSdiAud_CoreReset(XSdiAud *InstancePtr, u8 RstCoreEnable);
 
 /* Function to soft reset the XSdiaud registers*/
-void XSdiAud_ResetReg(XSdiAud *InstancePtr);
+void XSdiAud_ConfigReset(XSdiAud *InstancePtr);
 
 void XSdiAud_IntrHandler(void *InstancePtr);
 
 int XSdiAud_SetHandler(XSdiAud *InstancePtr, XSdiAud_HandlerType HandlerType,
 		XSdiAud_Callback FuncPtr, void *CallbackRef);
+
+u32 XSdiAud_GetCoreVersion(XSdiAud *InstancePtr);
 
 u32 XSdiAud_GetIntStat(XSdiAud *InstancePtr);
 
@@ -385,34 +511,45 @@ void XSdiAud_Emb_SetSmpRate(XSdiAud *InstancePtr, XSdiAud_SampRate XSdiAud_SRate
 /* Audio Embed Function to set the sample size in SD Mode */
 void XSdiAud_Emb_SetSmpSize(XSdiAud *InstancePtr, XSdiAud_SampSize XSdiAud_SSize);
 
-/* Video Embed Function to set the Line standard */
-void XSdiAud_Emb_SetLineStd(XSdiAud *InstancePtr, XSdiAud_LineStnd XSdiAud_LS);
+/* Audio Embed Function to set the asynchronous data flag */
+void XSdiAud_Emb_SetAsx(XSdiAud *InstancePtr, XSdiAud_Asx XSdiAud_SRate);
+
+/* Audio Embed Function to set the aes channel pair */
+void XSdiAud_SetAesChPair(XSdiAud *InstancePtr, XSdiAud_AesChPair XSdiAud_ACP);
+
+/* Video Embed Function to set the video properties */
+void XSdiAud_Emb_SetVidProps(XSdiAud *InstancePtr, XSdiAud_Emb_Vid_Props
+	*XSdiAud_VP);
 
 /* Video Embed Function to set enable external line */
 void XSdiAud_Emb_EnExtrnLine(XSdiAud *InstancePtr, u8 XSdiAud_En);
 
-/* Audio Extract Function to set the Clock Phase in HD Mode */
-void XSdiAud_Ext_SetClkPhase(XSdiAud *InstancePtr, u8 XSdiAud_SetClkP);
+/* Audio Extract Function to disable the Clock Phase in HD Mode */
+void XSdiAud_Ext_DisableClkPhase(XSdiAud *InstancePtr, u8 XSdiAud_SetClkP);
 
 /* Channel status related function */
-void XSdiAud_Ext_GetChStat(XSdiAud *InstancePtr, u8 *ChStatBuf);
+void XSdiAud_GetChStat(XSdiAud *InstancePtr, u8 *ChStatBuf);
 
 /* Function to know the detected groups*/
-XSdiAud_GrpsPrsnt XSdiAud_DetAudGrp(XSdiAud *InstancePtr);
+void XSdiAud_GetActGrpStatus(XSdiAud *InstancePtr, XSdiAud_ActGrpSt *GrpSt);
 
-/* Function to set channel */
-void XSdiAud_SetCh(XSdiAud *InstancePtr, XSdiAud_GrpNum XSdiStrtGrpNum,
-		XSdiAud_NumOfCh XSdiANumOfCh);
+/* Function to set specific channels */
+void XSdiAud_SetCh(XSdiAud *InstancePtr, u32 XSdiAudSetChMask);
 
-/* Function to mute a specific channel from a group */
-void XSdiAud_Ext_Mute(XSdiAud *InstancePtr, XSdiAud_GrpNum XSdiAGrpNum,
-		XSdiAud_GrpXChNum XSdiAChNum);
+/* Function to mute specific channels */
+void XSdiAud_MuteCh(XSdiAud *InstancePtr, u32 XSdiAudMuteChMask);
 
-/* Function reads the control packet status register's active channel field */
-u32 XSdiAud_Ext_GetActCh(XSdiAud *InstancePtr);
+/* Function reads the FIFO overflow status register field */
+u8 XSdiAud_Ext_GetFIFOOvFlwStatus(XSdiAud *InstancePtr);
 
-/* Function to control the rate at which audio samples are inserted */
-void XSdiAud_Emb_RateCntrlEn(XSdiAud *InstancePtr, u8 XSdiAud_RCE);
+/* Function reads the active channle status register field */
+void XSdiAud_Ext_GetAcChStatus(XSdiAud *InstancePtr, XSdiAud_ActChSt *ActChSt);
+
+/* Function reads the sample rate status register field */
+void XSdiAud_Ext_GetSRStatus(XSdiAud *InstancePtr, XSdiAud_SRSt *SRSt);
+
+/* Function reads the async channel pair status register field */
+void XSdiAud_Ext_GetAsxStatus(XSdiAud *InstancePtr, XSdiAud_AsxSt *AsxSt);
 
 /************************** Variable Declarations ****************************/
 #ifdef __cplusplus

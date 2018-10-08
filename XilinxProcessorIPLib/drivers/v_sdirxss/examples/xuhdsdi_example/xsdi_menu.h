@@ -62,7 +62,9 @@ extern "C" {
 #include "xuartps.h"
 #include "xv_sdirxss.h"
 #include "xv_sditxss.h"
-
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+#include "xsdiaud.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -89,10 +91,25 @@ typedef struct
 	u8			WaitForColorbar;
 } XSdi_Menu;
 
+typedef enum
+{
+	XSDI_SDI_PASS_THROUGH,
+	XSDI_AES_CAPTURE_PLAYBACK
+} XSdi_AudioMOde;
+
+u8 XSDIAudioMode;
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+XSdiAud SdiExtract;		/* Instance of the SDI Extract device */
+XSdiAud SdiEmbed;		/* Instance of the SDI Embed device */
+#endif
 /************************** Function Prototypes ******************************/
 void XSdi_MenuInitialize(XSdi_Menu *InstancePtr, u32 UartBaseAddress);
 void XSdi_MenuProcess(XSdi_Menu *InstancePtr);
 void XSdi_MenuReset(XSdi_Menu *InstancePtr);
+void XSdiDisableSDIAudioPassThrough(void);
+void XSdiDisableAESAudioPlayback(void);
+void XSdiDisableAESAudioCapture(void);
+void XSdiEnableAESAudioCapture(void);
 
 #ifdef __cplusplus
 }
