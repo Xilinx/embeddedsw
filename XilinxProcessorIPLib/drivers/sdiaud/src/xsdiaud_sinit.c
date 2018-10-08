@@ -29,7 +29,7 @@
 /**
  *
  * @file xsdiaud_sinit.c
- * @addtogroup sdiaud_v1_0
+ * @addtogroup sdiaud_v2_0
  * @{
  *
  * <pre>
@@ -39,6 +39,11 @@
  * Ver   Who    Date      Changes
  * ----- ------ -------- --------------------------------------------------
  * 1.0   kar    02/14/18  Initial release.
+ * 2.0   vve    09/27/18  Add 32 channel support
+ *                        Add support for channel status extraction logic both
+ *                        on embed and extract side.
+ *                        Add APIs to detect group change, sample rate change,
+ *                        active channel change
  * </pre>
  *
  ******************************************************************************/

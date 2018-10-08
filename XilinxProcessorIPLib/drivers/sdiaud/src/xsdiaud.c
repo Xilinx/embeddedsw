@@ -29,7 +29,7 @@
 /**
  *
  * @file xsdiaud.c
- * @addtogroup sdiaud_v1_1
+ * @addtogroup sdiaud_v2_0
  * @{
  * <pre>
  *
@@ -39,6 +39,11 @@
  * ----- ------ -------- --------------------------------------------------
  * 1.0   kar   02/14/18  Initial release.
  * 1.1   kar   04/25/18  Changed Set Clk Phase API's 2nd argument description.
+ * 2.0   vve   09/27/18  Add 32 channel support
+ *                       Add support for channel status extraction logic both
+ *                       on embed and extract side.
+ *                       Add APIs to detect group change, sample rate change,
+ *                       active channel change
  * </pre>
  *
  ******************************************************************************/
@@ -52,6 +57,9 @@
 
 /***************** Macros (In-line Functions) Definitions *********************/
 #define XSDIAUD_CHSTAT_NUMBER_OF_BYTES  24
+
+/* Bit shift */
+#define BIT(n)		             (1 << (n))
 //!< Audio Embed total number of bytes in the 6 channel status registers
 
 /**************************** Type Definitions *******************************/
@@ -62,6 +70,15 @@
 
 /************************** Function Definitions *****************************/
 
+u8 XSdiAud_CountBits(u32 n)
+{
+	u8 count = 0;
+	while(n) {
+		n = n & (n-1);
+		count++;
+	}
+	return count;
+}
 /*****************************************************************************/
 /**
  *
@@ -153,7 +170,7 @@ void XSdiAud_Enable(XSdiAud *InstancePtr, u8 Enable)
  * @return None.
  *
  ******************************************************************************/
-void XSdiAud_Ext_GetChStat(XSdiAud *InstancePtr, u8 *ChStatBuf)
+void XSdiAud_GetChStat(XSdiAud *InstancePtr, u8 *ChStatBuf)
 {
 	int RegOffset = XSDIAUD_EXT_CH_STAT0_REG_OFFSET;
 	u32 *pBuf32 = (u32 *) ChStatBuf;
@@ -168,6 +185,25 @@ void XSdiAud_Ext_GetChStat(XSdiAud *InstancePtr, u8 *ChStatBuf)
 		pBuf32++;
 		RegOffset += 4;
 	}
+}
+
+/*****************************************************************************/
+/**
+ * This function reads the core version register and returns its value
+ *
+ * @param  InstancePtr is a pointer to the XSdiAud instance.
+ *
+ * @return core version register value is returned.
+ *
+ ******************************************************************************/
+u32 XSdiAud_GetCoreVersion(XSdiAud *InstancePtr)
+{
+	u32 XSdiAud_CoreVersion;
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	XSdiAud_CoreVersion = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_CORE_VERSION_REG_OFFSET);
+	return XSdiAud_CoreVersion;
 }
 
 /*****************************************************************************/
@@ -208,7 +244,7 @@ void XSdiAud_Emb_SetSmpRate(XSdiAud *InstancePtr, XSdiAud_SampRate XSdiAud_SRate
 	u32 XSdiAud_SR;
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XSdiAud_SRate <= XSDIAUD_SAMPRATE2);
+	Xil_AssertVoid(XSdiAud_SRate <= XSDIAUD_SMPLRATE_32);
 	XSdiAud_SR = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
 			XSDIAUD_AUD_CNTRL_REG_OFFSET);
 	XSdiAud_SR &= ~XSDIAUD_EMB_AUD_CNT_SR_MASK;
@@ -247,25 +283,103 @@ void XSdiAud_Emb_SetSmpSize(XSdiAud *InstancePtr, XSdiAud_SampSize XSdiAud_SSize
 
 /*****************************************************************************/
 /**
- * This Audio Embed function sets the line standard
+ * This Audio Embed function sets the asynchronous data flag
  *
  * @param  InstancePtr is a pointer to the XSdiAud instance.
- * @param  XSdiAud_LS is the line standard, it is enum XSdiAud_LineStnd.
+ * @param  XSdiAud_Async_data_flag is the async data flag, it is enum
+ *         XSdiAud_Asx, it can be 0 or 1.
+ *         0 - Synchronous audio
+ *         1 - Asynchronous audio
  *
  * @return none
  *
  ******************************************************************************/
-void XSdiAud_Emb_SetLineStd(XSdiAud *InstancePtr, XSdiAud_LineStnd XSdiAud_LS)
+void XSdiAud_Emb_SetAsx(XSdiAud *InstancePtr, XSdiAud_Asx
+			XSdiAud_Async_data_flag)
 {
-	u32 XSdiAud_LinSt;
+	u32 XSdiAud_Adf, XSdiAud_Async_data_flag_val;
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	XSdiAud_LinSt = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDIAUD_EMB_VID_CNTRL_REG_OFFSET);
-	XSdiAud_LinSt &= ~XSDIAUD_EMB_VID_CNT_STD_MASK;
-	XSdiAud_LinSt |= XSdiAud_LS;
+	XSdiAud_Adf = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_AUD_CNTRL_REG_OFFSET);
+	XSdiAud_Adf &= ~XSDIAUD_EMB_AUD_CNT_ASX_MASK;
+	XSdiAud_Async_data_flag_val = XSdiAud_Async_data_flag <<
+		XSDIAUD_EMB_AUD_CNT_ASX_SHIFT;
+	XSdiAud_Adf |= XSdiAud_Async_data_flag_val;
 	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
-			XSDIAUD_EMB_VID_CNTRL_REG_OFFSET, XSdiAud_LinSt);
+			XSDIAUD_AUD_CNTRL_REG_OFFSET, XSdiAud_Adf);
+}
+
+/*****************************************************************************/
+/**
+ * This Audio function selects the aes channel pair
+ *
+ * @param  InstancePtr is a pointer to the XSdiAud instance.
+ * @param  XSdiAud_ACP is the async data flag, it is enum
+ *         XSdiAud_AesChPair, it can be any value between 0 to 16.
+ *
+ * @return none
+ *
+ ******************************************************************************/
+void XSdiAud_SetAesChPair(XSdiAud *InstancePtr,
+				XSdiAud_AesChPair XSdiAud_ACP)
+{
+	u32 XSdiAud_Acp, XSdiAud_Acp_val;
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	XSdiAud_Acp = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_AUD_CNTRL_REG_OFFSET);
+	XSdiAud_Acp &= ~XSDIAUD_EMB_AUD_CNT_AES_CH_PAIR_MASK;
+	XSdiAud_Acp_val = XSdiAud_ACP << XSDIAUD_EMB_AUD_CNT_AES_CH_PAIR_SHIFT;
+	XSdiAud_Acp |= XSdiAud_Acp_val;
+	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_AUD_CNTRL_REG_OFFSET, XSdiAud_Acp);
+}
+
+/*****************************************************************************/
+/**
+ * This Audio Embed function sets the video properties of the image like
+ * transport scan, transport rate and transport family.
+ *
+ * @param  InstancePtr is a pointer to the XSdiAud instance.
+ * @param  XSdiAud_VP is the struct containing the video family, rate and
+ *         video scan information.
+ *
+ * @return none
+ *
+ ******************************************************************************/
+void XSdiAud_Emb_SetVidProps(XSdiAud *InstancePtr,
+				XSdiAud_Emb_Vid_Props *XSdiAud_VP)
+{
+	u32 XSdiAud_Vf, XSdiAud_Vf_val;
+	u32 XSdiAud_Vr, XSdiAud_Vr_val;
+	u32 XSdiAud_Vs, XSdiAud_Vs_val;
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	XSdiAud_Vf = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_EMB_VID_CNTRL_REG_OFFSET);
+	XSdiAud_Vf &= ~XSDIAUD_EMB_VID_CNT_FAMILY_MASK;
+	XSdiAud_Vf_val = XSdiAud_VP->XSdiAud_TFamily <<
+				XSDIAUD_EMB_VID_CNT_FAMILY_SHIFT;
+	XSdiAud_Vf |= XSdiAud_Vf_val;
+	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_EMB_VID_CNTRL_REG_OFFSET, XSdiAud_Vf);
+	XSdiAud_Vr = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_EMB_VID_CNTRL_REG_OFFSET);
+	XSdiAud_Vr &= ~XSDIAUD_EMB_VID_CNT_RATE_MASK;
+	XSdiAud_Vr_val = XSdiAud_VP->XSdiAud_TRate <<
+				XSDIAUD_EMB_VID_CNT_RATE_SHIFT;
+	XSdiAud_Vr |= XSdiAud_Vr_val;
+	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_EMB_VID_CNTRL_REG_OFFSET, XSdiAud_Vr);
+	XSdiAud_Vs = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_EMB_VID_CNTRL_REG_OFFSET);
+	XSdiAud_Vs &= ~XSDIAUD_EMB_VID_CNT_SCAN_MASK;
+	XSdiAud_Vs_val = XSdiAud_VP->XSdiAud_TScan <<
+			XSDIAUD_EMB_VID_CNT_SCAN_SHIFT;
+	XSdiAud_Vs |= XSdiAud_Vs_val;
+	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_EMB_VID_CNTRL_REG_OFFSET, XSdiAud_Vs);
 }
 
 /*****************************************************************************/
@@ -302,7 +416,7 @@ void XSdiAud_Emb_EnExtrnLine(XSdiAud *InstancePtr, u8 XSdiAud_En)
  * @return none
  *
  ******************************************************************************/
-void XSdiAud_Ext_SetClkPhase(XSdiAud *InstancePtr, u8 XSdiAud_SetClkP)
+void XSdiAud_Ext_DisableClkPhase(XSdiAud *InstancePtr, u8 XSdiAud_SetClkP)
 {
 	u32 XSdiAud_SCP;
 	/* Verify arguments */
@@ -310,7 +424,7 @@ void XSdiAud_Ext_SetClkPhase(XSdiAud *InstancePtr, u8 XSdiAud_SetClkP)
 	XSdiAud_SCP = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
 			XSDIAUD_AUD_CNTRL_REG_OFFSET);
 	XSdiAud_SCP &= ~XSDIAUD_EXT_AUD_CNT_CP_EN_MASK;
-	XSdiAud_SCP |= XSdiAud_SetClkP;
+	XSdiAud_SCP |= (XSdiAud_SetClkP << XSDIAUD_EXT_AUD_CNT_CP_EN_SHIFT);
 	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
 			XSDIAUD_AUD_CNTRL_REG_OFFSET, XSdiAud_SCP);
 }
@@ -321,242 +435,173 @@ void XSdiAud_Ext_SetClkPhase(XSdiAud *InstancePtr, u8 XSdiAud_SetClkP)
  * are present
  *
  * @param  InstancePtr is a pointer to the XSdiAud instance.
+ * @param  GrpSt is a pointer tp no. of active groups and also which groups are
+ * 	   active.
  *
- * @return Return type is enum XSdiAud_GrpsPrsnt, by this we can know the
- *         groups which are present.
+ * @return None.
  *
  ******************************************************************************/
-XSdiAud_GrpsPrsnt XSdiAud_DetAudGrp(XSdiAud *InstancePtr)
+void XSdiAud_GetActGrpStatus(XSdiAud *InstancePtr, XSdiAud_ActGrpSt *GrpSt)
 {
 	u32 XSdiAud_GP;
-	XSdiAud_GrpsPrsnt XSdiAud_GPE;
+	u32 XSdiAud_GPE;
+	u32 i;
 	/* Verify arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr != NULL);
 	XSdiAud_GP = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDIAUD_GRP_PRES_REG_OFFSET);
-	XSdiAud_GPE = XSdiAud_GP & XSDIAUD_GRP_PRESNT_MASK;
-	switch (XSdiAud_GPE) {
-	case XSDIAUD_GROUP_0:
-		xil_printf("No Groups in the incoming SDI Stream\r\n");
-		break;
-
-	case XSDIAUD_GROUP_1:
-		xil_printf("Incoming SDI Stream has Group 1\r\n");
-		break;
-	case XSDIAUD_GROUP_2:
-		xil_printf("Incoming SDI Stream has Group 2\r\n");
-		break;
-
-	case XSDIAUD_GROUP_1_2:
-		xil_printf("Incoming SDI Stream has Groups 1 & 2\r\n");
-		break;
-
-	case XSDIAUD_GROUP_3:
-		xil_printf("Incoming SDI Stream has Group 3\r\n");
-		break;
-
-	case XSDIAUD_GROUP_1_3:
-		xil_printf("Incoming SDI Stream has Groups 1 & 3\r\n");
-		break;
-
-	case XSDIAUD_GROUP_2_3:
-		xil_printf("Incoming SDI Stream has Groups 2 & 3\r\n");
-		break;
-
-	case XSDIAUD_GROUP_1_2_3:
-		xil_printf("Incoming SDI Stream has Groups 1,2& 3\r\n");
-		break;
-
-	case XSDIAUD_GROUP_4:
-		xil_printf("Incoming SDI Stream has Groups 4\r\n");
-		break;
-
-	case XSDIAUD_GROUP_1_4:
-		xil_printf("Incoming SDI Stream has Groups 1 & 4\r\n");
-		break;
-
-	case XSDIAUD_GROUP_2_4:
-		xil_printf("Incoming SDI Stream has Groups 2 & 4\r\n");
-		break;
-
-	case XSDIAUD_GROUP_1_2_4:
-		xil_printf("Incoming SDI Stream has Groups 1,2& 4\r\n");
-		break;
-
-	case XSDIAUD_GROUP_3_4:
-		xil_printf("Incoming SDI Stream has groups 3 & 4\r\n");
-		break;
-
-	case XSDIAUD_GROUP_1_3_4:
-		xil_printf("Incoming SDI Stream has Groups 1,3& 4\r\n");
-		break;
-
-	case XSDIAUD_GROUP_2_3_4:
-		xil_printf("Incoming SDI Stream has Groups 2,3& 4\r\n");
-		break;
-
-	case XSDIAUD_GROUP_ALL:
-		xil_printf("Incoming SDI Stream has all 4 Groups\r\n");
-		break;
-
-	default:
-		xil_printf("Invalid case\r\n");
-		break;
+			XSDIAUD_ACT_GRP_PRES_REG_OFFSET);
+	XSdiAud_GPE = (XSdiAud_GP & XSDIAUD_GRP_PRESNT_MASK);
+	GrpSt->NumGroups = XSdiAud_CountBits(XSdiAud_GPE);
+	for (i = 0; i < MAX_AUDIO_GROUPS; i++) {
+		GrpSt->GrpActive[i] = XSdiAud_GPE & BIT(i);
 	}
-	return XSdiAud_GPE;
 }
 
 /*****************************************************************************/
 /**
- * This function sets the channel count by taking the number of channels
- * and the start group number as the arguments.
- * This API writes to the Mux or DeMux control registers, the number of
- * Mux or DeMux control registers written, depends on the number of channels.
+ * This function sets the channel valid register. Based on the mask provided
+ * the corresponding channels are embeddded/extracted onto sdi.
  *
  * @param  InstancePtr is a pointer to the XSdiAud instance.
- * @param  XSdiStrtGrpNum is start group number, it is enum XSdiAud_GrpNum,
- *         its value can be 1 or 2 or 3 or 4.
- * @param  XSdiANumOfCh is number of channels, it is enum XSdiAud_NumOfCh,
- *         its value can be any value from 1 to 16.
+ * @param  XSdiAudSetChMask is the 32 bit mask used to set the specific
+ *         channels.
  *
  * @return none
  *
  ******************************************************************************/
-void XSdiAud_SetCh(XSdiAud *InstancePtr, XSdiAud_GrpNum XSdiStrtGrpNum,
-		XSdiAud_NumOfCh XSdiANumOfCh)
+void XSdiAud_SetCh(XSdiAud *InstancePtr, u32 XSdiAudSetChMask)
 {
-	u32 Mod0_LoopCount, ModNot0_LoopCount, XSdiANumOfCh_div4,
-	    XSdiANumOfCh_mod4, MuxOrDmux_Offset, MuxOrDmux_RegVal,
-	    XSdiStrtGrpNumInc;
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XSdiANumOfCh <= InstancePtr->Config.MaxNumChannels);
-	Xil_AssertVoid((XSdiANumOfCh%2) == 0);
-	Xil_AssertVoid(((XSdiANumOfCh <= XSDIAUD_4_CHANNELS) &&
-				(XSdiStrtGrpNum <= XSDIAUD_GROUP4)) ||
-			((XSdiANumOfCh <= XSDIAUD_8_CHANNELS) &&
-			 (XSdiStrtGrpNum <= XSDIAUD_GROUP3)) ||
-			((XSdiANumOfCh <= XSDIAUD_12_CHANNELS) &&
-			 (XSdiStrtGrpNum <= XSDIAUD_GROUP2)) ||
-			((XSdiANumOfCh <= XSDIAUD_16_CHANNELS) &&
-			 (XSdiStrtGrpNum == XSDIAUD_GROUP1)));
 
 	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
-			 XSDIAUD_AXIS_CHCOUNT_REG_OFFSET, XSdiANumOfCh);
-	InstancePtr->StrtGrpNum =  XSdiStrtGrpNum;
-	XSdiANumOfCh_div4 = (XSdiANumOfCh)/4;
-	XSdiANumOfCh_mod4 = (XSdiANumOfCh)%4;
-	InstancePtr->NumOfCh = XSdiANumOfCh;
-	XSdiStrtGrpNumInc = XSdiStrtGrpNum - 1;
-	if (XSdiANumOfCh_mod4 == 0) {
-		for (Mod0_LoopCount = 0; Mod0_LoopCount < XSdiANumOfCh_div4; Mod0_LoopCount++) {
-			MuxOrDmux_Offset = XSDIAUD_MUX1_OR_DMUX1_CNTRL_REG_OFFSET + (4 * Mod0_LoopCount);
-			MuxOrDmux_RegVal = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress, MuxOrDmux_Offset);
-			MuxOrDmux_RegVal &= ~XSDIAUD_EMD_MUX_CNT_GS_MASK;
-			MuxOrDmux_RegVal |= XSdiStrtGrpNumInc;
-			XSdiStrtGrpNumInc = XSdiStrtGrpNumInc + 1;
-			XSdiAud_WriteReg(InstancePtr->Config.BaseAddress, MuxOrDmux_Offset, MuxOrDmux_RegVal);
-			MuxOrDmux_Offset = 0;
-			MuxOrDmux_RegVal = 0;
-		}
-	} else {
-
-		for (ModNot0_LoopCount = 0; ModNot0_LoopCount <= XSdiANumOfCh_div4; ModNot0_LoopCount++) {
-			MuxOrDmux_Offset = XSDIAUD_MUX1_OR_DMUX1_CNTRL_REG_OFFSET + 4 * ModNot0_LoopCount;
-			MuxOrDmux_RegVal = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress, MuxOrDmux_Offset);
-			MuxOrDmux_RegVal &= ~XSDIAUD_EMD_MUX_CNT_GS_MASK;
-			MuxOrDmux_RegVal |= XSdiStrtGrpNumInc;
-			XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
-			MuxOrDmux_Offset, MuxOrDmux_RegVal);
-			XSdiStrtGrpNumInc = XSdiStrtGrpNumInc + 1;
-			MuxOrDmux_Offset = 0;
-			MuxOrDmux_RegVal = 0;
-		}
-	}
+			 XSDIAUD_VALID_CH_REG_OFFSET, XSdiAudSetChMask);
 }
 
 /*****************************************************************************/
 /**
- * This function mutes a specific channel in a specific group.
+ * This function mutes a specific channel based on the mask provided.
  *
  * @param  InstancePtr is a pointer to the XSdiAud instance.
- * @param  XSdiAGrpNum is the group number, it is enum XSdiAud_GrpNum,
- *         its value can be 1 or 2 or 3 or 4.
- * @param  XSdiAChNum is channel number, it is enum XSdiAud_GrpXChNum,
- *         its value can be 1 or 2 or 3 or 4.
+ * @param  XSdiAudMuteChMask is a 32 bit mask used to mute specific channels.
  *
  * @return none
  *
  ******************************************************************************/
-void XSdiAud_Ext_Mute(XSdiAud *InstancePtr, XSdiAud_GrpNum XSdiAGrpNum,
-		XSdiAud_GrpXChNum XSdiAChNum)
+void XSdiAud_MuteCh(XSdiAud *InstancePtr, u32 XSdiAudMuteChMask)
 {
-	u32 MuxOrDmux_Offset, MuxOrDmux_RegVal, NumOfCh_mod4, NumOfCh_div4;
-
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XSdiAGrpNum >= InstancePtr->StrtGrpNum);
-	NumOfCh_mod4 = (InstancePtr->NumOfCh) % 4;
-	Xil_AssertVoid(((XSdiAChNum <= XSDIAUD_GROUPX_CHANNEL4) &&
-				(NumOfCh_mod4 == 0)) ||
-				((XSdiAChNum <= XSDIAUD_GROUPX_CHANNEL2) &&
-				(NumOfCh_mod4 != 0)));
-	NumOfCh_div4 = (InstancePtr->NumOfCh)/4;
-	Xil_AssertVoid(((XSdiAGrpNum <= NumOfCh_div4) && (NumOfCh_mod4 == 0)) ||
-				((XSdiAGrpNum <= (NumOfCh_div4 + 1)) &&
-				(NumOfCh_mod4 != 0)));
 
-	MuxOrDmux_Offset = XSDIAUD_DMUX1_CNTRL_REG_OFFSET +
-			(4 * (XSdiAGrpNum - (InstancePtr->StrtGrpNum)));
-	MuxOrDmux_RegVal = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
-			MuxOrDmux_Offset);
-	switch (XSdiAChNum) {
-	case 1:
-		MuxOrDmux_RegVal &= ~XSDIAUD_EXT_DMUX_MUTE1_MASK;
-		MuxOrDmux_RegVal |= XSDIAUD_EXT_DMUX_MUTE1_MASK;
-		break;
-
-	case 2:
-		MuxOrDmux_RegVal &= ~XSDIAUD_EXT_DMUX_MUTE2_MASK;
-		MuxOrDmux_RegVal |= XSDIAUD_EXT_DMUX_MUTE2_MASK;
-		break;
-
-	case 3:
-		MuxOrDmux_RegVal &= ~XSDIAUD_EXT_DMUX_MUTE3_MASK;
-		MuxOrDmux_RegVal |= XSDIAUD_EXT_DMUX_MUTE3_MASK;
-		break;
-
-	case 4:
-		MuxOrDmux_RegVal &= ~XSDIAUD_EXT_DMUX_MUTE4_MASK;
-		MuxOrDmux_RegVal |= XSDIAUD_EXT_DMUX_MUTE4_MASK;
-		break;
-	}
-	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress, MuxOrDmux_Offset,
-		    MuxOrDmux_RegVal);
+	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
+				XSDIAUD_MUTE_CH_REG_OFFSET, XSdiAudMuteChMask);
 }
 
 /*****************************************************************************/
 /**
-* This function reads the control packet status register and returns the 16 bit
-* active channel field related to the 4 groups.
+* This function reads the FIFO overflow status. Each bit when read as 1,
+* indicates that RX Sample FIFO for that group is overflowing.
 *
 * @param  InstancePtr is a pointer to the XSdiAud instance.
 *
-* @return Active channel field (type u32) is returned.
+* @return Returns a u8 value, we can know the group overflowing using the bits
+*         set in this value.
 *
 ******************************************************************************/
-u32 XSdiAud_Ext_GetActCh(XSdiAud *InstancePtr)
+u8 XSdiAud_Ext_GetFIFOOvFlwStatus(XSdiAud *InstancePtr)
 {
-    u32 XSdiAud_ActReg;
+    u8 XSdiAud_FIFOOvFlw;
 
     /* Verify arguments */
     Xil_AssertNonvoid(InstancePtr != NULL);
 
-    XSdiAud_ActReg = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
-                                           XSDIAUD_EXT_CNTRL_PKTSTAT_REG_OFFSET);
-    XSdiAud_ActReg = (XSdiAud_ActReg & XSDIAUD_EXT_PKTST_AC_MASK) >> XSDIAUD_EXT_PKTST_AC_SHIFT;
+    XSdiAud_FIFOOvFlw = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_EXT_FIFO_OVFLW_ST_REG_OFFSET);
 
-    return XSdiAud_ActReg;
+    return XSdiAud_FIFOOvFlw;
+}
+
+/*****************************************************************************/
+/**
+* This function reads the active channel information decoded from audio control
+* packet.
+*
+* @param  InstancePtr is a pointer to the XSdiAud instance.
+* @param  ActChSt is the pointer to no. of active channels and the channels
+* 	  active in each group.
+*
+* @return None.
+*
+******************************************************************************/
+void XSdiAud_Ext_GetAcChStatus(XSdiAud *InstancePtr, XSdiAud_ActChSt *ActChSt)
+{
+    u32 XSdiAud_ActCh, i;
+
+    /* Verify arguments */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    XSdiAud_ActCh = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_ACT_CH_STAT_REG_OFFSET);
+
+    ActChSt->NumChannels = XSdiAud_CountBits(XSdiAud_ActCh);
+    for (i = 0; i < MAX_AUDIO_GROUPS; i++) {
+	ActChSt->GrpActCh[i] = XSdiAud_CountBits((XSdiAud_ActCh >> (4 * i)) & 0xF);
+    }
+}
+
+/*****************************************************************************/
+/**
+* This function reads the sample rate information decoded from audio control
+* packet (0 - 48 KHz, 1 - 44.1 KHz, 2 - 32 KHz, 3 - Reserved).
+*
+* @param  InstancePtr is a pointer to the XSdiAud instance.
+* @param  SRSt is a pointer to the sample rate information of each channel pair.
+*
+* @return None.
+*
+******************************************************************************/
+void XSdiAud_Ext_GetSRStatus(XSdiAud *InstancePtr, XSdiAud_SRSt *SRSt)
+{
+    u32 XSdiAud_SR;
+    u32 i;
+
+    /* Verify arguments */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    XSdiAud_SR = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_SR_STAT_REG_OFFSET);
+    for (i = 0; i < MAX_AUDIO_CHANNELS / 2; i++) {
+	SRSt->SRChPair[i] = (XSdiAud_SR >> (2 * i)) & 0x3;
+    }
+}
+
+/*****************************************************************************/
+/**
+* This function reads the ASX information decoded from audio control packet.
+* Bit 0  - Channel 1 & 2 Asx
+* Bit 1  - Channel 3 & 4 Asx
+* ------
+* Bit 15 - Channel 31 & 32 Asx
+*
+* @param  InstancePtr is a pointer to the XSdiAud instance.
+* @param  AsxSt is a pointer to the Asx status information of each channel pair.
+*
+* @return None.
+*
+******************************************************************************/
+void XSdiAud_Ext_GetAsxStatus(XSdiAud *InstancePtr, XSdiAud_AsxSt *AsxSt)
+{
+    u32 XSdiAud_Asx, i;
+
+    /* Verify arguments */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    XSdiAud_Asx = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_ASX_STAT_REG_OFFSET);
+
+    for (i = 0; i < (MAX_AUDIO_CHANNELS / 2); i++ ) {
+	AsxSt->AsxPair[i] = (XSdiAud_Asx >> i) & 0x1;
+    }
 }
 
 /*****************************************************************************/
@@ -569,7 +614,7 @@ u32 XSdiAud_Ext_GetActCh(XSdiAud *InstancePtr)
  * @return None.
  *
  ******************************************************************************/
-void XSdiAud_ResetReg(XSdiAud *InstancePtr)
+void XSdiAud_ConfigReset(XSdiAud *InstancePtr)
 {
 	u32 XSdiAud_RstRVal;
 	/* Verify arguments */
@@ -595,7 +640,7 @@ void XSdiAud_ResetReg(XSdiAud *InstancePtr)
  * @return None.
  *
  ******************************************************************************/
-void XSdiAud_ResetCoreEn(XSdiAud *InstancePtr, u8 RstCoreEnable)
+void XSdiAud_CoreReset(XSdiAud *InstancePtr, u8 RstCoreEnable)
 {
 	u32 XSdiAud_RstCVal;
 	/* Verify arguments */
@@ -614,34 +659,5 @@ void XSdiAud_ResetCoreEn(XSdiAud *InstancePtr, u8 RstCoreEnable)
 					XSDIAUD_SOFT_RST_REG_OFFSET,
 					XSdiAud_RstCVal);
 	}
-}
-
-/*****************************************************************************/
-/**
- * This Audio Embed function controls the rate at which audio samples are
- * inserted on to the SDI stream.
- *
- * @param  InstancePtr is a pointer to the XSdiAud instance.
- * @param  XSdiAud_RCE can be 0 or 1.
- *         0 - Audio samples are inserted when they are available.
- *         1 - Number of audio samples per video line are limited based on video
- *             resolution, frame rate and audio sample rate.
- *
- * @return none
- *
- ******************************************************************************/
-void XSdiAud_Emb_RateCntrlEn(XSdiAud *InstancePtr, u8 XSdiAud_RCE)
-{
-	u32 XSdiAud_RateCntrlEn, XSdiAud_RC;
-	/* Verify arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XSdiAud_RCE <= 1);
-	XSdiAud_RateCntrlEn = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDIAUD_AUD_CNTRL_REG_OFFSET);
-	XSdiAud_RateCntrlEn &= ~XSDIAUD_EMB_AUD_CNT_RCE_MASK;
-	XSdiAud_RC = XSdiAud_RCE << XSDIAUD_EMB_AUD_CNT_RCE_SHIFT;
-	XSdiAud_RateCntrlEn |= XSdiAud_RC;
-	XSdiAud_WriteReg(InstancePtr->Config.BaseAddress,
-			XSDIAUD_AUD_CNTRL_REG_OFFSET, XSdiAud_RateCntrlEn);
 }
 /** @} */
