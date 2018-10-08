@@ -88,10 +88,10 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
         puts -nonewline $config_file $comma
         puts -nonewline $config_file [lindex $lines 3]
 
-        set arg_name [::hsi::utils::get_ip_param_name [hsi::get_cells "psu_pcie_low"] "C_S_AXI_HIGHADDR"]
+        set arg_name [::hsi::utils::get_ip_param_name [hsi::get_cells -hier "psu_pcie_low"] "C_S_AXI_HIGHADDR"]
         regsub "S_AXI_" $arg_name "" arg_name
         puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
-        set arg_name [::hsi::utils::get_ip_param_name [hsi::get_cells "psu_pcie_high1"] "C_S_AXI_HIGHADDR"]
+        set arg_name [::hsi::utils::get_ip_param_name [hsi::get_cells -hier "psu_pcie_high1"] "C_S_AXI_HIGHADDR"]
         regsub "S_AXI_" $arg_name "" arg_name
         puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 
