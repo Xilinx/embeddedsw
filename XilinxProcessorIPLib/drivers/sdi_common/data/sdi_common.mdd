@@ -24,14 +24,23 @@
 ## in advertising or otherwise to promote the sale, use or other dealings in
 ## this Software without prior written authorization from Xilinx.
 ##
-##*****************************************************************************/
-
+###############################################################################
+###############################################################################
+#
+# Modification History
+# ver   who  Date     Changes
+# ----- ---- -------- ---------------------------------------------
+# 1.0	jsr  07/17/17 Created
+# 1.1	jsr  10/05/18 Moved 3GB specific video modes timing
+#		      parameters from video common library
+#		      to SDI common driver
+###############################################################################
 OPTION psf_version = 2.1;
 
 BEGIN driver sdi_common
 	OPTION supported_peripherals = ();
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.0;
+	OPTION VERSION = 1.1;
 	OPTION NAME = sdi_common;
 END driver
