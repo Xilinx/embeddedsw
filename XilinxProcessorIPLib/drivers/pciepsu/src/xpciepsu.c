@@ -226,12 +226,12 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
                            E_ECAM_SIZE_SHIFT));
 
 	/* Configure last bus numbers as max possible bus number */
-	InstancePtr->LastBusNo = GET_MAX_BUS_NO(ECamSize);
+	InstancePtr->MaxSupportedBusNo = GET_MAX_BUS_NO(ECamSize);
 
 	/* Write primary, secondary and subordinate bus numbers */
 	ECamVal = FirstBusNo;
 	ECamVal |= (FirstBusNo + 1) << 8;
-	ECamVal |= (InstancePtr->LastBusNo << E_ECAM_SIZE_SHIFT);
+	ECamVal |= (InstancePtr->MaxSupportedBusNo << E_ECAM_SIZE_SHIFT);
 
 	XPciePsu_WriteReg(CfgPtr->Ecam, XPCIEPSU_PRIMARY_BUS, ECamVal);
 
@@ -302,23 +302,26 @@ u32 XPciePsu_ComposeExternalConfigAddress(u8 Bus, u8 Device, u8 Function,
 * @param   Offset	location of the address to read data from.
 * @param   DataPtr	pointer store date available in the offset
 *
-* @return  none
+* @return  XST_SUCCESS on success
+* XST_FAILURE on failure.
 *
 *******************************************************************************/
-void XPciePsu_ReadRemoteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+u8 XPciePsu_ReadConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 				    u8 Function, u16 Offset, u32 *DataPtr)
 {
 	u32 Location = 0;
 	u32 Data;
+	u8	Ret = XST_SUCCESS;
 
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(DataPtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(DataPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (((Bus == 0) && !((Device == 0) && (Function == 0)))
-	    || (Bus > InstancePtr->LastBusNo)) {
+	    || (Bus > InstancePtr->MaxSupportedBusNo)) {
 		*DataPtr = DATA_MASK_32;
-		return;
+		Ret = XST_FAILURE;
+		goto End;
 	}
 
 	/* Compose function configuration space location */
@@ -329,6 +332,8 @@ void XPciePsu_ReadRemoteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 	Data = XPciePsu_ReadReg((InstancePtr->Config.Ecam), Location);
 
 	*DataPtr = Data;
+End:
+	return Ret;
 }
 
 /******************************************************************************/
@@ -342,21 +347,25 @@ void XPciePsu_ReadRemoteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 * @param   Offset	location of the address to write data.
 * @param   Data to be written on to the offset
 *
-* @return  none
+* @return  XST_SUCCESS on success
+* XST_FAILURE on failure.
 *
 *******************************************************************************/
-void XPciePsu_WriteRemoteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+u8 XPciePsu_WriteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 				     u8 Function, u16 Offset, u32 Data)
 {
 	u32 Location = 0;
 	u32 TestWrite = 0;
 	u8 Count = 3;
+	u8 Ret = XST_SUCCESS;
 
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if ((Bus == 0) || (Bus > InstancePtr->LastBusNo))
-		return;
+	if ((Bus == 0) || (Bus > InstancePtr->MaxSupportedBusNo)){
+		Ret = XST_FAILURE;
+		goto End;
+	}
 
 	/* Compose function configuration space location */
         Location = XPciePsu_ComposeExternalConfigAddress(Bus, Device, Function,
@@ -375,6 +384,8 @@ void XPciePsu_WriteRemoteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 
 		Count--;
 	}
+End:
+	return Ret;
 }
 
 static int XPciePsu_PositionRightmostSetbit(u64 Size)
@@ -609,7 +620,8 @@ static void XPciePsu_IncreamentPMem(XPciePsu *InstancePtr)
 
 /******************************************************************************/
 /**
-* This function starts enumeration of PCIe Fabric on the system.
+* This function discovers the system topology and assigns bus
+* numbers and system resources.
 * Assigns primary, secondary and subordinate bus numbers.
 * Assigns memory to prefetchable and non-prefetchable memory locations.
 * enables end-points and bridges.
@@ -640,7 +652,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (BusNum > InstancePtr->LastBusNo) {
+	if (BusNum > InstancePtr->MaxSupportedBusNo) {
 		/* End of bus size */
 		return;
 	}
@@ -651,7 +663,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 		     PCIeFunNum++) {
 
 			/* Vendor ID */
-			XPciePsu_ReadRemoteConfigSpace(
+			XPciePsu_ReadConfigSpace(
 				InstancePtr, BusNum, PCIeDevNum, PCIeFunNum,
 				XPCIEPSU_CFG_ID_REG, &ConfigData);
 
@@ -677,7 +689,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 					PCIeVendorID, PCIeDeviceID);
 
 				/* Header Type */
-				XPciePsu_ReadRemoteConfigSpace(
+				XPciePsu_ReadConfigSpace(
 					InstancePtr, BusNum, PCIeDevNum,
 					PCIeFunNum, XPCIEPSU_CFG_CAH_LAT_HD_REG,
 					&ConfigData);
@@ -705,7 +717,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 					 * Initialize this end point
 					 * and return.
 					 */
-					XPciePsu_ReadRemoteConfigSpace(
+					XPciePsu_ReadConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_CMD_STATUS_REG,
@@ -714,7 +726,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 					ConfigData |= (XPCIEPSU_CFG_CMD_BUSM_EN
 						       | XPCIEPSU_CFG_CMD_MEM_EN);
 
-					XPciePsu_WriteRemoteConfigSpace(
+					XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_CMD_STATUS_REG,
@@ -757,7 +769,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 							      bus no */
 					Adr06 <<= TWO_HEX_NIBBLES;
 					Adr06 |= BusNum; /* Primary bus no */
-					XPciePsu_WriteRemoteConfigSpace(
+					XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_BUS_NUMS_T1_REG,
@@ -768,7 +780,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 					Adr08 |= ((InstancePtr->Config.NpMemBaseAddr
 						   & 0xFFF00000)
 						  >> FOUR_HEX_NIBBLES);
-					XPciePsu_WriteRemoteConfigSpace(
+					XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_NP_MEM_T1_REG, Adr08);
@@ -776,13 +788,13 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 					Adr09 |= ((InstancePtr->Config.PMemBaseAddr
 						   & 0xFFF00000)
 						  >> FOUR_HEX_NIBBLES);
-					XPciePsu_WriteRemoteConfigSpace(
+					XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_P_MEM_T1_REG, Adr09);
 					Adr0A |= (InstancePtr->Config.PMemBaseAddr
 						  >> EIGHT_HEX_NIBBLES);
-					XPciePsu_WriteRemoteConfigSpace(
+					XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_P_UPPER_MEM_T1_REG,
@@ -800,7 +812,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 					/* setting subordinate bus no */
 					Adr06 |= (LastBusNum
 						  << FOUR_HEX_NIBBLES);
-					XPciePsu_WriteRemoteConfigSpace(
+					XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_BUS_NUMS_T1_REG,
@@ -823,7 +835,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 					XPciePsu_IncreamentNpMem(InstancePtr);
 					Adr08 |= (InstancePtr->Config.NpMemBaseAddr
 						  & 0xFFF00000);
-					XPciePsu_WriteRemoteConfigSpace(
+					XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_NP_MEM_T1_REG, Adr08);
@@ -831,13 +843,13 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 					XPciePsu_IncreamentPMem(InstancePtr);
 					Adr09 |= (InstancePtr->Config.PMemBaseAddr
 						  & 0xFFF00000);
-					XPciePsu_WriteRemoteConfigSpace(
+					XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_P_MEM_T1_REG, Adr09);
 					Adr0B |= (InstancePtr->Config.PMemBaseAddr
 						  >> EIGHT_HEX_NIBBLES);
-					XPciePsu_WriteRemoteConfigSpace(
+					XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_P_LIMIT_MEM_T1_REG,
@@ -854,7 +866,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 					/*
 					 * Enable configuration
 					 */
-					XPciePsu_ReadRemoteConfigSpace(
+					XPciePsu_ReadConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_CMD_STATUS_REG,
@@ -863,7 +875,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 					ConfigData |= (XPCIEPSU_CFG_CMD_BUSM_EN
 						       | XPCIEPSU_CFG_CMD_MEM_EN);
 
-					XPciePsu_WriteRemoteConfigSpace(
+					XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_CMD_STATUS_REG,

@@ -57,13 +57,14 @@ extern XPciePsu_Config XPciePsu_ConfigTable[];
 
 /******************************************************************************/
 /**
-* This function looks for the configuration of PCIe from the configTable
+* This function looks for the configuration of PCIe from the configTable based
+* on the unique device ID. The table XPciePsu_ConfigTable[] contains the
+* configuration information for each device in the system.
 *
-* @param   DeviceId is the unique device ID of the device for the lookup
-* operation.
+* @param	DeviceId is the unique device ID of the device being looked up.
 *
-* @return  XPciePsu_config if available
-*          null if not available
+* @return	A pointer to the configuration table entry corresponding to the
+*		given device ID, or NULL if no match is found.
 *
 *******************************************************************************/
 XPciePsu_Config *XPciePsu_LookupConfig(u16 DeviceId)

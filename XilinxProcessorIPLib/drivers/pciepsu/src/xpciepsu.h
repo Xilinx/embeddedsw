@@ -50,19 +50,12 @@
 *
 *   - XPciePsu_LookupConfig(DeviceId) - Use the device identifier to find the
 *   static configuration structure defined in xpciepsu_g.c. This is setup by
-*   the tools. For some operating systems the config structure will be
-*   initialized by the software and this call is not needed.
+*   the tools.
 *
-*   - XPciePsu_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
+*   - XPciePsu_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddress) - Uses a
 *   configuration structure provided by the caller. If running in a system with
 *   address translation, the provided virtual memory base address replaces the
 *   physical address present in the configuration structure.
-*
-* <b>Interrupt Management</b>
-*
-* The PciePsu driver provides interrupt management functions. It allows
-* the caller to enable/disable each individual interrupt as well as get/clear
-* pending interrupts. Implementation of callback handlers is left to the user.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -110,7 +103,7 @@ typedef struct {
 typedef struct {
 	XPciePsu_Config Config; /**< Configuration data */
 	u32 IsReady;		/**< Is IP been initialized and ready */
-	u32 LastBusNo;		/**< If this is RC IP, Max Number of  Buses */
+	u32 MaxSupportedBusNo;		/**< If this is RC IP, Max Number of  Buses */
 } XPciePsu;
 
 /***************************** Function Prototypes ****************************/
@@ -120,18 +113,18 @@ XPciePsu_Config *XPciePsu_LookupConfig(u16 DeviceId);
 u32 XPciePsu_CfgInitialize(XPciePsu *InstancePtr, XPciePsu_Config *CfgPtr,
 			   UINTPTR EffectiveBrgAddress);
 u8 XPciePsu_EnumerateBus(XPciePsu *InstancePtr);
-void XPciePsu_ReadRemoteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+u8 XPciePsu_ReadConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 				    u8 Function, u16 Offset, u32 *DataPtr);
-void XPciePsu_WriteRemoteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+u8 XPciePsu_WriteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 				     u8 Function, u16 Offset, u32 Data);
 u32 XPciePsu_ComposeExternalConfigAddress(u8 Bus, u8 Device, u8 Function,
 					  u16 Offset);
 
-u32 XPciePsu_HasCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+u8 XPciePsu_HasCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		u8 Function, u8 CapId);
 u64 XPciePsu_GetCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		u8 Function, u8 CapId);
-void XPciePsu_PrintAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
+u8 XPciePsu_PrintAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		u8 Function);
 
 #ifdef __cplusplus
