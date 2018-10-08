@@ -41,6 +41,9 @@
 * 1.00  jsr    07/17/17 Initial release.
 *       jsr    02/23/2018 YUV420 color format support
 # 2.0   vve    10/03/18 Add support for ST352 in C Stream
+	jsr    10/05/18 Moved 3GB specific video modes timing
+			parameters from video common library
+			to SDI common driver
 * </pre>
 *
 ******************************************************************************/
@@ -70,7 +73,7 @@
 #define CHROMA_ST352_REG_OFFSET \
 	(XV_SDITX_TX_ST352_DATA_CH0_C_OFFSET - \
 	 XV_SDITX_TX_ST352_DATA_CH0_OFFSET) / 4
-
+#define XSDITX_VIDMODE_SHIFT 3
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
@@ -283,8 +286,26 @@ u32 XV_SdiTx_SetStream(XV_SdiTx *InstancePtr, XV_SdiTx_StreamSelId SelId,
 
 	switch (SelId) {
 	case XV_SDITX_STREAMSELID_VMID:
-		/* Get the timing from the video timing table. */
-		TimingPtr = XVidC_GetTimingInfo((u32)Data);
+		if((Data == XVIDC_VM_1920x1080_96_I) ||
+		   (Data == XVIDC_VM_1920x1080_100_I) ||
+		   (Data == XVIDC_VM_1920x1080_120_I) ) {
+			u32 index;
+
+			index = Data - XVIDC_VM_1920x1080_96_I;
+			TimingPtr = &(XVidC_SdiVidTimingModes[index].Timing);
+		} else if ((Data == XVIDC_VM_2048x1080_96_I) ||
+			   (Data == XVIDC_VM_2048x1080_100_I) ||
+			   (Data == XVIDC_VM_2048x1080_120_I)) {
+			u32 index;
+
+			index = Data - XVIDC_VM_2048x1080_96_I +
+				XSDITX_VIDMODE_SHIFT;
+			TimingPtr = &(XVidC_SdiVidTimingModes[index].Timing);
+		} else {
+			/* Get the timing from the video timing table. */
+			TimingPtr = XVidC_GetTimingInfo((u32)Data);
+		}
+
 		if (!TimingPtr) {
 			return XST_FAILURE;
 		}
