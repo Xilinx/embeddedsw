@@ -74,10 +74,20 @@ XPciePsu_Config *XPciePsu_LookupConfig(u16 DeviceId)
 
 	for (Index = 0; Index < 8; Index++) {
 		if (XPciePsu_ConfigTable[Index].DeviceId == DeviceId) {
+			if(XPciePsu_ConfigTable[Index].BrigReg == 0xff ||
+					XPciePsu_ConfigTable[Index].Ecam == 0xff ||
+					XPciePsu_ConfigTable[Index].NpMemBaseAddr == 0xff ||
+					XPciePsu_ConfigTable[Index].NpMemMaxAddr == 0xff ||
+					XPciePsu_ConfigTable[Index].PMemBaseAddr == 0xff ||
+					XPciePsu_ConfigTable[Index].PMemMaxAddr == 0xff ||
+					XPciePsu_ConfigTable[Index].PciReg == 0xff){
+				CfgPtr = NULL;
+				goto End;
+			}
 			CfgPtr = &XPciePsu_ConfigTable[Index];
 			break;
 		}
 	}
-
+End:
 	return CfgPtr;
 }
