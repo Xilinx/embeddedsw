@@ -45,6 +45,16 @@ proc generate {drv_handle} {
     xdefine_config_file $drv_handle "xpciepsu_g.c" "XPciePsu" "C_S_AXI_BASEADDR"
 
 }
+proc get_parameter {periphs periph param} {
+        set arg_name ""
+        if {[lsearch $periphs [hsi::get_cells -hier $periph]] == -1} {
+            set arg_name "0xFF"
+        } else {
+            set arg_name [::hsi::utils::get_ip_param_name [hsi::get_cells -hier $periph] $param]
+        }
+        regsub "S_AXI_" $arg_name "" arg_name
+        return $arg_name
+}
 
 proc xdefine_config_file {drv_handle file_name drv_string args} {
         global periph_ninstances
@@ -66,33 +76,31 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
         set start_comma ""
         puts $config_file "\t\{"
         set comma ""
-        list lines
-        lappend lines [format "%s\t\t%s" $comma [::hsi::utils::get_ip_param_name [lindex $periphs 0] "DEVICE_ID"]]
-        #set comma ",\n"
-        foreach periph $periphs {
-            foreach arg $args {
-                set arg_name [::hsi::utils::get_ip_param_name $periph $arg]
-                regsub "S_AXI_" $arg_name "" arg_name
-                lappend lines [format "%s\t\t%s" $comma $arg_name]
-            }
-        }
-        set index 0
-        foreach line $lines {
-                if {$index != 3} {
-                    puts -nonewline $config_file $comma
-                    puts -nonewline $config_file $line
-                }
-                set comma ",\n"
-                incr index
-        }
-        puts -nonewline $config_file $comma
-        puts -nonewline $config_file [lindex $lines 3]
+        set arg_name ""
 
-        set arg_name [::hsi::utils::get_ip_param_name [hsi::get_cells -hier "psu_pcie_low"] "C_S_AXI_HIGHADDR"]
-        regsub "S_AXI_" $arg_name "" arg_name
+        set arg_name [get_parameter $periphs "psu_pcie" "DEVICE_ID"]
         puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
-        set arg_name [::hsi::utils::get_ip_param_name [hsi::get_cells -hier "psu_pcie_high1"] "C_S_AXI_HIGHADDR"]
-        regsub "S_AXI_" $arg_name "" arg_name
+        set comma ",\n"
+
+        set arg_name [get_parameter $periphs "psu_pcie" "C_S_AXI_BASEADDR"]
+        puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+
+        set arg_name [get_parameter $periphs "psu_pcie_attrib_0" "C_S_AXI_BASEADDR"]
+        puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+
+        set arg_name [get_parameter $periphs "psu_pcie_high2" "C_S_AXI_BASEADDR"]
+        puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+
+        set arg_name [get_parameter $periphs "psu_pcie_low" "C_S_AXI_BASEADDR"]
+        puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+
+        set arg_name [get_parameter $periphs "psu_pcie_high1" "C_S_AXI_BASEADDR"]
+        puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+
+        set arg_name [get_parameter $periphs "psu_pcie_low" "C_S_AXI_HIGHADDR"]
+        puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+
+        set arg_name [get_parameter $periphs "psu_pcie_high1" "C_S_AXI_HIGHADDR"]
         puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 
         puts $config_file "\n\t\}"

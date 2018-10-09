@@ -98,6 +98,7 @@ int main(void)
 	int Status;
 
 	/* Initialize Root Complex */
+#ifdef XPAR_PSU_PCIE_DEVICE_ID
 	Status = PcieInitRootComplex(&PciePsuInstance, XPAR_PSU_PCIE_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Psu pcie Root Complex Enumerate Example Failed\r\n");
@@ -109,7 +110,7 @@ int main(void)
 
 	xil_printf("\r\nSuccessfully ran PSU PCIe Root Complex "
 			"Enumerate Example\r\n");
-
+#endif
 	return XST_SUCCESS;
 }
 
