@@ -412,6 +412,41 @@ proc lwip_drc {libhandle} {
 	lwip_sw_drc $libhandle $emac_names_list
 }
 
+proc generate_license {fd} {
+	puts $fd "/*"
+	puts $fd " * Copyright (c) 2001, 2002 Swedish Institute of Computer Science."
+	puts $fd " * Copyright (C) 2007 - 2018 Xilinx, Inc."
+	puts $fd " * All rights reserved."
+	puts $fd " *"
+	puts $fd " * Redistribution and use in source and binary forms, with or without modification,"
+	puts $fd " * are permitted provided that the following conditions are met:"
+	puts $fd " *"
+	puts $fd " * 1. Redistributions of source code must retain the above copyright notice,"
+	puts $fd " *    this list of conditions and the following disclaimer."
+	puts $fd " * 2. Redistributions in binary form must reproduce the above copyright notice,"
+	puts $fd " *    this list of conditions and the following disclaimer in the documentation"
+	puts $fd " *    and/or other materials provided with the distribution."
+	puts $fd " * 3. The name of the author may not be used to endorse or promote products"
+	puts $fd " *    derived from this software without specific prior written permission."
+	puts $fd " *"
+	puts $fd " * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED"
+	puts $fd " * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF"
+	puts $fd " * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT"
+	puts $fd " * SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,"
+	puts $fd " * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT"
+	puts $fd " * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS"
+	puts $fd " * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN"
+	puts $fd " * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING"
+	puts $fd " * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY"
+	puts $fd " * OF SUCH DAMAGE."
+	puts $fd " *"
+	puts $fd " * This file is part of the lwIP TCP/IP stack."
+	puts $fd " *"
+	puts $fd " * Author: Adam Dunkels <adam@sics.se>"
+	puts $fd " *"
+	puts $fd " */"
+}
+
 proc generate_lwip_opts {libhandle} {
 	global use_axieth_on_zynq
 	global use_emaclite_on_zynq
@@ -442,38 +477,7 @@ proc generate_lwip_opts {libhandle} {
 	file delete $lwipopts_file
 	set lwipopts_fd [open $lwipopts_file w]
 
-	puts $lwipopts_fd "/*"
-	puts $lwipopts_fd " * Copyright (c) 2001, 2002 Swedish Institute of Computer Science."
-	puts $lwipopts_fd " * All rights reserved."
-	puts $lwipopts_fd " *"
-	puts $lwipopts_fd " * Redistribution and use in source and binary forms, with or without modification,"
-	puts $lwipopts_fd " * are permitted provided that the following conditions are met:"
-	puts $lwipopts_fd " *"
-	puts $lwipopts_fd " * 1. Redistributions of source code must retain the above copyright notice,"
-	puts $lwipopts_fd " *    this list of conditions and the following disclaimer."
-	puts $lwipopts_fd " * 2. Redistributions in binary form must reproduce the above copyright notice,"
-	puts $lwipopts_fd " *    this list of conditions and the following disclaimer in the documentation"
-	puts $lwipopts_fd " *    and/or other materials provided with the distribution."
-	puts $lwipopts_fd " * 3. The name of the author may not be used to endorse or promote products"
-	puts $lwipopts_fd " *    derived from this software without specific prior written permission."
-	puts $lwipopts_fd " *"
-	puts $lwipopts_fd " * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED"
-	puts $lwipopts_fd " * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF"
-	puts $lwipopts_fd " * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT"
-	puts $lwipopts_fd " * SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,"
-	puts $lwipopts_fd " * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT"
-	puts $lwipopts_fd " * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS"
-	puts $lwipopts_fd " * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN"
-	puts $lwipopts_fd " * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING"
-	puts $lwipopts_fd " * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY"
-	puts $lwipopts_fd " * OF SUCH DAMAGE."
-	puts $lwipopts_fd " *"
-	puts $lwipopts_fd " * This file is part of the lwIP TCP/IP stack."
-	puts $lwipopts_fd " *"
-	puts $lwipopts_fd " * Author: Adam Dunkels <adam@sics.se>"
-	puts $lwipopts_fd " *"
-	puts $lwipopts_fd " */"
-	xprint_generated_header $lwipopts_fd "LWIP Configuration parameters"
+	generate_license $lwipopts_fd
 	puts $lwipopts_fd "\#ifndef __LWIPOPTS_H_"
 	puts $lwipopts_fd "\#define __LWIPOPTS_H_"
 	puts $lwipopts_fd ""
@@ -1410,7 +1414,7 @@ proc generate_adapterconfig_include {libhandle} {
 	set adapterconfig "src/contrib/ports/xilinx/include/xlwipconfig.h"
 	file delete $adapterconfig
 	set fd [open $adapterconfig w]
-	xprint_generated_header $fd "LWIP adapter configuration"
+	generate_license $fd
 
 	puts $fd "\#ifndef __XLWIPCONFIG_H_"
 	puts $fd "\#define __XLWIPCONFIG_H_\n\n"
