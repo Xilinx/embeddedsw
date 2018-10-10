@@ -125,6 +125,8 @@
 *                       optimization.
 *       sk     09/24/18 Update powerup-state value based on PLL mode in
 *                       XRFdc_DynamicPLLConfig() API.
+*       sk     10/10/18 Check for DigitalPath enable in XRFdc_GetNyquistZone()
+*                       and XRFdc_GetCalibrationMode() APIs for Multiband.
 * </pre>
 *
 ******************************************************************************/
@@ -292,6 +294,8 @@ static void XRFdc_ADCInitialize(XRFdc *InstancePtr)
 				ADCBlock_Digital_Datapath[Block_Id].ConnectedIData = -1;
 			InstancePtr->ADC_Tile[Tile_Id].
 				ADCBlock_Digital_Datapath[Block_Id].ConnectedQData = -1;
+			InstancePtr->ADC_Tile[Tile_Id].MultibandConfig =
+					InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].MultibandConfig;
 			if (XRFdc_IsADCDigitalPathEnabled(InstancePtr, Tile_Id, Block_Id) != 0U) {
 				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].DigitalPathAvailable =
 						XRFDC_DIGITALPATH_ENABLE;
@@ -354,6 +358,8 @@ static void XRFdc_DACInitialize(XRFdc *InstancePtr)
 				DACBlock_Digital_Datapath[Block_Id].ConnectedIData = -1;
 			InstancePtr->DAC_Tile[Tile_Id].
 				DACBlock_Digital_Datapath[Block_Id].ConnectedQData = -1;
+			InstancePtr->DAC_Tile[Tile_Id].MultibandConfig =
+						InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].MultibandConfig;
 			if (XRFdc_IsDACDigitalPathEnabled(InstancePtr, Tile_Id, Block_Id) != 0U) {
 				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].DigitalPathAvailable =
 						XRFDC_DIGITALPATH_ENABLE;
@@ -441,9 +447,6 @@ static void XRFdc_DACMBConfigInit(XRFdc *InstancePtr, u32 Tile_Id,
 		XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id,
 										Block_Id, Block_Id, -1);
 	}
-
-	InstancePtr->DAC_Tile[Tile_Id].MultibandConfig =
-			InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].MultibandConfig;
 }
 /*****************************************************************************/
 /**
@@ -492,7 +495,7 @@ static void XRFdc_ADCMBConfigInit(XRFdc *InstancePtr, u32 Tile_Id,
 	} else if (InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
 			ADCBlock_Analog_Config[Block_Id].MixMode == 0x0) {
 		/* Mixer mode is R2C */
-		switch (InstancePtr->DAC_Tile[Tile_Id].MultibandConfig) {
+		switch (InstancePtr->ADC_Tile[Tile_Id].MultibandConfig) {
 			case XRFDC_MB_MODE_4X:
 				XRFdc_SetConnectedIQData(InstancePtr, XRFDC_ADC_TILE, Tile_Id,
 									Block_Id, XRFDC_BLK_ID0, -1);
@@ -518,9 +521,6 @@ static void XRFdc_ADCMBConfigInit(XRFdc *InstancePtr, u32 Tile_Id,
 		XRFdc_SetConnectedIQData(InstancePtr, XRFDC_ADC_TILE, Tile_Id,
 												Block_Id, Block_Id, -1);
 	}
-
-	InstancePtr->ADC_Tile[Tile_Id].MultibandConfig =
-			InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].MultibandConfig;
 }
 
 /*****************************************************************************/
@@ -4117,12 +4117,25 @@ u32 XRFdc_GetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	u32 BaseAddr;
 	u32 Block;
 	u8 CalibrationMode = 0U;
+	u8 MultibandConfig;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(NyquistZonePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
+	if (Type == XRFDC_ADC_TILE) {
+		MultibandConfig = InstancePtr->ADC_Tile[Tile_Id].MultibandConfig;
+	} else {
+		MultibandConfig = InstancePtr->DAC_Tile[Tile_Id].MultibandConfig;
+	}
+
+	if (MultibandConfig != XRFDC_MB_MODE_SB) {
+		Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, Type,
+					Tile_Id, Block_Id);
+	} else {
+		Status = XRFdc_CheckBlockEnabled(InstancePtr, Type,
+					Tile_Id, Block_Id);
+	}
 	if (Status != XRFDC_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n Requested block not "
 								"available in %s\r\n", __func__);
@@ -4304,8 +4317,13 @@ u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	Xil_AssertNonvoid(CalibrationModePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id,
-					Block_Id);
+	if (InstancePtr->ADC_Tile[Tile_Id].MultibandConfig != XRFDC_MB_MODE_SB) {
+		Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_ADC_TILE,
+					Tile_Id, Block_Id);
+	} else {
+		Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE,
+					Tile_Id, Block_Id);
+	}
 	if (Status != XRFDC_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n Requested block not "
 								"available in %s\r\n", __func__);

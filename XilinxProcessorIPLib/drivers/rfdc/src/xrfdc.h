@@ -180,6 +180,8 @@
 *                       "param-list", over linux platform.
 *       sk     09/24/18 Update powerup-state value based on PLL mode in
 *                       XRFdc_DynamicPLLConfig() API.
+*       sk     10/10/18 Check for DigitalPath enable in XRFdc_GetNyquistZone()
+*                       and XRFdc_GetCalibrationMode() APIs for Multiband.
 *
 * </pre>
 *
