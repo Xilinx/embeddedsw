@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -39,6 +17,8 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 vk 10/04/17 Initial release.
+* 1.01 ku 06/04/19 Minor updates to CRC reporting to follow VESA
+*                  recommendation
 * </pre>
 *
 ******************************************************************************/
@@ -88,7 +68,7 @@
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
 #define XINTC_DPRXSS_DP_INTERRUPT_ID \
-	XPAR_FABRIC_DPRXSS_0_VEC_ID
+	XPAR_FABRIC_DP14RXSS_0_VEC_ID
 #define XINTC_DEVICE_ID 	XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define XINTC 			XScuGic
 #define XINTC_HANDLER 		XScuGic_InterruptHandler
@@ -327,6 +307,8 @@ int VideoFMC_Init(void);
 
 void Print_InfoPkt();
 void Print_ExtPkt();
+u32 overflow_count = 0;
+u32 missed_count = 0;
 /************************** Variable Definitions *****************************/
 
 XDpRxSs DpRxSsInst;    /* The DPRX Subsystem instance.*/
@@ -336,6 +318,7 @@ XTmrCtr TmrCtr; /* Timer instance.*/
 Video_CRC_Config VidFrameCRC; /* Video Frame CRC instance */
 DP_Rx_Training_Algo_Config RxTrainConfig;
 XIic IicInstance;	/* I2C bus for MC6000 and IDT */
+volatile u8 Vblank_mask_int_flag = 0;
 /************************** Function Definitions *****************************/
 
 
@@ -533,7 +516,7 @@ u32 DpRxSs_Main(u16 DeviceId)
 	}
 	
 	/*Megachips Retimer Initialization*/
-	XDpRxSs_McDp6000_init(&DpRxSsInst, XPAR_IIC_0_BASEADDR);
+	XDpRxSs_McDp6000_init(&DpRxSsInst, DpRxSsInst.IicPtr->BaseAddress);
 	
 	/* Set Link rate and lane count to maximum */
 	XDpRxSs_SetLinkRate(&DpRxSsInst, DPRXSS_LINK_RATE);
@@ -626,7 +609,6 @@ u32 DpRxSs_Main(u16 DeviceId)
 				break;
 
 			case 'e':
-				XDpRxSs_ReportDp159BitErrCount(&DpRxSsInst);
 				ReadVal = XVphy_ReadReg(VIDPHY_BASEADDR,
 							XVPHY_RX_SYM_ERR_CNTR_CH1_2_REG);
 				xil_printf("Video PHY(8B10B): Error Counts [Lane1, Lane0] "
@@ -764,9 +746,11 @@ u32 DpRxSs_Main(u16 DeviceId)
 			
 			XDp_RxDtgDis(DpRxSsInst.DpPtr);
 			XDp_RxDtgEn(DpRxSsInst.DpPtr);
-			XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
+            if(!Vblank_mask_int_flag)
+            {
+		XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
 			    		   XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
-			
+            }
 			/* Disable & Enable Audio */
 			XDpRxSs_AudioDisable(&DpRxSsInst);
 			XDpRxSs_AudioEnable(&DpRxSsInst);
@@ -1099,6 +1083,7 @@ void DpRxSs_PowerChangeHandler(void *InstancePtr)
 void DpRxSs_NoVideoHandler(void *InstancePtr)
 {
 	DpRxSsInst.VBlankCount = 0;
+	Vblank_mask_int_flag = 1;
 	XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
 			      XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
 	
@@ -1134,6 +1119,10 @@ void DpRxSs_NoVideoHandler(void *InstancePtr)
 void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 {
 	DpRxSsInst.VBlankCount++;
+	if(DpRxSsInst.VBlankCount == 1)
+	{
+		Vblank_mask_int_flag = 0;
+	}
 }
 
 /*****************************************************************************/
@@ -1151,6 +1140,7 @@ void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_TrainingLostHandler(void *InstancePtr)
 {
+	Vblank_mask_int_flag = 0;
 	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 750);
 	XDpRxSs_AudioDisable(&DpRxSsInst);
 }
@@ -1203,6 +1193,8 @@ void DpRxSs_TrainingDoneHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_UnplugHandler(void *InstancePtr)
 {
+	Vblank_mask_int_flag = 0;
+
 	/* Disable & Enable Audio */
 	XDpRxSs_AudioDisable(&DpRxSsInst);
 	AudioinfoFrame.frame_count = 0;
@@ -1274,6 +1266,14 @@ void DpRxSs_LinkBandwidthHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_PllResetHandler(void *InstancePtr)
 {
+	/* Reset CRC Test Counter in DP DPCD Space */
+	XVidFrameCrc_Reset();
+	VidFrameCRC.TEST_CRC_CNT = 0;
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+		     XDP_RX_CRC_CONFIG,
+		     (VidFrameCRC.TEST_CRC_SUPPORTED << 5 |
+		      VidFrameCRC.TEST_CRC_CNT));
+
 
 	/* Issue resets to Video PHY - This API
 	 * called after line rate is programmed */
@@ -1458,6 +1458,7 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 void DpRxSs_AccessErrorCounterHandler(void *InstancePtr)
 {
 	u16 DrpVal;
+	u32 DrpVal1;
 	u16 DrpVal_lower_lane0;
 	u16 DrpVal_lower_lane1;
 	u16 DrpVal_lower_lane2;
@@ -1526,16 +1527,16 @@ void DpRxSs_AccessErrorCounterHandler(void *InstancePtr)
 							    0x12E4));
 
 	/* Reset PRBS7 Counters */
-	DrpVal = XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+	DrpVal1 = XVphy_ReadReg(VPhyInst.Config.BaseAddr,
 			       XVPHY_RX_CONTROL_REG);
-	DrpVal = DrpVal | 0x08080808;
+	DrpVal1 = DrpVal1 | 0x08080808;
 	XDp_WriteReg(VPhyInst.Config.BaseAddr,
-		     XVPHY_RX_CONTROL_REG, DrpVal);
-	DrpVal = XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+		     XVPHY_RX_CONTROL_REG, DrpVal1);
+	DrpVal1 = XVphy_ReadReg(VPhyInst.Config.BaseAddr,
 			       XVPHY_RX_CONTROL_REG);
-	DrpVal = DrpVal & 0xF7F7F7F7;
+	DrpVal1 = DrpVal1 & 0xF7F7F7F7;
 	XVphy_WriteReg(VPhyInst.Config.BaseAddr,
-		       XVPHY_RX_CONTROL_REG, DrpVal);
+		       XVPHY_RX_CONTROL_REG, DrpVal1);
 }
 
 /*****************************************************************************/
@@ -1760,8 +1761,12 @@ void CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 ******************************************************************************/
 void CalculateCRC(void)
 {
+	u32 overflow;
+	u32 loop = 0;
+	u32 misses = 0;
 	/* Reset CRC Test Counter in DP DPCD Space */
 	VidFrameCRC.TEST_CRC_CNT = 0;
+
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_CONFIG,
 		     (VidFrameCRC.TEST_CRC_SUPPORTED << 5 |
 		      VidFrameCRC.TEST_CRC_CNT));
@@ -1770,18 +1775,52 @@ void CalculateCRC(void)
 	 * User has to adjust this accordingly if there is change in pixel
 	 * width programming
 	 * */
-	XVidFrameCrc_WriteReg(VIDEO_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
-			      DpRxSsInst.UsrOpt.LaneCount);
-	
-	/* Set pixel mode as per lane count - it 
+
+	/* Set pixel mode as per lane count - it
 	 * is default behavior Reset DTG */
 	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr,
 				DpRxSsInst.UsrOpt.LaneCount);
 	XDp_RxDtgDis(DpRxSsInst.DpPtr);
 	XDp_RxDtgEn(DpRxSsInst.DpPtr);
+	CustomWaitUs(DpRxSsInst.DpPtr, 100000);
+	VidFrameCRC.Mode_422 =
+			(XVidFrameCrc_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					      XDP_RX_MSA_MISC0) >> 1) & 0x3 ;
+
+	if(VidFrameCRC.Mode_422 != 0x1 ) {
+	XVidFrameCrc_WriteReg(VIDEO_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
+				  DpRxSsInst.UsrOpt.LaneCount);
+	}
+	else{
+	XVidFrameCrc_WriteReg(VIDEO_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
+			  DpRxSsInst.UsrOpt.LaneCount | 0x80000000);
+	}
+
+	XVidFrameCrc_Reset();
 	
 	/* Add delay (~40 ms) for Frame CRC to compute on couple of frames */
 	CustomWaitUs(DpRxSsInst.DpPtr, 400000);
+	CustomWaitUs(DpRxSsInst.DpPtr, 400000);
+//	CustomWaitUs(DpRxSsInst.DpPtr, 400000);
+	// reading the overflow twice to clear the bit set
+	overflow = (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+						    XDP_RX_USER_FIFO_OVERFLOW)) & 0x00000111;
+	overflow = (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+						    XDP_RX_USER_FIFO_OVERFLOW)) & 0x00000111;
+	overflow = 0;
+
+	//reading overflow in loop of 500
+	//in ideal scenario it should never be set
+	while (loop < 500) {
+		loop++;
+		overflow |= (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+							    XDP_RX_USER_FIFO_OVERFLOW)) & 0x00000111;
+		CustomWaitUs(DpRxSsInst.DpPtr, 800);
+	}
+
+	misses = (XVidFrameCrc_ReadReg(VIDEO_CRC_BASEADDR,
+			VIDEO_FRAME_CRC_MISSES)) & 0x00000FFF;
+
 	
 	/* Read computed values from Frame CRC
 	 * module and MISC0 for colorimetry */
@@ -1794,28 +1833,51 @@ void CalculateCRC(void)
 	VidFrameCRC.Pixel_b  = 
 		XVidFrameCrc_ReadReg(VIDEO_CRC_BASEADDR,
 				    VIDEO_FRAME_CRC_VALUE_B) & 0xFFFF;
-	VidFrameCRC.Mode_422 = 
-		(XVidFrameCrc_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-				      XDP_RX_MSA_MISC0) >> 1) & 0x3;
-	
+
 	/* Write CRC values to DPCD TEST CRC space */
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
-		     (VidFrameCRC.Mode_422 == 0x1) ? 0 : VidFrameCRC.Pixel_r);
+					VidFrameCRC.Pixel_r);
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
-		     (VidFrameCRC.Mode_422 == 0x1) ?
-		      VidFrameCRC.Pixel_b : VidFrameCRC.Pixel_g);
-	/* Check for 422 format and move CR/CB calculated CRC
-	 * to G component place as tester needs this way
-	 * */
+					VidFrameCRC.Pixel_g);
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
-		     (VidFrameCRC.Mode_422==0x1) ?
-		      VidFrameCRC.Pixel_r : VidFrameCRC.Pixel_b);
-	
+					VidFrameCRC.Pixel_b);
+
+
+	if (overflow == 0 && misses == 0) {
+    // Set CRC only when overflow is not there and no b2b CRC mismatch
 	VidFrameCRC.TEST_CRC_CNT = 1;
+	} else {
+		//not setting CRC available bit
+		// for overflow CRC forced to 0x0
+		//for b2b miss CRC forced to 0x1
+		// helps in identifying at TX report
+		if (overflow) {
+			overflow_count++;
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
+					 0x0);
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
+					0x0);
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
+					0x0);
+
+		}
+		if (misses) {
+			missed_count++;
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
+				     0x1);
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
+					0x1);
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
+					0x1);
+		}
+	VidFrameCRC.TEST_CRC_CNT = 0;
+
+	}
+
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_CONFIG,
-		     (VidFrameCRC.TEST_CRC_SUPPORTED << 5 |
-		      VidFrameCRC.TEST_CRC_CNT));
-	
+			 (VidFrameCRC.TEST_CRC_SUPPORTED << 5 |
+			  VidFrameCRC.TEST_CRC_CNT));
+
 	xil_printf("[Video CRC] R/Cr: 0x%x, G/Y: 0x%x, B/Cb: 0x%x\r\n\n",
 		   VidFrameCRC.Pixel_r, VidFrameCRC.Pixel_g,
 		   VidFrameCRC.Pixel_b);
