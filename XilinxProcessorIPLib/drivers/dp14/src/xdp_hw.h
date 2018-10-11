@@ -904,16 +904,6 @@
 #define XDP_LANE_ALL_CR_DONE		0x4
 /* @} */
 
-/** @name DPTX status registers: Lanes done with Clock Recovery.
-  * @{
-  */
-#define XDP_LANE_0_CR_DONE		0x0
-#define XDP_LANE_1_CR_DONE		0x1
-#define XDP_LANE_2_CR_DONE		0x2
-#define XDP_LANE_3_CR_DONE		0x3
-#define XDP_LANE_ALL_CR_DONE		0x4
-/* @} */
-
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /******************************************************************************/
