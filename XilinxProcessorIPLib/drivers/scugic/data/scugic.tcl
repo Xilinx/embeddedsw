@@ -70,6 +70,11 @@
 #                     for CR#999732.
 # 3.10  mus  09/10/18 Added -hier option while using get_cells command to
 #                     support hierarchical designs.
+# 3.10  mus  10/05/18 Updated get_psu_interrupt_id proc to return multiple
+#                     interrupt ID's, in case if specific interrupt port of
+#                     PL based IP is connected to the pl_ps_irq0 and
+#                     pl_ps_irq1 directly or through same concat block pin.
+#                     Fix for CR#100266.
 #
 ##############################################################################
 
@@ -449,6 +454,7 @@ proc xdefine_gic_params {drvhandle} {
     set sw_proc_handle [hsi::get_sw_processor]
     set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
+    set is_ip_port_detected 0
 
     set config_inc [::hsi::utils::open_include_file "xparameters.h"]
     # Next define interrupt IDs for each connected peripheral
@@ -500,14 +506,27 @@ proc xdefine_gic_params {drvhandle} {
 				set source_periph($i) ""
 				set source_name($i) ""
             } else {
-                set source_port_name($i) [common::get_property NAME $source_port]
                 set source_ip [hsi::get_cells -of_objects $source_port]
                 if { [common::get_property IS_PL $source_ip] == 0 } {
                     #add only PL IP. Return all PS IPs
                     continue
                 }
-                set source_periph($i) $source_ip
-                set source_name($i) [common::get_property NAME $source_periph($i)]
+		set source_port_name_temp [common::get_property NAME $source_port]
+		set source_periph_temp $source_ip
+                set source_name_temp [common::get_property NAME $source_periph_temp]
+                for {set count 0} {$count < $i} {incr count} {
+                    if {([string compare -nocase $source_name_temp $source_name($count)] == 0) &&  ([string compare -nocase $source_port_name($count) $source_port_name_temp ] == 0)} {
+                        #IP name and correponding interrupt pair has been already detected
+			set is_ip_port_detected 1
+                    }
+		}
+		if { $is_ip_port_detected == 1} {
+                      #Skip the repeated instances of IP name and interrupt port pair
+		      continue
+		}
+	        set source_port_name($i) $source_port_name_temp
+		set source_periph($i) $source_periph_temp
+                set source_name($i) $source_name_temp
 			}
             lappend source_list $source_name($i)
             incr i
@@ -528,7 +547,15 @@ proc xdefine_gic_params {drvhandle} {
             set port_obj  [::hsi::get_ports $port_name]
             if {([string compare -nocase $proctype "psu_cortexa53"] == 0) || ([string compare -nocase $proctype "psu_cortexr5"] == 0)} {
 		set port_intr_id [get_psu_interrupt_id $ip_name $port_name]
-		set port_intr_id [expr $port_intr_id + 32]
+                if {[llength $port_intr_id] == 1} {
+		      set port_intr_id [expr $port_intr_id + 32]
+	        } else {
+		      set port_intr_id_temp ""
+		      for {set count 0} {$count < [llength $port_intr_id]} {incr count} {
+		           lappend port_intr_id_temp [expr [lindex $port_intr_id $count] + 32]
+		      }
+		      set port_intr_id $port_intr_id_temp
+		}
 	    } else {
 		set port_intr_id [::hsi::utils::get_interrupt_id $ip_name $port_name]
             }
@@ -540,7 +567,15 @@ proc xdefine_gic_params {drvhandle} {
             } else {
                 if {([string compare -nocase $proctype "psu_cortexa53"] == 0) || ([string compare -nocase $proctype "psu_cortexr5"] == 0)} {
 			set port_intr_id [get_psu_interrupt_id $ip_name $port_name]
-			set port_intr_id [expr $port_intr_id + 32]
+			if {[llength $port_intr_id] == 1} {
+				set port_intr_id [expr $port_intr_id + 32]
+			} else {
+				set port_intr_id_temp ""
+				for {set count 0} {$count < [llength $port_intr_id]} {incr count} {
+					lappend port_intr_id_temp [expr [lindex $port_intr_id $count] + 32]
+				}
+				set port_intr_id $port_intr_id_temp
+			}
 		} else {
 			set port_intr_id [::hsi::utils::get_interrupt_id "" $port_name]
 		}
@@ -715,6 +750,8 @@ proc get_psu_interrupt_id { ip_name port_name } {
     set ret -1
     set periph ""
     set intr_pin ""
+    set is_pl_ps_irq1 0
+    set is_pl_ps_irq0 0
     global pl_ps_irq1
     global pl_ps_irq0
     global or_id
@@ -875,7 +912,20 @@ proc get_psu_interrupt_id { ip_name port_name } {
             set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
             foreach pin $sink_pins {
                 set sink_pin $pin
+                if { [string compare -nocase "$sink_pin" "IRQ0_F2P"] == 0 } {
+                      set is_pl_ps_irq0 1
+                 } elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
+                       set is_pl_ps_irq1 1
+                 }
             }
+        } else {
+                 #case where interrupts are directly connected to the ps_pl_irq0/ps_pl_irq1 port
+                 if { [string compare -nocase "$sink_pin" "IRQ0_F2P"] == 0 } {
+                      set is_pl_ps_irq0 1
+                 } elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
+                       set is_pl_ps_irq1 1
+                 }
+
         }
 
         # check for ORgate
@@ -897,14 +947,18 @@ proc get_psu_interrupt_id { ip_name port_name } {
 	            set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
 	            foreach pin $sink_pins {
 	                set sink_pin $pin
+                        if { [string compare -nocase "$sink_pin" "IRQ0_F2P"] == 0 } {
+		              set is_pl_ps_irq0 1
+			} elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
+			      set is_pl_ps_irq1 1
+			}
 	            }
 	         }
 	    }
 	 }
-
-
+        set result ""
 	# generate irq id for IRQ1_F2P
-        if { [string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
+        if {$is_pl_ps_irq1 == 1} {
             if {$found == 1} {
                 set irqval $pl_ps_irq1
                 set pl_ps_irq1 [expr $pl_ps_irq1 + 1]
@@ -912,10 +966,11 @@ proc get_psu_interrupt_id { ip_name port_name } {
                     return [lindex $intr_list_irq1 $irqval]
                 } else {
                     set ret [expr 104 + $number]
-                    return $ret
+                    lappend result $ret
                 }
-	    }
-        } else {
+	     }
+        }
+        if {$is_pl_ps_irq0 == 1} {
 	    # generate irq id for IRQ0_F2P
             if {$found == 1} {
                 set irqval $pl_ps_irq0
@@ -924,10 +979,13 @@ proc get_psu_interrupt_id { ip_name port_name } {
                     return [lindex $intr_list_irq0 $irqval]
                 } else {
                     set ret [expr 89 + $number]
-                    return $ret
+                    lappend result $ret
                 }
              }
         }
+       if { [llength $result] != 0} {
+           return $result
+       }
     }
     set port_width [get_port_width $intr_pin]
     set id $ret
