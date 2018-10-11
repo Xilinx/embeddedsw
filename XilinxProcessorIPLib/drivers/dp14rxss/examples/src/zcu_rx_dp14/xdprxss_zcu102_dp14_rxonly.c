@@ -533,7 +533,7 @@ u32 DpRxSs_Main(u16 DeviceId)
 	}
 	
 	/*Megachips Retimer Initialization*/
-	XDpRxSs_McDp6000_init(&DpRxSsInst, XPAR_IIC_0_BASEADDR);
+	XDpRxSs_McDp6000_init(&DpRxSsInst, DpRxSsInst.IicPtr->BaseAddress);
 	
 	/* Set Link rate and lane count to maximum */
 	XDpRxSs_SetLinkRate(&DpRxSsInst, DPRXSS_LINK_RATE);
@@ -1458,6 +1458,7 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 void DpRxSs_AccessErrorCounterHandler(void *InstancePtr)
 {
 	u16 DrpVal;
+	u32 DrpVal1;
 	u16 DrpVal_lower_lane0;
 	u16 DrpVal_lower_lane1;
 	u16 DrpVal_lower_lane2;
@@ -1526,16 +1527,16 @@ void DpRxSs_AccessErrorCounterHandler(void *InstancePtr)
 							    0x12E4));
 
 	/* Reset PRBS7 Counters */
-	DrpVal = XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+	DrpVal1 = XVphy_ReadReg(VPhyInst.Config.BaseAddr,
 			       XVPHY_RX_CONTROL_REG);
-	DrpVal = DrpVal | 0x08080808;
+	DrpVal1 = DrpVal1 | 0x08080808;
 	XDp_WriteReg(VPhyInst.Config.BaseAddr,
-		     XVPHY_RX_CONTROL_REG, DrpVal);
-	DrpVal = XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+		     XVPHY_RX_CONTROL_REG, DrpVal1);
+	DrpVal1 = XVphy_ReadReg(VPhyInst.Config.BaseAddr,
 			       XVPHY_RX_CONTROL_REG);
-	DrpVal = DrpVal & 0xF7F7F7F7;
+	DrpVal1 = DrpVal1 & 0xF7F7F7F7;
 	XVphy_WriteReg(VPhyInst.Config.BaseAddr,
-		       XVPHY_RX_CONTROL_REG, DrpVal);
+		       XVPHY_RX_CONTROL_REG, DrpVal1);
 }
 
 /*****************************************************************************/
