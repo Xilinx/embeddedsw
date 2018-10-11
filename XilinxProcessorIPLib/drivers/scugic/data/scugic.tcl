@@ -75,6 +75,8 @@
 #                     PL based IP is connected to the pl_ps_irq0 and
 #                     pl_ps_irq1 directly or through same concat block pin.
 #                     Fix for CR#100266.
+# 3.10  mus  10/05/18 Updated get_psu_interrupt_id proc, to fix interrupt id
+#                     computation for vectored interrupts. It fixes CR#998583
 #
 ##############################################################################
 
@@ -740,7 +742,34 @@ proc is_orgate { intc_src_port ip_name} {
 
 	return $ret
 }
+###################################################################
+#
+# Get interrupt offset based on accumulated ports
+#
+###################################################################
+proc get_concat_number {ip pin} {
+	set number 0
+	set pins [hsi::get_pins -of_objects [hsi::get_cells -hier $ip] -filter {DIRECTION=="I"}]
+	set pin_num [regexp -all -inline -- {[0-9]+} $pin]
 
+	if {[llength $pins] == 1 || $pin_num == 0} {
+		return 0
+	}
+
+	for {set p 0} {$p < [llength $pins]} {incr p} {
+		if {$pin ==  [lindex $pins $p]} {
+			break;
+		}
+		set offset [common::get_property LEFT [hsi::get_pins [lindex $pins $p]]]
+		if {[llength $offset] > 1} {
+			set offset [lindex $offset 0]
+		}
+		set temp [expr {$offset +1}]
+		set number [expr {$number + $temp}]
+
+	}
+	return $number
+}
 ###################################################################
 #
 # Get interrupt ID for zynqmpsoc
@@ -905,18 +934,34 @@ proc get_psu_interrupt_id { ip_name port_name } {
         set connected_ip [get_property IP_NAME [get_cells -hier $sink_periph]]
 	# check for direct connection or concat block connected
         if { [string compare -nocase "$connected_ip" "xlconcat"] == 0 } {
-            set number [regexp -all -inline -- {[0-9]+} $sink_pin]
+            set sink_pin_temp $sink_pin
             set dout "dout"
 	    set concat_block 1
 	    set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
+            set is_or_gate 0
             set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
-            foreach pin $sink_pins {
-                set sink_pin $pin
-                if { [string compare -nocase "$sink_pin" "IRQ0_F2P"] == 0 } {
-                      set is_pl_ps_irq0 1
-                 } elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
-                       set is_pl_ps_irq1 1
-                 }
+            for {set count 0} {$count < 10} {incr count} {
+                foreach pin $sink_pins {
+                    set sink_pin $pin
+                    if { [string compare -nocase "$sink_pin" "IRQ0_F2P"] == 0 } {
+                        set is_pl_ps_irq0 1
+                    } elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
+                        set is_pl_ps_irq1 1
+                    } elseif {[string compare -nocase "$sink_pin" "op1"] == 0 } {
+                        set is_or_gate 1
+                    }
+                }
+                if { $is_pl_ps_irq0 == 1 || $is_pl_ps_irq1 == 1 || $is_or_gate == 1 } {
+                    break
+                }
+                set sink_periph [::hsi::get_cells -of_objects $sink_pin]
+                set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
+                set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
+            }
+            if { $is_or_gate == 1 } {
+                set number [regexp -all -inline -- {[0-9]+} $sink_pin_temp]
+            } else {
+                set number [get_concat_number $sink_periph $sink_pin_temp]
             }
         } else {
                  #case where interrupts are directly connected to the ps_pl_irq0/ps_pl_irq1 port
@@ -957,32 +1002,40 @@ proc get_psu_interrupt_id { ip_name port_name } {
 	    }
 	 }
         set result ""
+	if {[llength [hsi::get_ports $port_name]] != 0 && [common::get_property LEFT [hsi::get_ports $port_name]] != ""} {
+	    set vector_size [common::get_property LEFT [hsi::get_ports $port_name]]
+	    set vector_size [expr {$vector_size + 1}]
+	} else {
+	    set vector_size 1
+	}
+	for {set vec 0} {$vec < $vector_size} {incr vec} {
 	# generate irq id for IRQ1_F2P
-        if {$is_pl_ps_irq1 == 1} {
-            if {$found == 1} {
-                set irqval $pl_ps_irq1
-                set pl_ps_irq1 [expr $pl_ps_irq1 + 1]
-                if {$concat_block == "0"} {
-                    return [lindex $intr_list_irq1 $irqval]
-                } else {
-                    set ret [expr 104 + $number]
-                    lappend result $ret
+            if {$is_pl_ps_irq1 == 1} {
+                if {$found == 1} {
+                    set irqval $pl_ps_irq1
+                    set pl_ps_irq1 [expr $pl_ps_irq1 + 1]
+                    if {$concat_block == "0"} {
+                        return [lindex $intr_list_irq1 $irqval]
+                    } else {
+                        set ret [expr 104 + [expr {$number + $vec}]]
+                        lappend result $ret
+                    }
+	        }
+            }
+            if {$is_pl_ps_irq0 == 1} {
+	        # generate irq id for IRQ0_F2P
+                if {$found == 1} {
+                    set irqval $pl_ps_irq0
+                    set pl_ps_irq0 [expr $pl_ps_irq0 + 1]
+		    if {$concat_block == "0"} {
+                        return [lindex $intr_list_irq0 $irqval]
+                    } else {
+                        set ret [expr 89 + [expr {$number + $vec}]]
+                        lappend result $ret
+                    }
                 }
-	     }
-        }
-        if {$is_pl_ps_irq0 == 1} {
-	    # generate irq id for IRQ0_F2P
-            if {$found == 1} {
-                set irqval $pl_ps_irq0
-                set pl_ps_irq0 [expr $pl_ps_irq0 + 1]
-		if {$concat_block == "0"} {
-                    return [lindex $intr_list_irq0 $irqval]
-                } else {
-                    set ret [expr 89 + $number]
-                    lappend result $ret
-                }
-             }
-        }
+            }
+	}
        if { [llength $result] != 0} {
            return $result
        }
