@@ -201,6 +201,12 @@ void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
 		XDp_TxCfgTxPeLevel(InstancePtr, 1, XDP_TX_PE_LEVEL_1);
 		XDp_TxCfgTxPeLevel(InstancePtr, 2, XDP_TX_PE_LEVEL_2);
 		XDp_TxCfgTxPeLevel(InstancePtr, 3, XDP_TX_PE_LEVEL_3);
+
+		/* Set default to Max lane count */
+		InstancePtr->TxInstance.LinkConfig.cr_done_cnt =
+			InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
+		InstancePtr->TxInstance.LinkConfig.cr_done_oldstate =
+			InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
 	}
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
@@ -268,6 +274,7 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 {
 	u32 Status;
 	u8 *Dpcd = InstancePtr->TxInstance.RxConfig.DpcdRxCapsField;
+	u8 *Dpcd_ext = InstancePtr->TxInstance.RxConfig.DpcdRxCapsField;
 	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
 	XDp_Config *ConfigPtr = &InstancePtr->Config;
 	u8 RxMaxLinkRate;
@@ -283,6 +290,15 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 
 	if (!XDp_TxIsConnected(InstancePtr)) {
 		return XST_DEVICE_NOT_FOUND;
+	}
+
+	/*Reading the Ext capability for compliance */
+	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_EXT_DPCD_REV,
+								16, Dpcd_ext);
+	if ((Dpcd_ext[6] & 0x1) == 0x1) {
+		Status = XDp_TxAuxRead(InstancePtr, 0x0080,
+									16, Dpcd_ext);
+
 	}
 
 	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_RECEIVER_CAP_FIELD_START,
@@ -336,6 +352,12 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 	LinkConfig->SupportDownspreadControl =
 					Dpcd[XDP_DPCD_MAX_DOWNSPREAD] &
 					XDP_DPCD_MAX_DOWNSPREAD_MASK;
+
+	/* Set default to Max lane count */
+	InstancePtr->TxInstance.LinkConfig.cr_done_cnt =
+		InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
+	InstancePtr->TxInstance.LinkConfig.cr_done_oldstate =
+		InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
 
 	return XST_SUCCESS;
 }
@@ -2235,9 +2257,17 @@ static u32 XDp_TxRunTraining(XDp *InstancePtr)
 		}
 
 		if (TrainingState == XDP_TX_TS_SUCCESS) {
+			InstancePtr->TxInstance.LinkConfig.cr_done_oldstate =
+				InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
+			InstancePtr->TxInstance.LinkConfig.cr_done_cnt =
+				InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
 			break;
 		}
 		else if (TrainingState == XDP_TX_TS_FAILURE) {
+			InstancePtr->TxInstance.LinkConfig.cr_done_oldstate =
+				InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
+			InstancePtr->TxInstance.LinkConfig.cr_done_cnt =
+				InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
 			return XST_FAILURE;
 		}
 
@@ -2384,6 +2414,23 @@ static XDp_TxTrainingState XDp_TxTrainingStateClockRecovery(XDp *InstancePtr)
 		}
 	}
 
+	if (InstancePtr->TxInstance.LinkConfig.LinkRate == XDP_TX_LINK_BW_SET_162GBPS) {
+		if (InstancePtr->TxInstance.LinkConfig.cr_done_cnt !=
+			XDP_LANE_ALL_CR_DONE &&
+			InstancePtr->TxInstance.LinkConfig.cr_done_cnt !=
+			XDP_LANE_0_CR_DONE) {
+			Status = XDp_TxSetTrainingPattern(InstancePtr,
+				XDP_TX_TRAINING_PATTERN_SET_OFF);
+			Status = XDp_TxSetLinkRate(InstancePtr,
+				XDP_TX_LINK_BW_SET_810GBPS);
+			Status |= XDp_TxSetLaneCount(InstancePtr,
+				InstancePtr->TxInstance.LinkConfig.cr_done_cnt);
+			InstancePtr->TxInstance.LinkConfig.cr_done_oldstate =
+				InstancePtr->TxInstance.LinkConfig.cr_done_cnt;
+			return XDP_TX_TS_CLOCK_RECOVERY;
+		}
+	}
+
 	return XDP_TX_TS_ADJUST_LINK_RATE;
 }
 
@@ -2428,6 +2475,8 @@ static XDp_TxTrainingState XDp_TxTrainingStateChannelEqualization(
 	u32 Status = XST_SUCCESS;
 	u32 DelayUs;
 	u32 IterationCount = 0;
+	u8 cr_failure = 0;
+	u8 ce_failure = 0;
 
 	/* Obtain the required delay for channel equalization as specified by
 	 * the RX device. */
@@ -2474,6 +2523,7 @@ static XDp_TxTrainingState XDp_TxTrainingStateChannelEqualization(
 		Status = XDp_TxCheckClockRecovery(InstancePtr,
 				InstancePtr->TxInstance.LinkConfig.LaneCount);
 		if (Status != XST_SUCCESS) {
+			cr_failure = 1;
 			break;
 		}
 
@@ -2482,7 +2532,10 @@ static XDp_TxTrainingState XDp_TxTrainingStateChannelEqualization(
 		Status = XDp_TxCheckChannelEqualization(InstancePtr,
 				InstancePtr->TxInstance.LinkConfig.LaneCount);
 		if (Status == XST_SUCCESS) {
+			ce_failure = 0;
 			return XDP_TX_TS_SUCCESS;
+		} else {
+			ce_failure = 1;
 		}
 
 		/* Adjust the drive settings as requested by the RX device. */
@@ -2497,7 +2550,30 @@ static XDp_TxTrainingState XDp_TxTrainingStateChannelEqualization(
 
 	/* Tried 5 times with no success. Try a reduced bitrate first, then
 	 * reduce the number of lanes. */
-	return XDP_TX_TS_ADJUST_LINK_RATE;
+	if (InstancePtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
+		return XDP_TX_TS_ADJUST_LINK_RATE;
+	} else {
+		if (cr_failure) {
+			/* DP1.4 asks to downlink on CR failure in EQ stage */
+			InstancePtr->TxInstance.LinkConfig.cr_done_oldstate =
+				InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
+			return XDP_TX_TS_ADJUST_LINK_RATE;
+		} else if (InstancePtr->TxInstance.LinkConfig.LaneCount == 1 && (ce_failure)) {
+			/* needed to set lanecount for next iter */
+			InstancePtr->TxInstance.LinkConfig.LaneCount =
+				InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
+			InstancePtr->TxInstance.LinkConfig.cr_done_oldstate =
+				InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
+			return XDP_TX_TS_ADJUST_LINK_RATE;
+		} else if (ce_failure && InstancePtr->TxInstance.LinkConfig.LaneCount > 1) {
+			/* For EQ failure downlink the lane count */
+			return XDP_TX_TS_ADJUST_LANE_COUNT;
+		} else {
+			InstancePtr->TxInstance.LinkConfig.cr_done_oldstate =
+				InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
+			return XDP_TX_TS_ADJUST_LINK_RATE;
+		}
+	}
 }
 
 /******************************************************************************/
@@ -2527,6 +2603,11 @@ static XDp_TxTrainingState XDp_TxTrainingStateAdjustLinkRate(XDp *InstancePtr)
 		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 			Status = XDp_TxSetLinkRate(InstancePtr,
 						XDP_TX_LINK_BW_SET_540GBPS);
+			/* UCD400 expects the Lane to be set here
+			   it has to match the max cap of Sink */
+			Status = XDp_TxSetLaneCount(InstancePtr,
+				InstancePtr->TxInstance.LinkConfig.cr_done_oldstate);
+
 			if (Status != XST_SUCCESS) {
 				Status = XDP_TX_TS_FAILURE;
 				break;
@@ -2538,6 +2619,11 @@ static XDp_TxTrainingState XDp_TxTrainingStateAdjustLinkRate(XDp *InstancePtr)
 	case XDP_TX_LINK_BW_SET_540GBPS:
 		Status = XDp_TxSetLinkRate(InstancePtr,
 						XDP_TX_LINK_BW_SET_270GBPS);
+		/* UCD400 expects the Lane to be set here
+		   it has to match the max cap of Sink */
+		Status = XDp_TxSetLaneCount(InstancePtr,
+			InstancePtr->TxInstance.LinkConfig.cr_done_oldstate);
+
 		if (Status != XST_SUCCESS) {
 			Status = XDP_TX_TS_FAILURE;
 			break;
@@ -2547,6 +2633,11 @@ static XDp_TxTrainingState XDp_TxTrainingStateAdjustLinkRate(XDp *InstancePtr)
 	case XDP_TX_LINK_BW_SET_270GBPS:
 		Status = XDp_TxSetLinkRate(InstancePtr,
 						XDP_TX_LINK_BW_SET_162GBPS);
+		/* UCD400 expects the Lane to be set here
+		   it has to match the max cap of Sink */
+		Status = XDp_TxSetLaneCount(InstancePtr,
+			InstancePtr->TxInstance.LinkConfig.cr_done_oldstate);
+
 		if (Status != XST_SUCCESS) {
 			Status = XDP_TX_TS_FAILURE;
 			break;
@@ -2688,28 +2779,60 @@ static u32 XDp_TxCheckClockRecovery(XDp *InstancePtr, u8 LaneCount)
 	/* Check that all LANEx_CR_DONE bits are set. */
 	switch (LaneCount) {
 	case XDP_TX_LANE_COUNT_SET_4:
-		if (!(LaneStatus[1] &
-				XDP_DPCD_STATUS_LANE_3_CR_DONE_MASK)) {
+		if (!(LaneStatus[0] &
+			XDP_DPCD_STATUS_LANE_0_CR_DONE_MASK)) {
+			InstancePtr->TxInstance.LinkConfig.cr_done_cnt =
+				XDP_LANE_0_CR_DONE;
+			return XST_FAILURE;
+		}
+		if (!(LaneStatus[0] &
+				XDP_DPCD_STATUS_LANE_1_CR_DONE_MASK)) {
+			InstancePtr->TxInstance.LinkConfig.cr_done_cnt =
+				XDP_LANE_1_CR_DONE;
 			return XST_FAILURE;
 		}
 		if (!(LaneStatus[1] &
 				XDP_DPCD_STATUS_LANE_2_CR_DONE_MASK)) {
+			InstancePtr->TxInstance.LinkConfig.cr_done_cnt =
+				XDP_LANE_2_CR_DONE;
 			return XST_FAILURE;
 		}
+		if (!(LaneStatus[1] &
+				XDP_DPCD_STATUS_LANE_3_CR_DONE_MASK)) {
+			InstancePtr->TxInstance.LinkConfig.cr_done_cnt =
+				XDP_LANE_3_CR_DONE;
+			return XST_FAILURE;
+		}
+		InstancePtr->TxInstance.LinkConfig.cr_done_cnt =
+			XDP_LANE_ALL_CR_DONE;
 		/* Drop through and check lane 1. */
 		/* FALLTHRU */
 	case XDP_TX_LANE_COUNT_SET_2:
 		if (!(LaneStatus[0] &
-				XDP_DPCD_STATUS_LANE_1_CR_DONE_MASK)) {
+				XDP_DPCD_STATUS_LANE_0_CR_DONE_MASK)) {
+			InstancePtr->TxInstance.LinkConfig.cr_done_cnt =
+				XDP_LANE_0_CR_DONE;
 			return XST_FAILURE;
 		}
+		if (!(LaneStatus[0] &
+				XDP_DPCD_STATUS_LANE_1_CR_DONE_MASK)) {
+			InstancePtr->TxInstance.LinkConfig.cr_done_cnt =
+				XDP_LANE_1_CR_DONE;
+			return XST_FAILURE;
+		}
+		InstancePtr->TxInstance.LinkConfig.cr_done_cnt =
+				XDP_LANE_2_CR_DONE;
 		/* Drop through and check lane 0. */
 		/* FALLTHRU */
 	case XDP_TX_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] &
 				XDP_DPCD_STATUS_LANE_0_CR_DONE_MASK)) {
+			InstancePtr->TxInstance.LinkConfig.cr_done_cnt =
+				XDP_LANE_0_CR_DONE;
 			return XST_FAILURE;
 		}
+		InstancePtr->TxInstance.LinkConfig.cr_done_cnt =
+			XDP_LANE_1_CR_DONE;
 		/* FALLTHRU */
 	default:
 		/* All (LaneCount) lanes have achieved clock recovery. */
