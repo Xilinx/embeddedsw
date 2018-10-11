@@ -597,6 +597,10 @@ typedef struct {
 						level for each lane. */
 	u8 Pattern;			/**< The current pattern currently in
 						use over the main link. */
+	u8 cr_done_cnt;			/**< The number of lanes done with
+						clock recovery */
+	u8 cr_done_oldstate;		/**< Restores the number of lanes done
+						with clock recovery. */
 } XDp_TxLinkConfig;
 
 /**
