@@ -273,6 +273,9 @@ void DpPt_Main(void){
 	 * The Audio Clock Recovery Module is programmed in fixed mode
 	 */
 	audio_init();
+	//resetting AUX logic. Needed for some Type based connectors
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x80);
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x0);
 
 	pt_help_menu();
 
@@ -1100,6 +1103,8 @@ void unplug_proc (void) {
 	frameBuffer_stop(Msa);
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x80);
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x0);
 	XDpTxSs_Stop(&DpTxSsInst);
 
     //setting vswing to 0
@@ -1254,6 +1259,9 @@ void dprx_tracking (void) {
 			frameBuffer_stop_wr(Msa);
 			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 			XDpTxSs_Stop(&DpTxSsInst);
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x80);
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x0);
+
 		}
 		DpRxSsInst.VBlankCount = 0;
 		rx_aud = 0;
@@ -1292,7 +1300,7 @@ void dprx_tracking (void) {
 		rx_all_detect = 0;
 	}
 
-	if(DpRxSsInst.VBlankCount>VBLANK_WAIT_COUNT){
+	if((DpRxSsInst.VBlankCount>VBLANK_WAIT_COUNT) && (rx_trained == 1)){
 		DpRxSsInst.no_video_trigger = 0;
 		//VBLANK Management
 		DpRxSsInst.VBlankCount = 0;
