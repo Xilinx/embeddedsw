@@ -432,7 +432,6 @@ void XV_ConfigTpg(XV_tpg *InstancePtr)
 		XV_tpg_Set_bckgndId(pTpg, Pattern);
 		XV_tpg_Set_ovrlayId(pTpg, 0);
 
-		XV_tpg_Set_Interlaced(pTpg,HdmiTxSsVidStreamPtr->IsInterlaced);
 		XV_tpg_Set_enableInput(pTpg, IsPassThrough);
 
 		if (IsPassThrough) {
