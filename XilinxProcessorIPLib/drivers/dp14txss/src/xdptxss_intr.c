@@ -182,6 +182,9 @@ void XDpTxSs_TmrCtrIntrHandler(void *InstancePtr)
 void XDpTxSs_HpdEventProcess(void *InstancePtr)
 {
 	u32 Status = XST_SUCCESS;
+	u8 ext_cap = 0;
+	u8 ext_dpcd_rd = 0;
+	u8 Dpcd_ext [16];
 	XDpTxSs *XDpTxSsPtr = (XDpTxSs *)InstancePtr;
 
 	/* Verify arguments. */
@@ -197,6 +200,40 @@ void XDpTxSs_HpdEventProcess(void *InstancePtr)
 		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
 				XDP_DPCD_MAX_LANE_COUNT, 1,
 				&UsrHpdEventData->MaxCapLanesNew);
+		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_TRAIN_AUX_RD_INTERVAL, 1, &ext_cap);
+
+		if(ext_cap & 0x80) {
+			/* if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled */
+			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_EDID_DPCD_MAX_LINK_RATE, 1, &ext_cap);
+			if(ext_cap == XDP_DPCD_LINK_BW_SET_810GBPS){
+				UsrHpdEventData->MaxCapNew = 0x1E;
+			}
+
+			/* UCD400 required reading these extended registers */
+			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,XDP_DPCD_SINK_COUNT_ESI,
+					1, &ext_dpcd_rd);
+			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0,
+				1, &ext_dpcd_rd);
+			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_SINK_LANE0_1_STATUS, 1, &ext_dpcd_rd);
+			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_SINK_LANE2_3_STATUS, 1, &ext_dpcd_rd);
+			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_SINK_ALIGN_STATUS_UPDATED_ESI,
+				1, &ext_dpcd_rd);
+			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_SINK_STATUS_ESI, 1, &ext_dpcd_rd);
+			XDp_TxAuxRead(XDpTxSsPtr->DpPtr, 0x2200, 16, &Dpcd_ext);
+
+			if ((Dpcd_ext[5] & 0x1)) {
+				Status = XDp_TxAuxRead(XDpTxSsPtr->DpPtr, 0x0080,
+						16, &Dpcd_ext);
+			}
+		}
+
 		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
 				XDP_DPCD_REV, 12, UsrHpdEventData->Tmp);
 		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
@@ -223,15 +260,10 @@ void XDpTxSs_HpdEventProcess(void *InstancePtr)
 		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
 				XDP_DPCD_STATUS_LANE_2_3, 1,
 				&UsrHpdEventData->Lane2Sts);
-		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_DPCD_MAX_LINK_RATE, 1,
-				&UsrHpdEventData->MaxCapNew);
-		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_DPCD_MAX_LANE_COUNT, 1,
-				&UsrHpdEventData->MaxCapLanesNew);
-	}
-	if(Status != XST_SUCCESS){
-		xdbg_printf(XDBG_DEBUG_GENERAL, "AUX access had trouble!\r\n");
+
+		if(Status != XST_SUCCESS){
+			xdbg_printf(XDBG_DEBUG_GENERAL, "AUX access had trouble!\r\n");
+		}
 	}
 }
 
@@ -252,15 +284,24 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr)
 {
 	u32 Status = XST_SUCCESS;
 	XDpTxSs *XDpTxSsPtr = (XDpTxSs *)InstancePtr;
+	u8 ext_cap = 0;
+	u8 ext_dpcd_rd = 0;
+
 
 	/* Verify arguments. */
 	Xil_AssertVoid(XDpTxSsPtr != NULL);
 	Xil_AssertVoid(XDpTxSsPtr->IsReady == XIL_COMPONENT_IS_READY);
 	XDpTxSs_UsrHpdPulseData *UsrHpdPulseData = &XDpTxSsPtr->UsrHpdPulseData;
 
-	//reading the first block of EDID
+	if (XDp_TxIsConnected(XDpTxSsPtr->DpPtr)) {
+
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
 			 XDP_DPCD_SINK_COUNT, 6, UsrHpdPulseData->AuxValues);
+
+	if ((UsrHpdPulseData->AuxValues[4] & 0x40)) {
+		XDp_TxDisableMainLink(XDpTxSsPtr->DpPtr);
+	}
+
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
 			 XDP_DPCD_STATUS_LANE_0_1, 1,
 			 &UsrHpdPulseData->Lane0Sts);
@@ -279,10 +320,35 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr)
 			XDP_DPCD_LINK_BW_SET, 1, &UsrHpdPulseData->BwSet);
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
 			XDP_DPCD_LANE_COUNT_SET, 1, &UsrHpdPulseData->LaneSet);
-	Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr, UsrHpdPulseData->Edid,
-		  0);
+
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_TRAIN_AUX_RD_INTERVAL, 1,
+			&ext_cap);
+
+	/* UCD400 required reading these extended registers */
+	if(ext_cap & 0x80){
+		/* if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled */
+		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_EDID_DPCD_MAX_LINK_RATE,
+			1, &ext_cap);
+		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT_ESI,
+			1, &ext_dpcd_rd);
+		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0,
+			1, &ext_dpcd_rd);
+		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_LANE0_1_STATUS,
+			1, &ext_dpcd_rd);
+		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_LANE2_3_STATUS,
+			1, &ext_dpcd_rd);
+		XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_ALIGN_STATUS_UPDATED_ESI,
+			1, &ext_dpcd_rd);
+		XDp_TxAuxRead(XDpTxSsPtr->DpPtr,XDP_DPCD_SINK_STATUS_ESI,
+			1, &ext_dpcd_rd);
+	}
+
+	Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr,
+			UsrHpdPulseData->Edid, 0);
+
 	if(Status != XST_SUCCESS){
 		xdbg_printf(XDBG_DEBUG_GENERAL, "AUX access had trouble!\r\n");
+	}
 	}
 }
 

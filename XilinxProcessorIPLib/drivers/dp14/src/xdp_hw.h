@@ -884,6 +884,16 @@
 
 /* @} */
 
+/** @name DPTX status registers: Lanes done with Clock Recovery.
+  * @{
+  */
+#define XDP_LANE_0_CR_DONE		0x0
+#define XDP_LANE_1_CR_DONE		0x1
+#define XDP_LANE_2_CR_DONE		0x2
+#define XDP_LANE_3_CR_DONE		0x3
+#define XDP_LANE_ALL_CR_DONE		0x4
+/* @} */
+
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /******************************************************************************/
@@ -2349,6 +2359,14 @@
 #define XDP_DPCD_SINK_LANE2_3_STATUS				0x0200D
 #define XDP_DPCD_SINK_ALIGN_STATUS_UPDATED_ESI			0x0200E
 #define XDP_DPCD_SINK_STATUS_ESI				0x0200F
+/* @} */
+
+/** @name DisplayPort Extended Configuration Data Registers.
+  * @{
+  */
+#define XDP_DPCD_EXT_DPCD_REV					0x02200
+#define XDP_DPCD_EXT_DPCD_MAX_LINK_RATE				0x02201
+
 /* @} */
 
 /** @name DisplayPort Configuration Data: Field addresses and sizes.
