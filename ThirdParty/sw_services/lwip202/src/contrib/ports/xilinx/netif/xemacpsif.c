@@ -188,7 +188,7 @@ static struct pbuf * low_level_input(struct netif *netif)
  */
 
 static err_t xemacpsif_output(struct netif *netif, struct pbuf *p,
-		ip_addr_t *ipaddr)
+		const ip_addr_t *ipaddr)
 {
 	/* resolve hardware address, then send (or queue) packet */
 	return etharp_output(netif, p, ipaddr);
