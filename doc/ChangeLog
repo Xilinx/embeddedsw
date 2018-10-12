@@ -1,5 +1,8 @@
 Changes for 2018.3
 ===============================
+v_scenechange_v1_0:
+Initial release for SceneChange IP.
+
 v_mix_v5_0:
 Modified existing Stop API for flush feature.
 

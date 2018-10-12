@@ -36,9 +36,21 @@
  * The functions in this file provides an abstraction from the register
  * peek/poke methodology by implementing most common use-case provided by
  * the core.
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who    Date     Changes
+ * ----- ---- -------- -------------------------------------------------------
+ * 1.00  pv   10/10/18   Initial Release.
+ *			 Added flushing feature support for the driver.
+ *			 it supports only for memory based scenechange IP.
+ *			 flush bit should be set and held (until reset) by
+ *			 software to flush pending transactions.IP is expecting
+ *			 a hard reset, when flushing is done.(There is a flush
+ *			 status bit and is asserted when the flush is done).
+ * <pre>
  *
  * ****************************************************************************/
-
 #include "xv_scenechange.h"
 #include "xv_scenechange_hw.h"
 
@@ -197,12 +209,24 @@ static u32 XV_scenechange_Get_FlushDone(XV_scenechange *InstancePtr)
 	return Data;
 }
 
+/*****************************************************************************/
+/**
+* This function stops the core instance
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+*
+* @return XST_SUCCESS if the core in stop state
+*         XST_FAILURE if the core is not in stop state
+*
+******************************************************************************/
 u32 XV_scenechange_Stop(XV_scenechange *InstancePtr)
 {
-	int Status = XST_FAILURE;
-	u32 isIdle = 0;
+	int Status = XST_SUCCESS;
 	u32 cnt = 0;
 	u32 Data = 0;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	XV_scenechange_InterruptGlobalDisable(InstancePtr);
 	XV_scenechange_InterruptDisable(InstancePtr,
@@ -218,8 +242,31 @@ u32 XV_scenechange_Stop(XV_scenechange *InstancePtr)
 		} while ((Data == 0) && (cnt < XV_SCD_WAIT_FOR_FLUSH_DONE));
 
 		if (Data == 0)
-			return XST_FAILURE;
+			Status = XST_FAILURE;
 	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* This function Waits for the core to reach idle state
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+*
+* @return XST_SUCCESS if the core is in idle state
+*         XST_FAILURE if the core is not in idle state
+*
+******************************************************************************/
+u32 XV_scenechange_WaitForIdle(XV_scenechange *InstancePtr)
+{
+	int Status = XST_FAILURE;
+	u32 isIdle = 0;
+	u32 cnt = 0;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
 	/* Wait for idle */
 	do {
 		isIdle = XV_scenechange_IsIdle(InstancePtr);
@@ -231,6 +278,7 @@ u32 XV_scenechange_Stop(XV_scenechange *InstancePtr)
 
 	return Status;
 }
+
 void XV_scenechange_EnableInterrupts(void *InstancePtr)
 {
 	XV_scenechange_InterruptEnable(InstancePtr,
