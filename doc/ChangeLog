@@ -312,6 +312,8 @@ ipipsu_v2_4:
 Fix Doxygen reported warnings.
 Fix Gcc warnings.
 
+zynq_fsbl:
+Added code to check EFUSE_SEC_EN bit and force encryption.
 
 Changes for 2018.2
 ===============================
