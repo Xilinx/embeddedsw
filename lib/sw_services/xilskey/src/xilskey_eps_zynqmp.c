@@ -62,6 +62,7 @@
 *                      from cache of the efuse.
 * 6.6   vns   06/06/18 Added doxygen tags
 *       vns   09/18/18 Added APIs to support eFUSE programming from linux
+*       vns   10/11/18 Added support to re-program non-zero SPKID
 *
 * </pre>
 *
@@ -154,8 +155,11 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 	u8 Ppk0InBits[XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS] = {0};
 	u8 Ppk1InBits[XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS] = {0};
 	u8 SpkIdInBits[XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BITS] = {0};
+	u8 SpkIdInBitsRd[XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BITS] = {0};
 	XilSKey_UsrFuses UsrFuses_ToPrgm[8] = {0};
 	u32 AesCrc;
+	u32 SpkId;
+	u8 Column;
 
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
@@ -175,6 +179,29 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 	if (Status != XST_SUCCESS) {
 		Status = (Status + XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING);
 		goto UNLOCK;
+	}
+	if (InstancePtr->PrgrmSpkID == TRUE) {
+		XilSKey_Efuse_ConvertBitsToBytes(InstancePtr->SpkId,
+			SpkIdInBits, XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BITS);
+		SpkId = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
+			XSK_ZYNQMP_EFUSEPS_SPK_ID_OFFSET);
+		XilSKey_Efuse_ConvertBitsToBytes((u8 *)&SpkId,
+			SpkIdInBitsRd, XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BITS);
+		/* Check if it is poosible to program or not */
+		for (Column = 0; Column < XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BITS;
+							Column++) {
+			/* If user requests a non-zero bit */
+			if ((SpkIdInBits[Column] == 0) &&
+				(SpkIdInBitsRd[Column] == 1)) {
+				Status = XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING |
+				 XSK_EFUSEPS_ERROR_SPKID_BIT_CANT_REVERT;
+				goto UNLOCK;
+			}
+			if ((SpkIdInBits[Column] == 1) &&
+				(SpkIdInBitsRd[Column] == 1)) {
+				SpkIdInBits[Column] = 0;
+			}
+		}
 	}
 
 	/* Validation of requested User FUSES bits */
@@ -317,8 +344,6 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 		}
 	}
 	if (InstancePtr->PrgrmSpkID == TRUE) {
-		XilSKey_Efuse_ConvertBitsToBytes(InstancePtr->SpkId,
-			SpkIdInBits, XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BITS);
 		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(
 			SpkIdInBits, XSK_ZYNQMP_EFUSEPS_SPK_ID_ROW,
 				XSK_ZYNQMP_EFUSEPS_SPK_ID_ROW,
@@ -699,12 +724,6 @@ static inline u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 				XSK_ZYNQMP_EFUSEPS_PGM_LOCK_OFFSET) != 0x00) {
 				return (XSK_EFUSEPS_ERROR_FUSE_PROTECTED +
 					XSK_EFUSEPS_ERROR_WRITE_SPK_ID);
-			}
-			/* Check for Zeros */
-			if (XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
-				XSK_ZYNQMP_EFUSEPS_SPK_ID_OFFSET) != 0x00) {
-				return (
-				XSK_EFUSEPS_ERROR_SPKID_ALREADY_PROGRAMMED);
 			}
 		}
 		if (((InstancePtr->PrgrmUser0Fuse == TRUE) &&
@@ -2136,17 +2155,6 @@ static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_BfrPrgrmg(
 				XSK_ZYNQMP_EFUSEPS_CRC_AES_ZEROS);
 		if (Status != XST_SUCCESS) {
 			return XSK_EFUSEPS_ERROR_AES_ALREADY_PROGRAMMED;
-		}
-	}
-
-	/* Check for SPK ID zeros */
-	if (InstancePtr->PrgrmSpkID == TRUE) {
-		Status = XilSKey_ZynqMp_EfusePs_CheckForZeros(
-			XSK_ZYNQMP_EFUSEPS_SPK_ID_ROW,
-			XSK_ZYNQMP_EFUSEPS_SPK_ID_ROW,
-			XSK_ZYNQMP_EFUSEPS_EFUSE_0);
-		if (Status != XST_SUCCESS) {
-			return XSK_EFUSEPS_ERROR_SPKID_ALREADY_PROGRAMMED;
 		}
 	}
 

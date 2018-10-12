@@ -64,6 +64,8 @@
 * 6.4   vns     02/27/18 Added support for virtex and virtex ultrascale plus
 * 6.6   vns     06/06/18 Added doxygen tags
 *       vns     09/18/18 Added error code for zynqmp efuseps
+*       vns     10/11/18 Added new error code for SPKID bit revert request
+*                        XSK_EFUSEPS_ERROR_SPKID_BIT_CANT_REVERT
 *
  *****************************************************************************/
 
@@ -908,6 +910,9 @@ typedef enum {
 					*  in eFUSE. */
 	XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW	= 0xE500,/**< 0xE500<br>Error
 					*  when an over flow occurs. */
+	XSK_EFUSEPS_ERROR_SPKID_BIT_CANT_REVERT = 0xE600,/**< 0xE600<br>
+					*  Already programmed SPKID bit
+					*  cannot be reverted */
 	XSK_EFUSEPS_ERROR_CMPLTD_EFUSE_PRGRM_WITH_ERR = 0x10000,/**< 0x10000<br>
 					*  eFUSE programming is completed with
 					*  temp and vol read errors. */
