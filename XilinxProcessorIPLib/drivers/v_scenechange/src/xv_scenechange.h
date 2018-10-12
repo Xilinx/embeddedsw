@@ -92,7 +92,7 @@ typedef struct {
     u8  LayerId;
     u8  StreamEnable;
     XVScdClrFmt VFormat;
-}XVScdLayerConfig;
+} XVScdLayerConfig;
 typedef struct {
     UINTPTR Ctrl_BaseAddress;
     u32 IsReady;
@@ -264,6 +264,7 @@ void XV_scenechange_SetCallback(XV_scenechange *InstancePtr, void *CallbackFunc,
 int XV_scenechange_Layer_config(XV_scenechange *InstancePtr, u8 layerid);
 void XV_scenechange_Layer_stream_enable(XV_scenechange *InstancePtr, u32 Data);
 u32 XV_scenechange_Stop(XV_scenechange *InstancePtr);
+u32 XV_scenechange_WaitForIdle(XV_scenechange *InstancePtr);
 #ifdef __cplusplus
 }
 #endif
