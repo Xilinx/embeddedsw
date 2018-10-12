@@ -131,5 +131,8 @@
 * 6.6    vns  06/06/18 Added doxygen tags
 *        vns  09/18/18 Added support API for programming zynqmp efuseps from
 *		       Linux
+*                      Added APIs to support PUF regeneration
+*        vns  10/11/18 Added support for re-programming SPKID without reverting
+*                      exisiting programmed bits.
 *
  ********************************************************************************/
