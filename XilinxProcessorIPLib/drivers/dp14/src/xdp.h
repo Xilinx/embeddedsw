@@ -29,23 +29,7 @@
 /**
  *
  * @file xdp.h
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
  * @addtogroup dp_v7_0
-=======
- * @addtogroup dp_v5_5
->>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
-=======
- * @addtogroup dp_v5_6
->>>>>>> Updated addtogroup to appropriate files
-=======
- * @addtogroup dp_v6_0
->>>>>>> DP: Resolve multiple verion issue
-=======
- * @addtogroup dp_v7_0
->>>>>>> Addtogroup version updated for dp
  * @{
  * @details
  *
@@ -383,29 +367,11 @@
  *                     generation.
  * 5.3   ms   04/18/17 Modified tcl file to add suffix U for all macros
  *                     definitions of dp in xparameters.h
-<<<<<<< HEAD
-<<<<<<< HEAD
  * 6.0   tu   09/08/17 Added two interrupt handler that addresses driver's
  *                     internal callback function of application
  *                     DrvHpdEventHandler and DrvHpdPulseHandler
  * 6.0   tu   09/08/17 Added three interrupt handler that addresses callback
  *                     function of driver
-=======
- * 5.5   tu   09/08/17 Added two interrupt handler that addresses driver's
- *                     internal callback function of application
- *                     DrvHpdEventHandler and DrvHpdPulseHandler
-<<<<<<< HEAD
->>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
-=======
- * 5.6   tu   09/08/17 Added three interrupt handler that addresses callback
-=======
- * 6.0   tu   09/08/17 Added two interrupt handler that addresses driver's
- *                     internal callback function of application
- *                     DrvHpdEventHandler and DrvHpdPulseHandler
- * 6.0   tu   09/08/17 Added three interrupt handler that addresses callback
->>>>>>> DP: Resolve multiple verion issue
- *                     function of driver
->>>>>>> DPRXSS Added interrupt handler for video and power
  * </pre>
  *
 *******************************************************************************/
@@ -458,14 +424,7 @@ typedef enum {
 	XDP_RX_HANDLER_TP1,
 	XDP_RX_HANDLER_TP2,
 	XDP_RX_HANDLER_TP3,
-<<<<<<< HEAD
-<<<<<<< HEAD
 	XDP_RX_HANDLER_TP4,
-=======
->>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
-=======
-	XDP_RX_HANDLER_TP4,
->>>>>>> xdp : Added intrrupts for DP1.4 support.
 	XDP_RX_HANDLER_DOWNREQ,
 	XDP_RX_HANDLER_DOWNREPLY,
 	XDP_RX_HANDLER_AUD_PKTOVERFLOW,
@@ -479,18 +438,9 @@ typedef enum {
 	XDP_RX_HANDLER_HDCP_RO,
 	XDP_RX_HANDLER_HDCP_BINFO,
 	XDP_RX_HANDLER_UNPLUG,
-<<<<<<< HEAD
-<<<<<<< HEAD
 	XDP_RX_HANDLER_ACCESS_LANE_SET,
 	XDP_RX_HANDLER_ACCESS_LINK_QUAL,
 	XDP_RX_HANDLER_ACCESS_ERR_COUNTER,
-=======
->>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
-=======
-	XDP_RX_HANDLER_ACCESS_LANE_SET,
-	XDP_RX_HANDLER_ACCESS_LINK_QUAL,
-	XDP_RX_HANDLER_ACCESS_ERR_COUNTER,
->>>>>>> xdp : Added intrrupts for DP1.4 support.
 	XDP_RX_HANDLER_DRV_PWRSTATE,
 	XDP_RX_HANDLER_DRV_NOVIDEO,
 	XDP_RX_HANDLER_DRV_VIDEO,
@@ -1214,10 +1164,6 @@ typedef struct {
 	void *IntrDrvVideoCallbackRef;		/**< A pointer to the user data
 						  passed to the video
 						  drv function */
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> xdp : Added intrrupts for DP1.4 support.
 	/* Interrupt callback(s) defined for DP 1.4 */
 	XDp_IntrHandler IntrAccessLaneSetHandler; /**< Callback function for
 						  access lane set
@@ -1240,11 +1186,6 @@ typedef struct {
 						    lane set callback
 						    function. */
 	/* End of definitions for DP 1.4 interrupt callback(s) */
-<<<<<<< HEAD
-=======
->>>>>>> DPRXSS Added interrupt handler for video and power
-=======
->>>>>>> xdp : Added intrrupts for DP1.4 support.
 } XDp_Rx;
 
 /**
@@ -1341,16 +1282,8 @@ u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate);
 void XDp_RxAudioEn(XDp *InstancePtr);
 void XDp_RxAudioDis(XDp *InstancePtr);
 void XDp_RxAudioReset(XDp *InstancePtr);
-<<<<<<< HEAD
-<<<<<<< HEAD
 void XDp_RxVSCEn(XDp *InstancePtr);
 void XDp_RxVSCDis(XDp *InstancePtr);
-=======
->>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
-=======
-void XDp_RxVSCEn(XDp *InstancePtr);
-void XDp_RxVSCDis(XDp *InstancePtr);
->>>>>>> xdp: Adding VSC enable/disable functions.
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
@@ -1371,28 +1304,8 @@ u32 XDp_TxGetRemoteTiledDisplayDb(XDp *InstancePtr, u8 *EdidExt,
 
 /* xdp_intr.c: Interrupt handling functions. */
 void XDp_InterruptHandler(XDp *InstancePtr);
-<<<<<<< HEAD
-<<<<<<< HEAD
 #if XPAR_XDPTXSS_NUM_INSTANCES
 int XDp_TxSetCallback(XDp *InstancePtr,	XDp_Tx_HandlerType HandlerType,
-=======
-=======
-#if XPAR_XDPTXSS_NUM_INSTANCES
-<<<<<<< HEAD
->>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
-void XDp_TxSetHpdEventHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_TxSetHpdPulseHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_TxSetDrvHpdEventHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_TxSetDrvHpdPulseHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_TxSetMsaHandler(XDp *InstancePtr,
->>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
-=======
-int XDp_TxSetCallback(XDp *InstancePtr,	XDp_Tx_HandlerType HandlerType,
->>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
@@ -1401,24 +1314,8 @@ void XDp_RxGenerateHpdInterrupt(XDp *InstancePtr, u16 DurationUs);
 void XDp_RxInterruptEnable(XDp *InstancePtr, u32 Mask);
 void XDp_RxInterruptDisable(XDp *InstancePtr, u32 Mask);
 int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
-<<<<<<< HEAD
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-<<<<<<< HEAD
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
-=======
-void XDp_RxSetDrvIntrVideoHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetDrvIntrPowerStateHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetDrvIntrNoVideoHandler(XDp *InstancePtr,
-=======
->>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-<<<<<<< HEAD
->>>>>>> DPRXSS Added interrupt handler for video and power
-=======
-#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
->>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
 /* xdp_mst.c: Multi-stream transport (MST) functions for enabling or disabling
@@ -1528,18 +1425,9 @@ void XDp_TxSetVideoMode(XDp *InstancePtr, u8 Stream);
 void XDp_TxClearMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
-<<<<<<< HEAD
-<<<<<<< HEAD
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 #if XPAR_XDPRXSS_NUM_INSTANCES
-=======
->>>>>>> DP: Remove compile warning for XDp_TxSetUserPixelWidth function
-=======
-#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
-
-#if XPAR_XDPRXSS_NUM_INSTANCES
->>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
 void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream);
 XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream);

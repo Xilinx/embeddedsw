@@ -29,15 +29,7 @@
 /**
  *
  * @file xdp.c
-<<<<<<< HEAD
-<<<<<<< HEAD
  * @addtogroup dp_v7_0
-=======
- * @addtogroup dp_v6_0
->>>>>>> DP: Resolve multiple verion issue
-=======
- * @addtogroup dp_v7_0
->>>>>>> Addtogroup version updated for dp
  * @{
  *
  * Contains a minimal set of functions for the XDp driver that allow access to
@@ -338,15 +330,9 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 			u8 Data;
 			/* Check extended capability register */
 			XDp_TxAuxRead(InstancePtr, XDP_EDID_DPCD_MAX_LINK_RATE, 1, &Data);
-<<<<<<< HEAD
 			if(Data == XDP_TX_LINK_BW_SET_810GBPS) {
 				RxMaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
 				LinkConfig->MaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
-=======
-			if(Data == XDP_RX_OVER_LINK_BW_SET_810GBPS){
-				RxMaxLinkRate = XDP_RX_OVER_LINK_BW_SET_810GBPS;
-				LinkConfig->MaxLinkRate = XDP_RX_OVER_LINK_BW_SET_810GBPS;
->>>>>>> xdp : Adding functional changes for DP1.4.
 			}
 		}
 	}
@@ -1867,58 +1853,6 @@ void XDp_RxVSCDis(XDp *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function enables the Video Stream Configuration.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxVSCEn(XDp *InstancePtr)
-{
-	u32 ReadVal;
-
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-
-	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE);
-	XDp_WriteReg(InstancePtr->Config.BaseAddr,
-		     XDP_RX_DTG_ENABLE, ReadVal | 0x4);
-}
-
-/******************************************************************************/
-/**
-<<<<<<< HEAD
- * This function disables the Video Stream Configuration.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxVSCDis(XDp *InstancePtr)
-{
-	u32 ReadVal;
-
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-
-	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE);
-	XDp_WriteReg(InstancePtr->Config.BaseAddr,
-		     XDP_RX_DTG_ENABLE, ReadVal & 0xFFFFFFFB);
-}
-#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
-
-/******************************************************************************/
-/**
  * This function installs a custom delay/sleep function to be used by the XDp
  * driver.
  *
@@ -1987,8 +1921,6 @@ void XDp_WaitUs(XDp *InstancePtr, u32 MicroSeconds)
 
 /******************************************************************************/
 /**
-=======
->>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
  * This function checks the validity of the link rate.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
@@ -2007,20 +1939,9 @@ u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate)
 	u8 Valid;
 
 	if ((LinkRate != XDP_LINK_BW_SET_162GBPS) &&
-<<<<<<< HEAD
-<<<<<<< HEAD
 		(LinkRate != XDP_LINK_BW_SET_270GBPS) &&
 		(LinkRate != XDP_LINK_BW_SET_540GBPS) &&
 		(LinkRate != XDP_LINK_BW_SET_810GBPS)) {
-=======
-			(LinkRate != XDP_LINK_BW_SET_270GBPS) &&
-			(LinkRate != XDP_LINK_BW_SET_540GBPS)) {
->>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
-=======
-		(LinkRate != XDP_LINK_BW_SET_270GBPS) &&
-		(LinkRate != XDP_LINK_BW_SET_540GBPS) &&
-		(LinkRate != XDP_LINK_BW_SET_810GBPS)) {
->>>>>>> xdp : Adding functional changes for DP1.4.
 		Valid = 0;
 	}
 	else if (LinkRate > InstancePtr->Config.MaxLinkRate) {
@@ -2694,10 +2615,7 @@ static XDp_TxTrainingState XDp_TxTrainingStateAdjustLinkRate(XDp *InstancePtr)
 			Status = XDP_TX_TS_CLOCK_RECOVERY;
 			break;
 		}
-<<<<<<< HEAD
 		/* FALLTHRU */
-=======
->>>>>>> xdp : Adding functional changes for DP1.4.
 	case XDP_TX_LINK_BW_SET_540GBPS:
 		Status = XDp_TxSetLinkRate(InstancePtr,
 						XDP_TX_LINK_BW_SET_270GBPS);

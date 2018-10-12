@@ -29,15 +29,7 @@
 /**
  *
  * @file xdp_hw.h
-<<<<<<< HEAD
-<<<<<<< HEAD
  * @addtogroup dp_v7_0
-=======
- * @addtogroup dp_v6_0
->>>>>>> DP: Resolve multiple verion issue
-=======
- * @addtogroup dp_v7_0
->>>>>>> Addtogroup version updated for dp
  * @{
  *
  * This header file contains the identifiers and low-level driver functions (or
@@ -74,10 +66,6 @@
 
 /************************** Constant Definitions ******************************/
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> xdp : adding new constant definitions for DP1.4
 /** @name Protocol Selection definitions : DP 1.1, DP 1.2, DP 1.4.
  * @{
  */
@@ -86,11 +74,6 @@
 #define XDP_PROTOCOL_DP_1_4		2
 /* @} */
 
-<<<<<<< HEAD
-=======
->>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
-=======
->>>>>>> xdp : adding new constant definitions for DP1.4
 /** @name DP generic definitions: Link bandwith and lane count.
   * @{
   */
@@ -98,18 +81,9 @@
 #define XDP_LINK_BW_SET_162GBPS	0x06	/**< 1.62 Gbps link rate. */
 #define XDP_LINK_BW_SET_270GBPS	0x0A	/**< 2.70 Gbps link rate. */
 #define XDP_LINK_BW_SET_540GBPS	0x14	/**< 5.40 Gbps link rate. */
-<<<<<<< HEAD
-<<<<<<< HEAD
 /* Definitions for DP1.4 */
 #define XDP_LINK_BW_SET_810GBPS	0x1E	/**< 8.10 Gbps link rate. */
 /* DP1.4 definitions end */
-=======
->>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
-=======
-/* Definitions for DP1.4 */
-#define XDP_LINK_BW_SET_810GBPS	0x1E	/**< 8.10 Gbps link rate. */
-/* DP1.4 definitions end */
->>>>>>> xdp : adding new constant definitions for DP1.4
 /* 0x001: LANE_COUNT_SET */
 #define XDP_LANE_COUNT_SET_1		0x01	/**< Lane count of 1. */
 #define XDP_LANE_COUNT_SET_2		0x02	/**< Lane count of 2. */
@@ -2221,11 +2195,6 @@
 #define XDP_RX_DPCD_OVERWRITE_ADJREQUEST 0x80000000
 /* DP 1.4 definitions end. */
 /* @} */
-<<<<<<< HEAD
-#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
-
-=======
->>>>>>> xdp : adding new constant definitions for DP1.4
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 /******************************************************************************/
