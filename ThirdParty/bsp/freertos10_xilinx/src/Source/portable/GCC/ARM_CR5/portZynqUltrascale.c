@@ -1,7 +1,7 @@
 /*
- * FreeRTOS Kernel V10.0.0
- * Copyright (C) 2014 - 2018 Xilinx, Inc. All rights reserved.
- * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * FreeRTOS Kernel V10.1.1
+ * Copyright (C) 2014 - 2019 Xilinx, Inc. All rights reserved.
+ * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -11,8 +11,7 @@
  * subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software. If you wish to use our Amazon
- * FreeRTOS name, please do so in a fair use way that does not cause confusion.
+ * copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
@@ -102,7 +101,16 @@ XScuGic_Config *pxInterruptControllerConfig;
 		}
 	}
 	XTtcPs_SetOptions( &xTimerInstance, XTTCPS_OPTION_INTERVAL_MODE | XTTCPS_OPTION_WAVE_DISABLE );
+	/*
+	 * The Xilinx implementation of generating run time task stats uses the same timer used for generating
+	 * FreeRTOS ticks. In case user decides to generate run time stats the timer time out interval is changed
+	 * as "configured tick rate * 10". The multiplying factor of 10 is hard coded for Xilinx FreeRTOS ports.
+	 */
+#if (configGENERATE_RUN_TIME_STATS == 1)
+	XTtcPs_CalcIntervalFromFreq( &xTimerInstance, configTICK_RATE_HZ*10, &usInterval, &ucPrescaler );
+#else
 	XTtcPs_CalcIntervalFromFreq( &xTimerInstance, configTICK_RATE_HZ, &usInterval, &ucPrescaler );
+#endif
 	XTtcPs_SetInterval( &xTimerInstance, usInterval );
 	XTtcPs_SetPrescaler( &xTimerInstance, ucPrescaler );
 	/* Enable the interrupt for timer. */
@@ -115,10 +123,8 @@ XScuGic_Config *pxInterruptControllerConfig;
 
 void FreeRTOS_ClearTickInterrupt( void )
 {
-uint32_t ulStatusEvent;
 
-	ulStatusEvent = XTtcPs_GetInterruptStatus( &xTimerInstance );
-	XTtcPs_ClearInterruptStatus( &xTimerInstance, ulStatusEvent );
+	XTtcPs_ClearInterruptStatus( &xTimerInstance, XTtcPs_GetInterruptStatus( &xTimerInstance ) );
 }
 /*-----------------------------------------------------------*/
 

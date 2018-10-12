@@ -1,7 +1,6 @@
 /*
- * FreeRTOS Kernel V10.0.0
- * Copyright (C) 2012 - 2018 Xilinx, Inc. All rights reserved.
- * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * FreeRTOS Kernel V10.1.1
+ * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -11,8 +10,7 @@
  * subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software. If you wish to use our Amazon
- * FreeRTOS name, please do so in a fair use way that does not cause confusion.
+ * copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
@@ -54,12 +52,18 @@ extern "C" {
 #define portDOUBLE		double
 #define portLONG		long
 #define portSHORT		short
+#ifdef __arch64__
+#define portSTACK_TYPE	size_t
+typedef uint64_t UBaseType_t;
+#else
 #define portSTACK_TYPE	uint32_t
+typedef unsigned long UBaseType_t;
+#endif
 #define portBASE_TYPE	long
 
 typedef portSTACK_TYPE StackType_t;
 typedef long BaseType_t;
-typedef unsigned long UBaseType_t;
+
 
 #if( configUSE_16_BIT_TICKS == 1 )
 	typedef uint16_t TickType_t;
@@ -68,9 +72,6 @@ typedef unsigned long UBaseType_t;
 	typedef uint32_t TickType_t;
 	#define portMAX_DELAY ( TickType_t ) 0xffffffffUL
 
-	/* 32-bit tick type on a 32-bit architecture, so reads of the tick count do
-	not need to be guarded with a critical section. */
-	#define portTICK_TYPE_IS_ATOMIC 1
 #endif
 /*-----------------------------------------------------------*/
 
@@ -147,7 +148,11 @@ extern volatile uint32_t ulTaskSwitchRequested;
 /*-----------------------------------------------------------*/
 
 /* Hardware specifics. */
+#ifdef __arch64__
+#define portBYTE_ALIGNMENT          8
+#else
 #define portBYTE_ALIGNMENT			4
+#endif
 #define portSTACK_GROWTH			( -1 )
 #define portTICK_PERIOD_MS			( ( TickType_t ) 1000 / configTICK_RATE_HZ )
 #define portNOP()					asm volatile ( "NOP" )
@@ -165,43 +170,43 @@ typedef struct PORT_REGISTER_DUMP
 {
 	/* The following structure members hold the values of the MicroBlaze
 	registers at the time the exception was raised. */
-	uint32_t ulR1_SP;
-	uint32_t ulR2_small_data_area;
-	uint32_t ulR3;
-	uint32_t ulR4;
-	uint32_t ulR5;
-	uint32_t ulR6;
-	uint32_t ulR7;
-	uint32_t ulR8;
-	uint32_t ulR9;
-	uint32_t ulR10;
-	uint32_t ulR11;
-	uint32_t ulR12;
-	uint32_t ulR13_read_write_small_data_area;
-	uint32_t ulR14_return_address_from_interrupt;
-	uint32_t ulR15_return_address_from_subroutine;
-	uint32_t ulR16_return_address_from_trap;
-	uint32_t ulR17_return_address_from_exceptions; /* The exception entry code will copy the BTR into R17 if the exception occurred in the delay slot of a branch instruction. */
-	uint32_t ulR18;
-	uint32_t ulR19;
-	uint32_t ulR20;
-	uint32_t ulR21;
-	uint32_t ulR22;
-	uint32_t ulR23;
-	uint32_t ulR24;
-	uint32_t ulR25;
-	uint32_t ulR26;
-	uint32_t ulR27;
-	uint32_t ulR28;
-	uint32_t ulR29;
-	uint32_t ulR30;
-	uint32_t ulR31;
-	uint32_t ulPC;
-	uint32_t ulESR;
-	uint32_t ulMSR;
-	uint32_t ulEAR;
-	uint32_t ulFSR;
-	uint32_t ulEDR;
+	UINTPTR ulR1_SP;
+	UINTPTR ulR2_small_data_area;
+	UINTPTR ulR3;
+	UINTPTR ulR4;
+	UINTPTR ulR5;
+	UINTPTR ulR6;
+	UINTPTR ulR7;
+	UINTPTR ulR8;
+	UINTPTR ulR9;
+	UINTPTR ulR10;
+	UINTPTR ulR11;
+	UINTPTR ulR12;
+	UINTPTR ulR13_read_write_small_data_area;
+	UINTPTR ulR14_return_address_from_interrupt;
+	UINTPTR ulR15_return_address_from_subroutine;
+	UINTPTR ulR16_return_address_from_trap;
+	UINTPTR ulR17_return_address_from_exceptions; /* The exception entry code will copy the BTR into R17 if the exception occurred in the delay slot of a branch instruction. */
+	UINTPTR ulR18;
+	UINTPTR ulR19;
+	UINTPTR ulR20;
+	UINTPTR ulR21;
+	UINTPTR ulR22;
+	UINTPTR ulR23;
+	UINTPTR ulR24;
+	UINTPTR ulR25;
+	UINTPTR ulR26;
+	UINTPTR ulR27;
+	UINTPTR ulR28;
+	UINTPTR ulR29;
+	UINTPTR ulR30;
+	UINTPTR ulR31;
+	UINTPTR ulPC;
+	UINTPTR ulESR;
+	UINTPTR ulMSR;
+	UINTPTR ulEAR;
+	UINTPTR ulFSR;
+	UINTPTR ulEDR;
 
 	/* A human readable description of the exception cause.  The strings used
 	are the same as the #define constant names found in the
