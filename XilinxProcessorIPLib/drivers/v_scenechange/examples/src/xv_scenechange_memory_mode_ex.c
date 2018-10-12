@@ -32,6 +32,19 @@
  * consecutive streams. The driver accepts the threshold values per stream and
  * calls the registered callback with SAD value and stream id.
  *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who    Date     Changes
+ * ----- ---- -------- -------------------------------------------------------
+ * 1.00  pv   10/10/18   Initial Release
+ *			 Added flushing feature support for the driver.
+ *			 it supports only for memory based scenechange IP.
+ *			 flush bit should be set and held (until reset) by
+ *			 software to flush pending transactions.IP is expecting
+ *			 a hard reset, when flushing is done.(There is a flush
+ *			 status bit and is asserted when the flush is done).
+ * <pre>
  */
 #include "xparameters.h"
 #include <stdio.h>
@@ -256,11 +269,15 @@ int main()
 
 SCD_DONE:
 	XV_scenechange_Stop(&ScdPtr);
+	reset_pipe();
+	XV_scenechange_WaitForIdle(&ScdPtr);
 	xil_printf("SceneChange test : PASSED\r\n");
 	return XST_SUCCESS;
 
 SCD_FAILED:
 	XV_scenechange_Stop(&ScdPtr);
+	reset_pipe();
+	XV_scenechange_WaitForIdle(&ScdPtr);
 	xil_printf("SceneChange test : FAILURE\r\n");
 	return  XST_FAILURE;
 }
