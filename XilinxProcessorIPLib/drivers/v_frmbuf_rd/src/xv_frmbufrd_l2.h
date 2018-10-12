@@ -496,6 +496,7 @@ typedef struct {
 int XVFrmbufRd_Initialize(XV_FrmbufRd_l2 *InstancePtr, u16 DeviceId);
 void XVFrmbufRd_Start(XV_FrmbufRd_l2 *InstancePtr);
 int XVFrmbufRd_Stop(XV_FrmbufRd_l2 *InstancePtr);
+int XVFrmbufRd_WaitForIdle(XV_FrmbufRd_l2 *InstancePtr);
 int XVFrmbufRd_SetMemFormat(XV_FrmbufRd_l2 *InstancePtr,
                             u32 StrideInBytes,
                             XVidC_ColorFormat MemFmt,

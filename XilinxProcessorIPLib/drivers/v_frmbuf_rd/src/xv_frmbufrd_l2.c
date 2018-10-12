@@ -48,6 +48,11 @@
 * 3.00  vyc   04/04/18   Add interlaced support
                          Add new memory format BGR8
                          Add interrupt handler for ap_ready
+* 4.00  pv    11/10/18   Added flushing feature support in driver.
+*			 flush bit should be set and held (until reset) by
+*			 software to flush pending transactions.IP is expecting
+*			 a hard reset, when flushing is done.(There is a flush
+*			 status bit and is asserted when the flush is done).
 * </pre>
 *
 ******************************************************************************/
@@ -281,16 +286,19 @@ void XVFrmbufRd_Start(XV_FrmbufRd_l2 *InstancePtr)
 *
 * @param  InstancePtr is a pointer to core instance to be worked upon
 *
-* @return none
+* @return XST_SUCCESS if the core in stop state
+*         XST_FAILURE if the core is not in stop state
 *
 ******************************************************************************/
 int XVFrmbufRd_Stop(XV_FrmbufRd_l2 *InstancePtr)
 {
-  int Status = XST_FAILURE;
-  u32 isIdle = 0;
+  int Status = XST_SUCCESS;
   u32 cnt = 0;
   u32 Data = 0;
   Xil_AssertNonvoid(InstancePtr != NULL);
+
+  /* Clear autostart bit */
+  XV_frmbufrd_DisableAutoRestart(&InstancePtr->FrmbufRd);
 
   /* Flush the core bit */
   XV_frmbufrd_SetFlushbit(&InstancePtr->FrmbufRd);
@@ -302,12 +310,28 @@ int XVFrmbufRd_Stop(XV_FrmbufRd_l2 *InstancePtr)
   } while((Data == 0) && (cnt < XV_WAIT_FOR_FLUSH_DONE));
 
   if (Data == 0)
-        return XST_FAILURE;
+        Status = XST_FAILURE;
 
-  cnt = 0;
+  return Status;
+}
 
-  /* Clear autostart bit */
-  XV_frmbufrd_DisableAutoRestart(&InstancePtr->FrmbufRd);
+/*****************************************************************************/
+/**
+* This function Waits for the core to reach idle state
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+*
+* @return XST_SUCCESS if the core is in idle state
+*         XST_FAILURE if the core is not in idle state
+*
+******************************************************************************/
+int XVFrmbufRd_WaitForIdle(XV_FrmbufRd_l2 *InstancePtr)
+{
+  int Status = XST_FAILURE;
+  u32 isIdle = 0;
+  u32 cnt = 0;
+
+  Xil_AssertNonvoid(InstancePtr != NULL);
 
   /* Wait for idle */
   do {
@@ -318,9 +342,9 @@ int XVFrmbufRd_Stop(XV_FrmbufRd_l2 *InstancePtr)
   if (isIdle == 1 ) {
      Status = XST_SUCCESS;
   }
-  return(Status);
-}
 
+  return Status;
+}
 /*****************************************************************************/
 /**
 * This function configures the frame buffer read memory input
