@@ -70,6 +70,37 @@ proc Check_ttc_ip {instance_name} {
 	}
 	error "FreeRTOS requires valid ticker timer. The HW platform doesn't have a specified ticker timer $instance_name."
 }
+
+proc generate_license {fd} {
+	puts $fd " /*"
+	puts $fd " * FreeRTOS Kernel V10.0.0"
+	puts $fd " * Copyright (C) 2010-2018 Xilinx, Inc. All Rights Reserved."
+	puts $fd " * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved."
+	puts $fd " *"
+	puts $fd " * Permission is hereby granted, free of charge, to any person obtaining a copy of"
+	puts $fd " * this software and associated documentation files (the \"Software\"), to deal in"
+	puts $fd " * the Software without restriction, including without limitation the rights to"
+	puts $fd " * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of"
+	puts $fd " * the Software, and to permit persons to whom the Software is furnished to do so,"
+	puts $fd " * subject to the following conditions:"
+	puts $fd " *"
+	puts $fd " * The above copyright notice and this permission notice shall be included in all"
+	puts $fd " * copies or substantial portions of the Software. If you wish to use our Amazon"
+	puts $fd " * FreeRTOS name, please do so in a fair use way that does not cause confusion."
+	puts $fd " *"
+	puts $fd " * THE SOFTWARE IS PROVIDED \"AS-IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR"
+	puts $fd " * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS"
+	puts $fd " * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR"
+	puts $fd " * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER"
+	puts $fd " * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN"
+	puts $fd " * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+	puts $fd " *"
+	puts $fd " * http://www.FreeRTOS.org"
+	puts $fd " * http://aws.amazon.com/freertos"
+	puts $fd " *"
+	puts $fd " * 1 tab == 4 spaces!"
+	puts $fd " */"
+}
 proc generate {os_handle} {
 
 	set standalone_version [get_standalone_version]
@@ -422,7 +453,12 @@ proc generate {os_handle} {
 	## Add constants common to all architectures to the configuration file.
 	############################################################################
 
-	set config_file [xopen_new_include_file "./src/FreeRTOSConfig.h" "FreeRTOS Configuration parameters"]
+	set config_file [open "./src/FreeRTOSConfig.h" w]
+	generate_license $config_file
+	puts $config_file ""
+	puts $config_file "#ifndef _FREERTOSCONFIG_H"
+	puts $config_file "#define _FREERTOSCONFIG_H"
+	puts $config_file ""
 	puts $config_file "\#include \"xparameters.h\" \n"
 
 	set val [common::get_property CONFIG.use_preemption $os_handle]
