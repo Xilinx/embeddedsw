@@ -44,6 +44,11 @@
 *                        Add new memory formats BGRX8 and UYVY8
 * 3.00  vyc   04/04/18   Add support for ZCU102, ZCU104, ZCU106
 *                        Add new memory format BGR8
+* 4.00  pv    11/10/18   Added flushing feature support in driver.
+*			 flush bit should be set and held (until reset) by
+*			 software to flush pending transactions.IP is expecting
+*			 a hard reset, when flushing is done.(There is a flush
+*			 status bit and is asserted when the flush is done).
 * </pre>
 *
 ******************************************************************************/
@@ -135,6 +140,7 @@ u32 volatile *gpio_hlsIpReset;
 #define XVMonitor_DidVideoOverflow(GpioPtr) (XGpio_DiscreteRead(GpioPtr, 2))
 
 
+void resetIp(void);
 static int DriverInit(void);
 static int SetupInterrupts(void);
 static u32 CalcStride(XVidC_ColorFormat Cfmt,
@@ -400,6 +406,9 @@ static int ConfigFrmbuf(u32 StrideInBytes,
   /* Stop Frame Buffers */
   XVFrmbufRd_Stop(&frmbufrd);
   XVFrmbufWr_Stop(&frmbufwr);
+  resetIp();
+  XVFrmbufWr_WaitForIdle(&frmbufwr);
+  XVFrmbufRd_WaitForIdle(&frmbufrd);
 
   /* Configure Frame Buffers */
   Status = XVFrmbufRd_SetMemFormat(&frmbufrd, StrideInBytes, Cfmt, StreamPtr);
