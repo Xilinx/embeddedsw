@@ -1,5 +1,8 @@
 Changes for 2018.3
 ===============================
+v_mix_v5_0:
+Modified existing Stop API for flush feature.
+
 v_frmbuf_wr_v4_0:
 Added new API, This API is used to wait for IP to enter into idle state.
 Modified existing Stop API to support Flushing feature.

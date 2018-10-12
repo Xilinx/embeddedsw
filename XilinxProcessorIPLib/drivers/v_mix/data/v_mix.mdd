@@ -36,6 +36,6 @@ BEGIN driver v_mix
  OPTION DEPENDS = (video_common);
  OPTION copyfiles = all;
  OPTION name = v_mix;
- OPTION version = 4.1;
+ OPTION version = 5.0;
 
 END driver

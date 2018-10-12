@@ -62,6 +62,11 @@
 * 3.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
 * 4.00  vyc   04/04/18   Add 8th overlayer
 *                        Move logo layer enable fromb bit 8 to bit 15
+* 5.00  pv    11/10/18   Added flushing feature support in driver.
+*                        flush bit should be set and held (until reset) by
+*                        software to flush pending transactions.IP is expecting
+*                        a hard reset, when flushing is done.(There is a flush
+*                        status bit and is asserted when the flush is done).
 * </pre>
 *
 ******************************************************************************/
@@ -268,6 +273,9 @@ void XVMix_Stop(XV_Mix_l2 *InstancePtr)
 
   Xil_AssertVoid(InstancePtr != NULL);
 
+  /* Clear autostart bit */
+  XV_mix_DisableAutoRestart(&InstancePtr->Mix);
+
   /* Flush the core bit */
   XV_mix_SetFlushbit(&InstancePtr->Mix);
 
@@ -275,13 +283,10 @@ void XVMix_Stop(XV_Mix_l2 *InstancePtr)
     Data = XV_mix_Get_FlushDone(&InstancePtr->Mix);
     usleep(XV_WAIT_FOR_FLUSH_DONE_TIMEOUT);
     cnt++;
-  } while((Data == 0) && (cnt < XV_WAIT_FOR_FLUSH_DONE));
+  } while ((Data == 0) && (cnt < XV_WAIT_FOR_FLUSH_DONE));
 
   if (Data == 0)
         return;
-
-  /* Clear autostart bit */
-  XV_mix_DisableAutoRestart(&InstancePtr->Mix);
 }
 
 /*****************************************************************************/
