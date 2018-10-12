@@ -38,7 +38,7 @@ void vApplicationAssert( const char *pcFileName, uint32_t ulLine )
 		__attribute__((weak));
 
 /* Timer used to generate the tick interrupt. */
-static XTtcPs xTimerInstance;
+XTtcPs xTimerInstance;
 XScuGic xInterruptController;
 /*-----------------------------------------------------------*/
 
@@ -49,22 +49,6 @@ XTtcPs_Config *pxTimerConfiguration;
 XInterval usInterval;
 uint8_t ucPrescale;
 const uint8_t ucLevelSensitive = 1;
-XScuGic_Config *pxInterruptControllerConfig;
-
-	/* Initialize the interrupt controller driver. */
-	pxInterruptControllerConfig = XScuGic_LookupConfig( configINTERRUPT_CONTROLLER_DEVICE_ID );
-	XScuGic_CfgInitialize( &xInterruptController,
-						   pxInterruptControllerConfig,
-						   pxInterruptControllerConfig->CpuBaseAddress );
-
-	/* Connect the interrupt controller interrupt handler to the hardware
-	interrupt handling logic in the ARM processor. */
-	Xil_ExceptionRegisterHandler( XIL_EXCEPTION_ID_IRQ_INT,
-								( Xil_ExceptionHandler ) XScuGic_InterruptHandler,
-								&xInterruptController);
-
-	/* Enable interrupts in the ARM. */
-	Xil_ExceptionEnable();
 
 	pxTimerConfiguration = XTtcPs_LookupConfig( configTIMER_ID );
 
@@ -97,17 +81,13 @@ XScuGic_Config *pxInterruptControllerConfig;
 	XTtcPs_SetInterval( &xTimerInstance, usInterval );
 	XTtcPs_SetPrescaler( &xTimerInstance, ucPrescale );
 
+	xPortInstallInterruptHandler(configTIMER_INTERRUPT_ID,
+					( Xil_InterruptHandler ) FreeRTOS_Tick_Handler,
+					( void * ) &xTimerInstance);
 	/* The priority must be the lowest possible. */
 	XScuGic_SetPriorityTriggerType( &xInterruptController, configTIMER_INTERRUPT_ID, portLOWEST_USABLE_INTERRUPT_PRIORITY << portPRIORITY_SHIFT, ucLevelSensitive );
 
-	/* Connect to the interrupt controller. */
-	XScuGic_Connect( &xInterruptController,
-					 configTIMER_INTERRUPT_ID,
-					( Xil_InterruptHandler ) FreeRTOS_Tick_Handler,
-					( void * ) &xTimerInstance );
-
-	/* Enable the interrupt in the GIC. */
-	XScuGic_Enable( &xInterruptController, configTIMER_INTERRUPT_ID );
+	vPortEnableInterrupt(configTIMER_INTERRUPT_ID);
 
 	/* Enable the interrupts in the timer. */
 	XTtcPs_EnableInterrupts( &xTimerInstance, XTTCPS_IXR_INTERVAL_MASK );
@@ -137,6 +117,7 @@ const XScuGic_VectorTableEntry *pxVectorEntry;
 	cleared. The ID of the interrupt is obtained by bitwise ANDing the ICCIAR
 	value with 0x3FF. */
 	ulInterruptID = ulICCIAR & 0x3FFUL;
+
 	if( ulInterruptID < XSCUGIC_MAX_NUM_INTR_INPUTS )
 	{
 		/* Call the function installed in the array of installed handler
