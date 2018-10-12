@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
 * 
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal 
@@ -69,6 +69,8 @@
 * 						fallback image offset handling using MD5
 * 						Fix for PR#782309 Fallback support for AES
 * 						encryption with E-Fuse - Enhancement
+* 11.00a ka 10/12/18    Fix for CR#1006294 Zynq FSBL - Zynq FSBL does not check
+* 						USE_AES_ONLY eFuse
 *
 * </pre>
 *
@@ -174,6 +176,9 @@ u32 LoadBootImage(void)
 	u32 EfuseStatusRegValue;
 #ifdef RSA_SUPPORT
 	u32 HeaderSize;
+#endif
+#ifdef FORCE_USE_AES_ONLY
+	u32 EncOnly;
 #endif
 	/*
 	 * Resetting the Flags
@@ -377,6 +382,18 @@ u32 LoadBootImage(void)
 			EncryptedPartitionFlag = 0;
 		}
 
+#ifdef FORCE_USE_AES_ONLY
+		EncOnly = XDcfg_ReadReg(DcfgInstPtr->Config.BaseAddr,
+                                XDCFG_STATUS_OFFSET) &
+				XDCFG_STATUS_EFUSE_SEC_EN_MASK;
+		if ((EncOnly != 0) &&
+			(EncryptedPartitionFlag == 0)) {
+			fsbl_printf(DEBUG_GENERAL,"EFUSE_SEC_EN bit is set,"
+                                        " Encryption is mandatory\r\n");
+			OutputStatus(PARTITION_LOAD_FAIL);
+			FsblFallback();
+		}
+#endif
 		/*
 		 * Check for partition checksum check
 		 */
