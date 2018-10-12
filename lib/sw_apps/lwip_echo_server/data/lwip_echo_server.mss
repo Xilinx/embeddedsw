@@ -16,3 +16,7 @@ BEGIN LIBRARY
  PARAMETER ipv6_enable = false
  PARAMETER pbuf_pool_size = 2048
 END
+
+BEGIN LIBRARY
+ PARAMETER LIBRARY_NAME = xilmem
+END
