@@ -236,6 +236,8 @@
 * 						for 3.0 and later versions of silicon.
 * 17.00a bsv 27/03/18	Fix for CR# 996973  Add code under JTAG_ENABLE_LEVEL_SHIFTERS macro
 * 						to enable level shifters in jtag boot mode.
+* 18.00a ka  10/12/18   Fix for CR# 1006294 Added macro for FORCE_USE_AES_ONLY
+*
 * </pre>
 *
 * </pre>
@@ -297,6 +299,13 @@
 * JTAG_ENABLE_LEVEL_SHIFTERS
 * FSBL will not enable the level shifters for jtag boot mode. This flag can be
 * set during compilation for jtag boot mode to enable level shifters.
+*
+* FORCE_USE_AES_ONLY
+* If this flag is enabled, it forces all the partitions to be encrypted
+* if EFUSE_SEC_EN bit is set.
+* If this flag is disabled, it will not force partitions to be encrypted
+* even though EFUSE_SEC_EN bit is set.
+* This macro will be disabled by default.
 *
 *******************************************************************************/
 #ifndef XIL_FSBL_H
@@ -371,6 +380,7 @@ extern "C" {
 #define PARTITION_CHECKSUM_FAIL		0xA010 /**< Partition checksum fail */
 #define RSA_SUPPORT_NOT_ENABLED_FAIL	0xA011 /**< RSA not enabled fail */
 #define PS7_INIT_FAIL			0xA012 /**< ps7 Init Fail */
+#define PARTITION_LOAD_FAIL            0xA013 /**< Partition load fail*/
 /*
  * FSBL Exception error codes
  */
