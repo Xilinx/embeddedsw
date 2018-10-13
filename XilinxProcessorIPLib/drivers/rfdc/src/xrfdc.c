@@ -127,6 +127,9 @@
 *                       XRFdc_DynamicPLLConfig() API.
 *       sk     10/10/18 Check for DigitalPath enable in XRFdc_GetNyquistZone()
 *                       and XRFdc_GetCalibrationMode() APIs for Multiband.
+*       sk     10/13/18 Add support to read the REFCLKDIV param from design.
+*                       Update XRFdc_SetPLLConfig() API to support range of
+*                       REF_CLK_DIV values(1 to 4).
 * </pre>
 *
 ******************************************************************************/
@@ -553,7 +556,7 @@ static void XRFdc_UpdatePLLStruct(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
 		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.OutputDivider =
 				InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].OutputDiv;
 		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkDivider =
-					XRFDC_REF_CLK_DIV;
+				InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].RefClkDiv;
 	} else {
 		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate =
 				InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].SamplingRate;
@@ -566,7 +569,7 @@ static void XRFdc_UpdatePLLStruct(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
 		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.OutputDivider =
 				InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].OutputDiv;
 		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkDivider =
-					XRFDC_REF_CLK_DIV;
+				InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].RefClkDiv;
 	}
 }
 
@@ -4830,6 +4833,43 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	u32 DivideValue = 0x0U;
 	u32 PllFreqIndex = 0x0U;
 	u32 FbDivIndex = 0x0U;
+	u32 RefClkDiv = 0x1;
+	u16 ReadReg;
+
+	if (Type == XRFDC_ADC_TILE) {
+		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id);
+	} else {
+		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id);
+	}
+
+	BaseAddr += XRFDC_HSCOM_ADDR;
+
+	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_PLL_REFDIV);
+	if (ReadReg & XRFDC_REFCLK_DIV_1_MASK) {
+		RefClkDiv = XRFDC_REF_CLK_DIV_1;
+	} else {
+		switch (ReadReg & XRFDC_REFCLK_DIV_MASK) {
+			case XRFDC_REFCLK_DIV_2_MASK:
+				RefClkDiv = XRFDC_REF_CLK_DIV_2;
+				break;
+			case XRFDC_REFCLK_DIV_3_MASK:
+				RefClkDiv = XRFDC_REF_CLK_DIV_3;
+				break;
+			case XRFDC_REFCLK_DIV_4_MASK:
+				RefClkDiv = XRFDC_REF_CLK_DIV_4;
+				break;
+			default:
+				/*
+				 * IP currently supporting 1 to 4 divider values. This
+				 * error condition might change in future based on IP update.
+				 */
+				metal_log(METAL_LOG_ERROR,  "\n Unsupported Reference "
+						"clock Divider value in %s\r\n", __func__);
+				return XRFDC_FAILURE;
+		}
+	}
+
+	RefClkFreq /= RefClkDiv;
 
 	/*
 	 * Sweep valid integer values of FeedbackDiv(N) and record a list
@@ -4880,15 +4920,6 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 			}
 		}
 
-
-		if (Type == XRFDC_ADC_TILE) {
-			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id);
-		} else {
-			BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id);
-		}
-
-		BaseAddr += XRFDC_HSCOM_ADDR;
-
 		/*
 		 * PLL Static configuration
 		 */
@@ -4898,11 +4929,6 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_VREG, 0x45U);
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_VCO0, 0x5800U);
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_VCO1, 0x08U);
-
-		/*
-		 * Setting Reference divisor value to one
-		 */
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_REFDIV, 0x10);
 
 		/*
 		 * Set Feedback divisor value
@@ -5055,13 +5081,13 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	if (Type == XRFDC_ADC_TILE) {
 		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate =
 							CalcSamplingRate;
-		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkDivider = XRFDC_REF_CLK_DIV;
+		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkDivider = RefClkDiv;
 		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.FeedbackDivider = Best_FeedbackDiv;
 		InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.OutputDivider = Best_OutputDiv;
 	} else {
 		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate =
 					CalcSamplingRate;
-		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkDivider = XRFDC_REF_CLK_DIV;
+		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkDivider = RefClkDiv;
 		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.FeedbackDivider = Best_FeedbackDiv;
 		InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.OutputDivider = Best_OutputDiv;
 	}
