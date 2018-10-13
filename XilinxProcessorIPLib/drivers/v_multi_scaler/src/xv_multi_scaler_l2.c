@@ -284,7 +284,8 @@ static const void (*XV_MS_Set_DstImgBuf1[XV_MAX_OUTS])(XV_multi_scaler
 	XV_multi_scaler_Set_HwReg_dstImgBuf1_7_V};
 
 /************************** Function Prototypes ******************************/
-static void XV_MultiScalerSetCoeff(XV_multi_scaler *MscPtr, u32 NumOut);
+static void XV_MultiScalerSetCoeff(XV_multi_scaler *MscPtr,
+				   XV_multi_scaler_Video_Config *MS_cfg);
 
 /*****************************************************************************/
 /**
@@ -374,55 +375,67 @@ void XV_MultiScalerSetNumOutputs(XV_multi_scaler *InstancePtr, u32 NumOuts)
 * @return None
 *
 ******************************************************************************/
-static void XV_MultiScalerSetCoeff(XV_multi_scaler *MscPtr, u32 NumOut)
+static void XV_MultiScalerSetCoeff(XV_multi_scaler *MscPtr,
+				   XV_multi_scaler_Video_Config *MS_cfg)
 {
 	u32 num_phases = 1<<MscPtr->PhaseShift;
 	u32 num_taps	= MscPtr->NumTaps/2;
 	u32 val;
 	u32 i;
 	u32 j;
-	u32 offset;
-	u32 rdIndx;
 	u32 baseAddr;
-	const short *coeff;
+	short *coeff;
 	u32 vfltcoef_offset;
 	u32 hfltcoef_offset;
+	float scale;
 
-	if (MscPtr->NumTaps == XV_MULTISCALER_TAPS_6)
-		coeff = &XV_multiscaler_fixedcoeff_taps6[0][0];
-	else if (MscPtr->NumTaps == XV_MULTISCALER_TAPS_8)
+	scale = (float)MS_cfg->HeightIn / MS_cfg->HeightOut;
+
+	if ((scale >= 2) && (scale < 2.5))
 		coeff = &XV_multiscaler_fixedcoeff_taps8[0][0];
-	else if (MscPtr->NumTaps == XV_MULTISCALER_TAPS_10)
+	else if ((scale >= 2.5) && (scale < 3))
 		coeff = &XV_multiscaler_fixedcoeff_taps10[0][0];
-	else
+	else if ((scale >= 3) && (scale < 3.5))
 		coeff = &XV_multiscaler_fixedcoeff_taps12[0][0];
+	else
+		coeff = &XV_multiscaler_fixedcoeff_taps6[0][0];
 
 	vfltcoef_offset = XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_0_BASE +
-		NumOut * XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_FLTCOEFF_OFFSET;
-	hfltcoef_offset = XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_0_BASE +
-		NumOut * XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_FLTCOEFF_OFFSET;
-	offset = (XV_MULTISCALER_MAX_V_TAPS - MscPtr->NumTaps)/2;
+		MS_cfg->ChannelId *
+		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_FLTCOEFF_OFFSET;
+
 	baseAddr = MscPtr->Ctrl_BaseAddress + vfltcoef_offset;
 	for (i = 0; i < num_phases; i++) {
-		for (j = 0; j < num_taps; j++) {
-			rdIndx = j * 2 + offset;
-			val = (coeff[i * num_taps * 2 + rdIndx + 1] << 16) |
-				(coeff[i * num_taps * 2 + rdIndx] &
-				XVSC_MASK_LOW_16BITS);
+		for (j = 0; j < XV_MULTISCALER_TAPS_12; j = j + 2) {
+			val = (coeff[i * XV_MULTISCALER_TAPS_12 + (j + 1)] << 16) |
+				(coeff[i * XV_MULTISCALER_TAPS_12 + j] & 0x0000FFFF);
 			XV_multi_scaler_WriteReg(baseAddr,
-				((i * num_taps + j) * 4), val);
+				((i * num_taps + j / 2) * 4), val);
 		}
 	}
 
+	scale = (float)MS_cfg->WidthIn / MS_cfg->WidthOut;
+
+	if ((scale >= 2) && (scale < 2.5))
+		coeff = &XV_multiscaler_fixedcoeff_taps8[0][0];
+	else if ((scale >= 2.5) && (scale < 3))
+		coeff = &XV_multiscaler_fixedcoeff_taps10[0][0];
+	else if ((scale >= 3) && (scale < 3.5))
+		coeff = &XV_multiscaler_fixedcoeff_taps12[0][0];
+	else
+		coeff = &XV_multiscaler_fixedcoeff_taps6[0][0];
+
+	hfltcoef_offset = XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_0_BASE +
+		MS_cfg->ChannelId *
+		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_FLTCOEFF_OFFSET;
+
 	baseAddr = MscPtr->Ctrl_BaseAddress + hfltcoef_offset;
 	for (i = 0; i < num_phases; i++) {
-		for (j = 0; j < num_taps; j++) {
-			rdIndx = j * 2 + offset;
-			val = (coeff[i * num_taps * 2 + rdIndx + 1] << 16) |
-				(coeff[i * num_taps * 2 + rdIndx] &
-				XVSC_MASK_LOW_16BITS);
+		for (j = 0; j < XV_MULTISCALER_TAPS_12; j = j + 2) {
+			val = (coeff[i * XV_MULTISCALER_TAPS_12 + (j + 1)] << 16) |
+				(coeff[i * XV_MULTISCALER_TAPS_12 + j] & 0x0000FFFF);
 			XV_multi_scaler_WriteReg(baseAddr,
-				((i * num_taps + j) * 4), val);
+				((i * num_taps + j / 2) * 4), val);
 		}
 	}
 }
@@ -523,7 +536,7 @@ void XV_MultiScalerSetChannelConfig(XV_multi_scaler *InstancePtr,
 		(MS_cfg->WidthOut / 2)) / (float)MS_cfg->WidthOut);
 	LineRate = (u32) ((float)((MS_cfg->HeightIn * STEP_PRECISION) +
 		(MS_cfg->HeightOut / 2)) / (float)MS_cfg->HeightOut);
-	XV_MultiScalerSetCoeff(InstancePtr, i);
+	XV_MultiScalerSetCoeff(InstancePtr, MS_cfg);
 	XV_MS_Set_WidthIn[i](InstancePtr, MS_cfg->WidthIn);
 	XV_MS_Set_WidthOut[i](InstancePtr, MS_cfg->WidthOut);
 	XV_MS_Set_HeightIn[i](InstancePtr, MS_cfg->HeightIn);
