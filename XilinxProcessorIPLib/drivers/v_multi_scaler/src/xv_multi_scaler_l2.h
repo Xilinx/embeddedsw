@@ -137,11 +137,11 @@ typedef struct {
 } XV_multi_scaler_Video_Config;
 
 extern const short XV_multiscaler_fixedcoeff_taps6[XV_MULTISCALER_MAX_V_PHASES]
-	[XV_MULTISCALER_TAPS_6];
+	[XV_MULTISCALER_TAPS_12];
 extern const short XV_multiscaler_fixedcoeff_taps8[XV_MULTISCALER_MAX_V_PHASES]
-	[XV_MULTISCALER_TAPS_8];
+	[XV_MULTISCALER_TAPS_12];
 extern const short XV_multiscaler_fixedcoeff_taps10[XV_MULTISCALER_MAX_V_PHASES]
-	[XV_MULTISCALER_TAPS_10];
+	[XV_MULTISCALER_TAPS_12];
 extern const short XV_multiscaler_fixedcoeff_taps12[XV_MULTISCALER_MAX_V_PHASES]
 	[XV_MULTISCALER_TAPS_12];
 
