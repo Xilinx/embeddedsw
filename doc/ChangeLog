@@ -199,6 +199,16 @@ Updated driver and examples, to remove the xparameters.h
 dependency for Linux platform.
 Modified phasecorrection factor as per  QMC Phase
 correction factor range in driver.
+Move mixer related APIs to xrfdc_mixer.c file.
+Remove __MICROBLAZE__ defines and use libmetal interface for Microblaze.
+Reorganize the code (like adding macros for constants, add asserts for Linux, create static APIs, adding brief comments
+etc) to improve readability and optimization.
+Update powerup-state value based on PLL mode in XRFdc_DynamicPLLConfig() API.
+Check for DigitalPath enable in XRFdc_GetNyquistZone() and XRFdc_GetCalibrationMode() APIs for Multiband.
+Add support to read the REFCLKDIV param from design.
+Update XRFdc_SetPLLConfig() API to support range of REF_CLK_DIV values(1 to 4).
+Corrects the Block_Id used for QMC event in IQ datatype in XRFdc_UpdateEvent() API.
+Add XRFDC_MIXER_MODE_R2R option to support BYPASS mode for Real input.
 
 scugic_v3_10:
 Updated get_psu_interrupt_id to generate correct
