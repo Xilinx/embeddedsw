@@ -1726,6 +1726,20 @@ extern "C" {
 
 /* @} */
 
+/** @name PLL_REFDIV
+ *
+ * This register contains the bits for Reference Clock Divider
+ * @{
+ */
+
+#define XRFDC_REFCLK_DIV_MASK		0x1FU
+#define XRFDC_REFCLK_DIV_1_MASK		0x10U	/**< Mask for Div1 */
+#define XRFDC_REFCLK_DIV_2_MASK		0x0U	/**< Mask for Div2 */
+#define XRFDC_REFCLK_DIV_3_MASK		0x1U	/**< Mask for Div3 */
+#define XRFDC_REFCLK_DIV_4_MASK		0x2U	/**< Mask for Div4 */
+
+/* @} */
+
 /** @name FIFO Latency
  *
  * This register contains bits for result, key and done flag.

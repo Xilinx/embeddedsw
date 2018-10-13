@@ -182,6 +182,9 @@
 *                       XRFdc_DynamicPLLConfig() API.
 *       sk     10/10/18 Check for DigitalPath enable in XRFdc_GetNyquistZone()
 *                       and XRFdc_GetCalibrationMode() APIs for Multiband.
+*       sk     10/13/18 Add support to read the REFCLKDIV param from design.
+*                       Update XRFdc_SetPLLConfig() API to support range of
+*                       REF_CLK_DIV values(1 to 4).
 *
 * </pre>
 *
@@ -391,6 +394,7 @@ typedef struct {
 	double FabClkFreq;
 	u32 FeedbackDiv;
 	u32 OutputDiv;
+	u32 RefClkDiv;
 	u32 MultibandConfig;
 	XRFdc_DACBlock_AnalogDataPath_Config DACBlock_Analog_Config[4];
 	XRFdc_DACBlock_DigitalDataPath_Config DACBlock_Digital_Config[4];
@@ -407,6 +411,7 @@ typedef struct {
 	double FabClkFreq;
 	u32 FeedbackDiv;
 	u32 OutputDiv;
+	u32 RefClkDiv;
 	u32 MultibandConfig;
 	XRFdc_ADCBlock_AnalogDataPath_Config ADCBlock_Analog_Config[4];
 	XRFdc_ADCBlock_DigitalDataPath_Config ADCBlock_Digital_Config[4];
@@ -705,7 +710,10 @@ typedef struct {
 #define XRFDC_PLL_CRS2_VAL		0x7008U
 #define XRFDC_VCO_UPPER_BAND	0x0U
 #define XRFDC_VCO_LOWER_BAND	0x1U
-#define XRFDC_REF_CLK_DIV		0x1U
+#define XRFDC_REF_CLK_DIV_1		0x1U
+#define XRFDC_REF_CLK_DIV_2		0x2U
+#define XRFDC_REF_CLK_DIV_3		0x3U
+#define XRFDC_REF_CLK_DIV_4		0x4U
 
 #define XRFDC_SINGLEBAND_MODE		0x1U
 #define XRFDC_MULTIBAND_MODE_2X		0x2U
