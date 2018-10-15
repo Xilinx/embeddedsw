@@ -175,7 +175,9 @@
 #define TX_BUFFER_BYPASS            XPAR_VID_PHY_CONTROLLER_0_TX_BUFFER_BYPASS
 
 
-#define PHY_COMP 1
+/* This switch is used to enable PHY complaince mode. */
+
+#define PHY_COMP 0
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
