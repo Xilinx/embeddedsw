@@ -171,7 +171,7 @@
 *       		modes FIELD1 vactive size. This value is same as FILED0
 *       		vactive size for all interlaced modes except for SDI NTSC
 *       		mode
-* 8.1   jsr    10/01/18	Removed the hard coded programming of vactive size values
+*	jsr    10/01/18	Removed the hard coded programming of vactive size values
 * 			based on resolutions. Moved the hard coded values for SDI
 * 			NTSC resolution to SDI TXSS driver instead of in VTC
 * 			driver.
