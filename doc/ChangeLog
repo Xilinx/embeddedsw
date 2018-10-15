@@ -315,6 +315,61 @@ Fix Gcc warnings.
 zynq_fsbl:
 Added code to check EFUSE_SEC_EN bit and force encryption.
 
+sdi_common_v1_1:
+Moved SDI specific timing from video common to SDI driver
+
+v_sditx_v2_0:
+Using SDI specific timing from SDI common driver
+Fix compilation warnings
+Change driver version
+Add ST352 insertion on C-Stream
+
+v_sditxss_v3_0:
+Fix compilation warnings
+Change driver version
+Added field1 vactive size programming for SD NTSC resolution
+Add ST352 insertion on C-Stream
+Added pixco example for Import Examples in SDK GUI
+Updated Copyright
+Implemented formatting changes in Pixco Example Design
+Example design application for UHDSDI Tx subsystem with PIXCO module
+Removed the unused API that reports subcore version numbers
+Corrected the SD NTSC mode resolution
+
+v_sdirx_v1_3:
+Add support for ST352 in C-Stream
+Using SDI specific timing from SDI common driver
+Corrected the SD NTSC mode resolution
+
+video_common_v4_5:
+Corrected the vertical timing parameters
+Add support for new video mode XVIDC_VM_720x486_60_I
+
+v_tpg_v8_1:
+Add support for interlaced mode and polarity
+
+vtc_v8_0:
+Removed hard coded programming of register XVTC_GASIZE_F1_OFFSET
+Corrected the timing parameters for VGA (640x480) resolution
+Added new register Added new register XVTC_GASIZE_F1_OFFSET
+
+v_vscaler_v3_0:
+Fix for 64-bit addressing support
+
+v_hscaler_v3_1:
+Fix for 64-bit addressing support
+
+v_multi_scaler_v1_0:
+Initial version of Multi Scaler IP
+
+audio_formatter_v1_0:
+Initial version of Audio Formatter IP
+
+sdiaud_v2_0:
+Add 32 channel support.
+Add support for channel status extraction logic both on embed and extract side.
+Add APIs to detect group change, sample rate change, active channel change.
+
 Changes for 2018.2
 ===============================
 freertos10_xilinx_v1_1:
