@@ -567,11 +567,6 @@ void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags)
 	RegVal |= XFSBL_EXEC_COMPLETED;
 	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, RegVal);
 
-	/**
-	 * Flush the L1 data cache and L2 cache, Disable Data Cache
-	 */
-	Xil_DCacheDisable();
-
 	XFsbl_Printf(DEBUG_GENERAL,"Exit from FSBL \n\r");
 
 	/**
@@ -756,6 +751,12 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 			(void)psu_ps_pl_isolation_removal_data();
 			(void)psu_ps_pl_reset_config_data();
 		}
+
+	/**
+	 * Flush the L1 data cache and L2 cache, Disable Data Cache
+	*/
+	Xil_DCacheDisable();
+
 	if(FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET){
 
 	Status = XFsbl_PmInit();
@@ -797,10 +798,6 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 
 		if (XGet_Zynq_UltraMp_Platform_info() == (u32)(0X2U))
 		{
-			/**
-			 * Flush the L1 data cache and L2 cache, Disable Data Cache
-			 */
-			Xil_DCacheDisable();
 			XFsbl_Printf(DEBUG_GENERAL,"Exit from FSBL. \n\r");
 #ifdef ARMA53_64
 			XFsbl_Out32(0xFFFC0000U, 0x14000000U);
@@ -833,13 +830,6 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 				"XFSBL_ERROR_HOOK_BEFORE_HANDOFF\r\n");
 		goto END;
 	}
-
-	/**
-	 * Disable Data Cache to have smooth data
-	 * transfer between the processors.
-	 * Data transfer is required to update flag for CPU out of reset
-	 */
-	Xil_DCacheDisable();
 
 	/**
 	 * get cpu out of reset
