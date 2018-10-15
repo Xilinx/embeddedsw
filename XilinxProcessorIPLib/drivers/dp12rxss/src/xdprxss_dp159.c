@@ -74,8 +74,10 @@
 /* This table contains the DP159 configuration data: offset and value */
 const XDpRxSs_Dp159Data Dp159Values [] = {
        /* DP159 Initialize */
-       {0xFF, 0x00},
-       {0x09, 0x36},
+       {0xFF, 0x01}, /* Select page 1 */
+       {0x00, 0x02}, /* Bandgap enable */
+       {0xFF, 0x00}, /* Select Page 0 */
+       {0x09, 0x37}, /* 100KHz to 400KHz */
        {0x0A, 0x7B},
        {0x0D, 0x80},
        {0x0C, 0x6D},
@@ -136,7 +138,7 @@ u32 XDpRxSs_Dp159Initialize(const XIic *InstancePtr)
        /* Verify argument. */
        Xil_AssertNonvoid(InstancePtr != NULL);
 
-       for (Index = 0x0; Index < 37; Index++) {
+       for (Index = 0x0; Index < ARRAY_SIZE(Dp159Values); Index++) {
                XDpRxSs_Dp159Write(InstancePtr, XDPRXSS_DP159_IIC_SLAVE,
                        Dp159Values[Index].Dp159Offset,
                                Dp159Values[Index].Dp159Value);
