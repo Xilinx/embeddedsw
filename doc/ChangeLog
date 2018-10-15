@@ -1,5 +1,17 @@
 Changes for 2018.3
 ===============================
+dphy_v1_2:
+Handling 8 Lanes with timing params for dphy.
+
+csi_v1_2:
+Modified driver for supporting new extra 12 VCs.
+Added changes for CSIv2.0
+Added Changes for Handling VCx Errors in interrupt handler.
+
+mipicsiss_v1_2:
+Modified tcl for new formats (RAW16, RAW20 and YUV422 8bit/10bit) and 16 VCs.
+Modified config structure to support CSIv20 and VCx Errors.
+
 v_scenechange_v1_0:
 Initial release for SceneChange IP.
 
