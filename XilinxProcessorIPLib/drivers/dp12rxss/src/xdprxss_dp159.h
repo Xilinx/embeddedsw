@@ -67,6 +67,7 @@ extern "C" {
 #include "xiic.h"
 #endif /* End of XPAR_XIIC_NUM_INSTANCES */
 
+#define ARRAY_SIZE(arr)                         (sizeof(arr) / sizeof(arr[0]))
 /************************** Constant Definitions *****************************/
 
 #define XDPRXSS_DP159_IIC_SLAVE          0x5E    /**< DP159 slave device
