@@ -183,8 +183,7 @@ int IicPsSlavePolledExample(u16 DeviceId)
 	}
 
 	/*
-	 * Send the buffer using the IIC and ignore the number of bytes sent
-	 * as the return value since we are using it in interrupt mode.
+	 * Send the buffer using the IIC
 	 */
 	Status = XIicPs_SlaveSendPolled(&Iic, SendBuffer,
 				TEST_BUFFER_SIZE);
