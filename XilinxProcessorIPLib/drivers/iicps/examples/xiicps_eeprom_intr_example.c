@@ -33,7 +33,7 @@
 /**
 * @file xiicps_eeprom_intr_example.c
 *
-* This file consists of a interrutp mode design example which uses the Xilinx
+* This file consists of a interrupt mode design example which uses the Xilinx
 * PS IIC device and XIicPs driver to exercise the EEPROM.
 *
 * The XIicPs_MasterSend() API is used to transmit the data and the
