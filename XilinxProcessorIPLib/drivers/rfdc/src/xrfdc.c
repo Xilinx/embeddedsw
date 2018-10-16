@@ -850,6 +850,8 @@ u32 XRFdc_GetIPStatus(XRFdc *InstancePtr, XRFdc_IPStatus *IPStatusPtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
 	for (Tile_Id = XRFDC_TILE_ID0; Tile_Id < XRFDC_TILE_ID4; Tile_Id++) {
+		IPStatusPtr->ADCTileStatus[Tile_Id].BlockStatusMask = 0x0;
+		IPStatusPtr->DACTileStatus[Tile_Id].BlockStatusMask = 0x0;
 		for (Block_Id = XRFDC_BLK_ID0; Block_Id < XRFDC_BLK_ID4; Block_Id++) {
 			if (XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id,
 								Block_Id) != 0U) {
@@ -1651,6 +1653,15 @@ u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
 			Index = XRFDC_BLK_ID2;
 			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
 		}
+		if ((Event == XRFDC_EVENT_QMC) && (InstancePtr->ADC_Tile[Tile_Id].
+				ADCBlock_Digital_Datapath[Index].DataType ==
+				XRFDC_DATA_TYPE_IQ)) {
+			Index = Block_Id;
+			NoOfBlocks = XRFDC_NUM_OF_BLKS3;
+			if (Block_Id == XRFDC_BLK_ID1) {
+				NoOfBlocks = XRFDC_NUM_OF_BLKS4;
+			}
+		}
 	} else {
 		NoOfBlocks = Block_Id + 1U;
 	}
@@ -1663,7 +1674,7 @@ u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
 		goto RETURN_PATH;
 	}
 
-	for (; Index < NoOfBlocks; Index++) {
+	for (; Index < NoOfBlocks;) {
 		/* Identify the Event Source */
 		BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Index);
 		if (Event == XRFDC_EVENT_MIXER) {
@@ -1675,7 +1686,8 @@ u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
 			Status = XRFdc_CheckBlockEnabled(InstancePtr, Type,
 						Tile_Id, Block_Id);
 			EventSource = XRFdc_RDReg(InstancePtr, BaseAddr,
-				XRFDC_DAC_CRSE_DLY_UPDT_OFFSET, XRFDC_QMC_UPDT_MODE_MASK);
+					(Type == XRFDC_ADC_TILE) ? XRFDC_ADC_CRSE_DLY_UPDT_OFFSET :
+					XRFDC_DAC_CRSE_DLY_UPDT_OFFSET, XRFDC_QMC_UPDT_MODE_MASK);
 		} else {
 			Status = XRFdc_CheckBlockEnabled(InstancePtr, Type,
 						Tile_Id, Block_Id);
@@ -1717,6 +1729,14 @@ u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
 				XRFdc_WriteReg16(InstancePtr, BaseAddr,
 					XRFDC_HSCOM_UPDT_DYN_OFFSET, 0x1);
 			}
+		}
+		if ((Event == XRFDC_EVENT_QMC) && (InstancePtr->ADC_Tile[Tile_Id].
+				ADCBlock_Digital_Datapath[Index].DataType ==
+				XRFDC_DATA_TYPE_IQ) && (InstancePtr->ADC4GSPS ==
+				XRFDC_ADC_4GSPS) && (Type == XRFDC_ADC_TILE)) {
+			Index += XRFDC_BLK_ID2;
+		} else {
+			Index += XRFDC_BLK_ID1;
 		}
 	}
 
@@ -5223,6 +5243,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	if (Source == XRFDC_INTERNAL_PLL_CLK) {
+		PLLEnable = 0x1;
 		/*
 		 * Configure the PLL
 		 */

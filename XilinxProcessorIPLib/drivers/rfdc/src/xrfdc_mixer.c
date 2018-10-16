@@ -196,7 +196,8 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 					ADCBlock_Digital_Datapath[Index].
 					DataType = XRFDC_DATA_TYPE_IQ;
 			}
-			if (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2C) {
+			if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2C) ||
+					(MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2R)) {
 				InstancePtr->ADC_Tile[Tile_Id].
 					ADCBlock_Digital_Datapath[Index].
 					DataType = XRFDC_DATA_TYPE_REAL;
@@ -392,7 +393,7 @@ static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type,
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
-	if (MixerSettingsPtr->MixerMode > XRFDC_MIXER_MODE_R2C) {
+	if (MixerSettingsPtr->MixerMode > XRFDC_MIXER_MODE_R2R) {
 		metal_log(METAL_LOG_ERROR, "\n Invalid fine mixer mode "
 						"in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
@@ -455,6 +456,21 @@ static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type,
 	}
 	if ((MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_COARSE) &&
 			(MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_OFF)) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Invalid Combination of "
+				"Mixer type and Mixer mode in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+	if ((MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_FINE) &&
+			(MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2R)) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Invalid Combination of "
+				"Mixer type and Mixer mode in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+	if ((MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_COARSE) &&
+			(MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2R) &&
+			(MixerSettingsPtr->CoarseMixFreq != XRFDC_COARSE_MIX_BYPASS)) {
 		Status = XRFDC_FAILURE;
 		metal_log(METAL_LOG_ERROR, "\n Invalid Combination of "
 				"Mixer type and Mixer mode in %s\r\n", __func__);
@@ -811,7 +827,10 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		} else if (ReadReg_Mix1 == XRFDC_CRSE_MIX_OFF) {
 			MixerSettingsPtr->CoarseMixFreq =
 				XRFDC_COARSE_MIX_BYPASS;
-			CoarseMixerMode = XRFDC_MIXER_MODE_R2C;
+			CoarseMixerMode = XRFDC_MIXER_MODE_R2R;
+			if (MixerConfigPtr->MixerMode == XRFDC_MIXER_MODE_R2C) {
+				CoarseMixerMode = XRFDC_MIXER_MODE_R2C;
+			}
 		}
 	}
 	if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
