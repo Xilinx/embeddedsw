@@ -185,6 +185,8 @@
 *       sk     10/13/18 Add support to read the REFCLKDIV param from design.
 *                       Update XRFdc_SetPLLConfig() API to support range of
 *                       REF_CLK_DIV values(1 to 4).
+*                       Add XRFDC_MIXER_MODE_R2R option to support BYPASS mode
+*                       for Real input.
 *
 * </pre>
 *
@@ -619,6 +621,7 @@ typedef struct {
 #define XRFDC_MIXER_MODE_C2C				0x1U
 #define XRFDC_MIXER_MODE_C2R				0x2U
 #define XRFDC_MIXER_MODE_R2C				0x3U
+#define XRFDC_MIXER_MODE_R2R				0x4U
 
 #define XRFDC_I_IQ_COS_MINSIN	0x00000C00U
 #define XRFDC_Q_IQ_SIN_COS		0x00001000U
