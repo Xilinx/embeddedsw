@@ -13,8 +13,8 @@
 
 #define PINMUX_FN(name, fn, sel, do)	\
 	{ \
-		.select = sel, \
-		.fid = fn, \
+		.select = (sel), \
+		.fid = (fn), \
 		PIN_##do \
 	}
 
@@ -23,7 +23,7 @@
 		.slavesCnt = 0U
 
 #define PIN_BIND(c)	\
-		.slaves = c, \
+		.slaves = (c), \
 		.slavesCnt = ARRAY_SIZE(c)
 
 #define PINMUX(id)	\
@@ -31,7 +31,7 @@
 
 #define PINMUX_REF(pinmux)	\
 	{	\
-		.pinMux = pinmux,	\
+		.pinMux = (pinmux),	\
 		.pinMuxSize = ARRAY_SIZE(pinmux),	\
 	}
 
@@ -55,15 +55,15 @@
 
 #define PM_PIN_PARAM_GET_ADDR(pinId, regOffset)	\
 	(IOU_SLCR_BANK0_CTRL0 + \
-	PM_IOU_SLCR_BANK_OFFSET * (pinId / PM_PIN_PARAM_PER_REG) + regOffset)
+	 (PM_IOU_SLCR_BANK_OFFSET * ((pinId) / PM_PIN_PARAM_PER_REG)) + (regOffset))
 
 #define IOU_SLCR_BANK1_CTRL5	(IOU_SLCR_BASE + 164U)
 
 #define FIX_BANK1_CTRL5(shift)	\
-	shift = ((shift < 12U) ? (shift + 14U) : (shift - 12U))
+	(shift) = (((shift) < 12U) ? ((shift) + 14U) : ((shift) - 12U))
 
 #define SWAP_BITS_BANK1_CTRL5(val)	\
-	val = ((val & 0x3FFFU) << 12U) | ((val >> 14U) & 0xFFFU)
+	(val) = (((val) & 0x3FFFU) << 12U) | (((val) >> 14U) & 0xFFFU)
 
 /**
  * PmPinMuxFn - PIN mux function model
@@ -130,7 +130,7 @@ static const PmSlave* pmGemTsuSlaves[] = { &pmSlaveEth0_g,
 					   &pmSlaveEth2_g,
 					   &pmSlaveEth3_g };
 
-PmPinMuxFn PmPinMuxFunArr[] = {
+static PmPinMuxFn PmPinMuxFunArr[] = {
 	PINMUX_FN(Can0,		FID(CAN0),	0x20U,	BIND(pmCan0Slaves)),
 	PINMUX_FN(Can1,		FID(CAN1),	0x20U,	BIND(pmCan1Slaves)),
 	PINMUX_FN(Eth0,		FID(ETHERNET0),	0x02U,	BIND(pmEth0Slaves)),
@@ -777,7 +777,7 @@ static PmMioPin pmPinMuxCtrl[] = {
 	DEFINE_PIN(74), DEFINE_PIN(75), DEFINE_PIN(76), DEFINE_PIN(77),
 };
 
-static PmPinParam pmPinParams[] = {
+static PmPinParam pmPinParams[PINCTRL_MAX_CONFIG] = {
 	[PINCTRL_CONFIG_SLEW_RATE] = {
 		.offset = 0x14U,
 		.flags = 0U,
@@ -1063,7 +1063,7 @@ s32 PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 	}
 
 	if (0U == (PM_PIN_PARAM_2_BITS & pmPinParams[paramId].flags)) {
-		XPfw_RMW32(addr, 1U << shift, value << shift);
+		XPfw_RMW32(addr, (u32)1 << shift, (u32)value << shift);
 		/* When setting pull up/down we need to enable pull as well */
 		if (paramId == PINCTRL_CONFIG_PULL_CTRL) {
 			addr = PM_PIN_PARAM_GET_ADDR(pinId,
@@ -1072,12 +1072,12 @@ s32 PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 			if (addr == IOU_SLCR_BANK1_CTRL5) {
 				FIX_BANK1_CTRL5(shift);
 			}
-			XPfw_RMW32(addr, 1U << shift, value << shift);
+			XPfw_RMW32(addr, (u32)1 << shift, (u32)value << shift);
 		}
 	} else {
 		/* Write value[0] at address + 4 and value[1] at address */
-		XPfw_RMW32(addr + 4U, 1U << shift, (value & 0x1U) << shift);
-		XPfw_RMW32(addr, 1U << shift, ((value & 0x2U) >> 1U) << shift);
+		XPfw_RMW32(addr + 4U, (u32)1 << shift, (value & 0x1U) << shift);
+		XPfw_RMW32(addr, (u32)1 << shift, ((value & 0x2U) >> 1U) << shift);
 	}
 
 done:
