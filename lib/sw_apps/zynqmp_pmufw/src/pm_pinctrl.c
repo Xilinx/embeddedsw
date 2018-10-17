@@ -908,7 +908,6 @@ int PmPinCtrlSetFunctionInt(const PmMaster* const master, const u32 pinId,
 		XPfw_Write32(IOU_SLCR_BASE + 4U * pinId, val);
 	}
 
-done:
 	return status;
 }
 
@@ -985,7 +984,7 @@ done:
 int PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 {
 	int status = XST_INVALID_PARAM;
-	u32 addr, val, shift;
+	u32 addr, shift;
 
 	if (0U != (PM_PIN_PARAM_RO & pmPinParams[paramId].flags)) {
 		goto done;
