@@ -14,14 +14,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  */
 
 #include "pm_common.h"
@@ -748,7 +746,7 @@ static PmPinParam pmPinParams[] = {
  * @ipiMask	IPI mask of the master
  * @pinId	ID of the pin in question
  *
- * @return	XST_SUCCESS if succesfully requested
+ * @return	XST_SUCCESS if successfully requested
  *		XST_INVALID_PARAM if pinId argument is not valid
  *		XST_PM_NO_ACCESS if PIN control is already requested by another
  *		master
@@ -781,7 +779,7 @@ done:
  * @ipiMask	IPI mask of the master
  * @pinId	ID of the pin in question
  *
- * @return	XST_SUCCESS if succesfully released
+ * @return	XST_SUCCESS if successfully released
  *		XST_INVALID_PARAM if pinId argument is not valid
  *		XST_FAILURE if PIN control has not been previously requested
  */
@@ -930,7 +928,8 @@ s32 PmPinCtrlGetParam(const u32 pinId, const u32 paramId, u32* const value)
 	s32 status = XST_SUCCESS;
 	u32 addr, val, shift;
 
-	if (paramId >= ARRAY_SIZE(pmPinParams)) {
+	if ((paramId >= ARRAY_SIZE(pmPinParams)) ||
+	    (pinId >= ARRAY_SIZE(pmPinMuxCtrl))) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
