@@ -1698,7 +1698,6 @@ void PmPinCtrlRequest(PmMaster* const master, const u32 pinId)
 
 	status = PmPinCtrlRequestInt(master->ipiMask, pinId);
 
-done:
 	IPI_RESPONSE1(master->ipiMask, status);
 }
 
@@ -1715,7 +1714,6 @@ void PmPinCtrlRelease(PmMaster* const master, const u32 pinId)
 
 	status = PmPinCtrlReleaseInt(master->ipiMask, pinId);
 
-done:
 	IPI_RESPONSE1(master->ipiMask, status);
 }
 
@@ -1733,7 +1731,6 @@ void PmPinCtrlGetFunction(PmMaster* const master, const u32 pinId)
 
 	status = PmPinCtrlGetFunctionInt(pinId, &fnId);
 
-done:
 	IPI_RESPONSE2(master->ipiMask, status, fnId);
 }
 
@@ -1775,7 +1772,6 @@ void PmPinCtrlConfigParamGet(PmMaster* const master, const u32 pinId,
 		paramId);
 	status = PmPinCtrlGetParam(pinId, paramId, &value);
 
-done:
 	IPI_RESPONSE2(master->ipiMask, status, value);
 }
 
@@ -1790,7 +1786,6 @@ void PmPinCtrlConfigParamSet(PmMaster* const master, const u32 pinId,
 			     const u32 paramId, const u32 val)
 {
 	int status;
-	u32 value;
 
 	PmInfo("%s> PmPinCtrlParamSet(%lu, %lu, %lu)\r\n", master->name, pinId,
 		paramId, val);
