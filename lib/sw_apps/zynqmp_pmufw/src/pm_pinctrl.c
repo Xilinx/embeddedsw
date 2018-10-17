@@ -1,26 +1,8 @@
 /*
- * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 
 #include "pm_common.h"
 #include "pm_slave.h"
@@ -30,7 +12,6 @@
 #include "pm_pinctrl.h"
 
 #define PINMUX_FN(name, fn, sel, do)	\
-static const PmPinMuxFn pinMux##name = \
 	{ \
 		.select = sel, \
 		.fid = fn, \
@@ -46,7 +27,7 @@ static const PmPinMuxFn pinMux##name = \
 		.slavesCnt = ARRAY_SIZE(c)
 
 #define PINMUX(id)	\
-	static const PmPinMuxFn* const pmPinMux##id[]
+	static u8 pinMux##id[]
 
 #define PINMUX_REF(pinmux)	\
 	{	\
@@ -54,13 +35,14 @@ static const PmPinMuxFn pinMux##name = \
 		.pinMuxSize = ARRAY_SIZE(pinmux),	\
 	}
 
-#define FN(name)	&pinMux##name
+#define FID(name)	PINCTRL_FUNC_##name
 
 #define DEFINE_PIN(id)	\
 	{	\
-		.pinMux = pmPinMux##id,	\
+		.pinMuxArr = pinMux##id,	\
 		.owner = 0U,	\
 	}
+
 
 #define PM_PIN_PARAM_RO		(1U << 0U)
 #define PM_PIN_PARAM_2_BITS	(1U << 1U)
@@ -99,11 +81,11 @@ typedef struct PmPinMuxFn {
 
 /**
  * PmMioPin - MIO PIN model
- * @pinMux	Pointer to the array of mux function pointers
+ * @pinMuxArr	Array of mux function ids
  * @owner	IPI mask of the master which requested PIN control
  */
 typedef struct PmMioPin {
-	const PmPinMuxFn* const* const pinMux;
+	u8* pinMuxArr;
 	u32 owner;
 } PmMioPin;
 
@@ -148,63 +130,65 @@ static const PmSlave* pmGemTsuSlaves[] = { &pmSlaveEth0_g,
 					   &pmSlaveEth2_g,
 					   &pmSlaveEth3_g };
 
-PINMUX_FN(Can0,		PINCTRL_FUNC_CAN0,	0x20U,	BIND(pmCan0Slaves));
-PINMUX_FN(Can1,		PINCTRL_FUNC_CAN1,	0x20U,	BIND(pmCan1Slaves));
-PINMUX_FN(Eth0,		PINCTRL_FUNC_ETHERNET0,	0x02U,	BIND(pmEth0Slaves));
-PINMUX_FN(Eth1,		PINCTRL_FUNC_ETHERNET1,	0x02U,	BIND(pmEth1Slaves));
-PINMUX_FN(Eth2,		PINCTRL_FUNC_ETHERNET2,	0x02U,	BIND(pmEth2Slaves));
-PINMUX_FN(Eth3,		PINCTRL_FUNC_ETHERNET3,	0x02U,	BIND(pmEth3Slaves));
-PINMUX_FN(GemTsu,	PINCTRL_FUNC_GEMTSU0,	0x02U,	BIND(pmGemTsuSlaves));
-PINMUX_FN(Gpio,		PINCTRL_FUNC_GPIO0,	0x00U,	BIND(pmGpioSlaves));
-PINMUX_FN(I2C0,		PINCTRL_FUNC_I2C0,	0x40U,	BIND(pmI2C0Slaves));
-PINMUX_FN(I2C1,		PINCTRL_FUNC_I2C1,	0x40U,	BIND(pmI2C1Slaves));
-PINMUX_FN(Mdio0,	PINCTRL_FUNC_MDIO0,	0x60U,	BIND(pmEth0Slaves));
-PINMUX_FN(Mdio1,	PINCTRL_FUNC_MDIO1,	0x80U,	BIND(pmEth1Slaves));
-PINMUX_FN(Mdio2,	PINCTRL_FUNC_MDIO2,	0xA0U,	BIND(pmEth2Slaves));
-PINMUX_FN(Mdio3,	PINCTRL_FUNC_MDIO3,	0xC0U,	BIND(pmEth3Slaves));
-PINMUX_FN(QSpi,		PINCTRL_FUNC_QSPI0,	0x02U,	BIND(pmQSpiSlaves));
-PINMUX_FN(QSpiFbClk,	PINCTRL_FUNC_QSPI_FBCLK,0x02U,	BIND(pmQSpiSlaves));
-PINMUX_FN(QSpiSS,	PINCTRL_FUNC_QSPI_SS,	0x02U,	BIND(pmQSpiSlaves));
-PINMUX_FN(Spi0,		PINCTRL_FUNC_SPI0,	0x80U,	BIND(pmSpi0Slaves));
-PINMUX_FN(Spi1,		PINCTRL_FUNC_SPI1,	0x80U,	BIND(pmSpi1Slaves));
-PINMUX_FN(Spi0SS,	PINCTRL_FUNC_SPI0_SS,	0x80U,	BIND(pmSpi0Slaves));
-PINMUX_FN(Spi1SS,	PINCTRL_FUNC_SPI1_SS,	0x80U,	BIND(pmSpi1Slaves));
-PINMUX_FN(Sdio0,	PINCTRL_FUNC_SDIO0,	0x08U,	BIND(pmSD0Slaves));
-PINMUX_FN(Sdio0Pc,	PINCTRL_FUNC_SDIO0_PC,	0x08U,	BIND(pmSD0Slaves));
-PINMUX_FN(Sdio0Cd,	PINCTRL_FUNC_SDIO0_CD,	0x08U,	BIND(pmSD0Slaves));
-PINMUX_FN(Sdio0Wp,	PINCTRL_FUNC_SDIO0_WP,	0x08U,	BIND(pmSD0Slaves));
-PINMUX_FN(Sdio1,	PINCTRL_FUNC_SDIO1,	0x10U,	BIND(pmSD1Slaves));
-PINMUX_FN(Sdio1Pc,	PINCTRL_FUNC_SDIO1_PC,	0x10U,	BIND(pmSD1Slaves));
-PINMUX_FN(Sdio1Cd,	PINCTRL_FUNC_SDIO1_CD,	0x10U,	BIND(pmSD1Slaves));
-PINMUX_FN(Sdio1Wp,	PINCTRL_FUNC_SDIO1_WP,	0x10U,	BIND(pmSD1Slaves));
-PINMUX_FN(Nand,		PINCTRL_FUNC_NAND0,	0x04U,	BIND(pmNandSlaves));
-PINMUX_FN(NandCe,	PINCTRL_FUNC_NAND0_CE,	0x04U,	BIND(pmNandSlaves));
-PINMUX_FN(NandRb,	PINCTRL_FUNC_NAND0_RB,	0x04U,	BIND(pmNandSlaves));
-PINMUX_FN(NandDqs,	PINCTRL_FUNC_NAND0_DQS,	0x04U,	BIND(pmNandSlaves));
-PINMUX_FN(Ttc0Clk,	PINCTRL_FUNC_TTC0_CLK,	0xA0U,	BIND(pmTtc0Slaves));
-PINMUX_FN(Ttc0Wav,	PINCTRL_FUNC_TTC0_WAV,	0xA0U,	BIND(pmTtc0Slaves));
-PINMUX_FN(Ttc1Clk,	PINCTRL_FUNC_TTC1_CLK,	0xA0U,	BIND(pmTtc1Slaves));
-PINMUX_FN(Ttc1Wav,	PINCTRL_FUNC_TTC1_WAV,	0xA0U,	BIND(pmTtc1Slaves));
-PINMUX_FN(Ttc2Clk,	PINCTRL_FUNC_TTC2_CLK,	0xA0U,	BIND(pmTtc2Slaves));
-PINMUX_FN(Ttc2Wav,	PINCTRL_FUNC_TTC2_WAV,	0xA0U,	BIND(pmTtc2Slaves));
-PINMUX_FN(Ttc3Clk,	PINCTRL_FUNC_TTC3_CLK,	0xA0U,	BIND(pmTtc3Slaves));
-PINMUX_FN(Ttc3Wav,	PINCTRL_FUNC_TTC3_WAV,	0xA0U,	BIND(pmTtc3Slaves));
-PINMUX_FN(Uart0,	PINCTRL_FUNC_UART0,	0xC0U,	BIND(pmUart0Slaves));
-PINMUX_FN(Uart1,	PINCTRL_FUNC_UART1,	0xC0U,	BIND(pmUart1Slaves));
-PINMUX_FN(Usb0,		PINCTRL_FUNC_USB0,	0x04U,	BIND(pmUsb0Slaves));
-PINMUX_FN(Usb1,		PINCTRL_FUNC_USB1,	0x04U,	BIND(pmUsb1Slaves));
-PINMUX_FN(Swdt0Clk,	PINCTRL_FUNC_SWDT0_CLK,	0x60U,	NULL);
-PINMUX_FN(Swdt0Rst,	PINCTRL_FUNC_SWDT0_RST,	0x60U,	NULL);
-PINMUX_FN(Swdt1Clk,	PINCTRL_FUNC_SWDT1_CLK,	0x60U,	BIND(pmSwdt1Slaves));
-PINMUX_FN(Swdt1Rst,	PINCTRL_FUNC_SWDT1_RST,	0x60U,	BIND(pmSwdt1Slaves));
-PINMUX_FN(Pmu,		PINCTRL_FUNC_PMU0,	0x08U,	NULL);
-PINMUX_FN(Pcie,		PINCTRL_FUNC_PCIE0,	0x04U,	BIND(pmPcieSlaves));
-PINMUX_FN(Csu,		PINCTRL_FUNC_CSU0,	0x18U,	NULL);
-PINMUX_FN(Dp,		PINCTRL_FUNC_DPAUX0,	0x18U,	BIND(pmDPSlaves));
-PINMUX_FN(PJtag,	PINCTRL_FUNC_PJTAG0,	0x60U,	NULL);
-PINMUX_FN(Trace,	PINCTRL_FUNC_TRACE0,	0xE0U,	NULL);
-PINMUX_FN(TraceClk,	PINCTRL_FUNC_TRACE0_CLK,0xE0U,	NULL);
-PINMUX_FN(TestScan,	PINCTRL_FUNC_TESTSCAN0,	0x10U,	NULL);
+PmPinMuxFn PmPinMuxFunArr[] = {
+	PINMUX_FN(Can0,		FID(CAN0),	0x20U,	BIND(pmCan0Slaves)),
+	PINMUX_FN(Can1,		FID(CAN1),	0x20U,	BIND(pmCan1Slaves)),
+	PINMUX_FN(Eth0,		FID(ETHERNET0),	0x02U,	BIND(pmEth0Slaves)),
+	PINMUX_FN(Eth1,		FID(ETHERNET1),	0x02U,	BIND(pmEth1Slaves)),
+	PINMUX_FN(Eth2,		FID(ETHERNET2),	0x02U,	BIND(pmEth2Slaves)),
+	PINMUX_FN(Eth3,		FID(ETHERNET3),	0x02U,	BIND(pmEth3Slaves)),
+	PINMUX_FN(GemTsu,	FID(GEMTSU0),	0x02U,	BIND(pmGemTsuSlaves)),
+	PINMUX_FN(Gpio,		FID(GPIO0),	0x00U,	BIND(pmGpioSlaves)),
+	PINMUX_FN(I2C0,		FID(I2C0),	0x40U,	BIND(pmI2C0Slaves)),
+	PINMUX_FN(I2C1,		FID(I2C1),	0x40U,	BIND(pmI2C1Slaves)),
+	PINMUX_FN(Mdio0,	FID(MDIO0),	0x60U,	BIND(pmEth0Slaves)),
+	PINMUX_FN(Mdio1,	FID(MDIO1),	0x80U,	BIND(pmEth1Slaves)),
+	PINMUX_FN(Mdio2,	FID(MDIO2),	0xA0U,	BIND(pmEth2Slaves)),
+	PINMUX_FN(Mdio3,	FID(MDIO3),	0xC0U,	BIND(pmEth3Slaves)),
+	PINMUX_FN(QSpi,		FID(QSPI0),	0x02U,	BIND(pmQSpiSlaves)),
+	PINMUX_FN(QSpiFbClk,	FID(QSPI_FBCLK),0x02U,	BIND(pmQSpiSlaves)),
+	PINMUX_FN(QSpiSS,	FID(QSPI_SS),	0x02U,	BIND(pmQSpiSlaves)),
+	PINMUX_FN(Spi0,		FID(SPI0),	0x80U,	BIND(pmSpi0Slaves)),
+	PINMUX_FN(Spi1,		FID(SPI1),	0x80U,	BIND(pmSpi1Slaves)),
+	PINMUX_FN(Spi0SS,	FID(SPI0_SS),	0x80U,	BIND(pmSpi0Slaves)),
+	PINMUX_FN(Spi1SS,	FID(SPI1_SS),	0x80U,	BIND(pmSpi1Slaves)),
+	PINMUX_FN(Sdio0,	FID(SDIO0),	0x08U,	BIND(pmSD0Slaves)),
+	PINMUX_FN(Sdio0Pc,	FID(SDIO0_PC),	0x08U,	BIND(pmSD0Slaves)),
+	PINMUX_FN(Sdio0Cd,	FID(SDIO0_CD),	0x08U,	BIND(pmSD0Slaves)),
+	PINMUX_FN(Sdio0Wp,	FID(SDIO0_WP),	0x08U,	BIND(pmSD0Slaves)),
+	PINMUX_FN(Sdio1,	FID(SDIO1),	0x10U,	BIND(pmSD1Slaves)),
+	PINMUX_FN(Sdio1Pc,	FID(SDIO1_PC),	0x10U,	BIND(pmSD1Slaves)),
+	PINMUX_FN(Sdio1Cd,	FID(SDIO1_CD),	0x10U,	BIND(pmSD1Slaves)),
+	PINMUX_FN(Sdio1Wp,	FID(SDIO1_WP),	0x10U,	BIND(pmSD1Slaves)),
+	PINMUX_FN(Nand,		FID(NAND0),	0x04U,	BIND(pmNandSlaves)),
+	PINMUX_FN(NandCe,	FID(NAND0_CE),	0x04U,	BIND(pmNandSlaves)),
+	PINMUX_FN(NandRb,	FID(NAND0_RB),	0x04U,	BIND(pmNandSlaves)),
+	PINMUX_FN(NandDqs,	FID(NAND0_DQS),	0x04U,	BIND(pmNandSlaves)),
+	PINMUX_FN(Ttc0Clk,	FID(TTC0_CLK),	0xA0U,	BIND(pmTtc0Slaves)),
+	PINMUX_FN(Ttc0Wav,	FID(TTC0_WAV),	0xA0U,	BIND(pmTtc0Slaves)),
+	PINMUX_FN(Ttc1Clk,	FID(TTC1_CLK),	0xA0U,	BIND(pmTtc1Slaves)),
+	PINMUX_FN(Ttc1Wav,	FID(TTC1_WAV),	0xA0U,	BIND(pmTtc1Slaves)),
+	PINMUX_FN(Ttc2Clk,	FID(TTC2_CLK),	0xA0U,	BIND(pmTtc2Slaves)),
+	PINMUX_FN(Ttc2Wav,	FID(TTC2_WAV),	0xA0U,	BIND(pmTtc2Slaves)),
+	PINMUX_FN(Ttc3Clk,	FID(TTC3_CLK),	0xA0U,	BIND(pmTtc3Slaves)),
+	PINMUX_FN(Ttc3Wav,	FID(TTC3_WAV),	0xA0U,	BIND(pmTtc3Slaves)),
+	PINMUX_FN(Uart0,	FID(UART0),	0xC0U,	BIND(pmUart0Slaves)),
+	PINMUX_FN(Uart1,	FID(UART1),	0xC0U,	BIND(pmUart1Slaves)),
+	PINMUX_FN(Usb0,		FID(USB0),	0x04U,	BIND(pmUsb0Slaves)),
+	PINMUX_FN(Usb1,		FID(USB1),	0x04U,	BIND(pmUsb1Slaves)),
+	PINMUX_FN(Swdt0Clk,	FID(SWDT0_CLK),	0x60U,	NULL),
+	PINMUX_FN(Swdt0Rst,	FID(SWDT0_RST),	0x60U,	NULL),
+	PINMUX_FN(Swdt1Clk,	FID(SWDT1_CLK),	0x60U,	BIND(pmSwdt1Slaves)),
+	PINMUX_FN(Swdt1Rst,	FID(SWDT1_RST),	0x60U,	BIND(pmSwdt1Slaves)),
+	PINMUX_FN(Pmu,		FID(PMU0),	0x08U,	NULL),
+	PINMUX_FN(Pcie,		FID(PCIE0),	0x04U,	BIND(pmPcieSlaves)),
+	PINMUX_FN(Csu,		FID(CSU0),	0x18U,	NULL),
+	PINMUX_FN(Dp,		FID(DPAUX0),	0x18U,	BIND(pmDPSlaves)),
+	PINMUX_FN(PJtag,	FID(PJTAG0),	0x60U,	NULL),
+	PINMUX_FN(Trace,	FID(TRACE0),	0xE0U,	NULL),
+	PINMUX_FN(TraceClk,	FID(TRACE0_CLK),0xE0U,	NULL),
+	PINMUX_FN(TestScan,	FID(TESTSCAN0),	0x10U,	NULL),
+};
 
 /*
  * Mux select data is defined as follows:
@@ -213,479 +197,558 @@ PINMUX_FN(TestScan,	PINCTRL_FUNC_TESTSCAN0,	0x10U,	NULL);
  *	L1_SEL[0],	L1_SEL[1],
  *	L2_SEL[0],	L2_SEL[1],	L2_SEL[2],	L2_SEL[3],
  *	L3_SEL[0],	L3_SEL[1],	L3_SEL[2],	L3_SEL[3],
- *	L3_SEL[4],	L3_SEL[5],	L3_SEL[6],	L3_SEL[7],	NULL
+ *	L3_SEL[4],	L3_SEL[5],	L3_SEL[6],	L3_SEL[7],
+ *	MAX_FUNCTION
  *
  * Note: L0_SEL[0], L1_SEL[0], and L2_SEL[0] are always reserved. If an element
  * in a pattern (matrix) above is missing an empty place is preserved to be able
  * to easily compare definitions with spec.
  */
-PINMUX(0) = {		FN(QSpi),
+PINMUX(0) = {		FID(QSPI0),
 
-					FN(TestScan),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(PJtag),
-	FN(Spi0),	FN(Ttc3Clk),	FN(Uart1),	FN(TraceClk),	NULL
+					FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(PJTAG0),
+	FID(SPI0),	FID(TTC3_CLK),	FID(UART1),	FID(TRACE0_CLK),
+	MAX_FUNCTION
 };
-PINMUX(1) = {		FN(QSpi),
+PINMUX(1) = {		FID(QSPI0),
 
-					FN(TestScan),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(PJtag),
-	FN(Spi0SS),	FN(Ttc3Wav),	FN(Uart1),	FN(TraceClk),	NULL
+					FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(PJTAG0),
+	FID(SPI0_SS),	FID(TTC3_WAV),	FID(UART1),	FID(TRACE0_CLK),
+	MAX_FUNCTION
 };
-PINMUX(2) = {		FN(QSpi),
+PINMUX(2) = {		FID(QSPI0),
 
-					FN(TestScan),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(PJtag),
-	FN(Spi0SS),	FN(Ttc2Clk),	FN(Uart0),	FN(Trace),	NULL
+					FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(PJTAG0),
+	FID(SPI0_SS),	FID(TTC2_CLK),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(3) = {		FN(QSpi),
+PINMUX(3) = {		FID(QSPI0),
 
-					FN(TestScan),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(PJtag),
-	FN(Spi0SS),	FN(Ttc2Wav),	FN(Uart0),	FN(Trace),	NULL
+					FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(PJTAG0),
+	FID(SPI0_SS),	FID(TTC2_WAV),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(4) = {		FN(QSpi),
+PINMUX(4) = {		FID(QSPI0),
 
-					FN(TestScan),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Clk),
-	FN(Spi0),	FN(Ttc1Clk),	FN(Uart1),	FN(Trace),	NULL
+					FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_CLK),
+	FID(SPI0),	FID(TTC1_CLK),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(5) = {		FN(QSpiSS),
+PINMUX(5) = {		FID(QSPI_SS),
 
-					FN(TestScan),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Rst),
-	FN(Spi0),	FN(Ttc1Wav),	FN(Uart1),	FN(Trace),	NULL
+					FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_RST),
+	FID(SPI0),	FID(TTC1_WAV),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(6) = {		FN(QSpiFbClk),
+PINMUX(6) = {		FID(QSPI_FBCLK),
 
-					FN(TestScan),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Clk),
-	FN(Spi1),	FN(Ttc0Clk),	FN(Uart0),	FN(Trace),	NULL
+					FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_CLK),
+	FID(SPI1),	FID(TTC0_CLK),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(7) = {		FN(QSpiSS),
+PINMUX(7) = {		FID(QSPI_SS),
 
-					FN(TestScan),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Rst),
-	FN(Spi1SS),	FN(Ttc0Wav),	FN(Uart0),	FN(Trace),	NULL
+					FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_RST),
+	FID(SPI1_SS),	FID(TTC0_WAV),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(8) = {		FN(QSpi),
+PINMUX(8) = {		FID(QSPI0),
 
-					FN(TestScan),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Clk),
-	FN(Spi1SS),	FN(Ttc3Clk),	FN(Uart1),	FN(Trace),	NULL
+					FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_CLK),
+	FID(SPI1_SS),	FID(TTC3_CLK),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(9) = {		FN(QSpi),
-			FN(NandCe),
-					FN(TestScan),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Rst),
-	FN(Spi1SS),	FN(Ttc3Wav),	FN(Uart1),	FN(Trace),	NULL
+PINMUX(9) = {		FID(QSPI0),
+			FID(NAND0_CE),
+					FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_RST),
+	FID(SPI1_SS),	FID(TTC3_WAV),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(10) = {		FN(QSpi),
-			FN(NandRb),
-					FN(TestScan),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Clk),
-	FN(Spi1),	FN(Ttc2Clk),	FN(Uart0),	FN(Trace),	NULL
+PINMUX(10) = {		FID(QSPI0),
+			FID(NAND0_RB),
+					FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_CLK),
+	FID(SPI1),	FID(TTC2_CLK),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(11) = {		FN(QSpi),
-			FN(NandRb),
-					FN(TestScan),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Rst),
-	FN(Spi1),	FN(Ttc2Wav),	FN(Uart0),	FN(Trace),	NULL
+PINMUX(11) = {		FID(QSPI0),
+			FID(NAND0_RB),
+					FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_RST),
+	FID(SPI1),	FID(TTC2_WAV),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(12) = {		FN(QSpi),
-			FN(NandDqs),
-					FN(TestScan),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(PJtag),
-	FN(Spi0),	FN(Ttc1Clk),	FN(Uart1),	FN(Trace),	NULL
+PINMUX(12) = {		FID(QSPI0),
+			FID(NAND0_DQS),
+					FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(PJTAG0),
+	FID(SPI0),	FID(TTC1_CLK),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
 PINMUX(13) = {
-			FN(Nand),
-			FN(Sdio0),	FN(TestScan),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(PJtag),
-	FN(Spi0SS),	FN(Ttc1Wav),	FN(Uart1),	FN(Trace),	NULL
+			FID(NAND0),
+			FID(SDIO0),	FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(PJTAG0),
+	FID(SPI0_SS),	FID(TTC1_WAV),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
 PINMUX(14) = {
-			FN(Nand),
-			FN(Sdio0),	FN(TestScan),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(PJtag),
-	FN(Spi0SS),	FN(Ttc0Clk),	FN(Uart0),	FN(Trace),	NULL
+			FID(NAND0),
+			FID(SDIO0),	FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(PJTAG0),
+	FID(SPI0_SS),	FID(TTC0_CLK),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
 PINMUX(15) = {
-			FN(Nand),
-			FN(Sdio0),	FN(TestScan),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(PJtag),
-	FN(Spi0SS),	FN(Ttc0Wav),	FN(Uart0),	FN(Trace),	NULL
+			FID(NAND0),
+			FID(SDIO0),	FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(PJTAG0),
+	FID(SPI0_SS),	FID(TTC0_WAV),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
 PINMUX(16) = {
-			FN(Nand),
-			FN(Sdio0),	FN(TestScan),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Clk),
-	FN(Spi0),	FN(Ttc3Clk),	FN(Uart1),	FN(Trace),	NULL
+			FID(NAND0),
+			FID(SDIO0),	FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_CLK),
+	FID(SPI0),	FID(TTC3_CLK),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
 PINMUX(17) = {
-			FN(Nand),
-			FN(Sdio0),	FN(TestScan),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Rst),
-	FN(Spi0),	FN(Ttc3Wav),	FN(Uart1),	FN(Trace),	NULL
+			FID(NAND0),
+			FID(SDIO0),	FID(TESTSCAN0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_RST),
+	FID(SPI0),	FID(TTC3_WAV),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
 PINMUX(18) = {
-			FN(Nand),
-			FN(Sdio0),	FN(TestScan),	FN(Csu),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Clk),
-	FN(Spi1),	FN(Ttc2Clk),	FN(Uart0),			NULL
+			FID(NAND0),
+			FID(SDIO0),	FID(TESTSCAN0),	FID(CSU0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_CLK),
+	FID(SPI1),	FID(TTC2_CLK),	FID(UART0),
+	MAX_FUNCTION
 };
 PINMUX(19) = {
-			FN(Nand),
-			FN(Sdio0),	FN(TestScan),	FN(Csu),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Rst),
-	FN(Spi1SS),	FN(Ttc2Wav),	FN(Uart0),			NULL
+			FID(NAND0),
+			FID(SDIO0),	FID(TESTSCAN0),	FID(CSU0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_RST),
+	FID(SPI1_SS),	FID(TTC2_WAV),	FID(UART0),
+	MAX_FUNCTION
 };
 PINMUX(20) = {
-			FN(Nand),
-			FN(Sdio0),	FN(TestScan),	FN(Csu),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Clk),
-	FN(Spi1SS),	FN(Ttc1Clk),	FN(Uart1),			NULL
+			FID(NAND0),
+			FID(SDIO0),	FID(TESTSCAN0),	FID(CSU0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_CLK),
+	FID(SPI1_SS),	FID(TTC1_CLK),	FID(UART1),
+	MAX_FUNCTION
 };
 PINMUX(21) = {
-			FN(Nand),
-			FN(Sdio0),	FN(TestScan),	FN(Csu),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Rst),
-	FN(Spi1SS),	FN(Ttc1Wav),	FN(Uart1),			NULL
+			FID(NAND0),
+			FID(SDIO0),	FID(TESTSCAN0),	FID(CSU0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_RST),
+	FID(SPI1_SS),	FID(TTC1_WAV),	FID(UART1),
+	MAX_FUNCTION
 };
 PINMUX(22) = {
-			FN(Nand),
-			FN(Sdio0),	FN(TestScan),	FN(Csu),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Clk),
-	FN(Spi1),	FN(Ttc0Clk),	FN(Uart0),			NULL
+			FID(NAND0),
+			FID(SDIO0),	FID(TESTSCAN0),	FID(CSU0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_CLK),
+	FID(SPI1),	FID(TTC0_CLK),	FID(UART0),
+	MAX_FUNCTION
 };
 PINMUX(23) = {
-			FN(Nand),
-			FN(Sdio0Pc),	FN(TestScan),	FN(Csu),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Rst),
-	FN(Spi1),	FN(Ttc0Wav),	FN(Uart0),			NULL
+			FID(NAND0),
+			FID(SDIO0_PC),	FID(TESTSCAN0),	FID(CSU0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_RST),
+	FID(SPI1),	FID(TTC0_WAV),	FID(UART0),
+	MAX_FUNCTION
 };
 PINMUX(24) = {
-			FN(Nand),
-			FN(Sdio0Cd),	FN(TestScan),	FN(Csu),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Clk),
-			FN(Ttc3Clk),	FN(Uart1),			NULL
+			FID(NAND0),
+			FID(SDIO0_CD),	FID(TESTSCAN0),	FID(CSU0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_CLK),
+			FID(TTC3_CLK),	FID(UART1),
+	MAX_FUNCTION
 };
 PINMUX(25) = {
-			FN(Nand),
-			FN(Sdio0Wp),	FN(TestScan),	FN(Csu),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Rst),
-			FN(Ttc3Wav),	FN(Uart1),			NULL
+			FID(NAND0),
+			FID(SDIO0_WP),	FID(TESTSCAN0),	FID(CSU0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_RST),
+			FID(TTC3_WAV),	FID(UART1),
+	MAX_FUNCTION
 };
-PINMUX(26) = {		FN(Eth0),
-			FN(NandCe),
-			FN(Pmu),	FN(TestScan),	FN(Csu),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(PJtag),
-	FN(Spi0),	FN(Ttc2Clk),	FN(Uart0),	FN(Trace),	NULL
+PINMUX(26) = {		FID(ETHERNET0),
+			FID(NAND0_CE),
+			FID(PMU0),	FID(TESTSCAN0),	FID(CSU0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(PJTAG0),
+	FID(SPI0),	FID(TTC2_CLK),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(27) = {		FN(Eth0),
-			FN(NandRb),
-			FN(Pmu),	FN(TestScan),	FN(Dp),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(PJtag),
-	FN(Spi0SS),	FN(Ttc2Wav),	FN(Uart0),	FN(Trace),	NULL
+PINMUX(27) = {		FID(ETHERNET0),
+			FID(NAND0_RB),
+			FID(PMU0),	FID(TESTSCAN0),	FID(DPAUX0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(PJTAG0),
+	FID(SPI0_SS),	FID(TTC2_WAV),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(28) = {		FN(Eth0),
-			FN(NandRb),
-			FN(Pmu),	FN(TestScan),	FN(Dp),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(PJtag),
-	FN(Spi0SS),	FN(Ttc1Clk),	FN(Uart1),	FN(Trace),	NULL
+PINMUX(28) = {		FID(ETHERNET0),
+			FID(NAND0_RB),
+			FID(PMU0),	FID(TESTSCAN0),	FID(DPAUX0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(PJTAG0),
+	FID(SPI0_SS),	FID(TTC1_CLK),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(29) = {		FN(Eth0),
-			FN(Pcie),
-			FN(Pmu),	FN(TestScan),	FN(Dp),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(PJtag),
-	FN(Spi0SS),	FN(Ttc1Wav),	FN(Uart1),	FN(Trace),	NULL
+PINMUX(29) = {		FID(ETHERNET0),
+			FID(PCIE0),
+			FID(PMU0),	FID(TESTSCAN0),	FID(DPAUX0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(PJTAG0),
+	FID(SPI0_SS),	FID(TTC1_WAV),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(30) = {		FN(Eth0),
-			FN(Pcie),
-			FN(Pmu),	FN(TestScan),	FN(Dp),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Clk),
-	FN(Spi0),	FN(Ttc0Clk),	FN(Uart0),	FN(Trace),	NULL
+PINMUX(30) = {		FID(ETHERNET0),
+			FID(PCIE0),
+			FID(PMU0),	FID(TESTSCAN0),	FID(DPAUX0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_CLK),
+	FID(SPI0),	FID(TTC0_CLK),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(31) = {		FN(Eth0),
-			FN(Pcie),
-			FN(Pmu),	FN(TestScan),	FN(Csu),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Rst),
-	FN(Spi0),	FN(Ttc0Wav),	FN(Uart0),	FN(Trace),	NULL
+PINMUX(31) = {		FID(ETHERNET0),
+			FID(PCIE0),
+			FID(PMU0),	FID(TESTSCAN0),	FID(CSU0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_RST),
+	FID(SPI0),	FID(TTC0_WAV),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(32) = {		FN(Eth0),
-			FN(NandDqs),
-			FN(Pmu),	FN(TestScan),	FN(Csu),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Clk),
-	FN(Spi1),	FN(Ttc3Clk),	FN(Uart1),	FN(Trace),	NULL
+PINMUX(32) = {		FID(ETHERNET0),
+			FID(NAND0_DQS),
+			FID(PMU0),	FID(TESTSCAN0),	FID(CSU0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_CLK),
+	FID(SPI1),	FID(TTC3_CLK),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(33) = {		FN(Eth0),
-			FN(Pcie),
-			FN(Pmu),	FN(TestScan),	FN(Csu),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Rst),
-	FN(Spi1SS),	FN(Ttc3Wav),	FN(Uart1),	FN(Trace),	NULL
+PINMUX(33) = {		FID(ETHERNET0),
+			FID(PCIE0),
+			FID(PMU0),	FID(TESTSCAN0),	FID(CSU0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_RST),
+	FID(SPI1_SS),	FID(TTC3_WAV),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(34) = {		FN(Eth0),
-			FN(Pcie),
-			FN(Pmu),	FN(TestScan),	FN(Dp),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Clk),
-	FN(Spi1SS),	FN(Ttc2Clk),	FN(Uart0),	FN(Trace),	NULL
+PINMUX(34) = {		FID(ETHERNET0),
+			FID(PCIE0),
+			FID(PMU0),	FID(TESTSCAN0),	FID(DPAUX0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_CLK),
+	FID(SPI1_SS),	FID(TTC2_CLK),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(35) = {		FN(Eth0),
-			FN(Pcie),
-			FN(Pmu),	FN(TestScan),	FN(Dp),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Rst),
-	FN(Spi1SS),	FN(Ttc2Wav),	FN(Uart0),	FN(Trace),	NULL
+PINMUX(35) = {		FID(ETHERNET0),
+			FID(PCIE0),
+			FID(PMU0),	FID(TESTSCAN0),	FID(DPAUX0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_RST),
+	FID(SPI1_SS),	FID(TTC2_WAV),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(36) = {		FN(Eth0),
-			FN(Pcie),
-			FN(Pmu),	FN(TestScan),	FN(Dp),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Clk),
-	FN(Spi1),	FN(Ttc1Clk),	FN(Uart1),	FN(Trace),	NULL
+PINMUX(36) = {		FID(ETHERNET0),
+			FID(PCIE0),
+			FID(PMU0),	FID(TESTSCAN0),	FID(DPAUX0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_CLK),
+	FID(SPI1),	FID(TTC1_CLK),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(37) = {		FN(Eth0),
-			FN(Pcie),
-			FN(Pmu),	FN(TestScan),	FN(Dp),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Rst),
-	FN(Spi1),	FN(Ttc1Wav),	FN(Uart1),	FN(Trace),	NULL
+PINMUX(37) = {		FID(ETHERNET0),
+			FID(PCIE0),
+			FID(PMU0),	FID(TESTSCAN0),	FID(DPAUX0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_RST),
+	FID(SPI1),	FID(TTC1_WAV),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(38) = {		FN(Eth1),
+PINMUX(38) = {		FID(ETHERNET1),
 
-			FN(Sdio0),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(PJtag),
-	FN(Spi0),	FN(Ttc0Clk),	FN(Uart0),	FN(TraceClk),	NULL
+			FID(SDIO0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(PJTAG0),
+	FID(SPI0),	FID(TTC0_CLK),	FID(UART0),	FID(TRACE0_CLK),
+	MAX_FUNCTION
 };
-PINMUX(39) = {		FN(Eth1),
+PINMUX(39) = {		FID(ETHERNET1),
 
-			FN(Sdio0Cd),	FN(Sdio1),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(PJtag),
-	FN(Spi0SS),	FN(Ttc0Wav),	FN(Uart0),	FN(TraceClk),	NULL
+			FID(SDIO0_CD),	FID(SDIO1),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(PJTAG0),
+	FID(SPI0_SS),	FID(TTC0_WAV),	FID(UART0),	FID(TRACE0_CLK),
+	MAX_FUNCTION
 };
-PINMUX(40) = {		FN(Eth1),
+PINMUX(40) = {		FID(ETHERNET1),
 
-			FN(Sdio0),	FN(Sdio1),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(PJtag),
-	FN(Spi0SS),	FN(Ttc3Clk),	FN(Uart1),	FN(Trace),	NULL
+			FID(SDIO0),	FID(SDIO1),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(PJTAG0),
+	FID(SPI0_SS),	FID(TTC3_CLK),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(41) = {		FN(Eth1),
+PINMUX(41) = {		FID(ETHERNET1),
 
-			FN(Sdio0),	FN(Sdio1),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(PJtag),
-	FN(Spi0SS),	FN(Ttc3Wav),	FN(Uart1),	FN(Trace),	NULL
+			FID(SDIO0),	FID(SDIO1),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(PJTAG0),
+	FID(SPI0_SS),	FID(TTC3_WAV),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(42) = {		FN(Eth1),
+PINMUX(42) = {		FID(ETHERNET1),
 
-			FN(Sdio0),	FN(Sdio1),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Clk),
-	FN(Spi0),	FN(Ttc2Clk),	FN(Uart0),	FN(Trace),	NULL
+			FID(SDIO0),	FID(SDIO1),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_CLK),
+	FID(SPI0),	FID(TTC2_CLK),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(43) = {		FN(Eth1),
+PINMUX(43) = {		FID(ETHERNET1),
 
-			FN(Sdio0),	FN(Sdio1Pc),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Rst),
-	FN(Spi0),	FN(Ttc2Wav),	FN(Uart0),	FN(Trace),	NULL
+			FID(SDIO0),	FID(SDIO1_PC),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_RST),
+	FID(SPI0),	FID(TTC2_WAV),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(44) = {		FN(Eth1),
+PINMUX(44) = {		FID(ETHERNET1),
 
-			FN(Sdio0),	FN(Sdio1Wp),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Clk),
-	FN(Spi1),	FN(Ttc1Clk),	FN(Uart1),			NULL
+			FID(SDIO0),	FID(SDIO1_WP),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_CLK),
+	FID(SPI1),	FID(TTC1_CLK),	FID(UART1),
+	MAX_FUNCTION
 };
-PINMUX(45) = {		FN(Eth1),
+PINMUX(45) = {		FID(ETHERNET1),
 
-			FN(Sdio0),	FN(Sdio1Cd),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Rst),
-	FN(Spi1SS),	FN(Ttc1Wav),	FN(Uart1),			NULL
+			FID(SDIO0),	FID(SDIO1_CD),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_RST),
+	FID(SPI1_SS),	FID(TTC1_WAV),	FID(UART1),
+	MAX_FUNCTION
 };
-PINMUX(46) = {		FN(Eth1),
+PINMUX(46) = {		FID(ETHERNET1),
 
-			FN(Sdio0),	FN(Sdio1),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Clk),
-	FN(Spi1SS),	FN(Ttc0Clk),	FN(Uart0),			NULL
+			FID(SDIO0),	FID(SDIO1),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_CLK),
+	FID(SPI1_SS),	FID(TTC0_CLK),	FID(UART0),
+	MAX_FUNCTION
 };
-PINMUX(47) = {		FN(Eth1),
+PINMUX(47) = {		FID(ETHERNET1),
 
-			FN(Sdio0),	FN(Sdio1),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Rst),
-	FN(Spi1SS),	FN(Ttc0Wav),	FN(Uart0),			NULL
+			FID(SDIO0),	FID(SDIO1),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_RST),
+	FID(SPI1_SS),	FID(TTC0_WAV),	FID(UART0),
+	MAX_FUNCTION
 };
-PINMUX(48) = {		FN(Eth1),
+PINMUX(48) = {		FID(ETHERNET1),
 
-			FN(Sdio0),	FN(Sdio1),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Clk),
-	FN(Spi1),	FN(Ttc3Clk),	FN(Uart1),			NULL
+			FID(SDIO0),	FID(SDIO1),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_CLK),
+	FID(SPI1),	FID(TTC3_CLK),	FID(UART1),
+	MAX_FUNCTION
 };
-PINMUX(49) = {		FN(Eth1),
+PINMUX(49) = {		FID(ETHERNET1),
 
-			FN(Sdio0Pc),	FN(Sdio1),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Rst),
-	FN(Spi1),	FN(Ttc3Wav),	FN(Uart1),			NULL
+			FID(SDIO0_PC),	FID(SDIO1),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_RST),
+	FID(SPI1),	FID(TTC3_WAV),	FID(UART1),
+	MAX_FUNCTION
 };
-PINMUX(50) = {		FN(GemTsu),
+PINMUX(50) = {		FID(GEMTSU0),
 
-			FN(Sdio0Wp),	FN(Sdio1),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Clk),
-	FN(Mdio1),	FN(Ttc2Clk),	FN(Uart0),			NULL
+			FID(SDIO0_WP),	FID(SDIO1),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_CLK),
+	FID(MDIO1),	FID(TTC2_CLK),	FID(UART0),
+	MAX_FUNCTION
 };
-PINMUX(51) = {		FN(GemTsu),
+PINMUX(51) = {		FID(GEMTSU0),
 
-			FN(Sdio0Wp),	FN(Sdio1),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Rst),
-	FN(Mdio1),	FN(Ttc2Wav),	FN(Uart0),			NULL
+			FID(SDIO0_WP),	FID(SDIO1),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_RST),
+	FID(MDIO1),	FID(TTC2_WAV),	FID(UART0),
+	MAX_FUNCTION
 };
-PINMUX(52) = {		FN(Eth2),
-			FN(Usb0),
+PINMUX(52) = {		FID(ETHERNET2),
+			FID(USB0),
 
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(PJtag),
-	FN(Spi0),	FN(Ttc1Clk),	FN(Uart1),	FN(TraceClk),	NULL
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(PJTAG0),
+	FID(SPI0),	FID(TTC1_CLK),	FID(UART1),	FID(TRACE0_CLK),
+	MAX_FUNCTION
 };
-PINMUX(53) = {		FN(Eth2),
-			FN(Usb0),
+PINMUX(53) = {		FID(ETHERNET2),
+			FID(USB0),
 
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(PJtag),
-	FN(Spi0SS),	FN(Ttc1Wav),	FN(Uart1),	FN(TraceClk),	NULL
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(PJTAG0),
+	FID(SPI0_SS),	FID(TTC1_WAV),	FID(UART1),	FID(TRACE0_CLK),
+	MAX_FUNCTION
 };
-PINMUX(54) = {		FN(Eth2),
-			FN(Usb0),
+PINMUX(54) = {		FID(ETHERNET2),
+			FID(USB0),
 
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(PJtag),
-	FN(Spi0SS),	FN(Ttc0Clk),	FN(Uart0),	FN(Trace),	NULL
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(PJTAG0),
+	FID(SPI0_SS),	FID(TTC0_CLK),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(55) = {		FN(Eth2),
-			FN(Usb0),
+PINMUX(55) = {		FID(ETHERNET2),
+			FID(USB0),
 
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(PJtag),
-	FN(Spi0SS),	FN(Ttc0Wav),	FN(Uart0),	FN(Trace),	NULL
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(PJTAG0),
+	FID(SPI0_SS),	FID(TTC0_WAV),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(56) = {		FN(Eth2),
-			FN(Usb0),
+PINMUX(56) = {		FID(ETHERNET2),
+			FID(USB0),
 
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Clk),
-	FN(Spi0),	FN(Ttc3Clk),	FN(Uart1),	FN(Trace),	NULL
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_CLK),
+	FID(SPI0),	FID(TTC3_CLK),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(57) = {		FN(Eth2),
-			FN(Usb0),
+PINMUX(57) = {		FID(ETHERNET2),
+			FID(USB0),
 
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Rst),
-	FN(Spi0),	FN(Ttc3Wav),	FN(Uart1),	FN(Trace),	NULL
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_RST),
+	FID(SPI0),	FID(TTC3_WAV),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(58) = {		FN(Eth2),
-			FN(Usb0),
+PINMUX(58) = {		FID(ETHERNET2),
+			FID(USB0),
 
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(PJtag),
-	FN(Spi1),	FN(Ttc2Clk),	FN(Uart0),	FN(Trace),	NULL
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(PJTAG0),
+	FID(SPI1),	FID(TTC2_CLK),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(59) = {		FN(Eth2),
-			FN(Usb0),
+PINMUX(59) = {		FID(ETHERNET2),
+			FID(USB0),
 
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(PJtag),
-	FN(Spi1SS),	FN(Ttc2Wav),	FN(Uart0),	FN(Trace),	NULL
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(PJTAG0),
+	FID(SPI1_SS),	FID(TTC2_WAV),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(60) = {		FN(Eth2),
-			FN(Usb0),
+PINMUX(60) = {		FID(ETHERNET2),
+			FID(USB0),
 
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(PJtag),
-	FN(Spi1SS),	FN(Ttc1Clk),	FN(Uart1),	FN(Trace),	NULL
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(PJTAG0),
+	FID(SPI1_SS),	FID(TTC1_CLK),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(61) = {		FN(Eth2),
-			FN(Usb0),
+PINMUX(61) = {		FID(ETHERNET2),
+			FID(USB0),
 
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(PJtag),
-	FN(Spi1SS),	FN(Ttc1Wav),	FN(Uart1),	FN(Trace),	NULL
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(PJTAG0),
+	FID(SPI1_SS),	FID(TTC1_WAV),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(62) = {		FN(Eth2),
-			FN(Usb0),
+PINMUX(62) = {		FID(ETHERNET2),
+			FID(USB0),
 
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Clk),
-	FN(Spi1),	FN(Ttc0Clk),	FN(Uart0),	FN(Trace),	NULL
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_CLK),
+	FID(SPI1),	FID(TTC0_CLK),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(63) = {		FN(Eth2),
-			FN(Usb0),
+PINMUX(63) = {		FID(ETHERNET2),
+			FID(USB0),
 
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Rst),
-	FN(Spi1),	FN(Ttc0Wav),	FN(Uart0),	FN(Trace),	NULL
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_RST),
+	FID(SPI1),	FID(TTC0_WAV),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(64) = {		FN(Eth3),
-			FN(Usb1),
-			FN(Sdio0),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Clk),
-	FN(Spi0),	FN(Ttc3Clk),	FN(Uart1),	FN(Trace),	NULL
+PINMUX(64) = {		FID(ETHERNET3),
+			FID(USB1),
+			FID(SDIO0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_CLK),
+	FID(SPI0),	FID(TTC3_CLK),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(65) = {		FN(Eth3),
-			FN(Usb1),
-			FN(Sdio0Cd),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Rst),
-	FN(Spi0SS),	FN(Ttc3Wav),	FN(Uart1),	FN(Trace),	NULL
+PINMUX(65) = {		FID(ETHERNET3),
+			FID(USB1),
+			FID(SDIO0_CD),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_RST),
+	FID(SPI0_SS),	FID(TTC3_WAV),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(66) = {		FN(Eth3),
-			FN(Usb1),
-			FN(Sdio0),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Clk),
-	FN(Spi0SS),	FN(Ttc2Clk),	FN(Uart0),	FN(Trace),	NULL
+PINMUX(66) = {		FID(ETHERNET3),
+			FID(USB1),
+			FID(SDIO0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_CLK),
+	FID(SPI0_SS),	FID(TTC2_CLK),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(67) = {		FN(Eth3),
-			FN(Usb1),
-			FN(Sdio0),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Rst),
-	FN(Spi0SS),	FN(Ttc2Wav),	FN(Uart0),	FN(Trace),	NULL
+PINMUX(67) = {		FID(ETHERNET3),
+			FID(USB1),
+			FID(SDIO0),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_RST),
+	FID(SPI0_SS),	FID(TTC2_WAV),	FID(UART0),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(68) = {		FN(Eth3),
-			FN(Usb1),
-			FN(Sdio0),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Clk),
-	FN(Spi0),	FN(Ttc1Clk),	FN(Uart1),	FN(Trace),	NULL
+PINMUX(68) = {		FID(ETHERNET3),
+			FID(USB1),
+			FID(SDIO0),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_CLK),
+	FID(SPI0),	FID(TTC1_CLK),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(69) = {		FN(Eth3),
-			FN(Usb1),
-			FN(Sdio0),	FN(Sdio1Wp),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Rst),
-	FN(Spi0),	FN(Ttc1Wav),	FN(Uart1),	FN(Trace),	NULL
+PINMUX(69) = {		FID(ETHERNET3),
+			FID(USB1),
+			FID(SDIO0),	FID(SDIO1_WP),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_RST),
+	FID(SPI0),	FID(TTC1_WAV),	FID(UART1),	FID(TRACE0),
+	MAX_FUNCTION
 };
-PINMUX(70) = {		FN(Eth3),
-			FN(Usb1),
-			FN(Sdio0),	FN(Sdio1Pc),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Clk),
-	FN(Spi1),	FN(Ttc0Clk),	FN(Uart0),			NULL
+PINMUX(70) = {		FID(ETHERNET3),
+			FID(USB1),
+			FID(SDIO0),	FID(SDIO1_PC),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_CLK),
+	FID(SPI1),	FID(TTC0_CLK),	FID(UART0),
+	MAX_FUNCTION
 };
-PINMUX(71) = {		FN(Eth3),
-			FN(Usb1),
-			FN(Sdio0),	FN(Sdio1),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Rst),
-	FN(Spi1SS),	FN(Ttc0Wav),	FN(Uart0),			NULL
+PINMUX(71) = {		FID(ETHERNET3),
+			FID(USB1),
+			FID(SDIO0),	FID(SDIO1),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_RST),
+	FID(SPI1_SS),	FID(TTC0_WAV),	FID(UART0),
+	MAX_FUNCTION
 };
-PINMUX(72) = {		FN(Eth3),
-			FN(Usb1),
-			FN(Sdio0),	FN(Sdio1),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Clk),
-	FN(Spi1SS),			FN(Uart1),			NULL
+PINMUX(72) = {		FID(ETHERNET3),
+			FID(USB1),
+			FID(SDIO0),	FID(SDIO1),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_CLK),
+	FID(SPI1_SS),			FID(UART1),
+	MAX_FUNCTION
 };
-PINMUX(73) = {		FN(Eth3),
-			FN(Usb1),
-			FN(Sdio0),	FN(Sdio1),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Swdt1Rst),
-	FN(Spi1SS),			FN(Uart1),			NULL
+PINMUX(73) = {		FID(ETHERNET3),
+			FID(USB1),
+			FID(SDIO0),	FID(SDIO1),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(SWDT1_RST),
+	FID(SPI1_SS),			FID(UART1),
+	MAX_FUNCTION
 };
-PINMUX(74) = {		FN(Eth3),
-			FN(Usb1),
-			FN(Sdio0),	FN(Sdio1),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Clk),
-	FN(Spi1),			FN(Uart0),			NULL
+PINMUX(74) = {		FID(ETHERNET3),
+			FID(USB1),
+			FID(SDIO0),	FID(SDIO1),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_CLK),
+	FID(SPI1),			FID(UART0),
+	MAX_FUNCTION
 };
-PINMUX(75) = {		FN(Eth3),
-			FN(Usb1),
-			FN(Sdio0Pc),	FN(Sdio1),
-	FN(Gpio),	FN(Can0),	FN(I2C0),	FN(Swdt0Rst),
-	FN(Spi1),			FN(Uart0),			NULL
+PINMUX(75) = {		FID(ETHERNET3),
+			FID(USB1),
+			FID(SDIO0_PC),	FID(SDIO1),
+	FID(GPIO0),	FID(CAN0),	FID(I2C0),	FID(SWDT0_RST),
+	FID(SPI1),			FID(UART0),
+	MAX_FUNCTION
 };
 PINMUX(76) = {
 
-			FN(Sdio0Wp),	FN(Sdio1),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Mdio0),
-	FN(Mdio1),	FN(Mdio2),	FN(Mdio3),			NULL
+			FID(SDIO0_WP),	FID(SDIO1),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(MDIO0),
+	FID(MDIO1),	FID(MDIO2),	FID(MDIO3),
+	MAX_FUNCTION
 };
 PINMUX(77) = {
 
-					FN(Sdio1Cd),
-	FN(Gpio),	FN(Can1),	FN(I2C1),	FN(Mdio0),
-	FN(Mdio1),	FN(Mdio2),	FN(Mdio3),			NULL
+					FID(SDIO1_CD),
+	FID(GPIO0),	FID(CAN1),	FID(I2C1),	FID(MDIO0),
+	FID(MDIO1),	FID(MDIO2),	FID(MDIO3),
+	MAX_FUNCTION
 };
 
 static PmMioPin pmPinMuxCtrl[] = {
@@ -816,6 +879,7 @@ s32 PmPinCtrlGetFunctionInt(const u32 pinId, u32* const fnId)
 {
 	s32 status = XST_PM_INTERNAL;
 	u32 reg, i;
+	u8 *pinMuxArr;
 
 	if (pinId >= ARRAY_SIZE(pmPinMuxCtrl)) {
 		status = XST_INVALID_PARAM;
@@ -823,9 +887,11 @@ s32 PmPinCtrlGetFunctionInt(const u32 pinId, u32* const fnId)
 	}
 
 	reg = XPfw_Read32(IOU_SLCR_BASE + (4U * pinId));
-	for (i = 0U; NULL != pmPinMuxCtrl[pinId].pinMux[i]; i++) {
-		if (pmPinMuxCtrl[pinId].pinMux[i]->select == reg) {
-			*fnId = pmPinMuxCtrl[pinId].pinMux[i]->fid;
+	pinMuxArr = pmPinMuxCtrl[pinId].pinMuxArr;
+
+	for (i = 0U; pinMuxArr[i] != MAX_FUNCTION; i++) {
+		if (PmPinMuxFunArr[pinMuxArr[i]].select == reg) {
+			*fnId = PmPinMuxFunArr[pinMuxArr[i]].fid;
 			status = XST_SUCCESS;
 			break;
 		}
@@ -880,9 +946,10 @@ s32 PmPinCtrlSetFunctionInt(const PmMaster* const master, const u32 pinId,
 	u32 val = 0U;
 	u32 i;
 	u32 s;
+	u8 *pinMuxArr = pmPinMuxCtrl[pinId].pinMuxArr;
 
-	for (i = 0U; NULL != pmPinMuxCtrl[pinId].pinMux[i]; i++) {
-		const PmPinMuxFn* const fn = pmPinMuxCtrl[pinId].pinMux[i];
+	for (i = 0U; pinMuxArr[i] != MAX_FUNCTION; i++) {
+		PmPinMuxFn *fn = &PmPinMuxFunArr[pinMuxArr[i]];
 
 		if (fn->fid != fnId) {
 			continue;
@@ -938,7 +1005,6 @@ s32 PmPinCtrlGetParam(const u32 pinId, const u32 paramId, u32* const value)
 	addr = PM_PIN_PARAM_GET_ADDR(pinId, pmPinParams[paramId].offset);
 	val = XPfw_Read32(addr);
 
-	/* Workaround the hardware bug in bank1_ctrl5 */
 	if (IOU_SLCR_BANK1_CTRL5 == addr) {
 		SWAP_BITS_BANK1_CTRL5(val);
 	}
@@ -966,22 +1032,9 @@ done:
  * @return	XST_INVALID_PARAM if an argument is not valid
  *		XST_SUCCESS otherwise
  *
- * @note	There is a hardware bug in bank1 ctrl5 - bits 25:14 are shifted
- *		by 14 places to the right (to bitfields 11:0), and bits 13:0 are
- *		shifted to the left by 12 places (to bitfields 25:12) by
- *		hardware. Since we want users to not be aware of this bug, the
- *		fix is added in the function below.
- *		E.g. writing 0x00803FFF bank1_ctrl5 will result in 0x03FFF200:
- * bits: 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0
- * val:   0  0  1  0  0  0  0  0  0  0  0  0  1  1  1  1 1 1 1 1 1 1 1 1 1 1
- * val`:  1  1  1  1  1  1  1  1  1  1  1  1  1  1  0  0 1 0 0 0 0 0 0 0 0 0
- *
- * val is the written value, val` is the actual value that will be configured by
- * hardware. Therefore, if a user writes to configure pin 13, the hardware will
- * actually configure pin 25 (13 + 12). To get pin 13 configured we need to
- * write as if we're configuring pin 1 (13 - 12), so hardware will configure
- * bit 13 (1 + 12). If a user wants to configure pin 4, we need to write as if
- * we're configuring bit[18] to actually get the pin 4 configured.
+ * @note	In bank1 ctrl5, pins are not mapped with sequential order.
+ *		Pin 38 to 51 are mapped with BIT[0:13], Pin 26 to 37 are mapped
+ *		with BIT[14:25].
  */
 s32 PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 {
@@ -1005,7 +1058,6 @@ s32 PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 	shift = pinId % PM_PIN_PARAM_PER_REG;
 	addr = PM_PIN_PARAM_GET_ADDR(pinId, pmPinParams[paramId].offset);
 
-	/* Workaround the hardware bug in bank1_ctrl5 */
 	if (IOU_SLCR_BANK1_CTRL5 == addr) {
 		FIX_BANK1_CTRL5(shift);
 	}
@@ -1017,7 +1069,6 @@ s32 PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 			addr = PM_PIN_PARAM_GET_ADDR(pinId,
 				pmPinParams[PINCTRL_CONFIG_PULL_CTRL].offset);
 
-			/* Workaround the hardware bug in bank1_ctrl5 */
 			if (addr == IOU_SLCR_BANK1_CTRL5) {
 				FIX_BANK1_CTRL5(shift);
 			}
