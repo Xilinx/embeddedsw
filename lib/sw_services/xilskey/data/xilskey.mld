@@ -56,7 +56,7 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilskey
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilskey,-lxil,-lgcc,-lc,--end-group";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilskey,-lxilstandalone,-lxilmem,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Key Library supports programming efuse and bbram ";
   OPTION VERSION = 6.7;
   OPTION NAME = xilskey;
