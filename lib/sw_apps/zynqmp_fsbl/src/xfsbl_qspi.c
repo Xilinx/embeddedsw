@@ -43,6 +43,7 @@
 *                     32Bit boot mode support
 * 3.0   bv   12/02/16 Made compliance to MISRAC 2012 guidelines
 *       ds   01/03/17 Add support for Micron QSPI 2G part
+* 4.0   tjs  10/16/18 Added support for QPI mode in Macronix flash parts.
 *
 * </pre>
 *
@@ -207,39 +208,7 @@ static u32 FlashReadID(XQspiPsu *QspiPsuPtr)
 	UStatus = XFSBL_SUCCESS;
 
 	if (MacronixFlash == 1U) {
-		u8 WriteBuf[2] = {0};
-
 		XFsbl_Printf(DEBUG_GENERAL,"MACRONIX_FLASH_MODE\r\n");
-
-		/*Enable register write*/
-		TxBfrPtr = WRITE_ENABLE_CMD;
-		FlashMsg[0].TxBfrPtr = &TxBfrPtr;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, &FlashMsg[0], 1);
-		if (Status != XFSBL_SUCCESS) {
-			UStatus = XFSBL_FAILURE;
-			goto END;
-		}
-
-		/*Disable QE mode*/
-		WriteBuf[0] = WRITE_STATUS_CMD;
-		WriteBuf[1] = 0 << 6;
-		FlashMsg[0].TxBfrPtr = &WriteBuf[0];
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, &FlashMsg[0], 1);
-		if (Status != XFSBL_SUCCESS) {
-			UStatus = XFSBL_FAILURE;
-			goto END;
-		}
-		XFsbl_Printf(DEBUG_GENERAL,"MACRONIX_DISABLE_QE_DONE\r\n");
 
 		/*Enable register write*/
 		TxBfrPtr = WRITE_ENABLE_CMD;
@@ -269,35 +238,6 @@ static u32 FlashReadID(XQspiPsu *QspiPsuPtr)
 			goto END;
 		}
 		XFsbl_Printf(DEBUG_GENERAL,"MACRONIX_ENABLE_4BYTE_DONE\r\n");
-
-		/*Enable register write*/
-		TxBfrPtr = WRITE_ENABLE_CMD;
-		FlashMsg[0].TxBfrPtr = &TxBfrPtr;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, &FlashMsg[0], 1);
-		if (Status != XFSBL_SUCCESS) {
-			UStatus = XFSBL_FAILURE;
-			goto END;
-		}
-
-		/*Enable QPI mode*/
-		TxBfrPtr = 0x35;
-		FlashMsg[0].TxBfrPtr = &TxBfrPtr;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, &FlashMsg[0], 1);
-		if (Status != XFSBL_SUCCESS) {
-			UStatus = XFSBL_FAILURE;
-			goto END;
-		}
-		XFsbl_Printf(DEBUG_GENERAL,"MACRONIX_ENABLE_QPI_MODE_DONE\r\n");
 	}
 
 END:
@@ -1135,6 +1075,32 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		 * Flash
 		 */
 		if (MacronixFlash == 1U) {
+			/*Enable register write*/
+			TxBfrPtr = WRITE_ENABLE_CMD;
+			FlashMsg[0].TxBfrPtr = &TxBfrPtr;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+			Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 1);
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_FAILURE;
+			}
+
+			/*Enable QPI mode*/
+			TxBfrPtr = 0x35;
+			FlashMsg[0].TxBfrPtr = &TxBfrPtr;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+			Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 1);
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_FAILURE;
+			}
+
 			/*Command*/
 			WriteBuffer[COMMAND_OFFSET]   = (u8)ReadCommand;
 			DiscardByteCnt = 1;
@@ -1178,6 +1144,33 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 				XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_READ3\r\n");
 				goto END;
 			}
+
+			/*Enable register write*/
+			TxBfrPtr = WRITE_ENABLE_CMD;
+			FlashMsg[0].TxBfrPtr = &TxBfrPtr;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+			Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 1);
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_FAILURE;
+			}
+
+			/*Disable QPI mode*/
+			TxBfrPtr = 0xF5;
+			FlashMsg[0].TxBfrPtr = &TxBfrPtr;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+			Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 1);
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_FAILURE;
+			}
+
 		} else {
 			WriteBuffer[COMMAND_OFFSET]   = (u8)ReadCommand;
 			WriteBuffer[ADDRESS_1_OFFSET] = (u8)((QspiAddr & 0xFF000000U) >> 24);
