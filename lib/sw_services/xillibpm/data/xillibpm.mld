@@ -50,7 +50,7 @@ BEGIN LIBRARY xillibpm
   OPTION desc = "Xilinx Versal Platform Management Library";
 =======
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa72 psu_cortexr5 psu_pmc psu_psm);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxillibpm,-lxil,-lgcc,-lc,--end-group";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxillibpm,-lxilstandalone,-lxilmem,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Everest Platform Management Library";
 >>>>>>> Initial commit for versal support
   OPTION VERSION = 1.0;
