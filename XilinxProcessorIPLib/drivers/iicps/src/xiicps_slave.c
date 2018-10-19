@@ -421,7 +421,7 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 *	data from us. Send more data, and check whether we are done with this
 *	send.
 *
-*	If the instance is receiving, it means that the master has writen
+*	If the instance is receiving, it means that the master has written
 * 	more data to us. Receive more data, and check whether we are done with
 *	with this receive.
 *
