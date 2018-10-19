@@ -49,6 +49,12 @@
 * 2.10  vyc   04/04/18   Add support for streaming layers using Frame Buffer
 *                        Read for streaming input
 *                        Add support for ZCU102, ZCU104, ZCU106
+* 4.00  vyc   04/04/18   Add support for streaming layers using Frame Buffer
+* 5.00  pv    19/04/18   Added flushing feature support in driver.
+*			 flush bit should be set and held (until reset) by
+*			 software to flush pending transactions.IP is expecting
+*			 a hard reset, when flushing is done.(There is a flush
+*			 status bit and is asserted when the flush is done).
 * </pre>
 *
 ******************************************************************************/
@@ -140,6 +146,7 @@ static const XVidC_VideoWindow MixLayerConfig[8] =
 #define XVMonitor_IsVideoLocked(GpioPtr)   (XGpio_DiscreteRead(GpioPtr, 1))
 
 
+void resetIp(void);
 static int DriverInit(void);
 static int SetupInterrupts(void);
 static void ConfigTpg(XVidC_VideoStream *StreamPtr);
@@ -429,6 +436,7 @@ static int ConfigFrmbuf(XV_FrmbufRd_l2 *LayerFrmbuf,
 
   /* Stop Frame Buffers */
   XVFrmbufRd_Stop(LayerFrmbuf);
+  resetIp();
 
   /* Configure Frame Buffers */
   Status = XVFrmbufRd_SetMemFormat(LayerFrmbuf, StrideInBytes, Cfmt, StreamPtr);
