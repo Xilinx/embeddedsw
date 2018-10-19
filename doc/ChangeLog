@@ -310,6 +310,9 @@ Fix Doxygen reported warnings.
 
 zynqmp_fsbl:
 Fix write on pmu global gen storage reg5
+Add support to ISSI 8Mb, 16Mb and 32Mb flash parts
+Add support to DDR self refresh during PS only reset and APU only reset
+Add support for dynamic DDR controller configuration
 
 csudma_v1_3:
 Fix Doxygen reported warnings
