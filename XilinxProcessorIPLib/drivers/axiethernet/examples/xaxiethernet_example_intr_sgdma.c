@@ -84,6 +84,9 @@
 *       ms   04/05/17 Added tabspace for return statements in functions
 *                     for proper documentation while generating doxygen.
 * 5.8   rsp  07/23/18 Fix gcc '[-Wint-conversion]' warning.
+*       rsp  10/22/18 Set RX BD length to jumbo frame size. It fixes 'Error
+*                     committing RxBD to HW' error for designs having length
+*                     register width < 19 bits.
 * </pre>
 *
 ******************************************************************************/
@@ -782,9 +785,9 @@ int AxiEthernetSgDmaIntrSingleFrameExample(XAxiEthernet
 	 */
 	XAxiDma_BdSetBufAddr(Bd1Ptr, (UINTPTR)&RxFrame);
 #ifndef XPAR_AXIDMA_0_ENABLE_MULTI_CHANNEL
-	XAxiDma_BdSetLength(Bd1Ptr, sizeof(RxFrame));
+	XAxiDma_BdSetLength(Bd1Ptr, XAE_MAX_JUMBO_FRAME_SIZE);
 #else
-	XAxiDma_BdSetLength(Bd1Ptr, sizeof(RxFrame),
+	XAxiDma_BdSetLength(Bd1Ptr, XAE_MAX_JUMBO_FRAME_SIZE,
 				RxRingPtr->MaxTransferLen);
 #endif
 	XAxiDma_BdSetCtrl(Bd1Ptr, 0);
