@@ -415,8 +415,8 @@ int I2cClk_Ps(u32 InFreq, u32 OutFreq)
                             (SI5328_CLKSRC_XTAL), (SI5328_XTAL_FREQ), OutFreq);
 
      if (Status != (SI5328_SUCCESS)) {
-          print("Error programming SI5328\r\n");
-          return 0;
+          print("Error programming SI5328. FM\r\n");
+//          return 0;
      }
   }
   /* Locked mode */
@@ -425,8 +425,8 @@ int I2cClk_Ps(u32 InFreq, u32 OutFreq)
                                 (SI5328_CLKSRC_CLK1), InFreq, OutFreq);
 
      if (Status != (SI5328_SUCCESS)) {
-        print("Error programming SI5328\r\n");
-        return 0;
+        print("Error programming SI5328. LM\r\n");
+//        return 0;
      }
   }
 
@@ -1681,29 +1681,44 @@ int ConfigFrmbuf_rd_trunc(u32 offset){
 }
 
 
-void frameBuffer_stop(XDpTxSs_MainStreamAttributes Msa[4]) {
-//    xil_printf ("FB stop start..\r\n");
-	fb_rd_start = 0;
-	XVFrmbufRd_Stop(&frmbufrd);
-	XVFrmbufWr_Stop(&frmbufwr);
+void frameBuffer_stop() {
 
-	resetIp_wr();
-	resetIp_rd();
-//	xil_printf ("FB stop end..\r\n");
+	fb_rd_start = 0;
+	frameBuffer_stop_rd();
+	frameBuffer_stop_wr();
+
 }
 
 
-void frameBuffer_stop_rd(XDpTxSs_MainStreamAttributes Msa[4]) {
+void frameBuffer_stop_rd() {
 //    xil_printf ("FB stop start..\r\n");
+	u32 Status;
 	fb_rd_start = 0;
-	XVFrmbufRd_Stop(&frmbufrd);
+	Status = XVFrmbufRd_Stop(&frmbufrd);
+	if (Status != XST_SUCCESS) {
+		xil_printf ("Failed to stop Frame Buffer Read\r\n");
+	}
 	resetIp_rd();
+	Status = XVFrmbufRd_WaitForIdle(&frmbufrd);
+	if (Status != XST_SUCCESS) {
+		xil_printf ("Frame Buffer Read is not Idle\r\n");
+	}
+
 }
 
 
-void frameBuffer_stop_wr(XDpTxSs_MainStreamAttributes Msa[4]) {
-	XVFrmbufWr_Stop(&frmbufwr);
+void frameBuffer_stop_wr() {
+	u32 Status;
+	Status = XVFrmbufWr_Stop(&frmbufwr);
+	if (Status != XST_SUCCESS) {
+		xil_printf ("Failed to stop Frame Buffer Write\r\n");
+	}
 	resetIp_wr();
+	Status = XVFrmbufWr_WaitForIdle(&frmbufwr);
+	if (Status != XST_SUCCESS) {
+		xil_printf ("Frame Buffer Write is not Idle\r\n");
+	}
+
 }
 
 
@@ -1714,7 +1729,7 @@ void frameBuffer_start_wr(XVidC_VideoMode VmId,
 	XVidC_VideoTiming const *TimingPtr;
 	XVidC_VideoStream VidStream;
 
-	resetIp_wr();
+//	resetIp_wr();
 
 	/* Get video format to test */
 	if(Msa[0].BitsPerColor <= 8){
@@ -1755,7 +1770,7 @@ void frameBuffer_start_rd(XVidC_VideoMode VmId,
 	XVidC_VideoTiming const *TimingPtr;
 	XVidC_VideoStream VidStream;
 
-	resetIp_rd();
+//	resetIp_rd();
 
 	/* Get video format to test */
 	if(Msa[0].BitsPerColor <= 8){
@@ -2076,7 +2091,7 @@ int Dppt_DetectResolution(void *InstancePtr,
 	int i = 0;
 	XVidC_VideoMode VmId_1;
 
-	frameBuffer_stop_wr(Msa);
+	frameBuffer_stop_wr();
 
 	while ((DpHres == 0 || i < 300) && DpRxSsInst.link_up_trigger == 1) {
 		DpHres = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,

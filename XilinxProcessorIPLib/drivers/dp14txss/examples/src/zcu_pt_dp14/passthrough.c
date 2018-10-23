@@ -80,9 +80,7 @@ void Dppt_DetectAudio (void);
 int Dppt_DetectResolution(void *InstancePtr,
 		XDpTxSs_MainStreamAttributes Msa[4], u8 plugged);
 
-void frameBuffer_stop(XDpTxSs_MainStreamAttributes Msa[4]);
-void frameBuffer_stop_wr(XDpTxSs_MainStreamAttributes Msa[4]);
-void frameBuffer_stop_rd(XDpTxSs_MainStreamAttributes Msa[4]);
+
 
 void resetIp_rd(void);
 void resetIp_wr(void);
@@ -126,7 +124,7 @@ u8 Edid_org[128];
 u8 Edid1_org[128];
 u8 Edid2_org[128];
 int filter_count = 0;
-
+extern u8 training_lost;
 
 void DpPt_Main(void){
 	u32 Status;
@@ -273,7 +271,7 @@ void DpPt_Main(void){
 	 * The Audio Clock Recovery Module is programmed in fixed mode
 	 */
 	audio_init();
-	//resetting AUX logic. Needed for some Type based connectors
+	//resetting AUX logic. Needed for some Type C based connectors
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x80);
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x0);
 
@@ -337,7 +335,7 @@ void DpPt_Main(void){
 							  DpTxSsInst.DpPtr->Config.BaseAddr,
 							  XDP_TX_INTERRUPT_MASK, 0xFFF);
 
-							frameBuffer_stop(Msa);
+							frameBuffer_stop();
 							XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
 										0x7FF8FFFF);
 							// Disabling TX interrupts
@@ -439,7 +437,7 @@ void DpPt_Main(void){
 					DpTxSsInst.no_video_trigger = 1;
 					XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 								     XDP_TX_AUDIO_CONTROL, 0x0);
-					frameBuffer_stop_rd(Msa);
+					frameBuffer_stop_rd();
 					break;
 
 				case 'c':
@@ -859,7 +857,7 @@ void DpPt_Main(void){
 		// Tx side process
 		// When there is no video on TX, stop the FB and I2S RX
 		if(DpTxSsInst.no_video_trigger == 1){ // stop frameBuffer if Tx is lost
-			frameBuffer_stop_rd(Msa);
+			frameBuffer_stop_rd();
 			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 			XDpTxSs_Stop(&DpTxSsInst);
 			DpTxSsInst.no_video_trigger = 0;
@@ -1084,7 +1082,7 @@ void start_tx_after_rx (void) {
 	}
 
 
-	frameBuffer_stop_rd(Msa);
+	frameBuffer_stop_rd();
 	frameBuffer_start_rd(VmId, Msa, downshift4K);
 	start_audio_passThrough (LineRate_init_tx);
 
@@ -1100,7 +1098,8 @@ void unplug_proc (void) {
     rx_unplugged = 0;
     start_i2s_clk = 0;
     DpRxSsInst.VBlankCount = 0;
-	frameBuffer_stop(Msa);
+    appx_fs_dup = 0;
+	frameBuffer_stop();
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x80);
@@ -1251,24 +1250,23 @@ void audio_start_tx (void) {
 void dprx_tracking (void) {
 
 	if (rx_unplugged == 1) {
-		xil_printf ("Training Lost !! Cable Unplugged !!!\r\n");
 		unplug_proc();
-    } else if (DpRxSsInst.link_up_trigger == 0) { // Link Not trained
-		if (rx_trained == 1) {             		// If it was previously trained
-			xil_printf ("Training Lost !!\r\n");
-			frameBuffer_stop_wr(Msa);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
-			XDpTxSs_Stop(&DpTxSsInst);
-			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x80);
-			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x0);
-
-		}
-		DpRxSsInst.VBlankCount = 0;
-		rx_aud = 0;
-		rx_trained = 0;
-		tx_after_rx = 0;
-		i2s_tx_started = 0;
+		xil_printf ("Training Lost !! Cable Unplugged !!!\r\n");
 	} else if (DpRxSsInst.VBlankCount >= 2 && DpRxSsInst.link_up_trigger ==1 && rx_trained == 0){
+		XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+				0x140);
+		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+				XDP_TX_INTERRUPT_MASK, 0xFFF);
+		frameBuffer_stop();
+		tx_after_rx = 0;
+		DpRxSsInst.VBlankCount++;
+		appx_fs_dup = 0;
+		rx_trained = 1;
+		rx_aud = 0;
+		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
+		XDpTxSs_Stop(&DpTxSsInst);
+		i2s_tx_started = 0;
+		start_i2s_clk = 0;
 		xil_printf(
 		"> Rx Training done !!! (BW: 0x%x, Lanes: 0x%x, Status: "
 		"0x%x;0x%x).\n\r",
@@ -1280,19 +1278,11 @@ void dprx_tracking (void) {
 				XDP_RX_DPCD_LANE01_STATUS),
 		XDpRxSs_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 				XDP_RX_DPCD_LANE23_STATUS));
-		DpRxSsInst.VBlankCount++;
-//			DpRxSsInst.link_up_trigger = 0;
-		appx_fs_dup = 0;
-		rx_trained = 1;
-		rx_aud = 0;
-//		frameBuffer_stop(Msa);
-		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
-		XDpTxSs_Stop(&DpTxSsInst);
-		i2s_tx_started = 0;
+
 	}
 
 	if(DpRxSsInst.no_video_trigger == 1){
-		frameBuffer_stop(Msa);
+		frameBuffer_stop();
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 		XDpTxSs_Stop(&DpTxSsInst);
 		DpRxSsInst.no_video_trigger = 0;
@@ -1313,7 +1303,9 @@ void dprx_tracking (void) {
 		XDp_RxSetLineReset(DpRxSsInst.DpPtr,XDP_TX_STREAM_ID1);
 		XDp_RxDtgDis(DpRxSsInst.DpPtr);
 		XDp_RxDtgEn(DpRxSsInst.DpPtr);
-
+		i2s_tx_started = 0;
+		start_i2s_clk = 0;
+		appx_fs_dup = 0;
 		/*
 		 * Disable & Enable Audio
 		 */
@@ -1343,7 +1335,7 @@ void dptx_tracking (void) {
 		xil_printf ("TX Cable Connected !!\r\n");
 		hpd_con(&DpTxSsInst, Edid_org, Edid1_org, user_config.VideoMode_local);
 		tx_is_reconnected--;
-		frameBuffer_stop_rd(Msa);
+		frameBuffer_stop_rd();
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 		XDpTxSs_Stop(&DpTxSsInst);
 		i2s_started = 0;
@@ -1361,7 +1353,7 @@ void dptx_tracking (void) {
 		//run a loop for 3000 times to filter HPD pulses on cable unplug
 		//this time should be more that the BS IDLE time
 		filter_count++;
-		if (filter_count > 30000) {
+		if (filter_count > 50000) {
 			xil_printf ("HPD Pulse detected !!\r\n");
 			filter_count = 0;
 			hpd_pulse_con_event = 0;

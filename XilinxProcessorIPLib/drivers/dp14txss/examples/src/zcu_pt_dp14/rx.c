@@ -305,14 +305,31 @@ void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 *
 ******************************************************************************/
 extern u32 appx_fs_dup;
+extern u8 rx_trained;
+extern u8 start_i2s_clk;
+extern u8 i2s_tx_started;
+extern u8 rx_aud;
+extern u8 tx_after_rx;
 
 void DpRxSs_TrainingLostHandler(void *InstancePtr)
 {
 	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 750);
-//	XDpRxSs_AudioDisable(&DpRxSsInst);
+	XDpRxSs_AudioDisable(&DpRxSsInst);
+//	frameBuffer_stop_wr();
 	DpRxSsInst.link_up_trigger = 0;
 	DpRxSsInst.VBlankCount = 0;
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x80);
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x0);
 	appx_fs_dup = 0;
+	start_i2s_clk = 0;
+	i2s_tx_started = 0;
+	rx_aud = 0;
+	tx_after_rx = 0;
+	if (rx_trained == 1) {
+		xil_printf ("Training Lost !!\r\n");
+	}
+	rx_trained = 0;
+
 }
 
 /*****************************************************************************/
@@ -628,7 +645,6 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 			XDP_RX_AUX_CLK_DIVIDER, ReadVal);
 	}
 
-	xil_printf("DpRxSs_AccessLinkQualHandler : 0x%x\r\n", ReadVal);
 
 	/*Check for PRBS Mode*/
 	if( (LinkQualConfig&0x00000007) == XDP_RX_DPCD_LINK_QUAL_PRBS){
@@ -672,6 +688,8 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 				      I2C_MCDP6000_ADDR);
 	//    	MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
 	}
+
+	xil_printf("DpRxSs_AccessLinkQualHandler : 0x%x\r\n", ReadVal);
 }
 
 /*****************************************************************************/
@@ -694,8 +712,6 @@ void DpRxSs_AccessErrorCounterHandler(void *InstancePtr)
 	u32 SymErrVal_lane23;
 
 	u32 ReadVal;
-
-	xil_printf("DpRxSs_AccessErrorCounterHandler\r\n");
 
 	/*Read twice from VPHY*/
 	SymErrVal_lane01 = XVphy_ReadReg(
@@ -789,6 +805,8 @@ void DpRxSs_AccessErrorCounterHandler(void *InstancePtr)
 						XVPHY_RX_CONTROL_REG, DrpValConfig);
     }
 #endif
+
+    xil_printf("DpRxSs_AccessErrorCounterHandler\r\n");
 }
 
 
