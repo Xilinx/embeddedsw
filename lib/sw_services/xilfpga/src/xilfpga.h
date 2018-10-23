@@ -32,6 +32,29 @@
  * @addtogroup xfpga_apis XilFPGA APIs
  * @{
  *
+ * Xilfpga Error format:
+ * Lower level Errors + Interface specific Errors + Xilfpga top layer Errors
+ *----------------------------------------------------------------------------
+ * Lower level Errors | Interface Specific Errors | Xilfpga top layer Errors
+ * (other libarier    |     (PCAP Interface)  |
+ * or drivers         |                           |
+ * Used by xilfpga)   |                           |
+ * ----------------------------------------------------------------------------
+ * 31 - 16 bits       |     15 - 8 bits           |         7 - 0 bits
+ * ----------------------------------------------------------------------------
+ * Xilfpga Top Layer:
+ *	The functionality exist in this layers is completely Interface agnostic.
+ * It provides a unique interface to load the Bitstream  across multiple
+ * platforms.(ie; ZynqMP and Versel)
+ *
+ * Interface Specific layer:
+ * 	This layer is responsible for providing the interface specific related
+ * errors.
+ *	-->In Case of ZynqMp, it provides the errors related to PCAP Interface.
+ *
+ * Xilfpga lower layer:
+ *	This layer is responsible for providing the Error related  to the lower
+ * level drivers used by Interface layer.
  *
  * @{
  * @cond xilfpga_internal
@@ -46,6 +69,7 @@
  * 4.2   Nava  16/08/18 Modified the PL data handling Logic to support
  *                      different PL programming interfaces.
  * 4.2   adk   28/08/18 Fixed misra-c required standard violations.
+ * 4.2   Nava  15/09/18 Fixed global function call-backs issue.
  * </pre>
  *
  * @note
@@ -55,6 +79,7 @@
 #define XILFPGA_H
 #include "xil_io.h"
 #include "xil_types.h"
+#include "xil_assert.h"
 #include "xil_printf.h"
 #include "xparameters.h"
 #include "xfpga_config.h"
@@ -65,7 +90,6 @@
 
 /**************************** Type Definitions *******************************/
 /**
- * struct xilfpga__ops - ops for low level fpga interface drivers
  * @XFpga_ValidateBitstream:	validate the Bitstream header before
  *				programming the PL
  * @xilfpga_PreConfig:		prepare the FPGA to receive confuration data
@@ -77,18 +101,22 @@
  * @Xfpga_GetConfigReg:		Returns the value of the specified configuration
  *				register
  * @XFpga_GetConfigData:	Provides the FPGA readback data.
+ * @PLInfo:			Which is used to store the secure image data.
+ * @WriteInfoPtr:		Pointer to XFpga_Write structure.
+ * @XFpga_Read:  		Pointer to XFpga_Read structure.
  */
-typedef struct {
-	u32 (*XFpga_ValidateBitstream)(XFpga_Info *PLInfoPtr);
-	u32 (*XFpga_PreConfig)(XFpga_Info *PLInfoPtr);
-	u32 (*XFpga_WriteToPl)(XFpga_Info *PLInfoPtr);
-	u32 (*XFpga_PostConfig)(XFpga_Info *PLInfoPtr);
+typedef struct XFpgatag{
+	u32 (*XFpga_ValidateBitstream)(struct XFpgatag *InstancePtr);
+	u32 (*XFpga_PreConfig)(struct XFpgatag *InstancePtr);
+	u32 (*XFpga_WriteToPl)(struct XFpgatag *InstancePtr);
+	u32 (*XFpga_PostConfig)(struct XFpgatag *InstancePtr);
 	u32 (*XFpga_GetInterfaceStatus)(void);
-	u32 (*XFpga_GetConfigReg)(XFpga_Info *PLInfoPtr);
-	u32 (*XFpga_GetConfigData)(XFpga_Info *PLInfoPtr);
-} Xilfpga_Ops;
-
-
+	u32 (*XFpga_GetConfigReg)(struct XFpgatag *InstancePtr);
+	u32 (*XFpga_GetConfigData)(struct XFpgatag *InstancePtr);
+	XFpga_Info	PLInfo;
+	XFpga_Write	*WriteInfoPtr;
+	XFpga_Read	*ReadInfoPtr;
+}XFpga;
 /************************** Variable Definitions *****************************/
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XFPGA_SUCCESS			(0x0U)
@@ -144,18 +172,18 @@ typedef struct {
 		(((InterfaceErr)&XFPGA_ERR_INTERFACE_MASK) + \
 		 ((XfpgaErr)&XFPGA_ERR_MASK))
 
-
 /** @endcond*/
 /************************** Function Prototypes ******************************/
 u32 XFpga_PL_BitStream_Load(UINTPTR BitstreamImageAddr,
 			    UINTPTR AddrPtr, u32 flags);
-u32 XFpga_InterfaceStatus(void);
 u32 XFpga_PL_Preconfig(XFpga_Info *PLInfoPtr);
 u32 XFpga_PL_WriteToPl(XFpga_Info *PLInfoPtr);
 u32 XFpga_PL_PostConfig(XFpga_Info *PLInfoPtr);
-u32 XFpga_PL_ReadFabricData(XFpga_Info *PLInfoPtr);
 u32 XFpga_PL_ValidateImage(XFpga_Info *PLInfoPtr);
-u32 XFpga_GetPlConfigReg(u32 ConfigReg, UINTPTR Address);
 u32 XFpga_GetPlConfigData(XFpga_Info *PLInfoPtr);
+void XFpga_GetDmaPtr(XFpga *InstancePtr, XCsuDma *DmaPtr);
+u32 XFpga_InterfaceStatus(void);
+u32 XFpga_Initialize(XFpga *InstancePtr);
+u32 XFpga_GetPlConfigReg(u32 ConfigReg, UINTPTR Address);
 
 #endif  /* XILFPGA_H */

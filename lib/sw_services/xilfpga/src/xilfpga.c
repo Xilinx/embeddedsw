@@ -42,6 +42,7 @@
  * 4.2  adk   11/07/18  Added support for readback of PL configuration data.
  * 4.2  Nava  16/08/18	Modified the PL data handling Logic to support
  *			different PL programming interfaces.
+ * 4.2  Nava  15/09/18 Fixed global function call-backs issue.
  *</pre>
  *
  *@note
@@ -51,7 +52,6 @@
 #include "xilfpga.h"
 
 /************************** Variable Definitions *****************************/
-Xilfpga_Ops Fpga_Ops;
 
 /*****************************************************************************/
 /**The API is used to load the bitstream file into the PL region.
@@ -65,9 +65,11 @@ Xilfpga_Ops Fpga_Ops;
  *
  *@param BitstreamImageAddr  Linear memory Bitstream image base address
  *
- *@param AddrPtr Aes key address which is used for Decryption.
+ *@param AddrPtr_Size Aes key address which is used for Decryption (or)
+ *			In none Secure Bitstream used it is used to store size
+ *			of Bitstream Image.
  *
- *@param flags Flags are used to specify the type of Bitstream file.
+ *@param Flags Flags are used to specify the type of Bitstream file.
  *			* BIT(0) - Bitstream type
  *					* 0 - Full Bitstream
  *					* 1 - Partial Bitstream
@@ -94,14 +96,14 @@ Xilfpga_Ops Fpga_Ops;
  *
  *****************************************************************************/
 u32 XFpga_PL_BitStream_Load(UINTPTR BitstreamImageAddr,
-		UINTPTR AddrPtr, u32 flags)
+			    UINTPTR AddrPtr, u32 Flags)
 {
 	u32 Status;
 	XFpga_Info PLInfo = {0};
 
 	PLInfo.BitstreamAddr = BitstreamImageAddr;
 	PLInfo.AddrPtr = AddrPtr;
-	PLInfo.Flags = flags;
+	PLInfo.Flags = Flags;
 
 
 	/* Validate Bitstream Image */
@@ -128,103 +130,206 @@ u32 XFpga_PL_BitStream_Load(UINTPTR BitstreamImageAddr,
 END:
 	return Status;
 }
-
 /*****************************************************************************/
 /**
  * This function is used to validate the Bitstream Image
- * @param PLInfoPtr Pointer to XFgpa_Info structure
+ * @param PLInfoPtr Pointer to the XFgpa_Info structure
  *
  * @return Codes as mentioned in xilfpga.h
  ******************************************************************************/
 u32 XFpga_PL_ValidateImage(XFpga_Info *PLInfoPtr)
 {
 	u32 Status;
+	XFpga XFpgaInstance = {0};
+	XFpga_Write WriteInfo = {0};
 
-	if (!Fpga_Ops.XFpga_ValidateBitstream) {
-		Status = XFPGA_OPS_NOT_IMPLEMENTED;
-		Xfpga_Printf(XFPGA_DEBUG,
-		"%s Implementation not exists..\r\n", __FUNCTION__);
-	} else {
-		Status = Fpga_Ops.XFpga_ValidateBitstream(PLInfoPtr);
-		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_UPDATE_ERR(XFPGA_VALIDATE_ERROR, Status);
-		}
+	/* Initialize the XFpga Instance */
+	Status = XFpga_Initialize(&XFpgaInstance);
+	if (Status != XFPGA_SUCCESS) {
+		goto END;
 	}
 
+	if (!XFpgaInstance.XFpga_ValidateBitstream) {
+		Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		Xfpga_Printf(XFPGA_DEBUG,
+			"%s Implementation not exists..\r\n", __FUNCTION__);
+		goto END;
+	}
+
+	WriteInfo.BitstreamAddr = PLInfoPtr->BitstreamAddr;
+	WriteInfo.AddrPtr_Size = PLInfoPtr->AddrPtr;
+	WriteInfo.Flags = PLInfoPtr->Flags;
+	XFpgaInstance.WriteInfoPtr = &WriteInfo;
+
+	Status = XFpgaInstance.XFpga_ValidateBitstream(&XFpgaInstance);
+	if (Status != XFPGA_SUCCESS) {
+		Status = XFPGA_UPDATE_ERR(XFPGA_VALIDATE_ERROR, Status);
+	} else {
+		PLInfoPtr->BitstreamAddr =
+			XFpgaInstance.WriteInfoPtr->BitstreamAddr;
+		PLInfoPtr->AddrPtr = XFpgaInstance.WriteInfoPtr->AddrPtr_Size;
+		memcpy(&PLInfoPtr->SecureImageInfo,
+			   &XFpgaInstance.PLInfo.SecureImageInfo,
+			   sizeof(PLInfoPtr->SecureImageInfo));
+	}
+
+END:
 	return Status;
 }
 
 /*****************************************************************************/
 /* This function prepare the FPGA to receive configuration data.
- * @param PLInfoPtr Pointer to XFgpa_Info structure
+ * @param PLInfoPtr Pointer to the XFgpa_Info structure
  *
  * @return Codes as mentioned in xilfpga.h
  *****************************************************************************/
 u32 XFpga_PL_Preconfig(XFpga_Info *PLInfoPtr)
 {
 	u32 Status;
+	XFpga XFpgaInstance = {0};
 
-	if (!Fpga_Ops.XFpga_PreConfig) {
-		Status = XFPGA_OPS_NOT_IMPLEMENTED;
-		Xfpga_Printf(XFPGA_DEBUG,
-		"%s Implementation not exists..\r\n", __FUNCTION__);
-	} else {
-		Status = Fpga_Ops.XFpga_PreConfig(PLInfoPtr);
-		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_UPDATE_ERR(XFPGA_PRE_CONFIG_ERROR,
-						  Status);
-		}
+	/* Initialize the XFpga Instance */
+	Status = XFpga_Initialize(&XFpgaInstance);
+	if (Status != XFPGA_SUCCESS) {
+		goto END;
 	}
 
+	if (!XFpgaInstance.XFpga_PreConfig) {
+		Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		Xfpga_Printf(XFPGA_DEBUG,
+			"%s Implementation not exists..\r\n", __FUNCTION__);
+		goto END;
+	}
+
+	XFpgaInstance.PLInfo.Flags = PLInfoPtr->Flags;
+
+	Status = XFpgaInstance.XFpga_PreConfig(&XFpgaInstance);
+	if (Status != XFPGA_SUCCESS) {
+		Status = XFPGA_UPDATE_ERR(XFPGA_PRE_CONFIG_ERROR, Status);
+	}
+
+END:
 	return Status;
 }
 
 /*****************************************************************************/
 /* This function write count bytes of configuration data into the PL.
- * @param PLInfoPtr Pointer to XFgpa_Info structure
+ *
+ * @param PLInfoPtr Pointer to the XFgpa_Info structure
  *
  * @return Codes as mentioned in xilfpga.h
  *****************************************************************************/
 u32 XFpga_PL_WriteToPl(XFpga_Info *PLInfoPtr)
 {
 	 u32 Status;
+	 XFpga_Write WriteInfo = {0};
+	 XFpga XFpgaInstance = {0};
 
-	if (!Fpga_Ops.XFpga_WriteToPl) {
-		Status = XFPGA_OPS_NOT_IMPLEMENTED;
-		Xfpga_Printf(XFPGA_DEBUG,
-		"%s Implementation not exists..\r\n", __FUNCTION__);
-	} else {
-		Status = Fpga_Ops.XFpga_WriteToPl(PLInfoPtr);
-		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_UPDATE_ERR(XFPGA_WRITE_BITSTREAM_ERROR,
-						  Status);
-		}
+	 /* Initialize the XFpga Instance */
+	 Status = XFpga_Initialize(&XFpgaInstance);
+	 if (Status != XFPGA_SUCCESS) {
+		 goto END;
+	 }
+
+	 if (!XFpgaInstance.XFpga_WriteToPl) {
+		 Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		 Xfpga_Printf(XFPGA_DEBUG,
+			 "%s Implementation not exists..\r\n", __FUNCTION__);
+		 goto END;
+	 }
+
+	 WriteInfo.BitstreamAddr = PLInfoPtr->BitstreamAddr;
+	 WriteInfo.AddrPtr_Size = PLInfoPtr->AddrPtr;
+	 WriteInfo.Flags = PLInfoPtr->Flags;
+	 XFpgaInstance.WriteInfoPtr = &WriteInfo;
+	 memcpy(&XFpgaInstance.PLInfo.SecureImageInfo,
+			 &PLInfoPtr->SecureImageInfo,
+			 sizeof(PLInfoPtr->SecureImageInfo));
+
+	 Status = XFpgaInstance.XFpga_WriteToPl(&XFpgaInstance);
+	 if (Status != XFPGA_SUCCESS) {
+		 Status = XFPGA_UPDATE_ERR(XFPGA_WRITE_BITSTREAM_ERROR, Status);
 	}
 
+END:
 	return Status;
 }
 
 /*****************************************************************************/
 /** This function set FPGA to operating state after writing.
- * @param PLInfoPtr Pointer to XFgpa_Info structure
+ * @param PLInfoPtr Pointer to the XFgpa_Info structure
  *
  * @return Codes as mentioned in xilfpga.h
  *****************************************************************************/
 u32 XFpga_PL_PostConfig(XFpga_Info *PLInfoPtr)
 {
 	u32 Status;
+	XFpga XFpgaInstance = {0};
+	XFpga_Write WriteInfo = {0};
 
-	if (!Fpga_Ops.XFpga_PostConfig) {
+	/* Initialize the XFpga Instance */
+	Status = XFpga_Initialize(&XFpgaInstance);
+	if (Status != XFPGA_SUCCESS) {
+		goto END;
+	}
+
+	if (!XFpgaInstance.XFpga_PostConfig) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
-		"%s Implementation not exists..\r\n", __FUNCTION__);
-	} else {
-		Status = Fpga_Ops.XFpga_PostConfig(PLInfoPtr);
-		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_UPDATE_ERR(XFPGA_POST_CONFIG_ERROR,
-						  Status);
-		}
+			"%s Implementation not exists..\r\n", __FUNCTION__);
+		goto END;
 	}
+
+	WriteInfo.BitstreamAddr = PLInfoPtr->BitstreamAddr;
+	WriteInfo.AddrPtr_Size = PLInfoPtr->AddrPtr;
+	WriteInfo.Flags = PLInfoPtr->Flags;
+	XFpgaInstance.WriteInfoPtr = &WriteInfo;
+	XFpgaInstance.PLInfo.Flags = PLInfoPtr->Flags;
+
+	Status = XFpgaInstance.XFpga_PostConfig(&XFpgaInstance);
+	if (Status != XFPGA_SUCCESS) {
+		Status = XFPGA_UPDATE_ERR(XFPGA_POST_CONFIG_ERROR, Status);
+	}
+
+END:
+	return Status;
+}
+/*****************************************************************************/
+/**
+ * This function provides functionality to read back the PL configuration data
+ *
+ * @param PLInfoPtr Pointer to the XFgpa_Info structure
+ *
+ * @return
+ *	- XFPGA_SUCCESS if successful
+ *	- XFPGA_FAILURE if unsuccessful
+ *	- XFPGA_OPS_NOT_IMPLEMENTED if implementation not exists.
+ *
+ ****************************************************************************/
+u32 XFpga_GetPlConfigData(XFpga_Info *PLInfoPtr)
+{
+	u32 Status;
+	XFpga_Read ReadInfo = {0};
+	XFpga XFpgaInstance = {0};
+
+	/* Initialize the XFpga Instance */
+	Status = XFpga_Initialize(&XFpgaInstance);
+	if (Status != XFPGA_SUCCESS) {
+		goto END;
+	}
+
+	if (!XFpgaInstance.XFpga_GetConfigData) {
+		Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		Xfpga_Printf(XFPGA_DEBUG,
+			"%s Implementation not exists..\r\n", __FUNCTION__);
+		goto END;
+	}
+
+	ReadInfo.ReadbackAddr = PLInfoPtr->ReadbackAddr;
+	ReadInfo.ConfigReg_NumFrames = PLInfoPtr->NumFrames;
+	XFpgaInstance.ReadInfoPtr = &ReadInfo;
+END:
+	Status = XFpgaInstance.XFpga_GetConfigData(&XFpgaInstance);
 
 	return Status;
 }
@@ -246,45 +351,29 @@ u32 XFpga_PL_PostConfig(XFpga_Info *PLInfoPtr)
 u32 XFpga_GetPlConfigReg(u32 ConfigReg, UINTPTR Address)
 {
 	u32 Status;
-	XFpga_Info PLInfo = {0};
+	XFpga XFpgaInstance = {0};
+	XFpga_Read ReadInfo = {0};
 
-	PLInfo.ReadbackAddr = Address;
-	PLInfo.ConfigReg = ConfigReg;
-	if (!Fpga_Ops.XFpga_GetConfigReg) {
-		Status = XFPGA_OPS_NOT_IMPLEMENTED;
-		Xfpga_Printf(XFPGA_DEBUG,
-		"%s Implementation not exists..\r\n", __FUNCTION__);
-	} else {
-		Status = Fpga_Ops.XFpga_GetConfigReg(&PLInfo);
+	/* Initialize the XFpga Instance */
+	Status = XFpga_Initialize(&XFpgaInstance);
+	if (Status != XFPGA_SUCCESS) {
+		goto END;
 	}
 
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * This function provides functionality to read back the PL configuration data
- *
- * @param PLInfoPtr Pointer to XFgpa_Info structure
- *
- * @return
- *	- XFPGA_SUCCESS if successful
- *	- XFPGA_FAILURE if unsuccessful
- *	- XFPGA_OPS_NOT_IMPLEMENTED if implementation not exists.
- *
- ****************************************************************************/
-u32 XFpga_GetPlConfigData(XFpga_Info *PLInfoPtr)
-{
-	u32 Status;
-
-	if (!Fpga_Ops.XFpga_GetConfigData) {
+	if (!XFpgaInstance.XFpga_GetConfigReg) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
-		"%s Implementation not exists..\r\n", __FUNCTION__);
-	} else {
-		Status = Fpga_Ops.XFpga_GetConfigData(PLInfoPtr);
+			"%s Implementation not exists..\r\n", __FUNCTION__);
+		goto END;
 	}
 
+	ReadInfo.ReadbackAddr = Address;
+	ReadInfo.ConfigReg_NumFrames = ConfigReg;
+	XFpgaInstance.ReadInfoPtr = &ReadInfo;
+
+	Status = XFpgaInstance.XFpga_GetConfigReg(&XFpgaInstance);
+
+END:
 	return Status;
 }
 
@@ -298,14 +387,18 @@ u32 XFpga_GetPlConfigData(XFpga_Info *PLInfoPtr)
  *****************************************************************************/
 u32 XFpga_InterfaceStatus(void)
 {
-	u32 Status = XFPGA_SUCCESS;
-	if (!Fpga_Ops.XFpga_GetInterfaceStatus) {
+	u32 Status;
+	XFpga XFpgaInstance = {0};
+
+	XFpga_Initialize(&XFpgaInstance);
+	if (!XFpgaInstance.XFpga_GetInterfaceStatus) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 		"%s Implementation not exists..\r\n", __FUNCTION__);
 	} else {
-		Status = Fpga_Ops.XFpga_GetInterfaceStatus();
+		Status = XFpgaInstance.XFpga_GetInterfaceStatus();
 	}
 
 	return Status;
 }
+

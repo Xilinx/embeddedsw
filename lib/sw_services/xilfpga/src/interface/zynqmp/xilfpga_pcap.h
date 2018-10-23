@@ -103,6 +103,7 @@
  * 4.2 adk   03/08/18 Added example for partial reconfiguration.
  * 4.2 Nava   16/08/18  Modified the PL data handling Logic to support
  *                      different PL programming interfaces.
+ * 4.2 Nava   15/09/18  Fixed global function call-backs issue.
  * </pre>
  *
  * @note
@@ -116,6 +117,7 @@
 
 #include "xcsudma.h"
 #include "xsecure.h"
+#include "xilfpga.h"
 /************************** Constant Definitions *****************************/
 
 #define PL_DONE_POLL_COUNT  30000U
@@ -271,7 +273,7 @@
  * @BitstreamAddr	Linear memory Bitstream image base address.
  * @AddrPtr		Aes key address which is used for Decryption.
  * @ReadbackAddr	Address is the DMA buffer address to store the
- *			readback data.
+ * 			readback data.
  * @ConfigReg		Configuration register value to be returned
  * @NumFrames		The number of fpga configuration frames to read
  * @XSecure_ImageInfo	Used to store the secure image data.
@@ -303,13 +305,53 @@ typedef struct {
 	u32 Flags;
 } XFpga_Info;
 
+/**
+ * Structure to store the PL Write Image details.
+ * @BitstreamAddr	Bitstream image base address.
+ * @AddrPtr_Size	Aes key address which is used for Decryption (or)
+ *			In none Secure Bitstream used it is used store size
+ *			of Bitstream Image.
+ * @Flags		Flags are used to specify the type of Bitstream file.
+ *			* BIT(0) - Bitstream type
+ *                                     * 0 - Full Bitstream
+ *                                     * 1 - Partial Bitstream
+ *			* BIT(1) - Authentication using DDR
+ *                                     * 1 - Enable
+ *                                     * 0 - Disable
+ *			* BIT(2) - Authentication using OCM
+ *                                     * 1 - Enable
+ *                                     * 0 - Disable
+ *			* BIT(3) - User-key Encryption
+ *                                     * 1 - Enable
+ *                                     * 0 - Disable
+ *			* BIT(4) - Device-key Encryption
+ *                                     * 1 - Enable
+ *                                     * 0 - Disable
+ *
+ */
+typedef struct {
+		UINTPTR BitstreamAddr;
+		UINTPTR	AddrPtr_Size;
+		u32 Flags;
+}XFpga_Write;
+
+/**
+ * Structure to store the PL Image details.
+ * @ReadbackAddr	Address which is used to store the PL readback data.
+ * @ConfigReg		Configuration register value to be returned (or)
+ * 			The number of Fpga configuration frames to read
+ */
+typedef struct {
+		UINTPTR ReadbackAddr;
+		u32 ConfigReg_NumFrames;
+}XFpga_Read;
+
 /************************** Variable Definitions *****************************/
 extern XCsuDma CsuDma;  /* CSU DMA instance */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
 /*****************************************************************************/
 #endif  /* XILFPGA_PCAP_H */
 /** @} */
