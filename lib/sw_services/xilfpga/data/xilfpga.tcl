@@ -48,6 +48,7 @@
 #                      different PL programming Interfaces.
 # 4.2	adk   24/07/18 Added proper error message if xilsecure is not enabled
 #			in the bsp.
+# 5.0   Nava  11/05/18  Added full bitstream loading support for versal Platform.
 #
 ##############################################################################
 
@@ -76,28 +77,36 @@ proc xfpga_open_include_file {file_name} {
 
 proc generate {lib_handle} {
 
-    set librarylist [hsi::get_libs -filter "NAME==xilsecure"];
-    if { [llength $librarylist] == 0 } {
-        error "This library requires xilsecure library in the Board Support Package.";
-    }
-
     file copy "src/xilfpga.h"  "../../include/xilfpga.h"
 
     set conffile  [xfpga_open_include_file "xfpga_config.h"]
     set zynqmp "src/interface/zynqmp/"
+    set versal "src/interface/versal/"
     set interface "src/interface/"
-    # check processor type
-    set proc_instance [hsi::get_sw_processor];
-    set hw_processor [common::get_property HW_INSTANCE $proc_instance]
-    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
-    set os_type [hsi::get_os];
+    set cortexa53proc [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa53"]
+    if {[llength $cortexa53proc] > 0} {
+	set iszynqmp 1
+    } else {
+	set iszynqmp 0
+    }
+    if { $iszynqmp == 1} {
+	set librarylist [hsi::get_libs -filter "NAME==xilsecure"];
+	if { [llength $librarylist] == 0 } {
+	    error "This library requires xilsecure library in the Board Support Package.";
+	}
+	set def_flags [common::get_property APP_LINKER_FLAGS [hsi::current_sw_design]]
+	set new_flags "-Wl,--start-group,-lxilfpga,-lxil,-lxilsecure,-lgcc,-lc,--end-group $def_flags"
+	set_property -name APP_LINKER_FLAGS -value $new_flags -objects [current_sw_design]
 
-    if { $proc_type == "psu_cortexa53" || $proc_type == "psu_cortexr5" || $proc_type == "psu_pmu" } {
 	foreach entry [glob -nocomplain [file join $zynqmp *]] {
             file copy -force $entry "./src"
         }
-	file delete -force $interface
+    } else {
+	foreach entry [glob -nocomplain [file join $versal *]] {
+            file copy -force $entry "./src"
+        }
     }
+    file delete -force $interface
     puts $conffile "#ifndef _XFPGA_CONFIG_H"
     puts $conffile "#define _XFPGA_CONFIG_H"
     set value  [common::get_property CONFIG.ocm_address $lib_handle]

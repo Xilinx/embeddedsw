@@ -48,6 +48,7 @@
 # 4.2 Nava   30/05/18  Refactor the xilfpga library to support
 #                      different PL programming Interfaces.
 # 4.2 Nava   15/09/18  Fixed global function call-backs issue.
+# 5.0 Nava   11/05/18  Added full bitstream loading support for versal Platform.
 #
 ##############################################################################
 
@@ -58,9 +59,9 @@ BEGIN LIBRARY xilfpga
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilfpga,-lxil,-lxilsecure,-lgcc,-lc,--end-group";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilfpga,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "XilFPGA library provides an interface to the Linux or bare-metal users for configuring the PL over PCAP from PS";
-  OPTION VERSION = 4.2;
+  OPTION VERSION = 5.0;
   OPTION NAME = xilfpga;
 PARAM name = secure_mode, desc = "Enable secure Bitstream loading support", type = bool, default = true;
 PARAM name = debug_mode, desc = "Which is used to Enable the Debug messages in the library", type = bool, default = false;

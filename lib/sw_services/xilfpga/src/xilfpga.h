@@ -36,7 +36,7 @@
  * Lower level Errors + Interface specific Errors + Xilfpga top layer Errors
  *----------------------------------------------------------------------------
  * Lower level Errors | Interface Specific Errors | Xilfpga top layer Errors
- * (other libarier    |     (PCAP Interface)  |
+ * (other libarier    |     (PCAP/CFI Interface)  |
  * or drivers         |                           |
  * Used by xilfpga)   |                           |
  * ----------------------------------------------------------------------------
@@ -51,6 +51,7 @@
  * 	This layer is responsible for providing the interface specific related
  * errors.
  *	-->In Case of ZynqMp, it provides the errors related to PCAP Interface.
+ *	-->In Case of Versel, it provides the errors related to CFI Interface.
  *
  * Xilfpga lower layer:
  *	This layer is responsible for providing the Error related  to the lower
@@ -70,6 +71,7 @@
  *                      different PL programming interfaces.
  * 4.2   adk   28/08/18 Fixed misra-c required standard violations.
  * 4.2   Nava  15/09/18 Fixed global function call-backs issue.
+ * 5.0   Nava  11/05/18 Added full bitstream loading support for versal Platform.
  * </pre>
  *
  * @note
@@ -86,6 +88,8 @@
 #if defined(PLATFORM_ZYNQMP) || (PSU_PMU)
 #include "xilfpga_pcap.h"
 #include "xsecure.h"
+#else
+#include "xilfpga_cfi.h"
 #endif
 
 /**************************** Type Definitions *******************************/
@@ -174,6 +178,8 @@ typedef struct XFpgatag{
 
 /** @endcond*/
 /************************** Function Prototypes ******************************/
+u32 XFpga_Initialize(XFpga *InstancePtr);
+#if defined(PLATFORM_ZYNQMP) || (PSU_PMU)
 u32 XFpga_PL_BitStream_Load(UINTPTR BitstreamImageAddr,
 			    UINTPTR AddrPtr, u32 flags);
 u32 XFpga_PL_Preconfig(XFpga_Info *PLInfoPtr);
@@ -181,9 +187,21 @@ u32 XFpga_PL_WriteToPl(XFpga_Info *PLInfoPtr);
 u32 XFpga_PL_PostConfig(XFpga_Info *PLInfoPtr);
 u32 XFpga_PL_ValidateImage(XFpga_Info *PLInfoPtr);
 u32 XFpga_GetPlConfigData(XFpga_Info *PLInfoPtr);
-void XFpga_GetDmaPtr(XFpga *InstancePtr, XCsuDma *DmaPtr);
-u32 XFpga_InterfaceStatus(void);
-u32 XFpga_Initialize(XFpga *InstancePtr);
 u32 XFpga_GetPlConfigReg(u32 ConfigReg, UINTPTR Address);
-
+u32 XFpga_InterfaceStatus(void);
+#else
+u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
+			    UINTPTR BitstreamImageAddr,
+			    UINTPTR AddrPtr_Size, u32 Flags);
+u32 XFpga_PL_Preconfig(XFpga *InstancePtr);
+u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
+		   UINTPTR AddrPtr_Size, u32 Flags);
+u32 XFpga_PL_PostConfig(XFpga *InstancePtr);
+u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
+			   UINTPTR BitstreamImageAddr,
+			   UINTPTR AddrPtr_Size, u32 Flags);
+u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
+			  u32 ConfigReg_NumFrames);
+void XFpga_GetDmaPtr(XFpga *InstancePtr, XCsuDma *DmaPtr);
+#endif
 #endif  /* XILFPGA_H */
