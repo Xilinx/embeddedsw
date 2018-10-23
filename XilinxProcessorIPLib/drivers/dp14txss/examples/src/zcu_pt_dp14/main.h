@@ -191,7 +191,7 @@
 /*Max timeout tuned as per tester - AXI Clock=100 MHz
  *Some GPUs may need larger value, So user may tune if needed
  */
-#define DP_BS_IDLE_TIMEOUT      (0x047868C0*PHY_COMP)+(0x0091FFFF*!PHY_COMP) //0xFFFFFFFF //0x0091FFFF
+#define DP_BS_IDLE_TIMEOUT      (0x047868C0*PHY_COMP)+(0x0091FFFF*!PHY_COMP)
 #define VBLANK_WAIT_COUNT       (20+(180*PHY_COMP))
 
 /*For compliance, please set AUX_DEFER_COUNT to be 8
@@ -289,6 +289,9 @@ typedef struct
 u32 DpSs_Main();
 u32 DpSs_PlatformInit(void);
 u32 DpRxSs_VideoPhyInit(u16 DeviceId);
+void frameBuffer_stop(void);
+void frameBuffer_stop_wr(void);
+void frameBuffer_stop_rd(void);
 
 void PHY_Two_byte_set(XVphy *InstancePtr, u8 Rx_to_two_byte,
 			u8 Tx_to_two_byte);
