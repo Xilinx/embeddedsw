@@ -304,6 +304,46 @@ zynqmp_pmufw:
 Fix GEM RXQ high pointer in case of WOL
 Fix read of pmu global gen storage reg5
 Added support for PL configuration readback
+Refactor xilfpga APIs to support different PL programming interfaces
+Return error for invalid event ID for register notifier API
+Remove unsupported error condition event from register notifier
+Check for event handler registration before dispatching the event
+If AIB acknowledgment is not received for DDR the PMU should not return
+failure
+AIB should be enabled before FPD power down
+Fix conditional compilation for ENABLE_NODE_IDLING code
+Return acknowledgment if EEMI API ID is invalid
+Remove redundant PM API argument checks which are in pm_api.c/h as its already
+performed by API implementation
+Fix bug in QSPI node idling
+Change clock active checker to look for any clock to be active
+Idle peripherals before PS and system in warm restart
+Return failure if user sends AMS_REF_CLOCK mmio_write call
+PMU Firmware support for AES encryption and decryption
+Use reserved location of DDR to store training data
+Put DDR in self refresh before warm-restart
+Optimize power management code to save memory
+Start FPD WDT only when FSBL execution completes since FSBL also uses it
+Remove redundant code from restart functionality
+Remodel clock infrastructure to support clock EEMI APIs
+Implement clock set/get parent EEMI APIs
+Implement clock enable, disable and get start EEMI APIs
+Implement clock set/get divider EEMI APIs
+Implement PmClockIsActive behavior
+Implement PLL set/get parameter EEMI APIs
+Implement PLL set/get mode EEMI APIs
+Add CSU/PMU global register access via MMIO calls
+Skip TTC3 reset while recovery enabled
+Put RPU1 in forced off state in lockstep mode
+Power down TCM during force powerdown of RPU
+Force powerdown unused RPU cores
+Add support to set restart scope during WDT restart
+PMU Firmware support for eFUSE access
+Power down unused RPU after other master calls PmInitFinalize
+Enable unused RPU power down functionality by default
+Implement pin mux control functionality in PMU
+Release requirements of RPU1 in PmInitFinalize
+Disable eFUSE access functionality by default in PMU
 
 axipmon_v6_7:
 Fix Doxygen reported warnings.
