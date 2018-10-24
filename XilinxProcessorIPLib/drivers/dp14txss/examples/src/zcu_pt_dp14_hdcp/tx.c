@@ -1057,9 +1057,13 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
     hdcp_capable = auxValues[0] & 0x1;
     hdcp_repeater = auxValues[0] & 0x2;
 	if (hdcp_capable != hdcp_capable_org) {
-		do_not_train_tx = 0;
+		do_not_train_tx = 1;
 		hdcp_capable_org = hdcp_capable;
 	}
+	else{
+		do_not_train_tx = 0;
+	}
+
 #endif
 
 }

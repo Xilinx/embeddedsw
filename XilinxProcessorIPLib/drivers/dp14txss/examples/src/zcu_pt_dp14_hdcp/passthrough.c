@@ -58,8 +58,8 @@ u8 hdcp_capable = 0;
 u8 hdcp_repeater_org = 0;
 u8 hdcp_repeater = 0;
 u8 internal_rx_tx = 0;
-u8 do_not_train_tx = 0;
 #endif
+u8 do_not_train_tx = 0;
 extern u8 start_i2s_clk;
 extern u32 appx_fs_dup;
 XV_frmbufrd_Config frmbufrd_cfg;
@@ -300,6 +300,9 @@ void DpPt_Main(void){
 	 * The Audio Clock Recovery Module is programmed in fixed mode
 	 */
 	audio_init();
+	//resetting AUX logic. Needed for some Type based connectors
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x80);
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x0);
 
 	pt_help_menu();
 
@@ -350,6 +353,7 @@ void DpPt_Main(void){
 									lane_link_table[Command].link_rate,
 									lane_link_table[Command].lane_count);
 
+							unplug_proc();
 							// setting new capability at here
 								// clear the interrupt status
 							XDp_ReadReg(
@@ -425,6 +429,7 @@ void DpPt_Main(void){
 				break;
 
 				case '3':
+					unplug_proc();
 					XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFF8FFFF);
 					XDp_RxInterruptEnable(DpRxSsInst.DpPtr,  0x80000000);
 					// Disabling TX interrupts
@@ -443,6 +448,7 @@ void DpPt_Main(void){
 					user_config.VideoMode_local = VmId;
 					user_config.user_pattern = 0; /*pass-through (Default)*/
 					user_config.user_format = XVIDC_CSF_RGB;
+					XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x0);
 
 					//Waking up the monitor
 					sink_power_cycle();
@@ -892,9 +898,10 @@ void DpPt_Main(void){
 			DpTxSsInst.no_video_trigger = 0;
 			tx_done = 0;
 			i2s_started = 0;
-#if ENABLE_AUDIO
+
 //			XI2s_Rx_Enable(&I2s_rx, 0);
 		} else {
+#if ENABLE_AUDIO
 			audio_start_tx();
 #endif
 			}
@@ -909,10 +916,14 @@ void DpPt_Main(void){
 
 		// Rx and pass-through side process
 		dprx_tracking();
-
+#if ENABLE_HDCP_IN_DESIGN
 		//Wait for few frames to ensure valid video is received
 		if (tx_after_rx == 1 && rx_trained == 1 && DpRxSsInst.link_up_trigger
-				                     == 1 && DpRxSsInst.TmrCtrResetDone == 1 ) {
+				                     == 1 && DpRxSsInst.TmrCtrResetDone == 1 )
+#else if
+			if (tx_after_rx == 1 && rx_trained == 1 && DpRxSsInst.link_up_trigger == 1  )
+#endif
+			{
 		    tx_after_rx = 0;
 		    if (track_msa == 1) {
 			usleep(20000);
@@ -944,9 +955,9 @@ void DpPt_Main(void){
 							    if(DpRxSsInst.TmrCtrResetDone == 1){
 								 tx_after_rx = 0;
 							    }
-#endif
 							}
-			// It is observed that some monitors do not give HPD
+#endif
+				// It is observed that some monitors do not give HPD
 			// pulse. Hence checking the link to re-trigger
 			Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
 			if (Status != XST_SUCCESS) {
@@ -954,6 +965,7 @@ void DpPt_Main(void){
 				hpd_pulse_con(&DpTxSsInst, Msa);
 			}
 				tx_done = 1;
+
 		    } else {
 			tx_done = 0;
 			xil_printf ("Problem !! : Unable to get RX MSA Values\r\n");
@@ -1230,6 +1242,8 @@ void unplug_proc (void) {
 	frameBuffer_stop(Msa);
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x80);
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x0);
 	XDpTxSs_Stop(&DpTxSsInst);
 
     //setting vswing to 0
@@ -1313,10 +1327,13 @@ void audio_start_tx (void) {
 	filter_count_b++;
 	//Audio may not work properly on some monitors if this is started too early
 	//hence the delay here
-	if (filter_count_b < 3) {
+
+	if (filter_count_b == 190000) {
 		start_audio_passThrough(LineRate_init_tx);
 
-	} else if (filter_count_b > 200000) {
+	}
+
+	else if (filter_count_b > 200000) {
 		XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x2);
 		xil_printf ("Starting audio on DP TX..\r\n");
 		i2s_started = 1;
@@ -1338,6 +1355,8 @@ void dprx_tracking (void) {
 			frameBuffer_stop_wr(Msa);
 			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 			XDpTxSs_Stop(&DpTxSsInst);
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x80);
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x0);
 		}
 		DpRxSsInst.VBlankCount = 0;
 		rx_aud = 0;
@@ -1377,7 +1396,7 @@ void dprx_tracking (void) {
 		rx_all_detect = 0;
 	}
 
-	if(DpRxSsInst.VBlankCount>VBLANK_WAIT_COUNT){
+	if((DpRxSsInst.VBlankCount>VBLANK_WAIT_COUNT) && (rx_trained == 1)){
 		DpRxSsInst.no_video_trigger = 0;
 		//VBLANK Management
 		DpRxSsInst.VBlankCount = 0;
@@ -1426,7 +1445,7 @@ void dptx_tracking (void) {
 		XDpTxSs_Stop(&DpTxSsInst);
 		i2s_started = 0;
 		XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x0);
-		if((do_not_train_tx == 1) && (XHdcp1x_IsEncrypted(DpRxSsInst.Hdcp1xPtr)))
+		if(do_not_train_tx == 1)
 		{
 			xil_printf ("Monitor is not HDCP Capable !!\r\n");
 		}
