@@ -109,6 +109,7 @@ extern "C" {
 #define XST_NOT_ENABLED                 29L	/*!< A requested service is not
 						   available because it has not
 						   been enabled */
+#define XST_NO_ACCESS			30L	/* Generic access error */
 /** @} */
 /***************** Utility Component statuses 401 - 500  *********************/
 /**
