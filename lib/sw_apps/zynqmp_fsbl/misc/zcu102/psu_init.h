@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -14,8 +14,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -49,6 +49,8 @@
 #define CRL_APB_RPLL_CTRL_OFFSET                                                   0XFF5E0030
 #undef CRL_APB_RPLL_TO_FPD_CTRL_OFFSET
 #define CRL_APB_RPLL_TO_FPD_CTRL_OFFSET                                            0XFF5E0048
+#undef CRL_APB_AMS_REF_CTRL_OFFSET
+#define CRL_APB_AMS_REF_CTRL_OFFSET                                                0XFF5E0108
 #undef CRL_APB_IOPLL_CFG_OFFSET
 #define CRL_APB_IOPLL_CFG_OFFSET                                                   0XFF5E0024
 #undef CRL_APB_IOPLL_CTRL_OFFSET
@@ -257,6 +259,48 @@
 #define CRL_APB_RPLL_TO_FPD_CTRL_DIVISOR0_DEFVAL               0x00000400
 #define CRL_APB_RPLL_TO_FPD_CTRL_DIVISOR0_SHIFT                8
 #define CRL_APB_RPLL_TO_FPD_CTRL_DIVISOR0_MASK                 0x00003F00U
+
+/*
+* 6 bit divider
+*/
+#undef CRL_APB_AMS_REF_CTRL_DIVISOR1_DEFVAL
+#undef CRL_APB_AMS_REF_CTRL_DIVISOR1_SHIFT
+#undef CRL_APB_AMS_REF_CTRL_DIVISOR1_MASK
+#define CRL_APB_AMS_REF_CTRL_DIVISOR1_DEFVAL                   0x01001800
+#define CRL_APB_AMS_REF_CTRL_DIVISOR1_SHIFT                    16
+#define CRL_APB_AMS_REF_CTRL_DIVISOR1_MASK                     0x003F0000U
+
+/*
+* 6 bit divider
+*/
+#undef CRL_APB_AMS_REF_CTRL_DIVISOR0_DEFVAL
+#undef CRL_APB_AMS_REF_CTRL_DIVISOR0_SHIFT
+#undef CRL_APB_AMS_REF_CTRL_DIVISOR0_MASK
+#define CRL_APB_AMS_REF_CTRL_DIVISOR0_DEFVAL                   0x01001800
+#define CRL_APB_AMS_REF_CTRL_DIVISOR0_SHIFT                    8
+#define CRL_APB_AMS_REF_CTRL_DIVISOR0_MASK                     0x00003F00U
+
+/*
+* 000 = RPLL; 010 = IOPLL; 011 = DPLL; (This signal may only be toggled af
+    * ter 4 cycles of the old clock and 4 cycles of the new clock. This is not
+    *  usually an issue, but designers must be aware.)
+*/
+#undef CRL_APB_AMS_REF_CTRL_SRCSEL_DEFVAL
+#undef CRL_APB_AMS_REF_CTRL_SRCSEL_SHIFT
+#undef CRL_APB_AMS_REF_CTRL_SRCSEL_MASK
+#define CRL_APB_AMS_REF_CTRL_SRCSEL_DEFVAL                     0x01001800
+#define CRL_APB_AMS_REF_CTRL_SRCSEL_SHIFT                      0
+#define CRL_APB_AMS_REF_CTRL_SRCSEL_MASK                       0x00000007U
+
+/*
+* Clock active signal. Switch to 0 to disable the clock
+*/
+#undef CRL_APB_AMS_REF_CTRL_CLKACT_DEFVAL
+#undef CRL_APB_AMS_REF_CTRL_CLKACT_SHIFT
+#undef CRL_APB_AMS_REF_CTRL_CLKACT_MASK
+#define CRL_APB_AMS_REF_CTRL_CLKACT_DEFVAL                     0x01001800
+#define CRL_APB_AMS_REF_CTRL_CLKACT_SHIFT                      24
+#define CRL_APB_AMS_REF_CTRL_CLKACT_MASK                       0x01000000U
 
 /*
 * PLL loop filter resistor control
@@ -2612,6 +2656,8 @@
 #define DDR_PHY_DSGCR_OFFSET                                                       0XFD080090
 #undef DDR_PHY_GPR0_OFFSET
 #define DDR_PHY_GPR0_OFFSET                                                        0XFD0800C0
+#undef DDR_PHY_GPR1_OFFSET
+#define DDR_PHY_GPR1_OFFSET                                                        0XFD0800C4
 #undef DDR_PHY_DCR_OFFSET
 #define DDR_PHY_DCR_OFFSET                                                         0XFD080100
 #undef DDR_PHY_DTPR0_OFFSET
@@ -2710,6 +2756,10 @@
 #define DDR_PHY_ZQ1PR0_OFFSET                                                      0XFD0806A4
 #undef DDR_PHY_DX0GCR0_OFFSET
 #define DDR_PHY_DX0GCR0_OFFSET                                                     0XFD080700
+#undef DDR_PHY_DX0GCR1_OFFSET
+#define DDR_PHY_DX0GCR1_OFFSET                                                     0XFD080704
+#undef DDR_PHY_DX0GCR3_OFFSET
+#define DDR_PHY_DX0GCR3_OFFSET                                                     0XFD08070C
 #undef DDR_PHY_DX0GCR4_OFFSET
 #define DDR_PHY_DX0GCR4_OFFSET                                                     0XFD080710
 #undef DDR_PHY_DX0GCR5_OFFSET
@@ -2718,6 +2768,10 @@
 #define DDR_PHY_DX0GCR6_OFFSET                                                     0XFD080718
 #undef DDR_PHY_DX1GCR0_OFFSET
 #define DDR_PHY_DX1GCR0_OFFSET                                                     0XFD080800
+#undef DDR_PHY_DX1GCR1_OFFSET
+#define DDR_PHY_DX1GCR1_OFFSET                                                     0XFD080804
+#undef DDR_PHY_DX1GCR3_OFFSET
+#define DDR_PHY_DX1GCR3_OFFSET                                                     0XFD08080C
 #undef DDR_PHY_DX1GCR4_OFFSET
 #define DDR_PHY_DX1GCR4_OFFSET                                                     0XFD080810
 #undef DDR_PHY_DX1GCR5_OFFSET
@@ -2728,6 +2782,8 @@
 #define DDR_PHY_DX2GCR0_OFFSET                                                     0XFD080900
 #undef DDR_PHY_DX2GCR1_OFFSET
 #define DDR_PHY_DX2GCR1_OFFSET                                                     0XFD080904
+#undef DDR_PHY_DX2GCR3_OFFSET
+#define DDR_PHY_DX2GCR3_OFFSET                                                     0XFD08090C
 #undef DDR_PHY_DX2GCR4_OFFSET
 #define DDR_PHY_DX2GCR4_OFFSET                                                     0XFD080910
 #undef DDR_PHY_DX2GCR5_OFFSET
@@ -2738,6 +2794,8 @@
 #define DDR_PHY_DX3GCR0_OFFSET                                                     0XFD080A00
 #undef DDR_PHY_DX3GCR1_OFFSET
 #define DDR_PHY_DX3GCR1_OFFSET                                                     0XFD080A04
+#undef DDR_PHY_DX3GCR3_OFFSET
+#define DDR_PHY_DX3GCR3_OFFSET                                                     0XFD080A0C
 #undef DDR_PHY_DX3GCR4_OFFSET
 #define DDR_PHY_DX3GCR4_OFFSET                                                     0XFD080A10
 #undef DDR_PHY_DX3GCR5_OFFSET
@@ -2748,6 +2806,10 @@
 #define DDR_PHY_DX4GCR0_OFFSET                                                     0XFD080B00
 #undef DDR_PHY_DX4GCR1_OFFSET
 #define DDR_PHY_DX4GCR1_OFFSET                                                     0XFD080B04
+#undef DDR_PHY_DX4GCR2_OFFSET
+#define DDR_PHY_DX4GCR2_OFFSET                                                     0XFD080B08
+#undef DDR_PHY_DX4GCR3_OFFSET
+#define DDR_PHY_DX4GCR3_OFFSET                                                     0XFD080B0C
 #undef DDR_PHY_DX4GCR4_OFFSET
 #define DDR_PHY_DX4GCR4_OFFSET                                                     0XFD080B10
 #undef DDR_PHY_DX4GCR5_OFFSET
@@ -2758,6 +2820,10 @@
 #define DDR_PHY_DX5GCR0_OFFSET                                                     0XFD080C00
 #undef DDR_PHY_DX5GCR1_OFFSET
 #define DDR_PHY_DX5GCR1_OFFSET                                                     0XFD080C04
+#undef DDR_PHY_DX5GCR2_OFFSET
+#define DDR_PHY_DX5GCR2_OFFSET                                                     0XFD080C08
+#undef DDR_PHY_DX5GCR3_OFFSET
+#define DDR_PHY_DX5GCR3_OFFSET                                                     0XFD080C0C
 #undef DDR_PHY_DX5GCR4_OFFSET
 #define DDR_PHY_DX5GCR4_OFFSET                                                     0XFD080C10
 #undef DDR_PHY_DX5GCR5_OFFSET
@@ -2768,6 +2834,10 @@
 #define DDR_PHY_DX6GCR0_OFFSET                                                     0XFD080D00
 #undef DDR_PHY_DX6GCR1_OFFSET
 #define DDR_PHY_DX6GCR1_OFFSET                                                     0XFD080D04
+#undef DDR_PHY_DX6GCR2_OFFSET
+#define DDR_PHY_DX6GCR2_OFFSET                                                     0XFD080D08
+#undef DDR_PHY_DX6GCR3_OFFSET
+#define DDR_PHY_DX6GCR3_OFFSET                                                     0XFD080D0C
 #undef DDR_PHY_DX6GCR4_OFFSET
 #define DDR_PHY_DX6GCR4_OFFSET                                                     0XFD080D10
 #undef DDR_PHY_DX6GCR5_OFFSET
@@ -2778,6 +2848,10 @@
 #define DDR_PHY_DX7GCR0_OFFSET                                                     0XFD080E00
 #undef DDR_PHY_DX7GCR1_OFFSET
 #define DDR_PHY_DX7GCR1_OFFSET                                                     0XFD080E04
+#undef DDR_PHY_DX7GCR2_OFFSET
+#define DDR_PHY_DX7GCR2_OFFSET                                                     0XFD080E08
+#undef DDR_PHY_DX7GCR3_OFFSET
+#define DDR_PHY_DX7GCR3_OFFSET                                                     0XFD080E0C
 #undef DDR_PHY_DX7GCR4_OFFSET
 #define DDR_PHY_DX7GCR4_OFFSET                                                     0XFD080E10
 #undef DDR_PHY_DX7GCR5_OFFSET
@@ -2788,6 +2862,10 @@
 #define DDR_PHY_DX8GCR0_OFFSET                                                     0XFD080F00
 #undef DDR_PHY_DX8GCR1_OFFSET
 #define DDR_PHY_DX8GCR1_OFFSET                                                     0XFD080F04
+#undef DDR_PHY_DX8GCR2_OFFSET
+#define DDR_PHY_DX8GCR2_OFFSET                                                     0XFD080F08
+#undef DDR_PHY_DX8GCR3_OFFSET
+#define DDR_PHY_DX8GCR3_OFFSET                                                     0XFD080F0C
 #undef DDR_PHY_DX8GCR4_OFFSET
 #define DDR_PHY_DX8GCR4_OFFSET                                                     0XFD080F10
 #undef DDR_PHY_DX8GCR5_OFFSET
@@ -8921,6 +8999,16 @@
 #define DDR_PHY_GPR0_GPR0_MASK                                 0xFFFFFFFFU
 
 /*
+* General Purpose Register 1
+*/
+#undef DDR_PHY_GPR1_GPR1_DEFVAL
+#undef DDR_PHY_GPR1_GPR1_SHIFT
+#undef DDR_PHY_GPR1_GPR1_MASK
+#define DDR_PHY_GPR1_GPR1_DEFVAL
+#define DDR_PHY_GPR1_GPR1_SHIFT                                0
+#define DDR_PHY_GPR1_GPR1_MASK                                 0xFFFFFFFFU
+
+/*
 * DDR4 Gear Down Timing.
 */
 #undef DDR_PHY_DCR_GEARDN_DEFVAL
@@ -13139,6 +13227,296 @@
 #define DDR_PHY_DX0GCR0_RESERVED_1_0_MASK                      0x00000003U
 
 /*
+* Enables the PDR mode for DQ[7:0]
+*/
+#undef DDR_PHY_DX0GCR1_DXPDRMODE_DEFVAL
+#undef DDR_PHY_DX0GCR1_DXPDRMODE_SHIFT
+#undef DDR_PHY_DX0GCR1_DXPDRMODE_MASK
+#define DDR_PHY_DX0GCR1_DXPDRMODE_DEFVAL                       0x00007FFF
+#define DDR_PHY_DX0GCR1_DXPDRMODE_SHIFT                        16
+#define DDR_PHY_DX0GCR1_DXPDRMODE_MASK                         0xFFFF0000U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX0GCR1_RESERVED_15_DEFVAL
+#undef DDR_PHY_DX0GCR1_RESERVED_15_SHIFT
+#undef DDR_PHY_DX0GCR1_RESERVED_15_MASK
+#define DDR_PHY_DX0GCR1_RESERVED_15_DEFVAL                     0x00007FFF
+#define DDR_PHY_DX0GCR1_RESERVED_15_SHIFT                      15
+#define DDR_PHY_DX0GCR1_RESERVED_15_MASK                       0x00008000U
+
+/*
+* Select the delayed or non-delayed read data strobe #
+*/
+#undef DDR_PHY_DX0GCR1_QSNSEL_DEFVAL
+#undef DDR_PHY_DX0GCR1_QSNSEL_SHIFT
+#undef DDR_PHY_DX0GCR1_QSNSEL_MASK
+#define DDR_PHY_DX0GCR1_QSNSEL_DEFVAL                          0x00007FFF
+#define DDR_PHY_DX0GCR1_QSNSEL_SHIFT                           14
+#define DDR_PHY_DX0GCR1_QSNSEL_MASK                            0x00004000U
+
+/*
+* Select the delayed or non-delayed read data strobe
+*/
+#undef DDR_PHY_DX0GCR1_QSSEL_DEFVAL
+#undef DDR_PHY_DX0GCR1_QSSEL_SHIFT
+#undef DDR_PHY_DX0GCR1_QSSEL_MASK
+#define DDR_PHY_DX0GCR1_QSSEL_DEFVAL                           0x00007FFF
+#define DDR_PHY_DX0GCR1_QSSEL_SHIFT                            13
+#define DDR_PHY_DX0GCR1_QSSEL_MASK                             0x00002000U
+
+/*
+* Enables Read Data Strobe in a byte lane
+*/
+#undef DDR_PHY_DX0GCR1_OEEN_DEFVAL
+#undef DDR_PHY_DX0GCR1_OEEN_SHIFT
+#undef DDR_PHY_DX0GCR1_OEEN_MASK
+#define DDR_PHY_DX0GCR1_OEEN_DEFVAL                            0x00007FFF
+#define DDR_PHY_DX0GCR1_OEEN_SHIFT                             12
+#define DDR_PHY_DX0GCR1_OEEN_MASK                              0x00001000U
+
+/*
+* Enables PDR in a byte lane
+*/
+#undef DDR_PHY_DX0GCR1_PDREN_DEFVAL
+#undef DDR_PHY_DX0GCR1_PDREN_SHIFT
+#undef DDR_PHY_DX0GCR1_PDREN_MASK
+#define DDR_PHY_DX0GCR1_PDREN_DEFVAL                           0x00007FFF
+#define DDR_PHY_DX0GCR1_PDREN_SHIFT                            11
+#define DDR_PHY_DX0GCR1_PDREN_MASK                             0x00000800U
+
+/*
+* Enables ODT/TE in a byte lane
+*/
+#undef DDR_PHY_DX0GCR1_TEEN_DEFVAL
+#undef DDR_PHY_DX0GCR1_TEEN_SHIFT
+#undef DDR_PHY_DX0GCR1_TEEN_MASK
+#define DDR_PHY_DX0GCR1_TEEN_DEFVAL                            0x00007FFF
+#define DDR_PHY_DX0GCR1_TEEN_SHIFT                             10
+#define DDR_PHY_DX0GCR1_TEEN_MASK                              0x00000400U
+
+/*
+* Enables Write Data strobe in a byte lane
+*/
+#undef DDR_PHY_DX0GCR1_DSEN_DEFVAL
+#undef DDR_PHY_DX0GCR1_DSEN_SHIFT
+#undef DDR_PHY_DX0GCR1_DSEN_MASK
+#define DDR_PHY_DX0GCR1_DSEN_DEFVAL                            0x00007FFF
+#define DDR_PHY_DX0GCR1_DSEN_SHIFT                             9
+#define DDR_PHY_DX0GCR1_DSEN_MASK                              0x00000200U
+
+/*
+* Enables DM pin in a byte lane
+*/
+#undef DDR_PHY_DX0GCR1_DMEN_DEFVAL
+#undef DDR_PHY_DX0GCR1_DMEN_SHIFT
+#undef DDR_PHY_DX0GCR1_DMEN_MASK
+#define DDR_PHY_DX0GCR1_DMEN_DEFVAL                            0x00007FFF
+#define DDR_PHY_DX0GCR1_DMEN_SHIFT                             8
+#define DDR_PHY_DX0GCR1_DMEN_MASK                              0x00000100U
+
+/*
+* Enables DQ corresponding to each bit in a byte
+*/
+#undef DDR_PHY_DX0GCR1_DQEN_DEFVAL
+#undef DDR_PHY_DX0GCR1_DQEN_SHIFT
+#undef DDR_PHY_DX0GCR1_DQEN_MASK
+#define DDR_PHY_DX0GCR1_DQEN_DEFVAL                            0x00007FFF
+#define DDR_PHY_DX0GCR1_DQEN_SHIFT                             0
+#define DDR_PHY_DX0GCR1_DQEN_MASK                              0x000000FFU
+
+/*
+* Reserved. Returns zeros on reads.
+*/
+#undef DDR_PHY_DX0GCR3_RESERVED_31_30_DEFVAL
+#undef DDR_PHY_DX0GCR3_RESERVED_31_30_SHIFT
+#undef DDR_PHY_DX0GCR3_RESERVED_31_30_MASK
+#define DDR_PHY_DX0GCR3_RESERVED_31_30_DEFVAL                  0x3F000008
+#define DDR_PHY_DX0GCR3_RESERVED_31_30_SHIFT                   30
+#define DDR_PHY_DX0GCR3_RESERVED_31_30_MASK                    0xC0000000U
+
+/*
+* Read Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX0GCR3_RDBVT_DEFVAL
+#undef DDR_PHY_DX0GCR3_RDBVT_SHIFT
+#undef DDR_PHY_DX0GCR3_RDBVT_MASK
+#define DDR_PHY_DX0GCR3_RDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX0GCR3_RDBVT_SHIFT                            29
+#define DDR_PHY_DX0GCR3_RDBVT_MASK                             0x20000000U
+
+/*
+* Write Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX0GCR3_WDBVT_DEFVAL
+#undef DDR_PHY_DX0GCR3_WDBVT_SHIFT
+#undef DDR_PHY_DX0GCR3_WDBVT_MASK
+#define DDR_PHY_DX0GCR3_WDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX0GCR3_WDBVT_SHIFT                            28
+#define DDR_PHY_DX0GCR3_WDBVT_MASK                             0x10000000U
+
+/*
+* Read DQS Gating LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX0GCR3_RGLVT_DEFVAL
+#undef DDR_PHY_DX0GCR3_RGLVT_SHIFT
+#undef DDR_PHY_DX0GCR3_RGLVT_MASK
+#define DDR_PHY_DX0GCR3_RGLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX0GCR3_RGLVT_SHIFT                            27
+#define DDR_PHY_DX0GCR3_RGLVT_MASK                             0x08000000U
+
+/*
+* Read DQS LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX0GCR3_RDLVT_DEFVAL
+#undef DDR_PHY_DX0GCR3_RDLVT_SHIFT
+#undef DDR_PHY_DX0GCR3_RDLVT_MASK
+#define DDR_PHY_DX0GCR3_RDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX0GCR3_RDLVT_SHIFT                            26
+#define DDR_PHY_DX0GCR3_RDLVT_MASK                             0x04000000U
+
+/*
+* Write DQ LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX0GCR3_WDLVT_DEFVAL
+#undef DDR_PHY_DX0GCR3_WDLVT_SHIFT
+#undef DDR_PHY_DX0GCR3_WDLVT_MASK
+#define DDR_PHY_DX0GCR3_WDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX0GCR3_WDLVT_SHIFT                            25
+#define DDR_PHY_DX0GCR3_WDLVT_MASK                             0x02000000U
+
+/*
+* Write Leveling LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX0GCR3_WLLVT_DEFVAL
+#undef DDR_PHY_DX0GCR3_WLLVT_SHIFT
+#undef DDR_PHY_DX0GCR3_WLLVT_MASK
+#define DDR_PHY_DX0GCR3_WLLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX0GCR3_WLLVT_SHIFT                            24
+#define DDR_PHY_DX0GCR3_WLLVT_MASK                             0x01000000U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX0GCR3_RESERVED_23_22_DEFVAL
+#undef DDR_PHY_DX0GCR3_RESERVED_23_22_SHIFT
+#undef DDR_PHY_DX0GCR3_RESERVED_23_22_MASK
+#define DDR_PHY_DX0GCR3_RESERVED_23_22_DEFVAL                  0x3F000008
+#define DDR_PHY_DX0GCR3_RESERVED_23_22_SHIFT                   22
+#define DDR_PHY_DX0GCR3_RESERVED_23_22_MASK                    0x00C00000U
+
+/*
+* Enables the OE mode for DQs
+*/
+#undef DDR_PHY_DX0GCR3_DSNOEMODE_DEFVAL
+#undef DDR_PHY_DX0GCR3_DSNOEMODE_SHIFT
+#undef DDR_PHY_DX0GCR3_DSNOEMODE_MASK
+#define DDR_PHY_DX0GCR3_DSNOEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX0GCR3_DSNOEMODE_SHIFT                        20
+#define DDR_PHY_DX0GCR3_DSNOEMODE_MASK                         0x00300000U
+
+/*
+* Enables the TE mode for DQS
+*/
+#undef DDR_PHY_DX0GCR3_DSNTEMODE_DEFVAL
+#undef DDR_PHY_DX0GCR3_DSNTEMODE_SHIFT
+#undef DDR_PHY_DX0GCR3_DSNTEMODE_MASK
+#define DDR_PHY_DX0GCR3_DSNTEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX0GCR3_DSNTEMODE_SHIFT                        18
+#define DDR_PHY_DX0GCR3_DSNTEMODE_MASK                         0x000C0000U
+
+/*
+* Enables the PDR mode for DQS
+*/
+#undef DDR_PHY_DX0GCR3_DSNPDRMODE_DEFVAL
+#undef DDR_PHY_DX0GCR3_DSNPDRMODE_SHIFT
+#undef DDR_PHY_DX0GCR3_DSNPDRMODE_MASK
+#define DDR_PHY_DX0GCR3_DSNPDRMODE_DEFVAL                      0x3F000008
+#define DDR_PHY_DX0GCR3_DSNPDRMODE_SHIFT                       16
+#define DDR_PHY_DX0GCR3_DSNPDRMODE_MASK                        0x00030000U
+
+/*
+* Enables the OE mode values for DM.
+*/
+#undef DDR_PHY_DX0GCR3_DMOEMODE_DEFVAL
+#undef DDR_PHY_DX0GCR3_DMOEMODE_SHIFT
+#undef DDR_PHY_DX0GCR3_DMOEMODE_MASK
+#define DDR_PHY_DX0GCR3_DMOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX0GCR3_DMOEMODE_SHIFT                         14
+#define DDR_PHY_DX0GCR3_DMOEMODE_MASK                          0x0000C000U
+
+/*
+* Enables the TE mode values for DM.
+*/
+#undef DDR_PHY_DX0GCR3_DMTEMODE_DEFVAL
+#undef DDR_PHY_DX0GCR3_DMTEMODE_SHIFT
+#undef DDR_PHY_DX0GCR3_DMTEMODE_MASK
+#define DDR_PHY_DX0GCR3_DMTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX0GCR3_DMTEMODE_SHIFT                         12
+#define DDR_PHY_DX0GCR3_DMTEMODE_MASK                          0x00003000U
+
+/*
+* Enables the PDR mode values for DM.
+*/
+#undef DDR_PHY_DX0GCR3_DMPDRMODE_DEFVAL
+#undef DDR_PHY_DX0GCR3_DMPDRMODE_SHIFT
+#undef DDR_PHY_DX0GCR3_DMPDRMODE_MASK
+#define DDR_PHY_DX0GCR3_DMPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX0GCR3_DMPDRMODE_SHIFT                        10
+#define DDR_PHY_DX0GCR3_DMPDRMODE_MASK                         0x00000C00U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX0GCR3_RESERVED_9_8_DEFVAL
+#undef DDR_PHY_DX0GCR3_RESERVED_9_8_SHIFT
+#undef DDR_PHY_DX0GCR3_RESERVED_9_8_MASK
+#define DDR_PHY_DX0GCR3_RESERVED_9_8_DEFVAL                    0x3F000008
+#define DDR_PHY_DX0GCR3_RESERVED_9_8_SHIFT                     8
+#define DDR_PHY_DX0GCR3_RESERVED_9_8_MASK                      0x00000300U
+
+/*
+* Enables the OE mode values for DQS.
+*/
+#undef DDR_PHY_DX0GCR3_DSOEMODE_DEFVAL
+#undef DDR_PHY_DX0GCR3_DSOEMODE_SHIFT
+#undef DDR_PHY_DX0GCR3_DSOEMODE_MASK
+#define DDR_PHY_DX0GCR3_DSOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX0GCR3_DSOEMODE_SHIFT                         6
+#define DDR_PHY_DX0GCR3_DSOEMODE_MASK                          0x000000C0U
+
+/*
+* Enables the TE mode values for DQS.
+*/
+#undef DDR_PHY_DX0GCR3_DSTEMODE_DEFVAL
+#undef DDR_PHY_DX0GCR3_DSTEMODE_SHIFT
+#undef DDR_PHY_DX0GCR3_DSTEMODE_MASK
+#define DDR_PHY_DX0GCR3_DSTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX0GCR3_DSTEMODE_SHIFT                         4
+#define DDR_PHY_DX0GCR3_DSTEMODE_MASK                          0x00000030U
+
+/*
+* Enables the PDR mode values for DQS.
+*/
+#undef DDR_PHY_DX0GCR3_DSPDRMODE_DEFVAL
+#undef DDR_PHY_DX0GCR3_DSPDRMODE_SHIFT
+#undef DDR_PHY_DX0GCR3_DSPDRMODE_MASK
+#define DDR_PHY_DX0GCR3_DSPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX0GCR3_DSPDRMODE_SHIFT                        2
+#define DDR_PHY_DX0GCR3_DSPDRMODE_MASK                         0x0000000CU
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX0GCR3_RESERVED_1_0_DEFVAL
+#undef DDR_PHY_DX0GCR3_RESERVED_1_0_SHIFT
+#undef DDR_PHY_DX0GCR3_RESERVED_1_0_MASK
+#define DDR_PHY_DX0GCR3_RESERVED_1_0_DEFVAL                    0x3F000008
+#define DDR_PHY_DX0GCR3_RESERVED_1_0_SHIFT                     0
+#define DDR_PHY_DX0GCR3_RESERVED_1_0_MASK                      0x00000003U
+
+/*
 * Byte lane VREF IOM (Used only by D4MU IOs)
 */
 #undef DDR_PHY_DX0GCR4_RESERVED_31_29_DEFVAL
@@ -13588,6 +13966,296 @@
 #define DDR_PHY_DX1GCR0_RESERVED_1_0_DEFVAL                    0x40200204
 #define DDR_PHY_DX1GCR0_RESERVED_1_0_SHIFT                     0
 #define DDR_PHY_DX1GCR0_RESERVED_1_0_MASK                      0x00000003U
+
+/*
+* Enables the PDR mode for DQ[7:0]
+*/
+#undef DDR_PHY_DX1GCR1_DXPDRMODE_DEFVAL
+#undef DDR_PHY_DX1GCR1_DXPDRMODE_SHIFT
+#undef DDR_PHY_DX1GCR1_DXPDRMODE_MASK
+#define DDR_PHY_DX1GCR1_DXPDRMODE_DEFVAL                       0x00007FFF
+#define DDR_PHY_DX1GCR1_DXPDRMODE_SHIFT                        16
+#define DDR_PHY_DX1GCR1_DXPDRMODE_MASK                         0xFFFF0000U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX1GCR1_RESERVED_15_DEFVAL
+#undef DDR_PHY_DX1GCR1_RESERVED_15_SHIFT
+#undef DDR_PHY_DX1GCR1_RESERVED_15_MASK
+#define DDR_PHY_DX1GCR1_RESERVED_15_DEFVAL                     0x00007FFF
+#define DDR_PHY_DX1GCR1_RESERVED_15_SHIFT                      15
+#define DDR_PHY_DX1GCR1_RESERVED_15_MASK                       0x00008000U
+
+/*
+* Select the delayed or non-delayed read data strobe #
+*/
+#undef DDR_PHY_DX1GCR1_QSNSEL_DEFVAL
+#undef DDR_PHY_DX1GCR1_QSNSEL_SHIFT
+#undef DDR_PHY_DX1GCR1_QSNSEL_MASK
+#define DDR_PHY_DX1GCR1_QSNSEL_DEFVAL                          0x00007FFF
+#define DDR_PHY_DX1GCR1_QSNSEL_SHIFT                           14
+#define DDR_PHY_DX1GCR1_QSNSEL_MASK                            0x00004000U
+
+/*
+* Select the delayed or non-delayed read data strobe
+*/
+#undef DDR_PHY_DX1GCR1_QSSEL_DEFVAL
+#undef DDR_PHY_DX1GCR1_QSSEL_SHIFT
+#undef DDR_PHY_DX1GCR1_QSSEL_MASK
+#define DDR_PHY_DX1GCR1_QSSEL_DEFVAL                           0x00007FFF
+#define DDR_PHY_DX1GCR1_QSSEL_SHIFT                            13
+#define DDR_PHY_DX1GCR1_QSSEL_MASK                             0x00002000U
+
+/*
+* Enables Read Data Strobe in a byte lane
+*/
+#undef DDR_PHY_DX1GCR1_OEEN_DEFVAL
+#undef DDR_PHY_DX1GCR1_OEEN_SHIFT
+#undef DDR_PHY_DX1GCR1_OEEN_MASK
+#define DDR_PHY_DX1GCR1_OEEN_DEFVAL                            0x00007FFF
+#define DDR_PHY_DX1GCR1_OEEN_SHIFT                             12
+#define DDR_PHY_DX1GCR1_OEEN_MASK                              0x00001000U
+
+/*
+* Enables PDR in a byte lane
+*/
+#undef DDR_PHY_DX1GCR1_PDREN_DEFVAL
+#undef DDR_PHY_DX1GCR1_PDREN_SHIFT
+#undef DDR_PHY_DX1GCR1_PDREN_MASK
+#define DDR_PHY_DX1GCR1_PDREN_DEFVAL                           0x00007FFF
+#define DDR_PHY_DX1GCR1_PDREN_SHIFT                            11
+#define DDR_PHY_DX1GCR1_PDREN_MASK                             0x00000800U
+
+/*
+* Enables ODT/TE in a byte lane
+*/
+#undef DDR_PHY_DX1GCR1_TEEN_DEFVAL
+#undef DDR_PHY_DX1GCR1_TEEN_SHIFT
+#undef DDR_PHY_DX1GCR1_TEEN_MASK
+#define DDR_PHY_DX1GCR1_TEEN_DEFVAL                            0x00007FFF
+#define DDR_PHY_DX1GCR1_TEEN_SHIFT                             10
+#define DDR_PHY_DX1GCR1_TEEN_MASK                              0x00000400U
+
+/*
+* Enables Write Data strobe in a byte lane
+*/
+#undef DDR_PHY_DX1GCR1_DSEN_DEFVAL
+#undef DDR_PHY_DX1GCR1_DSEN_SHIFT
+#undef DDR_PHY_DX1GCR1_DSEN_MASK
+#define DDR_PHY_DX1GCR1_DSEN_DEFVAL                            0x00007FFF
+#define DDR_PHY_DX1GCR1_DSEN_SHIFT                             9
+#define DDR_PHY_DX1GCR1_DSEN_MASK                              0x00000200U
+
+/*
+* Enables DM pin in a byte lane
+*/
+#undef DDR_PHY_DX1GCR1_DMEN_DEFVAL
+#undef DDR_PHY_DX1GCR1_DMEN_SHIFT
+#undef DDR_PHY_DX1GCR1_DMEN_MASK
+#define DDR_PHY_DX1GCR1_DMEN_DEFVAL                            0x00007FFF
+#define DDR_PHY_DX1GCR1_DMEN_SHIFT                             8
+#define DDR_PHY_DX1GCR1_DMEN_MASK                              0x00000100U
+
+/*
+* Enables DQ corresponding to each bit in a byte
+*/
+#undef DDR_PHY_DX1GCR1_DQEN_DEFVAL
+#undef DDR_PHY_DX1GCR1_DQEN_SHIFT
+#undef DDR_PHY_DX1GCR1_DQEN_MASK
+#define DDR_PHY_DX1GCR1_DQEN_DEFVAL                            0x00007FFF
+#define DDR_PHY_DX1GCR1_DQEN_SHIFT                             0
+#define DDR_PHY_DX1GCR1_DQEN_MASK                              0x000000FFU
+
+/*
+* Reserved. Returns zeros on reads.
+*/
+#undef DDR_PHY_DX1GCR3_RESERVED_31_30_DEFVAL
+#undef DDR_PHY_DX1GCR3_RESERVED_31_30_SHIFT
+#undef DDR_PHY_DX1GCR3_RESERVED_31_30_MASK
+#define DDR_PHY_DX1GCR3_RESERVED_31_30_DEFVAL                  0x3F000008
+#define DDR_PHY_DX1GCR3_RESERVED_31_30_SHIFT                   30
+#define DDR_PHY_DX1GCR3_RESERVED_31_30_MASK                    0xC0000000U
+
+/*
+* Read Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX1GCR3_RDBVT_DEFVAL
+#undef DDR_PHY_DX1GCR3_RDBVT_SHIFT
+#undef DDR_PHY_DX1GCR3_RDBVT_MASK
+#define DDR_PHY_DX1GCR3_RDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX1GCR3_RDBVT_SHIFT                            29
+#define DDR_PHY_DX1GCR3_RDBVT_MASK                             0x20000000U
+
+/*
+* Write Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX1GCR3_WDBVT_DEFVAL
+#undef DDR_PHY_DX1GCR3_WDBVT_SHIFT
+#undef DDR_PHY_DX1GCR3_WDBVT_MASK
+#define DDR_PHY_DX1GCR3_WDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX1GCR3_WDBVT_SHIFT                            28
+#define DDR_PHY_DX1GCR3_WDBVT_MASK                             0x10000000U
+
+/*
+* Read DQS Gating LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX1GCR3_RGLVT_DEFVAL
+#undef DDR_PHY_DX1GCR3_RGLVT_SHIFT
+#undef DDR_PHY_DX1GCR3_RGLVT_MASK
+#define DDR_PHY_DX1GCR3_RGLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX1GCR3_RGLVT_SHIFT                            27
+#define DDR_PHY_DX1GCR3_RGLVT_MASK                             0x08000000U
+
+/*
+* Read DQS LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX1GCR3_RDLVT_DEFVAL
+#undef DDR_PHY_DX1GCR3_RDLVT_SHIFT
+#undef DDR_PHY_DX1GCR3_RDLVT_MASK
+#define DDR_PHY_DX1GCR3_RDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX1GCR3_RDLVT_SHIFT                            26
+#define DDR_PHY_DX1GCR3_RDLVT_MASK                             0x04000000U
+
+/*
+* Write DQ LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX1GCR3_WDLVT_DEFVAL
+#undef DDR_PHY_DX1GCR3_WDLVT_SHIFT
+#undef DDR_PHY_DX1GCR3_WDLVT_MASK
+#define DDR_PHY_DX1GCR3_WDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX1GCR3_WDLVT_SHIFT                            25
+#define DDR_PHY_DX1GCR3_WDLVT_MASK                             0x02000000U
+
+/*
+* Write Leveling LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX1GCR3_WLLVT_DEFVAL
+#undef DDR_PHY_DX1GCR3_WLLVT_SHIFT
+#undef DDR_PHY_DX1GCR3_WLLVT_MASK
+#define DDR_PHY_DX1GCR3_WLLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX1GCR3_WLLVT_SHIFT                            24
+#define DDR_PHY_DX1GCR3_WLLVT_MASK                             0x01000000U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX1GCR3_RESERVED_23_22_DEFVAL
+#undef DDR_PHY_DX1GCR3_RESERVED_23_22_SHIFT
+#undef DDR_PHY_DX1GCR3_RESERVED_23_22_MASK
+#define DDR_PHY_DX1GCR3_RESERVED_23_22_DEFVAL                  0x3F000008
+#define DDR_PHY_DX1GCR3_RESERVED_23_22_SHIFT                   22
+#define DDR_PHY_DX1GCR3_RESERVED_23_22_MASK                    0x00C00000U
+
+/*
+* Enables the OE mode for DQs
+*/
+#undef DDR_PHY_DX1GCR3_DSNOEMODE_DEFVAL
+#undef DDR_PHY_DX1GCR3_DSNOEMODE_SHIFT
+#undef DDR_PHY_DX1GCR3_DSNOEMODE_MASK
+#define DDR_PHY_DX1GCR3_DSNOEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX1GCR3_DSNOEMODE_SHIFT                        20
+#define DDR_PHY_DX1GCR3_DSNOEMODE_MASK                         0x00300000U
+
+/*
+* Enables the TE mode for DQS
+*/
+#undef DDR_PHY_DX1GCR3_DSNTEMODE_DEFVAL
+#undef DDR_PHY_DX1GCR3_DSNTEMODE_SHIFT
+#undef DDR_PHY_DX1GCR3_DSNTEMODE_MASK
+#define DDR_PHY_DX1GCR3_DSNTEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX1GCR3_DSNTEMODE_SHIFT                        18
+#define DDR_PHY_DX1GCR3_DSNTEMODE_MASK                         0x000C0000U
+
+/*
+* Enables the PDR mode for DQS
+*/
+#undef DDR_PHY_DX1GCR3_DSNPDRMODE_DEFVAL
+#undef DDR_PHY_DX1GCR3_DSNPDRMODE_SHIFT
+#undef DDR_PHY_DX1GCR3_DSNPDRMODE_MASK
+#define DDR_PHY_DX1GCR3_DSNPDRMODE_DEFVAL                      0x3F000008
+#define DDR_PHY_DX1GCR3_DSNPDRMODE_SHIFT                       16
+#define DDR_PHY_DX1GCR3_DSNPDRMODE_MASK                        0x00030000U
+
+/*
+* Enables the OE mode values for DM.
+*/
+#undef DDR_PHY_DX1GCR3_DMOEMODE_DEFVAL
+#undef DDR_PHY_DX1GCR3_DMOEMODE_SHIFT
+#undef DDR_PHY_DX1GCR3_DMOEMODE_MASK
+#define DDR_PHY_DX1GCR3_DMOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX1GCR3_DMOEMODE_SHIFT                         14
+#define DDR_PHY_DX1GCR3_DMOEMODE_MASK                          0x0000C000U
+
+/*
+* Enables the TE mode values for DM.
+*/
+#undef DDR_PHY_DX1GCR3_DMTEMODE_DEFVAL
+#undef DDR_PHY_DX1GCR3_DMTEMODE_SHIFT
+#undef DDR_PHY_DX1GCR3_DMTEMODE_MASK
+#define DDR_PHY_DX1GCR3_DMTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX1GCR3_DMTEMODE_SHIFT                         12
+#define DDR_PHY_DX1GCR3_DMTEMODE_MASK                          0x00003000U
+
+/*
+* Enables the PDR mode values for DM.
+*/
+#undef DDR_PHY_DX1GCR3_DMPDRMODE_DEFVAL
+#undef DDR_PHY_DX1GCR3_DMPDRMODE_SHIFT
+#undef DDR_PHY_DX1GCR3_DMPDRMODE_MASK
+#define DDR_PHY_DX1GCR3_DMPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX1GCR3_DMPDRMODE_SHIFT                        10
+#define DDR_PHY_DX1GCR3_DMPDRMODE_MASK                         0x00000C00U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX1GCR3_RESERVED_9_8_DEFVAL
+#undef DDR_PHY_DX1GCR3_RESERVED_9_8_SHIFT
+#undef DDR_PHY_DX1GCR3_RESERVED_9_8_MASK
+#define DDR_PHY_DX1GCR3_RESERVED_9_8_DEFVAL                    0x3F000008
+#define DDR_PHY_DX1GCR3_RESERVED_9_8_SHIFT                     8
+#define DDR_PHY_DX1GCR3_RESERVED_9_8_MASK                      0x00000300U
+
+/*
+* Enables the OE mode values for DQS.
+*/
+#undef DDR_PHY_DX1GCR3_DSOEMODE_DEFVAL
+#undef DDR_PHY_DX1GCR3_DSOEMODE_SHIFT
+#undef DDR_PHY_DX1GCR3_DSOEMODE_MASK
+#define DDR_PHY_DX1GCR3_DSOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX1GCR3_DSOEMODE_SHIFT                         6
+#define DDR_PHY_DX1GCR3_DSOEMODE_MASK                          0x000000C0U
+
+/*
+* Enables the TE mode values for DQS.
+*/
+#undef DDR_PHY_DX1GCR3_DSTEMODE_DEFVAL
+#undef DDR_PHY_DX1GCR3_DSTEMODE_SHIFT
+#undef DDR_PHY_DX1GCR3_DSTEMODE_MASK
+#define DDR_PHY_DX1GCR3_DSTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX1GCR3_DSTEMODE_SHIFT                         4
+#define DDR_PHY_DX1GCR3_DSTEMODE_MASK                          0x00000030U
+
+/*
+* Enables the PDR mode values for DQS.
+*/
+#undef DDR_PHY_DX1GCR3_DSPDRMODE_DEFVAL
+#undef DDR_PHY_DX1GCR3_DSPDRMODE_SHIFT
+#undef DDR_PHY_DX1GCR3_DSPDRMODE_MASK
+#define DDR_PHY_DX1GCR3_DSPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX1GCR3_DSPDRMODE_SHIFT                        2
+#define DDR_PHY_DX1GCR3_DSPDRMODE_MASK                         0x0000000CU
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX1GCR3_RESERVED_1_0_DEFVAL
+#undef DDR_PHY_DX1GCR3_RESERVED_1_0_SHIFT
+#undef DDR_PHY_DX1GCR3_RESERVED_1_0_MASK
+#define DDR_PHY_DX1GCR3_RESERVED_1_0_DEFVAL                    0x3F000008
+#define DDR_PHY_DX1GCR3_RESERVED_1_0_SHIFT                     0
+#define DDR_PHY_DX1GCR3_RESERVED_1_0_MASK                      0x00000003U
 
 /*
 * Byte lane VREF IOM (Used only by D4MU IOs)
@@ -14141,6 +14809,196 @@
 #define DDR_PHY_DX2GCR1_DQEN_MASK                              0x000000FFU
 
 /*
+* Reserved. Returns zeros on reads.
+*/
+#undef DDR_PHY_DX2GCR3_RESERVED_31_30_DEFVAL
+#undef DDR_PHY_DX2GCR3_RESERVED_31_30_SHIFT
+#undef DDR_PHY_DX2GCR3_RESERVED_31_30_MASK
+#define DDR_PHY_DX2GCR3_RESERVED_31_30_DEFVAL                  0x3F000008
+#define DDR_PHY_DX2GCR3_RESERVED_31_30_SHIFT                   30
+#define DDR_PHY_DX2GCR3_RESERVED_31_30_MASK                    0xC0000000U
+
+/*
+* Read Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX2GCR3_RDBVT_DEFVAL
+#undef DDR_PHY_DX2GCR3_RDBVT_SHIFT
+#undef DDR_PHY_DX2GCR3_RDBVT_MASK
+#define DDR_PHY_DX2GCR3_RDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX2GCR3_RDBVT_SHIFT                            29
+#define DDR_PHY_DX2GCR3_RDBVT_MASK                             0x20000000U
+
+/*
+* Write Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX2GCR3_WDBVT_DEFVAL
+#undef DDR_PHY_DX2GCR3_WDBVT_SHIFT
+#undef DDR_PHY_DX2GCR3_WDBVT_MASK
+#define DDR_PHY_DX2GCR3_WDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX2GCR3_WDBVT_SHIFT                            28
+#define DDR_PHY_DX2GCR3_WDBVT_MASK                             0x10000000U
+
+/*
+* Read DQS Gating LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX2GCR3_RGLVT_DEFVAL
+#undef DDR_PHY_DX2GCR3_RGLVT_SHIFT
+#undef DDR_PHY_DX2GCR3_RGLVT_MASK
+#define DDR_PHY_DX2GCR3_RGLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX2GCR3_RGLVT_SHIFT                            27
+#define DDR_PHY_DX2GCR3_RGLVT_MASK                             0x08000000U
+
+/*
+* Read DQS LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX2GCR3_RDLVT_DEFVAL
+#undef DDR_PHY_DX2GCR3_RDLVT_SHIFT
+#undef DDR_PHY_DX2GCR3_RDLVT_MASK
+#define DDR_PHY_DX2GCR3_RDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX2GCR3_RDLVT_SHIFT                            26
+#define DDR_PHY_DX2GCR3_RDLVT_MASK                             0x04000000U
+
+/*
+* Write DQ LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX2GCR3_WDLVT_DEFVAL
+#undef DDR_PHY_DX2GCR3_WDLVT_SHIFT
+#undef DDR_PHY_DX2GCR3_WDLVT_MASK
+#define DDR_PHY_DX2GCR3_WDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX2GCR3_WDLVT_SHIFT                            25
+#define DDR_PHY_DX2GCR3_WDLVT_MASK                             0x02000000U
+
+/*
+* Write Leveling LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX2GCR3_WLLVT_DEFVAL
+#undef DDR_PHY_DX2GCR3_WLLVT_SHIFT
+#undef DDR_PHY_DX2GCR3_WLLVT_MASK
+#define DDR_PHY_DX2GCR3_WLLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX2GCR3_WLLVT_SHIFT                            24
+#define DDR_PHY_DX2GCR3_WLLVT_MASK                             0x01000000U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX2GCR3_RESERVED_23_22_DEFVAL
+#undef DDR_PHY_DX2GCR3_RESERVED_23_22_SHIFT
+#undef DDR_PHY_DX2GCR3_RESERVED_23_22_MASK
+#define DDR_PHY_DX2GCR3_RESERVED_23_22_DEFVAL                  0x3F000008
+#define DDR_PHY_DX2GCR3_RESERVED_23_22_SHIFT                   22
+#define DDR_PHY_DX2GCR3_RESERVED_23_22_MASK                    0x00C00000U
+
+/*
+* Enables the OE mode for DQs
+*/
+#undef DDR_PHY_DX2GCR3_DSNOEMODE_DEFVAL
+#undef DDR_PHY_DX2GCR3_DSNOEMODE_SHIFT
+#undef DDR_PHY_DX2GCR3_DSNOEMODE_MASK
+#define DDR_PHY_DX2GCR3_DSNOEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX2GCR3_DSNOEMODE_SHIFT                        20
+#define DDR_PHY_DX2GCR3_DSNOEMODE_MASK                         0x00300000U
+
+/*
+* Enables the TE mode for DQS
+*/
+#undef DDR_PHY_DX2GCR3_DSNTEMODE_DEFVAL
+#undef DDR_PHY_DX2GCR3_DSNTEMODE_SHIFT
+#undef DDR_PHY_DX2GCR3_DSNTEMODE_MASK
+#define DDR_PHY_DX2GCR3_DSNTEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX2GCR3_DSNTEMODE_SHIFT                        18
+#define DDR_PHY_DX2GCR3_DSNTEMODE_MASK                         0x000C0000U
+
+/*
+* Enables the PDR mode for DQS
+*/
+#undef DDR_PHY_DX2GCR3_DSNPDRMODE_DEFVAL
+#undef DDR_PHY_DX2GCR3_DSNPDRMODE_SHIFT
+#undef DDR_PHY_DX2GCR3_DSNPDRMODE_MASK
+#define DDR_PHY_DX2GCR3_DSNPDRMODE_DEFVAL                      0x3F000008
+#define DDR_PHY_DX2GCR3_DSNPDRMODE_SHIFT                       16
+#define DDR_PHY_DX2GCR3_DSNPDRMODE_MASK                        0x00030000U
+
+/*
+* Enables the OE mode values for DM.
+*/
+#undef DDR_PHY_DX2GCR3_DMOEMODE_DEFVAL
+#undef DDR_PHY_DX2GCR3_DMOEMODE_SHIFT
+#undef DDR_PHY_DX2GCR3_DMOEMODE_MASK
+#define DDR_PHY_DX2GCR3_DMOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX2GCR3_DMOEMODE_SHIFT                         14
+#define DDR_PHY_DX2GCR3_DMOEMODE_MASK                          0x0000C000U
+
+/*
+* Enables the TE mode values for DM.
+*/
+#undef DDR_PHY_DX2GCR3_DMTEMODE_DEFVAL
+#undef DDR_PHY_DX2GCR3_DMTEMODE_SHIFT
+#undef DDR_PHY_DX2GCR3_DMTEMODE_MASK
+#define DDR_PHY_DX2GCR3_DMTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX2GCR3_DMTEMODE_SHIFT                         12
+#define DDR_PHY_DX2GCR3_DMTEMODE_MASK                          0x00003000U
+
+/*
+* Enables the PDR mode values for DM.
+*/
+#undef DDR_PHY_DX2GCR3_DMPDRMODE_DEFVAL
+#undef DDR_PHY_DX2GCR3_DMPDRMODE_SHIFT
+#undef DDR_PHY_DX2GCR3_DMPDRMODE_MASK
+#define DDR_PHY_DX2GCR3_DMPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX2GCR3_DMPDRMODE_SHIFT                        10
+#define DDR_PHY_DX2GCR3_DMPDRMODE_MASK                         0x00000C00U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX2GCR3_RESERVED_9_8_DEFVAL
+#undef DDR_PHY_DX2GCR3_RESERVED_9_8_SHIFT
+#undef DDR_PHY_DX2GCR3_RESERVED_9_8_MASK
+#define DDR_PHY_DX2GCR3_RESERVED_9_8_DEFVAL                    0x3F000008
+#define DDR_PHY_DX2GCR3_RESERVED_9_8_SHIFT                     8
+#define DDR_PHY_DX2GCR3_RESERVED_9_8_MASK                      0x00000300U
+
+/*
+* Enables the OE mode values for DQS.
+*/
+#undef DDR_PHY_DX2GCR3_DSOEMODE_DEFVAL
+#undef DDR_PHY_DX2GCR3_DSOEMODE_SHIFT
+#undef DDR_PHY_DX2GCR3_DSOEMODE_MASK
+#define DDR_PHY_DX2GCR3_DSOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX2GCR3_DSOEMODE_SHIFT                         6
+#define DDR_PHY_DX2GCR3_DSOEMODE_MASK                          0x000000C0U
+
+/*
+* Enables the TE mode values for DQS.
+*/
+#undef DDR_PHY_DX2GCR3_DSTEMODE_DEFVAL
+#undef DDR_PHY_DX2GCR3_DSTEMODE_SHIFT
+#undef DDR_PHY_DX2GCR3_DSTEMODE_MASK
+#define DDR_PHY_DX2GCR3_DSTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX2GCR3_DSTEMODE_SHIFT                         4
+#define DDR_PHY_DX2GCR3_DSTEMODE_MASK                          0x00000030U
+
+/*
+* Enables the PDR mode values for DQS.
+*/
+#undef DDR_PHY_DX2GCR3_DSPDRMODE_DEFVAL
+#undef DDR_PHY_DX2GCR3_DSPDRMODE_SHIFT
+#undef DDR_PHY_DX2GCR3_DSPDRMODE_MASK
+#define DDR_PHY_DX2GCR3_DSPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX2GCR3_DSPDRMODE_SHIFT                        2
+#define DDR_PHY_DX2GCR3_DSPDRMODE_MASK                         0x0000000CU
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX2GCR3_RESERVED_1_0_DEFVAL
+#undef DDR_PHY_DX2GCR3_RESERVED_1_0_SHIFT
+#undef DDR_PHY_DX2GCR3_RESERVED_1_0_MASK
+#define DDR_PHY_DX2GCR3_RESERVED_1_0_DEFVAL                    0x3F000008
+#define DDR_PHY_DX2GCR3_RESERVED_1_0_SHIFT                     0
+#define DDR_PHY_DX2GCR3_RESERVED_1_0_MASK                      0x00000003U
+
+/*
 * Byte lane VREF IOM (Used only by D4MU IOs)
 */
 #undef DDR_PHY_DX2GCR4_RESERVED_31_29_DEFVAL
@@ -14690,6 +15548,196 @@
 #define DDR_PHY_DX3GCR1_DQEN_DEFVAL                            0x00007FFF
 #define DDR_PHY_DX3GCR1_DQEN_SHIFT                             0
 #define DDR_PHY_DX3GCR1_DQEN_MASK                              0x000000FFU
+
+/*
+* Reserved. Returns zeros on reads.
+*/
+#undef DDR_PHY_DX3GCR3_RESERVED_31_30_DEFVAL
+#undef DDR_PHY_DX3GCR3_RESERVED_31_30_SHIFT
+#undef DDR_PHY_DX3GCR3_RESERVED_31_30_MASK
+#define DDR_PHY_DX3GCR3_RESERVED_31_30_DEFVAL                  0x3F000008
+#define DDR_PHY_DX3GCR3_RESERVED_31_30_SHIFT                   30
+#define DDR_PHY_DX3GCR3_RESERVED_31_30_MASK                    0xC0000000U
+
+/*
+* Read Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX3GCR3_RDBVT_DEFVAL
+#undef DDR_PHY_DX3GCR3_RDBVT_SHIFT
+#undef DDR_PHY_DX3GCR3_RDBVT_MASK
+#define DDR_PHY_DX3GCR3_RDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX3GCR3_RDBVT_SHIFT                            29
+#define DDR_PHY_DX3GCR3_RDBVT_MASK                             0x20000000U
+
+/*
+* Write Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX3GCR3_WDBVT_DEFVAL
+#undef DDR_PHY_DX3GCR3_WDBVT_SHIFT
+#undef DDR_PHY_DX3GCR3_WDBVT_MASK
+#define DDR_PHY_DX3GCR3_WDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX3GCR3_WDBVT_SHIFT                            28
+#define DDR_PHY_DX3GCR3_WDBVT_MASK                             0x10000000U
+
+/*
+* Read DQS Gating LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX3GCR3_RGLVT_DEFVAL
+#undef DDR_PHY_DX3GCR3_RGLVT_SHIFT
+#undef DDR_PHY_DX3GCR3_RGLVT_MASK
+#define DDR_PHY_DX3GCR3_RGLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX3GCR3_RGLVT_SHIFT                            27
+#define DDR_PHY_DX3GCR3_RGLVT_MASK                             0x08000000U
+
+/*
+* Read DQS LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX3GCR3_RDLVT_DEFVAL
+#undef DDR_PHY_DX3GCR3_RDLVT_SHIFT
+#undef DDR_PHY_DX3GCR3_RDLVT_MASK
+#define DDR_PHY_DX3GCR3_RDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX3GCR3_RDLVT_SHIFT                            26
+#define DDR_PHY_DX3GCR3_RDLVT_MASK                             0x04000000U
+
+/*
+* Write DQ LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX3GCR3_WDLVT_DEFVAL
+#undef DDR_PHY_DX3GCR3_WDLVT_SHIFT
+#undef DDR_PHY_DX3GCR3_WDLVT_MASK
+#define DDR_PHY_DX3GCR3_WDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX3GCR3_WDLVT_SHIFT                            25
+#define DDR_PHY_DX3GCR3_WDLVT_MASK                             0x02000000U
+
+/*
+* Write Leveling LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX3GCR3_WLLVT_DEFVAL
+#undef DDR_PHY_DX3GCR3_WLLVT_SHIFT
+#undef DDR_PHY_DX3GCR3_WLLVT_MASK
+#define DDR_PHY_DX3GCR3_WLLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX3GCR3_WLLVT_SHIFT                            24
+#define DDR_PHY_DX3GCR3_WLLVT_MASK                             0x01000000U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX3GCR3_RESERVED_23_22_DEFVAL
+#undef DDR_PHY_DX3GCR3_RESERVED_23_22_SHIFT
+#undef DDR_PHY_DX3GCR3_RESERVED_23_22_MASK
+#define DDR_PHY_DX3GCR3_RESERVED_23_22_DEFVAL                  0x3F000008
+#define DDR_PHY_DX3GCR3_RESERVED_23_22_SHIFT                   22
+#define DDR_PHY_DX3GCR3_RESERVED_23_22_MASK                    0x00C00000U
+
+/*
+* Enables the OE mode for DQs
+*/
+#undef DDR_PHY_DX3GCR3_DSNOEMODE_DEFVAL
+#undef DDR_PHY_DX3GCR3_DSNOEMODE_SHIFT
+#undef DDR_PHY_DX3GCR3_DSNOEMODE_MASK
+#define DDR_PHY_DX3GCR3_DSNOEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX3GCR3_DSNOEMODE_SHIFT                        20
+#define DDR_PHY_DX3GCR3_DSNOEMODE_MASK                         0x00300000U
+
+/*
+* Enables the TE mode for DQS
+*/
+#undef DDR_PHY_DX3GCR3_DSNTEMODE_DEFVAL
+#undef DDR_PHY_DX3GCR3_DSNTEMODE_SHIFT
+#undef DDR_PHY_DX3GCR3_DSNTEMODE_MASK
+#define DDR_PHY_DX3GCR3_DSNTEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX3GCR3_DSNTEMODE_SHIFT                        18
+#define DDR_PHY_DX3GCR3_DSNTEMODE_MASK                         0x000C0000U
+
+/*
+* Enables the PDR mode for DQS
+*/
+#undef DDR_PHY_DX3GCR3_DSNPDRMODE_DEFVAL
+#undef DDR_PHY_DX3GCR3_DSNPDRMODE_SHIFT
+#undef DDR_PHY_DX3GCR3_DSNPDRMODE_MASK
+#define DDR_PHY_DX3GCR3_DSNPDRMODE_DEFVAL                      0x3F000008
+#define DDR_PHY_DX3GCR3_DSNPDRMODE_SHIFT                       16
+#define DDR_PHY_DX3GCR3_DSNPDRMODE_MASK                        0x00030000U
+
+/*
+* Enables the OE mode values for DM.
+*/
+#undef DDR_PHY_DX3GCR3_DMOEMODE_DEFVAL
+#undef DDR_PHY_DX3GCR3_DMOEMODE_SHIFT
+#undef DDR_PHY_DX3GCR3_DMOEMODE_MASK
+#define DDR_PHY_DX3GCR3_DMOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX3GCR3_DMOEMODE_SHIFT                         14
+#define DDR_PHY_DX3GCR3_DMOEMODE_MASK                          0x0000C000U
+
+/*
+* Enables the TE mode values for DM.
+*/
+#undef DDR_PHY_DX3GCR3_DMTEMODE_DEFVAL
+#undef DDR_PHY_DX3GCR3_DMTEMODE_SHIFT
+#undef DDR_PHY_DX3GCR3_DMTEMODE_MASK
+#define DDR_PHY_DX3GCR3_DMTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX3GCR3_DMTEMODE_SHIFT                         12
+#define DDR_PHY_DX3GCR3_DMTEMODE_MASK                          0x00003000U
+
+/*
+* Enables the PDR mode values for DM.
+*/
+#undef DDR_PHY_DX3GCR3_DMPDRMODE_DEFVAL
+#undef DDR_PHY_DX3GCR3_DMPDRMODE_SHIFT
+#undef DDR_PHY_DX3GCR3_DMPDRMODE_MASK
+#define DDR_PHY_DX3GCR3_DMPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX3GCR3_DMPDRMODE_SHIFT                        10
+#define DDR_PHY_DX3GCR3_DMPDRMODE_MASK                         0x00000C00U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX3GCR3_RESERVED_9_8_DEFVAL
+#undef DDR_PHY_DX3GCR3_RESERVED_9_8_SHIFT
+#undef DDR_PHY_DX3GCR3_RESERVED_9_8_MASK
+#define DDR_PHY_DX3GCR3_RESERVED_9_8_DEFVAL                    0x3F000008
+#define DDR_PHY_DX3GCR3_RESERVED_9_8_SHIFT                     8
+#define DDR_PHY_DX3GCR3_RESERVED_9_8_MASK                      0x00000300U
+
+/*
+* Enables the OE mode values for DQS.
+*/
+#undef DDR_PHY_DX3GCR3_DSOEMODE_DEFVAL
+#undef DDR_PHY_DX3GCR3_DSOEMODE_SHIFT
+#undef DDR_PHY_DX3GCR3_DSOEMODE_MASK
+#define DDR_PHY_DX3GCR3_DSOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX3GCR3_DSOEMODE_SHIFT                         6
+#define DDR_PHY_DX3GCR3_DSOEMODE_MASK                          0x000000C0U
+
+/*
+* Enables the TE mode values for DQS.
+*/
+#undef DDR_PHY_DX3GCR3_DSTEMODE_DEFVAL
+#undef DDR_PHY_DX3GCR3_DSTEMODE_SHIFT
+#undef DDR_PHY_DX3GCR3_DSTEMODE_MASK
+#define DDR_PHY_DX3GCR3_DSTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX3GCR3_DSTEMODE_SHIFT                         4
+#define DDR_PHY_DX3GCR3_DSTEMODE_MASK                          0x00000030U
+
+/*
+* Enables the PDR mode values for DQS.
+*/
+#undef DDR_PHY_DX3GCR3_DSPDRMODE_DEFVAL
+#undef DDR_PHY_DX3GCR3_DSPDRMODE_SHIFT
+#undef DDR_PHY_DX3GCR3_DSPDRMODE_MASK
+#define DDR_PHY_DX3GCR3_DSPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX3GCR3_DSPDRMODE_SHIFT                        2
+#define DDR_PHY_DX3GCR3_DSPDRMODE_MASK                         0x0000000CU
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX3GCR3_RESERVED_1_0_DEFVAL
+#undef DDR_PHY_DX3GCR3_RESERVED_1_0_SHIFT
+#undef DDR_PHY_DX3GCR3_RESERVED_1_0_MASK
+#define DDR_PHY_DX3GCR3_RESERVED_1_0_DEFVAL                    0x3F000008
+#define DDR_PHY_DX3GCR3_RESERVED_1_0_SHIFT                     0
+#define DDR_PHY_DX3GCR3_RESERVED_1_0_MASK                      0x00000003U
 
 /*
 * Byte lane VREF IOM (Used only by D4MU IOs)
@@ -15243,6 +16291,216 @@
 #define DDR_PHY_DX4GCR1_DQEN_MASK                              0x000000FFU
 
 /*
+* Enables the OE mode values for DQ[7:0]
+*/
+#undef DDR_PHY_DX4GCR2_DXOEMODE_DEFVAL
+#undef DDR_PHY_DX4GCR2_DXOEMODE_SHIFT
+#undef DDR_PHY_DX4GCR2_DXOEMODE_MASK
+#define DDR_PHY_DX4GCR2_DXOEMODE_DEFVAL                        0x00000000
+#define DDR_PHY_DX4GCR2_DXOEMODE_SHIFT                         16
+#define DDR_PHY_DX4GCR2_DXOEMODE_MASK                          0xFFFF0000U
+
+/*
+* Enables the TE (ODT) mode values for DQ[7:0]
+*/
+#undef DDR_PHY_DX4GCR2_DXTEMODE_DEFVAL
+#undef DDR_PHY_DX4GCR2_DXTEMODE_SHIFT
+#undef DDR_PHY_DX4GCR2_DXTEMODE_MASK
+#define DDR_PHY_DX4GCR2_DXTEMODE_DEFVAL                        0x00000000
+#define DDR_PHY_DX4GCR2_DXTEMODE_SHIFT                         0
+#define DDR_PHY_DX4GCR2_DXTEMODE_MASK                          0x0000FFFFU
+
+/*
+* Reserved. Returns zeros on reads.
+*/
+#undef DDR_PHY_DX4GCR3_RESERVED_31_30_DEFVAL
+#undef DDR_PHY_DX4GCR3_RESERVED_31_30_SHIFT
+#undef DDR_PHY_DX4GCR3_RESERVED_31_30_MASK
+#define DDR_PHY_DX4GCR3_RESERVED_31_30_DEFVAL                  0x3F000008
+#define DDR_PHY_DX4GCR3_RESERVED_31_30_SHIFT                   30
+#define DDR_PHY_DX4GCR3_RESERVED_31_30_MASK                    0xC0000000U
+
+/*
+* Read Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX4GCR3_RDBVT_DEFVAL
+#undef DDR_PHY_DX4GCR3_RDBVT_SHIFT
+#undef DDR_PHY_DX4GCR3_RDBVT_MASK
+#define DDR_PHY_DX4GCR3_RDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX4GCR3_RDBVT_SHIFT                            29
+#define DDR_PHY_DX4GCR3_RDBVT_MASK                             0x20000000U
+
+/*
+* Write Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX4GCR3_WDBVT_DEFVAL
+#undef DDR_PHY_DX4GCR3_WDBVT_SHIFT
+#undef DDR_PHY_DX4GCR3_WDBVT_MASK
+#define DDR_PHY_DX4GCR3_WDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX4GCR3_WDBVT_SHIFT                            28
+#define DDR_PHY_DX4GCR3_WDBVT_MASK                             0x10000000U
+
+/*
+* Read DQS Gating LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX4GCR3_RGLVT_DEFVAL
+#undef DDR_PHY_DX4GCR3_RGLVT_SHIFT
+#undef DDR_PHY_DX4GCR3_RGLVT_MASK
+#define DDR_PHY_DX4GCR3_RGLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX4GCR3_RGLVT_SHIFT                            27
+#define DDR_PHY_DX4GCR3_RGLVT_MASK                             0x08000000U
+
+/*
+* Read DQS LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX4GCR3_RDLVT_DEFVAL
+#undef DDR_PHY_DX4GCR3_RDLVT_SHIFT
+#undef DDR_PHY_DX4GCR3_RDLVT_MASK
+#define DDR_PHY_DX4GCR3_RDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX4GCR3_RDLVT_SHIFT                            26
+#define DDR_PHY_DX4GCR3_RDLVT_MASK                             0x04000000U
+
+/*
+* Write DQ LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX4GCR3_WDLVT_DEFVAL
+#undef DDR_PHY_DX4GCR3_WDLVT_SHIFT
+#undef DDR_PHY_DX4GCR3_WDLVT_MASK
+#define DDR_PHY_DX4GCR3_WDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX4GCR3_WDLVT_SHIFT                            25
+#define DDR_PHY_DX4GCR3_WDLVT_MASK                             0x02000000U
+
+/*
+* Write Leveling LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX4GCR3_WLLVT_DEFVAL
+#undef DDR_PHY_DX4GCR3_WLLVT_SHIFT
+#undef DDR_PHY_DX4GCR3_WLLVT_MASK
+#define DDR_PHY_DX4GCR3_WLLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX4GCR3_WLLVT_SHIFT                            24
+#define DDR_PHY_DX4GCR3_WLLVT_MASK                             0x01000000U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX4GCR3_RESERVED_23_22_DEFVAL
+#undef DDR_PHY_DX4GCR3_RESERVED_23_22_SHIFT
+#undef DDR_PHY_DX4GCR3_RESERVED_23_22_MASK
+#define DDR_PHY_DX4GCR3_RESERVED_23_22_DEFVAL                  0x3F000008
+#define DDR_PHY_DX4GCR3_RESERVED_23_22_SHIFT                   22
+#define DDR_PHY_DX4GCR3_RESERVED_23_22_MASK                    0x00C00000U
+
+/*
+* Enables the OE mode for DQs
+*/
+#undef DDR_PHY_DX4GCR3_DSNOEMODE_DEFVAL
+#undef DDR_PHY_DX4GCR3_DSNOEMODE_SHIFT
+#undef DDR_PHY_DX4GCR3_DSNOEMODE_MASK
+#define DDR_PHY_DX4GCR3_DSNOEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX4GCR3_DSNOEMODE_SHIFT                        20
+#define DDR_PHY_DX4GCR3_DSNOEMODE_MASK                         0x00300000U
+
+/*
+* Enables the TE mode for DQS
+*/
+#undef DDR_PHY_DX4GCR3_DSNTEMODE_DEFVAL
+#undef DDR_PHY_DX4GCR3_DSNTEMODE_SHIFT
+#undef DDR_PHY_DX4GCR3_DSNTEMODE_MASK
+#define DDR_PHY_DX4GCR3_DSNTEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX4GCR3_DSNTEMODE_SHIFT                        18
+#define DDR_PHY_DX4GCR3_DSNTEMODE_MASK                         0x000C0000U
+
+/*
+* Enables the PDR mode for DQS
+*/
+#undef DDR_PHY_DX4GCR3_DSNPDRMODE_DEFVAL
+#undef DDR_PHY_DX4GCR3_DSNPDRMODE_SHIFT
+#undef DDR_PHY_DX4GCR3_DSNPDRMODE_MASK
+#define DDR_PHY_DX4GCR3_DSNPDRMODE_DEFVAL                      0x3F000008
+#define DDR_PHY_DX4GCR3_DSNPDRMODE_SHIFT                       16
+#define DDR_PHY_DX4GCR3_DSNPDRMODE_MASK                        0x00030000U
+
+/*
+* Enables the OE mode values for DM.
+*/
+#undef DDR_PHY_DX4GCR3_DMOEMODE_DEFVAL
+#undef DDR_PHY_DX4GCR3_DMOEMODE_SHIFT
+#undef DDR_PHY_DX4GCR3_DMOEMODE_MASK
+#define DDR_PHY_DX4GCR3_DMOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX4GCR3_DMOEMODE_SHIFT                         14
+#define DDR_PHY_DX4GCR3_DMOEMODE_MASK                          0x0000C000U
+
+/*
+* Enables the TE mode values for DM.
+*/
+#undef DDR_PHY_DX4GCR3_DMTEMODE_DEFVAL
+#undef DDR_PHY_DX4GCR3_DMTEMODE_SHIFT
+#undef DDR_PHY_DX4GCR3_DMTEMODE_MASK
+#define DDR_PHY_DX4GCR3_DMTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX4GCR3_DMTEMODE_SHIFT                         12
+#define DDR_PHY_DX4GCR3_DMTEMODE_MASK                          0x00003000U
+
+/*
+* Enables the PDR mode values for DM.
+*/
+#undef DDR_PHY_DX4GCR3_DMPDRMODE_DEFVAL
+#undef DDR_PHY_DX4GCR3_DMPDRMODE_SHIFT
+#undef DDR_PHY_DX4GCR3_DMPDRMODE_MASK
+#define DDR_PHY_DX4GCR3_DMPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX4GCR3_DMPDRMODE_SHIFT                        10
+#define DDR_PHY_DX4GCR3_DMPDRMODE_MASK                         0x00000C00U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX4GCR3_RESERVED_9_8_DEFVAL
+#undef DDR_PHY_DX4GCR3_RESERVED_9_8_SHIFT
+#undef DDR_PHY_DX4GCR3_RESERVED_9_8_MASK
+#define DDR_PHY_DX4GCR3_RESERVED_9_8_DEFVAL                    0x3F000008
+#define DDR_PHY_DX4GCR3_RESERVED_9_8_SHIFT                     8
+#define DDR_PHY_DX4GCR3_RESERVED_9_8_MASK                      0x00000300U
+
+/*
+* Enables the OE mode values for DQS.
+*/
+#undef DDR_PHY_DX4GCR3_DSOEMODE_DEFVAL
+#undef DDR_PHY_DX4GCR3_DSOEMODE_SHIFT
+#undef DDR_PHY_DX4GCR3_DSOEMODE_MASK
+#define DDR_PHY_DX4GCR3_DSOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX4GCR3_DSOEMODE_SHIFT                         6
+#define DDR_PHY_DX4GCR3_DSOEMODE_MASK                          0x000000C0U
+
+/*
+* Enables the TE mode values for DQS.
+*/
+#undef DDR_PHY_DX4GCR3_DSTEMODE_DEFVAL
+#undef DDR_PHY_DX4GCR3_DSTEMODE_SHIFT
+#undef DDR_PHY_DX4GCR3_DSTEMODE_MASK
+#define DDR_PHY_DX4GCR3_DSTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX4GCR3_DSTEMODE_SHIFT                         4
+#define DDR_PHY_DX4GCR3_DSTEMODE_MASK                          0x00000030U
+
+/*
+* Enables the PDR mode values for DQS.
+*/
+#undef DDR_PHY_DX4GCR3_DSPDRMODE_DEFVAL
+#undef DDR_PHY_DX4GCR3_DSPDRMODE_SHIFT
+#undef DDR_PHY_DX4GCR3_DSPDRMODE_MASK
+#define DDR_PHY_DX4GCR3_DSPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX4GCR3_DSPDRMODE_SHIFT                        2
+#define DDR_PHY_DX4GCR3_DSPDRMODE_MASK                         0x0000000CU
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX4GCR3_RESERVED_1_0_DEFVAL
+#undef DDR_PHY_DX4GCR3_RESERVED_1_0_SHIFT
+#undef DDR_PHY_DX4GCR3_RESERVED_1_0_MASK
+#define DDR_PHY_DX4GCR3_RESERVED_1_0_DEFVAL                    0x3F000008
+#define DDR_PHY_DX4GCR3_RESERVED_1_0_SHIFT                     0
+#define DDR_PHY_DX4GCR3_RESERVED_1_0_MASK                      0x00000003U
+
+/*
 * Byte lane VREF IOM (Used only by D4MU IOs)
 */
 #undef DDR_PHY_DX4GCR4_RESERVED_31_29_DEFVAL
@@ -15792,6 +17050,216 @@
 #define DDR_PHY_DX5GCR1_DQEN_DEFVAL                            0x00007FFF
 #define DDR_PHY_DX5GCR1_DQEN_SHIFT                             0
 #define DDR_PHY_DX5GCR1_DQEN_MASK                              0x000000FFU
+
+/*
+* Enables the OE mode values for DQ[7:0]
+*/
+#undef DDR_PHY_DX5GCR2_DXOEMODE_DEFVAL
+#undef DDR_PHY_DX5GCR2_DXOEMODE_SHIFT
+#undef DDR_PHY_DX5GCR2_DXOEMODE_MASK
+#define DDR_PHY_DX5GCR2_DXOEMODE_DEFVAL                        0x00000000
+#define DDR_PHY_DX5GCR2_DXOEMODE_SHIFT                         16
+#define DDR_PHY_DX5GCR2_DXOEMODE_MASK                          0xFFFF0000U
+
+/*
+* Enables the TE (ODT) mode values for DQ[7:0]
+*/
+#undef DDR_PHY_DX5GCR2_DXTEMODE_DEFVAL
+#undef DDR_PHY_DX5GCR2_DXTEMODE_SHIFT
+#undef DDR_PHY_DX5GCR2_DXTEMODE_MASK
+#define DDR_PHY_DX5GCR2_DXTEMODE_DEFVAL                        0x00000000
+#define DDR_PHY_DX5GCR2_DXTEMODE_SHIFT                         0
+#define DDR_PHY_DX5GCR2_DXTEMODE_MASK                          0x0000FFFFU
+
+/*
+* Reserved. Returns zeros on reads.
+*/
+#undef DDR_PHY_DX5GCR3_RESERVED_31_30_DEFVAL
+#undef DDR_PHY_DX5GCR3_RESERVED_31_30_SHIFT
+#undef DDR_PHY_DX5GCR3_RESERVED_31_30_MASK
+#define DDR_PHY_DX5GCR3_RESERVED_31_30_DEFVAL                  0x3F000008
+#define DDR_PHY_DX5GCR3_RESERVED_31_30_SHIFT                   30
+#define DDR_PHY_DX5GCR3_RESERVED_31_30_MASK                    0xC0000000U
+
+/*
+* Read Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX5GCR3_RDBVT_DEFVAL
+#undef DDR_PHY_DX5GCR3_RDBVT_SHIFT
+#undef DDR_PHY_DX5GCR3_RDBVT_MASK
+#define DDR_PHY_DX5GCR3_RDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX5GCR3_RDBVT_SHIFT                            29
+#define DDR_PHY_DX5GCR3_RDBVT_MASK                             0x20000000U
+
+/*
+* Write Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX5GCR3_WDBVT_DEFVAL
+#undef DDR_PHY_DX5GCR3_WDBVT_SHIFT
+#undef DDR_PHY_DX5GCR3_WDBVT_MASK
+#define DDR_PHY_DX5GCR3_WDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX5GCR3_WDBVT_SHIFT                            28
+#define DDR_PHY_DX5GCR3_WDBVT_MASK                             0x10000000U
+
+/*
+* Read DQS Gating LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX5GCR3_RGLVT_DEFVAL
+#undef DDR_PHY_DX5GCR3_RGLVT_SHIFT
+#undef DDR_PHY_DX5GCR3_RGLVT_MASK
+#define DDR_PHY_DX5GCR3_RGLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX5GCR3_RGLVT_SHIFT                            27
+#define DDR_PHY_DX5GCR3_RGLVT_MASK                             0x08000000U
+
+/*
+* Read DQS LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX5GCR3_RDLVT_DEFVAL
+#undef DDR_PHY_DX5GCR3_RDLVT_SHIFT
+#undef DDR_PHY_DX5GCR3_RDLVT_MASK
+#define DDR_PHY_DX5GCR3_RDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX5GCR3_RDLVT_SHIFT                            26
+#define DDR_PHY_DX5GCR3_RDLVT_MASK                             0x04000000U
+
+/*
+* Write DQ LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX5GCR3_WDLVT_DEFVAL
+#undef DDR_PHY_DX5GCR3_WDLVT_SHIFT
+#undef DDR_PHY_DX5GCR3_WDLVT_MASK
+#define DDR_PHY_DX5GCR3_WDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX5GCR3_WDLVT_SHIFT                            25
+#define DDR_PHY_DX5GCR3_WDLVT_MASK                             0x02000000U
+
+/*
+* Write Leveling LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX5GCR3_WLLVT_DEFVAL
+#undef DDR_PHY_DX5GCR3_WLLVT_SHIFT
+#undef DDR_PHY_DX5GCR3_WLLVT_MASK
+#define DDR_PHY_DX5GCR3_WLLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX5GCR3_WLLVT_SHIFT                            24
+#define DDR_PHY_DX5GCR3_WLLVT_MASK                             0x01000000U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX5GCR3_RESERVED_23_22_DEFVAL
+#undef DDR_PHY_DX5GCR3_RESERVED_23_22_SHIFT
+#undef DDR_PHY_DX5GCR3_RESERVED_23_22_MASK
+#define DDR_PHY_DX5GCR3_RESERVED_23_22_DEFVAL                  0x3F000008
+#define DDR_PHY_DX5GCR3_RESERVED_23_22_SHIFT                   22
+#define DDR_PHY_DX5GCR3_RESERVED_23_22_MASK                    0x00C00000U
+
+/*
+* Enables the OE mode for DQs
+*/
+#undef DDR_PHY_DX5GCR3_DSNOEMODE_DEFVAL
+#undef DDR_PHY_DX5GCR3_DSNOEMODE_SHIFT
+#undef DDR_PHY_DX5GCR3_DSNOEMODE_MASK
+#define DDR_PHY_DX5GCR3_DSNOEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX5GCR3_DSNOEMODE_SHIFT                        20
+#define DDR_PHY_DX5GCR3_DSNOEMODE_MASK                         0x00300000U
+
+/*
+* Enables the TE mode for DQS
+*/
+#undef DDR_PHY_DX5GCR3_DSNTEMODE_DEFVAL
+#undef DDR_PHY_DX5GCR3_DSNTEMODE_SHIFT
+#undef DDR_PHY_DX5GCR3_DSNTEMODE_MASK
+#define DDR_PHY_DX5GCR3_DSNTEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX5GCR3_DSNTEMODE_SHIFT                        18
+#define DDR_PHY_DX5GCR3_DSNTEMODE_MASK                         0x000C0000U
+
+/*
+* Enables the PDR mode for DQS
+*/
+#undef DDR_PHY_DX5GCR3_DSNPDRMODE_DEFVAL
+#undef DDR_PHY_DX5GCR3_DSNPDRMODE_SHIFT
+#undef DDR_PHY_DX5GCR3_DSNPDRMODE_MASK
+#define DDR_PHY_DX5GCR3_DSNPDRMODE_DEFVAL                      0x3F000008
+#define DDR_PHY_DX5GCR3_DSNPDRMODE_SHIFT                       16
+#define DDR_PHY_DX5GCR3_DSNPDRMODE_MASK                        0x00030000U
+
+/*
+* Enables the OE mode values for DM.
+*/
+#undef DDR_PHY_DX5GCR3_DMOEMODE_DEFVAL
+#undef DDR_PHY_DX5GCR3_DMOEMODE_SHIFT
+#undef DDR_PHY_DX5GCR3_DMOEMODE_MASK
+#define DDR_PHY_DX5GCR3_DMOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX5GCR3_DMOEMODE_SHIFT                         14
+#define DDR_PHY_DX5GCR3_DMOEMODE_MASK                          0x0000C000U
+
+/*
+* Enables the TE mode values for DM.
+*/
+#undef DDR_PHY_DX5GCR3_DMTEMODE_DEFVAL
+#undef DDR_PHY_DX5GCR3_DMTEMODE_SHIFT
+#undef DDR_PHY_DX5GCR3_DMTEMODE_MASK
+#define DDR_PHY_DX5GCR3_DMTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX5GCR3_DMTEMODE_SHIFT                         12
+#define DDR_PHY_DX5GCR3_DMTEMODE_MASK                          0x00003000U
+
+/*
+* Enables the PDR mode values for DM.
+*/
+#undef DDR_PHY_DX5GCR3_DMPDRMODE_DEFVAL
+#undef DDR_PHY_DX5GCR3_DMPDRMODE_SHIFT
+#undef DDR_PHY_DX5GCR3_DMPDRMODE_MASK
+#define DDR_PHY_DX5GCR3_DMPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX5GCR3_DMPDRMODE_SHIFT                        10
+#define DDR_PHY_DX5GCR3_DMPDRMODE_MASK                         0x00000C00U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX5GCR3_RESERVED_9_8_DEFVAL
+#undef DDR_PHY_DX5GCR3_RESERVED_9_8_SHIFT
+#undef DDR_PHY_DX5GCR3_RESERVED_9_8_MASK
+#define DDR_PHY_DX5GCR3_RESERVED_9_8_DEFVAL                    0x3F000008
+#define DDR_PHY_DX5GCR3_RESERVED_9_8_SHIFT                     8
+#define DDR_PHY_DX5GCR3_RESERVED_9_8_MASK                      0x00000300U
+
+/*
+* Enables the OE mode values for DQS.
+*/
+#undef DDR_PHY_DX5GCR3_DSOEMODE_DEFVAL
+#undef DDR_PHY_DX5GCR3_DSOEMODE_SHIFT
+#undef DDR_PHY_DX5GCR3_DSOEMODE_MASK
+#define DDR_PHY_DX5GCR3_DSOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX5GCR3_DSOEMODE_SHIFT                         6
+#define DDR_PHY_DX5GCR3_DSOEMODE_MASK                          0x000000C0U
+
+/*
+* Enables the TE mode values for DQS.
+*/
+#undef DDR_PHY_DX5GCR3_DSTEMODE_DEFVAL
+#undef DDR_PHY_DX5GCR3_DSTEMODE_SHIFT
+#undef DDR_PHY_DX5GCR3_DSTEMODE_MASK
+#define DDR_PHY_DX5GCR3_DSTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX5GCR3_DSTEMODE_SHIFT                         4
+#define DDR_PHY_DX5GCR3_DSTEMODE_MASK                          0x00000030U
+
+/*
+* Enables the PDR mode values for DQS.
+*/
+#undef DDR_PHY_DX5GCR3_DSPDRMODE_DEFVAL
+#undef DDR_PHY_DX5GCR3_DSPDRMODE_SHIFT
+#undef DDR_PHY_DX5GCR3_DSPDRMODE_MASK
+#define DDR_PHY_DX5GCR3_DSPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX5GCR3_DSPDRMODE_SHIFT                        2
+#define DDR_PHY_DX5GCR3_DSPDRMODE_MASK                         0x0000000CU
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX5GCR3_RESERVED_1_0_DEFVAL
+#undef DDR_PHY_DX5GCR3_RESERVED_1_0_SHIFT
+#undef DDR_PHY_DX5GCR3_RESERVED_1_0_MASK
+#define DDR_PHY_DX5GCR3_RESERVED_1_0_DEFVAL                    0x3F000008
+#define DDR_PHY_DX5GCR3_RESERVED_1_0_SHIFT                     0
+#define DDR_PHY_DX5GCR3_RESERVED_1_0_MASK                      0x00000003U
 
 /*
 * Byte lane VREF IOM (Used only by D4MU IOs)
@@ -16345,6 +17813,216 @@
 #define DDR_PHY_DX6GCR1_DQEN_MASK                              0x000000FFU
 
 /*
+* Enables the OE mode values for DQ[7:0]
+*/
+#undef DDR_PHY_DX6GCR2_DXOEMODE_DEFVAL
+#undef DDR_PHY_DX6GCR2_DXOEMODE_SHIFT
+#undef DDR_PHY_DX6GCR2_DXOEMODE_MASK
+#define DDR_PHY_DX6GCR2_DXOEMODE_DEFVAL                        0x00000000
+#define DDR_PHY_DX6GCR2_DXOEMODE_SHIFT                         16
+#define DDR_PHY_DX6GCR2_DXOEMODE_MASK                          0xFFFF0000U
+
+/*
+* Enables the TE (ODT) mode values for DQ[7:0]
+*/
+#undef DDR_PHY_DX6GCR2_DXTEMODE_DEFVAL
+#undef DDR_PHY_DX6GCR2_DXTEMODE_SHIFT
+#undef DDR_PHY_DX6GCR2_DXTEMODE_MASK
+#define DDR_PHY_DX6GCR2_DXTEMODE_DEFVAL                        0x00000000
+#define DDR_PHY_DX6GCR2_DXTEMODE_SHIFT                         0
+#define DDR_PHY_DX6GCR2_DXTEMODE_MASK                          0x0000FFFFU
+
+/*
+* Reserved. Returns zeros on reads.
+*/
+#undef DDR_PHY_DX6GCR3_RESERVED_31_30_DEFVAL
+#undef DDR_PHY_DX6GCR3_RESERVED_31_30_SHIFT
+#undef DDR_PHY_DX6GCR3_RESERVED_31_30_MASK
+#define DDR_PHY_DX6GCR3_RESERVED_31_30_DEFVAL                  0x3F000008
+#define DDR_PHY_DX6GCR3_RESERVED_31_30_SHIFT                   30
+#define DDR_PHY_DX6GCR3_RESERVED_31_30_MASK                    0xC0000000U
+
+/*
+* Read Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX6GCR3_RDBVT_DEFVAL
+#undef DDR_PHY_DX6GCR3_RDBVT_SHIFT
+#undef DDR_PHY_DX6GCR3_RDBVT_MASK
+#define DDR_PHY_DX6GCR3_RDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX6GCR3_RDBVT_SHIFT                            29
+#define DDR_PHY_DX6GCR3_RDBVT_MASK                             0x20000000U
+
+/*
+* Write Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX6GCR3_WDBVT_DEFVAL
+#undef DDR_PHY_DX6GCR3_WDBVT_SHIFT
+#undef DDR_PHY_DX6GCR3_WDBVT_MASK
+#define DDR_PHY_DX6GCR3_WDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX6GCR3_WDBVT_SHIFT                            28
+#define DDR_PHY_DX6GCR3_WDBVT_MASK                             0x10000000U
+
+/*
+* Read DQS Gating LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX6GCR3_RGLVT_DEFVAL
+#undef DDR_PHY_DX6GCR3_RGLVT_SHIFT
+#undef DDR_PHY_DX6GCR3_RGLVT_MASK
+#define DDR_PHY_DX6GCR3_RGLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX6GCR3_RGLVT_SHIFT                            27
+#define DDR_PHY_DX6GCR3_RGLVT_MASK                             0x08000000U
+
+/*
+* Read DQS LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX6GCR3_RDLVT_DEFVAL
+#undef DDR_PHY_DX6GCR3_RDLVT_SHIFT
+#undef DDR_PHY_DX6GCR3_RDLVT_MASK
+#define DDR_PHY_DX6GCR3_RDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX6GCR3_RDLVT_SHIFT                            26
+#define DDR_PHY_DX6GCR3_RDLVT_MASK                             0x04000000U
+
+/*
+* Write DQ LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX6GCR3_WDLVT_DEFVAL
+#undef DDR_PHY_DX6GCR3_WDLVT_SHIFT
+#undef DDR_PHY_DX6GCR3_WDLVT_MASK
+#define DDR_PHY_DX6GCR3_WDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX6GCR3_WDLVT_SHIFT                            25
+#define DDR_PHY_DX6GCR3_WDLVT_MASK                             0x02000000U
+
+/*
+* Write Leveling LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX6GCR3_WLLVT_DEFVAL
+#undef DDR_PHY_DX6GCR3_WLLVT_SHIFT
+#undef DDR_PHY_DX6GCR3_WLLVT_MASK
+#define DDR_PHY_DX6GCR3_WLLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX6GCR3_WLLVT_SHIFT                            24
+#define DDR_PHY_DX6GCR3_WLLVT_MASK                             0x01000000U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX6GCR3_RESERVED_23_22_DEFVAL
+#undef DDR_PHY_DX6GCR3_RESERVED_23_22_SHIFT
+#undef DDR_PHY_DX6GCR3_RESERVED_23_22_MASK
+#define DDR_PHY_DX6GCR3_RESERVED_23_22_DEFVAL                  0x3F000008
+#define DDR_PHY_DX6GCR3_RESERVED_23_22_SHIFT                   22
+#define DDR_PHY_DX6GCR3_RESERVED_23_22_MASK                    0x00C00000U
+
+/*
+* Enables the OE mode for DQs
+*/
+#undef DDR_PHY_DX6GCR3_DSNOEMODE_DEFVAL
+#undef DDR_PHY_DX6GCR3_DSNOEMODE_SHIFT
+#undef DDR_PHY_DX6GCR3_DSNOEMODE_MASK
+#define DDR_PHY_DX6GCR3_DSNOEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX6GCR3_DSNOEMODE_SHIFT                        20
+#define DDR_PHY_DX6GCR3_DSNOEMODE_MASK                         0x00300000U
+
+/*
+* Enables the TE mode for DQS
+*/
+#undef DDR_PHY_DX6GCR3_DSNTEMODE_DEFVAL
+#undef DDR_PHY_DX6GCR3_DSNTEMODE_SHIFT
+#undef DDR_PHY_DX6GCR3_DSNTEMODE_MASK
+#define DDR_PHY_DX6GCR3_DSNTEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX6GCR3_DSNTEMODE_SHIFT                        18
+#define DDR_PHY_DX6GCR3_DSNTEMODE_MASK                         0x000C0000U
+
+/*
+* Enables the PDR mode for DQS
+*/
+#undef DDR_PHY_DX6GCR3_DSNPDRMODE_DEFVAL
+#undef DDR_PHY_DX6GCR3_DSNPDRMODE_SHIFT
+#undef DDR_PHY_DX6GCR3_DSNPDRMODE_MASK
+#define DDR_PHY_DX6GCR3_DSNPDRMODE_DEFVAL                      0x3F000008
+#define DDR_PHY_DX6GCR3_DSNPDRMODE_SHIFT                       16
+#define DDR_PHY_DX6GCR3_DSNPDRMODE_MASK                        0x00030000U
+
+/*
+* Enables the OE mode values for DM.
+*/
+#undef DDR_PHY_DX6GCR3_DMOEMODE_DEFVAL
+#undef DDR_PHY_DX6GCR3_DMOEMODE_SHIFT
+#undef DDR_PHY_DX6GCR3_DMOEMODE_MASK
+#define DDR_PHY_DX6GCR3_DMOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX6GCR3_DMOEMODE_SHIFT                         14
+#define DDR_PHY_DX6GCR3_DMOEMODE_MASK                          0x0000C000U
+
+/*
+* Enables the TE mode values for DM.
+*/
+#undef DDR_PHY_DX6GCR3_DMTEMODE_DEFVAL
+#undef DDR_PHY_DX6GCR3_DMTEMODE_SHIFT
+#undef DDR_PHY_DX6GCR3_DMTEMODE_MASK
+#define DDR_PHY_DX6GCR3_DMTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX6GCR3_DMTEMODE_SHIFT                         12
+#define DDR_PHY_DX6GCR3_DMTEMODE_MASK                          0x00003000U
+
+/*
+* Enables the PDR mode values for DM.
+*/
+#undef DDR_PHY_DX6GCR3_DMPDRMODE_DEFVAL
+#undef DDR_PHY_DX6GCR3_DMPDRMODE_SHIFT
+#undef DDR_PHY_DX6GCR3_DMPDRMODE_MASK
+#define DDR_PHY_DX6GCR3_DMPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX6GCR3_DMPDRMODE_SHIFT                        10
+#define DDR_PHY_DX6GCR3_DMPDRMODE_MASK                         0x00000C00U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX6GCR3_RESERVED_9_8_DEFVAL
+#undef DDR_PHY_DX6GCR3_RESERVED_9_8_SHIFT
+#undef DDR_PHY_DX6GCR3_RESERVED_9_8_MASK
+#define DDR_PHY_DX6GCR3_RESERVED_9_8_DEFVAL                    0x3F000008
+#define DDR_PHY_DX6GCR3_RESERVED_9_8_SHIFT                     8
+#define DDR_PHY_DX6GCR3_RESERVED_9_8_MASK                      0x00000300U
+
+/*
+* Enables the OE mode values for DQS.
+*/
+#undef DDR_PHY_DX6GCR3_DSOEMODE_DEFVAL
+#undef DDR_PHY_DX6GCR3_DSOEMODE_SHIFT
+#undef DDR_PHY_DX6GCR3_DSOEMODE_MASK
+#define DDR_PHY_DX6GCR3_DSOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX6GCR3_DSOEMODE_SHIFT                         6
+#define DDR_PHY_DX6GCR3_DSOEMODE_MASK                          0x000000C0U
+
+/*
+* Enables the TE mode values for DQS.
+*/
+#undef DDR_PHY_DX6GCR3_DSTEMODE_DEFVAL
+#undef DDR_PHY_DX6GCR3_DSTEMODE_SHIFT
+#undef DDR_PHY_DX6GCR3_DSTEMODE_MASK
+#define DDR_PHY_DX6GCR3_DSTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX6GCR3_DSTEMODE_SHIFT                         4
+#define DDR_PHY_DX6GCR3_DSTEMODE_MASK                          0x00000030U
+
+/*
+* Enables the PDR mode values for DQS.
+*/
+#undef DDR_PHY_DX6GCR3_DSPDRMODE_DEFVAL
+#undef DDR_PHY_DX6GCR3_DSPDRMODE_SHIFT
+#undef DDR_PHY_DX6GCR3_DSPDRMODE_MASK
+#define DDR_PHY_DX6GCR3_DSPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX6GCR3_DSPDRMODE_SHIFT                        2
+#define DDR_PHY_DX6GCR3_DSPDRMODE_MASK                         0x0000000CU
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX6GCR3_RESERVED_1_0_DEFVAL
+#undef DDR_PHY_DX6GCR3_RESERVED_1_0_SHIFT
+#undef DDR_PHY_DX6GCR3_RESERVED_1_0_MASK
+#define DDR_PHY_DX6GCR3_RESERVED_1_0_DEFVAL                    0x3F000008
+#define DDR_PHY_DX6GCR3_RESERVED_1_0_SHIFT                     0
+#define DDR_PHY_DX6GCR3_RESERVED_1_0_MASK                      0x00000003U
+
+/*
 * Byte lane VREF IOM (Used only by D4MU IOs)
 */
 #undef DDR_PHY_DX6GCR4_RESERVED_31_29_DEFVAL
@@ -16896,6 +18574,216 @@
 #define DDR_PHY_DX7GCR1_DQEN_MASK                              0x000000FFU
 
 /*
+* Enables the OE mode values for DQ[7:0]
+*/
+#undef DDR_PHY_DX7GCR2_DXOEMODE_DEFVAL
+#undef DDR_PHY_DX7GCR2_DXOEMODE_SHIFT
+#undef DDR_PHY_DX7GCR2_DXOEMODE_MASK
+#define DDR_PHY_DX7GCR2_DXOEMODE_DEFVAL                        0x00000000
+#define DDR_PHY_DX7GCR2_DXOEMODE_SHIFT                         16
+#define DDR_PHY_DX7GCR2_DXOEMODE_MASK                          0xFFFF0000U
+
+/*
+* Enables the TE (ODT) mode values for DQ[7:0]
+*/
+#undef DDR_PHY_DX7GCR2_DXTEMODE_DEFVAL
+#undef DDR_PHY_DX7GCR2_DXTEMODE_SHIFT
+#undef DDR_PHY_DX7GCR2_DXTEMODE_MASK
+#define DDR_PHY_DX7GCR2_DXTEMODE_DEFVAL                        0x00000000
+#define DDR_PHY_DX7GCR2_DXTEMODE_SHIFT                         0
+#define DDR_PHY_DX7GCR2_DXTEMODE_MASK                          0x0000FFFFU
+
+/*
+* Reserved. Returns zeros on reads.
+*/
+#undef DDR_PHY_DX7GCR3_RESERVED_31_30_DEFVAL
+#undef DDR_PHY_DX7GCR3_RESERVED_31_30_SHIFT
+#undef DDR_PHY_DX7GCR3_RESERVED_31_30_MASK
+#define DDR_PHY_DX7GCR3_RESERVED_31_30_DEFVAL                  0x3F000008
+#define DDR_PHY_DX7GCR3_RESERVED_31_30_SHIFT                   30
+#define DDR_PHY_DX7GCR3_RESERVED_31_30_MASK                    0xC0000000U
+
+/*
+* Read Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX7GCR3_RDBVT_DEFVAL
+#undef DDR_PHY_DX7GCR3_RDBVT_SHIFT
+#undef DDR_PHY_DX7GCR3_RDBVT_MASK
+#define DDR_PHY_DX7GCR3_RDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX7GCR3_RDBVT_SHIFT                            29
+#define DDR_PHY_DX7GCR3_RDBVT_MASK                             0x20000000U
+
+/*
+* Write Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX7GCR3_WDBVT_DEFVAL
+#undef DDR_PHY_DX7GCR3_WDBVT_SHIFT
+#undef DDR_PHY_DX7GCR3_WDBVT_MASK
+#define DDR_PHY_DX7GCR3_WDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX7GCR3_WDBVT_SHIFT                            28
+#define DDR_PHY_DX7GCR3_WDBVT_MASK                             0x10000000U
+
+/*
+* Read DQS Gating LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX7GCR3_RGLVT_DEFVAL
+#undef DDR_PHY_DX7GCR3_RGLVT_SHIFT
+#undef DDR_PHY_DX7GCR3_RGLVT_MASK
+#define DDR_PHY_DX7GCR3_RGLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX7GCR3_RGLVT_SHIFT                            27
+#define DDR_PHY_DX7GCR3_RGLVT_MASK                             0x08000000U
+
+/*
+* Read DQS LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX7GCR3_RDLVT_DEFVAL
+#undef DDR_PHY_DX7GCR3_RDLVT_SHIFT
+#undef DDR_PHY_DX7GCR3_RDLVT_MASK
+#define DDR_PHY_DX7GCR3_RDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX7GCR3_RDLVT_SHIFT                            26
+#define DDR_PHY_DX7GCR3_RDLVT_MASK                             0x04000000U
+
+/*
+* Write DQ LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX7GCR3_WDLVT_DEFVAL
+#undef DDR_PHY_DX7GCR3_WDLVT_SHIFT
+#undef DDR_PHY_DX7GCR3_WDLVT_MASK
+#define DDR_PHY_DX7GCR3_WDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX7GCR3_WDLVT_SHIFT                            25
+#define DDR_PHY_DX7GCR3_WDLVT_MASK                             0x02000000U
+
+/*
+* Write Leveling LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX7GCR3_WLLVT_DEFVAL
+#undef DDR_PHY_DX7GCR3_WLLVT_SHIFT
+#undef DDR_PHY_DX7GCR3_WLLVT_MASK
+#define DDR_PHY_DX7GCR3_WLLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX7GCR3_WLLVT_SHIFT                            24
+#define DDR_PHY_DX7GCR3_WLLVT_MASK                             0x01000000U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX7GCR3_RESERVED_23_22_DEFVAL
+#undef DDR_PHY_DX7GCR3_RESERVED_23_22_SHIFT
+#undef DDR_PHY_DX7GCR3_RESERVED_23_22_MASK
+#define DDR_PHY_DX7GCR3_RESERVED_23_22_DEFVAL                  0x3F000008
+#define DDR_PHY_DX7GCR3_RESERVED_23_22_SHIFT                   22
+#define DDR_PHY_DX7GCR3_RESERVED_23_22_MASK                    0x00C00000U
+
+/*
+* Enables the OE mode for DQs
+*/
+#undef DDR_PHY_DX7GCR3_DSNOEMODE_DEFVAL
+#undef DDR_PHY_DX7GCR3_DSNOEMODE_SHIFT
+#undef DDR_PHY_DX7GCR3_DSNOEMODE_MASK
+#define DDR_PHY_DX7GCR3_DSNOEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX7GCR3_DSNOEMODE_SHIFT                        20
+#define DDR_PHY_DX7GCR3_DSNOEMODE_MASK                         0x00300000U
+
+/*
+* Enables the TE mode for DQS
+*/
+#undef DDR_PHY_DX7GCR3_DSNTEMODE_DEFVAL
+#undef DDR_PHY_DX7GCR3_DSNTEMODE_SHIFT
+#undef DDR_PHY_DX7GCR3_DSNTEMODE_MASK
+#define DDR_PHY_DX7GCR3_DSNTEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX7GCR3_DSNTEMODE_SHIFT                        18
+#define DDR_PHY_DX7GCR3_DSNTEMODE_MASK                         0x000C0000U
+
+/*
+* Enables the PDR mode for DQS
+*/
+#undef DDR_PHY_DX7GCR3_DSNPDRMODE_DEFVAL
+#undef DDR_PHY_DX7GCR3_DSNPDRMODE_SHIFT
+#undef DDR_PHY_DX7GCR3_DSNPDRMODE_MASK
+#define DDR_PHY_DX7GCR3_DSNPDRMODE_DEFVAL                      0x3F000008
+#define DDR_PHY_DX7GCR3_DSNPDRMODE_SHIFT                       16
+#define DDR_PHY_DX7GCR3_DSNPDRMODE_MASK                        0x00030000U
+
+/*
+* Enables the OE mode values for DM.
+*/
+#undef DDR_PHY_DX7GCR3_DMOEMODE_DEFVAL
+#undef DDR_PHY_DX7GCR3_DMOEMODE_SHIFT
+#undef DDR_PHY_DX7GCR3_DMOEMODE_MASK
+#define DDR_PHY_DX7GCR3_DMOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX7GCR3_DMOEMODE_SHIFT                         14
+#define DDR_PHY_DX7GCR3_DMOEMODE_MASK                          0x0000C000U
+
+/*
+* Enables the TE mode values for DM.
+*/
+#undef DDR_PHY_DX7GCR3_DMTEMODE_DEFVAL
+#undef DDR_PHY_DX7GCR3_DMTEMODE_SHIFT
+#undef DDR_PHY_DX7GCR3_DMTEMODE_MASK
+#define DDR_PHY_DX7GCR3_DMTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX7GCR3_DMTEMODE_SHIFT                         12
+#define DDR_PHY_DX7GCR3_DMTEMODE_MASK                          0x00003000U
+
+/*
+* Enables the PDR mode values for DM.
+*/
+#undef DDR_PHY_DX7GCR3_DMPDRMODE_DEFVAL
+#undef DDR_PHY_DX7GCR3_DMPDRMODE_SHIFT
+#undef DDR_PHY_DX7GCR3_DMPDRMODE_MASK
+#define DDR_PHY_DX7GCR3_DMPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX7GCR3_DMPDRMODE_SHIFT                        10
+#define DDR_PHY_DX7GCR3_DMPDRMODE_MASK                         0x00000C00U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX7GCR3_RESERVED_9_8_DEFVAL
+#undef DDR_PHY_DX7GCR3_RESERVED_9_8_SHIFT
+#undef DDR_PHY_DX7GCR3_RESERVED_9_8_MASK
+#define DDR_PHY_DX7GCR3_RESERVED_9_8_DEFVAL                    0x3F000008
+#define DDR_PHY_DX7GCR3_RESERVED_9_8_SHIFT                     8
+#define DDR_PHY_DX7GCR3_RESERVED_9_8_MASK                      0x00000300U
+
+/*
+* Enables the OE mode values for DQS.
+*/
+#undef DDR_PHY_DX7GCR3_DSOEMODE_DEFVAL
+#undef DDR_PHY_DX7GCR3_DSOEMODE_SHIFT
+#undef DDR_PHY_DX7GCR3_DSOEMODE_MASK
+#define DDR_PHY_DX7GCR3_DSOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX7GCR3_DSOEMODE_SHIFT                         6
+#define DDR_PHY_DX7GCR3_DSOEMODE_MASK                          0x000000C0U
+
+/*
+* Enables the TE mode values for DQS.
+*/
+#undef DDR_PHY_DX7GCR3_DSTEMODE_DEFVAL
+#undef DDR_PHY_DX7GCR3_DSTEMODE_SHIFT
+#undef DDR_PHY_DX7GCR3_DSTEMODE_MASK
+#define DDR_PHY_DX7GCR3_DSTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX7GCR3_DSTEMODE_SHIFT                         4
+#define DDR_PHY_DX7GCR3_DSTEMODE_MASK                          0x00000030U
+
+/*
+* Enables the PDR mode values for DQS.
+*/
+#undef DDR_PHY_DX7GCR3_DSPDRMODE_DEFVAL
+#undef DDR_PHY_DX7GCR3_DSPDRMODE_SHIFT
+#undef DDR_PHY_DX7GCR3_DSPDRMODE_MASK
+#define DDR_PHY_DX7GCR3_DSPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX7GCR3_DSPDRMODE_SHIFT                        2
+#define DDR_PHY_DX7GCR3_DSPDRMODE_MASK                         0x0000000CU
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX7GCR3_RESERVED_1_0_DEFVAL
+#undef DDR_PHY_DX7GCR3_RESERVED_1_0_SHIFT
+#undef DDR_PHY_DX7GCR3_RESERVED_1_0_MASK
+#define DDR_PHY_DX7GCR3_RESERVED_1_0_DEFVAL                    0x3F000008
+#define DDR_PHY_DX7GCR3_RESERVED_1_0_SHIFT                     0
+#define DDR_PHY_DX7GCR3_RESERVED_1_0_MASK                      0x00000003U
+
+/*
 * Byte lane VREF IOM (Used only by D4MU IOs)
 */
 #undef DDR_PHY_DX7GCR4_RESERVED_31_29_DEFVAL
@@ -17445,6 +19333,216 @@
 #define DDR_PHY_DX8GCR1_DQEN_DEFVAL                            0x00007FFF
 #define DDR_PHY_DX8GCR1_DQEN_SHIFT                             0
 #define DDR_PHY_DX8GCR1_DQEN_MASK                              0x000000FFU
+
+/*
+* Enables the OE mode values for DQ[7:0]
+*/
+#undef DDR_PHY_DX8GCR2_DXOEMODE_DEFVAL
+#undef DDR_PHY_DX8GCR2_DXOEMODE_SHIFT
+#undef DDR_PHY_DX8GCR2_DXOEMODE_MASK
+#define DDR_PHY_DX8GCR2_DXOEMODE_DEFVAL                        0x00000000
+#define DDR_PHY_DX8GCR2_DXOEMODE_SHIFT                         16
+#define DDR_PHY_DX8GCR2_DXOEMODE_MASK                          0xFFFF0000U
+
+/*
+* Enables the TE (ODT) mode values for DQ[7:0]
+*/
+#undef DDR_PHY_DX8GCR2_DXTEMODE_DEFVAL
+#undef DDR_PHY_DX8GCR2_DXTEMODE_SHIFT
+#undef DDR_PHY_DX8GCR2_DXTEMODE_MASK
+#define DDR_PHY_DX8GCR2_DXTEMODE_DEFVAL                        0x00000000
+#define DDR_PHY_DX8GCR2_DXTEMODE_SHIFT                         0
+#define DDR_PHY_DX8GCR2_DXTEMODE_MASK                          0x0000FFFFU
+
+/*
+* Reserved. Returns zeros on reads.
+*/
+#undef DDR_PHY_DX8GCR3_RESERVED_31_30_DEFVAL
+#undef DDR_PHY_DX8GCR3_RESERVED_31_30_SHIFT
+#undef DDR_PHY_DX8GCR3_RESERVED_31_30_MASK
+#define DDR_PHY_DX8GCR3_RESERVED_31_30_DEFVAL                  0x3F000008
+#define DDR_PHY_DX8GCR3_RESERVED_31_30_SHIFT                   30
+#define DDR_PHY_DX8GCR3_RESERVED_31_30_MASK                    0xC0000000U
+
+/*
+* Read Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX8GCR3_RDBVT_DEFVAL
+#undef DDR_PHY_DX8GCR3_RDBVT_SHIFT
+#undef DDR_PHY_DX8GCR3_RDBVT_MASK
+#define DDR_PHY_DX8GCR3_RDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX8GCR3_RDBVT_SHIFT                            29
+#define DDR_PHY_DX8GCR3_RDBVT_MASK                             0x20000000U
+
+/*
+* Write Data BDL VT Compensation
+*/
+#undef DDR_PHY_DX8GCR3_WDBVT_DEFVAL
+#undef DDR_PHY_DX8GCR3_WDBVT_SHIFT
+#undef DDR_PHY_DX8GCR3_WDBVT_MASK
+#define DDR_PHY_DX8GCR3_WDBVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX8GCR3_WDBVT_SHIFT                            28
+#define DDR_PHY_DX8GCR3_WDBVT_MASK                             0x10000000U
+
+/*
+* Read DQS Gating LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX8GCR3_RGLVT_DEFVAL
+#undef DDR_PHY_DX8GCR3_RGLVT_SHIFT
+#undef DDR_PHY_DX8GCR3_RGLVT_MASK
+#define DDR_PHY_DX8GCR3_RGLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX8GCR3_RGLVT_SHIFT                            27
+#define DDR_PHY_DX8GCR3_RGLVT_MASK                             0x08000000U
+
+/*
+* Read DQS LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX8GCR3_RDLVT_DEFVAL
+#undef DDR_PHY_DX8GCR3_RDLVT_SHIFT
+#undef DDR_PHY_DX8GCR3_RDLVT_MASK
+#define DDR_PHY_DX8GCR3_RDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX8GCR3_RDLVT_SHIFT                            26
+#define DDR_PHY_DX8GCR3_RDLVT_MASK                             0x04000000U
+
+/*
+* Write DQ LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX8GCR3_WDLVT_DEFVAL
+#undef DDR_PHY_DX8GCR3_WDLVT_SHIFT
+#undef DDR_PHY_DX8GCR3_WDLVT_MASK
+#define DDR_PHY_DX8GCR3_WDLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX8GCR3_WDLVT_SHIFT                            25
+#define DDR_PHY_DX8GCR3_WDLVT_MASK                             0x02000000U
+
+/*
+* Write Leveling LCDL Delay VT Compensation
+*/
+#undef DDR_PHY_DX8GCR3_WLLVT_DEFVAL
+#undef DDR_PHY_DX8GCR3_WLLVT_SHIFT
+#undef DDR_PHY_DX8GCR3_WLLVT_MASK
+#define DDR_PHY_DX8GCR3_WLLVT_DEFVAL                           0x3F000008
+#define DDR_PHY_DX8GCR3_WLLVT_SHIFT                            24
+#define DDR_PHY_DX8GCR3_WLLVT_MASK                             0x01000000U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX8GCR3_RESERVED_23_22_DEFVAL
+#undef DDR_PHY_DX8GCR3_RESERVED_23_22_SHIFT
+#undef DDR_PHY_DX8GCR3_RESERVED_23_22_MASK
+#define DDR_PHY_DX8GCR3_RESERVED_23_22_DEFVAL                  0x3F000008
+#define DDR_PHY_DX8GCR3_RESERVED_23_22_SHIFT                   22
+#define DDR_PHY_DX8GCR3_RESERVED_23_22_MASK                    0x00C00000U
+
+/*
+* Enables the OE mode for DQs
+*/
+#undef DDR_PHY_DX8GCR3_DSNOEMODE_DEFVAL
+#undef DDR_PHY_DX8GCR3_DSNOEMODE_SHIFT
+#undef DDR_PHY_DX8GCR3_DSNOEMODE_MASK
+#define DDR_PHY_DX8GCR3_DSNOEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX8GCR3_DSNOEMODE_SHIFT                        20
+#define DDR_PHY_DX8GCR3_DSNOEMODE_MASK                         0x00300000U
+
+/*
+* Enables the TE mode for DQS
+*/
+#undef DDR_PHY_DX8GCR3_DSNTEMODE_DEFVAL
+#undef DDR_PHY_DX8GCR3_DSNTEMODE_SHIFT
+#undef DDR_PHY_DX8GCR3_DSNTEMODE_MASK
+#define DDR_PHY_DX8GCR3_DSNTEMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX8GCR3_DSNTEMODE_SHIFT                        18
+#define DDR_PHY_DX8GCR3_DSNTEMODE_MASK                         0x000C0000U
+
+/*
+* Enables the PDR mode for DQS
+*/
+#undef DDR_PHY_DX8GCR3_DSNPDRMODE_DEFVAL
+#undef DDR_PHY_DX8GCR3_DSNPDRMODE_SHIFT
+#undef DDR_PHY_DX8GCR3_DSNPDRMODE_MASK
+#define DDR_PHY_DX8GCR3_DSNPDRMODE_DEFVAL                      0x3F000008
+#define DDR_PHY_DX8GCR3_DSNPDRMODE_SHIFT                       16
+#define DDR_PHY_DX8GCR3_DSNPDRMODE_MASK                        0x00030000U
+
+/*
+* Enables the OE mode values for DM.
+*/
+#undef DDR_PHY_DX8GCR3_DMOEMODE_DEFVAL
+#undef DDR_PHY_DX8GCR3_DMOEMODE_SHIFT
+#undef DDR_PHY_DX8GCR3_DMOEMODE_MASK
+#define DDR_PHY_DX8GCR3_DMOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX8GCR3_DMOEMODE_SHIFT                         14
+#define DDR_PHY_DX8GCR3_DMOEMODE_MASK                          0x0000C000U
+
+/*
+* Enables the TE mode values for DM.
+*/
+#undef DDR_PHY_DX8GCR3_DMTEMODE_DEFVAL
+#undef DDR_PHY_DX8GCR3_DMTEMODE_SHIFT
+#undef DDR_PHY_DX8GCR3_DMTEMODE_MASK
+#define DDR_PHY_DX8GCR3_DMTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX8GCR3_DMTEMODE_SHIFT                         12
+#define DDR_PHY_DX8GCR3_DMTEMODE_MASK                          0x00003000U
+
+/*
+* Enables the PDR mode values for DM.
+*/
+#undef DDR_PHY_DX8GCR3_DMPDRMODE_DEFVAL
+#undef DDR_PHY_DX8GCR3_DMPDRMODE_SHIFT
+#undef DDR_PHY_DX8GCR3_DMPDRMODE_MASK
+#define DDR_PHY_DX8GCR3_DMPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX8GCR3_DMPDRMODE_SHIFT                        10
+#define DDR_PHY_DX8GCR3_DMPDRMODE_MASK                         0x00000C00U
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX8GCR3_RESERVED_9_8_DEFVAL
+#undef DDR_PHY_DX8GCR3_RESERVED_9_8_SHIFT
+#undef DDR_PHY_DX8GCR3_RESERVED_9_8_MASK
+#define DDR_PHY_DX8GCR3_RESERVED_9_8_DEFVAL                    0x3F000008
+#define DDR_PHY_DX8GCR3_RESERVED_9_8_SHIFT                     8
+#define DDR_PHY_DX8GCR3_RESERVED_9_8_MASK                      0x00000300U
+
+/*
+* Enables the OE mode values for DQS.
+*/
+#undef DDR_PHY_DX8GCR3_DSOEMODE_DEFVAL
+#undef DDR_PHY_DX8GCR3_DSOEMODE_SHIFT
+#undef DDR_PHY_DX8GCR3_DSOEMODE_MASK
+#define DDR_PHY_DX8GCR3_DSOEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX8GCR3_DSOEMODE_SHIFT                         6
+#define DDR_PHY_DX8GCR3_DSOEMODE_MASK                          0x000000C0U
+
+/*
+* Enables the TE mode values for DQS.
+*/
+#undef DDR_PHY_DX8GCR3_DSTEMODE_DEFVAL
+#undef DDR_PHY_DX8GCR3_DSTEMODE_SHIFT
+#undef DDR_PHY_DX8GCR3_DSTEMODE_MASK
+#define DDR_PHY_DX8GCR3_DSTEMODE_DEFVAL                        0x3F000008
+#define DDR_PHY_DX8GCR3_DSTEMODE_SHIFT                         4
+#define DDR_PHY_DX8GCR3_DSTEMODE_MASK                          0x00000030U
+
+/*
+* Enables the PDR mode values for DQS.
+*/
+#undef DDR_PHY_DX8GCR3_DSPDRMODE_DEFVAL
+#undef DDR_PHY_DX8GCR3_DSPDRMODE_SHIFT
+#undef DDR_PHY_DX8GCR3_DSPDRMODE_MASK
+#define DDR_PHY_DX8GCR3_DSPDRMODE_DEFVAL                       0x3F000008
+#define DDR_PHY_DX8GCR3_DSPDRMODE_SHIFT                        2
+#define DDR_PHY_DX8GCR3_DSPDRMODE_MASK                         0x0000000CU
+
+/*
+* Reserved. Returns zeroes on reads.
+*/
+#undef DDR_PHY_DX8GCR3_RESERVED_1_0_DEFVAL
+#undef DDR_PHY_DX8GCR3_RESERVED_1_0_SHIFT
+#undef DDR_PHY_DX8GCR3_RESERVED_1_0_MASK
+#define DDR_PHY_DX8GCR3_RESERVED_1_0_DEFVAL                    0x3F000008
+#define DDR_PHY_DX8GCR3_RESERVED_1_0_SHIFT                     0
+#define DDR_PHY_DX8GCR3_RESERVED_1_0_MASK                      0x00000003U
 
 /*
 * Byte lane VREF IOM (Used only by D4MU IOs)
@@ -21468,14 +23566,6 @@
 #define IOU_SLCR_MIO_PIN_32_OFFSET                                                 0XFF180080
 #undef IOU_SLCR_MIO_PIN_33_OFFSET
 #define IOU_SLCR_MIO_PIN_33_OFFSET                                                 0XFF180084
-#undef IOU_SLCR_MIO_PIN_34_OFFSET
-#define IOU_SLCR_MIO_PIN_34_OFFSET                                                 0XFF180088
-#undef IOU_SLCR_MIO_PIN_35_OFFSET
-#define IOU_SLCR_MIO_PIN_35_OFFSET                                                 0XFF18008C
-#undef IOU_SLCR_MIO_PIN_36_OFFSET
-#define IOU_SLCR_MIO_PIN_36_OFFSET                                                 0XFF180090
-#undef IOU_SLCR_MIO_PIN_37_OFFSET
-#define IOU_SLCR_MIO_PIN_37_OFFSET                                                 0XFF180094
 #undef IOU_SLCR_MIO_PIN_38_OFFSET
 #define IOU_SLCR_MIO_PIN_38_OFFSET                                                 0XFF180098
 #undef IOU_SLCR_MIO_PIN_39_OFFSET
@@ -23334,215 +25424,6 @@
 #define IOU_SLCR_MIO_PIN_33_L3_SEL_DEFVAL                      0x00000000
 #define IOU_SLCR_MIO_PIN_33_L3_SEL_SHIFT                       5
 #define IOU_SLCR_MIO_PIN_33_L3_SEL_MASK                        0x000000E0U
-
-/*
-* Level 0 Mux Select 0= Level 1 Mux Output 1= gem0, Input, gem0_rgmii_rxd[
-    * 1]- (RX RGMII data)
-*/
-#undef IOU_SLCR_MIO_PIN_34_L0_SEL_DEFVAL
-#undef IOU_SLCR_MIO_PIN_34_L0_SEL_SHIFT
-#undef IOU_SLCR_MIO_PIN_34_L0_SEL_MASK
-#define IOU_SLCR_MIO_PIN_34_L0_SEL_DEFVAL                      0x00000000
-#define IOU_SLCR_MIO_PIN_34_L0_SEL_SHIFT                       1
-#define IOU_SLCR_MIO_PIN_34_L0_SEL_MASK                        0x00000002U
-
-/*
-* Level 1 Mux Select 0= Level 2 Mux Output 1= pcie, Input, pcie_reset_n- (
-    * PCIE Reset signal)
-*/
-#undef IOU_SLCR_MIO_PIN_34_L1_SEL_DEFVAL
-#undef IOU_SLCR_MIO_PIN_34_L1_SEL_SHIFT
-#undef IOU_SLCR_MIO_PIN_34_L1_SEL_MASK
-#define IOU_SLCR_MIO_PIN_34_L1_SEL_DEFVAL                      0x00000000
-#define IOU_SLCR_MIO_PIN_34_L1_SEL_SHIFT                       2
-#define IOU_SLCR_MIO_PIN_34_L1_SEL_MASK                        0x00000004U
-
-/*
-* Level 2 Mux Select 0= Level 3 Mux Output 1= pmu, Output, pmu_gpo[2]- (PM
-    * U GPI) 2= test_scan, Input, test_scan_in[34]- (Test Scan Port) = test_sc
-    * an, Output, test_scan_out[34]- (Test Scan Port) 3= dpaux, Input, dp_aux_
-    * data_in- (Dp Aux Data) = dpaux, Output, dp_aux_data_out- (Dp Aux Data)
-*/
-#undef IOU_SLCR_MIO_PIN_34_L2_SEL_DEFVAL
-#undef IOU_SLCR_MIO_PIN_34_L2_SEL_SHIFT
-#undef IOU_SLCR_MIO_PIN_34_L2_SEL_MASK
-#define IOU_SLCR_MIO_PIN_34_L2_SEL_DEFVAL                      0x00000000
-#define IOU_SLCR_MIO_PIN_34_L2_SEL_SHIFT                       3
-#define IOU_SLCR_MIO_PIN_34_L2_SEL_MASK                        0x00000018U
-
-/*
-* Level 3 Mux Select 0= gpio1, Input, gpio_1_pin_in[8]- (GPIO bank 1) 0= g
-    * pio1, Output, gpio_1_pin_out[8]- (GPIO bank 1) 1= can0, Input, can0_phy_
-    * rx- (Can RX signal) 2= i2c0, Input, i2c0_scl_input- (SCL signal) 2= i2c0
-    * , Output, i2c0_scl_out- (SCL signal) 3= swdt0, Input, swdt0_clk_in- (Wat
-    * ch Dog Timer Input clock) 4= spi1, Output, spi1_n_ss_out[1]- (SPI Master
-    *  Selects) 5= ttc2, Input, ttc2_clk_in- (TTC Clock) 6= ua0, Input, ua0_rx
-    * d- (UART receiver serial input) 7= trace, Output, tracedq[12]- (Trace Po
-    * rt Databus)
-*/
-#undef IOU_SLCR_MIO_PIN_34_L3_SEL_DEFVAL
-#undef IOU_SLCR_MIO_PIN_34_L3_SEL_SHIFT
-#undef IOU_SLCR_MIO_PIN_34_L3_SEL_MASK
-#define IOU_SLCR_MIO_PIN_34_L3_SEL_DEFVAL                      0x00000000
-#define IOU_SLCR_MIO_PIN_34_L3_SEL_SHIFT                       5
-#define IOU_SLCR_MIO_PIN_34_L3_SEL_MASK                        0x000000E0U
-
-/*
-* Level 0 Mux Select 0= Level 1 Mux Output 1= gem0, Input, gem0_rgmii_rxd[
-    * 2]- (RX RGMII data)
-*/
-#undef IOU_SLCR_MIO_PIN_35_L0_SEL_DEFVAL
-#undef IOU_SLCR_MIO_PIN_35_L0_SEL_SHIFT
-#undef IOU_SLCR_MIO_PIN_35_L0_SEL_MASK
-#define IOU_SLCR_MIO_PIN_35_L0_SEL_DEFVAL                      0x00000000
-#define IOU_SLCR_MIO_PIN_35_L0_SEL_SHIFT                       1
-#define IOU_SLCR_MIO_PIN_35_L0_SEL_MASK                        0x00000002U
-
-/*
-* Level 1 Mux Select 0= Level 2 Mux Output 1= pcie, Input, pcie_reset_n- (
-    * PCIE Reset signal)
-*/
-#undef IOU_SLCR_MIO_PIN_35_L1_SEL_DEFVAL
-#undef IOU_SLCR_MIO_PIN_35_L1_SEL_SHIFT
-#undef IOU_SLCR_MIO_PIN_35_L1_SEL_MASK
-#define IOU_SLCR_MIO_PIN_35_L1_SEL_DEFVAL                      0x00000000
-#define IOU_SLCR_MIO_PIN_35_L1_SEL_SHIFT                       2
-#define IOU_SLCR_MIO_PIN_35_L1_SEL_MASK                        0x00000004U
-
-/*
-* Level 2 Mux Select 0= Level 3 Mux Output 1= pmu, Output, pmu_gpo[3]- (PM
-    * U GPI) 2= test_scan, Input, test_scan_in[35]- (Test Scan Port) = test_sc
-    * an, Output, test_scan_out[35]- (Test Scan Port) 3= dpaux, Input, dp_hot_
-    * plug_detect- (Dp Aux Hot Plug)
-*/
-#undef IOU_SLCR_MIO_PIN_35_L2_SEL_DEFVAL
-#undef IOU_SLCR_MIO_PIN_35_L2_SEL_SHIFT
-#undef IOU_SLCR_MIO_PIN_35_L2_SEL_MASK
-#define IOU_SLCR_MIO_PIN_35_L2_SEL_DEFVAL                      0x00000000
-#define IOU_SLCR_MIO_PIN_35_L2_SEL_SHIFT                       3
-#define IOU_SLCR_MIO_PIN_35_L2_SEL_MASK                        0x00000018U
-
-/*
-* Level 3 Mux Select 0= gpio1, Input, gpio_1_pin_in[9]- (GPIO bank 1) 0= g
-    * pio1, Output, gpio_1_pin_out[9]- (GPIO bank 1) 1= can0, Output, can0_phy
-    * _tx- (Can TX signal) 2= i2c0, Input, i2c0_sda_input- (SDA signal) 2= i2c
-    * 0, Output, i2c0_sda_out- (SDA signal) 3= swdt0, Output, swdt0_rst_out- (
-    * Watch Dog Timer Output clock) 4= spi1, Input, spi1_n_ss_in- (SPI Master
-    * Selects) 4= spi1, Output, spi1_n_ss_out[0]- (SPI Master Selects) 5= ttc2
-    * , Output, ttc2_wave_out- (TTC Waveform Clock) 6= ua0, Output, ua0_txd- (
-    * UART transmitter serial output) 7= trace, Output, tracedq[13]- (Trace Po
-    * rt Databus)
-*/
-#undef IOU_SLCR_MIO_PIN_35_L3_SEL_DEFVAL
-#undef IOU_SLCR_MIO_PIN_35_L3_SEL_SHIFT
-#undef IOU_SLCR_MIO_PIN_35_L3_SEL_MASK
-#define IOU_SLCR_MIO_PIN_35_L3_SEL_DEFVAL                      0x00000000
-#define IOU_SLCR_MIO_PIN_35_L3_SEL_SHIFT                       5
-#define IOU_SLCR_MIO_PIN_35_L3_SEL_MASK                        0x000000E0U
-
-/*
-* Level 0 Mux Select 0= Level 1 Mux Output 1= gem0, Input, gem0_rgmii_rxd[
-    * 3]- (RX RGMII data)
-*/
-#undef IOU_SLCR_MIO_PIN_36_L0_SEL_DEFVAL
-#undef IOU_SLCR_MIO_PIN_36_L0_SEL_SHIFT
-#undef IOU_SLCR_MIO_PIN_36_L0_SEL_MASK
-#define IOU_SLCR_MIO_PIN_36_L0_SEL_DEFVAL                      0x00000000
-#define IOU_SLCR_MIO_PIN_36_L0_SEL_SHIFT                       1
-#define IOU_SLCR_MIO_PIN_36_L0_SEL_MASK                        0x00000002U
-
-/*
-* Level 1 Mux Select 0= Level 2 Mux Output 1= pcie, Input, pcie_reset_n- (
-    * PCIE Reset signal)
-*/
-#undef IOU_SLCR_MIO_PIN_36_L1_SEL_DEFVAL
-#undef IOU_SLCR_MIO_PIN_36_L1_SEL_SHIFT
-#undef IOU_SLCR_MIO_PIN_36_L1_SEL_MASK
-#define IOU_SLCR_MIO_PIN_36_L1_SEL_DEFVAL                      0x00000000
-#define IOU_SLCR_MIO_PIN_36_L1_SEL_SHIFT                       2
-#define IOU_SLCR_MIO_PIN_36_L1_SEL_MASK                        0x00000004U
-
-/*
-* Level 2 Mux Select 0= Level 3 Mux Output 1= pmu, Output, pmu_gpo[4]- (PM
-    * U GPI) 2= test_scan, Input, test_scan_in[36]- (Test Scan Port) = test_sc
-    * an, Output, test_scan_out[36]- (Test Scan Port) 3= dpaux, Input, dp_aux_
-    * data_in- (Dp Aux Data) = dpaux, Output, dp_aux_data_out- (Dp Aux Data)
-*/
-#undef IOU_SLCR_MIO_PIN_36_L2_SEL_DEFVAL
-#undef IOU_SLCR_MIO_PIN_36_L2_SEL_SHIFT
-#undef IOU_SLCR_MIO_PIN_36_L2_SEL_MASK
-#define IOU_SLCR_MIO_PIN_36_L2_SEL_DEFVAL                      0x00000000
-#define IOU_SLCR_MIO_PIN_36_L2_SEL_SHIFT                       3
-#define IOU_SLCR_MIO_PIN_36_L2_SEL_MASK                        0x00000018U
-
-/*
-* Level 3 Mux Select 0= gpio1, Input, gpio_1_pin_in[10]- (GPIO bank 1) 0=
-    * gpio1, Output, gpio_1_pin_out[10]- (GPIO bank 1) 1= can1, Output, can1_p
-    * hy_tx- (Can TX signal) 2= i2c1, Input, i2c1_scl_input- (SCL signal) 2= i
-    * 2c1, Output, i2c1_scl_out- (SCL signal) 3= swdt1, Input, swdt1_clk_in- (
-    * Watch Dog Timer Input clock) 4= spi1, Input, spi1_mi- (MISO signal) 4= s
-    * pi1, Output, spi1_so- (MISO signal) 5= ttc1, Input, ttc1_clk_in- (TTC Cl
-    * ock) 6= ua1, Output, ua1_txd- (UART transmitter serial output) 7= trace,
-    *  Output, tracedq[14]- (Trace Port Databus)
-*/
-#undef IOU_SLCR_MIO_PIN_36_L3_SEL_DEFVAL
-#undef IOU_SLCR_MIO_PIN_36_L3_SEL_SHIFT
-#undef IOU_SLCR_MIO_PIN_36_L3_SEL_MASK
-#define IOU_SLCR_MIO_PIN_36_L3_SEL_DEFVAL                      0x00000000
-#define IOU_SLCR_MIO_PIN_36_L3_SEL_SHIFT                       5
-#define IOU_SLCR_MIO_PIN_36_L3_SEL_MASK                        0x000000E0U
-
-/*
-* Level 0 Mux Select 0= Level 1 Mux Output 1= gem0, Input, gem0_rgmii_rx_c
-    * tl- (RX RGMII control )
-*/
-#undef IOU_SLCR_MIO_PIN_37_L0_SEL_DEFVAL
-#undef IOU_SLCR_MIO_PIN_37_L0_SEL_SHIFT
-#undef IOU_SLCR_MIO_PIN_37_L0_SEL_MASK
-#define IOU_SLCR_MIO_PIN_37_L0_SEL_DEFVAL                      0x00000000
-#define IOU_SLCR_MIO_PIN_37_L0_SEL_SHIFT                       1
-#define IOU_SLCR_MIO_PIN_37_L0_SEL_MASK                        0x00000002U
-
-/*
-* Level 1 Mux Select 0= Level 2 Mux Output 1= pcie, Input, pcie_reset_n- (
-    * PCIE Reset signal)
-*/
-#undef IOU_SLCR_MIO_PIN_37_L1_SEL_DEFVAL
-#undef IOU_SLCR_MIO_PIN_37_L1_SEL_SHIFT
-#undef IOU_SLCR_MIO_PIN_37_L1_SEL_MASK
-#define IOU_SLCR_MIO_PIN_37_L1_SEL_DEFVAL                      0x00000000
-#define IOU_SLCR_MIO_PIN_37_L1_SEL_SHIFT                       2
-#define IOU_SLCR_MIO_PIN_37_L1_SEL_MASK                        0x00000004U
-
-/*
-* Level 2 Mux Select 0= Level 3 Mux Output 1= pmu, Output, pmu_gpo[5]- (PM
-    * U GPI) 2= test_scan, Input, test_scan_in[37]- (Test Scan Port) = test_sc
-    * an, Output, test_scan_out[37]- (Test Scan Port) 3= dpaux, Input, dp_hot_
-    * plug_detect- (Dp Aux Hot Plug)
-*/
-#undef IOU_SLCR_MIO_PIN_37_L2_SEL_DEFVAL
-#undef IOU_SLCR_MIO_PIN_37_L2_SEL_SHIFT
-#undef IOU_SLCR_MIO_PIN_37_L2_SEL_MASK
-#define IOU_SLCR_MIO_PIN_37_L2_SEL_DEFVAL                      0x00000000
-#define IOU_SLCR_MIO_PIN_37_L2_SEL_SHIFT                       3
-#define IOU_SLCR_MIO_PIN_37_L2_SEL_MASK                        0x00000018U
-
-/*
-* Level 3 Mux Select 0= gpio1, Input, gpio_1_pin_in[11]- (GPIO bank 1) 0=
-    * gpio1, Output, gpio_1_pin_out[11]- (GPIO bank 1) 1= can1, Input, can1_ph
-    * y_rx- (Can RX signal) 2= i2c1, Input, i2c1_sda_input- (SDA signal) 2= i2
-    * c1, Output, i2c1_sda_out- (SDA signal) 3= swdt1, Output, swdt1_rst_out-
-    * (Watch Dog Timer Output clock) 4= spi1, Output, spi1_mo- (MOSI signal) 4
-    * = spi1, Input, spi1_si- (MOSI signal) 5= ttc1, Output, ttc1_wave_out- (T
-    * TC Waveform Clock) 6= ua1, Input, ua1_rxd- (UART receiver serial input)
-    * 7= trace, Output, tracedq[15]- (Trace Port Databus)
-*/
-#undef IOU_SLCR_MIO_PIN_37_L3_SEL_DEFVAL
-#undef IOU_SLCR_MIO_PIN_37_L3_SEL_SHIFT
-#undef IOU_SLCR_MIO_PIN_37_L3_SEL_MASK
-#define IOU_SLCR_MIO_PIN_37_L3_SEL_DEFVAL                      0x00000000
-#define IOU_SLCR_MIO_PIN_37_L3_SEL_SHIFT                       5
-#define IOU_SLCR_MIO_PIN_37_L3_SEL_MASK                        0x000000E0U
 
 /*
 * Level 0 Mux Select 0= Level 1 Mux Output 1= gem1, Output, gem1_rgmii_tx_
@@ -31071,6 +32952,50 @@
 #define IOU_SLCR_MIO_LOOPBACK_SPI0_LOOP_SPI1_DEFVAL            0x00000000
 #define IOU_SLCR_MIO_LOOPBACK_SPI0_LOOP_SPI1_SHIFT             0
 #define IOU_SLCR_MIO_LOOPBACK_SPI0_LOOP_SPI1_MASK              0x00000001U
+#undef CRL_APB_AMS_REF_CTRL_OFFSET
+#define CRL_APB_AMS_REF_CTRL_OFFSET                                                0XFF5E0108
+
+/*
+* 6 bit divider
+*/
+#undef CRL_APB_AMS_REF_CTRL_DIVISOR1_DEFVAL
+#undef CRL_APB_AMS_REF_CTRL_DIVISOR1_SHIFT
+#undef CRL_APB_AMS_REF_CTRL_DIVISOR1_MASK
+#define CRL_APB_AMS_REF_CTRL_DIVISOR1_DEFVAL                   0x01001800
+#define CRL_APB_AMS_REF_CTRL_DIVISOR1_SHIFT                    16
+#define CRL_APB_AMS_REF_CTRL_DIVISOR1_MASK                     0x003F0000U
+
+/*
+* 6 bit divider
+*/
+#undef CRL_APB_AMS_REF_CTRL_DIVISOR0_DEFVAL
+#undef CRL_APB_AMS_REF_CTRL_DIVISOR0_SHIFT
+#undef CRL_APB_AMS_REF_CTRL_DIVISOR0_MASK
+#define CRL_APB_AMS_REF_CTRL_DIVISOR0_DEFVAL                   0x01001800
+#define CRL_APB_AMS_REF_CTRL_DIVISOR0_SHIFT                    8
+#define CRL_APB_AMS_REF_CTRL_DIVISOR0_MASK                     0x00003F00U
+
+/*
+* 000 = RPLL; 010 = IOPLL; 011 = DPLL; (This signal may only be toggled af
+    * ter 4 cycles of the old clock and 4 cycles of the new clock. This is not
+    *  usually an issue, but designers must be aware.)
+*/
+#undef CRL_APB_AMS_REF_CTRL_SRCSEL_DEFVAL
+#undef CRL_APB_AMS_REF_CTRL_SRCSEL_SHIFT
+#undef CRL_APB_AMS_REF_CTRL_SRCSEL_MASK
+#define CRL_APB_AMS_REF_CTRL_SRCSEL_DEFVAL                     0x01001800
+#define CRL_APB_AMS_REF_CTRL_SRCSEL_SHIFT                      0
+#define CRL_APB_AMS_REF_CTRL_SRCSEL_MASK                       0x00000007U
+
+/*
+* Clock active signal. Switch to 0 to disable the clock
+*/
+#undef CRL_APB_AMS_REF_CTRL_CLKACT_DEFVAL
+#undef CRL_APB_AMS_REF_CTRL_CLKACT_SHIFT
+#undef CRL_APB_AMS_REF_CTRL_CLKACT_MASK
+#define CRL_APB_AMS_REF_CTRL_CLKACT_DEFVAL                     0x01001800
+#define CRL_APB_AMS_REF_CTRL_CLKACT_SHIFT                      24
+#define CRL_APB_AMS_REF_CTRL_CLKACT_MASK                       0x01000000U
 #undef CRF_APB_RST_FPD_TOP_OFFSET
 #define CRF_APB_RST_FPD_TOP_OFFSET                                                 0XFD1A0100
 #undef CRL_APB_RST_LPD_IOU2_OFFSET
@@ -31085,10 +33010,6 @@
 #define IOU_SLCR_IOU_TAPDLY_BYPASS_OFFSET                                          0XFF180390
 #undef CRL_APB_RST_LPD_TOP_OFFSET
 #define CRL_APB_RST_LPD_TOP_OFFSET                                                 0XFF5E023C
-#undef USB3_0_FPD_POWER_PRSNT_OFFSET
-#define USB3_0_FPD_POWER_PRSNT_OFFSET                                              0XFF9D0080
-#undef USB3_0_FPD_PIPE_CLK_OFFSET
-#define USB3_0_FPD_PIPE_CLK_OFFSET                                                 0XFF9D007C
 #undef CRL_APB_RST_LPD_IOU2_OFFSET
 #define CRL_APB_RST_LPD_IOU2_OFFSET                                                0XFF5E0238
 #undef IOU_SLCR_CTRL_REG_SD_OFFSET
@@ -31141,6 +33062,12 @@
 #define IOU_SCNTRS_BASE_FREQUENCY_ID_REGISTER_OFFSET                               0XFF260020
 #undef IOU_SCNTRS_COUNTER_CONTROL_REGISTER_OFFSET
 #define IOU_SCNTRS_COUNTER_CONTROL_REGISTER_OFFSET                                 0XFF260000
+#undef CRL_APB_BOOT_PIN_CTRL_OFFSET
+#define CRL_APB_BOOT_PIN_CTRL_OFFSET                                               0XFF5E0250
+#undef CRL_APB_BOOT_PIN_CTRL_OFFSET
+#define CRL_APB_BOOT_PIN_CTRL_OFFSET                                               0XFF5E0250
+#undef CRL_APB_BOOT_PIN_CTRL_OFFSET
+#define CRL_APB_BOOT_PIN_CTRL_OFFSET                                               0XFF5E0250
 #undef GPIO_DIRM_1_OFFSET
 #define GPIO_DIRM_1_OFFSET                                                         0XFF0A0244
 #undef GPIO_OEN_1_OFFSET
@@ -31412,47 +33339,6 @@
 #define CRL_APB_RST_LPD_TOP_USB0_APB_RESET_MASK                0x00000400U
 
 /*
-* USB 0 sleep circuit reset
-*/
-#undef CRL_APB_RST_LPD_TOP_USB0_HIBERRESET_DEFVAL
-#undef CRL_APB_RST_LPD_TOP_USB0_HIBERRESET_SHIFT
-#undef CRL_APB_RST_LPD_TOP_USB0_HIBERRESET_MASK
-#define CRL_APB_RST_LPD_TOP_USB0_HIBERRESET_DEFVAL             0x00188FDF
-#define CRL_APB_RST_LPD_TOP_USB0_HIBERRESET_SHIFT              8
-#define CRL_APB_RST_LPD_TOP_USB0_HIBERRESET_MASK               0x00000100U
-
-/*
-* USB 0 reset
-*/
-#undef CRL_APB_RST_LPD_TOP_USB0_CORERESET_DEFVAL
-#undef CRL_APB_RST_LPD_TOP_USB0_CORERESET_SHIFT
-#undef CRL_APB_RST_LPD_TOP_USB0_CORERESET_MASK
-#define CRL_APB_RST_LPD_TOP_USB0_CORERESET_DEFVAL              0x00188FDF
-#define CRL_APB_RST_LPD_TOP_USB0_CORERESET_SHIFT               6
-#define CRL_APB_RST_LPD_TOP_USB0_CORERESET_MASK                0x00000040U
-
-/*
-* This bit is used to choose between PIPE power present and 1'b1
-*/
-#undef USB3_0_FPD_POWER_PRSNT_OPTION_DEFVAL
-#undef USB3_0_FPD_POWER_PRSNT_OPTION_SHIFT
-#undef USB3_0_FPD_POWER_PRSNT_OPTION_MASK
-#define USB3_0_FPD_POWER_PRSNT_OPTION_DEFVAL
-#define USB3_0_FPD_POWER_PRSNT_OPTION_SHIFT                    0
-#define USB3_0_FPD_POWER_PRSNT_OPTION_MASK                     0x00000001U
-
-/*
-* This bit is used to choose between PIPE clock coming from SerDes and the
-    *  suspend clk
-*/
-#undef USB3_0_FPD_PIPE_CLK_OPTION_DEFVAL
-#undef USB3_0_FPD_PIPE_CLK_OPTION_SHIFT
-#undef USB3_0_FPD_PIPE_CLK_OPTION_MASK
-#define USB3_0_FPD_PIPE_CLK_OPTION_DEFVAL
-#define USB3_0_FPD_PIPE_CLK_OPTION_SHIFT                       0
-#define USB3_0_FPD_PIPE_CLK_OPTION_MASK                        0x00000001U
-
-/*
 * Block level reset
 */
 #undef CRL_APB_RST_LPD_IOU2_SDIO1_RESET_DEFVAL
@@ -31482,6 +33368,17 @@
 #define IOU_SLCR_SD_CONFIG_REG2_SD1_SLOTTYPE_DEFVAL            0x0FFC0FFC
 #define IOU_SLCR_SD_CONFIG_REG2_SD1_SLOTTYPE_SHIFT             28
 #define IOU_SLCR_SD_CONFIG_REG2_SD1_SLOTTYPE_MASK              0x30000000U
+
+/*
+* 8-bit Support for Embedded Device 1: The Core supports 8-bit Interface 0
+    * : Supports only 4-bit SD Interface
+*/
+#undef IOU_SLCR_SD_CONFIG_REG2_SD1_8BIT_DEFVAL
+#undef IOU_SLCR_SD_CONFIG_REG2_SD1_8BIT_SHIFT
+#undef IOU_SLCR_SD_CONFIG_REG2_SD1_8BIT_MASK
+#define IOU_SLCR_SD_CONFIG_REG2_SD1_8BIT_DEFVAL                0x0FFC0FFC
+#define IOU_SLCR_SD_CONFIG_REG2_SD1_8BIT_SHIFT                 18
+#define IOU_SLCR_SD_CONFIG_REG2_SD1_8BIT_MASK                  0x00040000U
 
 /*
 * 1.8V Support 1: 1.8V supported 0: 1.8V not supported support
@@ -32227,6 +34124,69 @@
 #define IOU_SCNTRS_COUNTER_CONTROL_REGISTER_EN_DEFVAL          0x00000000
 #define IOU_SCNTRS_COUNTER_CONTROL_REGISTER_EN_SHIFT           0
 #define IOU_SCNTRS_COUNTER_CONTROL_REGISTER_EN_MASK            0x00000001U
+
+/*
+* Value driven onto the mode pins, when out_en = 1
+*/
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_VAL_DEFVAL
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_VAL_SHIFT
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_VAL_MASK
+#define CRL_APB_BOOT_PIN_CTRL_OUT_VAL_DEFVAL                   0x00000000
+#define CRL_APB_BOOT_PIN_CTRL_OUT_VAL_SHIFT                    8
+#define CRL_APB_BOOT_PIN_CTRL_OUT_VAL_MASK                     0x00000F00U
+
+/*
+* When 0, the pins will be inputs from the board to the PS. When 1, the PS
+    *  will drive these pins
+*/
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_EN_DEFVAL
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_EN_SHIFT
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_EN_MASK
+#define CRL_APB_BOOT_PIN_CTRL_OUT_EN_DEFVAL                    0x00000000
+#define CRL_APB_BOOT_PIN_CTRL_OUT_EN_SHIFT                     0
+#define CRL_APB_BOOT_PIN_CTRL_OUT_EN_MASK                      0x0000000FU
+
+/*
+* Value driven onto the mode pins, when out_en = 1
+*/
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_VAL_DEFVAL
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_VAL_SHIFT
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_VAL_MASK
+#define CRL_APB_BOOT_PIN_CTRL_OUT_VAL_DEFVAL                   0x00000000
+#define CRL_APB_BOOT_PIN_CTRL_OUT_VAL_SHIFT                    8
+#define CRL_APB_BOOT_PIN_CTRL_OUT_VAL_MASK                     0x00000F00U
+
+/*
+* When 0, the pins will be inputs from the board to the PS. When 1, the PS
+    *  will drive these pins
+*/
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_EN_DEFVAL
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_EN_SHIFT
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_EN_MASK
+#define CRL_APB_BOOT_PIN_CTRL_OUT_EN_DEFVAL                    0x00000000
+#define CRL_APB_BOOT_PIN_CTRL_OUT_EN_SHIFT                     0
+#define CRL_APB_BOOT_PIN_CTRL_OUT_EN_MASK                      0x0000000FU
+
+/*
+* Value driven onto the mode pins, when out_en = 1
+*/
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_VAL_DEFVAL
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_VAL_SHIFT
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_VAL_MASK
+#define CRL_APB_BOOT_PIN_CTRL_OUT_VAL_DEFVAL                   0x00000000
+#define CRL_APB_BOOT_PIN_CTRL_OUT_VAL_SHIFT                    8
+#define CRL_APB_BOOT_PIN_CTRL_OUT_VAL_MASK                     0x00000F00U
+
+/*
+* When 0, the pins will be inputs from the board to the PS. When 1, the PS
+    *  will drive these pins
+*/
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_EN_DEFVAL
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_EN_SHIFT
+#undef CRL_APB_BOOT_PIN_CTRL_OUT_EN_MASK
+#define CRL_APB_BOOT_PIN_CTRL_OUT_EN_DEFVAL                    0x00000000
+#define CRL_APB_BOOT_PIN_CTRL_OUT_EN_SHIFT                     0
+#define CRL_APB_BOOT_PIN_CTRL_OUT_EN_MASK                      0x0000000FU
 
 /*
 * Operation is the same as DIRM_0[DIRECTION_0]
@@ -34535,6 +36495,10 @@
 #define SERDES_L3_TX_ANA_TM_18_PIPE_TX_DEEMPH_7_0_MASK         0x000000FFU
 #undef CRL_APB_RST_LPD_TOP_OFFSET
 #define CRL_APB_RST_LPD_TOP_OFFSET                                                 0XFF5E023C
+#undef USB3_0_FPD_POWER_PRSNT_OFFSET
+#define USB3_0_FPD_POWER_PRSNT_OFFSET                                              0XFF9D0080
+#undef USB3_0_FPD_PIPE_CLK_OFFSET
+#define USB3_0_FPD_PIPE_CLK_OFFSET                                                 0XFF9D007C
 #undef CRL_APB_RST_LPD_TOP_OFFSET
 #define CRL_APB_RST_LPD_TOP_OFFSET                                                 0XFF5E023C
 #undef CRL_APB_RST_LPD_IOU0_OFFSET
@@ -34669,6 +36633,27 @@
 #define CRL_APB_RST_LPD_TOP_USB0_APB_RESET_DEFVAL              0x00188FDF
 #define CRL_APB_RST_LPD_TOP_USB0_APB_RESET_SHIFT               10
 #define CRL_APB_RST_LPD_TOP_USB0_APB_RESET_MASK                0x00000400U
+
+/*
+* This bit is used to choose between PIPE power present and 1'b1
+*/
+#undef USB3_0_FPD_POWER_PRSNT_OPTION_DEFVAL
+#undef USB3_0_FPD_POWER_PRSNT_OPTION_SHIFT
+#undef USB3_0_FPD_POWER_PRSNT_OPTION_MASK
+#define USB3_0_FPD_POWER_PRSNT_OPTION_DEFVAL
+#define USB3_0_FPD_POWER_PRSNT_OPTION_SHIFT                    0
+#define USB3_0_FPD_POWER_PRSNT_OPTION_MASK                     0x00000001U
+
+/*
+* This bit is used to choose between PIPE clock coming from SerDes and the
+    *  suspend clk
+*/
+#undef USB3_0_FPD_PIPE_CLK_OPTION_DEFVAL
+#undef USB3_0_FPD_PIPE_CLK_OPTION_SHIFT
+#undef USB3_0_FPD_PIPE_CLK_OPTION_MASK
+#define USB3_0_FPD_PIPE_CLK_OPTION_DEFVAL
+#define USB3_0_FPD_PIPE_CLK_OPTION_SHIFT                       0
+#define USB3_0_FPD_PIPE_CLK_OPTION_MASK                        0x00000001U
 
 /*
 * USB 0 sleep circuit reset
@@ -35891,6 +37876,17 @@
 #define PCIE_ATTRIB_ATTR_35_ATTR_LINK_CAP_ASPM_SUPPORT_DEFVAL  0x00001FFD
 #define PCIE_ATTRIB_ATTR_35_ATTR_LINK_CAP_ASPM_SUPPORT_SHIFT   12
 #define PCIE_ATTRIB_ATTR_35_ATTR_LINK_CAP_ASPM_SUPPORT_MASK    0x00003000U
+
+/*
+* Data Link Layer Link Active status notification is supported. This is op
+    * tional for Upstream ports.; EP=0x0000; RP=0x0000
+*/
+#undef PCIE_ATTRIB_ATTR_35_ATTR_LINK_CAP_DLL_LINK_ACTIVE_REPORTING_CAP_DEFVAL
+#undef PCIE_ATTRIB_ATTR_35_ATTR_LINK_CAP_DLL_LINK_ACTIVE_REPORTING_CAP_SHIFT
+#undef PCIE_ATTRIB_ATTR_35_ATTR_LINK_CAP_DLL_LINK_ACTIVE_REPORTING_CAP_MASK
+#define PCIE_ATTRIB_ATTR_35_ATTR_LINK_CAP_DLL_LINK_ACTIVE_REPORTING_CAP_DEFVAL  0x00001FFD
+#define PCIE_ATTRIB_ATTR_35_ATTR_LINK_CAP_DLL_LINK_ACTIVE_REPORTING_CAP_SHIFT  15
+#define PCIE_ATTRIB_ATTR_35_ATTR_LINK_CAP_DLL_LINK_ACTIVE_REPORTING_CAP_MASK  0x00008000U
 
 /*
 * PCIE control block level reset
