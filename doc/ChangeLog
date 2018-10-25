@@ -348,6 +348,14 @@ Fix write on pmu global gen storage reg5
 Add support to ISSI 8Mb, 16Mb and 32Mb flash parts
 Add support to DDR self refresh during PS only reset and APU only reset
 Add support for dynamic DDR controller configuration
+FSBL should fall back after WDT timer gets expired
+WDT should be untouched by FSBL during APU only restart
+Mark RPU cores as usable in FSBL depending on wheter RPU partitions are
+present are not
+Mark both RPU cores as usable for JTAG boot mode
+Added support to use Macronix flash in QPI mode
+FSBL should not abort execution if FMC card is not plugged in
+Caches should be flushed out before applying protection config in ZynqMP FSBL
 
 csudma_v1_3:
 Fix Doxygen reported warnings
