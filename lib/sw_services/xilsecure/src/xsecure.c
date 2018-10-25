@@ -56,6 +56,7 @@
 * 3.2   ka  04/04/18 Added support for Sha3_Update, if the payload is not
 *        	     4 bytes aligned.
 *	ka  08/03/18 Added XSecure_Aes Api's to encrypt or decrypt data-blobs.
+*	ka  10/25/18 Added support to clear user key after use.
 *
 * </pre>
 *
@@ -1273,6 +1274,10 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 	}
 
 END:
+	if (KupKey != 0x00) {
+		/* Clear the user key */
+		memset(KupKey, 0, XSECURE_KEY_STR_LEN);
+	}
 	/* Clear internal buffers */
 	memset(Buffer, 0, XSECURE_BUFFER_SIZE);
 	memset(AcBuf, 0, XSECURE_AUTH_CERT_MIN_SIZE);
