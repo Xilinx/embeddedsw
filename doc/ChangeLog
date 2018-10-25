@@ -439,6 +439,7 @@ if address is/isn't not word aligned and no restrictions for data size.
 Removed conditional compilation for PMU in xsecure.c and xsecure.h
 Fixed compilation warnings
 Added supportive APIs to encrypt/decrypt the data blobs from Linux/U-boot
+Added support to clear user key after use
 
 xilskey_v6_6:
 Modified PUF example's macro names
