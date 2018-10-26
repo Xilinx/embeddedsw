@@ -39,7 +39,7 @@ BEGIN driver tmr_inject
   OPTION supported_peripherals = (tmr_inject);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.0;
+  OPTION VERSION = 1.1;
   OPTION NAME = tmr_inject;
 
 END driver
