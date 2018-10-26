@@ -210,10 +210,18 @@ int XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 		XIomodule_Out32(InstancePtr->BaseAddress + XIN_IMR_OFFSET, 0);
 
 		for (Id = 0; Id < XPAR_IOMODULE_INTC_MAX_INTR_SIZE; Id++) {
-			XIomodule_Out32(InstancePtr->BaseAddress +
-					XIN_IVAR_OFFSET + Id * 4,
-					(InstancePtr->CfgPtr->BaseVector &
-					 0xFFFFFF80) | 0x10);
+			if (InstancePtr->CfgPtr->VectorAddrWidth > XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH)
+			{
+					XIomodule_Out64(InstancePtr->BaseAddress +
+						XIN_IVEAR_OFFSET + Id * 8,
+						(InstancePtr->CfgPtr->BaseVector &
+						0xFFFFFF80) | 0x10);
+			} else {
+					XIomodule_Out32(InstancePtr->BaseAddress +
+						XIN_IVAR_OFFSET + Id * 4,
+						(InstancePtr->CfgPtr->BaseVector &
+						0xFFFFFF80) | 0x10);
+			}
 		}
 	}
 
@@ -649,8 +657,14 @@ int XIOModule_ConnectFastHandler(XIOModule *InstancePtr, u8 Id,
 	InstancePtr->CfgPtr->HandlerTable[Id].Handler = NULL;
 	InstancePtr->CfgPtr->HandlerTable[Id].CallBackRef = InstancePtr;
 
-	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET + (Id * 4),
+	if (InstancePtr->CfgPtr->VectorAddrWidth > XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH)
+	{
+		XIomodule_Out64(InstancePtr->BaseAddress + XIN_IVEAR_OFFSET + (Id * 8),
+			(u32) Handler);
+	} else {
+		XIomodule_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET + (Id * 4),
 		    	(u32) Handler);
+	}
 
 	/*
 	 * Set the selected interrupt source to use fast interrupt
@@ -725,8 +739,14 @@ void XIOModule_SetNormalIntrMode(XIOModule *InstancePtr, u8 Id)
 	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IMR_OFFSET, NewIMR);
 	InstancePtr->CurrentIMR = NewIMR;
 
-	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET + (Id * 4),
+	if (InstancePtr->CfgPtr->VectorAddrWidth > XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH)
+	{
+		XIomodule_Out64(InstancePtr->BaseAddress + XIN_IVEAR_OFFSET + (Id * 8),
+			(InstancePtr->CfgPtr->BaseVector & 0xFFFFFF80) | 0x10);
+	} else {
+		XIomodule_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET + (Id * 4),
 		    	(InstancePtr->CfgPtr->BaseVector & 0xFFFFFF80) | 0x10);
+	}
 
 	/*
 	 * Disconnect the handler and connect a stub, the callback reference

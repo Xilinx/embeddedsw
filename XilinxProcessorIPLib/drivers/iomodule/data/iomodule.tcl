@@ -107,7 +107,7 @@ proc generate {drv_handle} {
     }
 
     # 7. INTC
-    set intc_params [list "C_INTC_USE_EXT_INTR" "C_INTC_INTR_SIZE" "C_INTC_HAS_FAST" "C_INTC_BASE_VECTORS"]
+    set intc_params [list "C_INTC_USE_EXT_INTR" "C_INTC_INTR_SIZE" "C_INTC_HAS_FAST" "C_INTC_BASE_VECTORS" "C_INTC_ADDR_WIDTH "]
 
     # 8. IO BUS
     set io_params [list "C_USE_IO_BUS" "C_IO_BASEADDR" "C_IO_HIGHADDR" "C_IO_MASK"]
@@ -184,7 +184,7 @@ proc iomodule_define_config_file {drv_handle periphs config_inc} {
     set isr_options XIN_SVC_SGL_ISR_OPTION
     set file_name "xiomodule_g.c"
     set drv_string "XIOModule"
-    set args [list "DEVICE_ID" "C_BASEADDR" "C_IO_BASEADDR" "C_INTC_HAS_FAST" "C_INTC_BASE_VECTORS"]
+    set args [list "DEVICE_ID" "C_BASEADDR" "C_IO_BASEADDR" "C_INTC_HAS_FAST" "C_INTC_BASE_VECTORS" "C_INTC_ADDR_WIDTH "]
     set filename [file join "src" $file_name]
     set config_file [open $filename w]
     hsi::utils::write_c_header $config_file "Driver configuration"

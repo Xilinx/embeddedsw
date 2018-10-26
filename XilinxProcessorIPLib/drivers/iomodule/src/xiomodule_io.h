@@ -57,6 +57,9 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#define XIomodule_In64 Xil_In64
+#define XIomodule_Out64 Xil_Out64
+
 #define XIomodule_In32 Xil_In32
 #define XIomodule_Out32 Xil_Out32
 
