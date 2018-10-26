@@ -1639,23 +1639,17 @@ static u64 mirrored_r1_addr(void)
 	return r1_axi_addr;
 }
 
-static int store_training_data()
+static void store_training_data()
 {
 	u32 size, old_map_offset;
 	bool old_mapping;
 	u32 haddr, laddr;
 	u64 mirr_offset;
-	int status = XST_SUCCESS;
 
 	ddr_rank1_addr(&haddr, &laddr);
 	size = ddr_training_size();
 	old_mapping = ddr4_is_old_mapping();
 	old_map_offset = get_old_map_offset();
-
-	status = PmDmaInit();
-	if (XST_SUCCESS != status) {
-		goto done;
-	}
 
 	PmDma64BitTransfer(RESERVED_ADDRESS, 0, 0, 0, size);
 
@@ -1687,8 +1681,6 @@ static int store_training_data()
 				   haddr, size);
 	}
 
-done:
-	return status;
 }
 
 static void restore_training_data()
@@ -1697,20 +1689,11 @@ static void restore_training_data()
 	bool old_mapping;
 	u32 haddr, laddr;
 	u64 mirr_offset;
-	int status;
 
 	ddr_rank1_addr(&haddr, &laddr);
 	size = ddr_training_size();
 	old_mapping = ddr4_is_old_mapping();
 	old_map_offset = get_old_map_offset();
-
-	status = PmDmaInit();
-	if (XST_SUCCESS != status) {
-#ifdef DDRSR_DEBUG_STATE
-		ddr_print_dbg("DMA initialization failed, error = %x\r\n",
-			      status);
-#endif
-	}
 
 	PmDma64BitTransfer(0, 0, RESERVED_ADDRESS, 0, size);
 
@@ -1759,10 +1742,7 @@ static int pm_ddr_sr_enter(void)
 {
 	int ret;
 
-	ret = store_training_data();
-	if (XST_SUCCESS != ret) {
-		goto err;
-	}
+	store_training_data();
 
 	/* Identify if drift is enabled */
 	if (Xil_In32(DDRPHY_DQSDR(0U)) & DDRPHY_DQSDR0_DFTDTEN)
