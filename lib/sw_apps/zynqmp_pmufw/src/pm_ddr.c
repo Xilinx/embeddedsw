@@ -35,7 +35,6 @@
 
 #include "crf_apb.h"
 #include "pm_ddr.h"
-#include "pm_csudma.h"
 #include "pm_common.h"
 #include "pm_defs.h"
 #include "pm_master.h"
@@ -331,27 +330,6 @@
 
 /* DDR reserved address to store training data */
 #define RESERVED_ADDRESS	XPAR_MICROBLAZE_DDR_RESERVE_SA
-
-/* DIMM address mirroring */
-#define DDRC_DIMMCTL_DIMM_ADDR_MIRR_EN	(0x00000002U)
-
-#define IS_ADDR_MIRR()	(Xil_In32(DDRC_DIMMCTL) & DDRC_DIMMCTL_DIMM_ADDR_MIRR_EN)
-
-/* ADDRMAP_BG_B1 */
-#define DDRC_ADDRMAP8_BG_B1_MASK	(0x00001F00U)
-#define DDRC_ADDRMAP8_BG_B1_SHIFT	(8)
-#define DDRC_ADDRMAP8_BG_B1_BASE	(3)
-
-/* Low DDR address size: 2 GB */
-#define DDR_LO_ADDR		(0x0000000000000000ULL)
-#define DDR_LO_SIZE		(0x0000000080000000ULL)
-
-/* High DDR address size: 32 */
-#define DDR_HI_ADDR		(0x0000000800000000ULL)
-#define DDR_HI_SIZE		(0x0000000800000000ULL)
-
-#define ADDR_HI(ADDR)	((u32)((u64)(ADDR) >> 32U))
-#define ADDR_LO(ADDR)	((u32)((u64)(ADDR) & 0x00000000FFFFFFFFULL))
 
 /* If it is required to enable drift */
 static u8 drift_enable_req __attribute__((__section__(".srdata")));
@@ -1528,47 +1506,22 @@ static bool ddr4_is_old_mapping()
 	return old_mapping;
 }
 
-static void ddr_rank1_addr(u32 *haddr, u32 *laddr)
+static u32 ddr_axi_cs()
 {
-	u32 reg;
+	u32 reg, axi_cs;
 
 	reg = Xil_In32(DDRC_ADDRMAP(0U)) & DDRC_ADDRMAP0_ADDRMAP_CS_BIT0;
 	if (31U != reg) {
-		if (reg <= 21U) {
-			*haddr = 0;
-			*laddr = (1U << (reg + 9U));
-		} else if (22U == reg) {
-			/* Upper 32 bits for address at 32 GB. */
-			*haddr = 0x00000008;
-			/* Lower 32 bits for address at 32 GB. */
-			*laddr = 0x00000000;
-		} else if (23U == reg) {
-			/* Upper 32 bits for address at 34 GB. */
-			*haddr = 0x00000008;
-			/* Lower 32 bits for address at 34 GB. */
-			*laddr = 0x80000000;
-		} else if (24U == reg) {
-			/* Upper 32 bits for address at 38 GB. */
-			*haddr = 0x00000009;
-			/* Lower 32 bits for address at 38 GB. */
-			*laddr = 0x80000000;
-		} else if (25U == reg) {
-			/* Upper 32 bits for address at 46 GB. */
-			*haddr = 0x0000000B;
-			/* Lower 32 bits for address at 46 GB. */
-			*laddr = 0x80000000;
+		if (reg > 21U) {
+			axi_cs = reg + 13U;
 		} else {
-			/*
-			 * We don't support these sizes, configuration is
-			 * incorrect.
-			 */
-			*haddr = 0;
-			*laddr = 0;
+			axi_cs = reg + 9U;
 		}
 	} else {
-		*haddr = 0;
-		*laddr = 0;
+		axi_cs = 0U;
 	}
+
+	return axi_cs;
 }
 
 static u32 ddr_training_size()
@@ -1601,128 +1554,81 @@ static u32 ddr_training_size()
 	return size;
 }
 
-static u64 hif_to_axi_addr(u64 hif_addr)
-{
-	u64 axi_addr = 0xFFFFFFFFFFFFFFFFULL;
-
-	if (hif_addr < DDR_LO_SIZE) {
-		/* HIF address in low DDR address range */
-		axi_addr = hif_addr;
-	} else if (hif_addr < (DDR_LO_SIZE + DDR_HI_SIZE)) {
-		/* HIF address in high DDR address range */
-		axi_addr = hif_addr + (DDR_HI_ADDR - DDR_LO_SIZE);
-	}
-
-	return axi_addr;
-}
-
-static u64 mirrored_r1_addr(void)
-{
-	u32 bg_b1_pos;
-	u64 r1_hif_addr;
-	u64 r1_axi_addr;
-
-	/* Read register field */
-	bg_b1_pos = Xil_In32(DDRC_ADDRMAP(8));
-	bg_b1_pos &= DDRC_ADDRMAP8_BG_B1_MASK;
-	bg_b1_pos >>= DDRC_ADDRMAP8_BG_B1_SHIFT;
-
-	/* Add register base */
-	bg_b1_pos += DDRC_ADDRMAP8_BG_B1_BASE;
-
-	/* Add burst line size: 8 bytes, or 3 bit shifts */
-	bg_b1_pos += 3;
-
-	r1_hif_addr = (1ULL << bg_b1_pos);
-	r1_axi_addr = hif_to_axi_addr(r1_hif_addr);
-
-	return r1_axi_addr;
-}
-
 static void store_training_data()
 {
-	u32 size, old_map_offset;
+	u32 axi_cs, size, i, j, step, old_map_offset;
 	bool old_mapping;
-	u32 haddr, laddr;
-	u64 mirr_offset;
 
-	ddr_rank1_addr(&haddr, &laddr);
+	axi_cs = ddr_axi_cs();
 	size = ddr_training_size();
 	old_mapping = ddr4_is_old_mapping();
 	old_map_offset = get_old_map_offset();
 
-	PmDma64BitTransfer(RESERVED_ADDRESS, 0, 0, 0, size);
-
-	if (((0U != haddr) || (0U != laddr)) && old_mapping) {
-		PmDma64BitTransfer(RESERVED_ADDRESS + size, 0,
-				    old_map_offset, 0, size);
-
-		PmDma64BitTransfer(RESERVED_ADDRESS + (2 * size), 0, laddr,
-				    haddr, size);
-
-		if (0U != IS_ADDR_MIRR()) {
-			mirr_offset = mirrored_r1_addr();
-			mirr_offset += (((u64)haddr) << 32U);
-			mirr_offset += (u64)laddr;
-			PmDma64BitTransfer(RESERVED_ADDRESS + (3 * size), 0,
-					   ADDR_LO(mirr_offset),
-					   ADDR_HI(mirr_offset),
-					   size);
-		} else {
-			PmDma64BitTransfer(RESERVED_ADDRESS + (3 * size), 0,
-					   laddr + old_map_offset, haddr,
-					   size);
-		}
-	} else if (old_mapping) {
-		PmDma64BitTransfer(RESERVED_ADDRESS + size, 0, old_map_offset,
-				   0, size);
+	if (axi_cs && old_mapping) {
+		step = 4;
+	} else if (axi_cs || old_mapping) {
+		step = 2;
 	} else {
-		PmDma64BitTransfer(RESERVED_ADDRESS + size, 0, laddr,
-				   haddr, size);
+		step = 1;
 	}
 
+	for (i = 0U, j = 0U; i < size; i++, j += step) {
+		Xil_Out32(RESERVED_ADDRESS + (j << 2U), Xil_In32(i << 2U));
+		if ((0 != old_mapping) && (0 != axi_cs)) {
+			Xil_Out32(RESERVED_ADDRESS + ((j + 1U) << 2U),
+				  Xil_In32(old_map_offset + (i << 2U)));
+			Xil_Out32(RESERVED_ADDRESS + ((j + 2U) << 2U),
+				  Xil_In32((1U << axi_cs) + (i << 2U)));
+			Xil_Out32(RESERVED_ADDRESS + ((j + 3U) << 2U),
+				  Xil_In32(old_map_offset + (1U << axi_cs) +
+					   (i << 2U)));
+		} else if (0 != old_mapping) {
+			Xil_Out32(RESERVED_ADDRESS + ((j + 1U) << 2U),
+				  Xil_In32(old_map_offset + (i << 2U)));
+		} else if (0 != axi_cs) {
+			Xil_Out32(RESERVED_ADDRESS + ((j + 1U) << 2U),
+				  Xil_In32((1U << axi_cs) + (i << 2U)));
+		} else {
+		}
+	}
 }
 
 static void restore_training_data()
 {
-	u32 size, old_map_offset;
+	u32 axi_cs, size, i, j, step, old_map_offset;
 	bool old_mapping;
-	u32 haddr, laddr;
-	u64 mirr_offset;
 
-	ddr_rank1_addr(&haddr, &laddr);
+	axi_cs = ddr_axi_cs();
 	size = ddr_training_size();
 	old_mapping = ddr4_is_old_mapping();
 	old_map_offset = get_old_map_offset();
 
-	PmDma64BitTransfer(0, 0, RESERVED_ADDRESS, 0, size);
-
-	if (((0U != haddr) || (0U != laddr)) && old_mapping) {
-		PmDma64BitTransfer(old_map_offset, 0,
-				   RESERVED_ADDRESS + size, 0, size);
-		PmDma64BitTransfer(laddr, haddr,
-				   RESERVED_ADDRESS + (2 * size), 0, size);
-		if (0U != IS_ADDR_MIRR()) {
-			mirr_offset = mirrored_r1_addr();
-			mirr_offset += (((u64)haddr) << 32U);
-			mirr_offset += (u64)laddr;
-			PmDma64BitTransfer(ADDR_LO(mirr_offset),
-					   ADDR_HI(mirr_offset),
-					   RESERVED_ADDRESS + (3 * size), 0,
-					   size);
-		} else {
-			PmDma64BitTransfer(laddr + old_map_offset, haddr,
-					   RESERVED_ADDRESS + (3 * size), 0,
-					   size);
-		}
-	} else if (old_mapping) {
-		PmDma64BitTransfer(old_map_offset, 0, RESERVED_ADDRESS + size,
-				   0, size);
+	if (axi_cs && old_mapping) {
+		step = 4;
+	} else if (axi_cs || old_mapping) {
+		step = 2;
 	} else {
-		PmDma64BitTransfer(laddr, haddr, 0,
-				   RESERVED_ADDRESS + size, size);
+		step = 1;
 	}
 
+	for (i = 0U, j = 0U; i < size; i++, j += step) {
+		Xil_Out32((i << 2U), Xil_In32(RESERVED_ADDRESS + (j << 2)));
+		if ((0 != old_mapping) && (0 != axi_cs)) {
+			Xil_Out32(old_map_offset + (i << 2U),
+				  Xil_In32(RESERVED_ADDRESS + ((j + 1U) << 2U)));
+			Xil_Out32((1U << axi_cs) + (i << 2U),
+				  Xil_In32(RESERVED_ADDRESS + ((j + 2U) << 2U)));
+			Xil_Out32(old_map_offset + (1U << axi_cs) + (i << 2U),
+				  Xil_In32(RESERVED_ADDRESS + ((j + 3U) << 2U)));
+		} else if (0 != old_mapping) {
+			Xil_Out32(old_map_offset + (i << 2U),
+				  Xil_In32(RESERVED_ADDRESS + ((j + 1U) << 2U)));
+		} else if (0 != axi_cs) {
+			Xil_Out32((1U << axi_cs) + (i << 2U),
+				  Xil_In32(RESERVED_ADDRESS + ((j + 1U) << 2U)));
+		} else {
+		}
+	}
 #ifdef ENABLE_DDR_SR_WR
 	/*
 	 * Clear ECC error counts.

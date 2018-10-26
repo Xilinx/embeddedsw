@@ -35,7 +35,6 @@
 
 #include "xpfw_core.h"
 #include "xpfw_user_startup.h"
-#include "pm_csudma.h"
 #include "xpfw_platform.h"
 #include "pm_system.h"
 #ifdef ENABLE_DDR_SR_WR
@@ -70,13 +69,6 @@ XStatus XPfw_Main(void)
 
 	if (Status != XST_SUCCESS) {
 		XPfw_Printf(DEBUG_ERROR,"%s: Error! Core Cfg failed\r\n", __func__);
-		goto Done;
-	}
-
-	Status = PmDmaInit();
-	if (Status != XST_SUCCESS) {
-		XPfw_Printf(DEBUG_ERROR, "%s: Error! CSU DMA Init failed\r\n",
-			    __func__);
 		goto Done;
 	}
 
