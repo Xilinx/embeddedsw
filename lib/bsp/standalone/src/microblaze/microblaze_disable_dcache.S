@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2008 - 2014 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2008 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,7 @@
 *******************************************************************************/
 
 #include "xparameters.h"
+#include "microblaze_instructions.h"
 
 	.text
 	.globl	microblaze_disable_dcache
@@ -46,23 +47,23 @@ microblaze_disable_dcache:
 #if XPAR_MICROBLAZE_USE_MSR_INSTR == 1
 
 #if XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK != 0
-    addik   r1, r1, -4
-    swi     r15, r1, 0
-    brlid   r15, microblaze_flush_dcache /* microblaze_flush_dcache does not use r1*/
+    ADDIK   r1, r1, -8
+    SI     r15, r1, 0
+    BRLID   r15, microblaze_flush_dcache /* microblaze_flush_dcache does not use r1*/
     nop
-    lwi     r15, r1, 0
-    addi    r1, r1, 4
+    LI     r15, r1, 0
+    ADDI    r1, r1, 8
 #endif /* XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK != 0 */
 	rtsd	r15, 8
 	msrclr r0, 0x80
 
 #else /* XPAR_MICROBLAZE_USE_MSR_INSTR == 1 */
 
-    addik   r1, r1, -4
+    ADDIK   r1, r1, -8
 
 #if XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK != 0
-    swi     r15, r1, 0
-    brlid   r15, microblaze_flush_dcache
+    SI     r15, r1, 0
+    BRLID   r15, microblaze_flush_dcache
     nop
 #endif /* XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK != 0 */
     mfs	r11, rmsr
@@ -70,11 +71,11 @@ microblaze_disable_dcache:
 	mts	rmsr, r11
 
 #if XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK != 0
-    lwi     r15, r1, 0
+    LI     r15, r1, 0
 #endif /* XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK != 0 */
 
 	rtsd	r15, 8
-	addi	r1, r1, 4
+	ADDI	r1, r1, 8
 
 #endif /*XPAR_MICROBLAZE_USE_MSR_INSTR == 1*/
         .end	microblaze_disable_dcache

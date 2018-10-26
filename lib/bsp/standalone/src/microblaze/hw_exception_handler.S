@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2004 - 2014 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2004 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,7 @@
 
 #include "microblaze_exceptions_g.h"
 #include "xparameters.h"
+#include "microblaze_instructions.h"
 
 /* Helpful Macros */
 #define EX_HANDLER_STACK_SIZ            (4*21)
@@ -74,59 +75,59 @@
 #define POP_R17                 lwi     r17, r1, R17_OFFSET
 
 #define LWREG_NOP                                                               \
-        bri     ex_handler_unhandled;                                           \
+        BRI     ex_handler_unhandled;                                           \
         nop;
 
 #define SWREG_NOP                                                               \
-        bri     ex_handler_unhandled;                                           \
+        BRI     ex_handler_unhandled;                                           \
         nop;
 
 /* r3 is the source */
 #define R3_TO_LWREG_V(regnum)                                                   \
         R3_TO_STACK (regnum);                                                   \
-        bri     ex_handler_done;
+        BRI     ex_handler_done;
 
 /* r3 is the source */
 #define R3_TO_LWREG(regnum)                                                     \
         or      NUM_TO_REG (regnum), r0, r3;                                    \
-        bri     ex_handler_done;
+        BRI     ex_handler_done;
 
 /* r3 is the target */
 #define SWREG_TO_R3_V(regnum)                                                   \
         R3_FROM_STACK (regnum);                                                 \
-        bri     ex_sw_tail;
+        BRI     ex_sw_tail;
 
 /* r3 is the target */
 #define SWREG_TO_R3(regnum)                                                     \
         or      r3, r0, NUM_TO_REG (regnum);                                    \
-        bri     ex_sw_tail;
+        BRI     ex_sw_tail;
 
 /* regnum is the source */
 #define FP_EX_OPB_SAVE(regnum)                                                  \
         swi     NUM_TO_REG (regnum), r0, mb_fpex_op_b;                          \
         nop;                                                                    \
-        bri     handle_fp_ex_opa;
+        BRI     handle_fp_ex_opa;
 
 /* regnum is the source */
 #define FP_EX_OPB_SAVE_V(regnum)                                                \
         R3_FROM_STACK (regnum);                                                 \
         swi     r3, r0, mb_fpex_op_b;                                           \
-        bri     handle_fp_ex_opa;
+        BRI     handle_fp_ex_opa;
 
 /* regnum is the source */
 #define FP_EX_OPA_SAVE(regnum)                                                  \
         swi     NUM_TO_REG (regnum), r0, mb_fpex_op_a;                          \
         nop;                                                                    \
-        bri     handle_fp_ex_done;
+        BRI     handle_fp_ex_done;
 
 /* regnum is the source */
 #define FP_EX_OPA_SAVE_V(regnum)                                                \
         R3_FROM_STACK (regnum);                                                 \
         swi     r3, r0, mb_fpex_op_a;                                           \
-        bri     handle_fp_ex_done;
+        BRI     handle_fp_ex_done;
 
 #define FP_EX_UNHANDLED                                                         \
-        bri     fp_ex_unhandled;                                                \
+        BRI     fp_ex_unhandled;                                                \
         nop;                                                                    \
         nop;
 
