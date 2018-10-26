@@ -66,6 +66,7 @@ extern "C" {
 #define XTI_CR_OFFSET		0	/* control register, write only */
 #define XTI_AIR_OFFSET		4	/* address register, write only */
 #define XTI_IIR_OFFSET		8	/* instruction register, write only */
+#define XTI_EAIR_OFFSET		0x10	/* address register, write only */
 
 /* Control Register bit positions and masks */
 
@@ -85,6 +86,7 @@ extern "C" {
  */
 
 #define XTMR_Inject_Out32 Xil_Out32
+#define XTMR_Inject_Out64 Xil_Out64
 
 
 /****************************************************************************/
@@ -105,6 +107,26 @@ extern "C" {
 ****************************************************************************/
 #define XTMR_Inject_WriteReg(BaseAddress, RegOffset, Data) \
 	XTMR_Inject_Out32((BaseAddress) + (RegOffset), (u32)(Data))
+
+
+/****************************************************************************/
+/**
+*
+* Write a value to a TMRInject register. A 64 bit write is performed.
+*
+* @param	BaseAddress is the base address of the TMRInject device.
+* @param	RegOffset is the register offset from the base to write to.
+* @param	Data is the data written to the register.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XTMR_Inject_WriteReg64(UINTPTR BaseAddress, u32 RegOffset,
+*					u64 Data)
+*
+****************************************************************************/
+#define XTMR_Inject_WriteReg64(BaseAddress, RegOffset, Data) \
+	XTMR_Inject_Out64((BaseAddress) + (RegOffset), (UINTPTR)(Data))
 
 
 /****************************************************************************/

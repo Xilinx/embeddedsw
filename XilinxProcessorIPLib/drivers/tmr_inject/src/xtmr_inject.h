@@ -70,6 +70,8 @@
 * 1.0   sa   04/05/17 First release
 *       ms   03/17/17 Added readme.txt file in examples folder for doxygen
 *                     generation.
+* 1.1   mus  10/25/18 Added new member "LMBAddrWidth" to config structure.
+*                     It contains value of C_INJECT_LMB_AWIDTH parameter.
 * </pre>
 *
 *****************************************************************************/
@@ -88,7 +90,7 @@ extern "C" {
 #include "xstatus.h"
 
 /************************** Constant Definitions ****************************/
-
+#define XTI_STANDARD_LMB_WIDTH		32U
 /**************************** Type Definitions ******************************/
 
 /**
@@ -99,6 +101,7 @@ typedef struct {
 	UINTPTR RegBaseAddr;	/**< Register base address */
 	u8  MagicByte;		/**< Magic Byte parameter */
 	u8  CpuId;		/**< CPU to Inject parameter */
+	u8  LMBAddrWidth;		/**< LMB address width */
 } XTMR_Inject_Config;
 
 /**

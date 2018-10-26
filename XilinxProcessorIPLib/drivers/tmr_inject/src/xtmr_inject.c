@@ -41,6 +41,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.0   sa   04/05/17 First release
+* 1.1   mus  10/25/18 Updated XTMR_Inject_CfgInitialize to support
+*                     64 bit fault address.
 *
 * </pre>
 *
@@ -60,8 +62,8 @@
 
 /************************** Variable Definitions ****************************/
 
-extern u32 xtmr_inject_instr;
-static u32 xtmr_inject_addr = (u32)&xtmr_inject_instr;
+extern UINTPTR xtmr_inject_instr;
+static UINTPTR xtmr_inject_addr = (UINTPTR)&xtmr_inject_instr;
 
 
 /***************** Macros (Inline Functions) Definitions ********************/
@@ -152,8 +154,13 @@ int XTMR_Inject_CfgInitialize(XTMR_Inject *InstancePtr,
 
 	/* Initialize the address inject and instruction inject registers.
 	 */
-	XTMR_Inject_WriteReg(InstancePtr->RegBaseAddress, XTI_AIR_OFFSET,
+	if (Config->LMBAddrWidth > XTI_STANDARD_LMB_WIDTH) {
+		XTMR_Inject_WriteReg64(InstancePtr->RegBaseAddress, XTI_EAIR_OFFSET,
 				xtmr_inject_addr);
+	} else {
+		XTMR_Inject_WriteReg(InstancePtr->RegBaseAddress, XTI_AIR_OFFSET,
+				xtmr_inject_addr);
+	}
 	XTMR_Inject_WriteReg(InstancePtr->RegBaseAddress, XTI_IIR_OFFSET,
 				xtmr_inject_instr);
 
