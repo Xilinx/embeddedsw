@@ -564,4 +564,6 @@
  *                      on reset. It fixes CR#1010656.
  * 6.8 mus    10/04/18  Updated microblaze sleep functinality to execute default method of
  *                      sleep implementation, incase of FreeRTOS BSP.
+ * 6.8 mus    10/25/18  Updated assembly code for cache APIs and inline assemby macros to
+ *                      to support 64 bit addresses.
  *****************************************************************************************/
