@@ -123,6 +123,8 @@ extern "C" {
 #define XIN_IVAR_OFFSET	      0x00000080  /**< Intr Vector Address Register,
 					       Interrupt 0 offset, present
 					       only for Fast Interrupt   - W */
+#define XIN_IVEAR_OFFSET      0x00000100  /**< Intr Extended Vector Address
+					       Register  - W*/
 
 /**
  * UART status register bit position masks
