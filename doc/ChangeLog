@@ -167,6 +167,13 @@ intc_v3_8:
 Updated check_cascade proc, to add check
 for irq_in pin.It fixes CR#1005371
 
+iomodule_v2_6:
+Updated driver tcl to replace get_cells -of_object with get_cells -of_objects.
+Added support for 64 bit vector address.
+
+tmr_inject_v1_1:
+Added support for 64 bit fault address.
+
 qspips_v3_5:
 Fixed compilation warnings for ARMCC.
 Added support for the low density ISSI flash parts.
@@ -288,6 +295,8 @@ Modified code in xil_printf.c to print u64 varibales in
 32 bit processor.It fixes CR#1007207
 Optimized the code to use a single function and removed
 code redundancy in xil_printf.c . It Fixes CR#1009654.
+Updated cache APIs and inline assembly macros in microblaze BSP to support
+64 bit addresses.
 
 axivdma_v6_6:
 Added support for vertical flip programming.
