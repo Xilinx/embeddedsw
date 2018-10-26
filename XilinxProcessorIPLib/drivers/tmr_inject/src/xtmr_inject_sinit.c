@@ -29,7 +29,7 @@
 /**
 *
 * @file xtmr_inject_sinit.c
-* @addtogroup tmr_inject_v1_0
+* @addtogroup tmr_inject_v1_1
 * @{
 *
 * The implementation of the XTMRInject component's static initialzation
