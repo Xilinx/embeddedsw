@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xtmr_inject.c
-* @addtogroup tmr_inject_v1_0
+* @addtogroup tmr_inject_v1_1
 * @{
 *
 * Contains required functions for the XTMR_Inject driver. See the xtmr_inject.h

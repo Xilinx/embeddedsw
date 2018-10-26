@@ -29,7 +29,7 @@
 /**
 *
 * @file xtmr_inject_g.c
-* @addtogroup tmr_inject_v1_0
+* @addtogroup tmr_inject_v1_1
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
