@@ -159,7 +159,7 @@ XVidC_VideoMode resolution_table[] =
 };
 
 
-static char inbyte_local(void);
+char inbyte_local(void);
 static u32 xil_gethex(u8 num_chars);
 static char XUart_RecvByte_NonBlocking(void);
 
@@ -396,6 +396,7 @@ void main_loop(){
 			hpd_con(&DpTxSsInst, Edid_org, Edid1_org,
 					user_config.VideoMode_local);
 			tx_is_reconnected = 0;
+			xil_printf ("HPD connected\r\n");
 		}
 
 		if(hpd_pulse_con_event == 1){
@@ -466,16 +467,16 @@ void main_loop(){
 					DpTxSsInst.DpPtr->Config.BaseAddr,
 					XDP_TX_AUDIO_CONTROL);
 			if (audio_on == 0) {
-				xilInfoFrame->audio_channel_count = 0;
-				xilInfoFrame->audio_coding_type = 0;
-				xilInfoFrame->channel_allocation = 0;
-				xilInfoFrame->downmix_inhibit = 0;
-				xilInfoFrame->info_length = 27;
-				xilInfoFrame->level_shift = 0;
-				xilInfoFrame->sample_size = 1;//16 bits
-				xilInfoFrame->sampling_frequency = 3; //48 Hz
-				xilInfoFrame->type = 4;
-				xilInfoFrame->version = 1;
+                xilInfoFrame->audio_channel_count = 1;
+                xilInfoFrame->audio_coding_type = 0;
+                xilInfoFrame->channel_allocation = 0;
+                xilInfoFrame->downmix_inhibit = 0;
+                xilInfoFrame->info_length = 27;
+                xilInfoFrame->level_shift = 0;
+                xilInfoFrame->sample_size = 0;//16 bits
+                xilInfoFrame->sampling_frequency = 0; //48 Hz
+                xilInfoFrame->type = 0x84;
+                xilInfoFrame->version = 0x12;
 				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 						XDP_TX_AUDIO_CONTROL, 0x0);
 				sendAudioInfoFrame(xilInfoFrame);
@@ -483,9 +484,10 @@ void main_loop(){
 						XDP_TX_AUDIO_CHANNELS, 0x1);
 				switch(LineRate)
 				{
-					case  6:m_aud = 24576; n_aud = 162000; break;
-					case 10:m_aud = 24576; n_aud = 270000; break;
-					case 20:m_aud = 24576; n_aud = 540000; break;
+                    case  6:m_aud = 512; n_aud = 3375; break;
+                    case 10:m_aud = 512; n_aud = 5625; break;
+                    case 20:m_aud = 512; n_aud = 11250; break;
+                    case 30:m_aud = 512; n_aud = 16875; break;
 				}
 				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 						XDP_TX_AUDIO_MAUD,  m_aud );
@@ -938,11 +940,21 @@ void main_loop(){
 	}
 }
 
+u8 XUartLite_RecvByte_local(u32 BaseAddress)
+{
+        do
+        {
 
-static char inbyte_local(void){
-	char c=0;
-	c = XUart_RecvByte_NonBlocking();
-	return c;
+        } while(XUartLite_IsReceiveEmpty(BaseAddress));
+        return (u8)XUartLite_ReadReg(BaseAddress, XUL_RX_FIFO_OFFSET);
+}
+
+
+char inbyte_local(void){
+//	char c=0;
+	return XUartLite_RecvByte_local(STDIN_BASEADDRESS);
+//	c = XUart_RecvByte_NonBlocking();
+//	return c;
 }
 
 

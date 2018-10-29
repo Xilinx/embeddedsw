@@ -392,7 +392,24 @@ int write_si570(u8 *UpdateBuffer)
 	//    xil_printf("ReadBuffer[%02d] = %02X\r\n",
 	//    		 Index, ReadBuffer[Index]);
 	}
-	
+
+	//Closing the IIC MUX
+	/* Set the Slave address to the PCA9543A.*/
+	Status = XIic_SetAddress(&IicInstance,
+				 XII_ADDR_TO_SEND_TYPE,
+				 IIC_SWITCH_ADDRESS);
+	//xil_printf("set addr end\r\n");
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/* Write to the IIC Switch. */
+	WriteBuffer[0] = 0x0; /* Select Bus0 - U1 */
+	Status = iic_write(1);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
 	
 	return XST_SUCCESS;
 }

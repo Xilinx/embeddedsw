@@ -1,5 +1,31 @@
 Changes for 2018.3
 ===============================
+dp12_v7_0:
+Display port 2017.4 core drivers are renamed.
+
+dp12rxss_v4_2:
+Display port 2017.4 receiver subsystem drivers are renamed.
+Fixed application compilation errors.
+
+dp12txss_v5_1:
+Display port 2017.4 transmitter subsytem drivers are renamed
+Fixed application compilation errors.
+
+dp14_v7_1:
+Display port 2018.1 core drivers are renamed.
+Updated the channel equivalization sequence.
+Updated to pass the complaince tests.
+
+dp14rxss_v5_1:
+Display port 2018.1 receiver subsystem drivers are renamed.
+Removed the dp12 applications.
+Added support to new application examples.
+
+dp14txss_v6_1:
+Display port 2018.1 transmitter subsystem drivers are renamed.
+Removed the dp12 applications.
+Addeed support to new application examples
+
 v_scenechange_v1_0:
 Initial release for SceneChange IP.
 

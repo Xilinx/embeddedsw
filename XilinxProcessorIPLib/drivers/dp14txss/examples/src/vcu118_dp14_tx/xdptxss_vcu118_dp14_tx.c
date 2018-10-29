@@ -239,10 +239,11 @@ u32 DpTxSs_Main(u16 DeviceId)
 	VideoFMC_Init();
 	IDT_8T49N24x_SetClock(XPAR_IIC_0_BASEADDR, I2C_IDT8N49_ADDR, 0, 270000000, TRUE);
 
-	i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x02, 0x78);
-	i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x05, 0x78);
-	i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x08, 0x78);
-	i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x0B, 0x78);
+    i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x02, 0x3C);
+    i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x05, 0x3C);
+    i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x08, 0x3C);
+    i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x0B, 0x3C);
+
 
 
 
@@ -414,7 +415,8 @@ u32 DpTxSs_PlatformInit(void)
 u32 DpTxSs_SetupIntrSystem(void)
 {
 	u32 Status;
-	XINTC *IntcInstPtr = &IntcInst;
+//	XIntc IntcInst;
+	XIntc *IntcInstPtr = &IntcInst;
 
 	/* Set custom timer wait */
 	XDpTxSs_SetUserTimerHandler(&DpTxSsInst, &DpPt_CustomWaitUs, &TmrCtr);
@@ -429,15 +431,12 @@ u32 DpTxSs_SetupIntrSystem(void)
 
 
 	/* The configuration parameters of the interrupt controller */
-	XIntc_Config *IntcConfig;
+//	XIntc_Config *IntcConfig;
+//	XIntc *IntcInstPtr = &IntcInst;
 
 	/* Initialize the interrupt controller driver so that it is ready to
 	 * use.
 	 */
-	IntcConfig = XIntc_LookupConfig(XINTC_DEVICE_ID);
-	if (NULL == IntcConfig) {
-		return XST_FAILURE;
-	}
 
 	Status = XIntc_Initialize(IntcInstPtr, XINTC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
@@ -456,9 +455,15 @@ u32 DpTxSs_SetupIntrSystem(void)
 		return XST_FAILURE;
 	}
 
+
 	/* Enable the interrupt */
 	XIntc_Enable(IntcInstPtr,
 			XINTC_DPTXSS_DP_INTERRUPT_ID);
+
+    Status = XIntc_Start(IntcInstPtr, XIN_REAL_MODE);
+    if (Status != XST_SUCCESS) {
+            return XST_FAILURE;
+    }
 
 	/* Initialize the exception table. */
 	Xil_ExceptionInit();
@@ -690,10 +695,10 @@ void DpPt_pe_vs_adjustHandler(void *InstancePtr){
 			case 3: preemp = XVPHY_GTHE3_PREEMP_DP_L3; break;
 		}
 
-		XVphy_SetTxPreEmphasis(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1, preemp);
-		XVphy_SetTxPreEmphasis(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2, preemp);
-		XVphy_SetTxPreEmphasis(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3, preemp);
-		XVphy_SetTxPreEmphasis(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, preemp);
+		XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1, preemp);
+		XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2, preemp);
+		XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3, preemp);
+		XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, preemp);
 
 
 		unsigned char diff_swing = 0;
@@ -1257,9 +1262,21 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr, C_VideoUserStreamPattern[pat]);
 	xil_printf (".");
 	clk_wiz_locked();
-	Status = DpTxSubsystem_Start(&DpTxSsInst, 0);
-	xil_printf (".");
-        Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
+
+    if (DpTxSsInst.VtcPtr[0]) {
+		 Status = XDpTxSs_VtcSetup(DpTxSsInst.VtcPtr[0],
+		 &DpTxSsInst.DpPtr->TxInstance.MsaConfig[0],
+		 DpTxSsInst.UsrOpt.VtcAdjustBs);
+		 if (Status != XST_SUCCESS) {
+				 xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
+						 "VTC%d setup failed!\n\r", Index);
+		 }
+    }
+
+//
+//	Status = DpTxSubsystem_Start(&DpTxSsInst, 0);
+//	xil_printf (".");
+    Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
 	if (Status != (XST_SUCCESS)) {
 		Status = DpTxSubsystem_Start(&DpTxSsInst, 0);
 		if (Status != XST_SUCCESS) {
@@ -1268,8 +1285,6 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 		}
 	}
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK, 0x0);
-
-
 
 	/*
 	 * Initialize CRC
@@ -1480,18 +1495,23 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 											XDP_TX_INTERRUPT_MASK, 0x0);
         Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 1);
         Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr, C_VideoUserStreamPattern[1]);
-        Status = XDpTxSs_Start(&DpTxSsInst);
 
+        if (DpTxSsInst.VtcPtr[0]) {
+		 Status = XDpTxSs_VtcSetup(DpTxSsInst.VtcPtr[0],
+		 &DpTxSsInst.DpPtr->TxInstance.MsaConfig[0],
+		 DpTxSsInst.UsrOpt.VtcAdjustBs);
+		 if (Status != XST_SUCCESS) {
+				 xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
+						 "VTC%d setup failed!\n\r", Index);
+		 }
+        }
 
+//        Status = XDpTxSs_Start(&DpTxSsInst);
         Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
         if (Status != XST_SUCCESS) {
 			Status = XDpTxSs_Start(&DpTxSsInst);
         }
 	}
-
-
-
-	Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
 }
 
 
@@ -1921,7 +1941,7 @@ int VideoFMC_Init(void){
 
 	/* Set the I2C Mux to select the HPC FMC */
 //	Buffer[0] = 0x05;
-	Buffer[0] = 0x07; // Enable both HPC0 and HPC1
+	Buffer[0] = 0x02; // Enable both HPC0 and HPC1
 	ByteCount = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_MUX_ADDR, (u8*)Buffer, 1, XIIC_STOP);
 	if (ByteCount != 1) {
 		xil_printf("Failed to set the I2C Mux.\n\r");
