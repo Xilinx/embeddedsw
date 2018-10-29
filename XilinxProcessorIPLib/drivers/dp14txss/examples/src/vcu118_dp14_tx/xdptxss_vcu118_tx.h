@@ -82,7 +82,7 @@
 	XPAR_INTC_0_DPTXSS_0_DPTXSS_TIMER_IRQ_VEC_ID
 #endif
 #define XINTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
-#define XINTC				XIntc
+
 #define XINTC_HANDLER			XIntc_InterruptHandler
 
 /* The unique device ID of the DisplayPort Transmitter Subsystem HIP instance
