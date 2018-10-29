@@ -77,6 +77,7 @@
 #include "videofmc_defs.h"
 #include "ti_lmk03318.h"
 #include "idt_8t49n24x.h"
+#include "xlib_string.h"
 //#include "./MC/mcdp6000.h"
 /************************** Constant Definitions *****************************/
 
@@ -387,7 +388,7 @@ int VideoFMC_Init(void){
     XIic_Reset(&IicInstance);
 
 	/* Set the I2C Mux to select the HPC FMC */
-	Buffer[0] = 0x07;
+	Buffer[0] = 0x02;
 	ByteCount = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_MUX_ADDR,
 			(u8*)Buffer, 1, XIIC_STOP);
 	if (ByteCount != 1) {
@@ -502,6 +503,9 @@ u32 DpRxSs_Main(u16 DeviceId)
 	u8 UserInput;
 	u32 ReadVal=0;
 	u16 DrpVal;
+	char CommandKey;
+	char CmdKey[2];
+	unsigned int Command;
 
 	/* Do platform initialization in this function. This is hardware
 	 * system specific. It is up to the user to implement this function.
@@ -562,11 +566,13 @@ u32 DpRxSs_Main(u16 DeviceId)
 
 	AppHelp();
 	while (1) {
-		UserInput = XUartPs_RecvByte_NonBlocking();
-		if (UserInput != 0) {
-			xil_printf("UserInput: %c\r\n", UserInput);
+		CommandKey = xil_getc(0xff);
+//		Command = atoi(&CommandKey);
+//		UserInput = XUartPs_RecvByte_NonBlocking();
+		if (CommandKey != 0) {
+			xil_printf("UserInput: %c\r\n", CommandKey);
 
-			switch(UserInput) {
+			switch(CommandKey) {
 			case '2':
 				/* Reset the AUX logic from DP RX */
 			    XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
