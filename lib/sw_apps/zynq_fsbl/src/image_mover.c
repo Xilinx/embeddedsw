@@ -177,7 +177,7 @@ u32 LoadBootImage(void)
 #ifdef RSA_SUPPORT
 	u32 HeaderSize;
 #endif
-#ifdef FORCE_USE_AES_ONLY
+#ifndef FORCE_USE_AES_EXCLUDE
 	u32 EncOnly;
 #endif
 	/*
@@ -382,7 +382,7 @@ u32 LoadBootImage(void)
 			EncryptedPartitionFlag = 0;
 		}
 
-#ifdef FORCE_USE_AES_ONLY
+#ifndef FORCE_USE_AES_EXCLUDE
 		EncOnly = XDcfg_ReadReg(DcfgInstPtr->Config.BaseAddr,
                                 XDCFG_STATUS_OFFSET) &
 				XDCFG_STATUS_EFUSE_SEC_EN_MASK;
