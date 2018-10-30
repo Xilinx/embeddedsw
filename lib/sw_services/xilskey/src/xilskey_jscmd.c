@@ -134,10 +134,10 @@ extern u32 TimerTicksfor100ns;
 extern u32 TimerTicksfor1000ns;
 u32 GpoOutValue = 0;
 extern XSKEfusePl_Fpga PlFpgaFlag;
-
-static inline int JtagValidateMioPins_Efuse_Ultra();
-static inline int JtagValidateMioPins_Bbram_Ultra();
-
+#ifndef XSK_ARM_PLATFORM
+static inline int JtagValidateMioPins_Efuse_Ultra(void);
+static inline int JtagValidateMioPins_Bbram_Ultra(void);
+#endif
 void dummy_printf(const char *ctrl1, ...)
 {
 	(void) ctrl1;
@@ -2784,6 +2784,7 @@ int Bbram_VerifyKey_Ultra(u32 *Crc32)
 * @note		None.
 *
 *****************************************************************************/
+#ifndef XSK_ARM_PLATFORM
 static inline int JtagValidateMioPins_Efuse_Ultra(void)
 {
 
@@ -2906,7 +2907,7 @@ static inline int JtagValidateMioPins_Efuse_Ultra(void)
 * @note		Hardware module is not required over here.
 *
 *****************************************************************************/
-static inline int JtagValidateMioPins_Bbram_Ultra()
+static inline int JtagValidateMioPins_Bbram_Ultra(void)
 {
 	/*
 	 * Make sure that each every AXI GPIO pin defined is valid
@@ -2967,3 +2968,4 @@ static inline int JtagValidateMioPins_Bbram_Ultra()
 	return XST_SUCCESS;
 
 }
+#endif

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -478,7 +478,7 @@ extern "C" {
 
 #define XilSKey_EfusePs_IsEfuseWriteProtected()     ((Xil_In32(XSK_EFUSEPS_STATUS_REG) & XSK_EFUSEPS_STATUS_WR_PROTECT)? TRUE : FALSE)
 /************************** Function Prototypes ******************************/
-void XilSKey_EfusePs_GenerateMatrixMap();
+void XilSKey_EfusePs_GenerateMatrixMap(void);
 u8 XilSKey_EfusePs_EccDecode(const u8 *Corrupt, u8 *Syndrome);
 void XilSKey_EfusePs_EccEncode(const u8 *InData, u8 *Ecc);
 u32 XilSKey_EfusePs_ControllerConfig(u8 CtrlMode, u32 RefClk, u8 ReadMode);

@@ -1003,9 +1003,9 @@ typedef enum {
 /************************** Function Prototypes *****************************/
 u32 XilSKey_EfusePs_XAdcInit (void );
 void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstancePtr);
-u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
-void XilSKey_Efuse_StartTimer();
-u64 XilSKey_Efuse_GetTime();
+u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks(void);
+void XilSKey_Efuse_StartTimer(void);
+u64 XilSKey_Efuse_GetTime(void);
 void XilSKey_Efuse_SetTimeOut(volatile u64* t, u64 us);
 u8 XilSKey_Efuse_IsTimerExpired(u64 t);
 void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len);
@@ -1019,7 +1019,7 @@ u32 XilSKey_Efuse_IsValidChar(const char *c);
 u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len);
 u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
 u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len);
-u32 XilSKey_Timer_Intialise();
+u32 XilSKey_Timer_Intialise(void);
 u32 XilSKey_Efuse_ReverseHex(u32 Input);
 void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To);
 u32 XilSKey_Ceil(float Freq);

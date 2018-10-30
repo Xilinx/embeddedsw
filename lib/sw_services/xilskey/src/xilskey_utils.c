@@ -91,10 +91,12 @@ u32 TimerTicksfor1000ns; /**< Global Variable for 10 micro secs for microblaze *
 static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num);
 extern void Jtag_Read_Sysmon(u8 Row, u32 *Row_Data);
 u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 					XSKEfusePs_XAdc *XAdcInstancePtr);
 static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 					XSKEfusePs_XAdc *XAdcInstancePtr);
+#endif
 /***************************************************************************/
 /**
 * This function is used to initialize the XADC driver
@@ -212,6 +214,7 @@ u32 XilSKey_EfusePs_XAdcInit (void )
 *		temperature
 *
 ****************************************************************************/
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 					XSKEfusePs_XAdc *XAdcInstancePtr)
 {
@@ -219,7 +222,6 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 		return;
 	}
 
-#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
 
 	if (NULL == XSysmonInstPtr) {
@@ -236,7 +238,6 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 		XAdcInstancePtr->Temp,
 	(int )XSysMonPsu_RawToTemperature_OnChip(XAdcInstancePtr->Temp));
 
-#endif
 
 }
 
@@ -263,7 +264,6 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 		return;
 	}
 
-#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
 	u8 V;
 
@@ -292,10 +292,9 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 			"Read Voltage Value: %0x -> %d in Volts \n",
 			XAdcInstancePtr->V,
 			(int )XSysMonPsu_RawToVoltage(XAdcInstancePtr->V));
-#endif
 
 }
-
+#endif
 /***************************************************************************/
 /**
 * This function is used to copy the min, max and current value of the
@@ -421,7 +420,7 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 *		on the Remus, as Sysmon access is not permitted on Remus.
 *
 ****************************************************************************/
-u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks()
+u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks(void)
 {
 	/**
 	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
@@ -468,7 +467,7 @@ u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks()
 * @note		None.
 *
 *****************************************************************************/
-void XilSKey_Efuse_StartTimer()
+void XilSKey_Efuse_StartTimer(void)
 {
 #ifdef XSK_ARM_PLATFORM
 		/**

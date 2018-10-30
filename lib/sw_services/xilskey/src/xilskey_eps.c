@@ -194,7 +194,7 @@ u32 XilSKey_EfusePs_Write(XilSKey_EPs *InstancePtr)
 	/**
 	 * Initialize the timer for delay while programming the eFUSE
 	 */
-	XilSKey_Efuse_StartTimer(RefClk);
+	XilSKey_Efuse_StartTimer();
 
 	/**
 	 * Program the eFUSE based
@@ -966,7 +966,7 @@ static u32 XilSKey_EfusePs_VerifyWithXadcCheck(u32 EfuseAddress, u32 RefClk)
 *
 ****************************************************************************/
 
-void XilSKey_EfusePs_GenerateMatrixMap()
+void XilSKey_EfusePs_GenerateMatrixMap(void)
 {
 
 	u8 y, x, Index;
@@ -1016,7 +1016,7 @@ void XilSKey_EfusePs_GenerateMatrixMap()
 #endif
 
 	/* Create Error Code Map Index */
-	ErrorCodeIndex[0] = -1; /* No Error */
+	ErrorCodeIndex[0] = 0xFF; /* No Error */
 	DataIndex = 0;
 	ParityIndex = 26;
 	for(x = 1; x < 32; x++) {

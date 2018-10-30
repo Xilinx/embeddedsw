@@ -134,5 +134,6 @@
 *                      Added APIs to support PUF regeneration
 *        vns  10/11/18 Added support for re-programming SPKID without reverting
 *                      exisiting programmed bits.
+* 6.7    arc  10/29/18 Fixed ARMCC compiler warnings
 *
  ********************************************************************************/

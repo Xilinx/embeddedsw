@@ -374,7 +374,7 @@ static u32 XilSKey_EfusePl_Program_Zynq(XilSKey_EPl *InstancePtr);
 
 static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr);
 
-static inline u32 XilSKey_EfusePl_Program_AesKey_ultra();
+static inline u32 XilSKey_EfusePl_Program_AesKey_ultra(void);
 
 static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 				u8 *DataPrgrmg, u8 Page);
@@ -2941,7 +2941,7 @@ static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 *	Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-static inline u32 XilSKey_EfusePl_Program_AesKey_ultra()
+static inline u32 XilSKey_EfusePl_Program_AesKey_ultra(void)
 {
 
 	u32 Row;

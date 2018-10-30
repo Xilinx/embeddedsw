@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016-18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -64,16 +64,16 @@
 
 /************************** Function Prototypes *****************************/
 
-u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions();
+u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(void);
 u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
 						XskEfusePs_Type EfuseType);
 u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 						XskEfusePs_Type EfuseType);
 u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 							u32 *RowData);
-u32 XilSKey_ZynqMp_EfusePs_Init();
+u32 XilSKey_ZynqMp_EfusePs_Init(void);
 static inline u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType);
-static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf();
+static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void);
 
 static inline u32 XilSKey_ZynqMp_EfusePs_PufRowWrite(u8 Row, u8 *Data,
 						XskEfusePs_Type EfuseType);
@@ -986,7 +986,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_PufRowWrite(u8 Row,
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf()
+static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void)
 {
 	u32 RowData;
 	u32 Status = XST_SUCCESS;

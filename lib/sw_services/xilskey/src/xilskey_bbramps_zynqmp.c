@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -62,7 +62,7 @@
 
 /************************** Function Prototypes ******************************/
 
-static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn();
+static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void);
 static inline u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey);
 extern u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 
@@ -202,7 +202,7 @@ void XilSKey_ZynqMp_Bbram_Zeroise()
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn()
+static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
 {
 
 	u32 Status = XST_SUCCESS;

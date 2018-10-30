@@ -36,7 +36,7 @@ extern "C" {
 #endif
 
 extern js_server_t *js_init_zynq(void);
-void initGPIO ();
+void initGPIO (void);
 int jtag_setPreAndPostPads (js_port_t *port_arg, int irPrePadBits, int irPostPadBits, int drPrePadBits, int drPostPadBits);
 int jtag_navigate (js_port_t *port, js_state_t state);
 int jtag_shift (js_port_t *port, unsigned char mode, int bits, unsigned char* wrBuffer, unsigned char* rdBuffer, js_state_t state);

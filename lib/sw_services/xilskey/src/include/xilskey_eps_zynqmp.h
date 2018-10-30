@@ -138,7 +138,7 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_TBITS_ROW				(0)
 #define XSK_ZYNQMP_EFUSEPS_XILINX_SPECIFIC_CTRL_BITS_ROW	(21)
 
-#define XSK_ZYNQMP_EFUSEPS_TBITS_MASK				(0xF)
+#define XSK_ZYNQMP_EFUSEPS_TBITS_MASK				(0xFU)
 #define XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT				(28)
 
 #define XSK_ZYNQMP_EFUSEPS_CRC_AES_ZEROS		(0x6858A3D5)
@@ -472,7 +472,7 @@ void XilSKey_ZynqMp_EfusePs_ReadDna(u32 *DnaRead);
 
 u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 		XilSKey_SecCtrlBits *ReadBackSecCtrlBits, u8 ReadOption);
-u32 XilSKey_ZynqMp_EfusePs_CacheLoad();
+u32 XilSKey_ZynqMp_EfusePs_CacheLoad(void);
 u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr);
 u32 XilSkey_ZynqMpEfuseAccess(const u32 AddrHigh, const u32 AddrLow);
 

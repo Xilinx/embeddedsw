@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -98,10 +98,10 @@ static inline u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 				XilSKey_ZynqMpEPs *InstancePtr);
 static inline u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(u8 *Data,
 		u8 RowStart, u8 RowEnd, XskEfusePs_Type EfuseType);
-static inline u32 XilSKey_ZynqMp_EfusePs_PrgrmTbits();
+static inline u32 XilSKey_ZynqMp_EfusePs_PrgrmTbits(void);
 static inline u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 						XskEfusePs_Type EfuseType);
-static inline void XilSKey_ZynqMp_EfusePs_SetTimerValues();
+static inline void XilSKey_ZynqMp_EfusePs_SetTimerValues(void);
 static inline u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrl(
 				XilSKey_ZynqMpEPs *InstancePtr);
 static inline u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(
@@ -117,7 +117,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			u8 *UserFuses_Write, u8 *UserFuses_Read,
 			XilSKey_UsrFuses *UserFuses_ToBePrgrmd);
-u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions();
+u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(void);
 u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 							u32 *RowData);
 u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
@@ -125,7 +125,7 @@ u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
 						XskEfusePs_Type EfuseType);
 static inline u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(u8 *RsaBits_read);
-u32 XilSKey_ZynqMp_EfusePs_Init();
+u32 XilSKey_ZynqMp_EfusePs_Init(void);
 static u32 XilSKey_ZynqMpEfuseRead(const u32 AddrHigh, const u32 AddrLow);
 static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow);
 u32 XilSKey_ZynqMp_EfusePs_ReadPufChash(u32 *Address, u8 ReadOption);
@@ -863,7 +863,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(u8 *Data,
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XilSKey_ZynqMp_EfusePs_PrgrmTbits()
+static inline u32 XilSKey_ZynqMp_EfusePs_PrgrmTbits(void)
 {
 	u32 RowData;
 	u32 Status;
@@ -1132,7 +1132,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 *		diminish the life time.
 *
 ******************************************************************************/
-u32 XilSKey_ZynqMp_EfusePs_CacheLoad()
+u32 XilSKey_ZynqMp_EfusePs_CacheLoad(void)
 {
 	volatile u32 CacheStatus;
 
@@ -1188,7 +1188,7 @@ u32 XilSKey_ZynqMp_EfusePs_CacheLoad()
 * @note		None.
 *
 ******************************************************************************/
-u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions()
+u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(void)
 {
 	u32 ReadReg;
 	u32 Status;
@@ -1233,7 +1233,7 @@ u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions()
 * @note		None.
 *
 ******************************************************************************/
-static inline void XilSKey_ZynqMp_EfusePs_SetTimerValues()
+static inline void XilSKey_ZynqMp_EfusePs_SetTimerValues(void)
 {
 	u32 ReadReg;
 
@@ -2488,7 +2488,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(
 * @note		None.
 *
 ******************************************************************************/
-u32 XilSKey_ZynqMp_EfusePs_Init()
+u32 XilSKey_ZynqMp_EfusePs_Init(void)
 {
 	u32 Status = XST_SUCCESS;
 
