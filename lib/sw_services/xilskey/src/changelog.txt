@@ -156,5 +156,15 @@
 *                      under BSP settings.
 *                      Modified Microblaze SSIT devices based on CONFIG ORDER
 *                      INDEX.
+* 6.9    kpt  02/16/20 Fixed Coverity warnings
+*                      Disabled BBRAM programming mode after key write
+*                      Depecrated XilSKey_Puf_Fetch_Dbg_Mode2_result function
+*                      Fixed ARMCC compilation errors
+*                      Removed ZynqMP efuse temperature and voltage checks for
+*                      efuse reads
+*                      Deprecated support to read from efuse memory,
+*                      if requested throws an error
+*                      Placed temperature and voltage checks before enabling
+*                      programming
 *
  ********************************************************************************/
