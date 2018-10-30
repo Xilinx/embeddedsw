@@ -53,7 +53,7 @@
 #include "xplm_startup.h"
 
 /************************** Constant Definitions *****************************/
-
+#define XPLM_MB_MSR_IE_MASK			(0x2U)
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -160,6 +160,16 @@ void XPlm_TaskDispatchLoop(void )
 		XPlmi_Printf(DEBUG_INFO, "No pending Events..Going to sleep\n\r");
 		mb_sleep();
 #endif
+		/*
+		 * FIXME: Currently, IE bit is not being set when
+		 * microblaze_enable_interrupts() API is called. Remove this code
+		 * once issue is root caused.
+		 */
+		if ( (mfmsr() & XPLM_MB_MSR_IE_MASK) != XPLM_MB_MSR_IE_MASK) {
+			XPlmi_Printf(DEBUG_INFO, "IE bit in MSR is not set. "
+					"Setting the same to receive interrupts\n\r");
+			mtmsr(mfmsr() | XPLM_MB_MSR_IE_MASK);
+		}
 	}
 
 }
