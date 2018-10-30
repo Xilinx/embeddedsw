@@ -296,6 +296,18 @@ int XPlm_SetUpInterruptSystem()
 		     (void*) IOMODULE_DEVICE_ID);
 
 	/*
+	 * Enable IPI interrupts
+	 * FIXME: DO it elsewhere
+	 */
+	XPlmi_UtilRMW(PMC_GLOBAL_GICP_PMC_IRQ_ENABLE,
+			PMC_GLOBAL_GICP_PMC_IRQ_ENABLE_SRC0_MASK,
+			PMC_GLOBAL_GICP_PMC_IRQ_ENABLE_SRC0_MASK);
+
+	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_ENABLE,
+			PMC_GLOBAL_GICP0_IRQ_ENABLE_SRC27_MASK,
+			PMC_GLOBAL_GICP0_IRQ_ENABLE_SRC27_MASK);
+
+	/*
 	 * Enable interrupts
 	 */
 	microblaze_enable_interrupts();
