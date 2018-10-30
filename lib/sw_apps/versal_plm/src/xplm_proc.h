@@ -60,6 +60,8 @@ extern "C" {
 #include "xiomodule.h"
 #include "xil_exception.h"
 #include "xplm_gic_interrupts.h"
+#include "xplmi_util.h"
+#include "pmc_global.h"
 
 /************************** Constant Definitions *****************************/
 #define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_DEVICE_ID
