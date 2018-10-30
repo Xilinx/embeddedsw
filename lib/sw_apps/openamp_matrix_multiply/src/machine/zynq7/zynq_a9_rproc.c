@@ -130,7 +130,8 @@ zynq_a9_proc_mmap(struct remoteproc *rproc, metal_phys_addr_t *pa,
 	remoteproc_add_mem(rproc, mem);
 	*pa = lpa;
 	*da = lda;
-	*io = tmpio;
+	if (io)
+		*io = tmpio;
 	return metal_io_phys_to_virt(tmpio, mem->pa);
 }
 
