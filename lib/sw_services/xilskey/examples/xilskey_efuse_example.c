@@ -169,7 +169,7 @@
 * 6.4   vns     02/27/18 Added support for programming secure bit 6 -
 *                        enable obfuscation feature for eFUSE AES key
 *               03/09/17 Corrected status bits of Ultrascale plus
-*
+* 6.7   arc     10/29/18 Fixed ARMCC compiler warnings and errors
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "stdio.h"
@@ -279,6 +279,12 @@ int main()
 	u32 PlStatus = 0xFFFF;
 	u32 PsStatus = 0xFFFF;
 	u32 Status = 0;
+        u32 Index;
+#ifdef XSK_EFUSEPL_DRIVER
+    XilSKey_EPl PlInstancePtr;
+    u32 PlStatusBits = 0;
+    int KeyCnt;
+#endif
 
     /*ps7_init();*/
 #ifdef XSK_EFUSEPS_DRIVER
@@ -359,7 +365,6 @@ int main()
 	goto EFUSE_ERROR;
     }
 
-    u32 Index;
 	/**
 	 *  Clear the structure element of Rsa Key Hash for reading
 	 */
@@ -389,9 +394,6 @@ int main()
 
 #ifdef XSK_EFUSEPL_DRIVER
 
-    XilSKey_EPl PlInstancePtr;
-    u32 PlStatusBits = 0;
-    int KeyCnt;
 
     /**
 	 * Initialize the PL data structure based on the xilskey_input.h values
@@ -575,7 +577,7 @@ int main()
 		}else {
 			xil_printf("EfusePL status bits : Decryptor enabled\n\r");
 		}
-		if(PlStatus & (1 <<
+		if(PlStatus & (1U <<
 			XSK_EFUSEPL_STATUS_ENABLE_OBFUSCATED_EFUSE_KEY)) {
 			xil_printf("EfusePL status bits :"
 			" Enabled obfucation feature for eFUSE AES key\n\r");
@@ -684,7 +686,6 @@ EFUSE_ERROR:
 		*/
 		Xil_Out32(REBOOT_STATUS_REG_ADDR,Status);
 #endif
-    while(1);
     return 0;
 }
 
