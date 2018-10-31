@@ -1,3 +1,11 @@
+Changes for 2019.1
+===============================
+axiethernet_v5_9:
+In tcl use unique global variables to fix bsp generation for certain designs.
+
+xxvethernet_v1_2:
+In tcl use unique global variables to fix bsp generation for certain designs.
+
 Changes for 2018.3
 ===============================
 dp12_v7_0:
