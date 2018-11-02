@@ -1,28 +1,25 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal 
-* in the Software without restriction, including without limitation the rights 
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell  
-* copies of the Software, and to permit persons to whom the Software is 
-* furnished to do so, subject to the following conditions:
+* (c) Copyright 2010-2018 Xilinx, Inc. All rights reserved.
 *
-* The above copyright notice and this permission notice shall be included in 
-* all copies or substantial portions of the Software.
+* Permission is hereby granted, free of charge, to any person obtaining a copy of this
+* software and associated documentation files (the "Software"), to deal in the Software
+* without restriction, including without limitation the rights to use, copy, modify, merge,
+* publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+* persons to whom the Software is furnished to do so, subject to the following conditions:
 *
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF 
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-* SOFTWARE.
+* The above copyright notice and this permission notice shall be included in all copies or
+* substantial portions of the Software.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in 
-* this Software without prior written authorization from Xilinx.
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+* BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+* NONINFRINGEMENT. IN NO EVENT SHALL THE X CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+* CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*
+* Except as contained in this notice, the name of the Xilinx shall not be used in advertising or
+* otherwise to promote the sale, use or other dealings in this Software without prior written
+* authorization from Xilinx.
 *
 ******************************************************************************/
 /****************************************************************************/
@@ -42,8 +39,8 @@ unsigned long ps7_pll_init_data_3_0[] = {
     // .. UNLOCK_KEY = 0XDF0D
     // .. ==> 0XF8000008[15:0] = 0x0000DF0DU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000DF0DU
-    // .. 
-    EMIT_MASKWRITE(0XF8000008, 0x0000FFFFU ,0x0000DF0DU),
+    // ..
+    EMIT_WRITE(0XF8000008, 0x0000DF0DU),
     // .. FINISH: SLCR SETTINGS
     // .. START: PLL SLCR REGISTERS
     // .. .. START: ARM PLL INIT
@@ -253,8 +250,8 @@ unsigned long ps7_pll_init_data_3_0[] = {
     // .. LOCK_KEY = 0X767B
     // .. ==> 0XF8000004[15:0] = 0x0000767BU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000767BU
-    // .. 
-    EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
+    // ..
+    EMIT_WRITE(0XF8000004, 0x0000767BU),
     // .. FINISH: LOCK IT BACK
     // FINISH: top
     //
@@ -269,20 +266,20 @@ unsigned long ps7_clock_init_data_3_0[] = {
     // .. UNLOCK_KEY = 0XDF0D
     // .. ==> 0XF8000008[15:0] = 0x0000DF0DU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000DF0DU
-    // .. 
-    EMIT_MASKWRITE(0XF8000008, 0x0000FFFFU ,0x0000DF0DU),
+    // ..
+    EMIT_WRITE(0XF8000008, 0x0000DF0DU),
     // .. FINISH: SLCR SETTINGS
     // .. START: CLOCK CONTROL SLCR REGISTERS
     // .. CLKACT = 0x1
     // .. ==> 0XF8000128[0:0] = 0x00000001U
     // ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
-    // .. DIVISOR0 = 0x23
-    // .. ==> 0XF8000128[13:8] = 0x00000023U
-    // ..     ==> MASK : 0x00003F00U    VAL : 0x00002300U
-    // .. DIVISOR1 = 0x3
-    // .. ==> 0XF8000128[25:20] = 0x00000003U
-    // ..     ==> MASK : 0x03F00000U    VAL : 0x00300000U
-    // .. 
+    // .. DIVISOR0 = 0xf
+    // .. ==> 0XF8000128[13:8] = 0x0000000FU
+    // ..     ==> MASK : 0x00003F00U    VAL : 0x00000F00U
+    // .. DIVISOR1 = 0x7
+    // .. ==> 0XF8000128[25:20] = 0x00000007U
+    // ..     ==> MASK : 0x03F00000U    VAL : 0x00700000U
+    // ..
     EMIT_MASKWRITE(0XF8000128, 0x03F03F01U ,0x00700F01U),
     // .. CLKACT = 0x1
     // .. ==> 0XF8000138[0:0] = 0x00000001U
@@ -345,16 +342,18 @@ unsigned long ps7_clock_init_data_3_0[] = {
     // ..     ==> MASK : 0x00003F00U    VAL : 0x00001400U
     // .. 
     EMIT_MASKWRITE(0XF8000154, 0x00003F33U ,0x00001402U),
-    // .. CLKACT = 0x1
-    // .. ==> 0XF8000168[0:0] = 0x00000001U
-    // ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
-    // .. SRCSEL = 0x0
-    // .. ==> 0XF8000168[5:4] = 0x00000000U
-    // ..     ==> MASK : 0x00000030U    VAL : 0x00000000U
-    // .. DIVISOR = 0x5
-    // .. ==> 0XF8000168[13:8] = 0x00000005U
-    // ..     ==> MASK : 0x00003F00U    VAL : 0x00000500U
-    // .. 
+    // .. .. START: TRACE CLOCK
+    // .. .. FINISH: TRACE CLOCK
+    // .. .. CLKACT = 0x1
+    // .. .. ==> 0XF8000168[0:0] = 0x00000001U
+    // .. ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
+    // .. .. SRCSEL = 0x0
+    // .. .. ==> 0XF8000168[5:4] = 0x00000000U
+    // .. ..     ==> MASK : 0x00000030U    VAL : 0x00000000U
+    // .. .. DIVISOR = 0x5
+    // .. .. ==> 0XF8000168[13:8] = 0x00000005U
+    // .. ..     ==> MASK : 0x00003F00U    VAL : 0x00000500U
+    // .. ..
     EMIT_MASKWRITE(0XF8000168, 0x00003F31U ,0x00000501U),
     // .. .. SRCSEL = 0x0
     // .. .. ==> 0XF8000170[5:4] = 0x00000000U
@@ -435,8 +434,8 @@ unsigned long ps7_clock_init_data_3_0[] = {
     // .. LOCK_KEY = 0X767B
     // .. ==> 0XF8000004[15:0] = 0x0000767BU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000767BU
-    // .. 
-    EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
+    // ..
+    EMIT_WRITE(0XF8000004, 0x0000767BU),
     // .. FINISH: LOCK IT BACK
     // FINISH: top
     //
@@ -476,17 +475,17 @@ unsigned long ps7_ddr_init_data_3_0[] = {
     // .. .. 
     EMIT_MASKWRITE(0XF8006000, 0x0001FFFFU ,0x00000080U),
     // .. .. FINISH: LOCK DDR
-    // .. .. reg_ddrc_t_rfc_nom_x32 = 0x81
-    // .. .. ==> 0XF8006004[11:0] = 0x00000081U
-    // .. ..     ==> MASK : 0x00000FFFU    VAL : 0x00000081U
+    // .. .. reg_ddrc_t_rfc_nom_x32 = 0x82
+    // .. .. ==> 0XF8006004[11:0] = 0x00000082U
+    // .. ..     ==> MASK : 0x00000FFFU    VAL : 0x00000082U
     // .. .. reserved_reg_ddrc_active_ranks = 0x1
     // .. .. ==> 0XF8006004[13:12] = 0x00000001U
     // .. ..     ==> MASK : 0x00003000U    VAL : 0x00001000U
     // .. .. reg_ddrc_addrmap_cs_bit0 = 0x0
     // .. .. ==> 0XF8006004[18:14] = 0x00000000U
     // .. ..     ==> MASK : 0x0007C000U    VAL : 0x00000000U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8006004, 0x0007FFFFU ,0x00001081U),
+    // .. ..
+    EMIT_MASKWRITE(0XF8006004, 0x0007FFFFU ,0x00001082U),
     // .. .. reg_ddrc_hpr_min_non_critical_x32 = 0xf
     // .. .. ==> 0XF8006008[10:0] = 0x0000000FU
     // .. ..     ==> MASK : 0x000007FFU    VAL : 0x0000000FU
@@ -531,15 +530,15 @@ unsigned long ps7_ddr_init_data_3_0[] = {
     // .. ..     ==> MASK : 0x001FC000U    VAL : 0x00040000U
     // .. .. 
     EMIT_MASKWRITE(0XF8006014, 0x001FFFFFU ,0x0004159BU),
-    // .. .. reg_ddrc_wr2pre = 0x12
-    // .. .. ==> 0XF8006018[4:0] = 0x00000012U
-    // .. ..     ==> MASK : 0x0000001FU    VAL : 0x00000012U
+    // .. .. reg_ddrc_wr2pre = 0x13
+    // .. .. ==> 0XF8006018[4:0] = 0x00000013U
+    // .. ..     ==> MASK : 0x0000001FU    VAL : 0x00000013U
     // .. .. reg_ddrc_powerdown_to_x32 = 0x6
     // .. .. ==> 0XF8006018[9:5] = 0x00000006U
     // .. ..     ==> MASK : 0x000003E0U    VAL : 0x000000C0U
-    // .. .. reg_ddrc_t_faw = 0x10
-    // .. .. ==> 0XF8006018[15:10] = 0x00000010U
-    // .. ..     ==> MASK : 0x0000FC00U    VAL : 0x00004000U
+    // .. .. reg_ddrc_t_faw = 0x11
+    // .. .. ==> 0XF8006018[15:10] = 0x00000011U
+    // .. ..     ==> MASK : 0x0000FC00U    VAL : 0x00004400U
     // .. .. reg_ddrc_t_ras_max = 0x24
     // .. .. ==> 0XF8006018[21:16] = 0x00000024U
     // .. ..     ==> MASK : 0x003F0000U    VAL : 0x00240000U
@@ -549,37 +548,37 @@ unsigned long ps7_ddr_init_data_3_0[] = {
     // .. .. reg_ddrc_t_cke = 0x4
     // .. .. ==> 0XF8006018[31:28] = 0x00000004U
     // .. ..     ==> MASK : 0xF0000000U    VAL : 0x40000000U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8006018, 0xF7FFFFFFU ,0x452440D2U),
+    // .. ..
+    EMIT_MASKWRITE(0XF8006018, 0xF7FFFFFFU ,0x452444D3U),
     // .. .. reg_ddrc_write_latency = 0x5
     // .. .. ==> 0XF800601C[4:0] = 0x00000005U
     // .. ..     ==> MASK : 0x0000001FU    VAL : 0x00000005U
     // .. .. reg_ddrc_rd2wr = 0x7
     // .. .. ==> 0XF800601C[9:5] = 0x00000007U
     // .. ..     ==> MASK : 0x000003E0U    VAL : 0x000000E0U
-    // .. .. reg_ddrc_wr2rd = 0xe
-    // .. .. ==> 0XF800601C[14:10] = 0x0000000EU
-    // .. ..     ==> MASK : 0x00007C00U    VAL : 0x00003800U
-    // .. .. reg_ddrc_t_xp = 0x4
-    // .. .. ==> 0XF800601C[19:15] = 0x00000004U
-    // .. ..     ==> MASK : 0x000F8000U    VAL : 0x00020000U
+    // .. .. reg_ddrc_wr2rd = 0xf
+    // .. .. ==> 0XF800601C[14:10] = 0x0000000FU
+    // .. ..     ==> MASK : 0x00007C00U    VAL : 0x00003C00U
+    // .. .. reg_ddrc_t_xp = 0x5
+    // .. .. ==> 0XF800601C[19:15] = 0x00000005U
+    // .. ..     ==> MASK : 0x000F8000U    VAL : 0x00028000U
     // .. .. reg_ddrc_pad_pd = 0x0
     // .. .. ==> 0XF800601C[22:20] = 0x00000000U
     // .. ..     ==> MASK : 0x00700000U    VAL : 0x00000000U
-    // .. .. reg_ddrc_rd2pre = 0x4
-    // .. .. ==> 0XF800601C[27:23] = 0x00000004U
-    // .. ..     ==> MASK : 0x0F800000U    VAL : 0x02000000U
+    // .. .. reg_ddrc_rd2pre = 0x5
+    // .. .. ==> 0XF800601C[27:23] = 0x00000005U
+    // .. ..     ==> MASK : 0x0F800000U    VAL : 0x02800000U
     // .. .. reg_ddrc_t_rcd = 0x7
     // .. .. ==> 0XF800601C[31:28] = 0x00000007U
     // .. ..     ==> MASK : 0xF0000000U    VAL : 0x70000000U
-    // .. .. 
-    EMIT_MASKWRITE(0XF800601C, 0xFFFFFFFFU ,0x720238E5U),
+    // .. ..
+    EMIT_MASKWRITE(0XF800601C, 0xFFFFFFFFU ,0x7282BCE5U),
     // .. .. reg_ddrc_t_ccd = 0x4
     // .. .. ==> 0XF8006020[4:2] = 0x00000004U
     // .. ..     ==> MASK : 0x0000001CU    VAL : 0x00000010U
-    // .. .. reg_ddrc_t_rrd = 0x4
-    // .. .. ==> 0XF8006020[7:5] = 0x00000004U
-    // .. ..     ==> MASK : 0x000000E0U    VAL : 0x00000080U
+    // .. .. reg_ddrc_t_rrd = 0x5
+    // .. .. ==> 0XF8006020[7:5] = 0x00000005U
+    // .. ..     ==> MASK : 0x000000E0U    VAL : 0x000000A0U
     // .. .. reg_ddrc_refresh_margin = 0x2
     // .. .. ==> 0XF8006020[11:8] = 0x00000002U
     // .. ..     ==> MASK : 0x00000F00U    VAL : 0x00000200U
@@ -604,8 +603,8 @@ unsigned long ps7_ddr_init_data_3_0[] = {
     // .. .. reg_ddrc_dis_pad_pd = 0x0
     // .. .. ==> 0XF8006020[30:30] = 0x00000000U
     // .. ..     ==> MASK : 0x40000000U    VAL : 0x00000000U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8006020, 0x7FDFFFFCU ,0x27087290U),
+    // .. ..
+    EMIT_MASKWRITE(0XF8006020, 0x7FDFFFFCU ,0x270872B0U),
     // .. .. reg_ddrc_en_2t_timing_mode = 0x0
     // .. .. ==> 0XF8006024[0:0] = 0x00000000U
     // .. ..     ==> MASK : 0x00000001U    VAL : 0x00000000U
@@ -651,20 +650,20 @@ unsigned long ps7_ddr_init_data_3_0[] = {
     // .. ..     ==> MASK : 0xFFFF0000U    VAL : 0x00000000U
     // .. .. 
     EMIT_MASKWRITE(0XF800602C, 0xFFFFFFFFU ,0x00000008U),
-    // .. .. reg_ddrc_mr = 0x930
-    // .. .. ==> 0XF8006030[15:0] = 0x00000930U
-    // .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000930U
+    // .. .. reg_ddrc_mr = 0xb30
+    // .. .. ==> 0XF8006030[15:0] = 0x00000B30U
+    // .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000B30U
     // .. .. reg_ddrc_emr = 0x4
     // .. .. ==> 0XF8006030[31:16] = 0x00000004U
     // .. ..     ==> MASK : 0xFFFF0000U    VAL : 0x00040000U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8006030, 0xFFFFFFFFU ,0x00040930U),
+    // .. ..
+    EMIT_MASKWRITE(0XF8006030, 0xFFFFFFFFU ,0x00040B30U),
     // .. .. reg_ddrc_burst_rdwr = 0x4
     // .. .. ==> 0XF8006034[3:0] = 0x00000004U
     // .. ..     ==> MASK : 0x0000000FU    VAL : 0x00000004U
-    // .. .. reg_ddrc_pre_cke_x1024 = 0x105
-    // .. .. ==> 0XF8006034[13:4] = 0x00000105U
-    // .. ..     ==> MASK : 0x00003FF0U    VAL : 0x00001050U
+    // .. .. reg_ddrc_pre_cke_x1024 = 0x16d
+    // .. .. ==> 0XF8006034[13:4] = 0x0000016DU
+    // .. ..     ==> MASK : 0x00003FF0U    VAL : 0x000016D0U
     // .. .. reg_ddrc_post_cke_x1024 = 0x1
     // .. .. ==> 0XF8006034[25:16] = 0x00000001U
     // .. ..     ==> MASK : 0x03FF0000U    VAL : 0x00010000U
@@ -756,7 +755,13 @@ unsigned long ps7_ddr_init_data_3_0[] = {
     // .. .. reg_phy_idle_local_odt = 0x3
     // .. .. ==> 0XF8006048[17:16] = 0x00000003U
     // .. ..     ==> MASK : 0x00030000U    VAL : 0x00030000U
-    // .. .. 
+    // .. .. reserved_reg_ddrc_rank0_wr_odt = 0x1
+    // .. .. ==> 0XF8006048[5:3] = 0x00000001U
+    // .. ..     ==> MASK : 0x00000038U    VAL : 0x00000008U
+    // .. .. reserved_reg_ddrc_rank0_rd_odt = 0x0
+    // .. .. ==> 0XF8006048[2:0] = 0x00000000U
+    // .. ..     ==> MASK : 0x00000007U    VAL : 0x00000000U
+    // .. ..
     EMIT_MASKWRITE(0XF8006048, 0x0003F03FU ,0x0003C008U),
     // .. .. reg_phy_rd_cmd_to_data = 0x0
     // .. .. ==> 0XF8006050[3:0] = 0x00000000U
@@ -1597,8 +1602,8 @@ unsigned long ps7_mio_init_data_3_0[] = {
     // .. UNLOCK_KEY = 0XDF0D
     // .. ==> 0XF8000008[15:0] = 0x0000DF0DU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000DF0DU
-    // .. 
-    EMIT_MASKWRITE(0XF8000008, 0x0000FFFFU ,0x0000DF0DU),
+    // ..
+    EMIT_WRITE(0XF8000008, 0x0000DF0DU),
     // .. FINISH: SLCR SETTINGS
     // .. START: OCM REMAPPING
     // .. VREF_EN = 0x1
@@ -1909,9 +1914,9 @@ unsigned long ps7_mio_init_data_3_0[] = {
     // .. REFIO_EN = 0x1
     // .. ==> 0XF8000B6C[9:9] = 0x00000001U
     // ..     ==> MASK : 0x00000200U    VAL : 0x00000200U
-    // .. reserved_REFIO_TEST = 0x3
-    // .. ==> 0XF8000B6C[11:10] = 0x00000003U
-    // ..     ==> MASK : 0x00000C00U    VAL : 0x00000C00U
+    // .. reserved_REFIO_TEST = 0x0
+    // .. ==> 0XF8000B6C[11:10] = 0x00000000U
+    // ..     ==> MASK : 0x00000C00U    VAL : 0x00000000U
     // .. reserved_REFIO_PULLUP_EN = 0x0
     // .. ==> 0XF8000B6C[12:12] = 0x00000000U
     // ..     ==> MASK : 0x00001000U    VAL : 0x00000000U
@@ -3553,8 +3558,8 @@ unsigned long ps7_mio_init_data_3_0[] = {
     // .. LOCK_KEY = 0X767B
     // .. ==> 0XF8000004[15:0] = 0x0000767BU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000767BU
-    // .. 
-    EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
+    // ..
+    EMIT_WRITE(0XF8000004, 0x0000767BU),
     // .. FINISH: LOCK IT BACK
     // FINISH: top
     //
@@ -3569,8 +3574,8 @@ unsigned long ps7_peripherals_init_data_3_0[] = {
     // .. UNLOCK_KEY = 0XDF0D
     // .. ==> 0XF8000008[15:0] = 0x0000DF0DU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000DF0DU
-    // .. 
-    EMIT_MASKWRITE(0XF8000008, 0x0000FFFFU ,0x0000DF0DU),
+    // ..
+    EMIT_WRITE(0XF8000008, 0x0000DF0DU),
     // .. FINISH: SLCR SETTINGS
     // .. START: DDR TERM/IBUF_DISABLE_MODE SETTINGS
     // .. IBUF_DISABLE_MODE = 0x1
@@ -3610,13 +3615,11 @@ unsigned long ps7_peripherals_init_data_3_0[] = {
     // .. LOCK_KEY = 0X767B
     // .. ==> 0XF8000004[15:0] = 0x0000767BU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000767BU
-    // .. 
-    EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
+    // ..
+    EMIT_WRITE(0XF8000004, 0x0000767BU),
     // .. FINISH: LOCK IT BACK
     // .. START: SRAM/NOR SET OPMODE
     // .. FINISH: SRAM/NOR SET OPMODE
-    // .. START: TRACE CURRENT PORT SIZE
-    // .. FINISH: TRACE CURRENT PORT SIZE
     // .. START: UART REGISTERS
     // .. BDIV = 0x6
     // .. ==> 0XE0001034[7:0] = 0x00000006U
@@ -3709,11 +3712,12 @@ unsigned long ps7_peripherals_init_data_3_0[] = {
     // .. .. START: NOR CS1 BASE ADDRESS
     // .. .. FINISH: NOR CS1 BASE ADDRESS
     // .. .. START: USB RESET
-    // .. .. .. START: DIR MODE BANK 0
-    // .. .. .. DIRECTION_0 = 0x80
-    // .. .. .. ==> 0XE000A204[31:0] = 0x00000080U
-    // .. .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0x00000080U
-    // .. .. .. 
+    // .. .. .. START: USB0 RESET
+    // .. .. .. .. START: DIR MODE BANK 0
+    // .. .. .. .. DIRECTION_0 = 0x80
+    // .. .. .. .. ==> 0XE000A204[31:0] = 0x00000080U
+    // .. .. .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0x00000080U
+    // .. .. .. ..
     EMIT_MASKWRITE(0XE000A204, 0xFFFFFFFFU ,0x00000080U),
     // .. .. .. FINISH: DIR MODE BANK 0
     // .. .. .. START: DIR MODE BANK 1
@@ -3752,52 +3756,6 @@ unsigned long ps7_peripherals_init_data_3_0[] = {
     // .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000000U
     // .. .. .. 
     EMIT_MASKWRITE(0XE000A000, 0xFFFFFFFFU ,0xFF7F0000U),
-    // .. .. .. FINISH: MASK_DATA_0_LSW LOW BANK [15:0]
-    // .. .. .. START: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. FINISH: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. START: MASK_DATA_1_LSW LOW BANK [47:32]
-    // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
-    // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. START: ADD 1 MS DELAY
-    // .. .. .. 
-    EMIT_MASKDELAY(0XF8F00200, 1),
-    // .. .. .. FINISH: ADD 1 MS DELAY
-    // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. MASK_0_LSW = 0xff7f
-    // .. .. .. ==> 0XE000A000[31:16] = 0x0000FF7FU
-    // .. .. ..     ==> MASK : 0xFFFF0000U    VAL : 0xFF7F0000U
-    // .. .. .. DATA_0_LSW = 0x80
-    // .. .. .. ==> 0XE000A000[15:0] = 0x00000080U
-    // .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000080U
-    // .. .. .. 
-    EMIT_MASKWRITE(0XE000A000, 0xFFFFFFFFU ,0xFF7F0080U),
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. FINISH: USB0 RESET
-    // .. .. .. START: USB1 RESET
-    // .. .. .. .. START: DIR MODE BANK 0
-    // .. .. .. .. FINISH: DIR MODE BANK 0
-    // .. .. .. .. START: DIR MODE BANK 1
-    // .. .. .. .. FINISH: DIR MODE BANK 1
-    // .. .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. START: OUTPUT ENABLE BANK 0
-    // .. .. .. .. FINISH: OUTPUT ENABLE BANK 0
-    // .. .. .. .. START: OUTPUT ENABLE BANK 1
-    // .. .. .. .. FINISH: OUTPUT ENABLE BANK 1
-    // .. .. .. .. START: MASK_DATA_0_LSW LOW BANK [15:0]
     // .. .. .. .. FINISH: MASK_DATA_0_LSW LOW BANK [15:0]
     // .. .. .. .. START: MASK_DATA_0_MSW LOW BANK [31:16]
     // .. .. .. .. FINISH: MASK_DATA_0_MSW LOW BANK [31:16]
@@ -3810,6 +3768,14 @@ unsigned long ps7_peripherals_init_data_3_0[] = {
     EMIT_MASKDELAY(0XF8F00200, 1),
     // .. .. .. .. FINISH: ADD 1 MS DELAY
     // .. .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. .. MASK_0_LSW = 0xff7f
+    // .. .. .. .. ==> 0XE000A000[31:16] = 0x0000FF7FU
+    // .. .. .. ..     ==> MASK : 0xFFFF0000U    VAL : 0xFF7F0000U
+    // .. .. .. .. DATA_0_LSW = 0x80
+    // .. .. .. .. ==> 0XE000A000[15:0] = 0x00000080U
+    // .. .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000080U
+    // .. .. .. ..
+    EMIT_MASKWRITE(0XE000A000, 0xFFFFFFFFU ,0xFF7F0080U),
     // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
     // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
     // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
@@ -3817,16 +3783,17 @@ unsigned long ps7_peripherals_init_data_3_0[] = {
     // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
     // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
     // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. FINISH: USB1 RESET
+    // .. .. .. FINISH: USB0 RESET
     // .. .. FINISH: USB RESET
     // .. .. START: ENET RESET
-    // .. .. .. START: DIR MODE BANK 0
-    // .. .. .. FINISH: DIR MODE BANK 0
-    // .. .. .. START: DIR MODE BANK 1
-    // .. .. .. DIRECTION_1 = 0xc000
-    // .. .. .. ==> 0XE000A244[21:0] = 0x0000C000U
-    // .. .. ..     ==> MASK : 0x003FFFFFU    VAL : 0x0000C000U
-    // .. .. .. 
+    // .. .. .. START: ENET0 RESET
+    // .. .. .. .. START: DIR MODE BANK 0
+    // .. .. .. .. FINISH: DIR MODE BANK 0
+    // .. .. .. .. START: DIR MODE BANK 1
+    // .. .. .. .. DIRECTION_1 = 0xc000
+    // .. .. .. .. ==> 0XE000A244[21:0] = 0x0000C000U
+    // .. .. .. ..     ==> MASK : 0x003FFFFFU    VAL : 0x0000C000U
+    // .. .. .. ..
     EMIT_MASKWRITE(0XE000A244, 0x003FFFFFU ,0x0000C000U),
     // .. .. .. FINISH: DIR MODE BANK 1
     // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
@@ -3867,52 +3834,6 @@ unsigned long ps7_peripherals_init_data_3_0[] = {
     // .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000000U
     // .. .. .. 
     EMIT_MASKWRITE(0XE000A008, 0xFFFFFFFFU ,0x7FFF0000U),
-    // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
-    // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. START: ADD 1 MS DELAY
-    // .. .. .. 
-    EMIT_MASKDELAY(0XF8F00200, 1),
-    // .. .. .. FINISH: ADD 1 MS DELAY
-    // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. MASK_1_LSW = 0x7fff
-    // .. .. .. ==> 0XE000A008[31:16] = 0x00007FFFU
-    // .. .. ..     ==> MASK : 0xFFFF0000U    VAL : 0x7FFF0000U
-    // .. .. .. DATA_1_LSW = 0x8000
-    // .. .. .. ==> 0XE000A008[15:0] = 0x00008000U
-    // .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00008000U
-    // .. .. .. 
-    EMIT_MASKWRITE(0XE000A008, 0xFFFFFFFFU ,0x7FFF8000U),
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. FINISH: ENET0 RESET
-    // .. .. .. START: ENET1 RESET
-    // .. .. .. .. START: DIR MODE BANK 0
-    // .. .. .. .. FINISH: DIR MODE BANK 0
-    // .. .. .. .. START: DIR MODE BANK 1
-    // .. .. .. .. FINISH: DIR MODE BANK 1
-    // .. .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. START: OUTPUT ENABLE BANK 0
-    // .. .. .. .. FINISH: OUTPUT ENABLE BANK 0
-    // .. .. .. .. START: OUTPUT ENABLE BANK 1
-    // .. .. .. .. FINISH: OUTPUT ENABLE BANK 1
-    // .. .. .. .. START: MASK_DATA_0_LSW LOW BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW LOW BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW LOW BANK [47:32]
     // .. .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
     // .. .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
     // .. .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
@@ -3925,19 +3846,28 @@ unsigned long ps7_peripherals_init_data_3_0[] = {
     // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
     // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
     // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
+    // .. .. .. .. MASK_1_LSW = 0x7fff
+    // .. .. .. .. ==> 0XE000A008[31:16] = 0x00007FFFU
+    // .. .. .. ..     ==> MASK : 0xFFFF0000U    VAL : 0x7FFF0000U
+    // .. .. .. .. DATA_1_LSW = 0x8000
+    // .. .. .. .. ==> 0XE000A008[15:0] = 0x00008000U
+    // .. .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00008000U
+    // .. .. .. ..
+    EMIT_MASKWRITE(0XE000A008, 0xFFFFFFFFU ,0x7FFF8000U),
     // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
     // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
     // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. FINISH: ENET1 RESET
+    // .. .. .. FINISH: ENET0 RESET
     // .. .. FINISH: ENET RESET
     // .. .. START: I2C RESET
-    // .. .. .. START: DIR MODE GPIO BANK0
-    // .. .. .. FINISH: DIR MODE GPIO BANK0
-    // .. .. .. START: DIR MODE GPIO BANK1
-    // .. .. .. DIRECTION_1 = 0xc000
-    // .. .. .. ==> 0XE000A244[21:0] = 0x0000C000U
-    // .. .. ..     ==> MASK : 0x003FFFFFU    VAL : 0x0000C000U
-    // .. .. .. 
+    // .. .. .. START: I2C0 RESET
+    // .. .. .. .. START: DIR MODE GPIO BANK0
+    // .. .. .. .. FINISH: DIR MODE GPIO BANK0
+    // .. .. .. .. START: DIR MODE GPIO BANK1
+    // .. .. .. .. DIRECTION_1 = 0xc000
+    // .. .. .. .. ==> 0XE000A244[21:0] = 0x0000C000U
+    // .. .. .. ..     ==> MASK : 0x003FFFFFU    VAL : 0x0000C000U
+    // .. .. .. ..
     EMIT_MASKWRITE(0XE000A244, 0x003FFFFFU ,0x0000C000U),
     // .. .. .. FINISH: DIR MODE GPIO BANK1
     // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
@@ -4002,45 +3932,15 @@ unsigned long ps7_peripherals_init_data_3_0[] = {
     // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
     // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
     // .. .. .. FINISH: I2C0 RESET
-    // .. .. .. START: I2C1 RESET
-    // .. .. .. .. START: DIR MODE GPIO BANK0
-    // .. .. .. .. FINISH: DIR MODE GPIO BANK0
-    // .. .. .. .. START: DIR MODE GPIO BANK1
-    // .. .. .. .. FINISH: DIR MODE GPIO BANK1
-    // .. .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. START: OUTPUT ENABLE
-    // .. .. .. .. FINISH: OUTPUT ENABLE
-    // .. .. .. .. START: OUTPUT ENABLE
-    // .. .. .. .. FINISH: OUTPUT ENABLE
-    // .. .. .. .. START: MASK_DATA_0_LSW LOW BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW LOW BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW LOW BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. .. START: ADD 1 MS DELAY
-    // .. .. .. ..
-    EMIT_MASKDELAY(0XF8F00200, 1),
-    // .. .. .. .. FINISH: ADD 1 MS DELAY
-    // .. .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. FINISH: I2C1 RESET
     // .. .. FINISH: I2C RESET
+    // .. .. START: NOR CHIP SELECT
+    // .. .. .. START: DIR MODE BANK 0
+    // .. .. .. FINISH: DIR MODE BANK 0
+    // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. START: OUTPUT ENABLE BANK 0
+    // .. .. .. FINISH: OUTPUT ENABLE BANK 0
+    // .. .. FINISH: NOR CHIP SELECT
     // .. FINISH: SMC TIMING CALCULATION REGISTER UPDATE
     // FINISH: top
     //
@@ -4055,8 +3955,8 @@ unsigned long ps7_post_config_3_0[] = {
     // .. UNLOCK_KEY = 0XDF0D
     // .. ==> 0XF8000008[15:0] = 0x0000DF0DU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000DF0DU
-    // .. 
-    EMIT_MASKWRITE(0XF8000008, 0x0000FFFFU ,0x0000DF0DU),
+    // ..
+    EMIT_WRITE(0XF8000008, 0x0000DF0DU),
     // .. FINISH: SLCR SETTINGS
     // .. START: ENABLING LEVEL SHIFTER
     // .. USER_LVL_INP_EN_0 = 1
@@ -4150,13 +4050,15 @@ unsigned long ps7_post_config_3_0[] = {
     // .. .. FINISH: AFI2 REGISTERS
     // .. .. START: AFI3 REGISTERS
     // .. .. FINISH: AFI3 REGISTERS
+    // .. .. START: AFI2 SECURE REGISTER
+    // .. .. FINISH: AFI2 SECURE REGISTER
     // .. FINISH: AFI REGISTERS
     // .. START: LOCK IT BACK
     // .. LOCK_KEY = 0X767B
     // .. ==> 0XF8000004[15:0] = 0x0000767BU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000767BU
-    // .. 
-    EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
+    // ..
+    EMIT_WRITE(0XF8000004, 0x0000767BU),
     // .. FINISH: LOCK IT BACK
     // FINISH: top
     //
@@ -4172,18 +4074,18 @@ unsigned long ps7_debug_3_0[] = {
     // .. .. KEY = 0XC5ACCE55
     // .. .. ==> 0XF8898FB0[31:0] = 0xC5ACCE55U
     // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8898FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. ..
+    EMIT_WRITE(0XF8898FB0, 0xC5ACCE55U),
     // .. .. KEY = 0XC5ACCE55
     // .. .. ==> 0XF8899FB0[31:0] = 0xC5ACCE55U
     // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8899FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. ..
+    EMIT_WRITE(0XF8899FB0, 0xC5ACCE55U),
     // .. .. KEY = 0XC5ACCE55
     // .. .. ==> 0XF8809FB0[31:0] = 0xC5ACCE55U
     // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8809FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. ..
+    EMIT_WRITE(0XF8809FB0, 0xC5ACCE55U),
     // .. .. FINISH: UNLOCKING CTI REGISTERS
     // .. .. START: ENABLING CTI MODULES AND CHANNELS
     // .. .. FINISH: ENABLING CTI MODULES AND CHANNELS
@@ -4203,8 +4105,8 @@ unsigned long ps7_pll_init_data_2_0[] = {
     // .. UNLOCK_KEY = 0XDF0D
     // .. ==> 0XF8000008[15:0] = 0x0000DF0DU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000DF0DU
-    // .. 
-    EMIT_MASKWRITE(0XF8000008, 0x0000FFFFU ,0x0000DF0DU),
+    // ..
+    EMIT_WRITE(0XF8000008, 0x0000DF0DU),
     // .. FINISH: SLCR SETTINGS
     // .. START: PLL SLCR REGISTERS
     // .. .. START: ARM PLL INIT
@@ -4414,8 +4316,8 @@ unsigned long ps7_pll_init_data_2_0[] = {
     // .. LOCK_KEY = 0X767B
     // .. ==> 0XF8000004[15:0] = 0x0000767BU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000767BU
-    // .. 
-    EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
+    // ..
+    EMIT_WRITE(0XF8000004, 0x0000767BU),
     // .. FINISH: LOCK IT BACK
     // FINISH: top
     //
@@ -4430,20 +4332,20 @@ unsigned long ps7_clock_init_data_2_0[] = {
     // .. UNLOCK_KEY = 0XDF0D
     // .. ==> 0XF8000008[15:0] = 0x0000DF0DU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000DF0DU
-    // .. 
-    EMIT_MASKWRITE(0XF8000008, 0x0000FFFFU ,0x0000DF0DU),
+    // ..
+    EMIT_WRITE(0XF8000008, 0x0000DF0DU),
     // .. FINISH: SLCR SETTINGS
     // .. START: CLOCK CONTROL SLCR REGISTERS
     // .. CLKACT = 0x1
     // .. ==> 0XF8000128[0:0] = 0x00000001U
     // ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
-    // .. DIVISOR0 = 0x23
-    // .. ==> 0XF8000128[13:8] = 0x00000023U
-    // ..     ==> MASK : 0x00003F00U    VAL : 0x00002300U
-    // .. DIVISOR1 = 0x3
-    // .. ==> 0XF8000128[25:20] = 0x00000003U
-    // ..     ==> MASK : 0x03F00000U    VAL : 0x00300000U
-    // .. 
+    // .. DIVISOR0 = 0xf
+    // .. ==> 0XF8000128[13:8] = 0x0000000FU
+    // ..     ==> MASK : 0x00003F00U    VAL : 0x00000F00U
+    // .. DIVISOR1 = 0x7
+    // .. ==> 0XF8000128[25:20] = 0x00000007U
+    // ..     ==> MASK : 0x03F00000U    VAL : 0x00700000U
+    // ..
     EMIT_MASKWRITE(0XF8000128, 0x03F03F01U ,0x00700F01U),
     // .. CLKACT = 0x1
     // .. ==> 0XF8000138[0:0] = 0x00000001U
@@ -4506,16 +4408,18 @@ unsigned long ps7_clock_init_data_2_0[] = {
     // ..     ==> MASK : 0x00003F00U    VAL : 0x00001400U
     // .. 
     EMIT_MASKWRITE(0XF8000154, 0x00003F33U ,0x00001402U),
-    // .. CLKACT = 0x1
-    // .. ==> 0XF8000168[0:0] = 0x00000001U
-    // ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
-    // .. SRCSEL = 0x0
-    // .. ==> 0XF8000168[5:4] = 0x00000000U
-    // ..     ==> MASK : 0x00000030U    VAL : 0x00000000U
-    // .. DIVISOR = 0x5
-    // .. ==> 0XF8000168[13:8] = 0x00000005U
-    // ..     ==> MASK : 0x00003F00U    VAL : 0x00000500U
-    // .. 
+    // .. .. START: TRACE CLOCK
+    // .. .. FINISH: TRACE CLOCK
+    // .. .. CLKACT = 0x1
+    // .. .. ==> 0XF8000168[0:0] = 0x00000001U
+    // .. ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
+    // .. .. SRCSEL = 0x0
+    // .. .. ==> 0XF8000168[5:4] = 0x00000000U
+    // .. ..     ==> MASK : 0x00000030U    VAL : 0x00000000U
+    // .. .. DIVISOR = 0x5
+    // .. .. ==> 0XF8000168[13:8] = 0x00000005U
+    // .. ..     ==> MASK : 0x00003F00U    VAL : 0x00000500U
+    // .. ..
     EMIT_MASKWRITE(0XF8000168, 0x00003F31U ,0x00000501U),
     // .. .. SRCSEL = 0x0
     // .. .. ==> 0XF8000170[5:4] = 0x00000000U
@@ -4596,8 +4500,8 @@ unsigned long ps7_clock_init_data_2_0[] = {
     // .. LOCK_KEY = 0X767B
     // .. ==> 0XF8000004[15:0] = 0x0000767BU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000767BU
-    // .. 
-    EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
+    // ..
+    EMIT_WRITE(0XF8000004, 0x0000767BU),
     // .. FINISH: LOCK IT BACK
     // FINISH: top
     //
@@ -4637,9 +4541,9 @@ unsigned long ps7_ddr_init_data_2_0[] = {
     // .. .. 
     EMIT_MASKWRITE(0XF8006000, 0x0001FFFFU ,0x00000080U),
     // .. .. FINISH: LOCK DDR
-    // .. .. reg_ddrc_t_rfc_nom_x32 = 0x81
-    // .. .. ==> 0XF8006004[11:0] = 0x00000081U
-    // .. ..     ==> MASK : 0x00000FFFU    VAL : 0x00000081U
+    // .. .. reg_ddrc_t_rfc_nom_x32 = 0x82
+    // .. .. ==> 0XF8006004[11:0] = 0x00000082U
+    // .. ..     ==> MASK : 0x00000FFFU    VAL : 0x00000082U
     // .. .. reg_ddrc_active_ranks = 0x1
     // .. .. ==> 0XF8006004[13:12] = 0x00000001U
     // .. ..     ==> MASK : 0x00003000U    VAL : 0x00001000U
@@ -4661,8 +4565,8 @@ unsigned long ps7_ddr_init_data_2_0[] = {
     // .. .. reg_ddrc_addrmap_4bank_ram = 0x0
     // .. .. ==> 0XF8006004[28:28] = 0x00000000U
     // .. ..     ==> MASK : 0x10000000U    VAL : 0x00000000U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8006004, 0x1FFFFFFFU ,0x00081081U),
+    // .. ..
+    EMIT_MASKWRITE(0XF8006004, 0x1FFFFFFFU ,0x00081082U),
     // .. .. reg_ddrc_hpr_min_non_critical_x32 = 0xf
     // .. .. ==> 0XF8006008[10:0] = 0x0000000FU
     // .. ..     ==> MASK : 0x000007FFU    VAL : 0x0000000FU
@@ -4707,15 +4611,15 @@ unsigned long ps7_ddr_init_data_2_0[] = {
     // .. ..     ==> MASK : 0x001FC000U    VAL : 0x00040000U
     // .. .. 
     EMIT_MASKWRITE(0XF8006014, 0x001FFFFFU ,0x0004159BU),
-    // .. .. reg_ddrc_wr2pre = 0x12
-    // .. .. ==> 0XF8006018[4:0] = 0x00000012U
-    // .. ..     ==> MASK : 0x0000001FU    VAL : 0x00000012U
+    // .. .. reg_ddrc_wr2pre = 0x13
+    // .. .. ==> 0XF8006018[4:0] = 0x00000013U
+    // .. ..     ==> MASK : 0x0000001FU    VAL : 0x00000013U
     // .. .. reg_ddrc_powerdown_to_x32 = 0x6
     // .. .. ==> 0XF8006018[9:5] = 0x00000006U
     // .. ..     ==> MASK : 0x000003E0U    VAL : 0x000000C0U
-    // .. .. reg_ddrc_t_faw = 0x10
-    // .. .. ==> 0XF8006018[15:10] = 0x00000010U
-    // .. ..     ==> MASK : 0x0000FC00U    VAL : 0x00004000U
+    // .. .. reg_ddrc_t_faw = 0x11
+    // .. .. ==> 0XF8006018[15:10] = 0x00000011U
+    // .. ..     ==> MASK : 0x0000FC00U    VAL : 0x00004400U
     // .. .. reg_ddrc_t_ras_max = 0x24
     // .. .. ==> 0XF8006018[21:16] = 0x00000024U
     // .. ..     ==> MASK : 0x003F0000U    VAL : 0x00240000U
@@ -4725,37 +4629,37 @@ unsigned long ps7_ddr_init_data_2_0[] = {
     // .. .. reg_ddrc_t_cke = 0x4
     // .. .. ==> 0XF8006018[31:28] = 0x00000004U
     // .. ..     ==> MASK : 0xF0000000U    VAL : 0x40000000U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8006018, 0xF7FFFFFFU ,0x452440D2U),
+    // .. ..
+    EMIT_MASKWRITE(0XF8006018, 0xF7FFFFFFU ,0x452444D3U),
     // .. .. reg_ddrc_write_latency = 0x5
     // .. .. ==> 0XF800601C[4:0] = 0x00000005U
     // .. ..     ==> MASK : 0x0000001FU    VAL : 0x00000005U
     // .. .. reg_ddrc_rd2wr = 0x7
     // .. .. ==> 0XF800601C[9:5] = 0x00000007U
     // .. ..     ==> MASK : 0x000003E0U    VAL : 0x000000E0U
-    // .. .. reg_ddrc_wr2rd = 0xe
-    // .. .. ==> 0XF800601C[14:10] = 0x0000000EU
-    // .. ..     ==> MASK : 0x00007C00U    VAL : 0x00003800U
-    // .. .. reg_ddrc_t_xp = 0x4
-    // .. .. ==> 0XF800601C[19:15] = 0x00000004U
-    // .. ..     ==> MASK : 0x000F8000U    VAL : 0x00020000U
+    // .. .. reg_ddrc_wr2rd = 0xf
+    // .. .. ==> 0XF800601C[14:10] = 0x0000000FU
+    // .. ..     ==> MASK : 0x00007C00U    VAL : 0x00003C00U
+    // .. .. reg_ddrc_t_xp = 0x5
+    // .. .. ==> 0XF800601C[19:15] = 0x00000005U
+    // .. ..     ==> MASK : 0x000F8000U    VAL : 0x00028000U
     // .. .. reg_ddrc_pad_pd = 0x0
     // .. .. ==> 0XF800601C[22:20] = 0x00000000U
     // .. ..     ==> MASK : 0x00700000U    VAL : 0x00000000U
-    // .. .. reg_ddrc_rd2pre = 0x4
-    // .. .. ==> 0XF800601C[27:23] = 0x00000004U
-    // .. ..     ==> MASK : 0x0F800000U    VAL : 0x02000000U
+    // .. .. reg_ddrc_rd2pre = 0x5
+    // .. .. ==> 0XF800601C[27:23] = 0x00000005U
+    // .. ..     ==> MASK : 0x0F800000U    VAL : 0x02800000U
     // .. .. reg_ddrc_t_rcd = 0x7
     // .. .. ==> 0XF800601C[31:28] = 0x00000007U
     // .. ..     ==> MASK : 0xF0000000U    VAL : 0x70000000U
-    // .. .. 
-    EMIT_MASKWRITE(0XF800601C, 0xFFFFFFFFU ,0x720238E5U),
+    // .. ..
+    EMIT_MASKWRITE(0XF800601C, 0xFFFFFFFFU ,0x7282BCE5U),
     // .. .. reg_ddrc_t_ccd = 0x4
     // .. .. ==> 0XF8006020[4:2] = 0x00000004U
     // .. ..     ==> MASK : 0x0000001CU    VAL : 0x00000010U
-    // .. .. reg_ddrc_t_rrd = 0x4
-    // .. .. ==> 0XF8006020[7:5] = 0x00000004U
-    // .. ..     ==> MASK : 0x000000E0U    VAL : 0x00000080U
+    // .. .. reg_ddrc_t_rrd = 0x5
+    // .. .. ==> 0XF8006020[7:5] = 0x00000005U
+    // .. ..     ==> MASK : 0x000000E0U    VAL : 0x000000A0U
     // .. .. reg_ddrc_refresh_margin = 0x2
     // .. .. ==> 0XF8006020[11:8] = 0x00000002U
     // .. ..     ==> MASK : 0x00000F00U    VAL : 0x00000200U
@@ -4786,8 +4690,8 @@ unsigned long ps7_ddr_init_data_2_0[] = {
     // .. .. reg_ddrc_loopback = 0x0
     // .. .. ==> 0XF8006020[31:31] = 0x00000000U
     // .. ..     ==> MASK : 0x80000000U    VAL : 0x00000000U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8006020, 0xFFFFFFFCU ,0x27287290U),
+    // .. ..
+    EMIT_MASKWRITE(0XF8006020, 0xFFFFFFFCU ,0x272872B0U),
     // .. .. reg_ddrc_en_2t_timing_mode = 0x0
     // .. .. ==> 0XF8006024[0:0] = 0x00000000U
     // .. ..     ==> MASK : 0x00000001U    VAL : 0x00000000U
@@ -4836,20 +4740,20 @@ unsigned long ps7_ddr_init_data_2_0[] = {
     // .. ..     ==> MASK : 0xFFFF0000U    VAL : 0x00000000U
     // .. .. 
     EMIT_MASKWRITE(0XF800602C, 0xFFFFFFFFU ,0x00000008U),
-    // .. .. reg_ddrc_mr = 0x930
-    // .. .. ==> 0XF8006030[15:0] = 0x00000930U
-    // .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000930U
+    // .. .. reg_ddrc_mr = 0xb30
+    // .. .. ==> 0XF8006030[15:0] = 0x00000B30U
+    // .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000B30U
     // .. .. reg_ddrc_emr = 0x4
     // .. .. ==> 0XF8006030[31:16] = 0x00000004U
     // .. ..     ==> MASK : 0xFFFF0000U    VAL : 0x00040000U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8006030, 0xFFFFFFFFU ,0x00040930U),
+    // .. ..
+    EMIT_MASKWRITE(0XF8006030, 0xFFFFFFFFU ,0x00040B30U),
     // .. .. reg_ddrc_burst_rdwr = 0x4
     // .. .. ==> 0XF8006034[3:0] = 0x00000004U
     // .. ..     ==> MASK : 0x0000000FU    VAL : 0x00000004U
-    // .. .. reg_ddrc_pre_cke_x1024 = 0x105
-    // .. .. ==> 0XF8006034[13:4] = 0x00000105U
-    // .. ..     ==> MASK : 0x00003FF0U    VAL : 0x00001050U
+    // .. .. reg_ddrc_pre_cke_x1024 = 0x16d
+    // .. .. ==> 0XF8006034[13:4] = 0x0000016DU
+    // .. ..     ==> MASK : 0x00003FF0U    VAL : 0x000016D0U
     // .. .. reg_ddrc_post_cke_x1024 = 0x1
     // .. .. ==> 0XF8006034[25:16] = 0x00000001U
     // .. ..     ==> MASK : 0x03FF0000U    VAL : 0x00010000U
@@ -5916,8 +5820,8 @@ unsigned long ps7_mio_init_data_2_0[] = {
     // .. UNLOCK_KEY = 0XDF0D
     // .. ==> 0XF8000008[15:0] = 0x0000DF0DU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000DF0DU
-    // .. 
-    EMIT_MASKWRITE(0XF8000008, 0x0000FFFFU ,0x0000DF0DU),
+    // ..
+    EMIT_WRITE(0XF8000008, 0x0000DF0DU),
     // .. FINISH: SLCR SETTINGS
     // .. START: OCM REMAPPING
     // .. VREF_EN = 0x1
@@ -6234,9 +6138,9 @@ unsigned long ps7_mio_init_data_2_0[] = {
     // .. REFIO_EN = 0x1
     // .. ==> 0XF8000B6C[9:9] = 0x00000001U
     // ..     ==> MASK : 0x00000200U    VAL : 0x00000200U
-    // .. REFIO_TEST = 0x3
-    // .. ==> 0XF8000B6C[11:10] = 0x00000003U
-    // ..     ==> MASK : 0x00000C00U    VAL : 0x00000C00U
+    // .. REFIO_TEST = 0x0
+    // .. ==> 0XF8000B6C[11:10] = 0x00000000U
+    // ..     ==> MASK : 0x00000C00U    VAL : 0x00000000U
     // .. REFIO_PULLUP_EN = 0x0
     // .. ==> 0XF8000B6C[12:12] = 0x00000000U
     // ..     ==> MASK : 0x00001000U    VAL : 0x00000000U
@@ -7881,8 +7785,8 @@ unsigned long ps7_mio_init_data_2_0[] = {
     // .. LOCK_KEY = 0X767B
     // .. ==> 0XF8000004[15:0] = 0x0000767BU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000767BU
-    // .. 
-    EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
+    // ..
+    EMIT_WRITE(0XF8000004, 0x0000767BU),
     // .. FINISH: LOCK IT BACK
     // FINISH: top
     //
@@ -7897,8 +7801,8 @@ unsigned long ps7_peripherals_init_data_2_0[] = {
     // .. UNLOCK_KEY = 0XDF0D
     // .. ==> 0XF8000008[15:0] = 0x0000DF0DU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000DF0DU
-    // .. 
-    EMIT_MASKWRITE(0XF8000008, 0x0000FFFFU ,0x0000DF0DU),
+    // ..
+    EMIT_WRITE(0XF8000008, 0x0000DF0DU),
     // .. FINISH: SLCR SETTINGS
     // .. START: DDR TERM/IBUF_DISABLE_MODE SETTINGS
     // .. IBUF_DISABLE_MODE = 0x1
@@ -7938,13 +7842,11 @@ unsigned long ps7_peripherals_init_data_2_0[] = {
     // .. LOCK_KEY = 0X767B
     // .. ==> 0XF8000004[15:0] = 0x0000767BU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000767BU
-    // .. 
-    EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
+    // ..
+    EMIT_WRITE(0XF8000004, 0x0000767BU),
     // .. FINISH: LOCK IT BACK
     // .. START: SRAM/NOR SET OPMODE
     // .. FINISH: SRAM/NOR SET OPMODE
-    // .. START: TRACE CURRENT PORT SIZE
-    // .. FINISH: TRACE CURRENT PORT SIZE
     // .. START: UART REGISTERS
     // .. BDIV = 0x6
     // .. ==> 0XE0001034[7:0] = 0x00000006U
@@ -8043,11 +7945,12 @@ unsigned long ps7_peripherals_init_data_2_0[] = {
     // .. .. START: NOR CS1 BASE ADDRESS
     // .. .. FINISH: NOR CS1 BASE ADDRESS
     // .. .. START: USB RESET
-    // .. .. .. START: DIR MODE BANK 0
-    // .. .. .. DIRECTION_0 = 0x80
-    // .. .. .. ==> 0XE000A204[31:0] = 0x00000080U
-    // .. .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0x00000080U
-    // .. .. .. 
+    // .. .. .. START: USB0 RESET
+    // .. .. .. .. START: DIR MODE BANK 0
+    // .. .. .. .. DIRECTION_0 = 0x80
+    // .. .. .. .. ==> 0XE000A204[31:0] = 0x00000080U
+    // .. .. .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0x00000080U
+    // .. .. .. ..
     EMIT_MASKWRITE(0XE000A204, 0xFFFFFFFFU ,0x00000080U),
     // .. .. .. FINISH: DIR MODE BANK 0
     // .. .. .. START: DIR MODE BANK 1
@@ -8086,52 +7989,6 @@ unsigned long ps7_peripherals_init_data_2_0[] = {
     // .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000000U
     // .. .. .. 
     EMIT_MASKWRITE(0XE000A000, 0xFFFFFFFFU ,0xFF7F0000U),
-    // .. .. .. FINISH: MASK_DATA_0_LSW LOW BANK [15:0]
-    // .. .. .. START: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. FINISH: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. START: MASK_DATA_1_LSW LOW BANK [47:32]
-    // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
-    // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. START: ADD 1 MS DELAY
-    // .. .. .. 
-    EMIT_MASKDELAY(0XF8F00200, 1),
-    // .. .. .. FINISH: ADD 1 MS DELAY
-    // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. MASK_0_LSW = 0xff7f
-    // .. .. .. ==> 0XE000A000[31:16] = 0x0000FF7FU
-    // .. .. ..     ==> MASK : 0xFFFF0000U    VAL : 0xFF7F0000U
-    // .. .. .. DATA_0_LSW = 0x80
-    // .. .. .. ==> 0XE000A000[15:0] = 0x00000080U
-    // .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000080U
-    // .. .. .. 
-    EMIT_MASKWRITE(0XE000A000, 0xFFFFFFFFU ,0xFF7F0080U),
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. FINISH: USB0 RESET
-    // .. .. .. START: USB1 RESET
-    // .. .. .. .. START: DIR MODE BANK 0
-    // .. .. .. .. FINISH: DIR MODE BANK 0
-    // .. .. .. .. START: DIR MODE BANK 1
-    // .. .. .. .. FINISH: DIR MODE BANK 1
-    // .. .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. START: OUTPUT ENABLE BANK 0
-    // .. .. .. .. FINISH: OUTPUT ENABLE BANK 0
-    // .. .. .. .. START: OUTPUT ENABLE BANK 1
-    // .. .. .. .. FINISH: OUTPUT ENABLE BANK 1
-    // .. .. .. .. START: MASK_DATA_0_LSW LOW BANK [15:0]
     // .. .. .. .. FINISH: MASK_DATA_0_LSW LOW BANK [15:0]
     // .. .. .. .. START: MASK_DATA_0_MSW LOW BANK [31:16]
     // .. .. .. .. FINISH: MASK_DATA_0_MSW LOW BANK [31:16]
@@ -8144,6 +8001,14 @@ unsigned long ps7_peripherals_init_data_2_0[] = {
     EMIT_MASKDELAY(0XF8F00200, 1),
     // .. .. .. .. FINISH: ADD 1 MS DELAY
     // .. .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. .. MASK_0_LSW = 0xff7f
+    // .. .. .. .. ==> 0XE000A000[31:16] = 0x0000FF7FU
+    // .. .. .. ..     ==> MASK : 0xFFFF0000U    VAL : 0xFF7F0000U
+    // .. .. .. .. DATA_0_LSW = 0x80
+    // .. .. .. .. ==> 0XE000A000[15:0] = 0x00000080U
+    // .. .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000080U
+    // .. .. .. ..
+    EMIT_MASKWRITE(0XE000A000, 0xFFFFFFFFU ,0xFF7F0080U),
     // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
     // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
     // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
@@ -8151,16 +8016,17 @@ unsigned long ps7_peripherals_init_data_2_0[] = {
     // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
     // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
     // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. FINISH: USB1 RESET
+    // .. .. .. FINISH: USB0 RESET
     // .. .. FINISH: USB RESET
     // .. .. START: ENET RESET
-    // .. .. .. START: DIR MODE BANK 0
-    // .. .. .. FINISH: DIR MODE BANK 0
-    // .. .. .. START: DIR MODE BANK 1
-    // .. .. .. DIRECTION_1 = 0xc000
-    // .. .. .. ==> 0XE000A244[21:0] = 0x0000C000U
-    // .. .. ..     ==> MASK : 0x003FFFFFU    VAL : 0x0000C000U
-    // .. .. .. 
+    // .. .. .. START: ENET0 RESET
+    // .. .. .. .. START: DIR MODE BANK 0
+    // .. .. .. .. FINISH: DIR MODE BANK 0
+    // .. .. .. .. START: DIR MODE BANK 1
+    // .. .. .. .. DIRECTION_1 = 0xc000
+    // .. .. .. .. ==> 0XE000A244[21:0] = 0x0000C000U
+    // .. .. .. ..     ==> MASK : 0x003FFFFFU    VAL : 0x0000C000U
+    // .. .. .. ..
     EMIT_MASKWRITE(0XE000A244, 0x003FFFFFU ,0x0000C000U),
     // .. .. .. FINISH: DIR MODE BANK 1
     // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
@@ -8201,52 +8067,6 @@ unsigned long ps7_peripherals_init_data_2_0[] = {
     // .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000000U
     // .. .. .. 
     EMIT_MASKWRITE(0XE000A008, 0xFFFFFFFFU ,0x7FFF0000U),
-    // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
-    // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. START: ADD 1 MS DELAY
-    // .. .. .. 
-    EMIT_MASKDELAY(0XF8F00200, 1),
-    // .. .. .. FINISH: ADD 1 MS DELAY
-    // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. MASK_1_LSW = 0x7fff
-    // .. .. .. ==> 0XE000A008[31:16] = 0x00007FFFU
-    // .. .. ..     ==> MASK : 0xFFFF0000U    VAL : 0x7FFF0000U
-    // .. .. .. DATA_1_LSW = 0x8000
-    // .. .. .. ==> 0XE000A008[15:0] = 0x00008000U
-    // .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00008000U
-    // .. .. .. 
-    EMIT_MASKWRITE(0XE000A008, 0xFFFFFFFFU ,0x7FFF8000U),
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. FINISH: ENET0 RESET
-    // .. .. .. START: ENET1 RESET
-    // .. .. .. .. START: DIR MODE BANK 0
-    // .. .. .. .. FINISH: DIR MODE BANK 0
-    // .. .. .. .. START: DIR MODE BANK 1
-    // .. .. .. .. FINISH: DIR MODE BANK 1
-    // .. .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. START: OUTPUT ENABLE BANK 0
-    // .. .. .. .. FINISH: OUTPUT ENABLE BANK 0
-    // .. .. .. .. START: OUTPUT ENABLE BANK 1
-    // .. .. .. .. FINISH: OUTPUT ENABLE BANK 1
-    // .. .. .. .. START: MASK_DATA_0_LSW LOW BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW LOW BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW LOW BANK [47:32]
     // .. .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
     // .. .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
     // .. .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
@@ -8259,19 +8079,28 @@ unsigned long ps7_peripherals_init_data_2_0[] = {
     // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
     // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
     // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
+    // .. .. .. .. MASK_1_LSW = 0x7fff
+    // .. .. .. .. ==> 0XE000A008[31:16] = 0x00007FFFU
+    // .. .. .. ..     ==> MASK : 0xFFFF0000U    VAL : 0x7FFF0000U
+    // .. .. .. .. DATA_1_LSW = 0x8000
+    // .. .. .. .. ==> 0XE000A008[15:0] = 0x00008000U
+    // .. .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00008000U
+    // .. .. .. ..
+    EMIT_MASKWRITE(0XE000A008, 0xFFFFFFFFU ,0x7FFF8000U),
     // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
     // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
     // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. FINISH: ENET1 RESET
+    // .. .. .. FINISH: ENET0 RESET
     // .. .. FINISH: ENET RESET
     // .. .. START: I2C RESET
-    // .. .. .. START: DIR MODE GPIO BANK0
-    // .. .. .. FINISH: DIR MODE GPIO BANK0
-    // .. .. .. START: DIR MODE GPIO BANK1
-    // .. .. .. DIRECTION_1 = 0xc000
-    // .. .. .. ==> 0XE000A244[21:0] = 0x0000C000U
-    // .. .. ..     ==> MASK : 0x003FFFFFU    VAL : 0x0000C000U
-    // .. .. .. 
+    // .. .. .. START: I2C0 RESET
+    // .. .. .. .. START: DIR MODE GPIO BANK0
+    // .. .. .. .. FINISH: DIR MODE GPIO BANK0
+    // .. .. .. .. START: DIR MODE GPIO BANK1
+    // .. .. .. .. DIRECTION_1 = 0xc000
+    // .. .. .. .. ==> 0XE000A244[21:0] = 0x0000C000U
+    // .. .. .. ..     ==> MASK : 0x003FFFFFU    VAL : 0x0000C000U
+    // .. .. .. ..
     EMIT_MASKWRITE(0XE000A244, 0x003FFFFFU ,0x0000C000U),
     // .. .. .. FINISH: DIR MODE GPIO BANK1
     // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
@@ -8336,45 +8165,15 @@ unsigned long ps7_peripherals_init_data_2_0[] = {
     // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
     // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
     // .. .. .. FINISH: I2C0 RESET
-    // .. .. .. START: I2C1 RESET
-    // .. .. .. .. START: DIR MODE GPIO BANK0
-    // .. .. .. .. FINISH: DIR MODE GPIO BANK0
-    // .. .. .. .. START: DIR MODE GPIO BANK1
-    // .. .. .. .. FINISH: DIR MODE GPIO BANK1
-    // .. .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. START: OUTPUT ENABLE
-    // .. .. .. .. FINISH: OUTPUT ENABLE
-    // .. .. .. .. START: OUTPUT ENABLE
-    // .. .. .. .. FINISH: OUTPUT ENABLE
-    // .. .. .. .. START: MASK_DATA_0_LSW LOW BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW LOW BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW LOW BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. .. START: ADD 1 MS DELAY
-    // .. .. .. ..
-    EMIT_MASKDELAY(0XF8F00200, 1),
-    // .. .. .. .. FINISH: ADD 1 MS DELAY
-    // .. .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. FINISH: I2C1 RESET
     // .. .. FINISH: I2C RESET
+    // .. .. START: NOR CHIP SELECT
+    // .. .. .. START: DIR MODE BANK 0
+    // .. .. .. FINISH: DIR MODE BANK 0
+    // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. START: OUTPUT ENABLE BANK 0
+    // .. .. .. FINISH: OUTPUT ENABLE BANK 0
+    // .. .. FINISH: NOR CHIP SELECT
     // .. FINISH: SMC TIMING CALCULATION REGISTER UPDATE
     // FINISH: top
     //
@@ -8389,8 +8188,8 @@ unsigned long ps7_post_config_2_0[] = {
     // .. UNLOCK_KEY = 0XDF0D
     // .. ==> 0XF8000008[15:0] = 0x0000DF0DU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000DF0DU
-    // .. 
-    EMIT_MASKWRITE(0XF8000008, 0x0000FFFFU ,0x0000DF0DU),
+    // ..
+    EMIT_WRITE(0XF8000008, 0x0000DF0DU),
     // .. FINISH: SLCR SETTINGS
     // .. START: ENABLING LEVEL SHIFTER
     // .. USER_INP_ICT_EN_0 = 3
@@ -8483,8 +8282,8 @@ unsigned long ps7_post_config_2_0[] = {
     // .. LOCK_KEY = 0X767B
     // .. ==> 0XF8000004[15:0] = 0x0000767BU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000767BU
-    // .. 
-    EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
+    // ..
+    EMIT_WRITE(0XF8000004, 0x0000767BU),
     // .. FINISH: LOCK IT BACK
     // FINISH: top
     //
@@ -8500,18 +8299,18 @@ unsigned long ps7_debug_2_0[] = {
     // .. .. KEY = 0XC5ACCE55
     // .. .. ==> 0XF8898FB0[31:0] = 0xC5ACCE55U
     // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8898FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. ..
+    EMIT_WRITE(0XF8898FB0, 0xC5ACCE55U),
     // .. .. KEY = 0XC5ACCE55
     // .. .. ==> 0XF8899FB0[31:0] = 0xC5ACCE55U
     // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8899FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. ..
+    EMIT_WRITE(0XF8899FB0, 0xC5ACCE55U),
     // .. .. KEY = 0XC5ACCE55
     // .. .. ==> 0XF8809FB0[31:0] = 0xC5ACCE55U
     // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8809FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. ..
+    EMIT_WRITE(0XF8809FB0, 0xC5ACCE55U),
     // .. .. FINISH: UNLOCKING CTI REGISTERS
     // .. .. START: ENABLING CTI MODULES AND CHANNELS
     // .. .. FINISH: ENABLING CTI MODULES AND CHANNELS
@@ -8531,8 +8330,8 @@ unsigned long ps7_pll_init_data_1_0[] = {
     // .. UNLOCK_KEY = 0XDF0D
     // .. ==> 0XF8000008[15:0] = 0x0000DF0DU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000DF0DU
-    // .. 
-    EMIT_MASKWRITE(0XF8000008, 0x0000FFFFU ,0x0000DF0DU),
+    // ..
+    EMIT_WRITE(0XF8000008, 0x0000DF0DU),
     // .. FINISH: SLCR SETTINGS
     // .. START: PLL SLCR REGISTERS
     // .. .. START: ARM PLL INIT
@@ -8742,8 +8541,8 @@ unsigned long ps7_pll_init_data_1_0[] = {
     // .. LOCK_KEY = 0X767B
     // .. ==> 0XF8000004[15:0] = 0x0000767BU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000767BU
-    // .. 
-    EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
+    // ..
+    EMIT_WRITE(0XF8000004, 0x0000767BU),
     // .. FINISH: LOCK IT BACK
     // FINISH: top
     //
@@ -8758,20 +8557,20 @@ unsigned long ps7_clock_init_data_1_0[] = {
     // .. UNLOCK_KEY = 0XDF0D
     // .. ==> 0XF8000008[15:0] = 0x0000DF0DU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000DF0DU
-    // .. 
-    EMIT_MASKWRITE(0XF8000008, 0x0000FFFFU ,0x0000DF0DU),
+    // ..
+    EMIT_WRITE(0XF8000008, 0x0000DF0DU),
     // .. FINISH: SLCR SETTINGS
     // .. START: CLOCK CONTROL SLCR REGISTERS
     // .. CLKACT = 0x1
     // .. ==> 0XF8000128[0:0] = 0x00000001U
     // ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
-    // .. DIVISOR0 = 0x23
-    // .. ==> 0XF8000128[13:8] = 0x00000023U
-    // ..     ==> MASK : 0x00003F00U    VAL : 0x00002300U
-    // .. DIVISOR1 = 0x3
-    // .. ==> 0XF8000128[25:20] = 0x00000003U
-    // ..     ==> MASK : 0x03F00000U    VAL : 0x00300000U
-    // .. 
+    // .. DIVISOR0 = 0xf
+    // .. ==> 0XF8000128[13:8] = 0x0000000FU
+    // ..     ==> MASK : 0x00003F00U    VAL : 0x00000F00U
+    // .. DIVISOR1 = 0x7
+    // .. ==> 0XF8000128[25:20] = 0x00000007U
+    // ..     ==> MASK : 0x03F00000U    VAL : 0x00700000U
+    // ..
     EMIT_MASKWRITE(0XF8000128, 0x03F03F01U ,0x00700F01U),
     // .. CLKACT = 0x1
     // .. ==> 0XF8000138[0:0] = 0x00000001U
@@ -8834,16 +8633,18 @@ unsigned long ps7_clock_init_data_1_0[] = {
     // ..     ==> MASK : 0x00003F00U    VAL : 0x00001400U
     // .. 
     EMIT_MASKWRITE(0XF8000154, 0x00003F33U ,0x00001402U),
-    // .. CLKACT = 0x1
-    // .. ==> 0XF8000168[0:0] = 0x00000001U
-    // ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
-    // .. SRCSEL = 0x0
-    // .. ==> 0XF8000168[5:4] = 0x00000000U
-    // ..     ==> MASK : 0x00000030U    VAL : 0x00000000U
-    // .. DIVISOR = 0x5
-    // .. ==> 0XF8000168[13:8] = 0x00000005U
-    // ..     ==> MASK : 0x00003F00U    VAL : 0x00000500U
-    // .. 
+    // .. .. START: TRACE CLOCK
+    // .. .. FINISH: TRACE CLOCK
+    // .. .. CLKACT = 0x1
+    // .. .. ==> 0XF8000168[0:0] = 0x00000001U
+    // .. ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
+    // .. .. SRCSEL = 0x0
+    // .. .. ==> 0XF8000168[5:4] = 0x00000000U
+    // .. ..     ==> MASK : 0x00000030U    VAL : 0x00000000U
+    // .. .. DIVISOR = 0x5
+    // .. .. ==> 0XF8000168[13:8] = 0x00000005U
+    // .. ..     ==> MASK : 0x00003F00U    VAL : 0x00000500U
+    // .. ..
     EMIT_MASKWRITE(0XF8000168, 0x00003F31U ,0x00000501U),
     // .. .. SRCSEL = 0x0
     // .. .. ==> 0XF8000170[5:4] = 0x00000000U
@@ -8924,8 +8725,8 @@ unsigned long ps7_clock_init_data_1_0[] = {
     // .. LOCK_KEY = 0X767B
     // .. ==> 0XF8000004[15:0] = 0x0000767BU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000767BU
-    // .. 
-    EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
+    // ..
+    EMIT_WRITE(0XF8000004, 0x0000767BU),
     // .. FINISH: LOCK IT BACK
     // FINISH: top
     //
@@ -8965,9 +8766,9 @@ unsigned long ps7_ddr_init_data_1_0[] = {
     // .. .. 
     EMIT_MASKWRITE(0XF8006000, 0x0001FFFFU ,0x00000080U),
     // .. .. FINISH: LOCK DDR
-    // .. .. reg_ddrc_t_rfc_nom_x32 = 0x81
-    // .. .. ==> 0XF8006004[11:0] = 0x00000081U
-    // .. ..     ==> MASK : 0x00000FFFU    VAL : 0x00000081U
+    // .. .. reg_ddrc_t_rfc_nom_x32 = 0x82
+    // .. .. ==> 0XF8006004[11:0] = 0x00000082U
+    // .. ..     ==> MASK : 0x00000FFFU    VAL : 0x00000082U
     // .. .. reg_ddrc_active_ranks = 0x1
     // .. .. ==> 0XF8006004[13:12] = 0x00000001U
     // .. ..     ==> MASK : 0x00003000U    VAL : 0x00001000U
@@ -8989,8 +8790,8 @@ unsigned long ps7_ddr_init_data_1_0[] = {
     // .. .. reg_ddrc_addrmap_4bank_ram = 0x0
     // .. .. ==> 0XF8006004[28:28] = 0x00000000U
     // .. ..     ==> MASK : 0x10000000U    VAL : 0x00000000U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8006004, 0x1FFFFFFFU ,0x00081081U),
+    // .. ..
+    EMIT_MASKWRITE(0XF8006004, 0x1FFFFFFFU ,0x00081082U),
     // .. .. reg_ddrc_hpr_min_non_critical_x32 = 0xf
     // .. .. ==> 0XF8006008[10:0] = 0x0000000FU
     // .. ..     ==> MASK : 0x000007FFU    VAL : 0x0000000FU
@@ -9035,15 +8836,15 @@ unsigned long ps7_ddr_init_data_1_0[] = {
     // .. ..     ==> MASK : 0x001FC000U    VAL : 0x00040000U
     // .. .. 
     EMIT_MASKWRITE(0XF8006014, 0x001FFFFFU ,0x0004159BU),
-    // .. .. reg_ddrc_wr2pre = 0x12
-    // .. .. ==> 0XF8006018[4:0] = 0x00000012U
-    // .. ..     ==> MASK : 0x0000001FU    VAL : 0x00000012U
+    // .. .. reg_ddrc_wr2pre = 0x13
+    // .. .. ==> 0XF8006018[4:0] = 0x00000013U
+    // .. ..     ==> MASK : 0x0000001FU    VAL : 0x00000013U
     // .. .. reg_ddrc_powerdown_to_x32 = 0x6
     // .. .. ==> 0XF8006018[9:5] = 0x00000006U
     // .. ..     ==> MASK : 0x000003E0U    VAL : 0x000000C0U
-    // .. .. reg_ddrc_t_faw = 0x10
-    // .. .. ==> 0XF8006018[15:10] = 0x00000010U
-    // .. ..     ==> MASK : 0x0000FC00U    VAL : 0x00004000U
+    // .. .. reg_ddrc_t_faw = 0x11
+    // .. .. ==> 0XF8006018[15:10] = 0x00000011U
+    // .. ..     ==> MASK : 0x0000FC00U    VAL : 0x00004400U
     // .. .. reg_ddrc_t_ras_max = 0x24
     // .. .. ==> 0XF8006018[21:16] = 0x00000024U
     // .. ..     ==> MASK : 0x003F0000U    VAL : 0x00240000U
@@ -9053,37 +8854,37 @@ unsigned long ps7_ddr_init_data_1_0[] = {
     // .. .. reg_ddrc_t_cke = 0x4
     // .. .. ==> 0XF8006018[31:28] = 0x00000004U
     // .. ..     ==> MASK : 0xF0000000U    VAL : 0x40000000U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8006018, 0xF7FFFFFFU ,0x452440D2U),
+    // .. ..
+    EMIT_MASKWRITE(0XF8006018, 0xF7FFFFFFU ,0x452444D3U),
     // .. .. reg_ddrc_write_latency = 0x5
     // .. .. ==> 0XF800601C[4:0] = 0x00000005U
     // .. ..     ==> MASK : 0x0000001FU    VAL : 0x00000005U
     // .. .. reg_ddrc_rd2wr = 0x7
     // .. .. ==> 0XF800601C[9:5] = 0x00000007U
     // .. ..     ==> MASK : 0x000003E0U    VAL : 0x000000E0U
-    // .. .. reg_ddrc_wr2rd = 0xe
-    // .. .. ==> 0XF800601C[14:10] = 0x0000000EU
-    // .. ..     ==> MASK : 0x00007C00U    VAL : 0x00003800U
-    // .. .. reg_ddrc_t_xp = 0x4
-    // .. .. ==> 0XF800601C[19:15] = 0x00000004U
-    // .. ..     ==> MASK : 0x000F8000U    VAL : 0x00020000U
+    // .. .. reg_ddrc_wr2rd = 0xf
+    // .. .. ==> 0XF800601C[14:10] = 0x0000000FU
+    // .. ..     ==> MASK : 0x00007C00U    VAL : 0x00003C00U
+    // .. .. reg_ddrc_t_xp = 0x5
+    // .. .. ==> 0XF800601C[19:15] = 0x00000005U
+    // .. ..     ==> MASK : 0x000F8000U    VAL : 0x00028000U
     // .. .. reg_ddrc_pad_pd = 0x0
     // .. .. ==> 0XF800601C[22:20] = 0x00000000U
     // .. ..     ==> MASK : 0x00700000U    VAL : 0x00000000U
-    // .. .. reg_ddrc_rd2pre = 0x4
-    // .. .. ==> 0XF800601C[27:23] = 0x00000004U
-    // .. ..     ==> MASK : 0x0F800000U    VAL : 0x02000000U
+    // .. .. reg_ddrc_rd2pre = 0x5
+    // .. .. ==> 0XF800601C[27:23] = 0x00000005U
+    // .. ..     ==> MASK : 0x0F800000U    VAL : 0x02800000U
     // .. .. reg_ddrc_t_rcd = 0x7
     // .. .. ==> 0XF800601C[31:28] = 0x00000007U
     // .. ..     ==> MASK : 0xF0000000U    VAL : 0x70000000U
-    // .. .. 
-    EMIT_MASKWRITE(0XF800601C, 0xFFFFFFFFU ,0x720238E5U),
+    // .. ..
+    EMIT_MASKWRITE(0XF800601C, 0xFFFFFFFFU ,0x7282BCE5U),
     // .. .. reg_ddrc_t_ccd = 0x4
     // .. .. ==> 0XF8006020[4:2] = 0x00000004U
     // .. ..     ==> MASK : 0x0000001CU    VAL : 0x00000010U
-    // .. .. reg_ddrc_t_rrd = 0x4
-    // .. .. ==> 0XF8006020[7:5] = 0x00000004U
-    // .. ..     ==> MASK : 0x000000E0U    VAL : 0x00000080U
+    // .. .. reg_ddrc_t_rrd = 0x5
+    // .. .. ==> 0XF8006020[7:5] = 0x00000005U
+    // .. ..     ==> MASK : 0x000000E0U    VAL : 0x000000A0U
     // .. .. reg_ddrc_refresh_margin = 0x2
     // .. .. ==> 0XF8006020[11:8] = 0x00000002U
     // .. ..     ==> MASK : 0x00000F00U    VAL : 0x00000200U
@@ -9114,8 +8915,8 @@ unsigned long ps7_ddr_init_data_1_0[] = {
     // .. .. reg_ddrc_loopback = 0x0
     // .. .. ==> 0XF8006020[31:31] = 0x00000000U
     // .. ..     ==> MASK : 0x80000000U    VAL : 0x00000000U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8006020, 0xFFFFFFFCU ,0x27287290U),
+    // .. ..
+    EMIT_MASKWRITE(0XF8006020, 0xFFFFFFFCU ,0x272872B0U),
     // .. .. reg_ddrc_en_2t_timing_mode = 0x0
     // .. .. ==> 0XF8006024[0:0] = 0x00000000U
     // .. ..     ==> MASK : 0x00000001U    VAL : 0x00000000U
@@ -9164,20 +8965,20 @@ unsigned long ps7_ddr_init_data_1_0[] = {
     // .. ..     ==> MASK : 0xFFFF0000U    VAL : 0x00000000U
     // .. .. 
     EMIT_MASKWRITE(0XF800602C, 0xFFFFFFFFU ,0x00000008U),
-    // .. .. reg_ddrc_mr = 0x930
-    // .. .. ==> 0XF8006030[15:0] = 0x00000930U
-    // .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000930U
+    // .. .. reg_ddrc_mr = 0xb30
+    // .. .. ==> 0XF8006030[15:0] = 0x00000B30U
+    // .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000B30U
     // .. .. reg_ddrc_emr = 0x4
     // .. .. ==> 0XF8006030[31:16] = 0x00000004U
     // .. ..     ==> MASK : 0xFFFF0000U    VAL : 0x00040000U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8006030, 0xFFFFFFFFU ,0x00040930U),
+    // .. ..
+    EMIT_MASKWRITE(0XF8006030, 0xFFFFFFFFU ,0x00040B30U),
     // .. .. reg_ddrc_burst_rdwr = 0x4
     // .. .. ==> 0XF8006034[3:0] = 0x00000004U
     // .. ..     ==> MASK : 0x0000000FU    VAL : 0x00000004U
-    // .. .. reg_ddrc_pre_cke_x1024 = 0x105
-    // .. .. ==> 0XF8006034[13:4] = 0x00000105U
-    // .. ..     ==> MASK : 0x00003FF0U    VAL : 0x00001050U
+    // .. .. reg_ddrc_pre_cke_x1024 = 0x16d
+    // .. .. ==> 0XF8006034[13:4] = 0x0000016DU
+    // .. ..     ==> MASK : 0x00003FF0U    VAL : 0x000016D0U
     // .. .. reg_ddrc_post_cke_x1024 = 0x1
     // .. .. ==> 0XF8006034[25:16] = 0x00000001U
     // .. ..     ==> MASK : 0x03FF0000U    VAL : 0x00010000U
@@ -10180,8 +9981,8 @@ unsigned long ps7_mio_init_data_1_0[] = {
     // .. UNLOCK_KEY = 0XDF0D
     // .. ==> 0XF8000008[15:0] = 0x0000DF0DU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000DF0DU
-    // .. 
-    EMIT_MASKWRITE(0XF8000008, 0x0000FFFFU ,0x0000DF0DU),
+    // ..
+    EMIT_WRITE(0XF8000008, 0x0000DF0DU),
     // .. FINISH: SLCR SETTINGS
     // .. START: OCM REMAPPING
     // .. VREF_EN = 0x1
@@ -12142,8 +11943,8 @@ unsigned long ps7_mio_init_data_1_0[] = {
     // .. LOCK_KEY = 0X767B
     // .. ==> 0XF8000004[15:0] = 0x0000767BU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000767BU
-    // .. 
-    EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
+    // ..
+    EMIT_WRITE(0XF8000004, 0x0000767BU),
     // .. FINISH: LOCK IT BACK
     // FINISH: top
     //
@@ -12158,8 +11959,8 @@ unsigned long ps7_peripherals_init_data_1_0[] = {
     // .. UNLOCK_KEY = 0XDF0D
     // .. ==> 0XF8000008[15:0] = 0x0000DF0DU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000DF0DU
-    // .. 
-    EMIT_MASKWRITE(0XF8000008, 0x0000FFFFU ,0x0000DF0DU),
+    // ..
+    EMIT_WRITE(0XF8000008, 0x0000DF0DU),
     // .. FINISH: SLCR SETTINGS
     // .. START: DDR TERM/IBUF_DISABLE_MODE SETTINGS
     // .. IBUF_DISABLE_MODE = 0x1
@@ -12199,13 +12000,11 @@ unsigned long ps7_peripherals_init_data_1_0[] = {
     // .. LOCK_KEY = 0X767B
     // .. ==> 0XF8000004[15:0] = 0x0000767BU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000767BU
-    // .. 
-    EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
+    // ..
+    EMIT_WRITE(0XF8000004, 0x0000767BU),
     // .. FINISH: LOCK IT BACK
     // .. START: SRAM/NOR SET OPMODE
     // .. FINISH: SRAM/NOR SET OPMODE
-    // .. START: TRACE CURRENT PORT SIZE
-    // .. FINISH: TRACE CURRENT PORT SIZE
     // .. START: UART REGISTERS
     // .. BDIV = 0x6
     // .. ==> 0XE0001034[7:0] = 0x00000006U
@@ -12304,11 +12103,12 @@ unsigned long ps7_peripherals_init_data_1_0[] = {
     // .. .. START: NOR CS1 BASE ADDRESS
     // .. .. FINISH: NOR CS1 BASE ADDRESS
     // .. .. START: USB RESET
-    // .. .. .. START: DIR MODE BANK 0
-    // .. .. .. DIRECTION_0 = 0x80
-    // .. .. .. ==> 0XE000A204[31:0] = 0x00000080U
-    // .. .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0x00000080U
-    // .. .. .. 
+    // .. .. .. START: USB0 RESET
+    // .. .. .. .. START: DIR MODE BANK 0
+    // .. .. .. .. DIRECTION_0 = 0x80
+    // .. .. .. .. ==> 0XE000A204[31:0] = 0x00000080U
+    // .. .. .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0x00000080U
+    // .. .. .. ..
     EMIT_MASKWRITE(0XE000A204, 0xFFFFFFFFU ,0x00000080U),
     // .. .. .. FINISH: DIR MODE BANK 0
     // .. .. .. START: DIR MODE BANK 1
@@ -12347,52 +12147,6 @@ unsigned long ps7_peripherals_init_data_1_0[] = {
     // .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000000U
     // .. .. .. 
     EMIT_MASKWRITE(0XE000A000, 0xFFFFFFFFU ,0xFF7F0000U),
-    // .. .. .. FINISH: MASK_DATA_0_LSW LOW BANK [15:0]
-    // .. .. .. START: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. FINISH: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. START: MASK_DATA_1_LSW LOW BANK [47:32]
-    // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
-    // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. START: ADD 1 MS DELAY
-    // .. .. .. 
-    EMIT_MASKDELAY(0XF8F00200, 1),
-    // .. .. .. FINISH: ADD 1 MS DELAY
-    // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. MASK_0_LSW = 0xff7f
-    // .. .. .. ==> 0XE000A000[31:16] = 0x0000FF7FU
-    // .. .. ..     ==> MASK : 0xFFFF0000U    VAL : 0xFF7F0000U
-    // .. .. .. DATA_0_LSW = 0x80
-    // .. .. .. ==> 0XE000A000[15:0] = 0x00000080U
-    // .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000080U
-    // .. .. .. 
-    EMIT_MASKWRITE(0XE000A000, 0xFFFFFFFFU ,0xFF7F0080U),
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. FINISH: USB0 RESET
-    // .. .. .. START: USB1 RESET
-    // .. .. .. .. START: DIR MODE BANK 0
-    // .. .. .. .. FINISH: DIR MODE BANK 0
-    // .. .. .. .. START: DIR MODE BANK 1
-    // .. .. .. .. FINISH: DIR MODE BANK 1
-    // .. .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. START: OUTPUT ENABLE BANK 0
-    // .. .. .. .. FINISH: OUTPUT ENABLE BANK 0
-    // .. .. .. .. START: OUTPUT ENABLE BANK 1
-    // .. .. .. .. FINISH: OUTPUT ENABLE BANK 1
-    // .. .. .. .. START: MASK_DATA_0_LSW LOW BANK [15:0]
     // .. .. .. .. FINISH: MASK_DATA_0_LSW LOW BANK [15:0]
     // .. .. .. .. START: MASK_DATA_0_MSW LOW BANK [31:16]
     // .. .. .. .. FINISH: MASK_DATA_0_MSW LOW BANK [31:16]
@@ -12405,6 +12159,14 @@ unsigned long ps7_peripherals_init_data_1_0[] = {
     EMIT_MASKDELAY(0XF8F00200, 1),
     // .. .. .. .. FINISH: ADD 1 MS DELAY
     // .. .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. .. MASK_0_LSW = 0xff7f
+    // .. .. .. .. ==> 0XE000A000[31:16] = 0x0000FF7FU
+    // .. .. .. ..     ==> MASK : 0xFFFF0000U    VAL : 0xFF7F0000U
+    // .. .. .. .. DATA_0_LSW = 0x80
+    // .. .. .. .. ==> 0XE000A000[15:0] = 0x00000080U
+    // .. .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000080U
+    // .. .. .. ..
+    EMIT_MASKWRITE(0XE000A000, 0xFFFFFFFFU ,0xFF7F0080U),
     // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
     // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
     // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
@@ -12412,16 +12174,17 @@ unsigned long ps7_peripherals_init_data_1_0[] = {
     // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
     // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
     // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. FINISH: USB1 RESET
+    // .. .. .. FINISH: USB0 RESET
     // .. .. FINISH: USB RESET
     // .. .. START: ENET RESET
-    // .. .. .. START: DIR MODE BANK 0
-    // .. .. .. FINISH: DIR MODE BANK 0
-    // .. .. .. START: DIR MODE BANK 1
-    // .. .. .. DIRECTION_1 = 0xc000
-    // .. .. .. ==> 0XE000A244[21:0] = 0x0000C000U
-    // .. .. ..     ==> MASK : 0x003FFFFFU    VAL : 0x0000C000U
-    // .. .. .. 
+    // .. .. .. START: ENET0 RESET
+    // .. .. .. .. START: DIR MODE BANK 0
+    // .. .. .. .. FINISH: DIR MODE BANK 0
+    // .. .. .. .. START: DIR MODE BANK 1
+    // .. .. .. .. DIRECTION_1 = 0xc000
+    // .. .. .. .. ==> 0XE000A244[21:0] = 0x0000C000U
+    // .. .. .. ..     ==> MASK : 0x003FFFFFU    VAL : 0x0000C000U
+    // .. .. .. ..
     EMIT_MASKWRITE(0XE000A244, 0x003FFFFFU ,0x0000C000U),
     // .. .. .. FINISH: DIR MODE BANK 1
     // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
@@ -12462,52 +12225,6 @@ unsigned long ps7_peripherals_init_data_1_0[] = {
     // .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00000000U
     // .. .. .. 
     EMIT_MASKWRITE(0XE000A008, 0xFFFFFFFFU ,0x7FFF0000U),
-    // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
-    // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. START: ADD 1 MS DELAY
-    // .. .. .. 
-    EMIT_MASKDELAY(0XF8F00200, 1),
-    // .. .. .. FINISH: ADD 1 MS DELAY
-    // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. MASK_1_LSW = 0x7fff
-    // .. .. .. ==> 0XE000A008[31:16] = 0x00007FFFU
-    // .. .. ..     ==> MASK : 0xFFFF0000U    VAL : 0x7FFF0000U
-    // .. .. .. DATA_1_LSW = 0x8000
-    // .. .. .. ==> 0XE000A008[15:0] = 0x00008000U
-    // .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00008000U
-    // .. .. .. 
-    EMIT_MASKWRITE(0XE000A008, 0xFFFFFFFFU ,0x7FFF8000U),
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. FINISH: ENET0 RESET
-    // .. .. .. START: ENET1 RESET
-    // .. .. .. .. START: DIR MODE BANK 0
-    // .. .. .. .. FINISH: DIR MODE BANK 0
-    // .. .. .. .. START: DIR MODE BANK 1
-    // .. .. .. .. FINISH: DIR MODE BANK 1
-    // .. .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. START: OUTPUT ENABLE BANK 0
-    // .. .. .. .. FINISH: OUTPUT ENABLE BANK 0
-    // .. .. .. .. START: OUTPUT ENABLE BANK 1
-    // .. .. .. .. FINISH: OUTPUT ENABLE BANK 1
-    // .. .. .. .. START: MASK_DATA_0_LSW LOW BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW LOW BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW LOW BANK [47:32]
     // .. .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
     // .. .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
     // .. .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
@@ -12520,19 +12237,28 @@ unsigned long ps7_peripherals_init_data_1_0[] = {
     // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
     // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
     // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
+    // .. .. .. .. MASK_1_LSW = 0x7fff
+    // .. .. .. .. ==> 0XE000A008[31:16] = 0x00007FFFU
+    // .. .. .. ..     ==> MASK : 0xFFFF0000U    VAL : 0x7FFF0000U
+    // .. .. .. .. DATA_1_LSW = 0x8000
+    // .. .. .. .. ==> 0XE000A008[15:0] = 0x00008000U
+    // .. .. .. ..     ==> MASK : 0x0000FFFFU    VAL : 0x00008000U
+    // .. .. .. ..
+    EMIT_MASKWRITE(0XE000A008, 0xFFFFFFFFU ,0x7FFF8000U),
     // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
     // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
     // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. FINISH: ENET1 RESET
+    // .. .. .. FINISH: ENET0 RESET
     // .. .. FINISH: ENET RESET
     // .. .. START: I2C RESET
-    // .. .. .. START: DIR MODE GPIO BANK0
-    // .. .. .. FINISH: DIR MODE GPIO BANK0
-    // .. .. .. START: DIR MODE GPIO BANK1
-    // .. .. .. DIRECTION_1 = 0xc000
-    // .. .. .. ==> 0XE000A244[21:0] = 0x0000C000U
-    // .. .. ..     ==> MASK : 0x003FFFFFU    VAL : 0x0000C000U
-    // .. .. .. 
+    // .. .. .. START: I2C0 RESET
+    // .. .. .. .. START: DIR MODE GPIO BANK0
+    // .. .. .. .. FINISH: DIR MODE GPIO BANK0
+    // .. .. .. .. START: DIR MODE GPIO BANK1
+    // .. .. .. .. DIRECTION_1 = 0xc000
+    // .. .. .. .. ==> 0XE000A244[21:0] = 0x0000C000U
+    // .. .. .. ..     ==> MASK : 0x003FFFFFU    VAL : 0x0000C000U
+    // .. .. .. ..
     EMIT_MASKWRITE(0XE000A244, 0x003FFFFFU ,0x0000C000U),
     // .. .. .. FINISH: DIR MODE GPIO BANK1
     // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
@@ -12597,45 +12323,15 @@ unsigned long ps7_peripherals_init_data_1_0[] = {
     // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
     // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
     // .. .. .. FINISH: I2C0 RESET
-    // .. .. .. START: I2C1 RESET
-    // .. .. .. .. START: DIR MODE GPIO BANK0
-    // .. .. .. .. FINISH: DIR MODE GPIO BANK0
-    // .. .. .. .. START: DIR MODE GPIO BANK1
-    // .. .. .. .. FINISH: DIR MODE GPIO BANK1
-    // .. .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. START: OUTPUT ENABLE
-    // .. .. .. .. FINISH: OUTPUT ENABLE
-    // .. .. .. .. START: OUTPUT ENABLE
-    // .. .. .. .. FINISH: OUTPUT ENABLE
-    // .. .. .. .. START: MASK_DATA_0_LSW LOW BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW LOW BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW LOW BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW LOW BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
-    // .. .. .. .. START: ADD 1 MS DELAY
-    // .. .. .. ..
-    EMIT_MASKDELAY(0XF8F00200, 1),
-    // .. .. .. .. FINISH: ADD 1 MS DELAY
-    // .. .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
-    // .. .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
-    // .. .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
-    // .. .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
-    // .. .. .. FINISH: I2C1 RESET
     // .. .. FINISH: I2C RESET
+    // .. .. START: NOR CHIP SELECT
+    // .. .. .. START: DIR MODE BANK 0
+    // .. .. .. FINISH: DIR MODE BANK 0
+    // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. START: OUTPUT ENABLE BANK 0
+    // .. .. .. FINISH: OUTPUT ENABLE BANK 0
+    // .. .. FINISH: NOR CHIP SELECT
     // .. FINISH: SMC TIMING CALCULATION REGISTER UPDATE
     // FINISH: top
     //
@@ -12650,8 +12346,8 @@ unsigned long ps7_post_config_1_0[] = {
     // .. UNLOCK_KEY = 0XDF0D
     // .. ==> 0XF8000008[15:0] = 0x0000DF0DU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000DF0DU
-    // .. 
-    EMIT_MASKWRITE(0XF8000008, 0x0000FFFFU ,0x0000DF0DU),
+    // ..
+    EMIT_WRITE(0XF8000008, 0x0000DF0DU),
     // .. FINISH: SLCR SETTINGS
     // .. START: ENABLING LEVEL SHIFTER
     // .. USER_INP_ICT_EN_0 = 3
@@ -12744,8 +12440,8 @@ unsigned long ps7_post_config_1_0[] = {
     // .. LOCK_KEY = 0X767B
     // .. ==> 0XF8000004[15:0] = 0x0000767BU
     // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000767BU
-    // .. 
-    EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
+    // ..
+    EMIT_WRITE(0XF8000004, 0x0000767BU),
     // .. FINISH: LOCK IT BACK
     // FINISH: top
     //
@@ -12761,18 +12457,18 @@ unsigned long ps7_debug_1_0[] = {
     // .. .. KEY = 0XC5ACCE55
     // .. .. ==> 0XF8898FB0[31:0] = 0xC5ACCE55U
     // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8898FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. ..
+    EMIT_WRITE(0XF8898FB0, 0xC5ACCE55U),
     // .. .. KEY = 0XC5ACCE55
     // .. .. ==> 0XF8899FB0[31:0] = 0xC5ACCE55U
     // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8899FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. ..
+    EMIT_WRITE(0XF8899FB0, 0xC5ACCE55U),
     // .. .. KEY = 0XC5ACCE55
     // .. .. ==> 0XF8809FB0[31:0] = 0xC5ACCE55U
     // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
-    // .. .. 
-    EMIT_MASKWRITE(0XF8809FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. ..
+    EMIT_WRITE(0XF8809FB0, 0xC5ACCE55U),
     // .. .. FINISH: UNLOCKING CTI REGISTERS
     // .. .. START: ENABLING CTI MODULES AND CHANNELS
     // .. .. FINISH: ENABLING CTI MODULES AND CHANNELS
