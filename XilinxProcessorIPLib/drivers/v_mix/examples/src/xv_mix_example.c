@@ -434,10 +434,6 @@ static int ConfigFrmbuf(XV_FrmbufRd_l2 *LayerFrmbuf,
   int Status;
   u32 IrqMask;
 
-  /* Stop Frame Buffers */
-  XVFrmbufRd_Stop(LayerFrmbuf);
-  resetIp();
-
   /* Configure Frame Buffers */
   Status = XVFrmbufRd_SetMemFormat(LayerFrmbuf, StrideInBytes, Cfmt, StreamPtr);
   if(Status != XST_SUCCESS) {
@@ -928,6 +924,21 @@ int main(void)
 
   for(index=0; index<NUM_TEST_MODES; ++index)
   {
+#ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
+	int numFB = 0;
+	int layerIndex = 0;
+
+	for (layerIndex = XVMIX_LAYER_1; layerIndex <
+			MixerPtr->Mix.Config.NumLayers; ++layerIndex) {
+		if ((XVMix_IsLayerInterfaceStream(MixerPtr, layerIndex))) {
+			/* Stop Frame Buffers */
+			XVFrmbufRd_Stop(&FBLayer[numFB].Inst);
+			resetIp();
+			numFB++;
+		}
+	}
+	numFB = 0;
+#endif
     // Get mode to test
     VidStream.VmId = TestModes[index];
 
@@ -944,9 +955,7 @@ int main(void)
     ConfigVtc(&VidStream);
 
 #ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
-
     /* Configure Frame Buffers */
-    int numFB = 0;
     for(int layerIndex=XVMIX_LAYER_1; layerIndex<MixerPtr->Mix.Config.NumLayers; ++layerIndex) {
       if ((XVMix_IsLayerInterfaceStream(MixerPtr, layerIndex))) {
           XVMix_GetLayerColorFormat(MixerPtr, layerIndex, &StreamFmt);
