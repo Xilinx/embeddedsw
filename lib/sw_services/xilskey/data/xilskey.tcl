@@ -68,7 +68,7 @@ proc xgen_opts_file {libhandle} {
 	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $proc_instance] ]
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
-	set proc_type [common::get_property IP_NAME [hsi::get_cells $hw_processor]];
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 
