@@ -640,18 +640,38 @@ ENDF:
 u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr)
 {
 	u32 PufStatus;
+	u32 Status = XST_SUCCESS;
+	u32 PufChash;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 
         /* Assert validates the input arguments */
         Xil_AssertNonvoid(InstancePtr != NULL);
 
-	 xPuf_printf(Debug,"API: PUF Regeneration\r\n");
+	Status = XilSKey_ZynqMp_EfusePs_ReadPufChash(&PufChash, 0);
+        if (Status != XST_SUCCESS) {
+                goto END;
+        }
+	if (PufChash == 0U) {
+		Status = XSK_EFUSEPS_ERROR_PUF_INVALID_REQUEST;
+		xPuf_printf(Debug,"PUF regeneration is not allowed"
+			", as PUF data is not stored in eFuse\r\n");
+		goto END;
+	}
+	xPuf_printf(Debug,"API: PUF Regeneration\r\n");
 
+	/* Update the PUF configuration registers */
+	XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR,
+		XSK_ZYNQMP_CSU_PUF_CFG0, XSK_ZYNQMP_PUF_CFG0_INIT_VAL);
+
+	XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR,
+			XSK_ZYNQMP_CSU_PUF_CFG1, XSK_ZYNQMP_PUF_CFG1_INIT_VAL_4K);
+
+	/* Configure the PUF shutter Value */
+	XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR, XSK_ZYNQMP_CSU_PUF_SHUT,
+				XSK_ZYNQMP_PUF_SHUTTER_VALUE);
 	/* PUF key to device key */
 	XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR, XSK_ZYNQMP_CSU_PUF_CMD,
-					XSK_ZYNQMP_PUF_REGENERATION);
-	XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR, XSK_ZYNQMP_CSU_PUF_CMD,
-			XSK_ZYNQMP_PUF_STATUS_READ);
+		XSK_ZYNQMP_PUF_REGENERATION);
 
 	/* Wait till the data word ready */
         PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
@@ -661,8 +681,8 @@ u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr)
 	PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
 					XSK_ZYNQMP_CSU_ISR);
 	xPuf_printf(Debug,"PufStatus : 0x%x \r\n", PufStatus);
-
-	return XST_SUCCESS;
+END:
+	return Status;
 }
 /*****************************************************************************/
 /**
