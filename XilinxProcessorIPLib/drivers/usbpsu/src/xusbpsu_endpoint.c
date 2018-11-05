@@ -33,7 +33,7 @@
 /**
 *
 * @file xusbpsu_endpoint.c
-* @addtogroup usbpsu_v1_0
+* @addtogroup usbpsu_v1_3
 * @{
 *
 *
@@ -44,31 +44,25 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sg  06/06/16 First release
 * 1.3   vak 04/03/17 Added CCI support for USB
-*
+* 1.4	bk  12/01/18 Modify USBPSU driver code to fit USB common example code
+*		       for all USB IPs
+*	myk 12/01/18 Added hibernation support for device mode
 * </pre>
 *
 *****************************************************************************/
 
 /***************************** Include Files *********************************/
-
-#include "xusbpsu.h"
 #include "xusbpsu_endpoint.h"
-/************************** Constant Definitions *****************************/
 
+/************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
-/* return Physical EP number as dwc3 mapping */
-#define PhysicalEp(epnum, direction)	(((epnum) << 1 ) | (direction))
-
 /***************** Macros (Inline Functions) Definitions *********************/
-
 
 /************************** Function Prototypes ******************************/
 
-
 /************************** Variable Definitions *****************************/
-
 
 /****************************************************************************/
 /**
@@ -234,6 +228,8 @@ s32 XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum, u8 Dir)
 * @param	Dir is direction of endpoint - XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
 * @param	Size is size of Endpoint size.
 * @param	Type is Endpoint type Control/Bulk/Interrupt/Isoc.
+* @param	Restore should be true if saved state should be restored;
+*			typically this would be false
 *
 * @return	XST_SUCCESS else XST_FAILURE.
 *
@@ -241,8 +237,9 @@ s32 XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum, u8 Dir)
 *
 *****************************************************************************/
 s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
-						u16 Size, u8 Type)
+						u16 Size, u8 Type, u8 Restore)
 {
+	struct XUsbPsu_Ep *Ept;
 	struct XUsbPsu_EpParams *Params;
 	u8 PhyEpNum;
 
@@ -256,6 +253,7 @@ s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Xil_AssertNonvoid(Params != NULL);
 
 	PhyEpNum = PhysicalEp(UsbEpNum , Dir);
+	Ept = &InstancePtr->eps[PhyEpNum];
 
 	Params->Param0 = XUSBPSU_DEPCFG_EP_TYPE(Type)
 		| XUSBPSU_DEPCFG_MAX_PACKET_SIZE(Size);
@@ -263,10 +261,17 @@ s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	/*
 	 * Set burst size to 1 as recommended
 	 */
-	Params->Param0 |= XUSBPSU_DEPCFG_BURST_SIZE(1);
+	if (InstancePtr->AppData->Speed == XUSBPSU_SPEED_SUPER) {
+		Params->Param0 |= XUSBPSU_DEPCFG_BURST_SIZE(1);
+	}
 
 	Params->Param1 = XUSBPSU_DEPCFG_XFER_COMPLETE_EN
 		| XUSBPSU_DEPCFG_XFER_NOT_READY_EN;
+
+	if (Restore) {
+		Params->Param0 |= XUSBPSU_DEPCFG_ACTION_RESTORE;
+		Params->Param2 = Ept->EpSavedState;
+	}
 
 	/*
 	 * We are doing 1:1 mapping for endpoints, meaning
@@ -278,6 +283,11 @@ s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 
 	if (Dir != XUSBPSU_EP_DIR_OUT) {
 		 Params->Param0 |= XUSBPSU_DEPCFG_FIFO_NUMBER((u32)PhyEpNum >> 1);
+	}
+
+	if (Ept->Type == XUSBPSU_ENDPOINT_XFER_ISOC) {
+		Params->Param1 |= XUSBPSU_DEPCFG_BINTERVAL_M1(Ept->Interval - 1);
+		Params->Param1 |= XUSBPSU_DEPCFG_XFER_IN_PROGRESS_EN;
 	}
 
 	return XUsbPsu_SendEpCmd(InstancePtr, UsbEpNum, Dir,
@@ -326,6 +336,8 @@ s32 XUsbPsu_SetXferResource(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 * @param	Dir is direction of endpoint - XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
 * @param	Maxsize is size of Endpoint size.
 * @param	Type is Endpoint type Control/Bulk/Interrupt/Isoc.
+* @param	Restore should be true if saved state should be restored;
+*			typically this would be false
 *
 * @return	XST_SUCCESS else XST_FAILURE.
 *
@@ -333,9 +345,10 @@ s32 XUsbPsu_SetXferResource(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 *
 ****************************************************************************/
 s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
-			u16 Maxsize, u8 Type)
+			u16 Maxsize, u8 Type, u8 Restore)
 {
 	struct XUsbPsu_Ep *Ept;
+	struct XUsbPsu_Trb *TrbStHw, *TrbLink;
 	u32 RegVal;
 	s32 Ret = (s32)XST_FAILURE;
 	u32 PhyEpNum;
@@ -354,20 +367,28 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Ept->Type	= Type;
 	Ept->MaxSize	= Maxsize;
 	Ept->PhyEpNum	= (u8)PhyEpNum;
+	Ept->CurUf	= 0;
+	if (!InstancePtr->IsHibernated) {
+		Ept->TrbEnqueue	= 0;
+		Ept->TrbDequeue	= 0;
+	}
 
-	if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U) {
+	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
+			|| (InstancePtr->IsHibernated)) {
 		Ret = XUsbPsu_StartEpConfig(InstancePtr, UsbEpNum, Dir);
 		if (Ret != 0) {
 			return Ret;
 		}
 	}
 
-	Ret = XUsbPsu_SetEpConfig(InstancePtr, UsbEpNum, Dir, Maxsize, Type);
+	Ret = XUsbPsu_SetEpConfig(InstancePtr, UsbEpNum, Dir, Maxsize,
+					Type, Restore);
 	if (Ret != 0) {
 		return Ret;
 	}
 
-	if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U) {
+	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
+			|| (InstancePtr->IsHibernated)) {
 		Ret = XUsbPsu_SetXferResource(InstancePtr, UsbEpNum, Dir);
 		if (Ret != 0) {
 			return Ret;
@@ -378,6 +399,22 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
 		RegVal |= XUSBPSU_DALEPENA_EP(Ept->PhyEpNum);
 		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DALEPENA, RegVal);
+
+		/* Following code is only applicable for ISO XFER */
+		TrbStHw = &Ept->EpTrb[0];
+
+		/* Link TRB. The HWO bit is never reset */
+		TrbLink = &Ept->EpTrb[NO_OF_TRB_PER_EP];
+		memset(TrbLink, 0x00, sizeof(struct XUsbPsu_Trb));
+
+		TrbLink->BufferPtrLow = (UINTPTR)TrbStHw;
+		TrbLink->BufferPtrHigh = ((UINTPTR)TrbStHw >> 16) >> 16;
+		TrbLink->Ctrl |= XUSBPSU_TRBCTL_LINK_TRB;
+		TrbLink->Ctrl |= XUSBPSU_TRB_CTRL_HWO;
+
+		/* flush the link trb */
+		if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
+			Xil_DCacheFlushRange((INTPTR)TrbLink, sizeof(struct XUsbPsu_Trb));
 	}
 
 	return XST_SUCCESS;
@@ -411,6 +448,10 @@ s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	PhyEpNum = PhysicalEp(UsbEpNum , Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
 
+	/* make sure HW endpoint isn't stalled */
+	if (Ept->EpStatus & XUSBPSU_EP_STALL)
+		XUsbPsu_EpClearStall(InstancePtr, Ept->UsbEpNum, Ept->Direction);
+
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
 	RegVal &= ~XUSBPSU_DALEPENA_EP(PhyEpNum);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DALEPENA, RegVal);
@@ -418,6 +459,8 @@ s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	Ept->Type = 0U;
 	Ept->EpStatus = 0U;
 	Ept->MaxSize = 0U;
+	Ept->TrbEnqueue	= 0U;
+	Ept->TrbDequeue	= 0U;
 
 	return XST_SUCCESS;
 }
@@ -442,13 +485,13 @@ s32 XUsbPsu_EnableControlEp(struct XUsbPsu *InstancePtr, u16 Size)
 	Xil_AssertNonvoid((Size >= 64U) && (Size <= 512U));
 
 	RetVal = XUsbPsu_EpEnable(InstancePtr, 0U, XUSBPSU_EP_DIR_OUT, Size,
-				XUSBPSU_ENDPOINT_XFER_CONTROL);
+				XUSBPSU_ENDPOINT_XFER_CONTROL, FALSE);
 	if (RetVal != 0) {
 		return XST_FAILURE;
 	}
 
 	RetVal = XUsbPsu_EpEnable(InstancePtr, 0U, XUSBPSU_EP_DIR_IN, Size,
-				XUSBPSU_ENDPOINT_XFER_CONTROL);
+				XUSBPSU_ENDPOINT_XFER_CONTROL, FALSE);
 	if (RetVal != 0) {
 		return XST_FAILURE;
 	}
@@ -480,11 +523,13 @@ void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr)
 		Epnum = (i << 1U) | XUSBPSU_EP_DIR_OUT;
 		InstancePtr->eps[Epnum].PhyEpNum = Epnum;
 		InstancePtr->eps[Epnum].Direction = XUSBPSU_EP_DIR_OUT;
+		InstancePtr->eps[Epnum].ResourceIndex = 0;
 	}
 	for (i = 0U; i < InstancePtr->NumInEps; i++) {
 		Epnum = (i << 1U) | XUSBPSU_EP_DIR_IN;
 		InstancePtr->eps[Epnum].PhyEpNum = Epnum;
 		InstancePtr->eps[Epnum].Direction = XUSBPSU_EP_DIR_IN;
+		InstancePtr->eps[Epnum].ResourceIndex = 0;
 	}
 }
 
@@ -495,13 +540,15 @@ void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr)
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
 * @param	UsbEpNum is USB endpoint number.
 * @param	Dir is direction of endpoint - XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
+* @Force	Force flag to stop/pause transfer.
 *
 * @return	None.
 *
 * @note		None.
 *
 ****************************************************************************/
-void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
+void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
+			u8 Dir, u8 Force)
 {
 	struct XUsbPsu_Ep *Ept;
 	struct XUsbPsu_EpParams *Params;
@@ -527,13 +574,35 @@ void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	 * - Wait 100us
 	 */
 	Cmd = XUSBPSU_DEPCMD_ENDTRANSFER;
+	Cmd |= Force ? XUSBPSU_DEPCMD_HIPRI_FORCERM : 0;
 	Cmd |= XUSBPSU_DEPCMD_CMDIOC;
 	Cmd |= XUSBPSU_DEPCMD_PARAM(Ept->ResourceIndex);
-	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->PhyEpNum, Ept->Direction,
+	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
 							Cmd, Params);
-	Ept->ResourceIndex = 0U;
+	if (Force)
+		Ept->ResourceIndex = 0U;
 	Ept->EpStatus &= ~XUSBPSU_EP_BUSY;
 	XUsbSleep(100U);
+}
+
+/****************************************************************************/
+/**
+* Query endpoint state and save it in EpSavedState
+*
+* @param 	InstancePtr is a pointer to the XUsbPsu instance.
+* @param 	Ept is a pointer to the XUsbPsu pointer structure.
+*
+* @return	None.
+*
+* @note		None.
+*
+****************************************************************************/
+void XUsbPsu_SaveEndpointState(struct XUsbPsu *InstancePtr, struct XUsbPsu_Ep *Ept)
+{
+       struct XUsbPsu_EpParams *Params = XUsbPsu_GetEpParams(InstancePtr);
+       XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
+                       XUSBPSU_DEPCMD_GETEPSTATE, Params);
+       Ept->EpSavedState = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DEPCMDPAR2(Ept->PhyEpNum));
 }
 
 /****************************************************************************/
@@ -571,7 +640,7 @@ void XUsbPsu_ClearStalls(struct XUsbPsu *InstancePtr)
 
 		Ept->EpStatus &= ~XUSBPSU_EP_STALL;
 
-		(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->PhyEpNum,
+		(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum,
 						  Ept->Direction, XUSBPSU_DEPCMD_CLEARSTALL,
 						  Params);
 	}
@@ -595,6 +664,7 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 						 u8 *BufferPtr, u32 BufferLen)
 {
 	u8	PhyEpNum;
+	u32	cmd;
 	s32	RetVal;
 	struct XUsbPsu_Trb	*TrbPtr;
 	struct XUsbPsu_Ep *Ept;
@@ -620,18 +690,38 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	Ept->BytesTxed = 0U;
 	Ept->BufferPtr = BufferPtr;
 
-	TrbPtr = &Ept->EpTrb;
+	TrbPtr = &Ept->EpTrb[Ept->TrbEnqueue];
 	Xil_AssertNonvoid(TrbPtr != NULL);
 
+	Ept->TrbEnqueue++;
+	if (Ept->TrbEnqueue == NO_OF_TRB_PER_EP)
+		Ept->TrbEnqueue = 0;
 	TrbPtr->BufferPtrLow  = (UINTPTR)BufferPtr;
 	TrbPtr->BufferPtrHigh  = ((UINTPTR)BufferPtr >> 16) >> 16;
 	TrbPtr->Size = BufferLen & XUSBPSU_TRB_SIZE_MASK;
-	TrbPtr->Ctrl = XUSBPSU_TRBCTL_NORMAL;
+
+	switch (Ept->Type) {
+	case XUSBPSU_ENDPOINT_XFER_ISOC:
+		/*
+		 *  According to DWC3 datasheet, XUSBPSU_TRBCTL_ISOCHRONOUS and
+		 *  XUSBPSU_TRBCTL_CHN fields are only set when request has
+		 *  scattered list so these fields are not set over here.
+		 */
+		TrbPtr->Ctrl = (XUSBPSU_TRBCTL_ISOCHRONOUS_FIRST
+				| XUSBPSU_TRB_CTRL_CSP);
+
+		break;
+	case XUSBPSU_ENDPOINT_XFER_INT:
+	case XUSBPSU_ENDPOINT_XFER_BULK:
+		TrbPtr->Ctrl = (XUSBPSU_TRBCTL_NORMAL
+				| XUSBPSU_TRB_CTRL_LST);
+
+		break;
+	}
 
 	TrbPtr->Ctrl |= (XUSBPSU_TRB_CTRL_HWO
-					| XUSBPSU_TRB_CTRL_LST
-					| XUSBPSU_TRB_CTRL_IOC
-					| XUSBPSU_TRB_CTRL_ISP_IMI);
+			| XUSBPSU_TRB_CTRL_IOC
+			| XUSBPSU_TRB_CTRL_ISP_IMI);
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
@@ -643,14 +733,55 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	Params->Param0 = 0U;
 	Params->Param1 = (UINTPTR)TrbPtr;
 
+	if (Ept->EpStatus & XUSBPSU_EP_BUSY) {
+		cmd = XUSBPSU_DEPCMD_UPDATETRANSFER;
+		cmd |= XUSBPSU_DEPCMD_PARAM(Ept->ResourceIndex);
+	} else {
+		if (Ept->Type == XUSBPSU_ENDPOINT_XFER_ISOC) {
+			BufferPtr += BufferLen;
+			struct XUsbPsu_Trb	*TrbTempNext;
+			TrbTempNext = &Ept->EpTrb[Ept->TrbEnqueue];
+			Xil_AssertNonvoid(TrbTempNext != NULL);
+
+			Ept->TrbEnqueue++;
+			if (Ept->TrbEnqueue == NO_OF_TRB_PER_EP)
+				Ept->TrbEnqueue = 0;
+			TrbTempNext->BufferPtrLow  = (UINTPTR)BufferPtr;
+			TrbTempNext->BufferPtrHigh  = ((UINTPTR)BufferPtr >> 16) >> 16;
+			TrbTempNext->Size = BufferLen & XUSBPSU_TRB_SIZE_MASK;
+
+			TrbTempNext->Ctrl = (XUSBPSU_TRBCTL_ISOCHRONOUS_FIRST
+					| XUSBPSU_TRB_CTRL_CSP
+					| XUSBPSU_TRB_CTRL_HWO
+					| XUSBPSU_TRB_CTRL_IOC
+					| XUSBPSU_TRB_CTRL_ISP_IMI);
+
+			if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
+				Xil_DCacheFlushRange((INTPTR)TrbTempNext,
+										sizeof(struct XUsbPsu_Trb));
+				Xil_DCacheFlushRange((INTPTR)BufferPtr, BufferLen);
+			}
+
+		}
+
+		cmd = XUSBPSU_DEPCMD_STARTTRANSFER;
+		cmd |= XUSBPSU_DEPCMD_PARAM(Ept->CurUf);
+	}
+
 	RetVal = XUsbPsu_SendEpCmd(InstancePtr, UsbEp, Ept->Direction,
-								XUSBPSU_DEPCMD_STARTTRANSFER, Params);
+								cmd, Params);
 	if (RetVal != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
-													Ept->UsbEpNum,
-													Ept->Direction);
+
+	if (!(Ept->EpStatus & XUSBPSU_EP_BUSY)) {
+		Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
+				Ept->UsbEpNum,
+				Ept->Direction);
+
+		Ept->EpStatus |= XUSBPSU_EP_BUSY;
+	}
+
 	return XST_SUCCESS;
 }
 
@@ -659,7 +790,7 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 * Initiates DMA to receive data on Endpoint from Host.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	EpNum is USB endpoint number.
+* @param	UsbEp is USB endpoint number.
 * @param	BufferPtr is pointer to data.
 * @param	Length is length of data to be received.
 *
@@ -672,7 +803,8 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 						 u8 *BufferPtr, u32 Length)
 {
 	u8	PhyEpNum;
-	u32 Size;
+	u32	cmd;
+	u32	Size;
 	s32	RetVal;
 	struct XUsbPsu_Trb	*TrbPtr;
 	struct XUsbPsu_Ep *Ept;
@@ -709,18 +841,39 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 		Ept->UnalignedTx = 1U;
 	}
 
-	TrbPtr = &Ept->EpTrb;
+	TrbPtr = &Ept->EpTrb[Ept->TrbEnqueue];
 	Xil_AssertNonvoid(TrbPtr != NULL);
+
+	Ept->TrbEnqueue++;
+	if (Ept->TrbEnqueue == NO_OF_TRB_PER_EP)
+		Ept->TrbEnqueue = 0;
 
 	TrbPtr->BufferPtrLow  = (UINTPTR)BufferPtr;
 	TrbPtr->BufferPtrHigh = ((UINTPTR)BufferPtr >> 16) >> 16;
 	TrbPtr->Size = Size;
-	TrbPtr->Ctrl = XUSBPSU_TRBCTL_NORMAL;
+
+	switch (Ept->Type) {
+	case XUSBPSU_ENDPOINT_XFER_ISOC:
+		/*
+		 *  According to Linux driver, XUSBPSU_TRBCTL_ISOCHRONOUS and
+		 *  XUSBPSU_TRBCTL_CHN fields are only set when request has
+		 *  scattered list so these fields are not set over here.
+		 */
+		TrbPtr->Ctrl = (XUSBPSU_TRBCTL_ISOCHRONOUS_FIRST
+				| XUSBPSU_TRB_CTRL_CSP);
+
+		break;
+	case XUSBPSU_ENDPOINT_XFER_INT:
+	case XUSBPSU_ENDPOINT_XFER_BULK:
+		TrbPtr->Ctrl = (XUSBPSU_TRBCTL_NORMAL
+				| XUSBPSU_TRB_CTRL_LST);
+
+		break;
+	}
 
 	TrbPtr->Ctrl |= (XUSBPSU_TRB_CTRL_HWO
-					| XUSBPSU_TRB_CTRL_LST
-					| XUSBPSU_TRB_CTRL_IOC
-					| XUSBPSU_TRB_CTRL_ISP_IMI);
+			| XUSBPSU_TRB_CTRL_IOC
+			| XUSBPSU_TRB_CTRL_ISP_IMI);
 
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
@@ -733,14 +886,55 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	Params->Param0 = 0U;
 	Params->Param1 = (UINTPTR)TrbPtr;
 
+	if (Ept->EpStatus & XUSBPSU_EP_BUSY) {
+		cmd = XUSBPSU_DEPCMD_UPDATETRANSFER;
+		cmd |= XUSBPSU_DEPCMD_PARAM(Ept->ResourceIndex);
+	} else {
+		if (Ept->Type == XUSBPSU_ENDPOINT_XFER_ISOC) {
+			BufferPtr += Length;
+			struct XUsbPsu_Trb	*TrbTempNext;
+			TrbTempNext = &Ept->EpTrb[Ept->TrbEnqueue];
+			Xil_AssertNonvoid(TrbTempNext != NULL);
+
+			Ept->TrbEnqueue++;
+			if (Ept->TrbEnqueue == NO_OF_TRB_PER_EP)
+				Ept->TrbEnqueue = 0;
+			TrbTempNext->BufferPtrLow  = (UINTPTR)BufferPtr;
+			TrbTempNext->BufferPtrHigh  = ((UINTPTR)BufferPtr >> 16) >> 16;
+			TrbTempNext->Size = Length & XUSBPSU_TRB_SIZE_MASK;
+
+			TrbTempNext->Ctrl = (XUSBPSU_TRBCTL_ISOCHRONOUS_FIRST
+					| XUSBPSU_TRB_CTRL_CSP
+					| XUSBPSU_TRB_CTRL_HWO
+					| XUSBPSU_TRB_CTRL_IOC
+					| XUSBPSU_TRB_CTRL_ISP_IMI);
+
+			if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
+				Xil_DCacheFlushRange((INTPTR)TrbTempNext,
+										sizeof(struct XUsbPsu_Trb));
+				Xil_DCacheFlushRange((INTPTR)BufferPtr, Length);
+			}
+
+		}
+
+		cmd = XUSBPSU_DEPCMD_STARTTRANSFER;
+		cmd |= XUSBPSU_DEPCMD_PARAM(Ept->CurUf);
+	}
+
 	RetVal = XUsbPsu_SendEpCmd(InstancePtr, UsbEp, Ept->Direction,
-								XUSBPSU_DEPCMD_STARTTRANSFER, Params);
+								cmd, Params);
 	if (RetVal != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
-													Ept->UsbEpNum,
-													Ept->Direction);
+
+	if (!(Ept->EpStatus & XUSBPSU_EP_BUSY)) {
+		Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
+				Ept->UsbEpNum,
+				Ept->Direction);
+
+		Ept->EpStatus |= XUSBPSU_EP_BUSY;
+	}
+
 	return XST_SUCCESS;
 }
 
@@ -749,7 +943,7 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 * Stalls an Endpoint.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	EpNum is USB endpoint number.
+* @param	Epnum is USB endpoint number.
 * @param	Dir	is direction.
 *
 * @return	None.
@@ -773,7 +967,7 @@ void XUsbPsu_EpSetStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 	Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertVoid(Params != NULL);
 
-	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->PhyEpNum, Ept->Direction,
+	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
 							XUSBPSU_DEPCMD_SETSTALL, Params);
 
 	Ept->EpStatus |= XUSBPSU_EP_STALL;
@@ -808,7 +1002,7 @@ void XUsbPsu_EpClearStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 	Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertVoid(Params != NULL);
 
-	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->PhyEpNum, Ept->Direction,
+	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
 							XUSBPSU_DEPCMD_CLEARSTALL, Params);
 
 	Ept->EpStatus &= ~XUSBPSU_EP_STALL;
@@ -900,11 +1094,20 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 	Epnum = Event->Epnumber;
 	Ept = &InstancePtr->eps[Epnum];
 	Dir = Ept->Direction;
-	TrbPtr = &Ept->EpTrb;
+	TrbPtr = &Ept->EpTrb[Ept->TrbDequeue];
 	Xil_AssertVoid(TrbPtr != NULL);
+
+	Ept->TrbDequeue++;
+	if (Ept->TrbDequeue == NO_OF_TRB_PER_EP)
+		Ept->TrbDequeue = 0;
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
 		Xil_DCacheInvalidateRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+
+	if (Event->Endpoint_Event == XUSBPSU_DEPEVT_XFERCOMPLETE) {
+		Ept->EpStatus &= ~(XUSBPSU_EP_BUSY);
+		Ept->ResourceIndex = 0;
+	}
 
 	Length = TrbPtr->Size & XUSBPSU_TRB_SIZE_MASK;
 
@@ -915,8 +1118,16 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 			Ept->BytesTxed = Ept->RequestedBytes - Length;
 		} else if (Dir == XUSBPSU_EP_DIR_OUT) {
 			if (Ept->UnalignedTx == 1U) {
-				Ept->BytesTxed = Ept->RequestedBytes;
+				Ept->BytesTxed = (u32)roundup(Ept->RequestedBytes,
+												Ept->MaxSize);
+				Ept->BytesTxed -= Length;
 				Ept->UnalignedTx = 0U;
+			} else {
+				/*
+				 * Get the actual number of bytes transmitted
+				 * by host
+				 */
+				Ept->BytesTxed = Ept->RequestedBytes - Length;
 			}
 		}
 	}
@@ -928,7 +1139,43 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 	}
 
 	if (Ept->Handler != NULL) {
-		Ept->Handler(InstancePtr, Ept->RequestedBytes, Ept->BytesTxed);
+		Ept->Handler(InstancePtr->AppData, Ept->RequestedBytes, Ept->BytesTxed);
+	}
+}
+
+/****************************************************************************/
+/**
+* For Isochronous transfer, get the microframe time and calls respective Endpoint
+* handler.
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	Event is a pointer to the Endpoint event occurred in core.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void XUsbPsu_EpXferNotReady(struct XUsbPsu *InstancePtr,
+							const struct XUsbPsu_Event_Epevt *Event)
+{
+	struct XUsbPsu_Ep	*Ept;
+	u32	Epnum;
+	u32 CurUf, Mask;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Event != NULL);
+
+	Epnum = Event->Epnumber;
+	Ept = &InstancePtr->eps[Epnum];
+
+	if (Ept->Type == XUSBPSU_ENDPOINT_XFER_ISOC) {
+		Mask = ~(1 << (Ept->Interval - 1));
+		CurUf = Event->Parameters & Mask;
+		Ept->CurUf = CurUf + (Ept->Interval * 4);
+		if (Ept->Handler != NULL) {
+			Ept->Handler(InstancePtr->AppData, 0, 0);
+		}
 	}
 }
 /** @} */

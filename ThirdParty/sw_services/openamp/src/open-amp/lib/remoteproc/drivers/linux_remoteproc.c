@@ -320,7 +320,8 @@ static struct metal_io_region *_create_vring_io(struct metal_io_region *in_io,
 		return NULL;
 	}
 	*phys = (metal_phys_addr_t)start_phy;
-	metal_io_init(io, in_io->virt, phys, in_io->size, -1, 0, NULL);
+	metal_io_init(io, in_io->virt, phys, in_io->size,
+		      sizeof(metal_phys_addr_t)*8 - 1, 0, NULL);
 	return io;
 }
 
@@ -358,18 +359,16 @@ static void _release(struct hil_proc *proc)
 			ipi = (struct vring_ipi_info *)vring->intr_info.data;
 			if (ipi) {
 				if (ipi->fd >= 0) {
-					metal_irq_register(ipi->fd, 0, NULL,
+					metal_irq_unregister(ipi->fd, 0, NULL,
 						vring);
 					close(ipi->fd);
 				}
 				if (ipi->vring_io) {
-					metal_free_memory(
-						(void *)vring->io->physmap);
+					metal_free_memory(vring->io->physmap);
 					metal_free_memory(vring->io);
 					vring->io = NULL;
 					if (ipi->vring_io->ops.close)
-						ipi->vring_io->ops.close(
-							ipi->vring_io);
+						ipi->vring_io->ops.close(ipi->vring_io);
 					ipi->vring_io = NULL;
 				}
 			}

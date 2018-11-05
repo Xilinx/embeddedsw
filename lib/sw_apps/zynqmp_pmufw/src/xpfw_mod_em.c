@@ -41,6 +41,7 @@
 #include "pmu_lmb_bram.h"
 
 #ifdef ENABLE_EM
+const XPfw_Module_t *EmModPtr;
 
 static void EmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, const u32* Payload, u8 Len)
 {
@@ -102,22 +103,6 @@ void RpuLsHandler(u8 ErrorId)
 }
 
 /**
- * LpdSwdtHandler() - Error handler for LPD system watchdog timer error
- * @ErrorId   ID of the error
- *
- * @note      Called when an error from watchdog timer in the LPD subsystem
- *            occurs and it resets the PS gracefully (by terminating
- *            all PS <-> PL transactions before initiating reset)
- */
-void LpdSwdtHandler(u8 ErrorId)
-{
-	XPfw_Printf(DEBUG_ERROR,"EM: LPD Watchdog Timer Error (Error ID: %d)\r\n",
-			ErrorId);
-	XPfw_Printf(DEBUG_ERROR,"EM: Initiating PS Only Reset \r\n");
-	XPfw_ResetPsOnly();
-}
-
-/**
  * NullHandler() - Null handler for errors which doesn't have a handler defined
  * @ErrorId   ID of the error
  */
@@ -140,11 +125,46 @@ void FpdSwdtHandler(u8 ErrorId)
 	XPfw_RecoveryHandler(ErrorId);
 }
 
+/****************************************************************************/
+/**
+ * @brief  This scheduler task checks for psu init completion and sets
+ *         error action for PLL lock errors
+ *
+ * @param  None.
+ *
+ * @return None.
+ *
+ * @note   None.
+ *
+ ****************************************************************************/
+static void CheckPsuInitCompletion(void)
+{
+	s32 Status;
+	u32 PsuInitStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
+
+	if (PsuInitStatus == PSU_INIT_COMPLETION) {
+
+		/* Clear previous PLL lock errors if any */
+		XPfw_Write32(PMU_GLOBAL_ERROR_STATUS_2, PMU_GLOBAL_ERROR_STATUS_2_PLL_LOCK_MASK);
+
+		/* Set PS Error Out action for PLL lock errors */
+		XPfw_EmSetAction(EM_ERR_ID_PLL_LOCK, EM_ACTION_PSERR, NULL);
+
+		Status = XPfw_CoreRemoveTask(EmModPtr, CHECK_PSU_INIT_CONFIG,
+				CheckPsuInitCompletion);
+		if (XST_FAILURE == Status) {
+			XPfw_Printf(DEBUG_ERROR,"EM (MOD-%d):Removing EM config task "
+					"failed.", EmModPtr->ModId);
+		}
+	}
+}
+
 /* CfgInit Handler */
 static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 		u32 Len)
 {
 	u32 ErrId = 0U;
+	s32 Status;
 
 	/* Register for Error events from Core */
 	(void) XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ERROR_1);
@@ -160,6 +180,17 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 			XPfw_EmSetAction(ErrId, ErrorTable[ErrId].Action,
 					ErrorTable[ErrId].Handler);
 		}
+	}
+
+	/*
+	 * Schedule a task to check for psu_init completion to enable
+	 * PLL lock errors
+	 */
+	Status = XPfw_CoreScheduleTask(EmModPtr, CHECK_PSU_INIT_CONFIG,
+			CheckPsuInitCompletion);
+	if (XST_FAILURE == Status) {
+		XPfw_Printf(DEBUG_ERROR,"EM (MOD-%d):Scheduling EM Cfg task failed.",
+				ModPtr->ModId);
 	}
 
 
@@ -209,7 +240,7 @@ static void EmEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
  */
 void ModEmInit(void)
 {
-	const XPfw_Module_t *EmModPtr = XPfw_CoreCreateMod();
+	EmModPtr = XPfw_CoreCreateMod();
 
 	(void) XPfw_CoreSetCfgHandler(EmModPtr, EmCfgInit);
 	(void) XPfw_CoreSetEventHandler(EmModPtr, EmEventHandler);
@@ -219,7 +250,6 @@ void ModEmInit(void)
 #else /* ENABLE_EM */
 void ModEmInit(void) { }
 void RpuLsHandler(u8 ErrorId) { }
-void LpdSwdtHandler(u8 ErrorId) { }
 void FpdSwdtHandler(u8 ErrorId) { }
 void NullHandler(u8 ErrorId) { }
 #endif /* ENABLE_EM */

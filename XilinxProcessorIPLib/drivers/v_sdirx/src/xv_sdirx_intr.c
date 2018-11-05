@@ -370,7 +370,8 @@ void XV_SdiRx_IntrDisable(XV_SdiRx *InstancePtr, u32 Mask)
 *
 * @return	None.
 *
-* @note		None.
+* @note		Derive the VmId of incoming Rx stream from either SDI Rx registers
+*		(for SD/HD modes) or st352 payload registers (for >= 3GA modes).
 *
 ******************************************************************************/
 static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
@@ -381,6 +382,8 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 	u32 Data0 = 0;
 	u32 Data1 = 0;
 	u32 Data2 = 0;
+	u32 payload = 0, valid, tscan;
+	u8 byte1 = 0, active_luma = 0, color_format = 0;
 
 	Data0 = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
 					(XV_SDIRX_MODE_DET_STS_OFFSET));
@@ -433,6 +436,10 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 					(XV_SDIRX_RST_CTRL_OFFSET), Data2);
 
 
+		valid = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+						(XV_SDIRX_RX_ST352_VLD_OFFSET));
+
+
 		for (int StreamId = 0; StreamId < XV_SDIRX_MAX_DATASTREAM; StreamId++) {
 			InstancePtr->Stream[StreamId].PayloadId
 				= XV_SdiRx_GetPayloadId(InstancePtr, StreamId);
@@ -443,6 +450,38 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 		SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_422;
 		SdiStream->IsInterlaced = FALSE;
 		SdiStream->VmId = XVIDC_VM_NOT_SUPPORTED;
+
+		if ((InstancePtr->Transport.TMode >= XSDIVID_MODE_3GA) && !valid) {
+			xil_printf(" Error::: No valid ST352 payload present even for 3G mode and above\n\r");
+			return;
+		}
+
+		payload = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+					(XV_SDIRX_RX_ST352_0_OFFSET));
+		byte1 = (payload >> XST352_PAYLOAD_BYTE1_SHIFT) &
+					XST352_PAYLOAD_BYTE_MASK;
+		active_luma = (payload & XST352_BYTE3_ACT_LUMA_COUNT_MASK) >>
+					XST352_BYTE3_ACT_LUMA_COUNT_OFFSET;
+
+		color_format = (payload >> XST352_PAYLOAD_BYTE3_SHIFT) &
+				XST352_BYTE3_COLOR_FORMAT_MASK;
+		tscan = (payload & XST352_BYTE2_TS_TYPE_MASK) >>
+					XST352_BYTE2_TS_TYPE_OFFSET;
+
+		/*YUV420 color format is supported only for >= 6G modes */
+		if (InstancePtr->Transport.TMode >= XSDIVID_MODE_6G) {
+			switch(color_format) {
+				case XST352_BYTE3_COLOR_FORMAT_420:
+					SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_420;
+					break;
+				case XST352_BYTE3_COLOR_FORMAT_422:
+					SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_422;
+					break;
+				default:
+					xil_printf("Error::: Unsupported Color format detected \r\n");
+					return;
+			}
+		}
 
 		if (InstancePtr->Transport.IsFractional) {
 			switch (InstancePtr->Transport.TRate) {
@@ -580,95 +619,134 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			break;
 
 		case XV_SDIRX_MODE_3G:
-			if (InstancePtr->Transport.IsLevelB3G) {
-				switch (FrameRate) {
-				case XVIDC_FR_24HZ:
-					SdiStream->VmId = ((InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2) ?
-					XVIDC_VM_2048x1080_96_I : XVIDC_VM_1920x1080_96_I); break;
-				case XVIDC_FR_25HZ:
-					SdiStream->VmId = ((InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2) ?
-					XVIDC_VM_2048x1080_100_I : XVIDC_VM_1920x1080_100_I); break;
-				case XVIDC_FR_30HZ:
-					SdiStream->VmId = ((InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2) ?
-					XVIDC_VM_2048x1080_120_I : XVIDC_VM_1920x1080_120_I); break;
-				default:
-					SdiStream->VmId = XVIDC_VM_1920x1080_120_I; break;
+			switch (byte1) {
+			case XST352_BYTE1_ST372_DL_3GB:
+			/* Table 13 SMPTE 425-2008 */
+			case XST352_BYTE1_ST372_2x1080L_3GB:
+			/* Table 13 SMPTE 425-2008 */
+				if (!InstancePtr->Transport.IsLevelB3G) {
+					xil_printf("Error::: IP doesn't detect this as 3GB mode\r\n");
 				}
-			} else {
 				switch (FrameRate) {
 				case XVIDC_FR_24HZ:
-					SdiStream->VmId = ((InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2) ?
-					XVIDC_VM_2048x1080_24_P : XVIDC_VM_1920x1080_24_P); break;
+					SdiStream->VmId = ((active_luma == 1) ?
+							XVIDC_VM_2048x1080_96_I : XVIDC_VM_1920x1080_96_I);
+					break;
 				case XVIDC_FR_25HZ:
-					SdiStream->VmId = ((InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2) ?
-					XVIDC_VM_2048x1080_25_P : XVIDC_VM_1920x1080_25_P); break;
+					SdiStream->VmId = ((active_luma == 1) ?
+							XVIDC_VM_2048x1080_100_I : XVIDC_VM_1920x1080_100_I);
+					break;
 				case XVIDC_FR_30HZ:
-					SdiStream->VmId = ((InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2) ?
-					XVIDC_VM_2048x1080_30_P : XVIDC_VM_1920x1080_30_P); break;
+					SdiStream->VmId = ((active_luma == 1) ?
+							XVIDC_VM_2048x1080_120_I : XVIDC_VM_1920x1080_120_I);
+					break;
+				default:
+					SdiStream->VmId = XVIDC_VM_1920x1080_120_I;
+					break;
+				}
+				break;
+			case XST352_BYTE1_ST425_2008_1125L_3GA:
+			/* ST352 Table SMPTE 425-1 */
+			switch (FrameRate) {
+				case XVIDC_FR_24HZ:
+					SdiStream->VmId = ((active_luma== 1) ?
+					XVIDC_VM_2048x1080_24_P : XVIDC_VM_1920x1080_24_P);
+					break;
+				case XVIDC_FR_25HZ:
+					SdiStream->VmId = ((active_luma== 1) ?
+					XVIDC_VM_2048x1080_25_P : XVIDC_VM_1920x1080_25_P);
+					break;
+				case XVIDC_FR_30HZ:
+					SdiStream->VmId = ((active_luma== 1) ?
+					XVIDC_VM_2048x1080_30_P : XVIDC_VM_1920x1080_30_P);
+					break;
 				case XVIDC_FR_48HZ:
-					SdiStream->VmId = ((InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2) ?
-					XVIDC_VM_2048x1080_48_P : XVIDC_VM_1920x1080_48_P); break;
+					SdiStream->VmId = ((active_luma== 1) ?
+					XVIDC_VM_2048x1080_48_P : XVIDC_VM_1920x1080_48_P);
+					break;
 				case XVIDC_FR_50HZ:
-					SdiStream->VmId = ((InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2) ?
-					XVIDC_VM_2048x1080_50_P : XVIDC_VM_1920x1080_50_P); break;
+					SdiStream->VmId = ((active_luma== 1) ?
+					XVIDC_VM_2048x1080_50_P : XVIDC_VM_1920x1080_50_P);
+					break;
 				case XVIDC_FR_60HZ:
-					SdiStream->VmId = ((InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2) ?
-					XVIDC_VM_2048x1080_60_P : XVIDC_VM_1920x1080_60_P); break;
+					SdiStream->VmId = ((active_luma== 1) ?
+					XVIDC_VM_2048x1080_60_P : XVIDC_VM_1920x1080_60_P);
+					break;
 				default:
-					SdiStream->VmId = XVIDC_VM_1920x1080_60_P; break;
+					SdiStream->VmId = XVIDC_VM_1920x1080_60_P;
+					break;
 				}
+				break;
+			default:
+				xil_printf(" Error::: No ST352 valid payload available for 3G modes\n\r");
 			}
-
-			SdiStream->IsInterlaced = (~InstancePtr->Transport.TScan) & 0x1;
+			SdiStream->IsInterlaced = (~tscan) & 0x1;
 			break;
 
 		case XV_SDIRX_MODE_6G:
-			switch (FrameRate) {
-			case XVIDC_FR_24HZ:
-				SdiStream->VmId = ((InstancePtr->Transport.TFamily
-					== XV_SDIRX_SMPTE_ST_2048_2) ? XVIDC_VM_4096x2160_24_P
-					: XVIDC_VM_3840x2160_24_P);
-				break;
-			case XVIDC_FR_25HZ:
-				SdiStream->VmId = ((InstancePtr->Transport.TFamily
-					== XV_SDIRX_SMPTE_ST_2048_2) ? XVIDC_VM_4096x2160_25_P
-					: XVIDC_VM_3840x2160_25_P);
-				break;
-			case XVIDC_FR_30HZ:
-				SdiStream->VmId = ((InstancePtr->Transport.TFamily
-					== XV_SDIRX_SMPTE_ST_2048_2) ? XVIDC_VM_4096x2160_30_P
-					: XVIDC_VM_3840x2160_30_P);
+			switch (byte1) {
+			case XST352_BYTE1_ST2081_10_DL_2160L_6G:
+			/* Dual link 6G */
+			case XST352_BYTE1_ST2081_10_2160L_6G:
+			/* Table 3 SMPTE ST 2081-10 */
+				switch (FrameRate) {
+				case XVIDC_FR_24HZ:
+					SdiStream->VmId = ((active_luma
+						== 1) ? XVIDC_VM_4096x2160_24_P :
+								XVIDC_VM_3840x2160_24_P);
+					break;
+				case XVIDC_FR_25HZ:
+					SdiStream->VmId = ((active_luma
+						== 1) ? XVIDC_VM_4096x2160_25_P :
+								XVIDC_VM_3840x2160_25_P);
+					break;
+
+				case XVIDC_FR_30HZ:
+					SdiStream->VmId = ((active_luma
+						== 1) ? XVIDC_VM_4096x2160_30_P :
+								XVIDC_VM_3840x2160_30_P);
+					break;
+				default:
+					SdiStream->VmId = XVIDC_VM_3840x2160_30_P;
+					break;
+				}
 				break;
 			default:
-				SdiStream->VmId = XVIDC_VM_3840x2160_30_P; break;
+			xil_printf(" Error::: Unknown 6G Mode SMPTE standard\n\r");
 			}
 			break;
 
 		case XV_SDIRX_MODE_12G:
-			switch (FrameRate) {
-			case XVIDC_FR_48HZ:
-				SdiStream->VmId = ((InstancePtr->Transport.TFamily
-					== XV_SDIRX_SMPTE_ST_2048_2) ? XVIDC_VM_4096x2160_48_P :
-					XVIDC_VM_3840x2160_48_P);
-				break;
-			case XVIDC_FR_50HZ:
-				SdiStream->VmId = ((InstancePtr->Transport.TFamily
-					== XV_SDIRX_SMPTE_ST_2048_2) ? XVIDC_VM_4096x2160_50_P :
-					XVIDC_VM_3840x2160_50_P);
-				break;
+			switch (byte1) {
+			case XST352_BYTE1_ST2082_10_2160L_12G:
+				/* Section 4.3.1 SMPTE ST 2082-10 */
+				switch (FrameRate) {
+					case XVIDC_FR_48HZ:
+						SdiStream->VmId = ((active_luma
+							== 1) ? XVIDC_VM_4096x2160_48_P :
+							XVIDC_VM_3840x2160_48_P);
+						break;
+					case XVIDC_FR_50HZ:
+						SdiStream->VmId = ((active_luma
+							== 1) ? XVIDC_VM_4096x2160_50_P :
+							XVIDC_VM_3840x2160_50_P);
+						break;
 
-			case XVIDC_FR_60HZ:
-				SdiStream->VmId = ((InstancePtr->Transport.TFamily
-					== XV_SDIRX_SMPTE_ST_2048_2) ? XVIDC_VM_4096x2160_60_P :
-					XVIDC_VM_3840x2160_60_P);
-				break;
+					case XVIDC_FR_60HZ:
+						SdiStream->VmId = ((active_luma
+							== 1) ? XVIDC_VM_4096x2160_60_P :
+							XVIDC_VM_3840x2160_60_P);
+						break;
 
+					default:
+						SdiStream->VmId = XVIDC_VM_3840x2160_60_P;
+						break;
+				}
+				break;
 			default:
-				SdiStream->VmId = XVIDC_VM_3840x2160_60_P;
-				break;
+				xil_printf(" Error::: Unknown 12G Mode SMPTE standard\n\r");
 			}
 			break;
-
 		default:
 			/* Unknown video format */
 			break;

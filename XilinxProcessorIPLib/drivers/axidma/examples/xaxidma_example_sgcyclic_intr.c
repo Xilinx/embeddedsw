@@ -62,6 +62,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 9.4   adk  25/07/17 Initial version.
+ * 9.6   rsp  02/14/18 Support data buffers above 4GB.Use UINTPTR for storing
+ *                     and typecasting buffer address(CR-992638).
  * </pre>
  *
  * ***************************************************************************
@@ -423,7 +425,7 @@ static int CheckData(int Length, u8 StartValue)
 	 * Data Cache is enabled
 	 */
 #ifndef __aarch64__
-	Xil_DCacheInvalidateRange((u32)RxPacket, Length);
+	Xil_DCacheInvalidateRange((UINTPTR)RxPacket, Length);
 #endif
 
 	for(Index = 0; Index < Length; Index++) {
@@ -805,7 +807,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 	XAxiDma_Bd *BdCurPtr;
 	int BdCount;
 	int FreeBdCount;
-	u32 RxBufferPtr;
+	UINTPTR RxBufferPtr;
 	int Index;
 
 	RxRingPtr = XAxiDma_GetRxRing(&AxiDma);
@@ -1010,7 +1012,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 	XAxiDma_Bd *BdPtr, *BdCurPtr;
 	int Status;
 	int Index, Pkts;
-	u32 BufferAddr;
+	UINTPTR BufferAddr;
 
 	/*
 	 * Each packet is limited to TxRingPtr->MaxTransferLen

@@ -33,7 +33,7 @@
 /**
 *
 * @file xbram_g.c
-* @addtogroup bram_v4_0
+* @addtogroup bram_v4_2
 * @{
 *
 * This file contains a configuration table that specifies the configuration

@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss_dbg.c
-* @addtogroup dptxss_v5_0
+* @addtogroup dptxss_v5_1
 * @{
 *
 * This file contains functions to report debug information of DisplayPort TX

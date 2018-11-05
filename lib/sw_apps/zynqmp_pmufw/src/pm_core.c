@@ -47,16 +47,36 @@
 #include "pm_notifier.h"
 #include "pm_mmio_access.h"
 #include "pm_system.h"
+#ifdef ENABLE_FPGA_LOAD
 #include "xilfpga_pcap.h"
+#endif
 #include "pm_clock.h"
 #include "pm_requirement.h"
 #include "pm_config.h"
 #include "xpfw_platform.h"
 #include "xpfw_resets.h"
 #include "rpu.h"
+#ifdef ENABLE_SECURE
 #include "xsecure.h"
+#endif
+#include "pmu_iomodule.h"
 
 #define AMS_REF_CTRL_REG_OFFSET	0x108
+
+/**
+ * PmKillBoardPower() - Power-off board by sending KILL signal to power chip
+ */
+#if defined(BOARD_SHUTDOWN_PIN) && defined(BOARD_SHUTDOWN_PIN_STATE)
+static void PmKillBoardPower(void)
+{
+	u32 reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
+	u32 mask = PMU_IOMODULE_GPO1_MIO_0_MASK << BOARD_SHUTDOWN_PIN;
+	u32 value = BOARD_SHUTDOWN_PIN_STATE << BOARD_SHUTDOWN_PIN;
+
+	reg = (reg & (~mask)) | (mask & value);
+	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
+}
+#endif
 
 /**
  * PmProcessAckRequest() -Returns appropriate acknowledge if required
@@ -629,6 +649,7 @@ done:
 	IPI_RESPONSE2(master->ipiMask, status, value);
 }
 
+#ifdef ENABLE_FPGA_LOAD
 /**
  * Pmfpgaload() - Load the bitstream into the PL.
  * This function does the calls the necessary PCAP interfaces based on flags.
@@ -646,15 +667,31 @@ done:
  */
 static void PmFpgaLoad(const PmMaster *const master,
 			const u32 AddrHigh, const u32 AddrLow,
-			const u32 size, const u32 flags)
+			const u32 KeyAddr, const u32 flags)
 {
 	u32 Status;
+	UINTPTR WrAddr = ((u64)AddrHigh << 32)|AddrLow;
 
-       Status = XFpga_PL_BitSream_Load(AddrHigh, AddrLow, size, flags);
+       Status = XFpga_PL_BitSream_Load(WrAddr, KeyAddr, flags);
 
        IPI_RESPONSE1(master->ipiMask, Status);
 }
 
+/**
+ * PmFpgaGetStatus() - Get status of the PL-block
+ * @master  Initiator of the request
+ */
+static void PmFpgaGetStatus(const PmMaster *const master)
+{
+	u32 value;
+
+       value = XFpga_PcapStatus();
+
+       IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, value);
+}
+#endif
+
+#ifdef ENABLE_SECURE
 /**
  * PmSecureRsaAes() - Load secure image.
  * This function loads the secure images back to memory, it supports
@@ -738,17 +775,34 @@ static void PmSecureRsa(const PmMaster *const master,
 }
 
 /**
- * PmFpgaGetStatus() - Get status of the PL-block
- * @master  Initiator of the request
+ * PmSecureImage() - To process secure image
+ *
+ * @SrcAddrHigh: Higher 32-bit Linear memory space from where data
+ *         will be read.
+ *
+ * @SrcAddrLow: Lower 32-bit Linear memory space from where data
+ *         will be read.
+ *
+ * @KupAddrHigh: Higher 32-bit Linear memory space from where data
+ *         will be read.
+ *
+ * @KupAddrLow: Lower 32-bit Linear memory space from where data
+ *         will be read.
+ *
+ *
+ * @return  error status based on implemented functionality(SUCCESS by default)
  */
-static void PmFpgaGetStatus(const PmMaster *const master)
+static void PmSecureImage(const PmMaster *const master,
+			const u32 SrcAddrHigh, const u32 SrcAddrLow, const u32 KupAddrHigh, const u32 KupAddrLow)
 {
-	u32 value;
+	u32 Status;
+	XSecure_DataAddr Addr = {0};
 
-       value = XFpga_PcapStatus();
+	Status = XSecure_SecureImage(SrcAddrHigh, SrcAddrLow, KupAddrHigh, KupAddrLow, &Addr);
 
-       IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, value);
+	IPI_RESPONSE3(master->ipiMask, Status, Addr.AddrHigh, Addr.AddrLow);
 }
+#endif
 
 /**
  * PmGetChipid() - Get silicon version register
@@ -757,11 +811,16 @@ static void PmGetChipid(const PmMaster *const master)
 {
 	u32 idcode = XPfw_Read32(CSU_IDCODE);
 	u32 version = XPfw_Read32(CSU_VERSION);
-
+	u32 pl_init = XPfw_Read32(CSU_PCAP_STATUS_REG);
 	u32 efuse_ipdisable = XPfw_Read32(EFUSE_IPDISABLE);
+
 	efuse_ipdisable &= EFUSE_IPDISABLE_VERSION;
+	pl_init &= CSU_PCAP_STATUS_PL_INIT_MASK_VAL;
 
 	version |= efuse_ipdisable << CSU_VERSION_EMPTY_SHIFT;
+	version |= pl_init <<
+			(CSU_VERSION_PL_STATE_SHIFT - CSU_PCAP_STATUS_PL_INIT_SHIFT_VAL);
+
 	IPI_RESPONSE3(master->ipiMask, XST_SUCCESS, idcode, version);
 }
 
@@ -844,6 +903,12 @@ static void PmSystemShutdown(PmMaster* const master, const u32 type,
 	/* For shutdown type the subtype is irrelevant: shut the caller down */
 	if (PMF_SHUTDOWN_TYPE_SHUTDOWN == type) {
 		status = PmMasterFsm(master, PM_MASTER_EVENT_FORCE_DOWN);
+
+#if defined(BOARD_SHUTDOWN_PIN) && defined(BOARD_SHUTDOWN_PIN_STATE)
+		if (PMF_SHUTDOWN_SUBTYPE_SYSTEM == subtype) {
+			PmKillBoardPower();
+		}
+#endif
 		goto done;
 	}
 
@@ -1288,15 +1353,18 @@ static void PmProcessApiCall(PmMaster *const master, const u32 *pload)
 	case PM_INIT_FINALIZE:
 		PmInitFinalize(master);
 		break;
+#ifdef ENABLE_FPGA_LOAD
 	case PM_FPGA_LOAD:
 		PmFpgaLoad(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
 	case PM_FPGA_GET_STATUS:
 		PmFpgaGetStatus(master);
 		break;
+#endif
 	case PM_GET_CHIPID:
 		PmGetChipid(master);
 		break;
+#ifdef ENABLE_SECURE
 	case PM_SECURE_RSA_AES:
 		PmSecureRsaAes(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
@@ -1306,6 +1374,10 @@ static void PmProcessApiCall(PmMaster *const master, const u32 *pload)
 	case PM_SECURE_RSA:
 		PmSecureRsa(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
+	case PM_SECURE_IMAGE:
+		PmSecureImage(master, pload[1], pload[2], pload[3], pload[4]);
+		break;
+#endif
 	default:
 		PmDbg(DEBUG_DETAILED,"ERROR unsupported PM API #%lu\r\n", pload[0]);
 		PmProcessAckRequest(PmRequestAcknowledge(pload), master,
@@ -1339,6 +1411,62 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 
 			PmProcessAckRequest(ack, master, NODE_UNKNOWN,
 					    XST_INVALID_PARAM, 0);
+		}
+	}
+}
+
+/**
+ * PmShutdownInterruptHandler() - Send suspend request to all active masters
+ */
+void PmShutdownInterruptHandler(void)
+{
+#if defined(PMU_MIO_INPUT_PIN) && (PMU_MIO_INPUT_PIN >= 0) \
+				&& (PMU_MIO_INPUT_PIN <= 5)
+	/*
+	 * Default status of MIO26 pin is 1. So MIO wake event bit in GPI1
+	 * register is always 1, which is used to identify shutdown event.
+	 *
+	 * GPI event occurs only when any bit of GPI register changes from
+	 * 0 to 1. When any GPI1 event occurs Gpi1InterruptHandler() checks
+	 * GPI1 register and process interrupts for the bits which are 1.
+	 * Because of MIO wake bit is 1 in GPI1 register, shutdown handler
+	 * will be called every time when any of GPI1 event occurs.
+	 *
+	 * There is no way to identify which bit cause GPI1 interrupt.
+	 * So every time Gpi1InterruptHandler() is checking bit which are 1
+	 * And calls respective handlers.
+	 *
+	 * To handle such case avoid power off when any other (other than MIO
+	 * wake)bit in GPI1 register is 1. If no other bit is 1 in GPI1 register
+	 * and still PMU gets GPI1 interrupt means that MIO26 pin state is
+	 * changed from (1 to 0 and 0 to 1). In this case it is confirmed that
+	 * it is event for shutdown only and not because of other events.
+	 * There are chances that some shutdown events are missed (1 out of 50)
+	 * but it should not harm.
+	 */
+	if (XPfw_Read32(PMU_IOMODULE_GPI1) !=
+	    (PMU_IOMODULE_GPI1_MIO_WAKE_0_MASK << PMU_MIO_INPUT_PIN))
+		return;
+#endif
+	u32 rpu_mode = XPfw_Read32(RPU_RPU_GLBL_CNTL);
+
+	if (PM_MASTER_STATE_ACTIVE == PmMasterIsActive(&pmMasterApu_g)) {
+		PmInitSuspendCb(&pmMasterApu_g,
+				SUSPEND_REASON_SYS_SHUTDOWN, 1, 0, 0);
+	}
+	if (0U == (rpu_mode & RPU_RPU_GLBL_CNTL_SLSPLIT_MASK)) {
+		if (PM_MASTER_STATE_ACTIVE == PmMasterIsActive(&pmMasterRpu0_g)) {
+			PmInitSuspendCb(&pmMasterRpu0_g,
+					SUSPEND_REASON_SYS_SHUTDOWN, 1, 0, 0);
+		}
+		if (PM_MASTER_STATE_ACTIVE == PmMasterIsActive(&pmMasterRpu1_g)) {
+			PmInitSuspendCb(&pmMasterRpu1_g,
+					SUSPEND_REASON_SYS_SHUTDOWN, 1, 0, 0);
+		}
+	} else {
+		if (PM_MASTER_STATE_ACTIVE == PmMasterIsActive(&pmMasterRpu_g)) {
+			PmInitSuspendCb(&pmMasterRpu_g,
+					SUSPEND_REASON_SYS_SHUTDOWN, 1, 0, 0);
 		}
 	}
 }

@@ -33,7 +33,7 @@
 /**
 *
 * @file xusbpsu.h
-* @addtogroup usbpsu_v1_0
+* @addtogroup usbpsu_v1_3
 * @{
 * @details
 *
@@ -56,6 +56,13 @@
 *                      generation.
 *       ms    04/10/17 Modified filename tag to include the file in doxygen
 *                      examples.
+* 1.4	bk    12/01/18 Modify USBPSU driver code to fit USB common example code
+*		       for all USB IPs.
+*	myk   12/01/18 Added hibernation support for device mode
+*	vak   22/01/18 Added changes for supporting microblaze platform
+*	vak   13/03/18 Moved the setup interrupt system calls from driver to
+*		       example.
+*
 * </pre>
 *
 *****************************************************************************/
@@ -67,12 +74,17 @@ extern "C" {
 #endif
 
 /***************************** Include Files ********************************/
+
+/* Enable XUSBPSU_HIBERNATION_ENABLE to enable hibernation */
+//#define XUSBPSU_HIBERNATION_ENABLE		1
+
 #include "xparameters.h"
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
 #include "xusbpsu_hw.h"
 #include "xil_io.h"
+
 /*
  * The header sleep.h and API usleep() can only be used with an arm design.
  * MB_Sleep() is used for microblaze design.
@@ -88,15 +100,18 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
+#define NO_OF_TRB_PER_EP		2
+
+#ifdef PLATFORM_ZYNQMP
 #define ALIGNMENT_CACHELINE		__attribute__ ((aligned(64)))
+#else
+#define ALIGNMENT_CACHELINE		__attribute__ ((aligned(32)))
+#endif
 
 #define	XUSBPSU_PHY_TIMEOUT		5000U /* in micro seconds */
 
 #define XUSBPSU_EP_DIR_IN				1U
 #define XUSBPSU_EP_DIR_OUT				0U
-
-#define XUSBPSU_ENDPOINT_NUMBER_MASK        0x0f    /* in bEndpointAddress */
-#define XUSBPSU_ENDPOINT_DIR_MASK           0x80
 
 #define XUSBPSU_ENDPOINT_XFERTYPE_MASK      0x03    /* in bmAttributes */
 #define XUSBPSU_ENDPOINT_XFER_CONTROL       0U
@@ -263,16 +278,6 @@ typedef enum {
 /**************************** Type Definitions ******************************/
 
 /**
- * This typedef contains configuration information for the XUSBPSU
- * device.
- */
-typedef struct {
-        u16 DeviceId;           /**< Unique ID of controller */
-        u32 BaseAddress;        /**< Core register base address */
-	u8 IsCacheCoherent; /**< Describes whether Cache Coherent or not */
-} XUsbPsu_Config;
-
-/**
  * Software Event buffer representation
  */
 struct XUsbPsu_EvtBuffer {
@@ -327,6 +332,7 @@ typedef struct {
 #else
 } __attribute__ ((packed)) SetupPacket;
 #endif
+
 /**
  * Endpoint representation
  */
@@ -338,15 +344,20 @@ struct XUsbPsu_Ep {
 						 */
 #if defined (__ICCARM__)
     #pragma data_alignment = 64
-	struct XUsbPsu_Trb	EpTrb;
+	struct XUsbPsu_Trb	EpTrb[NO_OF_TRB_PER_EP + 1]; /**< One extra Trb is for Link Trb */
 	#pragma data_alignment = 4
 #else
-	struct XUsbPsu_Trb	EpTrb ALIGNMENT_CACHELINE;/**< TRB used by endpoint */
+	struct XUsbPsu_Trb	EpTrb[NO_OF_TRB_PER_EP + 1] ALIGNMENT_CACHELINE;/**< TRB used by endpoint */
 #endif
 	u32	EpStatus;		/**< Flags to represent Endpoint status */
+	u32	EpSavedState;	/**< Endpoint status saved at the time of hibernation */
 	u32	RequestedBytes;	/**< RequestedBytes for transfer */
 	u32	BytesTxed;		/**< Actual Bytes transferred */
+	u32	Interval;		/**< Data transfer service interval */
+	u32	TrbEnqueue;
+	u32	TrbDequeue;
 	u16	MaxSize;		/**< Size of endpoint */
+	u16	CurUf;			/**< current microframe */
 	u8	*BufferPtr;		/**< Buffer location */
 	u8	ResourceIndex;	/**< Resource Index assigned to
 						 *  Endpoint by core
@@ -358,6 +369,25 @@ struct XUsbPsu_Ep {
 						 */
 	u8	Direction;		/**< Direction - EP_DIR_OUT/EP_DIR_IN */
 	u8	UnalignedTx;
+};
+
+/**
+ * This typedef contains configuration information for the USB
+ * device.
+ */
+typedef struct {
+        u16 DeviceId;		/**< Unique ID of controller */
+        u32 BaseAddress;	/**< Core register base address */
+		u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
+} XUsbPsu_Config;
+
+typedef XUsbPsu_Config Usb_Config;
+
+struct Usb_DevData {
+	u8 Speed;
+	u8 State;
+
+	void *PrivateData;
 };
 
 /**
@@ -382,9 +412,10 @@ struct XUsbPsu {
 	u32 BaseAddress;	/**< Core register base address */
 	u32 DevDescSize;
 	u32 ConfigDescSize;
-	void (*Chapter9)(struct XUsbPsu *, SetupPacket *);
-	void (*ResetIntrHandler)(struct XUsbPsu *);
-	void (*DisconnectIntrHandler)(struct XUsbPsu *);
+	struct Usb_DevData *AppData;
+	void (*Chapter9)(struct Usb_DevData *, SetupPacket *);
+	void (*ResetIntrHandler)(struct Usb_DevData *);
+	void (*DisconnectIntrHandler)(struct Usb_DevData *);
 	void *DevDesc;
 	void *ConfigDesc;
 #if defined(__ICCARM__)
@@ -400,14 +431,14 @@ struct XUsbPsu {
 	u8 ControlDir;
 	u8 IsInTestMode;
 	u8 TestMode;
-	u8 Speed;
-	u8 State;
 	u8 Ep0State;
 	u8 LinkState;
 	u8 UnalignedTx;
 	u8 IsConfigDone;
 	u8 IsThreeStage;
-	void *data_ptr; /* pointer for storing applications data */
+	u8 IsHibernated;                /**< Hibernated state */
+	u8 HasHibernation;              /**< Has hibernation support */
+	void *data_ptr;		/* pointer for storing applications data */
 };
 
 #if defined (__ICCARM__)
@@ -568,19 +599,19 @@ static inline void XUsbPsu_set_drvdata(struct XUsbPsu *InstancePtr, void *data) 
 
 static inline void XUsbPsu_set_ch9handler(
 		struct XUsbPsu *InstancePtr,
-		void (*func)(struct XUsbPsu *, SetupPacket *)) {
+		void (*func)(struct Usb_DevData *, SetupPacket *)) {
 	InstancePtr->Chapter9 = func;
 }
 
 static inline void XUsbPsu_set_rsthandler(
 		struct XUsbPsu *InstancePtr,
-		void (*func)(struct XUsbPsu *)) {
+		void (*func)(struct Usb_DevData *)) {
 	InstancePtr->ResetIntrHandler = func;
 }
 
 static inline void XUsbPsu_set_disconnect(
 		struct XUsbPsu *InstancePtr,
-		void (*func)(struct XUsbPsu *)) {
+		void (*func)(struct Usb_DevData *)) {
 	InstancePtr->DisconnectIntrHandler = func;
 }
 
@@ -615,7 +646,6 @@ s32 XUsbPsu_SendGenericCmd(struct XUsbPsu *InstancePtr,
 					s32 Cmd, u32 Param);
 void XUsbPsu_SetSpeed(struct XUsbPsu *InstancePtr, u32 Speed);
 s32 XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr);
-s32 XUsbPsu_IsSuperSpeed(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep);
 s32 XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep);
 s32 XUsbPsu_AcceptU1U2Sleep(struct XUsbPsu *InstancePtr);
@@ -630,23 +660,25 @@ s32 XUsbPsu_U2SleepDisable(struct XUsbPsu *InstancePtr);
 struct XUsbPsu_EpParams *XUsbPsu_GetEpParams(struct XUsbPsu *InstancePtr);
 u32 XUsbPsu_EpGetTransferIndex(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 				u8 Dir);
-const char *XUsbPsu_EpCmdString(u8 Cmd);
 s32 XUsbPsu_SendEpCmd(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 			u32 Cmd, struct XUsbPsu_EpParams *Params);
 s32 XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum,
 				u8 Dir);
 s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
-				u16 Size, u8 Type);
+				u16 Size, u8 Type, u8 Restore);
 s32 XUsbPsu_SetXferResource(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir);
 s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
-			u16 Maxsize, u8 Type);
+				u16 Maxsize, u8 Type, u8 Restore);
 s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir);
 s32 XUsbPsu_EnableControlEp(struct XUsbPsu *InstancePtr, u16 Size);
 void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr);
-void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir);
+void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
+				u8 Dir, u8 Force);
+void XUsbPsu_SaveEndpointState(struct XUsbPsu *InstancePtr,
+				struct XUsbPsu_Ep *Ept);
 void XUsbPsu_ClearStalls(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
-			u8 *BufferPtr, u32 BufferLen);
+				u8 *BufferPtr, u32 BufferLen);
 s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 				u8 *BufferPtr, u32 Length);
 void XUsbPsu_EpSetStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir);
@@ -655,6 +687,8 @@ void XUsbPsu_SetEpHandler(struct XUsbPsu *InstancePtr, u8 Epnum,
 			u8 Dir, void (*Handler)(void *, u32, u32));
 s32 XUsbPsu_IsEpStalled(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir);
 void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
+							const struct XUsbPsu_Event_Epevt *Event);
+void XUsbPsu_EpXferNotReady(struct XUsbPsu *InstancePtr,
 							const struct XUsbPsu_Event_Epevt *Event);
 
 /*
@@ -697,6 +731,14 @@ void XUsbPsu_EventHandler(struct XUsbPsu *InstancePtr,
                 const union XUsbPsu_Event *Event);
 void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr);
 void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr);
+
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr);
+void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr);
+void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr);
+void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr);
+s32 XUsbPsu_SetupScratchpad(struct XUsbPsu *InstancePtr);
+#endif
 
 /*
  * Functions in xusbpsu_sinit.c

@@ -50,7 +50,7 @@ OF THE
 #include <unistd.h>
 #include <sys/syscall.h>
 #include <linux/futex.h>
-#include "metal/atomic.h"
+#include <metal/atomic.h>
 #include <stdint.h>
 #include <limits.h>
 #include <errno.h>

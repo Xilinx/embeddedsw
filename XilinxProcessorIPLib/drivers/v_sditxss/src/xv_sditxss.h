@@ -58,6 +58,8 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  jsr  07/17/17 Initial release.
+* 2.00  kar  01/25/18 Second  release.
+*       jsr  03/02/2018 Added core settings API
 * </pre>
 *
 ******************************************************************************/
@@ -204,6 +206,20 @@ typedef struct {
 	u8 IsStreamUp;                /**< SDI TX Stream Up */
 } XV_SdiTxSs;
 
+/** @name SDITxSs Core Configurable Settings
+* @{
+*/
+typedef enum {
+	XV_SDITXSS_CORESELID_INSERTCRC,
+	XV_SDITXSS_CORESELID_INSERTST352,
+	XV_SDITXSS_CORESELID_ST352OVERWRITE,
+	XV_SDITXSS_CORESELID_INSERTSYNCBIT,
+	XV_SDITXSS_CORESELID_SDBITREPBYPASS,
+	XV_SDITXSS_CORESELID_USEANCIN,
+	XV_SDITXSS_CORESELID_INSERTLN,
+	XV_SDITXSS_CORESELID_INSERTEDH,
+} XV_SdiTxSs_CoreSelId;
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /*****************************************************************************/
@@ -268,7 +284,9 @@ void XV_SdiTxSs_LogWrite(XV_SdiTxSs *InstancePtr,
 		u8 Data);
 u16 XV_SdiTxSs_LogRead(XV_SdiTxSs *InstancePtr);
 void XV_SdiTxSs_LogDisplay(XV_SdiTxSs *InstancePtr);
-
+int XV_SdiTxSs_SetColorFormat(XV_SdiTxSs *InstancePtr, XVidC_ColorFormat ColorFormat);
+void XV_SdiTxSs_SetCoreSettings(XV_SdiTxSs *InstancePtr,
+					XV_SdiTxSs_CoreSelId SelId, u8 Data);
 
 /************************** Variable Declarations ****************************/
 

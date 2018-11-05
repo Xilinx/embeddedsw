@@ -33,7 +33,7 @@
 /**
 *
 * @file xuartlite_l.h
-* @addtogroup uartlite_v3_1
+* @addtogroup uartlite_v3_2
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or

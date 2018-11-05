@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 1986-2018 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_mix_l2.h
-* @addtogroup v_mix
+* @addtogroup v_mix_v3_0
 * @{
 * @details
 *
@@ -45,14 +45,14 @@
 * <b>Mixer IP Features </b>
 *
 * The Mixer IP supports following features
-* 	- AXI4-S Master Layer
-* 	- Up to 7 optional layers (user configurable)
-* 	- Each layer can be configured as Streaming or Memory (build time)
-* 	   - Color format for each layer is set at build time
-* 	- 1 Logo Layer (optional)
-* 	- Logo Layer Color Key feature (optional)
-* 	- Alpha Level (8 bit) per layer (optional)
-* 	- Scale (1x, 2x, 4x) capability per layer (optional)
+*   - AXI4-S Master Layer
+*   - Up to 8 optional layers (user configurable)
+*   - Each layer can be configured as Streaming or Memory (build time)
+*      - Color format for each layer is set at build time
+*   - 1 Logo Layer (optional)
+*   - Logo Layer Color Key feature (optional)
+*   - Alpha Level (8 bit) per layer (optional)
+*   - Scale (1x, 2x, 4x) capability per layer (optional)
 *
 * <b>Dependency</b>
 *
@@ -66,8 +66,8 @@
 * communicate with the mixer core.
 *
 * Driver is built with layered architecture
-* 	- Layer 1 provides API's to peek/poke registers at HW level.
-* 	- Layer 2 provides API's that abstract sub-core functionality, providing an
+*   - Layer 1 provides API's to peek/poke registers at HW level.
+*   - Layer 2 provides API's that abstract sub-core functionality, providing an
 *     easy to use feature interface
 *
 * Before using the layer-2 API's user must initialize the core by calling
@@ -80,30 +80,30 @@
 * <b>Pre-Requisite's</b>
 *
 * If optional layers are included in the IP then
-* 	- Application must set the memory address for each layer using provided API
-* 	  Address must be aligned to memory width. This can be computed with
-* 	  following equation
-* 	    Align = 2 * PPC * 4 Bytes
-* 	    (where PPC is the Pixels/Clock selected in IP configuration)
+*   - Application must set the memory address for each layer using provided API
+*     Address must be aligned to memory width. This can be computed with
+*     following equation
+*       Align = 2 * PPC * 4 Bytes
+*       (where PPC is the Pixels/Clock selected in IP configuration)
 *
-* 	- When setting up layer window the Stride must be provided in Bytes and
-* 	  must be aligned to respective color space of the layer. This can be
-* 	  computed with following equation
-* 	    StrideInBytes = (Window_Width * (YUV422 ? 2 : 4))
+*   - When setting up layer window the Stride must be provided in Bytes and
+*     must be aligned to respective color space of the layer. This can be
+*     computed with following equation
+*       StrideInBytes = (Window_Width * (YUV422 ? 2 : 4))
 *
 * <b> Interrupts </b>
 *
 * Driver is configured to operate both in polling as well as interrupt mode.
-* 	- To use interrupt based processing, application must set up the system's
-* 	  interrupt controller and connect the XVMix_InterruptHandler function to
-* 	  service interrupts. Next interrupts must be enabled using the provided
-* 	  API. When an interrupt occurs, ISR will confirm if frame processing is
-* 	  is done. If call back is registered such function will be called and
-* 	  application can apply new setting updates here. Subsequently next frame
-* 	  processing will be triggered with new settings.
-* 	- To use polling method disable interrupts using the provided API. Doing so
-* 	  will configure the IP to keep processing frames without sw intervention.
-* 	- Polling mode is the default configuration set during driver initialization
+*   - To use interrupt based processing, application must set up the system's
+*     interrupt controller and connect the XVMix_InterruptHandler function to
+*     service interrupts. Next interrupts must be enabled using the provided
+*     API. When an interrupt occurs, ISR will confirm if frame processing is
+*     is done. If call back is registered such function will be called and
+*     application can apply new setting updates here. Subsequently next frame
+*     processing will be triggered with new settings.
+*   - To use polling method disable interrupts using the provided API. Doing so
+*     will configure the IP to keep processing frames without sw intervention.
+*   - Polling mode is the default configuration set during driver initialization
 *
 * <b> Virtual Memory </b>
 *
@@ -129,6 +129,8 @@
 * 2.00  rco   07/21/16   Used UINTPTR instead of u32 for Baseaddress
 *             08/03/16   Add Logo Pixel Alpha support
 * 3.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
+* 4.00  vyc   04/04/18   Add 8th overlayer
+*                        Move logo layer enable from bit 8 to bit 15
 * </pre>
 *
 ******************************************************************************/
@@ -143,7 +145,7 @@ extern "C" {
 #include "xv_mix.h"
 
 /************************** Constant Definitions *****************************/
-#define XVMIX_MAX_SUPPORTED_LAYERS       (9)
+#define XVMIX_MAX_SUPPORTED_LAYERS       (16)
 #define XVMIX_ALPHA_MIN                  (0)
 #define XVMIX_ALPHA_MAX                  (256)
 
@@ -171,7 +173,7 @@ typedef enum
     XVMIX_SCALE_FACTOR_1X = 0,
     XVMIX_SCALE_FACTOR_2X,
     XVMIX_SCALE_FACTOR_4X,
-	XVMIX_SCALE_FACTOR_NUM_SUPPORTED
+    XVMIX_SCALE_FACTOR_NUM_SUPPORTED
 }XVMix_Scalefactor;
 
 /**
@@ -186,7 +188,8 @@ typedef enum {
     XVMIX_LAYER_5,
     XVMIX_LAYER_6,
     XVMIX_LAYER_7,
-    XVMIX_LAYER_LOGO,
+    XVMIX_LAYER_8,
+    XVMIX_LAYER_LOGO = 15,
     XVMIX_LAYER_ALL,
     XVMIX_LAYER_LAST
 }XVMix_LayerId;
@@ -258,7 +261,7 @@ typedef struct {
 
     /*Callbacks */
     XVMix_Callback FrameDoneCallback; /**< Callback for frame processing done */
-    void *CallbackRef;	   /**< To be passed to the connect interrupt
+    void *CallbackRef;     /**< To be passed to the connect interrupt
                                 callback */
 
     XVMix_Layer Layer[XVMIX_MAX_SUPPORTED_LAYERS];  /**< Layer configuration
@@ -311,7 +314,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XVMix_GetLayerInterfaceType(InstancePtr, LayerId)  \
-		              ((InstancePtr)->Mix.Config.LayerIntrfType[LayerId-1])
+                      ((InstancePtr)->Mix.Config.LayerIntrfType[LayerId-1])
 
 /*****************************************************************************/
 /**
@@ -341,7 +344,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XVMix_IsLogoColorKeyEnabled(InstancePtr) \
-	                          ((InstancePtr)->Mix.Config.LogoColorKeyEn)
+                              ((InstancePtr)->Mix.Config.LogoColorKeyEn)
 
 
 /*****************************************************************************/
@@ -357,7 +360,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XVMix_IsLogoPixAlphaEnabled(InstancePtr) \
-	                          ((InstancePtr)->Mix.Config.LogoPixAlphaEn)
+                              ((InstancePtr)->Mix.Config.LogoPixAlphaEn)
 
 
 /*****************************************************************************/
@@ -443,7 +446,7 @@ int XVMix_GetLayerAlpha(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
 
 int XVMix_SetLayerBufferAddr(XV_Mix_l2 *InstancePtr,
                              XVMix_LayerId LayerId,
-							 UINTPTR Addr);
+                             UINTPTR Addr);
 UINTPTR XVMix_GetLayerBufferAddr(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
 
 int XVMix_SetLayerChromaBufferAddr(XV_Mix_l2 *InstancePtr,

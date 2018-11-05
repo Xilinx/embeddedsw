@@ -105,11 +105,11 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>The Data Receive Register/FIFO Overrun interrupt &ndash; indicates that the SPI device received data and subsequently dropped the data because the data receive register and FIFO was full. The interrupt applies to both master and slave operation. The driver reports this condition to the upper layer software through the status handler. This likely indicates a problem with the higher layer protocol, or a problem with the slave performance.</p>
 <p>The Mode Fault Error interrupt &ndash; indicates that while configured as a master, the device was selected as a slave by another master. This can be used by the application for arbitration in a multimaster environment or to indicate a problem with arbitration. When this interrupt occurs, the driver invokes the status callback with a status value of XST_SPI_MODE_FAULT. It is up to the application to resolve the conflict. When configured as a slave, Mode Fault Error interrupt indicates that a slave device was selected as a slave by a master, but the slave device was disabled. When configured as a master, Mode Fault Error interrupt indicates that another SPI device is acting as a master on the bus.</p>
 <p><b>Polled Operation</b></p>
-<p>Transfer in polled mode is supported through a separate interface function <a class="el" href="group__spips__v3__0.html#ga94490f99431c92c2a9a54cc41d4abe71" title="Transfers specified data on the SPI bus in polled mode. ">XSpiPs_PolledTransfer()</a>. Unlike the transfer function in the interrupt mode, this function blocks until all data has been sent/received.</p>
+<p>Transfer in polled mode is supported through a separate interface function <a class="el" href="group__spips__v3__1.html#ga94490f99431c92c2a9a54cc41d4abe71" title="Transfers specified data on the SPI bus in polled mode. ">XSpiPs_PolledTransfer()</a>. Unlike the transfer function in the interrupt mode, this function blocks until all data has been sent/received.</p>
 <p><b>Device Busy</b></p>
 <p>Some operations are disallowed when the device is busy. The driver tracks whether a device is busy. The device is considered busy when a data transfer request is outstanding, and is considered not busy only when that transfer completes (or is aborted with a mode fault error). This applies to both master and slave devices.</p>
 <p><b>Device Configuration</b></p>
-<p>The device can be configured in various ways during the FPGA implementation process. Configuration parameters are stored in the <a class="el" href="xspips__g_8c.html">xspips_g.c</a> file or passed in via <a class="el" href="group__spips__v3__0.html#ga66fc6e7b4ec94e279b89cc0eab2debf2" title="Initializes a specific XSpiPs instance such that the driver is ready to use. ">XSpiPs_CfgInitialize()</a>. A table is defined where each entry contains configuration information for an SPI device, including the base address for the device.</p>
+<p>The device can be configured in various ways during the FPGA implementation process. Configuration parameters are stored in the <a class="el" href="xspips__g_8c.html">xspips_g.c</a> file or passed in via <a class="el" href="group__spips__v3__1.html#ga66fc6e7b4ec94e279b89cc0eab2debf2" title="Initializes a specific XSpiPs instance such that the driver is ready to use. ">XSpiPs_CfgInitialize()</a>. A table is defined where each entry contains configuration information for an SPI device, including the base address for the device.</p>
 <p><b>RTOS Independence</b></p>
 <p>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</p>
 <pre>
@@ -167,6 +167,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
                       for doxygen generation and also modified filename tag
                       in eeprom interrupt, eeprom polled and flash polled
                       files to include them in doxygen examples.
+3.1     tjs    04/12/18 InputClockHz parameter copied in instance for use in
+                                                application. CR#998910
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

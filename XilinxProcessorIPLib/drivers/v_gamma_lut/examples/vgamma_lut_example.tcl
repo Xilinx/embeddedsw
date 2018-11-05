@@ -24,11 +24,11 @@ proc vgamma_lut_example args {
 
 		#create bsp
 		puts "Create BSP"
-		sdk createbsp -name vgamma_lut_example_bsp -hwproject vgamma_lut_example_hw_platform -proc microblaze_0 -os standalone
+		sdk createbsp -name vgamma_lut_example_bsp -hwproject vgamma_lut_example_hw_platform -proc processor_ss_processor -os standalone
 
 		#create application project
 		puts "Create Application Project"
-		sdk createapp -name vgamma_lut_example_design -hwproject vgamma_lut_example_hw_platform -proc microblaze_0 -os standalone -lang C -app {Empty Application} -bsp vgamma_lut_example_bsp
+		sdk createapp -name vgamma_lut_example_design -hwproject vgamma_lut_example_hw_platform -proc processor_ss_processor -os standalone -lang C -app {Empty Application} -bsp vgamma_lut_example_bsp
 
 		#copy example source files tp app project
 		puts "Get Example Design Source Files"

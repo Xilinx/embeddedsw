@@ -45,6 +45,8 @@
 * 1.0   ssc  01/20/16 Initial release
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines
 *                     Added ZCU106 support
+* 3.0	bkm	 18/4/18  Added Board specific code w.r.t VADJ
+*
 *
 * </pre>
 *
@@ -61,7 +63,8 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
-#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)		\
+		|| defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111)
 #include "xiicps.h"
 /************************** Constant Definitions *****************************/
 #define GPIO_MIO31_MASK	0x00000020U
@@ -75,8 +78,12 @@ extern "C" {
 #define IOEXPANDER1_ADDR		0x20U
 #define PCA9544A_ADDR			0x75U
 #define MAX15301_ADDR			0x18U
+#define TCA9548A_ADDR			0x74U
+#define IRPS5401_ADDR			0x44U
+#define IRPS5401_SWC_ADDR		0x45U
 
 #define BUF_LEN		10U
+#define MAX_SIZE		32U
 
 #define CMD_CFG_0_REG		0x06U
 #define CMD_OUTPUT_0_REG	0x02U
@@ -110,9 +117,55 @@ extern "C" {
 #define DELAY_1_US			0x1U
 #define DELAY_5_US			0x5U
 
+#define CMD_CH_2_REG_IRPS	0x04U
+#define CMD_PAGE_CFG		0x00U
+#define DATA_SWC_CFG		0x02U
+#define DATA_SWD_CFG		0x03U
+#define CMD_OPERATION_CFG	0x01U
+#define OPERATION_VAL		0x80U
+#define ON_OFF_CFG_VAL_IRPS 0x1AU
+#define CMD_VOUT_MODE_CFG		0x20U
+#define DATA_VOUT_MODE_VAL		0x14U
+#define CMD_VOUT_MAX_CFG		0x24U
+#define DATA_VOUT_MAX_VAL_L		0x00U
+#define DATA_VOUT_MAX_VAL_H		0x80U
+#define CMD_VOUT_CMD_CFG		0x21U
+#define CMD_VOUT_UV_WARN_LIMIT	0x43U
+#define CMD_VOUT_UV_FAULT_LIMIT	0x44U
+#define CMD_VOUT_OV_WARN_LIMIT	0x42U
+#define CMD_VOUT_OV_FAULT_LIMIT	0x40U
 
+#define MULTIRECORD_HEADER_SIZE				5
+#define DC_LOAD								0x02
+#define SET_VADJ_0V0							0
+#define SET_VADJ_1V2							1
+#define SET_VADJ_1V5							2
+#define SET_VADJ_1V8							3
 
 /**************************** Type Definitions *******************************/
+typedef struct {
+	u8 VadjRecordFound;
+	u8 MultirecordHdrOff;
+	u8 MultirecordHdrEol;
+	u8 RecordType;
+	u8 RecordLength;
+	u8 VadjHdrOffset;
+	u8 VadjDataOffset;
+	u8 OutputNumber;
+} XMultipleRecord;
+
+typedef struct XVoutCommands {
+	u32 VoutCmdL;
+	u32 VoutCmdH;
+	u32 VoutOvWarnL;
+	u32 VoutOvWarnH;
+	u32 VoutOvFaultL;
+	u32 VoutOvFaultH;
+	u32 VoutUvWarnL;
+	u32 VoutUvWarnH;
+	u32 VoutUvFaultL;
+	u32 VoutUvFaultH;
+} XVoutCommands;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

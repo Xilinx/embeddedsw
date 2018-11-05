@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,22 +52,33 @@
 
 #ifdef CHECK_HEALTHY_BOOT
 
-#define XPFW_BOOT_HEALTH_STS		PMU_GLOBAL_GLOBAL_GEN_STORAGE0
-#define XPFW_BOOT_HEALTH_GOOD		(0x1U << 29U)
+#define XPFW_BOOT_HEALTH_STS		PMU_GLOBAL_GLOBAL_GEN_STORAGE4
+#define XPFW_BOOT_HEALTH_GOOD		(0x1U)
 
 #endif
-/* Macros used to track the pahses in restart */
+/* Macros used to track the phases in restart */
 #define XPFW_RESTART_STATE_BOOT 0U
 #define	XPFW_RESTART_STATE_INPROGRESS 1U
 #define	XPFW_RESTART_STATE_DONE 2U
 
-/* Enable APU restart only if PMU has access to FPD WDT(psu_wdt_1) */
+/* Check if PMU has access to FPD WDT (psu_wdt_1) */
 #ifdef XPAR_PSU_WDT_1_DEVICE_ID
 	#include "xwdtps.h"
 	#define WDT_INSTANCE_COUNT	XPAR_XWDTPS_NUM_INSTANCES
-	#define ENABLE_APU_RESTART
 #else /* XPAR_PSU_WDT_1_DEVICE_ID */
 	#error "ENABLE_RECOVERY is defined but psu_wdt_1 is not assigned to PMU"
+#endif
+
+/* Check if PMU has access to TTC_9 */
+#ifdef XPAR_PSU_TTC_9_DEVICE_ID
+	#include "xttcps.h"
+#else /* XPAR_PSU_TTC_9_DEVICE_ID */
+	#error "ENABLE_RECOVERY is defined but psu_tcc_9 is not assigned to PMU"
+#endif
+
+/* Enable APU restart only if PMU has access to FPD WDT(psu_wdt_1) and TTC9 */
+#if defined(XPAR_PSU_WDT_1_DEVICE_ID) && defined(XPAR_PSU_TTC_9_DEVICE_ID)
+	#define ENABLE_APU_RESTART
 #endif
 
 #ifdef ENABLE_APU_RESTART
@@ -88,8 +99,15 @@
 
 #define WDT_CLK_PER_SEC ((APU_WDT_CLOCK_FREQ_HZ) / (WDT_PRESCALER))
 
+#define TTC_PRESCALER			15
+#define TTC_COUNT_PER_SEC		(XPAR_XTTCPS_0_TTC_CLK_FREQ_HZ / 65535)
+#define TTC_DEFAULT_NOTIFY_TIMEOUT_SEC	0U
+
 /* FPD WDT driver instance used within this file */
 static XWdtPs FpdWdtInstance;
+
+/* TTC driver instance used within this file */
+static XTtcPs FpdTtcInstance;
 
 /* Data strcuture to track restart phases for a Master */
 typedef struct XPfwRestartTracker {
@@ -100,6 +118,10 @@ typedef struct XPfwRestartTracker {
 	u8 WdtTimeout; /* Timeout value for WDT */
 	u8 ErrorId; /* Error Id corresponding to the WDT */
 	XWdtPs* WdtPtr; /* Pointer to WDT for this master */
+	u16 TtcDeviceId; /* TTC timer device ID */
+	XTtcPs *TtcPtr; /* Pointer to TTC for this master */
+	u8 TtcTimeout; /* Timeout to notify master for event */
+	u32 TtcResetId; /* Reset line ID for TTC */
 } XPfwRestartTracker;
 
 static XPfwRestartTracker RstTrackerList[] ={
@@ -110,6 +132,10 @@ static XPfwRestartTracker RstTrackerList[] ={
 			.WdtBaseAddress = APU_WDT_BASE,
 			.WdtTimeout= WDT_DEFAULT_TIMEOUT_SEC,
 			.WdtPtr = &FpdWdtInstance,
+			.TtcDeviceId = XPAR_PSU_TTC_9_DEVICE_ID,
+			.TtcTimeout = TTC_DEFAULT_NOTIFY_TIMEOUT_SEC,
+			.TtcPtr = &FpdTtcInstance,
+			.TtcResetId = PM_RESET_TTC3,
 		},
 };
 
@@ -156,7 +182,61 @@ static void WdtStop(XWdtPs* WdtInstPtr)
 {
 	/* Disable WDT restart output and stop WDT */
 	XWdtPs_DisableOutput(WdtInstPtr, XWDTPS_RESET_SIGNAL);
+
+	/* Stop the timer */
 	XWdtPs_Stop(WdtInstPtr);
+}
+
+/**
+ * XPfw_TimerSetIntervalMode - Set interval mode of TTC
+ * @TtcInstancePtr: Timer instance pointer
+ * @PeriodInSec: Timer interval in seconds
+ *
+ * Set timer mode to interval mode and set interval to specified
+ * value.
+ */
+static void XPfw_TimerSetIntervalMode(XTtcPs *TtcInstancePtr, u32 PeriodInSec)
+{
+	/* Stop the timer */
+	XTtcPs_Stop(TtcInstancePtr);
+
+	/* Set Interval mode */
+	XTtcPs_SetOptions(TtcInstancePtr, XTTCPS_OPTION_INTERVAL_MODE);
+	XTtcPs_SetInterval(TtcInstancePtr, (PeriodInSec * TTC_COUNT_PER_SEC));
+	XTtcPs_ResetCounterValue(TtcInstancePtr);
+	XTtcPs_SetPrescaler(TtcInstancePtr, TTC_PRESCALER);
+}
+
+/**
+ * XPfw_TTCStart - Start TTC timer
+ * @TtcInstancePtr: Timer instance pointer
+ * @Timeout: Timeout in seconds
+ *
+ * Start TTC timer and enable TTC interrupts. TTC configurations should
+ * be done before this.
+ */
+static void XPfw_TTCStart(XTtcPs *TtcInstancePtr, u32 Timeout)
+{
+	/* Enable interrupt */
+	XTtcPs_EnableInterrupts(TtcInstancePtr, XTTCPS_IXR_INTERVAL_MASK);
+
+	/* Start the timer */
+	XTtcPs_Start(TtcInstancePtr);
+}
+
+/**
+ * XPfw_TTCStop - Stop TTC timer
+ * @TtcInstancePtr: Timer instance pointer
+ *
+ * Stop TTC timer and disable TTC interrupts.
+ */
+static void XPfw_TTCStop(XTtcPs *TtcInstancePtr)
+{
+	/* Stop the timer */
+	XTtcPs_Stop(TtcInstancePtr);
+
+	/* Disable interrupt */
+	XTtcPs_DisableInterrupts(TtcInstancePtr, XTTCPS_IXR_INTERVAL_MASK);
 }
 
 #ifdef CHECK_HEALTHY_BOOT
@@ -189,16 +269,18 @@ static bool XPfw_RestartIsPlDone(void)
 							CSU_PCAP_STATUS_PL_DONE_MASK);
 }
 
-static bool XPfw_RestartIsSubSysEnabled(void)
+/**
+ * MasterIdle - Notify master to execute idle sequence
+ * @TtcInstancePtr: Timer instance pointer
+ * @Timeout: Timeout in seconds
+ *
+ * On receiving WDT event, PMU calls this function to start TTC timer
+ * to notify master about WDT event.
+ */
+static void MasterIdle(XTtcPs *TtcInstancePtr, u32 Timeout)
 {
-	return ((XPfw_Read32(LPD_XPPU_CTRL_ADDRESS) & LPD_XPPU_CTRL_EN_MASK) ==
-						LPD_XPPU_CTRL_EN_MASK);
-}
-/* Send an IPI from PMU_IPI_1 to the master */
-static void MasterIdle(PmMaster* Master)
-{
-	/* This is the first restart, send an IPI */
-	Xil_Out32((IPI_BASEADDR + ((u32)0X00031000U)), Master->ipiMask);
+	/* This is the first restart, send a TTC event */
+	XPfw_TTCStart(TtcInstancePtr, Timeout);
 }
 
 static void XPfw_RestartSystemLevel(void)
@@ -209,7 +291,6 @@ static void XPfw_RestartSystemLevel(void)
 		XPfw_ResetPsOnly();
 	}
 	else {
-		/* TODO: Req and wait for Ack from PL */
 		RestartDebug(DEBUG_DETAILED,"SRST\r\n");
 		/* Bypass RPLL before SRST : Workaround for a bug in 1.0 Silicon */
 		if (XPfw_PlatformGetPsVersion() == XPFW_PLATFORM_PS_V1) {
@@ -223,6 +304,36 @@ static void XPfw_RestartSystemLevel(void)
 }
 
 /**
+ * Xpfw_TTCInit - Initialize TTC timer
+ * @TtcDeviceId: TTC timer device ID
+ * @TtcInstancePtr: Timer instance pointer
+ *
+ * Lookup TTC configurations based on TTC device ID and initialize
+ * TTC based on configurations.
+ *
+ * @return XST_SUCCESS in case of success else proper error code
+ */
+static int Xpfw_TTCInit(u16 TtcDeviceId, XTtcPs *TtcInstancePtr)
+{
+	XTtcPs_Config *timerConfig;
+	s32 Status = XST_FAILURE;
+
+	/* Look up the configuration based on the device identifier */
+	timerConfig = XTtcPs_LookupConfig(TtcDeviceId);
+	if (NULL == timerConfig) {
+		return XST_FAILURE;
+	}
+
+	/* Initialize the device */
+	Status = XTtcPs_CfgInitialize(TtcInstancePtr, timerConfig, timerConfig->BaseAddress);
+	if (XST_SUCCESS != Status) {
+		return Status;
+	}
+
+	return Status;
+}
+
+/**
  * @XPfw_RecoveryInit - Initialize WDTs and setup recovery
  *
  * @return XST_SUCCESS if all Restart Trackers were initialized
@@ -233,6 +344,15 @@ int XPfw_RecoveryInit(void)
 	s32 Status = XST_FAILURE;
 	u32 RstIdx;
 	XWdtPs_Config *WdtConfigPtr;
+
+	/*
+	 * Reset TTC lines. TTC lines can be same for different TTC ID so
+	 * reset them in advance to avoid reset after initialization.
+	 */
+	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
+		(void)PmResetAssertInt(RstTrackerList[RstIdx].TtcResetId,
+				PM_RESET_ACTION_PULSE);
+	}
 
 	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
 		WdtConfigPtr = GetWdtCfgPtr(RstTrackerList[RstIdx].WdtBaseAddress);
@@ -249,7 +369,16 @@ int XPfw_RecoveryInit(void)
 		/* Reset the WDT */
 		(void)PmResetAssertInt(PM_RESET_SWDT_CRF, PM_RESET_ACTION_PULSE);
 		WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
+
+		Status = Xpfw_TTCInit(RstTrackerList[RstIdx].TtcDeviceId,
+				RstTrackerList[RstIdx].TtcPtr);
+		if (Status != XST_SUCCESS) {
+			break;
+		}
+		XPfw_TimerSetIntervalMode(RstTrackerList[RstIdx].TtcPtr,
+				RstTrackerList[RstIdx].TtcTimeout);
 	}
+
 	return Status;
 }
 
@@ -287,7 +416,8 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 				RstTrackerList[RstIdx].RestartState = XPFW_RESTART_STATE_INPROGRESS;
 				RstTrackerList[RstIdx].RestartCount++;
 				WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
-				MasterIdle(RstTrackerList[RstIdx].Master);
+				MasterIdle(RstTrackerList[RstIdx].TtcPtr,
+					RstTrackerList[RstIdx].TtcTimeout);
 			}
 			else{
 				RestartDebug(DEBUG_DETAILED,"Escalating to system level reset\r\n");
@@ -315,6 +445,7 @@ void XPfw_RecoveryAck(PmMaster *Master)
 		/* Currently we support only APU restart */
 		if(RstTrackerList[RstIdx].Master == Master) {
 			RstTrackerList[RstIdx].RestartState = XPFW_RESTART_STATE_DONE;
+			XPfw_TTCStop(RstTrackerList[RstIdx].TtcPtr);
 			WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
 #ifdef CHECK_HEALTHY_BOOT
 			/*
@@ -328,8 +459,11 @@ void XPfw_RecoveryAck(PmMaster *Master)
 }
 
 /**
- * XPfw_RecoveryStop() - Stop WDTs in order to disable recovery
- * @Master is the PM master who wants to stop WDT recovery
+ * XPfw_RecoveryStop() - Disable recovery logic
+ * @Master: PM master who wants to stop WDT recovery
+ *
+ * Stop recovery logic by stopping WDT timer and stopping
+ * TTC timer in case it is running.
  */
 void XPfw_RecoveryStop(PmMaster *Master)
 {
@@ -338,13 +472,17 @@ void XPfw_RecoveryStop(PmMaster *Master)
 	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
 		if (RstTrackerList[RstIdx].Master == Master) {
 			WdtStop(RstTrackerList[RstIdx].WdtPtr);
+			XPfw_TTCStop(RstTrackerList[RstIdx].TtcPtr);
 		}
 	}
 }
 
 /**
- * XPfw_RecoveryRestart() - Reinitialize WDTs in order to enable recovery
- * @Master is the PM master who wants to enable WDT recovery
+ * XPfw_RecoveryRestart() - Restart recovery logic
+ * @Master: PM master who wants to enable WDT recovery
+ *
+ * Restart recovery logic by restarting WDT timer and stopping
+ * TTC timer in case it is running.
  */
 void XPfw_RecoveryRestart(PmMaster *Master)
 {
@@ -353,6 +491,7 @@ void XPfw_RecoveryRestart(PmMaster *Master)
 	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
 		if (RstTrackerList[RstIdx].Master == Master) {
 			WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
+			XPfw_TTCStop(RstTrackerList[RstIdx].TtcPtr);
 		}
 	}
 }

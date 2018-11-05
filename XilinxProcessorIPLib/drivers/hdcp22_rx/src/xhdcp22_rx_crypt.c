@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx_crypt.c
-* @addtogroup hdcp22_rx_v2_0
+* @addtogroup hdcp22_rx_v2_2
 * @{
 * @details
 *
@@ -154,7 +154,7 @@ int XHdcp22Rx_CalcMontNPrime(u8 *NPrime, const u8 *N, int NDigits)
 	memcpy(T1, N_i, sizeof(N_i)); // Increase precision of N
 	if(mpModInv(RInv, R, T1, XHdcp22Rx_MpSizeof(RInv)))
 	{
-		print("ERROR: Failed Rinv Calculation\n\r");
+		print("ERROR: Failed Rinv Calculation\r\n");
 		return XST_FAILURE;
 	}
 
@@ -173,7 +173,7 @@ int XHdcp22Rx_CalcMontNPrime(u8 *NPrime, const u8 *N, int NDigits)
 	T2[0] = 1;
 	if(!mpEqual(T1, T2, XHdcp22Rx_MpSizeof(T1)))
 	{
-		print("ERROR: Failed NPrime Calculation\n\r");
+		print("ERROR: Failed NPrime Calculation\r\n");
 		return XST_FAILURE;
 	}
 

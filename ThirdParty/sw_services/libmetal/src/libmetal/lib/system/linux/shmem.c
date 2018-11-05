@@ -33,9 +33,9 @@
  * @brief	Linux libmetal shared memory handling.
  */
 
-#include "metal/shmem.h"
-#include "metal/sys.h"
-#include "metal/utilities.h"
+#include <metal/shmem.h>
+#include <metal/sys.h>
+#include <metal/utilities.h>
 
 struct metal_shmem {
 	struct metal_io_region	io;

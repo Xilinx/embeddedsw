@@ -47,4 +47,6 @@
  ********************************************************************/
 void PmProcessRequest(PmMaster *const master, const u32 *payload);
 
+void PmShutdownInterruptHandler(void);
+
 #endif

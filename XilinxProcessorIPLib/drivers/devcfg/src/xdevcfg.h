@@ -33,7 +33,7 @@
 /**
 *
 * @file xdevcfg.h
-* @addtogroup devcfg_v3_3
+* @addtogroup devcfg_v3_5
 * @{
 * @details
 *

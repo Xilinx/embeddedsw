@@ -33,7 +33,7 @@
 /**
 *
 * @file xspi_options.c
-* @addtogroup spi_v4_1
+* @addtogroup spi_v4_4
 * @{
 *
 * Contains functions for the configuration of the XSpi driver component.

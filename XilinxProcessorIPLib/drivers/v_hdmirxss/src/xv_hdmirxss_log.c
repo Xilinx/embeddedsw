@@ -18,7 +18,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
  * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
@@ -43,9 +43,12 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   YH   17/08/16 Initial release.
- * 1.01  MMO  03/01/17 Add compiler option(XV_HDMIRXSS_LOG_ENABLE) to enable Log
- *
+ * 1.01  MMO  03/01/17 Add compiler option(XV_HDMIRXSS_LOG_ENABLE) to enable
+ *                         Log
  * 1.4   YH   07/07/17 Add new log type XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR
+ * 5.0   EB   16/01/18 Added new log XV_HDMIRXSS_LOG_EVT_PIX_REPEAT_ERR
+ *            23/01/18 Minor cleanup
+ *       MMO  05/02/18 Added new log XV_HDMIRXSS_LOG_EVT_SYNCEST
  * </pre>
  *
 *******************************************************************************/
@@ -102,29 +105,31 @@ void XV_HdmiRxSs_LogWrite(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_LogEvent Evt, u8
     InstancePtr->Log.DataBuffer[InstancePtr->Log.HeadIndex] =
             (Data << 8) | Evt;
 
-    /* Update head pointer if reached to end of the buffer */
-    if (InstancePtr->Log.HeadIndex ==
-            (u8)((sizeof(InstancePtr->Log.DataBuffer) / 2) - 1)) {
-        /* Clear pointer */
-        InstancePtr->Log.HeadIndex = 0;
-    }
-    else {
-        /* Increment pointer */
-        InstancePtr->Log.HeadIndex++;
-    }
+	/* Update head pointer if reached to end of the buffer */
+	if (InstancePtr->Log.HeadIndex ==
+			(u8)((sizeof(InstancePtr->Log.DataBuffer) /
+					sizeof(InstancePtr->Log.DataBuffer[0])) - 1)) {
+		/* Clear pointer */
+		InstancePtr->Log.HeadIndex = 0;
+	}
+	else {
+		/* Increment pointer */
+		InstancePtr->Log.HeadIndex++;
+	}
 
-    /* Check tail pointer. When the two pointer are equal, then the buffer
-     * is full. In this case then increment the tail pointer as well to
-     * remove the oldest entry from the buffer. */
-    if (InstancePtr->Log.TailIndex == InstancePtr->Log.HeadIndex) {
-        if (InstancePtr->Log.TailIndex ==
-            (u8)((sizeof(InstancePtr->Log.DataBuffer) / 2) - 1)) {
-            InstancePtr->Log.TailIndex = 0;
-        }
-        else {
-            InstancePtr->Log.TailIndex++;
-        }
-    }
+	/* Check tail pointer. When the two pointer are equal, then the buffer
+	 * is full. In this case then increment the tail pointer as well to
+	 * remove the oldest entry from the buffer. */
+	if (InstancePtr->Log.TailIndex == InstancePtr->Log.HeadIndex) {
+		if (InstancePtr->Log.TailIndex ==
+			(u8)((sizeof(InstancePtr->Log.DataBuffer) /
+					sizeof(InstancePtr->Log.DataBuffer[0])) - 1)) {
+			InstancePtr->Log.TailIndex = 0;
+		}
+		else {
+			InstancePtr->Log.TailIndex++;
+		}
+	}
 }
 
 /*****************************************************************************/
@@ -140,7 +145,7 @@ void XV_HdmiRxSs_LogWrite(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_LogEvent Evt, u8
 ******************************************************************************/
 u16 XV_HdmiRxSs_LogRead(XV_HdmiRxSs *InstancePtr)
 {
-    u16 Log;
+	u16 Log;
 
     /* Verify argument. */
     Xil_AssertNonvoid(InstancePtr != NULL);
@@ -154,7 +159,8 @@ u16 XV_HdmiRxSs_LogRead(XV_HdmiRxSs *InstancePtr)
 
         /* Increment tail pointer */
         if (InstancePtr->Log.TailIndex ==
-            (u8)((sizeof(InstancePtr->Log.DataBuffer) / 2) - 1)) {
+            (u8)((sizeof(InstancePtr->Log.DataBuffer) /
+					sizeof(InstancePtr->Log.DataBuffer[0])) - 1)) {
             InstancePtr->Log.TailIndex = 0;
         }
         else {
@@ -279,6 +285,13 @@ void XV_HdmiRxSs_LogDisplay(XV_HdmiRxSs *InstancePtr)
             break;
         case (XV_HDMIRXSS_LOG_EVT_SYNCLOSS):
             xil_printf("RX Sync Loss detected\r\n");
+            break;
+        case (XV_HDMIRXSS_LOG_EVT_PIX_REPEAT_ERR):
+			xil_printf(ANSI_COLOR_RED "Unsupported Pixel Repetition: %d"
+					ANSI_COLOR_RESET "\r\n", Data);
+			break;
+		case (XV_HDMIRXSS_LOG_EVT_SYNCEST):
+            xil_printf("RX Sync Loss recovered\r\n");
             break;
         default:
             xil_printf("Unknown event\r\n");

@@ -135,6 +135,10 @@ struct remote_device {
 	int support_ns;
 };
 
+/* RPMsg internal helper functions */
+int rpmsg_memb_match(const void *ptr1, const void *ptr2, size_t n);
+void *rpmsg_memb_cpy(void *dest, const void *src, size_t n);
+
 /* Core functions */
 int rpmsg_start_ipc(struct remote_device *rdev);
 struct rpmsg_channel *_rpmsg_create_channel(struct remote_device *rdev,

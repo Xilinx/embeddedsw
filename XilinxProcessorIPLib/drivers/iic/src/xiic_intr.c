@@ -33,7 +33,7 @@
 /**
 *
 * @file xiic_intr.c
-* @addtogroup iic_v3_1
+* @addtogroup iic_v3_4
 * @{
 *
 * Contains interrupt functions of the XIic driver.  This file is required

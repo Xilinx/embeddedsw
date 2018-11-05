@@ -132,6 +132,19 @@
 * 1.09  MMO    02/03/17 Added Sync Loss and IsMode Handler for HDCP
 *                          compliance test.
 * 1.10  EB     24/10/17 Added enum XV_HdmiRx_AudioFormatType for AudFormat
+* 2.00  YH     16/11/17 Added dedicated reset for each clock domain
+*                       Added bridge overflow interrupt
+*       EB     18/01/18 Moved VicTable, XV_HdmiRx_Aux to Hdmi Common library
+*                       Moved Vendor Specific InfoFrame related functions to
+*                           HDMI Common library
+*                       Deprecating XV_HdmiRx_VSIF_ParsePacket,
+*                           XV_HdmiRx_VSIF_DisplayInfo,
+*                           XV_HdmiRx_VSIF_3DStructToString,
+*                           XV_HdmiRx_VSIF_3DSampMethodToString and
+*                           XV_HdmiRx_VSIF_3DSampPosToString APIs
+*       MMO    08/02/18 Added XV_HdmiRx_SyncStatus enumaration, and as
+*                           an element in XV_HdmiRx_Stream for Sync Loss
+*                           handling
 * </pre>
 *
 ******************************************************************************/
@@ -150,8 +163,9 @@ extern "C" {
 #include "xstatus.h"
 #include "xdebug.h"
 #include "xvidc.h"
-
 #include "xv_hdmirx_vsif.h"
+#include "xv_hdmic.h"
+
 /************************** Constant Definitions *****************************/
 
 /** @name Handler Types
@@ -163,6 +177,8 @@ extern "C" {
 */
 typedef enum {
 	XV_HDMIRX_HANDLER_CONNECT = 1,	/**< A connect event interrupt type */
+	XV_HDMIRX_HANDLER_BRDG_OVERFLOW,    /**< Interrupt type for bridge
+	                                     overflow */
 	XV_HDMIRX_HANDLER_AUX,			/**< Interrupt type for AUX peripheral */
 	XV_HDMIRX_HANDLER_AUD,			/**< Interrupt type for AUD peripheral */
 	XV_HDMIRX_HANDLER_LNKSTA,		/**< Interrupt type for LNKSTA peripheral */
@@ -190,6 +206,14 @@ typedef enum {
 	XV_HDMIRX_STATE_STREAM_UP				/**< Stream up */
 } XV_HdmiRx_State;
 
+/** @name HDMI RX sync status
+* @{
+*/
+typedef enum {
+	XV_HDMIRX_SYNCSTAT_SYNC_LOSS,			/**< Sync Loss */
+	XV_HDMIRX_SYNCSTAT_SYNC_EST,			/**< Sync Lock */
+} XV_HdmiRx_SyncStatus;
+
 /** @name HDMI RX audio format
 * @{
 */
@@ -203,14 +227,6 @@ typedef enum {
 /**************************** Type Definitions *******************************/
 
 /**
-* This typedef contains Video identification information in tabular form.
-*/
-typedef struct {
-	XVidC_VideoMode VmId;	/**< Video mode/Resolution ID */
-	u8 Vic;			/**< Video Identification code */
-} XV_HdmiRx_VicTable;
-
-/**
 * This typedef contains configuration information for the HDMI RX core.
 * Each HDMI RX device should have a configuration structure associated.
 */
@@ -218,6 +234,8 @@ typedef struct {
 	u16 DeviceId;		/**< DeviceId is the unique ID of the HDMI RX core */
 	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
 						* of the core's registers */
+
+	u32 AxiLiteClkFreq;
 } XV_HdmiRx_Config;
 
 /**
@@ -242,35 +260,11 @@ typedef struct {
 	u8 	IsScrambled; 					/**< Scrambler flag 1 - scrambled data ,
 										*	0 - non scrambled data */
 	XV_HdmiRx_State	State;				/**< State */
+	XV_HdmiRx_SyncStatus SyncStatus;    /**< Stream Sync Status*/
 	u8 	IsConnected;					/**< Connected flag. This flag is set when
 										* the cable is connected */
 	u8 GetVideoPropertiesTries;			/** This value is used  in the GetVideoProperties API*/
 } XV_HdmiRx_Stream;
-
-
-/**
-* This typedef contains Auxiliary header information for infoframe.
-*/
-typedef union {
-	u32 Data;	/**< AUX header data field */
-	u8 Byte[4];	/**< AUX header byte field */
-} XV_HdmiRx_AuxHeader;
-
-/**
-* This typedef contains Auxiliary data information for infoframe.
-*/
-typedef union {
-	u32 Data[8];	/**< AUX data field */
-	u8 Byte[32];	/**< AUX data byte field */
-} XV_HdmiRx_AuxData;
-
-/**
-* This typedef holds HDMI RX Auxiliary peripheral specific data structure.
-*/
-typedef struct {
-	XV_HdmiRx_AuxHeader Header;	/**< AUX header field */
-	XV_HdmiRx_AuxData Data;		/**< AUX data field */
-} XV_HdmiRx_Aux;
 
 /**
 * Callback type for interrupt.
@@ -335,6 +329,10 @@ typedef struct {
 	void *LinkErrorRef;						/**< To be passed to the link error callback */
 	u32 IsLinkErrorCallbackSet;				/**< Set flag. This flag is set to true when the callback has been registered */
 
+	XV_HdmiRx_Callback BrdgOverflowCallback;/**< Callback for bridge overflow callback */
+	void *BrdgOverflowRef;					/**< To be passed to the bridge overflow callback */
+	u32 IsBrdgOverflowCallbackSet;			/**< Set flag. This flag is set to true when the callback has been registered */
+
 	XV_HdmiRx_Callback SyncLossCallback;		/**< Callback for sync loss callback */
 	void *SyncLossRef;						/**< To be passed to the link error callback */
 	u32 IsSyncLossCallbackSet;				/**< Set flag. This flag is set to true when the callback has been registered */
@@ -347,7 +345,7 @@ typedef struct {
 	XV_HdmiRx_Stream Stream;				/**< HDMI RX stream information */
 
 	/* Aux peripheral specific */
-	XV_HdmiRx_Aux Aux;					/**< AUX peripheral information */
+	XHdmiC_Aux Aux;					/**< AUX peripheral information */
 
 	/* Audio peripheral specific */
 	u32 AudCts;								/**< Audio CTS */
@@ -356,6 +354,10 @@ typedef struct {
 } XV_HdmiRx;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define TIME_10MS	(XPAR_XV_HDMIRX_0_AXI_LITE_FREQ_HZ/100)
+#define TIME_200MS	(XPAR_XV_HDMIRX_0_AXI_LITE_FREQ_HZ/5)
+#define TIME_16MS	((XPAR_XV_HDMIRX_0_AXI_LITE_FREQ_HZ*10)/625)
+
 
 /*****************************************************************************/
 /**
@@ -1207,6 +1209,10 @@ int XV_HdmiRx_IsStreamUp(XV_HdmiRx *InstancePtr);
 int XV_HdmiRx_IsStreamScrambled(XV_HdmiRx *InstancePtr);
 int XV_HdmiRx_IsStreamConnected(XV_HdmiRx *InstancePtr);
 int XV_HdmiRx_SetHpd(XV_HdmiRx *InstancePtr, u8 SetClr);
+void XV_HdmiRx_INT_VRST(XV_HdmiRx *InstancePtr, u8 Reset);
+void XV_HdmiRx_INT_LRST(XV_HdmiRx *InstancePtr, u8 Reset);
+void XV_HdmiRx_EXT_VRST(XV_HdmiRx *InstancePtr, u8 Reset);
+void XV_HdmiRx_EXT_SYSRST(XV_HdmiRx *InstancePtr, u8 Reset);
 int XV_HdmiRx_SetPixelRate(XV_HdmiRx *InstancePtr);
 void XV_HdmiRx_SetColorFormat(XV_HdmiRx *InstancePtr);
 int XV_HdmiRx_IsLinkStatusErrMax(XV_HdmiRx *InstancePtr);
@@ -1241,7 +1247,7 @@ void XV_HdmiRx_IntrHandler(void *InstancePtr);
 int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr, u32 HandlerType, void *CallbackFunc, void *CallbackRef);
 
 /* Vendor Specific Infomation related functions in xv_hdmirx_vsif.c */
-int XV_HdmiRx_VSIF_ParsePacket(XV_HdmiRx_Aux *AuxPtr, XV_HdmiRx_VSIF  *VSIFPtr);
+int XV_HdmiRx_VSIF_ParsePacket(XHdmiC_Aux *AuxPtr, XV_HdmiRx_VSIF  *VSIFPtr);
 void XV_HdmiRx_VSIF_DisplayInfo(XV_HdmiRx_VSIF  *VSIFPtr);
 char* XV_HdmiRx_VSIF_3DStructToString(XV_HdmiRx_3D_Struct_Field Item);
 char* XV_HdmiRx_VSIF_3DSampMethodToString(XV_HdmiRx_3D_Sampling_Method Item);

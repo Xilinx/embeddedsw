@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -46,6 +46,7 @@
 #include "xscugic.h"
 #include "lwip/tcp.h"
 #include "xil_printf.h"
+#include "platform.h"
 #include "platform_config.h"
 #include "netif/xadapter.h"
 #ifdef PLATFORM_ZYNQMP
@@ -72,11 +73,14 @@ void dhcp_fine_tmr();
 void dhcp_coarse_tmr();
 #endif
 
+extern struct netif *echo_netif;
+
 void platform_clear_interrupt( XTtcPs * TimerInstance );
 
 void
 timer_callback(XTtcPs * TimerInstance)
 {
+	static int DetectEthLinkStatus = 0;
 	/* we need to call tcp_fasttmr & tcp_slowtmr at intervals specified
 	 * by lwIP. It is not important that the timing is absoluetly accurate.
 	 */
@@ -84,6 +88,7 @@ timer_callback(XTtcPs * TimerInstance)
 #if LWIP_DHCP==1
     static int dhcp_timer = 0;
 #endif
+	DetectEthLinkStatus++;
     TcpFastTmrFlag = 1;
 	odd = !odd;
 	if (odd) {
@@ -100,6 +105,13 @@ timer_callback(XTtcPs * TimerInstance)
 		}
 #endif
 	}
+
+	/* For detecting Ethernet phy link status periodically */
+	if (DetectEthLinkStatus == ETH_LINK_DETECT_INTERVAL) {
+		eth_link_detect(echo_netif);
+		DetectEthLinkStatus = 0;
+	}
+
 	platform_clear_interrupt(TimerInstance);
 }
 

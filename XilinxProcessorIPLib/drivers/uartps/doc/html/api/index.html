@@ -97,10 +97,10 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>Receive FIFO is empty</li>
 <li>Data in the receive FIFO equal to the receive threshold</li>
 </ul>
-<p>The application can control which interrupts are enabled using the <a class="el" href="group__uartps__v3__4.html#gab3b65e926f6f4ac7ab41a70801ba12c3" title="This function sets the interrupt mask. ">XUartPs_SetInterruptMask()</a> function.</p>
-<p>In order to use interrupts, it is necessary for the user to connect the driver interrupt handler, <a class="el" href="group__uartps__v3__4.html#gabf86fb20a58e4a7fbd73afa49f8eb604" title="This function is the interrupt handler for the driver. ">XUartPs_InterruptHandler()</a>, to the interrupt system of the application. A separate handler should be provided by the application to communicate with the interrupt system, and conduct application specific interrupt handling. An application registers its own handler through the <a class="el" href="group__uartps__v3__4.html#ga9528098e589491997c7805592a4b5a7b" title="This function sets the handler that will be called when an event (interrupt) occurs that needs applic...">XUartPs_SetHandler()</a> function.</p>
+<p>The application can control which interrupts are enabled using the <a class="el" href="group__uartps__v3__5.html#gab3b65e926f6f4ac7ab41a70801ba12c3" title="This function sets the interrupt mask. ">XUartPs_SetInterruptMask()</a> function.</p>
+<p>In order to use interrupts, it is necessary for the user to connect the driver interrupt handler, <a class="el" href="group__uartps__v3__5.html#gabf86fb20a58e4a7fbd73afa49f8eb604" title="This function is the interrupt handler for the driver. ">XUartPs_InterruptHandler()</a>, to the interrupt system of the application. A separate handler should be provided by the application to communicate with the interrupt system, and conduct application specific interrupt handling. An application registers its own handler through the <a class="el" href="group__uartps__v3__5.html#ga9528098e589491997c7805592a4b5a7b" title="This function sets the handler that will be called when an event (interrupt) occurs that needs applic...">XUartPs_SetHandler()</a> function.</p>
 <p><b>Data Transfer</b></p>
-<p>The functions, <a class="el" href="group__uartps__v3__4.html#ga17b3e12a296eecf17be4a4b8583576e7" title="This functions sends the specified buffer using the device in either polled or interrupt driven mode...">XUartPs_Send()</a> and <a class="el" href="group__uartps__v3__4.html#gadc16932076b99cd747e702dcbecd102b" title="This function attempts to receive a specified number of bytes of data from the device and store it in...">XUartPs_Recv()</a>, are provided in the driver to allow data to be sent and received. They can be used in either polled or interrupt mode.</p>
+<p>The functions, <a class="el" href="group__uartps__v3__5.html#ga17b3e12a296eecf17be4a4b8583576e7" title="This functions sends the specified buffer using the device in either polled or interrupt driven mode...">XUartPs_Send()</a> and <a class="el" href="group__uartps__v3__5.html#gadc16932076b99cd747e702dcbecd102b" title="This function attempts to receive a specified number of bytes of data from the device and store it in...">XUartPs_Recv()</a>, are provided in the driver to allow data to be sent and received. They can be used in either polled or interrupt mode.</p>
 <dl class="section note"><dt>Note</dt><dd></dd></dl>
 <p>The default configuration for the UART after initialization is:</p>
 <ul>
@@ -155,7 +155,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
                       strings are available in all examples. This is a fix
                       for CR-965028.
       ms     03/17/17 Added readme.txt file in examples folder for doxygen
-                      generation.</pre><pre></pre> </div></div><!-- contents -->
+                      generation.
+3.6   ms     02/16/18 Updates the flow control mode offset value in modem
+                      control register.</pre><pre></pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

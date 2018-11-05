@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xzdma.h
-* @addtogroup zdma_v1_0
+* @addtogroup zdma_v1_5
 * @{
 * @details
 *
@@ -126,6 +126,9 @@
 *                        its config structure.
 * 1.4   adk 	11/02/17 Updated examples to fix compilation errors for IAR
 *			 compiler.
+* 1.5   adk     11/22/17 Added peripheral test app support for ZDMA driver.
+*		12/11/17 Fixed peripheral test app generation issues when dma
+*			 buffers are configured on OCM memory(CR#990806).
 * </pre>
 *
 ******************************************************************************/

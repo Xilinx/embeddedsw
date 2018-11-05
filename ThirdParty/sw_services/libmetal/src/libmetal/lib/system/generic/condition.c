@@ -33,8 +33,8 @@
  * @brief	Generic libmetal condition variable handling.
  */
 
-#include "metal/condition.h"
-#include "metal/irq.h"
+#include <metal/condition.h>
+#include <metal/irq.h>
 
 extern void metal_generic_default_poll(void);
 

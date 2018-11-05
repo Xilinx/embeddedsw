@@ -33,7 +33,7 @@
 /**
 *
 * @file xiic.h
-* @addtogroup iic_v3_1
+* @addtogroup iic_v3_4
 * @{
 * @details
 *

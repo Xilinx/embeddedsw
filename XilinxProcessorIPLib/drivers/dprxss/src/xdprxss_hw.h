@@ -33,7 +33,7 @@
 /**
 *
 * @file xdprxss_hw.h
-* @addtogroup dprxss_v4_0
+* @addtogroup dprxss_v4_2
 * @{
 *
 * This header file contains identifiers and register-level core functions (or
@@ -78,6 +78,11 @@ extern "C" {
 								      * rate.
 								      */
 #define XDPRXSS_LINK_BW_SET_540GBPS XDP_RX_OVER_LINK_BW_SET_540GBPS /**< 5.40
+								      *  Gbps
+								      * link
+								      * rate.
+								      */
+#define XDPRXSS_LINK_BW_SET_810GBPS XDP_RX_OVER_LINK_BW_SET_810GBPS /**< 8.10
 								      *  Gbps
 								      * link
 								      * rate.

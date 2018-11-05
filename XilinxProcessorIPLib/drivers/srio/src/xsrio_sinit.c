@@ -33,7 +33,7 @@
 /**
 *
 * @file xsrio_sinit.c
-* @addtogroup srio_v1_0
+* @addtogroup srio_v1_1
 * @{
 * 
 * This file contains static Initialization functionality for Xilinx SRIO Gen2

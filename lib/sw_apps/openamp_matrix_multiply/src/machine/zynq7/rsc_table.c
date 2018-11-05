@@ -50,8 +50,8 @@
 /* Resource table entries */
 #define NUM_VRINGS                  0x02
 #define VRING_ALIGN                 0x1000
-#define RING_TX                     0x3e600000
-#define RING_RX                     0x3e604000
+#define RING_TX                     0x3e400000
+#define RING_RX                     0x3e404000
 #define VRING_SIZE                  256
 
 #define NUM_TABLE_ENTRIES           2
@@ -72,7 +72,7 @@ struct remote_resource_table __resource resources = {
 	 offsetof(struct remote_resource_table, rpmsg_vdev),
 	 },
 
-	{RSC_RPROC_MEM, 0x3e600000, 0x3e600000, 0x100000, 0},
+	{RSC_RPROC_MEM, 0x3e400000, 0x3e400000, 0x100000, 0},
 
 	/* Virtio device entry */
 	{

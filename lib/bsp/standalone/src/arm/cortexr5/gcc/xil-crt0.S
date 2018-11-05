@@ -45,6 +45,9 @@
 * 6.4   asa  08/16/17 Added call to Xil_InitializeExistingMPURegConfig to
 *                     initialize the MPU configuration table with the MPU
 *                     configurations already set in Init_Mpu function.
+* 6.6   srm  10/18/17 Updated the timer configuration with XTime_StartTTCTimer.
+*                     Now the timer instance as specified by the user will be
+*		      started.
 * </pre>
 *
 * @note
@@ -126,9 +129,9 @@ test_boot_status:
 	/* set stack pointer */
 	ldr	r13,.Lstack		/* stack address */
 
-	/* configure the timer if TTC3 is present */
+	/* configure the timer if TTC is present */
 #ifdef SLEEP_TIMER_BASEADDR
-	bl XTime_StartTimer
+    bl XTime_StartTTCTimer
 #endif
 	bl 	Xil_InitializeExistingMPURegConfig	/* Initialize MPU config */
 	/* run global constructors */

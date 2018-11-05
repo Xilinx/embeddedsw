@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2017 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -40,6 +40,9 @@
 * ----- ---- -------- ---------------------------------------------------
 * 5.2	pkp  28/05/15 First release
 * 5.4	pkp  18/12/15 Initialized global constructor for C++ applications
+* 6.6   srm  10/18/17 Added timer configuration using XTime_StartTTCTimer API.
+*		      Now the TTC instance as specified by the user will be
+*		      started.
 * </pre>
 *
 * @note
@@ -47,7 +50,7 @@
 * None.
 *
 ******************************************************************************/
-
+#include "xparameters.h"
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
 	.align	2
@@ -101,6 +104,11 @@ _startup:
 
 	/* run global constructors */
 	bl __libc_init_array
+
+	/* Reset and start Triple Timer Counter */
+	#if defined (SLEEP_TIMER_BASEADDR)
+	bl XTime_StartTTCTimer
+	#endif
 
 	/* make sure argc and argv are valid */
 	mov	r0, #0

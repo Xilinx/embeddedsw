@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2015 - 2017, Xilinx Inc. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -40,9 +40,10 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
-#include "metal/compiler.h"
-#include "metal/atomic.h"
-#include "metal/sys.h"
+#include <metal/compiler.h>
+#include <metal/atomic.h>
+#include <metal/sys.h>
+#include <metal/cpu.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -50,6 +51,10 @@ extern "C" {
 
 /** \defgroup io IO Interfaces
  *  @{ */
+
+#ifdef __MICROBLAZE__
+#define NO_ATOMIC_64_SUPPORT
+#endif
 
 struct metal_io_region;
 
@@ -107,21 +112,11 @@ struct metal_io_region {
  * @param[in]		mem_flags	Memory flags
  * @param[in]		ops			ops
  */
-static inline void
+void
 metal_io_init(struct metal_io_region *io, void *virt,
 	      const metal_phys_addr_t *physmap, size_t size,
 	      unsigned page_shift, unsigned int mem_flags,
-	      const struct metal_io_ops *ops)
-{
-	const struct metal_io_ops nops = {NULL, NULL, NULL, NULL, NULL, NULL};
-	io->virt = virt;
-	io->physmap = physmap;
-	io->size = size;
-	io->page_shift = page_shift;
-	io->page_mask = (1UL << page_shift) - 1UL;
-	io->mem_flags = mem_flags;
-	io->ops = ops ? *ops : nops;
-}
+	      const struct metal_io_ops *ops);
 
 /**
  * @brief	Close a libmetal shared memory segment.
@@ -249,6 +244,7 @@ metal_io_read(struct metal_io_region *io, unsigned long offset,
 	      memory_order order, int width)
 {
 	void *ptr = metal_io_virt(io, offset);
+
 	if (io->ops.read)
 		return (*io->ops.read)(io, offset, order, width);
 	else if (ptr && sizeof(atomic_uchar) == width)
@@ -260,8 +256,12 @@ metal_io_read(struct metal_io_region *io, unsigned long offset,
 	else if (ptr && sizeof(atomic_ulong) == width)
 		return atomic_load_explicit((atomic_ulong *)ptr, order);
 	else if (ptr && sizeof(atomic_ullong) == width)
+#ifndef NO_ATOMIC_64_SUPPORT
 		return atomic_load_explicit((atomic_ullong *)ptr, order);
 
+#else
+		return metal_processor_io_read64((atomic_ullong *)ptr, order);
+#endif
 	assert(0);
 	return 0; /* quiet compiler */
 }
@@ -292,7 +292,11 @@ metal_io_write(struct metal_io_region *io, unsigned long offset,
 	else if (ptr && sizeof(atomic_ulong) == width)
 		atomic_store_explicit((atomic_ulong *)ptr, value, order);
 	else if (ptr && sizeof(atomic_ullong) == width)
+#ifndef NO_ATOMIC_64_SUPPORT
 		atomic_store_explicit((atomic_ullong *)ptr, value, order);
+#else
+		metal_processor_io_write64((atomic_ullong *)ptr, value, order);
+#endif
 	else
 		assert (0);
 }
@@ -365,6 +369,8 @@ int metal_io_block_write(struct metal_io_region *io, unsigned long offset,
  */
 int metal_io_block_set(struct metal_io_region *io, unsigned long offset,
 	       unsigned char value, int len);
+
+#include <metal/system/@PROJECT_SYSTEM@/io.h>
 
 /** @} */
 

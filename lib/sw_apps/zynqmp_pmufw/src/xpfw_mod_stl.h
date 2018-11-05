@@ -30,6 +30,7 @@
 
 #ifndef SRC_XPFW_MOD_STL_H_
 #define SRC_XPFW_MOD_STL_H_
+#include "xpfw_default.h"
 
 void ModStlInit(void);
 

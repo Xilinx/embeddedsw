@@ -10,12 +10,15 @@ APP = rfdc-test
 LIBSOURCES=*.c
 OUTS =
 RFDC_OBJS =
+INCLUDES = xrfdc_clk.h
+BOARD_FLAG =
+OBJS = xrfdc_clk.o
 
 %.o: %.c
-	$(CC) ${LDFLAGS} ${CFLAGS} -c $(LIBSOURCES)
+	$(CC) ${LDFLAGS} ${BOARD_FLAG} $(INCLUDES) ${CFLAGS} -c $(LIBSOURCES)
 
 all: $(RFDC_OBJS)
-	$(CC) ${LDFLAGS} $(RFDC_OBJS) -o $(OUTS) -lrfdc -lmetal
+	$(CC) ${LDFLAGS} $(INCLUDES) $(OBJS) $(RFDC_OBJS) -o $(OUTS) -lrfdc -lmetal
 
 clean:
 	rm -rf $(OUTS) *.o

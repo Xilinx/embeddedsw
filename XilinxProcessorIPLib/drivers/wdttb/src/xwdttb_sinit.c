@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xwdttb_sinit.c
-* @addtogroup xwdttb_v4_0
+* @addtogroup xwdttb_v4_3
 * @{
 *
 * This file contains static initialization method for Xilinx AXI Timebase
@@ -47,6 +47,7 @@
 * 1.00 sha 12/17/15 First release.
 * 4.0  sha 01/29/16 Updated version to 4.0 as it is newly added file in driver
 *                   version 4.0.
+* 4.3  srm 01/30/18 Added doxygen tags
 * </pre>
 *
 ******************************************************************************/

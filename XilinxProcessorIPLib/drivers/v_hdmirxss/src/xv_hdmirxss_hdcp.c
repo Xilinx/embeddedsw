@@ -574,6 +574,15 @@ static int XV_HdmiRxSs_HdcpProcessEvents(XV_HdmiRxSs *InstancePtr)
 #endif
       break;
 
+      // Sync est/recover event
+      case XV_HDMIRXSS_HDCP_SYNC_EST_EVT:
+  #ifdef XPAR_XHDCP_NUM_INSTANCES
+        if (InstancePtr->Hdcp14Ptr) {
+          XHdcp1x_SetHdmiMode(InstancePtr->Hdcp14Ptr, TRUE);
+        }
+  #endif
+        break;
+
     default :
       break;
   }

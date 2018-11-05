@@ -1,4 +1,3 @@
-// d52cbaca0ef8cf4fd3d6354deb5066970fb6511d02d18d15835e6014ed847fb0
 /*******************************************************************************
  *
  * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
@@ -46,18 +45,19 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  vyc   04/05/17   Initial Release
 * 2.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
-                         Add new memory formats BGRX8 and UYVY8
+*                        Add new memory formats BGRX8 and UYVY8
+* 3.00  vyc   04/04/18   Add support for ZCU102, ZCU104, ZCU106
+*                        Add new memory format BGR8
 * </pre>
 *
 ******************************************************************************/
 
 #include "xparameters.h"
 #include "platform.h"
+#include "sleep.h"
 #if defined(__MICROBLAZE__)
-#include "microblaze_sleep.h"
 #include "xintc.h"
 #else
-#include "sleep.h"
 #include "xscugic.h"
 #endif
 #include "xv_frmbufrd_l2.h"
@@ -79,7 +79,7 @@
 #define FRMBUF_IDLE_TIMEOUT (1000000)
 
 #define NUM_TEST_MODES 4
-#define NUM_TEST_FORMATS 15
+#define NUM_TEST_FORMATS 16
 
 #define CHROMA_ADDR_OFFSET   (0x01000000U)
 
@@ -107,7 +107,8 @@ VideoFormats ColorFormats[NUM_TEST_FORMATS] =
   {XVIDC_CSF_MEM_Y8,         XVIDC_CSF_YCRCB_444, 8},
   {XVIDC_CSF_MEM_Y10,        XVIDC_CSF_YCRCB_444, 10},
   {XVIDC_CSF_MEM_BGRX8,      XVIDC_CSF_RGB,       8},
-  {XVIDC_CSF_MEM_UYVY8,      XVIDC_CSF_YCRCB_422, 8}
+  {XVIDC_CSF_MEM_UYVY8,      XVIDC_CSF_YCRCB_422, 8},
+  {XVIDC_CSF_MEM_BGR8,       XVIDC_CSF_RGB,       8}
 };
 
 XV_FrmbufRd_l2     frmbufrd;
@@ -233,8 +234,8 @@ static int SetupInterrupts(void)
   /* Hook up interrupt service routine */
   Status |= XScuGic_Connect(IntcPtr,
                             XPAR_FABRIC_V_FRMBUF_RD_0_INTERRUPT_INTR,
-                            (XInterruptHandler)XV_frmbuf_rd_InterruptHandler,
-                            (void *)&frmbuf_rd);
+                            (XInterruptHandler)XVFrmbufRd_InterruptHandler,
+                            (void *)&frmbufrd);
   Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
                                (Xil_ExceptionHandler) XScuGic_InterruptHandler,
                                IntcPtr);
@@ -249,8 +250,8 @@ static int SetupInterrupts(void)
   /* Hook up interrupt service routine */
   Status |= XScuGic_Connect(IntcPtr,
                             XPAR_FABRIC_V_FRMBUF_WR_0_INTERRUPT_INTR,
-                            (XInterruptHandler)XV_frmbuf_wr_InterruptHandler,
-                            (void *)&frmbuf_wr);
+                            (XInterruptHandler)XVFrmbufWr_InterruptHandler,
+                            (void *)&frmbufwr);
   if (Status != XST_SUCCESS) {
     xil_printf("ERR:: Frame Buffer Read interrupt connect failed!\r\n");
     return XST_FAILURE;
@@ -374,9 +375,10 @@ static u32 CalcStride(XVidC_ColorFormat Cfmt,
     // 1 byte per pixel (Y_UV8, Y_UV8_420, Y8)
     stride = ((width+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
   }
-  else if ((Cfmt == XVIDC_CSF_MEM_RGB8) || (Cfmt == XVIDC_CSF_MEM_YUV8)) {
-    // 3 bytes per pixel (RGB8, YUV8)
-    stride = (((width*3)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
+  else if ((Cfmt == XVIDC_CSF_MEM_RGB8) || (Cfmt == XVIDC_CSF_MEM_YUV8)
+           || (Cfmt == XVIDC_CSF_MEM_BGR8)) {
+    // 3 bytes per pixel (RGB8, YUV8, BGR8)
+     stride = (((width*3)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
   }
   else {
     // 4 bytes per pixel
@@ -403,7 +405,7 @@ static int ConfigFrmbuf(u32 StrideInBytes,
   XVFrmbufRd_Stop(&frmbufrd);
   XVFrmbufWr_Stop(&frmbufwr);
 
-  /* Configure  Frame Buffers */
+  /* Configure Frame Buffers */
   Status = XVFrmbufRd_SetMemFormat(&frmbufrd, StrideInBytes, Cfmt, StreamPtr);
   if(Status != XST_SUCCESS) {
     xil_printf("ERROR:: Unable to configure Frame Buffer Read\r\n");
@@ -448,10 +450,9 @@ static int ConfigFrmbuf(u32 StrideInBytes,
     }
   }
 
-
   /* Enable Interrupt */
-  XVFrmbufRd_InterruptEnable(&frmbufrd);
-  XVFrmbufWr_InterruptEnable(&frmbufwr);
+  XVFrmbufRd_InterruptEnable(&frmbufrd, XVFRMBUFRD_IRQ_DONE_MASK);
+  XVFrmbufWr_InterruptEnable(&frmbufwr, XVFRMBUFRD_IRQ_DONE_MASK);
 
   /* Start Frame Buffers */
   XVFrmbufWr_Start(&frmbufwr);

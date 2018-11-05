@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -63,6 +63,9 @@
 *                         LDP SC EN, FPD SC EN, LBIST, reading some of
 *                         reserved bits, modified names of secure control bits
 *                         Provided DNA read API call in example.
+* 6.4   vns      02/19/18 Removed XilSKey_ZynqMp_EfusePs_CacheLoad() call as
+*                         now library is been updated to reload cache after
+*                         successful programming of the requested efuse bits.
 * </pre>
 *
 ******************************************************************************/
@@ -130,10 +133,6 @@ int main()
 	xil_printf("DNA:%08x%08x%08x", Dna[2], Dna[1], Dna[0]);
 
 	/* Read keys from cache */
-	PsStatus = XilSKey_ZynqMp_EfusePs_CacheLoad();
-	if (PsStatus != XST_SUCCESS) {
-		goto EFUSE_ERROR;
-	}
 	xil_printf("keys read from cache \n\r");
 	for (Row = 0; Row < 8; Row++) {
 		PsStatus = XilSKey_ZynqMp_EfusePs_ReadUserFuse(

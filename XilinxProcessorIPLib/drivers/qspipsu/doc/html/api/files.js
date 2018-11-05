@@ -9,5 +9,6 @@ var files =
     [ "xqspipsu_hw.h", "xqspipsu__hw_8h.html", "xqspipsu__hw_8h" ],
     [ "xqspipsu_options.c", "xqspipsu__options_8c.html", "xqspipsu__options_8c" ],
     [ "xqspipsu_polldata_polltimeout_interrupt_example.c", "xqspipsu__polldata__polltimeout__interrupt__example_8c.html", "xqspipsu__polldata__polltimeout__interrupt__example_8c" ],
-    [ "xqspipsu_sinit.c", "xqspipsu__sinit_8c.html", "xqspipsu__sinit_8c" ]
+    [ "xqspipsu_sinit.c", "xqspipsu__sinit_8c.html", "xqspipsu__sinit_8c" ],
+    [ "xqspipsu_write_protect_example.c", "xqspipsu__write__protect__example_8c.html", "xqspipsu__write__protect__example_8c" ]
 ];

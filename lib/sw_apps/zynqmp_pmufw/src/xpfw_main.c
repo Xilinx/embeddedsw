@@ -40,15 +40,19 @@
 #include "xpfw_core.h"
 #include "xpfw_user_startup.h"
 #include "xpfw_platform.h"
+#include "pm_system.h"
 
 XStatus XPfw_Main(void)
 {
 	XStatus Status;
+	u32 xpbr_version;
 
 	/* Start the Init Routine */
 	XPfw_Printf(DEBUG_PRINT_ALWAYS,"PMU Firmware %s\t%s   %s\r\n",
 			ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
-	/* TODO: Print ROM version */
+	/* Print ROM version */
+	xpbr_version = XPfw_Read32(PBR_VERSION_REG);
+	XPfw_PrintPBRVersion(xpbr_version);
 
 	/* Initialize the FW Core Object */
 	Status = XPfw_CoreInit(0U);
@@ -68,6 +72,17 @@ XStatus XPfw_Main(void)
 		XPfw_Printf(DEBUG_ERROR,"%s: Error! Core Cfg failed\r\n", __func__);
 		goto Done;
 	}
+
+	/* Restore system state in case of resume from Power Off Suspend */
+#ifdef ENABLE_POS
+	if (PM_SUSPEND_TYPE_POWER_OFF == PmSystemSuspendType()) {
+		Status = PmSystemResumePowerOffSuspend();
+		if (Status != XST_SUCCESS) {
+			XPfw_Printf(DEBUG_ERROR,"%s: Error! Power Off Suspend resume failed\r\n", __func__);
+			goto Done;
+		}
+	}
+#endif
 
 	/* Wait to Service the Requests */
 	Status = XPfw_CoreLoop();

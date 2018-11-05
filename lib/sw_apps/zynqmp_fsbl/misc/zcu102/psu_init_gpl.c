@@ -3169,10 +3169,10 @@ unsigned long psu_ddr_init_data(void)
     * 4 devices. Meaningless, if ZQCTL0.dis_auto_zq=1. Unit: 1024 clock cycles
     * . This is only present for designs supporting DDR3/DDR4 or LPDDR2/LPDDR3
     * /LPDDR4 devices.
-    *  PSU_DDRC_ZQCTL1_T_ZQ_SHORT_INTERVAL_X1024                   0x196dc
+    *  PSU_DDRC_ZQCTL1_T_ZQ_SHORT_INTERVAL_X1024                   0x196e5
 
     * ZQ Control Register 1
-    * (OFFSET, MASK, VALUE)      (0XFD070184, 0x3FFFFFFFU ,0x020196DCU)
+    * (OFFSET, MASK, VALUE)      (0XFD070184, 0x3FFFFFFFU ,0x020196E5U)
     */
 	PSU_Mask_Write(DDRC_ZQCTL1_OFFSET, 0x3FFFFFFFU, 0x020196DCU);
 /*##################################################################### */
@@ -5660,13 +5660,13 @@ unsigned long psu_ddr_init_data(void)
     *  PSU_DDR_PHY_PTR0_TPLLPD                                     0x56
 
     * PLL Gear Shift Time
-    *  PSU_DDR_PHY_PTR0_TPLLGS                                     0x2155
+    *  PSU_DDR_PHY_PTR0_TPLLGS                                     0x2156
 
     * PHY Reset Time
     *  PSU_DDR_PHY_PTR0_TPHYRST                                    0x10
 
     * PHY Timing Register 0
-    * (OFFSET, MASK, VALUE)      (0XFD080040, 0xFFFFFFFFU ,0x0AC85550U)
+    * (OFFSET, MASK, VALUE)      (0XFD080040, 0xFFFFFFFFU ,0x0AC85590U)
     */
 	PSU_Mask_Write(DDR_PHY_PTR0_OFFSET, 0xFFFFFFFFU, 0x0AC85550U);
 /*##################################################################### */
@@ -5675,16 +5675,16 @@ unsigned long psu_ddr_init_data(void)
     * Register : PTR1 @ 0XFD080044
 
     * PLL Lock Time
-    *  PSU_DDR_PHY_PTR1_TPLLLOCK                                   0x4141
+    *  PSU_DDR_PHY_PTR1_TPLLLOCK                                   0x4154
 
     * Reserved. Returns zeroes on reads.
     *  PSU_DDR_PHY_PTR1_RESERVED_15_13                             0x0
 
     * PLL Reset Time
-    *  PSU_DDR_PHY_PTR1_TPLLRST                                    0xaff
+    *  PSU_DDR_PHY_PTR1_TPLLRST                                    0xb00
 
     * PHY Timing Register 1
-    * (OFFSET, MASK, VALUE)      (0XFD080044, 0xFFFFFFFFU ,0x41410AFFU)
+    * (OFFSET, MASK, VALUE)      (0XFD080044, 0xFFFFFFFFU ,0x41540B00U)
     */
 	PSU_Mask_Write(DDR_PHY_PTR1_OFFSET, 0xFFFFFFFFU, 0x41410AFFU);
 /*##################################################################### */
@@ -12087,7 +12087,7 @@ unsigned long psu_mio_init_data(void)
     * Level 2 Mux Select 0= Level 3 Mux Output 1= sd0, Input, sd0_data_in[2]-
     * (8-bit Data bus) = sd0, Output, sdio0_data_out[2]- (8-bit Data bus) 2= s
     * d1, Output, sdio1_bus_pow- (SD card bus power) 3= Not Used
-    *  PSU_IOU_SLCR_MIO_PIN_43_L2_SEL                              0
+    *  PSU_IOU_SLCR_MIO_PIN_43_L2_SEL                              2
 
     * Level 3 Mux Select 0= gpio1, Input, gpio_1_pin_in[17]- (GPIO bank 1) 0=
     * gpio1, Output, gpio_1_pin_out[17]- (GPIO bank 1) 1= can0, Output, can0_p
@@ -12100,7 +12100,7 @@ unsigned long psu_mio_init_data(void)
     *  PSU_IOU_SLCR_MIO_PIN_43_L3_SEL                              0
 
     * Configures MIO Pin 43 peripheral interface mapping
-    * (OFFSET, MASK, VALUE)      (0XFF1800AC, 0x000000FEU ,0x00000000U)
+    * (OFFSET, MASK, VALUE)      (0XFF1800AC, 0x000000FEU ,0x00000010U)
     */
 	PSU_Mask_Write(IOU_SLCR_MIO_PIN_43_OFFSET, 0x000000FEU, 0x00000000U);
 /*##################################################################### */
@@ -15843,13 +15843,13 @@ unsigned long psu_peripherals_init_data(void)
 
     * Frequency in number of ticks per second. Valid range from 10 MHz to 100
     * MHz.
-    *  PSU_IOU_SCNTRS_BASE_FREQUENCY_ID_REGISTER_FREQ              0x5f5b9f0
+    *  PSU_IOU_SCNTRS_BASE_FREQUENCY_ID_REGISTER_FREQ              0x5f5dd18
 
     * Program this register to match the clock frequency of the timestamp gene
     * rator, in ticks per second. For example, for a 50 MHz clock, program 0x0
     * 2FAF080. This register is not accessible to the read-only programming in
     * terface.
-    * (OFFSET, MASK, VALUE)      (0XFF260020, 0xFFFFFFFFU ,0x05F5B9F0U)
+    * (OFFSET, MASK, VALUE)      (0XFF260020, 0xFFFFFFFFU ,0x05F5DD18U)
     */
 	PSU_Mask_Write(IOU_SCNTRS_BASE_FREQUENCY_ID_REGISTER_OFFSET,
 		0xFFFFFFFFU, 0x05F5B9F0U);
@@ -21348,8 +21348,8 @@ return 1;
 
 /**
  *  * Register: CRF_APB_DPLL_CTRL
- */
-#define CRF_APB_DPLL_CTRL    ((CRF_APB_BASEADDR) + 0X0000002C)
+ *   */
+#define CRF_APB_DPLL_CTRL    ( ( CRF_APB_BASEADDR ) + 0X0000002C )
 
 
 #define CRF_APB_DPLL_CTRL_DIV2_SHIFT   16
@@ -21366,8 +21366,8 @@ return 1;
 
 /**
  *  * Register: CRF_APB_DPLL_CFG
- */
-#define CRF_APB_DPLL_CFG    ((CRF_APB_BASEADDR) + 0X00000030)
+ *   */
+#define CRF_APB_DPLL_CFG    ( ( CRF_APB_BASEADDR ) + 0X00000030 )
 
 #define CRF_APB_DPLL_CFG_LOCK_DLY_SHIFT   25
 #define CRF_APB_DPLL_CFG_LOCK_DLY_WIDTH   7
@@ -21387,7 +21387,7 @@ return 1;
 /**
  * Register: CRF_APB_PLL_STATUS
  */
-#define CRF_APB_PLL_STATUS    ((CRF_APB_BASEADDR) + 0X00000044)
+#define CRF_APB_PLL_STATUS    ( ( CRF_APB_BASEADDR ) + 0X00000044 )
 
 
 static int mask_pollOnValue(u32 add, u32 mask, u32 value)
@@ -21431,13 +21431,13 @@ static u32 mask_read(u32 add, u32 mask)
 static void dpll_prog(int ddr_pll_fbdiv, int d_lock_dly, int d_lock_cnt,
 	int d_lfhf, int d_cp, int d_res) {
 
-	unsigned int pll_ctrl_regval;
-	unsigned int pll_status_regval;
+  unsigned int pll_ctrl_regval;
+  unsigned int pll_status_regval;
 
-	pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
-	pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_DIV2_MASK);
-	pll_ctrl_regval = pll_ctrl_regval | (1 << CRF_APB_DPLL_CTRL_DIV2_SHIFT);
-	Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
+  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
+  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_DIV2_MASK);
+  pll_ctrl_regval = pll_ctrl_regval | (1 << CRF_APB_DPLL_CTRL_DIV2_SHIFT);
+  Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
 
 	pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CFG);
 	pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CFG_LOCK_DLY_MASK);
@@ -21525,11 +21525,11 @@ static void dpll_prog(int ddr_pll_fbdiv, int d_lock_dly, int d_lock_cnt,
 static int serdes_enb_coarse_saturation(void)
 {
   /*Enable PLL Coarse Code saturation Logic*/
-	Xil_Out32(0xFD402094, 0x00000010);
-	Xil_Out32(0xFD406094, 0x00000010);
-	Xil_Out32(0xFD40A094, 0x00000010);
-	Xil_Out32(0xFD40E094, 0x00000010);
-		return 1;
+  Xil_Out32(0xFD402094, 0x00000010);
+  Xil_Out32(0xFD406094, 0x00000010);
+  Xil_Out32(0xFD40A094, 0x00000010);
+  Xil_Out32(0xFD40E094, 0x00000010);
+  return 1;
 }
 
 int serdes_fixcal_code(void)
@@ -21556,17 +21556,17 @@ int serdes_fixcal_code(void)
 	/*Each element of array stands for count of occurence of valid code.*/
 	unsigned int match_rcal_code[7];
 
-	unsigned int p_code = 0;
-	unsigned int n_code = 0;
-	unsigned int i_code = 0;
-	unsigned int r_code = 0;
-	unsigned int repeat_count = 0;
-	unsigned int L3_TM_CALIB_DIG20 = 0;
-	unsigned int L3_TM_CALIB_DIG19 = 0;
-	unsigned int L3_TM_CALIB_DIG18 = 0;
-	unsigned int L3_TM_CALIB_DIG16 = 0;
-	unsigned int L3_TM_CALIB_DIG15 = 0;
-	unsigned int L3_TM_CALIB_DIG14 = 0;
+  unsigned int p_code = 0;
+  unsigned int n_code = 0;
+  unsigned int i_code = 0;
+  unsigned int r_code = 0;
+  unsigned int repeat_count = 0;
+  unsigned int L3_TM_CALIB_DIG20 = 0;
+  unsigned int L3_TM_CALIB_DIG19 = 0;
+  unsigned int L3_TM_CALIB_DIG18 = 0;
+  unsigned int L3_TM_CALIB_DIG16 = 0;
+  unsigned int L3_TM_CALIB_DIG15 = 0;
+  unsigned int L3_TM_CALIB_DIG14 = 0;
 
 	int i = 0;
 
@@ -21594,15 +21594,15 @@ int serdes_fixcal_code(void)
 	}
 
 
-	do {
-	/*Clear ICM_CFG value*/
-		Xil_Out32(0xFD410010, 0x00000000);
-		Xil_Out32(0xFD410014, 0x00000000);
+  do {
+    //Clear ICM_CFG value
+    Xil_Out32(0xFD410010, 0x00000000);
+    Xil_Out32(0xFD410014, 0x00000000);
 
-	/*Set ICM_CFG value*/
-	/*This will trigger recalibration of all stages*/
-	Xil_Out32(0xFD410010, 0x00000001);
-	Xil_Out32(0xFD410014, 0x00000000);
+    //Set ICM_CFG value
+    //This will trigger recalibration of all stages
+    Xil_Out32(0xFD410010, 0x00000001);
+    Xil_Out32(0xFD410014, 0x00000000);
 
 	/*is calibration done? polling on L3_CALIB_DONE_STATUS*/
 	MaskStatus = mask_poll(0xFD40EF14, 0x2);
@@ -21636,7 +21636,7 @@ int serdes_fixcal_code(void)
 		match_rcal_code[r_code - 0x6] += 1;
 
 
-	} while (repeat_count++ < 10);
+  } while (repeat_count++ < 10);
 
 	/*find the valid code which resulted in maximum times in 10 iterations*/
 	for (i = 0; i < 23; i++) {
@@ -21674,15 +21674,15 @@ int serdes_fixcal_code(void)
 	L3_TM_CALIB_DIG19 = L3_TM_CALIB_DIG19 | ((p_code & 0x3) << 6)
 		| 0x20 | 0x4 | ((n_code >> 3) & 0x3);
 
-	/*L3_TM_CALIB_DIG18[7:5]	NSW Code [2:0]*/
-	/*L3_TM_CALIB_DIG18[4]	NSW Override*/
-	L3_TM_CALIB_DIG18 = mask_read(0xFD40EC48, 0xFFFFFF0F);/*read DIG18*/
-	L3_TM_CALIB_DIG18 = L3_TM_CALIB_DIG18 | ((n_code & 0x7) << 5) | 0x10;
+  //L3_TM_CALIB_DIG18[7:5]	NSW Code [2:0]
+  //L3_TM_CALIB_DIG18[4]	NSW Override
+  L3_TM_CALIB_DIG18 = mask_read(0xFD40EC48, 0xFFFFFF0F); //read DIG18
+  L3_TM_CALIB_DIG18 = L3_TM_CALIB_DIG18 | ((n_code & 0x7) << 5) | 0x10;
 
 
-	/*L3_TM_CALIB_DIG16[2:0]	RX Code [3:1]*/
-	L3_TM_CALIB_DIG16 = mask_read(0xFD40EC40, 0xFFFFFFF8);/*read DIG16*/
-	L3_TM_CALIB_DIG16 = L3_TM_CALIB_DIG16 | ((r_code >> 1) & 0x7);
+  //L3_TM_CALIB_DIG16[2:0]	RX Code [3:1]
+  L3_TM_CALIB_DIG16 = mask_read(0xFD40EC40, 0xFFFFFFF8); //read DIG16
+  L3_TM_CALIB_DIG16 = L3_TM_CALIB_DIG16 | ((r_code >> 1) & 0x7);
 
 	/*L3_TM_CALIB_DIG15[7]	RX Code [0]*/
 	/*L3_TM_CALIB_DIG15[6]	RX CODE Override*/
@@ -21692,19 +21692,19 @@ int serdes_fixcal_code(void)
 	L3_TM_CALIB_DIG15 = L3_TM_CALIB_DIG15 | ((r_code & 0x1) << 7)
 	| 0x40 | 0x8 | ((i_code >> 1) & 0x7);
 
-	/*L3_TM_CALIB_DIG14[7]	ICAL Code [0]*/
-	/*L3_TM_CALIB_DIG14[6]	ICAL Override*/
-	L3_TM_CALIB_DIG14 = mask_read(0xFD40EC38, 0xFFFFFF3F);/*read DIG14*/
-	L3_TM_CALIB_DIG14 = L3_TM_CALIB_DIG14 | ((i_code & 0x1) << 7) | 0x40;
+  //L3_TM_CALIB_DIG14[7]	ICAL Code [0]
+  //L3_TM_CALIB_DIG14[6]	ICAL Override
+  L3_TM_CALIB_DIG14 = mask_read(0xFD40EC38, 0xFFFFFF3F); //read DIG14
+  L3_TM_CALIB_DIG14 = L3_TM_CALIB_DIG14 | ((i_code & 0x1) << 7) | 0x40;
 
-	/*Forces the calibration values*/
-	Xil_Out32(0xFD40EC50, L3_TM_CALIB_DIG20);
-	Xil_Out32(0xFD40EC4C, L3_TM_CALIB_DIG19);
-	Xil_Out32(0xFD40EC48, L3_TM_CALIB_DIG18);
-	Xil_Out32(0xFD40EC40, L3_TM_CALIB_DIG16);
-	Xil_Out32(0xFD40EC3C, L3_TM_CALIB_DIG15);
-	Xil_Out32(0xFD40EC38, L3_TM_CALIB_DIG14);
-	return MaskStatus;
+  //Forces the calibration values
+  Xil_Out32(0xFD40EC50, L3_TM_CALIB_DIG20);
+  Xil_Out32(0xFD40EC4C, L3_TM_CALIB_DIG19);
+  Xil_Out32(0xFD40EC48, L3_TM_CALIB_DIG18);
+  Xil_Out32(0xFD40EC40, L3_TM_CALIB_DIG16);
+  Xil_Out32(0xFD40EC3C, L3_TM_CALIB_DIG15);
+  Xil_Out32(0xFD40EC38, L3_TM_CALIB_DIG14);
+  return MaskStatus;
 
 }
 static int init_serdes(void)
@@ -21778,6 +21778,7 @@ int psu_protection(void)
 	psu_lpd_protection();
 	return 0;
 }
+
 
 int
 psu_init(void)

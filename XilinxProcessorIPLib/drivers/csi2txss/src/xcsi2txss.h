@@ -18,8 +18,8 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -33,7 +33,7 @@
 /**
 *
 * @file xcsi2txss.h
-* @addtogroup csi2txss_v1_0
+* @addtogroup csi2txss_v1_1
 * @{
 * @details
 *
@@ -130,6 +130,7 @@ o	RAW8,RAW10,RAW12,RAW14,RGB888,YUV422-8Bit,User defined  Data types
 *     ms  03/17/17 Added readme.txt file in examples folder for doxygen
 *                  generation.
 *     vsa 15/12/17 Add support for Clock Mode
+* 1.2 vsa 02/28/18 Add Frame End Generation feature
 * </pre>
 *
 ******************************************************************************/
@@ -178,7 +179,22 @@ extern "C" {
 #define XCSI2TXSS_HANDLER_LINEBUF_FULL		XCSI2TX_HANDLER_LINEBUF_FULL
 #define XCSI2TXSS_HANDLER_WRG_DATATYPE		XCSI2TX_HANDLER_WRG_DATATYPE
 #define XCSI2TXSS_HANDLER_UNDERRUN_PIXEL	XCSI2TX_HANDLER_UNDERRUN_PIXEL
+#define XCSI2TXSS_HANDLER_LCERRVC0		XCSI2TX_HANDLER_LCERRVC0
+#define XCSI2TXSS_HANDLER_LCERRVC1		XCSI2TX_HANDLER_LCERRVC1
+#define XCSI2TXSS_HANDLER_LCERRVC2		XCSI2TX_HANDLER_LCERRVC2
+#define XCSI2TXSS_HANDLER_LCERRVC3		XCSI2TX_HANDLER_LCERRVC3
 /*@}*/
+
+#define XCSI2TXSS_MAX_VC			XCSI2TX_MAX_VC
+
+/**
+ * This typedef defines the different errors codes for Line Count
+ * status for a Virtual Channel when Frame End Generation is enabled
+ */
+typedef enum {
+	XCSI2TXSS_LC_LESS_LINES = XCSI2TX_LC_LESS_LINES,	/**< Less no of lines recvd */
+	XCSI2TXSS_LC_MORE_LINES = XCSI2TX_LC_MORE_LINES		/**< More no of lines recvd */
+} XCsi2TxSS_LCStatus;
 
 /**
 *
@@ -230,6 +246,7 @@ typedef struct {
 					*  80-1500 Mbps */
 	u32 IsDphyRegIntfcPresent;	/**< Flag for DPHY register interface
 					  *  presence */
+	u32 FEGenEnabled;	/**< Frame End Generation enabled flag */
 	SubCoreCsi2Tx CsiInfo;	/**< CSI sub-core configuration */
 	SubCoreCsi2Tx DphyInfo;	/**< DPHY sub-core configuration */
 } XCsi2TxSs_Config;
@@ -273,7 +290,8 @@ void XCsi2TxSs_SetClkMode(XCsi2TxSs *InstancePtr, u8 Mode);
 u32 XCsi2TxSs_GetClkMode(XCsi2TxSs *InstancePtr);
 u32 XCsi2TxSs_IsUlps(XCsi2TxSs *InstancePtr);
 void XCsi2TxSs_SetUlps(XCsi2TxSs *InstancePtr, u32 Value);
-
+u32 XCsi2TxSs_SetLineCountForVC(XCsi2TxSs *InstancePtr, u8 VC, u16 LineCount);
+u32 XCsi2TxSs_GetLineCountForVC(XCsi2TxSs *InstancePtr, u8 VC, u16 *LineCount);
 /* Self test function in xcsi2txss_selftest.c */
 u32 XCsi2TxSs_SelfTest(XCsi2TxSs *InstancePtr);
 

@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxis_switch.h
-* @addtogroup axis_switch_v1_1
+* @addtogroup axis_switch_v1_2
 * @{
 * @details
 *

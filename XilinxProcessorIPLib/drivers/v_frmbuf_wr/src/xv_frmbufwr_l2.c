@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_frmbufwr_l2.c
-* @addtogroup v_frmbuf_wr
+* @addtogroup v_frmbuf_wr_v2_0
 * @{
 *
 * Frame Buffer Write Layer-2 Driver. The functions in this file provides an
@@ -48,7 +48,10 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  vyc   04/05/17   Initial Release
 * 2.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
-                         Add new memory formats BGRX8 and UYVY8
+*                        Add new memory formats BGRX8 and UYVY8
+* 3.00  vyc   04/04/18   Add interlaced support
+*                        Add new memory format BGR8
+*                        Add interrupt handler for ap_ready
 * </pre>
 *
 ******************************************************************************/
@@ -125,6 +128,9 @@ XVidC_ColorFormat WrMemory2Live(XVidC_ColorFormat MemFmt)
        case XVIDC_CSF_MEM_UYVY8 :
             StrmFmt = XVIDC_CSF_YCRCB_422;
             break;
+       case XVIDC_CSF_MEM_BGR8 :
+            StrmFmt = XVIDC_CSF_RGB;
+            break;
 
         default:
             StrmFmt = (XVidC_ColorFormat)~0;
@@ -173,6 +179,8 @@ static void SetPowerOnDefaultState(XV_FrmbufWr_l2 *InstancePtr)
   XVidC_VideoStream VidStrm;
   XVidC_VideoTiming const *ResTiming;
 
+  u32 IrqMask = 0;
+
   memset(&VidStrm, 0, sizeof(XVidC_VideoStream));
 
   /* Set Default Stream In */
@@ -195,7 +203,8 @@ static void SetPowerOnDefaultState(XV_FrmbufWr_l2 *InstancePtr)
   InstancePtr->Stream = VidStrm;
 
   /* Setup polling mode */
-  XVFrmbufWr_InterruptDisable(InstancePtr);
+  IrqMask = XVFRMBUFWR_IRQ_DONE_MASK | XVFRMBUFWR_IRQ_READY_MASK;
+  XVFrmbufWr_InterruptDisable(InstancePtr, IrqMask);
 }
 
 /*****************************************************************************/
@@ -207,12 +216,12 @@ static void SetPowerOnDefaultState(XV_FrmbufWr_l2 *InstancePtr)
 * @return none
 *
 ******************************************************************************/
-void XVFrmbufWr_InterruptEnable(XV_FrmbufWr_l2 *InstancePtr)
+void XVFrmbufWr_InterruptEnable(XV_FrmbufWr_l2 *InstancePtr, u32 IrqMask)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
   /* Enable Interrupts */
-  XV_frmbufwr_InterruptEnable(&InstancePtr->FrmbufWr, XVFRMBUFWR_IRQ_DONE_MASK);
+  XV_frmbufwr_InterruptEnable(&InstancePtr->FrmbufWr, IrqMask);
   XV_frmbufwr_InterruptGlobalEnable(&InstancePtr->FrmbufWr);
 
   /* Clear autostart bit */
@@ -228,12 +237,12 @@ void XVFrmbufWr_InterruptEnable(XV_FrmbufWr_l2 *InstancePtr)
 * @return none
 *
 ******************************************************************************/
-void XVFrmbufWr_InterruptDisable(XV_FrmbufWr_l2 *InstancePtr)
+void XVFrmbufWr_InterruptDisable(XV_FrmbufWr_l2 *InstancePtr, u32 IrqMask)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
   /* Disable Interrupts */
-  XV_frmbufwr_InterruptDisable(&InstancePtr->FrmbufWr, XVFRMBUFWR_IRQ_DONE_MASK);
+  XV_frmbufwr_InterruptDisable(&InstancePtr->FrmbufWr, IrqMask);
   XV_frmbufwr_InterruptGlobalDisable(&InstancePtr->FrmbufWr);
 
   /* Set autostart bit */
@@ -418,6 +427,11 @@ int XVFrmbufWr_SetMemFormat(XV_FrmbufWr_l2 *InstancePtr,
            FmtValid = TRUE;
          }
          break;
+      case XVIDC_CSF_MEM_BGR8 :
+         if (XVFrmbufWr_IsBGR8Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
 
       default :
          FmtValid = FALSE;
@@ -565,6 +579,26 @@ UINTPTR XVFrmbufWr_GetChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function reads the field ID
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+*
+* @return Field ID
+*
+******************************************************************************/
+u32 XVFrmbufWr_GetFieldID(XV_FrmbufWr_l2 *InstancePtr)
+{
+  u32 ReadVal = 0;
+
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(InstancePtr->FrmbufWr.Config.Interlaced);
+
+  ReadVal = XV_frmbufwr_Get_HwReg_field_id(&InstancePtr->FrmbufWr);
+  return(ReadVal);
+}
+
+/*****************************************************************************/
+/**
 * This function reports the frame buffer write status
 *
 * @param  InstancePtr is a pointer to core instance to be worked upon
@@ -598,11 +632,13 @@ void XVFrmbufWr_DbgReportStatus(XV_FrmbufWr_l2 *InstancePtr)
   xil_printf("Y_UV8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV8En);
   xil_printf("Y_UV8_420 Enabled:          %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV8_420En);
   xil_printf("RGB8 Enabled:               %d\r\n", InstancePtr->FrmbufWr.Config.RGB8En);
+  xil_printf("BGR8 Enabled:               %d\r\n", InstancePtr->FrmbufWr.Config.BGR8En);
   xil_printf("YUV8 Enabled:               %d\r\n", InstancePtr->FrmbufWr.Config.YUV8En);
   xil_printf("Y_UV10 Enabled:             %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV10En);
   xil_printf("Y_UV10_420 Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV10_420En);
   xil_printf("Y8 Enabled:                 %d\r\n", InstancePtr->FrmbufWr.Config.Y8En);
   xil_printf("Y10 Enabled:                %d\r\n", InstancePtr->FrmbufWr.Config.Y10En);
+  xil_printf("Interlaced Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Interlaced);
 
   xil_printf("Control Reg:                0x%x\r\n", ctrl);
   xil_printf("Width:                      %d\r\n", XV_frmbufwr_Get_HwReg_width(&InstancePtr->FrmbufWr));

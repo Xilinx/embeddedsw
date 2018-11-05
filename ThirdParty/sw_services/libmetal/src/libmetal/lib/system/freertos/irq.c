@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2016 - 2017, Xilinx Inc. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -30,131 +30,232 @@
 
 /*
  * @file	freertos/irq.c
- * @brief	freertos libmetal irq definitions.
+ * @brief	FreeRTOS libmetal irq definitions.
  */
 
 #include <errno.h>
-#include "metal/irq.h"
-#include "metal/sys.h"
-#include "metal/log.h"
-#include "metal/mutex.h"
+#include <metal/irq.h>
+#include <metal/sys.h>
+#include <metal/log.h>
+#include <metal/mutex.h>
+#include <metal/list.h>
+#include <metal/utilities.h>
+#include <metal/alloc.h>
 
-
-
-#define MAX_HDS            10           /**< maximum number of
-                                          handlers per IRQ */
-/** IRQ handler descriptor structure */
+/** IRQ handlers descriptor structure */
 struct metal_irq_hddesc {
-        metal_irq_handler hd; /**< irq handler */
-        void *drv_id;         /**< id to identify the driver
-                                 of the irq handler*/
+	metal_irq_handler hd;     /**< irq handler */
+	void *drv_id;             /**< id to identify the driver
+	                               of the irq handler */
+	struct metal_device *dev; /**< device identifier */
+	struct metal_list node;   /**< node on irq handlers list */
 };
 
+/** IRQ descriptor structure */
+struct metal_irq_desc {
+	int irq;                  /**< interrupt number */
+	struct metal_list hdls;   /**< interrupt handlers */
+	struct metal_list node;   /**< node on irqs list */
+};
+
+/** IRQ state structure */
 struct metal_irqs_state {
-        struct metal_irq_hddesc hds[MAX_IRQS][MAX_HDS]; /**< irqs
-                                                           handlers
-                                                           descriptors */
-        unsigned int intr_enable;
-        metal_mutex_t irq_lock;
+	struct metal_list irqs;    /**< interrupt descriptors */
+	metal_mutex_t irq_lock;    /**< access lock */
 };
 
 static struct metal_irqs_state _irqs;
-
 
 int metal_irq_register(int irq,
                        metal_irq_handler hd,
                        struct metal_device *dev,
                        void *drv_id)
 {
+	struct metal_irq_desc *irq_p = NULL;
+	struct metal_irq_hddesc *hdl_p;
+	struct metal_list *node;
 	unsigned int irq_flags_save;
-	struct metal_irq_hddesc *hd_desc;
-	int j,i = 0;
-
-	(void)dev;
 
 	if (irq < 0) {
-		metal_log(METAL_LOG_ERROR, "%s: irq %d is less than 0.\n", __func__, irq);
-		return -EINVAL;
-	}
-	if (irq >= MAX_IRQS) {
 		metal_log(METAL_LOG_ERROR,
-				"%s: irq %d is larger than the max supported %d.\n", __func__,
-				irq, MAX_IRQS);
+			  "%s: irq %d need to be a positive number\n",
+		          __func__, irq);
 		return -EINVAL;
 	}
 
-	if (hd && !drv_id) {
-		metal_log(METAL_LOG_ERROR, "%s: irq %d drv id cannot be 0.\n", __func__, irq);
+	if ((drv_id == NULL) || (hd == NULL)) {
+		metal_log(METAL_LOG_ERROR, "%s: irq %d need drv_id and hd.\n",
+		          __func__, irq);
 		return -EINVAL;
 	}
 
+	/* Search for irq in list */
 	metal_mutex_acquire(&_irqs.irq_lock);
-	while (i < MAX_HDS) {
-		hd_desc = &_irqs.hds[irq][i];
-		if ((hd_desc->drv_id == drv_id) || (!drv_id && !hd)) {
-			if (hd) {
-				metal_log(METAL_LOG_ERROR, "%s: irq %d has already registered."
-						"Will not register again.\n", __func__, irq);
-				metal_mutex_release(&_irqs.irq_lock);
-				return -EINVAL;
-			} else {
-				/* we are at end of registered hds */
-				if (!hd_desc->drv_id)
-					break;
+	metal_list_for_each(&_irqs.irqs, node) {
+		irq_p = metal_container_of(node, struct metal_irq_desc, node);
 
-				/* Make sure there are no hole in the hds */
-				irq_flags_save=metal_irq_save_disable();
-				for (j = i+1; j < MAX_HDS && 0 != _irqs.hds[irq][j].drv_id; j++) {
-					_irqs.hds[irq][j-1] = _irqs.hds[irq][j];
+		if (irq_p->irq == irq) {
+			struct metal_list *h_node;
+
+			/* Check if drv_id already exist */
+			metal_list_for_each(&irq_p->hdls, h_node) {
+				hdl_p = metal_container_of(h_node,
+							   struct metal_irq_hddesc,
+							   node);
+
+				/* if drv_id already exist reject */
+				if ((hdl_p->drv_id == drv_id) &&
+					((dev == NULL) || (hdl_p->dev == dev))) {
+					metal_log(METAL_LOG_ERROR,
+						  "%s: irq %d already registered."
+							"Will not register again.\n",
+							__func__, irq);
+					metal_mutex_release(&_irqs.irq_lock);
+					return -EINVAL;
 				}
-				hd_desc = &_irqs.hds[irq][j-1];
-				hd_desc->hd = 0;
-				hd_desc->drv_id = 0;
-				metal_irq_restore_enable(irq_flags_save);
-
-				/* If drv_id and hd are null, it will deregister
-				 * all the handlers of the specified IRQ.
-				 * Otherwise only the matching drv_id will deregister.
-				 */
-				if (drv_id)
-					break;
-
-				continue;
 			}
-		} else if (!hd_desc->drv_id && hd) {
-			irq_flags_save=metal_irq_save_disable();
-			hd_desc->drv_id = drv_id;
-			hd_desc->hd = hd;
-			metal_irq_restore_enable(irq_flags_save);
+			/* irq found and drv_id not used, get out of metal_list_for_each */
 			break;
-		} else if (!hd_desc->drv_id) {
-			metal_log(METAL_LOG_ERROR, "%s: irq %d drv id not found.\n", __func__, irq);
-			metal_mutex_release(&_irqs.irq_lock);
-			return -EINVAL;
 		}
-		i++;
 	}
-	metal_mutex_release(&_irqs.irq_lock);
 
-	if (i >= MAX_HDS) {
-		metal_log(METAL_LOG_ERROR, "%s: exceed maximum handlers per IRQ.\n",
-				__func__);
+	/* Either need to add handler to an existing list or to a new one */
+	hdl_p = metal_allocate_memory(sizeof(struct metal_irq_hddesc));
+	if (hdl_p == NULL) {
+		metal_log(METAL_LOG_ERROR,
+		          "%s: irq %d cannot allocate mem for drv_id %d.\n",
+		          __func__, irq, drv_id);
+		metal_mutex_release(&_irqs.irq_lock);
+		return -ENOMEM;
+	}
+	hdl_p->hd = hd;
+	hdl_p->drv_id = drv_id;
+	hdl_p->dev = dev;
+
+	/* interrupt already registered, add handler to existing list*/
+	if ((irq_p != NULL) && (irq_p->irq == irq)) {
+		irq_flags_save = metal_irq_save_disable();
+		metal_list_add_tail(&irq_p->hdls, &hdl_p->node);
+		metal_irq_restore_enable(irq_flags_save);
+
+		metal_log(METAL_LOG_DEBUG, "%s: success, irq %d add drv_id %p \n",
+		          __func__, irq, drv_id);
+		metal_mutex_release(&_irqs.irq_lock);
+		return 0;
+	}
+
+	/* interrupt was not already registered, add */
+	irq_p = metal_allocate_memory(sizeof(struct metal_irq_desc));
+	if (irq_p == NULL) {
+		metal_log(METAL_LOG_ERROR, "%s: irq %d cannot allocate mem.\n",
+		          __func__, irq);
+		metal_mutex_release(&_irqs.irq_lock);
+		return -ENOMEM;
+	}
+	irq_p->irq = irq;
+	metal_list_init(&irq_p->hdls);
+	metal_list_add_tail(&irq_p->hdls, &hdl_p->node);
+
+	irq_flags_save = metal_irq_save_disable();
+	metal_list_add_tail(&_irqs.irqs, &irq_p->node);
+	metal_irq_restore_enable(irq_flags_save);
+
+	metal_log(METAL_LOG_DEBUG, "%s: success, added irq %d\n", __func__, irq);
+	metal_mutex_release(&_irqs.irq_lock);
+	return 0;
+}
+
+/* helper function for metal_irq_unregister() */
+static void metal_irq_delete_node(struct metal_list *node, void *p_to_free)
+{
+	unsigned int irq_flags_save;
+
+	irq_flags_save=metal_irq_save_disable();
+	metal_list_del(node);
+	metal_irq_restore_enable(irq_flags_save);
+	metal_free_memory(p_to_free);
+}
+
+int metal_irq_unregister(int irq,
+                         metal_irq_handler hd,
+                         struct metal_device *dev,
+                         void *drv_id)
+{
+	struct metal_irq_desc *irq_p;
+	struct metal_list *node;
+
+	if (irq < 0) {
+		metal_log(METAL_LOG_ERROR, "%s: irq %d need to be a positive number\n",
+		          __func__, irq);
 		return -EINVAL;
 	}
 
-	metal_log(METAL_LOG_DEBUG, "%s: %sregistered IRQ %d\n", __func__,
-			  hd ? "" : "de",	irq);
+	/* Search for irq in list */
+	metal_mutex_acquire(&_irqs.irq_lock);
+	metal_list_for_each(&_irqs.irqs, node) {
 
-	return 0;
+		irq_p = metal_container_of(node, struct metal_irq_desc, node);
+
+		if (irq_p->irq == irq) {
+			struct metal_list *h_node, *h_prenode;
+			struct metal_irq_hddesc *hdl_p;
+			unsigned int delete_count = 0;
+
+			metal_log(METAL_LOG_DEBUG, "%s: found irq %d\n",
+				  __func__, irq);
+
+			/* Search through handlers */
+			metal_list_for_each(&irq_p->hdls, h_node) {
+				hdl_p = metal_container_of(h_node,
+							   struct metal_irq_hddesc,
+							   node);
+
+				if (((hd == NULL) || (hdl_p->hd == hd)) &&
+				    ((drv_id == NULL) || (hdl_p->drv_id == drv_id)) &&
+				    ((dev    == NULL) || (hdl_p->dev == dev))) {
+					metal_log(METAL_LOG_DEBUG,
+					          "%s: unregister hd=%p drv_id=%p dev=%p\n",
+						  __func__, hdl_p->hd, hdl_p->drv_id, hdl_p->dev);
+					h_prenode = h_node->prev;
+					metal_irq_delete_node(h_node, hdl_p);
+					delete_count++;
+					h_node = h_prenode;
+				}
+			}
+
+			/* we did not find any handler to delete */
+			if (!delete_count) {
+				metal_log(METAL_LOG_DEBUG, "%s: No matching entry\n",
+				          __func__);
+				metal_mutex_release(&_irqs.irq_lock);
+				return -ENOENT;
+
+			}
+
+			/* if interrupt handlers list is empty, unregister interrupt */
+			if (metal_list_is_empty(&irq_p->hdls)) {
+				metal_log(METAL_LOG_DEBUG,
+				          "%s: handlers list empty, unregister interrupt\n",
+					  __func__);
+				metal_irq_delete_node(node, irq_p);
+			}
+
+			metal_log(METAL_LOG_DEBUG, "%s: success\n", __func__);
+
+			metal_mutex_release(&_irqs.irq_lock);
+			return 0;
+		}
+	}
+
+	metal_log(METAL_LOG_DEBUG, "%s: No matching IRQ entry\n", __func__);
+
+	metal_mutex_release(&_irqs.irq_lock);
+	return -ENOENT;
 }
 
 unsigned int metal_irq_save_disable(void)
 {
-	if (_irqs.intr_enable == 1) {
-		sys_irq_save_disable();
-		_irqs.intr_enable = 0;
-	}
-
+	sys_irq_save_disable();
 	return 0;
 }
 
@@ -162,44 +263,55 @@ void metal_irq_restore_enable(unsigned int flags)
 {
 	(void)flags;
 
-	if (_irqs.intr_enable == 0) {
-		sys_irq_restore_enable();
-		_irqs.intr_enable = 1;
-	}
+	sys_irq_restore_enable();
 }
 
 void metal_irq_enable(unsigned int vector)
 {
-        sys_irq_enable(vector);
+	sys_irq_enable(vector);
 }
 
 void metal_irq_disable(unsigned int vector)
 {
-        sys_irq_disable(vector);
+	sys_irq_disable(vector);
 }
 
+/**
+ * @brief default handler
+ */
 void metal_irq_isr(unsigned int vector)
 {
-        metal_irq_handler  hd; /**< irq handler */
-        int j;
+	struct metal_list *node;
+	struct metal_irq_desc *irq_p;
 
-        for(j = 0; j < MAX_HDS; j++) {
-		hd = _irqs.hds[vector][j].hd;
-		/* there are no hole in the hds */
-		if (!hd) break;
-		hd(vector, _irqs.hds[vector][j].drv_id);
-        }
+	metal_list_for_each(&_irqs.irqs, node) {
+		irq_p = metal_container_of(node, struct metal_irq_desc, node);
+
+		if ((unsigned int)irq_p->irq == vector) {
+			struct metal_list *h_node;
+			struct metal_irq_hddesc *hdl_p;
+
+			metal_list_for_each(&irq_p->hdls, h_node) {
+				hdl_p = metal_container_of(h_node,
+							   struct metal_irq_hddesc,
+							   node);
+
+				(hdl_p->hd)(vector, hdl_p->drv_id);
+			}
+		}
+	}
 }
 
 int metal_irq_init(void)
 {
-       /* memset(&_irqs, 0, sizeof(_irqs)); */
-
-       metal_mutex_init(&_irqs.irq_lock);
-       return 0;
+	/* list of interrupt having at least one handler registered */
+	metal_list_init(&_irqs.irqs);
+	/* mutex to manage concurrent access to shared irq data */
+	metal_mutex_init(&_irqs.irq_lock);
+	return 0;
 }
 
-void metal_irq_deinit(void)
+void metal_irq_deinit(void) 
 {
-       metal_mutex_deinit(&_irqs.irq_lock);
+	metal_mutex_deinit(&_irqs.irq_lock);
 }

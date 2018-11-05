@@ -34,7 +34,7 @@
 *
 * @file xclk_wiz.h
 *
-* @addtogroup clk_wiz_v1_0
+* @addtogroup clk_wiz_v1_2
 * @{
 * @details
 *

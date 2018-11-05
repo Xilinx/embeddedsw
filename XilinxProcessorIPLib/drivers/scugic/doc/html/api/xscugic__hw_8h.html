@@ -451,6 +451,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga0c6a61acf2d5d030542c788a9aa42004"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__v3__8.html#ga0c6a61acf2d5d030542c788a9aa42004">XScuGic_GetPriTrigTypeByDistAddr</a> (u32 DistBaseAddress, u32 Int_Id, u8 *Priority, u8 *Trigger)</td></tr>
 <tr class="memdesc:ga0c6a61acf2d5d030542c788a9aa42004"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the interrupt priority and trigger type for the specificd IRQ source.  <a href="group__scugic__v3__8.html#ga0c6a61acf2d5d030542c788a9aa42004">More...</a><br /></td></tr>
 <tr class="separator:ga0c6a61acf2d5d030542c788a9aa42004"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa02951e223977118dd89dfffc151a966"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__v3__8.html#gaa02951e223977118dd89dfffc151a966">XScuGic_InterruptUnmapFromCpuByDistAddr</a> (u32 DistBaseAddress, u8 Cpu_Id, u32 Int_Id)</td></tr>
+<tr class="memdesc:gaa02951e223977118dd89dfffc151a966"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unmaps specific SPI interrupt from the target CPU.  <a href="group__scugic__v3__8.html#gaa02951e223977118dd89dfffc151a966">More...</a><br /></td></tr>
+<tr class="separator:gaa02951e223977118dd89dfffc151a966"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga15a21f6b75030f175dec61355b6ef905"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__v3__8.html#ga15a21f6b75030f175dec61355b6ef905">XScuGic_UnmapAllInterruptsFromCpuByDistAddr</a> (u32 DistBaseAddress, u8 Cpu_Id)</td></tr>
+<tr class="memdesc:ga15a21f6b75030f175dec61355b6ef905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unmaps all SPI interrupts from the target CPU.  <a href="group__scugic__v3__8.html#ga15a21f6b75030f175dec61355b6ef905">More...</a><br /></td></tr>
+<tr class="separator:ga15a21f6b75030f175dec61355b6ef905"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a04ed1a0a82b2c7418461f4d261ecb110"></a>
@@ -478,8 +484,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a>((DistBaseAddress), \</div><div class="line">                         <a class="code" href="group__scugic__v3__8.html#ga7a61a9bf8e0b229925a5ddbf763b414b">XSCUGIC_DISABLE_OFFSET</a> + (((Int_Id) / 32U) * 4U), \</div><div class="line">                         (0x00000001U &lt;&lt; ((Int_Id) % 32U)))</div><div class="ttc" id="xscugic__hw_8h_html_a01c0f85e48858531c313ce22cbfd2dfa"><div class="ttname"><a href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a></div><div class="ttdeci">#define XScuGic_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write the given Intc register. </div><div class="ttdef"><b>Definition:</b> xscugic_hw.h:626</div></div>
-<div class="ttc" id="group__scugic__v3__8_html_ga7a61a9bf8e0b229925a5ddbf763b414b"><div class="ttname"><a href="group__scugic__v3__8.html#ga7a61a9bf8e0b229925a5ddbf763b414b">XSCUGIC_DISABLE_OFFSET</a></div><div class="ttdeci">#define XSCUGIC_DISABLE_OFFSET</div><div class="ttdoc">Enable Clear Register. </div><div class="ttdef"><b>Definition:</b> xscugic_hw.h:132</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a>((DistBaseAddress), \</div><div class="line">                         <a class="code" href="group__scugic__v3__8.html#ga7a61a9bf8e0b229925a5ddbf763b414b">XSCUGIC_DISABLE_OFFSET</a> + (((Int_Id) / 32U) * 4U), \</div><div class="line">                         (0x00000001U &lt;&lt; ((Int_Id) % 32U)))</div><div class="ttc" id="xscugic__hw_8h_html_a01c0f85e48858531c313ce22cbfd2dfa"><div class="ttname"><a href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a></div><div class="ttdeci">#define XScuGic_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write the given Intc register. </div><div class="ttdef"><b>Definition:</b> xscugic_hw.h:630</div></div>
+<div class="ttc" id="group__scugic__v3__8_html_ga7a61a9bf8e0b229925a5ddbf763b414b"><div class="ttname"><a href="group__scugic__v3__8.html#ga7a61a9bf8e0b229925a5ddbf763b414b">XSCUGIC_DISABLE_OFFSET</a></div><div class="ttdeci">#define XSCUGIC_DISABLE_OFFSET</div><div class="ttdoc">Enable Clear Register. </div><div class="ttdef"><b>Definition:</b> xscugic_hw.h:136</div></div>
 </div><!-- fragment -->
 <p>Disable specific interrupt(s) in the interrupt controller. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -558,8 +564,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a>((DistBaseAddress), \</div><div class="line">                         <a class="code" href="group__scugic__v3__8.html#ga7e39be0cb9e08f4c9231f76e685a76cc">XSCUGIC_ENABLE_SET_OFFSET</a> + (((Int_Id) / 32U) * 4U), \</div><div class="line">                         (0x00000001U &lt;&lt; ((Int_Id) % 32U)))</div><div class="ttc" id="xscugic__hw_8h_html_a01c0f85e48858531c313ce22cbfd2dfa"><div class="ttname"><a href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a></div><div class="ttdeci">#define XScuGic_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write the given Intc register. </div><div class="ttdef"><b>Definition:</b> xscugic_hw.h:626</div></div>
-<div class="ttc" id="group__scugic__v3__8_html_ga7e39be0cb9e08f4c9231f76e685a76cc"><div class="ttname"><a href="group__scugic__v3__8.html#ga7e39be0cb9e08f4c9231f76e685a76cc">XSCUGIC_ENABLE_SET_OFFSET</a></div><div class="ttdeci">#define XSCUGIC_ENABLE_SET_OFFSET</div><div class="ttdoc">Enable Set Register. </div><div class="ttdef"><b>Definition:</b> xscugic_hw.h:129</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a>((DistBaseAddress), \</div><div class="line">                         <a class="code" href="group__scugic__v3__8.html#ga7e39be0cb9e08f4c9231f76e685a76cc">XSCUGIC_ENABLE_SET_OFFSET</a> + (((Int_Id) / 32U) * 4U), \</div><div class="line">                         (0x00000001U &lt;&lt; ((Int_Id) % 32U)))</div><div class="ttc" id="xscugic__hw_8h_html_a01c0f85e48858531c313ce22cbfd2dfa"><div class="ttname"><a href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a></div><div class="ttdeci">#define XScuGic_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write the given Intc register. </div><div class="ttdef"><b>Definition:</b> xscugic_hw.h:630</div></div>
+<div class="ttc" id="group__scugic__v3__8_html_ga7e39be0cb9e08f4c9231f76e685a76cc"><div class="ttname"><a href="group__scugic__v3__8.html#ga7e39be0cb9e08f4c9231f76e685a76cc">XSCUGIC_ENABLE_SET_OFFSET</a></div><div class="ttdeci">#define XSCUGIC_ENABLE_SET_OFFSET</div><div class="ttdoc">Enable Set Register. </div><div class="ttdef"><b>Definition:</b> xscugic_hw.h:133</div></div>
 </div><!-- fragment -->
 <p>Enable specific interrupt(s) in the interrupt controller. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -672,7 +678,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the register</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="xscugic__hw_8h.html#af5fb346faf5dff7820e4ce87c86f8eca" title="Read the given Intc register. ">XScuGic_ReadReg(u32 BaseAddress, u32 RegOffset)</a> </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="xscugic__low__level__example_8c.html#a1f77e8cd34d4dcfb72db81ada16e2942">LowInterruptHandler()</a>, <a class="el" href="group__scugic__v3__8.html#ga96bfe161e3b4e401f76f2b35df9fab86">XScuGic_DeviceInterruptHandler()</a>, and <a class="el" href="group__scugic__v3__8.html#ga0c6a61acf2d5d030542c788a9aa42004">XScuGic_GetPriTrigTypeByDistAddr()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xscugic__low__level__example_8c.html#a1f77e8cd34d4dcfb72db81ada16e2942">LowInterruptHandler()</a>, <a class="el" href="group__scugic__v3__8.html#ga96bfe161e3b4e401f76f2b35df9fab86">XScuGic_DeviceInterruptHandler()</a>, <a class="el" href="group__scugic__v3__8.html#ga0c6a61acf2d5d030542c788a9aa42004">XScuGic_GetPriTrigTypeByDistAddr()</a>, and <a class="el" href="group__scugic__v3__8.html#gaa02951e223977118dd89dfffc151a966">XScuGic_InterruptUnmapFromCpuByDistAddr()</a>.</p>
 
 </div>
 </div>
@@ -702,7 +708,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the offset</dd></dl>
 <dl class="section note"><dt>Note</dt><dd></dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="group__scugic__v3__8.html#ga40ef6d42e9520bb550163c3afd598980">XScuGic_InterruptMaptoCpu()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__scugic__v3__8.html#ga40ef6d42e9520bb550163c3afd598980">XScuGic_InterruptMaptoCpu()</a>, <a class="el" href="group__scugic__v3__8.html#ga35a7049368d1fdf455d0414c8aa7858f">XScuGic_InterruptUnmapFromCpu()</a>, and <a class="el" href="group__scugic__v3__8.html#gaa02951e223977118dd89dfffc151a966">XScuGic_InterruptUnmapFromCpuByDistAddr()</a>.</p>
 
 </div>
 </div>
@@ -750,7 +756,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa" title="Write the given Intc register. ">XScuGic_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</a> </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="group__scugic__v3__8.html#ga96bfe161e3b4e401f76f2b35df9fab86">XScuGic_DeviceInterruptHandler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__scugic__v3__8.html#ga96bfe161e3b4e401f76f2b35df9fab86">XScuGic_DeviceInterruptHandler()</a>, and <a class="el" href="group__scugic__v3__8.html#gaa02951e223977118dd89dfffc151a966">XScuGic_InterruptUnmapFromCpuByDistAddr()</a>.</p>
 
 </div>
 </div>

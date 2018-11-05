@@ -33,7 +33,7 @@
 /**
 *
 * @file xzdma_intr.c
-* @addtogroup zdma_v1_0
+* @addtogroup zdma_v1_5
 * @{
 *
 * This file contains interrupt related functions of Xilinx ZDMA core.

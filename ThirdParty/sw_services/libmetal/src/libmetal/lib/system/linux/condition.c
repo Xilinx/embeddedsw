@@ -33,7 +33,7 @@
  * @brief	Generic libmetal condition variable handling.
  */
 
-#include "metal/condition.h"
+#include <metal/condition.h>
 
 int metal_condition_wait(struct metal_condition *cv,
 				       metal_mutex_t *m)

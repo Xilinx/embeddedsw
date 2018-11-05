@@ -85,6 +85,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 1.1   MG     03/05/17 Introduced video mask peripheral
 1.2   YH     22/08/17 Added XV_HDMITX_AUD_CTRL_AUDFMT_MASK (Audio Format)
 1.3   YH     06/10/17 Added XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT (Audio Format)
+1.4   YH     16/01/18 Added PIO_OUT for dedicated reset for each clock domain
+                      Added PIO_IN to bridge unlock interrupt
+                      Added PIO_OUT to set GCP_AVMUTE
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -184,12 +187,30 @@ Macros</h2></td></tr>
 <tr class="memitem:ac01a89ba24d5a2044caa1377a5aea7aa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#ac01a89ba24d5a2044caa1377a5aea7aa">XV_HDMITX_PIO_OUT_COLOR_SPACE_SHIFT</a>&#160;&#160;&#160;10</td></tr>
 <tr class="memdesc:ac01a89ba24d5a2044caa1377a5aea7aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO Out Color Space shift.  <a href="#ac01a89ba24d5a2044caa1377a5aea7aa">More...</a><br /></td></tr>
 <tr class="separator:ac01a89ba24d5a2044caa1377a5aea7aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5057e256f62c3af0dc0c4e08a6ebf5b3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a5057e256f62c3af0dc0c4e08a6ebf5b3">XV_HDMITX_PIO_OUT_GCP_CLEARAVMUTE_MASK</a>&#160;&#160;&#160;(1&lt;&lt;28)</td></tr>
+<tr class="memdesc:a5057e256f62c3af0dc0c4e08a6ebf5b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO Out GCP_CLEARAVMUTE mask.  <a href="#a5057e256f62c3af0dc0c4e08a6ebf5b3">More...</a><br /></td></tr>
+<tr class="separator:a5057e256f62c3af0dc0c4e08a6ebf5b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae631917853f4efc05ec48b91a487e22e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#ae631917853f4efc05ec48b91a487e22e">XV_HDMITX_PIO_OUT_BRIDGE_YUV420_MASK</a>&#160;&#160;&#160;(1&lt;&lt;29)</td></tr>
 <tr class="memdesc:ae631917853f4efc05ec48b91a487e22e"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO Out Bridge_YUV420 mask.  <a href="#ae631917853f4efc05ec48b91a487e22e">More...</a><br /></td></tr>
 <tr class="separator:ae631917853f4efc05ec48b91a487e22e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43259fa8be8e6d4990e225e7ef66deb6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a43259fa8be8e6d4990e225e7ef66deb6">XV_HDMITX_PIO_OUT_BRIDGE_PIXEL_MASK</a>&#160;&#160;&#160;(1&lt;&lt;30)</td></tr>
 <tr class="memdesc:a43259fa8be8e6d4990e225e7ef66deb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO Out Bridge_Pixel repeat mask.  <a href="#a43259fa8be8e6d4990e225e7ef66deb6">More...</a><br /></td></tr>
 <tr class="separator:a43259fa8be8e6d4990e225e7ef66deb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecae9177f56bf35251db6c967b60c2a3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#aecae9177f56bf35251db6c967b60c2a3">XV_HDMITX_PIO_OUT_GCP_AVMUTE_MASK</a>&#160;&#160;&#160;(1&lt;&lt;31)</td></tr>
+<tr class="memdesc:aecae9177f56bf35251db6c967b60c2a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO Out GCP_AVMUTE mask.  <a href="#aecae9177f56bf35251db6c967b60c2a3">More...</a><br /></td></tr>
+<tr class="separator:aecae9177f56bf35251db6c967b60c2a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaae3285766545ae8b717a709c376d449"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#aaae3285766545ae8b717a709c376d449">XV_HDMITX_PIO_OUT_INT_VRST_MASK</a>&#160;&#160;&#160;(1&lt;&lt;0)</td></tr>
+<tr class="memdesc:aaae3285766545ae8b717a709c376d449"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO Out INT_VRST mask.  <a href="#aaae3285766545ae8b717a709c376d449">More...</a><br /></td></tr>
+<tr class="separator:aaae3285766545ae8b717a709c376d449"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a190850cf65d40a36c67965b58ab719a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a190850cf65d40a36c67965b58ab719a7">XV_HDMITX_PIO_OUT_INT_LRST_MASK</a>&#160;&#160;&#160;(1&lt;&lt;20)</td></tr>
+<tr class="memdesc:a190850cf65d40a36c67965b58ab719a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO Out INT_LRST mask.  <a href="#a190850cf65d40a36c67965b58ab719a7">More...</a><br /></td></tr>
+<tr class="separator:a190850cf65d40a36c67965b58ab719a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85c45b96a6535758a64f4bbde6736b30"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a85c45b96a6535758a64f4bbde6736b30">XV_HDMITX_PIO_OUT_EXT_VRST_MASK</a>&#160;&#160;&#160;(1&lt;&lt;21)</td></tr>
+<tr class="memdesc:a85c45b96a6535758a64f4bbde6736b30"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO Out EXT_VRST mask.  <a href="#a85c45b96a6535758a64f4bbde6736b30">More...</a><br /></td></tr>
+<tr class="separator:a85c45b96a6535758a64f4bbde6736b30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6f495059257675ab6aab20debbb29ae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#ae6f495059257675ab6aab20debbb29ae">XV_HDMITX_PIO_OUT_EXT_SYSRST_MASK</a>&#160;&#160;&#160;(1&lt;&lt;22)</td></tr>
+<tr class="memdesc:ae6f495059257675ab6aab20debbb29ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO Out EXT_SYSRST mask.  <a href="#ae6f495059257675ab6aab20debbb29ae">More...</a><br /></td></tr>
+<tr class="separator:ae6f495059257675ab6aab20debbb29ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af84ed4e0a3e63ee5b5eeb18b5f9172f6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#af84ed4e0a3e63ee5b5eeb18b5f9172f6">XV_HDMITX_PIO_IN_LNK_RDY_MASK</a>&#160;&#160;&#160;(1&lt;&lt;0)</td></tr>
 <tr class="memdesc:af84ed4e0a3e63ee5b5eeb18b5f9172f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO In link ready mask.  <a href="#af84ed4e0a3e63ee5b5eeb18b5f9172f6">More...</a><br /></td></tr>
 <tr class="separator:af84ed4e0a3e63ee5b5eeb18b5f9172f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -211,6 +232,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a53a26ad8c741bb6defdabaf539c15f76"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a53a26ad8c741bb6defdabaf539c15f76">XV_HDMITX_PIO_IN_PPP_SHIFT</a>&#160;&#160;&#160;5</td></tr>
 <tr class="memdesc:a53a26ad8c741bb6defdabaf539c15f76"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO In Pixel packing phase shift.  <a href="#a53a26ad8c741bb6defdabaf539c15f76">More...</a><br /></td></tr>
 <tr class="separator:a53a26ad8c741bb6defdabaf539c15f76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0d1a093d1b0ef6ff6d0c595fbbc689d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#af0d1a093d1b0ef6ff6d0c595fbbc689d">XV_HDMITX_PIO_IN_BRDG_LOCKED_MASK</a>&#160;&#160;&#160;(1&lt;&lt;9)</td></tr>
+<tr class="memdesc:af0d1a093d1b0ef6ff6d0c595fbbc689d"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO In Bridge Locked mask.  <a href="#af0d1a093d1b0ef6ff6d0c595fbbc689d">More...</a><br /></td></tr>
+<tr class="separator:af0d1a093d1b0ef6ff6d0c595fbbc689d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4af3a11ac2e2a2190f6e8c39111199d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a4af3a11ac2e2a2190f6e8c39111199d3">XV_HDMITX_DDC_ID_OFFSET</a>&#160;&#160;&#160;((XV_HDMITX_DDC_BASE)+(0*4))</td></tr>
 <tr class="memdesc:a4af3a11ac2e2a2190f6e8c39111199d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">DDC Identification * Register offset.  <a href="#a4af3a11ac2e2a2190f6e8c39111199d3">More...</a><br /></td></tr>
 <tr class="separator:a4af3a11ac2e2a2190f6e8c39111199d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1720,6 +1744,23 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a id="af0d1a093d1b0ef6ff6d0c595fbbc689d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0d1a093d1b0ef6ff6d0c595fbbc689d">&#9670;&nbsp;</a></span>XV_HDMITX_PIO_IN_BRDG_LOCKED_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMITX_PIO_IN_BRDG_LOCKED_MASK&#160;&#160;&#160;(1&lt;&lt;9)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO In Bridge Locked mask. </p>
+<p>DDC (Display Data Channel) peripheral register offsets The DDC is the second peripheral on the local bus </p>
+
+</div>
+</div>
 <a id="ab26c31b92aedb7564284403ca2db65f5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab26c31b92aedb7564284403ca2db65f5">&#9670;&nbsp;</a></span>XV_HDMITX_PIO_IN_EVT_FE_OFFSET</h2>
 
@@ -1861,7 +1902,6 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>PIO In Pixel packing phase shift. </p>
-<p>DDC (Display Data Channel) peripheral register offsets The DDC is the second peripheral on the local bus </p>
 
 </div>
 </div>
@@ -1943,6 +1983,8 @@ Macros</h2></td></tr>
 
 <p>PIO Out Register Clear * offset. </p>
 
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#a0e8e1d49d9f1cbcf266b5780a7724dab">XV_HdmiTx_ClearGcpAvmuteBit()</a>, <a class="el" href="xv__hdmitx_8h.html#af0f79865b06ffc79b2e92f1023dc2652">XV_HdmiTx_ClearGcpClearAvmuteBit()</a>, <a class="el" href="xv__hdmitx_8h.html#a80f9f6414491351d34827b3c5e7f717a">XV_HdmiTx_EXT_SYSRST()</a>, <a class="el" href="xv__hdmitx_8h.html#aefad89689cab1a7ddcc37873b08a8faa">XV_HdmiTx_EXT_VRST()</a>, <a class="el" href="xv__hdmitx_8h.html#a44187420a93cd54ee4b68db1e80cd1e1">XV_HdmiTx_INT_LRST()</a>, and <a class="el" href="xv__hdmitx_8h.html#a7df3873e5e622d92c651adbef0b83b0e">XV_HdmiTx_INT_VRST()</a>.</p>
+
 </div>
 </div>
 <a id="a564d1abff6cb04057811a461cfbcb692"></a>
@@ -2014,6 +2056,114 @@ Macros</h2></td></tr>
 <p>PIO Out Color Space shift. </p>
 
 <p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#aa8eb6378fdb4a48a22fdedb89cc3702a">XV_HdmiTx_SetColorFormat()</a>.</p>
+
+</div>
+</div>
+<a id="ae6f495059257675ab6aab20debbb29ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6f495059257675ab6aab20debbb29ae">&#9670;&nbsp;</a></span>XV_HDMITX_PIO_OUT_EXT_SYSRST_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMITX_PIO_OUT_EXT_SYSRST_MASK&#160;&#160;&#160;(1&lt;&lt;22)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO Out EXT_SYSRST mask. </p>
+
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#a80f9f6414491351d34827b3c5e7f717a">XV_HdmiTx_EXT_SYSRST()</a>.</p>
+
+</div>
+</div>
+<a id="a85c45b96a6535758a64f4bbde6736b30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85c45b96a6535758a64f4bbde6736b30">&#9670;&nbsp;</a></span>XV_HDMITX_PIO_OUT_EXT_VRST_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMITX_PIO_OUT_EXT_VRST_MASK&#160;&#160;&#160;(1&lt;&lt;21)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO Out EXT_VRST mask. </p>
+
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#aefad89689cab1a7ddcc37873b08a8faa">XV_HdmiTx_EXT_VRST()</a>.</p>
+
+</div>
+</div>
+<a id="aecae9177f56bf35251db6c967b60c2a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecae9177f56bf35251db6c967b60c2a3">&#9670;&nbsp;</a></span>XV_HDMITX_PIO_OUT_GCP_AVMUTE_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMITX_PIO_OUT_GCP_AVMUTE_MASK&#160;&#160;&#160;(1&lt;&lt;31)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO Out GCP_AVMUTE mask. </p>
+
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#a0e8e1d49d9f1cbcf266b5780a7724dab">XV_HdmiTx_ClearGcpAvmuteBit()</a>, and <a class="el" href="xv__hdmitx_8h.html#a495a1c638020f63a0f9b30cf9584c57e">XV_HdmiTx_SetGcpAvmuteBit()</a>.</p>
+
+</div>
+</div>
+<a id="a5057e256f62c3af0dc0c4e08a6ebf5b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5057e256f62c3af0dc0c4e08a6ebf5b3">&#9670;&nbsp;</a></span>XV_HDMITX_PIO_OUT_GCP_CLEARAVMUTE_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMITX_PIO_OUT_GCP_CLEARAVMUTE_MASK&#160;&#160;&#160;(1&lt;&lt;28)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO Out GCP_CLEARAVMUTE mask. </p>
+
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#af0f79865b06ffc79b2e92f1023dc2652">XV_HdmiTx_ClearGcpClearAvmuteBit()</a>, and <a class="el" href="xv__hdmitx_8h.html#a9f140138d5c101dcdf267acf1645f9ac">XV_HdmiTx_SetGcpClearAvmuteBit()</a>.</p>
+
+</div>
+</div>
+<a id="a190850cf65d40a36c67965b58ab719a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a190850cf65d40a36c67965b58ab719a7">&#9670;&nbsp;</a></span>XV_HDMITX_PIO_OUT_INT_LRST_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMITX_PIO_OUT_INT_LRST_MASK&#160;&#160;&#160;(1&lt;&lt;20)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO Out INT_LRST mask. </p>
+
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#a44187420a93cd54ee4b68db1e80cd1e1">XV_HdmiTx_INT_LRST()</a>.</p>
+
+</div>
+</div>
+<a id="aaae3285766545ae8b717a709c376d449"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaae3285766545ae8b717a709c376d449">&#9670;&nbsp;</a></span>XV_HDMITX_PIO_OUT_INT_VRST_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMITX_PIO_OUT_INT_VRST_MASK&#160;&#160;&#160;(1&lt;&lt;0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO Out INT_VRST mask. </p>
+
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#a7df3873e5e622d92c651adbef0b83b0e">XV_HdmiTx_INT_VRST()</a>.</p>
 
 </div>
 </div>
@@ -2187,6 +2337,8 @@ Macros</h2></td></tr>
 
 <p>PIO Out Register Set * offset. </p>
 
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#a80f9f6414491351d34827b3c5e7f717a">XV_HdmiTx_EXT_SYSRST()</a>, <a class="el" href="xv__hdmitx_8h.html#aefad89689cab1a7ddcc37873b08a8faa">XV_HdmiTx_EXT_VRST()</a>, <a class="el" href="xv__hdmitx_8h.html#a44187420a93cd54ee4b68db1e80cd1e1">XV_HdmiTx_INT_LRST()</a>, <a class="el" href="xv__hdmitx_8h.html#a7df3873e5e622d92c651adbef0b83b0e">XV_HdmiTx_INT_VRST()</a>, <a class="el" href="xv__hdmitx_8h.html#a495a1c638020f63a0f9b30cf9584c57e">XV_HdmiTx_SetGcpAvmuteBit()</a>, and <a class="el" href="xv__hdmitx_8h.html#a9f140138d5c101dcdf267acf1645f9ac">XV_HdmiTx_SetGcpClearAvmuteBit()</a>.</p>
+
 </div>
 </div>
 <a id="aca60ad2b7145ae20f665c42136e63bb7"></a>
@@ -2279,7 +2431,7 @@ Macros</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the register.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851" title="This macro reads a value from a HDMI TX register. ">XV_HdmiTx_ReadReg(UINTPTR BaseAddress, u32 RegOffset)</a> </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#ae75f2ab194a44b9f67b7fa9d4545cb57">XV_HdmiTx_AuxSend()</a>, <a class="el" href="xv__hdmitx_8c.html#abdb511167dc499eacf28789225e83a24">XV_HdmiTx_DdcGetAck()</a>, <a class="el" href="xv__hdmitx_8c.html#a8c78e41a57fd48c1a392bc7448b93488">XV_HdmiTx_DdcReadData()</a>, <a class="el" href="xv__hdmitx_8c.html#ace17bdbb13a83051c81e70162707c1bb">XV_HdmiTx_DdcWaitForDone()</a>, <a class="el" href="xv__hdmitx_8c.html#a4e0fa58d0c4b103aaa0493f875b7a8fb">XV_HdmiTx_DdcWriteCommand()</a>, <a class="el" href="xv__hdmitx_8h.html#a1969dd5561dba784fdb82a4b8e634256">XV_HdmiTx_GetAudioFormat()</a>, <a class="el" href="xv__hdmitx__intr_8c.html#a25e91176ce93f223449dcb56c375ac51">XV_HdmiTx_IntrHandler()</a>, and <a class="el" href="xv__hdmitx__selftest_8c.html#a0934e75073446925a9698485b52e2c00">XV_HdmiTx_SelfTest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#ae75f2ab194a44b9f67b7fa9d4545cb57">XV_HdmiTx_AuxSend()</a>, <a class="el" href="xv__hdmitx_8c.html#abdb511167dc499eacf28789225e83a24">XV_HdmiTx_DdcGetAck()</a>, <a class="el" href="xv__hdmitx_8c.html#a8c78e41a57fd48c1a392bc7448b93488">XV_HdmiTx_DdcReadData()</a>, <a class="el" href="xv__hdmitx_8c.html#ace17bdbb13a83051c81e70162707c1bb">XV_HdmiTx_DdcWaitForDone()</a>, <a class="el" href="xv__hdmitx_8c.html#a4e0fa58d0c4b103aaa0493f875b7a8fb">XV_HdmiTx_DdcWriteCommand()</a>, <a class="el" href="xv__hdmitx_8h.html#a1969dd5561dba784fdb82a4b8e634256">XV_HdmiTx_GetAudioFormat()</a>, <a class="el" href="xv__hdmitx__intr_8c.html#a25e91176ce93f223449dcb56c375ac51">XV_HdmiTx_IntrHandler()</a>, <a class="el" href="xv__hdmitx__selftest_8c.html#a0934e75073446925a9698485b52e2c00">XV_HdmiTx_SelfTest()</a>, and <a class="el" href="xv__hdmitx_8h.html#a32872739c2a5ea02cf92aadc79aa385f">XV_HdmiTx_SetAudioChannels()</a>.</p>
 
 </div>
 </div>
@@ -2396,7 +2548,7 @@ Macros</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1" title="This macro writes a value to a HDMI TX register. ">XV_HdmiTx_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Data)</a> </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#ae75f2ab194a44b9f67b7fa9d4545cb57">XV_HdmiTx_AuxSend()</a>, <a class="el" href="xv__hdmitx_8c.html#ace17bdbb13a83051c81e70162707c1bb">XV_HdmiTx_DdcWaitForDone()</a>, <a class="el" href="xv__hdmitx_8c.html#a4e0fa58d0c4b103aaa0493f875b7a8fb">XV_HdmiTx_DdcWriteCommand()</a>, <a class="el" href="xv__hdmitx_8h.html#a32872739c2a5ea02cf92aadc79aa385f">XV_HdmiTx_SetAudioChannels()</a>, <a class="el" href="xv__hdmitx_8h.html#ad2d696a57ba6d62205853f83b4fdc589">XV_HdmiTx_SetAudioFormat()</a>, <a class="el" href="xv__hdmitx_8h.html#a9271b92c3193e1ce46a2b610080c6f06">XV_HdmiTx_SetColorDepth()</a>, <a class="el" href="xv__hdmitx_8h.html#aa8eb6378fdb4a48a22fdedb89cc3702a">XV_HdmiTx_SetColorFormat()</a>, <a class="el" href="xv__hdmitx_8h.html#abe6e4feed643a46f8c5a09494d2e2874">XV_HdmiTx_SetPixelRate()</a>, and <a class="el" href="xv__hdmitx_8h.html#abb0cde0fed5637779f430ca6eb2a9199">XV_HdmiTx_SetSampleRate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#ae75f2ab194a44b9f67b7fa9d4545cb57">XV_HdmiTx_AuxSend()</a>, <a class="el" href="xv__hdmitx_8h.html#a0e8e1d49d9f1cbcf266b5780a7724dab">XV_HdmiTx_ClearGcpAvmuteBit()</a>, <a class="el" href="xv__hdmitx_8h.html#af0f79865b06ffc79b2e92f1023dc2652">XV_HdmiTx_ClearGcpClearAvmuteBit()</a>, <a class="el" href="xv__hdmitx_8c.html#ace17bdbb13a83051c81e70162707c1bb">XV_HdmiTx_DdcWaitForDone()</a>, <a class="el" href="xv__hdmitx_8c.html#a4e0fa58d0c4b103aaa0493f875b7a8fb">XV_HdmiTx_DdcWriteCommand()</a>, <a class="el" href="xv__hdmitx_8h.html#a80f9f6414491351d34827b3c5e7f717a">XV_HdmiTx_EXT_SYSRST()</a>, <a class="el" href="xv__hdmitx_8h.html#aefad89689cab1a7ddcc37873b08a8faa">XV_HdmiTx_EXT_VRST()</a>, <a class="el" href="xv__hdmitx_8h.html#a44187420a93cd54ee4b68db1e80cd1e1">XV_HdmiTx_INT_LRST()</a>, <a class="el" href="xv__hdmitx_8h.html#a7df3873e5e622d92c651adbef0b83b0e">XV_HdmiTx_INT_VRST()</a>, <a class="el" href="xv__hdmitx_8h.html#a32872739c2a5ea02cf92aadc79aa385f">XV_HdmiTx_SetAudioChannels()</a>, <a class="el" href="xv__hdmitx_8h.html#ad2d696a57ba6d62205853f83b4fdc589">XV_HdmiTx_SetAudioFormat()</a>, <a class="el" href="xv__hdmitx_8h.html#a9271b92c3193e1ce46a2b610080c6f06">XV_HdmiTx_SetColorDepth()</a>, <a class="el" href="xv__hdmitx_8h.html#aa8eb6378fdb4a48a22fdedb89cc3702a">XV_HdmiTx_SetColorFormat()</a>, <a class="el" href="xv__hdmitx_8h.html#a495a1c638020f63a0f9b30cf9584c57e">XV_HdmiTx_SetGcpAvmuteBit()</a>, <a class="el" href="xv__hdmitx_8h.html#a9f140138d5c101dcdf267acf1645f9ac">XV_HdmiTx_SetGcpClearAvmuteBit()</a>, <a class="el" href="xv__hdmitx_8h.html#abe6e4feed643a46f8c5a09494d2e2874">XV_HdmiTx_SetPixelRate()</a>, and <a class="el" href="xv__hdmitx_8h.html#abb0cde0fed5637779f430ca6eb2a9199">XV_HdmiTx_SetSampleRate()</a>.</p>
 
 </div>
 </div>

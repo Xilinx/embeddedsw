@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2013 - 2017 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,8 @@
 # 1.00a ba  06/01/15 Initial Release
 # 1.2   vns 08/23/16 Added support for SHA2 by adding .a files
 # 2.0   vns 11/28/16  Added support for PMU
+# 2.0   srm 02/16/18 Updated to pick up latest freertos port 10.0
+# 3.1   vns 04/13/18 Added user configurable macro secure environment
 ##############################################################################
 
 #---------------------------------------------
@@ -76,7 +78,7 @@ proc secure_drc {libhandle} {
 		file delete -force ./src/xsecure_sha2_r5_freertos.a
 		file rename -force ./src/xsecure_sha2_r5.a ./src/libxilsecure.a
 	} elseif {[string compare -nocase $compiler "armr5-none-eabi-gcc"] == 0 &&
-			 [string compare -nocase $os_type "freertos901_xilinx"] == 0} {
+			 [string compare -nocase $os_type "freertos10_xilinx"] == 0} {
 		file delete -force ./src/xsecure_sha2_pmu.a
 		file delete -force ./src/xsecure_sha2_a53_32b.a
 		file delete -force ./src/xsecure_sha2_a53_64b.a
@@ -129,5 +131,17 @@ proc xgen_opts_file {libhandle} {
 	# Copy each of the files in the list to dstdir
 	foreach source $sources {
 		file copy -force $source $dstdir
+	}
+
+	# Get secure_environment value set by user, by default it is FALSE
+	set value [common::get_property CONFIG.secure_environment $libhandle]
+	if {$value == true} {
+		# Open xparameters.h file
+		set file_handle [hsi::utils::open_include_file "xparameters.h"]
+
+		puts $file_handle "\n/* Xilinx Secure library User Settings */"
+		puts $file_handle "#define XSECURE_TRUSTED_ENVIRONMENT \n"
+
+		close $file_handle
 	}
 }

@@ -60,6 +60,10 @@
 *                     and S25FL256S.
 *       sk   03/02/16 Added support for MT25QU01G.
 * 5.7   rk   27/07/16 Added Subsector erase command.
+* 5.10  tjs  11/30/17 Added JEDEC ID info for S25FL-L series flashes
+* 					  CR# 987566
+* 5.10	tjs	 03/01/18 Added MT25Q512 3V and 1.8V flash part support. CR# 995477
+* 5.11	tjs  03/16/18 Added support for ISSI flash parts.
 * </pre>
 *
 ******************************************************************************/
@@ -123,6 +127,8 @@ extern "C" {
 #define XISF_MIC_DEV_N25Q128		0xBB18	/**< Device ID for N25Q128 */
 #define XISF_MIC_DEV_N25Q256_3V0	0xBA19
 #define XISF_MIC_DEV_N25Q256_1V8	0xBB19
+#define XISF_MIC_DEV_MT25Q512_3V0	0xBA20	/**< Device ID for MT25QL512 */
+#define XISF_MIC_DEV_MT25Q512_1V8	0xBB20	/**< Device ID for MT25QU512 */
 #define XISF_MIC_DEV_MT25Q01_1V8	0xBB21
 #define XISF_MIC_DEV_MT25Q02_1V8	0xBB22
 
@@ -135,9 +141,12 @@ extern "C" {
 #define XISF_SPANSION_DEV_S25FL016	0x0214	/**< Device ID for S25FL016 */
 #define XISF_SPANSION_DEV_S25FL032	0x0215	/**< Device ID for S25FL032 */
 #define XISF_SPANSION_DEV_S25FL064	0x0216	/**< Device ID for S25FL064 */
+#define XISF_SPANSION_DEV_S25FL064L	0x6017	/**< Device ID for S25FL064L */
 #define XISF_SPANSION_DEV_S25FL128	0x2018	/**< Device ID for S25FL128
 						  *  and S25FL129 */
+#define XISF_SPANSION_DEV_S25FL128L	0x6018	/**< Device ID for S25FL128L */
 #define XISF_SPANSION_DEV_S25FL256	0x0219	/**< Device ID for S25FL256 */
+#define XISF_SPANSION_DEV_S25FL256L	0x6019	/**< Device ID for S25FL256L */
 #define XISF_SPANSION_DEV_S25FL512	0x0220	/**< Device ID for S25FL512 */
 
 /**
@@ -145,6 +154,13 @@ extern "C" {
  * SST Serial Flash device.
  */
 #define XISF_SST_DEV_SST25WF080		0x2505	/**< Device ID for SST25WF080 */
+
+/**
+* The following definitions specify the Device Id for the different
+* ISSI Serial Flash device.
+*/
+#define XISF_ISSI_DEV_IS25WP256D		0x7019	/**< Device ID for IS25WP256D */
+#define XISF_ISSI_DEV_IS25LP256D		0x6019	/**< Device ID for IS25WP256D */
 
 /**
  * Definitions for Intel, STM, Winbond and Spansion Serial Flash Device
@@ -242,6 +258,7 @@ extern "C" {
 #if (XPAR_XISF_FLASH_FAMILY == SPANSION)
 #define XISF_CMD_ENTER_4BYTE_ADDR_MODE	0xB7
 #define XISF_CMD_EXIT_4BYTE_ADDR_MODE	0xE9
+#define XISF_CMD_EXIT_4BYTE_ADDR_MODE_ISSI	0x29
 #endif
 #if (XPAR_XISF_FLASH_FAMILY == INTEL)
 /**

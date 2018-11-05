@@ -51,6 +51,8 @@
 #              of axietherent in xparameters.h
 # 03/07/17 adk Fixed issue lwip stops working as soon as something is plugged
 #	       to it's AXI stream buf(CR#979634).
+# 01/09/18 rsp Added support for C_Number_of_Table_Entries parameter.
+#
 ###############################################################################
 #uses "xillib.tcl"
 
@@ -508,6 +510,11 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
     puts $file_handle "\#define $canonical_name $value$uSuffix"
     add_field_to_periph_config_struct $device_id $canonical_name
 
+    set canonical_name  [format "%s_NUM_TABLE_ENTRIES" $canonical_tag]
+    set value [::hsi::utils::get_param_value $periph Number_of_Table_Entries]
+    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    add_field_to_periph_config_struct $device_id $canonical_name
+
     set canonical_name  [format "%s_PHYADDR" $canonical_tag]
     set phyaddr [::hsi::utils::get_param_value $periph PHYADDR]
     set value [::hsi::utils::convert_binary_to_decimal $phyaddr]
@@ -543,13 +550,13 @@ proc xdefine_axiethernet_config_file {file_name drv_string} {
         puts $config_file [format "%s\t\{" $start_comma]
         set comma ""
         foreach field [get_periph_config_struct_fields $i] {
-	    if { $k == 26  || $k == 42} {
+	    if { $k == 27  || $k == 43} {
 		puts $config_file [format "%s\t\t\{" $comma]
 		puts -nonewline $config_file [format "\t\t%s" $field]
 	    } else {
 		puts -nonewline $config_file [format "%s\t\t%s" $comma $field]
 	    }
-	    if { $k == 41 || $k == 57} {
+	    if { $k == 42 || $k == 58} {
 		puts -nonewline $config_file "\t\t\}"
 	    }
             set comma ",\n"

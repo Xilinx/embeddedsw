@@ -33,7 +33,7 @@
 /**
 *
 * @file xemacps_bdring.c
-* @addtogroup emacps_v3_4
+* @addtogroup emacps_v3_7
 * @{
 *
 * This file implements buffer descriptor ring related functions.
@@ -57,6 +57,8 @@
 *		      from uncached area. Fix for CR #663885.
 * 2.1   srt  07/15/14 Add support for Zynq Ultrascale Mp architecture.
 * 3.0   kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.6   rb   09/08/17 Add XEmacPs_BdRingPtrReset() API to reset BD ring
+* 		      pointers
 *
 * </pre>
 ******************************************************************************/
@@ -1072,4 +1074,29 @@ static void XEmacPs_BdSetTxWrap(UINTPTR BdPtr)
 		*TempPtr = DataValueTx;
 	}
 }
+
+/*****************************************************************************/
+/**
+ * Reset BD ring head and tail pointers.
+ *
+ * @param RingPtr is the instance to be worked on.
+ * @param VirtAddr is the virtual base address of the user memory region.
+ *
+ * @note
+ * Should be called after XEmacPs_Stop()
+ *
+ * @note
+ * C-style signature:
+ *    void XEmacPs_BdRingPtrReset(XEmacPs_BdRing * RingPtr, void *virtaddrloc)
+ *
+ *****************************************************************************/
+void XEmacPs_BdRingPtrReset(XEmacPs_BdRing * RingPtr, void *virtaddrloc)
+{
+	RingPtr->FreeHead = virtaddrloc;
+	RingPtr->PreHead = virtaddrloc;
+	RingPtr->HwHead = virtaddrloc;
+	RingPtr->HwTail = virtaddrloc;
+	RingPtr->PostHead = virtaddrloc;
+}
+
 /** @} */

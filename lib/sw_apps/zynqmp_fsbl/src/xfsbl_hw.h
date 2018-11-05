@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,9 @@
 * 1.00  kc   10/21/13 Initial release
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines
 * 3.0   vns  09/08/17 Added eFUSE secure control register masks for PPK revoke
+* 4.0   vns  02/02/18 Added warning message to notify SHA2 support
+*                     deprecation in future releases.
+*       vns  03/07/18 Added ENC_ONLY mask
 *
 * </pre>
 *
@@ -172,6 +175,7 @@ extern "C" {
  * Register: EFUSE_SEC_CTRL
  */
 #define EFUSE_SEC_CTRL    ( ( EFUSE_BASEADDR ) + 0X00001058U )
+#define EFUSE_SEC_CTRL_ENC_ONLY_MASK  0x00000004U
 #define EFUSE_SEC_CTRL_RSA_EN_MASK    0X03000000U
 #define EFUSE_SEC_CTRL_PPK0_RVK_MASK  0x18000000U
 #define EFUSE_SEC_CTRL_PPK1_RVK_MASK  0xC0000000U
@@ -337,7 +341,11 @@ extern "C" {
 
 /* pmu_global */
 #define PMU_GLOBAL_GLOB_GEN_STORAGE6    ( ( PMU_GLOBAL_BASEADDR ) + 0X48U )
+#define PMU_GLOBAL_GLOB_GEN_STORAGE5	( ( PMU_GLOBAL_BASEADDR ) + 0x44U )
 #define PMU_GLOBAL_GLOB_GEN_STORAGE4 	( ( PMU_GLOBAL_BASEADDR ) + 0X40U )
+#define PMU_GLOBAL_GLOB_GEN_STORAGE1    ( ( PMU_GLOBAL_BASEADDR ) + 0X34U )
+#define PMU_GLOBAL_GLOB_GEN_STORAGE2    ( ( PMU_GLOBAL_BASEADDR ) + 0X38U )
+
 /**
  * Register: PMU_GLOBAL_PERS_GLOB_GEN_STORAGE4
  */
@@ -855,6 +863,7 @@ extern "C" {
  * Definition for SHA2 to be included
  */
 #if !defined(FSBL_SHA2_EXCLUDE)
+#warning "SHA2 support will be deprecated soon please use SHA3"
 #define XFSBL_SHA2
 #endif
 
@@ -870,6 +879,14 @@ extern "C" {
 /* Definition for PL clear include irrespective of boot image has bitstream or not */
 #if !defined(FSBL_PL_CLEAR_EXCLUDE)
 #define XFSBL_PL_CLEAR
+#endif
+
+/*
+ * Definition for forcing encryption for each partition
+ * when ENC_ONLY FUSE bit is blown
+ */
+#if !defined(FSBL_FORCE_ENC_EXCLUDE)
+#define XFSBL_FORCE_ENC
 #endif
 
 #define XFSBL_QSPI_LINEAR_BASE_ADDRESS_START		(0xC0000000U)

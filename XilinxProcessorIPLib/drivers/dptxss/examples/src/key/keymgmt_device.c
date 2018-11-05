@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -599,8 +599,9 @@ doInit(
   else
   {
     /* Log */
+#if DEBUG_HDCP_INIT
     KEYMGMT_DEBUG_LOG("KEYMGMT_Device: core not present");
-
+#endif
     /* Update theError */
     theError = -1;
   }
@@ -652,7 +653,7 @@ KEYMGMTDEV_Init(
 	xil_printf("Initializing Key Management device %d (%x) \r\n",
 			device_id,gKeyMGMTBaseAddress[device_id]);
 	theDevice->fBaseAddress = gKeyMGMTBaseAddress[device_id];
-	if(theDevice->fBaseAddress==NULL)
+	if(theDevice->fBaseAddress==0)
 	{
 	  xil_printf("Please initialize the base address for key_gen device=%d"
 				" in array gKeyMGMTBaseAddress\r\n",device_id);

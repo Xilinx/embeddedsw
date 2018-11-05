@@ -52,6 +52,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a srt  04/18/13 First release
+* 6.6   mus  12/07/17 Removed errata 753970, It fixes CR#989132.
 * </pre>
 *
 ******************************************************************************/
@@ -113,11 +114,6 @@
  */
 #define CONFIG_PL310_ERRATA_727915 1
 
-/**
- *  Errata No: 	 753970
- *  Description: Cache sync operation may be faulty
- */
-#define CONFIG_PL310_ERRATA_753970 1
 /*@}*/
 #endif  /* ENABLE_ARM_ERRATA */
 

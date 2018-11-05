@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -54,6 +54,12 @@
 *                    inputs will be accepted in little endian format(KEY, IV
 *                    and Data).
 * 2.2   vns 07/06/16 Added doxygen tags
+* 3.0   vns 01/03/18 Modified XSecure_AesDecrypt() API to use key and IV placed
+*                    in secure header by bootgen to decrypt the actual
+*                    partition.
+*       vns 02/19/18 Modified XSecure_AesKeyZero() to clear KUP and AES key
+*                    Added XSecure_AesKeyZero() call in XSecure_AesDecrypt()
+*                    API to clear keys.
 *
 * </pre>
 *
@@ -66,6 +72,9 @@
 #include "xsecure_aes.h"
 
 /************************** Function Prototypes ******************************/
+
+/* Aes Decrypt zeroization in case of Gcm Tag Mismatch*/
+static u32 XSecure_Zeroize(u8 *DataPtr,u32 Length);
 
 /************************** Function Definitions *****************************/
 
@@ -528,6 +537,12 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 					XSECURE_CSU_AES_STS_GCM_TAG_OK;
 
 		if (GcmStatus == 0U) {
+			/* Zeroize the decrypted data*/
+			GcmStatus = XSecure_Zeroize(InstancePtr->Destination,
+							InstancePtr->SizeofData);
+			if (GcmStatus != XST_SUCCESS) {
+				return GcmStatus;
+			}
 			return XSECURE_CSU_AES_GCM_TAG_MISMATCH;
 		}
 	}
@@ -539,6 +554,40 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 
 }
 
+/*****************************************************************************/
+/*
+ * @brief
+ * This function is used to zeroize the memory
+ *
+ *
+ * @param	DataPtr Pointer to the memory which need to be zeroized.
+ * @param	Length	Length of the data.
+ *
+ *return	Final call of this API returns the status of Comparision.
+ *			- XSECURE_CSU_AES_ZEROIZATION_ERROR: If Zeroization is not
+ *								Successfull.
+ *			- XST_SUCCESS: If Zeroization is Scuccesfull.
+ *
+ ********************************************************************************/
+u32 XSecure_Zeroize(u8 *DataPtr,u32 Length)
+{
+	u32 WordLen;
+	u32 Index;
+	u32 *DataAddr = (u32 *)DataPtr;
+
+	/* Clear the decrypted data */
+	memset(DataPtr, 0, Length);
+	WordLen = Length/4U;
+
+	/* Read it back to verify*/
+	 for (Index = 0; Index < WordLen; Index++) {
+		if(*DataAddr != 0x00U) {
+			return XSECURE_CSU_AES_ZEROIZATION_ERROR;
+		}
+		DataAddr++;
+	}
+	return XST_SUCCESS;
+}
 /*****************************************************************************/
 /**
  * @brief
@@ -726,29 +775,42 @@ void XSecure_AesReset(XSecure_Aes *InstancePtr)
  *
  *
  ******************************************************************************/
-void XSecure_AesKeyZero(XSecure_Aes *InstancePtr)
+u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr)
 {
 	/* Assert validates the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	volatile u32 Status;
+	u32 ReadReg;
+	u32 TimeOut = XSECURE_AES_TIMEOUT_MAX;
 
-	Status = XSecure_ReadReg(InstancePtr->BaseAddress,
+	ReadReg = XSecure_ReadReg(InstancePtr->BaseAddress,
 				XSECURE_CSU_AES_KEY_CLR_OFFSET);
-	Status |= InstancePtr->KeySel;
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
-				XSECURE_CSU_AES_KEY_CLR_OFFSET, (u32)Status);
-	Status &= ~InstancePtr->KeySel;
-
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-				XSECURE_CSU_AES_KEY_CLR_OFFSET, (u32)Status);
+				XSECURE_CSU_AES_KEY_CLR_OFFSET,
+				(u32)(ReadReg | XSECURE_CSU_AES_KEY_ZERO |
+						XSECURE_CSU_AES_KUP_ZERO));
 
 	do {
 		Status = XSecure_ReadReg(InstancePtr->BaseAddress,
-					 XSECURE_CSU_AES_STS_OFFSET);
-	} while ((InstancePtr->KeySel << 8) == ((u32)Status &
-						(InstancePtr->KeySel << 8)));
+					 XSECURE_CSU_AES_STS_OFFSET) &
+		(XSECURE_CSU_AES_STS_AES_KEY_ZERO | XSECURE_CSU_AES_STS_KUP_ZEROED);
+		if (Status == (XSECURE_CSU_AES_STS_AES_KEY_ZERO |
+					XSECURE_CSU_AES_STS_KUP_ZEROED)) {
+			break;
+		}
+
+	} while (TimeOut-- != 0x00);
+
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+					XSECURE_CSU_AES_KEY_CLR_OFFSET, (u32)ReadReg);
+	if (TimeOut == 0) {
+		return XSECURE_CSU_AES_KEY_CLEAR_ERROR;
+	}
+
+	return XST_SUCCESS;
+
 }
 
 /*****************************************************************************/
@@ -1193,6 +1255,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	u32 SssDma = 0x0U;
 	u32 SssAes = 0x0U;
 	XCsuDma_Configure ConfigurValues = {0};
+	u32 KeyClearStatus;
 
 	/* Configure the SSS for AES. */
 	SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
@@ -1315,32 +1378,24 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 			}
 		}
 
-		if(BlockCnt > 0U)
+		/*
+		 * Update DestAddr and SrcAddr for next Block decryption.
+		 */
+		if (Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)
 		{
-			/*
-			 * Update DestAddr and SrcAddr for next Block decryption.
-			 */
-			if (Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)
-			{
-				DestAddr += PrevBlkLen;
-			}
-			SrcAddr = (GcmTagAddr + XSECURE_SECURE_GCM_TAG_SIZE);
-			/*
-			 * This means we are done with Secure header and Block 0
-			 * And now we can change the AES key source to KUP.
-			 */
-			InstancePtr->KeySel = XSECURE_CSU_AES_KEY_SRC_KUP;
-			XSecure_AesKeySelNLoad(InstancePtr);
+			DestAddr += PrevBlkLen;
 		}
-		else
-		{
-			/* Update SrcAddr for Block-0 */
-			SrcAddr = (SrcAddr + XSECURE_SECURE_HDR_SIZE +
-					XSECURE_SECURE_GCM_TAG_SIZE);
-			/* Point IV to the CSU IV register. */
-			InstancePtr->Iv = (u32 *)(InstancePtr->BaseAddress +
+		SrcAddr = (GcmTagAddr + XSECURE_SECURE_GCM_TAG_SIZE);
+		/*
+		 * We are done with Secure header to decrypt the Block 0
+		 * we can change the AES key source to KUP.
+		 */
+		InstancePtr->KeySel = XSECURE_CSU_AES_KEY_SRC_KUP;
+		XSecure_AesKeySelNLoad(InstancePtr);
+		/* Point IV to the CSU IV register. */
+		InstancePtr->Iv = (u32 *)(InstancePtr->BaseAddress +
 					(UINTPTR)XSECURE_CSU_AES_IV_0_OFFSET);
-		}
+
 
 		/* Update the GcmTagAddr to get GCM-TAG for next block. */
 		GcmTagAddr = SrcAddr + NextBlkLen + XSECURE_SECURE_HDR_SIZE;
@@ -1352,5 +1407,21 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 
 ENDF:
 	XSecure_AesReset(InstancePtr);
+	if ((Status == XSECURE_CSU_AES_GCM_TAG_MISMATCH) &&
+		(Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)) {
+		/* Zeroize the decrypted data*/
+		Status = XSecure_Zeroize(Dst,ImageLen);
+		if (Status != XST_SUCCESS) {
+			Status = XSECURE_CSU_AES_ZEROIZATION_ERROR;
+		}
+		else {
+			Status = XSECURE_CSU_AES_GCM_TAG_MISMATCH;
+		}
+	}
+	KeyClearStatus = XSecure_AesKeyZero(InstancePtr);
+	if (KeyClearStatus != XST_SUCCESS) {
+		Status = Status | KeyClearStatus;
+	}
+
 	return Status;
 }

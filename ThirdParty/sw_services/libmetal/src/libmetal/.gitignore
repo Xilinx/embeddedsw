@@ -6,6 +6,7 @@
 *.out
 *.log
 *.d
+build*/
 
 /tags
 /TAGS

@@ -52,7 +52,10 @@ proc ffs_drc {libhandle} {
 
 	set ffs_periphs_list [get_ffs_periphs $processor]
 
-	if { [llength $ffs_periphs_list] == 0 } {
+	set fs_interface [common::get_property CONFIG.fs_interface $libhandle]
+
+	# No need to check if fs_interface is RAM
+	if {$fs_interface != 2 && [llength $ffs_periphs_list] == 0} {
 		puts "WARNING : No interface that uses file system is available \n"
 	}
 
@@ -116,6 +119,33 @@ proc xgen_opts_file {libhandle} {
 	set set_fs_rpath [common::get_property CONFIG.set_fs_rpath $libhandle]
 	set word_access [common::get_property CONFIG.word_access $libhandle]
 
+	# do processor specific checks
+	set proc  [hsi::get_sw_processor];
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
+
+	if {$fs_interface == 2} {
+		set ramfs_size [common::get_property CONFIG.ramfs_size $libhandle]
+		set ramfs_start_addr [common::get_property CONFIG.ramfs_start_addr $libhandle]
+
+		puts $file_handle "\#define FILE_SYSTEM_INTERFACE_RAM"
+
+		puts $file_handle "\#define RAMFS_SIZE $ramfs_size"
+
+		# Check if ram fs start address is defined?
+		# If not set default; Give warning in case of Microblaze
+		if {$ramfs_start_addr == ""} {
+			puts $file_handle "\#define RAMFS_START_ADDR 0x10000000"
+
+			if {$proc_type == "microblaze"} {
+				puts "WARNING : Specify RAM FS start address \
+						in system.mss for Microblaze\n"
+			}
+		} else {
+			puts $file_handle "\#define RAMFS_START_ADDR $ramfs_start_addr"
+		}
+	}
+
+
 	# Checking if SD with FATFS is enabled.
 	# This can be expanded to add more interfaces.
 
@@ -125,47 +155,49 @@ proc xgen_opts_file {libhandle} {
 		if {$periph == "ps7_sdio" || $periph == "psu_sd"} {
 			if {$fs_interface == 1} {
 				puts $file_handle "\#define FILE_SYSTEM_INTERFACE_SD"
-				if {$read_only == true} {
-					puts $file_handle "\#define FILE_SYSTEM_READ_ONLY"
-				}
-				if {$use_lfn == true} {
-					puts $file_handle "\#define FILE_SYSTEM_USE_LFN"
-				}
-				if {$use_mkfs == true} {
-					puts $file_handle "\#define FILE_SYSTEM_USE_MKFS"
-				}
-				if {$enable_multi_partition == true} {
-					puts $file_handle "\#define FILE_SYSTEM_MULTI_PARTITION"
-				}
-				if {$num_logical_vol > 10} {
-					puts "WARNING : File System supports only upto 10 logical drives\
-							Setting back the num of vol to 10\n"
-					set num_logical_vol 10
-				}
-				puts $file_handle "\#define FILE_SYSTEM_NUM_LOGIC_VOL $num_logical_vol"
-				if {$use_strfunc > 2} {
-					puts "WARNING : Invalid STRFUNC option, setting \
-							back to 1\n"
-					set use_strfunc 1
-				}
-				puts $file_handle "\#define FILE_SYSTEM_USE_STRFUNC $use_strfunc"
-				if {$set_fs_rpath > 2} {
-					puts "WARNING : Invalid FS_RPATH option, setting \
-							back to 0\n"
-					set set_fs_rpath 0
-				}
-				puts $file_handle "\#define FILE_SYSTEM_SET_FS_RPATH $set_fs_rpath"
-				if {$word_access == true} {
-                                        puts $file_handle "\#define FILE_SYSTEM_WORD_ACCESS"
-                                }
-
-			} else {
-				error  "ERROR: Invalid interface selected \n"
 			}
 		}
-
 	}
 
+	if {$fs_interface == 1 || $fs_interface == 2} {
+		if {$read_only == true} {
+			puts $file_handle "\#define FILE_SYSTEM_READ_ONLY"
+		}
+		if {$use_lfn == true} {
+			puts $file_handle "\#define FILE_SYSTEM_USE_LFN"
+		}
+		if {$use_mkfs == true} {
+			puts $file_handle "\#define FILE_SYSTEM_USE_MKFS"
+		}
+		if {$enable_multi_partition == true} {
+			puts $file_handle "\#define FILE_SYSTEM_MULTI_PARTITION"
+		}
+		if {$num_logical_vol > 10} {
+			puts "WARNING : File System supports only upto 10 logical drives\
+					Setting back the num of vol to 10\n"
+			set num_logical_vol 10
+		}
+		puts $file_handle "\#define FILE_SYSTEM_NUM_LOGIC_VOL $num_logical_vol"
+		if {$use_strfunc > 2} {
+			puts "WARNING : Invalid STRFUNC option, setting \
+					back to 1\n"
+			set use_strfunc 1
+		}
+		puts $file_handle "\#define FILE_SYSTEM_USE_STRFUNC $use_strfunc"
+		if {$set_fs_rpath > 2} {
+			puts "WARNING : Invalid FS_RPATH option, setting \
+					back to 0\n"
+			set set_fs_rpath 0
+		}
+		puts $file_handle "\#define FILE_SYSTEM_SET_FS_RPATH $set_fs_rpath"
+
+		# MB does not allow word access from RAM
+		if {$proc_type != "microblaze" && $word_access == true} {
+			puts $file_handle "\#define FILE_SYSTEM_WORD_ACCESS"
+		}
+	} else {
+		error  "ERROR: Invalid interface selected \n"
+	}
 
 	close $file_handle
 

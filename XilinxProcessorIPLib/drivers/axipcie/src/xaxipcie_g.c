@@ -32,7 +32,7 @@
 /****************************************************************************/
 /**
 * @file xaxipcie_g.c
-* @addtogroup axipcie_v3_0
+* @addtogroup axipcie_v3_1
 * @{
 *
 * This file contains a configuration table that specifies the configuration

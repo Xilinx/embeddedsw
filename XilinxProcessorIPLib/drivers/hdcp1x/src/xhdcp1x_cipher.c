@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_cipher.c
-* @addtogroup hdcp1x_v4_0
+* @addtogroup hdcp1x_v4_2
 * @{
 *
 * This file contains the main implementation of the driver associated with
@@ -329,7 +329,7 @@ int XHdcp1x_CipherDoRequest(XHdcp1x *InstancePtr,
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Request >= (XHDCP1X_CIPHER_REQUEST_BLOCK));
+	Xil_AssertNonvoid(Request < (XHDCP1X_CIPHER_REQUEST_MAX));
 
 	/* Check that it is not disabled */
 	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {

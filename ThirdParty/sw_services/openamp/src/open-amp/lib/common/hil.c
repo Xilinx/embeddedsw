@@ -127,7 +127,7 @@ struct metal_device *hil_create_generic_mem_dev(
 	ret = metal_bus_find("generic", NULL);
 	if (ret)
 		return NULL;
-	dev = malloc(sizeof(*dev));
+	dev = metal_allocate_memory(sizeof(*dev));
 	openamp_assert(dev);
 	memset(dev, 0, sizeof(*dev));
 	sprintf(dev->name, "%s%lx.%lx", HIL_DEV_NAME_PREFIX, pa,
@@ -157,7 +157,7 @@ void hil_close_generic_mem_dev(struct metal_device *dev)
 	} else {
 		metal_list_del(&dev->node);
 		mdev = metal_container_of(dev, struct hil_mem_device, device);
-		free(mdev);
+		metal_free_memory(mdev);
 	}
 }
 
@@ -360,24 +360,34 @@ struct proc_vring *hil_get_vring_info(struct proc_vdev *vdev, int *num_vrings)
 		for (i = 0; i < vdev_rsc->num_of_vrings; i++) {
 			struct hil_proc *proc = metal_container_of(
 					vdev, struct hil_proc, vdev);
+			void *vaddr = METAL_BAD_VA;
 
 			/* Initialize vring with vring resource */
 			vring_rsc = &vdev_rsc->vring[i];
 			vring[i].num_descs = vring_rsc->num;
 			vring[i].align = vring_rsc->align;
-			ret = hil_set_vring(proc, i, NULL, NULL,
-					(metal_phys_addr_t)vring_rsc->da,
-					vring_size(vring_rsc->num,
-					vring_rsc->align));
-			if (ret)
-				return NULL;
-			vring[i].vaddr = metal_io_phys_to_virt(
-					vring[i].io,
-					(metal_phys_addr_t)vring_rsc->da);
+			/* Check if vring needs to reinitialize.
+			 * Vring needs reinitialization if the vdev
+			 * master restarts.
+			 */
+			if (vring[i].io) {
+			    vaddr = metal_io_phys_to_virt(vring[i].io,
+							 (metal_phys_addr_t)vring_rsc->da);
+			}
+			if (vaddr == (void *)METAL_BAD_VA) {
+				ret = hil_set_vring(proc, i, NULL, NULL,
+						    (metal_phys_addr_t)vring_rsc->da,
+						    vring_size(vring_rsc->num,
+						    vring_rsc->align));
+				if (ret)
+					return NULL;
+				vaddr = metal_io_phys_to_virt(vring[i].io,
+							      (metal_phys_addr_t)vring_rsc->da);
+			}
+			vring[i].vaddr = vaddr;
 		}
 	}
 	return (vdev->vring_info);
-
 }
 
 /**
@@ -734,7 +744,7 @@ int hil_set_vring (struct hil_proc *proc, int index,
 			return ret;
 		vring->dev = dev;
 	} else if (name) {
-		ret = metal_shmem_open(name, DEFAULT_VRING_MEM_SIZE, &io);
+		ret = metal_shmem_open(name, size, &io);
 		if (ret)
 			return ret;
 		vring->io = io;
@@ -755,8 +765,8 @@ int hil_set_vring (struct hil_proc *proc, int index,
 				return 0;
 		}
 		io = proc->ops->alloc_shm(proc, paddr, size, &dev);
-		openamp_assert(dev);
-		vring->dev = dev;
+		if (!io)
+			return -1;
 		vring->io = io;;
 	}
 

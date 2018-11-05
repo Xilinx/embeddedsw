@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xrfdc_hw.h
-* @addtogroup rfdc_v2_0
+* @addtogroup rfdc_v4_0
 * @{
 *
 * This header file contains the identifiers and basic HW access driver
@@ -50,6 +50,11 @@
 *       sk     09/21/17 Add support for Over voltage and Over
 *                       Range interrupts.
 * 2.3   sk     11/10/17 Corrected FIFO and DATA Interrupt masks.
+* 2.4   sk     12/11/17 Added DDC and DUC support.
+* 3.0   sg     13/01/18 Added PLL and external clock switch support
+* 3.1   jm     01/24/18 Add Multi-tile sync support.
+*       sk     02/27/18 Add API's to configure Multiband.
+* 4.0   sk     04/09/18 Removed redundant inclusion of xparameters.h file.
 * </pre>
 *
 ******************************************************************************/
@@ -66,7 +71,6 @@ extern "C" {
 #ifdef __BAREMETAL__
 #include "xil_io.h"
 #endif
-#include "xparameters.h"
 #ifndef __MICROBLAZE__
 #include "metal/io.h"
 #endif
@@ -115,6 +119,7 @@ extern "C" {
 							Control Register */
 #define XRFDC_ADC_DECI_MODE_OFFSET	0x044U	/**< ADC Decimation mode
 							Register */
+#define XRFDC_DAC_ITERP_DATA_OFFSET	0x044U	/**< DAC interpolation data */
 #define XRFDC_ADC_MXR_CFG0_OFFSET	0x080U	/**< ADC I channel mixer
 							config Register */
 #define XRFDC_ADC_MXR_CFG1_OFFSET	0x084U	/**< ADC Q channel mixer
@@ -288,10 +293,30 @@ extern "C" {
 #define XRFDC_DAC_DECODER_CLK_OFFSET	0x184U	/**< Decoder Clock enable */
 #define XRFDC_HSCOM_PWR_OFFSET		0x094	/**< Control register during
 							power-up sequence */
+#define XRFDC_HSCOM_CLK_DIV_OFFSET	0xB0	/**< Fabric clk out divider */
 #define XRFDC_HSCOM_UPDT_DYN_OFFSET		0x0B8	/**< Trigger the update
 							dynamic event */
 #define XRFDC_DAC_INVSINC_OFFSET		0x0C0U	/**< Invsinc control */
 #define XRFDC_DAC_MB_CFG_OFFSET		0x0C4U	/**< Multiband config */
+#define XRFDC_MTS_SRDIST			0x1CA0U
+#define XRFDC_MTS_SRCAP_T1			(0x24U << 2U)
+#define XRFDC_MTS_SRCAP_PLL			(0x0CU << 2U)
+#define XRFDC_MTS_SRCAP_DIG			(0x2CU << 2U)
+#define XRFDC_MTS_SRDTC_T1			(0x27U << 2U)
+#define XRFDC_MTS_SRDTC_PLL			(0x26U << 2U)
+#define XRFDC_MTS_SRFLAG			(0x49U << 2U)
+#define XRFDC_MTS_CLKSTAT			(0x24U << 2U)
+#define XRFDC_MTS_SRCOUNT_CTRL		0x004CU
+#define XRFDC_MTS_SRCOUNT_VAL		0x0050U
+#define XRFDC_MTS_SRFREQ_VAL		0x0054U
+#define XRFDC_MTS_FIFO_CTRL_ADC		0x0010U
+#define XRFDC_MTS_FIFO_CTRL_DAC		0x0014U
+#define XRFDC_MTS_DELAY_CTRL		0x0028U
+#define XRFDC_MTS_ADC_MARKER		0x0018U
+#define XRFDC_MTS_ADC_MARKER_CNT	0x0010U
+#define XRFDC_MTS_DAC_MARKER_CTRL	0x0048U
+#define XRFDC_MTS_DAC_MARKER_CNT	(0x92U << 2U)
+#define XRFDC_MTS_DAC_MARKER_LOC	(0x93U << 2U)
 
 #define XRFDC_RESET_OFFSET		0x00U	/**< Tile reset register */
 #define XRFDC_RESTART_OFFSET	0x04U	/**< Tile restart register */
@@ -305,6 +330,26 @@ extern "C" {
 #define XRFDC_CONV_INTR_STS(X)		(0x208U + (X * 0x08))
 #define XRFDC_CONV_INTR_EN(X)		(0x20CU + (X * 0x08))
 #define XRFDC_FIFO_ENABLE			0x230U	/**< FIFO Enable and Disable */
+#define XRFDC_PLL_SDM_CFG0			0x00U	/**< PLL Configuration bits for sdm */
+#define XRFDC_PLL_SDM_SEED0			0x18U	/**< PLL Bits for sdm LSB */
+#define XRFDC_PLL_SDM_SEED1			0x1CU 	/**< PLL Bits for sdm MSB */
+#define XRFDC_PLL_VREG				0x44U	/**< PLL bits for voltage regulator */
+#define XRFDC_PLL_VCO0				0x54U 	/**< PLL bits for coltage controlled oscillator LSB */
+#define XRFDC_PLL_VCO1				0x58U	/**< PLL bits for coltage controlled oscillator MSB */
+#define XRFDC_PLL_CRS1				0x28U 	/**< PLL bits for coarse frequency control LSB */
+#define XRFDC_PLL_CRS2				0x2CU	/**< PLL bits for coarse frequency control MSB */
+#define XRFDC_PLL_DIVIDER0        	0x30U   /**< PLL Output Divider LSB register */
+#define XRFDC_PLL_DIVIDER1         	0x34U   /**< PLL Output Divider MSB register */
+#define XRFDC_PLL_SPARE0			0x38U	/**< PLL spare inputs LSB */
+#define XRFDC_PLL_SPARE1			0x3CU	/**< PLL spare inputs MSB */
+#define XRFDC_PLL_REFDIV           	0x40U   /**< PLL Reference Divider register */
+#define XRFDC_PLL_VREG             	0x44U   /**< PLL voltage regulator */
+#define XRFDC_PLL_CHARGEPUMP		0x48U	/**< PLL bits for charge pumps */
+#define XRFDC_PLL_LPF0				0x4CU	/**< PLL bits for loop filters LSB */
+#define XRFDC_PLL_LPF1				0x50U	/**< PLL bits for loop filters MSB */
+#define XRFDC_PLL_FPDIV           	0x5CU   /**< PLL Feedback Divider register */
+#define XRFDC_CLK_NETWORK_CTRL0		0x8CU	/**< Clock network control and trim register */
+#define XRFDC_CLK_NETWORK_CTRL1		0x90U	/**< Multi-tile sync and clock source control register */
 
 /* @} */
 
@@ -693,6 +738,16 @@ extern "C" {
 
 /* @} */
 
+/** @name DAC interpolation data
+ *
+ * This register contains bits for DAC interpolation data type
+ * @{
+ */
+
+#define XRFDC_DAC_INTERP_DATA_MASK	0x00000001U	/**< Data type mask */
+
+/* @} */
+
 /** @name NCO Freq Word[47:32] - NCO Phase increment(nco freq 48-bit)
  *
  * This register contains bits for frequency control word of the
@@ -916,6 +971,7 @@ extern "C" {
  * @{
  */
 
+#define XRFDC_SWITCH_MTRX_MASK		0x0000003FU /**< Switch matrix mask */
 #define XRFDC_SEL_CB_TO_MIX1_MASK		0x00000003U	/**< Control crossbar
 							switch that select the data to mixer block mux1 */
 #define XRFDC_SEL_CB_TO_MIX0_MASK		0x0000000CU	/**< Control crossbar
@@ -1072,6 +1128,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_CTRL0_MASK		0x0000FFFFU	/**< TI  DCB gain and
 							offset correction */
+#define XRFDC_TI_DCB_MODE_MASK	0x00007800U /**< TI DCB Mode mask */
 
 /* @} */
 
@@ -1421,6 +1478,7 @@ extern "C" {
  */
 
 #define XRFDC_RX_MC_CFG0_MASK		0x0000FFFFU	/**< RX MC config0 */
+#define XRFDC_RX_MC_CFG0_CM_MASK	0x00000040U /**< Coupling mode mask */
 
 /* @} */
 
@@ -1696,8 +1754,8 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_INTERP_MODE_MASK		0x00000007U	/**< Interpolation filter
-								mode mask */
+#define XRFDC_INTERP_MODE_MASK	0x00000077U	/**< Interp filter mask */
+#define XRFDC_INTERP_MODE_I_MASK	0x00000007U	/**< Interp filter I */
 
 /* @} */
 
@@ -1808,6 +1866,80 @@ extern "C" {
 
 /* @} */
 
+/** @name CLK_DIV register
+ *
+ * This register contains the bits to control the clock
+ * divider providing the clock fabric out.
+ * @{
+ */
+
+#define XRFDC_FAB_CLK_DIV_MASK		0x0000000FU	/**< clk div mask */
+
+/* @} */
+
+/** @name Multiband Config
+ *
+ * This register contains bits to configure multiband for DAC.
+ * @{
+ */
+
+#define XRFDC_MB_CFG_MASK		0x000001FFU /**< MB config mask */
+#define XRFDC_MB_EN_4X_MASK		0x00000100U /**< Enable 4X MB mask */
+
+/* @} */
+
+/** @name Multi Tile Sync
+ *
+ * Multi-Tile Sync bit masks.
+ * @{
+ */
+
+#define XRFDC_MTS_SRCAP_PLL_M		0x0100U
+#define XRFDC_MTS_SRCAP_DIG_M		0x0100U
+#define XRFDC_MTS_SRCAP_EN_TRX_M	0x0400U
+#define XRFDC_MTS_SRCAP_INIT_M		0x8200U
+#define XRFDC_MTS_SRCLR_T1_M		0x2000U
+#define XRFDC_MTS_SRCLR_PLL_M		0x0200U
+#define XRFDC_MTS_PLLEN_M			0x0001U
+#define XRFDC_MTS_SRCOUNT_M			0x00FFU
+#define XRFDC_MTS_DELAY_VAL_M		0x041FU
+#define XRFDC_MTS_AMARK_CNT_M		0x00FFU
+#define XRFDC_MTS_AMARK_LOC_M		0x0F0000U
+#define XRFDC_MTS_AMARK_DONE_M		0x100000U
+
+/* @} */
+
+/** @name Output divider LSB register
+ *
+ * This register contains bits to configure output divisor
+ * @{
+ */
+
+#define XRFDC_PLL_DIVIDER0_MASK 	0x00FFU
+#define XRFDC_PLL_DIVIDER0_SHIFT	6U
+
+/* @} */
+
+/** @name Multi-tile sync and clock source control register
+ *
+ * This register contains bits to Multi-tile sync and clock source control
+ * @{
+ */
+#define XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK	0x1U /**< PLL clock mask */
+
+/* @} */
+
+/** @name PLL_CRS1 - PLL CRS1 register
+ *
+ * This register contains bits for VCO sel_auto, VCO band selection etc.,
+ * @{
+ */
+
+#define XRFDC_PLL_CRS1_VCO_SEL_MASK		0x00008001U /**< VCO SEL Mask */
+#define XRFDC_PLL_VCO_SEL_AUTO_MASK		0x00008000U /**< VCO Auto SEL Mask */
+
+/* @} */
+
 #define XRFDC_IXR_FIFOUSRDAT_MASK			0x0000000FU
 #define XRFDC_IXR_FIFOUSRDAT_OF_MASK		0x00000001U
 #define XRFDC_IXR_FIFOUSRDAT_UF_MASK 		0x00000002U
@@ -1859,6 +1991,7 @@ extern "C" {
 #define XRFDC_CTRL_STATS_OFFSET		0x0
 #define XRFDC_HSCOM_ADDR	0x1C00
 #define XRFDC_BLOCK_ADDR_OFFSET(X)	(X * 0x400)
+#define XRFDC_TILE_DRP_OFFSET		0x2000
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifdef __MICROBLAZE__

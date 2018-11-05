@@ -42,7 +42,7 @@
 /*****************************************************************************/
 /**
  * @file xusb.c
-* @addtogroup usb_v5_0
+* @addtogroup usb_v5_2
 * @{
  *
  * The XUsb driver. Functions in this file are the minimum required functions

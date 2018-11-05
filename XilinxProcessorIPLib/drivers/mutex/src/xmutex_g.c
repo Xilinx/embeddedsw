@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 * @file xmutex_g.c
-* @addtogroup mutex_v4_0
+* @addtogroup mutex_v4_3
 * @{
 *
 * This file contains a configuration table that specifies the configuration

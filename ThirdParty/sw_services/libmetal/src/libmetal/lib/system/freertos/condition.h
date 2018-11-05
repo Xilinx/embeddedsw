@@ -40,7 +40,7 @@
 #ifndef __METAL_FREERTOS_CONDITION__H__
 #define __METAL_FREERTOS_CONDITION__H__
 
-#include "metal/atomic.h"
+#include <metal/atomic.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -33,7 +33,7 @@
 /**
 *
 * @file xdualsplitter_selftest.c
-* @addtogroup dual_splitter_v1_0
+* @addtogroup dual_splitter_v1_1
 * @{
 *
 * This file contains self test function for the Dual Splitter core.

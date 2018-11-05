@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -380,44 +380,44 @@ static int BusyDelay(const XHdcp1x* InstancePtr, u16 DelayInMs)
 *   None.
 *
 ******************************************************************************/
-static void *GetPhyIfPtr(u16 DeviceID)
-{
-	void *PhyIfPtr = NULL;
-
-	/* Which device? */
-	switch (DeviceID) {
-
-#if defined(HDMI_EXAMPLE)
-	/* Rx Device */
-	case HDCP_RX_DEV_ID:
-		PhyIfPtr = &HdmiRx;
-		break;
-	/* Tx Device */
-	case HDCP_TX_DEV_ID:
-		PhyIfPtr = &HdmiTx;
-		break;
-#endif
-#if defined(DPTX_EXAMPLE)
-	/* Tx Device */
-	case HDCP_TX_DEV_ID:
-		PhyIfPtr = DpTxSsInst.DpPtr;	//&DptxInstance;
-		break;
-#endif
-#if defined(DPRX_EXAMPLE)
-	/* Rx Device */
-	case HDCP_RX_DEV_ID:
-		//->RxInstance;		BUG IN THE CODE AS GIVEN BY ANDREI
-		PhyIfPtr = DpRxSsInst.DpPtr;
-		break;
-#endif
-
-	/* Otherwise */
-	default:
-		break;
-	}
-
-	return (PhyIfPtr);
-}
+//static void *GetPhyIfPtr(u16 DeviceID)
+//{
+//	void *PhyIfPtr = NULL;
+//
+//	/* Which device? */
+//	switch (DeviceID) {
+//
+//#if defined(HDMI_EXAMPLE)
+//	/* Rx Device */
+//	case HDCP_RX_DEV_ID:
+//		PhyIfPtr = &HdmiRx;
+//		break;
+//	/* Tx Device */
+//	case HDCP_TX_DEV_ID:
+//		PhyIfPtr = &HdmiTx;
+//		break;
+//#endif
+//#if defined(DPTX_EXAMPLE)
+//	/* Tx Device */
+//	case HDCP_TX_DEV_ID:
+//		PhyIfPtr = DpTxSsInst.DpPtr;	//&DptxInstance;
+//		break;
+//#endif
+//#if defined(DPRX_EXAMPLE)
+//	/* Rx Device */
+//	case HDCP_RX_DEV_ID:
+//		//->RxInstance;		BUG IN THE CODE AS GIVEN BY ANDREI
+//		PhyIfPtr = DpRxSsInst.DpPtr;
+//		break;
+//#endif
+//
+//	/* Otherwise */
+//	default:
+//		break;
+//	}
+//
+//	return (PhyIfPtr);
+//}
 
 /*****************************************************************************/
 /**

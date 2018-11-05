@@ -1,9 +1,12 @@
 var struct_x_v___hdmi_tx =
 [
-    [ "Aux", "struct_x_v___hdmi_tx.html#ad9a3408bb742da4f3ae0c50eff9b3c9d", null ],
+    [ "Aux", "struct_x_v___hdmi_tx.html#af5d85f51e28f37e441a90a42fcfb6213", null ],
+    [ "BrdgUnlockedCallback", "struct_x_v___hdmi_tx.html#ac80e8b35a5b37348606520f5d2181126", null ],
+    [ "BrdgUnlockedRef", "struct_x_v___hdmi_tx.html#abc2b373a46fe068019b69fd824ff4320", null ],
     [ "Config", "struct_x_v___hdmi_tx.html#a7c08db92f62ad7f28dfdfac3561978db", null ],
     [ "ConnectCallback", "struct_x_v___hdmi_tx.html#ac1656ae24732ed35b46c51b248fc8029", null ],
     [ "ConnectRef", "struct_x_v___hdmi_tx.html#ae6bf6e3c9a0da202976056f309b34925", null ],
+    [ "IsBrdgUnlockedCallbackSet", "struct_x_v___hdmi_tx.html#abaeb8d3a7cc7697002f093430a2fd78a", null ],
     [ "IsConnectCallbackSet", "struct_x_v___hdmi_tx.html#ab1ab5b027e47ec17879510b40b15bedf", null ],
     [ "IsReady", "struct_x_v___hdmi_tx.html#a7e506f0c45644cae05d5bf9839c8d7ee", null ],
     [ "IsStreamDownCallbackSet", "struct_x_v___hdmi_tx.html#a1a62a8a0a74757a9468726b54b44c9d0", null ],

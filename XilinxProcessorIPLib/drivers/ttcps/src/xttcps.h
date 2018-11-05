@@ -33,7 +33,7 @@
 /**
 *
 * @file xttcps.h
-* @addtogroup ttcps_v3_0
+* @addtogroup ttcps_v3_5
 * @{
 * @details
 *

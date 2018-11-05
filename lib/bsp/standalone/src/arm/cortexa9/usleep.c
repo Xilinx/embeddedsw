@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,9 @@
 *						  possible to generate timer in nanosecond due to
 *						  limited cpu frequency
 * 6.0   asa      08/15/16 Updated the usleep signature. Fix for CR#956899.
+* 6.6	srm	 10/18/17 Updated sleep routines to support user configurable
+*			  implementation. Now sleep routines will use Timer
+*                         specified by the user (i.e. Global timer/TTC timer)
 * </pre>
 *
 ******************************************************************************/
@@ -60,8 +63,17 @@
 #include "xpseudo_asm.h"
 #include "xreg_cortexa9.h"
 
+#if defined (SLEEP_TIMER_BASEADDR)
+#include "xil_sleeptimer.h"
+#endif
+
+/****************************  Constant Definitions  ************************/
+#if defined (SLEEP_TIMER_BASEADDR)
+#define COUNTS_PER_USECOND (SLEEP_TIMER_FREQUENCY / 1000000)
+#else
 /* Global Timer is always clocked at half of the CPU frequency */
 #define COUNTS_PER_USECOND  (XPAR_CPU_CORTEXA9_CORE_CLOCK_FREQ_HZ / (2U*1000000U))
+#endif
 
 /*****************************************************************************/
 /**
@@ -76,8 +88,11 @@
 * @note		None.
 *
 ****************************************************************************/
-int usleep(unsigned long useconds)
+int usleep_A9(unsigned long useconds)
 {
+#if defined (SLEEP_TIMER_BASEADDR)
+	Xil_SleepTTCCommon(useconds, COUNTS_PER_USECOND);
+#else
 	XTime tEnd, tCur;
 
 	XTime_GetTime(&tCur);
@@ -86,6 +101,7 @@ int usleep(unsigned long useconds)
 	{
 		XTime_GetTime(&tCur);
 	} while (tCur < tEnd);
+#endif
 
 	return 0;
 }

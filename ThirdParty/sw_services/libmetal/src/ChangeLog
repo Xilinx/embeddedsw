@@ -1,10 +1,12 @@
 Change Log for libmetal
 =================================
+2018.1
+	* sync from upstream development (18048c4)
 2017.3
-	* sync with upstream github 2017.10
+	* sync from upstream 2017.10
 2017.1
-	* sync with upstream github 2017.04
+	* sync from upstream 2017.04
 2016.4
-	* sync with upstream github 2016.10
+	* sync from upstream 2016.10
 2016.3
-	* sync with upstream github 2016.04
+	* sync from upstream 2016.04

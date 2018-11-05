@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xwdttb_hw.h
-* @addtogroup wdttb_v4_0
+* @addtogroup wdttb_v4_3
 * @{
 *
 * This header file contains identifiers and register-level core functions (or
@@ -68,6 +68,7 @@
 *                   XWT_ESR_WINT_SHIFT, XWT_ESR_WSW_SHIFT, XWT_ESR_WCFG_SHIFT,
 *                   XWT_FCR_SBC_SHIFT, XWT_FCR_BSS_SHIFT, XWT_FCR_SSTE_SHIFT,
 *                   XWT_FCR_WM_SHIFT.
+* 4.3 srm  01/30/18 Added doxygen tags
 * </pre>
 *
 ******************************************************************************/

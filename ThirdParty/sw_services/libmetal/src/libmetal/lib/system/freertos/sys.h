@@ -69,12 +69,6 @@ void sys_irq_restore_enable(void);
  */
 void sys_irq_save_disable(void);
 
-/**
- * @brief memory mapping
- */
-void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
-			       size_t size, unsigned int flags);
-
 #endif /* METAL_INTERNAL */
 
 #ifdef __cplusplus

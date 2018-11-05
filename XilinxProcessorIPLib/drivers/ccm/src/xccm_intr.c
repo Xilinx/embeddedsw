@@ -33,7 +33,7 @@
 /**
 *
 * @file xccm_intr.c
-* @addtogroup ccm_v6_0
+* @addtogroup ccm_v6_1
 * @{
 *
 * This file contains interrupt related functions of Xilinx CCM core.

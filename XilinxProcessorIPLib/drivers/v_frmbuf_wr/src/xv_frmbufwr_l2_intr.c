@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_frmbufwr_l2_intr.c
-* @addtogroup v_frmbuf_wr
+* @addtogroup v_frmbuf_wr_v2_0
 * @{
 *
 * The functions in this file provides interrupt handler and associated
@@ -45,7 +45,7 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  vyc   04/05/17   Initial Release
-*
+* 3.00  vyc   04/04/18   Add interrupt handler for ap_ready
 * </pre>
 *
 ******************************************************************************/
@@ -57,37 +57,63 @@
 /*****************************************************************************/
 /**
 *
-* This function installs an asynchronous callback function for Frame Buffer Write interrupt
+* This function installs an asynchronous callback function for the given
+* HandlerType:
 *
-* @param    InstancePtr is a pointer to the frame buffer wrote core instance.
+* <pre>
+* HandlerType                     Callback Function Type
+* -----------------------         --------------------------------------------------
+* (XVFRMBUFWR_HANDLER_DONE)       DoneCallback
+* (XVFRMBUFWR_HANDLER_READY)      ReadyCallback
+*
+* @param    InstancePtr is a pointer to the Frame Buffer Write core instance.
 * @param    CallbackFunc is the address of the callback function.
 * @param    CallbackRef is a user data item that will be passed to the
 *           callback function when it is invoked.
 *
 * @return
-*         XST_SUCCESS if callback function installed successfully.
+*           - XST_SUCCESS if callback function installed successfully.
+*           - XST_INVALID_PARAM when HandlerType is invalid.
 *
-* @note   Invoking this function for a handler that already has been
-*         installed replaces it with the new handler.
+* @note     Invoking this function for a handler that already has been
+*           installed replaces it with the new handler.
 *
 ******************************************************************************/
-int XVFrmbufWr_SetCallback(XV_FrmbufWr_l2 *InstancePtr, void *CallbackFunc, void *CallbackRef)
+int XVFrmbufWr_SetCallback(XV_FrmbufWr_l2 *InstancePtr, u32 HandlerType,
+                           void *CallbackFunc, void *CallbackRef)
 {
+  u32 Status;
+
   /* Verify arguments. */
   Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(HandlerType >= (XVFRMBUFWR_HANDLER_DONE));
   Xil_AssertNonvoid(CallbackFunc != NULL);
   Xil_AssertNonvoid(CallbackRef != NULL);
 
-  InstancePtr->FrameDoneCallback = (XVFrmbufWr_Callback)CallbackFunc;
-  InstancePtr->CallbackRef = CallbackRef;
+  /* Check for handler type */
+  switch (HandlerType) {
+    case (XVFRMBUFWR_HANDLER_DONE):
+      InstancePtr->FrameDoneCallback = (XVFrmbufWr_Callback)CallbackFunc;
+      InstancePtr->CallbackDoneRef = CallbackRef;
+      Status = (XST_SUCCESS);
+      break;
+    case (XVFRMBUFWR_HANDLER_READY):
+      InstancePtr->FrameReadyCallback = (XVFrmbufWr_Callback)CallbackFunc;
+      InstancePtr->CallbackReadyRef = CallbackRef;
+      Status = (XST_SUCCESS);
+      break;
+    default:
+      Status = (XST_INVALID_PARAM);
+      break;
+    }
 
-  return(XST_SUCCESS);
+  return Status;
 }
 
 /*****************************************************************************/
 /**
 *
-* This function is the interrupt handler for the frame buffer wrote core driver.
+* This function is the interrupt handler for the frame buffer write core driver.
 *
 * This handler clears the pending interrupt and determined if the source is
 * frame done signal. If yes, starts the next frame processing and calls the
@@ -118,14 +144,24 @@ void XVFrmbufWr_InterruptHandler(void *InstancePtr)
   /* Get the interrupt source */
   Status = XV_frmbufwr_InterruptGetStatus(&FrmbufWrPtr->FrmbufWr);
 
-  /* Clear the interrupt */
-  XV_frmbufwr_InterruptClear(&FrmbufWrPtr->FrmbufWr, XVFRMBUFWR_IRQ_DONE_MASK);
-
   /* Check for Done Signal */
   if(Status & XVFRMBUFWR_IRQ_DONE_MASK) {
+    /* Clear the interrupt */
+    XV_frmbufwr_InterruptClear(&FrmbufWrPtr->FrmbufWr, XVFRMBUFWR_IRQ_DONE_MASK);
     //Call user registered callback function, if any
     if(FrmbufWrPtr->FrameDoneCallback) {
-          FrmbufWrPtr->FrameDoneCallback(FrmbufWrPtr->CallbackRef);
+          FrmbufWrPtr->FrameDoneCallback(FrmbufWrPtr->CallbackDoneRef);
+    }
+    XV_frmbufwr_Start(&FrmbufWrPtr->FrmbufWr);
+  }
+
+  /* Check for Ready Signal */
+  if(Status & XVFRMBUFWR_IRQ_READY_MASK) {
+    /* Clear the interrupt */
+    XV_frmbufwr_InterruptClear(&FrmbufWrPtr->FrmbufWr, XVFRMBUFWR_IRQ_READY_MASK);
+    //Call user registered callback function, if any
+    if(FrmbufWrPtr->FrameReadyCallback) {
+          FrmbufWrPtr->FrameReadyCallback(FrmbufWrPtr->CallbackReadyRef);
     }
     XV_frmbufwr_Start(&FrmbufWrPtr->FrmbufWr);
   }

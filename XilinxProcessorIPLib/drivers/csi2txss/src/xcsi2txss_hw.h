@@ -33,7 +33,7 @@
 /**
 *
 * @file xcsi2txss_hw.h
-* @addtogroup csi2txss_v1_0
+* @addtogroup csi2txss_v1_1
 * @{
 *
 * This header file contains identifiers and register-level core functions (or
@@ -49,6 +49,7 @@
 * Ver Who  Date     Changes
 * --- --- -------- ------------------------------------------------------------
 * 1.0 sss 07/14/16 Initial release
+* 1.2 vsa 02/28/18 Add Frame End Generation feature
 * </pre>
 *
 ******************************************************************************/
@@ -69,6 +70,10 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XCSI2TXSS_ISR_ALLINTR_MASK	XCSI2TX_ISR_ALLINTR_MASK
+#define XCSI2TXSS_LCSTAT_VC0_IER_MASK	XCSITX_LCSTAT_VC0_IER_MASK
+#define XCSI2TXSS_LCSTAT_VC1_IER_MASK	XCSITX_LCSTAT_VC1_IER_MASK
+#define XCSI2TXSS_LCSTAT_VC2_IER_MASK	XCSITX_LCSTAT_VC2_IER_MASK
+#define XCSI2TXSS_LCSTAT_VC3_IER_MASK	XCSITX_LCSTAT_VC3_IER_MASK
 
 /*****************************************************************************/
 /**

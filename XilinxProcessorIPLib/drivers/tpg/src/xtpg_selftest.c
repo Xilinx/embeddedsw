@@ -33,7 +33,7 @@
 /**
 *
 * @file xtpg_selftest.c
-* @addtogroup tpg_v3_0
+* @addtogroup tpg_v3_1
 * @{
 *
 * This file contains the self-test functions for the TPG driver.

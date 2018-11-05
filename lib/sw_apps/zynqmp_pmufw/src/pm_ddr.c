@@ -44,6 +44,10 @@
 #include "pm_master.h"
 #include "xpfw_util.h"
 #include "xpfw_aib.h"
+#include "pm_system.h"
+#include "pm_node.h"
+#include "pm_clock.h"
+#include "pm_hooks.h"
 
 #define DDRC_BASE		0xFD070000U
 #define DDRC_MSTR		(DDRC_BASE + 0U)
@@ -292,7 +296,7 @@
 
 #define DDRQOS_DDR_CLK_CTRL_CLKACT	BIT(0U)
 
-#define PM_DDR_POLL_PERIOD		3200U	/* ~100us @220MHz */
+#define PM_DDR_POLL_PERIOD		32000U	/* ~1ms @220MHz */
 
 #define REPORT_IF_ERROR(status) \
 		if (XST_SUCCESS != status) { \
@@ -313,7 +317,7 @@
 /* Memory for backup of locations used during ddr data training */
 #define NUM_TRAIN_BYTES 0x400U
 #define NUM_TRAIN_WORDS NUM_TRAIN_BYTES >> 2
-static u32 training_data[NUM_TRAIN_WORDS];
+static u32 training_data[NUM_TRAIN_WORDS] __attribute__((__section__(".srdata")));
 
 /* Number of memory locations used for ddr data training */
 #define DDR3_SIZE	0X100U >> 2
@@ -327,7 +331,7 @@ static u32 training_data[NUM_TRAIN_WORDS];
 #define LPDDR4_OLD_MAP_OFFSET	0x4000U
 
 /* If it is required to enable drift */
-static u8 drift_enable_req;
+static u8 drift_enable_req __attribute__((__section__(".srdata")));
 
 /* DDR states */
 static const u32 pmDdrStates[PM_DDR_STATE_MAX] = {
@@ -358,7 +362,7 @@ static const PmStateTran pmDdrTransitions[] = {
 	},
 };
 
-static PmRegisterContext ctx_ddrc[] = {
+static PmRegisterContext ctx_ddrc[] __attribute__((__section__(".srdata"))) = {
 	{ .addr = DDRC_MSTR, },
 	{ .addr = DDRC_MRCTRL0, },
 	{ .addr = DDRC_DERATEEN, },
@@ -472,7 +476,7 @@ static PmRegisterContext ctx_ddrc[] = {
 	{ },
 };
 
-static PmRegisterContext ctx_ddrphy[] = {
+static PmRegisterContext ctx_ddrphy[] __attribute__((__section__(".srdata"))) = {
 	{ .addr = DDRPHY_PGCR(0U), },
 	{ .addr = DDRPHY_PGCR(2U), },
 	{ .addr = DDRPHY_PGCR(3U), },
@@ -620,7 +624,7 @@ static PmRegisterContext ctx_ddrphy[] = {
 	{ },
 };
 
-static PmRegisterContext ctx_ddrphy_zqdata[] = {
+static PmRegisterContext ctx_ddrphy_zqdata[] __attribute__((__section__(".srdata"))) = {
 	{ .addr = DDRPHY_ZQDR0(0U), },
 	{ .addr = DDRPHY_ZQDR1(0U), },
 	{ .addr = DDRPHY_ZQDR0(1U), },
@@ -1238,6 +1242,9 @@ static void DDR_reinit(bool ddrss_is_reset)
 		REPORT_IF_ERROR(status);
 
 		ddr_io_retention_set(false);
+#ifdef ENABLE_POS
+		PmHookPowerOffSuspendDdrReady();
+#endif
 
 		/* remove ZQ override */
 		for (i = 0U; i < 2U; i++) {
@@ -1688,8 +1695,20 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	/* Handle transition to OFF state here */
 	if ((PM_DDR_STATE_OFF != slave->node.currState) &&
 	    (PM_DDR_STATE_OFF == nextState)) {
-		/* TODO : power down DDR here */
-		status = XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR);
+		/* Here, user can put the DDR controller in reset */
+		if (XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR) == XST_SUCCESS) {
+			/* Check if AIB isolation is enabled */
+			status = XPfw_AibPollForAck(XPFW_AIB_LPD_TO_DDR, AIB_ACK_TIMEOUT);
+
+			if (status != XST_SUCCESS) {
+				PmDbg(DEBUG_DETAILED, "Warning: Failed to receive "
+						"acknowledgment for LPD to DDR isolation\r\n");
+			}
+		} else {
+			PmDbg(DEBUG_DETAILED,
+					"Warning: Failed to Enable AIB isolation LPD to DDR\r\n");
+			status = XST_FAILURE;
+		}
 		goto done;
 	}
 
@@ -1697,8 +1716,18 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_DDR_STATE_ON:
 		if (PM_DDR_STATE_SR == nextState) {
 			if (XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR) == XST_SUCCESS) {
-				status = pm_ddr_sr_enter();
+				/* Check if AIB isolation is enabled */
+				if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_DDR, AIB_ACK_TIMEOUT)
+						== XST_SUCCESS) {
+					status = pm_ddr_sr_enter();
+				} else {
+					PmDbg(DEBUG_DETAILED, "Warning: Failed to receive "
+							"acknowledgment for LPD to DDR isolation\r\n");
+					status = XST_FAILURE;
+				}
 			} else {
+				PmDbg(DEBUG_DETAILED,
+						"Warning: Failed to Enable AIB isolation LPD to DDR\r\n");
 				status = XST_FAILURE;
 			}
 		} else {
@@ -1720,7 +1749,10 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		break;
 	case PM_DDR_STATE_OFF:
 		if (PM_DDR_STATE_ON == nextState) {
-			/* TODO : power up DDR here */
+			/*
+			 * Bring DDR controller out of reset if it was in reset
+			 * during DDR OFF state
+			 * */
 			status = XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
 		} else {
 			status = XST_NO_FEATURE;
@@ -1752,7 +1784,7 @@ static u32 PmDdrPowerConsumptions[] = {
 	DEFAULT_DDR_POWER_ON,
 };
 
-PmSlave pmSlaveDdr_g = {
+PmSlave pmSlaveDdr_g __attribute__((__section__(".srdata"))) = {
 	.node = {
 		.derived = &pmSlaveDdr_g,
 		.nodeId = NODE_DDR,
@@ -1776,5 +1808,30 @@ void ddr_io_prepare(void)
 	ddr_power_down_io();
 	ddr_io_retention_set(true);
 }
+
+#ifdef ENABLE_POS
+/**
+ * PmDdrPowerOffSuspendResume() - Take DDR out of self refresh after resume from
+ * 				  Power Off Suspend
+ *
+ * @return      XST_SUCCESS if DDR is resumed, failure code otherwise
+ */
+int PmDdrPowerOffSuspendResume()
+{
+	int status;
+
+	PmClockRestoreDdr();
+
+	status = PmDdrFsmHandler(&pmSlaveDdr_g, PM_DDR_STATE_ON);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+	pmSlaveDdr_g.node.flags = NODE_LOCKED_CLOCK_FLAG |
+					NODE_LOCKED_POWER_FLAG;
+
+done:
+	return status;
+}
+#endif
 
 #endif

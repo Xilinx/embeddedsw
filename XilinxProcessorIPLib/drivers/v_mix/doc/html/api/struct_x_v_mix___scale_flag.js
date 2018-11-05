@@ -6,5 +6,6 @@ var struct_x_v_mix___scale_flag =
     [ "Layer4ScalingEn", "struct_x_v_mix___scale_flag.html#a5963c0f6995aafbba1a6632f7be286d4", null ],
     [ "Layer5ScalingEn", "struct_x_v_mix___scale_flag.html#a6643940c20e818dda88c4532166b8c79", null ],
     [ "Layer6ScalingEn", "struct_x_v_mix___scale_flag.html#a38e2b56a9a3e31ca9b7759e783931b91", null ],
-    [ "Layer7ScalingEn", "struct_x_v_mix___scale_flag.html#ae2eb1252a848c8fa5d358a6e8fe47b8c", null ]
+    [ "Layer7ScalingEn", "struct_x_v_mix___scale_flag.html#ae2eb1252a848c8fa5d358a6e8fe47b8c", null ],
+    [ "Layer8ScalingEn", "struct_x_v_mix___scale_flag.html#ad21097770d218f561aa9ec6936a24bcc", null ]
 ];

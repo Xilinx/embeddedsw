@@ -40,6 +40,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  jsr    07/17/17 Initial release.
+* 	jsr    02/23/2018 YUV420 color format support.
 * </pre>
 *
 ******************************************************************************/
@@ -272,6 +273,7 @@ void XV_SdiTx_StartSdi(XV_SdiTx *InstancePtr,
 	XSdiVid_BitRate IsFractional,
 	XV_SdiTx_MuxPattern MuxPattern);
 int XV_SdiTx_StopSdi(XV_SdiTx *InstancePtr);
+int XV_SdiTx_SetVidFormat(XV_SdiTx *InstancePtr, XVidC_ColorFormat ColorFormat);
 void XV_SdiTx_ReportDetectedError(XV_SdiTx *InstancePtr);
 void XV_SdiTx_ClearDetectedError(XV_SdiTx *InstancePtr);
 u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVid_TransMode SdiMode, u8 DataStream);
@@ -287,6 +289,8 @@ u8 XV_SdiTx_GetPayloadFrameRate(XVidC_FrameRate FrameRateValid, XSdiVid_BitRate 
 u8 XV_SdiTx_GetPayloadIsInterlaced(XVidC_VideoFormat VideoFormat);
 u8 XV_SdiTx_GetPayloadAspectRatio(XVidC_AspectRatio AspectRatio);
 u32 XV_SdiTx_GetPayloadByte1(u16 VActiveValid, XSdiVid_TransMode SdiMode, u8 *Data);
+u8 XV_SdiTx_GetPayloadColorFormat(XSdiVid_TransMode SdiMode, XVidC_ColorFormat ColorFormatId);
+int XV_SdiTx_SetColorFormat(XV_SdiTx *InstancePtr, XVidC_ColorFormat ColorFormat);
 
 /* Bridge and reset specific functions */
 void XV_SdiTx_VidBridgeEnable(XV_SdiTx *InstancePtr);

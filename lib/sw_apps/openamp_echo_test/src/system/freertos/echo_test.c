@@ -90,14 +90,8 @@
 extern int init_system(void);
 extern void cleanup_system(void);
 
-/* from system_helper.c */
-extern void buffer_create(void);
-extern int buffer_push(void *data, int len);
-extern void buffer_pull(void **data, int *len);
-
 /* Local variables */
 static struct rpmsg_channel *app_rp_chnl;
-static struct rpmsg_endpoint *rp_ept;
 static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
 static int evt_chnl_deleted = 0;
@@ -127,26 +121,27 @@ static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 	(void)priv;
 	(void)src;
 
-	if (!buffer_push(data, len)) {
-		LPERROR("cannot save data\n");
-	} else {
-		evt_have_data =1;
+	/* On reception of a shutdown we signal the application to terminate */
+	if ((*(unsigned int *)data) == SHUTDOWN_MSG) {
+		evt_chnl_deleted = 1;
+		return;
+	}
+
+	/* Send data back to master */
+	if (rpmsg_send(rp_chnl, data, len) < 0) {
+		LPERROR("rpmsg_send failed\n");
 	}
 }
 
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
 {
-	app_rp_chnl = rp_chnl;
-	rp_ept = rpmsg_create_ept(rp_chnl, rpmsg_read_cb, RPMSG_NULL,
-				  RPMSG_ADDR_ANY);
+	(void)rp_chnl;
 }
 
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
 {
 	(void)rp_chnl;
 
-	rpmsg_destroy_ept(rp_ept);
-	rp_ept = NULL;
 	evt_chnl_deleted = 1;
 }
 
@@ -178,24 +173,9 @@ int app(struct hil_proc *hproc)
 	while (1) {
 		hil_poll(proc->proc, 0);
 
-		if (evt_have_data) {
-			void *data;
-			int len;
-
-			evt_have_data = 0;
-
-			buffer_pull(&data, &len);
-
-			/* If we get a shutdown request we will stop and end this task */
-			if ((*(unsigned int *)data == SHUTDOWN_MSG) ||
-			    (evt_chnl_deleted)) {
-				break;
-			}
-
-			/* Send data back to master*/
-			if (rpmsg_send(app_rp_chnl, data, len) < 0) {
-				LPERROR("rpmsg_send failed\n");
-			}
+		/* we got a shutdown request, exit */
+		if (evt_chnl_deleted) {
+			break;
 		}
 
 		if (evt_virtio_rst) {
@@ -240,9 +220,6 @@ static void processing(void *unused_arg)
 
 	LPRINTF("Starting application...\n");
 
-	/* Create buffer to send data between RPMSG callback and processing task */
-	buffer_create();
-
 	/* Initialize HW system components */
 	init_system();
 
@@ -272,8 +249,6 @@ int main(void)
 {
 	BaseType_t stat;
 
-	Xil_ExceptionDisable();
-
 	/* Create the tasks */
 	stat = xTaskCreate(processing, ( const char * ) "HW2",
 				1024, NULL, 2, &comm_task);
@@ -285,9 +260,7 @@ int main(void)
 	}
 
 	/* Will not get here, unless a call is made to vTaskEndScheduler() */
-	while (1) {
-		__asm__("wfi\n\t");
-	}
+	while (1) ;
 
 	/* suppress compilation warnings*/
 	return 0;

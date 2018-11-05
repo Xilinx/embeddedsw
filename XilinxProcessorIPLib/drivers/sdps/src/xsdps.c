@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xsdps.c
-* @addtogroup sdps_v3_3
+* @addtogroup sdps_v3_5
 * @{
 *
 * Contains the interface functions of the XSdPs driver.
@@ -87,6 +87,10 @@
 *       mn     08/22/17 Updated for Word Access System support
 *       mn     09/06/17 Resolved compilation errors with IAR toolchain
 *       mn     09/26/17 Added UHS_MODE_ENABLE macro to enable UHS mode
+* 3.4   mn     10/17/17 Use different commands for single and multi block
+*                       transfers
+*       mn     03/02/18 Move UHS macro check to SD card initialization routine
+* 3.5   mn     04/18/18 Resolve compilation warnings for sdps driver
 * </pre>
 *
 ******************************************************************************/
@@ -183,11 +187,7 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	InstancePtr->Config.CardDetect =  ConfigPtr->CardDetect;
 	InstancePtr->Config.WriteProtect =  ConfigPtr->WriteProtect;
-#ifdef UHS_MODE_ENABLE
 	InstancePtr->Config.BusWidth = ConfigPtr->BusWidth;
-#else
-	InstancePtr->Config.BusWidth = XSDPS_WIDTH_4;
-#endif
 	InstancePtr->Config.BankNumber = ConfigPtr->BankNumber;
 	InstancePtr->Config.HasEMIO = ConfigPtr->HasEMIO;
 	InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
@@ -352,6 +352,10 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+#ifndef UHS_MODE_ENABLE
+	InstancePtr->Config.BusWidth = XSDPS_WIDTH_4;
+#endif
 
 	if ((InstancePtr->HC_Version != XSDPS_HC_SPEC_V3) ||
 				((InstancePtr->Host_Caps & XSDPS_CAPS_SLOT_TYPE_MASK)
@@ -1267,6 +1271,7 @@ u32 XSdPs_FrameCmd(XSdPs *InstancePtr, u32 Cmd)
 		case CMD24:
 		case CMD25:
 			RetVal |= RESP_R1 | (u32)XSDPS_DAT_PRESENT_SEL_MASK;
+		break;
 		case ACMD41:
 			RetVal |= RESP_R3;
 		break;
@@ -1338,21 +1343,32 @@ s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 	}
 
 	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, Buff);
-
-	TransferMode = XSDPS_TM_AUTO_CMD12_EN_MASK |
-			XSDPS_TM_BLK_CNT_EN_MASK | XSDPS_TM_DAT_DIR_SEL_MASK |
-			XSDPS_TM_DMA_EN_MASK | XSDPS_TM_MUL_SIN_BLK_SEL_MASK;
-
 	if (InstancePtr->Config.IsCacheCoherent == 0) {
 		Xil_DCacheInvalidateRange((INTPTR)Buff,
 			BlkCnt * XSDPS_BLK_SIZE_512_MASK);
 	}
 
-	/* Send block read command */
-	Status = XSdPs_CmdTransfer(InstancePtr, CMD18, Arg, BlkCnt);
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
+	if (BlkCnt == 1U) {
+		TransferMode = XSDPS_TM_BLK_CNT_EN_MASK |
+			XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK;
+
+		/* Send single block read command */
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD17, Arg, BlkCnt);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+	} else {
+		TransferMode = XSDPS_TM_AUTO_CMD12_EN_MASK |
+			XSDPS_TM_BLK_CNT_EN_MASK | XSDPS_TM_DAT_DIR_SEL_MASK |
+			XSDPS_TM_DMA_EN_MASK | XSDPS_TM_MUL_SIN_BLK_SEL_MASK;
+
+		/* Send multiple blocks read command */
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD18, Arg, BlkCnt);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
 	}
 
 	/* Check for transfer complete */
@@ -1435,15 +1451,26 @@ s32 XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 			BlkCnt * XSDPS_BLK_SIZE_512_MASK);
 	}
 
-	TransferMode = XSDPS_TM_AUTO_CMD12_EN_MASK |
+	if (BlkCnt == 1U) {
+		TransferMode = XSDPS_TM_BLK_CNT_EN_MASK | XSDPS_TM_DMA_EN_MASK;
+
+		/* Send single block write command */
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD24, Arg, BlkCnt);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+	} else {
+		TransferMode = XSDPS_TM_AUTO_CMD12_EN_MASK |
 			XSDPS_TM_BLK_CNT_EN_MASK |
 			XSDPS_TM_MUL_SIN_BLK_SEL_MASK | XSDPS_TM_DMA_EN_MASK;
 
-	/* Send block write command */
-	Status = XSdPs_CmdTransfer(InstancePtr, CMD25, Arg, BlkCnt);
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
+		/* Send multiple blocks write command */
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD25, Arg, BlkCnt);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
 	}
 
 	/*

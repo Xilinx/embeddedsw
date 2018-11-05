@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_sditxss_coreinit.c
-* @addtogroup v_sditxss
+* @addtogroup v_sditxss_v1_1
 * @{
 * @details
 

@@ -68,7 +68,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="textblock"><p>This is the header file for the implementation of QSPIPSU driver.Generic QSPI interface allows for communication to any QSPI slave device. GQSPI contains a GENFIFO into which the bus transfers required are to be pushed with appropriate configuration. The controller provides TX and RX FIFO's and a DMA to be used for RX transfers. The controller executes each GENFIFO entry noting the configuration and places data on the bus as required</p>
 <p>The different options in GENFIFO are as follows: IMM_DATA : Can be one byte of data to be transmitted, number of clocks or number of bytes in transfer. DATA_XFER : Indicates that data/clocks need to be transmitted or received. EXPONENT : e when 2^e bytes are involved in transfer. SPI_MODE : SPI/Dual SPI/Quad SPI CS : Lower or Upper CS or Both Bus : Lower or Upper Bus or Both TX : When selected, controller transmits data in IMM or fetches number of bytes mentioned form TX FIFO. If not selected, dummies are pumped. RX : When selected, controller receives and fills the RX FIFO/allows RX DMA of requested number of bytes. If not selected, RX data is discarded. Stripe : Byte stripe over lower and upper bus or not. Poll : Polls response to match for to a set value (used along with POLL_CFG registers) and then proceeds to next GENFIFO entry. This feature is not currently used in the driver.</p>
 <p>GENFIFO has manual and auto start options. All DMA requests need a 4-byte aligned destination address buffer and size of transfer should also be a multiple of 4. This driver supports DMA RX and IO RX.</p>
-<p>Initialization: This driver uses the GQSPI controller with RX DMA. It supports both interrupt and polled transfers. Manual start of GENFIFO is used. <a class="el" href="group__qspipsu__v3__4.html#ga78067f00df477a415138cf035d5c3c1c" title="Initializes a specific XQspiPsu instance such that the driver is ready to use. ">XQspiPsu_CfgInitialize()</a> initializes the instance variables. Additional setting can be done using SetOptions/ClearOptions functions and SelectSlave function.</p>
+<p>Initialization: This driver uses the GQSPI controller with RX DMA. It supports both interrupt and polled transfers. Manual start of GENFIFO is used. <a class="el" href="group__qspipsu__v1__7.html#ga78067f00df477a415138cf035d5c3c1c" title="Initializes a specific XQspiPsu instance such that the driver is ready to use. ">XQspiPsu_CfgInitialize()</a> initializes the instance variables. Additional setting can be done using SetOptions/ClearOptions functions and SelectSlave function.</p>
 <p>Transfer: Polled or Interrupt transfers can be done. The transfer function needs the message(s) to be transmitted in the form of an array of type <a class="el" href="struct_x_qspi_psu___msg.html" title="This typedef contains configuration information for a flash message. ">XQspiPsu_Msg</a>. This is supposed to contain the byte count and any TX/RX buffers as required. Flags can be used indicate further information such as whether the message should be striped. The transfer functions form and write GENFIFO entries, check the status of the transfer and report back to the application when done.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
@@ -86,7 +86,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
              Modified XQspiPsu_Select() macro in <a class="el" href="xqspipsu_8h.html">xqspipsu.h</a>
              Added XQspiPsu_GetLqspiConfigReg() in <a class="el" href="xqspipsu_8h.html">xqspipsu.h</a>
              Added required macros in <a class="el" href="xqspipsu__hw_8h.html">xqspipsu_hw.h</a>
-             Modified <a class="el" href="group__qspipsu__v3__4.html#gad0fea713a1ec2a4ce6159439e30f7cd7" title="This function sets the options for the QSPIPSU device driver.The options control how the device behav...">XQspiPsu_SetOptions()</a> to support
+             Modified <a class="el" href="group__qspipsu__v1__7.html#gad0fea713a1ec2a4ce6159439e30f7cd7" title="This function sets the options for the QSPIPSU device driver.The options control how the device behav...">XQspiPsu_SetOptions()</a> to support
              LQSPI options and updated OptionsTable in
              <a class="el" href="xqspipsu__options_8c.html">xqspipsu_options.c</a>
       rk  07/15/16 Added support for TapDelays at different frequencies.
@@ -111,7 +111,21 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
 1.5     tjs 09/14/17 Modified the checks for 4 byte addressing and commands.
 1.6     tjs 10/16/17 Flow for accessing flash is made similar to u-boot and linux
                                          For CR-984966
-1.6   tjs 11/02/17 Resolved the compilation errors for ICCARM. CR-988625</pre><pre></pre> </div></div><!-- contents -->
+1.6   tjs 11/02/17 Resolved the compilation errors for ICCARM. CR-988625
+1.7   tjs 11/16/17 Removed the unsupported 4 Byte write and sector erase
+                   commands.
+1.7     tjs     12/01/17 Added support for MT25QL02G Flash from Micron. CR-990642
+1.7     tjs 12/19/17 Added support for S25FL064L from Spansion. CR-990724
+1.7     tjs 01/11/18 Added support for MX66L1G45G flash from Macronix CR-992367
+1.7     tjs     01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
+1.7     tjs     01/17/18 Added support to toggle the WP pin of flash. (PR#2448)
+                   Added <a class="el" href="group__qspipsu__v1__7.html#ga773783002ce0d2c1cfe0d82d04ed874d" title="This function sets the Write Protect and Hold options for the QSPIPSU device driver.The device must be idle rather than busy transferring data before setting Write Protect and Hold options. ">XQspiPsu_SetWP()</a> in <a class="el" href="xqspipsu__options_8c.html">xqspipsu_options.c</a>
+                   Added <a class="el" href="group__qspipsu__v1__7.html#gace75505c81cfcb8fc3756598c3f99cf2" title="This API enables/ disables Write Protect pin on the flash parts. ">XQspiPsu_WriteProtectToggle()</a> in <a class="el" href="xqspipsu_8c.html">xqspipsu.c</a> and
+                   also added write protect example.
+1.7     tjs     03/14/18 Added support in EL1 NS mode (CR#974882)
+1.7     tjs 26/03/18 In dual parallel mode enable both CS when issuing Write
+                         enable command. CR-998478
+</pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

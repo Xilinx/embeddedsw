@@ -36,7 +36,7 @@
 #ifndef __METAL_ATOMIC__H__
 #define __METAL_ATOMIC__H__
 
-#include "metal/config.h"
+#include <metal/config.h>
 
 #if defined(HAVE_STDATOMIC_H) && !defined(__STDC_NO_ATOMICS__) && \
 	!defined(__cplusplus)

@@ -33,7 +33,7 @@
 /**
 *
 * @file xuartps_selftest.c
-* @addtogroup uartps_v3_4
+* @addtogroup uartps_v3_5
 * @{
 *
 * This file contains the self-test functions for the XUartPs driver.

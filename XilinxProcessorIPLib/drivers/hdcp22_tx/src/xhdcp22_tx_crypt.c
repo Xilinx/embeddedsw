@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp22_tx_crypt.c
-* @addtogroup hdcp22_tx_v2_0
+* @addtogroup hdcp22_tx_v2_3
 * @{
 * @details
 *
@@ -49,6 +49,10 @@
 * 2.00  MH     06/28/16 Updated for repeater downstream support.
 * 2.30  MH     05/16/16 1. Reduced BD_MAX_MOD_SIZE to optimize stack size.
 *                       2. Updated for 64 bit support.
+* 2.40  MH     01/30/18 Added function XHdcp22Tx_RsaSignatureVerify.
+*                       Signature verification has been updated to
+*                       check entire encoded message EM including
+*                       padding PS.
 * </pre>
 *
 ******************************************************************************/
@@ -81,6 +85,10 @@ static int XHdcp22Tx_RsaEncryptMsg(const u8 *KeyPubNPtr, int KeyPubNSize,
                                    const u8 *KeyPubEPtr, int KeyPubESize,
                                    const u8 *MsgPtr, int MsgSize,
                                    u8 *EncryptedMsgPtr);
+static int XHdcp22Tx_RsaSignatureVerify(const u8 *MessagePtr, int MessageSize,
+                                        const u8 *SignaturePtr,
+                                        const u8 *KpubDcpNPtr, int KpubDcpNSize,
+                                        const u8 *KpubDcpEPtr, int KpubDcpESize);
 
 /************************** Variable Definitions *****************************/
 
@@ -328,6 +336,104 @@ static int XHdcp22Tx_RsaOaepEncrypt(const u8 *KeyPubNPtr, int KeyPubNSize,
 	return XST_SUCCESS;
 }
 
+
+/****************************************************************************/
+/**
+* This function implements RSASSA-PKCS1-v1_5-Verify for signature
+* verification. The encoding scheme used to generate EM is EMSA-PKCS1-v1_5.
+* The signature size is assumed to be 3072 bits. The underlying hash function
+* is SHA256.
+*
+* Reference: PKCS#1 v2.1, Section 8.2.2 and Section 9.2
+*
+* @param  MessagePtr is a pointer to the start of the message to be hashed.
+* @param  MessageSize is the size of the message to be hashed.
+* @param  SignaturePtr is a pointer to the start of the DCP generated signature.
+* @param  KpubDcpNPtr is a pointer to the N-value of the certificate signature.
+* @param  KpubDcpNSize is the size of the N-value of the certificates signature.
+* @param  KpubDcpEPtr iis a pointer to the E-value of the certificate signature.
+* @param  KpubDcpESize is the size of the E-value of the certificates signature.
+*
+* @return
+*         - XST_SUCCESS if the certificate is valid.
+*         - XST_FAILURE if the certificate is invalid.
+* @note   None.
+*
+*****************************************************************************/
+static int XHdcp22Tx_RsaSignatureVerify(const u8 *MessagePtr, int MessageSize,
+                                        const u8 *SignaturePtr,
+                                        const u8 *KpubDcpNPtr, int KpubDcpNSize,
+                                        const u8 *KpubDcpEPtr, int KpubDcpESize)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(MessagePtr   != NULL);
+	Xil_AssertNonvoid(SignaturePtr != NULL);
+	Xil_AssertNonvoid(KpubDcpNPtr  != NULL);
+	Xil_AssertNonvoid(KpubDcpEPtr  != NULL);
+	Xil_AssertNonvoid(KpubDcpNSize > 0);
+	Xil_AssertNonvoid(KpubDcpESize > 0);
+
+	int i;
+	int Result = XST_SUCCESS;
+	u8 THash[XHDCP22_TX_SHA256_HASH_SIZE];
+	u8 TIdentifer[] = {	0x30, 0x31, 0x30, 0x0d, 0x06, 0x09, 0x60, 0x86,
+					0x48, 0x01, 0x65, 0x03, 0x04, 0x02, 0x01, 0x05,
+					0x00, 0x04, 0x20};
+	u8 Em[XHDCP22_TX_CERT_SIGNATURE_SIZE];
+	u8* EmPtr = NULL;
+
+	/* Create hash of first part of the certificate (without the signature). */
+	XHdcp22Cmn_Sha256Hash(MessagePtr, MessageSize, THash);
+
+	/* Perform RSA decryption and recover EM */
+	Result = XHdcp22Tx_RsaEncryptMsg(KpubDcpNPtr, KpubDcpNSize,
+                                   KpubDcpEPtr, KpubDcpESize,
+                                   SignaturePtr,
+                                   XHDCP22_TX_CERT_SIGNATURE_SIZE,
+                                   Em);
+	if (Result != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Compare EM to EM'
+	 * where EM = 0x00 || 0x01 || PS || 0x00 || T
+	 * with size 384 bytes
+	 *
+	 * Do the following checks:
+	 *   Check 1: padding start delimiter (2   bytes)
+	 *   Check 2: padding sequence        (330 bytes)
+	 *   Check 3: padding end delimiter   (1   bytes)
+	 *   Check 4: ASN.1 encoding of hash  (51  bytes)
+	 */
+
+	/* Check 1 */
+	if ((Em[0] != 0x00) || (Em[1] != 0x01))
+		return XST_FAILURE;
+
+	/* Check 2 */
+	EmPtr = &Em[2];
+	for (i=0; i<330; i++) {
+		if (EmPtr[i] != 0xFF)
+			return XST_FAILURE;
+	}
+
+	/* Check 3 */
+	EmPtr = &Em[332];
+	if (EmPtr[0] != 0x00)
+		return XST_FAILURE;
+
+	/* Check 4 */
+	EmPtr = &Em[333];
+	if (memcmp(TIdentifer, EmPtr, 19) != 0)
+		return XST_FAILURE;
+	EmPtr = &Em[352];
+	if (memcmp(THash, EmPtr, 32) != 0)
+		return XST_FAILURE;
+
+	return Result;
+}
+
 /*****************************************************************************/
 /**
 *
@@ -382,37 +488,14 @@ int XHdcp22Tx_VerifyCertificate(const XHdcp22_Tx_CertRx* CertificatePtr,
 	Xil_AssertNonvoid(KpubDcpESize > 0);
 
 	int Result = XST_SUCCESS;
-	u8* EncryptedHashPtr = NULL;
-	u8 HashedData[XHDCP22_TX_SHA256_HASH_SIZE];
-	u8 Em[XHDCP22_TX_CERT_SIGNATURE_SIZE];
 
-	/* Create hash of first part of the certificate (without the signature). */
-	XHdcp22Cmn_Sha256Hash((u8 *)CertificatePtr,
-                      sizeof(XHdcp22_Tx_CertRx) - sizeof(CertificatePtr->Signature),
-                      HashedData);
+	Result = XHdcp22Tx_RsaSignatureVerify (
+				(u8 *)CertificatePtr,
+                    (sizeof(XHdcp22_Tx_CertRx) - sizeof(CertificatePtr->Signature)),
+				CertificatePtr->Signature,
+				KpubDcpNPtr, KpubDcpNSize,
+				KpubDcpEPtr, KpubDcpESize);
 
-	/* RSA decryption. */
-	Result = XHdcp22Tx_RsaEncryptMsg(KpubDcpNPtr, KpubDcpNSize,
-                                   KpubDcpEPtr, KpubDcpESize,
-                                   CertificatePtr->Signature,
-                                   sizeof(CertificatePtr->Signature),
-                                   Em);
-	if (Result != XST_SUCCESS) {
-		return Result;
-	}
-
-	/* Compare hash and the last part of the encoded message.
-	 * Note the encoded message contains padding bytes (0xff, 0x00=end-of-padding),
-	 *  And ASN.1 values for:
-	 * - the encoded message contents,
-	 * - the used algorithm identifier (OID),
-	 * - the value (HASH)
-	 * According HDCP2.2 protocol we do not need to check these contents so we just check
-	 * the last part of the encoded message that contains the hash.
-	 */
-	EncryptedHashPtr = &Em[XHDCP22_TX_CERT_SIGNATURE_SIZE-XHDCP22_TX_SHA256_HASH_SIZE];
-	Result = memcmp(HashedData, EncryptedHashPtr,
-                  XHDCP22_TX_SHA256_HASH_SIZE) == 0 ? XST_SUCCESS : XST_FAILURE;
 	return Result;
 }
 
@@ -447,37 +530,14 @@ int XHdcp22Tx_VerifySRM(const u8* SrmPtr, int SrmSize,
 	Xil_AssertNonvoid(KpubDcpESize > 0);
 
 	int Result = XST_SUCCESS;
-	u8* EncryptedHashPtr = NULL;
-	u8 HashedData[XHDCP22_TX_SHA256_HASH_SIZE];
-	u8 Em[XHDCP22_TX_SRM_SIGNATURE_SIZE];
 
-	/* Create hash of first part of the SRM (without the signature). */
-	XHdcp22Cmn_Sha256Hash((u8 *)SrmPtr,
-		SrmSize - XHDCP22_TX_SRM_SIGNATURE_SIZE,
-		HashedData);
+	Result = XHdcp22Tx_RsaSignatureVerify (
+				(u8 *)SrmPtr,
+                    SrmSize - XHDCP22_TX_SRM_SIGNATURE_SIZE,
+				SrmPtr + (SrmSize - XHDCP22_TX_SRM_SIGNATURE_SIZE),
+				KpubDcpNPtr, KpubDcpNSize,
+				KpubDcpEPtr, KpubDcpESize);
 
-	/* RSA decryption. */
-	Result = XHdcp22Tx_RsaEncryptMsg(KpubDcpNPtr, KpubDcpNSize,
-		KpubDcpEPtr, KpubDcpESize,
-		SrmPtr + (SrmSize - XHDCP22_TX_SRM_SIGNATURE_SIZE),
-		XHDCP22_TX_SRM_SIGNATURE_SIZE,
-		Em);
-	if (Result != XST_SUCCESS) {
-		return Result;
-	}
-
-	/* Compare hash and the last part of the encoded message.
-	* Note the encoded message contains padding bytes (0xff, 0x00=end-of-padding),
-	*  And ASN.1 values for:
-	* - the encoded message contents,
-	* - the used algorithm identifier (OID),
-	* - the value (HASH)
-	* According HDCP2.2 protocol we do not need to check these contents so we just check
-	* the last part of the encoded message that contains the hash.
-	*/
-	EncryptedHashPtr = &Em[XHDCP22_TX_SRM_SIGNATURE_SIZE - XHDCP22_TX_SHA256_HASH_SIZE];
-	Result = memcmp(HashedData, EncryptedHashPtr,
-		XHDCP22_TX_SHA256_HASH_SIZE) == 0 ? XST_SUCCESS : XST_FAILURE;
 	return Result;
 }
 

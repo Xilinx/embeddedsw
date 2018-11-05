@@ -76,6 +76,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 <hr/>
 
 1.00  jsr    07/17/17 Initial release.
+2.00  kar    01/25/18 Second  release.
+      jsr    02/23/2018 Added YUV420 color format support
+      jsr       03/02/2018 Added core settings API
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -91,6 +94,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aa665c8a153ad4e024a9b02d5fc4fb691"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8c.html#aa665c8a153ad4e024a9b02d5fc4fb691">XV_SdiTxSs_Stop</a> (<a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:aa665c8a153ad4e024a9b02d5fc4fb691"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro disables the SDI TX peripheral.  <a href="#aa665c8a153ad4e024a9b02d5fc4fb691">More...</a><br /></td></tr>
 <tr class="separator:aa665c8a153ad4e024a9b02d5fc4fb691"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46a81701624281a6574f419d86018376"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8c.html#a46a81701624281a6574f419d86018376">XV_SdiTxSs_SetColorFormat</a> (<a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *InstancePtr, XVidC_ColorFormat ColorFormat)</td></tr>
+<tr class="memdesc:a46a81701624281a6574f419d86018376"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function Set the video format of the SDI TX Ss core.  <a href="#a46a81701624281a6574f419d86018376">More...</a><br /></td></tr>
+<tr class="separator:a46a81701624281a6574f419d86018376"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaedc93d7d8d155ea9407b0627508e6b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8c.html#aaedc93d7d8d155ea9407b0627508e6b6">XV_SdiTxSs_StreamStart</a> (<a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:aaedc93d7d8d155ea9407b0627508e6b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function starts the SDI TX stream.  <a href="#aaedc93d7d8d155ea9407b0627508e6b6">More...</a><br /></td></tr>
 <tr class="separator:aaedc93d7d8d155ea9407b0627508e6b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,6 +142,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a926a8be7d91d7ea5963b38fee737b180"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8c.html#a926a8be7d91d7ea5963b38fee737b180">XV_SdiTxSs_SetStream</a> (<a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *InstancePtr, XV_SdiTx_StreamSelId SelId, u32 Data, u8 StreamId)</td></tr>
 <tr class="memdesc:a926a8be7d91d7ea5963b38fee737b180"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the SDI TXSs stream parameters.  <a href="#a926a8be7d91d7ea5963b38fee737b180">More...</a><br /></td></tr>
 <tr class="separator:a926a8be7d91d7ea5963b38fee737b180"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d4fc65e3e0bf26e83db1ae9caf2cdd9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8c.html#a1d4fc65e3e0bf26e83db1ae9caf2cdd9">XV_SdiTxSs_SetCoreSettings</a> (<a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *InstancePtr, XV_SdiTxSs_CoreSelId SelId, u8 Data)</td></tr>
+<tr class="memdesc:a1d4fc65e3e0bf26e83db1ae9caf2cdd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the SDI TXSS core settings.  <a href="#a1d4fc65e3e0bf26e83db1ae9caf2cdd9">More...</a><br /></td></tr>
+<tr class="separator:a1d4fc65e3e0bf26e83db1ae9caf2cdd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -700,6 +709,105 @@ HandlerType                     Callback Function Type
 <dl class="section note"><dt>Note</dt><dd>Invoking this function for a handler that already has been installed replaces it with the new handler. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_v___sdi_tx_ss.html#afd8c806b7fd57bb351482b360d713b54">XV_SdiTxSs::Axi4sVidLockCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#ae12ceae79ba53231d284dfcb4ced5aa7">XV_SdiTxSs::Axi4sVidLockRef</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a02c3d66fe5b5df8770277aa1244e8ec5">XV_SdiTxSs::CeAlignErrCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a223e2f4f531726f3defd0a0b09fd66fe">XV_SdiTxSs::CeAlignErrRef</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#adadf4d2f39af6521c8a4e984180a3c9d">XV_SdiTxSs::GtReadyCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#ab9db11eab4e545f63807da036b89a13e">XV_SdiTxSs::GtReadyRef</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#aa081253e62e662304ceb1327023b0737">XV_SdiTxSs::OverFlowCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a1487b5295185aaf55fa557244ab002b1">XV_SdiTxSs::OverFlowRef</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#ae9d8bccecf3a53c81d6ad1697f344d38">XV_SdiTxSs::UnderFlowCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a97694a18fd2b734dc690a9a6f31d7a68">XV_SdiTxSs::UnderFlowRef</a>, <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a3e7b6fac9eb57a41171353ee31b25c51">XV_SDITXSS_HANDLER_AXI4SVIDLOCK</a>, <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7afac5a72cfeecb7d035f8f9781fa61fe9">XV_SDITXSS_HANDLER_CEALIGN</a>, <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a3cacfc6799829a378ca48c19316db727">XV_SDITXSS_HANDLER_GTREADY</a>, <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7aa20193d62a6c7141931edbf932b4ef2f">XV_SDITXSS_HANDLER_OVERFLOW</a>, and <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a36f4db8f423d8d8d833ad7ecd386356a">XV_SDITXSS_HANDLER_UNDERFLOW</a>.</p>
+
+</div>
+</div>
+<a id="a46a81701624281a6574f419d86018376"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46a81701624281a6574f419d86018376">&#9670;&nbsp;</a></span>XV_SdiTxSs_SetColorFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XV_SdiTxSs_SetColorFormat </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XVidC_ColorFormat&#160;</td>
+          <td class="paramname"><em>ColorFormat</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function Set the video format of the SDI TX Ss core. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___sdi_tx_ss.html" title="The XV_SdiTxSs driver instance data. ">XV_SdiTxSs</a> core instance. </td></tr>
+    <tr><td class="paramname">ColorFormat</td><td>is a variable of type XVidC_ColorFormat.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___sdi_tx_ss.html#a2499b55a82ee0938a2d0fcdca1077d71">XV_SdiTxSs::SdiTxPtr</a>.</p>
+
+</div>
+</div>
+<a id="a1d4fc65e3e0bf26e83db1ae9caf2cdd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d4fc65e3e0bf26e83db1ae9caf2cdd9">&#9670;&nbsp;</a></span>XV_SdiTxSs_SetCoreSettings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_SdiTxSs_SetCoreSettings </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XV_SdiTxSs_CoreSelId&#160;</td>
+          <td class="paramname"><em>SelId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets the SDI TXSS core settings. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___sdi_tx_ss.html" title="The XV_SdiTxSs driver instance data. ">XV_SdiTxSs</a> core instance. </td></tr>
+    <tr><td class="paramname">SelId</td><td>specifies which parameter of the stream to be set.<ul>
+<li>0 = XV_SDITXSS_CORESELID_INSERTCRC</li>
+<li>1 = XV_SDITXSS_CORESELID_INSERTST352</li>
+<li>2 = XV_SDITXSS_CORESELID_ST352OVERWRITE</li>
+<li>3 = XV_SDITXSS_CORESELID_INSERTSYNCBIT</li>
+<li>4 = XV_SDITXSS_CORESELID_SDBITREPBYPASS</li>
+<li>5 = XV_SDITXSS_CORESELID_USEANCIN</li>
+<li>6 = XV_SDITXSS_CORESELID_INSERTLN</li>
+<li>7 = XV_SDITXSS_CORESELID_INSERTEDH </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">Data</td><td>specifies what data to be set for the selected parameter.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___sdi_tx_ss.html#a2499b55a82ee0938a2d0fcdca1077d71">XV_SdiTxSs::SdiTxPtr</a>.</p>
 
 </div>
 </div>

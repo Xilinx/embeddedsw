@@ -46,8 +46,8 @@
  * Version number is a 32bit value, like:
  * (PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR
  */
-#define PM_VERSION_MAJOR    0U
-#define PM_VERSION_MINOR    3U
+#define PM_VERSION_MAJOR    1U
+#define PM_VERSION_MINOR    0U
 
 #define PM_VERSION	((PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR)
 
@@ -75,45 +75,66 @@
 #define PMF_SHUTDOWN_SUBTYPE_SYSTEM	2U
 
 /* PM API ids */
-#define PM_GET_API_VERSION          1U
-#define PM_SET_CONFIGURATION        2U
-#define PM_GET_NODE_STATUS          3U
-#define PM_GET_OP_CHARACTERISTIC    4U
-#define PM_REGISTER_NOTIFIER        5U
+#define PM_GET_API_VERSION		1U
+#define PM_SET_CONFIGURATION		2U
+#define PM_GET_NODE_STATUS		3U
+#define PM_GET_OP_CHARACTERISTIC	4U
+#define PM_REGISTER_NOTIFIER		5U
 
-#define PM_REQUEST_SUSPEND          6U
-#define PM_SELF_SUSPEND             7U
-#define PM_FORCE_POWERDOWN          8U
-#define PM_ABORT_SUSPEND            9U
-#define PM_REQUEST_WAKEUP           10U
-#define PM_SET_WAKEUP_SOURCE        11U
-#define PM_SYSTEM_SHUTDOWN          12U
+#define PM_REQUEST_SUSPEND		6U
+#define PM_SELF_SUSPEND			7U
+#define PM_FORCE_POWERDOWN		8U
+#define PM_ABORT_SUSPEND		9U
+#define PM_REQUEST_WAKEUP		10U
+#define PM_SET_WAKEUP_SOURCE		11U
+#define PM_SYSTEM_SHUTDOWN		12U
 
-#define PM_REQUEST_NODE             13U
-#define PM_RELEASE_NODE             14U
-#define PM_SET_REQUIREMENT          15U
-#define PM_SET_MAX_LATENCY          16U
+#define PM_REQUEST_NODE			13U
+#define PM_RELEASE_NODE			14U
+#define PM_SET_REQUIREMENT		15U
+#define PM_SET_MAX_LATENCY		16U
 
-#define PM_RESET_ASSERT             17U
-#define PM_RESET_GET_STATUS         18U
-#define PM_MMIO_WRITE               19U
-#define PM_MMIO_READ                20U
+#define PM_RESET_ASSERT			17U
+#define PM_RESET_GET_STATUS		18U
+#define PM_MMIO_WRITE			19U
+#define PM_MMIO_READ			20U
 
-#define PM_INIT_FINALIZE            21U
+#define PM_INIT_FINALIZE		21U
 
-#define PM_FPGA_LOAD                22U
-#define PM_FPGA_GET_STATUS          23U
+#define PM_FPGA_LOAD			22U
+#define PM_FPGA_GET_STATUS		23U
 
-#define PM_GET_CHIPID               24U
+#define PM_GET_CHIPID			24U
 
-#define PM_SECURE_RSA_AES           25U
+#define PM_SECURE_RSA_AES		25U
+#define PM_SECURE_SHA			26U
+#define PM_SECURE_RSA			27U
 
-#define PM_SECURE_SHA               26U
+#define PM_PINCTRL_REQUEST		28U
+#define PM_PINCTRL_RELEASE		29U
+#define PM_PINCTRL_GET_FUNCTION		30U
+#define PM_PINCTRL_SET_FUNCTION		31U
+#define PM_PINCTRL_CONFIG_PARAM_GET	32U
+#define PM_PINCTRL_CONFIG_PARAM_SET	33U
 
-#define PM_SECURE_RSA               27U
+#define PM_IOCTL			34U
+
+#define PM_QUERY_DATA			35U
+
+#define PM_CLOCK_ENABLE			36U
+#define PM_CLOCK_DISABLE		37U
+#define PM_CLOCK_GETSTATE		38U
+#define PM_CLOCK_SETDIVIDER		39U
+#define PM_CLOCK_GETDIVIDER		40U
+#define PM_CLOCK_SETRATE		41U
+#define PM_CLOCK_GETRATE		42U
+#define PM_CLOCK_SETPARENT		43U
+#define PM_CLOCK_GETPARENT		44U
+
+#define PM_SECURE_IMAGE			45U
 
 #define PM_API_MIN	PM_GET_API_VERSION
-#define PM_API_MAX	PM_SECURE_RSA
+#define PM_API_MAX	PM_SECURE_IMAGE
 
 /* PM API callback ids */
 #define PM_INIT_SUSPEND_CB      30U
@@ -366,6 +387,10 @@
 #define PM_RESET_GPO3_PL_31		(PM_RESET_BASE + 112U)
 #define PM_RESET_RPU_LS			(PM_RESET_BASE + 113U)
 #define PM_RESET_PS_ONLY		(PM_RESET_BASE + 114U)
-#define PM_RESET_PL			(PM_RESET_BASE + 115U)
+#define PM_RESET_PL				(PM_RESET_BASE + 115U)
+#define PM_RESET_GPIO5_EMIO_92	(PM_RESET_BASE + 116U)
+#define PM_RESET_GPIO5_EMIO_93	(PM_RESET_BASE + 117U)
+#define PM_RESET_GPIO5_EMIO_94	(PM_RESET_BASE + 118U)
+#define PM_RESET_GPIO5_EMIO_95	(PM_RESET_BASE + 119U)
 
 #endif

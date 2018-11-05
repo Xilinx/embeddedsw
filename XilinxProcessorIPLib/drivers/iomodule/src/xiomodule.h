@@ -33,7 +33,7 @@
 /**
 *
 * @file xiomodule.h
-* @addtogroup iomodule_v2_2
+* @addtogroup iomodule_v2_5
 * @{
 * @details
 *

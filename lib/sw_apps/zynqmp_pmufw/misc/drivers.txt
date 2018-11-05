@@ -7,3 +7,5 @@ iicps
 sdps
 qspipsu
 gpiops
+usbpsu
+wdtps

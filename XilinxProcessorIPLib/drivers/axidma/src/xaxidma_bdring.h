@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxidma_bdring.h
-* @addtogroup axidma_v9_4
+* @addtogroup axidma_v9_7
 * @{
 *
 * This file contains DMA channel related structure and constant definition
@@ -68,6 +68,7 @@
 * 7.00a srt  06/18/12  All the APIs changed in v6_00_a are reverted back for
 *		       backward compatibility.
 * 9.2   vak  15/04/16  Fixed the compilation warnings in axidma driver
+* 9.7   rsp  01/11/18  Use UINTPTR instead of u32 for ChanBase CR#976392
 *
 * </pre>
 *
@@ -104,7 +105,7 @@ extern "C" {
  * expressed in terms of the virtual address.
  */
 typedef struct {
-	u32 ChanBase;		/**< physical base address*/
+	UINTPTR ChanBase;		/**< physical base address*/
 
 	int IsRxChannel;	/**< Is this a receive channel */
 	volatile int RunState;	/**< Whether channel is running */

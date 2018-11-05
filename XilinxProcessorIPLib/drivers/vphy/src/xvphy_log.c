@@ -18,7 +18,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
  * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
@@ -55,6 +55,7 @@
  *                     Added XVPHY_LOG_EVT_NO_QPLL_ERR log event
  *                     Changed xil_printf new lines to \r\n
  *                     Added XVPHY_LOG_EVT_DRU_CLK_ERR log event
+ * 1.7   gm   13/09/17 Added XVPHY_LOG_EVT_USRCLK_ERR event
  * </pre>
  *
 *******************************************************************************/
@@ -500,6 +501,11 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 		case (XVPHY_LOG_EVT_DRU_CLK_ERR):
 				xil_printf(ANSI_COLOR_RED "Error!  Wrong DRU REFCLK frequency "
 						"detected"
+						ANSI_COLOR_RESET "\r\n");
+			break;
+		case (XVPHY_LOG_EVT_USRCLK_ERR):
+				xil_printf(ANSI_COLOR_RED "Error!  User Clock frequency is "
+						"more than 297 MHz"
 						ANSI_COLOR_RESET "\r\n");
 			break;
 		default:

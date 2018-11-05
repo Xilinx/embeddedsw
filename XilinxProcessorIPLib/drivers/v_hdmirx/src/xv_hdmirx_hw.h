@@ -59,6 +59,9 @@
 * 1.09  MMO    02/03/17 Added XV_HDMIRX_VTD_CTRL_SYNC_LOSS_MASK and
 *                          XV_HDMIRX_VTD_STA_SYNC_LOSS_EVT_MASK for HDCP
 *                          compliance
+* 2.00  EB     15/11/17 Added XV_HDMIRX_AUX_STA_GCP_CD_EVT_MASK
+*       YH     16/11/17 Added PIO_IN for bridge overflow interrupt
+*              16/11/17 Added PIO_OUT for dedicated reset for each clock domain
 * </pre>
 *
 ******************************************************************************/
@@ -123,6 +126,15 @@ extern "C" {
 #define XV_HDMIRX_PIO_OUT_BRIDGE_YUV420_MASK        (1<<29) /**< PIO Out Bridge_YUV420 mask */
 #define XV_HDMIRX_PIO_OUT_BRIDGE_PIXEL_MASK         (1<<30) /**< PIO Out Bridge_Pixel drop mask */
 
+#define XV_HDMIRX_PIO_OUT_INT_VRST_MASK             (1<<0)  /**< PIO Out INT_VRST
+                                                                * mask */
+#define XV_HDMIRX_PIO_OUT_INT_LRST_MASK             (1<<20) /**< PIO Out INT_LRST
+                                                               * mask */
+#define XV_HDMIRX_PIO_OUT_EXT_VRST_MASK             (1<<21) /**< PIO Out EXT_VRST
+                                                               * mask */
+#define XV_HDMIRX_PIO_OUT_EXT_SYSRST_MASK           (1<<22) /**< PIO Out EXT_SYSRST
+                                                         * mask */
+
 // PIO peripheral PIO In register masks
 #define XV_HDMIRX_PIO_IN_DET_MASK                   (1<<0) /**< PIO In cable detect mask */
 #define XV_HDMIRX_PIO_IN_LNK_RDY_MASK               (1<<1) /**< PIO In link ready mask */
@@ -133,6 +145,8 @@ extern "C" {
 #define XV_HDMIRX_PIO_IN_SCRAMBLER_LOCK2_MASK       (1<<6) /**< PIO In Scrambler lock 2 mask */
 #define XV_HDMIRX_PIO_IN_SCDC_SCRAMBLER_ENABLE_MASK (1<<7) /**< PIO In SCDC scrambler enable mask */
 #define XV_HDMIRX_PIO_IN_SCDC_TMDS_CLOCK_RATIO_MASK (1<<8) /**< PIO In SCDC TMDS clock ratio mask */
+#define XV_HDMIRX_PIO_IN_ALIGNER_LOCK_MASK			(1<<9) /**< PIO In alinger lock mask */
+#define XV_HDMIRX_PIO_IN_BRDG_OVERFLOW_MASK         (1<<10) /**< PIO In bridge overflow mask */
 
 // Timer peripheral register offsets
 #define XV_HDMIRX_TMR_BASE                          (2*64)
@@ -256,13 +270,14 @@ extern "C" {
 #define XV_HDMIRX_AUX_STA_GCP_MASK					(1<<4)	/**< AUX Status General control packet mask */
 #define XV_HDMIRX_AUX_STA_FIFO_EP_MASK              (1<<5)  /**< AUX Status FIFO Empty mask */
 #define XV_HDMIRX_AUX_STA_FIFO_FL_MASK              (1<<6)  /**< AUX Status FIFO Full mask */
+#define XV_HDMIRX_AUX_STA_GCP_CD_EVT_MASK			(1<<25) /**< AUX Status GCP ColorDepth mask */
 #define XV_HDMIRX_AUX_STA_GCP_AVMUTE_MASK           (1<<31) /**< AUX Status GCP avmute mask */
 #define XV_HDMIRX_AUX_STA_NEW_PKTS_MASK             0x1F    /**< AUX Status New Packets mask */
 #define XV_HDMIRX_AUX_STA_AVI_CS_MASK               0x03    /**< AUX Status AVI colorspace mask */
 #define XV_HDMIRX_AUX_STA_AVI_VIC_MASK              0x7F    /**< AUX Status AVI VIC mask */
 #define XV_HDMIRX_AUX_STA_GCP_CD_MASK               0x03    /**< AUX Status GCP colordepth mask */
 #define XV_HDMIRX_AUX_STA_GCP_PP_MASK               0x07    /**< AUX Status GCP pixel phase mask */
-#define XV_HDMIRX_AUX_STA_NEW_PKTS_SHIFT                8       /**< AUX Status New Packets Shift */
+#define XV_HDMIRX_AUX_STA_NEW_PKTS_SHIFT            8       /**< AUX Status New Packets Shift */
 #define XV_HDMIRX_AUX_STA_AVI_CS_SHIFT              16      /**< AUX Status AVI colorspace Shift */
 #define XV_HDMIRX_AUX_STA_AVI_VIC_SHIFT             18      /**< AUX Status AVI VIC Shift */
 #define XV_HDMIRX_AUX_STA_GCP_CD_SHIFT              26      /**< AUX Status GCP colordepth Shift */

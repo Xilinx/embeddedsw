@@ -33,7 +33,7 @@
 /**
 *
 * @file xhwicap_srp.c
-* @addtogroup hwicap_v10_1
+* @addtogroup hwicap_v11_1
 * @{
 *
 * This file contains the functions of the XHwIcap driver used to access the

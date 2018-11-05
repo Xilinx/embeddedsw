@@ -33,7 +33,7 @@
 /**
 *
 * @file xspi.h
-* @addtogroup spi_v4_1
+* @addtogroup spi_v4_4
 * @{
 * @details
 *
@@ -296,6 +296,9 @@
 *                     examples to follow doxygen rules.
 * 4.3   ms   04/18/17 Modified tcl file to add suffix U for all macros
 *                     definitions of spi in xparameters.h
+* 4.4	tjs  11/28/17 When receive fifo exists, we need to check for status
+*                     register rx fifo empty flag. If clear we can proceed for
+*                     read. Otherwise we will hit execption. CR# 989938
 * </pre>
 *
 ******************************************************************************/

@@ -86,25 +86,31 @@ proc swapp_is_supported_hw {} {
     return 1;
 }
 
-proc check_freertos_os {} {
-    set oslist [::hsi::get_os];
+proc check_standalone_os {} {
+    set oslist [hsi::get_os];
 
     if { [llength $oslist] != 1 } {
         return 0;
     }
     set os [lindex $oslist 0];
 
-    if { $os == "freertos823_xilinx" } {
-        error "This application is not supported for freertos823_xilinx.";
+    if { $os != "standalone" } {
+        error "This application is supported only on the Standalone Board Support Package.";
     }
 }
 
 proc swapp_is_supported_sw {} {
     # check for stdout being set
     check_stdout_sw;
-    check_freertos_os
+    # make sure we are using standalone OS
+    check_standalone_os;
 
-    return 1;
+    # make sure xilpm is available
+    set lib_needed "xilpm"
+    set lib_list [hsi::get_libs];
+    if {[lsearch $lib_list $lib_needed] < 0 } {
+        error "Xilpm library required by ddr_self_refresh application is missing in Board Support Package"
+    }
 }
 
 proc generate_stdout_config { fid } {

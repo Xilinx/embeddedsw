@@ -89,17 +89,23 @@ static const PmNodeResetInfo NodeRstData[] = {
 				.ResetAction = PM_RESET_ACTION_ASSERT,
 				.ResetPulseWait = 10,
 			},
-			{	/* todo: verify if this is needed */
-				.ResetId = PM_RESET_USB0_HIBERRESET,
+			{	.ResetId = PM_RESET_USB0_HIBERRESET,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
 				.ResetPulseWait = 10,
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_USB_XHCI_0_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeUsbIdle,
+		.IdleHookArgs = XPAR_PSU_USB_XHCI_0_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
 		.IdleHook = NULL,
 		.IdleHookArgs = 0U
+#endif
 	},
 	{
 		.NodeId = NODE_USB_1,
@@ -112,17 +118,23 @@ static const PmNodeResetInfo NodeRstData[] = {
 				.ResetAction = PM_RESET_ACTION_ASSERT,
 				.ResetPulseWait = 10,
 			},
-			{	/* todo: verify if this is needed */
-				.ResetId = PM_RESET_USB1_HIBERRESET,
+			{	.ResetId = PM_RESET_USB1_HIBERRESET,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
 				.ResetPulseWait = 10,
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_USB_XHCI_1_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeUsbIdle,
+		.IdleHookArgs = XPAR_PSU_USB_XHCI_1_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
 		.IdleHook = NULL,
 		.IdleHookArgs = 0U
+#endif
 	},
 	{
 		.NodeId = NODE_TTC_0,
@@ -218,10 +230,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			{0,0,0}
 		},
 
+#ifdef XPAR_PSU_SATA_S_AXI_BASEADDR
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeSataIdle,
+		.IdleHookArgs = XPAR_PSU_SATA_S_AXI_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
 		.IdleHook = NULL,
 		.IdleHookArgs = 0U
+#endif
 	},
 	{
 		.NodeId = NODE_ETH_0,
@@ -546,11 +565,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
-
+#ifdef XPAR_XDPPSU_0_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeDpIdle,
+		.IdleHookArgs = XPAR_XDPPSU_0_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
 		.IdleHook = NULL,
 		.IdleHookArgs = 0U
+#endif
 	},
 };
 

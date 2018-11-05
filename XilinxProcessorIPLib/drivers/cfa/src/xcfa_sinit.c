@@ -33,7 +33,7 @@
 /**
 *
 * @file xcfa_sinit.c
-* @addtogroup cfa_v7_0
+* @addtogroup cfa_v7_1
 * @{
 *
 * This file contains static initialization methods for Xilinx CFA core.

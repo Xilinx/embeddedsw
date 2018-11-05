@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -59,6 +59,10 @@
 #define CLK162MHz_DIVIDER 15
 
 XSpi SPI_LMK04906;  /* SPI Device Point*/
+
+void LMK04906_init(XSpi *SPI_LMK04906);
+int PLL_init_Seting(XSpi *SPI_LMK04906);
+
 void lmk() {
        LMK04906_init(&SPI_LMK04906);
 }
@@ -197,7 +201,7 @@ u32 PHY_Configuration_Rx(XVphy *InstancePtr,
 	XVphy_PllRefClkSelType CpllRefClkSel;
 	XVphy_PllType TxPllSelect;
 	XVphy_PllType RxPllSelect;
-	XVphy_ChannelId TxChId;
+//	XVphy_ChannelId TxChId;
 	XVphy_ChannelId RxChId;
 	u8 QuadId = 0;
 	u32 Status;
@@ -207,7 +211,7 @@ u32 PHY_Configuration_Rx(XVphy *InstancePtr,
 	CpllRefClkSel   = PHY_User_Config_Table.CPLLRefClkSrc;
 	TxPllSelect             = PHY_User_Config_Table.TxPLL;
 	RxPllSelect             = PHY_User_Config_Table.RxPLL;
-	TxChId                  = PHY_User_Config_Table.TxChId;
+//	TxChId                  = PHY_User_Config_Table.TxChId;
 	RxChId                  = PHY_User_Config_Table.RxChId;
 
 	//Set the Ref Clock Frequency
@@ -237,7 +241,8 @@ void Dppt_Tx_SetRefClocks(u8 DPLinkRate_Value, u8 Prog, u8 is_TX_CPLL)
 {
 //	XSpi SPI_LMK04906;  /* SPI Device Point*/
 
-	PLL_init_Seting(&SPI_LMK04906, CLK270MHz_DIVIDER);
+//	PLL_init_Seting(&SPI_LMK04906, CLK270MHz_DIVIDER);
+	PLL_init_Seting(&SPI_LMK04906);
 	xil_printf("Programming 270 MHz Clock for GTREFCLK0...\r\n");
 
 }
@@ -245,46 +250,75 @@ void Dppt_Tx_SetRefClocks(u8 DPLinkRate_Value, u8 Prog, u8 is_TX_CPLL)
 void Two_byte_set (XVphy *InstancePtr, u8 Tx_to_two_byte, u8 Rx_to_two_byte)
 {
 
-	u32 DrpVal;
+	u16 DrpVal;
 	u32 WriteVal;
+	u32 Status;
     if (Tx_to_two_byte == 1) {
-		DrpVal = XVphy_DrpRead(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1, 0x7A);
-		DrpVal &= ~0xF;
-		WriteVal = 0x0;
-		WriteVal = DrpVal | 0x3;
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1, 0x7A, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2, 0x7A, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3, 0x7A, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4, 0x7A, WriteVal);
+		Status = XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
+				0x7A, &DrpVal);
+        DrpVal &= ~0xF;
+        WriteVal = 0x0;
+        WriteVal = DrpVal | 0x3;
+		Status = XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
+				0x7A, WriteVal);
+		Status += XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
+				0x7A, WriteVal);
+		Status += XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
+				0x7A, WriteVal);
+		Status += XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
+				0x7A, WriteVal);
+		if(Status == 0)
+        xil_printf ("TX GT Channel put in 2 byte mode\r\n");
 
-		DrpVal = XVphy_DrpRead(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1, 0x85);
+
+		Status = XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
+				0x85, &DrpVal);
 		DrpVal &= ~0xC00;
 		WriteVal = 0x0;
-		WriteVal = DrpVal | 0x0;
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1, 0x85, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2, 0x85, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3, 0x85, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4, 0x85, WriteVal);
+        WriteVal = DrpVal | 0x0;
+		Status = XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
+				0x85, WriteVal);
+		Status += XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
+				0x85, WriteVal);
+		Status += XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
+				0x85, WriteVal);
+		Status += XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
+				0x85, WriteVal);
+
+
 		xil_printf ("TX Channel configured for 2byte mode\r\n");
     }
     if (Rx_to_two_byte == 1) {
-		DrpVal = XVphy_DrpRead(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1, 0x03);
+		Status = XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
+				0x03, &DrpVal);
+
 		DrpVal &= ~0x1E0;
 		WriteVal = 0x0;
 		WriteVal = DrpVal | 0x60;
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1, 0x03, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2, 0x03, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3, 0x03, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4, 0x03, WriteVal);
+		Status = XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
+				0x03, WriteVal);
+		Status += XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
+				0x03, WriteVal);
+		Status += XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
+				0x03, WriteVal);
+		Status += XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
+				0x03, WriteVal);
 
-		DrpVal = XVphy_DrpRead(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1, 0x66);
+		Status = XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
+				0x66, &DrpVal);
+
 		DrpVal &= ~0x3;
 		WriteVal = 0x0;
 		WriteVal = DrpVal | 0x0;
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1, 0x66, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2, 0x66, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3, 0x66, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4, 0x66, WriteVal);
+		Status = XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
+				0x66, WriteVal);
+		Status += XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
+				0x66, WriteVal);
+		Status += XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
+				0x66, WriteVal);
+		Status += XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
+				0x66, WriteVal);
+
 		xil_printf ("RX Channel configured for 2byte mode\r\n");
     }
 }

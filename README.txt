@@ -72,7 +72,7 @@ Every driver/lib/apps/services has these sub-directories
 
 
 Building FSBL from git:
-
+==============================
 FSBL(zynq_fsbl/zynqmp_fsbl) has 3 directories.
 	1. data - It contains files for SDK
 	2. src  - It contains the FSBL source files
@@ -87,63 +87,12 @@ FSBL(zynq_fsbl/zynqmp_fsbl) has 3 directories.
 
 
 How to compile FSBL:
-	Zynq
-	1.Go to the Fsbl src directory "lib/sw_apps/zynq_fsbl/src/"
-	2. make "BOARD=<>" "CC=<>"
-		a. Values for BOARD  are zc702, zc706, zed, microzed
-		b. Value for CC is arm-xilinx-eabi-gcc. Default value is also same.
-	3.Give "make" to compile the fsbl with BSP. By default it is
-	  built for zc702 board with arm-xilinx-eabi-gcc compiler
-	4.Below are the examples for compiling for different options
-		a. To generate Fsbl for zc706 board
-			i.make "BOARD=zc706"
-		b.To generate Fsbl for zc702 board with debug enable
-		  and RSA support
-			i.make "BOARD=zc702" "CFLAGS=-DFSBL_DEBUG_INFO -DRSA_SUPPORT"
-		c.To generate Fsbl for zc706 board and compile with arm-xilinx-eabi-gcc
-		  with MMC support
-			i.make "BOARD=zc706" "CC=arm-xilinx-eabi-gcc" "CFLAGS=-DMMC_SUPPORT"
+	Zynq:
+	Please refer to the steps in Readme.txt which is at lib/sw_apps/zynq_fsbl/misc/ directory
 
 	ZynqMP
-	1.Go to the Fsbl src directory "lib/sw_apps/zynqmp_fsbl/src/"
-	2.If executables and other artifacts from previous FSBL build with other
-	  configuration (different processor/state) are present, run
-	  make clean to delete them.
-	2.Give build command in the following manner.
-		a. make "BOARD=<>" "PROC=<>" "A53_STATE=<>"
-		a. Value for BOARD can be zcu102 or zcu102-es2. (Default is zcu102)
-		b. Value for PROC can be a53 or r5. (Default is a53)
-		c. Value for A53_STATE can be 64 or 32. (Default: 64)
-			A53_STATE is only to be given when processor is a53.
-	3.Give "make" to compile the fsbl with BSP. By default it is
-	  built for zcu102 board.
-	4.Below are the examples for compiling for different options
-		a. To generate A53 64 bit Fsbl for zcu102 board
-			i.make "BOARD=zcu102" "PROC=a53" "A53_STATE=64"
-		b.To generate R5 Fsbl for zcu102 board with debug enable
-			i.make "BOARD=zcu102" "PROC=r5" "CFLAGS+=-DFSBL_DEBUG_INFO"
-		c.To generate A53 32 bit Fsbl for zcu102 board.
-			i.make "BOARD=zcu102" "PROC=a53" "A53_STATE=32"
-		d. To generate A53 64 bit Fsbl for zcu102-es2 board
-			i.make "BOARD=zcu102-es2" "PROC=a53" "A53_STATE=64"
-		e.To generate R5 Fsbl for zcu102-es2 board with debug enable
-			i.make "BOARD=zcu102-es2" "PROC=r5" "CFLAGS+=-DFSBL_DEBUG_INFO"
-		f.To generate A53 32 bit Fsbl for zcu102-es2 board.
-			i.make "BOARD=zcu102-es2" "PROC=a53" "A53_STATE=32"
+	Please refer to the steps in Readme.txt which is at lib/sw_apps/zynqmp_fsbl/misc/ directory
 
 Building PMUFW from git:
-
-PMUFW(zynqmp_pmufw) has 3 directories.
-	1. data - It contains files for SDK
-	2. src  - It contains the PMUFW source files
-	3. misc - It contains miscellaneous files required to
-		  compile PMUFW.
-
-
-How to compile PMUFW:
-
-	ZynqMP
-	1.Go to the PMUFW src directory "lib/sw_apps/zynqmp_pmufw/src/"
-	2.If executables and other artifacts from previous PMUFW build are present, run
-	  make clean to delete them.
-	3.Give "make" to compile the PMUFW with BSP.
+==============================
+Please refer to the steps in Readme.txt which is at lib/sw_apps/zynqmp_pmufw/misc/ directory

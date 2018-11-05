@@ -33,7 +33,7 @@
 /**
 *
 * @file xcanfd.c
-* @addtogroup canfd_v1_0
+* @addtogroup canfd_v1_2
 * @{
 *
 * The XCanFd driver. Functions in this file are the minimum required functions
@@ -1003,7 +1003,7 @@ int XCanFd_TxBuffer_Cancel_Request(XCanFd *InstancePtr,u32 BufferNumber)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if ((BufferNumber >= 0) || (BufferNumber <32)) {
+	if (BufferNumber <32) {
 		if (XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_TRR_OFFSET) & (1<<BufferNumber)) {
 			if (XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
@@ -1037,6 +1037,8 @@ int XCanFd_TxBuffer_Cancel_Request(XCanFd *InstancePtr,u32 BufferNumber)
 				return XST_SUCCESS;
 			}
 		}
+
+		return XST_FAILURE;
 	}
 	else
 		return XST_FAILURE;

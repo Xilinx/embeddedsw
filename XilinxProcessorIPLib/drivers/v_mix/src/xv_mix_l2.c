@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 1986-2018 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_mix_l2.c
-* @addtogroup v_mix
+* @addtogroup v_mix_v3_0
 * @{
 *
 * Mixer Layer-2 Driver. The functions in this file provides an abstraction
@@ -64,6 +64,8 @@
 *                        properties from IP configuration
 *             02/09/17   Fix c++ compilation warnings
 * 3.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
+* 4.00  vyc   04/04/18   Add 8th overlayer
+*                        Move logo layer enable fromb bit 8 to bit 15
 * </pre>
 *
 ******************************************************************************/
@@ -73,7 +75,7 @@
 #include "xv_mix_l2.h"
 
 /************************** Constant Definitions *****************************/
-#define XVMIX_MASK_ENABLE_ALL_LAYERS    (0x01FF)
+#define XVMIX_MASK_ENABLE_ALL_LAYERS    (0x0FFFF)
 #define XVMIX_MASK_DISABLE_ALL_LAYERS   (0)
 #define XVMIX_REG_OFFSET                (0x100)
 #define XVMIX_MIN_STRM_WIDTH            (64u)
@@ -104,8 +106,8 @@ static const u8 bkgndColorRGB[XVMIX_BKGND_LAST][3] =
 /************************** Function Prototypes ******************************/
 static void SetPowerOnDefaultState(XV_Mix_l2 *InstancePtr);
 static int IsWindowValid(XVidC_VideoStream *Strm,
-		                 XVidC_VideoWindow *Win,
-						 XVMix_Scalefactor ScaleFactor);
+                         XVidC_VideoWindow *Win,
+                         XVMix_Scalefactor ScaleFactor);
 
 /*****************************************************************************/
 /**
@@ -181,9 +183,9 @@ static void SetPowerOnDefaultState(XV_Mix_l2 *InstancePtr)
    *                    config)
    */
   for(index=XVMIX_LAYER_1; index<XVMix_GetNumLayers(InstancePtr); ++index) {
-	  if(!XVMix_IsScalingEnabled(InstancePtr, index)) {
+      if(!XVMix_IsScalingEnabled(InstancePtr, index)) {
         MixPtr->Config.LayerMaxWidth[index-1] = MixPtr->Config.MaxWidth;
-	  }
+      }
     }
 
   /* Enable only Stream Layer */
@@ -280,8 +282,8 @@ void XVMix_Stop(XV_Mix_l2 *InstancePtr)
 *
 ******************************************************************************/
 static int IsWindowValid(XVidC_VideoStream *Strm,
-		                 XVidC_VideoWindow *Win,
-						 XVMix_Scalefactor Scale)
+                         XVidC_VideoWindow *Win,
+                         XVMix_Scalefactor Scale)
 {
   XVidC_VideoWindow NewWin;
   u16 ScaleFactor[XVMIX_SCALE_FACTOR_NUM_SUPPORTED] = {1,2,4};
@@ -290,16 +292,16 @@ static int IsWindowValid(XVidC_VideoStream *Strm,
 
   /* Check if window scale factor is set */
   if(Scale < XVMIX_SCALE_FACTOR_NUM_SUPPORTED) {
-	/* update window per scale factor before validating */
-	  NewWin.Width  *= ScaleFactor[Scale];
-	  NewWin.Height *= ScaleFactor[Scale];
+    /* update window per scale factor before validating */
+      NewWin.Width  *= ScaleFactor[Scale];
+      NewWin.Height *= ScaleFactor[Scale];
   }
 
   if(((NewWin.StartX + NewWin.Width)  <= Strm->Timing.HActive) &&
-	 ((NewWin.StartY + NewWin.Height) <= Strm->Timing.VActive)) {
-	  return(TRUE);
+     ((NewWin.StartY + NewWin.Height) <= Strm->Timing.VActive)) {
+      return(TRUE);
   } else {
-	  return(FALSE);
+      return(FALSE);
   }
 }
 
@@ -505,13 +507,13 @@ void XVMix_SetBackgndColor(XV_Mix_l2 *InstancePtr,
 *
 * @return XST_SUCCESS if command is successful else error code with reason
 *
-* @note   Applicable only for Layer1-7 and Logo Layer
+* @note   Applicable only for Layer1-8 and Logo Layer
 *
 ******************************************************************************/
 int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
                          XVMix_LayerId LayerId,
                          XVidC_VideoWindow *Win,
-						 u32 StrideInBytes)
+                         u32 StrideInBytes)
 {
   XV_mix *MixPtr;
   u32 Align, WinValid;
@@ -527,7 +529,7 @@ int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
   /* Check window coordinates */
   Scale = (XVMix_Scalefactor)XVMix_GetLayerScaleFactor(InstancePtr, LayerId);
   if(!IsWindowValid(&InstancePtr->Stream, Win, Scale)) {
-	  return(XVMIX_ERR_LAYER_WINDOW_INVALID);
+      return(XVMIX_ERR_LAYER_WINDOW_INVALID);
   }
 
   MixPtr = &InstancePtr->Mix;
@@ -535,7 +537,7 @@ int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
   switch(LayerId) {
     case XVMIX_LAYER_LOGO:
        if(XVMix_IsLogoEnabled(InstancePtr)) {
-	     u32 WinResInRange;
+         u32 WinResInRange;
 
          WinResInRange = ((Win->Width  > (XVMIX_MIN_LOGO_WIDTH-1))  &&
                           (Win->Height > (XVMIX_MIN_LOGO_HEIGHT-1)) &&
@@ -550,14 +552,14 @@ int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
             InstancePtr->Layer[LayerId].Win = *Win;
             Status = XST_SUCCESS;
          } else {
-		    Status = XVMIX_ERR_LAYER_WINDOW_INVALID;
+            Status = XVMIX_ERR_LAYER_WINDOW_INVALID;
          }
       } else {
          Status = XVMIX_ERR_DISABLED_IN_HW;
       }
       break;
 
-    default: //Layer1-Layer7
+    default: //Layer1-Layer8
        if(LayerId < XVMix_GetNumLayers(InstancePtr)) {
          u32 WinResInRange;
 
@@ -566,22 +568,22 @@ int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
                           (Win->Width  < MixPtr->Config.LayerMaxWidth[LayerId-1]) &&
                           (Win->Height <= MixPtr->Config.MaxHeight));
          if(WinResInRange) {
-	       /* Check layer interface is Stream or Memory */
-	       if(XVMix_IsLayerInterfaceStream(InstancePtr, LayerId)) {
+           /* Check layer interface is Stream or Memory */
+           if(XVMix_IsLayerInterfaceStream(InstancePtr, LayerId)) {
              /* Stride is not required for stream layer */
-	         WinValid = TRUE;
-	       } else {
-	         /* Check if stride is aligned to aximm width (2*PPC*32-bits) */
-	         Align = 2 * InstancePtr->Mix.Config.PixPerClk * 4;
-	         if((StrideInBytes % Align) != 0) {
-	           WinValid = FALSE;
-	           Status   = XVMIX_ERR_WIN_STRIDE_MISALIGNED;
-	         } else {
-	           WinValid = TRUE;
-	         }
-	       }
+             WinValid = TRUE;
+           } else {
+             /* Check if stride is aligned to aximm width (2*PPC*32-bits) */
+             Align = 2 * InstancePtr->Mix.Config.PixPerClk * 4;
+             if((StrideInBytes % Align) != 0) {
+               WinValid = FALSE;
+               Status   = XVMIX_ERR_WIN_STRIDE_MISALIGNED;
+             } else {
+               WinValid = TRUE;
+             }
+           }
 
-	       if(WinValid) {
+           if(WinValid) {
 
              u32 BaseStartXReg, BaseStartYReg;
              u32 BaseWidthReg, BaseHeightReg;
@@ -604,15 +606,15 @@ int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
              XV_mix_WriteReg(MixPtr->Config.BaseAddress,
                              (BaseHeightReg+Offset), Win->Height);
 
-	         if(!XVMix_IsLayerInterfaceStream(InstancePtr, LayerId)) {
+             if(!XVMix_IsLayerInterfaceStream(InstancePtr, LayerId)) {
                 XV_mix_WriteReg(MixPtr->Config.BaseAddress,
                                 (BaseStrideReg+Offset), StrideInBytes);
-	         }
+             }
              InstancePtr->Layer[LayerId].Win = *Win;
              Status = XST_SUCCESS;
            }
          } else { //if(WinResInRange)
-	         Status = XVMIX_ERR_LAYER_WINDOW_INVALID;
+             Status = XVMIX_ERR_LAYER_WINDOW_INVALID;
          }
        } else { //if(LayerId <
             Status = XVMIX_ERR_DISABLED_IN_HW;
@@ -633,7 +635,7 @@ int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
 *
 * @return XST_SUCCESS if command is successful else error code with reason
 *
-* @note   Applicable only for Layer1-7 and Logo Layer
+* @note   Applicable only for Layer1-8 and Logo Layer
 *
 ******************************************************************************/
 int XVMix_GetLayerWindow(XV_Mix_l2 *InstancePtr,
@@ -656,7 +658,7 @@ int XVMix_GetLayerWindow(XV_Mix_l2 *InstancePtr,
 
         Win->StartX = XV_mix_Get_HwReg_logoStartX(MixPtr);
         Win->StartY = XV_mix_Get_HwReg_logoStartY(MixPtr);
-        Win->Width	= XV_mix_Get_HwReg_logoWidth(MixPtr);
+        Win->Width  = XV_mix_Get_HwReg_logoWidth(MixPtr);
         Win->Height = XV_mix_Get_HwReg_logoHeight(MixPtr);
 
         Status = XST_SUCCESS;
@@ -665,7 +667,7 @@ int XVMix_GetLayerWindow(XV_Mix_l2 *InstancePtr,
       }
       break;
 
-    default: //Layer0-Layer7
+    default: //Layer0-Layer8
       if(LayerId < XVMix_GetNumLayers(InstancePtr)) {
 
         u32 BaseStartXReg, BaseStartYReg;
@@ -709,7 +711,7 @@ int XVMix_GetLayerWindow(XV_Mix_l2 *InstancePtr,
 *
 * @return XST_SUCCESS if command is successful else error code with reason
 *
-* @note   Applicable only for Layer1-7 and Logo Layer
+* @note   Applicable only for Layer1-8 and Logo Layer
 *
 ******************************************************************************/
 int XVMix_MoveLayerWindow(XV_Mix_l2 *InstancePtr,
@@ -731,7 +733,7 @@ int XVMix_MoveLayerWindow(XV_Mix_l2 *InstancePtr,
   /* Get current window */
   WinStatus = XVMix_GetLayerWindow(InstancePtr, LayerId, &CurrWin);
   if(WinStatus != XST_SUCCESS) {
-	 return(WinStatus);
+     return(WinStatus);
   }
 
   /* Update Start Position */
@@ -743,7 +745,7 @@ int XVMix_MoveLayerWindow(XV_Mix_l2 *InstancePtr,
    * to go out of scope
    */
   if(!IsWindowValid(&InstancePtr->Stream, &CurrWin, Scale)) {
-	  return(XVMIX_ERR_LAYER_WINDOW_INVALID);
+      return(XVMIX_ERR_LAYER_WINDOW_INVALID);
   }
 
   MixPtr = &InstancePtr->Mix;
@@ -761,7 +763,7 @@ int XVMix_MoveLayerWindow(XV_Mix_l2 *InstancePtr,
       }
       break;
 
-    default: //Layer1-Layer7
+    default: //Layer1-Layer8
       if(LayerId < XVMix_GetNumLayers(InstancePtr)) {
         u32 BaseStartXReg, BaseStartYReg;
         u32 Offset;
@@ -794,7 +796,7 @@ int XVMix_MoveLayerWindow(XV_Mix_l2 *InstancePtr,
 *
 * @return XST_SUCCESS if command is successful else error code with reason
 *
-* @note   Applicable only for Layer1-7 and Logo Layer
+* @note   Applicable only for Layer1-8 and Logo Layer
 *
 ******************************************************************************/
 int XVMix_SetLayerScaleFactor(XV_Mix_l2 *InstancePtr,
@@ -815,11 +817,11 @@ int XVMix_SetLayerScaleFactor(XV_Mix_l2 *InstancePtr,
   /* Validate if scaling will cause the layer window to go out of scope */
   WinStatus = XVMix_GetLayerWindow(InstancePtr, LayerId, &CurrWin);
   if(WinStatus != XST_SUCCESS) {
-	 return(WinStatus);
+     return(WinStatus);
   }
 
   if(!IsWindowValid(&InstancePtr->Stream, &CurrWin, Scale)) {
-	  return(XVMIX_ERR_LAYER_WINDOW_INVALID);
+      return(XVMIX_ERR_LAYER_WINDOW_INVALID);
   }
 
   MixPtr = &InstancePtr->Mix;
@@ -832,7 +834,7 @@ int XVMix_SetLayerScaleFactor(XV_Mix_l2 *InstancePtr,
       }
       break;
 
-    default: //Layer0-Layer7
+    default: //Layer0-Layer8
       if((LayerId < XVMix_GetNumLayers(InstancePtr)) &&
          (XVMix_IsScalingEnabled(InstancePtr, LayerId))) {
 
@@ -858,7 +860,7 @@ int XVMix_SetLayerScaleFactor(XV_Mix_l2 *InstancePtr,
 *
 * @return If layer enabled, current set value, else ~0
 *
-* @note   Applicable only for Layer1-7 and Logo Layer
+* @note   Applicable only for Layer1-8 and Logo Layer
 *
 ******************************************************************************/
 int XVMix_GetLayerScaleFactor(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
@@ -879,7 +881,7 @@ int XVMix_GetLayerScaleFactor(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
       }
       break;
 
-    default: //Layer0-Layer7
+    default: //Layer0-Layer8
       if((LayerId < XVMix_GetNumLayers(InstancePtr)) &&
          (XVMix_IsScalingEnabled(InstancePtr, LayerId))) {
         u32 BaseReg;
@@ -903,7 +905,7 @@ int XVMix_GetLayerScaleFactor(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
 *
 * @return XST_SUCCESS if command is successful else error code with reason
 *
-* @note   Applicable only for Layer1-7 and Logo Layer
+* @note   Applicable only for Layer1-8 and Logo Layer
 *
 ******************************************************************************/
 int XVMix_SetLayerAlpha(XV_Mix_l2 *InstancePtr,
@@ -930,7 +932,7 @@ int XVMix_SetLayerAlpha(XV_Mix_l2 *InstancePtr,
       }
       break;
 
-    default: //Layer1-Layer7
+    default: //Layer1-Layer8
       if((LayerId < XVMix_GetNumLayers(InstancePtr)) &&
          (XVMix_IsAlphaEnabled(InstancePtr, LayerId))) {
         u32 BaseReg;
@@ -956,7 +958,7 @@ int XVMix_SetLayerAlpha(XV_Mix_l2 *InstancePtr,
 *
 * @return If layer enabled, current set value, else ~0
 *
-* @note   Applicable only for Layer1-7 and Logo Layer
+* @note   Applicable only for Layer1-8 and Logo Layer
 *
 ******************************************************************************/
 int XVMix_GetLayerAlpha(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
@@ -977,7 +979,7 @@ int XVMix_GetLayerAlpha(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
       }
       break;
 
-    default: //Layer1-Layer7
+    default: //Layer1-Layer8
       if((LayerId < XVMix_GetNumLayers(InstancePtr)) &&
          (XVMix_IsAlphaEnabled(InstancePtr, LayerId))) {
         u32 BaseReg;
@@ -1024,7 +1026,7 @@ int XVMix_SetLayerColorFormat(XV_Mix_l2 *InstancePtr,
 
       if (LayerId == XVMIX_LAYER_MASTER) {
           XV_mix_Set_HwReg_video_format(MixPtr, Cfmt);
-      } else { //Layer 1-7
+      } else { //Layer 1-8
           u32 BaseReg;
 
           BaseReg = XV_MIX_CTRL_ADDR_HWREG_LAYERVIDEOFORMAT_0_DATA;
@@ -1070,7 +1072,7 @@ int XVMix_GetLayerColorFormat(XV_Mix_l2 *InstancePtr,
 #if 0 //register interface not used - IP build time option
       if (LayerId == XVMIX_LAYER_MASTER) {
           *Cfmt = XV_mix_Get_HwReg_video_format(MixPtr);
-      } else { //Layer 1-7
+      } else { //Layer 1-8
           u32 BaseReg;
 
           BaseReg = XV_MIX_CTRL_ADDR_HWREG_LAYERVIDEOFORMAT_0_DATA;
@@ -1080,7 +1082,7 @@ int XVMix_GetLayerColorFormat(XV_Mix_l2 *InstancePtr,
 #endif
       if (LayerId == XVMIX_LAYER_MASTER) {
           *Cfmt = (XVidC_ColorFormat)MixPtr->Config.ColorFormat;
-      } else { //Layer 1-7
+      } else { //Layer 1-8
           *Cfmt = (XVidC_ColorFormat)(MixPtr->Config.LayerColorFmt[LayerId-1]);
       }
       Status = XST_SUCCESS;
@@ -1099,12 +1101,12 @@ int XVMix_GetLayerColorFormat(XV_Mix_l2 *InstancePtr,
 *
 * @return XST_SUCCESS or XST_FAILURE
 *
-* @note   Applicable only for Layer1-7
+* @note   Applicable only for Layer1-8
 *
 ******************************************************************************/
 int XVMix_SetLayerBufferAddr(XV_Mix_l2 *InstancePtr,
                              XVMix_LayerId LayerId,
-							 UINTPTR Addr)
+                             UINTPTR Addr)
 {
   XV_mix *MixPtr;
   UINTPTR BaseReg, Align;
@@ -1119,16 +1121,16 @@ int XVMix_SetLayerBufferAddr(XV_Mix_l2 *InstancePtr,
   MixPtr = &InstancePtr->Mix;
 
   if(LayerId < XVMix_GetNumLayers(InstancePtr)) {
-	  /* Check if addr is aligned to aximm width (2*PPC*32-bits (4Bytes)) */
-	  Align = 2 * InstancePtr->Mix.Config.PixPerClk * 4;
-	  if((Addr % Align) != 0) {
-		 WinValid = FALSE;
-		 Status   = XVMIX_ERR_MEM_ADDR_MISALIGNED;
-	  } else {
-		 WinValid = TRUE;
-	  }
+      /* Check if addr is aligned to aximm width (2*PPC*32-bits (4Bytes)) */
+      Align = 2 * InstancePtr->Mix.Config.PixPerClk * 4;
+      if((Addr % Align) != 0) {
+         WinValid = FALSE;
+         Status   = XVMIX_ERR_MEM_ADDR_MISALIGNED;
+      } else {
+         WinValid = TRUE;
+      }
 
-	  if(WinValid) {
+      if(WinValid) {
         BaseReg = XV_MIX_CTRL_ADDR_HWREG_LAYER1_BUF1_V_DATA;
 
         XV_mix_WriteReg(MixPtr->Config.BaseAddress,
@@ -1136,7 +1138,7 @@ int XVMix_SetLayerBufferAddr(XV_Mix_l2 *InstancePtr,
 
         InstancePtr->Layer[LayerId].BufAddr = Addr;
         Status = XST_SUCCESS;
-	  }
+      }
   }
   return(Status);
 }
@@ -1150,7 +1152,7 @@ int XVMix_SetLayerBufferAddr(XV_Mix_l2 *InstancePtr,
 *
 * @return Address of buffer in memory
 *
-* @note   Applicable only for Layer1-7
+* @note   Applicable only for Layer1-8
 *
 ******************************************************************************/
 UINTPTR XVMix_GetLayerBufferAddr(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
@@ -1185,12 +1187,12 @@ UINTPTR XVMix_GetLayerBufferAddr(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
 *
 * @return XST_SUCCESS or XST_FAILURE
 *
-* @note   Applicable only for Layer1-7
+* @note   Applicable only for Layer1-8
 *
 ******************************************************************************/
 int XVMix_SetLayerChromaBufferAddr(XV_Mix_l2 *InstancePtr,
                                    XVMix_LayerId LayerId,
-							       UINTPTR Addr)
+                                   UINTPTR Addr)
 {
   XV_mix *MixPtr;
   UINTPTR BaseReg, Align;
@@ -1205,16 +1207,16 @@ int XVMix_SetLayerChromaBufferAddr(XV_Mix_l2 *InstancePtr,
   MixPtr = &InstancePtr->Mix;
 
   if(LayerId < XVMix_GetNumLayers(InstancePtr)) {
-	  /* Check if addr is aligned to aximm width (2*PPC*32-bits (4Bytes)) */
-	  Align = 2 * InstancePtr->Mix.Config.PixPerClk * 4;
-	  if((Addr % Align) != 0) {
-		 WinValid = FALSE;
-		 Status   = XVMIX_ERR_MEM_ADDR_MISALIGNED;
-	  } else {
-		 WinValid = TRUE;
-	  }
+      /* Check if addr is aligned to aximm width (2*PPC*32-bits (4Bytes)) */
+      Align = 2 * InstancePtr->Mix.Config.PixPerClk * 4;
+      if((Addr % Align) != 0) {
+         WinValid = FALSE;
+         Status   = XVMIX_ERR_MEM_ADDR_MISALIGNED;
+      } else {
+         WinValid = TRUE;
+      }
 
-	  if(WinValid) {
+      if(WinValid) {
         BaseReg = XV_MIX_CTRL_ADDR_HWREG_LAYER1_BUF2_V_DATA;
 
         XV_mix_WriteReg(MixPtr->Config.BaseAddress,
@@ -1222,7 +1224,7 @@ int XVMix_SetLayerChromaBufferAddr(XV_Mix_l2 *InstancePtr,
 
         InstancePtr->Layer[LayerId].ChromaBufAddr = Addr;
         Status = XST_SUCCESS;
-	  }
+      }
   }
   return(Status);
 }
@@ -1237,7 +1239,7 @@ int XVMix_SetLayerChromaBufferAddr(XV_Mix_l2 *InstancePtr,
 *
 * @return Address of second buffer in memory
 *
-* @note   Applicable only for Layer1-7
+* @note   Applicable only for Layer1-8
 *
 ******************************************************************************/
 UINTPTR XVMix_GetLayerChromaBufferAddr(XV_Mix_l2 *InstancePtr,
@@ -1275,7 +1277,7 @@ UINTPTR XVMix_GetLayerChromaBufferAddr(XV_Mix_l2 *InstancePtr,
 *
 ******************************************************************************/
 int XVMix_SetLogoColorKey(XV_Mix_l2 *InstancePtr,
-		                  XVMix_LogoColorKey ColorKeyData)
+                          XVMix_LogoColorKey ColorKeyData)
 {
   XV_mix *MixPtr;
   int Status = XST_FAILURE;
@@ -1283,18 +1285,18 @@ int XVMix_SetLogoColorKey(XV_Mix_l2 *InstancePtr,
   Xil_AssertNonvoid(InstancePtr != NULL);
 
   if(XVMix_IsLogoEnabled(InstancePtr) &&
-	 XVMix_IsLogoColorKeyEnabled(InstancePtr)) {
+     XVMix_IsLogoColorKeyEnabled(InstancePtr)) {
 
-	  MixPtr = &InstancePtr->Mix;
+      MixPtr = &InstancePtr->Mix;
 
-	  XV_mix_Set_HwReg_logoClrKeyMin_R(MixPtr, ColorKeyData.RGB_Min[0]);
-	  XV_mix_Set_HwReg_logoClrKeyMin_G(MixPtr, ColorKeyData.RGB_Min[1]);
-	  XV_mix_Set_HwReg_logoClrKeyMin_B(MixPtr, ColorKeyData.RGB_Min[2]);
-	  XV_mix_Set_HwReg_logoClrKeyMax_R(MixPtr, ColorKeyData.RGB_Max[0]);
-	  XV_mix_Set_HwReg_logoClrKeyMax_G(MixPtr, ColorKeyData.RGB_Max[1]);
-	  XV_mix_Set_HwReg_logoClrKeyMax_B(MixPtr, ColorKeyData.RGB_Max[2]);
+      XV_mix_Set_HwReg_logoClrKeyMin_R(MixPtr, ColorKeyData.RGB_Min[0]);
+      XV_mix_Set_HwReg_logoClrKeyMin_G(MixPtr, ColorKeyData.RGB_Min[1]);
+      XV_mix_Set_HwReg_logoClrKeyMin_B(MixPtr, ColorKeyData.RGB_Min[2]);
+      XV_mix_Set_HwReg_logoClrKeyMax_R(MixPtr, ColorKeyData.RGB_Max[0]);
+      XV_mix_Set_HwReg_logoClrKeyMax_G(MixPtr, ColorKeyData.RGB_Max[1]);
+      XV_mix_Set_HwReg_logoClrKeyMax_B(MixPtr, ColorKeyData.RGB_Max[2]);
 
-	  Status = XST_SUCCESS;
+      Status = XST_SUCCESS;
   }
   return(Status);
 }
@@ -1312,7 +1314,7 @@ int XVMix_SetLogoColorKey(XV_Mix_l2 *InstancePtr,
 *
 ******************************************************************************/
 int XVMix_GetLogoColorKey(XV_Mix_l2 *InstancePtr,
-		                  XVMix_LogoColorKey *ColorKeyData)
+                          XVMix_LogoColorKey *ColorKeyData)
 {
   XV_mix *MixPtr;
   int Status = XST_FAILURE;
@@ -1320,18 +1322,18 @@ int XVMix_GetLogoColorKey(XV_Mix_l2 *InstancePtr,
   Xil_AssertNonvoid(InstancePtr != NULL);
 
   if(XVMix_IsLogoEnabled(InstancePtr) &&
-	 XVMix_IsLogoColorKeyEnabled(InstancePtr)) {
+     XVMix_IsLogoColorKeyEnabled(InstancePtr)) {
 
-	  MixPtr = &InstancePtr->Mix;
+      MixPtr = &InstancePtr->Mix;
 
-	  ColorKeyData->RGB_Min[0] = XV_mix_Get_HwReg_logoClrKeyMin_R(MixPtr);
-	  ColorKeyData->RGB_Min[1] = XV_mix_Get_HwReg_logoClrKeyMin_G(MixPtr);
-	  ColorKeyData->RGB_Min[2] = XV_mix_Get_HwReg_logoClrKeyMin_B(MixPtr);
-	  ColorKeyData->RGB_Max[0] = XV_mix_Get_HwReg_logoClrKeyMax_R(MixPtr);
-	  ColorKeyData->RGB_Max[1] = XV_mix_Get_HwReg_logoClrKeyMax_G(MixPtr);
-	  ColorKeyData->RGB_Max[2] = XV_mix_Get_HwReg_logoClrKeyMax_B(MixPtr);
+      ColorKeyData->RGB_Min[0] = XV_mix_Get_HwReg_logoClrKeyMin_R(MixPtr);
+      ColorKeyData->RGB_Min[1] = XV_mix_Get_HwReg_logoClrKeyMin_G(MixPtr);
+      ColorKeyData->RGB_Min[2] = XV_mix_Get_HwReg_logoClrKeyMin_B(MixPtr);
+      ColorKeyData->RGB_Max[0] = XV_mix_Get_HwReg_logoClrKeyMax_R(MixPtr);
+      ColorKeyData->RGB_Max[1] = XV_mix_Get_HwReg_logoClrKeyMax_G(MixPtr);
+      ColorKeyData->RGB_Max[2] = XV_mix_Get_HwReg_logoClrKeyMax_B(MixPtr);
 
-	  Status = XST_SUCCESS;
+      Status = XST_SUCCESS;
   }
   return(Status);
 }
@@ -1369,16 +1371,16 @@ int XVMix_LoadLogo(XV_Mix_l2 *InstancePtr,
   Xil_AssertNonvoid(GBuffer != NULL);
   Xil_AssertNonvoid(BBuffer != NULL);
   Xil_AssertNonvoid((Win->Width  > (XVMIX_MIN_LOGO_WIDTH-1)) &&
-		            (Win->Width  <= InstancePtr->Mix.Config.MaxLogoWidth));
+                    (Win->Width  <= InstancePtr->Mix.Config.MaxLogoWidth));
   Xil_AssertNonvoid((Win->Height > (XVMIX_MIN_LOGO_HEIGHT-1)) &&
-		            (Win->Height <= InstancePtr->Mix.Config.MaxLogoHeight));
+                    (Win->Height <= InstancePtr->Mix.Config.MaxLogoHeight));
   Xil_AssertNonvoid((Win->StartX % InstancePtr->Mix.Config.PixPerClk) == 0);
   Xil_AssertNonvoid((Win->Width  % InstancePtr->Mix.Config.PixPerClk) == 0);
 
   if(XVMix_IsLogoEnabled(InstancePtr)) {
-	  MixPtr = &InstancePtr->Mix;
-	  Width  = Win->Width;
-	  Height = Win->Height;
+      MixPtr = &InstancePtr->Mix;
+      Width  = Win->Width;
+      Height = Win->Height;
 
       RBaseAddr = XV_MIX_CTRL_ADDR_HWREG_LOGOR_V_BASE;
       GBaseAddr = XV_MIX_CTRL_ADDR_HWREG_LOGOG_V_BASE;
@@ -1441,17 +1443,17 @@ int XVMix_LoadLogoPixelAlpha(XV_Mix_l2 *InstancePtr,
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid(ABuffer != NULL);
   Xil_AssertNonvoid((Win->Width  > (XVMIX_MIN_LOGO_WIDTH-1)) &&
-		            (Win->Width  <= InstancePtr->Mix.Config.MaxLogoWidth));
+                    (Win->Width  <= InstancePtr->Mix.Config.MaxLogoWidth));
   Xil_AssertNonvoid((Win->Height > (XVMIX_MIN_LOGO_HEIGHT-1)) &&
-		            (Win->Height <= InstancePtr->Mix.Config.MaxLogoHeight));
+                    (Win->Height <= InstancePtr->Mix.Config.MaxLogoHeight));
   Xil_AssertNonvoid((Win->StartX % InstancePtr->Mix.Config.PixPerClk) == 0);
   Xil_AssertNonvoid((Win->Width  % InstancePtr->Mix.Config.PixPerClk) == 0);
 
   if(XVMix_IsLogoEnabled(InstancePtr) &&
-	 XVMix_IsLogoPixAlphaEnabled(InstancePtr)) {
-	  MixPtr = &InstancePtr->Mix;
-	  Width  = Win->Width;
-	  Height = Win->Height;
+     XVMix_IsLogoPixAlphaEnabled(InstancePtr)) {
+      MixPtr = &InstancePtr->Mix;
+      Width  = Win->Width;
+      Height = Win->Height;
 
       ABaseAddr = XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_BASE;
 
@@ -1550,9 +1552,9 @@ void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
         xil_printf("\r\n\r\n----->Master Layer Status<----\r\n");
         xil_printf("State: %s\r\n", Status[IsEnabled]);
         if(IsEnabled) {
-		  u32 width, height;
+          u32 width, height;
 
-		  XVMix_GetLayerColorFormat(InstancePtr, LayerId, &ColFormat);
+          XVMix_GetLayerColorFormat(InstancePtr, LayerId, &ColFormat);
           width  = XV_mix_Get_HwReg_width(&InstancePtr->Mix);
           height = XV_mix_Get_HwReg_height(&InstancePtr->Mix);
           xil_printf("Color Format: %s\r\n\r\n",
@@ -1561,10 +1563,10 @@ void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
           xil_printf("Stream Info->\r\n");
           XVidC_ReportStreamInfo(&InstancePtr->Stream);
         }
-	    break;
+        break;
 
     case XVMIX_LAYER_LOGO:
-	    xil_printf("\r\n\r\n----->Layer LOGO Status<----\r\n");
+        xil_printf("\r\n\r\n----->Layer LOGO Status<----\r\n");
         xil_printf("State: %s\r\n", Status[IsEnabled]);
         if(IsEnabled) {
 
@@ -1579,32 +1581,32 @@ void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
           xil_printf("   Win Width  = %d\r\n", Win.Width);
           xil_printf("   Win Height = %d\r\n", Win.Height);
 
-		  IsEnabled = XVMix_IsLogoColorKeyEnabled(InstancePtr);
-		  if(IsEnabled) {
-		    XVMix_LogoColorKey Data;
+          IsEnabled = XVMix_IsLogoColorKeyEnabled(InstancePtr);
+          if(IsEnabled) {
+            XVMix_LogoColorKey Data;
 
-		    XVMix_GetLogoColorKey(InstancePtr, &Data);
+            XVMix_GetLogoColorKey(InstancePtr, &Data);
             xil_printf("\r\nColor Key Data: \r\n");
             xil_printf("     Min    Max\r\n");
             xil_printf("    -----  -----\r\n");
             xil_printf("  R: %3d    %3d\r\n", Data.RGB_Min[0],Data.RGB_Max[0]);
             xil_printf("  G: %3d    %3d\r\n", Data.RGB_Min[1],Data.RGB_Max[1]);
             xil_printf("  B: %3d    %3d\r\n", Data.RGB_Min[2],Data.RGB_Max[2]);
-		  } else {
+          } else {
             xil_printf("Color Key: %s\r\n", Status[IsEnabled]);
-		  }
-		  IsEnabled = XVMix_IsLogoPixAlphaEnabled(InstancePtr);
+          }
+          IsEnabled = XVMix_IsLogoPixAlphaEnabled(InstancePtr);
           xil_printf("\r\nPixel Alpha: %s\r\n", Status[IsEnabled]);
         }
-	    break;
+        break;
 
-    default: //Layer1-7
+    default: //Layer1-8
         LayerType = (XVMix_LayerType)XVMix_GetLayerInterfaceType(InstancePtr, LayerId);
         xil_printf("\r\n\r\n----->Layer %d Status<----\r\n", LayerId);
         xil_printf("State: %s\r\n", Status[IsEnabled]);
         xil_printf("Type : %s\r\n", IntfType[LayerType]);
         if(IsEnabled) {
-		  u32 Stride, Reg, Offset;
+          u32 Stride, Reg, Offset;
 
           xil_printf("Addr : 0x%x\r\n",
                        XVMix_GetLayerBufferAddr(InstancePtr, LayerId));
@@ -1627,7 +1629,7 @@ void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
               xil_printf("Scale: %s\r\n", Status[IsEnabled]);
           }
 
-		  XVMix_GetLayerColorFormat(InstancePtr, LayerId, &ColFormat);
+          XVMix_GetLayerColorFormat(InstancePtr, LayerId, &ColFormat);
           xil_printf("Color Format: %s\r\n\r\n",
                           XVidC_GetColorFormatStr(ColFormat));
 
@@ -1644,7 +1646,7 @@ void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
           xil_printf("   Win Height = %d\r\n", Win.Height);
           xil_printf("   Win Stride = %d\r\n", Stride);
         } //Layer State
-	    break;
+        break;
   }
 }
 /** @} */

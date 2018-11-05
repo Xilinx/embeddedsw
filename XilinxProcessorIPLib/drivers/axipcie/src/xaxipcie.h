@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxipcie.h
-* @addtogroup axipcie_v3_0
+* @addtogroup axipcie_v3_1
 * @{
 * @details
 *

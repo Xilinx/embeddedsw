@@ -35,7 +35,7 @@
 
 #include <unistd.h>
 #include <time.h>
-#include "metal/time.h"
+#include <metal/time.h>
 
 #define NS_PER_S        (1000 * 1000 * 1000)
 

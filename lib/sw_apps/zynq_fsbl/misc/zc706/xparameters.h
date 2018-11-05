@@ -23,6 +23,14 @@
 
 /******************************************************************/
 
+/* Platform specific definitions */
+#define PLATFORM_ZYNQ
+
+/* Definitions for sleep timer configuration */
+#define XSLEEP_TIMER_IS_DEFAULT_TIMER
+
+
+/******************************************************************/
 
 /* Definitions for peripheral PS7_DDR_0 */
 #define XPAR_PS7_DDR_0_S_AXI_BASEADDR 0x00100000
@@ -94,6 +102,7 @@
 #define XPAR_PS7_ETHERNET_0_ENET_SLCR_100MBPS_DIV1 5
 #define XPAR_PS7_ETHERNET_0_ENET_SLCR_10MBPS_DIV0 8
 #define XPAR_PS7_ETHERNET_0_ENET_SLCR_10MBPS_DIV1 50
+#define XPAR_PS7_ETHERNET_0_ENET_TSU_CLK_FREQ_HZ 0
 
 
 /******************************************************************/
@@ -110,6 +119,7 @@
 #define XPAR_XEMACPS_0_ENET_SLCR_100Mbps_DIV1 5
 #define XPAR_XEMACPS_0_ENET_SLCR_10Mbps_DIV0 8
 #define XPAR_XEMACPS_0_ENET_SLCR_10Mbps_DIV1 50
+#define XPAR_XEMACPS_0_ENET_TSU_CLK_FREQ_HZ 0
 
 
 /******************************************************************/

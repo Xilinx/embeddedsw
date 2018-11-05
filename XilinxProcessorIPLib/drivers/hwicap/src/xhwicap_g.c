@@ -33,7 +33,7 @@
 /**
 *
 * @file xhwicap_g.c
-* @addtogroup hwicap_v10_1
+* @addtogroup hwicap_v11_1
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

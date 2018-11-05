@@ -18,8 +18,8 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -33,7 +33,7 @@
 /**
 *
 * @file xcsi2txss_intr.c
-* @addtogroup csi2txss_v1_0
+* @addtogroup csi2txss_v1_1
 * @{
 *
 * This is the interrupt handling part of the Xilinx MIPI CSI2 Tx Subsystem
@@ -49,12 +49,14 @@
 * Ver Who Date     Changes
 * --- --- -------- ------------------------------------------------------------
 * 1.0 sss 08/03/16 Initial release
+* 1.2 vsa 02/28/18 Add Frame End Generation feature
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
+#include "xcsi2tx_hw.h"
 #include "xcsi2tx.h"
 #include "xcsi2txss.h"
 
@@ -119,6 +121,10 @@ void XCsi2TxSs_IntrHandler(void *InstancePtr)
 * (XCSI2TXSS_HANDLER_LINEBUF_FULL)		LineBufferCallBack
 * (XCSI2TXSS_HANDLER_WRG_DATATYPE)		WrgDataTypeCallBack
 * (XCSI2TXSS_HANDLER_UNDERRUN_PIXEL)		UnderrunPixelCallBack
+* (XCSI2TXSS_HANDLER_LCERRVC0			LineCountErrVC0
+* (XCSI2TXSS_HANDLER_LCERRVC1			LineCountErrVC1
+* (XCSI2TXSS_HANDLER_LCERRVC2			LineCountErrVC2
+* (XCSI2TXSS_HANDLER_LCERRVC3			LineCountErrVC3
 * </pre>
 *
 * @param	InstancePtr is the XCsi instance to operate on
@@ -168,10 +174,20 @@ u32 XCsi2TxSs_SetCallBack(XCsi2TxSs *InstancePtr, u32 HandlerType,
 ******************************************************************************/
 void XCsi2TxSs_IntrDisable(XCsi2TxSs *InstancePtr, u32 IntrMask)
 {
+	u32 AllMask = XCSI2TXSS_ISR_ALLINTR_MASK;
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->CsiPtr != NULL);
-	Xil_AssertVoid((IntrMask & ~XCSI2TXSS_ISR_ALLINTR_MASK) == 0);
+
+	/* If Frame Generation feature is enabled then add additional masks */
+	if (InstancePtr->Config.FEGenEnabled) {
+		AllMask |= XCSITX_LCSTAT_VC0_IER_MASK |
+			   XCSITX_LCSTAT_VC1_IER_MASK |
+			   XCSITX_LCSTAT_VC2_IER_MASK |
+			   XCSITX_LCSTAT_VC3_IER_MASK;
+	}
+
+	Xil_AssertVoid((IntrMask & ~AllMask) == 0);
 
 	XCsi2Tx_IntrDisable(InstancePtr->CsiPtr, IntrMask);
 }

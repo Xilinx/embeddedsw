@@ -88,6 +88,13 @@ $(document).ready(function(){initNavTree('xqspipsu__generic__flash__polled__exam
   1.6   tjs 10/16/17 #ifdef COMMENT replaced with the flow similar to
                      u-boot and linux for accessing flash parts with
                      size more then 16MB (CR-984966)
+  1.7   tjs 11/16/17 Removed the unsupported 4 Byte write and sector erase
+                     commands.
+  1.7   tjs     12/01/17 Added support for MT25QL02G Flash from Micron. CR-990642
+  1.7   tjs 12/19/17 Added support for S25FL064L from Spansion. CR-990724
+  1.7   tjs 01/11/18 Added support for MX66L1G45G flash from Macronix CR-992367
+  1.7   tjs 26/03/18 In dual parallel mode enable both CS when issuing Write
+                                 enable command. CR-998478
 *</pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -124,6 +131,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ae8d1767607b58391ccb2d0103c2fd456"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__polled__example_8c.html#ae8d1767607b58391ccb2d0103c2fd456">FlashEnterExit4BAddMode</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, unsigned int Enable)</td></tr>
 <tr class="memdesc:ae8d1767607b58391ccb2d0103c2fd456"><td class="mdescLeft">&#160;</td><td class="mdescRight">This API enters the flash device into 4 bytes addressing mode.  <a href="#ae8d1767607b58391ccb2d0103c2fd456">More...</a><br /></td></tr>
 <tr class="separator:ae8d1767607b58391ccb2d0103c2fd456"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83a78784f5ba39b5e76b17a7e4a5ecad"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__polled__example_8c.html#a83a78784f5ba39b5e76b17a7e4a5ecad">FlashEnableQuadMode</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr)</td></tr>
+<tr class="memdesc:a83a78784f5ba39b5e76b17a7e4a5ecad"><td class="mdescLeft">&#160;</td><td class="mdescRight">This API enables Quad mode for the flash parts which require to enable quad mode before using Quad commands.  <a href="#a83a78784f5ba39b5e76b17a7e4a5ecad">More...</a><br /></td></tr>
+<tr class="separator:a83a78784f5ba39b5e76b17a7e4a5ecad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the QSPIPSU Flash Polled example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br /></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -206,6 +216,38 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a83a78784f5ba39b5e76b17a7e4a5ecad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83a78784f5ba39b5e76b17a7e4a5ecad">&#9670;&nbsp;</a></span>FlashEnableQuadMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int FlashEnableQuadMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *&#160;</td>
+          <td class="paramname"><em>QspiPsuPtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This API enables Quad mode for the flash parts which require to enable quad mode before using Quad commands. </p>
+<p>For S25FL-L series flash parts this is required as the default configuration is x1/x2 mode.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">QspiPtr</td><td>is a pointer to the QSPIPSU driver component to use.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XST_FAILURE if it fails. </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -612,7 +654,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>RealAddr is the translated address - for single it is unchanged; for stacked, the lower flash size is subtracted; for parallel the address is divided by 2.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>In addition to get the actual address to work on flash this function also selects the CS and BUS based on the configuration detected. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_qspi_psu.html#a9b3aa272eb335fecaaa8f47fd2ed9241">XQspiPsu::Config</a>, and <a class="el" href="struct_x_qspi_psu___config.html#aa771e1e018426eb1f68fe5241ed45e71">XQspiPsu_Config::ConnectionMode</a>.</p>
 

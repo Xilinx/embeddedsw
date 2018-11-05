@@ -44,7 +44,7 @@ extern "C" {
  *  @{ */
 
 #include <stdint.h>
-#include "metal/sys.h"
+#include <metal/sys.h>
 
 /**
  * @brief      get timestamp

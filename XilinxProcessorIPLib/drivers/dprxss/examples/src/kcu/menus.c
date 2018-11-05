@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -77,8 +77,8 @@ void bpc_help_menu(void)
 xil_printf("Choose Video Bits per color option\n\r"
 			"1 -->  8 bpc (24bpp)\n\r"
 			"2 --> 10 bpc (30bpp)\n\r"
-			"3 --> 12 bpc (36bpp)\n\r"
-			"4 --> 16 bpc (48bpp)\n\r"
+//			"3 --> 12 bpc (36bpp)\n\r"
+//			"4 --> 16 bpc (48bpp)\n\r"
 			"\n\r"
 			"Press 'x' to return to main menu\n\r"
 			"Press any key to display this menu again\n\r"
@@ -180,6 +180,7 @@ void rx_help_menu()
 //	  print(" 6 = Re-initialize VDMA\n\r");
 	  print(" 5 = Switch TX data to internal pattern generator\n\r");
 	  print(" 6 = Switch TX back to RX video data\n\r");
+	  print(" c = Display CRC value\n\r");
 //	  print(" 9 = Report RX, TX Frame stats\n\r");
 	  print(" w = Sink register write\n\r");
 	  print(" r = Sink register read\n\r");

@@ -33,7 +33,7 @@
 /**
 *
 * @file xuartns550.h
-* @addtogroup uartns550_v3_3
+* @addtogroup uartns550_v3_5
 * @{
 * @details
 *

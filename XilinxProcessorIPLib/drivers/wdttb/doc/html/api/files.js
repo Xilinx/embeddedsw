@@ -3,6 +3,7 @@ var files =
     [ "xwdttb.c", "xwdttb_8c.html", "xwdttb_8c" ],
     [ "xwdttb.h", "xwdttb_8h.html", "xwdttb_8h" ],
     [ "xwdttb_example.c", "xwdttb__example_8c.html", "xwdttb__example_8c" ],
+    [ "xwdttb_g.c", "xwdttb__g_8c.html", null ],
     [ "xwdttb_hw.h", "xwdttb__hw_8h.html", "xwdttb__hw_8h" ],
     [ "xwdttb_intr_example.c", "xwdttb__intr__example_8c.html", "xwdttb__intr__example_8c" ],
     [ "xwdttb_l.h", "xwdttb__l_8h.html", null ],

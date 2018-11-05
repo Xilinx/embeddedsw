@@ -120,6 +120,13 @@ extern "C" {
 			  rval;\
 			 })
 
+#define mfelrel3() ({u64 rval = 0U; \
+                   asm volatile("mrs %0,  ELR_EL3" : "=r" (rval));\
+                  rval;\
+                 })
+
+#define mtelrel3(v) __asm__ __volatile__ ("msr ELR_EL3, %0" : : "r" (v))
+
 #else
 
 /* pseudo assembler instructions */

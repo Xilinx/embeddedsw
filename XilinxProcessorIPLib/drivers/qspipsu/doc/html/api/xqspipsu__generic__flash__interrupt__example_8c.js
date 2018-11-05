@@ -2,6 +2,7 @@ var xqspipsu__generic__flash__interrupt__example_8c =
 [
     [ "BulkErase", "xqspipsu__generic__flash__interrupt__example_8c.html#a4f09bf044ed26b11fc5489cb7b7ca1e6", null ],
     [ "DieErase", "xqspipsu__generic__flash__interrupt__example_8c.html#a97d8ab88e6002a97c30b95b66db231ea", null ],
+    [ "FlashEnableQuadMode", "xqspipsu__generic__flash__interrupt__example_8c.html#a83a78784f5ba39b5e76b17a7e4a5ecad", null ],
     [ "FlashEnterExit4BAddMode", "xqspipsu__generic__flash__interrupt__example_8c.html#ae8d1767607b58391ccb2d0103c2fd456", null ],
     [ "FlashErase", "xqspipsu__generic__flash__interrupt__example_8c.html#a8c7c38172a5258ee7cdfaef5a1a9af82", null ],
     [ "FlashRead", "xqspipsu__generic__flash__interrupt__example_8c.html#aaaad34739d0ad6d1fb5436c1d6428463", null ],

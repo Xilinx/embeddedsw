@@ -33,7 +33,7 @@
 /**
 *
 * @file xycrcb2rgb_selftest.c
-* @addtogroup ycrcb2rgb_v7_0
+* @addtogroup ycrcb2rgb_v7_1
 * @{
 *
 * This file contains the self-test function for the YCRCB2RGB core.

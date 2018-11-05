@@ -33,7 +33,7 @@
 /**
  *
  * @file xusbps_endpoint.h
-* @addtogroup usbpsu_v1_0
+* @addtogroup usbpsu_v1_3
 * @{
  *
  * This is an internal file containing the definitions for endpoints. It is
@@ -46,6 +46,9 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- --------------------------------------------------------
  * 1.0   sg  06/06/16  First release
+ * 1.4 	 bk  12/01/18  Modify USBPSU driver code to fit USB common example code
+ *		       for all USB IPs.
+ *
  * </pre>
  *
  ******************************************************************************/
@@ -59,7 +62,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xil_cache.h"
-#include "xusbpsu.h"
+#include "xusb_wrapper.h"
 #include "xil_types.h"
 
 /**************************** Type Definitions *******************************/

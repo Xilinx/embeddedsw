@@ -75,6 +75,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 <hr/>
 
 1.00  jsr    07/17/17 Initial release.
+      jsr    02/23/2018 YUV420 color format support
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -105,6 +106,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a5ee0bcd2e0e6d1562a544de6637f3917"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditx_8c.html#a5ee0bcd2e0e6d1562a544de6637f3917">XV_SdiTx_GetPayloadByte1</a> (u16 VActiveValid, XSdiVid_TransMode SdiMode, u8 *Data)</td></tr>
 <tr class="memdesc:a5ee0bcd2e0e6d1562a544de6637f3917"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calculates the 2nd byte of the Payload packet for all SDI modes.  <a href="#a5ee0bcd2e0e6d1562a544de6637f3917">More...</a><br /></td></tr>
 <tr class="separator:a5ee0bcd2e0e6d1562a544de6637f3917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa60f9aed2a1327102dca89b7625d76c5"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditx_8c.html#aa60f9aed2a1327102dca89b7625d76c5">XV_SdiTx_GetPayloadColorFormat</a> (XSdiVid_TransMode SdiMode, XVidC_ColorFormat ColorFormatId)</td></tr>
+<tr class="memdesc:aa60f9aed2a1327102dca89b7625d76c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calculates the Color Format for 3rd byte of the Payload packet for all SDI modes.  <a href="#aa60f9aed2a1327102dca89b7625d76c5">More...</a><br /></td></tr>
+<tr class="separator:aa60f9aed2a1327102dca89b7625d76c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2202194b60677f0f09a5348faaf601ec"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditx_8c.html#a2202194b60677f0f09a5348faaf601ec">XV_SdiTx_GetPayload</a> (<a class="el" href="struct_x_v___sdi_tx.html">XV_SdiTx</a> *InstancePtr, XVidC_VideoMode VideoMode, XSdiVid_TransMode SdiMode, u8 DataStream)</td></tr>
 <tr class="memdesc:a2202194b60677f0f09a5348faaf601ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calculates the final st352 payload value for all SDI modes with given video mode and SDI data stream number.  <a href="#a2202194b60677f0f09a5348faaf601ec">More...</a><br /></td></tr>
 <tr class="separator:a2202194b60677f0f09a5348faaf601ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,6 +127,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a3bb43320e53ea983eb94f8e020ac1606"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditx_8c.html#a3bb43320e53ea983eb94f8e020ac1606">XV_SdiTx_StopSdi</a> (<a class="el" href="struct_x_v___sdi_tx.html">XV_SdiTx</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a3bb43320e53ea983eb94f8e020ac1606"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables the SDI TX core.  <a href="#a3bb43320e53ea983eb94f8e020ac1606">More...</a><br /></td></tr>
 <tr class="separator:a3bb43320e53ea983eb94f8e020ac1606"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62c8fbdcb856eff73bbb32ebcf78a41e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditx_8c.html#a62c8fbdcb856eff73bbb32ebcf78a41e">XV_SdiTx_SetColorFormat</a> (<a class="el" href="struct_x_v___sdi_tx.html">XV_SdiTx</a> *InstancePtr, XVidC_ColorFormat ColorFormat)</td></tr>
+<tr class="memdesc:a62c8fbdcb856eff73bbb32ebcf78a41e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function Set the video format of the SDI TX core.  <a href="#a62c8fbdcb856eff73bbb32ebcf78a41e">More...</a><br /></td></tr>
+<tr class="separator:a62c8fbdcb856eff73bbb32ebcf78a41e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97f7b4d5e3af35149bc9880e18ed26ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditx_8c.html#a97f7b4d5e3af35149bc9880e18ed26ed">XV_SdiTx_ClearDetectedError</a> (<a class="el" href="struct_x_v___sdi_tx.html">XV_SdiTx</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a97f7b4d5e3af35149bc9880e18ed26ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clears the detected error flag and counter.  <a href="#a97f7b4d5e3af35149bc9880e18ed26ed">More...</a><br /></td></tr>
 <tr class="separator:a97f7b4d5e3af35149bc9880e18ed26ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -503,6 +510,48 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aa60f9aed2a1327102dca89b7625d76c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa60f9aed2a1327102dca89b7625d76c5">&#9670;&nbsp;</a></span>XV_SdiTx_GetPayloadColorFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XV_SdiTx_GetPayloadColorFormat </td>
+          <td>(</td>
+          <td class="paramtype">XSdiVid_TransMode&#160;</td>
+          <td class="paramname"><em>SdiMode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XVidC_ColorFormat&#160;</td>
+          <td class="paramname"><em>ColorFormatId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function calculates the Color Format for 3rd byte of the Payload packet for all SDI modes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SdiMode</td><td>is a variable to the XSdiVid_TransMode. </td></tr>
+    <tr><td class="paramname">ColorFormatId</td><td>is a variable of type XVidC_ColorFormat.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>returns 8-bit value</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
 <a id="a085862f588f6e146ab45315e310ff8d2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a085862f588f6e146ab45315e310ff8d2">&#9670;&nbsp;</a></span>XV_SdiTx_GetPayloadFrameRate()</h2>
 
@@ -633,6 +682,51 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>This is required after a reset or init. </dd></dl>
 
 <p class="reference">References <a class="el" href="xv__sditx_8c.html#a3a185a41fe98b1785ab613603d003a3d">XV_SdiTx_ClearPayloadId()</a>.</p>
+
+</div>
+</div>
+<a id="a62c8fbdcb856eff73bbb32ebcf78a41e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62c8fbdcb856eff73bbb32ebcf78a41e">&#9670;&nbsp;</a></span>XV_SdiTx_SetColorFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XV_SdiTx_SetColorFormat </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___sdi_tx.html">XV_SdiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XVidC_ColorFormat&#160;</td>
+          <td class="paramname"><em>ColorFormat</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function Set the video format of the SDI TX core. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___sdi_tx.html" title="The XV_SdiTx driver instance data. ">XV_SdiTx</a> core instance. </td></tr>
+    <tr><td class="paramname">ColorFormat</td><td>is a variable of type XVidC_ColorFormat.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if register write is successfule for SDI stop</li>
+<li>XST_FAILURE if SDI stop write is failed</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___sdi_tx___config.html#a55bc404bba9a241e65bc618992c289a3">XV_SdiTx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_tx.html#a3fe081b6dd8372f1128ccda2c2a1d825">XV_SdiTx::Config</a>, <a class="el" href="struct_x_v___sdi_tx.html#a973312cc838aaf0e1e0bd7807cb48822">XV_SdiTx::Transport</a>, and <a class="el" href="xv__sditx__hw_8h.html#a473ff53a4f74d89a57e04a65c72416af">XV_SdiTx_ReadReg</a>.</p>
 
 </div>
 </div>
@@ -992,7 +1086,7 @@ Functions</h2></td></tr>
 
 <p class="reference">References <a class="el" href="struct_x_v___sdi_tx___config.html#a55bc404bba9a241e65bc618992c289a3">XV_SdiTx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_tx.html#a3fe081b6dd8372f1128ccda2c2a1d825">XV_SdiTx::Config</a>, and <a class="el" href="xv__sditx__hw_8h.html#a473ff53a4f74d89a57e04a65c72416af">XV_SdiTx_ReadReg</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="group__xv__sditx__v1__0.html#gae535cd30cd5fd6414bf89142bc937e4a">XV_SdiTx_SelfTest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__xv__sditx__v1__1.html#gae535cd30cd5fd6414bf89142bc937e4a">XV_SdiTx_SelfTest()</a>.</p>
 
 </div>
 </div>

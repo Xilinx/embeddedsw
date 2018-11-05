@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,7 @@
 /**
 *
 * @file xcsudma.c
-* @addtogroup csudma_v1_0
+* @addtogroup csudma_v1_2
 * @{
 *
 * This file contains the implementation of the interface functions for CSU_DMA
@@ -188,6 +188,80 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	}
 }
 
+/*****************************************************************************/
+/**
+*
+* This function sets the starting address and amount(size) of the data to be
+* transfered from/to the memory through the AXI interface.
+* This function is useful for pmu processor when it wishes to do
+* a 64-bit DMA transfer.
+*
+* @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
+* @param	Channel represents the type of channel either it is Source or
+* 		Destination.
+*		Source channel      - XCSUDMA_SRC_CHANNEL
+*		Destination Channel - XCSUDMA_DST_CHANNEL
+* @param	AddrLow is a 32 bit variable which holds the starting lower address of
+* 		data which needs to write into the memory(DST) (or read	from
+* 		the memory(SRC)).
+* @param    AddrHigh is a 32 bit variable which holds the higher address of data
+* 			which needs to write into the memory(DST) (or read from
+* 			the memroy(SRC)).
+* @param	Size is a 32 bit variable which represents the number of 4 byte
+* 		words needs to be transfered from starting address.
+* @param	EnDataLast is to trigger an end of message. It will enable or
+* 		disable data_inp_last signal to stream interface when current
+* 		command is completed. It is applicable only to source channel
+* 		and neglected for destination channel.
+* 		-	1 - Asserts data_inp_last signal.
+* 		-	0 - data_inp_last will not be asserted.
+*
+* @return	None.
+*
+* @note		Data_inp_last signal is asserted simultaneously with the
+* 		data_inp_valid signal associated with the final 32-bit word
+*		transfer
+*		This API won't do flush/invalidation for the DMA buffer.
+*		It is recommened to call this API only through PMU processor.
+*
+******************************************************************************/
+void XCsuDma_64BitTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
+			   u32 AddrLow, u32 AddrHigh, u32 Size, u8 EnDataLast)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
+					(Channel == (XCSUDMA_DST_CHANNEL)));
+	Xil_AssertVoid(Size <= (u32)(XCSUDMA_SIZE_MAX));
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+
+
+	XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
+		((u32)(XCSUDMA_ADDR_OFFSET) +
+		((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))),
+				(AddrLow & XCSUDMA_ADDR_MASK));
+
+	XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
+		    ((u32)(XCSUDMA_ADDR_MSB_OFFSET) +
+			((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))),
+		    (AddrHigh & XCSUDMA_MSB_ADDR_MASK));
+
+	if (EnDataLast == (u8)(XCSUDMA_LAST_WORD_MASK)) {
+		XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
+			((u32)(XCSUDMA_SIZE_OFFSET) +
+				((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))),
+			((Size << (u32)(XCSUDMA_SIZE_SHIFT)) |
+					(u32)(XCSUDMA_LAST_WORD_MASK)));
+	}
+	else {
+		XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
+			((u32)(XCSUDMA_SIZE_OFFSET) +
+				((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))),
+				(Size << (u32)(XCSUDMA_SIZE_SHIFT)));
+	}
+}
+
+/*****************************************************************************/
 /*****************************************************************************/
 /**
 *

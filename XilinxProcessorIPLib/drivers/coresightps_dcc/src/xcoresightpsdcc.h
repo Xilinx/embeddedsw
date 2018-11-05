@@ -33,7 +33,7 @@
 /**
 *
 * @file xcoresightpsdcc.h
-* @addtogroup coresightps_dcc_v1_1
+* @addtogroup coresightps_dcc_v1_4
 * @{
 * @details
 *

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -686,6 +686,32 @@ static bool PmMasterAllProcsDown(const PmMaster* const master)
 }
 
 /**
+ * PmWakeMasterBySlave() - Wake the master for which slave is set as
+ *			   wakeup source
+ * @slave	Slave which set as wakeup source
+ *
+ * @return	Status of performing wake
+ */
+int PmWakeMasterBySlave(const PmSlave * const slave)
+{
+	PmMaster *mst = pmMasterHead;
+	int finalStatus = XST_SUCCESS;
+	int status;
+
+	while (mst) {
+		PmRequirement *masterReq = PmRequirementGet(mst, slave);
+
+		if (masterReq->info & PM_MASTER_WAKEUP_REQ_MASK) {
+			status = PmMasterWake(mst);
+			if (status != XST_SUCCESS)
+				finalStatus = XST_FAILURE;
+		}
+		mst = mst->nextMaster;
+	}
+	return finalStatus;
+}
+
+/**
  * PmMasterWakeProc() - Master prepares for wake and wakes the processor
  * @proc	Processor to wake up
  *
@@ -809,6 +835,12 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 		break;
 	case PM_MASTER_EVENT_SLEEP:
 		if (PM_MASTER_STATE_SUSPENDING == master->state) {
+#ifdef ENABLE_POS
+			bool isPoS = PmSystemDetectPowerOffSuspend(master);
+			if (true == isPoS) {
+				status = PmSystemPreparePowerOffSuspend();
+			}
+#endif
 			XPfw_RecoveryStop(master);
 			status = PmRequirementUpdateScheduled(master, true);
 			master->state = PM_MASTER_STATE_SUSPENDED;
@@ -817,6 +849,11 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 				status = PmMasterSuspendAck(master, XST_SUCCESS);
 			}
 			PmMasterConfigWakeEvents(master, 1U);
+#ifdef ENABLE_POS
+			if (true == isPoS) {
+				status = PmSystemFinalizePowerOffSuspend();
+			}
+#endif
 		}
 		break;
 	case PM_MASTER_EVENT_ABORT_SUSPEND:
@@ -851,6 +888,7 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 		condition = PmMasterAllProcsDown(master);
 		if (true == condition) {
 			XPfw_RecoveryStop(master);
+			PmMasterIdleSlaves(master);
 			status = PmMasterForceDownCleanup(master);
 			master->state = PM_MASTER_STATE_KILLED;
 		}
@@ -923,7 +961,12 @@ int PmMasterRestart(PmMaster* const master)
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
-	XPfw_Write32(PMU_GLOBAL_GLOBAL_GEN_STORAGE4, SUBSYSTEM_RESTART_MASK);
+	XPfw_RMW32(PMU_GLOBAL_GLOBAL_GEN_STORAGE4, SUBSYSTEM_RESTART_MASK,
+                        SUBSYSTEM_RESTART_MASK);
+#ifdef ENABLE_POS
+	/* Signal to FSBL */
+	XPfw_Write32(PMU_GLOBAL_GLOBAL_GEN_STORAGE1, 1U);
+#endif
 	status = master->procs[0]->saveResumeAddr(master->procs[0], address);
 	if (XST_SUCCESS != status) {
 		goto done;
@@ -998,5 +1041,102 @@ int PmMasterInitFinalize(PmMaster* const master)
 
 	return status;
 }
+
+#ifdef ENABLE_POS
+/**
+ * PmMasterIsLastSuspending() - Check if master is in suspending state and all
+ *                              other masters in system are suspended or killed
+ * @master     Master to be checked
+ *
+ * @return     True if master is in suspending state and all othe masters are
+ *             killed or suspended, false otherwise
+ */
+bool PmMasterIsLastSuspending(const PmMaster* const master)
+{
+	PmMaster* mst = pmMasterHead;
+	bool isLastWake = true;
+
+	while (NULL != mst) {
+		if (master == mst) {
+			if (mst->state == PM_MASTER_STATE_SUSPENDING) {
+				mst = mst->nextMaster;
+				continue;
+			} else {
+				isLastWake = false;
+				break;
+			}
+		}
+
+		if ((mst->state != PM_MASTER_STATE_SUSPENDED) &&
+			(mst->state != PM_MASTER_STATE_KILLED)) {
+			isLastWake = false;
+			break;
+		}
+
+		mst = mst->nextMaster;
+	}
+
+	return isLastWake;
+}
+
+/**
+ * @PmMasterIsUniqueWakeup() - Check if any device except slave is used as
+ * 			       wakeup source in system
+ *
+ * @slave      Slave node to be checked
+ *
+ * @return     True if slave is the unique wakeup source used in system, false
+ *             otherwise
+ */
+bool PmMasterIsUniqueWakeup(const PmSlave* const slave)
+{
+	PmMaster* mst = pmMasterHead;
+	bool isUnique = false;
+
+	while (NULL != mst) {
+		PmRequirement* req = mst->reqs;
+
+		while (NULL != req) {
+			if ((PM_MASTER_WAKEUP_REQ_MASK & req->info) != 0U) {
+				if (req->slave != slave) {
+					isUnique = false;
+					goto done;
+				} else {
+					isUnique = true;
+				}
+			}
+			req = req->nextSlave;
+		}
+
+		mst = mst->nextMaster;
+	}
+
+done:
+	return isUnique;
+}
+
+/**
+ * @PmMasterReleaseAll() - Release all requirements for every master in system
+ *
+ * @return     Status of releasing all requirements for every master in system
+ */
+int PmMasterReleaseAll(void)
+{
+	int status;
+	PmMaster* mst = pmMasterHead;
+
+	while (NULL != mst) {
+		status = PmRequirementRelease(mst->reqs, RELEASE_ALL);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+
+		mst = mst->nextMaster;
+	}
+
+done:
+	return status;
+}
+#endif
 
 #endif

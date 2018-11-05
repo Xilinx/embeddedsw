@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -79,6 +79,9 @@
 * 3.2   sk   11/24/15 Considered the slot type before checking the CD/WP pins.
 * 3.3   sk   04/01/15 Added one second delay for checking CD pin.
 * 3.4   sk   06/09/16 Added support for mkfs.
+* 3.8   mj   07/31/17 Added support for RAM based FATfs.
+*       mn   12/04/17 Resolve errors in XilFFS for ARMCC compiler
+* 3.9   mn   04/18/18 Resolve build warnings for xilffs library
 *
 * </pre>
 *
@@ -87,7 +90,6 @@
 ******************************************************************************/
 #include "diskio.h"
 #include "ff.h"
-#include "xparameters.h"
 #include "xil_types.h"
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
@@ -107,6 +109,16 @@
 #define EXT_CSD_DEVICE_TYPE_HIGH_SPEED	0x3
 #define SD_CD_DELAY		10000U
 
+#ifdef FILE_SYSTEM_INTERFACE_RAM
+#include "xparameters.h"
+
+static char *dataramfs = NULL;
+
+#define BLOCKSIZE       1U
+#define SECTORSIZE      512U
+#define SECTORCNT       (RAMFS_SIZE / SECTORSIZE)
+#endif
+
 /*--------------------------------------------------------------------------
 
 	Public Functions
@@ -125,14 +137,6 @@ static u32 CardDetect;
 static u32 WriteProtect;
 static u32 SlotType[2];
 static u8 HostCntrlrVer[2];
-#endif
-
-#ifdef __ICCARM__
-#pragma data_alignment = 32
-static u8 ExtCsd[512];
-#pragma data_alignment = 4
-#else
-static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 #endif
 
 /*-----------------------------------------------------------------------*/
@@ -220,6 +224,7 @@ DSTATUS disk_status (
 Label:
 		Stat[pdrv] = s;
 #endif
+
 		return s;
 }
 
@@ -251,14 +256,10 @@ DSTATUS disk_initialize (
 {
 	DSTATUS s;
 	s32 Status;
-
 #ifdef FILE_SYSTEM_INTERFACE_SD
-
 	XSdPs_Config *SdConfig;
+#endif
 
-	/*
-	 * Check if card is in the socket
-	 */
 	s = disk_status(pdrv);
 	if ((s & STA_NODISK) != 0U) {
 		return s;
@@ -269,6 +270,7 @@ DSTATUS disk_initialize (
 		return s;
 	}
 
+#ifdef FILE_SYSTEM_INTERFACE_SD
 	if (CardDetect) {
 			/*
 			 * Card detection check
@@ -313,7 +315,15 @@ DSTATUS disk_initialize (
 	s &= (~STA_NOINIT);
 
 	Stat[pdrv] = s;
+#endif
 
+#ifdef FILE_SYSTEM_INTERFACE_RAM
+	/* Assign RAMFS address value from xparameters.h */
+	dataramfs = (char *)RAMFS_START_ADDR;
+
+	/* Clearing No init Status for RAM */
+	s &= (~STA_NOINIT);
+	Stat[pdrv] = s;
 #endif
 
 	return s;
@@ -349,10 +359,11 @@ DRESULT disk_read (
 		UINT count	/* Sector count (1..128) */
 )
 {
-#ifdef FILE_SYSTEM_INTERFACE_SD
 	DSTATUS s;
+#ifdef FILE_SYSTEM_INTERFACE_SD
 	s32 Status;
 	DWORD LocSector = sector;
+#endif
 
 	s = disk_status(pdrv);
 
@@ -363,6 +374,7 @@ DRESULT disk_read (
 		return RES_PARERR;
 	}
 
+#ifdef FILE_SYSTEM_INTERFACE_SD
 	/* Convert LBA to byte address if needed */
 	if ((SdInstance[pdrv].HCS) == 0U) {
 		LocSector *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
@@ -372,8 +384,12 @@ DRESULT disk_read (
 	if (Status != XST_SUCCESS) {
 		return RES_ERROR;
 	}
-
 #endif
+
+#ifdef FILE_SYSTEM_INTERFACE_RAM
+	memcpy(buff, dataramfs + (sector * SECTORSIZE), count * SECTORSIZE);
+#endif
+
     return RES_OK;
 }
 
@@ -387,8 +403,9 @@ DRESULT disk_ioctl (
 	void *buff				/* Buffer to send/receive control data */
 )
 {
+	DRESULT res = RES_OK;
+
 #ifdef FILE_SYSTEM_INTERFACE_SD
-	DRESULT res;
 	void *LocBuff = buff;
 	if ((disk_status(pdrv) & STA_NOINIT) != 0U) {	/* Check if card is in the socket */
 		return RES_NOTRDY;
@@ -414,11 +431,28 @@ DRESULT disk_ioctl (
 			res = RES_PARERR;
 			break;
 	}
-
-		return res;
-#else
-		return 0;
 #endif
+
+#ifdef FILE_SYSTEM_INTERFACE_RAM
+	switch (cmd) {
+	case (BYTE)CTRL_SYNC:
+		break;
+	case (BYTE)GET_BLOCK_SIZE:
+		*(WORD *)buff = BLOCKSIZE;
+		break;
+	case (BYTE)GET_SECTOR_SIZE:
+		*(WORD *)buff = SECTORSIZE;
+		break;
+	case (BYTE)GET_SECTOR_COUNT:
+		*(DWORD *)buff = SECTORCNT;
+		break;
+	default:
+		res = RES_PARERR;
+		break;
+	}
+#endif
+
+	return res;
 }
 
 /******************************************************************************/
@@ -471,12 +505,12 @@ DRESULT disk_write (
 )
 {
 	DSTATUS s;
+#ifdef FILE_SYSTEM_INTERFACE_SD
 	s32 Status;
 	DWORD LocSector = sector;
+#endif
 
-#ifdef FILE_SYSTEM_INTERFACE_SD
 	s = disk_status(pdrv);
-
 	if ((s & STA_NOINIT) != 0U) {
 		return RES_NOTRDY;
 	}
@@ -484,6 +518,7 @@ DRESULT disk_write (
 		return RES_PARERR;
 	}
 
+#ifdef FILE_SYSTEM_INTERFACE_SD
 	/* Convert LBA to byte address if needed */
 	if ((SdInstance[pdrv].HCS) == 0U) {
 		LocSector *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
@@ -495,5 +530,10 @@ DRESULT disk_write (
 	}
 
 #endif
+
+#ifdef FILE_SYSTEM_INTERFACE_RAM
+	memcpy(dataramfs + (sector * SECTORSIZE), buff, count * SECTORSIZE);
+#endif
+
 	return RES_OK;
 }

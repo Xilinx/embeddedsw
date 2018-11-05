@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxipmon_selftest.c
-* @addtogroup axipmon_v6_3
+* @addtogroup axipmon_v6_6
 * @{
 *
 * This file contains a diagnostic self test function for the XAxiPmon driver.

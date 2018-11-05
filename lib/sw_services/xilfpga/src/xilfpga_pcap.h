@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -37,52 +37,37 @@
 * @addtogroup xfpga_apis XilFPGA APIs
 * @{
 *
-* The XILFPGA Library provides the interfaces to the application to configure
+* The XILFPGA library provides the interface to the application to configure
 * the programmable logic (PL) though the PS.
 *
-* Features
-*	Supported:
-*		Full Bit-stream loading.
-*	To be supported features:
-* 		Partial Bit-stream loading.
-*		Encrypted Bit-stream loading.
+* - Supported Features:
+*    - Full Bit-stream loading.
+*    - Partial Bit-stream loading.
+*    - Encrypted Bit-stream loading.
+*    - Authenticated Bit-stream loading.
+*    - Authenticated and Encrypted Bit-stream loading.
+*    - Partial Bit-stream loading.
 *
-* Xilfpga_PL library Interface modules:
+* #  Xilfpga_PL library Interface modules 	{#xilfpgapllib}
 *	Xilfpga_PL library uses the below major components to configure the PL through PS.
-*		CSU DMA driver.
-*		Xilsecure_library.
+*  - CSU DMA driver is used to transfer the actual Bit stream file for the PS to PL after PCAP initialization
 *
-* CSU DMA driver:
-*	It is used to transfer the actual Bit stream file for the PS to PL after PCAP initialization
+*  - Xilsecure_library provides APIs to access secure hardware on the Zynq&reg; UltraScale+&tm; MPSoC devices. This library includes:
+*	 - SHA-3 engine hash functions
+*	 - AES for symmetric key encryption
+*	 - RSA for authentication
 *
-* Xilsecure_library:
-*	The LibXilSecure library provides APIs to access secure hardware on the Zynq® UltraScale+™
-*	MPSoC devices.
-*	This library includes:
-*		• SHA-3 engine hash functions
-*		• AES for symmetric key encryption
-*		• RSA for authentication
-*	These algorithms are needed to support to load the Encrypted and Authenticated bit-streams
-*	into PL.
+* These algorithms are needed to support to load the Encrypted and Authenticated bit-streams into PL.
 *
-* @note
-*       -xilfpga library is capable of loading only .bin format files into PL.
-*        it will not support the other file formates.
-*
-*       -The current implementation supports only Full Bit-stream.
-*
-* This is the header file which contains definitions for the PCAP hardware
-* registers and declarations of bitstream download functions
+* @note XilFPGA library is capable of loading only .bin format files into PL. The library does not support other file formats. The current implementation supports only Full Bit-stream.
 *
 *
-* <b>Initialization & writing bitstream </b>
+* ##   Initialization & Writing Bit-Stream  	{#xilinit}
 *
-* The fpga driver can be initialized and load the bit-stream
-* in the following way:
+* Use the u32 XFpga_PL_BitSream_Load(); function to initialize the driver and load the bit-stream.
 *
-*   - u32 XFpga_PL_BitSream_Load ();
-*
-*
+* @{
+* @cond xilfpga_internal
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -96,6 +81,16 @@
 *                      XFpga_PL_BitStream_Load()
 *                      to avoid the unwanted blocking conditions.
 * 3.0   Nava  12/05/17 Added PL configuration registers readback support.
+* 4.0   Nava  08/02/18 Added Authenticated and Encypted Bitstream loading support.
+* 4.0   Nava  02/03/18 Added the legacy bit file loading feature support from U-boot.
+*                      and improve the error handling support by returning the
+*                      proper ERROR value upon error conditions.
+* 4.1  Nava   27/03/18 For Secure Bitstream loading to avoid the Security violations
+*                      Need to Re-validate the User Crypto flags with the Image
+*                      Crypto operation by using the internal memory.To Fix this
+*                      added a new API XFpga_ReValidateCryptoFlags().
+* 4.1 Nava   16/04/18  Added partial bitstream loading support.
+*
 *
 * </pre>
 *
@@ -118,8 +113,15 @@
 
 /* Dummy address to indicate that destination is PCAP */
 #define XFPGA_DESTINATION_PCAP_ADDR    (0XFFFFFFFFU)
-#define XFPGA_CSU_SSS_SRC_SRC_DMA    0x5U
-#define XFPGA_CSU_SSS_SRC_DST_DMA	0x30U
+#define XFPGA_CSU_SSS_SRC_SRC_DMA	(0x5U)
+#define XFPGA_CSU_SSS_SRC_DST_DMA	(0x30U)
+#define XFPGA_CSU_SSS_DMA_TO_DMA	(0x50U)
+
+/* Boot Header Image Offsets */
+#define PARTATION_HEADER_OFFSET 	(0x9cU)
+#define PARTATION_ATTRIBUTES_OFFSET	(0x24U)
+#define BITSTREAM_PARTATION_OFFSET	(0x20U)
+#define BITSTREAM_IV_OFFSET		(0xA0U)
 
 /**
  * CSU Base Address
@@ -179,21 +181,34 @@
 #define PCAP_CLK_CTRL		0xFF5E00A4
 #define PCAP_CLK_EN_MASK	0x01000000
 
+/* AES KEY SRC Info */
+#define XFPGA_KEY_SRC_EFUSE_RED		0xA5C3C5A3
+#define XFPGA_KEY_SRC_BBRAM_RED		0x3A5C3C5A
+#define XFPGA_KEY_SRC_EFUSE_BLK		0xA5C3C5A5
+#define XFPGA_KEY_SRC_BH_BLACK		0xA35C7C53
+#define XFPGA_KEY_SRC_EFUSE_GRY		0xA5C3C5A7
+#define XFPGA_KEY_SRC_BH_GRY		0xA35C7CA5
+#define XFPGA_KEY_SRC_KUP		0xA3A5C3C5
+
 #define XFPGA_SUCCESS				(0x0U)
-#define XFPGA_ERROR_CSUDMA_INIT_FAIL		(0x1U)
-#define XFPGA_ERROR_BITSTREAM_LOAD_FAIL		(0x2U)
-#define XFPGA_ERROR_PL_POWER_UP			(0x3U)
+#define XFPGA_FAILURE				(0x1U)
+#define XFPGA_ERROR_CSUDMA_INIT_FAIL		(0x2U)
+#define XFPGA_ERROR_PL_POWER_UP 		(0x3U)
 #define XFPGA_ERROR_PL_ISOLATION		(0x4U)
-#define XFPGA_PARAMETER_NULL_ERROR		(0x5U)
-#define XFPGA_STRING_INVALID_ERROR		(0x6U)
-#define XFPGA_FAILURE					(0x9U)
+#define XPFGA_ERROR_PCAP_INIT			(0x5U)
+#define XFPGA_ERROR_BITSTREAM_LOAD_FAIL 	(0x6U)
+#define XFPGA_ERROR_CRYPTO_FLAGS		(0x7U)
+#define XFPGA_ERROR_HDR_AUTH			(0X8U)
+#define XFPGA_ENC_ISCOMPULSORY			(0x9U)
+#define XFPGA_PARTITION_AUTH_FAILURE		(0xAU)
+#define XFPGA_STRING_INVALID_ERROR		(0xBU)
+#define XFPGA_ERROR_SECURE_CRYPTO_FLAGS		(0xCU)
 
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
-
+/** @endcond*/
 /************************** Function Prototypes ******************************/
-u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
-				u32 WrSize, u32 flags);
+u32 XFpga_PL_BitSream_Load (UINTPTR WrAddr, UINTPTR KeyAddr, u32 flags);
 u32 XFpga_PcapStatus(void);
 u32 Xfpga_GetConfigReg(u32 ConfigReg, u32 *RegData);
 /************************** Variable Definitions *****************************/

@@ -33,7 +33,7 @@
  * @brief	Linux libmetal cache handling.
  */
 
-#include "metal/cache.h"
+#include <metal/cache.h>
 
 void metal_cache_flush(void *addr, unsigned int len)
 {

@@ -17,8 +17,8 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -96,9 +96,15 @@ static void PmPllSaveContext(PmPll* const pll)
  */
 static void PmPllRestoreContext(PmPll* const pll)
 {
+	/* Bypass PLL */
+	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_BYPASS_MASK,
+			PM_PLL_CTRL_BYPASS_MASK);
+	/* Assert PLL reset */
+	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
+			PM_PLL_CTRL_RESET_MASK);
 	/* Restore register values with reset and bypass asserted */
 	XPfw_Write32(pll->addr + PM_PLL_CTRL_OFFSET, pll->context.ctrl |
-		     PM_PLL_CTRL_RESET_MASK | PM_PLL_CTRL_BYPASS_MASK);
+			PM_PLL_CTRL_RESET_MASK | PM_PLL_CTRL_BYPASS_MASK);
 	XPfw_Write32(pll->addr + PM_PLL_CFG_OFFSET, pll->context.cfg);
 	XPfw_Write32(pll->addr + PM_PLL_FRAC_OFFSET, pll->context.frac);
 	XPfw_Write32(pll->toCtrlAddr, pll->context.toCtrl);
@@ -352,7 +358,7 @@ PmPll pmVpll_g = {
 	.useCount = 0U,
 };
 
-PmPll pmDpll_g = {
+PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
 	.node = {
 		.derived = &pmDpll_g,
 		.nodeId = NODE_DPLL,
@@ -452,14 +458,15 @@ int PmPllRequest(PmPll* const pll)
  */
 void PmPllRelease(PmPll* const pll)
 {
-	pll->useCount--;
-
+	if (pll->useCount > 0U) {
+		pll->useCount--;
 #ifdef DEBUG_CLK
-	PmDbg(DEBUG_DETAILED,"%s #%lu\r\n", PmStrNode(pll->node.nodeId),
-			pll->useCount);
+		PmDbg(DEBUG_DETAILED,"%s #%lu\r\n", PmStrNode(pll->node.nodeId),
+				pll->useCount);
 #endif
-	if (0U == pll->useCount) {
-		PmPllSuspend(pll);
+		if (0U == pll->useCount) {
+			PmPllSuspend(pll);
+		}
 	}
 }
 

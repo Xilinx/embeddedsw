@@ -33,7 +33,7 @@
 /**
 *
 * @file xqspipsu.c
-* @addtogroup qspipsu_v3_4
+* @addtogroup qspipsu_v1_7
 * @{
 *
 * This file implements the functions required to use the QSPIPSU hardware to
@@ -61,6 +61,9 @@
 *	             parallel configurations, modified XQspiPsu_PollData()
 *	             and XQspiPsu_Create_PollConfigData()
 * 1,5	nsk 08/14/17 Added CCI support
+* 1.7	tjs	01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
+* 1.7	tjs 01/17/18 Added a support to toggle WP pin of the flash.
+* 1.7	tjs	03/14/18 Added support in EL1 NS mode (CR#974882)
 *
 * </pre>
 *
@@ -1140,12 +1143,10 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 
 #ifdef __aarch64__
 	AddrTemp = (u64)((INTPTR)(Msg->RxBfrPtr) >> 32);
-	if ((AddrTemp & 0xFFFU) != FALSE) {
-		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
-				XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,
-				(u32)AddrTemp &
-				XQSPIPSU_QSPIDMA_DST_ADDR_MSB_MASK);
-	}
+	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,
+			(u32)AddrTemp &
+			XQSPIPSU_QSPIDMA_DST_ADDR_MSB_MASK);
 #endif
 
 	Remainder = InstancePtr->RxBytes % 4;
@@ -1516,5 +1517,38 @@ static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
 	ConfigData |= ((FlashMsg->PollData << XQSPIPSU_POLL_CFG_DATA_VALUE_SHIFT)
 		          & XQSPIPSU_POLL_CFG_DATA_VALUE_MASK);
 	return ConfigData;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This API enables/ disables Write Protect pin on the flash parts.
+*
+* @param	QspiPtr is a pointer to the QSPIPSU driver component to use.
+*
+* @return	None
+*
+* @note	By default WP pin as per the QSPI controller is driven High
+* 		which means no write protection. Calling this function once
+* 		will enable the protection.
+*
+******************************************************************************/
+void XQspiPsu_WriteProtectToggle(XQspiPsu *QspiPsuPtr, u32 Toggle)
+{
+	/* For Single and Stacked flash configuration with x1 or x2 mode*/
+	if (QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_SINGLE) {
+		/* Enable */
+		XQspiPsu_Enable(QspiPsuPtr);
+
+		/* Select slave */
+		XQspiPsu_GenFifoEntryCSAssert(QspiPsuPtr);
+
+		XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress, XQSPIPSU_GPIO_OFFSET,
+				Toggle);
+
+	} else if (QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL ||
+			QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_STACKED) {
+		xil_printf("Dual Parallel/Stacked configuration is not supported by this API\r\n");
+	}
 }
 /** @} */

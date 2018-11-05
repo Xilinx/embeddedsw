@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,9 @@
 *                        CR#768077
 * 3.00  vns     31/07/15 Added efuse functionality for Ultrascale.
 * 6.0   vns     07/07/16 Added Hardware module pins in eFUSE PL instance.
+* 6.4   vns     02/27/18 Added support for programming secure bit 6 -
+*                        enable obfuscation feature for eFUSE AES key
+*       vns     03/09/18 Added correct status bit positions to Ultrascale plus
 *
 ****************************************************************************/
 #ifndef XILSKEY_EPL_H
@@ -85,6 +88,7 @@ extern "C" {
 /*
  * Status register index values of Ultrascale's Fuse
  */
+#ifdef XSK_MICROBLAZE_ULTRA
 typedef enum {
 	XSK_EFUSEPL_STATUS_DISABLE_KEY_READ_ULTRA,	/**< Bit 0 of Status reg */
 	XSK_EFUSEPL_STATUS_DISABLE_USER_KEY_READ_ULTRA,	/**< Bit 1 of Status reg */
@@ -103,8 +107,31 @@ typedef enum {
 	XSK_EFUSEPL_STATUS_DISABLE_JTAG_ULTRA,/**< Bit 26 of Status reg */
 	XSK_EFUSEPL_STATUS_DISABLE_TEST_ACCESS_ULTRA,/**< Bit 27 of Status reg */
 	XSK_EFUSEPL_STATUS_DISABLE_DCRPTR_ULTRA,/**< Bit 28 of Status reg */
+	XSK_EFUSEPL_STATUS_ENABLE_OBFUSCATED_EFUSE_KEY /**< Bit 29 of Status reg */
 }XSKEfusePl_FuseStatusBits_F8Series;
-
+#else
+/*
+ * Status register index values of Ultrascale plus's Fuse
+ */
+typedef enum {
+	XSK_EFUSEPL_STATUS_DISABLE_KEY_READ_ULTRA,	/**< Bit 0 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_USER_KEY_READ_ULTRA,	/**< Bit 1 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_SECURE_READ_ULTRA,	/**< Bit 2 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_CNTRL_WRITE_ULTRA = 5,/**< Bit 5 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_RSA_KEY_READ_ULTRA,	/**< Bit 6 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_KEY_WRITE_ULTRA,	/**< Bit 7 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_USER_KEY_WRITE_ULTRA,/**< Bit 8 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_SECURE_WRITE_ULTRA,	/**< Bit 9 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_RSA_KEY_WRITE_ULTRA = 15,
+							/**< Bit 15 of Status reg */
+	XSK_EFUSEPL_STATUS_DIABLE_128BIT_USER_KEY_WRITE_ULTRA,
+	XSK_EFUSEPL_STATUS_AES_ONLY_ENABLED_ULTRA = 25,/**< Bit 25 of Status reg */
+	XSK_EFUSEPL_STATUS_RSA_AUTH_ENABLED_ULTRA = 27,/**< Bit 27 of Status reg */
+	XSK_EFUSEPL_STATUS_SECURITY_ENABLE_ULTRA = 29,/**< Bit 29 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_DCRPTR_ULTRA,/**< Bit 30 of Status reg */
+	XSK_EFUSEPL_STATUS_ENABLE_OBFUSCATED_EFUSE_KEY /**< Bit 31 of Status reg */
+}XSKEfusePl_FuseStatusBits_F8Series;
+#endif
 /**************************** Type Definitions ******************************/
 /***************** Macros (Inline Functions) Definitions ********************/
 
@@ -196,6 +223,10 @@ typedef struct {
 	 * Enable RSA authentication in ultrascale
 	 */
 	u32 RSAEnable;		/* only for Ultrascale */
+	/*
+	 * Enable Obfuscated feature for decryption of eFUSE AES
+	 */
+	u32 FuseObfusEn;	/* only for Ultrascale */
 	/**
 	 * Following is the define to select if the user wants to select AES key
 	 * and User Low Key for Zynq

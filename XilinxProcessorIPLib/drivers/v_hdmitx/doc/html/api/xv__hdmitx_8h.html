@@ -137,29 +137,29 @@ $(document).ready(function(){initNavTree('xv__hdmitx_8h.html','');});
                             macro with API XV_HdmiTx_SetAudioFormat
                         Added XV_HdmiTx_GetAudioFormat
   1.9   EB     24/10/17 Added enum XV_HdmiTx_AudioFormatType
+  1.10  MMO    19/12/17 Added XV_HdmiTx_SetTmdsClk API
+  2.0   EB     16/01/18 Updated function XV_HdmiTx_SetTmdsClk and renamed to
+                            XV_HdmiTx_ConfigTmdsClk
+                        Moved Vendor Specific InfoFrame related functions to
+                            HDMI Common library
+                        Deprecating XV_HdmiTx_VSIF_GeneratePacket,
+                            XV_HdmiTx_VSIF_DisplayInfo,
+                            XV_HdmiTx_VSIF_3DStructToString,
+                            XV_HdmiTx_VSIF_3DSampMethodToString and
+                            XV_HdmiTx_VSIF_3DSampPosToString APIs
+                        Moved VicTable, XV_HdmiTx_Aux to Hdmi Common library
+        EB     24/01/18 Added OverrideHdmi14Scrambler to <a class="el" href="struct_x_v___hdmi_tx___stream.html" title="This typedef contains HDMI TX stream specific data structure. ">XV_HdmiTx_Stream</a>
   </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___hdmi_tx___config.html">XV_HdmiTx_Config</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains configuration information for the HDMI TX core.  <a href="struct_x_v___hdmi_tx___config.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___hdmi_tx___vic_table.html">XV_HdmiTx_VicTable</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains Video identification information in tabular form.  <a href="struct_x_v___hdmi_tx___vic_table.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___hdmi_tx___audio_stream.html">XV_HdmiTx_AudioStream</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains audio stream specific data structure.  <a href="struct_x_v___hdmi_tx___audio_stream.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___hdmi_tx___stream.html">XV_HdmiTx_Stream</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains HDMI TX stream specific data structure.  <a href="struct_x_v___hdmi_tx___stream.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union_x_v___hdmi_tx___aux_header.html">XV_HdmiTx_AuxHeader</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains Auxiliary header information for infoframe.  <a href="union_x_v___hdmi_tx___aux_header.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union_x_v___hdmi_tx___aux_data.html">XV_HdmiTx_AuxData</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains Auxiliary data information for infoframe.  <a href="union_x_v___hdmi_tx___aux_data.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___hdmi_tx___aux.html">XV_HdmiTx_Aux</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef holds HDMI TX's Auxiliary peripheral specific data structure.  <a href="struct_x_v___hdmi_tx___aux.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> driver instance data.  <a href="struct_x_v___hdmi_tx.html#details">More...</a><br /></td></tr>
@@ -320,6 +320,33 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
 <tr class="memitem:ae42733f7ec1fcf5df4f6d537b588bab6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#ae42733f7ec1fcf5df4f6d537b588bab6">XV_HdmiTx_SetStream</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, XVidC_VideoMode VideoMode, XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc, XVidC_PixelsPerClock Ppc, XVidC_3DInfo *Info3D)</td></tr>
 <tr class="memdesc:ae42733f7ec1fcf5df4f6d537b588bab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the HDMI TX stream parameters.  <a href="#ae42733f7ec1fcf5df4f6d537b588bab6">More...</a><br /></td></tr>
 <tr class="separator:ae42733f7ec1fcf5df4f6d537b588bab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f0f03c92ab4f206b0a8e0d3c7a6c502"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#a8f0f03c92ab4f206b0a8e0d3c7a6c502">XV_HdmiTx_GetTmdsClk</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, XVidC_VideoMode VideoMode, XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc)</td></tr>
+<tr class="memdesc:a8f0f03c92ab4f206b0a8e0d3c7a6c502"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets and return the TMDS Clock based on Video Parameter.  <a href="#a8f0f03c92ab4f206b0a8e0d3c7a6c502">More...</a><br /></td></tr>
+<tr class="separator:a8f0f03c92ab4f206b0a8e0d3c7a6c502"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7df3873e5e622d92c651adbef0b83b0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#a7df3873e5e622d92c651adbef0b83b0e">XV_HdmiTx_INT_VRST</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, u8 Reset)</td></tr>
+<tr class="memdesc:a7df3873e5e622d92c651adbef0b83b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function asserts or releases the HDMI TX Internal VRST.  <a href="#a7df3873e5e622d92c651adbef0b83b0e">More...</a><br /></td></tr>
+<tr class="separator:a7df3873e5e622d92c651adbef0b83b0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44187420a93cd54ee4b68db1e80cd1e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#a44187420a93cd54ee4b68db1e80cd1e1">XV_HdmiTx_INT_LRST</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, u8 Reset)</td></tr>
+<tr class="memdesc:a44187420a93cd54ee4b68db1e80cd1e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function asserts or releases the HDMI TX Internal LRST.  <a href="#a44187420a93cd54ee4b68db1e80cd1e1">More...</a><br /></td></tr>
+<tr class="separator:a44187420a93cd54ee4b68db1e80cd1e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefad89689cab1a7ddcc37873b08a8faa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#aefad89689cab1a7ddcc37873b08a8faa">XV_HdmiTx_EXT_VRST</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, u8 Reset)</td></tr>
+<tr class="memdesc:aefad89689cab1a7ddcc37873b08a8faa"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function asserts or releases the HDMI TX External VRST.  <a href="#aefad89689cab1a7ddcc37873b08a8faa">More...</a><br /></td></tr>
+<tr class="separator:aefad89689cab1a7ddcc37873b08a8faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80f9f6414491351d34827b3c5e7f717a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#a80f9f6414491351d34827b3c5e7f717a">XV_HdmiTx_EXT_SYSRST</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, u8 Reset)</td></tr>
+<tr class="memdesc:a80f9f6414491351d34827b3c5e7f717a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function asserts or releases the HDMI TX External SYSRST.  <a href="#a80f9f6414491351d34827b3c5e7f717a">More...</a><br /></td></tr>
+<tr class="separator:a80f9f6414491351d34827b3c5e7f717a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a495a1c638020f63a0f9b30cf9584c57e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#a495a1c638020f63a0f9b30cf9584c57e">XV_HdmiTx_SetGcpAvmuteBit</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a495a1c638020f63a0f9b30cf9584c57e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the HDMI TX AUX GCP register AVMUTE bit.  <a href="#a495a1c638020f63a0f9b30cf9584c57e">More...</a><br /></td></tr>
+<tr class="separator:a495a1c638020f63a0f9b30cf9584c57e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e8e1d49d9f1cbcf266b5780a7724dab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#a0e8e1d49d9f1cbcf266b5780a7724dab">XV_HdmiTx_ClearGcpAvmuteBit</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a0e8e1d49d9f1cbcf266b5780a7724dab"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clears the HDMI TX AUX GCP register AVMUTE bit.  <a href="#a0e8e1d49d9f1cbcf266b5780a7724dab">More...</a><br /></td></tr>
+<tr class="separator:a0e8e1d49d9f1cbcf266b5780a7724dab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f140138d5c101dcdf267acf1645f9ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#a9f140138d5c101dcdf267acf1645f9ac">XV_HdmiTx_SetGcpClearAvmuteBit</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a9f140138d5c101dcdf267acf1645f9ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the HDMI TX AUX GCP register CLEAR_AVMUTE bit.  <a href="#a9f140138d5c101dcdf267acf1645f9ac">More...</a><br /></td></tr>
+<tr class="separator:a9f140138d5c101dcdf267acf1645f9ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0f79865b06ffc79b2e92f1023dc2652"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#af0f79865b06ffc79b2e92f1023dc2652">XV_HdmiTx_ClearGcpClearAvmuteBit</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr)</td></tr>
+<tr class="memdesc:af0f79865b06ffc79b2e92f1023dc2652"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clears the HDMI TX AUX GCP register CLEAR_AVMUTE bit.  <a href="#af0f79865b06ffc79b2e92f1023dc2652">More...</a><br /></td></tr>
+<tr class="separator:af0f79865b06ffc79b2e92f1023dc2652"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe6e4feed643a46f8c5a09494d2e2874"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#abe6e4feed643a46f8c5a09494d2e2874">XV_HdmiTx_SetPixelRate</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr)</td></tr>
 <tr class="memdesc:abe6e4feed643a46f8c5a09494d2e2874"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the pixel rate at output.  <a href="#abe6e4feed643a46f8c5a09494d2e2874">More...</a><br /></td></tr>
 <tr class="separator:abe6e4feed643a46f8c5a09494d2e2874"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -386,9 +413,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
 <tr class="memitem:a4553a717d1de514d23a105d7544a591e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#a4553a717d1de514d23a105d7544a591e">XV_HdmiTx_SetCallback</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, u32 HandlerType, void *CallbackFunc, void *CallbackRef)</td></tr>
 <tr class="memdesc:a4553a717d1de514d23a105d7544a591e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function installs an asynchronous callback function for the given HandlerType:  <a href="#a4553a717d1de514d23a105d7544a591e">More...</a><br /></td></tr>
 <tr class="separator:a4553a717d1de514d23a105d7544a591e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d0cd29f231420cc000c3f3391eb5091"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#a1d0cd29f231420cc000c3f3391eb5091">XV_HdmiTx_VSIF_GeneratePacket</a> (<a class="el" href="struct_x_v___hdmi_tx___v_s_i_f.html">XV_HdmiTx_VSIF</a> *VSIFPtr, <a class="el" href="struct_x_v___hdmi_tx___aux.html">XV_HdmiTx_Aux</a> *AuxPtr)</td></tr>
-<tr class="memdesc:a1d0cd29f231420cc000c3f3391eb5091"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function generates a Vendor Specific InfoFrame (VSIF).  <a href="#a1d0cd29f231420cc000c3f3391eb5091">More...</a><br /></td></tr>
-<tr class="separator:a1d0cd29f231420cc000c3f3391eb5091"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79e9fd00cabedf0d254cba229facf29b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#a79e9fd00cabedf0d254cba229facf29b">XV_HdmiTx_VSIF_GeneratePacket</a> (<a class="el" href="struct_x_v___hdmi_tx___v_s_i_f.html">XV_HdmiTx_VSIF</a> *VSIFPtr, XHdmiC_Aux *AuxPtr)</td></tr>
+<tr class="memdesc:a79e9fd00cabedf0d254cba229facf29b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function generates a Vendor Specific InfoFrame (VSIF).  <a href="#a79e9fd00cabedf0d254cba229facf29b">More...</a><br /></td></tr>
+<tr class="separator:a79e9fd00cabedf0d254cba229facf29b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f1f13016820477055fddefc1336af95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#a6f1f13016820477055fddefc1336af95">XV_HdmiTx_VSIF_DisplayInfo</a> (<a class="el" href="struct_x_v___hdmi_tx___v_s_i_f.html">XV_HdmiTx_VSIF</a> *VSIFPtr)</td></tr>
 <tr class="memdesc:a6f1f13016820477055fddefc1336af95"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function displays the contents of an <a class="el" href="struct_x_v___hdmi_tx___v_s_i_f.html" title="Structure for holding the VSIF. ">XV_HdmiTx_VSIF</a> instance.  <a href="#a6f1f13016820477055fddefc1336af95">More...</a><br /></td></tr>
 <tr class="separator:a6f1f13016820477055fddefc1336af95"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -418,9 +445,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a487977b6c692a3cabd9708d199cc6fde"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_AUD_CTRL_CLR_OFFSET</div><div class="ttdoc">AUD Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:317</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a72bdef52359446483eab0a4b6886ba34"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_AUD_CTRL_RUN_MASK</div><div class="ttdoc">AUD Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:331</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a487977b6c692a3cabd9708d199cc6fde"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_AUD_CTRL_CLR_OFFSET</div><div class="ttdoc">AUD Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:342</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a72bdef52359446483eab0a4b6886ba34"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_AUD_CTRL_RUN_MASK</div><div class="ttdoc">AUD Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:356</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
 </div><!-- fragment -->
 <p>This macro disables audio in HDMI TX core. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -451,8 +478,8 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">    if ((InstancePtr)-&gt;Stream.IsHdmi) { \</div><div class="line">        XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">        (<a class="code" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>)); \</div><div class="line">    } \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a72bdef52359446483eab0a4b6886ba34"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_AUD_CTRL_RUN_MASK</div><div class="ttdoc">AUD Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:331</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a0657ebf695c90d411c0ecd63aed71d96"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_AUD_CTRL_SET_OFFSET</div><div class="ttdoc">AUD Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:314</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">    if ((InstancePtr)-&gt;Stream.IsHdmi) { \</div><div class="line">        XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">        (<a class="code" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>)); \</div><div class="line">    } \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a72bdef52359446483eab0a4b6886ba34"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_AUD_CTRL_RUN_MASK</div><div class="ttdoc">AUD Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:356</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a0657ebf695c90d411c0ecd63aed71d96"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_AUD_CTRL_SET_OFFSET</div><div class="ttdoc">AUD Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:339</div></div>
 </div><!-- fragment -->
 <p>This macro enables audio in HDMI TX core. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -463,6 +490,8 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="xv__hdmitx_8h.html#a0beadeffb41701e2a173c87289d487c4" title="This macro enables audio in HDMI TX core. ">XV_HdmiTx_AudioEnable(XV_HdmiTx *InstancePtr)</a> </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#ab5d2bcd25ed4a775b87e716ad8d2a8d6">XV_HdmiTx_SetHdmiMode()</a>.</p>
 
 </div>
 </div>
@@ -481,9 +510,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a487977b6c692a3cabd9708d199cc6fde"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_AUD_CTRL_CLR_OFFSET</div><div class="ttdoc">AUD Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:317</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a72bdef52359446483eab0a4b6886ba34"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_AUD_CTRL_RUN_MASK</div><div class="ttdoc">AUD Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:331</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a487977b6c692a3cabd9708d199cc6fde"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_AUD_CTRL_CLR_OFFSET</div><div class="ttdoc">AUD Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:342</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a72bdef52359446483eab0a4b6886ba34"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_AUD_CTRL_RUN_MASK</div><div class="ttdoc">AUD Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:356</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
 </div><!-- fragment -->
 <p>This macro mutes audio in HDMI TX core. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -512,9 +541,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a72bdef52359446483eab0a4b6886ba34"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_AUD_CTRL_RUN_MASK</div><div class="ttdoc">AUD Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:331</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a0657ebf695c90d411c0ecd63aed71d96"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_AUD_CTRL_SET_OFFSET</div><div class="ttdoc">AUD Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:314</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a72bdef52359446483eab0a4b6886ba34"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_AUD_CTRL_RUN_MASK</div><div class="ttdoc">AUD Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:356</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a0657ebf695c90d411c0ecd63aed71d96"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_AUD_CTRL_SET_OFFSET</div><div class="ttdoc">AUD Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:339</div></div>
 </div><!-- fragment -->
 <p>This macro unmutes audio in HDMI TX core. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -543,9 +572,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a2f87dd0bb31f82655eabba7db6189540">XV_HDMITX_AUX_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a586d49d608b7effcbd9176c782ca59da">XV_HDMITX_AUX_CTRL_RUN_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a586d49d608b7effcbd9176c782ca59da"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a586d49d608b7effcbd9176c782ca59da">XV_HDMITX_AUX_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_AUX_CTRL_RUN_MASK</div><div class="ttdoc">AUX Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:279</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a2f87dd0bb31f82655eabba7db6189540"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a2f87dd0bb31f82655eabba7db6189540">XV_HDMITX_AUX_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_AUX_CTRL_CLR_OFFSET</div><div class="ttdoc">AUX Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:268</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a2f87dd0bb31f82655eabba7db6189540">XV_HDMITX_AUX_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a586d49d608b7effcbd9176c782ca59da">XV_HDMITX_AUX_CTRL_RUN_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a586d49d608b7effcbd9176c782ca59da"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a586d49d608b7effcbd9176c782ca59da">XV_HDMITX_AUX_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_AUX_CTRL_RUN_MASK</div><div class="ttdoc">AUX Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:304</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a2f87dd0bb31f82655eabba7db6189540"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a2f87dd0bb31f82655eabba7db6189540">XV_HDMITX_AUX_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_AUX_CTRL_CLR_OFFSET</div><div class="ttdoc">AUX Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:293</div></div>
 </div><!-- fragment -->
 <p>This macro disables the HDMI TX Auxiliary (AUX) peripheral. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -576,8 +605,8 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">    if ((InstancePtr)-&gt;Stream.IsHdmi) { \</div><div class="line">        XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">        (<a class="code" href="xv__hdmitx__hw_8h.html#aa9117e3cd8d01675a6a9db523a49807e">XV_HDMITX_AUX_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a586d49d608b7effcbd9176c782ca59da">XV_HDMITX_AUX_CTRL_RUN_MASK</a>)); \</div><div class="line">    } \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a586d49d608b7effcbd9176c782ca59da"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a586d49d608b7effcbd9176c782ca59da">XV_HDMITX_AUX_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_AUX_CTRL_RUN_MASK</div><div class="ttdoc">AUX Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:279</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_aa9117e3cd8d01675a6a9db523a49807e"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aa9117e3cd8d01675a6a9db523a49807e">XV_HDMITX_AUX_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_AUX_CTRL_SET_OFFSET</div><div class="ttdoc">AUX Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:265</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">    if ((InstancePtr)-&gt;Stream.IsHdmi) { \</div><div class="line">        XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">        (<a class="code" href="xv__hdmitx__hw_8h.html#aa9117e3cd8d01675a6a9db523a49807e">XV_HDMITX_AUX_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a586d49d608b7effcbd9176c782ca59da">XV_HDMITX_AUX_CTRL_RUN_MASK</a>)); \</div><div class="line">    } \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a586d49d608b7effcbd9176c782ca59da"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a586d49d608b7effcbd9176c782ca59da">XV_HDMITX_AUX_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_AUX_CTRL_RUN_MASK</div><div class="ttdoc">AUX Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:304</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_aa9117e3cd8d01675a6a9db523a49807e"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aa9117e3cd8d01675a6a9db523a49807e">XV_HDMITX_AUX_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_AUX_CTRL_SET_OFFSET</div><div class="ttdoc">AUX Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:290</div></div>
 </div><!-- fragment -->
 <p>This macro enables the HDMI TX Auxiliary (AUX) peripheral. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -588,6 +617,8 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="xv__hdmitx_8h.html#ac0ac0a64725ea05d65bda3554cd4e29f" title="This macro enables the HDMI TX Auxiliary (AUX) peripheral. ">XV_HdmiTx_AuxEnable(XV_HdmiTx *InstancePtr)</a> </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#ab5d2bcd25ed4a775b87e716ad8d2a8d6">XV_HdmiTx_SetHdmiMode()</a>.</p>
 
 </div>
 </div>
@@ -606,9 +637,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a2f87dd0bb31f82655eabba7db6189540">XV_HDMITX_AUX_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a060b91563a63af214d8ca983278d38eb">XV_HDMITX_AUX_CTRL_IE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a2f87dd0bb31f82655eabba7db6189540"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a2f87dd0bb31f82655eabba7db6189540">XV_HDMITX_AUX_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_AUX_CTRL_CLR_OFFSET</div><div class="ttdoc">AUX Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:268</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a060b91563a63af214d8ca983278d38eb"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a060b91563a63af214d8ca983278d38eb">XV_HDMITX_AUX_CTRL_IE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_AUX_CTRL_IE_MASK</div><div class="ttdoc">AUX Control Interrupt Enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:280</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a2f87dd0bb31f82655eabba7db6189540">XV_HDMITX_AUX_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a060b91563a63af214d8ca983278d38eb">XV_HDMITX_AUX_CTRL_IE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a2f87dd0bb31f82655eabba7db6189540"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a2f87dd0bb31f82655eabba7db6189540">XV_HDMITX_AUX_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_AUX_CTRL_CLR_OFFSET</div><div class="ttdoc">AUX Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:293</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a060b91563a63af214d8ca983278d38eb"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a060b91563a63af214d8ca983278d38eb">XV_HDMITX_AUX_CTRL_IE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_AUX_CTRL_IE_MASK</div><div class="ttdoc">AUX Control Interrupt Enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:305</div></div>
 </div><!-- fragment -->
 <p>This macro disables interrupt in the HDMI TX AUX peripheral. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -637,9 +668,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#aa9117e3cd8d01675a6a9db523a49807e">XV_HDMITX_AUX_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a060b91563a63af214d8ca983278d38eb">XV_HDMITX_AUX_CTRL_IE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_aa9117e3cd8d01675a6a9db523a49807e"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aa9117e3cd8d01675a6a9db523a49807e">XV_HDMITX_AUX_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_AUX_CTRL_SET_OFFSET</div><div class="ttdoc">AUX Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:265</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a060b91563a63af214d8ca983278d38eb"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a060b91563a63af214d8ca983278d38eb">XV_HDMITX_AUX_CTRL_IE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_AUX_CTRL_IE_MASK</div><div class="ttdoc">AUX Control Interrupt Enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:280</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#aa9117e3cd8d01675a6a9db523a49807e">XV_HDMITX_AUX_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a060b91563a63af214d8ca983278d38eb">XV_HDMITX_AUX_CTRL_IE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_aa9117e3cd8d01675a6a9db523a49807e"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aa9117e3cd8d01675a6a9db523a49807e">XV_HDMITX_AUX_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_AUX_CTRL_SET_OFFSET</div><div class="ttdoc">AUX Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:290</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a060b91563a63af214d8ca983278d38eb"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a060b91563a63af214d8ca983278d38eb">XV_HDMITX_AUX_CTRL_IE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_AUX_CTRL_IE_MASK</div><div class="ttdoc">AUX Control Interrupt Enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:305</div></div>
 </div><!-- fragment -->
 <p>This macro enables interrupt in the HDMI TX AUX peripheral. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -678,9 +709,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (SetClr) { \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>), \</div><div class="line">                                                   (<a class="code" href="xv__hdmitx__hw_8h.html#a43259fa8be8e6d4990e225e7ef66deb6">XV_HDMITX_PIO_OUT_BRIDGE_PIXEL_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>), \</div><div class="line">                                                   (<a class="code" href="xv__hdmitx__hw_8h.html#a43259fa8be8e6d4990e225e7ef66deb6">XV_HDMITX_PIO_OUT_BRIDGE_PIXEL_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_afb3e424d18e1c4b146232b67699824eb"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:108</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a57cd09ceda16cfc89ad51ab5fd16c625"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:111</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a43259fa8be8e6d4990e225e7ef66deb6"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a43259fa8be8e6d4990e225e7ef66deb6">XV_HDMITX_PIO_OUT_BRIDGE_PIXEL_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_BRIDGE_PIXEL_MASK</div><div class="ttdoc">PIO Out Bridge_Pixel repeat mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:173</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (SetClr) { \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>), \</div><div class="line">                                                   (<a class="code" href="xv__hdmitx__hw_8h.html#a43259fa8be8e6d4990e225e7ef66deb6">XV_HDMITX_PIO_OUT_BRIDGE_PIXEL_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>), \</div><div class="line">                                                   (<a class="code" href="xv__hdmitx__hw_8h.html#a43259fa8be8e6d4990e225e7ef66deb6">XV_HDMITX_PIO_OUT_BRIDGE_PIXEL_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_afb3e424d18e1c4b146232b67699824eb"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:111</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a57cd09ceda16cfc89ad51ab5fd16c625"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:114</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a43259fa8be8e6d4990e225e7ef66deb6"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a43259fa8be8e6d4990e225e7ef66deb6">XV_HDMITX_PIO_OUT_BRIDGE_PIXEL_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_BRIDGE_PIXEL_MASK</div><div class="ttdoc">PIO Out Bridge_Pixel repeat mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:179</div></div>
 </div><!-- fragment -->
 <p>This macro controls the Pixel Repeat mode for video bridge. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -720,9 +751,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (SetClr) { \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>), \</div><div class="line">                                                   (<a class="code" href="xv__hdmitx__hw_8h.html#ae631917853f4efc05ec48b91a487e22e">XV_HDMITX_PIO_OUT_BRIDGE_YUV420_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>), \</div><div class="line">                                                   (<a class="code" href="xv__hdmitx__hw_8h.html#ae631917853f4efc05ec48b91a487e22e">XV_HDMITX_PIO_OUT_BRIDGE_YUV420_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_ae631917853f4efc05ec48b91a487e22e"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#ae631917853f4efc05ec48b91a487e22e">XV_HDMITX_PIO_OUT_BRIDGE_YUV420_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_BRIDGE_YUV420_MASK</div><div class="ttdoc">PIO Out Bridge_YUV420 mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:170</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_afb3e424d18e1c4b146232b67699824eb"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:108</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a57cd09ceda16cfc89ad51ab5fd16c625"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:111</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (SetClr) { \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>), \</div><div class="line">                                                   (<a class="code" href="xv__hdmitx__hw_8h.html#ae631917853f4efc05ec48b91a487e22e">XV_HDMITX_PIO_OUT_BRIDGE_YUV420_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>), \</div><div class="line">                                                   (<a class="code" href="xv__hdmitx__hw_8h.html#ae631917853f4efc05ec48b91a487e22e">XV_HDMITX_PIO_OUT_BRIDGE_YUV420_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_ae631917853f4efc05ec48b91a487e22e"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#ae631917853f4efc05ec48b91a487e22e">XV_HDMITX_PIO_OUT_BRIDGE_YUV420_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_BRIDGE_YUV420_MASK</div><div class="ttdoc">PIO Out Bridge_YUV420 mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:176</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_afb3e424d18e1c4b146232b67699824eb"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:111</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a57cd09ceda16cfc89ad51ab5fd16c625"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:114</div></div>
 </div><!-- fragment -->
 <p>This macro controls the YUV420 mode for video bridge. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -752,9 +783,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a8b22105cf60c90514691a778c3652769">XV_HDMITX_PIO_OUT_MODE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a8b22105cf60c90514691a778c3652769"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a8b22105cf60c90514691a778c3652769">XV_HDMITX_PIO_OUT_MODE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_MODE_MASK</div><div class="ttdoc">PIO Out Mode mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:142</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a57cd09ceda16cfc89ad51ab5fd16c625"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:111</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a8b22105cf60c90514691a778c3652769">XV_HDMITX_PIO_OUT_MODE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a8b22105cf60c90514691a778c3652769"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a8b22105cf60c90514691a778c3652769">XV_HDMITX_PIO_OUT_MODE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_MODE_MASK</div><div class="ttdoc">PIO Out Mode mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:145</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a57cd09ceda16cfc89ad51ab5fd16c625"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:114</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
 </div><!-- fragment -->
 <p>This macro clears the mode bit. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -785,9 +816,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a0183fc18bbe56540d95fc291e3060c38">XV_HDMITX_DDC_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a25f1a215971c5370677b19e3b9f16bf2">XV_HDMITX_DDC_CTRL_RUN_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a25f1a215971c5370677b19e3b9f16bf2"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a25f1a215971c5370677b19e3b9f16bf2">XV_HDMITX_DDC_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_DDC_CTRL_RUN_MASK</div><div class="ttdoc">DDC Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:220</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a0183fc18bbe56540d95fc291e3060c38"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a0183fc18bbe56540d95fc291e3060c38">XV_HDMITX_DDC_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_DDC_CTRL_CLR_OFFSET</div><div class="ttdoc">DDC Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:206</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a0183fc18bbe56540d95fc291e3060c38">XV_HDMITX_DDC_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a25f1a215971c5370677b19e3b9f16bf2">XV_HDMITX_DDC_CTRL_RUN_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a25f1a215971c5370677b19e3b9f16bf2"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a25f1a215971c5370677b19e3b9f16bf2">XV_HDMITX_DDC_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_DDC_CTRL_RUN_MASK</div><div class="ttdoc">DDC Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:245</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a0183fc18bbe56540d95fc291e3060c38"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a0183fc18bbe56540d95fc291e3060c38">XV_HDMITX_DDC_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_DDC_CTRL_CLR_OFFSET</div><div class="ttdoc">DDC Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:231</div></div>
 </div><!-- fragment -->
 <p>This macro disables the HDMI TX Display Data Channel (DDC) peripheral. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -818,9 +849,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#aab4ea6581cb2fd09a5aabd906da25b17">XV_HDMITX_DDC_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a25f1a215971c5370677b19e3b9f16bf2">XV_HDMITX_DDC_CTRL_RUN_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_aab4ea6581cb2fd09a5aabd906da25b17"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aab4ea6581cb2fd09a5aabd906da25b17">XV_HDMITX_DDC_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_DDC_CTRL_SET_OFFSET</div><div class="ttdoc">DDC Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:203</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a25f1a215971c5370677b19e3b9f16bf2"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a25f1a215971c5370677b19e3b9f16bf2">XV_HDMITX_DDC_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_DDC_CTRL_RUN_MASK</div><div class="ttdoc">DDC Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:220</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#aab4ea6581cb2fd09a5aabd906da25b17">XV_HDMITX_DDC_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a25f1a215971c5370677b19e3b9f16bf2">XV_HDMITX_DDC_CTRL_RUN_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_aab4ea6581cb2fd09a5aabd906da25b17"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aab4ea6581cb2fd09a5aabd906da25b17">XV_HDMITX_DDC_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_DDC_CTRL_SET_OFFSET</div><div class="ttdoc">DDC Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:228</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a25f1a215971c5370677b19e3b9f16bf2"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a25f1a215971c5370677b19e3b9f16bf2">XV_HDMITX_DDC_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_DDC_CTRL_RUN_MASK</div><div class="ttdoc">DDC Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:245</div></div>
 </div><!-- fragment -->
 <p>This macro enables the HDMI TX Display Data Channel (DDC) peripheral. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -851,9 +882,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#add689faff8e7c346c9d8202355678a22">XV_HDMITX_DDC_STA_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#aed853aca89756ea743e083e7573d1617">XV_HDMITX_DDC_STA_IRQ_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_add689faff8e7c346c9d8202355678a22"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#add689faff8e7c346c9d8202355678a22">XV_HDMITX_DDC_STA_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_DDC_STA_OFFSET</div><div class="ttdoc">DDC Status Register * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:209</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_aed853aca89756ea743e083e7573d1617"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aed853aca89756ea743e083e7573d1617">XV_HDMITX_DDC_STA_IRQ_MASK</a></div><div class="ttdeci">#define XV_HDMITX_DDC_STA_IRQ_MASK</div><div class="ttdoc">DDC Status IRQ mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:231</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#add689faff8e7c346c9d8202355678a22">XV_HDMITX_DDC_STA_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#aed853aca89756ea743e083e7573d1617">XV_HDMITX_DDC_STA_IRQ_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_add689faff8e7c346c9d8202355678a22"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#add689faff8e7c346c9d8202355678a22">XV_HDMITX_DDC_STA_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_DDC_STA_OFFSET</div><div class="ttdoc">DDC Status Register * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:234</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_aed853aca89756ea743e083e7573d1617"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aed853aca89756ea743e083e7573d1617">XV_HDMITX_DDC_STA_IRQ_MASK</a></div><div class="ttdeci">#define XV_HDMITX_DDC_STA_IRQ_MASK</div><div class="ttdoc">DDC Status IRQ mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:256</div></div>
 </div><!-- fragment -->
 <p>This macro clears HDMI TX DDC interrupt. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -882,9 +913,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a0183fc18bbe56540d95fc291e3060c38">XV_HDMITX_DDC_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a0b2d0351f601ac8afdc99e651a916111">XV_HDMITX_DDC_CTRL_IE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a0b2d0351f601ac8afdc99e651a916111"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a0b2d0351f601ac8afdc99e651a916111">XV_HDMITX_DDC_CTRL_IE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_DDC_CTRL_IE_MASK</div><div class="ttdoc">DDC Control Interrupt Enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:221</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a0183fc18bbe56540d95fc291e3060c38"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a0183fc18bbe56540d95fc291e3060c38">XV_HDMITX_DDC_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_DDC_CTRL_CLR_OFFSET</div><div class="ttdoc">DDC Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:206</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a0183fc18bbe56540d95fc291e3060c38">XV_HDMITX_DDC_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a0b2d0351f601ac8afdc99e651a916111">XV_HDMITX_DDC_CTRL_IE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a0b2d0351f601ac8afdc99e651a916111"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a0b2d0351f601ac8afdc99e651a916111">XV_HDMITX_DDC_CTRL_IE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_DDC_CTRL_IE_MASK</div><div class="ttdoc">DDC Control Interrupt Enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:246</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a0183fc18bbe56540d95fc291e3060c38"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a0183fc18bbe56540d95fc291e3060c38">XV_HDMITX_DDC_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_DDC_CTRL_CLR_OFFSET</div><div class="ttdoc">DDC Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:231</div></div>
 </div><!-- fragment -->
 <p>This macro disables interrupt in the HDMI TX DDC peripheral. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -915,9 +946,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#aab4ea6581cb2fd09a5aabd906da25b17">XV_HDMITX_DDC_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a0b2d0351f601ac8afdc99e651a916111">XV_HDMITX_DDC_CTRL_IE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_aab4ea6581cb2fd09a5aabd906da25b17"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aab4ea6581cb2fd09a5aabd906da25b17">XV_HDMITX_DDC_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_DDC_CTRL_SET_OFFSET</div><div class="ttdoc">DDC Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:203</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a0b2d0351f601ac8afdc99e651a916111"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a0b2d0351f601ac8afdc99e651a916111">XV_HDMITX_DDC_CTRL_IE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_DDC_CTRL_IE_MASK</div><div class="ttdoc">DDC Control Interrupt Enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:221</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#aab4ea6581cb2fd09a5aabd906da25b17">XV_HDMITX_DDC_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a0b2d0351f601ac8afdc99e651a916111">XV_HDMITX_DDC_CTRL_IE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_aab4ea6581cb2fd09a5aabd906da25b17"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aab4ea6581cb2fd09a5aabd906da25b17">XV_HDMITX_DDC_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_DDC_CTRL_SET_OFFSET</div><div class="ttdoc">DDC Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:228</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a0b2d0351f601ac8afdc99e651a916111"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a0b2d0351f601ac8afdc99e651a916111">XV_HDMITX_DDC_CTRL_IE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_DDC_CTRL_IE_MASK</div><div class="ttdoc">DDC Control Interrupt Enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:246</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
 </div><!-- fragment -->
 <p>This macro enables interrupt in the HDMI TX DDC peripheral. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -973,9 +1004,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a73655a77916a05b7d8f82a921f15f7be">XV_HDMITX_PIO_OUT_OFFSET</a>)) &amp; (<a class="code" href="xv__hdmitx__hw_8h.html#a8b22105cf60c90514691a778c3652769">XV_HDMITX_PIO_OUT_MODE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a8b22105cf60c90514691a778c3652769"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a8b22105cf60c90514691a778c3652769">XV_HDMITX_PIO_OUT_MODE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_MODE_MASK</div><div class="ttdoc">PIO Out Mode mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:142</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a41b837de9bdbba60a15baa46362dd851"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a></div><div class="ttdeci">#define XV_HdmiTx_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">This macro reads a value from a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:411</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a73655a77916a05b7d8f82a921f15f7be"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a73655a77916a05b7d8f82a921f15f7be">XV_HDMITX_PIO_OUT_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_OFFSET</div><div class="ttdoc">PIO Out Register offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:105</div></div>
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a73655a77916a05b7d8f82a921f15f7be">XV_HDMITX_PIO_OUT_OFFSET</a>)) &amp; (<a class="code" href="xv__hdmitx__hw_8h.html#a8b22105cf60c90514691a778c3652769">XV_HDMITX_PIO_OUT_MODE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a8b22105cf60c90514691a778c3652769"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a8b22105cf60c90514691a778c3652769">XV_HDMITX_PIO_OUT_MODE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_MODE_MASK</div><div class="ttdoc">PIO Out Mode mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:145</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a41b837de9bdbba60a15baa46362dd851"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a></div><div class="ttdeci">#define XV_HdmiTx_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">This macro reads a value from a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:436</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a73655a77916a05b7d8f82a921f15f7be"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a73655a77916a05b7d8f82a921f15f7be">XV_HDMITX_PIO_OUT_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_OFFSET</div><div class="ttdoc">PIO Out Register offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:108</div></div>
 </div><!-- fragment -->
 <p>This macro provides the current mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1004,10 +1035,10 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">( ( (<a class="code" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>( (InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#ae1aa781005ce21dab9e7af6e4c091d0e">XV_HDMITX_PIO_IN_OFFSET</a>) ) ) &gt;&gt; (<a class="code" href="xv__hdmitx__hw_8h.html#a53a26ad8c741bb6defdabaf539c15f76">XV_HDMITX_PIO_IN_PPP_SHIFT</a>)) \</div><div class="line">    &amp; (<a class="code" href="xv__hdmitx__hw_8h.html#afe3ba46026108ca4004a2c1f4e175cda">XV_HDMITX_PIO_IN_PPP_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a41b837de9bdbba60a15baa46362dd851"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a></div><div class="ttdeci">#define XV_HdmiTx_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">This macro reads a value from a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:411</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_ae1aa781005ce21dab9e7af6e4c091d0e"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#ae1aa781005ce21dab9e7af6e4c091d0e">XV_HDMITX_PIO_IN_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_IN_OFFSET</div><div class="ttdoc">PIO In Register offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:117</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a53a26ad8c741bb6defdabaf539c15f76"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a53a26ad8c741bb6defdabaf539c15f76">XV_HDMITX_PIO_IN_PPP_SHIFT</a></div><div class="ttdeci">#define XV_HDMITX_PIO_IN_PPP_SHIFT</div><div class="ttdoc">PIO In Pixel packing phase shift. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:190</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_afe3ba46026108ca4004a2c1f4e175cda"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#afe3ba46026108ca4004a2c1f4e175cda">XV_HDMITX_PIO_IN_PPP_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_IN_PPP_MASK</div><div class="ttdoc">PIO In Pixel packing phase mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:186</div></div>
+<b>Value:</b><div class="fragment"><div class="line">( ( (<a class="code" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>( (InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#ae1aa781005ce21dab9e7af6e4c091d0e">XV_HDMITX_PIO_IN_OFFSET</a>) ) ) &gt;&gt; (<a class="code" href="xv__hdmitx__hw_8h.html#a53a26ad8c741bb6defdabaf539c15f76">XV_HDMITX_PIO_IN_PPP_SHIFT</a>)) \</div><div class="line">    &amp; (<a class="code" href="xv__hdmitx__hw_8h.html#afe3ba46026108ca4004a2c1f4e175cda">XV_HDMITX_PIO_IN_PPP_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a41b837de9bdbba60a15baa46362dd851"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a></div><div class="ttdeci">#define XV_HdmiTx_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">This macro reads a value from a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:436</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_ae1aa781005ce21dab9e7af6e4c091d0e"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#ae1aa781005ce21dab9e7af6e4c091d0e">XV_HDMITX_PIO_IN_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_IN_OFFSET</div><div class="ttdoc">PIO In Register offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:120</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a53a26ad8c741bb6defdabaf539c15f76"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a53a26ad8c741bb6defdabaf539c15f76">XV_HDMITX_PIO_IN_PPP_SHIFT</a></div><div class="ttdeci">#define XV_HDMITX_PIO_IN_PPP_SHIFT</div><div class="ttdoc">PIO In Pixel packing phase shift. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:212</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_afe3ba46026108ca4004a2c1f4e175cda"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#afe3ba46026108ca4004a2c1f4e175cda">XV_HDMITX_PIO_IN_PPP_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_IN_PPP_MASK</div><div class="ttdoc">PIO In Pixel packing phase mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:208</div></div>
 </div><!-- fragment -->
 <p>This macro provides the current pixel packing phase. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1063,8 +1094,8 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">  (<a class="code" href="xv__hdmitx__hw_8h.html#aec908667ddf1597c82b2d5c16c21ca87">XV_HDMITX_VER_VERSION_OFFSET</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a41b837de9bdbba60a15baa46362dd851"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a></div><div class="ttdeci">#define XV_HdmiTx_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">This macro reads a value from a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:411</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_aec908667ddf1597c82b2d5c16c21ca87"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aec908667ddf1597c82b2d5c16c21ca87">XV_HDMITX_VER_VERSION_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_VER_VERSION_OFFSET</div><div class="ttdoc">VER Version Register * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:83</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">  (<a class="code" href="xv__hdmitx__hw_8h.html#aec908667ddf1597c82b2d5c16c21ca87">XV_HDMITX_VER_VERSION_OFFSET</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a41b837de9bdbba60a15baa46362dd851"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a></div><div class="ttdeci">#define XV_HdmiTx_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">This macro reads a value from a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:436</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_aec908667ddf1597c82b2d5c16c21ca87"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aec908667ddf1597c82b2d5c16c21ca87">XV_HDMITX_VER_VERSION_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_VER_VERSION_OFFSET</div><div class="ttdoc">VER Version Register * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:86</div></div>
 </div><!-- fragment -->
 <p>This macro reads the TX version. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1108,9 +1139,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#aa07be6429aa3de9196a5772fb5fb9df1">XV_HDMITX_MASK_CTRL_OFFSET</a>)) &amp; (<a class="code" href="xv__hdmitx__hw_8h.html#a4a2e6183da180f5788efe86b724434b8">XV_HDMITX_MASK_CTRL_RUN_MASK</a>)</div><div class="ttc" id="xv__hdmitx__hw_8h_html_aa07be6429aa3de9196a5772fb5fb9df1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aa07be6429aa3de9196a5772fb5fb9df1">XV_HDMITX_MASK_CTRL_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_OFFSET</div><div class="ttdoc">MASK Control Register * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:353</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a41b837de9bdbba60a15baa46362dd851"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a></div><div class="ttdeci">#define XV_HdmiTx_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">This macro reads a value from a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:411</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a4a2e6183da180f5788efe86b724434b8"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a4a2e6183da180f5788efe86b724434b8">XV_HDMITX_MASK_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_RUN_MASK</div><div class="ttdoc">MASK Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:376</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#aa07be6429aa3de9196a5772fb5fb9df1">XV_HDMITX_MASK_CTRL_OFFSET</a>)) &amp; (<a class="code" href="xv__hdmitx__hw_8h.html#a4a2e6183da180f5788efe86b724434b8">XV_HDMITX_MASK_CTRL_RUN_MASK</a>)</div><div class="ttc" id="xv__hdmitx__hw_8h_html_aa07be6429aa3de9196a5772fb5fb9df1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aa07be6429aa3de9196a5772fb5fb9df1">XV_HDMITX_MASK_CTRL_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_OFFSET</div><div class="ttdoc">MASK Control Register * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:378</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a41b837de9bdbba60a15baa46362dd851"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a></div><div class="ttdeci">#define XV_HdmiTx_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">This macro reads a value from a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:436</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a4a2e6183da180f5788efe86b724434b8"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a4a2e6183da180f5788efe86b724434b8">XV_HDMITX_MASK_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_RUN_MASK</div><div class="ttdoc">MASK Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:401</div></div>
 </div><!-- fragment -->
 <p>This macro provides the current video mask mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1139,8 +1170,8 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">        (<a class="code" href="xv__hdmitx__hw_8h.html#a3639d48e4561aad19842fd0d94a845a2">XV_HDMITX_MASK_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a4a2e6183da180f5788efe86b724434b8">XV_HDMITX_MASK_CTRL_RUN_MASK</a>)); \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3639d48e4561aad19842fd0d94a845a2"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3639d48e4561aad19842fd0d94a845a2">XV_HDMITX_MASK_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_CLR_OFFSET</div><div class="ttdoc">MASK Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:359</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a4a2e6183da180f5788efe86b724434b8"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a4a2e6183da180f5788efe86b724434b8">XV_HDMITX_MASK_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_RUN_MASK</div><div class="ttdoc">MASK Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:376</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">        (<a class="code" href="xv__hdmitx__hw_8h.html#a3639d48e4561aad19842fd0d94a845a2">XV_HDMITX_MASK_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a4a2e6183da180f5788efe86b724434b8">XV_HDMITX_MASK_CTRL_RUN_MASK</a>)); \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3639d48e4561aad19842fd0d94a845a2"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3639d48e4561aad19842fd0d94a845a2">XV_HDMITX_MASK_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_CLR_OFFSET</div><div class="ttdoc">MASK Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:384</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a4a2e6183da180f5788efe86b724434b8"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a4a2e6183da180f5788efe86b724434b8">XV_HDMITX_MASK_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_RUN_MASK</div><div class="ttdoc">MASK Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:401</div></div>
 </div><!-- fragment -->
 <p>This macro disables video mask in HDMI TX core. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1169,8 +1200,8 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">        (<a class="code" href="xv__hdmitx__hw_8h.html#ae10fec02c7d56b2f48deee7af38a7b8e">XV_HDMITX_MASK_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a4a2e6183da180f5788efe86b724434b8">XV_HDMITX_MASK_CTRL_RUN_MASK</a>)); \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_ae10fec02c7d56b2f48deee7af38a7b8e"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#ae10fec02c7d56b2f48deee7af38a7b8e">XV_HDMITX_MASK_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_SET_OFFSET</div><div class="ttdoc">MASK Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:356</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a4a2e6183da180f5788efe86b724434b8"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a4a2e6183da180f5788efe86b724434b8">XV_HDMITX_MASK_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_RUN_MASK</div><div class="ttdoc">MASK Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:376</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">        (<a class="code" href="xv__hdmitx__hw_8h.html#ae10fec02c7d56b2f48deee7af38a7b8e">XV_HDMITX_MASK_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a4a2e6183da180f5788efe86b724434b8">XV_HDMITX_MASK_CTRL_RUN_MASK</a>)); \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_ae10fec02c7d56b2f48deee7af38a7b8e"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#ae10fec02c7d56b2f48deee7af38a7b8e">XV_HDMITX_MASK_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_SET_OFFSET</div><div class="ttdoc">MASK Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:381</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a4a2e6183da180f5788efe86b724434b8"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a4a2e6183da180f5788efe86b724434b8">XV_HDMITX_MASK_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_RUN_MASK</div><div class="ttdoc">MASK Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:401</div></div>
 </div><!-- fragment -->
 <p>This macro enables video mask in HDMI TX core. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1209,9 +1240,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (SetClr) { \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#ae10fec02c7d56b2f48deee7af38a7b8e">XV_HDMITX_MASK_CTRL_SET_OFFSET</a>), \</div><div class="line">                                                   (<a class="code" href="xv__hdmitx__hw_8h.html#ad38ac97d5502d061626fe17deb93b658">XV_HDMITX_MASK_CTRL_NOISE_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#a3639d48e4561aad19842fd0d94a845a2">XV_HDMITX_MASK_CTRL_CLR_OFFSET</a>), \</div><div class="line">                                                   (<a class="code" href="xv__hdmitx__hw_8h.html#ad38ac97d5502d061626fe17deb93b658">XV_HDMITX_MASK_CTRL_NOISE_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3639d48e4561aad19842fd0d94a845a2"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3639d48e4561aad19842fd0d94a845a2">XV_HDMITX_MASK_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_CLR_OFFSET</div><div class="ttdoc">MASK Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:359</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_ad38ac97d5502d061626fe17deb93b658"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#ad38ac97d5502d061626fe17deb93b658">XV_HDMITX_MASK_CTRL_NOISE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_NOISE_MASK</div><div class="ttdoc">MASK Control Noise. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:377</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_ae10fec02c7d56b2f48deee7af38a7b8e"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#ae10fec02c7d56b2f48deee7af38a7b8e">XV_HDMITX_MASK_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_SET_OFFSET</div><div class="ttdoc">MASK Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:356</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (SetClr) { \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#ae10fec02c7d56b2f48deee7af38a7b8e">XV_HDMITX_MASK_CTRL_SET_OFFSET</a>), \</div><div class="line">                                                   (<a class="code" href="xv__hdmitx__hw_8h.html#ad38ac97d5502d061626fe17deb93b658">XV_HDMITX_MASK_CTRL_NOISE_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#a3639d48e4561aad19842fd0d94a845a2">XV_HDMITX_MASK_CTRL_CLR_OFFSET</a>), \</div><div class="line">                                                   (<a class="code" href="xv__hdmitx__hw_8h.html#ad38ac97d5502d061626fe17deb93b658">XV_HDMITX_MASK_CTRL_NOISE_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3639d48e4561aad19842fd0d94a845a2"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3639d48e4561aad19842fd0d94a845a2">XV_HDMITX_MASK_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_CLR_OFFSET</div><div class="ttdoc">MASK Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:384</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_ad38ac97d5502d061626fe17deb93b658"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#ad38ac97d5502d061626fe17deb93b658">XV_HDMITX_MASK_CTRL_NOISE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_NOISE_MASK</div><div class="ttdoc">MASK Control Noise. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:402</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_ae10fec02c7d56b2f48deee7af38a7b8e"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#ae10fec02c7d56b2f48deee7af38a7b8e">XV_HDMITX_MASK_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_MASK_CTRL_SET_OFFSET</div><div class="ttdoc">MASK Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:381</div></div>
 </div><!-- fragment -->
 <p>This macro enables or disables the noise in the video mask. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1251,7 +1282,7 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#a9647e1e833bcf466af722bb35001ab8e">XV_HDMITX_MASK_BLUE_OFFSET</a>), \</div><div class="line">                                                   (Value)); \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a9647e1e833bcf466af722bb35001ab8e"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a9647e1e833bcf466af722bb35001ab8e">XV_HDMITX_MASK_BLUE_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_MASK_BLUE_OFFSET</div><div class="ttdoc">MASK Blue Component Register * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:371</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#a9647e1e833bcf466af722bb35001ab8e">XV_HDMITX_MASK_BLUE_OFFSET</a>), \</div><div class="line">                                                   (Value)); \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a9647e1e833bcf466af722bb35001ab8e"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a9647e1e833bcf466af722bb35001ab8e">XV_HDMITX_MASK_BLUE_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_MASK_BLUE_OFFSET</div><div class="ttdoc">MASK Blue Component Register * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:396</div></div>
 </div><!-- fragment -->
 <p>This macro sets the blue component value in the video mask. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1291,7 +1322,7 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#aca10d7d68e20ce01b1cf316e595f36aa">XV_HDMITX_MASK_GREEN_OFFSET</a>), \</div><div class="line">                                                   (Value)); \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_aca10d7d68e20ce01b1cf316e595f36aa"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aca10d7d68e20ce01b1cf316e595f36aa">XV_HDMITX_MASK_GREEN_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_MASK_GREEN_OFFSET</div><div class="ttdoc">MASK Green Component Register * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:368</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#aca10d7d68e20ce01b1cf316e595f36aa">XV_HDMITX_MASK_GREEN_OFFSET</a>), \</div><div class="line">                                                   (Value)); \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_aca10d7d68e20ce01b1cf316e595f36aa"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aca10d7d68e20ce01b1cf316e595f36aa">XV_HDMITX_MASK_GREEN_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_MASK_GREEN_OFFSET</div><div class="ttdoc">MASK Green Component Register * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:393</div></div>
 </div><!-- fragment -->
 <p>This macro sets the green component value in the video mask. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1331,7 +1362,7 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#a348a93aa41e2334b3daa3cdd15e4b8a7">XV_HDMITX_MASK_RED_OFFSET</a>), \</div><div class="line">                                                   (Value)); \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a348a93aa41e2334b3daa3cdd15e4b8a7"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a348a93aa41e2334b3daa3cdd15e4b8a7">XV_HDMITX_MASK_RED_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_MASK_RED_OFFSET</div><div class="ttdoc">MASK Red Component Register * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:365</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">                XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                                   (<a class="code" href="xv__hdmitx__hw_8h.html#a348a93aa41e2334b3daa3cdd15e4b8a7">XV_HDMITX_MASK_RED_OFFSET</a>), \</div><div class="line">                                                   (Value)); \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a348a93aa41e2334b3daa3cdd15e4b8a7"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a348a93aa41e2334b3daa3cdd15e4b8a7">XV_HDMITX_MASK_RED_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_MASK_RED_OFFSET</div><div class="ttdoc">MASK Red Component Register * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:390</div></div>
 </div><!-- fragment -->
 <p>This macro sets the red component value in the video mask. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1361,9 +1392,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#ad1d5bdab7fa4daf868d93d2edd96f566">XV_HDMITX_PIO_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a40a412194d70fcbb53cef17eea048fa3">XV_HDMITX_PIO_CTRL_RUN_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a40a412194d70fcbb53cef17eea048fa3"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a40a412194d70fcbb53cef17eea048fa3">XV_HDMITX_PIO_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_CTRL_RUN_MASK</div><div class="ttdoc">PIO Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:131</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_ad1d5bdab7fa4daf868d93d2edd96f566"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#ad1d5bdab7fa4daf868d93d2edd96f566">XV_HDMITX_PIO_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_CTRL_CLR_OFFSET</div><div class="ttdoc">PIO Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:99</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#ad1d5bdab7fa4daf868d93d2edd96f566">XV_HDMITX_PIO_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a40a412194d70fcbb53cef17eea048fa3">XV_HDMITX_PIO_CTRL_RUN_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a40a412194d70fcbb53cef17eea048fa3"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a40a412194d70fcbb53cef17eea048fa3">XV_HDMITX_PIO_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_CTRL_RUN_MASK</div><div class="ttdoc">PIO Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:134</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_ad1d5bdab7fa4daf868d93d2edd96f566"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#ad1d5bdab7fa4daf868d93d2edd96f566">XV_HDMITX_PIO_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_CTRL_CLR_OFFSET</div><div class="ttdoc">PIO Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:102</div></div>
 </div><!-- fragment -->
 <p>This macro disables the HDMI TX PIO peripheral. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1392,9 +1423,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a8e98120a6a24452d2865d24f740129b1">XV_HDMITX_PIO_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a40a412194d70fcbb53cef17eea048fa3">XV_HDMITX_PIO_CTRL_RUN_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a40a412194d70fcbb53cef17eea048fa3"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a40a412194d70fcbb53cef17eea048fa3">XV_HDMITX_PIO_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_CTRL_RUN_MASK</div><div class="ttdoc">PIO Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:131</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a8e98120a6a24452d2865d24f740129b1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a8e98120a6a24452d2865d24f740129b1">XV_HDMITX_PIO_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_CTRL_SET_OFFSET</div><div class="ttdoc">PIO Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:96</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a8e98120a6a24452d2865d24f740129b1">XV_HDMITX_PIO_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a40a412194d70fcbb53cef17eea048fa3">XV_HDMITX_PIO_CTRL_RUN_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a40a412194d70fcbb53cef17eea048fa3"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a40a412194d70fcbb53cef17eea048fa3">XV_HDMITX_PIO_CTRL_RUN_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_CTRL_RUN_MASK</div><div class="ttdoc">PIO Control Run mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:134</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a8e98120a6a24452d2865d24f740129b1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a8e98120a6a24452d2865d24f740129b1">XV_HDMITX_PIO_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_CTRL_SET_OFFSET</div><div class="ttdoc">PIO Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:99</div></div>
 </div><!-- fragment -->
 <p>This macro enables the HDMI TX PIO peripheral. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1423,9 +1454,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a9374a3f25d4d9c91c02d383d66443b4b">XV_HDMITX_PIO_STA_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#aa8c178b5851211ca5b20faee275a73f8">XV_HDMITX_PIO_STA_IRQ_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a9374a3f25d4d9c91c02d383d66443b4b"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a9374a3f25d4d9c91c02d383d66443b4b">XV_HDMITX_PIO_STA_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_STA_OFFSET</div><div class="ttdoc">PIO Status Register * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:102</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_aa8c178b5851211ca5b20faee275a73f8"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aa8c178b5851211ca5b20faee275a73f8">XV_HDMITX_PIO_STA_IRQ_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_STA_IRQ_MASK</div><div class="ttdoc">PIO Status Interrupt mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:137</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a9374a3f25d4d9c91c02d383d66443b4b">XV_HDMITX_PIO_STA_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#aa8c178b5851211ca5b20faee275a73f8">XV_HDMITX_PIO_STA_IRQ_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a9374a3f25d4d9c91c02d383d66443b4b"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a9374a3f25d4d9c91c02d383d66443b4b">XV_HDMITX_PIO_STA_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_STA_OFFSET</div><div class="ttdoc">PIO Status Register * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:105</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_aa8c178b5851211ca5b20faee275a73f8"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aa8c178b5851211ca5b20faee275a73f8">XV_HDMITX_PIO_STA_IRQ_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_STA_IRQ_MASK</div><div class="ttdoc">PIO Status Interrupt mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:140</div></div>
 </div><!-- fragment -->
 <p>This macro clears HDMI TX PIO interrupt. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1454,9 +1485,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#ad1d5bdab7fa4daf868d93d2edd96f566">XV_HDMITX_PIO_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a912027acfdcf62f09ebcb9c4eafb1a74">XV_HDMITX_PIO_CTRL_IE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a912027acfdcf62f09ebcb9c4eafb1a74"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a912027acfdcf62f09ebcb9c4eafb1a74">XV_HDMITX_PIO_CTRL_IE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_CTRL_IE_MASK</div><div class="ttdoc">PIO Control Interrupt Enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:132</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_ad1d5bdab7fa4daf868d93d2edd96f566"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#ad1d5bdab7fa4daf868d93d2edd96f566">XV_HDMITX_PIO_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_CTRL_CLR_OFFSET</div><div class="ttdoc">PIO Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:99</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#ad1d5bdab7fa4daf868d93d2edd96f566">XV_HDMITX_PIO_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a912027acfdcf62f09ebcb9c4eafb1a74">XV_HDMITX_PIO_CTRL_IE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a912027acfdcf62f09ebcb9c4eafb1a74"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a912027acfdcf62f09ebcb9c4eafb1a74">XV_HDMITX_PIO_CTRL_IE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_CTRL_IE_MASK</div><div class="ttdoc">PIO Control Interrupt Enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:135</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_ad1d5bdab7fa4daf868d93d2edd96f566"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#ad1d5bdab7fa4daf868d93d2edd96f566">XV_HDMITX_PIO_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_CTRL_CLR_OFFSET</div><div class="ttdoc">PIO Control Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:102</div></div>
 </div><!-- fragment -->
 <p>This macro disables interrupt in the HDMI TX PIO peripheral. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1485,9 +1516,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a8e98120a6a24452d2865d24f740129b1">XV_HDMITX_PIO_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a912027acfdcf62f09ebcb9c4eafb1a74">XV_HDMITX_PIO_CTRL_IE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a912027acfdcf62f09ebcb9c4eafb1a74"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a912027acfdcf62f09ebcb9c4eafb1a74">XV_HDMITX_PIO_CTRL_IE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_CTRL_IE_MASK</div><div class="ttdoc">PIO Control Interrupt Enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:132</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a8e98120a6a24452d2865d24f740129b1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a8e98120a6a24452d2865d24f740129b1">XV_HDMITX_PIO_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_CTRL_SET_OFFSET</div><div class="ttdoc">PIO Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:96</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#a8e98120a6a24452d2865d24f740129b1">XV_HDMITX_PIO_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a912027acfdcf62f09ebcb9c4eafb1a74">XV_HDMITX_PIO_CTRL_IE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a912027acfdcf62f09ebcb9c4eafb1a74"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a912027acfdcf62f09ebcb9c4eafb1a74">XV_HDMITX_PIO_CTRL_IE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_CTRL_IE_MASK</div><div class="ttdoc">PIO Control Interrupt Enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:135</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a8e98120a6a24452d2865d24f740129b1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a8e98120a6a24452d2865d24f740129b1">XV_HDMITX_PIO_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_CTRL_SET_OFFSET</div><div class="ttdoc">PIO Control Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:99</div></div>
 </div><!-- fragment -->
 <p>This macro enables interrupt in the HDMI TX PIO peripheral. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1526,9 +1557,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">    if (Reset) { \</div><div class="line">        XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">        (<a class="code" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a3492813bb70421de0a228014bf8d949b">XV_HDMITX_PIO_OUT_RST_MASK</a>)); \</div><div class="line">    } \</div><div class="line">    else { \</div><div class="line">        XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">        (<a class="code" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a3492813bb70421de0a228014bf8d949b">XV_HDMITX_PIO_OUT_RST_MASK</a>)); \</div><div class="line">    } \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_afb3e424d18e1c4b146232b67699824eb"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:108</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a57cd09ceda16cfc89ad51ab5fd16c625"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:111</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a3492813bb70421de0a228014bf8d949b"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3492813bb70421de0a228014bf8d949b">XV_HDMITX_PIO_OUT_RST_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_RST_MASK</div><div class="ttdoc">PIO Out Reset mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:141</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">    if (Reset) { \</div><div class="line">        XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">        (<a class="code" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a3492813bb70421de0a228014bf8d949b">XV_HDMITX_PIO_OUT_RST_MASK</a>)); \</div><div class="line">    } \</div><div class="line">    else { \</div><div class="line">        XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">        (<a class="code" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a3492813bb70421de0a228014bf8d949b">XV_HDMITX_PIO_OUT_RST_MASK</a>)); \</div><div class="line">    } \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_afb3e424d18e1c4b146232b67699824eb"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:111</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a57cd09ceda16cfc89ad51ab5fd16c625"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:114</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a3492813bb70421de0a228014bf8d949b"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3492813bb70421de0a228014bf8d949b">XV_HDMITX_PIO_OUT_RST_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_RST_MASK</div><div class="ttdoc">PIO Out Reset mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:144</div></div>
 </div><!-- fragment -->
 <p>This macro asserts or releases the HDMI TX reset. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1558,9 +1589,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a8b22105cf60c90514691a778c3652769">XV_HDMITX_PIO_OUT_MODE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a8b22105cf60c90514691a778c3652769"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a8b22105cf60c90514691a778c3652769">XV_HDMITX_PIO_OUT_MODE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_MODE_MASK</div><div class="ttdoc">PIO Out Mode mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:142</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_afb3e424d18e1c4b146232b67699824eb"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:108</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:432</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">    (<a class="code" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#a8b22105cf60c90514691a778c3652769">XV_HDMITX_PIO_OUT_MODE_MASK</a>))</div><div class="ttc" id="xv__hdmitx__hw_8h_html_a8b22105cf60c90514691a778c3652769"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a8b22105cf60c90514691a778c3652769">XV_HDMITX_PIO_OUT_MODE_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_MODE_MASK</div><div class="ttdoc">PIO Out Mode mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:145</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_afb3e424d18e1c4b146232b67699824eb"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:111</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a3b74e3c052543284012c23ec717af9d1"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a></div><div class="ttdeci">#define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">This macro writes a value to a HDMI TX register. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:457</div></div>
 </div><!-- fragment -->
 <p>This macro sets the mode bit. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1601,9 +1632,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">    if (SetClr) { \</div><div class="line">        XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">        (<a class="code" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#aec658e14a00798e20cec912c330c4d0d">XV_HDMITX_PIO_OUT_SCRM_MASK</a>)); \</div><div class="line">        (InstancePtr)-&gt;Stream.IsScrambled = (TRUE); \</div><div class="line">    } \</div><div class="line">    else { \</div><div class="line">        XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">        (<a class="code" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#aec658e14a00798e20cec912c330c4d0d">XV_HDMITX_PIO_OUT_SCRM_MASK</a>)); \</div><div class="line">        (InstancePtr)-&gt;Stream.IsScrambled = (FALSE); \</div><div class="line">    } \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_afb3e424d18e1c4b146232b67699824eb"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:108</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_a57cd09ceda16cfc89ad51ab5fd16c625"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:111</div></div>
-<div class="ttc" id="xv__hdmitx__hw_8h_html_aec658e14a00798e20cec912c330c4d0d"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aec658e14a00798e20cec912c330c4d0d">XV_HDMITX_PIO_OUT_SCRM_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_SCRM_MASK</div><div class="ttdoc">PIO Out Scrambler mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:155</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">    if (SetClr) { \</div><div class="line">        XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">        (<a class="code" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#aec658e14a00798e20cec912c330c4d0d">XV_HDMITX_PIO_OUT_SCRM_MASK</a>)); \</div><div class="line">        (InstancePtr)-&gt;Stream.IsScrambled = (TRUE); \</div><div class="line">    } \</div><div class="line">    else { \</div><div class="line">        XV_HdmiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">        (<a class="code" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmitx__hw_8h.html#aec658e14a00798e20cec912c330c4d0d">XV_HDMITX_PIO_OUT_SCRM_MASK</a>)); \</div><div class="line">        (InstancePtr)-&gt;Stream.IsScrambled = (FALSE); \</div><div class="line">    } \</div><div class="line">}</div><div class="ttc" id="xv__hdmitx__hw_8h_html_afb3e424d18e1c4b146232b67699824eb"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:111</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_a57cd09ceda16cfc89ad51ab5fd16c625"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear * offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:114</div></div>
+<div class="ttc" id="xv__hdmitx__hw_8h_html_aec658e14a00798e20cec912c330c4d0d"><div class="ttname"><a href="xv__hdmitx__hw_8h.html#aec658e14a00798e20cec912c330c4d0d">XV_HDMITX_PIO_OUT_SCRM_MASK</a></div><div class="ttdeci">#define XV_HDMITX_PIO_OUT_SCRM_MASK</div><div class="ttdoc">PIO Out Scrambler mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmitx_hw.h:158</div></div>
 </div><!-- fragment -->
 <p>This macro controls the HDMI TX Scrambler. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1693,7 +1724,7 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx.html#ad9a3408bb742da4f3ae0c50eff9b3c9d">XV_HdmiTx::Aux</a>, <a class="el" href="struct_x_v___hdmi_tx___config.html#aed2a0eebe95b28c31ac48848df2a32bc">XV_HdmiTx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a7c08db92f62ad7f28dfdfac3561978db">XV_HdmiTx::Config</a>, <a class="el" href="union_x_v___hdmi_tx___aux_header.html#a37cbc78756a1fb7b5beec112cb31db21">XV_HdmiTx_AuxHeader::Data</a>, <a class="el" href="union_x_v___hdmi_tx___aux_data.html#a147164b51235094196f4c7945f0ae52d">XV_HdmiTx_AuxData::Data</a>, <a class="el" href="struct_x_v___hdmi_tx___aux.html#a14d8df8aeaa984669d3d4620e49c8122">XV_HdmiTx_Aux::Data</a>, <a class="el" href="struct_x_v___hdmi_tx___aux.html#a68e64852c1cd79ddfbf71c0ce03909f0">XV_HdmiTx_Aux::Header</a>, <a class="el" href="xv__hdmitx__hw_8h.html#ab4ffb246932642063518c85c719350a0">XV_HDMITX_AUX_DAT_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a471c6374f04e71189d48849b294155de">XV_HDMITX_AUX_STA_FIFO_FUL_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#aadeed071f9ae80ff300b531ea298f42a">XV_HDMITX_AUX_STA_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#ae8dd52aee290be2984731085f7668e44">XV_HDMITX_AUX_STA_PKT_RDY_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx.html#af5d85f51e28f37e441a90a42fcfb6213">XV_HdmiTx::Aux</a>, <a class="el" href="struct_x_v___hdmi_tx___config.html#aed2a0eebe95b28c31ac48848df2a32bc">XV_HdmiTx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a7c08db92f62ad7f28dfdfac3561978db">XV_HdmiTx::Config</a>, <a class="el" href="xv__hdmitx__hw_8h.html#ab4ffb246932642063518c85c719350a0">XV_HDMITX_AUX_DAT_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a471c6374f04e71189d48849b294155de">XV_HDMITX_AUX_STA_FIFO_FUL_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#aadeed071f9ae80ff300b531ea298f42a">XV_HDMITX_AUX_STA_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#ae8dd52aee290be2984731085f7668e44">XV_HDMITX_AUX_STA_PKT_RDY_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -1775,6 +1806,66 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is required after a reset or init. </dd></dl>
+
+</div>
+</div>
+<a id="a0e8e1d49d9f1cbcf266b5780a7724dab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e8e1d49d9f1cbcf266b5780a7724dab">&#9670;&nbsp;</a></span>XV_HdmiTx_ClearGcpAvmuteBit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTx_ClearGcpAvmuteBit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function clears the HDMI TX AUX GCP register AVMUTE bit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#aecae9177f56bf35251db6c967b60c2a3">XV_HDMITX_PIO_OUT_GCP_AVMUTE_MASK</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+
+</div>
+</div>
+<a id="af0f79865b06ffc79b2e92f1023dc2652"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0f79865b06ffc79b2e92f1023dc2652">&#9670;&nbsp;</a></span>XV_HdmiTx_ClearGcpClearAvmuteBit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTx_ClearGcpClearAvmuteBit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function clears the HDMI TX AUX GCP register CLEAR_AVMUTE bit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a5057e256f62c3af0dc0c4e08a6ebf5b3">XV_HDMITX_PIO_OUT_GCP_CLEARAVMUTE_MASK</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -2055,6 +2146,88 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
 
 </div>
 </div>
+<a id="a80f9f6414491351d34827b3c5e7f717a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80f9f6414491351d34827b3c5e7f717a">&#9670;&nbsp;</a></span>XV_HdmiTx_EXT_SYSRST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTx_EXT_SYSRST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Reset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function asserts or releases the HDMI TX External SYSRST. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance. </td></tr>
+    <tr><td class="paramname">Reset</td><td>specifies TRUE/FALSE value to either assert or release HDMI TX External SYSRST.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The reset output of the PIO is inverted. When the system is in reset, the PIO output is cleared and this will reset the HDMI TX. Therefore, clearing the PIO reset output will assert the HDMI External system reset. C-style signature: void <a class="el" href="xv__hdmitx_8c.html#a80f9f6414491351d34827b3c5e7f717a" title="This function asserts or releases the HDMI TX External SYSRST. ">XV_HdmiTx_EXT_SYSRST(XV_HdmiTx *InstancePtr, u8 Reset)</a> </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#ae6f495059257675ab6aab20debbb29ae">XV_HDMITX_PIO_OUT_EXT_SYSRST_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+
+</div>
+</div>
+<a id="aefad89689cab1a7ddcc37873b08a8faa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefad89689cab1a7ddcc37873b08a8faa">&#9670;&nbsp;</a></span>XV_HdmiTx_EXT_VRST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTx_EXT_VRST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Reset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function asserts or releases the HDMI TX External VRST. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance. </td></tr>
+    <tr><td class="paramname">Reset</td><td>specifies TRUE/FALSE value to either assert or release HDMI TX External VRST.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The reset output of the PIO is inverted. When the system is in reset, the PIO output is cleared and this will reset the HDMI TX. Therefore, clearing the PIO reset output will assert the HDMI external video reset. C-style signature: void <a class="el" href="xv__hdmitx_8c.html#aefad89689cab1a7ddcc37873b08a8faa" title="This function asserts or releases the HDMI TX External VRST. ">XV_HdmiTx_EXT_VRST(XV_HdmiTx *InstancePtr, u8 Reset)</a> </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a85c45b96a6535758a64f4bbde6736b30">XV_HDMITX_PIO_OUT_EXT_VRST_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+
+</div>
+</div>
 <a id="a1969dd5561dba784fdb82a4b8e634256"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1969dd5561dba784fdb82a4b8e634256">&#9670;&nbsp;</a></span>XV_HdmiTx_GetAudioFormat()</h2>
 
@@ -2082,6 +2255,161 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a78026a4105a831d8d1e2788c1d6ba913">XV_HDMITX_AUD_CTRL_AUDFMT_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0507ddc2e25096e01a650cf41849e35f">XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a1f37ae939243ded094b88763c8fbcc76">XV_HDMITX_AUD_CTRL_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>.</p>
+
+</div>
+</div>
+<a id="a8f0f03c92ab4f206b0a8e0d3c7a6c502"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f0f03c92ab4f206b0a8e0d3c7a6c502">&#9670;&nbsp;</a></span>XV_HdmiTx_GetTmdsClk()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XV_HdmiTx_GetTmdsClk </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XVidC_VideoMode&#160;</td>
+          <td class="paramname"><em>VideoMode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XVidC_ColorFormat&#160;</td>
+          <td class="paramname"><em>ColorFormat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XVidC_ColorDepth&#160;</td>
+          <td class="paramname"><em>Bpc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets and return the TMDS Clock based on Video Parameter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance. </td></tr>
+    <tr><td class="paramname">VideoMode</td><td>specifies resolution identifier. </td></tr>
+    <tr><td class="paramname">ColorFormat</td><td>specifies the type of color format.<ul>
+<li>0 = XVIDC_CSF_RGB</li>
+<li>1 = XVIDC_CSF_YCRCB_444</li>
+<li>2 = XVIDC_CSF_YCRCB_422</li>
+<li>3 = XVIDC_CSF_YCRCB_420 </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">Bpc</td><td>specifies the color depth/bits per color component.<ul>
+<li>6 = XVIDC_BPC_6</li>
+<li>8 = XVIDC_BPC_8</li>
+<li>10 = XVIDC_BPC_10</li>
+<li>12 = XVIDC_BPC_12</li>
+<li>16 = XVIDC_BPC_16</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>TMDS Clock</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___stream.html#ac40b3c4cd28b83852edc439caf9f7a44">XV_HdmiTx_Stream::PixelClk</a>, and <a class="el" href="struct_x_v___hdmi_tx.html#a0f92bb0204c62c0fc3402f018c062e40">XV_HdmiTx::Stream</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#ae42733f7ec1fcf5df4f6d537b588bab6">XV_HdmiTx_SetStream()</a>.</p>
+
+</div>
+</div>
+<a id="a44187420a93cd54ee4b68db1e80cd1e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44187420a93cd54ee4b68db1e80cd1e1">&#9670;&nbsp;</a></span>XV_HdmiTx_INT_LRST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTx_INT_LRST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Reset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function asserts or releases the HDMI TX Internal LRST. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance. </td></tr>
+    <tr><td class="paramname">Reset</td><td>specifies TRUE/FALSE value to either assert or release HDMI TX Internal LRST.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The reset output of the PIO is inverted. When the system is in reset, the PIO output is cleared and this will reset the HDMI TX. Therefore, clearing the PIO reset output will assert the HDMI Internal link reset. C-style signature: void <a class="el" href="xv__hdmitx_8c.html#a7df3873e5e622d92c651adbef0b83b0e" title="This function asserts or releases the HDMI TX Internal VRST. ">XV_HdmiTx_INT_VRST(XV_HdmiTx *InstancePtr, u8 Reset)</a> </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a190850cf65d40a36c67965b58ab719a7">XV_HDMITX_PIO_OUT_INT_LRST_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+
+</div>
+</div>
+<a id="a7df3873e5e622d92c651adbef0b83b0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7df3873e5e622d92c651adbef0b83b0e">&#9670;&nbsp;</a></span>XV_HdmiTx_INT_VRST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTx_INT_VRST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Reset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function asserts or releases the HDMI TX Internal VRST. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance. </td></tr>
+    <tr><td class="paramname">Reset</td><td>specifies TRUE/FALSE value to either assert or release HDMI TX Internal VRST.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The reset output of the PIO is inverted. When the system is in reset, the PIO output is cleared and this will reset the HDMI TX. Therefore, clearing the PIO reset output will assert the HDMI Internal video reset. C-style signature: void <a class="el" href="xv__hdmitx_8c.html#a7df3873e5e622d92c651adbef0b83b0e" title="This function asserts or releases the HDMI TX Internal VRST. ">XV_HdmiTx_INT_VRST(XV_HdmiTx *InstancePtr, u8 Reset)</a> </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#aaae3285766545ae8b717a709c376d449">XV_HDMITX_PIO_OUT_INT_VRST_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -2231,6 +2559,7 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
 </div><div class="memdoc">
 
 <p>This function controls the scrambler. </p>
+<p>Requires TMDSClock to be up to date in order to force enable scrambler when TMDSClock &gt; 340MHz.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance.</td></tr>
@@ -2244,7 +2573,7 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___stream.html#aff6cb4519db331ab7336ae75c2cc56b8">XV_HdmiTx_Stream::IsHdmi20</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#ae9ca6e199b3a6729a3a0db9cb6e43bbd">XV_HdmiTx_Stream::IsScrambled</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a0f92bb0204c62c0fc3402f018c062e40">XV_HdmiTx::Stream</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#a498466feabb81f3368b723a8104159d0">XV_HdmiTx_Stream::TMDSClock</a>, <a class="el" href="xv__hdmitx_8c.html#a09f62badd2afc029e5e4967644a37e5f">XV_HdmiTx_DdcRead()</a>, <a class="el" href="xv__hdmitx_8c.html#a852ea29dc77f7bff5509cbf7fe935ede">XV_HdmiTx_DdcWrite()</a>, and <a class="el" href="xv__hdmitx_8h.html#a6da173e33b955815176fd5640f7a1fbf">XV_HdmiTx_SetScrambler</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___stream.html#aff6cb4519db331ab7336ae75c2cc56b8">XV_HdmiTx_Stream::IsHdmi20</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#ae9ca6e199b3a6729a3a0db9cb6e43bbd">XV_HdmiTx_Stream::IsScrambled</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#a0f7391ec51828911287f12c706f48065">XV_HdmiTx_Stream::OverrideScrambler</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a0f92bb0204c62c0fc3402f018c062e40">XV_HdmiTx::Stream</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#a498466feabb81f3368b723a8104159d0">XV_HdmiTx_Stream::TMDSClock</a>, <a class="el" href="xv__hdmitx_8c.html#a09f62badd2afc029e5e4967644a37e5f">XV_HdmiTx_DdcRead()</a>, <a class="el" href="xv__hdmitx_8c.html#a852ea29dc77f7bff5509cbf7fe935ede">XV_HdmiTx_DdcWrite()</a>, and <a class="el" href="xv__hdmitx_8h.html#a6da173e33b955815176fd5640f7a1fbf">XV_HdmiTx_SetScrambler</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#ae42733f7ec1fcf5df4f6d537b588bab6">XV_HdmiTx_SetStream()</a>.</p>
 
@@ -2324,7 +2653,7 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a224d3ce0b2fa5396ac35464ab51e18c0">XV_HDMITX_AUD_CTRL_CH_SHIFT</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a1f37ae939243ded094b88763c8fbcc76">XV_HDMITX_AUD_CTRL_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a224d3ce0b2fa5396ac35464ab51e18c0">XV_HDMITX_AUD_CTRL_CH_SHIFT</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a1f37ae939243ded094b88763c8fbcc76">XV_HDMITX_AUD_CTRL_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -2569,6 +2898,66 @@ HandlerType              Callback Function Type
 
 </div>
 </div>
+<a id="a495a1c638020f63a0f9b30cf9584c57e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a495a1c638020f63a0f9b30cf9584c57e">&#9670;&nbsp;</a></span>XV_HdmiTx_SetGcpAvmuteBit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTx_SetGcpAvmuteBit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets the HDMI TX AUX GCP register AVMUTE bit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#aecae9177f56bf35251db6c967b60c2a3">XV_HDMITX_PIO_OUT_GCP_AVMUTE_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+
+</div>
+</div>
+<a id="a9f140138d5c101dcdf267acf1645f9ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f140138d5c101dcdf267acf1645f9ac">&#9670;&nbsp;</a></span>XV_HdmiTx_SetGcpClearAvmuteBit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTx_SetGcpClearAvmuteBit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets the HDMI TX AUX GCP register CLEAR_AVMUTE bit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a5057e256f62c3af0dc0c4e08a6ebf5b3">XV_HDMITX_PIO_OUT_GCP_CLEARAVMUTE_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+
+</div>
+</div>
 <a id="ab5d2bcd25ed4a775b87e716ad8d2a8d6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab5d2bcd25ed4a775b87e716ad8d2a8d6">&#9670;&nbsp;</a></span>XV_HdmiTx_SetHdmiMode()</h2>
 
@@ -2595,7 +2984,7 @@ HandlerType              Callback Function Type
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is required after a reset or init. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___stream.html#a094b972b5add25f8189946125ee5de37">XV_HdmiTx_Stream::IsHdmi</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a0f92bb0204c62c0fc3402f018c062e40">XV_HdmiTx::Stream</a>, and <a class="el" href="xv__hdmitx_8h.html#ab80fe1804de9125b96892b3fb9e41776">XV_HdmiTx_SetMode</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___stream.html#a094b972b5add25f8189946125ee5de37">XV_HdmiTx_Stream::IsHdmi</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a0f92bb0204c62c0fc3402f018c062e40">XV_HdmiTx::Stream</a>, <a class="el" href="xv__hdmitx_8h.html#a0beadeffb41701e2a173c87289d487c4">XV_HdmiTx_AudioEnable</a>, <a class="el" href="xv__hdmitx_8h.html#ac0ac0a64725ea05d65bda3554cd4e29f">XV_HdmiTx_AuxEnable</a>, and <a class="el" href="xv__hdmitx_8h.html#ab80fe1804de9125b96892b3fb9e41776">XV_HdmiTx_SetMode</a>.</p>
 
 </div>
 </div>
@@ -2759,7 +3148,7 @@ HandlerType              Callback Function Type
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 <p>In HDMI the colordepth in YUV422 is always 12 bits, although on the link itself it is being transmitted as 8-bits. Therefore if the colorspace is YUV422, then force the colordepth to 12 bits. </p>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___stream.html#aff6cb4519db331ab7336ae75c2cc56b8">XV_HdmiTx_Stream::IsHdmi20</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#ae9ca6e199b3a6729a3a0db9cb6e43bbd">XV_HdmiTx_Stream::IsScrambled</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#ac40b3c4cd28b83852edc439caf9f7a44">XV_HdmiTx_Stream::PixelClk</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a0f92bb0204c62c0fc3402f018c062e40">XV_HdmiTx::Stream</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#a498466feabb81f3368b723a8104159d0">XV_HdmiTx_Stream::TMDSClock</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#a2a32c654d0ab9b88f4d19c4985fae1f6">XV_HdmiTx_Stream::TMDSClockRatio</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#ab3d63314205b73121885a6da80cfe7cf">XV_HdmiTx_Stream::Vic</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#aed13920c568f0a6101fe97e5a0ce981a">XV_HdmiTx_Stream::Video</a>, <a class="el" href="xv__hdmitx_8c.html#a18857793bd92eafef197b339cf1f956e">XV_HdmiTx_ClockRatio()</a>, <a class="el" href="xv__hdmitx_8c.html#a748570ddedd1b3abe8f546d090b76197">XV_HdmiTx_LookupVic()</a>, <a class="el" href="xv__hdmitx_8c.html#a588fe097262642349aa193a0665ff81f">XV_HdmiTx_Scrambler()</a>, <a class="el" href="xv__hdmitx_8c.html#a9271b92c3193e1ce46a2b610080c6f06">XV_HdmiTx_SetColorDepth()</a>, <a class="el" href="xv__hdmitx_8c.html#aa8eb6378fdb4a48a22fdedb89cc3702a">XV_HdmiTx_SetColorFormat()</a>, and <a class="el" href="xv__hdmitx_8c.html#abe6e4feed643a46f8c5a09494d2e2874">XV_HdmiTx_SetPixelRate()</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___stream.html#aff6cb4519db331ab7336ae75c2cc56b8">XV_HdmiTx_Stream::IsHdmi20</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#ae9ca6e199b3a6729a3a0db9cb6e43bbd">XV_HdmiTx_Stream::IsScrambled</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a0f92bb0204c62c0fc3402f018c062e40">XV_HdmiTx::Stream</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#a498466feabb81f3368b723a8104159d0">XV_HdmiTx_Stream::TMDSClock</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#a2a32c654d0ab9b88f4d19c4985fae1f6">XV_HdmiTx_Stream::TMDSClockRatio</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#ab3d63314205b73121885a6da80cfe7cf">XV_HdmiTx_Stream::Vic</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#aed13920c568f0a6101fe97e5a0ce981a">XV_HdmiTx_Stream::Video</a>, <a class="el" href="xv__hdmitx_8c.html#a18857793bd92eafef197b339cf1f956e">XV_HdmiTx_ClockRatio()</a>, <a class="el" href="xv__hdmitx_8c.html#a8f0f03c92ab4f206b0a8e0d3c7a6c502">XV_HdmiTx_GetTmdsClk()</a>, <a class="el" href="xv__hdmitx_8c.html#a748570ddedd1b3abe8f546d090b76197">XV_HdmiTx_LookupVic()</a>, <a class="el" href="xv__hdmitx_8c.html#a588fe097262642349aa193a0665ff81f">XV_HdmiTx_Scrambler()</a>, <a class="el" href="xv__hdmitx_8c.html#a9271b92c3193e1ce46a2b610080c6f06">XV_HdmiTx_SetColorDepth()</a>, <a class="el" href="xv__hdmitx_8c.html#aa8eb6378fdb4a48a22fdedb89cc3702a">XV_HdmiTx_SetColorFormat()</a>, and <a class="el" href="xv__hdmitx_8c.html#abe6e4feed643a46f8c5a09494d2e2874">XV_HdmiTx_SetPixelRate()</a>.</p>
 
 </div>
 </div>
@@ -2911,8 +3300,8 @@ HandlerType              Callback Function Type
 
 </div>
 </div>
-<a id="a1d0cd29f231420cc000c3f3391eb5091"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d0cd29f231420cc000c3f3391eb5091">&#9670;&nbsp;</a></span>XV_HdmiTx_VSIF_GeneratePacket()</h2>
+<a id="a79e9fd00cabedf0d254cba229facf29b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79e9fd00cabedf0d254cba229facf29b">&#9670;&nbsp;</a></span>XV_HdmiTx_VSIF_GeneratePacket()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2926,7 +3315,7 @@ HandlerType              Callback Function Type
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx___aux.html">XV_HdmiTx_Aux</a> *&#160;</td>
+          <td class="paramtype">XHdmiC_Aux *&#160;</td>
           <td class="paramname"><em>AuxPtr</em>&#160;</td>
         </tr>
         <tr>
@@ -2951,7 +3340,7 @@ HandlerType              Callback Function Type
 </ul>
 </dd></dl>
 
-<p class="reference">References <a class="el" href="union_x_v___hdmi_tx___aux_header.html#a882555dd25b72d5cb2cbda20821f13bd">XV_HdmiTx_AuxHeader::Byte</a>, <a class="el" href="union_x_v___hdmi_tx___aux_data.html#ac843830fc220b44a408ab10ffcaaf71d">XV_HdmiTx_AuxData::Byte</a>, <a class="el" href="struct_x_v___hdmi_tx___aux.html#a14d8df8aeaa984669d3d4620e49c8122">XV_HdmiTx_Aux::Data</a>, <a class="el" href="struct_x_v___hdmi_tx___v_s_i_f.html#ad8f0aaebac0733ccaa92508c56bc9709">XV_HdmiTx_VSIF::Format</a>, <a class="el" href="struct_x_v___hdmi_tx___aux.html#a68e64852c1cd79ddfbf71c0ce03909f0">XV_HdmiTx_Aux::Header</a>, <a class="el" href="struct_x_v___hdmi_tx___v_s_i_f.html#a51e807c70d465e68d5310d1659aa1889">XV_HdmiTx_VSIF::IEEE_ID</a>, and <a class="el" href="struct_x_v___hdmi_tx___v_s_i_f.html#a68b83ba490350bfc2d82c42829cd1e40">XV_HdmiTx_VSIF::Version</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___v_s_i_f.html#ad8f0aaebac0733ccaa92508c56bc9709">XV_HdmiTx_VSIF::Format</a>, <a class="el" href="struct_x_v___hdmi_tx___v_s_i_f.html#a51e807c70d465e68d5310d1659aa1889">XV_HdmiTx_VSIF::IEEE_ID</a>, and <a class="el" href="struct_x_v___hdmi_tx___v_s_i_f.html#a68b83ba490350bfc2d82c42829cd1e40">XV_HdmiTx_VSIF::Version</a>.</p>
 
 </div>
 </div>

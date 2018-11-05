@@ -18,7 +18,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
  * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
@@ -51,9 +51,10 @@
  *                       TxChReconfig
  *                     Fixed c++ compiler warnings
  *                     Added xcvr adaptor functions for C++ compilations
+ * 1.7   gm   13/09/17 Added GTYE4 support
  * </pre>
  *
- * @addtogroup xvphy
+ * @addtogroup xvphy_v1_7
  * @{
 *******************************************************************************/
 
@@ -130,6 +131,8 @@ extern const XVphy_GtConfig Gtpe2Config;
 extern const XVphy_GtConfig Gthe3Config;
 #elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4)
 extern const XVphy_GtConfig Gthe4Config;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
+extern const XVphy_GtConfig Gtye4Config;
 #endif
 
 #endif /* XVPHY_GT_H_ */

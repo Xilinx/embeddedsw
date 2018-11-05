@@ -19,5 +19,6 @@ var struct_x_vphy___config =
     [ "TxProtocol", "struct_x_vphy___config.html#adbe118ccdd7e2f16d6ff2f0eb84e73fc", null ],
     [ "TxRefClkSel", "struct_x_vphy___config.html#a051aa77b41a00fb1fa60db838fb388e2", null ],
     [ "TxSysPllClkSel", "struct_x_vphy___config.html#a0a90870fb48e6531605c476589478da5", null ],
+    [ "UseGtAsTxTmdsClk", "struct_x_vphy___config.html#a99ff7516bbf21301a9d10ca0faf725a2", null ],
     [ "XcvrType", "struct_x_vphy___config.html#a9bdda7f6198220dbf4e388402d94b93a", null ]
 ];

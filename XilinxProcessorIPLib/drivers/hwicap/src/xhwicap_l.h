@@ -33,7 +33,7 @@
 /**
 *
 * @file xhwicap_l.h
-* @addtogroup hwicap_v10_1
+* @addtogroup hwicap_v11_1
 * @{
 *
 * This header file contains identifiers and basic driver functions (or

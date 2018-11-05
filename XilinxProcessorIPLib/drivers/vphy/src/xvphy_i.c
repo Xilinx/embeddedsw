@@ -18,7 +18,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
  * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
@@ -49,6 +49,7 @@
  *                     Added xcvr adaptor functions for C++ compilations
  * 1.6   gm   06/08/17 Added XVphy_MmcmLocked, XVphy_ErrorHandler and
  *                              XVphy_PllLayoutErrorHandler APIs
+ * 1.7   gm   13/09/17 Added GTYE4 support
  * </pre>
  *
 *******************************************************************************/
@@ -220,6 +221,7 @@ u32 XVphy_WriteCfgRefClkSelReg(XVphy *InstancePtr, u8 QuadId)
 	RegVal |= (ChPtr->CpllRefClkSel << XVPHY_REF_CLK_SEL_CPLL_SHIFT);
 	if ((GtType == XVPHY_GT_TYPE_GTHE3) ||
             (GtType == XVPHY_GT_TYPE_GTHE4) ||
+            (GtType == XVPHY_GT_TYPE_GTYE4) ||
             (GtType == XVPHY_GT_TYPE_GTPE2)) {
 		/* - QPLL1. */
 		RegVal &= ~XVPHY_REF_CLK_SEL_QPLL1_MASK;
@@ -1097,7 +1099,12 @@ void XVphy_Ch2Ids(XVphy *InstancePtr, XVphy_ChannelId ChId,
 		*Id0 = XVPHY_CHANNEL_ID_CH1;
 		if ((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
 			(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI)) {
-			*Id1 = XVPHY_CHANNEL_ID_CH3;
+			if (InstancePtr->Config.UseGtAsTxTmdsClk == TRUE) {
+				*Id1 = XVPHY_CHANNEL_ID_CH4;
+			}
+			else {
+				*Id1 = XVPHY_CHANNEL_ID_CH3;
+			}
 		}
 		else {
 			Channels = ((InstancePtr->Config.TxChannels >=
@@ -1122,7 +1129,8 @@ void XVphy_Ch2Ids(XVphy *InstancePtr, XVphy_ChannelId ChId,
 	else if (ChId == XVPHY_CHANNEL_ID_CMNA) {
 		*Id0 = XVPHY_CHANNEL_ID_CMN0;
 		if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE3) ||
-		    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE4)) {
+		    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE4) ||
+		    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTYE4)) {
 			*Id1 = XVPHY_CHANNEL_ID_CMN1;
 		}
 		else {

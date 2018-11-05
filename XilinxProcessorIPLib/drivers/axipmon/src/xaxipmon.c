@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxipmon.c
-* @addtogroup axipmon_v6_3
+* @addtogroup axipmon_v6_6
 * @{
 *
 * This file contains the driver API functions that can be used to access

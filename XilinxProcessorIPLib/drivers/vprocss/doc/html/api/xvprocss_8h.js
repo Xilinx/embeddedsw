@@ -40,7 +40,7 @@ var xvprocss_8h =
     [ "XVprocSs_LogRead", "xvprocss_8h.html#adf3fd2ffbed19ddf48ee19ef9368e5ac", null ],
     [ "XVprocSs_LogReset", "xvprocss_8h.html#a7bde6b4ee20f3546da3db9c8b3295d59", null ],
     [ "XVprocSs_LogWrite", "xvprocss_8h.html#a477ddfa18fa5fda8658ec72fb29a2d25", null ],
-    [ "XVprocSs_LookupConfig", "group__vprocss.html#gae1122f4587efc719f26e180560081e55", null ],
+    [ "XVprocSs_LookupConfig", "group__vprocss__v2__4.html#gae1122f4587efc719f26e180560081e55", null ],
     [ "XVprocSs_ReportSubcoreStatus", "xvprocss_8h.html#acc2dd89a8c01c86bf6093d842db67262", null ],
     [ "XVprocSs_ReportSubsystemConfig", "xvprocss_8h.html#abe70027604ba640917538338703b4a7f", null ],
     [ "XVprocSs_ReportSubsystemCoreInfo", "xvprocss_8h.html#af3ef2fc6d79df8ccb528644f8e539828", null ],

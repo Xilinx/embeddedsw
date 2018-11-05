@@ -37,6 +37,20 @@
 # ----- ---- -------- ---------------------------------------------------
 # 6.4   ms   05/23/17 Defined PSU_PMU macro in xparameters.h to support
 #                     XGetPSVersion_Info function for PMUFW.
+# 6.6   srm  10/18/17 Added xsleep_timer_config function to support the
+#                     sleep configuration using timers as specifed by the
+#					  user.
+# 6.6   hk   12/15/17 Define platform macros based on the processor in use.
+# 6.6   mus  01/29/18 Updated to add xen PV console support in Cortexa53 64
+#                     bit BSP.
+# 6.6   mus  02/02/18 Updated get_connected_if proc to detect the HPC port
+#                     configured with smart interconnect.
+# 6.6   mus  02/19/18 Updated handle_profile_opbtimer proc to cover the
+#                     scenario, where AXI timer is connected to the INTC
+#                     through concat IP.
+# 6.6   mus  02/23/18 Export macro for the debug logic configuration in
+# 		      Cortex R5 BSP, macro value is based on the
+#		      mld parameter "lockstep_mode_debug".
 #
 ##############################################################################
 
@@ -133,7 +147,7 @@ proc get_connected_if {drv_handle hpc_pin} {
 		return 0
 	} else {
 		set ipname [get_property IP_NAME $iphandle]
-		if {$ipname == "axi_interconnect"} {
+		if {$ipname == "axi_interconnect" || $ipname == "smartconnect"} {
 		     set iphandle [::hsi::utils::get_connected_stream_ip $iphandle S00_AXI]
 		     if { $iphandle == ""} {
 			 return 0
@@ -269,6 +283,13 @@ proc generate {os_handle} {
 	    } else {
 	        set ccdir "./src/arm/cortexa53/64bit/gcc"
 	        set cortexa53srcdir1 "./src/arm/cortexa53/64bit"
+	        set pvconsoledir "./src/arm/cortexa53/64bit/xpvxenconsole"
+	        set hypervisor_guest [common::get_property CONFIG.hypervisor_guest $os_handle ]
+	        if { $hypervisor_guest == "true" } {
+	             foreach entry [glob -nocomplain [file join $pvconsoledir *]] {
+			file copy -force $entry "./src/"
+		     }
+		}
 	    }
 
 	    set includedir "./src/arm/cortexa53/includes_ps"
@@ -282,6 +303,7 @@ proc generate {os_handle} {
 	    file copy -force $includedir "./src/"
             file delete -force "./src/gcc"
             file delete -force "./src/profile"
+	    file delete -force "./src/xpvxenconsole"
             if { $enable_sw_profile == "true" } {
                 error "ERROR: Profiling is not supported for A53"
             }
@@ -353,24 +375,16 @@ proc generate {os_handle} {
                     puts $file_handle ""
                 }
             }
-            set periphs [hsi::get_cells]
-            foreach periph $periphs {
-		if {[string compare -nocase "psu_ttc_3" $periph] == 0} {
-			set timer_baseaddr [::hsi::utils::get_param_value $periph "C_S_AXI_BASEADDR"]
-			if {[string compare -nocase "0xff140000" $timer_baseaddr] == 0} {
-				set timer_base "#define SLEEP_TIMER_BASEADDR $timer_baseaddr"
-				puts $file_handle "/******************************************************************/\n"
-				puts $file_handle "/*"
-				puts $file_handle " * Definitions of PSU_TTC_3 counter 0 base address and frequency used"
-				puts $file_handle " * by sleep and usleep APIs"
-				puts $file_handle " */\n"
-				puts $file_handle $timer_base
-				set timer_frequency [::hsi::utils::get_param_value $periph "C_TTC_CLK0_FREQ_HZ"]
-				set timer_freq "#define SLEEP_TIMER_FREQUENCY $timer_frequency"
-				puts $file_handle $timer_freq
-				puts $file_handle "\n/******************************************************************/\n"
-			}
-		}
+	   set design_list [hsi::get_cells -hier]
+           if {[lsearch  -nocase $design_list "psu_ddr_1"] >= 0} {
+                set psu_ddr_1_baseaddr [common::get_property CONFIG.C_S_AXI_BASEADDR [hsi::get_cells -hier "psu_ddr_1"]]
+                set psu_ddr_1_highaddr [common::get_property CONFIG.C_S_AXI_HIGHADDR [hsi::get_cells -hier "psu_ddr_1"]]
+                puts $file_handle "/******************************************************************/"
+                puts $file_handle ""
+                puts $file_handle " /*Definitions for peripheral PSU_R5_DDR_1 */"
+                puts $file_handle [format %s0x%x "#define XPAR_PSU_R5_DDR_1_S_AXI_BASEADDR " [expr $psu_ddr_1_baseaddr]]
+                puts $file_handle [format %s0x%x "#define XPAR_PSU_R5_DDR_1_S_AXI_HIGHADDR " [expr $psu_ddr_1_highaddr]]
+                puts $file_handle ""
             }
             xdefine_fabric_reset $file_handle
 	    close $file_handle
@@ -484,6 +498,9 @@ proc generate {os_handle} {
     file delete $bspcfg_fn
     set bspcfg_fh [open $bspcfg_fn w]
     ::hsi::utils::write_c_header $bspcfg_fh "Configurations for Standalone BSP"
+	puts $bspcfg_fh "#ifndef BSPCONFIG_H /* prevent circular inclusions */"
+	puts $bspcfg_fh "#define BSPCONFIG_H /* by using protection macros */"
+    puts $bspcfg_fh ""
 
     if { $proctype == "microblaze" && [mb_has_pvr $hw_proc_handle] } {
 
@@ -521,8 +538,89 @@ proc generate {os_handle} {
 		}
 	}
     }
+
+	puts $bspcfg_fh ""
+    puts $bspcfg_fh "\#endif /*end of __BSPCONFIG_H_*/"
     close $bspcfg_fh
+
+	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+
+	puts $file_handle "/* Platform specific definitions */"
+    if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5"} {
+	puts $file_handle "#define PLATFORM_ZYNQMP"
+    }
+    if { $proctype == "ps7_cortexa9"} {
+	puts $file_handle "#define PLATFORM_ZYNQ"
+    }
+    if { $proctype == "microblaze"} {
+	puts $file_handle "#define PLATFORM_MB"
+    }
+
+    if { $proctype == "psu_cortexr5"} {
+	 set lockstep_debug [common::get_property CONFIG.lockstep_mode_debug $os_handle]
+	 puts $file_handle " "
+	 puts $file_handle "/* Definitions for debug logic configuration in lockstep mode */"
+	 if { $lockstep_debug == "true" } {
+		puts $file_handle "#define LOCKSTEP_MODE_DEBUG 1U"
+	 } else {
+		puts $file_handle "#define LOCKSTEP_MODE_DEBUG 0U"
+	 }
+     }
+	 puts $file_handle " "
+	 puts $file_handle "/* Definitions for sleep timer configuration */"
+	 xsleep_timer_config $proctype $os_handle $file_handle
+	 puts $file_handle " "
+	 puts $file_handle " "
+	 puts $file_handle "/******************************************************************/"
+	close $file_handle
 }
+
+# --------------------------------------------------------
+#  Tcl procedure xsleep_timer_config
+# --------------------------------------------------------
+proc xsleep_timer_config {proctype os_handle file_handle} {
+
+    set sleep_timer [common::get_property CONFIG.sleep_timer $os_handle ]
+	if { $sleep_timer == "ps7_globaltimer_0" || $sleep_timer == "psu_iou_scntr" || $sleep_timer == "psu_iou_scntrs" } {
+		if { $proctype == "psu_cortexr5" } {
+			error "ERROR: $proctype does not support $sleep_timer "
+		}
+    } elseif { $sleep_timer == "none" } {
+		if { $proctype == "psu_cortexr5" } {
+			set periphs [hsi::get_cells]
+			foreach periph $periphs {
+				if {[string compare -nocase "psu_ttc_3" $periph] == 0} {
+					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
+					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ"
+					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
+			    }
+			}
+		}
+		puts $file_handle "#define XSLEEP_TIMER_IS_DEFAULT_TIMER"
+    } elseif {[string match "axi_timer_*" $sleep_timer]} {
+		if { $proctype == "microblaze" } {
+			set instance [string index $sleep_timer end]
+			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_AXI_TIMER_%d_BASEADDR" $instance ] "
+			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_AXI_TIMER_%d_CLOCK_FREQ_HZ" $instance ] "
+			puts $file_handle "#define XSLEEP_TIMER_IS_AXI_TIMER"
+		} else {
+			error "ERROR: $proctype does not support $sleep_timer "
+		}
+	} else {
+        set module [string index $sleep_timer end]
+		puts $file_handle "#define XSLEEP_TTC_INSTANCE $module"
+	    set timer [common::get_property CONFIG.TTC_Select_Cntr $os_handle ]
+		if { $proctype == "ps7_cortexa9" } {
+			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_PS7_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
+			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PS7_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
+		} elseif { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5" } {
+			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_PSU_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
+			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PSU_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
+		}
+	}
+	return
+}
+
 # --------------------------------------
 # Tcl procedure get_psu_config
 # --------------------------------------
@@ -978,6 +1076,21 @@ proc handle_profile_opbtimer { config_file timer_inst } {
     set timer_connection 0
     foreach intr_port $intr_port_list {
 	set intc_handle [hsi::get_cells -of_object $intr_port]
+
+	# Check if the Sink is a Concat IP
+	if {[common::get_property IP_NAME [hsi::get_cells $intc_handle]] == "xlconcat"} {
+		set dout [hsi::get_pins -of_object [hsi::get_cells $intc_handle] -filter DIRECTION=="O"]
+		set intr_pins [::hsi::utils::get_sink_pins [hsi::get_pins $dout]]
+		for {set intr_pins_index 0} {$intr_pins_index < [llength $intr_pins]} {incr intr_pins_index} {
+			set intr_ip [hsi::get_cells -of_object [lindex $intr_pins $intr_pins_index]]
+			for {set intr_ip_index 0} {$intr_ip_index < [llength $intr_ip]} {incr intr_ip_index} {
+				if {[common::get_property IP_TYPE [hsi::get_cells [lindex $intr_ip $intr_ip_index]]] == "INTERRUPT_CNTLR"} {
+					set intc_handle [hsi::get_cells [lindex $intr_ip $intr_ip_index]]
+					break;
+				}
+			}
+		}
+	}
 	# Check if the Sink is a Global Port. If so, Skip the Port Connection
 
 	if {  [::hsi::utils::is_external_pin $intr_port] } {

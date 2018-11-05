@@ -33,7 +33,7 @@
 /**
 *
 * @file xcsi.h
-* @addtogroup csi_v1_0
+* @addtogroup csi_v1_1
 * @{
 * @details
 *

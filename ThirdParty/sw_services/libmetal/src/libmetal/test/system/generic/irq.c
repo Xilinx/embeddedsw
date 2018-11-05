@@ -36,11 +36,11 @@
 #define METAL_INTERNAL
 
 #include "metal-test.h"
-#include "metal/irq.h"
-#include "metal/log.h"
-#include "metal/sys.h"
-
-#define MAX_HDS  10
+#include <metal/irq.h>
+#include <metal/log.h>
+#include <metal/sys.h>
+#include <metal/list.h>
+#include <metal/utilities.h>
 
 
 int irq_handler(int irq, void *priv)
@@ -54,49 +54,169 @@ int irq_handler(int irq, void *priv)
 
 static int irq(void)
 {
-	long i, j;
 	int rc = 0, flags_1, flags_2;
+	char *err_msg="";
 	enum metal_log_level mll= metal_get_log_level();
 
-
+	/* Do not show LOG_ERROR or LOG_DEBUG for expected fail case */
 	metal_set_log_level(METAL_LOG_CRITICAL);
 
-	/* go over the max to force an error */
-	for (i=-1; i <=  MAX_IRQS+3; i++) {
-		for (j=0; j <= MAX_HDS+3; j++) {
-			rc = metal_irq_register(i, irq_handler, 0, (void *)j);
-
-			/* check boundaries and drv_id ==0 while handler is not null */
-			if ((rc &&
-					((i >= MAX_IRQS) || (j >= (MAX_HDS+1))  ||
-					 (i < 0 ) || (j <= 0))
-				) ||
-				(!rc &&
-					(i < MAX_IRQS) && (j < (MAX_HDS+1)) &&
-					(i >= 0) && (j > 0)
-				))
-				continue;
-
-			metal_set_log_level(mll);
-			metal_log(METAL_LOG_DEBUG, "register irq %d fail hd %d\n", i, j);
-			return rc ? rc : -EINVAL;
-		}
+	rc = metal_irq_register(1, irq_handler, 0, (void *)1);
+	if (rc) {
+		err_msg = "register irq 1 fail drv_id 1\n";
+		goto out;
+	}
+	rc = metal_irq_register(2, irq_handler, 0, (void *)1);
+	if (rc) {
+		err_msg = "register irq 2 fail drv_id 1\n";
+		goto out;
+	}
+	rc = metal_irq_register(2, irq_handler, 0, (void *)2);
+	if (rc) {
+		err_msg = "register irq 2 fail drv_id 2\n";
+		goto out;
+	}
+	rc = metal_irq_register(3, irq_handler, 0, (void *)1);
+	if (rc) {
+		err_msg = "register irq 3 fail drv_id 1\n";
+		goto out;
+	}
+	rc = metal_irq_register(4, irq_handler, 0, (void *)1);
+	if (rc) {
+		err_msg = "register irq 4 fail drv_id 1\n";
+		goto out;
+	}
+	rc = metal_irq_register(4, irq_handler, 0, (void *)2);
+	if (rc) {
+		err_msg = "register irq 4 fail drv_id 2\n";
+		goto out;
+	}
+	rc = metal_irq_register(1, irq_handler, 0, (void *)2);
+	if (rc) {
+		err_msg = "register irq 1 fail drv_id 2\n";
+		goto out;
 	}
 
-	/* delete all handlers for IRQ #1 */
-	rc = metal_irq_register(1, 0, 0, (void *)0);
+	rc = metal_irq_unregister(1, 0, 0, (void *)0);
 	if (rc) {
-		metal_set_log_level(mll);
-		metal_log(METAL_LOG_DEBUG, "deregister irq 1 all handlers\n");
-		return rc;
+		err_msg = "unregister irq 1 failed \n";
+		goto out;
+	}
+	rc = metal_irq_unregister(1, 0, 0, (void *)0);
+	if (!rc) {
+		err_msg = "unregister irq 1 fail expected\n";
+		goto out;
 	}
 
-	/* delete only one handler IRQ */
-	rc = metal_irq_register(2, 0, 0, (void *)3);
+	rc = metal_irq_unregister(2, 0, 0, (void *)2);
 	if (rc) {
-		metal_set_log_level(mll);
-		metal_log(METAL_LOG_DEBUG, "deregister irq 2 hd %d\n", 3);
-		return rc;
+		err_msg = "unregister irq 2 drv_id 2 failed \n";
+		goto out;
+	}
+	rc = metal_irq_unregister(2, 0, 0, (void *)2);
+	if (!rc) {
+		err_msg = "unregister irq 2 drv_id 2 fail expected\n";
+		goto out;
+	}
+	rc = metal_irq_register(2, irq_handler, 0, (void *)2);
+	if (rc) {
+		err_msg = "register irq 2 fail drv_id 2\n";
+		goto out;
+	}
+	rc = metal_irq_unregister(2, 0, 0, (void *)1);
+	if (rc) {
+		err_msg = "unregister irq 2 drv_id 1 failed \n";
+		goto out;
+	}
+	rc = metal_irq_unregister(2, 0, 0, (void *)2);
+	if (rc) {
+		err_msg = "unregister irq 2 drv_id 2 failed \n";
+		goto out;
+	}
+
+	rc = metal_irq_register(3, irq_handler, 0, (void *)1);
+	if (!rc) {
+		err_msg = "register irq 3 drv_id 1 overwrite fail expected\n";
+		goto out;
+	}
+	rc = metal_irq_register(3, irq_handler, 0, (void *)2);
+	if (rc) {
+		err_msg = "register irq 3 fail drv_id 2\n";
+		goto out;
+	}
+	rc = metal_irq_unregister(3, irq_handler+1, 0, (void *)0);
+	if (!rc) {
+		err_msg = "unregister irq 3 match handler fail expected\n";
+		goto out;
+	}
+	rc = metal_irq_unregister(3, irq_handler, 0, (void *)0);
+	if (rc) {
+		err_msg = "unregister irq 3 match handler failed \n";
+		goto out;
+	}
+
+	rc = metal_irq_unregister(4, irq_handler, 0, (void *)2);
+	if (rc) {
+		err_msg = "unregister irq 4 match handler and drv_id 2 failed \n";
+		goto out;
+	}
+	rc = metal_irq_unregister(4, irq_handler, 0, (void *)1);
+	if (rc) {
+		err_msg = "unregister irq 4 match handler and drv_id 1 failed \n";
+		goto out;
+	}
+
+	rc = metal_irq_register(5, irq_handler, (void *)10, (void *)1);
+	if (rc) {
+		err_msg = "register irq 5 fail dev 10 drv_id 1\n";
+		goto out;
+	}
+	rc = metal_irq_register(5, irq_handler, (void *)20, (void *)2);
+	if (rc) {
+		err_msg = "register irq 5 fail dev 20 drv_id 2\n";
+		goto out;
+	}
+	rc = metal_irq_register(5, irq_handler, (void *)10, (void *)3);
+	if (rc) {
+		err_msg = "register irq 5 fail dev 10 drv_id 3\n";
+		goto out;
+	}
+	rc = metal_irq_register(5, irq_handler, 0, (void *)4);
+	if (rc) {
+		err_msg = "register irq 5 fail drv_id 4\n";
+		goto out;
+	}
+	rc = metal_irq_register(5, irq_handler, (void *)10, (void *)5);
+	if (rc) {
+		err_msg = "register irq 5 fail dev 10 drv_id 5\n";
+		goto out;
+	}
+
+	rc = metal_irq_unregister(5, irq_handler, (void *)10, (void *)3);
+	if (rc) {
+		err_msg = "unregister irq 5 match handle, dev 10 and drv_id 3 failed \n";
+		goto out;
+	}
+	rc = metal_irq_unregister(5, 0, 0, (void *)4);
+	if (rc) {
+		err_msg = "unregister irq 5 drv_id 4 failed \n";
+		goto out;
+	}
+	rc = metal_irq_unregister(5, 0, (void *)10, 0);
+	if (rc) {
+		err_msg = "unregister irq 5 dev 10 failed \n";
+		goto out;
+	}
+	rc = metal_irq_unregister(5, 0, (void *)20, (void *)2);
+	if (rc) {
+		err_msg = "unregister irq 5 match dev 20 and drv_id 2 failed \n";
+		goto out;
+	}
+
+	rc = metal_irq_register(-1, irq_handler, 0, (void *)1);
+	if (!rc) {
+		err_msg = "register irq -1 should have failed\n";
+		goto out;
 	}
 
 	/* global interrupt disable/enable normal behavior */
@@ -109,7 +229,13 @@ static int irq(void)
 	metal_irq_restore_enable(flags_2);
 	metal_irq_restore_enable(flags_1);
 
+	rc = 0;
+
+out:
 	metal_set_log_level(mll);
+	if ((err_msg[0] != '\0') && (!rc))
+		rc = -EINVAL;
+	if (rc) metal_log(METAL_LOG_ERROR, "%s", err_msg);
 	return rc;
 }
 

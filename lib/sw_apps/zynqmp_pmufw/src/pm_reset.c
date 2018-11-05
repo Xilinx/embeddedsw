@@ -50,6 +50,7 @@
 #include "crl_apb.h"
 #include "crf_apb.h"
 #include "pmu_iomodule.h"
+#include "sleep.h"
 
 /**
  * PmResetOps - Reset operations
@@ -114,6 +115,19 @@ typedef struct PmResetRom {
 	const u32 ctrlAddr;
 	const u32 mask;
 } PmResetRom;
+
+/**
+ * PmResetGpioBankIOs - Reset structure used for GPIO Bank Input/Outputs
+ * @rst		Base reset structure
+ * @rstLine	GPIO Bank reset line number
+ */
+typedef struct PmResetGpioBankIOs {
+	PmReset rst;
+	const u32 rstMaskDataReg;
+	const u32 rstDirectionReg;
+	const bool isMaskDataLsw;
+	const u32 rstLine;
+} PmResetGpioBankIOs;
 
 static bool master_has_access(const PmMaster *m, const PmReset *r)
 {
@@ -280,6 +294,49 @@ static u32 PmResetPulseRom(const PmReset *const rstPtr)
 }
 
 /**
+ * PmResetPulseGpioBankIOs() - Pulse handler for PmResetGpioBankIOs class
+ * @rstPtr	Pointer to the reset that needs to be toggled
+ *
+ * @return	Operation success
+ */
+static u32 PmResetPulseGpioBankIOs(const PmReset* const rstPtr)
+{
+	const PmResetGpioBankIOs *rstGpioPtr = (PmResetGpioBankIOs*)rstPtr->derived;
+	u32 GpioRstLine = rstGpioPtr->rstLine;
+	u32 GpioMaskDataReg = rstGpioPtr->rstMaskDataReg;
+	u32 GpioDirReg = rstGpioPtr->rstDirectionReg;
+	u32 RegVal = 0;
+	u32 MaskVal = 0;
+	u32 DirmShift = 0;
+
+	/* Set MIO/EMIO Direction */
+	if( rstGpioPtr->isMaskDataLsw == false ) {
+		DirmShift = MAX_REG_BITS/2;
+	}
+	RegVal = Xil_In32(GpioDirReg) | (1U << (DirmShift + GpioRstLine));
+	Xil_Out32(GpioDirReg, RegVal);
+
+	/* Assert the MIO/EMIO with the required Mask */
+	MaskVal = (1U << GpioRstLine) | GPIO_PIN_MASK_BITS;
+	RegVal = MaskVal & (~(1U << (MAX_REG_BITS/2 + GpioRstLine)));
+	Xil_Out32(GpioMaskDataReg, RegVal);
+	usleep(1000);
+
+	/* De-assert the MIO/EMIO with the required Mask */
+	RegVal = (~(1U << (MAX_REG_BITS/2 + GpioRstLine))) & GPIO_PIN_MASK_BITS;
+	Xil_Out32(GpioMaskDataReg, RegVal);
+	usleep(1000);
+
+	/* Assert the MIO/EMIO with the required Mask */
+	MaskVal = (1U << GpioRstLine) | GPIO_PIN_MASK_BITS;
+	RegVal = MaskVal & (~(1U << (MAX_REG_BITS/2 + GpioRstLine)));
+	Xil_Out32(GpioMaskDataReg, RegVal);
+	usleep(1000);
+
+	return XST_SUCCESS;
+}
+
+/**
  * PmUserHookResetAssertPl() - Assert reset handler for PL
  * @rstPtr	Pointer to the PL reset structure
  * @action	States whether to assert or release reset
@@ -373,6 +430,12 @@ static const PmResetOps pmResetOpsPl = {
 	.assert = PmResetAssertPl,
 	.getStatus = PmResetGetStatusPl,
 	.pulse = PmResetPulsePl,
+};
+
+static const PmResetOps pmResetOpsGpioBankIO = {
+	.assert = NULL,
+	.getStatus = NULL,
+	.pulse = PmResetPulseGpioBankIOs,
 };
 
 static PmResetGeneric pmResetPcieCfg = {
@@ -1566,6 +1629,57 @@ static PmResetGpo pmResetGpo3Pl31 = {
 	.statusAddr = PMU_LOCAL_GPO3_READ,
 };
 
+/*
+ * GPIO5 EMIO[95:92] are the reset lines going to PL
+ */
+static PmResetGpioBankIOs pmResetGpio5EMIO92 = {
+	.rst = {
+		.ops = &pmResetOpsGpioBankIO,
+		.access = 0U,
+		.derived = &pmResetGpio5EMIO92,
+	},
+	.rstMaskDataReg = GPIO_MASK_DATA_5_MSW_REG,
+	.rstDirectionReg = GPIO_DIRM_5,
+	.isMaskDataLsw = false,
+	.rstLine = GPIO5_EMIO92_MSW_DATA_BIT,
+};
+
+static PmResetGpioBankIOs pmResetGpio5EMIO93 = {
+	.rst = {
+		.ops = &pmResetOpsGpioBankIO,
+		.access = 0U,
+		.derived = &pmResetGpio5EMIO93,
+	},
+	.rstMaskDataReg = GPIO_MASK_DATA_5_MSW_REG,
+	.rstDirectionReg = GPIO_DIRM_5,
+	.isMaskDataLsw = false,
+	.rstLine = GPIO5_EMIO93_MSW_DATA_BIT,
+};
+
+static PmResetGpioBankIOs pmResetGpio5EMIO94 = {
+	.rst = {
+		.ops = &pmResetOpsGpioBankIO,
+		.access = 0U,
+		.derived = &pmResetGpio5EMIO94,
+	},
+	.rstMaskDataReg = GPIO_MASK_DATA_5_MSW_REG,
+	.rstDirectionReg = GPIO_DIRM_5,
+	.isMaskDataLsw = false,
+	.rstLine = GPIO5_EMIO94_MSW_DATA_BIT,
+};
+
+static PmResetGpioBankIOs pmResetGpio5EMIO95 = {
+	.rst = {
+		.ops = &pmResetOpsGpioBankIO,
+		.access = 0U,
+		.derived = &pmResetGpio5EMIO95,
+	},
+	.rstMaskDataReg = GPIO_MASK_DATA_5_MSW_REG,
+	.rstDirectionReg = GPIO_DIRM_5,
+	.isMaskDataLsw = false,
+	.rstLine = GPIO5_EMIO95_MSW_DATA_BIT,
+};
+
 /**
  * PmResetPulsePsOnly() - Gracefully reset PS while PL remains active
  *
@@ -1732,6 +1846,10 @@ static PmReset* const pmAllResets[] = {
 	[PM_RESET_RPU_LS - PM_RESET_BASE] = &pmResetRpuLs.rst,
 	[PM_RESET_PS_ONLY - PM_RESET_BASE] = &pmResetPsOnly.rst,
 	[PM_RESET_PL - PM_RESET_BASE] = &pmResetPl,
+	[PM_RESET_GPIO5_EMIO_92 - PM_RESET_BASE] = &pmResetGpio5EMIO92.rst,
+	[PM_RESET_GPIO5_EMIO_93 - PM_RESET_BASE] = &pmResetGpio5EMIO93.rst,
+	[PM_RESET_GPIO5_EMIO_94 - PM_RESET_BASE] = &pmResetGpio5EMIO94.rst,
+	[PM_RESET_GPIO5_EMIO_95 - PM_RESET_BASE] = &pmResetGpio5EMIO95.rst,
 };
 
 /**

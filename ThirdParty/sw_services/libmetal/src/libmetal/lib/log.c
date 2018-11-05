@@ -31,8 +31,8 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#include "metal/log.h"
-#include "metal/sys.h"
+#include <metal/log.h>
+#include <metal/sys.h>
 
 void metal_default_log_handler(enum metal_log_level level,
 			       const char *format, ...)

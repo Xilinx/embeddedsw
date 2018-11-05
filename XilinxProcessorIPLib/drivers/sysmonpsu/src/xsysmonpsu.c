@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -33,6 +33,7 @@
 /**
 *
 * @file xsysmonpsu.c
+* @addtogroup sysmonpsu_v2_4
 *
 * Functions in this file are the minimum required functions for the XSysMonPsu
 * driver. See xsysmonpsu.h for a detailed description of the driver.
@@ -62,6 +63,9 @@
 *                       and XSysMonPsu_GetSeqAcqTime to provide support for
 *                       set/get 64 bit value.
 * 2.1   sk     03/03/16 Check for PL reset before doing PL Sysmon reset.
+* 2.3   mn     12/13/17 Correct the AMS block channel numbers
+*       mn     03/08/18 Update Clock Divisor to the proper value
+* 2.4   mn     04/20/18 Remove looping check for PL accessible bit
 *
 * </pre>
 *
@@ -109,7 +113,7 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 			  u32 EffectiveAddr)
 {
 	u32 PsSysmonControlStatus;
-	u32 PlSysmonControlStatus;
+	u32 IntrStatus;
 
 	/* Assert the input arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -118,10 +122,13 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 	/* Set the values read from the device config and the base address. */
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
-
+	InstancePtr->Config.InputClockMHz = ConfigPtr->InputClockMHz;
 
 	/* Set all handlers to stub values, let user configure this data later. */
 	InstancePtr->Handler = XSysMonPsu_StubHandler;
+
+	XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PS);
+	XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PL);
 
 	/* Reset the device such that it is in a known state. */
 	XSysMonPsu_Reset(InstancePtr);
@@ -135,18 +142,17 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 					XSYSMONPSU_PS_SYSMON_CSTS_OFFSET);
 	}
 
-	PlSysmonControlStatus = XSysmonPsu_ReadReg(InstancePtr->Config.BaseAddress +
-			XSYSMONPSU_PL_SYSMON_CSTS_OFFSET);
-
-	/* Check if the PL Sysmon is accessible to PS Sysmon or not */
-	while((PlSysmonControlStatus & XSYSMONPSU_PL_SYSMON_CSTS_ACESBLE_MASK)
-				!= XSYSMONPSU_PL_SYSMON_CSTS_ACESBLE_MASK) {
-		PlSysmonControlStatus = XSysmonPsu_ReadReg(InstancePtr->Config.BaseAddress +
-					XSYSMONPSU_PL_SYSMON_CSTS_OFFSET);
-	}
+	InstancePtr->IsPlAccessibleByPs =
+			XSysmonPsu_ReadReg(InstancePtr->Config.BaseAddress +
+			XSYSMONPSU_PL_SYSMON_CSTS_OFFSET) &
+			XSYSMONPSU_PL_SYSMON_CSTS_ACESBLE_MASK;
 
 	/* Indicate the instance is now ready to use, initialized without error */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+
+	/* Clear any bits set in the Interrupt Status Register. */
+	IntrStatus = XSysMonPsu_IntrGetStatus(InstancePtr);
+	XSysMonPsu_IntrClear(InstancePtr, IntrStatus);
 
 	return XST_SUCCESS;
 }
@@ -583,7 +589,9 @@ s32 XSysMonPsu_SetSingleChParams(XSysMonPsu *InstancePtr, u8 Channel,
 			  ((Channel >= XSM_CH_SUPPLY_CALIB) &&
 			  (Channel <= XSM_CH_GAINERR_CALIB)) ||
 			  ((Channel >= XSM_CH_SUPPLY4) &&
-			  (Channel <= XSM_CH_TEMP_REMTE)));
+			  (Channel <= XSM_CH_TEMP_REMTE)) ||
+			  ((Channel >= XSM_CH_VCC_PSLL0) &&
+			  (Channel <= XSM_CH_RESERVE1)));
 	Xil_AssertNonvoid((IncreaseAcqCycles == TRUE) ||
 			  (IncreaseAcqCycles == FALSE));
 	Xil_AssertNonvoid((IsEventMode == TRUE) || (IsEventMode == FALSE));
@@ -1170,6 +1178,60 @@ u8 XSysMonPsu_GetAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	return (u8) (Divisor >> XSYSMONPSU_CFG_REG2_CLK_DVDR_SHIFT);
 }
 
+u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
+{
+	u16 Divisor;
+	u32 EffectiveBaseAddress;
+	u32 RegValue;
+	u32 InputFreq = InstancePtr->Config.InputClockMHz;
+
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((SysmonBlk == XSYSMON_PS)||(SysmonBlk == XSYSMON_PL));
+
+	/* Calculate the effective baseaddress based on the Sysmon instance. */
+	EffectiveBaseAddress =
+			XSysMonPsu_GetEffBaseAddress(InstancePtr->Config.BaseAddress,
+					SysmonBlk);
+
+	/* Read the divisor value from the Configuration Register 2. */
+	Divisor = (u16) XSysmonPsu_ReadReg(EffectiveBaseAddress +
+							XSYSMONPSU_CFG_REG2_OFFSET);
+	Divisor = Divisor >> XSYSMONPSU_CFG_REG2_CLK_DVDR_SHIFT;
+
+	while (1) {
+		if (!Divisor) {
+			if ((SysmonBlk == XSYSMON_PS) &&
+			(InputFreq/8 >= 1) && (InputFreq/8 <= 26)) {
+				break;
+			} else if ((SysmonBlk == XSYSMON_PL) &&
+			(InputFreq/2 >= 1) && (InputFreq/2 <= 26)) {
+				break;
+			}
+		} else if ((InputFreq/Divisor >= 1) &&
+				(InputFreq/Divisor <= 26)) {
+			break;
+		} else {
+			Divisor += 1;
+		}
+	}
+
+	/*
+	 * Read the Configuration Register 2 and the clear the clock divisor
+	 * bits.
+	 */
+	RegValue = XSysmonPsu_ReadReg(EffectiveBaseAddress +
+					XSYSMONPSU_CFG_REG2_OFFSET);
+	RegValue &= ~(XSYSMONPSU_CFG_REG2_CLK_DVDR_MASK);
+
+	/* Write the divisor value into the Configuration Register 2. */
+	RegValue |= ((u32)Divisor << XSYSMONPSU_CFG_REG2_CLK_DVDR_SHIFT) &
+					XSYSMONPSU_CFG_REG2_CLK_DVDR_MASK;
+	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_CFG_REG2_OFFSET,
+			 RegValue);
+
+	return (u8)Divisor;
+}
 /****************************************************************************/
 /**
 *

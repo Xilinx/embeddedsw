@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2005 - 2016 Xilinx, Inc. All rights reserved.
+# Copyright (C) 2005 - 2018 Xilinx, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +35,7 @@
 # -------- ------ -------- --------------------------------------------------
 # 3.0     adk     10/12/13  Removed support for xps_timebase_wdt
 # 4.0     sha     12/17/15  Added Window WDT feature with basic mode.
+# 4.3     srm     01/27/18  Added support to program the width of WDT
 ###############################################################################
 
 ## @BEGIN_CHANGELOG EDK_M
@@ -55,7 +56,7 @@ BEGIN driver wdttb
   OPTION supported_peripherals = (axi_timebase_wdt);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.2;
+  OPTION VERSION = 4.3;
   OPTION NAME = wdttb;
 
 END driver

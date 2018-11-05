@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -45,6 +45,8 @@
 * X.XX  XX  YYYY/MM/DD   ...
 * 1.00  RHe 2015/10/06   Initial release.
 * 1.01  YH  2017/07/19   Clean up Print Statement line ending to "\r\n"
+* 2.00  EB  2018/01/23   This file is deprecated. All the APIs are now moved
+*						    to HDMI Common library
 * </pre>
 *
 ******************************************************************************/
@@ -281,7 +283,7 @@ static XVidC_3DSamplingPosition XV_HdmiRx_VSIF_Conv3DSampPosTo3DSampPos(XV_HdmiR
 *  - XST_FAILURE if an error was detected during parsing
 *
 ******************************************************************************/
-int XV_HdmiRx_VSIF_ParsePacket(XV_HdmiRx_Aux *AuxPtr, XV_HdmiRx_VSIF  *VSIFPtr)
+int XV_HdmiRx_VSIF_ParsePacket(XHdmiC_Aux *AuxPtr, XV_HdmiRx_VSIF  *VSIFPtr)
 {
     u8 *pData;
     u32 temp;

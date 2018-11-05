@@ -70,6 +70,8 @@
  *       ms   04/05/17 Modified Comment lines in functions to
  *                     recognize it as documentation block for doxygen
  *                     generation of examples.
+ * 4.4   rsp  02/22/18 Support data buffers above 4GB.Use UINTPTR for
+ *                     typecasting buffer address(CR-995116).
  * </pre>
  *
  ****************************************************************************/
@@ -341,8 +343,8 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	while (Retries) {
 		Retries -= 1;
 
-		Status = XAxiCdma_SimpleTransfer(InstancePtr, (u32)SrcBuffer,
-			(u32)DestBuffer, Length, Example_CallBack,
+		Status = XAxiCdma_SimpleTransfer(InstancePtr, (UINTPTR)SrcBuffer,
+			(UINTPTR)DestBuffer, Length, Example_CallBack,
 			(void *)InstancePtr);
 
 		if (Status == XST_SUCCESS) {

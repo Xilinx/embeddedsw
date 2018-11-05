@@ -33,7 +33,7 @@
 /**
 *
 * @file xcan_g.c
-* @addtogroup can_v3_0
+* @addtogroup can_v3_2
 * @{
 *
 * This file contains a configuration table that specifies the configuration

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -82,6 +82,14 @@ write (sint32 fd, char8* buf, sint32 nbytes)
 __attribute__((weak)) sint32
 _write (sint32 fd, char8* buf, sint32 nbytes)
 {
+#if HYP_GUEST && EL1_NONSECURE && XEN_USE_PV_CONSOLE
+	sint32 length;
+
+	(void)fd;
+	(void)nbytes;
+	length = XPVXenConsole_Write(buf);
+	return length;
+#else
 #ifdef STDOUT_BASEADDRESS
   s32 i;
   char8* LocalBuf = buf;
@@ -107,6 +115,7 @@ _write (sint32 fd, char8* buf, sint32 nbytes)
   (void)buf;
   (void)nbytes;
   return 0;
+#endif
 #endif
 }
 #endif

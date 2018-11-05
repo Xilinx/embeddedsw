@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -49,6 +49,10 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------------
 * 1.0   vnsld  22/10/14 First release
+* 1.2   adk    11/22/17 Added peripheral test app support.
+* 1.2	adk    11/01/18 Declared static array rather than hard code memory for
+*			buffers.
+*	adk    18/01/18 Remove unnecessary column in XIntc_Connect() API.
 * </pre>
 *
 ******************************************************************************/
@@ -57,8 +61,12 @@
 
 #include "xcsudma.h"
 #include "xparameters.h"
-#include "xscugic.h"
 #include "xil_exception.h"
+#ifdef XPAR_INTC_0_DEVICE_ID
+#include "xintc.h"
+#else
+#include "xscugic.h"
+#endif
 
 /************************** Function Prototypes ******************************/
 
@@ -68,17 +76,33 @@
  * change all the needed parameters in one place.
  */
 #define CSUDMA_DEVICE_ID  XPAR_XCSUDMA_0_DEVICE_ID /* CSU DMA device Id */
+#ifdef XPAR_INTC_0_DEVICE_ID
+#define INTC		XIntc
+#define INTG_INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+#define INTG_CSUDMA_INTR_DEVICE_ID XPAR_INTC_0_CSUDMA_0_VEC_ID /**< ZDMA Interrupt Id */
+#else
+#define INTC		XScuGic
 #define INTG_INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define INTG_CSUDMA_INTR_DEVICE_ID 	XPAR_XCSUDMA_INTR /**< Interrupt device ID
 						 *  of CSU DMA device ID */
+#endif
 
 #define CSU_SSS_CONFIG_OFFSET	0x008		/**< CSU SSS_CFG Offset */
 #define CSUDMA_LOOPBACK_CFG	0x00000050	/**< LOOP BACK configuration
 						  *  macro */
-#define SRC_ADDR	0x04200000	/**< Source Address */
-#define DST_ADDR	0x04300000	/**< Destination Address */
 #define SIZE		0x100		/**< Size of the data to be
 					  *  transfered */
+
+#if defined(__ICCARM__)
+    #pragma data_alignment = 64
+	u32 DstBuf[SIZE]; /**< Destination buffer */
+	u32 SrcBuf[SIZE]; /**< Source buffer */
+	#pragma data_alignment = 4
+#else
+u32 DstBuf[SIZE] __attribute__ ((aligned (64)));	/**< Destination buffer */
+u32 SrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
+#endif
+
 
 /**************************** Type Definitions *******************************/
 
@@ -88,8 +112,9 @@
 
 /************************** Function Prototypes ******************************/
 
-int XCsuDma_IntrExample(u16 DeviceId);
-static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
+int XCsuDma_IntrExample(INTC *IntcInstancePtr, XCsuDma *CsuDmaInstance,
+			u16 DeviceId, u16 IntrId);
+static int SetupInterruptSystem(INTC *IntcInstancePtr,
 				XCsuDma *CsuDmaInstance,
 				u16 CsuDmaIntrId);
 void IntrHandler(void *CallBackRef);
@@ -99,10 +124,13 @@ static void DstHandler(void *CallBackRef, u32 Event);
 
 /************************** Variable Definitions *****************************/
 
+#ifndef TESTAPP_GEN
 XCsuDma CsuDma;		/**<Instance of the Csu_Dma Device */
+static INTC Intc;	/* Instance of the Interrupt Controller */
+#endif
 u32 DstDone = 0;
-XScuGic Intc;	/* Instance of the Interrupt Controller */
 
+#ifndef TESTAPP_GEN
 /*****************************************************************************/
 /**
 *
@@ -120,7 +148,8 @@ int main(void)
 	int Status;
 
 	/* Run the selftest example */
-	Status = XCsuDma_IntrExample((u16)CSUDMA_DEVICE_ID);
+	Status = XCsuDma_IntrExample(&Intc, &CsuDma, (u16)CSUDMA_DEVICE_ID,
+				     INTG_CSUDMA_INTR_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("CSU_DMA Interrupt Example Failed\r\n");
 		return XST_FAILURE;
@@ -129,6 +158,7 @@ int main(void)
 	xil_printf("Successfully ran CSU_DMA Interrupt Example\r\n");
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -146,15 +176,16 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
-int XCsuDma_IntrExample(u16 DeviceId)
+int XCsuDma_IntrExample(INTC *IntcInstancePtr, XCsuDma *CsuDmaInstance,
+			u16 DeviceId, u16 IntrId)
 {
 	int Status;
 	XCsuDma_Config *Config;
 	u32 Index = 0;
-	u32 *SrcPtr = (u32 *)SRC_ADDR;
-	u32 *DstPtr = (u32 *)DST_ADDR;
+	u32 *SrcPtr = SrcBuf;
+	u32 *DstPtr = DstBuf;
 	u32 Test_Data = 0xABCD1234;
-	u32 *Ptr = (u32 *)SRC_ADDR;
+	u32 *Ptr = SrcBuf;
 	u32 EnLast = 0;
 	/*
 	 * Initialize the CsuDma driver so that it's ready to use
@@ -166,7 +197,7 @@ int XCsuDma_IntrExample(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-	Status = XCsuDma_CfgInitialize(&CsuDma, Config, Config->BaseAddress);
+	Status = XCsuDma_CfgInitialize(CsuDmaInstance, Config, Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -174,7 +205,7 @@ int XCsuDma_IntrExample(u16 DeviceId)
 	/*
 	 * Performs the self-test to check hardware build.
 	 */
-	Status = XCsuDma_SelfTest(&CsuDma);
+	Status = XCsuDma_SelfTest(CsuDmaInstance);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -182,13 +213,13 @@ int XCsuDma_IntrExample(u16 DeviceId)
 	/*
 	 * Connect to the interrupt controller.
 	 */
-	Status = SetupInterruptSystem(&Intc, &CsuDma,
-				INTG_CSUDMA_INTR_DEVICE_ID);
+	Status = SetupInterruptSystem(IntcInstancePtr, CsuDmaInstance,
+				      IntrId);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 	/* Enable interrupts */
-	XCsuDma_EnableIntr(&CsuDma, XCSUDMA_DST_CHANNEL,
+	XCsuDma_EnableIntr(CsuDmaInstance, XCSUDMA_DST_CHANNEL,
 				XCSUDMA_IXR_DONE_MASK);
 	/*
 	 * Setting CSU_DMA in loop back mode.
@@ -208,17 +239,17 @@ int XCsuDma_IntrExample(u16 DeviceId)
 	}
 
 	/* Data transfer in loop back mode */
-	XCsuDma_Transfer(&CsuDma, XCSUDMA_DST_CHANNEL, DST_ADDR, SIZE, EnLast);
-	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, SRC_ADDR, SIZE, EnLast);
+	XCsuDma_Transfer(CsuDmaInstance, XCSUDMA_DST_CHANNEL, (UINTPTR)DstBuf, SIZE, EnLast);
+	XCsuDma_Transfer(CsuDmaInstance, XCSUDMA_SRC_CHANNEL, (UINTPTR)SrcBuf, SIZE, EnLast);
 
 	/* Wait for generation of destination work is done */
 	while(DstDone == 0);
 	/* Disable interrupts */
-	XCsuDma_DisableIntr(&CsuDma, XCSUDMA_DST_CHANNEL,
+	XCsuDma_DisableIntr(CsuDmaInstance, XCSUDMA_DST_CHANNEL,
 				XCSUDMA_IXR_DONE_MASK);
 	/* To acknowledge the transfer has completed */
-	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
-	XCsuDma_IntrClear(&CsuDma, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+	XCsuDma_IntrClear(CsuDmaInstance, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+	XCsuDma_IntrClear(CsuDmaInstance, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 
 	/*
 	 * Verifying data of transfered by comparing data at
@@ -259,12 +290,57 @@ int XCsuDma_IntrExample(u16 DeviceId)
 
 *
 ****************************************************************************/
-static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
+static int SetupInterruptSystem(INTC *IntcInstancePtr,
 				XCsuDma *InstancePtr,
 				u16 IntrId)
 {
 	int Status;
 
+#ifdef XPAR_INTC_0_DEVICE_ID
+#ifndef TESTAPP_GEN
+	/* Initialize the interrupt controller and connect the ISRs */
+	Status = XIntc_Initialize(IntcInstancePtr, INTG_INTC_DEVICE_ID);
+	if (Status != XST_SUCCESS)
+	{
+
+		xil_printf("Failed init intc\r\n");
+		return XST_FAILURE;
+	}
+#endif
+	/*
+	 * Connect the driver interrupt handler
+	 */
+	Status = XIntc_Connect(IntcInstancePtr, IntrId,
+				(XInterruptHandler)IntrHandler, InstancePtr);
+	if (Status != XST_SUCCESS)
+	{
+
+		xil_printf("Failed connect intc\r\n");
+		return XST_FAILURE;
+	}
+#ifndef TESTAPP_GEN
+	/*
+	 * Start the interrupt controller such that interrupts are enabled for
+	 * all devices that cause interrupts.
+	 */
+	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
+	if (Status != XST_SUCCESS)
+	{
+		return XST_FAILURE;
+	}
+#endif
+
+	/*
+	 * Enable the interrupt for the CSUDMA device.
+	 */
+	XIntc_Enable(IntcInstancePtr, IntrId);
+#ifndef TESTAPP_GEN
+	Xil_ExceptionInit();
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+				(Xil_ExceptionHandler)XIntc_InterruptHandler,
+				(void *)IntcInstancePtr);
+#endif
+#else
 #ifndef TESTAPP_GEN
 	XScuGic_Config *IntcConfig; /* Config for interrupt controller */
 
@@ -307,12 +383,15 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	 * Enable the interrupt for the device
 	 */
 	XScuGic_Enable(IntcInstancePtr, IntrId);
+#endif
+#ifndef TESTAPP_GEN
 
 
 	/*
 	 * Enable interrupts
 	 */
 	Xil_ExceptionEnableMask(XIL_EXCEPTION_IRQ);
+#endif
 
 
 	return XST_SUCCESS;

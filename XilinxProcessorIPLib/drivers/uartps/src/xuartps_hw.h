@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xuartps_hw.h
-* @addtogroup uartps_v3_4
+* @addtogroup uartps_v3_5
 * @{
 *
 * This header file contains the hardware interface of an XUartPs device.
@@ -55,6 +55,8 @@
 *			constant definitions.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.1	kvn    04/10/15 Modified code for latest RTL changes.
+* 3.6   ms     02/16/18 Updates flow control mode offset value in
+*			modem control register.
 *
 * </pre>
 *
@@ -256,7 +258,7 @@ extern "C" {
  *
  * @{
  */
-#define XUARTPS_MODEMCR_FCM	0x00000010U  /**< Flow control mode */
+#define XUARTPS_MODEMCR_FCM	0x00000020U  /**< Flow control mode */
 #define XUARTPS_MODEMCR_RTS	0x00000002U  /**< Request to send */
 #define XUARTPS_MODEMCR_DTR	0x00000001U  /**< Data terminal ready */
 /* @} */

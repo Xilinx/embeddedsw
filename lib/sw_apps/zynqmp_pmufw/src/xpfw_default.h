@@ -36,7 +36,6 @@
 
 
 #include "xpfw_config.h"
-#include "xpfw_codes.h"
 #include "xpfw_util.h"
 #include "xpfw_debug.h"
 
@@ -80,7 +79,6 @@
 #define ALL_HIGH	0XffffffffU
 #define FLAG_ALL	0XffffffffU
 
-
 #define MASK32_ALL_HIGH	((u32)0xFFFFFFFFU)
 #define MASK32_ALL_LOW	((u32)0x0U)
 
@@ -91,6 +89,13 @@
 
 #define XPFW_ACCESS_ALLOWED 0x01U
 #define XPFW_ACCESS_DENIED	0x00U
+
+/*
+ * time in ms for checking psu init completion by FSBL
+ */
+#define CHECK_PSU_INIT_CONFIG	100U
+
+#define PSU_INIT_COMPLETION		1U
 
 /* Handler Table Structure */
 typedef void (*VoidFunction_t)(void);

@@ -1,8 +1,14 @@
 var struct_x_v___hdmi_tx_ss =
 [
+    [ "AppMajVer", "struct_x_v___hdmi_tx_ss.html#acc291a3aeb71a6ce8ab9e3f62189a053", null ],
+    [ "AppMinVer", "struct_x_v___hdmi_tx_ss.html#a5edd49d0aea12261f9e487d1c3cbf055", null ],
     [ "AudioChannels", "struct_x_v___hdmi_tx_ss.html#a0517d08057746ed07c1185f49be806a0", null ],
     [ "AudioEnabled", "struct_x_v___hdmi_tx_ss.html#a15ca5fd9cf516e8df880da81139a3fbc", null ],
+    [ "AudioInfoframe", "struct_x_v___hdmi_tx_ss.html#a9df7abc4dec75ff7f641fbbfc8b527b7", null ],
     [ "AudioMute", "struct_x_v___hdmi_tx_ss.html#aa9f73db51971c9e4345196d4d1cf7e2b", null ],
+    [ "AVIInfoframe", "struct_x_v___hdmi_tx_ss.html#ab75c71b05733f042bc3484094f7d2c61", null ],
+    [ "BrdgUnlockedCallback", "struct_x_v___hdmi_tx_ss.html#a9a0a5b6dcda4a018ab7afb525e92af90", null ],
+    [ "BrdgUnlockedRef", "struct_x_v___hdmi_tx_ss.html#a63b0ccbe1730df1f410633768c18f3f8", null ],
     [ "Config", "struct_x_v___hdmi_tx_ss.html#a85f740373921c8cd92ced34d1c84b08a", null ],
     [ "ConnectCallback", "struct_x_v___hdmi_tx_ss.html#a39b5e05a75519d2a5ea95843a73d5b3d", null ],
     [ "ConnectRef", "struct_x_v___hdmi_tx_ss.html#af2d693256a7ab9bd3b4bbee0a1f52a94", null ],
@@ -21,6 +27,7 @@ var struct_x_v___hdmi_tx_ss =
     [ "ToggleCallback", "struct_x_v___hdmi_tx_ss.html#a82e0e82c8fc5f19bc91f6d70b8593223", null ],
     [ "ToggleRef", "struct_x_v___hdmi_tx_ss.html#af8f91ad07477ab64bba29392617b48e4", null ],
     [ "VsCallback", "struct_x_v___hdmi_tx_ss.html#ad06778e85cc7cb789875687ff8c0a50f", null ],
+    [ "VSIF", "struct_x_v___hdmi_tx_ss.html#aed7334db801d041c27f8eacee8a75894", null ],
     [ "VsRef", "struct_x_v___hdmi_tx_ss.html#a91d38a22ee614ca20bc20bd50a4a15cd", null ],
     [ "VtcPtr", "struct_x_v___hdmi_tx_ss.html#a02f7acf90cb43cab31025ae6193dc046", null ]
 ];

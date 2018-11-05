@@ -487,5 +487,63 @@
  *                    support these APIs over EL1 NS mode.
  * 6.5 mus   10/20/17 Updated standalone.tcl to fix bug in mb_can_handle_exceptions_in_delay_slots proc,
  *                    it fixes CR#987464.
+ * 6.6 mus   12/07/17 Updated cortexa9/xil_errata.h and cortexa9/xil_cache.c to remove Errata 753970.
+ *                    It fixes CR#989132.
+ *     srm   10/18/17 Updated all the sleep routines in a9,a53,R5,microblaze. Now the sleep routines
+ *		      will use the timer specified by the user to provide delay. A9 and A53 can use
+ *                    Global timer or TTC. R5 can use TTC or the machine cycles. Microblaze can use
+ *                    machine cycles or Axi timer. Updated standalone.tcl and standalone.mld files
+ *		      to support the sleep configuration Added new API's for the Axi timer in
+ *		      microblaze and TTC in ARM. Added two new files, xil_sleeptimer.c and
+ *		      xil_sleeptimer.h in ARM for the common sleep routines and 1 new file,
+ *		      xil_sleepcommon.c in Standalone-common for sleep/usleep API's.
+ * 6.6 hk    12/15/17 Export platform macros to bspconfig.h based on the processor.
+ * 6.6 asa   1/16/18  Ensure C stack information for A9 are flushed out from L1 D cache
+ *                    or L2 cache only when the respective caches are enabled. This fixes CR-922023.
+ * 6.6 mus   01/19/18 Updated asm_vectors.S and boot.S in Cortexa53 64 bit BSP, to add isb
+ *                    after writing to cpacr_el1/cptr_el3 registers. It would ensure
+ *                    disabling/enabling of floating-point unit, before any subsequent
+ *                    instruction.
+ * 6.6 mus   01/30/18 Updated hypervisor enabled Cortexa53 64 bit BSP, to add xen PV console
+ *                    support. Now, xil_printf would use PV console instead of UART in case of
+ *                    hypervisor enabled BSP.
+ * 6.6 mus   02/02/18 Updated get_connected_if proc in standalone tcl to detect the HPC port 
+ *                    configured with smart interconnect.It fixes CR#990318.
+ * 6.6 srm   02/10/18 Updated csu_wdt interrupt to the correct value. Fixes CR#992229
+ * 6.6 asa   02/12/18 Fix for heap handling for ARM platforms. CR#993932.
+ * 6.6 mus   02/19/18 Updated standalone.tcl to fix bug in handle_profile_opbtimer proc,
+ *                    CR#995014.
+ * 6.6 mus   02/23/18 Presently Cortex R5 BSP boot code is disabling the debug logic in
+*		      non-JTAG boot mode, when processor is in lockstep configuration.
+*		      This behavior is restricting application debugging in non-JTAG boot
+*		      mode.  To get rid of this restriction, added new mld parameter 
+*		      "lockstep_mode_debug", to enable/disable debug logic from BSP 
+*		      settings. Now, debug logic can be enabled through BSP settings, 
+*		      by modifying value of parameter "lockstep_mode_debug" as "true".
+*		      It fixes CR#993896.
+ * 6.6.mus   02/27/18  Updated Xil_DCacheInvalidateRange and
+*		       Xil_ICacheInvalidateRange APIs in Cortexa53 64 bit BSP, to fix  bug
+*		       in handling upper DDR addresses.It fixes CR#995581.
+* 6.6 mus    03/12/18  Updated makefile of Cortexa53 32bit BSP to add includes_ps directory
+*		       in the list of include paths. This change allows applications/BSP
+*		       files to include .h files in include_ps directory.
+* 6.6 mus    03/16/18  By default CPUACTLR_EL1 is accessible only from EL3, it
+*		       results into abort if accessed from EL1 non secure privilege
+*		       level. Updated Xil_ConfigureL1Prefetch function in Cortexa53 64 bit BSP
+*		       to avoid CPUACTLR_EL1 access from privile levels other than EL3.
+* 6.6 mus    03/16/18  Updated hypervisor enabled BSP to use PV console, based on the
+*		       XEN_USE_PV_CONSOLE flag. By deafault hypervisor enabled BSP would
+*		       use UART console, PV console can be enabled by appending
+		       "-DXEN_USE_PV_CONSOLE" to the BSP extra compiler flags.
  *
+* 6.7 mus    04/27/18  Removed __ARM_NEON__ flag definition. Now, saving/restoring of of HW
+*		       floating point register would be done through newly introduced flag
+*		       FPU_HARD_FLOAT_ABI_ENABLED. This new flag will be configured based on
+*		       the -mfpu-abi option in extra compiler flags.. This change has
+*		       been done to avoid saving/restoring of HW floating point registers,
+*		       when BSP is not compiled with HW floating point configuration.
+* 6.7 asa    04/26/18  Added API Xil_GetExceptionRegisterHandler for obtaining information
+*                      on an already registered exception vector.
+* 6.7 asa    05/18/18  Fixed bugss in the API Xil_GetExceptionRegisterHandler.
+*
  *****************************************************************************************/

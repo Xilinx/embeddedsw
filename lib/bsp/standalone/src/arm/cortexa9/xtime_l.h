@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,8 @@
 * 3.06a sgd    05/15/12 Upadted get/set time functions to make use Global Timer
 * 3.06a asa    06/17/12 Reverted back the changes to make use Global Timer.
 * 3.07a sgd    07/05/12 Upadted get/set time functions to make use Global Timer
+* 6.6   srm    10/23/17 Updated the macros to support user configurable sleep
+*						implementation
 * </pre>
 *
 ******************************************************************************/
@@ -76,9 +78,16 @@ typedef u64 XTime;
 #define GTIMER_COUNTER_UPPER_OFFSET       0x04U
 #define GTIMER_CONTROL_OFFSET             0x08U
 
-
+#if defined (SLEEP_TIMER_BASEADDR)
+#define COUNTS_PER_SECOND          (SLEEP_TIMER_FREQUENCY)
+#else
 /* Global Timer is always clocked at half of the CPU frequency */
 #define COUNTS_PER_SECOND          (XPAR_CPU_CORTEXA9_CORE_CLOCK_FREQ_HZ /2)
+#endif
+
+#if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER)
+#pragma message ("For the sleep routines, Global timer is being used")
+#endif
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/

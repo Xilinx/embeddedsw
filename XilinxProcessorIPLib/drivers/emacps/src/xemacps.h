@@ -33,7 +33,7 @@
 /**
  *
  * @file xemacps.h
-* @addtogroup emacps_v3_4
+* @addtogroup emacps_v3_7
 * @{
 * @details
  *
@@ -327,6 +327,9 @@
  *                     while generating doxygen.
  * 3.5   hk   08/14/17 Update cache coherency information of the interface in
  *                     its config structure.
+ * 3.6   rb   09/08/17 HwCnt variable (in XEmacPs_BdRing structure) is
+ *		       changed to volatile.
+ *		       Add API XEmacPs_BdRingPtrReset() to reset pointers
  *
  * </pre>
  *

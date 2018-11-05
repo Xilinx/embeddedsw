@@ -33,7 +33,7 @@
 /**
 *
 * @file xqspipsu_hw.h
-* @addtogroup qspipsu_v3_4
+* @addtogroup qspipsu_v1_7
 * @{
 *
 * This file contains low level access funcitons using the base address
@@ -49,6 +49,7 @@
 *       sk  04/24/15 Modified the code according to MISRAC-2012.
 * 1.2	nsk 07/01/16 Added LQSPI supported Masks
 *       rk  07/15/16 Added support for TapDelays at different frequencies.
+* 1.7	tjs	03/14/18 Added support in EL1 NS mode.
 *
 * </pre>
 *
@@ -829,6 +830,7 @@ extern "C" {
 #define IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT 0X02
 #define IOU_TAPDLY_BYPASS_LQSPI_RX_WIDTH 0X01
 #define IOU_TAPDLY_BYPASS_LQSPI_RX_MASK 0x00000004
+#define IOU_TAPDLY_RESET_STATE 0x7
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

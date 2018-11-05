@@ -33,7 +33,7 @@
 /**
 *
 * @file xdprxss_dbg.c
-* @addtogroup dprxss_v4_0
+* @addtogroup dprxss_v4_2
 * @{
 *
 * This file contains functions to report debug information of DisplayPort RX
@@ -223,7 +223,7 @@ void XDpRxSs_ReportMsaInfo(XDpRxSs *InstancePtr)
 			"\tClocks, H Total                (0x510) : %d\n\r"
 			"\tClocks, V Total                (0x524) : %d\n\r"
 			"\tHSyncPolarity                  (0x504) : %d\n\r"
-			"\tVSyncPolarity                  (0x528) : %d\n\r"
+			"\tVSyncPolarity                  (0x518) : %d\n\r"
 			"\tHSync Width                    (0x508) : %d\n\r"
 			"\tVSync Width                    (0x51C) : %d\n\r"
 			"\tHorz Resolution                (0x500) : %d\n\r"

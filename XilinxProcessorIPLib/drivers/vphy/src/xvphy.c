@@ -18,7 +18,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
  * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
@@ -69,6 +69,14 @@
  *                        XVphy_RegisterDebug APIs
  *                     Added filter in XVphy_MmcmStart to prevent MMCM from
  *                        starting when divider values are invalid
+ * 1.7   gm   13/09/17 Added GTYE4 support
+ *                     Updated XVphy_MmcmStart to be able to support a system
+ *                        with active HDMI and DP
+ *                     Added xvphy_mmcme2/3/4.c drivers to move MMCM
+ *                        configuration from RTL to SW
+ *                     Moved XVphy_MmcmWriteParameters to xvphy_mmcme2/3/4.c
+ *                     Added XVphy_SetPolarity, XVphy_SetPrbsSel and
+ *                        XVphy_TxPrbsForceError APIs
  * </pre>
  *
 *******************************************************************************/
@@ -83,8 +91,6 @@
 #include "xvphy_gt.h"
 
 /**************************** Function Prototypes *****************************/
-static u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
-							XVphy_DirectionType Dir);
 static u32 XVphy_DrpAccess(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir, u16 Addr, u16 *Val);
 
@@ -134,6 +140,8 @@ void XVphy_CfgInitialize(XVphy *InstancePtr, XVphy_Config *ConfigPtr,
 	InstancePtr->GtAdaptor = &Gthe3Config;
 #elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4)
 	InstancePtr->GtAdaptor = &Gthe4Config;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
+	InstancePtr->GtAdaptor = &Gtye4Config;
 #endif
 
 	const XVphy_SysClkDataSelType SysClkCfg[7][2] = {
@@ -481,7 +489,7 @@ XVphy_PllType XVphy_GetPllType(XVphy *InstancePtr, u8 QuadId,
 	else {
 		PllType = XVPHY_PLL_TYPE_UNKNOWN;
 	}
-	/* For GTHE2, GTHE3, GTHE4, and GTXE2. */
+	/* For GTHE2, GTHE3, GTHE4, GTYE4, and GTXE2. */
 	if (InstancePtr->Config.XcvrType != XVPHY_GT_TYPE_GTPE2) {
 		return PllType;
 	}
@@ -778,6 +786,180 @@ u32 XVphy_ResetGtTxRx(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 
 /*****************************************************************************/
 /**
+* This function will set/clear the TX/RX polarity bit.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID which to operate on.
+* @param	Dir is an indicator for TX or RX.
+* @param	Polarity 0-Not inverted 1-Inverted
+*
+* @return
+*		- XST_SUCCESS.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVphy_SetPolarity(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		XVphy_DirectionType Dir, u8 Polarity)
+{
+	u32 RegVal;
+	u32 MaskVal;
+	u32 RegOffset;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
+	if (Dir == XVPHY_DIR_TX) {
+		RegOffset = XVPHY_TX_CONTROL_REG;
+		if (ChId == XVPHY_CHANNEL_ID_CHA) {
+			MaskVal =  XVPHY_TX_CONTROL_TXPOLARITY_ALL_MASK;
+		}
+		else {
+			MaskVal = XVPHY_TX_CONTROL_TXPOLARITY_MASK(ChId);
+		}
+	}
+	else {
+		RegOffset = XVPHY_RX_CONTROL_REG;
+		if (ChId == XVPHY_CHANNEL_ID_CHA) {
+			MaskVal = XVPHY_RX_CONTROL_RXPOLARITY_ALL_MASK;
+		}
+		else {
+			MaskVal = XVPHY_RX_CONTROL_RXPOLARITY_MASK(ChId);
+		}
+	}
+
+	/* Read TX|RX Control Register */
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
+
+	/* Clear Polarity Register bits */
+	RegVal &= ~MaskVal;
+
+	if (Polarity) {
+		RegVal |= MaskVal;
+	}
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* This function will set the TX/RXPRBSEL of the GT
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID which to operate on.
+* @param	Dir is an indicator for TX or RX.
+* @param	Pattern is the pattern XVphy_PrbsPattern
+*
+* @return
+*		- XST_SUCCESS.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVphy_SetPrbsSel(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		XVphy_DirectionType Dir, XVphy_PrbsPattern Pattern)
+{
+	u32 RegVal;
+	u32 MaskVal;
+	u32 RegOffset;
+	u32 PrbsEnc = 0x0;
+	u8 Id, Id0, Id1;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
+	if (Dir == XVPHY_DIR_TX) {
+		RegOffset = XVPHY_TX_CONTROL_REG;
+		if (ChId == XVPHY_CHANNEL_ID_CHA) {
+			MaskVal =  XVPHY_TX_CONTROL_TXPRBSSEL_ALL_MASK;
+		}
+		else {
+			MaskVal = XVPHY_TX_CONTROL_TXPRBSSEL_MASK(ChId);
+		}
+		PrbsEnc = (u32) (((Pattern & 0x8) << 1) | (Pattern & 0x7));
+	}
+	else {
+		RegOffset = XVPHY_RX_CONTROL_REG;
+		if (ChId == XVPHY_CHANNEL_ID_CHA) {
+			MaskVal = XVPHY_RX_CONTROL_RXPRBSSEL_ALL_MASK;
+		}
+		else {
+			MaskVal = XVPHY_RX_CONTROL_RXPRBSSEL_MASK(ChId);
+		}
+		PrbsEnc = (u32) (Pattern & 0xF);
+	}
+
+	/* Read TX|RX Control Register */
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
+
+	/* Mask out PRBS Register bits */
+	RegVal &= ~MaskVal;
+
+	XVphy_Ch2Ids(InstancePtr, ChId, &Id0, &Id1);
+	for (Id = Id0; Id <= Id1; Id++) {
+		RegVal |= PrbsEnc << ((Dir == XVPHY_DIR_TX) ?
+					XVPHY_TX_CONTROL_TXPRBSSEL_SHIFT(Id) :
+					XVPHY_RX_CONTROL_RXPRBSSEL_SHIFT(Id));
+	}
+
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* This function will set the TX/RXPRBSEL of the GT
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID which to operate on.
+* @param	Dir is an indicator for TX or RX.
+* @param	ForceErr 0-No Error 1-Force Error
+*
+* @return
+*		- XST_SUCCESS.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVphy_TxPrbsForceError(XVphy *InstancePtr, u8 QuadId,
+		XVphy_ChannelId ChId, u8 ForceErr)
+{
+	u32 RegVal;
+	u32 MaskVal;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
+	if (ChId == XVPHY_CHANNEL_ID_CHA) {
+		MaskVal =  XVPHY_TX_CONTROL_TXPRBSFORCEERR_ALL_MASK;
+	}
+	else {
+		MaskVal = XVPHY_TX_CONTROL_TXPRBSFORCEERR_MASK(ChId);
+	}
+
+	/* Read TX|RX Control Register */
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
+					XVPHY_TX_CONTROL_REG);
+
+	/* Clear Polarity Register bits */
+	RegVal &= ~MaskVal;
+
+	if (ForceErr) {
+		RegVal |= MaskVal;
+	}
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr,
+					XVPHY_TX_CONTROL_REG, RegVal);
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
 * This function will initiate a write DRP transaction. It is a wrapper around
 * XVphy_DrpAccess.
 *
@@ -967,32 +1149,29 @@ void XVphy_MmcmPowerDown(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
 {
 #if defined (XPAR_XDP_0_DEVICE_ID)
-	u32 Status;
-	u8 Retry;
-
+#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID)
+	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_DP ||
+		InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP) {
+#endif
 	/* Enable MMCM. */
 	XVphy_MmcmPowerDown(InstancePtr, QuadId, Dir, FALSE);
 
 	XVphy_WaitUs(InstancePtr, 10000);
 
 	/* Toggle MMCM reset. */
-	XVphy_MmcmReset(InstancePtr, QuadId, Dir, FALSE);
-
-	XVphy_WaitUs(InstancePtr, 10000);
+	XVphy_MmcmReset(InstancePtr, QuadId, Dir, TRUE);
 
 	/* Configure MMCM. */
-	Retry = 0;
-	do {
-		XVphy_WaitUs(InstancePtr, 10000);
-		Status = XVphy_MmcmWriteParameters(InstancePtr, QuadId, Dir);
-		Retry++;
-	} while ((Status != XST_SUCCESS) && (Retry < 3));
-
-	XVphy_WaitUs(InstancePtr, 10000);
+	XVphy_MmcmWriteParameters(InstancePtr, QuadId, Dir);
 
 	/* Toggle MMCM reset. */
 	XVphy_MmcmReset(InstancePtr, QuadId, Dir, FALSE);
-#else
+#endif
+#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID)
+#if defined (XPAR_XDP_0_DEVICE_ID)
+	} else if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI ||
+			   InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+#endif
 	XVphy_Mmcm *MmcmPtr;
 
 	if (Dir == XVPHY_DIR_RX) {
@@ -1009,14 +1188,20 @@ void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
 		return;
 	}
 
-	/* Toggle MMCM reset. */
-	XVphy_MmcmReset(InstancePtr, QuadId, Dir, FALSE);
+	/* Assert MMCM reset. */
+	XVphy_MmcmReset(InstancePtr, QuadId, Dir, TRUE);
 
 	/* Configure MMCM. */
 	XVphy_MmcmWriteParameters(InstancePtr, QuadId, Dir);
 
+	/* Release MMCM reset. */
+	XVphy_MmcmReset(InstancePtr, QuadId, Dir, FALSE);
+
 	/* Unmask the MMCM Lock */
 	XVphy_MmcmLockedMaskEnable(InstancePtr, 0, Dir, FALSE);
+#if defined (XPAR_XDP_0_DEVICE_ID)
+	}
+#endif
 #endif
 
 	XVphy_LogWrite(InstancePtr, (Dir == XVPHY_DIR_TX) ?
@@ -1263,99 +1448,6 @@ u32 XVphy_IsBonded(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 
 /*****************************************************************************/
 /**
-* This function will write the mixed-mode clock manager (MMCM) values currently
-* stored in the driver's instance structure to hardware .
-*
-* @param	InstancePtr is a pointer to the XVphy core instance.
-* @param	QuadId is the GT quad ID to operate on.
-* @param	Dir is an indicator for TX or RX.
-*
-* @return
-*		- XST_SUCCESS if the MMCM write was successful.
-*		- XST_FAILURE otherwise, if the configuration success bit did
-*		  not go low.
-*
-* @note		None.
-*
-******************************************************************************/
-static u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
-							XVphy_DirectionType Dir)
-{
-	u32 RegOffsetCtrl;
-	u32 RegOffsetClk;
-	u32 RegVal;
-	XVphy_Mmcm *MmcmParams;
-#if defined (XPAR_XDP_0_DEVICE_ID)
-	u8 Retry;
-#endif
-
-	if (Dir == XVPHY_DIR_TX) {
-		RegOffsetCtrl = XVPHY_MMCM_TXUSRCLK_CTRL_REG;
-		RegOffsetClk = XVPHY_MMCM_TXUSRCLK_REG1;
-	}
-	else {
-		RegOffsetCtrl = XVPHY_MMCM_RXUSRCLK_CTRL_REG;
-		RegOffsetClk = XVPHY_MMCM_RXUSRCLK_REG1;
-	}
-	MmcmParams = &InstancePtr->Quads[QuadId].Mmcm[Dir];
-
-	/* Check Parameters if has been Initialized */
-	if (!MmcmParams->DivClkDivide && !MmcmParams->ClkFbOutMult &&
-			!MmcmParams->ClkFbOutFrac && !MmcmParams->ClkOut0Frac &&
-			!MmcmParams->ClkOut0Div && !MmcmParams->ClkOut1Div &&
-			!MmcmParams->ClkOut2Div) {
-		return XST_FAILURE;
-	}
-
-	/* MMCM_[TX|RX]USRCLK_REG1 */
-	RegVal = MmcmParams->DivClkDivide;
-	RegVal |= (MmcmParams->ClkFbOutMult <<
-				XVPHY_MMCM_USRCLK_REG1_CLKFBOUT_MULT_SHIFT);
-	RegVal |= (MmcmParams->ClkFbOutFrac <<
-				XVPHY_MMCM_USRCLK_REG1_CLKFBOUT_FRAC_SHIFT);
-	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffsetClk, RegVal);
-
-	/* MMCM_[TX|RX]USRCLK_REG2 */
-	RegOffsetClk += 4;
-	RegVal = MmcmParams->ClkOut0Div;
-	RegVal |= (MmcmParams->ClkOut0Frac <<
-				XVPHY_MMCM_USRCLK_REG2_CLKOUT0_FRAC_SHIFT);
-	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffsetClk, RegVal);
-
-	/* MMCM_[TX|RX]USRCLK_REG3 */
-	RegOffsetClk += 4;
-	RegVal = MmcmParams->ClkOut1Div;
-	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffsetClk, RegVal);
-
-	/* MMCM_[TX|RX]USRCLK_REG4 */
-	RegOffsetClk += 4;
-	RegVal = MmcmParams->ClkOut2Div;
-	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffsetClk, RegVal);
-
-	/* Update the MMCM. */
-	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffsetCtrl);
-	RegVal |= XVPHY_MMCM_USRCLK_CTRL_CFG_NEW_MASK;
-	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffsetCtrl, RegVal);
-
-#if defined (XPAR_XDP_0_DEVICE_ID)
-	/* Wait until the MMCM indicates configuration has succeeded. */
-	Retry = 0;
-	do {
-		XVphy_WaitUs(InstancePtr, 1000);
-		RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
-								RegOffsetCtrl);
-		if (Retry > 15) {
-			return XST_FAILURE;
-		}
-		Retry++;
-	} while (!(RegVal & XVPHY_MMCM_USRCLK_CTRL_CFG_SUCCESS_MASK));
-#endif
-
-	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
 * This function will initiate a DRP transaction (either read or write).
 *
 * @param	InstancePtr is a pointer to the XVphy core instance.
@@ -1391,6 +1483,14 @@ static u32 XVphy_DrpAccess(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	if (XVPHY_ISCMN(ChId)) {
 		RegOffsetCtrl = XVPHY_DRP_CONTROL_COMMON_REG;
 		RegOffsetSts = XVPHY_DRP_STATUS_COMMON_REG;
+	}
+	else if (XVPHY_ISTXMMCM(ChId)) {
+		RegOffsetCtrl = XVPHY_DRP_CONTROL_TXMMCM_REG;
+		RegOffsetSts = XVPHY_DRP_STATUS_TXMMCM_REG;
+	}
+	else if (XVPHY_ISRXMMCM(ChId)) {
+		RegOffsetCtrl = XVPHY_DRP_CONTROL_RXMMCM_REG;
+		RegOffsetSts = XVPHY_DRP_STATUS_RXMMCM_REG;
 	}
 	else {
 		RegOffsetCtrl = XVPHY_DRP_CONTROL_CH1_REG +
@@ -1552,6 +1652,8 @@ void XVphy_RegisterDebug(XVphy *InstancePtr)
 	MaxDrpAddr = 0x00B0;
 #elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4)
 	MaxDrpAddr = 0x00B0;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
+	MaxDrpAddr = 0x00B0;
 #endif
 
 	xil_printf("\r\nVPHY GT COMMON DRP Registers\r\n");
@@ -1580,6 +1682,8 @@ void XVphy_RegisterDebug(XVphy *InstancePtr)
 	MaxDrpAddr = 0x015F;
 #elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4)
 	MaxDrpAddr = 0x025F;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
+	MaxDrpAddr = 0x028C;
 #endif
 	/* Get Max number of channels in VPHY */
 	MaxChannels = (InstancePtr->Config.RxChannels >

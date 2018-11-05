@@ -1,6 +1,6 @@
 #/******************************************************************************
 #*
-#* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+#* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 #*
 #* Permission is hereby granted, free of charge, to any person obtaining a copy
 #* of this software and associated documentation files (the "Software"), to deal
@@ -175,7 +175,7 @@ proc swapp_generate {} {
         error "Invalid processor type: $proc_type"
     }
 
-    foreach entry [glob -nocomplain -type f [file join machine *] [file join machine $procdir *] [file join system *] [file join system $osdir *] [file join system $osdir machine *] [file join system $osdir machine $procdir *]] {
+    foreach entry [glob -nocomplain -type f [file join machine *] [file join machine $procdir *] [file join system *] [file join system $osdir *] [file join system $osdir $procdir zynqmp_amp_demo *] [file join system $osdir machine *] [file join system $osdir machine $procdir *]] {
 	file copy -force $entry "."
     }
 
@@ -206,5 +206,5 @@ proc swapp_get_supported_processors {} {
 }
 
 proc swapp_get_supported_os {} {
-    return "freertos901_xilinx standalone"
+    return "freertos10_xilinx standalone"
 }

@@ -33,7 +33,7 @@
 /**
 *
 * @file xiic_options.c
-* @addtogroup iic_v3_1
+* @addtogroup iic_v3_4
 * @{
 *
 * Contains options functions for the XIic component. This file is not required

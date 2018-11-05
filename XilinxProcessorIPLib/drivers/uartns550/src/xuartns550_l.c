@@ -33,7 +33,7 @@
 /**
 *
 * @file xuartns550_l.c
-* @addtogroup uartns550_v3_3
+* @addtogroup uartns550_v3_5
 * @{
 *
 * This file contains low-level driver functions that can be used to access the

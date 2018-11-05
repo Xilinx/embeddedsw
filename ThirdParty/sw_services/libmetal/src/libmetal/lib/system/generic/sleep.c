@@ -33,7 +33,7 @@
  * @brief	Generic libmetal sleep handling.
  */
 
-#include "metal/sleep.h"
+#include <metal/sleep.h>
 
 int metal_sleep_usec(unsigned int usec)
 {

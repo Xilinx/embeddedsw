@@ -28,7 +28,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "metal/config.h"
+#include <metal/config.h>
 
 int metal_ver_major(void)
 {

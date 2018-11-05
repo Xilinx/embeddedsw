@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio_selftest.c
-* @addtogroup gpio_v4_2
+* @addtogroup gpio_v4_3
 * @{
 *
 * The implementation of the XGpio driver's self test function.

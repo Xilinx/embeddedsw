@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -63,6 +63,8 @@
 extern "C" {
 #endif
 
+/***************************** Include Files *********************************/
+
 /************************** Constant Definitions *****************************/
 
 /*
@@ -95,8 +97,9 @@ extern "C" {
 #define XPAR_XSDIOPS_0_INTR		XPS_SDIO0_INT_ID
 #define XPAR_XQSPIPS_0_INTR		XPS_QSPI_INT_ID
 #define XPAR_XSDIOPS_1_INTR		XPS_SDIO1_INT_ID
-#define XPAR_XWDTPS_0_INTR		XPS_LPD_SWDT_INT_ID
-#define XPAR_XWDTPS_1_INTR		XPS_FPD_SWDT_INT_ID
+#define XPAR_XWDTPS_0_INTR		XPS_CSU_WDT_INT_ID
+#define XPAR_XWDTPS_1_INTR		XPS_LPD_SWDT_INT_ID
+#define XPAR_XWDTPS_2_INTR		XPS_FPD_SWDT_INT_ID
 #define XPAR_XDCFG_0_INTR		XPS_DVC_INT_ID
 #define XPAR_XTTCPS_0_INTR		XPS_TTC0_0_INT_ID
 #define XPAR_XTTCPS_1_INTR		XPS_TTC0_1_INT_ID
@@ -120,6 +123,15 @@ extern "C" {
 #define XPAR_XADMAPS_6_INTR 		XPS_ADMA_CH6_INT_ID
 #define XPAR_XADMAPS_7_INTR 		XPS_ADMA_CH7_INT_ID
 #define XPAR_XCSUDMA_INTR 		XPS_CSU_DMA_INT_ID
+#define XPAR_PSU_ADMA_0_INTR 		XPS_ADMA_CH0_INT_ID
+#define XPAR_PSU_ADMA_1_INTR 		XPS_ADMA_CH1_INT_ID
+#define XPAR_PSU_ADMA_2_INTR		XPS_ADMA_CH2_INT_ID
+#define XPAR_PSU_ADMA_3_INTR 		XPS_ADMA_CH3_INT_ID
+#define XPAR_PSU_ADMA_4_INTR		XPS_ADMA_CH4_INT_ID
+#define XPAR_PSU_ADMA_5_INTR 		XPS_ADMA_CH5_INT_ID
+#define XPAR_PSU_ADMA_6_INTR 		XPS_ADMA_CH6_INT_ID
+#define XPAR_PSU_ADMA_7_INTR 		XPS_ADMA_CH7_INT_ID
+#define XPAR_PSU_CSUDMA_INTR 		XPS_CSU_DMA_INT_ID
 #define XPAR_XMPU_LPD_INTR 		XPS_XMPU_LPD_INT_ID
 #define XPAR_XZDMAPS_0_INTR		XPS_ZDMA_CH0_INT_ID
 #define XPAR_XZDMAPS_1_INTR		XPS_ZDMA_CH1_INT_ID
@@ -129,6 +141,14 @@ extern "C" {
 #define XPAR_XZDMAPS_5_INTR 		XPS_ZDMA_CH5_INT_ID
 #define XPAR_XZDMAPS_6_INTR 		XPS_ZDMA_CH6_INT_ID
 #define XPAR_XZDMAPS_7_INTR 		XPS_ZDMA_CH7_INT_ID
+#define XPAR_PSU_GDMA_0_INTR		XPS_ZDMA_CH0_INT_ID
+#define XPAR_PSU_GDMA_1_INTR		XPS_ZDMA_CH1_INT_ID
+#define XPAR_PSU_GDMA_2_INTR 		XPS_ZDMA_CH2_INT_ID
+#define XPAR_PSU_GDMA_3_INTR 		XPS_ZDMA_CH3_INT_ID
+#define XPAR_PSU_GDMA_4_INTR		XPS_ZDMA_CH4_INT_ID
+#define XPAR_PSU_GDMA_5_INTR 		XPS_ZDMA_CH5_INT_ID
+#define XPAR_PSU_GDMA_6_INTR 		XPS_ZDMA_CH6_INT_ID
+#define XPAR_PSU_GDMA_7_INTR 		XPS_ZDMA_CH7_INT_ID
 #define XPAR_XMPU_FPD_INTR 		XPS_XMPU_FPD_INT_ID
 #define XPAR_XCCI_FPD_INTR 		XPS_FPD_CCI_INT_ID
 #define XPAR_XSMMU_FPD_INTR 		XPS_FPD_SMMU_INT_ID
@@ -195,6 +215,7 @@ extern "C" {
 #define	XPS_RTC_ALARM_INT_ID 	(26U + 32U)
 #define	XPS_RTC_SEC_INT_ID	 	(27U + 32U)
 #define XPS_LPD_SWDT_INT_ID		(52U + 32U)
+#define XPS_CSU_WDT_INT_ID	    (53U + 32U)
 #define XPS_FPD_SWDT_INT_ID		(113U + 32U)
 #define XPS_TTC0_0_INT_ID		(36U + 32U)
 #define XPS_TTC0_1_INT_ID		(37U + 32U)
@@ -283,6 +304,7 @@ extern "C" {
 #define XPAR_PSU_TTC_9_INTR			XPS_TTC3_0_INT_ID
 #define XPAR_PSU_TTC_10_INTR		XPS_TTC3_1_INT_ID
 #define XPAR_PSU_TTC_11_INTR		XPS_TTC3_2_INT_ID
+#define XPAR_PSU_AMS_INTR			XPS_AMS_INT_ID
 
 #define XPAR_XADCPS_NUM_INSTANCES 1U
 #define XPAR_XADCPS_0_DEVICE_ID   0U

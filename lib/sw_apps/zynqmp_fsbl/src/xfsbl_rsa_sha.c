@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,8 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  kc   07/22/14  Initial release
  * 2.0   bv   12/02/16  Made compliance to MISRAC 2012 guidelines
+ * 3.0   vns  01/23/18  Added XFsbl_Sha3PadSelect() API to change SHA3 padding
+ *                      to KECCAK SHA3 padding.
  *
  * </pre>
  *
@@ -89,6 +91,24 @@ void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen)
 	}
 }
 
+/*****************************************************************************
+ *
+ * This function selects the padding type to be used for SHA3 hash calculation
+ *
+ * @param	PadType	Padding type to be used for hash calculation.
+ *
+ * @return	XST_SUCCESS on successful selection.
+ *              XST_FAILURE if selection is failed.
+ *
+ ******************************************************************************/
+u32 XFsbl_Sha3PadSelect(u8 PadType)
+{
+	u32 Status;
+
+	Status = XSecure_Sha3PadSelection(&SecureSha3, PadType);
+
+	return Status;
+}
 
 /*****************************************************************************
  *

@@ -64,7 +64,7 @@ $(document).ready(function(){initNavTree('struct_x_usb_psu___ep.html','');});
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XUsbPsu_Ep Struct Reference<div class="ingroups"><a class="el" href="group__usbpsu__v1__0.html">Usbpsu_v1_0</a></div></div>  </div>
+<div class="title">XUsbPsu_Ep Struct Reference<div class="ingroups"><a class="el" href="group__usbpsu__v1__3.html">Usbpsu_v1_3</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -73,21 +73,30 @@ $(document).ready(function(){initNavTree('struct_x_usb_psu___ep.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:aad9c973841711f6a31b05df72a1ca221"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct_x_usb_psu___trb.html">XUsbPsu_Trb</a> EpTrb&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu___ep.html#aad9c973841711f6a31b05df72a1ca221">ALIGNMENT_CACHELINE</a></td></tr>
-<tr class="memdesc:aad9c973841711f6a31b05df72a1ca221"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; User handler called when data is sent for IN Ep and received for OUT Ep  <a href="#aad9c973841711f6a31b05df72a1ca221">More...</a><br /></td></tr>
-<tr class="separator:aad9c973841711f6a31b05df72a1ca221"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa297e0d951485e61bd188d4223b64d2"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct_x_usb_psu___trb.html">XUsbPsu_Trb</a> EpTrb [NO_OF_TRB_PER_EP+1]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu___ep.html#afa297e0d951485e61bd188d4223b64d2">ALIGNMENT_CACHELINE</a></td></tr>
+<tr class="memdesc:afa297e0d951485e61bd188d4223b64d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; User handler called when data is sent for IN Ep and received for OUT Ep  <a href="#afa297e0d951485e61bd188d4223b64d2">More...</a><br /></td></tr>
+<tr class="separator:afa297e0d951485e61bd188d4223b64d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d896e975aee7d3ebf777702bdf1ad81"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu___ep.html#a9d896e975aee7d3ebf777702bdf1ad81">EpStatus</a></td></tr>
 <tr class="memdesc:a9d896e975aee7d3ebf777702bdf1ad81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flags to represent Endpoint status.  <a href="#a9d896e975aee7d3ebf777702bdf1ad81">More...</a><br /></td></tr>
 <tr class="separator:a9d896e975aee7d3ebf777702bdf1ad81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17b602a739950a5c30bc6c7b522b0ae4"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu___ep.html#a17b602a739950a5c30bc6c7b522b0ae4">EpSavedState</a></td></tr>
+<tr class="memdesc:a17b602a739950a5c30bc6c7b522b0ae4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endpoint status saved at the time of hibernation.  <a href="#a17b602a739950a5c30bc6c7b522b0ae4">More...</a><br /></td></tr>
+<tr class="separator:a17b602a739950a5c30bc6c7b522b0ae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab44e7e5e239c2bd81d9cc9c9cde65884"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu___ep.html#ab44e7e5e239c2bd81d9cc9c9cde65884">RequestedBytes</a></td></tr>
 <tr class="memdesc:ab44e7e5e239c2bd81d9cc9c9cde65884"><td class="mdescLeft">&#160;</td><td class="mdescRight">RequestedBytes for transfer.  <a href="#ab44e7e5e239c2bd81d9cc9c9cde65884">More...</a><br /></td></tr>
 <tr class="separator:ab44e7e5e239c2bd81d9cc9c9cde65884"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe5ecb3fc2462b344e48f092f9ca3e5b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu___ep.html#afe5ecb3fc2462b344e48f092f9ca3e5b">BytesTxed</a></td></tr>
 <tr class="memdesc:afe5ecb3fc2462b344e48f092f9ca3e5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actual Bytes transferred.  <a href="#afe5ecb3fc2462b344e48f092f9ca3e5b">More...</a><br /></td></tr>
 <tr class="separator:afe5ecb3fc2462b344e48f092f9ca3e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f79403cf89a048aeedf9be9a9da8f4f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu___ep.html#a0f79403cf89a048aeedf9be9a9da8f4f">Interval</a></td></tr>
+<tr class="memdesc:a0f79403cf89a048aeedf9be9a9da8f4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data transfer service interval.  <a href="#a0f79403cf89a048aeedf9be9a9da8f4f">More...</a><br /></td></tr>
+<tr class="separator:a0f79403cf89a048aeedf9be9a9da8f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5dbce92f4a2dd991649ae99e90c08cb4"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu___ep.html#a5dbce92f4a2dd991649ae99e90c08cb4">MaxSize</a></td></tr>
 <tr class="memdesc:a5dbce92f4a2dd991649ae99e90c08cb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of endpoint.  <a href="#a5dbce92f4a2dd991649ae99e90c08cb4">More...</a><br /></td></tr>
 <tr class="separator:a5dbce92f4a2dd991649ae99e90c08cb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cccdeed84d1af2bbc01731f62c170c7"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu___ep.html#a9cccdeed84d1af2bbc01731f62c170c7">CurUf</a></td></tr>
+<tr class="memdesc:a9cccdeed84d1af2bbc01731f62c170c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">current microframe  <a href="#a9cccdeed84d1af2bbc01731f62c170c7">More...</a><br /></td></tr>
+<tr class="separator:a9cccdeed84d1af2bbc01731f62c170c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a540a84bf7626bc472f26617c0b329221"><td class="memItemLeft" align="right" valign="top">u8 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu___ep.html#a540a84bf7626bc472f26617c0b329221">BufferPtr</a></td></tr>
 <tr class="memdesc:a540a84bf7626bc472f26617c0b329221"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer location.  <a href="#a540a84bf7626bc472f26617c0b329221">More...</a><br /></td></tr>
 <tr class="separator:a540a84bf7626bc472f26617c0b329221"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -110,14 +119,14 @@ Data Fields</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Endpoint representation. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a id="aad9c973841711f6a31b05df72a1ca221"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad9c973841711f6a31b05df72a1ca221">&#9670;&nbsp;</a></span>ALIGNMENT_CACHELINE</h2>
+<a id="afa297e0d951485e61bd188d4223b64d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa297e0d951485e61bd188d4223b64d2">&#9670;&nbsp;</a></span>ALIGNMENT_CACHELINE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="struct_x_usb_psu___trb.html">XUsbPsu_Trb</a> EpTrb XUsbPsu_Ep::ALIGNMENT_CACHELINE</td>
+          <td class="memname">struct <a class="el" href="struct_x_usb_psu___trb.html">XUsbPsu_Trb</a> EpTrb [NO_OF_TRB_PER_EP + 1] XUsbPsu_Ep::ALIGNMENT_CACHELINE</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -159,6 +168,24 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="a9cccdeed84d1af2bbc01731f62c170c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cccdeed84d1af2bbc01731f62c170c7">&#9670;&nbsp;</a></span>CurUf</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 XUsbPsu_Ep::CurUf</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>current microframe </p>
+
+<p class="reference">Referenced by <a class="el" href="group__usbpsu__v1__3.html#ga2d7229b7b3d937ed82f79c3ec35e97f8">XUsbPsu_EpXferNotReady()</a>.</p>
+
+</div>
+</div>
 <a id="a5d001c89b016fa7087350c46dfe747f2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5d001c89b016fa7087350c46dfe747f2">&#9670;&nbsp;</a></span>Direction</h2>
 
@@ -173,7 +200,23 @@ Data Fields</h2></td></tr>
 
 <p>Direction - EP_DIR_OUT/EP_DIR_IN. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__usbpsu__v1__0.html#ga5fdd7c08c30d46a9c3024ebe404d877e">XUsbPsu_EpXferComplete()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__usbpsu__v1__3.html#ga5fdd7c08c30d46a9c3024ebe404d877e">XUsbPsu_EpXferComplete()</a>, and <a class="el" href="group__usbpsu__v1__3.html#gac5e91b20aedeff92c9aa7eed229c5c03">XUsbPsu_SaveEndpointState()</a>.</p>
+
+</div>
+</div>
+<a id="a17b602a739950a5c30bc6c7b522b0ae4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17b602a739950a5c30bc6c7b522b0ae4">&#9670;&nbsp;</a></span>EpSavedState</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XUsbPsu_Ep::EpSavedState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Endpoint status saved at the time of hibernation. </p>
 
 </div>
 </div>
@@ -191,7 +234,23 @@ Data Fields</h2></td></tr>
 
 <p>Flags to represent Endpoint status. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__usbpsu__v1__0.html#ga057ab0e4a9511055a42e60b92550660d">XUsbPsu_Ep0Send()</a>, <a class="el" href="group__usbpsu__v1__0.html#ga78d9a929bbb9036e7eb4ba85b176df0d">XUsbPsu_Ep0StallRestart()</a>, <a class="el" href="group__usbpsu__v1__0.html#ga04233f31bba830d4fb090e930eb679e9">XUsbPsu_EpInterrupt()</a>, and <a class="el" href="group__usbpsu__v1__0.html#ga1cbbfbb1658f7fe29ec7f1b24ba87eeb">XUsbPsu_RecvSetup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__usbpsu__v1__0.html#ga057ab0e4a9511055a42e60b92550660d">XUsbPsu_Ep0Send()</a>, <a class="el" href="group__usbpsu__v1__0.html#ga78d9a929bbb9036e7eb4ba85b176df0d">XUsbPsu_Ep0StallRestart()</a>, <a class="el" href="group__usbpsu__v1__3.html#ga04233f31bba830d4fb090e930eb679e9">XUsbPsu_EpInterrupt()</a>, and <a class="el" href="group__usbpsu__v1__0.html#ga1cbbfbb1658f7fe29ec7f1b24ba87eeb">XUsbPsu_RecvSetup()</a>.</p>
+
+</div>
+</div>
+<a id="a0f79403cf89a048aeedf9be9a9da8f4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f79403cf89a048aeedf9be9a9da8f4f">&#9670;&nbsp;</a></span>Interval</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XUsbPsu_Ep::Interval</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Data transfer service interval. </p>
 
 </div>
 </div>
@@ -225,7 +284,7 @@ Data Fields</h2></td></tr>
 
 <p>Physical Endpoint Number in core. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__usbpsu__v1__0.html#ga9a977327906f2995960e50d429703687">XUsbPsu_EpBufferSend()</a>, <a class="el" href="group__usbpsu__v1__0.html#gab3a191b5b5a02738beffd951ce4883d8">XUsbPsu_EpDisable()</a>, and <a class="el" href="group__usbpsu__v1__0.html#ga940e5d8d4c56eec4e394507eb0e1ab8b">XUsbPsu_IsEpStalled()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__usbpsu__v1__3.html#ga9a977327906f2995960e50d429703687">XUsbPsu_EpBufferSend()</a>, and <a class="el" href="group__usbpsu__v1__3.html#ga940e5d8d4c56eec4e394507eb0e1ab8b">XUsbPsu_IsEpStalled()</a>.</p>
 
 </div>
 </div>
@@ -277,6 +336,8 @@ Data Fields</h2></td></tr>
 
 <p>Type of Endpoint - Control/BULK/INTERRUPT/ISOC. </p>
 
+<p class="reference">Referenced by <a class="el" href="group__usbpsu__v1__3.html#ga2d7229b7b3d937ed82f79c3ec35e97f8">XUsbPsu_EpXferNotReady()</a>.</p>
+
 </div>
 </div>
 <a id="aa7f9ebb45a33e0538854eb96929fe5a1"></a>
@@ -292,6 +353,8 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>USB Endpoint Number. </p>
+
+<p class="reference">Referenced by <a class="el" href="group__usbpsu__v1__3.html#gac5e91b20aedeff92c9aa7eed229c5c03">XUsbPsu_SaveEndpointState()</a>.</p>
 
 </div>
 </div>

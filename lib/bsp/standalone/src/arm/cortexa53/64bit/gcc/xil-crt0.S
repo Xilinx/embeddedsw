@@ -43,6 +43,11 @@
 * 5.04	pkp  01/05/16 Set the reset vector register RVBAR equivalent to
 *		      vector table base address
 * 6.02  pkp  01/22/17 Added support for EL1 non-secure
+* 6.6   srm  10/18/17 Added timer configuration using XTime_StartTTCTimer API.
+*		      Now the TTC instance as specified by the user will be
+*	              started.
+* 6.6   mus  01/29/18 Initialized the xen PV console for Cortexa53 64 bit
+*                     EL1 NS BSP.
 * </pre>
 *
 * @note
@@ -50,6 +55,7 @@
 * None.
 *
 ******************************************************************************/
+#include "xparameters.h"
 #include "bspconfig.h"
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
@@ -111,6 +117,15 @@ _startup:
 	/* run global constructors */
 	bl __libc_init_array
 
+	/* Reset and start Triple Timer Counter */
+	#if defined (SLEEP_TIMER_BASEADDR)
+	bl XTime_StartTTCTimer
+	#endif
+
+	.if (EL1_NONSECURE == 1 && HYP_GUEST == 1 && \
+	     XEN_USE_PV_CONSOLE == 1)
+         bl XPVXenConsole_Init
+	.endif
 	/* make sure argc and argv are valid */
 	mov	x0, #0
 	mov	x1, #0

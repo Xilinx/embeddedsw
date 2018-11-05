@@ -67,7 +67,6 @@ XStatus XPfw_UtilPollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount);
 
 /**
  * Wait for a period represented by TimeOut
- * FIXME: Make it more meaningful. Clock Cycles or MilliSeconds
  *
  * @param Timeout is the value to count before we return this function
  */

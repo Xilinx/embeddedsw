@@ -1,6 +1,5 @@
 var struct_x_nand_psu =
 [
-    [ "__attribute__", "struct_x_nand_psu.html#a036592383d4c3b32681ced6c8dd076f8", null ],
     [ "BbPattern", "struct_x_nand_psu.html#a37931be239bdeed699e8f91f2a86f3aa", null ],
     [ "Bbt", "struct_x_nand_psu.html#a8e9b7e25e9dda30d9ffdeb593ee7c20f", null ],
     [ "BbtDesc", "struct_x_nand_psu.html#abb9684a89e0df8445094681e7aab1107", null ],

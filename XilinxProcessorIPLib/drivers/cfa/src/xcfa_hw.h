@@ -33,7 +33,7 @@
 /**
 *
 * @file xcfa_hw.h
-* @addtogroup cfa_v7_0
+* @addtogroup cfa_v7_1
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or

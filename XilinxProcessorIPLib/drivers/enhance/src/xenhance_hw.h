@@ -33,7 +33,7 @@
 /**
 *
 * @file xenhance_hw.h
-* @addtogroup enhance_v7_0
+* @addtogroup enhance_v7_1
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or

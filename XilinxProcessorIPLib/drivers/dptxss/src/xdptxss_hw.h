@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss_hw.h
-* @addtogroup dptxss_v5_0
+* @addtogroup dptxss_v5_1
 * @{
 *
 * This header file contains identifiers and register-level core functions (or
@@ -77,6 +77,10 @@ extern "C" {
 								     * link
 								     * rate. */
 #define XDPTXSS_LINK_BW_SET_540GBPS	XDP_TX_LINK_BW_SET_540GBPS /**< 5.40
+								     *  Gbps
+								     * link
+								     * rate. */
+#define XDPTXSS_LINK_BW_SET_810GBPS	XDP_TX_LINK_BW_SET_810GBPS /**< 8.10
 								     *  Gbps
 								     * link
 								     * rate. */

@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 * @file xiicps_slave.c
-* @addtogroup iicps_v3_0
+* @addtogroup iicps_v3_7
 * @{
 *
 * Handles slave transfers

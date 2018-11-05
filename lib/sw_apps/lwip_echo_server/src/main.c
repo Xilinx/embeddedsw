@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,8 +45,12 @@
 #include "lwip/tcp.h"
 #include "xil_cache.h"
 
+#if LWIP_IPV6==1
+#include "lwip/ip.h"
+#else
 #if LWIP_DHCP==1
 #include "lwip/dhcp.h"
+#endif
 #endif
 
 /* defined by each RAW mode application */
@@ -59,9 +63,11 @@ void tcp_slowtmr(void);
 /* missing declaration in lwIP */
 void lwip_init();
 
+#if LWIP_IPV6==0
 #if LWIP_DHCP==1
 extern volatile int dhcp_timoutcntr;
 err_t dhcp_start(struct netif *netif);
+#endif
 #endif
 
 extern volatile int TcpFastTmrFlag;
@@ -69,8 +75,24 @@ extern volatile int TcpSlowTmrFlag;
 static struct netif server_netif;
 struct netif *echo_netif;
 
+#if LWIP_IPV6==1
+void print_ip6(char *msg, ip_addr_t *ip)
+{
+	print(msg);
+	xil_printf(" %x:%x:%x:%x:%x:%x:%x:%x\n\r",
+			IP6_ADDR_BLOCK1(&ip->u_addr.ip6),
+			IP6_ADDR_BLOCK2(&ip->u_addr.ip6),
+			IP6_ADDR_BLOCK3(&ip->u_addr.ip6),
+			IP6_ADDR_BLOCK4(&ip->u_addr.ip6),
+			IP6_ADDR_BLOCK5(&ip->u_addr.ip6),
+			IP6_ADDR_BLOCK6(&ip->u_addr.ip6),
+			IP6_ADDR_BLOCK7(&ip->u_addr.ip6),
+			IP6_ADDR_BLOCK8(&ip->u_addr.ip6));
+
+}
+#else
 void
-print_ip(char *msg, struct ip_addr *ip) 
+print_ip(char *msg, ip_addr_t *ip)
 {
 	print(msg);
 	xil_printf("%d.%d.%d.%d\n\r", ip4_addr1(ip), ip4_addr2(ip), 
@@ -78,13 +100,14 @@ print_ip(char *msg, struct ip_addr *ip)
 }
 
 void
-print_ip_settings(struct ip_addr *ip, struct ip_addr *mask, struct ip_addr *gw)
+print_ip_settings(ip_addr_t *ip, ip_addr_t *mask, ip_addr_t *gw)
 {
 
 	print_ip("Board IP: ", ip);
 	print_ip("Netmask : ", mask);
 	print_ip("Gateway : ", gw);
 }
+#endif
 
 #if defined (__arm__) && !defined (ARMR5)
 #if XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT == 1 || XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT == 1
@@ -101,8 +124,10 @@ int IicPhyReset(void);
 
 int main()
 {
-	struct ip_addr ipaddr, netmask, gw;
+#if LWIP_IPV6==0
+	ip_addr_t ipaddr, netmask, gw;
 
+#endif
 	/* the mac address of the board. this should be unique per board */
 	unsigned char mac_ethernet_address[] =
 	{ 0x00, 0x0a, 0x35, 0x00, 0x01, 0x02 };
@@ -122,6 +147,7 @@ int main()
 
 	init_platform();
 
+#if LWIP_IPV6==0
 #if LWIP_DHCP==1
     ipaddr.addr = 0;
 	gw.addr = 0;
@@ -132,17 +158,34 @@ int main()
 	IP4_ADDR(&netmask, 255, 255, 255,  0);
 	IP4_ADDR(&gw,      192, 168,   1,  1);
 #endif	
+#endif
 	print_app_header();
 
 	lwip_init();
 
-  	/* Add network interface to the netif_list, and set it as default */
+#if (LWIP_IPV6 == 0)
+	/* Add network interface to the netif_list, and set it as default */
 	if (!xemac_add(echo_netif, &ipaddr, &netmask,
 						&gw, mac_ethernet_address,
 						PLATFORM_EMAC_BASEADDR)) {
 		xil_printf("Error adding N/W interface\n\r");
 		return -1;
 	}
+#else
+	/* Add network interface to the netif_list, and set it as default */
+	if (!xemac_add(echo_netif, NULL, NULL, NULL, mac_ethernet_address,
+						PLATFORM_EMAC_BASEADDR)) {
+		xil_printf("Error adding N/W interface\n\r");
+		return -1;
+	}
+	echo_netif->ip6_autoconfig_enabled = 1;
+
+	netif_create_ip6_linklocal_address(echo_netif, 1);
+	netif_ip6_addr_set_state(echo_netif, 0, IP6_ADDR_VALID);
+
+	print_ip6("\n\rBoard IPv6 address ", &echo_netif->ip6_addr[0].u_addr.ip6);
+
+#endif
 	netif_set_default(echo_netif);
 
 	/* now enable interrupts */
@@ -151,6 +194,7 @@ int main()
 	/* specify that the network if is up */
 	netif_set_up(echo_netif);
 
+#if (LWIP_IPV6 == 0)
 #if (LWIP_DHCP==1)
 	/* Create a new DHCP client for this interface.
 	 * Note: you must call dhcp_fine_tmr() and dhcp_coarse_tmr() at
@@ -179,6 +223,7 @@ int main()
 
 	print_ip_settings(&ipaddr, &netmask, &gw);
 
+#endif
 	/* start the application (web server, rxtest, txtest, etc..) */
 	start_application();
 

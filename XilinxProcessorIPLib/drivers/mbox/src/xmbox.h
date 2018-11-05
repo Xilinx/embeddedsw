@@ -33,7 +33,7 @@
 /**
 *
 * @file xmbox.h
-* @addtogroup mbox_v4_0
+* @addtogroup mbox_v4_3
 * @{
 * @details
 *

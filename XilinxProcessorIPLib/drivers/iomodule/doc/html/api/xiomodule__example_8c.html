@@ -118,7 +118,7 @@ Functions</h2></td></tr>
 <p>This is typically a 2nd level handler that is called from the IO Module interrupt handler. This handler would typically perform device specific processing such as reading and writing the registers of the device to clear the interrupt condition and pass any data to an application using the device driver. Many drivers already provide this handler and the user is not required to create it.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">CallbackRef</td><td>is passed back to the device driver's interrupt handler by the <a class="el" href="struct_x_i_o_module.html" title="The XIOModule driver instance data. ">XIOModule</a> driver. It was given to the <a class="el" href="struct_x_i_o_module.html" title="The XIOModule driver instance data. ">XIOModule</a> driver in the <a class="el" href="group__iomodule__v2__2.html#ga65efd62e9193f589aa82dfa26fc90142" title="Makes the connection between the Id of the interrupt source and the associated handler that is to run...">XIOModule_Connect()</a> function call. It is typically a pointer to the device driver instance variable if using the Xilinx Level 1 device drivers. In this example, we do not care about the callback reference, so we passed it a 0 when connecting the handler to the <a class="el" href="struct_x_i_o_module.html" title="The XIOModule driver instance data. ">XIOModule</a> driver and we make no use of it here.</td></tr>
+    <tr><td class="paramname">CallbackRef</td><td>is passed back to the device driver's interrupt handler by the <a class="el" href="struct_x_i_o_module.html" title="The XIOModule driver instance data. ">XIOModule</a> driver. It was given to the <a class="el" href="struct_x_i_o_module.html" title="The XIOModule driver instance data. ">XIOModule</a> driver in the <a class="el" href="group__iomodule__v2__5.html#ga65efd62e9193f589aa82dfa26fc90142" title="Makes the connection between the Id of the interrupt source and the associated handler that is to run...">XIOModule_Connect()</a> function call. It is typically a pointer to the device driver instance variable if using the Xilinx Level 1 device drivers. In this example, we do not care about the callback reference, so we passed it a 0 when connecting the handler to the <a class="el" href="struct_x_i_o_module.html" title="The XIOModule driver instance data. ">XIOModule</a> driver and we make no use of it here.</td></tr>
   </table>
   </dd>
 </dl>
@@ -154,7 +154,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="group__iomodule__v2__2.html#ga67914ab7abde581aa2214b997923938d">XIOModule_Initialize()</a>.</p>
+<p class="reference">References <a class="el" href="group__iomodule__v2__5.html#ga67914ab7abde581aa2214b997923938d">XIOModule_Initialize()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="xiomodule__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -217,7 +217,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="group__iomodule__v2__2.html#ga65efd62e9193f589aa82dfa26fc90142">XIOModule_Connect()</a>.</p>
+<p class="reference">References <a class="el" href="group__iomodule__v2__5.html#ga65efd62e9193f589aa82dfa26fc90142">XIOModule_Connect()</a>.</p>
 
 </div>
 </div>

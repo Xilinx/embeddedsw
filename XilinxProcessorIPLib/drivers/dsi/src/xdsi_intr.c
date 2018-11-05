@@ -33,7 +33,7 @@
 /**
 *
 * @file xdsi_intr.c
-* @addtogroup dsi_v1_0
+* @addtogroup dsi_v1_1
 * @{
 *
 * This file implements the functions which handle the interrupts in the DSI

@@ -33,7 +33,7 @@
 /**
 *
 * @file xprd.h
-* @addtogroup prd_v1_0
+* @addtogroup prd_v1_1
 * @{
 * @details
 *

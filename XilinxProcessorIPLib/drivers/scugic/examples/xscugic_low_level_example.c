@@ -1,4 +1,3 @@
-/* $Id: xscugic_low_level_example.c,v 1.1.2.2 2011/03/23 07:46:42 sadanan Exp $ */
 /******************************************************************************
 *
 * Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.

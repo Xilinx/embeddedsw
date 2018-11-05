@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -791,45 +791,44 @@ static void DebugLane(int argc, const char *argv[])
  *****************************************************************************/
 static void DebugList(int argc, const char *argv[])
 {
-	char Name[12];
-	char TypeString[12];
-	int DeviceID = 0;
-	int TxID = 0;
-	int RxID = 0;
-
-	/* Display header */
-	PRINTF("ID  Name        Type\r\n");
-	PRINTF("--  ----------  ----------\r\n");
-
-	/* List the devices */
-	for (DeviceID=0; DeviceID<XPAR_XHDCP_NUM_INSTANCES; DeviceID++) {
-
-		XHdcp1x* HdcpIf = GetHdcpIf(DeviceID);
-
-		/* Determine Name and TypeString */
-		if (HdcpIf->Config.IsRx) {
-			snprintf(Name, 12, "hdcp-rx/%d", RxID++);
-			if (HdcpIf->Config.IsHDMI) {
-				snprintf(TypeString, 12, "hdmi-rx");
-			}
-			else {
-				snprintf(TypeString, 12, "dp-rx");
-			}
-		}
-		else {
-			snprintf(Name, 12, "hdcp-tx/%d", TxID++);
-			if (HdcpIf->Config.IsHDMI) {
-				snprintf(TypeString, 12, "hdmi-tx");
-			}
-			else {
-				snprintf(TypeString, 12, "dp-tx");
-			}
-		}
-
-		/* Display it */
-		PRINTF("%2d  %-10s  %-10s\r\n", DeviceID, Name, TypeString);
-	}
-
+//	char Name[12];
+//	char TypeString[12];
+//	int DeviceID = 0;
+//	int TxID = 0;
+//	int RxID = 0;
+//
+//	/* Display header */
+//	PRINTF("ID  Name        Type\r\n");
+//	PRINTF("--  ----------  ----------\r\n");
+//
+//	/* List the devices */
+//	for (DeviceID=0; DeviceID<XPAR_XHDCP_NUM_INSTANCES; DeviceID++) {
+//
+//		XHdcp1x* HdcpIf = GetHdcpIf(DeviceID);
+//
+//		/* Determine Name and TypeString */
+//		if (HdcpIf->Config.IsRx) {
+//			snprintf(Name, 12, "hdcp-rx/%d", RxID++);
+//			if (HdcpIf->Config.IsHDMI) {
+//				snprintf(TypeString, 12, "hdmi-rx");
+//			}
+//			else {
+//				snprintf(TypeString, 12, "dp-rx");
+//			}
+//		}
+//		else {
+//			snprintf(Name, 12, "hdcp-tx/%d", TxID++);
+//			if (HdcpIf->Config.IsHDMI) {
+//				snprintf(TypeString, 12, "hdmi-tx");
+//			}
+//			else {
+//				snprintf(TypeString, 12, "dp-tx");
+//			}
+//		}
+//
+//		/* Display it */
+//		PRINTF("%2d  %-10s  %-10s\r\n", DeviceID, Name, TypeString);
+//	}
 	return;
 }
 

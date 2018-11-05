@@ -33,7 +33,7 @@
 /**
 *
 * @file xusbpsu.c
-* @addtogroup usbpsu_v1_0
+* @addtogroup usbpsu_v1_3
 * @{
 *
 * <pre>
@@ -44,14 +44,16 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   sg    06/16/16 First release
 * 1.1   sg    10/24/16 Added new function XUsbPsu_IsSuperSpeed
-*
+* 1.4	bk    12/01/18 Modify USBPSU driver code to fit USB common example code
+*		       for all USB IPs.
+*	myk   12/01/18 Added hibernation support for device mode
 * </pre>
 *
 *****************************************************************************/
 
 /***************************** Include Files ********************************/
 
-#include "xusbpsu.h"
+#include "xusb_wrapper.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -226,19 +228,20 @@ void XUsbPsu_PhyReset(struct XUsbPsu *InstancePtr)
 ******************************************************************************/
 void XUsbPsu_EventBuffersSetup(struct XUsbPsu *InstancePtr)
 {
-    struct XUsbPsu_EvtBuffer *Evt;
+	struct XUsbPsu_EvtBuffer *Evt;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	Evt = &InstancePtr->Evt;
 	Evt->BuffAddr = (void *)InstancePtr->EventBuffer;
+	Evt->Offset = 0;
 
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTADRLO(0),
-						(UINTPTR)InstancePtr->EventBuffer);
+			(UINTPTR)InstancePtr->EventBuffer);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTADRHI(0),
-						((UINTPTR)(InstancePtr->EventBuffer) >> 16U) >> 16U);
+			((UINTPTR)(InstancePtr->EventBuffer) >> 16U) >> 16U);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0),
-					XUSBPSU_GEVNTSIZ_SIZE(sizeof(InstancePtr->EventBuffer)));
+			XUSBPSU_GEVNTSIZ_SIZE(sizeof(InstancePtr->EventBuffer)));
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0), 0);
 }
 
@@ -321,9 +324,9 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 	XUsbPsu_PhyReset(InstancePtr);
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GCTL);
-    RegVal &= ~XUSBPSU_GCTL_SCALEDOWN_MASK;
-    RegVal &= ~XUSBPSU_GCTL_DISSCRAMBLE;
-    RegVal |= XUSBPSU_GCTL_U2EXIT_LFPS;
+	RegVal &= ~XUSBPSU_GCTL_SCALEDOWN_MASK;
+	RegVal &= ~XUSBPSU_GCTL_DISSCRAMBLE;
+	RegVal |= XUSBPSU_GCTL_U2EXIT_LFPS;
 
 	Hwparams1 = XUsbPsu_ReadHwParams(InstancePtr, 1U);
 
@@ -333,7 +336,11 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 			break;
 
 		case XUSBPSU_GHWPARAMS1_EN_PWROPT_HIB:
-		/* enable hibernation here */
+			/* enable hibernation here */
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+			RegVal |= XUSBPSU_GCTL_GBLHIBERNATIONEN;
+			InstancePtr->HasHibernation = 1;
+#endif
 			break;
 
 		default:
@@ -342,6 +349,11 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 	}
 
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GCTL, RegVal);
+
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+	if (InstancePtr->HasHibernation)
+		XUsbPsu_InitHibernation(InstancePtr);
+#endif
 
 	return XST_SUCCESS;
 }
@@ -441,7 +453,7 @@ void XUsbPsu_DisableIntr(struct XUsbPsu *InstancePtr, u32 Mask)
 s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 			XUsbPsu_Config *ConfigPtr, u32 BaseAddress)
 {
-	int Status;
+	s32 Status;
 	u32 RegVal;
 
 
@@ -471,10 +483,10 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 
 	XUsbPsu_SetMode(InstancePtr, XUSBPSU_GCTL_PRTCAP_DEVICE);
 
-    /*
-     * Setting to max speed to support SS and HS
-     */
-    XUsbPsu_SetSpeed(InstancePtr, XUSBPSU_DCFG_SUPERSPEED);
+	/*
+	 * Setting to max speed to support SS and HS
+	 */
+	XUsbPsu_SetSpeed(InstancePtr, XUSBPSU_DCFG_SUPERSPEED);
 
 	(void)XUsbPsu_SetDeviceAddress(InstancePtr, 0U);
 
@@ -694,7 +706,7 @@ s32 XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Addr <= 127U);
 
-	if (InstancePtr->State == XUSBPSU_STATE_CONFIGURED) {
+	if (InstancePtr->AppData->State == XUSBPSU_STATE_CONFIGURED) {
 		return XST_FAILURE;
 	}
 
@@ -704,30 +716,10 @@ s32 XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr)
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCFG, RegVal);
 
 	if (Addr) {
-		InstancePtr->State = XUSBPSU_STATE_ADDRESS;
+		InstancePtr->AppData->State = XUSBPSU_STATE_ADDRESS;
 	}
 	else {
-		InstancePtr->State = XUSBPSU_STATE_DEFAULT;
-	}
-
-	return XST_SUCCESS;
-}
-
-/****************************************************************************/
-/**
-* Sets speed of the Core for connecting to Host
-*
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-*
-* @return	XST_SUCCESS else XST_FAILURE
-*
-* @note		None.
-*
-*****************************************************************************/
-s32 XUsbPsu_IsSuperSpeed(struct XUsbPsu *InstancePtr)
-{
-	if (InstancePtr->Speed != XUSBPSU_SPEED_SUPER) {
-		return XST_FAILURE;
+		InstancePtr->AppData->State = XUSBPSU_STATE_DEFAULT;
 	}
 
 	return XST_SUCCESS;

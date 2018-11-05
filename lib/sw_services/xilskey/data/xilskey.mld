@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2013 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,10 @@
 # 6.0   vns  29/06/16 Added margin 2 reads for Zynq PL and PS eFUSE
 #                     programming.
 # 6.1   vns  17/10/16 Added PUF support
+# 6.4   vns  02/19/18 Updated XilSKey_ZynqMp_EfusePs_Write() function to reload
+#                     cache after successful programming of requested eFUSE bits
+#       srm  02/26/18 Updated to pick up latest freertos port 10.0
+# 6.5   vns  03/16/18 Modified BBRAM functions for ZynqMP
 #
 ##############################################################################
 
@@ -54,9 +58,9 @@ OPTION psf_version = 2.1;
 
 BEGIN LIBRARY xilskey
   OPTION copyfiles = all;
-  OPTION REQUIRES_OS = (standalone freertos901_xilinx);
+  OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilskey,-lxil,-lgcc,-lc,--end-group";
-  OPTION desc = "Xilinx Secure Key Library ";
-  OPTION VERSION = 6.3;
+  OPTION desc = "Xilinx Secure Key Library supports programming efuse and bbram ";
+  OPTION VERSION = 6.5;
   OPTION NAME = xilskey;
 END LIBRARY

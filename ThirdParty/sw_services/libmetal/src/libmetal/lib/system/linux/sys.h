@@ -59,7 +59,9 @@
 
 #include <linux/futex.h>
 #include <sysfs/libsysfs.h>
+#ifdef HAVE_HUGETLBFS_H
 #include <hugetlbfs.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {

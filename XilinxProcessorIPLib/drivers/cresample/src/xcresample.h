@@ -33,7 +33,7 @@
 /**
 *
 * @file xcresample.h
-* @addtogroup cresample_v4_0
+* @addtogroup cresample_v4_1
 * @{
 * @details
 *

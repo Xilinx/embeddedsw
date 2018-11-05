@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,10 @@
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines
 *            03/24/17 Added new error codes.
 * 3.0   vns  09/08/17 Added error code for PPK revoke failure
-*
+* 4.0   vns  03/07/18 Added error codes for boot header authentication
+*                     failure and for encryption compulsory
+* 5.0   ka   04/10/18 Added error codes for user-efuse revocation
+* 6.0   bkm  04/10/18 Added error codes for FMC_VADJ
 * </pre>
 *
 * @note
@@ -93,6 +96,7 @@ extern "C" {
 #define XFSBL_ERROR_STAGE_4		(u32)(0x6000U)
 
 #define XFSBL_PSU_INIT_FAILED				(0x0800U)
+#define XFSBL_PSU_INIT_COMPLETED			(0x1U)
 #define XFSBL_PSU_POSTCONFIG_FAILED			(0x1000U)
 
 #define XFSBL_SUCCESS					(u32)(0x0U)
@@ -197,6 +201,15 @@ extern "C" {
 #define XFSBL_ERROR_PPK_VERIFICATION				(0x65U)
 #define XFSBL_ERROR_SPKID_VERIFICATION				(0x66U)
 #define XSFBL_ERROR_PPK_SELECT_ISREVOKED			(0x67U)
+#define XFSBL_ERROR_BH_RSA_DECRYPT				(0x68U)
+#define XFSBL_ERROR_BH_SIGNATURE				(0x69U)
+#define XFSBL_ERROR_BH_AUTH_IS_NOTALLOWED			(0x70U)
+#define XFSBL_ERROR_ENC_IS_MANDATORY				(0x71U)
+#define XFSBL_ERROR_USER_EFUSE_ISREVOKED			(0x72U)
+#define XFSBL_ERROR_OUT_OF_RANGE_USER_EFUSE			(0x73U)
+#define XFSBL_ERROR_INVALID_EFUSE_SELECT			(0x74U)
+#define XSFBL_ERROR_FMC_ENABLE						(0x75U)
+#define XSFBL_EEPROM_PRESENT						(0x76U)
 #define XFSBL_FAILURE					(0x3FFFFFFFU)
 
 /**************************** Type Definitions *******************************/

@@ -34,13 +34,13 @@ EMBEDDED_SW_DIR=$WORKING_DIR/../../../..
 DRIVERS_LIST="$BOARD_DIR/drivers.txt"
 
 # drivers directory
-DRIVERS_DIR=$EMBEDDED_SW_DIR/XilinxProcessorIPLib/drivers/
+DRIVERS_DIR=$EMBEDDED_SW_DIR/XilinxProcessorIPLib/drivers
 
 # standalone dir, source of standalone files
 STANDALONE_DIR=$EMBEDDED_SW_DIR/lib/bsp/standalone/src
 
 # libraries dir
-SERVICES_DIR=$EMBEDDED_SW_DIR/lib/sw_services/
+SERVICES_DIR=$EMBEDDED_SW_DIR/lib/sw_services
 
 # creation of BSP folders required
 if [ -d $BSP_DIR ]; then
@@ -60,9 +60,12 @@ else
 fi
 
 # copy the libraries required
-cp -r $SERVICES_DIR/xilffs/ $BSP_DIR/libsrc/
+mkdir -p $BSP_DIR/libsrc/xilffs
+cp -r $SERVICES_DIR/xilffs/src $BSP_DIR/libsrc/xilffs/
 cp -r $SERVICES_DIR/xilffs/src/include/* $BSP_DIR/include/
-cp -r $SERVICES_DIR/xilsecure/ $BSP_DIR/libsrc/
+
+mkdir -p $BSP_DIR/libsrc/xilsecure
+cp -r $SERVICES_DIR/xilsecure/src $BSP_DIR/libsrc/xilsecure/
 cp -r $SERVICES_DIR/xilsecure/src/*.h $BSP_DIR/include/
 
 cp -r $SERVICES_DIR/xilpm/ $BSP_DIR/libsrc/
@@ -77,17 +80,19 @@ rm -rf $BSP_DIR/libsrc/xilpm/src/rpu/
 
 
 # copy bsp standalone code
-cp -rf $STANDALONE_DIR/arm/common/*.c *.h $BSP_DIR/libsrc/standalone/src/
-cp -rf $STANDALONE_DIR/arm/common/gcc/* $BSP_DIR/libsrc/standalone/src/
-cp -rf $STANDALONE_DIR/common/* $BSP_DIR/libsrc/standalone/src/
-cp $BOARD_DIR/bspconfig.h $BSP_DIR/include
+cp -f $STANDALONE_DIR/arm/common/*.h $BSP_DIR/libsrc/standalone/src/
+cp -f $STANDALONE_DIR/arm/common/*.c $BSP_DIR/libsrc/standalone/src/
+cp -f $STANDALONE_DIR/arm/common/gcc/* $BSP_DIR/libsrc/standalone/src/
+cp -f $STANDALONE_DIR/common/*.c $BSP_DIR/libsrc/standalone/src/
+cp -f $STANDALONE_DIR/common/*.h $BSP_DIR/libsrc/standalone/src/
 
 if [ $PROC == "a53" ]; then
 	if [ $A53_STATE == "64" ]; then
-		cp -rf $STANDALONE_DIR/arm/cortexa53/64bit/* $BSP_DIR/libsrc/standalone/src/
-		cp -rf $STANDALONE_DIR/arm/cortexa53/64bit/gcc/* $BSP_DIR/libsrc/standalone/src/
-		cp -rf $STANDALONE_DIR/arm/cortexa53/64bit/*.h $BSP_DIR/include
-		cp -rf $STANDALONE_DIR/arm/cortexa53/64bit/gcc/*.h $BSP_DIR/include
+		cp -f $STANDALONE_DIR/arm/cortexa53/64bit/*.c $BSP_DIR/libsrc/standalone/src/
+		cp -f $STANDALONE_DIR/arm/cortexa53/64bit/*.h $BSP_DIR/libsrc/standalone/src/
+		cp -f $STANDALONE_DIR/arm/cortexa53/64bit/gcc/* $BSP_DIR/libsrc/standalone/src/
+		cp $BOARD_DIR/bspconfig.h $BSP_DIR/include
+		cp $BOARD_DIR/bspconfig.h $BSP_DIR/libsrc/standalone/src/
 		#Copy xilpm src for apu
 		cp $SERVICES_DIR/xilpm/src/apu/* $BSP_DIR/libsrc/xilpm/src/
 		cp $SERVICES_DIR/xilpm/src/apu/*.h $BSP_DIR/include/
@@ -97,10 +102,12 @@ if [ $PROC == "a53" ]; then
 		mv $BSP_DIR/libsrc/xilsecure/src/xsecure_sha2_a53_64b.a $BSP_DIR/libsrc/xilsecure/src/libxilsecure.a
 
 	elif [ $A53_STATE == "32" ]; then
-		cp -rf $STANDALONE_DIR/arm/cortexa53/32bit/* $BSP_DIR/libsrc/standalone/src/
-		cp -rf $STANDALONE_DIR/arm/cortexa53/32bit/gcc/* $BSP_DIR/libsrc/standalone/src/
-		cp -rf $STANDALONE_DIR/arm/cortexa53/32bit/*.h $BSP_DIR/include
-		cp -rf $STANDALONE_DIR/arm/cortexa53/32bit/gcc/*.h $BSP_DIR/include
+		cp -f $STANDALONE_DIR/arm/cortexa53/32bit/*.c $BSP_DIR/libsrc/standalone/src/
+		cp -f $STANDALONE_DIR/arm/cortexa53/32bit/*.h $BSP_DIR/libsrc/standalone/src/
+		cp -f $STANDALONE_DIR/arm/cortexa53/32bit/gcc/* $BSP_DIR/libsrc/standalone/src/
+		cp -f $STANDALONE_DIR/arm/cortexa53/32bit/*.h $BSP_DIR/include
+		cp $BOARD_DIR/bspconfig32.h $BSP_DIR/include/bspconfig.h
+		cp $BOARD_DIR/bspconfig32.h $BSP_DIR/libsrc/standalone/src/bspconfig.h
 		#Copy xilpm src for apu
 		cp -rf $SERVICES_DIR/xilpm/src/apu/* $BSP_DIR/libsrc/xilpm/src/
 		cp -rf $SERVICES_DIR/xilpm/src/apu/*.h $BSP_DIR/include/
@@ -112,12 +119,14 @@ if [ $PROC == "a53" ]; then
 		cp -rf $STANDALONE_DIR/arm/cortexa53/includes_ps $BSP_DIR/libsrc/standalone/src/
 		cp -rf $STANDALONE_DIR/arm/cortexa53/includes_ps/* $BSP_DIR/include/
 elif [ $PROC == "r5" ]; then
-	cp -rf $STANDALONE_DIR/arm/cortexr5/* $BSP_DIR/libsrc/standalone/src/
-	cp -rf $STANDALONE_DIR/arm/cortexr5/gcc/* $BSP_DIR/libsrc/standalone/src/
+	cp -f $STANDALONE_DIR/arm/cortexr5/*.c $BSP_DIR/libsrc/standalone/src/
+	cp -f $STANDALONE_DIR/arm/cortexr5/*.h $BSP_DIR/libsrc/standalone/src/
+	cp -f $STANDALONE_DIR/arm/cortexr5/gcc/* $BSP_DIR/libsrc/standalone/src/
 
 	#include files
-	cp -rf $STANDALONE_DIR/arm/cortexr5/*.h $BSP_DIR/include
-	cp -rf $STANDALONE_DIR/arm/cortexr5/gcc/*.h $BSP_DIR/include
+	cp -f $STANDALONE_DIR/arm/cortexr5/*.h $BSP_DIR/include
+	cp $BOARD_DIR/bspconfig32.h $BSP_DIR/include/bspconfig.h
+	cp $BOARD_DIR/bspconfig32.h $BSP_DIR/libsrc/standalone/src/bspconfig.h
 
 	#copy xilpm src for rpu
 	cp -rf $SERVICES_DIR/xilpm/src/rpu/* $BSP_DIR/libsrc/xilpm/src/
@@ -125,7 +134,7 @@ elif [ $PROC == "r5" ]; then
 
 	#copy includes_ps from a53 directory
 	cp -rf $STANDALONE_DIR/arm/cortexa53/includes_ps $BSP_DIR/libsrc/standalone/src/
-	cp -rf $STANDALONE_DIR/arm/cortexa53/includes_ps/* $BSP_DIR/include/
+	cp -f $STANDALONE_DIR/arm/cortexa53/includes_ps/* $BSP_DIR/include/
 
 	#replace compiler specific archive with libxilsecure.a
 	rm $BSP_DIR/libsrc/xilsecure/src/xsecure_sha2_a53_32b.a
@@ -169,3 +178,4 @@ cp -rf $STANDALONE_DIR/common/*.h $BSP_DIR/include/
 # no inbyte and outbyte present in standalone
 cp $BOARD_DIR/inbyte.c $BSP_DIR/libsrc/standalone/src/
 cp $BOARD_DIR/outbyte.c $BSP_DIR/libsrc/standalone/src/
+cp ../misc/xipipsu_g.c $BSP_DIR/libsrc/ipipsu/src/

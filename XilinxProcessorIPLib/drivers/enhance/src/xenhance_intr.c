@@ -33,7 +33,7 @@
 /**
 *
 * @file xenhance_intr.c
-* @addtogroup enhance_v7_0
+* @addtogroup enhance_v7_1
 * @{
 *
 * This code contains interrupt related functions of Xilinx Enhance core.

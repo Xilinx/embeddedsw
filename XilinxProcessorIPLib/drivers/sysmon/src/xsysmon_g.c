@@ -33,7 +33,7 @@
 /**
 *
 * @file xsysmon_g.c
-* @addtogroup sysmon_v7_1
+* @addtogroup sysmon_v7_4
 * @{
 *
 * This file contains a configuration table that specifies the configuration

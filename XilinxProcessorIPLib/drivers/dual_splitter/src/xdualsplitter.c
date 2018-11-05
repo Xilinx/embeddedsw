@@ -33,7 +33,7 @@
 /**
 *
 * @file xdualsplitter.c
-* @addtogroup dual_splitter_v1_0
+* @addtogroup dual_splitter_v1_1
 * @{
 *
 * This file contains the implementation of the interface functions for

@@ -511,6 +511,9 @@
 * 	   tjs	08/09/17 Updated the calculation of RealByteCount for reading data
 * 					 from flash with TESTADDRESS being 0x00000000, CR#981795
 *      ms   08/03/17 Added doxygen tags.
+* 5.10 tjs  11/30/17 Added S25FL-L series flash parts support. CR# 987566
+* 5.10 tjs	03/11/17 Added MT25Q512 3V and 1.8V flash part support. CR# 995477
+* 5.11 tjs	03/16/18 Added support for ISSI flash part.
 *
 * </pre>
 *
@@ -571,6 +574,7 @@ extern "C" {
 #define XISF_MANUFACTURER_ID_SPANSION	0x01	/**< Spansion device */
 #define XISF_MANUFACTURER_ID_SST	0xBF	/**< SST device */
 #define XISF_MANUFACTURER_ID_MICRON	0x20	/**< Micron device */
+#define XISF_MANUFACTURER_ID_ISSI	0x9D	/**< ISSI device */
 
 #define XISF_SPANSION_ID_BYTE2_128	0x18
 #define XISF_SPANSION_ID_BYTE2_256	0x19
@@ -582,7 +586,8 @@ extern "C" {
 #define XISF_MICRON_ID_BYTE2_1G		0x21
 /*Winbond*/
 #define XISF_WINBOND_ID_BYTE2_128	0x18
-
+/*ISSI*/
+#define XISF_ISSI_ID_BYTE2_256		0x19
 /**
  * The following definitions specify the size of the Serial Flash
  * supported by this library.
@@ -645,6 +650,11 @@ extern "C" {
 #define FLASH_CFG_TBL_STACKED_128_WB	(WINBOND_INDEX_START + 1)
 #define FLASH_CFG_TBL_PARALLEL_128_WB	(WINBOND_INDEX_START + 2)
 
+/*ISSI*/
+#define ISSI_INDEX_START		(FLASH_CFG_TBL_PARALLEL_128_WB + 1)
+#define FLASH_CFG_TBL_SINGLE_256_ISSI	ISSI_INDEX_START
+#define FLASH_CFG_TBL_STACKED_256_ISSI	(ISSI_INDEX_START + 1)
+#define FLASH_CFG_TBL_PARALLEL_256_ISSI	(ISSI_INDEX_START + 2)
 
 /*
  * Interrupt or Polling mode of Operation Flags

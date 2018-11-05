@@ -31,10 +31,10 @@
 #include <pthread.h>
 
 #include "metal-test.h"
-#include "metal/log.h"
-#include "metal/sys.h"
-#include "metal/mutex.h"
-#include "metal/condition.h"
+#include <metal/log.h>
+#include <metal/sys.h>
+#include <metal/mutex.h>
+#include <metal/condition.h>
 
 #define COUNTER_MAX 10
 

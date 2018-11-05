@@ -33,7 +33,7 @@
 /**
 *
 * @file xtft_charcode.h
-* @addtogroup tft_v5_0
+* @addtogroup tft_v6_1
 * @{
 *
 * This file contains the macro and variable definitions of character

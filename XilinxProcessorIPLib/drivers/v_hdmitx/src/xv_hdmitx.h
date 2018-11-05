@@ -139,6 +139,18 @@
 *                           macro with API XV_HdmiTx_SetAudioFormat
 *                       Added XV_HdmiTx_GetAudioFormat
 * 1.9   EB     24/10/17 Added enum XV_HdmiTx_AudioFormatType
+* 1.10  MMO    19/12/17 Added XV_HdmiTx_SetTmdsClk API
+* 2.0   EB     16/01/18 Updated function XV_HdmiTx_SetTmdsClk and renamed to
+*                           XV_HdmiTx_ConfigTmdsClk
+*                       Moved Vendor Specific InfoFrame related functions to
+*                           HDMI Common library
+*                       Deprecating XV_HdmiTx_VSIF_GeneratePacket,
+*                           XV_HdmiTx_VSIF_DisplayInfo,
+*                           XV_HdmiTx_VSIF_3DStructToString,
+*                           XV_HdmiTx_VSIF_3DSampMethodToString and
+*                           XV_HdmiTx_VSIF_3DSampPosToString APIs
+*                       Moved VicTable, XV_HdmiTx_Aux to Hdmi Common library
+*       EB     24/01/18 Added OverrideHdmi14Scrambler to XV_HdmiTx_Stream
 * </pre>
 *
 ******************************************************************************/
@@ -157,8 +169,8 @@ extern "C" {
 #include "xstatus.h"
 #include "xdebug.h"
 #include "xvidc.h"
-
 #include "xv_hdmitx_vsif.h"
+#include "xv_hdmic.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -175,6 +187,7 @@ extern "C" {
 typedef enum {
     XV_HDMITX_HANDLER_CONNECT = 1,  // Handler for connect
     XV_HDMITX_HANDLER_TOGGLE,       // Handler for toggle
+	XV_HDMITX_HANDLER_BRDGUNLOCK,   // Handler for bridge unlocked
     XV_HDMITX_HANDLER_VS,           // Handler for vsync
     XV_HDMITX_HANDLER_STREAM_DOWN,  // Handler for stream down
     XV_HDMITX_HANDLER_STREAM_UP     // Handler for stream up
@@ -205,15 +218,8 @@ typedef struct {
     u16 DeviceId;       /**< DeviceId is the unique ID of the HDMI TX core */
     UINTPTR BaseAddress;    /**< BaseAddress is the physical
                         * base address of the core's registers */
+	u32 AxiLiteClkFreq;
 } XV_HdmiTx_Config;
-
-/**
-* This typedef contains Video identification information in tabular form.
-*/
-typedef struct {
-    XVidC_VideoMode VmId;   /**< Video mode/Resolution ID */
-    u8 Vic;         /**< Video Identification code */
-} XV_HdmiTx_VicTable;
 
 /**
 * This typedef contains audio stream specific data structure
@@ -235,6 +241,8 @@ typedef struct {
     u8                      IsHdmi20;           /**< HDMI 2.0 flag  */
     u8                      IsScrambled;        /**< Scrambler flag
                                 1 - scrambled data , 0 - non scrambled data */
+    u8						OverrideScrambler; /**< Override scramble
+													 flag */
     u32                     TMDSClock;          /**< TMDS clock */
     u8                      TMDSClockRatio;     /**< TMDS clock ration
                                 0 - 1/10, 1 - 1/40 */
@@ -244,30 +252,6 @@ typedef struct {
                             This flag is set when the cable is connected  */
     u8                      SampleRate;         /**< Sample rate */
 } XV_HdmiTx_Stream;
-
-/**
-* This typedef contains Auxiliary header information for infoframe.
-*/
-typedef union {
-    u32 Data;   /**< AUX header data field */
-    u8 Byte[4]; /**< AUX header byte field */
-} XV_HdmiTx_AuxHeader;
-
-/**
-* This typedef contains Auxiliary data information for infoframe.
-*/
-typedef union {
-    u32 Data[8];    /**< AUX data field */
-    u8 Byte[32];    /**< AUX data byte field */
-} XV_HdmiTx_AuxData;
-
-/**
-* This typedef holds HDMI TX's Auxiliary peripheral specific data structure.
-*/
-typedef struct {
-    XV_HdmiTx_AuxHeader Header; /**< AUX header field */
-    XV_HdmiTx_AuxData Data;     /**< AUX data field */
-} XV_HdmiTx_Aux;
 
 /**
 * Callback type for Vsync event interrupt.
@@ -313,6 +297,13 @@ typedef struct {
     u32 IsVsCallbackSet;                    /**< Set flag. This flag is set to
                                 true when the callback has been registered */
 
+    XV_HdmiTx_Callback BrdgUnlockedCallback;   /**< Callback for Bridge UnLocked
+                                                  event interrupt */
+    void *BrdgUnlockedRef;                  /**< To be passed to the Bridge
+                                              Unlocked interrupt callback */
+    u32 IsBrdgUnlockedCallbackSet;       /**< Set flag. This flag is set to
+                                true when the callback has been registered */
+
     XV_HdmiTx_Callback StreamDownCallback;  /**< Callback for stream down
                                             callback */
     void *StreamDownRef;                    /**< To be passed to the stream
@@ -328,11 +319,11 @@ typedef struct {
     true when the callback has been registered */
 
     /* Aux peripheral specific */
-    volatile XV_HdmiTx_Aux Aux;     /**< AUX peripheral information */
+    XHdmiC_Aux Aux;                         /**< AUX peripheral information */
 
     /* HDMI TX stream */
-    XV_HdmiTx_Stream Stream;        /**< HDMI TX stream information */
-    u32 CpuClkFreq;                 /* CPU Clock frequency */
+    XV_HdmiTx_Stream Stream;                /**< HDMI TX stream information */
+    u32 CpuClkFreq;                         /* CPU Clock frequency */
 
 } XV_HdmiTx;
 
@@ -1054,6 +1045,19 @@ u32 XV_HdmiTx_SetStream(XV_HdmiTx *InstancePtr,
     XVidC_PixelsPerClock Ppc,
     XVidC_3DInfo *Info3D);
 
+u32 XV_HdmiTx_GetTmdsClk (XV_HdmiTx *InstancePtr,
+    XVidC_VideoMode VideoMode,
+    XVidC_ColorFormat ColorFormat,
+    XVidC_ColorDepth Bpc);
+
+void XV_HdmiTx_INT_VRST(XV_HdmiTx *InstancePtr, u8 Reset);
+void XV_HdmiTx_INT_LRST(XV_HdmiTx *InstancePtr, u8 Reset);
+void XV_HdmiTx_EXT_VRST(XV_HdmiTx *InstancePtr, u8 Reset);
+void XV_HdmiTx_EXT_SYSRST(XV_HdmiTx *InstancePtr, u8 Reset);
+void XV_HdmiTx_SetGcpAvmuteBit(XV_HdmiTx *InstancePtr);
+void XV_HdmiTx_ClearGcpAvmuteBit(XV_HdmiTx *InstancePtr);
+void XV_HdmiTx_SetGcpClearAvmuteBit(XV_HdmiTx *InstancePtr);
+void XV_HdmiTx_ClearGcpClearAvmuteBit(XV_HdmiTx *InstancePtr);
 void XV_HdmiTx_SetPixelRate(XV_HdmiTx *InstancePtr);
 void XV_HdmiTx_SetSampleRate(XV_HdmiTx *InstancePtr, u8 SampleRate);
 void XV_HdmiTx_SetColorFormat(XV_HdmiTx *InstancePtr);
@@ -1086,7 +1090,7 @@ int XV_HdmiTx_SetCallback(XV_HdmiTx *InstancePtr, u32 HandlerType,
 
 /* Vendor Specific Infomation related functions in xv_hdmitx_vsif.c */
 int XV_HdmiTx_VSIF_GeneratePacket(XV_HdmiTx_VSIF  *VSIFPtr,
-                                  XV_HdmiTx_Aux *AuxPtr);
+		XHdmiC_Aux *AuxPtr);
 void XV_HdmiTx_VSIF_DisplayInfo(XV_HdmiTx_VSIF  *VSIFPtr);
 char* XV_HdmiTx_VSIF_3DStructToString(XV_HdmiTx_3D_Struct_Field Item);
 char* XV_HdmiTx_VSIF_3DSampMethodToString(XV_HdmiTx_3D_Sampling_Method Item);

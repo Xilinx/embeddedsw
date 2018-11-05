@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxivdma.h
-* @addtogroup axivdma_v6_0
+* @addtogroup axivdma_v6_5
 * @{
 * @details
 *

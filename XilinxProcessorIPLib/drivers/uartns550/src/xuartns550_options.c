@@ -33,7 +33,7 @@
 /**
 *
 * @file xuartns550_options.c
-* @addtogroup uartns550_v3_3
+* @addtogroup uartns550_v3_5
 * @{
 *
 * The implementation of the options functions for the XUartNs550 driver.

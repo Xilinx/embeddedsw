@@ -59,6 +59,65 @@ static void rpmsg_rx_callback(struct virtqueue *vq);
 static void rpmsg_tx_callback(struct virtqueue *vq);
 
 /**
+ * rpmsg_memb_match
+ *
+ * This function checks if the contents in two memories matches byte by byte.
+ *
+ * RPMsg can be used across different memories.
+ * memcmp/strcmp doesn't always work.
+ *
+ * @param ptr1 - pointer to memory
+ * @param ptr2 - pointer to memory
+ * @param n - number of bytes to compare
+ *
+ * @return 0 if the contents in the two memories matches, otherwise -1.
+ */
+int rpmsg_memb_match(const void *ptr1, const void *ptr2, size_t n)
+{
+	size_t i;
+	const unsigned char *tmp1, *tmp2;
+
+	tmp1 = ptr1;
+	tmp2 = ptr2;
+	for (i = 0; i < n; i++, tmp1++, tmp2++) {
+		if (*tmp1 == *tmp2)
+			continue;
+		return -1;
+	}
+
+	return 0;
+}
+
+/**
+ * rpmsg_memb_cpy
+ *
+ * This function copies contents from one memory to the other byte by byte.
+ *
+ * RPMsg can be used across different memories.
+ * memcpy/strncpy doesn't always work.
+ *
+ * @param src - pointer to source memory
+ * @param dest - pointer to target memory
+ * @param n - number of bytes to copy
+ *
+ * @return pointer to dest
+ */
+void *rpmsg_memb_cpy(void *dest, const void *src, size_t n)
+{
+	size_t i;
+	unsigned char *tmp_dest;
+	const unsigned char *tmp_src;
+
+	tmp_dest = dest;
+	tmp_src = src;
+
+	for (i = 0; i < n; i++, tmp_dest++, tmp_src++)
+		*tmp_dest = *tmp_src;
+
+	return dest;
+}
+
+/**
  * rpmsg_start_ipc
  *
  * This function creates communication links(virtqueues) for remote device
@@ -100,9 +159,8 @@ int rpmsg_start_ipc(struct remote_device *rdev)
 						   RPMSG_MAX_VQ_PER_RDEV,
 						   vq_names, callback,
 						   RPMSG_NULL);
-	if (status != RPMSG_SUCCESS) {
+	if (status != RPMSG_SUCCESS)
 		return status;
-	}
 
 	dev_features = virt_dev->func->get_features(virt_dev);
 
@@ -167,7 +225,7 @@ struct rpmsg_channel *_rpmsg_create_channel(struct remote_device *rdev,
 	rp_chnl = metal_allocate_memory(sizeof(struct rpmsg_channel));
 	if (rp_chnl) {
 		memset(rp_chnl, 0x00, sizeof(struct rpmsg_channel));
-		strncpy(rp_chnl->name, name, sizeof(rp_chnl->name)-1);
+		rpmsg_memb_cpy(rp_chnl->name, name, sizeof(rp_chnl->name)-1);
 		rp_chnl->src = src;
 		rp_chnl->dst = dst;
 		rp_chnl->rdev = rdev;
@@ -575,21 +633,29 @@ void rpmsg_rx_callback(struct virtqueue *vq)
 		rp_ept = rpmsg_rdev_get_endpoint_from_addr(rdev, rp_hdr->dst);
 		metal_mutex_release(&rdev->lock);
 
-		if (!rp_ept)
+		if (!rp_ept) {
 			/* Fatal error no endpoint for the given dst addr. */
 			return;
+		}
 
 		rp_chnl = rp_ept->rp_chnl;
 
 		if ((rp_chnl) && (rp_chnl->state == RPMSG_CHNL_STATE_NS)) {
 			/* First message from RPMSG Master, update channel
 			 * destination address and state */
-			rp_chnl->dst = rp_hdr->src;
-			rp_chnl->state = RPMSG_CHNL_STATE_ACTIVE;
+			if (rp_ept->addr == RPMSG_NS_EPT_ADDR) {
+				rp_ept->cb(rp_chnl,
+						  (void *)RPMSG_LOCATE_DATA(rp_hdr),
+						  rp_hdr->len, rdev,
+						  rp_hdr->src);
+			} else {
+				rp_chnl->dst = rp_hdr->src;
+				rp_chnl->state = RPMSG_CHNL_STATE_ACTIVE;
 
-			/* Notify channel creation to application */
-			if (rdev->channel_created) {
-				rdev->channel_created(rp_chnl);
+				/* Notify channel creation to application */
+				if (rdev->channel_created) {
+					rdev->channel_created(rp_chnl);
+				}
 			}
 		} else {
 			rp_ept->cb(rp_chnl, (void *)RPMSG_LOCATE_DATA(rp_hdr), rp_hdr->len,
@@ -639,6 +705,7 @@ void rpmsg_ns_callback(struct rpmsg_channel *server_chnl, void *data, int len,
 
 	(void)server_chnl;
 	(void)src;
+	(void)len;
 
 	rdev = (struct remote_device *)priv;
 
@@ -660,36 +727,34 @@ void rpmsg_ns_callback(struct rpmsg_channel *server_chnl, void *data, int len,
 			_rpmsg_delete_channel(rp_chnl);
 		}
 	} else {
-		struct metal_io_region *io = rdev->proc->sh_buff.io;
-		char *name = malloc(len);
-
-		openamp_assert(name);
-		metal_io_block_read(io,
-				metal_io_virt_to_offset(io, ns_msg->name),
-				name, len);
-		rp_chnl =
-		    _rpmsg_create_channel(rdev, name, 0x00, ns_msg->addr);
-		free(name);
+		metal_mutex_acquire(&rdev->lock);
+		rp_chnl = rpmsg_rdev_get_chnl_from_id(rdev, ns_msg->name);
+		metal_mutex_release(&rdev->lock);
+		if (!rp_chnl) {
+			rp_chnl = _rpmsg_create_channel(rdev, ns_msg->name,
+							0x00,
+							ns_msg->addr);
+		}
 		if (rp_chnl) {
+			metal_mutex_acquire(&rdev->lock);
 			rp_chnl->state = RPMSG_CHNL_STATE_ACTIVE;
+			rp_chnl->dst = ns_msg->addr;
+			metal_mutex_release(&rdev->lock);
 			/* Create default endpoint for channel */
-			rp_chnl->rp_ept =
-			    rpmsg_create_ept(rp_chnl, rdev->default_cb, rdev,
-					     RPMSG_ADDR_ANY);
-			if (rp_chnl->rp_ept) {
-				rp_chnl->src = rp_chnl->rp_ept->addr;
-				/*
-				 * Echo back the NS message to remote in order to
-				 * complete the connection stage. Remote will know the endpoint
-				 * address from this point onward which will enable it to send
-				 * message without waiting for any application level message from
-				 * master.
-				 */
-				rpmsg_send(rp_chnl, data, len);
-				if (rdev->channel_created) {
-					rdev->channel_created(rp_chnl);
+			if (!rp_chnl->rp_ept) {
+				rp_chnl->rp_ept =
+					rpmsg_create_ept(rp_chnl,
+							 rdev->default_cb, rdev,
+							 RPMSG_ADDR_ANY);
+				if (rp_chnl->rp_ept) {
+					rp_chnl->src = rp_chnl->rp_ept->addr;
+					rpmsg_send_ns_message(rdev,
+							      rp_chnl,
+							      RPMSG_NS_CREATE);
 				}
 			}
+			if (rdev->channel_created)
+				rdev->channel_created(rp_chnl);
 		}
 	}
 }

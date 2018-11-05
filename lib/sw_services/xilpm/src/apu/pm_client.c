@@ -90,7 +90,7 @@ static struct XPm_Master *const pm_masters_all[] = {
  */
 struct XPm_Master *pm_get_master(const u32 cpuid)
 {
-	if (cpuid >=0 && PM_ARRAY_SIZE(pm_masters_all)) {
+	if (cpuid < PM_ARRAY_SIZE(pm_masters_all)) {
 		return pm_masters_all[cpuid];
 	}
 

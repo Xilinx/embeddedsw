@@ -9,8 +9,9 @@ BEGIN OS
 END
 
 BEGIN LIBRARY
- PARAMETER LIBRARY_NAME = lwip141
+ PARAMETER LIBRARY_NAME = lwip202
  PARAMETER API_MODE = RAW_API
  PARAMETER dhcp_does_arp_check = true
  PARAMETER lwip_dhcp = true
+ PARAMETER ipv6_enable = false
 END

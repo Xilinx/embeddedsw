@@ -38,7 +38,7 @@ static void run_tests(void *param)
 {
 	(void)param;
 
-	(void)metal_tests_run();
+	(void)metal_tests_run(NULL);
 	 vTaskDelete(NULL);
 }
 

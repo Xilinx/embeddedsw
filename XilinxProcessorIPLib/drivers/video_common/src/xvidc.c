@@ -33,7 +33,7 @@
 /**
  *
  * @file xvidc.c
- * @addtogroup video_common_v4_0
+ * @addtogroup video_common_v4_3
  * @{
  *
  * Contains common utility functions that are typically used by video-related
@@ -64,6 +64,9 @@
  *                     Reordered YCBCR422 colorforamt and removed other formats
  *                     that are not needed for SDI which were added earlier.
  *       vyc  10/04/17 Added new streaming alpha formats and new memory formats
+ * 4.3   eb   26/01/18 Added API XVidC_GetVideoModeIdExtensive
+ *       jsr  02/22/18 Added XVIDC_CSF_YCBCR_420 color space format
+ *       vyc  04/04/18 Added BGR8 memory format
  * </pre>
  *
 *******************************************************************************/
@@ -441,6 +444,176 @@ XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
 
 /******************************************************************************/
 /**
+ * This function returns the Video Mode ID that matches the detected input
+ * timing, frame rate and I/P flag
+ *
+ * @param	Timing is the pointer to timing parameters to match
+ * @param	FrameRate specifies refresh rate in HZ
+ * @param	IsInterlaced is flag.
+ *		      - 0 = Progressive
+ *			  - 1 = Interlaced.
+ * @param	IsExtensive is flag.
+ *		      - 0 = Basic matching of timing parameters
+ *			  - 1 = Extensive matching of timing parameters
+ *
+ * @return	Id of a supported video mode.
+ *
+ * @note	This function attempts to search for reduced blanking entries, if
+ *          any.
+ *
+*******************************************************************************/
+XVidC_VideoMode XVidC_GetVideoModeIdExtensive(XVidC_VideoTiming *Timing,
+											  u32 FrameRate,
+											  u8 IsInterlaced,
+											  u8 IsExtensive)
+{
+	u32 Low;
+	u32 High;
+	u32 Mid;
+	u32 HActive;
+	u32 VActive;
+	u32 Rate;
+	u32 ResFound = (FALSE);
+	XVidC_VideoMode Mode;
+	u16 Index;
+
+	/* First, attempt a linear search on the custom video timing table. */
+	if(XVidC_CustomTimingModes) {
+	  for (Index = 0; Index < XVidC_NumCustomModes; Index++) {
+		HActive = XVidC_CustomTimingModes[Index].Timing.HActive;
+		VActive = XVidC_CustomTimingModes[Index].Timing.VActive;
+		Rate = XVidC_CustomTimingModes[Index].FrameRate;
+		if ((HActive == Timing->HActive) && (VActive == Timing->VActive) &&
+				(Rate == FrameRate) && (IsExtensive == 0 || (
+			XVidC_CustomTimingModes[Index].Timing.HTotal == Timing->HTotal &&
+			XVidC_CustomTimingModes[Index].Timing.F0PVTotal ==
+					Timing->F0PVTotal &&
+			XVidC_CustomTimingModes[Index].Timing.HFrontPorch ==
+					Timing->HFrontPorch &&
+			XVidC_CustomTimingModes[Index].Timing.F0PVFrontPorch ==
+					Timing->F0PVFrontPorch &&
+			XVidC_CustomTimingModes[Index].Timing.HSyncWidth ==
+					Timing->HSyncWidth &&
+			XVidC_CustomTimingModes[Index].Timing.F0PVSyncWidth ==
+					Timing->F0PVSyncWidth &&
+			XVidC_CustomTimingModes[Index].Timing.VSyncPolarity ==
+					Timing->VSyncPolarity))) {
+				if (!IsInterlaced || IsExtensive == 0 || (
+						XVidC_CustomTimingModes[Index].Timing.F1VTotal ==
+						Timing->F1VTotal &&
+						XVidC_CustomTimingModes[Index].Timing.F1VFrontPorch ==
+								Timing->F1VFrontPorch &&
+						XVidC_CustomTimingModes[Index].Timing.F1VSyncWidth ==
+								Timing->F1VSyncWidth)) {
+					return XVidC_CustomTimingModes[Index].VmId;
+				}
+		}
+	  }
+	}
+
+	if (IsInterlaced) {
+		Low = (XVIDC_VM_INTL_START);
+		High = (XVIDC_VM_INTL_END);
+	}
+	else {
+		Low = (XVIDC_VM_PROG_START);
+		High = (XVIDC_VM_PROG_END);
+	}
+
+	HActive = VActive = Rate = 0;
+
+	/* Binary search finds item in sorted array.
+	 * And returns index (zero based) of item
+	 * If item is not found returns flag remains
+	 * FALSE. Search key is "Timing->HActive or HActive"
+	 */
+	while (Low <= High) {
+		Mid = (Low + High) / 2;
+		HActive = XVidC_VideoTimingModes[Mid].Timing.HActive;
+		if (Timing->HActive == HActive) {
+			ResFound = (TRUE);
+			break;
+		}
+		else if (Timing->HActive < HActive) {
+			if (Mid == 0) {
+				break;
+			}
+			else {
+				High = Mid - 1;
+			}
+		}
+		else {
+			Low = Mid + 1;
+		}
+	}
+
+	 /* HActive matched at middle */
+	if (ResFound) {
+		/* Rewind to start index of mode with matching Timing->HActive */
+		while ((Mid > 0) &&
+			(XVidC_VideoTimingModes[Mid - 1].Timing.HActive ==
+								Timing->HActive)) {
+			--Mid;
+		}
+
+		ResFound = (FALSE);
+		VActive = XVidC_VideoTimingModes[Mid].Timing.VActive;
+		Rate = XVidC_VideoTimingModes[Mid].FrameRate;
+
+		/* Now do a linear search for matching VActive and Frame
+		 * Rate
+		 */
+		while (HActive == Timing->HActive) {
+			/* check current entry */
+			if ((VActive == Timing->VActive) && (Rate == FrameRate) &&
+					(IsExtensive == 0 ||
+					(XVidC_VideoTimingModes[Mid].Timing.HTotal ==
+							Timing->HTotal &&
+					XVidC_VideoTimingModes[Mid].Timing.F0PVTotal ==
+							Timing->F0PVTotal &&
+					XVidC_VideoTimingModes[Mid].Timing.HFrontPorch ==
+							Timing->HFrontPorch &&
+					XVidC_VideoTimingModes[Mid].Timing.F0PVFrontPorch ==
+							Timing->F0PVFrontPorch &&
+					XVidC_VideoTimingModes[Mid].Timing.HSyncWidth ==
+							Timing->HSyncWidth &&
+					XVidC_VideoTimingModes[Mid].Timing.F0PVSyncWidth ==
+							Timing->F0PVSyncWidth &&
+					XVidC_VideoTimingModes[Mid].Timing.VSyncPolarity ==
+							Timing->VSyncPolarity))) {
+				if (!IsInterlaced || IsExtensive == 0 || (
+						XVidC_VideoTimingModes[Mid].Timing.F1VTotal ==
+								Timing->F1VTotal &&
+						XVidC_VideoTimingModes[Mid].Timing.F1VFrontPorch ==
+								Timing->F1VFrontPorch &&
+						XVidC_VideoTimingModes[Mid].Timing.F1VSyncWidth ==
+								Timing->F1VSyncWidth)) {
+					ResFound = (TRUE);
+					break;
+				}
+			}
+			/* Check next entry */
+			else {
+				Mid = Mid + 1;
+				HActive =
+				XVidC_VideoTimingModes[Mid].Timing.HActive;
+				VActive =
+				XVidC_VideoTimingModes[Mid].Timing.VActive;
+				Rate = XVidC_VideoTimingModes[Mid].FrameRate;
+			}
+		}
+		Mode =
+		(ResFound) ? (XVidC_VideoMode)Mid : (XVIDC_VM_NOT_SUPPORTED);
+	}
+	else {
+		Mode = (XVIDC_VM_NOT_SUPPORTED);
+	}
+
+	return (Mode);
+}
+
+/******************************************************************************/
+/**
  * This function returns the video mode ID that matches the detected input
  * width, height, frame rate, interlaced or progressive, and reduced blanking.
  *
@@ -666,7 +839,9 @@ const char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId)
 		case XVIDC_CSF_MEM_BGRA8:      return ("BGRA8");
 		case XVIDC_CSF_MEM_BGRX8:      return ("BGRX8");
 		case XVIDC_CSF_MEM_UYVY8:      return ("UYVY8");
+		case XVIDC_CSF_MEM_BGR8:       return ("BGR8");
 		case XVIDC_CSF_YCBCR_422:      return ("YCBCR_422");
+		case XVIDC_CSF_YCBCR_420:      return ("YCBCR_420");
 		default:
 					       return ("Color space format not supported");
 	}

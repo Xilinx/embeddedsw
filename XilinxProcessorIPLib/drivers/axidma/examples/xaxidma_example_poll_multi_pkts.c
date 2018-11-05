@@ -76,6 +76,8 @@
  *                     for proper documentation while generating doxygen.
  * 9.5   adk  17/10/17 Marked the BD region as Normal Non-Cacheable for A53
  *		       (CR#987026).
+ * 9.6   rsp  02/14/18 Support data buffers above 4GB.Use UINTPTR for storing
+ *                     and typecasting buffer address(CR-992638).
  * </pre>
  *
  * ***************************************************************************
@@ -311,7 +313,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 	XAxiDma_Bd *BdCurPtr;
 	u32 BdCount;
 	u32 FreeBdCount;
-	u32 RxBufferPtr;
+	UINTPTR RxBufferPtr;
 	int i;
 
 	RxRingPtr = XAxiDma_GetRxRing(&AxiDma);
@@ -493,7 +495,7 @@ static int SendPackets(XAxiDma * AxiDmaInstPtr)
 	XAxiDma_Bd *BdPtr;
 	int Status;
 	int i;
-	u32 BufAddr;
+	UINTPTR BufAddr;
 	XAxiDma_Bd *CurBdPtr;
 
 	/* Create pattern in the packet to transmit
@@ -617,7 +619,7 @@ static int CheckData(void)
 	 * Data Cache is enabled
 	 */
 #ifndef __aarch64__
-	Xil_DCacheInvalidateRange((u32)RxPacket, MAX_PKT_LEN *
+	Xil_DCacheInvalidateRange((UINTPTR)RxPacket, MAX_PKT_LEN *
 								NUMBER_OF_PACKETS);
 #endif
 

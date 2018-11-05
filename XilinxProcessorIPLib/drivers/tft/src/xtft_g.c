@@ -33,7 +33,7 @@
 /**
 *
 * @file xtft_g.c
-* @addtogroup tft_v5_0
+* @addtogroup tft_v6_1
 * @{
 *
 * This file contains a configuration table that specifies the parameters of

@@ -40,8 +40,8 @@
 extern "C" {
 #endif
 
-#include "metal/sys.h"
-#include "metal/list.h"
+#include <metal/sys.h>
+#include <metal/list.h>
 
 typedef int (*test_func_t)(void);
 typedef void *(*metal_thread_t)(void *);
@@ -68,9 +68,11 @@ __attribute__ ((constructor)) static void metal_test_##func() {		\
 /**
  * @brief        run all tests cases
  *
+ * @param[in]    metal init parameters
+ *
  * @return       non-zero on error
  */
-int metal_tests_run(void);
+int metal_tests_run(struct metal_init_params *params);
 
 
 /**

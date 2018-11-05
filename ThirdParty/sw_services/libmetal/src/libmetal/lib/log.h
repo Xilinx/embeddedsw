@@ -102,9 +102,9 @@ extern void metal_default_log_handler(enum metal_log_level level,
  * @param	...	Format string and arguments.
  */
 #define metal_log(level, ...)						       \
-	(void)((level <= _metal.common.log_level && _metal.common.log_handler) \
-	       ? _metal.common.log_handler(level, __VA_ARGS__)		       \
-	       : 0)
+	((level <= _metal.common.log_level && _metal.common.log_handler) \
+	       ? (void)_metal.common.log_handler(level, __VA_ARGS__)	       \
+	       : (void)0)
 
 /** @} */
 

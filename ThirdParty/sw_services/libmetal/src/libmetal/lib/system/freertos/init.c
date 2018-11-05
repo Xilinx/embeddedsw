@@ -33,9 +33,9 @@
  * @brief	FreeRTOS libmetal initialization.
  */
 
-#include "metal/sys.h"
-#include "metal/utilities.h"
-#include "metal/device.h"
+#include <metal/sys.h>
+#include <metal/utilities.h>
+#include <metal/device.h>
 
 extern int metal_irq_init(void);
 extern void metal_irq_deinit(void);

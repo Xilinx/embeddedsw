@@ -30,10 +30,10 @@
 
 #include <errno.h>
 #include <string.h>
-#include "metal/device.h"
-#include "metal/log.h"
-#include "metal/dma.h"
-#include "metal/atomic.h"
+#include <metal/device.h>
+#include <metal/log.h>
+#include <metal/dma.h>
+#include <metal/atomic.h>
 
 int metal_dma_map(struct metal_device *dev,
 		  uint32_t dir,

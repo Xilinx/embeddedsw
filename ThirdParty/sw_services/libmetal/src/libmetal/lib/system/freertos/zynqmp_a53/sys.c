@@ -29,7 +29,7 @@
  */
 
 /*
- * @file	freertos/sys.c
+ * @file	freertos/zynqmp_a53/sys.c
  * @brief	machine specific system primitives implementation.
  */
 
@@ -39,14 +39,13 @@
 #include "xil_mmu.h"
 #include "xscugic.h"
 #include "xil_exception.h"
-#include "metal/io.h"
-#include "metal/sys.h"
+#include <metal/io.h>
+#include <metal/sys.h>
 
 #define MB (1024 * 1024UL)
 #define GB (1024 * 1024 * 1024UL)
 
-
-/* application code would have enabled IRQ initially */
+/* default value setting for disabling interrupts */
 static unsigned int int_old_val = XIL_EXCEPTION_ALL;
 
 void sys_irq_restore_enable(void)
@@ -56,13 +55,10 @@ void sys_irq_restore_enable(void)
 
 void sys_irq_save_disable(void)
 {
-	unsigned int value = 0;
+	int_old_val = mfcpsr() & XIL_EXCEPTION_ALL;
 
-	value = mfcpsr() & XIL_EXCEPTION_ALL;
-
-	if (value != int_old_val) {
+	if (XIL_EXCEPTION_ALL != int_old_val) {
 		Xil_ExceptionDisableMask(XIL_EXCEPTION_ALL);
-		int_old_val = value;
 	}
 }
 

@@ -71,7 +71,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>AXI4-Stream Input</li>
 <li>1, 2, or 4 pixel-wide video interface</li>
 <li>8/10 bits per component</li>
-<li>Up to 13 different memory color formats (user configurable)</li>
+<li>Up to 16 different memory color formats (user configurable)</li>
 </ul>
 <p><b>Dependency</b></p>
 <p>This driver makes use of the video enumerations and data types defined in the Xilinx Video Common Driver (video_common_vX.x) and as such the common driver must be included as dependency to compile this driver</p>
@@ -81,7 +81,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>Layer 1 provides API's to peek/poke registers at HW level.</li>
 <li>Layer 2 provides API's that abstract sub-core functionality, providing an easy to use feature interface</li>
 </ul>
-<p>Before using the layer-2 API's user must initialize the core by calling API <a class="el" href="group__v__frmbuf__wr.html#ga5453dda299a1e77ed1c692f31dbcb844" title="This function initializes the core instance. ">XVFrmbufWr_Initialize()</a>. This function will look for a configuration structure for the device and initialize it to defined HW settings. It is recommended user always make use of Layer-2 API to interact with this core. Advanced users always have the capability to directly interact with the IP core using Layer-1 API's that perform low level register peek/poke.</p>
+<p>Before using the layer-2 API's user must initialize the core by calling API <a class="el" href="group__v__frmbuf__wr__v2__0.html#ga5453dda299a1e77ed1c692f31dbcb844" title="This function initializes the core instance. ">XVFrmbufWr_Initialize()</a>. This function will look for a configuration structure for the device and initialize it to defined HW settings. It is recommended user always make use of Layer-2 API to interact with this core. Advanced users always have the capability to directly interact with the IP core using Layer-1 API's that perform low level register peek/poke.</p>
 <p><b>Pre-Requisite's</b></p>
 <ul>
 <li>Application must set the memory address using provided API Address must be aligned to memory width. This can be computed with following equation Align = 2 * PPC * 4 Bytes (where PPC is the Pixels/Clock selected in IP configuration)</li>
@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 </ul>
 <p><b> Interrupts </b></p>
 <p>Driver is configured to operate both in polling as well as interrupt mode.</p><ul>
-<li>To use interrupt based processing, application must set up the system's interrupt controller and connect the XVFrmbufWr_InterruptHandler function to service interrupts. Next interrupts must be enabled using the provided API. When an interrupt occurs, ISR will confirm if frame processing is is done. If call back is registered such function will be called and application can apply new setting updates here. Subsequently next frame processing will be triggered with new settings.</li>
+<li>To use interrupt based processing, application must set up the system's interrupt controller and connect the XVFrmbufWr_InterruptHandler function to service interrupts. Next interrupts must be enabled using the provided API. When an interrupt occurs, ISR will confirm if frame processing is is done/ready. If call back is registered such function will be called and application can apply new setting updates here. Subsequently next frame processing will be triggered with new settings.</li>
 <li>To use polling method disable interrupts using the provided API. Doing so will configure the IP to keep processing frames without sw intervention.</li>
 <li>Polling mode is the default configuration set during driver initialization</li>
 </ul>
@@ -104,6 +104,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 1.00  vyc   04/05/17   Initial Release
 2.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
                        Add new memory formats BGRX8 and UYVY8
+3.00  vyc   04/04/18   Add interlaced support
+                       Add new memory format BGR8
+                       Add interrupt handler for ap_ready
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

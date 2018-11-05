@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -82,7 +82,7 @@
 * to build and link only those parts of the driver that are necessary.
 *
 * @file xcsudma.h
-* @addtogroup csudma_v1_0
+* @addtogroup csudma_v1_2
 * @{
 * @details
 *
@@ -103,6 +103,9 @@
 *                        generation.
 *       ms      04/10/17 Modified filename tag in xcsudma_selftest_example.c to
 *                        include the file in doxygen examples.
+* 1.2   adk     11/22/17 Added peripheral test app support for CSUDMA driver.
+*	adk	09/03/18 Added new API XCsuDma_64BitTransfer() useful for 64-bit
+*			 dma transfers through PMU processor(CR#996201).
 * </pre>
 *
 ******************************************************************************/
@@ -377,6 +380,8 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 			u32 EffectiveAddr);
 void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 					UINTPTR Addr, u32 Size, u8 EnDataLast);
+void XCsuDma_64BitTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
+			   u32 AddrLow, u32 AddrHigh, u32 Size, u8 EnDataLast);
 void XCsuDma_LoopBackTransfer(XCsuDma *InstancePtr, u64 SrcAddr, u64 DstAddr,
 						u32 Size);
 u64 XCsuDma_GetAddr(XCsuDma *InstancePtr, XCsuDma_Channel Channel);

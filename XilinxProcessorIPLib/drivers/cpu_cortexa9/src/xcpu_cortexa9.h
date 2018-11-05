@@ -33,7 +33,7 @@
 /**
 *
 * @file xcpu_cortexa9.h
-* @addtogroup cpu_cortexa9_v2_1
+* @addtogroup cpu_cortexa9_v2_5
 * @{
 * @details
 *

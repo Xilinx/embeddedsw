@@ -76,6 +76,8 @@
  *       ms   04/05/17 Modified Comment lines in functions to
  *                     recognize it as documentation block for doxygen
  *                     generation of examples.
+ * 4.4   rsp  02/22/18 Support data buffers above 4GB.Use UINTPTR for storing
+ *                     and typecasting buffer address(CR-995116).
  * </pre>
  *
  ****************************************************************************/
@@ -321,7 +323,7 @@ static int SetupSgTransfer(XAxiCdma *InstancePtr)
 	/* Setup BD ring */
 	BdCount = XAxiCdma_BdRingCntCalc(XAXICDMA_BD_MINIMUM_ALIGNMENT,
 				    BD_SPACE_HIGH - BD_SPACE_BASE + 1,
-				    (u32)BD_SPACE_BASE);
+				    (UINTPTR)BD_SPACE_BASE);
 
 	Status = XAxiCdma_BdRingCreate(InstancePtr, BD_SPACE_BASE,
 		BD_SPACE_BASE, XAXICDMA_BD_MINIMUM_ALIGNMENT, BdCount);
@@ -358,7 +360,7 @@ static int SetupSgTransfer(XAxiCdma *InstancePtr)
 	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache
 	 * is enabled
 	 */
-	Xil_DCacheFlushRange((u32)TransmitBufferPtr,
+	Xil_DCacheFlushRange((UINTPTR)TransmitBufferPtr,
 		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
 
 	/* Setup interrupt coalescing and delay timer
@@ -497,7 +499,7 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 	/* Invalidate the DestBuffer before receiving the data,
 	 * in case the data cache is enabled
 	 */
-	Xil_DCacheInvalidateRange((u32)DestPtr, Length);
+	Xil_DCacheInvalidateRange((UINTPTR)DestPtr, Length);
 
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {
@@ -746,15 +748,15 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache
 	 * is enabled
 	 */
-	Xil_DCacheFlushRange((u32)&SrcBuffer, Length);
+	Xil_DCacheFlushRange((UINTPTR)&SrcBuffer, Length);
 
 	/* Try to start the DMA transfer
 	 */
 	while (Retries) {
 		Retries -= 1;
 
-		Status = XAxiCdma_SimpleTransfer(InstancePtr, (u32)SrcBuffer,
-		      (u32)DestBuffer, Length, Example_SimpleCallBack,
+		Status = XAxiCdma_SimpleTransfer(InstancePtr, (UINTPTR)SrcBuffer,
+		      (UINTPTR)DestBuffer, Length, Example_SimpleCallBack,
 		      InstancePtr);
 
 		if (Status == XST_SUCCESS) {
@@ -816,8 +818,8 @@ static int SubmitSgTransfer(XAxiCdma * InstancePtr)
 	XAxiCdma_Bd *BdCurPtr;
 	int Status;
 	int Index;
-	u32 SrcBufferAddr;
-	u32 DstBufferAddr;
+	UINTPTR SrcBufferAddr;
+	UINTPTR DstBufferAddr;
 	static int Counter = 0;
 
 	Status = XAxiCdma_BdRingAlloc(InstancePtr,
@@ -828,8 +830,8 @@ static int SubmitSgTransfer(XAxiCdma * InstancePtr)
 		return XST_FAILURE;
 	}
 
-	SrcBufferAddr = (u32)TransmitBufferPtr;
-	DstBufferAddr = (u32)ReceiveBufferPtr;
+	SrcBufferAddr = (UINTPTR)TransmitBufferPtr;
+	DstBufferAddr = (UINTPTR)ReceiveBufferPtr;
 	BdCurPtr = BdPtr;
 
 	/* Set up the BDs

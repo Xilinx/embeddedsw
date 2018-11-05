@@ -33,7 +33,7 @@
 /**
 *
 * @file xusbpsu_intr.c
-* @addtogroup usbpsu_v1_0
+* @addtogroup usbpsu_v1_3
 * @{
 *
 *
@@ -44,6 +44,12 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sg  06/06/16 First release
 * 1.3   vak 04/03/17 Added CCI support for USB
+* 1.4	bk  12/01/18 Modify USBPSU driver code to fit USB common example code
+*		       for all USB IPs
+*	myk 12/01/18 Added hibernation support
+*	vak 22/01/18 Added changes for supporting microblaze platform
+*	vak 13/03/18 Moved the setup interrupt system calls from driver to
+*		     example.
 *
 * </pre>
 *
@@ -51,7 +57,7 @@
 
 /***************************** Include Files ********************************/
 
-#include "xusbpsu.h"
+#include "xusb_wrapper.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -96,10 +102,12 @@ void XUsbPsu_EpInterrupt(struct XUsbPsu *InstancePtr,
 	/* Handle other end point events */
 	switch (Event->Endpoint_Event) {
 		case XUSBPSU_DEPEVT_XFERCOMPLETE:
+		case XUSBPSU_DEPEVT_XFERINPROGRESS:
 			XUsbPsu_EpXferComplete(InstancePtr, Event);
 			break;
 
 		case XUSBPSU_DEPEVT_XFERNOTREADY:
+			XUsbPsu_EpXferNotReady(InstancePtr, Event);
 			break;
 
 		default:
@@ -131,11 +139,86 @@ void XUsbPsu_DisconnectIntr(struct XUsbPsu *InstancePtr)
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
 
 	InstancePtr->IsConfigDone = 0U;
-	InstancePtr->Speed = XUSBPSU_SPEED_UNKNOWN;
+	InstancePtr->AppData->Speed = XUSBPSU_SPEED_UNKNOWN;
+
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+	/* In USB 2.0, to avoid hibernation interrupt at the time of connection
+	 * clear KEEP_CONNECT bit.
+	 */
+	if (InstancePtr->HasHibernation) {
+		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
+		if (RegVal & XUSBPSU_DCTL_KEEP_CONNECT) {
+			RegVal &= ~XUSBPSU_DCTL_KEEP_CONNECT;
+			XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
+		}
+	}
+#endif
 
 	/* Call the handler if necessary */
 	if (InstancePtr->DisconnectIntrHandler != NULL) {
-		InstancePtr->DisconnectIntrHandler(InstancePtr);
+		InstancePtr->DisconnectIntrHandler(InstancePtr->AppData);
+	}
+}
+
+/****************************************************************************/
+/**
+* Stops any active transfer.
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+static void XUsbPsu_stop_active_transfers(struct XUsbPsu *InstancePtr)
+{
+	u32 Epnum;
+
+	for (Epnum = 2; Epnum < XUSBPSU_ENDPOINTS_NUM; Epnum++) {
+		struct XUsbPsu_Ep *Ept;
+
+		Ept = &InstancePtr->eps[Epnum];
+		if (!Ept)
+			continue;
+
+		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+			continue;
+
+		XUsbPsu_StopTransfer(InstancePtr, Ept->UsbEpNum,
+				Ept->Direction, TRUE);
+	}
+}
+
+/****************************************************************************/
+/**
+* Clears stall on all stalled Eps.
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+static void XUsbPsu_clear_stall_all_ep(struct XUsbPsu *InstancePtr)
+{
+	u32 Epnum;
+
+	for (Epnum = 1; Epnum < XUSBPSU_ENDPOINTS_NUM; Epnum++) {
+		struct XUsbPsu_Ep *Ept;
+
+		Ept = &InstancePtr->eps[Epnum];
+		if (!Ept)
+			continue;
+
+		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+			continue;
+
+		if (!(Ept->EpStatus & XUSBPSU_EP_STALL))
+			continue;
+
+		XUsbPsu_EpClearStall(InstancePtr, Ept->UsbEpNum, Ept->Direction);
 	}
 }
 
@@ -155,12 +238,15 @@ void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
 	u32	RegVal;
 	u32	Index;
 
-	InstancePtr->State = XUSBPSU_STATE_DEFAULT;
+	InstancePtr->AppData->State = XUSBPSU_STATE_DEFAULT;
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
 	RegVal &= ~XUSBPSU_DCTL_TSTCTRL_MASK;
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
 	InstancePtr->TestMode = 0U;
+
+	XUsbPsu_stop_active_transfers(InstancePtr);
+	XUsbPsu_clear_stall_all_ep(InstancePtr);
 
 	for (Index = 0U; Index < (InstancePtr->NumInEps + InstancePtr->NumOutEps);
 			Index++)
@@ -177,7 +263,7 @@ void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
 
 	/* Call the handler if necessary */
 	if (InstancePtr->ResetIntrHandler != NULL) {
-		InstancePtr->ResetIntrHandler(InstancePtr);
+		InstancePtr->ResetIntrHandler(InstancePtr->AppData);
 	}
 }
 
@@ -200,7 +286,7 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DSTS);
 	Speed = (u8)(RegVal & XUSBPSU_DSTS_CONNECTSPD);
-	InstancePtr->Speed = Speed;
+	InstancePtr->AppData->Speed = Speed;
 
 	switch (Speed) {
 	case XUSBPSU_DCFG_SUPERSPEED:
@@ -208,7 +294,7 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 		xil_printf("Super Speed\r\n");
 #endif
 		Size = 512U;
-		InstancePtr->Speed = XUSBPSU_SPEED_SUPER;
+		InstancePtr->AppData->Speed = XUSBPSU_SPEED_SUPER;
 		break;
 
 	case XUSBPSU_DCFG_HIGHSPEED:
@@ -216,7 +302,7 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 		xil_printf("High Speed\r\n");
 #endif
 		Size = 64U;
-		InstancePtr->Speed = XUSBPSU_SPEED_HIGH;
+		InstancePtr->AppData->Speed = XUSBPSU_SPEED_HIGH;
 		break;
 
 	case XUSBPSU_DCFG_FULLSPEED2:
@@ -225,7 +311,7 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 		xil_printf("Full Speed\r\n");
 #endif
 		Size = 64U;
-		InstancePtr->Speed = XUSBPSU_SPEED_FULL;
+		InstancePtr->AppData->Speed = XUSBPSU_SPEED_FULL;
 		break;
 
 	case XUSBPSU_DCFG_LOWSPEED:
@@ -233,15 +319,34 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 		xil_printf("Low Speed\r\n");
 #endif
 		Size = 64U;
-		InstancePtr->Speed = XUSBPSU_SPEED_LOW;
+		InstancePtr->AppData->Speed = XUSBPSU_SPEED_LOW;
 		break;
 	default :
 		Size = 64U;
 		break;
 	}
 
+	if (InstancePtr->AppData->Speed == XUSBPSU_SPEED_SUPER) {
+		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
+		RegVal &= ~XUSBPSU_DCTL_HIRD_THRES_MASK;
+		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
+	}
+
 	(void)XUsbPsu_EnableControlEp(InstancePtr, Size);
 	(void)XUsbPsu_RecvSetup(InstancePtr);
+
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+	/* In USB 2.0, to avoid hibernation interrupt at the time of connection
+	 * clear KEEP_CONNECT bit.
+	 */
+	if (InstancePtr->HasHibernation) {
+		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
+		if (!(RegVal & XUSBPSU_DCTL_KEEP_CONNECT)) {
+			RegVal |= XUSBPSU_DCTL_KEEP_CONNECT;
+			XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
+		}
+	}
+#endif
 }
 
 /****************************************************************************/
@@ -295,6 +400,10 @@ void XUsbPsu_DevInterrupt(struct XUsbPsu *InstancePtr,
 			break;
 
 		case XUSBPSU_DEVICE_EVENT_HIBER_REQ:
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+			if (InstancePtr->HasHibernation)
+				Xusbpsu_HibernationIntr(InstancePtr);
+#endif
 			break;
 
 		case XUSBPSU_DEVICE_EVENT_LINK_STATUS_CHANGE:
@@ -373,6 +482,7 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 {
 	struct XUsbPsu_EvtBuffer *Evt;
 	union XUsbPsu_Event Event = {0};
+	u32 RegVal;
 
 	Evt = &InstancePtr->Evt;
 
@@ -385,16 +495,26 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 		Event.Raw = *(UINTPTR *)((UINTPTR)Evt->BuffAddr + Evt->Offset);
 
 		/*
-         * Process the event received
-         */
-        XUsbPsu_EventHandler(InstancePtr, &Event);
+		 * Process the event received
+		 */
+		XUsbPsu_EventHandler(InstancePtr, &Event);
+
+		/* don't process anymore events if core is hibernated */
+		if (InstancePtr->IsHibernated)
+			return;
 
 		Evt->Offset = (Evt->Offset + 4U) % XUSBPSU_EVENT_BUFFERS_SIZE;
 		Evt->Count -= 4;
 		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0), 4U);
 	}
 
+	Evt->Count = 0;
 	Evt->Flags &= ~XUSBPSU_EVENT_PENDING;
+
+	/* Unmask event interrupt */
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTSIZ(0));
+	RegVal &= ~XUSBPSU_GEVNTSIZ_INTMASK;
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0), RegVal);
 }
 
 /****************************************************************************/
@@ -437,11 +557,24 @@ void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
 
 	/* Processes events in an Event Buffer */
 	XUsbPsu_EventBufferHandler(InstancePtr);
-
-	/* Unmask event interrupt */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTSIZ(0));
-	RegVal &= ~XUSBPSU_GEVNTSIZ_INTMASK;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0), RegVal);
 }
+
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+/****************************************************************************/
+/**
+* Wakeup Interrupt Handler.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
+{
+	struct XUsbPsu  *InstancePtr = (struct XUsbPsu *)XUsbPsuInstancePtr;
+
+	XUsbPsu_WakeupIntr(InstancePtr);
+}
+#endif
 
 /** @} */

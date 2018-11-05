@@ -33,7 +33,7 @@
 /**
 *
 * @file xccm.h
-* @addtogroup ccm_v6_0
+* @addtogroup ccm_v6_1
 * @{
 * @details
 * 

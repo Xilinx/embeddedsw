@@ -33,7 +33,7 @@
 /**
 *
 * @file xprd_sinit.c
-* @addtogroup prd_v1_0
+* @addtogroup prd_v1_1
 * @{
 *
 * This file contains the implementation of the XPrd driver's static

@@ -18,8 +18,8 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -33,7 +33,7 @@
 /**
 *
 * @file xcsi2txss.c
-* @addtogroup csi2txss_v1_0
+* @addtogroup csi2txss_v1_1
 * @{
 *
 * This is main code of Xilinx MIPI CSI Tx Subsystem device driver.
@@ -46,6 +46,7 @@
 * --- --- -------- ------------------------------------------------------------
 * 1.0 sss 07/14/16 Initial release
 *     vsa 15/12/17 Add support for Clock Mode
+* 1.2 vsa 02/28/18 Add Frame End Generation feature
 * </pre>
 *
 ******************************************************************************/
@@ -217,7 +218,15 @@ u32 XCsi2TxSs_Configure(XCsi2TxSs *InstancePtr, u8 ActiveLanes, u32 IntrMask)
 
 	CsiPtr = InstancePtr->CsiPtr;
 
-	IntrMask &= XCSI2TX_ISR_ALLINTR_MASK;
+	if (InstancePtr->Config.FEGenEnabled) {
+		IntrMask &= (XCSI2TX_ISR_ALLINTR_MASK |
+			     XCSITX_LCSTAT_VC0_IER_MASK |
+			     XCSITX_LCSTAT_VC1_IER_MASK |
+			     XCSITX_LCSTAT_VC2_IER_MASK |
+			     XCSITX_LCSTAT_VC3_IER_MASK);
+	} else
+		IntrMask &= XCSI2TX_ISR_ALLINTR_MASK;
+
 	XCsi2Tx_IntrEnable(CsiPtr, IntrMask);
 
 	CsiPtr->ActiveLanes = ActiveLanes;
@@ -679,5 +688,70 @@ u32 XCsi2TxSs_GetClkMode(XCsi2TxSs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->CsiPtr);
 
 	return (XCsi2Tx_GetClkMode(InstancePtr->CsiPtr));
+}
+
+/*****************************************************************************/
+/**
+ * This function sets the Line Count for virtual Channel if Frame End
+ * Generation feature is enabled. This is to be called before starting
+ * the core.
+ *
+ * @param	InstancePtr is a pointer to the Subsystem instance to be
+ *		worked on.
+ * @param	VC is which Virtual channel to be configured for (0-3).
+ * @param	LineCount is valid line count for the Virtual channel.
+ *
+ * @return
+ *		- XST_NO_FEATURE if Frame End generation is not enabled
+ *		- XST_INVALID_PARAM if any param is invalid e.g.
+ *			VC is always 0 to 3 and Line Count is 0 to 0xFFFF.
+ *		- XST_FAILURE in case the core is already running.
+ *		- XST_SUCCESS otherwise
+ *
+ * @note	None.
+ *
+******************************************************************************/
+u32 XCsi2TxSs_SetLineCountForVC(XCsi2TxSs *InstancePtr, u8 VC, u16 LineCount)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Is Frame End generation feature enabled? */
+	if (!InstancePtr->Config.FEGenEnabled)
+		return XST_NO_FEATURE;
+
+	return XCsi2Tx_SetLineCountForVC(InstancePtr->CsiPtr, VC, LineCount);
+}
+
+/*****************************************************************************/
+/**
+ * This function gets the Line Count for virtual Channel if Frame End
+ * Generation feature is enabled.
+ *
+ * @param	InstancePtr is a pointer to the Subsystem instance to be
+ *		worked on.
+ * @param	VC is which Virtual channel to be configured for (0-3).
+ * @param	LineCount is pointer to variable to be filled with line count
+ *		for the Virtual channel
+ *
+ * @return
+ *		- XST_NO_FEATURE if Frame End generation is not enabled
+ *		- XST_INVALID_PARAM if any param is invalid e.g.
+ *			VC is always 0 to 3 and Line Count is 0 to 0xFFFF.
+ *		- XST_SUCCESS otherwise
+ *
+ * @note	None.
+ *
+******************************************************************************/
+u32 XCsi2TxSs_GetLineCountForVC(XCsi2TxSs *InstancePtr, u8 VC, u16 *LineCount)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Is Frame End generation feature enabled? */
+	if (!InstancePtr->Config.FEGenEnabled)
+		return XST_NO_FEATURE;
+
+	return XCsi2Tx_GetLineCountForVC(InstancePtr->CsiPtr, VC, LineCount);
 }
 /** @} */

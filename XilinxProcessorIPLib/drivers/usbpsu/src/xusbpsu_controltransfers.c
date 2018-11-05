@@ -43,20 +43,19 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sg  06/06/16 First release
 * 1.3	vak 04/03/17 Added CCI support for USB
+* 1.4	bk  12/01/18 Modify USBPSU driver code to fit USB common example code
+*		     for all USB IPs.
 *
 * </pre>
 *
 *****************************************************************************/
 
 /***************************** Include Files *********************************/
-
-#include "xusbpsu.h"
 #include "xusbpsu_endpoint.h"
 #include "sleep.h"
-/************************** Constant Definitions *****************************/
+#include "xusb_wrapper.h"
 
-#define USB_DIR_OUT				0U		/* to device */
-#define USB_DIR_IN				0x80U	/* to host */
+/************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
@@ -64,9 +63,7 @@
 
 /************************** Function Prototypes ******************************/
 
-
 /************************** Variable Definitions *****************************/
-
 
 /****************************************************************************/
 /**
@@ -111,6 +108,7 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+		Xil_DCacheFlushRange((UINTPTR)&InstancePtr->SetupData, sizeof(SetupPacket));
 	}
 
 	Params->Param0 = 0U;
@@ -221,7 +219,7 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 	}
 
 	if (Ept->Handler != NULL) {
-		Ept->Handler(InstancePtr, Ept->RequestedBytes, Ept->BytesTxed);
+		Ept->Handler(InstancePtr->AppData, Ept->RequestedBytes, Ept->BytesTxed);
 	}
 }
 
@@ -309,7 +307,7 @@ void XUsbPsu_Ep0XferComplete(struct XUsbPsu *InstancePtr,
 
 		Xil_AssertVoid(InstancePtr->Chapter9 != NULL);
 
-		InstancePtr->Chapter9(InstancePtr,
+		InstancePtr->Chapter9(InstancePtr->AppData,
 									&InstancePtr->SetupData);
 		break;
 

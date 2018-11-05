@@ -18,7 +18,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
  * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
@@ -33,7 +33,7 @@
 /**
  *
  * @file xvphy.h
- * @addtogroup xvphy
+ * @addtogroup xvphy_v1_7
  * @{
  * @details
  * This is main header file of the Xilinx Video PHY Controller driver
@@ -53,7 +53,7 @@
  *
  * Video PHY Controller driver supports following features
  *   - Xilinx DisplayPort and HDMI MAC IPs
- *   - GTXE2, GTPE2, GTHE2, GTHE3 and GTHE4 GT types
+ *   - GTXE2, GTPE2, GTHE2, GTHE3, GTHE4 and GTYE4 GT types
  *   - HDMI:
  *   -   2 or 4 pixel-wide video interface
  *   -   8/10/12/16 bits per component
@@ -93,6 +93,9 @@
  *                     Changed ClkOutxDiv declaration to u16
  *                     Marked XVphy_HdmiInitialize deprecated and replaced by
  *                        XVphy_Hdmi_CfgInitialize
+ * 1.7   gm   13/09/17 Added GTYE4 support
+ *                     Added XVphy_SetPolarity, XVphy_SetPrbsSel and
+ *                        XVphy_TxPrbsForceError APIs
  * </pre>
  *
 *******************************************************************************/
@@ -122,6 +125,7 @@ typedef enum {
 	XVPHY_GT_TYPE_GTPE2 = 3,
 	XVPHY_GT_TYPE_GTHE3 = 4,
 	XVPHY_GT_TYPE_GTHE4 = 5,
+	XVPHY_GT_TYPE_GTYE4 = 6,
 } XVphy_GtType;
 
 /**
@@ -200,6 +204,8 @@ typedef enum {
 	XVPHY_CHANNEL_ID_CMN1 = 6,
 	XVPHY_CHANNEL_ID_CHA = 7,
 	XVPHY_CHANNEL_ID_CMNA = 8,
+	XVPHY_CHANNEL_ID_TXMMCM = 9,
+	XVPHY_CHANNEL_ID_RXMMCM = 10,
 	XVPHY_CHANNEL_ID_CMN = XVPHY_CHANNEL_ID_CMN0,
 } XVphy_ChannelId;
 
@@ -354,9 +360,17 @@ typedef enum {
 	XVPHY_LOG_EVT_HDMI20_ERR,	/**< Log event HDMI2.0 not supported. */
 	XVPHY_LOG_EVT_NO_QPLL_ERR,	/**< Log event QPLL not present. */
 	XVPHY_LOG_EVT_DRU_CLK_ERR,	/**< Log event DRU clk wrong freq. */
+	XVPHY_LOG_EVT_USRCLK_ERR,	/**< Log event usrclk more than 297 MHz. */
 	XVPHY_LOG_EVT_DUMMY,		/**< Dummy Event should be last */
 } XVphy_LogEvent;
 #endif
+
+/* This typedef enumerates the different MMCM Dividers */
+typedef enum {
+  MMCM_CLKFBOUT_MULT_F, /* M */
+  MMCM_DIVCLK_DIVIDE,   /* D */
+  MMCM_CLKOUT_DIVIDE    /* On */
+} XVphy_MmcmDivType;
 
 /* This typedef enumerates the possible error conditions. */
 typedef enum {
@@ -369,7 +383,45 @@ typedef enum {
 	XVPHY_ERR_BONDED_DRU  = 0x40,	/**< DRU and Bonded Mode Error. */
 	XVPHY_ERR_NO_QPLL     = 0x80,	/**< No QPLL Error. */
 	XVPHY_ERR_DRU_CLK     = 0x100,	/**< Wrong DRU clk freq Error. */
+	XVPHY_ERR_USRCLK      = 0x200,	/**< USRCLK Error. */
 } XVphy_ErrType;
+
+/* This typedef enumerates the Linerate to TMDS Clock ratio
+ * for HDMI TX TMDS Clock pattern generator. */
+typedef enum {
+	XVPHY_Patgen_Ratio_10    = 0x1,	/**< LR:Clock Ratio = 10 */
+	XVPHY_Patgen_Ratio_20    = 0x2,	/**< LR:Clock Ratio = 20 */
+	XVPHY_Patgen_Ratio_30    = 0x3,	/**< LR:Clock Ratio = 30 */
+	XVPHY_Patgen_Ratio_40    = 0x4,	/**< LR:Clock Ratio = 40 */
+	XVPHY_Patgen_Ratio_50    = 0x5,	/**< LR:Clock Ratio = 50 */
+} XVphy_HdmiTx_Patgen;
+
+/**
+ * This typedef enumerates the available PRBS patterns available
+ * from the
+ */
+typedef enum {
+#if (XPAR_VPHY_0_TRANSCEIVER == 2) || \
+	(XPAR_VPHY_0_TRANSCEIVER == 4) || \
+	(XPAR_VPHY_0_TRANSCEIVER == 5) || \
+	(XPAR_VPHY_0_TRANSCEIVER == 6)
+	XVPHY_PRBSSEL_STD_MODE 	    = 0x0, /**< Pattern gen/mon OFF  */
+	XVPHY_PRBSSEL_PRBS7    	    = 0x1, /**< PRBS-7  */
+	XVPHY_PRBSSEL_PRBS9    	    = 0x2, /**< PRBS-9  */
+	XVPHY_PRBSSEL_PRBS15   	    = 0x3, /**< PRBS-15  */
+	XVPHY_PRBSSEL_PRBS23   	    = 0x4, /**< PRBS-23  */
+	XVPHY_PRBSSEL_PRBS31   	    = 0x5, /**< PRBS-31  */
+	XVPHY_PRBSSEL_PCIE     	    = 0x8, /**< PCIE Compliance Pattern  */
+	XVPHY_PRBSSEL_SQUARE_2UI    = 0x9, /**< Square wave with 2 UI  */
+	XVPHY_PRBSSEL_SQUARE_16UI   = 0xA, /**< Square wave with 16 UI  */
+#else
+	XVPHY_PRBSSEL_STD_MODE 	    = 0x0, /**< Pattern gen/mon OFF  */
+	XVPHY_PRBSSEL_PRBS7    	    = 0x1, /**< PRBS-7  */
+	XVPHY_PRBSSEL_PRBS15   	    = 0x2, /**< PRBS-15  */
+	XVPHY_PRBSSEL_PRBS23   	    = 0x3, /**< PRBS-23  */
+	XVPHY_PRBSSEL_PRBS31   	    = 0x4, /**< PRBS-31  */
+#endif
+} XVphy_PrbsPattern;
 
 /******************************************************************************/
 /**
@@ -636,6 +688,7 @@ typedef struct {
 	u32 ErrIrq;	            /**< Error IRQ is enalbed in design */
 	u32 AxiLiteClkFreq;	    /**< AXI Lite Clock Frequency in Hz */
 	u32 DrpClkFreq;	        /**< DRP Clock Frequency in Hz */
+	u8  UseGtAsTxTmdsClk;	/**< Use 4th GT channel as TX TMDS clock */
 } XVphy_Config;
 
 /* Forward declaration. */
@@ -815,6 +868,14 @@ u32 XVphy_ResetGtPll(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 u32 XVphy_ResetGtTxRx(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir, u8 Hold);
 
+/* xvphy.c: TX|RX Control functions. */
+u32 XVphy_SetPolarity(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		XVphy_DirectionType Dir, u8 Polarity);
+u32 XVphy_SetPrbsSel(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		XVphy_DirectionType Dir, XVphy_PrbsPattern Pattern);
+u32 XVphy_TxPrbsForceError(XVphy *InstancePtr, u8 QuadId,
+		XVphy_ChannelId ChId, u8 ForceErr);
+
 /* xvphy.c: GT/MMCM DRP access. */
 u32 XVphy_DrpWrite(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		u16 Addr, u16 Val) __attribute__ ((deprecated));
@@ -907,6 +968,8 @@ void XVphy_RegisterDebug(XVphy *InstancePtr);
 	((XVPHY_CHANNEL_ID_CH1 <= (Id)) && ((Id) <= XVPHY_CHANNEL_ID_CH4)))
 #define XVPHY_ISCMN(Id)		(((Id) == XVPHY_CHANNEL_ID_CMNA) || \
 	((XVPHY_CHANNEL_ID_CMN0 <= (Id)) && ((Id) <= XVPHY_CHANNEL_ID_CMN1)))
+#define XVPHY_ISTXMMCM(Id)	((Id) == XVPHY_CHANNEL_ID_TXMMCM)
+#define XVPHY_ISRXMMCM(Id)	((Id) == XVPHY_CHANNEL_ID_RXMMCM)
 
 #define XVphy_IsTxUsingQpll(InstancePtr, QuadId, ChId) \
         ((XVPHY_PLL_TYPE_QPLL == \
@@ -942,6 +1005,7 @@ void XVphy_RegisterDebug(XVphy *InstancePtr);
 #define XVPHY_GTPE2 3
 #define XVPHY_GTHE3 4
 #define XVPHY_GTHE4 5
+#define XVPHY_GTYE4 6
 
 #endif /* XVPHY_H_ */
 /** @} */

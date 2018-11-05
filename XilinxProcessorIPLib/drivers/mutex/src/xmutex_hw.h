@@ -33,7 +33,7 @@
 /**
 *
 * @file xmutex_hw.h
-* @addtogroup mutex_v4_0
+* @addtogroup mutex_v4_3
 * @{
 *
 * This header file contains identifiers/definitions and macros that can be used

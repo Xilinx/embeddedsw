@@ -55,13 +55,21 @@
 #include "xpfw_util.h"
 #include "pm_gpp.h"
 #include "xpfw_aib.h"
+#include "pm_hooks.h"
 
 #define DEFINE_PM_POWER_CHILDREN(c)	.children = (c), \
 					.childCnt = ARRAY_SIZE(c)
 
-#define PM_POWER_SUPPLYCHECK_TIMEOUT	100000U
+#define PM_FPD_POWER_SUPPLYCHECK_TIMEOUT	727273U		/* Delay of 40ms */
+#define PM_PLD_POWER_SUPPLYCHECK_TIMEOUT	100000U		/* Delay of 5ms */
 
 #define AMS_PSSYSMON_CONFIG_REG2	0XFFA50908
+
+#define A53_DBG_0_EDPRCR_REG			(0xFEC10310)	/* APU_0 external debug control */
+#define A53_DBG_1_EDPRCR_REG			(0xFED10310)	/* APU_1 external debug control */
+#define A53_DBG_2_EDPRCR_REG			(0xFEE10310)	/* APU_2 external debug control */
+#define A53_DBG_3_EDPRCR_REG			(0xFEF10310)	/* APU_3 external debug control */
+#define A53_DBG_EDPRCR_REG_MASK			(0x00000009)	/* COREPURQ and CORENPDRQ bit mask */
 
 /**
  * PmPowerStack() - Used to construct stack for implementing non-recursive
@@ -221,8 +229,8 @@ static PmRegisterContext pmFpdContext[] = {
 };
 
 /**
- * PmPowerSupplyCheck() - Wrapper for PMU-ROM power supply check handler
- * @RomHandler  Default PMU-ROM handler for power supply check
+ * PmFpdPowerSupplyCheck() - Wrapper for PMU-ROM FPD power supply check handler
+ * @RomHandler  Default PMU-ROM handler for FPD power supply check
  *
  * @return      The PMU-ROM handler's return value
  *
@@ -230,13 +238,36 @@ static PmRegisterContext pmFpdContext[] = {
  *              This function should be replaced by either Sysmon-based check
  *              or custom/board specific implementation.
  */
-static u32 PmPowerSupplyCheck(XpbrServHndlr_t RomHandler)
+static u32 PmFpdPowerSupplyCheck(XpbrServHndlr_t RomHandler)
 {
 	int status;
 	u32 var = 0U;
 
 	/* Cheat compiler to not optimize timeout based on counting */
-	XPfw_UtilPollForMask((u32)&var, ~var, PM_POWER_SUPPLYCHECK_TIMEOUT);
+	XPfw_UtilPollForMask((u32)&var, ~var, PM_FPD_POWER_SUPPLYCHECK_TIMEOUT);
+
+	status = RomHandler();
+
+	return status;
+}
+
+/**
+ * PmPldPowerSupplyCheck() - Wrapper for PMU-ROM PLD power supply check handler
+ * @RomHandler  Default PMU-ROM handler for PLD power supply check
+ *
+ * @return      The PMU-ROM handler's return value
+ *
+ * @note        The wrapper just introduces a timeout based on counting.
+ *              This function should be replaced by either Sysmon-based check
+ *              or custom/board specific implementation.
+ */
+static u32 PmPldPowerSupplyCheck(XpbrServHndlr_t RomHandler)
+{
+	int status;
+	u32 var = 0U;
+
+	/* Cheat compiler to not optimize timeout based on counting */
+	XPfw_UtilPollForMask((u32)&var, ~var, PM_PLD_POWER_SUPPLYCHECK_TIMEOUT);
 
 	status = RomHandler();
 
@@ -264,7 +295,7 @@ static PmPowerClass pmPowerClassDomain_g = {
 /**
  * PmFpdSaveContext() - Save context of CRF_APB module due to powering down FPD
  */
-static void PmFpdSaveContext(void)
+void PmFpdSaveContext(void)
 {
 	u32 i;
 
@@ -277,7 +308,7 @@ static void PmFpdSaveContext(void)
  * PmFpdRestoreContext() - Restore context of CRF_APB module (FPD has been
  *                         powered up)
  */
-static void PmFpdRestoreContext(void)
+void PmFpdRestoreContext(void)
 {
 	u32 i;
 
@@ -294,6 +325,15 @@ static void PmFpdRestoreContext(void)
 static int PmPowerDownFpd(void)
 {
 	int status;
+
+	if (A53_DBG_EDPRCR_REG_MASK & (XPfw_Read32(A53_DBG_0_EDPRCR_REG) |
+				XPfw_Read32(A53_DBG_1_EDPRCR_REG) |
+				XPfw_Read32(A53_DBG_2_EDPRCR_REG) |
+				XPfw_Read32(A53_DBG_3_EDPRCR_REG))) {
+		PmDbg(DEBUG_DETAILED,"Skiping FPD power down since debugger "
+				"is connected\r\n");
+		return XST_SUCCESS;
+	}
 
 /* Block FPD power down if any of the LPD peripherals uses CCI path which is in FPD */
 #ifdef XPAR_LPD_IS_CACHE_COHERENT
@@ -314,8 +354,29 @@ static int PmPowerDownFpd(void)
 		goto err;
 	}
 
-	XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR);
-	XPfw_AibEnable(XPFW_AIB_LPD_TO_FPD);
+	if (XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR) != XST_SUCCESS) {
+		PmDbg(DEBUG_DETAILED,
+				"Warning: Failed to Enable AIB isolation LPD to DDR\r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_DDR, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
+					"for LPD to DDR isolation \r\n");
+		}
+	}
+
+	if (XPfw_AibEnable(XPFW_AIB_LPD_TO_FPD) != XST_SUCCESS) {
+		PmDbg(DEBUG_DETAILED,
+				"Warning: Failed to Enable AIB isolation LPD to FPD\r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_FPD, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
+					"for LPD to FPD isolation");
+		}
+	}
 
 	/*
 	 * When FPD is powered off, the APU-GIC will be affected too.
@@ -331,11 +392,19 @@ err:
 /**
  * PmPowerDownLpd() - Power down LPD domain
  *
- * @return      XST_SUCCESS always (not implemented)
+ * @return      Function doesn't return because LPD is powered down
  */
-static int PmPowerDownLpd(void)
+static int __attribute__((noreturn)) PmPowerDownLpd(void)
 {
-	return XST_SUCCESS;
+#ifdef ENABLE_POS
+	/* Call user hook for finishing Power Off Suspend */
+	PmHookFinalizePowerOffSuspend();
+#endif
+
+	/* Call user hook for powering down LPD */
+	PmHookPowerDownLpd();
+
+	while (1);
 }
 
 /**
@@ -369,6 +438,12 @@ done:
  */
 static int PmPowerUpFpd(void)
 {
+	if (0 != (XPfw_Read32(PMU_GLOBAL_PWR_STATE) &
+				PMU_GLOBAL_PWR_STATE_FP_MASK)) {
+		PmDbg(DEBUG_DETAILED,"Skiping FPD power up as FPD is on\r\n");
+		return XST_SUCCESS;
+	}
+
 	int status = XpbrPwrUpFpdHandler();
 	if (XST_SUCCESS != status) {
 		goto err;
@@ -396,10 +471,54 @@ err:
  */
 static int PmPowerDownRpu(void)
 {
-	XPfw_AibEnable(XPFW_AIB_RPU0_TO_LPD);
-	XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD);
-	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU0);
-	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU1);
+	if (XPfw_AibEnable(XPFW_AIB_RPU0_TO_LPD) != XST_SUCCESS) {
+		PmDbg(DEBUG_DETAILED,
+				"Warning: Failed to Enable AIB isolation RPU0 to LPD\r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_RPU0_TO_LPD, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
+					"for RPU0 to LPD isolation");
+		}
+	}
+
+	if (XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD) != XST_SUCCESS) {
+		PmDbg(DEBUG_DETAILED,
+				"Warning: Failed to Enable AIB isolation RPU1 to LPD\r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_RPU1_TO_LPD, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
+					"for RPU1 to LPD isolation");
+		}
+	}
+
+	if (XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU0) != XST_SUCCESS) {
+		PmDbg(DEBUG_DETAILED,
+				"Warning: Failed to Enable AIB isolation LPD to RPU0\r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_RPU0, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
+					"for LPD to RPU0 isolation");
+		}
+	}
+
+	if (XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU1) != XST_SUCCESS) {
+		PmDbg(DEBUG_DETAILED,
+				"Warning: Failed to Enable AIB isolation LPD to RPU1\r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_RPU1, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
+					"for LPD to RPU1 isolation");
+		}
+	}
+
 	PmDbg(DEBUG_DETAILED,"Enabled AIB\r\n");
 
 	return XpbrPwrDnRpuHandler();
@@ -423,9 +542,41 @@ static void PmPowerForceDownRpu(PmPower* const power)
  */
 static int PmPowerDownPld(void)
 {
-	XPfw_AibEnable(XPFW_AIB_LPD_TO_AFI_FS2);
-	XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS0);
-	XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS1);
+	if (XPfw_AibEnable(XPFW_AIB_LPD_TO_AFI_FS2) != XST_SUCCESS) {
+		PmDbg(DEBUG_DETAILED,
+				"Warning: Failed to Enable AIB isolation LPD to AFI FS2\r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_AFI_FS2, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
+					"for LPD to AFI FS2 isolation");
+		}
+	}
+
+	if (XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS0) != XST_SUCCESS) {
+		PmDbg(DEBUG_DETAILED,
+				"Warning: Failed to Enable AIB isolation LPD to AFI FS0\r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_FPD_TO_AFI_FS0, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
+					"for LPD to AFI FS0 isolation");
+		}
+	}
+
+	if (XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS1) != XST_SUCCESS) {
+		PmDbg(DEBUG_DETAILED,
+				"Warning: Failed to Enable AIB isolation LPD to AFI FS1\r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_FPD_TO_AFI_FS1, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
+					"for LPD to AFI FS1 isolation");
+		}
+	}
 
 	return XpbrPwrDnPldHandler();
 }
@@ -482,7 +633,7 @@ static void PmPowerUpSysOsc(void)
  * @return      Status of powering down (what powerDown handler returns or
  *              XST_SUCCESS)
  */
-static int PmPowerDown(PmPower* const power)
+int PmPowerDown(PmPower* const power)
 {
 	int status = XST_SUCCESS;
 
@@ -760,7 +911,7 @@ PmPowerDomain pmPowerDomainFpd_g = {
 		.forcePerms = 0U,
 		.useCount = 0U,
 	},
-	.supplyCheckHook = PmPowerSupplyCheck,
+	.supplyCheckHook = PmFpdPowerSupplyCheck,
 	.supplyCheckHookId = XPBR_SERV_EXT_FPD_SUPPLYCHECK,
 };
 
@@ -812,7 +963,7 @@ PmPowerDomain pmPowerDomainPld_g = {
 		.forcePerms = 0U,
 		.useCount = 0U,
 	},
-	.supplyCheckHook = PmPowerSupplyCheck,
+	.supplyCheckHook = PmPldPowerSupplyCheck,
 	.supplyCheckHookId = XPBR_SERV_EXT_PLD_SUPPLYCHECK,
 };
 

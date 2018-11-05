@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
 * 
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal 
@@ -106,6 +106,8 @@
 * 											before sequence starts and checking
 * 											INIT_B reset status twice in case
 * 											of failure.
+* 16.00a bsv 03/26/18	Fix for CR# 996973  Add code under JTAG_ENABLE_LEVEL_SHIFTERS macro
+* 											to enable level shifters in jtag boot mode.
 * </pre>
 *
 * @note
@@ -240,7 +242,7 @@ int main(void)
 	u32 BootModeRegister = 0;
 	u32 HandoffAddress = 0;
 	u32 Status = XST_SUCCESS;
-
+	u32 RegVal;
 	/*
 	 * PCW initialization for MIO,PLL,CLK and DDR
 	 */
@@ -492,6 +494,19 @@ int main(void)
 	 */
 	if (BootModeRegister == JTAG_MODE) {
 		fsbl_printf(DEBUG_GENERAL,"Boot mode is JTAG\r\n");
+
+		RegVal = Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_INT_STS_OFFSET);
+		/** If bitstream was loaded in jtag boot mode prior to running FSBL */
+		if(RegVal & XDCFG_IXR_PCFG_DONE_MASK)
+		{
+#ifdef PS7_POST_CONFIG
+		ps7_post_config();
+		/*
+		 * Unlock SLCR for SLCR register write
+		 */
+		SlcrUnlock();
+#endif
+		}
 		/*
 		 * Stop the Watchdog before JTAG handoff
 		 */

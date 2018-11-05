@@ -34,7 +34,7 @@
 /**
 *
 * @file xcsudma_selftest.c
-* @addtogroup csudma_v1_0
+* @addtogroup csudma_v1_2
 * @{
 *
 * This file contains a diagnostic self-test function for the CSU_DMA driver.

@@ -33,7 +33,8 @@
 
 /**
  * This file provides a framework for modules to send and receive IPI messages
- * PMU IPI-0 is used as the default channel for communication
+ * PMU IPI-0 is used for communication initiated by other master.
+ * PMU IPI-1 is used for communication initiated by PMU.
  *
  * Currently this framework supports for checking/embedding IPI ID of a module.
  * IPI ID is the MSB 16-bits of the first word in pay load.
@@ -42,8 +43,9 @@
  */
 
 /* Instance of IPI Driver */
-static XIpiPsu IpiInst;
-static XIpiPsu *IpiInstPtr = &IpiInst;
+static XIpiPsu Ipi0Inst, Ipi1Inst;
+static XIpiPsu *Ipi0InstPtr = &Ipi0Inst;
+static XIpiPsu *Ipi1InstPtr = &Ipi1Inst;
 u32 IpiMaskList[XPFW_IPI_MASK_COUNT] = {0U};
 
 #ifdef ENABLE_SAFETY
@@ -53,27 +55,48 @@ u32 IpiMaskList[XPFW_IPI_MASK_COUNT] = {0U};
 s32 XPfw_IpiManagerInit(void)
  {
 	s32 Status;
-	XIpiPsu_Config *IpiCfgPtr;
+	XIpiPsu_Config *Ipi0CfgPtr, *Ipi1CfgPtr;
 	u32 i;
 
 	/* Load Config for PMU IPI-0 */
-	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
-
-	if (IpiCfgPtr == NULL) {
+	Ipi0CfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
+	if (Ipi0CfgPtr == NULL) {
 		Status = XST_FAILURE;
 		goto Done;
 	}
-	/* Init Mask List */
-	for (i = 0U; i < XPFW_IPI_MASK_COUNT; i++) {
-		IpiMaskList[i] = IpiCfgPtr->TargetList[i].Mask;
-	}
-	/* Initialize the IPI driver */
-	Status = XIpiPsu_CfgInitialize(IpiInstPtr, IpiCfgPtr,
-			IpiCfgPtr->BaseAddress);
 
-	/* Enable IPIs from all Masters */
+	/* Load Config for PMU IPI-1 */
+	Ipi1CfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_1_DEVICE_ID);
+	if (Ipi1CfgPtr == NULL) {
+		Status = XST_FAILURE;
+		goto Done;
+	}
+
+	/* Init Mask Lists */
 	for (i = 0U; i < XPFW_IPI_MASK_COUNT; i++) {
-		XIpiPsu_InterruptEnable(IpiInstPtr, IpiCfgPtr->TargetList[i].Mask);
+		IpiMaskList[i] = Ipi0CfgPtr->TargetList[i].Mask;
+	}
+
+	/* Initialize the Instance pointer of IPI-0 channel */
+	Status = XIpiPsu_CfgInitialize(Ipi0InstPtr, Ipi0CfgPtr,
+			Ipi0CfgPtr->BaseAddress);
+	if (XST_SUCCESS != Status) {
+		return Status;
+	}
+
+	/* Initialize the Instance pointer of IPI-1 channel */
+	Status = XIpiPsu_CfgInitialize(Ipi1InstPtr, Ipi1CfgPtr,
+			Ipi1CfgPtr->BaseAddress);
+	if (XST_SUCCESS != Status) {
+		return Status;
+	}
+
+	/* Enable IPI-0 and IPI-1 from all Masters */
+	for (i = 0U; i < XPFW_IPI_MASK_COUNT; i++) {
+		XIpiPsu_InterruptEnable(Ipi0InstPtr,
+					Ipi0CfgPtr->TargetList[i].Mask);
+		XIpiPsu_InterruptEnable(Ipi1InstPtr,
+					Ipi1CfgPtr->TargetList[i].Mask);
 	}
 
 Done:
@@ -104,7 +127,7 @@ s32 XPfw_IpiWriteMessage(const XPfw_Module_t *ModPtr, u32 DestCpuMask, u32 *MsgP
 	 */
 	MsgPtr[7] = XPfw_CalculateCRC((u32)MsgPtr, XPFW_IPI_W0_TO_W6_SIZE);
 #endif
-	Status = XIpiPsu_WriteMessage(IpiInstPtr, DestCpuMask, MsgPtr, MsgLen,
+	Status = XIpiPsu_WriteMessage(Ipi1InstPtr, DestCpuMask, MsgPtr, MsgLen,
 	XIPIPSU_BUF_TYPE_MSG);
 
 Done:
@@ -135,7 +158,7 @@ s32 XPfw_IpiWriteResponse(const XPfw_Module_t *ModPtr, u32 DestCpuMask, u32 *Msg
 	 */
 	MsgPtr[7] = XPfw_CalculateCRC((u32)MsgPtr, XPFW_IPI_W0_TO_W6_SIZE);
 #endif
-	Status = XIpiPsu_WriteMessage(IpiInstPtr, DestCpuMask, MsgPtr, MsgLen,
+	Status = XIpiPsu_WriteMessage(Ipi0InstPtr, DestCpuMask, MsgPtr, MsgLen,
 			XIPIPSU_BUF_TYPE_RESP);
 
 Done:
@@ -152,7 +175,7 @@ s32 XPfw_IpiReadMessage(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen)
 	}
 
 	/* Read Entire Message to Buffer */
-	Status = XIpiPsu_ReadMessage(IpiInstPtr, SrcCpuMask, MsgPtr, MsgLen,
+	Status = XIpiPsu_ReadMessage(Ipi0InstPtr, SrcCpuMask, MsgPtr, MsgLen,
 			XIPIPSU_BUF_TYPE_MSG);
 
 #ifdef ENABLE_SAFETY
@@ -190,7 +213,7 @@ s32 XPfw_IpiReadResponse(const XPfw_Module_t *ModPtr, u32 SrcCpuMask, u32 *MsgPt
 		goto Done;
 	}
 	/* Read the first word */
-	Status = XIpiPsu_ReadMessage(IpiInstPtr, SrcCpuMask, &MsgHeader, 1U,
+	Status = XIpiPsu_ReadMessage(Ipi1InstPtr, SrcCpuMask, &MsgHeader, 1U,
 			XIPIPSU_BUF_TYPE_RESP);
 
 	if (Status != XST_SUCCESS) {
@@ -203,7 +226,7 @@ s32 XPfw_IpiReadResponse(const XPfw_Module_t *ModPtr, u32 SrcCpuMask, u32 *MsgPt
 		goto Done;
 	}
 	/* Read Entire Message to Buffer */
-	Status = XIpiPsu_ReadMessage(IpiInstPtr, SrcCpuMask, MsgPtr, MsgLen,
+	Status = XIpiPsu_ReadMessage(Ipi1InstPtr, SrcCpuMask, MsgPtr, MsgLen,
 			XIPIPSU_BUF_TYPE_RESP);
 
 #ifdef ENABLE_SAFETY
@@ -232,10 +255,10 @@ Done:
 
 inline s32 XPfw_IpiTrigger(u32 DestCpuMask)
 {
-	return XIpiPsu_TriggerIpi(IpiInstPtr, DestCpuMask);
+	return XIpiPsu_TriggerIpi(Ipi1InstPtr, DestCpuMask);
 }
 
 inline s32 XPfw_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
 {
-	return XIpiPsu_PollForAck(IpiInstPtr, DestCpuMask, TimeOutCount);
+	return XIpiPsu_PollForAck(Ipi1InstPtr, DestCpuMask, TimeOutCount);
 }

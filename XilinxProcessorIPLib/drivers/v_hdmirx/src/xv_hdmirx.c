@@ -57,6 +57,11 @@
 *                          XV_HdmiRx_GetVideoTiming
 * 1.40  YH     19/07/17 Clean up Print Statement line ending to "\r\n"
 *              05/09/17 Enhanced Video Timing checking
+* 2.00  YH     16/11/17 Added dedicated reset for each clock domain
+*       YH     16/11/17 Added bridge overflow interrupt
+*       EB     18/01/18 Moved VicTable to Hdmi Common library
+*       EB     26/01/18 Updated XV_HdmiRx_GetVideoTiming to use
+*                          XVidC_GetVideoModeIdExtensive
 * </pre>
 *
 ******************************************************************************/
@@ -72,64 +77,6 @@
 
 
 /**************************** Type Definitions *******************************/
-
-/**
-* This table contains the attributes for various standard resolutions.
-* Each entry is of the format:
-* 1) Resolution ID
-* 2) Video Identification Code.
-*/
-static const XV_HdmiRx_VicTable VicTable[38] = {
-    {XVIDC_VM_640x480_60_P, 1},     // Vic 1
-    {XVIDC_VM_720x480_60_P, 2},     // Vic 2
-    {XVIDC_VM_720x480_60_P, 3},     // Vic 3
-    {XVIDC_VM_1280x720_60_P, 4},    // Vic 4
-    {XVIDC_VM_1920x1080_60_I, 5},   // Vic 5
-    {XVIDC_VM_1440x480_60_I, 6},    // Vic 6
-    {XVIDC_VM_1440x480_60_I, 7},    // Vic 7
-
-    {XVIDC_VM_1920x1080_60_P, 16},  // Vic 16
-    {XVIDC_VM_720x576_50_P, 17},    // Vic 17
-    {XVIDC_VM_720x576_50_P, 18},    // Vic 18
-    {XVIDC_VM_1280x720_50_P, 19},   // Vic 19
-    {XVIDC_VM_1920x1080_50_I, 20},  // Vic 20
-    {XVIDC_VM_1440x576_50_I, 21},   // Vic 21
-    {XVIDC_VM_1440x576_50_I, 22},   // Vic 22
-
-    // 1680 x 720
-    {XVIDC_VM_1680x720_50_P, 82},   // Vic 82
-    {XVIDC_VM_1680x720_60_P, 83},   // Vic 83
-    {XVIDC_VM_1680x720_100_P, 84},  // Vic 84
-    {XVIDC_VM_1680x720_120_P, 85},  // Vic 85
-
-    // 1920 x 1080
-    {XVIDC_VM_1920x1080_24_P, 32},  // Vic 32
-    {XVIDC_VM_1920x1080_25_P, 33},  // Vic 33
-    {XVIDC_VM_1920x1080_30_P, 34},  // Vic 34
-    {XVIDC_VM_1920x1080_50_P, 31},  // Vic 31
-    {XVIDC_VM_1920x1080_100_P, 64}, // Vic 64
-    {XVIDC_VM_1920x1080_120_P, 63}, // Vic 63
-
-    // 2560 x 1080
-    {XVIDC_VM_2560x1080_50_P, 89},  // Vic 89
-    {XVIDC_VM_2560x1080_60_P, 90},  // Vic 89
-    {XVIDC_VM_2560x1080_100_P, 91}, // Vic 91
-    {XVIDC_VM_2560x1080_120_P, 92}, // Vic 92
-
-    // 3840 x 2160
-    {XVIDC_VM_3840x2160_24_P, 93},  // Vic 93
-    {XVIDC_VM_3840x2160_25_P, 94},  // Vic 94
-    {XVIDC_VM_3840x2160_30_P, 95},  // Vic 95
-    {XVIDC_VM_3840x2160_50_P, 96},  // Vic 96
-    {XVIDC_VM_3840x2160_60_P, 97},  // Vic 97
-
-    // 4096 x 2160
-    {XVIDC_VM_4096x2160_24_P, 98},  // Vic 98
-    {XVIDC_VM_4096x2160_25_P, 99},  // Vic 99
-    {XVIDC_VM_4096x2160_30_P, 100}, // Vic 100
-    {XVIDC_VM_4096x2160_50_P, 101}, // Vic 101
-    {XVIDC_VM_4096x2160_60_P, 102}  // Vic 102
-};
 
 /************************** Function Prototypes ******************************/
 
@@ -252,7 +199,8 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
 
     /* PIO: Set event rising edge masks */
     XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_PIO_IN_EVT_RE_OFFSET),
-            (XV_HDMIRX_PIO_IN_DET_MASK) |
+            (XV_HDMIRX_PIO_IN_BRDG_OVERFLOW_MASK) |
+			(XV_HDMIRX_PIO_IN_DET_MASK) |
             (XV_HDMIRX_PIO_IN_LNK_RDY_MASK) |
             (XV_HDMIRX_PIO_IN_VID_RDY_MASK) |
             (XV_HDMIRX_PIO_IN_MODE_MASK) |
@@ -290,7 +238,7 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
     */
 
     // Set timebase
-    XV_HdmiRx_VtdSetTimebase(InstancePtr, 1600000);  // 16 ms @ 100 Mhz
+    XV_HdmiRx_VtdSetTimebase(InstancePtr, TIME_16MS);  // 16 ms
 
     // The VTD run flag is set in the armed state
 
@@ -442,6 +390,143 @@ int XV_HdmiRx_SetStream(XV_HdmiRx *InstancePtr, XVidC_PixelsPerClock Ppc, u32 Cl
     XV_HdmiRx_SetPixelRate(InstancePtr);
 
     return (XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+*
+*  This function asserts or releases the HDMI RX Internal VRST.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiRx core instance.
+* @param    Reset specifies TRUE/FALSE value to either assert or
+*       release HDMI RX Internal VRST.
+*
+* @return   None.
+*
+* @note     The reset output of the PIO is inverted. When the system is
+*       in reset, the PIO output is cleared and this will reset the
+*       HDMI RX. Therefore, clearing the PIO reset output will assert
+*       the HDMI Internal video reset.
+*       C-style signature:
+*       void XV_HdmiRx_INT_VRST(XV_HdmiRx *InstancePtr, u8 Reset)
+*
+******************************************************************************/
+void XV_HdmiRx_INT_VRST(XV_HdmiRx *InstancePtr, u8 Reset)
+{
+
+    /* Verify argument. */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    if (Reset) {
+        XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMIRX_PIO_OUT_CLR_OFFSET), (XV_HDMIRX_PIO_OUT_INT_VRST_MASK));
+    }
+    else {
+        XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMIRX_PIO_OUT_SET_OFFSET), (XV_HDMIRX_PIO_OUT_INT_VRST_MASK));
+    }
+}
+
+/*****************************************************************************/
+/**
+*
+*  This function asserts or releases the HDMI RX Internal LRST.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiRx core instance.
+* @param    Reset specifies TRUE/FALSE value to either assert or
+*       release HDMI RX Internal LRST.
+*
+* @return   None.
+*
+* @note     The reset output of the PIO is inverted. When the system is
+*       in reset, the PIO output is cleared and this will reset the
+*       HDMI RX. Therefore, clearing the PIO reset output will assert
+*       the HDMI Internal link reset.
+*       C-style signature:
+*       void XV_HdmiRx_INT_VRST(XV_HdmiRx *InstancePtr, u8 Reset)
+*
+******************************************************************************/
+void XV_HdmiRx_INT_LRST(XV_HdmiRx *InstancePtr, u8 Reset)
+{
+	/* Verify argument. */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    if (Reset) {
+        XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMIRX_PIO_OUT_CLR_OFFSET), (XV_HDMIRX_PIO_OUT_INT_LRST_MASK));
+    }
+    else {
+        XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMIRX_PIO_OUT_SET_OFFSET), (XV_HDMIRX_PIO_OUT_INT_LRST_MASK));
+    }
+}
+
+/*****************************************************************************/
+/**
+*
+*  This function asserts or releases the HDMI RX External VRST.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiRx core instance.
+* @param    Reset specifies TRUE/FALSE value to either assert or
+*       release HDMI RX External VRST.
+*
+* @return   None.
+*
+* @note     The reset output of the PIO is inverted. When the system is
+*       in reset, the PIO output is cleared and this will reset the
+*       HDMI RX. Therefore, clearing the PIO reset output will assert
+*       the HDMI external video reset.
+*       C-style signature:
+*       void XV_HdmiRx_EXT_VRST(XV_HdmiRx *InstancePtr, u8 Reset)
+*
+******************************************************************************/
+void XV_HdmiRx_EXT_VRST(XV_HdmiRx *InstancePtr, u8 Reset)
+{
+	/* Verify argument. */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    if (Reset) {
+        XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMIRX_PIO_OUT_CLR_OFFSET), (XV_HDMIRX_PIO_OUT_EXT_VRST_MASK));
+    }
+    else {
+        XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMIRX_PIO_OUT_SET_OFFSET), (XV_HDMIRX_PIO_OUT_EXT_VRST_MASK));
+    }
+}
+
+/*****************************************************************************/
+/**
+*
+*  This function asserts or releases the HDMI RX External SYSRST.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiRx core instance.
+* @param    Reset specifies TRUE/FALSE value to either assert or
+*       release HDMI RX External SYSRST.
+*
+* @return   None.
+*
+* @note     The reset output of the PIO is inverted. When the system is
+*       in reset, the PIO output is cleared and this will reset the
+*       HDMI RX. Therefore, clearing the PIO reset output will assert
+*       the HDMI External system reset.
+*       C-style signature:
+*       void XV_HdmiRx_EXT_SYSRST(XV_HdmiRx *InstancePtr, u8 Reset)
+*
+******************************************************************************/
+void XV_HdmiRx_EXT_SYSRST(XV_HdmiRx *InstancePtr, u8 Reset)
+{
+	/* Verify argument. */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    if (Reset) {
+        XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMIRX_PIO_OUT_CLR_OFFSET), (XV_HDMIRX_PIO_OUT_EXT_SYSRST_MASK));
+    }
+    else {
+        XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMIRX_PIO_OUT_SET_OFFSET), (XV_HDMIRX_PIO_OUT_EXT_SYSRST_MASK));
+    }
 }
 
 /*****************************************************************************/
@@ -1257,10 +1342,10 @@ u32 XV_HdmiRx_Divide(u32 Dividend, u32 Divisor)
 ******************************************************************************/
 XVidC_VideoMode XV_HdmiRx_LookupVmId(u8 Vic)
 {
-    XV_HdmiRx_VicTable const *Entry;
+    XHdmiC_VicTable const *Entry;
     u8 Index;
 
-    for (Index = 0; Index < sizeof(VicTable)/sizeof(XV_HdmiRx_VicTable); Index++) {
+    for (Index = 0; Index < sizeof(VicTable)/sizeof(XHdmiC_VicTable); Index++) {
       Entry = &VicTable[Index];
       if (Entry->Vic == Vic)
         return (Entry->VmId);
@@ -1656,9 +1741,10 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
 
             // Lookup the video mode id
             InstancePtr->Stream.Video.VmId =
-               XVidC_GetVideoModeIdWBlanking(&InstancePtr->Stream.Video.Timing,
-                                             InstancePtr->Stream.Video.FrameRate,
-                                             InstancePtr->Stream.Video.IsInterlaced);
+            XVidC_GetVideoModeIdExtensive(&InstancePtr->Stream.Video.Timing,
+            		InstancePtr->Stream.Video.FrameRate,
+					InstancePtr->Stream.Video.IsInterlaced,
+					(TRUE));
 
             //If video mode not found in the table tag it as custom
             if (InstancePtr->Stream.Video.VmId == XVIDC_VM_NOT_SUPPORTED) {

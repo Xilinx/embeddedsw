@@ -18,8 +18,8 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -48,6 +48,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0	aad 10/19/17	Initial Release
+* 1.1   aad 02/22/18    Fixed the header
 *</pre>
 *
 ******************************************************************************/
@@ -57,7 +58,7 @@
 #include "xil_exception.h"
 #include "xil_printf.h"
 #include "xil_cache.h"
-#include "dpdma_video_example.h"
+#include "xdpdma_video_example.h"
 
 /************************** Constant Definitions *****************************/
 #define DPPSU_DEVICE_ID		XPAR_PSU_DP_DEVICE_ID

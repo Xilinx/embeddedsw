@@ -70,11 +70,6 @@ void XPfw_ResetPsOnly(void)
 {
 	XStatus l_Status;
 
-	/**
-	 *TODO: Set PMU Error to indicate to PL
-	 *
-	 */
-
 	XPfw_Printf(DEBUG_DETAILED,"Isolating Interfaces.....");
 	/*
 	 * Block FPD=>PL and LPD=>PL interfaces with the help of AIB (in PS)
@@ -152,27 +147,65 @@ XStatus XPfw_ResetFpd(void)
 		XPfw_Printf(DEBUG_DETAILED,
 				"Warning: XPfw_ResetFpd: Failed to Enable AIB isolation "
 				"FPD to LPD_NON_OCM \r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_FPD_TO_LPD_NON_OCM, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			XPfw_Printf(DEBUG_DETAILED, "Warning: XPfw_ResetFpd: Failed to "
+					"receive acknowledgment for FPD to LPD_NON_OCM isolation");
+		}
 	}
 
 	if (XPfw_AibEnable(XPFW_AIB_FPD_TO_LPD_OCM) != XST_SUCCESS) {
 		XPfw_Printf(DEBUG_DETAILED,
 				"Warning: XPfw_ResetFpd: Failed to Enable AIB isolation "
 				"FPD to LPD_OCM \r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_FPD_TO_LPD_OCM, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			XPfw_Printf(DEBUG_DETAILED, "Warning: XPfw_ResetFpd: Failed to "
+					"receive acknowledgment for FPD to LPD_OCM isolation");
+		}
 	}
+
 	if (XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS0) != XST_SUCCESS) {
 		XPfw_Printf(DEBUG_DETAILED,
 				"Warning: XPfw_ResetFpd: Failed to Enable AIB isolation "
 				"FPD to AFI_FS0 \r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_FPD_TO_AFI_FS0, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			XPfw_Printf(DEBUG_DETAILED, "Warning: XPfw_ResetFpd: Failed to "
+					"receive acknowledgment for FPD to AFI_FS0 isolation");
+		}
 	}
+
 	if (XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS1) != XST_SUCCESS) {
 		XPfw_Printf(DEBUG_DETAILED,
 				"Warning: XPfw_ResetFpd: Failed to Enable AIB isolation "
 				"FPD to AFI_FS1 \r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_FPD_TO_AFI_FS1, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			XPfw_Printf(DEBUG_DETAILED, "Warning: XPfw_ResetFpd: Failed to "
+					"receive acknowledgment for FPD to AFI_FS1 isolation");
+		}
 	}
+
 	if (XPfw_AibEnable(XPFW_AIB_FPD_TO_GPU) != XST_SUCCESS) {
 		XPfw_Printf(DEBUG_DETAILED,
 				"Warning: XPfw_ResetFpd: Failed to Enable AIB isolation "
 				"FPD to GPU \r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_FPD_TO_GPU, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			XPfw_Printf(DEBUG_DETAILED, "Warning: XPfw_ResetFpd: Failed to "
+					"receive acknowledgment for FPD to GPU isolation");
+		}
 	}
 
 	/* Enable LPD=>FPD Isolations */
@@ -180,11 +213,26 @@ XStatus XPfw_ResetFpd(void)
 		XPfw_Printf(DEBUG_DETAILED,
 				"Warning: XPfw_ResetFpd: Failed to Enable AIB isolation "
 				"LPD to DDR \r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_DDR, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			XPfw_Printf(DEBUG_DETAILED, "Warning: XPfw_ResetFpd: Failed to "
+					"receive acknowledgment for LPD to DDR isolation");
+		}
 	}
+
 	if (XPfw_AibEnable(XPFW_AIB_LPD_TO_FPD) != XST_SUCCESS) {
 		XPfw_Printf(DEBUG_DETAILED,
 				"Warning: XPfw_ResetFpd: Failed to Enable AIB isolation "
 				"LPD to FPD \r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_FPD, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			XPfw_Printf(DEBUG_DETAILED, "Warning: XPfw_ResetFpd: Failed to "
+					"receive acknowledgment for LPD to FPD isolation");
+		}
 	}
 
 	/*
@@ -313,9 +361,6 @@ XStatus XPfw_ResetRpu(void)
 	XPfw_UtilRMW(PMU_GLOBAL_GLOBAL_RESET,
 			PMU_GLOBAL_GLOBAL_RESET_RPU_LS_RST_MASK,
 			PMU_GLOBAL_GLOBAL_RESET_RPU_LS_RST_MASK);
-	/**
-	 * FIXME: Update with correct delay here
-	 */
 	XPfw_UtilWait(XPFW_RST_PROP_DELAY);
 
 	XPfw_Printf(DEBUG_DETAILED,"Releasing RPU out of Reset\r\n");

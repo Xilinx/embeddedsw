@@ -5,6 +5,7 @@ list (APPEND CMAKE_MODULE_PATH
       "${CMAKE_SOURCE_DIR}/cmake/modules"
       "${CMAKE_SOURCE_DIR}/cmake/platforms")
 
+include (syscheck)
 project (metal C)
 
 include (CheckIncludeFiles)
@@ -20,6 +21,7 @@ endforeach()
 enable_testing ()
 
 add_subdirectory (lib)
+
 if (WITH_TESTS)
   add_subdirectory (test)
 endif (WITH_TESTS)

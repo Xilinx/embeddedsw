@@ -18,8 +18,8 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -61,7 +61,8 @@
 *            02/08/17   Fix C++ compilation warnings
 *            02/15/17   Fix custom resolution support for 1 PPC configuration
 * 2.40  vyc  10/04/17   Added support for conversion from 420/422/444/RGB to
-                        420/422/444/RGB with CSC-only topology
+*                       420/422/444/RGB with CSC-only topology
+* 2.50  vyc  04/04/18   Fix for HScaler setup with 420 input
 *
 * </pre>
 *
@@ -1356,7 +1357,7 @@ static int ValidateHCResampleOnlyConfig(XVprocSs *XVprocSsPtr)
 static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr)
 {
   u32 vsc_WidthIn, vsc_HeightIn, vsc_HeightOut;
-  u32 hsc_HeightIn, hsc_WidthIn, hsc_WidthOut;
+  u32 hsc_HeightIn, hsc_WidthIn, hsc_WidthOut, hsc_ColorFormatIn;
   int status = XST_SUCCESS;
 
   vsc_WidthIn = vsc_HeightIn = vsc_HeightOut = 0;
@@ -1388,6 +1389,14 @@ static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr)
     hsc_WidthIn  = vsc_WidthIn;
     hsc_HeightIn = vsc_HeightOut;
     hsc_WidthOut = XVprocSsPtr->VidOut.Timing.HActive;
+    if (XVprocSsPtr->VidIn.ColorFormatId == XVIDC_CSF_YCRCB_420)
+    {
+        hsc_ColorFormatIn = XVIDC_CSF_YCRCB_422;
+    }
+    else
+    {
+        hsc_ColorFormatIn = XVprocSsPtr->VidIn.ColorFormatId;
+    }
 
     /* Configure scaler to scale input to output resolution */
 	XV_VScalerSetup(XVprocSsPtr->VscalerPtr,
@@ -1400,7 +1409,7 @@ static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr)
                     hsc_HeightIn,
                     hsc_WidthIn,
                     hsc_WidthOut,
-                    XVprocSsPtr->VidIn.ColorFormatId,
+                    hsc_ColorFormatIn,
                     XVprocSsPtr->VidOut.ColorFormatId);
 
     /* Start Scaler sub-cores */

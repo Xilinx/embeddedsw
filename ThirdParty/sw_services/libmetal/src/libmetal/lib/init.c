@@ -29,7 +29,7 @@
  */
 
 #include <string.h>
-#include "metal/sys.h"
+#include <metal/sys.h>
 
 int metal_init(const struct metal_init_params *params)
 {

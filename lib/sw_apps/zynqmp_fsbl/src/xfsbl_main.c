@@ -90,6 +90,14 @@ int main(void )
 #ifdef XFSBL_PERF
 	XTime tCur = 0;
 #endif
+#ifdef ENABLE_POS
+	u32 WarmBoot;
+
+	WarmBoot = XFsbl_HookGetPosBootType();
+	if (0U != WarmBoot) {
+		XFsbl_HandoffExit(0U, XFSBL_NO_HANDOFFEXIT);
+	}
+#endif
 
 #if defined(EL3) && (EL3 != 1)
 #error "FSBL should be generated using only EL3 BSP"

@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_sdirx_selftest.c
-* @addtogroup xv_sdirx_v1_0
+* @addtogroup xv_sdirx_v1_1
 * @{
 *
 * Contains diagnostic/self-test functions for the SDI Rx Controller core.
@@ -61,7 +61,7 @@
 /*************************** Macros Definitions ******************************/
 
 #define SDIRX_RST_CTRL_DEFAULT	0x0000
-#define SDIRX_MDL_CTRL_DEFAULT	0x3F30
+#define SDIRX_MDL_CTRL_DEFAULT	0x3F70
 
 /************************** Function Prototypes ******************************/
 

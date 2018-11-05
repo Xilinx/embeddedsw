@@ -32,8 +32,8 @@
 #include <errno.h>
 #include "FreeRTOS.h"
 #include "task.h"
-#include "metal/sys.h"
-#include "metal/utilities.h"
+#include <metal/sys.h>
+#include <metal/utilities.h>
 #include "metal-test.h"
 
 #define TEST_THREAD_STACK_SIZE 128

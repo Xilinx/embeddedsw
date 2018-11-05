@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017-2018 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_frmbufrd_l2.h
-* @addtogroup v_frmbuf_rd
+* @addtogroup v_frmbuf_rd_v2_0
 * @{
 * @details
 *
@@ -48,7 +48,7 @@
 *   - AXI4-Stream Output
 *   - 1, 2, or 4 pixel-wide video interface
 *   - 8/10 bits per component
-*   - Up to 18 different memory color formats (user configurable)
+*   - Up to 19 different memory color formats (user configurable)
 *
 * <b>Dependency</b>
 *
@@ -93,7 +93,7 @@
 *     interrupt controller and connect the XVFrmbufRd_InterruptHandler function
 *     to service interrupts. Next interrupts must be enabled using the provided
 *     API. When an interrupt occurs, ISR will confirm if frame processing is
-*     is done. If call back is registered such function will be called and
+*     is done/ready. If call back is registered such function will be called and
 *     application can apply new setting updates here. Subsequently next frame
 *     processing will be triggered with new settings.
 *   - To use polling method disable interrupts using the provided API. Doing so
@@ -118,6 +118,9 @@
 * 1.00  vyc   04/05/17   Initial Release
 * 2.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
 *                        Add memory formats RGBA8, YUVA8, BGRA8, BGRX8, UYVY8
+* 3.00  vyc   04/04/18   Add interlaced support
+*                        Add new memory format BGR8
+*                        Add interrupt handler for ap_ready
 * </pre>
 *
 ******************************************************************************/
@@ -132,8 +135,8 @@ extern "C" {
 #include "xv_frmbufrd.h"
 
 /************************** Constant Definitions *****************************/
-#define XVFRMBUFRD_IRQ_DONE_MASK              (0x01)
-#define XVFRMBUFRD_IRQ_READY_MASK             (0x02)
+#define XVFRMBUFRD_IRQ_DONE_MASK            (0x01)
+#define XVFRMBUFRD_IRQ_READY_MASK           (0x02)
 
 /**************************** Type Definitions *******************************/
 
@@ -146,6 +149,16 @@ typedef enum {
   XVFRMBUFRD_ERR_DISABLED_IN_HW           = 0x1004L,
   XVFRMBUFRD_ERR_LAST
 }XVFrmbufRd_ErrorCodes;
+
+/**
+* These constants specify different types of handler and used to differentiate
+* interrupt requests from peripheral.
+*/
+typedef enum {
+  XVFRMBUFRD_HANDLER_DONE = 1,  /**< Handler for ap_done */
+  XVFRMBUFRD_HANDLER_READY      /**< Handler for ap_ready */
+} XVFrmbufRd_HandlerType;
+/*@}*/
 
 /**
 * Callback type for interrupt.
@@ -172,7 +185,11 @@ typedef struct {
     /*Callbacks */
     XVFrmbufRd_Callback FrameDoneCallback; /**< Callback for
                                                 frame processing done */
-    void *CallbackRef;     /**< To be passed to the connect interrupt
+    void *CallbackDoneRef;     /**< To be passed to the connect interrupt
+                                callback */
+    XVFrmbufRd_Callback FrameReadyCallback; /**< Callback for
+                                                frame processing ready */
+    void *CallbackReadyRef;     /**< To be passed to the connect interrupt
                                 callback */
 
     XVidC_VideoStream Stream;    /**< Output AXIS */
@@ -449,6 +466,36 @@ typedef struct {
 #define XVFrmbufRd_IsUYVY8Enabled(InstancePtr) \
                                  ((InstancePtr)->FrmbufRd.Config.UYVY8En)
 
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format BGR8 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufRd_IsBGR8Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufRd.Config.BGR8En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if interlaced support is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufRd_InterlacedEnabled(InstancePtr) \
+                                     ((InstancePtr)->FrmbufRd.Config.Interlaced)
+
 /**************************** Function Prototypes *****************************/
 int XVFrmbufRd_Initialize(XV_FrmbufRd_l2 *InstancePtr, u16 DeviceId);
 void XVFrmbufRd_Start(XV_FrmbufRd_l2 *InstancePtr);
@@ -464,15 +511,19 @@ UINTPTR XVFrmbufRd_GetBufferAddr(XV_FrmbufRd_l2 *InstancePtr);
 int XVFrmbufRd_SetChromaBufferAddr(XV_FrmbufRd_l2 *InstancePtr,
                               UINTPTR Addr);
 UINTPTR XVFrmbufRd_GetChromaBufferAddr(XV_FrmbufRd_l2 *InstancePtr);
+int XVFrmbufRd_SetFieldID(XV_FrmbufRd_l2 *InstancePtr,
+                          u32 FieldID);
+u32 XVFrmbufRd_GetFieldID(XV_FrmbufRd_l2 *InstancePtr);
 void XVFrmbufRd_DbgReportStatus(XV_FrmbufRd_l2 *InstancePtr);
 
 /* Interrupt related function */
 void XVFrmbufRd_InterruptHandler(void *InstancePtr);
 int XVFrmbufRd_SetCallback(XV_FrmbufRd_l2 *InstancePtr,
+                           u32 HandlerType,
                            void *CallbackFunc,
                            void *CallbackRef);
-void XVFrmbufRd_InterruptEnable(XV_FrmbufRd_l2 *InstancePtr);
-void XVFrmbufRd_InterruptDisable(XV_FrmbufRd_l2 *InstancePtr);
+void XVFrmbufRd_InterruptEnable(XV_FrmbufRd_l2 *InstancePtr, u32 IrqMask);
+void XVFrmbufRd_InterruptDisable(XV_FrmbufRd_l2 *InstancePtr, u32 IrqMask);
 
 #ifdef __cplusplus
 }

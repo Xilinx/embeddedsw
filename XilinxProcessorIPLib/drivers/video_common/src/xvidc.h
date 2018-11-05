@@ -33,7 +33,7 @@
 /**
  *
  * @file xvidc.h
- * @addtogroup video_common_v4_0
+ * @addtogroup video_common_v4_3
  * @{
  * @details
  *
@@ -72,6 +72,9 @@
  *       aad  07/10/17 Add XVIDC_VM_3840x2160_60_P_RB video format
  *       vyc  10/04/17 Added new streaming alpha formats and new memory formats
  *       aad  09/05/17 Add XVIDC_VM_1366x768_60_P_RB resolution
+ * 4.3   eb   26/01/18 Added API XVidC_GetVideoModeIdExtensive
+ *       jsr  02/22/18 Added XVIDC_CSF_YCBCR_420 color space format
+ *       vyc  04/04/18 Added BGR8 memory format
  * </pre>
  *
 *******************************************************************************/
@@ -386,10 +389,13 @@ typedef enum {
 	XVIDC_CSF_MEM_BGRA8,        // [31:0] A:R:G:B 8:8:8:8
 	XVIDC_CSF_MEM_BGRX8,        // [31:0] X:R:G:B 8:8:8:8
 	XVIDC_CSF_MEM_UYVY8,        // [31:0] Y:V:Y:U 8:8:8:8
+	XVIDC_CSF_MEM_BGR8,         // [23:0] R:G:B 8:8:8
 	XVIDC_CSF_MEM_END,          // End of memory formats
 
 	/* Streaming formats with components re-ordered */
 	XVIDC_CSF_YCBCR_422 = 64,
+	XVIDC_CSF_YCBCR_420,
+
 
 	XVIDC_CSF_NUM_SUPPORTED,    // includes the reserved slots
 	XVIDC_CSF_UNKNOWN,
@@ -580,6 +586,10 @@ u32 XVidC_Set3DVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
 			               XVidC_PixelsPerClock Ppc, XVidC_3DInfo *Info3DPtr);
 XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
 		                             u8 IsInterlaced);
+XVidC_VideoMode XVidC_GetVideoModeIdExtensive(XVidC_VideoTiming *Timing,
+											  u32 FrameRate,
+											  u8 IsInterlaced,
+											  u8 IsExtensive);
 XVidC_VideoMode XVidC_GetVideoModeIdRb(u32 Width, u32 Height, u32 FrameRate,
 		                               u8 IsInterlaced, u8 RbN);
 XVidC_VideoMode XVidC_GetVideoModeIdWBlanking(const XVidC_VideoTiming *Timing,

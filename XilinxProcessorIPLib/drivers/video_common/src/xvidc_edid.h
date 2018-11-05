@@ -33,7 +33,7 @@
 /**
  *
  * @file xvidc_edid.h
- * @addtogroup video_common_v4_0
+ * @addtogroup video_common_v4_2
  * @{
  *
  * Contains macros, definitions, and function declarations related to the

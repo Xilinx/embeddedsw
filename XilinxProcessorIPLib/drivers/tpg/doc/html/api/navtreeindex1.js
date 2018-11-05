@@ -1,7 +1,7 @@
 var NAVTREEINDEX1 =
 {
-"group__tpg__v3__0.html#ggacd31acaea34a0ee434bb96a76ab6c519a84de6bffb2d37a212620ac5e78bfe937":[2,2,26,0],
-"group__tpg__v3__0.html#ggacd31acaea34a0ee434bb96a76ab6c519ae0ce0a01bcdc0106017a4333e846b8bc":[2,2,26,3],
+"group__tpg__v3__1.html#ggacd31acaea34a0ee434bb96a76ab6c519a84de6bffb2d37a212620ac5e78bfe937":[2,2,26,0],
+"group__tpg__v3__1.html#ggacd31acaea34a0ee434bb96a76ab6c519ae0ce0a01bcdc0106017a4333e846b8bc":[2,2,26,3],
 "index.html":[],
 "pages.html":[],
 "tpg__selftest__example_8c.html":[2,0],

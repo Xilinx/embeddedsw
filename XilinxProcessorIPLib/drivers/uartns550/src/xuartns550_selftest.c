@@ -33,7 +33,7 @@
 /**
 *
 * @file xuartns550_selftest.c
-* @addtogroup uartns550_v3_3
+* @addtogroup uartns550_v3_5
 * @{
 *
 * This file contains the self-test functions for the 16450/16550 UART driver.

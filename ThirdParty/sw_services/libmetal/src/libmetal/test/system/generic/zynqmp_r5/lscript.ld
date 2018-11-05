@@ -1,34 +1,34 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
-******************************************************************************/
+ *
+ * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of Xilinx nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ ******************************************************************************/
 
 _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x2000;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x4000;
@@ -45,7 +45,6 @@ MEMORY
 {
    psu_r5_atcm_MEM_0 : ORIGIN = 0x0, LENGTH = 0x10000
    psu_r5_btcm_MEM_0 : ORIGIN = 0x20000, LENGTH = 0x10000
-   psu_r5_ddr_0_MEM_0 : ORIGIN = 0x3ed00000, LENGTH = 0x80000
 }
 
 /* Specify the default entry point to the program */
@@ -73,23 +72,23 @@ SECTIONS
    *(.vfp11_veneer)
    *(.ARM.extab)
    *(.gnu.linkonce.armextab.*)
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_atcm_MEM_0
 
 .init : {
    KEEP (*(.init))
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_atcm_MEM_0
 
 .fini : {
    KEEP (*(.fini))
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_atcm_MEM_0
 
 .interp : {
    KEEP (*(.interp))
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_atcm_MEM_0
 
 .note-ABI-tag : {
    KEEP (*(.note-ABI-tag))
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .rodata : {
    __rodata_start = .;
@@ -97,14 +96,14 @@ SECTIONS
    *(.rodata.*)
    *(.gnu.linkonce.r.*)
    __rodata_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .rodata1 : {
    __rodata1_start = .;
    *(.rodata1)
    *(.rodata1.*)
    __rodata1_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .sdata2 : {
    __sdata2_start = .;
@@ -112,7 +111,7 @@ SECTIONS
    *(.sdata2.*)
    *(.gnu.linkonce.s2.*)
    __sdata2_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .sbss2 : {
    __sbss2_start = .;
@@ -120,7 +119,7 @@ SECTIONS
    *(.sbss2.*)
    *(.gnu.linkonce.sb2.*)
    __sbss2_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .data : {
    __data_start = .;
@@ -131,18 +130,18 @@ SECTIONS
    *(.got)
    *(.got.plt)
    __data_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .data1 : {
    __data1_start = .;
    *(.data1)
    *(.data1.*)
    __data1_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .got : {
    *(.got)
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .ctors : {
    __CTOR_LIST__ = .;
@@ -153,7 +152,7 @@ SECTIONS
    KEEP (*(.ctors))
    __CTOR_END__ = .;
    ___CTORS_END___ = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .dtors : {
    __DTOR_LIST__ = .;
@@ -164,67 +163,67 @@ SECTIONS
    KEEP (*(.dtors))
    __DTOR_END__ = .;
    ___DTORS_END___ = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .fixup : {
    __fixup_start = .;
    *(.fixup)
    __fixup_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .eh_frame : {
    *(.eh_frame)
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .eh_framehdr : {
    __eh_framehdr_start = .;
    *(.eh_framehdr)
    __eh_framehdr_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .gcc_except_table : {
    *(.gcc_except_table)
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .mmu_tbl (ALIGN(16384)) : {
    __mmu_tbl_start = .;
    *(.mmu_tbl)
    __mmu_tbl_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .ARM.exidx : {
    __exidx_start = .;
    *(.ARM.exidx*)
    *(.gnu.linkonce.armexidix.*.*)
    __exidx_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .preinit_array : {
    __preinit_array_start = .;
    KEEP (*(SORT(.preinit_array.*)))
    KEEP (*(.preinit_array))
    __preinit_array_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .init_array : {
    __init_array_start = .;
    KEEP (*(SORT(.init_array.*)))
    KEEP (*(.init_array))
    __init_array_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .fini_array : {
    __fini_array_start = .;
    KEEP (*(SORT(.fini_array.*)))
    KEEP (*(.fini_array))
    __fini_array_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .ARM.attributes : {
    __ARM.attributes_start = .;
    *(.ARM.attributes)
    __ARM.attributes_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .sdata : {
    __sdata_start = .;
@@ -232,7 +231,7 @@ SECTIONS
    *(.sdata.*)
    *(.gnu.linkonce.s.*)
    __sdata_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .sbss (NOLOAD) : {
    __sbss_start = .;
@@ -240,7 +239,7 @@ SECTIONS
    *(.sbss.*)
    *(.gnu.linkonce.sb.*)
    __sbss_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .tdata : {
    __tdata_start = .;
@@ -248,7 +247,7 @@ SECTIONS
    *(.tdata.*)
    *(.gnu.linkonce.td.*)
    __tdata_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .tbss : {
    __tbss_start = .;
@@ -256,7 +255,7 @@ SECTIONS
    *(.tbss.*)
    *(.gnu.linkonce.tb.*)
    __tbss_end = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 .bss (NOLOAD) : {
    . = ALIGN(4);
@@ -267,7 +266,7 @@ SECTIONS
    *(COMMON)
    . = ALIGN(4);
    __bss_end__ = .;
-} > psu_r5_ddr_0_MEM_0
+} > psu_r5_btcm_MEM_0
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 

@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxivdma_intr.c
-* @addtogroup axivdma_v6_0
+* @addtogroup axivdma_v6_5
 * @{
 *
 * Implementation of interrupt related functions.

@@ -33,7 +33,7 @@
 /**
 *
 * @file xtpg.h
-* @addtogroup tpg_v3_0
+* @addtogroup tpg_v3_1
 * @{
 * @details
 *

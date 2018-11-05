@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,8 @@
 # 2.4   mus  02/20/17 Updated tcl to guard xparameters.h by protection macros
 # 2.5   ms   04/18/17 Modified tcl file to add suffix U for XPAR_CPU_ID
 #                     parameter of cpu_cortexa9 in xparameters.h
+# 2.6   mus  02/20/18 Updated tcl to add "-g" flag in extra compiler flags, for
+#                     linaro toolchain. It fixes CR#995214
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -84,7 +86,7 @@ proc xdefine_cortexa9_params {drvhandle} {
     set extra_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ] ]
     if {[string compare -nocase $compiler_name "arm-none-eabi-gcc"] == 0} {
 	set temp_flag $extra_flags
-	if {[string compare -nocase $temp_flag "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -Wall -Wextra "] != 0} {
+	if {[string compare -nocase $temp_flag "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra "] != 0} {
 		set flagindex [string first {-mcpu=cortex-a9} $temp_flag 0]
 		if { $flagindex == -1 } {
 		    set temp_flag "$temp_flag -mcpu=cortex-a9"
@@ -104,6 +106,12 @@ proc xdefine_cortexa9_params {drvhandle} {
 		if { $flagindex == -1 } {
 		    set temp_flag "$temp_flag -nostartfiles"
 		}
+
+		set flagindex [string first {-g} $temp_flag 0]
+		if { $flagindex == -1 } {
+		    set temp_flag "$temp_flag -g"
+		}
+
 		set flagindex [string first {-Wall} $temp_flag 0]
 		if { $flagindex == -1 } {
                     set temp_flag "$temp_flag -Wall"
@@ -118,7 +126,7 @@ proc xdefine_cortexa9_params {drvhandle} {
    } elseif {[string compare -nocase $compiler_name "iccarm"] == 0} {
 	set temp_flag $extra_flags
 	if {[string compare -nocase $temp_flag "--debug"] != 0} {
-		regsub -- {-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -Wall -Wextra} $temp_flag "" temp_flag
+		regsub -- {-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra} $temp_flag "" temp_flag
 		regsub -- {--debug } $temp_flag "" temp_flag
 		set extra_flags "--debug $temp_flag"
 		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
@@ -135,7 +143,7 @@ proc xdefine_cortexa9_params {drvhandle} {
 	    || [string compare -nocase $compiler_name "armcc"] == 0} {
 	set temp_flag $extra_flags
 	if {[string compare -nocase $temp_flag "-g"] != 0} {
-		regsub -- {-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -Wall -Wextra} $temp_flag {} temp_flag
+		regsub -- {-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra} $temp_flag {} temp_flag
 		regsub -- {-g } $temp_flag "" temp_flag
 		set extra_flags "-g $temp_flag"
 		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags }]

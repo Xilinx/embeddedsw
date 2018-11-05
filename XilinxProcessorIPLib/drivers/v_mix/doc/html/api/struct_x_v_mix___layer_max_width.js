@@ -6,5 +6,6 @@ var struct_x_v_mix___layer_max_width =
     [ "Layer4MaxWidth", "struct_x_v_mix___layer_max_width.html#aa6ad9ea8911e611b34e33d49d23fdd48", null ],
     [ "Layer5MaxWidth", "struct_x_v_mix___layer_max_width.html#a7c5e92b9a1a18ccbe29ad193573e811b", null ],
     [ "Layer6MaxWidth", "struct_x_v_mix___layer_max_width.html#a0aa79056d3c3cbdbc4e525fc0d68b6ba", null ],
-    [ "Layer7MaxWidth", "struct_x_v_mix___layer_max_width.html#a7cd785ce5c148b3dd1c07be438ef0831", null ]
+    [ "Layer7MaxWidth", "struct_x_v_mix___layer_max_width.html#a7cd785ce5c148b3dd1c07be438ef0831", null ],
+    [ "Layer8MaxWidth", "struct_x_v_mix___layer_max_width.html#a4adfb6a52fca749167a604ea02116ffd", null ]
 ];

@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss_intr.c
-* @addtogroup dptxss_v5_0
+* @addtogroup dptxss_v5_1
 * @{
 *
 * This file contains interrupt related functions of Xilinx DisplayPort TX
@@ -283,15 +283,15 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr)
 * HandlerType:
 *
 * <pre>
-* HandlerType                              Callback Function Type
+* HandlerType                              Callback Function HandlerType
 * ---------------------------------------- ------------------------------------
-* (XDPTXSS_HANDLER_DP_HPD_EVENT)           XDp_TxSetHpdEventHandler
-* (XDPTXSS_HANDLER_DP_HPD_PULSE)           XDp_TxSetHpdPulseHandler
-* (XDPTXSS_HANDLER_DP_LANE_COUNT_CHG)      XDp_TxSetLaneCountChangeCallback
-* (XDPTXSS_HANDLER_DP_LINK_RATE_CHG)       XDp_TxSetLinkRateChangeCallback
-* (XDPTXSS_HANDLER_DP_PE_VS_ADJUST)        XDp_TxSetPeVsAdjustCallback
+* (XDPTXSS_HANDLER_DP_HPD_EVENT)           XDP_TX_HANDLER_HPDEVENT
+* (XDPTXSS_HANDLER_DP_HPD_PULSE)           XDP_TX_HANDLER_HPDPULSE
+* (XDPTXSS_HANDLER_DP_LANE_COUNT_CHG)      XDP_TX_HANDLER_LANECNTCHANGE
+* (XDPTXSS_HANDLER_DP_LINK_RATE_CHG)       XDP_TX_HANDLER_LINKRATECHANGE
+* (XDPTXSS_HANDLER_DP_PE_VS_ADJUST)        XDP_TX_HANDLER_PEVSADJUST
 * (XDPTXSS_HANDLER_HDCP_RPTR_EXCHG)        XHdcp1x_SetCallBack
-* (XDPTXSS_HANDLER_DP_SET_MSA)             XDp_TxSetMsaHandler
+* (XDPTXSS_HANDLER_DP_SET_MSA)             XDP_TX_HANDLER_SETMSA
 * </pre>
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
@@ -323,43 +323,50 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 	/* Assign callback based on handler type */
 	switch (HandlerType) {
 		case XDPTXSS_HANDLER_DP_HPD_EVENT:
-			XDp_TxSetHpdEventHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_TxSetCallback(InstancePtr->DpPtr,
+					XDP_TX_HANDLER_HPDEVENT,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPTXSS_DRV_HANDLER_DP_HPD_EVENT:
-			XDp_TxSetDrvHpdEventHandler(InstancePtr->DpPtr,
+			XDp_TxSetCallback(InstancePtr->DpPtr,
+				XDP_TX_HANDLER_DRV_HPDEVENT,
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPTXSS_HANDLER_DP_HPD_PULSE:
-			XDp_TxSetHpdPulseHandler(InstancePtr->DpPtr,
+			XDp_TxSetCallback(InstancePtr->DpPtr,
+				XDP_TX_HANDLER_HPDPULSE,
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPTXSS_DRV_HANDLER_DP_HPD_PULSE:
-			XDp_TxSetDrvHpdPulseHandler(InstancePtr->DpPtr,
+			XDp_TxSetCallback(InstancePtr->DpPtr,
+				XDP_TX_HANDLER_DRV_HPDPULSE,
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPTXSS_HANDLER_DP_LANE_COUNT_CHG:
-			XDp_TxSetLaneCountChangeCallback(InstancePtr->DpPtr,
+			XDp_TxSetCallback(InstancePtr->DpPtr,
+				XDP_TX_HANDLER_LANECNTCHANGE,
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPTXSS_HANDLER_DP_LINK_RATE_CHG:
-			XDp_TxSetLinkRateChangeCallback(InstancePtr->DpPtr,
+			XDp_TxSetCallback(InstancePtr->DpPtr,
+				XDP_TX_HANDLER_LINKRATECHANGE,
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPTXSS_HANDLER_DP_PE_VS_ADJUST:
-			XDp_TxSetPeVsAdjustCallback(InstancePtr->DpPtr,
+			XDp_TxSetCallback(InstancePtr->DpPtr,
+				XDP_TX_HANDLER_PEVSADJUST,
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
@@ -374,8 +381,9 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 #endif
 
 		case XDPTXSS_HANDLER_DP_SET_MSA:
-			XDp_TxSetMsaHandler(InstancePtr->DpPtr, CallbackFunc,
-				CallbackRef);
+			XDp_TxSetCallback(InstancePtr->DpPtr,
+				XDP_TX_HANDLER_SETMSA,
+				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 

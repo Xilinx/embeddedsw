@@ -33,7 +33,7 @@
 /**
 *
 * @file xmutex_selftest.c
-* @addtogroup mutex_v4_0
+* @addtogroup mutex_v4_3
 * @{
 *
 * Contains XMutex driver selftest code.

@@ -33,7 +33,7 @@
 /**
 *
 * @file xuartps_g.c
-* @addtogroup uartps_v3_4
+* @addtogroup uartps_v3_5
 * @{
 *
 * This file contains a configuration table where each entry is a configuration

@@ -1,126 +1,128 @@
-###############################################################################
-#
-# Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# Use of the Software is limited solely to applications:
-# (a) running on a Xilinx device, or
-# (b) that interact with a Xilinx device through a bus or interconnect.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
-#
-###############################################################################
-BOARD := zcu102
+#/******************************************************************************
+#*
+#* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+#*
+#* Permission is hereby granted, free of charge, to any person obtaining a copy
+#* of this software and associated documentation files (the "Software"), to deal
+#* in the Software without restriction, including without limitation the rights
+#* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#* copies of the Software, and to permit persons to whom the Software is
+#* furnished to do so, subject to the following conditions:
+#*
+#* The above copyright notice and this permission notice shall be included in
+#* all copies or substantial portions of the Software.
+#*
+#* Use of the Software is limited solely to applications:
+#* (a) running on a Xilinx device, or
+#* (b) that interact with a Xilinx device through a bus or interconnect.
+#*
+#* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+#* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+#* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+#* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#* SOFTWARE.
+#*
+#* Except as contained in this notice, the name of the Xilinx shall not be used
+#* in advertising or otherwise to promote the sale, use or other dealings in
+#* this Software without prior written authorization from Xilinx.
+#*
+#******************************************************************************/
+
 PROC ?= a53
-A53_STATE ?= 64
-
+CROSS ?=
+BSP_DIR	:= ../misc/zynqmp_fsbl_bsp
+A53_STATE := 64
+ECFLAGS :=
+LSCRIPT := -Tlscript_a53.ld
+BOARD	:= zcu102
+EXEC := ron_a53_fsbl.elf
+LIBS = libxil.a
 c_SOURCES := $(wildcard *.c)
-c_SOURCES += psu_init.c
-S_SOURCES := $(wildcard *.S)
-#remove unnecessary translation table files
-ifeq "${PROC}" "a53"
-ifeq "${A53_STATE}" "64"
-S_SOURCES := $(filter-out xfsbl_translation_table_a53_32.S,$(S_SOURCES))
-endif
-ifeq "${A53_STATE}" "32"
-S_SOURCES := $(filter-out xfsbl_translation_table_a53_64.S,$(S_SOURCES))
-endif
-endif
-ifeq "${PROC}" "r5"
-S_SOURCES := $(filter-out xfsbl_translation_table_a53_32.S xfsbl_translation_table_a53_64.S,$(S_SOURCES))
-endif
-
+c_SOURCES += ../misc/$(BOARD)/psu_init.c
 s_SOURCES := $(wildcard *.s)
 INCLUDES := $(wildcard *.h)
 OBJS := $(patsubst %.c, %.o, $(c_SOURCES))
-OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
-
 OBJS += $(patsubst %.s, %.o, $(s_SOURCES))
 
-MISC_DIR := ../misc
-BSP_DIR	:= $(MISC_DIR)/zynqmp_fsbl_bsp
-
-ifeq "${PROC}" "a53"
-ifeq "${A53_STATE}" "64"
-CC := aarch64-none-elf-gcc
-CC_FLAGS := -MMD -MP -Wall -fmessage-length=0 -DARMA53_64 -Wall -Wextra -Os -flto -ffat-lto-objects
-LSCRIPT := -Tlscript_a53.ld
-endif
-ifeq "${A53_STATE}" "32"
-CC := arm-none-eabi-gcc
-CC_FLAGS := -MMD -MP -Wall -fmessage-length=0 -march=armv7-a -DARMA53_32 -mfpu=vfpv3 -mfloat-abi=hard -g -Wall -Wextra -Os -flto -ffat-lto-objects
-#linker script for a53_32 and r5 is same.
+ifeq '$(PROC)' 'r5'
+S_SOURCES := 	xfsbl_exit.S
+OBJS +=		xfsbl_exit.o
+CROSS   :=
+CC      :=      $(CROSS)armr5-none-eabi-gcc
+AS      :=      $(CROSS)armr5-none-eabi-gcc
+LINKER  :=      $(CROSS)armr5-none-eabi-gcc
+DUMP    :=      $(CROSS)armr5-none-eabi-objdump -xSD
+CFLAGS :=  -Wall -O0 -g3 -fmessage-length=0
+ECFLAGS := -g -DARMR5 -Wall -Wextra -mcpu=cortex-r5 -mfloat-abi=hard -mfpu=vfpv3-d16 -Os -flto -ffat-lto-objects
 LSCRIPT := -Tlscript.ld
-endif
-INCLUDEPATH := -I$(BSP_DIR)/psu_cortexa53_0/include -I.
-LIBPATH := -L$(BSP_DIR)/psu_cortexa53_0/lib
-LIBS := $(BSP_DIR)/psu_cortexa53_0/lib/libxil.a
-endif
-ifeq "${PROC}" "r5"
-A53_STATE :=
-CC := armr5-none-eabi-gcc
-CC_FLAGS := -MMD -MP -Wall -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=hard -DARMR5 -Wall -Wextra -mfpu=vfpv3-d16 -Os -flto -ffat-lto-objects
-LSCRIPT := -Tlscript.ld
-INCLUDEPATH := -I$(BSP_DIR)/psu_cortexr5_0/include -I. -I$(MISC_DIR)/$(BOARD)
-LIBPATH := -L$(BSP_DIR)/psu_cortexr5_0/lib
-LIBS := $(BSP_DIR)/psu_cortexr5_0/lib/libxil.a
+EXEC := ron_r5_fsbl.elf
+INCLUDEPATH := -I$(BSP_DIR)/psu_cortexr5_0/include -I. -I../misc/$(BOARD)/$(PROC) -I../misc/$(BOARD)
+LIBPATH := $(BSP_DIR)/psu_cortexr5_0/lib
+LDFLAGS :=  -Wl,--start-group,-lxil,-lxilffs,-lxilsecure,-lxilpm,-lgcc,-lc,--end-group -L$(LIBPATH) -L./ -Wl,--build-id=none -mcpu=cortex-r5 -mfloat-abi=hard -mfpu=vfpv3-d16
 endif
 
-override CFLAGS := -DXPS_BOARD_ZCU102 $(CFLAGS)
-ECFLAGS :=
-LDFLAGS := -Wl,--start-group,-lxil,-lgcc,-lc,-lxilffs,-lxilsecure,-lxilpm,--end-group
-#	-Wl,--start-group,-lxilffs,-lxil,-lgcc,-lc,--end-group \
-#	-Wl,--start-group,-lxilsecure,-lxil,-lgcc,-lc,--end-group  -Wl,--gc-sections
+ifeq '$(PROC)' 'a53'
+S_SOURCES := xfsbl_exit.S
+S_SOURCES += xfsbl_translation_table_a53_$(A53_STATE).S
+OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
+CROSS   :=
+CFLAGS =  -Wall -O0 -g3 -fmessage-length=0 
+EXEC := ron_a53_fsbl.elf
+INCLUDEPATH := -I$(BSP_DIR)/psu_cortexa53_0/include -I. -I../misc/$(BOARD)/$(PROC) -I../misc/$(BOARD)
+LIBPATH := $(BSP_DIR)/psu_cortexa53_0/lib
+ifeq '$(A53_STATE)' '64'
+CC      :=      $(CROSS)aarch64-none-elf-gcc
+AS      :=      $(CROSS)aarch64-none-elf-gcc
+LINKER  :=      $(CROSS)aarch64-none-elf-gcc
+DUMP    :=      $(CROSS)aarch64-none-elf-objdump -xSD
+ECFLAGS = -march=armv8-a -DARMA53_$(A53_STATE) -Os -flto -ffat-lto-objects
+LSCRIPT := 	-Tlscript_a53.ld
+LDFLAGS := -Wl,--start-group,-lxil,-lxilffs,-lxilsecure,-lxilpm,-lgcc,-lc,--end-group -L$(LIBPATH) -L./ -Wl,--build-id=none
+else
+CC      :=      $(CROSS)arm-none-eabi-gcc
+AS      :=      $(CROSS)arm-none-eabi-gcc
+LINKER  :=      $(CROSS)arm-none-eabi-gcc
+DUMP    :=      $(CROSS)arm-none-eabi-objdump -xSD
+ECFLAGS :=  -Wextra -march=armv7-a -mfloat-abi=hard -mfpu=vfpv3-d16 -DARMA53_$(A53_STATE) -Os -flto -ffat-lto-objects
+LSCRIPT :=	-Tlscript.ld
+LDFLAGS :=  -Wl,--start-group,-lxil,-lxilffs,-lxilsecure,-lxilpm,-lgcc,-lc,--end-group -L$(LIBPATH) -L./ -Wl,--build-id=none -march=armv7-a -mfloat-abi=hard -mfpu=vfpv3
 
-EXEC := fsbl.elf
+endif
+endif
+
+ifeq "$(CC)" "armcc"
+AS=armasm
+LINKER=armlink
+CFLAGS += -c --c99 --wchar32
+CC_FLAGS	+= --cpu=Cortex-A9 --fpu=VFPv3_FP16
+LDFLAGS = --entry=_vector_table "$(LIBPATH)/libxil.a(*.o)" --no_search_dynamic_libraries --userlibpath=$(LIBPATH),. --library=xil
+LSCRIPT = --scatter="scatter.scat"
+endif
 
 all: $(EXEC)
 
 $(EXEC): $(LIBS) $(OBJS) $(INCLUDES)
-	$(CC) -o $@ $(OBJS) $(CFLAGS) $(CC_FLAGS) $(LDFLAGS) $(LIBPATH) $(LSCRIPT)
-	rm -rf $(OBJS) *.d
+	$(LINKER) -o $@ $(OBJS) $(CC_FLAGS) $(LDFLAGS) $(LSCRIPT)
+	$(DUMP) $(EXEC)  > dump
+	cp $(EXEC) fsbl.elf
+	rm -rf $(OBJS)
 
 $(LIBS):
-	cp $(MISC_DIR)/$(BOARD)/psu_init.* .
-	@echo "Copying BSP files"
-	$(MISC_DIR)/copy_bsp.sh "$(BOARD)" "$(PROC)" "$(A53_STATE)"
-	@echo "Compiling bsp"
-ifeq "${PROC}" "a53"
-	make -C $(MISC_DIR) "PROC=$(PROC)" "A53_STATE=$(A53_STATE)"
-endif
-ifeq "${PROC}" "r5"
-	make -C $(MISC_DIR) "PROC=$(PROC)"
-endif
-
-$(OBJS): $(LIBS) $(INCLUDES) psu_init.c
+	echo "Copying BSP files"
+	../misc/copy_bsp.sh $(BOARD) $(PROC) $(A53_STATE)
+	echo "Compiling bsp"
+	make -C ../misc BOARD=$(BOARD) PROC=$(PROC) A53_STATE=$(A53_STATE)
 
 %.o:%.c
-		$(CC) $(CC_FLAGS) $(CFLAGS) -c $< -o $@ $(INCLUDEPATH)
+	$(CC) $(CC_FLAGS) $(CFLAGS) $(ECFLAGS) -c $< -o $@ $(INCLUDEPATH)
 
 %.o:%.S
-		$(CC) $(CC_FLAGS) $(CFLAGS) -c $< -o $@ $(INCLUDEPATH)
+	$(AS) $(CC_FLAGS) $(CFLAGS) $(ECFLAGS) -c $< -o $@ $(INCLUDEPATH)
 
 %.o:%.s
-		$(CC) $(CC_FLAGS) $(CFLAGS) -c $< -o $@ $(INCLUDEPATH)
+	$(AS) $(CC_FLAGS) $(CFLAGS) $(ECFLAGS) -c $< -o $@ $(INCLUDEPATH)
 
 clean:
-	rm -rf $(OBJS) $(BSP_DIR) $(LIBS) $(EXEC) *.d psu_init*
+	rm -rf $(OBJS) *.elf dump

@@ -33,7 +33,7 @@
 /**
 *
 * @file xcsi_selftest.c
-* @addtogroup csi_v1_0
+* @addtogroup csi_v1_1
 * @{
 *
 * Contains diagnostic/self-test functions for the CSI Rx Controller core.

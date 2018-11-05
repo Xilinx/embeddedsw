@@ -35,6 +35,7 @@
 #include "crl_apb.h"
 #include "crf_apb.h"
 #include "pmu_iomodule.h"
+#include "afi.h"
 
 #define PM_MMIO_IOU_SLCR_BASE  0xFF180000
 #define PM_MMIO_CSU_BASE       0xFFCA0000
@@ -206,6 +207,94 @@ static const PmAccessRegion pmAccessTable[] = {
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
+
+#ifdef XPAR_VCU_0_BASEADDR
+	/* VCU SLCR register */
+	{
+		.startAddr = XPAR_VCU_0_BASEADDR + 0x40024,
+		.endAddr = XPAR_VCU_0_BASEADDR + 0x40060,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
+	},
+#endif
+
+	/* Software controlled FPD resets register */
+	{
+		.startAddr = CRF_APB_BASEADDR + 0x100,
+		.endAddr = CRF_APB_BASEADDR + 0x100,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
+	},
+
+	/* Software controlled LPD resets register */
+	{
+		.startAddr = CRL_APB_BASEADDR + 0x23c,
+		.endAddr = CRL_APB_BASEADDR +0x23c,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
+	},
+
+	/* FPD_SLCR AFI_FS Register */
+	{
+		.startAddr = FPD_SLCR_AFI_FS_REG,
+		.endAddr = FPD_SLCR_AFI_FS_REG,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
+	},
+
+	/* LPD SLCR AFI_FS Register */
+	{
+		.startAddr = LPD_SLCR_AFI_FS,
+		.endAddr = LPD_SLCR_AFI_FS,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
+	},
+
+	/* AFI FM 0 Registers */
+	{
+		.startAddr = AFI_FM0_BASEADDR,
+		.endAddr = AFI_FM0_BASEADDR + 0xF0CU,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
+	},
+
+	/* AFI FM 1 Registers */
+	{
+		.startAddr = AFI_FM1_BASEADDR,
+		.endAddr = AFI_FM1_BASEADDR + 0xF0CU,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
+	},
+
+	/* AFI FM 2 Registers */
+	{
+		.startAddr = AFI_FM2_BASEADDR,
+		.endAddr = AFI_FM2_BASEADDR + 0xF0CU,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
+	},
+
+	/* AFI FM 3 Registers */
+	{
+		.startAddr = AFI_FM3_BASEADDR,
+		.endAddr = AFI_FM3_BASEADDR + 0xF0CU,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
+	},
+
+	/* AFI FM 4 Registers */
+	{
+		.startAddr = AFI_FM4_BASEADDR,
+		.endAddr = AFI_FM4_BASEADDR + 0xF0CU,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
+	},
+
+	/* AFI FM 5 Registers */
+	{
+		.startAddr = AFI_FM5_BASEADDR,
+		.endAddr = AFI_FM5_BASEADDR + 0xF0CU,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
+	},
+
+	/* AFI FM 6 Registers */
+	{
+		.startAddr = AFI_FM6_BASEADDR,
+		.endAddr = AFI_FM6_BASEADDR + 0xF0CU,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
+	},
 };
 
 /**
@@ -238,7 +327,9 @@ static bool PmGetMmioAccess(const PmMaster *const master, const u32 address,
 			}
 
 			permission = !!(pmAccessTable[i].access & mask);
-			break;
+
+			if (permission)
+				break;
 		}
 	}
 

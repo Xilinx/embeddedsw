@@ -45,7 +45,11 @@ int transfer_data() {
 
 void print_app_header()
 {
+#if (LWIP_IPV6==0)
 	xil_printf("\n\r\n\r-----lwIP TCP echo server ------\n\r");
+#else
+	xil_printf("\n\r\n\r-----lwIPv6 TCP echo server ------\n\r");
+#endif
 	xil_printf("TCP packets sent to port 6001 will be echoed back\n\r");
 }
 
@@ -100,14 +104,14 @@ int start_application()
 	unsigned port = 7;
 
 	/* create new TCP PCB structure */
-	pcb = tcp_new();
+	pcb = tcp_new_ip_type(IPADDR_TYPE_ANY);
 	if (!pcb) {
 		xil_printf("Error creating PCB. Out of Memory\n\r");
 		return -1;
 	}
 
 	/* bind to specified @port */
-	err = tcp_bind(pcb, IP_ADDR_ANY, port);
+	err = tcp_bind(pcb, IP_ANY_TYPE, port);
 	if (err != ERR_OK) {
 		xil_printf("Unable to bind to port %d: err = %d\n\r", port, err);
 		return -2;

@@ -78,7 +78,8 @@ $(document).ready(function(){initNavTree('xsysmonpsu__single__ch__intr__example_
 
 1.0   kvn    12/15/15 First release
              02/15/16 Corrected order of Enabling / Disabling of
-                      interrupts.</pre><pre></pre> </div><table class="memberdecls">
+                      interrupts.
+      mn     03/08/18 Update code to run at higher frequency</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a88c399487d95b544d35a1bfdf6d296fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu__single__ch__intr__example_8c.html#a88c399487d95b544d35a1bfdf6d296fe">SysMonPsuSingleChannelIntrExample</a> (XScuGic *XScuGicInstancePtr, <a class="el" href="struct_x_sys_mon_psu.html">XSysMonPsu</a> *SysMonInstPtr, u16 SysMonDeviceId, u16 SysMonIntrId)</td></tr>
@@ -188,7 +189,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This function may never return if no interrupt occurs. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_sys_mon_psu___config.html#a8b2fb5ceb1c132536b320f0b317bb1c6">XSysMonPsu_Config::BaseAddress</a>, <a class="el" href="xsysmonpsu_8c.html#a8cd0584410c0931f931aa4da1e3e151b">XSysMonPsu_CfgInitialize()</a>, <a class="el" href="xsysmonpsu_8h.html#a948f08280b6195869015382d92ba8a50">XSysMonPsu_LookupConfig()</a>, <a class="el" href="xsysmonpsu_8h.html#a39d8d59cc35fe4151b51b5bbafdca2ca">XSysMonPsu_SelfTest()</a>, and <a class="el" href="xsysmonpsu_8c.html#a11e8fc0b9dffbe33b41ec4e6825ffc4a">XSysMonPsu_SetAdcClkDivisor()</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_sys_mon_psu___config.html#a8b2fb5ceb1c132536b320f0b317bb1c6">XSysMonPsu_Config::BaseAddress</a>, <a class="el" href="xsysmonpsu_8h.html#a3c4487fa8b08f41c807433ef456abc75">XSM_SEQ_MODE_SINGCHAN</a>, <a class="el" href="xsysmonpsu_8c.html#a8cd0584410c0931f931aa4da1e3e151b">XSysMonPsu_CfgInitialize()</a>, <a class="el" href="xsysmonpsu_8h.html#a948f08280b6195869015382d92ba8a50">XSysMonPsu_LookupConfig()</a>, <a class="el" href="xsysmonpsu_8h.html#a39d8d59cc35fe4151b51b5bbafdca2ca">XSysMonPsu_SelfTest()</a>, and <a class="el" href="xsysmonpsu_8c.html#aa4bdb4e555b2c8d47a0185862c9cb4c6">XSysMonPsu_SetSequencerMode()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="xsysmonpsu__single__ch__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 

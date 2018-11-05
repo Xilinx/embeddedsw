@@ -76,6 +76,50 @@ u8 si570_reg_value[NUM_MODES][NUM_CLOCK_REGS] = {
 	{0x22, 0x42, 0xB0, 0x21, 0xDE, 0x77 }  // = {192kHz * 512)
 };
 
+static XVphy_User_Config PHY_User_Config_Table[] =
+{
+  // Index,         TxPLL,               RxPLL,
+//		TxChId,                    RxChId,
+//		LineRate,              LineRateHz,                QPLLRefClkSrc,
+//		CPLLRefClkSrc,       QPLLRefClkFreqHz,    CPLLRefClkFreqHz
+  {   0,  XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,      DP159_FORWARDED_CLK,
+		  DP159_FORWARDED_CLK,         270000000,           270000000        },
+  {   1,  XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,      DP159_FORWARDED_CLK,
+		  DP159_FORWARDED_CLK,            270000000,           135000000  },
+  {   2,  XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,      DP159_FORWARDED_CLK,
+		  DP159_FORWARDED_CLK,            270000000,           270000000     },
+  {   3,  XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
+		  0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,      ONBOARD_REF_CLK,
+		  DP159_FORWARDED_CLK,         270000000,           270000000      },
+  {   4,  XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
+		  0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,      ONBOARD_REF_CLK,
+		  DP159_FORWARDED_CLK,        270000000,           135000000       },
+  {   5,  XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
+		  0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,      ONBOARD_REF_CLK,
+		  DP159_FORWARDED_CLK,        270000000,           270000000       },
+  {   6,  XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,      ONBOARD_REF_CLK,
+		  ONBOARD_REF_CLK,         270000000,           270000000  },
+  {   7,  XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,      ONBOARD_REF_CLK,
+		  ONBOARD_REF_CLK,                270000000,           270000000 },
+  {   8,  XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+		  0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,      ONBOARD_REF_CLK,
+		  ONBOARD_REF_CLK,                270000000,           270000000 },
+};
+
 u8 UpdateBuffer[sizeof(AddressType) + PAGE_SIZE];
 u8 WriteBuffer[sizeof(AddressType) + PAGE_SIZE];
 u8 ReadBuffer[PAGE_SIZE];
@@ -126,7 +170,9 @@ void Dprx_InterruptHandlerUplug(void *InstancePtr);
 void Dprx_InterruptHandlerPwr(void *InstancePtr);
 void Dprx_HdcpAuthCallback(void *InstancePtr);
 void Dprx_HdcpUnAuthCallback(void *InstancePtr);
+#if ENABLE_HDCP_IN_DESIGN
 static void Dppt_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber);
+#endif
 void DpPt_CustomWaitUs(void *InstancePtr, u32 MicroSeconds);
 int DPTxInitialize();
 int DPRxInitialize();
@@ -168,6 +214,9 @@ void select_link_lane();
 void select_rx_link_lane();
 void sub_help_menu();
 void test_pattern_gen_help();
+int ceil_func(double x);
+int write_si570();
+u8 XVphy_MmcmLocked(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir);
 
 u8 is_TX_CPLL=0;
 u8 hdcp_capable = 0;
@@ -363,9 +412,9 @@ int main(void)
 	u8 LineRate_init_tx = 0x14;
 	u8 LaneCount_init = 0x4;
 	u8 LaneCount_init_tx = 0x4;
-	u32 DrpVal = 0;
+//	u32 DrpVal = 0;
 
-	u8 enable_dtg_flag=1;
+//	u8 enable_dtg_flag=1;
 	u32 data, addr;
 	u8 MainMenu =0;
 	u32 tmp_rd = 0;
@@ -759,7 +808,7 @@ int main(void)
 				LaneCount = DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount;
 				// Enabling TX interrupts
 				sub_help_menu ();
-			u32 hdcpTxCmdInProgress = 0;
+//			u32 hdcpTxCmdInProgress = 0;
 				CmdKey[0] = 0;
 				CommandKey = 0;
 
@@ -1356,7 +1405,7 @@ int main(void)
 
 #endif
 				rx_ran_once = 1;
-				u32 hdcpCmdInProgress = 0;
+//				u32 hdcpCmdInProgress = 0;
 			while(1)
 			{
 				if (tx_is_reconnected == 1) {
@@ -1505,7 +1554,7 @@ int main(void)
 									((LineRate * 27.0)*rxMsaMVid_track)
 										/ rxMsaNVid_track;
 							recv_frame_clk_track =
-									ceil((recv_clk_freq_track*1000000.0)
+									ceil_func((recv_clk_freq_track*1000000.0)
 											/(DpHres_total*DpVres_total));
 							recv_frame_clk_int_track = recv_frame_clk_track;
                             if (recv_frame_clk_int_track == 59 ||
@@ -2003,6 +2052,47 @@ int main(void)
 			"Monitor change was detected.. please unplug-plug DP RX cable\r\n");
 								}
                                 break;
+							case 'c':
+							xil_printf ("==========Frame CRC rx===========\r\n");
+							xil_printf ("CRC Cfg     =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
+										0x0));
+							xil_printf ("CRC - R/Y   =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
+										0x4)&0xFFFF);
+							xil_printf ("CRC - G/Cr  =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
+										0x4)>>16);
+							xil_printf ("CRC - B/Cb  =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
+										0x8)&0xFFFF);
+							xil_printf ("Rxd Hactive =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
+										0xC)&0xFFFF);
+							xil_printf ("Rxd Vactive =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
+										0xC)>>16);
+
+							xil_printf ("==========Frame CRC tx===========\r\n");
+							xil_printf ("CRC Cfg     =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+										0x0));
+							xil_printf ("CRC - R/Y   =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+										0x4)&0xFFFF);
+							xil_printf ("CRC - G/Cr  =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+										0x4)>>16);
+							xil_printf ("CRC - B/Cb  =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+										0x8)&0xFFFF);
+							xil_printf ("Rxd Hactive =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+										0xC)&0xFFFF);
+							xil_printf ("Rxd Vactive =  0x%x\r\n",
+								XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+										0xC)>>16);
+							break;
 
 					case 'w':
 								dbg_printf(
@@ -2486,7 +2576,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 
 	recv_clk_freq = ((LineRate * 27.0)*rxMsaMVid)/rxMsaNVid;
 	recv_frame_clk =
-			ceil((recv_clk_freq*1000000.0)/(DpHres_total * DpVres_total));
+			ceil_func((recv_clk_freq*1000000.0)/(DpHres_total * DpVres_total));
 	recv_frame_clk_int = recv_frame_clk;
 	//Doing Approximation here
 	if (recv_frame_clk_int == 59 || recv_frame_clk_int == 61) {
@@ -2551,7 +2641,7 @@ static void Dprx_CheckSetupTx(void *InstancePtr)
 {
 	XVidC_VideoMode VmId;
 	u8 tx_with_msa = 0;
-    u32 Status;
+    u32 Status=0;
 
 	DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.Timing.HActive = dp_msa_hres;
 	DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.Timing.VActive = dp_msa_vres;
@@ -2739,6 +2829,16 @@ void Dprx_SetupTx(void *InstancePtr, u8 tx_with_msa, XVidC_VideoMode VmId)
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x144, 0x0);
 	rxMsaMVid_track = rxMsaMVid;
 	rxMsaNVid_track = rxMsaNVid;
+
+	// Update CRC block
+	XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR, 0,
+			XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+					XDP_TX_USER_PIXEL_WIDTH));
+	XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR, 0,
+			XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+					XDP_TX_USER_PIXEL_WIDTH));
+
+
 	if ((Status == XST_SUCCESS)) {
 		vdma_start();
 		Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
@@ -2949,6 +3049,7 @@ void Dprx_InterruptHandlerPllReset(void *InstancePtr)
         Status1 = XVphy_WaitForPllLock(&VPhy_Instance, 0,
 						XVPHY_CHANNEL_ID_CHA);
 
+        Status1 += Status2; // only to surpress warning
 //xil_printf ("%d %d\r\n", Status1, Status2);
 
 #if (ENABLE_HDCP_IN_DESIGN && SET_RX_TO_2BYTE==1)
@@ -3403,7 +3504,6 @@ void hpd_con()
     u32 Status;
 	u8 Edid[128];
 	u8 Edid1[128];
-	u8 auxValues[9];
 
 	int i = 0;
 	int j = 0;
@@ -3444,6 +3544,7 @@ void hpd_con()
 	}
 
 #if ENABLE_HDCP_IN_DESIGN
+	u8 auxValues[9];
     XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x068028, 1, auxValues);
 
     hdcp_capable = auxValues[0] & 0x1;
@@ -4018,7 +4119,7 @@ void start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
 		Status = DpTxSubsystem_Start(&DpTxSsInst, 0);
 		if (Status != XST_SUCCESS) {
 			xil_printf("ERR:DPTX SS start failed\n\r");
-			return (XST_FAILURE);
+			return;
 		}
 	}
 
@@ -4390,6 +4491,7 @@ if (Status != XST_SUCCESS) {
 int zz,kk;
 for(kk= 0; kk<100000; kk++)
         zz = kk+1;
+zz += kk; // only to surpress warning
 //udelay(1000);
 //xil_printf("5 end\r\n");
 // Update to user requested frequency
@@ -4544,29 +4646,23 @@ void prog_bb (u8 bw, u8 is_tx) {
         // 0xA -> 135Mhz, 67.5Mhz
         // 0x6 -> 81Mhz, 40.5Mhz
 
-        XVphy_MmcmReset(&VPhy_Instance, 0, XVPHY_DIR_TX, FALSE);
-        xil_printf ("^^^");
-        while (!((XVphy_ReadReg(VPhy_Instance.Config.BaseAddr, 0x120))
-															& 0x200)) {
-        }
 
 #if SET_TX_TO_2BYTE == 1
+VPhy_Instance.Quads[0].TxMmcm.ClkFbOutFrac = 0;
+VPhy_Instance.Quads[0].TxMmcm.ClkOut0Frac  = 0;
   if (is_tx == 1) { // TX only path using refclk0 of 270Mhz
         if (bw == 0x14) { //270Mhz
-                XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				(0x0 << 16 | 0x4 << 8 | 0x1));
-                XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				(0x0 << 16 | 0x4));
+                VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 4;
+                VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+                VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 4;
         } else if (bw == 0xA) { //135Mhz
-                XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				(0x0 << 16 | 0x4 << 8 | 0x1));
-                XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				(0x0 << 16 | 0x8));
+                VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 4;
+                VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+                VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 8;
         } else { //81Mhz
-				XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-						(0x0 << 16 | 0x24 << 8 | 0xA));
-				XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-						(0x0 << 16 | 0xC));
+                VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 36;
+                VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 10;
+                VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 12;
         }
   } else { // TX is using CPLL but refclk1 of 270/135/270
           // For KCU105 the refclk is 270Mhz, 135 or 270Mhz
@@ -4575,40 +4671,34 @@ void prog_bb (u8 bw, u8 is_tx) {
                 // 0xA -> 135Mhz, 67.5Mhz
                 // 0x6 -> 81Mhz, 40.5Mhz
       if (bw == 0x14) { //270Mhz
-              XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-			  (0x0 << 16 | 0x4 << 8 | 0x1));
-              XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-			  (0x0 << 16 | 0x4));
+                VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 4;
+                VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+                VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 4;
       } else if (bw == 0xA) { //135Mhz
-              XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-			  (0x0 << 16 | 0x8 << 8 | 0x1));
-              XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-			  (0x0 << 16 | 0x8));
+                VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 8;
+                VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+                VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 8;
       } else { //81Mhz
-              XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-			  (0x0 << 16 | 0x24 << 8 | 0xA));
-              XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-			  (0x0 << 16 | 0xC));
+                VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 36;
+                VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 10;
+                VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 12;
       }
 }
 
 #else // for 4B the clocks to be genrated are half of 2B
     if (is_tx == 1) { // TX only path using refclk0 of 270Mhz
               if (bw == 0x14) { //135Mhz
-                      XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				  (0x0 << 16 | 0x4 << 8 | 0x1));
-                      XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				  (0x0 << 16 | 0x8));
+                VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 4;
+                VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+                VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 8;
               } else if (bw == 0xA) { //67.5Mhz
-                      XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				  (0x0 << 16 | 0x4 << 8 | 0x1));
-                      XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				  (0x0 << 16 | 0x10));
+                VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 4;
+                VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+                VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 16;
               } else { //40.5Mhz
-				XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-						(0x0 << 16 | 0x24 << 8 | 0xA));
-				XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-						(0x0 << 16 | 0x18));
+                VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 36;
+                VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 10;
+                VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 24;
               }
     } else { // TX is using CPLL but refclk1 of 270/135/270
         // For KC705 the refclk is 270Mhz, 135 or 270Mhz
@@ -4617,30 +4707,24 @@ void prog_bb (u8 bw, u8 is_tx) {
               // 0xA -> 135Mhz, 67.5Mhz
               // 0x6 -> 81Mhz, 40.5Mhz
               if (bw == 0x14) { //135Mhz
-                      XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				  (0x0 << 16 | 0x4 << 8 | 0x1));
-                      XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				  (0x0 << 16 | 0x8));
+                VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 4;
+                VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+                VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 8;
               } else if (bw == 0xA) { //67.5Mhz
-                      XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				  (0x0 << 16 | 0x8 << 8 | 0x1));
-                      XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				  (0x0 << 16 | 0x10));
+                VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 8;
+                VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+                VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 16;
               } else { //40.5Mhz
-                      XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				  (0x0 << 16 | 0x24 << 8 | 0xA));
-                      XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				  (0x0 << 16 | 0x18));
+                VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 36;
+                VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 10;
+                VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 24;
               }
     }
 #endif
 
-      XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x120, 0x1);
-	while (!((XVphy_ReadReg(VPhy_Instance.Config.BaseAddr, 0x120)) & 0x100)) {
-	}
+    XVphy_MmcmStart(&VPhy_Instance, 0, XVPHY_DIR_TX);
 	xil_printf ("*");
-	XVphy_MmcmReset(&VPhy_Instance, 0, XVPHY_DIR_TX, FALSE);
-	while (!((XVphy_ReadReg(VPhy_Instance.Config.BaseAddr, 0x120)) & 0x200)) {
+	while (!(XVphy_MmcmLocked(&VPhy_Instance, 0, XVPHY_DIR_TX))) {
 
 	}
 	xil_printf ("*~~~");
@@ -4683,4 +4767,7 @@ u32 DpTxSubsystem_Start(XDpTxSs *InstancePtr, int with_msa){
 	}
 
 	return Status;
+}
+int ceil_func(double x){
+	return (int)( x < 0.0 ? x : x+0.9 );
 }

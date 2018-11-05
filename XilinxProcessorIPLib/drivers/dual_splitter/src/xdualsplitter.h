@@ -33,7 +33,7 @@
 /**
 *
 * @file xdualsplitter.h
-* @addtogroup dual_splitter_v1_0
+* @addtogroup dual_splitter_v1_1
 * @{
 * @details
 *

@@ -33,7 +33,7 @@
 /**
 *
 * @file xv_sdirxss_coreinit.c
-* @addtogroup v_sdirxss
+* @addtogroup v_sdirxss_v1_1
 * @{
 * @details
 

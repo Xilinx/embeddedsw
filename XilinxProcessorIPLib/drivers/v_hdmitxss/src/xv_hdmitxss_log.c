@@ -44,6 +44,8 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   YH   17/08/16 Initial release.
  * 1.01  MMO  03/01/17 Add compiler option(XV_HDMITXSS_LOG_ENABLE) to enable Log
+ * 5.0   EB   16/01/18 Added new log XV_HDMITXSS_LOG_EVT_PIX_REPEAT_ERR
+ *            23/01/18 Minor cleanup
  * </pre>
  *
 *******************************************************************************/
@@ -103,7 +105,7 @@ void XV_HdmiTxSs_LogWrite(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_LogEvent Evt, u8
 
 	/* Update head pointer if reached to end of the buffer */
 	if (InstancePtr->Log.HeadIndex ==
-			(u8)((sizeof(InstancePtr->Log.DataBuffer) / 2) - 1)) {
+			(u8)((sizeof(InstancePtr->Log.DataBuffer) / sizeof(InstancePtr->Log.DataBuffer[0])) - 1)) {
 		/* Clear pointer */
 		InstancePtr->Log.HeadIndex = 0;
 	}
@@ -117,7 +119,7 @@ void XV_HdmiTxSs_LogWrite(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_LogEvent Evt, u8
 	 * remove the oldest entry from the buffer. */
 	if (InstancePtr->Log.TailIndex == InstancePtr->Log.HeadIndex) {
 		if (InstancePtr->Log.TailIndex ==
-			(u8)((sizeof(InstancePtr->Log.DataBuffer) / 2) - 1)) {
+			(u8)((sizeof(InstancePtr->Log.DataBuffer) / sizeof(InstancePtr->Log.DataBuffer[0])) - 1)) {
 			InstancePtr->Log.TailIndex = 0;
 		}
 		else {
@@ -153,7 +155,7 @@ u16 XV_HdmiTxSs_LogRead(XV_HdmiTxSs *InstancePtr)
 
 		/* Increment tail pointer */
 		if (InstancePtr->Log.TailIndex ==
-			(u8)((sizeof(InstancePtr->Log.DataBuffer) / 2) - 1)) {
+			(u8)((sizeof(InstancePtr->Log.DataBuffer) / sizeof(InstancePtr->Log.DataBuffer[0])) - 1)) {
 			InstancePtr->Log.TailIndex = 0;
 		}
 		else {
@@ -255,13 +257,21 @@ void XV_HdmiTxSs_LogDisplay(XV_HdmiTxSs *InstancePtr)
 		    xil_printf("TX Audio Unmuted\r\n");
 			break;
 	    case (XV_HDMITXSS_LOG_EVT_SETSTREAM):
-		    xil_printf("TX Set Stream, with TMDS (%0d)\r\n", Data);
+		    xil_printf("TX Set Stream\r\n");
 			break;
 	    case (XV_HDMITXSS_LOG_EVT_HDCP14_AUTHREQ):
 		    xil_printf("TX HDCP 1.4 authentication request\r\n");
 			break;
 	    case (XV_HDMITXSS_LOG_EVT_HDCP22_AUTHREQ):
 		    xil_printf("TX HDCP 2.2 authentication request\r\n");
+			break;
+	    case (XV_HDMITXSS_LOG_EVT_PIX_REPEAT_ERR):
+			xil_printf(ANSI_COLOR_RED "Unsupported Pixel Repetition: %d"
+					ANSI_COLOR_RESET "\r\n", Data);
+			break;
+	    case (XV_HDMITXSS_LOG_EVT_VTC_RES_ERR):
+			xil_printf(ANSI_COLOR_RED "Unsupported Video by VTC"
+					ANSI_COLOR_RESET "\r\n", Data);
 			break;
 		default:
 			xil_printf("Unknown event\r\n");

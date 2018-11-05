@@ -56,6 +56,7 @@
 * 1.0   kvn    12/15/15 First release
 *              02/15/16 Corrected order of Enabling / Disabling of
 *                       interrupts.
+*       mn     03/08/18 Update code to run at higher frequency
 *
 * </pre>
 *
@@ -201,12 +202,6 @@ int SysMonPsuSingleChannelIntrExample(XScuGic* XScuGicInstancePtr,
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-
-	/*
-	 * Set the ADCCLK frequency equal to 1/32 of System clock for the System
-	 * Monitor in the Configuration Register 2.
-	 */
-	XSysMonPsu_SetAdcClkDivisor(SysMonInstPtr, 32, XSYSMON_PS);
 
 	/* Set the sequencer in Single channel mode. */
 	XSysMonPsu_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_SINGCHAN, XSYSMON_PS);

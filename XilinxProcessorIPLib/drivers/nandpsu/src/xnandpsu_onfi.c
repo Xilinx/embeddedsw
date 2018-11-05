@@ -33,7 +33,7 @@
 /**
 *
 * @file xnandpsu_onfi.c
-* @addtogroup nandpsu_v1_0
+* @addtogroup nandpsu_v1_3
 * @{
 *
 * This file contains the implementation of ONFI specific functions.

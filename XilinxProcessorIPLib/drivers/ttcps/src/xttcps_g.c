@@ -33,7 +33,7 @@
 /**
 *
 * @file xttcps_g.c
-* @addtogroup ttcps_v3_0
+* @addtogroup ttcps_v3_5
 * @{
 *
 * This file contains a configuration table where each entry is the

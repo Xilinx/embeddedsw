@@ -32,7 +32,7 @@
 /**
 *
 * @file xaxiethernet.h
-* @addtogroup axiethernet_v5_6
+* @addtogroup axiethernet_v5_7
 * @{
 * @details
 *
@@ -504,6 +504,10 @@
 *		    app generation.
 *      adk 09/21/17 Fixed CR#985686 bsp generation error with specific design.
 *		    Changes are made in the driver tcl.
+* 5.7  rsp 01/09/18 Add NumTableEntries member in XAxiEthernet_Config.
+*                   Instead of #define XAE_MULTI_MAT_ENTRIES derive multicast table
+*                   entries max count from ethernet config structure.
+*          01/11/18 Fixed CR#976392 Use UINTPTR for DMA base address.
 * </pre>
 *
 ******************************************************************************/
@@ -668,11 +672,6 @@ extern "C" {
  */
 /*@}*/
 
-
-#define XAE_MULTI_MAT_ENTRIES	4	/**< Number of storable addresses in
-					  *  the Multicast Address Table
-					  */
-
 #define XAE_MDIO_DIV_DFT	29	/**< Default MDIO clock divisor */
 
 /*
@@ -779,13 +778,14 @@ typedef struct XAxiEthernet_Config {
 	u8 EnableSgmiiOverLvds;	/**< Enable LVDS option */
 	u8 Enable_1588;	/**< Enable 1588 option */
 	u32 Speed;	/**< Tells whether MAC is 1G or 2p5G */
+	u8 NumTableEntries;	/**< Number of table entries */
 
 	u8 TemacIntr;	/**< Axi Ethernet interrupt ID */
 
 	int AxiDevType;  /**< AxiDevType is the type of device attached to the
 			  *   Axi Ethernet's AXI4-Stream interface.
 			  */
-	u32 AxiDevBaseAddress; /**< AxiDevBaseAddress is the base address of
+	UINTPTR AxiDevBaseAddress; /**< AxiDevBaseAddress is the base address of
 				 *  the device attached to the Axi Ethernet's
 				 *  AXI4-Stream interface.
 				 */

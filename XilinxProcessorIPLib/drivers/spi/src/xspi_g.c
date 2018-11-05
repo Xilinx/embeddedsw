@@ -33,7 +33,7 @@
 /**
 *
 * @file xspi_g.c
-* @addtogroup spi_v4_1
+* @addtogroup spi_v4_4
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

@@ -33,7 +33,7 @@
 /**
 *
 * @file xhwicap_intr.c
-* @addtogroup hwicap_v10_1
+* @addtogroup hwicap_v11_1
 * @{
 *
 * This file contains interrupt handling API functions of the HwIcap device.

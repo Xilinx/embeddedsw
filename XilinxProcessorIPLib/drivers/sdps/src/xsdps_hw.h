@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xsdps_hw.h
-* @addtogroup sdps_v3_3
+* @addtogroup sdps_v3_5
 * @{
 *
 * This header file contains the identifiers and basic HW access driver
@@ -59,6 +59,8 @@
 * 3.2   sk     03/20/17 Add support for EL1 non-secure mode.
 * 3.3   mn     08/22/17 Updated for Word Access System support
 *       mn     09/06/17 Added support for ARMCC toolchain
+* 3.4   mn     01/22/18 Separated out SDR104 and HS200 clock defines
+*
 * </pre>
 *
 ******************************************************************************/
@@ -998,11 +1000,13 @@ extern "C" {
 #define XSDPS_SD_DDR50_MAX_CLK	50000000U
 #define XSDPS_SD_SDR104_MAX_CLK	208000000U
 /*
- * XSDPS_MMC_HS200_MAX_CLK is set to 150000000 in order to keep it smaller
+ * XSDPS_SD_INPUT_MAX_CLK is set to 175000000 in order to keep it smaller
  * than the clock value coming from the core. This value is kept to safely
  * switch to SDR104 mode if the SD card supports it.
  */
-#define XSDPS_MMC_HS200_MAX_CLK	150000000U
+#define XSDPS_SD_INPUT_MAX_CLK	175000000U
+
+#define XSDPS_MMC_HS200_MAX_CLK	200000000U
 #define XSDPS_MMC_HSD_MAX_CLK	52000000U
 #define XSDPS_MMC_DDR_MAX_CLK	52000000U
 

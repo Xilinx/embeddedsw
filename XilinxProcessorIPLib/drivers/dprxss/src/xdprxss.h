@@ -33,7 +33,7 @@
 /**
 *
 * @file xdprxss.h
-* @addtogroup dprxss_v4_1
+* @addtogroup dprxss_v4_2
 * @{
 * @details
 *
@@ -133,6 +133,7 @@ extern "C" {
 #include "xdprxss_dprx.h"
 #include "xdprxss_iic.h"
 #include "xdprxss_hdcp1x.h"
+#include "xdprxss_mcdp6000.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -217,7 +218,16 @@ typedef enum {
 	XDPRXSS_DRV_HANDLER_DP_VID_EVENT,       /**< Drv Valid video event
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT     /**< Drv No video event
+	XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT,     /**< Drv No video event
+						  *  interrupt type for
+						  *  DisplayPort core */
+	XDPRXSS_HANDLER_ACCESS_LANE_SET_EVENT,    /**< Drv Access lane set
+						  *  interrupt type for
+						  *  DisplayPort core */
+	XDPRXSS_HANDLER_ACCESS_LINK_QUAL_EVENT,    /**< Drv Access link qual
+						  *  interrupt type for
+						  *  DisplayPort core */
+	XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT   /**< Drv Access error counter
 						  *  interrupt type for
 						  *  DisplayPort core */
 } XDpRxSs_HandlerType;
@@ -362,12 +372,27 @@ typedef struct {
 					  *  to the unplug event callback
 					  *  function */
 
+	XDpRxSs_Callback AccessLaneSetCallback;	/**< Callback function for
+						  *  AccessLaneSet */
+	void *AccessLaneSetRef;		/**< A pointer to the user data passed
+					  *  to the AccessLaneSet callback
+					  *  function */
 	/* Vertical blank */
 	u8 VBlankEnable;		/**< Vertical Blank Enable */
 	u8 VBlankCount;			/**< Vertical Blank Count */
 
 	/* User options */
 	XDpRxSs_UsrOpt UsrOpt;		/**< User Options structure */
+
+	u8 ceItrCounter; 		/**< Equalization counter to
+					  *  keep track of iterations */
+	u32 ceRequestValue; 	/**< To keep track of previous value and
+				  *  used to compare with current value*/
+	u8 ltState; 		/**< To check if current LT is in CR or CE */
+	u8 prevLinkRate;
+	u8 prevLaneCounts;
+	u8 link_up_trigger;
+	u8 no_video_trigger;
 } XDpRxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -538,6 +563,7 @@ void XDpRxSs_DrvNoVideoHandler(void *InstancePtr);
 void XDpRxSs_DrvVideoHandler(void *InstancePtr);
 void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr);
 
+void XDpRxSs_McDp6000_init(void *InstancePtr, u32 I2CAddress);
 /************************** Variable Declarations ****************************/
 
 

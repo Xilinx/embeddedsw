@@ -38,7 +38,7 @@ OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lgcc,-lc,--end-group";
 OPTION DESC = "Standalone is a simple, low-level software layer. It provides access to basic processor features such as caches, interrupts and exceptions as well as the basic features of a hosted environment, such as standard input and output, profiling, abort and exit.";
 OPTION copyfiles = all;
 OPTION OS_STATE = ACTIVE;
-OPTION VERSION = 6.5;
+OPTION VERSION = 6.7;
 OPTION NAME = standalone;
 
 PARAM name = zynqmp_fsbl_bsp, type = bool, default = false, desc = "Disable or Enable Optimization for FSBL's BSP. ZynqMP FSBL will set this to true";
@@ -57,5 +57,11 @@ BEGIN CATEGORY microblaze_exceptions
 END CATEGORY
 
 PARAM name = hypervisor_guest, type = bool, default = false, desc = "Enable hypervisor guest support for A53 64bit EL1 Non-Secure. If hypervisor_guest is not selected, BSP will be built for EL3.", permit = user;
+
+PARAM name = sleep_timer, type = peripheral_instance, range = (ps7_ttc,psu_ttc,ps7_globaltimer,psu_iou_scntr,psu_iou_scntrs,axi_timer), default=none, desc = "This parameter is used to select specific timer for sleep functionality", permit = user;
+
+PARAM name = ttc_select_cntr, type = enum, default = 2, values = ("0" = 0, "1" = 1, "2" = 2), desc = "Selects the counter to be used in the repective module. Allowed range is 0-2", permit = user;
+
+PARAM name = lockstep_mode_debug, type = bool, default = false, desc = "Enable debug logic in non-JTAG boot mode, when Cortex R5 is configured in lockstep mode", permit = user;
 
 END OS

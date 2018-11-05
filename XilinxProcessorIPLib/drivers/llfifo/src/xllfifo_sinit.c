@@ -33,7 +33,7 @@
 /**
 *
 * @file xllfifo_sinit.c
-* @addtogroup llfifo_v5_0
+* @addtogroup llfifo_v5_2
 * @{
 *
 * This file contains static initialzation functionality for Axi Streaming FIFO

@@ -89,6 +89,18 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
                           XV_HdmiTx_GetAudioFormat
       EB     10/10/17 Updated XV_HdmiTx_Scrambler to always enable scrambler
                           for HDMI 2.0 resolutions
+1.09  MMO    19/12/17 Added XV_HdmiTx_SetTmdsClk API
+2.00  YH     16/01/18 Added dedicated reset for each clock domain
+                      Added bridge unlock interrupt
+                      Added PIO_OUT to set GCP_AVMUTE
+      EB     18/01/18 Moved VicTable to Hdmi Common library
+                      Updated function XV_HdmiTx_SetTmdsClk and renamed to
+                          XV_HdmiTx_GetTmdsClk
+                      Updated function XV_HdmiTx_SetStream
+                      Moved VicTable, XV_HdmiTx_Aux to Hdmi Common library
+      EB     23/01/18 Updated XV_HdmiTx_SetAudioChannels to fix an issue
+                          where setting audio channel value will unmute the
+                          audio regardless of the current status
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -110,6 +122,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a748570ddedd1b3abe8f546d090b76197"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8c.html#a748570ddedd1b3abe8f546d090b76197">XV_HdmiTx_LookupVic</a> (XVidC_VideoMode VideoMode)</td></tr>
 <tr class="memdesc:a748570ddedd1b3abe8f546d090b76197"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides video identification code of video mode.  <a href="#a748570ddedd1b3abe8f546d090b76197">More...</a><br /></td></tr>
 <tr class="separator:a748570ddedd1b3abe8f546d090b76197"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f0f03c92ab4f206b0a8e0d3c7a6c502"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8c.html#a8f0f03c92ab4f206b0a8e0d3c7a6c502">XV_HdmiTx_GetTmdsClk</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, XVidC_VideoMode VideoMode, XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc)</td></tr>
+<tr class="memdesc:a8f0f03c92ab4f206b0a8e0d3c7a6c502"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets and return the TMDS Clock based on Video Parameter.  <a href="#a8f0f03c92ab4f206b0a8e0d3c7a6c502">More...</a><br /></td></tr>
+<tr class="separator:a8f0f03c92ab4f206b0a8e0d3c7a6c502"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a588fe097262642349aa193a0665ff81f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8c.html#a588fe097262642349aa193a0665ff81f">XV_HdmiTx_Scrambler</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a588fe097262642349aa193a0665ff81f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function controls the scrambler.  <a href="#a588fe097262642349aa193a0665ff81f">More...</a><br /></td></tr>
 <tr class="separator:a588fe097262642349aa193a0665ff81f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -125,6 +140,30 @@ Functions</h2></td></tr>
 <tr class="memitem:ae42733f7ec1fcf5df4f6d537b588bab6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8c.html#ae42733f7ec1fcf5df4f6d537b588bab6">XV_HdmiTx_SetStream</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, XVidC_VideoMode VideoMode, XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc, XVidC_PixelsPerClock Ppc, XVidC_3DInfo *Info3D)</td></tr>
 <tr class="memdesc:ae42733f7ec1fcf5df4f6d537b588bab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the HDMI TX stream parameters.  <a href="#ae42733f7ec1fcf5df4f6d537b588bab6">More...</a><br /></td></tr>
 <tr class="separator:ae42733f7ec1fcf5df4f6d537b588bab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7df3873e5e622d92c651adbef0b83b0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8c.html#a7df3873e5e622d92c651adbef0b83b0e">XV_HdmiTx_INT_VRST</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, u8 Reset)</td></tr>
+<tr class="memdesc:a7df3873e5e622d92c651adbef0b83b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function asserts or releases the HDMI TX Internal VRST.  <a href="#a7df3873e5e622d92c651adbef0b83b0e">More...</a><br /></td></tr>
+<tr class="separator:a7df3873e5e622d92c651adbef0b83b0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44187420a93cd54ee4b68db1e80cd1e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8c.html#a44187420a93cd54ee4b68db1e80cd1e1">XV_HdmiTx_INT_LRST</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, u8 Reset)</td></tr>
+<tr class="memdesc:a44187420a93cd54ee4b68db1e80cd1e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function asserts or releases the HDMI TX Internal LRST.  <a href="#a44187420a93cd54ee4b68db1e80cd1e1">More...</a><br /></td></tr>
+<tr class="separator:a44187420a93cd54ee4b68db1e80cd1e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefad89689cab1a7ddcc37873b08a8faa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8c.html#aefad89689cab1a7ddcc37873b08a8faa">XV_HdmiTx_EXT_VRST</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, u8 Reset)</td></tr>
+<tr class="memdesc:aefad89689cab1a7ddcc37873b08a8faa"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function asserts or releases the HDMI TX External VRST.  <a href="#aefad89689cab1a7ddcc37873b08a8faa">More...</a><br /></td></tr>
+<tr class="separator:aefad89689cab1a7ddcc37873b08a8faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80f9f6414491351d34827b3c5e7f717a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8c.html#a80f9f6414491351d34827b3c5e7f717a">XV_HdmiTx_EXT_SYSRST</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, u8 Reset)</td></tr>
+<tr class="memdesc:a80f9f6414491351d34827b3c5e7f717a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function asserts or releases the HDMI TX External SYSRST.  <a href="#a80f9f6414491351d34827b3c5e7f717a">More...</a><br /></td></tr>
+<tr class="separator:a80f9f6414491351d34827b3c5e7f717a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a495a1c638020f63a0f9b30cf9584c57e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8c.html#a495a1c638020f63a0f9b30cf9584c57e">XV_HdmiTx_SetGcpAvmuteBit</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a495a1c638020f63a0f9b30cf9584c57e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the HDMI TX AUX GCP register AVMUTE bit.  <a href="#a495a1c638020f63a0f9b30cf9584c57e">More...</a><br /></td></tr>
+<tr class="separator:a495a1c638020f63a0f9b30cf9584c57e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e8e1d49d9f1cbcf266b5780a7724dab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8c.html#a0e8e1d49d9f1cbcf266b5780a7724dab">XV_HdmiTx_ClearGcpAvmuteBit</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a0e8e1d49d9f1cbcf266b5780a7724dab"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clears the HDMI TX AUX GCP register AVMUTE bit.  <a href="#a0e8e1d49d9f1cbcf266b5780a7724dab">More...</a><br /></td></tr>
+<tr class="separator:a0e8e1d49d9f1cbcf266b5780a7724dab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f140138d5c101dcdf267acf1645f9ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8c.html#a9f140138d5c101dcdf267acf1645f9ac">XV_HdmiTx_SetGcpClearAvmuteBit</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a9f140138d5c101dcdf267acf1645f9ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the HDMI TX AUX GCP register CLEAR_AVMUTE bit.  <a href="#a9f140138d5c101dcdf267acf1645f9ac">More...</a><br /></td></tr>
+<tr class="separator:a9f140138d5c101dcdf267acf1645f9ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0f79865b06ffc79b2e92f1023dc2652"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8c.html#af0f79865b06ffc79b2e92f1023dc2652">XV_HdmiTx_ClearGcpClearAvmuteBit</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr)</td></tr>
+<tr class="memdesc:af0f79865b06ffc79b2e92f1023dc2652"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clears the HDMI TX AUX GCP register CLEAR_AVMUTE bit.  <a href="#af0f79865b06ffc79b2e92f1023dc2652">More...</a><br /></td></tr>
+<tr class="separator:af0f79865b06ffc79b2e92f1023dc2652"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe6e4feed643a46f8c5a09494d2e2874"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8c.html#abe6e4feed643a46f8c5a09494d2e2874">XV_HdmiTx_SetPixelRate</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr)</td></tr>
 <tr class="memdesc:abe6e4feed643a46f8c5a09494d2e2874"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the pixel rate at output.  <a href="#abe6e4feed643a46f8c5a09494d2e2874">More...</a><br /></td></tr>
 <tr class="separator:abe6e4feed643a46f8c5a09494d2e2874"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -211,7 +250,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx.html#ad9a3408bb742da4f3ae0c50eff9b3c9d">XV_HdmiTx::Aux</a>, <a class="el" href="struct_x_v___hdmi_tx___config.html#aed2a0eebe95b28c31ac48848df2a32bc">XV_HdmiTx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a7c08db92f62ad7f28dfdfac3561978db">XV_HdmiTx::Config</a>, <a class="el" href="union_x_v___hdmi_tx___aux_header.html#a37cbc78756a1fb7b5beec112cb31db21">XV_HdmiTx_AuxHeader::Data</a>, <a class="el" href="union_x_v___hdmi_tx___aux_data.html#a147164b51235094196f4c7945f0ae52d">XV_HdmiTx_AuxData::Data</a>, <a class="el" href="struct_x_v___hdmi_tx___aux.html#a14d8df8aeaa984669d3d4620e49c8122">XV_HdmiTx_Aux::Data</a>, <a class="el" href="struct_x_v___hdmi_tx___aux.html#a68e64852c1cd79ddfbf71c0ce03909f0">XV_HdmiTx_Aux::Header</a>, <a class="el" href="xv__hdmitx__hw_8h.html#ab4ffb246932642063518c85c719350a0">XV_HDMITX_AUX_DAT_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a471c6374f04e71189d48849b294155de">XV_HDMITX_AUX_STA_FIFO_FUL_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#aadeed071f9ae80ff300b531ea298f42a">XV_HDMITX_AUX_STA_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#ae8dd52aee290be2984731085f7668e44">XV_HDMITX_AUX_STA_PKT_RDY_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx.html#af5d85f51e28f37e441a90a42fcfb6213">XV_HdmiTx::Aux</a>, <a class="el" href="struct_x_v___hdmi_tx___config.html#aed2a0eebe95b28c31ac48848df2a32bc">XV_HdmiTx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a7c08db92f62ad7f28dfdfac3561978db">XV_HdmiTx::Config</a>, <a class="el" href="xv__hdmitx__hw_8h.html#ab4ffb246932642063518c85c719350a0">XV_HDMITX_AUX_DAT_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a471c6374f04e71189d48849b294155de">XV_HDMITX_AUX_STA_FIFO_FUL_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#aadeed071f9ae80ff300b531ea298f42a">XV_HDMITX_AUX_STA_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#ae8dd52aee290be2984731085f7668e44">XV_HDMITX_AUX_STA_PKT_RDY_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -293,6 +332,66 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is required after a reset or init. </dd></dl>
+
+</div>
+</div>
+<a id="a0e8e1d49d9f1cbcf266b5780a7724dab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e8e1d49d9f1cbcf266b5780a7724dab">&#9670;&nbsp;</a></span>XV_HdmiTx_ClearGcpAvmuteBit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTx_ClearGcpAvmuteBit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function clears the HDMI TX AUX GCP register AVMUTE bit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#aecae9177f56bf35251db6c967b60c2a3">XV_HDMITX_PIO_OUT_GCP_AVMUTE_MASK</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+
+</div>
+</div>
+<a id="af0f79865b06ffc79b2e92f1023dc2652"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0f79865b06ffc79b2e92f1023dc2652">&#9670;&nbsp;</a></span>XV_HdmiTx_ClearGcpClearAvmuteBit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTx_ClearGcpClearAvmuteBit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function clears the HDMI TX AUX GCP register CLEAR_AVMUTE bit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a5057e256f62c3af0dc0c4e08a6ebf5b3">XV_HDMITX_PIO_OUT_GCP_CLEARAVMUTE_MASK</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -707,6 +806,88 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a80f9f6414491351d34827b3c5e7f717a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80f9f6414491351d34827b3c5e7f717a">&#9670;&nbsp;</a></span>XV_HdmiTx_EXT_SYSRST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTx_EXT_SYSRST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Reset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function asserts or releases the HDMI TX External SYSRST. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance. </td></tr>
+    <tr><td class="paramname">Reset</td><td>specifies TRUE/FALSE value to either assert or release HDMI TX External SYSRST.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The reset output of the PIO is inverted. When the system is in reset, the PIO output is cleared and this will reset the HDMI TX. Therefore, clearing the PIO reset output will assert the HDMI External system reset. C-style signature: void <a class="el" href="xv__hdmitx_8c.html#a80f9f6414491351d34827b3c5e7f717a" title="This function asserts or releases the HDMI TX External SYSRST. ">XV_HdmiTx_EXT_SYSRST(XV_HdmiTx *InstancePtr, u8 Reset)</a> </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#ae6f495059257675ab6aab20debbb29ae">XV_HDMITX_PIO_OUT_EXT_SYSRST_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+
+</div>
+</div>
+<a id="aefad89689cab1a7ddcc37873b08a8faa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefad89689cab1a7ddcc37873b08a8faa">&#9670;&nbsp;</a></span>XV_HdmiTx_EXT_VRST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTx_EXT_VRST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Reset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function asserts or releases the HDMI TX External VRST. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance. </td></tr>
+    <tr><td class="paramname">Reset</td><td>specifies TRUE/FALSE value to either assert or release HDMI TX External VRST.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The reset output of the PIO is inverted. When the system is in reset, the PIO output is cleared and this will reset the HDMI TX. Therefore, clearing the PIO reset output will assert the HDMI external video reset. C-style signature: void <a class="el" href="xv__hdmitx_8c.html#aefad89689cab1a7ddcc37873b08a8faa" title="This function asserts or releases the HDMI TX External VRST. ">XV_HdmiTx_EXT_VRST(XV_HdmiTx *InstancePtr, u8 Reset)</a> </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a85c45b96a6535758a64f4bbde6736b30">XV_HDMITX_PIO_OUT_EXT_VRST_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+
+</div>
+</div>
 <a id="a1969dd5561dba784fdb82a4b8e634256"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1969dd5561dba784fdb82a4b8e634256">&#9670;&nbsp;</a></span>XV_HdmiTx_GetAudioFormat()</h2>
 
@@ -734,6 +915,161 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a78026a4105a831d8d1e2788c1d6ba913">XV_HDMITX_AUD_CTRL_AUDFMT_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0507ddc2e25096e01a650cf41849e35f">XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a1f37ae939243ded094b88763c8fbcc76">XV_HDMITX_AUD_CTRL_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>.</p>
+
+</div>
+</div>
+<a id="a8f0f03c92ab4f206b0a8e0d3c7a6c502"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f0f03c92ab4f206b0a8e0d3c7a6c502">&#9670;&nbsp;</a></span>XV_HdmiTx_GetTmdsClk()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XV_HdmiTx_GetTmdsClk </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XVidC_VideoMode&#160;</td>
+          <td class="paramname"><em>VideoMode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XVidC_ColorFormat&#160;</td>
+          <td class="paramname"><em>ColorFormat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XVidC_ColorDepth&#160;</td>
+          <td class="paramname"><em>Bpc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets and return the TMDS Clock based on Video Parameter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance. </td></tr>
+    <tr><td class="paramname">VideoMode</td><td>specifies resolution identifier. </td></tr>
+    <tr><td class="paramname">ColorFormat</td><td>specifies the type of color format.<ul>
+<li>0 = XVIDC_CSF_RGB</li>
+<li>1 = XVIDC_CSF_YCRCB_444</li>
+<li>2 = XVIDC_CSF_YCRCB_422</li>
+<li>3 = XVIDC_CSF_YCRCB_420 </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">Bpc</td><td>specifies the color depth/bits per color component.<ul>
+<li>6 = XVIDC_BPC_6</li>
+<li>8 = XVIDC_BPC_8</li>
+<li>10 = XVIDC_BPC_10</li>
+<li>12 = XVIDC_BPC_12</li>
+<li>16 = XVIDC_BPC_16</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>TMDS Clock</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___stream.html#ac40b3c4cd28b83852edc439caf9f7a44">XV_HdmiTx_Stream::PixelClk</a>, and <a class="el" href="struct_x_v___hdmi_tx.html#a0f92bb0204c62c0fc3402f018c062e40">XV_HdmiTx::Stream</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#ae42733f7ec1fcf5df4f6d537b588bab6">XV_HdmiTx_SetStream()</a>.</p>
+
+</div>
+</div>
+<a id="a44187420a93cd54ee4b68db1e80cd1e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44187420a93cd54ee4b68db1e80cd1e1">&#9670;&nbsp;</a></span>XV_HdmiTx_INT_LRST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTx_INT_LRST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Reset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function asserts or releases the HDMI TX Internal LRST. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance. </td></tr>
+    <tr><td class="paramname">Reset</td><td>specifies TRUE/FALSE value to either assert or release HDMI TX Internal LRST.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The reset output of the PIO is inverted. When the system is in reset, the PIO output is cleared and this will reset the HDMI TX. Therefore, clearing the PIO reset output will assert the HDMI Internal link reset. C-style signature: void <a class="el" href="xv__hdmitx_8c.html#a7df3873e5e622d92c651adbef0b83b0e" title="This function asserts or releases the HDMI TX Internal VRST. ">XV_HdmiTx_INT_VRST(XV_HdmiTx *InstancePtr, u8 Reset)</a> </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a190850cf65d40a36c67965b58ab719a7">XV_HDMITX_PIO_OUT_INT_LRST_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+
+</div>
+</div>
+<a id="a7df3873e5e622d92c651adbef0b83b0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7df3873e5e622d92c651adbef0b83b0e">&#9670;&nbsp;</a></span>XV_HdmiTx_INT_VRST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTx_INT_VRST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Reset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function asserts or releases the HDMI TX Internal VRST. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance. </td></tr>
+    <tr><td class="paramname">Reset</td><td>specifies TRUE/FALSE value to either assert or release HDMI TX Internal VRST.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The reset output of the PIO is inverted. When the system is in reset, the PIO output is cleared and this will reset the HDMI TX. Therefore, clearing the PIO reset output will assert the HDMI Internal video reset. C-style signature: void <a class="el" href="xv__hdmitx_8c.html#a7df3873e5e622d92c651adbef0b83b0e" title="This function asserts or releases the HDMI TX Internal VRST. ">XV_HdmiTx_INT_VRST(XV_HdmiTx *InstancePtr, u8 Reset)</a> </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a57cd09ceda16cfc89ad51ab5fd16c625">XV_HDMITX_PIO_OUT_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#aaae3285766545ae8b717a709c376d449">XV_HDMITX_PIO_OUT_INT_VRST_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -852,6 +1188,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function controls the scrambler. </p>
+<p>Requires TMDSClock to be up to date in order to force enable scrambler when TMDSClock &gt; 340MHz.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance.</td></tr>
@@ -865,7 +1202,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___stream.html#aff6cb4519db331ab7336ae75c2cc56b8">XV_HdmiTx_Stream::IsHdmi20</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#ae9ca6e199b3a6729a3a0db9cb6e43bbd">XV_HdmiTx_Stream::IsScrambled</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a0f92bb0204c62c0fc3402f018c062e40">XV_HdmiTx::Stream</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#a498466feabb81f3368b723a8104159d0">XV_HdmiTx_Stream::TMDSClock</a>, <a class="el" href="xv__hdmitx_8c.html#a09f62badd2afc029e5e4967644a37e5f">XV_HdmiTx_DdcRead()</a>, <a class="el" href="xv__hdmitx_8c.html#a852ea29dc77f7bff5509cbf7fe935ede">XV_HdmiTx_DdcWrite()</a>, and <a class="el" href="xv__hdmitx_8h.html#a6da173e33b955815176fd5640f7a1fbf">XV_HdmiTx_SetScrambler</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___stream.html#aff6cb4519db331ab7336ae75c2cc56b8">XV_HdmiTx_Stream::IsHdmi20</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#ae9ca6e199b3a6729a3a0db9cb6e43bbd">XV_HdmiTx_Stream::IsScrambled</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#a0f7391ec51828911287f12c706f48065">XV_HdmiTx_Stream::OverrideScrambler</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a0f92bb0204c62c0fc3402f018c062e40">XV_HdmiTx::Stream</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#a498466feabb81f3368b723a8104159d0">XV_HdmiTx_Stream::TMDSClock</a>, <a class="el" href="xv__hdmitx_8c.html#a09f62badd2afc029e5e4967644a37e5f">XV_HdmiTx_DdcRead()</a>, <a class="el" href="xv__hdmitx_8c.html#a852ea29dc77f7bff5509cbf7fe935ede">XV_HdmiTx_DdcWrite()</a>, and <a class="el" href="xv__hdmitx_8h.html#a6da173e33b955815176fd5640f7a1fbf">XV_HdmiTx_SetScrambler</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="xv__hdmitx_8h.html#ae42733f7ec1fcf5df4f6d537b588bab6">XV_HdmiTx_SetStream()</a>.</p>
 
@@ -911,7 +1248,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a224d3ce0b2fa5396ac35464ab51e18c0">XV_HDMITX_AUD_CTRL_CH_SHIFT</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a1f37ae939243ded094b88763c8fbcc76">XV_HDMITX_AUD_CTRL_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a224d3ce0b2fa5396ac35464ab51e18c0">XV_HDMITX_AUD_CTRL_CH_SHIFT</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a1f37ae939243ded094b88763c8fbcc76">XV_HDMITX_AUD_CTRL_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -1094,6 +1431,66 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a495a1c638020f63a0f9b30cf9584c57e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a495a1c638020f63a0f9b30cf9584c57e">&#9670;&nbsp;</a></span>XV_HdmiTx_SetGcpAvmuteBit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTx_SetGcpAvmuteBit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets the HDMI TX AUX GCP register AVMUTE bit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#aecae9177f56bf35251db6c967b60c2a3">XV_HDMITX_PIO_OUT_GCP_AVMUTE_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+
+</div>
+</div>
+<a id="a9f140138d5c101dcdf267acf1645f9ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f140138d5c101dcdf267acf1645f9ac">&#9670;&nbsp;</a></span>XV_HdmiTx_SetGcpClearAvmuteBit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTx_SetGcpClearAvmuteBit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets the HDMI TX AUX GCP register CLEAR_AVMUTE bit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data. ">XV_HdmiTx</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="xv__hdmitx__hw_8h.html#a5057e256f62c3af0dc0c4e08a6ebf5b3">XV_HDMITX_PIO_OUT_GCP_CLEARAVMUTE_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#afb3e424d18e1c4b146232b67699824eb">XV_HDMITX_PIO_OUT_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+
+</div>
+</div>
 <a id="ab5d2bcd25ed4a775b87e716ad8d2a8d6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab5d2bcd25ed4a775b87e716ad8d2a8d6">&#9670;&nbsp;</a></span>XV_HdmiTx_SetHdmiMode()</h2>
 
@@ -1120,7 +1517,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is required after a reset or init. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___stream.html#a094b972b5add25f8189946125ee5de37">XV_HdmiTx_Stream::IsHdmi</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a0f92bb0204c62c0fc3402f018c062e40">XV_HdmiTx::Stream</a>, and <a class="el" href="xv__hdmitx_8h.html#ab80fe1804de9125b96892b3fb9e41776">XV_HdmiTx_SetMode</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___stream.html#a094b972b5add25f8189946125ee5de37">XV_HdmiTx_Stream::IsHdmi</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a0f92bb0204c62c0fc3402f018c062e40">XV_HdmiTx::Stream</a>, <a class="el" href="xv__hdmitx_8h.html#a0beadeffb41701e2a173c87289d487c4">XV_HdmiTx_AudioEnable</a>, <a class="el" href="xv__hdmitx_8h.html#ac0ac0a64725ea05d65bda3554cd4e29f">XV_HdmiTx_AuxEnable</a>, and <a class="el" href="xv__hdmitx_8h.html#ab80fe1804de9125b96892b3fb9e41776">XV_HdmiTx_SetMode</a>.</p>
 
 </div>
 </div>
@@ -1284,7 +1681,7 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 <p>In HDMI the colordepth in YUV422 is always 12 bits, although on the link itself it is being transmitted as 8-bits. Therefore if the colorspace is YUV422, then force the colordepth to 12 bits. </p>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___stream.html#aff6cb4519db331ab7336ae75c2cc56b8">XV_HdmiTx_Stream::IsHdmi20</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#ae9ca6e199b3a6729a3a0db9cb6e43bbd">XV_HdmiTx_Stream::IsScrambled</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#ac40b3c4cd28b83852edc439caf9f7a44">XV_HdmiTx_Stream::PixelClk</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a0f92bb0204c62c0fc3402f018c062e40">XV_HdmiTx::Stream</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#a498466feabb81f3368b723a8104159d0">XV_HdmiTx_Stream::TMDSClock</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#a2a32c654d0ab9b88f4d19c4985fae1f6">XV_HdmiTx_Stream::TMDSClockRatio</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#ab3d63314205b73121885a6da80cfe7cf">XV_HdmiTx_Stream::Vic</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#aed13920c568f0a6101fe97e5a0ce981a">XV_HdmiTx_Stream::Video</a>, <a class="el" href="xv__hdmitx_8c.html#a18857793bd92eafef197b339cf1f956e">XV_HdmiTx_ClockRatio()</a>, <a class="el" href="xv__hdmitx_8c.html#a748570ddedd1b3abe8f546d090b76197">XV_HdmiTx_LookupVic()</a>, <a class="el" href="xv__hdmitx_8c.html#a588fe097262642349aa193a0665ff81f">XV_HdmiTx_Scrambler()</a>, <a class="el" href="xv__hdmitx_8c.html#a9271b92c3193e1ce46a2b610080c6f06">XV_HdmiTx_SetColorDepth()</a>, <a class="el" href="xv__hdmitx_8c.html#aa8eb6378fdb4a48a22fdedb89cc3702a">XV_HdmiTx_SetColorFormat()</a>, and <a class="el" href="xv__hdmitx_8c.html#abe6e4feed643a46f8c5a09494d2e2874">XV_HdmiTx_SetPixelRate()</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx___stream.html#aff6cb4519db331ab7336ae75c2cc56b8">XV_HdmiTx_Stream::IsHdmi20</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#ae9ca6e199b3a6729a3a0db9cb6e43bbd">XV_HdmiTx_Stream::IsScrambled</a>, <a class="el" href="struct_x_v___hdmi_tx.html#a0f92bb0204c62c0fc3402f018c062e40">XV_HdmiTx::Stream</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#a498466feabb81f3368b723a8104159d0">XV_HdmiTx_Stream::TMDSClock</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#a2a32c654d0ab9b88f4d19c4985fae1f6">XV_HdmiTx_Stream::TMDSClockRatio</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#ab3d63314205b73121885a6da80cfe7cf">XV_HdmiTx_Stream::Vic</a>, <a class="el" href="struct_x_v___hdmi_tx___stream.html#aed13920c568f0a6101fe97e5a0ce981a">XV_HdmiTx_Stream::Video</a>, <a class="el" href="xv__hdmitx_8c.html#a18857793bd92eafef197b339cf1f956e">XV_HdmiTx_ClockRatio()</a>, <a class="el" href="xv__hdmitx_8c.html#a8f0f03c92ab4f206b0a8e0d3c7a6c502">XV_HdmiTx_GetTmdsClk()</a>, <a class="el" href="xv__hdmitx_8c.html#a748570ddedd1b3abe8f546d090b76197">XV_HdmiTx_LookupVic()</a>, <a class="el" href="xv__hdmitx_8c.html#a588fe097262642349aa193a0665ff81f">XV_HdmiTx_Scrambler()</a>, <a class="el" href="xv__hdmitx_8c.html#a9271b92c3193e1ce46a2b610080c6f06">XV_HdmiTx_SetColorDepth()</a>, <a class="el" href="xv__hdmitx_8c.html#aa8eb6378fdb4a48a22fdedb89cc3702a">XV_HdmiTx_SetColorFormat()</a>, and <a class="el" href="xv__hdmitx_8c.html#abe6e4feed643a46f8c5a09494d2e2874">XV_HdmiTx_SetPixelRate()</a>.</p>
 
 </div>
 </div>

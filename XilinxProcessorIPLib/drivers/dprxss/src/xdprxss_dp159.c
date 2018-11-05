@@ -33,7 +33,7 @@
 /**
 *
 * @file xdprxss_dp159.c
-* @addtogroup dprxss_v4_0
+* @addtogroup dprxss_v4_2
 * @{
 *
 * This file contains a set of functions to configure the DP159.

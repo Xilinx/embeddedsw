@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp_mst.c
- * @addtogroup dp_v6_0
+ * @addtogroup dp_v7_0
  * @{
  *
  * <pre>
@@ -67,12 +67,15 @@
 /* The maximum length of a sideband message. Longer messages must be split into
  * multiple fragments. */
 #define XDP_MAX_LENGTH_SBMSG 48
+
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /* Error out if waiting for a sideband message reply or waiting for the payload
  * ID table to be updated takes more than 5000 AUX read iterations. */
 #define XDP_TX_MAX_SBMSG_REPLY_TIMEOUT_COUNT 5000
 /* Error out if waiting for the RX device to indicate that it has received an
  * ACT trigger takes more than 30 AUX read iterations. */
 #define XDP_TX_VCP_TABLE_MAX_TIMEOUT_COUNT 30
+#endif
 
 /****************************** Type Definitions ******************************/
 
@@ -160,7 +163,7 @@ typedef struct
 } XDp_SidebandReply;
 
 /**************************** Function Prototypes *****************************/
-
+#if XPAR_XDPRXSS_NUM_INSTANCES
 static void XDp_RxSetLinkAddressReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_RxSetClearPayloadIdReply(XDp_SidebandMsg *Msg);
 static void XDp_RxSetAllocPayloadReply(XDp_SidebandMsg *Msg);
@@ -170,6 +173,9 @@ static u32 XDp_RxSetRemoteDpcdReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static u32 XDp_RxSetRemoteIicReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_RxSetAvailPbn(XDp *InstancePtr, XDp_SidebandMsg *Msg);
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
+
+#if XPAR_XDPTXSS_NUM_INSTANCES
 static void XDp_TxIssueGuid(XDp *InstancePtr, u8 LinkCountTotal,
 		u8 *RelativeAddress, XDp_TxTopology *Topology, u8 *Guid);
 static void XDp_TxAddBranchToList(XDp *InstancePtr,
@@ -182,17 +188,33 @@ static void XDp_TxGetDeviceInfoFromSbMsgLinkAddress(
 			XDp_SidebandReply *SbReply,
 			XDp_SbMsgLinkAddressReplyDeviceInfo *FormatReply);
 static u32 XDp_TxSendActTrigger(XDp *InstancePtr);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
 static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg);
+
+#if XPAR_XDPRXSS_NUM_INSTANCES
 static void XDp_RxReadDownReq(XDp *InstancePtr, XDp_SidebandMsg *Msg);
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
+
+#if XPAR_XDPTXSS_NUM_INSTANCES
 static u32 XDp_TxReceiveSbMsg(XDp *InstancePtr, XDp_SidebandReply *SbReply);
 static u32 XDp_TxWaitSbReply(XDp *InstancePtr);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
 static u32 XDp_Transaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg);
+
+#if XPAR_XDPRXSS_NUM_INSTANCES
 static u32 XDp_RxWriteRawDownReply(XDp *InstancePtr, u8 *Data, u8 DataLength);
 static u32 XDp_RxSendSbMsg(XDp *InstancePtr, XDp_SidebandMsg *Msg);
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
+
 static u8 XDp_Crc4CalculateHeader(XDp_SidebandMsgHeader *Header);
 static u8 XDp_Crc8CalculateBody(XDp_SidebandMsg *Msg);
 static u8 XDp_CrcCalculate(const u8 *Data, u32 NumberOfBits, u8 Polynomial);
+
+#if XPAR_XDPTXSS_NUM_INSTANCES
 static u32 XDp_TxIsSameTileDisplay(u8 *DispIdSecTile0, u8 *DispIdSecTile1);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /**************************** Variable Definitions ****************************/
 
@@ -238,6 +260,7 @@ u8 GuidTable[16][XDP_GUID_NBYTES] = {
 
 /**************************** Function Definitions ****************************/
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function will enable multi-stream transport (MST) mode for the driver.
@@ -2314,7 +2337,9 @@ void XDp_TxGetGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 		Guid[Index] = Data[Index];
 	}
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
+#if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function will handle incoming sideband messages. It will
@@ -3199,7 +3224,9 @@ static void XDp_RxSetAvailPbn(XDp *InstancePtr, XDp_SidebandMsg *Msg)
                 }
         }
 }
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function will check whether or not a DisplayPort device has a global
@@ -3464,6 +3491,8 @@ static u32 XDp_TxSendActTrigger(XDp *InstancePtr)
 
 	return XST_SUCCESS;
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
 
 /******************************************************************************/
 /**
@@ -3497,6 +3526,7 @@ static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 
 	XDp_WaitUs(InstancePtr, InstancePtr->TxInstance.SbMsgDelayUs);
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
 		/* First, clear the DOWN_REP_MSG_RDY in case the RX device is in
 		 * a weird state. */
@@ -3508,6 +3538,7 @@ static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 			return Status;
 		}
 	}
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 	/* Add the header to the sideband message transaction. */
 	Msg->Header.MsgHeaderLength = 0;
@@ -3543,20 +3574,28 @@ static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	Data[Index + Header->MsgHeaderLength] = Body->Crc;
 
 	/* Submit the message. */
+#if XPAR_XDPTXSS_NUM_INSTANCES
 	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
 		Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_DOWN_REQ,
 			Msg->Header.MsgHeaderLength + Msg->Header.MsgBodyLength,
 			Data);
-	}
-	else {
+	} else
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+#if XPAR_XDPRXSS_NUM_INSTANCES
+	if (XDp_GetCoreType(InstancePtr) == XDP_RX) {
 		Status = XDp_RxWriteRawDownReply(InstancePtr, Data,
 						Msg->Header.MsgHeaderLength +
 						Msg->Header.MsgBodyLength);
+	}
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
+	{
+		/* Nothing. */
 	}
 
 	return Status;
 }
 
+#if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function will read the raw sideband message down request and format it
@@ -3584,7 +3623,9 @@ static void XDp_RxReadDownReq(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	Msg->FragmentNum = 0;
 	XDp_Transaction2MsgFormat(Data, Msg);
 }
+#endif /* XPAR_XDPrXSS_NUM_INSTANCES */
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function will wait for a sideband message reply and fill in the SbReply
@@ -3715,6 +3756,7 @@ static u32 XDp_TxWaitSbReply(XDp *InstancePtr)
 
 	return XST_SUCCESS;
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /******************************************************************************/
 /**
@@ -3802,6 +3844,7 @@ static u32 XDp_Transaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg)
 	return XST_SUCCESS;
 }
 
+#if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function will write a new down reply message to be read by the upstream
@@ -3922,6 +3965,7 @@ static u32 XDp_RxSendSbMsg(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 
 	return XST_SUCCESS;
 }
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 /******************************************************************************/
 /**
@@ -4084,6 +4128,7 @@ static u8 XDp_CrcCalculate(const u8 *Data, u32 NumberOfBits, u8 Polynomial)
 	return Remainder & 0xFF;
 }
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * Check whether or not the two specified Tiled Display Topology (TDT) data
@@ -4127,4 +4172,5 @@ static u32 XDp_TxIsSameTileDisplay(u8 *TileDisp0, u8 *TileDisp1)
 
 	return 1;
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 /** @} */

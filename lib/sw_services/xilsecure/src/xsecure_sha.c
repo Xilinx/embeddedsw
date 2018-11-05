@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,7 +43,9 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  ba   08/10/14 Initial release
 * 2.0   vns  01/28/17 Added API to read SHA3 hash.
-* 2.2   vns  07/06/16 Added doxygen tags
+* 2.2   vns  07/06/17 Added doxygen tags
+* 3.0   vns  01/23/18 Added NIST SHA3 support.
+*                     Added SSS configuration before every CSU DMA transfer
 *
 * </pre>
 *
@@ -78,6 +80,9 @@
 *
 * @note		The base address is initialized directly with value from
 * 		xsecure_hw.h
+*		By default uses NIST SHA3 padding, to change to KECCAK
+*		padding call XSecure_Sha3PadSelection() after
+*		XSecure_Sha3Initialize().
 *
 *****************************************************************************/
 
@@ -90,6 +95,39 @@ s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma* CsuDmaPtr)
 	InstancePtr->BaseAddress = XSECURE_CSU_SHA3_BASE;
 	InstancePtr->Sha3Len = 0U;
 	InstancePtr->CsuDmaPtr = CsuDmaPtr;
+	InstancePtr->Sha3PadType = XSECURE_CSU_NIST_SHA3;
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function provides an option to select the SHA-3 padding type to be used
+ * while calculating the hash.
+ *
+ * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
+ * @param	Sha3Type 	Type of the sha3 padding to be used.
+ * 			 - For NIST SHA-3 padding - XSECURE_CSU_NIST_SHA3
+ * 			 - For KECCAK SHA-3 padding - XSECURE_CSU_KECCAK_SHA3
+ *
+ * @return	By default provides support for NIST SHA-3, if wants to change for
+ * 			Keccak SHA-3 this function should be called after
+ * 			XSecure_Sha3Initialize()
+ *
+ ******************************************************************************/
+ s32 XSecure_Sha3PadSelection(XSecure_Sha3 *InstancePtr,
+		 XSecure_Sha3PadType Sha3Type)
+{
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Sha3Type <= XSECURE_CSU_KECCAK_SHA3);
+
+	/* If operation is in between can't be modified */
+	if (InstancePtr->Sha3Len != 0x00U) {
+		return XST_FAILURE;
+	}
+	InstancePtr->Sha3PadType = Sha3Type;
+
 	return XST_SUCCESS;
 }
 
@@ -112,6 +150,29 @@ void XSecure_Sha3Padd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen)
 
 	memset(Dst, 0, MsgLen);
 	Dst[0] = 0x1U;
+	Dst[MsgLen -1U] |= 0x80U;
+}
+
+/*****************************************************************************/
+/**
+ * Generate padding for the NIST SHA-3
+ *
+ * @param	InstancePtr is a pointer to the XSecure_Sha3 instance.
+ * @param	Dst is the pointer to location where padding is to be applied
+ * @param	MsgLen is the length of padding in bytes
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ******************************************************************************/
+static void XSecure_NistSha3Padd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen)
+{
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	memset(Dst, 0, MsgLen);
+	Dst[0] =  0x6;
 	Dst[MsgLen -1U] |= 0x80U;
 }
 /*****************************************************************************/
@@ -140,9 +201,6 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 					XSECURE_CSU_SHA3_RESET_OFFSET, 0U);
 
-	/* Configure the SSS for SHA3 hashing. */
-	XSecure_SssSetup(XSecure_SssInputSha3(XSECURE_CSU_SSS_SRC_SRC_DMA));
-
 	/* Start SHA3 engine. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_CSU_SHA3_START_OFFSET,
@@ -170,6 +228,9 @@ void XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	Xil_AssertVoid(Size != (u32)0x00U);
 
 	InstancePtr->Sha3Len += Size;
+
+	/* Configure the SSS for SHA3 hashing. */
+	XSecure_SssSetup(XSecure_SssInputSha3(XSECURE_CSU_SSS_SRC_SRC_DMA));
 
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 					(UINTPTR)Data, (u32)Size/4, 0);
@@ -237,7 +298,17 @@ void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 	PartialLen = (PartialLen == 0U)?(XSECURE_SHA3_BLOCK_LEN) :
 		(XSECURE_SHA3_BLOCK_LEN - PartialLen);
 
-	XSecure_Sha3Padd(InstancePtr, XSecure_RsaSha3Array, PartialLen);
+	if (InstancePtr->Sha3PadType == XSECURE_CSU_NIST_SHA3) {
+		XSecure_NistSha3Padd(InstancePtr, XSecure_RsaSha3Array,
+						PartialLen);
+	}
+	else {
+		XSecure_Sha3Padd(InstancePtr, XSecure_RsaSha3Array,
+						PartialLen);
+	}
+
+	/* Configure the SSS for SHA3 hashing. */
+	XSecure_SssSetup(XSecure_SssInputSha3(XSECURE_CSU_SSS_SRC_SRC_DMA));
 
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				(UINTPTR)XSecure_RsaSha3Array, PartialLen/4, 1);

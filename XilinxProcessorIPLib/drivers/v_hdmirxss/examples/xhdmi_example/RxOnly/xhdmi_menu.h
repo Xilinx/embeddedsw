@@ -78,13 +78,13 @@
 ******************************************************************************/
 #ifndef XHDMI_MENU_H_
 #define XHDMI_MENU_H_  /**< Prevent circular inclusions
-                         *  by using protection macros */
+*  by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/***************************** Include Files *********************************/
+	/***************************** Include Files *********************************/
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
@@ -93,6 +93,7 @@ extern "C" {
 #include "xil_printf.h"
 #include "xstatus.h"
 #include "xvidc.h"
+#include "xparameters.h"
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
 #include "xuartlite_l.h"
 #else
@@ -100,58 +101,58 @@ extern "C" {
 #endif
 
 #include "xvphy.h"
+#include "xhdmi_edid.h"
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 #include "xv_hdmirxss.h"
 #endif
+#include "xhdmi_example.h"
+/************************** Variable Definitions *****************************/
 
 /************************** Constant Definitions *****************************/
-#if defined (XPAR_XHDCP_NUM_INSTANCES) || defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
-/* If HDCP 1.4 or HDCP 2.2 is in the system then use the HDCP abstraction layer */
-#define USE_HDCP
-#endif
-
 /**************************** Type Definitions *******************************/
 /**
 * The HDMI menu types.
 */
-typedef enum
-{
-	XHDMI_MAIN_MENU,
+typedef enum {
+		XHDMI_MAIN_MENU,
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-	XHDMI_GTPLLLAYOUT_MENU,
+		XHDMI_GTPLLLAYOUT_MENU,
 #endif
 #ifdef USE_HDCP
-	XHDMI_HDCP_MAIN_MENU,
-	XHDMI_HDCP_DEBUG_MENU,
+		XHDMI_HDCP_MAIN_MENU,
+#if (HDCP_DEBUG_MENU_EN == 1)
+		XHDMI_HDCP_DEBUG_MENU,
 #endif
-	XHDMI_NUM_MENUS
-} XHdmi_MenuType;
+#endif
+#if(CUSTOM_RESOLUTION_ENABLE == 1)
+		XHDMI_DEBUG_MAIN_MENU,
+#endif
+		XHDMI_NUM_MENUS
+	} XHdmi_MenuType;
 
-/**
-* The HDMI menu configuration.
-*/
-typedef struct
-{
-	u8 HdcpIsSupported; /**< Indicates if HDCP is supported */
+	/**
+	* The HDMI menu configuration.
+	*/
+	typedef struct {
+		u8 HdcpIsSupported; /**< Indicates if HDCP is supported */
 
-} XHdmi_MenuConfig;
+	} XHdmi_MenuConfig;
 
-/**
-* The HDMI menu instance data.
-*/
-typedef struct
-{
-	XHdmi_MenuConfig 	Config;    				/**< HDMI menu configuration data */
-	XHdmi_MenuType 		CurrentMenu; 			/**< Current menu */
-	u32			 		UartBaseAddress;		// Uart base address
-	u8					Value;					// Sub menu value
-	u8					WaitForColorbar;
-} XHdmi_Menu;
+	/**
+	* The HDMI menu instance data.
+	*/
+	typedef struct {
+		XHdmi_MenuConfig 	Config;    				/**< HDMI menu configuration data */
+		XHdmi_MenuType 		CurrentMenu; 			/**< Current menu */
+		u32			 		UartBaseAddress;		// Uart base address
+		u8					Value;					// Sub menu value
+		u8					WaitForColorbar;
+	} XHdmi_Menu;
 
-/************************** Function Prototypes ******************************/
-void XHdmi_MenuInitialize(XHdmi_Menu *InstancePtr, u32 UartBaseAddress);
-void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr);
-void XHdmi_MenuReset(XHdmi_Menu *InstancePtr);
+	/************************** Function Prototypes ******************************/
+	void XHdmi_MenuInitialize(XHdmi_Menu *InstancePtr, u32 UartBaseAddress);
+	void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr);
+	void XHdmi_MenuReset(XHdmi_Menu *InstancePtr);
 
 #ifdef __cplusplus
 }

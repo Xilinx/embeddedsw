@@ -59,7 +59,7 @@ static inline void *metal_allocate_memory(unsigned int size);
  */
 static inline void metal_free_memory(void *ptr);
 
-#include "metal/system/@PROJECT_SYSTEM@/alloc.h"
+#include <metal/system/@PROJECT_SYSTEM@/alloc.h>
 
 /** @} */
 

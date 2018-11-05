@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2002 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xwdttb_l.h
-* @addtogroup wdttb_v4_0
+* @addtogroup wdttb_v4_3
 * @{
 *
 * This header file contains identifiers and basic driver functions (or
@@ -57,6 +57,7 @@
 * 4.0   sha  12/17/15 Added Window WDT feature with basic mode.
 *                     Removed extra include files.
 *                     Moved constant and macro definitions to xwdttb_hw.h file.
+* 4.3   srm  01/30/18 Added doxygen tags
 * </pre>
 *
 ******************************************************************************/

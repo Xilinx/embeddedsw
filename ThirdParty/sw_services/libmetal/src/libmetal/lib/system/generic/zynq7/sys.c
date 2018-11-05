@@ -30,17 +30,17 @@
  */
 
 /*
- * @file	generic/sys.c
+ * @file	generic/zynq7/sys.c
  * @brief	machine specific system primitives implementation.
  */
 
 #include <stdint.h>
 #include "xil_cache.h"
 #include "xil_mmu.h"
-#include "metal/io.h"
+#include <metal/io.h>
 #include "xscugic.h"
 #include "xil_exception.h"
-#include "metal/sys.h"
+#include <metal/sys.h>
 
 /* Each TTB descriptor covers a 1MB region */
 #define     ARM_AR_MEM_TTB_SECT_SIZE               1024*1024
@@ -48,6 +48,7 @@
 /* Mask off lower bits of addr */
 #define     ARM_AR_MEM_TTB_SECT_SIZE_MASK          (~(ARM_AR_MEM_TTB_SECT_SIZE-1UL))
 
+/* default value setting for disabling interrupts */
 static unsigned int int_old_val = XIL_EXCEPTION_ALL;
 
 void sys_irq_restore_enable(void)
@@ -57,19 +58,16 @@ void sys_irq_restore_enable(void)
 
 void sys_irq_save_disable(void)
 {
-	unsigned int value = 0;
+	int_old_val = mfcpsr() & XIL_EXCEPTION_ALL;
 
-	value = mfcpsr() & XIL_EXCEPTION_ALL;
-
-	if (value != int_old_val) {
+	if (XIL_EXCEPTION_ALL != int_old_val) {
 		Xil_ExceptionDisableMask(XIL_EXCEPTION_ALL);
-		int_old_val = value;
 	}
 }
 
 void metal_machine_cache_flush(void *addr, unsigned int len)
 {
-	if (!addr & !len)
+	if (!addr && !len)
 		Xil_DCacheFlush();
 	else
 		Xil_DCacheFlushRange((intptr_t)addr, len);
@@ -77,7 +75,7 @@ void metal_machine_cache_flush(void *addr, unsigned int len)
 
 void metal_machine_cache_invalidate(void *addr, unsigned int len)
 {
-	if (!addr & !len)
+	if (!addr && !len)
 		Xil_DCacheInvalidate();
 	else
 		Xil_DCacheInvalidateRange((intptr_t)addr, len);

@@ -5,7 +5,7 @@
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and#or sell
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
 #
@@ -29,7 +29,15 @@
 # this Software without prior written authorization from Xilinx.
 #
 ################################################################################
-
+###############################################################################
+#
+# Modification History
+# ver   who  Date     Changes
+# ----- ---- -------- ---------------------------------------------
+# 1.1   jsr  07/17/17 Created
+# 1.2   jsr  02/28/18 YUV420 support added
+#
+###############################################################################
 OPTION psf_version = 2.1;
 
 BEGIN driver v_sditx
@@ -37,6 +45,6 @@ BEGIN driver v_sditx
   OPTION driver_state = ACTIVE;
   OPTION DEPENDS = (video_common sdi_common);
   OPTION copyfiles = all;
-  OPTION VERSION = 1.1;
+  OPTION VERSION = 1.2;
   OPTION NAME = v_sditx;
 END driver

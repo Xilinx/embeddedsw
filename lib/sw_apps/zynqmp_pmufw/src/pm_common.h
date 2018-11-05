@@ -141,6 +141,10 @@ typedef u32 (*const PmTranHandler)(void);
 #define DEFAULT_POWER_RETENTION		50U
 #define DEFAULT_POWER_OFF		0U
 
+/* Type of boot cold vs warm boot */
+#define PM_COLD_BOOT	1U
+#define PM_WARM_BOOT	2U
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
@@ -154,6 +158,16 @@ typedef struct PmRegisterContext {
 	const u32 addr;
 	u32 value;
 } PmRegisterContext;
+
+/**
+ * PmMemorySection - Memory region that will be processed by PMUFW
+ * @startAddr        Start address of memory region
+ * @endAddr          End address of memory region
+ */
+typedef struct PmMemorySection {
+	const u32 startAddr;
+	const u32 endAddr;
+} PmMemorySection;
 
 /*********************************************************************
  * Function declarations

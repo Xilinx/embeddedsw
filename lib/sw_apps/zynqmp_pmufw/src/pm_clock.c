@@ -308,7 +308,7 @@ static PmClock pmClockDpStc = {
 	.ctrlVal = 0U,
 };
 
-static PmClock pmClockDdr = {
+static PmClock pmClockDdr __attribute__((__section__(".srdata"))) = {
 	.mux = &dvMux,
 	.ctrlAddr = CRF_APB_DDR_CTRL,
 	.pll = NULL,
@@ -356,7 +356,7 @@ static PmClock pmClockDpDma = {
 	.ctrlVal = 0U,
 };
 
-static PmClock pmClockTopSwMain = {
+static PmClock pmClockTopSwMain __attribute__((__section__(".srdata"))) = {
 	.mux = &avdMux,
 	.ctrlAddr = CRF_APB_TOPSW_MAIN_CTRL,
 	.pll = NULL,
@@ -364,7 +364,7 @@ static PmClock pmClockTopSwMain = {
 	.ctrlVal = 0U,
 };
 
-static PmClock pmClockTopSwLsBus = {
+static PmClock pmClockTopSwLsBus __attribute__((__section__(".srdata"))) = {
 	.mux = &aiodMux,
 	.ctrlAddr = CRF_APB_TOPSW_LSBUS_CTRL,
 	.pll = NULL,
@@ -834,11 +834,13 @@ static PmClockHandle pmClockHandles[] = {
 		.node = &pmSlaveUsb0_g.slv.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
+		.IsActiveClk = PmClockIsActiveUsb,
 	}, {
 		.clock = &pmClockUsb3Dual,
 		.node = &pmSlaveUsb1_g.slv.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
+		.IsActiveClk = PmClockIsActiveUsb,
 	}, {
 		.clock = &pmClockUsb0Bus,
 		.node = &pmSlaveUsb0_g.slv.node,
@@ -1033,6 +1035,14 @@ static PmClockHandle pmClockHandles[] = {
 		.IsActiveClk = NULL,
 	},
 };
+
+#ifdef ENABLE_POS
+static PmClock* pmDdrClocks [] = {
+	&pmClockDdr,
+	&pmClockTopSwMain,
+	&pmClockTopSwLsBus,
+};
+#endif
 
 #ifdef DEBUG_CLK
 /**
@@ -1421,23 +1431,19 @@ void PmClockRelease(PmNode* const node)
 {
 	PmClockHandle* ch = node->clocks;
 
-	if (0U == (NODE_LOCKED_CLOCK_FLAG & node->flags)) {
-		PmDbg(DEBUG_DETAILED,"Warning %s double release\r\n",
-				PmStrNode(node->nodeId));
-		goto done;
-	}
+	if (0U != (NODE_LOCKED_CLOCK_FLAG & node->flags)) {
 #ifdef DEBUG_CLK
-	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(node->nodeId));
+		PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(node->nodeId));
 #endif
-	while (NULL != ch) {
-		if (NULL != ch->clock->pll) {
-			PmPllRelease(ch->clock->pll);
+		while (NULL != ch) {
+			if (NULL != ch->clock->pll) {
+				PmPllRelease(ch->clock->pll);
+			}
+			ch = ch->nextClock;
 		}
-		ch = ch->nextClock;
+		node->flags &= ~NODE_LOCKED_CLOCK_FLAG;
 	}
-	node->flags &= ~NODE_LOCKED_CLOCK_FLAG;
 
-done:
 	return;
 }
 
@@ -1498,5 +1504,26 @@ void PmClockSnoop(const u32 addr, const u32 mask, const u32 val)
 done:
 	return;
 }
+
+#ifdef ENABLE_POS
+/**
+ * PmClockRestoreDdr() - Restore state of clocks related to DDR node
+ */
+void PmClockRestoreDdr()
+{
+	u32 i;
+
+	for (i = 0U; i < ARRAY_SIZE(pmDdrClocks); i++) {
+		u32 sel = pmDdrClocks[i]->ctrlVal & PM_CLOCK_MUX_SELECT_MASK;
+		PmPll* pll = PmClockGetParent(pmDdrClocks[i], sel);
+
+		if (&pmDpll_g == pll) {
+			PmPllRequest(pll);
+		}
+
+		XPfw_Write32(pmDdrClocks[i]->ctrlAddr, pmDdrClocks[i]->ctrlVal);
+	}
+}
+#endif
 
 #endif

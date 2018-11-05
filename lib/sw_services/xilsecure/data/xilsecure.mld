@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2013 - 2017 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,10 @@
 # 1.00a ba  06/01/15  Initial Release
 # 2.0   vns 11/28/16  Added support for PMU
 # 2.2   vns 07/06/16  Added doxygen tags
+# 3.0   vns 01/03/18  Modified boot image decryption API
+# 3.0   srm 02/16/18  Updated to pick up latest freertos port 10.0
+# 3.1   vns 04/04/18  Updated AES example
+#       vns 04/13/18  Added secure_environment user configurable parameter.
 #
 ##############################################################################
 
@@ -45,10 +49,11 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilsecure
   OPTION drc = secure_drc;
   OPTION copyfiles = all;
-  OPTION REQUIRES_OS = (standalone freertos901_xilinx);
+  OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
-  OPTION desc = "Xilinx Secure Library ";
-  OPTION VERSION = 2.2;
+  OPTION desc = "Xilinx Secure Library provides interface to AES, RSA and SHA hardware engines on ZynqMP Soc ";
+  OPTION VERSION = 3.1;
   OPTION NAME = xilsecure;
+  PARAM name = secure_environment, desc = "Enables trusted execution environment", type = bool, default = false;
 END LIBRARY

@@ -36,7 +36,7 @@ BEGIN driver usbpsu
   OPTION supported_peripherals = (psu_usb_xhci);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.3;
+  OPTION VERSION = 1.4;
   OPTION NAME = usbpsu;
 
 END driver

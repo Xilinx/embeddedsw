@@ -1,7 +1,7 @@
 var struct_x_axi_ethernet___config =
 [
     [ "Avb", "struct_x_axi_ethernet___config.html#a7413799b4caffd89c43aba985e5e79f9", null ],
-    [ "AxiDevBaseAddress", "struct_x_axi_ethernet___config.html#a444f9516f617d023dae367c84c989946", null ],
+    [ "AxiDevBaseAddress", "struct_x_axi_ethernet___config.html#a34b00c1ae0534cb0e956feb2a834e820", null ],
     [ "AxiDevType", "struct_x_axi_ethernet___config.html#a58df9c31ad87109bd294fb26a8af9630", null ],
     [ "AxiDmaRxIntr", "struct_x_axi_ethernet___config.html#abc5e20aa42c6e50b6ecf9a5d6a10871f", null ],
     [ "AxiDmaTxIntr", "struct_x_axi_ethernet___config.html#a8f3e9c24d55f2867bbc152922a645b9e", null ],
@@ -14,6 +14,7 @@ var struct_x_axi_ethernet___config =
     [ "Enable_1588", "struct_x_axi_ethernet___config.html#a2f7746d5503d4aa101cc463706466b3d", null ],
     [ "EnableSgmiiOverLvds", "struct_x_axi_ethernet___config.html#a4fabde2681b16e5d8b314d4d3eb8b496", null ],
     [ "ExtMcast", "struct_x_axi_ethernet___config.html#af57dac13f3ab7814f417d8fbc7863f10", null ],
+    [ "NumTableEntries", "struct_x_axi_ethernet___config.html#ac92d87d83045959a56323259f3faa5a8", null ],
     [ "PhyType", "struct_x_axi_ethernet___config.html#aa1e84825e2de8a79bed03619d6acecfa", null ],
     [ "RxCsum", "struct_x_axi_ethernet___config.html#add9dfe4169f1812e6a442507d33d8ad6", null ],
     [ "RxVlanStrp", "struct_x_axi_ethernet___config.html#a4e2b86637eb13ac65e7cbc42e6d5ad1a", null ],

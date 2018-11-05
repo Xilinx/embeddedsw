@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,9 @@
 *						  read counter value directly from register instead
 *						  of calling XTime_GetTime for optimization
 * 6.0   mus      08/18/16 Updated the sleep signature. Fix for CR#956899
+* 6.6	srm      10/18/17 Updated sleep routines to support user configurable
+*			  implementation. Now sleep routines will use Timer
+*                         specified by the user (i.e. Global timer/TTC timer)
 * </pre>
 *
 ******************************************************************************/
@@ -58,6 +61,10 @@
 #include "sleep.h"
 #include "xtime_l.h"
 #include "xparameters.h"
+
+#if defined (SLEEP_TIMER_BASEADDR)
+#include "xil_sleeptimer.h"
+#endif
 
 /*****************************************************************************/
 /*
@@ -71,8 +78,11 @@
 * @note		None.
 *
 ****************************************************************************/
-unsigned sleep(unsigned int seconds)
+unsigned sleep_A53(unsigned int seconds)
 {
+#if defined (SLEEP_TIMER_BASEADDR)
+	Xil_SleepTTCCommon(seconds, COUNTS_PER_SECOND);
+#else
 	XTime tEnd, tCur;
 	/* Start global timer counter, it will only be enabled if it is disabled */
 	XTime_StartTimer();
@@ -83,6 +93,7 @@ unsigned sleep(unsigned int seconds)
 	{
 		tCur = arch_counter_get_cntvct();
 	} while (tCur < tEnd);
+#endif
 
 	return 0;
 }

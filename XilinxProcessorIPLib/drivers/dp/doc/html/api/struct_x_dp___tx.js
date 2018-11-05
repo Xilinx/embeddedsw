@@ -10,6 +10,7 @@ var struct_x_dp___tx =
     [ "HpdEventHandler", "struct_x_dp___tx.html#a125ec94156c49cb1dc044e659a9330c0", null ],
     [ "HpdPulseCallbackRef", "struct_x_dp___tx.html#a9086287beb7db669c163b82d01cdb81e", null ],
     [ "HpdPulseHandler", "struct_x_dp___tx.html#aa2eb7b2c9c1e6c648e0701a36dcf048e", null ],
+    [ "IsTps4Supported", "struct_x_dp___tx.html#ab67d8575fd4ff300dfba70cb45f85b19", null ],
     [ "LaneCountChangeCallbackRef", "struct_x_dp___tx.html#aa5c929dc480a56cf29d113fa8334a205", null ],
     [ "LinkConfig", "struct_x_dp___tx.html#ae63e057dfdae91215b4361fe98e0600d", null ],
     [ "LinkRateChangeCallback", "struct_x_dp___tx.html#a8a3348526228e93fea000605d61956e4", null ],

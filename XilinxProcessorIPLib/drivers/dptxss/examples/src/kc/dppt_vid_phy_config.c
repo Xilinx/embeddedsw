@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -53,6 +53,11 @@
 #include "xvphy.h"
 #include "xspi.h"
 #include "dppt_vid_phy_config.h"
+
+int PLL_init_Seting(XSpi *SPI_LMK04906);
+void CLK135MHz_Out (XSpi *SPI_LMK04906 , u32 CLKout_Num);
+void CLK162MHz_Out (XSpi *SPI_LMK04906 , u32 CLKout_Num);
+void LMK04906_init(XSpi *SPI_LMK04906);
 
 	XSpi SPI_LMK04906;  /* SPI Device Point*/
 void lmk() {
@@ -147,7 +152,7 @@ u32 PHY_Configuration_Rx(XVphy *InstancePtr,
 	XVphy_PllRefClkSelType CpllRefClkSel;
 	XVphy_PllType TxPllSelect;
 	XVphy_PllType RxPllSelect;
-	XVphy_ChannelId TxChId;
+//	XVphy_ChannelId TxChId;
 	XVphy_ChannelId RxChId;
 	u8 QuadId = 0;
 	u32 Status;
@@ -156,7 +161,7 @@ u32 PHY_Configuration_Rx(XVphy *InstancePtr,
 	CpllRefClkSel   = PHY_User_Config_Table.CPLLRefClkSrc;
 	TxPllSelect     = PHY_User_Config_Table.TxPLL;
 	RxPllSelect     = PHY_User_Config_Table.RxPLL;
-	TxChId          = PHY_User_Config_Table.TxChId;
+//	TxChId          = PHY_User_Config_Table.TxChId;
 	RxChId          = PHY_User_Config_Table.RxChId;
 
 	//Set the Ref Clock Frequency
@@ -197,41 +202,43 @@ void Dppt_Tx_SetRefClocks(u8 DPLinkRate_Value, u8 is_TX_CPLL)
 
 void Two_byte_set (XVphy *InstancePtr, u8 Tx_to_two_byte, u8 Rx_to_two_byte)
 {
-        u32 DrpVal;
+        u16 DrpVal;
         u32 WriteVal;
+        u32 Status;
 
         // Modifying TX data width to 2 byte
         if (Tx_to_two_byte == 1) {
-                DrpVal = XVphy_DrpRead(InstancePtr, 0,
-								XVPHY_CHANNEL_ID_CH1, 0x6B);
+				Status = XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
+						0x6B, &DrpVal);
                 DrpVal &= ~0x17;
                 WriteVal = 0x0;
                 WriteVal = DrpVal | 0x3;
-                XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
+				Status = XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
 						0x6B, WriteVal);
-                XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
+				Status += XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
 						0x6B, WriteVal);
-                XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
+				Status += XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
 						0x6B, WriteVal);
-                XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
+				Status += XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
 						0x6B, WriteVal);
+				if(Status == 0)
                 xil_printf ("TX GT Channel put in 2 byte mode\r\n");
         }
 
         // Modifying RX data width to 2 byte
         if (Rx_to_two_byte == 1) {
-                DrpVal = XVphy_DrpRead(InstancePtr, 0,
-								XVPHY_CHANNEL_ID_CH1, 0x11);
+				Status = XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
+					0x11, &DrpVal);
                 DrpVal &= ~0x7800;
                 WriteVal = 0x0;
                 WriteVal = DrpVal | 0x1800;
-                XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
+				Status = XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
 						0x11, WriteVal);
-                XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
+				Status = XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
 						0x11, WriteVal);
-                XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
+				Status = XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
 						0x11, WriteVal);
-                XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
+				Status = XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
 						0x11, WriteVal);
                 xil_printf ("RX GT Channel put in 2 byte mode\r\n");
         }

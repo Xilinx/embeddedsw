@@ -419,10 +419,17 @@ struct rpmsg_endpoint *rpmsg_create_ept(struct rpmsg_channel *rp_chnl,
 
 	rdev = rp_chnl->rdev;
 
-	rp_ept = _create_endpoint(rdev, cb, priv, addr);
+	metal_mutex_acquire(&rdev->lock);
+	rp_ept = rpmsg_rdev_get_endpoint_from_addr(rdev, addr);
+	metal_mutex_release(&rdev->lock);
+	if (!rp_ept) {
+		rp_ept = _create_endpoint(rdev, cb, priv, addr);
 
-	if (rp_ept) {
-		rp_ept->rp_chnl = rp_chnl;
+		if (rp_ept) {
+			rp_ept->rp_chnl = rp_chnl;
+		}
+	} else {
+		return RPMSG_NULL;
 	}
 
 	return rp_ept;

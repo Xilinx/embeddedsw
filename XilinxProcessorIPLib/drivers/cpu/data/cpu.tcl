@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2004 - 2016 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,10 @@
 ## 2.5     asa 04/20/16 Fix for CR#947179. While populating the CPU_CORE_FREQ first
 ##                      look for "Clk" pin and if not found use the CONFIG param
 ##                      C_FREQ for microblaze to populate the CPU_CORE_FREQ_HZ.
+## 2.7     vns 04/13/18 Modified post_generate proc to post_generate_final
+## 2.7     mus 04/17/18 Updated the generate proc to add HW parameter based compiler
+##                      flags for microblaze. Till now this setting was being done by
+##                      HSI.
 # uses xillib.tcl
 
 ########################################
@@ -283,39 +287,77 @@ proc generate {drv_handle} {
         }
         cd $pwd
     }
+
+    # Setup the compiler flags as per HW Params
+    set endian [common::get_property CONFIG.C_ENDIANNESS $periph]
+    set shift [common::get_property CONFIG.C_USE_BARREL $periph]
+    set pcmp [common::get_property CONFIG.C_USE_PCMP_INSTR $periph]
+
+    set vlnv_string [common::get_property VLNV $periph]
+    set cpu_version [lindex [lreverse [split $vlnv_string :]] 0]
+
+    set compiler_flags ""
+
+    if {[string compare -nocase "1" $endian] == 0 } {
+		append compiler_flags " -mlittle-endian"
+    }
+
+    if {[string compare -nocase "1" $shift] == 0 } {
+    	append compiler_flags " -mxl-barrel-shift"
+    }
+
+    if {[string compare -nocase "1" $pcmp] == 0 } {
+    	append compiler_flags " -mxl-pattern-compare"
+    }
+
+    if {[string compare "psu_pmu" $proctype] == 0} {
+    	set multiply [common::get_property CONFIG.C_USE_HW_MUL $periph]
+	if {[string compare -nocase "0" $multiply] == 0 } {
+		append compiler_flags " -mxl-soft-mul"
+	}
+    } elseif {[string compare "microblaze" $proctype] == 0 } {
+	set hwmul [common::get_property CONFIG.C_USE_HW_MUL $periph]
+	set reorder [common::get_property CONFIG.C_USE_REORDER_INSTR $periph]
+	set hard_float [common::get_property CONFIG.C_USE_FPU $periph]
+	set hard_div [common::get_property CONFIG.C_USE_DIV $periph]
+	set freq_opt [common::get_property CONFIG.C_AREA_OPTIMIZED $periph]
+
+	if {[string compare -nocase "1" $hwmul] == 0 || [string compare -nocase "2" $hwmul] == 0} {
+		append compiler_flags " -mno-xl-soft-mul"
+	} else {
+		append compiler_flags " -mxl-soft-mul"
+	}
+	if {[string compare -nocase "2" $hwmul] == 0} {
+		append compiler_flags " -mxl-multiply-high"
+	}
+
+	if {[string compare -nocase "0" $reorder] == 0 } {
+		append compiler_flags " -mno-xl-reorder"
+	}
+
+	if {[string compare -nocase "1" $hard_float] == 0 } {
+		append compiler_flags " -mhard-float"
+	} elseif {[string compare -nocase "2" $hard_float] == 0} {
+		append compiler_flags " -mhard-float -mxl-float-convert -mxl-float-sqrt"
+	}
+
+	if {[string compare -nocase "1" $hard_div] == 0 } {
+		append compiler_flags " -mno-xl-soft-div"
+	}
+
+	if {[string compare -nocase "2" $freq_opt] == 0 } {
+		append compiler_flags " -mxl-frequency"
+	}
+    }
+    append compiler_flags " -mcpu=v" $cpu_version
+
+    common::set_property CONFIG.compiler_flags $compiler_flags $drv_handle
+
 	#------------------------------------------------------------------------------
 	# If the processor is PMU Microblaze, then generate required params and return
 	# We dont need the Parameters being generated after this code block
 	#------------------------------------------------------------------------------
 	if {[string compare "psu_pmu" $proctype] == 0} {
-
-		# Setup the compiler flags as per HW Params
-		set endian [common::get_property CONFIG.C_ENDIANNESS $periph]
-		set shift [common::get_property CONFIG.C_USE_BARREL $periph]
-		set pcmp [common::get_property CONFIG.C_USE_PCMP_INSTR $periph]
-		set multiply [common::get_property CONFIG.C_USE_HW_MUL $periph]
-
-		set vlnv_string [common::get_property VLNV $periph]
-		set cpu_version [lindex [lreverse [split $vlnv_string :]] 0]
-
-		set compiler_flags ""
-
-		if {[string compare -nocase "1" $endian] == 0 } {
-			append compiler_flags " -mlittle-endian"
-		}
-		if {[string compare -nocase "1" $shift] == 0 } {
-			append compiler_flags " -mxl-barrel-shift"
-		}
-		if {[string compare -nocase "1" $pcmp] == 0 } {
-			append compiler_flags " -mxl-pattern-compare"
-		}
-		if {[string compare -nocase "0" $multiply] == 0 } {
-			append compiler_flags " -mxl-soft-mul"
-		}
-
-		append compiler_flags " -mcpu=v" $cpu_version
-
-		common::set_property CONFIG.compiler_flags $compiler_flags $drv_handle
 
 		# Generate the Parameters
 		set file_handle [::hsi::utils::open_include_file "xparameters.h"]
@@ -479,7 +521,7 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
     close $file_handle
 }
 
-proc post_generate {drv_handle} {
+proc post_generate_final {drv_handle} {
 
 	set type [get_property CLASS $drv_handle]
 	if {[string equal $type "driver"]} {

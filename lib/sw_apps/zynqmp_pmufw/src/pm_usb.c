@@ -154,12 +154,12 @@ static PmWakeEventGicProxy pmUsb0Wake = {
 		.derived = &pmUsb0Wake,
 		.class = &pmWakeEventClassGicProxy_g,
 	},
-	.mask = LPD_SLCR_GICP2_IRQ_MASK_SRC10_MASK |
+	.mask = LPD_SLCR_GICP2_IRQ_MASK_SRC11_MASK |
+		LPD_SLCR_GICP2_IRQ_MASK_SRC5_MASK |
 		LPD_SLCR_GICP2_IRQ_MASK_SRC4_MASK |
 		LPD_SLCR_GICP2_IRQ_MASK_SRC3_MASK |
 		LPD_SLCR_GICP2_IRQ_MASK_SRC2_MASK |
-		LPD_SLCR_GICP2_IRQ_MASK_SRC1_MASK |
-		LPD_SLCR_GICP2_IRQ_MASK_SRC0_MASK,
+		LPD_SLCR_GICP2_IRQ_MASK_SRC1_MASK,
 	.group = 2U,
 };
 
@@ -199,7 +199,18 @@ done:
  */
 static u32 PmPowerDownUsb0(void)
 {
-	XPfw_AibEnable(XPFW_AIB_LPD_TO_USB0);
+	if (XPfw_AibEnable(XPFW_AIB_LPD_TO_USB0) != XST_SUCCESS) {
+		PmDbg(DEBUG_DETAILED,
+				"Warning: Failed to Enable AIB isolation LPD to USB0\r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_USB0, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
+					"for LPD to USB0 isolation");
+		}
+	}
+
 	return XpbrPwrDnUsb0Handler();
 }
 
@@ -232,12 +243,12 @@ static PmWakeEventGicProxy pmUsb1Wake = {
 		.derived = &pmUsb1Wake,
 		.class = &pmWakeEventClassGicProxy_g,
 	},
-	.mask = LPD_SLCR_GICP2_IRQ_MASK_SRC11_MASK |
+	.mask = LPD_SLCR_GICP2_IRQ_MASK_SRC12_MASK |
+		LPD_SLCR_GICP2_IRQ_MASK_SRC10_MASK |
 		LPD_SLCR_GICP2_IRQ_MASK_SRC9_MASK |
 		LPD_SLCR_GICP2_IRQ_MASK_SRC8_MASK |
 		LPD_SLCR_GICP2_IRQ_MASK_SRC7_MASK |
-		LPD_SLCR_GICP2_IRQ_MASK_SRC6_MASK |
-		LPD_SLCR_GICP2_IRQ_MASK_SRC5_MASK,
+		LPD_SLCR_GICP2_IRQ_MASK_SRC6_MASK,
 	.group = 2U,
 };
 
@@ -271,7 +282,18 @@ done:
  */
 static u32 PmPowerDownUsb1(void)
 {
-	XPfw_AibEnable(XPFW_AIB_LPD_TO_USB1);
+	if (XPfw_AibEnable(XPFW_AIB_LPD_TO_USB1) != XST_SUCCESS) {
+		PmDbg(DEBUG_DETAILED,
+				"Warning: Failed to Enable AIB isolation LPD to USB1\r\n");
+	} else {
+		/* Check if AIB isolation is enabled */
+		if (XPfw_AibPollForAck(XPFW_AIB_LPD_TO_USB1, AIB_ACK_TIMEOUT)
+				!= XST_SUCCESS) {
+			PmDbg(DEBUG_DETAILED, "Warning: Failed to receive acknowledgment "
+					"for LPD to USB1 isolation");
+		}
+	}
+
 	return XpbrPwrDnUsb1Handler();
 }
 

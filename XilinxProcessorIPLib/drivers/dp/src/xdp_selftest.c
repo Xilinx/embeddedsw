@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp_selftest.c
- * @addtogroup dp_v6_0
+ * @addtogroup dp_v7_0
  * @{
  *
  * This file contains a diagnostic self-test function for the XDp driver. It
@@ -60,11 +60,16 @@
 
 /**************************** Function Prototypes *****************************/
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 static u32 XDp_TxSelfTest(XDp *InstancePtr);
+#endif
+#if XPAR_XDPRXSS_NUM_INSTANCES
 static u32 XDp_RxSelfTest(XDp *InstancePtr);
+#endif
 
 /**************************** Variable Definitions ****************************/
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /**
  * This table contains the default values for the DisplayPort TX core's general
  * usage registers.
@@ -102,7 +107,9 @@ u32 TxResetValuesMsa[20][2] =
 	{XDP_TX_FRAC_BYTES_PER_TU, 0},
 	{XDP_TX_INIT_WAIT, 32}
 };
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
+#if XPAR_XDPRXSS_NUM_INSTANCES
 /**
  * This table contains the default values for the DisplayPort RX core's general
  * usage registers.
@@ -112,6 +119,7 @@ u32 RxResetValues[2][2] =
 	{XDP_RX_VERSION, 0x07000000},
 	{XDP_RX_CORE_ID, 0x01020A01}
 };
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 /**************************** Function Definitions ****************************/
 
@@ -139,16 +147,24 @@ u32 XDp_SelfTest(XDp *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
 		Status = XDp_TxSelfTest(InstancePtr);
-	}
-	else {
+	} else
+#endif
+#if XPAR_XDPRXSS_NUM_INSTANCES
+	if (XDp_GetCoreType(InstancePtr) == XDP_RX)	{
 		Status = XDp_RxSelfTest(InstancePtr);
+	} else
+#endif
+	{
+		Status = XST_DEVICE_NOT_FOUND;
 	}
 
 	return Status;
 }
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function runs a self-test on the XDp driver/device. The sanity test
@@ -211,7 +227,9 @@ static u32 XDp_TxSelfTest(XDp *InstancePtr)
 	/* All tested registers hold their default reset values. */
 	return XST_SUCCESS;
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
+#if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function runs a self-test on the XDp driver/device running in RX mode.
@@ -246,4 +264,5 @@ static u32 XDp_RxSelfTest(XDp *InstancePtr)
 	/* All tested registers hold their default reset values. */
 	return XST_SUCCESS;
 }
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 /** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2002 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xwdttb_selftest.c
-* @addtogroup wdttb_v4_0
+* @addtogroup wdttb_v4_3
 * @{
 *
 * Contains diagnostic self-test functions for the XWdtTb component.
@@ -54,6 +54,7 @@
 *                     Adherence to MISRA-C guidelines.
 * 4.0   sha  01/29/16 Added following macros for Window WDT feature:
 *                     XWT_FW_COUNT, XWT_SW_COUNT.
+* 4.3   srm  01/30/18 Added doxygen tags
 * </pre>
 *
 ******************************************************************************/

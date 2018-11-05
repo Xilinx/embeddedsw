@@ -6,5 +6,6 @@ var struct_x_v_mix___layer_intf_type =
     [ "Layer4IntfType", "struct_x_v_mix___layer_intf_type.html#acfee5b65be0e62c477d36b3a9b22fbe0", null ],
     [ "Layer5IntfType", "struct_x_v_mix___layer_intf_type.html#a8365e5d908c3c902473e8a0240567bcc", null ],
     [ "Layer6IntfType", "struct_x_v_mix___layer_intf_type.html#afb6bbdc52f61a81ec7c04b4a9ace05e0", null ],
-    [ "Layer7IntfType", "struct_x_v_mix___layer_intf_type.html#ad514494528aa0ecddee6f85e676e397e", null ]
+    [ "Layer7IntfType", "struct_x_v_mix___layer_intf_type.html#ad514494528aa0ecddee6f85e676e397e", null ],
+    [ "Layer8IntfType", "struct_x_v_mix___layer_intf_type.html#a2d6f823f207d88bf0631940a59e1f63a", null ]
 ];

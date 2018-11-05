@@ -86,10 +86,27 @@
 *       MH     09/08/17 Added function XV_HdmiTxSs_HdcpSetCapability
 *              22/08/17 Added function XV_HdmiTxSs_SetAudioFormat
 *       EB     10/10/17 Added function XV_HdmiTxSs_GetAudioFormat
+* 5.0   YH     16/01/18 Added dedicated reset for each clock domain
+*                       Added bridge unlock interrupt
+*                       Added PIO_OUT to set GCP_AVMUTE
+*       EB     17/01/18 Added InfoFrame data structure to XV_HdmiTxSs
+*                       Added XV_HDMITXSS_LOG_EVT_PIX_REPEAT_ERR log event
+*                       Added functions XV_HdmiTxSs_GetAuxiliary,
+*                             XV_HdmiTxSs_GetAviInfoframe,
+*                             XV_HdmiTxSs_GetAudioInfoframe,
+*                             XV_HdmiTxSs_GetVSIF
+*                       Updated the return type of the function
+*                             XV_HdmiTxSs_SendGenericAuxInfoframe
+*       EB     23/01/18 Added function
+*                           XV_HdmiTxSs_SetVideoStreamHdmi14ScramblingOverrideFlag
+*              25/01/18 Added function XV_HdmiTxSs_SetScrambler
+*       mmo    08/02/18 Added LowResolutionSupp & YUV420Supp in the
+*                             XV_HdmiTxSs_Config
+*       SM     28/02/18 Added XV_HdmiTxSS_SetAppVersion API and AppMajVer and
+*                           AppMinVer version number in XV_HdmiTxSs structure
 * </pre>
 *
 ******************************************************************************/
-
 #ifndef HDMITXSS_H /**< prevent circular inclusions by using protection macros*/
 #define HDMITXSS_H
 
@@ -100,6 +117,8 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xstatus.h"
 #include "xvidc.h"
+#include "xv_hdmic.h"
+#include "xv_hdmic_vsif.h"
 #include "xvidc_edid.h"
 #include "xv_hdmitx.h"
 #include "xvtc.h"
@@ -127,6 +146,10 @@ extern "C" {
 
 
 /****************************** Type Definitions ******************************/
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
 /**
  * This typedef contains the different background colors available
  */
@@ -169,6 +192,10 @@ typedef enum {
 	XV_HDMITXSS_LOG_EVT_SETSTREAM,   /**< Log event HDMITXSS Setstream. */
 	XV_HDMITXSS_LOG_EVT_HDCP14_AUTHREQ,   /**< Log event HDCP 1.4 AuthReq. */
 	XV_HDMITXSS_LOG_EVT_HDCP22_AUTHREQ,   /**< Log event HDCP 2.2 AuthReq. */
+	XV_HDMITXSS_LOG_EVT_PIX_REPEAT_ERR,	/**< Log event Unsupported Pixel
+											 Repetition. */
+	XV_HDMITXSS_LOG_EVT_VTC_RES_ERR,	/**< Log event Resolution Unsupported
+											 by VTC. */
 	XV_HDMITXSS_LOG_EVT_DUMMY		/**< Dummy Event should be last */
 } XV_HdmiTxSs_LogEvent;
 
@@ -176,11 +203,11 @@ typedef enum {
  * This typedef contains the logging mechanism for debug.
  */
 typedef struct {
-	u16 DataBuffer[256];		/**< Log buffer with event data. */
-	u8 HeadIndex;			    /**< Index of the head entry of the
-						             Event/DataBuffer. */
-	u8 TailIndex;			    /**< Index of the tail entry of the
-						             Event/DataBuffer. */
+    u16 DataBuffer[256];        /**< Log buffer with event data. */
+    u8 HeadIndex;               /**< Index of the head entry of the
+                                     Event/DataBuffer. */
+    u8 TailIndex;               /**< Index of the tail entry of the
+                                     Event/DataBuffer. */
 } XV_HdmiTxSs_Log;
 #endif
 
@@ -258,6 +285,9 @@ typedef enum {
                                                             connect event */
     XV_HDMITXSS_HANDLER_TOGGLE,                            /**< Handler for
                                                             toggle event */
+    XV_HDMITXSS_HANDLER_BRDGUNLOCK,                        /**< Handler for
+                                                            bridge unlocked
+															event */
     XV_HDMITXSS_HANDLER_VS,                                /**< Handler for
                                                             vsync event */
     XV_HDMITXSS_HANDLER_STREAM_DOWN,                       /**< Handler for
@@ -305,6 +335,8 @@ typedef struct
                                            range */
     XVidC_PixelsPerClock Ppc;         /**< Supported Pixel per Clock */
     u8 MaxBitsPerPixel;               /**< Maximum  Supported Color Depth */
+	u8 LowResolutionSupp;
+	u8 YUV420Supp;
     u32 AxiLiteClkFreq;               /**< AXI Lite Clock Frequency in Hz */
     XV_HdmiTxSs_SubCore HdcpTimer;    /**< Sub-core instance configuration */
     XV_HdmiTxSs_SubCore Hdcp14;       /**< Sub-core instance configuration */
@@ -336,6 +368,8 @@ typedef struct
 {
     XV_HdmiTxSs_Config Config;  /**< Hardware configuration */
     u32 IsReady;         /**< Device and the driver instance are initialized */
+    u8 AppMajVer;       /**< Major Version of application used by the driver */
+    u8 AppMinVer;       /**< Minor Version of application used by the driver */
 
 #ifdef XV_HDMITXSS_LOG_ENABLE
     XV_HdmiTxSs_Log Log;                /**< A log of events. */
@@ -359,6 +393,11 @@ typedef struct
     void *ToggleRef;                     /**< To be passed to the toggle
                                               callback */
 
+    XV_HdmiTxSs_Callback BrdgUnlockedCallback; /**< Callback for Bridge UnLocked
+                                                  event interrupt */
+    void *BrdgUnlockedRef;                  /**< To be passed to the Bridge
+                                              Unlocked interrupt callback */
+
     XV_HdmiTxSs_Callback VsCallback; /**< Callback for Vsync event */
     void *VsRef;                   /**< To be passed to the Vsync callback */
 
@@ -376,6 +415,10 @@ typedef struct
     u8 AudioEnabled;              /**< HDMI TX Audio Enabled */
     u8 AudioMute;                 /**< HDMI TX Audio Mute */
     u8 AudioChannels;             /**< Number of Audio Channels */
+
+	XHdmiC_AVI_InfoFrame AVIInfoframe;		/**< AVI InfoFrame */
+	XHdmiC_AudioInfoFrame AudioInfoframe;	/**< Audio InfoFrame */
+	XHdmiC_VSIF VSIF;						/**< Vendor Specific InfoFrame */
 
     XV_HdmiTxSs_HdcpProtocol    HdcpProtocol;    /**< HDCP protocol selected */
 #ifdef USE_HDCP_TX
@@ -408,9 +451,20 @@ void XV_HdmiTxSS_HdmiTxIntrHandler(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_CfgInitialize(XV_HdmiTxSs *InstancePtr,
     XV_HdmiTxSs_Config *CfgPtr,
     UINTPTR EffectiveAddr);
+void XV_HdmiTxSS_SetAppVersion(XV_HdmiTxSs *InstancePtr, u8 maj, u8 min);
 void XV_HdmiTxSs_Start(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_Stop(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_Reset(XV_HdmiTxSs *InstancePtr);
+
+void XV_HdmiTxSs_TXCore_VRST(XV_HdmiTxSs *InstancePtr, u8 Reset);
+void XV_HdmiTxSs_TXCore_LRST(XV_HdmiTxSs *InstancePtr, u8 Reset);
+void XV_HdmiTxSs_VRST(XV_HdmiTxSs *InstancePtr, u8 Reset);
+void XV_HdmiTxSs_SYSRST(XV_HdmiTxSs *InstancePtr, u8 Reset);
+void XV_HdmiTxSs_SetGcpAvmuteBit(XV_HdmiTxSs *InstancePtr);
+void XV_HdmiTxSs_ClearGcpAvmuteBit(XV_HdmiTxSs *InstancePtr);
+void XV_HdmiTxSs_SetGcpClearAvmuteBit(XV_HdmiTxSs *InstancePtr);
+void XV_HdmiTxSs_ClearGcpClearAvmuteBit(XV_HdmiTxSs *InstancePtr);
+
 int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
     u32 HandlerType,
     void *CallbackFuncPtr,
@@ -418,14 +472,19 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
 int XV_HdmiTxSs_ReadEdid(XV_HdmiTxSs *InstancePtr, u8 *BufferPtr);
 int XV_HdmiTxSs_ReadEdidSegment(XV_HdmiTxSs *InstancePtr, u8 *Buffer, u8 segment);
 void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr);
+void XV_HdmiTxSs_SetScrambler(XV_HdmiTxSs *InstancePtr, u8 Enable);
 void XV_HdmiTxSs_StreamStart(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_SendAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *AuxPtr);
-void XV_HdmiTxSs_SendGenericAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *AuxPtr);
+u32 XV_HdmiTxSs_SendGenericAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *AuxPtr);
 void XV_HdmiTxSs_SetAudioChannels(XV_HdmiTxSs *InstancePtr, u8 AudioChannels);
 void XV_HdmiTxSs_AudioMute(XV_HdmiTxSs *InstancePtr, u8 Enable);
-void XV_HdmiTxSs_SetAudioFormat(XV_HdmiTxSs *InstancePtr, 
+void XV_HdmiTxSs_SetAudioFormat(XV_HdmiTxSs *InstancePtr,
     XV_HdmiTx_AudioFormatType format);
 XV_HdmiTx_AudioFormatType XV_HdmiTxSs_GetAudioFormat(XV_HdmiTxSs *InstancePtr);
+XHdmiC_Aux *XV_HdmiTxSs_GetAuxiliary(XV_HdmiTxSs *InstancePtr);
+XHdmiC_AVI_InfoFrame *XV_HdmiTxSs_GetAviInfoframe(XV_HdmiTxSs *InstancePtr);
+XHdmiC_AudioInfoFrame *XV_HdmiTxSs_GetAudioInfoframe(XV_HdmiTxSs *InstancePtr);
+XHdmiC_VSIF *XV_HdmiTxSs_GetVSIF(XV_HdmiTxSs *InstancePtr);
 u32 XV_HdmiTxSs_SetStream(XV_HdmiTxSs *InstancePtr,
     XVidC_VideoMode VideoMode,
     XVidC_ColorFormat ColorFormat,
@@ -439,6 +498,8 @@ void XV_HdmiTxSs_SetVideoIDCode(XV_HdmiTxSs *InstancePtr, u8 Vic);
 void XV_HdmiTxSs_SetVideoStreamType(XV_HdmiTxSs *InstancePtr, u8 StreamType);
 void XV_HdmiTxSs_SetVideoStreamScramblingFlag(XV_HdmiTxSs *InstancePtr,
                                                             u8 IsScrambled);
+void XV_HdmiTxSs_SetVideoStreamScramblingOverrideFlag(XV_HdmiTxSs *InstancePtr,
+														u8 OverrideScramble);
 void XV_HdmiTxSs_SetTmdsClockRatio(XV_HdmiTxSs *InstancePtr, u8 Ratio);
 u32 XV_HdmiTxSs_GetTmdsClockFreqHz(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_DetectHdmi20(XV_HdmiTxSs *InstancePtr);

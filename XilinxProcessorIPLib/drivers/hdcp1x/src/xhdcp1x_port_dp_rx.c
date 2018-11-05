@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_port_dp_rx.c
-* @addtogroup hdcp1x_v4_0
+* @addtogroup hdcp1x_v4_2
 * @{
 *
 * This contains the implementation of the HDCP port driver for Xilinx DP
@@ -153,12 +153,12 @@ static int XHdcp1x_PortDpRxEnable(XHdcp1x *InstancePtr)
 	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_DBG, Buf, 4);
 
 	/* Register callbacks */
-	XDp_RxSetIntrHdcpAksvWriteHandler(HwDp,
+	XDp_RxSetCallback(HwDp, XDP_RX_HANDLER_HDCP_AKSV,
 		&XHdcp1x_PortDpRxProcessAKsvWrite, InstancePtr);
-	XDp_RxSetIntrHdcpBinfoReadHandler(HwDp,
+	XDp_RxSetCallback(HwDp, XDP_RX_HANDLER_HDCP_BINFO,
 		&XHdcp1x_PortDpRxProcessBinfoRead, InstancePtr);
-	XDp_RxSetIntrHdcpRoReadHandler(HwDp,
-		&XHdcp1x_PortDpRxProcessRoRead,	InstancePtr);
+	XDp_RxSetCallback(HwDp, XDP_RX_HANDLER_HDCP_RO,
+		&XHdcp1x_PortDpRxProcessRoRead, InstancePtr);
 
 	/* Enable interrupts */
 	IntMask  = XDP_RX_INTERRUPT_MASK_HDCP_AKSV_WRITE_MASK;

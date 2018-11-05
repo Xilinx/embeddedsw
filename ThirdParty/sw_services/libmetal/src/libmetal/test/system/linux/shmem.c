@@ -29,11 +29,11 @@
  */
 
 #include "metal-test.h"
-#include "metal/log.h"
-#include "metal/mutex.h"
-#include "metal/shmem.h"
-#include "metal/sys.h"
-#include "metal/atomic.h"
+#include <metal/log.h>
+#include <metal/mutex.h>
+#include <metal/shmem.h>
+#include <metal/sys.h>
+#include <metal/atomic.h>
 
 static atomic_int nb_err = ATOMIC_VAR_INIT(0);
 

@@ -1,45 +1,36 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
 *
-* This file contains confidential and proprietary information  of Xilinx, Inc.
-* and is protected under U.S. and  international copyright and other
-* intellectual property  laws.
 *
-* DISCLAIMER
-* This disclaimer is not a license and does not grant any  rights to the
-* materials distributed herewith. Except as  otherwise provided in a valid
-* license issued to you by  Xilinx, and to the maximum extent permitted by
-* applicable law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND  WITH ALL
-* FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES  AND CONDITIONS, EXPRESS,
-* IMPLIED, OR STATUTORY, INCLUDING  BUT NOT LIMITED TO WARRANTIES OF
-* MERCHANTABILITY, NON-  INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE;
-* and
-* (2) Xilinx shall not be liable (whether in contract or tort,  including
-* negligence, or under any other theory of liability) for any loss or damage
-* of any kind or nature  related to, arising under or in connection with these
-* materials, including for any direct, or any indirect,  special, incidental,
-* or consequential loss or damage  (including loss of data, profits,
-* goodwill, or any type of  loss or damage suffered as a result of any
-* action brought  by a third party) even if such damage or loss was
-* reasonably foreseeable or Xilinx had been advised of the  possibility
-* of the same.
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
 *
-* CRITICAL APPLICATIONS
-* Xilinx products are not designed or intended to be fail-  safe, or for use
-* in any application requiring fail-safe  performance, such as life-support
-* or safety devices or  systems, Class III medical devices, nuclear
-* facilities,  applications related to the deployment of airbags, or any
-* other applications that could lead to death, personal  injury, or severe
-* property or environmental damage  (individually and collectively,
-* "Critical  Applications"). Customer assumes the sole risk and  liability
-* of any use of Xilinx products in Critical  Applications, subject only to
-* applicable laws and  regulations governing limitations on product liability.
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
 *
-* THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS  PART
-* OF THIS FILE AT ALL TIMES.
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
 *
-******************************************************************************/
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
+*
+
+*******************************************************************************/
 /*****************************************************************************/
 /**
 *
@@ -81,6 +72,13 @@
 * 1.6	tjs 10/16/17 #ifdef COMMENT replaced with the flow similar to
 *                    u-boot and linux for accessing flash parts with
 *                    size more then 16MB (CR-984966)
+* 1.7   tjs 11/16/17 Removed the unsupported 4 Byte write and sector erase
+*                    commands.
+* 1.7	tjs	12/01/17 Added support for MT25QL02G Flash from Micron. CR-990642
+* 1.7	tjs 12/19/17 Added support for S25FL064L from Spansion. CR-990724
+* 1.7	tjs 01/11/18 Added support for MX66L1G45G flash from Macronix CR-992367
+* 1.7	tjs 26/03/18 In dual parallel mode enable both CS when issuing Write
+*		     		 enable command. CR-998478
 *</pre>
 *
 ******************************************************************************/
@@ -104,6 +102,7 @@
 #define WRITE_DISABLE_CMD	0x04
 #define READ_STATUS_CMD		0x05
 #define WRITE_ENABLE_CMD	0x06
+#define VOLATILE_WRITE_ENABLE_CMD	0x50
 #define FAST_READ_CMD		0x0B
 #define DUAL_READ_CMD		0x3B
 #define QUAD_READ_CMD		0x6B
@@ -116,12 +115,10 @@
 #define EXIT_4B_ADDR_MODE	0xE9
 #define EXIT_4B_ADDR_MODE_ISSI	0x29
 
-#define WRITE_CMD_4B		0x12
 #define READ_CMD_4B		0x13
 #define FAST_READ_CMD_4B	0x0C
 #define DUAL_READ_CMD_4B		0x3C
 #define QUAD_READ_CMD_4B	0x6C
-#define	SEC_ERASE_CMD_4B	0xDC
 
 #define BANK_REG_RD			0x16
 #define BANK_REG_WR			0x17
@@ -206,8 +203,10 @@
 #define MICRON_ID_BYTE2_256	0x19
 #define MICRON_ID_BYTE2_512	0x20
 #define MICRON_ID_BYTE2_1G	0x21
+#define MICRON_ID_BYTE2_2G	0x22
 
 #define SPANSION_ID_BYTE0		0x01
+#define SPANSION_ID_BYTE2_64	0x17
 #define SPANSION_ID_BYTE2_128	0x18
 #define SPANSION_ID_BYTE2_256	0x19
 #define SPANSION_ID_BYTE2_512	0x20
@@ -217,6 +216,7 @@
 
 #define MACRONIX_ID_BYTE0		0xC2
 #define MACRONIX_ID_BYTE2_1G	0x1B
+#define MACRONIX_ID_BYTE2_1GU	0x3B
 
 #define ISSI_ID_BYTE0			0x9D
 #define ISSI_ID_BYTE2_256		0x19
@@ -226,15 +226,18 @@
  */
 /* Spansion*/
 #define SPANSION_INDEX_START			0
-#define FLASH_CFG_TBL_SINGLE_128_SP		SPANSION_INDEX_START
-#define FLASH_CFG_TBL_STACKED_128_SP	(SPANSION_INDEX_START + 1)
-#define FLASH_CFG_TBL_PARALLEL_128_SP	(SPANSION_INDEX_START + 2)
-#define FLASH_CFG_TBL_SINGLE_256_SP		(SPANSION_INDEX_START + 3)
-#define FLASH_CFG_TBL_STACKED_256_SP	(SPANSION_INDEX_START + 4)
-#define FLASH_CFG_TBL_PARALLEL_256_SP	(SPANSION_INDEX_START + 5)
-#define FLASH_CFG_TBL_SINGLE_512_SP		(SPANSION_INDEX_START + 6)
-#define FLASH_CFG_TBL_STACKED_512_SP	(SPANSION_INDEX_START + 7)
-#define FLASH_CFG_TBL_PARALLEL_512_SP	(SPANSION_INDEX_START + 8)
+#define FLASH_CFG_TBL_SINGLE_64_SP		SPANSION_INDEX_START
+#define FLASH_CFG_TBL_STACKED_64_SP		(SPANSION_INDEX_START + 1)
+#define FLASH_CFG_TBL_PARALLEL_64_SP	(SPANSION_INDEX_START + 2)
+#define FLASH_CFG_TBL_SINGLE_128_SP		(SPANSION_INDEX_START + 3)
+#define FLASH_CFG_TBL_STACKED_128_SP	(SPANSION_INDEX_START + 4)
+#define FLASH_CFG_TBL_PARALLEL_128_SP	(SPANSION_INDEX_START + 5)
+#define FLASH_CFG_TBL_SINGLE_256_SP		(SPANSION_INDEX_START + 6)
+#define FLASH_CFG_TBL_STACKED_256_SP	(SPANSION_INDEX_START + 7)
+#define FLASH_CFG_TBL_PARALLEL_256_SP	(SPANSION_INDEX_START + 8)
+#define FLASH_CFG_TBL_SINGLE_512_SP		(SPANSION_INDEX_START + 9)
+#define FLASH_CFG_TBL_STACKED_512_SP	(SPANSION_INDEX_START + 10)
+#define FLASH_CFG_TBL_PARALLEL_512_SP	(SPANSION_INDEX_START + 11)
 
 /* Micron */
 #define MICRON_INDEX_START				(FLASH_CFG_TBL_PARALLEL_512_SP + 1)
@@ -250,9 +253,12 @@
 #define FLASH_CFG_TBL_SINGLE_1GB_MC		(MICRON_INDEX_START + 9)
 #define FLASH_CFG_TBL_STACKED_1GB_MC	(MICRON_INDEX_START + 10)
 #define FLASH_CFG_TBL_PARALLEL_1GB_MC	(MICRON_INDEX_START + 11)
+#define FLASH_CFG_TBL_SINGLE_2GB_MC		(MICRON_INDEX_START + 12)
+#define FLASH_CFG_TBL_STACKED_2GB_MC	(MICRON_INDEX_START + 13)
+#define FLASH_CFG_TBL_PARALLEL_2GB_MC	(MICRON_INDEX_START + 14)
 
 /* Winbond */
-#define WINBOND_INDEX_START				(FLASH_CFG_TBL_PARALLEL_1GB_MC + 1)
+#define WINBOND_INDEX_START				(FLASH_CFG_TBL_PARALLEL_2GB_MC + 1)
 #define FLASH_CFG_TBL_SINGLE_128_WB		WINBOND_INDEX_START
 #define FLASH_CFG_TBL_STACKED_128_WB	(WINBOND_INDEX_START + 1)
 #define FLASH_CFG_TBL_PARALLEL_128_WB	(WINBOND_INDEX_START + 2)
@@ -262,9 +268,12 @@
 #define FLASH_CFG_TBL_SINGLE_1G_MX		MACRONIX_INDEX_START
 #define FLASH_CFG_TBL_STACKED_1G_MX		(MACRONIX_INDEX_START + 1)
 #define FLASH_CFG_TBL_PARALLEL_1G_MX	(MACRONIX_INDEX_START + 2)
+#define FLASH_CFG_TBL_SINGLE_1GU_MX		(MACRONIX_INDEX_START + 3)
+#define FLASH_CFG_TBL_STACKED_1GU_MX	(MACRONIX_INDEX_START + 4)
+#define FLASH_CFG_TBL_PARALLEL_1GU_MX	(MACRONIX_INDEX_START + 5)
 
 /* ISSI */
-#define ISSI_INDEX_START				(FLASH_CFG_TBL_PARALLEL_1G_MX + 1)
+#define ISSI_INDEX_START				(FLASH_CFG_TBL_PARALLEL_1GU_MX + 1)
 #define FLASH_CFG_TBL_SINGLE_256_ISSI	ISSI_INDEX_START
 #define FLASH_CFG_TBL_STACKED_256_ISSI	(ISSI_INDEX_START + 1)
 #define FLASH_CFG_TBL_PARALLEL_256_ISSI	(ISSI_INDEX_START + 2)
@@ -341,11 +350,18 @@ int FlashRegisterRead(XQspiPsu *QspiPsuPtr, u32 ByteCount, u8 Command, u8 *ReadB
 int FlashRegisterWrite(XQspiPsu *QspiPsuPtr, u32 ByteCount, u8 Command,
 					u8 *WriteBfrPtr, u8 WrEn);
 int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr,unsigned int Enable);
+int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr);
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
 u8 ReadBfrPtr[3];
-FlashInfo Flash_Config_Table[28] = {
+FlashInfo Flash_Config_Table[] = {
 		/* Spansion */
+		{0x10000, 0x80, 256, 0x8000, 0x800000,
+				SPANSION_ID_BYTE0, SPANSION_ID_BYTE2_64, 0xFFFF0000, 1},
+		{0x10000, 0x100, 256, 0x10000, 0x800000,
+				SPANSION_ID_BYTE0, SPANSION_ID_BYTE2_64, 0xFFFF0000, 1},
+		{0x20000, 0x80, 512, 0x8000, 0x800000,
+				SPANSION_ID_BYTE0, SPANSION_ID_BYTE2_64, 0xFFFE0000, 1},
 		{0x10000, 0x100, 256, 0x10000, 0x1000000,
 				SPANSION_ID_BYTE0, SPANSION_ID_BYTE2_128, 0xFFFF0000, 1},
 		{0x10000, 0x200, 256, 0x20000, 0x1000000,
@@ -390,6 +406,12 @@ FlashInfo Flash_Config_Table[28] = {
 				MICRON_ID_BYTE0, MICRON_ID_BYTE2_1G, 0xFFFF0000, 4},
 		{0x20000, 0x800, 512, 0x80000, 0x8000000,
 				MICRON_ID_BYTE0, MICRON_ID_BYTE2_1G, 0xFFFE0000, 4},
+		{0x10000, 0x1000, 256, 0x100000, 0x10000000,
+				MICRON_ID_BYTE0, MICRON_ID_BYTE2_2G, 0xFFFF0000, 4},
+		{0x10000, 0x2000, 256, 0x200000, 0x10000000,
+				MICRON_ID_BYTE0, MICRON_ID_BYTE2_2G, 0xFFFF0000, 4},
+		{0x20000, 0x1000, 512, 0x100000, 0x10000000,
+				MICRON_ID_BYTE0, MICRON_ID_BYTE2_2G, 0xFFFE0000, 4},
 		/* Winbond */
 		{0x10000, 0x100, 256, 0x10000, 0x1000000,
 				WINBOND_ID_BYTE0, WINBOND_ID_BYTE2_128, 0xFFFF0000, 1},
@@ -404,8 +426,18 @@ FlashInfo Flash_Config_Table[28] = {
 				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1G, 0xFFFF0000, 4},
 		{0x20000, 0x800, 512, 0x80000, 0x8000000,
 				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1G, 0xFFFE0000, 4},
+		{0x10000, 0x800, 256, 0x80000, 0x8000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1GU, 0xFFFF0000, 4},
+		{0x10000, 0x1000, 256, 0x100000, 0x8000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1GU, 0xFFFF0000, 4},
+		{0x20000, 0x800, 512, 0x80000, 0x8000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1GU, 0xFFFE0000, 4},
 		/* ISSI */
 		{0x10000, 0x200, 256, 0x20000, 0x2000000,
+				ISSI_ID_BYTE0, ISSI_ID_BYTE2_256, 0xFFFF0000, 1},
+		{0x10000, 0x400, 256, 0x40000, 0x2000000,
+				ISSI_ID_BYTE0, ISSI_ID_BYTE2_256, 0xFFFF0000, 1},
+		{0x20000, 0x200, 512, 0x20000, 0x2000000,
 				ISSI_ID_BYTE0, ISSI_ID_BYTE2_256, 0xFFFF0000, 1}
 };
 
@@ -563,6 +595,14 @@ int QspiPsuPolledFlashExample(XQspiPsu *QspiPsuInstancePtr, u16 QspiPsuDeviceId)
 	MaxData = PAGE_COUNT * (Flash_Config_Table[FCTIndex].PageSize);
 
 	/*
+	 * Some flash needs to enable Quad mode before using
+	 * quad commands.
+	 */
+	Status = FlashEnableQuadMode(QspiPsuInstancePtr);
+	if(Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	/*
 	 * Address size and read command selection
 	 * Micron flash on REMUS doesn't support this 4B write/erase cmd
 	 */
@@ -710,6 +750,25 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	 * If valid flash ID, then check connection mode & size and
 	 * assign corresponding index in the Flash configuration table
 	 */
+	if((FlashMake == SPANSION_ID_BYTE0) ||
+			(ReadBfrPtr[2] == SPANSION_ID_BYTE2_64)) {
+		switch(QspiPsuPtr->Config.ConnectionMode)
+		{
+			case XQSPIPSU_CONNECTION_MODE_SINGLE:
+				FCTIndex = FLASH_CFG_TBL_SINGLE_64_SP + StartIndex;
+				break;
+			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
+				FCTIndex = FLASH_CFG_TBL_PARALLEL_64_SP + StartIndex;
+				break;
+			case XQSPIPSU_CONNECTION_MODE_STACKED:
+				FCTIndex = FLASH_CFG_TBL_STACKED_64_SP + StartIndex;
+				break;
+			default:
+				FCTIndex = 0;
+				break;
+		}
+	}
+
 	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake == SPANSION_ID_BYTE0)||
 			(FlashMake == WINBOND_ID_BYTE0)) &&
 			(ReadBfrPtr[2] == MICRON_ID_BYTE2_128)) {
@@ -813,20 +872,49 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 				break;
 		}
 	}
-
-	/* 1Gbit single, parallel and stacked supported for Macronix */
-	if(((FlashMake == MACRONIX_ID_BYTE0) &&
-			(ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1G))) {
+	/* 2Gbit single, parallel and stacked supported for Micron */
+	if(((FlashMake == MICRON_ID_BYTE0) &&
+			(ReadBfrPtr[2] == MICRON_ID_BYTE2_2G))) {
 
 		switch(QspiPsuPtr->Config.ConnectionMode) {
 			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-				FCTIndex = FLASH_CFG_TBL_SINGLE_1G_MX;
+				FCTIndex = FLASH_CFG_TBL_SINGLE_2GB_MC;
 				break;
 			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FCTIndex = FLASH_CFG_TBL_PARALLEL_1G_MX;
+				FCTIndex = FLASH_CFG_TBL_PARALLEL_2GB_MC;
 				break;
 			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FCTIndex = FLASH_CFG_TBL_STACKED_1G_MX;
+				FCTIndex = FLASH_CFG_TBL_STACKED_2GB_MC;
+				break;
+			default:
+				FCTIndex = 0;
+				break;
+		}
+	}
+
+	/* 1Gbit single, parallel and stacked supported for Macronix */
+	if(((FlashMake == MACRONIX_ID_BYTE0) &&
+			((ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1G) ||
+					(ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1GU)))) {
+
+		switch(QspiPsuPtr->Config.ConnectionMode) {
+			case XQSPIPSU_CONNECTION_MODE_SINGLE:
+				if (ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1GU)
+					FCTIndex = FLASH_CFG_TBL_SINGLE_1GU_MX;
+				else
+					FCTIndex = FLASH_CFG_TBL_SINGLE_1G_MX;
+				break;
+			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
+				if (ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1GU)
+					FCTIndex = FLASH_CFG_TBL_PARALLEL_1GU_MX;
+				else
+					FCTIndex = FLASH_CFG_TBL_PARALLEL_1G_MX;
+				break;
+			case XQSPIPSU_CONNECTION_MODE_STACKED:
+				if (ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1GU)
+					FCTIndex = FLASH_CFG_TBL_STACKED_1GU_MX;
+				else
+					FCTIndex = FLASH_CFG_TBL_STACKED_1G_MX;
 				break;
 			default:
 				FCTIndex = 0;
@@ -1657,7 +1745,9 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 * 			for stacked, the lower flash size is subtracted;
 * 			for parallel the address is divided by 2.
 *
-* @note		None.
+* @note		In addition to get the actual address to work on flash this
+* 			function also selects the CS and BUS based on the configuration
+* 			detected.
 *
 ******************************************************************************/
 u32 GetRealAddr(XQspiPsu *QspiPsuPtr, u32 Address)
@@ -1750,6 +1840,7 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr,unsigned int Enable)
 		case ISSI_ID_BYTE0:
 		case MICRON_ID_BYTE0:
 			WriteEnableCmd = WRITE_ENABLE_CMD;
+			GetRealAddr(QspiPsuPtr,TEST_ADDRESS);
 			/*
 			 * Send the write enable command to the Flash so that it can be
 			 * written to, this needs to be sent as a separate transfer before
@@ -1858,6 +1949,7 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr,unsigned int Enable)
 		case ISSI_ID_BYTE0:
 		case MICRON_ID_BYTE0:
 			WriteDisableCmd = WRITE_DISABLE_CMD;
+			GetRealAddr(QspiPsuPtr,TEST_ADDRESS);
 			/*
 			 * Send the write enable command to the Flash so that it can be
 			 * written to, this needs to be sent as a separate transfer before
@@ -1880,6 +1972,121 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr,unsigned int Enable)
 			 * For Macronix and Winbond flash parts
 			 * Write disable command is not required.
 			 */
+			break;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This API enables Quad mode for the flash parts which require to enable quad
+* mode before using Quad commands.
+* For S25FL-L series flash parts this is required as the default configuration
+* is x1/x2 mode.
+*
+* @param	QspiPtr is a pointer to the QSPIPSU driver component to use.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if it fails.
+*
+*
+******************************************************************************/
+int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
+{
+	int Status;
+	u8 WriteEnableCmd;
+	u8 WriteBuffer[2] = {0};
+	u8 FlashStatus[2] = {0};
+
+	switch (FlashMake) {
+		case SPANSION_ID_BYTE0:
+			if (FCTIndex <= 2) {
+				TxBfrPtr = READ_CONFIG_CMD;
+				FlashMsg[0].TxBfrPtr = &TxBfrPtr;
+				FlashMsg[0].RxBfrPtr = NULL;
+				FlashMsg[0].ByteCount = 1;
+				FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+				FlashMsg[1].TxBfrPtr = NULL;
+				FlashMsg[1].RxBfrPtr = &WriteBuffer[2];
+				FlashMsg[1].ByteCount = 1;
+				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+				Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 2);
+				if (Status != XST_SUCCESS) {
+					return XST_FAILURE;
+				}
+
+				WriteEnableCmd = VOLATILE_WRITE_ENABLE_CMD;
+				/*
+				 * Send the write enable command to the Flash so that it can be
+				 * written to, this needs to be sent as a separate transfer before
+				 * the write
+				 */
+				FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
+				FlashMsg[0].RxBfrPtr = NULL;
+				FlashMsg[0].ByteCount = 1;
+				FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+				Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 1);
+				if (Status != XST_SUCCESS) {
+					return XST_FAILURE;
+				}
+
+				GetRealAddr(QspiPsuPtr,TEST_ADDRESS);
+
+				WriteBuffer[0] = WRITE_CONFIG_CMD;
+				WriteBuffer[1] |= 0;
+				WriteBuffer[2] |= 1 << 1;
+
+				FlashMsg[0].TxBfrPtr = WriteBuffer;
+				FlashMsg[0].RxBfrPtr = NULL;
+				FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+				FlashMsg[0].ByteCount = 3;
+
+				Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 1);
+				if (Status != XST_SUCCESS) {
+					return XST_FAILURE;
+				}
+
+				TxBfrPtr = READ_CONFIG_CMD;
+				FlashMsg[0].TxBfrPtr = &TxBfrPtr;
+				FlashMsg[0].RxBfrPtr = NULL;
+				FlashMsg[0].ByteCount = 1;
+				FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+				FlashMsg[1].TxBfrPtr = NULL;
+				FlashMsg[1].RxBfrPtr = ReadBfrPtr;
+				FlashMsg[1].ByteCount = 1;
+				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+				Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 2);
+				if (Status != XST_SUCCESS) {
+					return XST_FAILURE;
+				}
+
+				if(ReadBfrPtr[0] & 0x02)
+					Status = XST_SUCCESS;
+				else
+					Status = XST_FAILURE;
+			}
+			break;
+
+		default:
+			/*
+			 * Currently only S25FL-L series requires the
+			 * Quad enable bit to be set to 1.
+			 */
+			Status = XST_SUCCESS;
 			break;
 	}
 

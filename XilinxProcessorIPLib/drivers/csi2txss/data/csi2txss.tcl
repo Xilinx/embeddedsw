@@ -3,7 +3,7 @@
 # Copyright (C) 2016 Xilinx, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"),to deal
+# of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
@@ -33,12 +33,13 @@
 # --- --- -------- -----------------------------------------------------------
 # 1.0 sss 07/21/16 Initial version of subsystem tcl
 # 1.1 vsa 08/31/17 Fix for IP with different name
+# 1.2 vsa 02/28/18 Add Frame End Generation Feature
 ###############################################################################
 
 proc generate {drv_handle} {
-	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XCsi2TxSs" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CSI_LANES" "C_CSI_DATATYPE" "C_CSI_PIXEL_MODE" "C_CSI_LINE_BUFR_DEPTH" "C_DPHY_LINERATE" "C_DPHY_EN_REG_IF"
-	hier_ip_define_config_file $drv_handle "xcsi2txss_g.c" "XCsi2TxSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CSI_LANES" "C_CSI_DATATYPE" "C_CSI_PIXEL_MODE" "C_CSI_LINE_BUFR_DEPTH" "C_DPHY_LINERATE" "C_DPHY_EN_REG_IF"
-	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "Csi2TxSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CSI_LANES" "C_CSI_DATATYPE" "C_CSI_PIXEL_MODE" "C_CSI_LINE_BUFR_DEPTH" "C_DPHY_LINERATE" "C_DPHY_EN_REG_IF"
+	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XCsi2TxSs" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CSI_LANES" "C_CSI_DATATYPE" "C_CSI_PIXEL_MODE" "C_CSI_LINE_BUFR_DEPTH" "C_DPHY_LINERATE" "C_DPHY_EN_REG_IF" "C_EN_REG_BASED_FE_GEN"
+	hier_ip_define_config_file $drv_handle "xcsi2txss_g.c" "XCsi2TxSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CSI_LANES" "C_CSI_DATATYPE" "C_CSI_PIXEL_MODE" "C_CSI_LINE_BUFR_DEPTH" "C_DPHY_LINERATE" "C_DPHY_EN_REG_IF" "C_EN_REG_BASED_FE_GEN"
+	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "Csi2TxSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CSI_LANES" "C_CSI_DATATYPE" "C_CSI_PIXEL_MODE" "C_CSI_LINE_BUFR_DEPTH" "C_DPHY_LINERATE" "C_DPHY_EN_REG_IF" "C_EN_REG_BASED_FE_GEN"
 
 	set orig_dir [pwd]
 	cd ../../include/
@@ -77,6 +78,11 @@ proc generate {drv_handle} {
 					set line [string map {true 1 false 0} $line]
 				}
 
+				# if substring C_EN_REG_BASED_FE_GEN is present in the string
+				if {[regexp -nocase {EN_REG_BASED_FE_GEN} $line]} {
+					# using string map to replace true with 1 and false with 0
+					set line [string map {true 1 false 0} $line]
+				}
 			}
 
 			# then write the transformed line

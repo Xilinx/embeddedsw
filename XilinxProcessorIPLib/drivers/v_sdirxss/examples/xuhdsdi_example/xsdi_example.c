@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -18,8 +18,8 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -65,10 +65,25 @@
 #include "xv_sdirxss.h"
 #include "xv_sditxss.h"
 #include "xscugic.h"
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+#include "xsdiaud.h"
+#include "xsdiaud_hw.h"
+#endif
+
+#ifdef XPAR_INTC_0_DEVICE_ID
+#include "xintc.h"
+else
+#include "xscugic.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #define GPIO_0_TX_RST XPAR_AXI_GPIO_0_BASEADDR
 #define GPIO_1_RX_RST XPAR_AXI_GPIO_1_BASEADDR
+
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+#define SDI_AUD_EMBED   XPAR_V_UHDSDI_AUDIO_EMBED_1_BASEADDR
+#define SDI_AUD_EXTRT   XPAR_V_UHDSDI_AUDIO_EXTRACT_0_BASEADDR
+#endif
 
 typedef u8 AddressType;
 #define PAGE_SIZE   16
@@ -86,6 +101,19 @@ typedef u8 AddressType;
 #define FREQ_297_MHz	(297000000)
 #define FREQ_74_25_MHz	(74250000)
 #define FREQ_27_MHz	(27000000)
+#define FREQ_148_35_MHz	(148350000)
+
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+#define SDIAUD_0_DEVICE_ID	XPAR_V_UHDSDI_AUDIO_EXTRACT_0_DEVICE_ID
+#define SDIAUD_1_DEVICE_ID	XPAR_V_UHDSDI_AUDIO_EMBED_1_DEVICE_ID
+
+#define SDIAUD_0_INTERRUPT_ID	XPAR_FABRIC_V_UHDSDI_AUDIO_EXTRACT_0_INTERRUPT_INTR
+#define SDIAUD_1_INTERRUPT_ID	XPAR_FABRIC_V_UHDSDI_AUDIO_EMBED_1_INTERRUPT_INTR
+
+#define XPAR_SDIAUD_0_BA	XPAR_V_UHDSDI_AUDIO_EXTRACT_0_BASEADDR
+#define XPAR_SDIAUD_1_BA	XPAR_V_UHDSDI_AUDIO_EMBED_1_BASEADDR
+#define XSDIAUD_QUAD_GROUP	4
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -104,9 +132,14 @@ void Xil_AssertCallbackRoutine(u8 *File, s32 Line);
 void StartTxAfterRx(void);
 static int I2cMux(void);
 static int I2cClk(u32 InFreq, u32 OutFreq);
-int Si570_SetClock(u32 IICBaseAddress, u8 IICAddress1);
+int Si570_SetClock(u32 IICBaseAddress, u8 IICAddress1, u32 RxRefClk);
 void Info(void);
 void DebugInfo(void);
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+void SdiAud_Ext_IntrHandler(XSdiAud *InstancePtr);
+void SdiAudGrpChangeDetHandler(void *CallBackRef);
+XSdiAud_NumOfCh XSdiAud_Ext_DetActCh(XSdiAud *InstancePtr);
+#endif
 
 /*
  * Write buffer for writing a page.
@@ -117,6 +150,12 @@ u8 ReadBuffer[PAGE_SIZE];	/* Read buffer for reading a page. */
 
 volatile u8 TransmitComplete;	/* Flag to check completion of Transmission */
 volatile u8 ReceiveComplete;	/* Flag to check completion of Reception */
+
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+XSdiAud SdiAudInstance;		/* Instance of the SdiAud device */
+#endif
+
+unsigned int IntrReceived;
 
 /************************** Variable Definitions *****************************/
 
@@ -134,12 +173,18 @@ XV_SdiTxSs_Config *XV_SdiTxSs_ConfigPtr;
 XV_SdiRxSs SdiRxSs;       /* SDI RX SS structure */
 XV_SdiRxSs_Config *XV_SdiRxSs_ConfigPtr;
 
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+XSdiAud SdiExtract;		/* Instance0 of the SdiAud device */
+XSdiAud SdiEmbed;		/* Instance1 of the SdiAud device */
+XSdiAud_GrpsPrsnt DetAudioGrps;
+XSdiAud_NumOfCh AudNumOfCh;
+#endif
+
 #define UART_BASEADDR XPAR_XUARTPS_0_BASEADDR
 
 u8 StartTxAfterRxFlag;
 XSdi_Menu SdiMenu;			/**< Menu structure */
 u32 Index, MaxIndex;
-u8 RxVidlockFlag;
 u8 PayloadStatus;
 
 /************************** Function Definitions *****************************/
@@ -338,23 +383,27 @@ void RxStreamUpCallback(void *CallbackRef)
 {
 	u32 Si5324_ClkIn;
 	XSdiVid_TransMode RxTransMode;
+	u8 IsFractional;
+
+	IsFractional = XV_SdiRxSs_GetTransportBitRate(&SdiRxSs);
 
 	RxTransMode =  XV_SdiRxSs_GetTransportMode(&SdiRxSs);
 
+
 	switch (RxTransMode) {
 		case XSDIVID_MODE_SD:
-			if (XSDIVID_BR_INTEGER == 0) {
+			if (IsFractional == 0) {
 				Si5324_ClkIn = FREQ_27_MHz;
 
-			} else if (XSDIVID_BR_FRACTIONAL == 1) {
+			} else if (IsFractional == 1) {
 				Si5324_ClkIn = FREQ_27_MHz;
 			}
 			break;
 
 		case XSDIVID_MODE_HD:
-			if (XSDIVID_BR_INTEGER == 0) {
+			if (IsFractional == 0) {
 				Si5324_ClkIn = FREQ_74_25_MHz;
-			} else if (XSDIVID_BR_FRACTIONAL == 1) {
+			} else if (IsFractional == 1) {
 				Si5324_ClkIn = FREQ_74_25_MHz/1.001;
 			}
 			break;
@@ -362,17 +411,17 @@ void RxStreamUpCallback(void *CallbackRef)
 		case XSDIVID_MODE_3GA:
 		case XSDIVID_MODE_3GB:
 		case XSDIVID_MODE_6G:
-			if (XSDIVID_BR_INTEGER == 0) {
+			if (IsFractional == 0) {
 				Si5324_ClkIn = FREQ_148_5_MHz;
-			} else if (XSDIVID_BR_FRACTIONAL == 1) {
+			} else if (IsFractional == 1) {
 				Si5324_ClkIn = FREQ_148_5_MHz/1.001;
 			}
 			break;
 
 		case XSDIVID_MODE_12G:
-			if (XSDIVID_BR_INTEGER == 0) {
+			if (IsFractional == 0) {
 				Si5324_ClkIn = FREQ_297_MHz;
-			} else if (XSDIVID_BR_FRACTIONAL == 1) {
+			} else if (IsFractional == 1) {
 				Si5324_ClkIn = FREQ_297_MHz/1.001;
 			}
 			break;
@@ -384,10 +433,25 @@ void RxStreamUpCallback(void *CallbackRef)
 
 	xil_printf("INFO>> SDI Rx: Input Locked\r\n");
 
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+	/*Audio Extract Module Reset De-Assertion*/
+	XSdiAud_ResetCoreEn(&SdiExtract, 0);
+	/*Audio Embed Module Reset De-Assertion*/
+	XSdiAud_ResetCoreEn(&SdiEmbed, 0);
+
+    /*Audio Embed Module Enable*/
+	XSdiAud_Enable(&SdiEmbed, 1);
+    /*Audio Extract Module Enable*/
+	XSdiAud_Enable(&SdiExtract, 1);
+#endif
 	/* The output clock frequency is set to 148.5MHz because the QPLL1's
 	 * reference clock is set as 148.5MHz.
 	 */
+	if (IsFractional == 0) {
 	I2cClk(Si5324_ClkIn, FREQ_148_5_MHz);
+	} else if (IsFractional == 1) {
+		I2cClk(Si5324_ClkIn, FREQ_148_5_MHz/1.001);
+	}
 
 	/* Waiting for SI5328 Lock */
 	usleep(1000000);
@@ -399,7 +463,6 @@ void RxStreamUpCallback(void *CallbackRef)
 
 	StartTxAfterRxFlag = (TRUE);
 	XV_SdiRxSs_StreamFlowEnable(&SdiRxSs);
-	RxVidlockFlag = 1;
 }
 
 /*****************************************************************************/
@@ -419,6 +482,19 @@ void RxStreamDownCallback(void *CallbackRef)
 {
 	xil_printf("INFO>> SDI Rx: Lock Lost\r\n");
 	XV_SdiTxSs_Stop(&SdiTxSs);
+
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+    /*Audio Extract Module Disable*/
+	XSdiAud_Enable(&SdiEmbed, 0);
+	/*Audio Extract Module Disable*/
+	XSdiAud_Enable(&SdiExtract, 0);
+
+	/*Audio Extract Module Reset Assertion*/
+	XSdiAud_ResetCoreEn(&SdiExtract, 1);
+	/*Audio Embed Module Reset Assertion*/
+	XSdiAud_ResetCoreEn(&SdiEmbed, 1);
+
+#endif
 }
 
 /*****************************************************************************/
@@ -508,7 +584,6 @@ void StartTxAfterRx(void)
 {
 	/* clear flag */
 	StartTxAfterRxFlag = (FALSE);
-	RxVidlockFlag = 0;
 	XVidC_VideoStream *SdiRxSsVidStreamPtr;
 	XVidC_VideoStream *SdiTxSsVidStreamPtr;
 	XSdiVid_Transport *SdiRxSsTransportPtr;
@@ -533,6 +608,177 @@ void StartTxAfterRx(void)
 	XV_SdiTxSs_StreamConfig(&SdiTxSs);
 }
 
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+/*****************************************************************************/
+/**
+ * This function is the handler which performs processing for the SDI extract
+ * IP. It is called from an interrupt context when the SDI Extract IP receives
+ * a interrupt for change in the presence of audio groups in the incoming
+ * SDI stream.
+ *
+ * This handler provides an example of what needs to be done when gorup change
+ * interrupt is detected in the received SDI audio stream by the SDI extract IP
+ * block, but is application specific.
+ *
+ * @param	CallBackRef is a pointer to the callback function
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+void SdiAudGrpChangeDetHandler(void *CallBackRef)
+{
+
+	XSdiAud *InstancePtr = (XSdiAud *)CallBackRef;
+	XSdiVid_TransMode RxTransModeAud;
+
+	RxTransModeAud =  XV_SdiRxSs_GetTransportMode(&SdiRxSs);
+	/* Set the interrupt received flag. */
+	XSdiAud_IntrClr(&SdiExtract,XSDIAUD_INT_EN_GRP_CHG_MASK);
+
+	/*Audio Embed Module Reset Assertion*/
+	XSdiAud_ResetCoreEn(&SdiEmbed, 1);
+	/*Audio Extract Module Reset Assertion*/
+	XSdiAud_ResetCoreEn(&SdiExtract, 1);
+
+	xil_printf("------------\n\r");
+	xil_printf("SDI Audio Info\n\r");
+	xil_printf("------------\n\r");
+
+	/*Interrupt Mask Enable for Extract*/
+	DetAudioGrps = XSdiAud_DetAudGrp(&SdiExtract);
+
+	AudNumOfCh = XSdiAud_Ext_DetActCh(&SdiExtract);
+	xil_printf("Number of Audio Channels = %d\r\n",AudNumOfCh);
+
+	/* Audio Extract Function to set the Clock Phase in HD Mode */
+	XSdiAud_Ext_SetClkPhase(&SdiExtract, 1);
+
+
+	switch (DetAudioGrps)
+	{
+		case XSDIAUD_GROUP_0:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP1, AudNumOfCh);
+			XSdiAud_SetCh(&SdiEmbed, XSDIAUD_GROUP1, AudNumOfCh);
+			break;
+
+		case XSDIAUD_GROUP_1:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP1, AudNumOfCh);
+			XSdiAud_SetCh(&SdiEmbed, XSDIAUD_GROUP1, AudNumOfCh);
+			break;
+
+		case XSDIAUD_GROUP_2:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP2, AudNumOfCh);
+			XSdiAud_SetCh(&SdiEmbed, XSDIAUD_GROUP2, AudNumOfCh);
+			break;
+
+		case XSDIAUD_GROUP_1_2:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP1, AudNumOfCh);
+			XSdiAud_SetCh(&SdiEmbed, XSDIAUD_GROUP1, AudNumOfCh);
+			break;
+
+		case XSDIAUD_GROUP_3:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP3, AudNumOfCh);
+			XSdiAud_SetCh(&SdiEmbed, XSDIAUD_GROUP3, AudNumOfCh);
+			break;
+
+		case XSDIAUD_GROUP_1_3:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP1, XSDIAUD_QUAD_GROUP);
+			xil_printf("Only Group 1 is configured\r\n");
+			xil_printf("Non-Sequential Groups are not Supported\r\n");
+			break;
+
+		case XSDIAUD_GROUP_2_3:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP2, AudNumOfCh);
+			XSdiAud_SetCh(&SdiEmbed, XSDIAUD_GROUP2, AudNumOfCh);
+			break;
+
+		case XSDIAUD_GROUP_1_2_3:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP1, AudNumOfCh);
+			XSdiAud_SetCh(&SdiEmbed, XSDIAUD_GROUP1, AudNumOfCh);
+			break;
+
+		case XSDIAUD_GROUP_4:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP4, AudNumOfCh);
+			XSdiAud_SetCh(&SdiEmbed, XSDIAUD_GROUP4, AudNumOfCh);
+			break;
+
+		case XSDIAUD_GROUP_1_4:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP1, XSDIAUD_QUAD_GROUP);
+			xil_printf("Only Group 1 is configured\r\n");
+			xil_printf("Non-Sequential Groups are not Supported\r\n");
+			break;
+
+		case XSDIAUD_GROUP_2_4:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP2, XSDIAUD_QUAD_GROUP);
+			xil_printf("Only Group 2 is configured\r\n");
+			xil_printf("Non-Sequential Groups are not Supported\r\n");
+			break;
+
+		case XSDIAUD_GROUP_1_2_4:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP1, XSDIAUD_QUAD_GROUP);
+			xil_printf("Only Group 1 is configured\r\n");
+			xil_printf("Non-Sequential Groups are not Supported\r\n");
+			break;
+
+		case XSDIAUD_GROUP_3_4:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP3, AudNumOfCh);
+			XSdiAud_SetCh(&SdiEmbed, XSDIAUD_GROUP3, AudNumOfCh);
+			break;
+
+		case XSDIAUD_GROUP_1_3_4:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP1, XSDIAUD_QUAD_GROUP);
+			xil_printf("Only Group 1 is configured\r\n");
+			xil_printf("Non-Sequential Groups are not Supported\r\n");
+			break;
+
+		case XSDIAUD_GROUP_2_3_4:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP2, AudNumOfCh);
+			XSdiAud_SetCh(&SdiEmbed, XSDIAUD_GROUP2, AudNumOfCh);
+			break;
+
+		case XSDIAUD_GROUP_ALL:
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP1, AudNumOfCh);
+			XSdiAud_SetCh(&SdiEmbed, XSDIAUD_GROUP1, AudNumOfCh);
+			break;
+
+		default:
+			xil_printf("Invalid case: Groups are not configured\r\n");
+			XSdiAud_SetCh(&SdiExtract, XSDIAUD_GROUP3, XSDIAUD_QUAD_GROUP);
+			break;
+	}
+
+	/* Embed Module is Configured here*/
+	/* Video Embed Function to set enable external line */
+	XSdiAud_Emb_EnExtrnLine(&SdiEmbed, 1);
+
+	/*Audio Embed Function to set the sampling rate */
+	XSdiAud_Emb_SetSmpRate(&SdiEmbed, XSDIAUD_SAMPRATE0);
+
+	if(RxTransModeAud == XSDIVID_MODE_SD) {
+		XSdiAud_Emb_SetSmpSize(&SdiEmbed, XSDIAUD_SAMPSIZE1);
+		XSdiAud_Emb_SetLineStd(&SdiEmbed, XSDIAUD_NTSC);
+	}
+	else {
+		XSdiAud_Emb_SetSmpSize(&SdiEmbed, XSDIAUD_SAMPSIZE0);
+		XSdiAud_Emb_SetLineStd(&SdiEmbed, XSDIAUD_SMPTE_274M_1080p_30Hz);
+	}
+
+		/*Audio Extract Module Reset De-Assertion*/
+		XSdiAud_ResetCoreEn(&SdiExtract, 0);
+		/*Audio Embed Module Reset De-Assertion*/
+		XSdiAud_ResetCoreEn(&SdiEmbed, 0);
+
+		/*Audio Extract Module Enable*/
+		XSdiAud_Enable(&SdiExtract, 1);
+
+		/*Audio Extract Module Enable*/
+		XSdiAud_Enable(&SdiEmbed, 1);
+
+	}
+#endif
+
 /*****************************************************************************/
 /**
  *
@@ -553,11 +799,13 @@ int main(void)
 	I2cMux();
 
 	/* si570 configuration of 148.5MHz */
-	Si570_SetClock(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR_570);
+	Si570_SetClock(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR_570, FREQ_148_5_MHz);
+
 
 	/* Rx Reset Sequence */
 	Xil_Out32((UINTPTR)(GPIO_1_RX_RST), (u32)(0x00000000));
 	Xil_Out32((UINTPTR)(GPIO_1_RX_RST), (u32)(0x00000001));
+
 
 	StartTxAfterRxFlag = (FALSE);
 
@@ -568,7 +816,7 @@ int main(void)
 
 	xil_printf("----------------------------------------\r\n");
 	xil_printf("---     SDI Pass Through Example     ---\r\n");
-	xil_printf("---     (c) 2017 by Xilinx, Inc.     ---\r\n");
+	xil_printf("---     (c) 2018 by Xilinx, Inc.     ---\r\n");
 	xil_printf("----------------------------------------\r\n");
 	xil_printf("      Build %s - %s      \r\n", __DATE__, __TIME__);
 	xil_printf("----------------------------------------\r\n");
@@ -594,6 +842,9 @@ int main(void)
 	Status = XV_SdiTxSs_CfgInitialize(&SdiTxSs,
 					XV_SdiTxSs_ConfigPtr,
 					XV_SdiTxSs_ConfigPtr->BaseAddress);
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+	XV_SdiTxSs_SetCoreSettings(&SdiTxSs, XV_SDITXSS_CORESELID_USEANCIN, 1);
+#endif
 
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR:: SDI TX Initialization failed %d\r\n", Status);
@@ -690,7 +941,44 @@ int main(void)
 	/* Enable SDI Rx video lock and unlock Interrupts */
 	XV_SdiRxSs_IntrEnable(&SdiRxSs, XV_SDIRXSS_IER_VIDEO_LOCK_MASK | XV_SDIRXSS_IER_VIDEO_UNLOCK_MASK);
 
-	/* Register SDI RX SS Interrupt Handler with Interrupt Controller */
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+	Status = XSdiAud_Initialize(&SdiEmbed, XPAR_V_UHDSDI_AUDIO_EMBED_1_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR:: SDI Embed IP Initialization failed %d\r\n", Status);
+		return XST_FAILURE;
+	}
+
+	Status = XSdiAud_Initialize(&SdiExtract, XPAR_V_UHDSDI_AUDIO_EXTRACT_0_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR:: SDI Extract IP Initialization failed %d\r\n", Status);
+		return XST_FAILURE;
+	}
+
+	xil_printf("SDI AUDIO EMBED AND EXTRACT DRIVER ready to use\r\n");
+
+	/*Audio Extract Module Reset*/
+	XSdiAud_ResetCoreEn(&SdiExtract, 1);
+	XSdiAud_ResetCoreEn(&SdiExtract, 0);
+	XSdiAud_ResetReg(&SdiExtract);
+
+	/*Audio Embed Module Reset*/
+	XSdiAud_ResetCoreEn(&SdiEmbed, 1);
+	XSdiAud_ResetCoreEn(&SdiEmbed, 0);
+	XSdiAud_ResetReg(&SdiEmbed);
+
+	XSdiAud_IntrEnable(&SdiExtract,XSDIAUD_INT_EN_GRP_CHG_MASK);
+	XSdiAud_IntrEnable(&SdiExtract,XSDIAUD_EXT_INT_EN_PKT_CHG_MASK);
+	XSdiAud_IntrEnable(&SdiExtract,XSDIAUD_EXT_INT_EN_STS_CHG_MASK);
+	XSdiAud_IntrEnable(&SdiExtract,XSDIAUD_EXT_INT_EN_FIFO_OF_MASK);
+	XSdiAud_IntrEnable(&SdiExtract,XSDIAUD_EXT_INT_EN_PERR_MASK);
+	XSdiAud_IntrEnable(&SdiExtract,XSDIAUD_EXT_INT_EN_CERR_MASK);
+
+	XSdiAud_IntrEnable(&SdiEmbed,XSDIAUD_INT_EN_GRP_CHG_MASK);
+
+	XSdiAud_SetHandler(&SdiExtract, XSDIAUD_HANDLER_AUD_GRP_CHNG_DET,
+	                                             SdiAudGrpChangeDetHandler,
+	                                             (void *)&SdiExtract);
+#endif
 	Status = 0;
 	Status |= XScuGic_Connect(&Intc,
 				SDI_RX_SS_INTR_ID,
@@ -718,6 +1006,21 @@ int main(void)
 		return XST_FAILURE;
 	}
 
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+	/* Register SDI AUdio Extract Interrupt Handler with Interrupt Controller */
+	Status = 0;
+	Status |= XScuGic_Connect(&Intc,
+				SDIAUD_0_INTERRUPT_ID,
+				(XInterruptHandler)XSdiAud_IntrHandler,
+				(void *)&SdiExtract);
+	if (Status == XST_SUCCESS) {
+		XScuGic_Enable(&Intc, SDIAUD_0_INTERRUPT_ID);
+		xil_printf("Successfully registered SDI AUdio Extract interrupt handler");
+	} else {
+		xil_printf("ERR:: Unable to register SDI AUdio Extract interrupt handler");
+		return XST_FAILURE;
+	}
+#endif
 	/* Initialize menu */
 	XSdi_MenuInitialize(&SdiMenu, UART_BASEADDR);
 
@@ -727,14 +1030,6 @@ int main(void)
 
 	while (1) {
 		if (StartTxAfterRxFlag) {
-			if (RxVidlockFlag) {
-				PayloadStatus = XV_SdiRxSs_WaitforPayLoad(&SdiRxSs);
-				xil_printf("\n\n\r----------------------------\r\n");
-				xil_printf("--- GENERATED RESOLTUION ---\r\n");
-				xil_printf("----------------------------\r\n");
-
-			}
-			if (PayloadStatus == XST_SUCCESS)
 				StartTxAfterRx();
 		}
 
@@ -742,3 +1037,85 @@ int main(void)
 	}
 	return XST_SUCCESS;
 }
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+/*****************************************************************************/
+/**
+* This function detects the number of active channels in the incoming SDI stream
+* and returns the number of active channels.
+*
+* @param  InstancePtr is a pointer to the XSdiAud instance.
+*
+* @return Return type is enum XSdiAud_NumOfCh, by this we can know the
+*         number of channels which are present.
+*
+******************************************************************************/
+XSdiAud_NumOfCh XSdiAud_Ext_DetActCh(XSdiAud *InstancePtr)
+{
+	XSdiAud_NumOfCh XSdiAud_ActCh;
+	u32 XSdiAud_ActReg;
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	XSdiAud_ActReg = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
+			XSDIAUD_EXT_CNTRL_PKTSTAT_REG_OFFSET);
+
+	XSdiAud_ActReg = (XSdiAud_ActReg & XSDIAUD_EXT_PKTST_AC_MASK) >>
+			XSDIAUD_EXT_PKTST_AC_SHIFT;
+
+	switch(XSdiAud_ActReg)
+	{
+		case 0x0000:
+			XSdiAud_ActCh = 0;
+			break;
+		case 0x000F:
+			XSdiAud_ActCh = 4;
+			break;
+		case 0x00F0:
+			XSdiAud_ActCh = 4;
+			break;
+		case 0x00FF:
+			XSdiAud_ActCh = 8;
+			break;
+		case 0x0F00:
+			XSdiAud_ActCh = 4;
+			break;
+		case 0x0F0F:
+			XSdiAud_ActCh = 8;
+			break;
+		case 0x0FF0:
+			XSdiAud_ActCh = 8;
+			break;
+		case 0x0FFF:
+			XSdiAud_ActCh = 12;
+			break;
+		case 0xF000:
+			XSdiAud_ActCh = 4;
+			break;
+		case 0xF00F:
+			XSdiAud_ActCh = 8;
+			break;
+		case 0xF0F0:
+			XSdiAud_ActCh = 8;
+			break;
+		case 0xF0FF:
+			XSdiAud_ActCh = 12;
+			break;
+		case 0xFF00:
+			XSdiAud_ActCh = 8;
+			break;
+		case 0xFF0F:
+			XSdiAud_ActCh = 12;
+			break;
+		case 0xFFF0:
+			XSdiAud_ActCh = 12;
+			break;
+		case 0xFFFF:
+			XSdiAud_ActCh = 16;
+			break;
+		default:
+			XSdiAud_ActCh = 4;
+			xil_printf("Invalid Case: Num of Act Channels are not 4,8,12or16\r\n");
+			break;
+	}
+	return XSdiAud_ActCh;
+}
+#endif

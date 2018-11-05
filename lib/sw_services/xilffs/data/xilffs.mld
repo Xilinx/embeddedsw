@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2013 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.00a hk/sg 10/17/13 First release
-#
+# 1.00  srm   02/16/18 Updated to pick up latest freertos port 10.0
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -43,12 +43,12 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilffs
   OPTION drc = ffs_drc;
   OPTION copyfiles = all;
-  OPTION REQUIRES_OS = (standalone freertos901_xilinx);
+  OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilffs,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Generic Fat File System Library";
-  OPTION VERSION = 3.7;
+  OPTION VERSION = 3.9;
   OPTION NAME = xilffs;
-  PARAM name = fs_interface, desc = "Enables file system with selected interface. Enter 1 for SD.", type = int, default = 1;
+  PARAM name = fs_interface, desc = "Enables file system with selected interface. Enter 1 for SD. Enter 2 for RAM", type = int, default = 1;
   PARAM name = read_only, desc = "Enables the file system in Read_Only mode if true. ZynqMP fsbl will set this to true", type = bool, default = false;
   PARAM name = use_lfn, desc = "Enables the Long File Name(LFN) support if true.", type = bool, default = false;
   PARAM name = use_mkfs, desc = "Disable(0) or Enable(1) f_mkfs function. ZynqMP fsbl will set this to false", type = bool, default = true;
@@ -57,5 +57,10 @@ BEGIN LIBRARY xilffs
   PARAM name = use_strfunc, desc = "Enables the string functions (valid values 0 to 2).", type = int, default = 0;
   PARAM name = set_fs_rpath, desc = "Configures relative path feature (valid values 0 to 2).", type = int, default = 0;
   PARAM name = word_access, desc = "Enables word access for misaligned memory access platform", type = bool, default = true;
+
+  BEGIN CATEGORY ramfs_options
+    PARAM name = ramfs_size, desc = "RAM FS size", type = int, default = 3145728;
+    PARAM name = ramfs_start_addr, desc = "RAM FS start address", type = int;
+  END CATEGORY
 
 END LIBRARY

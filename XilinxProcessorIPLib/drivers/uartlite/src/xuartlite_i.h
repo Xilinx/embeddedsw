@@ -33,7 +33,7 @@
 /**
 *
 * @file xuartlite_i.h
-* @addtogroup uartlite_v3_1
+* @addtogroup uartlite_v3_2
 * @{
 *
 * Contains data which is shared between the files of the XUartLite component.

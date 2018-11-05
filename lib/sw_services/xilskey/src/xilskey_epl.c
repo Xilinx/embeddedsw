@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -64,6 +64,8 @@
 *               26/07/16 Added 128 bit user key programming and reading.
 *                        Provided single bit programming feature for 32 and
 *                        128 bit user keys for eFUSE Ultrascale.
+* 6.4   vns     02/27/18 Added support for programming secure bit 6 -
+*                        enable obfuscation feature for eFUSE AES key
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -169,7 +171,7 @@
 #define XSK_EFUSEPL_RSA_HASH_SIZE_ULTRA	(384)	/**< RSA hash size
 						  *  of Ultrascale
 						  *  series */
-#define XSK_EFUSEPL_SEC_MAX_BITS_ULTRA	(6)	/**< Secure row
+#define XSK_EFUSEPL_SEC_MAX_BITS_ULTRA	(7)	/**< Secure row
 						  *  max bits of
 						  *  Ultrascale
 						  *  series */
@@ -188,7 +190,7 @@
 						/**< Control
 						  * row end bit
 						  * of Ultrascale series */
-#define XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA	(5)
+#define XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA	(6)
 						/**< Secure
 						  * row end bit
 						  * of Ultrascale series */
@@ -320,16 +322,18 @@ typedef enum {
  */
 typedef enum {
 	XSK_EFUSEPL_SEC_ALLOW_ENCRYPT_ONLY,
-	XSK_EFUSEPL_SEC_FORCE_AES_ONLY_ULTRA,		/**< Bit 0 of Fuse Ctrl
+	XSK_EFUSEPL_SEC_FORCE_AES_ONLY_ULTRA,		/**< Bit 0 of Fuse Secure
 							  *  row of Ultrascale */
-	XSK_EFUSEPL_SEC_RSA_AUTH_EN_ULTRA ,	/**< Bit 2 of Fuse Ctrl
+	XSK_EFUSEPL_SEC_RSA_AUTH_EN_ULTRA ,	/**< Bit 2 of Fuse Secure
 							  *  row of Ultrascale */
-	XSK_EFUSEPL_SEC_JTAG_CHAIN_DISABLE_ULTRA,	/**< Bit 3 of Fuse Ctrl
+	XSK_EFUSEPL_SEC_JTAG_CHAIN_DISABLE_ULTRA,	/**< Bit 3 of Fuse Secure
 							  *  row of Ultrascale */
-	XSK_EFUSEPL_SEC_DISABLE_INTRNL_TEST_ACCESS_ULTRA,/**< Bit 4 of Fuse Ctrl
+	XSK_EFUSEPL_SEC_DISABLE_INTRNL_TEST_ACCESS_ULTRA,/**< Bit 4 of Fuse Secure
 							  *  row of Ultrascale */
-	XSK_EFUSEPL_SEC_DISABLE_DECRPTR_ULTRA,		/**< Bit 5 of Fuse Ctrl
+	XSK_EFUSEPL_SEC_DISABLE_DECRPTR_ULTRA,		/**< Bit 5 of Fuse Secure
 							  *  row of Ultrascale */
+	XSK_EFUSEPL_SEC_ENABLE_OBFUSCATION_ULTRA /**< Bit 6 of fuse secure row
+							  * row of Ultrascale */
 }XSKEfusePl_FuseSecureBits_Ultra;
 
 /***************** Macros (Inline Functions) Definitions ********************/
@@ -2624,7 +2628,8 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 		(InstancePtr->RSAEnable == TRUE) ||
 		(InstancePtr->JtagDisable == TRUE) ||
 		(InstancePtr->IntTestAccessDisable == TRUE) ||
-		(InstancePtr->DecoderDisable == TRUE)) {
+		(InstancePtr->DecoderDisable == TRUE) ||
+		(InstancePtr->FuseObfusEn == TRUE)) {
 		/* Programming secure bits */
 		SecData[XSK_EFUSEPL_SEC_ALLOW_ENCRYPT_ONLY] = InstancePtr->EncryptOnly;
 		SecData[XSK_EFUSEPL_SEC_FORCE_AES_ONLY_ULTRA] =
@@ -2637,6 +2642,8 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 					InstancePtr->IntTestAccessDisable;
 		SecData[XSK_EFUSEPL_SEC_DISABLE_DECRPTR_ULTRA] =
 						InstancePtr->DecoderDisable;
+		SecData[XSK_EFUSEPL_SEC_ENABLE_OBFUSCATION_ULTRA] =
+						InstancePtr->FuseObfusEn;
 		if(XilSKey_EfusePl_ProgramSecRegister(SecData) != XST_SUCCESS) {
 			return (XSK_EFUSEPL_ERROR_PRGRMG_FUSE_SEC_ROW +
 								ErrorCode);
@@ -2703,13 +2710,8 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 *****************************************************************************/
 static inline u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr)
 {
+#ifdef XSK_MICROBLAZE_ULTRA
 	u32 StatusValues = 0;
-
-	if (XilSKey_EfusePl_ReadControlRegister(CtrlBitsUltra)
-						!= XST_SUCCESS) {
-		return (XSK_EFUSEPL_ERROR_READING_FUSE_CNTRL +
-							ErrorCode);
-	}
 
 	if (XilSKey_EfusePl_ReadStatus(InstancePtr,&StatusValues)
 						!= XST_SUCCESS) {
@@ -2721,6 +2723,14 @@ static inline u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr)
 		(1 << XSK_EFUSEPL_STATUS_FUSE_LOGIC_IS_BUSY_ULTRA)) == TRUE) {
 		return (XSK_EFUSEPL_ERROR_FUSE_BUSY + ErrorCode);
 	}
+#endif
+
+	if (XilSKey_EfusePl_ReadControlRegister(CtrlBitsUltra)
+						!= XST_SUCCESS) {
+		return (XSK_EFUSEPL_ERROR_READING_FUSE_CNTRL +
+							ErrorCode);
+	}
+
 
 	if ((((CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_KEY_RD_ULTRA] == TRUE) ||
 		(CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_KEY_WR_ULTRA] == TRUE))

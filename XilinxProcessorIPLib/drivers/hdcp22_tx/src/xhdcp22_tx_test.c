@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp22_tx_test.c
-* @addtogroup hdcp22_tx_v2_0
+* @addtogroup hdcp22_tx_v2_3
 * @{
 * @details
 *
@@ -502,17 +502,17 @@ void XHdcp22Tx_Dump(const char *String, const u8 *Buf, u32 Buflen)
 {
 	u32 Offset;
 
-	xil_printf("\n##########################################\n\r");
+	xil_printf("\n##########################################\r\n");
 	xil_printf("INFO::%s::Byte[0:%0d]", String, Buflen-1);
 	for(Offset=0; Offset<Buflen; Offset++)
 	{
 		if((Offset%20) == 0) {
-			xil_printf("\n\r");
+			xil_printf("\r\n");
 		}
 
 		xil_printf("%02x ", Buf[Offset]);
 	}
-	xil_printf("\n\r##########################################\n\r");
+	xil_printf("\r\n##########################################\r\n");
 }
 
 /*****************************************************************************/

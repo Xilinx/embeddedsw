@@ -43,7 +43,7 @@
 /**
 *
 * @file xusb.h
-* @addtogroup usb_v5_0
+* @addtogroup usb_v5_2
 * @{
 * @details
 *

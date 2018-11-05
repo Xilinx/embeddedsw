@@ -78,6 +78,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who     Date     Changes
 <hr/>
 
 1.0   vnsld  22/10/14 First release
+1.2   adk    11/22/17 Added peripheral test app support.
+1.2     adk    11/01/18 Declared static array rather than hard code memory for
+                buffers.
+      adk    18/01/18 Remove unnecessary column in XIntc_Connect() API.
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -90,21 +94,18 @@ Macros</h2></td></tr>
 <tr class="memitem:a36650147b2834be4261c304cbb5acbfb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__intr__example_8c.html#a36650147b2834be4261c304cbb5acbfb">CSUDMA_LOOPBACK_CFG</a>&#160;&#160;&#160;0x00000050</td></tr>
 <tr class="memdesc:a36650147b2834be4261c304cbb5acbfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">LOOP BACK configuration macro.  <a href="#a36650147b2834be4261c304cbb5acbfb">More...</a><br /></td></tr>
 <tr class="separator:a36650147b2834be4261c304cbb5acbfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3d8dffdc62a3f278989d9be3029c81f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__intr__example_8c.html#ac3d8dffdc62a3f278989d9be3029c81f">SRC_ADDR</a>&#160;&#160;&#160;0x04200000</td></tr>
-<tr class="memdesc:ac3d8dffdc62a3f278989d9be3029c81f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source Address.  <a href="#ac3d8dffdc62a3f278989d9be3029c81f">More...</a><br /></td></tr>
-<tr class="separator:ac3d8dffdc62a3f278989d9be3029c81f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afae12ac043a663635a5132cffa62458b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__intr__example_8c.html#afae12ac043a663635a5132cffa62458b">DST_ADDR</a>&#160;&#160;&#160;0x04300000</td></tr>
-<tr class="memdesc:afae12ac043a663635a5132cffa62458b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination Address.  <a href="#afae12ac043a663635a5132cffa62458b">More...</a><br /></td></tr>
-<tr class="separator:afae12ac043a663635a5132cffa62458b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70ed59adcb4159ac551058053e649640"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__intr__example_8c.html#a70ed59adcb4159ac551058053e649640">SIZE</a>&#160;&#160;&#160;0x100</td></tr>
 <tr class="memdesc:a70ed59adcb4159ac551058053e649640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the data to be transfered.  <a href="#a70ed59adcb4159ac551058053e649640">More...</a><br /></td></tr>
 <tr class="separator:a70ed59adcb4159ac551058053e649640"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8a033d6b8dab6a393181c511d85f0ef3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__intr__example_8c.html#a8a033d6b8dab6a393181c511d85f0ef3">XCsuDma_IntrExample</a> (u16 DeviceId)</td></tr>
-<tr class="memdesc:a8a033d6b8dab6a393181c511d85f0ef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs data transfer in loop back mode in interrupt mode and verify the data.  <a href="#a8a033d6b8dab6a393181c511d85f0ef3">More...</a><br /></td></tr>
-<tr class="separator:a8a033d6b8dab6a393181c511d85f0ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4824587b357202b3fcb4e4f570d48954"><td class="memItemLeft" align="right" valign="top">u32 DstBuf [<a class="el" href="xcsudma__polled__example_8c.html#a70ed59adcb4159ac551058053e649640">SIZE</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__intr__example_8c.html#a4824587b357202b3fcb4e4f570d48954">__attribute__</a> ((aligned(64)))</td></tr>
+<tr class="memdesc:a4824587b357202b3fcb4e4f570d48954"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination buffer.  <a href="#a4824587b357202b3fcb4e4f570d48954">More...</a><br /></td></tr>
+<tr class="separator:a4824587b357202b3fcb4e4f570d48954"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae07b94c3ade7479c4ec8dfec3bb4d643"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__intr__example_8c.html#ae07b94c3ade7479c4ec8dfec3bb4d643">XCsuDma_IntrExample</a> (INTC *IntcInstancePtr, <a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *CsuDmaInstance, u16 DeviceId, u16 IntrId)</td></tr>
+<tr class="memdesc:ae07b94c3ade7479c4ec8dfec3bb4d643"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs data transfer in loop back mode in interrupt mode and verify the data.  <a href="#ae07b94c3ade7479c4ec8dfec3bb4d643">More...</a><br /></td></tr>
+<tr class="separator:ae07b94c3ade7479c4ec8dfec3bb4d643"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2c2d73f33aa4a715c8b8b3c0c01ada6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__intr__example_8c.html#aa2c2d73f33aa4a715c8b8b3c0c01ada6">IntrHandler</a> (void *CallBackRef)</td></tr>
 <tr class="memdesc:aa2c2d73f33aa4a715c8b8b3c0c01ada6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the CSU_DMA driver.  <a href="#aa2c2d73f33aa4a715c8b8b3c0c01ada6">More...</a><br /></td></tr>
 <tr class="separator:aa2c2d73f33aa4a715c8b8b3c0c01ada6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,22 +152,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="afae12ac043a663635a5132cffa62458b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afae12ac043a663635a5132cffa62458b">&#9670;&nbsp;</a></span>DST_ADDR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define DST_ADDR&#160;&#160;&#160;0x04300000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Destination Address. </p>
-
-</div>
-</div>
 <a id="ae187885a3ceac7f6fbeeef796f2cd075"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae187885a3ceac7f6fbeeef796f2cd075">&#9670;&nbsp;</a></span>INTG_CSUDMA_INTR_DEVICE_ID</h2>
 
@@ -199,23 +184,28 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ac3d8dffdc62a3f278989d9be3029c81f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3d8dffdc62a3f278989d9be3029c81f">&#9670;&nbsp;</a></span>SRC_ADDR</h2>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a4824587b357202b3fcb4e4f570d48954"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4824587b357202b3fcb4e4f570d48954">&#9670;&nbsp;</a></span>__attribute__()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SRC_ADDR&#160;&#160;&#160;0x04200000</td>
+          <td class="memname">u32 DstBuf [<a class="el" href="xcsudma__polled__example_8c.html#a70ed59adcb4159ac551058053e649640">SIZE</a>] __attribute__ </td>
+          <td>(</td>
+          <td class="paramtype">(aligned(64))&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Source Address. </p>
+<p>Destination buffer. </p>
+<p>Source buffer. </p>
 
 </div>
 </div>
-<h2 class="groupheader">Function Documentation</h2>
 <a id="aa2c2d73f33aa4a715c8b8b3c0c01ada6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa2c2d73f33aa4a715c8b8b3c0c01ada6">&#9670;&nbsp;</a></span>IntrHandler()</h2>
 
@@ -271,8 +261,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a8a033d6b8dab6a393181c511d85f0ef3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a033d6b8dab6a393181c511d85f0ef3">&#9670;&nbsp;</a></span>XCsuDma_IntrExample()</h2>
+<a id="ae07b94c3ade7479c4ec8dfec3bb4d643"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae07b94c3ade7479c4ec8dfec3bb4d643">&#9670;&nbsp;</a></span>XCsuDma_IntrExample()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -280,9 +270,31 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">int XCsuDma_IntrExample </td>
           <td>(</td>
-          <td class="paramtype">u16&#160;</td>
-          <td class="paramname"><em>DeviceId</em></td><td>)</td>
+          <td class="paramtype">INTC *&#160;</td>
+          <td class="paramname"><em>IntcInstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *&#160;</td>
+          <td class="paramname"><em>CsuDmaInstance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&#160;</td>
+          <td class="paramname"><em>DeviceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&#160;</td>
+          <td class="paramname"><em>IntrId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">

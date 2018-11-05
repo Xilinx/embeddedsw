@@ -239,6 +239,11 @@ static s32 getnum( charptr* linep)
 
 /* void esp_printf( const func_ptr f_ptr,
    const charptr ctrl1, ...) */
+#if HYP_GUEST && EL1_NONSECURE && XEN_USE_PV_CONSOLE
+void xil_printf( const char8 *ctrl1, ...){
+	XPVXenConsole_Printf(ctrl1);
+}
+#else
 void xil_printf( const char8 *ctrl1, ...)
 {
 	s32 Check;
@@ -434,5 +439,5 @@ void xil_printf( const char8 *ctrl1, ...)
     }
     va_end( argp);
 }
-
+#endif
 /*---------------------------------------------------*/

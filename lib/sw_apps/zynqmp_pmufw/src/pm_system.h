@@ -39,6 +39,9 @@
 #include "pm_master.h"
 #include "pm_slave.h"
 
+#define PM_SUSPEND_TYPE_REGULAR		0
+#define PM_SUSPEND_TYPE_POWER_OFF	1
+
 /*********************************************************************
  * Function declarations
  ********************************************************************/
@@ -46,5 +49,11 @@ int PmSystemRequirementAdd(void);
 
 void PmSystemPrepareForRestart(const PmMaster* const master);
 void PmSystemRestartDone(const PmMaster* const master);
+bool PmSystemDetectPowerOffSuspend(const PmMaster* const master);
+int PmSystemPreparePowerOffSuspend(void);
+int PmSystemFinalizePowerOffSuspend(void);
+int PmSystemResumePowerOffSuspend(void);
+u32 PmSystemSuspendType(void);
+void PmSystemSetSuspendType(u32 type);
 
 #endif

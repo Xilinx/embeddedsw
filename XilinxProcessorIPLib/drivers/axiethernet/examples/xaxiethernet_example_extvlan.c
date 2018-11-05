@@ -65,6 +65,7 @@
 *                     available in all examples. This is a fix for CR-965028.
 *       ms   04/05/17 Added tabspace for return statements in functions
 *                     for proper documentation while generating doxygen.
+* 5.7   rsp  19/12/17 Defined Padding and ExternalLoopback variables.
 * </pre>
 *
 ******************************************************************************/
@@ -179,6 +180,9 @@ char TxBdSpace[TXBD_SPACE_BYTES] __attribute__ ((aligned(BD_ALIGNMENT)));
 static volatile int FramesRx;	/* Num of frames that have been received */
 static volatile int FramesTx;	/* Num of frames that have been sent */
 static volatile int DeviceErrors;	/* Num of errors detected in the device */
+
+volatile int Padding;	/* For 1588 Packets we need to pad 8 bytes time stamp value */
+volatile int ExternalLoopback; /* Variable for External loopback */
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
 * 
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal 
@@ -238,6 +238,8 @@
 * 16.00a gan 08/02/16   Fix for CR# 955897 -(2016.3)FSBL -
 * 						In pcap.c, check pl power through MCTRL register
 * 						for 3.0 and later versions of silicon.
+* 17.00a bsv 27/03/18	Fix for CR# 996973  Add code under JTAG_ENABLE_LEVEL_SHIFTERS macro
+* 						to enable level shifters in jtag boot mode.
 * </pre>
 *
 * </pre>
@@ -296,6 +298,10 @@
 * MMC_SUPPORT
 * This flag is used to enable MMC support feature
 *
+* JTAG_ENABLE_LEVEL_SHIFTERS
+* FSBL will not enable the level shifters for jtag boot mode. This flag can be
+* set during compilation for jtag boot mode to enable level shifters.
+*
 *******************************************************************************/
 #ifndef XIL_FSBL_H
 #define XIL_FSBL_H
@@ -322,8 +328,8 @@ extern "C" {
 /*
  * SDK release version
  */
-#define SDK_RELEASE_YEAR	2017
-#define SDK_RELEASE_QUARTER	4
+#define SDK_RELEASE_YEAR	2018
+#define SDK_RELEASE_QUARTER	2
 
 #define WORD_LENGTH_SHIFT	2
 

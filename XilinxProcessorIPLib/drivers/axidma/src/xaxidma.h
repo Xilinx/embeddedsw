@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxidma.h
-* @addtogroup axidma_v9_5
+* @addtogroup axidma_v9_7
 * @{
 * @details
 *
@@ -473,6 +473,10 @@
 * 	     26/10/17 Fixed CR#987214 Fix race condition in the XAxiDma_Reset().
 *      rsp   11/01/17 Fixed CR#988210 Add interface to do config lookup based
 *                     on base address.
+*      adk   13/11/17 Fixed CR#989455 multi-channel interrupt example fails on A53.
+* 9.6  rsp   01/11/18 Fixed CR#976392 In XAxiDma struct use UINTPTR for RegBase.
+*                     In XAxiDma_LookupConfigBaseAddr() use UINTPTR for Baseaddr.
+* 9.7  rsp   04/25/18 Add SgLengthWidth member in dma config structure. CR #1000474
 * </pre>
 *
 ******************************************************************************/
@@ -503,7 +507,7 @@ extern "C" {
  * engine in use.
  */
 typedef struct XAxiDma {
-	u32 RegBase;		/* Virtual base address of DMA engine */
+	UINTPTR RegBase;		/* Virtual base address of DMA engine */
 
 	int HasMm2S;		/* Has transmit channel */
 	int HasS2Mm;		/* Has receive channel */
@@ -541,6 +545,7 @@ typedef struct {
 	int S2MmBurstSize;
 	int MicroDmaMode;
 	int AddrWidth;		  /**< Address Width */
+	int SgLengthWidth;
 } XAxiDma_Config;
 
 
@@ -740,7 +745,7 @@ typedef struct {
  * Initialization and control functions in xaxidma.c
  */
 XAxiDma_Config *XAxiDma_LookupConfig(u32 DeviceId);
-XAxiDma_Config *XAxiDma_LookupConfigBaseAddr(u32 Baseaddr);
+XAxiDma_Config *XAxiDma_LookupConfigBaseAddr(UINTPTR Baseaddr);
 int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config);
 void XAxiDma_Reset(XAxiDma * InstancePtr);
 int XAxiDma_ResetIsDone(XAxiDma * InstancePtr);

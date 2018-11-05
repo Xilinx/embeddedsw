@@ -54,6 +54,10 @@ option (WITH_DOC "Build with documentation" ON)
 
 set (PROJECT_EC_FLAGS "-Wall -Werror -Wextra" CACHE STRING "")
 
-
+check_include_files(xintc.h HAS_XINTC)
+if (HAS_XINTC STREQUAL "1")
+  get_property(PROJECT_EC_FLAGS DIRECTORY PROPERTY PROJECT_EC_FLAGS)
+  set(PROJECT_EC_FLAGS "${PROJECT_EC_FLAGS} -DHAS_XINTC" )
+endif(HAS_XINTC STREQUAL "1")
 
 # vim: expandtab:ts=2:sw=2:smartindent

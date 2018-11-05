@@ -33,7 +33,7 @@
 /**
 *
 * @file xcan.c
-* @addtogroup can_v3_0
+* @addtogroup can_v3_2
 * @{
 *
 * The XCan driver. Functions in this file are the minimum required functions

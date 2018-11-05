@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,7 @@
 * 2.0   vns  03/24/17 Removed READ_BUFFER_SIZE from configuration
 *                     Added FSBL_PL_CLEAR_EXCLUDE_VAL, FSBL_USB_EXCLUDE_VAL,
 *                     FSBL_PROT_BYPASS_EXCLUDE_VAL configurations
+* 3.0   vns  03/07/18 Added FSBL_FORCE_ENC_EXCLUDE_VAL configuration
 *</pre>
 *
 * @note
@@ -132,6 +133,8 @@ extern "C" {
  *     - FSBL_A53_TCM_ECC_EXCLUDE_VAL TCM ECC Init will be excluded for A53
  *     - FSBL_PL_CLEAR_EXCLUDE_VAL PL clear will be excluded unless boot.bin
  *     	 contains bitstream
+ *     - FSBL_FORCE_ENC_EXCLUDE_VAL Forcing encryption for every partition
+ *       when ENC only bit is blown will be excluded.
  */
 #define FSBL_NAND_EXCLUDE_VAL			(0U)
 #define FSBL_QSPI_EXCLUDE_VAL			(0U)
@@ -145,7 +148,9 @@ extern "C" {
 #define FSBL_A53_TCM_ECC_EXCLUDE_VAL	(1U)
 #define FSBL_PL_CLEAR_EXCLUDE_VAL		(1U)
 #define FSBL_USB_EXCLUDE_VAL			(1U)
-#define FSBL_PROT_BYPASS_EXCLUDE_VAL	(0U)
+#define FSBL_PROT_BYPASS_EXCLUDE_VAL	(1U)
+#define FSBL_PARTITION_LOAD_EXCLUDE_VAL (0U)
+#define FSBL_FORCE_ENC_EXCLUDE_VAL		(0U)
 
 #if FSBL_NAND_EXCLUDE_VAL
 #define FSBL_NAND_EXCLUDE
@@ -199,6 +204,13 @@ extern "C" {
 #define FSBL_PROT_BYPASS_EXCLUDE
 #endif
 
+#if FSBL_PARTITION_LOAD_EXCLUDE_VAL
+#define FSBL_PARTITION_LOAD_EXCLUDE
+#endif
+
+#if FSBL_FORCE_ENC_EXCLUDE_VAL
+#define FSBL_FORCE_ENC_EXCLUDE
+#endif
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/

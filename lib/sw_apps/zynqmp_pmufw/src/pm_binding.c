@@ -46,6 +46,8 @@
 #include "pm_gic_proxy.h"
 #include "pm_requirement.h"
 #include "pm_extern.h"
+#include "pm_usb.h"
+#include "pm_hooks.h"
 
 /* All GIC wakes in GPI1 */
 #define PMU_IOMODULE_GPI1_GIC_WAKES_ALL_MASK \
@@ -56,20 +58,36 @@
 		PMU_IOMODULE_GPI1_R5_0_WAKE_MASK | \
 		PMU_IOMODULE_GPI1_R5_1_WAKE_MASK)
 
+#define PMU_IOMODULE_GPI1_MIO_WAKE_ALL_MASK \
+		(PMU_IOMODULE_GPI1_MIO_WAKE_0_MASK | \
+		PMU_IOMODULE_GPI1_MIO_WAKE_1_MASK | \
+		PMU_IOMODULE_GPI1_MIO_WAKE_2_MASK | \
+		PMU_IOMODULE_GPI1_MIO_WAKE_3_MASK | \
+		PMU_IOMODULE_GPI1_MIO_WAKE_4_MASK | \
+		PMU_IOMODULE_GPI1_MIO_WAKE_5_MASK)
+
 /**
  * XPfw_PmInit() - initializes PM firmware
  *
- * @note	Call on startup to initialize PM firmware. It is assumed that
- * PFW enables GPI1, GPI2, and IPI0 interrupts, PM firmware only masks/unmasks
- * specific events.
+ * @note	Call on startup to initialize PM firmware.
  */
 void XPfw_PmInit(void)
 {
+#ifdef ENABLE_POS
+	u32 bootType = PmHookGetBootType();
+
+	/* Call user hook for Power Off Suspend initialization */
+	PmHookInitPowerOffSuspend();
+#else
+	u32 bootType = PM_COLD_BOOT;
+#endif
+
 	PmDbg(DEBUG_DETAILED,"Power Management Init\r\n");
 
-	PmMasterDefaultConfig();
-
-	PmNodeConstruct();
+	if (bootType == PM_COLD_BOOT) {
+		PmMasterDefaultConfig();
+		PmNodeConstruct();
+	}
 }
 
 /**
@@ -153,8 +171,15 @@ done:
  */
 int XPfw_PmWakeHandler(const u32 srcMask)
 {
-	int status;
+	int status = XST_INVALID_PARAM;
 
+#if defined(PMU_MIO_INPUT_PIN) && (PMU_MIO_INPUT_PIN >= 0) \
+				&& (PMU_MIO_INPUT_PIN <= 5)
+	if ((PMU_IOMODULE_GPI1_MIO_WAKE_0_MASK << PMU_MIO_INPUT_PIN) == srcMask) {
+		PmShutdownInterruptHandler();
+		return XST_SUCCESS;
+	}
+#endif
 	if (0U != (PMU_IOMODULE_GPI1_GIC_WAKES_ALL_MASK & srcMask))  {
 		/* Processor GIC wake */
 		PmProc* proc = PmProcGetByWakeMask(srcMask);
@@ -163,10 +188,15 @@ int XPfw_PmWakeHandler(const u32 srcMask)
 		} else {
 			status = XST_INVALID_PARAM;
 		}
-	} else if (0U != (PMU_LOCAL_GPI1_ENABLE_FPD_WAKE_GIC_PROX_MASK & srcMask)) {
+	} else if (0U != (PMU_IOMODULE_GPI1_FPD_WAKE_GIC_PROXY_MASK & srcMask)) {
 		status = PmMasterWake(&pmMasterApu_g);
-	} else if (0U != (PMU_LOCAL_GPI1_ENABLE_MIO_WAKE_MASK & srcMask)) {
+	} else if (0U != (PMU_IOMODULE_GPI1_MIO_WAKE_ALL_MASK & srcMask)) {
 		status = PmExternWakeMasters();
+	} else if (0U != (PMU_IOMODULE_GPI1_USB_0_WAKE_MASK & srcMask)) {
+		status = PmWakeMasterBySlave(&pmSlaveUsb0_g.slv);
+	} else if (0U != (PMU_IOMODULE_GPI1_USB_1_WAKE_MASK & srcMask)) {
+		status = PmWakeMasterBySlave(&pmSlaveUsb1_g.slv);
+	} else {
 	}
 
 	return status;

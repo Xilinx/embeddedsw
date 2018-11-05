@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -43,7 +43,9 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  yh     15/01/15 Initial release for 3D video support
-* 1.01  YH  2017/07/19   Clean up Print Statement line ending to "\r\n"
+* 1.01  YH     19/07/17 Clean up Print Statement line ending to "\r\n"
+* 2.00  EB     23/01/18 This file is deprecated. All the APIs are now moved
+*						    to HDMI Common library
 * </pre>
 *
 ******************************************************************************/
@@ -302,7 +304,7 @@ static XVidC_3DSamplingPosition XV_HdmiTx_VSIF_Conv3DSampPosTo3DSampPos(XV_HdmiT
 *  - XST_FAILURE if an error was detected during parsing
 *
 ******************************************************************************/
-int XV_HdmiTx_VSIF_ParsePacket(XV_HdmiTx_Aux *AuxPtr, XV_HdmiTx_VSIF  *VSIFPtr)
+int XV_HdmiTx_VSIF_ParsePacket(XHdmiC_Aux *AuxPtr, XV_HdmiTx_VSIF  *VSIFPtr)
 {
     u8 *pData;
     u32 temp;
@@ -472,7 +474,7 @@ int XV_HdmiTx_VSIF_Extract3DInfo(u8 *VSIFRaw, XV_HdmiTx_3D_Info *InstancePtr)
 *  - XST_FAILURE if an error was detected during generation
 *
 ******************************************************************************/
-int XV_HdmiTx_VSIF_GeneratePacket(XV_HdmiTx_VSIF  *VSIFPtr, XV_HdmiTx_Aux *AuxPtr)
+int XV_HdmiTx_VSIF_GeneratePacket(XV_HdmiTx_VSIF  *VSIFPtr, XHdmiC_Aux *AuxPtr)
 {
     u8 Index = 0;
     u8 ByteCount = 0;

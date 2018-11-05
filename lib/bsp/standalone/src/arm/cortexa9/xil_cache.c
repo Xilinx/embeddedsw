@@ -92,6 +92,12 @@
 * 5.03	 pkp 10/07/15 L2 Cache functionalities are avoided for the OpenAMP slave
 *					  application(when USE_AMP flag is defined for BSP) as master CPU
 *					  would be utilizing L2 cache for its operation
+* 6.6    mus 12/07/17 Errata 753970 is not applicable for the PL130 cache controller
+*                     version r0p2, which is present in zynq. So,removed the handling
+*                     related to same.It fixes CR#989132.
+* 6.6    asa 16/01/18 Changes made in Xil_L1DCacheInvalidate and Xil_L2CacheInvalidate
+*					  routines to ensure the stack data flushed only when the respective
+*					  caches are enabled. This fixes CR-992023.
 *
 * </pre>
 *
@@ -162,11 +168,7 @@ static inline void Xil_L2CacheSync(void)
 static void Xil_L2CacheSync(void)
 #endif
 {
-#ifdef CONFIG_PL310_ERRATA_753970
-	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_DUMMY_CACHE_SYNC_OFFSET, 0x0U);
-#else
 	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_SYNC_OFFSET, 0x0U);
-#endif
 }
 #endif
 /****************************************************************************/
@@ -787,6 +789,7 @@ void Xil_L1DCacheInvalidate(void)
 
 #ifdef __GNUC__
 	u32 stack_start,stack_end,stack_size;
+	register u32 CtrlReg;
 #endif
 
 	currmask = mfcpsr();
@@ -797,8 +800,15 @@ void Xil_L1DCacheInvalidate(void)
 	stack_start = (u32)&__undef_stack;
 	stack_size=stack_start-stack_end;
 
-	/*Flush stack memory to save return address*/
-	Xil_DCacheFlushRange(stack_end, stack_size);
+	/* Check for the cache status. If cache is enabled, then only
+	 * flush stack memory to save return address. If cache is disabled,
+	 * dont flush anything as it might result in flushing stale date into
+	 * memory which is undesirable.
+	 * */
+	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
+	if ((CtrlReg & (XREG_CP15_CONTROL_C_BIT)) != 0U) {
+		Xil_DCacheFlushRange(stack_end, stack_size);
+	}
 #endif
 
 	/* Select cache level 0 and D cache in CSSR */
@@ -1379,12 +1389,22 @@ void Xil_L2CacheInvalidate(void)
 {
 	#ifdef __GNUC__
 	u32 stack_start,stack_end,stack_size;
+	register u32 L2CCReg;
 	stack_end = (u32)&_stack_end;
 	stack_start = (u32)&__undef_stack;
 	stack_size=stack_start-stack_end;
 
+	/* Check for the cache status. If cache is enabled, then only
+	 * flush stack memory to save return address. If cache is disabled,
+     * dont flush anything as it might result in flushing stale date into
+	 * memory which is undesirable.
+	 */
+	L2CCReg = Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CNTRL_OFFSET);
+	if ((L2CCReg & 0x01U) != 0U) {
 	/*Flush stack memory to save return address*/
-	Xil_DCacheFlushRange(stack_end, stack_size);
+		Xil_DCacheFlushRange(stack_end, stack_size);
+	}
+
 	#endif
 	u32 ResultDCache;
 	/* Invalidate the caches */

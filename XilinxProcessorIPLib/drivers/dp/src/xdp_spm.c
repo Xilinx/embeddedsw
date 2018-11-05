@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp_spm.c
- * @addtogroup dp_v6_0
+ * @addtogroup dp_v7_0
  * @{
  *
  * This file contains the stream policy maker functions for the XDp driver.
@@ -71,12 +71,15 @@
 
 /**************************** Function Prototypes *****************************/
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel);
 static void XDp_TxSetLineReset(XDp *InstancePtr, u8 Stream,
 		XDp_TxMainStreamAttributes *MsaConfig);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /**************************** Function Definitions ****************************/
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function calculates the following Main Stream Attributes (MSA):
@@ -159,16 +162,27 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 	/* Set the user pixel width to handle clocks that exceed the
 	 * capabilities of the DisplayPort TX core. */
 	if (MsaConfig->OverrideUserPixelWidth == 0) {
-		if ((MsaConfig->PixelClockHz > 300000000) &&
-			(LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4)) {
-			MsaConfig->UserPixelWidth = 4;
-		}
-		else if ((MsaConfig->PixelClockHz > 75000000) &&
-			(LinkConfig->LaneCount != XDP_TX_LANE_COUNT_SET_1)) {
-			MsaConfig->UserPixelWidth = 2;
-		}
-		else {
-			MsaConfig->UserPixelWidth = 1;
+		/* Check for Dp1.4 or Dp1.2/1.1 */
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			if ((MsaConfig->PixelClockHz > 540000000) &&
+			    (LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4)) {
+				MsaConfig->UserPixelWidth = 4;
+			} else if ((MsaConfig->PixelClockHz > 270000000) &&
+				   (LinkConfig->LaneCount != XDP_TX_LANE_COUNT_SET_1)) {
+				MsaConfig->UserPixelWidth = 2;
+			} else {
+				MsaConfig->UserPixelWidth = 1;
+			}
+		} else {
+			if ((MsaConfig->PixelClockHz > 300000000) &&
+			    (LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4)) {
+				MsaConfig->UserPixelWidth = 4;
+			} else if ((MsaConfig->PixelClockHz > 75000000) &&
+				   (LinkConfig->LaneCount != XDP_TX_LANE_COUNT_SET_1)) {
+				MsaConfig->UserPixelWidth = 2;
+			} else {
+				MsaConfig->UserPixelWidth = 1;
+			}
 		}
 	}
 
@@ -952,7 +966,9 @@ void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth)
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET, 0x1);
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET, 0x0);
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
+#if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function configures the number of pixels output through the user data
@@ -1015,18 +1031,18 @@ XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream)
 			StreamOffset[Stream - XDP_TX_STREAM_ID1]);
 
 	/* Determine number of bits per color component. */
-	RegVal  &= XDP_TX_MAIN_STREAMX_MISC0_BDC_MASK;
-	RegVal >>= XDP_TX_MAIN_STREAMX_MISC0_BDC_SHIFT;
+	RegVal  &= XDP_MAIN_STREAMX_MISC0_BDC_MASK;
+	RegVal >>= XDP_MAIN_STREAMX_MISC0_BDC_SHIFT;
 	switch (RegVal) {
-		case XDP_TX_MAIN_STREAMX_MISC0_BDC_6BPC:
+		case XDP_MAIN_STREAMX_MISC0_BDC_6BPC:
 			return XVIDC_BPC_6;
-		case XDP_TX_MAIN_STREAMX_MISC0_BDC_8BPC:
+		case XDP_MAIN_STREAMX_MISC0_BDC_8BPC:
 			return XVIDC_BPC_8;
-		case XDP_TX_MAIN_STREAMX_MISC0_BDC_10BPC:
+		case XDP_MAIN_STREAMX_MISC0_BDC_10BPC:
 			return XVIDC_BPC_10;
-		case XDP_TX_MAIN_STREAMX_MISC0_BDC_12BPC:
+		case XDP_MAIN_STREAMX_MISC0_BDC_12BPC:
 			return XVIDC_BPC_12;
-		case XDP_TX_MAIN_STREAMX_MISC0_BDC_16BPC:
+		case XDP_MAIN_STREAMX_MISC0_BDC_16BPC:
 			return XVIDC_BPC_16;
 		default:
 			return XVIDC_BPC_UNKNOWN;
@@ -1066,14 +1082,14 @@ XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream)
 			StreamOffset[Stream - XDP_TX_STREAM_ID1]);
 
 	/* Determine the color component format for the stream. */
-	RegVal  &= XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_MASK;
-	RegVal >>= XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT;
+	RegVal  &= XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_MASK;
+	RegVal >>= XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT;
 	switch (RegVal) {
-		case XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB:
+		case XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB:
 			return XVIDC_CSF_RGB;
-		case XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422:
+		case XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422:
 			return XVIDC_CSF_YCRCB_422;
-		case XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444:
+		case XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444:
 			return XVIDC_CSF_YCRCB_444;
 		default:
 			return XVIDC_CSF_UNKNOWN;
@@ -1099,23 +1115,31 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 	u8  LaneCount;
 	u8  BitsPerPixel, BitsPerColor, ColorComponent;
 	u32 RegVal;
-	u32 HBlank, HReducedBlank;
-	u32 HTotal, HActive, HStart, HSyncWidth, HBackPorch, HFrontPorch;
+	u32 HBlank;
+	u32 HTotal, HActive;
 	u32 StreamOffset[4] = {0, XDP_RX_STREAM2_MSA_START_OFFSET,
 					XDP_RX_STREAM3_MSA_START_OFFSET,
 					XDP_RX_STREAM4_MSA_START_OFFSET};
+	u32 Mvid, Nvid;
+	u32 StreamLoad;
+	u32 HReducedBlank;
+	u32 HStart, HSyncWidth, HBackPorch, HFrontPorch;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
-						(Stream == XDP_TX_STREAM_ID2) ||
-						(Stream == XDP_TX_STREAM_ID3) ||
-						(Stream == XDP_TX_STREAM_ID4));
+			(Stream == XDP_TX_STREAM_ID2) ||
+			(Stream == XDP_TX_STREAM_ID3) ||
+			(Stream == XDP_TX_STREAM_ID4));
 
-	LaneCount = InstancePtr->RxInstance.LinkConfig.LaneCount;
 	BaseAddr  = InstancePtr->Config.BaseAddr;
+	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		LaneCount = XDp_ReadReg(BaseAddr, XDP_RX_DPCD_LANE_COUNT_SET);
+	} else {
+		LaneCount = InstancePtr->RxInstance.LinkConfig.LaneCount;
+	}
 
 	BitsPerColor   = XDp_RxGetBpc(InstancePtr, Stream);
 	ColorComponent = XDp_RxGetColorComponent(InstancePtr, Stream);
@@ -1135,30 +1159,53 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 				StreamOffset[Stream - XDP_TX_STREAM_ID1]);
 	HActive     = XDp_ReadReg(BaseAddr, XDP_RX_MSA_HRES +
 				StreamOffset[Stream - XDP_TX_STREAM_ID1]);
-	HStart      = XDp_ReadReg(BaseAddr, XDP_RX_MSA_HSTART +
+	if (InstancePtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
+		HStart      = XDp_ReadReg(BaseAddr, XDP_RX_MSA_HSTART +
 				StreamOffset[Stream - XDP_TX_STREAM_ID1]);
-	HSyncWidth  = XDp_ReadReg(BaseAddr, XDP_RX_MSA_HSWIDTH +
+		HSyncWidth  = XDp_ReadReg(BaseAddr, XDP_RX_MSA_HSWIDTH +
 				StreamOffset[Stream - XDP_TX_STREAM_ID1]);
-	HBackPorch  = HStart - HSyncWidth;
-	HFrontPorch = HTotal - HSyncWidth - HActive - HBackPorch;
-	HBlank      = HBackPorch + HFrontPorch + HSyncWidth;
+		HBackPorch  = HStart - HSyncWidth;
+		HFrontPorch = HTotal - HSyncWidth - HActive - HBackPorch;
+		HBlank      = HBackPorch + HFrontPorch + HSyncWidth;
+	} else {
+		HBlank      = HTotal - HActive;
 
-	/* Reduced blanking starts at ceil(0.2 * HTotal). */
-	HReducedBlank = 2 * HTotal;
-	if (HReducedBlank % 10) {
-		HReducedBlank += 10;
+		Mvid      = XDp_ReadReg(BaseAddr, XDP_RX_MSA_MVID);
+		Nvid      = XDp_ReadReg(BaseAddr, XDP_RX_MSA_NVID);
+
+		/* Stream Load (%) : Stream BW * 100 / Link Bandwidth */
+		StreamLoad = (Mvid*BitsPerPixel*100)/Nvid/LaneCount/8;
 	}
-	HReducedBlank /= 10;
 
+	if (InstancePtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
+		/* Reduced blanking starts at ceil(0.2 * HTotal). */
+		HReducedBlank = 2 * HTotal;
+		if (HReducedBlank % 10) {
+			HReducedBlank += 10;
+		}
+		HReducedBlank /= 10;
+	}
+
+	/*Disable Line Reset only in case of fully loaded
+	 * RB2 Video bandwidth : Set Line Reset Disable for Load >95%*/
 	RegVal = XDp_ReadReg(BaseAddr, XDP_RX_LINE_RESET_DISABLE);
-	/* CVT spec. states HBlank is either 80 or 160 for reduced blanking. */
-	if ((HBlank < HReducedBlank) && ((HBlank == 80) || (HBlank == 160)) &&
-	/* Check if there is no possibility of getting extra pixels by TX. */
-			(((BitsPerPixel * HActive / LaneCount) % 8) == 0)) {
-		RegVal |= XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
-	}
-	else {
-		RegVal &= ~XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
+	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		if((StreamLoad>80) && (HBlank == 80)) {
+			RegVal |= XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
+		} else {
+			RegVal &= ~XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
+		}
+	} else {
+		/* CVT spec. states HBlank is either 80 or 160 
+		 * for reduced blanking, & check if there is no 
+		 * possibility of getting extra pixels by TX. */
+		if ((HBlank < HReducedBlank) &&
+		    ((HBlank == 80) || (HBlank == 160)) &&
+		     (((BitsPerPixel * HActive / LaneCount) % 8) == 0)) {
+			RegVal |= XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
+		} else {
+			RegVal &= ~XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
+		}
 	}
 	XDp_WriteReg(BaseAddr, XDP_RX_LINE_RESET_DISABLE, RegVal);
 
@@ -1170,7 +1217,9 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 		XDp_RxDtgEn(InstancePtr);
 	}
 }
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * When the driver is in multi-stream transport (MST) mode, this function will
@@ -1311,4 +1360,5 @@ static void XDp_TxSetLineReset(XDp *InstancePtr, u8 Stream,
 	}
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_LINE_RESET_DISABLE, RegVal);
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 /** @} */

@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxidma_sinit.c
-* @addtogroup axidma_v9_4
+* @addtogroup axidma_v9_7
 * @{
 *
 * Look up the hardware settings using device ID. The hardware setting is inside
@@ -51,6 +51,7 @@
 * 3.00a jz   11/22/10 Support IP core parameters change
 * 5.00a srt  08/29/11 Removed a compiler warning
 * 9.5   rsp  11/01/17 Add interface to do config lookup based on base address.
+* 9.6   rsp  01/11/18 In LookupConfig use UINTPTR for Baseaddr CR#976392
 *
 * </pre>
 *
@@ -107,7 +108,7 @@ XAxiDma_Config *XAxiDma_LookupConfig(u32 DeviceId)
  * @note	None
  *
  ******************************************************************************/
-XAxiDma_Config *XAxiDma_LookupConfigBaseAddr(u32 Baseaddr)
+XAxiDma_Config *XAxiDma_LookupConfigBaseAddr(UINTPTR Baseaddr)
 {
 	extern XAxiDma_Config XAxiDma_ConfigTable[];
 	XAxiDma_Config *CfgPtr;

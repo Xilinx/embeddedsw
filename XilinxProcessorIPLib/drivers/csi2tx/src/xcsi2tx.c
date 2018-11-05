@@ -45,6 +45,7 @@
 * Ver Who Date     Changes
 * --- --- -------- ------------------------------------------------------------
 * 1.0 sss 07/15/16 Initial release
+* 1.1 vsa 02/28/18 Added Frame End Generation feature
 * </pre>
 ******************************************************************************/
 
@@ -116,6 +117,10 @@ u32 XCsi2Tx_CfgInitialize(XCsi2Tx *InstancePtr, XCsi2Tx_Config *CfgPtr,
 	InstancePtr->LineBufferCallBack = StubErrCallBack;
 	InstancePtr->WrgDataTypeCallBack = StubErrCallBack;
 	InstancePtr->UnderrunPixelCallBack = StubErrCallBack;
+	InstancePtr->LineCountErrVC0 = StubErrCallBack;
+	InstancePtr->LineCountErrVC1 = StubErrCallBack;
+	InstancePtr->LineCountErrVC2 = StubErrCallBack;
+	InstancePtr->LineCountErrVC3 = StubErrCallBack;
 
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
@@ -322,6 +327,94 @@ u8 XCsi2Tx_IsActiveLaneCountValid(XCsi2Tx *InstancePtr, u8 ActiveLanesCount)
 	}
 
 	return Valid;
+}
+
+/*****************************************************************************/
+/**
+ * This function sets the Line Count for virtual Channel if Frame End
+ * Generation feature is enabled. This is to be called before starting
+ * the core.
+ *
+ * @param	InstancePtr is a pointer to the Subsystem instance to be
+ *		worked on.
+ * @param	VC is which Virtual channel to be configured for (0-3).
+ * @param	LineCount is valid line count for the Virtual channel.
+ *
+ * @return
+ *		- XST_NO_FEATURE if Frame End generation is not enabled
+ *		- XST_INVALID_PARAM if any param is invalid e.g.
+ *			VC is always 0 to 3 and Line Count is 0 to 0xFFFF.
+ *		- XST_FAILURE in case the core is already running.
+ *		- XST_SUCCESS otherwise
+ *
+ * @note	None.
+ *
+******************************************************************************/
+u32 XCsi2Tx_SetLineCountForVC(XCsi2Tx *InstancePtr, u8 VC, u16 LineCount)
+{
+	u32 Val;
+
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Is Frame End generation feature enabled? */
+	if (!InstancePtr->Config.FEGenEnabled)
+		return XST_NO_FEATURE;
+
+	/* VC is 0 to 3 */
+	if (VC >= XCSI2TX_MAX_VC)
+		return XST_INVALID_PARAM;
+
+	/* Check if core is already enabled */
+	Val = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr, XCSI2TX_CCR_OFFSET);
+	if (Val & XCSI2TX_CCR_COREENB_MASK)
+		return XST_FAILURE;
+
+	/* Depending on VC write into corresponding Line Count Reg */
+	XCsi2Tx_WriteReg(InstancePtr->Config.BaseAddr,
+			 XCSI2TX_LINE_COUNT_VC0 + (VC * 4), LineCount);
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * This function gets the Line Count for virtual Channel if Frame End
+ * Generation feature is enabled.
+ *
+ * @param	InstancePtr is a pointer to the Subsystem instance to be
+ *		worked on.
+ * @param	VC is which Virtual channel to be configured for (0-3).
+ * @param	LineCount is pointer to variable to be filled with line count
+ *		for the Virtual channel
+ *
+ * @return
+ *		- XST_NO_FEATURE if Frame End generation is not enabled
+ *		- XST_INVALID_PARAM if any param is invalid e.g.
+ *			VC is always 0 to 3 and Line Count is 0 to 0xFFFF.
+ *		- XST_SUCCESS otherwise
+ *
+ * @note	None.
+ *
+******************************************************************************/
+u32 XCsi2Tx_GetLineCountForVC(XCsi2Tx *InstancePtr, u8 VC, u16 *LineCount)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Is Frame End generation feature enabled? */
+	if (!InstancePtr->Config.FEGenEnabled)
+		return XST_NO_FEATURE;
+
+	/* VC is 0 to 3 */
+	if (VC >= XCSI2TX_MAX_VC)
+		return XST_INVALID_PARAM;
+
+	/* Depending on VC read corresponding Line Count Reg */
+	*LineCount = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr,
+				     XCSI2TX_LINE_COUNT_VC0 + (VC * 4));
+
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/

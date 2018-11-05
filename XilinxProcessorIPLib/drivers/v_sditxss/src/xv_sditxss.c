@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -31,21 +31,24 @@
 ******************************************************************************/
 /*****************************************************************************/
 /**
-*
-* @file xv_sditxss.c
-*
-* This is the main file for Xilinx SDI TX core. Please see xv_sditxss.h for
-* more details of the driver.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who    Date     Changes
-* ----- ------ -------- -------------------------------------------------------
-* 1.00  jsr    07/17/17 Initial release.
-* </pre>
-*
-******************************************************************************/
+ *
+ * @file xv_sditxss.c
+ *
+ * This is the main file for Xilinx SDI TX core. Please see xv_sditxss.h for
+ * more details of the driver.
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who    Date     Changes
+ * ----- ------ -------- -------------------------------------------------------
+ * 1.00  jsr    07/17/17 Initial release.
+ * 2.00  kar    01/25/18 Second  release.
+ *       jsr    02/23/2018 Added YUV420 color format support
+ *       jsr	03/02/2018 Added core settings API
+ * </pre>
+ *
+ ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
@@ -54,6 +57,7 @@
 #include "xparameters.h"
 #include "xv_sditxss_coreinit.h"
 #include <string.h>
+#include "xv_sditx.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -62,6 +66,9 @@
 #define XSDITXSS_LINE_RATE_3G	0
 #define XSDITXSS_LINE_RATE_6G	1
 #define XSDITXSS_LINE_RATE_12G8DS	2
+#define AXI4_STREAM	0
+#define NATIVE_VIDEO 1
+#define NATIVE_SDI 2
 
 /**************************** Type Definitions *******************************/
 /**
@@ -503,6 +510,24 @@ void XV_SdiTxSs_Stop(XV_SdiTxSs *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* This function Set the video format of the SDI TX Ss core.
+*
+* @param	InstancePtr is a pointer to the XV_SdiTxSs core instance.
+* @param	ColorFormat is a variable of type XVidC_ColorFormat.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+int XV_SdiTxSs_SetColorFormat(XV_SdiTxSs *InstancePtr, XVidC_ColorFormat ColorFormat)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	return XV_SdiTx_SetColorFormat(InstancePtr->SdiTxPtr, ColorFormat);
+}
+/*****************************************************************************/
+/**
+*
 * This function configures Video Timing Controller (VTC).
 *
 * @param	XVtcPtr is a pointer to the XVtc core instance.
@@ -728,12 +753,12 @@ void XV_SdiTxSs_StreamStart(XV_SdiTxSs *InstancePtr)
 	/* Following assertions make sure the subssytem is configured with in the
 	 * subcore GUI paramter limit
 	 */
-	Xil_AssertVoid((InstancePtr->Config.MaxRateSupported == XSDITXSS_LINE_RATE_3G) &&
-			(SdiMode <= XSDIVID_MODE_3GB) ||
-			(InstancePtr->Config.MaxRateSupported == XSDITXSS_LINE_RATE_6G) &&
-			(SdiMode <= XSDIVID_MODE_6G) ||
-			(InstancePtr->Config.MaxRateSupported == XSDITXSS_LINE_RATE_12G8DS) &&
-			(SdiMode <= XSDIVID_MODE_12G));
+	Xil_AssertVoid(((InstancePtr->Config.MaxRateSupported == XSDITXSS_LINE_RATE_3G) &&
+			(SdiMode <= XSDIVID_MODE_3GB)) ||
+			((InstancePtr->Config.MaxRateSupported == XSDITXSS_LINE_RATE_6G) &&
+			(SdiMode <= XSDIVID_MODE_6G)) ||
+			((InstancePtr->Config.MaxRateSupported == XSDITXSS_LINE_RATE_12G8DS) &&
+			(SdiMode <= XSDIVID_MODE_12G)));
 
 	XV_SdiTx_SetVidBridgeMode(InstancePtr->SdiTxPtr,
 	InstancePtr->SdiTxPtr->Transport.TMode);
@@ -1151,8 +1176,8 @@ u32 XV_SdiTxSs_GetPayload(XV_SdiTxSs *InstancePtr, XVidC_VideoMode VideoMode, XS
 	u32 Status;
 	XV_SdiTx *SdiTxPtr;
 
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->SdiTxPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->SdiTxPtr != NULL);
 
 	SdiTxPtr = InstancePtr->SdiTxPtr;
 
@@ -1202,4 +1227,66 @@ u32 XV_SdiTxSs_SetStream(XV_SdiTxSs *InstancePtr, XV_SdiTx_StreamSelId SelId,
 	Status = XV_SdiTx_SetStream(SdiTxPtr, SelId, Data, StreamId);
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the SDI TXSS core settings.
+*
+* @param    InstancePtr is a pointer to the XV_SdiTxSs core instance.
+* @param    SelId specifies which parameter of the stream to be set.
+*       - 0 = XV_SDITXSS_CORESELID_INSERTCRC
+*       - 1 = XV_SDITXSS_CORESELID_INSERTST352
+*       - 2 = XV_SDITXSS_CORESELID_ST352OVERWRITE
+*       - 3 = XV_SDITXSS_CORESELID_INSERTSYNCBIT
+*       - 4 = XV_SDITXSS_CORESELID_SDBITREPBYPASS
+*       - 5 = XV_SDITXSS_CORESELID_USEANCIN
+*       - 6 = XV_SDITXSS_CORESELID_INSERTLN
+*       - 7 = XV_SDITXSS_CORESELID_INSERTEDH
+* @param    Data specifies what data to be set for the selected parameter.
+*
+* @return
+*
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_SdiTxSs_SetCoreSettings(XV_SdiTxSs *InstancePtr, XV_SdiTxSs_CoreSelId SelId,
+				u8 Data)
+{
+	XV_SdiTx *SdiTxPtr;
+
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->SdiTxPtr != NULL);
+
+	SdiTxPtr = InstancePtr->SdiTxPtr;
+
+	switch (SelId) {
+	case XV_SDITXSS_CORESELID_INSERTCRC:
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITX_CORESELID_INSERTCRC, Data);
+		break;
+	case XV_SDITXSS_CORESELID_INSERTST352:
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITX_CORESELID_INSERTST352, Data);
+		break;
+	case XV_SDITXSS_CORESELID_ST352OVERWRITE:
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITX_CORESELID_ST352OVERWRITE, Data);
+		break;
+	case XV_SDITXSS_CORESELID_INSERTSYNCBIT:
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITX_CORESELID_INSERTSYNCBIT, Data);
+		break;
+	case XV_SDITXSS_CORESELID_SDBITREPBYPASS:
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITX_CORESELID_SDBITREPBYPASS, Data);
+		break;
+	case XV_SDITXSS_CORESELID_USEANCIN:
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITX_CORESELID_USEANCIN, Data);
+		break;
+	case XV_SDITXSS_CORESELID_INSERTLN:
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITXSS_CORESELID_INSERTLN, Data);
+		break;
+	case XV_SDITXSS_CORESELID_INSERTEDH:
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITXSS_CORESELID_INSERTEDH, Data);
+		break;
+	};
 }

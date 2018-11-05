@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,8 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- ---------------------------------------------------
 * 5.00 	pkp	   05/29/14 First release
+* 6.6   srm    10/23/17 Updated the macros to support user configurable sleep
+*		        implementation
 * </pre>
 *
 *
@@ -69,12 +71,21 @@ typedef u64 XTime;
 
 /************************** Constant Definitions *****************************/
 
-#define COUNTS_PER_SECOND          			XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ
-#define XIOU_SCNTRS_BASEADDR      			0xFF260000U
+#if defined (SLEEP_TIMER_BASEADDR)
+#define COUNTS_PER_SECOND     SLEEP_TIMER_FREQUENCY
+#else
+#define COUNTS_PER_SECOND     XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ
+#endif
+
+#if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER)
+#pragma message ("For the sleep routines, Global timer is being used")
+#endif
+
+#define XIOU_SCNTRS_BASEADDR      	    0xFF260000U
 #define XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET    0x00000000U
-#define XIOU_SCNTRS_FREQ_REG_OFFSET    		0x00000020U
-#define XIOU_SCNTRS_FREQ					XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ
-#define XIOU_SCNTRS_CNT_CNTRL_REG_EN    	0x00000001U
+#define XIOU_SCNTRS_FREQ_REG_OFFSET    	    0x00000020U
+#define XIOU_SCNTRS_FREQ		    XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ
+#define XIOU_SCNTRS_CNT_CNTRL_REG_EN        0x00000001U
 #define XIOU_SCNTRS_CNT_CNTRL_REG_EN_MASK   0x00000001U
 /************************** Variable Definitions *****************************/
 

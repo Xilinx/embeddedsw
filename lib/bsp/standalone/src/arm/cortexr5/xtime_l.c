@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -54,6 +54,8 @@
 * 5.04	pkp
 * 6.0   mus    08/11/16  Removed implementation of XTime_SetTime API, since
 *                        TTC counter value register is read only.
+* 6.6   srm    10/18/17 Removed XTime_StartTimer API and made XTime_GetTime,
+*                       XTime_SetTime applicable for all the instances of TTC
 *
 * </pre>
 *
@@ -68,77 +70,23 @@
 #include "xil_io.h"
 #include "xdebug.h"
 
+#if defined SLEEP_TIMER_BASEADDR
+#include "xil_sleeptimer.h"
+#endif
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**************************** Type Definitions *******************************/
 
 /************************** Constant Definitions *****************************/
-#define RST_LPD_IOU2 					0xFF5E0238U
-#define RST_LPD_IOU2_TTC3_RESET_MASK	0x00004000U
+
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
 
-/* Function definitions are applicable only when TTC3 is present*/
+/* Function definitions are applicable only when TTC is present*/
 #ifdef SLEEP_TIMER_BASEADDR
-/****************************************************************************/
-/**
-* @brief    Start the TTC timer.
-*
-* @param	None.
-*
-* @return	None.
-*
-* @note		When this function is called by any one processor in a multi-
-*		    processor environment, reference time will reset/lost for all
-*           processors.
-*
-****************************************************************************/
-void XTime_StartTimer(void)
-{
-	u32 LpdRst;
-	u32 TimerPrescalar;
-	u32 TimerCntrl;
 
-	LpdRst = Xil_In32(RST_LPD_IOU2);
-	if ((LpdRst & RST_LPD_IOU2_TTC3_RESET_MASK) != 0 ) {
-			LpdRst = LpdRst & (~RST_LPD_IOU2_TTC3_RESET_MASK);
-			Xil_Out32(RST_LPD_IOU2, LpdRst);
-
-	} else {
-		TimerCntrl = Xil_In32(SLEEP_TIMER_BASEADDR +
-								SLEEP_TIMER_CNTR_CNTRL_OFFSET);
-		/* check if Timer is disabled */
-		if ((TimerCntrl & SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK) == 0) {
-			TimerPrescalar = Xil_In32(SLEEP_TIMER_BASEADDR +
-									SLEEP_TIMER_CLK_CNTRL_OFFSET);
-
-		/* check if Timer is configured with proper functionalty for sleep */
-			if ((TimerPrescalar & SLEEP_TIMER_CLOCK_CONTROL_PS_EN_MASK) == 0)
-						return;
-		}
-	}
-	/* Disable the timer to configure */
-	TimerCntrl = Xil_In32(SLEEP_TIMER_BASEADDR +
-							SLEEP_TIMER_CNTR_CNTRL_OFFSET);
-	TimerCntrl = TimerCntrl | SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK;
-	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_CNTRL_OFFSET,
-				TimerCntrl);
-
-	/* Disable the prescalar */
-	TimerPrescalar = Xil_In32(SLEEP_TIMER_BASEADDR +
-								SLEEP_TIMER_CLK_CNTRL_OFFSET);
-	TimerPrescalar = TimerPrescalar & (~SLEEP_TIMER_CLOCK_CONTROL_PS_EN_MASK);
-	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CLK_CNTRL_OFFSET,
-				TimerPrescalar);
-
-	/* Enable the Timer */
-	TimerCntrl = SLEEP_TIMER_COUNTER_CONTROL_RST_MASK &
-					(~SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK);
-	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_CNTRL_OFFSET,
-				TimerCntrl);
-
-}
 /****************************************************************************/
 /**
 * @brief    TTC Timer runs continuously and the time can not be set as
@@ -175,6 +123,6 @@ void XTime_SetTime(XTime Xtime_Global)
 void XTime_GetTime(XTime *Xtime_Global)
 {
 	*Xtime_Global = Xil_In32(SLEEP_TIMER_BASEADDR +
-								SLEEP_TIMER_CNTR_VAL_OFFSET);
+				      XSLEEP_TIMER_TTC_COUNT_VALUE_OFFSET);
 }
 #endif

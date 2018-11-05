@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,8 @@
 * 3.04a sdm     02/02/12 Removed some of the defines as they are being generated through
 *                        driver tcl
 * 5.0	pkp		01/16/15 Added interrupt ID definition of ttc for TEST APP
+* 6.6   srm     10/18/17 Added ARMA9 macro to identify CortexA9
+*
 * </pre>
 *
 * @note
@@ -59,6 +61,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/****************************  Include Files  *******************************/
+
 
 /************************** Constant Definitions *****************************/
 

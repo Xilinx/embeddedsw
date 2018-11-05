@@ -33,7 +33,7 @@
 /**
 *
 * @file xcfa_selftest.c
-* @addtogroup cfa_v7_0
+* @addtogroup cfa_v7_1
 * @{
 *
 * This file contains the self-test functions for the CFA core.

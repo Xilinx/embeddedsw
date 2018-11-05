@@ -107,12 +107,12 @@ void i2c_dp159_dump(void)
   u8 buf[32];
 
   buf[0] = 0x0;
-  xil_printf("DP159 register dump\n");
+  xil_printf("DP159 register dump\r\n");
   r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf, 1, XII_REPEATED_START_OPTION);
 
   r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf, 32, XIIC_STOP);
   for (i = 0; i< 0x20; i++) {
-	  xil_printf("(%d) ADDR: %0x DATA: %0x\n", r, i, buf[i]);
+	  xil_printf("(%d) ADDR: %0x DATA: %0x\r\n", r, i, buf[i]);
   }
  }
 
@@ -145,7 +145,7 @@ u32 i2c_dp159(XVphy *VphyPtr, u8 QuadId, u64 TxLineRate)
 
   if (r == XST_SUCCESS) {
 	  if (DP159_VERBOSE)
-		  xil_printf("Program DP159 ZOMBIE... \n");
+		  xil_printf("Program DP159 ZOMBIE... \r\n");
 	switch(mode) {
 		case 0 : // HDMI 1.4 (250Mbps - 1.2Gbps)
 			// Select page 1
@@ -318,7 +318,7 @@ u32 i2c_dp159(XVphy *VphyPtr, u8 QuadId, u64 TxLineRate)
 
 		case 2 : // HDMI 2.0 (3.4Gbps - 6 Gbps)
 			  if (DP159_VERBOSE)
-				  xil_printf("Program zombie HDMI 2.0\n");
+				  xil_printf("Program zombie HDMI 2.0\r\n");
 
 			 // Select page 1
 			r = i2c_dp159_write(DP159_ZOMBIE, 0xff, 0x01);
@@ -412,13 +412,13 @@ u32 i2c_dp159(XVphy *VphyPtr, u8 QuadId, u64 TxLineRate)
 	  r = i2c_dp159_chk(DP159_ES);
 
 	  if (r == XST_SUCCESS) {
-		  //xil_printf("Program DP159 ES... \n");
+		  //xil_printf("Program DP159 ES... \r\n");
 		  r = i2c_dp159_write(DP159_ES, 0x09, 0x06);
 
 		  // HDMI 2.0
 		  if ((TxLineRate / (1000000)) > 3400) {
 			  if (DP159_VERBOSE)
-				  xil_printf("DP159 HDMI 2.0\n");
+				  xil_printf("DP159 HDMI 2.0\r\n");
 			  r = i2c_dp159_write(DP159_ES, 0x0B, 0x9a);    // SLEW_CTL = Reg0Bh[7:6] = 10
 			                                                // TX_TERM_CTL = Reg0Bh[4:3] = 11
 			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x49);    // VSWING_DATA & VSWING_CLK to +14% = Reg0Ch[7:2] = 100100
@@ -430,7 +430,7 @@ u32 i2c_dp159(XVphy *VphyPtr, u8 QuadId, u64 TxLineRate)
 		  // HDMI 1.4
 		  else {
 			  if (DP159_VERBOSE)
-				  xil_printf("DP159 HDMI 1.4\n");
+				  xil_printf("DP159 HDMI 1.4\r\n");
 			  r = i2c_dp159_write(DP159_ES, 0x0B, 0x80);    // SLEW_CTL = Reg0Bh[7:6] = 10
 			                                                // TX_TERM_CTL = Reg0Bh[4:3] = 00
 			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x48);	// VSWING_DATA & VSWING_CLK to +14% = Reg0Ch[7:2] = 100100
@@ -444,7 +444,7 @@ u32 i2c_dp159(XVphy *VphyPtr, u8 QuadId, u64 TxLineRate)
 	  }
 
 	  else {
-		  xil_printf("No DP159 device found!\n");
+		  xil_printf("No DP159 device found!\r\n");
 		  return XST_FAILURE;
 	  }
   }

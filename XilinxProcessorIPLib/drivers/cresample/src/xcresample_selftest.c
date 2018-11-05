@@ -33,7 +33,7 @@
 /**
 *
 * @file xcresample_selftest.c
-* @addtogroup cresample_v4_0
+* @addtogroup cresample_v4_1
 * @{
 *
 * This file contains the self-test functions for the Chroma Resampler core.

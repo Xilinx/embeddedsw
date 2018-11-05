@@ -18,8 +18,8 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -842,13 +842,19 @@ int Si570_DoSettings(u32 IICBaseAddress, u8 IICAddress1,
  * @param	IICBaseAddress contains the base address of the IIC master
  *		device.
  * @param	IICAddress1 contains the 7 bit IIC address of the Si5324 device.
+ * @param	RxRefClk is the input reference clock that can be either of
+ * 		FREQ_SI570_148_5_MHz, FREQ_SI570_148_35_MHz
  *
  * @return	SI5324_SUCCESS for success, SI5324_ERR_IIC for IIC access failure,
  *		SI5324_ERR_FREQ when the requested frequency cannot be generated,
  *		SI5324_ERR_PARM when the ClkSrc or ClkDest parameters are invalid
  *		or the ClkInFreq or ClkOutFreq are out of range.
  *****************************************************************************/
-int Si570_SetClock(u32 IICBaseAddress, u8 IICAddress1) {
+
+/*
+ * Set the Si570 clock to 148.5MHz
+ */
+int Si570_SetClock(u32 IICBaseAddress, u8 IICAddress1, u32 RxRefClk) {
 
 	int result;
 	u8  buf[9*2]; /* Need to set 8 registers */
@@ -889,7 +895,17 @@ int Si570_SetClock(u32 IICBaseAddress, u8 IICAddress1) {
 	i += 2;
 
 	buf[i] = 11;
-	buf[i+1] = 0x26;
+	switch(RxRefClk) {
+	case FREQ_SI570_148_5_MHz:
+		buf[i+1] = 0x26;
+		break;
+	case FREQ_SI570_148_35_MHz:
+		buf[i+1] = 0x10;
+		break;
+	default:
+		buf[i+1] = 0x26;
+		break;
+	}
 
 	i += 2;
 

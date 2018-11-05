@@ -33,7 +33,7 @@
 /**
 *
 * @file xdevcfg_g.c
-* @addtogroup devcfg_v3_3
+* @addtogroup devcfg_v3_5
 * @{
 *
 * This file contains a table that specifies the configuration of the Device

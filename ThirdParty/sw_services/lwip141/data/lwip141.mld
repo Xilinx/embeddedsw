@@ -6,9 +6,10 @@ BEGIN LIBRARY lwip141
   OPTION copyfiles = all;
   OPTION desc = "lwIP TCP/IP Stack library: lwIP v1.4.1";
   OPTION app_linker_flags = "-Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group";
-  OPTION requires_os = (standalone xilkernel freertos901_xilinx);
+  OPTION requires_os = (standalone xilkernel freertos10_xilinx);
   OPTION VERSION = 2.0;
   OPTION NAME = lwip141;
+  OPTION library_state = "deprecated";
 
   PARAM name = api_mode, desc = "Mode of operation for lwIP (RAW API/Sockets API)", type = enum, values = ("RAW API" = RAW_API, "SOCKET API" = SOCKET_API), default = RAW_API;
   PARAM name = no_sys_no_timers, desc = "Drops support for sys_timeout when NO_SYS==1", type = bool, default = true;

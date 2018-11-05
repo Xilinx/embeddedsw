@@ -33,7 +33,7 @@
 /**
 *
 * @file xhwicap.h
-* @addtogroup hwicap_v10_1
+* @addtogroup hwicap_v11_1
 * @{
 * @details
 *

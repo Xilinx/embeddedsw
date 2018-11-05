@@ -153,6 +153,12 @@ u32 XFsbl_HookPsuInit(void)
 			Status = XFSBL_PSU_INIT_FAILED + Status;
 	}
 
+	/*
+	 * Write 1U to PMU GLOBAL general storage register 5 to indicate
+	 * PMU Firmware that psu init is completed
+	 */
+	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, XFSBL_PSU_INIT_COMPLETED);
+
 	/**
 	 * PS_SYSMON_ANALOG_BUS register determines mapping between SysMon supply
 	 * sense channel to SysMon supply registers inside the IP. This register
@@ -165,3 +171,39 @@ u32 XFsbl_HookPsuInit(void)
 
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * This function detects type of boot based on information from
+ * PMU_GLOBAL_GLOB_GEN_STORAGE1. If Power Off Suspend is supported FSBL must
+ * wait for PMU to detect boot type and provide that information using register.
+ * In case of resume from Power Off Suspend PMU will wait for FSBL to confirm
+ * detection by writting 1 to PMU_GLOBAL_GLOB_GEN_STORAGE2.
+ *
+ * @return Boot type, 0 in case of cold boot, 1 for warm boot
+ *
+ * @note none
+ *****************************************************************************/
+#ifdef ENABLE_POS
+u32 XFsbl_HookGetPosBootType(void)
+{
+	u32 WarmBoot = 0;
+	u32 RegValue = 0;
+
+	do {
+		RegValue = XFsbl_In32(PMU_GLOBAL_GLOB_GEN_STORAGE1);
+	} while (0U == RegValue);
+
+	/* Clear Gen Storage register so it can be used later in system */
+	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE1, 0U);
+
+	WarmBoot = RegValue - 1;
+
+	/* Confirm detection in case of resume from Power Off Suspend */
+	if (0 != RegValue) {
+		XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE2, 1U);
+	}
+
+	return WarmBoot;
+}
+#endif

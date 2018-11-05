@@ -1,5 +1,11 @@
 var struct_x_dp___rx =
 [
+    [ "IntrAccessErrorCounterCallbackRef", "struct_x_dp___rx.html#a9bb241517b59f743a97cfbe747590c5d", null ],
+    [ "IntrAccessErrorCounterHandler", "struct_x_dp___rx.html#a34eea987b83ae8a9b8e1d5976fc61f52", null ],
+    [ "IntrAccessLaneSetCallbackRef", "struct_x_dp___rx.html#ae91230902fa9f1b6db66c695098cd277", null ],
+    [ "IntrAccessLaneSetHandler", "struct_x_dp___rx.html#a62a3c80da7406dbb12ded75a585ceec1", null ],
+    [ "IntrAccessLinkQualCallbackRef", "struct_x_dp___rx.html#a3f8565c1d41656d5791b13ad052378bf", null ],
+    [ "IntrAccessLinkQualHandler", "struct_x_dp___rx.html#a028ae1084a6f6a090a41de1bd8a88de6", null ],
     [ "IntrActRxCallbackRef", "struct_x_dp___rx.html#a0a2de51d1caba8749b83400491690ee5", null ],
     [ "IntrActRxHandler", "struct_x_dp___rx.html#a866e32d8ac4723454b12e36cbd7f7307", null ],
     [ "IntrAudioOverCallbackRef", "struct_x_dp___rx.html#a8e528ca5264bcfdb1a8f39d83e24fb7e", null ],
@@ -46,6 +52,8 @@ var struct_x_dp___rx =
     [ "IntrTp2Handler", "struct_x_dp___rx.html#a028fa568f6ed1739463c30e6961ec4d0", null ],
     [ "IntrTp3CallbackRef", "struct_x_dp___rx.html#adffce711114463846804e94ce4722ebd", null ],
     [ "IntrTp3Handler", "struct_x_dp___rx.html#af1ae9f2c95c47449ae7c4dc9241a17c8", null ],
+    [ "IntrTp4CallbackRef", "struct_x_dp___rx.html#a30ee97b84ee3a434361f400d55d5e38c", null ],
+    [ "IntrTp4Handler", "struct_x_dp___rx.html#a822190e3f9dec3214aa52d3c051ad84c", null ],
     [ "IntrTrainingDoneCallbackRef", "struct_x_dp___rx.html#a564710e35f3f88462feaa80f6391dce6", null ],
     [ "IntrTrainingDoneHandler", "struct_x_dp___rx.html#aa427502e7f72b7239d363281a81f3dc5", null ],
     [ "IntrTrainingLostCallbackRef", "struct_x_dp___rx.html#a22ffdcd7178255226d9a5b9f169a64fe", null ],

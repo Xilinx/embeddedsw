@@ -33,8 +33,8 @@
  * @brief	Linux libmetal utility functions.
  */
 
-#include "metal/utilities.h"
-#include "metal/sys.h"
+#include <metal/utilities.h>
+#include <metal/sys.h>
 
 /**
  * @brief	Open (or create) a file.

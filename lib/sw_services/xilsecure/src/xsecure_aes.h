@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -81,7 +81,11 @@
 *                     XSecure_AesEncryptData, and added XSecure_AesEncryptInit
 *                     and XSecure_AesEncryptUpdate APIs for generic usage.
 * 2.2   vns  07/06/16 Added doxygen tags
-*
+* 3.0   vns  02/19/18 Added error code for key clear
+*                     XSECURE_CSU_AES_KEY_CLEAR_ERROR and timeout macro
+*                     XSECURE_AES_TIMEOUT_MAX
+* 3.1   ka   03/16/18 Added Zeroization of Aes Decrypted data in case of
+*                    GCM_TAG_MISMATCH
 * </pre>
 * @endcond
 *
@@ -158,6 +162,10 @@
 					/**< image length mismatch */
 #define XSECURE_CSU_AES_DEVICE_COPY_ERROR	(3L)
 					/**< device copy failed */
+#define XSECURE_CSU_AES_ZEROIZATION_ERROR	(4L)
+					/**< Zeroization error*/
+#define XSECURE_CSU_AES_KEY_CLEAR_ERROR		(0x20)
+					/**< AES key clear error */
 
 #define XSECURE_SECURE_HDR_SIZE		(48U)
 					/**< Secure Header Size in Bytes*/
@@ -165,6 +173,7 @@
 
 #define XSECURE_DESTINATION_PCAP_ADDR    (0XFFFFFFFFU)
 
+#define XSECURE_AES_TIMEOUT_MAX		(0x1FFFFU)
 
 /************************** Type Definitions ********************************/
 

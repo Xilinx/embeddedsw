@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xuartps.h
-* @addtogroup uartps_v3_4
+* @addtogroup uartps_v3_5
 * @{
 * @details
 *
@@ -168,6 +168,8 @@
 *                       for CR-965028.
 *       ms     03/17/17 Added readme.txt file in examples folder for doxygen
 *                       generation.
+* 3.6   ms     02/16/18 Updates the flow control mode offset value in modem
+*                       control register.
 *
 * </pre>
 *

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -32,6 +32,7 @@
 /*****************************************************************************/
 /**
 * @file xsysmonpsu.h
+* @addtogroup sysmonpsu_v2_4
 *
 * The XSysMon driver supports the Xilinx System Monitor device.
 *
@@ -170,6 +171,15 @@
 *                       examples to recognize it as documentation block
 *                       for doxygen generation.
 * 2.2   sk     04/14/17 Corrected temperature conversion formulas.
+* 2.3   mn     12/11/17 Added missing closing bracket error when C++ is used
+*       mn     12/12/17 Added Conversion Support for voltages having Range of
+*                       1 Volt
+*       mn     12/13/17 Correct the AMS block channel numbers
+*       ms     12/15/17 Added peripheral test support.
+*       ms     01/04/18 Provided conditional checks for interrupt example
+*                       in sysmonpsu_header.h
+*       mn     03/08/18 Update Clock Divisor to the proper value
+* 2.4   mn     04/20/18 Remove looping check for PL accessible bit
 *
 * </pre>
 *
@@ -218,22 +228,14 @@ extern "C" {
 #define XSM_CH_SUPPLY10     35U   /**< SUPPLY10 PS_MGTRAVTT */
 #define XSM_CH_VCCAMS       36U   /**< VCCAMS */
 #define XSM_CH_TEMP_REMTE   37U   /**< Temperature Remote */
-#define XSM_CH_VCC_PSLL0    38U   /**< VCC_PSLL0 */
-#define XSM_CH_VCC_PSLL1    39U   /**< VCC_PSLL1 */
-#define XSM_CH_VCC_PSLL2    40U   /**< VCC_PSLL2 */
-#define XSM_CH_VCC_PSLL3    41U   /**< VCC_PSLL3 */
-#define XSM_CH_VCC_PSLL4    42U   /**< VCC_PSLL4 */
-#define XSM_CH_VCC_PSBATT   43U   /**< VCC_PSBATT */
-#define XSM_CH_VCCINT       44U   /**< VCCINT */
-#define XSM_CH_VCCBRAM      45U   /**< VCCBRAM */
-#define XSM_CH_VCCAUX       46U   /**< VCCAUX */
-#define XSM_CH_VCC_PSDDRPLL 47U   /**< VCC_PSDDRPLL */
-#define XSM_CH_DDRPHY_VREF  48U   /**< DDRPHY_VREF */
-#define XSM_CH_DDRPHY_AT0   49U   /**< DDRPHY_AT0 */
-#define XSM_CH_PSGT_AT0     50U   /**< PSGT_AT0 */
-#define XSM_CH_PSGT_AT1     51U   /**< PSGT_AT0 */
-#define XSM_CH_RESERVE0     52U   /**< PSGT_AT0 */
-#define XSM_CH_RESERVE1     53U   /**< PSGT_AT0 */
+#define XSM_CH_VCC_PSLL0    48U   /**< VCC_PSLL0 */
+#define XSM_CH_VCC_PSLL3    51U   /**< VCC_PSLL3 */
+#define XSM_CH_VCCINT       54U   /**< VCCINT */
+#define XSM_CH_VCCBRAM      55U   /**< VCCBRAM */
+#define XSM_CH_VCCAUX       56U   /**< VCCAUX */
+#define XSM_CH_VCC_PSDDRPLL 57U   /**< VCC_PSDDRPLL */
+#define XSM_CH_DDRPHY_VREF  58U   /**< DDRPHY_VREF */
+#define XSM_CH_RESERVE1     63U   /**< PSGT_AT0 */
 
 /*@}*/
 
@@ -388,7 +390,8 @@ typedef void (*XSysMonPsu_Handler) (void *CallBackRef);
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID of device */
-	u32 BaseAddress;		/**< Register base address */
+	u32 BaseAddress;	/**< Register base address */
+	u16 InputClockMHz;	/**< Input clock frequency */
 } XSysMonPsu_Config;
 
 /**
@@ -401,6 +404,7 @@ typedef struct {
 	u32 IsReady;				/**< Device is initialized and ready */
 	XSysMonPsu_Handler Handler;
 	void *CallBackRef;			/**< Callback reference for event handler */
+	u32 IsPlAccessibleByPs;		/**< PL is accessible by PS */
 } XSysMonPsu;
 
 /* BaseAddress Offsets */
@@ -450,6 +454,23 @@ typedef struct {
 *****************************************************************************/
 #define XSysMonPsu_RawToTemperature_ExternalRef(AdcData)			\
 	((((float)(AdcData)/65536.0f)/0.00197008621f ) - 279.4266f)
+
+/****************************************************************************/
+/**
+*
+* This macro converts System Monitor Raw Data to Voltage(volts) for VpVn
+* supply.
+*
+* @param	AdcData is the System Monitor ADC Raw Data.
+*
+* @return 	The Voltage in volts.
+*
+* @note		C-Style signature:
+*		float XSysMon_VpVnRawToVoltage(u32 AdcData)
+*
+*****************************************************************************/
+#define XSysMonPsu_VpVnRawToVoltage(AdcData) 					\
+	((((float)(AdcData))* (1.0f))/65536.0f)
 
 /****************************************************************************/
 /**
@@ -618,6 +639,7 @@ void XSysMonPsu_SetExtenalMux(XSysMonPsu *InstancePtr, u8 Channel, u32 SysmonBlk
 u32 XSysMonPsu_GetExtenalMux(XSysMonPsu *InstancePtr, u32 SysmonBlk);
 void XSysMonPsu_SetAdcClkDivisor(XSysMonPsu *InstancePtr, u8 Divisor, u32 SysmonBlk);
 u8 XSysMonPsu_GetAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk);
+u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk);
 s32 XSysMonPsu_SetSeqChEnables(XSysMonPsu *InstancePtr, u64 ChEnableMask,
 		u32 SysmonBlk);
 u64 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk);
@@ -650,5 +672,9 @@ s32 XSysMonPsu_SelfTest(XSysMonPsu *InstancePtr);
 /* Functions in xsysmonpsu_sinit.c */
 XSysMonPsu_Config *XSysMonPsu_LookupConfig(u16 DeviceId);
 
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XSYSMONPSU_H_ */

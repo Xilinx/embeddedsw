@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_rx.h
-* @addtogroup hdcp1x_v4_0
+* @addtogroup hdcp1x_v4_2
 * @{
 *
 * This file provides the interface of the HDCP RX state machine

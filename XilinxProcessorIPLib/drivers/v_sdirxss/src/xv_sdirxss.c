@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017 - 2018  Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -31,21 +31,22 @@
 ******************************************************************************/
 /*****************************************************************************/
 /**
-*
-* @file xv_sdirxss.c
-*
-* This is the main file for Xilinx SDI RX core. Please see xv_ddirxss.h for
-* more details of the driver.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who    Date     Changes
-* ----- ------ -------- -------------------------------------------------------
-* 1.00  jsr    07/17/17 Initial release.
-* </pre>
-*
-******************************************************************************/
+ *
+ * @file xv_sdirxss.c
+ *
+ * This is the main file for Xilinx SDI RX core. Please see xv_ddirxss.h for
+ * more details of the driver.
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who    Date      Changes
+ * ----- ------ -------- -------------------------------------------------------
+ * 1.00  jsr    07/17/17  Initial release.
+ * 2.00  kar    01/25/18  Second release.
+ * </pre>
+ *
+ ******************************************************************************/
 
 /***************************** Include Files *********************************/
 #include "xv_sdirxss.h"
@@ -57,9 +58,10 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XSDIRXSS_LINE_RATE_3G	0
 #define XSDIRXSS_LINE_RATE_6G	1
-#define XSDIRXSS_LINE_RATE_12G8DS	2
-
-
+#define XSDIRXSS_LINE_RATE_12G8DS 2
+#define XSDIRXSS_AXI4_STREAM 0
+#define XSDIRXSS_NATIVE_VIDEO 1
+#define XSDIRXSS_NATIVE_SDI 2
 /**************************** Type Definitions *******************************/
 /**
 * This typedef declares the driver instances of all the cores in the subsystem
@@ -528,12 +530,12 @@ XSdiVid_TransMode XV_SdiRxSs_GetTransportMode(XV_SdiRxSs *InstancePtr)
 	/* Following assertions make sure the IPSS is configured with in the
 	 * subsystem GUI paramter limit
 	 */
-	Xil_AssertVoid((InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_3G) &&
-			(TMode <= XSDIVID_MODE_3GB) ||
-			(InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_6G) &&
-			(TMode <= XSDIVID_MODE_6G) ||
-			(InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_12G8DS) &&
-			(TMode <= XSDIVID_MODE_12G));
+	Xil_AssertNonvoid(((InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_3G) &&
+			(TMode <= XSDIVID_MODE_3GB)) ||
+			((InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_6G) &&
+			(TMode <= XSDIVID_MODE_6G)) ||
+			((InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_12G8DS) &&
+			(TMode <= XSDIVID_MODE_12G)));
 
 	return InstancePtr->SdiRxPtr->Transport.TMode;
 }

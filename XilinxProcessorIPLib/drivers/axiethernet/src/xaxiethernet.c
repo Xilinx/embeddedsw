@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@
 /**
 *
 * @file xaxiethernet.c
-* @addtogroup axiethernet_v5_6
+* @addtogroup axiethernet_v5_7
 * @{
 *
 * The APIs in this file takes care of the primary functionalities of the driver.
@@ -54,13 +54,15 @@
 * 3.02a srt  4/13/13 Removed Warnings (CR 704998).
 * 5.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XAxiEthernet_CfgInitialize API.
+* 5.7   srm  01/16/18 Implemented poll timeout API which replaces while loops
+*                     to ensure a deterministic time delay.
 *
 * </pre>
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 #include "xaxiethernet.h"
-
+#include "sleep.h"
 /************************** Constant Definitions *****************************/
 
 
@@ -340,21 +342,18 @@ void XAxiEthernet_Stop(XAxiEthernet *InstancePtr)
 ******************************************************************************/
 void XAxiEthernet_Reset(XAxiEthernet *InstancePtr)
 {
-	volatile u32 TimeoutLoops;
+	volatile s32 TimeoutLoops;
+	u32 value=0U;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Add delay of 10000 loops to give enough time to the core to come
+	 * Add delay of 1 sec to give enough time to the core to come
 	 * out of reset. Till the time core comes out of reset none of the
 	 * AxiEthernet registers are accessible including the IS register.
 	 */
-	TimeoutLoops = XAE_LOOPS_TO_COME_OUT_OF_RST;
-		while (TimeoutLoops > 0) {
-			TimeoutLoops--;
-	}
-
+	sleep(1);
 	/*
 	 * Check the status of the MgtRdy bit in the interrupt status
 	 * registers. This must be done to allow the MGT clock to become stable
@@ -362,14 +361,11 @@ void XAxiEthernet_Reset(XAxiEthernet *InstancePtr)
 	 * will be valid until this bit is valid.
 	 * The bit is always a 1 for all other PHY interfaces.
 	 */
-	TimeoutLoops = XAE_RST_DELAY_LOOPCNT_VAL;
-	while (TimeoutLoops &&
-		(! (XAxiEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-				   XAE_IS_OFFSET) & XAE_INT_MGTRDY_MASK))) {
-		TimeoutLoops--;
-	}
+	TimeoutLoops = Xil_poll_timeout(Xil_In32,InstancePtr->Config.BaseAddress+
+	      XAE_IS_OFFSET, value, (value&XAE_INT_MGTRDY_MASK)!=0,
+		           XAE_RST_DEFAULT_TIMEOUT_VAL);
 
-	if(0 == TimeoutLoops) {
+	if(-1 == TimeoutLoops) {
 		Xil_AssertVoidAlways();
 	}
 
@@ -1700,6 +1696,8 @@ void XAxiEthernet_PhyRead(XAxiEthernet *InstancePtr, u32 PhyAddress,
 			   u32 RegisterNum, u16 *PhyDataPtr)
 {
 	u32 MdioCtrlReg = 0;
+	u32 value=0U;
+	volatile s32 TimeoutLoops;
 
 	/*
 	 * Verify that each of the inputs are valid.
@@ -1715,9 +1713,11 @@ void XAxiEthernet_PhyRead(XAxiEthernet *InstancePtr, u32 PhyAddress,
 	/*
 	 * Wait till MDIO interface is ready to accept a new transaction.
 	 */
-	while (!(XAxiEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-		XAE_MDIO_MCR_OFFSET) & XAE_MDIO_MCR_READY_MASK)) {
-		;
+	TimeoutLoops = Xil_poll_timeout(Xil_In32,InstancePtr->Config.BaseAddress+
+	   XAE_MDIO_MCR_OFFSET, value,(value&XAE_MDIO_MCR_READY_MASK)!=0,
+			   XAE_RST_DEFAULT_TIMEOUT_VAL);
+	if(-1 == TimeoutLoops) {
+		Xil_AssertVoidAlways();
 	}
 
 	MdioCtrlReg =   ((PhyAddress << XAE_MDIO_MCR_PHYAD_SHIFT) &
@@ -1734,9 +1734,11 @@ void XAxiEthernet_PhyRead(XAxiEthernet *InstancePtr, u32 PhyAddress,
 	/*
 	 * Wait till MDIO transaction is completed.
 	 */
-	while (!(XAxiEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-		XAE_MDIO_MCR_OFFSET) & XAE_MDIO_MCR_READY_MASK)) {
-		;
+	TimeoutLoops = Xil_poll_timeout(Xil_In32,InstancePtr->Config.BaseAddress+
+	   XAE_MDIO_MCR_OFFSET, value,(value&XAE_MDIO_MCR_READY_MASK)!=0,
+		   XAE_RST_DEFAULT_TIMEOUT_VAL);
+	if(-1 == TimeoutLoops) {
+		Xil_AssertVoidAlways();
 	}
 
 	/* Read data */
@@ -1787,6 +1789,8 @@ void XAxiEthernet_PhyWrite(XAxiEthernet *InstancePtr, u32 PhyAddress,
 			u32 RegisterNum, u16 PhyData)
 {
 	u32 MdioCtrlReg = 0;
+	u32 value=0U;
+	volatile s32 TimeoutLoops;
 
 	/*
 	 * Verify that each of the inputs are valid.
@@ -1801,9 +1805,11 @@ void XAxiEthernet_PhyWrite(XAxiEthernet *InstancePtr, u32 PhyAddress,
 	/*
 	 * Wait till the MDIO interface is ready to accept a new transaction.
 	 */
-	while (!(XAxiEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-		XAE_MDIO_MCR_OFFSET) & XAE_MDIO_MCR_READY_MASK)) {
-		;
+	TimeoutLoops = Xil_poll_timeout(Xil_In32, InstancePtr->Config.BaseAddress +
+	   XAE_MDIO_MCR_OFFSET, value,(value&XAE_MDIO_MCR_READY_MASK)!=0,
+	                 XAE_RST_DEFAULT_TIMEOUT_VAL);
+	if(-1 == TimeoutLoops) {
+		Xil_AssertVoidAlways();
 	}
 
 	MdioCtrlReg =   ((PhyAddress << XAE_MDIO_MCR_PHYAD_SHIFT) &
@@ -1822,9 +1828,11 @@ void XAxiEthernet_PhyWrite(XAxiEthernet *InstancePtr, u32 PhyAddress,
 	/*
 	 * Wait till the MDIO interface is ready to accept a new transaction.
 	 */
-	while (!(XAxiEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-		XAE_MDIO_MCR_OFFSET) & XAE_MDIO_MCR_READY_MASK)) {
-		;
+	TimeoutLoops = Xil_poll_timeout(Xil_In32,InstancePtr->Config.BaseAddress+
+	   XAE_MDIO_MCR_OFFSET, value,(value&XAE_MDIO_MCR_READY_MASK)!=0,
+		   XAE_RST_DEFAULT_TIMEOUT_VAL);
+	if(-1 == TimeoutLoops) {
+		Xil_AssertVoidAlways();
 	}
 
 }

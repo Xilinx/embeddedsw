@@ -33,7 +33,7 @@
 /**
 *
 * @file xprc.c
-* @addtogroup prc_v1_0
+* @addtogroup prc_v1_1
 * @{
 *
 * This file contains the required functions for the XPrc driver. Refer xprc.h

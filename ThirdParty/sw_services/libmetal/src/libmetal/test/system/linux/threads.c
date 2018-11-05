@@ -28,8 +28,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "metal/sys.h"
-#include "metal/utilities.h"
+#include <metal/sys.h>
+#include <metal/utilities.h>
 #include "metal-test.h"
 
 int metal_run(int threads, metal_thread_t child, void *arg)

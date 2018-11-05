@@ -33,7 +33,7 @@
 /**
 *
 * @file xspi.c
-* @addtogroup spi_v4_1
+* @addtogroup spi_v4_4
 * @{
 *
 * Contains required functions of the XSpi driver component.  See xspi.h for
@@ -97,6 +97,9 @@
 *		      CR#810294.
 * 4.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XSpi_CfgInitialize API.
+* 4.4	tjs  11/28/17 When receive fifo exists, we need to check for status
+*                     register rx fifo empty flag. If clear we can proceed for
+*                     read. Otherwise we will hit execption. CR# 989938
 * </pre>
 *
 ******************************************************************************/
@@ -165,6 +168,7 @@ int XSpi_CfgInitialize(XSpi *InstancePtr, XSpi_Config *Config,
 {
 	u8  Buffer[3];
 	u32 ControlReg;
+	u32 StatusReg;
 	
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -263,8 +267,14 @@ int XSpi_CfgInitialize(XSpi *InstancePtr, XSpi_Config *Config,
 		XSpi_SetControlReg(InstancePtr, ControlReg);
 		
 		/* Read the Rx Data Register */
-		XSpi_ReadReg(InstancePtr->BaseAddr, XSP_DRR_OFFSET);
-		XSpi_ReadReg(InstancePtr->BaseAddr, XSP_DRR_OFFSET);
+		StatusReg = XSpi_GetStatusReg(InstancePtr);
+		if ((StatusReg & XSP_SR_RX_EMPTY_MASK) == 0) {
+			XSpi_ReadReg(InstancePtr->BaseAddr, XSP_DRR_OFFSET);
+		}
+		StatusReg = XSpi_GetStatusReg(InstancePtr);
+		if ((StatusReg & XSP_SR_RX_EMPTY_MASK) == 0) {
+			XSpi_ReadReg(InstancePtr->BaseAddr, XSP_DRR_OFFSET);
+		}
 	}
 	
 	/*

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,10 @@
 *						  read counter value directly from register instead
 *						  of calling XTime_GetTime for optimization
 * 6.0   asa      08/15/16 Updated the sleep/usleep signature. Fix for CR#956899.
+* 6.6	srm      10/18/17 Updated sleep routines to support user configurable
+*                         implementation. Now sleep routines will use Timer
+*                         specified by the user (i.e. Global timer/TTC timer)
+*       srm      01/11/18 Fixed the compilation warning.
 * </pre>
 *
 ******************************************************************************/
@@ -59,9 +63,20 @@
 #include "xtime_l.h"
 #include "xparameters.h"
 
+#if defined (SLEEP_TIMER_BASEADDR)
+#include "xil_sleeptimer.h"
+#endif
+/****************************  Constant Definitions  ************************/
+
+#if defined (SLEEP_TIMER_BASEADDR)
+#define COUNTS_PER_USECOND  (COUNTS_PER_SECOND / 1000000 )
+#else
 /* Global Timer is always clocked at half of the CPU frequency */
 #define COUNTS_PER_USECOND  (COUNTS_PER_SECOND / 1000000 )
+#endif
 
+/************************************************************************/
+#if !defined (SLEEP_TIMER_BASEADDR)
 static void sleep_common(u32 n, u32 count)
 {
 	XTime tEnd, tCur;
@@ -74,7 +89,7 @@ static void sleep_common(u32 n, u32 count)
 		tCur = mfcp(CNTPCT_EL0);
 	} while (tCur < tEnd);
 }
-
+#endif
 /*****************************************************************************/
 /**
 *
@@ -88,9 +103,13 @@ static void sleep_common(u32 n, u32 count)
 * @note		None.
 *
 ****************************************************************************/
-int usleep(unsigned long useconds)
+int usleep_A53(unsigned long useconds)
 {
+#if defined (SLEEP_TIMER_BASEADDR)
+	Xil_SleepTTCCommon(useconds, COUNTS_PER_USECOND);
+#else
 	sleep_common((u32)useconds, COUNTS_PER_USECOND);
+#endif
 
 	return 0;
 }
@@ -107,9 +126,13 @@ int usleep(unsigned long useconds)
 * @note		None.
 *
 ****************************************************************************/
-unsigned sleep(unsigned int seconds)
+unsigned sleep_A53(unsigned int seconds)
 {
+#if defined (SLEEP_TIMER_BASEADDR)
+	Xil_SleepTTCCommon(seconds, COUNTS_PER_SECOND);
+#else
 	sleep_common(seconds, COUNTS_PER_SECOND);
+#endif
 
 	return 0;
 }

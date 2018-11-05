@@ -45,16 +45,16 @@ else
 	mkdir -p $BSP_DIR/libsrc/standalone/src
 fi
 
-cp -r $STANDALONE_DIR/profile  $BSP_DIR/libsrc/standalone/src/
-cp -r $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
-cp -r $STANDALONE_DIR/arm/common/*  $BSP_DIR/libsrc/standalone/src/
-cp -r $STANDALONE_DIR/arm/cortexa9/*  $BSP_DIR/libsrc/standalone/src/
+cp -rf $STANDALONE_DIR/profile  $BSP_DIR/libsrc/standalone/src/
+cp $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
+cp $STANDALONE_DIR/arm/cortexa9/*  $BSP_DIR/libsrc/standalone/src/
+cp $STANDALONE_DIR/arm/common/*	   $BSP_DIR/libsrc/standalone/src/
+cp $STANDALONE_DIR/arm/common/gcc/*  $BSP_DIR/libsrc/standalone/src/
 
 if [ $COMPILER == "arm-none-eabi-gcc" ]; then
-	cp -r $STANDALONE_DIR/arm/cortexa9/gcc/*  $BSP_DIR/libsrc/standalone/src/
-	cp -r $STANDALONE_DIR/arm/common/gcc/*  $BSP_DIR/libsrc/standalone/src/
+	cp $STANDALONE_DIR/arm/cortexa9/gcc/*  $BSP_DIR/libsrc/standalone/src/
 elif [ $COMPILER == "armcc" ]; then 
-	cp -r $STANDALONE_DIR/arm/cortexa9/armcc/*  $BSP_DIR/libsrc/standalone/src/
+	cp $STANDALONE_DIR/cortexa9/armcc/*  $BSP_DIR/libsrc/standalone/src/
 fi
 	
 
@@ -80,10 +80,10 @@ cp -r $SERVICES_DIR/xilrsa/src/include/* $BSP_DIR/include/
 
 #copy the xparameters.h
 cp $BOARD_DIR/xparameters.h $BSP_DIR/include/
+cp $BOARD_DIR/bspconfig.h $BSP_DIR/include/
 
 # other dependencies which are required
 cp $WORKING_DIR/config.make $BSP_DIR/libsrc/standalone/src/ 
-cp -r $STANDALONE_DIR/common/*.h  $BSP_DIR/include/
-cp -r $STANDALONE_DIR/arm/common/*.h  $BSP_DIR/include/
+cp $STANDALONE_DIR/common/*  $BSP_DIR/include/
 # no inbyte and outbyte present in standalone
 cp $BOARD_DIR/inbyte.c $BOARD_DIR/outbyte.c  $BSP_DIR/libsrc/standalone/src/

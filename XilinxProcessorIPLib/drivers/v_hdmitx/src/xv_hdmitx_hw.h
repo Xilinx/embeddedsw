@@ -56,6 +56,9 @@
 * 1.1   MG     03/05/17 Introduced video mask peripheral
 * 1.2   YH     22/08/17 Added XV_HDMITX_AUD_CTRL_AUDFMT_MASK (Audio Format)
 * 1.3   YH     06/10/17 Added XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT (Audio Format)
+* 1.4   YH     16/01/18 Added PIO_OUT for dedicated reset for each clock domain
+*                       Added PIO_IN to bridge unlock interrupt
+*                       Added PIO_OUT to set GCP_AVMUTE
 * </pre>
 *
 ******************************************************************************/
@@ -141,10 +144,23 @@ extern "C" {
                                                     * shift */
 #define XV_HDMITX_PIO_OUT_COLOR_SPACE_SHIFT 10  /**< PIO Out Color Space
                                                     * shift */
+#define XV_HDMITX_PIO_OUT_GCP_CLEARAVMUTE_MASK    (1<<28) /**< PIO Out
+												* GCP_CLEARAVMUTE mask */
 #define XV_HDMITX_PIO_OUT_BRIDGE_YUV420_MASK (1<<29) /**< PIO Out Bridge_YUV420
                                                          * mask */
 #define XV_HDMITX_PIO_OUT_BRIDGE_PIXEL_MASK  (1<<30) /**< PIO Out Bridge_Pixel
                                                          * repeat mask */
+#define XV_HDMITX_PIO_OUT_GCP_AVMUTE_MASK    (1<<31) /**< PIO Out GCP_AVMUTE
+                                                         * mask */
+#define XV_HDMITX_PIO_OUT_INT_VRST_MASK      (1<<0)  /**< PIO Out INT_VRST
+                                                         * mask */
+#define XV_HDMITX_PIO_OUT_INT_LRST_MASK      (1<<20) /**< PIO Out INT_LRST
+                                                        * mask */
+#define XV_HDMITX_PIO_OUT_EXT_VRST_MASK      (1<<21) /**< PIO Out EXT_VRST
+                                                        * mask */
+#define XV_HDMITX_PIO_OUT_EXT_SYSRST_MASK    (1<<22) /**< PIO Out EXT_SYSRST
+                                                         * mask */
+
 
 // PIO peripheral PIO In register masks
 #define XV_HDMITX_PIO_IN_LNK_RDY_MASK       (1<<0)  /**< PIO In link ready
@@ -158,6 +174,8 @@ extern "C" {
 #define XV_HDMITX_PIO_IN_HPD_TOGGLE_MASK    (1<<8)  /**< PIO In HPD toggle mask */
 #define XV_HDMITX_PIO_IN_PPP_SHIFT          5       /**< PIO In Pixel packing
                                                     * phase shift */
+#define XV_HDMITX_PIO_IN_BRDG_LOCKED_MASK   (1<<9) /**< PIO In Bridge Locked
+                                                    * mask */
 
 /**< DDC (Display Data Channel) peripheral register offsets */
 /**< The DDC is the second peripheral on the local bus */

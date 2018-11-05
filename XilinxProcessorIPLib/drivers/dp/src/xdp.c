@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp.c
- * @addtogroup dp_v6_0
+ * @addtogroup dp_v7_0
  * @{
  *
  * Contains a minimal set of functions for the XDp driver that allow access to
@@ -70,10 +70,12 @@
 
 /**************************** Constant Definitions ****************************/
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /* The maximum voltage swing level is 3. */
 #define XDP_TX_MAXIMUM_VS_LEVEL 3
 /* The maximum pre-emphasis level is 3. */
 #define XDP_TX_MAXIMUM_PE_LEVEL 3
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /* Error out if an AUX request yields a defer reply more than 50 times. */
 #define XDP_AUX_MAX_DEFER_COUNT 50
@@ -84,6 +86,7 @@
 
 /****************************** Type Definitions ******************************/
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /**
  * This typedef enumerates the list of training states used in the state machine
  * during the link training process.
@@ -96,6 +99,7 @@ typedef enum {
 	XDP_TX_TS_FAILURE,
 	XDP_TX_TS_SUCCESS
 } XDp_TxTrainingState;
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /**
  * This typedef describes an AUX transaction.
@@ -117,9 +121,14 @@ typedef struct {
 /**************************** Function Prototypes *****************************/
 
 /* Initialization functions. */
+#if XPAR_XDPTXSS_NUM_INSTANCES
 static u32 XDp_TxInitialize(XDp *InstancePtr);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+#if XPAR_XDPRXSS_NUM_INSTANCES
 static u32 XDp_RxInitialize(XDp *InstancePtr);
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /* Training functions. */
 static u32 XDp_TxRunTraining(XDp *InstancePtr);
 static XDp_TxTrainingState XDp_TxTrainingStateClockRecovery(XDp *InstancePtr);
@@ -146,6 +155,8 @@ static u32 XDp_TxAuxWaitReply(XDp *InstancePtr);
 static u32 XDp_TxAuxWaitReady(XDp *InstancePtr);
 /* Miscellaneous functions. */
 static u32 XDp_TxSetClkSpeed(XDp *InstancePtr, u32 Speed);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
 static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask);
 
 /**************************** Function Definitions ****************************/
@@ -181,6 +192,7 @@ void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
 	InstancePtr->Config = *ConfigPtr;
 	InstancePtr->Config.BaseAddr = EffectiveAddr;
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
 		/* Set the DisplayPort TX's voltage swing and pre-emphasis
 		 * levels to their defaults. */
@@ -194,6 +206,7 @@ void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
 		XDp_TxCfgTxPeLevel(InstancePtr, 2, XDP_TX_PE_LEVEL_2);
 		XDp_TxCfgTxPeLevel(InstancePtr, 3, XDP_TX_PE_LEVEL_3);
 	}
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 }
@@ -221,16 +234,24 @@ u32 XDp_Initialize(XDp *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
 		Status = XDp_TxInitialize(InstancePtr);
-	}
-	else {
+	} else
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+#if XPAR_XDPRXSS_NUM_INSTANCES
+	if (XDp_GetCoreType(InstancePtr) == XDP_RX) {
 		Status = XDp_RxInitialize(InstancePtr);
+	}
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
+	{
+		/* Nothing. */
 	}
 
 	return Status;
 }
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function retrieves the RX device's capabilities from the RX device's
@@ -279,6 +300,24 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 						XDP_DPCD_MAX_LANE_COUNT_MASK;
 	LinkConfig->MaxLinkRate = (RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
 				ConfigPtr->MaxLinkRate : RxMaxLinkRate;
+
+	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		/* Check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit */
+		if(Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL] &
+		   XDP_DPCD_TRAIN_AUX_RD_EXT_RX_CAP_FIELD_PRESENT_MASK) {
+			/* This is the check if the monitor is not
+			 * setting 0x001 to 0x1E, but only setting it
+			 * in 0x2201 as maxLinkRate. */
+			u8 Data;
+			/* Check extended capability register */
+			XDp_TxAuxRead(InstancePtr, XDP_EDID_DPCD_MAX_LINK_RATE, 1, &Data);
+			if(Data == XDP_TX_LINK_BW_SET_810GBPS) {
+				RxMaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
+				LinkConfig->MaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
+			}
+		}
+	}
+
 	if (!XDp_IsLinkRateValid(InstancePtr, LinkConfig->MaxLinkRate)) {
 		return XST_FAILURE;
 	}
@@ -294,6 +333,59 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 	LinkConfig->SupportDownspreadControl =
 					Dpcd[XDP_DPCD_MAX_DOWNSPREAD] &
 					XDP_DPCD_MAX_DOWNSPREAD_MASK;
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function will check if the immediate downstream RX device supports
+ * TPS4 pattern mode. A DisplayPort Configuration Data (DPCD)
+ * version of 1.4 is required TPS4_CAPABLE capability bit in the DPCD
+ * must be set for this function to return XST_SUCCESS.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the RX device is TPS4 capable.
+ *		- XST_NO_FEATURE if the RX device does not support TPS4.
+*       - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_FAILURE otherwise - if an AUX read transaction failed.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XDp_TxTp4Capable(XDp *InstancePtr)
+{
+	u32 Status;
+	u8 AuxData;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+
+	/* Check that the RX device has a DisplayPort Configuration Data (DPCD)
+	 * version greater than or equal to 1.4. */
+	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_REV, 1, &AuxData);
+	if (Status != XST_SUCCESS) {
+		/* The AUX read transaction failed. */
+		return Status;
+	}
+	else if (AuxData < 0x14) {
+		return XST_NO_FEATURE;
+	}
+
+	/* Check if the RX device has TPS4 capabilities.. */
+	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_MAX_DOWNSPREAD,
+				1, &AuxData);
+	if (Status != XST_SUCCESS) {
+		/* The AUX read transaction failed. */
+		return Status;
+	} else if ((AuxData & XDP_DPCD_TPS4_SUPPORT_MASK) !=
+			XDP_DPCD_TPS4_SUPPORT_MASK) {
+		return XST_NO_FEATURE;
+	}
 
 	return XST_SUCCESS;
 }
@@ -795,7 +887,8 @@ u32 XDp_TxIicRead(XDp *InstancePtr, u8 IicAddress, u16 Offset,
 	NumBytesLeftInSeg = 256 - Offset8;
 
 	/* Set the segment pointer. */
-	XDp_TxIicWrite(InstancePtr, XDP_SEGPTR_ADDR, 1, &SegPtr);
+	XDp_TxAuxCommon(InstancePtr,XDP_TX_AUX_CMD_I2C_WRITE_MOT, 
+			XDP_SEGPTR_ADDR, 1, &SegPtr);
 
 	/* Send I2C read message. Multiple transactions are required if the
 	 * requested data spans multiple segments. */
@@ -838,8 +931,9 @@ u32 XDp_TxIicRead(XDp *InstancePtr, u8 IicAddress, u16 Offset,
 				Offset %= 256;
 				SegPtr++;
 
-				XDp_TxIicWrite(InstancePtr, XDP_SEGPTR_ADDR,
-								1, &SegPtr);
+				XDp_TxAuxCommon(InstancePtr,
+				XDP_TX_AUX_CMD_I2C_WRITE_MOT, XDP_SEGPTR_ADDR, 1,
+				&SegPtr);
 			}
 			Offset8 = Offset;
 		}
@@ -848,10 +942,6 @@ u32 XDp_TxIicRead(XDp *InstancePtr, u8 IicAddress, u16 Offset,
 			BytesLeft = 0;
 		}
 	}
-
-	/* Reset the segment pointer to 0. */
-	SegPtr = 0;
-	XDp_TxIicWrite(InstancePtr, XDP_SEGPTR_ADDR, 1, &SegPtr);
 
 	return Status;
 }
@@ -1132,6 +1222,14 @@ u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 		Status = XDp_TxSetClkSpeed(InstancePtr,
 					XDP_TX_PHY_CLOCK_SELECT_540GBPS);
 		break;
+	case XDP_TX_LINK_BW_SET_810GBPS:
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			Status = XDp_TxSetClkSpeed(InstancePtr,
+					XDP_TX_PHY_CLOCK_SELECT_810GBPS);
+		} else {
+			Status = XST_FAILURE;
+		}
+		break;
 	default:
 		Status = XST_FAILURE;
 		break;
@@ -1411,7 +1509,9 @@ void XDp_TxSetPhyPolarityLane(XDp *InstancePtr, u8 Lane, u8 Polarity)
 	/* Write the new settings. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_PHY_CONFIG, RegVal);
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
+#if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function checks if the receiver's internal registers indicate that link
@@ -1451,10 +1551,12 @@ u32 XDp_RxCheckLinkStatus(XDp *InstancePtr)
 		if (LaneStatus[1] != 0x77) {
 			return XST_FAILURE;
 		}
+		/* FALLTHRU */
 	case 2:
 		if ((LaneStatus[0] & 0x70) != 0x70) {
 			return XST_FAILURE;
 		}
+		/* FALLTHRU */
 	case 1:
 		if ((LaneStatus[0] & 0x07) != 0x07) {
 			return XST_FAILURE;
@@ -1477,12 +1579,17 @@ u32 XDp_RxCheckLinkStatus(XDp *InstancePtr)
 *******************************************************************************/
 void XDp_RxDtgEn(XDp *InstancePtr)
 {
+	u32 ReadVal;
+
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE, 0x1);
+	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE);
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE,
+						(ReadVal | 0x1));
 }
 
 /******************************************************************************/
@@ -1498,12 +1605,17 @@ void XDp_RxDtgEn(XDp *InstancePtr)
 *******************************************************************************/
 void XDp_RxDtgDis(XDp *InstancePtr)
 {
+	u32 ReadVal;
+
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE, 0x0);
+	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE);
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE,
+						(ReadVal & 0xFFFFFFFE));
 
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_SOFT_RESET,
 						XDP_RX_SOFT_RESET_VIDEO_MASK);
@@ -1650,6 +1762,57 @@ void XDp_RxAudioReset(XDp *InstancePtr)
 
 /******************************************************************************/
 /**
+ * This function enables the Video Stream Configuration.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxVSCEn(XDp *InstancePtr)
+{
+	u32 ReadVal;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+
+	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+		     XDP_RX_DTG_ENABLE, ReadVal | 0x4);
+}
+
+/******************************************************************************/
+/**
+ * This function disables the Video Stream Configuration.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxVSCDis(XDp *InstancePtr)
+{
+	u32 ReadVal;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+
+	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+		     XDP_RX_DTG_ENABLE, ReadVal & 0xFFFFFFFB);
+}
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
+
+/******************************************************************************/
+/**
  * This function installs a custom delay/sleep function to be used by the XDp
  * driver.
  *
@@ -1718,92 +1881,6 @@ void XDp_WaitUs(XDp *InstancePtr, u32 MicroSeconds)
 
 /******************************************************************************/
 /**
- * This function installs a callback function for when the driver's lane count
- * change function is called either directly by the user or during link
- * training.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_TxSetLaneCountChangeCallback(XDp *InstancePtr,
-				XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->TxInstance.LaneCountChangeCallback = CallbackFunc;
-	InstancePtr->TxInstance.LaneCountChangeCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when the driver's link rate
- * change function is called either directly by the user or during link
- * training.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_TxSetLinkRateChangeCallback(XDp *InstancePtr,
-				XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->TxInstance.LinkRateChangeCallback = CallbackFunc;
-	InstancePtr->TxInstance.LinkRateChangeCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when the driver's link rate
- * change function is called during link training.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_TxSetPeVsAdjustCallback(XDp *InstancePtr,
-				XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->TxInstance.PeVsAdjustCallback = CallbackFunc;
-	InstancePtr->TxInstance.PeVsAdjustCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
  * This function checks the validity of the link rate.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
@@ -1821,9 +1898,10 @@ u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate)
 {
 	u8 Valid;
 
-	if ((LinkRate != XDP_TX_LINK_BW_SET_162GBPS) &&
-			(LinkRate != XDP_TX_LINK_BW_SET_270GBPS) &&
-			(LinkRate != XDP_TX_LINK_BW_SET_540GBPS)) {
+	if ((LinkRate != XDP_LINK_BW_SET_162GBPS) &&
+		(LinkRate != XDP_LINK_BW_SET_270GBPS) &&
+		(LinkRate != XDP_LINK_BW_SET_540GBPS) &&
+		(LinkRate != XDP_LINK_BW_SET_810GBPS)) {
 		Valid = 0;
 	}
 	else if (LinkRate > InstancePtr->Config.MaxLinkRate) {
@@ -1855,9 +1933,9 @@ u8 XDp_IsLaneCountValid(XDp *InstancePtr, u8 LaneCount)
 {
 	u8 Valid;
 
-	if ((LaneCount != XDP_TX_LANE_COUNT_SET_1) &&
-			(LaneCount != XDP_TX_LANE_COUNT_SET_2) &&
-			(LaneCount != XDP_TX_LANE_COUNT_SET_4)) {
+	if ((LaneCount != XDP_LANE_COUNT_SET_1) &&
+			(LaneCount != XDP_LANE_COUNT_SET_2) &&
+			(LaneCount != XDP_LANE_COUNT_SET_4)) {
 		Valid = 0;
 	}
 	else if (LaneCount > InstancePtr->Config.MaxLaneCount) {
@@ -1870,6 +1948,7 @@ u8 XDp_IsLaneCountValid(XDp *InstancePtr, u8 LaneCount)
 	return Valid;
 }
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function prepares the DisplayPort TX core for use.
@@ -1913,6 +1992,14 @@ static u32 XDp_TxInitialize(XDp *InstancePtr)
 
 	/* Set the DisplayPort TX core's clock speed. */
 	switch (ConfigPtr->MaxLinkRate) {
+	case XDP_TX_LINK_BW_SET_810GBPS:
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_PHY_CLOCK_SELECT,
+						XDP_TX_PHY_CLOCK_SELECT_810GBPS);
+		} else {
+			return XST_FAILURE;
+		}
+		break;
 	case XDP_TX_LINK_BW_SET_540GBPS:
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_PHY_CLOCK_SELECT,
 					XDP_TX_PHY_CLOCK_SELECT_540GBPS);
@@ -1944,7 +2031,9 @@ static u32 XDp_TxInitialize(XDp *InstancePtr)
 
 	return XST_SUCCESS;
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
+#if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function prepares the DisplayPort RX core for use.
@@ -2039,21 +2128,36 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 	/* Set the AUX training interval. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x1);
 	/* programming AUX defer to 6 */
-	Regval = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_AUX_CLK_DIVIDER);
+	Regval = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+			     XDP_RX_AUX_CLK_DIVIDER);
 	Regval |= Regval | (6 << XDP_RX_AUX_DEFER_SHIFT);
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_AUX_CLK_DIVIDER, Regval);
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_TP_SET,
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+		     XDP_RX_AUX_CLK_DIVIDER, Regval);
+	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		/* Set 16 ms as AUX read interval and
+		 * set extended receiver capability*/
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_TP_SET,
+			(XDP_DPCD_TRAIN_AUX_RD_INT_16MS <<
+			 XDP_RX_OVER_TP_SET_TRAINING_AUX_RD_INTERVAL_SHIFT) | 
+			0x8000);
+	} else {
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_TP_SET,
 			(XDP_DPCD_TRAIN_AUX_RD_INT_8MS <<
-			XDP_RX_OVER_TP_SET_TRAINING_AUX_RD_INTERVAL_SHIFT));
+			 XDP_RX_OVER_TP_SET_TRAINING_AUX_RD_INTERVAL_SHIFT));
+	}
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x0);
 	/* Set the link configuration.*/
 	XDp_RxSetLinkRate(InstancePtr,
-				InstancePtr->RxInstance.LinkConfig.LinkRate);
+			InstancePtr->RxInstance.LinkConfig.LinkRate);
 	XDp_RxSetLaneCount(InstancePtr,
-				InstancePtr->RxInstance.LinkConfig.LaneCount);
+			InstancePtr->RxInstance.LinkConfig.LaneCount);
 
 	/* Set the interrupt masks. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK, 0x0);
+	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			     XDP_RX_INTERRUPT_MASK_1, 0x0);
+	}
 
 	/* Enable the RX core. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_LINK_ENABLE, 0x1);
@@ -2063,7 +2167,9 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 
 	return XST_SUCCESS;
 }
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function runs the link training process. It is implemented as a state
@@ -2129,6 +2235,17 @@ static u32 XDp_TxRunTraining(XDp *InstancePtr)
 				return XST_FAILURE;
 			}
 		}
+	}
+
+	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		/* Post Link Training ; Write 0x101 bit5 to
+		 * set POST_LT_ADJ_REQ_GRANTED bit */
+		int Data;
+		Status = XDp_TxAuxRead(InstancePtr,
+				       XDP_DPCD_LANE_COUNT_SET, 1, &Data);
+		Data = Data | 0x20;
+		Status = XDp_TxAuxWrite(InstancePtr,
+					XDP_DPCD_LANE_COUNT_SET, 1, &Data);
 	}
 
 	/* Final status check. */
@@ -2290,7 +2407,7 @@ static XDp_TxTrainingState XDp_TxTrainingStateClockRecovery(XDp *InstancePtr)
 static XDp_TxTrainingState XDp_TxTrainingStateChannelEqualization(
 							XDp *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XST_SUCCESS;
 	u32 DelayUs;
 	u32 IterationCount = 0;
 
@@ -2304,15 +2421,22 @@ static XDp_TxTrainingState XDp_TxTrainingStateChannelEqualization(
 	/* Write the current drive settings. */
 	/* Transmit training pattern 2/3. */
 	if (InstancePtr->TxInstance.RxConfig.
+				DpcdRxCapsField[XDP_DPCD_MAX_DOWNSPREAD] &
+				XDP_DPCD_TPS4_SUPPORT_MASK) {
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			Status = XDp_TxSetTrainingPattern(InstancePtr,
+					XDP_TX_TRAINING_PATTERN_SET_TP4);
+		}
+	} else if (InstancePtr->TxInstance.RxConfig.
 				DpcdRxCapsField[XDP_DPCD_MAX_LANE_COUNT] &
 				XDP_DPCD_TPS3_SUPPORT_MASK) {
 		Status = XDp_TxSetTrainingPattern(InstancePtr,
 					XDP_TX_TRAINING_PATTERN_SET_TP3);
-	}
-	else {
+	} else {
 		Status = XDp_TxSetTrainingPattern(InstancePtr,
 					XDP_TX_TRAINING_PATTERN_SET_TP2);
 	}
+	
 	if (Status != XST_SUCCESS) {
 		return XDP_TX_TS_FAILURE;
 	}
@@ -2381,6 +2505,18 @@ static XDp_TxTrainingState XDp_TxTrainingStateAdjustLinkRate(XDp *InstancePtr)
 	u32 Status;
 
 	switch (InstancePtr->TxInstance.LinkConfig.LinkRate) {
+	case XDP_TX_LINK_BW_SET_810GBPS:
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			Status = XDp_TxSetLinkRate(InstancePtr,
+						XDP_TX_LINK_BW_SET_540GBPS);
+			if (Status != XST_SUCCESS) {
+				Status = XDP_TX_TS_FAILURE;
+				break;
+			}
+			Status = XDP_TX_TS_CLOCK_RECOVERY;
+			break;
+		}
+		/* FALLTHRU */
 	case XDP_TX_LINK_BW_SET_540GBPS:
 		Status = XDp_TxSetLinkRate(InstancePtr,
 						XDP_TX_LINK_BW_SET_270GBPS);
@@ -2543,17 +2679,20 @@ static u32 XDp_TxCheckClockRecovery(XDp *InstancePtr, u8 LaneCount)
 			return XST_FAILURE;
 		}
 		/* Drop through and check lane 1. */
+		/* FALLTHRU */
 	case XDP_TX_LANE_COUNT_SET_2:
 		if (!(LaneStatus[0] &
 				XDP_DPCD_STATUS_LANE_1_CR_DONE_MASK)) {
 			return XST_FAILURE;
 		}
 		/* Drop through and check lane 0. */
+		/* FALLTHRU */
 	case XDP_TX_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] &
 				XDP_DPCD_STATUS_LANE_0_CR_DONE_MASK)) {
 			return XST_FAILURE;
 		}
+		/* FALLTHRU */
 	default:
 		/* All (LaneCount) lanes have achieved clock recovery. */
 		break;
@@ -2597,17 +2736,20 @@ static u32 XDp_TxCheckChannelEqualization(XDp *InstancePtr, u8 LaneCount)
 			return XST_FAILURE;
 		}
 		/* Drop through and check lane 1. */
+		/* FALLTHRU */
 	case XDP_TX_LANE_COUNT_SET_2:
 		if (!(LaneStatus[0] &
 				XDP_DPCD_STATUS_LANE_1_CE_DONE_MASK)) {
 			return XST_FAILURE;
 		}
 		/* Drop through and check lane 0. */
+		/* FALLTHRU */
 	case XDP_TX_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] &
 				XDP_DPCD_STATUS_LANE_0_CE_DONE_MASK)) {
 			return XST_FAILURE;
 		}
+		/* FALLTHRU */
 	default:
 		/* All (LaneCount) lanes have achieved channel equalization. */
 		break;
@@ -2625,17 +2767,20 @@ static u32 XDp_TxCheckChannelEqualization(XDp *InstancePtr, u8 LaneCount)
 			return XST_FAILURE;
 		}
 		/* Drop through and check lane 1. */
+		/* FALLTHRU */
 	case XDP_TX_LANE_COUNT_SET_2:
 		if (!(LaneStatus[0] &
 				XDP_DPCD_STATUS_LANE_1_SL_DONE_MASK)) {
 			return XST_FAILURE;
 		}
 		/* Drop through and check lane 0. */
+		/* FALLTHRU */
 	case XDP_TX_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] &
 				XDP_DPCD_STATUS_LANE_0_SL_DONE_MASK)) {
 			return XST_FAILURE;
 		}
+		/* FALLTHRU */
 	default:
 		/* All (LaneCount) lanes have achieved symbol lock. */
 		break;
@@ -2834,6 +2979,7 @@ static u32 XDp_TxAdjVswingPreemp(XDp *InstancePtr)
  *		- XDP_TX_TRAINING_PATTERN_SET_TP1
  *		- XDP_TX_TRAINING_PATTERN_SET_TP2
  *		- XDP_TX_TRAINING_PATTERN_SET_TP3
+ *		- XDP_TX_TRAINING_PATTERN_SET_TP4 (in case of DP 1.4)
  *
  * @return
  *		- XST_SUCCESS if setting the pattern was successful.
@@ -2868,6 +3014,13 @@ static u32 XDp_TxSetTrainingPattern(XDp *InstancePtr, u32 Pattern)
 						XDP_TX_SCRAMBLING_DISABLE, 1);
 		InstancePtr->TxInstance.LinkConfig.ScramblerEn = 0;
 		break;
+	case XDP_TX_TRAINING_PATTERN_SET_TP4:
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			XDp_WriteReg(InstancePtr->Config.BaseAddr,
+							XDP_TX_SCRAMBLING_DISABLE, 0);
+			InstancePtr->TxInstance.LinkConfig.ScramblerEn = 1;
+			break;
+		}
 	default:
 		break;
 	}
@@ -2914,7 +3067,8 @@ static u32 XDp_TxGetTrainingDelay(XDp *InstancePtr,
 	u8 *Dpcd = InstancePtr->TxInstance.RxConfig.DpcdRxCapsField;
 	u16 Delay;
 
-	switch (Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL]) {
+	switch ((Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL] &
+			 XDP_DPCD_TRAIN_AUX_RD_INT_MASK)) {
 	case XDP_DPCD_TRAIN_AUX_RD_INT_100_400US:
 		if (TrainingState == XDP_TX_TS_CLOCK_RECOVERY) {
 			/* Delay for the clock recovery phase. */
@@ -3326,6 +3480,7 @@ static u32 XDp_TxSetClkSpeed(XDp *InstancePtr, u32 Speed)
 
 	return XST_SUCCESS;
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /******************************************************************************/
 /**
@@ -3346,12 +3501,16 @@ static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask)
 	u32 PhyStatus;
 	u32 RegPhyStatus;
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
 		RegPhyStatus = XDP_TX_PHY_STATUS;
 	}
-	else {
+#endif
+#if XPAR_XDPRXSS_NUM_INSTANCES
+	if (XDp_GetCoreType(InstancePtr) == XDP_RX) {
 		RegPhyStatus = XDP_RX_PHY_STATUS;
 	}
+#endif
 
 	/* Wait until the PHY is ready. */
 	do {

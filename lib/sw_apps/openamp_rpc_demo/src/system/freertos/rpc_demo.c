@@ -309,8 +309,6 @@ int main(void)
 {
 	BaseType_t stat;
 
-	Xil_ExceptionDisable();
-
 	/* Create the tasks */
 	stat = xTaskCreate(processing, ( const char * ) "HW2",
 				1024, NULL, 2, &comm_task);
@@ -322,9 +320,7 @@ int main(void)
 	}
 
 	/* Will not get here, unless a call is made to vTaskEndScheduler() */
-	while (1) {
-		__asm__("wfi\n\t");
-	}
+	while (1) ;
 
 	/* suppress compilation warnings*/
 	return 0;

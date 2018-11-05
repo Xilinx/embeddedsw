@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   vns     2/27/15  First release
+* 1.5   adk    11/22/17  Added peripheral test app support.
 * </pre>
 *
 ******************************************************************************/
@@ -72,6 +73,7 @@ int XZDma_SelfTestExample(u16 DeviceId);
 
 XZDma ZDma;		/**<Instance of the ZDMA Device */
 
+#ifndef TESTAPP_GEN
 /*****************************************************************************/
 /**
 *
@@ -98,6 +100,7 @@ int main(void)
 	xil_printf("Successfully ran ZDMA Selftest Example\r\n");
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**

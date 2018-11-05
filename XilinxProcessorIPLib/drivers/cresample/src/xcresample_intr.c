@@ -33,7 +33,7 @@
 /**
 *
 * @file xcresample_intr.c
-* @addtogroup cresample_v4_0
+* @addtogroup cresample_v4_1
 * @{
 *
 * This file contains interrupt related functions of Chroma Resampler core

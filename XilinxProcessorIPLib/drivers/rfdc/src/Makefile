@@ -9,7 +9,7 @@ RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
-INCLUDEFILES=xrfdc_hw.h xrfdc.h
+INCLUDEFILES=xrfdc_hw.h xrfdc.h xrfdc_mts.h
 
 LIBSOURCES=*.c
 OUTS = *.o

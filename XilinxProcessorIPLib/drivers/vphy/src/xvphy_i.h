@@ -18,7 +18,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
  * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
@@ -51,9 +51,10 @@
  * 1.5   gm   02/05/17 Added XVphy_CfgCpllCalPeriodandTol API for US+ devices
  * 1.6   gm   06/08/17 Added XVphy_MmcmLocked, XVphy_ErrorHandler and
  *                       XVphy_PllLayoutErrorHandler APIs
+ * 1.7   gm   13/09/17 Removed XVphy_MmcmWriteParameters API
  * </pre>
  *
- * @addtogroup xvphy
+ * @addtogroup xvphy_v1_7
  * @{
 *******************************************************************************/
 
@@ -125,6 +126,8 @@ u32 XVphy_CfgCpllCalPeriodandTol(XVphy *InstancePtr, u8 QuadId,
 
 
 /* xvphy.c: GT/MMCM DRP access. */
+u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
+							XVphy_DirectionType Dir);
 void XVphy_MmcmReset(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 		u8 Hold);
 void XVphy_MmcmLockedMaskEnable(XVphy *InstancePtr, u8 QuadId,
@@ -134,7 +137,6 @@ void XVphy_SetBufgGtDiv(XVphy *InstancePtr, XVphy_DirectionType Dir, u8 Div);
 /* xvphy.c Miscellaneous control. */
 u32 XVphy_PowerDownGtPll(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		u8 Hold);
-
 
 /* xvphy_intr.c: Interrupt handling functions. */
 void XVphy_SetIntrHandler(XVphy *InstancePtr, XVphy_IntrHandlerType HandlerType,

@@ -33,7 +33,7 @@
 /**
 *
 * @file xtmrctr_options.c
-* @addtogroup tmrctr_v4_0
+* @addtogroup tmrctr_v4_4
 * @{
 *
 * Contains configuration options functions for the XTmrCtr component.

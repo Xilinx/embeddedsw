@@ -18,7 +18,7 @@
 ##
 ## THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 ## IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-## FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+## FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
 ## XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 ## WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 ## OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
@@ -41,9 +41,9 @@
 ###############################################################################
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XVPHY" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ"
-    xdefine_config_file $drv_handle "xvphy_g.c" "XVphy" "DEVICE_ID" "C_BASEADDR" "TRANSCEIVER" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ"
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "VPHY" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ"
+    xdefine_include_file $drv_handle "xparameters.h" "XVPHY" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI"
+    xdefine_config_file $drv_handle "xvphy_g.c" "XVphy" "DEVICE_ID" "C_BASEADDR" "TRANSCEIVER" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI"
+    xdefine_canonical_xpars $drv_handle "xparameters.h" "VPHY" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI"
 }
 
 # -----------------------------------------------------------------------------
@@ -171,8 +171,10 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                              set freq [::hsi::utils::get_clk_pin_freq  $periph "drpclk"]
                  } elseif {[string compare -nocase "GTHE4" "$xcvr"] == 0} {
                              set freq [::hsi::utils::get_clk_pin_freq  $periph "drpclk"]
+                 } elseif {[string compare -nocase "GTYE4" "$xcvr"] == 0} {
+                             set freq [::hsi::utils::get_clk_pin_freq  $periph "drpclk"]
                  } else {
-                     puts $file_handle "#error \"Video PHY currently supports only GTHE4, GTHE3, GTHE2, GTPE2 and GTXE2; $xcvr not supported\""
+                     puts $file_handle "#error \"Video PHY currently supports only GTYE4, GTHE4, GTHE3, GTHE2, GTPE2 and GTXE2; $xcvr not supported\""
                  }
                 if {[llength $freq] == 0} {
                     set freq "100000000"
@@ -202,8 +204,10 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                                 puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 4"
                     } elseif {[string compare -nocase "GTHE4" "$value"] == 0} {
                                 puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 5"
+                    } elseif {[string compare -nocase "GTYE4" "$value"] == 0} {
+                                puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 6"
                     } else {
-                        puts $file_handle "#error \"Video PHY currently supports only GTHE4, GTHE3, GTHE2, GTPE2 and GTXE2; $value not supported\""
+                        puts $file_handle "#error \"Video PHY currently supports only GTYE4, GTHE4, GTHE3, GTHE2, GTPE2 and GTXE2; $value not supported\""
                     }
             } else {
                 puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
@@ -284,8 +288,10 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                                puts $file_handle "#define [string toupper $lvalue] 4"
                    } elseif {[string compare -nocase "GTHE4" "$rvalue"] == 0} {
                                puts $file_handle "#define [string toupper $lvalue] 5"
+                   } elseif {[string compare -nocase "GTYE4" "$rvalue"] == 0} {
+                               puts $file_handle "#define [string toupper $lvalue] 6"
                    } else {
-                       puts $file_handle "#error \"Video PHY currently supports only GTHE4, GTHE3, GTHE2, GTEP2 and GTXE2; $rvalue not supported\""
+                       puts $file_handle "#error \"Video PHY currently supports only GTYE4, GTHE4, GTHE3, GTHE2, GTEP2 and GTXE2; $rvalue not supported\""
                    }
             } elseif {[string compare -nocase "AXI_LITE_FREQ_HZ" $arg] == 0} {
                 set rfreq [::hsi::utils::get_clk_pin_freq  $periph "vid_phy_axi4lite_aclk"]
@@ -310,8 +316,10 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                              set rfreq [::hsi::utils::get_clk_pin_freq  $periph "drpclk"]
                  } elseif {[string compare -nocase "GTHE4" "$rxcvr"] == 0} {
                              set rfreq [::hsi::utils::get_clk_pin_freq  $periph "drpclk"]
+                 } elseif {[string compare -nocase "GTYE4" "$rxcvr"] == 0} {
+                             set rfreq [::hsi::utils::get_clk_pin_freq  $periph "drpclk"]
                  } else {
-                     puts $file_handle "#error \"Video PHY currently supports only GTHE4, GTHE3, GTHE2, GTPE2 and GTXE2; $rxcvr not supported\""
+                     puts $file_handle "#error \"Video PHY currently supports only GTYE4, GTHE4, GTHE3, GTHE2, GTPE2 and GTXE2; $rxcvr not supported\""
                  }
                 if {[llength $rfreq] == 0} {
                     set rfreq "100000000"

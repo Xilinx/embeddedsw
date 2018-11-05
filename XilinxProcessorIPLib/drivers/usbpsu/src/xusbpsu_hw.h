@@ -33,7 +33,7 @@
 /**
 *
 * @file xusbpsu_hw.h
-* @addtogroup usbpsu_v1_0
+* @addtogroup usbpsu_v1_3
 * @{
 *
 * <pre>
@@ -43,6 +43,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   sg    06/06/16 First release
+* 1.4   myk   12/01/18 Added support of hibernation
 *
 * </pre>
 *
@@ -174,6 +175,7 @@ extern "C" {
 
 /* Global Status Register Device Interrupt Mask */
 #define XUSBPSU_GSTS_DEVICE_IP_MASK 			0x00000040
+#define XUSBPSU_GSTS_CUR_MODE			(0x00000001U << 0)
 
 /* Global USB2 PHY Configuration Register */
 #define XUSBPSU_GUSB2PHYCFG_PHYSOFTRST          (0x00000001U << 31)
@@ -308,8 +310,28 @@ extern "C" {
 #define XUSBPSU_PORTMSC_30_U1_TIMEOUT_MASK		(0xffU << 0)
 #define XUSBPSU_PORTMSC_30_U1_TIMEOUT_SHIFT		(0U)
 
+/* Register for LPD block */
+#define RST_LPD_TOP				0x23C
+#define USB0_CORE_RST				(1 << 6)
+#define USB1_CORE_RST				(1 << 7)
 
-/*@}*/
+/* Vendor registers for Xilinx */
+#define XIL_CUR_PWR_STATE			0x00
+#define XIL_PME_ENABLE				0x34
+#define XIL_REQ_PWR_STATE			0x3c
+#define XIL_PWR_CONFIG_USB3			0x48
+
+#define XIL_REQ_PWR_STATE_D0			0
+#define XIL_REQ_PWR_STATE_D3			3
+#define XIL_PME_ENABLE_SIG_GEN			1
+#define XIL_CUR_PWR_STATE_D0			0
+#define XIL_CUR_PWR_STATE_D3			3
+#define XIL_CUR_PWR_STATE_BITMASK		0x03
+
+#define VENDOR_BASE_ADDRESS			0xFF9D0000
+#define LPD_BASE_ADDRESS			0xFF5E0000
+
+ /*@}*/
 
 /**************************** Type Definitions *******************************/
 
@@ -352,6 +374,76 @@ extern "C" {
 ******************************************************************************/
 #define XUsbPsu_WriteReg(InstancePtr, Offset, Data) \
 	Xil_Out32((InstancePtr)->ConfigPtr->BaseAddress + (u32)(Offset), (u32)(Data))
+
+/*****************************************************************************/
+/**
+*
+* Read a vendor register of the USBPS8 device.
+*
+* @param       Offset is the offset of the register to read.
+*
+* @return      The contents of the register.
+*
+* @note                C-style Signature:
+*              u32 XUsbPsu_ReadVendorReg(struct XUsbPsu *InstancePtr, u32 Offset);
+*
+******************************************************************************/
+#define XUsbPsu_ReadVendorReg(Offset) \
+       Xil_In32(VENDOR_BASE_ADDRESS + (u32)(Offset))
+
+/*****************************************************************************/
+/**
+*
+* Write a Vendor register of the USBPS8 device.
+*
+* @param       RegOffset is the offset of the register to write.
+* @param       Data is the value to write to the register.
+*
+* @return      None.
+*
+* @note        C-style Signature:
+*              void XUsbPsu_WriteVendorReg(struct XUsbPsu *InstancePtr,
+*                                                              u32 Offset,u32 Data)
+*
+******************************************************************************/
+#define XUsbPsu_WriteVendorReg(Offset, Data) \
+       Xil_Out32(VENDOR_BASE_ADDRESS + (u32)(Offset), (u32)(Data))
+
+/*****************************************************************************/
+/**
+*
+* Read a LPD register of the USBPS8 device.
+*
+* @param       InstancePtr is a pointer to the XUsbPsu instance.
+* @param       Offset is the offset of the register to read.
+*
+* @return      The contents of the register.
+*
+* @note                C-style Signature:
+*              u32 XUsbPsu_ReadLpdReg(struct XUsbPsu *InstancePtr, u32 Offset);
+*
+******************************************************************************/
+#define XUsbPsu_ReadLpdReg(Offset) \
+       Xil_In32(LPD_BASE_ADDRESS + (u32)(Offset))
+
+/*****************************************************************************/
+/**
+*
+* Write a LPD register of the USBPS8 device.
+*
+* @param       InstancePtr is a pointer to the XUsbPsu instance.
+* @param       RegOffset is the offset of the register to write.
+* @param       Data is the value to write to the register.
+*
+* @return      None.
+*
+* @note        C-style Signature:
+*              void XUsbPsu_WriteLpdReg(struct XUsbPsu *InstancePtr,
+*                                                              u32 Offset,u32 Data)
+*
+******************************************************************************/
+#define XUsbPsu_WriteLpdReg(Offset, Data) \
+       Xil_Out32(LPD_BASE_ADDRESS + (u32)(Offset), (u32)(Data))
 
 /************************** Function Prototypes ******************************/
 

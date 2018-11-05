@@ -1,6 +1,6 @@
 ;******************************************************************************
 ;
-; Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+; Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
 ;
 ; Permission is hereby granted, free of charge, to any person obtaining a copy
 ; of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,13 @@
 ;  Ver   Who  Date     Changes
 ;  ----- ---- -------- ---------------------------------------------------
 ; 5.00  mus  01/27/17 Initial version
+; 6.6   srm  10/18/17 Updated the timer configuration with XTime_StartTTCTimer.
+;                     Now the timer instance as specified by the user will be
+;		      started.
+; 6.6  mus   02/23/17 Disable the debug logic in non-JTAG boot mode(when
+;		      processor is in lockstep configuration), based
+;		      on the mld parameter "lockstep_mode_debug".
+;
 ;  </pre>
 ;
 ;  @note
@@ -65,7 +72,9 @@
 	PUBLIC __iar_program_start
 	IMPORT _vector_table
         IMPORT Init_MPU
-	IMPORT XTime_StartTimer
+#ifdef SLEEP_TIMER_BASEADDR
+	IMPORT XTime_StartTTCTimer
+#endif
 	IMPORT __cmain
 vector_base     EQU     _vector_table
 RPU_GLBL_CNTL   EQU     0xFF9A0000
@@ -219,6 +228,7 @@ OKToRun
 	mcr 	p15, 0, r0, c15, c5, 0      	 ; Invalidate entire data cache
 	isb
 
+#if LOCKSTEP_MODE_DEBUG == 0
  ; enable fault log for lock step
 	ldr	r0,=RPU_GLBL_CNTL
 	ldr	r1, [r0]
@@ -245,6 +255,7 @@ OKToRun
 	str	r2, [r0]
 	nop
 	nop
+ #endif
 
 init
 	bl 	Init_MPU		 ; Initialize MPU
@@ -299,9 +310,9 @@ init
 	mov	r2, #0x80000000		; enable cycle counter
 	mcr	p15, 0, r2, c9, c12, 1
 
-	; configure the timer if TTC3 is present
+	; configure the timer if TTC is present
         #ifdef SLEEP_TIMER_BASEADDR
-	    bl XTime_StartTimer
+	    bl XTime_StartTTCTimer
         #endif
 
         ; make sure argc and argv are valid

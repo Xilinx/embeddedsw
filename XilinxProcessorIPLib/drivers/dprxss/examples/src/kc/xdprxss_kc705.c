@@ -19,7 +19,7 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -85,6 +85,42 @@ struct dma_chan_parms dma_struct[1];
 
 XDpTxSs_MainStreamAttributes Msa[4];
 
+static XVphy_User_Config PHY_User_Config_Table[] =
+{
+  // Index,         TxPLL,               RxPLL,
+//		TxChId,                    RxChId,         LineRate,
+//		LineRateHz,                QPLLRefClkSrc,
+//		CPLLRefClkSrc,       QPLLRefClkFreqHz,    CPLLRefClkFreqHz
+  {   0,     XVPHY_PLL_TYPE_QPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CMN,     XVPHY_CHANNEL_ID_CHA,     0x06,
+		  XVPHY_DP_LINK_RATE_HZ_162GBPS,      ONBOARD_REF_CLK,
+		  DP159_FORWARDED_CLK,        162000000,           81000000        },
+  {   1,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,     0x06,
+		  XVPHY_DP_LINK_RATE_HZ_162GBPS,      DP159_FORWARDED_CLK,
+		  DP159_FORWARDED_CLK,        81000000,            81000000        },
+  {   2,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,     0x0A,
+		  XVPHY_DP_LINK_RATE_HZ_270GBPS,      DP159_FORWARDED_CLK,
+		  DP159_FORWARDED_CLK,        135000000,           135000000        },
+  {   3,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,     0x14,
+		  XVPHY_DP_LINK_RATE_HZ_540GBPS,      DP159_FORWARDED_CLK,
+		  DP159_FORWARDED_CLK,        270000000,           270000000        },
+  {   4,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,     0x06,
+		  XVPHY_DP_LINK_RATE_HZ_162GBPS,      ONBOARD_REF_CLK,
+		  ONBOARD_REF_CLK,            135000000,           135000000        },
+  {   5,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,     0x0A,
+		  XVPHY_DP_LINK_RATE_HZ_270GBPS,      ONBOARD_REF_CLK,
+		  ONBOARD_REF_CLK,            135000000,           135000000        },
+  {   6,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,     0x14,
+		  XVPHY_DP_LINK_RATE_HZ_540GBPS,      ONBOARD_REF_CLK,
+		  ONBOARD_REF_CLK,            135000000,           135000000        },
+
+};
 /* Local Globals */
 
 /************************** Variable Definitions *****************************/
@@ -127,7 +163,9 @@ void Dprx_InterruptHandlerUplug(void *InstancePtr);
 void Dprx_InterruptHandlerPwr(void *InstancePtr);
 void Dprx_HdcpAuthCallback(void *InstancePtr);
 void Dprx_HdcpUnAuthCallback(void *InstancePtr);
+#if ENABLE_HDCP_IN_DESIGN
 static void Dppt_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber);
+#endif
 void DpPt_CustomWaitUs(void *InstancePtr, u32 MicroSeconds);
 int DPTxInitialize();
 int DPRxInitialize();
@@ -166,6 +204,8 @@ void select_link_lane();
 void select_rx_link_lane();
 void sub_help_menu();
 void test_pattern_gen_help();
+int write_si570();
+int ceil_func(double x);
 
 u8 is_TX_CPLL=1;
 u8 hdcp_capable = 0;
@@ -740,7 +780,7 @@ int main(void)
 				LaneCount = DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount;
 				// Enabling TX interrupts
 				sub_help_menu ();
-			u32 hdcpTxCmdInProgress = 0;
+//			u32 hdcpTxCmdInProgress = 0;
 				CmdKey[0] = 0;
 				CommandKey = 0;
 
@@ -1364,7 +1404,7 @@ int main(void)
 
 #endif
 				rx_ran_once = 1;
-				u32 hdcpCmdInProgress = 0;
+//				u32 hdcpCmdInProgress = 0;
 			while(1)
 			{
 				if (tx_is_reconnected == 1) {
@@ -1490,7 +1530,7 @@ xil_printf ("+++++++ TX GT configuration encountered a failure +++++++\r\n");
 									((LineRate * 27.0) *
 											rxMsaMVid_track)/rxMsaNVid_track;
 							recv_frame_clk_track =
-									ceil((recv_clk_freq_track*1000000.0) /
+									ceil_func((recv_clk_freq_track*1000000.0) /
 											(DpHres_total*DpVres_total));
 							recv_frame_clk_int_track = recv_frame_clk_track;
                             if (recv_frame_clk_int_track == 59 ||
@@ -2483,7 +2523,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 
 	recv_clk_freq = ((LineRate * 27.0)*rxMsaMVid)/rxMsaNVid;
 	recv_frame_clk =
-			ceil((recv_clk_freq*1000000.0)/(DpHres_total * DpVres_total));
+			ceil_func((recv_clk_freq*1000000.0)/(DpHres_total * DpVres_total));
 	recv_frame_clk_int = recv_frame_clk;
 	//Doing Approximation here
 	if (recv_frame_clk_int == 59 || recv_frame_clk_int == 61) {
@@ -2936,7 +2976,8 @@ if (internal_rx_tx == 0) {
 								XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX);
         Status1 = XVphy_WaitForPllLock(&VPhy_Instance, 0, XVPHY_CHANNEL_ID_CHA);
 
-//xil_printf ("%d %d\r\n", Status1, Status2);
+        Status1 += Status2; // only to surpress warnings
+        xdbg_printf ("%d %d\r\n", Status1, Status2);
 
 #if (ENABLE_HDCP_IN_DESIGN && SET_RX_TO_2BYTE==1)
 //        Xil_Out32 (CLK_2_GPIO_BASEADDR, 0x0);
@@ -3409,7 +3450,6 @@ void hpd_con()
     u32 Status;
 	u8 Edid[128];
 	u8 Edid1[128];
-	u8 auxValues[9];
 
 	int i = 0;
 	int j = 0;
@@ -3450,6 +3490,8 @@ void hpd_con()
 	}
 
 #if ENABLE_HDCP_IN_DESIGN
+	u8 auxValues[9];
+
     XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x068028, 1, auxValues);
 
     hdcp_capable = auxValues[0] & 0x1;
@@ -4361,6 +4403,7 @@ if (Status != XST_SUCCESS) {
 int zz,kk;
 for(kk= 0; kk<100000; kk++)
         zz = kk+1;
+kk += zz; // Only to surpress warning
 //udelay(1000);
 //xil_printf("5 end\r\n");
 // Update to user requested frequency
@@ -4666,4 +4709,7 @@ void tx_preset() {
 	XDpTxSs_SetBpc(&DpTxSsInst, 8);
 	XDpTxSs_Start(&DpTxSsInst);
 
+}
+int ceil_func(double x){
+	return (int)( x < 0.0 ? x : x+0.9 );
 }
