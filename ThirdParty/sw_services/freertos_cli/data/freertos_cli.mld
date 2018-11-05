@@ -1,0 +1,26 @@
+OPTION psf_version = 2.1.0 ;
+
+BEGIN LIBRARY freertos_cli
+
+  OPTION desc = "FreeRTOS Command Line Interface";
+  OPTION drc = freertos_cli_drc;
+  OPTION copyfiles = all;
+  OPTION app_linker_flags = "-Wl,--start-group,-lxil,-lfreertos_cli,-lgcc,-lc,--end-group";
+  OPTION requires_os = (standalone xilkernel freertos10_xilinx);
+  OPTION VERSION = 1.04;
+  OPTION NAME = freertos_cli;
+
+  PARAM name = stdin, type = peripheral_instance, requires_interface = stdin, default=none, desc = "(unused) Specify the instance name of the standard input peripheral";
+  PARAM name = user_buffer, type = bool, default = false, desc = "user need to provide cOutputBuffer[] at fixed address";
+  PARAM name = buffer_size, type = int, default = 1024, desc = "user command buffer size, configCOMMAND_INT_MAX_OUTPUT_SIZE";
+
+  BEGIN CATEGORY cli_behavior
+    PROPERTY desc = "freertos cli property";
+    PARAM name = cli_behavior, type = bool, default = true, desc = "foo parameter", permit = none;
+    PARAM name = cli_enable, type = bool, default = false, desc = "unused parameter";
+    PARAM name = cli_close, type = bool, default = false, desc = "unused parameter";
+  END CATEGORY
+
+END LIBRARY
+
+
