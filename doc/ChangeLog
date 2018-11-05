@@ -3,6 +3,9 @@ Changes for 2019.1
 axiethernet_v5_9:
 In tcl use unique global variables to fix bsp generation for certain designs.
 
+emaclite_v4_4:
+Fix poll example failure on microblaze platform.
+
 xxvethernet_v1_2:
 In tcl use unique global variables to fix bsp generation for certain designs.
 
