@@ -6,7 +6,7 @@ BEGIN LIBRARY freertos_cli
   OPTION drc = freertos_cli_drc;
   OPTION copyfiles = all;
   OPTION app_linker_flags = "-Wl,--start-group,-lxil,-lfreertos_cli,-lgcc,-lc,--end-group";
-  OPTION requires_os = (standalone xilkernel freertos901_xilinx);
+  OPTION requires_os = (standalone xilkernel freertos10_xilinx);
   OPTION VERSION = 1.04;
   OPTION NAME = freertos_cli;
 
