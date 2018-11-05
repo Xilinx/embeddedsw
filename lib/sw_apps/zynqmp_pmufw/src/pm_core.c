@@ -944,10 +944,13 @@ static void PmSecureAes(const PmMaster *const master,
 	XSecure_AesParams *Aes = (XSecure_AesParams *)(UINTPTR)WrAddr;
 
 	if (Aes->KeySrc == AES_PUF_KEY_SEL_MASK) {
-		XilSKey_Puf_Regeneration(&InstancePtr);
+		Status = XilSKey_Puf_Regeneration(&InstancePtr);
+		if (Status != 0U)
+			goto END;
 	}
 
 	Status = XSecure_AesOperation(SrcAddrHigh, SrcAddrLow);
+END:
 	IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, Status);
 }
 
