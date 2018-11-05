@@ -57,6 +57,9 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 4.4  rsp   11/04/18 Fix poll example failure when I/D cache is disabled.
+*                     It's a corner case when on network there is a packet
+*                     reception before send i.e during phy loopback setup.
 *
 * </pre>
 *
@@ -180,11 +183,6 @@ int EmacLitePolledExample(u16 DeviceId)
 	XEmacLite_SetMacAddress(EmacLiteInstPtr, LocalAddress);
 
 	/*
-	 * Empty any existing receive frames.
-	 */
-	XEmacLite_FlushReceive(EmacLiteInstPtr);
-
-	/*
 	 * Check if there is a TX buffer available, if there isn't it is an
 	 * error.
 	 */
@@ -208,6 +206,10 @@ int EmacLitePolledExample(u16 DeviceId)
 		}
 	}
 
+	/*
+	 * Empty any existing receive frames.
+	 */
+	XEmacLite_FlushReceive(EmacLiteInstPtr);
 
 	/*
 	 * Reset the receive frame length to zero.
