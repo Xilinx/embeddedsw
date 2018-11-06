@@ -686,7 +686,7 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
  *****************************************************************************/
 void XFpga_GetDmaPtr(XFpga *InstancePtr, XCsuDma *DmaPtr)
 {
-	InstancePtr->PLInfo.CfiDma = DmaPtr;
+	memcpy(&InstancePtr->PLInfo.PmcDmaIns, DmaPtr, sizeof(*DmaPtr));
 }
 #endif
 

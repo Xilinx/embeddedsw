@@ -67,4 +67,5 @@ PARAM name = secure_mode, desc = "Enable secure Bitstream loading support", type
 PARAM name = debug_mode, desc = "Which is used to Enable the Debug messages in the library", type = bool, default = false;
 PARAM name = ocm_address, desc = "OCM Address which is used for Bitstream Authentication", type = int, default = 0xfffc0000, drc = drc_ocm_address ;
 PARAM name = base_address, desc = "Bitstream Image Base Address", type = int, default = 0x80000, drc = drc_base_address ;
+PARAM name = pmc_dma, desc = "This config option is needed for versal platform to select the DMA. Enter 1 for PMC_DMA0, 2 for PMC_DMA0 and 3 For None In this case user needs to pass the dma pointer by using XFpga_GetDmaPtr() API" , type = int, default = 1;
 END LIBRARY

@@ -58,12 +58,12 @@
  * Structure to store the lower level interface details used for PL programming.
  * @CfupmcIns	The XCfupmc driver instance data structure.
  * @CframeIns   The XCframe driver instance data structure.
- * @CfiDma 		The CSUDMA driver instance data structure.
+ * @PmcDmaIns	The XCsuDma driver instance data structure.
  */
 typedef struct {
 	XCfupmc CfupmcIns;
 	XCframe CframeIns;
-	XCsuDma	*CfiDma;
+	XCsuDma PmcDmaIns;
 } XFpga_Info;
 
 /**
@@ -189,6 +189,11 @@ typedef struct {
 /*XCSUDMA Burst Type */
 #define XFPGA_CSUDMA_INCR_BURST		(0x00000000U)	/* INCR type burst */
 #define XFPGA_CSUDMA_FIXED_BURST	(0x00000001U)	/* FIXED type burst */
+
+/* PMC DMA Type */
+#define XFPGA_DMATYPEIS_PMCDMA0		XPAR_PSU_PMCDMA_0_DEVICE_ID
+#define XFPGA_DMATYPEIS_PMCDMA1		XPAR_PSU_PMCDMA_1_DEVICE_ID
+#define XFPGA_PMC_DMA_NONE		(3U)
 
 /* Return Codes */
 #define XFPGA_CFI_SUCCESS		(0x0U)

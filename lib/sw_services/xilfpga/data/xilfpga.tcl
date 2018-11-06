@@ -109,6 +109,7 @@ proc generate {lib_handle} {
     file delete -force $interface
     puts $conffile "#ifndef _XFPGA_CONFIG_H"
     puts $conffile "#define _XFPGA_CONFIG_H"
+    puts $conffile "#include <xilfpga.h>"
     set value  [common::get_property CONFIG.ocm_address $lib_handle]
     puts  $conffile "#define XFPGA_OCM_ADDRESS $value"
     set value  [common::get_property CONFIG.base_address $lib_handle]
@@ -126,6 +127,16 @@ proc generate {lib_handle} {
     } else {
 	puts $conffile "#define XFPGA_DEBUG     (0U)"
     }
+  if { $iszynqmp == 0} {
+	set dma_type  [common::get_property CONFIG.pmc_dma $lib_handle]
+        if {$dma_type == 1} {
+		puts $conffile "#define XFPGA_DMA_TYPE	XFPGA_DMATYPEIS_PMCDMA0"
+	} elseif {$dma_type == 2} {
+		puts $conffile "#define XFPGA_DMA_TYPE  XFPGA_DMATYPEIS_PMCDMA1"
+	} else {
+		puts $conffile "#define XFPGA_DMA_TYPE  XFPGA_PMC_DMA_NONE"
+	}
+   }
 
     puts $conffile "#endif"
     close $conffile
