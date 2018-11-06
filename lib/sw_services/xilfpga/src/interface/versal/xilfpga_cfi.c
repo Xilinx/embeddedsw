@@ -69,6 +69,7 @@ static u32 XFpga_FabricClean(XCframe *CframeIns);
 static u32 XFpga_CheckFabricErr(XCfupmc *CfupmcIns);
 static void XFpga_FabricEndSeq(XCfupmc *CfupmcIns);
 static u32 XFpga_ReadFabricData(XFpga *InstancePtr);
+static u32 XFpga_DmaDrvInit(XCsuDma *DmaPtr, u32 DeviceId);
 
 /*****************************************************************************/
 /* This API when called initializes the XFPGA interface with default settings.
@@ -121,16 +122,16 @@ static u32 XFpga_Write_Fabric(XFpga *InstancePtr)
 	u32 Status;
 	UINTPTR BitstreamAddr;
 	u32 BitstreamSize;
-	XCsuDma	*CfiDma;
+	XFpga_Info *DataPtr = &InstancePtr->PLInfo;
 
 	Xil_AssertNonvoid(InstancePtr->WriteInfoPtr != NULL);
-	Xil_AssertNonvoid(&InstancePtr->PLInfo.CfiDma != NULL);
+	Xil_AssertNonvoid(&DataPtr->PmcDmaIns != NULL);
 
 	BitstreamAddr = InstancePtr->WriteInfoPtr->BitstreamAddr;
 	BitstreamSize = (u32)InstancePtr->WriteInfoPtr->AddrPtr_Size;
-	CfiDma = InstancePtr->PLInfo.CfiDma;
 
-	Status = XFpga_DmaXfr(CfiDma, BitstreamAddr,
+
+	Status = XFpga_DmaXfr(&DataPtr->PmcDmaIns, BitstreamAddr,
 			(u64 )CFU_STREAM_ADDR, BitstreamSize / WORD_LEN);
 
 	return Status;
@@ -249,6 +250,51 @@ END:
 
 /*****************************************************************************/
 /**
+ * This function initializes the CsuDma driver
+ * @param DmaPtr Pointer to XCsuDma structure
+ *
+ * @return Codes as mentioned in xilfpga_cfi.h
+ ******************************************************************************/
+static u32 XFpga_DmaDrvInit(XCsuDma *DmaPtr, u32 DeviceId)
+{
+	XCsuDma_Config *Config;
+	u32 Status;
+
+	/*
+	 * Initialize the CsuDma driver so that it's ready to use
+	 * look up the configuration in the config table,
+	 * then initialize it.
+	 */
+	Config = XCsuDma_LookupConfig((u16)DeviceId);
+	if (NULL == Config) {
+		Status = XFPGA_ERR_DMA_LOOKUP;
+		goto END;
+	}
+
+	Status = XCsuDma_CfgInitialize(DmaPtr, Config, Config->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		Status = XFPGA_ERR_DMA_CFG;
+		goto END;
+	}
+
+	/* Reset CSUDMA */
+	XCsuDma_PmcReset(DmaPtr->Config.DmaType);
+
+	/*
+	 * Performs the self-test to check hardware build.
+	 */
+	Status = XCsuDma_SelfTest(DmaPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XFPGA_ERR_DMA_SELFTEST;
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * This function initializes the CFU and Cframe driver
  * @param DataPtr Pointer to XFgpa_Info structure
  *
@@ -269,6 +315,16 @@ static u32 XFpga_FabricInit(XFpga_Info *DataPtr)
 	if (Status != XFPGA_CFI_SUCCESS) {
 		goto END;
 	}
+
+	/** Initialize the CSUDMA Driver */
+	if (XFPGA_DMA_TYPE != XFPGA_PMC_DMA_NONE) {
+		if (XFPGA_DMA_TYPE == XFPGA_DMATYPEIS_PMCDMA0) {
+			Status = XFpga_DmaDrvInit(&DataPtr->PmcDmaIns, XFPGA_DMATYPEIS_PMCDMA0);
+		} else {
+			Status = XFpga_DmaDrvInit(&DataPtr->PmcDmaIns, XFPGA_DMATYPEIS_PMCDMA1);
+		}
+	}
+
 
 END:
 	return Status;
@@ -472,23 +528,20 @@ static u32 XFpga_FabricClean(XCframe *CframeIns)
 static u32 XFpga_ReadFabricData(XFpga *InstancePtr)
 {
 	u32 Status;
-	XFpga_Info *DataPtr;
 	u32 *CfiReadPtr;
 	u32 CfiLen;
-	XCsuDma	*CfiDma;
+	XFpga_Info *DataPtr = &InstancePtr->PLInfo;
 
+	Xil_AssertNonvoid(&DataPtr->PmcDmaIns != NULL);
 	Xil_AssertNonvoid(InstancePtr->ReadInfoPtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->PLInfo.CfiDma != NULL);
 
-	DataPtr = &InstancePtr->PLInfo;
 	CfiReadPtr = (u32 *)InstancePtr->ReadInfoPtr->ReadbackAddr;
 	CfiLen = InstancePtr->ReadInfoPtr->ConfigReg_NumFrames;
-	CfiDma = InstancePtr->PLInfo.CfiDma;
 
 	memset(CfiReadPtr, 0, CfiLen*4);
 	XCframe_SetReadParam(&DataPtr->CframeIns, XCFRAME_FRAME_0, CfiLen);
 	/* DMA Transfer the CRAM Data to PMC RAM (or) DDR */
-	Status = XFpga_DmaXfr(CfiDma, (u64)CFU_FDRO_ADDR,
+	Status = XFpga_DmaXfr(&DataPtr->PmcDmaIns, (u64)CFU_FDRO_ADDR,
 				(UINTPTR)CfiReadPtr, CfiLen / WORD_LEN);
 	return Status;
 
