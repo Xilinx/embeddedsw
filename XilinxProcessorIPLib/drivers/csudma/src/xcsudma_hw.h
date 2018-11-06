@@ -87,6 +87,10 @@ extern "C" {
 #define XCSU_BASEADDRESS	0xFFCA0000U
 						/**< CSU Base Address */
 #define XCSU_DMA_RESET_OFFSET	0x0000000CU	/**< CSU_DMA Reset offset */
+
+#ifndef XPS_CRP_BASEADDRESS
+#define XPS_CRP_BASEADDRESS	0xF1260000U
+#endif
 /*@}*/
 
 /** @name CRP PMC_DMA reset offset
