@@ -60,6 +60,9 @@
  *                      proper documentation and Modified Comment lines
  *                      to consider it as a documentation block while
  *                      generating doxygen.
+ *       ksm 11/07/18   Modified TxSend to fill SourceBuffer with non-zero
+ *                      data otherwise the test can return a false positive
+ *                      because DestinationBuffer is initialized with zeros.
  * </pre>
  *
  * ***************************************************************************
@@ -272,7 +275,7 @@ int TxSend(XLlFifo *InstancePtr, u32  *SourceAddr)
 
 	/* Filling the buffer with data */
 	for (i=0;i<MAX_DATA_BUFFER_SIZE;i++)
-		*(SourceAddr + i) = 0;
+		*(SourceAddr + i) = i;
 
 	for(i=0 ; i < NO_OF_PACKETS ; i++){
 

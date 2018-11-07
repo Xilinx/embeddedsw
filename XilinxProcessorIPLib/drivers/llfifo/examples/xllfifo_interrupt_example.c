@@ -61,6 +61,18 @@
  *                      proper documentation and Modified Comment lines
  *                      to consider it as a documentation block while
  *                      generating doxygen.
+ *       ksm 11/07/18   Modified TxSend to fill SourceBuffer with non-zero
+ *                      data otherwise the test can return a false positive
+ *                      because DestinationBuffer is initialized with zeros.
+ *                      In fact, fixing this exposed a bug in FifoRecvHandler
+ *                      and caused the test to start failing. According to the
+ *                      product guide (pg080) for the AXI4-Stream FIFO, the
+ *                      call to XLlFifo_iRxOccupancy must come *after* the
+ *                      call to XLlFifo_iRxGetLen: "Note: RDFO should be read
+ *                      before reading RLR. Reading RLR first will result in
+ *                      the RDFO being reset to zero." See Chapter 2: Product
+ *                      Specification -> Port Descriptions -> Receive Length
+ *                      Register (RLR).
  * </pre>
  *
  * ***************************************************************************
@@ -177,7 +189,7 @@ int main()
 
 	Status = XLlFifoInterruptExample(&FifoInstance, FIFO_DEV_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Axi Streaming FIFO Interrupt Example Test Failed");
+		xil_printf("Axi Streaming FIFO Interrupt Example Test Failed\n\r");
 		xil_printf("--- Exiting main() ---\n\r");
 		return XST_FAILURE;
 	}
@@ -325,9 +337,9 @@ int TxSend(XLlFifo *InstancePtr, u32  *SourceAddr)
 	int j;
 	xil_printf("Transmitting Data ... \r\n");
 
-	/* Filling the buffer with the */
+	/* Filling the buffer with data */
 	for (i=0; i < MAX_DATA_BUFFER_SIZE; i++)
-		*(SourceAddr + i) = 0;
+		*(SourceAddr + i) = i;
 
 	for(i=0; i < NO_OF_PACKETS; i++){
 		/* Writing into the FIFO Transmit Port Buffer */
@@ -404,10 +416,9 @@ static void FifoRecvHandler(XLlFifo *InstancePtr)
 
 	xil_printf("Receiving Data... \n\r");
 
-	/* Read Recieve Length */
-	ReceiveLength = (XLlFifo_iRxGetLen(InstancePtr))/WORD_SIZE;
-
 	while(XLlFifo_iRxOccupancy(InstancePtr)) {
+		/* Read Recieve Length */
+		ReceiveLength = (XLlFifo_iRxGetLen(InstancePtr))/WORD_SIZE;
 		for (i=0; i < ReceiveLength; i++) {
 				RxWord = XLlFifo_RxGetWord(InstancePtr);
 				*(DestinationBuffer+i) = RxWord;
