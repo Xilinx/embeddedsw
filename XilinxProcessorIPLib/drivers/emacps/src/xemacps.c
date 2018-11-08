@@ -51,6 +51,7 @@
 * 3.5  hk   08/14/17 Update cache coherency information of the interface in
 *                    its config structure.
 * 3.8  hk   09/17/18 Cleanup stale comments.
+* 3.8  mus  11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
 *
 * </pre>
 ******************************************************************************/
@@ -356,7 +357,7 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 	if (InstancePtr->Version > 2) {
 		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET,
 			(XEmacPs_ReadReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET) |
-#ifdef __aarch64__
+#if defined(__aarch64__) || defined(__arch64__)
 			(u32)XEMACPS_DMACR_ADDR_WIDTH_64 |
 #endif
 			(u32)XEMACPS_DMACR_INCR16_AHB_BURST));

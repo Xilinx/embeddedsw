@@ -137,6 +137,7 @@
 *			 driver tcl file.
 * 1.2   mj      05/03/18 Exported APIs XMcdma_BdChainFree() and
 *                        XMcDma_BdSetAppWord().
+* 1.2   mus    11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
 ******************************************************************************/
 #ifndef XMCDMA_H_
 #define XMCDMA_H_
@@ -572,7 +573,7 @@ typedef struct {
 	XMcdma_ReadReg(InstancePtr->Config.BaseAddress, (((ObsId - 1) * XMCDMA_NXTOBS_OFFSET) + \
 		       XMCDMA_RX_OFFSET + XMCDMA_CHOBS1_OFFSET))
 
-#if defined (__aarch64__)
+#if defined (__aarch64__) || defined (__arch64__)
 #define MAX_TRANSFER_LEN(h) \
 	(((~0UL) << (0)) & (~0UL >> (64 - 1 - (h))))
 #else
@@ -580,7 +581,7 @@ typedef struct {
 	(((~0UL) << (0)) & (~0UL >> (32 - 1 - (h))))
 #endif
 
-#if defined (__aarch64__)
+#if defined (__aarch64__) || defined (__arch64__)
 #define WRR_MASK(h, l) \
          (((~0UL) << (l)) & (~0UL >> (64 - 1 - (h))))
 #else

@@ -100,6 +100,7 @@
 * 	                   parameter page. CR#966603
 * 1.3	nsk    08/14/17    Added CCI support
 * 1.4	nsk    04/10/18    Added ICCARM compiler support. CR#997552.
+* 1.5   mus    11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
 *
 * </pre>
 *
@@ -2761,7 +2762,7 @@ u32 Index;
 ******************************************************************************/
 static void XNandPsu_Update_DmaAddr(XNandPsu *InstancePtr, u8* Buf)
 {
-#ifdef __aarch64__
+#if defined(__aarch64__) || defined(__arch64__)
 		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
 				(u32) (((INTPTR)Buf >> 32U) & 0xFFFFFFFFU));
