@@ -161,7 +161,8 @@ In driver tcl update get_cells API to support hierarchical designs.
 Added 64 bit DMA addresses support for Microblaze-X
 
 nandpsu_v1_5:
-Added 64 bit DMA addresses support for Microblaze-X
+Added 64 bit DMA addresses support for Microblaze-X.
+Updated driver source code to fix compilation warnings.
 
 cpu_v2_8:
 Added Os and LTO settings in extra compiler flags for PMU BSP
