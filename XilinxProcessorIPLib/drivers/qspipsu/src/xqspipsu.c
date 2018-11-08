@@ -68,6 +68,7 @@
  *		     greater than 32 bit address space. (CR#1006862)
  * 1.8	tjs 09/06/18 Fixed the code in XQspiPsu_GenFifoEntryData() for data
  *		     transfer length up to 255 for reducing the extra loop.
+ * 1.8  mus 11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
  *
  * </pre>
  *
@@ -1213,7 +1214,7 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 			XQSPIPSU_QSPIDMA_DST_ADDR_OFFSET,
 			(u32)AddrTemp);
 
-#ifdef __aarch64__
+#if defined(__aarch64__) || defined(__arch64__)
 	AddrTemp = (u64)((INTPTR)(Msg->RxBfrPtr) >> 32);
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,

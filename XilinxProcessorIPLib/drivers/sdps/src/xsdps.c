@@ -93,6 +93,7 @@
 *                       ReadPolled API
 *       mn     08/14/18 Resolve compilation warnings for ARMCC toolchain
 *       mn     10/01/18 Change Expected Response for CMD3 to R1 for MMC
+ * 3.6  mus 11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
 * </pre>
 *
 ******************************************************************************/
@@ -1665,7 +1666,7 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 	}
 
 	for (DescNum = 0U; DescNum < (TotalDescLines-1); DescNum++) {
-#ifdef __aarch64__
+#if defined(__aarch64__) || defined(__arch64__)
 		InstancePtr->Adma2_DescrTbl[DescNum].Address =
 				(u64)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
 #else
@@ -1679,7 +1680,7 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 				(u16)XSDPS_DESC_MAX_LENGTH;
 	}
 
-#ifdef __aarch64__
+#if defined(__aarch64__) || defined(__arch64__)
 	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Address =
 			(u64)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
 #else
@@ -1693,7 +1694,7 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Length =
 			(u16)((BlkCnt*BlkSize) - (DescNum*XSDPS_DESC_MAX_LENGTH));
 
-#ifdef __aarch64__
+#if defined(__aarch64__) || defined(__arch64__)
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_EXT_OFFSET,
 			(u32)(((u64)&(InstancePtr->Adma2_DescrTbl[0]))>>32));
 #endif
