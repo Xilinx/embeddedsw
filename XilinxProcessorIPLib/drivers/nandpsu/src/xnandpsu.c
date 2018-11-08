@@ -101,6 +101,8 @@
 * 1.3	nsk    08/14/17    Added CCI support
 * 1.4	nsk    04/10/18    Added ICCARM compiler support. CR#997552.
 * 1.5   mus    11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
+* 1.5   mus    11/05/18 Updated XNandPsu_ChangeClockFreq to fix compilation
+*                       warnings.
 *
 * </pre>
 *
@@ -2239,6 +2241,9 @@ s32 XNandPsu_SetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 ******************************************************************************/
 static void XNandPsu_ChangeClockFreq(XNandPsu *InstancePtr, u32 ClockFreq)
 {
+	(void) InstancePtr;
+	(void) ClockFreq;
+
 	/* Not implemented */
 }
 /*****************************************************************************/

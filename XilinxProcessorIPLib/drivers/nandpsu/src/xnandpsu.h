@@ -164,6 +164,9 @@
 *                          follow doxygen rules.
 * 1.2	nsk    08/08/17    Added support to import example in SDK
 * 1.4	nsk    04/10/18    Added ICCARM compiler support. CR#997552.
+* 1.5   mus    11/08/18    Updated BBT signature array size  in
+*                          XNandPsu_BbtDesc structure to fix the compilation
+*                          warnings.
 *
 * </pre>
 *
@@ -290,7 +293,7 @@ typedef struct {
 	u32 VerOffset;		/**< Offset of BBT version */
 	u32 SigLength;		/**< Length of the signature */
 	u32 MaxBlocks;		/**< Max blocks to search for BBT */
-	char Signature[4];	/**< BBT signature */
+	char Signature[5];	/**< BBT signature */
 	u8 Version[XNANDPSU_MAX_TARGETS];
 				/**< BBT version */
 	u32 Valid;		/**< BBT descriptor is valid or not */
