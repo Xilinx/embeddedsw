@@ -66,6 +66,7 @@
  *                     check for arch64.
  * 3.2   hk   11/18/15 Change BD typedef and number of words.
  * 3.8   hk   08/18/18 Remove duplicate definition of XEmacPs_BdSetLength
+ * 3.8   mus  11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
  *
  * </pre>
  *
@@ -172,7 +173,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
  *    void XEmacPs_BdSetAddressTx(XEmacPs_Bd* BdPtr, UINTPTR Addr)
  *
  *****************************************************************************/
-#ifdef __aarch64__
+#if defined(__aarch64__) || defined(__arch64__)
 #define XEmacPs_BdSetAddressTx(BdPtr, Addr)                        \
     XEmacPs_BdWrite((BdPtr), XEMACPS_BD_ADDR_OFFSET,		\
 			(u32)((Addr) & ULONG64_LO_MASK));		\
@@ -258,7 +259,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
  *    UINTPTR XEmacPs_BdGetBufAddr(XEmacPs_Bd* BdPtr)
  *
  *****************************************************************************/
-#ifdef __aarch64__
+#if defined(__aarch64__) || defined(__arch64__)
 #define XEmacPs_BdGetBufAddr(BdPtr)                               \
     (XEmacPs_BdRead((BdPtr), XEMACPS_BD_ADDR_OFFSET) |		  \
 	(XEmacPs_BdRead((BdPtr), XEMACPS_BD_ADDR_HI_OFFSET)) << 32U)

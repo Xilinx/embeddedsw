@@ -40,6 +40,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 *  1.0  adk  18/07/17 Initial Version.
+* 1.2   mus    11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
 ******************************************************************************/
 
 #include "xmcdma.h"
@@ -534,7 +535,7 @@ u32 XMcdma_BdSetBufAddr(XMcdma_Bd *BdPtr, UINTPTR Addr)
 		}
 	}
 
-#if defined(__aarch64__)
+#if defined(__aarch64__) || defined(__arch64__)
 	XMcdma_BdWrite64(BdPtr, XMCDMA_BD_BUFA_OFFSET, Addr);
 #else
 	XMcdma_BdWrite(BdPtr, XMCDMA_BD_BUFA_OFFSET, Addr);

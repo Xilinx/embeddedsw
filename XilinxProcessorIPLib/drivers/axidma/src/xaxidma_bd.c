@@ -52,6 +52,7 @@
  * 8.0   srt  01/29/14 Added support for Micro DMA Mode:
  *		       - New API
  *			 XAxiDma_BdSetBufAddrMicroMode(XAxiDma_Bd*, u32)
+ * 9.8   mus  11/05/18 Support 64 bit DMA addresses for Microblaze-X
  *
  * </pre>
  *
@@ -138,7 +139,7 @@ u32 XAxiDma_BdSetBufAddr(XAxiDma_Bd* BdPtr, UINTPTR Addr)
 		}
 	}
 
-#if defined(__aarch64__)
+#if defined(__aarch64__) || defined(__arch64__)
 	XAxiDma_BdWrite64(BdPtr, XAXIDMA_BD_BUFA_OFFSET, Addr);
 #else
 	XAxiDma_BdWrite(BdPtr, XAXIDMA_BD_BUFA_OFFSET, Addr);
@@ -173,7 +174,7 @@ u32 XAxiDma_BdSetBufAddrMicroMode(XAxiDma_Bd* BdPtr, UINTPTR Addr)
 			return XST_INVALID_PARAM;
 	}
 
-#if defined(__aarch64__)
+#if defined(__aarch64__) || defined(__arch64__)
 	XAxiDma_BdWrite64(BdPtr, XAXIDMA_BD_BUFA_OFFSET, Addr);
 #else
 	XAxiDma_BdWrite(BdPtr, XAXIDMA_BD_BUFA_OFFSET, Addr);
