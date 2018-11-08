@@ -35,6 +35,9 @@
 #include "xttcps.h"
 #include "xscugic.h"
 
+void vApplicationAssert( const char *pcFileName, uint32_t ulLine )
+		__attribute__((weak));
+
 /* Timer used to generate the tick interrupt. */
 static XTtcPs xTimerInstance;
 XScuGic xInterruptController;
