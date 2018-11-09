@@ -100,7 +100,7 @@ static u32 XFsbl_ReadMinMaxEepromVadj(u16 *MinVadj, u16 *MaxVadj)
 	u32 UStatus;
 	s32 Status;
 	u16 NominalVoltage;
-	u16 EepromAddr = 0x54U;
+	u16 EepromAddr = 0x50U;
 	u16 MinVoltage;
 	u16 MaxVoltage;
 
@@ -133,8 +133,8 @@ static u32 XFsbl_ReadMinMaxEepromVadj(u16 *MinVadj, u16 *MaxVadj)
 		goto END;
 	}
 
-	/* Select the Channel-1 of MUX for I2C EEprom Access */
-	WriteBuffer[0] = 0x1;
+	/* Select the Channel-6 of MUX for FMC I2C EEprom Access */
+	WriteBuffer[0] = 0x20;
 	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
 				WriteBuffer, 1, TCA9548A_ADDR);
 	if (Status != XST_SUCCESS) {
