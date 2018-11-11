@@ -566,4 +566,9 @@
  *                      sleep implementation, incase of FreeRTOS BSP.
  * 6.8 mus    10/25/18  Updated assembly code for cache APIs and inline assemby macros to
  *                      to support 64 bit addresses.
+ * 6.8 asa    10/11/18  Updated the A53 32 bit cache APIs for Xil_DCacheFlush and
+ *                      Xil_DCacheInvalidate to fix various issues. These issues were not
+ *                      present in the previous releases but got introduced as part of
+ *                      optimization patches that got applied for 6.8 BSP version. These
+ *                      changes fix the CR#1016012.
  *****************************************************************************************/
