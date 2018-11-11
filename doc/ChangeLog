@@ -306,6 +306,7 @@ Optimized the code to use a single function and removed
 code redundancy in xil_printf.c . It Fixes CR#1009654.
 Updated cache APIs and inline assembly macros in microblaze BSP to support
 64 bit addresses.
+Fix issues in A53 32 bit cache APIs for Xil_DCacheFlush and Xil_DCacheInvalidate. This fixes CR:1016012.
 
 axivdma_v6_6:
 Added support for vertical flip programming.
