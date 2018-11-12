@@ -1065,8 +1065,7 @@ int main(void)
 	}
 
 	/* Initialize HDMI VPHY */
-	Status = XVphy_HdmiInitialize(&Vphy, 0, XVphyCfgPtr,
-			XPAR_CPU_CORE_CLOCK_FREQ_HZ);
+	Status = XVphy_Hdmi_CfgInitialize(&Vphy, 0, XVphyCfgPtr);
 	if (Status != XST_SUCCESS) {
 		print("HDMI VPHY initialization error\n\r");
 		return XST_FAILURE;
