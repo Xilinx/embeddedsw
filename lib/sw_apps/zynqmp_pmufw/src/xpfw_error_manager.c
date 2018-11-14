@@ -48,7 +48,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_AUX2] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_AUX2_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
 	[EM_ERR_ID_AUX1] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_AUX1_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
 	[EM_ERR_ID_AUX0] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_AUX0_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
-	[EM_ERR_ID_DFT] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_DFT_MASK, .Action = EM_ACTION_SRST, .Handler = NullHandler},
+	[EM_ERR_ID_CSU_SWDT] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_CSU_SWDT_MASK, .Action = EM_ACTION_SRST, .Handler = NullHandler},
 	[EM_ERR_ID_CLK_MON] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_CLK_MON_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},
 	[EM_ERR_ID_XMPU] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_XMPU_MASK, .Action = EM_ACTION_CUSTOM, .Handler = XPfw_XpuIntrHandler},
 	[EM_ERR_ID_PWR_SUPPLY] = { .Type = EM_ERR_TYPE_1, .RegMask = PMU_GLOBAL_ERROR_STATUS_1_PWR_SUPPLY_MASK, .Action = EM_ACTION_PSERR, .Handler = NullHandler},

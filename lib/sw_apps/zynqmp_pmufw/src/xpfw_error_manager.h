@@ -45,7 +45,7 @@
 #define EM_ERR_ID_AUX2 11U
 #define EM_ERR_ID_AUX1 12U
 #define EM_ERR_ID_AUX0 13U
-#define EM_ERR_ID_DFT 14U
+#define EM_ERR_ID_CSU_SWDT 14U
 #define EM_ERR_ID_CLK_MON 15U
 #define EM_ERR_ID_XMPU 16U
 #define EM_ERR_ID_PWR_SUPPLY 17U
