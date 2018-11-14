@@ -67,6 +67,7 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
 
 #define NODE_LOCKED_POWER_FLAG	0x1U
 #define NODE_LOCKED_CLOCK_FLAG	0x2U
+#define NODE_IDLE_DONE			0x4U
 
 #define DEFINE_NODE_BUCKET(b)	.bucket = (b), \
 				.bucketSize = ARRAY_SIZE(b)

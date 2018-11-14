@@ -78,6 +78,15 @@ void PmNodeUpdateCurrState(PmNode* const node, const PmStateId newState)
 	if (newState == node->currState) {
 		goto done;
 	}
+
+	/*
+	 * Clear NODE_IDLE_DONE flag, if current state of node is OFF and
+	 * new state is other than OFF.
+	 */
+	if (NODE_IS_OFF(node)) {
+		node->flags &= ~NODE_IDLE_DONE;
+	}
+
 	node->currState = newState;
 
 	PmNotifierEvent(node, EVENT_STATE_CHANGE);
