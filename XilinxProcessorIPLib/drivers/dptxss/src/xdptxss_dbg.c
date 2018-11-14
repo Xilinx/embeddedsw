@@ -465,13 +465,13 @@ void XDpTxSs_ReportLinkInfo(XDpTxSs *InstancePtr)
 	XDp_TxAuxRead(InstancePtr->DpPtr,
 			XDP_DPCD_SYMBOL_ERROR_COUNT_LANE_0, 8, &Data);
 	xil_printf("\n\rSYMBOL_ERROR_COUNT_LANE_0 (0x00210 and 0x00211) "
-		"Status = %x%x\n\r",(Data[1] & 0xFF00),(Data[0] & 0xFF));
+		"Status = %x%x\n\r", Data[1], Data[0]);
 	xil_printf("SYMBOL_ERROR_COUNT_LANE_1 (0x00212 and 0x00213) "
-		"Status = %x%x\n\r",(Data[3] & 0xFF00),(Data[2] & 0xFF));
+		"Status = %x%x\n\r", Data[3], Data[2]);
 	xil_printf("SYMBOL_ERROR_COUNT_LANE_2 (0x00214 and 0x00215) "
-		"Status = %x%x\n\r",(Data[5] & 0xFF00),(Data[4] & 0xFF));
+		"Status = %x%x\n\r", Data[5], Data[4]);
 	xil_printf("SYMBOL_ERROR_COUNT_LANE_3 (0x00216 and 0x00217) "
-		"Status = %x%x\n\r",(Data[7] & 0xFF00),(Data[6] & 0xFF));
+		"Status = %x%x\n\r", Data[7], Data[6]);
 
 	xil_printf("\n\rSelected Resolution = %s\n\r",
 		XVidC_GetVideoModeStr(InstancePtr->UsrOpt.VmId));
