@@ -805,12 +805,15 @@ static void PmMasterIdleSlaves(PmMaster* const master)
 		u32 usage = PmSlaveGetUsageStatus(req->slave, master);
 		Node = &req->slave->node;
 
-		if (((PM_MASTER_STATE_UNINITIALIZED == master->state) &&
-				(0U == (usage & PM_USAGE_OTHER_MASTER))) ||
-				(usage == PM_USAGE_CURRENT_MASTER)) {
-			if (XST_SUCCESS == PmClockIsActive(Node)) {
-				PmNodeReset(master, Node->nodeId,
-					NODE_IDLE_REQ);
+		if (0U == (Node->flags & NODE_IDLE_DONE)) {
+			if (((PM_MASTER_STATE_UNINITIALIZED == master->state) &&
+			     (0U == (usage & PM_USAGE_OTHER_MASTER))) ||
+			    (usage == PM_USAGE_CURRENT_MASTER)) {
+				if (XST_SUCCESS == PmClockIsActive(Node)) {
+					PmNodeReset(master, Node->nodeId,
+						NODE_IDLE_REQ);
+					Node->flags |= NODE_IDLE_DONE;
+				}
 			}
 		}
 		req = req->nextSlave;
