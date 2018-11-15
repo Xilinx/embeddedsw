@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2005 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2005 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
  *
  * @file xllfifo.c
-* @addtogroup llfifo_v5_2
+* @addtogroup llfifo_v5_3
 * @{
  *
  * The Xilinx local link FIFO driver component. This driver supports the
