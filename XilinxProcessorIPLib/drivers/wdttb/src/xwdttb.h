@@ -29,7 +29,7 @@
 /**
 *
 * @file xwdttb.h
-* @addtogroup wdttb_v4_3
+* @addtogroup wdttb_v4_4
 * @{
 * @details
 *
@@ -156,6 +156,8 @@
 *                     definitions of wdttb in xparameters.h
 * 4.3   srm  01/27/18 Added XWdtTb_ProgramWDTWidth to pragram the WDT width
 *            01/30/18 Added doxygen tags
+* 4.4   aru  11/15/18 Replaced "Xil_AssertVoid" as "Xil_AssertNonvoid"
+*                     in XWdtTb_ProgramWDTWidth().
 * </pre>
 *
 ******************************************************************************/

@@ -29,7 +29,7 @@
 /**
 *
 * @file xwdttb.c
-* @addtogroup wdttb_v4_3
+* @addtogroup wdttb_v4_4
 * @{
 *
 * Contains the required functions of the XWdtTb driver. See xwdttb.h for a
@@ -74,6 +74,8 @@
 * 4.3   srm  01/27/18 Added XWdtTb_ProgramWDTWidth which can program the
 *					  width of WDT
 *            01/30/18 Added doxygen tags
+* 4.4   aru  11/15/18 Replaced "Xil_AssertVoid" as "Xil_AssertNonvoid"
+*                     in XWdtTb_ProgramWDTWidth().
 * </pre>
 *
 ******************************************************************************/
@@ -1225,7 +1227,7 @@ static s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr)
 u32 XWdtTb_ProgramWDTWidth(XWdtTb *InstancePtr, u32 width)
 {
 	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	if((InstancePtr->Config.EnableWinWdt == (u32)0) && (width>=8 && width<=31))
 	{
