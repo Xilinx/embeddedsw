@@ -467,10 +467,6 @@ and retain FreeRTOS license text as-is. Also, added
 FreeRTOS copyright in porting files which uses FreeRTOS
 code, wherever it is missing.
 
-freertos10_xilinx_v1_3:
-Declared attribute of vApplicationAssert() as weak in
-portZynqUltrascale.c for A53. It fixes CR#1014562
-
 hdcp1x_v4_2:
 Addded hdcp14_PropagateTopoErrUpstream flag to track topology failures and ready the topology for the repeater application to read.
 Updated the XHdcp1x_TxPollForWaitForReady function to ready topology in case of a topology error, and make it available in XHdcp1x_TxGetTopology().
