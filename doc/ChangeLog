@@ -1,3 +1,4 @@
+Add support for 64 bit variant of microblaze processor.
 Changes for 2018.3
 ===============================
 dphy_v1_2:
@@ -111,7 +112,7 @@ Added Example for Vaux external channels
 
 axidma_v9_8:
 Fix cppcheck, gcc and doxygen warnings.
-Added 64 bit DMA addresses support for Microblaze-X
+Added 64 bit DMA addresses support for 64 bit variant of microblaze processor.
 
 can_v3_3:
 Fix cppcheck and GCC warnings.
@@ -134,7 +135,7 @@ Fix cppcheck, GCC and doxygen warnings.
 Remove duplicate code in xemacps_bd.h
 Fixed PTP interrupt masks and cleaned up comments.
 Fix warning in example for redefinition of interrupt number.
-Added 64 bit DMA addresses support for Microblaze-X
+Added 64 bit DMA addresses support for 64 bit variant of microblaze processor.
 
 gpiops_v3_4:
 Resolved cppcheck warnings.(CR#1006331)
@@ -147,7 +148,7 @@ Add support for using 64Bit DMA in 32Bit Processor
 Add cache invalidation call before returning from ReadPolled API
 Resolve compilation warnings for ARMCC toolchain
 Change Expected Response for CMD3 to R1 for MMC
-Added 64 bit DMA addresses support for Microblaze-X
+Added 64 bit DMA addresses support for 64 bit variant of microblaze processor.
 
 xilffs_v4_0:
 Upgraded the FatFS version to 0.13b
@@ -185,14 +186,15 @@ Remove unused define for buffer length mask(XMCDMA_BD_LEN_MASK).
 Fix typos and rephrase comment description.
 Read buffer length register width from IP config.
 In driver tcl update get_cells API to support hierarchical designs.
-Added 64 bit DMA addresses support for Microblaze-X
+Added 64 bit DMA addresses support for 64 bit variant of microblaze processor
 
 nandpsu_v1_5:
-Added 64 bit DMA addresses support for Microblaze-X.
+Added 64 bit DMA addresses support for 64 bit variant of microblaze processor.
 Updated driver source code to fix compilation warnings.
 
 cpu_v2_8:
 Added Os and LTO settings in extra compiler flags for PMU BSP
+Add support for 64 bit variant of microblaze processor.
 
 iicps_v3_8:
 Fix for Cppcheck and Doxygen warnings.
@@ -201,6 +203,7 @@ Add timeout interrupt in master mode.
 intc_v3_8:
 Updated check_cascade proc, to add check
 for irq_in pin.It fixes CR#1005371
+Added support for 64 bit vector address.
 
 iomodule_v2_6:
 Updated driver tcl to replace get_cells -of_object with get_cells -of_objects.
@@ -223,7 +226,7 @@ Setup64BRxDma() should be called if the RxAddress is greater than 32 bit address
 Added support for low density ISSI flash parts
 Fixed the code in XQspiPsu_GenFifoEntryData() for data transfer length up to 255 for reducing the extra loop.
 Fixed compilation warnings.
-Added 64 bit DMA addresses support for Microblaze-X.
+Added 64 bit DMA addresses support for 64 bit variant of microblaze processor.
 
 rfdc_v5_0:
 Update DAC min sampling rate to 500MHz and also update VCO Range, PLL_DIVIDER and PLL_FPDIV ranges.
@@ -274,6 +277,10 @@ API with the correct arguments. It fixes
 CR#1006251.
 Fixed several checkpatch errors/warnings in
 interrupt examples.
+
+ttcps_v3_7:
+Fixed bug in XTtcPs_CalcIntervalFromFreq API to use 
+correct maximum interval count for ZynqMP.
 
 xilisf_v5_12:
 Added support for IS25LP064A and IS25WP064A.
@@ -333,6 +340,7 @@ Optimized the code to use a single function and removed
 code redundancy in xil_printf.c . It Fixes CR#1009654.
 Updated cache APIs and inline assembly macros in microblaze BSP to support
 64 bit addresses.
+Updated CortexR5 bootcode to initialize CortexR5 core with LOVEC. It fixes CR#1010656.
 Fix issues in A53 32 bit cache APIs for Xil_DCacheFlush and Xil_DCacheInvalidate. This fixes CR:1016012.
 
 axivdma_v6_6:
