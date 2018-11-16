@@ -72,7 +72,7 @@ proc get_stdout {} {
 
 proc swapp_generate {} {
 	# PMU Firmware uses its own startup file. so set the -nostartfiles flag
-	set_property  -name APP_LINKER_FLAGS -value {-nostartfiles} -objects [hsi::current_sw_design]
+	set_property  -name APP_LINKER_FLAGS -value {-nostartfiles -Wl,--no-relax} -objects [hsi::current_sw_design]
 	# Get the compiler flags, if set already
 	set def_flags [common::get_property APP_COMPILER_FLAGS [hsi::current_sw_design]]
 	set new_flags "-mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mcpu=v9.2 -mxl-soft-mul -Os -flto -ffat-lto-objects $def_flags"
