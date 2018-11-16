@@ -40,7 +40,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   nsk  06/04/15 First release
-* 1.3   ask  08/08/18 Fixed Cppcheck warnings.
+* 2.0   ask  08/08/18 Fixed Cppcheck warnings.
 * 2.0   ask  09/21/18 Added support for canfd 2.0 spec sequential mode.
 *				  	  Added Api: XCanFd_SetRxIntrWatermarkFifo1
 *								 XCanFd_SetTxEventIntrWatermark

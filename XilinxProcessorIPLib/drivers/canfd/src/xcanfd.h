@@ -210,7 +210,7 @@ exclusion
 *       ms   04/05/17 Added tabspace for return statements in functions
 *                     of canfd examples for proper documentation while
 *                     generating doxygen.
-* 1.3   ask  08/08/18 Fixed Gcc, Cppcheck and doxygen warnings in api's :
+* 2.0   ask  08/08/18 Fixed Gcc, Cppcheck and doxygen warnings in api's :
 *					  XCanFd_PollQueue_Buffer, XCanFd_AcceptFilterSet,
 *					  XCanFd_Recv_Sequential, XCanFd_SetBitTiming,
 *					  XCanFd_SetBitRateSwitch_EnableNominal.
@@ -248,6 +248,7 @@ exclusion
 *			 Modified apis
 *						XCanFd_SetBitTiming
 *                                               XCanFd_SetFBitTiming in xcanfd.h
+* 2.0	nsk  11/16/18 Updated the version in change log(CR 1016901).
 *
 * </pre>
 *

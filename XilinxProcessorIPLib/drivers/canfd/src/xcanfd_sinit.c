@@ -29,7 +29,7 @@
 /**
 *
 * @file xcanfd_sinit.c
-* @addtogroup canfd_v1_3
+* @addtogroup canfd_v2_0
 * @{
 *
 * This file contains the implementation of the XCanFd driver's static
@@ -44,7 +44,7 @@
 * Ver   Who    Date	Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.0   nsk    06/03/15 First release
-* 1.3   ask    08/08/18 Fixed doxygen warnings
+* 2.0   ask    08/08/18 Fixed doxygen warnings
 * 2.0	ask    09/12/18 Added support for canfd 2.0 spec sequential mode
 *
 * </pre>
