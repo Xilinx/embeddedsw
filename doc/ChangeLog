@@ -116,16 +116,10 @@ Added 64 bit DMA addresses support for 64 bit variant of microblaze processor.
 can_v3_3:
 Fix cppcheck and GCC warnings.
 
-canfd_v1_3:
+canfd_v2_0:
 Fix cppcheck, gcc and doxygen warnings.
 Changed the Canfd ID with 11 bit value.
 Fixed Selftest Hang issue (CR#1009802)
-
-canfd_v1_3:
-Fix cppcheck, gcc and doxygen warnings.
-Changed the Canfd ID with 11 bit value.
-
-canfd_v2_0:
 Added support for canfd 2.0 spec regarding PL
 SoftIP.
 

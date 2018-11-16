@@ -51,7 +51,7 @@
 * 1.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XCanFd_CfgInitialize API.
 * 1.2   mi   09/22/16 Fixed compilation warnings.
-* 1.3   ask  08/08/18 Fixed Cppcheck warnings.
+* 2.0   ask  08/08/18 Fixed Cppcheck warnings.
 * 2.0	ask  09/21/18 Added support for canfd 2.0 spec in PL canfd SoftIP.
 *				  	  Added Api:XCanFd_Recv_Sequential
 *								XCanFd_SeqRecv_logic

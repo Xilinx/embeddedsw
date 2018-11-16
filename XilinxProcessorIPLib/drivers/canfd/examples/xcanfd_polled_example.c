@@ -53,7 +53,7 @@
 *                       available in all examples. This is a fix for CR-965028.
 *       ms     04/05/17 Added tabspace for return statements in functions
 *                       for proper documentation while generating doxygen.
-* 1.3   ask    08/08/18 Changed the Can ID to 11 bit value as standard Can ID
+* 2.0   ask    08/08/18 Changed the Can ID to 11 bit value as standard Can ID
 *						is 11 bit.
 * </pre>
 *
