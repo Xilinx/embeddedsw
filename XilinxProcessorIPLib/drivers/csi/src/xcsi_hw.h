@@ -517,7 +517,7 @@ extern "C" {
 							  *  Virtual
 							  *  Channel 0 */
 
-#define XCSI_IER_ALLINTR_MASK		0x807FFFFF /**< All interrupts mask */
+#define XCSI_IER_ALLINTR_MASK		0xC07FFFFF /**< All interrupts mask */
 
 #define XCSI_IER_FR_SHIFT	31	/**< Shift bits for Frame received
 					  *  interrupt*/
