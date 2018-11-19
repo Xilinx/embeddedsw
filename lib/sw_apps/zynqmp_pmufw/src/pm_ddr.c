@@ -135,6 +135,8 @@
 
 #define DDRC_SWCTL_SW_DONE	BIT(0U)
 
+#define DDRC_DUAL_RANK_MASK	(BIT(25U) | BIT(24U))
+
 #define DDRPHY_BASE		0xFD080000U
 #define DDRPHY_PIR		(DDRPHY_BASE + 4U)
 #define DDRPHY_PGCR(n)		(DDRPHY_BASE + 0x10U + (4U * (n)))
@@ -142,6 +144,7 @@
 #define DDRPHY_PTR(n)		(DDRPHY_BASE + 0X40U + (4U * (n)))
 #define DDRPHY_PLLCR(n)		(DDRPHY_BASE + 0X68U + (4U * (n)))
 #define DDRPHY_DSGCR		(DDRPHY_BASE + 0X90U)
+#define DDRPHY_ODTCR		(DDRPHY_BASE + 0X98U)
 #define DDRPHY_GPR(n)		(DDRPHY_BASE + 0XC0U + (4U * (n)))
 #define DDRPHY_DCR		(DDRPHY_BASE + 0X100U)
 #define DDRPHY_DTPR(n)		(DDRPHY_BASE + 0X110U + (4U * (n)))
@@ -150,6 +153,7 @@
 #define DDRPHY_MR(n)		(DDRPHY_BASE + 0X180U + (4U * (n)))
 #define DDRPHY_DTCR(n)		(DDRPHY_BASE + 0X200U + (4U * (n)))
 #define DDRPHY_CATR(n)		(DDRPHY_BASE + 0X240U + (4U * (n)))
+#define DDRPHY_RANKIDR		(DDRPHY_BASE + 0X4DCU)
 #define DDRPHY_RIOCR(n)		(DDRPHY_BASE + 0X4E0U + (4U * (n)))
 #define DDRPHY_ACIOCR(n)	(DDRPHY_BASE + 0X500U + (4U * (n)))
 #define DDRPHY_IOVCR(n)		(DDRPHY_BASE + 0X520U + (4U * (n)))
@@ -289,6 +293,13 @@
 
 #define DDRPHY_DXGCR3_WDLVT		BIT(25U)
 #define DDRPHY_DXGCR3_RGLVT		BIT(27U)
+
+#define DDRPHY_RANKWID_MASK		(BIT(3U)| BIT(2U) | BIT(1U) | BIT(0U))
+#define DDRPHY_RANKRID_MASK		(BIT(19U) | BIT(18U) | BIT(17U) | BIT(16U))
+#define DDRPHY_RANK0_WRITE		BIT(0U)
+#define DDRPHY_RANK1_WRITE		BIT(1U)
+#define DDRPHY_RANK0_READ		BIT(16U)
+#define DDRPHY_RANK1_READ		BIT(17U)
 
 #define DDRQOS_BASE		0xFD090000U
 #define DDRQOS_DDR_CLK_CTRL	(DDRQOS_BASE + 0x700U)
@@ -647,6 +658,11 @@ static PmRegisterContext ctx_ddrphy[] __attribute__((__section__(".srdata"))) = 
 	{ },
 };
 
+static PmRegisterContext ctx_ddrphy_odtcr[] __attribute__((__section__(".srdata"))) = {
+	{ .addr = DDRPHY_ODTCR, },
+	{ .addr = DDRPHY_ODTCR, },
+};
+
 static PmRegisterContext ctx_ddrphy_zqdata[] __attribute__((__section__(".srdata"))) = {
 	{ .addr = DDRPHY_ZQDR0(0U), },
 	{ .addr = DDRPHY_ZQDR1(0U), },
@@ -1003,6 +1019,42 @@ static void restore_ddrphy_zqdata(PmRegisterContext *context)
 	}
 }
 
+static void store_ddrphy_odtcr(PmRegisterContext *context)
+{
+	u32 rank = Xil_In32(DDRC_MSTR) & DDRC_DUAL_RANK_MASK;
+	u32 readVal = Xil_In32(DDRC_MSTR) & DDRC_MSTR_DDR_TYPE;
+
+	if (DDRC_MSTR_LPDDR3 == readVal) {
+		if (DDRC_DUAL_RANK_MASK == rank) {
+			XPfw_RMW32(DDRPHY_RANKIDR, DDRPHY_RANKRID_MASK,
+				   DDRPHY_RANK1_READ);
+			context->value = Xil_In32(context->addr);
+		}
+		context++;
+		XPfw_RMW32(DDRPHY_RANKIDR, DDRPHY_RANKRID_MASK,
+			   DDRPHY_RANK0_READ);
+		context->value = Xil_In32(context->addr);
+	}
+}
+
+static void restore_ddrphy_odtcr(PmRegisterContext *context)
+{
+	u32 rank = Xil_In32(DDRC_MSTR) & DDRC_DUAL_RANK_MASK;
+	u32 readVal = Xil_In32(DDRC_MSTR) & DDRC_MSTR_DDR_TYPE;
+
+	if (DDRC_MSTR_LPDDR3 == readVal) {
+		if (DDRC_DUAL_RANK_MASK == rank) {
+			XPfw_RMW32(DDRPHY_RANKIDR, DDRPHY_RANKWID_MASK,
+				   DDRPHY_RANK1_WRITE);
+			Xil_Out32(context->addr, context->value);
+		}
+		context++;
+		XPfw_RMW32(DDRPHY_RANKIDR, DDRPHY_RANKWID_MASK,
+			   DDRPHY_RANK0_WRITE);
+		Xil_Out32(context->addr, context->value);
+	}
+}
+
 static void ddr_io_retention_set(bool en)
 {
 	u32 r = Xil_In32(PMU_GLOBAL_DDR_CNTRL);
@@ -1249,6 +1301,7 @@ static void DDR_reinit(bool ddrss_is_reset)
 				    DDRPHY_ZQnPR0_ZDEN_MASK);
 			Xil_Out32(DDRPHY_ZQPR(i, 0U), readVal);
 		}
+		restore_ddrphy_odtcr(ctx_ddrphy_odtcr);
 		restore_ddrphy_zqdata(ctx_ddrphy_zqdata);
 
 		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT);
@@ -1775,6 +1828,7 @@ static int pm_ddr_sr_enter(void)
 	store_state(ctx_ddrc);
 	store_state(ctx_ddrphy);
 	store_state(ctx_ddrphy_zqdata);
+	store_ddrphy_odtcr(ctx_ddrphy_odtcr);
 
 	ret = ddrc_enable_sr();
 	if (XST_SUCCESS != ret) {
