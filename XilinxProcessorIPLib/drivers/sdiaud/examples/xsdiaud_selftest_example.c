@@ -61,7 +61,7 @@
 #define SDIAUD_1_DEVICE_ID	XPAR_XSDIAUD_1_DEVICE_ID
 #endif
 
-#define XSDIAUD_NUM_REG 9 /* Number of registers to be read after reset */
+#define XSDIAUD_NUM_REG 4 /* Number of registers to be read after reset */
 #define XSDIAUD_ACR 3 /*loop count value to read the audio control register */
 
 /**************************** Type Definitions ********************************/
@@ -133,9 +133,9 @@ int SdiAud_SelfTestExample(u16 DeviceId)
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
-	XSdiAud_ResetCoreEn(&SdiAud0, TRUE);
-	XSdiAud_ResetCoreEn(&SdiAud0, FALSE);
-	XSdiAud_ResetReg(&SdiAud0);
+	XSdiAud_CoreReset(&SdiAud0, TRUE);
+	XSdiAud_CoreReset(&SdiAud0, FALSE);
+	XSdiAud_ConfigReset(&SdiAud0);
 
 	for (XSdiAud_TstLoop = 0; XSdiAud_TstLoop < XSDIAUD_NUM_REG; XSdiAud_TstLoop++) {
 
