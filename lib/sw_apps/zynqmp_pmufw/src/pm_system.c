@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -380,6 +380,9 @@ static PmRegisterContext pmSystemRegs[] = {
 	{ .addr = 0XFF18051CU, },
 	{ .addr = 0XFF180520U, },
 	{ .addr = 0XFF180524U, },
+	/* LPD_SLCR_SECURE */
+	{ .addr = 0xFF4B0024U, },
+	{ .addr = 0xFF4B0034U, },
 	/* CRL_APB */
 	{ .addr = 0XFF5E0000U, },
 	{ .addr = 0XFF5E001CU, },
