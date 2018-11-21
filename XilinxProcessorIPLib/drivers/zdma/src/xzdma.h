@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xzdma.h
-* @addtogroup zdma_v1_6
+* @addtogroup zdma_v1_7
 * @{
 * @details
 *
@@ -147,6 +147,7 @@ extern "C" {
 #include "xstatus.h"
 #include "xil_cache.h"
 #include "bspconfig.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
