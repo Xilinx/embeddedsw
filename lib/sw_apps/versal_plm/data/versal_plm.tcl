@@ -1,28 +1,8 @@
 #/******************************************************************************
-#*
-#* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-#*
-#* Permission is hereby granted, free of charge, to any person obtaining a copy
-#* of this software and associated documentation files (the "Software"), to deal
-#* in the Software without restriction, including without limitation the rights
-#* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-#* copies of the Software, and to permit persons to whom the Software is
-#* furnished to do so, subject to the following conditions:
-#*
-#* The above copyright notice and this permission notice shall be included in
-#* all copies or substantial portions of the Software.
-#*
-#* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-#* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-#* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-#* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-#* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-#* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-#* THE SOFTWARE.
-#*
-#*
-#*
+#* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+#* SPDX-License-Identifier: MIT
 #******************************************************************************/
+
 
 proc swapp_get_name {} {
 	return "versal PLM";
@@ -89,6 +69,12 @@ proc get_stdout {} {
 }
 
 proc swapp_generate {} {
+	# disable global optimizations through --no-relax flag
+	set def_link_flags [common::get_property APP_LINKER_FLAGS [hsi::current_sw_design]]
+	set new_link_flags "-Wl,--no-relax "
+	append new_link_flags $def_link_flags
+	common::set_property -name {APP_LINKER_FLAGS} -value $new_link_flags -objects [hsi::current_sw_design]
+
 	set def_flags [common::get_property APP_COMPILER_FLAGS [hsi::current_sw_design]]
 	set new_flags "-mlittle-endian -mxl-barrel-shift -mxl-pattern-compare"
 	append new_flags " -mno-xl-soft-div -mcpu=v10.0 -mno-xl-soft-mul -mxl-multiply-high "

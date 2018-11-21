@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -46,11 +26,13 @@
 #ifndef XPSMFW_RESET_H_
 #define XPSMFW_RESET_H_
 
+#include "xpsmfw_power.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define INTLPD_CONFIG_BASE_ADDR					((u32)0xFE600000)
+#define INTLPD_CONFIG_BASE_ADDR					(0xFE600000U)
 
 #define INTLPD_CONFIG_RPU0_LPD_AXI				( ( INTLPD_CONFIG_BASE_ADDR ) + ((u32)0x001C0000) )
 #define INTLPD_CONFIG_RPU0_LPD_AXI_POWER_IDLEREQ_MASK		((u32)0x00000004)
@@ -80,7 +62,6 @@ extern "C" {
 #define XPSMFW_RST_FPD_SEQ_PROP_TIME				(1000U)
 
 /* Software Reset Handler Table Structure */
-typedef XStatus (*HandlerFunction_t)(void);
 struct SwResetHandlerTable_t {
         u32 Mask;
         HandlerFunction_t Handler;

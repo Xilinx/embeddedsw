@@ -1,26 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -43,9 +25,11 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xplm_main.h"
-#include "xplmi_debug.h"
+#include "xplm_default.h"
+#include "xplm_proc.h"
+#include "xplm_startup.h"
 #include "xpm_api.h"
+#include "xpm_pldomain.h"
 #include "xpm_subsystem.h"
 
 /************************** Constant Definitions *****************************/
@@ -55,6 +39,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static int XPlm_Init();
 
 /************************** Variable Definitions *****************************/
 
@@ -65,12 +50,12 @@
  * @param	None
  *
  * @return	Ideally should not return, in case if it reaches end,
- *          error is returned
+ *		error is returned
  *
  *****************************************************************************/
-int main(void )
+int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 #ifdef DEBUG_UART_MDM
 	/** If MDM UART, banner can be printed before any initialization */
@@ -97,22 +82,22 @@ int main(void )
 	XPlmi_TaskDispatchLoop();
 
 	/** should never reach here */
-	while(1);
-	return XPLM_FAILURE;
+	while(1U);
+	return XST_FAILURE;
 }
 
 /*****************************************************************************/
 /**
- * @brief This function processor and task structures
+ * @brief This function initializes the processor and task list structures
  *
  * @param	None
  *
- * @return	XST_SUCCESS
+ * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
-int XPlm_Init()
+static int XPlm_Init()
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	/**
 	 * Disable CFRAME isolation for VCCRAM
@@ -126,90 +111,15 @@ int XPlm_Init()
 	 */
 	XPlmi_PpuWakeUpDis();
 
-	/* Initialize the processor, enable exceptions */
+	/** Initialize the processor, enable exceptions */
 	Status = XPlm_InitProc();
-	if (Status != XST_SUCCESS)
-	{
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Initialize the tasks lists */
+	/** Initialize the tasks lists */
 	XPlmi_TaskInit();
+
 END:
 	return Status;
 }
-
-/*****************************************************************************/
-/**
- * @brief This function prints PMC FW banner
- *
- * @param none
- *
- * @return	none
- *
- *****************************************************************************/
-void XPlm_PrintPlmBanner(void )
-{
-	u32 Version;
-	u32 PlatformVersion;
-	u32 Platform;
-	u32 PsVersion;
-	u32 PmcVersion;
-	static u8 IsBannerPrinted = FALSE;
-
-	if (FALSE == IsBannerPrinted) {
-		/* Print the PLM Banner */
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-                 "\n\r****************************************\n\r");
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-                 "Xilinx Versal Platform Loader and Manager \n\r");
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-                 "Release %s.%s   %s  -  %s\n\r",
-                 SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER, __DATE__, __TIME__);
-
-		/* Read the Version */
-		Version = XPlmi_In32(PMC_TAP_VERSION);
-		PlatformVersion = ((Version &
-				PMC_TAP_VERSION_PLATFORM_VERSION_MASK) >>
-				PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT);
-		Platform = ((Version & PMC_TAP_VERSION_PLATFORM_MASK) >>
-				PMC_TAP_VERSION_PLATFORM_SHIFT);
-		PsVersion = ((Version & PMC_TAP_VERSION_PS_VERSION_MASK) >>
-				PMC_TAP_VERSION_PS_VERSION_SHIFT);
-		PmcVersion = ((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
-				PMC_TAP_VERSION_PMC_VERSION_SHIFT);
-		switch (Platform) {
-			case PMC_TAP_VERSION_SILICON:
-				XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Silicon: ");
-				break;
-			case PMC_TAP_VERSION_SPP:
-				XPlmi_Printf(DEBUG_PRINT_ALWAYS, "SPP: ");
-				break;
-			case PMC_TAP_VERSION_EMU:
-				XPlmi_Printf(DEBUG_PRINT_ALWAYS, "EMU: ");
-				break;
-			case PMC_TAP_VERSION_QEMU:
-				XPlmi_Printf(DEBUG_PRINT_ALWAYS, "QEMU: ");
-				break;
-			default:
-				break;
-		}
-
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "v%d, ", PlatformVersion);
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PMC: v%d.%d, ",
-					(PmcVersion/16), PmcVersion%16);
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PS: v%d.%d",
-					(PsVersion/16), PsVersion%16);
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "\n\r");
-#ifdef DEBUG_UART_MDM
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "STDOUT: MDM UART\n\r");
-#else
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "STDOUT: PS UART\n\r");
-#endif
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-                 "****************************************\n\r");
-
-		IsBannerPrinted = TRUE;
-	}
-}
-

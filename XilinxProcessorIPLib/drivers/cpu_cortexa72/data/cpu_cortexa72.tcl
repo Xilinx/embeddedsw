@@ -1,26 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-#
+# Copyright (C) 2017 - 2020  Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 ###############################################################################
 #
@@ -29,6 +9,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.0	mus  09/20/17 Initial version
+# 1.1   mus  01/09/20 Added armclang compiler support
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -54,6 +35,59 @@ proc xdefine_cortexa72_params {drvhandle} {
 	set new_flags "-DARMA72_32  -mfpu=vfpv3 -mfloat-abi=hard $extra_flags"
 	common::set_property -name {EXTRA_COMPILER_FLAGS} -value $new_flags -objects [hsi::get_sw_processor]
 
+    }
+
+
+    if {[string compare -nocase $compiler "armclang"] == 0} {
+	set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
+	set extra_flags ""
+	set temp_flag $extra_flags
+	if {[string compare -nocase $temp_flag "-mfpu=fp-armv8 -g -Wall -Wextra -march=armv8-a --target=aarch64-arm-none-eabi -Dversal -DARMA72_EL3 "] != 0} {
+	      set flagindex [string first {-mfpu=} $temp_flag 0]
+              if { $flagindex == -1 } {
+	           set temp_flag "$temp_flag -mfpu=fp-armv8"
+	      }
+
+	      set flagindex [string first {-g} $temp_flag 0]
+	      if { $flagindex == -1 } {
+		    set temp_flag "$temp_flag -g"
+	      }
+
+	      set flagindex [string first {-Wall} $temp_flag 0]
+	      if { $flagindex == -1 } {
+		   set temp_flag "$temp_flag -Wall"
+	      }
+
+	      set flagindex [string first {-Wextra} $temp_flag 0]
+	      if { $flagindex == -1 } {
+		   set temp_flag "$temp_flag -Wextra"
+	      }
+
+	      set flagindex [string first {-march=} $temp_flag 0]
+	      if { $flagindex == -1 } {
+		   set temp_flag "$temp_flag -march=armv8-a"
+	      }
+
+              set flagindex [string first {--target=} $temp_flag 0]
+	      if { $flagindex == -1 } {
+		   set temp_flag "$temp_flag --target=aarch64-arm-none-eabi"
+	      }
+
+              set flagindex [string first {-Dversal} $temp_flag 0]
+              if { $flagindex == -1 } {
+                   set temp_flag "$temp_flag -Dversal"
+              }
+
+              set flagindex [string first {-DARMA72_EL3} $temp_flag 0]
+              if { $flagindex == -1 } {
+                   set temp_flag "$temp_flag -DARMA72_EL3"
+              }
+
+	      set extra_flags $temp_flag
+              common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
+         }
+	set assembler_value "armasm"
+	common::set_property -name {ASSEMBLER} -value $assembler_value -objects  [hsi::get_sw_processor]
     }
 
     #Append LTO flag in EXTRA_COMPILER_FLAGS for zynqmp_fsbl_bsp

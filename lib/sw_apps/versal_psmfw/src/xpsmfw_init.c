@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018-2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -48,12 +28,14 @@
 
 u32 Platform;
 
-int XPsmFw_Init()
+int XPsmFw_Init(void)
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	
 #ifdef XPAR_PSV_IPI_PSM_DEVICE_ID
-	XPsmfw_IpiManagerInit();
+	if (XST_SUCCESS != XPsmfw_IpiManagerInit()) {
+		XPsmFw_Printf(DEBUG_ERROR, "%s: Error! IPI Manager Initialization failed\r\n", __func__);
+	}
 	
 	/* FIXME: Clear IPI0 status and enable IPI interrupts. Do it else where*/
 	XPsmFw_Write32(IPI_PSM_ISR, MASK32_ALL_HIGH);
@@ -61,6 +43,8 @@ int XPsmFw_Init()
 
 	Platform = ((Xil_In32(PMC_TAP_VERSION) & PMC_TAP_VERSION_PLATFORM_MASK)
 		    >> PMC_TAP_VERSION_PLATFORM_SHIFT);
+
+	Status = XST_SUCCESS;
 
 	return Status;
 }

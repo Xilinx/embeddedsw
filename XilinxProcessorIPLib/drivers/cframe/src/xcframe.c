@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017-2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF PLRCHANTABILITY,
-* FITNESS FOR A PRTNICULAR PURPOSE AND NONINFRINGEPLNT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -39,6 +19,7 @@
 * 1.00  kc   11/10/2017 Initial release
 * 1.01  bsv  29/05/2019 XCframe_ReadReg API added
 * 1.02  bsv  11/06/2019 XCframe_ClearCframeErr API added
+* 1.03  bsv  17/02/2020 XCframe_SafetyWriteReg API added
 * </pre>
 *
 * @note
@@ -102,7 +83,7 @@ s32 XCframe_CfgInitialize(XCframe *InstancePtr, XCframe_Config *CfgPtr,
 
 /*****************************************************************************/
 /**
- * This function writes the 128 bit CFRAME register
+ * This function writes to 128 bit CFRAME register
  *
  * @param	InstancePtr is a pointer to the XCframe instance.
  * @param	Addr   CFRAME register address
@@ -151,6 +132,33 @@ void XCframe_ReadReg(XCframe *InstancePtr, u32 AddrOffset,
                         (FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+8);
         ValPtr[3] = XCframe_ReadReg32(InstancePtr->Config.BaseAddress +
                         (FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+12);
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function writes to 128 bit CFRAME register and reads it back to
+ * 			validate the write operation.
+ *
+ * @param	InstancePtr is a pointer to the XCframe instance.
+ * @param	Addr   CFRAME register address
+ * @param	Value128 128 bit value to be stored
+ *
+ * @return	Success or Failure
+ *
+ ******************************************************************************/
+int XCframe_SafetyWriteReg(XCframe *InstancePtr, u32 AddrOffset,
+		XCframe_FrameNo FrameNo, Xuint128 *Val)
+{
+	int Status = XST_FAILURE;
+	u32 ReadVal[4U];
+
+	XCframe_WriteReg(InstancePtr, AddrOffset, FrameNo, Val);
+	XCframe_ReadReg(InstancePtr, AddrOffset, FrameNo, ReadVal);
+	if ((ReadVal[0U] == Val->Word0) && (ReadVal[1U] == Val->Word1) &&
+		(ReadVal[2U] == Val->Word2) && (ReadVal[3U] == Val->Word3)) {
+		Status = XST_SUCCESS;
+	}
+	return Status;
 }
 
 /*****************************************************************************/

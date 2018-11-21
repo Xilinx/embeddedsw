@@ -1,26 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -47,6 +29,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 /***************************** Include Files *********************************/
 #include "xstatus.h"
 #include "xil_types.h"
@@ -56,12 +39,13 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /** CDO Header definitions */
-#define XPLMI_CDO_HDR_IDN_WRD			(0x004F4443U)
+#define XPLMI_CDO_HDR_IDN_WRD		(0x004F4443U)
 #define XPLMI_CDO_HDR_LEN			(0x5U)
 
-/** commands defined */
+/* Commands defined */
 #define XPLMI_CMD_END				(0x00100U)
 
+#define XPLMI_CMD_STATE_START		(0U)
 #define XPLMI_CMD_STATE_RESUME		(1U)
 
 /**************************** Type Definitions *******************************/
@@ -83,8 +67,10 @@ typedef struct {
 	u32 CmdEndDetected;	/**< Flag to detect end of commands */
 	u32 Cdo1stChunk;	/**< This is used for first time to validate
 				CDO header*/
-	u32 ImgId;		/** Info about which Image this belongs to */
-	u32 PrtnId;		/** Info about which partition this belongs to*/
+	u32 ImgId;		/**< Info about which Image this belongs to */
+	u32 PrtnId;		/**< Info about which partition this belongs to*/
+	u32 DeferredError;	/**< Defer the error for any command till the
+				  end of CDO processing */
 } XPlmiCdo;
 /***************** Macros (Inline Functions) Definitions *********************/
 

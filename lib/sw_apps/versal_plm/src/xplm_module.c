@@ -1,26 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -44,8 +26,9 @@
 
 /***************************** Include Files *********************************/
 #include "xplm_module.h"
-#include "xplm_main.h"
+#include "xplm_default.h"
 #include "xplmi_sysmon.h"
+#include "xpm_api.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -55,6 +38,8 @@ typedef int (*ModuleInit)(void);
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static int XPlm_PlmiInit(void);
+static int XPlm_ErrInit(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -63,7 +48,7 @@ typedef int (*ModuleInit)(void);
  * It contains the all the init functions to be run for every module that
  * is present as a part of PLM.
  */
-static ModuleInit ModuleList[] =
+static const ModuleInit ModuleList[] =
 {
 	XPlm_PlmiInit,
 	XPlm_ErrInit,
@@ -78,13 +63,17 @@ static ModuleInit ModuleList[] =
  *
  * @param	None
  *
- * @return	Status as defined in xplm_status.h
+ * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
-int XPlm_ErrInit(void )
+static int XPlm_ErrInit(void)
 {
-	XPlmi_EmInit();
-	return XST_SUCCESS;
+	int Status = XST_FAILURE;
+
+	XPlmi_EmInit(XPm_SystemShutdown);
+	Status = XST_SUCCESS;
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -94,12 +83,12 @@ int XPlm_ErrInit(void )
  *
  * @param	None
  *
- * @return	Status as defined in xplm_status.h
+ * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
-int XPlm_PlmiInit(void )
+static int XPlm_PlmiInit(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	Status = XPlmi_Init();
 	return Status;
 }
@@ -112,24 +101,25 @@ int XPlm_PlmiInit(void )
  *
  * @param	None
  *
- * @return	Status as defined in xplm_status.h
+ * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
-int XPlm_ModuleInit(void *arg)
+int XPlm_ModuleInit(void *Arg)
 {
+	int Status = XST_FAILURE;
 	u32 Index;
-	int Status;
 
+	(void )Arg;
 	for (Index = 0; Index < sizeof ModuleList / sizeof *ModuleList; Index++)
 	{
 		Status = ModuleList[Index]();
-		if (Status != XPLM_SUCCESS)
+		if (Status != XST_SUCCESS)
 		{
 			goto END;
 		}
 	}
-	Status = XPLM_SUCCESS;
+	Status = XST_SUCCESS;
+
 END:
 	return Status;
 }
-
