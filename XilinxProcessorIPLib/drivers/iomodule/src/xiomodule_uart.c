@@ -30,7 +30,7 @@
 /**
 *
 * @file xiomodule_uart.c
-* @addtogroup iomodule_v2_6
+* @addtogroup iomodule_v2_7
 * @{
 *
 * Contains required functions for the XIOModule UART driver. See the

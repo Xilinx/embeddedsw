@@ -472,7 +472,10 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     #
     # Now redefine the Interrupt ID constants
     #
-    xredefine_iomodule $drv_handle $file_handle
+     if {[string compare "psu_pmc_iomodule_0" $drv_handle] != 0 && [string compare "psu_psm_iomodule_0" $drv_handle] != 0} {
+	     xredefine_iomodule $drv_handle $file_handle
+    }
+
 
     puts $file_handle "\n/******************************************************************/\n"
     close $file_handle

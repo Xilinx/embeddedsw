@@ -29,7 +29,7 @@
 /**
 *
 * @file xiomodule_l.c
-* @addtogroup iomodule_v2_6
+* @addtogroup iomodule_v2_7
 * @{
 *
 * This file contains low-level driver functions that can be used to access the

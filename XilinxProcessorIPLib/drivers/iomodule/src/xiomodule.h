@@ -29,7 +29,7 @@
 /**
 *
 * @file xiomodule.h
-* @addtogroup iomodule_v2_6
+* @addtogroup iomodule_v2_7
 * @{
 * @details
 *
