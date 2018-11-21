@@ -44,30 +44,30 @@ static void EmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 	u32 RetVal = XST_FAILURE;
 	u8 ErrorId = 0U;
 
-	if (IpiNum > 0) {
+	if (IpiNum > 0U) {
 		XPfw_Printf(DEBUG_ERROR,"EM: EM handles only IPI on PMU-0\r\n");
 	} else {
 		switch (Payload[EM_MOD_API_ID_OFFSET] & EM_API_ID_MASK) {
 		case SET_EM_ACTION:
 			ErrorId = (u8)Payload[EM_ERROR_ID_OFFSET];
-			RetVal = XPfw_EmSetAction(ErrorId, (u8)Payload[EM_ERROR_ACTION_OFFSET],
+			RetVal = (u32)XPfw_EmSetAction(ErrorId, (u8)Payload[EM_ERROR_ACTION_OFFSET],
 					ErrorTable[ErrorId].Handler);
 
-			if (RetVal != XST_SUCCESS) {
+			if (RetVal != (u32)XST_SUCCESS) {
 				XPfw_Printf(DEBUG_DETAILED, "Warning: EmIpiHandler: Failed "
 						"to set action \r\n");
 			}
-			XPfw_IpiWriteResponse(ModPtr, SrcMask, &RetVal, 1);
+			XPfw_IpiWriteResponse(ModPtr, SrcMask, &RetVal, 1U);
 			break;
 
 		case REMOVE_EM_ACTION:
-			RetVal = XPfw_EmDisable((u8)Payload[EM_ERROR_ID_OFFSET]);
+			RetVal = (u32)XPfw_EmDisable((u8)Payload[EM_ERROR_ID_OFFSET]);
 
-			if (RetVal != XST_SUCCESS) {
+			if (RetVal != (u32)XST_SUCCESS) {
 				XPfw_Printf(DEBUG_DETAILED,"Warning: EmIpiHandler: Failed"
 						" to remove action\r\n");
 			}
-			XPfw_IpiWriteResponse(ModPtr, SrcMask, &RetVal, 1);
+			XPfw_IpiWriteResponse(ModPtr, SrcMask, &RetVal, 1U);
 			break;
 
 		case SEND_ERRORS_OCCURRED:
@@ -78,7 +78,7 @@ static void EmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 
 		default:
 			XPfw_Printf(DEBUG_ERROR,"EM: Unsupported API ID received\r\n");
-			XPfw_IpiWriteResponse(ModPtr, SrcMask, &RetVal, 1);
+			XPfw_IpiWriteResponse(ModPtr, SrcMask, &RetVal, 1U);
 			break;
 		}
 	}
@@ -152,13 +152,13 @@ static void CheckFsblCompletion(void)
 		 */
 		XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, FPD_WDT_EM_ACTION,
 				ErrorTable[EM_ERR_ID_FPD_SWDT].Handler);
-		if (XPfw_RecoveryInit() == XST_SUCCESS) {
+		if (XPfw_RecoveryInit() == (u32)XST_SUCCESS) {
 			/* This is to enable FPD WDT and enable recovery mechanism when
 			* ENABLE_RECOVERY flag is defined.
 			*/
 		}
 
-		Status = XPfw_CoreRemoveTask(EmModPtr, CHECK_FSBL_COMPLETION,
+		Status = XPfw_CoreRemoveTask(EmModPtr, (u32)CHECK_FSBL_COMPLETION,
 				CheckFsblCompletion);
 		if (XST_FAILURE == Status) {
 			XPfw_Printf(DEBUG_ERROR,"EM (MOD-%d):Removing EM config task "
@@ -185,7 +185,7 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 	for (ErrId = 1U; ErrId < EM_ERR_ID_MAX; ErrId++)
 	{
 		if (ErrorTable[ErrId].Action != EM_ACTION_NONE) {
-			XPfw_EmSetAction(ErrId, ErrorTable[ErrId].Action,
+			XPfw_EmSetAction((u8)ErrId, ErrorTable[ErrId].Action,
 					ErrorTable[ErrId].Handler);
 		}
 	}
