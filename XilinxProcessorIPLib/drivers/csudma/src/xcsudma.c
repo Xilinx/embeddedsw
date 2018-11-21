@@ -30,7 +30,7 @@
 /**
 *
 * @file xcsudma.c
-* @addtogroup csudma_v1_3
+* @addtogroup csudma_v1_4
 * @{
 *
 * This file contains the implementation of the interface functions for CSU_DMA
@@ -95,7 +95,10 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 						sizeof(XCsuDma_Config));
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
-	XCsuDma_Reset();
+	if (InstancePtr->Config.DmaType == XCSUDMA_DMATYPEIS_CSUDMA) {
+		/* Reset CSUDMA */
+		XCsuDma_Reset();
+	}
 
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 

@@ -29,7 +29,7 @@
 /**
 *
 * @file xcsudma_hw.h
-* @addtogroup csudma_v1_3
+* @addtogroup csudma_v1_4
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or
@@ -89,6 +89,12 @@ extern "C" {
 #define XCSU_DMA_RESET_OFFSET	0x0000000CU	/**< CSU_DMA Reset offset */
 /*@}*/
 
+/** @name CRP PMC_DMA reset offset
+ * @{
+ */
+#define XCRP_PMCDMA_RESET_OFFSET 0x00000328U	/**< PMC_DMA Reset offset */
+
+/*@}*/
 /** @name CSU_DMA Reset register bit masks
  * @{
  */
