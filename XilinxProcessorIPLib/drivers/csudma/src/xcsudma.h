@@ -51,6 +51,12 @@
 * the Configuration structure pointer which is passed as a parameter to the
 * XCsuDma_CfgInitialize() API.
 *
+* <b> Reset </b>
+* This driver will not support handling of CRP PDMA Reset in case of PMCDMA
+* inorder to support multiple level of handoff's. User needs to call
+* the XCsuDma_PmcReset() API before performing any driver operation to make
+* sure PMCDMA is in proper state.
+*
 * <b> Interrupts </b>
 * This driver will not support handling of interrupts user should write handler
 * to handle the interrupts.
@@ -78,7 +84,7 @@
 * to build and link only those parts of the driver that are necessary.
 *
 * @file xcsudma.h
-* @addtogroup csudma_v1_3
+* @addtogroup csudma_v1_4
 * @{
 * @details
 *
@@ -100,12 +106,14 @@
 *       ms      04/10/17 Modified filename tag in xcsudma_selftest_example.c to
 *                        include the file in doxygen examples.
 * 1.2   adk     11/22/17 Added peripheral test app support for CSUDMA driver.
-*	adk	09/03/18 Added new API XCsuDma_64BitTransfer() useful for 64-bit
-*			 dma transfers through PMU processor(CR#996201).
-* 1.3   adk     13/07/18 Fixed doxygen warnings in the driver(CR#1006262).
+* 2.0   adk     04/12/17 Added support for PMC DMA.
+*       adk     09/03/18 Added new API XCsuDma_64BitTransfer() useful for 64-bit
+*                        dma transfers through PMU processor(CR#996201).
+*       adk     25/06/18 Move CRP and PMC Global address defines to
+*			 xparameters_ps.h file(CR#1002035).
 *	adk	08/08/18 Added new API XCsuDma_WaitForDoneTimeout() useful for
 *			 polling dma transfer done.
-* 1.4   adk     28/08/18 Fixed misra-c required standard violations..
+*	adk     28/08/18 Fixed misra-c required standard violations..
 * </pre>
 *
 ******************************************************************************/
@@ -155,6 +163,10 @@ typedef enum {
  */
 #define XCSUDMA_SIZE_MAX 0x07FFFFFFU	/**< Maximum allowed no of words */
 
+#define XCSUDMA_DMATYPEIS_CSUDMA 	0
+#define XCSUDMA_DMATYPEIS_PMCDMA0	1
+#define XCSUDMA_DMATYPEIS_PMCDMA1	2
+
 /*@}*/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -176,6 +188,28 @@ typedef enum {
 				(u32)(XCSUDMA_RESET_SET_MASK)); \
 	Xil_Out32(((u32)(XCSU_BASEADDRESS) + (u32)(XCSU_DMA_RESET_OFFSET)), \
 					(u32)(XCSUDMA_RESET_UNSET_MASK));
+
+#if defined (versal)
+/*****************************************************************************/
+/**
+*
+* This function resets the PMC_DMA core.
+*
+* @param	DmaType is the type of DMA (PMCDMA0 or PMCDMA1).
+*
+* @return	None.
+*
+* @note		None.
+*		C-style signature:
+*		void XCsuDma_PmcReset(u8 DmaType)
+*
+******************************************************************************/
+#define XCsuDma_PmcReset(DmaType)  \
+	Xil_Out32(((u32)(XPS_CRP_BASEADDRESS) + (u32)(XCRP_PMCDMA_RESET_OFFSET)), \
+			(u32)(XCSUDMA_RESET_SET_MASK << (DmaType - 1))); \
+	Xil_Out32(((u32)(XPS_CRP_BASEADDRESS) + (u32)(XCRP_PMCDMA_RESET_OFFSET)), \
+			(u32)(XCSUDMA_RESET_UNSET_MASK << (DmaType - 1)));
+#endif
 
 /*****************************************************************************/
 /**
@@ -361,6 +395,10 @@ typedef struct {
 				  *  device */
 	u32 BaseAddress;	/**< BaseAddress is the physical base address
 				  *  of the device's registers */
+	u8 DmaType;		/**< DMA type
+				 * 0 -- CSUDMA
+				 * 1 -- PMC DMA 0
+				 * 2 -- PMC DMA 1 */
 } XCsuDma_Config;
 
 
