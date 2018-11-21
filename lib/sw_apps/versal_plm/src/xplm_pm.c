@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -47,7 +45,7 @@
 /***************************** Include Files *********************************/
 #include "xplm_pm.h"
 #include "xplm_main.h"
-#include "xillibpm_api.h"
+#include "xpm_api.h"
 #include "xpm_subsystem.h"
 /************************** Constant Definitions *****************************/
 
@@ -64,7 +62,7 @@ void XPlm_PmRequestCb(const u32 IpiMask, const u32 EventId, u32 *Payload)
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	XStatus Status;
 
-	if (XPM_INIT_SUSPEND_CB == EventId) {
+	if ((PM_INIT_SUSPEND_CB == EventId) || (PM_NOTIFY_CB == EventId)) {
 		Status = XPlmi_IpiWrite(IpiMask, Payload, XPLMI_CMD_RESP_SIZE, XIPIPSU_BUF_TYPE_MSG);
 		if (XST_SUCCESS != Status) {
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Error in IPI write: %d\r\n", __func__, Status);
@@ -140,7 +138,7 @@ int XPlm_ProcessPlmCdo(void *arg)
 
 	/** Process the PLM CDO */
 	XPlmi_InitCdo(&Cdo);
-	Cdo.ImgId = XPM_SUBSYSID_PMC;
+	Cdo.ImgId = PM_SUBSYS_PMC;
 	Cdo.PrtnId = 0U;
 	Cdo.BufPtr = (u32 *)XPLMI_PMCRAM_BASEADDR;
 	Cdo.BufLen = XPLMI_PMCRAM_LEN;

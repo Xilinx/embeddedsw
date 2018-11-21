@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -48,6 +46,8 @@
 #include "xpsmfw_init.h"
 #include "xpsmfw_default.h"
 
+u32 Platform;
+
 int XPsmFw_Init()
 {
 	int Status = XST_SUCCESS;
@@ -58,6 +58,10 @@ int XPsmFw_Init()
 	/* FIXME: Clear IPI0 status and enable IPI interrupts. Do it else where*/
 	XPsmFw_Write32(IPI_PSM_ISR, MASK32_ALL_HIGH);
 #endif
+
+	Platform = ((Xil_In32(PMC_TAP_VERSION) & PMC_TAP_VERSION_PLATFORM_MASK)
+		    >> PMC_TAP_VERSION_PLATFORM_SHIFT);
+
 	return Status;
 }
 

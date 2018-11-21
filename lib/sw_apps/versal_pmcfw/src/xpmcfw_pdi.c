@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PRTNICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -91,16 +89,21 @@ XStatus XPmcFw_PdiInit(XPmcFw * PmcFwInstancePtr)
 	PmcFwInstancePtr->MetaHdr.DeviceCopy=PmcFwInstancePtr->DeviceOps.Copy;
 
 	/* Read Boot Hdr */
-	Status = XilPdi_ReadBootHdr(&(PmcFwInstancePtr->MetaHdr));
+	XilPdi_ReadBootHdr(&(PmcFwInstancePtr->MetaHdr));
+
+	/* Read Img Hdr Table and verify Checksum */
+	Status = XilPdi_ReadImgHdrTbl(&(PmcFwInstancePtr->MetaHdr));
 	if (XPMCFW_SUCCESS != Status)
 	{
 		goto END;
 	}
-
-	/* Read Img Hdr Table and verify Checksum */
-	Status = XilPdi_ReadAndValidateImgHdrTbl(&(PmcFwInstancePtr->MetaHdr));
-	if (XPMCFW_SUCCESS != Status)
+	/**
+	 * Check the validity of Img Hdr Table
+	 */
+	Status = XilPdi_ValidateImgHdrTable(&(PmcFwInstancePtr->MetaHdr.ImgHdrTable));
+	if (Status != XST_SUCCESS)
 	{
+		XilPdi_Printf("Img Hdr Table Validation failed \n\r");
 		goto END;
 	}
 
@@ -142,7 +145,7 @@ END:
 /*****************************************************************************/
 /**
  *
- * @param	PmcFw Instance poiner
+ * @param	PmcFw Instance pointer
  *
  * @return	Success or error status
  *
@@ -154,12 +157,26 @@ XStatus XPmcFw_PdiLoad(XPmcFw* PmcFwInstancePtr)
 	Offset = 0U;
 	PmcFwInstancePtr->PartialPdi = TRUE;
 	XPMCFW_DBG_WRITE(0x7U);
+
+	/* Reads from Flash */
+	PmcFwInstancePtr->MetaHdr.Flag = XILPDI_METAHDR_RD_HDRS_FROM_DEVICE;
+
 	/* Update the Image Hdr structure */
 
 	/* Read Img Hdr Table and verify Checksum */
-	Status = XilPdi_ReadAndValidateImgHdrTbl(&(PmcFwInstancePtr->MetaHdr));
+	Status = XilPdi_ReadImgHdrTbl(&(PmcFwInstancePtr->MetaHdr));
 	if (XPMCFW_SUCCESS != Status)
 	{
+		goto END;
+	}
+
+	/**
+	 * Check the validity of Img Hdr Table
+	 */
+	Status = XilPdi_ValidateImgHdrTable(&(PmcFwInstancePtr->MetaHdr.ImgHdrTable));
+	if (Status != XST_SUCCESS)
+	{
+		XilPdi_Printf("Img Hdr Table Validation failed \n\r");
 		goto END;
 	}
 

@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -68,6 +66,12 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#ifdef PLM_PRINT_PERF
+#define DEBUG_PRINT_PERF	DEBUG_PRINT_ALWAYS
+#else
+#define DEBUG_PRINT_PERF	(0)
+#endif
+
 #if !defined (STDOUT_BASEADDRESS)
 #define XPlmiDbgCurrentTypes (0U)
 #elif defined (PLM_DEBUG_DETAILED)
@@ -99,12 +103,16 @@ extern "C" {
 int XPlmi_InitUart(void );
 
 /************************** Variable Definitions *****************************/
-extern u32 UartInitialized;
+extern u32 LpdInitialized;
 
+#define UART_INITIALIZED	1U << 0U
+#define LPD_INITIALIZED		1U << 1U
+#define XPlmi_ResetLpdInitialized()	\
+	LpdInitialized = 0U;
 
 #define XPlmi_Printf(DebugType, ...) \
 	if((((DebugType) & XPlmiDbgCurrentTypes) != 0x0U) && \
-	   (UartInitialized == TRUE)) \
+	   (((LpdInitialized) & UART_INITIALIZED) == UART_INITIALIZED)) \
 	{xil_printf (__VA_ARGS__); }
 
 #ifdef __cplusplus

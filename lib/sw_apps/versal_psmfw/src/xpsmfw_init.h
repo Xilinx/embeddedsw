@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -56,6 +54,18 @@ extern "C" {
 #include "xpsmfw_debug.h"
 #include "xil_io.h"
 #include "xpsmfw_ipi_manager.h"
+
+#define PMC_TAP_BASEADDR      			(0XF11A0000)
+#define PMC_TAP_VERSION    			((PMC_TAP_BASEADDR) + 0X00000004)
+#define PMC_TAP_VERSION_PLATFORM_SHIFT   	(24)
+#define PMC_TAP_VERSION_PLATFORM_MASK    	(0X0F000000)
+
+#define PLATFORM_VERSION_SILICON		(0x0U)
+#define PLATFORM_VERSION_SPP			(0x1U)
+#define PLATFORM_VERSION_EMU			(0x2U)
+#define PLATFORM_VERSION_QEMU			(0x3U)
+
+extern u32 Platform;
 
 int XPsmFw_Init();
 

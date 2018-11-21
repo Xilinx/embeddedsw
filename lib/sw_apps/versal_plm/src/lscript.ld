@@ -12,12 +12,12 @@
 
 _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x1000;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x100;
-
+_USER_CODE_SIZE = DEFINED(_USER_CODE_SIZE) ? _USER_CODE_SIZE : 0x4000;
 /* Define Memories in the system */
 
 MEMORY
 {
-   tmr_ram_cntlr_Mem : ORIGIN = 0xF0200000, LENGTH = 0x5FFB0
+   tmr_ram_cntlr_Mem : ORIGIN = 0xF0200000, LENGTH = (0x5FFB0 - _USER_CODE_SIZE)
    tmr_ram_instr_cntlr_Mem : ORIGIN = 0xF0200000, LENGTH = 0x3FFB0
    tmr_ram_data_cntlr_Mem : ORIGIN = 0xF0240000, LENGTH = 0x20000
 }

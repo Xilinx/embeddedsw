@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -74,7 +72,7 @@ extern "C" {
 
 #define XPLMI_ACCESS_ALLOWED 0x01U
 #define XPLMI_ACCESS_DENIED	0x00U
-
+#define XPLMI_TIME_OUT_DEFAULT	(0x10000000U)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -85,6 +83,15 @@ extern "C" {
 void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value);
 
 /**
+ * Writing a value is set of bits to be set (represented by Mask)
+ * and reading back the wriiten value to compare that write is sucessfully done.
+ * @param RegAddr is the Address of the Register to be written
+ * @param Mask is the bit mask to poll for in the register value
+ * @param Value is the value to be written to the register
+ */
+int XPlmi_UtilSafetyWrite(u32 RegAddr, u32 Mask, u32 Value);
+
+/**
  * Poll for a set of bits to be set (represented by Mask)
  * or until we TimeOut
  * @param RegAddr is the Address of the Register to be polled
@@ -93,7 +100,7 @@ void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value);
  */
 int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount);
 
-int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs);
+int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs);
 
 /**
  * Poll for a set of bits to be cleared (represented by Mask)
@@ -105,7 +112,7 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs);
  */
 
 
-int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs);
+int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs);
 
 int XPlmi_UtilPollForZero(u32 RegAddr, u32 Mask, u32 TimeOutCount);
 
@@ -126,7 +133,7 @@ void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value);
  * @param TimeOutCount is the value to count down before return failure
  */
 int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask,
-				u32 TimeOutInMs);
+				u32 TimeOutInUs);
 
 /**
  * Read-modify-write a 64-bit address register
@@ -146,11 +153,12 @@ void XPlmi_UtilRMW64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 Value);
  */
 void XPlmi_UtilWait(u32 TimeOutCount);
 
-void XPlmi_PrintArray (u32 DebugType, const u8 Buf[], u32 Len, const char *Str);
+void XPlmi_PrintArray (u32 DebugType, const u64 BufAddr, u32 Len, const char *Str);
 char *XPlmi_Strcpy(char *DestPtr, const char *SrcPtr);
 char * XPlmi_Strcat(char* Str1Ptr, const char* Str2Ptr);
 s32 XPlmi_Strcmp( const char* Str1Ptr, const char* Str2Ptr);
 void* XPlmi_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len);
+s32 XPlmi_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len);
 
 #ifdef __cplusplus
 }

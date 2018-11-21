@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PRTNICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -53,7 +51,6 @@
 #include "psm_global.h"
 
 #define XPSMFW_MB_MSR_BIP_MASK		(0x8U)
-#define XPSMFW_MB_MSR_IE_MASK		(0x2U)
 
 static XIOModule IOModule;
 
@@ -191,7 +188,7 @@ int XPsmFw_IoModuleInit(u32 DeviceId)
         goto END;
     }
 
-	XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "IO Module init completed\r\n");
+	XPsmFw_Printf(DEBUG_DETAILED, "IO Module init completed\r\n");
 
  	Status = XST_SUCCESS;
 
@@ -250,15 +247,7 @@ int SetUpInterruptSystem(void)
 
 	microblaze_enable_exceptions();
 
-	/* microblaze_enable_interrupts(); */
-
-	/*
-	 * FIXME: Currently, IE bit in MSR is not being set when
-	 * microblaze_enable_interrupts() API is called. So set
-	 * this bit manually to receive interrupt. Remove this
-	 * hack when issue has been fixed.
-	 */
-	mtmsr(mfmsr() | XPSMFW_MB_MSR_IE_MASK);
+	microblaze_enable_interrupts();
 
 	/*
 	 * Clear Break in progress to get interrupts
@@ -277,7 +266,7 @@ void XPsmFw_IntrHandler(void *IntrNumber)
 {
 	u32 l_IrqReg;
 	u32 l_index;
-	XPsmFw_Printf(DEBUG_PRINT_ALWAYS,
+	XPsmFw_Printf(DEBUG_DETAILED,
 	              "Interrupt number = 0x%x\r\n", (u32)IntrNumber);
 	l_IrqReg = XPsmFw_Read32(PSM_IOMODULE_IRQ_PENDING);
 

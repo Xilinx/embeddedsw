@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -47,6 +45,7 @@
  ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xplmi_ipi.h"
+#include "xplmi_proc.h"
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 /************************** Constant Definitions *****************************/
 
@@ -104,8 +103,13 @@ int XPlmi_IpiInit(void)
 				IpiCfgPtr->TargetList[i].Mask);
 	}
 
+	/**
+	 * Enable the IPI IRQ
+	 */
+	XPlmi_PlmIntrEnable(XPLMI_IPI_IRQ);
 END:
-	XPlmi_Printf(DEBUG_INFO, "%s: IPI init status: 0x%x\n\r", __func__, Status);
+	XPlmi_Printf(DEBUG_DETAILED,
+		    "%s: IPI init status: 0x%x\n\r", __func__, Status);
 	return Status;
 }
 
@@ -118,19 +122,25 @@ END:
  * @return	Status	Status of received IPI processing
  *
  *****************************************************************************/
-int XPlmi_IpiDispatchHandler(void)
+int XPlmi_IpiDispatchHandler(void *Data)
 {
 	int Status = XST_FAILURE;
 	u32 SrcCpuMask;
-	u32 Payload[XPLMI_IPI_MAX_MSG_LEN];
+	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};
 	u32 MaskIndex;
 	XPlmi_Cmd Cmd;
+
+	/* For MISRA C */
+	(void )Data;
 
 	SrcCpuMask = Xil_In32(IPI_PMC_ISR);
 
 	for (MaskIndex = 0; MaskIndex < XPLMI_IPI_MASK_COUNT; MaskIndex++) {
 		if ((SrcCpuMask & IpiMaskList[MaskIndex]) != 0U) {
 			Status = XPlmi_IpiRead(IpiMaskList[MaskIndex], &Payload[0], XPLMI_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_MSG);
+			if(Status != XST_SUCCESS){
+				goto END;
+			}
 			Cmd.CmdId = Payload[0U];
 			Cmd.IpiMask = IpiMaskList[MaskIndex];
 			Cmd.Len = (Cmd.CmdId >> 16) & 255;
@@ -147,14 +157,15 @@ int XPlmi_IpiDispatchHandler(void)
 		}
 	}
 
-	XPlmi_Printf(DEBUG_INFO, "%s: IPI processed.\n\r", __func__);
+	XPlmi_Printf(DEBUG_DETAILED, "%s: IPI processed.\n\r", __func__);
 
 	if (XST_SUCCESS != Status) {
-		XPlmi_Printf(DEBUG_INFO, "%s: Error: Unhandled IPI received\n\r", __func__);
+		XPlmi_Printf(DEBUG_GENERAL, "%s: Error: Unhandled IPI received\n\r", __func__);
 	}
-
-	Xil_Out32(IPI_PMC_ISR, SrcCpuMask);
-
+	if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
+		Xil_Out32(IPI_PMC_ISR, SrcCpuMask);
+	}
+END:
 	return Status;
 }
 
@@ -172,19 +183,22 @@ int XPlmi_IpiDispatchHandler(void)
  *****************************************************************************/
 int XPlmi_IpiWrite(u32 DestCpuMask, u32 *MsgPtr, u32 MsgLen, u32 Type)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
-	if ((NULL == MsgPtr) ||
+	if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
+		if ((NULL == MsgPtr) ||
 			((MsgLen <= 0) || (MsgLen > XPLMI_IPI_MAX_MSG_LEN)) ||
 			((XIPIPSU_BUF_TYPE_MSG != Type) && (XIPIPSU_BUF_TYPE_RESP != Type))) {
-		Status = XST_FAILURE;
-	} else {
+			Status = XST_FAILURE;
+		} else {
 
-		Status = XIpiPsu_WriteMessage(IpiInstPtr, DestCpuMask, MsgPtr, MsgLen,
-				Type);
+			Status = XIpiPsu_WriteMessage(IpiInstPtr, DestCpuMask,
+					MsgPtr, MsgLen, Type);
+		}
+
+		XPlmi_Printf(DEBUG_DETAILED, "%s: IPI write status: 0x%x\r\n",
+				__func__, Status);
 	}
-
-	XPlmi_Printf(DEBUG_DETAILED, "%s: IPI write status: 0x%x\r\n", __func__, Status);
 
 	return Status;
 }

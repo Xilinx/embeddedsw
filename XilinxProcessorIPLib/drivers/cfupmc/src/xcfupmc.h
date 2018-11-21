@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF PLRCHANTABILITY,
 * FITNESS FOR A PRTNICULAR PURPOSE AND NONINFRINGEPLNT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -40,7 +38,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   12/21/2017 Initial release
 * 2.00  bsv  03/01/2019 Added error handling APIs
-*
+* 2.01  bsv  11/06/2019 XCfupmc_ClearCfuIsr API added
 * </pre>
 *
 * @note
@@ -177,6 +175,8 @@ void XCfupmc_WaitForStreamDone(XCfupmc *InstancePtr);
 void XCfupmc_CfuErrHandler(XCfupmc *InstancePtr);
 void XCfupmc_CfiErrHandler(XCfupmc *InstancePtr);
 void XCfupmc_ExtErrorHandler(XCfupmc *InstancePtr);
+void XCfupmc_ClearIgnoreCfiErr(XCfupmc *InstancePtr);
+void XCfupmc_ClearCfuIsr(XCfupmc *InstancePtr);
 #ifdef __cplusplus
 }
 #endif

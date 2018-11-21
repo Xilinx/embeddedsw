@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF PLRCHANTABILITY,
 * FITNESS FOR A PRTNICULAR PURPOSE AND NONINFRINGEPLNT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -40,7 +38,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   12/21/2017 Initial release
 * 2.00  bsv	 03/01/2019	Added error handling APIs
-*
+* 2.01  bsv  11/06/2019 XCfupmc_ClearCfuIsr API added
 * </pre>
 *
 * @note
@@ -481,7 +479,7 @@ void XCfupmc_WaitForStreamDone(XCfupmc *InstancePtr)
 
 /*****************************************************************************/
 /**
- * This function handles CFU errors
+ * This function checks and handles CFU errors
  *
  * @param	InstancePtr is a pointer to the XCfupmc instance.
  *
@@ -491,10 +489,24 @@ void XCfupmc_WaitForStreamDone(XCfupmc *InstancePtr)
 void XCfupmc_CfuErrHandler(XCfupmc *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
+	u32	RegVal = XCfupmc_ReadReg(InstancePtr->Config.BaseAddress,
+				CFU_APB_CFU_ISR);
+    RegVal = RegVal & (CFU_APB_CFU_ISR_DECOMP_ERROR_MASK |
+			 CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK |
+			 CFU_APB_CFU_ISR_AXI_ALIGN_ERROR_MASK |
+			 CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
+			 CFU_APB_CFU_ISR_CRC32_ERROR_MASK |
+			 CFU_APB_CFU_ISR_CRC8_ERROR_MASK);
 
-	XCfupmc_Reset(InstancePtr);
-	XCfupmc_ClearIsr(InstancePtr, (CFU_APB_CFU_ISR_CRC8_ERROR_MASK |
-					CFU_APB_CFU_ISR_CRC32_ERROR_MASK));
+	if(RegVal)
+	{
+		XCfupmc_Reset(InstancePtr);
+		XCfupmc_ClearCfuIsr(InstancePtr);
+	}
+	else
+	{
+		/** MISRA-C compliance */
+	}
 }
 
 /*****************************************************************************/
@@ -518,8 +530,43 @@ void XCfupmc_CfiErrHandler(XCfupmc *InstancePtr)
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
 						CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_MASK,
 						CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_MASK);
-	XCfupmc_ClearIsr(InstancePtr, (CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
-			CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK));
+
+}
+
+/*****************************************************************************/
+/**
+ * This function clears CFU ISR
+ *
+ * @param	InstancePtr is a pointer to the XCfupmc instance.
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+void XCfupmc_ClearCfuIsr(XCfupmc *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XCfupmc_ClearIsr(InstancePtr, (CFU_APB_CFU_ISR_DECOMP_ERROR_MASK |
+							CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK |
+							CFU_APB_CFU_ISR_AXI_ALIGN_ERROR_MASK |
+							CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
+							CFU_APB_CFU_ISR_CRC32_ERROR_MASK |
+							CFU_APB_CFU_ISR_CRC8_ERROR_MASK));
+}
+
+/*****************************************************************************/
+/**
+ * This function clears Ignore CFI ERROR mask in CFU_APB_CFU_CTL
+ *
+ * @param	InstancePtr is a pointer to the XCfupmc instance.
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+void XCfupmc_ClearIgnoreCfiErr(XCfupmc *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
 							CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_MASK,0U);
 }

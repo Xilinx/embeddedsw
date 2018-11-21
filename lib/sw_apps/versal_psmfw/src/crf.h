@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -64,10 +62,10 @@ extern "C" {
 
 #define CRF_RST_APU_ACPU0_MASK                        ((u32)0x00000001U)
 #define CRF_RST_APU_ACPU1_MASK                        ((u32)0x00000002U)
-#define CRF_RST_APU_GIC_RESET_MASK                    ((u32)0x00000100U)
-#define CRF_RST_APU_L2_RESET_MASK                     ((u32)0x00000200U)
-#define CRF_RST_APU_ACPU0_PWRON_MASK                  ((u32)0x00001000U)
-#define CRF_RST_APU_ACPU1_PWRON_MASK                  ((u32)0x00002000U)
+#define CRF_RST_APU_GIC_RESET_MASK                    ((u32)0x00000080U)
+#define CRF_RST_APU_L2_RESET_MASK                     ((u32)0x00000100U)
+#define CRF_RST_APU_ACPU0_PWRON_MASK                  ((u32)0x00000400U)
+#define CRF_RST_APU_ACPU1_PWRON_MASK                  ((u32)0x00000800U)
 
 #define CRF_RST_APU_ACPU0_SHIFT                       (0)
 #define CRF_RST_APU_ACPU1_SHIFT                       (1)

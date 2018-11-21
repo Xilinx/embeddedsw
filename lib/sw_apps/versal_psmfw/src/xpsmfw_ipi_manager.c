@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PRTNICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -66,7 +64,7 @@ s32 XPsmfw_IpiManagerInit(void)
 
 	if (IpiCfgPtr == NULL) {
 		Status = XST_FAILURE;
-		XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "IPI lookup config failed\r\n");
+		XPsmFw_Printf(DEBUG_ERROR, "IPI lookup config failed\r\n");
 		goto Done;
 	}
 	/* Init Mask List */
@@ -81,7 +79,7 @@ s32 XPsmfw_IpiManagerInit(void)
 	for (i = 0U; i < XPSMFW_IPI_MASK_COUNT; i++) {
 		XIpiPsu_InterruptEnable(IpiInstPtr, IpiCfgPtr->TargetList[i].Mask);
 	}
-	XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "IPI interrupts are enabled\r\n");
+	XPsmFw_Printf(DEBUG_DETAILED, "IPI interrupts are enabled\r\n");
 
 Done:
 	return Status;
@@ -99,14 +97,14 @@ int XPsmFw_DispatchIpiHandler(u32 SrcMask)
 	u32 Payload[XPSMFW_IPI_MAX_MSG_LEN];
 	u32 Response[XPSMFW_IPI_MAX_MSG_LEN];
 
-	XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "In IPI handler\r\n");
+	XPsmFw_Printf(DEBUG_DETAILED, "In IPI handler\r\n");
 
 	for (MaskIndex = 0U; MaskIndex < XPSMFW_IPI_MASK_COUNT; MaskIndex++) {
 		if ((SrcMask & IpiMaskList[MaskIndex]) != 0U) {
 			Status = XIpiPsu_ReadMessage(IpiInstPtr, IpiMaskList[MaskIndex],
 			        &Payload[0], XPSMFW_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_MSG);
 			if (XST_SUCCESS != Status) {
-				XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "Failure to read IPI msg\r\n");
+				XPsmFw_Printf(DEBUG_ERROR, "Failure to read IPI msg\r\n");
 			} else {
 				Status = XPsmFw_ProcessIpi(&Payload[0]);
 
@@ -140,7 +138,7 @@ XStatus XPsmFw_IpiSend(u32 IpiMask, u32 *Payload)
 	/* Wait until current IPI interrupt is handled by target */
 	Status = XIpiPsu_PollForAck(IpiInstPtr, IpiMask, XPSMFW_IPI_TIMEOUT);
 	if (XST_SUCCESS != Status) {
-		XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: ERROR: Timeout expired\n",
+		XPsmFw_Printf(DEBUG_ERROR, "%s: ERROR: Timeout expired\n",
 			      __func__);
 		goto done;
 	}
@@ -148,7 +146,7 @@ XStatus XPsmFw_IpiSend(u32 IpiMask, u32 *Payload)
 	Status = XIpiPsu_WriteMessage(IpiInstPtr, IpiMask, Payload,
 				      PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
 	if (XST_SUCCESS != Status) {
-		XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: ERROR writing to IPI request buffer\n", __func__);
+		XPsmFw_Printf(DEBUG_ERROR, "%s: ERROR writing to IPI request buffer\n", __func__);
 		goto done;
 	}
 
@@ -178,7 +176,7 @@ XStatus XPsmFw_IpiSendResponse(u32 IpiMask, u32 *Payload)
 	Status = XIpiPsu_WriteMessage(IpiInstPtr, IpiMask, Payload,
 				      PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_RESP);
 	if (XST_SUCCESS != Status) {
-		XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: ERROR writing to IPI request buffer\n", __func__);
+		XPsmFw_Printf(DEBUG_ERROR, "%s: ERROR writing to IPI request buffer\n", __func__);
 		goto done;
 	}
 

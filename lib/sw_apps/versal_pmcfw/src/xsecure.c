@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -730,7 +728,7 @@ static u32 XFsbl_ReAuthenticationBlock(XSecure_Partition *PartitionParams,
 		Xil_Out32(0xF1110500,0xC << 16);
 	}
 
-	/* calculating hashs for all chunks copies to AES/PCAP */
+	/* calculating hashes for all chunks copies to AES/PCAP */
 	if (PartitionParams->IsEncrypted == TRUE) {
 		if ((PartitionParams->PlAuth.BlockNum == 0x00) &&
 			(PartitionParams->PlAuth.ChunkNum != 0x00)) {
@@ -800,7 +798,7 @@ static u32 XFsbl_ReAuthenticationBlock(XSecure_Partition *PartitionParams,
 		PartitionParams->ChunkBuffer, Len, Last);
 	XSecure_Sha3_ReadHash(&Sha3Instance, (u8 *)ChunksHash);
 
-	/* Comparing with stored Hashs */
+	/* Comparing with stored Hashes */
 	Status = memcmp(HashStored, ChunksHash, 48);
 	if (Status != XST_SUCCESS) {
 		XPmcFw_Printf(DEBUG_INFO,"\nError at hash comparison\n\r");

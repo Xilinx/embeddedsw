@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF PLRCHANTABILITY,
 * FITNESS FOR A PRTNICULAR PURPOSE AND NONINFRINGEPLNT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -39,7 +37,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   12/21/2017 Initial release
-*
+* 1.01  bsv  06/11/2019 Added XCframe_ClearCframeErr API
 * </pre>
 *
 * @note
@@ -155,8 +153,10 @@ void XCframe_CramTrim(XCframe *InstancePtr,	u32 TrimValue);
 void XCframe_BramTrim(XCframe *InstancePtr, u32 TrimValue);
 void XCframe_UramTrim(XCframe *InstancePtr, u32 TrimValue);
 void XCframe_SetReadParam(XCframe *InstancePtr,
-		XCframe_FrameNo CframeNo, u32 CframeLen);
-
+			XCframe_FrameNo CframeNo, u32 CframeLen);
+void XCframe_ReadReg(XCframe *InstancePtr, u32 AddrOffset,
+			XCframe_FrameNo FrameNo, u32* ValPtr);
+void XCframe_ClearCframeErr(XCframe *InstancePtr);
 #ifdef __cplusplus
 }
 #endif

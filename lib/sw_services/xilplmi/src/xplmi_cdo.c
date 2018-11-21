@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -266,7 +264,7 @@ int XPlmi_CdoCmdResume(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
 		CdoPtr->CmdState = 0U;
 	}
 
-	/** Copy the image id to cmd subsytem ID */
+	/** Copy the image id to cmd subsystem ID */
 	CmdPtr->SubsystemId = CdoPtr->ImgId;
 
 	CmdPtr->Payload = BufPtr;
@@ -319,11 +317,11 @@ int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
 
 	/**
 	 * Check if Cmd payload is less than buffer size,
-	 * then copy to temparary buffer
+	 * then copy to temporary buffer
 	 */
 	if ((*Size > BufLen) && (BufLen < XPLMI_CMD_LEN_TEMPBUF))
 	{
-		/** Copy Cmd to temparary buffer */
+		/** Copy Cmd to temporary buffer */
 		memcpy(CdoPtr->TempCmdBuf, BufPtr, BufLen*4);
 		CdoPtr->CopiedCmdLen = BufLen;
 		*Size = BufLen;
@@ -340,7 +338,7 @@ int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
 		CdoPtr->CmdState = XPLMI_CMD_STATE_RESUME;
 	}
 
-	/** Copy the image id to cmd subsytem ID */
+	/** Copy the image id to cmd subsystem ID */
 	CmdPtr->SubsystemId = CdoPtr->ImgId;
 
 	/** Execute the command */
@@ -350,7 +348,8 @@ int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
 	{
 		XPlmi_Printf(DEBUG_GENERAL,
 		    "CMD: 0x%0x execute failed, Processed Cdo Length 0x%0x\n\r",
-		     CmdPtr->CmdId, CdoPtr->ProcessedCdoLen);
+		     CmdPtr->CmdId,
+		     CdoPtr->ProcessedCdoLen + CdoPtr->BufLen - BufLen);
 		goto END;
 	}
 END:
@@ -403,7 +402,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	}
 
 	/**
-	 * Incase CmdEnd is detected in previous iteration,
+	 * In case CmdEnd is detected in previous iteration,
 	 * it just returns
 	 */
 	if (CdoPtr->CmdEndDetected == TRUE)

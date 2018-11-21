@@ -1,6 +1,10 @@
 #/******************************************************************************
 #*
+<<<<<<< HEAD
 #* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+=======
+#* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+>>>>>>> Initial commit for versal support
 #*
 #* Permission is hereby granted, free of charge, to any person obtaining a copy
 #* of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +46,7 @@ proc libpm_drc {libhandle} {
 }
 
 proc generate {libhandle} {
+<<<<<<< HEAD
 	# Copy over the right set of files as src based on processor type
 	set sw_proc_handle [hsi::get_sw_processor]
 	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
@@ -77,6 +82,9 @@ proc generate {libhandle} {
 	file delete -force $clientSrcDir
 	file delete -force $serverSrcDir
 	file delete -force $commonSrcdir
+=======
+
+>>>>>>> Initial commit for versal support
 }
 
 

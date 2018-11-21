@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -47,6 +45,7 @@
 /***************************** Include Files *********************************/
 #include "xplm_module.h"
 #include "xplm_main.h"
+#include "xplmi_sysmon.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -67,23 +66,26 @@ typedef int (*ModuleInit)(void);
 static ModuleInit ModuleList[] =
 {
 	XPlm_PlmiInit,
+	XPlm_ErrInit,
 	XPlm_PmInit,
 	XPlm_LoaderInit,
 };
 
+/*****************************************************************************/
 /**
- * It contains the all the PS LPD init functions to be run for every module that
- * is present as a part of PLM.
- */
-static ModuleInit LpdModuleList[] =
+ * @brief This function initializes the Error module and registers the
+ * error commands of the CDO.
+ *
+ * @param	None
+ *
+ * @return	Status as defined in xplm_status.h
+ *
+ *****************************************************************************/
+int XPlm_ErrInit(void )
 {
-#ifdef DEBUG_UART_PS
-	XPlm_InitUart,
-#endif
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
-	XPlmi_IpiInit,
-#endif
-};
+	XPlmi_EmInit();
+	return XST_SUCCESS;
+}
 
 /*****************************************************************************/
 /**
@@ -131,33 +133,3 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
-/**
- * @brief This function call all the PS LPD init functions of all the different
- * modules. As a part of init functions, modules can register the
- * command handlers, interrupt handlers with the interface layer.
- *
- * @param	None
- *
- * @return	Status as defined in xplm_status.h
- *
- *****************************************************************************/
-int XPlm_LpdModuleInit(void *arg)
-{
-	u32 Index;
-	int Status;
-
-	for (Index = 0; Index <
-	     sizeof LpdModuleList / sizeof *LpdModuleList; Index++)
-	{
-		Status = LpdModuleList[Index]();
-		if (Status != XPLM_SUCCESS)
-		{
-			Status = XPLMI_UPDATE_STATUS(XPLM_ERR_LPD_MOD, Status);
-			goto END;
-		}
-	}
-	Status = XPLM_SUCCESS;
-END:
-	return Status;
-}

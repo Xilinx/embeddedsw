@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PRTNICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 
@@ -65,11 +63,12 @@ extern "C" {
 /* Boot header address in PRAM copied by ROM*/
 #define XIH_BH_PRAM_ADDR		(0xF201E000U)
 
+#define XIH_AC_PRAM_OFFSET		(0xF70)
 /* Boot header SMAP bus width length */
 #define XIH_BH_SMAP_BUS_WIDTH_LEN	(16U)
 
 /* Boot header Attr fields */
-#define XIH_BH_IMG_ATTRB_RSA_MASK	(0xC000U)
+#define XIH_BH_IMG_ATTRB_BH_AUTH_MASK	(0xC000U)
 #define XIH_BH_IMG_ATTRB_SHA2_MASK	(0x3000U)
 
 /* Boot Header PMC FW Rsvd Fields */
@@ -81,9 +80,9 @@ extern "C" {
 #define XIH_BH_LEN			(0x128U)
 #define XIH_FIELD_LEN			(4U)
 #define XIH_PFW_LEN_FIELD_LEN		(4U)
-#define XIH_IHT_LEN			(64U)
+#define XIH_IHT_LEN			(128U)
 #define XIH_IH_LEN			(64U)
-#define XIH_PH_LEN			(64U)
+#define XIH_PH_LEN			(128U)
 #define XIH_PRTN_WORD_LEN		(0x4U)
 #define XIH_PRTN_ALIGN_LEN		(64U)
 
@@ -93,7 +92,7 @@ extern "C" {
 #define XIH_IHT_IH_ADDR_OFST		(0x8U)
 #define XIH_IHT_NO_OF_PRTNS_OFST	(0xCU)
 #define XIH_IHT_PH_ADDR_OFST		(0x10U)
-#define XIH_IHT_PPD_OFST		(0x14U)
+#define XIH_IHT_SBD_ADDR_OFST		(0x14U)
 #define XIH_IHT_IDCODE			(0x18U)
 #define XIH_IHT_ATTR			(0x1CU)
 #define XIH_IHT_CHECKSUM_OFST		(0x3CU)
@@ -122,16 +121,28 @@ extern "C" {
 #define XIH_PH_RSVD_x38				(0x38U)
 #define XIH_PH_CHECKSUM				(0x3CU)
 
-/* Prtn Present Devices(PPD) in IHT */
-#define XIH_IHT_PPD_SAME	        (0x0U)
-#define XIH_IHT_PPD_QSPI	        (0x1U)
-#define XIH_IHT_PPD_NAND	        (0x2U)
-#define XIH_IHT_PPD_SD				(0x3U)
-#define XIH_IHT_PPD_MMC		        (0x4U)
-#define XIH_IHT_PPD_USB				(0x5U)
-#define XIH_IHT_PPD_ETHERNET		(0x6U)
-#define XIH_IHT_PPD_PCIE	        (0x7U)
-#define XIH_IHT_PPD_SATA	        (0x8U)
+/* IHT attributes */
+#define XIH_IHT_ATTR_RSA_SIGNATURE_MASK		(0x1000U)
+#define XIH_IHT_ATTR_ENCRYPTION_MASK		(0x2000U)
+#define XIH_IHT_ATTR_BYPS_MASK				(0x1U) /**< IDCODE checks bypass */
+
+#define XIH_IHT_EXT_IDCODE_MASK			(0x3FU)
+
+/* Secondary Boot Device (SBD) in IHT Attributes */
+#define XIH_IHT_ATTR_SBD_MASK	        (0xFC0U)
+#define XIH_IHT_ATTR_SBD_SHIFT			(0x6U)
+#define XIH_IHT_ATTR_SBD_SAME	        (0x0U)
+#define XIH_IHT_ATTR_SBD_QSPI32	        (0x1U)
+#define XIH_IHT_ATTR_SBD_QSPI24	        (0x2U)
+#define XIH_IHT_ATTR_SBD_SD_0			(0x4U)
+#define XIH_IHT_ATTR_SBD_SD_1			(0x5U)
+#define XIH_IHT_ATTR_SBD_SD_LS          (0x6U)
+#define XIH_IHT_ATTR_SBD_EMMC	        (0x7U)
+#define XIH_IHT_ATTR_SBD_USB			(0x8U)
+#define XIH_IHT_ATTR_SBD_PCIE	        (0xAU)
+#define XIH_IHT_ATTR_SBD_OSPI			(0xCU)
+#define XIH_IHT_ATTR_SBD_SMAP			(0xDU)
+#define XIH_IHT_ATTR_SBD_SBI			(0xEU)
 
 /* Prtn Attribute fields */
 #define XIH_PH_ATTRB_PRTN_TYPE_MASK		(0x7000000U)
@@ -216,13 +227,37 @@ extern "C" {
  */
 #define XILPDI_ERR_IHT_CHECKSUM		(0x1U)
 #define XILPDI_ERR_NO_OF_PRTNS		(0x2U)
-#define XILPDI_ERR_PPD			(0x3U)
+#define XILPDI_ERR_SBD			(0x3U)
 #define XILPDI_ERR_ZERO_LENGTH		(0x4U)
 #define XILPDI_ERR_TOTAL_LENGTH		(0x5U)
 #define XILPDI_ERR_PRTN_TYPE		(0x6U)
 
 #define SMAP_BUS_WIDTH_WORD1		(0xDD000000U)
 #define SMAP_BUS_WIDTH_LENGTH		(16U)
+
+/**
+ * Image Header Attributes
+ */
+#define XILPDI_IH_ATTRIB_IMAGE_OWNER_SHIFT		(0x3)
+#define XILPDI_IH_ATTRIB_IMAGE_OWNER_WIDTH		(0x3U)
+#define XILPDI_IH_ATTRIB_IMAGE_OWNER_MASK		(0X00000038U)
+
+#define XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT		(0x6U)
+#define XILPDI_IH_ATTRIB_COPY_MEMORY_WIDTH		(0x1U)
+#define XILPDI_IH_ATTRIB_COPY_MEMORY_MASK		(0X00000040U)
+
+
+#define XILPDI_IH_ATTRIB_DELAY_LOAD_SHIFT		(0x7U)
+#define XILPDI_IH_ATTRIB_DELAY_LOAD_WIDTH		(0x1U)
+#define XILPDI_IH_ATTRIB_DELAY_LOAD_MASK		(0X00000080U)
+
+
+#define XILPDI_IH_ATTRIB_DELAY_HANDOFF_SHIFT		(0x8U)
+#define XILPDI_IH_ATTRIB_DELAY_HANDOFF_WIDTH		(0x1U)
+#define XILPDI_IH_ATTRIB_DELAY_HANDOFF_MASK		(0X00000100U)
+
+#define XILPDI_METAHDR_RD_HDRS_FROM_DEVICE	(u32)(0x0U)
+#define XILPDI_METAHDR_RD_HDRS_FROM_MEMBUF	(u32)(0x1U)
 
 /**************************** Type Definitions *******************************/
 
@@ -270,11 +305,15 @@ typedef struct {
 	u32 ImgHdrAddr; /**< Address to start of 1st Image header*/
 	u32 NoOfPrtns; /**< No of partitions present  */
 	u32 PrtnHdrAddr; /**< Address to start of 1st partition header*/
-	u32 PrtnPresentDevice; /**< Partition present device for secondary
-				boot mode support */
+	u32 SBDAddr; /**< Secondary Boot device address */
 	u32 Idcode; /**< Device ID Code */
 	u32 Attr; /**< Attributes */
-	u32 Rsvd[7]; /**< Reserved */
+	u32 Rsrvd[4];
+	u32 TotalHdrLen; /**< Total size of Meta header AC + encryption overload */
+	u32 IvMetaHdr[3]; /**< Iv for decrypting SH of meta header */
+	u32 EncKeySrc; /**< Encryption key source for decrypting SH of headers */
+	u32 ExtIdCode;  /**< Extended ID Code */
+	u32 Rsvd[13]; /**< Reserved */
 	u32 Checksum; /**< Checksum of the image header table */
 } XilPdi_ImgHdrTable __attribute__ ((aligned(16)));
 
@@ -283,7 +322,7 @@ typedef struct {
  * It contains all the information of Image header in order.
  */
 typedef struct {
-	u32 FirstPrtnHdr; /**< First parition header in the image */
+	u32 FirstPrtnHdr; /**< First partition header in the image */
 	u32 NoOfPrtns; /**< Number of partitions in the image */
 	u32 Rsvd1; /**< Reserved */
 	u32 ImgAttr; /**< Image Attributes */
@@ -313,7 +352,10 @@ typedef struct {
 	u32 PrtnId; /**< Partition ID */
 	u32 AuthCertificateOfst;
 		/**< address to the authentication certificate when enabled */
-	u32 Rsvd_x38; /**< Reserved */
+	u32 PrtnIv[3]; /**< IV of the partition's SH */
+	u32 EncStatus; /**< Encryption Status/Key Selection */
+	u32 KekIv[3]; /**< KEK IV for partition decryption */
+	u32 Reserved[10]; /**< Reserved */
 	u32 Checksum; /**< checksum of the partition header */
 } XilPdi_PrtnHdr __attribute__ ((aligned(16)));
 
@@ -330,6 +372,10 @@ typedef struct {
 	u32 FlashOfstAddr; /**< Start of DPI start address in Flash */
 	XStatus (*DeviceCopy) (u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 		/**< Function pointer for device copy */
+	u32 Flag; /**< To read from flash or buffer ,
+			   * if 0 - from flash and 1 - from buffer */
+	u64 BufferAddr;
+	void* (*XMemCpy)(void * DestPtr, const void * SrcPtr, u32 Len);
 } XilPdi_MetaHdr __attribute__ ((aligned(16)));
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -348,12 +394,18 @@ u32 XilPdi_GetPrtnType(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_IsEnc(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetA72ExecState(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr * PrtnHdr);
+u32 XilPdi_GetSBD(const XilPdi_ImgHdrTable * ImgHdrTbl);
+u32 XilPdi_GetDelayLoad(const XilPdi_ImgHdr *ImgHdr);
+u32 XilPdi_GetDelayHandoff(const XilPdi_ImgHdr *ImgHdr);
+void XilPdi_ResetDelayLoad(XilPdi_ImgHdr *ImgHdr);
+void XilPdi_ResetDelayHandoff(XilPdi_ImgHdr *ImgHdr);
+
 
 XStatus XilPdi_ValidateChecksum(u32 Buffer[], u32 Len);
 XStatus XilPdi_ValidatePrtnHdr(XilPdi_PrtnHdr * PrtnHdr);
 XStatus XilPdi_ValidateImgHdrTable(XilPdi_ImgHdrTable * ImgHdrTable);
-XStatus XilPdi_ReadBootHdr(XilPdi_MetaHdr * ImgHdrPtr);
-XStatus XilPdi_ReadAndValidateImgHdrTbl(XilPdi_MetaHdr * ImgHdrPtr);
+void XilPdi_ReadBootHdr(XilPdi_MetaHdr * ImgHdrPtr);
+XStatus XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * ImgHdrPtr);
 XStatus XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr);
 XStatus XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * ImgHdrPtr);
 XStatus XilPdi_ReadAlignedData(XilPdi_MetaHdr * MetaHdrPtr, u32 PrtnNum);

@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -40,7 +38,9 @@
 *
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
-* 1.0   kc  22/10/17 First release
+* 1.0   kc  22/10/17      First release
+* 1.1   bsv 29/05/2019    Macros declared for CFRM_ISR_OFFSET,
+*			  CFRM_IER_OFFSET and STATUS_OFFSET
 * </pre>
 *
 ******************************************************************************/
@@ -54,7 +54,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xcframe.h"
 #include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
@@ -82,6 +81,10 @@ extern "C" {
 #define XCFRAME_TESTMODE_OFFSET			(0x120U)
 #define XCFRAME_BRDOPT_OFFSET			(0x130U)
 #define XCFRAME_VGG_TRIM_OFFSET			(0x140U)
+#define XCFRAME_CFRM_ISR_OFFSET			(0x150U)
+#define XCFRAME_CFRM_IER_OFFSET			(0x170U)
+#define XCFRAME_CFRM_IDR_OFFSET			(0x180U)
+#define XCFRAME_STATUS_OFFSET			(0x240U)
 /*@}*/
 
 
