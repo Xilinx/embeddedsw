@@ -29,7 +29,7 @@
 /**
 *
 * @file xcanfd_intr.c
-* @addtogroup canfd_v2_0
+* @addtogroup canfd_v2_1
 * @{
 *
 * This file contains functions related to CAN interrupt handling.
@@ -45,10 +45,10 @@
 *		       IER,ICR Registers and modified TS2 bits in
 *		       BTR and F_SJW bits in F_BTR Registers.
 * 1.2   mi   09/22/16  Fixed compilation warnings.
-* 2.0   ask  09/21/18  Added support for canfd 2.0 spec sequential mode.
+* 2.1   ask  07/03/18 Added support for canfd 2.0 spec sequential mode.
 *					   XCanFd_SetRxIntrWatermark : This function has been
 *					   moved to xcanfd_intr.c
-*
+*       ask  07/03/18 Fix for Sequencial recv CR# 992606,CR# 1004222.
 * </pre>
 *
 ******************************************************************************/

@@ -50,18 +50,20 @@
 *
 * Ver   Who	Date	 Changes
 * ----- -----  -------- -----------------------------------------------
-* 1.0   nsk    06/04/15 First release
-* 1.2   ms     01/23/17 Modified xil_printf statement in main function to
-*                       ensure that "Successfully ran" and "Failed" strings are
-*                       available in all examples. This is a fix for CR-965028.
-*       ms     04/05/17 Added tabspace for return statements in functions
-*                       for proper documentation while generating doxygen.
-* 1.3   ask    08/08/18 Changed the Can ID to 11 bit value as standard Can ID
-*						is 11 bit.
-*  	ask    09/12/18 Added timeout, and Code to handle Timestamp Counter
-*		                Overflow Interrupt. Made logic generic for both
-*						scugic and intc vectors.
-*
+* 1.0   nsk 06/04/15 First release
+* 1.2   ms  01/23/17 Modified xil_printf statement in main function to
+*                    ensure that "Successfully ran" and "Failed" strings are
+*                    available in all examples. This is a fix for CR-965028.
+*       ms  04/05/17 Added tabspace for return statements in functions
+*                    for proper documentation while generating doxygen.
+* 2.1   ask 07/03/18 Added timeout, and Code to handle Timestamp Counter
+*		     Overflow Interrupt for CR# 992606, CR# 1004222 and
+*		     fixed gcc warnings.
+* 		ask    08/08/18 Changed the Can ID to 11 bit value as standard Can ID
+*                                              is 11 bit.
+*		ask    09/12/18 Added timeout, and Code to handle Timestamp Counter
+*                              Overflow Interrupt. Made logic generic for both
+*                                              scugic and intc vectors.
 *
 * </pre>
 *

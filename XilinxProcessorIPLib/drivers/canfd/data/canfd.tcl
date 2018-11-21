@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -30,16 +30,26 @@
 #
 # Ver	Who	Date	 Changes
 # ----	-----	-------	 -----------------------------
-# 1.0	nsk	15/05/15 Updated as per RTL. TxBuffer
-#			 Can be configurable(8,16,32).
+# 1.0	  nsk	15/05/15 Updated as per RTL. TxBuffer
+#			  Can be configurable(8,16,32).
+# 2.1     ask   07/03/18 Added a macro to distinguish between CANFD_v1_0 and
+#			 CANFD_v2_0.
+# 2.1	nsk	07/11/18 Added CANFD Frequency macro to xparameters.h
 #
 ###############################################################################
 
 #uses "xillib.tcl"
 
-proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XCanfd" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CAN_RX_DPTH" "C_CAN_TX_DPTH" "RX_MODE" "NUM_OF_RX_MB_BUF" "NUM_OF_TX_BUF"
-    xdefine_config_file $drv_handle "xcanfd_g.c" "XCanFd" "DEVICE_ID" "C_BASEADDR" "RX_MODE" "NUM_OF_RX_MB_BUF" "NUM_OF_TX_BUF"
 
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "Canfd" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CAN_RX_DPTH" "C_CAN_TX_DPTH" "RX_MODE" "NUM_OF_RX_MB_BUF" "NUM_OF_TX_BUF"
+proc generate {drv_handle} {
+      ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XCanfd" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_CAN_RX_DPTH" "C_CAN_TX_DPTH" "RX_MODE" "NUM_OF_RX_MB_BUF" "NUM_OF_TX_BUF" "C_CAN_CLK_FREQ_HZ"
+      ::hsi::utils::define_zynq_config_file $drv_handle "xcanfd_g.c" "XCanFd" "DEVICE_ID" "C_S_AXI_BASEADDR" "RX_MODE" "NUM_OF_RX_MB_BUF" "NUM_OF_TX_BUF"
+      ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "Canfd" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_CAN_RX_DPTH" "C_CAN_TX_DPTH" "RX_MODE" "NUM_OF_RX_MB_BUF" "NUM_OF_TX_BUF" "C_CAN_CLK_FREQ_HZ"
+      set periph [get_cells -hier $drv_handle]
+	  set version [string tolower [common::get_property VLNV $periph]]
+          if {[string compare -nocase "xilinx.com:ip:canfd:1.0" $version] == 0} {
+              set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+              puts $file_handle "#define CANFD_v1_0"
+              close $file_handle
+          }
 }

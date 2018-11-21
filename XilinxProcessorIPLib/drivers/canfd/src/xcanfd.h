@@ -4,8 +4,7 @@
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* in the Software without restriction, including without limitation the rights * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
 *
@@ -29,7 +28,7 @@
 /**
 *
 * @file xcanfd.h
-* @addtogroup canfd_v2_0
+* @addtogroup canfd_v2_1
 * @{
 * @details
 *
@@ -210,17 +209,9 @@ exclusion
 *       ms   04/05/17 Added tabspace for return statements in functions
 *                     of canfd examples for proper documentation while
 *                     generating doxygen.
-* 1.3   ask  08/08/18 Fixed Gcc, Cppcheck and doxygen warnings in api's :
-*					  XCanFd_PollQueue_Buffer, XCanFd_AcceptFilterSet,
-*					  XCanFd_Recv_Sequential, XCanFd_SetBitTiming,
-*					  XCanFd_SetBitRateSwitch_EnableNominal.
-*					  Changed value of Canfd Id to 11 bit value to comply
-*					  with standard Can ID.
-*	ask  09/21/18 Fixed CanFD hang issue in selftest by correcting the
-*  	   	      Configuration regarding the Baud Rate and bit timing
-*		      for both Arbitration and Data Phase.
-*
-* 2.0  ask  09/12/18 Added support for canfd 2.0 spec sequential mode.
+* 2.0   mj   1/3/18   updated supported_peripherals and version number CR# 991037.
+*                     CANFD Driver not pulled by drivers.
+* 2.1   ask  09/12/18 Added support for canfd 2.0 spec sequential mode.
 *                                        API's added : XCanFd_Recv_Sequential
 *                                                                      XCanFd_SeqRecv_logic
 *                                                                      XCanFd_Recv_TXEvents_Sequential
@@ -248,6 +239,20 @@ exclusion
 *			 Modified apis
 *						XCanFd_SetBitTiming
 *                                               XCanFd_SetFBitTiming in xcanfd.h
+*       ask  07/03/18 Fix for Sequencial recv CR# 992606,CR# 1004222.
+*       nsk  07/11/18 Updated tcl to generate CANFD Frequency macro in
+*		      xparameters.h (CR 1005641).
+*	ask  08/27/18 Modified RecvSeq function to return XST_NO_DATA when the
+*	 	      fifo fill levels are zero.
+* 	ask  08/08/18 Fixed Gcc, Cppcheck and doxygen warnings in api's :
+*                                        XCanFd_PollQueue_Buffer, XCanFd_AcceptFilterSet,
+*                                        XCanFd_Recv_Sequential, XCanFd_SetBitTiming,
+*                                        XCanFd_SetBitRateSwitch_EnableNominal.
+*                                        Changed value of Canfd Id to 11 bit value to comply
+*                                        with standard Can ID.
+*	ask  09/21/18 Fixed CanFD hang issue in selftest by correcting the
+*                    Configuration regarding the Baud Rate and bit timing
+*                    for both Arbitration and Data Phase.
 *
 * </pre>
 *
@@ -620,7 +625,7 @@ typedef struct {
 *
 * @param	ReadIndex is the Buffer	number to locate the FIFO
 *
-* @note		None
+* @note		none
 *
 *****************************************************************************/
 #define XCANFD_RXID_OFFSET(ReadIndex) \
@@ -987,6 +992,21 @@ typedef struct {
 *****************************************************************************/
 #define XCanFd_Get_RxBuffers(InstancePtr)	\
 		InstancePtr->CanFdConfig.NumofRxMbBuf;
+
+/****************************************************************************/
+/**
+*
+* This routine returns Number with right most bit set
+* from the target input value.
+*
+* @param	Target value.
+*
+* @return	Number with right most bit set from the target value.
+*
+* @note		None.
+*
+*****************************************************************************/
+#define XCanFD_Check_TrrVal_Set_Bit(Var)      Var&(-Var)
 
 /****************************************************************************/
 /**
