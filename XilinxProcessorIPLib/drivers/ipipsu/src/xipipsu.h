@@ -28,7 +28,7 @@
 /*****************************************************************************/
 /**
  * @file xipipsu.h
-* @addtogroup ipipsu_v2_3
+* @addtogroup ipipsu_v2_5
 * @{
 * @details
  *

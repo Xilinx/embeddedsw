@@ -28,7 +28,7 @@
 /**
 *
 * @file xipipsu_hw.h
-* @addtogroup ipipsu_v2_3
+* @addtogroup ipipsu_v2_5
 * @{
 *
 * This file contains macro definitions for low level HW related params
@@ -49,7 +49,11 @@
 
 /************************** Constant Definitions *****************************/
 /* Message RAM related params */
+#if defined (versal)
+#define XIPIPSU_MSG_RAM_BASE 0xFF3F0000U
+#else
 #define XIPIPSU_MSG_RAM_BASE 0xFF990000U
+#endif
 #define XIPIPSU_MSG_BUF_SIZE 8U	/* Size in Words */
 #define XIPIPSU_MAX_BUFF_INDEX	7U
 
@@ -70,7 +74,11 @@
 #define XIPIPSU_IDR_OFFSET 0x1CU
 
 /* MASK of all valid IPI bits in above registers */
+#if defined (versal)
+#define XIPIPSU_ALL_MASK	0x000003FFU
+#else
 #define XIPIPSU_ALL_MASK	0x0F0F0301U
+#endif
 
 #endif /* XIPIPSU_HW_H_ */
 /** @} */

@@ -53,6 +53,18 @@ proc ipi_define_xpar {inst param} {
 	return  [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $inst] $name $param_value]
 }
 
+proc ipi_find_cpu {ipi_list param hw_proc} {
+	set proc_ipi_slave ""
+	foreach ipi $ipi_list {
+		set param_name [string range $param [string length "CONFIG."] [string length $param]]
+		set param_value [common::get_property $param [hsi::get_cells -hier $ipi]]
+		if { [string match -nocase "*$param_value*" $hw_proc] } {
+			lappend proc_ipi_slave $ipi
+		}
+	}
+	return $proc_ipi_slave
+}
+
 #Generate Config file with data structures describing the HW
 proc ipi_generate_config {drv_handle file_name} {
 
@@ -63,11 +75,11 @@ proc ipi_generate_config {drv_handle file_name} {
 	set sw_proc_handle [::hsi::get_sw_processor]
 	set hw_proc_handle [::hsi::get_cells -hier [common::get_property hw_instance $sw_proc_handle]]
 
-	# List of IPIs owned by this processor
-	set proc_ipi_list [lsearch -all -inline [get_property SLAVES $hw_proc_handle] psu_ipi_*]
-
 	# List of all IPIs on SoC
 	set ipi_list [get_cells -hier -filter { IP_NAME == "psu_ipi" }]
+	
+	# List of IPIs owned by this processor
+	set proc_ipi_list [ipi_find_cpu $ipi_list CONFIG.C_CPU_NAME $hw_proc_handle]
 
 	set cfgfilename [file join "src" $file_name]
 	set config_file [open $cfgfilename w]
@@ -90,7 +102,7 @@ proc ipi_generate_config {drv_handle file_name} {
 		puts $config_file $comma
 		puts $config_file "\t\{"
 		puts $config_file [format "\t\tXPAR_%s_%s" [string toupper $ipi_inst] "DEVICE_ID,"]
-		puts $config_file [format "\t\tXPAR_%s_%s" [string toupper $ipi_inst] "BASE_ADDRESS,"]
+		puts $config_file [format "\t\tXPAR_%s_%s" [string toupper $ipi_inst] "S_AXI_BASEADDR,"]
 		puts $config_file [format "\t\tXPAR_%s_%s" [string toupper $ipi_inst] "BIT_MASK,"]
 		puts $config_file [format "\t\tXPAR_%s_%s" [string toupper $ipi_inst] "BUFFER_INDEX,"]
 		puts $config_file [format "\t\tXPAR_%s_%s" [string toupper $ipi_inst] "INT_ID,"]
@@ -138,7 +150,7 @@ proc ipi_generate_params {file_name} {
 
 
 	# List of IPIs owned by this processor
-	set proc_ipi_list [lsearch -all -inline [get_property SLAVES $hw_proc_handle] psu_ipi_*]
+	set proc_ipi_list [ipi_find_cpu $ipi_list CONFIG.C_CPU_NAME $hw_proc_handle]
 
 	#Total number of IPIs assigned to this proc
 	puts $file_handle [format "#define  XPAR_XIPIPSU_NUM_INSTANCES  %s$uSuffix" [llength $proc_ipi_list]]
@@ -151,7 +163,7 @@ proc ipi_generate_params {file_name} {
 	foreach ipi_inst $proc_ipi_list {
 		puts $file_handle [format "/* Parameter definitions for peripheral %s */" $ipi_inst]
 		puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $ipi_inst] "DEVICE_ID" $idx]
-		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_BASE_ADDRESS]
+		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_S_AXI_BASEADDR]
 		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_BIT_POSITION]
 		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_BUFFER_INDEX]
 		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_INT_ID]
@@ -163,7 +175,7 @@ proc ipi_generate_params {file_name} {
 	foreach ipi_inst $proc_ipi_list {
 		puts $file_handle [format "/* Canonical definitions for peripheral %s */" $ipi_inst]
 		puts $file_handle [format "#define  XPAR_%s_%s_%s	XPAR_%s_%s" [string toupper $drv_string] $idx "DEVICE_ID" [string toupper $ipi_inst] "DEVICE_ID"]
-		puts $file_handle [format "#define  XPAR_%s_%s_%s	XPAR_%s_%s" [string toupper $drv_string] $idx "BASE_ADDRESS" [string toupper $ipi_inst] "BASE_ADDRESS"]
+		puts $file_handle [format "#define  XPAR_%s_%s_%s	XPAR_%s_%s" [string toupper $drv_string] $idx "BASE_ADDRESS" [string toupper $ipi_inst] "S_AXI_BASEADDR"]
 		puts $file_handle [format "#define  XPAR_%s_%s_%s	XPAR_%s_%s" [string toupper $drv_string] $idx "BIT_MASK" [string toupper $ipi_inst] "BIT_MASK"]
 		puts $file_handle [format "#define  XPAR_%s_%s_%s	XPAR_%s_%s" [string toupper $drv_string] $idx "BUFFER_INDEX" [string toupper $ipi_inst] "BUFFER_INDEX"]
 		puts $file_handle [format "#define  XPAR_%s_%s_%s	XPAR_%s_%s" [string toupper $drv_string] $idx "INT_ID" [string toupper $ipi_inst] "INT_ID"]
@@ -185,7 +197,7 @@ proc ipi_generate_params {file_name} {
 	puts $file_handle ""
 	foreach proc $proc_list {
 		# List of IPIs owned by this processor
-		set proc_slave_list [lsearch -all -inline [get_property SLAVES $proc] psu_ipi_*]
+		set proc_slave_list [ipi_find_cpu $ipi_list CONFIG.C_CPU_NAME $proc]
 
 		set idx 0
 		foreach ipi_slave $proc_slave_list {
