@@ -36,19 +36,27 @@
 #include <assert.h>
 #define CHECK_BIT(reg, mask)	(((reg) & (mask)) == (mask))
 
-#define PSM_TO_PLM_EVENT_VERSION		(0x1U)
+/**
+ * NOTE: Older PsmToPlmEvent version (0x1U) only consists Event array
+ *       while new version (0x2U) adds CpuIdleFlag and ResumeAddress in it.
+ */
+#define PSM_TO_PLM_EVENT_VERSION		(0x2U)
 #define PWR_UP_EVT				(0x1U)
 #define PWR_DWN_EVT				(0x100U)
 
 __attribute__((used, section(".reserved_memory")))
 	static volatile struct PsmToPlmEvent_t PsmToPlmEvent = {
 		.Version	= PSM_TO_PLM_EVENT_VERSION,
-		.Event	= {0x0},
+		.Event		= {0x0},
+		.CpuIdleFlag 	= {0x0},
+		.ResumeAddress 	= {0x0},
 	};
 
 static u32 LocalPwrState;
 
 static struct XPsmFwPwrCtrl_t Acpu0PwrCtrl = {
+	.Id = ACPU_0,
+	.ResetCfgAddr = FPD_APU_RVBARADDR0L,
 	.PwrStateMask = PSM_LOCAL_PWR_STATE_ACPU0_MASK,
 	.PwrCtrlAddr = PSM_LOCAL_ACPU0_PWR_CNTRL,
 	.PwrStatusAddr = PSM_LOCAL_ACPU0_PWR_STATUS,
@@ -71,6 +79,8 @@ static struct XPsmFwPwrCtrl_t Acpu0PwrCtrl = {
 };
 
 static struct XPsmFwPwrCtrl_t Acpu1PwrCtrl = {
+	.Id = ACPU_1,
+	.ResetCfgAddr = FPD_APU_RVBARADDR1L,
 	.PwrStateMask = PSM_LOCAL_PWR_STATE_ACPU1_MASK,
 	.PwrCtrlAddr = PSM_LOCAL_ACPU1_PWR_CNTRL,
 	.PwrStatusAddr = PSM_LOCAL_ACPU1_PWR_STATUS,
@@ -93,6 +103,8 @@ static struct XPsmFwPwrCtrl_t Acpu1PwrCtrl = {
 };
 
 static struct XPsmFwPwrCtrl_t Rpu0PwrCtrl = {
+	.Id = RPU0_0,
+	.ResetCfgAddr = RPU_RPU_0_CFG,
 	.PwrStateMask = PSM_LOCAL_PWR_STATE_R5_0_MASK,
 	.PwrCtrlAddr = PSM_LOCAL_RPU_PWR_CNTRL,
 	.PwrStatusAddr = PSM_LOCAL_RPU_PWR_STATUS,
@@ -115,6 +127,8 @@ static struct XPsmFwPwrCtrl_t Rpu0PwrCtrl = {
 };
 
 static struct XPsmFwPwrCtrl_t Rpu1PwrCtrl = {
+	.Id = RPU0_1,
+	.ResetCfgAddr = RPU_RPU_1_CFG,
 	.PwrStateMask = PSM_LOCAL_PWR_STATE_R5_1_MASK,
 	.PwrCtrlAddr = PSM_LOCAL_RPU_PWR_CNTRL,
 	.PwrStatusAddr = PSM_LOCAL_RPU_PWR_STATUS,
@@ -305,10 +319,8 @@ enum XPsmFWPwrUpDwnType {
 	XPSMFW_PWR_UPDWN_REQUEST,
 };
 
-int XPsmFw_FpdMbisr(void)
+void XPsmFw_FpdMbisr(void)
 {
-	int Status = XST_FAILURE;
-
 	/* Release FPD reset */
 	XPsmFw_RMW32(CRL_RST_FPD, CRL_RST_FPD_SRST_MASK,
 			     ~CRL_RST_FPD_SRST_MASK);
@@ -318,23 +330,11 @@ int XPsmFw_FpdMbisr(void)
 			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
 			~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
 
-	/* Bisr will now be triggered by libpm when this call
-		returns*/
-
-	Status = XST_SUCCESS;
-
-	return Status;
+	/* Bisr will now be triggered by libpm when this call returns */
 }
 
-int XPsmFw_FpdScanClear(void)
+void XPsmFw_FpdMbistClear(void)
 {
-	return XST_SUCCESS;
-}
-
-int XPsmFw_FpdMbistClear(void)
-{
-	int Status = XST_FAILURE;
-
 	/* Release FPD reset */
 	XPsmFw_RMW32(CRL_RST_FPD, CRL_RST_FPD_SRST_MASK,
 			     ~CRL_RST_FPD_SRST_MASK);
@@ -343,23 +343,11 @@ int XPsmFw_FpdMbistClear(void)
 	XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
 			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
 			~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
-
-	Status = XST_SUCCESS;
-
-	return Status;
 }
 
 int XPsmFw_FpdPreHouseClean(void)
 {
 	int Status = XST_FAILURE;
-	u32 RegVal;
-
-	/* Check vccint_fpd first to make sure power is on */
-	RegVal = XPsmFw_Read32(PMC_GLOBAL_PWR_SUPPLY_STATUS);
-	if ((RegVal & PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_FPD_MASK) != PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_FPD_MASK) {
-		/* TODO: Request PMC to power up VCCINT_FP rail and wait for the acknowledgement.*/
-		goto done;
-	}
 
 	/* TODO: Disable PSM interrupts */
 
@@ -401,14 +389,11 @@ int XPsmFw_FpdPreHouseClean(void)
 
 	Status = XST_SUCCESS;
 
-done:
 	return Status;
 }
 
-int XPsmFw_FpdPostHouseClean(void)
+void XPsmFw_FpdPostHouseClean(void)
 {
-	int Status = XST_FAILURE;
-
 	/* Disable Remaining LP-FP isolation - in case bisr and mbist was skipped */
 	XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
 			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
@@ -433,11 +418,8 @@ int XPsmFw_FpdPostHouseClean(void)
 		XPsmFw_RMW32(PSM_LOCAL_PWR_STATE, PSM_LOCAL_PWR_STATE_FP_MASK,
 			     PSM_LOCAL_PWR_STATE_FP_MASK);
 	}
+
 	/* TODO: Enable PSM Interrupts */
-
-	Status = XST_SUCCESS;
-
-	return Status;
 }
 
 static XStatus XPsmFwIslandPwrUp(struct XPsmFwPwrCtrl_t *Args)
@@ -504,6 +486,7 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegVal;
+	u32 HighAddress, LowAddress;
 
 	/* Power up ACPUx only if powered down */
 	RegVal = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_STATE);
@@ -512,6 +495,15 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
+	}
+
+	/* Set the start address */
+	LowAddress = (u32)(PsmToPlmEvent.ResumeAddress[Args->Id] & 0xfffffffeULL);
+	HighAddress = (u32)(PsmToPlmEvent.ResumeAddress[Args->Id] >> 32ULL);
+	if (0U != (PsmToPlmEvent.ResumeAddress[Args->Id] & 1ULL)) {
+		XPsmFw_Write32(Args->ResetCfgAddr, LowAddress);
+		XPsmFw_Write32((Args->ResetCfgAddr + 0x4U), HighAddress);
+		PsmToPlmEvent.ResumeAddress[Args->Id] = 0U;
 	}
 
 	RegVal = XPsmFw_Read32(CRF_RST_APU);
@@ -546,7 +538,7 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS, Args->PwrStateMask);
 
 	/* Enable Direct Power-down Request of ACPUx */
-	XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN, Args->PwrStateMask);
+	/* This is already handled in PLM during self-suspend */
 
 	/*
 	 * Unmask interrupt for all Power-up Requests and Reset Requests that
@@ -582,9 +574,21 @@ done:
 static XStatus XPsmFwIslandPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
+	u32 IdCodeSubFamily, PlatformType;
 
 	/* Enable isolation */
 	XPsmFw_RMW32(Args->PwrCtrlAddr, PSM_LOCAL_PWR_CTRL_ISO_MASK, PSM_LOCAL_PWR_CTRL_ISO_MASK);
+
+	/* EDT-1005580/CR-1070320: De-feature power down of Power Islands */
+	PlatformType = XPsmFw_GetPlatform();
+	IdCodeSubFamily = XPsmFw_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK;
+
+	if ((PLATFORM_VERSION_SILICON == PlatformType) &&
+	    ((IDCODE_DEV_SBFMLY_VC1902 == IdCodeSubFamily) ||
+	     (IDCODE_DEV_SBFMLY_VM1802 == IdCodeSubFamily))) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	/* Disable all power stages */
 	XPsmFw_RMW32(Args->PwrCtrlAddr, PSM_LOCAL_PWR_CTRL_GATES_MASK, ~PSM_LOCAL_PWR_CTRL_GATES_MASK);
@@ -592,6 +596,7 @@ static XStatus XPsmFwIslandPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* Poll the power stage status */
 	Status = XPsmFw_UtilPollForZero(Args->PwrStatusAddr, PSM_LOCAL_PWR_CTRL_GATES_MASK, Args->PwrDwnAckTimeout);
 
+done:
 	return Status;
 }
 
@@ -671,7 +676,7 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS, Args->PwrStateMask);
 
 	/* Enable wake interrupt by GIC for ACPUx */
-	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_EN, Args->PwrStateMask);
+	/* This is already handled in post processing of PLM */
 
 	/*
 	 * If FPD bit is set in the REQ_PWRDWN_STATUS register unmask the FPD
@@ -766,6 +771,7 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	XStatus Status = XST_FAILURE;
 	u32 PwrStateMask;
 	u32 RegVal;
+	u32 LowAddress;
 
 	/* Assert reset to RPU cores */
 	XPsmFw_RMW32(CRL_RST_CPU_R5, Args->RstCtrlMask, Args->RstCtrlMask);
@@ -792,6 +798,18 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_RMW32(PSM_LOCAL_AUX_PWR_STATE,
 			PSM_LOCAL_AUX_PWR_STATE_RPU_EMUL_MASK,
 			~PSM_LOCAL_AUX_PWR_STATE_RPU_EMUL_MASK);
+
+	/* Set the start address */
+	LowAddress = (u32)(PsmToPlmEvent.ResumeAddress[Args->Id] & 0xfffffffeULL);
+	if (0U != (PsmToPlmEvent.ResumeAddress[Args->Id] & 1ULL)) {
+		if (RPU_HIVEC_ADDR == (LowAddress & RPU_HIVEC_ADDR)) {
+			XPsmFw_RMW32(Args->ResetCfgAddr, RPU_VINITHI_MASK,
+				     RPU_VINITHI_MASK);
+		} else {
+			XPsmFw_RMW32(Args->ResetCfgAddr, RPU_VINITHI_MASK, 0U);
+		}
+		PsmToPlmEvent.ResumeAddress[Args->Id] = 0U;
+	}
 
 	/* Release RPU_LS_RESET in the PSM LOCAL_RESET register */
 	/* As per EDT-978644, this is already handled in below 2 steps */
@@ -1013,7 +1031,7 @@ static XStatus XPsmFwMemPwrDown(struct XPsmFwMemPwrCtrl_t *Args)
 	/* Disable power state for selected bank */
 	XPsmFw_RMW32(Args->PwrCtrlAddr, Args->PwrCtrlMask, ~Args->PwrCtrlMask);
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPsmFw_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -1587,11 +1605,24 @@ XStatus XPsmFw_DispatchPwrDwnHandler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
  */
 static XStatus ACPU0Wakeup(void)
 {
-	/* Set the event bit for PLM */
-	assert(PsmToPlmEvent.Event[ACPU_0] == 0U);
-	PsmToPlmEvent.Event[ACPU_0] = PWR_UP_EVT;
+	int Status = XST_FAILURE;
 
-	return XPsmFw_NotifyPlmEvent();
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[ACPU_0] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_0]) {
+		Status = XPsmFwACPUxDirectPwrUp(&Acpu0PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[ACPU_0] = PWR_UP_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
 }
 
 /**
@@ -1601,11 +1632,24 @@ static XStatus ACPU0Wakeup(void)
  */
 static XStatus ACPU0Sleep(void)
 {
-	/* Set the event bit for PLM */
-	assert(PsmToPlmEvent.Event[ACPU_0] == 0U);
-	PsmToPlmEvent.Event[ACPU_0] = PWR_DWN_EVT;
+	int Status = XST_FAILURE;
 
-	return XPsmFw_NotifyPlmEvent();
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[ACPU_0] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_0]) {
+		Status = XPsmFwACPUxDirectPwrDwn(&Acpu0PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[ACPU_0] = PWR_DWN_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
 }
 
 /**
@@ -1615,11 +1659,24 @@ static XStatus ACPU0Sleep(void)
  */
 static XStatus ACPU1Wakeup(void)
 {
-	/* Set the event bit for PLM */
-	assert(PsmToPlmEvent.Event[ACPU_1] == 0U);
-	PsmToPlmEvent.Event[ACPU_1] = PWR_UP_EVT;
+	int Status = XST_FAILURE;
 
-	return XPsmFw_NotifyPlmEvent();
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[ACPU_1] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_1]) {
+		Status = XPsmFwACPUxDirectPwrUp(&Acpu1PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[ACPU_1] = PWR_UP_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
 }
 
 /**
@@ -1629,11 +1686,24 @@ static XStatus ACPU1Wakeup(void)
  */
 static XStatus ACPU1Sleep(void)
 {
-	/* Set the event bit for PLM */
-	assert(PsmToPlmEvent.Event[ACPU_1] == 0U);
-	PsmToPlmEvent.Event[ACPU_1] = PWR_DWN_EVT;
+	int Status = XST_FAILURE;
 
-	return XPsmFw_NotifyPlmEvent();
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[ACPU_1] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_1]) {
+		Status = XPsmFwACPUxDirectPwrDwn(&Acpu1PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[ACPU_1] = PWR_DWN_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
 }
 
 /**
@@ -1643,11 +1713,24 @@ static XStatus ACPU1Sleep(void)
  */
 static XStatus R50Wakeup(void)
 {
-	/* Set the event bit for PLM */
-	assert(PsmToPlmEvent.Event[RPU0_0] == 0U);
-	PsmToPlmEvent.Event[RPU0_0] = PWR_UP_EVT;
+	int Status = XST_FAILURE;
 
-	return XPsmFw_NotifyPlmEvent();
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[RPU0_0] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_0]) {
+		Status = XPsmFwRPUxDirectPwrUp(&Rpu0PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[RPU0_0] = PWR_UP_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
 }
 
 /**
@@ -1657,11 +1740,24 @@ static XStatus R50Wakeup(void)
  */
 static XStatus R50Sleep(void)
 {
-	/* Set the event bit for PLM */
-	assert(PsmToPlmEvent.Event[RPU0_0] == 0U);
-	PsmToPlmEvent.Event[RPU0_0] = PWR_DWN_EVT;
+	int Status = XST_FAILURE;
 
-	return XPsmFw_NotifyPlmEvent();
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[RPU0_0] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_0]) {
+		Status = XPsmFwRPUxDirectPwrDwn(&Rpu0PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[RPU0_0] = PWR_DWN_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
 }
 
 /**
@@ -1671,11 +1767,24 @@ static XStatus R50Sleep(void)
  */
 static XStatus R51Wakeup(void)
 {
-	/* Set the event bit for PLM */
-	assert(PsmToPlmEvent.Event[RPU0_1] == 0U);
-	PsmToPlmEvent.Event[RPU0_1] = PWR_UP_EVT;
+	int Status = XST_FAILURE;
 
-	return XPsmFw_NotifyPlmEvent();
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[RPU0_1] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_1]) {
+		Status = XPsmFwRPUxDirectPwrUp(&Rpu1PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[RPU0_1] = PWR_UP_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
 }
 
 /**
@@ -1685,11 +1794,24 @@ static XStatus R51Wakeup(void)
  */
 static XStatus R51Sleep(void)
 {
-	/* Set the event bit for PLM */
-	assert(PsmToPlmEvent.Event[RPU0_1] == 0U);
-	PsmToPlmEvent.Event[RPU0_1] = PWR_DWN_EVT;
+	int Status = XST_FAILURE;
 
-	return XPsmFw_NotifyPlmEvent();
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[RPU0_1] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_1]) {
+		Status = XPsmFwRPUxDirectPwrDwn(&Rpu1PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[RPU0_1] = PWR_DWN_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
 }
 
 /****************************************************************************/

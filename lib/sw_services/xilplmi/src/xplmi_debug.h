@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -16,8 +15,16 @@
 *
 * Ver	Who	Date		Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00a kc   07/13/2018 Initial release
-* 1.01  ma   03/02/2020 Add timestamp for each PLM print
+* 1.00  kc   07/13/2018 Initial release
+* 1.01  kc   07/16/2019 Added PERF macro to print task times
+*       ma   08/01/2019 Added LPD init code
+* 1.02  ana  11/26/2019 Updated Uart Device ID
+*       kc   01/16/2020 Removed xilpm dependency in PLMI for UART
+*       ma   02/18/2020 Added support for logging terminal prints
+*       ma   03/02/2020 Implement PLMI own outbyte to support logging as well
+*       bsv  04/04/2020 Code clean up
+* 1.03  kc   07/28/2020 Moved LpdInitialized from xplmi_debug.c to xplmi.c
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -34,10 +41,10 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_printf.h"
-#include "xparameters.h"
 #include "xplmi_config.h"
 #include "xplmi_event_logging.h"
 #include "xplmi_proc.h"
+#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
 /**
@@ -45,7 +52,7 @@ extern "C" {
  */
 #define DEBUG_PRINT_ALWAYS	(0x00000001U)    /* unconditional messages */
 #define DEBUG_GENERAL		(0x00000002U)    /* general debug  messages */
-#define DEBUG_INFO			(0x00000004U)    /* More debug information */
+#define DEBUG_INFO		(0x00000004U)    /* More debug information */
 #define DEBUG_DETAILED		(0x00000008U)    /* More debug information */
 
 /**************************** Type Definitions *******************************/
@@ -87,30 +94,17 @@ extern "C" {
 int XPlmi_InitUart(void);
 
 /************************** Variable Definitions *****************************/
-extern u8 LpdInitialized;
-
-#define UART_INITIALIZED	(1U << 0U)
-#define LPD_INITIALIZED		(1U << 1U)
-
 #define XPlmi_Printf(DebugType, ...) \
-	if(((DebugType) & (XPlmiDbgCurrentTypes & DebugLog.LogLevel)) != FALSE) { \
+	if(((DebugType) & (DebugLog.LogLevel)) != (u8)FALSE) { \
 		XPlmi_PrintPlmTimeStamp(); \
 		xil_printf (__VA_ARGS__); \
 	}
 
-/*****************************************************************************/
-/**
- * @brief	This function resets LpdInitialized variable to 0.
- *
- * @param	None
- *
- * @return	None
- *
- *****************************************************************************/
-inline void XPlmi_ResetLpdInitialized(void)
-{
-	LpdInitialized = FALSE;
-}
+/* Prints without TimeStamp */
+#define XPlmi_Printf_WoTimeStamp(DebugType, ...) \
+	if(((DebugType) & (DebugLog.LogLevel)) != (u8)FALSE) { \
+		xil_printf (__VA_ARGS__); \
+	}
 
 #ifdef __cplusplus
 }

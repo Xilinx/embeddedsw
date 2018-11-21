@@ -9,11 +9,10 @@
 /*
 * The configuration table for devices
 */
-
 XCfupmc_Config XCfupmc_ConfigTable[XPAR_XCFUPMC_NUM_INSTANCES] =
 {
 	{
-		XPAR_PMC_CFU_0_DEVICE_ID,
-		XPAR_PMC_CFU_0_BASEADDR
+		(u16)XPAR_PMC_CFU_0_DEVICE_ID,
+		(u32)XPAR_PMC_CFU_0_BASEADDR
 	}
 };

@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -19,16 +18,17 @@
 * 1.00  kc   12/21/2017 Initial release
 * 2.00  bsv	 03/01/2019	Added error handling APIs
 * 2.01  bsv  11/06/2019 XCfupmc_ClearCfuIsr API added
+* 3.00  bsv  27/06/2020 Code clean up
 * </pre>
 *
 * @note
 *
 ******************************************************************************/
 
-
 /***************************** Include Files *********************************/
 #include "xcfupmc.h"
 #include "sleep.h"
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -36,6 +36,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static void XCfupmc_Reset(const XCfupmc *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -61,25 +62,22 @@
 * @return
 *		- XST_SUCCESS if initialization was successful.
 *
-* @note		None.
-*
 ******************************************************************************/
-s32 XCfupmc_CfgInitialize(XCfupmc *InstancePtr, XCfupmc_Config *CfgPtr,
+s32 XCfupmc_CfgInitialize(XCfupmc *InstancePtr, const XCfupmc_Config *CfgPtr,
 			u32 EffectiveAddr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid(EffectiveAddr != ((u32)0));
+	Xil_AssertNonvoid(EffectiveAddr != 0U);
 
 	/* Setup the instance */
 	(void)memcpy((void *)&(InstancePtr->Config), (const void *)CfgPtr,
-						sizeof(XCfupmc_Config));
+		sizeof(XCfupmc_Config));
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
-
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
-	return (XST_SUCCESS);
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -93,155 +91,16 @@ s32 XCfupmc_CfgInitialize(XCfupmc *InstancePtr, XCfupmc_Config *CfgPtr,
  *
  * @return  None
  *
- * @note	None.
  ******************************************************************************/
-void XCfupmc_MaskRegWrite(XCfupmc *InstancePtr, u32 Addr, u32 Mask, u32 Val)
+void XCfupmc_MaskRegWrite(const XCfupmc *InstancePtr, u32 Addr, u32 Mask, u32 Val)
 {
-
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress,
-			CFU_APB_CFU_MASK, Mask);
-	/* XCfupmc_WriteReg(InstancePtr->Config.BaseAddress,Addr, Val); */
+	XCfupmc_WriteReg(CFU_APB_CFU_MASK, Mask);
+	XCfupmc_WriteReg(Addr,
+		((XCfupmc_ReadReg(Addr)&(~Mask)) | Val));
 
-	/* TODO remove the hack once Mask register is implemented correctly */
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress, Addr,
-		((XCfupmc_ReadReg(InstancePtr->Config.BaseAddress,
-					Addr))&(~Mask)) | Val);
-}
-
-/*****************************************************************************/
-/**
- * This function sets the CFU parameters as specified in the Instance Ptr
- *
- * @param	InstancePtr is a pointer to the XCfupmc instance.
- *
- * @return  None
- *
- * @note	None.
- ******************************************************************************/
-void XCfupmc_SetParam(XCfupmc *InstancePtr)
-{
-
-	Xil_AssertVoid(InstancePtr != NULL);
-
-	XCfupmc_Printf("CFU Initialization before CFI data load\n\r");
-
-	/* Remove CFU Protection */
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress, CFU_APB_CFU_PROTECT, 0U);
-
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress,
-			CFU_APB_CFU_ITR, CFU_APB_CFU_ITR_SEU_ENDOFCALIB_MASK);
-
-	/* Enable compression if required */
-	if (InstancePtr->DeCompress == 1U)
-	{
-		XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
-				CFU_APB_CFU_CTL_DECOMPRESS_MASK,
-					CFU_APB_CFU_CTL_DECOMPRESS_MASK);
-	}
-
-	/* Disable packet header CRC8 if required */
-	if (InstancePtr->Crc8Dis == 1U)
-	{
-		/* crc32 check enable bit. Present from ITR6 */
-		XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
-				CFU_APB_CFU_CTL_CRC8_DISABLE_MASK,
-					CFU_APB_CFU_CTL_CRC8_DISABLE_MASK);
-	}
-
-	/* Enable CRC32 if required */
-	if (InstancePtr->Crc32Check == 1U)
-	{
-		/* crc32 check enable bit. Present from ITR6 */
-		XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
-				CFU_APB_CFU_CTL_CRC32_CHECK_MASK,
-					CFU_APB_CFU_CTL_CRC32_CHECK_MASK);
-	}
-
-	/* Always reset CFU_FGCR[3]=0 for GLUTMASK=0 */
-	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_FGCR,
-			CFU_APB_CFU_FGCR_GLUTMASK_MASK, 0);
-
-	/* Enable CFU Protection */
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress, CFU_APB_CFU_PROTECT, 1U);
-}
-
-/*****************************************************************************/
-/**
- * This function waits for CFU stream busy status
- *
- * @param	InstancePtr is a pointer to the XCfupmc instance.
- *
- * @return
- *		- XST_SUCCESS if there is no CRC failure
- *
- ******************************************************************************/
-s32 XCfupmc_WaitForStreamBusy(XCfupmc *InstancePtr)
-{
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	XCfupmc_Printf("Wait for CFU stream busy\n\r");
-
-	/* Check for CFU stream busy status */
-	while ((XCfupmc_ReadReg(
-			InstancePtr->Config.BaseAddress, CFU_APB_CFU_STATUS) &
-				CFU_APB_CFU_STATUS_CFU_STREAM_BUSY_MASK) ==
-					CFU_APB_CFU_STATUS_CFU_STREAM_BUSY_MASK);
-
-	/* TODO should return error after timeout */
-	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
- * This function checks CFI data CRC after loading to PL
- *
- * @param	InstancePtr is a pointer to the XCfupmc instance.
- *
- * @return
- *		- XST_SUCCESS if there is no CRC failure
- *
- ******************************************************************************/
-s32 XCfupmc_CheckParam(XCfupmc *InstancePtr)
-{
-	s32 Status;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	XCfupmc_Printf("Settings After CFI Data loading\n\r");
-
-	/* Check the expected CRC Value */
-	if (InstancePtr->Crc32Check == 1U)
-	{
-		XCfupmc_WriteReg(InstancePtr->Config.BaseAddress,
-			CFU_APB_CFU_CRC_EXPECT, InstancePtr->Crc32Val);
-		if ((XCfupmc_ReadReg(InstancePtr->Config.BaseAddress,
-			CFU_APB_CFU_ISR) & CFU_APB_CFU_ISR_CRC32_ERROR_MASK)
-				== CFU_APB_CFU_ISR_CRC32_ERROR_MASK)
-		{
-			XCfupmc_Printf("CRC32 failed \n\r");
-			Status = (s32 )XST_FAILURE;
-			goto END;
-		}
-	}
-
-	/* Reset the decompression bit */
-	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
-			CFU_APB_CFU_CTL_DECOMPRESS_MASK, 0U);
-
-	/* Enable SEU GO upon selection by user */
-
-	/* Enable the CFU Protection  */
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress,
-			CFU_APB_CFU_PROTECT,
-			CFU_APB_CFU_PROTECT_ACTIVE_MASK);
-
-	XCfupmc_Printf("Bitstream Loading Success \n\r");
-	Status = (s32 )XST_SUCCESS;
-
-END:
-	return Status;
+	return;
 }
 
 /*****************************************************************************/
@@ -253,28 +112,29 @@ END:
  * @return	None
  *
  ******************************************************************************/
-void XCfupmc_SetGlblSigEn(XCfupmc *InstancePtr, u8 Enable)
+void XCfupmc_SetGlblSigEn(const XCfupmc *InstancePtr, u8 Enable)
 {
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Remove CFU Protection */
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress, CFU_APB_CFU_PROTECT, 0U);
+	XCfupmc_WriteReg(CFU_APB_CFU_PROTECT, CFUPMC_PROT_DISABLE);
 
-	if (Enable == (u8)TRUE)
-	{
+	if (Enable == CFUPMC_GLB_SIG_EN) {
 		/* Assert EN_GLOB */
 		XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_FGCR,
-		     CFU_APB_CFU_FGCR_EN_GLOBS_B_MASK, 0x0U);
-	} else {
+		     CFU_APB_CFU_FGCR_EN_GLOBS_B_MASK,
+			 CFU_APB_CFU_FGCR_EN_GLOBS_B_ASSERT_VAL);
+	}
+	else {
 		/* Deassert EN_GLOB */
 		XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_FGCR,
-		     CFU_APB_CFU_FGCR_EN_GLOBS_B_MASK,
-		     CFU_APB_CFU_FGCR_EN_GLOBS_B_MASK);
+			CFU_APB_CFU_FGCR_EN_GLOBS_B_MASK,
+			CFU_APB_CFU_FGCR_EN_GLOBS_B_MASK);
 	}
 
 	/* Enable CFU Protection */
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress, CFU_APB_CFU_PROTECT, 1U);
+	XCfupmc_WriteReg(CFU_APB_CFU_PROTECT, CFUPMC_PROT_ENABLE);
 }
 
 /*****************************************************************************/
@@ -287,121 +147,33 @@ void XCfupmc_SetGlblSigEn(XCfupmc *InstancePtr, u8 Enable)
  * @return	None
  *
  ******************************************************************************/
-void XCfupmc_GlblSeqInit(XCfupmc *InstancePtr)
+void XCfupmc_GlblSeqInit(const XCfupmc *InstancePtr)
 {
-
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XCfupmc_Printf( "PL Global Sequence: Init \n\r");
 
 	/* Remove CFU Protection */
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress, CFU_APB_CFU_PROTECT, 0U);
+	XCfupmc_WriteReg(CFU_APB_CFU_PROTECT, CFUPMC_PROT_DISABLE);
 
 	/* Assert GRESTORE */
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_FGCR,
 		CFU_APB_CFU_FGCR_GRESTORE_MASK, CFU_APB_CFU_FGCR_GRESTORE_MASK);
 
-	usleep(10);
+	usleep(10U);
 	/* De Assert GRESTORE */
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_FGCR,
-			CFU_APB_CFU_FGCR_GRESTORE_MASK, 0x0U);
-
+		CFU_APB_CFU_FGCR_GRESTORE_MASK, CFU_APB_CFU_FGCR_GRESTORE_CLEAR);
 	/* Assert InitComplete */
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_FGCR,
 			CFU_APB_CFU_FGCR_INIT_COMPLETE_MASK,
 			CFU_APB_CFU_FGCR_INIT_COMPLETE_MASK);
 
 	/* Enable CFU Protection */
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress, CFU_APB_CFU_PROTECT, 1U);
+	XCfupmc_WriteReg(CFU_APB_CFU_PROTECT, CFUPMC_PROT_ENABLE);
+
+	return;
 }
-
-/*****************************************************************************/
-/**
- * This function starts the sequence to enable Global signals
- *
- * @param	InstancePtr is a pointer to the XCfupmc instance.
- *
- * @return	None
- *
- ******************************************************************************/
-void XCfupmc_StartGlblSeq(XCfupmc *InstancePtr)
-{
-
-	Xil_AssertVoid(InstancePtr != NULL);
-
-	XCfupmc_Printf( "PL Global Sequence: start up \n\r");
-
-	/* Remove CFU Protection */
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress, CFU_APB_CFU_PROTECT, 0U);
-
-	/* Assert EN_GLOB */
-	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_FGCR,
-		CFU_APB_CFU_FGCR_EN_GLOBS_B_MASK, 0x0U);
-
-	usleep(10);
-	/* Assert GMC_B  */
-	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_FGCR,
-		CFU_APB_CFU_FGCR_GMC_B_MASK, CFU_APB_CFU_FGCR_GMC_B_MASK);
-
-	usleep(10);
-	/* Assert GRESTORE */
-	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_FGCR,
-		CFU_APB_CFU_FGCR_GRESTORE_MASK, CFU_APB_CFU_FGCR_GRESTORE_MASK);
-
-	usleep(10);
-	/* De Assert GRESTORE */
-	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_FGCR,
-			CFU_APB_CFU_FGCR_GRESTORE_MASK, 0x0U);
-
-	usleep(10);
-	/* De Assert GHIGH_B */
-	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_FGCR,
-		CFU_APB_CFU_FGCR_GHIGH_B_MASK, CFU_APB_CFU_FGCR_GHIGH_B_MASK);
-
-	/* Allow GHIGH_B to propogate */
-	usleep(100);
-
-	/* De Assert GTS_CFG_B */
-	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_FGCR,
-		CFU_APB_CFU_FGCR_GTS_CFG_B_MASK, CFU_APB_CFU_FGCR_GTS_CFG_B_MASK);
-
-	/* Enable CFU Protection */
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress, CFU_APB_CFU_PROTECT, 1U);
-}
-
-/*****************************************************************************/
-/**
- * This function does end of Global sequence
- *
- * @param	InstancePtr is a pointer to the XCfupmc instance.
- *
- * @return	None
- *
- ******************************************************************************/
-void XCfupmc_EndGlblSeq(XCfupmc *InstancePtr)
-{
-
-	Xil_AssertVoid(InstancePtr != NULL);
-
-	XCfupmc_Printf("PL Global Sequence: EOS \n\r");
-
-	/* Remove CFU Protection */
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress, CFU_APB_CFU_PROTECT, 0U);
-
-	/* Assert GWE */
-	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_FGCR,
-			CFU_APB_CFU_FGCR_GWE_MASK, CFU_APB_CFU_FGCR_GWE_MASK);
-	usleep(10);
-
-	/* Assert EOS */
-	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_FGCR,
-			CFU_APB_CFU_FGCR_EOS_MASK, CFU_APB_CFU_FGCR_EOS_MASK);
-	usleep(10);
-
-	/* Enable CFU Protection */
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress, CFU_APB_CFU_PROTECT, 1U);
-}
-
 
 /*****************************************************************************/
 /**
@@ -412,49 +184,29 @@ void XCfupmc_EndGlblSeq(XCfupmc *InstancePtr)
  * @return	None
  *
  ******************************************************************************/
-void XCfupmc_Reset(XCfupmc *InstancePtr)
+static void XCfupmc_Reset(const XCfupmc *InstancePtr)
 {
-
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	XCfupmc_Printf("CFU Reset \n\r");
+	XCfupmc_Printf("CFU Reset\n\r");
 
+	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
+			CFU_APB_CFU_CTL_CFRAME_DISABLE_MASK,
+			CFU_APB_CFU_CTL_CFRAME_DISABLE_MASK);
+	usleep(10U);
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
 			     CFU_APB_CFU_CTL_CFRAME_DISABLE_MASK,
-			     CFU_APB_CFU_CTL_CFRAME_DISABLE_MASK);
-	usleep(10);
-	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
-			     CFU_APB_CFU_CTL_CFRAME_DISABLE_MASK,
-			     0U);
+			     CFU_APB_CFU_CTL_CFRAME_DISABLE_CLR_VAL);
 
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
-			     CFU_APB_CFU_CTL_CFI_LOCAL_RESET_MASK,
-			     CFU_APB_CFU_CTL_CFI_LOCAL_RESET_MASK);
-	usleep(10);
+			CFU_APB_CFU_CTL_CFI_LOCAL_RESET_MASK,
+			CFU_APB_CFU_CTL_CFI_LOCAL_RESET_MASK);
+	usleep(10U);
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
-			     CFU_APB_CFU_CTL_CFI_LOCAL_RESET_MASK,
-			     0U);
-}
+			CFU_APB_CFU_CTL_CFI_LOCAL_RESET_MASK,
+			CFU_APB_CFU_CTL_CFI_LOCAL_RESET_CLR_VAL);
 
-/*****************************************************************************/
-/**
- * This function waits till Fabric is busy
- *
- * @param	InstancePtr is a pointer to the XCfupmc instance.
- *
- * @return	None
- *
- ******************************************************************************/
-void XCfupmc_WaitForStreamDone(XCfupmc *InstancePtr)
-{
-
-	Xil_AssertVoid(InstancePtr != NULL);
-
-	XCfupmc_Printf("Wait for Stream Done \n\r");
-
-	while ((XCfupmc_ReadStatus() &
-	       CFU_APB_CFU_STATUS_CFU_STREAM_BUSY_MASK) ==
-	       CFU_APB_CFU_STATUS_CFU_STREAM_BUSY_MASK);
+	return;
 }
 
 /*****************************************************************************/
@@ -466,27 +218,24 @@ void XCfupmc_WaitForStreamDone(XCfupmc *InstancePtr)
  * @return	None
  *
  ******************************************************************************/
-void XCfupmc_CfuErrHandler(XCfupmc *InstancePtr)
+void XCfupmc_CfuErrHandler(const XCfupmc *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	u32	RegVal = XCfupmc_ReadReg(InstancePtr->Config.BaseAddress,
-				CFU_APB_CFU_ISR);
-    RegVal = RegVal & (CFU_APB_CFU_ISR_DECOMP_ERROR_MASK |
-			 CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK |
-			 CFU_APB_CFU_ISR_AXI_ALIGN_ERROR_MASK |
-			 CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
-			 CFU_APB_CFU_ISR_CRC32_ERROR_MASK |
-			 CFU_APB_CFU_ISR_CRC8_ERROR_MASK);
+	u32 RegVal;
 
-	if(RegVal)
-	{
+	RegVal = XCfupmc_ReadReg(CFU_APB_CFU_ISR);
+	RegVal = RegVal & (CFU_APB_CFU_ISR_DECOMP_ERROR_MASK |
+			CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK |
+			CFU_APB_CFU_ISR_AXI_ALIGN_ERROR_MASK |
+			CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
+			CFU_APB_CFU_ISR_CRC32_ERROR_MASK |
+			CFU_APB_CFU_ISR_CRC8_ERROR_MASK);
+	if (RegVal != 0U) {
 		XCfupmc_Reset(InstancePtr);
 		XCfupmc_ClearCfuIsr(InstancePtr);
 	}
-	else
-	{
-		/** MISRA-C compliance */
-	}
+
+	return;
 }
 
 /*****************************************************************************/
@@ -498,19 +247,22 @@ void XCfupmc_CfuErrHandler(XCfupmc *InstancePtr)
  * @return	None
  *
  ******************************************************************************/
-void XCfupmc_CfiErrHandler(XCfupmc *InstancePtr)
+void XCfupmc_CfiErrHandler(const XCfupmc *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XCfupmc_Reset(InstancePtr);
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
-						CFU_APB_CFU_CTL_SEU_GO_MASK, 0U);
+			CFU_APB_CFU_CTL_SEU_GO_MASK,
+			CFU_APB_CFU_CTL_SEU_GO_CLR_VAL);
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
-						CFU_APB_CFU_CTL_DECOMPRESS_MASK, 0U);
+			CFU_APB_CFU_CTL_DECOMPRESS_MASK,
+			CFU_APB_CFU_CTL_DECOMPRESS_CLR_VAL);
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
-						CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_MASK,
-						CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_MASK);
+			CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_MASK,
+			CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_MASK);
 
+	return;
 }
 
 /*****************************************************************************/
@@ -522,16 +274,18 @@ void XCfupmc_CfiErrHandler(XCfupmc *InstancePtr)
  * @return	None
  *
  ******************************************************************************/
-void XCfupmc_ClearCfuIsr(XCfupmc *InstancePtr)
+void XCfupmc_ClearCfuIsr(const XCfupmc *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XCfupmc_ClearIsr(InstancePtr, (CFU_APB_CFU_ISR_DECOMP_ERROR_MASK |
-							CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK |
-							CFU_APB_CFU_ISR_AXI_ALIGN_ERROR_MASK |
-							CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
-							CFU_APB_CFU_ISR_CRC32_ERROR_MASK |
-							CFU_APB_CFU_ISR_CRC8_ERROR_MASK));
+			CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK |
+			CFU_APB_CFU_ISR_AXI_ALIGN_ERROR_MASK |
+			CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
+			CFU_APB_CFU_ISR_CRC32_ERROR_MASK |
+			CFU_APB_CFU_ISR_CRC8_ERROR_MASK));
+
+	return;
 }
 
 /*****************************************************************************/
@@ -543,12 +297,15 @@ void XCfupmc_ClearCfuIsr(XCfupmc *InstancePtr)
  * @return	None
  *
  ******************************************************************************/
-void XCfupmc_ClearIgnoreCfiErr(XCfupmc *InstancePtr)
+void XCfupmc_ClearIgnoreCfiErr(const XCfupmc *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
-							CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_MASK,0U);
+			CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_MASK,
+			CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_CLR_VAL);
+
+	return;
 }
 
 /****************************************?*************************************/
@@ -560,24 +317,30 @@ void XCfupmc_ClearIgnoreCfiErr(XCfupmc *InstancePtr)
 * @return  None
 *
 *****************************************?*************************************/
-void XCfupmc_ExtErrorHandler(XCfupmc *InstancePtr)
+void XCfupmc_ExtErrorHandler(const XCfupmc *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
 			CFU_APB_CFU_CTL_CFRAME_DISABLE_MASK,
 			CFU_APB_CFU_CTL_CFRAME_DISABLE_MASK);
-	usleep(10);
+	usleep(10U);
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
-			CFU_APB_CFU_CTL_CFRAME_DISABLE_MASK, 0U);
+			CFU_APB_CFU_CTL_CFRAME_DISABLE_MASK,
+			CFU_APB_CFU_CTL_CFRAME_DISABLE_CLR_VAL);
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
-			CFU_APB_CFU_CTL_SEU_GO_MASK, 0U);
+			CFU_APB_CFU_CTL_SEU_GO_MASK,
+			CFU_APB_CFU_CTL_SEU_GO_CLR_VAL);
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
-			CFU_APB_CFU_CTL_DECOMPRESS_MASK, 0U);
+			CFU_APB_CFU_CTL_DECOMPRESS_MASK,
+			CFU_APB_CFU_CTL_DECOMPRESS_CLR_VAL);
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
 			CFU_APB_CFU_CTL_CFI_LOCAL_RESET_MASK,
 			CFU_APB_CFU_CTL_CFI_LOCAL_RESET_MASK);
-	usleep(10);
+	usleep(10U);
 	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
-			CFU_APB_CFU_CTL_CFI_LOCAL_RESET_MASK, 0U);
+			CFU_APB_CFU_CTL_CFI_LOCAL_RESET_MASK,
+			CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_CLR_VAL);
+
+	return;
 }

@@ -16,6 +16,9 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   07/12/2018 Initial release
+* 1.01  tp   04/08/2019 Added code to request UART if debug prints are enabled
+*       kc   04/19/2019 Added code to indicate completion of boot pdi load
+*       ma   08/01/2019 Removed LPD module init related code from PLM app
 *
 * </pre>
 *

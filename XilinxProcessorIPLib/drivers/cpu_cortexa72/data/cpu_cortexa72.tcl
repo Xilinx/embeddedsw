@@ -10,6 +10,9 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.0	mus  09/20/17 Initial version
 # 1.1   mus  01/09/20 Added armclang compiler support
+# 1.2   mus  08/18/20 Updated mdd file with new parameter dependency_flags,
+#                     it would be used to generate appropriate flags
+#                     required for dependency files configuration
 ##############################################################################
 #uses "xillib.tcl"
 

@@ -66,6 +66,9 @@ extern "C" {
 #define YES 0x01U
 #define NO 0x00U
 
+#define TRUE_VALUE	(u8)(1U)
+#define FALSE_VALUE	(u8)(0U)
+
 /* Handler Table Structure */
 typedef void (*VoidFunction_t)(void);
 struct HandlerTable {

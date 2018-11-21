@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -17,6 +16,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   07/20/2018 Initial release
+* 1.01  rp   08/08/2019 Added code to send PM notify callback through IPI
+* 1.02  kc   03/23/2020 Minor code cleanup
 *
 * </pre>
 *
@@ -31,7 +32,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplm_default.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -43,8 +43,8 @@ extern "C" {
 
 /************************** Variable Definitions *****************************/
 
-int XPlm_PmInit();
-int XPlm_ProcessPlmCdo(void *arg);
+int XPlm_PmInit(void);
+int XPlm_ProcessPlmCdo(void *Arg);
 
 #ifdef __cplusplus
 }

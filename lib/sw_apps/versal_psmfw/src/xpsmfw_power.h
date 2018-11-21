@@ -170,6 +170,11 @@ struct PwrHandlerTable_t {
 };
 
 struct XPsmFwPwrCtrl_t {
+	enum ProcDeviceId Id;
+
+	/* Reset vector address register */
+	u32 ResetCfgAddr;
+
 	/* Bit number in the Power State (LOCAL and GLOBAL) Register */
 	u32 PwrStateMask;
 
@@ -268,6 +273,8 @@ struct XPsmFwGemPwrCtrl_t {
 struct PsmToPlmEvent_t {
 	u32 Version;	/* Version of the event structure */
 	u32 Event[PROC_DEV_MAX];
+	u32 CpuIdleFlag[PROC_DEV_MAX];
+	u64 ResumeAddress[PROC_DEV_MAX];
 };
 
 XStatus XPsmFw_DispatchPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask);
@@ -278,10 +285,9 @@ XStatus XPsmFw_DispatchPwrCtlHandler(u32 PwrCtlStatus, u32 PwrCtlIntMask);
 XStatus XPsmFw_DirectPwrDwn(const u32 DeviceId);
 XStatus XPsmFw_DirectPwrUp(const u32 DeviceId);
 int XPsmFw_FpdPreHouseClean(void);
-int XPsmFw_FpdPostHouseClean(void);
-int XPsmFw_FpdScanClear(void);
-int XPsmFw_FpdMbisr(void);
-int XPsmFw_FpdMbistClear(void);
+void XPsmFw_FpdPostHouseClean(void);
+void XPsmFw_FpdMbisr(void);
+void XPsmFw_FpdMbistClear(void);
 
 #ifdef __cplusplus
 }

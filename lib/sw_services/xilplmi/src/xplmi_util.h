@@ -17,6 +17,17 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/21/2017 Initial release
+* 1.01  bsv  04/18/2019 Added support for NPI readback and CFI readback
+*       kc   04/26/2019 Updated Delay and Poll timeout based on timers
+*       rm   06/27/2019 Added APIs for safety register writes
+*       vnsl 07/19/2019 Added XPlmi_MemCmp API to check for PPK and SPK integrity
+* 1.02  bsv  02/17/2020 Added 64-bit / 128-bit safety write APIs for xilsem
+*       bsv  04/04/2020 Code clean up
+* 1.03  kc   06/22/2020 Minor updates to PrintArray for better display
+*       bsv  09/04/2020 Added checks to validate input params for XPlmi_Strcat
+*                       and XPlmi_Strcpy
+*       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -57,19 +68,15 @@ extern "C" {
 
 void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value);
 int XPlmi_UtilSafetyWrite(u32 RegAddr, u32 Mask, u32 Value);
-int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount);
+int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs);
 int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs);
-int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs);
+int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs);
 void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value);
 int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask,
 	u32 TimeOutInUs);
 void XPlmi_UtilRMW64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 Value);
 int XPlmi_UtilSafetyRMW64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 Value);
 void XPlmi_PrintArray (u32 DebugType, const u64 BufAddr, u32 Len, const char *Str);
-char *XPlmi_Strcpy(char *DestPtr, const char *SrcPtr);
-char * XPlmi_Strcat(char* Str1Ptr, const char* Str2Ptr);
-void* XPlmi_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len);
-int XPlmi_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len);
 
 #ifdef __cplusplus
 }

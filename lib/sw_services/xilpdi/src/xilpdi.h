@@ -17,6 +17,25 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   12/21/2017 Initial release
+* 1.01  bsv  04/08/2019 Added support for secondary boot device parameters
+*       bsv  07/30/2019 Renamed XilPdi_ReadAndValidateImgHdrTbl to
+							XilPdi_ReadImgHdrTbl
+*       rm   08/28/2019 Added APIs for retrieving delay load and delay handoff
+*						params
+* 1.02  bsv  11/29/2019 Added support for smap bus width word in partial pdis
+*       vnsl 02/26/2020 Added support to read DPA CM Enable field in meta headers
+*       vnsl 03/01/2020 Added support to read PufHeader from Meta Headers and
+*						partition headers
+*       vnsl 04/12/2020 Added support to read BootHdr Auth Enable field in
+*						boot header
+* 1.03  skd  07/14/2020 Function pointer DeviceCopy prototype changed
+* 1.04  bsv  07/29/2020 Added UID, parent ID, function ID and copy to memory
+*                       address
+*       kpt  07/30/2020 Added maximum limit for number of images
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       bsv  10/13/2020 Code clean up
+*       kpt  10/19/2020 Added support to validate checksum of image headers and
+*                       partition headers
 *
 * </pre>
 *
@@ -39,22 +58,16 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XIH_MIN_PRTNS			(1U)
 #define XIH_MAX_PRTNS			(32U)
+#define XIH_MIN_IMGS			(1U)
+#define XIH_MAX_IMGS			(32U)
 
 /* Boot header address in PRAM copied by ROM*/
 #define XIH_BH_PRAM_ADDR		(0xF201E000U)
-
-#define XIH_AC_PRAM_OFFSET		(0xF70U)
 
 /* Boot header Attr fields */
 #define XIH_BH_IMG_ATTRB_BH_AUTH_MASK	(0xC000U)
 #define XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT	(14U)
 #define XIH_BH_IMG_ATTRB_BH_AUTH_VALUE	(0x3U)
-#define XIH_BH_IMG_ATTRB_SHA2_MASK	(0x3000U)
-
-/* Boot Header PMC FW Rsvd Fields */
-#define XIH_BH_MH_START_OFST		(0xC4U)
-#define XIH_BH_MH_LEN_OFST		(0xC8U)
-#define XIH_BH_MH_AC_START_OFST		(0xCCU)
 
 /* Boot header PUF fields */
 #define XIH_BH_PUF_HD_OFFSET		(0x918U)
@@ -70,48 +83,11 @@ extern "C" {
 
 /* Defines for length of the headers */
 #define XIH_BH_LEN			(0x128U)
-#define XIH_FIELD_LEN			(4U)
-#define XIH_PFW_LEN_FIELD_LEN		(4U)
 #define XIH_IHT_LEN			(128U)
 #define XIH_IH_LEN			(64U)
 #define XIH_PH_LEN			(128U)
 #define XIH_PRTN_WORD_LEN		(0x4U)
 #define XIH_PRTN_ALIGN_LEN		(64U)
-
-/* Img header table field offsets */
-#define XIH_IHT_VERSION_OFST		(0x0U)
-#define XIH_IHT_NO_OF_IMGS_OFST		(0x4U)
-#define XIH_IHT_IH_ADDR_OFST		(0x8U)
-#define XIH_IHT_NO_OF_PRTNS_OFST	(0xCU)
-#define XIH_IHT_PH_ADDR_OFST		(0x10U)
-#define XIH_IHT_SBD_ADDR_OFST		(0x14U)
-#define XIH_IHT_IDCODE			(0x18U)
-#define XIH_IHT_ATTR			(0x1CU)
-#define XIH_IHT_CHECKSUM_OFST		(0x3CU)
-
-/* Image Header fields */
-#define XIH_IH_PH_OFST			(0x0U)
-#define XIH_IH_NO_OF_PRTNS_OFST		(0x4U)
-#define XIH_IH_NEXT_IH_OFST		(0x8U)
-#define XIH_IH_ATTR_OFST		(0xCU)
-#define XIH_IH_NAME_OFST		(0x10U)
-#define XIH_IH_CHECKSUM_OFST		(0x3CU)
-
-/* Prtn Hdr Fields */
-#define XIH_PH_ENC_DATAWORD_LEN			(0x0U)
-#define XIH_PH_UNENC_DATAWORD_LEN		(0x4U)
-#define XIH_PH_TOTAL_DATAWORD_LEN		(0x8U)
-#define XIH_PH_NEXT_PRTN_OFST			(0xCU)
-#define XIH_PH_DSTN_EXECUTION_ADDR	        (0x10U)
-#define XIH_PH_DSTN_LOAD_ADDR			(0x18U)
-#define XIH_PH_DATA_WORD_OFST			(0x20U)
-#define XIH_PH_ATTRB_OFST			(0x24U)
-#define XIH_PH_SECTION_COUNT			(0x28U)
-#define XIH_PH_CHECKSUM_WORD_OFST		(0x2CU)
-#define XIH_PH_RSVD_x30				(0x30U)
-#define XIH_PH_AUTHCERTIFICATE_OFST		(0x34U)
-#define XIH_PH_RSVD_x38				(0x38U)
-#define XIH_PH_CHECKSUM				(0x3CU)
 
 /* IHT attributes */
 #define XIH_IHT_ATTR_PUFHD_MASK		(0xC000U)
@@ -135,7 +111,6 @@ extern "C" {
 #define XIH_IHT_ATTR_SBD_PCIE	        (0xAU)
 #define XIH_IHT_ATTR_SBD_OSPI			(0xCU)
 #define XIH_IHT_ATTR_SBD_SMAP			(0xDU)
-#define XIH_IHT_ATTR_SBD_SBI			(0xEU)
 #define XIH_IHT_ATTR_SBD_SD_0_RAW		(0xFU)
 #define XIH_IHT_ATTR_SBD_SD_1_RAW		(0x10U)
 #define XIH_IHT_ATTR_SBD_SD_LS_RAW		(0x11U)
@@ -147,7 +122,6 @@ extern "C" {
 #define XIH_PH_ATTRB_DPA_CM_EN_MASK		(0x18000000U)
 #define XIH_PH_ATTRB_PRTN_TYPE_MASK		(0x7000000U)
 #define XIH_PH_ATTRB_HIVEC_MASK			(0x800000U)
-#define XIH_PH_ATTRB_CHUNKSIZE_MASK		(0x700000U)
 #define XIH_PH_ATTRB_ENDIAN_MASK		(0x40000U)
 #define XIH_PH_ATTRB_PRTN_OWNER_MASK	(0x30000U)
 #define XIH_PH_ATTRB_PUFHD_MASK			(0xC000U)
@@ -162,38 +136,20 @@ extern "C" {
 #define XIH_PH_ATTRB_PRTN_TYPE_RSVD		(0x0000000U)
 #define XIH_PH_ATTRB_PRTN_TYPE_ELF		(0x1000000U)
 #define XIH_PH_ATTRB_PRTN_TYPE_CDO		(0x2000000U)
-#define XIH_PH_ATTRB_PRTN_TYPE_CFI		(0x3000000U)
-#define XIH_PH_ATTRB_PRTN_TYPE_RAW		(0x4000000U)
-#define XIH_PH_ATTRB_PRTN_TYPE_RAW_ELF		(0x5000000U)
-#define XIH_PH_ATTRB_PRTN_TYPE_CFI_GSC		(0x6000000U)
 #define XIH_PH_ATTRB_PRTN_TYPE_CFI_GSC_UNMASK	(0x7000000U)
 
 #define XIH_PH_ATTRB_PRTN_OWNER_PLM				(0x00000U)
-#define XIH_PH_ATTRB_PRTN_OWNER_PLM				(0x00000U)
-#define XIH_PH_ATTRB_RSA_SIGNATURE				(0x8000U)
-#define XIH_PH_ATTRB_NOCHECKSUM					(0x0000U)
-#define XIH_PH_ATTRB_CHECKSUM_MD5				(0x1000U)
-#define XIH_PH_ATTRB_HASH_SHA2					(0x2000U)
 #define XIH_PH_ATTRB_HASH_SHA3					(0x3000U)
 
 #define XIH_PH_ATTRB_DSTN_CPU_NONE				(0x0000U)
 #define XIH_PH_ATTRB_DSTN_CPU_A72_0				(0x100U)
 #define XIH_PH_ATTRB_DSTN_CPU_A72_1				(0x200U)
-#define XIH_PH_ATTRB_DSTN_CPU_A72_2				(0x300U)
-#define XIH_PH_ATTRB_DSTN_CPU_A72_3				(0x400U)
 #define XIH_PH_ATTRB_DSTN_CPU_R5_0				(0x500U)
 #define XIH_PH_ATTRB_DSTN_CPU_R5_1				(0x600U)
 #define XIH_PH_ATTRB_DSTN_CPU_R5_L				(0x700U)
 #define XIH_PH_ATTRB_DSTN_CPU_PSM				(0x800U)
 
-#define XIH_PH_ATTRB_ENCRYPTION					(0x80U)
-#define XIH_PH_ATTRB_DSTN_DEVICE_NONE			(0x0000U)
-#define XIH_PH_ATTRB_DSTN_DEVICE_PS				(0x0010U)
-#define XIH_PH_ATTRB_DSTN_DEVICE_PL				(0x0020U)
-#define XIH_PH_ATTRB_A72_EXEC_ST_AA32			(0x0008U)
 #define XIH_PH_ATTRB_A72_EXEC_ST_AA64			(0x0000U)
-
-#define XIH_INVALID_EXEC_ST						(0xFFFFU)
 
 /*
  * Below is the bit mapping of fields in the ATF Handoff parameters
@@ -216,11 +172,8 @@ extern "C" {
 
 #define XIH_ATTRB_EL_MASK			(0x18U)
 #define XIH_PRTN_FLAGS_EL_2			(0x10U)
-#define XIH_PRTN_FLAGS_DSTN_CPU_A72_MASK	(0x60U)
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_0		(0x00U)
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_1		(0x20U)
-#define XIH_PRTN_FLAGS_DSTN_CPU_A72_2		(0x40U)
-#define XIH_PRTN_FLAGS_DSTN_CPU_A72_3		(0x60U)
 
 /* Number of entries possible in ATF: 4 cores * 2 (secure, nonsecure) */
 #define XILPDI_MAX_ENTRIES_FOR_ATF	(8U)
@@ -228,27 +181,21 @@ extern "C" {
 /*
  * Errors during XilPdi processing
  */
-#define XILPDI_ERR_IHT_CHECKSUM		(0x1U)
-#define XILPDI_ERR_NO_OF_PRTNS		(0x2U)
-#define XILPDI_ERR_SBD			(0x3U)
-#define XILPDI_ERR_ZERO_LENGTH		(0x4U)
-#define XILPDI_ERR_TOTAL_LENGTH		(0x5U)
-#define XILPDI_ERR_PRTN_TYPE		(0x6U)
+#define XILPDI_ERR_IHT_CHECKSUM		(0x1)
+#define XILPDI_ERR_NO_OF_PRTNS		(0x2)
+#define XILPDI_ERR_ZERO_LENGTH		(0x4)
+#define XILPDI_ERR_TOTAL_LENGTH		(0x5)
+#define XILPDI_ERR_PRTN_TYPE		(0x6)
+#define XILPDI_ERR_NO_OF_IMGS		(0x7)
 
 /*
  * Image Header Attributes
  */
-#define XILPDI_IH_ATTRIB_IMAGE_OWNER_SHIFT		(0x3U)
-#define XILPDI_IH_ATTRIB_IMAGE_OWNER_WIDTH		(0x3U)
-#define XILPDI_IH_ATTRIB_IMAGE_OWNER_MASK		(0X00000038U)
 #define XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT		(0x6U)
-#define XILPDI_IH_ATTRIB_COPY_MEMORY_WIDTH		(0x1U)
 #define XILPDI_IH_ATTRIB_COPY_MEMORY_MASK		(0X00000040U)
 #define XILPDI_IH_ATTRIB_DELAY_LOAD_SHIFT		(0x7U)
-#define XILPDI_IH_ATTRIB_DELAY_LOAD_WIDTH		(0x1U)
 #define XILPDI_IH_ATTRIB_DELAY_LOAD_MASK		(0X00000080U)
 #define XILPDI_IH_ATTRIB_DELAY_HANDOFF_SHIFT	(0x8U)
-#define XILPDI_IH_ATTRIB_DELAY_HANDOFF_WIDTH	(0x1U)
 #define XILPDI_IH_ATTRIB_DELAY_HANDOFF_MASK		(0X00000100U)
 
 #define XILPDI_METAHDR_RD_HDRS_FROM_DEVICE		(0x0U)
@@ -323,7 +270,11 @@ typedef struct {
 	u32 ImgAttr; /**< Image Attributes */
 	u32 ImgName[4U]; /**< Image Name */
 	u32 ImgID; /**< Image ID */
-	u32 Rsvd[6U]; /**< Reserved */
+	u32 UID; /**< Unique ID */
+	u32 PUID; /**< Parent UID */
+	u32 FuncID; /**< Function ID */
+	u64 CopyToMemoryAddr; /**< Address at which image is backed up in DDR */
+	u32 Rsvd; /**< Reserved */
 	u32 Checksum; /**< Checksum of the image header */
 } XilPdi_ImgHdr __attribute__ ((aligned(16U)));
 
@@ -364,15 +315,15 @@ typedef struct {
 	XilPdi_ImgHdrTbl ImgHdrTbl; /**< Img header table structure */
 	XilPdi_ImgHdr ImgHdr[XIH_MAX_PRTNS]; /**< Prtn header */
 	XilPdi_PrtnHdr PrtnHdr[XIH_MAX_PRTNS]; /**< Prtn header */
-	u32 FlashOfstAddr; /**< Start of DPI start address in Flash */
+	u64 FlashOfstAddr; /**< Start of DPI start address in Flash */
 	/**< Function pointer for device copy */
-	int (*DeviceCopy) (u32 SrcAddr, u64 DestAddress, u32 Length,
+	int (*DeviceCopy) (u64 SrcAddr, u64 DestAddress, u32 Length,
 															u32 Flags);
 	u32 Flag; /**< To read from flash or buffer,
 				0 for flash and 1 for buffer */
 	/**< PUF related fields */
 	u64 BufferAddr;
-	void* (*XMemCpy)(void * DestPtr, const void * SrcPtr, u32 Len);
+	int (*XMemCpy)(void * DestPtr, u32 DestPtrLen, const void * SrcPtr, u32 Len);
 } XilPdi_MetaHdr __attribute__ ((aligned(16U)));
 
 /*
@@ -380,17 +331,17 @@ typedef struct {
  */
 typedef struct {
 	u64 EntryPoint; /**< Entry point */
-	u64 PartitionFlags; /**< Attributes of partition */
-} XilPdi_PartitionEntry;
+	u64 PrtnFlags; /**< Attributes of partition */
+} XilPdi_PrtnEntry;
 
 /*
  * Structure for handoff parameters to ARM Trusted Firmware (ATF)
  */
 typedef struct {
-	u8 MagicValue[4U]; /**< 32 bit magic string */
+	char MagicValue[4U]; /**< 32 bit magic string */
 	u32 NumEntries; /**< Number of Entries */
 	/**< Structure corresponding to each entry */
-	XilPdi_PartitionEntry Entry[XILPDI_MAX_ENTRIES_FOR_ATF];
+	XilPdi_PrtnEntry Entry[XILPDI_MAX_ENTRIES_FOR_ATF];
 } XilPdi_ATFHandoffParams __attribute__ ((aligned(16U)));
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -400,32 +351,269 @@ typedef struct {
 #define XilPdi_Printf(...)
 #endif
 
+/****************************************************************************/
+/**
+* @brief	This function will return the value of Partition Owner field.
+*
+* @param	PrtnHdr is pointer to the Partition Header
+*
+* @return	Partition Owner
+*
+*****************************************************************************/
+static inline u32 XilPdi_GetPrtnOwner(const XilPdi_PrtnHdr *PrtnHdr)
+{
+	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_PRTN_OWNER_MASK);
+}
+
+/****************************************************************************/
+/**
+* @brief	This function will return the value of Checksum Type field.
+*
+* @param	PrtnHdr is pointer to the Partition Header
+*
+* @return	Checksum Type
+*
+*****************************************************************************/
+static inline u32 XilPdi_GetChecksumType(const XilPdi_PrtnHdr *PrtnHdr)
+{
+	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_CHECKSUM_MASK);
+}
+
+/****************************************************************************/
+/**
+* @brief	This function will return the value of Destination Cpu field.
+*
+* @param	PrtnHdr is pointer to the Partition Header
+*
+* @return	Destination Cpu
+*
+*****************************************************************************/
+static inline u32 XilPdi_GetDstnCpu(const XilPdi_PrtnHdr *PrtnHdr)
+{
+	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_DSTN_CPU_MASK);
+}
+
+/****************************************************************************/
+/**
+* @brief	This function will return the value of Partition Type field.
+*
+* @param	PrtnHdr is pointer to the Partition Header
+*
+* @return	Partition Type
+*
+*****************************************************************************/
+static inline u32 XilPdi_GetPrtnType(const XilPdi_PrtnHdr *PrtnHdr)
+{
+	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_PRTN_TYPE_MASK);
+}
+
+/****************************************************************************/
+/**
+* @brief	This function will return the value of A72 Execution State field.
+*
+* @param	PrtnHdr is pointer to the Partition Header
+*
+* @return	A72 Execution State
+*
+*****************************************************************************/
+static inline u32 XilPdi_GetA72ExecState(const XilPdi_PrtnHdr *PrtnHdr)
+{
+	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_A72_EXEC_ST_MASK);
+}
+
+/****************************************************************************/
+/**
+* @brief	This function will return the value of HIVEC field.
+*
+* @param	PrtnHdr is pointer to the Partition Header
+*
+* @return	HIVEC value
+*
+*****************************************************************************/
+static inline u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr *PrtnHdr)
+{
+	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_HIVEC_MASK);
+}
+
+/****************************************************************************/
+/**
+* @brief	This function will return the value of Puf Header field.
+*
+* @param	PrtnHdr is pointer to the Partition Header
+*
+* @return	PUF header
+*
+*****************************************************************************/
+static inline u32 XilPdi_GetPufHdPh(const XilPdi_PrtnHdr *PrtnHdr)
+{
+	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_PUFHD_MASK);
+}
+
+/****************************************************************************/
+/**
+* @brief	This function checks if DpaCm is enabled or not.
+*
+* @param	PrtnHdr is pointer to the Partition Header
+*
+* @return	TRUE / FALSE
+*
+*****************************************************************************/
+static inline u32 XilPdi_IsDpaCmEnable(const XilPdi_PrtnHdr *PrtnHdr)
+{
+	return ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_DPA_CM_EN_MASK) != 0x0U) ?
+		(u8)TRUE : (u8)FALSE;
+}
+
+/****************************************************************************/
+/**
+* @brief	This function checks if DpaCm is enabled or not in Metaheader.
+*
+* @param	IHdrTbl is pointer to the Image Header Table
+*
+* @return	TRUE / FALSE
+*
+*****************************************************************************/
+static inline u32 XilPdi_IsDpaCmEnableMetaHdr(const XilPdi_ImgHdrTbl *IHdrTbl)
+{
+	return ((IHdrTbl->Attr & XIH_IHT_ATTR_DPA_CM_MASK) != 0x0U) ?
+		(u8)TRUE : (u8)FALSE;
+}
+
+/****************************************************************************/
+/**
+* @brief	This function gets PUF header value from Image Header Table.
+*
+* @param	IHdrTbl is pointer to the Image Header Table
+*
+* @return	PUF Header Value
+*
+*****************************************************************************/
+static inline u32 XilPdi_GetPufHdMetaHdr(const XilPdi_ImgHdrTbl *IHdrTbl)
+{
+	return (IHdrTbl->Attr & XIH_IHT_ATTR_PUFHD_MASK);
+}
+
+/****************************************************************************/
+/**
+* @brief	This function gets Copy to Memory value from Image Header Table.
+*
+* @param	IHdrTbl is pointer to the Image Header Table
+*
+* @return	Copy to Memory Value
+*
+*****************************************************************************/
+static inline u32 XilPdi_GetCopyToMemory(const XilPdi_ImgHdr *ImgHdr)
+{
+	return (ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_COPY_MEMORY_MASK);
+}
+
+/****************************************************************************/
+/**
+* @brief	This function gets Delay Load value from Image Header Table.
+*
+* @param	IHdrTbl is pointer to the Image Header Table
+*
+* @return	Delay Load Value
+*
+*****************************************************************************/
+static inline u32 XilPdi_GetDelayLoad(const XilPdi_ImgHdr *ImgHdr)
+{
+	return (ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_DELAY_LOAD_MASK);
+}
+
+/****************************************************************************/
+/**
+* @brief	This function gets Delay Handoff value from Image Header Table.
+*
+* @param	IHdrTbl is pointer to the Image Header Table
+*
+* @return	Delay Handoff Value
+*
+*****************************************************************************/
+static inline u32 XilPdi_GetDelayHandoff(const XilPdi_ImgHdr *ImgHdr)
+{
+	return (ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_DELAY_HANDOFF_MASK);
+}
+
+/****************************************************************************/
+/**
+* @brief	This function will return the Secondary boot device.
+*
+* @param	ImgHdrTbl is pointer to the Image Header Table
+*
+* @return 	Secondary Boot device
+*
+*****************************************************************************/
+static inline u32 XilPdi_GetSBD(const XilPdi_ImgHdrTbl *ImgHdrTbl)
+{
+	return (ImgHdrTbl->Attr & XIH_IHT_ATTR_SBD_MASK);
+}
+
+/****************************************************************************/
+/**
+* @brief	This function will return whether boot header authentication is
+* enabled or not.
+*
+* @param	BootHdr is pointer to the boot header
+*
+* @return 	TRUE if boot header authentication is enabled.
+*			FALSE if boot header authentication is disabled.
+*
+*****************************************************************************/
+static inline u32 XilPdi_IsBhdrAuthEnable(const XilPdi_BootHdr *BootHdr)
+{
+	u32 BhAuth = (BootHdr->ImgAttrb & XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
+					XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT;
+
+	return ((BhAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ? (u8)TRUE : (u8)FALSE);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks if authentication is enabled or not.
+ *
+ * @param	ImgHdrTblPtr is pointer to PDI Image Header Table
+ *
+ * @return	TRUE if authentication is enabled and false otherwise
+ *
+ *****************************************************************************/
+static inline u8 XilPdi_IsAuthEnabled(const XilPdi_ImgHdrTbl *ImgHdrTblPtr)
+{
+	volatile u8 IsAuth = (u8)TRUE;
+	volatile u8 IsAuthTemp = (u8)TRUE;
+	IsAuth = (ImgHdrTblPtr->AcOffset != 0x0U) ? \
+		(TRUE) : (FALSE);
+	IsAuthTemp = IsAuth;
+	return (IsAuth | IsAuthTemp);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks if encryption is enabled or not.
+ *
+ * @param	ImgHdrTblPtr is pointer to PDI Image Header Table
+ *
+ * @return	TRUE if encryption is enabled and false otherwise
+ *
+ *****************************************************************************/
+static inline u8 XilPdi_IsEncEnabled(const XilPdi_ImgHdrTbl *ImgHdrTblPtr)
+{
+	volatile u8 IsEnc = (u8)TRUE;
+	volatile u8 IsEncTemp = (u8)TRUE;
+	IsEnc = (ImgHdrTblPtr->EncKeySrc != 0x0U) ? \
+		(TRUE) : (FALSE);
+	IsEncTemp = IsEnc;
+	return (IsEnc | IsEncTemp);
+}
+
 /************************** Function Prototypes ******************************/
-u32 XilPdi_GetPrtnOwner(const XilPdi_PrtnHdr * PrtnHdr);
-u32 XilPdi_GetChecksumType(XilPdi_PrtnHdr * PrtnHdr);
-u32 XilPdi_GetDstnCpu(const XilPdi_PrtnHdr * PrtnHdr);
-u32 XilPdi_GetPrtnType(const XilPdi_PrtnHdr * PrtnHdr);
-u32 XilPdi_GetA72ExecState(const XilPdi_PrtnHdr * PrtnHdr);
-u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr * PrtnHdr);
-u32 XilPdi_IsDpaCmEnable(const XilPdi_PrtnHdr * PrtnHdr);
-u32 XilPdi_GetSBD(const XilPdi_ImgHdrTbl * ImgHdrTbl);
-u32 XilPdi_GetCopyToMemory(const XilPdi_ImgHdr *ImgHdr);
-u32 XilPdi_GetDelayLoad(const XilPdi_ImgHdr *ImgHdr);
-u32 XilPdi_GetDelayHandoff(const XilPdi_ImgHdr *ImgHdr);
-
-int XilPdi_ValidateChecksum(u32 Buffer[], u32 Len);
-int XilPdi_ValidatePrtnHdr(XilPdi_PrtnHdr * PrtnHdr);
-int XilPdi_ValidateImgHdrTbl(XilPdi_ImgHdrTbl * ImgHdrTbl);
-void XilPdi_ReadBootHdr(XilPdi_MetaHdr * ImgHdrPtr);
-int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * ImgHdrPtr);
-int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr);
-int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * ImgHdrPtr);
-int XilPdi_ReadAlignedData(XilPdi_MetaHdr * MetaHdrPtr, u32 PrtnNum);
-
-u32 XilPdi_IsDpaCmEnableMetaHdr(const XilPdi_ImgHdrTbl * IHdrTable);
-u32 XilPdi_GetPufHdMetaHdr(const XilPdi_ImgHdrTbl * IHdrTable);
-u32 XilPdi_GetPufHdPh(const XilPdi_PrtnHdr * PrtnHdr);
-u32 XilPdi_IsBhdrAuthEnable(const XilPdi_BootHdr *BootHdr);
+int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr *PrtnHdr);
+int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl *ImgHdrTbl);
+void XilPdi_ReadBootHdr(XilPdi_MetaHdr *MetaHdrPtr);
+int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr *MetaHdrPtr);
+int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr *MetaHdrPtr);
+int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr *MetaHdrPtr);
+int XilPdi_ValidateHdrs(const XilPdi_MetaHdr *MetaHdrPtr);
 
 #ifdef __cplusplus
 }

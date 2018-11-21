@@ -41,7 +41,7 @@ static void XPsmFw_IpiHandler(void)
 	int Status = XST_FAILURE;
 
 	Mask = XPsmFw_Read32(IPI_PSM_ISR);
-#ifdef XPAR_PSV_IPI_PSM_DEVICE_ID
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	Status = XPsmFw_DispatchIpiHandler(Mask);
 #else
 	XPsmFw_Printf(DEBUG_ERROR, "PSM IPI channel is not enabled\r\n");
@@ -125,15 +125,10 @@ static void XPsmfw_InterruptGicP2Handler(void)
 {
 	u32 GicP2IrqStatus;
 	u32 GicP2IrqMask;
-	XStatus Status;
 
 	GicP2IrqStatus = XPsmFw_Read32(PSM_GLOBAL_GICP2_IRQ_STATUS);
 	GicP2IrqMask = XPsmFw_Read32(PSM_GLOBAL_GICP2_IRQ_MASK);
-	Status = XPsmFw_DispatchGicP2Handler(GicP2IrqStatus, GicP2IrqMask);
-	if (XST_SUCCESS != Status) {
-		XPsmFw_Printf(DEBUG_ERROR, "Error in handling GICP2 interrupt\r\n");
-	}
-
+	XPsmFw_DispatchGicP2Handler(GicP2IrqStatus, GicP2IrqMask);
 }
 
 /* Structure for Top level interrupt table */
@@ -250,10 +245,6 @@ int SetUpInterruptSystem(void)
 	microblaze_enable_exceptions();
 
 	microblaze_enable_interrupts();
-
-#ifdef EN_ONLY_FOR_CCIX
-	XPsmFw_GicP2IrqEnable();
-#endif
 
 	/*
 	 * Clear Break in progress to get interrupts

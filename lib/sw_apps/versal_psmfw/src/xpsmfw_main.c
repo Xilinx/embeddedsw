@@ -32,7 +32,7 @@
 #include "xpsmfw_iomodule.h"
 #include "psm_global.h"
 
-#define XPAR_PSV_PSM_IOMODULE_0_DEVICE_ID 0U
+#define XPAR_IOMODULE_0_DEVICE_ID 0U
 
 int main(void)
 {
@@ -43,7 +43,7 @@ int main(void)
 
 	Status = XPsmFw_Init();
 	/* Init IOModule and connect interrupts */
-	if (XST_SUCCESS != XPsmFw_IoModuleInit((u16)XPAR_PSV_PSM_IOMODULE_0_DEVICE_ID)) {
+	if (XST_SUCCESS != XPsmFw_IoModuleInit((u16)XPAR_IOMODULE_0_DEVICE_ID)) {
 		XPsmFw_Printf(DEBUG_ERROR, "%s: Error! IO Module Initialization failed\r\n", __func__);
 	}
 

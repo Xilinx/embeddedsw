@@ -8,7 +8,7 @@
 /**
 *
 * @file xcfupmc_selftest.c
-* @addtogroup cfupmc_v1_1
+* @addtogroup cfupmc_v1_2
 * @{
 *
 * This file contains a diagnostic self-test function for the CFU driver.
@@ -20,31 +20,25 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ---------------------------------------------------
 * 1.0   kc   22/10/17 First release
+* 2.0   bsv  27/06/2020 Code clean up
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xcfupmc.h"
 
 /************************** Constant Definitions ****************************/
 
-
 /**************************** Type Definitions ******************************/
-
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
-
 /************************** Variable Definitions ****************************/
-
 
 /************************** Function Prototypes *****************************/
 
-
 /************************** Function Definitions *****************************/
-
 
 /*****************************************************************************/
 /**
@@ -56,41 +50,29 @@
 *		- XST_SUCCESS if the self-test passed.
 *		- XST_FAILURE otherwise.
 *
-* @note		None.
-*
 ******************************************************************************/
-s32 XCfupmc_SelfTest(XCfupmc *InstancePtr)
+s32 XCfupmc_SelfTest(const XCfupmc *InstancePtr)
 {
+	s32 Status = (s32)XST_FAILURE;
 	u32 Data;
-	s32 Status;
 
-	/* Verify arguments. */
+	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	Data = XCfupmc_ReadReg(InstancePtr->Config.BaseAddress,
-					(u32)(CFU_APB_CFU_PROTECT));
+	Data = XCfupmc_ReadReg(CFU_APB_CFU_PROTECT);
 
 	/* Changing Endianess of Source channel */
+	XCfupmc_WriteReg(CFU_APB_CFU_PROTECT, CFU_APB_CFU_PROTECT_ACTIVE_MASK);
 
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress,
-			(u32)(CFU_APB_CFU_PROTECT),
-			CFU_APB_CFU_PROTECT_ACTIVE_MASK);
-
-	if ((XCfupmc_ReadReg(InstancePtr->Config.BaseAddress,
-		(u32)(CFU_APB_CFU_PROTECT)) &
-			(u32)(CFU_APB_CFU_PROTECT_ACTIVE_MASK)) ==
-				(CFU_APB_CFU_PROTECT_ACTIVE_MASK)) {
+	if ((XCfupmc_ReadReg(CFU_APB_CFU_PROTECT) & \
+		CFU_APB_CFU_PROTECT_ACTIVE_MASK) == \
+		CFU_APB_CFU_PROTECT_ACTIVE_MASK) {
 		Status = (s32)(XST_SUCCESS);
-	}
-	else {
-		Status = (s32)(XST_FAILURE);
 	}
 
 	/* Changes made are being reverted back */
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress,
-			(u32)(CFU_APB_CFU_PROTECT), Data);
+	XCfupmc_WriteReg(CFU_APB_CFU_PROTECT, Data);
 
 	return Status;
-
 }
 /** @} */

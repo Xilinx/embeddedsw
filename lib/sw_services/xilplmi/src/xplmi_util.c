@@ -16,7 +16,18 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/21/2017 Initial release
-*
+* 1.01  bsv  04/18/2019 Added support for NPI readback and CFI readback
+*       kc   04/26/2019 Updated Delay and Poll timeout based on timers
+*       rm   06/27/2019 Added APIs for safety register writes
+*       vnsl 07/19/2019 Added XPlmi_MemCmp API to check for PPK and SPK integrity
+* 1.02  bsv  02/17/2020 Added 64-bit / 128-bit safety write APIs for xilsem
+*       bsv  04/04/2020 Code clean up
+* 1.03  kc   06/22/2020 Minor updates to PrintArray for better display
+*       kc   08/17/2020 Added redundancy checks to XPlmi_MemCmp
+*       bsv  09/04/2020 Added checks to validate input params for XPlmi_Strcat
+*                       and XPlmi_Strcpy
+*       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 * </pre>
 *
 * @note
@@ -94,6 +105,7 @@ int XPlmi_UtilSafetyWrite(u32 RegAddr, u32 Mask, u32 Value)
  *
  * @param	RegAddr is the address of the register
  * @param	Mask denotes the bits to be modified
+ * @param	ExpectedValue is the value for which the register is polled
  * @param	TimeOutInUs is the max time in microseconds for which the register
  *			would be polled for the expected value
  *
@@ -142,15 +154,15 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
  * @brief	This function polls a 64 bit address till the masked bits are set to
  * expected value or till timeout occurs.
  *
- * @param	Addr 64 bit address
+ * @param	RegAddr 64 bit address
  * @param	Mask is the bit field to be polled
  * @param	Expected Value is value to be polled
- * @param   TimeOutCount is delay time in micro sec
+ * @param   TimeOutInUs is delay time in micro sec
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
+int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 {
 	int Status = XST_FAILURE;
 	u32 ReadValue;
@@ -165,7 +177,7 @@ int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 	/*
 	 * Read the Register value
 	 */
-	ReadValue = XPlmi_In64(Addr);
+	ReadValue = XPlmi_In64(RegAddr);
 	/*
 	 * Loop while the Mask is not set or we timeout
 	 */
@@ -174,7 +186,7 @@ int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 		/*
 		 * Latch up the value again
 		 */
-		ReadValue = XPlmi_In64(Addr);
+		ReadValue = XPlmi_In64(RegAddr);
 		/*
 		 * Decrement the TimeOut Count
 		 */
@@ -194,16 +206,16 @@ int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
  *
  * @param	RegAddr is the register address
  * @param	Mask is the bit field to be updated
- * @param	TimeOutCount is delay time in micro sec
+ * @param	TimeOutInUs is delay time in micro sec
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount)
+int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs)
 {
 	int Status = XST_FAILURE;
 	u32 RegValue;
-	u32 TimeOut = TimeOutCount;
+	u32 TimeOut = TimeOutInUs;
 
 	/*
 	 * Read the Register value
@@ -240,8 +252,7 @@ int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount)
  * @param	HighAddr is higher 32-bits of 64-bit address
  * @param	LowAddr is lower 32-bits of 64-bit address
  * @param	Mask is the bit field to be updated
- * @param	Value is value to be updated
- * @param	TimeOutCount is delay time in micro sec
+ * @param	TimeOutInUs is delay time in micro sec
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
@@ -361,137 +372,22 @@ void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value)
 void XPlmi_PrintArray (u32 DebugType, const u64 BufAddr, u32 Len, const char *Str)
 {
 	u32 Index;
+	u64 Addr = BufAddr;
 
 	if ((DebugType & XPlmiDbgCurrentTypes) != 0U) {
-		XPlmi_Printf(DebugType, "%s START from Addr: 0x%0x%08x, Len:0x%0x\r\n",
-		Str, (u32)(BufAddr >> 32U), (u32)BufAddr, Len);
+		XPlmi_Printf(DebugType, "%s START, Len:0x%08x\r\n 0x%08x%08x: ",
+			     Str, Len, (u32)(Addr >> 32U), (u32)Addr);
 		for (Index = 0U; Index < Len; Index++) {
-			XPlmi_Printf(DEBUG_INFO, "0x%08x ",
-				XPlmi_In64(BufAddr + (Index * XPLMI_WORD_LEN)));
+			XPlmi_Printf_WoTimeStamp(DebugType, "0x%08x ",
+				XPlmi_In64(Addr));
 			if (((Index + 1U) % XPLMI_WORD_LEN) == 0U) {
-				XPlmi_Printf(DebugType, "\r\n");
+				XPlmi_Printf_WoTimeStamp(DebugType,
+				"\r\n 0x%08x%08x: ", (u32)(Addr >> 32U), (u32)Addr);
 			}
+			Addr += XPLMI_WORD_LEN;
 		}
-		XPlmi_Printf(DebugType, "\r\n%s END\r\n", Str);
+		XPlmi_Printf_WoTimeStamp(DebugType, "\r\n");
+		XPlmi_Printf(DebugType, "%s END\r\n", Str);
 	}
 	return;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This functions copies source string to destination string.
- *
- * @param	DestPtr is pointer to destination string
- * @param	SrcPtr is pointer to source string
- *
- * @return	DEstination string post copy
- *
- ******************************************************************************/
-char *XPlmi_Strcpy(char *DestPtr, const char *SrcPtr)
-{
-	u32 Count;
-
-	for (Count=0U; SrcPtr[Count] != '\0'; ++Count)
-	{
-		DestPtr[Count] = SrcPtr[Count];
-	}
-	DestPtr[Count] = '\0';
-
-	return DestPtr;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function appends string2 to string1.
- *
- * @param	Str1Ptr is pointer to string1
- * @param	Str2Ptr is pointer to string2
- *
- * @return	String1 post concatenation
- *
- ******************************************************************************/
-char * XPlmi_Strcat(char* Str1Ptr, const char* Str2Ptr)
-{
-	while (*Str1Ptr != '\0') {
-		Str1Ptr++;
-	}
-
-	while(*Str2Ptr != '\0') {
-		*Str1Ptr = *Str2Ptr;
-		Str1Ptr++; Str2Ptr++;
-	}
-
-	*Str1Ptr = '\0';
-	return --Str1Ptr;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function copies Len bytes from source memory to destination
- * memory.
- *
- * @param	DestPtr is pointer to destination address
- * @param	SrcPtr is pointer to source address
- * @param	Len is number of bytes to be copied
- *
- * @return	DestPtr post copy
- *
- ******************************************************************************/
-void* XPlmi_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len)
-{
-	u8 *Dst = DestPtr;
-	const u8 *Src = SrcPtr;
-
-	/* Loop and copy.  */
-	while (Len != 0U) {
-		*Dst = *Src;
-		Dst++;
-		Src++;
-		Len--;
-	}
-
-	return DestPtr;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function compares Len bytes from memory1 and memory2.
- *
- * @param	Buf1Ptr is pointer to memory1
- * @param	Buf2Ptr is pointer to memory2
- * @param	Len is number of byets to be compared
- *
- * @return	0 if contents of both the memory regions are same,
- *			-1/1 if first non matching character has
- *			lower/greater value in Buf1Ptr
- *
- ******************************************************************************/
-int XPlmi_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len)
-{
-	int RetVal = 0;
-	const u8 *Buf1 = Buf1Ptr;
-	const u8 *Buf2 = Buf2Ptr;
-	u32 Size = Len;
-
-	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(Buf1 != NULL);
-	Xil_AssertNonvoid(Buf2 != NULL);
-	Xil_AssertNonvoid(Len != 0x0U);
-
-	/* Loop and compare */
-	while (Size != 0U) {
-		if (*Buf1 > *Buf2) {
-			RetVal = 1;
-			break;
-		} else if (*Buf1 < *Buf2) {
-			RetVal = -1;
-			break;
-		} else {
-			Buf1++;
-			Buf2++;
-			Size--;
-		}
-	}
-
-	return RetVal;
 }

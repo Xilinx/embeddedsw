@@ -17,6 +17,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   08/23/2018 Initial release
+* 1.01  bsv  04/04/2020 Code clean up
+* 1.02  bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -51,7 +53,7 @@ XPlmi_Module * Modules[XPLMI_MAX_MODULES];
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_ModuleRegister(XPlmi_Module * Module)
+void XPlmi_ModuleRegister(XPlmi_Module *Module)
 {
 	u32 ModuleId = Module->Id;
 

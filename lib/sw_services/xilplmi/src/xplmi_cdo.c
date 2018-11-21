@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -17,8 +16,20 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   08/23/2018 Initial release
-* 1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
-*                       time and print
+* 1.01  kc   12/02/2019 Added performance timestamps
+*       kc   12/17/2019 Added deferred error mechanism for mask poll
+*       bsv  01/12/2020 Changes related to bitstream loading
+*       ma   02/18/2020 Made performance measurement functions generic
+*       bsv  04/03/2020 Code clean up Xilpdi
+* 1.02  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
+* 						subsystem information
+*       kc   06/23/2020 Added code print command details for errors
+*       bsv  07/07/2020 Made functions used in single transaltion unit as
+*						static
+*       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
+*                       boot modes
+*       bm   10/14/2020 Code clean up
+*       td	 10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -29,6 +40,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_cdo.h"
 #include "xplmi_proc.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_CMD_LEN_TEMPBUF		(0x8U)
@@ -61,8 +73,8 @@ static u32 XPlmi_CmdSize(u32 *Buf, u32 Len)
 	if (Len >= Size) {
 		u32 CmdId = Buf[0U];
 		u32 PayloadLen = (CmdId & XPLMI_CMD_LEN_MASK) >> 16U;
-		if (PayloadLen == 255U) {
-			Size = 2U;
+		if (PayloadLen == XPLMI_MAX_SHORT_CMD_LEN) {
+			Size = XPLMI_LONG_CMD_HDR_LEN;
 			if (Len >= Size) {
 				PayloadLen = Buf[1U];
 			}
@@ -89,14 +101,13 @@ static void XPlmi_SetupCmd(XPlmi_Cmd * Cmd, u32 *Buf, u32 BufLen)
 	u32 HdrLen = 1U;
 
 	Cmd->CmdId = Buf[0U];
-	Cmd->IpiMask = 0U;
-	Cmd->Len = (Cmd->CmdId >> 16U) & 255U;
+	Cmd->Len = (Cmd->CmdId >> XPLMI_SHORT_CMD_LEN_SHIFT) & XPLMI_MAX_SHORT_CMD_LEN;
 	Cmd->Payload = Buf + 1U;
 	Cmd->ProcessedLen = 0U;
-	if (Cmd->Len == 255U) {
-		HdrLen = 2U;
+	if (Cmd->Len == XPLMI_MAX_SHORT_CMD_LEN) {
+		HdrLen = XPLMI_LONG_CMD_HDR_LEN;
 		Cmd->Len = Buf[1U];
-		Cmd->Payload = Buf + 2U;
+		Cmd->Payload = Buf + XPLMI_LONG_CMD_HDR_LEN;
 	}
 
 	/* Assign the available payloadlen in the buffer */
@@ -126,7 +137,7 @@ static int XPlmi_CdoVerifyHeader(XPlmiCdo *CdoPtr)
 	if (CdoHdr[1U] != XPLMI_CDO_HDR_IDN_WRD) {
 		XPlmi_Printf(DEBUG_GENERAL,
 				"CDO Header Identification Failed\n\r");
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_CDO_HDR_ID, 0x0U);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_CDO_HDR_ID, 0);
 		goto END;
 	}
 	for (Index = 0U; Index < (XPLMI_CDO_HDR_LEN - 1U); Index++) {
@@ -138,7 +149,7 @@ static int XPlmi_CdoVerifyHeader(XPlmiCdo *CdoPtr)
 	if (CheckSum != CdoHdr[Index]) {
 		XPlmi_Printf(DEBUG_GENERAL,
 				"Config Object Checksum Failed\n\r");
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_CDO_CHECKSUM, 0x0U);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_CDO_CHECKSUM, 0);
 		goto END;
 	} else {
 		Status = XST_SUCCESS;
@@ -159,11 +170,13 @@ END:
  *
  * @param	CdoPtr is pointer to the CDO structure
  *
- * @return	None
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-void XPlmi_InitCdo(XPlmiCdo *CdoPtr)
+int XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 {
+	int Status = XST_FAILURE;
+
 	/* Initialize the CDO structure variables */
 	CdoPtr->CopiedCmdLen = 0U;
 	CdoPtr->CmdState = XPLMI_CMD_STATE_START;
@@ -172,13 +185,18 @@ void XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 	CdoPtr->ProcessedCdoLen = 0U;
 	CdoPtr->ImgId = 0U;
 	CdoPtr->PrtnId = 0U;
-	CdoPtr->DeferredError = FALSE;
-
-	memset(&CdoPtr->Cmd.KeyHoleParams, 0U, sizeof(XPlmi_KeyHoleParams));
-	CdoPtr->Cmd.KeyHoleParams.PdiSrc = 0xFFU;
+	CdoPtr->DeferredError = (u8)FALSE;
+	Status = XPlmi_MemSetBytes(&CdoPtr->Cmd.KeyHoleParams,
+			sizeof(XPlmi_KeyHoleParams), 0U, sizeof(XPlmi_KeyHoleParams));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	/* Initialize the CDO buffer user params */
-	CdoPtr->CmdEndDetected = FALSE;
-	CdoPtr->Cdo1stChunk = TRUE;
+	CdoPtr->CmdEndDetected = (u8)FALSE;
+	CdoPtr->Cdo1stChunk = (u8)TRUE;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -221,12 +239,18 @@ static int XPlmi_CdoCopyCmd(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 *Size)
 	 * command size is greater than copied length
 	 */
 	if (*Size > CdoPtr->CopiedCmdLen) {
-		memcpy(CdoPtr->TempCmdBuf + CdoPtr->CopiedCmdLen, BufPtr,
+		Status = Xil_SecureMemCpy(CdoPtr->TempCmdBuf + CdoPtr->CopiedCmdLen,
+			(*Size - CdoPtr->CopiedCmdLen) * XPLMI_WORD_LEN, BufPtr,
 			(*Size - CdoPtr->CopiedCmdLen) * XPLMI_WORD_LEN);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_MEMCPY_COPY_CMD, Status);
+			goto END;
+		}
 	}
 	CdoPtr->CopiedCmdLen = 0U;
 	Status = XST_SUCCESS;
 
+END:
 	return Status;
 }
 
@@ -247,6 +271,7 @@ static int XPlmi_CdoCmdResume(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Si
 {
 	int Status = XST_FAILURE;
 	XPlmi_Cmd *CmdPtr = &CdoPtr->Cmd;
+	u32 PrintLen;
 
 	/* Update the Payload buffer and length */
 	if (CmdPtr->Len > (CmdPtr->ProcessedLen + BufLen)) {
@@ -258,13 +283,20 @@ static int XPlmi_CdoCmdResume(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Si
 
 	/* Copy the image id to cmd subsystem ID */
 	CmdPtr->SubsystemId = CdoPtr->ImgId;
+	CmdPtr->IpiMask = CdoPtr->IpiMask;
 	CmdPtr->Payload = BufPtr;
 	*Size = CmdPtr->PayloadLen;
 	Status = XPlmi_CmdResume(CmdPtr);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL,
-			"CMD: 0x%0x Resume failed, Processed Cdo Length 0x%0x\n\r",
+			"CMD: 0x%08x Resume failed, Processed Cdo Length 0x%0x\n\r",
 			CmdPtr->CmdId, CdoPtr->ProcessedCdoLen);
+		PrintLen = CmdPtr->PayloadLen;
+		if (PrintLen > XPLMI_CMD_LEN_TEMPBUF) {
+			PrintLen = XPLMI_CMD_LEN_TEMPBUF;
+		}
+		XPlmi_PrintArray(DEBUG_GENERAL, (u64)(UINTPTR)CmdPtr->Payload, PrintLen,
+				 "CMD payload");
 		goto END;
 	}
 
@@ -289,6 +321,7 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 {
 	int Status = XST_FAILURE;
 	XPlmi_Cmd *CmdPtr = &CdoPtr->Cmd;
+	u32 PrintLen;
 
 	/*
 	 * Break if CMD says END of commands,
@@ -296,7 +329,7 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	 */
 	if (BufPtr[0U] == XPLMI_CMD_END) {
 		XPlmi_Printf(DEBUG_INFO, "CMD END detected \n\r");
-		CdoPtr->CmdEndDetected = TRUE;
+		CdoPtr->CmdEndDetected = (u8)TRUE;
 		Status = XST_SUCCESS;
 		goto END;
 	}
@@ -309,7 +342,12 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	 */
 	if ((*Size > BufLen) && (BufLen < XPLMI_CMD_LEN_TEMPBUF)) {
 		/* Copy Cmd to temporary buffer */
-		memcpy(CdoPtr->TempCmdBuf, BufPtr, BufLen * XPLMI_WORD_LEN);
+		Status = Xil_SecureMemCpy(CdoPtr->TempCmdBuf, BufLen * XPLMI_WORD_LEN,
+				BufPtr, BufLen * XPLMI_WORD_LEN);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_MEMCPY_CMD_EXEC, Status);
+			goto END;
+		}
 		CdoPtr->CopiedCmdLen = BufLen;
 		*Size = BufLen;
 		Status = XST_SUCCESS;
@@ -326,16 +364,23 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	}
 	/* Copy the image id to cmd subsystem ID */
 	CmdPtr->SubsystemId = CdoPtr->ImgId;
+	CmdPtr->IpiMask = CdoPtr->IpiMask;
 
 	/* Execute the command */
 	XPlmi_SetupCmd(CmdPtr, BufPtr, *Size);
-	CmdPtr->DeferredError = FALSE;
+	CmdPtr->DeferredError = (u8)FALSE;
 	Status = XPlmi_CmdExecute(CmdPtr);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL,
-			"CMD: 0x%0x execute failed, Processed Cdo Length 0x%0x\n\r",
+			"CMD: 0x%08x execute failed, Processed Cdo Length 0x%0x\n\r",
 			CmdPtr->CmdId,
 			CdoPtr->ProcessedCdoLen + CdoPtr->BufLen - BufLen);
+		PrintLen = CmdPtr->PayloadLen;
+		if (PrintLen > XPLMI_CMD_LEN_TEMPBUF) {
+			PrintLen = XPLMI_CMD_LEN_TEMPBUF;
+		}
+		XPlmi_PrintArray(DEBUG_GENERAL, (u64)(UINTPTR)CmdPtr->Payload, PrintLen,
+				 "CMD Payload");
 		goto END;
 	}
 	if(CmdPtr->Len == CmdPtr->PayloadLen - 1U) {
@@ -371,12 +416,12 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 #endif
 
 	/* Verify the header for the first chunk of CDO */
-	if (CdoPtr->Cdo1stChunk == TRUE) {
+	if (CdoPtr->Cdo1stChunk == (u8)TRUE) {
 		Status = XPlmi_CdoVerifyHeader(CdoPtr);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		CdoPtr->Cdo1stChunk = FALSE;
+		CdoPtr->Cdo1stChunk = (u8)FALSE;
 		CdoPtr->CdoLen = BufPtr[3U];
 
 		BufPtr += XPLMI_CDO_HDR_LEN;
@@ -399,7 +444,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	 * In case CmdEnd is detected in previous iteration,
 	 * it just returns
 	 */
-	if (CdoPtr->CmdEndDetected == TRUE) {
+	if (CdoPtr->CmdEndDetected == (u8)TRUE) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
@@ -435,7 +480,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		 * exit the loop
 		 */
 		if ((Status != XST_SUCCESS) ||
-			(CdoPtr->CmdEndDetected == TRUE)) {
+			(CdoPtr->CmdEndDetected == (u8)TRUE)) {
 			goto END;
 		}
 
@@ -457,7 +502,7 @@ END:
 #ifdef PLM_PRINT_PERF_CDO_PROCESS
 	XPlmi_MeasurePerfTime(ProcessTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-			"%u.%u ms Cdo Processing time\n\r",
+			"%u.%06u ms Cdo Processing time\n\r",
 			(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 #endif
 	return Status;

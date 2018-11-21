@@ -17,6 +17,22 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   12/21/2017 Initial release
+* 1.01  bsv  04/08/2019 Added support for secondary boot device parameters
+*       bsv  07/30/2019 Renamed XilPdi_ReadAndValidateImgHdrTbl to
+							XilPdi_ReadImgHdrTbl
+*       rm   28/08/2019 Added APIs for retrieving delay load and delay handoff
+*						params
+* 1.02  bsv  29/11/2019 Added support for smap bus width word in partial pdis
+*       vnsl 26/02/2020 Added support to read DPA CM Enable field in meta headers
+*       vnsl 01/03/2020 Added support to read PufHeader from Meta Headers and
+*						partition headers
+*       vnsl 12/04/2020 Added support to read BootHdr Auth Enable field in
+*						boot header
+* 1.03  bsv  07/29/2020 Updated function headers
+*       kpt  07/30/2020 Added check to validate number of images
+*       bm   09/29/2020 Code cleanup
+*       kpt  10/19/2020 Added support to validate checksum of image headers and
+*                       partition headers
 *
 * </pre>
 *
@@ -36,227 +52,9 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static int XilPdi_ValidateChecksum(const void *Buffer, const u32 Len);
 
 /************************** Variable Definitions *****************************/
-
-/*****************************************************************************/
-
-/****************************************************************************/
-/**
-* @brief	This function will return the value of Partition Owner field.
-*
-* @param	PrtnHdr is pointer to the Partition Header
-*
-* @return	Partition Owner
-*
-*****************************************************************************/
-inline u32 XilPdi_GetPrtnOwner(const XilPdi_PrtnHdr * PrtnHdr)
-{
-	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_PRTN_OWNER_MASK);
-}
-
-/****************************************************************************/
-/**
-* @brief	This function will return the value of Checksum Type field.
-*
-* @param	PrtnHdr is pointer to the Partition Header
-*
-* @return	Checksum Type
-*
-*****************************************************************************/
-inline u32 XilPdi_GetChecksumType(XilPdi_PrtnHdr * PrtnHdr)
-{
-	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_CHECKSUM_MASK);
-}
-
-/****************************************************************************/
-/**
-* @brief	This function will return the value of Destination Cpu field.
-*
-* @param	PrtnHdr is pointer to the Partition Header
-*
-* @return	Destination Cpu
-*
-*****************************************************************************/
-inline u32 XilPdi_GetDstnCpu(const XilPdi_PrtnHdr * PrtnHdr)
-{
-	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_DSTN_CPU_MASK);
-}
-
-/****************************************************************************/
-/**
-* @brief	This function will return the value of Partition Type field.
-*
-* @param	PrtnHdr is pointer to the Partition Header
-*
-* @return	Partition Type
-*
-*****************************************************************************/
-inline u32 XilPdi_GetPrtnType(const XilPdi_PrtnHdr * PrtnHdr)
-{
-	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_PRTN_TYPE_MASK);
-}
-
-/****************************************************************************/
-/**
-* @brief	This function will return the value of A72 Execution State field.
-*
-* @param	PrtnHdr is pointer to the Partition Header
-*
-* @return	A72 Execution State
-*
-*****************************************************************************/
-inline u32 XilPdi_GetA72ExecState(const XilPdi_PrtnHdr * PrtnHdr)
-{
-	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_A72_EXEC_ST_MASK);
-}
-
-/****************************************************************************/
-/**
-* @brief	This function will return the value of HIVEC field.
-*
-* @param	PrtnHdr is pointer to the Partition Header
-*
-* @return	HIVEC value
-*
-*****************************************************************************/
-inline u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr * PrtnHdr)
-{
-	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_HIVEC_MASK);
-}
-
-/****************************************************************************/
-/**
-* @brief	This function will return the value of Puf Header field.
-*
-* @param	PrtnHdr is pointer to the Partition Header
-*
-* @return	PUF header
-*
-*****************************************************************************/
-inline u32 XilPdi_GetPufHdPh(const XilPdi_PrtnHdr * PrtnHdr)
-{
-	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_PUFHD_MASK);
-}
-
-/****************************************************************************/
-/**
-* @brief	This function checks if DpaCm is enabled or not.
-*
-* @param	PrtnHdr is pointer to the Partition Header
-*
-* @return	TRUE / FALSE
-*
-*****************************************************************************/
-inline u32 XilPdi_IsDpaCmEnable(const XilPdi_PrtnHdr * PrtnHdr)
-{
-	return ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_DPA_CM_EN_MASK) != 0x0U) ?
-		TRUE : FALSE;
-}
-
-/****************************************************************************/
-/**
-* @brief	This function checks if DpaCm is enabled or not in Metaheader.
-*
-* @param	IHdrTbl is pointer to the Image Header Table
-*
-* @return	TRUE / FALSE
-*
-*****************************************************************************/
-inline u32 XilPdi_IsDpaCmEnableMetaHdr(const XilPdi_ImgHdrTbl * IHdrTbl)
-{
-	return ((IHdrTbl->Attr & XIH_IHT_ATTR_DPA_CM_MASK) != 0x0U) ?
-		TRUE : FALSE;
-}
-
-/****************************************************************************/
-/**
-* @brief	This function gets PUF header value from Image Header Table.
-*
-* @param	IHdrTbl is pointer to the Image Header Table
-*
-* @return	PUF Header Value
-*
-*****************************************************************************/
-inline u32 XilPdi_GetPufHdMetaHdr(const XilPdi_ImgHdrTbl * IHdrTbl)
-{
-	return (IHdrTbl->Attr & XIH_IHT_ATTR_PUFHD_MASK);
-}
-
-/****************************************************************************/
-/**
-* @brief	This function gets Copy to Memory value from Image Header Table.
-*
-* @param	IHdrTbl is pointer to the Image Header Table
-*
-* @return	Copy to Memory Value
-*
-*****************************************************************************/
-inline u32 XilPdi_GetCopyToMemory(const XilPdi_ImgHdr *ImgHdr)
-{
-	return (ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_COPY_MEMORY_MASK);
-}
-
-/****************************************************************************/
-/**
-* @brief	This function gets Delay Load value from Image Header Table.
-*
-* @param	IHdrTbl is pointer to the Image Header Table
-*
-* @return	Delay Load Value
-*
-*****************************************************************************/
-inline u32 XilPdi_GetDelayLoad(const XilPdi_ImgHdr *ImgHdr)
-{
-	return (ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_DELAY_LOAD_MASK);
-}
-
-/****************************************************************************/
-/**
-* @brief	This function gets Delay Handoff value from Image Header Table.
-*
-* @param	IHdrTbl is pointer to the Image Header Table
-*
-* @return	Delay Handoff Value
-*
-*****************************************************************************/
-inline u32 XilPdi_GetDelayHandoff(const XilPdi_ImgHdr *ImgHdr)
-{
-	return (ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_DELAY_HANDOFF_MASK);
-}
-
-/****************************************************************************/
-/**
-* @brief	This function will return the Secondary boot device.
-*
-* @param	ImgHdrTbl is pointer to the Image Header Table
-*
-* @return 	Secondary Boot device
-*
-*****************************************************************************/
-u32 XilPdi_GetSBD(const XilPdi_ImgHdrTbl * ImgHdrTbl)
-{
-	return (ImgHdrTbl->Attr & XIH_IHT_ATTR_SBD_MASK);
-}
-
-/****************************************************************************/
-/**
-* @brief	This function will return whether boot header authentication is
-* enabled or not.
-*
-* @param	BootHdr is pointer to the boot header
-*
-* @return 	TRUE if boot header authentication is enabled.
-*			FALSE if boot header authentication is disabled.
-*
-*****************************************************************************/
-inline u32 XilPdi_IsBhdrAuthEnable(const XilPdi_BootHdr *BootHdr)
-{
-	u32 BhAuth = (BootHdr->ImgAttrb & XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
-					XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT;
-
-	return ((BhAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ? TRUE : FALSE);
-}
 
 /****************************************************************************/
 /**
@@ -273,11 +71,12 @@ inline u32 XilPdi_IsBhdrAuthEnable(const XilPdi_BootHdr *BootHdr)
 			XST_FAILURE if checksum validation fails
 *
 *****************************************************************************/
-int XilPdi_ValidateChecksum(u32 Buffer[], u32 Len)
+static int XilPdi_ValidateChecksum(const void *Buffer, const u32 Len)
 {
 	int Status = XST_FAILURE;
 	u32 Checksum = 0U;
 	u32 Count;
+	const u32 *BufferPtr = (const u32 *)Buffer;
 
 	/* Len has to be at least equal to 2 */
 	if (Len < 2U)
@@ -293,16 +92,16 @@ int XilPdi_ValidateChecksum(u32 Buffer[], u32 Len)
 		/*
 		 * Read the word from the header
 		 */
-		Checksum += Buffer[Count];
+		Checksum += BufferPtr[Count];
 	}
 
 	/* Invert checksum */
 	Checksum ^= 0xFFFFFFFFU;
 
 	/* Validate the checksum */
-	if (Buffer[Len - 1U] != Checksum) {
+	if (BufferPtr[Len - 1U] != Checksum) {
 		XilPdi_Printf("Error: Checksum 0x%0lx != %0lx\r\n",
-								Checksum, Buffer[Len - 1U]);
+								Checksum, BufferPtr[Len - 1U]);
 	} else {
 		Status = XST_SUCCESS;
 	}
@@ -323,25 +122,29 @@ END:
 *			Errors as mentioned in xilpdi.h on failure
 *
 *****************************************************************************/
-int XilPdi_ValidateImgHdrTbl(XilPdi_ImgHdrTbl * ImgHdrTbl)
+int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 {
 	int Status = XST_FAILURE;
 
 	/* Check the check sum of the Image Header Table */
-	Status = XilPdi_ValidateChecksum((u32 *)ImgHdrTbl,
+	Status = XilPdi_ValidateChecksum(ImgHdrTbl,
 				XIH_IHT_LEN / XIH_PRTN_WORD_LEN);
 	if (XST_SUCCESS != Status) {
 		Status = XILPDI_ERR_IHT_CHECKSUM;
 		XilPdi_Printf("XILPDI_ERR_IHT_CHECKSUM\n\r");
 		goto END;
 	}
-
+	/* Check for number of images */
+	if ((ImgHdrTbl->NoOfImgs < XIH_MIN_IMGS) ||
+		(ImgHdrTbl->NoOfImgs > XIH_MAX_IMGS)) {
+		Status = XILPDI_ERR_NO_OF_IMGS;
+		XilPdi_Printf("XILPDI_ERR_NO_OF_IMAGES\n\r");
+		goto END;
+	}
 	/* Check for number of partitions */
 	if ((ImgHdrTbl->NoOfPrtns < XIH_MIN_PRTNS) ||
 		(ImgHdrTbl->NoOfPrtns > XIH_MAX_PRTNS)) {
 		Status = XILPDI_ERR_NO_OF_PRTNS;
-		XilPdi_Printf("No of Partitions %u\n\r",
-			      ImgHdrTbl->NoOfPrtns);
 		XilPdi_Printf("XILPDI_ERR_NO_OF_PRTNS\n\r");
 		goto END;
 	}
@@ -381,7 +184,7 @@ END:
 *			Errors as mentioned in xilpdi.h on failure
 *
 *****************************************************************************/
-int XilPdi_ValidatePrtnHdr(XilPdi_PrtnHdr * PrtnHdr)
+int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr * PrtnHdr)
 {
 	int Status = XST_FAILURE;
 	u32 PrtnType;
@@ -443,8 +246,8 @@ END:
 *****************************************************************************/
 void XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr)
 {
-	memcpy((u8 *)&(MetaHdrPtr->BootHdr.WidthDetection),
-			(u8 *)XIH_BH_PRAM_ADDR, (XIH_BH_LEN - SMAP_BUS_WIDTH_LENGTH));
+	(void)memcpy((void *)&(MetaHdrPtr->BootHdr.WidthDetection),
+			(void *)XIH_BH_PRAM_ADDR, (XIH_BH_LEN - SMAP_BUS_WIDTH_LENGTH));
 	/*
 	 * Print FW Rsvd fields Details
 	 */
@@ -468,6 +271,7 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 {
 	int Status = XST_FAILURE;
 	u32 SmapBusWidthCheck[SMAP_BUS_WIDTH_WORD_LEN];
+	u32 Offset;
 
 	/*
 	 * Read the Img header table of 64 bytes
@@ -485,30 +289,21 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 	if ((SMAP_BUS_WIDTH_8_WORD1 == SmapBusWidthCheck[0U]) ||
 		(SMAP_BUS_WIDTH_16_WORD1 == SmapBusWidthCheck[0U]) ||
 		(SMAP_BUS_WIDTH_32_WORD1 == SmapBusWidthCheck[0U])) {
-
-		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-			    MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrOfst +
-				SMAP_BUS_WIDTH_LENGTH,
-				(u64)(UINTPTR) &(MetaHdrPtr->ImgHdrTbl),
-			    XIH_IHT_LEN, 0x0U);
-		if (XST_SUCCESS != Status) {
-			XilPdi_Printf("Device Copy Failed \n\r");
-			goto END;
-		}
+		Offset = 0U;
 	} else {
-		memcpy((u8 *)&(MetaHdrPtr->ImgHdrTbl), SmapBusWidthCheck,
-				SMAP_BUS_WIDTH_LENGTH);
+		(void)memcpy((void *)&(MetaHdrPtr->ImgHdrTbl),
+			(void *)SmapBusWidthCheck, SMAP_BUS_WIDTH_LENGTH);
+		Offset = SMAP_BUS_WIDTH_LENGTH;
+	}
 
-		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-			    MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrOfst +
-				SMAP_BUS_WIDTH_LENGTH,
-			    (u64 )(UINTPTR) &(MetaHdrPtr->ImgHdrTbl) +
-				SMAP_BUS_WIDTH_LENGTH,
-			    (XIH_IHT_LEN - SMAP_BUS_WIDTH_LENGTH), 0x0U);
-		if (XST_SUCCESS != Status) {
-			XilPdi_Printf("Device Copy Failed \n\r");
-			goto END;
-		}
+	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
+			MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrOfst +
+			SMAP_BUS_WIDTH_LENGTH,
+			(u64)(UINTPTR) &(MetaHdrPtr->ImgHdrTbl) + Offset,
+			(XIH_IHT_LEN - Offset), 0x0U);
+	if (XST_SUCCESS != Status) {
+		XilPdi_Printf("Device Copy Failed \n\r");
+		goto END;
 	}
 
 END:
@@ -530,11 +325,7 @@ int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr)
 	int Status = XST_FAILURE;
 	u32 NoOfImgs;
 	u32 ImgIndex;
-	u32 ImgHdrAddr;
 
-	/* Update the first Image Header address */
-	ImgHdrAddr = (MetaHdrPtr->ImgHdrTbl.ImgHdrAddr)
-					* XIH_PRTN_WORD_LEN;
 	NoOfImgs = MetaHdrPtr->ImgHdrTbl.NoOfImgs;
 
 	XilPdi_Printf("Reading %u Image Headers \n\r", NoOfImgs);
@@ -543,36 +334,33 @@ int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr)
 	 * Read the Img headers of 64 bytes
 	 * and update the Image Header structure for all images
 	 */
-	for (ImgIndex = 0U; ImgIndex < NoOfImgs; ImgIndex++) {
-		/* Performs device copy */
-		if (MetaHdrPtr->Flag == XILPDI_METAHDR_RD_HDRS_FROM_DEVICE) {
-			Status = MetaHdrPtr->DeviceCopy(
-					MetaHdrPtr->FlashOfstAddr + ImgHdrAddr,
-					(u64)(UINTPTR)&(MetaHdrPtr->ImgHdr[ImgIndex]),
-					XIH_IH_LEN, 0x0U);
-		} else {
-			/* Performs memory copy */
-			(void *)MetaHdrPtr->XMemCpy(
-				(void *)&(MetaHdrPtr->ImgHdr[ImgIndex]),
-				(void *)(UINTPTR)(MetaHdrPtr->BufferAddr +
-					(ImgIndex * XIH_IH_LEN)), XIH_IH_LEN);
-			Status = XST_SUCCESS;
-		}
-		if (XST_SUCCESS != Status) {
-			XilPdi_Printf("Device Copy Failed \n\r");
-			goto END;
-		}
 
-		Status = XilPdi_ValidateChecksum(
-		       (u32 *)&MetaHdrPtr->ImgHdr[ImgIndex], XIH_IH_LEN/4U);
+	/* Performs device copy */
+	if (MetaHdrPtr->Flag == XILPDI_METAHDR_RD_HDRS_FROM_DEVICE) {
+		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
+				MetaHdrPtr->ImgHdrTbl.ImgHdrAddr * XIH_PRTN_WORD_LEN,
+				(u64)(UINTPTR)&(MetaHdrPtr->ImgHdr[0U]),
+				NoOfImgs * XIH_IH_LEN, 0x0U);
+	} else {
+		/* Performs memory copy */
+		Status = MetaHdrPtr->XMemCpy((void *)&(MetaHdrPtr->ImgHdr[0U]),
+			NoOfImgs * XIH_IH_LEN, (void *)(UINTPTR)(MetaHdrPtr->BufferAddr),
+			NoOfImgs * XIH_IH_LEN);
+	}
+	if (XST_SUCCESS != Status) {
+		XilPdi_Printf("Device Copy Failed \n\r");
+		goto END;
+	}
+
+	for (ImgIndex = 0U; ImgIndex < NoOfImgs; ImgIndex++) {
+
+		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->ImgHdr[ImgIndex],
+				XIH_IH_LEN / XIH_PRTN_WORD_LEN);
 		if (XST_SUCCESS != Status) {
 			XilPdi_Printf("Image %u Checksum Failed \n\r",
 					ImgIndex);
 			goto END;
 		}
-
-		/* Update the next Image Header present address */
-		ImgHdrAddr += XIH_IH_LEN;
 	}
 
 	Status = XST_SUCCESS;
@@ -585,7 +373,7 @@ END:
 /**
 * @brief	This function reads and verifies the Partition Header.
 *
-* @param	MetaHdrPtr is pointer to the XilPdi_MetaHdr structure
+* @param	MetaHdrPtr is pointer to the MetaHeader
 *
 * @return	XST_SUCCESS on successful validation of Partition Header
 *			Errors as mentioned in xilpdi.h on failure
@@ -596,52 +384,40 @@ int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr)
 	int Status = XST_FAILURE;
 	u32 PrtnIndex;
 	u32 NoOfPrtns;
-	u32 PrtnHdrAddr;
 
-	/* Update the first partition address */
-	PrtnHdrAddr = (MetaHdrPtr->ImgHdrTbl.PrtnHdrAddr)
-			* XIH_PRTN_WORD_LEN;
 	NoOfPrtns = MetaHdrPtr->ImgHdrTbl.NoOfPrtns;
 
 	XilPdi_Printf("Reading %u Partition Headers \n\r", NoOfPrtns);
 
-	/*
-	 * Read the Img header table of 64 bytes
-	 * and update the Image Header Table structure
-	 */
+	/* Read partition headers into partition structures */
+
+	/* Performs device copy */
+	if (MetaHdrPtr->Flag == XILPDI_METAHDR_RD_HDRS_FROM_DEVICE) {
+		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
+				MetaHdrPtr->ImgHdrTbl.PrtnHdrAddr * XIH_PRTN_WORD_LEN,
+				(u64)(UINTPTR)&(MetaHdrPtr->PrtnHdr[0U]),
+			       NoOfPrtns * XIH_PH_LEN, 0x0U);
+	} else {
+		/* Performs memory copy */
+		Status = MetaHdrPtr->XMemCpy((void *)&(MetaHdrPtr->PrtnHdr[0U]),
+			NoOfPrtns * XIH_PH_LEN, (void *)(UINTPTR)(MetaHdrPtr->BufferAddr),
+			NoOfPrtns * XIH_PH_LEN);
+	}
+	if (XST_SUCCESS != Status) {
+		XilPdi_Printf("Device Copy Failed \n\r");
+		goto END;
+	}
+
 	for (PrtnIndex = 0U; PrtnIndex < NoOfPrtns; PrtnIndex++) {
-		/* Performs device copy */
-		if (MetaHdrPtr->Flag == XILPDI_METAHDR_RD_HDRS_FROM_DEVICE) {
-			Status = MetaHdrPtr->DeviceCopy(
-					MetaHdrPtr->FlashOfstAddr +
-					PrtnHdrAddr,
-				(u64)(UINTPTR)&(MetaHdrPtr->PrtnHdr[PrtnIndex]),
-				       XIH_PH_LEN, 0x0U);
-		} else {
-			/* Performs memory copy */
-			(void *)MetaHdrPtr->XMemCpy(
-				(void *)&(MetaHdrPtr->PrtnHdr[PrtnIndex]),
-				(void *)(UINTPTR)(MetaHdrPtr->BufferAddr +
-				(PrtnIndex * XIH_PH_LEN)), XIH_PH_LEN);
-			Status = XST_SUCCESS;
-		}
-		if (XST_SUCCESS != Status) {
-			XilPdi_Printf("Device Copy Failed \n\r");
-			goto END;
-		}
 
 		Status = XilPdi_ValidateChecksum(
-		       (u32 *)&MetaHdrPtr->PrtnHdr[PrtnIndex], XIH_PH_LEN / 4U);
+				&MetaHdrPtr->PrtnHdr[PrtnIndex],
+				XIH_PH_LEN / XIH_PRTN_WORD_LEN);
 		if (XST_SUCCESS != Status) {
 			XilPdi_Printf("Partition %u Checksum Failed \n\r",
 					PrtnIndex);
 			goto END;
 		}
-
-		/* Update the next partition present address */
-		PrtnHdrAddr =
-			(MetaHdrPtr->PrtnHdr[PrtnIndex].NextPrtnOfst)
-			* XIH_PRTN_WORD_LEN;
 	}
 
 	Status = XST_SUCCESS;
@@ -650,55 +426,39 @@ END:
 	return Status;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* @brief	This function reads aligned data of partition. Every partition
-* is aligned to 64 bytes.
-*
-* @param	MetaHdrPtr is pointer to Meta Header
-* @param	PrtnNum is the number of partition
-*
-* @return	XST_SUCCESS on successful reading of aligned data
-*			Errors as mentioned in xilpdi.h on failure
-*
-*****************************************************************************/
-int XilPdi_ReadAlignedData(XilPdi_MetaHdr * MetaHdrPtr, u32 PrtnNum)
+ * @brief
+ * This function validates the Checksum of image and partition headers.
+ *
+ * @param	MetaHdrPtr is Pointer to the Meta header.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ ******************************************************************************/
+int XilPdi_ValidateHdrs(const XilPdi_MetaHdr *MetaHdrPtr)
 {
 	int Status = XST_FAILURE;
-	u32 PrtnLen;
-	u32 AlignLen;
-	XilPdi_PrtnHdr * PrtnHdr;
-	u32 AlignAddr;
-	u8 AlignBuf[XIH_PRTN_ALIGN_LEN];
-
-	/* Assign the Partition Header to local variable */
-	PrtnHdr = &(MetaHdrPtr->PrtnHdr[PrtnNum]);
-
-	/* Read the partition length */
-	PrtnLen = (PrtnHdr->TotalDataWordLen) * XIH_PRTN_WORD_LEN;
-
-	/* Check for last partition */
-	if (PrtnNum == (MetaHdrPtr->ImgHdrTbl.NoOfPrtns - 1U)) {
-		/* No alignment data present for last partition */
-		Status = XST_SUCCESS;
-		goto END;
+	u32 Index;
+	for (Index = 0U; Index < MetaHdrPtr->ImgHdrTbl.NoOfImgs; Index++) {
+		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->ImgHdr[Index],
+						XIH_IH_LEN / XIH_PRTN_WORD_LEN);
+		if (Status != XST_SUCCESS) {
+			XilPdi_Printf("Image %u Checksum Failed \n\r",
+					       Index);
+			goto END;
+		}
 	}
-
-	/* Get the alignment data address */
-	AlignAddr = (PrtnHdr->DataWordOfst + PrtnHdr->TotalDataWordLen)
-		* XIH_PRTN_WORD_LEN;
-	AlignLen = XIH_PRTN_ALIGN_LEN - (PrtnLen % XIH_PRTN_ALIGN_LEN);
-
-	if ((AlignLen != 0U) && (AlignLen != XIH_PRTN_ALIGN_LEN)) {
-		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-						AlignAddr,
-						(u64 )(UINTPTR) &AlignBuf,
-						AlignLen, 0x0U);
-	} else {
-		/* No alignment data present */
-		Status = XST_SUCCESS;
+	for (Index = 0U; Index < MetaHdrPtr->ImgHdrTbl.NoOfPrtns; Index++) {
+		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->PrtnHdr[Index],
+						XIH_PH_LEN / XIH_PRTN_WORD_LEN);
+		if (Status != XST_SUCCESS) {
+			XilPdi_Printf("Partition %u Checksum Failed \n\r",
+					       Index);
+			goto END;
+		}
 	}
-
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }

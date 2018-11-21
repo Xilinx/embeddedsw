@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -17,7 +16,15 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   07/13/2018 Initial release
-* 1.01  ma   03/02/2020 Implement PLMI own outbyte to support logging as well
+* 1.01  ma   08/01/2019 Added LPD init code
+* 1.02  ana  11/26/2019 Updated Uart Device ID
+*       kc   01/16/2020 Removed xilpm dependency in PLMI for UART
+*       ma   02/18/2020 Added support for logging terminal prints
+*       ma   03/02/2020 Implement PLMI own outbyte to support logging as well
+*       bsv  04/04/2020 Code clean up
+* 1.03  kc   07/28/2020 Moved LpdInitialized from xplmi_debug.c to xplmi.c
+*       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -34,9 +41,10 @@
 #include "xstatus.h"
 #include "xplmi_hw.h"
 #include "xplmi_status.h"
+#include "xparameters.h"
 
 /* PLM specific outbyte function */
-void outbyte(char c);
+void outbyte(char8 c);
 
 /************************** Constant Definitions *****************************/
 
@@ -47,22 +55,10 @@ void outbyte(char c);
 #define XPLMI_SPP_INPUT_CLK_FREQ	(25000000U)
 #define XPLMI_UART_BAUD_RATE		(115200U)
 
-#if ((XPAR_XUARTPSV_NUM_INSTANCES == 2U) && \
-			(STDOUT_BASEADDRESS == 0xFF010000U))
-#define XPLMI_UART_INDEX	(1U)
-#else
-#define XPLMI_UART_INDEX	(0U)
-#endif
-
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-#ifdef DEBUG_UART_PS
-XUartPsv UartPsvIns;	/* The instance of the UART Driver */
-#endif
-u8 LpdInitialized = FALSE;
 
-/*****************************************************************************/
 /*****************************************************************************/
 /**
  * @brief	This function initializes the PS UART
@@ -75,6 +71,7 @@ u8 LpdInitialized = FALSE;
 int XPlmi_InitUart(void)
 {
 	int Status = XST_FAILURE;
+	u8 Index = 0U;
 
 	/* Initialize UART */
 	/* If UART is already initialized, just return success */
@@ -83,26 +80,46 @@ int XPlmi_InitUart(void)
 		goto END;
 	}
 
-#ifdef DEBUG_UART_PS
+#if (XPAR_XUARTPSV_NUM_INSTANCES > 0U)
+	XUartPsv UartPsvIns;
 	XUartPsv_Config *Config;
 
-	Config = XUartPsv_LookupConfig(XPLMI_UART_INDEX);
-	if (NULL == Config) {
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_UART_LOOKUP, 0x0U);
-		goto END;
+	for (Index = 0U; Index < (u8)XPAR_XUARTPSV_NUM_INSTANCES; Index++) {
+
+		Status = XPlmi_MemSetBytes(&UartPsvIns, sizeof(XUartPsv),
+				0U, sizeof(XUartPsv));
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_UART_MEMSET, Status);
+			goto END;
+		}
+
+		Config = XUartPsv_LookupConfig(Index);
+		if (NULL == Config) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_UART_LOOKUP, (int)Index);
+			goto END;
+		}
+
+		if (XPLMI_PLATFORM == PMC_TAP_VERSION_SPP) {
+			Config->InputClockHz = XPLMI_SPP_INPUT_CLK_FREQ;
+		}
+
+		Status = XUartPsv_CfgInitialize(&UartPsvIns, Config,
+				Config->BaseAddress);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_UART_CFG, Status);
+			goto END;
+		}
+		Status = XUartPsv_SetBaudRate(&UartPsvIns, XPLMI_UART_BAUD_RATE);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_UART_PSV_SET_BAUD_RATE,
+					Status);
+			goto END;
+		}
 	}
 
-	if (XPLMI_PLATFORM == PMC_TAP_VERSION_SPP) {
-		Config->InputClockHz = XPLMI_SPP_INPUT_CLK_FREQ;
-	}
-
-	Status = XUartPsv_CfgInitialize(&UartPsvIns, Config, Config->BaseAddress);
-	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_UART_CFG, Status);
-		goto END;
-	}
-	XUartPsv_SetBaudRate(&UartPsvIns, XPLMI_UART_BAUD_RATE);
+#ifndef PLM_PRINT_NO_UART
 	LpdInitialized |= UART_INITIALIZED;
+#endif
 #endif
 
 #ifdef DEBUG_UART_MDM
@@ -124,18 +141,18 @@ END:
  * @return	None
  *
  *****************************************************************************/
-void outbyte(char c)
+void outbyte(char8 c)
 {
 #ifdef STDOUT_BASEADDRESS
 	if(((LpdInitialized) & UART_INITIALIZED) == UART_INITIALIZED) {
-		XUartPsv_SendByte(STDOUT_BASEADDRESS, c);
+		XUartPsv_SendByte(STDOUT_BASEADDRESS, (u8)c);
 	}
 #endif
 
 	if (DebugLog.LogBuffer.CurrentAddr >=
 			(DebugLog.LogBuffer.StartAddr + DebugLog.LogBuffer.Len)) {
 		DebugLog.LogBuffer.CurrentAddr = DebugLog.LogBuffer.StartAddr;
-		DebugLog.LogBuffer.IsBufferFull = TRUE;
+		DebugLog.LogBuffer.IsBufferFull = (u8)TRUE;
 	}
 
 	XPlmi_OutByte64(DebugLog.LogBuffer.CurrentAddr, c);
