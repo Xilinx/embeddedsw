@@ -121,7 +121,7 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
     set valid_periph 0
     #Get proper gic instance for periphs in case of zynqmp
     foreach periph $periphs {
-	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
+	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)|| ([string compare -nocase $proctype "psu_cortexa72"] == 0) ||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
 		lappend newperiphs $periph
@@ -175,6 +175,8 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 				set value 0xF9001000
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set value [common::get_property CONFIG.$arg $periph]
+			} elseif {[string compare -nocase $proctype "psu_cortexa72"] == 0} {
+			        set value 0xF9040000
 			} else {
 				if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
                                      set value 0x03002000
@@ -187,6 +189,8 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 				set value 0xF9001FFF
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set value [common::get_property CONFIG.$arg $periph]
+			} elseif {[string compare -nocase $proctype "psu_cortexa72"] == 0} {
+			        set value 0xF9041000
 			} else {
                                 if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
 				   set value 0x03002FFF
@@ -199,7 +203,9 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 				set value 0xF9000000
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set value 0xf8f01000
-			} else {
+			} elseif {[string compare -nocase $proctype "psu_cortexa72"] == 0} {
+                                set value 0xf9000000
+                        } else {
                                 if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
 				   set value 0x03001000
                                 } else {
@@ -248,7 +254,7 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 	set uSuffix "U"
     #Get proper gic instance for periphs in case of zynqmp
     foreach periph $periphs {
-	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
+	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)|| ([string compare -nocase $proctype "psu_cortexa72"] == 0)||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
 		lappend newperiphs $periph
@@ -311,6 +317,8 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 				set rvalue 0xF9001000
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set rvalue [common::get_property CONFIG.$arg $periph]
+			} elseif {[string compare -nocase $proctype "psu_cortexa72"] == 0} {
+			        set rvalue 0xF9040000
 			} else {
                                 if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
                                      set rvalue 0x03002000
@@ -323,6 +331,8 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 				set rvalue 0xF9001FFF
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set rvalue [common::get_property CONFIG.$arg $periph]
+			} elseif {[string compare -nocase $proctype "psu_cortexa72"] == 0} {
+			        set rvalue 0xF9041000
 			} else {
                                 if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
 				   set rvalue 0x03002FFF
@@ -335,6 +345,8 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 				set rvalue 0xF9000000
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set rvalue 0xf8f01000
+                        } elseif {[string compare -nocase $proctype "psu_cortexa72"] == 0} {
+                                set rvalue 0xF9000000
 			} else {
                                 if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
 				   set rvalue 0x03001000
@@ -392,7 +404,7 @@ proc xdefine_zynq_config_file {drv_handle file_name drv_string args} {
     set valid_periph 0
     #Get proper gic instance for periphs in case of zynqmp
     foreach periph $periphs {
-	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
+	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)|| ([string compare -nocase $proctype "psu_cortexa72"] == 0)||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
 		lappend newperiphs $periph
@@ -465,7 +477,7 @@ proc xdefine_gic_params {drvhandle} {
     set valid_periph 0
     #Get proper gic instance for periphs in case of zynqmp
     foreach periph $periphs {
-	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
+	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)|| ([string compare -nocase $proctype "psu_cortexa72"] == 0)||
 	   (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	   (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
 		lappend newperiphs $periph
