@@ -29,7 +29,7 @@
 /**
 *
 * @file xcanfd_selftest.c
-* @addtogroup canfd_v2_0
+* @addtogroup canfd_v2_1
 * @{
 *
 * This file contains a diagnostic self-test function for the XCanFd driver.
@@ -45,10 +45,9 @@
 * 1.2   mi   09/22/16 Fixed compilation warnings.
 * 1.3   ask  08/08/18 Fixed Cppcheck warnings and updated the Canfd Id with
 *						11 bit value
-*	ask  09/21/18 Fixed CanFD hang issue in selftest by correcting the
+* 2.1	ask  09/21/18 Fixed CanFD hang issue in selftest by correcting the
 *                     Configuration regarding the Baud Rate and bit timing
-*		      for both Arbitration and Data Phase.
-* 2.0  ask  9/12/18  Added support for canfd 2.0 spec sequential mode
+*                     for both Arbitration and Data Phase.
 *
 * </pre>
 *

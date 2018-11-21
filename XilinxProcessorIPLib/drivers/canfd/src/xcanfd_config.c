@@ -29,7 +29,7 @@
 /**
 *
 * @file xcanfd_config.c
-* @addtogroup canfd_v2_0
+* @addtogroup canfd_v2_1
 * @{
 *
 * Functions in this file are CAN Configuration Register access related.
@@ -40,14 +40,12 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   nsk  06/04/15 First release
-* 1.3   ask  08/08/18 Fixed Cppcheck warnings.
-* 2.0   ask  09/21/18 Added support for canfd 2.0 spec sequential mode.
-*				  	  Added Api: XCanFd_SetRxIntrWatermarkFifo1
+* 2.1   ask  06/25/18 Added support for canfd 2.0 spec sequential mode CR# 992606,
+*			 CR# 1004222. Added Api: XCanFd_SetRxIntrWatermarkFifo1
 *								 XCanFd_SetTxEventIntrWatermark
 *								 XCanFd_SetRxFilterPartition
 *					  Modified Api: XCanFd_SetBitTiming
 *							XCanFd_SetFBitTiming
-*
 * </pre>
 ******************************************************************************/
 
