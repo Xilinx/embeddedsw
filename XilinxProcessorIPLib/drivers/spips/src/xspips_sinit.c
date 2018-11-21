@@ -29,7 +29,7 @@
 /**
 *
 * @file xspips_sinit.c
-* @addtogroup spips_v3_1
+* @addtogroup spips_v3_2
 * @{
 *
 * The implementation of the XSpiPs driver's static initialization

@@ -29,7 +29,7 @@
 /**
 *
 * @file xspips_g.c
-* @addtogroup spips_v3_1
+* @addtogroup spips_v3_2
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
