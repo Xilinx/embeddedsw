@@ -145,7 +145,7 @@ extern "C" {
 
 
 #ifdef FILE_SYSTEM_USE_LFN
-#define	FF_USE_LFN	1		/* 0 to 3 */
+#define	FF_USE_LFN	FILE_SYSTEM_USE_LFN	/* 0 to 3 */
 #else
 #define	FF_USE_LFN	0		/* 0 to 3 */
 #endif

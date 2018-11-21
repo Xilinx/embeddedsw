@@ -32,6 +32,7 @@
 # ----- ----  -------  -----------------------------------------------
 # 1.00a hk/sg 10/17/13 First release
 # 2.0   hk    12/13/13 Modified to use new TCL API's
+# 4.1   hk    11/21/18 Use additional LFN options
 #
 ##############################################################################
 
@@ -165,8 +166,8 @@ proc xgen_opts_file {libhandle} {
 			puts $file_handle "\#define FILE_SYSTEM_FS_EXFAT"
 			set use_lfn true
 		}
-		if {$use_lfn == true} {
-			puts $file_handle "\#define FILE_SYSTEM_USE_LFN"
+		if {$use_lfn > 0 && $use_lfn < 4} {
+			puts $file_handle "\#define FILE_SYSTEM_USE_LFN $use_lfn"
 		}
 		if {$use_mkfs == true} {
 			puts $file_handle "\#define FILE_SYSTEM_USE_MKFS"
