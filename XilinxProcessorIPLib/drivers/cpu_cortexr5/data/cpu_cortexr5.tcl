@@ -140,6 +140,15 @@ proc xdefine_cortexr5_params {drvhandle} {
 			}
 		}
    }
+	# Add "versal" flag to extra compiler flags, if device is versal
+	set cortexa72proc [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa72"]
+	if {[llength $cortexa72proc] > 0} {
+		set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
+		if {[string first "-Dversal" $extra_flags] == -1 } {
+			append extra_flags " -Dversal"
+			common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
+                }
+	}
 }
 
 proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
