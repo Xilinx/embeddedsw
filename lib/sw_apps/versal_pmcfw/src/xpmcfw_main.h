@@ -167,6 +167,11 @@ typedef struct {
 #define XPMCFW_XDMA_SCRATCH_PAD_REG1			(0x92003080U)
 #define XPMCFW_SBI_DATA_RECV_READY				(0x1U)
 
+/* SSIT error/interrupt masks */
+#define SSIT_INTR_MASK			(0x1U)
+#define SSIT_ERR_INTR_MASK		(0x4U)
+#define SSIT_INTR_CLEAR			(0x0U)
+
 /************************** Function Prototypes ******************************/
 
 /* Functions defined in xpmcfw_main.c */

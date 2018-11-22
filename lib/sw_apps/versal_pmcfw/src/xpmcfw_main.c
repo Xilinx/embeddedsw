@@ -423,11 +423,8 @@ void XPmcFw_ErrorLockDown(u32 ErrorStatus)
 	} else {
 		Xil_Out32(PMC_GLOBAL_PERS_GLOB_GEN_STORAGE4, 0xFU);
 		XPmcFw_Printf(DEBUG_GENERAL,"Fallback occurred. Generating an error to Master PMC \n\r");
-#if defined(XPMCFW_HW70) || defined(XPMCFW_HW80) || defined(XPMCFW_HW90)
-		Xil_Out32(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_MASK);
-#else
-		Xil_Out32(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK);
-#endif
+		Xil_Out32(PMC_GLOBAL_SSIT_ERR, SSIT_ERR_INTR_MASK);
+
 		while(1);
 	}
 
