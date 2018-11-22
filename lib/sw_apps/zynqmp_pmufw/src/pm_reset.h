@@ -48,9 +48,9 @@ typedef struct PmMaster PmMaster;
  ********************************************************************/
 u32 PmResetGetStatusInt(const PmReset* const resetPtr);
 
-int PmResetDoAssert(const PmReset *reset, u32 action);
-int PmResetAssertInt(u32 reset, u32 action);
-int PmResetSetConfig(const u32 resetId, const u32 permissions);
+s32 PmResetDoAssert(const PmReset *reset, u32 action);
+s32 PmResetAssertInt(u32 reset, u32 action);
+s32 PmResetSetConfig(const u32 resetId, const u32 permissions);
 void PmResetClearConfig(void);
 
 bool PmResetMasterHasAccess(const PmMaster* const m, const PmReset* const r);

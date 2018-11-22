@@ -119,11 +119,11 @@ typedef struct PmProc {
 	PmNode node;
 	u64 resumeAddress;
 	PmMaster* master;
-	int (*const saveResumeAddr)(PmProc* const, u64);
+	s32 (*const saveResumeAddr)(PmProc* const, u64);
 	void (*const restoreResumeAddr)(PmProc* const);
 	void (*const init)(PmProc* const proc);
-	int (*const sleep)(void);
-	int (*const wake)(void);
+	s32 (*const sleep)(void);
+	s32 (*const wake)(void);
 	const u32 mask;
 	const u32 resumeCfg;
 	const u32 pwrDnReqAddr;
@@ -148,7 +148,7 @@ extern PmNodeClass pmNodeClassProc_g;
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-int PmProcFsm(PmProc* const proc, const PmProcEvent event);
+s32 PmProcFsm(PmProc* const proc, const PmProcEvent event);
 
 bool PmProcHasResumeAddr(const PmProc* const proc);
 
@@ -178,7 +178,7 @@ static inline bool PmProcIsSuspending(const PmProc* const procPtr)
 	return PM_PROC_STATE_SUSPENDING == procPtr->node.currState;
 }
 
-int PmProcSleep(PmProc* const proc);
+s32 PmProcSleep(PmProc* const proc);
 
 #ifdef ENABLE_UNUSED_RPU_PWR_DWN
 void PmForceDownUnusableRpuCores(void);

@@ -116,18 +116,18 @@ void PmRequirementClockRestore(const PmMaster* const master);
 void PmRequirementFreeAll(void);
 void PmRequirementClear(PmRequirement* const req);
 
-int PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps);
-int PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps);
-int PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap);
-int PmRequirementRequest(PmRequirement* const req, const u32 caps);
-int PmRequirementRelease(PmRequirement* const first, const PmReleaseScope scope);
+s32 PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps);
+s32 PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps);
+s32 PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap);
+s32 PmRequirementRequest(PmRequirement* const req, const u32 caps);
+s32 PmRequirementRelease(PmRequirement* const first, const PmReleaseScope scope);
 
 PmRequirement* PmRequirementAdd(PmMaster* const master, PmSlave* const slave);
 PmRequirement* PmRequirementGet(const PmMaster* const master,
 				const PmSlave* const slave);
 PmRequirement* PmRequirementGetNoMaster(const PmSlave* const slave);
 
-int PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
+s32 PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
 			   const u32 currReq, const u32 defaultReq);
 
 #endif

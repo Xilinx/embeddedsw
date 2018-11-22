@@ -922,7 +922,7 @@ static bool ddrc_opmode_is_sr(void)
 	return ddrc_opmode_is(DDRC_STAT_OPMODE_SR);
 }
 
-static int ddrc_enable_sr(void)
+static s32 ddrc_enable_sr(void)
 {
 	u32 r;
 	size_t i;
@@ -1695,13 +1695,13 @@ static u64 mirrored_r1_addr(void)
 	return r1_axi_addr;
 }
 
-static int store_training_data()
+static s32 store_training_data()
 {
 	u32 size, old_map_offset;
 	bool old_mapping;
 	u32 haddr, laddr;
 	u64 mirr_offset;
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	ddr_rank1_addr(&haddr, &laddr);
 	size = ddr_training_size();
@@ -1753,7 +1753,7 @@ static void restore_training_data()
 	bool old_mapping;
 	u32 haddr, laddr;
 	u64 mirr_offset;
-	int status;
+	s32 status;
 
 	ddr_rank1_addr(&haddr, &laddr);
 	size = ddr_training_size();
@@ -1811,9 +1811,9 @@ static void restore_training_data()
 #endif
 }
 
-static int pm_ddr_sr_enter(void)
+static s32 pm_ddr_sr_enter(void)
 {
-	int ret;
+	s32 ret;
 
 	ret = store_training_data();
 	if (XST_SUCCESS != ret) {
@@ -1875,9 +1875,9 @@ static void pm_ddr_sr_exit(bool ddrss_is_reset)
 }
 
 #ifdef ENABLE_DDR_SR_WR
-int PmDdrEnterSr(void)
+s32 PmDdrEnterSr(void)
 {
-	int status = XST_FAILURE;
+	s32 status = XST_FAILURE;
 
 	if (pmSlaveDdr_g.node.currState == PM_DDR_STATE_OFF) {
 		/* DDR is OFF, do not enter into self refresh mode */
@@ -1939,9 +1939,9 @@ void PmDdrExitSr(void)
  *
  * @return      Status of performing transition action
  */
-static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
+static s32 PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	/* Handle transition to OFF state here */
 	if ((PM_DDR_STATE_OFF != slave->node.currState) &&
@@ -2039,9 +2039,9 @@ void ddr_io_prepare(void)
  *
  * @return      XST_SUCCESS if DDR is resumed, failure code otherwise
  */
-int PmDdrPowerOffSuspendResume()
+s32 PmDdrPowerOffSuspendResume()
 {
-	int status;
+	s32 status;
 
 	PmClockRestoreDdr();
 

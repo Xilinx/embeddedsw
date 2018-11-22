@@ -134,10 +134,10 @@ typedef struct PmNode {
 typedef struct PmNodeClass {
 	void (*const clearConfig)(PmNode* const node);
 	void (*const construct)(PmNode* const node);
-	int (*const getWakeUpLatency)(const PmNode* const node, u32* const lat);
-	int (*const getPowerData)(const PmNode* const node, u32* const data);
-	int (*const forceDown)(PmNode* const node);
-	int (*const init)(PmNode* const node);
+	s32 (*const getWakeUpLatency)(const PmNode* const node, u32* const lat);
+	s32 (*const getPowerData)(const PmNode* const node, u32* const data);
+	s32 (*const forceDown)(PmNode* const node);
+	s32 (*const init)(PmNode* const node);
 	bool (*const isUsable)(PmNode* const node);
 	u32 (*const getPerms)(const PmNode* const node);
 	PmNode** const bucket;
@@ -170,9 +170,9 @@ void PmNodeConstruct(void);
 void PmNodeForceDownUnusable(void);
 void PmNodeLogUnknownState(const PmNode* const node, const PmStateId state);
 
-int PmNodeGetPowerInfo(const PmNode* const node, u32* const data);
-int PmNodeForceDown(PmNode* const node);
-int PmNodeInit(void);
+s32 PmNodeGetPowerInfo(const PmNode* const node, u32* const data);
+s32 PmNodeForceDown(PmNode* const node);
+s32 PmNodeInit(void);
 
 u32 PmNodeGetPermissions(PmNode* const node);
 

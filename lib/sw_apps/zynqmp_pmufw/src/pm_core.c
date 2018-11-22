@@ -212,7 +212,7 @@ static void PmSelfSuspend(const PmMaster *const master,
 			  const u32 state,
 			  const u64 address)
 {
-	int status;
+	s32 status;
 	u32 worstCaseLatency = 0;
 	/* the node ID must refer to a processor belonging to this master */
 	PmProc* proc = PmGetProcOfThisMaster(master, node);
@@ -274,7 +274,7 @@ static void PmRequestSuspend(const PmMaster *const master,
 			     const u32 latency,
 			     const u32 state)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmMaster* target = NULL;
 
 	PmInfo("%s> RequestSuspend(%lu, %lu, %lu, %lu)\r\n", master->name, node,
@@ -342,7 +342,7 @@ static void PmForcePowerdown(const PmMaster *const master,
 			     const u32 ack)
 {
 	u32 oppoint = 0U;
-	int status;
+	s32 status;
 	PmNode* nodePtr = PmGetNodeById(node);
 
 	if (NULL == nodePtr || INVALID_ACK_ARG(ack)) {
@@ -383,7 +383,7 @@ static void PmAbortSuspend(const PmMaster *const master,
 			   const u32 reason,
 			   const u32 node)
 {
-	int status;
+	s32 status;
 	PmProc* proc = PmGetProcOfThisMaster(master, node);
 
 	PmInfo("%s> AbortSuspend(%lu, %lu)\r\n", master->name, node, reason);
@@ -410,7 +410,7 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 			    const u32 setAddress, const u64 address,
 			    const u32 ack)
 {
-	int status;
+	s32 status;
 	u32 oppoint = 0U;
 	PmProc* proc = PmNodeGetProc(node);
 
@@ -462,7 +462,7 @@ done:
 static void PmReleaseNode(const PmMaster *master,
 			  const u32 node)
 {
-	int status;
+	s32 status;
 	u32 usage;
 	PmRequirement* masterReq;
 	PmSlave* slave;
@@ -516,7 +516,7 @@ static void PmRequestNode(const PmMaster *master,
 			  const u32 qos,
 			  const u32 ack)
 {
-	int status;
+	s32 status;
 	u32 oppoint = 0U;
 	PmRequirement* masterReq;
 	PmSlave* slave;
@@ -582,7 +582,7 @@ static void PmSetRequirement(const PmMaster *master,
 			     const u32 qos,
 			     const u32 ack)
 {
-	int status;
+	s32 status;
 	u32 oppoint = 0U;
 	u32 caps = capabilities;
 	PmRequirement* masterReq;
@@ -652,7 +652,7 @@ static void PmGetApiVersion(const PmMaster *const master)
 void PmResetAssert(const PmMaster *const master, const u32 reset,
 		   const u32 action)
 {
-	int status;
+	s32 status;
 	const PmReset *resetPtr = PmGetResetById(reset);
 
 	PmInfo("%s> ResetAssert(%lu, %lu)\r\n", master->name, reset, action);
@@ -684,7 +684,7 @@ done:
 void PmResetGetStatus(const PmMaster *const master, const u32 reset)
 {
 	u32 resetStatus = 0U;
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	const PmReset *resetPtr = PmGetResetById(reset);
 
 	PmInfo("%s> ResetGetStatus(%lu)\r\n", master->name, reset);
@@ -714,7 +714,7 @@ done:
 static void PmMmioWrite(const PmMaster *const master, const u32 address,
 			const u32 mask, u32 value)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	/* no bits to be updated */
 	if (0U == mask) {
@@ -744,7 +744,7 @@ done:
  */
 static void PmMmioRead(const PmMaster *const master, const u32 address)
 {
-	int status;
+	s32 status;
 	u32 value = 0;
 
 	/* Check access permissions */
@@ -1041,7 +1041,7 @@ static void PmSetWakeupSource(const PmMaster *const master,
 			      const u32 sourceNode,
 			      const u32 enable)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmRequirement* req;
 	PmSlave* slave = PmNodeGetSlave(sourceNode);
 
@@ -1099,7 +1099,7 @@ done:
 static void PmSystemShutdown(PmMaster* const master, const u32 type,
 			     const u32 subtype)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	PmInfo("%s> SystemShutdown(%lu, %lu)\r\n", master->name, type, subtype);
 
@@ -1151,7 +1151,7 @@ done:
 static void PmSetMaxLatency(const PmMaster *const master, const u32 node,
 			    const u32 latency)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmRequirement* masterReq;
 	PmSlave* slave = PmNodeGetSlave(node);
 
@@ -1190,7 +1190,7 @@ done:
  */
 static void PmSetConfiguration(const PmMaster *const master, const u32 address)
 {
-	int status;
+	s32 status;
 	u32 configAddr = address;
 	u32 callerIpiMask = master->ipiMask;
 
@@ -1288,7 +1288,7 @@ static void PmGetNodeStatus(const PmMaster *const master, const u32 node)
 	u32 oppoint = 0U;
 	u32 currReq = 0U;
 	u32 usage = 0U;
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmNode* nodePtr = PmGetNodeById(node);
 
 	PmInfo("%s> GetNodeStatus(%lu)\r\n", master->name, node);
@@ -1325,7 +1325,7 @@ static void PmGetOpCharacteristics(const PmMaster *const master, const u32 node,
 				   const u32 type)
 {
 	u32 result = 0U;
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmNode* nodePtr = PmGetNodeById(node);
 
 	if (NULL == nodePtr) {
@@ -1376,7 +1376,7 @@ static void PmRegisterNotifier(const PmMaster *const master, const u32 node,
 			       const u32 event, const u32 wake,
 			       const u32 enable)
 {
-	int status;
+	s32 status;
 	PmNode* nodePtr = PmGetNodeById(node);
 
 	PmInfo("%s> RegisterNotifier(%lu, %lu, %lu, %lu)\r\n", master->name,
@@ -1408,7 +1408,7 @@ done:
  */
 void PmInitFinalize(PmMaster* const master)
 {
-	int status;
+	s32 status;
 
 	PmInfo("%s> InitFinalize\r\n", master->name);
 	status = PmMasterInitFinalize(master);
@@ -1428,7 +1428,7 @@ void PmClockSetParent(PmMaster* const master, const u32 clockId,
 		      const u32 select)
 {
 	PmClock* clock;
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	PmInfo("%s> ClockSetParent(%lu, %lu)\r\n", master->name, clockId,
 	       select);
@@ -1458,7 +1458,7 @@ void PmClockGetParent(PmMaster* const master, const u32 clockId)
 {
 	PmClock* clock;
 	u32 select;
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	PmInfo("%s> ClockGetParent(%lu)\r\n", master->name, clockId);
 	clock = PmClockGetById(clockId);
@@ -1481,7 +1481,7 @@ done:
 void PmClockGateConfig(PmMaster* const master, const u32 clkId, const u8 enable)
 {
 	PmClock* clock;
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	PmInfo("%s> ClockGate(%lu, %lu)\r\n", master->name, clkId, enable);
 	clock = PmClockGetById(clkId);
@@ -1509,7 +1509,7 @@ done:
 void PmClockGetStatus(PmMaster* const master, const u32 clockId)
 {
 	PmClock* clock;
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u8 enable;
 
 	PmInfo("%s> ClockGetStatus(%lu)\r\n", master->name, clockId);
@@ -1535,7 +1535,7 @@ void PmClockSetDivider(PmMaster* const master, const u32 clockId,
 		       const u32 divId, const u32 val)
 {
 	PmClock* clock;
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	PmInfo("%s> ClockSetDivider(%lu, %lu, %lu)\r\n", master->name, clockId,
 	       divId, val);
@@ -1566,7 +1566,7 @@ void PmClockGetDivider(PmMaster* const master, const u32 clockId,
 		       const u32 divId)
 {
 	PmClock* clock;
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 div = 0U;
 
 	PmInfo("%s> ClockGetDivider(%lu)\r\n", master->name, clockId);
@@ -1591,7 +1591,7 @@ done:
 void PmPllSetParam(PmMaster* const master, const u32 pllId, const u32 paramId,
 		   const u32 value)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmPll* pll = PmNodeGetPll(pllId);
 
 	PmInfo("%s> PllSetParam(%lu, %lu, %lu)\r\n", master->name, pllId,
@@ -1621,7 +1621,7 @@ done:
  */
 void PmPllGetParam(PmMaster* const master, const u32 pllId, const u32 paramId)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmPll* pll = PmNodeGetPll(pllId);
 	u32 value;
 
@@ -1644,7 +1644,7 @@ done:
  */
 void PmPllSetMode(PmMaster* const master, const u32 pllId, const u32 mode)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmPll* pll = PmNodeGetPll(pllId);
 
 	PmInfo("%s> PllSetMode(%lu, %lu, %lu)\r\n", master->name, pllId, mode);
@@ -1673,7 +1673,7 @@ done:
  */
 void PmPllGetMode(PmMaster* const master, const u32 pllId)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmPll* pll = PmNodeGetPll(pllId);
 	u32 mode = 0;
 
@@ -1695,7 +1695,7 @@ done:
  */
 void PmPinCtrlRequest(PmMaster* const master, const u32 pinId)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	PmInfo("%s> PmPinCtrlRequest(%lu)\r\n", master->name, pinId);
 
@@ -1711,7 +1711,7 @@ void PmPinCtrlRequest(PmMaster* const master, const u32 pinId)
  */
 void PmPinCtrlRelease(PmMaster* const master, const u32 pinId)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	PmInfo("%s> PmPinCtrlRelease(%lu)\r\n", master->name, pinId);
 
@@ -1727,7 +1727,7 @@ void PmPinCtrlRelease(PmMaster* const master, const u32 pinId)
  */
 void PmPinCtrlGetFunction(PmMaster* const master, const u32 pinId)
 {
-	int status;
+	s32 status;
 	u32 fnId;
 
 	PmInfo("%s> PmPinCtrlGetFunc(%lu)\r\n", master->name, pinId);
@@ -1746,7 +1746,7 @@ void PmPinCtrlGetFunction(PmMaster* const master, const u32 pinId)
 void PmPinCtrlSetFunction(PmMaster* const master, const u32 pinId,
 			  const u32 fnId)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	PmInfo("%s> PmPinCtrlSetFunc(%lu, %lu)\r\n", master->name, pinId, fnId);
 	status = PmPinCtrlCheckPerms(master->ipiMask, pinId);
@@ -1768,7 +1768,7 @@ done:
 void PmPinCtrlConfigParamGet(PmMaster* const master, const u32 pinId,
 			     const u32 paramId)
 {
-	int status;
+	s32 status;
 	u32 value;
 
 	PmInfo("%s> PmPinCtrlParamGet(%lu, %lu)\r\n", master->name, pinId,
@@ -1788,7 +1788,7 @@ void PmPinCtrlConfigParamGet(PmMaster* const master, const u32 pinId,
 void PmPinCtrlConfigParamSet(PmMaster* const master, const u32 pinId,
 			     const u32 paramId, const u32 val)
 {
-	int status;
+	s32 status;
 
 	PmInfo("%s> PmPinCtrlParamSet(%lu, %lu, %lu)\r\n", master->name, pinId,
 		paramId, val);

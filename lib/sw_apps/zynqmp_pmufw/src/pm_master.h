@@ -138,7 +138,7 @@ typedef struct PmMaster {
 	PmRequirement* reqs;
 	PmMaster* nextMaster;
 	const PmGicProxy* const gic;
-	int (*const evalState)(const u32 state);
+	s32 (*const evalState)(const u32 state);
 	u32 (*const remapAddr)(const u32 address);
 	const PmSlave** const memories;
 	const char* const name;
@@ -186,10 +186,10 @@ PmProc* PmGetProcOfThisMaster(const PmMaster* const master,
 PmProc* PmGetProcOfOtherMaster(const PmMaster* const master,
 			       const PmNodeId nodeId);
 
-int PmMasterWakeProc(PmProc* const proc);
-int PmMasterFsm(PmMaster* const master, const PmMasterEvent event);
-int PmMasterRestart(PmMaster* const master);
-int PmMasterInitFinalize(PmMaster* const master);
+s32 PmMasterWakeProc(PmProc* const proc);
+s32 PmMasterFsm(PmMaster* const master, const PmMasterEvent event);
+s32 PmMasterRestart(PmMaster* const master);
+s32 PmMasterInitFinalize(PmMaster* const master);
 
 void PmMasterDefaultConfig(void);
 void PmMasterSetConfig(PmMaster* const mst, const PmMasterConfig* const cfg);
@@ -202,12 +202,12 @@ bool PmCanRequestSuspend(const PmMaster* const reqMaster,
 			 const PmMaster* const respMaster);
 bool PmIsRequestedToSuspend(const PmMaster* const master);
 
-int PmMasterSuspendAck(PmMaster* const mst, const int response);
+s32 PmMasterSuspendAck(PmMaster* const mst, const int response);
 
 PmMaster* PmMasterGetPlaceholder(const PmNodeId nodeId);
 
-int PmMasterWake(const PmMaster* const mst);
-int PmWakeMasterBySlave(const PmSlave * const slave);
+s32 PmMasterWake(const PmMaster* const mst);
+s32 PmWakeMasterBySlave(const PmSlave * const slave);
 
 /* Inline functions for checking the state of the master */
 
@@ -254,6 +254,6 @@ bool PmMasterCanForceDown(const PmMaster* const master,
 			  const PmPower* const power);
 bool PmMasterIsLastSuspending(const PmMaster* const master);
 bool PmMasterIsUniqueWakeup(const PmSlave* const slave);
-int PmMasterReleaseAll(void);
+s32 PmMasterReleaseAll(void);
 
 #endif

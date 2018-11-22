@@ -55,15 +55,15 @@ typedef struct PmClock {
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-int PmClockRequest(PmNode* const node);
-int PmClockIsActive(PmNode* const node);
-int PmClockMuxSetParent(PmClock* const clock, const u32 select);
-int PmClockMuxGetParent(PmClock* const clock, u32 *const select);
-int PmClockGateSetState(PmClock* const clock, const u8 enable);
-int PmClockGateGetState(PmClock* const clock, u8* const enable);
-int PmClockDividerSetVal(PmClock* const clock, const u32 divId, const u32 val);
-int PmClockDividerGetVal(PmClock* const clock, const u32 divId, u32* const val);
-int PmClockCheckPermission(const PmClock* const clock, const u32 ipiMask);
+s32 PmClockRequest(PmNode* const node);
+s32 PmClockIsActive(PmNode* const node);
+s32 PmClockMuxSetParent(PmClock* const clock, const u32 select);
+s32 PmClockMuxGetParent(PmClock* const clock, u32 *const select);
+s32 PmClockGateSetState(PmClock* const clock, const u8 enable);
+s32 PmClockGateGetState(PmClock* const clock, u8* const enable);
+s32 PmClockDividerSetVal(PmClock* const clock, const u32 divId, const u32 val);
+s32 PmClockDividerGetVal(PmClock* const clock, const u32 divId, u32* const val);
+s32 PmClockCheckPermission(const PmClock* const clock, const u32 ipiMask);
 
 void PmClockInit(void);
 void PmClockRelease(PmNode* const node);

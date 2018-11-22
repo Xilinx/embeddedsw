@@ -93,10 +93,10 @@ static void PmRegisterEvent(const u32 entry, const u32 event, const u32 wake)
  *                pmNotifiers array are occupied
  *              - XST_SUCCESS - notifier is successfully registered
  */
-int PmNotifierRegister(const PmMaster* const mst, const PmNode* const nd,
+s32 PmNotifierRegister(const PmMaster* const mst, const PmNode* const nd,
 		       const u32 event, const u32 wake)
 {
-	int status = XST_FAILURE;
+	s32 status = XST_FAILURE;
 	u32 i, empty = ARRAY_SIZE(pmNotifiers); /* init just to exceed max */
 
 	for (i = 0U; i < ARRAY_SIZE(pmNotifiers); i++) {

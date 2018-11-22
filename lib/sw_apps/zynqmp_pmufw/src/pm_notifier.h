@@ -38,7 +38,7 @@
  * Function declarations
  ********************************************************************/
 
-int PmNotifierRegister(const PmMaster* const mst, const PmNode* const nd,
+s32 PmNotifierRegister(const PmMaster* const mst, const PmNode* const nd,
 		       const u32 event, const u32 wake);
 
 void PmNotifierUnregister(const PmMaster* const mst, const PmNode* const nd,

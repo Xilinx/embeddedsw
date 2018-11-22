@@ -1873,9 +1873,9 @@ done:
 	return resetPtr;
 }
 
-int PmResetDoAssert(const PmReset *reset, u32 action)
+s32 PmResetDoAssert(const PmReset *reset, u32 action)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	switch (action) {
 	case PM_RESET_ACTION_RELEASE:
@@ -1903,9 +1903,9 @@ int PmResetDoAssert(const PmReset *reset, u32 action)
  * @reset       ID of reset to be configured
  * @action      Specifies the action (assert, release, pulse)
  */
-int PmResetAssertInt(u32 reset, u32 action)
+s32 PmResetAssertInt(u32 reset, u32 action)
 {
-	int status;
+	s32 status;
 	const PmReset *resetPtr = PmGetResetById(reset);
 
 	if (NULL == resetPtr) {
@@ -1933,9 +1933,9 @@ inline u32 PmResetGetStatusInt(const PmReset* const resetPtr)
  * @return      XST_INVALID_PARAM if reset with given ID is not found,
  *              XST_SUCCESS if permissions are set
  */
-int PmResetSetConfig(const u32 resetId, const u32 permissions)
+s32 PmResetSetConfig(const u32 resetId, const u32 permissions)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmReset* rst = PmGetResetById(resetId);
 
 	if (NULL == rst) {

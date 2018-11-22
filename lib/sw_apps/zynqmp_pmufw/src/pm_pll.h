@@ -107,9 +107,9 @@ void PmPllRequest(PmPll* const pll);
 void PmPllRelease(PmPll* const pll);
 void PmPllOpenAccess(PmPll* const pll, u32 ipiMask);
 
-int PmPllSetModeInt(PmPll* const pll, const u32 mode);
-int PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val);
-int PmPllGetParameterInt(PmPll* const pll, const u32 paramId, u32* const val);
+s32 PmPllSetModeInt(PmPll* const pll, const u32 mode);
+s32 PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val);
+s32 PmPllGetParameterInt(PmPll* const pll, const u32 paramId, u32* const val);
 
 u32 PmPllGetModeInt(PmPll* const pll);
 static inline u32 PmPllGetPermissions(const PmPll* const pll)

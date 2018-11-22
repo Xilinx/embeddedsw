@@ -144,9 +144,9 @@ static void PmPllBypassAndReset(PmPll* const pll)
  * @status	Status of polling for the lock status as returned by
  *		XPfw_UtilPollForMask
  */
-static int PmPllLock(const PmPll* const pll)
+static s32 PmPllLock(const PmPll* const pll)
 {
-	int status;
+	s32 status;
 
 	/* Deassert reset to trigger the PLL locking */
 	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
@@ -216,9 +216,9 @@ static void PmPllSuspend(PmPll* const pll)
  *              - XST_SUCCESS if resumed correctly
  *              - XST_FAILURE if resume failed (if PLL failed to lock)
  */
-static int PmPllResume(PmPll* const pll)
+static s32 PmPllResume(PmPll* const pll)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	PmInfo("%s 0->1\r\n", pll->node.name);
 
@@ -277,9 +277,9 @@ static void PmPllClearConfig(PmNode* const node)
  *		if the latency depends on power parent which has no method
  *		(getWakeUpLatency) to provide latency information.
  */
-static int PmPllGetWakeUpLatency(const PmNode* const node, u32* const lat)
+static s32 PmPllGetWakeUpLatency(const PmNode* const node, u32* const lat)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmPll* pll = (PmPll*)node->derived;
 	PmNode* const powerNode = &node->parent->node;
 	u32 latency;
@@ -310,7 +310,7 @@ done:
  *
  * @return	XST_SUCCESS always (operation cannot fail)
  */
-static int PmPllForceDown(PmNode* const node)
+static s32 PmPllForceDown(PmNode* const node)
 {
 	PmPll* pll = (PmPll*)node->derived;
 
@@ -328,11 +328,11 @@ static int PmPllForceDown(PmNode* const node)
  *
  * @note	This function does not affect the PLL configuration in hardware.
  */
-static int PmPllInit(PmNode* const node)
+static s32 PmPllInit(PmNode* const node)
 {
 	PmPll* pll = (PmPll*)node->derived;
 	u32 ctrl = XPfw_Read32(pll->addr + PM_PLL_CTRL_OFFSET);
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	if (0U == (ctrl & PM_PLL_CTRL_RESET_MASK)) {
 		node->currState = PM_PLL_STATE_LOCKED;
@@ -519,7 +519,7 @@ void PmPllRequest(PmPll* const pll)
 {
 	/* If the PLL is suspended it needs to be resumed first */
 	if (0U != (PM_PLL_CONTEXT_SAVED & pll->flags)) {
-		int status = PmPllResume(pll);
+		s32 status = PmPllResume(pll);
 		if (XST_SUCCESS != status) {
 			PmErr("Failed to lock %s", pll->node.name);
 		}
@@ -547,9 +547,9 @@ void PmPllRelease(PmPll* const pll)
  *		XST_INVALID_PARAM if one of the given arguments is invalid
  *		XST_SUCCESS if parameter is set
  */
-int PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val)
+s32 PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val)
 {
-	int status = XST_INVALID_PARAM;
+	s32 status = XST_INVALID_PARAM;
 	PmPllParam* p;
 
 	if (paramId >= ARRAY_SIZE(pllParams)) {
@@ -579,9 +579,9 @@ done:
  *		XST_INVALID_PARAM if one of the given arguments is invalid
  *		XST_SUCCESS if parameter is set
  */
-int PmPllGetParameterInt(PmPll* const pll, const u32 paramId, u32* const val)
+s32 PmPllGetParameterInt(PmPll* const pll, const u32 paramId, u32* const val)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmPllParam* p;
 
 	if (paramId >= ARRAY_SIZE(pllParams)) {
@@ -606,9 +606,9 @@ done:
  *		XST_NO_DATA if the fractional mode is requested and configured
  *		fractional divider is zero
  */
-int PmPllSetModeInt(PmPll* const pll, const u32 mode)
+s32 PmPllSetModeInt(PmPll* const pll, const u32 mode)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 val;
 
 	/* Check whether all config parameters are known for frac/int mode */

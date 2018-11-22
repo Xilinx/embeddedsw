@@ -74,8 +74,8 @@ typedef struct PmPower {
 	PmNode node;
 	PmPowerClass* const class;
 	PmNode** const children;
-	int (*const powerUp)(void);
-	int (*const powerDown)(void);
+	s32 (*const powerUp)(void);
+	s32 (*const powerDown)(void);
 	const u32 pwrDnLatency;
 	const u32 pwrUpLatency;
 	u32 forcePerms;
@@ -132,11 +132,11 @@ extern PmNodeClass pmNodeClassPower_g;
 void PmPowerReleaseParent(PmNode* const node);
 void PmPowerReleaseRpu(PmSlaveTcm* const tcm);
 
-int PmPowerRequestRpu(PmSlaveTcm* const tcm);
-int PmPowerRequestParent(PmNode* const node);
-int PmPowerUpdateLatencyReq(const PmNode* const node);
+s32 PmPowerRequestRpu(PmSlaveTcm* const tcm);
+s32 PmPowerRequestParent(PmNode* const node);
+s32 PmPowerUpdateLatencyReq(const PmNode* const node);
 void PmFpdSaveContext(void);
 void PmFpdRestoreContext(void);
-int PmPowerDown(PmPower* const power);
+s32 PmPowerDown(PmPower* const power);
 
 #endif

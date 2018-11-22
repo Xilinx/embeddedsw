@@ -183,11 +183,11 @@ PmSlave pmSlaveExternDevice_g = {
  * PmExternWakeMasters() - Wake masters that enabled external wake source
  * @return	Status of performing wake-up
  */
-int PmExternWakeMasters(void)
+s32 PmExternWakeMasters(void)
 {
 	u32 masters = pmExternWake.enabled;
-	int totalStatus = XST_SUCCESS;
-	int status;
+	s32 totalStatus = XST_SUCCESS;
+	s32 status;
 
 	while (0U != masters) {
 		PmMaster* master;

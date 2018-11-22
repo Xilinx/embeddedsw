@@ -469,9 +469,9 @@ static PmRegisterContext pmSystemRegs[] = {
  * PmSystemPosDdrRequirementAdd() - Add DDR context saving requirements
  * @return	XST_SUCCESS if requirements are added, XST_FAILURE otherwise
  */
-static int PmSystemPosDdrRequirementAdd(void)
+static s32 PmSystemPosDdrRequirementAdd(void)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i;
 
 	for (i = 0U; i < ARRAY_SIZE(pmPosDdrReqs_g); i++) {
@@ -509,9 +509,9 @@ done:
  * PmSystemRequirementAdd() - Add requirements of the system
  * @return	XST_SUCCESS if requirements are added, XST_FAILURE otherwise
  */
-int PmSystemRequirementAdd(void)
+s32 PmSystemRequirementAdd(void)
 {
-	int status;
+	s32 status;
 	u32 i;
 
 	for (i = 0U; i < ARRAY_SIZE(pmSystemReqs); i++) {
@@ -740,10 +740,10 @@ static void PmSystemRestoreContext(void)
  *
  * @return	XST_SUCCESS if slave capability is set, XST_FAILURE otherwise
  */
-static int PmSystemSetPosRequirement(const PmSlave* const slave, u32 caps)
+static s32 PmSystemSetPosRequirement(const PmSlave* const slave, u32 caps)
 {
 	u32 i;
-	int status = XST_FAILURE;
+	s32 status = XST_FAILURE;
 
 	for (i = 0U; i < ARRAY_SIZE(pmSystemReqs); i++) {
 		if (slave == pmSystemReqs[i].slave) {
@@ -847,9 +847,9 @@ done:
  *
  * @return	XST_SUCCESS if capabilities are set, failure code otherwise
  */
-static int PmSystemPosPrepareDdrCaps(void)
+static s32 PmSystemPosPrepareDdrCaps(void)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i;
 
 	/* Set capabilities required for saving DDR context */
@@ -883,9 +883,9 @@ done:
  * @return	XST_SUCCESS if all Power Off Suspend system slave capabilities
  * 		are set, failure code otherwise
  */
-int PmSystemPreparePowerOffSuspend(void)
+s32 PmSystemPreparePowerOffSuspend(void)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i;
 
 	pmSystem.suspendType = PM_SUSPEND_TYPE_POWER_OFF;
@@ -925,9 +925,9 @@ done:
  *
  * @return	XST_SUCCESS if capabilities are released, failure code otherwise
  */
-static int PmSystemPosFinalizeDdrCaps(void)
+static s32 PmSystemPosFinalizeDdrCaps(void)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i;
 
 	/* Set capabilities required for DDR context saving to 0 */
@@ -958,10 +958,10 @@ done:
  * @return	This function will not return in case of entering Power Off
  * 		Suspend, failure code otherwise
  */
-int PmSystemFinalizePowerOffSuspend(void)
+s32 PmSystemFinalizePowerOffSuspend(void)
 {
 	u32 i;
-	int status;
+	s32 status;
 	PmRequirement* req;
 
 	/* Save system context */
@@ -1016,9 +1016,9 @@ done:
  *
  * @return	XST_SUCCESS if system is resumed properly, error code otherwise
  */
-int PmSystemResumePowerOffSuspend(void)
+s32 PmSystemResumePowerOffSuspend(void)
 {
-	int status;
+	s32 status;
 	u32 i;
 	PmRequirement* req;
 

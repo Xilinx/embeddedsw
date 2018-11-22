@@ -67,12 +67,12 @@ typedef struct PmPosRequirement {
 
 extern PmPosRequirement pmPosDdrReqs_g[POS_DDR_REQS_SIZE];
 
-int PmHookPosSaveDdrContext(void);
+s32 PmHookPosSaveDdrContext(void);
 void PmHookFinalizePowerOffSuspend(void);
 void PmHookPowerDownLpd(void);
 void PmHookInitPowerOffSuspend(void);
 u32 PmHookGetBootType(void);
-int PmHookRestoreDdrContext(void);
+s32 PmHookRestoreDdrContext(void);
 void PmHookPowerOffSuspendDdrReady(void);
 #ifdef ENABLE_DDR_SR_WR
 void PmHookSystemStart(void);

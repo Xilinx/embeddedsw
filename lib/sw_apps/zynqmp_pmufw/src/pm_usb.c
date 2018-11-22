@@ -97,9 +97,9 @@ static const PmStateTran pmUsbTransitions[] = {
  *
  * @return      Status of performing transition action
  */
-static int PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
+static s32 PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 {
-	int status;
+	s32 status;
 	PmSlaveUsb* usb = (PmSlaveUsb*)slave->node.derived;
 
 	switch (slave->node.currState) {
