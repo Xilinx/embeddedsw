@@ -121,31 +121,6 @@ void XPmcFw_SbiConfig(u32 CtrlInterface)
 
 /*****************************************************************************/
 /**
- * This function is used to initialize the SBI for Slave SLRs
- *
- * @param	None
- *
- * @return	None
- *
- *****************************************************************************/
-XStatus XPmcFw_SlaveSbiConfig(u64 SlrBaseAddr)
-{
-	u64 SbiCtrlAddr = ((u64)SlrBaseAddr +
-					((u64)(SLAVE_BOOT_SBI_CTRL - PMC_LOCAL_BASEADDR)));
-
-	XPmcFw_UtilRMW64((SbiCtrlAddr >> 32), (SbiCtrlAddr & XPMCFW_32BIT_MASK),
-				SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
-				XPMCFW_SBI_CTRL_INTERFACE_AXI_SLAVE);
-
-	XPmcFw_UtilRMW64((SbiCtrlAddr >> 32), (SbiCtrlAddr & XPMCFW_32BIT_MASK),
-				SLAVE_BOOT_SBI_CTRL_ENABLE_MASK,
-				XPMCFW_SBI_CTRL_ENABLE);
-
-	return XPMCFW_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
  * This function is used to copy the data from SMAP/JTAG to destination
  * address through SBI interface
  *

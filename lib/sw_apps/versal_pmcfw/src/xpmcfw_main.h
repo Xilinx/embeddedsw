@@ -206,7 +206,6 @@ XStatus XPmcFw_SbiInit(u32 DeviceFlags);
 void XPmcFw_SbiConfig(u32 CtrlInterface);
 XStatus XPmcFw_SbiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 XStatus XPmcFw_SbiRelease(void );
-XStatus XPmcFw_SlaveSbiConfig(u64 SlrBaseAddr);
 
 /* Functions defined in xpmcfw_ospi.c */
 XStatus XPmcFw_OspiInit(u32 DeviceFlags);
