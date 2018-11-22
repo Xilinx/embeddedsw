@@ -11585,8 +11585,12 @@ void XPmcFw_SsitNocInit(void)
         // Configuration of NoC Paths
         slv0_slr_nidb_top_egress_cfg();
 
-        Xil_Out32(0xF1110050, 0x6060D011);
-        Xil_Out32(PMC_GLOBAL_PMC_FW_ERR, 0x12);
+        /*
+         * Indicate to Master that NoC config done on slave
+         * and clear the source
+         */
+        Xil_Out32(PMC_GLOBAL_SSIT_ERR, SSIT_INTR_MASK);
+        Xil_Out32(PMC_GLOBAL_SSIT_ERR, SSIT_INTR_CLEAR);
 
      }break;
 

@@ -128,13 +128,35 @@ int main(void )
 			goto END;
 		}
 #if (defined(XPMCFW_SSIT) && defined(XPMCFW_SBI))
-		/*
-		 * Load Slave SLR1
-		 */
-		Status = XPmcFw_LoadSlaveSlr(PMC_ALIAS1_GLOBAL_BASEADDR);
-		if (XPMCFW_SUCCESS != Status)
-		{
-			goto END;
+
+		if (PmcFwInstance.SlrType == SSIT_MASTER_SLR) {
+			/*
+			 * Load Slave SLR1
+			 */
+			Status = XPmcFw_LoadSlaveSlr(PMC_ALIAS1_GLOBAL_BASEADDR);
+			if (XPMCFW_SUCCESS != Status) {
+				goto END;
+			}
+
+			/*
+			 * Wait for SLR1 programming completion to load Slave SLR2
+			 */
+			while ((Xil_In32(PMC_GLOBAL_PMC_ERR2_STATUS) &
+					PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) !=
+					PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK);
+
+			/* Clear SSIT interrupt */
+			Xil_Out32(PMC_GLOBAL_PMC_ERR2_STATUS,
+					PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK);
+
+			Xil_Out32(PPU1_IOMODULE_IRQ_ACK,
+					PPU1_IOMODULE_IRQ_ACK_SSIT_IRQ0_MASK);
+
+			XPmcFw_Printf(DEBUG_GENERAL, "NoC config done on Slave0 \n\r");
+			Status = XPmcFw_LoadSlaveSlr(PMC_ALIAS2_GLOBAL_BASEADDR);
+			if (XPMCFW_SUCCESS != Status) {
+				goto END;
+			}
 		}
 #endif
 	}
