@@ -254,10 +254,8 @@ static XStatus XPmcFw_LoadSlaveSlr(u64 SlrBaseAddr)
 
 	XPmcFw_Printf(DEBUG_GENERAL,
 		 "\n\r==========Loading Slave SLR PDI========\n\r");
-		XPmcFw_Printf(DEBUG_INFO, "Enabling Slave SBI\r\n");
-		XPmcFw_SlaveSbiConfig(SlrBaseAddr);
 
-		XPmcFw_Printf(DEBUG_INFO, "Load the image to Slave SLR via SMAP interface\r\n");
+		XPmcFw_Printf(DEBUG_INFO, "Load the image to Slave SLR via AXI SBI interface\r\n");
 
 		while (PdiRemLength != 0) {
 			if (PdiRemLength > 0x10000U) {
