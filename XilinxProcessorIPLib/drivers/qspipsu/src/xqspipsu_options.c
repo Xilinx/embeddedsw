@@ -29,7 +29,7 @@
 /**
 *
 * @file xqspipsu_options.c
-* @addtogroup qspipsu_v1_8
+* @addtogroup qspipsu_v1_9
 * @{
 *
 * This file implements funcitons to configure the QSPIPSU component,
@@ -49,8 +49,10 @@
 *       rk  07/15/16 Added support for TapDelays at different frequencies.
 * 1.7	tjs 01/17/18 Added support to toggle the WP pin of flash. (PR#2448)
 * 1.7	tjs	03/14/18 Added support in EL1 NS mode. (CR#974882)
-* 1.8	tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
-* 1.8	tjs 07/26/18 Resolved cppcheck errors. (CR#1006336)
+* 1.8  tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
+* 1.8  tjs 07/26/18 Resolved cppcheck errors. (CR#1006336)
+* 2.0	tjs	04/17/18 Updated register addresses as per the latest revision
+* 					 of versal (CR#999610)
 *
 * </pre>
 *
@@ -350,11 +352,14 @@ s32 XQspi_Set_TapDelay(XQspiPsu * InstancePtr,u32 TapdelayBypass,
 	if (InstancePtr->IsBusy == TRUE) {
 		Status = XST_DEVICE_BUSY;
 	} else {
-#if EL1_NONSECURE && defined (__aarch64__)
+#if EL1_NONSECURE && defined (__aarch64__) && !defined (versal)
 		Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 				IOU_TAPDLY_BYPASS_OFFSET) |
 				((u64)(0x4) << 32),
 				(u64)TapdelayBypass, 0, 0, 0, 0, 0);
+#elif defined (versal)
+		XQspiPsu_WriteReg(XQSPIPS_BASEADDR,IOU_TAPDLY_BYPASS_OFFSET,
+				TapdelayBypass);
 #else
 		XQspiPsu_WriteReg(XPS_SYS_CTRL_BASEADDR,IOU_TAPDLY_BYPASS_OFFSET,
 				TapdelayBypass);
@@ -393,13 +398,15 @@ static s32 XQspipsu_Calculate_Tapdelay(XQspiPsu *InstancePtr, u8 Prescaler)
 	Divider = (1 << (Prescaler+1));
 
 	FreqDiv = (InstancePtr->Config.InputClockHz)/Divider;
-#if EL1_NONSECURE && defined (__aarch64__)
+#if EL1_NONSECURE && defined (__aarch64__) && !defined (versal)
 	Tapdelay = IOU_TAPDLY_RESET_STATE;
+#elif defined (versal)
+	Tapdelay = XQspiPsu_ReadReg(XQSPIPS_BASEADDR,
+					IOU_TAPDLY_BYPASS_OFFSET);
 #else
 	Tapdelay = XQspiPsu_ReadReg(XPS_SYS_CTRL_BASEADDR,
-			IOU_TAPDLY_BYPASS_OFFSET);
+					IOU_TAPDLY_BYPASS_OFFSET);
 #endif
-
 	Tapdelay = Tapdelay & (~IOU_TAPDLY_BYPASS_LQSPI_RX_MASK);
 
 	LBkModeReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,

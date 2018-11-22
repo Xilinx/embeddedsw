@@ -29,7 +29,7 @@
 /**
 *
 * @file xqspipsu_hw.h
-* @addtogroup qspipsu_v1_8
+* @addtogroup qspipsu_v1_9
 * @{
 *
 * This file contains low level access funcitons using the base address
@@ -46,6 +46,8 @@
 * 1.2	nsk 07/01/16 Added LQSPI supported Masks
 *       rk  07/15/16 Added support for TapDelays at different frequencies.
 * 1.7	tjs	03/14/18 Added support in EL1 NS mode.
+* 2.0	tjs	04/17/18 Updated register addresses as per the latest revision
+* 					 of versal (CR#999610)
 *
 * </pre>
 *
@@ -69,12 +71,20 @@ extern "C" {
 /**
  * QSPI Base Address
  */
+#if defined (versal)
+#define XQSPIPS_BASEADDR      0XF1030000U
+#else
 #define XQSPIPS_BASEADDR      0XFF0F0000U
+#endif
 
 /**
  * GQSPI Base Address
  */
+#if defined (versal)
+#define XQSPIPSU_BASEADDR     0XF1030100U
+#else
 #define XQSPIPSU_BASEADDR     0xFF0F0100U
+#endif
 #define XQSPIPSU_OFFSET     0x100U
 
 /**
@@ -90,7 +100,6 @@ extern "C" {
  * Register: XQSPIPSU_CFG
  */
 #define XQSPIPSU_CFG_OFFSET    0X00000000U
-#define XQSPIPSU_LQSPI_CR_OFFSET    0X000000A0U
 
 #define XQSPIPSU_CFG_MODE_EN_SHIFT   30
 #define XQSPIPSU_CFG_MODE_EN_WIDTH   2
@@ -822,11 +831,22 @@ extern "C" {
 #define XQSPIPSU_DATA_DLY_ADJ_DLY_MASK    0X70000000U
 
 /* Tapdelay Bypass register*/
-#define IOU_TAPDLY_BYPASS_OFFSET 0X00000390
-#define IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT 0X02
-#define IOU_TAPDLY_BYPASS_LQSPI_RX_WIDTH 0X01
-#define IOU_TAPDLY_BYPASS_LQSPI_RX_MASK 0x00000004
-#define IOU_TAPDLY_RESET_STATE 0x7
+
+#if defined versal
+#define IOU_TAPDLY_BYPASS_OFFSET 0X0000003CU
+#else
+#define IOU_TAPDLY_BYPASS_OFFSET 0X00000390U
+#endif
+
+#define IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT 0X02U
+#define IOU_TAPDLY_BYPASS_LQSPI_RX_WIDTH 0X01U
+#define IOU_TAPDLY_BYPASS_LQSPI_RX_MASK 0x00000004U
+
+#if defined versal
+#define IOU_TAPDLY_RESET_STATE 0x4U
+#else
+#define IOU_TAPDLY_RESET_STATE 0x7U
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

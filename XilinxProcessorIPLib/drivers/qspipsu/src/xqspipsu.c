@@ -25,11 +25,12 @@
  * this Software without prior written authorization from Xilinx.
  *
  ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
  * @file xqspipsu.c
- * @addtogroup qspipsu_v1_8
+ * @addtogroup qspipsu_v1_9
  * @{
  *
  * This file implements the functions required to use the QSPIPSU hardware to
@@ -49,26 +50,29 @@
  *       sk  06/17/15 Removed NULL checks for Rx/Tx buffers. As
  *                    writing/reading from 0x0 location is permitted.
  * 1.1   sk  04/12/16 Added debug message prints.
- * 1.2	nsk 07/01/16 Changed XQspiPsu_Select to support GQSPI and LQSPI
- *		     selection.
+ * 1.2 nsk 07/01/16 Changed XQspiPsu_Select to support GQSPI and LQSPI
+ *                  selection.
  *       rk  07/15/16 Added support for TapDelays at different frequencies.
- *	nsk 08/05/16 Added example support PollData and PollTimeout
- * 1.3	nsk 09/16/16 Update PollData and PollTimeout support for dual
- *	             parallel configurations, modified XQspiPsu_PollData()
- *	             and XQspiPsu_Create_PollConfigData()
- * 1,5	nsk 08/14/17 Added CCI support
- * 1.7	tjs 01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
- * 1.7	tjs 01/17/18 Added a support to toggle WP pin of the flash.
- * 1.7	tjs 03/14/18 Added support in EL1 NS mode (CR#974882)
- * 1.8	tjs 06/26/18 Added an example for accessing 64bit dma within
- *		     32 bit application. CR#1004701
- * 1.8	tjs 06/26/18 Removed checkpatch warnings.
- * 1.8	tjs 07/09/18 Fixed cppcheck and doxygen warnings. (CR#1006336)
- * 1.8	tjs 07/18/18 Setup64BRxDma() should be called only if the RxAddress is
- *		     greater than 32 bit address space. (CR#1006862)
- * 1.8	tjs 09/06/18 Fixed the code in XQspiPsu_GenFifoEntryData() for data
- *		     transfer length up to 255 for reducing the extra loop.
+ *     nsk 08/05/16 Added example support PollData and PollTimeout
+ * 1.3 nsk 09/16/16 Update PollData and PollTimeout support for dual
+ *                  parallel configurations, modified XQspiPsu_PollData()
+ *                  and XQspiPsu_Create_PollConfigData()
+ * 1,5 nsk 08/14/17 Added CCI support
+ * 1.7 tjs 01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
+ * 1.7 tjs 01/17/18 Added a support to toggle WP pin of the flash.
+ * 1.7 tjs 03/14/18 Added support in EL1 NS mode (CR#974882)
+ * 1.8 tjs 06/26/18 Added an example for accessing 64bit dma within
+ *                  32 bit application. CR#1004701
+ * 1.8 tjs 06/26/18 Removed checkpatch warnings.
+ * 1.8 tjs 07/09/18 Fixed cppcheck and doxygen warnings. (CR#1006336)
+ * 1.8 tjs 07/18/18 Setup64BRxDma() should be called only if the RxAddress is
+ *                  greater than 32 bit address space. (CR#1006862)
+ * 1.8 tjs 09/06/18 Fixed the code in XQspiPsu_GenFifoEntryData() for data
+ *                  transfer length up to 255 for reducing the extra loop.
  * 1.8  mus 11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
+ * 2.0 tjs 11/22/17 Added the check for A72 and R5 processors (CR-987075)
+ * 2.0 tjs 04/17/18 Updated register addresses as per the latest revision
+ *		    of zynq3 (CR#999610)
  *
  * </pre>
  *
