@@ -9283,57 +9283,7 @@ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. This file is part of the lwIP TCP/IP
-stack. / This file xemacpsif_physpeed.c implements functionalities to: - Detect
-the available PHYs connected to a MAC - Negotiate speed - Configure speed -
-Configure the SLCR registers for the negotiated speed In a typical use case,
-users of the APIs implemented in this file need to do the following. - Call the
-API detect_phy. It probes for the available PHYs connected to a MAC. The MACs
-can be Emac0 (XPAR_XEMACPS_0_BASEADDR, 0xE000B000) or Emac1
-(XPAR_XEMACPS_0_BASEADDR, 0xE000C000). It populates an array to notify about the
-detected PHYs. The array phymapemac0 is used for Emac0 and phymapemac1 is for
-Emac1. - The users need to parse the corresponding arrays, phymapemac0 or
-phymapemac1 to know the available PHYs for a MAC. The users then need to call
-phy_setup_emacps to setup the PHYs for proper speed setting. The API
-phy_setup_emacps should be called with the PHY address for which the speed needs
-to be negotiated or configured. In a specific use case, if 2 PHYs are connected
-to Emac0 with addresses of 7 and 11, then users get these address details from
-phymapemac0 (after calling detect_phy) and then call phy_setup_emacps twice,
-with ab address of 7 and 11. - Points to note: The MAC can operate at only one
-speed. If a MAC is connected to multiple PHYs, then all PHYs must negotiate and
-configured for the same speed. - This file implements static functions to set
-proper SLCR clocks. As stated above, all PHYs connected to a PHY must operate at
-same speed and the SLCR clock will be setup accordingly. This file implements
-the following PHY types. - The standard RGMII. - It provides support for GMII to
-RGMII converter Xilinx IP. This Xilinx IP sits on the MDIO bus with a predefined
-PHY address. This IP exposes register that needs to be programmed with the
-negotiated speed. For example, in a typical design, the Emac0 or Emac1 exposes
-GMII interface. The user can then use the Xilinx IP that converts GMII to RGMII.
-The external PHY (most typically Marvell 88E1116R) negotiates for speed with the
-remote PHY. The implementation in this file then programs the Xilinx IP with
-this negotiated speed. The Xilinx IP has a predefined IP address exposed through
-xparameters.h - The SGMII and 1000 BaseX PHY interfaces. If the PHY interface is
-SGMII or 1000 BaseX a separate "get_IEEE_phy_speed" is used which is different
-from standard RGMII "get_IEEE_phy_speed". The 1000 BaseX always operates at 1000
-Mbps. The SGMII interface can negotiate speed accordingly. For SGMII or 1000
-BaseX interfaces, the detect_phy should not be called. The phy addresses for
-these interfaces are fixed at the design time. Point to note: A MAC can not be
-connected to PHYs where there is a mix between SGMII or 1000 Basex or
-GMII/MII/RGMII. In a typical multiple PHY designs, it is expected that the PHYs
-connected will be RGMII or GMII. The users can choose not to negotiate speed
-from lwip settings GUI. If they opt to choose a particular PHY speed, then the
-PHY will hard code the speed to operate only at the corresponding speed. It will
-not advertise any other speeds. It is users responsibility to ensure that the
-remote PHY supports the speed programmed through the lwip gui. The following
-combination of MDIO/PHY are supported: - Multiple PHYs connected to the MDIO bus
-of a MAC. If Emac0 MDIO is connected to single/multiple PHYs, it is supported.
-Similarly Emac1 MDIO connected to single/multiple PHYs is supported. - A design
-where both the interfaces are present and are connected to their own MDIO bus is
-supported. The following MDIO/PHY setup is not supported: - A design has both
-the MACs present. MDIO bus is available only for one MAC (Emac0 or Emac1). This
-MDIO bus has multiple PHYs available for both the MACs. The negotiated speed for
-PHYs sitting on the MDIO bus of one MAC will not be see for the other MAC and
-hence the speed/SLCR settings of the other MAC cannot be programmed. Hence this
-kind of design will not work for this implementation.
+stack. 
 
 FILES:
 ThirdParty/sw_services/lwip202/src/contrib/ports/xilinx/netif/xemacpsif_physpeed.c
