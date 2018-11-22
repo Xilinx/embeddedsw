@@ -236,7 +236,7 @@ static PmRegisterContext pmFpdContext[] = {
  */
 static u32 PmFpdPowerSupplyCheck(XpbrServHndlr_t RomHandler)
 {
-	int status;
+	s32 status;
 	u32 var = 0U;
 
 	/* Cheat compiler to not optimize timeout based on counting */
@@ -259,7 +259,7 @@ static u32 PmFpdPowerSupplyCheck(XpbrServHndlr_t RomHandler)
  */
 static u32 PmPldPowerSupplyCheck(XpbrServHndlr_t RomHandler)
 {
-	int status;
+	s32 status;
 	u32 var = 0U;
 
 	/* Cheat compiler to not optimize timeout based on counting */
@@ -318,9 +318,9 @@ void PmFpdRestoreContext(void)
  *
  * @return      Status of the pmu-rom operations
  */
-static int PmPowerDownFpd(void)
+static s32 PmPowerDownFpd(void)
 {
-	int status;
+	s32 status;
 
 	if (A53_DBG_EDPRCR_REG_MASK & (XPfw_Read32(A53_DBG_0_EDPRCR_REG) |
 				XPfw_Read32(A53_DBG_1_EDPRCR_REG) |
@@ -367,7 +367,7 @@ err:
  *
  * @return      Function doesn't return because LPD is powered down
  */
-static int __attribute__((noreturn)) PmPowerDownLpd(void)
+static s32 __attribute__((noreturn)) PmPowerDownLpd(void)
 {
 #ifdef ENABLE_POS
 	/* Call user hook for finishing Power Off Suspend */
@@ -385,9 +385,9 @@ static int __attribute__((noreturn)) PmPowerDownLpd(void)
  *
  * @return      Status returned by the PMU-ROM handler
  */
-static int PmPowerUpRpu(void)
+static s32 PmPowerUpRpu(void)
 {
-	int status;
+	s32 status;
 
 	status = XpbrPwrUpRpuHandler();
 
@@ -409,7 +409,7 @@ done:
  *
  * @return      Status of the pmu-rom operations
  */
-static int PmPowerUpFpd(void)
+static s32 PmPowerUpFpd(void)
 {
 	if (0 != (XPfw_Read32(PMU_GLOBAL_PWR_STATE) &
 				PMU_GLOBAL_PWR_STATE_FP_MASK)) {
@@ -417,7 +417,7 @@ static int PmPowerUpFpd(void)
 		return XST_SUCCESS;
 	}
 
-	int status = XpbrPwrUpFpdHandler();
+	s32 status = XpbrPwrUpFpdHandler();
 	if (XST_SUCCESS != status) {
 		goto err;
 	}
@@ -442,7 +442,7 @@ err:
  *                    AXI transactions when RPU is powered down
  * @return      Return value of PMU-ROM handler
  */
-static int PmPowerDownRpu(void)
+static s32 PmPowerDownRpu(void)
 {
 	XPfw_AibEnable(XPFW_AIB_RPU0_TO_LPD);
 	XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD);
@@ -473,7 +473,7 @@ static void PmPowerForceDownRpu(PmPower* const power)
  * PmPowerDownPld() - Wrapper for powering down PLD (due to the return cast)
  * @return      Return value of PMU-ROM handler
  */
-static int PmPowerDownPld(void)
+static s32 PmPowerDownPld(void)
 {
 	XPfw_AibEnable(XPFW_AIB_LPD_TO_AFI_FS2);
 	XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS0);
@@ -486,7 +486,7 @@ static int PmPowerDownPld(void)
  * PmPowerUpPld() - Wrapper for powering up PLD (due to the return cast)
  * @return      Return value of PMU-ROM handler
  */
-static int PmPowerUpPld(void)
+static s32 PmPowerUpPld(void)
 {
 	u32 status;
 	status = XpbrPwrUpPldHandler();
@@ -534,9 +534,9 @@ static void PmPowerUpSysOsc(void)
  * @return      Status of powering down (what powerDown handler returns or
  *              XST_SUCCESS)
  */
-int PmPowerDown(PmPower* const power)
+s32 PmPowerDown(PmPower* const power)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	if (PM_PWR_STATE_OFF == power->node.currState) {
 		goto done;
@@ -590,9 +590,9 @@ done:
  * @return  Operation status of power up procedure (node specific) or
  *          XST_SUCCESS
  */
-static int PmPowerUp(PmPower* const power)
+static s32 PmPowerUp(PmPower* const power)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	/* Enable SysOsc for normal operation if it is in sleep mode. */
 	if ((Xil_In32(AMS_PSSYSMON_CONFIG_REG2) & 0xF0) == 0x30) {
@@ -921,9 +921,9 @@ static void PmPowerDownCond(PmPower* const power)
  *		the power parent, the status of performing power up operation
  *		is returned. Otherwise, XST_SUCCESS.
  */
-int PmPowerUpdateLatencyReq(const PmNode* const node)
+s32 PmPowerUpdateLatencyReq(const PmNode* const node)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmPower* power = node->parent;
 
 	if (PM_PWR_STATE_ON == power->node.currState) {
@@ -960,9 +960,9 @@ done:
  * @return	XST_SUCCESS if power is already powered up, otherwise status
  *		of powering up.
  */
-static int PmPowerRequestInt(PmPower* const power)
+static s32 PmPowerRequestInt(PmPower* const power)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	if (PM_PWR_STATE_OFF == power->node.currState) {
 		status = PmPowerUp(power);
@@ -982,9 +982,9 @@ static int PmPowerRequestInt(PmPower* const power)
  * @return	XST_SUCCESS if power is already powered up, otherwise status
  *		of powering up.
  */
-static int PmPowerRequest(PmPower* const power)
+static s32 PmPowerRequest(PmPower* const power)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	if (NULL != power->node.parent) {
 		if (0U == (power->node.flags & NODE_LOCKED_POWER_FLAG)) {
@@ -1035,9 +1035,9 @@ static void PmPowerRelease(PmPower* const power)
  * @return	XST_SUCCESS if power parent is already up, status of powering up
  *		otherwise.
  */
-int PmPowerRequestParent(PmNode* const node)
+s32 PmPowerRequestParent(PmNode* const node)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	if (0U == (NODE_LOCKED_POWER_FLAG & node->flags)) {
 		status = PmPowerRequest(node->parent);
@@ -1081,9 +1081,9 @@ void PmPowerReleaseRpu(PmSlaveTcm* const tcm)
  *
  * @return	XST_SUCCESS or error code if powering up of RPU failed
  */
-int PmPowerRequestRpu(PmSlaveTcm* const tcm)
+s32 PmPowerRequestRpu(PmSlaveTcm* const tcm)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 resetMask = CRL_APB_RST_LPD_TOP_RPU_PGE_RESET_MASK |
 			CRL_APB_RST_LPD_TOP_RPU_AMBA_RESET_MASK;
 	u32 reset;
@@ -1159,7 +1159,7 @@ static void PmPowerConstruct(PmNode* const powerNode)
  *
  * @return	XST_SUCCESS always
  */
-static int PmPowerGetWakeUpLatency(const PmNode* const node, u32* const lat)
+static s32 PmPowerGetWakeUpLatency(const PmNode* const node, u32* const lat)
 {
 	PmPower* const power = (PmPower*)node->derived;
 	PmPower* parent = power->node.parent;
@@ -1194,11 +1194,11 @@ done:
  * @note	Power consumption of power node is a sum of consumptions of the
  *		children.
  */
-static int PmPowerGetPowerData(const PmNode* const powerNode, u32* const data)
+static s32 PmPowerGetPowerData(const PmNode* const powerNode, u32* const data)
 {
 	PmNode* node;
 	u32 val;
-	int status = XST_NO_FEATURE;
+	s32 status = XST_NO_FEATURE;
 
 	*data = 0U;
 	if (PM_PWR_STATE_OFF == powerNode->currState) {
@@ -1235,11 +1235,11 @@ done:
  *
  * @return	Status of performing force power down
  */
-static int PmPowerForceDown(PmNode* const powerNode)
+static s32 PmPowerForceDown(PmNode* const powerNode)
 {
 	PmNode* node;
 	PmPower* const power = (PmPower*)powerNode->derived;
-	int status = XST_FAILURE;
+	s32 status = XST_FAILURE;
 
 	PmPowerDfsBegin(power);
 	node = PmPowerDfsGetNext();
@@ -1268,9 +1268,9 @@ done:
  *
  * @return	Status of initializing the node
  */
-static int PmPowerInit(PmNode* const powerNode)
+static s32 PmPowerInit(PmNode* const powerNode)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	if (PM_PWR_STATE_OFF == powerNode->currState) {
 		goto done;

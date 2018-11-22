@@ -39,16 +39,16 @@
 #include "pm_system.h"
 #include "pm_pll.h"
 
-typedef int (*const PmConfigSectionHandler)(u32* const addr);
+typedef s32 (*const PmConfigSectionHandler)(u32* const addr);
 
-static int PmConfigSlaveSectionHandler(u32* const addr);
-static int PmConfigMasterSectionHandler(u32* const addr);
-static int PmConfigPreallocSectionHandler(u32* const addr);
-static int PmConfigPowerSectionHandler(u32* const addr);
-static int PmConfigResetSectionHandler(u32* const addr);
-static int PmConfigShutdownSectionHandler(u32* const addr);
-static int PmConfigSetConfigSectionHandler(u32* const addr);
-static int PmConfigGpoSectionHandler(u32* const addr);
+static s32 PmConfigSlaveSectionHandler(u32* const addr);
+static s32 PmConfigMasterSectionHandler(u32* const addr);
+static s32 PmConfigPreallocSectionHandler(u32* const addr);
+static s32 PmConfigPowerSectionHandler(u32* const addr);
+static s32 PmConfigResetSectionHandler(u32* const addr);
+static s32 PmConfigShutdownSectionHandler(u32* const addr);
+static s32 PmConfigSetConfigSectionHandler(u32* const addr);
+static s32 PmConfigGpoSectionHandler(u32* const addr);
 
 /*********************************************************************
  * Macros
@@ -192,9 +192,9 @@ static void PmConfigSkipWords(u32* const addr, const u32 words)
  * @return      XST_SUCCESS if section is loaded successfully, XST_FAILURE
  *              otherwise
  */
-static int PmConfigMasterSectionHandler(u32* const addr)
+static s32 PmConfigMasterSectionHandler(u32* const addr)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i, mastersCnt;
 
 	mastersCnt = PmConfigReadNext(addr);
@@ -230,9 +230,9 @@ done:
  * @return      XST_SUCCESS if section is loaded successfully, XST_FAILURE
  *              otherwise
  */
-static int PmConfigSlaveSectionHandler(u32* const addr)
+static s32 PmConfigSlaveSectionHandler(u32* const addr)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i, slavesCnt;
 
 	slavesCnt = PmConfigReadNext(addr);
@@ -270,10 +270,10 @@ done:
  * @return      XST_SUCCESS if preallocated slaves are processed correctly,
  *              XST_FAILURE otherwise
  */
-static int PmConfigPreallocForMaster(const PmMaster* const master,
+static s32 PmConfigPreallocForMaster(const PmMaster* const master,
 				     u32* const addr)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i, preallocCnt;
 
 	preallocCnt = PmConfigReadNext(addr);
@@ -321,9 +321,9 @@ done:
  * @return      XST_SUCCESS if section is loaded successfully, XST_FAILURE
  *              otherwise
  */
-static int PmConfigPreallocSectionHandler(u32* const addr)
+static s32 PmConfigPreallocSectionHandler(u32* const addr)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	u32 i, mastersCnt;
 
@@ -359,9 +359,9 @@ done:
  * @return      XST_SUCCESS if section is loaded successfully, XST_FAILURE
  *              otherwise
  */
-static int PmConfigPowerSectionHandler(u32* const addr)
+static s32 PmConfigPowerSectionHandler(u32* const addr)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i, powersCnt;
 
 	powersCnt = PmConfigReadNext(addr);
@@ -392,9 +392,9 @@ done:
  * @return      XST_SUCCESS if section is loaded successfully, XST_FAILURE
  *              otherwise
  */
-static int PmConfigResetSectionHandler(u32* const addr)
+static s32 PmConfigResetSectionHandler(u32* const addr)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i, resetsCnt;
 
 	resetsCnt = PmConfigReadNext(addr);
@@ -423,9 +423,9 @@ done:
  * @return      XST_SUCCESS if section is loaded successfully, XST_FAILURE
  *              otherwise
  */
-static int PmConfigShutdownSectionHandler(u32* const addr)
+static s32 PmConfigShutdownSectionHandler(u32* const addr)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	/* Shutdown section doesn't have shutdown types information */
 	PmConfigSkipWords(addr, 1);
@@ -440,7 +440,7 @@ static int PmConfigShutdownSectionHandler(u32* const addr)
  *
  * @return      XST_SUCCESS always
  */
-static int PmConfigSetConfigSectionHandler(u32* const addr)
+static s32 PmConfigSetConfigSectionHandler(u32* const addr)
 {
 	pmConfig.configPerms = PmConfigReadNext(addr);
 
@@ -474,7 +474,7 @@ static void PmConfigHeaderHandler(u32* const addr)
  *
  * @return      XST_SUCCESS always
  */
-static int PmConfigGpoSectionHandler(u32* const addr)
+static s32 PmConfigGpoSectionHandler(u32* const addr)
 {
 	u32 gpoState, reg;
 
@@ -580,9 +580,9 @@ done:
  *
  * @return      Status of loading information from configuration object
  */
-int PmConfigLoadObject(const u32 address, const u32 callerIpi)
+s32 PmConfigLoadObject(const u32 address, const u32 callerIpi)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 currAddr = address;
 	u32 i;
 

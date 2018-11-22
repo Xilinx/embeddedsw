@@ -26,7 +26,7 @@
 
 #ifndef PM_EXTERN_H_
 #define PM_EXTERN_H_
-
+#include "xil_types.h"
 typedef struct PmSlave PmSlave;
 
 /*********************************************************************
@@ -37,6 +37,6 @@ extern PmSlave pmSlaveExternDevice_g;
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-int PmExternWakeMasters(void);
+s32 PmExternWakeMasters(void);
 
 #endif

@@ -38,7 +38,7 @@
  * Function declarations
  ********************************************************************/
 
-int PmConfigLoadObject(const u32 address, const u32 callerIpi);
+s32 PmConfigLoadObject(const u32 address, const u32 callerIpi);
 
 bool PmConfigObjectIsLoaded(void);
 

@@ -67,9 +67,9 @@ extern u8 __srdata_end;
  *
  * @return	XST_SUCCESS if context is saved, failure code otherwise
  */
-int PmHookPosSaveDdrContext(void)
+s32 PmHookPosSaveDdrContext(void)
 {
-	int status;
+	s32 status;
 	u32 srDataStart = (u32)&__srdata_start;
 	u32 srDataEnd = (u32)&__srdata_end;
 
@@ -197,9 +197,9 @@ u32 PmHookGetBootType(void)
  *
  * @return	XST_SUCCESS if context is restored, failure code otherwise
  */
-int PmHookRestoreDdrContext(void)
+s32 PmHookRestoreDdrContext(void)
 {
-	int status;
+	s32 status;
 	u32 srDataStart = (u32)&__srdata_start;
 	u32 srDataEnd = (u32)&__srdata_end;
 

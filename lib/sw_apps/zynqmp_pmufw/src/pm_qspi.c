@@ -137,11 +137,11 @@ static XQspiPsu QspiPsuInstance;
 
 static XQspiPsu_Msg FlashMsg[5];
 
-int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
+s32 FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		u8 *WriteBfrPtr);
-int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
+s32 FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		u8 *WriteBfrPtr, u8 *ReadBfrPtr);
-int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
+s32 FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 		u8 *WriteBfrPtr);
 u32 GetRealAddr(XQspiPsu *QspiPsuPtr, u32 Address);
 
@@ -159,9 +159,9 @@ u32 GetRealAddr(XQspiPsu *QspiPsuPtr, u32 Address);
 * @note		None.
 *
 ******************************************************************************/
-int PmQspiWrite(u8 *WriteBufrPtr, u32 ByteCount)
+s32 PmQspiWrite(u8 *WriteBufrPtr, u32 ByteCount)
 {
-	int Status = XST_SUCCESS;
+	s32 Status = XST_SUCCESS;
 	u32 length = ByteCount;
 	u32 page = 0;
 
@@ -204,9 +204,9 @@ int PmQspiWrite(u8 *WriteBufrPtr, u32 ByteCount)
 * @note		None.
 *
 ******************************************************************************/
-int PmQspiRead(u32 ByteCount, u8 *ReadBfrPtr)
+s32 PmQspiRead(u32 ByteCount, u8 *ReadBfrPtr)
 {
-	int Status;
+	s32 Status;
 
 	Status = FlashRead(&QspiPsuInstance, READ_ADDR, ByteCount,
 		QUAD_READ_CMD_4B, CmdBfr, ReadBfrPtr);
@@ -225,9 +225,9 @@ int PmQspiRead(u32 ByteCount, u8 *ReadBfrPtr)
 * @note		None.
 *
 ******************************************************************************/
-int PmQspiInit(void)
+s32 PmQspiInit(void)
 {
-	int Status;
+	s32 Status;
 	XQspiPsu_Config *QspiPsuConfig;
 
 	/* Initialize QSPIPSU driver so that it's ready to use */
@@ -271,7 +271,7 @@ int PmQspiInit(void)
 * @note		None.
 *
 ******************************************************************************/
-int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
+s32 FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 				u8 *WriteBfrPtr)
 {
 	u8 WriteEnableCmd;
@@ -279,7 +279,7 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	u8 FlashStatus[2];
 	u8 WriteCmd[5];
 	u32 RealAddr;
-	int Status;
+	s32 Status;
 
 	WriteEnableCmd = WRITE_ENABLE_CMD;
 	/*
@@ -390,11 +390,11 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 * @note		None.
 *
 ******************************************************************************/
-int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
+s32 FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 				u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 {
 	u32 RealAddr;
-	int Status;
+	s32 Status;
 
 	/*
 	 * Translate address based on type of connection
@@ -460,7 +460,7 @@ int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 * @note		None.
 *
 ******************************************************************************/
-int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
+s32 FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 		u8 *WriteBfrPtr)
 {
 	u8 WriteEnableCmd;
@@ -469,7 +469,7 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 	u32 Sector;
 	u32 RealAddr;
 	u32 NumSect;
-	int Status;
+	s32 Status;
 
 	WriteEnableCmd = WRITE_ENABLE_CMD;
 
@@ -641,9 +641,9 @@ u32 GetRealAddr(XQspiPsu *QspiPsuPtr, u32 Address)
 *		using it.
 *
 ******************************************************************************/
-int PmQspiHWInit(void)
+s32 PmQspiHWInit(void)
 {
-	int Status;
+	s32 Status;
 
 	/* Initialize MIOs used by QSPI */
 	XPfw_RMW32(IOU_SCLR_MIO_PIN_0, 0x000000FEU ,0x00000002U);

@@ -41,14 +41,14 @@
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-int PmSystemRequirementAdd(void);
+s32 PmSystemRequirementAdd(void);
 
 void PmSystemPrepareForRestart(const PmMaster* const master);
 void PmSystemRestartDone(const PmMaster* const master);
 bool PmSystemDetectPowerOffSuspend(const PmMaster* const master);
-int PmSystemPreparePowerOffSuspend(void);
-int PmSystemFinalizePowerOffSuspend(void);
-int PmSystemResumePowerOffSuspend(void);
+s32 PmSystemPreparePowerOffSuspend(void);
+s32 PmSystemFinalizePowerOffSuspend(void);
+s32 PmSystemResumePowerOffSuspend(void);
 u32 PmSystemSuspendType(void);
 void PmSystemSetSuspendType(u32 type);
 

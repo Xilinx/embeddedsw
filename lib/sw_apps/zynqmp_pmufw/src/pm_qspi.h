@@ -29,9 +29,9 @@
 
 #include "pm_common.h"
 
-int PmQspiInit(void);
-int PmQspiWrite(u8 *WriteBufrPtr, u32 ByteCount);
-int PmQspiRead(u32 ByteCount, u8 *ReadBfrPtr);
-int PmQspiHWInit(void);
+s32 PmQspiInit(void);
+s32 PmQspiWrite(u8 *WriteBufrPtr, u32 ByteCount);
+s32 PmQspiRead(u32 ByteCount, u8 *ReadBfrPtr);
+s32 PmQspiHWInit(void);
 
 #endif

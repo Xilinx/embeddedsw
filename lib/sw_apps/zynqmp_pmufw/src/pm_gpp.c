@@ -64,9 +64,9 @@ static const PmStateTran pmGppTransitions[] = {
  *
  * @return	Status of performing transition action
  */
-static int PmGppFsmHandler(PmSlave* const slave, const PmStateId nextState)
+static s32 PmGppFsmHandler(PmSlave* const slave, const PmStateId nextState)
 {
-	int status = XST_PM_INTERNAL;
+	s32 status = XST_PM_INTERNAL;
 	PmSlaveGpp* gpp = (PmSlaveGpp*)slave->node.derived;
 
 	switch (slave->node.currState) {
