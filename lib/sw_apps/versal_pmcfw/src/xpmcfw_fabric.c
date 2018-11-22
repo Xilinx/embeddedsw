@@ -470,6 +470,5 @@ XStatus XPmcFw_CheckFabricErr()
 		Status = XPMCFW_SUCCESS;
 	}
 
-		Status = XPMCFW_SUCCESS;
 	return Status;
 }
