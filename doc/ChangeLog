@@ -6,6 +6,9 @@ In tcl use unique global variables to fix bsp generation for certain designs.
 emaclite_v4_4:
 Fix poll example failure on microblaze platform.
 
+ipipsu_v2_5:
+Make IPI driver common for both ZynqMP and Versal platforms.
+
 llfifo_v5_3:
 Fix poll and interrupt examples receive programming sequence.
 
