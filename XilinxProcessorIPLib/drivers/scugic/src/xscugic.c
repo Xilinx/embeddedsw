@@ -122,6 +122,8 @@
 * 3.10  aru  08/23/18 Resolved MISRA-C:2012 compliance mandatory violations
 *                     It fixes CR#1007753.
 * 3.10  mus  09/19/18 Fix cppcheck warnings
+* 4.0   mus  11/22/18 Fixed bugs in software interrupt generation through 
+*                      XScuGic_SoftwareIntr API
 * </pre>
 *
 ******************************************************************************/
@@ -713,8 +715,12 @@ s32  XScuGic_SoftwareIntr(XScuGic *InstancePtr, u32 Int_Id, u32 Cpu_Id)
 	Xil_AssertNonvoid(Cpu_Id <= 255U);
 
 #if defined (versal) && !defined(ARMR5)
-	Mask = (Int_Id | (Int_Id << XSCUGIC_SGI1R_EL1_INITID_SHIFT));
+	Mask = (Cpu_Id | (Int_Id << XSCUGIC_SGIR_EL1_INITID_SHIFT));
+#if EL3
+	XScuGic_WriteICC_SGI0R_EL1(Mask);
+#else
 	XScuGic_WriteICC_SGI1R_EL1(Mask);
+#endif
 #else
 
 	/*
