@@ -38,6 +38,16 @@
 
 #uses "xillib.tcl"
 
+proc check_platform { } {
+	set cortexa53proc [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa53"]
+	if {[llength $cortexa53proc] > 0} {
+		set iszynqmp 1
+	} else {
+		set iszynqmp 0
+	}
+	return $iszynqmp
+}
+
 proc ipi_format_hexmask {bitpos} {
 	return [format "0x%08X" [expr 1<<$bitpos]]
 }
@@ -66,7 +76,7 @@ proc ipi_find_cpu {ipi_list param hw_proc} {
 }
 
 #Generate Config file with data structures describing the HW
-proc ipi_generate_config {drv_handle file_name} {
+proc ipi_generate_config {drv_handle file_name iszynqmp} {
 
 	#Driver Prefix String
 	set drv_string "XIpiPsu"
@@ -79,7 +89,12 @@ proc ipi_generate_config {drv_handle file_name} {
 	set ipi_list [get_cells -hier -filter { IP_NAME == "psu_ipi" }]
 	
 	# List of IPIs owned by this processor
-	set proc_ipi_list [ipi_find_cpu $ipi_list CONFIG.C_CPU_NAME $hw_proc_handle]
+
+	if { $iszynqmp == 1 } {
+		set proc_ipi_list [lsearch -all -inline [get_property SLAVES $hw_proc_handle] psu_ipi_*]
+	} else {
+		set proc_ipi_list [ipi_find_cpu $ipi_list CONFIG.C_CPU_NAME $hw_proc_handle]
+	}
 
 	set cfgfilename [file join "src" $file_name]
 	set config_file [open $cfgfilename w]
@@ -130,7 +145,7 @@ proc ipi_generate_config {drv_handle file_name} {
 
 	close $config_file
 }
-proc ipi_generate_params {file_name} {
+proc ipi_generate_params {file_name iszynqmp} {
 	#Driver Prefix String
 	set drv_string "XIpiPsu"
 	set uSuffix "U"
@@ -150,7 +165,11 @@ proc ipi_generate_params {file_name} {
 
 
 	# List of IPIs owned by this processor
-	set proc_ipi_list [ipi_find_cpu $ipi_list CONFIG.C_CPU_NAME $hw_proc_handle]
+	if { $iszynqmp == 1 } {
+		set proc_ipi_list [lsearch -all -inline [get_property SLAVES $hw_proc_handle] psu_ipi_*]
+	} else {
+		set proc_ipi_list [ipi_find_cpu $ipi_list CONFIG.C_CPU_NAME $hw_proc_handle]
+	}
 
 	#Total number of IPIs assigned to this proc
 	puts $file_handle [format "#define  XPAR_XIPIPSU_NUM_INSTANCES  %s$uSuffix" [llength $proc_ipi_list]]
@@ -197,7 +216,11 @@ proc ipi_generate_params {file_name} {
 	puts $file_handle ""
 	foreach proc $proc_list {
 		# List of IPIs owned by this processor
-		set proc_slave_list [ipi_find_cpu $ipi_list CONFIG.C_CPU_NAME $proc]
+		if { $iszynqmp == 1 } {
+			set proc_slave_list [lsearch -all -inline [get_property SLAVES $proc] psu_ipi_*]
+		} else {
+			set proc_slave_list [ipi_find_cpu $ipi_list CONFIG.C_CPU_NAME $proc]
+		}
 
 		set idx 0
 		foreach ipi_slave $proc_slave_list {
@@ -217,6 +240,7 @@ proc ipi_generate_params {file_name} {
 
 #This is called by HSI while generating the driver
 proc generate {drv_handle} {
-	ipi_generate_params "xparameters.h"
-	ipi_generate_config $drv_handle "xipipsu_g.c"
+	set iszynqmp [check_platform]
+	ipi_generate_params "xparameters.h" $iszynqmp
+	ipi_generate_config $drv_handle "xipipsu_g.c" $iszynqmp
 }
