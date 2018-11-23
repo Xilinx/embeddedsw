@@ -176,6 +176,8 @@
 *                     by applications to unmap specific/all interrupts from
 *                     target CPU.
 * 3.10  aru  08/23/18 Resolved MISRA-C:2012 compliance mandatory violations
+* 4.0   mus  11/22/18 Fixed bugs in software interrupt generation through 
+*                      XScuGic_SoftwareIntr API
 *
 * </pre>
 *
@@ -442,6 +444,18 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 #define XScuGic_Enable_Group1_Interrupts() \
 		mtcp (S3_6_C12_C12_7, 0x1 | mfcp(S3_6_C12_C12_7) );
 #endif
+/****************************************************************************/
+/**
+* This function writes to ICC_SGI0R_EL1
+*
+* @param	value to be written
+*
+* @return	None.
+*
+* @note     None.
+*
+*****************************************************************************/
+#define XScuGic_WriteICC_SGI0R_EL1(val) mtcp(S3_0_C12_C11_7,val)
 
 /****************************************************************************/
 /**
