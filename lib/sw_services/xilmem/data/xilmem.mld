@@ -45,7 +45,7 @@ BEGIN LIBRARY xilmem
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION SUPPORTED_PERIPHERALS = (microblaze psu_cortexa53 psu_cortexa72 psu_cortexr5 psu_pmu psu_pmc psu_psm);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilmem,-lxil,-lgcc,-lc,--end-group";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilmem,-lxilstandalone,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilmem provides cache and MMU/MPU interfaces to standalone applications";
   OPTION VERSION = 1.0;
   OPTION NAME = xilmem;

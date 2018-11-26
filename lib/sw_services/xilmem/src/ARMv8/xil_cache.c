@@ -73,6 +73,10 @@
 * 6.8  asa  09/15/18  Fix bug in the Xil_DCacheInvalidateRange API introduced while
 *                     making optimizations in the previous patch. This change fixes
 *                     CR-1008926.
+* 7.0 mus  10/12/18  Updated Xil_DCacheInvalidateLine and Xil_DCacheInvalidateRange
+*                    APIs to replace IVAC instruction with CIVAC. So that, these
+*                    APIs will always do flush + invalidate incase of Cortexa53 as
+*                    well as Cortexa72 processor.
 *
 * </pre>
 *
@@ -391,7 +395,7 @@ void Xil_DCacheInvalidateLine(INTPTR adr)
 
 	/* Select cache level 0 and D cache in CSSR */
 	mtcp(CSSELR_EL1,0x0);
-	mtcpdc(IVAC,(adr & (~0x3F)));
+	mtcpdc(CIVAC,(adr & (~0x3F)));
 	/* Wait for invalidate to complete */
 	dsb();
 	/* Select cache level 1 and D cache in CSSR */
@@ -426,29 +430,12 @@ void Xil_DCacheInvalidateRange(INTPTR  adr, INTPTR len)
 {
 	const INTPTR cacheline = 64U;
 	INTPTR end = adr + len;
-#if defined (versal)
-	INTPTR tempadr = adr;
-	INTPTR tempend;
-#endif
 	adr = adr & (~0x3F);
 	u32 currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 	if (len != 0U) {
-		end = tempadr + len;
-		tempend = end;
-#if defined (versal)
-		if ((tempadr & (cacheline-1U)) != 0U) {
-			tempadr &= (~(cacheline - 1U));
-			Xil_DCacheFlushLine(tempadr);
-			tempadr += cacheline;
-		}
-		if ((tempend & (cacheline-1U)) != 0U) {
-			tempend &= (~(cacheline - 1U));
-			Xil_DCacheFlushLine(tempend);
-		}
-#endif
 		while (adr < end) {
-			mtcpdc(IVAC,adr);
+			mtcpdc(CIVAC,adr);
 			/* Wait for invalidate to complete */
 			dsb();
 			adr += cacheline;

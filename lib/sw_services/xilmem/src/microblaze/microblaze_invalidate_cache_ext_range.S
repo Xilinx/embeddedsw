@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2008 - 2014 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2008 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,7 @@
 *******************************************************************************/
 
 #include "xparameters.h"
+#include "microblaze_instructions.h"
 
 #define XPAR_MICROBLAZE_EXT_CACHE_LINE_LEN	16
 
@@ -50,18 +51,23 @@ microblaze_invalidate_cache_ext_range:
 #if ((XPAR_MICROBLAZE_INTERCONNECT==3) && (XPAR_MICROBLAZE_USE_DCACHE==1))
 	beqi	r6, Loop_done
 
-	add	r6, r5, r6
-	addik	r6, r6, -1
+	ADD	r6, r5, r6
+	ADDIK	r6, r6, -1
 
-	andi	r6, r6, -(4 * XPAR_MICROBLAZE_EXT_CACHE_LINE_LEN)
-	andi	r5, r5, -(4 * XPAR_MICROBLAZE_EXT_CACHE_LINE_LEN)
+	ANDI	r6, r6, -(4 * XPAR_MICROBLAZE_EXT_CACHE_LINE_LEN)
+	ANDI	r5, r5, -(4 * XPAR_MICROBLAZE_EXT_CACHE_LINE_LEN)
 
-	rsubk	r6, r5, r6
+	RSUBK	r6, r5, r6
 
 Loop_start:
 	wdc.ext.clear r5, r6
+#if defined (__arch64__ )
+	addlik	r6, r6, -(4 * XPAR_MICROBLAZE_EXT_CACHE_LINE_LEN)
+	beagei r6, Loop_start
+#else
 	bneid	r6, Loop_start
 	addik	r6, r6, -(4 * XPAR_MICROBLAZE_EXT_CACHE_LINE_LEN)
+#endif
 
 Loop_done:
 #endif

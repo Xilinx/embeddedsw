@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2008 - 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2008 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -40,6 +40,7 @@
 *******************************************************************************/
 
 #include "xparameters.h"
+#include "microblaze_instructions.h"
 
 #define MICROBLAZE_MSR_ICACHE_ENABLE        0x00000020
 #define MICROBLAZE_MSR_INTR_ENABLE          0x00000002
@@ -66,23 +67,27 @@ microblaze_invalidate_icache_range:
 	mts	rmsr, r10
 #endif
 
-        beqi    r6, L_done                                      /* Skip loop if size is zero */
+        BEQI    r6, L_done                                      /* Skip loop if size is zero */
 
-        add	r6, r5, r6                                      /* Compute end address */
-        addik   r6, r6, -1
+        ADD	r6, r5, r6                                      /* Compute end address */
+        ADDIK   r6, r6, -1
 
-        andi    r6, r6, -(4 * XPAR_MICROBLAZE_ICACHE_LINE_LEN)  /* Align end down to cache line */
-        andi    r5, r5, -(4 * XPAR_MICROBLAZE_ICACHE_LINE_LEN)  /* Align start down to cache line */
+        ANDI    r6, r6, -(4 * XPAR_MICROBLAZE_ICACHE_LINE_LEN)  /* Align end down to cache line */
+        ANDI    r5, r5, -(4 * XPAR_MICROBLAZE_ICACHE_LINE_LEN)  /* Align start down to cache line */
 
 L_start:
-	cmpu	r18, r5, r6                                     /* Are we at the end? */
-	blti	r18, L_done
+	CMPU	r18, r5, r6                                     /* Are we at the end? */
+	BLTI	r18, L_done
 
 	wic	r5, r0                                          /* Invalidate the cache line */
 
+#if defined (__arch64__ )
+	addlik	r5, r5, (XPAR_MICROBLAZE_ICACHE_LINE_LEN * 4)   /* Increment the address by 4 */
+        breai	L_start                                         /* Branch to the beginning of the loop */
+#else
 	brid	L_start                                         /* Branch to the beginning of the loop */
 	addik	r5, r5, (XPAR_MICROBLAZE_ICACHE_LINE_LEN * 4)   /* Increment the addrees by 4 (delay slot) */
-
+#endif
 L_done:
 	rtsd	r15, 8                                          /* Return */
 #ifdef MB_VERSION_LT_v720                                       /* restore MSR only for MB version < v7.20 */
