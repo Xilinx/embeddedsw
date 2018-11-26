@@ -1,0 +1,18 @@
+STRING(FIND ${CROSS_PREFIX} "aarch64-none-elf-" POSITION1)
+STRING(FIND ${CROSS_PREFIX} "arm-none-eabi-" POSITION2)
+STRING(FIND ${CROSS_PREFIX} "armr5-none-eabi-" POSITION3)
+if(("${POSITION1}" STREQUAL "-1") AND ("${POSITION2}" STREQUAL "-1") AND ("${POSITION3}" STREQUAL "-1"))
+add_subdirectory(iccarm)
+else()
+add_subdirectory(gcc)
+endif()
+
+add_subdirectory(platform)
+
+collect (PROJECT_LIB_SOURCES sleep.c)
+collect (PROJECT_LIB_SOURCES usleep.c)
+collect (PROJECT_LIB_SOURCES xtime_l.c)
+collect (PROJECT_LIB_HEADERS xpm_counter.h)
+collect (PROJECT_LIB_HEADERS xpseudo_asm.h)
+collect (PROJECT_LIB_HEADERS xreg_cortexr5.h)
+collect (PROJECT_LIB_HEADERS xtime_l.h)

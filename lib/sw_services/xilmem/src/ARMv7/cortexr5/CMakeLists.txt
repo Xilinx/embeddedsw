@@ -1,6 +1,0 @@
-collect (PROJECT_LIB_SOURCES xil_cache.c)
-collect (PROJECT_LIB_SOURCES xil_mpu.c)
-collect(PROJECT_LIB_HEADERS xil_cache.h)
-collect(PROJECT_LIB_HEADERS xil_mpu.h)
-collect(PROJECT_LIB_HEADERS xil_mmu.h)
-add_subdirectory(platform)
