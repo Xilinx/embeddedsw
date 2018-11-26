@@ -89,6 +89,8 @@ u32 XGetPlatform_Info()
 	return XPLAT_ZYNQ_ULTRA_MP;
 #elif (__microblaze__)
 	return XPLAT_MICROBLAZE;
+#elif defined (versal)
+	return XPLAT_versal;
 #else
 	return XPLAT_ZYNQ;
 #endif
@@ -119,7 +121,8 @@ u32 XGet_Zynq_UltraMp_Platform_info()
 	return (u32)((reg.Arg1 >> XPLAT_INFO_SHIFT) & XPLAT_INFO_MASK);
 #else
 	u32 reg;
-	reg = ((Xil_In32(XPAR_CSU_BASEADDR + XPAR_CSU_VER_OFFSET) >> 12U )& XPLAT_INFO_MASK);
+	reg = ((Xil_In32(XPLAT_PS_VERSION_ADDRESS) >> XPLAT_INFO_SHIFT )
+		& XPLAT_INFO_MASK);
 	return reg;
 #endif
 }
@@ -146,12 +149,13 @@ u32 XGetPSVersion_Info()
          */
         XSmc_OutVar reg;
         reg = Xil_Smc(GET_CHIPID_SMC_FID,0,0, 0, 0, 0, 0, 0);
-        return (u32)(reg.Arg1 &  XPS_VERSION_INFO_MASK);
+        return (u32)((reg.Arg1 &  XPS_VERSION_INFO_MASK) >>
+		XPS_VERSION_INFO_SHIFT);
 #else
 	u32 reg;
-	reg = (Xil_In32(XPAR_CSU_BASEADDR + XPAR_CSU_VER_OFFSET)
+	reg = (Xil_In32(XPLAT_PS_VERSION_ADDRESS)
 			& XPS_VERSION_INFO_MASK);
-	return reg;
+	return (reg >> XPS_VERSION_INFO_SHIFT);
 #endif
 }
 #endif

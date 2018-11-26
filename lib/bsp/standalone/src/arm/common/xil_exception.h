@@ -135,8 +135,13 @@ typedef void (*Xil_InterruptHandler)(void *data);
 * @note     None.
 *
 ******************************************************************************/
+#if defined (versal) && !defined(ARMR5) && EL3
+#define Xil_ExceptionEnable() \
+                Xil_ExceptionEnableMask(XIL_EXCEPTION_FIQ)
+#else
 #define Xil_ExceptionEnable() \
 		Xil_ExceptionEnableMask(XIL_EXCEPTION_IRQ)
+#endif
 
 /****************************************************************************/
 /**

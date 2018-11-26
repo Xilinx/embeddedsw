@@ -115,14 +115,18 @@ void XTime_StartTTCTimer()
 #if (defined (__aarch64__) && EL3==1) || defined (ARMR5) || defined (ARMA53_32)
 	u32 LpdRst;
 
-	LpdRst = XSleep_ReadCounterVal(RST_LPD_IOU2);
-
+#if defined (versal)
+	u32 RstAddr = CRL_TTC_RST;
+	u32 RstMask = CRL_TTC_BASE_RST_MASK << XSLEEP_TTC_INSTANCE;
+#else
+	u32 RstAddr = RST_LPD_IOU2;
+	u32 RstMask = RST_LPD_IOU2_TTC_BASE_RESET_MASK << XSLEEP_TTC_INSTANCE;
+#endif
 	/* check if the timer is reset */
-	if (((LpdRst & (RST_LPD_IOU2_TTC_BASE_RESET_MASK <<
-					       XSLEEP_TTC_INSTANCE)) != 0 )) {
-		LpdRst = LpdRst & (~(RST_LPD_IOU2_TTC_BASE_RESET_MASK <<
-							XSLEEP_TTC_INSTANCE));
-		Xil_Out32(RST_LPD_IOU2, LpdRst);
+    LpdRst = XSleep_ReadCounterVal(RstAddr);
+    if ((LpdRst & RstMask) != 0 ) {
+    	LpdRst = LpdRst & (~RstMask);
+    	Xil_Out32(RstAddr, LpdRst);
 	} else {
 #endif
 		TimerCntrl = XSleep_ReadCounterVal(SLEEP_TIMER_BASEADDR +
