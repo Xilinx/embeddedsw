@@ -1,0 +1,27 @@
+var NAVTREEINDEX0 =
+{
+"annotated.html":[0,0],
+"example.html":[3],
+"example.html#ex1":[3,0],
+"example.html#ex2":[3,1],
+"files.html":[2],
+"functions.html":[0,1,0],
+"functions_vars.html":[0,1,1],
+"globals.html":[1,0],
+"globals_func.html":[1,1],
+"index.html":[],
+"pages.html":[],
+"struct_x_v__demosaic.html":[0,0,0],
+"struct_x_v__demosaic.html#a2e6892bddb002533a0ebc4cd3ad7bfe0":[0,0,0,1],
+"struct_x_v__demosaic.html#aaa6abec510a55e8d0400663b308884a4":[0,0,0,0],
+"struct_x_v__demosaic___config.html":[0,0,1],
+"struct_x_v__demosaic___config.html#a4acacb419d07407516fc8009779a2e47":[0,0,1,4],
+"struct_x_v__demosaic___config.html#a552a3c3ab27e41a917981bc46484a7d9":[0,0,1,1],
+"struct_x_v__demosaic___config.html#a619e45306e63fe3a426439ee9ea2561d":[0,0,1,3],
+"struct_x_v__demosaic___config.html#a791fe13c7b8bf55c68a8ce3b963ea65c":[0,0,1,5],
+"struct_x_v__demosaic___config.html#a87e02e1799d7bcc346bccf80a78e17e9":[0,0,1,0],
+"struct_x_v__demosaic___config.html#acd397013566b281d9eba1f63a17210e3":[0,0,1,2],
+"struct_x_v__demosaic___config.html#af09ffebc8586404cb984f29417c2b073":[0,0,1,6],
+"vdemosaic__example_8tcl.html":[2,0],
+"vdemosaic__example_8tcl.html#a63f1ad5cbeaab70606e68a5deeb7e49a":[2,0,0]
+};
