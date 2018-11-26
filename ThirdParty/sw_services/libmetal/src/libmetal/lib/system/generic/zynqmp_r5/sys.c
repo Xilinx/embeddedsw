@@ -66,6 +66,7 @@ void metal_weak metal_generic_default_poll(void)
 void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
 			       size_t size, unsigned int flags)
 {
-	metal_assert(Xil_MemMap(pa, size, flags) == (void *)pa);
+	void* __attribute__((unused)) physaddr = Xil_MemMap(pa, size, flags);
+	metal_assert(physaddr == (void *)pa);
 	return va;
 }
