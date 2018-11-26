@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -50,63 +30,107 @@ extern "C" {
 #endif
 
 #if defined (__arch64__)
-#define ADDIK addlik
-#define ADDK addlk
-#define ADDI addli
-#define ADD  addl
-#define ANDI andli
-#define SUBK sublk
-#define RSUBK rsublk
-#define ORI  orli
-#define LI   lli
-#define LOAD ll
-#define SI   sli
-#define STORE sl
-#define BRLID brealid
-#define BGTID beageid
-#define BGEI  beagei
-#define BNEID beaneid
-#define BLTI  bealti
-#define CMPU  cmplu
-#define BRID  breaid
-#define BNEID beaneid
-#define BLEI  bealei
-#define BEQI  beaeqi
-#define BRI   breai
-#define XORI  xorli
-#define BNEI  beanei
-#define OR    orl
-#define BRALID brealid
-#define XOR   xorl
+#define ADD     addl
+#define ADDC    addlc
+#define ADDI    addli
+#define ADDIC   addlic
+#define ADDIK   addlik
+#define ADDIKC  addlikc
+#define ADDK    addlk
+#define ADDKC   addlkc
+#define AND     andl
+#define ANDI    andli
+#define ANDN    andnl
+#define ANDNI   andnli
+#define BEQI    beaeqi
+#define BEQID   beaeqid
+#define BGEI    beagei
+#define BGEID   beageid
+#define BGTI    beagti
+#define BGTID   beagtid
+#define BLEI    bealei
+#define BLEID   bealeid
+#define BLTI    bealti
+#define BLTID   bealtid
+#define BNEI    beanei
+#define BNEID   beaneid
+#define BR      brea
+#define BRALID  brealid
+#define BRD     bread
+#define BRI     breai
+#define BRID    breaid
+#define BRLD    breald
+#define BRLID   brealid
+#define CMP     cmpl
+#define CMPU    cmplu
+#define LI      lli
+#define LOAD    ll
+#define OR      orl
+#define ORI     orli
+#define RSUB    rsubl
+#define RSUBC   rsublc
+#define RSUBI   rsubli
+#define RSUBIC  rsublic
+#define RSUBIK  rsublik
+#define RSUBIKC rsublikc
+#define RSUBK   rsublk
+#define RSUBKC  rsublkc
+#define SI      sli
+#define STORE   sl
+#define SUBK    sublk
+#define XOR     xorl
+#define XORI    xorli
 #else
-#define ADDIK addik
-#define ADDK  addk
-#define ADDI addi
-#define ADD  add
-#define ANDI andi
-#define SUBK subk
-#define RSUBK rsubk
-#define ORI  ori
-#define LI   lwi
-#define LOAD lw
-#define SI   swi
-#define STORE sw
-#define BRLID brlid
-#define BGTID bgtid
-#define BGEI  bgei
-#define BNEID bneid
-#define BLTI  blti
-#define CMPU  cmpu
-#define BRID  brid
-#define BNEID bneid
-#define BLEI  blei
-#define BEQI  beqi
-#define BRI   bri
-#define XORI  xori
-#define BNEI bnei
-#define OR    or
-#define BRALID bralid
-#define XOR   xor
+#define ADD     add
+#define ADDC    addc
+#define ADDI    addi
+#define ADDIC   addic
+#define ADDIK   addik
+#define ADDIKC  addikc
+#define ADDK    addk
+#define ADDKC   addkc
+#define AND     and
+#define ANDI    andi
+#define ANDN    andn
+#define ANDNI   andni
+#define BEQI    beqi
+#define BEQID   beqid
+#define BGEI    bgei
+#define BGEID   bgeid
+#define BGTI    bgti
+#define BGTID   bgtid
+#define BLEI    blei
+#define BLEID   bleid
+#define BLTI    blti
+#define BLTID   bltid
+#define BNEI    bnei
+#define BNEID   bneid
+#define BR      br
+#define BRALID  bralid
+#define BRD     brd
+#define BRI     bri
+#define BRID    brid
+#define BRLD    brld
+#define BRLID   brlid
+#define CMP     cmp
+#define CMPU    cmpu
+#define LI      lwi
+#define LOAD    lw
+#define OR      or
+#define ORI     ori
+#define RSUB    rsub
+#define RSUBC   rsubc
+#define RSUBI   rsubi
+#define RSUBIC  rsubic
+#define RSUBIK  rsubik
+#define RSUBIKC rsubikc
+#define RSUBK   rsubk
+#define RSUBKC  rsubkc
+#define SI      swi
+#define STORE   sw
+#define SUBK    subk
+#define XOR     xor
+#define XORI    xori
 #endif
 
 #ifdef __cplusplus
