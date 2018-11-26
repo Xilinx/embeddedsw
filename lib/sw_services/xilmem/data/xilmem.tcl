@@ -47,7 +47,7 @@ proc mem_drc {libhandle} {
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
-    if { ( $proc_type != "psu_cortexr5" ) && ( $proc_type != "ps7_cortexa9" ) && ( $proc_type != "psu_cortexa53" ) && ( $proc_type != "psu_cortexa72" ) && ( $proc_type != "microblaze" ) && ( $proc_type != "psu_pmc" ) && ( $proc_type != "psu_psm" )} {
+    if { ( $proc_type != "psu_cortexr5" ) && ( $proc_type != "ps7_cortexa9" ) && ( $proc_type != "psu_cortexa53" ) && ( $proc_type != "psu_cortexa72" ) && ( $proc_type != "microblaze" ) && ( $proc_type != "psu_pmu" ) && ( $proc_type != "psu_pmc" ) && ( $proc_type != "psu_psm" )} {
                 error "ERROR: This library is supported only for CortexR5, CortexA9 and Microblaze processors.";
                 return;
     }

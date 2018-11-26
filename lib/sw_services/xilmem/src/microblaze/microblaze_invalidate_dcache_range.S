@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2008 - 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2008 - 2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -40,6 +40,7 @@
 *******************************************************************************/
 
 #include "xparameters.h"
+#include "microblaze_instructions.h"
 
 #define MICROBLAZE_MSR_DCACHE_ENABLE        0x00000080
 #define MICROBLAZE_MSR_INTR_ENABLE          0x00000002
@@ -69,32 +70,42 @@ microblaze_invalidate_dcache_range:
 	mts	rmsr, r10
 #endif
 
-        beqi    r6, L_done                                      /* Skip loop if size is zero */
+        BEQI    r6, L_done                                      /* Skip loop if size is zero */
 
-        add	r6, r5, r6                                      /* Compute end address */
-        addik   r6, r6, -1
+        ADD	r6, r5, r6                                      /* Compute end address */
+        ADDIK   r6, r6, -1
 
-        andi    r6, r6, -(4 * XPAR_MICROBLAZE_DCACHE_LINE_LEN)  /* Align end down to cache line */
-        andi    r5, r5, -(4 * XPAR_MICROBLAZE_DCACHE_LINE_LEN)  /* Align start down to cache line */
+        ANDI    r6, r6, -(4 * XPAR_MICROBLAZE_DCACHE_LINE_LEN)  /* Align end down to cache line */
+        ANDI    r5, r5, -(4 * XPAR_MICROBLAZE_DCACHE_LINE_LEN)  /* Align start down to cache line */
 
 #if MB_HAS_WRITEBACK_SET == 0                                   /* Use a different scheme for MB version < v7.20 or when caches are write-through */
 
 L_start:
-	cmpu	r18, r5, r6                                     /* Are we at the end? */
-	blti	r18, L_done
+	CMPU	r18, r5, r6                                     /* Are we at the end? */
+	BLTI	r18, L_done
 
 	wdc     r5, r0
 
+#if defined (__arch64__ )
+	addlik	r5, r5, (XPAR_MICROBLAZE_DCACHE_LINE_LEN * 4)   /* Increment the address by 4 */
+	breai	L_start                                         /* Branch to the beginning of the loop */
+#else
 	brid	L_start                                         /* Branch to the beginning of the loop */
 	addik	r5, r5, (XPAR_MICROBLAZE_DCACHE_LINE_LEN * 4)   /* Increment the addrees by 4 (delay slot) */
+#endif
 #else
 
-        rsubk   r6, r5, r6
+        RSUBK   r6, r5, r6
                                                                 /* r6 will now contain (count of bytes - (4 * XPAR_MICROBLAZE_DCACHE_LINE_LEN)) */
 L_start:
         wdc.clear r5, r6                                        /* Invalidate the cache line only if the address matches */
+#if defined (__arch64__ )
+        addlik   r6, r6, -(XPAR_MICROBLAZE_DCACHE_LINE_LEN * 4)
+        beagei r6, L_start
+#else
         bneid   r6, L_start
         addik   r6, r6, -(XPAR_MICROBLAZE_DCACHE_LINE_LEN * 4)
+#endif
 
 #endif
 

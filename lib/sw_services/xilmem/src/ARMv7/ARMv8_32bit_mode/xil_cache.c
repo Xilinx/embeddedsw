@@ -44,6 +44,9 @@
  * 6.8  aru  06/15/18 Removed unused variables.
  * 6.8	aru  07/04/18 Optimized code in Xil_DCacheInvalidate and
  *			Xil_DCacheFlush
+ * 6.8  asa  11/10/18 Fix issues in cache Xil_DCacheInvalidate and
+ * 			Xil_DCacheFlush that got introduced in the optimization
+ * 			changes done in the previous patch for this file.
  *
  ******************************************************************************/
  /***************************** Include Files *********************************/
@@ -171,10 +174,9 @@ void Xil_DCacheInvalidate(void)
 	NumCacheLevel = (mfcp(XREG_CP15_CACHE_LEVEL_ID) >> 24U) & 0x00000007U;
 
 	for (CacheLevel = 0U, WayAdjust = 0x1E; CacheLevel < NumCacheLevel;
-		CacheLevel++, WayAdjust = WayAdjust << 1) {
+		CacheLevel++, WayAdjust = WayAdjust - 2) {
 
-		mtcp(XREG_CP15_CACHE_SIZE_SEL,
-			(CacheLevel < 1) | SELECT_D_CACHE);
+		mtcp(XREG_CP15_CACHE_SIZE_SEL, ((CacheLevel << 1) | SELECT_D_CACHE));
 		isb();
 
 		CsidReg = mfcp(XREG_CP15_CACHE_SIZE_ID);
@@ -196,7 +198,7 @@ void Xil_DCacheInvalidate(void)
 		/* Invalidate all the cachelines */
 		for (WayIndex = 0U; WayIndex < NumWays; WayIndex++) {
 			for (SetIndex = 0U; SetIndex < NumSet; SetIndex++) {
-				C7Reg = Way | Set | CacheLevel;
+				C7Reg = Way | Set | (CacheLevel << 1);
 				mtcp(XREG_CP15_INVAL_DC_LINE_SW, C7Reg);
 				Set += (0x00000001U << LineSize);
 			}
@@ -351,10 +353,9 @@ void Xil_DCacheFlush(void)
 	NumCacheLevel = (mfcp(XREG_CP15_CACHE_LEVEL_ID)>>24U) & 0x00000007U;
 
 	for (CacheLevel = 0U, WayAdjust = 0x1E; CacheLevel < NumCacheLevel;
-		CacheLevel++, WayAdjust = WayAdjust << 1) {
+		CacheLevel++, WayAdjust = WayAdjust - 2) {
 		/* Select cache level  and D cache in CSSELR */
-		mtcp(XREG_CP15_CACHE_SIZE_SEL,
-			(CacheLevel < 1) | SELECT_D_CACHE);
+		mtcp(XREG_CP15_CACHE_SIZE_SEL, ((CacheLevel << 1) | SELECT_D_CACHE));
 		isb();
 
 		CsidReg = mfcp(XREG_CP15_CACHE_SIZE_ID);
@@ -376,7 +377,7 @@ void Xil_DCacheFlush(void)
 		/* Invalidate all the cachelines */
 		for (WayIndex = 0U; WayIndex < NumWays; WayIndex++) {
 			for (SetIndex = 0U; SetIndex < NumSet; SetIndex++) {
-				C7Reg = Way | Set | CacheLevel;
+				C7Reg = Way | Set | (CacheLevel << 1);
 				mtcp(XREG_CP15_CLEAN_INVAL_DC_LINE_SW, C7Reg);
 				Set += (0x00000001U << LineSize);
 			}
