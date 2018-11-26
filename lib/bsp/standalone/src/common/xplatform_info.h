@@ -60,23 +60,38 @@ extern "C" {
 #include "xil_types.h"
 
 /************************** Constant Definitions *****************************/
-
+#if defined (versal)
+#define XPAR_PMC_TAP_BASEADDR 0xF11A0000U
+#define XPAR_PMC_TAP_VERSION_OFFSET 0x00000004U
+#define XPLAT_PS_VERSION_ADDRESS (XPAR_PMC_TAP_BASEADDR + \
+									XPAR_PMC_TAP_VERSION_OFFSET)
+#else
 #define XPAR_CSU_BASEADDR 0xFFCA0000U
 #define	XPAR_CSU_VER_OFFSET 0x00000044U
-
+#define XPLAT_PS_VERSION_ADDRESS (XPAR_CSU_BASEADDR + \
+									XPAR_CSU_VER_OFFSET)
+#endif
 #define XPLAT_ZYNQ_ULTRA_MP_SILICON 0x0
 #define XPLAT_ZYNQ_ULTRA_MP 0x1
 #define XPLAT_ZYNQ_ULTRA_MPVEL 0x2
 #define XPLAT_ZYNQ_ULTRA_MPQEMU 0x3
 #define XPLAT_ZYNQ 0x4
 #define XPLAT_MICROBLAZE 0x5
+#define XPLAT_versal 0x6U
 
 #define XPS_VERSION_1 0x0
 #define XPS_VERSION_2 0x1
-
 #define XPLAT_INFO_MASK (0xF)
-#define XPLAT_INFO_SHIFT (0xC)
+
+#if defined (versal)
+#define XPS_VERSION_INFO_MASK 0xFF00U
+#define XPS_VERSION_INFO_SHIFT 0x8U
+#define XPLAT_INFO_SHIFT 0x18U
+#else
 #define XPS_VERSION_INFO_MASK (0xF)
+#define XPS_VERSION_INFO_SHIFT 0x0U
+#define XPLAT_INFO_SHIFT 0xCU
+#endif
 
 /**************************** Type Definitions *******************************/
 

@@ -66,8 +66,13 @@
 #endif
 
 #if defined(ARMR5) || (defined (__aarch64__) && EL3==1) || defined (ARMA53_32)
+#if defined (versal)
+#define CRL_TTC_RST    0xFF5E0344U
+#define CRL_TTC_BASE_RST_MASK    0x1U
+#else
 #define RST_LPD_IOU2 					    0xFF5E0238U
 #define RST_LPD_IOU2_TTC_BASE_RESET_MASK 	0x00000800U
+#endif
 #endif
 
 #if defined (SLEEP_TIMER_BASEADDR)
