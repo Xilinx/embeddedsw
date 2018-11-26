@@ -12,6 +12,10 @@
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
 #
+# Use of the Software is limited solely to applications:
+# (a) running on a Xilinx device, or
+# (b) that interact with a Xilinx device through a bus or interconnect.
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -78,7 +82,9 @@ proc generate {libhandle} {
 	} elseif { "${proc_type}" == "ps7_cortexa9" } {
 		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"arm\" CACHE STRING \"\")"
 		puts $fd "set (MACHINE \"zynq7\")"
-	} elseif { ("${proc_type}" == "microblaze" || "${proc_type}" == "psu_pmu") && [string match "standalone" "${os}"] > 0} {
+	} elseif { ("${proc_type}" == "microblaze" || "${proc_type}" == "psu_pmu"
+		|| "${proc_type}" == "psu_pmc")
+		&& [string match "standalone" "${os}"] > 0} {
 		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"microblaze\" CACHE STRING \"\")"
 		puts $fd "set (MACHINE \"microblaze_generic\")"
 		set c_flags "${c_flags}  -mlittle-endian"
