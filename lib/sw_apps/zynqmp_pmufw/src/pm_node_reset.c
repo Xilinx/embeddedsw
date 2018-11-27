@@ -162,11 +162,11 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
-#ifdef XPAR_PSU_TTC_1_DEVICE_ID
+#ifdef XPAR_PSU_TTC_3_DEVICE_ID
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
 		.IdleHook = NodeTtcIdle,
-		.IdleHookArgs = XPAR_PSU_TTC_1_BASEADDR
+		.IdleHookArgs = XPAR_PSU_TTC_3_BASEADDR
 #else
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
@@ -183,11 +183,11 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
-#ifdef XPAR_PSU_TTC_2_DEVICE_ID
+#ifdef XPAR_PSU_TTC_6_DEVICE_ID
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
 		.IdleHook = NodeTtcIdle,
-		.IdleHookArgs = XPAR_PSU_TTC_2_BASEADDR
+		.IdleHookArgs = XPAR_PSU_TTC_6_BASEADDR
 #else
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
@@ -205,11 +205,11 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
-#ifdef XPAR_PSU_TTC_3_DEVICE_ID
+#ifdef XPAR_PSU_TTC_9_DEVICE_ID
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
 		.IdleHook = NodeTtcIdle,
-		.IdleHookArgs = XPAR_PSU_TTC_3_BASEADDR
+		.IdleHookArgs = XPAR_PSU_TTC_9_BASEADDR
 #else
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
