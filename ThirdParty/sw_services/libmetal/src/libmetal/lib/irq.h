@@ -35,24 +35,6 @@ typedef int (*metal_irq_handler) (int irq, void *priv);
 
 struct metal_device;
 
-/** Metal IRQ Controller. */
-struct metal_irq_controller {
-	int (*enable_irq)(struct metal_irq_controller *cntr,
-			  unsigned int vector);
-	void (*disable_irq)(struct metal_irq_controller *cntr,
-			    unsigned int vector);
-	void  *arg;
-};
-
-/**
- * @brief     Set interrupt controller
- *
- * Set metal global interrupt controller
- *
- * @param[in] controller IRQ controller
- */
-void metal_irq_set_controller(struct metal_irq_controller *cntr);
-
 /**
  * @brief      Register interrupt handler for driver ID/device.
  *
