@@ -68,8 +68,7 @@ int metal_irq_register(int irq,
 
 		if (irq_p->irq == irq) {
 			/* Check if handler has already registered */
-			if (irq_p->hd != NULL && hd != NULL &&
-			    irq_p->hd != hd) {
+			if (irq_p->hd != NULL && irq_p->hd != hd) {
 				metal_log(METAL_LOG_ERROR,
 					  "%s: irq %d already registered."
 					  "Will not register again.\n",
@@ -77,12 +76,6 @@ int metal_irq_register(int irq,
 				metal_mutex_release(&_irqs.irq_lock);
 				return -EINVAL;
 			} else {
-				if (hd == NULL) {
-					irq_flags_save = metal_irq_save_disable();
-					metal_list_del(node);
-					metal_irq_restore_enable(irq_flags_save);
-					metal_free_memory(irq_p);
-				}
 				metal_mutex_release(&_irqs.irq_lock);
 				return 0;
 			}
@@ -111,6 +104,46 @@ int metal_irq_register(int irq,
 	metal_log(METAL_LOG_DEBUG, "%s: success, irq %d add drv_id %p \n",
 	          __func__, irq, drv_id);
 	return 0;
+}
+
+int metal_irq_unregister(int irq,
+                         metal_irq_handler hd,
+                         struct metal_device *dev,
+                         void *drv_id)
+{
+	struct metal_irq_desc *irq_p;
+	struct metal_list *node;
+
+	(void)hd;
+	(void)dev;
+	(void)drv_id;
+	if (irq < 0) {
+		metal_log(METAL_LOG_ERROR, "%s: irq %d need to be a positive number\n",
+		          __func__, irq);
+		return -EINVAL;
+	}
+
+	/* Search for irq in list */
+	metal_mutex_acquire(&_irqs.irq_lock);
+	metal_list_for_each(&_irqs.irqs, node) {
+
+		irq_p = metal_container_of(node, struct metal_irq_desc, node);
+
+		if (irq_p->irq == irq) {
+			unsigned int irq_flags_save;
+
+			irq_flags_save=metal_irq_save_disable();
+			metal_list_del(node);
+			metal_irq_restore_enable(irq_flags_save);
+			metal_free_memory(irq_p);
+			metal_mutex_release(&_irqs.irq_lock);
+			return 0;
+		}
+	}
+	metal_log(METAL_LOG_DEBUG, "%s: No matching IRQ entry\n", __func__);
+
+	metal_mutex_release(&_irqs.irq_lock);
+	return -ENOENT;
 }
 
 unsigned int metal_irq_save_disable(void)

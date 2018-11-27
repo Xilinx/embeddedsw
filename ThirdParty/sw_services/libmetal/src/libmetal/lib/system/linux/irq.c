@@ -67,6 +67,12 @@ int metal_irq_register(int irq,
 		return -EINVAL;
 	}
 
+	if ((drv_id == NULL) || (hd == NULL)) {
+		metal_log(METAL_LOG_ERROR, "%s: irq %d need drv_id and hd.\n",
+			__func__, irq);
+		return -EINVAL;
+	}
+
 	metal_mutex_acquire(&_irqs.irq_lock);
 	if (_irqs.irq_state == METAL_IRQ_STOP) {
 		metal_log(METAL_LOG_ERROR,
@@ -76,8 +82,7 @@ int metal_irq_register(int irq,
 		return -EINVAL;
 	}
 
-	if (_irqs.hds[irq].hd != NULL && hd != NULL &&
-	    _irqs.hds[irq].hd != hd) {
+	if (_irqs.hds[irq].hd != NULL && _irqs.hds[irq].hd != hd) {
 		metal_log(METAL_LOG_ERROR, "%s: irq %d already registered."
 		          "Will not register again.\n", __func__, irq);
 		metal_mutex_release(&_irqs.irq_lock);
@@ -94,12 +99,35 @@ int metal_irq_register(int irq,
 		metal_log(METAL_LOG_DEBUG, "%s: write failed IRQ %d\n", __func__, irq);
 	}
 
-	if (hd)
-		metal_log(METAL_LOG_DEBUG, "%s: registered IRQ %d\n",
-			  __func__, irq);
-	else
-		metal_log(METAL_LOG_DEBUG, "%s: unregistered IRQ %d\n",
-			  __func__, irq);
+	metal_log(METAL_LOG_DEBUG, "%s: registered IRQ %d\n", __func__, irq);
+	return 0;
+}
+
+int metal_irq_unregister(int irq,
+			metal_irq_handler hd,
+			struct metal_device *dev,
+			void *drv_id)
+{
+	uint64_t val = 1;
+	int ret;
+
+	(void)dev;
+	(void)drv_id;
+	(void)hd;
+	if ((irq < 0) || (irq >= MAX_IRQS)) {
+		metal_log(METAL_LOG_ERROR,
+			  "%s: irq %d is larger than the max supported %d.\n",
+			  __func__, irq, MAX_IRQS);
+		return -EINVAL;
+	}
+
+	metal_mutex_acquire(&_irqs.irq_lock);
+	_irqs.hds[irq].hd = NULL;
+	metal_mutex_release(&_irqs.irq_lock);
+	ret = write(_irqs.irq_reg_fd, &val, sizeof(val));
+	if (ret < 0) {
+		metal_log(METAL_LOG_DEBUG, "%s: write failed IRQ %d\n", __func__, irq);
+	}
 	return 0;
 }
 
@@ -190,12 +218,8 @@ static void *metal_linux_irq_handling(void *args)
 				metal_mutex_acquire(&_irqs.irq_lock);
 				dev = hd_desc->dev;
 
-				if (hd_desc->hd) {
-					if ((hd_desc->hd)(pfds[i].fd,
-							 hd_desc->drv_id) ==
-					    METAL_IRQ_HANDLED)
-						irq_handled = 1;
-				}
+				if ((hd_desc->hd)(pfds[i].fd, hd_desc->drv_id) == METAL_IRQ_HANDLED)
+					irq_handled = 1;
 				if (irq_handled) {
 					if (dev && dev->bus->ops.dev_irq_ack)
 					    dev->bus->ops.dev_irq_ack(dev->bus, dev, i);

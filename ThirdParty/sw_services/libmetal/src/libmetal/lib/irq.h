@@ -57,8 +57,7 @@ void metal_irq_set_controller(struct metal_irq_controller *cntr);
  * @brief      Register interrupt handler for driver ID/device.
  *
  * @param[in]  irq         interrupt id
- * @param[in]  irq_handler interrupt handler, if it is NULL, it will
- *                         unregister the irq handler.
+ * @param[in]  irq_handler interrupt handler
  * @param[in]  dev         metal device this irq belongs to (can be NULL).
  * @param[in]  drv_id      driver id is a unique interrupt handler identifier.
  *                         It can also be used for driver data.
@@ -68,6 +67,31 @@ int metal_irq_register(int irq,
 		       metal_irq_handler irq_handler,
 		       struct metal_device *dev,
 		       void *drv_id);
+
+/**
+ * @brief      Unregister interrupt handler for driver ID and/or device.
+ *
+ *             If interrupt handler (hd), driver ID (drv_id) and device (dev)
+ *             are NULL, unregister handler for this interrupt.
+ *
+ *             If interrupt handler (hd), device (dev) or driver ID (drv_id),
+ *             are not NULL, unregister handlers matching non NULL criterias.
+ *             e.g: when call is made with drv_id and dev non NULL,
+ *             all handlers matching both are unregistered.
+ *
+ *             If interrupt is not found, or other criterias not matching,
+ *             return -ENOENT
+ *
+ * @param[in]  irq         interrupt id
+ * @param[in]  irq_handler interrupt handler
+ * @param[in]  dev         metal device this irq belongs to
+ * @param[in]  drv_id      driver id. It can be used for driver data.
+ * @return     0 for success, non-zero on failure
+ */
+int metal_irq_unregister(int irq,
+			metal_irq_handler irq_handler,
+			struct metal_device *dev,
+			void *drv_id);
 
 /**
  * @brief      disable interrupts
