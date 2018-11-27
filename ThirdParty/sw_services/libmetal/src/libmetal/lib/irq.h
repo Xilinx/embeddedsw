@@ -72,7 +72,7 @@ int metal_irq_register(int irq,
  * @brief      Unregister interrupt handler for driver ID and/or device.
  *
  *             If interrupt handler (hd), driver ID (drv_id) and device (dev)
- *             are NULL, unregister handler for this interrupt.
+ *             are NULL, unregister all handlers for this interrupt.
  *
  *             If interrupt handler (hd), device (dev) or driver ID (drv_id),
  *             are not NULL, unregister handlers matching non NULL criterias.
