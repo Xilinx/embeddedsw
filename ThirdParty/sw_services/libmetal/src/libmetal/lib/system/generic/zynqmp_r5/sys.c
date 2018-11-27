@@ -18,6 +18,7 @@
 #include "xil_mmu.h"
 #include "xil_mpu.h"
 #include "xreg_cortexr5.h"
+#include "xscugic.h"
 
 #define MPU_REGION_SIZE_MIN 0x20
 
