@@ -233,7 +233,7 @@ int ipi_latency_demod()
 	/* disable IPI interrupt */
 	metal_io_write32(ch.ipi_io, IPI_IDR_OFFSET, IPI_MASK);
 	/* unregister IPI irq handler */
-	metal_irq_unregister(ipi_irq, 0, ipi_dev, &ch);
+	metal_irq_unregister(ipi_irq);
 
 out:
 	return ret;
