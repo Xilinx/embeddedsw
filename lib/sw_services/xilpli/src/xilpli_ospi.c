@@ -67,11 +67,11 @@
 #define XILPLI_OSPI_DEVICE_ID  XPAR_PSU_OSPI_0_DEVICE_ID
 #define XILPLI_OSPI_BASEADDR   XPAR_PSU_OSPI_0_BASEADDR 
 /************************** Function Prototypes ******************************/
-static int FlashReadID(XOspiPs *OspiPsPtr);
+static int FlashReadID(XOspiPsv *OspiPsvPtr);
 
 /************************** Variable Definitions *****************************/
-static XOspiPs OspiPsInstance;
-static XOspiPs_Msg FlashMsg;
+static XOspiPsv OspiPsvInstance;
+static XOspiPsv_Msg FlashMsg;
 u32 StatusCmd;
 u32 OspiFlashMake;
 u32 OspiFlashSize;
@@ -93,7 +93,7 @@ static u8 WriteBuffer[10] __attribute__ ((aligned(32)));
 * @note		None.
 *
 ******************************************************************************/
-static int FlashReadID(XOspiPs *OspiPsPtr)
+static int FlashReadID(XOspiPsv *OspiPsvPtr)
 {
 	int Status;
 
@@ -106,8 +106,8 @@ static int FlashReadID(XOspiPs *OspiPsPtr)
 	FlashMsg.TxBfrPtr = NULL;
 	FlashMsg.RxBfrPtr = ReadBuffer;
 	FlashMsg.ByteCount = 8U;
-	FlashMsg.Flags = XOSPIPS_MSG_FLAG_RX;
-	Status = XOspiPs_PollTransfer(OspiPsPtr, &FlashMsg);
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -141,7 +141,7 @@ static int FlashReadID(XOspiPs *OspiPsPtr)
             goto END;
         }
 
-	FlashEnterExit4BAddMode(OspiPsPtr);
+	FlashEnterExit4BAddMode(OspiPsvPtr);
 
 END:
 	return Status;
@@ -159,8 +159,8 @@ END:
  *****************************************************************************/
 int XPli_OspiInit(u32 DeviceFlags)
 {
-	XOspiPs_Config *OspiConfig;
-	XOspiPs* OspiPsInstancePtr = &OspiPsInstance;
+	XOspiPsv_Config *OspiConfig;
+	XOspiPsv* OspiPsvInstancePtr = &OspiPsvInstance;
 	int Status;
 	u32 OspiMode;
 
@@ -168,14 +168,14 @@ int XPli_OspiInit(u32 DeviceFlags)
 	/**
 	 * Initialize the QSPI driver so that it's ready to use
 	 */
-	OspiConfig =  XOspiPs_LookupConfig(XILPLI_OSPI_DEVICE_ID);
+	OspiConfig =  XOspiPsv_LookupConfig(XILPLI_OSPI_DEVICE_ID);
 	if (NULL == OspiConfig) {
 		Status = XILPLI_ERR_OSPI_INIT;
 		XPli_Printf(DEBUG_GENERAL,"XILPLI_ERR_OSPI_INIT\r\n");
 		goto END;
 	}
 
-	Status =  XOspiPs_CfgInitialize(OspiPsInstancePtr, OspiConfig);
+	Status =  XOspiPsv_CfgInitialize(OspiPsvInstancePtr, OspiConfig);
 	if (Status != XILPLI_SUCCESS) {
 		Status = XILPLI_ERR_OSPI_CFG;
 		XPli_Printf(DEBUG_GENERAL,"XILPLI_ERR_OSPI_CFG\r\n");
@@ -185,14 +185,14 @@ int XPli_OspiInit(u32 DeviceFlags)
 	/*
 	 * Enable IDAC controller in OSPI
 	 */
-	XOspiPs_SetOptions(OspiPsInstancePtr, XOSPIPS_IDAC_EN_OPTION);
+	XOspiPsv_SetOptions(OspiPsvInstancePtr, XOSPIPSV_IDAC_EN_OPTION);
 	
 	/*
-	 * Set the prescaler for OSPIPS clock
+	 * Set the prescaler for OSPIPSV clock
 	 */
 
-	XOspiPs_SetClkPrescaler(OspiPsInstancePtr, XOSPIPS_CLK_PRESCALE_15);
-	Status = XOspiPs_SelectFlash(OspiPsInstancePtr, XOSPIPS_SELECT_FLASH_CS0);
+	XOspiPsv_SetClkPrescaler(OspiPsvInstancePtr, XOSPIPSV_CLK_PRESCALE_15);
+	Status = XOspiPsv_SelectFlash(OspiPsvInstancePtr, XOSPIPSV_SELECT_FLASH_CS0);
 	if (Status != XST_SUCCESS)
 		goto END;
 	/*
@@ -202,7 +202,7 @@ int XPli_OspiInit(u32 DeviceFlags)
 	 * preparing the WriteBuffer
 	 */
 
-	Status = FlashReadID(OspiPsInstancePtr);
+	Status = FlashReadID(OspiPsvInstancePtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -248,12 +248,12 @@ int XPli_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	FlashMsg.TxBfrPtr = NULL;
 	FlashMsg.RxBfrPtr = DestAddr;
 	FlashMsg.ByteCount = Length;
-	FlashMsg.Flags = XOSPIPS_MSG_FLAG_RX;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 	FlashMsg.Addr = SrcAddr;
-	FlashMsg.Proto = XOSPIPS_READ_1_1_8;
+	FlashMsg.Proto = XOSPIPSV_READ_1_1_8;
 	FlashMsg.Dummy = 8U;
 	
-	Status = XOspiPs_PollTransfer(&OspiPsInstance, &FlashMsg);
+	Status = XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -292,7 +292,7 @@ int XPli_OspiRelease(void)
 *
 *
 ******************************************************************************/
-int FlashEnterExit4BAddMode(XOspiPs *OspiPsPtr)
+int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr)
 {
         u32 Status;
         u32 Command = ENTER_4B_ADDR_MODE;
@@ -306,9 +306,9 @@ int FlashEnterExit4BAddMode(XOspiPs *OspiPsPtr)
                         FlashMsg.TxBfrPtr = NULL;
                         FlashMsg.RxBfrPtr = NULL;
                         FlashMsg.ByteCount = 0;
-                        FlashMsg.Flags = XOSPIPS_MSG_FLAG_TX;
+                        FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
 
-                        Status = XOspiPs_PollTransfer(OspiPsPtr, &FlashMsg);
+                        Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
                         if (Status != XST_SUCCESS)
                                 return XST_FAILURE;
                         break;
@@ -321,10 +321,10 @@ int FlashEnterExit4BAddMode(XOspiPs *OspiPsPtr)
         FlashMsg.TxBfrPtr = NULL;
         FlashMsg.RxBfrPtr = NULL;
         FlashMsg.ByteCount = 0;
-        FlashMsg.Flags = XOSPIPS_MSG_FLAG_TX;
+        FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
         FlashMsg.Addrsize = 3;
 
-        Status = XOspiPs_PollTransfer(OspiPsPtr, &FlashMsg);
+        Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
         if (Status != XST_SUCCESS)
                 return XST_FAILURE;
 
@@ -335,9 +335,9 @@ int FlashEnterExit4BAddMode(XOspiPs *OspiPsPtr)
                 FlashMsg.TxBfrPtr = NULL;
                 FlashMsg.RxBfrPtr = &FlashStatus;
                 FlashMsg.ByteCount = 1;
-                FlashMsg.Flags = XOSPIPS_MSG_FLAG_RX;
+                FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 
-                Status = XOspiPs_PollTransfer(OspiPsPtr, &FlashMsg);
+                Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
                 if (Status != XST_SUCCESS)
                         return XST_FAILURE;
 
@@ -353,9 +353,9 @@ int FlashEnterExit4BAddMode(XOspiPs *OspiPsPtr)
                 FlashMsg.TxBfrPtr = NULL;
                 FlashMsg.RxBfrPtr = NULL;
                 FlashMsg.ByteCount = 0;
-                FlashMsg.Flags = XOSPIPS_MSG_FLAG_TX;
+                FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
 
-                Status = XOspiPs_PollTransfer(OspiPsPtr, &FlashMsg);
+                Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
                 if (Status != XST_SUCCESS)
                         return XST_FAILURE;
                 break;

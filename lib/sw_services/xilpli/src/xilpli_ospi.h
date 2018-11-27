@@ -57,7 +57,7 @@ extern "C" {
 //#define XILPLI_OSPI
 #ifdef XILPLI_OSPI
 #include "xparameters.h"	/* SDK generated parameters */
-#include "xospips.h"		/* OSPIPS device driver */
+#include "xospipsv.h"		/* OSPIPSV device driver */
 
 /************************** Constant Definitions *****************************/
 
@@ -103,7 +103,7 @@ extern "C" {
 int XPli_OspiInit(u32 DeviceFlags);
 int XPli_OspiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XPli_OspiRelease(void );
-int FlashEnterExit4BAddMode(XOspiPs *OspiPsPtr);
+int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr);
 /************************** Variable Definitions *****************************/
 
 
