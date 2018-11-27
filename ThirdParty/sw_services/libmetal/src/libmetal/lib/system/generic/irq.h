@@ -26,7 +26,6 @@ extern "C" {
  */
 void metal_irq_isr(unsigned int vector);
 
-
 #ifdef __cplusplus
 }
 #endif
