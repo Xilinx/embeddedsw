@@ -20,8 +20,6 @@ extern "C" {
  *  @{ */
 
 #include <stdlib.h>
-#include <metal/event.h>
-#include <metal/utilities.h>
 
 /** IRQ handled status */
 #define METAL_IRQ_NOT_HANDLED 0
@@ -37,23 +35,15 @@ typedef int (*metal_irq_handler) (int irq, void *priv);
 
 struct metal_device;
 
-/** Metal IRQ event */
-struct metal_irq_event {
-	struct metal_event event; /**< event struct */
-	int irq; /**< interrupt ID */
-	struct metal_device *dev; /**< pointer to metal device */
-};
-
 /** Metal IRQ Controller. */
 struct metal_irq_controller {
 	int (*enable_irq)(struct metal_irq_controller *cntr,
 			  unsigned int vector);
 	void (*disable_irq)(struct metal_irq_controller *cntr,
 			    unsigned int vector);
-	int (*map_irq_event)(struct metal_irq_controller *cntr,
-			     int irq, struct metal_irq_event *irqe);
-	struct metal_irq_event *(*get_event)(struct metal_irq_controller *cntr,
-					     int irq);
+	int (*register_irq)(struct metal_irq_controller *cntr,
+			    int irq, metal_irq_handler irq_handler,
+			    struct metal_device *dev, void *drv_id);
 	void  *arg;
 };
 
@@ -67,72 +57,20 @@ struct metal_irq_controller {
 void metal_irq_set_controller(struct metal_irq_controller *cntr);
 
 /**
- * @brief     Map interrupt event
+ * @brief      Register interrupt handler for driver ID/device.
  *
- * Map metal interrupt event to interrupt
- *
- * @param[in] irq interrupt id
- * @param[in] irqe irq event
- *
- * @return 0 for success, otherwise, negative value for failure
+ * @param[in]  irq         interrupt id
+ * @param[in]  irq_handler interrupt handler, if it is NULL, it will
+ *                         unregister the irq handler.
+ * @param[in]  dev         metal device this irq belongs to (can be NULL).
+ * @param[in]  drv_id      driver id is a unique interrupt handler identifier.
+ *                         It can also be used for driver data.
+ * @return     0 for success, non-zero on failure
  */
-void metal_irq_map_event(int irq, struct metal_irq_event *irqe);
-
-/**
- * @brief     Get interrupt event
- *
- * Get metal interrupt event from interrupt
- *
- * @param[in] irq interrupt id
- *
- * @return pointer to metal event mapped to the interrupt
- */
-struct metal_event *metal_irq_get_event(int irq);
-
-/**
- * @brief      Initialize metal interrupt event.
- *
- * @param[in]  irqe       interrupt event
- * @param[in]  irq        interrupt id
- * @param[in]  dev        metal device this irq belongs to (can be NULL).
- */
-static inline void metal_irq_init_event(struct metal_irq_event *irqe,
-					int irq, struct metal_device *dev)
-{
-	metal_assert(irqe != NULL);
-	irqe->irq = irq;
-	irqe->dev = dev;
-}
-
-/**
- * @brief      get interrupt ID from event
- *
- * get interrupt id from metal event
- *
- * @param[in]  event pointer to metal event
- *
- * @return interrupt ID
- */
-static inline int metal_irq_get_vector_from_event(struct metal_event *event)
-{
-	struct metal_irq_event *irqe;
-
-	metal_assert(event != NULL);
-	irqe = metal_container_of(event, struct metal_irq_event, event);
-	return irqe->irq;
-}
-
-/**
- * @brief      register interrupt
- *
- * @param[in]  irq interrupt id
- * @param[in]  hd interrupt event handler function
- * @param[in]  arg pointer to handler argument
- *
- * @return 0 for success, and negative value for failure
- */
-int metal_irq_register(int irq, metal_event_hd_func hd,
-		       void *arg);
+int metal_irq_register(int irq,
+		       metal_irq_handler irq_handler,
+		       struct metal_device *dev,
+		       void *drv_id);
 
 /**
  * @brief      disable interrupts
