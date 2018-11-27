@@ -36,48 +36,57 @@
 
 #define MAX_TIMEOUT 0x1FFFFFFF
 
-#if defined(XPAR_PSU_TTC_0_DEVICE_ID) || \
-	defined(XPAR_PSU_TTC_1_DEVICE_ID) || \
-	defined(XPAR_PSU_TTC_2_DEVICE_ID) || \
-	defined(XPAR_PSU_TTC_3_DEVICE_ID)
+#if defined(XPAR_PSU_TTC_0_DEVICE_ID)      || \
+	defined(XPAR_PSU_TTC_3_DEVICE_ID)  || \
+	defined(XPAR_PSU_TTC_6_DEVICE_ID)  || \
+	defined(XPAR_PSU_TTC_9_DEVICE_ID)
 
  /**
   * NodeTtcIdle() - Custom code to idle the TTC
   *
   * @BaseAddress: TTC base address
   */
-void NodeTtcIdle(u32 BaseAddress)
+void NodeTtcIdle(u32 FirstBaseAddress)
 {
-	/*Stop the TTC timer */
-	u32 Val = Xil_In32(BaseAddress + XTTCPS_CNT_CNTRL_OFFSET);
-	Xil_Out32(BaseAddress + XTTCPS_CNT_CNTRL_OFFSET,(Val | ~XTTCPS_CNT_CNTRL_DIS_MASK));
+	u32 BaseAddress;
 
-	/*
-	 * Reset the counter control register
-	 */
-	XTtcPs_WriteReg(BaseAddress, XTTCPS_CNT_CNTRL_OFFSET,  XTTCPS_CNT_CNTRL_RESET_VALUE);
+	for (BaseAddress = FirstBaseAddress; BaseAddress < FirstBaseAddress +
+	     0xC; BaseAddress += 4) {
+		u32 Val;
 
-	/*
-	 * Clear counters interval values
-	 */
-	XTtcPs_WriteReg(BaseAddress, XTTCPS_INTERVAL_VAL_OFFSET, 0x0);
+		/*Stop the TTC timer */
+		Val = Xil_In32(BaseAddress + XTTCPS_CNT_CNTRL_OFFSET);
+		Xil_Out32(BaseAddress + XTTCPS_CNT_CNTRL_OFFSET, (Val |
+			  ~XTTCPS_CNT_CNTRL_DIS_MASK));
 
-	/*
-	 * Clear counters Match values
-	 */
-	XTtcPs_WriteReg(BaseAddress, XTTCPS_MATCH_0_OFFSET, 0x0);
-	XTtcPs_WriteReg(BaseAddress, XTTCPS_MATCH_1_OFFSET, 0x0);
-	XTtcPs_WriteReg(BaseAddress, XTTCPS_MATCH_2_OFFSET, 0x0);
+		/*
+		 * Reset the counter control register
+		 */
+		XTtcPs_WriteReg(BaseAddress, XTTCPS_CNT_CNTRL_OFFSET,
+				XTTCPS_CNT_CNTRL_RESET_VALUE);
 
-	/*
-	 * Disable counter's interrupts
-	 */
-	XTtcPs_WriteReg(BaseAddress, XTTCPS_IER_OFFSET, 0x0);
+		/*
+		 * Clear counters interval values
+		 */
+		XTtcPs_WriteReg(BaseAddress, XTTCPS_INTERVAL_VAL_OFFSET, 0x0);
 
-	/*
-	 * Clear interrupts (status) for all the counters [clronrd]
-	 */
-	XTtcPs_ReadReg(BaseAddress, XTTCPS_ISR_OFFSET);
+		/*
+		 * Clear counters Match values
+		 */
+		XTtcPs_WriteReg(BaseAddress, XTTCPS_MATCH_0_OFFSET, 0x0);
+		XTtcPs_WriteReg(BaseAddress, XTTCPS_MATCH_1_OFFSET, 0x0);
+		XTtcPs_WriteReg(BaseAddress, XTTCPS_MATCH_2_OFFSET, 0x0);
+
+		/*
+		 * Disable counter's interrupts
+		 */
+		XTtcPs_WriteReg(BaseAddress, XTTCPS_IER_OFFSET, 0x0);
+
+		/*
+		 * Clear interrupts (status) for all the counters [clronrd]
+		 */
+		XTtcPs_ReadReg(BaseAddress, XTTCPS_ISR_OFFSET);
+	}
 }
 #endif
 

@@ -35,9 +35,9 @@
 #include "xparameters.h"
 
 #if defined(XPAR_PSU_TTC_0_DEVICE_ID) || \
-	defined(XPAR_PSU_TTC_1_DEVICE_ID) || \
-	defined(XPAR_PSU_TTC_2_DEVICE_ID) || \
-	defined(XPAR_PSU_TTC_3_DEVICE_ID)
+	defined(XPAR_PSU_TTC_3_DEVICE_ID) || \
+	defined(XPAR_PSU_TTC_6_DEVICE_ID) || \
+	defined(XPAR_PSU_TTC_9_DEVICE_ID)
 	#include <xttcps_hw.h>
 void NodeTtcIdle(u32 BaseAddress);
 #endif
