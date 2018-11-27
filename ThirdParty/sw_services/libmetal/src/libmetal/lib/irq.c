@@ -25,13 +25,3 @@ void metal_irq_disable(unsigned int vector)
 	metal_assert(metal_irq_controller != NULL);
 	metal_irq_controller->disable_irq(metal_irq_controller, vector);
 }
-int metal_irq_register(int irq,
-		       metal_irq_handler irq_handler,
-		       struct metal_device *dev,
-		       void *drv_id)
-{
-	metal_assert(metal_irq_controller != NULL);
-	return metal_irq_controller->register_irq(metal_irq_controller,
-						  irq, irq_handler, dev,
-						  drv_id);
-}
