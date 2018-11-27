@@ -247,13 +247,8 @@ static int metal_uio_dev_open(struct linux_bus *lbus, struct linux_device *ldev)
 		ldev->device.irq_num =  0;
 		ldev->device.irq_info = (void *)-1;
 	} else {
-		struct metal_irq_event irqe;
-
 		ldev->device.irq_num =  1;
 		ldev->device.irq_info = (void *)(intptr_t)ldev->fd;
-		/* map irq event */
-		metal_irq_init_event(&irqe, ldev->fd, &ldev->device);
-		metal_irq_map_event(ldev->fd, &irqe);
 	}
 
 	return 0;
@@ -268,7 +263,7 @@ static void metal_uio_dev_close(struct linux_bus *lbus,
 		/* Normally this call would not be needed, and is added as precaution.
 		   Also for uio there is only 1 interrupt associated to the fd/device,
 		   we therefore do not need to specify a particular device */
-		metal_irq_map_event(ldev->fd, NULL);
+		metal_irq_register(ldev->fd, NULL, NULL, NULL);
 
 	if (ldev->override) {
 		sysfs_write_attribute(ldev->override, "", 1);
