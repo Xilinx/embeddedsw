@@ -209,6 +209,16 @@ void metal_irq_restore_enable(unsigned flags)
 	metal_mutex_release(&_irqs.irq_lock);
 }
 
+void metal_irq_enable(unsigned int vector)
+{
+	(void)vector;
+}
+
+void metal_irq_disable(unsigned int vector)
+{
+	(void)vector;
+}
+
 /**
   * @brief       IRQ handler
   * @param[in]   args  not used. required for pthread.
@@ -307,27 +317,6 @@ static void *metal_linux_irq_handling(void *args)
 	return NULL;
 }
 
-static int metal_linux_irq_enable(struct metal_irq_controller *cntr,
-				  unsigned int vector)
-{
-	(void)cntr;
-	(void)vector;
-	return 0;
-}
-
-static void metal_linux_irq_disable(struct metal_irq_controller *cntr,
-				    unsigned int vector)
-{
-	(void)cntr;
-	(void)vector;
-}
-
-static struct metal_irq_controller metal_linux_irq_controller = {
-	.enable_irq = metal_linux_irq_enable,
-	.disable_irq = metal_linux_irq_disable,
-	.arg = NULL,
-};
-
 /**
   * @brief irq handling initialization
   * @return 0 on sucess, non-zero on failure
@@ -337,7 +326,6 @@ int metal_linux_irq_init()
 	int ret, irq;
 
 	memset(&_irqs, 0, sizeof(_irqs));
-	metal_irq_set_controller(&metal_linux_irq_controller);
 
 	/* init handlers list for each interrupt in table */
 	for (irq=0; irq < MAX_IRQS; irq++) {

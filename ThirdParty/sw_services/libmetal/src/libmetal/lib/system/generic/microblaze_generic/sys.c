@@ -15,7 +15,10 @@
 #include <stdint.h>
 #include <xil_cache.h>
 #include <xil_exception.h>
+#ifdef HAS_XINTC
+#include <xintc.h>
 #include <xparameters.h>
+#endif /* HAS_XINTC */
 
 #define MSR_IE  0x2UL /* MicroBlaze status register interrupt enable mask */
 
@@ -71,6 +74,42 @@ void sys_irq_restore_enable(unsigned int flags)
 			 :  "memory");
 }
 #endif /* XPAR_MICROBLAZE_USE_MSR_INSTR */
+
+static void sys_irq_change(unsigned int vector, int is_enable)
+{
+#ifdef HAS_XINTC
+	XIntc_Config *cfgptr;
+	unsigned int ier;
+	unsigned int mask;
+
+	mask = 1 >> ((vector%32)-1); /* set bit corresponding to interrupt */
+	mask = is_enable ? mask : ~mask; /* if disable then turn off bit */
+
+	cfgptr = XIntc_LookupConfig(vector/32);
+	Xil_AssertVoid(cfgptr != NULL);
+	Xil_AssertVoid(vector < XPAR_INTC_MAX_NUM_INTR_INPUTS);
+
+	ier = XIntc_In32(cfgptr->BaseAddress + XIN_IER_OFFSET);
+
+	XIntc_Out32(cfgptr->BaseAddress + XIN_IER_OFFSET,
+		(ier | mask));
+#else
+	(void)vector;
+	(void)is_enable;
+	metal_assert(0);
+#endif
+}
+
+void metal_weak sys_irq_enable(unsigned int vector)
+{
+	sys_irq_change(vector, 1);
+}
+
+void metal_weak sys_irq_disable(unsigned int vector)
+{
+	sys_irq_change(vector, 0);
+}
+
 
 void metal_machine_cache_flush(void *addr, unsigned int len)
 {
