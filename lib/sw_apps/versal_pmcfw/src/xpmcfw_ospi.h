@@ -62,7 +62,7 @@ extern "C" {
 
 #ifdef XPMCFW_OSPI
 #include "xparameters.h"	/* SDK generated parameters */
-#include "xospips.h"		/* OSPIPS device driver */
+#include "xospipsv.h"		/* OSPIPSV device driver */
 
 
 /************************** Constant Definitions *****************************/
@@ -102,7 +102,7 @@ extern "C" {
 XStatus XPmcFw_OspiInit(u32 DeviceFlags);
 XStatus XPmcFw_OspiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 XStatus XPmcFw_OspiRelease(void );
-XStatus XPmcFw_FlashEnterExit4BAddMode(XOspiPs *OspiPsPtr, u32 Enable);
+XStatus XPmcFw_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable);
 /************************** Variable Definitions *****************************/
 
 
