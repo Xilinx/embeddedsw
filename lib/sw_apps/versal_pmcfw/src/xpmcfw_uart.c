@@ -54,7 +54,7 @@
 #include "xpmcfw_default.h"
 
 #ifdef DEBUG_UART_PS
-#include "xuartsbsa.h"
+#include "xuartpsv.h"
 #endif
 /************************** Constant Definitions *****************************/
 
@@ -65,7 +65,7 @@
 
 /************************** Variable Definitions *****************************/
 #ifdef DEBUG_UART_PS
-XUartSbsa UartSbsaIns;          /* The instance of the UART Driver */
+XUartPsv UartPsvIns;          /* The instance of the UART Driver */
 #endif
 u32 UartInitialized=FALSE;
 /*****************************************************************************/
@@ -82,22 +82,22 @@ u32 UartInitialized=FALSE;
  *****************************************************************************/
 XStatus XPmcFw_InitPsUart(void )
 {
-	XUartSbsa_Config *Config;
+	XUartPsv_Config *Config;
 	XStatus Status;
 
-	Config = XUartSbsa_LookupConfig(0);
+	Config = XUartPsv_LookupConfig(0);
 	if (NULL == Config) {
 		return XPMCFW_FAILURE;
 	}
 
 	Config->InputClockHz = 25*1000*1000; //25MHz, SPP
 
-	Status = XUartSbsa_CfgInitialize(&UartSbsaIns, Config, Config->BaseAddress);
+	Status = XUartPsv_CfgInitialize(&UartPsvIns, Config, Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XPMCFW_FAILURE;
 	}
 
-	XUartSbsa_SetBaudRate(&UartSbsaIns, 115200); // SPP
+	XUartPsv_SetBaudRate(&UartPsvIns, 115200); // SPP
 
 	UartInitialized=TRUE;
 	return XPMCFW_SUCCESS;
