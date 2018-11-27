@@ -51,7 +51,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_debug.h"
 #ifdef DEBUG_UART_PS
-#include "xuartsbsa.h"
+#include "xuartpsv.h"
 #endif
 #include "xil_types.h"
 #include "xstatus.h"
@@ -64,7 +64,7 @@
 
 /************************** Variable Definitions *****************************/
 #ifdef DEBUG_UART_PS
-XUartSbsa UartSbsaIns;          /* The instance of the UART Driver */
+XUartPsv UartPsvIns;          /* The instance of the UART Driver */
 #endif
 u32 UartInitialized=FALSE;
 /*****************************************************************************/
@@ -88,22 +88,22 @@ int XPlmi_InitUart(void )
 	}
 
 #ifdef DEBUG_UART_PS
-	XUartSbsa_Config *Config;
+	XUartPsv_Config *Config;
 	int Status;
 
-	Config = XUartSbsa_LookupConfig(0);
+	Config = XUartPsv_LookupConfig(0);
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
 
 	Config->InputClockHz = 25*1000*1000; //25MHz, SPP
 
-	Status = XUartSbsa_CfgInitialize(&UartSbsaIns, Config, Config->BaseAddress);
+	Status = XUartPsv_CfgInitialize(&UartPsvIns, Config, Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	XUartSbsa_SetBaudRate(&UartSbsaIns, 115200); // SPP
+	XUartPsv_SetBaudRate(&UartPsvIns, 115200); // SPP
 
 	UartInitialized=TRUE;
 #endif
