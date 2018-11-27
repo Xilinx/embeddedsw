@@ -27,4 +27,5 @@ collect(PROJECT_LIB_HEADERS xil_misc_psreset_api.h)
 collect(PROJECT_LIB_HEADERS microblaze_sleep.h)
 collect(PROJECT_LIB_HEADERS mb_interface.h)
 collect(PROJECT_LIB_HEADERS microblaze_exceptions_g.h)
+collect(PROJECT_LIB_HEADERS microblaze_instructions.h)
 
