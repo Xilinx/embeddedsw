@@ -41,9 +41,6 @@ struct metal_irq_controller {
 			  unsigned int vector);
 	void (*disable_irq)(struct metal_irq_controller *cntr,
 			    unsigned int vector);
-	int (*register_irq)(struct metal_irq_controller *cntr,
-			    int irq, metal_irq_handler irq_handler,
-			    struct metal_device *dev, void *drv_id);
 	void  *arg;
 };
 
