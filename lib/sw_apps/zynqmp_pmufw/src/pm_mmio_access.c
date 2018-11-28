@@ -893,8 +893,9 @@ static bool PmGetMmioAccess(const PmMaster *const master, const u32 address,
 
 			permission = !!(pmAccessTable[i].access & mask);
 
-			if (permission)
+			if (permission) {
 				break;
+			}
 		}
 	}
 

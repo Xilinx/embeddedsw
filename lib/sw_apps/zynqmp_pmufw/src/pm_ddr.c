@@ -891,8 +891,9 @@ static void ddr_enable_rd_drift(void)
 static void ddr_enable_drift(void)
 {
 	/* Enable drift only if it is previously enabled */
-	if (!drift_enable_req)
+	if (!drift_enable_req) {
 		return;
+	}
 
 	u32 readVal = Xil_In32(DDRC_MSTR);
 	if (0U != (readVal & DDRC_MSTR_LPDDR3)) {
@@ -928,8 +929,9 @@ static int ddrc_enable_sr(void)
 
 	/* disable AXI ports */
 	for (i = 0U; i < 6U; i++) {
-		while (Xil_In32(DDRC_PSTAT) & DDRC_PSTAT_PORT_BUSY(i))
+		while (Xil_In32(DDRC_PSTAT) & DDRC_PSTAT_PORT_BUSY(i)) {
 			;
+		}
 		r = Xil_In32(DDRC_PCTRL(i));
 		r &= ~DDRC_PCTRL_PORT_EN;
 		Xil_Out32(DDRC_PCTRL(i), r);
@@ -940,12 +942,12 @@ static int ddrc_enable_sr(void)
 	r |= DDRC_PWRCTL_SR_SW;
 	Xil_Out32(DDRC_PWRCTL, r);
 
-	while (true != ddrc_opmode_is_sr())
+	while (true != ddrc_opmode_is_sr()) {
 		;
-
-	while ((Xil_In32(DDRC_STAT) & (3U << 4U)) != (2U << 4U))
+	}
+	while ((Xil_In32(DDRC_STAT) & (3U << 4U)) != (2U << 4U)) {
 		;
-
+	}
 	return XST_SUCCESS;
 }
 
@@ -1545,8 +1547,9 @@ static void DDR_reinit(bool ddrss_is_reset)
 
 		/* enable AXI ports */
 		for (i = 0U; i < 6U; i++) {
-			while (Xil_In32(DDRC_PSTAT) & DDRC_PSTAT_PORT_BUSY(i))
+			while (Xil_In32(DDRC_PSTAT) & DDRC_PSTAT_PORT_BUSY(i)) {
 				;
+			}
 			readVal = Xil_In32(DDRC_PCTRL(i));
 			readVal |= DDRC_PCTRL_PORT_EN;
 			Xil_Out32(DDRC_PCTRL(i), readVal);
@@ -1818,8 +1821,9 @@ static int pm_ddr_sr_enter(void)
 	}
 
 	/* Identify if drift is enabled */
-	if (Xil_In32(DDRPHY_DQSDR(0U)) & DDRPHY_DQSDR0_DFTDTEN)
+	if (Xil_In32(DDRPHY_DQSDR(0U)) & DDRPHY_DQSDR0_DFTDTEN) {
 		drift_enable_req = 1;
+	}
 
 	/* disable read and write drift */
 	ddr_disable_rd_drift();

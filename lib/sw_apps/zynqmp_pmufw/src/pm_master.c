@@ -709,8 +709,9 @@ int PmWakeMasterBySlave(const PmSlave * const slave)
 
 		if (masterReq->info & PM_MASTER_WAKEUP_REQ_MASK) {
 			status = PmMasterWake(mst);
-			if (status != XST_SUCCESS)
+			if (status != XST_SUCCESS) {
 				finalStatus = XST_FAILURE;
+			}
 		}
 		mst = mst->nextMaster;
 	}
