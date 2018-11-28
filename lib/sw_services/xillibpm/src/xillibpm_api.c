@@ -347,9 +347,19 @@ XStatus XPm_RequestWakeUp(const u32 DeviceId,
 {
 	XStatus Status;
 	XPm_ApuCore *ApuCore;
+	XPm_RpuCore *RpuCore;
 
-	ApuCore = (XPm_ApuCore *)XPmDevice_GetById(DeviceId);
-	Status = XPmApuCore_WakeUp(ApuCore, DeviceId, SetAddress, Address);
+	if ((DeviceId == XPM_DEVID_ACPU_0) ||
+	    (DeviceId == XPM_DEVID_ACPU_1)) {
+		ApuCore = (XPm_ApuCore *)XPmDevice_GetById(DeviceId);
+		Status = XPmApuCore_WakeUp(ApuCore, DeviceId, SetAddress, Address);
+	} else if ((DeviceId == XPM_DEVID_R50_0) ||
+		   (DeviceId == XPM_DEVID_R50_1)) {
+		RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
+		Status = XPmRpuCore_WakeUp(RpuCore, DeviceId, SetAddress, Address);
+	} else {
+		/* Required by MISRA */
+	}
 
 	return Status;
 }
@@ -1287,6 +1297,13 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 	XStatus Status = XST_FAILURE;
 
 	switch (IoctlId) {
+	case IOCTL_SET_RPU_OPER_MODE:
+		if ((DeviceId != XPM_DEVID_R50_0) &&
+		    (DeviceId != XPM_DEVID_R50_1)) {
+			goto done;
+		}
+		XPm_RpuSetOperMode(DeviceId, Arg1);
+		break;
 	case IOCTL_WRITE_GGS:
 		if (Arg1 >= GGS_NUM_REGS) {
 			goto done;

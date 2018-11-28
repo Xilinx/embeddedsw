@@ -31,6 +31,12 @@
 
 #include "xpm_core.h"
 
+#define XPM_PROC_RPU_HIVEC_ADDR		0xFFFC0000U
+#define XPM_RPU_VINITHI_MASK		BIT(2)
+#define XPM_RPU_SLSPLIT_MASK		BIT(3)
+#define XPM_RPU_TCM_COMB_MASK		BIT(6)
+#define XPM_RPU_SLCLAMP_MASK		BIT(4)
+
 typedef struct XPm_RpuCore XPm_RpuCore;
 
 /**
@@ -39,6 +45,7 @@ typedef struct XPm_RpuCore XPm_RpuCore;
 struct XPm_RpuCore {
 	XPm_Core Core; /**< Processor core devices */
 	u8 Ipi; /**< IPI channel */
+	u32 ResumeCfg;
 };
 
 /************************** Function Prototypes ******************************/
@@ -46,5 +53,6 @@ XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 BaseAddress,
 			XPm_Power *Power, XPm_ClockNode *Clock,
 			XPm_ResetNode *Reset);
 
+void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode);
 /** @} */
 #endif /* XPM_RPUCORE_H_ */
