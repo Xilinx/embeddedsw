@@ -580,8 +580,8 @@ s32 FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 * @param	QspiPsuPtr is a pointer to the QSPIPSU driver component to use.
 * @param	Address which is to be accessed (for erase, write or read)
 *
-* @return	RealAddr is the translated address - for single it is unchanged;
-* 		for stacked, the lower flash size is subtracted;
+* @return	RealAddr is the translated address - for single it is unchanged.
+* 		for stacked, the lower flash size is subtracted.
 * 		for parallel the address is divided by 2.
 *
 * @note		None.
