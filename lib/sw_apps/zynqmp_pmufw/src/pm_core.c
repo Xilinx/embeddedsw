@@ -2045,8 +2045,9 @@ void PmShutdownInterruptHandler(void)
 	 * but it should not harm.
 	 */
 	if (XPfw_Read32(PMU_IOMODULE_GPI1) !=
-	    (PMU_IOMODULE_GPI1_MIO_WAKE_0_MASK << PMU_MIO_INPUT_PIN))
+	    (PMU_IOMODULE_GPI1_MIO_WAKE_0_MASK << PMU_MIO_INPUT_PIN)) {
 		return;
+	}
 #endif
 	u32 rpu_mode = XPfw_Read32(RPU_RPU_GLBL_CNTL);
 
