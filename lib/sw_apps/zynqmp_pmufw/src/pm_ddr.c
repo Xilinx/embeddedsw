@@ -1856,7 +1856,7 @@ static void pm_ddr_sr_exit(bool ddrss_is_reset)
 	if (true == ddrss_is_reset) {
 		u32 readVal;
 
-		// re-enable clock only if FPD was off
+		/* re-enable clock only if FPD was off */
 		ddr_clock_enable();
 
 		Xil_Out32(DDRC_SWCTL, 0U);
