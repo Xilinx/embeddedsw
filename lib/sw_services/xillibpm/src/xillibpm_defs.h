@@ -91,20 +91,15 @@
 #define PM_CREATE_SUBSYSTEM             47U
 #define PM_DESTROY_SUBSYSTEM             48U
 
-#define PM_TOPOLOGY_INFO				49U
-#define	PM_ADD_NODE_PWR					50U
-#define	PM_ADD_PARENT					51U
-#define	PM_ADD_NODE_CLK					52U
-#define	PM_ADD_NODE_CLK_SUBNODE			53U
-#define	PM_ADD_NODE_CLK_NAME			54U
-#define	PM_ADD_NODE_RST					55U
-#define	PM_ADD_NODE_MIO					56U
-#define	PM_ADD_DEVICE					57U
+#define PM_DESCRIBE_NODES				49U
+#define	PM_ADD_NODE						50U
+#define	PM_ADD_NODE_PARENT				51U
+#define	PM_ADD_NODE_NAME				52U
 
-#define PM_PLL_SET_PARAMETER				58U
-#define PM_PLL_GET_PARAMETER				59U
-#define PM_PLL_SET_MODE					60U
-#define PM_PLL_GET_MODE					61U
+#define PM_PLL_SET_PARAMETER			53U
+#define PM_PLL_GET_PARAMETER			54U
+#define PM_PLL_SET_MODE					55U
+#define PM_PLL_GET_MODE					56U
 
 #define PM_API_MIN      PM_GET_API_VERSION
 #define PM_API_MAX      PM_PLL_GET_MODE
