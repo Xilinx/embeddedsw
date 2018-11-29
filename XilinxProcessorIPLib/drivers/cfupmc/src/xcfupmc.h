@@ -157,7 +157,7 @@ typedef struct {
 			       CFU_APB_CFU_STATUS)
 
 #ifdef XCFUPMC_DEBUG
-#define XCfupmc_Printf(...)	xil_printf(...)
+#define XCfupmc_Printf(...)	xil_printf(__VA_ARGS__)
 #else
 #define XCfupmc_Printf(...)
 #endif
