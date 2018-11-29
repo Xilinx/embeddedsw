@@ -1825,6 +1825,7 @@ static bool PmApiApprovalCheck(const u32 apiId)
 		break;
 	default:
 		approved = false;
+		break;
 	}
 
 done:
