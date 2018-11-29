@@ -376,14 +376,8 @@ static XStatus XPmcFw_PrimaryBootInit(XPmcFw * PmcFwInstancePtr)
 		break;
 
 		case XPMCFW_SD0_BOOT_MODE:
-		case XPMCFW_EMMC_BOOT_MODE:
 		{
-			if (BootMode == XPMCFW_SD0_BOOT_MODE) {
-				XPmcFw_Printf(DEBUG_GENERAL, "SD0 Boot Mode \n\r");
-			}
-			else {
-				XPmcFw_Printf(DEBUG_GENERAL, "eMMC Boot Mode \n\r");
-			}
+			XPmcFw_Printf(DEBUG_GENERAL, "SD0 Boot Mode \n\r");
 #ifdef XPMCFW_SD_0
 			/* Update the deviceops structure with necessary values */
 			PmcFwInstancePtr->DeviceOps.Init = XPmcFw_SdInit;
@@ -398,12 +392,16 @@ static XStatus XPmcFw_PrimaryBootInit(XPmcFw * PmcFwInstancePtr)
 #endif
 		} break;
 
+		case XPMCFW_EMMC_BOOT_MODE:
 		case XPMCFW_SD1_BOOT_MODE:
 		case XPMCFW_SD1_LS_BOOT_MODE:
 		{
 			if (BootMode == XPMCFW_SD1_BOOT_MODE) {
 				XPmcFw_Printf(DEBUG_GENERAL, "SD1 Boot Mode \n\r");
-			} else {
+			} else if (BootMode == XPMCFW_EMMC_BOOT_MODE) {
+				XPmcFw_Printf(DEBUG_GENERAL, "EMMC Boot Mode \n\r");
+			}
+			else {
 				XPmcFw_Printf(DEBUG_GENERAL,
 					"SD1 with level shifter Boot Mode \n\r");
 			}

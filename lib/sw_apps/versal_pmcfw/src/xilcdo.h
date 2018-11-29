@@ -74,7 +74,9 @@ typedef struct {
 	u32 Offset;
 	u32* CdoBuf;
 	XStatus (*CdoCopy) (u32, u64, u32, u32);
+#ifdef XPMCFW_SECURE
 	XSecure_Partition *SecureCdo;
+#endif
 }XilCdo_Prtn;
 
 /***************** Macros (Inline Functions) Definitions *********************/
