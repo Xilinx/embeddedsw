@@ -99,8 +99,9 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /* SDK release version */
-#define SDK_RELEASE_YEAR	"2018"
-#define SDK_RELEASE_QUARTER	"3"
+#define PMCFW_RELEASE_VERSION	"7.0"
+#define SDK_RELEASE_YEAR	"2019"
+#define SDK_RELEASE_QUARTER	"1"
 
 #define XPMCFW_IMAGE_SEARCH_OFST	(0x8000U) /**< 32KB offset */
 

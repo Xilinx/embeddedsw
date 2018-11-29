@@ -155,6 +155,25 @@ extern "C" {
 #include "hw90/cpm_slcr.h"
 #endif
 
+#ifdef XPMCFW_HW100
+#include "hw100/crf.h"
+#include "hw100/crl.h"
+#include "hw100/crp.h"
+#include "hw100/fpd_apu.h"
+#include "hw100/rpu.h"
+#include "hw100/psm_global_reg.h"
+#include "hw100/pmc_global.h"
+#include "hw100/pmc_analog.h"
+#include "hw100/pmc_dma0.h"
+#include "hw100/pmc_dma1.h"
+#include "hw100/pmc_tap.h"
+#include "hw100/slave_boot.h"
+#include "hw100/efuse_cache.h"
+#include "hw100/cfu_apb.h"
+#include "hw100/lpd_iou_slcr.h"
+#include "hw100/cpm_slcr.h"
+#endif
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
