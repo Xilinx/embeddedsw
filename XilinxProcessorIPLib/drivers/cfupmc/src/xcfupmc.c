@@ -245,7 +245,7 @@ s32 XCfupmc_CheckParam(XCfupmc *InstancePtr)
 			CFU_APB_CFU_ISR) & CFU_APB_CFU_ISR_CRC32_ERROR_MASK)
 				== CFU_APB_CFU_ISR_CRC32_ERROR_MASK)
 		{
-			XCfupmc_Printf(DEBUG_INFO, "CRC32 failed \n\r");
+			XCfupmc_Printf("CRC32 failed \n\r");
 			Status = (s32 )XST_FAILURE;
 			goto END;
 		}
