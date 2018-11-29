@@ -329,8 +329,9 @@ void XPmcFw_PrintPmcFwBanner(void )
 	XPmcFw_Printf(DEBUG_PRINT_ALWAYS,
                  "Xilinx versal PMC Firmware \n\r");
 	XPmcFw_Printf(DEBUG_PRINT_ALWAYS,
-                 "Release %s.%s   %s  -  %s\n\r",
-                 SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER, __DATE__, __TIME__);
+                 "Release  v%s %s.%s   %s  -  %s\n\r",
+                 PMCFW_RELEASE_VERSION, SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER,
+		__DATE__, __TIME__);
 
 	/* Read the Version */
 	Version = Xil_In32(PMC_TAP_VERSION);
