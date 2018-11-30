@@ -96,6 +96,7 @@ XIOModule_Config XIOModule_ConfigTable[XPAR_XIOMODULE_NUM_INSTANCES] = {
 	 XPAR_IOMODULE_0_IO_BASEADDR,	    /* IO Bus Base Address */
 	 XPAR_IOMODULE_0_INTC_HAS_FAST,	    /* Fast interrupt enabled */
 	 XPAR_IOMODULE_0_INTC_BASE_VECTORS, /* Relocatable base vector */
+	 XPAR_IOMODULE_0_INTC_ADDR_WIDTH,   /* Width of vector address */
 	 XPAR_IOMODULE_0_ACK_BEFORE,	    /* Ack before or after service */
 	 0,				    /* Device options */
 	 100000000,			    /* Input clock frequency (Hz) */
