@@ -462,7 +462,7 @@ static inline u32  XSecure_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr, u8 * Out, 
 			 /*By the time this if loop is true counter value is > 1
 			  * OutLen is fixed here to 463, HashLen is 48*/
 			  /* coverity[overflow_const] */
-			 Size = OutLen - (Size * (Counter - 1));
+			 Size = (OutLen % HashLen);
 	  }
 	  (void)memcpy(Out + Index1, Hashstore, Size);
 	  Index1 = Index1 + 48U;
