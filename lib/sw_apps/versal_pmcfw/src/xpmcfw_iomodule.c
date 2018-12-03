@@ -265,6 +265,39 @@ static void XPmcFw_GicIrqHandler(void)
 /*****************************************************************************/
 /**
  *
+ * This function is called from an interrupt handler when GPI interrupt occurs
+ *
+ * @param       None
+ *
+ * @return      None
+ *
+ ******************************************************************************/
+static void XPmcFw_GpiIrqHandler(void)
+{
+	u32 RegVal;
+	RegVal = Xil_In32(PMC_GLOBAL_PMC_PPU1_GPI);
+	if((RegVal & PMC_GLOBAL_PMC_PPU1_GPI_GPI_0_MASK) != FALSE)
+	{
+		Xil_Out32(PMC_GLOBAL_PMC_PPU1_GPI,
+		RegVal&(0x1U<<PMC_GLOBAL_PMC_PPU1_GPI_GPI_0_SHIFT));
+		PmcFwInstance.MetaHdr.DeviceCopy = XPmcFw_SbiCopy;
+		PmcFwInstance.DeviceOps.Copy = XPmcFw_SbiCopy;
+		(void)XPmcFw_PdiLoad(&PmcFwInstance);
+	}
+
+	if((RegVal & PMC_GLOBAL_PMC_PPU1_GPI_GPI_1_MASK) != FALSE)
+	{
+		Xil_Out32(PMC_GLOBAL_PMC_PPU1_GPI,
+		RegVal&(0x1U<<PMC_GLOBAL_PMC_PPU1_GPI_GPI_1_SHIFT));
+		PmcFwInstance.MetaHdr.DeviceCopy = XPmcFw_MemCopy;
+		PmcFwInstance.DeviceOps.Copy = XPmcFw_MemCopy;
+		(void)XPmcFw_PdiLoad(&PmcFwInstance);
+	}
+}
+
+/*****************************************************************************/
+/**
+ *
  * This function is called from an interrupt handler when Error interrupt comes
  *
  * @param       None
@@ -296,7 +329,8 @@ static void XPmcFw_ErrIrqHandler(void)
 /* Structure for Top level interrupt table */
 static struct HandlerTable g_TopLevelInterruptTable[] = {
 	{PPU1_IOMODULE_IRQ_PENDING_PMC_GIC_IRQ_MASK, XPmcFw_GicIrqHandler},
-	{PPU1_IOMODULE_IRQ_PENDING_ERR_IRQ_MASK, XPmcFw_ErrIrqHandler}
+	{PPU1_IOMODULE_IRQ_PENDING_ERR_IRQ_MASK, XPmcFw_ErrIrqHandler},
+	{PPU1_IOMODULE_IRQ_PENDING_PMC_GPI_MASK, XPmcFw_GpiIrqHandler}
 };
 
 /*****************************************************************************/
@@ -381,14 +415,35 @@ XStatus XPmcFw_SetUpInterruptSystem()
 	Xil_Out32(PMC_GLOBAL_PMC_IRQ1_EN, PMC_GLOBAL_PMC_IRQ1_EN_SSIT_ERR3_MASK |
 				PMC_GLOBAL_PMC_IRQ1_EN_SSIT_ERR4_MASK |
 				PMC_GLOBAL_PMC_IRQ1_EN_SSIT_ERR5_MASK);
-
+	/*
+         * TODO: Enable GICP0 interrupt in the respective module
+         */
+        XPmcFw_RMW32(PMC_GLOBAL_GICP_PMC_IRQ_ENABLE,
+                                PMC_GLOBAL_GICP_PMC_IRQ_ENABLE_SRC0_MASK,
+                                PMC_GLOBAL_GICP_PMC_IRQ_ENABLE_SRC0_MASK);
 	/*
 	 * TODO: Enable GICP2 interrupt in the respective module
 	 */
 	XPmcFw_RMW32(PMC_GLOBAL_GICP_PMC_IRQ_ENABLE,
 				PMC_GLOBAL_GICP_PMC_IRQ_ENABLE_SRC2_MASK,
 				PMC_GLOBAL_GICP_PMC_IRQ_ENABLE_SRC2_MASK);
-
+	/*
+         * TODO: Enable Readback mask in the respective module
+         */
+	XPmcFw_RMW32(PMC_GLOBAL_GICP0_IRQ_ENABLE,
+                                PMC_GLOBAL_GICP0_IRQ_ENABLE_SRC13_MASK,
+                                PMC_GLOBAL_GICP0_IRQ_ENABLE_SRC13_MASK);
+	XPmcFw_RMW32(PMC_GLOBAL_GICP4_IRQ_ENABLE,
+                                PMC_GLOBAL_GICP0_IRQ_ENABLE_SRC8_MASK,
+                                PMC_GLOBAL_GICP0_IRQ_ENABLE_SRC8_MASK);
+	/*
+         * TODO: Enable PR mask in the respective module
+         */
+        XPmcFw_RMW32(PMC_GLOBAL_PMC_PPU1_GPI_EN,
+				PMC_GLOBAL_PMC_PPU1_GPI_EN_GPI_0_MASK |
+				PMC_GLOBAL_PMC_PPU1_GPI_EN_GPI_1_MASK,
+				PMC_GLOBAL_PMC_PPU1_GPI_EN_GPI_0_MASK |
+				PMC_GLOBAL_PMC_PPU1_GPI_EN_GPI_1_MASK);
 	/*
 	 * TODO: Enable CPM misc events interrupt in the respective module
 	 */
