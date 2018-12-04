@@ -205,6 +205,7 @@ XStatus XPmcFw_PdiLoad(XPmcFw* PmcFwInstancePtr)
 			goto END;
 		}
 	}
+	XPmcFw_Printf(DEBUG_INFO,"Pdi Load completed\n\r");
 END:
 	return Status;
 }
