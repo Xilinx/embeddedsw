@@ -202,7 +202,6 @@ XStatus XPmcFw_FabricPrepare()
 	//CfupmcIns.DeCompress=1U;
 	XCfupmc_SetParam(&CfupmcIns);
 	Status = XPMCFW_SUCCESS;
-END:
 	return Status;
 }
 

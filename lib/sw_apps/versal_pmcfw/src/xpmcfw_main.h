@@ -182,7 +182,7 @@ void XPmcFw_ErrorLockDown(u32 ErrorStatus);
 void XPmcFw_ExceptionInit(void);
 void XPmcFw_ExceptionHandler(u32 Status);
 void XPmcFw_DumpRegisters();
-
+int npi_init();
 /* Functions defined in xpmcfw_initialization.c */
 XStatus XPmcFw_Initialize(XPmcFw * PmcFwInstancePtr);
 XStatus XPmcFw_BootInitAndValidate(XPmcFw * PmcFwInstancePtr);
