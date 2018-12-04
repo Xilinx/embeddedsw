@@ -113,3 +113,22 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 	PmOut32(RpuCore->Core.Device.Node.BaseAddress + RPU_GLBL_CNTL_OFFSET,
 	        Val);
 }
+
+XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr)
+{
+	XStatus Status = XST_SUCCESS;
+	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
+
+	/* CFG_VINITHI_MASK mask is common for both processors */
+	if (XPM_RPU_BOOTMEM_LOVEC == BootAddr) {
+		PmRmw32(RpuCore->ResumeCfg, XPM_RPU_VINITHI_MASK,
+			~XPM_RPU_VINITHI_MASK);
+	} else if (XPM_RPU_BOOTMEM_HIVEC == BootAddr) {
+		PmRmw32(RpuCore->ResumeCfg, XPM_RPU_VINITHI_MASK,
+			XPM_RPU_VINITHI_MASK);
+	} else {
+		Status = XST_FAILURE;
+	}
+
+	return Status;
+}

@@ -1289,6 +1289,13 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 		}
 		XPm_RpuSetOperMode(DeviceId, Arg1);
 		break;
+	case IOCTL_RPU_BOOT_ADDR_CONFIG:
+		if ((XPM_DEVID_R50_0 != DeviceId) &&
+		    (XPM_DEVID_R50_1 != DeviceId)) {
+			goto done;
+		}
+		Status = XPm_RpuBootAddrConfig(DeviceId, Arg1);
+		break;
 	case IOCTL_WRITE_GGS:
 		if (Arg1 >= GGS_NUM_REGS) {
 			goto done;

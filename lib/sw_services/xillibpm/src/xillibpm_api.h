@@ -161,6 +161,10 @@ enum pm_ioctl_id {
 #define XPM_RPU_MODE_LOCKSTEP	0U
 #define XPM_RPU_MODE_SPLIT	1U
 
+/* RPU Boot memory */
+#define XPM_RPU_BOOTMEM_LOVEC	(0U)
+#define XPM_RPU_BOOTMEM_HIVEC	(1U)
+
 /* Global general storage register base address */
 #define GGS_BASEADDR	(0xFFC90030U)
 #define GGS_NUM_REGS	(4)
