@@ -54,5 +54,6 @@ XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 BaseAddress,
 			XPm_ResetNode *Reset);
 
 void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode);
+XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr);
 /** @} */
 #endif /* XPM_RPUCORE_H_ */
