@@ -125,7 +125,6 @@ void write_to_reg(unsigned int addr, unsigned int data) {
 void msoc_hsr_init()
 {
 
-unsigned int rdata;
 
 Xil_Out32(0xf615000c, 0xf9e8d7c6); //reg_model_global.u_ddrmc_0.ddrmc_main_bank.pcsr_lock
 Xil_Out32(0xf611000c, 0xf9e8d7c6); //reg_model_global.u_ddrmc_0_ub.ddrmc_ub_bank.ddrmc_pcsr_lock
