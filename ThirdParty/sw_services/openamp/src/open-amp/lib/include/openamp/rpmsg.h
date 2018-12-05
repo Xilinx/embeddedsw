@@ -118,9 +118,6 @@ struct rpmsg_device {
  * the source @src address.
  * The message will be sent to the remote processor which the channel belongs
  * to.
- * In case there are no TX buffers available, the function will block until
- * one becomes available, or a timeout of 15 seconds elapses. When the latter
- * happens, -ERESTARTSYS is returned.
  *
  * Returns number of bytes it has sent or negative error value on failure.
  */
