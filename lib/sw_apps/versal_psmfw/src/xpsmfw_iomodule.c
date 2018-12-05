@@ -56,6 +56,8 @@
 #include "xpsmfw_ipi_manager.h"
 #include "psm_global.h"
 
+#define XPSMFW_MB_MSR_BIP_MASK		(0x8U)
+
 static XIOModule IOModule;
 
 static void XPsmFw_IpiHandler(void)
@@ -252,6 +254,11 @@ int SetUpInterruptSystem(void)
 	microblaze_enable_exceptions();
 
 	microblaze_enable_interrupts();
+
+	/*
+	 * Clear Break in progress to get interrupts
+	 */
+	mtmsr(mfmsr() & (~XPSMFW_MB_MSR_BIP_MASK));
 
     return XST_SUCCESS;
 }
