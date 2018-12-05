@@ -144,7 +144,7 @@ int remoteproc_set_rsc_table(struct remoteproc *rproc,
 
 	io = remoteproc_get_io_with_va(rproc, (void *)rsc_table);
 	if (!io)
-		return -EINVAL;
+		return -RPROC_EINVAL;
 	ret = remoteproc_parse_rsc_table(rproc, rsc_table, rsc_size);
 	if (!ret) {
 		rproc->rsc_table = rsc_table;
@@ -178,10 +178,10 @@ int remoteproc_remove(struct remoteproc *rproc)
 		if (rproc->state == RPROC_OFFLINE)
 			rproc->ops->remove(rproc);
 		else
-			ret = -EBUSY;
+			ret = -RPROC_EAGAIN;
 		metal_mutex_release(&rproc->lock);
 	} else {
-		ret = -EINVAL;
+		ret = -RPROC_EINVAL;
 	}
 	return ret;
 }
@@ -498,7 +498,7 @@ int remoteproc_load(struct remoteproc *rproc, const char *path,
 	metal_log(METAL_LOG_DEBUG, "%s: load executable data\r\n", __func__);
 	offset = 0;
 	len = 0;
-	ret = -EINVAL;
+	ret = -RPROC_EINVAL;
 	while(1) {
 		unsigned char padding;
 		size_t nmemsize;
