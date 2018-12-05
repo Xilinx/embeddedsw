@@ -294,7 +294,7 @@ int rproc_virtio_notified(struct virtio_device *vdev, uint32_t notifyid)
 	struct virtqueue *vq;
 
 	if (!vdev)
-		return -EINVAL;
+		return -RPROC_EINVAL;
 	/* We do nothing for vdev notification in this implementation */
 	if (vdev->index == notifyid)
 		return 0;
