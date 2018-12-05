@@ -107,8 +107,8 @@ enum fw_resource_type {
 	RSC_VENDOR_END = 512,
 };
 
-#define FW_RSC_ADDR_ANY (0xFFFFFFFFFFFFFFFF)
-#define FW_RSC_U32_ADDR_ANY (0xFFFFFFFF)
+#define FW_RSC_U64_ADDR_ANY 0xFFFFFFFFFFFFFFFFUL
+#define FW_RSC_U32_ADDR_ANY 0xFFFFFFFFUL
 
 /**
  * struct fw_rsc_carveout - physically contiguous memory request
