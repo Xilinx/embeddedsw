@@ -418,7 +418,7 @@ int elf_load_header(const void *img_data, size_t offset, size_t len,
 			if (*img_info == NULL) {
 				*img_info = metal_allocate_memory(infosize);
 				if (*img_info == NULL)
-					return -ENOMEM;
+					return -RPROC_ENOMEM;
 				memset(*img_info, 0, infosize);
 			}
 			memcpy(*img_info, img_data, tmpsize);
@@ -454,7 +454,7 @@ int elf_load_header(const void *img_data, size_t offset, size_t len,
 		phdrs = (char **)elf_phtable_ptr(*img_info);
 		(*phdrs) = metal_allocate_memory(phdrs_size);
 		if (*phdrs == NULL)
-			return -ENOMEM;
+			return -RPROC_ENOMEM;
 		memcpy((void *)(*phdrs), img_phdrs, phdrs_size);
 		*load_state = ELF_STATE_WAIT_FOR_SHDRS |
 			       RPROC_LOADER_READY_TO_LOAD;
@@ -488,7 +488,7 @@ int elf_load_header(const void *img_data, size_t offset, size_t len,
 		shdrs = (char **)elf_shtable_ptr(*img_info);
 		(*shdrs) = metal_allocate_memory(shdrs_size);
 		if (*shdrs == NULL)
-			return -ENOMEM;
+			return -RPROC_ENOMEM;
 		memcpy((void *)*shdrs, img_shdrs, shdrs_size);
 		*load_state = (*load_state & (~ELF_STATE_MASK)) |
 			       ELF_STATE_WAIT_FOR_SHSTRTAB;
@@ -523,7 +523,7 @@ int elf_load_header(const void *img_data, size_t offset, size_t len,
 		shstrtab = elf_shstrtab_ptr(*img_info);
 		*shstrtab = metal_allocate_memory(shstrtab_size);
 		if (*shstrtab == NULL)
-			return -ENOMEM;
+			return -RPROC_ENOMEM;
 		memcpy(*shstrtab,
 		       (const void *)((const char *)img_data + shstrtab_offset),
 		       shstrtab_size);
