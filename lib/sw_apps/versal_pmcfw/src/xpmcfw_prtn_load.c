@@ -255,6 +255,11 @@ static XStatus XPmcFw_PrtnCopy(XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 	u32 DstnCpu;
 	XilPdi_PrtnHdr * PrtnHdr;
 	XCrx Crx={0};
+	u8 Sha3CheckSum = FALSE;
+#ifdef XPMCFW_SECURE
+	u8 Sha3Hash[XSECURE_SHA3_LEN];
+	u32 ChecksumAddr;
+#endif
 
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PmcFwInstancePtr->MetaHdr.PrtnHdr[PrtnNum]);
@@ -263,8 +268,25 @@ static XStatus XPmcFw_PrtnCopy(XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 		((PrtnHdr->DataWordOfst) * XIH_PRTN_WORD_LEN);
 	DestAddr = PrtnHdr->DstnLoadAddr;
 
+	if (((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_CHECKSUM_MASK)
+				== XIH_PH_ATTRB_HASH_SHA3)) {
+#ifdef XPMCFW_SECURE
+		/* If checksum is enabled */
+		Sha3CheckSum = TRUE;
+#else
+		XPmcFw_Printf(DEBUG_INFO, "\n PMCFW_SECURE_EXCLUDE is enabled \n\r");
+		Status = XPMCFW_ERR_SECURE_ISNOT_EN;
+		goto END;
+
+#endif
+	}
+
 	if ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_RSA_SIGNATURE) != 0x0) {
 #ifdef XPMCFW_SECURE
+		if (Sha3CheckSum == TRUE) {
+			Status = XPMCFW_ERR_AUTHDEC_NOTALLOW;
+			goto END;
+		}
 		/* If Authentication is enabled and encryption may or many not be enabled */
 		Len = (PrtnHdr->TotalDataWordLen) * XIH_PRTN_WORD_LEN - XSECURE_AUTH_CERT_MIN_SIZE;
 #else
@@ -275,6 +297,10 @@ static XStatus XPmcFw_PrtnCopy(XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 	}
 	else if ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_ENCRYPTION) != 0x00) {
 #ifdef XPMCFW_SECURE
+		if (Sha3CheckSum == TRUE) {
+			Status = XPMCFW_ERR_AUTHDEC_NOTALLOW;
+			goto END;
+		}
 		/* If Authentication is not enabled and encryption is only enabled */
 		Len = (PrtnHdr->TotalDataWordLen) * XIH_PRTN_WORD_LEN;
 #else
@@ -282,6 +308,9 @@ static XStatus XPmcFw_PrtnCopy(XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 		Status = XPMCFW_ERR_SECURE_ISNOT_EN;
 		goto END;
 #endif
+	}
+	else if (Sha3CheckSum == TRUE) {
+		Len = (PrtnHdr->TotalDataWordLen) * XIH_PRTN_WORD_LEN;
 	}
 	else {
 		/* For Non-secure image */
@@ -343,6 +372,29 @@ static XStatus XPmcFw_PrtnCopy(XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 
 	/* Security */
 #ifdef XPMCFW_SECURE
+	/* check sum calculation */
+	if (Sha3CheckSum == TRUE) {
+		ChecksumAddr = PmcFwInstancePtr->MetaHdr.FlashOfstAddr +
+				((PrtnHdr->ChecksumWordOfst) * XIH_PRTN_WORD_LEN);
+		/* Copy checksum hash to local buffer */
+		Status = PmcFwInstancePtr->DeviceOps.Copy(ChecksumAddr,
+					(u64)(UINTPTR)Sha3Hash,
+					XSECURE_SHA3_LEN, 0x0U);
+		if (XPMCFW_SUCCESS != Status) {
+			XPmcFw_Printf(DEBUG_GENERAL,
+				"Device Copy of check sum hash is failed \n\r");
+			goto END;
+		}
+		Status = XSecure_CheckSum(NULL, DestAddr, Len, Sha3Hash);
+		if (Status != XST_SUCCESS) {
+			XPmcFw_Printf(DEBUG_INFO, "Failed at checksum\n\r");
+			goto END;
+		}
+		else {
+			XPmcFw_Printf(DEBUG_INFO,
+				 "Checksum verification of the partition is successful \n\r");
+		}
+	}
 	if ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_RSA_SIGNATURE) != 0x0) {
 		XPmcFw_Printf(DEBUG_GENERAL, "\nAuthenticating the partition \n\r");
 
@@ -521,9 +573,12 @@ static XStatus XPmcFw_LoadFabricData (XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 	u32 RemLen;
 	u32 ChunkSize;
 	u8 IsSecure = 0;
+	u8 Sha3CheckSum = 0;
 #ifdef XPMCFW_SECURE
 	XSecure_Partition SecureCfi = {0};
 	XSecure_Aes AesInstance;
+	u8 Sha3Hash[XSECURE_SHA3_LEN];
+	u32 ChecksumAddr;
 #endif
 
 	/* Assign the partition header to local variable */
@@ -540,8 +595,24 @@ static XStatus XPmcFw_LoadFabricData (XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 		Len = Len - (Len%XPMCFW_DMA_LEN_ALIGN) + XPMCFW_DMA_LEN_ALIGN;
 	}
 
+	if (((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_CHECKSUM_MASK)
+				== XIH_PH_ATTRB_HASH_SHA3)) {
+#ifdef XPMCFW_SECURE
+		/* If checksum is enabled */
+		Sha3CheckSum = TRUE;
+#else
+		XPmcFw_Printf(DEBUG_INFO, "\n PMCFW_SECURE_EXCLUDE is enabled \n\r");
+		Status = XPMCFW_ERR_SECURE_ISNOT_EN;
+		goto END;
+#endif
+	}
+
 	if ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_ENCRYPTION) != 0x00) {
 #ifdef XPMCFW_SECURE
+		if (Sha3CheckSum == TRUE) {
+			Status = XPMCFW_ERR_AUTHDEC_NOTALLOW;
+			goto END;
+		}
 		SecureCfi.IsEncrypted = TRUE;
 		IsSecure = TRUE;
 #else
@@ -615,6 +686,31 @@ static XStatus XPmcFw_LoadFabricData (XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 			SecureCfi.StartAddress = SrcAddr;
 			SecureCfi.PlAuth.AcOfset = SecureCfi.PlAuth.AcOfset;
 			SecureCfi.DeviceCopy = PmcFwInstancePtr->DeviceOps.Copy;
+		}
+	}
+	if (Sha3CheckSum == TRUE) {
+		ChecksumAddr = PmcFwInstancePtr->MetaHdr.FlashOfstAddr +
+						((PrtnHdr->ChecksumWordOfst) * XIH_PRTN_WORD_LEN);
+		/* Copy checksum hash to local buffer */
+		Status = PmcFwInstancePtr->DeviceOps.Copy(ChecksumAddr,
+							(u64)(UINTPTR)Sha3Hash,
+							XSECURE_SHA3_LEN, 0x0U);
+		if (XPMCFW_SUCCESS != Status) {
+			XPmcFw_Printf(DEBUG_GENERAL,
+				"Device Copy of check sum hash is failed \n\r");
+			goto END;
+		}
+		/* Verify checksum of the partition */
+		Status = XSecure_CheckSum(PmcFwInstancePtr->DeviceOps.Copy, SrcAddr,
+							((PrtnHdr->TotalDataWordLen) *
+							XIH_PRTN_WORD_LEN) , Sha3Hash);
+		if (Status != XST_SUCCESS) {
+			XPmcFw_Printf(DEBUG_INFO, "Failed at checksum\n\r");
+			goto END;
+		}
+		else {
+			XPmcFw_Printf(DEBUG_INFO,
+				"Checksum verification of the partition is successful \n\r");
 		}
 	}
 #endif
@@ -772,9 +868,12 @@ static XStatus XPmcFw_ProcessCdo (XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 {
 	XStatus Status;
 	XilPdi_PrtnHdr * PrtnHdr;
+	u8 Sha3CheckSum = 0;
 #ifdef XPMCFW_SECURE
 	XSecure_Partition SecureCdo = {0};
 	XSecure_Aes AesInstance;
+	u8 Sha3Hash[XSECURE_SHA3_LEN];
+	u32 ChecksumAddr;
 #endif
 
 	/* Assign the partition header to local variable */
@@ -794,6 +893,19 @@ static XStatus XPmcFw_ProcessCdo (XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 			XPMCFW_DMA_LEN_ALIGN;
 	}
 	XPmcFw_Printf(DEBUG_INFO, "\nLength is %0x \n\r", XilCdoPrtnInst.Len);
+
+	if (((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_CHECKSUM_MASK)
+				== XIH_PH_ATTRB_HASH_SHA3)) {
+#ifdef XPMCFW_SECURE
+		/* If checksum is enabled */
+		Sha3CheckSum = TRUE;
+#else
+		XPmcFw_Printf(DEBUG_INFO, "\n PMCFW_SECURE_EXCLUDE is enabled \n\r");
+		Status = XPMCFW_ERR_SECURE_ISNOT_EN;
+		goto END;
+
+#endif
+	}
 	XilCdoPrtnInst.Offset = 0U;
 	XilCdoPrtnInst.CdoCopy = PmcFwInstancePtr->DeviceOps.Copy;
 	XilCdoPrtnInst.CdoBuf = (u32*)XPMCFW_PMCRAM_BASEADDR;
@@ -808,6 +920,10 @@ static XStatus XPmcFw_ProcessCdo (XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 	/*If authentication is enabled */
 	if ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_RSA_SIGNATURE) != 0x0) {
 #ifdef XPMCFW_SECURE
+		if (Sha3CheckSum == TRUE) {
+			Status = XPMCFW_ERR_AUTHDEC_NOTALLOW;
+			goto END;
+		}
 		SecureCdo.IsAuthenticated = TRUE;
 		SecureCdo.PlAuth.AcOfset = PmcFwInstancePtr->MetaHdr.FlashOfstAddr +
 			((PrtnHdr->AuthCertificateOfst) * XIH_PRTN_WORD_LEN);
@@ -827,6 +943,10 @@ static XStatus XPmcFw_ProcessCdo (XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 	/* If encryption is enabled */
 	if ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_ENCRYPTION) != 0x00) {
 #ifdef XPMCFW_SECURE
+		if (Sha3CheckSum == TRUE) {
+			Status = XPMCFW_ERR_AUTHDEC_NOTALLOW;
+			goto END;
+		}
 		SecureCdo.IsEncrypted = TRUE;
 		/* Initialize AES */
 		XSecure_AesInit(&AesInstance, PmcFwInstancePtr->MetaHdr.BootHdr.EncStatus,
@@ -861,6 +981,32 @@ static XStatus XPmcFw_ProcessCdo (XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 			XilCdoPrtnInst.SecureCdo->StartAddress = XilCdoPrtnInst.SrcAddr;
 			XilCdoPrtnInst.SecureCdo->PlAuth.AcOfset = SecureCdo.PlAuth.AcOfset;
 			XilCdoPrtnInst.SecureCdo->DeviceCopy = XilCdoPrtnInst.CdoCopy;
+		}
+	}
+	if (Sha3CheckSum == TRUE) {
+		ChecksumAddr = PmcFwInstancePtr->MetaHdr.FlashOfstAddr +
+					((PrtnHdr->ChecksumWordOfst) * XIH_PRTN_WORD_LEN);
+		/* Copy checksum hash to local buffer */
+		Status = PmcFwInstancePtr->DeviceOps.Copy(ChecksumAddr,
+						 (u64)(UINTPTR)Sha3Hash,
+						XSECURE_SHA3_LEN, 0x0U);
+		if (XPMCFW_SUCCESS != Status) {
+			XPmcFw_Printf(DEBUG_GENERAL,
+				 "Device Copy of check sum hash is failed \n\r");
+			goto END;
+		}
+		/* Verify checksum of the partition */
+		Status = XSecure_CheckSum(PmcFwInstancePtr->DeviceOps.Copy,
+						XilCdoPrtnInst.SrcAddr,
+						((PrtnHdr->TotalDataWordLen) *
+						XIH_PRTN_WORD_LEN), Sha3Hash);
+		if (Status != XST_SUCCESS) {
+			XPmcFw_Printf(DEBUG_INFO, "Failed at checksum\n\r");
+			goto END;
+		}
+		else {
+			XPmcFw_Printf(DEBUG_INFO,
+				 "Checksum verification of the partition is successful \n\r");
 		}
 	}
 #endif

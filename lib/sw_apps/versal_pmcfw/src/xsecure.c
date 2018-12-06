@@ -72,6 +72,11 @@
 #include "xsecure.h"
 #include "xpmcfw_debug.h"
 
+void XPmcFw_PrintArray (u32 DebugType, const u8 Buf[], u32 Len,
+						 const char *Str);
+
+#define XPMCFW_PMCRAM_BASEADDR			(0xF2000000U)
+#define XPMCFW_CHUNK_SIZE				(0x10000U)
 
 extern u64 AcBuffer[XSECURE_AUTH_CERT_MIN_SIZE/8];
 
@@ -453,6 +458,97 @@ u32 XSecure_PrtnDec(u8 *Iv, u64 PrtnAddr, u64 Size, u32 KeySrc)
 	}
 
 	return  XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function verifies the checksum of the partition
+ *
+ * @param	CopyFunc	This is a function pointer of device copy
+ * @param	PrtnAddr	Pointer to the data
+ * @param	PrtnSize	Size of the partition to be verified.
+ * @param	Hash		Pointer to the Hash
+ *
+ * @return	Returns Status
+ * 		- XST_SUCCESS on successful verification.
+ * 		- Error code on failure.
+ *
+ *****************************************************************************/
+u32 XSecure_CheckSum(DeviceCopy CopyFunc, u64 PrtnAddr, u64 PrtnSize, u8 *Hash)
+{
+
+	u32 Status;
+	u8 CalHash[XSECURE_SHA3_LEN];
+	u64 Addr = PrtnAddr;
+	u8 Index;
+	u32 ChunkSize;
+	u32 TotalSize = PrtnSize;
+	u8 Last = 0;
+
+	XSecure_Sha3Initialize(&Sha3Instance, &CsuDma0);
+	/*LDRA_INSPECTED 128 D */
+	XSecure_Sha3Start(&Sha3Instance);
+
+	/**
+	 * Calculate HASH for partition
+	 */
+	while ((TotalSize != 0x0) && (CopyFunc != NULL)) {
+		if (TotalSize > XPMCFW_CHUNK_SIZE) {
+			ChunkSize = XPMCFW_CHUNK_SIZE;
+		}
+		else {
+			ChunkSize = TotalSize;
+			Last = 1;
+		}
+
+		Status = CopyFunc(Addr, (u64 )XPMCFW_PMCRAM_BASEADDR,
+					ChunkSize, 0);
+		if (XST_SUCCESS != Status)
+		{
+			goto END;
+		}
+		Status = XSecure_Sha3Update(&Sha3Instance,
+					(u8 *)XPMCFW_PMCRAM_BASEADDR,
+					ChunkSize, Last);
+		if (Status != (u32)XST_SUCCESS) {
+
+			goto END;
+		}
+		Addr = Addr + ChunkSize;
+		TotalSize = TotalSize - ChunkSize;
+	}
+
+	if (CopyFunc == NULL) {
+		Status = XSecure_Sha3Update(&Sha3Instance,
+				(u8 *)(UINTPTR)PrtnAddr,
+				PrtnSize, 1);
+		if (Status != (u32)XST_SUCCESS) {
+
+			goto END;
+		}
+	}
+	Status = XSecure_Sha3Finish(&Sha3Instance, CalHash);
+	if (Status != (u32)XST_SUCCESS)	{
+		goto END;
+	}
+
+	/**
+	* Compare the calculated and builtin hash
+	*/
+	for (Index = 0; Index < XSECURE_SHA3_LEN; Index++) {
+		if ((*(Hash + Index)) != CalHash[Index]) {
+			XPmcFw_PrintArray(DEBUG_INFO, CalHash, XSECURE_SHA3_LEN,
+						"Calculated Hash");
+			XPmcFw_PrintArray(DEBUG_INFO, Hash, XSECURE_SHA3_LEN,
+						"Expected Hash");
+			Status = XST_FAILURE;
+			goto END;
+		}
+	}
+END:
+
+	return  Status;
 }
 
 /******************************************************************************
