@@ -158,12 +158,12 @@ static u32 XPmcFw_GetDrvNumSD(u32 DeviceFlags)
 	 * If design has ONLY SD0 or ONLY SD1, drive number should be "0"
 	 */
 #ifdef XPAR_XSDPS_1_DEVICE_ID
-	if ((DeviceFlags == XPMCFW_SD0_BOOT_MODE) ||
-			(DeviceFlags == XPMCFW_EMMC_BOOT_MODE)) {
+	if (DeviceFlags == XPMCFW_SD0_BOOT_MODE) {
 		DrvNum = XPMCFW_SD_DRV_NUM_0;
 	}
 	else {
-		/* For XPMCFW_SD1_BOOT_MODE or XPMCFW_SD1_LS_BOOT_MODE */
+		/* For XPMCFW_SD1_BOOT_MODE or XPMCFW_EMMC_BOOT_MODE
+			or XPMCFW_SD1_LS_BOOT_MODE */
 		DrvNum = XPMCFW_SD_DRV_NUM_1;
 	}
 #else
