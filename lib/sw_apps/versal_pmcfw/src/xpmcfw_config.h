@@ -62,8 +62,12 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 /* This is the address in DDR where bitstream will be copied temporarily */
 #define XPMCFW_SC_BYPASS  /* Enable to bypass scan clear  */
-/* Address in DDR where readback pdis are copied */
+/* Address where readback pdis are copied */
+#ifdef RDBK_SRC_ADDR
+#define XPMCFW_RDBK_SRC_ADDR	RDBK_SRC_ADDR
+#else
 #define XPMCFW_RDBK_SRC_ADDR	0x1000000U
+#endif
 #define XPMCFW_CDO_CHKSUM_BYPASS  /* Enable checksum bypass */
 //#define XPMCFW_HOUSECLEAN_BYPASS  /* Bypass house cleaning */
 //#define XPMCFW_STATIC_NPI_BYPASS /* Enable to bypass static NPI configuration */
