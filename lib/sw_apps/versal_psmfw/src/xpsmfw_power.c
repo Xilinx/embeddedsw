@@ -326,7 +326,9 @@ done:
 static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwnType Type)
 {
 	XStatus Status = XST_SUCCESS;
+#ifdef SPP_HACK
 	u32 ErrorCnt = 0;
+#endif
 
 	Status = XPsmFwIslandPwrUp(Args);
 	if (XST_SUCCESS != Status) {
@@ -569,7 +571,9 @@ done:
 static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwnType Type)
 {
 	XStatus Status = XST_SUCCESS;
+#ifdef SPP_HACK
 	u32 ErrorCnt = 0;
+#endif
 
 	Status = XPsmFwIslandPwrUp(Args);
 	if (XST_SUCCESS != Status) {
