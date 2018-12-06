@@ -773,8 +773,6 @@ u32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 {
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Dst != NULL);
-	Xil_AssertNonvoid(Src != NULL);
 	Xil_AssertNonvoid(Length != 0x00U);
 
 	u32 SssCfg = 0x0U;

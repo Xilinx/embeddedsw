@@ -173,7 +173,6 @@ static inline u32 XSecure_PartitionAuthentication(XCsuDma *CsuDmaInstPtr, u8 *Da
 
 	/* Assert conditions */
 	Xil_AssertNonvoid(CsuDmaInstPtr != NULL);
-	Xil_AssertNonvoid(Data != NULL);
 	Xil_AssertNonvoid(Size != 0x00);
 	Xil_AssertNonvoid(AuthCertPtr != NULL);
 
