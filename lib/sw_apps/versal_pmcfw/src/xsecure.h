@@ -98,6 +98,7 @@
 #define XSECURE_GCM_TAG_LEN		128
 #define XSECURE_WORD_LEN		4
 #define XSECURE_MAX_NIBBLES		8
+#define XSECURE_SHA3_LEN		48
 
 #define XSECURE_WORD_SHIFT		32
 
@@ -322,6 +323,9 @@ typedef struct {
 	XSecure_Authentication PlAuth;/**< Authentication parameters */
 } XSecure_Partition;
 
+/* Device copy */
+typedef XStatus (*DeviceCopy) (u32, u64, u32, u32);
+
 /*@}*/
 
 /************************** Variable Definitions *****************************/
@@ -359,6 +363,7 @@ u32 XSecure_PrtnAuth(u64 PrtnAddr, u64 *AcBuffer, u64 PrtnSize);
 u32 XSecure_PrtnDec(u8 *Iv, u64 PrtnAddr, u64 Size, u32 KeySrc);
 u32 XPmcFw_ProcessSecurePrtn(XSecure_Partition *SecurePtr);
 void XSecure_AesInit(XSecure_Aes *InstancePtr, u32 KeySel, u8 *Iv);
+u32 XSecure_CheckSum(DeviceCopy CopyFunc, u64 PrtnAddr, u64 PrtnSize, u8 *Hash);
 /*****************************************************************************/
 
 #endif  /* XSECURE_HW_H */
