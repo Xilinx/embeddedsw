@@ -125,7 +125,7 @@ u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 	InstancePtr->BaseAddress = XSECURE_CSU_AES_BASE;
 	InstancePtr->CsuDmaPtr = CsuDmaPtr;
 	InstancePtr->KeySel = KeySel;
-	InstancePtr->Iv = Iv;
+	InstancePtr->Iv = (u32*)Iv;
 	InstancePtr->DstEndinaness = 0x0;
 
 	return XST_SUCCESS;

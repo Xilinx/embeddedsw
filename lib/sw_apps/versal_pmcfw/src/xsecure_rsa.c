@@ -325,7 +325,6 @@ static void XSecure_RsaPutData(XSecure_Rsa *InstancePtr)
  ******************************************************************************/
 s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *EncText, u8 *Result)
 {
-	u64 TStart, TEnd;
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Result != NULL);
