@@ -147,8 +147,12 @@ void XMeIO_Init(void)
 	ret = metal_device_open("platform", "xilinx-mathengine",
 			&IOInst.device);
 	if (ret) {
-		XMeLib_print("failed to metal_device_open\n");
-		return;
+		ret = metal_device_open("platform", "xilinx-aiengine",
+				&IOInst.device);
+		if (ret) {
+			XMeLib_print("failed to metal_device_open\n");
+			return;
+		}
 	}
 
 	IOInst.io = metal_device_io_region(IOInst.device, 0);
