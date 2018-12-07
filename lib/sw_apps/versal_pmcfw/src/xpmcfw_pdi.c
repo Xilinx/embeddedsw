@@ -227,7 +227,7 @@ END:
 XStatus XPmcFw_MemCopy(u32 SrcPtr, u64 DestPtr, u32 Len, u32 Flags)
 {
 	u32 Src = XPMCFW_RDBK_SRC_ADDR;
-	memcpy(DestPtr,Src+Offset,Len);
+	memcpy((u8*)DestPtr,(u8*)(Src+Offset),Len);
 	Offset += Len;
 	return XST_SUCCESS;
 }
@@ -248,6 +248,6 @@ XStatus XPmcFw_MemCopy(u32 SrcPtr, u64 DestPtr, u32 Len, u32 Flags)
  *****************************************************************************/
 XStatus XPmcFw_MemCopySecure(u32 SrcPtr, u64 DestPtr, u32 Len, u32 Flags)
 {
-	memcpy(DestPtr,SrcPtr,Len);
+	memcpy((u8*)DestPtr,(u8*)SrcPtr,Len);
 	return XST_SUCCESS;
 }

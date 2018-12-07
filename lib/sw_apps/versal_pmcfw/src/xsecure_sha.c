@@ -121,6 +121,7 @@ void *XPmcr_MemSetbsp(void *SrcPtr, u32 Char, u32 Len)
 		UsPtr++;
 		Size--;
 	}
+	return UsPtr;
 }
 
 /*****************************************************************************/
@@ -159,8 +160,6 @@ void XSecure_Sha3Padd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen)
  ******************************************************************************/
 void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 {
-	u32 RegVal;
-
 	/* Asserts validate the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
@@ -204,7 +203,6 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 						const u32 Size, const u32 EndLast)
 {
-	u32 i, Val;
 	u32 Status;
 
 	Status = XST_SUCCESS;
@@ -223,8 +221,6 @@ u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 						XCSUDMA_IXR_DONE_MASK);
-
-END:
 	return Status;
 }
 
@@ -287,10 +283,10 @@ void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash)
  *****************************************************************************/
 u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 {
-	u32 Status;
+	u32 Status = XST_SUCCESS;
 	/* Asserts validate the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Hash != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Hash != NULL);
 
 	u32 *HashPtr = (u32 *)Hash;
 #if 0
@@ -332,7 +328,6 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 		}
 	}
 
-END:
 	return Status;
 }
 
@@ -351,7 +346,7 @@ END:
  ******************************************************************************/
 u32 XSecure_Sha3FinishPad(XSecure_Sha3 *InstancePtr, u8 *Hash)
 {
-	u32 Status;
+	u32 Status = XST_SUCCESS;
 
 	/* Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -393,7 +388,6 @@ u32 XSecure_Sha3FinishPad(XSecure_Sha3 *InstancePtr, u8 *Hash)
 			HashPtr[11U - Index] = Val;
 		}
 	}
-END:
 	return Status;
 
 }
