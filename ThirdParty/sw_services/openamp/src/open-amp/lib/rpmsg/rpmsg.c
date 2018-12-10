@@ -144,6 +144,65 @@ int rpmsg_send_ns_message(struct rpmsg_endpoint *ept, unsigned long flags)
 		return RPMSG_SUCCESS;
 }
 
+void rpmsg_hold_rx_buffer(struct rpmsg_endpoint *ept, void *rxbuf)
+{
+	struct rpmsg_device *rdev;
+
+	if (!ept || !ept->rdev || !rxbuf)
+		return;
+
+	rdev = ept->rdev;
+
+	if (rdev->ops.hold_rx_buffer)
+		rdev->ops.hold_rx_buffer(rdev, rxbuf);
+}
+
+void rpmsg_release_rx_buffer(struct rpmsg_endpoint *ept, void *rxbuf)
+{
+	struct rpmsg_device *rdev;
+
+	if (!ept || !ept->rdev || !rxbuf)
+		return;
+
+	rdev = ept->rdev;
+
+	if (rdev->ops.release_rx_buffer)
+		rdev->ops.release_rx_buffer(rdev, rxbuf);
+}
+
+void *rpmsg_get_tx_payload_buffer(struct rpmsg_endpoint *ept,
+				  uint32_t *len, int wait)
+{
+	struct rpmsg_device *rdev;
+
+	if (!ept || !ept->rdev || !len)
+		return NULL;
+
+	rdev = ept->rdev;
+
+	if (rdev->ops.get_tx_payload_buffer)
+		return rdev->ops.get_tx_payload_buffer(rdev, len, wait);
+
+	return NULL;
+}
+
+int rpmsg_send_offchannel_nocopy(struct rpmsg_endpoint *ept, uint32_t src,
+				 uint32_t dst, const void *data, int len)
+{
+	struct rpmsg_device *rdev;
+
+	if (!ept || !ept->rdev || !data || dst == RPMSG_ADDR_ANY)
+		return RPMSG_ERR_PARAM;
+
+	rdev = ept->rdev;
+
+	if (rdev->ops.send_offchannel_nocopy)
+		return rdev->ops.send_offchannel_nocopy(rdev, src, dst,
+							data, len);
+
+	return RPMSG_ERR_PARAM;
+}
+
 struct rpmsg_endpoint *rpmsg_get_endpoint(struct rpmsg_device *rdev,
 					  const char *name, uint32_t addr,
 					  uint32_t dest_addr)

@@ -147,6 +147,7 @@ static void *rpmsg_virtio_get_tx_buffer(struct rpmsg_virtio_device *rvdev,
 			data = rpmsg_virtio_shm_pool_get_buffer(rvdev->shpool,
 							RPMSG_BUFFER_SIZE);
 			*len = RPMSG_BUFFER_SIZE;
+			*idx = 0;
 		}
 	}
 #endif /*!VIRTIO_SLAVE_ONLY*/
@@ -260,6 +261,134 @@ static int _rpmsg_virtio_get_buffer_size(struct rpmsg_virtio_device *rvdev)
 	return length;
 }
 
+static void rpmsg_virtio_hold_rx_buffer(struct rpmsg_device *rdev, void *rxbuf)
+{
+	struct rpmsg_hdr *rp_hdr;
+
+	(void)rdev;
+
+	rp_hdr = RPMSG_LOCATE_HDR(rxbuf);
+
+	/* Set held status to keep buffer */
+	rp_hdr->reserved |= RPMSG_BUF_HELD;
+}
+
+static void rpmsg_virtio_release_rx_buffer(struct rpmsg_device *rdev,
+					   void *rxbuf)
+{
+	struct rpmsg_virtio_device *rvdev;
+	struct rpmsg_hdr *rp_hdr;
+	uint16_t idx;
+	uint32_t len;
+
+	rvdev = metal_container_of(rdev, struct rpmsg_virtio_device, rdev);
+	rp_hdr = RPMSG_LOCATE_HDR(rxbuf);
+	/* The reserved field contains buffer index */
+	idx = rp_hdr->reserved & ~RPMSG_BUF_HELD;
+
+	metal_mutex_acquire(&rdev->lock);
+	/* Return buffer on virtqueue. */
+	len = virtqueue_get_buffer_length(rvdev->rvq, idx);
+	rpmsg_virtio_return_buffer(rvdev, rp_hdr, len, idx);
+	metal_mutex_release(&rdev->lock);
+}
+
+static void *rpmsg_virtio_get_tx_payload_buffer(struct rpmsg_device *rdev,
+						uint32_t *len, int wait)
+{
+	struct rpmsg_virtio_device *rvdev;
+	struct rpmsg_hdr *rp_hdr;
+	uint16_t idx;
+	int tick_count;
+	int status;
+
+	/* Get the associated remote device for channel. */
+	rvdev = metal_container_of(rdev, struct rpmsg_virtio_device, rdev);
+
+	/* Validate device state */
+	status = rpmsg_virtio_get_status(rvdev);
+	if (!(status & VIRTIO_CONFIG_STATUS_DRIVER_OK))
+		return NULL;
+
+	if (wait)
+		tick_count = RPMSG_TICK_COUNT / RPMSG_TICKS_PER_INTERVAL;
+	else
+		tick_count = 0;
+
+	while (1) {
+		/* Lock the device to enable exclusive access to virtqueues */
+		metal_mutex_acquire(&rdev->lock);
+		rp_hdr = rpmsg_virtio_get_tx_buffer(rvdev, len, &idx);
+		metal_mutex_release(&rdev->lock);
+		if (rp_hdr || !tick_count)
+			break;
+		metal_sleep_usec(RPMSG_TICKS_PER_INTERVAL);
+		tick_count--;
+	}
+
+	if (!rp_hdr)
+		return NULL;
+
+	/* Store the index into the reserved field to be used when sending */
+	rp_hdr->reserved = idx;
+
+	/* Actual data buffer size is vring buffer size minus header length */
+	*len -= sizeof(struct rpmsg_hdr);
+	return RPMSG_LOCATE_DATA(rp_hdr);
+}
+
+static int rpmsg_virtio_send_offchannel_nocopy(struct rpmsg_device *rdev,
+					       uint32_t src, uint32_t dst,
+					       const void *data, int len)
+{
+	struct rpmsg_virtio_device *rvdev;
+	struct metal_io_region *io;
+	struct rpmsg_hdr rp_hdr;
+	struct rpmsg_hdr *hdr;
+	uint32_t buff_len;
+	uint16_t idx;
+	int status;
+
+	/* Get the associated remote device for channel. */
+	rvdev = metal_container_of(rdev, struct rpmsg_virtio_device, rdev);
+
+	hdr = RPMSG_LOCATE_HDR(data);
+	/* The reserved field contains buffer index */
+	idx = hdr->reserved;
+
+	/* Initialize RPMSG header. */
+	rp_hdr.dst = dst;
+	rp_hdr.src = src;
+	rp_hdr.len = len;
+	rp_hdr.reserved = 0;
+	rp_hdr.flags = 0;
+
+	/* Copy data to rpmsg buffer. */
+	io = rvdev->shbuf_io;
+	status = metal_io_block_write(io, metal_io_virt_to_offset(io, hdr),
+				      &rp_hdr, sizeof(rp_hdr));
+	RPMSG_ASSERT(status == sizeof(rp_hdr), "failed to write header\r\n");
+
+	metal_mutex_acquire(&rdev->lock);
+
+#ifndef VIRTIO_SLAVE_ONLY
+	if (rpmsg_virtio_get_role(rvdev) == RPMSG_MASTER)
+		buff_len = RPMSG_BUFFER_SIZE;
+	else
+#endif /*!VIRTIO_SLAVE_ONLY*/
+		buff_len = virtqueue_get_buffer_length(rvdev->svq, idx);
+
+	/* Enqueue buffer on virtqueue. */
+	status = rpmsg_virtio_enqueue_buffer(rvdev, hdr, buff_len, idx);
+	RPMSG_ASSERT(status == VQUEUE_SUCCESS, "failed to enqueue buffer\r\n");
+	/* Let the other side know that there is a job to process. */
+	virtqueue_kick(rvdev->svq);
+
+	metal_mutex_release(&rdev->lock);
+
+	return len;
+}
+
 /**
  * This function sends rpmsg "message" to remote device.
  *
@@ -280,79 +409,28 @@ static int rpmsg_virtio_send_offchannel_raw(struct rpmsg_device *rdev,
 					    int len, int wait)
 {
 	struct rpmsg_virtio_device *rvdev;
-	struct rpmsg_hdr rp_hdr;
-	void *buffer = NULL;
-	uint16_t idx;
-	int tick_count;
-	uint32_t buff_len;
-	int status;
 	struct metal_io_region *io;
+	uint32_t buff_len;
+	void *buffer;
+	int status;
 
 	/* Get the associated remote device for channel. */
 	rvdev = metal_container_of(rdev, struct rpmsg_virtio_device, rdev);
 
-	status = rpmsg_virtio_get_status(rvdev);
-	/* Validate device state */
-	if (!(status & VIRTIO_CONFIG_STATUS_DRIVER_OK)) {
-		return RPMSG_ERR_DEV_STATE;
-	}
-
-	if (wait)
-		tick_count = RPMSG_TICK_COUNT / RPMSG_TICKS_PER_INTERVAL;
-	else
-		tick_count = 0;
-
-	while (1) {
-		int avail_size;
-
-		/* Lock the device to enable exclusive access to virtqueues */
-		metal_mutex_acquire(&rdev->lock);
-		avail_size = _rpmsg_virtio_get_buffer_size(rvdev);
-		if (avail_size && len > avail_size) {
-			metal_mutex_release(&rdev->lock);
-			return RPMSG_ERR_BUFF_SIZE;
-		}
-
-		buffer = rpmsg_virtio_get_tx_buffer(rvdev, &buff_len, &idx);
-		metal_mutex_release(&rdev->lock);
-		if (buffer || !tick_count)
-			break;
-		if (avail_size != 0)
-			return RPMSG_ERR_BUFF_SIZE;
-		metal_sleep_usec(RPMSG_TICKS_PER_INTERVAL);
-		tick_count--;
-	}
+	/* Get the payload buffer. */
+	buffer = rpmsg_virtio_get_tx_payload_buffer(rdev, &buff_len, wait);
 	if (!buffer)
 		return RPMSG_ERR_NO_BUFF;
 
-	/* Initialize RPMSG header. */
-	rp_hdr.dst = dst;
-	rp_hdr.src = src;
-	rp_hdr.len = len;
-	rp_hdr.reserved = 0;
-
 	/* Copy data to rpmsg buffer. */
+	if (len > (int)buff_len)
+		len = buff_len;
 	io = rvdev->shbuf_io;
 	status = metal_io_block_write(io, metal_io_virt_to_offset(io, buffer),
-				      &rp_hdr, sizeof(rp_hdr));
-	RPMSG_ASSERT(status == sizeof(rp_hdr), "failed to write header\r\n");
-
-	status = metal_io_block_write(io,
-				      metal_io_virt_to_offset(io,
-						RPMSG_LOCATE_DATA(buffer)),
 				      data, len);
 	RPMSG_ASSERT(status == len, "failed to write buffer\r\n");
-	metal_mutex_acquire(&rdev->lock);
 
-	/* Enqueue buffer on virtqueue. */
-	status = rpmsg_virtio_enqueue_buffer(rvdev, buffer, buff_len, idx);
-	RPMSG_ASSERT(status == VQUEUE_SUCCESS, "failed to enqueue buffer\r\n");
-	/* Let the other side know that there is a job to process. */
-	virtqueue_kick(rvdev->svq);
-
-	metal_mutex_release(&rdev->lock);
-
-	return len;
+	return rpmsg_virtio_send_offchannel_nocopy(rdev, src, dst, buffer, len);
 }
 
 /**
@@ -396,6 +474,8 @@ static void rpmsg_virtio_rx_callback(struct virtqueue *vq)
 	metal_mutex_release(&rdev->lock);
 
 	while (rp_hdr) {
+		rp_hdr->reserved = idx;
+
 		/* Get the channel node from the remote device channels list. */
 		metal_mutex_acquire(&rdev->lock);
 		ept = rpmsg_get_ept_from_addr(rdev, rp_hdr->dst);
@@ -418,8 +498,11 @@ static void rpmsg_virtio_rx_callback(struct virtqueue *vq)
 
 		metal_mutex_acquire(&rdev->lock);
 
-		/* Return used buffers. */
-		rpmsg_virtio_return_buffer(rvdev, rp_hdr, len, idx);
+		/* Check whether callback wants to hold buffer */
+		if (!(rp_hdr->reserved & RPMSG_BUF_HELD)) {
+			/* No, return used buffers. */
+			rpmsg_virtio_return_buffer(rvdev, rp_hdr, len, idx);
+		}
 
 		rp_hdr = rpmsg_virtio_get_rx_buffer(rvdev, &len, &idx);
 		if (!rp_hdr) {
@@ -530,6 +613,10 @@ int rpmsg_init_vdev(struct rpmsg_virtio_device *rvdev,
 	rdev->ns_bind_cb = ns_bind_cb;
 	vdev->priv = rvdev;
 	rdev->ops.send_offchannel_raw = rpmsg_virtio_send_offchannel_raw;
+	rdev->ops.hold_rx_buffer = rpmsg_virtio_hold_rx_buffer;
+	rdev->ops.release_rx_buffer = rpmsg_virtio_release_rx_buffer;
+	rdev->ops.get_tx_payload_buffer = rpmsg_virtio_get_tx_payload_buffer;
+	rdev->ops.send_offchannel_nocopy = rpmsg_virtio_send_offchannel_nocopy;
 	role = rpmsg_virtio_get_role(rvdev);
 
 #ifndef VIRTIO_MASTER_ONLY
