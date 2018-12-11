@@ -205,7 +205,10 @@ int XPli_Qspi24Init(u32 DeviceFlags)
 	int Status;
 	u32 QspiMode;
 
-
+	/**
+	 * This parameter is required as per the prototype
+	 */
+	(void) (DeviceFlags);
 
 	/**
 	 * Initialize the QSPI driver so that it's ready to use
@@ -792,6 +795,11 @@ int XPli_Qspi32Init(u32 DeviceFlags)
 	XQspiPsu_Config *QspiConfig;
 	int Status;
 	u32 QspiMode;
+
+	/**
+	 * This parameter is required as per the prototype
+	 */
+	(void) (DeviceFlags);
 
 	/**
 	 * Initialize the QSPI driver so that it's ready to use
