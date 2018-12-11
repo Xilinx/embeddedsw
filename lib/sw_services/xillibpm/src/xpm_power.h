@@ -80,7 +80,6 @@ extern XPm_Power *PmPowers[];
 /************************** Function Prototypes ******************************/
 XStatus XPmPower_Init(XPm_Power *Power,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent);
-XStatus XPmPower_AllocNodes(u32 NumPwrNodes);
 XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents);
 
 /** @} */

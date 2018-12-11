@@ -165,7 +165,6 @@ extern u32 PmNumClocks;
 #define CLK_DIVIDER_MAX_AT_ZERO		BIT(6)
 
 /************************** Function Prototypes ******************************/
-XStatus XPmClock_AllocNodes(u32 NumClkNodes);
 XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 			 u8 NumCustomNodes, u8 NumParents);
 XStatus XPmClock_AddClkName(u32 Id, char *Name);
