@@ -34,6 +34,14 @@
 
 #define XIpiPsu	u32
 
+/*
+ * Version number is a 32bit value, like:
+ * (PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR
+ */
+#define PM_VERSION_MAJOR    1U
+#define PM_VERSION_MINOR    0U
+#define PM_VERSION      ((PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR)
+
 /**
  *  @name Boot Status Enum
  */
@@ -178,7 +186,7 @@ XStatus XPm_Init(XIpiPsu *const IpiInst,
 
 XStatus XPm_GetApiVersion(u32 *Version);
 
-enum XPmBootStatus XPm_GetBootStatus(u32 SubsystemId);
+enum XPmBootStatus XPm_GetBootStatus();
 
 XStatus XPm_CreateSubsystem(const u32 *SubSystemCdo,
 			void (*const NotifyCb)(u32 SubsystemId, const u32 EventId),
@@ -216,37 +224,37 @@ XStatus XPm_Query(const u32 Qid,
 
 XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 Enable);
 
-XStatus XPm_GetClockState(const u32 SubsystemId, const u32 ClockId, u32 *const State);
+XStatus XPm_GetClockState(const u32 ClockId, u32 *const State);
 
 XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 Divider);
 
-XStatus XPm_GetClockDivider(const u32 SubsystemId, const u32 ClockId, u32 *const Divider);
+XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider);
 
 XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 ParentId);
 
-XStatus XPm_GetClockParent(const u32 SubsystemId, const u32 ClockId, u32 *const ParentId);
+XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentId);
 
 XStatus XPm_SetPllParameter(const u32 SubsystemId, const u32 ClockId, const u32 ParamId, const u32 Value);
 
-XStatus XPm_GetPllParameter(const u32 SubsystemId, const u32 ClockId, const u32 ParamId, u32 *const Value);
+XStatus XPm_GetPllParameter(const u32 ClockId, const u32 ParamId, u32 *const Value);
 
 XStatus XPm_SetPllMode(const u32 SubsystemId, const u32 ClockId, const u32 Value);
 
-XStatus XPm_GetPllMode(const u32 SubsystemId, const u32 ClockId, u32 *const Value);
+XStatus XPm_GetPllMode(const u32 ClockId, u32 *const Value);
 
 XStatus XPm_SetResetState(const u32 SubsystemId, const u32 DeviceId, const u32 Reset);
 
-XStatus XPm_GetResetState(const u32 SubsystemId, const u32 DeviceId, u32 *const Reset);
+XStatus XPm_GetResetState(const u32 DeviceId, u32 *const Reset);
 
 XStatus XPm_SetPinFunction(const u32 SubsystemId, const u32 PinId, const u32 FunctionId);
 
-XStatus XPm_GetPinFunction(const u32 SubsystemId, const u32 PinId, u32 *const DeviceId);
+XStatus XPm_GetPinFunction(const u32 PinId, u32 *const DeviceId);
 
 XStatus XPm_SetPinParameter(const u32 SubsystemId, const u32 PinId,
 			const u32 ParamId,
 			const u32 ParamVal);
 
-XStatus XPm_GetPinParameter(const u32 SubsystemId, const u32 PinId,
+XStatus XPm_GetPinParameter(const u32 PinId,
 			const u32 ParamId,
 			u32 *const ParamVal);
 
