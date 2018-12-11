@@ -164,6 +164,11 @@ int XPli_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	int Status;
 	u32 ReadFlags;
 
+	/**
+	 * This parameter is required as per the prototype
+	 */
+	(void) (SrcAddress);
+
 	if (Flags == XILPLI_READ_AXI_FIXED)
 	{
 		ReadFlags = XILPLI_DST_CH_AXI_FIXED | XILPLI_PMCDMA_1;
