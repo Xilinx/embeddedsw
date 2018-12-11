@@ -181,8 +181,7 @@ enum pm_ioctl_id {
 #define PGGS_BASEADDR	(0xFFD90050U)
 #define PGGS_NUM_REGS	(4)
 
-XStatus XPm_Init(XIpiPsu *const IpiInst,
-			void (* const RequestCb)(u32 SubsystemId, const u32 EventId));
+XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId));
 
 XStatus XPm_GetApiVersion(u32 *Version);
 
