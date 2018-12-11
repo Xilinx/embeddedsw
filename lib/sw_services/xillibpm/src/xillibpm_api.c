@@ -1400,7 +1400,6 @@ XStatus XPm_AddNodeParent(u32 *Args, u32 NumArgs)
 			Status = XPmClock_AddParent(Id,Parents,NumParents);
 			break;
 		case XPM_NODECLASS_RESET:
-			Status = XPmReset_AddParent(Id,Parents,NumParents);
 			break;
 		case XPM_NODECLASS_MEMIC:
 			break;
