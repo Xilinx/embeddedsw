@@ -78,7 +78,8 @@ extern "C" {
 //#define XPMCFW_HW70
 //#define XPMCFW_HW80
 //#define XPMCFW_HW90
-#define XPMCFW_HW100
+//#define XPMCFW_HW100
+#define XPMCFW_HW110
 #define XPMCFW_DDR_TEMP_ADDR			(0x100000U)
 #define XPMCFW_TEST_DDR_ADDR			(0x100000U)
 #define XPMCFW_TEST_DDR_VAL			(0xDEADBEEFU)
