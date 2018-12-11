@@ -328,21 +328,21 @@ XStatus XPm_RequestWakeUp(const u32 DeviceId,
 			const u64 Address)
 {
 	XStatus Status;
-	XPm_ApuCore *ApuCore;
-	XPm_RpuCore *RpuCore;
+	XPm_Core *Core;
 
-	if ((DeviceId == XPM_DEVID_ACPU_0) ||
-	    (DeviceId == XPM_DEVID_ACPU_1)) {
-		ApuCore = (XPm_ApuCore *)XPmDevice_GetById(DeviceId);
-		Status = XPmApuCore_WakeUp(ApuCore, SetAddress, Address);
-	} else if ((DeviceId == XPM_DEVID_R50_0) ||
-		   (DeviceId == XPM_DEVID_R50_1)) {
-		RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
-		Status = XPmRpuCore_WakeUp(RpuCore, SetAddress, Address);
-	} else {
-		Status = XST_INVALID_PARAM;
+	if(NODECLASS(DeviceId) != XPM_NODECLASS_DEVICE || NODESUBCLASS(DeviceId) != XPM_NODESUBCL_DEV_CORE)
+	{
+		Status = XST_FAILURE;
+		goto done;
 	}
 
+	Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+	if(Core->CoreOps->RequestWakeup) {
+		Status = Core->CoreOps->RequestWakeup(Core, SetAddress, Address);
+	} else {
+		Status = XST_FAILURE;
+	}
+done:
 	return Status;
 }
 
@@ -1801,7 +1801,7 @@ static XStatus AddProcDevice(u32 *Args, u32 PowerId)
 				Status = XST_BUFFER_TOO_SMALL;
 				goto done;
 			}
-			Status = XPmCore_Init(Core, DeviceId, BaseAddr, Power, 0, 0);
+			Status = XPmCore_Init(Core, DeviceId, BaseAddr, Power, 0, 0, 0, NULL);
 			break;
 		default:
 			break;

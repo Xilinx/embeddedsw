@@ -31,37 +31,12 @@
 #include "xpm_regs.h"
 #include "xillibpm_api.h"
 
-XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 *BaseAddress,
-			XPm_Power *Power, XPm_ClockNode *Clock,
-			XPm_ResetNode *Reset)
-{
-	XStatus Status = XST_FAILURE;
-
-	Status = XPmCore_Init(&RpuCore->Core, Id, BaseAddress, Power,
-			      Clock, Reset);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	if (XPM_DEVID_R50_0 == Id) {
-		RpuCore->ResumeCfg = RpuCore->Core.Device.Node.BaseAddress +
-				     RPU_0_CFG_OFFSET;
-	} else {
-		RpuCore->ResumeCfg = RpuCore->Core.Device.Node.BaseAddress +
-				     RPU_1_CFG_OFFSET;
-	}
-
-	RpuCore->Ipi = Ipi;
-
-done:
-	return Status;
-}
-
-XStatus XPmRpuCore_WakeUp(XPm_RpuCore *RpuCore, u32 SetAddress, u64 Address)
+static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ResetNode *Reset;
 	u32 addrLow;
+	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
 
 	/* Set reset address */
 	if (0 == SetAddress) {
@@ -86,6 +61,35 @@ XStatus XPmRpuCore_WakeUp(XPm_RpuCore *RpuCore, u32 SetAddress, u64 Address)
 		Status = Reset->Ops->SetState(Reset, PM_RESET_ACTION_RELEASE);
 		Reset = Reset->NextReset;
 	}
+done:
+	return Status;
+}
+
+struct XPm_CoreOps RpuOps = {
+		.RequestWakeup = XPmRpuCore_WakeUp,
+};
+
+
+XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 *BaseAddress,
+			XPm_Power *Power, XPm_ClockNode *Clock,
+			XPm_ResetNode *Reset)
+{
+	XStatus Status = XST_FAILURE;
+
+	Status = XPmCore_Init(&RpuCore->Core, Id, BaseAddress, Power,
+			      Clock, Reset, Ipi, &RpuOps);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	if (XPM_DEVID_R50_0 == Id) {
+		RpuCore->ResumeCfg = RpuCore->Core.Device.Node.BaseAddress +
+				     RPU_0_CFG_OFFSET;
+	} else {
+		RpuCore->ResumeCfg = RpuCore->Core.Device.Node.BaseAddress +
+				     RPU_1_CFG_OFFSET;
+	}
+
 done:
 	return Status;
 }
