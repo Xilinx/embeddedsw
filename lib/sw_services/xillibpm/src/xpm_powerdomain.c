@@ -35,7 +35,7 @@
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent)
 {
-	XPmPower_Init((XPm_Power *)PowerDomain,
+	XPmPower_Init(&PowerDomain->Power,
 		Id, BaseAddress, Parent);
 
 	PowerDomain->Children = NULL;

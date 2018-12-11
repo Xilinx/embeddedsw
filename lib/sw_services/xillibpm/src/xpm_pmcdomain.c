@@ -64,7 +64,7 @@ static XStatus HandlePmcDomainEvent(XPm_Node *Node, u32 Event)
 
 XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id)
 {
-	XPmPowerDomain_Init((XPm_PowerDomain *)PmcDomain, Id, 0x00000000, NULL);
+	XPmPowerDomain_Init(&PmcDomain->Domain, Id, 0x00000000, NULL);
 
 	PmcDomain->Domain.Power.Node.State = XPM_POWER_STATE_ON;
 	PmcDomain->Domain.Power.UseCount = 1;

@@ -37,7 +37,7 @@ XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 BaseAddress,
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmCore_Init((XPm_Core *)RpuCore, Id, BaseAddress, Power,
+	Status = XPmCore_Init(&RpuCore->Core, Id, BaseAddress, Power,
 			      Clock, Reset);
 	if (XST_SUCCESS != Status) {
 		goto done;

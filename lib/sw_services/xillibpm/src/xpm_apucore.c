@@ -38,7 +38,7 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmCore_Init((XPm_Core *)ApuCore,
+	Status = XPmCore_Init(&ApuCore->Core,
 		Id, BaseAddress,
 		Power, Clock, Reset);
 	if (XST_SUCCESS != Status) {

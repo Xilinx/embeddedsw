@@ -33,7 +33,7 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, u32 BaseAddress,
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmDevice_Init((XPm_Device *)Core,
+	Status = XPmDevice_Init(&Core->Device,
 		Id, BaseAddress, Power, Clock, Reset);
 	if (XST_SUCCESS != Status) {
 		goto done;

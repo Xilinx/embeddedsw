@@ -428,7 +428,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		goto done;
 	}
 
-	Status = XPmNode_Init((XPm_Node *)Device,
+	Status = XPmNode_Init(&Device->Node,
 		Id, XPM_DEVSTATE_UNUSED, BaseAddress);
 	if (XST_SUCCESS != Status) {
 		goto done;
