@@ -167,7 +167,7 @@ static XStatus HandlePsLpDomainEvent(XPm_Node *Node, u32 Event)
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent)
 {
-	XPmPowerDomain_Init((XPm_PowerDomain *)PsLpd,
+	XPmPowerDomain_Init(&PsLpd->Domain,
 		Id, BaseAddress, Parent);
 
 	HandlePowerEvent = PsLpd->Domain.Power.Node.HandleEvent;
