@@ -54,7 +54,6 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	u32 ApiResponse[XPLMI_CMD_RESP_SIZE-1] = {0, 0, 0};
 	u32 Status = XST_SUCCESS;
 	u32 SubsystemId = Cmd->SubsystemId;
-	u32 IpiId =0;
 	u32 *Pload = Cmd->Payload;
 	u32 Len = Cmd->Len;
 
@@ -67,7 +66,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_SetClockParent(SubsystemId, Pload[0], Pload[1]);
 			break;
 		case PM_CLOCK_GETPARENT:
-			Status = XPm_GetClockParent(SubsystemId, Pload[0], ApiResponse);
+			Status = XPm_GetClockParent(Pload[0], ApiResponse);
 			break;
 		case PM_CLOCK_ENABLE:
 			Status = XPm_SetClockState(SubsystemId, Pload[0], 1);
@@ -76,25 +75,25 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_SetClockState(SubsystemId, Pload[0], 0);
 			break;
 		case PM_CLOCK_GETSTATE:
-			Status = XPm_GetClockState(SubsystemId, Pload[0], ApiResponse);
+			Status = XPm_GetClockState(Pload[0], ApiResponse);
 			break;
 		case PM_CLOCK_SETDIVIDER:
 			Status = XPm_SetClockDivider(SubsystemId, Pload[0], Pload[1]);
 			break;
 		case PM_CLOCK_GETDIVIDER:
-			Status = XPm_GetClockDivider(SubsystemId, Pload[0], ApiResponse);
+			Status = XPm_GetClockDivider(Pload[0], ApiResponse);
 			break;
 		case PM_PLL_SET_PARAMETER:
 			Status = XPm_SetPllParameter(SubsystemId, Pload[0], Pload[1], Pload[2]);
 			break;
 		case PM_PLL_GET_PARAMETER:
-			Status = XPm_GetPllParameter(SubsystemId, Pload[0], Pload[1], ApiResponse);
+			Status = XPm_GetPllParameter(Pload[0], Pload[1], ApiResponse);
 			break;
 		case PM_PLL_SET_MODE:
 			Status = XPm_SetPllMode(SubsystemId, Pload[0], Pload[1]);
 			break;
 		case PM_PLL_GET_MODE:
-			Status = XPm_GetPllMode(SubsystemId, Pload[0], ApiResponse);
+			Status = XPm_GetPllMode(Pload[0], ApiResponse);
 			break;
 		case PM_REQUEST_DEVICE:
 			Status = XPm_RequestDevice(SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3], Pload[4]);
@@ -115,7 +114,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_SetResetState(SubsystemId, Pload[0], Pload[1]);
 			break;
 		case PM_RESET_GET_STATUS:
-			Status = XPm_GetResetState(SubsystemId, Pload[0], ApiResponse);
+			Status = XPm_GetResetState(Pload[0], ApiResponse);
 			break;
 		case PM_CREATE_SUBSYSTEM:
 			Status = XPm_CreateSubsystem((const u32 *)Pload[0],
@@ -131,13 +130,13 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_PinCtrlRelease(SubsystemId, Pload[0]);
 			break;
 		case PM_PINCTRL_GET_FUNCTION:
-			Status = XPm_GetPinFunction(SubsystemId, Pload[0], ApiResponse);
+			Status = XPm_GetPinFunction(Pload[0], ApiResponse);
 			break;
 		case PM_PINCTRL_SET_FUNCTION:
 			Status = XPm_SetPinFunction(SubsystemId, Pload[0], Pload[1]);
 			break;
 		case PM_PINCTRL_CONFIG_PARAM_GET:
-			Status = XPm_GetPinParameter(SubsystemId, Pload[0], Pload[1], ApiResponse);
+			Status = XPm_GetPinParameter(Pload[0], Pload[1], ApiResponse);
 			break;
 		case PM_PINCTRL_CONFIG_PARAM_SET:
 			Status = XPm_SetPinParameter(SubsystemId, Pload[0], Pload[1], Pload[2]);
@@ -192,7 +191,7 @@ XStatus XPm_Init(XIpiPsu *const IpiInst,
 			void (* const RequestCb)(u32 SubsystemId, const u32 EventId))
 {
 	XStatus Status = XST_SUCCESS;
-	int i;
+	unsigned int i;
 
 	PmInfo("Initializing LibPM\n\r");
 
@@ -232,6 +231,7 @@ XStatus XPm_Init(XIpiPsu *const IpiInst,
  ****************************************************************************/
 XStatus XPm_GetApiVersion(u32 *Version)
 {
+	*Version = PM_VERSION;
 	return XST_SUCCESS;
 }
 
@@ -241,7 +241,6 @@ XStatus XPm_GetApiVersion(u32 *Version)
  * If the boot is not a system startup but a resume,
  * power down request bitfield for this processor will be cleared.
  *
- * @param  SubsystemId	Subsystem ID
  *
  * @return Returns processor boot status
  * - PM_RESUME : If the boot reason is because of system resume.
@@ -250,7 +249,7 @@ XStatus XPm_GetApiVersion(u32 *Version)
  * @note   None
  *
  ****************************************************************************/
-enum XPmBootStatus XPm_GetBootStatus(u32 SubsystemId)
+enum XPmBootStatus XPm_GetBootStatus()
 {
 	return PM_INITIAL_BOOT;
 }
@@ -343,7 +342,7 @@ XStatus XPm_RequestWakeUp(const u32 DeviceId,
 		RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 		Status = XPmRpuCore_WakeUp(RpuCore, DeviceId, SetAddress, Address);
 	} else {
-		/* Required by MISRA */
+		Status = XST_INVALID_PARAM;
 	}
 
 	return Status;
@@ -627,7 +626,6 @@ done:
 /**
  * @brief  This function reads the clock state.
  *
- * @param  SubsystemId	Subsystem ID.
  * @param ClockId	ID of the clock node
  * @param State		Pointer to the clock state
  *
@@ -637,7 +635,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_GetClockState(const u32 SubsystemId, const u32 ClockId, u32 *const State)
+XStatus XPm_GetClockState(const u32 ClockId, u32 *const State)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
@@ -715,7 +713,6 @@ done:
 /**
  * @brief  This function reads the clock divider.
  *
- * @param  SubsystemId	Subsystem ID.
  * @param ClockId	ID of the clock node
  * @param Divider	Address to store the divider values
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
@@ -724,7 +721,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_GetClockDivider(const u32 SubsystemId, const u32 ClockId, u32 *const Divider)
+XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
@@ -796,7 +793,6 @@ done:
 /**
  * @brief  This function reads the clock parent.
  *
- * @param  SubsystemId	Subsystem ID.
  * @param ClockId	ID of the clock node
  * @param ParentId	Address to store the parent node ID
  *
@@ -806,7 +802,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_GetClockParent(const u32 SubsystemId, const u32 ClockId, u32 *const ParentId)
+XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentId)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
@@ -875,7 +871,6 @@ done:
 /**
  * @brief  This function reads the parameter of PLL clock.
  *
- * @param SubsystemId	Subsystem ID
  * @param ClockId	ID of the clock node
  * @param ParmaId	ID of the parameter
  * @param Value		Address to store parameter value
@@ -886,19 +881,13 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_GetPllParameter(const u32 SubsystemId, const u32 ClockId, const u32 ParamId, u32 *const Value)
+XStatus XPm_GetPllParameter(const u32 ClockId, const u32 ParamId, u32 *const Value)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_PllClockNode* Clock;
 
 	if (!ISPLL(ClockId)) {
 		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	/* Check if subsystem is allowed to access requested clock or not */
-	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
-	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
@@ -938,6 +927,12 @@ XStatus XPm_SetPllMode(const u32 SubsystemId, const u32 ClockId, const u32 Value
 		goto done;
 	}
 
+	/* Check if subsystem is allowed to access requested pll or not */
+	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
+	if (Status != XST_SUCCESS) {
+		goto done;
+	}
+
 	Clock = (XPm_PllClockNode *)XPmClock_GetById(ClockId);
 	if (NULL == Clock) {
 		Status = XST_INVALID_PARAM;
@@ -954,7 +949,6 @@ done:
 /**
  * @brief  This function reads the mode of PLL clock.
  *
- * @param SubsystemId	Subsystem ID
  * @param ClockId	ID of the clock node
  * @param Value		Address to store mode value
  *
@@ -964,7 +958,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_GetPllMode(const u32 SubsystemId, const u32 ClockId, u32 *const Value)
+XStatus XPm_GetPllMode(const u32 ClockId, u32 *const Value)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_PllClockNode* Clock;
@@ -1030,7 +1024,6 @@ done:
 /**
  * @brief  This function reads the device reset state.
  *
- * @param  SubsystemId	Subsystem ID
  * @param  ResetId		Reset ID
  * @param State		Pointer to the reset state
  *
@@ -1040,7 +1033,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_GetResetState(const u32 SubsystemId, const u32 ResetId, u32 *const State)
+XStatus XPm_GetResetState(const u32 ResetId, u32 *const State)
 {
 	int Status = XST_SUCCESS;
 	XPm_ResetNode* Reset;
@@ -1161,7 +1154,6 @@ done:
 /**
  * @brief  This function reads the pin function.
  *
- * @param SubsystemId	Subsystem ID
  * @param PinId			ID of the pin node
  * @param FunctionId	Address to store the function
  *
@@ -1171,8 +1163,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_GetPinFunction(const u32 subsystemId,
-	const u32 PinId, u32 *const FunctionId)
+XStatus XPm_GetPinFunction(const u32 PinId, u32 *const FunctionId)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -1229,7 +1220,6 @@ done:
 /**
  * @brief  This function reads the pin parameter value.
  *
- * @param  SubsystemId	Subsystem ID
  * @param PinId		ID of the pin node
  * @param ParamId	Pin parameter ID
  * @param ParamVal	Address to store the pin parameter value
@@ -1240,7 +1230,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_GetPinParameter(const u32 SubsystemId, const u32 PinId,
+XStatus XPm_GetPinParameter(const u32 PinId,
 			const u32 ParamId,
 			u32 * const ParamVal)
 {
@@ -1878,8 +1868,9 @@ static XStatus AddMemDevice(u32 *Args, u32 NumArgs, u32 PowerId)
 
 	DeviceId = Args[0];
 	BaseAddr = Args[2];
-	StartAddr = Args[3];
-	EndAddr = Args[4];
+	/* Uncomment when Memory init is supported */
+	/*StartAddr = Args[3];
+	EndAddr = Args[4];*/
 
 	Type = NODETYPE(DeviceId);
 	Index = NODEINDEX(DeviceId);
@@ -2060,6 +2051,6 @@ XStatus XPm_AddNode(u32 *Args, u32 NumArgs)
 			Status = XST_INVALID_PARAM;
 			break;
 	}
-done:
+
 	return Status;
 }
