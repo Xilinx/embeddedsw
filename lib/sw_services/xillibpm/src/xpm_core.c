@@ -28,19 +28,21 @@
 
 #include "xpm_core.h"
 
-XStatus XPmCore_Init(XPm_Core *Core, u32 Id, u32 BaseAddress,
+XStatus XPmCore_Init(XPm_Core *Core, u32 Id, u32 *BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset)
 {
 	XStatus Status = XST_FAILURE;
 
 	Status = XPmDevice_Init(&Core->Device,
-		Id, BaseAddress, Power, Clock, Reset);
+		Id, BaseAddress[0], Power, Clock, Reset);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	Core->DebugMode = 0;
 	Core->ImageId = 0;
+	Core->RegAddress[0] = BaseAddress[1];
+	Core->RegAddress[1] = BaseAddress[2];
 
 done:
 	return Status;

@@ -31,7 +31,7 @@
 #include "xpm_regs.h"
 #include "xillibpm_api.h"
 
-XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 BaseAddress,
+XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 *BaseAddress,
 			XPm_Power *Power, XPm_ClockNode *Clock,
 			XPm_ResetNode *Reset)
 {

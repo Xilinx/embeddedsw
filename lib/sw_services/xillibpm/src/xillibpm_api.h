@@ -33,6 +33,7 @@
 #include "xstatus.h"
 
 #define XIpiPsu	u32
+#define MAX_BASEADDR_LEN	3
 
 /*
  * Version number is a 32bit value, like:
