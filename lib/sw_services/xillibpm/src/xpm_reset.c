@@ -96,13 +96,6 @@ done:
 	return Status;
 }
 
-XStatus XPmReset_AddParent(u32 Id, u32 *Parents, u32 NumParents)
-{
-	/* If Reset has more than 3 parents, this routine needs to be supported
-	 * For now, not needed */
-	 return XST_FAILURE;
-}
-
 XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 {
 	u32 ResetIndex = NODEINDEX(ResetId);;

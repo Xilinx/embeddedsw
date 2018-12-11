@@ -96,7 +96,6 @@ extern XPm_ResetNode *RstNodeList[];
 /************************** Function Prototypes ******************************/
 
 XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents);
-XStatus XPmReset_AddParent(u32 Id, u32 *Parents, u32 NumParents);
 XPm_ResetNode* XPmReset_GetById(u32 ResetId);
 XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action);
 
