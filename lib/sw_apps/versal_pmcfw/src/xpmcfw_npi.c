@@ -121,7 +121,7 @@ void write_to_reg(unsigned int addr, unsigned int data) {
     Xil_Out32(addr, data);
 }
 
-#ifdef XPMCFW_HW100
+#ifdef XPMCFW_HW110
 void msoc_hsr_init()
 {
 
