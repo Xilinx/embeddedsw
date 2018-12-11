@@ -273,7 +273,7 @@ int XPli_SdInit(u32 DeviceFlags)
  * 		- errors as mentioned in xilpli_error.h
  *
  *****************************************************************************/
-int XPli_SdCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+XStatus XPli_SdCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
 	int Status;
 

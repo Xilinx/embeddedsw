@@ -201,10 +201,10 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 int XPli_Qspi24Init(u32 DeviceFlags);
-int XPli_Qspi24Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+XStatus XPli_Qspi24Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XPli_Qspi24Release(void );
 int XPli_Qspi32Init(u32 DeviceFlags);
-int XPli_Qspi32Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+XStatus XPli_Qspi32Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XPli_Qspi32Release(void );
 void XPli_SetQspiDmaMode(u32 DmaMode);
 

@@ -159,7 +159,7 @@ int XPli_SlaveSbiConfig(u64 SlrBaseAddr)
  *		- errors as mentioned in xilpli_error.h
  *
  *****************************************************************************/
-int XPli_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+XStatus XPli_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
 	int Status;
 	u32 ReadFlags;

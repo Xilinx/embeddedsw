@@ -107,7 +107,7 @@ typedef struct {
 	u32 DeviceBaseAddr; /**< Flash device base address */
 	int (*Init) (u32 DeviceFlags);
 		/**< Function pointer for Device initialization code */
-	int (*Copy) (u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+	XStatus (*Copy) (u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 		/**< Function pointer for device copy */
 } XilPli_DeviceOps;
 
@@ -122,7 +122,7 @@ typedef struct {
 	u64 PdiAddr; /**< Address where PDI is present in PDI Source */
 	u32 PdiId; /**< Indicates the full PDI Id */
 	XilPdi_MetaHdr MetaHdr; /**< Metaheader of the PDI */
-	int (*DeviceCopy) (u32, u64, u32, u32);
+	XStatus (*DeviceCopy) (u32, u64, u32, u32);
 	u32 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
         XilPli_HandoffParam HandoffParam[10];
 	u32 EccStatus;

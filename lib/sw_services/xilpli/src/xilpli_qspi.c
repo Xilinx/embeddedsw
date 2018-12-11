@@ -552,7 +552,7 @@ END:
  *		- errors as mentioned in xilpli_error.h
  *
  *****************************************************************************/
-int XPli_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
+XStatus XPli_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	u32 QspiAddr, OrigAddr;
 	u32 BankSel;
@@ -916,7 +916,7 @@ END:
  * 		- errors as mentioned in xilpli_error.h
  *
  *****************************************************************************/
-int XPli_Qspi32Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
+XStatus XPli_Qspi32Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	int Status;
 	u32 QspiAddr;

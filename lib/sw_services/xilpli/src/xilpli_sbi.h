@@ -65,7 +65,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 int XPli_SbiInit(u32 DeviceFlags);
-int XPli_SbiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+XStatus XPli_SbiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XPli_SbiRelease(void );
 
 /************************** Variable Definitions *****************************/
